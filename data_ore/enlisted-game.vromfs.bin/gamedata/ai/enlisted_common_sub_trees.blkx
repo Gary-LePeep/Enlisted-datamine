@@ -1,0 +1,2618 @@
+[
+  {
+    "sequencer": {
+      "name": "sub.chooseMaxStance",
+      "chooseMaxStance": []
+    }
+  },
+  {
+    "sequencer": {
+      "name": "sub.deactivateWeapMod",
+      "deactivateWeapMod": []
+    }
+  },
+  {
+    "sequencer": {
+      "name": "sub.checkDowned",
+      "isDowned": [],
+      "recalculateTree": []
+    }
+  },
+  {
+    "sequencer": {
+      "name": "sub.checkBurning",
+      "isBurning": [],
+      "recalculateTree": []
+    }
+  },
+  {
+    "sequencer": {
+      "name": "sub.findCover",
+      "getRegroupPos": {
+        "posParam": "regroupPosition"
+      },
+      "getRegroupDistance": {
+        "minDist": 8.0,
+        "distParam": "regroupDistance"
+      },
+      "findCover": {
+        "centerParam": "regroupPosition",
+        "centerRadiusParam": "regroupDistance",
+        "radius": 8.0,
+        "dangerRadius": 0.0,
+        "dangerMinNoiseLevel": 0.5,
+        "coverPosParam": "coverPos"
+      },
+      "calcDistance": {
+        "startPosParam": "coverPos",
+        "endPosParam": "regroupPosition",
+        "distanceParam": "coverRegroupDistance"
+      },
+      "checkDistance": {
+        "posParam": "coverPos",
+        "radiusParam": "coverRegroupDistance",
+        "yRadius": 2.5
+      },
+      "copyPoint3Var": {
+        "from": "coverPos",
+        "to": "wishPosition"
+      }
+    }
+  },
+  {
+    "sequencer": {
+      "name": "sub.findCoverAroundLeader",
+      "getRegroupPos": {
+        "posParam": "regroupPosition"
+      },
+      "orderedSelector": [
+        {
+          "findCoverAroundPoint": {
+            "centerParam": "regroupPosition",
+            "radius": 3.0,
+            "coverPosParam": "coverPos",
+            "minDist": 2.0,
+            "traceVisible": true
+          }
+        },
+        {
+          "findCoverAroundPoint": {
+            "centerParam": "regroupPosition",
+            "radius": 4.0,
+            "coverPosParam": "coverPos",
+            "minDist": 3.0,
+            "traceVisible": true
+          }
+        },
+        {
+          "findCoverAroundPoint": {
+            "centerParam": "regroupPosition",
+            "radius": 2.0,
+            "coverPosParam": "coverPos",
+            "minDist": 1.0
+          }
+        }
+      ],
+      "copyPoint3Var": {
+        "from": "coverPos",
+        "to": "wishPosition"
+      }
+    }
+  },
+  {
+    "sequencer": {
+      "name": "sub.findCoverAroundLeaderAway",
+      "getRegroupPos": {
+        "posParam": "regroupPosition"
+      },
+      "orderedSelector": [
+        {
+          "findCoverAroundPoint": {
+            "centerParam": "regroupPosition",
+            "radius": 9.0,
+            "coverPosParam": "coverPos",
+            "minDist": 5.0,
+            "traceVisible": true
+          }
+        },
+        {
+          "findCoverAroundPoint": {
+            "centerParam": "regroupPosition",
+            "radius": 5.0,
+            "coverPosParam": "coverPos",
+            "minDist": 3.0
+          }
+        },
+        {
+          "findCoverAroundPoint": {
+            "centerParam": "regroupPosition",
+            "radius": 3.0,
+            "coverPosParam": "coverPos",
+            "minDist": 1.0
+          }
+        }
+      ],
+      "copyPoint3Var": {
+        "from": "coverPos",
+        "to": "wishPosition"
+      }
+    }
+  },
+  {
+    "sequencer": {
+      "name": "sub.findCoverAroundPoint",
+      "getRegroupPos": {
+        "posParam": "regroupPosition"
+      },
+      "getRegroupDistance": {
+        "minDist": 8.0,
+        "distParam": "regroupDistance"
+      },
+      "orderedSelector": [
+        {
+          "findCoverAroundPoint": {
+            "centerParam": "regroupPosition",
+            "radius": 8.0,
+            "coverPosParam": "coverPos",
+            "minDist": 2.0,
+            "traceVisible": true
+          }
+        },
+        {
+          "findCoverAroundPoint": {
+            "centerParam": "regroupPosition",
+            "radius": 4.0,
+            "coverPosParam": "coverPos",
+            "minDist": 0.0,
+            "traceVisible": true
+          }
+        },
+        {
+          "findCoverAroundPoint": {
+            "centerParam": "regroupPosition",
+            "radius": 4.0,
+            "coverPosParam": "coverPos",
+            "minDist": 0.0
+          }
+        }
+      ],
+      "checkDistance": {
+        "posParam": "regroupPosition",
+        "otherPosParam": "coverPos",
+        "radiusParam": "regroupDistance",
+        "yRadius": 2.5
+      },
+      "copyPoint3Var": {
+        "from": "coverPos",
+        "to": "wishPosition"
+      }
+    }
+  },
+  {
+    "sequencer": [
+      {
+        "name": "sub.checkCover"
+      },
+      {
+        "checkCover": {
+          "dangerRadius": 0.0,
+          "dangerMinNoiseLevel": 0.5
+        }
+      },
+      {
+        "getCoverPosition": {
+          "coverPosParam": "coverPos"
+        }
+      },
+      {
+        "getRegroupPos": {
+          "posParam": "regroupPosition"
+        }
+      },
+      {
+        "getRegroupDistance": {
+          "minDist": 8.0,
+          "distParam": "regroupDistance"
+        }
+      },
+      {
+        "checkDistance": {
+          "posParam": "regroupPosition",
+          "otherPosParam": "coverPos",
+          "radiusParam": "regroupDistance",
+          "yRadius": 2.5
+        }
+      },
+      {
+        "checkDistance": {
+          "posParam": "coverPos",
+          "radiusParam": "coverRegroupDistance",
+          "yRadius": 2.5
+        }
+      },
+      {
+        "calcDistance": {
+          "startPosParam": "coverPos",
+          "endPosParam": "regroupPosition",
+          "distanceParam": "coverRegroupDistance"
+        }
+      },
+      {
+        "copyPoint3Var": {
+          "from": "coverPos",
+          "to": "wishPosition"
+        }
+      }
+    ]
+  },
+  {
+    "sequencer": {
+      "name": "sub.checkCoverAroundPoint",
+      "getCoverPosition": {
+        "coverPosParam": "coverPos"
+      },
+      "getRegroupPos": {
+        "posParam": "regroupPosition"
+      },
+      "getRegroupDistance": {
+        "minDist": 8.0,
+        "distParam": "regroupDistance"
+      },
+      "checkDistance": {
+        "posParam": "regroupPosition",
+        "otherPosParam": "coverPos",
+        "radiusParam": "regroupDistance",
+        "yRadius": 2.5
+      },
+      "copyPoint3Var": {
+        "from": "coverPos",
+        "to": "wishPosition"
+      }
+    }
+  },
+  {
+    "sequencer": {
+      "name": "sub.regroupCheck",
+      "getRegroupPos": {
+        "posParam": "regroupPosition"
+      },
+      "not": {
+        "orderedSelector": {
+          "sequencer": {
+            "findDanger": {
+              "paramName": "testEnemy",
+              "radiusParamName": "enemyRadius",
+              "minDanger": -1.0,
+              "tag": "human"
+            },
+            "checkDistance": {
+              "posParam": "regroupPosition",
+              "otherPosParam": "storedRegroupPosition",
+              "radius": 2.5,
+              "yRadius": 2.5
+            }
+          },
+          "checkDistance": {
+            "posParam": "regroupPosition",
+            "otherPosParam": "storedRegroupPosition",
+            "radius": 8.0,
+            "yRadius": 2.5
+          }
+        }
+      },
+      "copyPoint3Var": {
+        "from": "regroupPosition",
+        "to": "storedRegroupPosition"
+      },
+      "getOrderPosition": {
+        "posParam": "regroupPosition",
+        "orderPosParam": "wishPosition"
+      }
+    }
+  },
+  {
+    "sequencer": {
+      "name": "sub.changeStanceWhenInTheSquadLeaderAim",
+      "findDanger": {
+        "paramName": "testEnemy",
+        "radiusParamName": "enemyRadius",
+        "minDanger": -1.0,
+        "tag": "human"
+      },
+      "isInSquadLeaderAim": [],
+      "recalculateTree": []
+    }
+  },
+  {
+    "sequencer": {
+      "name": "sub.moveTraceableDangerCheck",
+      "periodicTimer": {
+        "timeParam": "onTraceableDangerTimer",
+        "timePeriod": [2.0,4.0]
+      },
+      "findDanger": {
+        "paramName": "shootEnemy",
+        "radiusParamName": "enemyRadius",
+        "minDanger": 0.1,
+        "tag": "human"
+      },
+      "recalculateTree": []
+    }
+  },
+  {
+    "sequencer": {
+      "name": "sub.moveFindDangerCheck",
+      "periodicTimer": {
+        "timeParam": "onFollowPosFindDangerTimer",
+        "timePeriod": [2.0,4.0]
+      },
+      "findDanger": {
+        "paramName": "shootEnemy",
+        "radiusParamName": "enemyRadius",
+        "minDanger": 0.1,
+        "tag": "human"
+      },
+      "recalculateTree": []
+    }
+  },
+  {
+    "sequencer": {
+      "name": "sub.findDangerGrenade",
+      "findDangerGrenade": {
+        "grenTargetParam": "dangerLookAt",
+        "radius": 20.0,
+        "grenExplTime": "grenExplTime"
+      },
+      "recalculateTree": []
+    }
+  },
+  {
+    "sequencer": {
+      "name": "sub.findDangerGrenadeNearby",
+      "findDangerGrenade": {
+        "grenTargetParam": "dangerLookAt",
+        "radius": 10.0,
+        "grenExplTime": "grenExplTime"
+      },
+      "recalculateTree": []
+    }
+  },
+  {
+    "sequencer": [
+      {
+        "name": "sub.grenadeEscape"
+      },
+      {
+        "reaction": {
+          "event": "regularCheck",
+          "repeat": [
+            {
+              "count": 1
+            },
+            {
+              "subTree": {
+                "name": "",
+                "treeName": "sub.chooseMaxStance"
+              }
+            },
+            {
+              "subTree": {
+                "name": "",
+                "treeName": "sub.deactivateWeapMod"
+              }
+            },
+            {
+              "subTree": {
+                "name": "",
+                "treeName": "sub.checkDowned"
+              }
+            },
+            {
+              "subTree": {
+                "name": "",
+                "treeName": "sub.checkBurning"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "findDangerGrenade": {
+          "grenTargetParam": "dangerLookAt",
+          "radius": 20.0,
+          "grenExplTime": "grenExplTime"
+        }
+      },
+      {
+        "findSafeFromGrenadePos": {
+          "posParam": "grenadeSafePos",
+          "grenTargetParam": "dangerLookAt",
+          "radius": 25.0
+        }
+      },
+      {
+        "speak": {
+          "phrase": "grenadeAware",
+          "timeMinMax": [4.0,10.0]
+        }
+      },
+      {
+        "setCurrentAiAction": {
+          "state": "hide"
+        }
+      },
+      {
+        "wait": {
+          "range": [0.1,0.3],
+          "resetable": true
+        }
+      },
+      {
+        "wait": {
+          "range": [0.2,0.4],
+          "resetable": true
+        }
+      },
+      {
+        "moveToPos": {
+          "posParam": "grenadeSafePos",
+          "sprintTimerRange": [10.0,20.0],
+          "minDistToSprint": 0.5,
+          "tryClimbing": true,
+          "maxStanceParam": "maxStance",
+          "avoidAiObstacles": false
+        }
+      }
+    ]
+  },
+  {
+    "sequencer": {
+      "name": "sub.rethrowGrenade",
+      "not": {
+        "isSwimming": []
+      },
+      "findDangerGrenade": {
+        "grenTargetParam": "dangerLookAt",
+        "radius": 2.5,
+        "yRadius": 1.0,
+        "allowUnderWater": false,
+        "maxWaterDepth": 0.1,
+        "grenExplTime": "grenExplTime"
+      },
+      "setCurrentAiAction": {
+        "state": "attack"
+      },
+      "parallel": {
+        "throwGrenadeBack": {
+          "grenTargetParam": "dangerLookAt",
+          "posParam": "grenadeThrowPos",
+          "radius": 10.0,
+          "minThrowDistance": 20.0
+        },
+        "sequencer": {
+          "moveToPos": {
+            "posParam": "grenadeThrowPos",
+            "sprintTimerRange": [10.0,20.0],
+            "minDistToSprint": 0.5,
+            "tryClimbing": true,
+            "distThreshold": 1.0,
+            "avoidAiObstacles": false
+          },
+          "wait": {
+            "range": [2.0,2.0],
+            "resetable": true
+          }
+        }
+      },
+      "changeStance": {
+        "stanceName": "crawl",
+        "maxStanceParam": "maxStance"
+      },
+      "wait": {
+        "range": [1.0,2.0],
+        "resetable": true
+      }
+    }
+  },
+  {
+    "sequencer": {
+      "name": "sub.selfHealing",
+      "isDowned": [],
+      "setCurrentAiAction": {
+        "state": "heal"
+      },
+      "wait": {
+        "range": [0.2,0.5],
+        "resetable": true
+      },
+      "useMedkit": []
+    }
+  },
+  {
+    "sequencer": [
+      {
+        "name": "sub.findDangerZone"
+      },
+      {
+        "isVarsIntEqual": {
+          "lhs": "dmgZoneEscaping",
+          "rhs_value": 0
+        }
+      },
+      {
+        "periodicTimer": {
+          "timeParam": "onDmgZoneDetectTimer",
+          "timePeriod": [2.0,4.0]
+        }
+      },
+      {
+        "periodicTimer": {
+          "timeParam": "onDmgZoneAlarmTimer",
+          "timePeriod": [5.0,8.0]
+        }
+      },
+      {
+        "orderedSelector": {
+          "findActiveDamageZone": {
+            "safePosParam": "dmgZoneEscapePos"
+          },
+          "sequencer": {
+            "isLeader": [],
+            "isAgentPlayerBot": [],
+            "findActiveDamageZone": {
+              "safePosParam": "dmgZoneEscapePos",
+              "findWarning": true
+            },
+            "not": {
+              "isIndoor": []
+            }
+          }
+        }
+      },
+      {
+        "recalculateTree": []
+      }
+    ]
+  },
+  {
+    "sequencer": {
+      "name": "sub.selfExtinguish",
+      "isBurning": [],
+      "setCurrentAiAction": {
+        "state": "heal"
+      },
+      "repeat": [
+        {
+          "count": 1
+        },
+        {
+          "sequencer": {
+            "isVarsIntEqual": {
+              "lhs": "dmgZoneEscaping",
+              "rhs_value": 0
+            },
+            "findActiveDamageZone": {
+              "safePosParam": "dmgZoneEscapePos"
+            },
+            "exitHandler": {
+              "sequencer": {
+                "setIntVar": {
+                  "to": "dmgZoneEscaping",
+                  "value": 1
+                },
+                "parallel": {
+                  "moveToPos": {
+                    "posParam": "dmgZoneEscapePos",
+                    "sprintTimerRange": [10.0,20.0],
+                    "minDistToSprint": 0.5,
+                    "tryClimbing": false,
+                    "distThreshold": 1.0,
+                    "avoidAiObstacles": false
+                  },
+                  "extinguish": []
+                }
+              },
+              "setIntVar": {
+                "to": "dmgZoneEscaping",
+                "value": 0
+              }
+            }
+          }
+        },
+        {
+          "sequencer": {
+            "reaction": {
+              "event": "regularCheck",
+              "subTree": {
+                "name": "",
+                "treeName": "sub.findDangerZone"
+              }
+            },
+            "extinguish": []
+          }
+        }
+      ]
+    }
+  },
+  {
+    "sequencer": {
+      "name": "sub.dmgZoneEscape",
+      "orderedSelector": {
+        "findActiveDamageZone": {
+          "safePosParam": "dmgZoneEscapePos"
+        },
+        "sequencer": [
+          {
+            "isLeader": []
+          },
+          {
+            "isAgentPlayerBot": []
+          },
+          {
+            "findActiveDamageZone": {
+              "safePosParam": "dmgZoneEscapePos",
+              "findWarning": true
+            }
+          },
+          {
+            "not": {
+              "isIndoor": []
+            }
+          },
+          {
+            "copyPoint3Var": {
+              "from": "regroupPosition",
+              "to": "storedRegroupPosition"
+            }
+          },
+          {
+            "copyPoint3Var": {
+              "from": "dmgZoneEscapePos",
+              "to": "regroupPosition"
+            }
+          }
+        ]
+      },
+      "periodicTimer": {
+        "timeParam": "onDmgZoneEscapeTimer",
+        "timePeriod": [3.0,5.0]
+      },
+      "exitHandler": {
+        "sequencer": {
+          "reaction": {
+            "event": "regularCheck",
+            "repeat": [
+              {
+                "count": 1
+              },
+              {
+                "subTree": {
+                  "name": "",
+                  "treeName": "sub.swimUpCheck"
+                }
+              },
+              {
+                "subTree": {
+                  "name": "",
+                  "treeName": "sub.tryToOpenDoors"
+                }
+              }
+            ]
+          },
+          "setIntVar": {
+            "to": "dmgZoneEscaping",
+            "value": 1
+          },
+          "setCurrentAiAction": {
+            "state": "move"
+          },
+          "wait": {
+            "range": [0.2,0.3],
+            "resetable": true
+          },
+          "moveToPos": {
+            "posParam": "dmgZoneEscapePos",
+            "sprintTimerRange": [10.0,20.0],
+            "minDistToSprint": 0.5,
+            "tryClimbing": true,
+            "distThreshold": 1.0,
+            "avoidAiObstacles": false
+          }
+        },
+        "setIntVar": {
+          "to": "dmgZoneEscaping",
+          "value": 0
+        }
+      }
+    }
+  },
+  {
+    "sequencer": {
+      "name": "sub.swimUpCheck",
+      "isUnderwater": [],
+      "hasBreath": {
+        "ratio": 0.5
+      },
+      "recalculateTree": []
+    }
+  },
+  {
+    "sequencer": {
+      "name": "sub.swimUp",
+      "reaction": {
+        "event": "regularCheck",
+        "findObstaclesAlongsidePath": []
+      },
+      "isUnderwater": [],
+      "hasBreath": {
+        "ratio": 0.5
+      },
+      "orderedSelector": [
+        {
+          "findSwimUpPos": {
+            "posParam": "swimUpPos",
+            "swimUpDirParam": "swimUpDir",
+            "radius": 5.0,
+            "tries": 1
+          }
+        },
+        {
+          "findSwimUpPos": {
+            "posParam": "swimUpPos",
+            "swimUpDirParam": "swimUpDir",
+            "radius": 5.0,
+            "tries": 10
+          }
+        }
+      ],
+      "setCurrentAiAction": {
+        "state": "move"
+      },
+      "parallel": {
+        "moveToPos": {
+          "posParam": "swimUpPos",
+          "sprintTimerRange": [10.0,20.0],
+          "minDistToSprint": 10.0,
+          "distThreshold": 1.5,
+          "avoidAiObstacles": true
+        },
+        "waitSwimUpPos": {
+          "delay": 0.1,
+          "maxTime": 4.0,
+          "swimUpDirParam": "swimUpDir"
+        }
+      },
+      "swimUp": {
+        "swimUpDirParam": "swimUpDir"
+      }
+    }
+  },
+  {
+    "sequencer": {
+      "name": "sub.enemyMelee",
+      "findDanger": {
+        "paramName": "meleeEnemy",
+        "radiusParamName": "enemyMeleeRadius",
+        "minDanger": 0.1,
+        "tag": "human"
+      },
+      "getTime": {
+        "to": "enemyNearTime"
+      },
+      "setCurrentAiAction": {
+        "state": "attack"
+      },
+      "moveToTarget": {
+        "targetUnitParam": "meleeEnemy",
+        "stopDist": 0.75,
+        "aimToTarget": true,
+        "maxStanceParam": "maxStance"
+      },
+      "meleeAttack": {
+        "targetUnitParam": "meleeEnemy",
+        "timeToAttack": 1.0,
+        "attackDist": 1.5
+      },
+      "wait": {
+        "range": [0.5,1.0],
+        "resetable": true
+      }
+    }
+  },
+  {
+    "sequencer": [
+      {
+        "name": "sub.oneShootAttack"
+      },
+      {
+        "reaction": {
+          "event": "regularCheck",
+          "repeat": [
+            {
+              "count": 1
+            },
+            {
+              "subTree": {
+                "name": "",
+                "treeName": "sub.chooseMaxStance"
+              }
+            },
+            {
+              "subTree": {
+                "name": "",
+                "treeName": "sub.deactivateWeapMod"
+              }
+            },
+            {
+              "subTree": {
+                "name": "",
+                "treeName": "sub.checkDowned"
+              }
+            },
+            {
+              "subTree": {
+                "name": "",
+                "treeName": "sub.checkBurning"
+              }
+            },
+            {
+              "subTree": {
+                "name": "",
+                "treeName": "sub.findDangerGrenade"
+              }
+            },
+            {
+              "subTree": {
+                "name": "",
+                "treeName": "sub.findDangerZone"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "reaction": {
+          "event": "onEnemyPlayerNear",
+          "orderedSelector": [
+            {
+              "sequencer": {
+                "findDanger": {
+                  "paramName": "meleeEnemy",
+                  "radiusParamName": "enemyMeleeRadius",
+                  "minDanger": 0.5,
+                  "tag": "human"
+                },
+                "recalculateTree": []
+              }
+            },
+            {
+              "sequencer": {
+                "findDanger": {
+                  "paramName": "shootEnemy",
+                  "radiusParamName": "enemyNearRadius",
+                  "minDanger": 0.5,
+                  "tag": "human"
+                },
+                "orderedSelector": {
+                  "isVarsIntEqual": {
+                    "lhs": "prevShootEnemy",
+                    "rhs": "shootEnemy"
+                  },
+                  "recalculateTree": []
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "setIntVar": {
+          "to": "isInShootState",
+          "value": 0
+        }
+      },
+      {
+        "chooseBestWeapon": {
+          "targetParam": "shootEnemy",
+          "allowGrenades": true,
+          "switchRadiusCoef": 0.85
+        }
+      },
+      {
+        "setCurrentAiAction": {
+          "state": "attack"
+        }
+      },
+      {
+        "orderedSelector": [
+          {
+            "sequencer": {
+              "isGrenadeSelected": [],
+              "repeat": {
+                "count": 1,
+                "sequencer": {
+                  "getRandomPointAroundTarget": {
+                    "targetUnitParam": "shootEnemy",
+                    "posParam": "posNearTarget",
+                    "radiusRange": [3.0,6.0],
+                    "awayMinRadius": 7.0,
+                    "minDistanceFromAllies": 7.0
+                  },
+                  "rotateToPoint": {
+                    "posParam": "posNearTarget"
+                  },
+                  "orderedSelector": {
+                    "sequencer": [
+                      {
+                        "setIntVar": {
+                          "to": "isInShootState",
+                          "value": 1
+                        }
+                      },
+                      {
+                        "copyIntVar": {
+                          "to": "prevShootEnemy",
+                          "from": "shootEnemy"
+                        }
+                      },
+                      {
+                        "copyIntVar": {
+                          "to": "rememberEnemy",
+                          "from": "shootEnemy"
+                        }
+                      },
+                      {
+                        "throwGrenade": {
+                          "targetPosParam": "posNearTarget",
+                          "targetUnitParam": "shootEnemy",
+                          "grenadeThrowDelay": 2.5
+                        }
+                      },
+                      {
+                        "wait": {
+                          "range": [0.5,1.0],
+                          "resetable": true
+                        }
+                      },
+                      {
+                        "getTime": {
+                          "to": "rememberEnemyTime"
+                        }
+                      },
+                      {
+                        "setPosFromEntity": {
+                          "to": "rememberEnemyPos",
+                          "from": "shootEnemy"
+                        }
+                      }
+                    ],
+                    "resetGrenadeThrowTime": []
+                  },
+                  "chooseBestWeapon": {
+                    "targetParam": "shootEnemy"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "sequencer": {
+              "not": {
+                "isGrenadeSelected": []
+              },
+              "repeat": {
+                "count": 1,
+                "sequencer": {
+                  "getRandomPointNearTarget": {
+                    "targetUnitParam": "shootEnemy",
+                    "posParam": "posNearTarget",
+                    "useGenerationByY": false
+                  },
+                  "rotateToPoint": {
+                    "posParam": "posNearTarget"
+                  },
+                  "orderedSelector": [
+                    {
+                      "sequencer": {
+                        "isMeleeWeaponSelected": [],
+                        "copyIntVar": {
+                          "to": "prevShootEnemy",
+                          "from": "shootEnemy"
+                        },
+                        "getRandomPointAroundTarget": {
+                          "targetUnitParam": "shootEnemy",
+                          "posParam": "posNearTarget",
+                          "radiusRange": [1.0,6.0],
+                          "awayMinRadius": 0.0
+                        },
+                        "moveToPos": {
+                          "posParam": "posNearTarget",
+                          "sprintTimerRange": [10.0,20.0],
+                          "minDistToSprint": 0.0,
+                          "distThreshold": 0.5,
+                          "avoidAiObstacles": false,
+                          "timeToStuck": 1.0
+                        },
+                        "moveToTarget": {
+                          "targetUnitParam": "shootEnemy",
+                          "stopDist": 0.5,
+                          "aimToTarget": true,
+                          "maxStanceParam": "maxStance"
+                        },
+                        "meleeAttack": {
+                          "targetUnitParam": "shootEnemy",
+                          "timeToAttack": 3.0,
+                          "attackDist": 1.5
+                        }
+                      }
+                    },
+                    {
+                      "sequencer": {
+                        "setIntVar": {
+                          "to": "isInShootState",
+                          "value": 1
+                        },
+                        "copyIntVar": {
+                          "to": "prevShootEnemy",
+                          "from": "shootEnemy"
+                        },
+                        "shootAtUnit": {
+                          "targetUnitParam": "shootEnemy",
+                          "minStanceParam": "minStance",
+                          "shootCycles": 1,
+                          "tryToSaveCurrentStance": false,
+                          "minStanceChance": 1.5,
+                          "shootTime": [0.2,1.0],
+                          "cooldownTime": [0.2,0.9],
+                          "minAimTime": [0.1,0.4],
+                          "maxStanceParam": "maxStance",
+                          "alwaysAiming": true
+                        }
+                      }
+                    }
+                  ],
+                  "getTime": {
+                    "to": "rememberEnemyTime"
+                  },
+                  "copyIntVar": {
+                    "to": "rememberEnemy",
+                    "from": "shootEnemy"
+                  },
+                  "setPosFromEntity": {
+                    "to": "rememberEnemyPos",
+                    "from": "shootEnemy"
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "sequencer": [
+      {
+        "name": "sub.attackVehicle"
+      },
+      {
+        "initPeriodicTimer": {
+          "timeParam": "onAttackVehicleTimer",
+          "timePeriod": [5.0,8.0]
+        }
+      },
+      {
+        "reaction": {
+          "event": "regularCheck",
+          "repeat": [
+            {
+              "count": 1
+            },
+            {
+              "subTree": {
+                "name": "",
+                "treeName": "sub.chooseMaxStance"
+              }
+            },
+            {
+              "subTree": {
+                "name": "",
+                "treeName": "sub.deactivateWeapMod"
+              }
+            },
+            {
+              "subTree": {
+                "name": "",
+                "treeName": "sub.checkDowned"
+              }
+            },
+            {
+              "subTree": {
+                "name": "",
+                "treeName": "sub.checkBurning"
+              }
+            },
+            {
+              "subTree": {
+                "name": "",
+                "treeName": "sub.findDangerGrenade"
+              }
+            },
+            {
+              "subTree": {
+                "name": "",
+                "treeName": "sub.findDangerZone"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "reaction": {
+          "event": "onEnemyPlayerNear",
+          "sequencer": {
+            "periodicTimer": {
+              "timeParam": "onAttackVehicleTimer",
+              "timePeriod": [5.0,8.0]
+            },
+            "orderedSelector": [
+              {
+                "sequencer": {
+                  "findDanger": {
+                    "paramName": "meleeEnemy",
+                    "radiusParamName": "enemyMeleeRadius",
+                    "minDanger": 0.5,
+                    "tag": "human"
+                  },
+                  "recalculateTree": []
+                }
+              },
+              {
+                "sequencer": {
+                  "findDanger": {
+                    "paramName": "shootEnemy",
+                    "radiusParamName": "enemyNearRadius",
+                    "minDanger": 0.5,
+                    "tag": "human"
+                  },
+                  "recalculateTree": []
+                }
+              }
+            ]
+          }
+        }
+      },
+      {
+        "setIntVar": {
+          "to": "isInShootState",
+          "value": 0
+        }
+      },
+      {
+        "chooseBestWeapon": {
+          "targetParam": "shootEnemy"
+        }
+      },
+      {
+        "setCurrentAiAction": {
+          "state": "attack"
+        }
+      },
+      {
+        "isGrenadeSelected": []
+      },
+      {
+        "getRandomPointAroundTarget": {
+          "targetUnitParam": "shootEnemy",
+          "posParam": "posNearTarget",
+          "radiusRange": [0.0,2.0],
+          "awayMinRadius": 7.0,
+          "minDistanceFromAllies": 7.0
+        }
+      },
+      {
+        "rotateToPoint": {
+          "posParam": "posNearTarget"
+        }
+      },
+      {
+        "orderedSelector": [
+          {
+            "sequencer": {
+              "setIntVar": {
+                "to": "isInShootState",
+                "value": 1
+              },
+              "throwGrenade": {
+                "targetPosParam": "posNearTarget",
+                "targetUnitParam": "shootEnemy",
+                "minThrowDistance": 5.0
+              },
+              "wait": {
+                "range": [0.5,1.0],
+                "resetable": true
+              }
+            }
+          },
+          {
+            "sequencer": {
+              "resetAntiTankGrenadeThrowLimiter": [],
+              "break": []
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "sequencer": {
+      "name": "sub.stayTraceableDangerCheck",
+      "findDanger": {
+        "paramName": "shootEnemy",
+        "radiusParamName": "enemyRadius",
+        "minDanger": 0.1,
+        "tag": "human"
+      },
+      "recalculateTree": []
+    }
+  },
+  {
+    "sequencer": {
+      "name": "sub.stayFindDangerCheck",
+      "findDanger": {
+        "paramName": "shootEnemy",
+        "radiusParamName": "enemyRadius",
+        "minDanger": 0.1,
+        "tag": "human"
+      },
+      "recalculateTree": []
+    }
+  },
+  {
+    "sequencer": {
+      "name": "sub.stayFindCover",
+      "subTree": {
+        "name": "",
+        "refId": "findCoverRef"
+      },
+      "recalculateTree": []
+    }
+  },
+  {
+    "sequencer": {
+      "name": "sub.stayRegroupCheck",
+      "subTree": {
+        "name": "",
+        "treeName": "sub.regroupCheck"
+      },
+      "recalculateTree": []
+    }
+  },
+  {
+    "sequencer": {
+      "name": "sub.tryCallArtillery",
+      "isAgentPlayerBot": [],
+      "checkAtTime": {
+        "timeParam": "enemyNearTime",
+        "range": [10.0,1000000.0]
+      },
+      "not": {
+        "isSwimming": []
+      },
+      "sequencer": [
+        {
+          "reaction": {
+            "event": "onBulletNearby",
+            "sequencer": {
+              "recalculateTree": []
+            }
+          }
+        },
+        {
+          "reaction": {
+            "event": "onTraceableDanger",
+            "continue": []
+          }
+        },
+        {
+          "reaction": {
+            "event": "onEnemyPlayerNear",
+            "sequencer": {
+              "findDanger": {
+                "paramName": "shootEnemy",
+                "radiusParamName": "enemyNearRadius",
+                "minDanger": 0.1,
+                "tag": "human"
+              },
+              "recalculateTree": []
+            }
+          }
+        },
+        {
+          "reaction": {
+            "event": "regularCheck",
+            "repeat": [
+              {
+                "count": 1
+              },
+              {
+                "subTree": {
+                  "name": "",
+                  "treeName": "sub.checkDowned"
+                }
+              },
+              {
+                "subTree": {
+                  "name": "",
+                  "treeName": "sub.checkBurning"
+                }
+              },
+              {
+                "subTree": {
+                  "name": "",
+                  "treeName": "sub.swimUpCheck"
+                }
+              },
+              {
+                "subTree": {
+                  "name": "",
+                  "treeName": "sub.findDangerGrenadeNearby"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "tryCallArtillery": {
+            "initRange": [30.0,90.0],
+            "repeatRange": [240.0,360.0]
+          }
+        },
+        {
+          "wait": {
+            "range": [0.5,1.5],
+            "resetable": true
+          }
+        }
+      ]
+    }
+  },
+  {
+    "sequencer": {
+      "name": "sub.checkBuildAndPlace",
+      "checkAtTime": {
+        "timeParam": "enemyNearTime",
+        "range": [5.0,1000000.0]
+      },
+      "not": {
+        "isSwimming": []
+      },
+      "isVarsIntEqual": {
+        "lhs": "tryBuild",
+        "rhs_value": 0
+      },
+      "periodicTimer": {
+        "timeParam": "onCheckBuildTimer",
+        "timePeriod": [3.0,7.0]
+      },
+      "ignoreChance": {
+        "chance": 0.1
+      },
+      "orderedSelector": [
+        {
+          "sequencer": {
+            "isEngineer": [],
+            "orderedSelector": [
+              {
+                "sequencer": [
+                  {
+                    "checkBuildCustomRespawnPoint": {
+                      "buildPosParam": "buildPos"
+                    }
+                  },
+                  {
+                    "setIntVar": {
+                      "to": "tryBuild",
+                      "value": 1
+                    }
+                  },
+                  {
+                    "setIntVar": {
+                      "to": "buildWhat",
+                      "value": 1
+                    }
+                  },
+                  {
+                    "initPeriodicTimer": {
+                      "timeParam": "onForceBuildTimer",
+                      "timePeriod": [5.0,7.0]
+                    }
+                  },
+                  {
+                    "recalculateTree": []
+                  }
+                ]
+              },
+              {
+                "sequencer": [
+                  {
+                    "checkBuildAmmoBox": {
+                      "buildPosParam": "buildPos"
+                    }
+                  },
+                  {
+                    "setIntVar": {
+                      "to": "tryBuild",
+                      "value": 1
+                    }
+                  },
+                  {
+                    "setIntVar": {
+                      "to": "buildWhat",
+                      "value": 2
+                    }
+                  },
+                  {
+                    "initPeriodicTimer": {
+                      "timeParam": "onForceBuildTimer",
+                      "timePeriod": [5.0,7.0]
+                    }
+                  },
+                  {
+                    "recalculateTree": []
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "sequencer": {
+            "findWeaponSlotWithTag": {
+              "tag": "medBox",
+              "toParam": "buildToolSlot"
+            },
+            "orderedSelector": {
+              "sequencer": [
+                {
+                  "checkPlaceMedBox": {
+                    "buildPosParam": "buildPos"
+                  }
+                },
+                {
+                  "setIntVar": {
+                    "to": "tryBuild",
+                    "value": 1
+                  }
+                },
+                {
+                  "setIntVar": {
+                    "to": "buildWhat",
+                    "value": 3
+                  }
+                },
+                {
+                  "initPeriodicTimer": {
+                    "timeParam": "onForceBuildTimer",
+                    "timePeriod": [5.0,7.0]
+                  }
+                },
+                {
+                  "recalculateTree": []
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "sequencer": {
+      "name": "sub.tryBuildAndPlace",
+      "checkAtTime": {
+        "timeParam": "enemyNearTime",
+        "range": [5.0,1000000.0]
+      },
+      "not": {
+        "isSwimming": []
+      },
+      "exitHandler": {
+        "sequencer": [
+          {
+            "reaction": {
+              "event": "onBulletNearby",
+              "sequencer": {
+                "periodicTimer": {
+                  "timeParam": "onForceBuildTimer",
+                  "timePeriod": [3.0,5.0]
+                },
+                "recalculateTree": []
+              }
+            }
+          },
+          {
+            "reaction": {
+              "event": "onTraceableDanger",
+              "continue": []
+            }
+          },
+          {
+            "reaction": {
+              "event": "onEnemyPlayerNear",
+              "sequencer": {
+                "periodicTimer": {
+                  "timeParam": "onForceBuildTimer",
+                  "timePeriod": [3.0,5.0]
+                },
+                "findDanger": {
+                  "paramName": "shootEnemy",
+                  "radiusParamName": "enemyNearRadius",
+                  "minDanger": 0.1,
+                  "tag": "human"
+                },
+                "recalculateTree": []
+              }
+            }
+          },
+          {
+            "reaction": {
+              "event": "regularCheck",
+              "repeat": [
+                {
+                  "count": 1
+                },
+                {
+                  "subTree": {
+                    "name": "",
+                    "treeName": "sub.checkDowned"
+                  }
+                },
+                {
+                  "subTree": {
+                    "name": "",
+                    "treeName": "sub.checkBurning"
+                  }
+                },
+                {
+                  "subTree": {
+                    "name": "",
+                    "treeName": "sub.swimUpCheck"
+                  }
+                },
+                {
+                  "subTree": {
+                    "name": "",
+                    "treeName": "sub.tryToOpenDoors"
+                  }
+                },
+                {
+                  "subTree": {
+                    "name": "",
+                    "treeName": "sub.findDangerGrenadeNearby"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "setCurrentAiAction": {
+              "state": "move"
+            }
+          },
+          {
+            "orderedSelector": [
+              {
+                "sequencer": [
+                  {
+                    "isVarsIntEqual": {
+                      "lhs": "buildWhat",
+                      "rhs_value": 1
+                    }
+                  },
+                  {
+                    "isEngineer": []
+                  },
+                  {
+                    "findWeaponSlotWithTag": {
+                      "tag": "buildingTool",
+                      "toParam": "buildToolSlot"
+                    }
+                  },
+                  {
+                    "moveToPos": {
+                      "posParam": "buildPos",
+                      "sprintTimerRange": [10.0,20.0],
+                      "minDistToSprint": 4.0,
+                      "distThreshold": 5.0,
+                      "avoidAiObstacles": false,
+                      "timeToStuck": 5.0
+                    }
+                  },
+                  {
+                    "moveToPos": {
+                      "posParam": "buildPos",
+                      "sprintTimerRange": [10.0,20.0],
+                      "minDistToSprint": 4.0,
+                      "distThreshold": 1.5,
+                      "avoidAiObstacles": false,
+                      "timeToStuck": 5.0
+                    }
+                  },
+                  {
+                    "changeWeapon": {
+                      "param": "buildToolSlot"
+                    }
+                  },
+                  {
+                    "wait": {
+                      "range": [0.5,1.0],
+                      "resetable": true
+                    }
+                  },
+                  {
+                    "startBuildCustomRespawnPoint": {
+                      "buildPosParam": "buildPos",
+                      "buildTargetEidParam": "buildTarget",
+                      "waitStartBuildMaxTime": 2.0
+                    }
+                  },
+                  {
+                    "subTree": {
+                      "name": "",
+                      "treeName": "sub.finishBuildTarget"
+                    }
+                  }
+                ]
+              },
+              {
+                "sequencer": {
+                  "isVarsIntEqual": {
+                    "lhs": "buildWhat",
+                    "rhs_value": 2
+                  },
+                  "isEngineer": [],
+                  "findWeaponSlotWithTag": {
+                    "tag": "buildingTool",
+                    "toParam": "buildToolSlot"
+                  },
+                  "changeWeapon": {
+                    "param": "buildToolSlot"
+                  },
+                  "wait": {
+                    "range": [0.5,1.5],
+                    "resetable": true
+                  },
+                  "moveToPos": {
+                    "posParam": "buildPos",
+                    "sprintTimerRange": [10.0,20.0],
+                    "minDistToSprint": 4.0,
+                    "distThreshold": 1.1,
+                    "avoidAiObstacles": false,
+                    "timeToStuck": 5.0
+                  },
+                  "startBuildAmmoBox": {
+                    "buildPosParam": "buildPos",
+                    "buildTargetEidParam": "buildTarget",
+                    "waitStartBuildMaxTime": 2.0
+                  },
+                  "subTree": {
+                    "name": "",
+                    "treeName": "sub.finishBuildTarget"
+                  }
+                }
+              },
+              {
+                "sequencer": {
+                  "isVarsIntEqual": {
+                    "lhs": "buildWhat",
+                    "rhs_value": 3
+                  },
+                  "findWeaponSlotWithTag": {
+                    "tag": "medBox",
+                    "toParam": "buildToolSlot"
+                  },
+                  "changeWeapon": {
+                    "param": "buildToolSlot"
+                  },
+                  "wait": {
+                    "range": [0.5,1.5],
+                    "resetable": true
+                  },
+                  "moveToPos": {
+                    "posParam": "buildPos",
+                    "sprintTimerRange": [10.0,20.0],
+                    "minDistToSprint": 4.0,
+                    "distThreshold": 1.1,
+                    "avoidAiObstacles": false,
+                    "timeToStuck": 5.0
+                  },
+                  "placeMedBox": {
+                    "buildPosParam": "buildPos"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "wait": {
+              "range": [0.5,1.5],
+              "resetable": true
+            }
+          },
+          {
+            "wait": {
+              "range": [1.0,2.0],
+              "resetable": true
+            }
+          },
+          {
+            "chooseBestWeapon": {
+              "targetParam": "shootEnemy"
+            }
+          }
+        ],
+        "chooseBestWeapon": {
+          "targetParam": "shootEnemy"
+        }
+      }
+    }
+  },
+  {
+    "sequencer": {
+      "name": "sub.checkHealTeammatesAround",
+      "not": {
+        "isSwimming": []
+      },
+      "checkAtTime": {
+        "timeParam": "enemyNearTime",
+        "range": [5.0,1000000.0]
+      },
+      "periodicTimer": {
+        "timeParam": "onCheckHealMatesTimer",
+        "timePeriod": [2.0,3.0]
+      },
+      "checkHealTeammatesAround": {
+        "healMateEidParam": "healMateEid",
+        "checkAroundDistance": 20.0
+      },
+      "setIntVar": {
+        "to": "tryHealMate",
+        "value": 1
+      },
+      "recalculateTree": []
+    }
+  },
+  {
+    "sequencer": {
+      "name": "sub.checkHealSquadmatesAround",
+      "not": {
+        "isSwimming": []
+      },
+      "checkAtTime": {
+        "timeParam": "enemyNearTime",
+        "range": [5.0,1000000.0]
+      },
+      "periodicTimer": {
+        "timeParam": "onCheckHealMatesTimer",
+        "timePeriod": [2.0,3.0]
+      },
+      "checkHealTeammatesAround": {
+        "healMateEidParam": "healMateEid",
+        "checkAroundDistance": 20.0,
+        "selfSquadOnly": true
+      },
+      "setIntVar": {
+        "to": "tryHealMate",
+        "value": 1
+      },
+      "recalculateTree": []
+    }
+  },
+  {
+    "sequencer": {
+      "name": "sub.tryHealTeammateAround",
+      "not": {
+        "isSwimming": []
+      },
+      "isVarsIntEqual": {
+        "lhs": "tryHealMate",
+        "rhs_value": 1
+      },
+      "setIntVar": {
+        "to": "tryHealMate",
+        "value": 0
+      },
+      "checkTarget": {
+        "targetUnitParam": "healMateEid"
+      },
+      "copyIntVar": {
+        "to": "healRequester",
+        "from": "healMateEid"
+      },
+      "subTree": {
+        "name": "",
+        "treeName": "sub.healReq"
+      }
+    }
+  },
+  {
+    "sequencer": [
+      {
+        "name": "sub.moveToPosition"
+      },
+      {
+        "getRegroupPos": {
+          "posParam": "regroupPosition"
+        }
+      },
+      {
+        "getOrderPosition": {
+          "posParam": "regroupPosition",
+          "orderPosParam": "wishPosition"
+        }
+      },
+      {
+        "wait": {
+          "range": [0.1,0.3],
+          "resetable": true
+        }
+      },
+      {
+        "orderedSelector": {
+          "isVarsIntEqual": {
+            "lhs": "isUnreachable",
+            "rhs_value": 0
+          },
+          "not": {
+            "checkDistance": {
+              "posParam": "wishPosition",
+              "otherPosParam": "unreachablePos",
+              "radius": 2.0,
+              "yRadius": 1.0
+            }
+          }
+        }
+      },
+      {
+        "orderedSelector": [
+          {
+            "sequencer": {
+              "moveToPos": {
+                "posParam": "wishPosition",
+                "sprintTimerRange": [10.0,20.0],
+                "minDistToSprint": 1.5,
+                "lookVisc": 0.1,
+                "tryClimbing": true,
+                "maxStanceParam": "maxStance",
+                "stuckDirParam": "stuckDir",
+                "timeToStuck": 0.9,
+                "incObstacles": true,
+                "avoidAiObstacles": false,
+                "distThreshold": 1.0
+              },
+              "setIntVar": {
+                "to": "isUnreachable",
+                "value": 0
+              }
+            }
+          },
+          {
+            "sequencer": {
+              "moveToPos": {
+                "posParam": "wishPosition",
+                "sprintTimerRange": [10.0,20.0],
+                "minDistToSprint": 1.5,
+                "lookVisc": 0.1,
+                "tryClimbing": true,
+                "maxStanceParam": "maxStance",
+                "stuckDirParam": "stuckDir",
+                "timeToStuck": 0.9,
+                "incObstacles": false,
+                "avoidAiObstacles": false,
+                "distThreshold": 1.0
+              },
+              "setIntVar": {
+                "to": "isUnreachable",
+                "value": 0
+              }
+            }
+          },
+          {
+            "exitHandler": {
+              "sequencer": {
+                "setIntVar": {
+                  "to": "isUnreachable",
+                  "value": 1
+                },
+                "copyPoint3Var": {
+                  "from": "wishPosition",
+                  "to": "unreachablePos"
+                },
+                "not": {
+                  "repeatUntilFail": {
+                    "getPointAroundAIPos": {
+                      "dirParam": "stuckDir",
+                      "outPosParam": "outStuckPos",
+                      "forwPosParam": "outStuckForwPos",
+                      "fromPosParam": "moveFromPos",
+                      "toPosParam": "wishPosition",
+                      "resetAIPointsGeneratorParam": "resetAIPointsGenerator"
+                    },
+                    "not": {
+                      "sequencer": {
+                        "wait": {
+                          "range": [0.1,0.2],
+                          "resetable": true
+                        },
+                        "success": {
+                          "moveByDir": {
+                            "endPos": "outStuckPos",
+                            "duration": 0.7,
+                            "distThresholsd": 0.1
+                          }
+                        },
+                        "moveToPos": {
+                          "posParam": "wishPosition",
+                          "sprintTimerRange": [10.0,20.0],
+                          "minDistToSprint": 1.5,
+                          "lookVisc": 0.1,
+                          "tryClimbing": true,
+                          "maxStanceParam": "maxStance",
+                          "distThreshold": 1.0,
+                          "timeToStuck": 0.9,
+                          "avoidAiObstacles": false
+                        },
+                        "setIntVar": {
+                          "to": "isUnreachable",
+                          "value": 0
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "setIntVar": {
+                "to": "resetAIPointsGenerator",
+                "value": 1
+              }
+            }
+          }
+        ]
+      },
+      {
+        "getAgentAIPos": {
+          "outPosParam": "moveFromPos"
+        }
+      }
+    ]
+  },
+  {
+    "sequencer": [
+      {
+        "name": "sub.moveToCoverNearPosition"
+      },
+      {
+        "wait": {
+          "range": [0.1,0.3],
+          "resetable": true
+        }
+      },
+      {
+        "orderedSelector": {
+          "isVarsIntEqual": {
+            "lhs": "isUnreachable",
+            "rhs_value": 0
+          },
+          "not": {
+            "checkDistance": {
+              "posParam": "wishPosition",
+              "otherPosParam": "unreachablePos",
+              "radius": 2.0,
+              "yRadius": 1.0
+            }
+          }
+        }
+      },
+      {
+        "orderedSelector": [
+          {
+            "sequencer": {
+              "moveToPos": {
+                "posParam": "wishPosition",
+                "sprintTimerRange": [10.0,20.0],
+                "minDistToSprint": 1.5,
+                "lookVisc": 0.1,
+                "tryClimbing": true,
+                "maxStanceParam": "maxStance",
+                "stuckDirParam": "stuckDir",
+                "timeToStuck": 0.9,
+                "incObstacles": true,
+                "avoidAiObstacles": false,
+                "distThreshold": 1.0
+              },
+              "setIntVar": {
+                "to": "isUnreachable",
+                "value": 0
+              }
+            }
+          },
+          {
+            "sequencer": {
+              "moveToPos": {
+                "posParam": "wishPosition",
+                "sprintTimerRange": [10.0,20.0],
+                "minDistToSprint": 1.5,
+                "lookVisc": 0.1,
+                "tryClimbing": true,
+                "maxStanceParam": "maxStance",
+                "stuckDirParam": "stuckDir",
+                "timeToStuck": 0.9,
+                "incObstacles": false,
+                "avoidAiObstacles": false,
+                "distThreshold": 1.0
+              },
+              "setIntVar": {
+                "to": "isUnreachable",
+                "value": 0
+              }
+            }
+          },
+          {
+            "exitHandler": {
+              "sequencer": {
+                "setIntVar": {
+                  "to": "isUnreachable",
+                  "value": 1
+                },
+                "copyPoint3Var": {
+                  "from": "wishPosition",
+                  "to": "unreachablePos"
+                },
+                "not": {
+                  "repeatUntilFail": {
+                    "getPointAroundAIPos": {
+                      "dirParam": "stuckDir",
+                      "outPosParam": "outStuckPos",
+                      "forwPosParam": "outStuckForwPos",
+                      "fromPosParam": "moveFromPos",
+                      "toPosParam": "wishPosition",
+                      "resetAIPointsGeneratorParam": "resetAIPointsGenerator"
+                    },
+                    "not": {
+                      "sequencer": {
+                        "wait": {
+                          "range": [0.1,0.2],
+                          "resetable": true
+                        },
+                        "success": {
+                          "moveByDir": {
+                            "endPos": "outStuckPos",
+                            "duration": 0.7,
+                            "distThresholsd": 0.1
+                          }
+                        },
+                        "moveToPos": {
+                          "posParam": "wishPosition",
+                          "sprintTimerRange": [10.0,20.0],
+                          "minDistToSprint": 1.5,
+                          "lookVisc": 0.1,
+                          "tryClimbing": true,
+                          "maxStanceParam": "maxStance",
+                          "distThreshold": 1.0,
+                          "timeToStuck": 0.9,
+                          "avoidAiObstacles": false
+                        },
+                        "setIntVar": {
+                          "to": "isUnreachable",
+                          "value": 0
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "setIntVar": {
+                "to": "resetAIPointsGenerator",
+                "value": 1
+              }
+            }
+          }
+        ]
+      },
+      {
+        "getAgentAIPos": {
+          "outPosParam": "moveFromPos"
+        }
+      }
+    ]
+  },
+  {
+    "sequencer": [
+      {
+        "name": "sub.stayInCover"
+      },
+      {
+        "isInCover": []
+      },
+      {
+        "setCurrentAiAction": {
+          "state": "in_cover"
+        }
+      },
+      {
+        "getCoverPosition": {
+          "coverPosParam": "coverPos"
+        }
+      },
+      {
+        "chooseMaxStance": []
+      },
+      {
+        "orderedSelector": [
+          {
+            "sequencer": {
+              "findDanger": {
+                "paramName": "testEnemy",
+                "radiusParamName": "enemyRadius",
+                "minDanger": -1.0,
+                "tag": "human"
+              },
+              "selectStanceInCover": {
+                "minStanceParam": "minStance",
+                "maxStanceParam": "maxStance",
+                "stanceParam": "coverStance",
+                "safe": true
+              },
+              "changeStance": {
+                "stanceName": "stand",
+                "maxStanceParam": "coverStance"
+              }
+            }
+          },
+          {
+            "sequencer": {
+              "chooseRandomStance": {
+                "stanceParam": "standStance",
+                "minStance": 1,
+                "maxStance": 2
+              },
+              "changeStance": {
+                "stanceName": "stand",
+                "maxStanceParam": "standStance"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "orderedSelector": {
+          "findPotentialEnemyPos": {
+            "posParam": "potentialEnemyPos",
+            "minNoiseLevel": 3.0
+          },
+          "sequencer": {
+            "periodicTimer": {
+              "timeParam": "standInCoverFindDangerAttrationPosTimer",
+              "timePeriod": [4.0,6.0]
+            },
+            "findDangerAttractionPos": {
+              "posParam": "potentialEnemyPos",
+              "radius": 0.0,
+              "minNoiseLevel": 3.0
+            }
+          },
+          "continue": []
+        }
+      },
+      {
+        "orderedSelector": [
+          {
+            "sequencer": {
+              "ignoreChance": {
+                "chance": 0.1
+              },
+              "checkAtTime": {
+                "timeParam": "rememberEnemyTime",
+                "range": [0.0,25.0]
+              },
+              "checkTarget": {
+                "targetUnitParam": "rememberEnemy"
+              },
+              "copyPoint3Var": {
+                "to": "potentialEnemyPos",
+                "from": "rememberEnemyPos"
+              },
+              "parallel": {
+                "wait": {
+                  "range": [5.0,10.0],
+                  "resetable": true
+                },
+                "wanderLook": {
+                  "posParam": "rememberEnemyPos",
+                  "range": [0.2,0.1],
+                  "maxStanceParam": "coverStance"
+                }
+              }
+            }
+          },
+          {
+            "sequencer": {
+              "findPotentialEnemyDirectionEntryPoint": {
+                "posParam": "potentialEnemyPos"
+              },
+              "parallel": {
+                "wait": {
+                  "range": [5.0,15.0],
+                  "resetable": true
+                },
+                "wanderLook": {
+                  "posParam": "potentialEnemyPos",
+                  "range": [0.2,0.1],
+                  "maxStanceParam": "coverStance"
+                }
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "sequencer": [
+      {
+        "name": "sub.stayAtPos"
+      },
+      {
+        "setCurrentAiAction": {
+          "state": "stand"
+        }
+      },
+      {
+        "parallel": {
+          "validateStandPosition": [],
+          "wanderLook": {
+            "posParam": "potentialEnemyPos",
+            "range": [0.2,0.1],
+            "maxStanceParam": "maxStance"
+          }
+        }
+      },
+      {
+        "parallel": {
+          "validateStandPosition": [],
+          "wanderLook": {
+            "posParam": "potentialEnemyPos",
+            "range": [0.2,0.1],
+            "maxStanceParam": "maxStance"
+          }
+        }
+      },
+      {
+        "parallel": {
+          "wait": {
+            "range": [1.5,2.0],
+            "resetable": true
+          },
+          "wanderLook": {
+            "posParam": "potentialEnemyPos",
+            "range": [0.2,0.1],
+            "maxStanceParam": "maxStance"
+          }
+        }
+      },
+      {
+        "orderedSelector": {
+          "findPotentialEnemyPos": {
+            "posParam": "potentialEnemyPos",
+            "minNoiseLevel": 3.0
+          },
+          "sequencer": {
+            "periodicTimer": {
+              "timeParam": "standFindDangerAttrationPosTimer",
+              "timePeriod": [4.0,6.0]
+            },
+            "findDangerAttractionPos": {
+              "posParam": "potentialEnemyPos",
+              "radius": 0.0,
+              "minNoiseLevel": 3.0
+            }
+          },
+          "continue": []
+        }
+      },
+      {
+        "orderedSelector": [
+          {
+            "sequencer": {
+              "ignoreChance": {
+                "chance": 0.5
+              },
+              "chooseRandomStance": {
+                "stanceParam": "standStance",
+                "minStance": 1,
+                "maxStance": 2
+              },
+              "changeStance": {
+                "stanceName": "stand",
+                "maxStanceParam": "standStance"
+              }
+            }
+          },
+          {
+            "sequencer": {
+              "ignoreChance": {
+                "chance": 0.95
+              },
+              "chooseRandomStance": {
+                "stanceParam": "standStance",
+                "minStance": 0,
+                "maxStance": 1
+              },
+              "changeStance": {
+                "stanceName": "stand",
+                "maxStanceParam": "standStance"
+              }
+            }
+          },
+          {
+            "continue": []
+          }
+        ]
+      },
+      {
+        "orderedSelector": {
+          "sequencer": {
+            "ignoreChance": {
+              "chance": 0.2
+            },
+            "checkAtTime": {
+              "timeParam": "rememberEnemyTime",
+              "range": [0.0,20.0]
+            },
+            "checkTarget": {
+              "targetUnitParam": "rememberEnemy"
+            },
+            "copyPoint3Var": {
+              "to": "potentialEnemyPos",
+              "from": "rememberEnemyPos"
+            },
+            "parallel": {
+              "wait": {
+                "range": [5.0,10.0],
+                "resetable": true
+              },
+              "wanderLook": {
+                "posParam": "rememberEnemyPos",
+                "range": [0.2,0.1],
+                "maxStanceParam": "coverStance"
+              }
+            }
+          },
+          "parallel": {
+            "wait": {
+              "range": [5.0,15.0],
+              "resetable": true
+            },
+            "wanderLook": {
+              "posParam": "potentialEnemyPos",
+              "range": [0.2,0.1],
+              "maxStanceParam": "maxStance"
+            }
+          }
+        }
+      },
+      {
+        "findPotentialEnemyDirectionEntryPoint": {
+          "posParam": "potentialEnemyPos"
+        }
+      },
+      {
+        "sequencer": {
+          "ignoreChance": {
+            "chance": 0.5
+          },
+          "chooseRandomStance": {
+            "stanceParam": "standStance",
+            "minStance": 1,
+            "maxStance": 2
+          },
+          "changeStance": {
+            "stanceName": "stand",
+            "maxStanceParam": "standStance"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "sequencer": [
+      {
+        "name": "sub.moveToCover"
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.tryToSaveOrFindCover"
+        }
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.moveToCoverNearPosition"
+        }
+      }
+    ]
+  },
+  {
+    "sequencer": [
+      {
+        "name": "sub.defendPointMoveToPosition"
+      },
+      {
+        "setIntVar": {
+          "to": "isOnDefendPoint",
+          "value": 0
+        }
+      },
+      {
+        "setIntVar": {
+          "to": "isOnDefendPoint",
+          "value": 1
+        }
+      },
+      {
+        "subTree": {
+          "treeName": "sub.moveToPosition"
+        }
+      }
+    ]
+  },
+  {
+    "sequencer": [
+      {
+        "name": "sub.updateRegroupPosDefault"
+      },
+      {
+        "isLeader": []
+      },
+      {
+        "checkAtTime": {
+          "timeParam": "underArtilleryTime",
+          "range": [10.0,1000000.0]
+        }
+      },
+      {
+        "not": {
+          "sequencer": {
+            "findActiveDamageZone": {
+              "safePosParam": "dmgZoneEscapePos",
+              "findWarning": true
+            },
+            "isIndoor": [],
+            "getTime": {
+              "to": "underArtilleryTime"
+            },
+            "success": {
+              "setSquadFormation": {
+                "formation": "closest"
+              }
+            }
+          }
+        }
+      },
+      {
+        "success": {
+          "setSquadFormation": {
+            "formation": "standard"
+          }
+        }
+      },
+      {
+        "orderedSelector": {
+          "sequencer": {
+            "findDanger": {
+              "paramName": "testEnemy",
+              "radiusParamName": "enemyNearRadius",
+              "minDanger": -1.0,
+              "tag": "human"
+            },
+            "periodicTimer": {
+              "timeParam": "onChangeLeaderFollowPos",
+              "timePeriod": [10.0,12.5]
+            }
+          },
+          "periodicTimer": {
+            "timeParam": "onChangeLeaderFollowPos",
+            "timePeriod": [30.0,40.0]
+          }
+        }
+      },
+      {
+        "orderedSelector": {
+          "sequencer": {
+            "findPointInCapzone": {
+              "posParam": "regroupPosition"
+            },
+            "resetNearCapzone": []
+          },
+          "findPointNearCapzone": {
+            "posParam": "regroupPosition"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "sequencer": {
+      "name": "sub.updateRegroupPosTrain",
+      "isLeader": [],
+      "getPointInTrainCapzone": {
+        "posParam": "regroupPosition"
+      }
+    }
+  },
+  {
+    "orderedSelector": {
+      "name": "sub.tryToOpenDoors",
+      "findObstaclesAlongsidePath": []
+    }
+  },
+  {
+    "orderedSelector": [
+      {
+        "name": "sub.tryToSaveOrFindCover"
+      },
+      {
+        "subTree": {
+          "name": "",
+          "refId": "checkCoverRef"
+        }
+      },
+      {
+        "subTree": {
+          "name": "",
+          "refId": "findCoverRef"
+        }
+      }
+    ]
+  },
+  {
+    "repeatUntilFail": {
+      "name": "sub.finishBuildTarget",
+      "count": 1,
+      "checkTarget": {
+        "targetUnitParam": "buildTarget",
+        "ignoreDead": false
+      },
+      "findPointNearTarget": {
+        "posParam": "buildPosition",
+        "dist": [2.0,2.5],
+        "targetParam": "buildTarget",
+        "traceTarget": false,
+        "reusePrevPos": false
+      },
+      "moveToPos": {
+        "posParam": "buildPosition",
+        "sprintTimerRange": [10.0,20.0],
+        "minDistToSprint": 4.0,
+        "distThreshold": 0.5,
+        "avoidAiObstacles": false
+      },
+      "changeStance": {
+        "stanceName": "crouch",
+        "maxStanceParam": "maxStance"
+      },
+      "parallel": {
+        "lookAtTarget": {
+          "targetUnitParam": "buildTarget",
+          "rotateBody": true,
+          "allowDead": true
+        },
+        "interactWithBuildingTarget": {
+          "targetUnitParam": "buildTarget"
+        }
+      }
+    }
+  }
+]

@@ -1,0 +1,352 @@
+{
+  "yak_3": [
+    {
+      "_extends": "yak_3_base"
+    },
+    {
+      "_extends": "squad_controlled_plane"
+    },
+    {
+      "item__name": "items/yak_3"
+    },
+    {
+      "item__iconOffset": [0.15,0.0]
+    },
+    {
+      "vehicle_seats__seats:shared:array": {
+        "seats:object": {
+          "name": "driver",
+          "locName": "vehicle_seats/pilot",
+          "seatOwnsEntityControl": true,
+          "attachNode": "pilot1",
+          "ignoreAttachNodeRotation": true,
+          "attachTm": [
+            [1.0,0.0,0.0],
+            [0.0,1.0,0.0],
+            [0.0,0.0,1.0],
+            [-0.15,0.15,-0.15]
+          ],
+          "seatComponent": "isDriver",
+          "receiveDamageFromDMPart": "pilot_dm",
+          "cameraNodeName": "",
+          "cameraOffset": [-0.788,0.607,0.0],
+          "cockpitTemplate": "yak_3_driver_cockpit",
+          "roomSpace": 0,
+          "turretNames:array": [
+            {
+              "turret": "turret_01"
+            },
+            {
+              "turret": "turret_02"
+            },
+            {
+              "turret": "turret_03"
+            }
+          ],
+          "effectors:object": {
+            "r.hand": "stick_rhand_1",
+            "l.hand": "throttle_lhand_1",
+            "r.foot": "pedal_rfoot_1",
+            "l.foot": "pedal_lfoot_1"
+          }
+        }
+      }
+    },
+    {
+      "turret_control__emitterNodes:shared:array": [
+        {
+          "node": "flare3"
+        },
+        {
+          "node": "flare1"
+        },
+        {
+          "node": "flare2"
+        }
+      ]
+    },
+    {
+      "turret_control__animVars:shared:array": [
+        {
+          "vars:object": {
+            "curYawParamName": "weapon_01_yaw",
+            "curPitchParamName": "weapon_01_pitch"
+          }
+        },
+        {
+          "vars:object": {
+            "curYawParamName": "weapon_02_yaw",
+            "curPitchParamName": "weapon_02_pitch"
+          }
+        },
+        {
+          "vars:object": {
+            "curYawParamName": "weapon_03_yaw",
+            "curPitchParamName": "weapon_03_pitch"
+          }
+        }
+      ]
+    },
+    {
+      "turret_control__turretInfo:shared:array": [
+        {
+          "turretInfo:object": {
+            "turretName": "turret_01",
+            "turretGroup": "cannon_turrets",
+            "trigger": "cannons",
+            "gun": "planegun_yak_3_20mm_shvak_01"
+          }
+        },
+        {
+          "turretInfo:object": {
+            "turretName": "turret_02",
+            "turretGroup": "main_turrets",
+            "trigger": "machine_guns",
+            "gun": "planegun_yak_3_12_7mm_ubs_01"
+          }
+        },
+        {
+          "turretInfo:object": {
+            "turretName": "turret_03",
+            "turretGroup": "main_turrets",
+            "trigger": "machine_guns",
+            "gun": "planegun_yak_3_12_7mm_ubs_02"
+          }
+        }
+      ]
+    },
+    {
+      "turret_gun_flash_fx__flashNodes:shared:array": [
+        {
+          "node": "flare3"
+        },
+        {
+          "node": "flare1"
+        },
+        {
+          "node": "flare2"
+        }
+      ]
+    },
+    {
+      "turret_gun_flash_fx__flashFx:shared:array": [
+        {
+          "fx": "muzzle_air_20mm"
+        },
+        {
+          "fx": "muzzle_air_15mm"
+        },
+        {
+          "fx": "muzzle_air_15mm"
+        }
+      ]
+    },
+    {
+      "turret_gun_flash_fx__flashFxScale:shared:array": [
+        {
+          "scale": 1.0
+        },
+        {
+          "scale": 1.0
+        },
+        {
+          "scale": 1.0
+        }
+      ]
+    },
+    {
+      "disableDMParts:list<t>": {
+        "part": "cannon"
+      }
+    }
+  ],
+  "base_yak_3_12_7mm_ubs": {
+    "item__name": "guns/gunubs",
+    "gun__blk": "gamedata/weapons/yak_3/12_7mm_ubs.blk",
+    "gun__shotFreq": 16.6,
+    "gun__locName": "gunubs",
+    "gun__shootNodeName": "bone_mg_gun_twin",
+    "gun__maxAmmo": 150,
+    "gun__firingModes:array": {
+      "mode:object": {
+        "modeType": "automatic"
+      }
+    },
+    "gun__firingModeNames:array": {
+      "mode": "automatic"
+    },
+    "gun__shellsAmmo:array": {
+      "ammo": 150
+    },
+    "gun__ammoSetsInfo:shared:array": {
+      "default:array": [
+        {
+          "shell:object": {
+            "blk": "gamedata/weapons/shells/12_7mm_ub_t_38_bullet.blk",
+            "name": "38",
+            "type": "t_ball"
+          }
+        },
+        {
+          "shell:object": {
+            "blk": "gamedata/weapons/shells/12_7mm_ub_b_30_bullet.blk",
+            "name": "30",
+            "type": "ap_ball"
+          }
+        },
+        {
+          "shell:object": {
+            "blk": "gamedata/weapons/shells/12_7mm_ub_b_30_bullet.blk",
+            "name": "30",
+            "type": "ap_ball"
+          }
+        },
+        {
+          "shell:object": {
+            "blk": "gamedata/weapons/shells/12_7mm_ub_mdz_bullet.blk",
+            "name": "mdz",
+            "type": "he_i_ball"
+          }
+        }
+      ]
+    }
+  },
+  "base_yak_3_20mm_shvak": {
+    "item__name": "guns/cannonshvak",
+    "gun__blk": "gamedata/weapons/yak_3/20mm_shvak.blk",
+    "gun__shotFreq": 13.3333,
+    "gun__locName": "cannonshvak",
+    "gun__shootNodeName": "bone_mg_gun_twin",
+    "gun__maxAmmo": 120,
+    "gun__firingModes:array": {
+      "mode:object": {
+        "modeType": "automatic"
+      }
+    },
+    "gun__firingModeNames:array": {
+      "mode": "automatic"
+    },
+    "gun__shellsAmmo:array": {
+      "ammo": 120
+    },
+    "gun__ammoSetsInfo:shared:array": {
+      "default:array": [
+        {
+          "shell:object": {
+            "blk": "gamedata/weapons/shells/20mm_shvak_ozt_bullet.blk",
+            "name": "ozt",
+            "type": "frag_i_t"
+          }
+        },
+        {
+          "shell:object": {
+            "blk": "gamedata/weapons/shells/20mm_shvak_bz_bullet.blk",
+            "name": "bz",
+            "type": "ap_i"
+          }
+        }
+      ]
+    }
+  },
+  "planegun_yak_3_20mm_shvak_01": [
+    {
+      "_extends": "tankgun"
+    },
+    {
+      "_extends": "base_plane_machinegun"
+    },
+    {
+      "_extends": "base_yak_3_20mm_shvak"
+    },
+    {
+      "_extends": "gunsound_20mm_shvak_aircraft"
+    },
+    {
+      "gun__shootNodeName": "flare3"
+    },
+    {
+      "gun__maxAmmo": 120
+    }
+  ],
+  "planegun_yak_3_12_7mm_ubs_01": [
+    {
+      "_extends": "tankgun"
+    },
+    {
+      "_extends": "base_plane_machinegun"
+    },
+    {
+      "_extends": "base_yak_3_12_7mm_ubs"
+    },
+    {
+      "_extends": "gunsound_12_7mm_ubs_aircraft"
+    },
+    {
+      "gun__shootNodeName": "flare1"
+    },
+    {
+      "gun__maxAmmo": 150
+    }
+  ],
+  "planegun_yak_3_12_7mm_ubs_02": [
+    {
+      "_extends": "tankgun"
+    },
+    {
+      "_extends": "base_plane_machinegun"
+    },
+    {
+      "_extends": "base_yak_3_12_7mm_ubs"
+    },
+    {
+      "_extends": "gunsound_12_7mm_ubs_aircraft"
+    },
+    {
+      "gun__shootNodeName": "flare2"
+    },
+    {
+      "gun__maxAmmo": 150
+    }
+  ],
+  "yak_3_driver_cockpit": {
+    "_extends": "base_plane_cockpit",
+    "cockpit__offset": [0.0,0.0,0.0],
+    "cockpit__angles": [0.0,0.0,0.0],
+    "cockpit__scale": [1.0,1.0,1.0],
+    "animchar__res": "yak_3_cockpit_char",
+    "plane_anim__blk": "gamedata/units/yak_3.blk",
+    "plane_sight__blk": "gamedata/units/yak_3.blk",
+    "move_cockpit_node__nodeName:list<t>": [
+      {
+        "node": "stick_rhand_1"
+      },
+      {
+        "node": "throttle_lhand_1"
+      }
+    ],
+    "move_cockpit_node__nodeId:list<i>": [
+      {
+        "nodeId": -1
+      },
+      {
+        "nodeId": -1
+      }
+    ],
+    "move_cockpit_node__offset:list<p3>": [
+      {
+        "offset": [0.02,0.01,0.0]
+      },
+      {
+        "offset": [0.03,-0.019,-0.01]
+      }
+    ],
+    "move_cockpit_node__rotation:list<p2>": [
+      {
+        "rot": [-6.0,-2.0]
+      },
+      {
+        "rot": [-12.0,-12.0]
+      }
+    ]
+  }
+}

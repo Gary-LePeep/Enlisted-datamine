@@ -1,0 +1,506 @@
+[
+  {
+    "import": {
+      "scene": "content/enlisted/gamedata/scenes/_berlin_village_sounds.blk"
+    }
+  },
+  {
+    "entity": {
+      "_template": "level",
+      "level__blk": "content/enlisted/levels/battle_of_berlin_seelow_heights.blk",
+      "level__timeRange": [5.0,19.2],
+      "level__weatherChoice:object": {
+        "weather_cloudy_a": 1.0
+      },
+      "level__timeVec:array": [
+        {
+          "level_timeVec": 7.992
+        },
+        {
+          "level_timeVec": 8.1
+        },
+        {
+          "level_timeVec": 16.7
+        },
+        {
+          "level_timeVec": 16.8
+        }
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "clouds_hole_target",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [0.0,0.0,0.0]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "shaderVars",
+      "shader_vars__vars:object": {
+        "hmap_displacement_up": 0.3,
+        "ocean1": "#8e894700",
+        "ocean0": "#4c3f0500",
+        "ocean_density": 0.1,
+        "river1": "#40401d00",
+        "river0": "#312f2900",
+        "hmap_displacement_down": -0.15,
+        "leaves_ss_profile": [1.0,1.0,1.0,0.0],
+        "paint_details_tex": "germany_wall_color_tex_palette*",
+        "layered_fog_height": 20.0,
+        "water_color_noise_size": 71.0,
+        "water_depth_hardness": 0.41,
+        "river_density": 0.5
+      }
+    }
+  },
+  {
+    "entity": {
+      "_template": "postfx_roundctrl",
+      "post_fx:object": []
+    }
+  },
+  {
+    "entity": {
+      "_template": "postfx_color_grading_tonemap_death_alive_enlisted"
+    }
+  },
+  {
+    "entity": {
+      "_template": "water",
+      "water__strength": 0.3,
+      "water__level": 0.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "wind",
+      "wind__strength": 1.3,
+      "wind__dir": 190.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "minimap_berlin_seelow_heights"
+    }
+  },
+  {
+    "entity": {
+      "_template": "door_mult_ent_generator",
+      "ri_extra_gen__blk": "content/e_berlin/gamedata/berlin_doors.blk"
+    }
+  },
+  {
+    "entity": {
+      "_template": "session_finalizer",
+      "session_finalizer__timer": 10.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "team_ussr_berlin+team_narrator_domination+respawn_creators_team",
+      "team__id": 1,
+      "team__score": 2000.0,
+      "team__scoreCap": 2000.0,
+      "score_bleed__domBleed": 5.0,
+      "score_bleed__domBleedOn": false,
+      "score_bleed__totalDomZoneCount": 3,
+      "score_bleed__totalDomBleedMul": 2.0,
+      "score_bleed__totalDomBleedOn": false,
+      "team__briefing": "domination/common_goals",
+      "team__numZonesCaptured": 0,
+      "team__deathPenalty": 2.0,
+      "team__spawnBotArmy": "moscow_allies"
+    }
+  },
+  {
+    "entity": {
+      "_template": "team_germany_berlin+team_narrator_domination+respawn_creators_team",
+      "team__id": 2,
+      "team__score": 2000.0,
+      "team__scoreCap": 2000.0,
+      "score_bleed__domBleed": 5.0,
+      "score_bleed__domBleedOn": false,
+      "score_bleed__totalDomZoneCount": 3,
+      "score_bleed__totalDomBleedMul": 2.0,
+      "score_bleed__totalDomBleedOn": false,
+      "team__briefing": "domination/common_goals",
+      "team__numZonesCaptured": 0,
+      "team__deathPenalty": 2.0,
+      "team__spawnBotArmy": "moscow_axis"
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawn_camera",
+      "respawnCameraForTeam": 1,
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [-403.31,298.774,1207.11]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawn_camera",
+      "respawnCameraForTeam": 2,
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [-560.806,298.632,455.783]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawnChooser+respTeam1",
+      "transform": [
+        [0.178868,0.0,-0.983873],
+        [0.0,1.0,0.0],
+        [0.983873,0.0,0.178868],
+        [-442.965,3.79985,967.5]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawnChooser+respTeam1",
+      "transform": [
+        [0.96583,0.0,-0.259176],
+        [0.0,1.0,0.0],
+        [0.259176,0.0,0.96583],
+        [-452.392,4.01329,959.421]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawnChooser+respTeam2",
+      "transform": [
+        [0.96991,0.0,0.243468],
+        [0.0,1.0,0.0],
+        [-0.243468,0.0,0.96991],
+        [-443.866,3.87285,770.037]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawnChooser+respTeam2",
+      "transform": [
+        [0.93817,0.0,0.346175],
+        [0.0,1.0,0.0],
+        [-0.346175,0.0,0.93817],
+        [-439.315,3.75082,758.044]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawnChooser+respTeam2",
+      "transform": [
+        [0.905259,0.0,0.424859],
+        [0.0,1.0,0.0],
+        [-0.424859,0.0,0.905259],
+        [-443.834,3.89784,763.31]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawnChooser+respVehicle",
+      "transform": [
+        [0.00393436,0.0,-0.999991],
+        [0.0,1.0,0.0],
+        [0.999991,0.0,0.00393436],
+        [-275.27,4.056,1012.23]
+      ],
+      "team": 1,
+      "maxVehicleOnSpawn": 2,
+      "respTime": 120,
+      "respawnBaseGroup": 1
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawnChooser+respVehicle",
+      "transform": [
+        [0.699145,0.0,0.714979],
+        [0.0,1.0,0.0],
+        [-0.714979,0.0,0.699145],
+        [-443.815,4.11423,625.71]
+      ],
+      "team": 2,
+      "maxVehicleOnSpawn": 2,
+      "respTime": 120,
+      "respawnBaseGroup": 1
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawnChooser+respMotorcycle",
+      "active": false,
+      "transform": [
+        [0.00393436,0.0,-0.999991],
+        [0.0,1.0,0.0],
+        [0.999991,0.0,0.00393436],
+        [-275.27,4.056,1012.23]
+      ],
+      "team": 1
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawnChooser+respMotorcycle",
+      "active": false,
+      "transform": [
+        [0.699145,0.0,0.714979],
+        [0.0,1.0,0.0],
+        [-0.714979,0.0,0.699145],
+        [-443.815,4.11423,625.71]
+      ],
+      "team": 2
+    }
+  },
+  {
+    "entity": {
+      "_template": "ri_gpu_object",
+      "ri_gpu_object__name": "tree_fraxinus_bush_small_a",
+      "ri_gpu_object__biom_indexes": [22.0,-1.0,-1.0,-1.0],
+      "ri_gpu_object__grid_size": 16,
+      "ri_gpu_object__grid_tiling": 1,
+      "ri_gpu_object__cell_size": 8.0,
+      "ri_gpu_object__incline_delta": 0.0,
+      "ri_gpu_object__scale_range": [0.9,1.05],
+      "ri_gpu_object__rotate_range": [0.0,0.0],
+      "ri_gpu_object__seed": 1127,
+      "ri_gpu_object__is_using_normal": false,
+      "ri_gpu_object__sparse_weight": 17.5,
+      "ri_gpu_object__multiple_objects:array": [
+        {
+          "gpu_object:object": {
+            "name": "tree_fraxinus_bush_small_a",
+            "weight": 1.0
+          }
+        },
+        {
+          "gpu_object:object": {
+            "name": "tree_fraxinus_bush_small_b",
+            "weight": 1.0
+          }
+        },
+        {
+          "gpu_object:object": {
+            "name": "tree_fraxinus_bush_small_c",
+            "weight": 1.0
+          }
+        },
+        {
+          "gpu_object:object": {
+            "name": "tree_fraxinus_bush_small_d",
+            "weight": 1.0
+          }
+        },
+        {
+          "gpu_object:object": {
+            "name": "tree_fraxinus_bush_small_e",
+            "weight": 1.0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "ri_gpu_object",
+      "ri_gpu_object__name": "tree_dry_branches_a",
+      "ri_gpu_object__biom_indexes": [2.0,-1.0,-1.0,-1.0],
+      "ri_gpu_object__grid_size": 8,
+      "ri_gpu_object__grid_tiling": 2,
+      "ri_gpu_object__cell_size": 16.0,
+      "ri_gpu_object__incline_delta": 0.0,
+      "ri_gpu_object__scale_range": [0.6,1.05],
+      "ri_gpu_object__rotate_range": [135.0,960.0],
+      "ri_gpu_object__seed": 55112,
+      "ri_gpu_object__is_using_normal": true,
+      "ri_gpu_object__multiple_objects:array": [
+        {
+          "ri_gpu_object__multiple_objects:object": {
+            "name": "tree_dry_branches_a",
+            "weight": 1.0
+          }
+        },
+        {
+          "ri_gpu_object__multiple_objects:object": {
+            "name": "tree_dry_branches_b",
+            "weight": 1.0
+          }
+        },
+        {
+          "ri_gpu_object__multiple_objects:object": {
+            "name": "tree_dry_branches_c",
+            "weight": 1.0
+          }
+        },
+        {
+          "ri_gpu_object__multiple_objects:object": {
+            "name": "tree_branches_small_a",
+            "weight": 0.33
+          }
+        },
+        {
+          "ri_gpu_object__multiple_objects:object": {
+            "name": "tree_branches_small_b",
+            "weight": 0.33
+          }
+        },
+        {
+          "ri_gpu_object__multiple_objects:object": {
+            "name": "tree_branches_small_c",
+            "weight": 0.33
+          }
+        },
+        {
+          "ri_gpu_object__multiple_objects:object": {
+            "name": "tree_branches_small_d",
+            "weight": 0.33
+          }
+        }
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "ri_gpu_object",
+      "ri_gpu_object__name": "tree_dry_pine_branches_e",
+      "ri_gpu_object__biom_indexes": [22.0,-1.0,-1.0,-1.0],
+      "ri_gpu_object__grid_size": 8,
+      "ri_gpu_object__grid_tiling": 1,
+      "ri_gpu_object__cell_size": 8.0,
+      "ri_gpu_object__incline_delta": 0.0,
+      "ri_gpu_object__scale_range": [0.5,0.65],
+      "ri_gpu_object__rotate_range": [135.0,960.0],
+      "ri_gpu_object__seed": 5542,
+      "ri_gpu_object__sparse_weight": 5.0,
+      "ri_gpu_object__is_using_normal": true,
+      "ri_gpu_object__multiple_objects:array": [
+        {
+          "gpu_object:object": {
+            "name": "tree_dry_pine_branches_pile_a",
+            "weight": 1.0
+          }
+        },
+        {
+          "gpu_object:object": {
+            "name": "tree_dry_pine_branches_pile_b",
+            "weight": 1.0
+          }
+        },
+        {
+          "gpu_object:object": {
+            "name": "tree_dry_pine_branches_pile_c",
+            "weight": 1.0
+          }
+        },
+        {
+          "gpu_object:object": {
+            "name": "tree_dry_pine_branches_pile_d",
+            "weight": 1.0
+          }
+        },
+        {
+          "gpu_object:object": {
+            "name": "tree_dry_pine_branches_a",
+            "weight": 1.0
+          }
+        },
+        {
+          "gpu_object:object": {
+            "name": "tree_dry_pine_branches_b",
+            "weight": 1.0
+          }
+        },
+        {
+          "gpu_object:object": {
+            "name": "tree_dry_pine_branches_c",
+            "weight": 1.0
+          }
+        },
+        {
+          "gpu_object:object": {
+            "name": "tree_dry_pine_branches_d",
+            "weight": 1.0
+          }
+        },
+        {
+          "gpu_object:object": {
+            "name": "tree_dry_pine_branches_e",
+            "weight": 1.0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "ri_gpu_object",
+      "ri_gpu_object__name": "generic_stone_small_a",
+      "ri_gpu_object__biom_indexes": [2.0,3.0,52.0,-1.0],
+      "ri_gpu_object__grid_size": 8,
+      "ri_gpu_object__grid_tiling": 8,
+      "ri_gpu_object__cell_size": 16.0,
+      "ri_gpu_object__incline_delta": 0.0,
+      "ri_gpu_object__scale_range": [0.05,1.4],
+      "ri_gpu_object__rotate_range": [135.0,960.0],
+      "ri_gpu_object__seed": 75112,
+      "ri_gpu_object__sparse_weight": 5.0,
+      "ri_gpu_object__is_using_normal": true,
+      "ri_gpu_object__multiple_objects:array": [
+        {
+          "gpu_object:object": {
+            "name": "generic_stone_small_a",
+            "weight": 1.0
+          }
+        },
+        {
+          "gpu_object:object": {
+            "name": "generic_stone_small_b",
+            "weight": 1.0
+          }
+        },
+        {
+          "gpu_object:object": {
+            "name": "generic_stone_small_c",
+            "weight": 1.0
+          }
+        },
+        {
+          "gpu_object:object": {
+            "name": "generic_stone_small_d",
+            "weight": 1.0
+          }
+        },
+        {
+          "gpu_object:object": {
+            "name": "generic_stone_small_e",
+            "weight": 1.0
+          }
+        },
+        {
+          "gpu_object:object": {
+            "name": "generic_stone_small_f",
+            "weight": 1.0
+          }
+        }
+      ]
+    }
+  }
+]

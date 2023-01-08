@@ -1,0 +1,24 @@
+{
+  "mass": 50000.0,
+  "momentOfInertia": [0.6,0.3,0.6],
+  "centerOfMass": [0.0,0.0,0.0],
+  "physMat": "walkRay",
+  "useFutureContacts": true,
+  "logCCD": false,
+  "addToWorld": true,
+  "gravityMult": 0.0,
+  "ignoreCollision": true,
+  "shouldTraceGround": false,
+  "boundingRadius": 0.1,
+  "collisionResource": {
+    "props": {
+      "gun_barrel_01_cls": "convex_hull",
+      "gun_barrel_02_cls": "convex_hull",
+      "turret_cls": "convex_hull",
+      "body_cls": "convex_hull"
+    }
+  },
+  "ccdSpheres": {
+    "ccd": [0.0,0.2,0.0,0.15]
+  }
+}

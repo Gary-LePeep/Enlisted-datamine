@@ -1,0 +1,230 @@
+{
+  "bulletCount": 25,
+  "mass": 3.94,
+  "caliber": 0.12,
+  "damageCaliber": 0.027,
+  "ballisticCaliber": 0.027,
+  "speed": 1670.0,
+  "Cx": 0.45,
+  "maxDistance": 10000.0,
+  "normalizationPreset": "default",
+  "bulletType": "apds_fs_long_tank",
+  "fresnel": [0.23,0.1,2.0],
+  "shellAnimation": "video/shells_animations/apfsds_modern.ivf",
+  "bulletName": "120mm_m829",
+  "explosionEffect": "hit_106_132mm_dirt_ap",
+  "groundCollisionEffect": "hit_106_132mm_dirt_ap",
+  "ricochetEffect": "hit_106_132mm_metal_ap",
+  "waterCollisionEffect": "hit_106_132mm_water_ap",
+  "explosionPatchRadius": 2.8,
+  "modelName": "tank_bullet_apdsfs_long",
+  "secondaryShattersPreset": "apds_fs_long",
+  "stability": {
+    "precessionDamping": 0.3,
+    "ricochetAnglePrecessionFactor": 5.0,
+    "ricochetAngleOmegaFactor": 0.5,
+    "slopeToOmega": [1.0,10.0,0.0,1.0],
+    "angleLossStabilizationAfterRicochet": 30.0,
+    "penetrationReduction": [
+      {
+        "pnt": [0.0,1.0]
+      },
+      {
+        "pnt": [2.0,0.95]
+      },
+      {
+        "pnt": [10.0,0.5]
+      },
+      {
+        "pnt": [21.0,0.3]
+      }
+    ]
+  },
+  "tracePattern": {
+    "caliber": 10.0,
+    "circleCount": 2,
+    "pointCount": 6
+  },
+  "hitpower": {
+    "HitPower0m": [1.0,1000.0],
+    "HitPower10000m": [0.8,10000.0]
+  },
+  "armorpower": {
+    "ArmorPower0m": [491.0,10.0],
+    "ArmorPower100m": [488.0,100.0],
+    "ArmorPower500m": [481.0,500.0],
+    "ArmorPower1000m": [473.0,1000.0],
+    "ArmorPower1500m": [464.0,1500.0],
+    "ArmorPower2000m": [454.0,2000.0],
+    "ArmorPower3000m": [435.0,3000.0],
+    "ArmorPower10000m": [5.0,10000.0],
+    "ArmorPower20000m": [0.0,20000.0]
+  },
+  "visual": {
+    "range_percent_of_ammo": [100.0,0.0],
+    "traceFreq": 1,
+    "tracer": "50mmWhite",
+    "trail": "black"
+  },
+  "damage": {
+    "kinetic": {
+      "onHitChanceMultExplFuel": 0.1,
+      "correctionPenetrationByRelativeVelocity": [200.0,1000.0],
+      "correctionDamageByRelativeVelocity": [300.0,1000.0],
+      "damageType": "generic",
+      "energyToDamage": {
+        "p0": [3000.0,5.0],
+        "p1": [15000.0,10.0],
+        "p2": [30000.0,15.0],
+        "p3": [60000.0,25.0],
+        "p4": [80000.0,40.0],
+        "p5": [110000.0,60.0],
+        "p6": [300000.0,70.0],
+        "p7": [400000.0,75.0],
+        "p8": [500000.0,80.0],
+        "p9": [650000.0,110.0],
+        "p10": [1100000.0,150.0],
+        "p11": [1300000.0,200.0],
+        "p12": [1800000.0,230.0],
+        "p13": [2200000.0,240.0],
+        "p14": [3000000.0,300.0],
+        "p15": [4000000.0,320.0],
+        "p16": [5000000.0,350.0],
+        "p17": [8000000.0,370.0],
+        "p18": [12000000.0,900.0]
+      }
+    },
+    "secondaryShatter": {
+      "residualPenetrationToArmorShatterPenetrationMult": [20.0,200.0,0.1,1.0],
+      "residualPenetrationToArmorShatterDamageMult": [20.0,200.0,0.2,1.0],
+      "residualPenetrationToShellShatterPenetrationMult": [20.0,200.0,0.1,1.0],
+      "residualPenetrationToShellShatterDamageMult": [20.0,200.0,0.1,1.0],
+      "armorMassToShatterCount": [0.5,10.0,20.0,40.0],
+      "shellMassToShatterCount": [1.0,20.0,30.0,70.0],
+      "damageType": "secondaryShatter",
+      "section_shellShatters0": {
+        "angles": [0.0,5.0],
+        "shatter": {
+          "shellShatter": true,
+          "distance": 6.0,
+          "size": 0.04,
+          "countPortion": 0.2,
+          "penetration": [25.0,20.0],
+          "damage": [45.0,40.0],
+          "onHitChanceMultFire": 3.0
+        }
+      },
+      "section_shellShatters1": {
+        "angles": [0.0,15.0],
+        "shatter": {
+          "shellShatter": true,
+          "distance": 5.0,
+          "size": 0.02,
+          "countPortion": 0.3,
+          "penetration": [12.0,11.0],
+          "damage": [20.0,17.0],
+          "onHitChanceMultFire": 0.0
+        }
+      },
+      "section_shellShatters2": {
+        "angles": [0.0,45.0],
+        "shatter": {
+          "shellShatter": true,
+          "distance": 4.0,
+          "size": 0.01,
+          "countPortion": 0.6,
+          "penetration": [5.0,4.0],
+          "damage": [7.0,5.0],
+          "onHitChanceMultFire": 0.0
+        }
+      },
+      "section_armorShatters0": {
+        "angles": [0.0,20.0],
+        "shatter": {
+          "distance": 5.0,
+          "size": 0.05,
+          "countPortion": 0.4,
+          "penetration": [7.0,5.0],
+          "damage": [15.0,12.0],
+          "onHitChanceMultFire": 2.0
+        }
+      }
+    }
+  },
+  "ballistics": {
+    "slopeEffect": {
+      "table": {
+        "t1": {
+          "caliberToArmor": 1.0,
+          "slopeEffect0deg": [0.0,20.0],
+          "slopeEffect10deg": [10.0,5.3],
+          "slopeEffect20deg": [20.0,2.4],
+          "slopeEffect30deg": [30.0,1.73],
+          "slopeEffect50deg": [50.0,1.305],
+          "slopeEffect70deg": [70.0,1.064],
+          "slopeEffect90deg": [90.0,1.0]
+        }
+      }
+    },
+    "ricochet": {
+      "table": {
+        "t1": {
+          "caliberToArmor": 1.0,
+          "ricochetProbability0deg": [0.0,1.0],
+          "ricochetProbability9deg": [9.0,1.0],
+          "ricochetProbability10deg": [10.0,0.5],
+          "ricochetProbability12deg": [12.0,0.0],
+          "ricochetProbability90deg": [90.0,0.0]
+        }
+      }
+    },
+    "stability": {
+      "stabilityThreshold": 0.0,
+      "stabilityCaliberToArmorThreshold": 10.0,
+      "stabilityReductionAfterRicochet": 0.1,
+      "stabilityReductionAfterPenetration": 0.05,
+      "stabilityRicochetModifier": [
+        {
+          "mod1": [0.0,0.25]
+        },
+        {
+          "mod2": [20.0,0.3]
+        },
+        {
+          "mod3": [30.0,0.45]
+        },
+        {
+          "mod3": [45.0,0.5]
+        },
+        {
+          "mod4": [50.0,0.7]
+        }
+      ]
+    }
+  },
+  "hitFx": {
+    "fxScale": [1.0,1.0],
+    "defaultFx": "hit_106_132mm_dirt_ap",
+    "jetFx": "hit_106_132mm_dirt_ap",
+    "steel": {
+      "fx": "hit_106_132mm_metal_ap",
+      "fxScale": [1.0,1.0]
+    },
+    "wood": {
+      "fx": "hit_106_132mm_wood_ap",
+      "fxScale": [1.0,1.0]
+    },
+    "glass": {
+      "fx": "hit_106_132mm_metal_ap",
+      "fxScale": [1.0,1.0]
+    },
+    "stone": {
+      "fx": "hit_106_132mm_stone_ap",
+      "fxScale": [1.0,1.0]
+    }
+  },
+  "tracer": {
+    "headColor": "#ffffff78",
+    "smokeColor": "#505050ba"
+  }
+}

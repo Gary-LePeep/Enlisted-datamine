@@ -1,0 +1,83 @@
+{
+  "mass": 0.33,
+  "caliber": 0.03,
+  "speed": 500.0,
+  "maxDistance": 1100.0,
+  "normalizationPreset": "default",
+  "modelName": "tank_bullet_he",
+  "ricochetPreset": "defaultExt",
+  "secondaryShattersPreset": "ap",
+  "hitPowerMult": 15.0,
+  "stabilityThreshold": 0.05,
+  "onHitChanceMultFire": 3.0,
+  "stabilityCaliberToArmorThreshold": 5.0,
+  "onHitChanceMultExplFuel": 4500.0,
+  "stabilityReductionAfterPenetration": 0.15,
+  "effectiveDistance": 300.0,
+  "bulletType": "i",
+  "relativeVelHitShift": [300.0,1000.0],
+  "relativeVelArmorShift": [200.0,1000.0],
+  "fuseDelayDist": 1.0,
+  "explodeTreshold": 0.4,
+  "explodeHitPower": 18.0,
+  "explodeArmorPower": 6.0,
+  "explodeRadius": [0.037,0.26],
+  "shutterDamage": true,
+  "shutterDamageRadius": 0.4,
+  "shutterAmount": 13,
+  "shutterArmorPower": 6.0,
+  "shutterHit": 3.0,
+  "selfDestructionFx": "explosion_air_selfexplosion_small",
+  "explosionEffect": "hit_28_38mm_metal_he",
+  "groundCollisionEffect": "hit_28_38mm_dirt_he",
+  "ricochetEffect": "hit_28_38mm_metal_ap",
+  "waterCollisionEffect": "hit_28_38mm_water",
+  "explosionPatchRadius": 1.0,
+  "stabilityRicochetModifier": [
+    {
+      "mod1": [0.0,0.05]
+    },
+    {
+      "mod2": [20.0,0.1]
+    },
+    {
+      "mod3": [30.0,0.2]
+    },
+    {
+      "mod3": [45.0,0.3]
+    }
+  ],
+  "hitpower": {
+    "HitPower10m": [1.0,50.0],
+    "HitPower1000m": [0.9,300.0],
+    "HitPower1500m": [0.1,700.0],
+    "HitPower2000m": [0.008,1500.0]
+  },
+  "visual": {
+    "range_percent_of_ammo": [100.0,0.0],
+    "traceFreq": 1,
+    "tracer": "noColor"
+  },
+  "hitFx": {
+    "steel": {
+      "fx": "hit_28_38mm_metal_he",
+      "fxScale": [1.0,1.0]
+    },
+    "wood": {
+      "fx": "hit_28_38mm_wood_he",
+      "fxScale": [1.0,1.0]
+    },
+    "glass": {
+      "fx": "hit_28_38mm_metal_he",
+      "fxScale": [1.0,1.0]
+    },
+    "stone": {
+      "fx": "hit_28_38mm_stone_he",
+      "fxScale": [1.0,1.0]
+    }
+  },
+  "tracer": {
+    "headColor": "#00000000",
+    "smokeColor": "#00000000"
+  }
+}

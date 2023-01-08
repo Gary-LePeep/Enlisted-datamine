@@ -1,0 +1,100 @@
+{
+  "postfx": {
+    "_tracked": "post_fx",
+    "_singleton": true,
+    "damage_indicator__phase": 0.0,
+    "damage_indicator__stage": 0,
+    "damage_indicator__startTime": 0.0,
+    "damage_indicator__prevLife": 0.0,
+    "damage_indicator__blockDuration": 6.0,
+    "damage_indicator__pulseState": [0.0,0.0,0.0],
+    "damage_indicator__thresholds": [0.5,0.35,0.2],
+    "damage_indicator__lightPulsationFreq": [0.66,0.0,0.0,0.0],
+    "damage_indicator__lightIntensities": [1.0,0.0,0.0,0.0],
+    "damage_indicator__lightIntensitySaturations": [0.0,0.0,0.0,0.0],
+    "damage_indicator__mediumPulsationFreq": [1.0,0.66,0.0,0.0],
+    "damage_indicator__mediumIntensities": [1.0,0.7,0.0,0.0],
+    "damage_indicator__mediumIntensitySaturations": [0.2,0.0,0.0,0.0],
+    "damage_indicator__severePulsationFreq": [1.0,0.75,0.5,0.25],
+    "damage_indicator__severeIntensities": [1.2,1.0,1.0,1.0],
+    "damage_indicator__severeIntensitySaturations": [0.3,0.2,0.1,0.1],
+    "_extends": "replicating",
+    "post_fx:object": {
+      "bloom__on": true,
+      "adaptation__on": true,
+      "adaptation__autoExposureScale": 1.5,
+      "adaptation__highPart": 0.0,
+      "bloom__threshold": 1.8,
+      "bloom__highQuality": true,
+      "adaptation__maxExposure": 16.0,
+      "adaptation__minExposure": 0.25,
+      "adaptation__lowPart": 0.0,
+      "adaptation__adaptDownSpeed": 4.0,
+      "adaptation__adaptUpSpeed": 3.0,
+      "bloom__radius": 1.0,
+      "adaptation__fixedExposure": -1.0,
+      "bloom__upSample": 0.45,
+      "damage_indicator__color": [1.0,0.3,0.3,0.0],
+      "damage_indicator__size": 0.5,
+      "flash_blind__decay_factor": 0.2,
+      "flash_blind__decay_color": [0.9,0.95,1.0,1.0],
+      "flash_blind__desaturation_scale": 0.5,
+      "smoke_blackout_effect__increaseDuration": 3.0,
+      "smoke_blackout_effect__decreaseDuration": 2.0,
+      "smoke_blackout_effect__maxIntensity": 1.3,
+      "smoke_blackout_effect__minIntensity": 0.9
+    }
+  },
+  "postfx_roundctrl": {
+    "_extends": "postfx",
+    "postfx_round_ctrl__scaleOnWin": 1.15,
+    "postfx_round_ctrl__scaleOnLose": 0.9,
+    "postfx_round_ctrl__expScale": 1.1,
+    "postfx_round_ctrl__maxExposure": 10.0,
+    "_singleton": true,
+    "postfxRoundctrlTag:tag": []
+  },
+  "postfx_roundctrl_update": {
+    "postfx_round_ctrl_update:tag": {
+      "_tags": "render"
+    }
+  },
+  "depth_of_field": {
+    "_singleton": true,
+    "dof:DepthOfFieldPS": {
+      "_tags": "render"
+    },
+    "downsampled_dof_frame_fallback:UniqueTex": {
+      "_tags": "render"
+    },
+    "is_dof:tag": [],
+    "_group": {
+      "_track": true,
+      "dof__on": false,
+      "dof__is_filmic": false,
+      "dof__focusDistance": -1.0,
+      "dof__fStop": 1.0,
+      "dof__sensorHeight_mm": 24.0,
+      "dof__focalLength_mm": -1.0,
+      "dof__nearDofStart": 0.01,
+      "dof__nearDofEnd": 0.35,
+      "dof__nearDofAmountPercent": 0.0,
+      "dof__farDofStart": 100.0,
+      "dof__farDofEnd": 1000000.0,
+      "dof__farDofAmountPercent": 0.0,
+      "dof__bokehShape_bladesCount": 6.0,
+      "dof__bokehShape_kernelSize": 8.0,
+      "dof__minCheckDistance": 0.3
+    }
+  },
+  "postfx_smoke_blackout": {
+    "_singleton": true,
+    "smoke_blackout_effect__timeStartVarId": -1,
+    "smoke_blackout_effect__timeEndVarId": -1,
+    "smoke_blackout_effect__intervalVarId": -1,
+    "smoke_blackout_effect__decreaseDurationVarId": -1,
+    "smoke_blackout_effect__enabled": true,
+    "_tracked": "smoke_blackout_effect__enabled",
+    "_tags": "render"
+  }
+}

@@ -1,0 +1,91 @@
+{
+  "base_la_5fn": {
+    "plane_phys_damage__blk": "gamedata/units/la_5fn.blk",
+    "animchar__res": "la_5fn_char"
+  },
+  "la_5fn_wreckage": [
+    {
+      "_extends": "base_la_5fn"
+    },
+    {
+      "_extends": "plane_wreckage"
+    },
+    {
+      "plane_wreckage__nodeName": ""
+    },
+    {
+      "plane_wreckage__typeName": ""
+    }
+  ],
+  "la_5fn_base": [
+    {
+      "_extends": "plane_with_cockpit"
+    },
+    {
+      "_extends": "base_la_5fn"
+    },
+    {
+      "collres__res": "la_5fn_collision"
+    },
+    {
+      "plane_net_phys__blk": "gamedata/units/la_5fn.blk"
+    },
+    {
+      "damage_model__blk": "gamedata/units/la_5fn.blk"
+    },
+    {
+      "plane_collision__blk": "gamedata/units/la_5fn.blk"
+    },
+    {
+      "plane_anim__blk": "gamedata/units/la_5fn.blk"
+    },
+    {
+      "plane_sight__blk": "gamedata/units/la_5fn.blk"
+    },
+    {
+      "canUseRespawnbaseType": "aircraft_fighter"
+    },
+    {
+      "is_seaplane": false
+    },
+    {
+      "plane_wreckage__template": "la_5fn_wreckage"
+    },
+    {
+      "killLogName": "la_5fn"
+    },
+    {
+      "animchar__res": "la_5fn_char"
+    },
+    {
+      "vehicle_seats_camera_nodes__defaultNode": ""
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "animchar_camera_target__node_name": "",
+        "animchar_camera_target__node_offset": [0.0,0.0,0.0]
+      }
+    },
+    {
+      "plane_hit_sound__canopyNodes:list<t>": {
+        "_tags": "sound",
+        "name": "cover2_dm"
+      }
+    },
+    {
+      "vehicle_seats_can_acquire_controls:list<i>": []
+    },
+    {
+      "vehicle_seats__canAcquireControls:shared:object": {
+        "driver:object": {
+          "movement": true,
+          "turrets": true
+        },
+        "main_gunner:object": {
+          "turrets": true
+        }
+      }
+    }
+  ]
+}

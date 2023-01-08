@@ -1,0 +1,222 @@
+{
+  "type_89_127mm_naval_gun_go": {
+    "_extends": "base_ai_gunner_turret",
+    "animchar__res": "type_89_127mm_naval_gun_char",
+    "collres__res": "type_89_127mm_naval_gun_collision",
+    "phys_obj_net_phys__blk": "content/e_ww2_common/gamedata/units/cannons/type_89_127mm_naval_gun.blk",
+    "killLogName": "aircraft_carrier/defence_turret",
+    "turret_control__animVars:shared:array": [
+      {
+        "vars:object": {
+          "curYawParamName": "turret_01_yaw",
+          "curPitchParamName": "gun_01_pitch",
+          "aimActiveParamName": "aim_01_active",
+          "paramYawSpeed": "turret_01_yaw_speed",
+          "wishYawParamName": "gun_01_aim:targetYaw",
+          "paramYawAccel": "turret_01_yaw_accel",
+          "paramPitchSpeed": "gun_01_pitch_speed",
+          "wishPitchParamName": "gun_01_aim:targetPitch",
+          "paramPitchAccel": "gun_01_pitch_accel",
+          "gunRecoilParamName": "gun_01_recoil",
+          "paramMinYawAngle": "turret_01_min_yaw_angle",
+          "paramMaxYawAngle": "turret_01_max_yaw_angle",
+          "paramMinPitchAngle": "turret_01_min_pitch_angle",
+          "paramMaxPitchAngle": "turret_01_max_pitch_angle"
+        }
+      },
+      {
+        "vars:object": {
+          "curYawParamName": "turret_01_yaw",
+          "curPitchParamName": "gun_01_pitch",
+          "gunRecoilParamName": "gun_02_recoil"
+        }
+      }
+    ],
+    "turret_control__turretInfo:shared:array": [
+      {
+        "turretInfo:object": {
+          "turretName": "turret_01",
+          "turretGroup": "main_turrets",
+          "gun": "type_89_127mm_naval_gun_turret_01",
+          "salt": 1
+        }
+      },
+      {
+        "turretInfo:object": {
+          "turretName": "turret_02",
+          "turretGroup": "main_turrets",
+          "gun": "type_89_127mm_naval_gun_turret_02",
+          "salt": 1
+        }
+      }
+    ],
+    "turret_gun_flash_fx__flashNodes:shared:array": [
+      {
+        "node": "emtr_gun_flame_01"
+      },
+      {
+        "node": "emtr_gun_flame_02"
+      }
+    ],
+    "turret_gun_flash_fx__flashFx:shared:array": [
+      {
+        "fx": "muzzle_ground_125mm"
+      },
+      {
+        "fx": "muzzle_ground_125mm"
+      }
+    ],
+    "turret_gun_flash_fx__flashFxScale:shared:array": [
+      {
+        "scale": 1.0
+      },
+      {
+        "scale": 1.0
+      }
+    ],
+    "turret_control__emitterNodes:shared:array": [
+      {
+        "node": "emtr_gun_flame_01"
+      },
+      {
+        "node": "emtr_gun_flame_02"
+      }
+    ]
+  },
+  "type_89_127mm_naval_gun_shield_go": {
+    "_extends": "type_89_127mm_naval_gun_go",
+    "animchar__res": "type_89_127mm_naval_gun_shield_char",
+    "collres__res": "type_89_127mm_naval_gun_shield_collision",
+    "phys_obj_net_phys__blk": "content/e_ww2_common/gamedata/units/cannons/type_89_127mm_naval_gun_shield.blk"
+  },
+  "type_89_127mm_naval_gun_turret_01": {
+    "_extends": "turret_ai_127mm_type89_main",
+    "gun__shootNodeName": "bone_gun_barrel_01"
+  },
+  "type_89_127mm_naval_gun_turret_02": {
+    "_extends": "turret_ai_127mm_type89",
+    "gun__shootNodeName": "bone_gun_barrel_02"
+  },
+  "turret_ai_127mm_type89_main": [
+    {
+      "_extends": "turret_ai_127mm_type89"
+    },
+    {
+      "_extends": "controlled_by_ai_gunner"
+    },
+    {
+      "turret_ai__shootAngleCos": 0.984
+    },
+    {
+      "turret_ai__minWindow": [-0.0,-0.0]
+    },
+    {
+      "turret_ai__maxWindow": [0.0,0.0]
+    },
+    {
+      "turret_ai__amplitude": [5.0,5.0]
+    },
+    {
+      "turret_ai__period": [125.0,41.7]
+    },
+    {
+      "turret_ai__distrTimer": 10.0
+    },
+    {
+      "turret_ai__attackTimerr": 3.0
+    },
+    {
+      "turret_ai__sleepTimer": 1.0
+    },
+    {
+      "turret_ai__pauseTimer": 0.25
+    },
+    {
+      "turret_ai__atackDist": 1500.0
+    },
+    {
+      "turret_ai__limitAngles": [-120.0,120.0,-15.0,85.0]
+    },
+    {
+      "turret_ai__atackMinDist:r": {
+        "_tags": "server",
+        "value": 300.0
+      }
+    }
+  ],
+  "turret_ai_127mm_type89": [
+    {
+      "_extends": "tankgun"
+    },
+    {
+      "_extends": "base_tankgun_cannon"
+    },
+    {
+      "_extends": "base_127mm_type89"
+    },
+    {
+      "_extends": "gunsound_128mm_pak44"
+    },
+    {
+      "turret__triggerGroup": 0
+    },
+    {
+      "turret__aimNodeName": "bone_turret"
+    },
+    {
+      "turret__yawSpeed": 12.0
+    },
+    {
+      "turret__pitchSpeed": 12.0
+    },
+    {
+      "turret__limit": [-90.0,90.0,-7.0,90.0]
+    },
+    {
+      "turret_ai__automatic:tag": {
+        "_tags": "server"
+      }
+    },
+    {
+      "turret_serverAim:tag": {
+        "_tags": "server"
+      }
+    }
+  ],
+  "base_127mm_type89": {
+    "gun__blk": "gamedata/gen/weapons/127mm_type89.blk",
+    "gun__locName": "127mm_type89",
+    "item__name": "guns/127mm_type89",
+    "gun__shotFreq": 0.2333,
+    "gun__overheatPerShot": 0.0,
+    "gun_spread__maxDeltaAngle": 0.185,
+    "gun_deviation__omegaRange": [30.0,90.0],
+    "gun_deviation__omegaDevInc": [0.07,0.5],
+    "gun_deviation__movementRange": [3.0,5.0],
+    "gun_deviation__movementDevInc": [0.0,6.0],
+    "gun_deviation__onShotDeviationChange": 0.3,
+    "gun_deviation__maxDeviation": 30.0,
+    "gun__fuzeDistance": 0.0,
+    "gun__projectileTemplate": "bullet_projectile+disable_ricochet+projectile_time_fuse",
+    "gun__shellsAmmo:array": {
+      "ammo": 900000
+    },
+    "gun__firingModes:array": {
+      "mode:object": {
+        "modeType": "automatic"
+      }
+    },
+    "gun__firingModeNames:array": {
+      "mode": "automatic"
+    },
+    "gun__ammoSetsInfo:shared:array": {
+      "defaultSet:array": {
+        "shell:object": {
+          "blk": "gamedata/gen/weapons/shells/127mm_type_89_he_dist_fuse.blk",
+          "name": "127mm_type_0_aa",
+          "type": "he_frag_dist_fuse"
+        }
+      }
+    }
+  }
+}

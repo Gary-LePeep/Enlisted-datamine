@@ -1,0 +1,431 @@
+[
+  {
+    "orderedSelector": [
+      {
+        "name": "sub.personalOrderPointMove"
+      },
+      {
+        "reaction": {
+          "event": "onBulletNearby",
+          "sequencer": {
+            "periodicTimer": {
+              "timeParam": "onBulletNearbyTimer",
+              "timePeriod": [2.0,4.0]
+            },
+            "recalculateTree": []
+          }
+        }
+      },
+      {
+        "reaction": {
+          "event": "onEnemyPlayerNear",
+          "sequencer": {
+            "findDanger": {
+              "paramName": "shootEnemy",
+              "radiusParamName": "enemyDefendRadius",
+              "minDanger": 0.1,
+              "tag": "human"
+            },
+            "recalculateTree": []
+          }
+        }
+      },
+      {
+        "reaction": {
+          "event": "regularCheck",
+          "repeat": [
+            {
+              "count": 1
+            },
+            {
+              "subTree": {
+                "name": "",
+                "treeName": "sub.chooseMaxStance"
+              }
+            },
+            {
+              "subTree": {
+                "name": "",
+                "treeName": "sub.deactivateWeapMod"
+              }
+            },
+            {
+              "subTree": {
+                "name": "",
+                "treeName": "sub.checkDowned"
+              }
+            },
+            {
+              "subTree": {
+                "name": "",
+                "treeName": "sub.checkBurning"
+              }
+            },
+            {
+              "subTree": {
+                "name": "",
+                "treeName": "sub.swimUpCheck"
+              }
+            },
+            {
+              "subTree": {
+                "name": "",
+                "treeName": "sub.tryToOpenDoors"
+              }
+            },
+            {
+              "subTree": {
+                "name": "",
+                "treeName": "sub.findDangerGrenade"
+              }
+            },
+            {
+              "subTree": {
+                "name": "",
+                "treeName": "sub.findDangerZone"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.defendPointMoveToPosition"
+        }
+      }
+    ]
+  },
+  {
+    "orderedSelector": [
+      {
+        "name": "sub.personalOrderPointStay"
+      },
+      {
+        "reaction": {
+          "event": "onBulletNearby",
+          "sequencer": {
+            "recalculateTree": []
+          }
+        }
+      },
+      {
+        "reaction": {
+          "event": "onTraceableDanger",
+          "subTree": {
+            "name": "",
+            "treeName": "sub.stayTraceableDangerCheck"
+          }
+        }
+      },
+      {
+        "reaction": {
+          "event": "onEnemyPlayerNear",
+          "sequencer": {
+            "findDanger": {
+              "paramName": "shootEnemy",
+              "radiusParamName": "enemyDefendRadius",
+              "minDanger": 0.1,
+              "tag": "human"
+            },
+            "recalculateTree": []
+          }
+        }
+      },
+      {
+        "reaction": {
+          "event": "regularCheck",
+          "repeat": [
+            {
+              "count": 1
+            },
+            {
+              "subTree": {
+                "name": "",
+                "treeName": "sub.chooseMaxStance"
+              }
+            },
+            {
+              "subTree": {
+                "name": "",
+                "treeName": "sub.deactivateWeapMod"
+              }
+            },
+            {
+              "subTree": {
+                "name": "",
+                "treeName": "sub.checkDowned"
+              }
+            },
+            {
+              "subTree": {
+                "name": "",
+                "treeName": "sub.checkBurning"
+              }
+            },
+            {
+              "subTree": {
+                "name": "",
+                "treeName": "sub.swimUpCheck"
+              }
+            },
+            {
+              "subTree": {
+                "name": "",
+                "treeName": "sub.tryToOpenDoors"
+              }
+            },
+            {
+              "subTree": {
+                "name": "",
+                "treeName": "sub.findDangerGrenade"
+              }
+            },
+            {
+              "subTree": {
+                "name": "",
+                "treeName": "sub.findDangerZone"
+              }
+            },
+            {
+              "subTree": {
+                "name": "",
+                "treeName": "sub.stayFindDangerCheck"
+              }
+            },
+            {
+              "subTree": {
+                "name": "",
+                "treeName": "sub.changeStanceWhenInTheSquadLeaderAim"
+              }
+            },
+            {
+              "subTree": {
+                "name": "",
+                "treeName": "sub.stayRegroupCheck"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.stayAtPos"
+        }
+      }
+    ]
+  },
+  {
+    "repeat": [
+      {
+        "name": "sub.personalOrder"
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.chooseMaxStance"
+        }
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.deactivateWeapMod"
+        }
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.swimUp"
+        }
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.selfExtinguish"
+        }
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.selfHealing"
+        }
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.dmgZoneEscape"
+        }
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.rethrowGrenade"
+        }
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.grenadeEscape"
+        }
+      },
+      {
+        "orderedSelector": [
+          {
+            "name": "attack"
+          },
+          {
+            "subTree": {
+              "name": "",
+              "treeName": "sub.enemyMelee"
+            }
+          },
+          {
+            "sequencer": {
+              "findDanger": {
+                "paramName": "shootEnemy",
+                "radiusParamName": "enemyDefendRadius",
+                "minDanger": 0.1,
+                "tag": "human"
+              },
+              "subTree": {
+                "treeName": "sub.oneShootAttack"
+              }
+            }
+          },
+          {
+            "sequencer": [
+              {
+                "orderedSelector": {
+                  "isVarsIntEqual": {
+                    "lhs": "isOnDefendPoint",
+                    "rhs_value": 1
+                  },
+                  "wasAttackedRecently": {
+                    "targetUnitParam": "shootEnemy"
+                  }
+                }
+              },
+              {
+                "orderedSelector": [
+                  {
+                    "sequencer": {
+                      "findDanger": {
+                        "paramName": "shootEnemy",
+                        "radiusParamName": "enemyNearRadius",
+                        "minDanger": 0.1,
+                        "tag": "human"
+                      },
+                      "subTree": {
+                        "treeName": "sub.oneShootAttack"
+                      }
+                    }
+                  },
+                  {
+                    "sequencer": {
+                      "findDanger": {
+                        "paramName": "shootEnemy",
+                        "radiusParamName": "enemyRadius",
+                        "minDanger": 0.1,
+                        "tag": "human"
+                      },
+                      "subTree": {
+                        "treeName": "sub.oneShootAttack"
+                      },
+                      "parallel": {
+                        "wait": {
+                          "range": [0.5,1.0],
+                          "resetable": true
+                        },
+                        "sequencer": {
+                          "checkAtTime": {
+                            "timeParam": "rememberEnemyTime",
+                            "range": [0.0,10.0]
+                          },
+                          "checkTarget": {
+                            "targetUnitParam": "rememberEnemy"
+                          },
+                          "wanderLook": {
+                            "posParam": "rememberEnemyPos",
+                            "range": [0.2,0.1],
+                            "maxStanceParam": "coverStance"
+                          }
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "getRegroupPos": {
+          "posParam": "regroupPosition"
+        }
+      },
+      {
+        "copyPoint3Var": {
+          "from": "regroupPosition",
+          "to": "storedRegroupPosition"
+        }
+      },
+      {
+        "sequencer": [
+          {
+            "name": "follow_position"
+          },
+          {
+            "orderedSelector": {
+              "sequencer": [
+                {
+                  "isVarsIntEqual": {
+                    "lhs": "isInShootState",
+                    "rhs_value": 1
+                  }
+                },
+                {
+                  "initPeriodicTimer": {
+                    "timeParam": "onBulletNearbyTimer",
+                    "timePeriod": [2.0,4.0]
+                  }
+                },
+                {
+                  "initPeriodicTimer": {
+                    "timeParam": "onTraceableDangerTimer",
+                    "timePeriod": [2.0,4.0]
+                  }
+                },
+                {
+                  "initPeriodicTimer": {
+                    "timeParam": "onFollowPosFindDangerTimer",
+                    "timePeriod": [2.0,4.0]
+                  }
+                }
+              ],
+              "continue": []
+            }
+          },
+          {
+            "setCurrentAiAction": {
+              "state": "move"
+            }
+          },
+          {
+            "subTree": {
+              "name": "",
+              "treeName": "sub.personalOrderPointMove"
+            }
+          },
+          {
+            "subTree": {
+              "name": "",
+              "treeName": "sub.personalOrderPointStay"
+            }
+          }
+        ]
+      }
+    ]
+  }
+]

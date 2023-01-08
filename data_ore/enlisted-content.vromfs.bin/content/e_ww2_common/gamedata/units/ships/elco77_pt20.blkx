@@ -1,0 +1,150 @@
+{
+  "ShipPhys": {
+    "mass": {
+      "Empty": 31500.0,
+      "momentOfInertia": [9.0,27.0,15.0],
+      "CenterOfGravity": [-1.8,-0.5,0.0]
+    },
+    "settings": {
+      "speedLossOnManeuver": 0.15
+    },
+    "engines": [
+      {
+        "maxSpeed": 21.1
+      },
+      {
+        "maxReverseSpeed": 7.0
+      },
+      {
+        "speedToTime": [
+          {
+            "row": [5.0,2.5]
+          },
+          {
+            "row": [10.0,4.5]
+          },
+          {
+            "row": [21.1,8.5]
+          }
+        ]
+      },
+      {
+        "reverseSpeedToTime": [
+          {
+            "row": [2.0,1.3]
+          },
+          {
+            "row": [4.0,2.3]
+          },
+          {
+            "row": [7.0,5.0]
+          }
+        ]
+      },
+      {
+        "engine": {
+          "pos": [-11.0,-1.0,1.0],
+          "outputParam": "propeller_rotate_01:CRS",
+          "engineDmPart": "engine_01_dm",
+          "transmissionDmPart": "transmission_01_dm",
+          "propeller": "propeller_01"
+        }
+      },
+      {
+        "engine": {
+          "pos": [-11.1,-1.0,0.0],
+          "outputParam": "propeller_rotate_02:CRS",
+          "engineDmPart": "engine_02_dm",
+          "transmissionDmPart": "transmission_02_dm",
+          "propeller": "propeller_02"
+        }
+      },
+      {
+        "engine": {
+          "pos": [-11.0,-1.0,-1.0],
+          "outputParam": "propeller_rotate_03:CRS",
+          "engineDmPart": "engine_03_dm",
+          "transmissionDmPart": "transmission_03_dm",
+          "propeller": "propeller_03"
+        }
+      }
+    ],
+    "collisionProps": {
+      "cls_body_01": "convex_hull",
+      "cls_body_02": "convex_hull",
+      "cls_tt_01": "convex_hull",
+      "cls_tt_02": "convex_hull",
+      "cls_tt_03": "convex_hull",
+      "cls_tt_04": "convex_hull",
+      "cls_turret_01": "convex_hull",
+      "cls_turret_02": "convex_hull"
+    },
+    "hydrodynamics": [
+      {
+        "bodyArea": 0.0
+      },
+      {
+        "rudder": {
+          "pos": [-11.5,-0.5,1.0],
+          "area": 0.5,
+          "deflection": 38.0,
+          "dmPart": "steering_gear_01_dm"
+        }
+      },
+      {
+        "rudder": {
+          "pos": [-11.5,-0.5,0.0],
+          "area": 0.5,
+          "deflection": 38.0,
+          "dmPart": "steering_gear_01_dm"
+        }
+      },
+      {
+        "rudder": {
+          "pos": [-11.5,-0.5,-1.0],
+          "area": 0.5,
+          "deflection": 38.0,
+          "dmPart": "steering_gear_01_dm"
+        }
+      },
+      {
+        "hydrofoils": [
+          {
+            "hydrofoil": {
+              "euler": [-1.1,90.0,18.0],
+              "pos": [5.9,-0.9,-0.9],
+              "size": [1.3,2.65],
+              "maxV": 55.0,
+              "polar": {
+                "Cl0": 0.066,
+                "CdMin": 0.0016,
+                "lineClCoeff": 0.046,
+                "ClCritHigh": 0.7,
+                "ClCritLow": -0.62,
+                "alphaCritHigh": 5.0,
+                "alphaCritLow": -4.0
+              }
+            }
+          },
+          {
+            "hydrofoil": {
+              "euler": [1.1,-90.0,18.0],
+              "pos": [5.9,-0.9,0.9],
+              "size": [1.3,2.65],
+              "maxV": 55.0,
+              "polar": {
+                "Cl0": 0.066,
+                "CdMin": 0.0016,
+                "lineClCoeff": 0.046,
+                "ClCritHigh": 0.7,
+                "ClCritLow": -0.62,
+                "alphaCritHigh": 5.0,
+                "alphaCritLow": -4.0
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

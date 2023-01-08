@@ -1,0 +1,67 @@
+{
+  "mass": 0.0105,
+  "caliber": 0.0077,
+  "speed": 730.0,
+  "Cx": 0.38,
+  "maxDistance": 2500.0,
+  "normalizationPreset": "default",
+  "modelName": "tank_bullet_ball",
+  "ricochetPreset": "default",
+  "stabilityThreshold": 0.05,
+  "recoilMultiplier": 0.35,
+  "stabilityCaliberToArmorThreshold": 5.0,
+  "stabilityReductionAfterRicochet": 0.5,
+  "hitPowerMult": 2.5,
+  "stabilityReductionAfterPenetration": 0.3,
+  "onHitChanceMultFire": 4.0,
+  "slopeEffectPreset": "ap",
+  "effectiveDistance": 400.0,
+  "relativeVelHitShift": [300.0,1000.0],
+  "explodeTreshold": 3.0,
+  "explodeHitPower": 5.5,
+  "explodeRadius": [0.03,0.035],
+  "relativeVelArmorShift": [200.0,1000.0],
+  "groundCollisionEffect": "hit_8_11mm_dirt_he",
+  "ricochetEffect": "hit_8_11mm_metal_he",
+  "waterCollisionEffect": "hit_8_11mm_water",
+  "stabilityRicochetModifier": [
+    {
+      "mod1": [0.0,0.05]
+    },
+    {
+      "mod2": [20.0,0.1]
+    },
+    {
+      "mod3": [30.0,0.2]
+    },
+    {
+      "mod3": [45.0,0.3]
+    }
+  ],
+  "hitpower": {
+    "HitPower10m": [1.45,10.0],
+    "HitPower100m": [1.43,100.0],
+    "HitPower200m": [1.37,300.0],
+    "HitPower400m": [1.2,400.0],
+    "HitPower600m": [1.1,600.0],
+    "HitPower1000m": [0.2,1000.0],
+    "HitPower1500m": [0.01,1500.0]
+  },
+  "visual": {
+    "range_percent_of_ammo": [100.0,0.0],
+    "traceFreq": 1,
+    "tracer": "noColor"
+  },
+  "armorpower": {
+    "ArmorPower0m": [3.5,5.0],
+    "ArmorPower100m": [3.3,100.0],
+    "ArmorPower500m": [3.2,500.0],
+    "ArmorPower1000m": [3.0,1000.0],
+    "ArmorPower1450m": [0.1,1450.0],
+    "ArmorPower1500m": [0.0,1500.0]
+  },
+  "tracer": {
+    "headColor": "#00000000",
+    "smokeColor": "#00000000"
+  }
+}

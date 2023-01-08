@@ -1,0 +1,91 @@
+{
+  "base_spitfire_vc": {
+    "plane_phys_damage__blk": "content/enlisted/gamedata/units/spitfire_vc.blk",
+    "animchar__res": "spitfire_mk5c_char"
+  },
+  "spitfire_vc_wreckage": [
+    {
+      "_extends": "base_spitfire_vc"
+    },
+    {
+      "_extends": "plane_wreckage"
+    },
+    {
+      "plane_wreckage__nodeName": ""
+    },
+    {
+      "plane_wreckage__typeName": ""
+    }
+  ],
+  "spitfire_vc_base": [
+    {
+      "_extends": "plane_with_cockpit"
+    },
+    {
+      "_extends": "base_spitfire_vc"
+    },
+    {
+      "collres__res": "spitfire_mk5c_collision"
+    },
+    {
+      "plane_net_phys__blk": "content/enlisted/gamedata/units/spitfire_vc.blk"
+    },
+    {
+      "damage_model__blk": "content/enlisted/gamedata/units/spitfire_vc.blk"
+    },
+    {
+      "plane_collision__blk": "content/enlisted/gamedata/units/spitfire_vc.blk"
+    },
+    {
+      "plane_anim__blk": "content/enlisted/gamedata/units/spitfire_vc.blk"
+    },
+    {
+      "plane_sight__blk": "content/enlisted/gamedata/units/spitfire_vc.blk"
+    },
+    {
+      "canUseRespawnbaseType": "aircraft_fighter"
+    },
+    {
+      "is_seaplane": false
+    },
+    {
+      "plane_wreckage__template": "spitfire_vc_wreckage"
+    },
+    {
+      "killLogName": "spitfire_mk5c"
+    },
+    {
+      "animchar__res": "spitfire_mk5c_char"
+    },
+    {
+      "vehicle_seats_camera_nodes__defaultNode": ""
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "animchar_camera_target__node_name": "",
+        "animchar_camera_target__node_offset": [0.0,0.0,0.0]
+      }
+    },
+    {
+      "plane_hit_sound__canopyNodes:list<t>": {
+        "_tags": "sound",
+        "name": "cover1_dm"
+      }
+    },
+    {
+      "vehicle_seats_can_acquire_controls:list<i>": []
+    },
+    {
+      "vehicle_seats__canAcquireControls:shared:object": {
+        "driver:object": {
+          "movement": true,
+          "turrets": true
+        },
+        "main_gunner:object": {
+          "turrets": true
+        }
+      }
+    }
+  ]
+}

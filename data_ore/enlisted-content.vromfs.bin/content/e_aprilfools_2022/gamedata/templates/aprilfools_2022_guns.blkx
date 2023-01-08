@@ -1,0 +1,1132 @@
+{
+  "import": "#content/e_ww2_common/gamedata/templates/ww2_guns.blk",
+  "gun_overheat_visual": {
+    "_group": {
+      "_tags": "gameClient",
+      "gun__overheatPhysVarName": "overheat",
+      "gun__overheatVarId": -1,
+      "gun__overheatLastVisualVal": 0.0,
+      "gun__overheadIndicatorMax": 355.0
+    }
+  },
+  "gun_overheat": [
+    {
+      "_extends": "gun_overheat_speech_enable"
+    },
+    {
+      "gun__isOverheat": false
+    },
+    {
+      "gun__overheat": 0.0
+    },
+    {
+      "gun__overheatReduce": 0.05
+    },
+    {
+      "gun__overheatReduceOnOverheat": 0.33
+    },
+    {
+      "gun__overheatPerShot": 0.1
+    },
+    {
+      "_replicated": "gun__overheat"
+    },
+    {
+      "_replicated": "gun__isOverheat"
+    },
+    {
+      "_tracked": "gun__isOverheat"
+    }
+  ],
+  "infinite_magazine": {
+    "_extends": "item_magazine",
+    "ammo_holder__templateName": "infinite_magazine",
+    "ammo_holder__ammoCount": 100000,
+    "item__proto": "infinite_magazine",
+    "animchar__res": "gewehr_43_ammo_char",
+    "collres__res": "gewehr_41_ammo_collision"
+  },
+  "blaster_base": [
+    {
+      "_extends": "gun_overheat"
+    },
+    {
+      "_extends": "gun_overheat_visual"
+    },
+    {
+      "gun__overheatReduce": 0.0
+    },
+    {
+      "gun__overheatReduceOnOverheat": 2.0
+    },
+    {
+      "gun__overheatPerShot": 0.3
+    },
+    {
+      "gun__zeroingDistance": 10.0
+    },
+    {
+      "gun__ignoreWeaponVelocity": true
+    },
+    {
+      "weap__sprintLerpFactor": 1.0
+    },
+    {
+      "gun_deviation__omegaRange": [0.0,0.0]
+    },
+    {
+      "gun_deviation__omegaDevInc": [0.0,0.0]
+    },
+    {
+      "gun_deviation__movementRange": [0.0,0.0]
+    },
+    {
+      "gun_deviation__movementDevInc": [0.0,0.0]
+    },
+    {
+      "gun__shotFreq": 9.0
+    },
+    {
+      "gun__firingModes:array": {
+        "mode:object": {
+          "modeType": "burst",
+          "burstSize": 4
+        }
+      }
+    },
+    {
+      "gun__firingModeNames:array": {
+        "mode": "semi_auto"
+      }
+    }
+  ],
+  "blaster_gun_base": [
+    {
+      "_extends": "space_blaster_muzzle_preset"
+    },
+    {
+      "_extends": "riffle_gun_aim_sound"
+    },
+    {
+      "gun__recoilAmount": 0.0
+    },
+    {
+      "gun__visualRecoilMult": 10000.0
+    },
+    {
+      "gun_shell_ejection__expireTime": 0.0
+    },
+    {
+      "gun_mods__slots:object": {
+        "scope:object": {
+          "scope_pulsar_n870": "scope_pulsar_n870"
+        }
+      }
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "gun_sound__forceOneshot": true
+      }
+    },
+    {
+      "gun_sound__shotPath:shared:object": {
+        "_tags": "sound",
+        "hero": "events/moonbase/player/weapon/laser_rifle",
+        "enemy": "events/moonbase/enemy/weapon/laser_rifle"
+      }
+    },
+    {
+      "sound_irqs:shared:object": {
+        "_tags": "sound",
+        "reload1:object": {
+          "hero": "events/moonbase/player/weapon/laser_rifle/reload1/change_ammo",
+          "enemy": "enemy/weapon/rifle/svt40/reload1/change_ammo"
+        },
+        "reload2:object": {
+          "hero": "events/moonbase/player/weapon/laser_rifle/reload2/change_ammo",
+          "enemy": "enemy/weapon/rifle/svt40/reload2/change_ammo"
+        },
+        "reload3:object": {
+          "hero": "events/moonbase/player/weapon/laser_rifle/reload3/change_ammo",
+          "enemy": "enemy/weapon/rifle/svt40/reload3/change_ammo"
+        },
+        "reload4:object": {
+          "hero": "events/moonbase/player/weapon/laser_rifle/reload4/change_ammo",
+          "enemy": "enemy/weapon/rifle/svt40/reload4/change_ammo"
+        },
+        "boltAction:object": {
+          "hero": "events/moonbase/player/weapon/laser_rifle/bolt_action",
+          "enemy": "enemy/weapon/rifle/svt40/bolt_action"
+        }
+      }
+    },
+    {
+      "gun__ammoHolders:array": {
+        "ammoHolders": "infinite_magazine"
+      }
+    },
+    {
+      "gun__shells:array": {
+        "shells": "content/e_aprilfools_2022/gamedata/weapons/bullets/blaster_bullet.blk"
+      }
+    }
+  ],
+  "blaster_ussr": {
+    "_extends": "blaster_base",
+    "animchar__res": "first_april_skt40_char",
+    "item__name": "items/blaster_ussr",
+    "item__template": "blaster_ussr_gun_item",
+    "item__weapTemplate": "blaster_ussr_gun",
+    "gun__blk": "content/e_aprilfools_2022/gamedata/weapons/blaster_ussr.blk",
+    "item__proto": "content/e_aprilfools_2022/gamedata/weapons/blaster_ussr.blk"
+  },
+  "blaster_ussr_gun": [
+    {
+      "_extends": "skt_40_gun"
+    },
+    {
+      "_extends": "blaster_gun_base"
+    },
+    {
+      "_extends": "blaster_ussr"
+    }
+  ],
+  "blaster_germany": {
+    "_extends": "blaster_base",
+    "animchar__res": "first_april_gewehr_char",
+    "item__name": "items/blaster_germany",
+    "item__template": "blaster_germany_gun_item",
+    "item__weapTemplate": "blaster_germany_gun",
+    "gun__blk": "content/e_aprilfools_2022/gamedata/weapons/blaster_germany.blk",
+    "item__proto": "content/e_aprilfools_2022/gamedata/weapons/blaster_germany.blk"
+  },
+  "blaster_germany_gun": [
+    {
+      "_extends": "gewehr_43_gun"
+    },
+    {
+      "_extends": "blaster_gun_base"
+    },
+    {
+      "_extends": "blaster_germany"
+    }
+  ],
+  "blaster_usa": {
+    "_extends": "blaster_base",
+    "animchar__res": "first_april_m1941_johnson_char",
+    "item__name": "items/blaster_usa",
+    "item__template": "blaster_usa_gun_item",
+    "item__weapTemplate": "blaster_usa_gun",
+    "gun__blk": "content/e_aprilfools_2022/gamedata/weapons/blaster_usa.blk",
+    "item__proto": "content/e_aprilfools_2022/gamedata/weapons/blaster_usa.blk"
+  },
+  "blaster_usa_gun": [
+    {
+      "_extends": "m1941_johnson_gun"
+    },
+    {
+      "_extends": "blaster_gun_base"
+    },
+    {
+      "_extends": "blaster_usa"
+    }
+  ],
+  "blaster_pistol_base": [
+    {
+      "_extends": "gun_overheat"
+    },
+    {
+      "_extends": "gun_overheat_visual"
+    },
+    {
+      "_extends": "riffle_gun_aim_sound"
+    },
+    {
+      "gun__overheatReduce": 0.05
+    },
+    {
+      "gun__overheatReduceOnOverheat": 0.5
+    },
+    {
+      "gun__overheatPerShot": 0.1
+    },
+    {
+      "gun__ignoreWeaponVelocity": true
+    },
+    {
+      "weap__sprintLerpFactor": 1.0
+    },
+    {
+      "gun__shotFreq": 8.0
+    },
+    {
+      "gun__firingModes:array": {
+        "mode:object": {
+          "modeType": "burst",
+          "burstSize": 1
+        }
+      }
+    },
+    {
+      "gun__firingModeNames:array": {
+        "mode": "semi_auto"
+      }
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "gun_sound__forceOneshot": true
+      }
+    },
+    {
+      "gun_sound__shotPath:shared:object": {
+        "_tags": "sound",
+        "hero": "events/moonbase/player/weapon/laser_mg",
+        "enemy": "events/moonbase/enemy/weapon/laser_mg"
+      }
+    },
+    {
+      "sound_irqs:shared:object": {
+        "_tags": "sound",
+        "reload1:object": {
+          "hero": "events/moonbase/player/weapon/laser_rifle/reload1/change_ammo",
+          "enemy": "enemy/weapon/rifle/svt40/reload1/change_ammo"
+        },
+        "reload2:object": {
+          "hero": "events/moonbase/player/weapon/laser_rifle/reload2/change_ammo",
+          "enemy": "enemy/weapon/rifle/svt40/reload2/change_ammo"
+        },
+        "reload3:object": {
+          "hero": "events/moonbase/player/weapon/laser_rifle/reload3/change_ammo",
+          "enemy": "enemy/weapon/rifle/svt40/reload3/change_ammo"
+        },
+        "reload4:object": {
+          "hero": "events/moonbase/player/weapon/laser_rifle/reload4/change_ammo",
+          "enemy": "enemy/weapon/rifle/svt40/reload4/change_ammo"
+        },
+        "boltAction:object": {
+          "hero": "events/moonbase/player/weapon/laser_rifle/bolt_action",
+          "enemy": "enemy/weapon/rifle/svt40/bolt_action"
+        }
+      }
+    },
+    {
+      "gun__ammoHolders:array": {
+        "ammoHolders": "infinite_magazine"
+      }
+    }
+  ],
+  "blaster_pistol_ussr": {
+    "_extends": "blaster_pistol_base",
+    "animchar__res": "first_april_tt_33_char",
+    "item__name": "items/blaster_pistol_ussr",
+    "item__template": "blaster_pistol_ussr_gun_item",
+    "item__weapTemplate": "blaster_pistol_ussr_gun",
+    "gun__blk": "content/e_aprilfools_2022/gamedata/weapons/blaster_pistol_ussr.blk",
+    "item__proto": "content/e_aprilfools_2022/gamedata/weapons/blaster_pistol_ussr.blk"
+  },
+  "blaster_pistol_ussr_gun": [
+    {
+      "_extends": "tt_33_gun"
+    },
+    {
+      "_extends": "blaster_gun_base"
+    },
+    {
+      "_extends": "blaster_pistol_ussr"
+    }
+  ],
+  "blaster_pistol_germany": {
+    "_extends": "blaster_pistol_base",
+    "animchar__res": "first_april_mauser_c96_char",
+    "item__name": "items/blaster_pistol_germany",
+    "item__template": "blaster_pistol_germany_gun_item",
+    "item__weapTemplate": "blaster_pistol_germany_gun",
+    "gun__blk": "content/e_aprilfools_2022/gamedata/weapons/blaster_pistol_germany.blk",
+    "item__proto": "content/e_aprilfools_2022/gamedata/weapons/blaster_pistol_germany.blk"
+  },
+  "blaster_pistol_germany_gun": [
+    {
+      "_extends": "mauser_c96_gun"
+    },
+    {
+      "_extends": "blaster_gun_base"
+    },
+    {
+      "_extends": "blaster_pistol_germany"
+    }
+  ],
+  "blaster_pistol_usa": {
+    "_extends": "blaster_pistol_base",
+    "animchar__res": "first_april_m_1911_colt_a1_char",
+    "item__name": "items/blaster_pistol_usa",
+    "item__template": "blaster_pistol_usa_gun_item",
+    "item__weapTemplate": "blaster_pistol_usa_gun",
+    "gun__blk": "content/e_aprilfools_2022/gamedata/weapons/blaster_pistol_usa.blk",
+    "item__proto": "content/e_aprilfools_2022/gamedata/weapons/blaster_pistol_usa.blk"
+  },
+  "blaster_pistol_usa_gun": [
+    {
+      "_extends": "m1911_colt_gun"
+    },
+    {
+      "_extends": "blaster_gun_base"
+    },
+    {
+      "_extends": "blaster_pistol_usa"
+    }
+  ],
+  "blaster_auto_base": [
+    {
+      "_extends": "gun_delayed_shot_sound"
+    },
+    {
+      "_extends": "gun_overheat"
+    },
+    {
+      "_extends": "gun_overheat_visual"
+    },
+    {
+      "gun__overheatReduce": 0.02
+    },
+    {
+      "gun__overheatReduceOnOverheat": 2.0
+    },
+    {
+      "gun__overheatPerShot": 0.02
+    },
+    {
+      "gun__shotFreq": 10.0
+    },
+    {
+      "gun__ignoreWeaponVelocity": true
+    },
+    {
+      "gun_delayed_shot__holdTriggerDelay": 2.0
+    },
+    {
+      "gun_delayed_shot__delayTime": -1.0
+    },
+    {
+      "gun__firingModes:array": {
+        "mode:object": {
+          "modeType": "burst",
+          "burstSize": 50
+        }
+      }
+    },
+    {
+      "gun__firingModeNames:array": {
+        "mode": "semi_auto"
+      }
+    },
+    {
+      "gun__shells:array": {
+        "shells": "content/e_aprilfools_2022/gamedata/weapons/bullets/blaster_bullet_light.blk"
+      }
+    },
+    {
+      "skip_common_weap_phys_update:tag": []
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "gun_delayed_shot_sound__path": "events/moonbase/player/weapon/railgun/shot_accum",
+        "gun_delayed_shot_sound__cooldown": 0.1
+      }
+    }
+  ],
+  "blaster_auto_ussr": {
+    "_extends": "blaster_auto_base",
+    "animchar__res": "first_april_dt_29_char",
+    "item__name": "items/blaster_auto_ussr",
+    "item__template": "blaster_auto_ussr_gun_item",
+    "item__weapTemplate": "blaster_auto_ussr_gun",
+    "gun__blk": "content/e_aprilfools_2022/gamedata/weapons/blaster_auto_ussr.blk",
+    "item__proto": "content/e_aprilfools_2022/gamedata/weapons/blaster_auto_ussr.blk"
+  },
+  "blaster_auto_ussr_gun": [
+    {
+      "_extends": "dt_29_gun"
+    },
+    {
+      "_extends": "blaster_gun_base"
+    },
+    {
+      "_extends": "blaster_auto_ussr"
+    }
+  ],
+  "blaster_auto_germany": {
+    "_extends": "blaster_auto_base",
+    "animchar__res": "first_april_mg_42_char",
+    "item__name": "items/blaster_auto_germany",
+    "item__template": "blaster_auto_germany_gun_item",
+    "item__weapTemplate": "blaster_auto_germany_gun",
+    "gun__blk": "content/e_aprilfools_2022/gamedata/weapons/blaster_auto_germany.blk",
+    "item__proto": "content/e_aprilfools_2022/gamedata/weapons/blaster_auto_germany.blk"
+  },
+  "blaster_auto_germany_gun": [
+    {
+      "_extends": "mg_42_handheld_gun"
+    },
+    {
+      "_extends": "blaster_gun_base"
+    },
+    {
+      "_extends": "blaster_auto_germany"
+    }
+  ],
+  "blaster_auto_usa": {
+    "_extends": "blaster_auto_base",
+    "animchar__res": "first_april_browning_m_1918_char",
+    "item__name": "items/blaster_auto_usa",
+    "item__template": "blaster_auto_usa_gun_item",
+    "item__weapTemplate": "blaster_auto_usa_gun",
+    "gun__blk": "content/e_aprilfools_2022/gamedata/weapons/blaster_auto_usa.blk",
+    "item__proto": "content/e_aprilfools_2022/gamedata/weapons/blaster_auto_usa.blk"
+  },
+  "blaster_auto_usa_gun": [
+    {
+      "_extends": "browning_m1918_gun"
+    },
+    {
+      "_extends": "blaster_gun_base"
+    },
+    {
+      "_extends": "blaster_auto_usa"
+    }
+  ],
+  "lightthrower_base": [
+    {
+      "_extends": "gun_overheat"
+    },
+    {
+      "_extends": "gun_overheat_visual"
+    },
+    {
+      "gun__overheatReduce": 0.2
+    },
+    {
+      "gun__overheatReduceOnOverheat": 0.5
+    },
+    {
+      "gun__overheatPerShot": 0.01
+    },
+    {
+      "weap__sprintLerpFactor": 1.0
+    }
+  ],
+  "lightthrower_gun_base": {
+    "_extends": "antivehicle_gun_aim_sound",
+    "flamethrower__flameStreamRadius": 0.01,
+    "flamethrower__flameCloudRadius": 0.02,
+    "flamethrower__streamDamagePerSecond": 50.0,
+    "flamethrower__cloudDamagePerSecond": 0.0,
+    "flamethrower__maxFlameLengthTime": 0.1,
+    "flamethrower__maxFlameLength": 40.0,
+    "gun__recoilAmount": 0.0,
+    "flamethrower__fireTemplate": "",
+    "flamethrower__streamEffectTemplate": "event_foolmoon_energy_muzzle_effect",
+    "gun__magnification": 1.5,
+    "meleeSoundType": "rifle",
+    "flamethrower__hitEffectTemplate": "event_foolmoon_energy_hit",
+    "flamethrower__hitAnything": false,
+    "_tracked": "flamethrower__hitAnything",
+    "_replicated": "flamethrower__hitAnything",
+    "gun_shell_ejection__expireTime": 0.0,
+    "beamTime": 2.5,
+    "beamRadius": 5.0,
+    "beamColor": [0.0,10.0,10.0,0.005],
+    "beamFadeDist": 0.0,
+    "beamBeginFadeTime": 0.1,
+    "beamEndFadeTime": 3.0,
+    "beamScrollSpeed": 0.1,
+    "flamethrower__hitEffectEid:eid": [],
+    "gun_sound__shotPath:shared:object": {
+      "_tags": "sound",
+      "hero": "events/moonbase/player/weapon/laser_pp",
+      "enemy": "events/moonbase/enemy/weapon/laser_pp"
+    },
+    "sound_irqs:shared:object": {
+      "_tags": "sound",
+      "reload1:object": {
+        "hero": "events/moonbase/player/weapon/laser_pp/reload1/change_ammo",
+        "enemy": "enemy/weapon/misc/flamethrower/reload1/change_ammo"
+      },
+      "reload2:object": {
+        "hero": "events/moonbase/player/weapon/laser_pp/reload2/change_ammo",
+        "enemy": "enemy/weapon/misc/flamethrower/reload2/change_ammo"
+      },
+      "reload3:object": {
+        "hero": "events/moonbase/player/weapon/laser_pp/reload3/change_ammo",
+        "enemy": "enemy/weapon/misc/flamethrower/reload3/change_ammo"
+      }
+    },
+    "gun__ammoHolders:array": {
+      "ammoHolders": "infinite_magazine"
+    },
+    "projectileBeamTracerId:i": {
+      "_tags": "render",
+      "value": -1
+    }
+  },
+  "lightthrower_ussr": {
+    "_extends": "lightthrower_base",
+    "animchar__res": "first_april_ppsh_char",
+    "item__name": "items/lightthrower_ussr",
+    "item__template": "lightthrower_ussr_gun_item",
+    "item__weapTemplate": "lightthrower_ussr_gun",
+    "gun__blk": "content/e_aprilfools_2022/gamedata/weapons/lightthrower_ussr.blk",
+    "item__proto": "content/e_aprilfools_2022/gamedata/weapons/lightthrower_ussr.blk"
+  },
+  "lightthrower_ussr_gun": [
+    {
+      "_extends": "m1_flamethrower_gun"
+    },
+    {
+      "_extends": "lightthrower_gun_base"
+    },
+    {
+      "_extends": "lightthrower_ussr"
+    }
+  ],
+  "lightthrower_germany": {
+    "_extends": "lightthrower_base",
+    "animchar__res": "first_april_mp_34_char",
+    "item__name": "items/lightthrower_germany",
+    "item__template": "lightthrower_germany_gun_item",
+    "item__weapTemplate": "lightthrower_germany_gun",
+    "gun__blk": "content/e_aprilfools_2022/gamedata/weapons/lightthrower_germany.blk",
+    "item__proto": "content/e_aprilfools_2022/gamedata/weapons/lightthrower_germany.blk"
+  },
+  "lightthrower_germany_gun": [
+    {
+      "_extends": "m1_flamethrower_gun"
+    },
+    {
+      "_extends": "lightthrower_gun_base"
+    },
+    {
+      "_extends": "lightthrower_germany"
+    }
+  ],
+  "lightthrower_usa": {
+    "_extends": "lightthrower_base",
+    "animchar__res": "first_april_thompson_m1928_char",
+    "item__name": "items/lightthrower_usa",
+    "item__template": "lightthrower_usa_gun_item",
+    "item__weapTemplate": "lightthrower_usa_gun",
+    "gun__blk": "content/e_aprilfools_2022/gamedata/weapons/lightthrower_usa.blk",
+    "item__proto": "content/e_aprilfools_2022/gamedata/weapons/lightthrower_usa.blk"
+  },
+  "lightthrower_usa_gun": [
+    {
+      "_extends": "m1_flamethrower_gun"
+    },
+    {
+      "_extends": "lightthrower_gun_base"
+    },
+    {
+      "_extends": "lightthrower_usa"
+    }
+  ],
+  "railgun_base": [
+    {
+      "_extends": "gun_overheat"
+    },
+    {
+      "_extends": "gun_overheat_visual"
+    },
+    {
+      "gun__overheatReduce": 0.2
+    },
+    {
+      "gun__overheatReduceOnOverheat": 1.0
+    },
+    {
+      "gun__overheatPerShot": 1.0
+    },
+    {
+      "gun__ignoreWeaponVelocity": true
+    },
+    {
+      "weap__sprintLerpFactor": 1.0
+    },
+    {
+      "gun_deviation__omegaRange": [0.0,0.0]
+    },
+    {
+      "gun_deviation__omegaDevInc": [0.0,0.0]
+    },
+    {
+      "gun_deviation__movementRange": [0.0,0.0]
+    },
+    {
+      "gun_deviation__movementDevInc": [0.0,0.0]
+    },
+    {
+      "gun_spread__maxDeltaAngle": 0.0001
+    },
+    {
+      "gun__canPierceHPEntity:tag": []
+    }
+  ],
+  "railgun_gun_base": [
+    {
+      "_extends": "gun_delayed_shot_sound"
+    },
+    {
+      "_extends": "space_sniper_muzzle_preset"
+    },
+    {
+      "_extends": "riffle_gun_aim_sound"
+    },
+    {
+      "gun_delayed_shot__holdTriggerDelay": 1.0
+    },
+    {
+      "gun_delayed_shot__delayTime": -1.0
+    },
+    {
+      "gun_shell_ejection__expireTime": 0.0
+    },
+    {
+      "skip_common_weap_phys_update:tag": []
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "gun_charge_fx__template": "event_foolmoon_sniper_charge",
+        "gun_charge_fx__node": "gunFx_main",
+        "gun_charge_fx__scale": 0.1,
+        "gun_charge_fx__nodeId": -1,
+        "gun_charge_fx__eid:eid": []
+      }
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "gun_delayed_shot_sound__path": "events/moonbase/player/weapon/railgun/shot_accum",
+        "gun_delayed_shot_sound__cooldown": 0.1
+      }
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "gun_sound__forceOneshot": true,
+        "gun_sound__forceOneshotEnemy": true
+      }
+    },
+    {
+      "gun_charge_fx__active:b": {
+        "value": false,
+        "_replicate": true,
+        "_track": true
+      }
+    },
+    {
+      "gun_mods__slots:object": {
+        "scope:object": {
+          "scope_3_5x": "scope_3_5x"
+        }
+      }
+    },
+    {
+      "gun_sound__shotPath:shared:object": {
+        "_tags": "sound",
+        "hero": "events/moonbase/player/weapon/railgun",
+        "enemy": "events/moonbase/enemy/weapon/railgun"
+      }
+    },
+    {
+      "sound_irqs:shared:object": {
+        "_tags": "sound",
+        "reload1:object": {
+          "hero": "events/moonbase/player/weapon/railgun/reload1/change_ammo",
+          "enemy": "enemy/weapon/rifle/svt40/reload1/change_ammo"
+        },
+        "reload2:object": {
+          "hero": "events/moonbase/player/weapon/railgun/reload2/change_ammo",
+          "enemy": "enemy/weapon/rifle/svt40/reload2/change_ammo"
+        },
+        "reload3:object": {
+          "hero": "events/moonbase/player/weapon/railgun/reload3/change_ammo",
+          "enemy": "enemy/weapon/rifle/svt40/reload3/change_ammo"
+        },
+        "reload4:object": {
+          "hero": "events/moonbase/player/weapon/railgun/reload4/change_ammo",
+          "enemy": "enemy/weapon/rifle/svt40/reload4/change_ammo"
+        },
+        "boltAction:object": {
+          "hero": "events/moonbase/player/weapon/railgun/bolt_action",
+          "enemy": "enemy/weapon/rifle/svt40/bolt_action"
+        }
+      }
+    },
+    {
+      "gun__ammoHolders:array": {
+        "ammoHolders": "infinite_magazine"
+      }
+    },
+    {
+      "gun__shells:array": {
+        "shells": "content/e_aprilfools_2022/gamedata/weapons/bullets/railgun_bullet.blk"
+      }
+    },
+    {
+      "gun__firingModes:array": {
+        "mode:object": {
+          "modeType": "burst",
+          "burstSize": 1,
+          "autoScheduleShots": false
+        }
+      }
+    },
+    {
+      "gun__firingModeNames:array": {
+        "mode": "semi_auto"
+      }
+    }
+  ],
+  "railgun_ussr": {
+    "_extends": "railgun_base",
+    "animchar__res": "first_april_dt_29_char",
+    "item__name": "items/railgun_ussr",
+    "item__template": "railgun_ussr_gun_item",
+    "item__weapTemplate": "railgun_ussr_gun",
+    "gun__blk": "content/e_aprilfools_2022/gamedata/weapons/railgun_ussr.blk",
+    "item__proto": "content/e_aprilfools_2022/gamedata/weapons/railgun_ussr.blk"
+  },
+  "railgun_ussr_gun": [
+    {
+      "_extends": "dt_29_gun"
+    },
+    {
+      "_extends": "railgun_gun_base"
+    },
+    {
+      "_extends": "railgun_ussr"
+    }
+  ],
+  "railgun_germany": {
+    "_extends": "railgun_base",
+    "animchar__res": "first_april_mg_42_char",
+    "item__name": "items/railgun_germany",
+    "item__template": "railgun_germany_gun_item",
+    "item__weapTemplate": "railgun_germany_gun",
+    "gun__blk": "content/e_aprilfools_2022/gamedata/weapons/railgun_germany.blk",
+    "item__proto": "content/e_aprilfools_2022/gamedata/weapons/railgun_germany.blk"
+  },
+  "railgun_germany_gun": [
+    {
+      "_extends": "mg_42_handheld_gun"
+    },
+    {
+      "_extends": "railgun_gun_base"
+    },
+    {
+      "_extends": "railgun_germany"
+    }
+  ],
+  "railgun_usa": {
+    "_extends": "railgun_base",
+    "animchar__res": "first_april_browning_m_1918_char",
+    "item__name": "items/railgun_usa",
+    "item__template": "railgun_usa_gun_item",
+    "item__weapTemplate": "railgun_usa_gun",
+    "gun__blk": "content/e_aprilfools_2022/gamedata/weapons/railgun_usa.blk",
+    "item__proto": "content/e_aprilfools_2022/gamedata/weapons/railgun_usa.blk"
+  },
+  "railgun_usa_gun": [
+    {
+      "_extends": "browning_m1918_gun"
+    },
+    {
+      "_extends": "railgun_gun_base"
+    },
+    {
+      "_extends": "railgun_usa"
+    }
+  ],
+  "plasma_shell": {
+    "animchar__res": "plasma_ammo_char",
+    "collres__res": "plasma_ammo_collision"
+  },
+  "plasma_shell_phys": [
+    {
+      "_extends": "projectile_phys"
+    },
+    {
+      "_extends": "plasma_shell"
+    },
+    {
+      "_extends": "rocket_shell"
+    },
+    {
+      "_extends": "base_dm_parts"
+    },
+    {
+      "_extends": "base_hitpoints"
+    },
+    {
+      "_extends": "event_foolmoon_plasma"
+    },
+    {
+      "phys_obj_net_phys__blk": "content/e_aprilfools_2022/gamedata/weapons/shells/plasma_shell.blk"
+    },
+    {
+      "phys_obj_thrust__thrust": 0.0
+    },
+    {
+      "grid_obj__gridType": "interactable"
+    },
+    {
+      "grid_obj__fixedTmScale": -1.0
+    },
+    {
+      "hitpoints__hp": 10.0
+    },
+    {
+      "hitpoints__maxHp": 10.0
+    },
+    {
+      "hitpoints__hpRecoverySpd": -0.5
+    },
+    {
+      "hitpoints__hpThreshold": 12.0
+    },
+    {
+      "hitpoints__stoppingPower": 0.0
+    },
+    {
+      "hitpoints__shellDmgMult": 1.0
+    },
+    {
+      "hitpoints__shellSplashDmgMult": 1.0
+    },
+    {
+      "needsBlood": false
+    },
+    {
+      "material": "steel"
+    },
+    {
+      "shell_projectile_death__damageMult": 12.0
+    },
+    {
+      "shell_projectile_death__damageRadiusMult": 12.0
+    },
+    {
+      "shell__damageMult": 1.0
+    },
+    {
+      "shell__damageRadiusMult": 1.0
+    },
+    {
+      "explosion_effect__template": "event_foolmoon_explosion_plasma"
+    },
+    {
+      "shell_projectile_death__explosionEffectTemplate": "event_foolmoon_explosion_plasma_hit"
+    },
+    {
+      "collres": []
+    },
+    {
+      "grid_obj": []
+    },
+    {
+      "killer:eid": []
+    },
+    {
+      "dm_parts__parts:object": {
+        "volumeBox_1:object": {
+          "dmgMult": 1.0,
+          "armor": 0.0
+        },
+        "volumeBox_002:object": {
+          "dmgMult": 1.0,
+          "armor": 0.0
+        }
+      }
+    }
+  ],
+  "plasma_cannon_base": [
+    {
+      "_extends": "gun_overheat"
+    },
+    {
+      "_extends": "gun_overheat_visual"
+    },
+    {
+      "_extends": "riffle_gun_aim_sound"
+    },
+    {
+      "gun__overheatReduce": 0.0
+    },
+    {
+      "gun__overheatReduceOnOverheat": 1.0
+    },
+    {
+      "gun__overheatPerShot": 1.0
+    },
+    {
+      "gun__ignoreWeaponVelocity": true
+    },
+    {
+      "weap__sprintLerpFactor": 1.0
+    },
+    {
+      "gun_shell_ejection__expireTime": 0.0
+    },
+    {
+      "gun__shells:array": {
+        "shells": "content/e_aprilfools_2022/gamedata/weapons/shells/plasma_shell.blk"
+      }
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "gun_sound__forceOneshot": true
+      }
+    },
+    {
+      "gun_sound__shotPath:shared:object": {
+        "_tags": "sound",
+        "hero": "events/moonbase/player/weapon/plasma_cannon",
+        "enemy": "events/moonbase/enemy/weapon/plasma_cannon"
+      }
+    },
+    {
+      "sound_irqs:shared:object": {
+        "_tags": "sound",
+        "reload1:object": {
+          "hero": "events/moonbase/player/weapon/plasma_cannon/reload1/change_ammo",
+          "enemy": "enemy/weapon/antivehicle/panzerschreck/reload1/change_ammo"
+        },
+        "reload2:object": {
+          "hero": "events/moonbase/player/weapon/plasma_cannon/reload2/change_ammo",
+          "enemy": "enemy/weapon/antivehicle/panzerschreck/reload2/change_ammo"
+        },
+        "reload3:object": {
+          "hero": "events/moonbase/player/weapon/plasma_cannon/reload3/change_ammo",
+          "enemy": "enemy/weapon/antivehicle/panzerschreck/reload3/change_ammo"
+        },
+        "boltAction:object": {
+          "hero": "events/moonbase/player/weapon/plasma_cannon/bolt_action",
+          "enemy": "enemy/weapon/rifle/svt40/bolt_action"
+        }
+      }
+    },
+    {
+      "gun__ammoHolders:array": {
+        "ammoHolders": "infinite_magazine"
+      }
+    }
+  ],
+  "plasma_cannon_ussr": {
+    "animchar__res": "first_april_rmn50_char",
+    "item__name": "items/plasmacannon_ussr",
+    "item__template": "plasma_cannon_ussr_gun_item",
+    "item__weapTemplate": "plasma_cannon_ussr_gun",
+    "gun__blk": "content/e_aprilfools_2022/gamedata/weapons/plasma_cannon_ussr.blk",
+    "item__proto": "content/e_aprilfools_2022/gamedata/weapons/plasma_cannon_ussr.blk"
+  },
+  "plasma_cannon_ussr_gun": [
+    {
+      "_extends": "neiman_minethrower_gun"
+    },
+    {
+      "_extends": "plasma_cannon_base"
+    },
+    {
+      "_extends": "plasma_cannon_ussr"
+    }
+  ],
+  "plasma_cannon_germany": {
+    "animchar__res": "first_april_grb_39_char",
+    "item__name": "items/plasmacannon_germany",
+    "item__template": "plasma_cannon_germany_gun_item",
+    "item__weapTemplate": "plasma_cannon_germany_gun",
+    "gun_shell_ejection__nodeName": "bolt_1",
+    "gun__blk": "content/e_aprilfools_2022/gamedata/weapons/plasma_cannon_germany.blk",
+    "item__proto": "content/e_aprilfools_2022/gamedata/weapons/plasma_cannon_germnany.blk"
+  },
+  "plasma_cannon_germany_gun": [
+    {
+      "_extends": "grb_39_gun"
+    },
+    {
+      "_extends": "plasma_cannon_base"
+    },
+    {
+      "_extends": "plasma_cannon_germany"
+    }
+  ],
+  "plasma_cannon_usa": {
+    "animchar__res": "first_april_winchester_model_1912_char",
+    "item__name": "items/plasmacannon_usa",
+    "item__template": "plasma_cannon_usa_gun_item",
+    "item__weapTemplate": "plasma_cannon_usa_gun",
+    "gun__blk": "content/e_aprilfools_2022/gamedata/weapons/plasma_cannon_usa.blk",
+    "item__proto": "content/e_aprilfools_2022/gamedata/weapons/plasma_cannon_usa.blk"
+  },
+  "plasma_cannon_usa_gun": [
+    {
+      "_extends": "neiman_minethrower_gun"
+    },
+    {
+      "_extends": "plasma_cannon_base"
+    },
+    {
+      "_extends": "plasma_cannon_usa"
+    }
+  ],
+  "ussr_moon_building_tool_gun": {
+    "_extends": "building_tool_gun",
+    "item__weapTemplate": "ussr_moon_building_tool_gun",
+    "item__template": "ussr_building_tools_item",
+    "previewTemplate:list<t>": [
+      {
+        "template": "sandbags_wall_2_preview"
+      },
+      {
+        "template": "czech_hedgehog_a_preview"
+      },
+      {
+        "template": "ussr_rallypoint_preview"
+      }
+    ],
+    "buildingLimits:list<i>": [
+      {
+        "limit": 10
+      },
+      {
+        "limit": 5
+      },
+      {
+        "limit": 10
+      }
+    ]
+  },
+  "ussr_moon_building_tools_item": [
+    {
+      "_extends": "item_melee"
+    },
+    {
+      "_extends": "ussr_moon_building_tool_gun"
+    },
+    {
+      "collres__res": "construction_hammer_collision"
+    },
+    {
+      "item__userstats__pickupName": "pickup_building_tool"
+    }
+  ],
+  "plasma_grenade_thrower": {
+    "_extends": "grenade_thrower",
+    "gun__shells:array": {
+      "shells": "content/e_aprilfools_2022/gamedata/weapons/grenades/plasma_pack.blk"
+    }
+  }
+}

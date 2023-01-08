@@ -1,0 +1,445 @@
+[
+  {
+    "import": {
+      "scene": "content/enlisted/gamedata/scenes/_common_sounds.blk"
+    }
+  },
+  {
+    "entity": {
+      "_template": "battle_music_without_intro"
+    }
+  },
+  {
+    "entity": {
+      "_template": "tutorial_input_manager"
+    }
+  },
+  {
+    "entity": {
+      "_template": "tutorial_aircraft_disableTurret"
+    }
+  },
+  {
+    "entity": {
+      "_template": "briefing_tutorial",
+      "mission_name": "basic_tutorial_mission",
+      "loading_images:list<t>": [
+        {
+          "item": "ui/loading_tutorial_01.jpg"
+        },
+        {
+          "item": "ui/loading_tutorial_02.jpg"
+        },
+        {
+          "item": "ui/loading_tutorial_03.jpg"
+        }
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "box_battle_area",
+      "transform": [
+        [255.515,0.0,0.0],
+        [0.0,11.1607,0.0],
+        [0.0,0.0,280.533],
+        [-614.743,9.75596,253.782]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "static_cam",
+      "camera__active": true,
+      "transform": [
+        [0.631776,0.0,-0.775151],
+        [-0.00212011,0.999996,-0.00172796],
+        [0.775148,0.00273509,0.631773],
+        [-547.775,13.2347,138.886]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "level",
+      "level__blk": "content/enlisted/levels/tutorial_training_ground_2x2.blk",
+      "level__weatherChoice:object": {
+        "weather_clear_a": 1.0,
+        "weather_clear_b": 1.0
+      },
+      "level__timeVec:array": [
+        {
+          "level__timeVec": 8.2
+        },
+        {
+          "level__timeVec": 9.5
+        },
+        {
+          "level__timeVec": 18.3
+        }
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "minimap_tutorial_training_ground_2x2"
+    }
+  },
+  {
+    "entity": {
+      "_template": "water",
+      "water__strength": 0.3,
+      "water__level": 7.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "wind",
+      "wind__strength": 2.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "postfx_color_grading_tonemap_death_alive_enlisted"
+    }
+  },
+  {
+    "entity": {
+      "_template": "shaderVars",
+      "shader_vars__vars:object": {
+        "hmap_displacement_up": 0.3,
+        "ocean1": "#8e894700",
+        "ocean0": "#4c3f0500",
+        "ocean_density": 0.1,
+        "river1": "#8e894700",
+        "river0": "#4c3f0500",
+        "hmap_displacement_down": -0.15,
+        "puddle_increase": -0.16,
+        "water_color_noise_size": 71.0,
+        "river_density": 0.3
+      }
+    }
+  },
+  {
+    "entity": {
+      "_template": "postfx_roundctrl"
+    }
+  },
+  {
+    "entity": {
+      "_template": "session_finalizer",
+      "session_finalizer__timer": 10.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "basic_sphere",
+      "transform": [
+        [0.946484,0.0,-0.322752],
+        [0.0,1.0,0.0],
+        [0.322752,0.0,0.946484],
+        [-182.732,6.54999,264.777]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "game_mode_loaded",
+      "game_mode_loader__dasScript": "%scripts/tutorial/aircraft_init.das"
+    }
+  },
+  {
+    "entity": {
+      "_template": "resupply_in_air_zone",
+      "transform": [
+        [0.382425,0.0,0.0],
+        [0.0,0.382425,0.0],
+        [0.0,0.0,0.382425],
+        [1870.72,320.362,378.775]
+      ],
+      "resupply_zone__team": 1
+    }
+  },
+  {
+    "entity": {
+      "_template": "base_tutorial_zone",
+      "transform": [
+        [0.382425,0.0,0.0],
+        [0.0,0.382425,0.0],
+        [0.0,0.0,0.382425],
+        [1870.72,320.362,378.775]
+      ],
+      "tutorial_zone__active": false,
+      "tutorial_zone__zoneId": "resupply_waypoint",
+      "tutorial_zone__zoneCheck": 0
+    }
+  },
+  {
+    "entity": {
+      "_template": "tutorial_map",
+      "tutorial__profile": "aircraft"
+    }
+  },
+  {
+    "entity": {
+      "_template": "base_tutorial_zone",
+      "transform": [
+        [825.446,0.0,0.0],
+        [0.0,927.671,0.0],
+        [0.0,0.0,927.671],
+        [-7471.41,190.467,-38.5987]
+      ],
+      "tutorial_zone__zoneId": "waypoint1",
+      "tutorial_zone__active": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "base_tutorial_zone",
+      "transform": [
+        [774.255,0.0,0.0],
+        [0.0,774.255,0.0],
+        [0.0,0.0,774.255],
+        [-5743.35,197.306,423.489]
+      ],
+      "tutorial_zone__active": false,
+      "tutorial_zone__zoneId": "waypoint2",
+      "tutorial_zone__zoneCheck": 0
+    }
+  },
+  {
+    "entity": {
+      "_template": "base_tutorial_zone",
+      "transform": [
+        [745.346,0.0,0.0],
+        [0.0,606.231,0.0],
+        [0.0,0.0,606.231],
+        [-4023.28,185.812,622.925]
+      ],
+      "tutorial_zone__active": false,
+      "tutorial_zone__zoneId": "waypoint3",
+      "tutorial_zone__zoneCheck": 0
+    }
+  },
+  {
+    "entity": {
+      "_template": "base_tutorial_zone",
+      "tutorial_zone__active": false,
+      "tutorial_zone__zoneId": "aerostat_marker",
+      "tutorial_zone__zoneCheck": 0,
+      "transform": [
+        [121.519,0.0,0.0],
+        [0.0,121.519,0.0],
+        [0.0,0.0,121.519],
+        [-2597.97,202.497,626.188]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "team_usa+team_narrator_invasion_defence+respawn_creators_team",
+      "team__countAdd": 0.0,
+      "team__memberCount": 0.0,
+      "team__scoreCap": 0.0,
+      "team__capturePenalty": 0.0,
+      "team__score": 0.0,
+      "team__id": 1,
+      "team__spawnBotArmy": "normandy_allies",
+      "team__briefing": "training_ground/goals",
+      "team__winTitle": "debriefing/sucesful_tutorial_title",
+      "team__winSubtitle": "debriefing/sucesful_tutorial_subtitle"
+    }
+  },
+  {
+    "entity": {
+      "_template": "team_germany+team_narrator_invasion_attack+respawn_creators_team",
+      "team__countAdd": 0.0,
+      "team__memberCount": 0.0,
+      "team__scoreCap": 0.0,
+      "team__capturePenalty": 0.0,
+      "team__score": 0.0,
+      "team__id": 2,
+      "team__spawnBotArmy": "normandy_axis",
+      "team__briefing": "training_ground/goals",
+      "team__winTitle": "debriefing/sucesful_tutorial_title",
+      "team__winSubtitle": "debriefing/sucesful_tutorial_subtitle",
+      "team__locked": true,
+      "team__capacity": 0
+    }
+  },
+  {
+    "entity": {
+      "_template": "respAircraftInAir+tutorial_respawn",
+      "transform": [
+        [0.999961,0.0,-0.00883744],
+        [0.0,1.0,0.0],
+        [0.00883744,0.0,0.999961],
+        [-9471.3,181.819,-16.2701]
+      ],
+      "team": 1,
+      "respTime": 1,
+      "respawnbaseType": "aircraft_fighter",
+      "active": true,
+      "tutorial__respawnId": "resp_start"
+    }
+  },
+  {
+    "entity": {
+      "_template": "base_tutorial_zone",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [-200.476,26.7254,415.767]
+      ],
+      "tutorial_zone__active": false,
+      "tutorial_zone__zoneId": "vehicles_marker",
+      "tutorial_zone__zoneCheck": 0
+    }
+  },
+  {
+    "entity": {
+      "_template": "tutorial_target_tank",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [-209.135,13.4861,437.524]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "tutorial_target_tank",
+      "transform": [
+        [0.491444,0.0,0.870909],
+        [0.0,1.0,0.0],
+        [-0.870909,0.0,0.491444],
+        [-184.468,14.022,421.08]
+      ],
+      "tutorial_target__targetId": "vehicle_target",
+      "tutorial_target__active": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "tutorial_target_tank",
+      "transform": [
+        [-0.99906,0.0,0.0433381],
+        [0.0,1.0,0.0],
+        [-0.0433381,0.0,-0.99906],
+        [-190.406,14.3209,453.643]
+      ],
+      "tutorial_target__targetId": "vehicle_target",
+      "tutorial_target__active": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "tutorial_target_tank",
+      "transform": [
+        [-0.392482,0.0,-0.91976],
+        [0.0,1.0,0.0],
+        [0.91976,0.0,-0.392482],
+        [-224.837,13.1072,425.562]
+      ],
+      "tutorial_target__targetId": "vehicle_target",
+      "tutorial_target__active": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "tutorial_target_tank",
+      "transform": [
+        [-0.620772,0.0,0.783991],
+        [0.0,1.0,0.0],
+        [-0.783991,0.0,-0.620772],
+        [-203.441,13.665,392.215]
+      ],
+      "tutorial_target__targetId": "vehicle_target",
+      "tutorial_target__active": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "tutorial_target_tank",
+      "transform": [
+        [0.907095,0.0,0.420926],
+        [0.0,1.0,0.0],
+        [-0.420926,0.0,0.907095],
+        [-167.038,14.4174,403.933]
+      ],
+      "tutorial_target__targetId": "vehicle_target",
+      "tutorial_target__active": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "barrage_balloon+tutorial_target",
+      "tutorial_target__active": false,
+      "tutorial_target__targetId": "aerostat_1",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [-2597.97,176.615,626.188]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "tutorial_aircraft_disable_drop_bomb"
+    }
+  },
+  {
+    "entity": {
+      "_template": "base_tutorial_zone",
+      "transform": [
+        [148497.0,0.0,0.0],
+        [0.0,669.461,0.0],
+        [0.0,0.0,164988.0],
+        [-3733.77,812.009,397.983]
+      ],
+      "tutorial_zone__active": false,
+      "tutorial_zone__zoneId": "waypoint4",
+      "tutorial_zone__zoneCheck": 0
+    }
+  },
+  {
+    "entity": {
+      "_template": "respAircraftInAir+tutorial_respawn",
+      "transform": [
+        [0.999961,0.0,-0.00883744],
+        [0.0,1.0,0.0],
+        [0.00883744,0.0,0.999961],
+        [-4108.27,181.819,528.641]
+      ],
+      "team": 1,
+      "respTime": 1,
+      "respawnbaseType": "aircraft_fighter",
+      "active": false,
+      "tutorial__respawnId": "resp_balloon"
+    }
+  },
+  {
+    "entity": {
+      "_template": "respAircraftInAir+tutorial_respawn",
+      "transform": [
+        [0.999961,0.0,-0.00883744],
+        [0.0,1.0,0.0],
+        [0.00883744,0.0,0.999961],
+        [-1536.95,181.819,528.641]
+      ],
+      "team": 1,
+      "respTime": 1,
+      "respawnbaseType": "aircraft_fighter",
+      "active": false,
+      "tutorial__respawnId": "resp_end"
+    }
+  },
+  {
+    "entity": {
+      "_template": "tutorial_aircraft_begin"
+    }
+  }
+]

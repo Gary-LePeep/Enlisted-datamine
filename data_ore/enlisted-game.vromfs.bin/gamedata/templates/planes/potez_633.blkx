@@ -1,0 +1,514 @@
+{
+  "potez_633": [
+    {
+      "_extends": "potez_633_base"
+    },
+    {
+      "_extends": "squad_controlled_plane"
+    },
+    {
+      "item__name": "items/potez_633"
+    },
+    {
+      "vehicle_seats__seats:shared:array": [
+        {
+          "seats:object": {
+            "name": "driver",
+            "locName": "vehicle_seats/pilot",
+            "seatOwnsEntityControl": true,
+            "attachNode": "pilot1",
+            "ignoreAttachNodeRotation": true,
+            "attachTm": [
+              [1.0,0.0,0.0],
+              [0.0,1.0,0.0],
+              [0.0,0.0,1.0],
+              [-0.15,0.05,-0.15]
+            ],
+            "seatComponent": "isDriver",
+            "receiveDamageFromDMPart": "pilot_dm",
+            "cameraNodeName": "",
+            "cameraOffset": [0.784,1.26,0.0],
+            "cockpitTemplate": "potez_633_driver_cockpit",
+            "roomSpace": 0,
+            "turretNames:array": [
+              {
+                "turret": "turret_01"
+              },
+              {
+                "turret": "turret_02"
+              },
+              {
+                "turret": "turret_03"
+              }
+            ],
+            "effectors:object": {
+              "r.hand": "stick_rhand_1",
+              "l.hand": "throttle_lhand_1",
+              "r.foot": "pedal_rfoot_1",
+              "l.foot": "pedal_lfoot_1"
+            }
+          }
+        },
+        {
+          "seats:object": {
+            "name": "main_gunner",
+            "locName": "vehicle_seats/gunner",
+            "attachNode": "gunner1",
+            "ignoreAttachNodeRotation": true,
+            "attachTm": [
+              [-1.0,0.0,5.6426e-07],
+              [0.0,1.0,0.0],
+              [-5.6426e-07,0.0,-1.0],
+              [0.0,0.0,0.0]
+            ],
+            "seatComponent": "isGunner",
+            "receiveDamageFromDMPart": "gunner1_dm",
+            "directTurretControl": true,
+            "roomSpace": 1,
+            "turretNames:array": {
+              "turret": "turret_04"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "turret_control__emitterNodes:shared:array": [
+        {
+          "node": "fr_200kg_1"
+        },
+        {
+          "node": "fr_200kg_2"
+        },
+        {
+          "node": "flare1"
+        },
+        {
+          "node": "flare3"
+        }
+      ]
+    },
+    {
+      "turret_control__animVars:shared:array": [
+        {
+          "vars:object": {
+            "curYawParamName": "weapon_01_yaw",
+            "curPitchParamName": "weapon_01_pitch"
+          }
+        },
+        {
+          "vars:object": {
+            "curYawParamName": "weapon_02_yaw",
+            "curPitchParamName": "weapon_02_pitch"
+          }
+        },
+        {
+          "vars:object": {
+            "curYawParamName": "weapon_03_yaw",
+            "curPitchParamName": "weapon_03_pitch"
+          }
+        },
+        {
+          "vars:object": {
+            "paramMinPitchAngle": "turret1_min_pitch_angle",
+            "wishPitchParamName": "gun1_aim:targetPitch",
+            "paramYawSpeedMul": "turret1_yaw_mul",
+            "paramYawSpeed": "turret1_yaw_speed",
+            "paramMaxYawAngle": "turret1_max_yaw_angle",
+            "aimActiveParamName": "gun1_aim_active",
+            "paramPitchSpeedMul": "gun1_pitch_mul",
+            "paramYawAccel": "turret1_yaw_accel",
+            "paramPitchAccel": "gun1_pitch_accel",
+            "paramPitchSpeed": "gun1_pitch_speed",
+            "wishYawParamName": "gun1_aim:targetYaw",
+            "paramMaxPitchAngle": "turret1_max_pitch_angle",
+            "curPitchParamName": "gun1_pitch",
+            "curYawParamName": "turret1_yaw",
+            "paramMinYawAngle": "turret1_min_yaw_angle"
+          }
+        }
+      ]
+    },
+    {
+      "turret_control__turretInfo:shared:array": [
+        {
+          "turretInfo:object": {
+            "turretName": "turret_01",
+            "turretGroup": "bomb_turrets",
+            "trigger": "bombs",
+            "gun": "planegun_potez_633_200kg_launcher_01"
+          }
+        },
+        {
+          "turretInfo:object": {
+            "turretName": "turret_02",
+            "turretGroup": "bomb_turrets",
+            "trigger": "bombs",
+            "gun": "planegun_potez_633_200kg_launcher_02"
+          }
+        },
+        {
+          "turretInfo:object": {
+            "turretName": "turret_03",
+            "turretGroup": "main_turrets",
+            "trigger": "machine_guns",
+            "gun": "planegun_potez_633_7_5mm_mac39_01"
+          }
+        },
+        {
+          "turretInfo:object": {
+            "turretName": "turret_04",
+            "turretGroup": "turrets_gunner0",
+            "trigger": "machine_guns",
+            "gun": "planegun_potez_633_7_5mm_mac39_turret_01"
+          }
+        }
+      ]
+    },
+    {
+      "turret_gun_flash_fx__flashNodes:shared:array": [
+        {
+          "node": "fr_200kg_1"
+        },
+        {
+          "node": "fr_200kg_2"
+        },
+        {
+          "node": "flare1"
+        },
+        {
+          "node": "flare3"
+        }
+      ]
+    },
+    {
+      "turret_gun_flash_fx__flashFx:shared:array": [
+        {
+          "fx": ""
+        },
+        {
+          "fx": ""
+        },
+        {
+          "fx": "muzzle_air_8mm"
+        },
+        {
+          "fx": "muzzle_air_8mm"
+        }
+      ]
+    },
+    {
+      "turret_gun_flash_fx__flashFxScale:shared:array": [
+        {
+          "scale": 1.0
+        },
+        {
+          "scale": 1.0
+        },
+        {
+          "scale": 1.0
+        },
+        {
+          "scale": 1.0
+        }
+      ]
+    },
+    {
+      "disableDMParts:list<t>": [
+        {
+          "part": "hatch1"
+        },
+        {
+          "part": "hatch2"
+        },
+        {
+          "part": "pylon_bomb1"
+        }
+      ]
+    }
+  ],
+  "base_potez_633_200kg_launcher": {
+    "item__name": "guns/fr_200kg",
+    "gun__blk": "gamedata/weapons/potez_633/200kg_launcher.blk",
+    "gun__shotFreq": 10.0,
+    "gun__locName": "fr_200kg",
+    "gun__shootNodeName": "bone_mg_gun_twin",
+    "gun__maxAmmo": 1,
+    "gun__firingModes:array": {
+      "mode:object": {
+        "modeType": "manual"
+      }
+    },
+    "gun__firingModeNames:array": {
+      "mode": "bolt_action"
+    },
+    "gun__shellsAmmo:array": {
+      "ammo": 1
+    },
+    "gun__ammoSetsInfo:shared:array": {
+      "default:array": {
+        "shell:object": {
+          "blk": "gamedata/weapons/shells/200kg.blk",
+          "name": "200kg",
+          "type": "he_frag_tank"
+        }
+      }
+    }
+  },
+  "base_potez_633_7_5mm_mac39": {
+    "item__name": "guns/gunmac39",
+    "gun__blk": "gamedata/weapons/potez_633/7_5mm_mac39.blk",
+    "gun__shotFreq": 22.5,
+    "gun__locName": "gunmac39",
+    "gun__shootNodeName": "bone_mg_gun_twin",
+    "gun__maxAmmo": 500,
+    "gun__firingModes:array": {
+      "mode:object": {
+        "modeType": "automatic"
+      }
+    },
+    "gun__firingModeNames:array": {
+      "mode": "automatic"
+    },
+    "gun__shellsAmmo:array": {
+      "ammo": 500
+    },
+    "gun__ammoSetsInfo:shared:array": {
+      "default:array": [
+        {
+          "shell:object": {
+            "blk": "gamedata/weapons/shells/7_5x54mm_g_mk6z_tracer_bullet.blk",
+            "name": "tracer",
+            "type": "t_ball"
+          }
+        },
+        {
+          "shell:object": {
+            "blk": "gamedata/weapons/shells/7_5x54mm_mk7_ball_bullet.blk",
+            "name": "ball",
+            "type": "ball"
+          }
+        },
+        {
+          "shell:object": {
+            "blk": "gamedata/weapons/shells/7_5x54mm_mk7_ball_bullet.blk",
+            "name": "ball",
+            "type": "ball"
+          }
+        },
+        {
+          "shell:object": {
+            "blk": "gamedata/weapons/shells/7_5x54mm_mk7_ball_bullet.blk",
+            "name": "ball",
+            "type": "ball"
+          }
+        },
+        {
+          "shell:object": {
+            "blk": "gamedata/weapons/shells/7_5x54mm_mk1_incendiary_bullet.blk",
+            "name": "incendiary",
+            "type": "i_ball"
+          }
+        },
+        {
+          "shell:object": {
+            "blk": "gamedata/weapons/shells/7_5x54mm_w_mk1z_ap_bullet.blk",
+            "name": "ap",
+            "type": "ap_ball"
+          }
+        }
+      ]
+    }
+  },
+  "base_potez_633_7_5mm_mac39_turret": {
+    "item__name": "guns/gunmac39_turret",
+    "gun__blk": "gamedata/weapons/potez_633/7_5mm_mac39_turret.blk",
+    "gun__shotFreq": 22.5,
+    "gun__locName": "gunmac39_turret",
+    "gun__shootNodeName": "bone_mg_gun_twin",
+    "gun__maxAmmo": 1000,
+    "gun__firingModes:array": {
+      "mode:object": {
+        "modeType": "automatic"
+      }
+    },
+    "gun__firingModeNames:array": {
+      "mode": "automatic"
+    },
+    "gun__shellsAmmo:array": {
+      "ammo": 1000
+    },
+    "gun__ammoSetsInfo:shared:array": {
+      "default:array": [
+        {
+          "shell:object": {
+            "blk": "gamedata/weapons/shells/7_5x54mm_g_mk6z_tracer_bullet.blk",
+            "name": "tracer",
+            "type": "t_ball"
+          }
+        },
+        {
+          "shell:object": {
+            "blk": "gamedata/weapons/shells/7_5x54mm_mk7_ball_bullet.blk",
+            "name": "ball",
+            "type": "ball"
+          }
+        },
+        {
+          "shell:object": {
+            "blk": "gamedata/weapons/shells/7_5x54mm_mk7_ball_bullet.blk",
+            "name": "ball",
+            "type": "ball"
+          }
+        },
+        {
+          "shell:object": {
+            "blk": "gamedata/weapons/shells/7_5x54mm_mk1_incendiary_bullet.blk",
+            "name": "incendiary",
+            "type": "i_ball"
+          }
+        },
+        {
+          "shell:object": {
+            "blk": "gamedata/weapons/shells/7_5x54mm_w_mk1z_ap_bullet.blk",
+            "name": "ap",
+            "type": "ap_ball"
+          }
+        }
+      ]
+    }
+  },
+  "planegun_potez_633_200kg_launcher_01": [
+    {
+      "_extends": "200kg_launcher"
+    },
+    {
+      "_extends": "base_potez_633_200kg_launcher"
+    },
+    {
+      "_extends": "gunsound_200kg_launcher_aircraft"
+    },
+    {
+      "gun__shootNodeName": "fr_200kg_1"
+    },
+    {
+      "slot_attach__slotName": "fr_200kg_1"
+    },
+    {
+      "gun__maxAmmo": 1
+    }
+  ],
+  "planegun_potez_633_200kg_launcher_02": [
+    {
+      "_extends": "200kg_launcher"
+    },
+    {
+      "_extends": "base_potez_633_200kg_launcher"
+    },
+    {
+      "_extends": "gunsound_200kg_launcher_aircraft"
+    },
+    {
+      "gun__shootNodeName": "fr_200kg_2"
+    },
+    {
+      "slot_attach__slotName": "fr_200kg_2"
+    },
+    {
+      "gun__maxAmmo": 1
+    }
+  ],
+  "planegun_potez_633_7_5mm_mac39_01": [
+    {
+      "_extends": "tankgun"
+    },
+    {
+      "_extends": "base_plane_machinegun"
+    },
+    {
+      "_extends": "base_potez_633_7_5mm_mac39"
+    },
+    {
+      "_extends": "gunsound_7_5mm_mac39_aircraft"
+    },
+    {
+      "gun__shootNodeName": "flare1"
+    },
+    {
+      "gun__maxAmmo": 500
+    }
+  ],
+  "planegun_potez_633_7_5mm_mac39_turret_01": [
+    {
+      "_extends": "tankgun"
+    },
+    {
+      "_extends": "base_plane_machinegun"
+    },
+    {
+      "_extends": "base_potez_633_7_5mm_mac39_turret"
+    },
+    {
+      "_extends": "gunsound_7_5mm_mac39_turret_aircraft"
+    },
+    {
+      "gun__shootNodeName": "flare3"
+    },
+    {
+      "gun__maxAmmo": 1000
+    },
+    {
+      "turret__aimNodeName": "turret1"
+    },
+    {
+      "turret__limit": [-35.0,35.0,0.0,40.0]
+    },
+    {
+      "turret__yawSpeed": 100.0
+    },
+    {
+      "turret__pitchSpeed": 100.0
+    }
+  ],
+  "potez_633_driver_cockpit": {
+    "_extends": "base_plane_cockpit",
+    "cockpit__offset": [0.0,0.0,0.0],
+    "cockpit__angles": [0.0,0.0,0.0],
+    "cockpit__scale": [1.0,1.0,1.0],
+    "animchar__res": "potez_633_cockpit_char",
+    "plane_anim__blk": "gamedata/units/potez_633.blk",
+    "plane_sight__blk": "gamedata/units/potez_633.blk",
+    "move_cockpit_node__nodeName:list<t>": [
+      {
+        "node": "stick_rhand_1"
+      },
+      {
+        "node": "throttle_lhand_1"
+      }
+    ],
+    "move_cockpit_node__nodeId:list<i>": [
+      {
+        "nodeId": -1
+      },
+      {
+        "nodeId": -1
+      }
+    ],
+    "move_cockpit_node__offset:list<p3>": [
+      {
+        "item": [0.0025,0.0035,0.0215]
+      },
+      {
+        "item": [0.0065,0.0235,0.0]
+      }
+    ],
+    "move_cockpit_node__rotation:list<p2>": [
+      {
+        "item": [11.8,-7.6]
+      },
+      {
+        "item": [-1.3,0.0]
+      }
+    ]
+  }
+}

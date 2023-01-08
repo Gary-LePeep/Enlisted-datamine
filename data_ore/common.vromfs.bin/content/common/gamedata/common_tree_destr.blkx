@@ -1,0 +1,23 @@
+{
+  "heightThreshold": 3.0,
+  "impulseThresholdMult": 67.0,
+  "radiusThreshold": 0.5,
+  "canopyRestitution": 0.5,
+  "canopyStiffnessMult": 1.0,
+  "canopyAngularLimit": 0.3,
+  "canopyMaxRaduis": 5.0,
+  "canopyRollingFriction": 5.0,
+  "canopyInertia": [1.0,10.0,1.0],
+  "constraintLimitY": [0.0,1.0],
+  "radiusToImpulse": [
+    {
+      "row": [0.0,1.0]
+    },
+    {
+      "row": [0.5,5.0]
+    },
+    {
+      "row": [1.0,10.0]
+    }
+  ]
+}

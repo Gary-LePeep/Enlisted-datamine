@@ -1,0 +1,539 @@
+[
+  {
+    "import": {
+      "scene": "content/enlisted/gamedata/scenes/tutorial/_tutorial_training_sounds.blk"
+    }
+  },
+  {
+    "entity": {
+      "_template": "briefing_tutorial",
+      "mission_name": "basic_tutorial_mission",
+      "loading_images:list<t>": [
+        {
+          "item": "ui/loading_tutorial_01.jpg"
+        },
+        {
+          "item": "ui/loading_tutorial_02.jpg"
+        },
+        {
+          "item": "ui/loading_tutorial_03.jpg"
+        }
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "box_battle_area",
+      "transform": [
+        [474.104,0.0,0.0],
+        [0.0,11.1607,0.0],
+        [0.0,0.0,1366.45],
+        [-539.993,9.75596,334.744]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "static_cam",
+      "camera__active": true,
+      "transform": [
+        [0.631776,0.0,-0.775151],
+        [-0.00212011,0.999996,-0.00172796],
+        [0.775148,0.00273509,0.631773],
+        [-547.775,13.2347,138.886]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "level",
+      "level__blk": "content/enlisted/levels/tutorial_training_ground_2x2.blk",
+      "level__weatherChoice:object": {
+        "weather_clear_a": 1.0,
+        "weather_clear_b": 1.0
+      },
+      "level__timeVec:array": [
+        {
+          "level_timeVec": 8.2
+        },
+        {
+          "level_timeVec": 9.5
+        },
+        {
+          "level_timeVec": 18.3
+        }
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "minimap_tutorial_training_ground_2x2"
+    }
+  },
+  {
+    "entity": {
+      "_template": "water",
+      "water__strength": 0.3,
+      "water__level": 7.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "wind",
+      "wind__strength": 2.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "postfx_color_grading_tonemap_death_alive_enlisted"
+    }
+  },
+  {
+    "entity": {
+      "_template": "shaderVars",
+      "shader_vars__vars:object": {
+        "hmap_displacement_up": 0.3,
+        "ocean1": "#8e894700",
+        "ocean0": "#4c3f0500",
+        "ocean_density": 0.1,
+        "river1": "#8e894700",
+        "river0": "#4c3f0500",
+        "hmap_displacement_down": -0.15,
+        "puddle_increase": -0.16,
+        "water_color_noise_size": 71.0,
+        "river_density": 0.3
+      }
+    }
+  },
+  {
+    "entity": {
+      "_template": "postfx_roundctrl"
+    }
+  },
+  {
+    "entity": {
+      "_template": "session_finalizer",
+      "session_finalizer__timer": 10.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "basic_sphere",
+      "transform": [
+        [0.946484,0.0,-0.322752],
+        [0.0,1.0,0.0],
+        [0.322752,0.0,0.946484],
+        [-182.732,6.54999,264.777]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "respVehicle",
+      "transform": [
+        [0.0843441,0.0,0.996436],
+        [0.0,1.0,0.0],
+        [-0.996436,0.0,0.0843441],
+        [-546.929,10.0347,237.516]
+      ],
+      "active": true,
+      "team": 1,
+      "respbase__addTemplatesOnSpawn:list<t>": {
+        "item": "vehicle_spawn_validation"
+      }
+    }
+  },
+  {
+    "entity": {
+      "_template": "game_mode_loaded",
+      "game_mode_loader__dasScript": "%scripts/tutorial/tank_init.das"
+    }
+  },
+  {
+    "entity": {
+      "_template": "tutorial_map",
+      "tutorial__profile": "tank"
+    }
+  },
+  {
+    "entity": {
+      "_template": "tutorial_tank_disable_shell_change"
+    }
+  },
+  {
+    "entity": {
+      "_template": "tutorial_tank_disable_gunner_change"
+    }
+  },
+  {
+    "entity": {
+      "_template": "tutorial_tank_ammo_tracker"
+    }
+  },
+  {
+    "entity": {
+      "_template": "tutorial_memorize_holder"
+    }
+  },
+  {
+    "entity": {
+      "_template": "team_germany_berlin+team_narrator_tutorial_training+respawn_creators_team",
+      "team__countAdd": 0.5,
+      "team__memberCount": 0.5,
+      "team__scoreCap": 0.0,
+      "team__capturePenalty": 0.0,
+      "team__score": 0.0,
+      "team__botCount": 7,
+      "team__id": 2,
+      "team__spawnBotArmy": "berlin_axis",
+      "team__briefing": "training_ground/goals",
+      "team__winTitle": "debriefing/sucesful_tutorial_title",
+      "team__winSubtitle": "debriefing/sucesful_tutorial_subtitle",
+      "team__locked": true,
+      "team__capacity": 0
+    }
+  },
+  {
+    "entity": {
+      "_template": "team_ussr_berlin+team_narrator_tutorial_training+respawn_creators_team",
+      "team__countAdd": 0.5,
+      "team__memberCount": 0.5,
+      "team__scoreCap": 0.0,
+      "team__capturePenalty": 0.0,
+      "team__score": 0.0,
+      "team__botCount": 7,
+      "team__id": 1,
+      "team__spawnBotArmy": "berlin_allies",
+      "team__briefing": "training_ground/goals",
+      "team__winTitle": "debriefing/sucesful_tutorial_title",
+      "team__winSubtitle": "debriefing/sucesful_tutorial_subtitle"
+    }
+  },
+  {
+    "entity": {
+      "_template": "base_tutorial_zone",
+      "transform": [
+        [55.8078,0.0,0.0],
+        [0.0,11.0,0.0],
+        [0.0,0.0,59.6763],
+        [-525.179,9.94622,409.354]
+      ],
+      "tutorial_zone__active": false,
+      "tutorial_zone__zoneId": "waypoint_shooting_range_01"
+    }
+  },
+  {
+    "entity": {
+      "_template": "base_tutorial_zone",
+      "transform": [
+        [453.303,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,34.9358],
+        [-542.884,10.4243,379.959]
+      ],
+      "tutorial_zone__active": false,
+      "tutorial_zone__zoneId": "waypoint_destroy_tracks"
+    }
+  },
+  {
+    "entity": {
+      "_template": "willys_mb_tutorial+tutorial_target+base_tutorial_zone+tutorial_dm_ignore",
+      "tutorial_target__targetId": "tank_target_light_vehicle",
+      "tutorial_target__active": false,
+      "tutorial_zone__zoneId": "tank_target_light_vehicle",
+      "tutorial_zone__active": false,
+      "transform": [
+        [-0.895404,-0.035488,-0.443838],
+        [-0.0197393,0.999003,-0.0400551],
+        [0.444817,-0.0271045,-0.895211],
+        [-490.242,10.0967,421.241]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "germ_pzkpfw_V_ausf_a_panther_tutorial+tutorial_target+base_tutorial_zone+tutorial_dm_ignore+vehicle_with_passenger+tutorial_tank_xray",
+      "vehicle_with_passenger__humanTemplate": "tutorial_tank_passenger+tutorial_infinity_hp",
+      "tutorial_zone__zoneId": "tank_target_side",
+      "tutorial_zone__active": false,
+      "tutorial_target__targetId": "tank_target_side",
+      "tutorial_target__active": false,
+      "tutor_tank__xrayTemplate": "germ_pzkpfw_V_ausf_a_panther_xray",
+      "transform": [
+        [0.0577036,-0.00171758,0.998332],
+        [-0.011861,0.999927,0.00240589],
+        [-0.998263,-0.0119801,0.057679],
+        [-486.943,10.5593,406.189]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "germ_pzkpfw_V_ausf_a_panther_tutorial+tutorial_target+base_tutorial_zone+tutorial_dm_ignore+vehicle_with_passenger+tutorial_tank_xray",
+      "transform": [
+        [0.917512,0.0356037,-0.396112],
+        [-0.0261712,0.999231,0.0291938],
+        [0.396847,-0.0164189,0.917738],
+        [-487.459,10.2699,393.297]
+      ],
+      "vehicle_with_passenger__humanTemplate": "tutorial_tank_passenger+tutorial_infinity_hp",
+      "tutorial_zone__zoneId": "tank_target_rear",
+      "tutorial_zone__active": false,
+      "tutorial_target__targetId": "tank_target_rear",
+      "tutorial_target__active": false,
+      "tutor_tank__xrayTemplate": "germ_pzkpfw_V_ausf_a_panther_xray"
+    }
+  },
+  {
+    "entity": {
+      "_template": "germ_pzkpfw_V_ausf_a_panther_tutorial+tutorial_target+base_tutorial_zone+tutorial_dm_ignore+vehicle_with_passenger",
+      "vehicle_with_passenger__humanTemplate": "tutorial_tank_passenger",
+      "tutorial_zone__zoneId": "tank_target_front",
+      "tutorial_zone__active": false,
+      "tutorial_target__targetId": "tank_target_front",
+      "tutorial_target__active": false,
+      "transform": [
+        [-0.996102,-0.00826881,-0.0878204],
+        [-0.00837402,0.999965,0.000829689],
+        [0.0878105,0.00156186,-0.996136],
+        [-473.232,10.7001,454.09]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "germ_pzkpfw_V_ausf_a_panther_tutorial+tutorial_target+base_tutorial_zone+tutorial_dm_ignore+vehicle_with_passenger",
+      "vehicle_with_passenger__humanTemplate": "tutorial_tank_passenger+tutorial_infinity_hp",
+      "tutorial_zone__zoneId": "tank_target_far",
+      "tutorial_zone__active": false,
+      "tutorial_target__targetId": "tank_target_far",
+      "tutorial_target__active": false,
+      "transform": [
+        [0.0395739,-0.0435002,0.998269],
+        [-0.00744326,0.999011,0.0438276],
+        [-0.999189,-0.00916481,0.039211],
+        [23.1955,16.2747,424.445]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "resupply_for_ground_vehicle_zone",
+      "transform": [
+        [1.45307,0.0,0.0],
+        [0.0,1.45307,0.0],
+        [0.0,0.0,1.45307],
+        [-544.168,9.87163,429.87]
+      ],
+      "resupply_zone__team": 1
+    }
+  },
+  {
+    "entity": {
+      "_template": "base_tutorial_zone",
+      "transform": [
+        [600.448,0.0,0.0],
+        [0.0,11.772,0.0],
+        [0.0,0.0,43.324],
+        [-545.785,10.4243,289.669]
+      ],
+      "tutorial_zone__zoneId": "waypoint_change_seat",
+      "tutorial_zone__active": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "base_tutorial_zone",
+      "transform": [
+        [84.3759,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,76.2289],
+        [-544.965,10.4243,430.351]
+      ],
+      "tutorial_zone__zoneId": "waypoint_resupply_point",
+      "tutorial_zone__active": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "base_tutorial_zone",
+      "transform": [
+        [9.60525,0.0,-3.85798],
+        [0.0,10.3207,0.0],
+        [4.18707,0.0,10.4246],
+        [-503.661,11.942,436.979]
+      ],
+      "tutorial_zone__zoneId": "marker_infantry_group_target",
+      "tutorial_zone__active": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "tutorial_target_silhouette_c+tutorial_target+base_tutorial_zone+tutorial_memorize_entity",
+      "transform": [
+        [-0.469029,0.0,-0.883183],
+        [0.0,1.0,0.0],
+        [0.883183,0.0,-0.469029],
+        [-504.759,9.62981,437.334]
+      ],
+      "tutorial_target__targetId": "tank_target_infantry01",
+      "tutorial_zone__zoneId": "tank_target_infantry01",
+      "tutorial_target__active": false,
+      "tutorial_zone__active": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "tutorial_target_silhouette_c+tutorial_target+base_tutorial_zone+tutorial_memorize_entity",
+      "transform": [
+        [-0.469029,0.0,-0.883183],
+        [0.0,1.0,0.0],
+        [0.883183,0.0,-0.469029],
+        [-502.759,9.62981,439.334]
+      ],
+      "tutorial_target__targetId": "tank_target_infantry01",
+      "tutorial_target__active": false,
+      "tutorial_zone__active": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "tutorial_target_silhouette_c+tutorial_target+base_tutorial_zone+tutorial_memorize_entity",
+      "transform": [
+        [-0.658178,0.0,-0.752862],
+        [0.0,1.0,0.0],
+        [0.752862,0.0,-0.658178],
+        [-506.466,9.62981,435.216]
+      ],
+      "tutorial_target__targetId": "tank_target_infantry01",
+      "tutorial_target__active": false,
+      "tutorial_zone__active": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "tutorial_target_silhouette_c+tutorial_target+base_tutorial_zone+tutorial_memorize_entity",
+      "transform": [
+        [-0.658178,0.0,-0.752862],
+        [0.0,1.0,0.0],
+        [0.752862,0.0,-0.658178],
+        [-507.466,9.62981,433.216]
+      ],
+      "tutorial_target__targetId": "tank_target_infantry01",
+      "tutorial_target__active": false,
+      "tutorial_zone__active": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "germ_pzkpfw_V_ausf_a_panther_xray2",
+      "transform": [
+        [0.0390136,0.0,0.999238],
+        [0.0,0.9999,0.0],
+        [-0.982816,-0.0008,0.0486677],
+        [-486.885,10.3395,406.25]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "tutorial_target_silhouette_c+tutorial_target+base_tutorial_zone+tutorial_memorize_entity",
+      "transform": [
+        [0.750389,0.0,-0.660997],
+        [0.0,1.0,0.0],
+        [0.660997,0.0,0.750389],
+        [-503.806,10.2737,465.939]
+      ],
+      "tutorial_target__targetId": "tank_target_infantry_mgun01",
+      "tutorial_zone__zoneId": "tank_target_infantry_mgun01",
+      "tutorial_target__active": false,
+      "tutorial_zone__active": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "tutorial_target_silhouette_c+tutorial_target+base_tutorial_zone+tutorial_memorize_entity",
+      "transform": [
+        [0.750389,0.0,-0.660997],
+        [0.0,1.0,0.0],
+        [0.660997,0.0,0.750389],
+        [-504.484,10.2737,467.315]
+      ],
+      "tutorial_target__targetId": "tank_target_infantry_mgun01",
+      "tutorial_target__active": false,
+      "tutorial_zone__active": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "tutorial_target_silhouette_c+tutorial_target+base_tutorial_zone+tutorial_memorize_entity",
+      "transform": [
+        [0.750389,0.0,-0.660997],
+        [0.0,1.0,0.0],
+        [0.660997,0.0,0.750389],
+        [-506.313,10.2737,467.512]
+      ],
+      "tutorial_target__targetId": "tank_target_infantry_mgun01",
+      "tutorial_target__active": false,
+      "tutorial_zone__active": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "tutorial_target_silhouette_c+tutorial_target+base_tutorial_zone+tutorial_memorize_entity",
+      "transform": [
+        [0.750389,0.0,-0.660997],
+        [0.0,1.0,0.0],
+        [0.660997,0.0,0.750389],
+        [-507.072,10.2737,469.277]
+      ],
+      "tutorial_target__targetId": "tank_target_infantry_mgun01",
+      "tutorial_target__active": false,
+      "tutorial_zone__active": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "base_tutorial_zone",
+      "transform": [
+        [9.60525,0.0,-3.85798],
+        [0.0,10.3207,0.0],
+        [4.18707,0.0,10.4246],
+        [-505.714,12.5859,467.642]
+      ],
+      "tutorial_zone__zoneId": "marker_infantry_group_target_he",
+      "tutorial_zone__active": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "base_tutorial_zone",
+      "transform": [
+        [730.731,0.0,0.0],
+        [0.0,7.04834,0.0],
+        [0.0,0.0,76.2289],
+        [-545.115,10.2678,348.97]
+      ],
+      "tutorial_zone__zoneId": "waypoint_dm_panel_hint",
+      "tutorial_zone__active": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "base_tutorial_zone",
+      "transform": [
+        [55.8078,0.0,0.0],
+        [0.0,11.0,0.0],
+        [0.0,0.0,59.6763],
+        [-525.834,9.94622,449.741]
+      ],
+      "tutorial_zone__zoneId": "waypoint_shooting_range_02",
+      "tutorial_zone__active": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "tutorial_tank_begin"
+    }
+  }
+]

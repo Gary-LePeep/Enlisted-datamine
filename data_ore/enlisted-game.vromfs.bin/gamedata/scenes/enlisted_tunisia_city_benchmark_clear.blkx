@@ -1,0 +1,164 @@
+[
+  {
+    "import": {
+      "scene": "content/enlisted/gamedata/scenes/_tunisia_sounds.blk"
+    }
+  },
+  {
+    "import": {
+      "scene": "content/enlisted/gamedata/scenes/_tunisia_level.blk"
+    }
+  },
+  {
+    "entity": {
+      "_template": "postfx_color_grading_tonemap_death_alive_enlisted"
+    }
+  },
+  {
+    "entity": {
+      "_template": "postfx_roundctrl"
+    }
+  },
+  {
+    "entity": {
+      "_template": "wind"
+    }
+  },
+  {
+    "entity": {
+      "_template": "door_mult_ent_generator",
+      "ri_extra_gen__blk": "content/e_tunisia/gamedata/tunisia_doors.blk"
+    }
+  },
+  {
+    "entity": {
+      "_template": "session_finalizer",
+      "session_finalizer__timer": 10.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "level",
+      "level__blk": "content/enlisted/levels/tunisia_4x4.blk",
+      "level__timeRange": [5.0,19.2],
+      "level__day": 9,
+      "level__month": 6,
+      "level__weatherChoice:object": {
+        "weather_clear_a": 1.0
+      },
+      "level__timeVec:array": {
+        "level__timeVec": 16.5
+      }
+    }
+  },
+  {
+    "entity": {
+      "_template": "water",
+      "water__strength": 0.6,
+      "water__level": 0.0,
+      "water__wind_dir": 40.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "screen_fade_anim",
+      "screen_fade": 0.9,
+      "anim_track_on": true
+    }
+  },
+  {
+    "entity": {
+      "_template": "ui_disabled"
+    }
+  },
+  {
+    "entity": {
+      "_template": "benchmark",
+      "benchmark_name": "tunisia",
+      "camera_tracks:array": [
+        {
+          "track:object": {
+            "duration": 10.0,
+            "from_pos": [-302.6626,22.10126,-57.92339],
+            "from_dir": [-0.16175,-0.038195,0.986092],
+            "from_fov": 90.0,
+            "to_pos": [-298.646,23.04973,-82.41029],
+            "to_dir": [-0.16175,-0.038195,0.986092],
+            "to_fov": 90.0
+          }
+        },
+        {
+          "track:object": {
+            "duration": 10.0,
+            "from_pos": [-265.4348,28.88031,-79.23695],
+            "from_dir": [0.484346,-0.116449,0.867092],
+            "from_fov": 90.0,
+            "to_pos": [-249.2589,28.46787,-76.58633],
+            "to_dir": [0.637967,-0.041794,0.768928],
+            "to_fov": 90.0
+          }
+        },
+        {
+          "track:object": {
+            "duration": 10.0,
+            "from_pos": [-296.2635,21.58751,-147.1119],
+            "from_dir": [0.989557,0.010536,0.143755],
+            "from_fov": 90.0,
+            "to_pos": [-268.7101,21.84022,-143.9115],
+            "to_dir": [0.816526,0.002737,-0.577302],
+            "to_fov": 90.0
+          }
+        },
+        {
+          "track:object": {
+            "duration": 10.0,
+            "from_pos": [-266.3236,21.83109,-83.24316],
+            "from_dir": [0.723622,-0.006171,0.690169],
+            "from_fov": 90.0,
+            "to_pos": [-270.5449,21.87018,-64.33519],
+            "to_dir": [0.994667,0.012634,0.102363],
+            "to_fov": 90.0
+          }
+        },
+        {
+          "track:object": {
+            "duration": 10.0,
+            "from_pos": [-282.3849,22.31527,-59.69943],
+            "from_dir": [-0.990669,-0.023947,-0.134173],
+            "from_fov": 90.0,
+            "to_pos": [-305.8836,21.78149,-62.95821],
+            "to_dir": [-0.989342,-0.021008,-0.144087],
+            "to_fov": 90.0
+          }
+        },
+        {
+          "track:object": {
+            "duration": 10.0,
+            "from_pos": [-233.221,21.75639,-140.5434],
+            "from_dir": [-0.539725,-0.06524,-0.83931],
+            "from_fov": 90.0,
+            "to_pos": [-234.8045,23.85753,-157.2085],
+            "to_dir": [-0.620394,-0.034861,0.783516],
+            "to_fov": 90.0
+          }
+        },
+        {
+          "track:object": {
+            "duration": 10.0,
+            "from_pos": [-208.054,39.5639,-80.74303],
+            "from_dir": [-0.776031,-0.329323,0.537886],
+            "from_fov": 90.0,
+            "to_pos": [-238.4877,46.51566,-97.01604],
+            "to_dir": [-0.22497,-0.473139,0.851779],
+            "to_fov": 90.0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "distant_haze"
+    }
+  }
+]

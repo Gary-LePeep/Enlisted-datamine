@@ -1,0 +1,155 @@
+{
+  "_infoCommonComponents": {
+    "cam_active": {
+      "desc": "Whether camera is active"
+    },
+    "fov_deg": {
+      "desc": "Field of view (degrees)",
+      "min": 0.0,
+      "max": 180.0
+    }
+  },
+  "free_cam_input": [
+    {
+      "free_cam__move": [0.0,0.0]
+    },
+    {
+      "free_cam__rotate": [0.0,0.0]
+    },
+    {
+      "free_cam__shiftY": 0.0
+    },
+    {
+      "free_cam__turbo": false
+    },
+    {
+      "free_cam__angSpdScale": [0.01,0.01]
+    },
+    {
+      "free_cam__move_speed": 5.0
+    },
+    {
+      "free_cam__moveSpeedDefault": 5.0
+    },
+    {
+      "_tracked": "free_cam__angSpdScale"
+    },
+    {
+      "_tracked": "free_cam__move_speed"
+    },
+    {
+      "_group": {
+        "free_cam_input__move:u16": {
+          "value": -1
+        },
+        "free_cam_input__rotate:u16": {
+          "value": -1
+        },
+        "free_cam_input__shiftY:u16": {
+          "value": -1
+        },
+        "free_cam_input__zoomIn:u16": {
+          "value": -1
+        },
+        "free_cam_input__zoomOut:u16": {
+          "value": -1
+        },
+        "free_cam_input__turbo:u16": {
+          "value": -1
+        },
+        "free_cam_input__speedUp:u16": {
+          "value": -1
+        },
+        "free_cam_input__speedDown:u16": {
+          "value": -1
+        },
+        "free_cam_input__speedReset:u16": {
+          "value": -1
+        }
+      }
+    }
+  ],
+  "base_free_cam": {
+    "_extends": "free_cam_input",
+    "editableObj": false,
+    "camera__active": false,
+    "camera__input_enabled": true,
+    "fov": 90.0,
+    "znear": 0.01,
+    "zfar": 50000.0,
+    "transform": [
+      [1.0,0.0,0.0],
+      [0.0,1.0,0.0],
+      [0.0,0.0,1.0],
+      [0.0,0.0,0.0]
+    ],
+    "base_transform": [
+      [1.0,0.0,0.0],
+      [0.0,1.0,0.0],
+      [0.0,0.0,1.0],
+      [0.0,0.0,0.0]
+    ],
+    "_tracked": "camera__active",
+    "camera_view:tag": [],
+    "input": {
+      "_tags": "input"
+    },
+    "_group": {
+      "free_cam__mouse": [0.0,0.0],
+      "_tags": "gameClient",
+      "free_cam": []
+    }
+  },
+  "free_cam": {
+    "_extends": "base_free_cam",
+    "free_cam__angSpdScale": [0.001,0.001]
+  },
+  "inertial_free_cam": {
+    "_extends": "base_free_cam",
+    "free_cam__angSpdScale": [0.001,0.001],
+    "free_cam__move_inertia": 0.999,
+    "free_cam__stop_inertia": 0.999
+  },
+  "fast_free_cam": {
+    "_extends": "base_free_cam",
+    "free_cam__angSpdScale": [0.001,0.001],
+    "free_cam__moveSpeedDefault": 50.0
+  },
+  "static_cam": {
+    "znear": 0.01,
+    "zfar": 10000.0,
+    "transform": [
+      [1.0,0.0,0.0],
+      [0.0,1.0,0.0],
+      [0.0,0.0,1.0],
+      [0.0,0.0,0.0]
+    ],
+    "base_transform": [
+      [1.0,0.0,0.0],
+      [0.0,1.0,0.0],
+      [0.0,0.0,1.0],
+      [0.0,0.0,0.0]
+    ],
+    "_extends": "replicating",
+    "camera__active:b": {
+      "value": false,
+      "_info": "cam_active"
+    },
+    "fov:r": {
+      "value": 90.0,
+      "_info": "fov_deg"
+    },
+    "camera_view:tag": [],
+    "net__inInitialScope:tag": [],
+    "initialCamTag:tag": [],
+    "_info": {
+      "desc": "Static camera for level start"
+    }
+  },
+  "airplane_free_cam": {
+    "_extends": "base_free_cam",
+    "zfar": 40000.0,
+    "free_cam__angSpdScale": [0.001,0.001],
+    "free_cam__moveSpeedDefault": 150.0
+  }
+}

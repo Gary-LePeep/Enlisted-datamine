@@ -1,0 +1,359 @@
+{
+  "helmet_armor_vis": {
+    "slot_attach__slotName": "head_armor",
+    "animchar_hider__camThreshold": 0.3,
+    "base_vis_item__hideFromNode:array": [
+      {
+        "node": "Bip01 Tail1"
+      },
+      {
+        "node": "hide_hat"
+      },
+      {
+        "node": "hide_hair"
+      }
+    ],
+    "base_vis_item__hideNodesInEntity:eid": [],
+    "hides:array": [
+      {
+        "hides": "hat"
+      },
+      {
+        "hides": "glasses"
+      }
+    ]
+  },
+  "helmet_armor": {
+    "_extends": "helmet_armor_vis",
+    "item__iconYaw": 160.0,
+    "item_mods__enableFlag": "char_flags__hasHeadwearOn",
+    "collres__res": "medkit_collision",
+    "item__proto": "items/helmet_rus_a",
+    "item__lootSoundType": "armor",
+    "item__name": "items/helmet_rus_a",
+    "item__weight": 0.75,
+    "item__equipToSlots:array": {
+      "slot": "head"
+    },
+    "item__armoredParts:array": [
+      {
+        "part": "Bip01 Head"
+      },
+      {
+        "part": "Bip01 Neck"
+      }
+    ]
+  },
+  "helmet_rus_a_item": [
+    {
+      "_extends": "helmet_item"
+    },
+    {
+      "_extends": "helmet_armor"
+    },
+    {
+      "animchar__res": "warfare_helmet_ww_rus_a_char"
+    },
+    {
+      "item__name": "items/helmet_rus_a"
+    },
+    {
+      "item__armorAmount": 0.3
+    },
+    {
+      "item__weight": 1.5
+    },
+    {
+      "item__uniqueName": "helmet_rus_a_item"
+    },
+    {
+      "item__recreateInEquipment": "hidden_equipped_item"
+    },
+    {
+      "item__equipSlots:object": {
+        "helmet_rus_a": "head_armor"
+      }
+    }
+  ],
+  "helmet_rus_a": [
+    {
+      "_extends": "base_vis_item"
+    },
+    {
+      "_extends": "helmet_armor_vis"
+    },
+    {
+      "animchar__res": "warfare_helmet_ww_rus_a_char"
+    },
+    {
+      "collres__res": "warfare_helmet_ww_rus_a_collision"
+    },
+    {
+      "slot_attach__slotName": "head_armor"
+    }
+  ],
+  "helmet_swat_a_item": [
+    {
+      "_extends": "helmet_item"
+    },
+    {
+      "_extends": "helmet_armor"
+    },
+    {
+      "animchar__res": "warfare_helmet_ww_swat_a_char"
+    },
+    {
+      "collres__res": "medkit_collision"
+    },
+    {
+      "item__proto": "items/helmet_swat_a"
+    },
+    {
+      "item__lootSoundType": "armor"
+    },
+    {
+      "item__name": "items/helmet_swat_a"
+    },
+    {
+      "item__armorAmount": 0.2
+    },
+    {
+      "item__uniqueName": "helmet_swat_a_item"
+    }
+  ],
+  "modern_armor_item": {
+    "_extends": "item_armor",
+    "collres__res": "medkit_collision",
+    "item__iconScale": 1.0,
+    "item__iconYaw": 0.0,
+    "item__iconPitch": 30.0,
+    "item__iconRoll": 90.0,
+    "item_mods__enableFlag": "char_flags__hasBodyArmorOn",
+    "item__weight": 7.5,
+    "item__recreateInEquipment": "hidden_equipped_item",
+    "item__equipToSlots:array": {
+      "slot": "body"
+    },
+    "item__armoredParts:array": [
+      {
+        "part": "Bip01 Spine"
+      },
+      {
+        "part": "Bip01 Spine1"
+      }
+    ]
+  },
+  "attachable_wear_rus_armor_item": {
+    "_extends": "modern_armor_item",
+    "animchar__res": "armor_ww_rus_a_char",
+    "collres__res": "armor_ww_rus_a_collision",
+    "item__proto": "items/armor_rus",
+    "item__name": "items/armor_rus",
+    "item__armorAmount": 0.3,
+    "item__weight": 15.0,
+    "item__uniqueName": "rus_armor",
+    "item__equipSlots:object": {
+      "attachable_wear_rus_armor": "body_armor"
+    }
+  },
+  "attachable_wear_rus_armor": {
+    "_extends": "attachable_wear",
+    "animchar__res": "armor_ww_rus_a_char",
+    "collres__res": "armor_ww_rus_a_collision",
+    "base_vis_item__hideFromNode:array": {
+      "node": "hide"
+    },
+    "base_vis_item__hideNodesInEntity:eid": [],
+    "hides:array": {
+      "hides": "talisman"
+    }
+  },
+  "attachable_wear_rus_armor_female": {
+    "_extends": "attachable_wear_rus_armor",
+    "animchar__res": "armor_ww_rus_a_female_char",
+    "collres__res": "armor_ww_rus_a_female_collision"
+  },
+  "attachable_wear_armor_eagle_low_m_item": {
+    "_extends": "modern_armor_item",
+    "animchar__res": "armor_eagle_low_m_char",
+    "collres__res": "armor_eagle_low_m_collision",
+    "item__proto": "items/armor_eagle_low_m",
+    "item__name": "items/armor_eagle_low_m",
+    "item__armorAmount": 0.2,
+    "item__uniqueName": "eagle_low",
+    "item__equipSlots:object": {
+      "attachable_wear_armor_eagle_low_m": "body_armor"
+    }
+  },
+  "attachable_wear_armor_eagle_low_m": {
+    "_extends": "attachable_wear",
+    "animchar__res": "armor_eagle_low_m_char",
+    "collres__res": "armor_eagle_low_m_collision",
+    "base_vis_item__hideFromNode:array": {
+      "node": "hide"
+    },
+    "base_vis_item__hideNodesInEntity:eid": [],
+    "hides:array": {
+      "hides": "talisman"
+    }
+  },
+  "attachable_wear_armor_eagle_low_female": {
+    "_extends": "attachable_wear_armor_eagle_low_m",
+    "animchar__res": "armor_eagle_low_female_char",
+    "collres__res": "armor_eagle_low_female_collision"
+  },
+  "attachable_wear_armor_nivel_3_m_item": {
+    "_extends": "modern_armor_item",
+    "animchar__res": "armor_nivel_3_m_char",
+    "collres__res": "armor_nivel_3_m_collision",
+    "item__proto": "items/armor_nivel_3_m",
+    "item__name": "items/armor_nivel_3_m",
+    "item__armorAmount": 0.2,
+    "item__uniqueName": "nivel_3",
+    "item__equipSlots:object": {
+      "attachable_wear_armor_nivel_3_m": "body_armor"
+    }
+  },
+  "attachable_wear_armor_nivel_3_m": {
+    "_extends": "attachable_wear",
+    "animchar__res": "armor_nivel_3_m_char",
+    "collres__res": "armor_nivel_3_m_collision",
+    "base_vis_item__hideFromNode:array": {
+      "node": "hide"
+    },
+    "base_vis_item__hideNodesInEntity:eid": [],
+    "hides:array": {
+      "hides": "talisman"
+    }
+  },
+  "attachable_wear_armor_nivel_3_female": {
+    "_extends": "attachable_wear_armor_nivel_3_m",
+    "animchar__res": "armor_nivel_3_female_char",
+    "collres__res": "armor_nivel_3_female_collision"
+  },
+  "attachable_wear_armor_nivel_4_m_item": {
+    "_extends": "modern_armor_item",
+    "animchar__res": "armor_nivel_4_m_char",
+    "collres__res": "armor_nivel_4_m_collision",
+    "item__proto": "items/armor_nivel_4_m",
+    "item__name": "items/armor_nivel_4_m",
+    "item__armorAmount": 0.2,
+    "item__uniqueName": "nivel_4",
+    "item__equipSlots:object": {
+      "attachable_wear_armor_nivel_4_m": "body_armor"
+    }
+  },
+  "attachable_wear_armor_nivel_4_m": {
+    "_extends": "attachable_wear",
+    "animchar__res": "armor_nivel_4_m_char",
+    "collres__res": "armor_nivel_4_m_collision",
+    "base_vis_item__hideFromNode:array": {
+      "node": "hide"
+    },
+    "base_vis_item__hideNodesInEntity:eid": [],
+    "hides:array": {
+      "hides": "talisman"
+    }
+  },
+  "attachable_wear_armor_nivel_4_female": {
+    "_extends": "attachable_wear_armor_nivel_4_m",
+    "animchar__res": "armor_nivel_4_female_char",
+    "collres__res": "armor_nivel_4_female_collision"
+  },
+  "attachable_wear_armor_second_chance_spa2_m_item": {
+    "_extends": "modern_armor_item",
+    "animchar__res": "armor_second_chance_spa2_m_char",
+    "collres__res": "armor_second_chance_spa2_m_collision",
+    "item__proto": "items/armor_second_chance_spa2_m",
+    "item__name": "items/armor_second_chance_spa2_m",
+    "item__armorAmount": 0.2,
+    "item__uniqueName": "second_chance_spa2",
+    "item__equipSlots:object": {
+      "attachable_wear_armor_second_chance_spa2_m": "body_armor"
+    }
+  },
+  "attachable_wear_armor_second_chance_spa2_m": {
+    "_extends": "attachable_wear",
+    "animchar__res": "armor_second_chance_spa2_m_char",
+    "collres__res": "armor_second_chance_spa2_m_collision",
+    "base_vis_item__hideFromNode:array": {
+      "node": "hide"
+    },
+    "base_vis_item__hideNodesInEntity:eid": [],
+    "hides:array": {
+      "hides": "talisman"
+    }
+  },
+  "attachable_wear_armor_second_chance_spa2_female": {
+    "_extends": "attachable_wear_armor_second_chance_spa2_m",
+    "animchar__res": "armor_second_chance_spa2_female_char",
+    "collres__res": "armor_second_chance_spa2_female_collision"
+  },
+  "attachable_wear_armor_vest_tactical_us_m_item": {
+    "_extends": "modern_armor_item",
+    "animchar__res": "armor_vest_tactical_us_m_char",
+    "collres__res": "armor_vest_tactical_us_m_collision",
+    "item__proto": "items/armor_vest_tactical_us_m",
+    "item__name": "items/armor_vest_tactical_us_m",
+    "item__uniqueName": "vest_tactical_us",
+    "item__armorAmount": 0.2,
+    "item__equipSlots:object": {
+      "attachable_wear_armor_vest_tactical_us_m": "body_armor"
+    }
+  },
+  "attachable_wear_armor_vest_tactical_us_m": {
+    "_extends": "attachable_wear",
+    "animchar__res": "armor_vest_tactical_us_m_char",
+    "collres__res": "armor_vest_tactical_us_m_collision",
+    "base_vis_item__hideFromNode:array": {
+      "node": "hide"
+    },
+    "base_vis_item__hideNodesInEntity:eid": [],
+    "hides:array": {
+      "hides": "talisman"
+    }
+  },
+  "attachable_wear_armor_vest_tactical_us_female": {
+    "_extends": "attachable_wear_armor_vest_tactical_us_m",
+    "animchar__res": "armor_vest_tactical_us_female_char",
+    "collres__res": "armor_vest_tactical_us_female_collision"
+  },
+  "attachable_wear_armor_ww_rus_a_aztec": {
+    "_extends": "attachable_wear_rus_armor",
+    "animchar__res": "armor_ww_rus_a_aztec_char",
+    "collres__res": "armor_ww_rus_a_aztec_collision",
+    "animchar_node_collapser": {
+      "_tags": "render"
+    },
+    "animchar_node_collapser__nodes:object": {
+      "Bip01 Neck": "",
+      "Bip01 Head": "",
+      "_tags": "render"
+    }
+  },
+  "attachable_wear_armor_second_chance_spa2_m_aztec": {
+    "_extends": "attachable_wear_armor_second_chance_spa2_m",
+    "animchar__res": "armor_second_chance_spa2_m_aztec_char",
+    "collres__res": "armor_second_chance_spa2_m_aztec_collision"
+  },
+  "attachable_wear_armor_nivel_4_m_aztec": {
+    "_extends": "attachable_wear_armor_nivel_4_m",
+    "animchar__res": "armor_nivel_4_m_aztec_char",
+    "collres__res": "armor_nivel_4_m_aztec_collision"
+  },
+  "attachable_wear_armor_nivel_3_m_aztec": {
+    "_extends": "attachable_wear_armor_nivel_3_m",
+    "animchar__res": "armor_nivel_3_m_aztec_char",
+    "collres__res": "armor_nivel_3_m_aztec_collision"
+  },
+  "attachable_wear_armor_eagle_low_m_aztec": {
+    "_extends": "attachable_wear_armor_eagle_low_m",
+    "animchar__res": "armor_eagle_low_m_aztec_char",
+    "collres__res": "armor_eagle_low_m_aztec_collision"
+  },
+  "attachable_wear_armor_vest_tactical_us_m_aztec": {
+    "_extends": "attachable_wear_armor_vest_tactical_us_m",
+    "animchar__res": "armor_vest_tactical_us_m_aztec_char",
+    "collres__res": "armor_vest_tactical_us_m_aztec_collision"
+  }
+}

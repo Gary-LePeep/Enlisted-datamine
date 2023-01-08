@@ -1,0 +1,633 @@
+{
+  "VehiclePhys": {
+    "skipUpdateOnSleep": true,
+    "Mass": {
+      "Empty": 400.0,
+      "Fuel": 20.0,
+      "TakeOff": 360.0,
+      "momentOfInertia": [0.5,0.9,0.9],
+      "CenterOfGravity": [0.0,0.0,0.0],
+      "adjustCenterOfGravityByWheels": true,
+      "CenterOfGravityClampY": [0.0,1.6],
+      "AdvancedMass": false,
+      "trackMass": 0.1,
+      "engineInertialMass": 5.0
+    },
+    "tracks": {
+      "animationMultiplier": 0.5,
+      "height": 0.06,
+      "width": 0.16,
+      "trackPhysMat": "wheel"
+    },
+    "collisionProps": {
+      "cls_body_01": "convex_hull",
+      "cls_body_03": "convex_hull",
+      "collisionMaterial": "walkRay"
+    },
+    "engine": {
+      "horsePowers": 26.0,
+      "maxRPM": 4000.0,
+      "minRPM": 900.0,
+      "rpmTau": 0.1,
+      "minTorqueLimiter": 0.0
+    },
+    "mechanics": {
+      "maxBrakeForce": 7900.0,
+      "driveGearRadius": 0.36,
+      "mainGearRatio": 4.7,
+      "sideGearRatio": 1.0,
+      "tracked": false,
+      "gearType": "differential",
+      "gearRatios": [
+        {
+          "ratio": -20.6
+        },
+        {
+          "ratio": 0.0
+        },
+        {
+          "ratio": 5.5
+        },
+        {
+          "ratio": 1.9
+        },
+        {
+          "ratio": 1.0
+        }
+      ]
+    },
+    "suspension": {
+      "suspensionOffsets": [-0.03,-0.03,0.05],
+      "defaultGearRadius": 0.36,
+      "sinkableDist": 0.07,
+      "defaultDampeningForce": [20000.0,20000.0],
+      "hasSuspensionOnDriveGear": true,
+      "dampeningRelaxationRatio": 0.4,
+      "dampeningCompressionRatio": 0.15,
+      "recalcWtms": true,
+      "steeringDeflection": {
+        "wheel_l_01": 35.0,
+        "steeringTau": 1000000.0,
+        "steeringSpd": 3.0,
+        "steeringNeutralSpd": 4.0,
+        "steeringNegativeMult": 2.0,
+        "steeringSpdMult": [22.0,85.0,1.0,0.2]
+      },
+      "steeringDeflectionByAnim": {
+        "wheel_l_01": true
+      },
+      "wheelsWidth": {
+        "wheel_l_01": 0.16,
+        "wheel_l_drive": 0.16,
+        "wheel_r_drive": 0.16
+      },
+      "driven": {
+        "wheel_l_01": false,
+        "wheel_l_drive": true,
+        "wheel_r_drive": true
+      },
+      "handBraken": {
+        "wheel_l_01": false,
+        "wheel_l_drive": true,
+        "wheel_r_drive": true
+      },
+      "wheelsDamageWeight": {
+        "wheel_l_01": 0.4,
+        "wheel_l_drive": 0.4,
+        "wheel_r_drive": 0.4
+      }
+    }
+  },
+  "DamageParts": {
+    "formatVersion": 2,
+    "armorClass": "RHA_tank",
+    "hp": 250.0,
+    "body": {
+      "hitTestType": "inner",
+      "malfunctionDamage": 0.7,
+      "stopChanceOnDeadPart": 1.0,
+      "castOnKillAfterTankPartDead": true,
+      "fireProtectionHp": 5.0,
+      "externalArmor": false,
+      "minRelHpSelfRepair": 0.5,
+      "maxRelHpSelfRepair": 0.5,
+      "selfRepairDelay": 0.0,
+      "selfRepairTime": -1.0,
+      "ignoreDeadWithSplash": false,
+      "splashPenetrationToArmorThreshold": 0.33,
+      "pressureDamageMult": 0.0,
+      "vital": true,
+      "armorThickness": 2.0,
+      "armorClass": "tank_structural_steel",
+      "hp": 300.0,
+      "armorThrough": 15.0,
+      "hidableInViewer": false,
+      "explosionArmorQuality": 0.5
+    },
+    "steering_wheel": {
+      "hitTestType": "inner",
+      "malfunctionDamage": 0.7,
+      "stopChanceOnDeadPart": 1.0,
+      "castOnKillAfterTankPartDead": true,
+      "fireProtectionHp": 5.0,
+      "externalArmor": false,
+      "minRelHpSelfRepair": 0.5,
+      "maxRelHpSelfRepair": 0.5,
+      "selfRepairDelay": 0.0,
+      "selfRepairTime": -1.0,
+      "ignoreDeadWithSplash": false,
+      "splashPenetrationToArmorThreshold": 0.33,
+      "pressureDamageMult": 0.0,
+      "vital": true,
+      "armorThickness": 2.0,
+      "armorClass": "tank_structural_steel",
+      "hp": 300.0,
+      "armorThrough": 15.0,
+      "hidableInViewer": false,
+      "explosionArmorQuality": 0.5
+    },
+    "engine": {
+      "hitTestType": "inner",
+      "malfunctionDamage": 0.7,
+      "stopChanceOnDeadPart": 1.0,
+      "castOnKillAfterTankPartDead": true,
+      "fireProtectionHp": 5.0,
+      "externalArmor": false,
+      "minRelHpSelfRepair": 0.5,
+      "maxRelHpSelfRepair": 0.5,
+      "selfRepairDelay": 0.0,
+      "selfRepairTime": -1.0,
+      "ignoreDeadWithSplash": false,
+      "splashPenetrationToArmorThreshold": 0.33,
+      "pressureDamageMult": 0.0,
+      "vital": true,
+      "movement": true,
+      "fire": true,
+      "armorThickness": 7.5,
+      "armorClass": "armor_tank_engine",
+      "hp": 100.0,
+      "restrainDamage": 0.5,
+      "explosionArmorQuality": 0.5
+    },
+    "transmission": {
+      "hitTestType": "inner",
+      "malfunctionDamage": 0.7,
+      "stopChanceOnDeadPart": 1.0,
+      "castOnKillAfterTankPartDead": true,
+      "fireProtectionHp": 5.0,
+      "externalArmor": false,
+      "minRelHpSelfRepair": 0.5,
+      "maxRelHpSelfRepair": 0.5,
+      "selfRepairDelay": 0.0,
+      "selfRepairTime": -1.0,
+      "ignoreDeadWithSplash": false,
+      "splashPenetrationToArmorThreshold": 0.33,
+      "pressureDamageMult": 0.0,
+      "vital": true,
+      "movement": true,
+      "fire": true,
+      "armorThickness": 7.5,
+      "armorClass": "armor_tank_engine",
+      "hp": 100.0,
+      "restrainDamage": 0.5,
+      "explosionArmorQuality": 0.5
+    },
+    "fuel_tank": {
+      "hitTestType": "inner",
+      "malfunctionDamage": 0.7,
+      "stopChanceOnDeadPart": 0.0,
+      "castOnKillAfterTankPartDead": true,
+      "fireProtectionHp": 15.0,
+      "externalArmor": false,
+      "minRelHpSelfRepair": 0.5,
+      "maxRelHpSelfRepair": 0.5,
+      "selfRepairDelay": 0.0,
+      "selfRepairTime": -1.0,
+      "ignoreDeadWithSplash": false,
+      "splashPenetrationToArmorThreshold": 0.33,
+      "pressureDamageMult": 0.0,
+      "vital": true,
+      "fire": true,
+      "armorThickness": 2.0,
+      "armorClass": "tank_structural_steel",
+      "hp": 100.0,
+      "armorThrough": 12.0,
+      "createSecondaryShatters": false,
+      "fireParamsPreset": "fuel_internal",
+      "explosionArmorQuality": 0.3
+    },
+    "wheel_l_01": {
+      "hitTestType": "exclude",
+      "malfunctionDamage": 0.7,
+      "stopChanceOnDeadPart": 1.0,
+      "castOnKillAfterTankPartDead": true,
+      "fireProtectionHp": -1.0,
+      "externalArmor": false,
+      "minRelHpSelfRepair": 0.5,
+      "maxRelHpSelfRepair": 0.5,
+      "selfRepairDelay": 0.0,
+      "selfRepairTime": -1.0,
+      "ignoreDeadWithSplash": false,
+      "splashPenetrationToArmorThreshold": 0.33,
+      "pressureDamageMult": 0.0,
+      "vital": true,
+      "armorThickness": 7.5,
+      "armorClass": "car_wheels",
+      "hp": 20.0,
+      "genericEffectiveThicknessMax": 2.0,
+      "explosionArmorQuality": 0.4
+    },
+    "wheel_l_drive": {
+      "hitTestType": "exclude",
+      "malfunctionDamage": 0.7,
+      "stopChanceOnDeadPart": 1.0,
+      "castOnKillAfterTankPartDead": true,
+      "fireProtectionHp": -1.0,
+      "externalArmor": false,
+      "minRelHpSelfRepair": 0.5,
+      "maxRelHpSelfRepair": 0.5,
+      "selfRepairDelay": 0.0,
+      "selfRepairTime": -1.0,
+      "ignoreDeadWithSplash": false,
+      "splashPenetrationToArmorThreshold": 0.33,
+      "pressureDamageMult": 0.0,
+      "vital": true,
+      "armorThickness": 7.5,
+      "armorClass": "car_wheels",
+      "hp": 20.0,
+      "genericEffectiveThicknessMax": 2.0,
+      "explosionArmorQuality": 0.4
+    },
+    "wheel_r_drive": {
+      "hitTestType": "exclude",
+      "malfunctionDamage": 0.7,
+      "stopChanceOnDeadPart": 1.0,
+      "castOnKillAfterTankPartDead": true,
+      "fireProtectionHp": -1.0,
+      "externalArmor": false,
+      "minRelHpSelfRepair": 0.5,
+      "maxRelHpSelfRepair": 0.5,
+      "selfRepairDelay": 0.0,
+      "selfRepairTime": -1.0,
+      "ignoreDeadWithSplash": false,
+      "splashPenetrationToArmorThreshold": 0.33,
+      "pressureDamageMult": 0.0,
+      "vital": true,
+      "armorThickness": 7.5,
+      "armorClass": "car_wheels",
+      "hp": 20.0,
+      "genericEffectiveThicknessMax": 2.0,
+      "explosionArmorQuality": 0.4
+    }
+  },
+  "DamageEffects": [
+    {
+      "part": [
+        {
+          "name": "fuel_tank"
+        },
+        {
+          "name": "fuel_tank_01"
+        },
+        {
+          "name": "fuel_tank_02"
+        },
+        {
+          "name": "fuel_tank_03"
+        },
+        {
+          "onHit": {
+            "damageType": "cumulative",
+            "expl": 0.1,
+            "fire": 0.2,
+            "damage": 33.0,
+            "fHitCritical": true
+          }
+        },
+        {
+          "onHit": {
+            "damageType": "cumulative",
+            "expl": 0.2,
+            "fire": 0.3,
+            "damage": 83.0,
+            "fHitCritical": true
+          }
+        },
+        {
+          "onHit": {
+            "damageType": "cumulative",
+            "expl": 1.0,
+            "damage": 100.0,
+            "fHitCritical": true
+          }
+        },
+        {
+          "onHit": {
+            "damageType": "explosion",
+            "expl": 0.125,
+            "fire": 0.225,
+            "damage": 4.0,
+            "fHitCritical": true
+          }
+        },
+        {
+          "onHit": {
+            "damageType": "explosion",
+            "expl": 0.25,
+            "fire": 0.35,
+            "damage": 16.0,
+            "fHitCritical": true
+          }
+        },
+        {
+          "onHit": {
+            "damageType": "explosion",
+            "expl": 1.0,
+            "damage": 80.0,
+            "fHitCritical": true
+          }
+        },
+        {
+          "onHit": {
+            "damageType": "explosion",
+            "fire": 0.4,
+            "damage": 40.0,
+            "fHitCritical": true
+          }
+        },
+        {
+          "onHit": {
+            "damageType": "generic",
+            "fire": 0.07,
+            "damage": 3.0,
+            "fHitCritical": true
+          }
+        },
+        {
+          "onHit": {
+            "damageType": "generic",
+            "fire": 0.25,
+            "damage": 23.0,
+            "fHitCritical": true
+          }
+        },
+        {
+          "onHit": {
+            "damageType": "generic",
+            "fire": 0.4,
+            "damage": 66.0,
+            "fHitCritical": true
+          }
+        },
+        {
+          "onHit": {
+            "damageType": "generic",
+            "fire": 0.7,
+            "expl": 0.1,
+            "damage": 100.0,
+            "fHitCritical": true
+          }
+        },
+        {
+          "onHit": {
+            "damageType": "generic",
+            "fire": 0.5,
+            "expl": 0.5,
+            "damage": 133.0,
+            "fHitCritical": true
+          }
+        },
+        {
+          "onHit": {
+            "damageType": "generic",
+            "fire": 0.2,
+            "expl": 0.8,
+            "damage": 200.0,
+            "fHitCritical": true
+          }
+        },
+        {
+          "onHit": {
+            "damageType": "fire",
+            "fire": 0.2,
+            "expl": 0.2,
+            "fHitCritical": true
+          }
+        },
+        {
+          "onKill": {
+            "fire": 0.5,
+            "expl": 0.3,
+            "nothing": 0.2,
+            "fHitCritical": true
+          }
+        }
+      ]
+    },
+    {
+      "part": [
+        {
+          "name": "engine"
+        },
+        {
+          "onHit": {
+            "damageType": "cumulative",
+            "fire": 0.2,
+            "damage": 25.0,
+            "fHitCritical": true
+          }
+        },
+        {
+          "onHit": {
+            "damageType": "cumulative",
+            "expl": 1.0,
+            "damage": 100.0,
+            "fHitCritical": true
+          }
+        },
+        {
+          "onHit": {
+            "damageType": "explosion",
+            "fire": 0.1,
+            "damage": 3.0,
+            "fHitCritical": true
+          }
+        },
+        {
+          "onHit": {
+            "damageType": "explosion",
+            "expl": 1.0,
+            "damage": 80.0,
+            "fHitCritical": true
+          }
+        },
+        {
+          "onHit": {
+            "damageType": "explosion",
+            "fire": 0.2,
+            "damage": 40.0,
+            "fHitCritical": true
+          }
+        },
+        {
+          "onHit": {
+            "damageType": "generic",
+            "fire": 0.2,
+            "damage": 23.0,
+            "fHitCritical": true
+          }
+        },
+        {
+          "onHit": {
+            "damageType": "generic",
+            "fire": 0.55,
+            "damage": 33.0,
+            "fHitCritical": true
+          }
+        },
+        {
+          "onHit": {
+            "damageType": "generic",
+            "fire": 0.35,
+            "damage": 66.0,
+            "fHitCritical": true
+          }
+        },
+        {
+          "onHit": {
+            "damageType": "generic",
+            "fire": 0.05,
+            "damage": 3.0,
+            "fHitCritical": true
+          }
+        },
+        {
+          "onHit": {
+            "damageType": "fire",
+            "fire": 0.1
+          }
+        },
+        {
+          "onKill": {
+            "fire": 1.0,
+            "nothing": 0.5,
+            "fHitCritical": true
+          }
+        }
+      ]
+    },
+    {
+      "part": [
+        {
+          "name": "transmission"
+        },
+        {
+          "onHit": {
+            "damageType": "cumulative",
+            "fire": 0.15,
+            "damage": 25.0,
+            "fHitCritical": true
+          }
+        },
+        {
+          "onHit": {
+            "damageType": "cumulative",
+            "expl": 1.0,
+            "damage": 100.0,
+            "fHitCritical": true
+          }
+        },
+        {
+          "onHit": {
+            "damageType": "explosion",
+            "fire": 0.1,
+            "damage": 3.0,
+            "fHitCritical": true
+          }
+        },
+        {
+          "onHit": {
+            "damageType": "explosion",
+            "fire": 0.3,
+            "damage": 40.0,
+            "fHitCritical": true
+          }
+        },
+        {
+          "onHit": {
+            "damageType": "explosion",
+            "expl": 1.0,
+            "damage": 80.0,
+            "fHitCritical": true
+          }
+        },
+        {
+          "onHit": {
+            "damageType": "generic",
+            "fire": 0.05,
+            "damage": 23.0,
+            "fHitCritical": true
+          }
+        },
+        {
+          "onHit": {
+            "damageType": "generic",
+            "fire": 0.1,
+            "damage": 66.0,
+            "fHitCritical": true
+          }
+        },
+        {
+          "onHit": {
+            "damageType": "fire",
+            "fire": 0.02
+          }
+        }
+      ]
+    },
+    {
+      "part": [
+        {
+          "name": "body"
+        },
+        {
+          "name": "stereeng_wheel"
+        },
+        {
+          "name": "wheel_r_01"
+        },
+        {
+          "name": "wheel_l_01"
+        },
+        {
+          "name": "wheel_r_drive"
+        },
+        {
+          "name": "wheel_l_drive"
+        },
+        {
+          "onHit": {
+            "damageType": "generic",
+            "fire": 0.5,
+            "damage": 70.0,
+            "fHitCritical": true
+          }
+        },
+        {
+          "onKill": {
+            "damageType": "cumulative",
+            "expl": 1.0,
+            "fHitCritical": true
+          }
+        },
+        {
+          "onKill": {
+            "damageType": "explosion",
+            "expl": 1.0,
+            "fHitCritical": true
+          }
+        }
+      ]
+    }
+  ]
+}

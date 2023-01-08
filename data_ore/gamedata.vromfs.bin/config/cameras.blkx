@@ -1,0 +1,40 @@
+[
+  {
+    "cam": {
+      "esName": "inertial_free_cam",
+      "initial": true,
+      "tag": "spectator"
+    }
+  },
+  {
+    "cam": {
+      "esName": "fast_free_cam",
+      "tag": "spectator"
+    }
+  },
+  {
+    "cam": {
+      "esName": "helmet_cam",
+      "tag": "spectator"
+    }
+  },
+  {
+    "cam": {
+      "esName": "observe_head_cam",
+      "tag": "spectator"
+    }
+  },
+  {
+    "cam": {
+      "esName": "eye_cam",
+      "tag": "spectator"
+    }
+  },
+  {
+    "cam": {
+      "esName": "shooter_cam",
+      "tag": "spectator",
+      "bindable": true
+    }
+  }
+]

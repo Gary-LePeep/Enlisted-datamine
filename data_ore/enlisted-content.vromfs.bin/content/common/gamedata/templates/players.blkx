@@ -1,0 +1,237 @@
+{
+  "player": [
+    {
+      "team": -1
+    },
+    {
+      "name": ""
+    },
+    {
+      "disconnected": false
+    },
+    {
+      "disconnectedAtTime": -1.0
+    },
+    {
+      "is_local": false
+    },
+    {
+      "platformUid": ""
+    },
+    {
+      "platform": ""
+    },
+    {
+      "playerIdInSession": ""
+    },
+    {
+      "groupId": 0
+    },
+    {
+      "origGroupId": 0
+    },
+    {
+      "player_group__memberIndex": 0
+    },
+    {
+      "connid": -1
+    },
+    {
+      "psnMatchCreationAttempt": 0
+    },
+    {
+      "connectedAtTime": -1.0
+    },
+    {
+      "startedAtTime": -1.0
+    },
+    {
+      "canBeLocal": true
+    },
+    {
+      "_extends": "replicating"
+    },
+    {
+      "_extends": "player_hits_counter"
+    },
+    {
+      "markerDistMult": 1.0
+    },
+    {
+      "countAsAlive": true
+    },
+    {
+      "appId": 0
+    },
+    {
+      "clientNetFlags": 0
+    },
+    {
+      "_tracked": "groupId"
+    },
+    {
+      "_tracked": "squadFormationSpread"
+    },
+    {
+      "_tracked": "team"
+    },
+    {
+      "_tracked": "is_local"
+    },
+    {
+      "_tracked": "possessed"
+    },
+    {
+      "_tracked": "disconnected"
+    },
+    {
+      "_tracked": "awards"
+    },
+    {
+      "_tracked": "specTarget"
+    },
+    {
+      "_tracked": "userstats"
+    },
+    {
+      "_tracked": "userstats_mode"
+    },
+    {
+      "_tracked": "player__limitVehicleByGroup"
+    },
+    {
+      "_replicated": "groupId"
+    },
+    {
+      "_replicated": "squadFormationSpread"
+    },
+    {
+      "_replicated": "possessed"
+    },
+    {
+      "_replicated": "specTarget"
+    },
+    {
+      "_replicated": "team"
+    },
+    {
+      "_replicated": "name"
+    },
+    {
+      "_replicated": "disconnected"
+    },
+    {
+      "_replicated": "playerIdInSession"
+    },
+    {
+      "_replicated": "player_group__memberIndex"
+    },
+    {
+      "_replicated": "player__limitVehicleByGroup"
+    },
+    {
+      "ban_status": "UNDEFINED"
+    },
+    {
+      "receive_logerr": false
+    },
+    {
+      "player__limitVehicleByGroup": false
+    },
+    {
+      "_group": {
+        "_track": true,
+        "_replicate": true,
+        "scoring_player__kills": 0,
+        "scoring_player__firstSpawnTime": -1.0,
+        "scoring_player__battleTime": 0.0
+      }
+    },
+    {
+      "_group": {
+        "_tags": "server",
+        "squadFormationSpread": 1
+      }
+    },
+    {
+      "player": []
+    },
+    {
+      "possessed:eid": []
+    },
+    {
+      "specTarget:eid": []
+    },
+    {
+      "net__notInInitialScope:tag": []
+    },
+    {
+      "awards:array": []
+    },
+    {
+      "userstats:object": {
+        "_tags": "server"
+      }
+    },
+    {
+      "userstats_mode:object": {
+        "_tags": "server"
+      }
+    },
+    {
+      "regionstats:object": {
+        "_tags": "server"
+      }
+    },
+    {
+      "activeCamName:t": {
+        "_tags": "gameClient",
+        "value": ""
+      }
+    },
+    {
+      "activeCamEid:eid": {
+        "_tags": "gameClient"
+      }
+    },
+    {
+      "killEntityTimer:u64": {
+        "_tags": "server",
+        "value": 0
+      }
+    }
+  ],
+  "local_player": {
+    "localPlayer:tag": []
+  },
+  "player_afk": {
+    "_group": {
+      "afk__disconnectTimeout": -1.0,
+      "afk__showWarningTimeout": -1,
+      "afk__showDisconnectWarningTimeout": -1,
+      "afk__time": 0.0,
+      "afk__packedState": 0,
+      "afk__walkPacked": 0,
+      "afk__wishLookDirPacked": 0,
+      "afk__wishShootDirPacked": 0,
+      "_tags": "server"
+    }
+  },
+  "bot_player": {
+    "_extends": "player",
+    "playerIsBot:tag": []
+  },
+  "player_hits_counter": {
+    "_group": {
+      "hits_counter__verified": 0,
+      "hits_counter__failed": 0,
+      "_tags": "server"
+    }
+  },
+  "player_group": {
+    "player_group__id": 0,
+    "player_group__maxBotPlayers": 4,
+    "player_group__wishTeam": -1,
+    "player_group__members:list<u64>": []
+  }
+}

@@ -1,0 +1,444 @@
+[
+  {
+    "import": {
+      "scene": "content/enlisted/gamedata/scenes/_tunisia_sounds.blk"
+    }
+  },
+  {
+    "import": {
+      "scene": "content/enlisted/gamedata/scenes/_tunisia_level.blk"
+    }
+  },
+  {
+    "entity": {
+      "_template": "box_battle_area",
+      "transform": [
+        [72525.6,0.0,30613.9],
+        [0.0,495.93,-0.0],
+        [-40933.8,0.0,96974.0],
+        [70.1517,27.14,91.7148]
+      ],
+      "battle_area__team": -1,
+      "battle_area__timeToDamage": 10.0,
+      "battle_area__damage": 3.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "add_spawn_on_squadmates"
+    }
+  },
+  {
+    "entity": {
+      "_template": "static_cam",
+      "camera__active": true,
+      "transform": [
+        [0.828609,0.0,0.559829],
+        [0.0,1.0,0.0],
+        [-0.559829,0.0,0.828609],
+        [-880.9,30.0,-1274.39]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "minimap_tunisia_tataouine"
+    }
+  },
+  {
+    "entity": {
+      "_template": "postfx_color_grading_tonemap_death_alive_enlisted"
+    }
+  },
+  {
+    "entity": {
+      "_template": "postfx_roundctrl"
+    }
+  },
+  {
+    "entity": {
+      "_template": "session_finalizer",
+      "session_finalizer__timer": 10.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "briefing_domination"
+    }
+  },
+  {
+    "entity": {
+      "_template": "spawn_switcher",
+      "swapProbability": 0.5,
+      "team1": 2,
+      "team2": 1
+    }
+  },
+  {
+    "entity": {
+      "_template": "team_tunisia_allies+team_narrator_domination+respawn_creators_team",
+      "team__id": 1,
+      "team__score": 2250.0,
+      "team__scoreCap": 2250.0,
+      "score_bleed__domBleed": 4.0,
+      "score_bleed__domBleedOn": false,
+      "score_bleed__totalDomZoneCount": 3,
+      "score_bleed__totalDomBleedMul": 2.0,
+      "score_bleed__totalDomBleedOn": false,
+      "team__briefing": "domination/common_goals",
+      "team__numZonesCaptured": 0,
+      "team__deathPenalty": 2.0,
+      "team__spawnBotArmy": "tunisia_allies"
+    }
+  },
+  {
+    "entity": {
+      "_template": "team_tunisia_axis+team_narrator_domination+respawn_creators_team",
+      "team__id": 2,
+      "team__score": 2250.0,
+      "team__scoreCap": 2250.0,
+      "score_bleed__domBleed": 4.0,
+      "score_bleed__domBleedOn": false,
+      "score_bleed__totalDomZoneCount": 3,
+      "score_bleed__totalDomBleedMul": 2.0,
+      "score_bleed__totalDomBleedOn": false,
+      "team__briefing": "domination/common_goals",
+      "team__numZonesCaptured": 0,
+      "team__deathPenalty": 2.0,
+      "team__spawnBotArmy": "tunisia_axis"
+    }
+  },
+  {
+    "entity": {
+      "_template": "door_mult_ent_generator",
+      "ri_extra_gen__blk": "content/e_tunisia/gamedata/tunisia_doors.blk"
+    }
+  },
+  {
+    "entity": {
+      "_template": "level",
+      "level__blk": "content/enlisted/levels/tunisia_4x4.blk",
+      "level__timeRange": [5.0,19.2],
+      "level__day": 21,
+      "level__month": 6,
+      "level__weatherChoice:object": {
+        "weather_clear_a": 1.0
+      },
+      "level__timeVec:array": [
+        {
+          "level__timeVec": 6.5
+        },
+        {
+          "level__timeVec": 7.5
+        },
+        {
+          "level__timeVec": 17.0
+        },
+        {
+          "level__timeVec": 18.0
+        }
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "water",
+      "water__strength": 0.6,
+      "water__level": 0.0,
+      "water__wind_dir": 40.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "wind"
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawn_camera",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [-1123.44,307.398,-485.187]
+      ],
+      "respawnCameraForTeam": 1
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawn_camera",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [-1691.62,306.416,-1906.51]
+      ],
+      "respawnCameraForTeam": 2
+    }
+  },
+  {
+    "entity": {
+      "_template": "resupply_in_air_zone",
+      "transform": [
+        [-0.998928,0.0,-0.0462803],
+        [0.0,1.0,0.0],
+        [0.0462803,0.0,-0.998928],
+        [155.442,1000.0,2309.95]
+      ],
+      "resupply_zone__team": 1
+    }
+  },
+  {
+    "entity": {
+      "_template": "respAircraftInAir",
+      "respawnbaseType": "aircraft_fighter",
+      "transform": [
+        [0.0312836,0.0,0.999511],
+        [0.0,1.0,0.0],
+        [-0.999511,0.0,0.0312836],
+        [-341.619,1023.92,-3728.97]
+      ],
+      "team": 2,
+      "maxVehicleOnSpawn": 1,
+      "respTime": 120
+    }
+  },
+  {
+    "entity": {
+      "_template": "respAircraftInAir",
+      "respawnbaseType": "aircraft_assault",
+      "transform": [
+        [-0.066378,0.0,0.997795],
+        [0.0,1.0,0.0],
+        [-0.997795,0.0,-0.066378],
+        [-518.84,823.92,-3728.86]
+      ],
+      "team": 2,
+      "maxVehicleOnSpawn": 1,
+      "respTime": 120
+    }
+  },
+  {
+    "entity": {
+      "_template": "respAircraftInAir",
+      "respawnbaseType": "aircraft_fighter",
+      "transform": [
+        [-0.0120528,0.0,0.999928],
+        [0.0,1.0,0.0],
+        [-0.999928,0.0,-0.0120528],
+        [-498.063,1023.92,-3721.34]
+      ],
+      "team": 2,
+      "maxVehicleOnSpawn": 1,
+      "respTime": 120
+    }
+  },
+  {
+    "entity": {
+      "_template": "respAircraftInAir",
+      "respawnbaseType": "aircraft_assault",
+      "transform": [
+        [-0.00207494,0.0,0.999998],
+        [0.0,1.0,0.0],
+        [-0.999998,0.0,-0.00207494],
+        [-341.619,823.92,-3728.97]
+      ],
+      "team": 2,
+      "maxVehicleOnSpawn": 1,
+      "respTime": 120
+    }
+  },
+  {
+    "entity": {
+      "_template": "resupply_in_air_zone",
+      "transform": [
+        [0.327869,0.0,-0.944724],
+        [0.0,1.0,0.0],
+        [0.944724,0.0,0.327869],
+        [-2122.69,1023.92,-4646.27]
+      ],
+      "resupply_zone__team": 2
+    }
+  },
+  {
+    "entity": {
+      "_template": "respAircraftInAir",
+      "respawnbaseType": "aircraft_fighter",
+      "transform": [
+        [0.111571,0.0,-0.993756],
+        [0.0,1.0,0.0],
+        [0.993756,0.0,0.111571],
+        [-1572.52,1000.0,1513.45]
+      ],
+      "team": 1,
+      "maxVehicleOnSpawn": 1,
+      "respTime": 120
+    }
+  },
+  {
+    "entity": {
+      "_template": "respAircraftInAir",
+      "respawnbaseType": "aircraft_assault",
+      "transform": [
+        [0.00584803,0.0,-0.999983],
+        [0.0,1.0,0.0],
+        [0.999983,0.0,0.00584803],
+        [-1572.52,800.0,2049.12]
+      ],
+      "team": 1,
+      "maxVehicleOnSpawn": 1,
+      "respTime": 120
+    }
+  },
+  {
+    "entity": {
+      "_template": "respAircraftInAir",
+      "respawnbaseType": "aircraft_fighter",
+      "transform": [
+        [0.0943291,0.0,-0.995541],
+        [0.0,1.0,0.0],
+        [0.995541,0.0,0.0943291],
+        [-1424.9,1000.0,1543.16]
+      ],
+      "team": 1,
+      "maxVehicleOnSpawn": 1,
+      "respTime": 120
+    }
+  },
+  {
+    "entity": {
+      "_template": "respAircraftInAir",
+      "respawnbaseType": "aircraft_assault",
+      "transform": [
+        [0.0876048,0.0,-0.996155],
+        [0.0,1.0,0.0],
+        [0.996155,0.0,0.0876048],
+        [-1393.7,800.0,1511.29]
+      ],
+      "team": 1,
+      "maxVehicleOnSpawn": 1,
+      "respTime": 120
+    }
+  },
+  {
+    "entity": {
+      "_template": "domination_sphere_capzone",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [-856.832,10.0049,-1150.65]
+      ],
+      "capzone__title": "C",
+      "capzone__caption": "capzone/artillery_emplacement",
+      "sphere_zone__radius": 20.0,
+      "decal__height": 5.0,
+      "ui_order": 1
+    }
+  },
+  {
+    "entity": {
+      "_template": "ground_effect",
+      "ground_effect__fx_name": "land_haze",
+      "ground_effect__biome_group_name": "dune",
+      "ground_effect__grid_cell_size": 16.0,
+      "ground_effect__grid_world_origin": [0.0,0.0],
+      "ground_effect__vis_radius": 50.0,
+      "ground_effect__biome_weight_for_active_thr": 0.25,
+      "ground_effect__fx_radius": -1.0,
+      "ground_effect__scale_x": [1.3,0.0],
+      "ground_effect__scale_y": [1.3,0.0],
+      "ground_effect__scale_z": [1.3,0.0]
+    }
+  },
+  {
+    "entity": {
+      "_template": "ground_effect",
+      "ground_effect__fx_name": "land_dust_storm",
+      "ground_effect__biome_group_name": "dune",
+      "ground_effect__grid_cell_size": 4.0,
+      "ground_effect__grid_world_origin": [0.0,0.0],
+      "ground_effect__vis_radius": 50.0,
+      "ground_effect__offset_y": [0.4,0.0],
+      "ground_effect__scale_x": [0.3,0.0],
+      "ground_effect__scale_y": [0.3,0.0],
+      "ground_effect__scale_z": [0.3,0.0]
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawnChooser+respTeam1",
+      "transform": [
+        [0.00487018,0.0,-0.999987],
+        [0.0,1.0,0.0],
+        [0.999987,0.0,0.00487018],
+        [-911.578,13.4273,-1118.93]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawnChooser+respTeam2",
+      "transform": [
+        [0.117168,0.0,0.993112],
+        [0.0,1.0,0.0],
+        [-0.993112,0.0,0.117168],
+        [-920.523,14.0505,-1174.89]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawnChooser+respVehicle",
+      "transform": [
+        [0.0971543,0.0,0.995269],
+        [0.0,1.0,0.0],
+        [-0.995269,0.0,0.0971543],
+        [-940.068,15.3731,-1172.61]
+      ],
+      "team": 1
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawnChooser+respVehicle",
+      "transform": [
+        [0.045004,0.0,-0.998987],
+        [0.0,1.0,0.0],
+        [0.998987,0.0,0.045004],
+        [-937.479,12.136,-1119.19]
+      ],
+      "team": 2
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawnChooser+respMotorcycle",
+      "transform": [
+        [0.045004,0.0,-0.998987],
+        [0.0,1.0,0.0],
+        [0.998987,0.0,0.045004],
+        [-922.931,12.9934,-1119.26]
+      ],
+      "team": 1
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawnChooser+respMotorcycle",
+      "transform": [
+        [0.0971543,0.0,0.995269],
+        [0.0,1.0,0.0],
+        [-0.995269,0.0,0.0971543],
+        [-930.446,15.2405,-1174.04]
+      ],
+      "team": 2
+    }
+  },
+  {
+    "entity": {
+      "_template": "distant_haze"
+    }
+  }
+]

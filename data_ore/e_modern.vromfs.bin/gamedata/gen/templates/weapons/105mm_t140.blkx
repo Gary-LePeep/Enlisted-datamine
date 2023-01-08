@@ -1,0 +1,45 @@
+{
+  "base_105mm_t140": {
+    "item__name": "guns/105mm_t140",
+    "gun__blk": "gamedata/gen/weapons/105mm_t140.blk",
+    "gun__shotFreq": 0.2,
+    "gun__locName": "105mm_t140",
+    "gun__ammoSetsInfo:shared:array": {
+      "defaultSet:array": {
+        "shell:object": {
+          "blk": "gamedata/gen/weapons/shells/105mm_t140_defaultset.blk",
+          "name": "105mm_t182e1",
+          "type": "apbc_usa_tank"
+        }
+      },
+      "105mm_us_T298E1_HEAT:array": {
+        "shell:object": {
+          "blk": "gamedata/gen/weapons/shells/105mm_t140_105mm_us_t298e1_heat.blk",
+          "name": "105mm_t298e1",
+          "type": "heat_fs_tank"
+        }
+      },
+      "105mm_us_T279_APDS:array": {
+        "shell:object": {
+          "blk": "gamedata/gen/weapons/shells/105mm_t140_105mm_us_t279_apds.blk",
+          "name": "105mm_t279",
+          "type": "apds_tank"
+        }
+      }
+    }
+  },
+  "tankgun_105mm_t140": [
+    {
+      "_extends": "tankgun"
+    },
+    {
+      "_extends": "base_tankgun_cannon"
+    },
+    {
+      "_extends": "base_105mm_t140"
+    },
+    {
+      "turret__triggerGroup": 0
+    }
+  ]
+}

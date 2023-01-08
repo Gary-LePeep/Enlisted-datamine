@@ -1,0 +1,317 @@
+{
+  "artillery_ai_dmgzone": {
+    "_extends": "awared_danger",
+    "dmgzone__dangerWarning": true,
+    "dmgzone__damage": 0.0,
+    "dmgzone__fireAffect": 0.0,
+    "sphere_zone__radius": 30.0,
+    "transform": [
+      [1.0,0.0,0.0],
+      [0.0,1.0,0.0],
+      [0.0,0.0,1.0],
+      [0.0,0.0,0.0]
+    ],
+    "_group": {
+      "_tags": "server",
+      "danger__awareRadiusCoef": 2.7
+    }
+  },
+  "artillery_he": [
+    {
+      "_extends": "artillery"
+    },
+    {
+      "_extends": "artillery_ai_dmgzone"
+    },
+    {
+      "artillery__name": "artillery_he"
+    },
+    {
+      "artillery_he:tag": []
+    }
+  ],
+  "aircraft_request_target_mark": [
+    {
+      "_extends": "replicating"
+    },
+    {
+      "_extends": "artillery_ai_dmgzone"
+    },
+    {
+      "artillery__targetPos": [0.0,0.0,0.0]
+    },
+    {
+      "artillery_zone__radius": 24.0
+    }
+  ],
+  "aircraft_artillery_narrator": {
+    "_group": {
+      "_tags": "server",
+      "artillery_net_narrator__phrase": "bombersComing"
+    }
+  },
+  "aircraft_artillery_siren": {
+    "_group": {
+      "_tags": "sound",
+      "artillery_siren__startAt": 0.0,
+      "artillery_siren__active": false,
+      "artillery_siren__startDelay": 7.0,
+      "artillery_siren__targetRadius": 2500.0,
+      "artillery_siren__path": "env_effects/air_siren"
+    }
+  },
+  "aircraft_request": [
+    {
+      "_extends": "aircraft_artillery_narrator"
+    },
+    {
+      "_extends": "aircraft_artillery_siren"
+    },
+    {
+      "_extends": "replicating"
+    },
+    {
+      "artillery_zone__radius": 50.0
+    },
+    {
+      "artillery_zone__bombingRadius": 40.0
+    },
+    {
+      "artillery_zone__showOnMinimap": false
+    },
+    {
+      "artillery__name": "aircraft_request"
+    },
+    {
+      "artillery__targetPos": [0.0,0.0,0.0]
+    },
+    {
+      "artillery__lifeTime": 360.0
+    },
+    {
+      "artillery__deadTime": 0.0
+    },
+    {
+      "artilleryLifeTimeAfterBombing": 5.0
+    },
+    {
+      "artillery__calledByTeam": 0
+    },
+    {
+      "artillery__callerEid:eid": []
+    },
+    {
+      "artillery__offender:eid": []
+    },
+    {
+      "_group": {
+        "_tags": "server",
+        "aircraft_request__interval": 960.0,
+        "aircraft_request__spawnedAircraftsCount": 0,
+        "aircraft_request__aircraftStartRelativeSpeed": 0.5,
+        "aircraft_request__aircraftAfterBombingHeight": 600.0,
+        "aircraft_request__aircraftBombingHeight": 250.0,
+        "aircraft_request__aircraftSpawnHeight": 600.0,
+        "aircraft_request__aircraftSpawnDistance": 7500.0,
+        "aircraft_request__aircraftTemplate": "ai_he_111_h16+plane_spawn_in_air+requested_aircraft",
+        "aircraft_request__aircraftTargetMarkTemplate": "aircraft_request_target_mark",
+        "aircraft_request__targetMarks:list<eid>": [],
+        "aircraft_request__spawnedAircrafts:list<eid>": []
+      }
+    },
+    {
+      "aircraft_request__aircraftBiases:list<p3>": [
+        {
+          "aircraftPos": [0.0,0.0,0.0]
+        },
+        {
+          "aircraftPos": [-30.0,0.0,-30.0]
+        },
+        {
+          "aircraftPos": [-30.0,0.0,30.0]
+        },
+        {
+          "aircraftPos": [-60.0,0.0,-60.0]
+        },
+        {
+          "aircraftPos": [-60.0,0.0,60.0]
+        }
+      ]
+    },
+    {
+      "aircraft_request:tag": []
+    }
+  ],
+  "moscow_ger_team_aircraft_request": {
+    "_extends": "aircraft_request",
+    "_group": {
+      "_tags": "server",
+      "aircraft_request__aircraftAfterBombingHeight": 400.0,
+      "aircraft_request__aircraftBombingHeight": 400.0,
+      "aircraft_request__aircraftSpawnHeight": 400.0,
+      "aircraft_request__aircraftTemplate": "ai_ju_88a_1+plane_spawn_in_air+requested_aircraft+aircraft_with_gun_redirect+ai_aircraft_crew_ger"
+    }
+  },
+  "moscow_ussr_team_aircraft_request": {
+    "_extends": "aircraft_request",
+    "_group": {
+      "_tags": "server",
+      "aircraft_request__aircraftAfterBombingHeight": 450.0,
+      "aircraft_request__aircraftBombingHeight": 450.0,
+      "aircraft_request__aircraftSpawnHeight": 450.0,
+      "aircraft_request__aircraftTemplate": "ai_ar_2+plane_spawn_in_air+requested_aircraft+aircraft_with_gun_redirect+ai_aircraft_crew_sov"
+    }
+  },
+  "normandy_usa_team_aircraft_request": {
+    "_extends": "aircraft_request",
+    "_group": {
+      "_tags": "server",
+      "aircraft_request__aircraftAfterBombingHeight": 400.0,
+      "aircraft_request__aircraftBombingHeight": 400.0,
+      "aircraft_request__aircraftSpawnHeight": 400.0,
+      "aircraft_request__aircraftTemplate": "ai_wellington_mk1c+plane_spawn_in_air+requested_aircraft+aircraft_with_gun_redirect+ai_aircraft_crew_usa"
+    }
+  },
+  "normandy_ger_team_aircraft_request": {
+    "_extends": "aircraft_request",
+    "_group": {
+      "_tags": "server",
+      "aircraft_request__aircraftAfterBombingHeight": 450.0,
+      "aircraft_request__aircraftBombingHeight": 450.0,
+      "aircraft_request__aircraftSpawnHeight": 450.0,
+      "aircraft_request__aircraftTemplate": "ai_he_111_h16+plane_spawn_in_air+requested_aircraft+aircraft_with_gun_redirect+ai_aircraft_crew_ger"
+    }
+  },
+  "berlin_ussr_team_aircraft_request": {
+    "_extends": "aircraft_request",
+    "_group": {
+      "_tags": "server",
+      "aircraft_request__aircraftAfterBombingHeight": 400.0,
+      "aircraft_request__aircraftBombingHeight": 400.0,
+      "aircraft_request__aircraftSpawnHeight": 400.0,
+      "aircraft_request__aircraftTemplate": "ai_er_2_m105_tat+plane_spawn_in_air+requested_aircraft+aircraft_with_gun_redirect+ai_aircraft_crew_sov"
+    }
+  },
+  "berlin_ger_team_aircraft_request": {
+    "_extends": "aircraft_request",
+    "_group": {
+      "_tags": "server",
+      "aircraft_request__aircraftAfterBombingHeight": 450.0,
+      "aircraft_request__aircraftBombingHeight": 450.0,
+      "aircraft_request__aircraftSpawnHeight": 450.0,
+      "aircraft_request__aircraftTemplate": "ai_he_111_h16+plane_spawn_in_air+requested_aircraft+aircraft_with_gun_redirect+ai_aircraft_crew_ger"
+    }
+  },
+  "tunisia_usa_team_aircraft_request": {
+    "_extends": "aircraft_request",
+    "_group": {
+      "_tags": "server",
+      "aircraft_request__aircraftAfterBombingHeight": 400.0,
+      "aircraft_request__aircraftBombingHeight": 400.0,
+      "aircraft_request__aircraftSpawnHeight": 400.0,
+      "aircraft_request__aircraftTemplate": "ai_b_34+plane_spawn_in_air+requested_aircraft+aircraft_with_gun_redirect+ai_aircraft_crew_usa"
+    }
+  },
+  "tunisia_ger_team_aircraft_request": {
+    "_extends": "aircraft_request",
+    "_group": {
+      "_tags": "server",
+      "aircraft_request__aircraftAfterBombingHeight": 450.0,
+      "aircraft_request__aircraftBombingHeight": 450.0,
+      "aircraft_request__aircraftSpawnHeight": 450.0,
+      "aircraft_request__aircraftTemplate": "ai_sm_79+plane_spawn_in_air+requested_aircraft+aircraft_with_gun_redirect+ai_aircraft_crew_ger"
+    }
+  },
+  "stalingrad_ussr_team_aircraft_request": {
+    "_extends": "aircraft_request",
+    "_group": {
+      "_tags": "server",
+      "aircraft_request__aircraftAfterBombingHeight": 450.0,
+      "aircraft_request__aircraftBombingHeight": 450.0,
+      "aircraft_request__aircraftSpawnHeight": 450.0,
+      "aircraft_request__aircraftTemplate": "ai_il_4+plane_spawn_in_air+requested_aircraft+aircraft_with_gun_redirect+ai_aircraft_crew_sov"
+    }
+  },
+  "stalingrad_ger_team_aircraft_request": {
+    "_extends": "aircraft_request",
+    "_group": {
+      "_tags": "server",
+      "aircraft_request__aircraftAfterBombingHeight": 400.0,
+      "aircraft_request__aircraftBombingHeight": 400.0,
+      "aircraft_request__aircraftSpawnHeight": 400.0,
+      "aircraft_request__aircraftTemplate": "ai_he_111_h16+plane_spawn_in_air+requested_aircraft+aircraft_with_gun_redirect+ai_aircraft_crew_ger"
+    }
+  },
+  "pacific_usa_team_aircraft_request": {
+    "_extends": "aircraft_request",
+    "_group": {
+      "_tags": "server",
+      "aircraft_request__aircraftAfterBombingHeight": 900.0,
+      "aircraft_request__aircraftBombingHeight": 750.0,
+      "aircraft_request__aircraftSpawnHeight": 900.0,
+      "aircraft_request__aircraftTemplate": "ai_a_20g+plane_spawn_in_air+requested_aircraft+aircraft_with_gun_redirect+ai_aircraft_crew_usa"
+    }
+  },
+  "pacific_japan_team_aircraft_request": {
+    "_extends": "aircraft_request",
+    "_group": {
+      "_tags": "server",
+      "aircraft_request__aircraftAfterBombingHeight": 950.0,
+      "aircraft_request__aircraftBombingHeight": 800.0,
+      "aircraft_request__aircraftSpawnHeight": 950.0,
+      "aircraft_request__aircraftTemplate": "ai_g4m1+plane_spawn_in_air+requested_aircraft+aircraft_with_gun_redirect+ai_aircraft_crew_jap"
+    }
+  },
+  "artillery_smoke": {
+    "_extends": "artillery",
+    "artillery_zone__showOnMinimap": false,
+    "artillery__name": "artillery_smoke",
+    "artillery__adjustmentsShotsCount": 0,
+    "artillery__dispersion": 12.0,
+    "artillery__shotsDone": 0,
+    "artillery__shotsCount": 6,
+    "artillery__timeToFirstShot": 10.0,
+    "artillery__timeBetweenShots": 1.0,
+    "artillery__gunTempl": "smoke_artillery_gun",
+    "artillery__adjustmentGunTempl": "smoke_artillery_gun",
+    "artillery__targetPosEnd": [0.0,0.0,0.0],
+    "artillery__isLineShape": true,
+    "artillery__maxLineLength": 100.0
+  },
+  "artillery_fireworks": {
+    "_extends": "replicating",
+    "fireworks__effectTemplate": "fireworks_shell_effect",
+    "fireworks__effectOffset": [0.0,50.0,0.0],
+    "artillery__targetPos": [0.0,0.0,0.0],
+    "artillery__shotsDone": 0,
+    "artillery__shotsCount": 3,
+    "artillery__timeBetweenShots": 10.0,
+    "artillery__nextShotTime": -1.0,
+    "artillery__group": 1,
+    "artillery__calledByTeam": 0,
+    "artillery__callerEid:eid": []
+  },
+  "smoke_artillery_projectile": [
+    {
+      "_extends": "bullet_projectile"
+    },
+    {
+      "_extends": "smoke_artillery_projectile_sound"
+    }
+  ],
+  "smoke_artillery_gun": {
+    "_extends": "artillery_gun",
+    "gun__projectileTemplate": "smoke_artillery_projectile+disable_ricochet",
+    "gun__ammoSetsInfo:shared:array": {
+      "SMOKE:array": {
+        "shell:object": {
+          "blk": "content/tanks/gamedata/weapons/shells/ussr/76mm_artillery_smoke.blk"
+        }
+      }
+    },
+    "gun_sound__shotPath:shared:object": {
+      "_tags": "sound",
+      "enemy": "enemy/weapon/cannon/artillery_smoke"
+    }
+  }
+}

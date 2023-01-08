@@ -1,0 +1,40 @@
+{
+  "stat_name": "grenade",
+  "selWeaponVar": "ni_05_lunge_mine",
+  "ownerAnimVars": {
+    "gun_offset_across": 0.0,
+    "gun_offset_along": 0.0
+  },
+  "melee": {
+    "hitPower": 0.0,
+    "armorPower": 0.4,
+    "impulsePower": 0.0,
+    "node": "Bip01 Neck",
+    "hitFxPreset": "knife"
+  },
+  "volume": {
+    "frustum": {
+      "znear": 0.5,
+      "zfar": 2.3,
+      "fovx": 20.0,
+      "fovy": 20.0,
+      "tm": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [-0.5,0.0,0.0]
+      ]
+    }
+  },
+  "ridmg": {
+    "node": "Bip01 Pelvis",
+    "nodeOffset": [0.7,0.5,-0.15],
+    "hitPower": 10.0,
+    "rayLen": 1.5,
+    "rad": 0.2,
+    "backoffFactor": 0.6
+  },
+  "actionSound": {
+    "humanHitSoundName": "melee_axe"
+  }
+}

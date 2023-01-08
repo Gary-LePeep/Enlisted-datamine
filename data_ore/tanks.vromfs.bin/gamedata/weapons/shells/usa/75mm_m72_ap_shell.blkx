@@ -1,0 +1,60 @@
+[
+  {
+    "mass": 6.3
+  },
+  {
+    "caliber": 0.075
+  },
+  {
+    "speed": 619.0
+  },
+  {
+    "Cx": 0.5
+  },
+  {
+    "maxDistance": 10000.0
+  },
+  {
+    "bulletType": "ap_tank"
+  },
+  {
+    "bulletName": "75mm_m72"
+  },
+  {
+    "relativeVelHitShift": [300.0,1000.0]
+  },
+  {
+    "relativeVelArmorShift": [200.0,1000.0]
+  },
+  {
+    "relativeVelArmorShift": [200.0,1000.0]
+  },
+  {
+    "ricochetEffect": "cannon_ricochet"
+  },
+  {
+    "waterCollisionEffect": "120-203_water_splash"
+  },
+  {
+    "waterFxScale": [0.5,0.7]
+  },
+  {
+    "explosionPatchRadius": 0.8
+  },
+  {
+    "hitpower": {
+      "HitPower0m": [180.0,100.0],
+      "HitPower10000m": [90.0,1000.0]
+    }
+  },
+  {
+    "damage": {
+      "kinetic": {
+        "demarrePenetrationK": 0.9,
+        "demarreSpeedPow": 1.43,
+        "demarreMassPow": 0.71,
+        "demarreCaliberPow": 1.07
+      }
+    }
+  }
+]

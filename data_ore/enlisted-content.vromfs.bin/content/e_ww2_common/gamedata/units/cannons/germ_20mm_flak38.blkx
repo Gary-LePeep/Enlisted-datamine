@@ -1,0 +1,224 @@
+{
+  "mass": 10000.0,
+  "momentOfInertia": [0.6,0.3,0.6],
+  "centerOfMass": [0.0,0.0,0.0],
+  "physMat": "walkRay",
+  "useFutureContacts": true,
+  "logCCD": false,
+  "addToWorld": true,
+  "shouldTraceGround": true,
+  "boundingRadius": 0.1,
+  "collisionResource": {
+    "props": {
+      "cls_body": "box"
+    }
+  },
+  "ccdSpheres": {
+    "ccd": [0.0,0.2,0.0,0.15]
+  },
+  "DamageParts": {
+    "turret_front": {
+      "vital": false,
+      "hitTestType": "armor",
+      "malfunctionDamage": 0.7,
+      "stopChanceOnDeadPart": 1.0,
+      "castOnKillAfterTankPartDead": true,
+      "fireProtectionHp": -1.0,
+      "externalArmor": true,
+      "minRelHpSelfRepair": 0.5,
+      "maxRelHpSelfRepair": 0.5,
+      "selfRepairDelay": 0.0,
+      "selfRepairTime": -1.0,
+      "ignoreDeadWithSplash": false,
+      "armorClass": "RHA_tank",
+      "hp": 500.0,
+      "armorThickness": 10.0
+    },
+    "turret_01_front": {
+      "vital": false,
+      "hitTestType": "armor",
+      "malfunctionDamage": 0.7,
+      "stopChanceOnDeadPart": 1.0,
+      "castOnKillAfterTankPartDead": true,
+      "fireProtectionHp": -1.0,
+      "externalArmor": true,
+      "minRelHpSelfRepair": 0.5,
+      "maxRelHpSelfRepair": 0.5,
+      "selfRepairDelay": 0.0,
+      "selfRepairTime": -1.0,
+      "ignoreDeadWithSplash": false,
+      "armorClass": "RHA_tank",
+      "hp": 500.0,
+      "armorThickness": 5.0
+    },
+    "turret_side": {
+      "vital": false,
+      "hitTestType": "armor",
+      "malfunctionDamage": 0.7,
+      "stopChanceOnDeadPart": 1.0,
+      "castOnKillAfterTankPartDead": true,
+      "fireProtectionHp": -1.0,
+      "externalArmor": true,
+      "minRelHpSelfRepair": 0.5,
+      "maxRelHpSelfRepair": 0.5,
+      "selfRepairDelay": 0.0,
+      "selfRepairTime": -1.0,
+      "ignoreDeadWithSplash": false,
+      "armorClass": "RHA_tank",
+      "hp": 500.0,
+      "armorThickness": 20.0
+    },
+    "gun_barrel": {
+      "vital": false,
+      "hitTestType": "armor",
+      "malfunctionDamage": 0.7,
+      "stopChanceOnDeadPart": 1.0,
+      "castOnKillAfterTankPartDead": true,
+      "fireProtectionHp": -1.0,
+      "externalArmor": true,
+      "minRelHpSelfRepair": 0.5,
+      "maxRelHpSelfRepair": 0.5,
+      "selfRepairDelay": 0.0,
+      "selfRepairTime": -1.0,
+      "ignoreDeadWithSplash": false,
+      "armorClass": "RHA_tank",
+      "hp": 500.0,
+      "armorThickness": 10.0
+    },
+    "cannon_breech": {
+      "vital": false,
+      "hitTestType": "armor",
+      "malfunctionDamage": 0.7,
+      "stopChanceOnDeadPart": 1.0,
+      "castOnKillAfterTankPartDead": true,
+      "fireProtectionHp": -1.0,
+      "externalArmor": true,
+      "minRelHpSelfRepair": 0.5,
+      "maxRelHpSelfRepair": 0.5,
+      "selfRepairDelay": 0.0,
+      "selfRepairTime": -1.0,
+      "ignoreDeadWithSplash": false,
+      "armorClass": "RHA_tank",
+      "hp": 500.0,
+      "armorThickness": 20.0
+    },
+    "turret_top": {
+      "vital": false,
+      "hitTestType": "armor",
+      "malfunctionDamage": 0.7,
+      "stopChanceOnDeadPart": 1.0,
+      "castOnKillAfterTankPartDead": true,
+      "fireProtectionHp": -1.0,
+      "externalArmor": true,
+      "minRelHpSelfRepair": 0.5,
+      "maxRelHpSelfRepair": 0.5,
+      "selfRepairDelay": 0.0,
+      "selfRepairTime": -1.0,
+      "ignoreDeadWithSplash": false,
+      "armorClass": "RHA_tank",
+      "hp": 500.0,
+      "armorThickness": 25.0
+    },
+    "body_front": {
+      "vital": false,
+      "hitTestType": "armor",
+      "malfunctionDamage": 0.7,
+      "stopChanceOnDeadPart": 1.0,
+      "castOnKillAfterTankPartDead": true,
+      "fireProtectionHp": -1.0,
+      "externalArmor": true,
+      "minRelHpSelfRepair": 0.5,
+      "maxRelHpSelfRepair": 0.5,
+      "selfRepairDelay": 0.0,
+      "selfRepairTime": -1.0,
+      "ignoreDeadWithSplash": false,
+      "armorClass": "RHA_tank",
+      "hp": 500.0,
+      "armorThickness": 40.0
+    },
+    "turret_back": {
+      "vital": false,
+      "hitTestType": "armor",
+      "malfunctionDamage": 0.7,
+      "stopChanceOnDeadPart": 1.0,
+      "castOnKillAfterTankPartDead": true,
+      "fireProtectionHp": -1.0,
+      "externalArmor": true,
+      "minRelHpSelfRepair": 0.5,
+      "maxRelHpSelfRepair": 0.5,
+      "selfRepairDelay": 0.0,
+      "selfRepairTime": -1.0,
+      "ignoreDeadWithSplash": false,
+      "armorClass": "RHA_tank",
+      "hp": 500.0,
+      "armorThickness": 5.0
+    },
+    "ammo_turret": {
+      "vital": false,
+      "hitTestType": "armor",
+      "malfunctionDamage": 0.7,
+      "stopChanceOnDeadPart": 1.0,
+      "castOnKillAfterTankPartDead": true,
+      "fireProtectionHp": -1.0,
+      "externalArmor": true,
+      "minRelHpSelfRepair": 0.5,
+      "maxRelHpSelfRepair": 0.5,
+      "selfRepairDelay": 0.0,
+      "selfRepairTime": -1.0,
+      "ignoreDeadWithSplash": false,
+      "armorClass": "RHA_tank",
+      "hp": 500.0,
+      "armorThickness": 15.0
+    }
+  },
+  "MetaParts": {
+    "armor_body": [
+      {
+        "hp": 100.0
+      },
+      {
+        "part": "turret_side"
+      },
+      {
+        "part": "cannon_breech"
+      },
+      {
+        "part": "turret_top"
+      },
+      {
+        "part": "body_front"
+      },
+      {
+        "part": "ammo_turret"
+      },
+      {
+        "effect": {
+          "conditionDead": true,
+          "killEffect": "expl",
+          "kill": true
+        }
+      }
+    ],
+    "armor_hull": [
+      {
+        "hp": 200.0
+      },
+      {
+        "part": "gun_barrel"
+      },
+      {
+        "part": "turret_front"
+      },
+      {
+        "part": "turret_01_front"
+      },
+      {
+        "effect": {
+          "conditionDead": true,
+          "killEffect": "expl",
+          "kill": true
+        }
+      }
+    ]
+  }
+}

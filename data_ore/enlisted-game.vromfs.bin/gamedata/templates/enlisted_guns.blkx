@@ -1,0 +1,2157 @@
+{
+  "fortification_builder_info": {
+    "builder_info__team": -1,
+    "buildByPlayer:eid": [],
+    "buildByEngineerEid:eid": [],
+    "_group": {
+      "_tags": "server",
+      "builder_info__guid": "",
+      "builder_info__squadEid:eid": []
+    }
+  },
+  "fortification_ai_target": {
+    "agent_dangers__tag": "",
+    "ai_target__riExtraOffset": [0.0,0.0,0.0],
+    "ai_target": {
+      "_tags": "server"
+    }
+  },
+  "base_fortification_build": [
+    {
+      "_extends": "shred_outside_battle_area"
+    },
+    {
+      "_extends": "fortification_builder_info"
+    },
+    {
+      "_extends": "fortification_ai_target"
+    },
+    {
+      "buildingCost": 0.0
+    },
+    {
+      "maxCostReturnedOnDestructionMul": 0.5
+    },
+    {
+      "costReturnedOnDestructionMul": 0.5
+    },
+    {
+      "buildTypeId": 0
+    },
+    {
+      "buildingRadius": 0.0
+    },
+    {
+      "buildingCostructedAtTime": 0.0
+    },
+    {
+      "buildingSoundTag": "fortification"
+    },
+    {
+      "actionTimerColor": [255.0,0.0,0.0]
+    },
+    {
+      "_replicated": "building_destroy__timeToDestroy"
+    },
+    {
+      "building_destroy__maxTimeToDestroy": 5.0
+    },
+    {
+      "building_destroy__timeToDestroy": 0.0
+    },
+    {
+      "building_destroy__lastDamageAtTime": -1.0
+    },
+    {
+      "building_destroy__timeToResetDestructionTimer": 5.0
+    },
+    {
+      "building_destroy__distanceVerifyThreshold": 1.5
+    },
+    {
+      "building_destroy__disassembleSound": "env_effects/building/destroy_action"
+    },
+    {
+      "build_attach__riexHandle:u64": {
+        "value": -1,
+        "_tags": "server"
+      }
+    },
+    {
+      "building__isBroken:b": {
+        "value": false,
+        "_tags": "server"
+      }
+    },
+    {
+      "_group": {
+        "_tags": "server",
+        "obstacle__initialStillTimeout": 0.0,
+        "building__destructionAwardStat": "",
+        "building__breakOffender:eid": []
+      }
+    },
+    {
+      "building_destroy__operator:eid": []
+    }
+  ],
+  "network_fortification_preview": [
+    {
+      "_extends": "replicating"
+    },
+    {
+      "_extends": "semi_transparent_render"
+    },
+    {
+      "_extends": "shred_outside_battle_area"
+    },
+    {
+      "_extends": "fortification_builder_info"
+    },
+    {
+      "_extends": "fortification_ai_target"
+    },
+    {
+      "previewTeam": -1
+    },
+    {
+      "buildingCost": 0.0
+    },
+    {
+      "maxCostReturnedOnDestructionMul": 1.0
+    },
+    {
+      "costReturnedOnDestructionMul": 1.0
+    },
+    {
+      "selectedPlacingColor": [0.2,0.2,0.2]
+    },
+    {
+      "enemyPlacingColor": [0.2,0.0,0.2]
+    },
+    {
+      "previewColor": [0.1,0.1,0.1]
+    },
+    {
+      "visibleDistance": 10.0
+    },
+    {
+      "actionTimerColor": [0.0,255.0,0.0]
+    },
+    {
+      "_replicated": "building_builder__timeToBuild"
+    },
+    {
+      "buildingRadius": 0.0
+    },
+    {
+      "buildTypeId": 0
+    },
+    {
+      "buildingCostructedAtTime": 0.0
+    },
+    {
+      "destroyByInactiveShredderAtTime": -1.0
+    },
+    {
+      "destroyInactiveTimeOut": 20.0
+    },
+    {
+      "building_builder__maxTimeToBuild": 30.0
+    },
+    {
+      "building_builder__timeToBuild": 0.0
+    },
+    {
+      "building_builder__distanceVerifyThreshold": 1.5
+    },
+    {
+      "onlyForEngineer:tag": []
+    },
+    {
+      "builder_server_preview:tag": []
+    }
+  ],
+  "disable_item_drop": {
+    "disableItemDrop:tag": []
+  },
+  "building_tool": [
+    {
+      "_extends": "melee_weapon"
+    },
+    {
+      "_extends": "disable_item_drop"
+    },
+    {
+      "builder__shootPressed": false
+    },
+    {
+      "nextTryToSetObjectInTime": -1.0
+    },
+    {
+      "autoTryBuildingObjectInterval": 3.0
+    },
+    {
+      "engineerBuildingSpeedMul": 2.0
+    },
+    {
+      "gun__reloadable": false
+    },
+    {
+      "animchar__res": "hammer_char"
+    },
+    {
+      "item__iconYaw": 145.0
+    },
+    {
+      "item__name": "items/building_tool"
+    },
+    {
+      "meleeSoundType": "buildingTool"
+    },
+    {
+      "_tracked": "previewEid"
+    },
+    {
+      "item__weapSlots:array": {
+        "slot": "secondary"
+      }
+    },
+    {
+      "buildingTool:tag": []
+    },
+    {
+      "itemInWeaponSlot:tag": []
+    },
+    {
+      "previewEid:eid": []
+    }
+  ],
+  "building_tool_gun": [
+    {
+      "_extends": "building_tool"
+    },
+    {
+      "_extends": "replicating"
+    },
+    {
+      "_tracked": "gun__owner"
+    },
+    {
+      "_replicated": "gun__owner"
+    },
+    {
+      "_replicated": "currentPreviewId"
+    },
+    {
+      "buildingInterval": 0.0
+    },
+    {
+      "nextBuildingAtTime": 0.0
+    },
+    {
+      "additionalBuildingTemplate": "network_fortification_preview"
+    },
+    {
+      "currentPreviewId": 0
+    },
+    {
+      "fortification__rayMatId": -1
+    },
+    {
+      "fortification__rayMatName": "engineerRay"
+    },
+    {
+      "minBuildingRadius": 1.5
+    },
+    {
+      "animchar__res": "hammer_char"
+    },
+    {
+      "gun__blk": "content/e_ww2_common/gamedata/weapons/building_tool_gun.blk"
+    },
+    {
+      "item__template": "building_tools_item"
+    },
+    {
+      "animchar_render__enabled": true
+    },
+    {
+      "item__proto": "content/e_ww2_common/gamedata/weapons/building_tool_gun.blk"
+    },
+    {
+      "item__id": 0
+    },
+    {
+      "item__weapTemplate": "building_tool_gun"
+    },
+    {
+      "item__iconRoll": 43.0
+    },
+    {
+      "item__iconYaw": 90.0
+    },
+    {
+      "item__iconPitch": 83.0
+    },
+    {
+      "item__name": "items/hammer"
+    },
+    {
+      "item__weapType": "building_tool"
+    },
+    {
+      "item__weight": 0.5
+    },
+    {
+      "melee_weapon__blk": "content/e_ww2_common/gamedata/weapons/building_tool_gun.blk"
+    },
+    {
+      "gun__locName": "Hammer"
+    },
+    {
+      "gun__statName": "melee"
+    },
+    {
+      "gun__reloadable": false
+    },
+    {
+      "weap__sprintLerpFactor": 1.0
+    },
+    {
+      "melee_weapon__attackAt": 0.4
+    },
+    {
+      "melee_weapon__attackTime": 1.0
+    },
+    {
+      "gun__owner:eid": []
+    },
+    {
+      "net__notInInitialScope:tag": []
+    },
+    {
+      "previewTemplate:list<t>": [
+        {
+          "template": "sandbags_wall_2_preview"
+        },
+        {
+          "template": "sandbags_wall_mg_preview"
+        },
+        {
+          "template": "cannon_germ_20mm_flak38_flakvierling_preview"
+        },
+        {
+          "template": "cannon_ussr_towed_at_53k_preview"
+        },
+        {
+          "template": "cannon_germ_towed_at_pak38_preview"
+        },
+        {
+          "template": "czech_hedgehog_a_preview"
+        },
+        {
+          "template": "ger_rallypoint_preview"
+        },
+        {
+          "template": "barbedwire_engineer_a_preview"
+        },
+        {
+          "template": "ammunition_box_a_preview"
+        },
+        {
+          "template": "christmas_tree_preview"
+        }
+      ]
+    },
+    {
+      "buildingLimits:list<i>": [
+        {
+          "limit": 10
+        },
+        {
+          "limit": 1
+        },
+        {
+          "limit": 2
+        },
+        {
+          "limit": 1
+        },
+        {
+          "limit": 1
+        },
+        {
+          "limit": 6
+        },
+        {
+          "limit": 1
+        },
+        {
+          "limit": 10
+        },
+        {
+          "limit": 3
+        },
+        {
+          "limit": 3
+        }
+      ]
+    }
+  ],
+  "ussr_building_tool_gun": {
+    "_extends": "building_tool_gun",
+    "item__weapTemplate": "ussr_building_tool_gun",
+    "item__template": "ussr_building_tools_item",
+    "previewTemplate:list<t>": [
+      {
+        "template": "sandbags_wall_2_preview"
+      },
+      {
+        "template": "sandbags_wall_dshk_1942_preview"
+      },
+      {
+        "template": "sandbags_wall_maxim_no_shield_preview"
+      },
+      {
+        "template": "cannon_germ_20mm_flak38_flakvierling_preview"
+      },
+      {
+        "template": "cannon_ussr_towed_at_53k_preview"
+      },
+      {
+        "template": "czech_hedgehog_a_preview"
+      },
+      {
+        "template": "ussr_rallypoint_preview"
+      },
+      {
+        "template": "barbedwire_engineer_a_preview"
+      },
+      {
+        "template": "ammunition_box_a_preview"
+      },
+      {
+        "template": "christmas_tree_preview"
+      }
+    ],
+    "buildingLimits:list<i>": [
+      {
+        "limit": 10
+      },
+      {
+        "limit": 1
+      },
+      {
+        "limit": 1
+      },
+      {
+        "limit": 2
+      },
+      {
+        "limit": 1
+      },
+      {
+        "limit": 6
+      },
+      {
+        "limit": 1
+      },
+      {
+        "limit": 10
+      },
+      {
+        "limit": 3
+      },
+      {
+        "limit": 3
+      }
+    ]
+  },
+  "usa_building_tool_gun": {
+    "_extends": "building_tool_gun",
+    "item__weapTemplate": "usa_building_tool_gun",
+    "item__template": "usa_building_tools_item",
+    "previewTemplate:list<t>": [
+      {
+        "template": "sandbags_wall_2_preview"
+      },
+      {
+        "template": "sandbags_wall_browning_m2_preview"
+      },
+      {
+        "template": "sandbags_wall_browning_m1919a4_preview"
+      },
+      {
+        "template": "cannon_germ_20mm_flak38_flakvierling_green_preview"
+      },
+      {
+        "template": "cannon_us_towed_at_m1_preview"
+      },
+      {
+        "template": "czech_hedgehog_a_preview"
+      },
+      {
+        "template": "usa_rallypoint_preview"
+      },
+      {
+        "template": "barbedwire_engineer_a_preview"
+      },
+      {
+        "template": "ammunition_box_a_preview"
+      },
+      {
+        "template": "christmas_tree_preview"
+      }
+    ],
+    "buildingLimits:list<i>": [
+      {
+        "limit": 10
+      },
+      {
+        "limit": 1
+      },
+      {
+        "limit": 1
+      },
+      {
+        "limit": 2
+      },
+      {
+        "limit": 1
+      },
+      {
+        "limit": 6
+      },
+      {
+        "limit": 1
+      },
+      {
+        "limit": 10
+      },
+      {
+        "limit": 3
+      },
+      {
+        "limit": 3
+      }
+    ]
+  },
+  "uk_building_tool_gun": {
+    "_extends": "usa_building_tool_gun",
+    "previewTemplate:list<t>": [
+      {
+        "template": "sandbags_wall_2_preview"
+      },
+      {
+        "template": "sandbags_wall_browning_m2_preview"
+      },
+      {
+        "template": "sandbags_wall_browning_m1919a4_preview"
+      },
+      {
+        "template": "cannon_germ_20mm_flak38_flakvierling_green_preview"
+      },
+      {
+        "template": "cannon_uk_towed_at_6pdr_preview"
+      },
+      {
+        "template": "czech_hedgehog_a_preview"
+      },
+      {
+        "template": "usa_rallypoint_preview"
+      },
+      {
+        "template": "barbedwire_engineer_a_preview"
+      },
+      {
+        "template": "ammunition_box_a_preview"
+      },
+      {
+        "template": "christmas_tree_preview"
+      }
+    ]
+  },
+  "ger_normandy_building_tool_gun": {
+    "_extends": "ger_building_tool_gun",
+    "previewTemplate:list<t>": [
+      {
+        "template": "sandbags_wall_2_preview"
+      },
+      {
+        "template": "sandbags_wall_mg_131_preview"
+      },
+      {
+        "template": "sandbags_wall_mg_34_preview"
+      },
+      {
+        "template": "cannon_germ_20mm_flak38_flakvierling_green_preview"
+      },
+      {
+        "template": "cannon_germ_towed_at_pak38_no_camo_preview"
+      },
+      {
+        "template": "czech_hedgehog_a_preview"
+      },
+      {
+        "template": "ger_rallypoint_preview"
+      },
+      {
+        "template": "barbedwire_engineer_a_preview"
+      },
+      {
+        "template": "ammunition_box_a_preview"
+      },
+      {
+        "template": "christmas_tree_preview"
+      }
+    ]
+  },
+  "ger_tunisian_building_tool_gun": {
+    "_extends": "building_tool_gun",
+    "item__weapTemplate": "ger_building_tool_gun",
+    "item__template": "ger_building_tools_item",
+    "previewTemplate:list<t>": [
+      {
+        "template": "sandbags_wall_2_preview"
+      },
+      {
+        "template": "sandbags_wall_mg_131_preview"
+      },
+      {
+        "template": "sandbags_wall_mg_34_preview"
+      },
+      {
+        "template": "cannon_germ_20mm_flak38_flakvierling_desert_preview"
+      },
+      {
+        "template": "cannon_germ_towed_at_pak38_desert_preview"
+      },
+      {
+        "template": "czech_hedgehog_a_preview"
+      },
+      {
+        "template": "ger_rallypoint_preview"
+      },
+      {
+        "template": "barbedwire_engineer_a_preview"
+      },
+      {
+        "template": "ammunition_box_a_preview"
+      },
+      {
+        "template": "christmas_tree_preview"
+      }
+    ],
+    "buildingLimits:list<i>": [
+      {
+        "limit": 10
+      },
+      {
+        "limit": 1
+      },
+      {
+        "limit": 1
+      },
+      {
+        "limit": 2
+      },
+      {
+        "limit": 1
+      },
+      {
+        "limit": 6
+      },
+      {
+        "limit": 1
+      },
+      {
+        "limit": 10
+      },
+      {
+        "limit": 3
+      },
+      {
+        "limit": 3
+      }
+    ]
+  },
+  "ger_building_tool_gun": {
+    "_extends": "building_tool_gun",
+    "item__weapTemplate": "ger_building_tool_gun",
+    "item__template": "ger_building_tools_item",
+    "previewTemplate:list<t>": [
+      {
+        "template": "sandbags_wall_2_preview"
+      },
+      {
+        "template": "sandbags_wall_mg_131_preview"
+      },
+      {
+        "template": "sandbags_wall_mg_34_preview"
+      },
+      {
+        "template": "cannon_germ_20mm_flak38_flakvierling_preview"
+      },
+      {
+        "template": "cannon_germ_towed_at_pak38_preview"
+      },
+      {
+        "template": "czech_hedgehog_a_preview"
+      },
+      {
+        "template": "ger_rallypoint_preview"
+      },
+      {
+        "template": "barbedwire_engineer_a_preview"
+      },
+      {
+        "template": "ammunition_box_a_preview"
+      },
+      {
+        "template": "christmas_tree_preview"
+      }
+    ],
+    "buildingLimits:list<i>": [
+      {
+        "limit": 10
+      },
+      {
+        "limit": 1
+      },
+      {
+        "limit": 1
+      },
+      {
+        "limit": 2
+      },
+      {
+        "limit": 1
+      },
+      {
+        "limit": 6
+      },
+      {
+        "limit": 1
+      },
+      {
+        "limit": 10
+      },
+      {
+        "limit": 3
+      },
+      {
+        "limit": 3
+      }
+    ]
+  },
+  "ger_berlin_building_tool_gun": {
+    "_extends": "building_tool_gun",
+    "item__weapTemplate": "ger_building_tool_gun",
+    "item__template": "ger_building_tools_item",
+    "previewTemplate:list<t>": [
+      {
+        "template": "sandbags_wall_2_preview"
+      },
+      {
+        "template": "sandbags_wall_mg_131_preview"
+      },
+      {
+        "template": "sandbags_wall_mg_34_preview"
+      },
+      {
+        "template": "cannon_germ_20mm_flak38_flakvierling_preview"
+      },
+      {
+        "template": "cannon_germ_towed_at_pak40_preview"
+      },
+      {
+        "template": "czech_hedgehog_a_preview"
+      },
+      {
+        "template": "ger_rallypoint_preview"
+      },
+      {
+        "template": "barbedwire_engineer_a_preview"
+      },
+      {
+        "template": "ammunition_box_a_preview"
+      },
+      {
+        "template": "christmas_tree_preview"
+      }
+    ],
+    "buildingLimits:list<i>": [
+      {
+        "limit": 10
+      },
+      {
+        "limit": 1
+      },
+      {
+        "limit": 1
+      },
+      {
+        "limit": 2
+      },
+      {
+        "limit": 1
+      },
+      {
+        "limit": 6
+      },
+      {
+        "limit": 1
+      },
+      {
+        "limit": 10
+      },
+      {
+        "limit": 3
+      },
+      {
+        "limit": 3
+      }
+    ]
+  },
+  "ussr_berlin_building_tool_gun": {
+    "_extends": "building_tool_gun",
+    "item__weapTemplate": "ussr_building_tool_gun",
+    "item__template": "ussr_building_tools_item",
+    "previewTemplate:list<t>": [
+      {
+        "template": "sandbags_wall_2_preview"
+      },
+      {
+        "template": "sandbags_wall_dshk_1942_preview"
+      },
+      {
+        "template": "sandbags_wall_maxim_no_shield_preview"
+      },
+      {
+        "template": "cannon_germ_20mm_flak38_flakvierling_preview"
+      },
+      {
+        "template": "cannon_ussr_towed_at_pak40_preview"
+      },
+      {
+        "template": "czech_hedgehog_a_preview"
+      },
+      {
+        "template": "ussr_rallypoint_preview"
+      },
+      {
+        "template": "barbedwire_engineer_a_preview"
+      },
+      {
+        "template": "ammunition_box_a_preview"
+      },
+      {
+        "template": "christmas_tree_preview"
+      }
+    ],
+    "buildingLimits:list<i>": [
+      {
+        "limit": 10
+      },
+      {
+        "limit": 1
+      },
+      {
+        "limit": 1
+      },
+      {
+        "limit": 2
+      },
+      {
+        "limit": 1
+      },
+      {
+        "limit": 6
+      },
+      {
+        "limit": 1
+      },
+      {
+        "limit": 10
+      },
+      {
+        "limit": 3
+      },
+      {
+        "limit": 3
+      }
+    ]
+  },
+  "jp_building_tool_gun": {
+    "_extends": "building_tool_gun",
+    "item__weapTemplate": "jp_building_tool_gun",
+    "item__template": "jp_building_tool_item",
+    "previewTemplate:list<t>": [
+      {
+        "template": "sandbags_wall_2_preview"
+      },
+      {
+        "template": "sandbags_wall_type_93_hmg_preview"
+      },
+      {
+        "template": "sandbags_wall_type_92_hmg_preview"
+      },
+      {
+        "template": "cannon_germ_20mm_flak38_flakvierling_green_preview"
+      },
+      {
+        "template": "cannon_jp_towed_at_type_1_preview"
+      },
+      {
+        "template": "czech_hedgehog_a_preview"
+      },
+      {
+        "template": "jp_rallypoint_preview"
+      },
+      {
+        "template": "barbedwire_engineer_a_preview"
+      },
+      {
+        "template": "ammunition_box_a_preview"
+      },
+      {
+        "template": "christmas_tree_preview"
+      }
+    ],
+    "buildingLimits:list<i>": [
+      {
+        "limit": 10
+      },
+      {
+        "limit": 1
+      },
+      {
+        "limit": 1
+      },
+      {
+        "limit": 2
+      },
+      {
+        "limit": 1
+      },
+      {
+        "limit": 6
+      },
+      {
+        "limit": 1
+      },
+      {
+        "limit": 10
+      },
+      {
+        "limit": 3
+      },
+      {
+        "limit": 3
+      }
+    ]
+  },
+  "developer_building_tool_gun": {
+    "_extends": "building_tool_gun",
+    "item__weapTemplate": "developer_building_tool_gun",
+    "item__template": "modern_event_building_tool_item",
+    "previewTemplate:list<t>": [
+      {
+        "template": "sandbags_wall_mg_preview_dev"
+      },
+      {
+        "template": "sandbags_wall_mg_34_preview_dev"
+      },
+      {
+        "template": "sandbags_wall_maxim_no_shield_preview_dev"
+      },
+      {
+        "template": "sandbags_wall_browning_m1919a4_preview_dev"
+      },
+      {
+        "template": "sandbags_wall_type_92_hmg_preview_dev"
+      },
+      {
+        "template": "sandbags_wall_browning_m2_preview_dev"
+      },
+      {
+        "template": "sandbags_wall_type_93_hmg_preview_dev"
+      },
+      {
+        "template": "sandbags_wall_dshk_1942_preview_dev"
+      },
+      {
+        "template": "sandbags_wall_mg_131_preview_dev"
+      }
+    ],
+    "buildingLimits:list<i>": [
+      {
+        "limit": 2
+      },
+      {
+        "limit": 2
+      },
+      {
+        "limit": 2
+      },
+      {
+        "limit": 2
+      },
+      {
+        "limit": 2
+      },
+      {
+        "limit": 2
+      },
+      {
+        "limit": 2
+      },
+      {
+        "limit": 2
+      },
+      {
+        "limit": 2
+      }
+    ]
+  },
+  "building_tools_item": [
+    {
+      "_extends": "item_melee"
+    },
+    {
+      "_extends": "building_tool_gun"
+    },
+    {
+      "collres__res": "construction_hammer_collision"
+    },
+    {
+      "item__userstats__pickupName": "pickup_building_tool"
+    }
+  ],
+  "ussr_building_tools_item": [
+    {
+      "_extends": "item_melee"
+    },
+    {
+      "_extends": "ussr_building_tool_gun"
+    },
+    {
+      "collres__res": "construction_hammer_collision"
+    },
+    {
+      "item__userstats__pickupName": "pickup_building_tool"
+    }
+  ],
+  "usa_building_tools_item": [
+    {
+      "_extends": "item_melee"
+    },
+    {
+      "_extends": "usa_building_tool_gun"
+    },
+    {
+      "collres__res": "construction_hammer_collision"
+    },
+    {
+      "item__userstats__pickupName": "pickup_building_tool"
+    }
+  ],
+  "ger_building_tools_item": [
+    {
+      "_extends": "item_melee"
+    },
+    {
+      "_extends": "ger_building_tool_gun"
+    },
+    {
+      "collres__res": "construction_hammer_collision"
+    },
+    {
+      "item__userstats__pickupName": "pickup_building_tool"
+    }
+  ],
+  "jp_building_tool_item": [
+    {
+      "_extends": "item_melee"
+    },
+    {
+      "_extends": "jp_building_tool_gun"
+    },
+    {
+      "collres__res": "construction_hammer_collision"
+    },
+    {
+      "item__userstats__pickupName": "pickup_building_tool"
+    }
+  ],
+  "ussr_building_tool_award_gun": {
+    "_extends": "ussr_building_tool_gun",
+    "animchar__res": "engineer_hammer_char",
+    "item__weapTemplate": "ussr_building_tool_award_gun",
+    "item__template": "ussr_building_tool_award_item"
+  },
+  "ussr_building_tool_award_item": [
+    {
+      "_extends": "item_melee"
+    },
+    {
+      "_extends": "ussr_building_tool_award_gun"
+    },
+    {
+      "collres__res": "construction_hammer_collision"
+    },
+    {
+      "item__userstats__pickupName": "pickup_building_tool"
+    }
+  ],
+  "usa_building_tool_award_gun": {
+    "_extends": "usa_building_tool_gun",
+    "animchar__res": "engineer_hammer_char",
+    "item__weapTemplate": "usa_building_tool_award_gun",
+    "item__template": "usa_building_tool_award_item"
+  },
+  "usa_building_tool_award_item": [
+    {
+      "_extends": "item_melee"
+    },
+    {
+      "_extends": "usa_building_tool_award_gun"
+    },
+    {
+      "collres__res": "construction_hammer_collision"
+    },
+    {
+      "item__userstats__pickupName": "pickup_building_tool"
+    }
+  ],
+  "ger_normandy_building_tool_award_gun": {
+    "_extends": "ger_normandy_building_tool_gun",
+    "animchar__res": "engineer_hammer_char",
+    "item__weapTemplate": "ger_normandy_building_tool_award_gun",
+    "item__template": "ger_normandy_building_tool_award_item"
+  },
+  "ger_normandy_building_tool_award_item": [
+    {
+      "_extends": "item_melee"
+    },
+    {
+      "_extends": "ger_normandy_building_tool_award_gun"
+    },
+    {
+      "collres__res": "construction_hammer_collision"
+    },
+    {
+      "item__userstats__pickupName": "pickup_building_tool"
+    }
+  ],
+  "ger_tunisian_building_tool_award_gun": {
+    "_extends": "ger_tunisian_building_tool_gun",
+    "animchar__res": "engineer_hammer_char",
+    "item__weapTemplate": "ger_tunisian_building_tool_award_gun",
+    "item__template": "ger_tunisian_building_tool_award_item"
+  },
+  "ger_tunisian_building_tool_award_item": [
+    {
+      "_extends": "item_melee"
+    },
+    {
+      "_extends": "ger_tunisian_building_tool_award_gun"
+    },
+    {
+      "collres__res": "construction_hammer_collision"
+    },
+    {
+      "item__userstats__pickupName": "pickup_building_tool"
+    }
+  ],
+  "ger_building_tool_award_gun": {
+    "_extends": "ger_building_tool_gun",
+    "animchar__res": "engineer_hammer_char",
+    "item__weapTemplate": "ger_building_tool_award_gun",
+    "item__template": "ger_building_tool_award_item"
+  },
+  "ger_building_tool_award_item": [
+    {
+      "_extends": "item_melee"
+    },
+    {
+      "_extends": "ger_building_tool_award_gun"
+    },
+    {
+      "collres__res": "construction_hammer_collision"
+    },
+    {
+      "item__userstats__pickupName": "pickup_building_tool"
+    }
+  ],
+  "ger_berlin_building_tool_award_gun": {
+    "_extends": "ger_berlin_building_tool_gun",
+    "animchar__res": "engineer_hammer_char",
+    "item__weapTemplate": "ger_berlin_building_tool_award_gun",
+    "item__template": "ger_berlin_building_tool_award_item"
+  },
+  "ger_berlin_building_tool_award_item": [
+    {
+      "_extends": "item_melee"
+    },
+    {
+      "_extends": "ger_berlin_building_tool_award_gun"
+    },
+    {
+      "collres__res": "construction_hammer_collision"
+    },
+    {
+      "item__userstats__pickupName": "pickup_building_tool"
+    }
+  ],
+  "ussr_berlin_building_tool_award_gun": {
+    "_extends": "ussr_berlin_building_tool_gun",
+    "animchar__res": "engineer_hammer_char",
+    "item__weapTemplate": "ussr_berlin_building_tool_award_gun",
+    "item__template": "ussr_berlin_building_tool_award_item"
+  },
+  "ussr_berlin_building_tool_award_item": [
+    {
+      "_extends": "item_melee"
+    },
+    {
+      "_extends": "ussr_berlin_building_tool_award_gun"
+    },
+    {
+      "collres__res": "construction_hammer_collision"
+    },
+    {
+      "item__userstats__pickupName": "pickup_building_tool"
+    }
+  ],
+  "artillery_radio_base": [
+    {
+      "_extends": "device_animation_state"
+    },
+    {
+      "_extends": "ecs_no_debug"
+    },
+    {
+      "_extends": "slot_attachable"
+    },
+    {
+      "_extends": "disable_item_drop"
+    },
+    {
+      "slot_attach__slotName": "body_armor_back"
+    },
+    {
+      "radio__unequippedSlotName": "body_armor_back"
+    },
+    {
+      "radio__equippedSlotName": "weapon"
+    },
+    {
+      "radio__unequippedSlotId": -1
+    },
+    {
+      "radio__equippedSlotId": -1
+    },
+    {
+      "isVisibleOnPhoto": false
+    },
+    {
+      "item__weapType": "radio"
+    },
+    {
+      "item__weight": 3.0
+    },
+    {
+      "item__id": 0
+    },
+    {
+      "device_animation__postTime": 1.0
+    },
+    {
+      "item__equipToSlots:array": {
+        "slot": "radio"
+      }
+    },
+    {
+      "radio_use:tag": []
+    }
+  ],
+  "feldfu_b_radio": {
+    "_extends": "artillery_radio_base",
+    "gun__locName": "Feldfu.b radio communication station",
+    "animchar__res": "feldfu_b_radio_char",
+    "item__iconYaw": 130.0,
+    "item__iconScale": 2.4,
+    "item__iconOffset": [0.0,0.6],
+    "gun__blk": "content/enlisted/gamedata/weapons_enlisted/radio/feldfu_b_radio.blk",
+    "item__template": "feldfu_b_radio_gun_item",
+    "item__proto": "content/enlisted/gamedata/weapons_enlisted/radio/feldfu_b_radio.blk",
+    "item__weapTemplate": "feldfu_b_radio_gun",
+    "item__name": "items/feldfu_b_radio_communication_station"
+  },
+  "feldfu_b_radio_gun": [
+    {
+      "weap__sprintLerpFactor": 0.0
+    },
+    {
+      "_extends": "feldfu_b_radio"
+    },
+    {
+      "_extends": "animchar"
+    },
+    {
+      "_extends": "disable_update"
+    },
+    {
+      "_extends": "replicating"
+    },
+    {
+      "_extends": "gun_anim_vars"
+    },
+    {
+      "gun__propsId": -1
+    },
+    {
+      "_replicated": "gun__propsId"
+    },
+    {
+      "_replicated": "gun__owner"
+    },
+    {
+      "_replicated": "gun__holsterGen"
+    },
+    {
+      "_replicated": "slot_attach__visible"
+    },
+    {
+      "_replicated": "human_gun_attached"
+    },
+    {
+      "_replicated": "gun__visible"
+    },
+    {
+      "_tracked": "gun__owner"
+    },
+    {
+      "_tracked": "gun__visible"
+    },
+    {
+      "gun__prevHolsterGen": 0
+    },
+    {
+      "gun__holsterGen": 0
+    },
+    {
+      "animchar__updatable": false
+    },
+    {
+      "slot_attach__visible": false
+    },
+    {
+      "gun__visible": true
+    },
+    {
+      "animchar_render__enabled": false
+    },
+    {
+      "human_gun_attached": false
+    },
+    {
+      "gun_anim__reloadProgress": -1.0
+    },
+    {
+      "gun_anim__singleReloadProgress": -1.0
+    },
+    {
+      "gun_anim__singleReloadState": 0
+    },
+    {
+      "gun_attach__slot": "weapon"
+    },
+    {
+      "gun_attach__mainSlotId": -1
+    },
+    {
+      "gun_attach__alternativeSlot": "weapon"
+    },
+    {
+      "gun_attach__altSlotId": -1
+    },
+    {
+      "gun__owner:eid": []
+    },
+    {
+      "animchar__actOnDemand:tag": []
+    },
+    {
+      "phys_vars": []
+    },
+    {
+      "anim_phys": []
+    },
+    {
+      "gun_anim": {
+        "_tags": "render"
+      }
+    },
+    {
+      "net__notInInitialScope:tag": []
+    },
+    {
+      "gun_attach__holsterSlots:array": [
+        {
+          "holsterSlots": "slot_weapon_1"
+        },
+        {
+          "holsterSlots": "body_armor_back"
+        }
+      ]
+    },
+    {
+      "gun_attach__holsterSlotsIds:list<i>": []
+    }
+  ],
+  "ussr_p13_radio": {
+    "_extends": "artillery_radio_base",
+    "gun__locName": "ussr p13 radio communication station",
+    "animchar__res": "ussr_p13_radio_char",
+    "item__iconYaw": 145.0,
+    "item__iconScale": 2.0,
+    "item__iconOffset": [0.0,0.47],
+    "gun__blk": "content/enlisted/gamedata/weapons_enlisted/radio/ussr_p13_radio.blk",
+    "item__template": "ussr_p13_radio_gun_item",
+    "item__proto": "content/enlisted/gamedata/weapons_enlisted/radio/ussr_p13_radio.blk",
+    "item__weapTemplate": "ussr_p13_radio_gun",
+    "item__name": "items/ussr_p13_radio_communication_station"
+  },
+  "ussr_p13_radio_gun": [
+    {
+      "weap__sprintLerpFactor": 0.0
+    },
+    {
+      "_extends": "ussr_p13_radio"
+    },
+    {
+      "_extends": "animchar"
+    },
+    {
+      "_extends": "disable_update"
+    },
+    {
+      "_extends": "replicating"
+    },
+    {
+      "_extends": "gun_anim_vars"
+    },
+    {
+      "gun__propsId": -1
+    },
+    {
+      "_replicated": "gun__propsId"
+    },
+    {
+      "_replicated": "gun__owner"
+    },
+    {
+      "_replicated": "gun__holsterGen"
+    },
+    {
+      "_replicated": "slot_attach__visible"
+    },
+    {
+      "_replicated": "human_gun_attached"
+    },
+    {
+      "_replicated": "gun__visible"
+    },
+    {
+      "_tracked": "gun__owner"
+    },
+    {
+      "_tracked": "gun__visible"
+    },
+    {
+      "gun__prevHolsterGen": 0
+    },
+    {
+      "gun__holsterGen": 0
+    },
+    {
+      "animchar__updatable": false
+    },
+    {
+      "slot_attach__visible": false
+    },
+    {
+      "gun__visible": true
+    },
+    {
+      "animchar_render__enabled": false
+    },
+    {
+      "human_gun_attached": false
+    },
+    {
+      "gun_anim__reloadProgress": -1.0
+    },
+    {
+      "gun_anim__singleReloadProgress": -1.0
+    },
+    {
+      "gun_anim__singleReloadState": 0
+    },
+    {
+      "gun_attach__slot": "weapon"
+    },
+    {
+      "gun_attach__mainSlotId": -1
+    },
+    {
+      "gun_attach__alternativeSlot": "weapon"
+    },
+    {
+      "gun_attach__altSlotId": -1
+    },
+    {
+      "gun__owner:eid": []
+    },
+    {
+      "animchar__actOnDemand:tag": []
+    },
+    {
+      "phys_vars": []
+    },
+    {
+      "anim_phys": []
+    },
+    {
+      "gun_anim": {
+        "_tags": "render"
+      }
+    },
+    {
+      "net__notInInitialScope:tag": []
+    },
+    {
+      "gun_attach__holsterSlots:array": [
+        {
+          "holsterSlots": "slot_weapon_1"
+        },
+        {
+          "holsterSlots": "body_armor_back"
+        }
+      ]
+    },
+    {
+      "gun_attach__holsterSlotsIds:list<i>": []
+    }
+  ],
+  "scr_300": {
+    "_extends": "artillery_radio_base",
+    "gun__locName": "SCR-300 radio communication station",
+    "animchar__res": "scr_300_char",
+    "item__iconYaw": 145.0,
+    "item__iconScale": 2.7,
+    "item__iconOffset": [0.0,0.66],
+    "gun__blk": "content/enlisted/gamedata/weapons_enlisted/radio/scr_300.blk",
+    "item__template": "scr_300_gun_item",
+    "item__proto": "content/enlisted/gamedata/weapons_enlisted/radio/scr_300.blk",
+    "item__weapTemplate": "scr_300_gun",
+    "item__name": "items/scr_300_communication_station"
+  },
+  "scr_300_gun": [
+    {
+      "weap__sprintLerpFactor": 0.0
+    },
+    {
+      "_extends": "scr_300"
+    },
+    {
+      "_extends": "animchar"
+    },
+    {
+      "_extends": "disable_update"
+    },
+    {
+      "_extends": "replicating"
+    },
+    {
+      "_extends": "gun_anim_vars"
+    },
+    {
+      "gun__propsId": -1
+    },
+    {
+      "_replicated": "gun__propsId"
+    },
+    {
+      "_replicated": "gun__owner"
+    },
+    {
+      "_replicated": "gun__holsterGen"
+    },
+    {
+      "_replicated": "slot_attach__visible"
+    },
+    {
+      "_replicated": "human_gun_attached"
+    },
+    {
+      "_replicated": "gun__visible"
+    },
+    {
+      "_tracked": "gun__owner"
+    },
+    {
+      "_tracked": "gun__visible"
+    },
+    {
+      "gun__prevHolsterGen": 0
+    },
+    {
+      "gun__holsterGen": 0
+    },
+    {
+      "animchar__updatable": false
+    },
+    {
+      "slot_attach__visible": false
+    },
+    {
+      "gun__visible": true
+    },
+    {
+      "animchar_render__enabled": false
+    },
+    {
+      "human_gun_attached": false
+    },
+    {
+      "gun_anim__reloadProgress": -1.0
+    },
+    {
+      "gun_anim__singleReloadProgress": -1.0
+    },
+    {
+      "gun_anim__singleReloadState": 0
+    },
+    {
+      "gun_attach__slot": "weapon"
+    },
+    {
+      "gun_attach__mainSlotId": -1
+    },
+    {
+      "gun_attach__alternativeSlot": "weapon"
+    },
+    {
+      "gun_attach__altSlotId": -1
+    },
+    {
+      "gun__owner:eid": []
+    },
+    {
+      "animchar__actOnDemand:tag": []
+    },
+    {
+      "phys_vars": []
+    },
+    {
+      "anim_phys": []
+    },
+    {
+      "gun_anim": {
+        "_tags": "render"
+      }
+    },
+    {
+      "net__notInInitialScope:tag": []
+    },
+    {
+      "gun_attach__holsterSlots:array": [
+        {
+          "holsterSlots": "slot_weapon_1"
+        },
+        {
+          "holsterSlots": "body_armor_back"
+        }
+      ]
+    },
+    {
+      "gun_attach__holsterSlotsIds:list<i>": []
+    }
+  ],
+  "type_94_6_radio": {
+    "_extends": "artillery_radio_base",
+    "gun__locName": "Type 94-6 radio communication station",
+    "animchar__res": "type_94_6_radio_char",
+    "item__iconYaw": 145.0,
+    "item__iconScale": 1.0,
+    "item__iconOffset": [0.0,0.66],
+    "gun__blk": "content/enlisted/gamedata/weapons_enlisted/radio/type_94_6_radio.blk",
+    "item__template": "type_94_6_radio_gun_item",
+    "item__proto": "content/enlisted/gamedata/weapons_enlisted/radio/type_94_6_radio.blk",
+    "item__weapTemplate": "type_94_6_radio_gun",
+    "item__name": "items/type_94_6_radio"
+  },
+  "type_94_6_radio_gun": [
+    {
+      "weap__sprintLerpFactor": 0.0
+    },
+    {
+      "_extends": "type_94_6_radio"
+    },
+    {
+      "_extends": "animchar"
+    },
+    {
+      "_extends": "disable_update"
+    },
+    {
+      "_extends": "replicating"
+    },
+    {
+      "_extends": "gun_anim_vars"
+    },
+    {
+      "gun__propsId": -1
+    },
+    {
+      "_replicated": "gun__propsId"
+    },
+    {
+      "_replicated": "gun__owner"
+    },
+    {
+      "_replicated": "gun__holsterGen"
+    },
+    {
+      "_replicated": "slot_attach__visible"
+    },
+    {
+      "_replicated": "human_gun_attached"
+    },
+    {
+      "_replicated": "gun__visible"
+    },
+    {
+      "_tracked": "gun__owner"
+    },
+    {
+      "_tracked": "gun__visible"
+    },
+    {
+      "gun__prevHolsterGen": 0
+    },
+    {
+      "gun__holsterGen": 0
+    },
+    {
+      "animchar__updatable": false
+    },
+    {
+      "slot_attach__visible": false
+    },
+    {
+      "gun__visible": true
+    },
+    {
+      "animchar_render__enabled": false
+    },
+    {
+      "human_gun_attached": false
+    },
+    {
+      "gun_anim__reloadProgress": -1.0
+    },
+    {
+      "gun_anim__singleReloadProgress": -1.0
+    },
+    {
+      "gun_anim__singleReloadState": 0
+    },
+    {
+      "gun_attach__slot": "weapon"
+    },
+    {
+      "gun_attach__mainSlotId": -1
+    },
+    {
+      "gun_attach__alternativeSlot": "weapon"
+    },
+    {
+      "gun_attach__altSlotId": -1
+    },
+    {
+      "gun__owner:eid": []
+    },
+    {
+      "animchar__actOnDemand:tag": []
+    },
+    {
+      "phys_vars": []
+    },
+    {
+      "anim_phys": []
+    },
+    {
+      "gun_anim": {
+        "_tags": "render"
+      }
+    },
+    {
+      "net__notInInitialScope:tag": []
+    },
+    {
+      "gun_attach__holsterSlots:array": [
+        {
+          "holsterSlots": "slot_weapon_1"
+        },
+        {
+          "holsterSlots": "body_armor_back"
+        }
+      ]
+    },
+    {
+      "gun_attach__holsterSlotsIds:list<i>": []
+    }
+  ],
+  "ita_rf1_radio": {
+    "_extends": "artillery_radio_base",
+    "gun__locName": "SCR-300 radio communication station",
+    "animchar__res": "ita_rf1_radio_char",
+    "item__iconYaw": 145.0,
+    "item__iconScale": 2.7,
+    "item__iconOffset": [0.0,0.66],
+    "item__template": "ita_rf1_radio_gun_item",
+    "item__weapTemplate": "ita_rf1_radio_gun",
+    "gun__blk": "content/enlisted/gamedata/weapons_enlisted/radio/ita_rf1_radio.blk",
+    "item__proto": "content/enlisted/gamedata/weapons_enlisted/radio/ita_rf1_radio.blk",
+    "item__name": "items/scr_300_communication_station"
+  },
+  "ita_rf1_radio_gun": [
+    {
+      "weap__sprintLerpFactor": 0.0
+    },
+    {
+      "_extends": "ita_rf1_radio"
+    },
+    {
+      "_extends": "animchar"
+    },
+    {
+      "_extends": "disable_update"
+    },
+    {
+      "_extends": "replicating"
+    },
+    {
+      "_extends": "gun_anim_vars"
+    },
+    {
+      "gun__propsId": -1
+    },
+    {
+      "_replicated": "gun__propsId"
+    },
+    {
+      "_replicated": "gun__owner"
+    },
+    {
+      "_replicated": "gun__holsterGen"
+    },
+    {
+      "_replicated": "slot_attach__visible"
+    },
+    {
+      "_replicated": "human_gun_attached"
+    },
+    {
+      "_replicated": "gun__visible"
+    },
+    {
+      "_tracked": "gun__owner"
+    },
+    {
+      "_tracked": "gun__visible"
+    },
+    {
+      "gun__prevHolsterGen": 0
+    },
+    {
+      "gun__holsterGen": 0
+    },
+    {
+      "animchar__updatable": false
+    },
+    {
+      "slot_attach__visible": false
+    },
+    {
+      "gun__visible": true
+    },
+    {
+      "animchar_render__enabled": false
+    },
+    {
+      "human_gun_attached": false
+    },
+    {
+      "gun_anim__reloadProgress": -1.0
+    },
+    {
+      "gun_anim__singleReloadProgress": -1.0
+    },
+    {
+      "gun_anim__singleReloadState": 0
+    },
+    {
+      "gun_attach__slot": "weapon"
+    },
+    {
+      "gun_attach__mainSlotId": -1
+    },
+    {
+      "gun_attach__alternativeSlot": "weapon"
+    },
+    {
+      "gun_attach__altSlotId": -1
+    },
+    {
+      "gun__owner:eid": []
+    },
+    {
+      "animchar__actOnDemand:tag": []
+    },
+    {
+      "phys_vars": []
+    },
+    {
+      "anim_phys": []
+    },
+    {
+      "gun_anim": {
+        "_tags": "render"
+      }
+    },
+    {
+      "net__notInInitialScope:tag": []
+    },
+    {
+      "gun_attach__holsterSlots:array": [
+        {
+          "holsterSlots": "slot_weapon_1"
+        },
+        {
+          "holsterSlots": "body_armor_back"
+        }
+      ]
+    },
+    {
+      "gun_attach__holsterSlotsIds:list<i>": []
+    }
+  ],
+  "ita_rf1_radio_gun_item": [
+    {
+      "_extends": "item_gun"
+    },
+    {
+      "_extends": "ita_rf1_radio"
+    },
+    {
+      "collres__res": "ita_rf1_radio_collision"
+    }
+  ],
+  "feldfu_b_radio_gun_item": [
+    {
+      "_extends": "item_gun"
+    },
+    {
+      "_extends": "feldfu_b_radio"
+    },
+    {
+      "item__template": "feldfu_b_radio_gun_item"
+    },
+    {
+      "item__proto": "content/enlisted/gamedata/weapons_enlisted/radio/feldfu_b_radio.blk"
+    },
+    {
+      "collres__res": "feldfu_b_radio_collision"
+    }
+  ],
+  "ussr_p13_radio_gun_item": [
+    {
+      "_extends": "item_gun"
+    },
+    {
+      "_extends": "ussr_p13_radio"
+    },
+    {
+      "item__template": "ussr_p13_radio_gun_item"
+    },
+    {
+      "item__proto": "content/enlisted/gamedata/weapons_enlisted/radio/ussr_p13_radio.blk"
+    },
+    {
+      "collres__res": "ussr_p13_radio_collision"
+    }
+  ],
+  "scr_300_gun_item": [
+    {
+      "_extends": "item_gun"
+    },
+    {
+      "_extends": "scr_300"
+    },
+    {
+      "item__template": "scr_300_gun_item"
+    },
+    {
+      "item__proto": "content/enlisted/gamedata/weapons_enlisted/radio/scr_300.blk"
+    },
+    {
+      "collres__res": "scr_300_collision"
+    }
+  ],
+  "type_94_6_radio_gun_item": [
+    {
+      "_extends": "item_gun"
+    },
+    {
+      "_extends": "type_94_6_radio"
+    },
+    {
+      "item__proto": "content/enlisted/gamedata/weapons_enlisted/radio/type_94_6_radio.blk"
+    },
+    {
+      "collres__res": "type_94_6_radio_collision"
+    }
+  ],
+  "shovel": [
+    {
+      "_extends": "melee_weap_slots"
+    },
+    {
+      "_extends": "base_dig_tool"
+    },
+    {
+      "animchar__res": "ger_entrenchment_tool_char"
+    },
+    {
+      "gun__blk": "content/enlisted/gamedata/weapons_enlisted/shovel.blk"
+    },
+    {
+      "item__template": "shovel_item"
+    },
+    {
+      "item__proto": "content/enlisted/gamedata/weapons_enlisted/shovel.blk"
+    },
+    {
+      "item__locDetails": "Dmg: 1hp"
+    },
+    {
+      "item__id": 0
+    },
+    {
+      "item__weapTemplate": "shovel_weapon"
+    },
+    {
+      "item__name": "items/shovel"
+    },
+    {
+      "item__weapType": "melee"
+    },
+    {
+      "item__weight": 0.7
+    },
+    {
+      "item__iconYaw": 90.0
+    },
+    {
+      "melee_weapon__blk": "content/enlisted/gamedata/weapons_enlisted/shovel.blk"
+    },
+    {
+      "gun__statName": "melee"
+    },
+    {
+      "gun__reloadable": false
+    },
+    {
+      "melee_weapon__attackTime": 1.2
+    },
+    {
+      "weap__sprintLerpFactor": 1.0
+    }
+  ],
+  "shovel_weapon": [
+    {
+      "_extends": "melee_weapon"
+    },
+    {
+      "_extends": "shovel"
+    },
+    {
+      "meleeSoundType": "shovel"
+    },
+    {
+      "meleeActionSoundPath": "impact/shovel"
+    }
+  ],
+  "usa_shovel": {
+    "_extends": "shovel",
+    "animchar__res": "usa_m1943_shovel_char",
+    "item__weapTemplate": "usa_shovel_weapon",
+    "item__template": "usa_shovel_item"
+  },
+  "usa_shovel_weapon": [
+    {
+      "_extends": "shovel_weapon"
+    },
+    {
+      "_extends": "usa_shovel"
+    }
+  ],
+  "uk_shovel": {
+    "_extends": "shovel",
+    "animchar__res": "uk_army_spade_char",
+    "item__weapTemplate": "uk_shovel_weapon",
+    "item__template": "uk_shovel_item"
+  },
+  "uk_shovel_weapon": [
+    {
+      "_extends": "shovel_weapon"
+    },
+    {
+      "_extends": "uk_shovel"
+    }
+  ],
+  "ussr_shovel": {
+    "_extends": "shovel",
+    "animchar__res": "ussr_m41_shovel_char",
+    "item__weapTemplate": "ussr_shovel_weapon",
+    "item__template": "ussr_shovel_item"
+  },
+  "ussr_shovel_weapon": [
+    {
+      "_extends": "shovel_weapon"
+    },
+    {
+      "_extends": "ussr_shovel"
+    }
+  ],
+  "jp_shovel": {
+    "_extends": "shovel",
+    "animchar__res": "jap_type_98_entrenching_tool_char",
+    "item__weapTemplate": "jp_shovel_weapon",
+    "item__template": "jp_shovel_item"
+  },
+  "jp_shovel_weapon": [
+    {
+      "_extends": "shovel_weapon"
+    },
+    {
+      "_extends": "jp_shovel"
+    }
+  ]
+}

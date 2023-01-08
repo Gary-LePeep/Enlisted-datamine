@@ -1,0 +1,23 @@
+{
+  "plane_telesight": {
+    "gunmod__lensNode": "tele",
+    "gunmod__lensActive": true,
+    "gunmod__distortionParams": [0.8,0.1,0.07],
+    "gunmod__reticleTex_res": "",
+    "gunmod__lensNorm": [-1.0,0.0,0.0],
+    "gunmod__scopeRadLen": [0.02,0.4],
+    "gunmod__reticleTex:SharedTex": {
+      "_tags": "render"
+    },
+    "attached_gun_scope__currentEid:eid": [],
+    "_group": {
+      "_tags": "render",
+      "scope_reticle_shader_name": "scope_reticle",
+      "scope_reticle_radius:ShaderVar": [],
+      "scope_reticle_world_tm_0:ShaderVar": [],
+      "scope_reticle_world_tm_1:ShaderVar": [],
+      "scope_reticle_world_tm_2:ShaderVar": [],
+      "scope_reticle_shader:ShadersECS": []
+    }
+  }
+}

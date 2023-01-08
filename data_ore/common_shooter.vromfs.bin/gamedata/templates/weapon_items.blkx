@@ -1,0 +1,190 @@
+{
+  "ammo_holder": {
+    "ammo_holder__id": 0,
+    "ammo_holder__templateName": "",
+    "ammo_holder__ammoCount": -1,
+    "_replicated": "ammo_holder__ammoCount"
+  },
+  "item_magazine": [
+    {
+      "_extends": "item"
+    },
+    {
+      "_extends": "ammo_holder"
+    },
+    {
+      "item__iconYaw": 45.0
+    },
+    {
+      "item__iconPitch": 45.0
+    },
+    {
+      "item__lootType": "magazine"
+    },
+    {
+      "item__lootSoundType": "ammo"
+    },
+    {
+      "dropTm": [
+        [0.0,-1.0,0.0],
+        [1.0,0.0,0.0],
+        [0.0,0.0,1.0],
+        [0.0,0.03,0.0]
+      ]
+    },
+    {
+      "allowRequestAmmo": true
+    },
+    {
+      "item_pickup_priority__lookAtWeight": 3.85
+    },
+    {
+      "fastPickup:tag": []
+    }
+  ],
+  "item_bullets": [
+    {
+      "_extends": "item"
+    },
+    {
+      "_extends": "ammo_holder"
+    },
+    {
+      "item__iconYaw": 45.0
+    },
+    {
+      "item__iconPitch": -90.0
+    },
+    {
+      "item__lootType": "magazine"
+    },
+    {
+      "item__lootSoundType": "ammo"
+    },
+    {
+      "dropTm": [
+        [0.0,1.0,0.0],
+        [0.0,0.0,-1.0],
+        [-1.0,0.0,0.0],
+        [0.0,0.03,0.0]
+      ]
+    },
+    {
+      "allowRequestAmmo": true
+    },
+    {
+      "fastPickup:tag": []
+    }
+  ],
+  "need_update_wish_ammo": {
+    "item__needUpdateWishAmmo:tag": []
+  },
+  "item_gun": [
+    {
+      "_extends": "item"
+    },
+    {
+      "_extends": "gun_anim_vars"
+    },
+    {
+      "item__iconYaw": 90.0
+    },
+    {
+      "item__ui_priority": 2
+    },
+    {
+      "item__lootType": "gun"
+    },
+    {
+      "item__lootSoundType": "weapon"
+    },
+    {
+      "gun__propsId": -1
+    },
+    {
+      "gun__maxAmmo": 0
+    },
+    {
+      "dropTm": [
+        [0.0,1.0,0.0],
+        [0.0,0.0,-1.0],
+        [-1.0,0.0,0.0],
+        [0.0,0.03,0.0]
+      ]
+    },
+    {
+      "gun__customSkin": ""
+    },
+    {
+      "gun__ammoHolderIds:list<i>": []
+    },
+    {
+      "gun__shell_prop_ids": []
+    }
+  ],
+  "loaded_gun": {
+    "gun__createLoaded:tag": []
+  },
+  "item_melee": [
+    {
+      "_extends": "item"
+    },
+    {
+      "_extends": "gun_anim_vars"
+    },
+    {
+      "item__ui_priority": 1
+    },
+    {
+      "item__lootType": "melee"
+    },
+    {
+      "gun__propsId": -1
+    },
+    {
+      "dropTm": [
+        [0.0,0.0,-1.0],
+        [1.0,0.0,0.0],
+        [0.0,-1.0,0.0],
+        [0.0,0.03,0.0]
+      ]
+    },
+    {
+      "melee_weapon__propsId": -1
+    },
+    {
+      "animchar__actOnDemand:tag": []
+    },
+    {
+      "item__weapSlots:array": {
+        "slot": "melee"
+      }
+    }
+  ],
+  "item_grenade": {
+    "_extends": "item",
+    "item__iconPitch": 60.0,
+    "item__lootType": "grenade",
+    "item__lootSoundType": "grenade",
+    "dropTm": [
+      [0.0,1.0,0.0],
+      [0.0,0.0,-1.0],
+      [-1.0,0.0,0.0],
+      [0.0,0.03,0.0]
+    ],
+    "item__shell": "",
+    "item__grenadeType": "fougasse",
+    "fastPickup:tag": [],
+    "shell_props": [],
+    "fastThrowSlots:shared:object": {
+      "shell": 1,
+      "fougasse": 1,
+      "smoke": 2,
+      "antitank": 3
+    },
+    "requiresAmmoRefillsCount:i": {
+      "_tags": "server",
+      "value": 10
+    }
+  }
+}

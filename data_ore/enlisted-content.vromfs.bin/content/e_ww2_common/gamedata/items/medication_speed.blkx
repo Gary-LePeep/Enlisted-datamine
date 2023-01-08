@@ -1,0 +1,25 @@
+{
+  "entityMods": {
+    "modProps": "content/e_ww2_common/gamedata/items/medication_speed.blk"
+  },
+  "visual": {
+    "template": "medication_speed_item+item_in_world"
+  },
+  "equipable": [
+    {
+      "slot": "mod1"
+    },
+    {
+      "slot": "mod2"
+    }
+  ],
+  "accelerationMult": {
+    "mult": 1.5
+  },
+  "speedMult": {
+    "amount": 1.2
+  },
+  "reloadMult": {
+    "mult": 0.8
+  }
+}

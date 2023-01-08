@@ -1,0 +1,309 @@
+{
+  "appzund_ks750": {
+    "_extends": "appzund_ks750_common",
+    "vehicle_seats__seatsProvideOrder:tag": [],
+    "vehicle_seats__seats:shared:array": [
+      {
+        "seats:object": {
+          "name": "commander",
+          "locName": "vehicle_seats/gunner",
+          "ignoreAttachNodeRotation": true,
+          "seatOwnsEntityControl": false,
+          "attachNode": "char_passenger_01_pivot",
+          "entranceNode": "char_passenger_01_landing",
+          "attachTm": [
+            [1.0,0.0,0.0],
+            [0.0,1.0,0.0],
+            [0.0,0.0,1.0],
+            [0.0,-0.0,-0.0]
+          ],
+          "seatComponent": "isPassenger",
+          "canPlaceManually": true,
+          "seatEnum": "right_seat",
+          "seatAnimUpper": "zundapp_ks750_gunner",
+          "seatAnimLower": "zundapp_ks750_gunner",
+          "smokeScreen": false,
+          "turretNames:array": {
+            "turretNames": "turret_01"
+          },
+          "effectors:object": {
+            "l.hand": "ik_hand_left_gunner",
+            "r.hand": "ik_hand_right_gunner",
+            "l.forearm": "ik_forearm_left_gunner",
+            "r.forearm": "ik_forearm_right_gunner"
+          }
+        }
+      },
+      {
+        "seats:object": {
+          "name": "driver",
+          "locName": "vehicle_seats/driver",
+          "seatOwnsEntityControl": true,
+          "attachNode": "char_driver_pivot",
+          "ignoreAttachNodeRotation": true,
+          "entranceNode": "char_driver_landing",
+          "attachTm": [
+            [1.0,0.0,0.0],
+            [0.0,1.0,0.0],
+            [0.0,0.0,1.0],
+            [-0.1,0.0,-0.0]
+          ],
+          "seatComponent": "isGunner",
+          "nextSeat": "commander",
+          "shouldHideOwner": false,
+          "cameraNodeName": "bone_camera_driver",
+          "seatEnum": "left_seat",
+          "seatAnimUpper": "moto_drive_driver",
+          "seatAnimLower": "moto_drive_driver",
+          "smokeScreen": false,
+          "effectors:object": {
+            "l.hand": "ik_hand_left",
+            "r.hand": "ik_hand_right",
+            "l.forearm": "ik_forearm_left",
+            "r.forearm": "ik_forearm_right"
+          }
+        }
+      },
+      {
+        "seats:object": {
+          "name": "passenger1",
+          "locName": "vehicle_seats/passenger1",
+          "seatOwnsEntityControl": false,
+          "attachNode": "char_passenger_02_pivot",
+          "entranceNode": "char_passenger_02_landing",
+          "attachTm": [
+            [1.0,0.0,0.0],
+            [0.0,1.0,0.0],
+            [0.0,0.0,1.0],
+            [-0.0,0.0,0.0]
+          ],
+          "seatComponent": "isPassenger",
+          "canPlaceManually": true,
+          "seatEnum": "zundapp_ks750_seat",
+          "seatAnimUpper": "zundapp_ks750_passanger",
+          "seatAnimLower": "zundapp_ks750_passanger",
+          "smokeScreen": false
+        }
+      }
+    ],
+    "turret_gun_flash_fx__flashNodes:shared:array": {
+      "node": "emtr_mg_aa_flame"
+    },
+    "turret_gun_flash_fx__flashFx:shared:array": {
+      "fx": "muzzle_ground_8mm"
+    },
+    "turret_gun_flash_fx__flashFxScale:shared:array": {
+      "scale": 0.6
+    },
+    "turret_control__emitterNodes:shared:array": {
+      "node": "bone_mg_aa_v"
+    },
+    "turret_control__animVars:shared:array": {
+      "vars:object": {
+        "curYawParamName": "turret_01_yaw",
+        "curPitchParamName": "gun_01_pitch",
+        "aimActiveParamName": "aim_01_active",
+        "paramYawSpeed": "turret_01_yaw_speed",
+        "paramYawSpeedMul": "turret_01_yaw_mul",
+        "paramYawAccel": "turret_01_yaw_accel",
+        "paramMinYawAngle": "turret_01_min_yaw_angle",
+        "paramMaxYawAngle": "turret_01_max_yaw_angle",
+        "paramMinPitchAngle": "turret_01_min_pitch_angle",
+        "paramMaxPitchAngle": "turret_01_max_pitch_angle",
+        "paramPitchSpeed": "gun_01_pitch_speed",
+        "paramPitchSpeedMul": "gun_01_pitch_mul",
+        "paramPitchAccel": "gun_01_pitch_accel",
+        "wishYawParamName": "gun_01_aim:targetYaw",
+        "wishPitchParamName": "gun_01_aim:targetPitch"
+      }
+    },
+    "turret_control__turretInfo:shared:array": {
+      "turretInfo:object": {
+        "turretName": "turret_01",
+        "gun": "appzund_ks750_7_92mm_mg34",
+        "salt": 1
+      }
+    }
+  },
+  "appzund_ks750_common": [
+    {
+      "_extends": "simple_damage_model"
+    },
+    {
+      "_extends": "vehicle_seats_effectors"
+    },
+    {
+      "_extends": "base_bike_right_sidecar"
+    },
+    {
+      "_extends": "vehicle_anim_speedometer_kmh"
+    },
+    {
+      "item__name": "items/appzund_ks750"
+    },
+    {
+      "vehicleName": "appzund_ks750"
+    },
+    {
+      "animchar__res": "zundapp_ks750_char"
+    },
+    {
+      "collres__res": "zundapp_ks750_collision"
+    },
+    {
+      "vehicle_net_phys__blk": "content/tanks/gamedata/templates/motorcycles/appzund_ks750.blk:VehiclePhys"
+    },
+    {
+      "canUseRespawnbaseType": "motorcycle"
+    },
+    {
+      "damage_model__blk": "content/tanks/gamedata/templates/motorcycles/appzund_ks750.blk"
+    },
+    {
+      "particle_phys__blk": "content/e_ww2_common/gamedata/suspension/empty.blk"
+    },
+    {
+      "vehicle_seats__enumVarName": "zundapp_ks750"
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "vehicle_anim__speedometerMinMax": [3.0,160.0]
+      }
+    },
+    {
+      "anim_phys": []
+    },
+    {
+      "vehicleDisplayMarkerOverHead:tag": {
+        "tags": "ui"
+      }
+    }
+  ],
+  "appzund_ks750_7_92mm_mg34": {
+    "_extends": "bike_7_92mm_mg34",
+    "gun__shootNodeName": "bone_mg_aa_v",
+    "turret__yawSpeed": 300.0,
+    "turret__pitchSpeed": 100.0,
+    "turret__aimNodeName": "bone_mg_aa_h",
+    "turret__limit": [-60.0,60.0,-10.0,70.0],
+    "gun__shellsAmmo:array": {
+      "ammo": 500
+    }
+  },
+  "appzund_ks750_no_gun": {
+    "_extends": "appzund_ks750_common",
+    "vehicle_seats__seatsProvideOrder:tag": [],
+    "vehicle_seats__seats:shared:array": [
+      {
+        "seats:object": {
+          "name": "passenger1",
+          "locName": "vehicle_seats/passenger1",
+          "ignoreAttachNodeRotation": true,
+          "seatOwnsEntityControl": false,
+          "attachNode": "char_passenger_01_pivot",
+          "entranceNode": "char_passenger_01_landing",
+          "attachTm": [
+            [1.0,0.0,0.0],
+            [0.0,1.0,0.0],
+            [0.0,0.0,1.0],
+            [0.0,-0.0,-0.0]
+          ],
+          "seatComponent": "isPassenger",
+          "canPlaceManually": true,
+          "seatEnum": "right_seat",
+          "smokeScreen": false
+        }
+      },
+      {
+        "seats:object": {
+          "name": "driver",
+          "locName": "vehicle_seats/driver",
+          "seatOwnsEntityControl": true,
+          "attachNode": "char_driver_pivot",
+          "ignoreAttachNodeRotation": true,
+          "entranceNode": "char_driver_landing",
+          "attachTm": [
+            [1.0,0.0,0.0],
+            [0.0,1.0,0.0],
+            [0.0,0.0,1.0],
+            [-0.1,0.0,-0.0]
+          ],
+          "seatComponent": "isGunner",
+          "nextSeat": "commander",
+          "shouldHideOwner": false,
+          "cameraNodeName": "bone_camera_driver",
+          "seatEnum": "left_seat",
+          "seatAnimUpper": "moto_drive_driver",
+          "seatAnimLower": "moto_drive_driver",
+          "smokeScreen": false,
+          "effectors:object": {
+            "l.hand": "ik_hand_left",
+            "r.hand": "ik_hand_right",
+            "l.forearm": "ik_forearm_left",
+            "r.forearm": "ik_forearm_right"
+          }
+        }
+      },
+      {
+        "seats:object": {
+          "name": "passenger1",
+          "locName": "vehicle_seats/passenger1",
+          "seatOwnsEntityControl": false,
+          "attachNode": "char_passenger_02_pivot",
+          "entranceNode": "char_passenger_02_landing",
+          "attachTm": [
+            [1.0,0.0,0.0],
+            [0.0,1.0,0.0],
+            [0.0,0.0,1.0],
+            [-0.0,0.0,0.0]
+          ],
+          "seatComponent": "isPassenger",
+          "canPlaceManually": true,
+          "seatEnum": "zundapp_ks750_seat",
+          "seatAnimUpper": "zundapp_ks750_passanger",
+          "seatAnimLower": "zundapp_ks750_passanger",
+          "smokeScreen": false
+        }
+      }
+    ],
+    "disableDMParts:list<t>": [
+      {
+        "part": "gun_barrel"
+      },
+      {
+        "part": "bolt_mesh"
+      },
+      {
+        "part": "selector"
+      },
+      {
+        "part": "ejection_cover"
+      },
+      {
+        "part": "trigger"
+      },
+      {
+        "part": "spring"
+      },
+      {
+        "part": "gurttrommel_34_drum_2"
+      },
+      {
+        "part": "top_cover"
+      },
+      {
+        "part": "belt_shank_mesh"
+      },
+      {
+        "part": "gurttrommel_34_drum_1"
+      },
+      {
+        "part": "link_mesh"
+      },
+      {
+        "part": "gun_place"
+      }
+    ]
+  }
+}

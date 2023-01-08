@@ -1,0 +1,1806 @@
+[
+  {
+    "import": "pzkpfw_IV_ausf_H_cannon.blk"
+  },
+  {
+    "import": "geschutz_wagen_artillerie_turret.blk"
+  },
+  {
+    "train_sound_speed": {
+      "_group": {
+        "_tags": "sound",
+        "train_sound_speed__pos": [0.0,0.0],
+        "train_sound_speed__speedSummarySq": 0.0,
+        "train_sound_speed__speedSamples": 0,
+        "train_sound_speed__prevNextSampleAt": [0.0,0.0],
+        "train_sound_speed__speedAccel": [0.0,0.0,0.0,0.0],
+        "train_sound_speed__inited": false,
+        "train_sound_speed__enabled": false,
+        "train_sound_speed__speed": 0.0,
+        "train_sound_speed__accel": 0.0
+      }
+    }
+  },
+  {
+    "train_sound": {
+      "_extends": "train_sound_speed",
+      "_group": {
+        "_tags": "sound",
+        "train_sound__range": 0.0,
+        "train_sound__path": "enemy/vehicle/train/tracks",
+        "train_sound__event:SoundEvent": []
+      }
+    }
+  },
+  {
+    "train_escort_narrator": [
+      {
+        "_tags": "server"
+      },
+      {
+        "train_escort_narrator__prevTeamOffensePresence": -1
+      },
+      {
+        "train_escort_narrator__prevTeamDefensePresence": -1
+      },
+      {
+        "train_escort_narrator__teamOffensePresence": -1
+      },
+      {
+        "train_escort_narrator__teamDefensePresence": -1
+      },
+      {
+        "_tracked": "train_escort_narrator__teamOffensePresence"
+      },
+      {
+        "_tracked": "train_escort_narrator__teamDefensePresence"
+      }
+    ]
+  },
+  {
+    "train_destination_point": {
+      "_extends": "replicating",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [0.0,0.0,0.0]
+      ],
+      "trainDestination:tag": []
+    }
+  },
+  {
+    "destroy_buildings_collision": {
+      "_tags": "server",
+      "destroy_buildings_collision__updateInterval": 0.3,
+      "destroy_buildings_collision__nextUpdateTime": 0.0
+    }
+  },
+  {
+    "train_progress_ui": {
+      "_replicated": "train_progress__nextCapzoneEid",
+      "_tracked": "train_progress__nextCapzoneEid",
+      "train_progress__nextCapzoneEid:eid": [],
+      "_group": {
+        "_tags": "ui",
+        "train_progress__updateInterval": 1.0,
+        "train_progress__nextUpdate": 0.0
+      }
+    }
+  },
+  {
+    "base_train": [
+      {
+        "_extends": "replicating"
+      },
+      {
+        "_extends": "base_net_phys"
+      },
+      {
+        "_extends": "animchar"
+      },
+      {
+        "_extends": "simple_damage_model"
+      },
+      {
+        "_extends": "destroy_buildings_collision"
+      },
+      {
+        "animchar_render__enabled": true
+      },
+      {
+        "transform": [
+          [1.0,0.0,0.0],
+          [0.0,1.0,0.0],
+          [0.0,0.0,1.0],
+          [0.0,0.0,0.0]
+        ]
+      },
+      {
+        "_tracked": "transform"
+      },
+      {
+        "net__physId": -1
+      },
+      {
+        "train__groundHeight": 0.38
+      },
+      {
+        "grid_obj__gridType": "vehicles"
+      },
+      {
+        "grid_obj__fixedTmScale": -1.0
+      },
+      {
+        "material": "steel"
+      },
+      {
+        "damage_model__isExtendTraceModeAllowed": false
+      },
+      {
+        "pair_collision__tag": "collidableToPhysObj"
+      },
+      {
+        "havePairCollision": false
+      },
+      {
+        "collisionGridTraceable": true
+      },
+      {
+        "hitmarks_victim__showUserHits": false
+      },
+      {
+        "grid_obj": []
+      },
+      {
+        "vehicle:tag": []
+      },
+      {
+        "collres": []
+      },
+      {
+        "phys_obj_net_phys": []
+      },
+      {
+        "pair_collision__gridHolders": []
+      },
+      {
+        "pair_collision__gridNames:list<t>": [
+          {
+            "h": "humans"
+          },
+          {
+            "h": "vehicles"
+          }
+        ]
+      },
+      {
+        "collidableToHuman:tag": []
+      },
+      {
+        "collidableToVehicle:tag": []
+      },
+      {
+        "collidableToShip:tag": []
+      },
+      {
+        "collidableToPlane:tag": []
+      },
+      {
+        "collidableToPhysObj:tag": []
+      },
+      {
+        "phys__kinematicBody:tag": []
+      },
+      {
+        "humanAdditionalCollisionChecks:tag": []
+      },
+      {
+        "undestroyableBuilding:tag": []
+      },
+      {
+        "explosionCover:tag": []
+      }
+    ]
+  },
+  {
+    "train_abstroffwagen": {
+      "_extends": "base_train",
+      "animchar__res": "abstroffwagen_char",
+      "collres__res": "abstroffwagen_collision",
+      "phys_obj_net_phys__blk": "content/e_ww2_common/gamedata/units/wagens/train_abstroffwagen.blk",
+      "damage_model__blk": "content/e_ww2_common/gamedata/units/wagens/train_abstroffwagen.blk"
+    }
+  },
+  {
+    "train_abstroffwagen_b": {
+      "_extends": "base_train",
+      "animchar__res": "abstroffwagen_b_char",
+      "collres__res": "abstroffwagen_b_collision",
+      "phys_obj_net_phys__blk": "content/e_ww2_common/gamedata/units/wagens/train_abstroffwagen_b.blk",
+      "damage_model__blk": "content/e_ww2_common/gamedata/units/wagens/train_abstroffwagen_b.blk"
+    }
+  },
+  {
+    "train_artillerie_flak_wagen": {
+      "_extends": "base_train",
+      "vehicleName": "artillerie_flak_wagen",
+      "animchar__res": "artillerie_flak_wagen_char",
+      "collres__res": "artillerie_flak_wagen_collision",
+      "phys_obj_net_phys__blk": "content/e_ww2_common/gamedata/units/wagens/train_artillerie_flak_wagen.blk",
+      "damage_model__blk": "content/e_ww2_common/gamedata/units/wagens/train_artillerie_flak_wagen.blk"
+    }
+  },
+  {
+    "train_geschutz_wagen": {
+      "_extends": "base_train",
+      "animchar__res": "geschutz_wagen_char",
+      "collres__res": "geschutz_wagen_collision",
+      "phys_obj_net_phys__blk": "content/e_ww2_common/gamedata/units/wagens/train_geschutz_wagen.blk",
+      "damage_model__blk": "content/e_ww2_common/gamedata/units/wagens/train_geschutz_wagen.blk"
+    }
+  },
+  {
+    "train_kommando_infanterie_wagen": {
+      "_extends": "base_train",
+      "animchar__res": "kommando_infanterie_wagen_char",
+      "collres__res": "kommando_infanterie_wagen_collision",
+      "phys_obj_net_phys__blk": "content/e_ww2_common/gamedata/units/wagens/train_kommando_infanterie_wagen.blk",
+      "damage_model__blk": "content/e_ww2_common/gamedata/units/wagens/train_kommando_infanterie_wagen.blk"
+    }
+  },
+  {
+    "train_panzerjagerwagen": {
+      "_extends": "base_train",
+      "animchar__res": "panzerjagerwagen_char",
+      "collres__res": "panzerjagerwagen_collision",
+      "phys_obj_net_phys__blk": "content/e_ww2_common/gamedata/units/wagens/train_panzerjagerwagen.blk",
+      "damage_model__blk": "content/e_ww2_common/gamedata/units/wagens/train_panzerjagerwagen.blk"
+    }
+  },
+  {
+    "train_panzertragerwagen": {
+      "_extends": "base_train",
+      "animchar__res": "panzertragerwagen_char",
+      "collres__res": "panzertragerwagen_collision",
+      "phys_obj_net_phys__blk": "content/e_ww2_common/gamedata/units/wagens/train_panzertragerwagen.blk",
+      "damage_model__blk": "content/e_ww2_common/gamedata/units/wagens/train_panzertragerwagen.blk"
+    }
+  },
+  {
+    "train_panzerzug_bp_44_lokomotiv": {
+      "_extends": "base_train",
+      "animchar__res": "panzerzug_bp_44_lokomotiv_char",
+      "collres__res": "panzerzug_bp_44_lokomotiv_collision",
+      "phys_obj_net_phys__blk": "content/e_ww2_common/gamedata/units/wagens/train_panzerzug_bp_44_lokomotiv.blk",
+      "damage_model__blk": "content/e_ww2_common/gamedata/units/wagens/train_panzerzug_bp_44_lokomotiv.blk",
+      "attach_decorators__entities:list<eid>": [],
+      "attach_decorators__templates:array": {
+        "templates:object": {
+          "relativeTm": [
+            [1.0,0.0,0.0],
+            [0.0,1.0,0.0],
+            [0.0,0.0,1.0],
+            [0.0,0.0,0.0]
+          ],
+          "template": "train_smoke_effect",
+          "nodeName": "emtr_exhaust_01"
+        }
+      }
+    }
+  },
+  {
+    "train_panzerzug_bp_44_lokomotiv_b": {
+      "_extends": "base_train",
+      "animchar__res": "panzerzug_bp_44_lokomotiv_b_char",
+      "collres__res": "panzerzug_bp_44_lokomotiv_b_collision",
+      "phys_obj_net_phys__blk": "content/e_ww2_common/gamedata/units/wagens/train_panzerzug_bp_44_lokomotiv_b.blk",
+      "damage_model__blk": "content/e_ww2_common/gamedata/units/wagens/train_panzerzug_bp_44_lokomotiv_b.blk"
+    }
+  },
+  {
+    "primary_cart": {
+      "net__upToCtrlTick": -1,
+      "train__netTicksOffset": 0,
+      "train__teamOffense": -1,
+      "train__teamDefense": -1,
+      "train__currentVelocity": 0.0,
+      "train__maxVelocity": 1.6,
+      "train__minVelocity": 0.0,
+      "train__offenseTeamAdvantageWeight": 1,
+      "train__defenseTeamAdvantageWeight": 1,
+      "train__accelerationOffense": 10.0,
+      "train__accelerationDefense": 10.0,
+      "train__enableRestVelocity": false,
+      "train__offenseCount": 0,
+      "train__defenseCount": 0,
+      "train__expectedVelocity": 0.0,
+      "train__changeVelocityCheckAtTime": 0.0,
+      "train__changeVelocityInterval": 2.0,
+      "train__changeVelocityPacked": [0,0,0],
+      "_replicated": "train__changeVelocityPacked",
+      "train__primaryCart:tag": [],
+      "user_point__attachWithOffset:tag": [],
+      "phys__hasCustomMoveLogic:tag": [],
+      "phys__broadcastAAS:tag": []
+    }
+  },
+  {
+    "secondary_cart": {
+      "train__offset": 0.0,
+      "train__teamOffense": -1,
+      "train__teamDefense": -1,
+      "phys__disableSnapshots:tag": [],
+      "train__primaryCartEid:eid": [],
+      "user_point__attachWithOffset:tag": [],
+      "phys__hasCustomMoveLogic:tag": []
+    }
+  },
+  {
+    "base_wagen": {
+      "_extends": "moveable_obstacle",
+      "train__wheels:list<t>": [
+        {
+          "node": "wheel_l_01"
+        },
+        {
+          "node": "wheel_l_02"
+        },
+        {
+          "node": "wheel_r_01"
+        },
+        {
+          "node": "wheel_r_02"
+        }
+      ],
+      "train__wheelNodeIds:list<i>": [],
+      "train__wheelRotations:list<r>": [],
+      "train:tag": [],
+      "building__simplifiedCollisionCheck:tag": []
+    }
+  },
+  {
+    "train_obstacle": {
+      "train_obstacle__is_inited": false,
+      "train_obstacle__size": [0.0,0.0,0.0],
+      "train_obstacle__offsetFromTrain": [0.0,0.0,0.0],
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [0.0,0.0,0.0]
+      ],
+      "train_obstacle:tag": [],
+      "train_obstacle__trainEid:eid": [],
+      "train_obstacle__handles:list<i>": []
+    }
+  },
+  {
+    "berlin_train_carts": [
+      {
+        "_extends": "train_sound"
+      },
+      {
+        "_extends": "train_escort_narrator"
+      },
+      {
+        "_extends": "replicating"
+      },
+      {
+        "transform": [
+          [1.0,0.0,0.0],
+          [0.0,1.0,0.0],
+          [0.0,0.0,1.0],
+          [0.0,0.0,0.0]
+        ]
+      },
+      {
+        "train__teamOffense": -1
+      },
+      {
+        "train__teamDefense": -1
+      },
+      {
+        "train__offenseTeamAdvantageWeight": 1
+      },
+      {
+        "train__defenseTeamAdvantageWeight": 1
+      },
+      {
+        "train__primaryCartTemplate": "primary_cart"
+      },
+      {
+        "train__secondaryCartTemplate": "secondary_cart"
+      },
+      {
+        "train__cartEids:list<eid>": []
+      },
+      {
+        "train__cartOffsets:list<r>": []
+      },
+      {
+        "train__carts:array": [
+          {
+            "_tags": "server"
+          },
+          {
+            "cart:object": {
+              "template": "moving_car_abstroffwagen_b+requires_trans_render",
+              "offset": 0.0
+            }
+          },
+          {
+            "cart:object": {
+              "template": "moving_car_geschutz_wagen+requires_trans_render",
+              "offset": 14.0
+            }
+          },
+          {
+            "cart:object": {
+              "template": "moving_car_kommando_infanterie_wagen+requires_trans_render",
+              "offset": 15.1
+            }
+          },
+          {
+            "cart:object": {
+              "template": "moving_car_artillerie_flak_wagen+requires_trans_render",
+              "offset": 15.1
+            }
+          },
+          {
+            "cart:object": {
+              "template": "moving_car_panzerzug_bp_44_lokomotiv_b+requires_trans_render",
+              "offset": 14.2,
+              "capzone:object": {
+                "template": "domination_box_train_capzone+building_train_restricted_zone",
+                "scale": [118.0,8.0,4.4],
+                "components:object": {
+                  "capzone__offsetFromTrain": [7.0,4.0,0.0],
+                  "capzone__capPenalty": 0.0,
+                  "ui_order": 0
+                }
+              }
+            }
+          },
+          {
+            "cart:object": {
+              "template": "moving_car_panzerzug_bp_44_lokomotiv+requires_trans_render",
+              "offset": 14.7
+            }
+          },
+          {
+            "cart:object": {
+              "template": "moving_car_panzerjagerwagen",
+              "offset": 16.63
+            }
+          },
+          {
+            "cart:object": {
+              "template": "moving_car_abstroffwagen+train_progress_ui",
+              "offset": 14.23,
+              "train_obstacle:object": {
+                "template": "train_obstacle",
+                "components:object": {
+                  "train_obstacle__size": [120.0,4.5,4.5],
+                  "train_obstacle__offsetFromTrain": [50.0,0.0,0.0]
+                }
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "moving_car_abstroffwagen": [
+      {
+        "_extends": "train_abstroffwagen"
+      },
+      {
+        "_extends": "base_wagen"
+      },
+      {
+        "train__teamOffense": 2
+      },
+      {
+        "train__teamDefense": 1
+      },
+      {
+        "zoneScaleTransform": [
+          [10.7,0.0,0.0],
+          [0.0,3.2,0.0],
+          [0.0,0.0,3.34],
+          [0.0,0.0,0.0]
+        ]
+      },
+      {
+        "zoneTranslateTransform": [
+          [1.0,0.0,0.0],
+          [0.0,1.0,0.0],
+          [0.0,0.0,1.0],
+          [0.15,2.1,0.0]
+        ]
+      },
+      {
+        "_group": {
+          "_tags": "server",
+          "train_cart__minHeight": 1.25,
+          "train_cart__maxHeight": 8.0,
+          "train_cart__offsetXZ": 0.5,
+          "ai_train__enter_points:list<p3>": [
+            {
+              "item": [0.0,1.6,-1.5]
+            },
+            {
+              "item": [0.0,1.6,1.5]
+            },
+            {
+              "item": [5.5,1.6,0.0]
+            }
+          ],
+          "ai_train__exit_points:list<p3>": [
+            {
+              "item": [0.0,0.0,-3.5]
+            },
+            {
+              "item": [0.0,0.0,3.5]
+            },
+            {
+              "item": [8.0,0.0,0.0]
+            }
+          ],
+          "ai_train__nav_points:list<p3>": [
+            {
+              "item": [5.0,1.6,-1.0]
+            },
+            {
+              "item": [5.0,1.6,1.0]
+            },
+            {
+              "item": [-5.0,1.6,1.0]
+            },
+            {
+              "item": [-5.0,1.6,-1.0]
+            }
+          ],
+          "ai_train__held_nav_points:array": [
+            {
+              "item:list<b>": [
+                {
+                  "item": false
+                },
+                {
+                  "item": false
+                },
+                {
+                  "item": false
+                },
+                {
+                  "item": false
+                }
+              ]
+            },
+            {
+              "item:list<b>": [
+                {
+                  "item": false
+                },
+                {
+                  "item": false
+                },
+                {
+                  "item": false
+                },
+                {
+                  "item": false
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "moving_car_abstroffwagen_b": [
+      {
+        "_extends": "train_abstroffwagen_b"
+      },
+      {
+        "_extends": "base_wagen"
+      },
+      {
+        "train__teamOffense": 2
+      },
+      {
+        "train__teamDefense": 1
+      },
+      {
+        "zoneScaleTransform": [
+          [10.7,0.0,0.0],
+          [0.0,3.2,0.0],
+          [0.0,0.0,3.34],
+          [0.0,0.0,0.0]
+        ]
+      },
+      {
+        "zoneTranslateTransform": [
+          [1.0,0.0,0.0],
+          [0.0,1.0,0.0],
+          [0.0,0.0,1.0],
+          [0.15,2.1,0.0]
+        ]
+      },
+      {
+        "_group": {
+          "_tags": "server",
+          "train_cart__minHeight": 1.25,
+          "train_cart__maxHeight": 8.0,
+          "train_cart__offsetXZ": 0.5,
+          "ai_train__enter_points:list<p3>": [
+            {
+              "item": [-4.0,1.6,-1.5]
+            },
+            {
+              "item": [-4.0,1.6,1.5]
+            },
+            {
+              "item": [-5.5,1.6,0.0]
+            }
+          ],
+          "ai_train__exit_points:list<p3>": [
+            {
+              "item": [-4.0,0.0,-3.5]
+            },
+            {
+              "item": [-4.0,0.0,3.5]
+            },
+            {
+              "item": [-8.0,0.0,0.0]
+            }
+          ],
+          "ai_train__nav_points:list<p3>": [
+            {
+              "item": [-5.0,1.6,-1.0]
+            },
+            {
+              "item": [-5.0,1.6,1.0]
+            }
+          ],
+          "ai_train__held_nav_points:array": [
+            {
+              "item:list<b>": [
+                {
+                  "item": false
+                },
+                {
+                  "item": false
+                }
+              ]
+            },
+            {
+              "item:list<b>": [
+                {
+                  "item": false
+                },
+                {
+                  "item": false
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "train_attachment_enter_limits": {
+      "enter_vehicle__moveThreshold": -1.0,
+      "enter_vehicle__moveRelativeThreshold": 2.0,
+      "enter_vehicle__vehicleMoveThreshold:r": {
+        "_tags": "server",
+        "value": -1.0
+      }
+    }
+  },
+  {
+    "train_attachment": {
+      "_extends": "train_attachment_enter_limits",
+      "train_attachment__node": "",
+      "train_attachment__localTm": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [0.0,0.0,0.0]
+      ],
+      "train_attachment__attachTm": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [0.0,0.0,0.0]
+      ],
+      "train_attachment__parentEid:eid": [],
+      "user_point__attachWithOffset:tag": []
+    }
+  },
+  {
+    "train_flak_ammo": {
+      "gun__shellsAmmo:array": {
+        "ammo": 500
+      }
+    }
+  },
+  {
+    "flak_wagen_flak38_gun_ul": [
+      {
+        "_extends": "tankgun_flak38_flakvierling_20mm_kwk30_ul"
+      },
+      {
+        "_extends": "train_flak_ammo"
+      },
+      {
+        "turret_ai__limitAngles": [-360.0,360.0,-5.0,25.0]
+      },
+      {
+        "turret__limit": [-180.0,180.0,-5.0,87.0]
+      },
+      {
+        "turret__yawSpeed": 60.0
+      },
+      {
+        "turret__pitchSpeed": 20.0
+      }
+    ]
+  },
+  {
+    "flak_wagen_flak38_gun_ur": [
+      {
+        "_extends": "tankgun_flak38_flakvierling_20mm_kwk30_ur"
+      },
+      {
+        "_extends": "train_flak_ammo"
+      },
+      {
+        "turret_ai__limitAngles": [-360.0,360.0,-5.0,25.0]
+      }
+    ]
+  },
+  {
+    "flak_wagen_flak38_gun_dl": [
+      {
+        "_extends": "tankgun_flak38_flakvierling_20mm_kwk30_dl"
+      },
+      {
+        "_extends": "train_flak_ammo"
+      },
+      {
+        "turret_ai__limitAngles": [-360.0,360.0,-5.0,25.0]
+      }
+    ]
+  },
+  {
+    "flak_wagen_flak38_gun_dr": [
+      {
+        "_extends": "tankgun_flak38_flakvierling_20mm_kwk30_dr"
+      },
+      {
+        "_extends": "train_flak_ammo"
+      },
+      {
+        "turret_ai__limitAngles": [-360.0,360.0,-5.0,25.0]
+      }
+    ]
+  },
+  {
+    "moving_car_artillerie_flak_wagen_flak38_cannon": {
+      "_extends": "cannon_germ_20mm_flak38_flakvierling_green_camo",
+      "damage_model__blk": "content/e_ww2_common/gamedata/units/cannons/train_germ_20mm_flak38_flakvierling.blk",
+      "buildingRadius": 1.5,
+      "buildingCost": 8.0,
+      "fortification_repair__costPercent": 0.5,
+      "building_menu__text": "building_tool/aaa_cannon_flak38_flakvierling",
+      "turret_control__turretInfo:shared:array": [
+        {
+          "turretInfo:object": {
+            "turretName": "turret_01",
+            "turretGroup": "main_turrets",
+            "gun": "flak_wagen_flak38_gun_ul",
+            "salt": 1
+          }
+        },
+        {
+          "turretInfo:object": {
+            "turretName": "turret_02",
+            "turretGroup": "main_turrets",
+            "gun": "flak_wagen_flak38_gun_ur",
+            "salt": 1
+          }
+        },
+        {
+          "turretInfo:object": {
+            "turretName": "turret_03",
+            "turretGroup": "main_turrets",
+            "gun": "flak_wagen_flak38_gun_dl",
+            "salt": 1
+          }
+        },
+        {
+          "turretInfo:object": {
+            "turretName": "turret_04",
+            "turretGroup": "main_turrets",
+            "gun": "flak_wagen_flak38_gun_dr",
+            "salt": 1
+          }
+        }
+      ],
+      "phys__kinematicBody:tag": [],
+      "animchar__updatableOnSleepPhys:tag": [],
+      "capturer__allowCaptureOnVehicle:tag": [],
+      "undestroyableBuilding:tag": [],
+      "buildByPlayer:eid": []
+    }
+  },
+  {
+    "wagen_artillerie_turret": {
+      "_extends": "geschutz_wagen_artillerie_turret",
+      "vehicle_seats__autoDetectRestrictToTeam": false,
+      "phys__kinematicBody:tag": [],
+      "animchar__updatableOnSleepPhys:tag": [],
+      "train_attachment__restrictToTrainOffenseTeam:tag": []
+    }
+  },
+  {
+    "moving_car_artillerie_flak_wagen": [
+      {
+        "_extends": "train_artillerie_flak_wagen"
+      },
+      {
+        "_extends": "base_wagen"
+      },
+      {
+        "train__teamOffense": 2
+      },
+      {
+        "train__teamDefense": 1
+      },
+      {
+        "zoneScaleTransform": [
+          [12.56,0.0,0.0],
+          [0.0,2.7,0.0],
+          [0.0,0.0,3.34],
+          [0.0,0.0,0.0]
+        ]
+      },
+      {
+        "zoneTranslateTransform": [
+          [1.0,0.0,0.0],
+          [0.0,1.0,0.0],
+          [0.0,0.0,1.0],
+          [0.15,1.35,0.0]
+        ]
+      },
+      {
+        "train__attachments:array": {
+          "aa_cannon:object": {
+            "template": "moving_car_artillerie_flak_wagen_flak38_cannon",
+            "components:object": {
+              "train_attachment__node": "bone_flak38_aa",
+              "train_attachment__attachTm": [
+                [1.0,0.0,0.0],
+                [0.0,1.0,0.0],
+                [0.0,0.0,1.0],
+                [0.0,-0.5,0.0]
+              ]
+            }
+          },
+          "artillerie_turret:object": {
+            "template": "wagen_artillerie_turret",
+            "components:object": {
+              "train_attachment__node": "bone_turret",
+              "train_attachment__attachTm": [
+                [1.0,0.0,0.0],
+                [0.0,1.0,0.0],
+                [0.0,0.0,1.0],
+                [0.0,0.0,0.0]
+              ]
+            }
+          }
+        }
+      },
+      {
+        "disableDMParts:list<t>": [
+          {
+            "part": "bone_turret"
+          },
+          {
+            "part": "bone_gun_barrel"
+          },
+          {
+            "part": "gun_mask"
+          }
+        ]
+      },
+      {
+        "is_occluder:tag": []
+      },
+      {
+        "_group": {
+          "_tags": "server",
+          "train_cart__roofHeight": 3.0,
+          "train_cart__minHeight": 1.25,
+          "train_cart__maxHeight": 8.0,
+          "train_cart__offsetXZ": 0.5,
+          "ai_train__enter_points:list<p3>": [
+            {
+              "item": [-0.75,1.6,-1.5]
+            },
+            {
+              "item": [-0.75,1.6,1.5]
+            }
+          ],
+          "ai_train__exit_points:list<p3>": [
+            {
+              "item": [-0.75,0.0,-3.5]
+            },
+            {
+              "item": [-0.75,0.0,3.5]
+            }
+          ],
+          "ai_train__nav_points:list<p3>": [
+            {
+              "item": [1.5,1.6,-1.0]
+            },
+            {
+              "item": [1.5,1.6,1.0]
+            },
+            {
+              "item": [-5.0,1.6,-1.0]
+            },
+            {
+              "item": [-5.0,1.6,1.0]
+            }
+          ],
+          "ai_train__danger_points:list<p3>": [
+            {
+              "item": [-0.75,1.6,-1.5]
+            },
+            {
+              "item": [-0.75,1.6,1.5]
+            }
+          ],
+          "ai_train__held_nav_points:array": [
+            {
+              "item:list<b>": [
+                {
+                  "item": false
+                },
+                {
+                  "item": false
+                },
+                {
+                  "item": false
+                },
+                {
+                  "item": false
+                }
+              ]
+            },
+            {
+              "item:list<b>": [
+                {
+                  "item": false
+                },
+                {
+                  "item": false
+                },
+                {
+                  "item": false
+                },
+                {
+                  "item": false
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "moving_car_geschutz_wagen": [
+      {
+        "_extends": "train_geschutz_wagen"
+      },
+      {
+        "_extends": "base_wagen"
+      },
+      {
+        "train__teamOffense": 2
+      },
+      {
+        "train__teamDefense": 1
+      },
+      {
+        "zoneScaleTransform": [
+          [12.56,0.0,0.0],
+          [0.0,2.7,0.0],
+          [0.0,0.0,3.34],
+          [0.0,0.0,0.0]
+        ]
+      },
+      {
+        "zoneTranslateTransform": [
+          [1.0,0.0,0.0],
+          [0.0,1.0,0.0],
+          [0.0,0.0,1.0],
+          [0.15,1.35,0.0]
+        ]
+      },
+      {
+        "disableDMParts:list<t>": [
+          {
+            "part": "bone_turret"
+          },
+          {
+            "part": "bone_gun_barrel"
+          },
+          {
+            "part": "gun_mask"
+          }
+        ]
+      },
+      {
+        "train__attachments:array": {
+          "artillerie_turret:object": {
+            "template": "wagen_artillerie_turret",
+            "components:object": {
+              "train_attachment__node": "bone_turret",
+              "train_attachment__attachTm": [
+                [-1.0,0.0,0.0],
+                [0.0,1.0,0.0],
+                [0.0,0.0,-1.0],
+                [0.0,0.0,0.0]
+              ]
+            }
+          }
+        }
+      },
+      {
+        "is_occluder:tag": []
+      },
+      {
+        "_group": {
+          "_tags": "server",
+          "train_cart__roofHeight": 3.0,
+          "train_cart__minHeight": 1.25,
+          "train_cart__maxHeight": 8.0,
+          "train_cart__offsetXZ": 0.5,
+          "ai_train__enter_points:list<p3>": [
+            {
+              "item": [-2.25,1.6,-1.5]
+            },
+            {
+              "item": [-2.25,1.6,1.5]
+            },
+            {
+              "item": [2.25,1.6,-1.5]
+            },
+            {
+              "item": [2.25,1.6,1.5]
+            }
+          ],
+          "ai_train__exit_points:list<p3>": [
+            {
+              "item": [-2.25,0.0,-3.5]
+            },
+            {
+              "item": [-2.25,0.0,3.5]
+            },
+            {
+              "item": [2.25,0.0,-3.5]
+            },
+            {
+              "item": [2.25,0.0,3.5]
+            }
+          ],
+          "ai_train__nav_points:list<p3>": [
+            {
+              "item": [5.0,1.6,-1.0]
+            },
+            {
+              "item": [5.0,1.6,1.0]
+            }
+          ],
+          "ai_train__danger_points:list<p3>": [
+            {
+              "item": [-2.25,1.6,-1.5]
+            },
+            {
+              "item": [-2.25,1.6,1.5]
+            },
+            {
+              "item": [2.25,1.6,-1.5]
+            },
+            {
+              "item": [2.25,1.6,1.5]
+            }
+          ],
+          "ai_train__roof_nav_points:list<p3>": {
+            "item": [4.5,4.35,0.0]
+          },
+          "ai_train__held_nav_points:array": [
+            {
+              "item:list<b>": [
+                {
+                  "item": false
+                },
+                {
+                  "item": false
+                }
+              ]
+            },
+            {
+              "item:list<b>": [
+                {
+                  "item": false
+                },
+                {
+                  "item": false
+                }
+              ]
+            }
+          ],
+          "ai_train__held_roof_nav_points:list<b>": {
+            "item": false
+          }
+        }
+      }
+    ]
+  },
+  {
+    "moving_car_kommando_infanterie_wagen": [
+      {
+        "_extends": "train_kommando_infanterie_wagen"
+      },
+      {
+        "_extends": "base_wagen"
+      },
+      {
+        "train__teamOffense": 2
+      },
+      {
+        "train__teamDefense": 1
+      },
+      {
+        "zoneScaleTransform": [
+          [12.56,0.0,0.0],
+          [0.0,2.7,0.0],
+          [0.0,0.0,3.34],
+          [0.0,0.0,0.0]
+        ]
+      },
+      {
+        "zoneTranslateTransform": [
+          [1.0,0.0,0.0],
+          [0.0,1.0,0.0],
+          [0.0,0.0,1.0],
+          [0.15,1.35,0.0]
+        ]
+      },
+      {
+        "is_occluder:tag": []
+      },
+      {
+        "_group": {
+          "_tags": "server",
+          "train_cart__roofHeight": 3.0,
+          "train_cart__minHeight": 1.25,
+          "train_cart__maxHeight": 8.0,
+          "train_cart__offsetXZ": 0.5,
+          "ai_train__enter_points:list<p3>": [
+            {
+              "item": [-2.25,1.6,-1.5]
+            },
+            {
+              "item": [-2.25,1.6,1.5]
+            },
+            {
+              "item": [2.25,1.6,-1.5]
+            },
+            {
+              "item": [2.25,1.6,1.5]
+            }
+          ],
+          "ai_train__exit_points:list<p3>": [
+            {
+              "item": [-2.25,0.0,-3.5]
+            },
+            {
+              "item": [-2.25,0.0,3.5]
+            },
+            {
+              "item": [2.25,0.0,-3.5]
+            },
+            {
+              "item": [2.25,0.0,3.5]
+            }
+          ],
+          "ai_train__nav_points:list<p3>": [
+            {
+              "item": [5.0,1.6,-1.0]
+            },
+            {
+              "item": [5.0,1.6,1.0]
+            },
+            {
+              "item": [-5.0,1.6,-1.0]
+            },
+            {
+              "item": [-5.0,1.6,1.0]
+            }
+          ],
+          "ai_train__danger_points:list<p3>": [
+            {
+              "item": [-2.25,1.6,-1.5]
+            },
+            {
+              "item": [-2.25,1.6,1.5]
+            },
+            {
+              "item": [2.25,1.6,-1.5]
+            },
+            {
+              "item": [2.25,1.6,1.5]
+            }
+          ],
+          "ai_train__roof_nav_points:list<p3>": [
+            {
+              "item": [4.5,4.35,0.0]
+            },
+            {
+              "item": [-4.5,4.35,0.0]
+            }
+          ],
+          "ai_train__held_nav_points:array": [
+            {
+              "item:list<b>": [
+                {
+                  "item": false
+                },
+                {
+                  "item": false
+                },
+                {
+                  "item": false
+                },
+                {
+                  "item": false
+                }
+              ]
+            },
+            {
+              "item:list<b>": [
+                {
+                  "item": false
+                },
+                {
+                  "item": false
+                },
+                {
+                  "item": false
+                },
+                {
+                  "item": false
+                }
+              ]
+            }
+          ],
+          "ai_train__held_roof_nav_points:list<b>": [
+            {
+              "item": false
+            },
+            {
+              "item": false
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "moving_car_panzerjagerwagen_pzkpfw_IV_ausf_H_turret": {
+      "_extends": "pzkpfw_IV_ausf_H_turret",
+      "vehicle_seats__autoDetectRestrictToTeam": false,
+      "phys__kinematicBody:tag": [],
+      "animchar__updatableOnSleepPhys:tag": [],
+      "train_attachment__restrictToTrainOffenseTeam:tag": []
+    }
+  },
+  {
+    "moving_car_panzerjagerwagen": [
+      {
+        "_extends": "train_panzerjagerwagen"
+      },
+      {
+        "_extends": "base_wagen"
+      },
+      {
+        "train__teamOffense": 2
+      },
+      {
+        "train__teamDefense": 1
+      },
+      {
+        "zoneScaleTransform": [
+          [12.56,0.0,0.0],
+          [0.0,2.7,0.0],
+          [0.0,0.0,3.34],
+          [0.0,0.0,0.0]
+        ]
+      },
+      {
+        "zoneTranslateTransform": [
+          [1.0,0.0,0.0],
+          [0.0,1.0,0.0],
+          [0.0,0.0,1.0],
+          [0.15,1.35,0.0]
+        ]
+      },
+      {
+        "disableDMParts:list<t>": [
+          {
+            "part": "bone_turret"
+          },
+          {
+            "part": "bone_gun"
+          },
+          {
+            "part": "bone_gun_barrel"
+          },
+          {
+            "part": "bone_mg_gun_twin"
+          },
+          {
+            "part": "gun_barrel"
+          },
+          {
+            "part": "ex_decor_04"
+          },
+          {
+            "part": "ex_armor_turret_l_01"
+          },
+          {
+            "part": "ex_armor_turret_r_01"
+          },
+          {
+            "part": "ex_armor_turret_01"
+          },
+          {
+            "part": "hatch_01"
+          },
+          {
+            "part": "hatch_02"
+          },
+          {
+            "part": "hatch_03"
+          },
+          {
+            "part": "hatch_04"
+          },
+          {
+            "part": "hatch_05"
+          },
+          {
+            "part": "turret_02_side"
+          },
+          {
+            "part": "turret_back"
+          },
+          {
+            "part": "turret_bottom"
+          },
+          {
+            "part": "turret_commander"
+          },
+          {
+            "part": "turret_front"
+          },
+          {
+            "part": "turret_side"
+          },
+          {
+            "part": "turret_top"
+          },
+          {
+            "part": "gun_barrel_01"
+          },
+          {
+            "part": "gun_barrel_02"
+          },
+          {
+            "part": "gun_barrel_armor"
+          },
+          {
+            "part": "gun_barrel"
+          },
+          {
+            "part": "gun_mask_01"
+          },
+          {
+            "part": "gun_mask_02"
+          },
+          {
+            "part": "gun_mask"
+          },
+          {
+            "part": "mg_twin_armor"
+          }
+        ]
+      },
+      {
+        "train__attachments:array": {
+          "aa_cannon:object": {
+            "template": "moving_car_panzerjagerwagen_pzkpfw_IV_ausf_H_turret",
+            "components:object": {
+              "train_attachment__node": "root",
+              "train_attachment__attachTm": [
+                [1.0,0.0,0.0],
+                [0.0,1.0,0.0],
+                [0.0,0.0,1.0],
+                [0.0,0.65,0.0]
+              ]
+            }
+          }
+        }
+      },
+      {
+        "is_occluder:tag": []
+      },
+      {
+        "_group": {
+          "_tags": "server",
+          "train_cart__minHeight": 1.25,
+          "train_cart__maxHeight": 8.0,
+          "train_cart__offsetXZ": 0.5,
+          "ai_train__enter_points:list<p3>": [
+            {
+              "item": [4.0,1.6,-1.5]
+            },
+            {
+              "item": [4.0,1.6,1.5]
+            },
+            {
+              "item": [-4.0,1.6,-1.5]
+            },
+            {
+              "item": [-4.0,1.6,1.5]
+            }
+          ],
+          "ai_train__exit_points:list<p3>": [
+            {
+              "item": [4.0,0.0,-3.5]
+            },
+            {
+              "item": [4.0,0.0,3.5]
+            },
+            {
+              "item": [-4.0,0.0,-3.5]
+            },
+            {
+              "item": [-4.0,0.0,3.5]
+            }
+          ],
+          "ai_train__nav_points:list<p3>": [
+            {
+              "item": [5.0,1.6,-1.0]
+            },
+            {
+              "item": [5.0,1.6,1.0]
+            },
+            {
+              "item": [-5.0,1.6,1.0]
+            },
+            {
+              "item": [-5.0,1.6,-1.0]
+            }
+          ],
+          "ai_train__held_nav_points:array": [
+            {
+              "item:list<b>": [
+                {
+                  "item": false
+                },
+                {
+                  "item": false
+                },
+                {
+                  "item": false
+                },
+                {
+                  "item": false
+                }
+              ]
+            },
+            {
+              "item:list<b>": [
+                {
+                  "item": false
+                },
+                {
+                  "item": false
+                },
+                {
+                  "item": false
+                },
+                {
+                  "item": false
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "moving_car_panzertragerwagen": [
+      {
+        "_extends": "train_panzertragerwagen"
+      },
+      {
+        "_extends": "base_wagen"
+      },
+      {
+        "train__teamOffense": 2
+      },
+      {
+        "train__teamDefense": 1
+      },
+      {
+        "zoneScaleTransform": [
+          [12.56,0.0,0.0],
+          [0.0,2.7,0.0],
+          [0.0,0.0,3.34],
+          [0.0,0.0,0.0]
+        ]
+      },
+      {
+        "zoneTranslateTransform": [
+          [1.0,0.0,0.0],
+          [0.0,1.0,0.0],
+          [0.0,0.0,1.0],
+          [0.15,1.35,0.0]
+        ]
+      },
+      {
+        "is_occluder:tag": []
+      },
+      {
+        "_group": {
+          "_tags": "server",
+          "train_cart__minHeight": 1.25,
+          "train_cart__maxHeight": 8.0,
+          "train_cart__offsetXZ": 0.5,
+          "ai_train__enter_points:list<p3>": [
+            {
+              "item": [0.0,5.0,-1.5]
+            },
+            {
+              "item": [0.0,5.0,1.5]
+            }
+          ],
+          "ai_train__exit_points:list<p3>": [
+            {
+              "item": [0.0,0.0,-3.5]
+            },
+            {
+              "item": [0.0,0.0,3.5]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "moving_car_panzerzug_bp_44_lokomotiv": [
+      {
+        "_extends": "train_panzerzug_bp_44_lokomotiv"
+      },
+      {
+        "_extends": "base_wagen"
+      },
+      {
+        "train__teamOffense": 2
+      },
+      {
+        "train__teamDefense": 1
+      },
+      {
+        "zoneScaleTransform": [
+          [23.43,0.0,0.0],
+          [0.0,4.7,0.0],
+          [0.0,0.0,3.34],
+          [0.0,0.0,0.0]
+        ]
+      },
+      {
+        "zoneTranslateTransform": [
+          [1.0,0.0,0.0],
+          [0.0,1.0,0.0],
+          [0.0,0.0,1.0],
+          [1.715,2.35,0.0]
+        ]
+      },
+      {
+        "train__wheels:list<t>": [
+          {
+            "node": "wheel_l_01"
+          },
+          {
+            "node": "wheel_l_02"
+          },
+          {
+            "node": "wheel_l_03"
+          },
+          {
+            "node": "wheel_l_04"
+          },
+          {
+            "node": "wheel_l_05"
+          },
+          {
+            "node": "wheel_l_06"
+          },
+          {
+            "node": "wheel_r_01"
+          },
+          {
+            "node": "wheel_r_02"
+          },
+          {
+            "node": "wheel_r_03"
+          },
+          {
+            "node": "wheel_r_04"
+          },
+          {
+            "node": "wheel_r_05"
+          },
+          {
+            "node": "wheel_r_06"
+          }
+        ]
+      },
+      {
+        "is_occluder:tag": []
+      },
+      {
+        "_group": {
+          "_tags": "server",
+          "train_cart__minHeight": 1.25,
+          "train_cart__maxHeight": 8.0,
+          "train_cart__offsetXZ": 0.5,
+          "ai_train__enter_points:list<p3>": [
+            {
+              "item": [0.0,6.0,-1.5]
+            },
+            {
+              "item": [0.0,6.0,1.5]
+            }
+          ],
+          "ai_train__exit_points:list<p3>": [
+            {
+              "item": [0.0,0.0,-3.5]
+            },
+            {
+              "item": [0.0,0.0,3.5]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "moving_car_panzerzug_bp_44_lokomotiv_b": [
+      {
+        "_extends": "train_panzerzug_bp_44_lokomotiv_b"
+      },
+      {
+        "_extends": "base_wagen"
+      },
+      {
+        "train__teamOffense": 2
+      },
+      {
+        "train__teamDefense": 1
+      },
+      {
+        "zoneScaleTransform": [
+          [23.43,0.0,0.0],
+          [0.0,4.7,0.0],
+          [0.0,0.0,3.34],
+          [0.0,0.0,0.0]
+        ]
+      },
+      {
+        "zoneTranslateTransform": [
+          [1.0,0.0,0.0],
+          [0.0,1.0,0.0],
+          [0.0,0.0,1.0],
+          [1.715,2.35,0.0]
+        ]
+      },
+      {
+        "train__wheels:list<t>": [
+          {
+            "node": "wheel_l_01"
+          },
+          {
+            "node": "wheel_l_02"
+          },
+          {
+            "node": "wheel_l_03"
+          },
+          {
+            "node": "wheel_l_04"
+          },
+          {
+            "node": "wheel_r_01"
+          },
+          {
+            "node": "wheel_r_02"
+          },
+          {
+            "node": "wheel_r_03"
+          },
+          {
+            "node": "wheel_r_04"
+          }
+        ]
+      },
+      {
+        "is_occluder:tag": []
+      },
+      {
+        "_group": {
+          "_tags": "server",
+          "train_cart__minHeight": 1.25,
+          "train_cart__maxHeight": 8.0,
+          "train_cart__offsetXZ": 0.5,
+          "ai_train__enter_points:list<p3>": [
+            {
+              "item": [0.0,5.0,-1.5]
+            },
+            {
+              "item": [0.0,5.0,1.5]
+            }
+          ],
+          "ai_train__exit_points:list<p3>": [
+            {
+              "item": [0.0,0.0,-3.5]
+            },
+            {
+              "item": [0.0,0.0,3.5]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "train_smoke_effect": {
+      "effect__scale": 1.0,
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [1.0,1.0,1.0]
+      ],
+      "_group": {
+        "_tags": "render",
+        "effect__name": "smoke_train_cmps_fx",
+        "effect": []
+      }
+    }
+  }
+]

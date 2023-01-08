@@ -1,0 +1,167 @@
+[
+  {
+    "import": "tanks/us_m4a2_sherman_1944.blk"
+  },
+  {
+    "import": "tanks/us_m4a1_76w_sherman.blk"
+  },
+  {
+    "import": "tanks/us_m4a3e2_sherman_jumbo.blk"
+  },
+  {
+    "import": "tanks/us_m4a3e2_76w_sherman_jumbo.blk"
+  },
+  {
+    "import": "tanks/uk_sherman_ic_firefly.blk"
+  },
+  {
+    "import": "tanks/us_m5a1_stuart_late.blk"
+  },
+  {
+    "import": "tanks/us_m8_scott.blk"
+  },
+  {
+    "import": "tanks/us_m10_wolverine.blk"
+  },
+  {
+    "import": "tanks/us_m18_hellcat.blk"
+  },
+  {
+    "import": "tanks/us_m24_chaffee.blk"
+  },
+  {
+    "import": "tanks/us_m4a2_76w_sherman.blk"
+  },
+  {
+    "import": "tanks/us_m3_lee.blk"
+  },
+  {
+    "import": "tanks/us_m4_calliope.blk"
+  },
+  {
+    "import": "tanks/us_m3a1_stuart.blk"
+  },
+  {
+    "import": "tanks/us_m3a1_stuart_flame.blk"
+  },
+  {
+    "import": "tanks/us_m8_greyhound.blk"
+  },
+  {
+    "import": "tanks/us_lvt_a_1.blk"
+  },
+  {
+    "import": "tanks/us_halftrack_m13.blk"
+  },
+  {
+    "import": "tanks/us_m2a4.blk"
+  },
+  {
+    "us_halftrack_m3_75mm_gmc": {
+      "_extends": "base_tank",
+      "particle_phys__blk": "content/e_ww2_common/gamedata/suspension/empty.blk",
+      "animchar__res": "halftrack_m3_t48_char",
+      "collres__res": "halftrack_m3_t48_collision",
+      "vehicle_net_phys__blk": "content/tanks/gamedata/units/tanks/halftrack_m3_t48.blk:VehiclePhys",
+      "dmg_animchar__res": "halftrack_m3_t48_dmg_char",
+      "damage_model__blk": "content/tanks/gamedata/units/tanks/halftrack_m3_t48.blk",
+      "animchar_fast_phys__res": "halftrack_m3_t48_fastphys",
+      "animchar_fast_phys": {
+        "_tags": "gameClient"
+      },
+      "turret_control__turretInfo:shared:array": {
+        "turretInfo:object": {
+          "turretName": "turret_01",
+          "gun": "tankgun_m1_76mm",
+          "salt": 1,
+          "emitterNode": "bone_gun",
+          "speedYaw": 24.0,
+          "speedPitch": 4.0,
+          "aimActiveParamName": "aim_active",
+          "wishYawParamName": "gun_aim:targetYaw",
+          "wishPitchParamName": "gun_aim:targetPitch",
+          "curYawParamName": "turret_yaw",
+          "curPitchParamName": "gun_pitch",
+          "gunRecoilParamName": "gun_recoil",
+          "gunRecoilDuration": 0.5,
+          "gunFlash:object": {
+            "node": "emtr_gun_flame",
+            "fx": "muzzle_flash",
+            "fxId": -1,
+            "scale": 0.7,
+            "nodeId": -1,
+            "time": 0.2,
+            "multTm": [
+              [0.0,1.0,0.0],
+              [1.0,0.0,0.0],
+              [0.0,0.0,-1.0],
+              [0.0,0.0,0.0]
+            ]
+          }
+        }
+      },
+      "vehicle_seats__seats:shared:array": [
+        {
+          "seats:object": {
+            "name": "main_gunner",
+            "locName": "vehicle_seats/gunner",
+            "turretName": "turret_01",
+            "attachNode": "Bip01 Pelvis_2",
+            "attachTm": [
+              [0.0,1.0,0.0],
+              [1.0,0.0,0.0],
+              [0.0,0.0,-1.0],
+              [-0.5,0.0,0.0]
+            ],
+            "seatComponent": "isPassenger",
+            "nextSeat": "driver",
+            "cameraNodeName": "bone_camera_gunner"
+          }
+        },
+        {
+          "seats:object": {
+            "name": "driver",
+            "locName": "vehicle_seats/driver",
+            "seatOwnsEntityControl": true,
+            "attachNode": "Bip01 Pelvis_1",
+            "attachTm": [
+              [0.0,1.0,0.0],
+              [1.0,0.0,0.0],
+              [0.0,0.0,-1.0],
+              [0.0,0.0,0.0]
+            ],
+            "seatComponent": "isDriver",
+            "nextSeat": "main_gunner",
+            "cameraNodeName": "bone_camera_driver"
+          }
+        },
+        {
+          "seats:object": {
+            "locName": "vehicle_seats/passenger",
+            "attachNode": "Bip01 Pelvis_3",
+            "attachTm": [
+              [0.0,1.0,0.0],
+              [1.0,0.0,0.0],
+              [0.0,0.0,-1.0],
+              [0.0,0.0,0.0]
+            ],
+            "seatComponent": "isPassenger"
+          }
+        },
+        {
+          "seats:object": {
+            "locName": "vehicle_seats/passenger",
+            "attachNode": "Bip01 Pelvis_5",
+            "attachTm": [
+              [0.0,1.0,0.0],
+              [1.0,0.0,0.0],
+              [0.0,0.0,-1.0],
+              [0.0,0.0,0.0]
+            ],
+            "seatComponent": "isPassenger"
+          }
+        }
+      ]
+    }
+  }
+]

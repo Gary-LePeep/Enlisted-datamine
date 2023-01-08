@@ -1,0 +1,838 @@
+[
+  {
+    "import": [
+      {
+        "scene": "content/enlisted/gamedata/scenes/_volokolamsk_sounds.blk"
+      },
+      {
+        "scene": "content/enlisted/gamedata/scenes/_volokolamsk_winter_biome_fx.blk"
+      }
+    ]
+  },
+  {
+    "entity": {
+      "_template": "minimap_battle_of_moscow_volokolamsk_countryside_winter"
+    }
+  },
+  {
+    "entity": {
+      "_template": "wind"
+    }
+  },
+  {
+    "entity": {
+      "_template": "postfx_color_grading_tonemap_death_alive_enlisted"
+    }
+  },
+  {
+    "entity": {
+      "_template": "shaderVars",
+      "shader_vars__vars:object": {
+        "hmap_displacement_up": 0.3,
+        "ocean1": "#8e894700",
+        "ocean0": "#4c3f0500",
+        "ocean_density": 0.1,
+        "land_selfillum_worldscale": 0.9,
+        "river1": "#8e894700",
+        "river0": "#4c3f0500",
+        "hmap_displacement_down": -0.15,
+        "puddle_flat_hmap_reduce": 0.03,
+        "autodetect_land_selfillum_color": [0.53,0.0,0.0,0.16],
+        "paint_details_tex": "volokolamsk_building_colors_tex_palette*",
+        "land_selfillum_strength": 32.0,
+        "water_color_noise_size": 71.0,
+        "river_density": 0.3
+      }
+    }
+  },
+  {
+    "entity": {
+      "_template": "postfx_roundctrl"
+    }
+  },
+  {
+    "entity": {
+      "_template": "door_mult_ent_generator",
+      "ri_extra_gen__blk": "content/e_moscow/gamedata/volokolamsk_doors.blk"
+    }
+  },
+  {
+    "entity": {
+      "_template": "session_timer",
+      "session_timer__time_left": 1200.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "session_finalizer",
+      "session_finalizer__timer": 10.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "briefing_invasion",
+      "mission_name": "volokolamsk_forest_inv"
+    }
+  },
+  {
+    "entity": {
+      "_template": "team_ussr+team_narrator_invasion_defence+respawn_creators_team",
+      "team__countAdd": 0.5,
+      "team__memberCount": 0.5,
+      "team__scoreCap": 3000.0,
+      "team__capturePenalty": 1001.0,
+      "team__score": 3000.0,
+      "team__id": 1,
+      "team__briefing": "invasion/defenders_goals",
+      "team__winSubtitle": "debriefing/won_defence_subtitle",
+      "team__loseSubtitle": "debriefing/lost_defence_subtitle",
+      "team__winTitle": "debriefing/ussr_won_defence",
+      "team__spawnBotArmy": "moscow_allies"
+    }
+  },
+  {
+    "entity": {
+      "_template": "team_germany_winter+team_narrator_invasion_attack+respawn_creators_team",
+      "team__memberCount": 0.0,
+      "team__scoreCap": 1000.0,
+      "team__score": 1000.0,
+      "team__squadSpawnCost": 250,
+      "team__firstSpawnCostMul": 0.0,
+      "team__zeroScoreFailTimer": 60.0,
+      "team__id": 2,
+      "team__briefing": "invasion/attackers_goals",
+      "team__winSubtitle": "debriefing/won_invasion_subtitle",
+      "team__loseSubtitle": "debriefing/lost_invasion_subtitle",
+      "team__winTitle": "debriefing/ger_won_invasion",
+      "team__spawnBotArmy": "moscow_axis"
+    }
+  },
+  {
+    "entity": {
+      "_template": "box_battle_area",
+      "transform": [
+        [-71.4314,0.0,333.299],
+        [0.0,85.5262,0.0],
+        [-236.265,0.0,-47.3222],
+        [83.3029,18.0377,421.361]
+      ],
+      "battle_area__team": 1,
+      "groupName": "1_1",
+      "active": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "box_battle_area",
+      "transform": [
+        [350.174,0.0,-31.2538],
+        [0.0,85.5262,0.0],
+        [25.419,0.0,247.216],
+        [278.311,18.0377,351.922]
+      ],
+      "battle_area__team": 2,
+      "groupName": "1_1",
+      "active": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "box_battle_area",
+      "transform": [
+        [391.959,0.0,80.2371],
+        [0.0,85.5262,0.0],
+        [-52.9888,0.0,277.811],
+        [166.216,18.0377,567.419]
+      ],
+      "battle_area__team": 1,
+      "groupName": "2_1",
+      "active": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "box_battle_area",
+      "transform": [
+        [435.367,0.0,84.067],
+        [0.0,85.5262,0.0],
+        [-55.2834,0.0,308.529],
+        [195.088,18.0377,423.218]
+      ],
+      "battle_area__team": 2,
+      "groupName": "2_1",
+      "active": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "box_battle_area",
+      "transform": [
+        [391.959,0.0,80.2371],
+        [0.0,85.5262,0.0],
+        [-52.9888,0.0,277.811],
+        [140.763,18.0377,702.538]
+      ],
+      "battle_area__team": 1,
+      "groupName": "3_1",
+      "active": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "box_battle_area",
+      "transform": [
+        [435.367,0.0,84.067],
+        [0.0,85.5262,0.0],
+        [-55.2834,0.0,308.529],
+        [169.897,18.0377,546.626]
+      ],
+      "battle_area__team": 2,
+      "groupName": "3_1",
+      "active": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "volokolamsk_level",
+      "level__blk": "content/enlisted/levels/battle_of_moscow_volokolamsk_countryside_winter.blk"
+    }
+  },
+  {
+    "entity": {
+      "_template": "clouds_hole_target",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [0.0,0.0,0.0]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "water",
+      "water__strength": 1.3
+    }
+  },
+  {
+    "entity": {
+      "_template": "enemy_attack_marker"
+    }
+  },
+  {
+    "entity": {
+      "_template": "static_cam",
+      "camera__active": true,
+      "transform": [
+        [0.5063,0.003136,0.862352],
+        [-0.0725188,0.996606,0.0389534],
+        [-0.859303,-0.082259,0.504809],
+        [244.88,35.8081,342.896]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "group_activator",
+      "activator__activateChoice:object": {
+        "1_1": 1.0
+      }
+    }
+  },
+  {
+    "entity": {
+      "_template": "defend_zone_chained_sphere+defend_zone_respawnbase",
+      "capzone__capRewardPartCap": 1.7,
+      "capzone__onlyTeamCanCapture": 2,
+      "capzone__curTeamCapturingZone": -1,
+      "groupName": "1_1",
+      "capzone__capTime": 60.0,
+      "capzone__capTeam": -1,
+      "transform": [
+        [0.669917,0.0,0.742436],
+        [0.0,1.0,0.0],
+        [-0.742436,0.0,0.669917],
+        [159.258,16.2571,363.87]
+      ],
+      "active": false,
+      "capzone__decapTime": 6000.0,
+      "ui_order": 1,
+      "capzone__capReward": 260.0,
+      "capzone__icon": "AAA",
+      "capzone__caption": "capzone/artillery_emplacement",
+      "sphere_zone__radius": 15.0,
+      "capzone__deactivateAfterTimeout": 45.0,
+      "capzone__spawnAtZoneTimeout": 45.0,
+      "capzone__createRespawnBaseForTeam": 1,
+      "decal__height": 0.5,
+      "decal__thickness": 0.3,
+      "capzone__activateChoice:object": {
+        "2_1": 1.0
+      }
+    }
+  },
+  {
+    "entity": {
+      "_template": "defend_zone_chained_box+defend_zone_respawnbase",
+      "capzone__capRewardPartCap": 1.7,
+      "capzone__onlyTeamCanCapture": 2,
+      "capzone__curTeamCapturingZone": -1,
+      "groupName": "2_1",
+      "capzone__capTime": 30.0,
+      "capzone__capTeam": -1,
+      "transform": [
+        [-10.3755,0.0,-8.49767],
+        [0.0,2.5877,0.0],
+        [7.22554,0.0,-8.75037],
+        [107.139,8.97653,507.618]
+      ],
+      "active": false,
+      "capzone__decapTime": 6000.0,
+      "ui_order": 3,
+      "capzone__capReward": 260.0,
+      "capzone__icon": "AAA",
+      "capzone__caption": "capzone/trench_bunker",
+      "capzone__deactivateAfterTimeout": 45.0,
+      "capzone__spawnAtZoneTimeout": 45.0,
+      "capzone__createRespawnBaseForTeam": 1,
+      "decal__thickness": 0.3,
+      "decal__height": 0.1,
+      "capzone__activateChoice:object": {
+        "3_1": 1.0
+      }
+    }
+  },
+  {
+    "entity": {
+      "_template": "defend_zone_chained_box+defend_zone_respawnbase",
+      "capzone__capRewardPartCap": 1.7,
+      "capzone__onlyTeamCanCapture": 2,
+      "capzone__curTeamCapturingZone": -1,
+      "groupName": "3_1",
+      "capzone__capTime": 30.0,
+      "capzone__capTeam": -1,
+      "transform": [
+        [1.10328,0.0,-8.04246],
+        [0.0,2.5877,0.0],
+        [8.37735,0.0,1.11766],
+        [110.892,8.20174,631.255]
+      ],
+      "active": false,
+      "capzone__decapTime": 6000.0,
+      "ui_order": 3,
+      "capzone__capReward": 260.0,
+      "capzone__icon": "AAA",
+      "capzone__caption": "capzone/field_headquarters",
+      "capzone__deactivateAfterTimeout": 45.0,
+      "capzone__spawnAtZoneTimeout": 45.0,
+      "capzone__createRespawnBaseForTeam": 1,
+      "decal__thickness": 0.3,
+      "decal__height": 0.1
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawnBase",
+      "transform": [
+        [0.637181,0.0,-0.770715],
+        [0.0,1.0,0.0],
+        [0.770715,0.0,0.637181],
+        [94.5077,13.4425,447.25]
+      ],
+      "groupName": "1_1",
+      "team": 1,
+      "active": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawnBase",
+      "transform": [
+        [0.390775,0.0,-0.920487],
+        [0.0,1.0,0.0],
+        [0.920487,0.0,0.390775],
+        [71.9598,10.6572,421.269]
+      ],
+      "groupName": "1_1",
+      "team": 1,
+      "active": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawnBase",
+      "transform": [
+        [-0.883407,0.0,-0.468606],
+        [0.0,1.0,0.0],
+        [0.468606,0.0,-0.883407],
+        [245.149,16.3696,408.185]
+      ],
+      "groupName": "1_1",
+      "team": 2,
+      "active": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawnBase",
+      "transform": [
+        [-0.963419,0.0,-0.267999],
+        [0.0,1.0,0.0],
+        [0.267999,0.0,-0.963419],
+        [250.727,19.6676,390.186]
+      ],
+      "groupName": "1_1",
+      "team": 2,
+      "active": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawnBase",
+      "transform": [
+        [-0.260551,0.0,-0.96546],
+        [0.0,1.0,0.0],
+        [0.96546,0.0,-0.260551],
+        [122.434,3.3254,622.567]
+      ],
+      "team": 1,
+      "groupName": "2_1",
+      "active": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawnBase",
+      "transform": [
+        [-0.224626,0.0,0.974445],
+        [0.0,1.0,0.0],
+        [-0.974445,0.0,-0.224626],
+        [134.598,17.3483,386.983]
+      ],
+      "team": 2,
+      "groupName": "2_1",
+      "active": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawnBase",
+      "transform": [
+        [-0.231061,0.0,-0.972939],
+        [0.0,1.0,0.0],
+        [0.972939,0.0,-0.231061],
+        [51.7608,2.46774,565.583]
+      ],
+      "team": 1,
+      "groupName": "2_1",
+      "active": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawnBase",
+      "transform": [
+        [-0.231061,0.0,-0.972939],
+        [0.0,1.0,0.0],
+        [0.972939,0.0,-0.231061],
+        [51.7608,2.46774,565.583]
+      ],
+      "team": 1,
+      "groupName": "2_1",
+      "active": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawnBase",
+      "transform": [
+        [-0.373474,0.0,0.927641],
+        [0.0,1.0,0.0],
+        [-0.927641,0.0,-0.373474],
+        [80.0148,16.9712,386.934]
+      ],
+      "team": 2,
+      "groupName": "2_1",
+      "active": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawnBase",
+      "transform": [
+        [0.358865,0.0,-0.933389],
+        [0.0,1.0,0.0],
+        [0.933389,0.0,0.358865],
+        [90.2157,3.3254,616.3]
+      ],
+      "team": 1,
+      "groupName": "2_1",
+      "active": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawnBase",
+      "transform": [
+        [-0.199661,0.0,-0.979864],
+        [0.0,1.0,0.0],
+        [0.979864,0.0,-0.199661],
+        [107.489,5.33261,730.855]
+      ],
+      "groupName": "3_1",
+      "team": 1,
+      "active": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawnBase",
+      "transform": [
+        [0.394847,0.0,-0.918746],
+        [0.0,1.0,0.0],
+        [0.918746,0.0,0.394847],
+        [69.6043,5.33261,724.758]
+      ],
+      "groupName": "3_1",
+      "team": 1,
+      "active": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawnBase",
+      "transform": [
+        [0.170674,0.0,0.985327],
+        [0.0,1.0,0.0],
+        [-0.985327,0.0,0.170674],
+        [97.5603,6.2042,525.598]
+      ],
+      "groupName": "3_1",
+      "team": 2,
+      "active": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawnBase",
+      "transform": [
+        [0.170674,0.0,0.985327],
+        [0.0,1.0,0.0],
+        [-0.985327,0.0,0.170674],
+        [117.455,8.24814,520.839]
+      ],
+      "groupName": "3_1",
+      "team": 2,
+      "active": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "respVehicle",
+      "respTime": 150,
+      "groupName": "1_1",
+      "team": 1,
+      "maxVehicleOnSpawn": 2,
+      "transform": [
+        [-0.219208,0.0,-0.975678],
+        [0.0,1.0,0.0],
+        [0.975678,0.0,-0.219208],
+        [132.18,6.45398,533.984]
+      ],
+      "active": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "respVehicle",
+      "respTime": 150,
+      "groupName": "1_1",
+      "team": 2,
+      "maxVehicleOnSpawn": 2,
+      "transform": [
+        [-0.95497,0.0,-0.296704],
+        [0.0,1.0,0.0],
+        [0.296704,0.0,-0.95497],
+        [332.523,5.04593,385.833]
+      ],
+      "active": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "respVehicle",
+      "respTime": 150,
+      "groupName": "2_1",
+      "team": 1,
+      "maxVehicleOnSpawn": 2,
+      "transform": [
+        [0.140448,0.0,-0.990088],
+        [0.0,1.0,0.0],
+        [0.990088,0.0,0.140448],
+        [101.954,4.71048,634.805]
+      ],
+      "active": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "respVehicle",
+      "respTime": 150,
+      "groupName": "2_1",
+      "team": 2,
+      "maxVehicleOnSpawn": 2,
+      "transform": [
+        [-0.999761,0.0,0.0218869],
+        [0.0,1.0,0.0],
+        [-0.0218869,0.0,-0.999761],
+        [171.863,16.8827,376.269]
+      ],
+      "active": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "respVehicle",
+      "respTime": 150,
+      "groupName": "3_1",
+      "team": 1,
+      "maxVehicleOnSpawn": 2,
+      "transform": [
+        [-0.916621,0.0,-0.399758],
+        [0.0,1.0,0.0],
+        [0.399758,0.0,-0.916621],
+        [238.334,4.71048,704.585]
+      ],
+      "active": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "respVehicle",
+      "respTime": 150,
+      "groupName": "3_1",
+      "team": 2,
+      "maxVehicleOnSpawn": 2,
+      "transform": [
+        [0.695523,0.0,0.718504],
+        [0.0,1.0,0.0],
+        [-0.718504,0.0,0.695523],
+        [109.52,10.8891,480.779]
+      ],
+      "active": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "defend_zone_chained_sphere+defend_zone_respawnbase",
+      "transform": [
+        [0.669917,0.0,0.742436],
+        [0.0,1.0,0.0],
+        [-0.742436,0.0,0.669917],
+        [111.015,16.2571,519.336]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "defend_zone_chained_sphere+defend_zone_respawnbase",
+      "transform": [
+        [0.669917,0.0,0.742436],
+        [0.0,1.0,0.0],
+        [-0.742436,0.0,0.669917],
+        [113.138,2.82058,626.197]
+      ],
+      "sphere_zone__radius": 13.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "defend_zone_chained_sphere+defend_zone_respawnbase",
+      "transform": [
+        [0.669917,0.0,0.742436],
+        [0.0,1.0,0.0],
+        [-0.742436,0.0,0.669917],
+        [-22.5476,2.82058,647.837]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "defend_zone_chained_sphere+defend_zone_respawnbase",
+      "transform": [
+        [0.669917,0.0,0.742436],
+        [0.0,1.0,0.0],
+        [-0.742436,0.0,0.669917],
+        [-156.783,2.82058,661.348]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawnChooser+respMotorcycle",
+      "active": false,
+      "transform": [
+        [-0.219208,0.0,-0.975678],
+        [0.0,1.0,0.0],
+        [0.975678,0.0,-0.219208],
+        [132.18,6.45398,533.984]
+      ],
+      "team": 1,
+      "groupName": "1_1"
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawnChooser+respMotorcycle",
+      "active": false,
+      "transform": [
+        [-0.95497,0.0,-0.296704],
+        [0.0,1.0,0.0],
+        [0.296704,0.0,-0.95497],
+        [332.523,5.04593,385.833]
+      ],
+      "team": 2,
+      "groupName": "1_1"
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawnChooser+respMotorcycle",
+      "active": false,
+      "transform": [
+        [0.140448,0.0,-0.990088],
+        [0.0,1.0,0.0],
+        [0.990088,0.0,0.140448],
+        [101.954,4.71048,634.805]
+      ],
+      "team": 1,
+      "groupName": "2_1"
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawnChooser+respMotorcycle",
+      "active": false,
+      "transform": [
+        [-0.999761,0.0,0.0218869],
+        [0.0,1.0,0.0],
+        [-0.0218869,0.0,-0.999761],
+        [171.863,16.8827,376.269]
+      ],
+      "team": 2,
+      "groupName": "2_1"
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawnChooser+respMotorcycle",
+      "active": false,
+      "transform": [
+        [-0.916621,0.0,-0.399758],
+        [0.0,1.0,0.0],
+        [0.399758,0.0,-0.916621],
+        [238.334,4.71048,704.585]
+      ],
+      "team": 1,
+      "groupName": "3_1"
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawnChooser+respMotorcycle",
+      "active": false,
+      "transform": [
+        [0.695523,0.0,0.718504],
+        [0.0,1.0,0.0],
+        [-0.718504,0.0,0.695523],
+        [109.52,10.8891,480.779]
+      ],
+      "team": 2,
+      "groupName": "3_1"
+    }
+  },
+  {
+    "entity": {
+      "_template": "resupply_for_ground_vehicle_zone",
+      "transform": [
+        [-0.219208,0.0,-0.975678],
+        [0.0,1.0,0.0],
+        [0.975678,0.0,-0.219208],
+        [132.18,6.45398,533.984]
+      ],
+      "resupply_zone__team": 1,
+      "groupName": "1_1",
+      "active": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "resupply_for_ground_vehicle_zone",
+      "transform": [
+        [-0.95497,0.0,-0.296704],
+        [0.0,1.0,0.0],
+        [0.296704,0.0,-0.95497],
+        [332.523,5.04593,385.833]
+      ],
+      "resupply_zone__team": 2,
+      "groupName": "1_1",
+      "active": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "resupply_for_ground_vehicle_zone",
+      "transform": [
+        [0.140448,0.0,-0.990088],
+        [0.0,1.0,0.0],
+        [0.990088,0.0,0.140448],
+        [101.954,4.71048,634.805]
+      ],
+      "resupply_zone__team": 1,
+      "groupName": "2_1",
+      "active": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "resupply_for_ground_vehicle_zone",
+      "transform": [
+        [-0.999761,0.0,0.0218869],
+        [0.0,1.0,0.0],
+        [-0.0218869,0.0,-0.999761],
+        [171.863,16.8827,376.269]
+      ],
+      "resupply_zone__team": 2,
+      "groupName": "2_1",
+      "active": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "resupply_for_ground_vehicle_zone",
+      "transform": [
+        [-0.916621,0.0,-0.399758],
+        [0.0,1.0,0.0],
+        [0.399758,0.0,-0.916621],
+        [238.334,4.71048,704.585]
+      ],
+      "resupply_zone__team": 1,
+      "groupName": "3_1",
+      "active": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "resupply_for_ground_vehicle_zone",
+      "transform": [
+        [0.695523,0.0,0.718504],
+        [0.0,1.0,0.0],
+        [-0.718504,0.0,0.695523],
+        [109.52,10.8891,480.779]
+      ],
+      "resupply_zone__team": 2,
+      "groupName": "3_1",
+      "active": false
+    }
+  }
+]

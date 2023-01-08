@@ -1,0 +1,79 @@
+{
+  "mass": 0.753,
+  "caliber": 0.037,
+  "normalizationPreset": "ap",
+  "ricochetPreset": "ap",
+  "speed": 556.0,
+  "secondaryShattersPreset": "ap",
+  "maxDistance": 2000.0,
+  "stabilityThreshold": 0.05,
+  "stabilityCaliberToArmorThreshold": 5.0,
+  "onHitChanceMultFire": 3.0,
+  "stabilityReductionAfterRicochet": 0.5,
+  "stabilityReductionAfterPenetration": 0.15,
+  "nearHitPower": [1.0,200.0],
+  "bulletType": "ap_t",
+  "midHitPower": [0.6,500.0],
+  "slopeEffectPreset": "ap",
+  "farHitPower": [0.3,1500.0],
+  "fresnel": [0.23,0.1,2.0],
+  "endHitPower": [0.01,2000.0],
+  "relativeVelArmorShift": [200.0,1000.0],
+  "selfDestructionFx": "explosion_air_selfexplosion_small",
+  "explosionEffect": "hit_39_58mm_metal_ap",
+  "groundCollisionEffect": "hit_39_58mm_dirt_ap",
+  "ricochetEffect": "hit_39_58mm_metal_ap",
+  "waterCollisionEffect": "hit_39_58mm_water",
+  "explosionPatchRadius": 0.7,
+  "stabilityRicochetModifier": [
+    {
+      "mod1": [0.0,0.05]
+    },
+    {
+      "mod2": [20.0,0.1]
+    },
+    {
+      "mod3": [30.0,0.2]
+    },
+    {
+      "mod3": [45.0,0.3]
+    }
+  ],
+  "damage": {
+    "kinetic": {
+      "damageType": "generic",
+      "demarrePenetrationK": 0.9,
+      "demarreSpeedPow": 1.43,
+      "demarreMassPow": 0.71,
+      "demarreCaliberPow": 1.07
+    }
+  },
+  "visual": {
+    "range_percent_of_ammo": [100.0,0.0],
+    "traceFreq": 1,
+    "tracer": "37mmRed",
+    "trail": "black"
+  },
+  "hitFx": {
+    "steel": {
+      "fx": "hit_39_58mm_metal_ap",
+      "fxScale": [1.0,1.0]
+    },
+    "wood": {
+      "fx": "hit_39_58mm_wood_ap",
+      "fxScale": [1.0,1.0]
+    },
+    "glass": {
+      "fx": "hit_39_58mm_metal_ap",
+      "fxScale": [1.0,1.0]
+    },
+    "stone": {
+      "fx": "hit_39_58mm_stone_ap",
+      "fxScale": [1.0,1.0]
+    }
+  },
+  "tracer": {
+    "headColor": "#ff0f0fff",
+    "smokeColor": "#505050ba"
+  }
+}

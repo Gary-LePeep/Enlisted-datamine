@@ -1,0 +1,35 @@
+{
+  "rangefinderProgressBarColor1": "#00ff0040",
+  "rangefinderProgressBarColor2": "#ffffff40",
+  "rangefinderTextScale": 1.0,
+  "rangefinderVerticalOffset": 10.0,
+  "rangefinderHorizontalOffset": 25.0,
+  "fontSizeMult": 1.0,
+  "lineSizeMult": 1.7,
+  "distancePos": [0.008,0.0],
+  "drawCentralLineVert": false,
+  "drawCentralLineHorz": false,
+  "crosshairDistHorSizeMain": [0.03,0.02],
+  "crosshairDistHorSizeAdditional": [0.017,0.017],
+  "distanceCorrectionPos": [-0.03,-0.05],
+  "drawDistanceCorrection": true,
+  "drawAdditionalLines": false,
+  "crosshair_hor_ranges": [],
+  "crosshair_distances": [],
+  "drawLines": [
+    {
+      "line": {
+        "line": [0.0,180.0,0.0,-180.0],
+        "move": true,
+        "thousandth": true
+      }
+    },
+    {
+      "line": {
+        "line": [180.0,0.0,-180.0,0.0],
+        "move": true,
+        "thousandth": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,431 @@
+{
+  "hurricane_mk4": [
+    {
+      "_extends": "hurricane_mk4_base"
+    },
+    {
+      "_extends": "squad_controlled_plane"
+    },
+    {
+      "item__name": "items/hurricane_mk4"
+    },
+    {
+      "vehicle_seats__seats:shared:array": {
+        "seats:object": {
+          "name": "driver",
+          "locName": "vehicle_seats/pilot",
+          "seatOwnsEntityControl": true,
+          "attachNode": "pilot1",
+          "ignoreAttachNodeRotation": true,
+          "attachTm": [
+            [1.0,0.0,0.0],
+            [0.0,1.0,0.0],
+            [0.0,0.0,1.0],
+            [0.0,0.0,-0.15]
+          ],
+          "seatComponent": "isDriver",
+          "receiveDamageFromDMPart": "pilot_dm",
+          "cameraNodeName": "",
+          "cameraOffset": [-0.85,1.072,0.0],
+          "cockpitTemplate": "hurricane_mk4_driver_cockpit",
+          "roomSpace": 0,
+          "turretNames:array": [
+            {
+              "turret": "turret_01"
+            },
+            {
+              "turret": "turret_02"
+            },
+            {
+              "turret": "turret_03"
+            },
+            {
+              "turret": "turret_04"
+            }
+          ],
+          "effectors:object": {
+            "r.hand": "stick_rhand_1",
+            "l.hand": "throttle_lhand_1",
+            "r.foot": "pedal_rfoot_1",
+            "l.foot": "pedal_lfoot_1"
+          }
+        }
+      }
+    },
+    {
+      "turret_control__emitterNodes:shared:array": [
+        {
+          "node": "flare1"
+        },
+        {
+          "node": "flare2"
+        },
+        {
+          "node": "flare3"
+        },
+        {
+          "node": "flare4"
+        }
+      ]
+    },
+    {
+      "turret_control__animVars:shared:array": [
+        {
+          "vars:object": {
+            "curYawParamName": "weapon_01_yaw",
+            "curPitchParamName": "weapon_01_pitch"
+          }
+        },
+        {
+          "vars:object": {
+            "curYawParamName": "weapon_02_yaw",
+            "curPitchParamName": "weapon_02_pitch"
+          }
+        },
+        {
+          "vars:object": {
+            "curYawParamName": "weapon_03_yaw",
+            "curPitchParamName": "weapon_03_pitch"
+          }
+        },
+        {
+          "vars:object": {
+            "curYawParamName": "weapon_04_yaw",
+            "curPitchParamName": "weapon_04_pitch"
+          }
+        }
+      ]
+    },
+    {
+      "turret_control__turretInfo:shared:array": [
+        {
+          "turretInfo:object": {
+            "turretName": "turret_01",
+            "turretGroup": "cannon_turrets",
+            "trigger": "cannons",
+            "gun": "planegun_hurricane_mk4_40mm_vickers_s_underwing_01"
+          }
+        },
+        {
+          "turretInfo:object": {
+            "turretName": "turret_02",
+            "turretGroup": "cannon_turrets",
+            "trigger": "cannons",
+            "gun": "planegun_hurricane_mk4_40mm_vickers_s_underwing_02"
+          }
+        },
+        {
+          "turretInfo:object": {
+            "turretName": "turret_03",
+            "turretGroup": "main_turrets",
+            "trigger": "machine_guns",
+            "gun": "planegun_hurricane_mk4_7_7mm_browning303_raf_01"
+          }
+        },
+        {
+          "turretInfo:object": {
+            "turretName": "turret_04",
+            "turretGroup": "main_turrets",
+            "trigger": "machine_guns",
+            "gun": "planegun_hurricane_mk4_7_7mm_browning303_raf_02"
+          }
+        }
+      ]
+    },
+    {
+      "turret_gun_flash_fx__flashNodes:shared:array": [
+        {
+          "node": "flare1"
+        },
+        {
+          "node": "flare2"
+        },
+        {
+          "node": "flare3"
+        },
+        {
+          "node": "flare4"
+        }
+      ]
+    },
+    {
+      "turret_gun_flash_fx__flashFx:shared:array": [
+        {
+          "fx": "muzzle_air_50mm"
+        },
+        {
+          "fx": "muzzle_air_50mm"
+        },
+        {
+          "fx": "muzzle_air_8mm"
+        },
+        {
+          "fx": "muzzle_air_8mm"
+        }
+      ]
+    },
+    {
+      "turret_gun_flash_fx__flashFxScale:shared:array": [
+        {
+          "scale": 1.0
+        },
+        {
+          "scale": 1.0
+        },
+        {
+          "scale": 1.0
+        },
+        {
+          "scale": 1.0
+        }
+      ]
+    },
+    {
+      "disableDMParts:list<t>": [
+        {
+          "part": "rocket_pylon"
+        },
+        {
+          "part": "rocket_pylon1"
+        },
+        {
+          "part": "rocket_pylon2"
+        },
+        {
+          "part": "rocket_pylon3"
+        },
+        {
+          "part": "rocket_pylon4"
+        },
+        {
+          "part": "rocket_pylon5"
+        },
+        {
+          "part": "rocket_pylon6"
+        },
+        {
+          "part": "rocket_pylon7"
+        },
+        {
+          "part": "rocket_pylon8"
+        },
+        {
+          "part": "rocket_pylon9"
+        },
+        {
+          "part": "pylon_bomb1"
+        },
+        {
+          "part": "pylon_bomb2"
+        }
+      ]
+    }
+  ],
+  "base_hurricane_mk4_40mm_vickers_s_underwing": {
+    "item__name": "guns/cannonvickers_s_underwing",
+    "gun__blk": "gamedata/weapons/hurricane_mk4/40mm_vickers_s_underwing.blk",
+    "gun__shotFreq": 1.666,
+    "gun__locName": "cannonvickers_s_underwing",
+    "gun__shootNodeName": "bone_mg_gun_twin",
+    "gun__maxAmmo": 15,
+    "gun__firingModes:array": {
+      "mode:object": {
+        "modeType": "automatic"
+      }
+    },
+    "gun__firingModeNames:array": {
+      "mode": "automatic"
+    },
+    "gun__shellsAmmo:array": {
+      "ammo": 15
+    },
+    "gun__ammoSetsInfo:shared:array": {
+      "default:array": {
+        "shell:object": {
+          "blk": "gamedata/weapons/shells/40mm_vickerss_apt_shot_bullet.blk",
+          "name": "shot",
+          "type": "ap_t"
+        }
+      }
+    }
+  },
+  "base_hurricane_mk4_7_7mm_browning303_raf": {
+    "item__name": "guns/gunbrowning303_raf",
+    "gun__blk": "gamedata/weapons/hurricane_mk4/7_7mm_browning303_raf.blk",
+    "gun__shotFreq": 16.6667,
+    "gun__locName": "gunbrowning303_raf",
+    "gun__shootNodeName": "bone_mg_gun_twin",
+    "gun__maxAmmo": 338,
+    "gun__firingModes:array": {
+      "mode:object": {
+        "modeType": "automatic"
+      }
+    },
+    "gun__firingModeNames:array": {
+      "mode": "automatic"
+    },
+    "gun__shellsAmmo:array": {
+      "ammo": 338
+    },
+    "gun__ammoSetsInfo:shared:array": {
+      "default:array": [
+        {
+          "shell:object": {
+            "blk": "gamedata/weapons/shells/7_7x56mm_g_mk6z_tracer_bullet.blk",
+            "name": "tracer",
+            "type": "t_ball"
+          }
+        },
+        {
+          "shell:object": {
+            "blk": "gamedata/weapons/shells/7_7x56mm_w_mk1z_ap_bullet.blk",
+            "name": "ap",
+            "type": "ap_ball"
+          }
+        },
+        {
+          "shell:object": {
+            "blk": "gamedata/weapons/shells/7_7x56mm_api_bullet.blk",
+            "name": "api",
+            "type": "ap_i_ball"
+          }
+        },
+        {
+          "shell:object": {
+            "blk": "gamedata/weapons/shells/7_7x56mm_mk7_ball_bullet.blk",
+            "name": "ball",
+            "type": "ball"
+          }
+        },
+        {
+          "shell:object": {
+            "blk": "gamedata/weapons/shells/7_7x56mm_mk1_incendiary_bullet.blk",
+            "name": "incendiary",
+            "type": "i_ball"
+          }
+        }
+      ]
+    }
+  },
+  "planegun_hurricane_mk4_40mm_vickers_s_underwing_01": [
+    {
+      "_extends": "tankgun"
+    },
+    {
+      "_extends": "base_plane_machinegun"
+    },
+    {
+      "_extends": "base_hurricane_mk4_40mm_vickers_s_underwing"
+    },
+    {
+      "_extends": "gunsound_40mm_vickers_s_underwing_aircraft"
+    },
+    {
+      "gun__shootNodeName": "flare1"
+    },
+    {
+      "gun__maxAmmo": 15
+    }
+  ],
+  "planegun_hurricane_mk4_40mm_vickers_s_underwing_02": [
+    {
+      "_extends": "tankgun"
+    },
+    {
+      "_extends": "base_plane_machinegun"
+    },
+    {
+      "_extends": "base_hurricane_mk4_40mm_vickers_s_underwing"
+    },
+    {
+      "_extends": "gunsound_40mm_vickers_s_underwing_aircraft"
+    },
+    {
+      "gun__shootNodeName": "flare2"
+    },
+    {
+      "gun__maxAmmo": 15
+    }
+  ],
+  "planegun_hurricane_mk4_7_7mm_browning303_raf_01": [
+    {
+      "_extends": "tankgun"
+    },
+    {
+      "_extends": "base_plane_machinegun"
+    },
+    {
+      "_extends": "base_hurricane_mk4_7_7mm_browning303_raf"
+    },
+    {
+      "_extends": "gunsound_7_7mm_browning303_raf_aircraft"
+    },
+    {
+      "gun__shootNodeName": "flare3"
+    },
+    {
+      "gun__maxAmmo": 338
+    }
+  ],
+  "planegun_hurricane_mk4_7_7mm_browning303_raf_02": [
+    {
+      "_extends": "tankgun"
+    },
+    {
+      "_extends": "base_plane_machinegun"
+    },
+    {
+      "_extends": "base_hurricane_mk4_7_7mm_browning303_raf"
+    },
+    {
+      "_extends": "gunsound_7_7mm_browning303_raf_aircraft"
+    },
+    {
+      "gun__shootNodeName": "flare4"
+    },
+    {
+      "gun__maxAmmo": 338
+    }
+  ],
+  "hurricane_mk4_driver_cockpit": {
+    "_extends": "base_plane_cockpit",
+    "cockpit__offset": [0.0,0.0,0.0],
+    "cockpit__angles": [0.0,0.0,0.0],
+    "cockpit__scale": [1.0,1.0,1.0],
+    "animchar__res": "hurricane_mk4_cockpit_char",
+    "plane_anim__blk": "gamedata/units/hurricane_mk4.blk",
+    "plane_sight__blk": "gamedata/units/hurricane_mk4.blk",
+    "move_cockpit_node__nodeName:list<t>": [
+      {
+        "node": "stick_rhand_1"
+      },
+      {
+        "node": "throttle_lhand_1"
+      }
+    ],
+    "move_cockpit_node__nodeId:list<i>": [
+      {
+        "nodeId": -1
+      },
+      {
+        "nodeId": -1
+      }
+    ],
+    "move_cockpit_node__offset:list<p3>": [
+      {
+        "item": [0.012,0.044,0.0075]
+      },
+      {
+        "item": [0.014,0.0135,0.0]
+      }
+    ],
+    "move_cockpit_node__rotation:list<p2>": [
+      {
+        "item": [-9.4,19.4]
+      },
+      {
+        "item": [-10.9,15.1]
+      }
+    ]
+  }
+}

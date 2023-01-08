@@ -1,0 +1,84 @@
+{
+  "squad_sight_avoid": {
+    "squad_sight_avoid:tag": {
+      "_tags": "server"
+    },
+    "_group": {
+      "_tags": "server",
+      "squad_sight_avoid__forwardDist": 6.0,
+      "squad_sight_avoid__downDist": 2.0,
+      "squad_sight_avoid__sideDist": 3.0,
+      "squad_sight_avoid__weight": [2.0,1.0],
+      "squad_sight_avoid__lastUpdateTime": -1.0,
+      "squad_sight_avoid__updateDelta": 0.3
+    }
+  },
+  "bot_leader_nav": {
+    "bot_leader_nav:tag": {
+      "_tags": "server"
+    },
+    "_group": {
+      "_tags": "server",
+      "bot_leader_nav__areaId": 0,
+      "bot_leader_nav__areaPosThreshold": 1.5,
+      "bot_leader_nav__areaAngCosThreshold": 0.98,
+      "bot_leader_nav__ignoreChance": 6,
+      "bot_leader_nav__radiusMin": [8.0,1.0],
+      "bot_leader_nav__radiusMax": [25.0,1.0],
+      "bot_leader_nav__radius": [0.0,0.0],
+      "bot_leader_nav__posOffsetMax": 3.0,
+      "bot_leader_nav__posOffset": 0.0,
+      "bot_leader_nav__weight": [2.0,1.0],
+      "bot_leader_nav__lastUpdateTime": -1.0,
+      "bot_leader_nav__updateDelta": 3.0
+    }
+  },
+  "turret_avoid_nav": {
+    "turret_avoid_nav:tag": {
+      "_tags": "server"
+    },
+    "_group": {
+      "_tags": "server",
+      "turret_avoid_nav__areaId": 0,
+      "turret_avoid_nav__areaPosThreshold": 1.5,
+      "turret_avoid_nav__areaAngCosThreshold": 0.98,
+      "turret_avoid_nav__forwardDist": [-10.0,80.0],
+      "turret_avoid_nav__sideDist": [10.0,6.0],
+      "turret_avoid_nav__weight": [10.0,7.0],
+      "turret_avoid_nav__lastUpdateTime": -1.0,
+      "turret_avoid_nav__updateDelta": 0.5
+    }
+  },
+  "ai_vehicle_driver": {
+    "_tags": "server",
+    "_tracked": "ai_vehicle_driver__destinationReached",
+    "ai_vehicle_driver__destination": [0.0,0.0,0.0],
+    "ai_vehicle_driver__maxThrottle": 1.0,
+    "ai_vehicle_driver__destinationReachedThreshold": 1.0,
+    "ai_vehicle_driver__steeringSmoothness": 3.0,
+    "ai_vehicle_driver__steeringDeadZone": 0.523,
+    "ai_vehicle_driver__destinationReached": true,
+    "ai_vehicle_driver:tag": []
+  },
+  "ai_vehicle_convoy_vehicle": {
+    "_tags": "server",
+    "ai_vehicle_convoy_vehicle__currentReachedPointId": 1,
+    "ai_vehicle_convoy_vehicle__convoyEid:eid": []
+  },
+  "ai_vehicle_convoy": {
+    "_tags": "server",
+    "ai_vehicle_convoy__vehicleTemplate": "willys_mb",
+    "ai_vehicle_convoy__vehiclesCount": 10,
+    "ai_vehicle_convoy__vehicleLength": 6.0,
+    "ai_vehicle_convoy__minMaxVehicleDistance": [4.0,10.0],
+    "ai_vehicle_convoy__leadVehicleMaxThrottle": 0.4,
+    "ai_vehicle_convoy__validateDistancesUpdateInterval": 0.1,
+    "ai_vehicle_convoy__nextValidateDistanceUpdateAt": 0.0,
+    "ai_vehicle_convoy__finalPointId": 1,
+    "ai_vehicle_convoy__reachedPointId": 1,
+    "ai_vehicle_convoy__pathPoints:array": [],
+    "ai_vehicle_convoy__navmeshPathPoints:list<p3>": [],
+    "ai_vehicle_convoy__finalPointsByCapzoneGroup:object": [],
+    "ai_vehicle_convoy__vehicles:list<eid>": []
+  }
+}

@@ -1,0 +1,275 @@
+{
+  "world_renderer": {
+    "world_renderer_tag:tag": {
+      "_tags": "render"
+    }
+  },
+  "nav_rebuilding": {
+    "nav_rebuild__agentMaxSlope": 60.0,
+    "nav_rebuild__vertsPerPoly": 3,
+    "nav_rebuild__regionMinSize": 9.0,
+    "nav_rebuild__regionMergeSize": 100.0,
+    "nav_rebuild__minBorderSize": 3,
+    "nav_rebuild__detailSampleDist": 3.0,
+    "nav_rebuild__detailSampleMaxError": 2.0,
+    "nav_rebuild__edgeMaxLen": 128.0
+  },
+  "dead_entity_recreate": {
+    "recreate_dead_entity__maxPerUpdate": 128,
+    "_tags": "server"
+  },
+  "level": [
+    {
+      "_extends": "replicating"
+    },
+    {
+      "_extends": "nav_rebuilding"
+    },
+    {
+      "_extends": "dead_entity_recreate"
+    },
+    {
+      "_singleton": true
+    },
+    {
+      "nonCreatableObj": true
+    },
+    {
+      "level__patchNavMeshPath": ""
+    },
+    {
+      "_tracked": "level__loaded"
+    },
+    {
+      "_tracked": "level__loadedAtTime"
+    },
+    {
+      "_tracked": "level__timeOfDay"
+    },
+    {
+      "level__blk": ""
+    },
+    {
+      "level__loadedAtTime": -1.0
+    },
+    {
+      "level__timeRange": [9.0,9.0]
+    },
+    {
+      "level__latitude": -200.0
+    },
+    {
+      "level__longtitude": -200.0
+    },
+    {
+      "level__day": 21
+    },
+    {
+      "level__month": 6
+    },
+    {
+      "level__year": 1941
+    },
+    {
+      "level__timeSeed": 0
+    },
+    {
+      "level__timeOfDay": 9.0
+    },
+    {
+      "level__weatherSeed": 0
+    },
+    {
+      "level__cloudsHoleEnabled": true
+    },
+    {
+      "level__weather": "weather_clear_a"
+    },
+    {
+      "level__fpsLimit": -1
+    },
+    {
+      "level__fixedBattleAreas": false
+    },
+    {
+      "level__loadNavMesh": true
+    },
+    {
+      "level__minimapDefaultVisibleRadius": 150
+    },
+    {
+      "level__renderFeaturesOverrideFromLevelBlk": false
+    },
+    {
+      "level__loaded:b": {
+        "value": false,
+        "_hide": true
+      }
+    },
+    {
+      "level__renderFeaturesOverrides:object": []
+    },
+    {
+      "net__alwaysInScope:tag": []
+    },
+    {
+      "level": []
+    },
+    {
+      "level__node_based_fog_shader_preload": {
+        "_tags": "render"
+      }
+    },
+    {
+      "level__timeVec:array": []
+    },
+    {
+      "level__weatherChoice:object": {
+        "weather_clear_a": 0.5
+      }
+    },
+    {
+      "level__navAreas:list<eid>": []
+    },
+    {
+      "level__weatherRemaps:shared:object": {
+        "content/common/gamedata/weather/weather_almost_clear.blk": "weather_clear_b",
+        "content/common/gamedata/weather/weather_clear.blk": "weather_clear_a",
+        "content/common/gamedata/weather/weather_clouds.blk": "weather_cloudy_a",
+        "content/common/gamedata/weather/weather_gray_clouds.blk": "weather_cloudy_d",
+        "content/common/gamedata/weather/weather_light_clouds.blk": "weather_cloudy_b",
+        "content/common/gamedata/weather/weather_medium_overcast_foggy.blk": "weather_cloudy_a",
+        "content/common/gamedata/weather/weather_overcast.blk": "weather_overcast_a",
+        "content/common/gamedata/weather/weather_poor.blk": "weather_poor_a",
+        "content/common/gamedata/weather/weather_small_clouds.blk": "weather_cloudy_c",
+        "content/common/gamedata/weather/weather_small_overcast.blk": "weather_cloudy_b",
+        "content/common/gamedata/weather/weather_small_overcast_foggy.blk": "weather_overcast_b"
+      }
+    }
+  ],
+  "menu_level": {
+    "_extends": "level",
+    "level__renderFeaturesOverrides:object": {
+      "microdetails": true,
+      "clusteredLights": true,
+      "fullDeferred": true,
+      "wake": true,
+      "ripples": true,
+      "downsampledShadows": true
+    },
+    "menu_level:tag": []
+  },
+  "water": [
+    {
+      "_singleton": true
+    },
+    {
+      "_extends": "replicating"
+    },
+    {
+      "_extends": "underwater_sound"
+    },
+    {
+      "waterTrail__cascadeArea": 128.0
+    },
+    {
+      "waterTrail__cascadeAreaMul": 2.5
+    },
+    {
+      "waterTrail__quadHeight": 20.0
+    },
+    {
+      "waterTrail__fadeInTime": 0.1
+    },
+    {
+      "waterTrail__fadeOutTime": 60.0
+    },
+    {
+      "waterTrail__widthThreshold": 2.0
+    },
+    {
+      "waterTrail__forwardExpand": 20.0
+    },
+    {
+      "waterTrail__activeVertexCount": 16384
+    },
+    {
+      "waterTrail__finalizedVertexCount": 32768
+    },
+    {
+      "waterTrail__maxPointsPerSegment": 100
+    },
+    {
+      "waterTrail__useObstacle": false
+    },
+    {
+      "waterTrail__texName": "water_foam_trail_mask"
+    },
+    {
+      "_group": {
+        "_track": true,
+        "water__strength": 4.0,
+        "water__wind_dir": 40.0,
+        "water__level": 0.0,
+        "water__smallWaterAIWalkHeight": 0.3,
+        "water__deepWaterAIAreaCost": -1.0,
+        "water__fft_resolution": 7,
+        "water__max_tessellation": 4,
+        "water__flowmap": false,
+        "water__flowmap_tex": "",
+        "water__flowmap_area": [-512.0,512.0,512.0,-512.0],
+        "water__wind_strength": 0.2,
+        "water__flowmap_strength": 1.0,
+        "water__colormap_tex": "",
+        "water__colormap_area": [-512.0,512.0,512.0,-512.0],
+        "shore__enabled": true,
+        "shore__texture_size": 1024,
+        "shore__hmap_size": 1024.0,
+        "shore__rivers_width": 200.0,
+        "shore__significant_wave_threshold": 0.62,
+        "shore__wave_height_to_amplitude": 0.25,
+        "shore__amplitude_to_length": 30.0,
+        "shore__parallelism_to_wind": 0.1,
+        "shore__width_k": 3.0,
+        "shore__waves_dist": [600.0,1000.0,0.0,50.0],
+        "shore__wave_gspeed": 1.0,
+        "water__flowmap_wind:array": []
+      }
+    },
+    {
+      "water": []
+    }
+  ],
+  "wind": {
+    "dyn_wind__cumulus_alt_multiplier": 12.0,
+    "dyn_wind__strata_alt_multiplier": 4.0,
+    "_extends": "replicating",
+    "_singleton": true,
+    "_group": {
+      "_track": true,
+      "wind__flowMap": "",
+      "wind__left_top_right_bottom": [-2048.0,-2048.0,2048.0,2048.0],
+      "wind__dir": 40.0,
+      "wind__strength": 2.0,
+      "wind__noiseStrength": 2.0,
+      "wind__noiseSpeed": 1.0,
+      "wind__noiseScale": 70.0,
+      "wind__noisePerpendicular": 0.5,
+      "wind__clouds_scale": 2.0
+    }
+  },
+  "distant_haze": {
+    "_singleton": true,
+    "_extends": "replicating",
+    "distant_haze__is_center_fixed": false,
+    "distant_haze__center": [0.0,0.0],
+    "distant_haze__radius": 400.0,
+    "distant_haze__total_height": 35.0,
+    "distant_haze__fade_in_bottom": 5.0,
+    "distant_haze__fade_out_top": 10.0,
+    "distant_haze__size": 12.0,
+    "distant_haze__strength": 0.11,
+    "distant_haze__blur": 0.3,
+    "distant_haze__speed": [0.05,0.9,0.017]
+  }
+}

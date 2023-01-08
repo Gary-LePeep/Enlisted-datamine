@@ -1,0 +1,25 @@
+{
+  "entityMods": {
+    "modProps": "content/e_ww2_common/gamedata/items/flask.blk"
+  },
+  "visual": {
+    "template": "flask_item+item_in_world"
+  },
+  "equipable": [
+    {
+      "slot": "beltSlot1"
+    },
+    {
+      "slot": "beltSlot2"
+    },
+    {
+      "slot": "beltSlot3"
+    }
+  ],
+  "visSlots": {
+    "flask_vis": "belt_back_2"
+  },
+  "staminaMult": {
+    "amount": 0.6
+  }
+}

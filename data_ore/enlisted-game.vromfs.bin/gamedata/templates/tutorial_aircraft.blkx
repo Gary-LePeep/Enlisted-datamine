@@ -1,0 +1,230 @@
+{
+  "tutorial_input_manager": {
+    "_singleton": true,
+    "tutorial__savedInput:object": []
+  },
+  "tutorial_aircraft_disableTurret": {
+    "_singleton": true,
+    "tutorial_aircraft__disableTurret:tag": []
+  },
+  "tutorial_respawn": {
+    "tutorial__respawnId": ""
+  },
+  "tutorial_aircraft_begin": {
+    "tutor_stage__next": "tutorial_aircraft_intro",
+    "tutor_stage__onHeroRespawn:tag": [],
+    "tutor_bq__sendOnBegin:tag": []
+  },
+  "tutorial_aircraft_intro": {
+    "tutor_stage__next": "tutorial_aircraft_fly_hint",
+    "tutor_stage__displayHint": "hint_tutorial_aircraft_intro",
+    "tutor_stage__time": 5.0,
+    "tutor_stage__timer": 0.0,
+    "tutorial_input__disable:list<t>": [
+      {
+        "input": "plane_input__bomb"
+      },
+      {
+        "input": "plane_input__shoot"
+      },
+      {
+        "input": "plane_input__shootCannons"
+      },
+      {
+        "input": "plane_input__shootAdditionalGuns"
+      },
+      {
+        "input": "human_input__use"
+      }
+    ],
+    "tutor_bq__sendOnBegin:tag": []
+  },
+  "tutorial_aircraft_fly_hint": {
+    "tutor_stage__next": "tutorial_aircraft_waypoint1",
+    "tutor_stage__displayHint": "hint_tutorial_aircraft_howto_fly",
+    "tutor_stage__playerZoneEnter": "waypoint1",
+    "tutor_stage__deactivateTarget": "aerostat_1",
+    "tutor_bq__sendOnBegin:tag": []
+  },
+  "tutorial_aircraft_waypoint1": {
+    "tutor_stage__next": "tutorial_aircraft_change_engine_power",
+    "tutor_stage__displayHint": "hint_tutorial_aircraft_mouse_aim",
+    "tutor_stage__playerZoneEnter": "waypoint2",
+    "tutor_stage__activateZoneId": "waypoint2",
+    "tutor_stage__deactivateZoneId": "waypoint1",
+    "tutor_stage__hintKeys:array": {
+      "key": "Plane.MouseAim"
+    },
+    "tutor_bq__sendOnBegin:tag": []
+  },
+  "tutorial_aircraft_change_engine_power": {
+    "tutor_stage__next": "tutorial_aircraft_destroy_balloon",
+    "tutor_stage__displayHint": "hint_tutorial_aircraft_change_engine_power",
+    "tutor_stage__triggerAxisInput": "Plane__Throttle",
+    "tutor_stage__playerZoneEnter": "waypoint3",
+    "tutor_stage__activateZoneId": "waypoint3",
+    "tutor_stage__deactivateZoneId": "waypoint2",
+    "tutor_stage__hintKeys:array": {
+      "key": "Plane.Throttle"
+    },
+    "tutor_bq__sendOnBegin:tag": []
+  },
+  "tutorial_aircraft_destroy_balloon": {
+    "tutor_stage__next": "tutorial_aircraft_destroy_enemy_vehicle",
+    "tutor_stage__activateRespawn": "resp_balloon",
+    "tutor_stage__deactivateRespawn": "resp_start",
+    "tutor_stage__displayHint": "hint_tutorial_aircraft_destroy_balloon",
+    "tutor_stage__deactivateZoneId": "waypoint3",
+    "tutor_stage__activateZoneId": "aerostat_marker",
+    "tutor_stage__activateTarget": "aerostat_1",
+    "tutor_stage__hitTarget": "aerostat_1",
+    "tutor_stage__hintKeys:array": {
+      "key": "Plane.Shoot"
+    },
+    "tutor_action__destroySingletons:list<t>": {
+      "key": "tutorial_aircraft_disableTurret"
+    },
+    "tutorial_input__enable:list<t>": {
+      "input": "plane_input__shoot"
+    },
+    "tutor_bq__sendOnBegin:tag": []
+  },
+  "tutorial_aircraft_destroy_enemy_vehicle": {
+    "tutor_stage__next": "tutorial_aircraft_resupply",
+    "tutor_stage__displayHint": "hint_tutorial_aircraft_destroy_vehicles",
+    "tutor_stage__activateZoneId": "vehicles_marker",
+    "tutor_stage__activateRespawn": "resp_end",
+    "tutor_stage__deactivateRespawn": "resp_balloon",
+    "tutor_stage__deactivateZoneId": "aerostat_marker",
+    "tutor_stage__activateTarget": "vehicle_target",
+    "tutor_stage__hintKeys:array": {
+      "key": "Plane.Bomb"
+    },
+    "tutor_action__destroySingletons:list<t>": {
+      "key": "tutorial_aircraft_disable_drop_bomb"
+    },
+    "tutor_condition__outOfBombs:tag": [],
+    "tutorial_input__enable:list<t>": {
+      "input": "plane_input__bomb"
+    },
+    "tutor_bq__sendOnBegin:tag": []
+  },
+  "tutorial_aircraft_resupply": {
+    "tutor_stage__next": "tutorial_aircraft_about_bombing",
+    "tutor_stage__displayHint": "hint_tutorial_aircraft_go_to_resupply",
+    "tutor_stage__activateZoneId": "resupply_waypoint",
+    "tutor_stage__deactivateZoneId": "vehicles_marker",
+    "tutor_stage__hintKeys:array": {
+      "key": "Plane.MouseAim"
+    },
+    "tutor_condition__resupplyVehicle:tag": [],
+    "tutor_bq__sendOnBegin:tag": []
+  },
+  "tutorial_aircraft_about_bombing": {
+    "tutor_stage__next": "tutorial_aircraft_destroy_enemy_vehicle_2",
+    "tutor_stage__time": 3.0,
+    "tutor_stage__timer": 0.0,
+    "tutor_bq__sendOnBegin:tag": []
+  },
+  "tutorial_aircraft_destroy_enemy_vehicle_2": {
+    "tutor_stage__next": "tutorial_aircraft_parachute_intro",
+    "tutor_stage__deactivateZoneId": "resupply_waypoint",
+    "tutor_stage__activateZoneId": "vehicles_marker",
+    "tutor_stage__displayHint": "hint_tutorial_aircraft_destroy_vehicles_2",
+    "tutor_stage__hintKeys:array": {
+      "key": "Plane.Bomb"
+    },
+    "tutor_condition__outOfBombs:tag": [],
+    "tutor_bq__sendOnBegin:tag": []
+  },
+  "tutorial_aircraft_parachute_intro": {
+    "tutor_stage__next": "tutorial_aircraft_parachute_warning",
+    "tutor_stage__displayHint": "hint_tutorial_aircraft_parachute_intro",
+    "tutor_stage__deactivateZoneId": "vehicles_marker",
+    "tutor_stage__time": 7.0,
+    "tutor_stage__timer": 0.0,
+    "tutor_bq__sendOnBegin:tag": []
+  },
+  "tutorial_aircraft_parachute_warning": {
+    "tutor_stage__next": "tutorial_aircraft_parachute_ascend",
+    "tutor_stage__displayHint": "hint_tutorial_aircraft_parachute_warning",
+    "tutor_stage__activateZoneId": "waypoint4",
+    "tutor_stage__time": 7.0,
+    "tutor_stage__timer": 0.0,
+    "tutor_bq__sendOnBegin:tag": []
+  },
+  "tutorial_aircraft_parachute_ascend": {
+    "tutor_stage__next": "tutorial_aircraft_parachute_jump",
+    "tutor_stage__displayHint": "hint_tutorial_aircraft_parachute_ascend",
+    "tutor_stage__activateZoneId": "waypoint4",
+    "tutor_stage__playerZoneEnter": "waypoint4",
+    "tutor_stage__hintKeys:array": {
+      "key": "Plane.MouseAim"
+    },
+    "tutor_bq__sendOnBegin:tag": []
+  },
+  "tutorial_aircraft_parachute_jump": {
+    "tutor_stage__next": "tutorial_aircraft_parachute_prepare",
+    "tutor_stage__displayHint": "hint_tutorial_aircraft_parachute_jump",
+    "tutor_condition__hotKeyName": "Human.Use",
+    "tutor_condition__hotKeyId": 0,
+    "tutor_action__setTimeSpeed": 0.0,
+    "tutor_action__timeSpeedViscosity": 0.1,
+    "tutor_stage__hintKeys:array": {
+      "key": "Human.Use"
+    },
+    "tutorial_input__enable:list<t>": {
+      "input": "human_input__use"
+    },
+    "tutor_bq__sendOnBegin:tag": []
+  },
+  "tutorial_aircraft_parachute_prepare": {
+    "tutor_stage__next": "tutorial_aircraft_parachute_open",
+    "tutor_action__setTimeSpeed": 1.0,
+    "tutor_action__timeSpeedDelta": 1.0,
+    "tutor_action__timeSpeedViscosity": 1.0,
+    "tutor_stage__time": 4.0,
+    "tutor_stage__timer": 0.0,
+    "tutorial_input__disable:list<t>": {
+      "input": "human_input__use"
+    },
+    "tutor_bq__sendOnBegin:tag": []
+  },
+  "tutorial_aircraft_parachute_open": {
+    "tutor_stage__next": "tutorial_aircraft_end",
+    "tutor_stage__displayHint": "hint_tutorial_aircraft_parachute_open",
+    "tutor_action__setTimeSpeed": 0.0,
+    "tutor_action__timeSpeedViscosity": 0.1,
+    "tutor_condition__hotKeyName": "Human.Jump",
+    "tutor_condition__hotKeyId": 0,
+    "tutor_stage__hintKeys:array": {
+      "key": "Human.Jump"
+    },
+    "tutor_bq__sendOnBegin:tag": [],
+    "tutor_condition__parachuteOpen:tag": []
+  },
+  "tutorial_aircraft_end": {
+    "tutor_stage__displayHint": "hint_tutorial_aircraft_final_words_not_so_bright",
+    "tutor_action__setTimeSpeed": 1.0,
+    "tutor_action__timeSpeedDelta": 1.0,
+    "tutor_action__timeSpeedViscosity": 1.0,
+    "tutor_stage__next": "",
+    "tutor_stage__deactivateZoneId": "vehicles_marker",
+    "tutor_stage__complete:tag": [],
+    "tutor_bq__sendOnBegin:tag": []
+  },
+  "tutorial_aircraft_autopilot": {
+    "_extends": "tutorial_target",
+    "aircraft_autopilot__elevatorCoef": -0.1,
+    "aircraft_autopilot__rudderCoef": -0.1,
+    "tutorial_target__targetId": "aircraft_target",
+    "tutorial_target__active": true,
+    "tutorial_zone__active": true,
+    "tutorialZone:tag": []
+  },
+  "tutorial_aircraft_disable_drop_bomb": {
+    "_singleton": true,
+    "_tags": "gameClient",
+    "tutorial_aircraft__disableDropBomb:tag": []
+  }
+}

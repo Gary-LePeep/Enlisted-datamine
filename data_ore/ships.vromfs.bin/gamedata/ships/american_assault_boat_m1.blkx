@@ -1,0 +1,171 @@
+{
+  "ShipPhys": {
+    "skipUpdateOnSleep": true,
+    "sleepOnWater": true,
+    "settings": {
+      "groundBounceMult": 0.5
+    },
+    "mass": {
+      "Empty": 400.0,
+      "momentOfInertia": [0.5,2.0,2.0],
+      "CenterOfGravity": [-0.5,-0.2,0.0],
+      "doesPayloadAffectCOG": true
+    },
+    "engines": {
+      "maxSpeed": 17.0,
+      "maxReverseSpeed": 4.0,
+      "reverseMult": 1.0,
+      "speedToThrust": [
+        {
+          "row": [-1e+18,0.5]
+        },
+        {
+          "row": [0.0,0.5]
+        },
+        {
+          "row": [5.0,0.7]
+        },
+        {
+          "row": [10.0,1.2]
+        },
+        {
+          "row": [15.0,1.3]
+        },
+        {
+          "row": [20.0,0.5]
+        },
+        {
+          "row": [1e+18,0.1]
+        }
+      ],
+      "reverseSpeedToThrust": [
+        {
+          "row": [-1e+18,0.02]
+        },
+        {
+          "row": [-6.0,0.02]
+        },
+        {
+          "row": [-4.0,0.1]
+        },
+        {
+          "row": [-2.0,0.24]
+        },
+        {
+          "row": [0.0,0.15]
+        },
+        {
+          "row": [1e+18,0.2]
+        }
+      ],
+      "engine": {
+        "pos": [-3.0,-0.5,0.0],
+        "outputParam": "propeller_rotate:CRS",
+        "deflectionParam": "motor_deflection",
+        "deflectionParamMult": 0.5,
+        "engineDmPart": "engine",
+        "propeller": "propeller_01",
+        "maxDeflection": 80.0,
+        "maxThrust": 2000.0
+      }
+    },
+    "collisionProps": {
+      "cls_body_01": "convex_hull",
+      "collisionMaterial": "walkRay"
+    },
+    "hydrodynamics": {
+      "bodyArea": 0.0,
+      "ignoreNodes": {
+        "engine": true
+      },
+      "hydrofoils": {
+        "hydrofoil": {
+          "euler": [0.0,0.0,10.0],
+          "pos": [1.0,-0.5,0.0],
+          "size": [3.0,0.05],
+          "maxV": 20.0,
+          "polar": {
+            "Cl0": 0.066,
+            "CdMin": 0.0016,
+            "lineClCoeff": 0.046,
+            "ClCritHigh": 0.7,
+            "ClCritLow": -0.62,
+            "alphaCritHigh": 5.0,
+            "alphaCritLow": -4.0
+          }
+        }
+      },
+      "rudder": {
+        "pos": [-3.0,-0.2,0.0],
+        "area": 0.2,
+        "deflection": 80.0
+      }
+    }
+  },
+  "DamageParts": {
+    "formatVersion": 2,
+    "armorClass": "RHA_tank",
+    "hp": 300.0,
+    "body": {
+      "createSecondaryShatters": false,
+      "armorThickness": 0.1
+    },
+    "engine": {
+      "hp": 30.0,
+      "createSecondaryShatters": false,
+      "armorThickness": 0.3,
+      "armorThrough": 10.0,
+      "fireProtectionHp": 100.0,
+      "movement": true,
+      "fire": true
+    }
+  },
+  "DamageEffects": [
+    {
+      "part": {
+        "name": "engine",
+        "onKill": {
+          "fire": 1.0,
+          "fHitCritical": true
+        }
+      }
+    },
+    {
+      "part": [
+        {
+          "name": "body"
+        },
+        {
+          "onHit": {
+            "damageType": "cumulative",
+            "fire": 0.15,
+            "damage": 75.0,
+            "fHitCritical": true
+          }
+        },
+        {
+          "onHit": {
+            "damageType": "explosion",
+            "fire": 0.1,
+            "damage": 30.0,
+            "fHitCritical": true
+          }
+        },
+        {
+          "onHit": {
+            "damageType": "generic",
+            "fire": 0.05,
+            "damage": 70.0,
+            "fHitCritical": true
+          }
+        },
+        {
+          "onHit": {
+            "damageType": "fire",
+            "fire": 0.02
+          }
+        }
+      ]
+    }
+  ]
+}

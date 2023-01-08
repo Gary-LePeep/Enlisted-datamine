@@ -1,0 +1,104 @@
+{
+  "saveEventsInHangar": true,
+  "saveEventsInGame": false,
+  "showEventsInHangar": true,
+  "showEventsInGame": true,
+  "showHud": true,
+  "additionalTraceLength": 0.3,
+  "hitSphRadius": 0.03,
+  "hudPosition": [200,50],
+  "saveHitStatistics": false,
+  "dispersionGridSize": 1.0,
+  "colors": {
+    "default": "#ffffffff",
+    "shellTrace": "#ffffffff",
+    "cumulativeJetTrace": "#7f7fffff",
+    "stop": "#ff00ffff",
+    "penetration": "#ff0000ff",
+    "ricochet": "#ffb4b4ff",
+    "secondaryShatterCone": "#7fffffff",
+    "secondaryShatterTrace": "#7fff7fff",
+    "secondaryShatterAvoid": "#7f7f7fff",
+    "explosionRadius": "#ffff00ff",
+    "explosionInnerRadius": "#ffff7fff",
+    "explosionTrace": "#ffff00ff",
+    "explosionShatterTrace": "#ff0000ff",
+    "shatterTrace": "#7fff7fff",
+    "shatterAvoid": "#7f7f7fff",
+    "fire": "#ff7f7fff"
+  },
+  "event_render_elements": [
+    {
+      "hit": true
+    },
+    {
+      "hitText": false
+    },
+    {
+      "secondaryShatters": true
+    },
+    {
+      "secondaryShattersTrace": true
+    },
+    {
+      "secondaryShattersAvoid": true
+    },
+    {
+      "secondaryShattersHit": true
+    },
+    {
+      "secondaryShattersText": false
+    },
+    {
+      "explosion": true
+    },
+    {
+      "explosionTrace": true
+    },
+    {
+      "explosionHit": true
+    },
+    {
+      "explosionText": false
+    },
+    {
+      "shatters": true
+    },
+    {
+      "shattersTrace": true
+    },
+    {
+      "shattersAvoid": true
+    },
+    {
+      "shattersHit": true
+    },
+    {
+      "shattersText": false
+    },
+    {
+      "fire": true
+    },
+    {
+      "textPartName": true
+    },
+    {
+      "textDamage": false
+    },
+    {
+      "textDamage": false
+    },
+    {
+      "textHp": false
+    },
+    {
+      "textArmor": false
+    },
+    {
+      "textAngle": false
+    },
+    {
+      "textPenetration": false
+    }
+  ]
+}

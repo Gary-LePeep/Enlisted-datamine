@@ -1,0 +1,32 @@
+{
+  "shapesAtlas": "decal_growth_liquid_atlas_tex_n",
+  "atlasSize": [4.0,8.0],
+  "puddleVariantsCount": 4,
+  "splashVariantsCount": 4,
+  "freshColor": [0.157,0.012,0.0,1.0],
+  "driedColor": [0.086,0.024,0.02,0.96],
+  "splashAppearTime": 1.0,
+  "sprayAppearTime": 1.0,
+  "leakAppearTime": 5.0,
+  "footprintAppearTime": 0.1,
+  "splashEffectName": "blood_splash",
+  "splashEffectScale": 0.7,
+  "footprintSizeRange": [0.25,0.25],
+  "footprintEmitterDryingTime": 10.0,
+  "biome_without_dry": "snow",
+  "footprints": [
+    {
+      "variantsCount": 4
+    },
+    {
+      "variantsCount": 4
+    }
+  ],
+  "groupDists": {
+    "puddle": 0.25,
+    "splash": 0.01,
+    "spray": 0.01,
+    "leak": 0.1,
+    "footprint": 0.01
+  }
+}

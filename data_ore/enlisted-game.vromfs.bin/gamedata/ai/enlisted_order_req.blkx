@@ -1,0 +1,1296 @@
+[
+  {
+    "repeat": [
+      {
+        "name": "sub.orderReq"
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.chooseMaxStance"
+        }
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.deactivateWeapMod"
+        }
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.swimUp"
+        }
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.selfExtinguish"
+        }
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.selfHealing"
+        }
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.dmgZoneEscape"
+        }
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.rethrowGrenade"
+        }
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.grenadeEscape"
+        }
+      },
+      {
+        "orderedSelector": {
+          "orderedSelector": {
+            "subTree": {
+              "name": "",
+              "treeName": "sub.enemyMelee"
+            },
+            "sequencer": {
+              "findDanger": {
+                "paramName": "shootEnemy",
+                "radiusParamName": "enemyNearRadius",
+                "minDanger": 0.1,
+                "tag": "human"
+              },
+              "subTree": {
+                "treeName": "sub.oneShootAttack"
+              }
+            }
+          },
+          "subTree": {
+            "name": "",
+            "refId": "orderType"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "repeat": {
+      "name": "sub.vehicleBeh",
+      "checkVehicleSeats": [],
+      "canHoldWeaponInVehicle": [],
+      "exitHandler": {
+        "repeatUntilFail": {
+          "sequencer": {
+            "findDanger": {
+              "paramName": "shootEnemy",
+              "radiusParamName": "enemyRadius",
+              "minDanger": 0.5,
+              "tag": "human"
+            },
+            "setIntVar": {
+              "to": "crouchStanceMax",
+              "value": 1
+            },
+            "join": {
+              "success": {
+                "shootAtUnit": {
+                  "targetUnitParam": "shootEnemy",
+                  "shootTime": [0.2,1.0],
+                  "cooldownTime": [0.1,0.9],
+                  "minAimTime": [0.3,0.4],
+                  "maxStanceParam": "crouchStanceMax"
+                }
+              },
+              "startAim": []
+            },
+            "startAim": [],
+            "checkReloadWeapon": [],
+            "parallel": {
+              "cycle": {
+                "not": {
+                  "findDanger": {
+                    "paramName": "shootEnemy",
+                    "radiusParamName": "enemyRadius",
+                    "minDanger": 0.5,
+                    "tag": "human"
+                  }
+                }
+              },
+              "wait": {
+                "range": [1.0,3.0],
+                "resetable": true
+              }
+            },
+            "orderedSelector": {
+              "isInVehicle": [],
+              "resetIsInVehicleTrigger": []
+            }
+          }
+        },
+        "stopAim": []
+      },
+      "orderedSelector": {
+        "isInVehicle": [],
+        "resetIsInVehicleTrigger": []
+      }
+    }
+  },
+  {
+    "orderedSelector": [
+      {
+        "name": "sub.defuseBombReq"
+      },
+      {
+        "sequencer": [
+          {
+            "reaction": {
+              "event": "onEnemyPlayerNear",
+              "sequencer": {
+                "findDanger": {
+                  "paramName": "shootEnemy",
+                  "radiusParamName": "enemyNearRadius",
+                  "minDanger": 0.1,
+                  "tag": "human"
+                },
+                "recalculateTree": []
+              }
+            }
+          },
+          {
+            "reaction": {
+              "event": "regularCheck",
+              "repeat": [
+                {
+                  "count": 1
+                },
+                {
+                  "subTree": {
+                    "name": "",
+                    "treeName": "sub.chooseMaxStance"
+                  }
+                },
+                {
+                  "subTree": {
+                    "name": "",
+                    "treeName": "sub.deactivateWeapMod"
+                  }
+                },
+                {
+                  "subTree": {
+                    "name": "",
+                    "treeName": "sub.checkDowned"
+                  }
+                },
+                {
+                  "subTree": {
+                    "name": "",
+                    "treeName": "sub.checkBurning"
+                  }
+                },
+                {
+                  "subTree": {
+                    "name": "",
+                    "treeName": "sub.swimUpCheck"
+                  }
+                },
+                {
+                  "subTree": {
+                    "name": "",
+                    "treeName": "sub.tryToOpenDoors"
+                  }
+                },
+                {
+                  "subTree": {
+                    "name": "",
+                    "treeName": "sub.findDangerZone"
+                  }
+                },
+                {
+                  "subTree": {
+                    "name": "",
+                    "treeName": "sub.findDangerGrenade"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "moveToPos": {
+              "posParam": "bombSitePos",
+              "sprintTimerRange": [10.0,20.0],
+              "minDistToSprint": 0.5,
+              "tryClimbing": true,
+              "distThreshold": 1.0,
+              "avoidAiObstacles": false
+            }
+          },
+          {
+            "defuseBombNode": {
+              "bombSiteEidParam": "bombSiteEid"
+            }
+          },
+          {
+            "setIntVar": {
+              "to": "bombSiteEid",
+              "value": 0
+            }
+          },
+          {
+            "resetUseBombTrigger": []
+          }
+        ]
+      },
+      {
+        "sequencer": {
+          "setIntVar": {
+            "to": "bombSiteEid",
+            "value": 0
+          },
+          "resetUseBombTrigger": []
+        }
+      }
+    ]
+  },
+  {
+    "orderedSelector": [
+      {
+        "name": "sub.plantBombReq"
+      },
+      {
+        "sequencer": [
+          {
+            "reaction": {
+              "event": "onEnemyPlayerNear",
+              "sequencer": {
+                "findDanger": {
+                  "paramName": "shootEnemy",
+                  "radiusParamName": "enemyNearRadius",
+                  "minDanger": 0.1,
+                  "tag": "human"
+                },
+                "recalculateTree": []
+              }
+            }
+          },
+          {
+            "reaction": {
+              "event": "regularCheck",
+              "repeat": [
+                {
+                  "count": 1
+                },
+                {
+                  "subTree": {
+                    "name": "",
+                    "treeName": "sub.chooseMaxStance"
+                  }
+                },
+                {
+                  "subTree": {
+                    "name": "",
+                    "treeName": "sub.deactivateWeapMod"
+                  }
+                },
+                {
+                  "subTree": {
+                    "name": "",
+                    "treeName": "sub.checkDowned"
+                  }
+                },
+                {
+                  "subTree": {
+                    "name": "",
+                    "treeName": "sub.checkBurning"
+                  }
+                },
+                {
+                  "subTree": {
+                    "name": "",
+                    "treeName": "sub.swimUpCheck"
+                  }
+                },
+                {
+                  "subTree": {
+                    "name": "",
+                    "treeName": "sub.tryToOpenDoors"
+                  }
+                },
+                {
+                  "subTree": {
+                    "name": "",
+                    "treeName": "sub.findDangerZone"
+                  }
+                },
+                {
+                  "subTree": {
+                    "name": "",
+                    "treeName": "sub.findDangerGrenade"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "moveToPos": {
+              "posParam": "bombSitePos",
+              "sprintTimerRange": [10.0,20.0],
+              "minDistToSprint": 0.5,
+              "tryClimbing": true,
+              "distThreshold": 1.0,
+              "avoidAiObstacles": false
+            }
+          },
+          {
+            "plantBombNode": {
+              "bombSiteEidParam": "bombSiteEid"
+            }
+          },
+          {
+            "setIntVar": {
+              "to": "bombSiteEid",
+              "value": 0
+            }
+          },
+          {
+            "resetUseBombTrigger": []
+          }
+        ]
+      },
+      {
+        "sequencer": {
+          "setIntVar": {
+            "to": "bombSiteEid",
+            "value": 0
+          },
+          "resetUseBombTrigger": []
+        }
+      }
+    ]
+  },
+  {
+    "orderedSelector": {
+      "name": "sub.ammoReq",
+      "sequencer": [
+        {
+          "reaction": {
+            "event": "onEnemyPlayerNear",
+            "sequencer": {
+              "findDanger": {
+                "paramName": "shootEnemy",
+                "radiusParamName": "enemyNearRadius",
+                "minDanger": 0.1,
+                "tag": "human"
+              },
+              "recalculateTree": []
+            }
+          }
+        },
+        {
+          "reaction": {
+            "event": "regularCheck",
+            "repeat": [
+              {
+                "count": 1
+              },
+              {
+                "subTree": {
+                  "name": "",
+                  "treeName": "sub.chooseMaxStance"
+                }
+              },
+              {
+                "subTree": {
+                  "name": "",
+                  "treeName": "sub.deactivateWeapMod"
+                }
+              },
+              {
+                "subTree": {
+                  "name": "",
+                  "treeName": "sub.checkDowned"
+                }
+              },
+              {
+                "subTree": {
+                  "name": "",
+                  "treeName": "sub.checkBurning"
+                }
+              },
+              {
+                "subTree": {
+                  "name": "",
+                  "treeName": "sub.swimUpCheck"
+                }
+              },
+              {
+                "subTree": {
+                  "name": "",
+                  "treeName": "sub.tryToOpenDoors"
+                }
+              },
+              {
+                "subTree": {
+                  "name": "",
+                  "treeName": "sub.findDangerZone"
+                }
+              },
+              {
+                "subTree": {
+                  "name": "",
+                  "treeName": "sub.findDangerGrenade"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "setCurrentAiAction": {
+            "state": "move"
+          }
+        },
+        {
+          "moveToTarget": {
+            "targetUnitParam": "ammoRequester",
+            "stopDistRange": [1.5,1.5],
+            "aimToTarget": true,
+            "maxStanceParam": "maxStance",
+            "jumpOver": false
+          }
+        },
+        {
+          "giveAmmo": {
+            "targetUnitParam": "ammoRequester"
+          }
+        },
+        {
+          "setIntVar": {
+            "to": "ammoRequester",
+            "value": 0
+          }
+        }
+      ],
+      "setIntVar": {
+        "to": "ammoRequester",
+        "value": 0
+      }
+    }
+  },
+  {
+    "orderedSelector": {
+      "name": "sub.healReq",
+      "sequencer": [
+        {
+          "reaction": {
+            "event": "onEnemyPlayerNear",
+            "sequencer": {
+              "findDanger": {
+                "paramName": "shootEnemy",
+                "radiusParamName": "enemyNearRadius",
+                "minDanger": 0.1,
+                "tag": "human"
+              },
+              "recalculateTree": []
+            }
+          }
+        },
+        {
+          "reaction": {
+            "event": "regularCheck",
+            "repeat": [
+              {
+                "count": 1
+              },
+              {
+                "subTree": {
+                  "name": "",
+                  "treeName": "sub.chooseMaxStance"
+                }
+              },
+              {
+                "subTree": {
+                  "name": "",
+                  "treeName": "sub.deactivateWeapMod"
+                }
+              },
+              {
+                "subTree": {
+                  "name": "",
+                  "treeName": "sub.checkDowned"
+                }
+              },
+              {
+                "subTree": {
+                  "name": "",
+                  "treeName": "sub.checkBurning"
+                }
+              },
+              {
+                "subTree": {
+                  "name": "",
+                  "treeName": "sub.swimUpCheck"
+                }
+              },
+              {
+                "subTree": {
+                  "name": "",
+                  "treeName": "sub.tryToOpenDoors"
+                }
+              },
+              {
+                "subTree": {
+                  "name": "",
+                  "treeName": "sub.findDangerZone"
+                }
+              },
+              {
+                "subTree": {
+                  "name": "",
+                  "treeName": "sub.findDangerGrenade"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "setCurrentAiAction": {
+            "state": "move"
+          }
+        },
+        {
+          "moveToTarget": {
+            "targetUnitParam": "healRequester",
+            "stopDistRange": [1.5,1.5],
+            "aimToTarget": true,
+            "maxStanceParam": "maxStance",
+            "jumpOver": false
+          }
+        },
+        {
+          "wait": {
+            "range": [0.2,0.4],
+            "resetable": true
+          }
+        },
+        {
+          "parallel": {
+            "reaction": {
+              "event": "regularCheck",
+              "repeat": [
+                {
+                  "count": 1
+                },
+                {
+                  "subTree": {
+                    "name": "",
+                    "treeName": "sub.chooseMaxStance"
+                  }
+                },
+                {
+                  "subTree": {
+                    "name": "",
+                    "treeName": "sub.deactivateWeapMod"
+                  }
+                },
+                {
+                  "subTree": {
+                    "name": "",
+                    "treeName": "sub.checkDowned"
+                  }
+                },
+                {
+                  "subTree": {
+                    "name": "",
+                    "treeName": "sub.checkBurning"
+                  }
+                },
+                {
+                  "subTree": {
+                    "name": "",
+                    "treeName": "sub.swimUpCheck"
+                  }
+                },
+                {
+                  "subTree": {
+                    "name": "",
+                    "treeName": "sub.tryToOpenDoors"
+                  }
+                },
+                {
+                  "subTree": {
+                    "name": "",
+                    "treeName": "sub.findDangerZone"
+                  }
+                },
+                {
+                  "subTree": {
+                    "name": "",
+                    "treeName": "sub.findDangerGrenade"
+                  }
+                },
+                {
+                  "sequencer": {
+                    "setPosFromEntity": {
+                      "to": "healRequesterPos",
+                      "from": "healRequester"
+                    },
+                    "not": {
+                      "checkDistance": {
+                        "posParam": "healRequesterPos",
+                        "radius": 2.0,
+                        "yRadius": 1.0
+                      }
+                    },
+                    "recalculateTree": []
+                  }
+                }
+              ]
+            },
+            "lookAtTarget": {
+              "targetUnitParam": "healRequester"
+            },
+            "healTarget": {
+              "targetUnitParam": "healRequester"
+            }
+          }
+        },
+        {
+          "setIntVar": {
+            "to": "healRequester",
+            "value": 0
+          }
+        }
+      ],
+      "setIntVar": {
+        "to": "healRequester",
+        "value": 0
+      }
+    }
+  },
+  {
+    "orderedSelector": {
+      "name": "sub.artilleryReq",
+      "sequencer": [
+        {
+          "reaction": {
+            "event": "onEnemyPlayerNear",
+            "sequencer": {
+              "findDanger": {
+                "paramName": "shootEnemy",
+                "radiusParamName": "enemyNearRadius",
+                "minDanger": 0.1,
+                "tag": "human"
+              },
+              "recalculateTree": []
+            }
+          }
+        },
+        {
+          "reaction": {
+            "event": "regularCheck",
+            "repeat": [
+              {
+                "count": 1
+              },
+              {
+                "subTree": {
+                  "name": "",
+                  "treeName": "sub.chooseMaxStance"
+                }
+              },
+              {
+                "subTree": {
+                  "name": "",
+                  "treeName": "sub.deactivateWeapMod"
+                }
+              },
+              {
+                "subTree": {
+                  "name": "",
+                  "treeName": "sub.checkDowned"
+                }
+              },
+              {
+                "subTree": {
+                  "name": "",
+                  "treeName": "sub.checkBurning"
+                }
+              },
+              {
+                "subTree": {
+                  "name": "",
+                  "treeName": "sub.swimUpCheck"
+                }
+              },
+              {
+                "subTree": {
+                  "name": "",
+                  "treeName": "sub.tryToOpenDoors"
+                }
+              },
+              {
+                "subTree": {
+                  "name": "",
+                  "treeName": "sub.findDangerZone"
+                }
+              },
+              {
+                "subTree": {
+                  "name": "",
+                  "treeName": "sub.findDangerGrenade"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "setCurrentAiAction": {
+            "state": "attack"
+          }
+        },
+        {
+          "prepareArtillery": {
+            "targetUnitParam": "artilleryRequester",
+            "shouldSendParamName": "artilleryShouldSend",
+            "typeIndexParamName": "artilleryTypeIndex",
+            "posEndParamName": "artilleryPosEnd"
+          }
+        },
+        {
+          "setIntVar": {
+            "to": "artilleryRequester",
+            "value": 0
+          }
+        }
+      ],
+      "setIntVar": {
+        "to": "artilleryRequester",
+        "value": 0
+      }
+    }
+  },
+  {
+    "orderedSelector": {
+      "name": "sub.attackReq",
+      "sequencer": [
+        {
+          "reaction": {
+            "event": "onEnemyPlayerNear",
+            "sequencer": {
+              "findDanger": {
+                "paramName": "shootEnemy",
+                "radiusParamName": "enemyNearRadius",
+                "minDanger": 0.1,
+                "tag": "human"
+              },
+              "recalculateTree": []
+            }
+          }
+        },
+        {
+          "reaction": {
+            "event": "regularCheck",
+            "repeat": [
+              {
+                "count": 1
+              },
+              {
+                "subTree": {
+                  "name": "",
+                  "treeName": "sub.chooseMaxStance"
+                }
+              },
+              {
+                "subTree": {
+                  "name": "",
+                  "treeName": "sub.deactivateWeapMod"
+                }
+              },
+              {
+                "subTree": {
+                  "name": "",
+                  "treeName": "sub.checkDowned"
+                }
+              },
+              {
+                "subTree": {
+                  "name": "",
+                  "treeName": "sub.checkBurning"
+                }
+              },
+              {
+                "subTree": {
+                  "name": "",
+                  "treeName": "sub.swimUpCheck"
+                }
+              },
+              {
+                "subTree": {
+                  "name": "",
+                  "treeName": "sub.findDangerZone"
+                }
+              },
+              {
+                "subTree": {
+                  "name": "",
+                  "treeName": "sub.tryToOpenDoors"
+                }
+              },
+              {
+                "subTree": {
+                  "name": "",
+                  "treeName": "sub.findDangerGrenade"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "chooseBestWeapon": {
+            "targetParam": "attackTarget"
+          }
+        },
+        {
+          "setCurrentAiAction": {
+            "state": "attack"
+          }
+        },
+        {
+          "findPointNearTarget": {
+            "posParam": "attackPosition",
+            "dist": [15.0,18.0],
+            "targetParam": "attackTarget",
+            "traceTarget": true,
+            "reusePrevPos": false
+          }
+        },
+        {
+          "moveToPos": {
+            "posParam": "attackPosition",
+            "sprintTimerRange": [10.0,20.0],
+            "minDistToSprint": 1.5,
+            "targetParam": "attackTarget",
+            "timeToLookAtTarget": 4.0,
+            "lookVisc": 0.1,
+            "tryClimbing": true,
+            "maxStanceParam": "maxStance",
+            "avoidAiObstacles": false
+          }
+        },
+        {
+          "throwGrenade": {
+            "targetUnitParam": "attackTarget",
+            "minThrowDistance": 3.0
+          }
+        },
+        {
+          "setIntVar": {
+            "to": "attackTarget",
+            "value": 0
+          }
+        }
+      ],
+      "setIntVar": {
+        "to": "attackTarget",
+        "value": 0
+      }
+    }
+  },
+  {
+    "orderedSelector": {
+      "name": "sub.useVehicleReq",
+      "sequencer": [
+        {
+          "reaction": {
+            "event": "onEnemyPlayerNear",
+            "sequencer": {
+              "findDanger": {
+                "paramName": "shootEnemy",
+                "radiusParamName": "enemyNearRadius",
+                "minDanger": 0.1,
+                "tag": "human"
+              },
+              "recalculateTree": []
+            }
+          }
+        },
+        {
+          "reaction": {
+            "event": "regularCheck",
+            "repeat": [
+              {
+                "count": 1
+              },
+              {
+                "subTree": {
+                  "name": "",
+                  "treeName": "sub.chooseMaxStance"
+                }
+              },
+              {
+                "subTree": {
+                  "name": "",
+                  "treeName": "sub.deactivateWeapMod"
+                }
+              },
+              {
+                "subTree": {
+                  "name": "",
+                  "treeName": "sub.checkDowned"
+                }
+              },
+              {
+                "subTree": {
+                  "name": "",
+                  "treeName": "sub.checkBurning"
+                }
+              },
+              {
+                "subTree": {
+                  "name": "",
+                  "treeName": "sub.swimUpCheck"
+                }
+              },
+              {
+                "subTree": {
+                  "name": "",
+                  "treeName": "sub.findDangerZone"
+                }
+              },
+              {
+                "subTree": {
+                  "name": "",
+                  "treeName": "sub.tryToOpenDoors"
+                }
+              },
+              {
+                "subTree": {
+                  "name": "",
+                  "treeName": "sub.findDangerGrenade"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "setCurrentAiAction": {
+            "state": "move"
+          }
+        },
+        {
+          "orderedSelector": [
+            {
+              "sequencer": {
+                "setPosFromEntity": {
+                  "to": "wishPos",
+                  "from": "vehicleEid"
+                },
+                "wait": {
+                  "range": [0.1,0.3],
+                  "resetable": true
+                },
+                "moveToPos": {
+                  "posParam": "wishPos",
+                  "sprintTimerRange": [10.0,20.0],
+                  "minDistToSprint": 0.5,
+                  "tryClimbing": true,
+                  "distThreshold": 2.5,
+                  "avoidAiObstacles": false
+                },
+                "orderedSelector": {
+                  "useVehicle": {
+                    "targetUnitParam": "vehicleEid"
+                  },
+                  "resetShoulUseVehicleTrigger": []
+                }
+              }
+            },
+            {
+              "sequencer": [
+                {
+                  "setTransformPosFromEntity": {
+                    "to": "wishPos",
+                    "from": "vehicleEid"
+                  }
+                },
+                {
+                  "changeStance": {
+                    "stanceName": "stand",
+                    "maxStanceParam": "maxStance"
+                  }
+                },
+                {
+                  "changeStance": {
+                    "stanceName": "stand",
+                    "maxStanceParam": "maxStanceOrder"
+                  }
+                },
+                {
+                  "moveByDir": {
+                    "endPos": "wishPos",
+                    "duration": 1.5,
+                    "distThresholsd": 2.5
+                  }
+                },
+                {
+                  "orderedSelector": {
+                    "useVehicle": {
+                      "targetUnitParam": "vehicleEid"
+                    },
+                    "resetShoulUseVehicleTrigger": []
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "exitHandler": {
+      "name": "sub.buildReq",
+      "orderedSelector": [
+        {
+          "sequencer": [
+            {
+              "reaction": {
+                "event": "onEnemyPlayerNear",
+                "sequencer": {
+                  "findDanger": {
+                    "paramName": "shootEnemy",
+                    "radiusParamName": "enemyNearRadius",
+                    "minDanger": 0.1,
+                    "tag": "human"
+                  },
+                  "recalculateTree": []
+                }
+              }
+            },
+            {
+              "reaction": {
+                "event": "regularCheck",
+                "repeat": [
+                  {
+                    "count": 1
+                  },
+                  {
+                    "subTree": {
+                      "name": "",
+                      "treeName": "sub.chooseMaxStance"
+                    }
+                  },
+                  {
+                    "subTree": {
+                      "name": "",
+                      "treeName": "sub.deactivateWeapMod"
+                    }
+                  },
+                  {
+                    "subTree": {
+                      "name": "",
+                      "treeName": "sub.checkDowned"
+                    }
+                  },
+                  {
+                    "subTree": {
+                      "name": "",
+                      "treeName": "sub.checkBurning"
+                    }
+                  },
+                  {
+                    "subTree": {
+                      "name": "",
+                      "treeName": "sub.swimUpCheck"
+                    }
+                  },
+                  {
+                    "subTree": {
+                      "name": "",
+                      "treeName": "sub.findDangerZone"
+                    }
+                  },
+                  {
+                    "subTree": {
+                      "name": "",
+                      "treeName": "sub.tryToOpenDoors"
+                    }
+                  },
+                  {
+                    "subTree": {
+                      "name": "",
+                      "treeName": "sub.findDangerGrenade"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "checkTarget": {
+                "targetUnitParam": "buildTarget",
+                "ignoreDead": false
+              }
+            },
+            {
+              "orderedSelector": {
+                "isVarsIntEqual": {
+                  "lhs": "buildPositionFounded",
+                  "rhs_value": 1
+                },
+                "findPointNearTarget": {
+                  "posParam": "buildPosition",
+                  "dist": [2.0,2.5],
+                  "targetParam": "buildTarget",
+                  "traceTarget": false,
+                  "reusePrevPos": false
+                }
+              }
+            },
+            {
+              "setIntVar": {
+                "to": "buildPositionFounded",
+                "value": 1
+              }
+            },
+            {
+              "setIntVar": {
+                "to": "buildTarget",
+                "value": 0
+              }
+            },
+            {
+              "setCurrentAiAction": {
+                "state": "move"
+              }
+            },
+            {
+              "moveToPos": {
+                "posParam": "buildPosition",
+                "sprintTimerRange": [10.0,20.0],
+                "minDistToSprint": 4.0,
+                "distThreshold": 0.5,
+                "avoidAiObstacles": false,
+                "incObstacles": false
+              }
+            },
+            {
+              "findWeaponSlotWithTag": {
+                "tag": "buildingTool",
+                "toParam": "buildToolSlot"
+              }
+            },
+            {
+              "changeWeapon": {
+                "param": "buildToolSlot"
+              }
+            },
+            {
+              "parallel": {
+                "reaction": {
+                  "event": "regularCheck",
+                  "repeat": [
+                    {
+                      "count": 1
+                    },
+                    {
+                      "subTree": {
+                        "name": "",
+                        "treeName": "sub.chooseMaxStance"
+                      }
+                    },
+                    {
+                      "subTree": {
+                        "name": "",
+                        "treeName": "sub.deactivateWeapMod"
+                      }
+                    },
+                    {
+                      "subTree": {
+                        "name": "",
+                        "treeName": "sub.checkDowned"
+                      }
+                    },
+                    {
+                      "subTree": {
+                        "name": "",
+                        "treeName": "sub.checkBurning"
+                      }
+                    },
+                    {
+                      "subTree": {
+                        "name": "",
+                        "treeName": "sub.swimUpCheck"
+                      }
+                    },
+                    {
+                      "subTree": {
+                        "name": "",
+                        "treeName": "sub.tryToOpenDoors"
+                      }
+                    },
+                    {
+                      "subTree": {
+                        "name": "",
+                        "treeName": "sub.findDangerZone"
+                      }
+                    },
+                    {
+                      "subTree": {
+                        "name": "",
+                        "treeName": "sub.findDangerGrenade"
+                      }
+                    },
+                    {
+                      "sequencer": {
+                        "not": {
+                          "checkDistance": {
+                            "posParam": "buildPosition",
+                            "radius": 1.5,
+                            "yRadius": 1.0
+                          }
+                        },
+                        "recalculateTree": []
+                      }
+                    }
+                  ]
+                },
+                "lookAtTarget": {
+                  "targetUnitParam": "buildTarget",
+                  "rotateBody": true,
+                  "allowDead": true
+                },
+                "interactWithBuildingTarget": {
+                  "targetUnitParam": "buildTarget"
+                }
+              }
+            },
+            {
+              "chooseBestWeapon": {
+                "targetParam": "shootEnemy"
+              }
+            }
+          ]
+        },
+        {
+          "sequencer": {
+            "setIntVar": {
+              "to": "buildTarget",
+              "value": 0
+            },
+            "chooseBestWeapon": {
+              "targetParam": "shootEnemy"
+            }
+          }
+        }
+      ],
+      "chooseBestWeapon": {
+        "targetParam": "shootEnemy"
+      }
+    }
+  }
+]

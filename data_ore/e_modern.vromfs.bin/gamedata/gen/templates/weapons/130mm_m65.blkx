@@ -1,0 +1,31 @@
+{
+  "base_130mm_m65": {
+    "item__name": "guns/130mm_m65",
+    "gun__blk": "gamedata/gen/weapons/130mm_m65.blk",
+    "gun__shotFreq": 0.183,
+    "gun__locName": "130mm_m65",
+    "gun__ammoSetsInfo:shared:array": {
+      "defaultSet:array": {
+        "shell:object": {
+          "blk": "gamedata/gen/weapons/shells/130mm_m65_defaultset_april.blk",
+          "name": "130mm_br_482b",
+          "type": "heat_tank"
+        }
+      }
+    }
+  },
+  "tankgun_130mm_m65": [
+    {
+      "_extends": "tankgun"
+    },
+    {
+      "_extends": "base_tankgun_cannon"
+    },
+    {
+      "_extends": "base_130mm_m65"
+    },
+    {
+      "turret__triggerGroup": 0
+    }
+  ]
+}

@@ -1,0 +1,403 @@
+{
+  "usa_light_assault_preset": {
+    "weaponPreset": "Light assault",
+    "human_weap__weapTemplates:object": {
+      "primary": "m3_submachine_gun_gun",
+      "secondary": "",
+      "tertiary": "m1911_colt_gun",
+      "melee": "knife_weapon",
+      "grenade": "grenade_thrower"
+    },
+    "human_weap__weapInfo:array": [
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "m3_submachine_gun_magazine",
+          "numReserveAmmo": 4
+        }
+      },
+      {
+        "weapInfo:object": []
+      },
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "m1911_colt_magazine",
+          "numReserveAmmo": 3
+        }
+      },
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "",
+          "numReserveAmmo": 0
+        }
+      },
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "mk2_grenade_item",
+          "numReserveAmmo": 1
+        }
+      }
+    ],
+    "_group": {
+      "_tags": "server",
+      "human_weap__template_deps:ecs::TemplatesListToInstantiate": [],
+      "human_weap__template_deps_list:list<t>": [
+        {
+          "tmpl": "m3_submachine_gun_magazine"
+        },
+        {
+          "tmpl": "m1911_colt_magazine"
+        },
+        {
+          "tmpl": "mk2_grenade_item"
+        }
+      ]
+    }
+  },
+  "usa_infantry_preset": {
+    "weaponPreset": "Infantry",
+    "beh_tree__blackboard__preferedWeapon": 1,
+    "human_weap__weapTemplates:object": {
+      "primary": "browning_auto_5_gun",
+      "secondary": "m1903_springfield_gun",
+      "tertiary": "m1911_colt_gun",
+      "melee": "knife_weapon",
+      "grenade": "grenade_thrower"
+    },
+    "human_weap__weapInfo:array": [
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "browning_auto_5_magazine",
+          "numReserveAmmo": 3
+        }
+      },
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "m1903_springfield_magazine",
+          "numReserveAmmo": 5
+        }
+      },
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "m1911_colt_magazine",
+          "numReserveAmmo": 3
+        }
+      },
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "",
+          "numReserveAmmo": 0
+        }
+      },
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "mk2_grenade_item",
+          "numReserveAmmo": 2
+        }
+      }
+    ],
+    "_group": {
+      "_tags": "server",
+      "human_weap__template_deps:ecs::TemplatesListToInstantiate": [],
+      "human_weap__template_deps_list:list<t>": [
+        {
+          "tmpl": "browning_auto_5_magazine"
+        },
+        {
+          "tmpl": "m1903_springfield_magazine"
+        },
+        {
+          "tmpl": "m1911_colt_magazine"
+        },
+        {
+          "tmpl": "mk2_grenade_item"
+        }
+      ]
+    }
+  },
+  "usa_sniper_preset": {
+    "weaponPreset": "Sniper",
+    "beh_tree__blackboard__preferedWeapon": 1,
+    "human_weap__weapTemplates:object": {
+      "primary": "browning_auto_5_gun",
+      "secondary": "m1_garand_gun",
+      "tertiary": "m1911_colt_gun",
+      "melee": "knife_weapon",
+      "grenade": "grenade_thrower"
+    },
+    "human_weap__weapInfo:array": [
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "browning_auto_5_magazine",
+          "numReserveAmmo": 3
+        }
+      },
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "m1_garand_magazine",
+          "numReserveAmmo": 5,
+          "gunMods:object": {
+            "scope": "scope_m84"
+          }
+        }
+      },
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "m1911_colt_magazine",
+          "numReserveAmmo": 3
+        }
+      },
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "",
+          "numReserveAmmo": 0
+        }
+      },
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "mk2_grenade_item",
+          "numReserveAmmo": 1
+        }
+      }
+    ],
+    "_group": {
+      "_tags": "server",
+      "human_weap__template_deps:ecs::TemplatesListToInstantiate": [],
+      "human_weap__template_deps_list:list<t>": [
+        {
+          "tmpl": "browning_auto_5_magazine"
+        },
+        {
+          "tmpl": "m1_garand_magazine"
+        },
+        {
+          "tmpl": "m1911_colt_magazine"
+        },
+        {
+          "tmpl": "mk2_grenade_item"
+        }
+      ]
+    }
+  },
+  "usa_marksman_preset": {
+    "weaponPreset": "Marksman",
+    "human_weap__weapTemplates:object": {
+      "primary": "m1_carbine_gun",
+      "secondary": "",
+      "tertiary": "m1911_colt_gun",
+      "melee": "knife_weapon",
+      "grenade": "grenade_thrower"
+    },
+    "human_weap__weapInfo:array": [
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "m1_carbine_magazine",
+          "numReserveAmmo": 4
+        }
+      },
+      {
+        "weapInfo:object": []
+      },
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "m1911_colt_magazine",
+          "numReserveAmmo": 3
+        }
+      },
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "",
+          "numReserveAmmo": 0
+        }
+      },
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "mk2_grenade_item",
+          "numReserveAmmo": 1
+        }
+      }
+    ],
+    "_group": {
+      "_tags": "server",
+      "human_weap__template_deps:ecs::TemplatesListToInstantiate": [],
+      "human_weap__template_deps_list:list<t>": [
+        {
+          "tmpl": "m1_carbine_magazine"
+        },
+        {
+          "tmpl": "m1911_colt_magazine"
+        },
+        {
+          "tmpl": "mk2_grenade_item"
+        }
+      ]
+    }
+  },
+  "usa_heavy_assault_preset": {
+    "weaponPreset": "Heavy assault",
+    "human_weap__weapTemplates:object": {
+      "primary": "m1a1_thompson_gun",
+      "secondary": "",
+      "tertiary": "m1911_colt_gun",
+      "melee": "knife_weapon",
+      "grenade": "grenade_thrower"
+    },
+    "human_weap__weapInfo:array": [
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "m1928a_thompson_magazine",
+          "numReserveAmmo": 5
+        }
+      },
+      {
+        "weapInfo:object": []
+      },
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "m1911_colt_magazine",
+          "numReserveAmmo": 3
+        }
+      },
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "",
+          "numReserveAmmo": 0
+        }
+      },
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "mk2_grenade_item",
+          "numReserveAmmo": 1
+        }
+      }
+    ],
+    "_group": {
+      "_tags": "server",
+      "human_weap__template_deps:ecs::TemplatesListToInstantiate": [],
+      "human_weap__template_deps_list:list<t>": [
+        {
+          "tmpl": "m1928a_thompson_magazine"
+        },
+        {
+          "tmpl": "m1911_colt_magazine"
+        },
+        {
+          "tmpl": "mk2_grenade_item"
+        }
+      ]
+    }
+  },
+  "usa_machine_gunner_preset": {
+    "weaponPreset": "Machine gunner",
+    "human_weap__weapTemplates:object": {
+      "primary": "browning_m1918_gun",
+      "secondary": "",
+      "tertiary": "m1911_colt_gun",
+      "melee": "knife_weapon",
+      "grenade": "grenade_thrower"
+    },
+    "human_weap__weapInfo:array": [
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "browning_m1918_magazine",
+          "numReserveAmmo": 5
+        }
+      },
+      {
+        "weapInfo:object": []
+      },
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "m1911_colt_magazine",
+          "numReserveAmmo": 3
+        }
+      },
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "",
+          "numReserveAmmo": 0
+        }
+      },
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "mk2_grenade_item",
+          "numReserveAmmo": 1
+        }
+      }
+    ],
+    "_group": {
+      "_tags": "server",
+      "human_weap__template_deps:ecs::TemplatesListToInstantiate": [],
+      "human_weap__template_deps_list:list<t>": [
+        {
+          "tmpl": "browning_m1918_magazine"
+        },
+        {
+          "tmpl": "m1911_colt_magazine"
+        },
+        {
+          "tmpl": "mk2_grenade_item"
+        }
+      ]
+    }
+  },
+  "usa_anti_armor_preset": {
+    "weaponPreset": "Anti-armor",
+    "human_weap__weapTemplates:object": {
+      "primary": "m3_submachine_gun_gun",
+      "secondary": "m1_bazooka_gun",
+      "tertiary": "m1911_colt_gun",
+      "melee": "knife_weapon",
+      "grenade": "grenade_thrower"
+    },
+    "human_weap__weapInfo:array": [
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "m3_submachine_gun_magazine",
+          "numReserveAmmo": 4
+        }
+      },
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "m6a1_bazooka_item",
+          "numReserveAmmo": 5
+        }
+      },
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "m1911_colt_magazine",
+          "numReserveAmmo": 3
+        }
+      },
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "",
+          "numReserveAmmo": 0
+        }
+      },
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "mk2_grenade_item",
+          "numReserveAmmo": 1
+        }
+      }
+    ],
+    "_group": {
+      "_tags": "server",
+      "human_weap__template_deps:ecs::TemplatesListToInstantiate": [],
+      "human_weap__template_deps_list:list<t>": [
+        {
+          "tmpl": "m3_submachine_gun_magazine"
+        },
+        {
+          "tmpl": "m6a1_bazooka_item"
+        },
+        {
+          "tmpl": "m1911_colt_magazine"
+        },
+        {
+          "tmpl": "mk2_grenade_item"
+        }
+      ]
+    }
+  }
+}

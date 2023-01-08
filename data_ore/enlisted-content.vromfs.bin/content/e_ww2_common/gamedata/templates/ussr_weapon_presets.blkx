@@ -1,0 +1,272 @@
+{
+  "ussr_light_assault_preset": {
+    "weaponPreset": "Light assault",
+    "human_weap__weapTemplates:object": {
+      "primary": "ppd_3438_gun",
+      "secondary": "",
+      "tertiary": "tt_33_gun",
+      "melee": "knife_weapon",
+      "grenade": "grenade_thrower"
+    },
+    "human_weap__weapInfo:array": [
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "ppsh_drum",
+          "numReserveAmmo": 3
+        }
+      },
+      {
+        "weapInfo:object": []
+      },
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "tt_magazine",
+          "numReserveAmmo": 3
+        }
+      },
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "",
+          "numReserveAmmo": 0
+        }
+      },
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "mk2_grenade_item",
+          "numReserveAmmo": 1
+        }
+      }
+    ],
+    "_group": {
+      "_tags": "server",
+      "human_weap__template_deps:ecs::TemplatesListToInstantiate": [],
+      "human_weap__template_deps_list:list<t>": [
+        {
+          "tmpl": "ppsh_drum"
+        },
+        {
+          "tmpl": "tt_magazine"
+        },
+        {
+          "tmpl": "mk2_grenade_item"
+        }
+      ]
+    }
+  },
+  "ussr_infantry_preset": {
+    "weaponPreset": "Infantry",
+    "human_weap__weapTemplates:object": {
+      "primary": "mosin_m38_gun",
+      "secondary": "",
+      "tertiary": "tt_33_gun",
+      "melee": "knife_weapon",
+      "grenade": "grenade_thrower"
+    },
+    "human_weap__weapInfo:array": [
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "mosin_magazine",
+          "numReserveAmmo": 5
+        }
+      },
+      {
+        "weapInfo:object": []
+      },
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "tt_magazine",
+          "numReserveAmmo": 3
+        }
+      },
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "",
+          "numReserveAmmo": 0
+        }
+      },
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "mk2_grenade_item",
+          "numReserveAmmo": 2
+        }
+      }
+    ],
+    "_group": {
+      "_tags": "server",
+      "human_weap__template_deps:ecs::TemplatesListToInstantiate": [],
+      "human_weap__template_deps_list:list<t>": [
+        {
+          "tmpl": "mosin_magazine"
+        },
+        {
+          "tmpl": "tt_magazine"
+        },
+        {
+          "tmpl": "mk2_grenade_item"
+        }
+      ]
+    }
+  },
+  "ussr_sniper_preset": {
+    "weaponPreset": "Sniper",
+    "human_weap__weapTemplates:object": {
+      "primary": "avs_36_gun",
+      "secondary": "",
+      "tertiary": "tt_33_gun",
+      "melee": "knife_weapon",
+      "grenade": "grenade_thrower"
+    },
+    "human_weap__weapInfo:array": [
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "avs_36_magazine",
+          "numReserveAmmo": 5
+        }
+      },
+      {
+        "weapInfo:object": []
+      },
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "tt_magazine",
+          "numReserveAmmo": 3
+        }
+      },
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "",
+          "numReserveAmmo": 0
+        }
+      },
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "mk2_grenade_item",
+          "numReserveAmmo": 1
+        }
+      }
+    ],
+    "_group": {
+      "_tags": "server",
+      "human_weap__template_deps:ecs::TemplatesListToInstantiate": [],
+      "human_weap__template_deps_list:list<t>": [
+        {
+          "tmpl": "avs_36_magazine"
+        },
+        {
+          "tmpl": "tt_magazine"
+        },
+        {
+          "tmpl": "mk2_grenade_item"
+        }
+      ]
+    }
+  },
+  "ussr_marksman_preset": {
+    "weaponPreset": "Marksman",
+    "human_weap__weapTemplates:object": {
+      "primary": "svt_40_gun",
+      "secondary": "",
+      "tertiary": "tt_33_gun",
+      "melee": "knife_weapon",
+      "grenade": "grenade_thrower"
+    },
+    "human_weap__weapInfo:array": [
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "svt_40_magazine",
+          "numReserveAmmo": 4
+        }
+      },
+      {
+        "weapInfo:object": []
+      },
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "tt_magazine",
+          "numReserveAmmo": 3
+        }
+      },
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "",
+          "numReserveAmmo": 0
+        }
+      },
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "mk2_grenade_item",
+          "numReserveAmmo": 1
+        }
+      }
+    ],
+    "_group": {
+      "_tags": "server",
+      "human_weap__template_deps:ecs::TemplatesListToInstantiate": [],
+      "human_weap__template_deps_list:list<t>": [
+        {
+          "tmpl": "svt_40_magazine"
+        },
+        {
+          "tmpl": "tt_magazine"
+        },
+        {
+          "tmpl": "mk2_grenade_item"
+        }
+      ]
+    }
+  },
+  "ussr_heavy_assault_preset": {
+    "weaponPreset": "Heavy assault",
+    "human_weap__weapTemplates:object": {
+      "primary": "ppsh_41_gun",
+      "secondary": "",
+      "tertiary": "tt_33_gun",
+      "melee": "knife_weapon",
+      "grenade": "grenade_thrower"
+    },
+    "human_weap__weapInfo:array": [
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "ppsh_drum",
+          "numReserveAmmo": 5
+        }
+      },
+      {
+        "weapInfo:object": []
+      },
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "tt_magazine",
+          "numReserveAmmo": 3
+        }
+      },
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "",
+          "numReserveAmmo": 0
+        }
+      },
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "mk2_grenade_item",
+          "numReserveAmmo": 1
+        }
+      }
+    ],
+    "_group": {
+      "_tags": "server",
+      "human_weap__template_deps:ecs::TemplatesListToInstantiate": [],
+      "human_weap__template_deps_list:list<t>": [
+        {
+          "tmpl": "ppsh_drum"
+        },
+        {
+          "tmpl": "tt_magazine"
+        },
+        {
+          "tmpl": "mk2_grenade_item"
+        }
+      ]
+    }
+  }
+}

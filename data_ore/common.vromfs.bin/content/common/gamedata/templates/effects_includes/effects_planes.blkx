@@ -1,0 +1,105 @@
+{
+  "planes_effect_base": [
+    {
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [0.0,0.0,0.0]
+      ]
+    },
+    {
+      "effect__velocity": [0.0,0.0,0.0]
+    },
+    {
+      "effect__spawnRate": 1.0
+    },
+    {
+      "_tracked": "effect__velocity"
+    },
+    {
+      "_tracked": "effect__spawnRate"
+    },
+    {
+      "_tracked": "plane_effect__emitterPos"
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "plane_effect__nodeId": -1,
+        "plane_effect__fxType": -1,
+        "plane_effect__emitterPos": [0.0,0.0,0.0],
+        "plane_effect__emitterLocalPos": [0.0,0.0,0.0],
+        "plane_effect__minDistSqToUpdateEmitterTm": 0.01,
+        "effect": [],
+        "plane_effect__planeEid:eid": []
+      }
+    },
+    {
+      "staticEffect:tag": []
+    }
+  ],
+  "trail_plane_water_leak_effect": {
+    "_extends": "planes_effect_base",
+    "_group": {
+      "_tags": "render",
+      "effect__name": "trail_plane_water_leak_cmps_fx"
+    }
+  },
+  "trail_plane_fuel_leak_effect": {
+    "_extends": "planes_effect_base",
+    "_group": {
+      "_tags": "render",
+      "effect__name": "trail_plane_fuel_leak_cmps_fx"
+    }
+  },
+  "trail_plane_oil_leak_effect": {
+    "_extends": "planes_effect_base",
+    "_group": {
+      "_tags": "render",
+      "effect__name": "trail_plane_oil_leak_cmps_fx"
+    }
+  },
+  "trail_plane_smoke_minor_effect": {
+    "_extends": "planes_effect_base",
+    "_group": {
+      "_tags": "render",
+      "effect__name": "trail_plane_smoke_minor_cmps_fx"
+    }
+  },
+  "trail_plane_smoke_major_effect": {
+    "_extends": "planes_effect_base",
+    "_group": {
+      "_tags": "render",
+      "effect__name": "trail_plane_smoke_major_cmps_fx"
+    }
+  },
+  "trail_plane_fire_minor_effect": {
+    "_extends": "planes_effect_base",
+    "_group": {
+      "_tags": "render",
+      "effect__name": "trail_plane_fire_minor_cmps_fx"
+    }
+  },
+  "trail_plane_fire_major_effect": {
+    "_extends": "planes_effect_base",
+    "_group": {
+      "_tags": "render",
+      "effect__name": "trail_plane_fire_major_cmps_fx"
+    }
+  },
+  "trail_plane_fire_small_effect": {
+    "_extends": "planes_effect_base",
+    "_group": {
+      "_tags": "render",
+      "effect__name": "trail_plane_fire_small_cmps_fx"
+    }
+  },
+  "explosion_midair_rocket_medium": {
+    "_extends": "planes_effect_base",
+    "_group": {
+      "_tags": "render",
+      "effect__name": "explosion_midair_rocket_medium_cmps_fx"
+    }
+  }
+}

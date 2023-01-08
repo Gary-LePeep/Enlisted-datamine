@@ -1,0 +1,95 @@
+{
+  "resupply_zone": [
+    {
+      "active": true
+    },
+    {
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [0.0,0.0,0.0]
+      ]
+    },
+    {
+      "ui_order": -1
+    },
+    {
+      "sphere_zone__radius": 10.0
+    },
+    {
+      "zone__icon": "!ui/skin#bullets.svg"
+    },
+    {
+      "zone__caption": ""
+    },
+    {
+      "_extends": "replicating"
+    },
+    {
+      "_tracked": "ui_order"
+    },
+    {
+      "_tracked": "active"
+    },
+    {
+      "_tracked": "transform"
+    },
+    {
+      "_tracked": "sphere_zone__radius"
+    },
+    {
+      "_tracked": "resupply_zone__team"
+    },
+    {
+      "_replicated": "active"
+    },
+    {
+      "_replicated": "resupply_zone__team"
+    },
+    {
+      "resupply_zone__resupplyTime": 0.0
+    },
+    {
+      "resupply_zone__resupplyFuel": false
+    },
+    {
+      "resupply_zone__duration": 3.0
+    },
+    {
+      "resupply_zone__cooldown": 30.0
+    },
+    {
+      "resupply_zone__team": -1
+    },
+    {
+      "resupply_zone__nextUpdateAtTime": -1.0
+    },
+    {
+      "resupply_zone__updateInterval": 1.25
+    },
+    {
+      "resupplyZone:tag": []
+    }
+  ],
+  "resupply_in_air_zone": {
+    "_extends": "resupply_zone",
+    "sphere_zone__radius": 1000.0,
+    "resupply_zone__resupplyFuel": true,
+    "planeResupply:tag": []
+  },
+  "resupply_for_air_planes_only_zone": {
+    "_extends": "resupply_in_air_zone",
+    "resupply_zone__type": "air"
+  },
+  "resupply_for_seaplanes_zone": {
+    "_extends": "resupply_in_air_zone",
+    "resupply_zone__type": "water"
+  },
+  "resupply_for_ground_vehicle_zone": {
+    "_extends": "resupply_zone",
+    "sphere_zone__radius": 10.0,
+    "groupName": "",
+    "groundVehicleResupply:tag": []
+  }
+}

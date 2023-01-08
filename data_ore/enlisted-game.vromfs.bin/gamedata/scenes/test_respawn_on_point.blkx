@@ -1,0 +1,233 @@
+[
+  {
+    "import": {
+      "scene": "content/enlisted/gamedata/scenes/_normandy_sounds.blk"
+    }
+  },
+  {
+    "import": {
+      "scene": "content/enlisted/gamedata/scenes/_normandy_shore_sound.blk"
+    }
+  },
+  {
+    "entity": {
+      "_template": "static_cam",
+      "camera__active": true,
+      "transform": [
+        [-0.238094,-0.000636627,0.971241],
+        [-0.22585,0.972623,-0.0547284],
+        [-0.944618,-0.232386,-0.23172],
+        [57.7483,101.734,-289.515]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "level",
+      "level__blk": "content/enlisted/levels/normandy_beach_fortified_1x1.blk",
+      "level__timeRange": [5.0,18.0],
+      "level__timeVec:array": {
+        "level_timeVec": 6.5
+      },
+      "level__weatherChoice:object": {
+        "weather_overcast_b": 1.0
+      }
+    }
+  },
+  {
+    "entity": {
+      "_template": "minimap_normandy_beach_fortified"
+    }
+  },
+  {
+    "entity": {
+      "_template": "water",
+      "water__strength": 2.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "wind"
+    }
+  },
+  {
+    "entity": {
+      "_template": "session_finalizer",
+      "session_finalizer__timer": 10.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "door_mult_ent_generator",
+      "ri_extra_gen__blk": "content/e_normandy/gamedata/normandy_doors.blk"
+    }
+  },
+  {
+    "entity": {
+      "_template": "shaderVars",
+      "shader_vars__vars:object": {
+        "hmap_displacement_up": 0.3,
+        "ocean1": "#8e894700",
+        "ocean0": "#4c3f0500",
+        "ocean_density": 0.1,
+        "river1": "#8e894700",
+        "river0": "#4c3f0500",
+        "hmap_displacement_down": -0.15,
+        "paint_details_tex": "normandy_wall_color_tex_palette*",
+        "water_color_noise_size": 71.0,
+        "river_density": 0.3
+      }
+    }
+  },
+  {
+    "entity": {
+      "_template": "postfx_color_grading_tonemap_death_alive_enlisted"
+    }
+  },
+  {
+    "entity": {
+      "_template": "postfx_roundctrl"
+    }
+  },
+  {
+    "entity": {
+      "_template": "team_usa+team_narrator_domination",
+      "team__id": 1,
+      "team__score": 2000.0,
+      "team__scoreCap": 2000.0,
+      "score_bleed__domBleed": 1.0,
+      "score_bleed__domBleedOn": false,
+      "score_bleed__totalDomZoneCount": 3,
+      "score_bleed__totalDomBleedMul": 0.0,
+      "score_bleed__totalDomBleedOn": false,
+      "team__briefing": "domination/common_goals",
+      "team__numZonesCaptured": 0,
+      "team__deathPenalty": 0.0,
+      "team__spawnBotArmy": "normandy_allies"
+    }
+  },
+  {
+    "entity": {
+      "_template": "team_germany+team_narrator_domination",
+      "team__id": 2,
+      "team__score": 2000.0,
+      "team__scoreCap": 2000.0,
+      "score_bleed__domBleed": 1.0,
+      "score_bleed__domBleedOn": false,
+      "score_bleed__totalDomZoneCount": 3,
+      "score_bleed__totalDomBleedMul": 0.0,
+      "score_bleed__totalDomBleedOn": false,
+      "team__briefing": "domination/common_goals",
+      "team__numZonesCaptured": 0,
+      "team__deathPenalty": 0.0,
+      "team__spawnBotArmy": "normandy_axis"
+    }
+  },
+  {
+    "entity": {
+      "_template": "domination_sphere_capzone",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,0.999998,0.00182071],
+        [0.0,-0.00182071,0.999998],
+        [-129.671,68.3553,-296.459]
+      ],
+      "sphere_zone__radius": 6.0,
+      "capzone__title": "A",
+      "ui_order": 0,
+      "decal__height": 0.3,
+      "decal__thickness": 0.3,
+      "decal__id": 0
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawnChooser+respTeam1",
+      "transform": [
+        [0.254236,0.0142996,0.967036],
+        [-0.0850835,0.996345,0.00763559],
+        [0.963393,0.0842201,-0.254523],
+        [-134.477,69.366,-307.746]
+      ],
+      "respawnBaseGroup": 1,
+      "active": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawnChooser+respTeam1",
+      "transform": [
+        [0.286173,0.0808248,0.954762],
+        [0.00338116,0.996345,-0.0853585],
+        [0.958173,-0.0276555,-0.284854],
+        [-140.307,71.1511,-334.895]
+      ],
+      "respawnBaseGroup": 2
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawnChooser+respTeam2",
+      "transform": [
+        [0.0280141,0.0854253,-0.995951],
+        [-0.00240193,0.996345,0.0853917],
+        [-0.999605,0.0,-0.0281171],
+        [-130.679,69.1531,-285.026]
+      ],
+      "respawnBaseGroup": 1,
+      "active": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawnChooser+respTeam2",
+      "transform": [
+        [-0.0528149,0.0854253,-0.994944],
+        [0.00452825,0.996345,0.0853053],
+        [-0.998594,0.0,0.0530084],
+        [-133.017,68.7002,-258.527]
+      ],
+      "respawnBaseGroup": 2
+    }
+  },
+  {
+    "entity": {
+      "_template": "box_battle_area",
+      "transform": [
+        [-269.404,0.0,11.3328],
+        [0.0,50.9745,0.0],
+        [-21.1077,0.0,-540.778],
+        [-212.701,58.9614,-298.263]
+      ],
+      "battle_area__timeToDamage": 10.0,
+      "battle_area__damage": 1.0,
+      "battle_area__team": -1
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawn_camera",
+      "respawnCameraForTeam": 1,
+      "moveCameraToHeight": 60.0,
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [-161.579,136.743,-411.767]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawn_camera",
+      "respawnCameraForTeam": 2,
+      "moveCameraToHeight": 60.0,
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [-139.709,129.39,-182.663]
+      ]
+    }
+  }
+]

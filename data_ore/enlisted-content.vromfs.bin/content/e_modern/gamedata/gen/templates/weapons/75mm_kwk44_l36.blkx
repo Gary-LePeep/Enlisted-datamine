@@ -1,0 +1,62 @@
+{
+  "base_75mm_kwk44_l36": {
+    "item__name": "guns/75mm_kwk44_l36",
+    "gun__blk": "content/e_modern/gamedata/gen/weapons/75mm_kwk44_l36.blk",
+    "gun__shotFreq": 0.25,
+    "gun__locName": "75mm_kwk44_l36",
+    "gun__ammoSetsInfo:shared:array": {
+      "defaultSet:array": {
+        "shell:object": {
+          "blk": "content/e_modern/gamedata/gen/weapons/shells/75mm_kwk44_l36_defaultset.blk",
+          "name": "75mm_grhl_38_b",
+          "type": "heat_tank"
+        }
+      },
+      "75mm_ger_kwk44_HEAT:array": {
+        "shell:object": {
+          "blk": "content/e_modern/gamedata/gen/weapons/shells/75mm_kwk44_l36_75mm_ger_kwk44_heat.blk",
+          "name": "75mm_grhl_38_b",
+          "type": "heat_tank"
+        }
+      },
+      "75mm_ger_kwk44_HE:array": {
+        "shell:object": {
+          "blk": "content/e_modern/gamedata/gen/weapons/shells/75mm_kwk44_l36_75mm_ger_kwk44_he.blk",
+          "name": "75mm_sprgr_34",
+          "type": "he_frag_tank"
+        }
+      },
+      "75mm_ger_kwk44_Hl_C_HEAT:array": {
+        "shell:object": {
+          "blk": "content/e_modern/gamedata/gen/weapons/shells/75mm_kwk44_l36_75mm_ger_kwk44_hl_c_heat.blk",
+          "name": "75mm_grhl_38_c",
+          "type": "heat_tank"
+        }
+      },
+      "75mm_ger_Smoke:array": {
+        "shell:object": {
+          "blk": "content/e_modern/gamedata/gen/weapons/shells/75mm_kwk44_l36_75mm_ger_smoke.blk",
+          "name": "75mm_k_gr_rot_nb",
+          "type": "smoke_tank"
+        }
+      }
+    }
+  },
+  "tankgun_75mm_kwk44_l36": [
+    {
+      "_extends": "tankgun"
+    },
+    {
+      "_extends": "base_tankgun_cannon"
+    },
+    {
+      "_extends": "base_75mm_kwk44_l36"
+    },
+    {
+      "_extends": "gunsound_75mm_kwk44"
+    },
+    {
+      "turret__triggerGroup": 1
+    }
+  ]
+}

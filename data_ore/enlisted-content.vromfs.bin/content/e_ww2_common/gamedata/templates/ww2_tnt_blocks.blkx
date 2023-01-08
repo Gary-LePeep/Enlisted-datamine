@@ -1,0 +1,440 @@
+{
+  "tnt_block_exploder_sound": {
+    "_group": {
+      "_tags": "sound",
+      "gun_shot_dry_sound__path": "player/weapon/tnt_block_exploder/activate"
+    }
+  },
+  "tnt_block_exploder": [
+    {
+      "_extends": "item"
+    },
+    {
+      "_extends": "equipable_gun"
+    },
+    {
+      "_extends": "tnt_block_exploder_sound"
+    },
+    {
+      "animchar__res": "sov_pm_2_char"
+    },
+    {
+      "animchar_render__enabled": true
+    },
+    {
+      "collres__res": "sov_pm_2_collision"
+    },
+    {
+      "gun__blk": "content/e_ww2_common/gamedata/weapons/tnt_block_exploder.blk"
+    },
+    {
+      "gun__locName": "tnt_block_exploder"
+    },
+    {
+      "gun__reloadable": false
+    },
+    {
+      "gun__ammoSyncDelay": 1.0
+    },
+    {
+      "gun__ammo": 0
+    },
+    {
+      "gun__maxAmmo": 0
+    },
+    {
+      "gun__shotFreq": 1.0
+    },
+    {
+      "gun__automaticReload": true
+    },
+    {
+      "gun__visible": true
+    },
+    {
+      "gun__shootNodeName": ""
+    },
+    {
+      "weapon_rearsight_node__nodeName": ""
+    },
+    {
+      "item__iconRoll": 30.0
+    },
+    {
+      "item__iconScale": 1.1
+    },
+    {
+      "item__iconYaw": 45.0
+    },
+    {
+      "item__name": "items/tnt_block_exploder"
+    },
+    {
+      "item__template": "tnt_block_exploder"
+    },
+    {
+      "item__weapTemplate": "tnt_block_exploder"
+    },
+    {
+      "item__weapType": "tnt_block_exploder"
+    },
+    {
+      "item__weight": 0.8
+    },
+    {
+      "item__proto": "content/e_ww2_common/gamedata/weapons/tnt_block_exploder.blk"
+    },
+    {
+      "item__locDetails": ""
+    },
+    {
+      "item__id": 0
+    },
+    {
+      "tnt_block_exploder__isShootPressed": false
+    },
+    {
+      "tnt_block_exploder__isLoaded": true
+    },
+    {
+      "tnt_block_exploder__explodeAnimStartTime": 0.0
+    },
+    {
+      "tnt_block_exploder__explodeAnimEndTime": 0.0
+    },
+    {
+      "tnt_block_exploder__explodeAtBoltActionProgress": 0.45
+    },
+    {
+      "tnt_block_exploder__boltActionProgress": 0.0
+    },
+    {
+      "tnt_block_exploder__reloadProgress": 0.0
+    },
+    {
+      "tnt_block_exploder__reloadAnimTime": 1.0
+    },
+    {
+      "_tracked": "gun__visible"
+    },
+    {
+      "collres": []
+    },
+    {
+      "gun__shells:array": {
+        "shells": "content/e_ww2_common/gamedata/weapons/shells/tnt_block_exploder_dummy.blk"
+      }
+    },
+    {
+      "gun__firingModes:array": {
+        "mode:object": {
+          "modeType": "burst"
+        }
+      }
+    },
+    {
+      "gun__firingModeNames:array": {
+        "mode": ""
+      }
+    },
+    {
+      "item__weapSlots:array": {
+        "slot": "special"
+      }
+    },
+    {
+      "_group": {
+        "ui__geom_node_idx": -1,
+        "ui__node_pos": [0.0,0.0,0.0],
+        "ui__geom_node_name": "weaponRoot",
+        "_tags": "ui"
+      }
+    },
+    {
+      "specialWeapItem:tag": []
+    },
+    {
+      "itemInWeaponSlot:tag": []
+    },
+    {
+      "tntBlockExploder:tag": []
+    },
+    {
+      "doNotHideWeapWithoutAmmo:tag": []
+    },
+    {
+      "notShootableGun:tag": []
+    },
+    {
+      "disableMelee:tag": []
+    },
+    {
+      "gunAnimOffsetAlwaysInAim:tag": []
+    }
+  ],
+  "tnt_block_shell": {
+    "_extends": "projectile_with_shell",
+    "animchar__res": "satchel_charge_char",
+    "shell__expl_node": "weaponRoot",
+    "item__name": "items/tnt_block",
+    "gun__statName": "tnt_block",
+    "shell__infantryKillStat": "infantry_tnt_kills",
+    "shell__crewKillStat": "crew_tnt_kills",
+    "shell__vehicleKillStat": "vehicle_tnt_kills",
+    "shell__killSoldierStat": "explosiveKills",
+    "animchar_no_update:tag": []
+  },
+  "tnt_block_phys": {
+    "_extends": "explosion_pack_phys"
+  },
+  "tnt_block_activator": {
+    "on_create__spawnActivatedShellBlk": "content/e_ww2_common/gamedata/weapons/tnt_block.blk",
+    "on_create__spawnShellTimer": 0.0,
+    "transform": [
+      [1.0,0.0,0.0],
+      [0.0,1.0,0.0],
+      [0.0,0.0,1.0],
+      [0.0,0.0,0.0]
+    ],
+    "ownerEid:eid": []
+  },
+  "base_tnt_block": [
+    {
+      "_extends": "replicating"
+    },
+    {
+      "_extends": "item"
+    },
+    {
+      "_extends": "melee_weapon"
+    },
+    {
+      "_extends": "placeable_item"
+    },
+    {
+      "_extends": "base_hitpoints"
+    },
+    {
+      "_extends": "base_dm_parts"
+    },
+    {
+      "_extends": "attachable_to_vehicle"
+    },
+    {
+      "animchar_render__enabled": true
+    },
+    {
+      "animchar__res": "tnt_charge_char"
+    },
+    {
+      "collres__res": "tnt_charge_collision"
+    },
+    {
+      "grid_obj__gridType": "loot"
+    },
+    {
+      "grid_obj__fixedTmScale": -1.0
+    },
+    {
+      "material": "steel"
+    },
+    {
+      "needsBlood": false
+    },
+    {
+      "hitpoints__hp": 10.0
+    },
+    {
+      "hitpoints__hpRecoverySpd": 0.0
+    },
+    {
+      "hitpoints__hpThreshold": 0.0
+    },
+    {
+      "hitpoints__maxHp": 10.0
+    },
+    {
+      "hitpoints__shellDmgMult": 0.3
+    },
+    {
+      "hitpoints__stoppingPower": 0.0
+    },
+    {
+      "item__iconRoll": 0.0
+    },
+    {
+      "item__iconPitch": 90.0
+    },
+    {
+      "item__iconYaw": 0.0
+    },
+    {
+      "item__iconScale": 0.5
+    },
+    {
+      "item__name": "items/tnt_block"
+    },
+    {
+      "item__proto": "base_tnt_block"
+    },
+    {
+      "item__template": "base_tnt_block"
+    },
+    {
+      "item__weapType": "tnt_block"
+    },
+    {
+      "item__grenadeLikeType": "tnt_block"
+    },
+    {
+      "item__weight": 0.8
+    },
+    {
+      "gun__locName": "tnt_block"
+    },
+    {
+      "gun__reloadable": false
+    },
+    {
+      "meleeSoundType": ""
+    },
+    {
+      "melee_weapon__blk": "content/e_ww2_common/gamedata/weapons/tnt_block.blk"
+    },
+    {
+      "weap__sprintLerpFactor": 1.0
+    },
+    {
+      "placeable_item__additionalHeight": 0.012
+    },
+    {
+      "_replicated": "gun__owner"
+    },
+    {
+      "_tracked": "gun__owner"
+    },
+    {
+      "collres": []
+    },
+    {
+      "grid_obj": []
+    },
+    {
+      "killer:eid": []
+    },
+    {
+      "ui__placeableItemMarker:tag": {
+        "_tags": "ui"
+      }
+    },
+    {
+      "gun__owner:eid": []
+    },
+    {
+      "_group": {
+        "ui__node_pos": [0.0,0.0,0.0],
+        "_tags": "ui",
+        "ui__nodePosByCollresBbox:tag": []
+      }
+    },
+    {
+      "_group": {
+        "placeable_item__maxAnimHeight": 0.2,
+        "placeable_item__placeRequestSend": false,
+        "placeable_item__placeRequestReady": false,
+        "placeable_item__additionalRotation": [90.0,0.0,270.0],
+        "placeable_item__allowablePlaceHeight": 0.15,
+        "_tags": "gameClient"
+      }
+    },
+    {
+      "_group": {
+        "tnt_block__activatorTemplate": "tnt_block_activator",
+        "_tags": "server"
+      }
+    },
+    {
+      "item__weapSlots:array": {
+        "slot": "special"
+      }
+    },
+    {
+      "dm_parts__parts:object": {
+        "volumeBox_1:object": {
+          "dmgMult": 1.0,
+          "armor": 0.0
+        }
+      }
+    },
+    {
+      "specialWeapItem:tag": []
+    },
+    {
+      "disableMelee:tag": []
+    },
+    {
+      "itemInWeaponSlot:tag": []
+    },
+    {
+      "allow_friendly_damage:tag": []
+    },
+    {
+      "animchar__noUpdateOnDedicated:tag": []
+    },
+    {
+      "vehicleTriggerable:tag": []
+    },
+    {
+      "tntBlock:tag": []
+    },
+    {
+      "fastPickup:tag": []
+    },
+    {
+      "canItemPickedUpOnlyByLastOwner:tag": []
+    }
+  ],
+  "ussr_tnt_block": {
+    "_extends": "base_tnt_block",
+    "animchar__res": "tnt_charge_ussr_char",
+    "collres__res": "tnt_charge_ussr_collision",
+    "item__proto": "ussr_tnt_block",
+    "item__template": "ussr_tnt_block"
+  },
+  "ger_tnt_block": {
+    "_extends": "base_tnt_block",
+    "animchar__res": "tnt_charge_char",
+    "collres__res": "tnt_charge_collision",
+    "item__proto": "ger_tnt_block",
+    "item__template": "ger_tnt_block"
+  },
+  "usa_tnt_block": {
+    "_extends": "base_tnt_block",
+    "animchar__res": "tnt_charge_usa_char",
+    "collres__res": "tnt_charge_usa_collision",
+    "item__proto": "usa_tnt_block",
+    "item__template": "usa_tnt_block",
+    "placeable_item__additionalHeight": 0.01
+  },
+  "uk_tnt_block": {
+    "_extends": "base_tnt_block",
+    "animchar__res": "tnt_charge_char",
+    "collres__res": "tnt_charge_collision",
+    "item__proto": "uk_tnt_block",
+    "item__template": "uk_tnt_block"
+  },
+  "it_tnt_block": {
+    "_extends": "base_tnt_block",
+    "animchar__res": "tnt_charge_char",
+    "collres__res": "tnt_charge_collision",
+    "item__proto": "it_tnt_block",
+    "item__template": "it_tnt_block"
+  },
+  "jap_tnt_block": {
+    "_extends": "base_tnt_block",
+    "animchar__res": "tnt_charge_jap_char",
+    "collres__res": "tnt_charge_collision",
+    "item__proto": "jap_tnt_block",
+    "item__template": "jap_tnt_block"
+  }
+}

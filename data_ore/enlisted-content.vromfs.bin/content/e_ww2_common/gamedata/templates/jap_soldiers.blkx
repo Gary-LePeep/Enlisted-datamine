@@ -1,0 +1,148 @@
+{
+  "jap_human_voice": {
+    "_group": {
+      "_tags": "sound",
+      "human_sound__playerVoice": "vo/player/enlisted/soldier/jp",
+      "human_sound__npcVoices:list<t>": [
+        {
+          "voice": "vo/enemy/enlisted/soldier01/jp"
+        },
+        {
+          "voice": "vo/enemy/enlisted/soldier02/jp"
+        },
+        {
+          "voice": "vo/enemy/enlisted/soldier03/jp"
+        }
+      ]
+    }
+  },
+  "jap_human_sound_paths": {
+    "human_voice_sound__path:shared:object": {
+      "_tags": "sound",
+      "options:array": [
+        {
+          "asphyxiation:object": {
+            "headIsUnderwater": true
+          }
+        },
+        {
+          "female:object": {
+            "femaleVoice": true,
+            "voice0": true,
+            "hero": "player/walker/ww2_female_soldier/voice_fx",
+            "enemy": "enemy/walker/ww2_female_soldier01/voice_fx"
+          }
+        },
+        {
+          "female:object": {
+            "femaleVoice": true,
+            "voice1": true,
+            "hero": "player/walker/ww2_female_soldier/voice_fx",
+            "enemy": "enemy/walker/ww2_female_soldier02/voice_fx"
+          }
+        },
+        {
+          "female:object": {
+            "femaleVoice": true,
+            "hero": "player/walker/ww2_female_soldier/voice_fx",
+            "enemy": "enemy/walker/ww2_female_soldier03/voice_fx"
+          }
+        },
+        {
+          "male:object": {
+            "voice0": true,
+            "hero": "player/walker/ww2_jp_soldier/voice_fx",
+            "enemy": "enemy/walker/ww2_jp_soldier01/voice_fx"
+          }
+        },
+        {
+          "male:object": {
+            "voice1": true,
+            "hero": "player/walker/ww2_jp_soldier/voice_fx",
+            "enemy": "enemy/walker/ww2_jp_soldier02/voice_fx"
+          }
+        },
+        {
+          "male:object": {
+            "hero": "player/walker/ww2_jp_soldier/voice_fx",
+            "enemy": "enemy/walker/ww2_jp_soldier03/voice_fx"
+          }
+        }
+      ]
+    }
+  },
+  "jap_soldier_speechless": [
+    {
+      "engineer__isMenuOpen": false
+    },
+    {
+      "_tracked": "engineer__isMenuOpen"
+    },
+    {
+      "_extends": "shooter_human"
+    },
+    {
+      "_extends": "human_breath"
+    },
+    {
+      "_extends": "human_sound"
+    },
+    {
+      "_extends": "human_sound_paths"
+    },
+    {
+      "_extends": "human_net_sound"
+    },
+    {
+      "_extends": "squad_member_ai"
+    },
+    {
+      "_extends": "enlisted_human_marker"
+    },
+    {
+      "_extends": "base_human_actions"
+    },
+    {
+      "beh_tree__blackboard__enemyRadius": 90.0
+    },
+    {
+      "human_net_phys__blk": "content/e_ww2_common/gamedata/units/walkers/usa_soldier.blk"
+    }
+  ],
+  "jap_soldier": [
+    {
+      "_extends": "jap_soldier_speechless"
+    },
+    {
+      "_extends": "human_speech"
+    },
+    {
+      "_extends": "human_hooray_speech"
+    },
+    {
+      "_extends": "human_hide_slots_in_scope"
+    },
+    {
+      "_extends": "jap_human_voice"
+    },
+    {
+      "_extends": "jap_human_sound_paths"
+    }
+  ],
+  "jap_base_soldier": [
+    {
+      "_extends": "jap_soldier"
+    },
+    {
+      "_extends": "enlisted_base_soldier"
+    }
+  ],
+  "ai_aircraft_crew_jap_soldier": [
+    {
+      "_extends": "jap_base_soldier"
+    },
+    {
+      "_extends": "ai_aircraft_crew_soldier_base"
+    }
+  ]
+}

@@ -1,0 +1,590 @@
+[
+  {
+    "sequencer": [
+      {
+        "name": "sub.runToTrain"
+      },
+      {
+        "reaction": {
+          "event": "onEnemyPlayerNear",
+          "sequencer": {
+            "findDanger": {
+              "paramName": "shootEnemy",
+              "radiusParamName": "enemyNearRadius",
+              "minDanger": 0.1,
+              "tag": "human"
+            },
+            "recalculateTree": []
+          }
+        }
+      },
+      {
+        "reaction": {
+          "event": "regularCheck",
+          "repeat": [
+            {
+              "count": 1
+            },
+            {
+              "subTree": {
+                "name": "",
+                "treeName": "sub.chooseMaxStance"
+              }
+            },
+            {
+              "subTree": {
+                "name": "",
+                "treeName": "sub.deactivateWeapMod"
+              }
+            },
+            {
+              "subTree": {
+                "name": "",
+                "treeName": "sub.checkDowned"
+              }
+            },
+            {
+              "subTree": {
+                "name": "",
+                "treeName": "sub.checkBurning"
+              }
+            },
+            {
+              "subTree": {
+                "name": "",
+                "treeName": "sub.swimUpCheck"
+              }
+            },
+            {
+              "subTree": {
+                "name": "",
+                "treeName": "sub.tryToOpenDoors"
+              }
+            },
+            {
+              "subTree": {
+                "name": "",
+                "treeName": "sub.findDangerZone"
+              }
+            },
+            {
+              "subTree": {
+                "name": "",
+                "treeName": "sub.findDangerGrenade"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "parallel": {
+          "cycle": {
+            "updateTrainLocalPoint": {
+              "localPosParam": "enterPosition",
+              "worldPosParam": "wishPosition"
+            }
+          },
+          "orderedSelector": [
+            {
+              "sequencer": {
+                "checkDistance": {
+                  "posParam": "wishPosition",
+                  "radius": 4.0,
+                  "yRadius": 4.5
+                },
+                "changeStance": {
+                  "stanceName": "stand"
+                },
+                "parallel": {
+                  "moveByDir": {
+                    "endPos": "wishPosition",
+                    "duration": 2.0,
+                    "distThresholsd": 0.5
+                  },
+                  "walkerClimb": {
+                    "duration": 2.0
+                  }
+                }
+              }
+            },
+            {
+              "sequencer": {
+                "moveToPos": {
+                  "posParam": "wishPosition",
+                  "sprintTimerRange": [10.0,20.0],
+                  "minDistToSprint": 0.5,
+                  "tryClimbing": true,
+                  "distThreshold": 1.0,
+                  "avoidAiObstacles": false,
+                  "minStance": 2
+                },
+                "checkDistance": {
+                  "posParam": "wishPosition",
+                  "radius": 4.0,
+                  "yRadius": 4.5
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "sequencer": [
+      {
+        "name": "sub.oneShootAttackTrain"
+      },
+      {
+        "reaction": {
+          "event": "regularCheck",
+          "repeat": [
+            {
+              "count": 1
+            },
+            {
+              "subTree": {
+                "name": "",
+                "treeName": "sub.chooseMaxStance"
+              }
+            },
+            {
+              "subTree": {
+                "name": "",
+                "treeName": "sub.deactivateWeapMod"
+              }
+            },
+            {
+              "subTree": {
+                "name": "",
+                "treeName": "sub.checkDowned"
+              }
+            },
+            {
+              "subTree": {
+                "name": "",
+                "treeName": "sub.checkBurning"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "reaction": {
+          "event": "onEnemyPlayerNear",
+          "orderedSelector": [
+            {
+              "sequencer": {
+                "findDanger": {
+                  "paramName": "meleeEnemy",
+                  "radiusParamName": "enemyMeleeRadius",
+                  "minDanger": 0.5,
+                  "tag": "human"
+                },
+                "recalculateTree": []
+              }
+            },
+            {
+              "sequencer": {
+                "findDanger": {
+                  "paramName": "shootEnemy",
+                  "radiusParamName": "enemyNearRadius",
+                  "minDanger": 0.5,
+                  "tag": "human"
+                },
+                "orderedSelector": {
+                  "isVarsIntEqual": {
+                    "lhs": "prevShootEnemy",
+                    "rhs": "shootEnemy"
+                  },
+                  "recalculateTree": []
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "chooseBestWeapon": {
+          "targetParam": "shootEnemy"
+        }
+      },
+      {
+        "setCurrentAiAction": {
+          "state": "attack"
+        }
+      },
+      {
+        "getRandomPointNearTarget": {
+          "targetUnitParam": "shootEnemy",
+          "posParam": "posNearTarget",
+          "useGenerationByY": false
+        }
+      },
+      {
+        "rotateToPoint": {
+          "posParam": "posNearTarget"
+        }
+      },
+      {
+        "repeat": {
+          "count": 2,
+          "copyIntVar": {
+            "to": "prevShootEnemy",
+            "from": "shootEnemy"
+          },
+          "shootAtUnit": {
+            "targetUnitParam": "shootEnemy",
+            "minStance": 1,
+            "shootCycles": 1,
+            "tryToSaveCurrentStance": false,
+            "minStanceChance": 1.5,
+            "shootTime": [0.2,1.0],
+            "cooldownTime": [0.1,0.9],
+            "minAimTime": [0.1,0.4],
+            "maxStanceParam": "maxStance"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "repeat": [
+      {
+        "name": "sub.useTrain"
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.chooseMaxStance"
+        }
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.deactivateWeapMod"
+        }
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.selfExtinguish"
+        }
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.selfHealing"
+        }
+      },
+      {
+        "orderedSelector": {
+          "name": "attackTrain",
+          "subTree": {
+            "name": "",
+            "treeName": "sub.enemyMelee"
+          },
+          "sequencer": {
+            "orderedSelector": [
+              {
+                "findDanger": {
+                  "paramName": "shootEnemy",
+                  "radiusParamName": "enemyNearRadius",
+                  "minDanger": 0.1,
+                  "tag": "human"
+                }
+              },
+              {
+                "findDanger": {
+                  "paramName": "shootEnemy",
+                  "radiusParamName": "enemyRadius",
+                  "minDanger": 0.1,
+                  "tag": "human"
+                }
+              }
+            ],
+            "subTree": {
+              "treeName": "sub.oneShootAttackTrain"
+            }
+          }
+        }
+      },
+      {
+        "sequencer": [
+          {
+            "reaction": {
+              "event": "onEnemyPlayerNear",
+              "recalculateTree": []
+            }
+          },
+          {
+            "reaction": {
+              "event": "onBulletNearby",
+              "recalculateTree": []
+            }
+          },
+          {
+            "reaction": {
+              "event": "regularCheck",
+              "subTree": {
+                "treeName": "sub.stayFindDangerCheck"
+              }
+            }
+          },
+          {
+            "orderedSelector": {
+              "isAgentCartEidValid": [],
+              "sequencer": {
+                "resetNavPoints": [],
+                "findAgentCart": [],
+                "findTrainEnterPoint": {
+                  "posParam": "enterPosition",
+                  "init": false
+                },
+                "orderedSelector": {
+                  "sequencer": {
+                    "isOnTheTrainRoof": [],
+                    "findTrainNavPointOnTheRoof": {
+                      "posParam": "navPosition"
+                    }
+                  },
+                  "findTrainNavPoint": {
+                    "posParam": "navPosition"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "orderedSelector": {
+              "sequencer": {
+                "findTrainDangerPoint": {
+                  "posParam": "dangerPosition"
+                },
+                "updateTrainLocalPoint": {
+                  "localPosParam": "dangerPosition",
+                  "worldPosParam": "potentialEnemyPos"
+                }
+              },
+              "findPotentialEnemyPos": {
+                "posParam": "potentialEnemyPos",
+                "minNoiseLevel": 0.1
+              },
+              "findDangerAttractionPos": {
+                "posParam": "potentialEnemyPos",
+                "radius": 0.0,
+                "minNoiseLevel": 0.1
+              }
+            }
+          },
+          {
+            "ifThenElse": [
+              {
+                "isOnTheTrainRoof": []
+              },
+              {
+                "orderedSelector": {
+                  "isNavPointOnTheRoofValid": [],
+                  "sequencer": {
+                    "resetNavPoints": {
+                      "resetCartEid": false
+                    },
+                    "findTrainEnterPoint": {
+                      "posParam": "enterPosition",
+                      "init": false
+                    },
+                    "findTrainNavPointOnTheRoof": {
+                      "posParam": "navPosition"
+                    }
+                  }
+                }
+              },
+              {
+                "orderedSelector": {
+                  "isNavPointValid": [],
+                  "sequencer": {
+                    "resetNavPoints": {
+                      "resetCartEid": false
+                    },
+                    "findTrainEnterPoint": {
+                      "posParam": "enterPosition",
+                      "init": false
+                    },
+                    "findTrainNavPoint": {
+                      "posParam": "navPosition"
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "changeStance": {
+              "stanceName": "stand"
+            }
+          },
+          {
+            "parallel": {
+              "cycle": {
+                "updateTrainLocalPoint": {
+                  "localPosParam": "navPosition",
+                  "worldPosParam": "wishPosition"
+                }
+              },
+              "moveByDir": {
+                "endPos": "wishPosition",
+                "duration": 6.0,
+                "distThreshold": 0.5
+              }
+            }
+          },
+          {
+            "parallel": {
+              "cycle": {
+                "orderedSelector": {
+                  "sequencer": {
+                    "findTrainDangerPoint": {
+                      "posParam": "dangerPosition"
+                    },
+                    "updateTrainLocalPoint": {
+                      "localPosParam": "dangerPosition",
+                      "worldPosParam": "potentialEnemyPos"
+                    }
+                  },
+                  "running": []
+                }
+              },
+              "wait": {
+                "range": [1.5,4.0],
+                "resetable": true
+              },
+              "wanderLook": {
+                "posParam": "potentialEnemyPos",
+                "range": [0.2,0.1],
+                "maxStanceParam": "trainStance"
+              }
+            }
+          },
+          {
+            "parallel": {
+              "cycle": {
+                "orderedSelector": {
+                  "sequencer": {
+                    "findTrainDangerPoint": {
+                      "posParam": "dangerPosition"
+                    },
+                    "updateTrainLocalPoint": {
+                      "localPosParam": "dangerPosition",
+                      "worldPosParam": "potentialEnemyPos"
+                    }
+                  },
+                  "running": []
+                }
+              },
+              "wait": {
+                "range": [1.5,4.0],
+                "resetable": true
+              },
+              "wanderLook": {
+                "posParam": "potentialEnemyPos",
+                "range": [0.2,0.1],
+                "maxStanceParam": "trainStance"
+              }
+            }
+          },
+          {
+            "chooseRandomStance": {
+              "stanceParam": "trainStance",
+              "minStance": 1,
+              "maxStance": 1
+            }
+          },
+          {
+            "chooseRandomStance": {
+              "stanceParam": "trainStance"
+            }
+          },
+          {
+            "subTree": {
+              "name": "",
+              "treeName": "sub.tryCallArtillery"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "repeat": [
+      {
+        "name": "sub.outTrain"
+      },
+      {
+        "orderedSelector": {
+          "isAgentCartEidValid": [],
+          "sequencer": {
+            "resetNavPoints": [],
+            "findAgentCart": []
+          }
+        }
+      },
+      {
+        "orderedSelector": {
+          "isOnTheTrainRoof": [],
+          "sequencer": {
+            "findTrainEnterPoint": {
+              "posParam": "enterPosition",
+              "init": false,
+              "nearestToLeader": true
+            },
+            "changeStance": {
+              "stanceName": "stand"
+            },
+            "parallel": {
+              "cycle": {
+                "updateTrainLocalPoint": {
+                  "localPosParam": "enterPosition",
+                  "worldPosParam": "wishPosition"
+                }
+              },
+              "moveByDir": {
+                "endPos": "wishPosition",
+                "duration": 5.0,
+                "distThreshold": 0.5
+              }
+            }
+          }
+        }
+      },
+      {
+        "findTrainExitPoint": {
+          "posParam": "exitPosition",
+          "nearestToLeader": true
+        }
+      },
+      {
+        "changeStance": {
+          "stanceName": "stand"
+        }
+      },
+      {
+        "parallel": {
+          "cycle": {
+            "updateTrainLocalPoint": {
+              "localPosParam": "exitPosition",
+              "worldPosParam": "wishPosition"
+            }
+          },
+          "moveByDir": {
+            "endPos": "wishPosition",
+            "duration": 5.0,
+            "distThreshold": 0.5
+          }
+        }
+      },
+      {
+        "resetNavPoints": []
+      }
+    ]
+  }
+]

@@ -1,0 +1,94 @@
+{
+  "base_er_2_m105_tat": {
+    "plane_phys_damage__blk": "gamedata/units/er_2_m105_tat.blk",
+    "animchar__res": "er_2_m105_tat_char"
+  },
+  "er_2_m105_tat_wreckage": [
+    {
+      "_extends": "base_er_2_m105_tat"
+    },
+    {
+      "_extends": "plane_wreckage"
+    },
+    {
+      "plane_wreckage__nodeName": ""
+    },
+    {
+      "plane_wreckage__typeName": ""
+    }
+  ],
+  "er_2_m105_tat_base": [
+    {
+      "_extends": "plane_with_cockpit"
+    },
+    {
+      "_extends": "base_er_2_m105_tat"
+    },
+    {
+      "collres__res": "er_2_m105_tat_collision"
+    },
+    {
+      "plane_net_phys__blk": "gamedata/units/er_2_m105_tat.blk"
+    },
+    {
+      "damage_model__blk": "gamedata/units/er_2_m105_tat.blk"
+    },
+    {
+      "plane_collision__blk": "gamedata/units/er_2_m105_tat.blk"
+    },
+    {
+      "plane_anim__blk": "gamedata/units/er_2_m105_tat.blk"
+    },
+    {
+      "plane_sight__blk": "gamedata/units/er_2_m105_tat.blk"
+    },
+    {
+      "plane_input__autopilotImpl": "No"
+    },
+    {
+      "canUseRespawnbaseType": "aircraft_assault"
+    },
+    {
+      "is_seaplane": false
+    },
+    {
+      "plane_wreckage__template": "er_2_m105_tat_wreckage"
+    },
+    {
+      "killLogName": "er_2_m105_tat"
+    },
+    {
+      "animchar__res": "er_2_m105_tat_char"
+    },
+    {
+      "vehicle_seats_camera_nodes__defaultNode": ""
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "animchar_camera_target__node_name": "",
+        "animchar_camera_target__node_offset": [0.0,0.0,0.0]
+      }
+    },
+    {
+      "plane_hit_sound__canopyNodes:list<t>": {
+        "_tags": "sound",
+        "name": "cover2_dm"
+      }
+    },
+    {
+      "vehicle_seats_can_acquire_controls:list<i>": []
+    },
+    {
+      "vehicle_seats__canAcquireControls:shared:object": {
+        "driver:object": {
+          "movement": true,
+          "turrets": true
+        },
+        "main_gunner:object": {
+          "turrets": true
+        }
+      }
+    }
+  ]
+}

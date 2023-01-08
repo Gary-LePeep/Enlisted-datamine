@@ -1,0 +1,174 @@
+{
+  "base_human_actions": [
+    {
+      "action__running": false
+    },
+    {
+      "_tracked": "action__running"
+    },
+    {
+      "_replicated": "actions__actions_enabled"
+    },
+    {
+      "_replicated": "actions__enabled"
+    },
+    {
+      "actions__enabled": true
+    },
+    {
+      "actions": []
+    },
+    {
+      "actions__actions:array": [
+        {
+          "action:object": {
+            "name": "stand_melee",
+            "state": "upper_melee",
+            "class": "melee",
+            "actionTime": 1.0,
+            "applyAt": 0.3,
+            "props": "content/enlisted/gamedata/actions_enlisted/melee.blk",
+            "irq": "melee",
+            "varName": "action_progress"
+          }
+        },
+        {
+          "action:object": {
+            "name": "crawl_melee",
+            "state": "crawl_melee",
+            "class": "melee",
+            "actionTime": 1.0,
+            "applyAt": 0.3,
+            "props": "content/enlisted/gamedata/actions_enlisted/melee.blk",
+            "irq": "melee",
+            "varName": "action_progress"
+          }
+        },
+        {
+          "action:object": {
+            "name": "pickup",
+            "state": "pickup_item",
+            "actionTime": 0.6,
+            "applyAt": 0.5,
+            "props": "content/common/gamedata/actions/pickup.blk",
+            "irq": "pickup_act",
+            "varName": "action_progress"
+          }
+        }
+      ]
+    },
+    {
+      "actions__actions_enabled:array": [
+        {
+          "enabled": true
+        },
+        {
+          "enabled": true
+        },
+        {
+          "enabled": true
+        }
+      ]
+    }
+  ],
+  "human": {
+    "_override": true,
+    "dm_parts__parts:object": {
+      "Bip01 Head:object": {
+        "dmgMult": 2.3,
+        "armor": 0.0,
+        "type": "head"
+      },
+      "Bip01 Neck:object": {
+        "dmgMult": 2.5,
+        "armor": 0.0,
+        "type": "head"
+      },
+      "Bip01 L Thigh:object": {
+        "dmgMult": 0.6,
+        "armor": 0.0,
+        "type": "l_leg"
+      },
+      "Bip01 R Thigh:object": {
+        "dmgMult": 0.6,
+        "armor": 0.0,
+        "type": "r_leg"
+      },
+      "Bip01 L Calf:object": {
+        "dmgMult": 0.45,
+        "armor": 0.0,
+        "type": "l_leg"
+      },
+      "Bip01 R Calf:object": {
+        "dmgMult": 0.45,
+        "armor": 0.0,
+        "type": "r_leg"
+      },
+      "Bip01 L Foot:object": {
+        "dmgMult": 0.3,
+        "armor": 0.0,
+        "type": "l_leg"
+      },
+      "Bip01 R Foot:object": {
+        "dmgMult": 0.3,
+        "armor": 0.0,
+        "type": "r_leg"
+      },
+      "Bip01 Pelvis:object": {
+        "dmgMult": 1.0,
+        "armor": 0.0,
+        "type": "torso"
+      },
+      "Bip01 Spine:object": {
+        "dmgMult": 1.0,
+        "armor": 0.0,
+        "type": "torso"
+      },
+      "Bip01 Spine1:object": {
+        "dmgMult": 1.0,
+        "armor": 0.0,
+        "type": "torso"
+      },
+      "Bip01 R Clavicle:object": {
+        "dmgMult": 1.0,
+        "armor": 0.0,
+        "type": "r_hand"
+      },
+      "Bip01 L Clavicle:object": {
+        "dmgMult": 1.0,
+        "armor": 0.0,
+        "type": "l_hand"
+      },
+      "Bip01 R UpperArm:object": {
+        "dmgMult": 1.0,
+        "armor": 0.0,
+        "type": "r_hand"
+      },
+      "Bip01 L UpperArm:object": {
+        "dmgMult": 1.0,
+        "armor": 0.0,
+        "type": "l_hand"
+      },
+      "Bip01 R Forearm:object": {
+        "dmgMult": 1.0,
+        "armor": 0.0,
+        "type": "r_hand"
+      },
+      "Bip01 L Forearm:object": {
+        "dmgMult": 1.0,
+        "armor": 0.0,
+        "type": "l_hand"
+      },
+      "Bip01 R Hand:object": {
+        "dmgMult": 1.0,
+        "armor": 0.0,
+        "type": "r_hand"
+      },
+      "Bip01 L Hand:object": {
+        "dmgMult": 1.0,
+        "armor": 0.0,
+        "type": "l_hand"
+      }
+    }
+  }
+}

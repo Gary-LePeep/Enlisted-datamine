@@ -1,0 +1,40 @@
+{
+  "repeat": {
+    "name": "squad_member",
+    "sequencer": [
+      {
+        "onceUntilReset": []
+      },
+      {
+        "setIntVar": {
+          "to": "isUnreachable",
+          "value": 0
+        }
+      },
+      {
+        "setIntVar": {
+          "to": "minStance",
+          "value": 0
+        }
+      },
+      {
+        "stopAim": []
+      },
+      {
+        "success": {
+          "sequencer": {
+            "isAgentPlayerBot": [],
+            "setIntVar": {
+              "to": "minStance",
+              "value": 1
+            }
+          }
+        }
+      }
+    ],
+    "subTree": {
+      "name": "",
+      "refId": "behaviour"
+    }
+  }
+}

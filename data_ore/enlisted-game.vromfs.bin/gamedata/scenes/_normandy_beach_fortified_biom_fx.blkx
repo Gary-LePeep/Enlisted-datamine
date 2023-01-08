@@ -1,0 +1,64 @@
+[
+  {
+    "entity": {
+      "_template": "ground_effect",
+      "ground_effect__fx_name": "envir_misc_floating_ashes_effect",
+      "ground_effect__biome_group_name": "burnt_field",
+      "ground_effect__offset_x": [0.0,0.0],
+      "ground_effect__offset_z": [0.0,0.0],
+      "ground_effect__grid_cell_size": 10.0,
+      "ground_effect__vis_radius": 10.0,
+      "ground_effect__biome_weight_for_active_thr": 0.25,
+      "ground_effect__fx_radius": -1.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "ground_effect",
+      "ground_effect__fx_name": "envir_misc_burned_ground_smoke_15m_effect",
+      "ground_effect__biome_group_name": "burnt_field",
+      "ground_effect__rot_z": [0.0,0.0],
+      "ground_effect__offset_x": [0.0,0.0],
+      "ground_effect__offset_y": [0.0,0.0],
+      "ground_effect__offset_z": [0.0,0.0],
+      "ground_effect__grid_cell_size": 16.0,
+      "ground_effect__grid_world_origin": [0.0,0.0],
+      "ground_effect__vis_radius": 50.0,
+      "ground_effect__biome_weight_for_active_thr": 0.25,
+      "ground_effect__fx_radius": -1.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "envir_smoke_bg_thin_effect",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [-541.49,61.73,253.6]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "envir_smoke_bg_big_effect",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [26.56,58.78,-683.91]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "envir_smoke_bg_thin_effect",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [507.25,65.08,114.45]
+      ]
+    }
+  }
+]

@@ -1,0 +1,59 @@
+{
+  "level": {
+    "ground": {
+      "average_ground_albedo": 0.1,
+      "min_ground_offset": 0.0
+    }
+  },
+  "sky": {
+    "mie_height": [1.2,1.2],
+    "mieG": [0.76,0.76],
+    "betaMScale": [1.0,1.0],
+    "clouds_overcast": [0.5,0.5]
+  },
+  "clouds_gen": {
+    "humidity": [0.65,0.65],
+    "persistence": [0.8,0.8],
+    "asymmetry": [0.6,0.6],
+    "seed": 13534
+  },
+  "clouds_position": {
+    "sizeX": [80.0,80.0],
+    "sizeZ": [80.0,80.0],
+    "start_altitude": [1.0,1.0],
+    "thickness": [5.0,5.0],
+    "light_extinction": [2.0,2.0],
+    "amb_extinction_mul": [0.5,0.5]
+  },
+  "clouds_render": {
+    "silver_lining": [0.5,0.5],
+    "sun_light": [0.3,0.3],
+    "ambient": [0.8,0.8],
+    "silver_lining_eccentricity": [0.85,0.85]
+  },
+  "strata_clouds": {
+    "amount": [0.5,0.5],
+    "altitude": [8.0,8.0]
+  },
+  "layered_fog": {
+    "density": 0.001,
+    "height_scale": 0.004,
+    "height": 200.0,
+    "amb_cloudiness_max": 0.45,
+    "amb_cloudiness_min": 1.0,
+    "amb_cloud_brightness_at_max": 1.0,
+    "amb_cloud_brightness_at_min": 0.33,
+    "ambient_color_tint_brightness": 0.66,
+    "ambient_color_tint.r": 1.0,
+    "ambient_color_tint.g": 1.0,
+    "ambient_color_tint.b": 1.0,
+    "sun_cloudiness_max": 0.55,
+    "sun_cloudiness_min": 0.95,
+    "sun_cloud_brightness_at_max": 1.0,
+    "sun_cloud_brightness_at_min": 0.0,
+    "sun_color_tint_brightness": 0.9,
+    "sun_color_tint.r": 1.0,
+    "sun_color_tint.g": 1.0,
+    "sun_color_tint.b": 1.0
+  }
+}

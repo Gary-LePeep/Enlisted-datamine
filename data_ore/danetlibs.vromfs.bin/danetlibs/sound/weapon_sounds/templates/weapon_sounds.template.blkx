@@ -1,0 +1,103 @@
+{
+  "projectile_sound": {
+    "_group": {
+      "_tags": "sound",
+      "projectile_sound__hit": "auto_select",
+      "projectile_sound__explode": "auto_select"
+    }
+  },
+  "projectile_sound_physmat": {
+    "_extends": "sound_physmat",
+    "_group": {
+      "_tags": "sound",
+      "sound_physmat__soundMaterials:list<t>": [
+        {
+          "mat": "dirt"
+        },
+        {
+          "mat": "concrete"
+        },
+        {
+          "mat": "water"
+        },
+        {
+          "mat": "wood"
+        },
+        {
+          "mat": "metal"
+        }
+      ],
+      "sound_physmat__physmatToSoundmat:object": {
+        "concrete": "concrete",
+        "stone": "concrete",
+        "buildings": "concrete",
+        "rocks": "concrete",
+        "rocksSlippery": "concrete",
+        "gravel": "concrete",
+        "ceramic": "concrete",
+        "water": "water",
+        "water3d": "water",
+        "waterPuddle": "water",
+        "wood": "wood",
+        "wood_railway": "wood",
+        "window_wood": "wood",
+        "cactus": "wood",
+        "softWoodDoor": "wood",
+        "metal": "metal",
+        "steel": "metal",
+        "train": "metal",
+        "softSteelDoor": "metal"
+      }
+    },
+    "projectileSoundPhysmat:tag": []
+  },
+  "human_melee_action_sound_physmat": {
+    "_extends": "sound_physmat",
+    "_group": {
+      "_tags": "sound",
+      "sound_physmat__soundMaterials:list<t>": [
+        {
+          "mat": "default"
+        },
+        {
+          "mat": "concrete"
+        },
+        {
+          "mat": "water"
+        },
+        {
+          "mat": "wood"
+        },
+        {
+          "mat": "metal"
+        },
+        {
+          "mat": "cactus"
+        }
+      ],
+      "sound_physmat__physmatToSoundmat:object": {
+        "concrete": "concrete",
+        "stone": "concrete",
+        "buildings": "concrete",
+        "rocks": "concrete",
+        "rocksSlippery": "concrete",
+        "gravel": "concrete",
+        "ceramic": "concrete",
+        "water": "water",
+        "water3d": "water",
+        "waterPuddle": "water",
+        "wood": "wood",
+        "wood_railway": "wood",
+        "window_wood": "wood",
+        "cactus": "wood",
+        "softWoodDoor": "wood",
+        "metal": "metal",
+        "steel": "metal",
+        "train": "metal",
+        "softSteelDoor": "metal",
+        "flesh": ""
+      }
+    },
+    "humanMeleeActionSoundPhysmat:tag": []
+  }
+}

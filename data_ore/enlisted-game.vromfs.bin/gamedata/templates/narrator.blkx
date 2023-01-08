@@ -1,0 +1,694 @@
+{
+  "base_team_narrator": {
+    "team__narrator:object": {
+      "_tags": "sound"
+    }
+  },
+  "team_narrator_tutorial_training": {
+    "_extends": "base_team_narrator",
+    "team__narrator:object": {
+      "_tags": "sound",
+      "leftBattleArea:object": {
+        "path": "vo/ui/enlisted/narrator/leave_area_warn"
+      }
+    }
+  },
+  "team_narrator_domination": {
+    "_extends": "base_team_narrator",
+    "team__narrator:object": {
+      "_tags": "sound",
+      "briefing:object": {
+        "path": "vo/ui/enlisted/narrator/start_domination",
+        "cooldown": 2.0
+      },
+      "win:object": {
+        "path": "vo/ui/enlisted/narrator/victory_domination",
+        "cooldown": 2.0
+      },
+      "lose:object": {
+        "path": "vo/ui/enlisted/narrator/defeat_domination",
+        "cooldown": 2.0
+      },
+      "pointCapturingPlayer:object": {
+        "path": "vo/ui/enlisted/narrator/point_capturing_player",
+        "cooldown": 15.0
+      },
+      "pointCapturingAlly:object": {
+        "path": "vo/ui/enlisted/narrator/point_capturing_ally",
+        "cooldown": 15.0
+      },
+      "pointACapturingAlly:object": {
+        "path": "vo/ui/enlisted/narrator/point_a_capturing_ally",
+        "cooldown": 15.0
+      },
+      "pointBCapturingAlly:object": {
+        "path": "vo/ui/enlisted/narrator/point_b_capturing_ally",
+        "cooldown": 15.0
+      },
+      "pointCCapturingAlly:object": {
+        "path": "vo/ui/enlisted/narrator/point_c_capturing_ally",
+        "cooldown": 15.0
+      },
+      "pointDCapturingAlly:object": {
+        "path": "vo/ui/enlisted/narrator/point_d_capturing_ally",
+        "cooldown": 15.0
+      },
+      "pointECapturingAlly:object": {
+        "path": "vo/ui/enlisted/narrator/point_e_capturing_ally",
+        "cooldown": 15.0
+      },
+      "pointCaptured:object": {
+        "path": "vo/ui/enlisted/narrator/point_captured_ally_invasion"
+      },
+      "pointACaptured:object": {
+        "path": "vo/ui/enlisted/narrator/point_a_captured_ally_invasion",
+        "cooldown": 2.0
+      },
+      "pointBCaptured:object": {
+        "path": "vo/ui/enlisted/narrator/point_b_captured_ally_invasion",
+        "cooldown": 2.0
+      },
+      "pointCCaptured:object": {
+        "path": "vo/ui/enlisted/narrator/point_c_captured_ally_invasion",
+        "cooldown": 2.0
+      },
+      "pointDCaptured:object": {
+        "path": "vo/ui/enlisted/narrator/point_d_captured_ally_invasion",
+        "cooldown": 2.0
+      },
+      "pointECaptured:object": {
+        "path": "vo/ui/enlisted/narrator/point_e_captured_ally_invasion",
+        "cooldown": 2.0
+      },
+      "pointCapturingEnemy:object": {
+        "path": "vo/ui/enlisted/narrator/point_capturing_enemy",
+        "cooldown": 15.0
+      },
+      "pointACapturingEnemy:object": {
+        "path": "vo/ui/enlisted/narrator/point_a_capturing_enemy",
+        "cooldown": 15.0
+      },
+      "pointBCapturingEnemy:object": {
+        "path": "vo/ui/enlisted/narrator/point_b_capturing_enemy",
+        "cooldown": 15.0
+      },
+      "pointCCapturingEnemy:object": {
+        "path": "vo/ui/enlisted/narrator/point_c_capturing_enemy",
+        "cooldown": 15.0
+      },
+      "pointDCapturingEnemy:object": {
+        "path": "vo/ui/enlisted/narrator/point_d_capturing_enemy",
+        "cooldown": 15.0
+      },
+      "pointECapturingEnemy:object": {
+        "path": "vo/ui/enlisted/narrator/point_e_capturing_enemy",
+        "cooldown": 15.0
+      },
+      "pointCapturedEnemy:object": {
+        "path": "vo/ui/enlisted/narrator/point_captured_enemy_domination"
+      },
+      "pointACapturedEnemy:object": {
+        "path": "vo/ui/enlisted/narrator/point_a_captured_enemy_domination",
+        "cooldown": 2.0
+      },
+      "pointBCapturedEnemy:object": {
+        "path": "vo/ui/enlisted/narrator/point_b_captured_enemy_domination",
+        "cooldown": 2.0
+      },
+      "pointCCapturedEnemy:object": {
+        "path": "vo/ui/enlisted/narrator/point_c_captured_enemy_domination",
+        "cooldown": 2.0
+      },
+      "pointDCapturedEnemy:object": {
+        "path": "vo/ui/enlisted/narrator/point_d_captured_enemy_domination",
+        "cooldown": 2.0
+      },
+      "pointECapturedEnemy:object": {
+        "path": "vo/ui/enlisted/narrator/point_e_captured_enemy_domination",
+        "cooldown": 2.0
+      },
+      "allPointsCapturedAlly:object": {
+        "path": "vo/ui/enlisted/narrator/all_points_captured_ally_domination",
+        "cooldown": 2.0
+      },
+      "allPointsCapturedEnemy:object": {
+        "path": "vo/ui/enlisted/narrator/all_points_captured_enemy_domination",
+        "cooldown": 2.0
+      },
+      "loseHalfScores:object": {
+        "ally": "vo/ui/enlisted/narrator/half_points_ally_domination",
+        "enemy": "vo/ui/enlisted/narrator/half_points_enemy_domination",
+        "cooldown": 2.0
+      },
+      "loosingScores:object": {
+        "ally": "vo/ui/enlisted/narrator/loosing_scores_ally_domination",
+        "enemy": "vo/ui/enlisted/narrator/loosing_scores_enemy",
+        "cooldown": 2.0
+      },
+      "bombersComing:object": {
+        "enemy": "vo/ui/enlisted/narrator/enemy_bombers_coming",
+        "cooldown": 5.0
+      },
+      "leftBattleArea:object": {
+        "path": "vo/ui/enlisted/narrator/leave_area_warn",
+        "cooldown": 2.0
+      }
+    }
+  },
+  "team_narrator_gun_game": {
+    "_extends": "base_team_narrator",
+    "team__narrator:object": {
+      "_tags": "sound",
+      "win:object": {
+        "path": "vo/ui/enlisted/narrator/victory_domination",
+        "cooldown": 2.0
+      },
+      "lose:object": {
+        "path": "vo/ui/enlisted/narrator/defeat_domination",
+        "cooldown": 2.0
+      },
+      "leftBattleArea:object": {
+        "path": "vo/ui/enlisted/narrator/leave_area_warn",
+        "cooldown": 2.0
+      }
+    }
+  },
+  "team_narrator_invasion_attack": {
+    "_extends": "base_team_narrator",
+    "team__narrator:object": {
+      "_tags": "sound",
+      "briefing:object": {
+        "path": "vo/ui/enlisted/narrator/start_invasion_attack",
+        "cooldown": 2.0
+      },
+      "win:object": {
+        "path": "vo/ui/enlisted/narrator/victory_invasion_attack",
+        "cooldown": 2.0
+      },
+      "lose:object": {
+        "path": "vo/ui/enlisted/narrator/defeat_invasion_attack",
+        "cooldown": 2.0
+      },
+      "pointCapturingPlayer:object": {
+        "path": "vo/ui/enlisted/narrator/point_capturing_player",
+        "cooldown": 15.0
+      },
+      "pointCapturingAlly:object": {
+        "path": "vo/ui/enlisted/narrator/point_capturing_ally",
+        "cooldown": 15.0
+      },
+      "pointCaptured:object": {
+        "path": "vo/ui/enlisted/narrator/point_captured_ally_invasion"
+      },
+      "halfPointsCaptured:object": {
+        "path": "vo/ui/enlisted/narrator/half_points_invasion_attack",
+        "cooldown": 2.0
+      },
+      "onePointToCapture:object": {
+        "path": "vo/ui/enlisted/narrator/last_point_invasion_attack",
+        "cooldown": 2.0
+      },
+      "loosingScores:object": {
+        "ally": "vo/ui/enlisted/narrator/loosing_scores_ally_invasion_attack",
+        "enemy": "",
+        "cooldown": 2.0
+      },
+      "leftBattleArea:object": {
+        "path": "vo/ui/enlisted/narrator/leave_area_warn",
+        "cooldown": 2.0
+      },
+      "bombersComing:object": {
+        "enemy": "vo/ui/enlisted/narrator/enemy_bombers_coming",
+        "cooldown": 2.0
+      },
+      "taskPoint:object": {
+        "path": "vo/ui/enlisted/narrator/task_point_attack",
+        "cooldown": 2.0
+      }
+    }
+  },
+  "team_narrator_invasion_defence": {
+    "_extends": "base_team_narrator",
+    "team__narrator:object": {
+      "_tags": "sound",
+      "briefing:object": {
+        "path": "vo/ui/enlisted/narrator/start_invasion_defence",
+        "cooldown": 2.0
+      },
+      "win:object": {
+        "path": "vo/ui/enlisted/narrator/victory_invasion_defence",
+        "cooldown": 2.0
+      },
+      "lose:object": {
+        "path": "vo/ui/enlisted/narrator/defeat_invasion_defence",
+        "cooldown": 2.0
+      },
+      "pointCapturingEnemy:object": {
+        "path": "vo/ui/enlisted/narrator/point_capturing_enemy",
+        "cooldown": 15.0
+      },
+      "pointCapturedEnemy:object": {
+        "path": "vo/ui/enlisted/narrator/point_captured_enemy_invasion"
+      },
+      "halfPointsCapturedEnemy:object": {
+        "path": "vo/ui/enlisted/narrator/half_points_invasion_defence",
+        "cooldown": 2.0
+      },
+      "onePointToDefend:object": {
+        "path": "vo/ui/enlisted/narrator/last_point_invasion_defence",
+        "cooldown": 2.0
+      },
+      "loosingScores:object": {
+        "ally": "",
+        "enemy": "vo/ui/enlisted/narrator/loosing_scores_enemy",
+        "cooldown": 2.0
+      },
+      "leftBattleArea:object": {
+        "path": "vo/ui/enlisted/narrator/leave_area_warn",
+        "cooldown": 2.0
+      },
+      "bombersComing:object": {
+        "enemy": "vo/ui/enlisted/narrator/enemy_bombers_coming",
+        "cooldown": 2.0
+      },
+      "taskPoint:object": {
+        "path": "vo/ui/enlisted/narrator/task_point_defence",
+        "cooldown": 2.0
+      }
+    }
+  },
+  "team_narrator_assault_attack": {
+    "_extends": "base_team_narrator",
+    "team__narrator:object": {
+      "_tags": "sound",
+      "briefing:object": {
+        "path": "vo/ui/enlisted/narrator/start_assault_attack",
+        "cooldown": 2.0
+      },
+      "win:object": {
+        "path": "vo/ui/enlisted/narrator/victory_invasion_attack",
+        "cooldown": 2.0
+      },
+      "lose:object": {
+        "path": "vo/ui/enlisted/narrator/defeat_invasion_attack",
+        "cooldown": 2.0
+      },
+      "pointCapturingAlly:object": {
+        "path": "vo/ui/enlisted/narrator/point_capturing_ally",
+        "cooldown": 15.0
+      },
+      "pointCapturingEnemy:object": {
+        "path": "vo/ui/enlisted/narrator/point_capturing_enemy",
+        "cooldown": 15.0
+      },
+      "pointCapturingPlayer:object": {
+        "path": "vo/ui/enlisted/narrator/point_capturing_player",
+        "cooldown": 15.0
+      },
+      "pointCaptured:object": {
+        "path": "vo/ui/enlisted/narrator/point_captured_ally_domination"
+      },
+      "pointCapturedEnemy:object": {
+        "path": "vo/ui/enlisted/narrator/point_captured_enemy_domination"
+      },
+      "sectorCapturedAlly:object": {
+        "path": "vo/ui/enlisted/narrator/sector_captured_ally_assault",
+        "cooldown": 2.0
+      },
+      "halfPointsCaptured:object": {
+        "path": "vo/ui/enlisted/narrator/half_points_invasion_attack",
+        "cooldown": 2.0
+      },
+      "oneSectorLeft:object": {
+        "path": "vo/ui/enlisted/narrator/last_sector_assault_attack",
+        "cooldown": 2.0
+      },
+      "loosingScores:object": {
+        "ally": "vo/ui/enlisted/narrator/loosing_scores_ally_invasion_attack",
+        "enemy": "",
+        "cooldown": 2.0
+      },
+      "leftBattleArea:object": {
+        "path": "vo/ui/enlisted/narrator/leave_area_warn",
+        "cooldown": 2.0
+      },
+      "bombersComing:object": {
+        "enemy": "vo/ui/enlisted/narrator/enemy_bombers_coming",
+        "cooldown": 2.0
+      },
+      "taskPoint:object": {
+        "path": "vo/ui/enlisted/narrator/task_point_attack",
+        "cooldown": 2.0
+      }
+    }
+  },
+  "team_narrator_assault_defence": {
+    "_extends": "base_team_narrator",
+    "team__narrator:object": {
+      "_tags": "sound",
+      "briefing:object": {
+        "path": "vo/ui/enlisted/narrator/start_assault_defence",
+        "cooldown": 2.0
+      },
+      "win:object": {
+        "path": "vo/ui/enlisted/narrator/victory_invasion_defence",
+        "cooldown": 2.0
+      },
+      "lose:object": {
+        "path": "vo/ui/enlisted/narrator/defeat_invasion_defence",
+        "cooldown": 2.0
+      },
+      "pointCapturingAlly:object": {
+        "path": "vo/ui/enlisted/narrator/point_capturing_ally",
+        "cooldown": 15.0
+      },
+      "pointCapturingEnemy:object": {
+        "path": "vo/ui/enlisted/narrator/point_capturing_enemy",
+        "cooldown": 15.0
+      },
+      "pointCapturingPlayer:object": {
+        "path": "vo/ui/enlisted/narrator/point_capturing_player",
+        "cooldown": 15.0
+      },
+      "pointCaptured:object": {
+        "path": "vo/ui/enlisted/narrator/point_captured_ally_domination"
+      },
+      "pointCapturedEnemy:object": {
+        "path": "vo/ui/enlisted/narrator/point_captured_enemy_domination"
+      },
+      "sectorCapturedEnemy:object": {
+        "path": "vo/ui/enlisted/narrator/sector_captured_enemy_assault",
+        "cooldown": 2.0
+      },
+      "halfPointsCapturedEnemy:object": {
+        "path": "vo/ui/enlisted/narrator/half_points_invasion_defence",
+        "cooldown": 2.0
+      },
+      "oneSectorLeft:object": {
+        "path": "vo/ui/enlisted/narrator/last_sector_assault_defence",
+        "cooldown": 2.0
+      },
+      "loosingScores:object": {
+        "ally": "",
+        "enemy": "vo/ui/enlisted/narrator/loosing_scores_enemy",
+        "cooldown": 2.0
+      },
+      "leftBattleArea:object": {
+        "path": "vo/ui/enlisted/narrator/leave_area_warn",
+        "cooldown": 2.0
+      },
+      "bombersComing:object": {
+        "enemy": "vo/ui/enlisted/narrator/enemy_bombers_coming",
+        "cooldown": 2.0
+      },
+      "taskPoint:object": {
+        "path": "vo/ui/enlisted/narrator/task_point_defence",
+        "cooldown": 2.0
+      }
+    }
+  },
+  "team_narrator_escort_attack": {
+    "_extends": "base_team_narrator",
+    "team__narrator:object": {
+      "_tags": "sound",
+      "briefing:object": {
+        "path": "vo/ui/enlisted/narrator/start_escort_attack",
+        "cooldown": 2.0
+      },
+      "win:object": [
+        {
+          "path": "vo/ui/enlisted/narrator/victory_escort_attack"
+        },
+        {
+          "cooldown": 2.0
+        },
+        {
+          "cooldown": 10.0
+        }
+      ],
+      "lose:object": [
+        {
+          "path": "vo/ui/enlisted/narrator/defeat_escort_attack"
+        },
+        {
+          "cooldown": 2.0
+        },
+        {
+          "cooldown": 10.0
+        }
+      ],
+      "pointCaptured:object": {
+        "path": "vo/ui/enlisted/narrator/point_captured_ally_domination"
+      },
+      "trainHalfWay:object": {
+        "path": "vo/ui/enlisted/narrator/half_way_attack",
+        "cooldown": 2.0
+      },
+      "trainAlmostWay:object": {
+        "path": "vo/ui/enlisted/narrator/almost_way_attack",
+        "cooldown": 2.0
+      },
+      "trainCapturing:object": {
+        "ally": "vo/ui/enlisted/narrator/train_capturing_ally",
+        "enemy": "vo/ui/enlisted/narrator/train_capturing_enemy",
+        "cooldown": 15.0
+      },
+      "trainCaptured:object": {
+        "ally": "vo/ui/enlisted/narrator/train_captured_ally_attack",
+        "enemy": "vo/ui/enlisted/narrator/train_captured_enemy_attack",
+        "cooldown": 15.0
+      },
+      "bombersComing:object": {
+        "enemy": "vo/ui/enlisted/narrator/enemy_bombers_coming",
+        "cooldown": 2.0
+      },
+      "leftBattleArea:object": {
+        "path": "vo/ui/enlisted/narrator/leave_area_warn",
+        "cooldown": 2.0
+      }
+    }
+  },
+  "team_narrator_escort_defence": {
+    "_extends": "base_team_narrator",
+    "team__narrator:object": {
+      "_tags": "sound",
+      "briefing:object": {
+        "path": "vo/ui/enlisted/narrator/start_escort_defence",
+        "cooldown": 2.0
+      },
+      "win:object": {
+        "path": "vo/ui/enlisted/narrator/victory_escort_defence",
+        "cooldown": 2.0
+      },
+      "lose:object": {
+        "path": "vo/ui/enlisted/narrator/defeat_escort_defence",
+        "cooldown": 2.0
+      },
+      "pointCaptured:object": {
+        "path": "vo/ui/enlisted/narrator/point_captured_ally_domination"
+      },
+      "trainHalfWay:object": {
+        "path": "vo/ui/enlisted/narrator/half_way_defence",
+        "cooldown": 2.0
+      },
+      "trainAlmostWay:object": {
+        "path": "vo/ui/enlisted/narrator/almost_way_defence",
+        "cooldown": 2.0
+      },
+      "trainCapturing:object": {
+        "ally": "vo/ui/enlisted/narrator/train_capturing_ally",
+        "enemy": "vo/ui/enlisted/narrator/train_capturing_enemy",
+        "cooldown": 15.0
+      },
+      "trainCaptured:object": {
+        "ally": "vo/ui/enlisted/narrator/train_captured_ally_defence",
+        "enemy": "vo/ui/enlisted/narrator/train_captured_enemy_defence",
+        "cooldown": 15.0
+      },
+      "bombersComing:object": {
+        "enemy": "vo/ui/enlisted/narrator/enemy_bombers_coming",
+        "cooldown": 2.0
+      },
+      "leftBattleArea:object": {
+        "path": "vo/ui/enlisted/narrator/leave_area_warn",
+        "cooldown": 2.0
+      }
+    }
+  },
+  "team_narrator_destruction_attack": {
+    "_extends": "base_team_narrator",
+    "team__narrator:object": {
+      "_tags": "sound",
+      "briefing:object": {
+        "path": "vo/ui/enlisted/narrator/start_destruction_attack",
+        "cooldown": 2.0
+      },
+      "win:object": {
+        "path": "vo/ui/enlisted/narrator/victory_destruction_attack",
+        "cooldown": 2.0
+      },
+      "lose:object": {
+        "path": "vo/ui/enlisted/narrator/defeat_destruction_attack",
+        "cooldown": 2.0
+      },
+      "pointCaptured:object": {
+        "path": "vo/ui/enlisted/narrator/object_explosed_by_ally"
+      },
+      "halfPointsCaptured:object": {
+        "path": "vo/ui/enlisted/narrator/object_explosed_by_ally",
+        "cooldown": 2.0
+      },
+      "onePointToCapture:object": {
+        "path": "vo/ui/enlisted/narrator/last_object_to_explose_ally",
+        "cooldown": 2.0
+      },
+      "loosingScores:object": {
+        "ally": "vo/ui/enlisted/narrator/loosing_scores_ally_destruction",
+        "enemy": "",
+        "cooldown": 2.0
+      },
+      "leftBattleArea:object": {
+        "path": "vo/ui/enlisted/narrator/leave_area_warn",
+        "cooldown": 2.0
+      },
+      "bombPlanting:object": {
+        "ally": "vo/ui/enlisted/narrator/explosive_installing_ally",
+        "enemy": "vo/ui/enlisted/narrator/explosive_installing_enemy",
+        "cooldown": 5.0
+      },
+      "bombPlanted:object": {
+        "ally": "vo/ui/enlisted/narrator/explosive_installed_ally",
+        "enemy": "vo/ui/enlisted/narrator/explosive_installed_enemy"
+      },
+      "bombDefusing:object": {
+        "ally": "vo/ui/enlisted/narrator/explosive_deactivating_ally",
+        "enemy": "vo/ui/enlisted/narrator/explosive_deactivating_enemy",
+        "cooldown": 5.0
+      },
+      "bombDefused:object": {
+        "ally": "vo/ui/enlisted/narrator/explosive_deactivated_ally",
+        "enemy": "vo/ui/enlisted/narrator/explosive_deactivated_enemy"
+      },
+      "bombersComing:object": {
+        "enemy": "vo/ui/enlisted/narrator/enemy_bombers_coming",
+        "cooldown": 2.0
+      }
+    }
+  },
+  "team_narrator_destruction_defence": {
+    "_extends": "base_team_narrator",
+    "team__narrator:object": {
+      "_tags": "sound",
+      "briefing:object": {
+        "path": "vo/ui/enlisted/narrator/start_destruction_defence",
+        "cooldown": 2.0
+      },
+      "win:object": {
+        "path": "vo/ui/enlisted/narrator/victory_desctruction_defence",
+        "cooldown": 2.0
+      },
+      "lose:object": {
+        "path": "vo/ui/enlisted/narrator/defeat_desctruction_defence",
+        "cooldown": 2.0
+      },
+      "pointCapturedEnemy:object": {
+        "path": "vo/ui/enlisted/narrator/object_explosed_by_enemy"
+      },
+      "halfPointsCapturedEnemy:object": {
+        "path": "vo/ui/enlisted/narrator/object_explosed_by_enemy",
+        "cooldown": 2.0
+      },
+      "onePointToDefend:object": {
+        "path": "vo/ui/enlisted/narrator/last_object_to_explose_enemy",
+        "cooldown": 2.0
+      },
+      "leftBattleArea:object": {
+        "path": "vo/ui/enlisted/narrator/leave_area_warn",
+        "cooldown": 2.0
+      },
+      "bombPlanting:object": {
+        "ally": "vo/ui/enlisted/narrator/explosive_installing_ally",
+        "enemy": "vo/ui/enlisted/narrator/explosive_installing_enemy",
+        "cooldown": 5.0
+      },
+      "bombPlanted:object": {
+        "ally": "vo/ui/enlisted/narrator/explosive_installed_ally",
+        "enemy": "vo/ui/enlisted/narrator/explosive_installed_enemy"
+      },
+      "bombDefusing:object": {
+        "ally": "vo/ui/enlisted/narrator/explosive_deactivating_ally",
+        "enemy": "vo/ui/enlisted/narrator/explosive_deactivating_enemy",
+        "cooldown": 5.0
+      },
+      "bombDefused:object": {
+        "ally": "vo/ui/enlisted/narrator/explosive_deactivated_ally",
+        "enemy": "vo/ui/enlisted/narrator/explosive_deactivated_enemy"
+      },
+      "bombersComing:object": {
+        "enemy": "vo/ui/enlisted/narrator/enemy_bombers_coming",
+        "cooldown": 2.0
+      }
+    }
+  },
+  "team_narrator_confrontation_attack": {
+    "_extends": "base_team_narrator",
+    "team__narrator:object": {
+      "_tags": "sound",
+      "briefing:object": {
+        "path": "vo/ui/enlisted/narrator/start_invasion_attack",
+        "cooldown": 2.0
+      },
+      "win:object": {
+        "path": "vo/ui/enlisted/narrator/victory_invasion_attack",
+        "cooldown": 2.0
+      },
+      "lose:object": {
+        "path": "vo/ui/enlisted/narrator/defeat_invasion_attack",
+        "cooldown": 2.0
+      },
+      "pointCapturingPlayer:object": {
+        "path": "vo/ui/enlisted/narrator/point_capturing_player",
+        "cooldown": 15.0
+      },
+      "pointCapturingAlly:object": {
+        "path": "vo/ui/enlisted/narrator/point_capturing_ally",
+        "cooldown": 15.0
+      },
+      "pointCaptured:object": {
+        "path": "vo/ui/enlisted/narrator/point_captured_ally_invasion"
+      },
+      "onePointToCapture:object": {
+        "path": "vo/ui/enlisted/narrator/last_point_invasion_attack",
+        "cooldown": 2.0
+      },
+      "pointCapturingEnemy:object": {
+        "path": "vo/ui/enlisted/narrator/point_capturing_enemy",
+        "cooldown": 15.0
+      },
+      "pointCapturedEnemy:object": {
+        "path": "vo/ui/enlisted/narrator/point_captured_enemy_invasion"
+      },
+      "onePointToDefend:object": {
+        "path": "vo/ui/enlisted/narrator/last_point_invasion_defence",
+        "cooldown": 2.0
+      },
+      "loosingScores:object": {
+        "ally": "vo/ui/enlisted/narrator/loosing_scores_ally_invasion_attack",
+        "enemy": "vo/ui/enlisted/narrator/loosing_scores_enemy",
+        "cooldown": 2.0
+      },
+      "leftBattleArea:object": {
+        "path": "vo/ui/enlisted/narrator/leave_area_warn",
+        "cooldown": 2.0
+      },
+      "bombersComing:object": {
+        "enemy": "vo/ui/enlisted/narrator/enemy_bombers_coming",
+        "cooldown": 2.0
+      },
+      "taskPoint:object": {
+        "path": "vo/ui/enlisted/narrator/task_point_attack",
+        "cooldown": 2.0
+      }
+    }
+  }
+}

@@ -1,0 +1,1674 @@
+[
+  {
+    "import": {
+      "scene": "content/enlisted/gamedata/scenes/_stalingrad_plant_sounds.blk"
+    }
+  },
+  {
+    "entity": {
+      "_template": "stalingrad_tractor_plant_level",
+      "level__blk": "content/enlisted/levels/battle_of_stalingrad_tractor_plant.blk"
+    }
+  },
+  {
+    "entity": {
+      "_template": "clouds_hole_target",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [0.0,0.0,0.0]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "water",
+      "water__strength": 0.27
+    }
+  },
+  {
+    "entity": {
+      "_template": "wind",
+      "wind__strength": 2.0,
+      "wind__dir": 210.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "minimap_stalingrad_tractor_plant"
+    }
+  },
+  {
+    "entity": {
+      "_template": "door_mult_ent_generator",
+      "ri_extra_gen__blk": "content/e_stalingrad/gamedata/stalingrad_doors.blk"
+    }
+  },
+  {
+    "entity": {
+      "_template": "sound_effect_generator",
+      "ri_extra_gen__blk": "content/e_stalingrad/gamedata/sound/stalingrad_sound_effects.blk"
+    }
+  },
+  {
+    "entity": {
+      "_template": "shaderVars",
+      "shader_vars__vars:object": {
+        "envi_cover_specular_color": [1.0,1.0,1.0,0.0],
+        "envi_cover_depth_mask_contrast": 1.0,
+        "envi_cover_intensity_map_left_top_right_bottom": [-1024.0,1024.0,1024.0,-1024.0],
+        "envi_cover_noise_mask_factor": 0.3,
+        "envi_cover_normal_mask_threshold": 0.5,
+        "envi_cover_intensity_map": "stalingrad_tractor_plant_2x2_snow_cover_tex_m*",
+        "envi_cover_noise_low_frequency": 0.06,
+        "envi_cover_noise_high_frequency": 2.2,
+        "envi_cover_translucency": 1.0,
+        "envi_cover_normal_infl": 0.3,
+        "envi_cover_normal": [0.0,1.0,0.1,0.0],
+        "envi_cover_smoothness": 0.1,
+        "envi_cover": 1,
+        "envi_cover_depth_mask_threshold": 0.2,
+        "envi_cover_albedo": [0.729,0.961,1.0,0.0],
+        "ocean1": "#8e894700",
+        "ocean0": "#4c3f0500",
+        "ocean_density": 0.1,
+        "river1": "#8e894700",
+        "river0": "#4c3f0500",
+        "paint_details_tex": "stalingrad_city_wall_color_tex_palette*",
+        "water_color_noise_size": 71.0,
+        "river_density": 0.3,
+        "puddle_hardness": 15.0,
+        "puddle_flat_noise_normal_effect": 0.015,
+        "puddle_flat_normal_hardness": 25.0,
+        "puddle_flat_hmap_reduce": -0.2,
+        "puddle_increase": 0.04,
+        "puddle_flat_noise_height_reduce": 0.09
+      }
+    }
+  },
+  {
+    "entity": {
+      "_template": "postfx_color_grading_tonemap_death_alive_enlisted",
+      "tonemap:object": {
+        "tonemapContrast": 1.0,
+        "tonemapShoulder": 0.9,
+        "tonemapMidIn": 0.235,
+        "tonemapMidOut": 0.5,
+        "tonemapHdrMax": 4.0
+      },
+      "color_grading__alive:object": {
+        "colorSaturation": [1.0,1.0,1.0,1.0],
+        "colorContrast": [1.1,1.0,1.0,1.0],
+        "colorGamma": [1.0,1.0,1.0,1.0],
+        "colorGain": [1.0,1.0,1.0,1.0]
+      },
+      "white_balance:object": {
+        "whiteTemp": 6000.0,
+        "whiteTint": 0.0
+      }
+    }
+  },
+  {
+    "entity": {
+      "_template": "postfx_roundctrl",
+      "post_fx:object": {
+        "bloom__threshold": 3.8,
+        "bloom__upSample": 0.15
+      }
+    }
+  },
+  {
+    "entity": {
+      "_template": "ri_gpu_object",
+      "ri_gpu_object__name": "decal_broken_glass_a",
+      "ri_gpu_object__biom_indexes": [20.0,-1.0,-1.0,-1.0],
+      "ri_gpu_object__grid_size": 4,
+      "ri_gpu_object__grid_tiling": 1,
+      "ri_gpu_object__cell_size": 12.0,
+      "ri_gpu_object__incline_delta": 0.0,
+      "ri_gpu_object__scale_range": [1.0,1.75],
+      "ri_gpu_object__rotate_range": [0.0,360.0],
+      "ri_gpu_object__seed": 7016,
+      "ri_gpu_object__is_using_normal": true,
+      "ri_gpu_object__up_vector": [0.0,1.0,0.0],
+      "ri_gpu_object__decal": true,
+      "ri_gpu_object__transparent": true
+    }
+  },
+  {
+    "entity": {
+      "_template": "ri_gpu_object",
+      "ri_gpu_object__name": "metal",
+      "ri_gpu_object__grid_size": 4,
+      "ri_gpu_object__grid_tiling": 1,
+      "ri_gpu_object__cell_size": 30.0,
+      "ri_gpu_object__scale_range": [0.45,0.5],
+      "ri_gpu_object__rotate_range": [0.0,360.0],
+      "ri_gpu_object__seed": 7716,
+      "ri_gpu_object__is_using_normal": true,
+      "ri_gpu_object__biome_params:array": [
+        {
+          "ri_gpu_object__biome_params": [7.0,1.0,0.0,0.0]
+        },
+        {
+          "ri_gpu_object__biome_params": [8.0,1.0,0.0,0.0]
+        },
+        {
+          "ri_gpu_object__biome_params": [9.0,1.0,0.0,0.0]
+        }
+      ],
+      "ri_gpu_object__multiple_objects:array": [
+        {
+          "ri_gpu_object__multiple_objects:object": {
+            "name": "metal_debris_a",
+            "weight": 2.0
+          }
+        },
+        {
+          "ri_gpu_object__multiple_objects:object": {
+            "name": "metal_debris_f",
+            "weight": 2.0
+          }
+        },
+        {
+          "ri_gpu_object__multiple_objects:object": {
+            "name": "metal_debris_g",
+            "weight": 2.0
+          }
+        },
+        {
+          "ri_gpu_object__multiple_objects:object": {
+            "name": "metal_debris_m",
+            "weight": 2.0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "ri_gpu_object",
+      "ri_gpu_object__name": "debris_trash_concrete_column version 1",
+      "ri_gpu_object__grid_size": 4,
+      "ri_gpu_object__grid_tiling": 1,
+      "ri_gpu_object__cell_size": 20.0,
+      "ri_gpu_object__scale_range": [0.55,0.8],
+      "ri_gpu_object__rotate_range": [0.0,360.0],
+      "ri_gpu_object__seed": 7766,
+      "ri_gpu_object__is_using_normal": true,
+      "ri_gpu_object__biome_params:array": [
+        {
+          "ri_gpu_object__biome_params": [19.0,0.5,0.0,0.0]
+        },
+        {
+          "ri_gpu_object__biome_params": [20.0,1.0,0.0,0.0]
+        }
+      ],
+      "ri_gpu_object__multiple_objects:array": [
+        {
+          "ri_gpu_object__multiple_objects:object": {
+            "name": "debris_trash_concrete_column_c",
+            "weight": 2.0
+          }
+        },
+        {
+          "ri_gpu_object__multiple_objects:object": {
+            "name": "debris_trash_concrete_small_part_a2",
+            "weight": 2.0
+          }
+        },
+        {
+          "ri_gpu_object__multiple_objects:object": {
+            "name": "debris_trash_concrete_column_b",
+            "weight": 2.0
+          }
+        },
+        {
+          "ri_gpu_object__multiple_objects:object": {
+            "name": "debris_trash_concrete_small_part_a1",
+            "weight": 2.0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "ri_gpu_object",
+      "ri_gpu_object__name": "debris_trash_concrete_column version 2",
+      "ri_gpu_object__grid_size": 6,
+      "ri_gpu_object__grid_tiling": 1,
+      "ri_gpu_object__cell_size": 4.0,
+      "ri_gpu_object__incline_delta": 10.0,
+      "ri_gpu_object__scale_range": [0.1,0.3],
+      "ri_gpu_object__rotate_range": [0.0,360.0],
+      "ri_gpu_object__seed": 5128,
+      "ri_gpu_object__is_using_normal": true,
+      "ri_gpu_object__biome_params:array": [
+        {
+          "ri_gpu_object__biome_params": [19.0,0.2,0.0,0.0]
+        },
+        {
+          "ri_gpu_object__biome_params": [20.0,0.8,0.0,0.0]
+        }
+      ],
+      "ri_gpu_object__multiple_objects:array": [
+        {
+          "ri_gpu_object__multiple_objects:object": {
+            "name": "debris_trash_concrete_small_part_c3",
+            "weight": 1.0
+          }
+        },
+        {
+          "ri_gpu_object__multiple_objects:object": {
+            "name": "debris_trash_concrete_small_part_c2",
+            "weight": 1.0
+          }
+        },
+        {
+          "ri_gpu_object__multiple_objects:object": {
+            "name": "debris_trash_concrete_small_part_b3",
+            "weight": 0.5
+          }
+        },
+        {
+          "ri_gpu_object__multiple_objects:object": {
+            "name": "debris_trash_concrete_small_part_b1",
+            "weight": 0.5
+          }
+        }
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "ri_gpu_object",
+      "ri_gpu_object__name": "bags",
+      "ri_gpu_object__grid_size": 6,
+      "ri_gpu_object__grid_tiling": 1,
+      "ri_gpu_object__cell_size": 20.0,
+      "ri_gpu_object__scale_range": [0.95,1.0],
+      "ri_gpu_object__rotate_range": [0.0,360.0],
+      "ri_gpu_object__seed": 7066,
+      "ri_gpu_object__is_using_normal": true,
+      "ri_gpu_object__biome_params:array": [
+        {
+          "ri_gpu_object__biome_params": [19.0,0.5,0.0,0.0]
+        },
+        {
+          "ri_gpu_object__biome_params": [20.0,1.0,0.0,0.0]
+        },
+        {
+          "ri_gpu_object__biome_params": [9.0,0.5,0.0,0.0]
+        },
+        {
+          "ri_gpu_object__biome_params": [2.0,0.3,0.0,0.0]
+        }
+      ],
+      "ri_gpu_object__multiple_objects:array": [
+        {
+          "ri_gpu_object__multiple_objects:object": {
+            "name": "bag_grain_flat_a",
+            "weight": 1.0
+          }
+        },
+        {
+          "ri_gpu_object__multiple_objects:object": {
+            "name": "sandbag_single_a",
+            "weight": 5.0
+          }
+        },
+        {
+          "ri_gpu_object__multiple_objects:object": {
+            "name": "sandbag_single_f",
+            "weight": 5.0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "ri_gpu_object",
+      "ri_gpu_object__name": "debris_bricks",
+      "ri_gpu_object__grid_size": 8,
+      "ri_gpu_object__grid_tiling": 1,
+      "ri_gpu_object__cell_size": 8.0,
+      "ri_gpu_object__scale_range": [0.95,1.0],
+      "ri_gpu_object__rotate_range": [0.0,360.0],
+      "ri_gpu_object__seed": 2814,
+      "ri_gpu_object__is_using_normal": true,
+      "ri_gpu_object__biome_params:array": [
+        {
+          "ri_gpu_object__biome_params": [20.0,0.3,0.0,0.0]
+        },
+        {
+          "ri_gpu_object__biome_params": [7.0,0.5,0.0,0.0]
+        },
+        {
+          "ri_gpu_object__biome_params": [8.0,0.25,0.0,0.0]
+        },
+        {
+          "ri_gpu_object__biome_params": [4.0,0.7,0.0,0.0]
+        }
+      ],
+      "ri_gpu_object__multiple_objects:array": [
+        {
+          "ri_gpu_object__multiple_objects:object": {
+            "name": "debris_bricks_a",
+            "weight": 15.0
+          }
+        },
+        {
+          "ri_gpu_object__multiple_objects:object": {
+            "name": "debris_bricks_b",
+            "weight": 15.0
+          }
+        },
+        {
+          "ri_gpu_object__multiple_objects:object": {
+            "name": "debris_bricks_g",
+            "weight": 5.0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "ri_gpu_object",
+      "ri_gpu_object__name": "debris_wood_plank",
+      "ri_gpu_object__grid_size": 8,
+      "ri_gpu_object__grid_tiling": 1,
+      "ri_gpu_object__cell_size": 8.0,
+      "ri_gpu_object__scale_range": [0.95,1.0],
+      "ri_gpu_object__rotate_range": [0.0,360.0],
+      "ri_gpu_object__seed": 3814,
+      "ri_gpu_object__is_using_normal": true,
+      "ri_gpu_object__biome_params:array": [
+        {
+          "ri_gpu_object__biome_params": [20.0,0.3,0.0,0.0]
+        },
+        {
+          "ri_gpu_object__biome_params": [7.0,0.3,0.0,0.0]
+        },
+        {
+          "ri_gpu_object__biome_params": [8.0,0.3,0.0,0.0]
+        }
+      ],
+      "ri_gpu_object__multiple_objects:array": [
+        {
+          "ri_gpu_object__multiple_objects:object": {
+            "name": "debris_trash_wood_plank_a",
+            "weight": 15.0
+          }
+        },
+        {
+          "ri_gpu_object__multiple_objects:object": {
+            "name": "debris_trash_wood_plank_b",
+            "weight": 15.0
+          }
+        },
+        {
+          "ri_gpu_object__multiple_objects:object": {
+            "name": "ministry_building_o_debris_wood_pile_b",
+            "weight": 5.0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "ri_gpu_object",
+      "ri_gpu_object__name": "shell",
+      "ri_gpu_object__grid_size": 8,
+      "ri_gpu_object__grid_tiling": 1,
+      "ri_gpu_object__cell_size": 16.0,
+      "ri_gpu_object__scale_range": [0.95,1.0],
+      "ri_gpu_object__rotate_range": [0.0,360.0],
+      "ri_gpu_object__seed": 4814,
+      "ri_gpu_object__is_using_normal": true,
+      "ri_gpu_object__biome_params:array": [
+        {
+          "ri_gpu_object__biome_params": [20.0,0.3,0.0,0.0]
+        },
+        {
+          "ri_gpu_object__biome_params": [7.0,0.3,0.0,0.0]
+        },
+        {
+          "ri_gpu_object__biome_params": [8.0,0.3,0.0,0.0]
+        },
+        {
+          "ri_gpu_object__biome_params": [2.0,0.3,0.0,0.0]
+        }
+      ],
+      "ri_gpu_object__multiple_objects:array": [
+        {
+          "ri_gpu_object__multiple_objects:object": {
+            "name": "shell_kwk40_a",
+            "weight": 3.0
+          }
+        },
+        {
+          "ri_gpu_object__multiple_objects:object": {
+            "name": "shell_kwk43_b",
+            "weight": 3.0
+          }
+        },
+        {
+          "ri_gpu_object__multiple_objects:object": {
+            "name": "shell_kwk43_a",
+            "weight": 3.0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "ri_gpu_object",
+      "ri_gpu_object__name": "debris_can",
+      "ri_gpu_object__grid_size": 4,
+      "ri_gpu_object__grid_tiling": 1,
+      "ri_gpu_object__cell_size": 16.0,
+      "ri_gpu_object__scale_range": [0.95,1.0],
+      "ri_gpu_object__rotate_range": [0.0,360.0],
+      "ri_gpu_object__seed": 5814,
+      "ri_gpu_object__is_using_normal": true,
+      "ri_gpu_object__biome_params:array": {
+        "ri_gpu_object__biome_params": [20.0,1.0,0.0,0.0]
+      },
+      "ri_gpu_object__multiple_objects:array": [
+        {
+          "ri_gpu_object__multiple_objects:object": {
+            "name": "is_soviet_can_b_dmg_a",
+            "weight": 2.0
+          }
+        },
+        {
+          "ri_gpu_object__multiple_objects:object": {
+            "name": "is_soviet_can_c",
+            "weight": 2.0
+          }
+        },
+        {
+          "ri_gpu_object__multiple_objects:object": {
+            "name": "debris_metal_can_a",
+            "weight": 1.0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "ri_gpu_object",
+      "ri_gpu_object__name": "debris_clothes",
+      "ri_gpu_object__grid_size": 6,
+      "ri_gpu_object__grid_tiling": 1,
+      "ri_gpu_object__cell_size": 16.0,
+      "ri_gpu_object__scale_range": [0.95,1.0],
+      "ri_gpu_object__rotate_range": [0.0,360.0],
+      "ri_gpu_object__seed": 6814,
+      "ri_gpu_object__is_using_normal": true,
+      "ri_gpu_object__biome_params:array": [
+        {
+          "ri_gpu_object__biome_params": [20.0,0.3,0.0,0.0]
+        },
+        {
+          "ri_gpu_object__biome_params": [7.0,0.7,0.0,0.0]
+        },
+        {
+          "ri_gpu_object__biome_params": [8.0,0.7,0.0,0.0]
+        },
+        {
+          "ri_gpu_object__biome_params": [9.0,0.7,0.0,0.0]
+        },
+        {
+          "ri_gpu_object__biome_params": [4.0,0.7,0.0,0.0]
+        }
+      ],
+      "ri_gpu_object__multiple_objects:array": [
+        {
+          "ri_gpu_object__multiple_objects:object": {
+            "name": "is_soviet_shoe_a",
+            "weight": 1.0
+          }
+        },
+        {
+          "ri_gpu_object__multiple_objects:object": {
+            "name": "is_soviet_shoe_b",
+            "weight": 1.0
+          }
+        },
+        {
+          "ri_gpu_object__multiple_objects:object": {
+            "name": "is_soviet_shoe_c",
+            "weight": 1.0
+          }
+        },
+        {
+          "ri_gpu_object__multiple_objects:object": {
+            "name": "debris_clothes_b",
+            "weight": 1.0
+          }
+        },
+        {
+          "ri_gpu_object__multiple_objects:object": {
+            "name": "debris_clothes_c",
+            "weight": 1.0
+          }
+        },
+        {
+          "ri_gpu_object__multiple_objects:object": {
+            "name": "debris_clothes_d",
+            "weight": 1.0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "ri_gpu_object",
+      "ri_gpu_object__name": "hatches",
+      "ri_gpu_object__grid_size": 6,
+      "ri_gpu_object__grid_tiling": 1,
+      "ri_gpu_object__cell_size": 16.0,
+      "ri_gpu_object__scale_range": [0.95,1.0],
+      "ri_gpu_object__rotate_range": [0.0,360.0],
+      "ri_gpu_object__seed": 9814,
+      "ri_gpu_object__is_using_normal": true,
+      "ri_gpu_object__biome_params:array": {
+        "ri_gpu_object__biome_params": [20.0,0.3,0.0,0.0]
+      },
+      "ri_gpu_object__multiple_objects:array": [
+        {
+          "ri_gpu_object__multiple_objects:object": {
+            "name": "soviet_sewer_hatch_a",
+            "weight": 0.5
+          }
+        },
+        {
+          "ri_gpu_object__multiple_objects:object": {
+            "name": "soviet_sewer_hatch_b",
+            "weight": 0.5
+          }
+        },
+        {
+          "ri_gpu_object__multiple_objects:object": {
+            "name": "soviet_sewer_hatch_c",
+            "weight": 0.5
+          }
+        }
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "ri_gpu_object",
+      "ri_gpu_object__name": "debris_books_magazines",
+      "ri_gpu_object__grid_size": 4,
+      "ri_gpu_object__grid_tiling": 1,
+      "ri_gpu_object__cell_size": 16.0,
+      "ri_gpu_object__scale_range": [0.95,1.0],
+      "ri_gpu_object__rotate_range": [0.0,360.0],
+      "ri_gpu_object__seed": 8814,
+      "ri_gpu_object__is_using_normal": true,
+      "ri_gpu_object__biome_params:array": {
+        "ri_gpu_object__biome_params": [20.0,0.3,0.0,0.0]
+      },
+      "ri_gpu_object__multiple_objects:array": [
+        {
+          "ri_gpu_object__multiple_objects:object": {
+            "name": "is_soviet_book_d_open",
+            "weight": 1.0
+          }
+        },
+        {
+          "ri_gpu_object__multiple_objects:object": {
+            "name": "is_soviet_book_j_open",
+            "weight": 1.0
+          }
+        },
+        {
+          "ri_gpu_object__multiple_objects:object": {
+            "name": "is_soviet_book_n_open",
+            "weight": 1.0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "ri_gpu_object",
+      "ri_gpu_object__name": "small_manmade_garbage",
+      "ri_gpu_object__grid_size": 4,
+      "ri_gpu_object__grid_tiling": 1,
+      "ri_gpu_object__cell_size": 16.0,
+      "ri_gpu_object__scale_range": [0.95,1.0],
+      "ri_gpu_object__rotate_range": [0.0,360.0],
+      "ri_gpu_object__seed": 7814,
+      "ri_gpu_object__is_using_normal": true,
+      "ri_gpu_object__biome_params:array": {
+        "ri_gpu_object__biome_params": [20.0,0.3,0.0,0.0]
+      },
+      "ri_gpu_object__multiple_objects:array": [
+        {
+          "ri_gpu_object__multiple_objects:object": {
+            "name": "is_plates_b2_dmg",
+            "weight": 2.0
+          }
+        },
+        {
+          "ri_gpu_object__multiple_objects:object": {
+            "name": "is_soviet_bottle_a_dmg_a",
+            "weight": 2.0
+          }
+        },
+        {
+          "ri_gpu_object__multiple_objects:object": {
+            "name": "is_soviet_bottle_c_dmg_b",
+            "weight": 2.0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "ri_gpu_object",
+      "ri_gpu_object__name": "snowballs",
+      "ri_gpu_object__grid_size": 14,
+      "ri_gpu_object__grid_tiling": 1,
+      "ri_gpu_object__cell_size": 2.0,
+      "ri_gpu_object__scale_range": [1.0,1.2],
+      "ri_gpu_object__rotate_range": [0.0,360.0],
+      "ri_gpu_object__seed": 8614,
+      "ri_gpu_object__is_using_normal": true,
+      "ri_gpu_object__biome_params:array": {
+        "ri_gpu_object__biome_params": [22.0,0.05,0.0,0.0]
+      },
+      "ri_gpu_object__multiple_objects:array": [
+        {
+          "ri_gpu_object__multiple_objects:object": {
+            "name": "snowballs_pile_a",
+            "weight": 1.0
+          }
+        },
+        {
+          "ri_gpu_object__multiple_objects:object": {
+            "name": "snowballs_pile_b",
+            "weight": 1.0
+          }
+        },
+        {
+          "ri_gpu_object__multiple_objects:object": {
+            "name": "snowballs_pile_c",
+            "weight": 1.0
+          }
+        },
+        {
+          "ri_gpu_object__multiple_objects:object": {
+            "name": "snowballs_pile_d",
+            "weight": 1.0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "ri_gpu_object",
+      "ri_gpu_object__name": "branches",
+      "ri_gpu_object__grid_size": 4,
+      "ri_gpu_object__grid_tiling": 1,
+      "ri_gpu_object__cell_size": 10.0,
+      "ri_gpu_object__scale_range": [0.7,1.25],
+      "ri_gpu_object__rotate_range": [0.0,360.0],
+      "ri_gpu_object__seed": 3214,
+      "ri_gpu_object__is_using_normal": true,
+      "ri_gpu_object__biome_params:array": [
+        {
+          "ri_gpu_object__biome_params": [34.0,0.5,0.0,0.0]
+        },
+        {
+          "ri_gpu_object__biome_params": [35.0,0.5,0.0,0.0]
+        }
+      ],
+      "ri_gpu_object__multiple_objects:array": [
+        {
+          "ri_gpu_object__multiple_objects:object": {
+            "name": "tree_dry_branches_a",
+            "weight": 1.0
+          }
+        },
+        {
+          "ri_gpu_object__multiple_objects:object": {
+            "name": "tree_dry_branches_b",
+            "weight": 1.0
+          }
+        },
+        {
+          "ri_gpu_object__multiple_objects:object": {
+            "name": "tree_dry_branches_c",
+            "weight": 1.0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "ri_gpu_object",
+      "ri_gpu_object__name": "small stones",
+      "ri_gpu_object__grid_size": 4,
+      "ri_gpu_object__grid_tiling": 1,
+      "ri_gpu_object__cell_size": 16.0,
+      "ri_gpu_object__scale_range": [0.25,0.5],
+      "ri_gpu_object__rotate_range": [0.0,360.0],
+      "ri_gpu_object__seed": 3294,
+      "ri_gpu_object__is_using_normal": true,
+      "ri_gpu_object__biome_params:array": [
+        {
+          "ri_gpu_object__biome_params": [34.0,0.7,0.0,0.0]
+        },
+        {
+          "ri_gpu_object__biome_params": [35.0,0.7,0.0,0.0]
+        },
+        {
+          "ri_gpu_object__biome_params": [7.0,0.7,0.0,0.0]
+        },
+        {
+          "ri_gpu_object__biome_params": [8.0,0.7,0.0,0.0]
+        },
+        {
+          "ri_gpu_object__biome_params": [9.0,0.7,0.0,0.0]
+        },
+        {
+          "ri_gpu_object__biome_params": [48.0,0.7,0.0,0.0]
+        }
+      ],
+      "ri_gpu_object__multiple_objects:array": [
+        {
+          "ri_gpu_object__multiple_objects:object": {
+            "name": "generic_stone_small_a",
+            "weight": 1.0
+          }
+        },
+        {
+          "ri_gpu_object__multiple_objects:object": {
+            "name": "generic_stone_small_b",
+            "weight": 1.0
+          }
+        },
+        {
+          "ri_gpu_object__multiple_objects:object": {
+            "name": "generic_stone_small_c",
+            "weight": 1.0
+          }
+        },
+        {
+          "ri_gpu_object__multiple_objects:object": {
+            "name": "generic_stone_small_d",
+            "weight": 1.0
+          }
+        },
+        {
+          "ri_gpu_object__multiple_objects:object": {
+            "name": "generic_stone_small_e",
+            "weight": 1.0
+          }
+        },
+        {
+          "ri_gpu_object__multiple_objects:object": {
+            "name": "generic_stone_small_f",
+            "weight": 1.0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "ground_effect",
+      "ground_effect__fx_name": "land_snow_storm",
+      "ground_effect__biome_group_name": "powder_snow",
+      "ground_effect__biome_weight_for_active_thr": 0.9,
+      "ground_effect__grid_cell_size": 8.0,
+      "ground_effect__grid_world_origin": [0.0,0.0],
+      "ground_effect__vis_radius": 40.0,
+      "ground_effect__offset_y": [0.5,0.0],
+      "ground_effect__scale_x": [0.35,0.1],
+      "ground_effect__scale_y": [0.35,0.1],
+      "ground_effect__scale_z": [0.35,0.1]
+    }
+  },
+  {
+    "entity": {
+      "_template": "tracer_launcher",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [840.409,2.97412,-1718.4]
+      ],
+      "tracer_launcher__shoot_direction": [120.0,50.0],
+      "tracer_launcher__bullet_speed": 500.0,
+      "tracer_launcher__time_to_fire": 1.1282,
+      "tracer_launcher__long_cooldown_min_max": [0.5,2.0],
+      "tracer_launcher__long_cooldown_probability": 0.2,
+      "tracer_launcher__short_cooldown": 0.1,
+      "tracer_launcher__bullet_size": 25.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "tracer_launcher",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [-1232.12,16.8469,345.809]
+      ],
+      "tracer_launcher__bullet_speed": 500.0,
+      "tracer_launcher__time_to_fire": 1.1282,
+      "tracer_launcher__long_cooldown_min_max": [0.5,2.0],
+      "tracer_launcher__long_cooldown_probability": 0.2,
+      "tracer_launcher__short_cooldown": 0.1,
+      "tracer_launcher__bullet_size": 15.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "tracer_launcher",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [449.93,15.2412,938.446]
+      ],
+      "tracer_launcher__bullet_speed": 500.0,
+      "tracer_launcher__time_to_fire": 1.1282,
+      "tracer_launcher__long_cooldown_min_max": [0.5,2.0],
+      "tracer_launcher__long_cooldown_probability": 0.2,
+      "tracer_launcher__short_cooldown": 0.1,
+      "tracer_launcher__bullet_size": 25.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "tracer_launcher",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [-1429.28,16.6468,-56.4148]
+      ],
+      "tracer_launcher__shoot_direction": [45.0,0.0],
+      "tracer_launcher__rotate_range": [30.0,60.0],
+      "tracer_launcher__bullet_speed": 500.0,
+      "tracer_launcher__time_to_fire": 1.1282,
+      "tracer_launcher__long_cooldown_min_max": [0.5,2.0],
+      "tracer_launcher__long_cooldown_probability": 0.2,
+      "tracer_launcher__short_cooldown": 0.1,
+      "tracer_launcher__bullet_size": 15.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "tracer_launcher",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [-1252.97,16.6867,565.154]
+      ],
+      "tracer_launcher__shoot_direction": [180.0,5.0],
+      "tracer_launcher__rotate_range": [50.0,120.0],
+      "tracer_launcher__bullet_speed": 500.0,
+      "tracer_launcher__time_to_fire": 1.1282,
+      "tracer_launcher__long_cooldown_min_max": [0.5,2.0],
+      "tracer_launcher__long_cooldown_probability": 0.2,
+      "tracer_launcher__short_cooldown": 0.1,
+      "tracer_launcher__bullet_size": 15.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "tracer_launcher",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [1530.39,15.1853,-1909.0]
+      ],
+      "tracer_launcher__bullet_speed": 500.0,
+      "tracer_launcher__time_to_fire": 1.1282,
+      "tracer_launcher__long_cooldown_min_max": [0.5,2.0],
+      "tracer_launcher__long_cooldown_probability": 0.2,
+      "tracer_launcher__short_cooldown": 0.1,
+      "tracer_launcher__bullet_size": 25.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "tracer_launcher",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [1878.03,2.97412,-746.199]
+      ],
+      "tracer_launcher__bullet_speed": 500.0,
+      "tracer_launcher__time_to_fire": 1.1282,
+      "tracer_launcher__long_cooldown_min_max": [0.5,2.0],
+      "tracer_launcher__long_cooldown_probability": 0.2,
+      "tracer_launcher__short_cooldown": 0.1,
+      "tracer_launcher__bullet_size": 25.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "tracer_launcher",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [1421.52,16.2929,-1068.9]
+      ],
+      "tracer_launcher__bullet_speed": 500.0,
+      "tracer_launcher__time_to_fire": 1.1282,
+      "tracer_launcher__long_cooldown_min_max": [0.5,2.0],
+      "tracer_launcher__long_cooldown_probability": 0.2,
+      "tracer_launcher__short_cooldown": 0.1,
+      "tracer_launcher__rotate_range": [100.0,100.0],
+      "tracer_launcher__shoot_direction": [45.0,0.0],
+      "tracer_launcher__bullet_size": 25.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "tracer_launcher",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [581.52,15.2412,1032.88]
+      ],
+      "tracer_launcher__bullet_speed": 500.0,
+      "tracer_launcher__time_to_fire": 1.1282,
+      "tracer_launcher__long_cooldown_min_max": [0.5,2.0],
+      "tracer_launcher__long_cooldown_probability": 0.2,
+      "tracer_launcher__short_cooldown": 0.1,
+      "tracer_launcher__bullet_size": 15.0,
+      "tracer_launcher__rotate_range": [40.0,20.0]
+    }
+  },
+  {
+    "entity": {
+      "_template": "tracer_launcher",
+      "transform": [
+        [0.932636,0.0,0.360819],
+        [0.0,1.0,-0.0],
+        [-0.360819,0.0,0.932636],
+        [820.192,16.7659,1064.88]
+      ],
+      "tracer_launcher__bullet_speed": 500.0,
+      "tracer_launcher__time_to_fire": 1.1282,
+      "tracer_launcher__long_cooldown_min_max": [0.5,2.0],
+      "tracer_launcher__long_cooldown_probability": 0.2,
+      "tracer_launcher__short_cooldown": 0.1,
+      "tracer_launcher__bullet_size": 25.0,
+      "tracer_launcher__rotate_range": [80.0,20.0]
+    }
+  },
+  {
+    "entity": {
+      "_template": "tracer_launcher",
+      "transform": [
+        [0.884109,0.0,-0.46728],
+        [0.0,1.0,0.0],
+        [0.46728,-0.0,0.884109],
+        [728.34,16.2273,1378.2]
+      ],
+      "tracer_launcher__bullet_speed": 500.0,
+      "tracer_launcher__time_to_fire": 1.1282,
+      "tracer_launcher__long_cooldown_min_max": [0.5,2.0],
+      "tracer_launcher__long_cooldown_probability": 0.2,
+      "tracer_launcher__short_cooldown": 0.1,
+      "tracer_launcher__bullet_size": 25.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "tracer_launcher",
+      "transform": [
+        [0.413127,0.0,-0.910674],
+        [0.0,1.0,0.0],
+        [0.910674,-0.0,0.413127],
+        [879.737,15.0518,543.717]
+      ],
+      "tracer_launcher__bullet_speed": 500.0,
+      "tracer_launcher__time_to_fire": 1.1282,
+      "tracer_launcher__long_cooldown_min_max": [0.5,2.0],
+      "tracer_launcher__long_cooldown_probability": 0.2,
+      "tracer_launcher__short_cooldown": 0.1,
+      "tracer_launcher__bullet_size": 25.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "tracer_launcher",
+      "transform": [
+        [-0.991779,0.0,-0.127963],
+        [0.0,1.0,0.0],
+        [0.127963,0.0,-0.991779],
+        [684.341,15.0518,-128.189]
+      ],
+      "tracer_launcher__bullet_speed": 500.0,
+      "tracer_launcher__time_to_fire": 1.1282,
+      "tracer_launcher__long_cooldown_min_max": [0.5,2.0],
+      "tracer_launcher__long_cooldown_probability": 0.2,
+      "tracer_launcher__short_cooldown": 0.1,
+      "tracer_launcher__bullet_size": 25.0,
+      "tracer_launcher__rotate_range": [50.0,20.0]
+    }
+  },
+  {
+    "entity": {
+      "_template": "tracer_launcher",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [961.646,16.2929,-1419.34]
+      ],
+      "tracer_launcher__bullet_speed": 500.0,
+      "tracer_launcher__time_to_fire": 1.1282,
+      "tracer_launcher__long_cooldown_min_max": [0.5,2.0],
+      "tracer_launcher__long_cooldown_probability": 0.2,
+      "tracer_launcher__short_cooldown": 0.1,
+      "tracer_launcher__rotate_range": [100.0,100.0],
+      "tracer_launcher__shoot_direction": [45.0,0.0],
+      "tracer_launcher__bullet_size": 25.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "tracer_launcher",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [-107.284,15.2412,1018.9]
+      ],
+      "tracer_launcher__bullet_speed": 500.0,
+      "tracer_launcher__time_to_fire": 1.1282,
+      "tracer_launcher__long_cooldown_min_max": [0.5,2.0],
+      "tracer_launcher__long_cooldown_probability": 0.2,
+      "tracer_launcher__short_cooldown": 0.1,
+      "tracer_launcher__bullet_size": 10.0,
+      "tracer_launcher__rotate_range": [40.0,20.0]
+    }
+  },
+  {
+    "entity": {
+      "_template": "tracer_launcher",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [0.57929,15.2412,937.267]
+      ],
+      "tracer_launcher__bullet_speed": 500.0,
+      "tracer_launcher__time_to_fire": 1.1282,
+      "tracer_launcher__long_cooldown_min_max": [0.5,2.0],
+      "tracer_launcher__long_cooldown_probability": 0.2,
+      "tracer_launcher__short_cooldown": 0.1,
+      "tracer_launcher__bullet_size": 10.0,
+      "tracer_launcher__rotate_range": [60.0,20.0]
+    }
+  },
+  {
+    "entity": {
+      "_template": "tracer_launcher",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [-330.72,16.0806,906.894]
+      ],
+      "tracer_launcher__bullet_speed": 500.0,
+      "tracer_launcher__time_to_fire": 1.1282,
+      "tracer_launcher__long_cooldown_min_max": [0.5,2.0],
+      "tracer_launcher__long_cooldown_probability": 0.2,
+      "tracer_launcher__short_cooldown": 0.1,
+      "tracer_launcher__bullet_size": 5.0,
+      "tracer_launcher__rotate_range": [10.0,20.0]
+    }
+  },
+  {
+    "entity": {
+      "_template": "static_cam",
+      "camera__active": true,
+      "transform": [
+        [-0.462416,9.31323e-10,-0.886663],
+        [0.0282172,0.999493,-0.014716],
+        [0.886214,-0.0318241,-0.462182],
+        [-395.576,27.1664,160.759]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "envir_background_flash_8s_effect",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [1556.21,10.6394,-811.233]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "envir_background_flash_11s_effect",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [1136.28,8.35606,-984.488]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "envir_background_flash_11s_effect",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [1028.41,9.74833,-1306.96]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "envir_background_flash_11s_effect",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [1914.91,13.1994,-941.62]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "envir_background_flash_11s_effect",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [1569.04,11.0884,-820.956]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "envir_background_flash_8s_effect",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [189.61,4.67061,583.935]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "envir_background_flash_8s_effect",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [-329.441,8.37057,721.088]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "envir_background_flash_11s_effect",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [-329.441,8.37057,721.088]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "fire_bonfire_small_effect",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [-263.42,16.026,50.2056]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "envir_smoke_bg_massive_effect",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [157.222,15.0698,-398.592]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "envir_smoke_bg_massive_effect",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [250.035,15.0698,-615.599]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "envir_fire_background_effect",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [154.872,14.3625,-403.656]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "envir_fire_background_effect",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [149.551,14.3625,-397.957]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "envir_fire_background_effect",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [251.453,14.3625,-619.516]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "envir_fire_background_effect",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [252.754,14.3625,-609.425]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "envir_fire_background_effect",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [151.145,14.3625,-443.171]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "envir_fire_background_effect",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [169.919,14.3625,-481.93]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "envir_fire_background_effect",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [128.635,14.3625,-469.117]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "envir_fire_background_effect",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [242.938,14.5665,-578.129]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "envir_fire_background_effect",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [261.25,14.5665,-640.875]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "envir_fire_background_effect",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [217.092,14.5665,-603.829]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "envir_fire_background_effect",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [215.26,14.5665,-410.868]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "envir_sparks_burst_small_effect",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [-301.205,16.5378,136.548]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "envir_sparks_burst_small_effect",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [-195.674,16.6324,16.3911]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "envir_sparks_burst_small_effect",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [-102.243,16.6501,34.8453]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "tractor_stz_5",
+      "transform": [
+        [0.845196,0.012954,-0.534299],
+        [0.00376386,0.999537,0.0301877],
+        [0.534443,-0.0275255,0.844756],
+        [-263.433,16.1864,386.895]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "tractor_stz_5",
+      "transform": [
+        [0.949691,-0.00411651,-0.31316],
+        [-0.0152787,0.998115,-0.0594544],
+        [0.312814,0.061248,0.947837],
+        [-206.83,14.9848,57.0708]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "tractor_stz_5",
+      "transform": [
+        [-0.995755,0.00237132,0.0920075],
+        [0.00281366,0.999985,0.00467819],
+        [-0.091995,0.00491721,-0.995747],
+        [-147.741,15.1368,58.3303]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "tractor_stz_5",
+      "transform": [
+        [-0.869137,0.00248596,-0.494566],
+        [0.00420241,0.999989,-0.0023587],
+        [0.494554,-0.0041284,-0.869137],
+        [-112.305,15.0989,134.847]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "tractor_stz_5",
+      "transform": [
+        [-0.298812,0.0469115,0.953158],
+        [-0.0570508,0.996127,-0.0669116],
+        [-0.952605,-0.0743724,-0.294979],
+        [-30.3204,15.708,-223.201]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "tractor_stz_5",
+      "transform": [
+        [0.518423,0.0174377,0.854946],
+        [-0.0192303,0.999777,-0.00873082],
+        [-0.854908,-0.0119146,0.518643],
+        [113.123,16.6641,74.4076]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "tractor_stz_5",
+      "transform": [
+        [-0.0770847,-0.000169502,0.997025],
+        [-0.00439125,0.99999,-0.000169502],
+        [-0.997015,-0.00439125,-0.0770847],
+        [22.9755,15.6914,-49.3604]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "tractor_stz_5",
+      "transform": [
+        [0.999498,0.0053573,-0.031231],
+        [-0.00524183,0.999979,0.00377811],
+        [0.0312505,-0.0036125,0.999505],
+        [-374.39,15.0734,120.89]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "tractor_stz_5",
+      "transform": [
+        [-0.273413,0.00405852,-0.961888],
+        [0.00013946,0.999991,0.00417965],
+        [0.961897,0.00100862,-0.273411],
+        [-285.293,15.115,123.99]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "tractor_stz_5",
+      "transform": [
+        [0.860094,0.00673365,-0.510091],
+        [-0.00806564,0.999968,-0.000399497],
+        [0.510072,0.00445782,0.860121],
+        [-421.71,15.0832,156.158]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "opel_blitz_kfz_305",
+      "transform": [
+        [0.051473,-0.0168544,-0.998532],
+        [0.0215129,0.999644,-0.0157642],
+        [0.998443,-0.0206699,0.0518173],
+        [-473.735,15.4485,345.456]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "vw_kubelwagen",
+      "transform": [
+        [-0.354094,-0.0125641,-0.935125],
+        [0.0330735,0.999116,-0.0259475],
+        [0.934625,-0.0401157,-0.353366],
+        [-478.634,15.5805,337.496]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "gaz_m1",
+      "transform": [
+        [-0.106885,-0.0123049,0.994195],
+        [0.0179886,0.999736,0.0143074],
+        [-0.994109,0.0194135,-0.106636],
+        [-102.556,15.0248,4.80475]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "gaz_m1",
+      "transform": [
+        [-0.467382,-0.028836,0.883585],
+        [-0.0164316,0.999578,0.0239298],
+        [-0.883903,-0.00333434,-0.467659],
+        [40.4529,16.0582,-129.464]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "vw_kubelwagen",
+      "transform": [
+        [-0.125325,0.0122442,-0.99204],
+        [0.00781689,0.999905,0.0113537],
+        [0.992085,-0.00633177,-0.125409],
+        [-437.451,15.0358,407.736]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "group_activator",
+      "activator__activateChoice:object": []
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawn_camera",
+      "respawnCameraForTeam": 1,
+      "moveCameraToHeight": 200.0,
+      "respawnSelectorDistanceMult": 1.8,
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [229.434,169.098,36.6645]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawn_camera",
+      "respawnCameraForTeam": 2,
+      "moveCameraToHeight": 200.0,
+      "respawnSelectorDistanceMult": 2.35,
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [-416.685,195.954,-265.449]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "team_stalingrad_axis+team_narrator_invasion_defence+respawn_creators_team",
+      "team__countAdd": 0.5,
+      "team__memberCount": 0.5,
+      "team__scoreCap": 5000.0,
+      "team__capturePenalty": 1001.0,
+      "team__score": 5000.0,
+      "team__id": 2,
+      "team__briefing": "invasion/defenders_goals",
+      "team__winSubtitle": "debriefing/won_defence_subtitle",
+      "team__loseSubtitle": "debriefing/lost_defence_subtitle",
+      "team__winTitle": "debriefing/ger_won_defence",
+      "team__spawnBotArmy": "stalingrad_axis"
+    }
+  },
+  {
+    "entity": {
+      "_template": "team_stalingrad_allies+team_narrator_invasion_attack+respawn_creators_team",
+      "team__memberCount": 0.0,
+      "team__scoreCap": 2000.0,
+      "team__score": 2000.0,
+      "team__squadSpawnCost": 250,
+      "team__firstSpawnCostMul": 0.0,
+      "team__zeroScoreFailTimer": 60.0,
+      "team__id": 1,
+      "team__haveScores": false,
+      "team__briefing": "invasion/attackers_goals",
+      "team__winSubtitle": "debriefing/won_invasion_subtitle",
+      "team__loseSubtitle": "debriefing/lost_invasion_subtitle",
+      "team__winTitle": "debriefing/ussr_won_invasion",
+      "team__spawnBotArmy": "stalingrad_allies"
+    }
+  }
+]

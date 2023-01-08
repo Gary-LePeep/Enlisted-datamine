@@ -1,0 +1,1233 @@
+[
+  {
+    "import": [
+      {
+        "scene": "content/enlisted/gamedata/scenes/_berlin_opera_gpu_objects.blk"
+      },
+      {
+        "scene": "content/enlisted/gamedata/scenes/_berlin_opera_biom_fx.blk"
+      },
+      {
+        "scene": "content/enlisted/gamedata/scenes/_berlin_opera_background_fx.blk"
+      },
+      {
+        "scene": "content/enlisted/gamedata/scenes/_berlin_opera_projectors.blk"
+      },
+      {
+        "scene": "content/enlisted/gamedata/scenes/_berlin_opera_tracers.blk"
+      }
+    ]
+  },
+  {
+    "import": {
+      "scene": "content/enlisted/gamedata/scenes/_berlin_city_battle_sounds.blk"
+    }
+  },
+  {
+    "entity": {
+      "_template": "static_cam",
+      "camera__active": true,
+      "transform": [
+        [0.970711,-2.32831e-10,-0.240253],
+        [-0.00264548,0.999939,-0.0106887],
+        [0.240238,0.0110112,0.970651],
+        [-406.022,9.46467,812.902]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "gun_game_mode_logic",
+      "gun_game__levels:array": [
+        {
+          "gun_game__levels:object": {
+            "weaponSlot": "primary",
+            "levelKills": 1,
+            "weapons:list<t>": {
+              "item": "vg_2_gun"
+            }
+          }
+        },
+        {
+          "gun_game__levels:object": {
+            "weaponSlot": "secondary",
+            "levelKills": 1,
+            "weapons:list<t>": {
+              "item": "toz_b_gun"
+            }
+          }
+        },
+        {
+          "gun_game__levels:object": {
+            "weaponSlot": "primary",
+            "levelKills": 1,
+            "weapons:list<t>": {
+              "item": "svt_40_gun"
+            }
+          }
+        },
+        {
+          "gun_game__levels:object": {
+            "weaponSlot": "secondary",
+            "levelKills": 2,
+            "weapons:list<t>": {
+              "item": "mp_40_1_gun"
+            }
+          }
+        },
+        {
+          "gun_game__levels:object": {
+            "weaponSlot": "primary",
+            "levelKills": 2,
+            "weapons:list<t>": {
+              "item": "dp_27_gun"
+            }
+          }
+        },
+        {
+          "gun_game__levels:object": {
+            "weaponSlot": "secondary",
+            "levelKills": 2,
+            "weapons:list<t>": {
+              "item": "sniper_gewehr_43_gun"
+            },
+            "additionalWeapInfo:array": {
+              "additionalWeapInfo:object": {
+                "gunMods:object": {
+                  "scope": "scope_zf4"
+                }
+              }
+            }
+          }
+        },
+        {
+          "gun_game__levels:object": {
+            "weaponSlot": "primary",
+            "levelKills": 2,
+            "weapons:list<t>": {
+              "item": "ppd_bramit_gun"
+            }
+          }
+        },
+        {
+          "gun_game__levels:object": {
+            "weaponSlot": "secondary",
+            "levelKills": 2,
+            "weapons:list<t>": {
+              "item": "fg_42_model_2_gun"
+            }
+          }
+        },
+        {
+          "gun_game__levels:object": {
+            "weaponSlot": "primary",
+            "levelKills": 2,
+            "weapons:list<t>": {
+              "item": "fedorov_avtomat_gun"
+            }
+          }
+        },
+        {
+          "gun_game__levels:object": {
+            "weaponSlot": "secondary",
+            "levelKills": 2,
+            "weapons:list<t>": {
+              "item": "mg_42_handheld_gun"
+            }
+          }
+        },
+        {
+          "gun_game__levels:object": {
+            "weaponSlot": "primary",
+            "levelKills": 3,
+            "weapons:list<t>": {
+              "item": "neiman_minethrower_gun"
+            }
+          }
+        },
+        {
+          "gun_game__levels:object": {
+            "weaponSlot": "secondary",
+            "levelKills": 3,
+            "weapons:list<t>": {
+              "item": "kar98k_with_scope_mount_gun"
+            },
+            "additionalWeapInfo:array": {
+              "additionalWeapInfo:object": {
+                "gunMods:object": {
+                  "scope": "scope_zf39"
+                }
+              }
+            }
+          }
+        },
+        {
+          "gun_game__levels:object": {
+            "weaponSlot": "primary",
+            "levelKills": 3,
+            "weapons:list<t>": {
+              "item": "flammenwerfer_41_gun"
+            }
+          }
+        },
+        {
+          "gun_game__levels:object": {
+            "weaponSlot": "secondary",
+            "levelKills": 3,
+            "weapons:list<t>": {
+              "item": "p08_luger_artillery_gun"
+            }
+          }
+        },
+        {
+          "gun_game__levels:object": {
+            "weaponSlot": "primary",
+            "levelKills": 3,
+            "weapons:list<t>": {
+              "item": "mosin_m91_bramit_gun"
+            }
+          }
+        },
+        {
+          "gun_game__levels:object": {
+            "weaponSlot": "tertiary",
+            "levelKills": 3,
+            "weapons:list<t>": {
+              "item": "mauser_c96_gun"
+            }
+          }
+        },
+        {
+          "gun_game__levels:object": {
+            "weaponSlot": "secondary",
+            "levelKills": 3,
+            "weapons:list<t>": {
+              "item": "ptrs_41_gun"
+            }
+          }
+        },
+        {
+          "gun_game__levels:object": {
+            "weaponSlot": "melee",
+            "levelKills": 3,
+            "weapons:list<t>": {
+              "item": "russian_cavalry_sword_1927_weapon"
+            }
+          }
+        },
+        {
+          "gun_game__levels:object": {
+            "weaponSlot": "tertiary",
+            "levelKills": 3,
+            "weapons:list<t>": {
+              "item": "nagant_m1895_bramit_gun"
+            }
+          }
+        },
+        {
+          "gun_game__levels:object": {
+            "weaponSlot": "melee",
+            "levelKills": 1,
+            "weapons:list<t>": {
+              "item": "knife_weapon"
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "gun_game_mode_sounds"
+    }
+  },
+  {
+    "entity": {
+      "_template": "custom_profile",
+      "customProfile": "%enlSqGlob/data/gun_game_profile.json"
+    }
+  },
+  {
+    "entity": {
+      "_template": "box_battle_area",
+      "transform": [
+        [-4.01193,0.0,75.8616],
+        [0.0,81.0389,0.0],
+        [-129.128,0.0,-6.82891],
+        [-400.378,6.67366,885.347]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "level",
+      "level__blk": "content/enlisted/levels/battle_of_berlin_opera.blk",
+      "level__minimapDefaultVisibleRadius": 100,
+      "level__weatherChoice:object": {
+        "weather_cloudy_a": 1.0
+      },
+      "level__timeVec:array": {
+        "level__timeVec": 8.5
+      }
+    }
+  },
+  {
+    "entity": {
+      "_template": "clouds_hole_target",
+      "transform": [
+        [-0.179872,0.0,-0.98369],
+        [0.0,1.0,0.0],
+        [0.98369,0.0,-0.179872],
+        [-346.605,4.96123,775.973]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "shaderVars",
+      "shader_vars__vars:object": {
+        "hmap_displacement_up": 0.3,
+        "ocean1": "#8e894700",
+        "ocean0": "#4c3f0500",
+        "ocean_density": 0.1,
+        "puddle_hardness": 12.0,
+        "puddle_flat_noise_normal_effect": 0.015,
+        "puddle_flat_normal_hardness": 25.0,
+        "layered_fog_density": 0.005,
+        "land_selfillum_worldscale": 1.0,
+        "river1": "#40401d00",
+        "river0": "#312f2900",
+        "hmap_displacement_down": -0.15,
+        "puddle_flat_hmap_reduce": -0.2,
+        "leaves_ss_profile": [1.0,1.0,1.0,0.0],
+        "autodetect_land_selfillum_color": [0.176,0.051,0.0,0.094],
+        "paint_details_tex": "berlin_wall_color_tex_palette*",
+        "layered_fog_height": 20.0,
+        "puddle_increase": 0.0,
+        "land_selfillum_strength": 50.0,
+        "water_color_noise_size": 71.0,
+        "puddle_flat_noise_height_reduce": 0.09,
+        "water_depth_hardness": 0.41,
+        "river_density": 0.5
+      }
+    }
+  },
+  {
+    "entity": {
+      "_template": "postfx_roundctrl",
+      "post_fx:object": []
+    }
+  },
+  {
+    "entity": {
+      "_template": "postfx_color_grading_tonemap_death_alive_enlisted"
+    }
+  },
+  {
+    "entity": {
+      "_template": "water",
+      "water__strength": 0.3,
+      "water__level": -2.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "wind",
+      "wind__strength": 2.3,
+      "wind__dir": 0.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "minimap_berlin_opera"
+    }
+  },
+  {
+    "entity": {
+      "_template": "door_mult_ent_generator",
+      "ri_extra_gen__blk": "content/e_berlin/gamedata/berlin_doors.blk"
+    }
+  },
+  {
+    "entity": {
+      "_template": "session_finalizer",
+      "session_finalizer__timer": 10.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "briefing_gun_game",
+      "mission_name": "berlin_station_gun_game",
+      "loading_images:list<t>": {
+        "item": "ui/berlin_station_01.jpg"
+      }
+    }
+  },
+  {
+    "entity": {
+      "_template": "team_ussr_berlin+team_narrator_gun_game+respawn_creators_team",
+      "team__id": 1,
+      "team__score": 2500.0,
+      "team__scoreCap": 2500.0,
+      "score_bleed__domBleed": 4.0,
+      "score_bleed__domBleedOn": false,
+      "score_bleed__totalDomZoneCount": 3,
+      "score_bleed__totalDomBleedMul": 2.0,
+      "score_bleed__totalDomBleedOn": false,
+      "team__briefing": "gun_game/common_goals",
+      "team__numZonesCaptured": 0,
+      "team__deathPenalty": 0.0,
+      "team__spawnBotArmy": "moscow_allies"
+    }
+  },
+  {
+    "entity": {
+      "_template": "team_germany_berlin+team_narrator_gun_game+respawn_creators_team",
+      "team__id": 2,
+      "team__score": 2500.0,
+      "team__scoreCap": 2500.0,
+      "score_bleed__domBleed": 4.0,
+      "score_bleed__domBleedOn": false,
+      "score_bleed__totalDomZoneCount": 3,
+      "score_bleed__totalDomBleedMul": 2.0,
+      "score_bleed__totalDomBleedOn": false,
+      "team__briefing": "gun_game/common_goals",
+      "team__numZonesCaptured": 0,
+      "team__deathPenalty": 0.0,
+      "team__spawnBotArmy": "moscow_axis"
+    }
+  },
+  {
+    "entity": {
+      "_template": "gun_game_respawn_base",
+      "transform": [
+        [0.999691,0.0,-0.0250491],
+        [0.0,0.999998,0.0],
+        [0.025049,-0.0,0.999687],
+        [-446.457,4.15405,853.563]
+      ],
+      "team": 1
+    }
+  },
+  {
+    "entity": {
+      "_template": "gun_game_respawn_base",
+      "transform": [
+        [0.980007,0.0,0.198988],
+        [0.0,0.999997,-0.0],
+        [-0.198987,0.0,0.980002],
+        [-447.978,4.15405,871.502]
+      ],
+      "team": 1
+    }
+  },
+  {
+    "entity": {
+      "_template": "gun_game_respawn_base",
+      "transform": [
+        [-0.0442778,0.0,0.999025],
+        [0.0,0.999997,0.0],
+        [-0.99902,0.0,-0.0442776],
+        [-434.578,2.69585,884.499]
+      ],
+      "team": 3,
+      "gun_game__respawnFriendlyRadius": 20.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "gun_game_respawn_base",
+      "transform": [
+        [-0.880065,0.0,-0.474867],
+        [0.0,0.999997,0.0],
+        [0.474864,0.0,-0.88006],
+        [-352.949,4.36092,895.063]
+      ],
+      "team": 2
+    }
+  },
+  {
+    "entity": {
+      "_template": "gun_game_respawn_base",
+      "transform": [
+        [-0.999884,0.0,0.0157028],
+        [0.0,0.999997,0.0],
+        [-0.0157027,0.0,-0.999878],
+        [-352.977,4.36092,856.036]
+      ],
+      "team": 2,
+      "gun_game__respawnFriendlyRadius": 25.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "gun_game_respawn_base",
+      "transform": [
+        [0.72925,0.0,-0.684256],
+        [-0.0,0.999997,0.0],
+        [0.684252,0.0,0.729246],
+        [-384.587,0.606692,897.892]
+      ],
+      "team": 3,
+      "gun_game__respawnFriendlyRadius": 20.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "gun_game_respawn_base",
+      "transform": [
+        [0.0307749,0.0,0.999533],
+        [0.0,0.999997,-0.0],
+        [-0.999527,0.0,0.0307747],
+        [-418.416,0.804176,875.319]
+      ],
+      "team": 3,
+      "gun_game__respawnFriendlyRadius": 15.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "gun_game_respawn_base",
+      "transform": [
+        [0.0361147,0.0,-0.999354],
+        [0.0,0.999997,0.0],
+        [0.999348,-0.0,0.0361145],
+        [-370.8,2.1086,907.114]
+      ],
+      "team": 2,
+      "gun_game__respawnFriendlyRadius": 25.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "gun_game_respawn_base",
+      "transform": [
+        [0.00116264,0.0,-1.00001],
+        [0.0,0.999997,0.0],
+        [1.0,-0.0,0.00116263],
+        [-403.41,4.36092,857.182]
+      ],
+      "team": 3
+    }
+  },
+  {
+    "entity": {
+      "_template": "sandbags_wall_1",
+      "transform": [
+        [-0.875019,0.0,-0.48409],
+        [0.0,1.0,0.0],
+        [0.48409,0.0,-0.875018],
+        [-368.906,3.45319,919.675]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "gun_game_respawn_base",
+      "transform": [
+        [0.00116264,0.0,-1.00001],
+        [0.0,0.999997,0.0],
+        [1.0,-0.0,0.00116263],
+        [-399.596,1.92437,875.134]
+      ],
+      "team": 3,
+      "gun_game__respawnFriendlyRadius": 15.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "gun_game_respawn_base",
+      "transform": [
+        [0.0634424,0.0,-0.997992],
+        [-0.0,0.999997,0.0],
+        [0.997986,0.0,0.063442],
+        [-417.073,0.804178,888.454]
+      ],
+      "team": 3,
+      "gun_game__respawnFriendlyRadius": 20.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "gun_game_respawn_base",
+      "transform": [
+        [-0.0216455,0.0,0.999776],
+        [0.0,0.999997,0.0],
+        [-0.999766,0.0,-0.0216453],
+        [-400.028,1.92437,887.793]
+      ],
+      "team": 3,
+      "gun_game__respawnFriendlyRadius": 15.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "gun_game_respawn_base",
+      "transform": [
+        [0.928477,0.0,0.371407],
+        [0.0,0.999997,-0.0],
+        [-0.371404,0.0,0.928471],
+        [-372.039,3.58261,887.389]
+      ],
+      "team": 3,
+      "gun_game__respawnFriendlyRadius": 20.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "gun_game_respawn_base",
+      "transform": [
+        [0.0259893,0.0,-0.999668],
+        [-0.0,0.999997,0.0],
+        [0.999663,0.0,0.0259892],
+        [-435.312,4.32819,901.262]
+      ],
+      "team": 3,
+      "gun_game__respawnFriendlyRadius": 20.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "gun_game_respawn_base",
+      "transform": [
+        [0.115322,0.0,-0.993334],
+        [0.0,0.999997,0.0],
+        [0.993329,-0.0,0.115321],
+        [-436.06,4.32819,919.0]
+      ],
+      "team": 1,
+      "gun_game__respawnFriendlyRadius": 15.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "gun_game_respawn_base",
+      "transform": [
+        [0.519385,0.0,0.854547],
+        [0.0,0.999997,-0.0],
+        [-0.854543,0.0,0.519383],
+        [-440.303,4.32819,906.085]
+      ],
+      "team": 3,
+      "gun_game__respawnFriendlyRadius": 17.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "gun_game_respawn_base",
+      "transform": [
+        [-0.973872,0.0,0.227128],
+        [0.0,0.999997,0.0],
+        [-0.227126,0.0,-0.973866],
+        [-366.411,4.22995,920.426]
+      ],
+      "team": 3,
+      "gun_game__respawnFriendlyRadius": 10.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "sandbags_wall_8",
+      "transform": [
+        [-0.0570775,0.0,0.99837],
+        [0.0,1.0,0.0],
+        [-0.99837,0.0,-0.0570775],
+        [-370.862,3.49189,925.5]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "sandbags_wall_8",
+      "transform": [
+        [-0.0570775,0.0,0.99837],
+        [0.0,1.0,0.0],
+        [-0.99837,0.0,-0.0570775],
+        [-441.321,3.49189,921.72]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "sandbags_wall_8",
+      "transform": [
+        [-0.0570775,0.0,0.99837],
+        [0.0,1.0,0.0],
+        [-0.99837,0.0,-0.0570775],
+        [-430.119,3.56878,922.613]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "sandbags_wall_8",
+      "transform": [
+        [-0.0570775,0.0,0.99837],
+        [0.0,1.0,0.0],
+        [-0.99837,0.0,-0.0570775],
+        [-432.282,3.49188,851.664]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "sandbags_wall_8",
+      "transform": [
+        [-0.0570775,0.0,0.99837],
+        [0.0,1.0,0.0],
+        [-0.99837,0.0,-0.0570775],
+        [-351.514,3.4919,851.093]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "sandbags_wall_8",
+      "transform": [
+        [-0.0570775,0.0,0.99837],
+        [0.0,1.0,0.0],
+        [-0.99837,0.0,-0.0570775],
+        [-360.196,3.4919,850.372]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "sandbags_wall_9",
+      "transform": [
+        [-0.0437648,0.0,0.999042],
+        [0.0,1.0,0.0],
+        [-0.999042,0.0,-0.0437648],
+        [-403.97,3.45319,921.975]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "sandbags_wall_8",
+      "transform": [
+        [-0.0437648,0.0,0.999042],
+        [0.0,1.0,0.0],
+        [-0.999042,0.0,-0.0437648],
+        [-402.017,3.45319,922.032]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "sandbags_wall_9",
+      "transform": [
+        [0.0484103,0.0,-0.998827],
+        [0.0,1.0,0.0],
+        [0.998828,-0.0,0.0484103],
+        [-400.077,3.45319,922.145]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "sandbags_wall_9",
+      "transform": [
+        [0.0506135,0.0,-0.998718],
+        [0.0,1.0,0.0],
+        [0.998719,-0.0,0.0506135],
+        [-410.899,3.45319,847.631]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "sandbags_wall_8",
+      "transform": [
+        [0.0506135,0.0,-0.998718],
+        [0.0,1.0,0.0],
+        [0.998719,-0.0,0.0506135],
+        [-419.021,3.45319,847.109]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "sandbags_wall_9",
+      "transform": [
+        [-0.0552575,0.0,0.998472],
+        [0.0,1.0,0.0],
+        [-0.998472,0.0,-0.0552575],
+        [-420.959,3.45319,846.983]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "czech_hedgehog_a",
+      "transform": [
+        [0.28875,0.0,-0.957405],
+        [0.0,1.0,0.0],
+        [0.957405,-0.0,0.28875],
+        [-407.897,2.39842,846.532]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "czech_hedgehog_a",
+      "transform": [
+        [0.386064,0.0,0.922472],
+        [0.0,1.0,-0.0],
+        [-0.922472,0.0,0.386064],
+        [-405.631,2.3889,846.673]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "sandbags_wall_8",
+      "transform": [
+        [0.0506135,0.0,-0.998718],
+        [0.0,1.0,0.0],
+        [0.998719,-0.0,0.0506135],
+        [-416.933,3.45319,847.242]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "sandbags_wall_8",
+      "transform": [
+        [0.0506135,0.0,-0.998718],
+        [0.0,1.0,0.0],
+        [0.998719,-0.0,0.0506135],
+        [-412.857,3.45319,847.503]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "sandbags_wall_3",
+      "transform": [
+        [-0.0497094,0.0,0.998763],
+        [0.0,1.0,0.0],
+        [-0.998763,0.0,-0.0497094],
+        [-406.606,2.39842,844.939]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "czech_hedgehog_a",
+      "transform": [
+        [0.922932,0.0,-0.384963],
+        [0.0,1.0,0.0],
+        [0.384963,-0.0,0.922932],
+        [-388.108,2.39843,846.815]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "czech_hedgehog_a",
+      "transform": [
+        [0.28875,0.0,-0.957405],
+        [0.0,1.0,0.0],
+        [0.957405,-0.0,0.28875],
+        [-390.701,2.39842,846.743]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "sandbags_wall_8",
+      "transform": [
+        [0.0506135,0.0,-0.998718],
+        [0.0,1.0,0.0],
+        [0.998719,-0.0,0.0506135],
+        [-398.083,3.45319,847.15]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "sandbags_wall_9",
+      "transform": [
+        [-0.0552575,0.0,0.998472],
+        [0.0,1.0,0.0],
+        [-0.998472,0.0,-0.0552575],
+        [-400.026,3.45319,847.048]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "sandbags_wall_9",
+      "transform": [
+        [-0.0634513,0.0,0.997985],
+        [0.0,1.0,0.0],
+        [-0.997985,0.0,-0.0634513],
+        [-385.119,3.45318,848.653]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "sandbags_wall_8",
+      "transform": [
+        [-0.0634513,0.0,0.997985],
+        [0.0,1.0,0.0],
+        [-0.997985,0.0,-0.0634513],
+        [-383.167,3.45319,848.749]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "sandbags_wall_9",
+      "transform": [
+        [0.0621216,0.0,-0.998069],
+        [0.0,1.0,0.0],
+        [0.998069,-0.0,0.0621216],
+        [-374.313,3.45318,849.174]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "sandbags_wall_8",
+      "transform": [
+        [0.0621216,0.0,-0.998069],
+        [0.0,1.0,0.0],
+        [0.998069,-0.0,0.0621216],
+        [-376.265,3.45318,849.08]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "sandbags_wall_8",
+      "transform": [
+        [0.0621216,0.0,-0.998069],
+        [0.0,1.0,0.0],
+        [0.998069,-0.0,0.0621216],
+        [-378.324,3.45318,849.019]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "czech_hedgehog_a",
+      "transform": [
+        [-0.318152,0.0,0.94804],
+        [0.0,1.0,0.0],
+        [-0.94804,0.0,-0.318152],
+        [-391.851,2.39843,921.847]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "czech_hedgehog_a",
+      "transform": [
+        [-0.357419,0.0,-0.933944],
+        [0.0,1.0,0.0],
+        [0.933944,0.0,-0.357419],
+        [-394.112,2.38891,921.636]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "sandbags_wall_3",
+      "transform": [
+        [0.0805012,0.0,-0.996754],
+        [0.0,1.0,0.0],
+        [0.996754,-0.0,0.0805013],
+        [-393.191,2.39843,923.399]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "sandbags_wall_8",
+      "transform": [
+        [-0.0437648,0.0,0.999042],
+        [0.0,1.0,0.0],
+        [-0.999042,0.0,-0.0437648],
+        [-381.046,3.45319,923.401]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "sandbags_wall_9",
+      "transform": [
+        [0.0484103,0.0,-0.998827],
+        [0.0,1.0,0.0],
+        [0.998828,-0.0,0.0484103],
+        [-379.106,3.45319,923.514]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "sandbags_wall_9",
+      "transform": [
+        [-0.0437648,0.0,0.999042],
+        [0.0,1.0,0.0],
+        [-0.999042,0.0,-0.0437648],
+        [-389.293,3.45319,923.054]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "sandbags_wall_8",
+      "transform": [
+        [-0.0437648,0.0,0.999042],
+        [0.0,1.0,0.0],
+        [-0.999042,0.0,-0.0437648],
+        [-387.34,3.45319,923.111]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "sandbags_wall_8",
+      "transform": [
+        [-0.0437648,0.0,0.999042],
+        [0.0,1.0,0.0],
+        [-0.999042,0.0,-0.0437648],
+        [-385.228,3.45319,923.206]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "sandbags_wall_8",
+      "transform": [
+        [-0.0437648,0.0,0.999042],
+        [0.0,1.0,0.0],
+        [-0.999042,0.0,-0.0437648],
+        [-383.139,3.45319,923.293]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "sandbags_wall_9",
+      "transform": [
+        [-0.0437648,0.0,0.999042],
+        [0.0,1.0,0.0],
+        [-0.999042,0.0,-0.0437648],
+        [-422.679,3.45319,922.672]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "sandbags_wall_8",
+      "transform": [
+        [-0.0437648,0.0,0.999042],
+        [0.0,1.0,0.0],
+        [-0.999042,0.0,-0.0437648],
+        [-420.726,3.45319,922.729]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "sandbags_wall_8",
+      "transform": [
+        [-0.0437648,0.0,0.999042],
+        [0.0,1.0,0.0],
+        [-0.999042,0.0,-0.0437648],
+        [-416.634,3.45319,922.797]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "sandbags_wall_9",
+      "transform": [
+        [0.0908577,0.0,-0.995864],
+        [0.0,1.0,0.0],
+        [0.995864,-0.0,0.0908577],
+        [-414.701,3.45319,922.981]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "czech_hedgehog_a",
+      "transform": [
+        [-0.438596,0.0,0.898684],
+        [0.0,1.0,0.0],
+        [-0.898685,0.0,-0.438596],
+        [-418.515,3.45318,922.467]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "sandbags_wall_8",
+      "transform": [
+        [-0.0570775,0.0,0.99837],
+        [0.0,1.0,0.0],
+        [-0.99837,0.0,-0.0570775],
+        [-432.205,3.56878,922.532]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "sandbags_wall_8",
+      "transform": [
+        [-0.0570775,0.0,0.99837],
+        [0.0,1.0,0.0],
+        [-0.99837,0.0,-0.0570775],
+        [-439.245,3.49189,921.883]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "sandbags_wall_8",
+      "transform": [
+        [0.0506135,0.0,-0.998718],
+        [0.0,1.0,0.0],
+        [0.998719,-0.0,0.0506135],
+        [-414.877,3.45319,847.355]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "czech_hedgehog_a",
+      "transform": [
+        [0.786055,0.0,-0.618156],
+        [0.0,1.0,0.0],
+        [0.618156,-0.0,0.786055],
+        [-422.562,3.45318,847.069]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "sandbags_wall_8",
+      "transform": [
+        [-0.0570775,0.0,0.99837],
+        [0.0,1.0,0.0],
+        [-0.99837,0.0,-0.0570775],
+        [-446.676,4.54983,875.113]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "sandbags_wall_9",
+      "transform": [
+        [-0.0490458,0.0,0.998796],
+        [0.0,1.0,0.0],
+        [-0.998797,0.0,-0.0490459],
+        [-372.819,3.45319,925.361]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "sandbags_wall_8",
+      "transform": [
+        [0.99686,0.0,0.0791877],
+        [0.0,1.0,-0.0],
+        [-0.0791877,0.0,0.99686],
+        [-443.046,3.53254,918.846]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "sandbags_wall_8",
+      "transform": [
+        [0.99686,0.0,0.0791877],
+        [0.0,1.0,-0.0],
+        [-0.0791877,0.0,0.99686],
+        [-442.39,3.53254,905.792]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "sandbags_wall_8",
+      "transform": [
+        [-0.0570775,0.0,0.99837],
+        [0.0,1.0,0.0],
+        [-0.99837,0.0,-0.0570775],
+        [-441.321,5.40341,921.781]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "sandbags_wall_8",
+      "transform": [
+        [-0.0570775,0.0,0.99837],
+        [0.0,1.0,0.0],
+        [-0.99837,0.0,-0.0570775],
+        [-439.233,5.40341,921.925]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "sandbags_wall_1",
+      "transform": [
+        [0.398643,0.0,-0.917107],
+        [0.0,1.0,0.0],
+        [0.917106,-0.0,0.398642],
+        [-365.803,3.4532,918.615]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "sandbags_wall_8",
+      "transform": [
+        [0.999914,0.0,0.013107],
+        [0.0,1.0,-0.0],
+        [-0.013107,0.0,0.999914],
+        [-373.408,3.49189,887.549]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "sandbags_wall_8",
+      "transform": [
+        [-0.0570775,0.0,0.99837],
+        [0.0,1.0,0.0],
+        [-0.99837,0.0,-0.0570775],
+        [-354.936,3.49189,898.211]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "sandbags_wall_8",
+      "transform": [
+        [-0.0570775,0.0,0.99837],
+        [0.0,1.0,0.0],
+        [-0.99837,0.0,-0.0570775],
+        [-350.604,3.49189,898.39]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "sandbags_wall_8",
+      "transform": [
+        [0.998075,0.0,0.0620299],
+        [0.0,1.0,-0.0],
+        [-0.0620299,0.0,0.998075],
+        [-345.973,3.49189,894.819]
+      ]
+    }
+  }
+]

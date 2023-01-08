@@ -1,0 +1,172 @@
+{
+  "mass": 5000.0,
+  "momentOfInertia": [0.0,0.0,1.0],
+  "centerOfMass": [0.0,0.0,0.0],
+  "physMat": "walkRay",
+  "useFutureContacts": true,
+  "logCCD": false,
+  "addToWorld": true,
+  "gravityMult": 0.0,
+  "ignoreCollision": true,
+  "shouldTraceGround": false,
+  "boundingRadius": 0.1,
+  "Empty": 5000.0,
+  "CenterOfGravity": [-0.2,0.0,0.0],
+  "AdvancedMass": false,
+  "CenterOfGravityClampY": [0.0,0.7],
+  "collisionResource": {
+    "props": {
+      "cls_body_01": "convex_hull",
+      "cls_body_02": "convex_hull",
+      "cls_body_03": "convex_hull",
+      "cls_body_04": "convex_hull",
+      "cls_body_05": "convex_hull",
+      "cls_body_06": "convex_hull",
+      "cls_body_07": "convex_hull",
+      "cls_body_08": "convex_hull",
+      "cls_body_09": "convex_hull",
+      "cls_body_10": "convex_hull",
+      "cls_body_11": "convex_hull",
+      "cls_body_12": "convex_hull",
+      "cls_body_13": "convex_hull",
+      "cls_body_14": "convex_hull",
+      "cls_body_15": "convex_hull",
+      "cls_body_16": "convex_hull",
+      "cls_body_17": "convex_hull",
+      "cls_body_18": "convex_hull",
+      "cls_body_19": "convex_hull",
+      "cls_body_20": "convex_hull",
+      "cls_body_21": "convex_hull",
+      "cls_body_22": "convex_hull",
+      "cls_body_23": "convex_hull",
+      "cls_body_24": "convex_hull",
+      "cls_body_25": "convex_hull",
+      "cls_body_26": "convex_hull",
+      "cls_body_27": "convex_hull",
+      "cls_body_28": "convex_hull",
+      "cls_body_29": "convex_hull",
+      "cls_body_30": "convex_hull",
+      "cls_body_31": "convex_hull",
+      "cls_body_32": "convex_hull",
+      "cls_body_33": "convex_hull"
+    }
+  },
+  "DamageParts": {
+    "formatVersion": 2,
+    "body": {
+      "hitTestType": "armor",
+      "armorClass": "RHA_tank",
+      "hp": 10000.0,
+      "armorThickness": 200.0
+    },
+    "body_02": {
+      "hitTestType": "armor",
+      "armorClass": "RHA_tank",
+      "hp": 10000.0,
+      "armorThickness": 200.0
+    },
+    "wheel_l_01": {
+      "hitTestType": "armor",
+      "armorClass": "RHA_tank",
+      "hp": 10000.0,
+      "armorThickness": 200.0
+    },
+    "wheel_r_01": {
+      "hitTestType": "armor",
+      "armorClass": "RHA_tank",
+      "hp": 10000.0,
+      "armorThickness": 200.0
+    },
+    "wheel_l_02": {
+      "hitTestType": "armor",
+      "armorClass": "RHA_tank",
+      "hp": 10000.0,
+      "armorThickness": 200.0
+    },
+    "wheel_r_02": {
+      "hitTestType": "armor",
+      "armorClass": "RHA_tank",
+      "hp": 10000.0,
+      "armorThickness": 200.0
+    },
+    "turret": {
+      "hitTestType": "armor",
+      "armorClass": "RHA_tank",
+      "hp": 10000.0,
+      "armorThickness": 200.0
+    },
+    "gun_mask": {
+      "hitTestType": "armor",
+      "armorClass": "RHA_tank",
+      "hp": 10000.0,
+      "armorThickness": 200.0
+    },
+    "gun_barrel": {
+      "hitTestType": "armor",
+      "armorClass": "RHA_tank",
+      "hp": 10000.0,
+      "armorThickness": 200.0
+    },
+    "door_01_l": {
+      "hitTestType": "armor",
+      "armorClass": "RHA_tank",
+      "hp": 10000.0,
+      "armorThickness": 200.0
+    },
+    "door_01_r": {
+      "hitTestType": "armor",
+      "armorClass": "RHA_tank",
+      "hp": 10000.0,
+      "armorThickness": 200.0
+    },
+    "door_02_l": {
+      "hitTestType": "armor",
+      "armorClass": "RHA_tank",
+      "hp": 10000.0,
+      "armorThickness": 200.0
+    },
+    "door_02_r": {
+      "hitTestType": "armor",
+      "armorClass": "RHA_tank",
+      "hp": 10000.0,
+      "armorThickness": 200.0
+    },
+    "door_03_l": {
+      "hitTestType": "armor",
+      "armorClass": "RHA_tank",
+      "hp": 10000.0,
+      "armorThickness": 200.0
+    },
+    "door_03_r": {
+      "hitTestType": "armor",
+      "armorClass": "RHA_tank",
+      "hp": 10000.0,
+      "armorThickness": 200.0
+    },
+    "door_04_l": {
+      "hitTestType": "armor",
+      "armorClass": "RHA_tank",
+      "hp": 10000.0,
+      "armorThickness": 200.0
+    },
+    "door_04_r": {
+      "hitTestType": "armor",
+      "armorClass": "RHA_tank",
+      "hp": 10000.0,
+      "armorThickness": 200.0
+    },
+    "door_05_l": {
+      "hitTestType": "armor",
+      "armorClass": "RHA_tank",
+      "hp": 10000.0,
+      "armorThickness": 200.0
+    },
+    "door_05_r": {
+      "hitTestType": "armor",
+      "armorClass": "RHA_tank",
+      "hp": 10000.0,
+      "armorThickness": 200.0
+    }
+  },
+  "DamageEffects": []
+}

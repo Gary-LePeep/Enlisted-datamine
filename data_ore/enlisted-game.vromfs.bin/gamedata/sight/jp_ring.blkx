@@ -1,0 +1,76 @@
+{
+  "crosshairHorVertSize": [3.0,2.0],
+  "rangefinderProgressBarColor1": "#00ff0040",
+  "rangefinderProgressBarColor2": "#ffffff40",
+  "rangefinderTextScale": 0.7,
+  "rangefinderVerticalOffset": 15.0,
+  "rangefinderHorizontalOffset": 0.0,
+  "fontSizeMult": 1.0,
+  "lineSizeMult": 1.0,
+  "drawCentralLineVert": false,
+  "drawCentralLineHorz": false,
+  "crosshairDistHorSizeMain": [0.03,0.02],
+  "crosshairDistHorSizeAdditional": [0.005,0.003],
+  "distanceCorrectionPos": [-0.2,-0.05],
+  "drawDistanceCorrection": true,
+  "drawLines": [
+    {
+      "line": {
+        "line": [0.075,0.0,0.3,0.0],
+        "move": false
+      }
+    },
+    {
+      "line": {
+        "line": [-0.075,0.0,-0.3,0.0],
+        "move": false
+      }
+    },
+    {
+      "line": {
+        "line": [0.0,0.075,0.0,0.3],
+        "move": false
+      }
+    },
+    {
+      "line": {
+        "line": [0.0,-0.075,0.0,-0.3],
+        "move": false
+      }
+    }
+  ],
+  "drawCircles": [
+    {
+      "circle": {
+        "pos": [0.0,0.0],
+        "diameter": 0.002,
+        "size": 4.0,
+        "segment": [0.0,360.0]
+      }
+    },
+    {
+      "circle": {
+        "pos": [0.0,0.0],
+        "diameter": 0.15,
+        "size": 1.5,
+        "segment": [0.0,360.0]
+      }
+    },
+    {
+      "circle": {
+        "pos": [0.0,0.0],
+        "diameter": 0.3,
+        "size": 1.5,
+        "segment": [0.0,360.0]
+      }
+    },
+    {
+      "circle": {
+        "pos": [0.0,0.0],
+        "diameter": 0.45,
+        "size": 1.5,
+        "segment": [0.0,360.0]
+      }
+    }
+  ]
+}

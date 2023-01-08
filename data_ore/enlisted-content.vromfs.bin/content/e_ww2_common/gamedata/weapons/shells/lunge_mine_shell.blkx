@@ -1,0 +1,64 @@
+{
+  "mass": 3.3,
+  "cartridgeMass": 3.3,
+  "momentOfInertia": [0.04,0.008,0.04],
+  "caliber": 0.088,
+  "speed": 62.0,
+  "speedPitch": -3.6,
+  "physMat": "bulletRay",
+  "useFutureContacts": true,
+  "logCCD": false,
+  "entityTemplate": "lunge_mine_shell_phys",
+  "entityPhysTemplate": "lunge_mine_shell_phys",
+  "bullets": 1,
+  "normalizationPreset": "heat",
+  "ricochetPreset": "he",
+  "slopeEffectPreset": "ap",
+  "secondaryShattersPreset": "ap",
+  "cumulativeSecondaryShattersPreset": "heat_fs",
+  "fresnel": [0.23,0.1,2.0],
+  "stabilityThreshold": 0.4,
+  "stabilityCaliberToArmorThreshold": 10.0,
+  "stabilityReductionAfterRicochet": 0.45,
+  "stabilityReductionAfterPenetration": 1.0,
+  "explodeOnRendinst": true,
+  "collisionResource": {
+    "props": {
+      "volumeBox_1": true
+    }
+  },
+  "ccdSpheres": {
+    "ccd": [0.0,0.0,0.0,0.044]
+  },
+  "visual": {
+    "template": "panzerfaust_60_shell_item+item_in_world"
+  },
+  "splashDamage": {
+    "radius": [1.0,2.7],
+    "penetration": [10.0,10.0],
+    "damage": 27.0,
+    "dmgOffset": [0.0,0.25,0.0]
+  },
+  "explFx": {
+    "fxScale": [1.1,1.1],
+    "effectTemplName": "mine_explosion_effect_medium+disable_effect_sfx"
+  },
+  "explSound": {
+    "explSoundPath": "impact/grenade"
+  },
+  "armorpower": {
+    "ArmorPower0m": [2.0,10.0],
+    "ArmorPower7000m": [1.0,7000.0]
+  },
+  "cumulativeDamage": {
+    "armorPower": 180.0,
+    "distance": 3.0,
+    "damage": 150.0,
+    "onHitChanceMultFire": 15.0
+  },
+  "stabilityRicochetModifier": {
+    "mod1": [0.0,0.5],
+    "mod2": [20.0,0.6],
+    "mod3": [30.0,1.0]
+  }
+}

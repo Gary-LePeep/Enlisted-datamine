@@ -1,0 +1,597 @@
+{
+  "hud_bomb_marker": {
+    "hud_bomb_marker:tag": [],
+    "_group": {
+      "_tags": "ui",
+      "hud_marker__max_distance": 100.0
+    }
+  },
+  "bullet_projectile_debug": {
+    "_tags": "dev",
+    "cProjectilePos": 0,
+    "projectileNextTime": 0.0,
+    "projectilePos:list<p3>": [
+      {
+        "projectilePos": [0.0,0.0,0.0]
+      },
+      {
+        "projectilePos": [0.0,0.0,0.0]
+      },
+      {
+        "projectilePos": [0.0,0.0,0.0]
+      },
+      {
+        "projectilePos": [0.0,0.0,0.0]
+      },
+      {
+        "projectilePos": [0.0,0.0,0.0]
+      },
+      {
+        "projectilePos": [0.0,0.0,0.0]
+      },
+      {
+        "projectilePos": [0.0,0.0,0.0]
+      },
+      {
+        "projectilePos": [0.0,0.0,0.0]
+      }
+    ]
+  },
+  "base_projectile": {
+    "_extends": "ecs_no_debug",
+    "detonation__timer": -1.0,
+    "projectile__hasKv": true,
+    "projectile__lifeTime": 0.0,
+    "projectile__visualPos": [0.0,0.0,0.0],
+    "projectile__tracerIgnitionTime": 0.0,
+    "projectile__minLifeTime": 0.0,
+    "projectile__maxLifeTime": 0.0,
+    "projectile__stopped": false,
+    "projectile__exploded": false,
+    "projectile__prevPos": [0.0,0.0,0.0],
+    "projectile__intersectionCount": 0,
+    "projectile__maxAllowedSceneIntersectionsForFx": 3,
+    "projectile__traceRayMatId": -1,
+    "projectile__isUnderwater": false,
+    "projectile_trace_info__sceneIntersected": false,
+    "projectile_trace_info__pmid": -1,
+    "projectile_trace_info__dir": [0.0,0.0,0.0],
+    "projectile_trace_info__len": 0.0,
+    "projectile_trace_info__norm": [0.0,0.0,0.0],
+    "projectile_trace_info__prevProjectileDistance": 0.0,
+    "projectile_trace_info__waterLen": 0.0,
+    "projectile_trace_info__riDescCellIdx": -1,
+    "projectile_trace_info__riDescIdx": -1,
+    "projectile_trace_info__riDescPool": -1,
+    "projectile_trace_info__riDescOffs": -1,
+    "projectile_trace_info__riDescLayer": -1,
+    "scene_hit_place__pos": [0.0,0.0,0.0],
+    "scene_hit_place__norm": [0.0,1.0,0.0],
+    "scene_hit_place__matId": -1,
+    "dm_projectile_state:dm::ProjectileState": [],
+    "projectile_ballistics:ballistics::ProjectileBallistics": [],
+    "projectile_ballistics_props:ballistics::ProjectileProps": [],
+    "launch_desc:daweap::LaunchDesc": [],
+    "ownerEid:eid": [],
+    "gunEid:eid": [],
+    "projectile__penetratedEids:list<eid>": [],
+    "projectile__lastDamagedRiexHandle:u64": {
+      "value": -1
+    }
+  },
+  "disable_ricochet": {
+    "projectile__sceneHitRicochetStability": 1.0
+  },
+  "bullet_projectile": [
+    {
+      "_extends": "base_projectile"
+    },
+    {
+      "_extends": "bullet_projectile_sound"
+    },
+    {
+      "shell__concussionMaxRadius:r": {
+        "value": 7.0,
+        "_tags": "server"
+      }
+    },
+    {
+      "projectileSmokeTracerId:i": {
+        "_tags": "render",
+        "value": -1
+      }
+    },
+    {
+      "projectileBeamTracerId:i": {
+        "_tags": "render",
+        "value": -1
+      }
+    },
+    {
+      "projectile_tracer_props": {
+        "_tags": "render"
+      }
+    },
+    {
+      "shouldCreateBulletCrater:tag": []
+    }
+  ],
+  "bullet_silenced_projectile": {
+    "_extends": "bullet_projectile",
+    "isSilencedProjectile:tag": []
+  },
+  "bomb_projectile_debug": {
+    "_extends": "bullet_projectile_debug"
+  },
+  "base_bomb_projectile": [
+    {
+      "_extends": "base_projectile"
+    },
+    {
+      "_extends": "animchar"
+    },
+    {
+      "_extends": "disable_ricochet"
+    },
+    {
+      "_extends": "hud_bomb_marker"
+    },
+    {
+      "projectile__stopped": false
+    },
+    {
+      "projectile__exploded": false
+    },
+    {
+      "projectile__minLifeTime": 4.0
+    },
+    {
+      "projectile__maxLifeTime": 180.0
+    },
+    {
+      "projectile__isBomb": true
+    },
+    {
+      "shell__isKillerCamAllowed": false
+    },
+    {
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [0.0,0.0,0.0]
+      ]
+    },
+    {
+      "animchar_render__enabled": true
+    },
+    {
+      "shell__maxDamageRIRadius": 30.0
+    },
+    {
+      "shell__explosionCone": 0.0349
+    },
+    {
+      "_tracked": "projectile__stopped"
+    },
+    {
+      "_tracked": "projectile__exploded"
+    },
+    {
+      "bomb__launcherVertical": [0.0,0.0,0.0]
+    },
+    {
+      "bomb__extForce": [0.0,0.0,0.0]
+    },
+    {
+      "bomb__extMoment": [0.0,0.0,0.0]
+    },
+    {
+      "bomb__lostMass": 0.0
+    },
+    {
+      "bomb_ballistics_curr:ballistics::ShellState": []
+    },
+    {
+      "bomb_ballistics_prev:ballistics::ShellState": []
+    },
+    {
+      "bomb_ballistics_props:ballistics::ShellProps": []
+    },
+    {
+      "shouldCreateCrater:tag": []
+    }
+  ],
+  "bomb_projectile": [
+    {
+      "_extends": "base_bomb_projectile"
+    },
+    {
+      "_extends": "bomb_projectile_sound"
+    },
+    {
+      "_extends": "bomb_projectile_lifetime_sound"
+    }
+  ],
+  "rocket_motor_trail": {
+    "rocket_motor_trail_props": {
+      "_tags": "render"
+    },
+    "rocket_motor_trail": {
+      "_tags": "render"
+    }
+  },
+  "rocket_projectile": [
+    {
+      "_extends": "base_bomb_projectile"
+    },
+    {
+      "_extends": "rocket_projectile_sound"
+    },
+    {
+      "_extends": "rocket_motor_trail"
+    },
+    {
+      "projectile__minLifeTime": 0.1
+    },
+    {
+      "projectile__maxLifeTime": 10.0
+    },
+    {
+      "rocket__launchTime": 0.0
+    },
+    {
+      "rocket_motor_props:ballistics::RocketMotorProps": []
+    }
+  ],
+  "sc_250_bomb_projectile": {
+    "_extends": "bomb_projectile",
+    "animchar__res": "de_sc250_char",
+    "shell__concussionMaxRadius:r": {
+      "value": 23.0,
+      "_tags": "server"
+    }
+  },
+  "ai_sc_250_bomb_projectile": {
+    "_extends": "ai_bomb_projectile",
+    "animchar__res": "de_sc250_char",
+    "shell__concussionMaxRadius:r": {
+      "value": 23.0,
+      "_tags": "server"
+    }
+  },
+  "rs_82_rocket_projectile": {
+    "_extends": "rocket_projectile",
+    "animchar__res": "su_rs82_char",
+    "shell__concussionMaxRadius:r": {
+      "value": 5.0,
+      "_tags": "server"
+    }
+  },
+  "fab_100_bomb_projectile": {
+    "_extends": "bomb_projectile",
+    "animchar__res": "su_fab100_char",
+    "shell__concussionMaxRadius:r": {
+      "value": 15.0,
+      "_tags": "server"
+    }
+  },
+  "ai_bomb_projectile": [
+    {
+      "_extends": "base_projectile"
+    },
+    {
+      "_extends": "animchar"
+    },
+    {
+      "_extends": "disable_ricochet"
+    },
+    {
+      "_extends": "hud_bomb_marker"
+    },
+    {
+      "_extends": "ai_bomb_projectile_sound"
+    },
+    {
+      "_extends": "bomb_projectile_lifetime_sound"
+    },
+    {
+      "projectile__hasKv": false
+    },
+    {
+      "projectile__stopped": false
+    },
+    {
+      "projectile__exploded": false
+    },
+    {
+      "projectile__minLifeTime": 4.0
+    },
+    {
+      "projectile__maxLifeTime": 180.0
+    },
+    {
+      "projectile__isBomb": false
+    },
+    {
+      "shell__isKillerCamAllowed": false
+    },
+    {
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [0.0,0.0,0.0]
+      ]
+    },
+    {
+      "animchar_render__enabled": true
+    },
+    {
+      "shell__maxDamageRIRadius": 30.0
+    },
+    {
+      "shell__explosionCone": 0.0349
+    },
+    {
+      "_tracked": "projectile__stopped"
+    },
+    {
+      "_tracked": "projectile__exploded"
+    },
+    {
+      "ai_bomb_projectile:tag": []
+    },
+    {
+      "shouldCreateCrater:tag": []
+    }
+  ],
+  "ai_fab_100_bomb_projectile": {
+    "_extends": "ai_bomb_projectile",
+    "animchar__res": "su_fab100_char",
+    "shell__concussionMaxRadius:r": {
+      "value": 15.0,
+      "_tags": "server"
+    }
+  },
+  "sc_250_87_bomb_projectile": {
+    "_extends": "bomb_projectile",
+    "animchar__res": "de_sc250_87_char",
+    "shell__concussionMaxRadius:r": {
+      "value": 23.0,
+      "_tags": "server"
+    }
+  },
+  "sc_50_bomb_projectile": {
+    "_extends": "bomb_projectile",
+    "animchar__res": "de_sc50_char",
+    "shell__concussionMaxRadius:r": {
+      "value": 9.0,
+      "_tags": "server"
+    }
+  },
+  "ai_sc_50_bomb_projectile": {
+    "_extends": "ai_bomb_projectile",
+    "animchar__res": "de_sc50_char",
+    "shell__concussionMaxRadius:r": {
+      "value": 9.0,
+      "_tags": "server"
+    }
+  },
+  "500lb_anm_64a_1_bomb_projectile": {
+    "_extends": "bomb_projectile",
+    "animchar__res": "us_500lb_anm64a1_char",
+    "shell__concussionMaxRadius:r": {
+      "value": 23.0,
+      "_tags": "server"
+    }
+  },
+  "ai_500lb_anm_64a_1_bomb_projectile": {
+    "_extends": "ai_bomb_projectile",
+    "animchar__res": "us_500lb_anm64a1_char",
+    "shell__concussionMaxRadius:r": {
+      "value": 23.0,
+      "_tags": "server"
+    }
+  },
+  "100lb_anm_30_bomb_projectile": {
+    "_extends": "bomb_projectile",
+    "animchar__res": "us_100lb_an_m30_char",
+    "shell__concussionMaxRadius:r": {
+      "value": 9.0,
+      "_tags": "server"
+    }
+  },
+  "1000lb_anm_65a_1_bomb_projectile": {
+    "_extends": "bomb_projectile",
+    "animchar__res": "us_1000lb_anm65a1_char",
+    "shell__concussionMaxRadius:r": {
+      "value": 35.0,
+      "_tags": "server"
+    }
+  },
+  "br_20_rocket_projectile": {
+    "_extends": "rocket_projectile",
+    "animchar__res": "de_210mm_char",
+    "shell__concussionMaxRadius:r": {
+      "value": 5.0,
+      "_tags": "server"
+    }
+  },
+  "fab_250_bomb_projectile": {
+    "_extends": "bomb_projectile",
+    "animchar__res": "su_fab250_char",
+    "shell__concussionMaxRadius:r": {
+      "value": 23.0,
+      "_tags": "server"
+    }
+  },
+  "ai_fab_250_bomb_projectile": {
+    "_extends": "ai_bomb_projectile",
+    "animchar__res": "su_fab250_char",
+    "shell__concussionMaxRadius:r": {
+      "value": 23.0,
+      "_tags": "server"
+    }
+  },
+  "fab_50_bomb_projectile": {
+    "_extends": "bomb_projectile",
+    "animchar__res": "su_fab50_char",
+    "shell__concussionMaxRadius:r": {
+      "value": 9.0,
+      "_tags": "server"
+    }
+  },
+  "250lbs_bomb_projectile": {
+    "_extends": "bomb_projectile",
+    "animchar__res": "us_250lb_anm57_char",
+    "shell__concussionMaxRadius:r": {
+      "value": 15.0,
+      "_tags": "server"
+    }
+  },
+  "ai_250lbs_bomb_projectile": {
+    "_extends": "ai_bomb_projectile",
+    "animchar__res": "us_250lb_anm57_char",
+    "shell__concussionMaxRadius:r": {
+      "value": 15.0,
+      "_tags": "server"
+    }
+  },
+  "ai_50kg_t_vert_bomb_projectile": {
+    "_extends": "ai_bomb_projectile",
+    "animchar__res": "it_50kg_t_vert_char",
+    "shell__concussionMaxRadius:r": {
+      "value": 9.0,
+      "_tags": "server"
+    }
+  },
+  "250lb_anm_57_bomb_projectile": {
+    "_extends": "bomb_projectile",
+    "animchar__res": "us_250lb_anm57_char",
+    "shell__concussionMaxRadius:r": {
+      "value": 15.0,
+      "_tags": "server"
+    }
+  },
+  "fab_250x_bomb_projectile": {
+    "_extends": "bomb_projectile",
+    "animchar__res": "su_fab250_char",
+    "shell__concussionMaxRadius:r": {
+      "value": 23.0,
+      "_tags": "server"
+    }
+  },
+  "ai_fab_250x_bomb_projectile": {
+    "_extends": "ai_bomb_projectile",
+    "animchar__res": "su_fab250_char",
+    "shell__concussionMaxRadius:r": {
+      "value": 23.0,
+      "_tags": "server"
+    }
+  },
+  "sc_500_bomb_projectile": {
+    "_extends": "ai_bomb_projectile",
+    "animchar__res": "de_sc500_char",
+    "shell__concussionMaxRadius:r": {
+      "value": 23.0,
+      "_tags": "server"
+    }
+  },
+  "500lbs_bomb_projectile": {
+    "_extends": "bomb_projectile",
+    "animchar__res": "us_500lb_anm64a1_char",
+    "shell__concussionMaxRadius:r": {
+      "value": 23.0,
+      "_tags": "server"
+    }
+  },
+  "ai_500lbs_bomb_projectile": {
+    "_extends": "ai_bomb_projectile",
+    "animchar__res": "us_500lb_anm64a1_char",
+    "shell__concussionMaxRadius:r": {
+      "value": 23.0,
+      "_tags": "server"
+    }
+  },
+  "sc_100_bomb_projectile": {
+    "_extends": "bomb_projectile",
+    "animchar__res": "su_fab100_char",
+    "shell__concussionMaxRadius:r": {
+      "value": 15.0,
+      "_tags": "server"
+    }
+  },
+  "ai_sc_100_bomb_projectile": {
+    "_extends": "ai_bomb_projectile",
+    "animchar__res": "su_fab100_char",
+    "shell__concussionMaxRadius:r": {
+      "value": 15.0,
+      "_tags": "server"
+    }
+  },
+  "hvar_rocket_projectile": {
+    "_extends": "rocket_projectile",
+    "animchar__res": "us_5in_hvar_b_char",
+    "shell__concussionMaxRadius:r": {
+      "value": 5.0,
+      "_tags": "server"
+    }
+  },
+  "fab_100x_bomb_projectile": {
+    "_extends": "bomb_projectile",
+    "animchar__res": "su_fab100_char",
+    "shell__concussionMaxRadius:r": {
+      "value": 15.0,
+      "_tags": "server"
+    }
+  },
+  "100kg_t_bomb_projectile": {
+    "_extends": "bomb_projectile",
+    "animchar__res": "it_100kg_t_char",
+    "shell__concussionMaxRadius:r": {
+      "value": 15.0,
+      "_tags": "server"
+    }
+  },
+  "200kg_bomb_projectile": {
+    "_extends": "bomb_projectile",
+    "animchar__res": "it_100kg_t_char",
+    "shell__concussionMaxRadius:r": {
+      "value": 15.0,
+      "_tags": "server"
+    }
+  },
+  "rp_3_rocket_projectile": {
+    "_extends": "rocket_projectile",
+    "animchar__res": "uk_60lb_sap_mk1_rocket_char",
+    "shell__concussionMaxRadius:r": {
+      "value": 5.0,
+      "_tags": "server"
+    }
+  },
+  "m_8bazooka_rocket_projectile": {
+    "_extends": "rocket_projectile",
+    "animchar__res": "us_m8_bazooka_char",
+    "shell__concussionMaxRadius:r": {
+      "value": 5.0,
+      "_tags": "server"
+    }
+  },
+  "rbs_82_rocket_projectile": {
+    "_extends": "rocket_projectile",
+    "animchar__res": "su_rbs_82_rocket_char",
+    "shell__concussionMaxRadius:r": {
+      "value": 5.0,
+      "_tags": "server"
+    }
+  },
+  "rbs_132_rocket_projectile": {
+    "_extends": "rocket_projectile",
+    "animchar__res": "su_rs132_char",
+    "shell__concussionMaxRadius:r": {
+      "value": 5.0,
+      "_tags": "server"
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "stat_name": "launcher",
+  "selWeaponVar": "panzerschreck",
+  "ownerAnimVars": {
+    "reye_offset_fwd0": -0.2,
+    "gun_offset_along": 0.11,
+    "gun_offset_across": 0.02,
+    "gun_offset_up": 0.0
+  },
+  "shotDeviation": {
+    "onShotDeviationChange": 0.0,
+    "omegaRange": [30.0,90.0],
+    "omegaDevInc": [0.1,0.5],
+    "extraDeviationTau": 0.15,
+    "maxDeviation": 15.0,
+    "movementRange": [3.0,5.0],
+    "movementDevInc": [0.0,6.0]
+  },
+  "gunFlash": {
+    "gunFx_main": {
+      "fx": "smoke_rocket_exhaust",
+      "scale": 1.0
+    }
+  }
+}

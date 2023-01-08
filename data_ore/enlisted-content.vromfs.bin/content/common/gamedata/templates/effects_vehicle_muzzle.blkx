@@ -1,0 +1,149 @@
+{
+  "muzzle_ground_8mm": {
+    "_extends": "turret_gun_flash_effect_base",
+    "_group": {
+      "_tags": "render",
+      "effect__name": "fire_muzzle_6_8mm_cmps_fx",
+      "effect__distance_scale": 1.0,
+      "gun_flash_fx__scaleMultiplier": 0.3
+    }
+  },
+  "muzzle_ground_15mm": {
+    "_extends": "turret_gun_flash_effect_base",
+    "_group": {
+      "_tags": "render",
+      "effect__name": "fire_muzzle_8_14mm_rapid_cmps_fx",
+      "effect__distance_scale": 1.0,
+      "gun_flash_fx__scaleMultiplier": 0.7
+    }
+  },
+  "muzzle_ground_20mm": {
+    "_extends": "turret_gun_flash_effect_base",
+    "_group": {
+      "_tags": "render",
+      "effect__name": "fire_muzzle_14_20mm_rapid_cmps_fx",
+      "effect__distance_scale": 1.0,
+      "gun_flash_fx__scaleMultiplier": 0.85
+    }
+  },
+  "muzzle_ground_40mm_slow": {
+    "_extends": "turret_gun_flash_effect_base",
+    "_group": {
+      "_tags": "render",
+      "effect__name": "fire_muzzle_20_60mm_cmps_fx",
+      "effect__distance_scale": 1.0
+    }
+  },
+  "muzzle_ground_60mm": {
+    "_extends": "turret_gun_flash_effect_base",
+    "_group": {
+      "_tags": "render",
+      "effect__name": "fire_muzzle_60_100mm_cmps_fx",
+      "effect__distance_scale": 1.0
+    }
+  },
+  "muzzle_ground_60mm_brake": {
+    "_extends": "turret_gun_flash_effect_base",
+    "_group": {
+      "_tags": "render",
+      "effect__name": "fire_muzzle_60_100mm_cmps_fx",
+      "effect__distance_scale": 1.0
+    }
+  },
+  "muzzle_ground_80mm": {
+    "_extends": "turret_gun_flash_effect_base",
+    "_group": {
+      "_tags": "render",
+      "effect__name": "fire_muzzle_60_100mm_cmps_fx",
+      "effect__distance_scale": 1.0,
+      "gun_flash_fx__scaleMultiplier": 1.4
+    }
+  },
+  "muzzle_ground_80mm_brake": {
+    "_extends": "turret_gun_flash_effect_base",
+    "_group": {
+      "_tags": "render",
+      "effect__name": "fire_muzzle_60_100mm_cmps_fx",
+      "effect__distance_scale": 1.0,
+      "gun_flash_fx__scaleMultiplier": 1.4
+    }
+  },
+  "muzzle_ground_100mm": {
+    "_extends": "turret_gun_flash_effect_base",
+    "_group": {
+      "_tags": "render",
+      "effect__name": "fire_muzzle_100_150mm_cmps_fx",
+      "effect__distance_scale": 1.0
+    }
+  },
+  "muzzle_ground_100mm_brake": {
+    "_extends": "turret_gun_flash_effect_base",
+    "_group": {
+      "_tags": "render",
+      "effect__name": "fire_muzzle_100_150mm_cmps_fx",
+      "effect__distance_scale": 1.0
+    }
+  },
+  "muzzle_ground_100mm_recoilless": {
+    "_extends": "turret_gun_flash_effect_base",
+    "_group": {
+      "_tags": "render",
+      "effect__name": "fire_muzzle_100_150mm_cmps_fx",
+      "effect__distance_scale": 1.0
+    }
+  },
+  "muzzle_ground_125mm": {
+    "_extends": "turret_gun_flash_effect_base",
+    "_group": {
+      "_tags": "render",
+      "effect__name": "fire_muzzle_100_150mm_cmps_fx",
+      "effect__distance_scale": 1.0,
+      "gun_flash_fx__scaleMultiplier": 1.4
+    }
+  },
+  "muzzle_ground_125mm_brake": {
+    "_extends": "turret_gun_flash_effect_base",
+    "_group": {
+      "_tags": "render",
+      "effect__name": "fire_muzzle_100_150mm_cmps_fx",
+      "effect__distance_scale": 1.0,
+      "gun_flash_fx__scaleMultiplier": 1.4
+    }
+  },
+  "muzzle_ground_150mm": {
+    "_extends": "turret_gun_flash_effect_base",
+    "_group": {
+      "_tags": "render",
+      "effect__name": "fire_muzzle_100_150mm_cmps_fx",
+      "effect__distance_scale": 1.0,
+      "gun_flash_fx__scaleMultiplier": 1.7
+    }
+  },
+  "muzzle_air_8mm": {
+    "_extends": "muzzle_ground_8mm"
+  },
+  "muzzle_air_15mm": {
+    "_extends": "muzzle_ground_15mm"
+  },
+  "muzzle_air_20mm": {
+    "_extends": "muzzle_ground_20mm"
+  },
+  "muzzle_air_30mm": {
+    "_extends": "turret_gun_flash_effect_base",
+    "_group": {
+      "_tags": "render",
+      "effect__name": "fire_muzzle_14_20mm_rapid_cmps_fx",
+      "effect__distance_scale": 1.0,
+      "gun_flash_fx__scaleMultiplier": 1.4
+    }
+  },
+  "muzzle_air_50mm": {
+    "_extends": "turret_gun_flash_effect_base",
+    "_group": {
+      "_tags": "render",
+      "effect__name": "fire_muzzle_14_20mm_rapid_cmps_fx",
+      "effect__distance_scale": 1.0,
+      "gun_flash_fx__scaleMultiplier": 1.55
+    }
+  }
+}

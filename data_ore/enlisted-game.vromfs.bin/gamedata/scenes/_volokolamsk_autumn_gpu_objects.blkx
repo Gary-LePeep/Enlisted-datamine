@@ -1,0 +1,215 @@
+[
+  {
+    "entity": {
+      "_template": "ri_gpu_object",
+      "ri_gpu_object__name": "leaves",
+      "ri_gpu_object__biom_indexes": [20.0,-1.0,-1.0,-1.0],
+      "ri_gpu_object__grid_size": 6,
+      "ri_gpu_object__grid_tiling": 6,
+      "ri_gpu_object__cell_size": 4.0,
+      "ri_gpu_object__incline_delta": 0.0,
+      "ri_gpu_object__scale_range": [0.7,1.15],
+      "ri_gpu_object__rotate_range": [0.0,960.0],
+      "ri_gpu_object__seed": 112,
+      "ri_gpu_object__enable_displacement": true,
+      "ri_gpu_object__is_using_normal": true,
+      "ri_gpu_object__multiple_objects:array": [
+        {
+          "gpu_object:object": {
+            "name": "autumn_leaf_pile_a",
+            "weight": 1.0
+          }
+        },
+        {
+          "gpu_object:object": {
+            "name": "autumn_leaf_pile_b",
+            "weight": 1.0
+          }
+        },
+        {
+          "gpu_object:object": {
+            "name": "autumn_leaf_pile_c",
+            "weight": 1.0
+          }
+        },
+        {
+          "gpu_object:object": {
+            "name": "autumn_leaf_pile_d",
+            "weight": 1.0
+          }
+        },
+        {
+          "gpu_object:object": {
+            "name": "autumn_leaf_pile_e",
+            "weight": 1.0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "ri_gpu_object",
+      "ri_gpu_object__name": "branches",
+      "ri_gpu_object__biom_indexes": [20.0,21.0,22.0,-1.0],
+      "ri_gpu_object__grid_size": 6,
+      "ri_gpu_object__grid_tiling": 2,
+      "ri_gpu_object__cell_size": 12.0,
+      "ri_gpu_object__incline_delta": 0.0,
+      "ri_gpu_object__scale_range": [0.6,1.05],
+      "ri_gpu_object__rotate_range": [135.0,960.0],
+      "ri_gpu_object__seed": 55113,
+      "ri_gpu_object__is_using_normal": true,
+      "ri_gpu_object__multiple_objects:array": [
+        {
+          "gpu_object:object": {
+            "name": "tree_dry_branches_a",
+            "weight": 1.0
+          }
+        },
+        {
+          "gpu_object:object": {
+            "name": "tree_dry_branches_b",
+            "weight": 1.0
+          }
+        },
+        {
+          "gpu_object:object": {
+            "name": "tree_dry_branches_c",
+            "weight": 1.0
+          }
+        },
+        {
+          "gpu_object:object": {
+            "name": "tree_branches_small_a",
+            "weight": 0.33
+          }
+        },
+        {
+          "gpu_object:object": {
+            "name": "tree_branches_small_b",
+            "weight": 0.33
+          }
+        },
+        {
+          "gpu_object:object": {
+            "name": "tree_branches_small_c",
+            "weight": 0.33
+          }
+        },
+        {
+          "gpu_object:object": {
+            "name": "tree_branches_small_d",
+            "weight": 0.33
+          }
+        }
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "ri_gpu_object",
+      "ri_gpu_object__name": "rocks",
+      "ri_gpu_object__biom_indexes": [6.0,7.0,15.0,-1.0],
+      "ri_gpu_object__grid_size": 6,
+      "ri_gpu_object__grid_tiling": 4,
+      "ri_gpu_object__cell_size": 12.0,
+      "ri_gpu_object__incline_delta": 0.0,
+      "ri_gpu_object__scale_range": [0.5,1.0],
+      "ri_gpu_object__rotate_range": [135.0,960.0],
+      "ri_gpu_object__seed": 55112,
+      "ri_gpu_object__is_using_normal": true,
+      "ri_gpu_object__multiple_objects:array": [
+        {
+          "gpu_object:object": {
+            "name": "desert_stone_small_a",
+            "weight": 1.0
+          }
+        },
+        {
+          "gpu_object:object": {
+            "name": "desert_stone_small_b",
+            "weight": 1.0
+          }
+        },
+        {
+          "gpu_object:object": {
+            "name": "desert_stone_small_c",
+            "weight": 1.0
+          }
+        },
+        {
+          "gpu_object:object": {
+            "name": "desert_stone_small_d",
+            "weight": 1.0
+          }
+        },
+        {
+          "gpu_object:object": {
+            "name": "desert_stone_small_e",
+            "weight": 1.0
+          }
+        },
+        {
+          "gpu_object:object": {
+            "name": "desert_stone_small_f",
+            "weight": 1.0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "ri_gpu_object",
+      "ri_gpu_object__name": "rocks_bottom",
+      "ri_gpu_object__biom_indexes": [9.0,-1.0,-1.0,-1.0],
+      "ri_gpu_object__grid_size": 8,
+      "ri_gpu_object__grid_tiling": 16,
+      "ri_gpu_object__cell_size": 16.0,
+      "ri_gpu_object__incline_delta": 0.0,
+      "ri_gpu_object__scale_range": [0.5,1.25],
+      "ri_gpu_object__rotate_range": [135.0,960.0],
+      "ri_gpu_object__seed": 55114,
+      "ri_gpu_object__is_using_normal": true,
+      "ri_gpu_object__multiple_objects:array": [
+        {
+          "gpu_object:object": {
+            "name": "desert_stone_small_a",
+            "weight": 1.0
+          }
+        },
+        {
+          "gpu_object:object": {
+            "name": "desert_stone_small_b",
+            "weight": 1.0
+          }
+        },
+        {
+          "gpu_object:object": {
+            "name": "desert_stone_small_c",
+            "weight": 1.0
+          }
+        },
+        {
+          "gpu_object:object": {
+            "name": "desert_stone_small_d",
+            "weight": 1.0
+          }
+        },
+        {
+          "gpu_object:object": {
+            "name": "desert_stone_small_e",
+            "weight": 1.0
+          }
+        },
+        {
+          "gpu_object:object": {
+            "name": "desert_stone_small_f",
+            "weight": 1.0
+          }
+        }
+      ]
+    }
+  }
+]

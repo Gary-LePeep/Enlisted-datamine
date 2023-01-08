@@ -1,0 +1,58 @@
+[
+  {
+    "entity": {
+      "_template": "ground_effect",
+      "ground_effect__fx_name": "envir_misc_burned_ground_smoke_single_effect",
+      "ground_effect__biome_group_name": "burnt_field",
+      "ground_effect__offset_x": [0.0,2.0],
+      "ground_effect__offset_y": [-2.0,0.0],
+      "ground_effect__offset_z": [0.0,2.0],
+      "ground_effect__grid_cell_size": 16.0,
+      "ground_effect__vis_radius": 25.0,
+      "ground_effect__biome_weight_for_active_thr": 0.15,
+      "ground_effect__fx_radius": -1.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "ground_effect",
+      "ground_effect__fx_name": "envir_misc_burned_ground_smoke_15m_effect",
+      "ground_effect__biome_group_name": "burnt_field",
+      "ground_effect__offset_x": [0.0,5.0],
+      "ground_effect__offset_z": [0.0,5.0],
+      "ground_effect__grid_cell_size": 16.0,
+      "ground_effect__vis_radius": 20.0,
+      "ground_effect__biome_weight_for_active_thr": 0.25,
+      "ground_effect__fx_radius": -1.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "ground_effect",
+      "ground_effect__fx_name": "envir_misc_floating_ashes_single_effect",
+      "ground_effect__biome_group_name": "burnt_field",
+      "ground_effect__offset_x": [0.0,5.0],
+      "ground_effect__offset_z": [0.0,5.0],
+      "ground_effect__grid_cell_size": 16.0,
+      "ground_effect__vis_radius": 20.0,
+      "ground_effect__biome_weight_for_active_thr": 0.25,
+      "ground_effect__fx_radius": -1.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "ground_effect",
+      "ground_effect__fx_name": "envir_misc_floating_leaves_15m_effect",
+      "ground_effect__biome_group_name": "forest_leaves",
+      "ground_effect__rot_z": [0.0,0.0],
+      "ground_effect__offset_x": [0.0,0.0],
+      "ground_effect__offset_y": [0.0,0.0],
+      "ground_effect__offset_z": [0.0,0.0],
+      "ground_effect__grid_cell_size": 40.0,
+      "ground_effect__grid_world_origin": [0.0,0.0],
+      "ground_effect__vis_radius": 40.0,
+      "ground_effect__biome_weight_for_active_thr": 0.25,
+      "ground_effect__fx_radius": -1.0
+    }
+  }
+]

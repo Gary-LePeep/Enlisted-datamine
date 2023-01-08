@@ -1,0 +1,81 @@
+{
+  "mass": 0.6791,
+  "caliber": 0.037,
+  "explosiveType": "tetryl",
+  "explosiveMass": 0.0454,
+  "normalizationPreset": "heat",
+  "ricochetPreset": "he",
+  "speed": 792.0,
+  "secondaryShattersPreset": "ap",
+  "maxDistance": 5300.0,
+  "stabilityThreshold": 0.05,
+  "selfDestructionInAir": true,
+  "stabilityCaliberToArmorThreshold": 5.0,
+  "stabilityReductionAfterRicochet": 0.5,
+  "stabilityReductionAfterPenetration": 0.15,
+  "hitPowerMult": 2.0,
+  "bulletType": "he_frag_i_t",
+  "onHitChanceMultFire": 2.0,
+  "slopeEffectPreset": "ap",
+  "nearHitPower": [1.0,50.0],
+  "fresnel": [0.23,0.1,2.0],
+  "midHitPower": [0.9,300.0],
+  "explodeOnRendinst": true,
+  "farHitPower": [0.1,700.0],
+  "shellAnimation": "video/shells_animations/he.ivf",
+  "endHitPower": [0.008,1500.0],
+  "nearArmorPower": [2.0,150.0],
+  "relativeVelHitShift": [300.0,1000.0],
+  "midArmorPower": [2.0,600.0],
+  "farArmorPower": [2.0,1000.0],
+  "relativeVelArmorShift": [200.0,1000.0],
+  "fuseDelayDist": 0.05,
+  "selfDestructionFx": "explosion_air_selfexplosion_small",
+  "explosionEffect": "hit_28_38mm_metal_he",
+  "groundCollisionEffect": "hit_28_38mm_dirt_he",
+  "ricochetEffect": "hit_28_38mm_metal_ap",
+  "waterCollisionEffect": "hit_28_38mm_water",
+  "explosionPatchRadius": 1.0,
+  "stabilityRicochetModifier": [
+    {
+      "mod1": [0.0,0.05]
+    },
+    {
+      "mod2": [20.0,0.1]
+    },
+    {
+      "mod3": [30.0,0.2]
+    },
+    {
+      "mod3": [45.0,0.3]
+    }
+  ],
+  "visual": {
+    "range_percent_of_ammo": [100.0,0.0],
+    "traceFreq": 1,
+    "tracer": "37mmDarkRed",
+    "trail": "black"
+  },
+  "hitFx": {
+    "steel": {
+      "fx": "hit_28_38mm_metal_he",
+      "fxScale": [1.0,1.0]
+    },
+    "wood": {
+      "fx": "hit_28_38mm_wood_he",
+      "fxScale": [1.0,1.0]
+    },
+    "glass": {
+      "fx": "hit_28_38mm_metal_he",
+      "fxScale": [1.0,1.0]
+    },
+    "stone": {
+      "fx": "hit_28_38mm_stone_he",
+      "fxScale": [1.0,1.0]
+    }
+  },
+  "tracer": {
+    "headColor": "#ea1919ff",
+    "smokeColor": "#505050ba"
+  }
+}

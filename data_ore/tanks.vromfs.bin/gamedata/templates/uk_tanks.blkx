@@ -1,0 +1,176 @@
+[
+  {
+    "import": "tanks/uk_sherman_ii.blk"
+  },
+  {
+    "import": "tanks/uk_aec_mk_2_57mm_6pdr.blk"
+  },
+  {
+    "import": "tanks/uk_a13_mk_2_1938.blk"
+  },
+  {
+    "import": "tanks/uk_a13_mk_2_1939.blk"
+  },
+  {
+    "import": "tanks/uk_daimler_mk_2.blk"
+  },
+  {
+    "import": "tanks/uk_mk_1_grant.blk"
+  },
+  {
+    "import": "tanks/uk_crusader_mk_3.blk"
+  },
+  {
+    "import": "tanks/uk_churchill_3.blk"
+  },
+  {
+    "daimler_mk_2_turret_02_7_92mm_besa": {
+      "_override": true,
+      "gun__shellsAmmo:array": {
+        "ammo": 1350
+      }
+    }
+  },
+  {
+    "uk_a22_mk_I_churchill": [
+      {
+        "_extends": "base_tank"
+      },
+      {
+        "_extends": "seats_layout_d_g_c_l_mg"
+      },
+      {
+        "particle_phys__blk": "content/e_ww2_common/gamedata/suspension/empty.blk"
+      },
+      {
+        "animchar__res": "a22_mk_I_churchill_char"
+      },
+      {
+        "collres__res": "a22_mk_I_churchill_collision"
+      },
+      {
+        "vehicle_net_phys__blk": "content/tanks/gamedata/units/tanks/a22_mk_i_churchill.blk:VehiclePhys"
+      },
+      {
+        "dmg_animchar__res": "a22_mk_I_churchill_dmg_char"
+      },
+      {
+        "damage_model__blk": "content/tanks/gamedata/units/tanks/a22_mk_i_churchill.blk"
+      },
+      {
+        "animchar_fast_phys__res": "a22_mk_I_churchill_fastphys"
+      },
+      {
+        "animchar_fast_phys": {
+          "_tags": "gameClient"
+        }
+      },
+      {
+        "bullet_holes__movingCollisionNodes:array": {
+          "movingCollisionNodes": "turret_front",
+          "_tags": "render"
+        }
+      },
+      {
+        "turret_control__turretInfo:shared:array": {
+          "turretInfo:object": {
+            "turretName": "turret_01",
+            "gun": "tankgun_m1_76mm",
+            "salt": 1,
+            "emitterNode": "bone_gun",
+            "speedYaw": 24.0,
+            "speedPitch": 4.0,
+            "aimActiveParamName": "aim_active",
+            "wishYawParamName": "gun_aim:targetYaw",
+            "wishPitchParamName": "gun_aim:targetPitch",
+            "curYawParamName": "turret_yaw",
+            "curPitchParamName": "gun_pitch",
+            "gunRecoilParamName": "gun_recoil",
+            "gunFlash:object": {
+              "node": "emtr_gun_flame",
+              "fx": "muzzle_flash",
+              "fxId": -1,
+              "scale": 0.7,
+              "nodeId": -1,
+              "time": 0.2,
+              "multTm": [
+                [0.0,1.0,0.0],
+                [1.0,0.0,0.0],
+                [0.0,0.0,-1.0],
+                [0.0,0.0,0.0]
+              ]
+            }
+          }
+        }
+      }
+    ]
+  },
+  {
+    "uk_a22b_mk_III_churchill_1942": [
+      {
+        "_extends": "base_tank"
+      },
+      {
+        "_extends": "seats_layout_d_g_c_l_mg"
+      },
+      {
+        "particle_phys__blk": "content/e_ww2_common/gamedata/suspension/empty.blk"
+      },
+      {
+        "animchar__res": "a22b_mk_III_churchill_1942_char"
+      },
+      {
+        "collres__res": "a22b_mk_III_churchill_1942_collision"
+      },
+      {
+        "vehicle_net_phys__blk": "content/tanks/gamedata/units/tanks/a22b_mk_iii_churchill_1942.blk:VehiclePhys"
+      },
+      {
+        "dmg_animchar__res": "a22b_mk_III_churchill_1942_dmg_char"
+      },
+      {
+        "damage_model__blk": "content/tanks/gamedata/units/tanks/a22b_mk_iii_churchill_1942.blk"
+      },
+      {
+        "animchar_fast_phys__res": "a22b_mk_III_churchill_1942_fastphys"
+      },
+      {
+        "animchar_fast_phys": {
+          "_tags": "gameClient"
+        }
+      },
+      {
+        "turret_control__turretInfo:shared:array": {
+          "turretInfo:object": {
+            "turretName": "turret_01",
+            "gun": "tankgun_m1_76mm",
+            "salt": 1,
+            "emitterNode": "bone_gun",
+            "speedYaw": 24.0,
+            "speedPitch": 4.0,
+            "aimActiveParamName": "aim_active",
+            "wishYawParamName": "gun_aim:targetYaw",
+            "wishPitchParamName": "gun_aim:targetPitch",
+            "curYawParamName": "turret_yaw",
+            "curPitchParamName": "gun_pitch",
+            "gunRecoilParamName": "gun_recoil",
+            "gunFlash:object": {
+              "node": "emtr_gun_flame",
+              "fx": "muzzle_flash",
+              "fxId": -1,
+              "scale": 0.7,
+              "nodeId": -1,
+              "time": 0.2,
+              "multTm": [
+                [0.0,1.0,0.0],
+                [1.0,0.0,0.0],
+                [0.0,0.0,-1.0],
+                [0.0,0.0,0.0]
+              ]
+            }
+          }
+        }
+      }
+    ]
+  }
+]

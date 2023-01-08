@@ -1,0 +1,73 @@
+{
+  "base_125mm_2a46_m1_t_80u": {
+    "item__name": "guns/125mm_2a46_m1_t_80u",
+    "gun__blk": "content/e_modern/gamedata/gen/weapons/125mm_2a46_m1_t_80u.blk",
+    "gun__shotFreq": 0.1537,
+    "gun__locName": "125mm_2a46_m1_t_80u",
+    "gun__ammoSetsInfo:shared:array": {
+      "defaultSet:array": {
+        "shell:object": {
+          "blk": "content/e_modern/gamedata/gen/weapons/shells/125mm_2a46_m1_t_80u_125mm_ussr_3bm42_apds_fs.blk",
+          "name": "125mm_3bm46",
+          "type": "apds_fs_long_tank"
+        }
+      },
+      "125mm_ussr_HE:array": {
+        "shell:object": {
+          "blk": "content/e_modern/gamedata/gen/weapons/shells/125mm_2a46_m1_t_80u_125mm_ussr_he.blk",
+          "name": "125mm_3of_26",
+          "type": "he_frag_fs_tank"
+        }
+      },
+      "125mm_ussr_Practice:array": {
+        "shell:object": {
+          "blk": "content/e_modern/gamedata/gen/weapons/shells/125mm_2a46_m1_t_80u_125mm_ussr_practice.blk",
+          "name": "125mm_practice",
+          "type": "practice_tank"
+        }
+      },
+      "125mm_ussr_3BK18_HEAT_FS:array": {
+        "shell:object": {
+          "blk": "content/e_modern/gamedata/gen/weapons/shells/125mm_2a46_m1_t_80u_defaultset.blk",
+          "name": "125mm_3bk_18m",
+          "type": "heat_fs_tank"
+        }
+      },
+      "125mm_ussr_3BK12_HEAT_FS:array": {
+        "shell:object": {
+          "blk": "content/e_modern/gamedata/gen/weapons/shells/125mm_2a46_m1_t_80u_125mm_ussr_3bk12_heat_fs.blk",
+          "name": "125mm_3bk_12m",
+          "type": "heat_fs_tank"
+        }
+      },
+      "125mm_ussr_APDS_FS:array": {
+        "shell:object": {
+          "blk": "content/e_modern/gamedata/gen/weapons/shells/125mm_2a46_m1_t_80u_125mm_ussr_apds_fs.blk",
+          "name": "125mm_3bm42",
+          "type": "apds_fs_long_tank"
+        }
+      },
+      "125mm_ussr_ATGM:array": {
+        "shell:object": {
+          "blk": "content/e_modern/gamedata/gen/weapons/shells/125mm_2a46_m1_t_80u_125mm_ussr_atgm.blk",
+          "name": "125mm_9m_119",
+          "type": "atgm_tank"
+        }
+      }
+    }
+  },
+  "tankgun_125mm_2a46_m1_t_80u": [
+    {
+      "_extends": "tankgun"
+    },
+    {
+      "_extends": "base_tankgun_cannon"
+    },
+    {
+      "_extends": "base_125mm_2a46_m1_t_80u"
+    },
+    {
+      "turret__triggerGroup": 0
+    }
+  ]
+}

@@ -1,0 +1,206 @@
+{
+  "placeable_rendinst": [
+    {
+      "_extends": "rendinst"
+    },
+    {
+      "_extends": "replicating"
+    },
+    {
+      "isRendinstDestr:tag": {
+        "_tags": "render"
+      }
+    }
+  ],
+  "searchlight": {
+    "_extends": "placeable_rendinst",
+    "ri_extra__name": "150cm_flak_sw_37"
+  },
+  "searchlight_base": {
+    "_extends": "placeable_rendinst",
+    "ri_extra__name": "150cm_flak_sw_37_basement"
+  },
+  "searchlight_no_base": {
+    "_extends": "placeable_rendinst",
+    "ri_extra__name": "150cm_flak_sw_37_searchlight"
+  },
+  "generator": {
+    "_extends": "placeable_rendinst",
+    "ri_extra__name": "24kw_flak_generator"
+  },
+  "hp_gurney_b": {
+    "_extends": "placeable_rendinst",
+    "ri_extra__name": "hp_gurney_b"
+  },
+  "hp_gurney_a": {
+    "_extends": "placeable_rendinst",
+    "ri_extra__name": "hp_gurney_a"
+  },
+  "hp_fabric_pile_b": {
+    "_extends": "placeable_rendinst",
+    "ri_extra__name": "hp_fabric_pile_b"
+  },
+  "hp_bed_a_matress": {
+    "_extends": "placeable_rendinst",
+    "ri_extra__name": "hp_bed_a_matress"
+  },
+  "hp_rack_b": {
+    "_extends": "placeable_rendinst",
+    "ri_extra__name": "hp_rack_b"
+  },
+  "hp_stillage_a": {
+    "_extends": "placeable_rendinst",
+    "ri_extra__name": "hp_stillage_a"
+  },
+  "hp_operating_table_a": {
+    "_extends": "placeable_rendinst",
+    "ri_extra__name": "hp_operating_table_a"
+  },
+  "hp_trolley_a": {
+    "_extends": "placeable_rendinst",
+    "ri_extra__name": "hp_trolley_a"
+  },
+  "mbs_desktop_stuff_a": {
+    "_extends": "placeable_rendinst",
+    "ri_extra__name": "mbs_desktop_stuff_a"
+  },
+  "88mm_cannon_b": {
+    "_extends": "placeable_rendinst",
+    "ri_extra__name": "88mm_flak_36_canon_b"
+  },
+  "88mm_cannon_a": {
+    "_extends": "placeable_rendinst",
+    "ri_extra__name": "88mm_flak_36_canon_a"
+  },
+  "rangefinder_a": {
+    "_extends": "placeable_rendinst",
+    "ri_extra__name": "rangefinder_a"
+  },
+  "mbs_ger_radio_feld_fu": {
+    "_extends": "placeable_rendinst",
+    "ri_extra__name": "mbs_ger_radio_feld_fu"
+  },
+  "mbs_ger_radio_kw_e_a": {
+    "_extends": "placeable_rendinst",
+    "ri_extra__name": "mbs_ger_radio_kw_e_a"
+  },
+  "mbs_stool_a": {
+    "_extends": "placeable_rendinst",
+    "ri_extra__name": "mbs_stool_a"
+  },
+  "mbs_ger_headphones_dfh_b": {
+    "_extends": "placeable_rendinst",
+    "ri_extra__name": "mbs_ger_headphones_dfh_b"
+  },
+  "mbs_desktop_stuff_a_tablet": {
+    "_extends": "placeable_rendinst",
+    "ri_extra__name": "mbs_desktop_stuff_a_tablet"
+  },
+  "mbs_desktop_stuff_a_map": {
+    "_extends": "placeable_rendinst",
+    "ri_extra__name": "mbs_desktop_stuff_a_map"
+  },
+  "mbs_desktop_stuff_a_folder": {
+    "_extends": "placeable_rendinst",
+    "ri_extra__name": "mbs_desktop_stuff_a_folder"
+  },
+  "mbs_desktop_stuff_a_deflection_board": {
+    "_extends": "placeable_rendinst",
+    "ri_extra__name": "mbs_desktop_stuff_a_deflection_board"
+  },
+  "mbs_desktop_stuff_a_binoculars": {
+    "_extends": "placeable_rendinst",
+    "ri_extra__name": "mbs_desktop_stuff_a_binoculars"
+  },
+  "mbs_chair_a": {
+    "_extends": "placeable_rendinst",
+    "ri_extra__name": "mbs_chair_a"
+  },
+  "mbs_camp_cot_a_madeup_a": {
+    "_extends": "placeable_rendinst",
+    "ri_extra__name": "mbs_camp_cot_a_madeup_a"
+  },
+  "mbs_camp_cot_a": {
+    "_extends": "placeable_rendinst",
+    "ri_extra__name": "mbs_camp_cot_a"
+  },
+  "is_gramophone_a": {
+    "_extends": "placeable_rendinst",
+    "ri_extra__name": "is_gramophone_a"
+  },
+  "storage_tank_a": {
+    "_extends": "placeable_rendinst",
+    "ri_extra__name": "storage_tank_a"
+  },
+  "storage_tank_b": {
+    "_extends": "placeable_rendinst",
+    "ri_extra__name": "storage_tank_b"
+  },
+  "mbs_field_table_a": {
+    "_extends": "placeable_rendinst",
+    "ri_extra__name": "mbs_field_table_a"
+  },
+  "mbs_field_table_b": {
+    "_extends": "placeable_rendinst",
+    "ri_extra__name": "mbs_field_table_b"
+  },
+  "mbs_field_table_c": {
+    "_extends": "placeable_rendinst",
+    "ri_extra__name": "mbs_field_table_c"
+  },
+  "hp_table_a": {
+    "_extends": "placeable_rendinst",
+    "ri_extra__name": "hp_table_a"
+  },
+  "add_score_to_destroyable_ri": {
+    "destroyable_ri__addScoreTeam": -1,
+    "destroyable_ri__group": -1,
+    "_replicated": "destroyable_ri__addScoreTeam",
+    "_tracked": "destroyable_ri__addScoreTeam",
+    "hasCrosshairHint:tag": []
+  },
+  "barrage_balloon": {
+    "_extends": "placeable_rendinst",
+    "ri_extra__name": "barrage_balloon"
+  },
+  "barrage_balloon_rope": {
+    "_extends": "placeable_rendinst",
+    "ri_extra__name": "barrage_balloon_rope_c"
+  },
+  "abstroffwagen_b_rendinst": {
+    "_extends": "placeable_rendinst",
+    "ri_extra__name": "abstroffwagen_b_rendinst"
+  },
+  "abstroffwagen_c_rendinst": {
+    "_extends": "placeable_rendinst",
+    "ri_extra__name": "abstroffwagen_c_rendinst"
+  },
+  "abstroffwagen_rendinst": {
+    "_extends": "placeable_rendinst",
+    "ri_extra__name": "abstroffwagen_rendinst"
+  },
+  "artillerie_flak_wagen_rendinst": {
+    "_extends": "placeable_rendinst",
+    "ri_extra__name": "artillerie_flak_wagen_rendinst"
+  },
+  "geschutz_wagen_rendinst": {
+    "_extends": "placeable_rendinst",
+    "ri_extra__name": "geschutz_wagen_rendinst"
+  },
+  "kommando_infanterie_wagen_rendinst": {
+    "_extends": "placeable_rendinst",
+    "ri_extra__name": "kommando_infanterie_wagen_rendinst"
+  },
+  "panzerjagerwagen_rendinst": {
+    "_extends": "placeable_rendinst",
+    "ri_extra__name": "panzerjagerwagen_rendinst"
+  },
+  "panzertragerwagen_rendinst": {
+    "_extends": "placeable_rendinst",
+    "ri_extra__name": "panzertragerwagen_rendinst"
+  },
+  "panzerzug_bp_44_lokomotiv_rendinst": {
+    "_extends": "placeable_rendinst",
+    "ri_extra__name": "panzerzug_bp_44_lokomotiv_rendinst"
+  }
+}

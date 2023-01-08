@@ -1,0 +1,400 @@
+{
+  "item_supply_ticket": {
+    "animchar__res": "supply_sign_char",
+    "collres__res": "supply_sign_collision",
+    "item__iconYaw": 30.0
+  },
+  "weapons_supply_ticket_bronze": {
+    "_extends": "item_supply_ticket",
+    "item__name": "items/weapon_order"
+  },
+  "weapons_supply_ticket_silver": {
+    "_extends": "item_supply_ticket",
+    "item__name": "items/weapon_order_silver",
+    "animchar__objTexReplace:object": {
+      "ammunition_supply_bronze_tex_d*": "ammunition_supply_silver_tex_d*"
+    }
+  },
+  "weapons_supply_ticket_gold": {
+    "_extends": "item_supply_ticket",
+    "item__name": "items/weapon_order_gold",
+    "animchar__objTexReplace:object": {
+      "ammunition_supply_bronze_tex_d*": "ammunition_supply_gold_tex_d*"
+    }
+  },
+  "soldiers_supply_ticket_bronze": {
+    "_extends": "item_supply_ticket",
+    "item__name": "items/soldier_order",
+    "animchar__objTexReplace:object": {
+      "ammunition_supply_bronze_tex_d*": "army_supply_bronze_tex_d*",
+      "ammunition_supply_tex_n*": "army_supply_tex_n*"
+    }
+  },
+  "soldiers_supply_ticket_silver": {
+    "_extends": "item_supply_ticket",
+    "item__name": "items/soldier_order_silver",
+    "animchar__objTexReplace:object": {
+      "ammunition_supply_bronze_tex_d*": "army_supply_silver_tex_d*",
+      "ammunition_supply_tex_n*": "army_supply_tex_n*"
+    }
+  },
+  "soldiers_supply_ticket_gold": {
+    "_extends": "item_supply_ticket",
+    "item__name": "items/soldier_order_gold",
+    "animchar__objTexReplace:object": {
+      "ammunition_supply_bronze_tex_d*": "army_supply_gold_tex_d*",
+      "ammunition_supply_tex_n*": "army_supply_tex_n*"
+    }
+  },
+  "random_battlepass_order": {
+    "_extends": "item_supply_ticket",
+    "item__name": "items/random_battlepass_order",
+    "animchar__objTexReplace:object": {
+      "ammunition_supply_bronze_tex_d*": "random_battlepass_order_tex_d*",
+      "ammunition_supply_tex_n*": "random_battlepass_order_tex_n*"
+    }
+  },
+  "training_choose_ticket": {
+    "_extends": "item_supply_ticket",
+    "item__name": "items/training_choose_order",
+    "animchar__objTexReplace:object": {
+      "ammunition_supply_bronze_tex_d*": "training_choose_order_tex_d*",
+      "ammunition_supply_tex_n*": "training_choose_order_tex_n*"
+    }
+  },
+  "research_change_ticket": {
+    "_extends": "item_supply_ticket",
+    "item__name": "items/research_change_order",
+    "animchar__objTexReplace:object": {
+      "ammunition_supply_bronze_tex_d*": "squad_respec_tex_d*",
+      "ammunition_supply_tex_n*": "squad_respec_tex_n*"
+    }
+  },
+  "callname_change_ticket": {
+    "_extends": "item_supply_ticket",
+    "item__name": "items/callname_change_order",
+    "animchar__objTexReplace:object": {
+      "ammunition_supply_bronze_tex_d*": "soldier_name_change_tex_d*",
+      "ammunition_supply_tex_n*": "soldier_name_change_tex_n*"
+    }
+  },
+  "vehicle_with_skin_supply_ticket_gold": {
+    "_extends": "item_supply_ticket",
+    "item__name": "items/vehicle_with_skin_order_gold",
+    "animchar__objTexReplace:object": {
+      "ammunition_supply_bronze_tex_d*": "vehicle_with_skin_tex_d*",
+      "ammunition_supply_tex_n*": "vehicle_with_skin_tex_n*"
+    }
+  },
+  "item_upgrade_ticket": {
+    "_extends": "item_supply_ticket",
+    "item__name": "items/item_upgrade_order",
+    "animchar__objTexReplace:object": {
+      "ammunition_supply_bronze_tex_d*": "item_upgrade_tex_d*",
+      "ammunition_supply_tex_n*": "item_upgrade_tex_n*"
+    }
+  },
+  "vehicle_upgrade_ticket": {
+    "_extends": "item_supply_ticket",
+    "item__name": "items/vehicle_upgrade_order",
+    "animchar__objTexReplace:object": {
+      "ammunition_supply_bronze_tex_d*": "vehicle_upgrade_tex_d*",
+      "ammunition_supply_tex_n*": "vehicle_upgrade_tex_n*"
+    }
+  },
+  "soldier_level_ticket": {
+    "_extends": "item_supply_ticket",
+    "item__name": "items/soldier_levelup_order",
+    "animchar__objTexReplace:object": {
+      "ammunition_supply_bronze_tex_d*": "soldier_levelup_tex_d*",
+      "ammunition_supply_tex_n*": "soldier_levelup_tex_n*"
+    }
+  },
+  "appearance_change_ticket": {
+    "_extends": "item_supply_ticket",
+    "item__name": "items/appearance_change_order",
+    "animchar__objTexReplace:object": {
+      "ammunition_supply_bronze_tex_d*": "soldier_appearance_tex_d*",
+      "ammunition_supply_tex_n*": "soldier_appearance_tex_n*"
+    }
+  },
+  "poster_ticket": {
+    "_extends": "item_supply_ticket",
+    "item__name": "items/wallposter_battlepass_order",
+    "animchar__objTexReplace:object": {
+      "ammunition_supply_bronze_tex_d*": "agit_poster_enlisted_battlepass_tex_d*",
+      "ammunition_supply_tex_n*": "agit_poster_enlisted_battlepass_tex_n*"
+    }
+  },
+  "poster_ticket_4": {
+    "_extends": "item_supply_ticket",
+    "item__name": "items/wallposter_battlepass_order",
+    "animchar__objTexReplace:object": {
+      "ammunition_supply_bronze_tex_d*": "agit_poster_enlisted_battlepass_b_tex_d*",
+      "ammunition_supply_tex_n*": "agit_poster_enlisted_battlepass_b_tex_n*"
+    }
+  },
+  "poster_ticket_5": {
+    "_extends": "item_supply_ticket",
+    "item__name": "items/wallposter_battlepass_order",
+    "animchar__objTexReplace:object": {
+      "ammunition_supply_bronze_tex_d*": "agit_poster_enlisted_battlepass_c_tex_d*",
+      "ammunition_supply_tex_n*": "agit_poster_enlisted_battlepass_c_tex_n*"
+    }
+  },
+  "poster_ticket_6": {
+    "_extends": "item_supply_ticket",
+    "item__name": "items/wallposter_battlepass_order",
+    "animchar__objTexReplace:object": {
+      "ammunition_supply_bronze_tex_d*": "agit_poster_enlisted_battlepass_d_tex_d*",
+      "ammunition_supply_tex_n*": "agit_poster_enlisted_battlepass_d_tex_n*"
+    }
+  },
+  "poster_ticket_7": {
+    "_extends": "item_supply_ticket",
+    "item__name": "items/wallposter_battlepass_order",
+    "animchar__objTexReplace:object": {
+      "ammunition_supply_bronze_tex_d*": "agit_poster_enlisted_battlepass_e_tex_d*",
+      "ammunition_supply_tex_n*": "agit_poster_enlisted_battlepass_e_tex_n*"
+    }
+  },
+  "event_ticket": {
+    "_extends": "item_supply_ticket",
+    "animchar__objTexReplace:object": {
+      "ammunition_supply_bronze_tex_d*": "event_order_tex_d*",
+      "ammunition_supply_tex_n*": "event_order_tex_n*"
+    }
+  },
+  "item_ecoin": {
+    "animchar__res": "ecoin_char",
+    "collres__res": "ecoin_collision"
+  },
+  "svt_40_gun_item": {
+    "_override": true,
+    "item__proto": "content/enlisted/gamedata/weapons_enlisted/svt_40.blk"
+  },
+  "svt_38_gun_item": {
+    "_override": true,
+    "item__proto": "content/enlisted/gamedata/weapons_enlisted/svt_38.blk"
+  },
+  "gewehr_41_gun_item": {
+    "_override": true,
+    "item__proto": "content/enlisted/gamedata/weapons_enlisted/gewehr_41.blk"
+  },
+  "m1_garand_gun_item": {
+    "_override": true,
+    "item__proto": "content/enlisted/gamedata/weapons_enlisted/m1_garand.blk"
+  },
+  "m1_bazooka_gun_item": {
+    "_override": true,
+    "item__proto": "content/enlisted/gamedata/weapons_enlisted/m1_bazooka.blk"
+  },
+  "m6a1_bazooka_item": {
+    "_override": true,
+    "item__proto": "content/enlisted/gamedata/weapons_enlisted/shells/m6a1_bazooka.blk",
+    "item__shell": "content/enlisted/gamedata/weapons_enlisted/shells/m6a1_bazooka.blk"
+  },
+  "panzerschreck_gun_item": {
+    "_override": true,
+    "item__proto": "content/enlisted/gamedata/weapons_enlisted/panzerschreck.blk"
+  },
+  "panzerwurfkorper_42_item": {
+    "_override": true,
+    "item__proto": "content/enlisted/gamedata/weapons_enlisted/shells/panzerwurfkorper_42.blk",
+    "item__shell": "content/enlisted/gamedata/weapons_enlisted/shells/panzerwurfkorper_42.blk"
+  },
+  "panzerfaust_100_shell_item": {
+    "_override": true,
+    "item__proto": "content/enlisted/gamedata/weapons_enlisted/shells/panzerfaust_100_shell.blk",
+    "item__shell": "content/enlisted/gamedata/weapons_enlisted/shells/panzerfaust_100_shell.blk"
+  },
+  "panzerfaust_60_shell_item": {
+    "_override": true,
+    "item__proto": "content/enlisted/gamedata/weapons_enlisted/shells/panzerfaust_60_shell.blk",
+    "item__shell": "content/enlisted/gamedata/weapons_enlisted/shells/panzerfaust_60_shell.blk"
+  },
+  "piat_shell_item": {
+    "_override": true,
+    "item__proto": "content/enlisted/gamedata/weapons_enlisted/shells/piat_shell.blk",
+    "item__shell": "content/enlisted/gamedata/weapons_enlisted/shells/piat_shell.blk"
+  },
+  "rpzb_gr_4322_item": {
+    "_override": true,
+    "item__proto": "content/enlisted/gamedata/weapons_enlisted/shells/rpzb_gr_4322.blk",
+    "item__shell": "content/enlisted/gamedata/weapons_enlisted/shells/rpzb_gr_4322.blk"
+  },
+  "gross_panzergranate_46_item": {
+    "_override": true,
+    "item__proto": "content/enlisted/gamedata/weapons_enlisted/shells/gross_panzergranate_46.blk",
+    "item__shell": "content/enlisted/gamedata/weapons_enlisted/shells/gross_panzergranate_46.blk"
+  },
+  "m1_carbine_gun_item": {
+    "_override": true,
+    "item__proto": "content/enlisted/gamedata/weapons_enlisted/m1_carbine.blk"
+  },
+  "ptrd_41_gun_item": {
+    "_override": true,
+    "item__proto": "content/enlisted/gamedata/weapons_enlisted/ptrd_41.blk"
+  },
+  "ptrs_41_gun_item": {
+    "_override": true,
+    "item__proto": "content/enlisted/gamedata/weapons_enlisted/ptrs_41.blk"
+  },
+  "pzb_38_gun_item": {
+    "_override": true,
+    "item__proto": "content/enlisted/gamedata/weapons_enlisted/pzb_38.blk"
+  },
+  "pzb_39_gun_item": {
+    "_override": true,
+    "item__proto": "content/enlisted/gamedata/weapons_enlisted/pzb_39.blk"
+  },
+  "knife": {
+    "_override": true,
+    "gun__blk": "content/enlisted/gamedata/weapons_enlisted/knife.blk",
+    "item__proto": "content/enlisted/gamedata/weapons_enlisted/knife.blk",
+    "melee_weapon__blk": "content/enlisted/gamedata/weapons_enlisted/knife.blk"
+  },
+  "moroccan_dagger": {
+    "_override": true,
+    "gun__blk": "content/enlisted/gamedata/weapons_enlisted/knife.blk",
+    "item__proto": "content/enlisted/gamedata/weapons_enlisted/knife.blk",
+    "melee_weapon__blk": "content/enlisted/gamedata/weapons_enlisted/knife.blk"
+  },
+  "san_marco_dagger": {
+    "_override": true,
+    "gun__blk": "content/enlisted/gamedata/weapons_enlisted/knife.blk",
+    "item__proto": "content/enlisted/gamedata/weapons_enlisted/knife.blk",
+    "melee_weapon__blk": "content/enlisted/gamedata/weapons_enlisted/knife.blk"
+  },
+  "flamethrower_fuel_tank": {
+    "_override": true,
+    "item__proto": "flamethrower_fuel_tank"
+  },
+  "shovel_item": [
+    {
+      "_extends": "item_melee"
+    },
+    {
+      "_extends": "shovel"
+    },
+    {
+      "collres__res": "sov_knife_nr_40_collision"
+    }
+  ],
+  "usa_shovel_item": [
+    {
+      "_extends": "item_melee"
+    },
+    {
+      "_extends": "usa_shovel"
+    },
+    {
+      "collres__res": "usa_m1943_shovel_collision"
+    }
+  ],
+  "uk_shovel_item": [
+    {
+      "_extends": "item_melee"
+    },
+    {
+      "_extends": "uk_shovel"
+    },
+    {
+      "collres__res": "uk_army_spade_collision"
+    }
+  ],
+  "ussr_shovel_item": [
+    {
+      "_extends": "item_melee"
+    },
+    {
+      "_extends": "ussr_shovel"
+    },
+    {
+      "collres__res": "ussr_m41_shovel_collision"
+    }
+  ],
+  "jp_shovel_item": [
+    {
+      "_extends": "item_melee"
+    },
+    {
+      "_extends": "jp_shovel"
+    },
+    {
+      "collres__res": "jap_type_98_entrenching_tool_collision"
+    }
+  ],
+  "battlepass_buster_1_template": {
+    "_extends": "item_supply_ticket",
+    "item__name": "items/battlepass_buster_1",
+    "animchar__objTexReplace:object": {
+      "ammunition_supply_bronze_tex_d*": "training_choose_order_tex_d*",
+      "ammunition_supply_tex_n*": "training_choose_order_tex_n*"
+    }
+  },
+  "battlepass_buster_3_template": {
+    "_extends": "item_supply_ticket",
+    "item__name": "items/battlepass_buster_3",
+    "animchar__objTexReplace:object": {
+      "ammunition_supply_bronze_tex_d*": "training_choose_order_tex_d*",
+      "ammunition_supply_tex_n*": "training_choose_order_tex_n*"
+    }
+  },
+  "battlepass_buster_50_3_template": {
+    "_extends": "item_supply_ticket",
+    "item__name": "items/battlepass_buster_50_3",
+    "animchar__objTexReplace:object": {
+      "ammunition_supply_bronze_tex_d*": "training_choose_order_tex_d*",
+      "ammunition_supply_tex_n*": "training_choose_order_tex_n*"
+    }
+  },
+  "battlepass_buster_soldier_3_template": {
+    "_extends": "item_supply_ticket",
+    "item__name": "items/battlepass_buster_soldier_3",
+    "animchar__objTexReplace:object": {
+      "ammunition_supply_bronze_tex_d*": "training_choose_order_tex_d*",
+      "ammunition_supply_tex_n*": "training_choose_order_tex_n*"
+    }
+  },
+  "battlepass_buster_squad_5_template": {
+    "_extends": "item_supply_ticket",
+    "item__name": "items/battlepass_buster_squad_5",
+    "animchar__objTexReplace:object": {
+      "ammunition_supply_bronze_tex_d*": "training_choose_order_tex_d*",
+      "ammunition_supply_tex_n*": "training_choose_order_tex_n*"
+    }
+  },
+  "booster_global_battlepass_50_battle_12_template": {
+    "_extends": "item_supply_ticket",
+    "item__name": "items/booster_global_battlepass_50_battle_12",
+    "animchar__objTexReplace:object": {
+      "ammunition_supply_bronze_tex_d*": "training_choose_order_tex_d*",
+      "ammunition_supply_tex_n*": "training_choose_order_tex_n*"
+    }
+  },
+  "booster_global_battlepass_100_battle_12_template": {
+    "_extends": "item_supply_ticket",
+    "item__name": "items/booster_global_battlepass_100_battle_12",
+    "animchar__objTexReplace:object": {
+      "ammunition_supply_bronze_tex_d*": "training_choose_order_tex_d*",
+      "ammunition_supply_tex_n*": "training_choose_order_tex_n*"
+    }
+  },
+  "booster_global_battlepass_100_battle_6_template": {
+    "_extends": "item_supply_ticket",
+    "item__name": "items/booster_global_battlepass_100_battle_6",
+    "animchar__objTexReplace:object": {
+      "ammunition_supply_bronze_tex_d*": "training_choose_order_tex_d*",
+      "ammunition_supply_tex_n*": "training_choose_order_tex_n*"
+    }
+  },
+  "booster_global_battlepass_100_battle_24_template": {
+    "_extends": "item_supply_ticket",
+    "item__name": "items/booster_global_battlepass_100_battle_24",
+    "animchar__objTexReplace:object": {
+      "ammunition_supply_bronze_tex_d*": "training_choose_order_tex_d*",
+      "ammunition_supply_tex_n*": "training_choose_order_tex_n*"
+    }
+  }
+}

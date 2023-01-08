@@ -1,0 +1,294 @@
+[
+  {
+    "import": {
+      "scene": "content/enlisted/gamedata/scenes/_normandy_sounds.blk"
+    }
+  },
+  {
+    "import": {
+      "scene": "content/enlisted/gamedata/scenes/_normandy_beach_scene_fx.blk"
+    }
+  },
+  {
+    "import": {
+      "scene": "content/enlisted/gamedata/scenes/_normandy_beach_fortified_biom_fx.blk"
+    }
+  },
+  {
+    "entity": {
+      "_template": "static_cam",
+      "camera__active": true,
+      "transform": [
+        [0.0,0.0,-1.0],
+        [0.0,1.0,0.0],
+        [1.0,0.0,0.0],
+        [0.0,0.0,0.0]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "level",
+      "level__blk": "content/enlisted/levels/normandy_beach_fortified_1x1.blk",
+      "level__timeRange": [5.0,19.2],
+      "level__weatherChoice:object": {
+        "weather_overcast_b": 0.5
+      },
+      "level__timeVec:array": [
+        {
+          "level_timeVec": 6.5
+        },
+        {
+          "level_timeVec": 7.5
+        },
+        {
+          "level_timeVec": 8.5
+        },
+        {
+          "level_timeVec": 17.0
+        },
+        {
+          "level_timeVec": 18.0
+        }
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "minimap_normandy_beach_fortified"
+    }
+  },
+  {
+    "entity": {
+      "_template": "bot_spawner",
+      "team": 1,
+      "bot_spawner__attractDist": 1.0,
+      "bot_spawner__wavePeriod": 3.0,
+      "bot_spawner__shouldSpawnSquads": true,
+      "bot_spawner__attractPoints:array": {
+        "bot_spawner__attractPoints": [-100.83,66.4285,-309.81]
+      }
+    }
+  },
+  {
+    "entity": {
+      "_template": "bot_spawner",
+      "team": 2,
+      "bot_spawner__attractDist": 1.0,
+      "bot_spawner__wavePeriod": 2.5,
+      "bot_spawner__shouldSpawnSquads": true,
+      "bot_spawner__attractPoints:array": {
+        "bot_spawner__attractPoints": [37.9404,67.8949,-356.033]
+      }
+    }
+  },
+  {
+    "entity": {
+      "_template": "water",
+      "water__strength": 1.3
+    }
+  },
+  {
+    "entity": {
+      "_template": "wind",
+      "wind__strength": 2.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "postfx_color_grading_tonemap_death_alive_enlisted"
+    }
+  },
+  {
+    "entity": {
+      "_template": "session_timer",
+      "session_timer__time_left": 2400.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "session_finalizer",
+      "session_finalizer__timer": 10.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "shaderVars",
+      "shader_vars__vars:object": {
+        "river1": "#8e894700",
+        "river0": "#4c3f0500",
+        "river_density": 0.3,
+        "hmap_displacement_down": -0.15,
+        "water_color_noise_size": 71.0,
+        "ocean1": "#8e894700",
+        "ocean0": "#4c3f0500",
+        "ocean_density": 0.1,
+        "hmap_displacement_up": 0.3,
+        "paint_details_tex": "normandy_wall_color_tex_palette*"
+      }
+    }
+  },
+  {
+    "entity": {
+      "_template": "postfx_roundctrl"
+    }
+  },
+  {
+    "entity": {
+      "_template": "team_usa+team_narrator_invasion_attack",
+      "team__deathPenaltyByMember": -5.0,
+      "team__minDeathPenalty": 10.0,
+      "team__memberCount": 0.0,
+      "team__scoreCap": 4000.0,
+      "team__capturePenalty": 0.0,
+      "team__botTemplate": "usa_npc_summer_soldier_1",
+      "score_bleed__staticBleed": 0.0,
+      "team__score": 4000.0,
+      "team__deathPenalty": 0.0,
+      "team__id": 1,
+      "team__briefing": "invasion/attackers_goals",
+      "team__winSubtitle": "debriefing/won_invasion_subtitle",
+      "team__loseSubtitle": "debriefing/lost_invasion_subtitle",
+      "team__winTitle": "debriefing/normandy/usa_won_invasion_title",
+      "team__spawnBotArmy": "normandy_allies"
+    }
+  },
+  {
+    "entity": {
+      "_template": "team_germany+team_narrator_invasion_defence",
+      "team__countAdd": 0.5,
+      "team__memberCount": 0.5,
+      "team__scoreCap": 7000.0,
+      "team__capturePenalty": 1001.0,
+      "team__botTemplate": "ger_npc_summer_soldier_1",
+      "team__score": 7000.0,
+      "team__id": 2,
+      "team__briefing": "invasion/defenders_goals",
+      "team__winSubtitle": "debriefing/won_defence_subtitle",
+      "team__loseSubtitle": "debriefing/lost_defence_subtitle",
+      "team__winTitle": "debriefing/normandy/ger_won_defence_title",
+      "team__spawnBotArmy": "normandy_axis"
+    }
+  },
+  {
+    "entity": {
+      "_template": "door_mult_ent_generator",
+      "ri_extra_gen__blk": "content/e_normandy/gamedata/normandy_doors.blk"
+    }
+  },
+  {
+    "entity": {
+      "_template": "briefing_invasion"
+    }
+  },
+  {
+    "entity": {
+      "_template": "respTeam2",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [-103.43,66.3392,-300.346]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "respTeam2",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [-60.6574,67.5593,-339.429]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "respTeam2",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [-106.563,66.2432,-297.006]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "respTeam2",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [-64.6852,67.2747,-326.563]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "respTeam2",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [-49.5689,68.1386,-271.354]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "respTeam1",
+      "transform": [
+        [-0.985736,0.0,0.168301],
+        [0.0,1.0,0.0],
+        [-0.168301,0.0,-0.985735],
+        [55.9825,66.7448,-359.561]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "respTeam1",
+      "transform": [
+        [-0.985518,0.0,0.169569],
+        [0.0,1.0,0.0],
+        [-0.169569,0.0,-0.985518],
+        [55.0444,67.6903,-360.179]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "respTeam1",
+      "transform": [
+        [-0.542123,0.0,-0.840299],
+        [0.0,1.0,0.0],
+        [0.840299,0.0,-0.542123],
+        [77.6616,66.7448,-351.8]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "respTeam1",
+      "transform": [
+        [-0.542123,0.0,-0.840299],
+        [0.0,1.0,0.0],
+        [0.840299,0.0,-0.542123],
+        [25.9735,68.9972,-317.084]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "respTeam2",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [7.05002,67.4121,-277.941]
+      ]
+    }
+  }
+]

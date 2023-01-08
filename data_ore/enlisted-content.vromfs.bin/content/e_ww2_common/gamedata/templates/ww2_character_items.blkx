@@ -1,0 +1,675 @@
+{
+  "attachable_pants": [
+    {
+      "_extends": "attachable_wear"
+    },
+    {
+      "_extends": "attachable_wear_broken_bones"
+    },
+    {
+      "footprintType": 1
+    },
+    {
+      "torn_wounds__name_list:list<t>": [
+        {
+          "name": "right_leg"
+        },
+        {
+          "name": "left_leg"
+        }
+      ]
+    },
+    {
+      "item__equipToSlots:array": {
+        "slot": "pants"
+      }
+    }
+  ],
+  "attachable_boots": [
+    {
+      "_extends": "attachable_wear"
+    },
+    {
+      "_extends": "attachable_wear_broken_bones"
+    },
+    {
+      "footprintType": 1
+    },
+    {
+      "torn_wounds__name_list:list<t>": [
+        {
+          "name": "right_leg"
+        },
+        {
+          "name": "left_leg"
+        }
+      ]
+    },
+    {
+      "item__equipToSlots:array": {
+        "slot": "boots"
+      }
+    }
+  ],
+  "attachable_tunic": [
+    {
+      "_extends": "attachable_wear"
+    },
+    {
+      "_extends": "attachable_wear_broken_bones"
+    },
+    {
+      "torn_wounds__name_list:list<t>": [
+        {
+          "name": "right_hand"
+        },
+        {
+          "name": "left_hand"
+        }
+      ]
+    },
+    {
+      "item__equipToSlots:array": {
+        "slot": "tunic"
+      }
+    }
+  ],
+  "base_attachable_gibs": [
+    {
+      "_extends": "base_local_vis_item"
+    },
+    {
+      "_extends": "disable_update"
+    },
+    {
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [0.0,0.0,0.0]
+      ]
+    },
+    {
+      "slot_attach__slotName": ""
+    },
+    {
+      "skeleton_attach__attached": true
+    },
+    {
+      "animchar__updatable": false
+    },
+    {
+      "skeleton_attach__attachedTo:eid": []
+    },
+    {
+      "attachable_gibs:tag": []
+    }
+  ],
+  "attachable_gloves": [
+    {
+      "_extends": "attachable_wear"
+    },
+    {
+      "_extends": "attachable_wear_broken_bones"
+    },
+    {
+      "item__equipToSlots:array": {
+        "slot": "gloves"
+      }
+    },
+    {
+      "hideFlags:array": {
+        "hideFlag": "gloves"
+      }
+    }
+  ],
+  "attachable_hair": [
+    {
+      "_extends": "item"
+    },
+    {
+      "_extends": "slot_attachable"
+    },
+    {
+      "animchar_hider__camThreshold": 0.3
+    },
+    {
+      "slot_attach__slotName": "head_armor"
+    },
+    {
+      "item__equipToSlots:array": {
+        "slot": "hair"
+      }
+    }
+  ],
+  "attachable_head_base": [
+    {
+      "_extends": "attachable_wear_without_collres_animchar"
+    },
+    {
+      "_extends": "attachable_wear_broken_bones"
+    },
+    {
+      "animchar__updatable": true
+    },
+    {
+      "animchar_hider__camThreshold": 0.3
+    },
+    {
+      "randomAnimStart": true
+    },
+    {
+      "animchar_attaches__animated:tag": []
+    },
+    {
+      "animcharParams:object": []
+    },
+    {
+      "animchar__noUpdateOnDeath:tag": []
+    },
+    {
+      "item__equipToSlots:array": {
+        "slot": "face"
+      }
+    },
+    {
+      "animchar_node_collapser": {
+        "_tags": "render"
+      }
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "animchar_node_collapser__nodes:object": {
+          "Bip01 Head": "Bip01 Neck"
+        }
+      }
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "dynamic_details__groups:object": {
+          "dirts:array": [
+            {
+              "item": "dirt_face_01_tex"
+            },
+            {
+              "item": "dirt_face_02_tex"
+            },
+            {
+              "item": "dirt_face_03_tex"
+            },
+            {
+              "item": "dirt_face_04_tex"
+            },
+            {
+              "item": "dirt_face_05_tex"
+            },
+            {
+              "item": "dirt_face_06_tex"
+            }
+          ],
+          "bloods:array": [
+            {
+              "item": "blood_face_01_tex"
+            },
+            {
+              "item": "blood_face_02_tex"
+            },
+            {
+              "item": "blood_face_03_tex"
+            },
+            {
+              "item": "blood_face_04_tex"
+            },
+            {
+              "item": "blood_face_05_tex"
+            }
+          ],
+          "scars:array": [
+            {
+              "item": "scar_01_tex"
+            },
+            {
+              "item": "scar_02_tex"
+            },
+            {
+              "item": "scar_03_tex"
+            },
+            {
+              "item": "scar_04_tex"
+            },
+            {
+              "item": "scar_05_tex"
+            },
+            {
+              "item": "scar_06_tex"
+            },
+            {
+              "item": "scar_07_tex"
+            }
+          ],
+          "stubbles:array": {
+            "item": "stubble_01_tex"
+          }
+        },
+        "dynamic_details__presets:array": {
+          "preset:object": {
+            "dirts:object": {
+              "details_min": 1,
+              "details_max": 1
+            },
+            "bloods:object": {
+              "details_max": 1
+            },
+            "scars:object": {
+              "details_max": 1
+            },
+            "stubbles:object": {
+              "details_max": 1
+            }
+          }
+        }
+      }
+    },
+    {
+      "animchar__noUpdateOnDedicated:tag": []
+    },
+    {
+      "isAttachableHead:tag": []
+    }
+  ],
+  "attachable_head": [
+    {
+      "_extends": "attachable_head_base"
+    },
+    {
+      "_extends": "base_collres_vis_item"
+    },
+    {
+      "phys_vars": []
+    },
+    {
+      "anim_phys": []
+    }
+  ],
+  "dynamic_details": {
+    "_tags": "render",
+    "_singleton": true,
+    "dynamic_details_mgr:DynamicDetailsTextureManager": [],
+    "dynamicDetails:list<t>": [
+      {
+        "name": "dirt_face_01_tex"
+      },
+      {
+        "name": "dirt_face_02_tex"
+      },
+      {
+        "name": "dirt_face_03_tex"
+      },
+      {
+        "name": "dirt_face_04_tex"
+      },
+      {
+        "name": "dirt_face_05_tex"
+      },
+      {
+        "name": "dirt_face_06_tex"
+      },
+      {
+        "name": "blood_face_01_tex"
+      },
+      {
+        "name": "blood_face_02_tex"
+      },
+      {
+        "name": "blood_face_03_tex"
+      },
+      {
+        "name": "blood_face_04_tex"
+      },
+      {
+        "name": "blood_face_05_tex"
+      },
+      {
+        "name": "scar_01_tex"
+      },
+      {
+        "name": "scar_02_tex"
+      },
+      {
+        "name": "scar_03_tex"
+      },
+      {
+        "name": "scar_04_tex"
+      },
+      {
+        "name": "scar_05_tex"
+      },
+      {
+        "name": "scar_06_tex"
+      },
+      {
+        "name": "scar_07_tex"
+      },
+      {
+        "name": "stubble_01_tex"
+      }
+    ]
+  },
+  "dynamic_details_hero_preset_1": {
+    "_group": {
+      "_tags": "render",
+      "dynamic_details_preset:array": {
+        "special_array_01:object": {
+          "texture": "dirt_face_01_tex"
+        },
+        "special_array_02:object": {
+          "texture": "blood_face_03_tex"
+        },
+        "special_array_03:object": {
+          "texture": "scar_07_tex"
+        },
+        "special_array_04:object": {
+          "texture": "stubble_01_tex"
+        }
+      }
+    }
+  },
+  "dynamic_details_hero_preset_2": {
+    "_group": {
+      "_tags": "render",
+      "dynamic_details_preset:array": {
+        "special_array_01:object": {
+          "texture": "dirt_face_02_tex"
+        },
+        "special_array_02:object": {
+          "texture": "blood_face_02_tex"
+        },
+        "special_array_03:object": {
+          "texture": "scar_06_tex"
+        },
+        "special_array_04:object": {
+          "texture": "stubble_01_tex"
+        }
+      }
+    }
+  },
+  "dynamic_details_hero_preset_3": {
+    "_group": {
+      "_tags": "render",
+      "dynamic_details_preset:array": {
+        "special_array_01:object": {
+          "texture": "dirt_face_03_tex"
+        },
+        "special_array_02:object": {
+          "texture": "blood_face_01_tex"
+        },
+        "special_array_03:object": {
+          "texture": "scar_05_tex"
+        },
+        "special_array_04:object": {
+          "texture": "stubble_01_tex"
+        }
+      }
+    }
+  },
+  "dynamic_details_hero_preset_4": {
+    "_group": {
+      "_tags": "render",
+      "dynamic_details_preset:array": {
+        "special_array_01:object": {
+          "texture": "dirt_face_04_tex"
+        },
+        "special_array_02:object": {
+          "texture": "blood_face_04_tex"
+        },
+        "special_array_03:object": {
+          "texture": "scar_04_tex"
+        }
+      }
+    }
+  },
+  "dynamic_details_hero_preset_5": {
+    "_group": {
+      "_tags": "render",
+      "dynamic_details_preset:array": {
+        "special_array_01:object": {
+          "texture": "dirt_face_05_tex"
+        },
+        "special_array_02:object": {
+          "texture": "blood_face_05_tex"
+        },
+        "special_array_03:object": {
+          "texture": "scar_07_tex"
+        },
+        "special_array_04:object": {
+          "texture": "stubble_01_tex"
+        }
+      }
+    }
+  },
+  "dynamic_details_hero_preset_6": {
+    "_group": {
+      "_tags": "render",
+      "dynamic_details_preset:array": {
+        "special_array_01:object": {
+          "texture": "dirt_face_06_tex"
+        },
+        "special_array_02:object": {
+          "texture": "blood_face_03_tex"
+        },
+        "special_array_03:object": {
+          "texture": "scar_06_tex"
+        },
+        "special_array_04:object": {
+          "texture": "stubble_01_tex"
+        }
+      }
+    }
+  },
+  "dynamic_details_hero_preset_7": {
+    "_group": {
+      "_tags": "render",
+      "dynamic_details_preset:array": {
+        "special_array_01:object": {
+          "texture": "dirt_face_01_tex"
+        },
+        "special_array_02:object": {
+          "texture": "blood_face_02_tex"
+        },
+        "special_array_03:object": {
+          "texture": "scar_06_tex"
+        }
+      }
+    }
+  },
+  "attachable_shovel": {
+    "_extends": "attachable_wear",
+    "item__equipToSlots:array": {
+      "slot": "shovel"
+    }
+  },
+  "attachable_ammo_case": {
+    "_extends": "attachable_wear",
+    "item__equipToSlots:array": {
+      "slot": "ammo_case"
+    }
+  },
+  "attachable_pot": {
+    "_extends": "attachable_wear",
+    "item__equipToSlots:array": {
+      "slot": "pot"
+    },
+    "hideFlags:array": {
+      "hideFlag": "pot"
+    }
+  },
+  "attachable_roll": {
+    "_extends": "attachable_wear",
+    "item__equipToSlots:array": {
+      "slot": "roll"
+    },
+    "hideFlags:array": {
+      "hideFlag": "roll"
+    }
+  },
+  "attachable_belt1": {
+    "_extends": "attachable_wear",
+    "item__equipToSlots:array": {
+      "slot": "belt_1"
+    },
+    "hideFlags:array": {
+      "hideFlag": "belt_1"
+    }
+  },
+  "attachable_belt2": {
+    "_extends": "attachable_wear",
+    "item__equipToSlots:array": {
+      "slot": "belt_2"
+    }
+  },
+  "attachable_front_belt_l": {
+    "_extends": "attachable_wear",
+    "item__equipToSlots:array": {
+      "slot": "front_belt_l"
+    },
+    "hideFlags:array": {
+      "hideFlag": "front_belt_l"
+    }
+  },
+  "attachable_front_belt_r": {
+    "_extends": "attachable_wear",
+    "item__equipToSlots:array": {
+      "slot": "front_belt_r"
+    },
+    "hideFlags:array": {
+      "hideFlag": "front_belt_r"
+    }
+  },
+  "attachable_side_belt_r": {
+    "_extends": "attachable_wear",
+    "item__equipToSlots:array": {
+      "slot": "side_belt_r"
+    },
+    "hideFlags:array": {
+      "hideFlag": "side_belt_r"
+    }
+  },
+  "attachable_side_belt_l": {
+    "_extends": "attachable_wear",
+    "item__equipToSlots:array": {
+      "slot": "side_belt_l"
+    },
+    "hideFlags:array": {
+      "hideFlag": "side_belt_l"
+    }
+  },
+  "attachable_front_rear_belt_l": {
+    "_extends": "attachable_wear",
+    "item__equipToSlots:array": {
+      "slot": "rear_belt_l"
+    },
+    "hideFlags:array": {
+      "hideFlag": "rear_belt_l"
+    }
+  },
+  "attachable_rear_belt_r": {
+    "_extends": "attachable_wear",
+    "item__equipToSlots:array": {
+      "slot": "rear_belt_r"
+    },
+    "hideFlags:array": {
+      "hideFlag": "rear_belt_r"
+    }
+  },
+  "attachable_bag": {
+    "_extends": "attachable_wear",
+    "item__equipToSlots:array": {
+      "slot": "bag"
+    }
+  },
+  "attachable_chest": {
+    "_extends": "attachable_wear",
+    "item__equipToSlots:array": {
+      "slot": "chest"
+    },
+    "hideFlags:array": {
+      "hideFlag": "chest"
+    }
+  },
+  "attachable_binoculars": {
+    "_extends": "attachable_chest",
+    "attachableBinoculars:tag": []
+  },
+  "attachable_bag_l": {
+    "_extends": "attachable_wear",
+    "item__equipToSlots:array": {
+      "slot": "bag_l"
+    }
+  },
+  "attachable_flask_r": {
+    "_extends": "attachable_wear",
+    "item__equipToSlots:array": {
+      "slot": "flask_r"
+    },
+    "hideFlags:array": {
+      "hideFlag": "flask"
+    }
+  },
+  "attachable_backpack": {
+    "_extends": "attachable_wear",
+    "menu_item__rotationOffset": [-0.15,0.1,0.0],
+    "attachable_backpack__capacity": 0,
+    "item__equipToSlots:array": {
+      "slot": "backpack"
+    }
+  },
+  "attachable_parachute_canopy": {
+    "_extends": "attachable_wear",
+    "item__equipToSlots:array": {
+      "slot": "parachute_canopy"
+    }
+  },
+  "attachable_gasmask": {
+    "_extends": "attachable_wear",
+    "item__equipToSlots:array": {
+      "slot": "gasmask"
+    },
+    "hideFlags:array": {
+      "hideFlag": "gasmask"
+    }
+  },
+  "attachable_skined_helmet": {
+    "_extends": "attachable_wear",
+    "animchar_hider__camThreshold": 0.3,
+    "hides:array": {
+      "hides": "hair"
+    },
+    "item__equipToSlots:array": {
+      "slot": "skined_helmet"
+    },
+    "hideFlags:array": {
+      "hideFlag": "helmet"
+    }
+  },
+  "attachable_helmet_deco": [
+    {
+      "_extends": "item"
+    },
+    {
+      "_extends": "slot_attachable"
+    },
+    {
+      "animchar_hider__camThreshold": 0.3
+    },
+    {
+      "slot_attach__slotName": "head_armor"
+    },
+    {
+      "item__equipToSlots:array": {
+        "slot": "helmet_deco"
+      }
+    }
+  ]
+}

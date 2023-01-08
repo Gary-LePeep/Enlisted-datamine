@@ -1,0 +1,71 @@
+{
+  "decalTypes": {
+    "explosion": {
+      "diffuse_tex": "explosion_patch_ground_emission_c",
+      "normal_tex": "explosion_patch_ground_n",
+      "alpha_threshold": 42,
+      "displacementMin": -0.25,
+      "displacementMax": 0.35,
+      "displacementScale": 0.3,
+      "displacementMask": true,
+      "reflectance": 0.15,
+      "ao": 0.9,
+      "microdetail": 102,
+      "sizeScale": 1.35,
+      "decalsCount": 1000
+    },
+    "explosion_sand": {
+      "diffuse_tex": "explosion_patch_sand_emission_c",
+      "normal_tex": "explosion_patch_ground_n",
+      "alpha_threshold": 42,
+      "displacementMin": -0.25,
+      "displacementMax": 0.35,
+      "displacementScale": 0.3,
+      "displacementMask": true,
+      "reflectance": 0.15,
+      "ao": 0.9,
+      "microdetail": 102,
+      "sizeScale": 1.35,
+      "decalsCount": 1000
+    },
+    "explosion_moon": {
+      "diffuse_tex": "explosion_patch_moon_ground_c",
+      "normal_tex": "explosion_patch_ground_n",
+      "alpha_threshold": 42,
+      "displacementMin": -0.25,
+      "displacementMax": 0.35,
+      "displacementScale": 0.3,
+      "displacementMask": true,
+      "reflectance": 0.15,
+      "microdetail": 102,
+      "sizeScale": 1.35,
+      "decalsCount": 1000
+    },
+    "shovel_dig": {
+      "diffuse_tex": "digging_patch_ground_displacement_c",
+      "normal_tex": "digging_patch_ground_n",
+      "alpha_threshold": 42,
+      "displacementMin": -0.25,
+      "displacementMax": 0.35,
+      "displacementScale": 0.3,
+      "displacementMask": true,
+      "reflectance": 0.15,
+      "microdetail": 102,
+      "sizeScale": 1.35,
+      "decalsCount": 10000
+    },
+    "shovel_dig_sand": {
+      "diffuse_tex": "digging_patch_sand_displacement_c",
+      "normal_tex": "digging_patch_ground_n",
+      "alpha_threshold": 42,
+      "displacementMin": -0.25,
+      "displacementMax": 0.35,
+      "displacementScale": 0.3,
+      "displacementMask": true,
+      "reflectance": 0.15,
+      "microdetail": 102,
+      "sizeScale": 1.35,
+      "decalsCount": 10000
+    }
+  }
+}

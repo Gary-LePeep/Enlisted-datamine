@@ -1,0 +1,221 @@
+{
+  "ai_il_2_1941": {
+    "_extends": "il_2_1941",
+    "_group": {
+      "_tags": "ui",
+      "hud_aircraft_marker__isVisible": false,
+      "hud_aircraft_marker__isIdentified": true,
+      "_track": true
+    },
+    "turret_control__turretInfo:shared:array": [
+      {
+        "turretInfo:object": {
+          "turretName": "turret_01",
+          "turretGroup": "bomb_turrets",
+          "trigger": "bombs",
+          "gun": "planegun_ai_il_2_1941_fab_50_launcher_01"
+        }
+      },
+      {
+        "turretInfo:object": {
+          "turretName": "turret_02",
+          "turretGroup": "bomb_turrets",
+          "trigger": "bombs",
+          "gun": "planegun_ai_il_2_1941_fab_50_launcher_02"
+        }
+      },
+      {
+        "turretInfo:object": {
+          "turretName": "turret_03",
+          "turretGroup": "bomb_turrets",
+          "trigger": "bombs",
+          "gun": "planegun_ai_il_2_1941_fab_50_launcher_03"
+        }
+      },
+      {
+        "turretInfo:object": {
+          "turretName": "turret_04",
+          "turretGroup": "bomb_turrets",
+          "trigger": "bombs",
+          "gun": "planegun_ai_il_2_1941_fab_50_launcher_04"
+        }
+      },
+      {
+        "turretInfo:object": {
+          "turretName": "turret_05",
+          "turretGroup": "rocket_turrets",
+          "trigger": "rockets",
+          "gun": "planegun_il_2_1941_rbs_82_launcher_01"
+        }
+      },
+      {
+        "turretInfo:object": {
+          "turretName": "turret_06",
+          "turretGroup": "rocket_turrets",
+          "trigger": "rockets",
+          "gun": "planegun_il_2_1941_rbs_82_launcher_02"
+        }
+      },
+      {
+        "turretInfo:object": {
+          "turretName": "turret_07",
+          "turretGroup": "rocket_turrets",
+          "trigger": "rockets",
+          "gun": "planegun_il_2_1941_rbs_82_launcher_03"
+        }
+      },
+      {
+        "turretInfo:object": {
+          "turretName": "turret_08",
+          "turretGroup": "rocket_turrets",
+          "trigger": "rockets",
+          "gun": "planegun_il_2_1941_rbs_82_launcher_04"
+        }
+      },
+      {
+        "turretInfo:object": {
+          "turretName": "turret_09",
+          "turretGroup": "rocket_turrets",
+          "trigger": "rockets",
+          "gun": "planegun_il_2_1941_rbs_82_launcher_05"
+        }
+      },
+      {
+        "turretInfo:object": {
+          "turretName": "turret_10",
+          "turretGroup": "rocket_turrets",
+          "trigger": "rockets",
+          "gun": "planegun_il_2_1941_rbs_82_launcher_06"
+        }
+      },
+      {
+        "turretInfo:object": {
+          "turretName": "turret_11",
+          "turretGroup": "rocket_turrets",
+          "trigger": "rockets",
+          "gun": "planegun_il_2_1941_rbs_82_launcher_07"
+        }
+      },
+      {
+        "turretInfo:object": {
+          "turretName": "turret_12",
+          "turretGroup": "rocket_turrets",
+          "trigger": "rockets",
+          "gun": "planegun_il_2_1941_rbs_82_launcher_08"
+        }
+      },
+      {
+        "turretInfo:object": {
+          "turretName": "turret_13",
+          "turretGroup": "main_turrets",
+          "trigger": "machine_guns",
+          "gun": "planegun_il_2_1941_7_62mm_shkas_01"
+        }
+      },
+      {
+        "turretInfo:object": {
+          "turretName": "turret_14",
+          "turretGroup": "main_turrets",
+          "trigger": "machine_guns",
+          "gun": "planegun_il_2_1941_7_62mm_shkas_02"
+        }
+      },
+      {
+        "turretInfo:object": {
+          "turretName": "turret_15",
+          "turretGroup": "cannon_turrets",
+          "trigger": "cannons",
+          "gun": "planegun_il_2_1941_20mm_shvak_01"
+        }
+      },
+      {
+        "turretInfo:object": {
+          "turretName": "turret_16",
+          "turretGroup": "cannon_turrets",
+          "trigger": "cannons",
+          "gun": "planegun_il_2_1941_20mm_shvak_02"
+        }
+      }
+    ]
+  },
+  "planegun_ai_il_2_1941_fab_50_launcher_01": [
+    {
+      "_extends": "ai_fab_100_launcher"
+    },
+    {
+      "_extends": "base_il_2_1941_fab_50_launcher"
+    },
+    {
+      "_extends": "gunsound_fab_50_launcher_aircraft"
+    },
+    {
+      "gun__shootNodeName": "bomb3"
+    },
+    {
+      "slot_attach__slotName": "bomb3"
+    },
+    {
+      "gun__maxAmmo": 1
+    }
+  ],
+  "planegun_ai_il_2_1941_fab_50_launcher_02": [
+    {
+      "_extends": "ai_fab_100_launcher"
+    },
+    {
+      "_extends": "base_il_2_1941_fab_50_launcher"
+    },
+    {
+      "_extends": "gunsound_fab_50_launcher_aircraft"
+    },
+    {
+      "gun__shootNodeName": "bomb4"
+    },
+    {
+      "slot_attach__slotName": "bomb4"
+    },
+    {
+      "gun__maxAmmo": 1
+    }
+  ],
+  "planegun_ai_il_2_1941_fab_50_launcher_03": [
+    {
+      "_extends": "ai_fab_100_launcher"
+    },
+    {
+      "_extends": "base_il_2_1941_fab_50_launcher"
+    },
+    {
+      "_extends": "gunsound_fab_50_launcher_aircraft"
+    },
+    {
+      "gun__shootNodeName": "bomb5"
+    },
+    {
+      "slot_attach__slotName": "bomb5"
+    },
+    {
+      "gun__maxAmmo": 1
+    }
+  ],
+  "planegun_ai_il_2_1941_fab_50_launcher_04": [
+    {
+      "_extends": "ai_fab_100_launcher"
+    },
+    {
+      "_extends": "base_il_2_1941_fab_50_launcher"
+    },
+    {
+      "_extends": "gunsound_fab_50_launcher_aircraft"
+    },
+    {
+      "gun__shootNodeName": "bomb6"
+    },
+    {
+      "slot_attach__slotName": "bomb6"
+    },
+    {
+      "gun__maxAmmo": 1
+    }
+  ]
+}

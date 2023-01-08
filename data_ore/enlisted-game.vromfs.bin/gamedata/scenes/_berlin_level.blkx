@@ -1,0 +1,101 @@
+[
+  {
+    "import": {
+      "scene": "content/enlisted/gamedata/scenes/_berlin_city_battle_sounds.blk"
+    }
+  },
+  {
+    "entity": {
+      "_template": "berlin_level",
+      "level__blk": "content/enlisted/levels/battle_of_berlin.blk"
+    }
+  },
+  {
+    "entity": {
+      "_template": "clouds_hole_target",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [0.0,0.0,0.0]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "shaderVars",
+      "shader_vars__vars:object": {
+        "water_color_noise_size": 71.0,
+        "water_depth_hardness": 0.41,
+        "ocean1": "#8e894700",
+        "ocean0": "#4c3f0500",
+        "ocean_density": 0.1,
+        "river1": "#40401d00",
+        "river0": "#312f2900",
+        "river_density": 10.0,
+        "puddle_hardness": 12.0,
+        "puddle_increase": 0.0,
+        "puddle_flat_noise_normal_effect": 0.015,
+        "puddle_flat_normal_hardness": 25.0,
+        "puddle_flat_hmap_reduce": -0.2,
+        "puddle_flat_noise_height_reduce": 0.09,
+        "hmap_displacement_down": -0.15,
+        "hmap_displacement_up": 0.3,
+        "land_selfillum_strength": 50.0,
+        "land_selfillum_worldscale": 1.0,
+        "autodetect_land_selfillum_color": [0.176,0.051,0.0,0.094],
+        "leaves_ss_profile": [1.0,1.0,1.0,0.0],
+        "layered_fog_height": 20.0,
+        "layered_fog_density": 0.005,
+        "paint_details_tex": "berlin_wall_color_tex_palette*"
+      }
+    }
+  },
+  {
+    "entity": {
+      "_template": "postfx_color_grading_tonemap_death_alive_enlisted"
+    }
+  },
+  {
+    "entity": {
+      "_template": "postfx_roundctrl",
+      "post_fx:object": []
+    }
+  },
+  {
+    "entity": {
+      "_template": "water",
+      "water__strength": 0.3,
+      "water__level": -1.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "wind",
+      "wind__strength": 2.3,
+      "wind__dir": 0.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "minimap_berlin_invasion"
+    }
+  },
+  {
+    "entity": {
+      "_template": "door_mult_ent_generator",
+      "ri_extra_gen__blk": "content/e_berlin/gamedata/berlin_doors.blk"
+    }
+  },
+  {
+    "entity": {
+      "_template": "session_finalizer",
+      "session_finalizer__timer": 10.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "camera_dust_template"
+    }
+  }
+]

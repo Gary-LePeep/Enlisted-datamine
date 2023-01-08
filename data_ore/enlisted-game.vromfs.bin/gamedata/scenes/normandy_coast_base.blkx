@@ -1,0 +1,89 @@
+[
+  {
+    "import": {
+      "scene": "content/enlisted/gamedata/scenes/_normandy_sounds.blk"
+    }
+  },
+  {
+    "import": {
+      "scene": "content/enlisted/gamedata/scenes/_normandy_shore_sound.blk"
+    }
+  },
+  {
+    "entity": {
+      "_template": "normandy_level",
+      "level__blk": "content/enlisted/levels/normandy_coastal_area_1x1.blk"
+    }
+  },
+  {
+    "entity": {
+      "_template": "clouds_hole_target",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [0.0,0.0,0.0]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "minimap_normandy_coastal_area"
+    }
+  },
+  {
+    "entity": {
+      "_template": "water",
+      "water__strength": 0.27
+    }
+  },
+  {
+    "entity": {
+      "_template": "wind",
+      "wind__strength": 2.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "session_finalizer",
+      "session_finalizer__timer": 10.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "door_mult_ent_generator",
+      "ri_extra_gen__blk": "content/e_normandy/gamedata/normandy_doors.blk"
+    }
+  },
+  {
+    "entity": {
+      "_template": "shaderVars",
+      "shader_vars__vars:object": {
+        "hmap_displacement_up": 0.3,
+        "ocean1": "#8e894700",
+        "ocean0": "#4c3f0500",
+        "ocean_density": 0.1,
+        "land_selfillum_worldscale": 0.9,
+        "river1": "#8e894700",
+        "river0": "#4c3f0500",
+        "hmap_displacement_down": -0.15,
+        "autodetect_land_selfillum_color": [0.53,0.0,0.0,0.16],
+        "paint_details_tex": "normandy_wall_color_tex_palette*",
+        "land_selfillum_strength": 32.0,
+        "water_color_noise_size": 71.0,
+        "river_density": 0.3,
+        "puddle_increase": 0.01
+      }
+    }
+  },
+  {
+    "entity": {
+      "_template": "postfx_color_grading_tonemap_death_alive_enlisted"
+    }
+  },
+  {
+    "entity": {
+      "_template": "postfx_roundctrl"
+    }
+  }
+]

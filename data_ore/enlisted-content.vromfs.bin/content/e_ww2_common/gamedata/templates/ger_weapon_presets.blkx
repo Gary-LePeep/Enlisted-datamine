@@ -1,0 +1,455 @@
+{
+  "ger_light_assault_preset": {
+    "weaponPreset": "Light assault",
+    "human_weap__weapTemplates:object": {
+      "primary": "mp_35_gun",
+      "secondary": "",
+      "tertiary": "p38_walther_gun",
+      "melee": "knife_weapon",
+      "grenade": "grenade_thrower"
+    },
+    "human_weap__weapInfo:array": [
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "mp_35_magazine",
+          "numReserveAmmo": 4
+        }
+      },
+      {
+        "weapInfo:object": []
+      },
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "p38_walther_magazine",
+          "numReserveAmmo": 3
+        }
+      },
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "",
+          "numReserveAmmo": 0
+        }
+      },
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "m24_grenade_item",
+          "numReserveAmmo": 1
+        }
+      }
+    ],
+    "_group": {
+      "_tags": "server",
+      "human_weap__template_deps:ecs::TemplatesListToInstantiate": [],
+      "human_weap__template_deps_list:list<t>": [
+        {
+          "tmpl": "mp_35_magazine"
+        },
+        {
+          "tmpl": "p38_walther_magazine"
+        },
+        {
+          "tmpl": "m24_grenade_item"
+        }
+      ]
+    }
+  },
+  "ger_infantry_preset": {
+    "weaponPreset": "Infantry",
+    "human_weap__weapTemplates:object": {
+      "primary": "mp_35_gun",
+      "secondary": "mauser_98k_gun",
+      "tertiary": "p08_luger_gun",
+      "melee": "knife_weapon",
+      "grenade": "grenade_thrower"
+    },
+    "human_weap__weapInfo:array": [
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "mp_35_magazine",
+          "numReserveAmmo": 2
+        }
+      },
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "mauser98k_magazine",
+          "numReserveAmmo": 5
+        }
+      },
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "p08_luger_magazine",
+          "numReserveAmmo": 2
+        }
+      },
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "",
+          "numReserveAmmo": 0
+        }
+      },
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "m24_grenade_item",
+          "numReserveAmmo": 2
+        }
+      }
+    ],
+    "_group": {
+      "_tags": "server",
+      "human_weap__template_deps:ecs::TemplatesListToInstantiate": [],
+      "human_weap__template_deps_list:list<t>": [
+        {
+          "tmpl": "mp_35_magazine"
+        },
+        {
+          "tmpl": "mauser98k_magazine"
+        },
+        {
+          "tmpl": "p08_luger_magazine"
+        },
+        {
+          "tmpl": "m24_grenade_item"
+        }
+      ]
+    }
+  },
+  "ger_sniper_preset": {
+    "weaponPreset": "Sniper",
+    "human_weap__weapTemplates:object": {
+      "primary": "mp_35_gun",
+      "secondary": "pre_war_kar98k_with_scope_mount_gun",
+      "tertiary": "p08_luger_gun",
+      "melee": "knife_weapon",
+      "grenade": "grenade_thrower"
+    },
+    "human_weap__weapInfo:array": [
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "mp_35_magazine",
+          "numReserveAmmo": 2
+        }
+      },
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "mauser98k_magazine",
+          "numReserveAmmo": 5,
+          "gunMods:object": {
+            "scope": "scope_zf39"
+          }
+        }
+      },
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "p08_luger_magazine",
+          "numReserveAmmo": 2
+        }
+      },
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "",
+          "numReserveAmmo": 0
+        }
+      },
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "m24_grenade_item",
+          "numReserveAmmo": 1
+        }
+      }
+    ],
+    "_group": {
+      "_tags": "server",
+      "human_weap__template_deps:ecs::TemplatesListToInstantiate": [],
+      "human_weap__template_deps_list:list<t>": [
+        {
+          "tmpl": "mp_35_magazine"
+        },
+        {
+          "tmpl": "mauser98k_magazine"
+        },
+        {
+          "tmpl": "p08_luger_magazine"
+        },
+        {
+          "tmpl": "m24_grenade_item"
+        }
+      ]
+    }
+  },
+  "ger_marksman_preset": {
+    "weaponPreset": "Marksman",
+    "human_weap__weapTemplates:object": {
+      "primary": "gewehr_43_gun",
+      "secondary": "",
+      "tertiary": "p08_luger_gun",
+      "melee": "knife_weapon",
+      "grenade": "grenade_thrower"
+    },
+    "human_weap__weapInfo:array": [
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "gewehr_43_magazine",
+          "numReserveAmmo": 4
+        }
+      },
+      {
+        "weapInfo:object": []
+      },
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "p08_luger_magazine",
+          "numReserveAmmo": 2
+        }
+      },
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "",
+          "numReserveAmmo": 0
+        }
+      },
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "m24_grenade_item",
+          "numReserveAmmo": 1
+        }
+      }
+    ],
+    "_group": {
+      "_tags": "server",
+      "human_weap__template_deps:ecs::TemplatesListToInstantiate": [],
+      "human_weap__template_deps_list:list<t>": [
+        {
+          "tmpl": "gewehr_43_magazine"
+        },
+        {
+          "tmpl": "p08_luger_magazine"
+        },
+        {
+          "tmpl": "m24_grenade_item"
+        }
+      ]
+    }
+  },
+  "ger_41_marksman_preset": {
+    "weaponPreset": "Marksman",
+    "human_weap__weapTemplates:object": {
+      "primary": "gewehr_41_gun",
+      "secondary": "",
+      "tertiary": "p08_luger_gun",
+      "melee": "knife_weapon",
+      "grenade": "grenade_thrower"
+    },
+    "human_weap__weapInfo:array": [
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "gewehr_41_magazine",
+          "numReserveAmmo": 4
+        }
+      },
+      {
+        "weapInfo:object": []
+      },
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "p08_luger_magazine",
+          "numReserveAmmo": 2
+        }
+      },
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "",
+          "numReserveAmmo": 0
+        }
+      },
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "m24_grenade_item",
+          "numReserveAmmo": 1
+        }
+      }
+    ],
+    "_group": {
+      "_tags": "server",
+      "human_weap__template_deps:ecs::TemplatesListToInstantiate": [],
+      "human_weap__template_deps_list:list<t>": [
+        {
+          "tmpl": "gewehr_41_magazine"
+        },
+        {
+          "tmpl": "p08_luger_magazine"
+        },
+        {
+          "tmpl": "m24_grenade_item"
+        }
+      ]
+    }
+  },
+  "ger_heavy_assault_preset": {
+    "weaponPreset": "Heavy assault",
+    "human_weap__weapTemplates:object": {
+      "primary": "mp40_gun",
+      "secondary": "",
+      "tertiary": "mauser_c96_gun",
+      "melee": "knife_weapon",
+      "grenade": "grenade_thrower"
+    },
+    "human_weap__weapInfo:array": [
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "mp40_magazine",
+          "numReserveAmmo": 5
+        }
+      },
+      {
+        "weapInfo:object": []
+      },
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "mauser_c96_magazine",
+          "numReserveAmmo": 2
+        }
+      },
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "",
+          "numReserveAmmo": 0
+        }
+      },
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "m24_grenade_item",
+          "numReserveAmmo": 1
+        }
+      }
+    ],
+    "_group": {
+      "_tags": "server",
+      "human_weap__template_deps:ecs::TemplatesListToInstantiate": [],
+      "human_weap__template_deps_list:list<t>": [
+        {
+          "tmpl": "mp40_magazine"
+        },
+        {
+          "tmpl": "mauser_c96_magazine"
+        },
+        {
+          "tmpl": "m24_grenade_item"
+        }
+      ]
+    }
+  },
+  "ger_machine_gunner_preset": {
+    "weaponPreset": "Machine gunner",
+    "human_weap__weapTemplates:object": {
+      "primary": "mg_42_handheld_gun",
+      "secondary": "",
+      "tertiary": "mauser_c96_gun",
+      "melee": "knife_weapon",
+      "grenade": "grenade_thrower"
+    },
+    "human_weap__weapInfo:array": [
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "mg_42_handheld_magazine",
+          "numReserveAmmo": 3
+        }
+      },
+      {
+        "weapInfo:object": []
+      },
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "mauser_c96_magazine",
+          "numReserveAmmo": 2
+        }
+      },
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "",
+          "numReserveAmmo": 0
+        }
+      },
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "m24_grenade_item",
+          "numReserveAmmo": 1
+        }
+      }
+    ],
+    "_group": {
+      "_tags": "server",
+      "human_weap__template_deps:ecs::TemplatesListToInstantiate": [],
+      "human_weap__template_deps_list:list<t>": [
+        {
+          "tmpl": "mg_42_handheld_magazine"
+        },
+        {
+          "tmpl": "mauser_c96_magazine"
+        },
+        {
+          "tmpl": "m24_grenade_item"
+        }
+      ]
+    }
+  },
+  "ger_anti_armor_preset": {
+    "weaponPreset": "Anti-armor",
+    "human_weap__weapTemplates:object": {
+      "primary": "mp_35_gun",
+      "secondary": "panzerschreck_gun",
+      "tertiary": "mauser_c96_gun",
+      "melee": "knife_weapon",
+      "grenade": "grenade_thrower"
+    },
+    "human_weap__weapInfo:array": [
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "mp_35_magazine",
+          "numReserveAmmo": 2
+        }
+      },
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "rpzb_gr_4322_item",
+          "numReserveAmmo": 5
+        }
+      },
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "mauser_c96_magazine",
+          "numReserveAmmo": 2
+        }
+      },
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "",
+          "numReserveAmmo": 0
+        }
+      },
+      {
+        "weapInfo:object": {
+          "reserveAmmoTemplate": "m24_grenade_item",
+          "numReserveAmmo": 1
+        }
+      }
+    ],
+    "_group": {
+      "_tags": "server",
+      "human_weap__template_deps:ecs::TemplatesListToInstantiate": [],
+      "human_weap__template_deps_list:list<t>": [
+        {
+          "tmpl": "mp_35_magazine"
+        },
+        {
+          "tmpl": "rpzb_gr_4322_item"
+        },
+        {
+          "tmpl": "mauser_c96_magazine"
+        },
+        {
+          "tmpl": "m24_grenade_item"
+        }
+      ]
+    }
+  }
+}

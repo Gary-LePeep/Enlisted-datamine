@@ -1,0 +1,708 @@
+[
+  {
+    "selector": [
+      {
+        "name": "wild_bot"
+      },
+      {
+        "selectStrategy": "ordered"
+      },
+      {
+        "detachFromStationaryGun": []
+      },
+      {
+        "sequencer": [
+          {
+            "name": "grenade_escape"
+          },
+          {
+            "findDangerGrenade": {
+              "grenTargetParam": "dangerLookAt",
+              "radius": 20.0
+            }
+          },
+          {
+            "findSafeFromGrenadePos": {
+              "posParam": "grenadeSafePos",
+              "grenTargetParam": "dangerLookAt",
+              "radius": 20.0
+            }
+          },
+          {
+            "parallel": {
+              "lookAtTarget": {
+                "targetUnitParam": "dangerLookAt"
+              },
+              "wait": {
+                "range": [0.0,1.0],
+                "resetable": true
+              }
+            }
+          },
+          {
+            "parallel": {
+              "lookAtTarget": {
+                "targetUnitParam": "dangerLookAt"
+              },
+              "wait": {
+                "range": [0.0,1.0],
+                "resetable": true
+              },
+              "moveToPos": {
+                "posParam": "grenadeSafePos",
+                "sprintTimerRange": [10.0,20.0],
+                "minDistToSprint": 10.0
+              }
+            }
+          },
+          {
+            "speak": {
+              "phrase": "grenadeAware",
+              "timeout": 6.0
+            }
+          },
+          {
+            "moveToPos": {
+              "posParam": "grenadeSafePos",
+              "sprintTimerRange": [10.0,20.0],
+              "minDistToSprint": 0.5
+            }
+          },
+          {
+            "changeStance": {
+              "stanceName": "crawl",
+              "maxStanceParam": "maxStance"
+            }
+          }
+        ]
+      },
+      {
+        "sequencer": {
+          "selectUnit": {
+            "isEnemy": true,
+            "traceTargets": true,
+            "paramName": "meleeEnemy",
+            "findClosest": true,
+            "radius": 5.0,
+            "canBeInVehicle": false
+          },
+          "moveToTarget": {
+            "targetUnitParam": "meleeEnemy",
+            "stopDistRange": [1.5,1.5],
+            "aimToTarget": true
+          },
+          "meleeAttack": {
+            "targetUnitParam": "meleeEnemy",
+            "timeToAttack": 1.0,
+            "attackDist": 1.5
+          },
+          "wait": {
+            "range": [0.5,1.0],
+            "resetable": true
+          }
+        }
+      },
+      {
+        "sequencer": {
+          "name": "enemy_attack",
+          "findDanger": {
+            "paramName": "shootEnemy",
+            "radiusParamName": "enemyRadius",
+            "minDanger": 1.0,
+            "tag": "human"
+          },
+          "sequencer": {
+            "name": "mg_check",
+            "findStationaryGun": {
+              "radius": 20.0,
+              "posParam": "stationaryGunPos",
+              "posOffset": [0.0,-0.5,0.5]
+            },
+            "moveToPos": {
+              "posParam": "stationaryGunPos",
+              "sprintTimerRange": [10.0,20.0]
+            },
+            "attachToStationaryGun": [],
+            "shootAtUnit": {
+              "targetUnitParam": "shootEnemy",
+              "minStance": 1,
+              "maxStanceParam": "maxStance"
+            },
+            "detachFromStationaryGun": []
+          },
+          "selector": {
+            "selectStrategy": "random",
+            "moveShoot": {
+              "posParam": "wishPosition",
+              "targetUnitParam": "shootEnemy",
+              "angleThreshold": 180.0,
+              "minStance": 1,
+              "maxStanceParam": "maxStance"
+            },
+            "shootAtUnit": {
+              "targetUnitParam": "shootEnemy",
+              "minStance": 1,
+              "maxStanceParam": "maxStance"
+            }
+          }
+        }
+      },
+      {
+        "sequencer": {
+          "name": "follow_position",
+          "reaction": {
+            "event": "regularCheck",
+            "orderedSelector": [
+              {
+                "sequencer": {
+                  "findDangerGrenade": {
+                    "grenTargetParam": "dangerLookAt",
+                    "radius": 5.0
+                  },
+                  "recalculateTree": []
+                }
+              },
+              {
+                "sequencer": {
+                  "findDanger": {
+                    "paramName": "shootEnemy",
+                    "radiusParamName": "enemyRadius",
+                    "minDanger": 1.0,
+                    "tag": "human"
+                  },
+                  "speak": {
+                    "phrase": "enemyAware",
+                    "timeout": 15.0
+                  },
+                  "recalculateTree": []
+                }
+              }
+            ]
+          },
+          "not": {
+            "findDangerGrenade": {
+              "grenTargetParam": "dangerLookAt",
+              "radius": 20.0
+            }
+          },
+          "moveToPos": {
+            "posParam": "wishPosition",
+            "sprintTimerRange": [10.0,20.0]
+          },
+          "selectUnit": {
+            "isEnemy": false,
+            "traceTargets": true,
+            "paramName": "lookAtUnit",
+            "radius": 20.0,
+            "findRandom": true,
+            "minRadius": 2.0
+          },
+          "parallel": {
+            "wait": {
+              "range": [3.0,8.0],
+              "resetable": true
+            },
+            "sequencer": {
+              "reaction": {
+                "event": "regularCheck",
+                "sequencer": {
+                  "not": {
+                    "checkDistance": {
+                      "posParam": "wishPosition",
+                      "radius": 2.0
+                    }
+                  },
+                  "recalculateTree": []
+                }
+              },
+              "checkDistance": {
+                "posParam": "wishPosition",
+                "radius": 2.0
+              },
+              "lookAtTarget": {
+                "targetUnitParam": "lookAtUnit",
+                "horzAnglesLimit": 30.0,
+                "vertAnglesLimit": 30.0,
+                "targetVisc": 0.4
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  {
+    "selector": {
+      "name": "runner",
+      "selectStrategy": "ordered",
+      "wait": {
+        "range": [0.0,15.0]
+      },
+      "selector": [
+        {
+          "name": "main_seq"
+        },
+        {
+          "sequencer": {
+            "name": "attack",
+            "selectUnit": {
+              "isEnemy": true,
+              "traceTargets": true,
+              "paramName": "shootEnemy",
+              "radius": 100.0,
+              "findClosest": true
+            },
+            "selector": {
+              "selectStrategy": "ordered",
+              "moveShoot": {
+                "posParam": "curWishPosition",
+                "targetUnitParam": "shootEnemy"
+              },
+              "shootAtUnit": {
+                "name": "attack_direct",
+                "targetUnitParam": "shootEnemy",
+                "minStance": 1
+              }
+            }
+          }
+        },
+        {
+          "sequencer": {
+            "reaction": {
+              "event": "regularCheck",
+              "orderedSelector": {
+                "sequencer": {
+                  "ignoreChance": {
+                    "chance": 0.7
+                  },
+                  "selectUnit": {
+                    "isEnemy": true,
+                    "traceTargets": true,
+                    "paramName": "shootEnemy",
+                    "radius": 100.0,
+                    "findClosest": true
+                  },
+                  "selectNode": {
+                    "name": "attack"
+                  }
+                }
+              }
+            },
+            "moveToPos": {
+              "posParam": "curWishPosition"
+            },
+            "changeStance": {
+              "stanceName": "crouch",
+              "maxStanceParam": "maxStance"
+            },
+            "selector": {
+              "sequencer": {
+                "selectUnit": {
+                  "isEnemy": true,
+                  "traceTargets": true,
+                  "paramName": "shootEnemy",
+                  "radius": 100.0,
+                  "findClosest": true
+                },
+                "selectNode": {
+                  "name": "attack_direct"
+                }
+              },
+              "parallel": {
+                "wait": {
+                  "time": 10.0,
+                  "resetable": true
+                },
+                "sequencer": {
+                  "selectUnit": {
+                    "isEnemy": false,
+                    "traceTargets": true,
+                    "paramName": "lookAtUnit",
+                    "radius": 100.0,
+                    "findClosest": true
+                  },
+                  "lookAtTarget": {
+                    "targetUnitParam": "lookAtUnit"
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "selector": {
+      "name": "runner_wait",
+      "selectStrategy": "ordered",
+      "wait": {
+        "range": [25.0,40.0]
+      },
+      "selector": [
+        {
+          "name": "main_seq"
+        },
+        {
+          "sequencer": {
+            "name": "attack",
+            "selectUnit": {
+              "isEnemy": true,
+              "traceTargets": true,
+              "paramName": "shootEnemy",
+              "radius": 100.0,
+              "findClosest": true
+            },
+            "selector": {
+              "selectStrategy": "ordered",
+              "moveShoot": {
+                "posParam": "curWishPosition",
+                "targetUnitParam": "shootEnemy"
+              },
+              "shootAtUnit": {
+                "name": "attack_direct",
+                "targetUnitParam": "shootEnemy",
+                "minStance": 1
+              }
+            }
+          }
+        },
+        {
+          "sequencer": {
+            "reaction": {
+              "event": "regularCheck",
+              "orderedSelector": {
+                "sequencer": {
+                  "ignoreChance": {
+                    "chance": 0.9
+                  },
+                  "selectUnit": {
+                    "isEnemy": true,
+                    "traceTargets": true,
+                    "paramName": "shootEnemy",
+                    "radius": 100.0,
+                    "findClosest": true
+                  },
+                  "selectNode": {
+                    "name": "attack"
+                  }
+                }
+              }
+            },
+            "moveToPos": {
+              "posParam": "curWishPosition"
+            },
+            "changeStance": {
+              "stanceName": "crouch",
+              "maxStanceParam": "maxStance"
+            },
+            "selector": {
+              "sequencer": {
+                "selectUnit": {
+                  "isEnemy": true,
+                  "traceTargets": true,
+                  "paramName": "shootEnemy",
+                  "radius": 100.0,
+                  "findClosest": true
+                },
+                "selectNode": {
+                  "name": "attack_direct"
+                }
+              },
+              "parallel": {
+                "wait": {
+                  "time": 10.0,
+                  "resetable": true
+                },
+                "sequencer": {
+                  "selectUnit": {
+                    "isEnemy": false,
+                    "traceTargets": true,
+                    "paramName": "lookAtUnit",
+                    "radius": 100.0,
+                    "findClosest": true
+                  },
+                  "lookAtTarget": {
+                    "targetUnitParam": "lookAtUnit"
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "selector": {
+      "name": "front_runner",
+      "selectStrategy": "ordered",
+      "repeatUntilFail": {
+        "once": [],
+        "randomizeIntVar": {
+          "from": 0,
+          "to": 1,
+          "param": "preferedWeapon"
+        },
+        "changeWeapon": {
+          "param": "preferedWeapon"
+        },
+        "changeStance": {
+          "stanceName": "crouch",
+          "maxStanceParam": "maxStance"
+        },
+        "parallel": {
+          "wait": {
+            "range": [15.0,17.0]
+          },
+          "wanderLook": {
+            "posParam": "lookAtPos",
+            "range": [0.2,0.2]
+          }
+        }
+      },
+      "selector": [
+        {
+          "name": "main_seq"
+        },
+        {
+          "sequencer": {
+            "name": "attack",
+            "selectUnit": {
+              "isEnemy": true,
+              "traceTargets": true,
+              "paramName": "shootEnemy",
+              "radius": 100.0,
+              "findClosest": true
+            },
+            "selector": {
+              "selectStrategy": "ordered",
+              "moveShoot": {
+                "posParam": "curWishPosition",
+                "targetUnitParam": "shootEnemy"
+              },
+              "shootAtUnit": {
+                "name": "attack_direct",
+                "targetUnitParam": "shootEnemy",
+                "minStance": 1
+              }
+            }
+          }
+        },
+        {
+          "sequencer": {
+            "reaction": {
+              "event": "regularCheck",
+              "orderedSelector": {
+                "sequencer": {
+                  "ignoreChance": {
+                    "chance": 0.9
+                  },
+                  "selectUnit": {
+                    "isEnemy": true,
+                    "traceTargets": true,
+                    "paramName": "shootEnemy",
+                    "radius": 100.0,
+                    "findClosest": true
+                  },
+                  "selectNode": {
+                    "name": "attack"
+                  }
+                }
+              }
+            },
+            "moveToPos": {
+              "posParam": "curWishPosition"
+            },
+            "changeStance": {
+              "stanceName": "crouch",
+              "maxStanceParam": "maxStance"
+            },
+            "selector": {
+              "sequencer": {
+                "selectUnit": {
+                  "isEnemy": true,
+                  "traceTargets": true,
+                  "paramName": "shootEnemy",
+                  "radius": 100.0,
+                  "findClosest": true
+                },
+                "selectNode": {
+                  "name": "attack_direct"
+                }
+              },
+              "parallel": {
+                "wait": {
+                  "time": 10.0,
+                  "resetable": true
+                },
+                "sequencer": {
+                  "selectUnit": {
+                    "isEnemy": false,
+                    "traceTargets": true,
+                    "paramName": "lookAtUnit",
+                    "radius": 100.0,
+                    "findClosest": true
+                  },
+                  "lookAtTarget": {
+                    "targetUnitParam": "lookAtUnit"
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "selector": {
+      "name": "back_runner",
+      "selectStrategy": "ordered",
+      "repeatUntilFail": {
+        "once": [],
+        "randomizeIntVar": {
+          "from": 0,
+          "to": 1,
+          "param": "preferedWeapon"
+        },
+        "changeWeapon": {
+          "param": "preferedWeapon"
+        },
+        "parallel": {
+          "wait": {
+            "range": [17.0,19.0]
+          },
+          "wanderLook": {
+            "posParam": "lookAtPos",
+            "range": [0.2,0.2]
+          }
+        }
+      },
+      "selector": [
+        {
+          "name": "main_seq"
+        },
+        {
+          "sequencer": {
+            "name": "attack",
+            "selectUnit": {
+              "isEnemy": true,
+              "traceTargets": true,
+              "paramName": "shootEnemy",
+              "radius": 100.0,
+              "findClosest": true
+            },
+            "selector": {
+              "selectStrategy": "ordered",
+              "moveShoot": {
+                "posParam": "curWishPosition",
+                "targetUnitParam": "shootEnemy"
+              },
+              "shootAtUnit": {
+                "name": "attack_direct",
+                "targetUnitParam": "shootEnemy",
+                "minStance": 1
+              }
+            }
+          }
+        },
+        {
+          "sequencer": {
+            "reaction": {
+              "event": "regularCheck",
+              "orderedSelector": {
+                "sequencer": {
+                  "ignoreChance": {
+                    "chance": 0.9
+                  },
+                  "selectUnit": {
+                    "isEnemy": true,
+                    "traceTargets": true,
+                    "paramName": "shootEnemy",
+                    "radius": 100.0,
+                    "findClosest": true
+                  },
+                  "selectNode": {
+                    "name": "attack"
+                  }
+                }
+              }
+            },
+            "moveToPos": {
+              "posParam": "curWishPosition"
+            },
+            "changeStance": {
+              "stanceName": "crouch",
+              "maxStanceParam": "maxStance"
+            },
+            "selector": {
+              "sequencer": {
+                "selectUnit": {
+                  "isEnemy": true,
+                  "traceTargets": true,
+                  "paramName": "shootEnemy",
+                  "radius": 100.0,
+                  "findClosest": true
+                },
+                "selectNode": {
+                  "name": "attack_direct"
+                }
+              },
+              "parallel": {
+                "wait": {
+                  "time": 10.0,
+                  "resetable": true
+                },
+                "sequencer": {
+                  "selectUnit": {
+                    "isEnemy": false,
+                    "traceTargets": true,
+                    "paramName": "lookAtUnit",
+                    "radius": 100.0,
+                    "findClosest": true
+                  },
+                  "lookAtTarget": {
+                    "targetUnitParam": "lookAtUnit"
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "selector": {
+      "name": "defender",
+      "selectStrategy": "ordered",
+      "sequencer": {
+        "selectUnit": {
+          "isEnemy": true,
+          "traceTargets": true,
+          "paramName": "shootEnemy",
+          "radius": 100.0,
+          "findClosest": true
+        },
+        "shootAtUnit": {
+          "targetUnitParam": "shootEnemy",
+          "minStance": 1
+        }
+      }
+    }
+  },
+  {
+    "selector": {
+      "name": "wanderer"
+    }
+  },
+  {
+    "selector": {
+      "name": "walker",
+      "moveToPos": {
+        "posParam": "wishPos"
+      }
+    }
+  }
+]

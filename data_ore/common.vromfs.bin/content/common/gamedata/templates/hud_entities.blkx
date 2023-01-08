@@ -1,0 +1,171 @@
+{
+  "arc_trajectory": {
+    "trajectory__enabled:b": {
+      "value": true,
+      "_hide": true
+    },
+    "trajectory__start:p3": {
+      "value": [0.0,0.0,0.0],
+      "_hide": true
+    },
+    "trajectory__vel:p3": {
+      "value": [0.0,1.0,0.0],
+      "_hide": true
+    },
+    "trajectory__time:r": {
+      "value": 1.0,
+      "_hide": true
+    },
+    "trajectory__color_gamma:r": {
+      "value": 4.0,
+      "_hide": true
+    },
+    "trajectory__center:c": {
+      "value": "#9b373737",
+      "_hide": true
+    },
+    "trajectory__border:c": {
+      "value": "#ffffffff",
+      "_hide": true
+    },
+    "trajectory__wide_start:r": {
+      "value": 0.4,
+      "_hide": true
+    },
+    "trajectory__wide_end:r": {
+      "value": 0.1,
+      "_hide": true
+    }
+  },
+  "sample_trajectory": {
+    "_extends": "arc_trajectory"
+  },
+  "hud_human_marker": {
+    "_group": {
+      "ui__geom_node_idx": -1,
+      "ui__node_pos": [0.0,0.0,0.0],
+      "ui__geom_node_name": "Bip01 Head",
+      "_tags": "ui"
+    }
+  },
+  "hud_vehicle_marker": {
+    "_group": {
+      "ui__node_pos": [0.0,0.0,0.0],
+      "_tags": "ui"
+    }
+  },
+  "map_user_point": [
+    {
+      "_extends": "replicating"
+    },
+    {
+      "_replicated": "transform"
+    },
+    {
+      "_replicated": "team"
+    },
+    {
+      "pointGroup": -1
+    },
+    {
+      "countPoint": 1
+    },
+    {
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [0.0,0.0,0.0]
+      ]
+    },
+    {
+      "team": -1
+    },
+    {
+      "silentAppearance": false
+    },
+    {
+      "userPointType": ""
+    },
+    {
+      "userPointCustomIcon": ""
+    },
+    {
+      "timer__start": -1.0
+    },
+    {
+      "timer__destroy": -1.0
+    },
+    {
+      "timer__delta": 60.0
+    },
+    {
+      "deleteAngle": 0.01
+    },
+    {
+      "userPointTarget:eid": {
+        "_tags": "server"
+      }
+    },
+    {
+      "hudUserPoint:tag": []
+    },
+    {
+      "userPointOwner:eid": []
+    },
+    {
+      "_group": {
+        "hud_marker__max_distance": 1500.0,
+        "_tags": "ui"
+      }
+    }
+  ],
+  "map_user_point_main": {
+    "_extends": "map_user_point",
+    "pointGroup": 0,
+    "_group": {
+      "hud_marker__type": "main_user_point",
+      "_tags": "ui"
+    }
+  },
+  "map_user_point_way_point": {
+    "_extends": "map_user_point_main",
+    "timer__delta": 100.0
+  },
+  "map_user_point_enemy": {
+    "_extends": "map_user_point",
+    "pointGroup": 1,
+    "countPoint": 3,
+    "timer__delta": 20.0,
+    "_group": {
+      "hud_marker__type": "enemy_user_point",
+      "_tags": "ui"
+    }
+  },
+  "user_point_entities_tracker": {
+    "countUserMark": 1,
+    "userPointTracker:tag": []
+  },
+  "ui_disabled": {
+    "ui__disabled": true,
+    "something": true,
+    "_singleton": true
+  },
+  "mobile_menu_overrides": {
+    "_singleton": true,
+    "no_ui_blur_update:tag": [],
+    "force_menu_fxaa:tag": [],
+    "mobile_disable_menu_depth_above_ao:tag": []
+  },
+  "mobile_menu_clustered_light": {
+    "clustered_light_tag:tag": []
+  },
+  "minimap": {
+    "_extends": "replicating",
+    "mapTex": "",
+    "left_top": [-512.0,512.0],
+    "right_bottom": [512.0,-512.0],
+    "northAngle": 0.0,
+    "_singleton": true
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "base_105mm_t15e2": {
+    "item__name": "guns/105mm_t15e2",
+    "gun__blk": "gamedata/gen/weapons/105mm_t15e2.blk",
+    "gun__shotFreq": 0.065,
+    "gun__locName": "105mm_t15e2",
+    "gun__ammoSetsInfo:shared:array": {
+      "defaultSet:array": {
+        "shell:object": {
+          "blk": "gamedata/gen/weapons/shells/105mm_t15e2_defaultset.blk",
+          "name": "105mm_t32",
+          "type": "apcbc_solid_medium_caliber_tank"
+        }
+      },
+      "105mm_us_T30E1_HE:array": {
+        "shell:object": {
+          "blk": "gamedata/gen/weapons/shells/105mm_t15e2_105mm_us_t30e1_he.blk",
+          "name": "105mm_t30e1",
+          "type": "he_frag_tank"
+        }
+      },
+      "105mm_us_T13_APCBC:array": {
+        "shell:object": {
+          "blk": "gamedata/gen/weapons/shells/105mm_t15e2_105mm_us_t13_apcbc.blk",
+          "name": "105mm_t13",
+          "type": "apcbc_tank"
+        }
+      },
+      "105mm_us_T29E3_APCR:array": {
+        "shell:object": {
+          "blk": "gamedata/gen/weapons/shells/105mm_t15e2_105mm_us_t29e3_apcr.blk",
+          "name": "105mm_t29e3",
+          "type": "apcr_tank"
+        }
+      }
+    }
+  },
+  "tankgun_105mm_t15e2": [
+    {
+      "_extends": "tankgun"
+    },
+    {
+      "_extends": "base_tankgun_cannon"
+    },
+    {
+      "_extends": "base_105mm_t15e2"
+    },
+    {
+      "turret__triggerGroup": 0
+    }
+  ]
+}

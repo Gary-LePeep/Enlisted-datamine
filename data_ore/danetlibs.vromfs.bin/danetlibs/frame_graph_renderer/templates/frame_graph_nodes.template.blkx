@@ -1,0 +1,59 @@
+{
+  "debug_visualization_node": {
+    "_singleton": true,
+    "_group": {
+      "_tags": "render",
+      "debug_node_type": "DebugVisualizationNode",
+      "debug_node_name": "debug_visualization_node",
+      "debug_node:FrameGraphNodePtr": []
+    }
+  },
+  "gbuffer_diffuse_override_debug_node": {
+    "_singleton": true,
+    "_group": {
+      "_tags": "render",
+      "debug_node_type": "GbufferDiffuseOverride",
+      "debug_node_name": "gbuffer_diffuse_override",
+      "debug_fill_gbuffer_name": "debug_fill_gbuffer",
+      "debug_fill_color": [0.5,0.5,0.5,0.5],
+      "debug_node:FrameGraphNodePtr": [],
+      "debug_fill_gbuffer:PostFxRenderer": []
+    }
+  },
+  "gbuffer_specular_override_debug_node": {
+    "_singleton": true,
+    "_group": {
+      "_tags": "render",
+      "debug_node_type": "GbufferSpecularOverride",
+      "debug_node_name": "gbuffer_specular_override",
+      "debug_fill_gbuffer_name": "debug_fill_gbuffer",
+      "debug_fill_color": [0.0,0.0,0.0,0.0],
+      "debug_node:FrameGraphNodePtr": [],
+      "debug_fill_gbuffer:PostFxRenderer": []
+    }
+  },
+  "upscale_node": {
+    "_singleton": true,
+    "_tags": "render",
+    "upscale_node_type": "UpscaleTexGenerationNode",
+    "upscale_node_name": "upscale_tex_gen_node",
+    "upscale_shader_name": "upscale_sampling",
+    "upscale_node:FrameGraphNodePtr": [],
+    "upscale_shader:PostFxRenderer": [],
+    "upscale_weights_buffer:UniqueBufHolder": []
+  },
+  "grenade_trajectory_node": {
+    "_singleton": true,
+    "_tags": "render",
+    "grenade_trajectory_node_type": "GrenadeTrajectoryNode",
+    "grenade_trajectory_node_name": "grenade_trajectory_node",
+    "trajectory_renderer_shader_name": "trajectory_renderer",
+    "grenade_trajectory_node:FrameGraphNodePtr": [],
+    "trajectory_renderer_shader:ShadersECS": [],
+    "trajectory_start_gravity:ShaderVar": [],
+    "trajectory_vel_time:ShaderVar": [],
+    "trajectory_center:ShaderVar": [],
+    "trajectory_border:ShaderVar": [],
+    "trajectory_total_thickness_gamma:ShaderVar": []
+  }
+}

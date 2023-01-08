@@ -1,0 +1,277 @@
+{
+  "germ_20mm_flak38": [
+    {
+      "_extends": "base_anti_aircraft_cannon"
+    },
+    {
+      "killLogName": "germ_20mm_flak38"
+    },
+    {
+      "phys_obj_net_phys__blk": "content/e_ww2_common/gamedata/units/cannons/germ_20mm_flak38.blk"
+    },
+    {
+      "vehicle_seats_camera_nodes__defaultNode": "bone_camera_gunner"
+    },
+    {
+      "animchar__res": "towed_at_flak_38_char"
+    },
+    {
+      "collres__res": "towed_at_flak_38_collision"
+    },
+    {
+      "cockpit__cameraDir": [1.0,0.0,0.0]
+    },
+    {
+      "_tracked": "cockpit__eid"
+    },
+    {
+      "cockpit__zoomOutFov": 2.0
+    },
+    {
+      "cockpit__zoomInFov": 4.0
+    },
+    {
+      "vehicle_commander_cam__attachToVehicle": true
+    },
+    {
+      "commanderFpsCamMaxAngle": [90.0,30.0]
+    },
+    {
+      "gunnerFpsCamMaxAngle": [10.0,10.0]
+    },
+    {
+      "phys_vars__skipVisibilityCheck:tag": []
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "animchar_camera_target__node_name": "bone_camera_gunner",
+        "animchar_camera_target__node_offset": [0.0,0.5,0.0],
+        "animchar_camera_target__nodeIndex": -1
+      }
+    },
+    {
+      "_group": {
+        "_tags": "server",
+        "fatal_explosion_external_fire__nodeNames:shared:array": {
+          "node": "guns"
+        }
+      }
+    },
+    {
+      "cockpit__eid:eid": {
+        "_tags": "gameClient"
+      }
+    },
+    {
+      "cockpit_animchar_res_preload": {
+        "_tags": "gameClient"
+      }
+    },
+    {
+      "cockpit__isHeroInCockpit:b": {
+        "_tags": "gameClient",
+        "value": false
+      }
+    },
+    {
+      "vehicle_seats__seats:shared:array": {
+        "seats:object": {
+          "name": "main_gunner",
+          "locName": "vehicle_seats/gunner",
+          "attachNode": "gunner",
+          "attachTm": [
+            [1.0,0.0,0.0],
+            [0.0,1.0,0.0],
+            [0.0,0.0,1.0],
+            [-0.2,-0.4,0.0]
+          ],
+          "seatComponent": "isDriver",
+          "ignoreAttachNodeRotation": true,
+          "cameraType": "gunner",
+          "cameraNodeName": "bone_camera_gunner",
+          "cameraOffset": [0.0,0.2,0.0],
+          "directTurretControl": true,
+          "cockpitTemplate": "germ_20mm_flak38_gunner_cockpit",
+          "hideHeroAnimcharLocal": true,
+          "canLoadInHatch": true,
+          "maxPosWithOpenHatch": 0.0,
+          "hatchRotationAxis": [0.0,0.0,0.0],
+          "isHatchControlInversed": true,
+          "isHoldGunModeAllowed": false,
+          "hatchNodes:array": {
+            "node": "bone_camera_gunner"
+          },
+          "hatchTurretNames:array": {
+            "turret": "turret_01"
+          },
+          "turretNames:array": {
+            "turret": "turret_01"
+          }
+        }
+      }
+    },
+    {
+      "turret_gun_flash_fx__flashNodes:shared:array": {
+        "node": "bone_gun_barrel"
+      }
+    },
+    {
+      "turret_gun_flash_fx__flashFx:shared:array": {
+        "fx": "muzzle_ground_20mm"
+      }
+    },
+    {
+      "turret_gun_flash_fx__flashFxScale:shared:array": {
+        "scale": 1.0
+      }
+    },
+    {
+      "turret_control__emitterNodes:shared:array": {
+        "node": "bone_gun_barrel"
+      }
+    },
+    {
+      "turret_control__animVars:shared:array": {
+        "vars:object": {
+          "curYawParamName": "turret_01_yaw",
+          "curPitchParamName": "gun_01_pitch",
+          "aimActiveParamName": "aim_01_active",
+          "paramYawSpeed": "turret_01_yaw_speed",
+          "wishYawParamName": "gun_01_aim:targetYaw",
+          "paramYawAccel": "turret_01_yaw_accel",
+          "paramPitchSpeed": "gun_01_pitch_speed",
+          "wishPitchParamName": "gun_01_aim:targetPitch",
+          "paramPitchAccel": "gun_01_pitch_accel",
+          "gunRecoilParamName": "gun_01_recoil",
+          "paramMinYawAngle": "turret_01_min_yaw_angle",
+          "paramMaxYawAngle": "turret_01_max_yaw_angle",
+          "paramMinPitchAngle": "turret_01_min_pitch_angle",
+          "paramMaxPitchAngle": "turret_01_max_pitch_angle"
+        }
+      }
+    },
+    {
+      "turret_control__turretInfo:shared:array": {
+        "turretInfo:object": {
+          "turretName": "turret_01",
+          "turretGroup": "main_turrets",
+          "gun": "aa_gun_flak38_turret_01_20mm_kwk38+turret_with_several_types_of_shells+main_turret",
+          "salt": 1
+        }
+      }
+    },
+    {
+      "fatal_explosion_fx__fx:array": {
+        "fx:object": {
+          "dmParts:array": [],
+          "fx:array": [
+            {
+              "fx:object": {
+                "name": "tank_smoke_big_template",
+                "emitter": "guns"
+              }
+            },
+            {
+              "fx:object": {
+                "name": "tank_smoke_small_template",
+                "emitter": "guns"
+              }
+            },
+            {
+              "fx:object": {
+                "name": "tank_fire_big_template",
+                "emitter": "guns"
+              }
+            },
+            {
+              "fx:object": {
+                "name": "tank_fire_small_template",
+                "emitter": "guns"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "fatal_fire_fx__fx:array": {
+        "fx:object": {
+          "dmParts:array": [],
+          "fx:array": {
+            "fx:object": {
+              "name": "tank_ammo_fire_template",
+              "emitter": "guns"
+            }
+          }
+        }
+      }
+    },
+    {
+      "destroyed_fx__fx:array": {
+        "fx:object": {
+          "dmParts:array": [],
+          "fx:array": {
+            "fx:object": {
+              "name": "tank_smoke_small_template",
+              "emitter": "guns"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "germ_20mm_flak38_gunner_cockpit": {
+    "vehicle_sight__blk": "content/tanks/gamedata/sight/germ_zf_3x8_flak.blk",
+    "_extends": "base_gunner_cockpit",
+    "animchar__res": "t_26_1940_gunner_char",
+    "cockpit__offset": [0.0,0.0,0.0],
+    "cockpit__zoomTimeMul": 3.0,
+    "cockpit__minZoom": 0.0,
+    "cockpit__cockpitOffsetBySlit:list<p3>": {
+      "item": [-0.8,0.31,-0.15]
+    },
+    "cockpit__attachNodeNames:list<t>": {
+      "node": "bone_gun"
+    },
+    "cockpit__attachNodeIndices:list<i>": [],
+    "cockpit__visibleVehicleNodeNames:list<t>": {
+      "node": "gun_barrel"
+    },
+    "cockpit__slitNodeNames:list<t>": {
+      "slit": "cam_front_right"
+    },
+    "cockpit__slitForwardOffset:list<r>": {
+      "slit": 0.21
+    },
+    "cockpit__slitIsGun:list<b>": {
+      "slit": true
+    }
+  },
+  "aa_gun_flak38_turret_01_20mm_kwk38": {
+    "_override": true,
+    "gun__shootNodeName": "bone_gun_barrel",
+    "turret__aimNodeName": "bone_turret",
+    "turret_ai__limitAngles": [-360.0,360.0,7.5,25.0],
+    "turret__limit": [-180.0,180.0,7.5,87.0],
+    "turret__yawSpeed": 90.0,
+    "turret__pitchSpeed": 45.0,
+    "turret__triggerGroup": 0,
+    "gun__reloadTime": 8.0,
+    "gun__overheatReduce": 0.2,
+    "gun__overheatReduceOnOverheat": 0.1,
+    "gun__overheatPerShot": 0.13,
+    "gun__shellsAmmo:array": {
+      "ammo": 240
+    },
+    "gun__ammoSetsInfo:shared:array": {
+      "HE:array": {
+        "shell:object": {
+          "blk": "gamedata/gen/weapons/shells/20mm_kwk38_defaultset_bullet_2.blk",
+          "name": "20mm_sprgr",
+          "type": "he_frag_i_t"
+        }
+      }
+    }
+  }
+}

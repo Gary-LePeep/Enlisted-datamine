@@ -1,0 +1,100 @@
+{
+  "base_plane_cockpit": [
+    {
+      "_extends": "base_cockpit"
+    },
+    {
+      "_extends": "plane_cutting"
+    },
+    {
+      "_extends": "vehicle_decals"
+    },
+    {
+      "cockpit__zoomTimeMul": 1.3
+    },
+    {
+      "cockpit__cameraTimeMul": 1.5
+    },
+    {
+      "cockpit__minZoom": -0.27
+    },
+    {
+      "fixed_sight_presents": false
+    },
+    {
+      "fixed_sight_pos": [0.0,0.0]
+    },
+    {
+      "gyro_sight_presents": false
+    },
+    {
+      "gyro_sight_pos": [0.0,0.0]
+    },
+    {
+      "cockpit__offset": [0.0,0.0,0.0]
+    },
+    {
+      "cockpit__angles": [90.0,0.0,0.0]
+    },
+    {
+      "plane_sight__collimatorSize": 0.1
+    },
+    {
+      "plane_sight__gyroSightSize": 0.1
+    },
+    {
+      "plane_sight__angleMaxCameraTarget": 60.0
+    },
+    {
+      "plane_sight__preciseCollimator": true
+    },
+    {
+      "cockpit__showInDeadVehicle": true
+    },
+    {
+      "plane_cutting__largePartsCut:list<b>": []
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "cockpit__partToAnimcharNodeMap:list<i>": []
+      }
+    },
+    {
+      "disableDMParts:list<t>": []
+    },
+    {
+      "needModelMatrix:tag": {
+        "_tags": "render"
+      }
+    },
+    {
+      "phys_vars": []
+    },
+    {
+      "cockpitToPlanePhysVarsRemap:list<i>": {
+        "_tags": "gameClient"
+      }
+    },
+    {
+      "anim_phys": []
+    },
+    {
+      "plane_anim": []
+    },
+    {
+      "plane_sight": {
+        "_tags": "render"
+      }
+    },
+    {
+      "late_transparent_render:tag": []
+    },
+    {
+      "cockpit__visibleVehicleNodeNames:list<t>": []
+    },
+    {
+      "planeCockpit:tag": []
+    }
+  ]
+}

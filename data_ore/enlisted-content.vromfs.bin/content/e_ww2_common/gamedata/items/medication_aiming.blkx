@@ -1,0 +1,22 @@
+{
+  "entityMods": {
+    "modProps": "content/e_ww2_common/gamedata/items/medication_aiming.blk",
+    "mult": {
+      "breathAmplitudeMult": 0.7
+    }
+  },
+  "visual": {
+    "template": "medication_aiming_item+item_in_world"
+  },
+  "equipable": [
+    {
+      "slot": "mod1"
+    },
+    {
+      "slot": "mod2"
+    }
+  ],
+  "shotDeviationMult": {
+    "mult": 0.6
+  }
+}

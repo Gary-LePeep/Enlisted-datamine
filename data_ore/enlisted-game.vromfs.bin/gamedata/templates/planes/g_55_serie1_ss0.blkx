@@ -1,0 +1,599 @@
+{
+  "g_55_serie1_ss0": [
+    {
+      "_extends": "g_55_serie1_ss0_base"
+    },
+    {
+      "_extends": "squad_controlled_plane"
+    },
+    {
+      "item__name": "items/g_55_serie1_ss0"
+    },
+    {
+      "vehicle_seats__seats:shared:array": {
+        "seats:object": {
+          "name": "driver",
+          "locName": "vehicle_seats/pilot",
+          "seatOwnsEntityControl": true,
+          "attachNode": "pilot1",
+          "ignoreAttachNodeRotation": true,
+          "attachTm": [
+            [1.0,0.0,0.0],
+            [0.0,1.0,0.0],
+            [0.0,0.0,1.0],
+            [-0.15,0.05,-0.15]
+          ],
+          "seatComponent": "isDriver",
+          "receiveDamageFromDMPart": "pilot_dm",
+          "cameraNodeName": "",
+          "cameraOffset": [-1.61,0.787,-0.06],
+          "cockpitTemplate": "g_55_serie1_ss0_driver_cockpit",
+          "roomSpace": 0,
+          "turretNames:array": [
+            {
+              "turret": "turret_01"
+            },
+            {
+              "turret": "turret_02"
+            },
+            {
+              "turret": "turret_03"
+            },
+            {
+              "turret": "turret_04"
+            },
+            {
+              "turret": "turret_05"
+            },
+            {
+              "turret": "turret_06"
+            },
+            {
+              "turret": "turret_07"
+            }
+          ],
+          "effectors:object": {
+            "r.hand": "stick_rhand_1",
+            "l.hand": "throttle_lhand_1",
+            "r.foot": "pedal_rfoot_1",
+            "l.foot": "pedal_lfoot_1"
+          }
+        }
+      }
+    },
+    {
+      "turret_control__emitterNodes:shared:array": [
+        {
+          "node": "bomb1"
+        },
+        {
+          "node": "bomb2"
+        },
+        {
+          "node": "flare1"
+        },
+        {
+          "node": "flare2"
+        },
+        {
+          "node": "flare3"
+        },
+        {
+          "node": "flare4"
+        },
+        {
+          "node": "flare5"
+        }
+      ]
+    },
+    {
+      "turret_control__animVars:shared:array": [
+        {
+          "vars:object": {
+            "curYawParamName": "weapon_01_yaw",
+            "curPitchParamName": "weapon_01_pitch"
+          }
+        },
+        {
+          "vars:object": {
+            "curYawParamName": "weapon_02_yaw",
+            "curPitchParamName": "weapon_02_pitch"
+          }
+        },
+        {
+          "vars:object": {
+            "curYawParamName": "weapon_03_yaw",
+            "curPitchParamName": "weapon_03_pitch"
+          }
+        },
+        {
+          "vars:object": {
+            "curYawParamName": "weapon_04_yaw",
+            "curPitchParamName": "weapon_04_pitch"
+          }
+        },
+        {
+          "vars:object": {
+            "curYawParamName": "weapon_05_yaw",
+            "curPitchParamName": "weapon_05_pitch"
+          }
+        },
+        {
+          "vars:object": {
+            "curYawParamName": "weapon_06_yaw",
+            "curPitchParamName": "weapon_06_pitch"
+          }
+        },
+        {
+          "vars:object": {
+            "curYawParamName": "weapon_07_yaw",
+            "curPitchParamName": "weapon_07_pitch"
+          }
+        }
+      ]
+    },
+    {
+      "turret_control__turretInfo:shared:array": [
+        {
+          "turretInfo:object": {
+            "turretName": "turret_01",
+            "turretGroup": "bomb_turrets",
+            "trigger": "bombs",
+            "gun": "planegun_g_55_serie1_ss0_100kg_t_launcher_01"
+          }
+        },
+        {
+          "turretInfo:object": {
+            "turretName": "turret_02",
+            "turretGroup": "bomb_turrets",
+            "trigger": "bombs",
+            "gun": "planegun_g_55_serie1_ss0_100kg_t_launcher_02"
+          }
+        },
+        {
+          "turretInfo:object": {
+            "turretName": "turret_03",
+            "turretGroup": "cannon_turrets",
+            "trigger": "cannons",
+            "gun": "planegun_g_55_serie1_ss0_20mm_mg15120_01"
+          }
+        },
+        {
+          "turretInfo:object": {
+            "turretName": "turret_04",
+            "turretGroup": "main_turrets",
+            "trigger": "machine_guns",
+            "gun": "planegun_g_55_serie1_ss0_12_7mm_bredasafat127_01"
+          }
+        },
+        {
+          "turretInfo:object": {
+            "turretName": "turret_05",
+            "turretGroup": "main_turrets",
+            "trigger": "machine_guns",
+            "gun": "planegun_g_55_serie1_ss0_12_7mm_bredasafat127_02"
+          }
+        },
+        {
+          "turretInfo:object": {
+            "turretName": "turret_06",
+            "turretGroup": "main_turrets",
+            "trigger": "machine_guns",
+            "gun": "planegun_g_55_serie1_ss0_12_7mm_bredasafat127_03"
+          }
+        },
+        {
+          "turretInfo:object": {
+            "turretName": "turret_07",
+            "turretGroup": "main_turrets",
+            "trigger": "machine_guns",
+            "gun": "planegun_g_55_serie1_ss0_12_7mm_bredasafat127_04"
+          }
+        }
+      ]
+    },
+    {
+      "turret_gun_flash_fx__flashNodes:shared:array": [
+        {
+          "node": "bomb1"
+        },
+        {
+          "node": "bomb2"
+        },
+        {
+          "node": "flare1"
+        },
+        {
+          "node": "flare2"
+        },
+        {
+          "node": "flare3"
+        },
+        {
+          "node": "flare4"
+        },
+        {
+          "node": "flare5"
+        }
+      ]
+    },
+    {
+      "turret_gun_flash_fx__flashFx:shared:array": [
+        {
+          "fx": ""
+        },
+        {
+          "fx": ""
+        },
+        {
+          "fx": "muzzle_air_20mm"
+        },
+        {
+          "fx": "muzzle_air_15mm"
+        },
+        {
+          "fx": "muzzle_air_15mm"
+        },
+        {
+          "fx": "muzzle_air_15mm"
+        },
+        {
+          "fx": "muzzle_air_15mm"
+        }
+      ]
+    },
+    {
+      "turret_gun_flash_fx__flashFxScale:shared:array": [
+        {
+          "scale": 1.0
+        },
+        {
+          "scale": 1.0
+        },
+        {
+          "scale": 1.0
+        },
+        {
+          "scale": 1.0
+        },
+        {
+          "scale": 1.0
+        },
+        {
+          "scale": 1.0
+        },
+        {
+          "scale": 1.0
+        }
+      ]
+    },
+    {
+      "disableDMParts:list<t>": [
+        {
+          "part": "pylon_bomb1_cap"
+        },
+        {
+          "part": "pylon_bomb2_cap"
+        }
+      ]
+    }
+  ],
+  "base_g_55_serie1_ss0_20mm_mg15120": {
+    "item__name": "guns/cannonmg15120",
+    "gun__blk": "gamedata/weapons/g_55_serie1_ss0/20mm_mg15120.blk",
+    "gun__shotFreq": 11.66,
+    "gun__locName": "cannonmg15120",
+    "gun__shootNodeName": "bone_mg_gun_twin",
+    "gun__maxAmmo": 250,
+    "gun__firingModes:array": {
+      "mode:object": {
+        "modeType": "automatic"
+      }
+    },
+    "gun__firingModeNames:array": {
+      "mode": "automatic"
+    },
+    "gun__shellsAmmo:array": {
+      "ammo": 250
+    },
+    "gun__ammoSetsInfo:shared:array": {
+      "default:array": [
+        {
+          "shell:object": {
+            "blk": "gamedata/weapons/shells/20x82mm_brgr_g_spur_bullet.blk",
+            "name": "spur",
+            "type": "i_t"
+          }
+        },
+        {
+          "shell:object": {
+            "blk": "gamedata/weapons/shells/20x82mm_brgr_g_spur_bullet.blk",
+            "name": "spur",
+            "type": "i_t"
+          }
+        },
+        {
+          "shell:object": {
+            "blk": "gamedata/weapons/shells/20x82mm_pzgr_bullet.blk",
+            "name": "pzgr",
+            "type": "aphe"
+          }
+        },
+        {
+          "shell:object": {
+            "blk": "gamedata/weapons/shells/20x82mm_mgesch_bullet.blk",
+            "name": "mgesch",
+            "type": "he_i_mine"
+          }
+        }
+      ]
+    }
+  },
+  "base_g_55_serie1_ss0_12_7mm_bredasafat127": {
+    "item__name": "guns/gunbredasafat127",
+    "gun__blk": "gamedata/weapons/g_55_serie1_ss0/12_7mm_bredasafat127.blk",
+    "gun__shotFreq": 11.6667,
+    "gun__locName": "gunbredasafat127",
+    "gun__shootNodeName": "bone_mg_gun_twin",
+    "gun__maxAmmo": 300,
+    "gun__firingModes:array": {
+      "mode:object": {
+        "modeType": "automatic"
+      }
+    },
+    "gun__firingModeNames:array": {
+      "mode": "automatic"
+    },
+    "gun__shellsAmmo:array": {
+      "ammo": 300
+    },
+    "gun__ammoSetsInfo:shared:array": {
+      "default:array": [
+        {
+          "shell:object": {
+            "blk": "gamedata/weapons/shells/12_7x81mm_breda_tracer_bullet.blk",
+            "name": "tracer",
+            "type": "t_ball"
+          }
+        },
+        {
+          "shell:object": {
+            "blk": "gamedata/weapons/shells/12_7x81mm_breda_ball_bullet.blk",
+            "name": "ball",
+            "type": "ball"
+          }
+        },
+        {
+          "shell:object": {
+            "blk": "gamedata/weapons/shells/12_7x81mm_breda_ball_bullet.blk",
+            "name": "ball",
+            "type": "ball"
+          }
+        },
+        {
+          "shell:object": {
+            "blk": "gamedata/weapons/shells/12_7x81mm_breda_incendiary_bullet.blk",
+            "name": "incendiary",
+            "type": "i_ball"
+          }
+        },
+        {
+          "shell:object": {
+            "blk": "gamedata/weapons/shells/12_7x81mm_breda_ap_bullet.blk",
+            "name": "ap",
+            "type": "ap_ball"
+          }
+        }
+      ]
+    }
+  },
+  "base_g_55_serie1_ss0_100kg_t_launcher": {
+    "item__name": "guns/it_100kg_t",
+    "gun__blk": "gamedata/weapons/g_55_serie1_ss0/100kg_t_launcher.blk",
+    "gun__shotFreq": 10.0,
+    "gun__locName": "it_100kg_t",
+    "gun__shootNodeName": "bone_mg_gun_twin",
+    "gun__maxAmmo": 1,
+    "gun__firingModes:array": {
+      "mode:object": {
+        "modeType": "manual"
+      }
+    },
+    "gun__firingModeNames:array": {
+      "mode": "bolt_action"
+    },
+    "gun__shellsAmmo:array": {
+      "ammo": 1
+    },
+    "gun__ammoSetsInfo:shared:array": {
+      "default:array": {
+        "shell:object": {
+          "blk": "gamedata/weapons/shells/100kg_t.blk",
+          "name": "100kg_t",
+          "type": "he_frag_tank"
+        }
+      }
+    }
+  },
+  "planegun_g_55_serie1_ss0_100kg_t_launcher_01": [
+    {
+      "_extends": "100kg_t_launcher"
+    },
+    {
+      "_extends": "base_g_55_serie1_ss0_100kg_t_launcher"
+    },
+    {
+      "_extends": "gunsound_100kg_t_launcher_aircraft"
+    },
+    {
+      "gun__shootNodeName": "bomb1"
+    },
+    {
+      "slot_attach__slotName": "bomb1"
+    },
+    {
+      "gun__maxAmmo": 1
+    }
+  ],
+  "planegun_g_55_serie1_ss0_100kg_t_launcher_02": [
+    {
+      "_extends": "100kg_t_launcher"
+    },
+    {
+      "_extends": "base_g_55_serie1_ss0_100kg_t_launcher"
+    },
+    {
+      "_extends": "gunsound_100kg_t_launcher_aircraft"
+    },
+    {
+      "gun__shootNodeName": "bomb2"
+    },
+    {
+      "slot_attach__slotName": "bomb2"
+    },
+    {
+      "gun__maxAmmo": 1
+    }
+  ],
+  "planegun_g_55_serie1_ss0_20mm_mg15120_01": [
+    {
+      "_extends": "tankgun"
+    },
+    {
+      "_extends": "base_plane_machinegun"
+    },
+    {
+      "_extends": "base_g_55_serie1_ss0_20mm_mg15120"
+    },
+    {
+      "_extends": "gunsound_20mm_mg15120_aircraft"
+    },
+    {
+      "gun__shootNodeName": "flare1"
+    },
+    {
+      "gun__maxAmmo": 250
+    }
+  ],
+  "planegun_g_55_serie1_ss0_12_7mm_bredasafat127_01": [
+    {
+      "_extends": "tankgun"
+    },
+    {
+      "_extends": "base_plane_machinegun"
+    },
+    {
+      "_extends": "base_g_55_serie1_ss0_12_7mm_bredasafat127"
+    },
+    {
+      "_extends": "gunsound_12_7mm_bredasafat127_aircraft"
+    },
+    {
+      "gun__shootNodeName": "flare2"
+    },
+    {
+      "gun__maxAmmo": 300
+    }
+  ],
+  "planegun_g_55_serie1_ss0_12_7mm_bredasafat127_02": [
+    {
+      "_extends": "tankgun"
+    },
+    {
+      "_extends": "base_plane_machinegun"
+    },
+    {
+      "_extends": "base_g_55_serie1_ss0_12_7mm_bredasafat127"
+    },
+    {
+      "_extends": "gunsound_12_7mm_bredasafat127_aircraft"
+    },
+    {
+      "gun__shootNodeName": "flare3"
+    },
+    {
+      "gun__maxAmmo": 300
+    }
+  ],
+  "planegun_g_55_serie1_ss0_12_7mm_bredasafat127_03": [
+    {
+      "_extends": "tankgun"
+    },
+    {
+      "_extends": "base_plane_machinegun"
+    },
+    {
+      "_extends": "base_g_55_serie1_ss0_12_7mm_bredasafat127"
+    },
+    {
+      "_extends": "gunsound_12_7mm_bredasafat127_aircraft"
+    },
+    {
+      "gun__shootNodeName": "flare4"
+    },
+    {
+      "gun__maxAmmo": 300
+    }
+  ],
+  "planegun_g_55_serie1_ss0_12_7mm_bredasafat127_04": [
+    {
+      "_extends": "tankgun"
+    },
+    {
+      "_extends": "base_plane_machinegun"
+    },
+    {
+      "_extends": "base_g_55_serie1_ss0_12_7mm_bredasafat127"
+    },
+    {
+      "_extends": "gunsound_12_7mm_bredasafat127_aircraft"
+    },
+    {
+      "gun__shootNodeName": "flare5"
+    },
+    {
+      "gun__maxAmmo": 300
+    }
+  ],
+  "g_55_serie1_ss0_driver_cockpit": {
+    "_extends": "base_plane_cockpit",
+    "cockpit__offset": [0.0,0.0,0.0],
+    "cockpit__angles": [0.0,0.0,0.0],
+    "cockpit__scale": [1.0,1.0,1.0],
+    "animchar__res": "g_55_serie1_ss0_cockpit_char",
+    "plane_anim__blk": "gamedata/units/g_55_serie1_ss0.blk",
+    "plane_sight__blk": "gamedata/units/g_55_serie1_ss0.blk",
+    "move_cockpit_node__nodeName:list<t>": [
+      {
+        "node": "stick_rhand_1"
+      },
+      {
+        "node": "throttle_lhand_1"
+      }
+    ],
+    "move_cockpit_node__nodeId:list<i>": [
+      {
+        "nodeId": -1
+      },
+      {
+        "nodeId": -1
+      }
+    ],
+    "move_cockpit_node__offset:list<p3>": [
+      {
+        "offset": [0.0,0.0,0.0]
+      },
+      {
+        "offset": [0.0,0.01,0.0]
+      }
+    ],
+    "move_cockpit_node__rotation:list<p2>": [
+      {
+        "rot": [0.0,0.0]
+      },
+      {
+        "rot": [0.0,0.0]
+      }
+    ]
+  }
+}

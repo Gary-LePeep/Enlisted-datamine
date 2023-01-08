@@ -1,0 +1,219 @@
+{
+  "battle_areas_visitor": [
+    {
+      "isOutsideBattleArea": false
+    },
+    {
+      "isInDeactivatingBattleArea": false
+    },
+    {
+      "_replicated": "isOutsideBattleArea"
+    },
+    {
+      "_replicated": "isInDeactivatingBattleArea"
+    },
+    {
+      "_tracked": "isOutsideBattleArea"
+    },
+    {
+      "_tracked": "isInDeactivatingBattleArea"
+    },
+    {
+      "_tracked": "battle_areas_visitor__zonesIn"
+    },
+    {
+      "battle_areas_visitor__updateInterval": 0.5
+    },
+    {
+      "battle_areas_visitor__nextUpdateAt": 0.0
+    },
+    {
+      "battle_areas_visitor__zonesIn:list<eid>": []
+    }
+  ],
+  "_infoCommonComponents": {
+    "battleAreaId": {
+      "desc": "Battle area name, used to attach battle_area_polygon_points to battle area"
+    }
+  },
+  "base_battle_area": [
+    {
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [0.0,0.0,0.0]
+      ]
+    },
+    {
+      "deactivationDelay": 120.0
+    },
+    {
+      "_extends": "replicating"
+    },
+    {
+      "zone__keepDead": true
+    },
+    {
+      "_tracked": "active"
+    },
+    {
+      "_tracked": "battle_area__deactivatedAtTime"
+    },
+    {
+      "_replicated": "active"
+    },
+    {
+      "_replicated": "transform"
+    },
+    {
+      "_replicated": "battle_area__deactivatedAtTime"
+    },
+    {
+      "battle_area__deactivatedAtTime": -1.0
+    },
+    {
+      "battle_area__isVisible": true
+    },
+    {
+      "battle_area__team:i": {
+        "value": -1,
+        "_info": "team_id"
+      }
+    },
+    {
+      "active:b": {
+        "value": true,
+        "_info": "active"
+      }
+    },
+    {
+      "_group": {
+        "battle_area__deactivateEndTime": -1.0,
+        "battle_area__timeToDamage": 8.0,
+        "battle_area__damage": 2.0,
+        "battle_area__damageInterval": 1.0,
+        "battle_area__noDamageBorderWidth": 0.0,
+        "battle_area__timeToWarn": 30.0,
+        "battle_area__lastDamageAtTime": -1.0,
+        "_tags": "server",
+        "battle_area__timeToDamageByType:object": {
+          "human": 8.0,
+          "vehicle": 12.0,
+          "aircraft": 30.0
+        },
+        "battle_area__killList:array": []
+      }
+    },
+    {
+      "battle_area:tag": []
+    },
+    {
+      "_info": {
+        "desc": "A zone that limits the area of battles and an important component that allows bots to move around the level (within the boundaries of this zone)."
+      }
+    }
+  ],
+  "battle_area_polygon_point": {
+    "transform": [
+      [1.0,0.0,0.0],
+      [0.0,1.0,0.0],
+      [0.0,0.0,1.0],
+      [0.0,0.0,0.0]
+    ],
+    "battle_area_polygon_point__nextId:t": {
+      "value": "",
+      "_info": {
+        "desc": "next point name"
+      }
+    },
+    "battle_area_polygon_point__id:t": {
+      "value": "",
+      "_info": {
+        "desc": "current point name"
+      }
+    },
+    "battle_area_polygon_point__forBattleAreaId:t": {
+      "value": "",
+      "_info": {
+        "desc": "the name of the battle area that this point belongs to"
+      }
+    },
+    "_info": {
+      "desc": "Points that poly_battle_area consists of. They need to be placed counterclockwise."
+    }
+  },
+  "poly_battle_area_draw_debug": {
+    "battle_area_polygon_point__drawDebug": true,
+    "battle_area_polygon_point__drawOnHeight": 0.0,
+    "battle_area_polygon_point__additionalHeight": 20.0
+  },
+  "poly_battle_area": {
+    "_extends": "base_battle_area",
+    "battleAreaId:t": {
+      "value": "",
+      "_info": "battleAreaId"
+    },
+    "groupName:t": {
+      "value": "",
+      "_info": "groupName"
+    },
+    "humanTriggerable:tag": [],
+    "invisibleHumanTriggerable:tag": [],
+    "battleAreaPoints:list<p2>": [],
+    "_info": {
+      "desc": "A zone that limits the area of battles and an important component that allows bots to move around the level (within the boundaries of this zone). Can be used to secure spawn points, concentrate fights around one strategic point(s), etc. Custom shaped battle area that you can setup using several points (battle_area_polygon_point)"
+    }
+  },
+  "poly_area_from_level": {
+    "poly_area_gen__polyName": "",
+    "poly_area_gen__template": "poly_battle_area"
+  },
+  "aircraft_poly_battle_area": {
+    "_extends": "base_battle_area",
+    "battleAreaId:t": {
+      "value": "",
+      "_info": "battleAreaId"
+    },
+    "groupName:t": {
+      "value": "",
+      "_info": "groupName"
+    },
+    "planeTriggerable:tag": [],
+    "hideOnMinimap:tag": [],
+    "battleAreaPoints:list<p2>": [],
+    "_info": {
+      "desc": "A zone that limits the area of battles. Custom shaped battle area for aviation that you can setup using several points (battle_area_polygon_point)"
+    }
+  },
+  "box_battle_area": {
+    "_extends": "base_battle_area",
+    "groupName:t": {
+      "value": "",
+      "_info": "groupName"
+    },
+    "humanTriggerable:tag": [],
+    "invisibleHumanTriggerable:tag": [],
+    "box_zone:tag": [],
+    "_info": {
+      "desc": "A zone that limits the area of battles and an important component that allows bots to move around the level (within the boundaries of this zone). Can be used to secure spawn points, concentrate fights around one strategic point(s), etc. Battle areas in the form of a box"
+    }
+  },
+  "human_hidden_ui_battle_area": {
+    "_extends": "box_battle_area",
+    "hideOnMinimap:tag": []
+  },
+  "aircraft_box_battle_area": {
+    "_extends": "base_battle_area",
+    "groupName:t": {
+      "value": "",
+      "_info": "groupName"
+    },
+    "planeTriggerable:tag": [],
+    "hideOnMinimap:tag": [],
+    "box_zone:tag": [],
+    "_info": {
+      "desc": "A zone that limits the area of battles. Can be used to secure spawn points, concentrate fights around one strategic point(s), etc. Battle areas in the form of a box (for aviation)"
+    }
+  }
+}

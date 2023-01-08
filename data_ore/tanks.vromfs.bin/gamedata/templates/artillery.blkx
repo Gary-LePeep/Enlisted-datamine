@@ -1,0 +1,108 @@
+{
+  "auto_shoot": {
+    "_tracked": "auto_shoot__canShoot",
+    "auto_shoot__targetPos": [0.0,0.0,0.0],
+    "auto_shoot__firstShotTime": 0.0,
+    "auto_shoot__canShoot": false,
+    "auto_shoot__shouldShoot": false,
+    "auto_shoot__gunDir": [1.0,0.0,0.0],
+    "auto_shoot__gunPos": [0.0,0.0,0.0],
+    "auto_shoot__shotCount": 0,
+    "autoShoot:tag": [],
+    "transform:m": [],
+    "auto_shoot__applyGravityOffset:tag": []
+  },
+  "artillery": {
+    "_extends": "replicating",
+    "artillery_zone__radius": 24.0,
+    "artillery__dispersion": 12.0,
+    "artillery__adjustmentDispersion": 24.0,
+    "artillery__shotsDone": 0,
+    "artillery__shotsCount": 16,
+    "artillery__adjustmentsShotsCount": 3,
+    "artillery__timeToFirstShot": 10.0,
+    "artillery__nextShotTime": -1.0,
+    "artillery__timeBetweenAdjustmentsShots": 5.0,
+    "artillery__timeBetweenShots": 0.3,
+    "artillery__gunTempl": "artillery_gun",
+    "artillery__autoShootTempl": "auto_shoot",
+    "artillery__adjustmentGunTempl": "adjustment_artillery_gun",
+    "artillery__sourcePos": [0.0,0.0,0.0],
+    "artillery__targetPos": [0.0,0.0,0.0],
+    "artillery__calledByTeam": 0,
+    "artillery__callerEid:eid": [],
+    "artillery__offender:eid": []
+  },
+  "artillery_gun": [
+    {
+      "_extends": "tankgun_76mm_l11"
+    },
+    {
+      "_extends": "hit_effect_group_artillery"
+    },
+    {
+      "gun__ammo": 111
+    },
+    {
+      "gun__maxAmmo": 111
+    },
+    {
+      "killLogName": ""
+    },
+    {
+      "item__name": "Artillery"
+    },
+    {
+      "gun__blk": "content/tanks/gamedata/weapons/artillery.blk"
+    },
+    {
+      "gun__locName": "Artillery"
+    },
+    {
+      "gun__shotFreq": 0.1
+    },
+    {
+      "artillery__calledByTeam": 0
+    },
+    {
+      "gun__shellsAmmo:array": {
+        "ammo": 111
+      }
+    },
+    {
+      "gun__ammoSetsInfo:shared:array": {
+        "HE:array": {
+          "shell:object": {
+            "blk": "content/tanks/gamedata/weapons/shells/ussr/76mm_artillery_he.blk",
+            "name": "76mm_of_350m",
+            "type": "he_frag_tank"
+          }
+        }
+      }
+    },
+    {
+      "gun__offender:eid": []
+    },
+    {
+      "gun_sound__shotPath:shared:object": {
+        "_tags": "sound",
+        "enemy": "enemy/weapon/cannon/artillery"
+      }
+    },
+    {
+      "artillery__callerEid:eid": []
+    }
+  ],
+  "adjustment_artillery_gun": {
+    "_extends": "artillery_gun",
+    "gun__ammoSetsInfo:shared:array": {
+      "HE:array": {
+        "shell:object": {
+          "blk": "content/tanks/gamedata/weapons/shells/ussr/76mm_artillery_adjustment_he.blk",
+          "name": "76mm_of_350m",
+          "type": "he_frag_tank"
+        }
+      }
+    }
+  }
+}

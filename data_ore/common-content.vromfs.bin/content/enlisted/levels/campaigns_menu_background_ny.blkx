@@ -1,0 +1,172 @@
+{
+  "levelBin": "content/base/levels/campaigns_menu_background_ny.bin",
+  "numBorderCellsXPos": 0,
+  "numBorderCellsXNeg": 0,
+  "numBorderCellsZPos": 0,
+  "numBorderCellsZNeg": 0,
+  "puddlesDist": 0,
+  "clipmap": {
+    "texelSize": 0.0078
+  },
+  "micro_details": [
+    {
+      "micro_detail": "microdetail_stone_a_tex_n*"
+    },
+    {
+      "micro_detail": "microdetail_stone_b_tex_n*"
+    },
+    {
+      "micro_detail": "microdetail_scan_gravel_a_tex_n*"
+    },
+    {
+      "micro_detail": "microdetail_sand_a_tex_n*"
+    },
+    {
+      "micro_detail": "microdetail_sand_c_tex_n*"
+    },
+    {
+      "micro_detail": "microdetail_soil_plants_a_tex_n*"
+    },
+    {
+      "micro_detail": "microdetail_soil_a_tex_n*"
+    },
+    {
+      "micro_detail": "microdetail_mud_a_tex_n*"
+    },
+    {
+      "micro_detail": "microdetail_generic_granules_a_tex_n*"
+    },
+    {
+      "micro_detail": "microdetail_wood_a_tex_n*"
+    },
+    {
+      "micro_detail": "microdetail_moss_a_tex_n*"
+    },
+    {
+      "micro_detail": "microdetail_grass_a_tex_n*"
+    },
+    {
+      "micro_detail": "microdetail_forest_floor_a_tex_n*"
+    },
+    {
+      "micro_detail": "microdetail_generic_granules_a_tex_n*"
+    },
+    {
+      "micro_detail": "microdetail_generic_granules_a_tex_n*"
+    },
+    {
+      "micro_detail": "microdetail_generic_granules_a_tex_n*"
+    },
+    {
+      "land_micro_details_uv_scale": 1.11
+    },
+    {
+      "microdetail_stone_a_tex_n*": {
+        "coloring": 0.3,
+        "porosity": 0.4
+      }
+    },
+    {
+      "microdetail_stone_b_tex_n*": {
+        "coloring": 0.4,
+        "porosity": 0.4
+      }
+    },
+    {
+      "microdetail_scan_gravel_a_tex_n*": {
+        "coloring": 0.3,
+        "porosity": 0.4
+      }
+    },
+    {
+      "microdetail_sand_a_tex_n*": {
+        "coloring": 0.8,
+        "porosity": 0.8
+      }
+    },
+    {
+      "microdetail_sand_c_tex_n*": {
+        "coloring": 0.9,
+        "porosity": 0.8
+      }
+    },
+    {
+      "microdetail_soil_plants_a_tex_n*": {
+        "coloring": 0.9,
+        "porosity": 0.8
+      }
+    },
+    {
+      "microdetail_soil_a_tex_n*": {
+        "coloring": 0.9,
+        "porosity": 0.9
+      }
+    },
+    {
+      "microdetail_mud_a_tex_n*": {
+        "coloring": 0.3,
+        "porosity": 0.8
+      }
+    },
+    {
+      "microdetail_wood_a_tex_n*": {
+        "coloring": 0.4,
+        "porosity": 0.4
+      }
+    },
+    {
+      "microdetail_moss_a_tex_n*": {
+        "coloring": 1.0,
+        "porosity": 0.6
+      }
+    },
+    {
+      "microdetail_grass_a_tex_n*": {
+        "coloring": 1.0,
+        "porosity": 0.5
+      }
+    },
+    {
+      "microdetail_forest_floor_a_tex_n*": {
+        "coloring": 0.7,
+        "porosity": 0.5
+      }
+    }
+  ],
+  "skies": {
+    "year": 1941,
+    "latitude": 100.0,
+    "longtitude": 0.0
+  },
+  "volFog": {
+    "rootFogGraph": "content/common/shaders/fog_campaigns_menu_background.json"
+  },
+  "gi": {
+    "temporalQuality": 8.0,
+    "volmapY": 16
+  },
+  "graphics": {
+    "IndoorProbes": true,
+    "spotShadowBias": [-6.1e-05,-0.01,0.01,0.0005],
+    "dynamicShadowsBias": [0.0,0.0005,0.4],
+    "dynamicShadowsDistance": 18.0,
+    "dynamicShadowsDistanceMultiplier_Low": 0.5,
+    "dynamicShadowsDistanceMultiplier_Medium": 1.0,
+    "dynamicShadowsResolution": 2048,
+    "dynamicShadowsResolutionMultiplier_Low": 1.0,
+    "dynamicShadowsResolutionMultiplier_Medium": 0.75,
+    "dynamicShadowsNumCascades": 2,
+    "dynamicShadowsCascadeDistributionPowerWeightOverride": 0.5,
+    "dynamicShadowsCascade0DistanceOverride": 0.0,
+    "shadowQuality": "ultra",
+    "dynamicShadow32bit": true,
+    "giQuality": "minimum",
+    "ssrQuality": "ultra"
+  },
+  "unitedVdata.rendInst": {
+    "IB": 65536,
+    "VB1": 65536,
+    "VB2": 65536,
+    "VB3": 0
+  }
+}

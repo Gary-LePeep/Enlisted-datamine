@@ -1,0 +1,582 @@
+[
+  {
+    "sprintStaminaDrain": 0.0
+  },
+  {
+    "jumpStaminaDrain": 0.0
+  },
+  {
+    "sprintSpeed": 6.0
+  },
+  {
+    "standAimPos": [0.1,1.7,0.0]
+  },
+  {
+    "crouchAimPos": [0.1,1.2,0.0]
+  },
+  {
+    "crawlAimPos": [0.5,0.3,0.0]
+  },
+  {
+    "gunRayMat": "gunRay"
+  },
+  {
+    "stamina": 45.0
+  },
+  {
+    "restStaminaRestore": 4.5
+  },
+  {
+    "sprintStartStaminaLevel": 6.0
+  },
+  {
+    "maxClimbSpeed": 1.5
+  },
+  {
+    "climbVertAccel": 9.0
+  },
+  {
+    "climbVertBrake": 350.0
+  },
+  {
+    "climbVertBrakeMaxTime": 1.0
+  },
+  {
+    "climbOnPos": [0.55,2.6,0.0]
+  },
+  {
+    "climbOnRad": 0.15
+  },
+  {
+    "climbPositions": 1
+  },
+  {
+    "climbTimeout": 2.0
+  },
+  {
+    "climbAngle": 75.0
+  },
+  {
+    "climbHorzAccel": 10.0
+  },
+  {
+    "climbHorzBrake": 30.0
+  },
+  {
+    "climbMinHorzSize": 0.65
+  },
+  {
+    "climbOnMinVertSize": 1.1
+  },
+  {
+    "climbThroughMinVertSize": 0.65
+  },
+  {
+    "climbThroughForwardDist": 0.3
+  },
+  {
+    "climbThroughPosOffset": [0.0,0.25,0.0]
+  },
+  {
+    "additionalClimbPositions": 2
+  },
+  {
+    "canFinishClimbing": false
+  },
+  {
+    "allowWeaponSwitchOnSprint": true
+  },
+  {
+    "maxGunBackoff": 0.5
+  },
+  {
+    "crawlSlideAngle": 60.0
+  },
+  {
+    "climbSlideAngle": 30.0
+  },
+  {
+    "ladderClimbSpeed": 1.2
+  },
+  {
+    "jumpAfterLandMult": [1.0,1.0]
+  },
+  {
+    "sprintJumpHorzSpeed": 2.0
+  },
+  {
+    "jumpVertSpeed": 8.0
+  },
+  {
+    "crawlVertAimAngles": [-40.0,50.0]
+  },
+  {
+    "maxCrawlObstacleHeight": 0.2
+  },
+  {
+    "acceleration": 10.0
+  },
+  {
+    "frictionGroundCoeff": 9.85
+  },
+  {
+    "frictionThresSpdMult": 0.33
+  },
+  {
+    "collisionRadius": 0.25
+  },
+  {
+    "breathHoldSpeed": 5.0
+  },
+  {
+    "speedCollisionHardness": 0.1
+  },
+  {
+    "crawlStepSpeed": 0.5
+  },
+  {
+    "stepAccel": 4.0
+  },
+  {
+    "crawlArmsOffset": 0.31
+  },
+  {
+    "crawlLegsOffset": -0.49
+  },
+  {
+    "aimingMoveSpeed": 1.0
+  },
+  {
+    "aimingMoveSpeed": 1.0
+  },
+  {
+    "aimSpeed": 10.0
+  },
+  {
+    "maxWalkSpeedLimitChangeSpeed": 12.0
+  },
+  {
+    "maxWalkSpeedLimitRestoreSpeed": 4.0
+  },
+  {
+    "breathingAimMult": 1.0
+  },
+  {
+    "holdBreathDrain": 0.33
+  },
+  {
+    "restoreBreath": 0.2
+  },
+  {
+    "holdBreathStartLevel": 1.0
+  },
+  {
+    "dyspneaMaxMultiplier": 3.0
+  },
+  {
+    "dyspneaTimeMultiplier": 0.5
+  },
+  {
+    "leanPosOffset": 0.2
+  },
+  {
+    "leanSpeed": 180.0
+  },
+  {
+    "leanDegrees": 45.0
+  },
+  {
+    "gunNode": "neck"
+  },
+  {
+    "sprintJumpVertSpeed": 6.0
+  },
+  {
+    "standState": {
+      "walkSpeed": 1.5,
+      "runSpeed": 3.0,
+      "sprintSpeed": 4.35,
+      "rotateAngles": [-90.0,90.0],
+      "rotateSpeed": 180.0,
+      "collisionLinks": {
+        "paramMult": 0.0,
+        "offset": [0.0,0.5,0.0],
+        "haveCollision": false,
+        "body": {
+          "paramMult": 0.0,
+          "offset": [0.0,1.0,0.0],
+          "haveCollision": true
+        }
+      }
+    }
+  },
+  {
+    "crouchState": {
+      "walkSpeed": 1.0,
+      "runSpeed": 1.5,
+      "rotateAngles": [-80.0,80.0],
+      "rotateSpeed": 180.0,
+      "collisionLinks": {
+        "paramMult": 0.0,
+        "offset": [0.0,0.5,0.0],
+        "haveCollision": false,
+        "body": {
+          "paramMult": 0.0,
+          "offset": [0.0,0.6,0.0],
+          "haveCollision": true
+        }
+      }
+    }
+  },
+  {
+    "crawlState": {
+      "walkSpeed": 0.5,
+      "runSpeed": 1.0,
+      "clampAngles": [-45.0,45.0],
+      "rotateAngles": [-60.0,60.0],
+      "alignSpeed": 90.0,
+      "rotateSpeed": 180.0,
+      "collisionCenterPos": [0.3,0.0,0.0],
+      "ccdPos": [0.2,0.2,0.0],
+      "collisionLinks": {
+        "paramMult": 0.0,
+        "offset": [-0.2,0.2,0.0],
+        "haveCollision": false,
+        "body": {
+          "paramMult": 0.0,
+          "offset": [1.1,0.0,0.0],
+          "haveCollision": true
+        }
+      }
+    }
+  },
+  {
+    "swimState": {
+      "collisionCenterPos": [0.0,-0.7,0.0],
+      "walkSpeed": 0.75,
+      "runSpeed": 1.0,
+      "sprintSpeed": 2.0,
+      "collisionLinks": {
+        "paramMult": 0.0,
+        "offset": [-0.1,-0.5,0.0],
+        "haveCollision": false,
+        "body": {
+          "paramMult": 0.0,
+          "offset": [0.0,0.7,0.0],
+          "oriParamMult": 0.4,
+          "haveCollision": true
+        }
+      }
+    }
+  },
+  {
+    "swimUnderwaterState": {
+      "collisionCenterPos": [0.0,-0.7,0.0],
+      "walkSpeed": 1.0,
+      "runSpeed": 1.5,
+      "sprintSpeed": 2.5,
+      "collisionLinks": {
+        "paramMult": 0.0,
+        "offset": [-0.1,-0.5,0.0],
+        "haveCollision": false,
+        "body": {
+          "paramMult": 0.0,
+          "offset": [0.0,0.7,0.0],
+          "oriParamMult": 0.4,
+          "haveCollision": true
+        }
+      }
+    }
+  },
+  {
+    "downedState": {
+      "walkSpeed": 1.0,
+      "runSpeed": 1.0,
+      "rotateAngles": [-80.0,80.0],
+      "rotateSpeed": 180.0,
+      "collisionCenterPos": [0.3,0.0,0.0],
+      "ccdPos": [0.2,0.4,0.0],
+      "collisionLinks": {
+        "paramMult": 0.0,
+        "offset": [-0.2,0.5,0.0],
+        "haveCollision": false,
+        "body": {
+          "paramMult": 0.0,
+          "offset": [1.0,0.0,0.0],
+          "capsuleRadiusScale": 1.1,
+          "haveCollision": true
+        }
+      }
+    }
+  },
+  {
+    "climbState": {
+      "walkSpeed": 3.0,
+      "runSpeed": 3.5,
+      "sprintSpeed": 5.0,
+      "rotateAngles": [-90.0,90.0],
+      "rotateSpeed": 180.0,
+      "collisionLinks": {
+        "paramMult": 0.0,
+        "offset": [0.0,0.45,0.0],
+        "haveCollision": false,
+        "body": {
+          "paramMult": 0.0,
+          "offset": [0.0,0.3,0.0],
+          "haveCollision": true
+        }
+      }
+    }
+  },
+  {
+    "climbThroughState": {
+      "walkSpeed": 3.0,
+      "runSpeed": 3.5,
+      "sprintSpeed": 5.0,
+      "rotateAngles": [-90.0,90.0],
+      "rotateSpeed": 180.0,
+      "collisionLinks": {
+        "paramMult": 0.0,
+        "offset": [0.0,0.45,0.0],
+        "haveCollision": false,
+        "body": {
+          "paramMult": 0.0,
+          "offset": [0.0,0.3,0.0],
+          "haveCollision": true
+        }
+      }
+    }
+  },
+  {
+    "externalControlledState": {
+      "walkSpeed": 1.5,
+      "runSpeed": 3.0,
+      "sprintSpeed": 4.35,
+      "rotateAngles": [-90.0,90.0],
+      "rotateSpeed": 180.0,
+      "ccdPos": [0.0,1.1,0.0],
+      "collisionLinks": {
+        "paramMult": 0.0,
+        "offset": [0.0,1.1,0.0],
+        "haveCollision": false,
+        "body": {
+          "paramMult": 0.0,
+          "offset": [0.0,0.1,0.0],
+          "haveCollision": true
+        }
+      }
+    }
+  },
+  {
+    "weapons": {
+      "primary": [
+        {
+          "holsterTime": 0.5
+        },
+        {
+          "equipTime": 0.5
+        },
+        {
+          "walkMoveMagnitude": 0.0
+        },
+        {
+          "predictTime": 0.1
+        },
+        {
+          "targetSpdVisc": 0.0
+        },
+        {
+          "gunSpdVisc": 0.02
+        },
+        {
+          "gunSpdDeltaMult": 1.0
+        },
+        {
+          "maxGunSpd": 20.5
+        },
+        {
+          "moveToSpd": 20.5
+        },
+        {
+          "vertOffsetRestoreVisc": 0.4
+        },
+        {
+          "vertOffsetMoveDownVisc": 0.5
+        },
+        {
+          "breathShakeMagnitude": 0.1
+        },
+        {
+          "crouchBreathShakeMagnitude": 0.05
+        },
+        {
+          "crawlBreathShakeMagnitude": 0.025
+        },
+        {
+          "gunLen": 0.4
+        },
+        {
+          "offsFromNode": [0.263045,0.207796,0.0622835]
+        },
+        {
+          "breathShake": {
+            "standing": 0.2,
+            "crouch": 0.1,
+            "crawl": 0.05
+          }
+        },
+        {
+          "breathShake": {
+            "standing": 0.1,
+            "crouch": 0.075,
+            "crawl": 0.05
+          }
+        }
+      ],
+      "secondary": {
+        "standingPosition": [0.0,1.6,-0.15],
+        "standingAimingPosition": [0.0,1.6,-0.05],
+        "crouchPosition": [0.0,1.2,-0.15],
+        "crouchAimingPosition": [0.0,1.2,-0.05],
+        "crawlPosition": [0.7,0.4,-0.15],
+        "crawlAimingPosition": [0.7,0.45,-0.05],
+        "holsterTime": 0.5,
+        "equipTime": 0.5,
+        "walkMoveMagnitude": 0.0,
+        "predictTime": 0.1,
+        "targetSpdVisc": 0.0,
+        "gunSpdVisc": 0.02,
+        "gunSpdDeltaMult": 1.0,
+        "maxGunSpd": 20.5,
+        "moveToSpd": 20.5,
+        "vertOffsetRestoreVisc": 0.4,
+        "vertOffsetMoveDownVisc": 0.5,
+        "breathShakeMagnitude": 0.1,
+        "crouchBreathShakeMagnitude": 0.05,
+        "crawlBreathShakeMagnitude": 0.025,
+        "gunLen": 0.4,
+        "offsFromNode": [0.234087,0.176786,0.0615204],
+        "breathShake": {
+          "standing": 0.1,
+          "crouch": 0.075,
+          "crawl": 0.05
+        }
+      },
+      "tertiary": [
+        {
+          "standingPosition": [0.0,1.6,-0.15]
+        },
+        {
+          "standingAimingPosition": [0.0,1.6,-0.05]
+        },
+        {
+          "crouchPosition": [0.0,1.2,-0.15]
+        },
+        {
+          "crouchAimingPosition": [0.0,1.2,-0.05]
+        },
+        {
+          "crawlPosition": [0.7,0.4,-0.15]
+        },
+        {
+          "crawlAimingPosition": [0.7,0.45,-0.05]
+        },
+        {
+          "equipSpeedMult": 3.0
+        },
+        {
+          "holsterSwapSpeedMult": 2.5
+        },
+        {
+          "holsterTime": 0.5
+        },
+        {
+          "equipTime": 0.5
+        },
+        {
+          "walkMoveMagnitude": 0.0
+        },
+        {
+          "predictTime": 0.1
+        },
+        {
+          "targetSpdVisc": 0.0
+        },
+        {
+          "gunSpdVisc": 0.02
+        },
+        {
+          "gunSpdDeltaMult": 1.0
+        },
+        {
+          "maxGunSpd": 20.5
+        },
+        {
+          "moveToSpd": 20.5
+        },
+        {
+          "vertOffsetRestoreVisc": 0.4
+        },
+        {
+          "vertOffsetMoveDownVisc": 0.5
+        },
+        {
+          "breathShakeMagnitude": 0.1
+        },
+        {
+          "crouchBreathShakeMagnitude": 0.05
+        },
+        {
+          "crawlBreathShakeMagnitude": 0.025
+        },
+        {
+          "gunLen": 0.4
+        },
+        {
+          "gunLen": 0.13
+        },
+        {
+          "offsFromNode": [0.370557,0.286941,0.153425]
+        },
+        {
+          "breathShake": {
+            "standing": 0.1,
+            "crouch": 0.075,
+            "crawl": 0.05
+          }
+        }
+      ],
+      "melee": {
+        "predictTime": 0.1,
+        "targetSpdVisc": 0.0,
+        "gunSpdVisc": 0.0,
+        "gunSpdDeltaMult": 1.0,
+        "maxGunSpd": 100.5,
+        "moveToSpd": 100.5,
+        "holsterTime": 0.25,
+        "equipTime": 0.25
+      },
+      "grenade": {
+        "predictTime": 0.1,
+        "targetSpdVisc": 0.0,
+        "gunSpdVisc": 0.0,
+        "gunSpdDeltaMult": 1.0,
+        "maxGunSpd": 100.5,
+        "moveToSpd": 100.5,
+        "breathShakeMagnitude": 0.05,
+        "crouchBreathShakeMagnitude": 0.05,
+        "crawlBreathShakeMagnitude": 0.05
+      },
+      "special": {
+        "predictTime": 0.1,
+        "targetSpdVisc": 0.0,
+        "gunSpdVisc": 0.0,
+        "gunSpdDeltaMult": 1.0,
+        "maxGunSpd": 100.5,
+        "moveToSpd": 100.5,
+        "holsterTime": 0.5,
+        "equipTime": 0.5
+      }
+    }
+  }
+]

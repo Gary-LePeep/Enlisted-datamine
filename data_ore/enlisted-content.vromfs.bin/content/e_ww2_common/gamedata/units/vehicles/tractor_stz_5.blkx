@@ -1,0 +1,719 @@
+{
+  "VehiclePhys": [
+    {
+      "skipUpdateOnSleep": true
+    },
+    {
+      "skipUpdateOnSleep": true
+    },
+    {
+      "Mass": {
+        "Empty": 5500.0,
+        "Fuel": 200.0,
+        "TakeOff": 5840.0,
+        "momentOfInertia": [1.4,2.5,2.5],
+        "CenterOfGravity": [0.05,0.3,0.0],
+        "CenterOfGravityClampY": [0.0,0.7],
+        "AdvancedMass": false,
+        "trackMass": 1150.0
+      }
+    },
+    {
+      "tracks": {
+        "animationMultiplier": 0.68,
+        "height": 0.06,
+        "width": 0.31,
+        "tracksTensionK": [3.5,14.0,9.0],
+        "trackMesh": "ussr_bt_7_phys_track_line",
+        "trackLen": 0.167,
+        "trackCount": 70,
+        "trackFadeTime": 0.5,
+        "trackCntPeriod": 2,
+        "trackMaxSinking": 0.1,
+        "trackMaxHeight": 1.13,
+        "trackStartOffset": 0.12,
+        "trackEmitSparks": true
+      }
+    },
+    {
+      "collisionProps": {
+        "cls_body": "convex_hull",
+        "collisionMaterial": "walkRay"
+      }
+    },
+    {
+      "engine": {
+        "horsePowers": 56.0,
+        "maxRPM": 3120.0,
+        "minRPM": 900.0,
+        "rpmTau": 0.1,
+        "minTorqueLimiter": 0.0
+      }
+    },
+    {
+      "mechanics": {
+        "maxBrakeForce": 50000.0,
+        "driveGearRadius": 0.3,
+        "mainGearRatio": 14.83,
+        "sideGearRatio": 1.0,
+        "tracked": true,
+        "gearType": "differential",
+        "gearRatios": [
+          {
+            "ratio": -4.0
+          },
+          {
+            "ratio": -16.0
+          },
+          {
+            "ratio": 0.0
+          },
+          {
+            "ratio": 7.84
+          },
+          {
+            "ratio": 4.82
+          },
+          {
+            "ratio": 2.71
+          },
+          {
+            "ratio": 1.58
+          },
+          {
+            "ratio": 1.0
+          }
+        ]
+      }
+    },
+    {
+      "suspension": {
+        "suspensionOffsets": [-0.1,-0.05,0.14],
+        "defaultGearRadius": 0.18,
+        "frontBackGearRadius": 0.2,
+        "defaultDampeningForce": [18000.0,40000.0],
+        "dampeningRelaxationRatio": 0.4,
+        "dampeningCompressionRatio": 0.15,
+        "recalcWtms": true
+      }
+    }
+  ],
+  "DamageParts": {
+    "formatVersion": 2,
+    "armorClass": "RHA_tank",
+    "hp": 100.0,
+    "body": {
+      "body": {
+        "createSecondaryShatters": false,
+        "armorThickness": 0.1,
+        "armorThrough": 0.15
+      },
+      "body_side": {
+        "createSecondaryShatters": false,
+        "armorThickness": 0.1,
+        "armorThrough": 0.15
+      },
+      "body_top": {
+        "createSecondaryShatters": false,
+        "armorThickness": 0.1,
+        "armorThrough": 0.15
+      },
+      "body_front": {
+        "createSecondaryShatters": false,
+        "armorThickness": 0.1,
+        "armorThrough": 0.15
+      },
+      "body_bottom": {
+        "createSecondaryShatters": false,
+        "armorThickness": 0.1,
+        "armorThrough": 0.15
+      },
+      "body_back": {
+        "createSecondaryShatters": false,
+        "armorThickness": 0.1,
+        "armorThrough": 0.15
+      }
+    },
+    "engine": {
+      "hp": 55.0,
+      "engine": {
+        "hitTestType": "inner",
+        "malfunctionDamage": 0.7,
+        "stopChanceOnDeadPart": 0.0,
+        "castOnKillAfterTankPartDead": false,
+        "fireProtectionHp": 5.0,
+        "externalArmor": false,
+        "minRelHpSelfRepair": 0.5,
+        "maxRelHpSelfRepair": 0.5,
+        "selfRepairDelay": 0.0,
+        "selfRepairTime": -1.0,
+        "ignoreDeadWithSplash": false,
+        "splashPenetrationToArmorThreshold": 0.33,
+        "pressureDamageMult": 0.0,
+        "napalmDamageMult": 0.0,
+        "sonicDamageMult": 0.0,
+        "vital": true,
+        "movement": true,
+        "fire": true,
+        "armorClass": "armor_tank_engine",
+        "hp": 90.0,
+        "armorThickness": 50.0,
+        "restrainDamage": 0.5
+      },
+      "radiator": {
+        "hitTestType": "inner",
+        "malfunctionDamage": 0.7,
+        "stopChanceOnDeadPart": 1.0,
+        "castOnKillAfterTankPartDead": false,
+        "fireProtectionHp": 5.0,
+        "externalArmor": false,
+        "minRelHpSelfRepair": 0.5,
+        "maxRelHpSelfRepair": 0.5,
+        "selfRepairDelay": 0.0,
+        "selfRepairTime": -1.0,
+        "ignoreDeadWithSplash": false,
+        "splashPenetrationToArmorThreshold": 0.33,
+        "pressureDamageMult": 0.0,
+        "vital": true,
+        "armorClass": "tank_structural_steel",
+        "hp": 50.0,
+        "armorThrough": 5.0,
+        "hidableInViewer": false
+      }
+    },
+    "transmission": {
+      "hp": 10.0,
+      "transmission": {
+        "createSecondaryShatters": false,
+        "armorThickness": 0.3,
+        "armorThrough": 10.0
+      },
+      "fuel_tank": {
+        "hitTestType": "inner",
+        "malfunctionDamage": 0.7,
+        "stopChanceOnDeadPart": 0.0,
+        "castOnKillAfterTankPartDead": false,
+        "fireProtectionHp": 10.0,
+        "externalArmor": false,
+        "minRelHpSelfRepair": 0.5,
+        "maxRelHpSelfRepair": 0.5,
+        "selfRepairDelay": 0.0,
+        "selfRepairTime": -1.0,
+        "ignoreDeadWithSplash": false,
+        "splashPenetrationToArmorThreshold": 0.33,
+        "pressureDamageMult": 0.0,
+        "vital": true,
+        "fire": true,
+        "armorClass": "tank_structural_steel",
+        "hp": 250.0,
+        "armorThickness": 2.0,
+        "armorThrough": 10.0,
+        "createSecondaryShatters": false,
+        "fireParamsPreset": "fuel_internal"
+      }
+    },
+    "track_r": {
+      "hitTestType": "exclude",
+      "malfunctionDamage": 0.7,
+      "stopChanceOnDeadPart": 1.0,
+      "castOnKillAfterTankPartDead": false,
+      "fireProtectionHp": -1.0,
+      "externalArmor": false,
+      "minRelHpSelfRepair": 0.5,
+      "maxRelHpSelfRepair": 0.5,
+      "selfRepairDelay": 0.0,
+      "selfRepairTime": -1.0,
+      "ignoreDeadWithSplash": false,
+      "splashPenetrationToArmorThreshold": 0.33,
+      "pressureDamageMult": 0.0,
+      "vital": true,
+      "movement": true,
+      "armorClass": "tank_traks",
+      "hp": 250.0,
+      "allowRicochet": true,
+      "armorThickness": 15.0,
+      "genericEffectiveThicknessMax": 15.0,
+      "genericDamageMult": 1.5,
+      "cumulativeDamageMult": 1.5
+    },
+    "track_l": {
+      "hitTestType": "exclude",
+      "malfunctionDamage": 0.7,
+      "stopChanceOnDeadPart": 1.0,
+      "castOnKillAfterTankPartDead": false,
+      "fireProtectionHp": -1.0,
+      "externalArmor": false,
+      "minRelHpSelfRepair": 0.5,
+      "maxRelHpSelfRepair": 0.5,
+      "selfRepairDelay": 0.0,
+      "selfRepairTime": -1.0,
+      "ignoreDeadWithSplash": false,
+      "splashPenetrationToArmorThreshold": 0.33,
+      "pressureDamageMult": 0.0,
+      "vital": true,
+      "movement": true,
+      "armorClass": "tank_traks",
+      "hp": 250.0,
+      "allowRicochet": true,
+      "armorThickness": 15.0,
+      "genericEffectiveThicknessMax": 15.0,
+      "genericDamageMult": 1.5,
+      "cumulativeDamageMult": 1.5
+    },
+    "wheel_suppor": {
+      "hitTestType": "exclude",
+      "malfunctionDamage": 0.7,
+      "stopChanceOnDeadPart": 1.0,
+      "castOnKillAfterTankPartDead": false,
+      "fireProtectionHp": -1.0,
+      "externalArmor": false,
+      "minRelHpSelfRepair": 0.5,
+      "maxRelHpSelfRepair": 0.5,
+      "selfRepairDelay": 0.0,
+      "selfRepairTime": -1.0,
+      "ignoreDeadWithSplash": false,
+      "splashPenetrationToArmorThreshold": 0.33,
+      "pressureDamageMult": 0.0,
+      "vital": true,
+      "armorClass": "tank_steel_wheels",
+      "hp": 250.0,
+      "armorThickness": 15.0
+    },
+    "wheel_r_01": {
+      "hitTestType": "exclude",
+      "malfunctionDamage": 0.7,
+      "stopChanceOnDeadPart": 1.0,
+      "castOnKillAfterTankPartDead": false,
+      "fireProtectionHp": -1.0,
+      "externalArmor": false,
+      "minRelHpSelfRepair": 0.5,
+      "maxRelHpSelfRepair": 0.5,
+      "selfRepairDelay": 0.0,
+      "selfRepairTime": -1.0,
+      "ignoreDeadWithSplash": false,
+      "splashPenetrationToArmorThreshold": 0.33,
+      "pressureDamageMult": 0.0,
+      "vital": true,
+      "armorClass": "tank_steel_wheels",
+      "hp": 250.0,
+      "armorThickness": 15.0
+    },
+    "wheel_r_02": {
+      "hitTestType": "exclude",
+      "malfunctionDamage": 0.7,
+      "stopChanceOnDeadPart": 1.0,
+      "castOnKillAfterTankPartDead": false,
+      "fireProtectionHp": -1.0,
+      "externalArmor": false,
+      "minRelHpSelfRepair": 0.5,
+      "maxRelHpSelfRepair": 0.5,
+      "selfRepairDelay": 0.0,
+      "selfRepairTime": -1.0,
+      "ignoreDeadWithSplash": false,
+      "splashPenetrationToArmorThreshold": 0.33,
+      "pressureDamageMult": 0.0,
+      "vital": true,
+      "armorClass": "tank_steel_wheels",
+      "hp": 250.0,
+      "armorThickness": 15.0
+    },
+    "wheel_r_03": {
+      "hitTestType": "exclude",
+      "malfunctionDamage": 0.7,
+      "stopChanceOnDeadPart": 1.0,
+      "castOnKillAfterTankPartDead": false,
+      "fireProtectionHp": -1.0,
+      "externalArmor": false,
+      "minRelHpSelfRepair": 0.5,
+      "maxRelHpSelfRepair": 0.5,
+      "selfRepairDelay": 0.0,
+      "selfRepairTime": -1.0,
+      "ignoreDeadWithSplash": false,
+      "splashPenetrationToArmorThreshold": 0.33,
+      "pressureDamageMult": 0.0,
+      "vital": true,
+      "armorClass": "tank_steel_wheels",
+      "hp": 250.0,
+      "armorThickness": 15.0
+    },
+    "wheel_r_04": {
+      "hitTestType": "exclude",
+      "malfunctionDamage": 0.7,
+      "stopChanceOnDeadPart": 1.0,
+      "castOnKillAfterTankPartDead": false,
+      "fireProtectionHp": -1.0,
+      "externalArmor": false,
+      "minRelHpSelfRepair": 0.5,
+      "maxRelHpSelfRepair": 0.5,
+      "selfRepairDelay": 0.0,
+      "selfRepairTime": -1.0,
+      "ignoreDeadWithSplash": false,
+      "splashPenetrationToArmorThreshold": 0.33,
+      "pressureDamageMult": 0.0,
+      "vital": true,
+      "armorClass": "tank_steel_wheels",
+      "hp": 250.0,
+      "armorThickness": 15.0
+    },
+    "wheel_l_01": {
+      "hitTestType": "exclude",
+      "malfunctionDamage": 0.7,
+      "stopChanceOnDeadPart": 1.0,
+      "castOnKillAfterTankPartDead": false,
+      "fireProtectionHp": -1.0,
+      "externalArmor": false,
+      "minRelHpSelfRepair": 0.5,
+      "maxRelHpSelfRepair": 0.5,
+      "selfRepairDelay": 0.0,
+      "selfRepairTime": -1.0,
+      "ignoreDeadWithSplash": false,
+      "splashPenetrationToArmorThreshold": 0.33,
+      "pressureDamageMult": 0.0,
+      "vital": true,
+      "armorClass": "tank_steel_wheels",
+      "hp": 250.0,
+      "armorThickness": 15.0
+    },
+    "wheel_l_02": {
+      "hitTestType": "exclude",
+      "malfunctionDamage": 0.7,
+      "stopChanceOnDeadPart": 1.0,
+      "castOnKillAfterTankPartDead": false,
+      "fireProtectionHp": -1.0,
+      "externalArmor": false,
+      "minRelHpSelfRepair": 0.5,
+      "maxRelHpSelfRepair": 0.5,
+      "selfRepairDelay": 0.0,
+      "selfRepairTime": -1.0,
+      "ignoreDeadWithSplash": false,
+      "splashPenetrationToArmorThreshold": 0.33,
+      "pressureDamageMult": 0.0,
+      "vital": true,
+      "armorClass": "tank_steel_wheels",
+      "hp": 250.0,
+      "armorThickness": 15.0
+    },
+    "wheel_l_03": {
+      "hitTestType": "exclude",
+      "malfunctionDamage": 0.7,
+      "stopChanceOnDeadPart": 1.0,
+      "castOnKillAfterTankPartDead": false,
+      "fireProtectionHp": -1.0,
+      "externalArmor": false,
+      "minRelHpSelfRepair": 0.5,
+      "maxRelHpSelfRepair": 0.5,
+      "selfRepairDelay": 0.0,
+      "selfRepairTime": -1.0,
+      "ignoreDeadWithSplash": false,
+      "splashPenetrationToArmorThreshold": 0.33,
+      "pressureDamageMult": 0.0,
+      "vital": true,
+      "armorClass": "tank_steel_wheels",
+      "hp": 250.0,
+      "armorThickness": 15.0
+    },
+    "wheel_l_04": {
+      "hitTestType": "exclude",
+      "malfunctionDamage": 0.7,
+      "stopChanceOnDeadPart": 1.0,
+      "castOnKillAfterTankPartDead": false,
+      "fireProtectionHp": -1.0,
+      "externalArmor": false,
+      "minRelHpSelfRepair": 0.5,
+      "maxRelHpSelfRepair": 0.5,
+      "selfRepairDelay": 0.0,
+      "selfRepairTime": -1.0,
+      "ignoreDeadWithSplash": false,
+      "splashPenetrationToArmorThreshold": 0.33,
+      "pressureDamageMult": 0.0,
+      "vital": true,
+      "armorClass": "tank_steel_wheels",
+      "hp": 250.0,
+      "armorThickness": 15.0
+    },
+    "wheel_r_drive": {
+      "hitTestType": "exclude",
+      "malfunctionDamage": 0.7,
+      "stopChanceOnDeadPart": 1.0,
+      "castOnKillAfterTankPartDead": false,
+      "fireProtectionHp": -1.0,
+      "externalArmor": false,
+      "minRelHpSelfRepair": 0.5,
+      "maxRelHpSelfRepair": 0.5,
+      "selfRepairDelay": 0.0,
+      "selfRepairTime": -1.0,
+      "ignoreDeadWithSplash": false,
+      "splashPenetrationToArmorThreshold": 0.33,
+      "pressureDamageMult": 0.0,
+      "vital": true,
+      "armorClass": "tank_steel_wheels",
+      "hp": 250.0,
+      "armorThickness": 15.0
+    },
+    "wheel_l_drive": {
+      "hitTestType": "exclude",
+      "malfunctionDamage": 0.7,
+      "stopChanceOnDeadPart": 1.0,
+      "castOnKillAfterTankPartDead": false,
+      "fireProtectionHp": -1.0,
+      "externalArmor": false,
+      "minRelHpSelfRepair": 0.5,
+      "maxRelHpSelfRepair": 0.5,
+      "selfRepairDelay": 0.0,
+      "selfRepairTime": -1.0,
+      "ignoreDeadWithSplash": false,
+      "splashPenetrationToArmorThreshold": 0.33,
+      "pressureDamageMult": 0.0,
+      "vital": true,
+      "armorClass": "tank_steel_wheels",
+      "hp": 250.0,
+      "armorThickness": 15.0
+    },
+    "wheel_l_front": {
+      "hitTestType": "exclude",
+      "malfunctionDamage": 0.7,
+      "stopChanceOnDeadPart": 1.0,
+      "castOnKillAfterTankPartDead": false,
+      "fireProtectionHp": -1.0,
+      "externalArmor": false,
+      "minRelHpSelfRepair": 0.5,
+      "maxRelHpSelfRepair": 0.5,
+      "selfRepairDelay": 0.0,
+      "selfRepairTime": -1.0,
+      "ignoreDeadWithSplash": false,
+      "splashPenetrationToArmorThreshold": 0.33,
+      "pressureDamageMult": 0.0,
+      "vital": true,
+      "armorClass": "tank_steel_wheels",
+      "hp": 250.0,
+      "armorThickness": 15.0
+    },
+    "wheel_r_front": {
+      "hitTestType": "exclude",
+      "malfunctionDamage": 0.7,
+      "stopChanceOnDeadPart": 1.0,
+      "castOnKillAfterTankPartDead": false,
+      "fireProtectionHp": -1.0,
+      "externalArmor": false,
+      "minRelHpSelfRepair": 0.5,
+      "maxRelHpSelfRepair": 0.5,
+      "selfRepairDelay": 0.0,
+      "selfRepairTime": -1.0,
+      "ignoreDeadWithSplash": false,
+      "splashPenetrationToArmorThreshold": 0.33,
+      "pressureDamageMult": 0.0,
+      "vital": true,
+      "armorClass": "tank_steel_wheels",
+      "hp": 250.0,
+      "armorThickness": 15.0
+    }
+  },
+  "DamageEffects": [
+    {
+      "part": [
+        {
+          "name": "engine"
+        },
+        {
+          "name": "transmission"
+        },
+        {
+          "name": "radiator"
+        },
+        {
+          "onKill": {
+            "fire": 1.0,
+            "fHitCritical": true
+          }
+        }
+      ]
+    },
+    {
+      "part": [
+        {
+          "name": "body"
+        },
+        {
+          "name": "body_side"
+        },
+        {
+          "name": "body_top"
+        },
+        {
+          "name": "body_front"
+        },
+        {
+          "name": "body_bottom"
+        },
+        {
+          "name": "body_back"
+        },
+        {
+          "onHit": {
+            "damageType": "cumulative",
+            "expl": 1.0,
+            "damage": 100.0,
+            "fHitCritical": true
+          }
+        },
+        {
+          "onHit": {
+            "damageType": "explosion",
+            "expl": 1.0,
+            "damage": 100.0,
+            "fHitCritical": true
+          }
+        }
+      ]
+    },
+    {
+      "part": [
+        {
+          "name": "fuel_tank"
+        },
+        {
+          "onHit": {
+            "damageType": "cumulative",
+            "expl": 0.1,
+            "fire": 0.2,
+            "damage": 100.0,
+            "fHitCritical": true
+          }
+        },
+        {
+          "onHit": {
+            "damageType": "cumulative",
+            "expl": 0.2,
+            "fire": 0.3,
+            "damage": 250.0,
+            "fHitCritical": true
+          }
+        },
+        {
+          "onHit": {
+            "damageType": "explosion",
+            "expl": 0.125,
+            "fire": 0.225,
+            "damage": 25.0,
+            "fHitCritical": true
+          }
+        },
+        {
+          "onHit": {
+            "damageType": "explosion",
+            "expl": 0.25,
+            "fire": 0.35,
+            "damage": 50.0,
+            "fHitCritical": true
+          }
+        },
+        {
+          "onHit": {
+            "damageType": "generic",
+            "fire": 0.1,
+            "damage": 20.0,
+            "fHitCritical": true
+          }
+        },
+        {
+          "onHit": {
+            "damageType": "generic",
+            "fire": 0.25,
+            "damage": 70.0,
+            "fHitCritical": true
+          }
+        },
+        {
+          "onHit": {
+            "damageType": "generic",
+            "fire": 0.4,
+            "damage": 200.0,
+            "fHitCritical": true
+          }
+        },
+        {
+          "onHit": {
+            "damageType": "generic",
+            "fire": 0.7,
+            "expl": 0.1,
+            "damage": 300.0,
+            "fHitCritical": true
+          }
+        },
+        {
+          "onHit": {
+            "damageType": "generic",
+            "fire": 0.5,
+            "expl": 0.5,
+            "damage": 400.0,
+            "fHitCritical": true
+          }
+        },
+        {
+          "onHit": {
+            "damageType": "generic",
+            "fire": 0.2,
+            "expl": 0.8,
+            "damage": 600.0,
+            "fHitCritical": true
+          }
+        },
+        {
+          "onHit": {
+            "damageType": "fire",
+            "fire": 0.2
+          }
+        },
+        {
+          "onKill": {
+            "fire": 0.5,
+            "expl": 0.3,
+            "nothing": 0.2,
+            "fHitCritical": true
+          }
+        }
+      ]
+    }
+  ],
+  "MetaParts": {
+    "armor_body": [
+      {
+        "hp": 400.0
+      },
+      {
+        "part": "engine"
+      },
+      {
+        "part": "transmission"
+      },
+      {
+        "part": "radiator"
+      },
+      {
+        "part": "body"
+      },
+      {
+        "part": "body_side"
+      },
+      {
+        "part": "body_top"
+      },
+      {
+        "part": "body_front"
+      },
+      {
+        "part": "body_bottom"
+      },
+      {
+        "part": "body_back"
+      },
+      {
+        "effect": {
+          "conditionDead": true,
+          "killEffect": "expl",
+          "kill": true
+        }
+      }
+    ]
+  }
+}

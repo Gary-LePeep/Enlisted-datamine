@@ -1,0 +1,62 @@
+{
+  "uk_tropical_1": {
+    "animchar__res": "uk_tropical_1_char",
+    "collres__res": "uk_tropical_1_collision",
+    "animchar_fast_phys__res": "uk_tropical_1_fastphys",
+    "animchar_fast_phys": {
+      "_tags": "gameClient"
+    }
+  },
+  "ussr_female_human_voice": {
+    "_group": {
+      "_tags": "sound",
+      "human_sound__playerVoice": "vo/player/enlisted/female_soldier/ru",
+      "human_voice_sound__voiceTag": "femaleVoice",
+      "human_sound__npcVoices:list<t>": [
+        {
+          "voice": "vo/enemy/enlisted/female_soldier01/ru"
+        },
+        {
+          "voice": "vo/enemy/enlisted/female_soldier02/ru"
+        },
+        {
+          "voice": "vo/enemy/enlisted/female_soldier03/ru"
+        }
+      ]
+    }
+  },
+  "ussr_female_base_soldier": [
+    {
+      "_extends": "usa_soldier"
+    },
+    {
+      "_extends": "enlisted_base_soldier"
+    },
+    {
+      "_extends": "ussr_female_human_voice"
+    },
+    {
+      "animchar__res": "basic_female_char_char"
+    },
+    {
+      "collres__res": "basic_female_char_collision"
+    },
+    {
+      "animation__overridedIdleAnims:object": {
+        "_tags": "render",
+        "defaultPoses:list<t>": {
+          "pose": "pilot_idle_female"
+        }
+      }
+    }
+  ],
+  "ussr_female_medic_soldier": {
+    "_extends": "ussr_female_base_soldier",
+    "animation__overridedIdleAnims:object": {
+      "_tags": "render",
+      "defaultPoses:list<t>": {
+        "pose": "enlisted_idle_22_weapon"
+      }
+    }
+  }
+}

@@ -1,0 +1,604 @@
+{
+  "levelBin": "content/base/levels/tunisia_4x4.bin",
+  "enviProbePos": [324.0,16.0,265.0],
+  "clipmap": {
+    "texelSize": 0.0078
+  },
+  "micro_details": [
+    {
+      "micro_detail": "microdetail_stone_a_tex_n*"
+    },
+    {
+      "micro_detail": "microdetail_stone_b_tex_n*"
+    },
+    {
+      "micro_detail": "microdetail_scan_mud_a_tex_n*"
+    },
+    {
+      "micro_detail": "microdetail_sand_a_tex_n*"
+    },
+    {
+      "micro_detail": "microdetail_sand_c_tex_n*"
+    },
+    {
+      "micro_detail": "microdetail_soil_plants_a_tex_n*"
+    },
+    {
+      "micro_detail": "microdetail_soil_a_tex_n*"
+    },
+    {
+      "micro_detail": "microdetail_mud_a_tex_n*"
+    },
+    {
+      "micro_detail": "microdetail_generic_granules_a_tex_n*"
+    },
+    {
+      "micro_detail": "microdetail_wood_a_tex_n*"
+    },
+    {
+      "micro_detail": "microdetail_moss_a_tex_n*"
+    },
+    {
+      "micro_detail": "microdetail_grass_a_tex_n*"
+    },
+    {
+      "micro_detail": "microdetail_forest_floor_a_tex_n*"
+    },
+    {
+      "micro_detail": "microdetail_soil_a_tex_n*"
+    },
+    {
+      "micro_detail": "microdetail_asphalt_a_tex_n*"
+    },
+    {
+      "micro_detail": "microdetail_sand_c_tex_n*"
+    },
+    {
+      "land_micro_details_uv_scale": 1.11
+    },
+    {
+      "microdetail_stone_a_tex_n*": {
+        "coloring": 0.3
+      }
+    },
+    {
+      "microdetail_stone_b_tex_n*": {
+        "coloring": 0.4
+      }
+    },
+    {
+      "microdetail_scan_mud_a_tex_n*": {
+        "coloring": 0.3
+      }
+    },
+    {
+      "microdetail_sand_a_tex_n*": {
+        "coloring": 0.8
+      }
+    },
+    {
+      "microdetail_sand_c_tex_n*": {
+        "coloring": 0.9
+      }
+    },
+    {
+      "microdetail_mud_a_tex_n*": {
+        "coloring": 0.3
+      }
+    },
+    {
+      "microdetail_wood_a_tex_n*": {
+        "coloring": 0.4
+      }
+    },
+    {
+      "microdetail_moss_a_tex_n*": {
+        "coloring": 1.0
+      }
+    },
+    {
+      "microdetail_grass_a_tex_n*": {
+        "coloring": 1.0
+      }
+    },
+    {
+      "microdetail_forest_floor_a_tex_n*": {
+        "coloring": 0.7
+      }
+    },
+    {
+      "microdetail_asphalt_a_tex_n*": {
+        "coloring": 0.3
+      }
+    }
+  ],
+  "skies": {
+    "year": 1941,
+    "latitude": 55.0,
+    "longtitude": 0.0,
+    "weatherSeed": -1,
+    "skyIsUnreachable": false
+  },
+  "volFog": {
+    "rootFogGraph": "content/e_tunisia/shaders/fog_tunisia_4x4.json"
+  },
+  "grass": {
+    "tunisia_4x4_tex_d": "",
+    "grass_grid_size": 0.0938,
+    "grass_distance": 120.0,
+    "grassMaskResolution": 1024,
+    "hor_size_mul": 1.0,
+    "grass_types": {
+      "generic_grass_tall_a": {
+        "diffuse": "grass_generic_grass_tall_a_tex_d",
+        "normal": "grass_generic_grass_tall_a_tex_n",
+        "variations": 1,
+        "height": 0.25,
+        "height_rnd_add": 0.3,
+        "hor_size": 0.4,
+        "hor_size_rnd_add": 0.0,
+        "color_mask_r_from": "#b09b475a",
+        "color_mask_r_to": "#9187485a",
+        "color_mask_g_from": "#84848449",
+        "color_mask_g_to": "#2b2b2b5a",
+        "color_mask_b_from": "#9f926b5a",
+        "color_mask_b_to": "#8f85625a",
+        "height_from_weight_mul": 0.3,
+        "height_from_weight_add": 0.7,
+        "density_from_weight_mul": 0.2,
+        "density_from_weight_add": 0.4,
+        "vertical_angle_add": 0.2,
+        "vertical_angle_mul": 0.6,
+        "horizontal_grass": false
+      },
+      "generic_grass_tall_b": {
+        "diffuse": "grass_generic_grass_tall_b_tex_d",
+        "normal": "grass_generic_grass_tall_b_tex_n",
+        "variations": 1,
+        "height": 0.35,
+        "height_rnd_add": 0.4,
+        "hor_size": 0.4,
+        "hor_size_rnd_add": 0.0,
+        "color_mask_r_from": "#ccbb5e5a",
+        "color_mask_r_to": "#ada3515a",
+        "color_mask_g_from": "#6464645a",
+        "color_mask_g_to": "#6565655a",
+        "color_mask_b_from": "#d8cda15a",
+        "color_mask_b_to": "#babb6a37",
+        "height_from_weight_mul": 0.3,
+        "height_from_weight_add": 0.7,
+        "density_from_weight_mul": 0.15,
+        "density_from_weight_add": 0.25,
+        "vertical_angle_add": 0.2,
+        "vertical_angle_mul": 0.6
+      },
+      "wheat_a": {
+        "diffuse": "grass_wheat_tex_d",
+        "normal": "grass_wheat_tex_n",
+        "variations": 1,
+        "height": 1.3,
+        "height_rnd_add": 0.5,
+        "hor_size": 1.3,
+        "hor_size_rnd_add": 0.5,
+        "color_mask_r_from": "#616d345a",
+        "color_mask_r_to": "#7e692f5a",
+        "color_mask_g_from": "#5555555a",
+        "color_mask_g_to": "#cecece5a",
+        "color_mask_b_from": "#59621a5a",
+        "color_mask_b_to": "#9873535a",
+        "height_from_weight_mul": 0.3,
+        "height_from_weight_add": 0.7,
+        "density_from_weight_mul": 0.4,
+        "density_from_weight_add": 0.0
+      },
+      "field_grass_a": {
+        "diffuse": "grass_generic_grass_tall_a_tex_d",
+        "normal": "grass_generic_grass_tall_a_tex_n",
+        "variations": 1,
+        "height": 0.05,
+        "ht_rnd_add": 0.25,
+        "hor_size": 0.4,
+        "hor_size_rnd_add": 0.4,
+        "color_mask_r_from": "#aa986d00",
+        "color_mask_r_to": "#e2c57e00",
+        "color_mask_g_from": "#78746d00",
+        "color_mask_g_to": "#83817e00",
+        "color_mask_b_from": "#c3b29100",
+        "color_mask_b_to": "#e1c99c00",
+        "height_from_weight_mul": 0.3,
+        "height_from_weight_add": 0.7,
+        "density_from_weight_mul": 0.25,
+        "density_from_weight_add": 0.4
+      },
+      "generic_grass_flat_a": {
+        "diffuse": "grass_generic_grass_small_a_tex_d",
+        "normal": "grass_generic_grass_small_a_tex_n",
+        "variations": 1,
+        "horizontal_grass": true,
+        "height": 0.5,
+        "height_rnd_add": 0.2,
+        "hor_size": 0.5,
+        "hor_size_rnd_add": 0.2,
+        "color_mask_r_from": "#a391795a",
+        "color_mask_r_to": "#5150005a",
+        "color_mask_g_from": "#0505055a",
+        "color_mask_g_to": "#c7c7c75a",
+        "color_mask_b_from": "#3d38005a",
+        "color_mask_b_to": "#6854425a",
+        "height_from_weight_mul": 0.5,
+        "height_from_weight_add": 0.5,
+        "density_from_weight_mul": 0.0,
+        "density_from_weight_add": 0.6
+      },
+      "bush_dead_a": {
+        "diffuse": "grass_generic_bush_dead_a_tex_d",
+        "normal": "grass_generic_bush_dead_a_tex_n",
+        "variations": 1,
+        "height": 1.2,
+        "height_rnd_add": 0.6,
+        "hor_size": 1.0,
+        "hor_size_rnd_add": 0.2,
+        "color_mask_r_from": "#82706d5a",
+        "color_mask_r_to": "#2c180c5a",
+        "color_mask_g_from": "#1a1a1a5a",
+        "color_mask_g_to": "#bab0975a",
+        "color_mask_b_from": "#2f0b085a",
+        "color_mask_b_to": "#2d26225a",
+        "height_from_weight_mul": 0.3,
+        "height_from_weight_add": 0.7,
+        "density_from_weight_mul": 0.15,
+        "density_from_weight_add": 0.0
+      },
+      "bush_a": {
+        "diffuse": "grass_generic_bush_a_tex_d",
+        "normal": "grass_generic_bush_a_tex_n",
+        "variations": 1,
+        "height": 0.6,
+        "height_rnd_add": 1.0,
+        "hor_size": 0.7,
+        "hor_size_rnd_add": 0.2,
+        "color_mask_r_from": "#1833015a",
+        "color_mask_r_to": "#3540055a",
+        "color_mask_g_from": "#0505055a",
+        "color_mask_g_to": "#fafafa5a",
+        "color_mask_b_from": "#2f0b085a",
+        "color_mask_b_to": "#2d26225a",
+        "height_from_weight_mul": 0.2,
+        "height_from_weight_add": 0.8,
+        "density_from_weight_mul": 0.2,
+        "density_from_weight_add": 0.0
+      },
+      "chamerion_angustifolium": {
+        "diffuse": "grass_chamerion_angustifolium_tex_d",
+        "normal": "grass_chamerion_angustifolium_tex_n",
+        "variations": 1,
+        "height": 0.65,
+        "ht_rnd_add": 0.3,
+        "hor_size": 1.1,
+        "hor_size_rnd_add": 0.2,
+        "color_mask_r_from": "#8e53b75a",
+        "color_mask_r_to": "#a3656a5a",
+        "color_mask_g_from": "#0505055a",
+        "color_mask_g_to": "#d7d7d75a",
+        "color_mask_b_from": "#7278065a",
+        "color_mask_b_to": "#333c005a",
+        "height_from_weight_mul": 0.3,
+        "height_from_weight_add": 0.7,
+        "density_from_weight_mul": 0.35,
+        "density_from_weight_add": 0.0
+      },
+      "chamerion_angustifolium_blue": {
+        "diffuse": "grass_chamerion_angustifolium_tex_d",
+        "normal": "grass_chamerion_angustifolium_tex_n",
+        "variations": 1,
+        "height": 0.85,
+        "ht_rnd_add": 0.5,
+        "hor_size": 1.1,
+        "hor_size_rnd_add": 0.4,
+        "color_mask_r_from": "#8474c75a",
+        "color_mask_r_to": "#5863a25a",
+        "color_mask_g_from": "#0505055a",
+        "color_mask_g_to": "#d7d7d75a",
+        "color_mask_b_from": "#7278065a",
+        "color_mask_b_to": "#333c005a",
+        "height_from_weight_mul": 0.3,
+        "height_from_weight_add": 0.7,
+        "density_from_weight_mul": 0.35,
+        "density_from_weight_add": 0.0
+      },
+      "chamerion_angustifolium_green": {
+        "diffuse": "grass_chamerion_angustifolium_tex_d",
+        "normal": "grass_chamerion_angustifolium_tex_n",
+        "variations": 1,
+        "height": 0.2,
+        "ht_rnd_add": 1.0,
+        "hor_size": 0.3,
+        "hor_size_rnd_add": 0.5,
+        "color_mask_r_from": "#5a5e1c5a",
+        "color_mask_r_to": "#3f68165a",
+        "color_mask_g_from": "#0505055a",
+        "color_mask_g_to": "#bcb8b85a",
+        "color_mask_b_from": "#5657485a",
+        "color_mask_b_to": "#333c005a",
+        "height_from_weight_mul": 0.0,
+        "height_from_weight_add": 1.0,
+        "density_from_weight_mul": 0.8,
+        "density_from_weight_add": 0.0
+      },
+      "ammophila_arenaria": {
+        "diffuse": "grass_ammophila_arenaria_tex_d",
+        "normal": "grass_ammophila_arenaria_tex_n",
+        "variations": 1,
+        "height": 0.8,
+        "height_rnd_add": 0.4,
+        "hor_size": 0.8,
+        "hor_size_rnd_add": 0.2,
+        "color_mask_r_from": "#e7bfa15a",
+        "color_mask_r_to": "#d1a17a5a",
+        "color_mask_g_from": "#2e27185a",
+        "color_mask_g_to": "#9d90865a",
+        "color_mask_b_from": "#423a1f5a",
+        "color_mask_b_to": "#9a7d615a",
+        "height_from_weight_mul": 0.5,
+        "height_from_weight_add": 0.5,
+        "density_from_weight_mul": 0.5,
+        "density_from_weight_add": 0.0
+      },
+      "cortadelia_selloana_fields": {
+        "diffuse": "grass_cortadelia_selloana_tex_d",
+        "normal": "grass_cortadelia_selloana_tex_n",
+        "variations": 1,
+        "height": 0.8,
+        "height_rnd_add": 0.5,
+        "hor_size": 1.0,
+        "hor_size_rnd_add": 0.4,
+        "color_mask_r_from": "#c0aa935a",
+        "color_mask_r_to": "#beb0985a",
+        "color_mask_g_from": "#0000005a",
+        "color_mask_g_to": "#d0d0d05a",
+        "color_mask_b_from": "#373f325a",
+        "color_mask_b_to": "#2e382e5a",
+        "height_from_weight_mul": 0.4,
+        "height_from_weight_add": 0.6,
+        "density_from_weight_mul": 0.25,
+        "density_from_weight_add": 0.15
+      },
+      "cortadelia_selloana": {
+        "diffuse": "grass_cortadelia_selloana_tex_d",
+        "normal": "grass_cortadelia_selloana_tex_n",
+        "variations": 1,
+        "height": 0.1,
+        "ht_rnd_add": 0.3,
+        "hor_size": 0.7,
+        "hor_size_rnd_add": 0.2,
+        "color_mask_r_from": "#c7a17a5a",
+        "color_mask_r_to": "#baa27b5a",
+        "color_mask_g_from": "#5c58585a",
+        "color_mask_g_to": "#cccccc5a",
+        "color_mask_b_from": "#a6a4835a",
+        "color_mask_b_to": "#a8997e5a",
+        "height_from_weight_mul": 0.4,
+        "height_from_weight_add": 0.6,
+        "density_from_weight_mul": 0.3,
+        "density_from_weight_add": 0.2
+      },
+      "cortadelia_selloana_high": {
+        "diffuse": "grass_cortadelia_selloana_tex_d",
+        "normal": "grass_cortadelia_selloana_tex_n",
+        "variations": 1,
+        "height": 0.4,
+        "ht_rnd_add": 1.1,
+        "hor_size": 0.4,
+        "hor_size_rnd_add": 0.7,
+        "color_mask_r_from": "#efc2925a",
+        "color_mask_r_to": "#f0ce975a",
+        "color_mask_g_from": "#0000005a",
+        "color_mask_g_to": "#ababab5a",
+        "color_mask_b_from": "#1d38075a",
+        "color_mask_b_to": "#0724065a",
+        "height_from_weight_mul": 0.2,
+        "height_from_weight_add": 0.8,
+        "density_from_weight_mul": 0.175,
+        "density_from_weight_add": 0.1
+      },
+      "tanacetum_vulgare": {
+        "diffuse": "grass_tanacetum_vulgare_tex_d",
+        "normal": "grass_tanacetum_vulgare_tex_n",
+        "variations": 1,
+        "height": 1.1,
+        "height_rnd_add": 0.6,
+        "hor_size": 1.0,
+        "hor_size_rnd_add": 0.2,
+        "color_mask_r_from": "#e1e76f5a",
+        "color_mask_r_to": "#e9d02c5a",
+        "color_mask_g_from": "#0505055a",
+        "color_mask_g_to": "#bbb3ad5a",
+        "color_mask_b_from": "#76592a5a",
+        "color_mask_b_to": "#735f105a",
+        "height_from_weight_mul": 0.5,
+        "height_from_weight_add": 0.5,
+        "density_from_weight_mul": 0.5,
+        "density_from_weight_add": 0.0
+      },
+      "clover_flat": {
+        "diffuse": "grass_clover_flat_tex_d",
+        "normal": "grass_clover_flat_tex_n",
+        "variations": 1,
+        "horizontal_grass": true,
+        "height": 1.15,
+        "ht_rnd_add": 0.8,
+        "hor_size": 1.15,
+        "hor_size_rnd_add": 0.8,
+        "color_mask_r_from": "#2944055a",
+        "color_mask_r_to": "#64661c5a",
+        "color_mask_g_from": "#0505055a",
+        "color_mask_g_to": "#9c9c9c5a",
+        "color_mask_b_from": "#3246155a",
+        "color_mask_b_to": "#32461a5a",
+        "height_from_weight_mul": 0.5,
+        "height_from_weight_add": 0.5,
+        "density_from_weight_mul": 0.185,
+        "density_from_weight_add": 0.0
+      },
+      "matricaria_chamomilla": {
+        "diffuse": "grass_matricaria_chamomilla_tex_d",
+        "normal": "grass_matricaria_chamomilla_tex_n",
+        "variations": 1,
+        "height": 0.3,
+        "ht_rnd_add": 0.1,
+        "hor_size": 0.3,
+        "hor_size_rnd_add": 0.1,
+        "stiffness": 0.3,
+        "color_mask_r_from": "#ffc9255a",
+        "color_mask_r_to": "#ff95005a",
+        "color_mask_g_from": "#0505055a",
+        "color_mask_g_to": "#d8d4c05a",
+        "color_mask_b_from": "#b038b75a",
+        "color_mask_b_to": "#722fb45a",
+        "height_from_weight_mul": 0.5,
+        "height_from_weight_add": 0.5,
+        "density_from_weight_mul": 0.7,
+        "density_from_weight_add": 0.0,
+        "vertical_angle_add": 0.2,
+        "vertical_angle_mul": 0.6
+      },
+      "yellow_berries": {
+        "diffuse": "grass_blueberry_tex_d",
+        "normal": "grass_blueberry_tex_n",
+        "variations": 1,
+        "height": 0.4,
+        "ht_rnd_add": 0.5,
+        "hor_size": 0.45,
+        "hor_size_rnd_add": 0.7,
+        "stiffness": 0.7,
+        "color_mask_r_from": "#ffc9255a",
+        "color_mask_r_to": "#b4b2435a",
+        "color_mask_g_from": "#0505055a",
+        "color_mask_g_to": "#a09f8d5a",
+        "color_mask_b_from": "#86855e5a",
+        "color_mask_b_to": "#334b305a",
+        "height_from_weight_mul": 0.75,
+        "height_from_weight_add": 0.25,
+        "density_from_weight_mul": 0.7,
+        "density_from_weight_add": 0.0,
+        "vertical_angle_add": -0.39,
+        "vertical_angle_mul": 0.45
+      },
+      "nograss": {
+        "density_from_weight_mul": 0.0,
+        "density_from_weight_add": 0.0
+      }
+    },
+    "decals": {
+      "beach_vegetation": {
+        "id": 10,
+        "generic_grass_tall_a": 1.0,
+        "generic_grass_tall_b": 0.7,
+        "bush_a": 0.4,
+        "chamerion_angustifolium": 0.3
+      },
+      "forest_a": {
+        "id": 11,
+        "generic_grass_tall_a": 3.0,
+        "generic_grass_tall_b": 2.0,
+        "bush_a": 3.0,
+        "nograss": 1.0
+      },
+      "forest_b": {
+        "id": 12,
+        "generic_grass_tall_a": 3.0,
+        "generic_grass_tall_b": 2.0,
+        "bush_a": 3.0,
+        "nograss": 1.0
+      },
+      "main_curvature": {
+        "id": 17,
+        "generic_grass_tall_a": 1.0,
+        "generic_grass_tall_b": 1.0,
+        "bush_dead_a": 1.0,
+        "matricaria_chamomilla": 2.0
+      },
+      "main_noise": {
+        "id": 20,
+        "field_grass_a": 4.0,
+        "nograss": 1.0,
+        "bush_dead_a": 0.1,
+        "cortadelia_selloana": 1.0
+      },
+      "water_vegetation": {
+        "id": 24,
+        "clover_flat": 3.0,
+        "chamerion_angustifolium_green": 1.0,
+        "cortadelia_selloana_high": 3.0,
+        "nograss": 1.0
+      },
+      "dunes_outline": {
+        "id": 30,
+        "field_grass_a": 2.0,
+        "yellow_berries": 3.0,
+        "bush_dead_a": 0.5,
+        "nograss": 1.0
+      },
+      "buildings": {
+        "id": 35,
+        "field_grass_a": 1.0,
+        "nograss": 1.0,
+        "generic_grass_flat_a": 0.1
+      },
+      "city_flat_grass": {
+        "id": 37,
+        "nograss": 1.0,
+        "generic_grass_flat_a": 0.5
+      },
+      "buildings_borders": {
+        "id": 38,
+        "chamerion_angustifolium": 1.0
+      },
+      "caves": {
+        "id": 40,
+        "field_grass_a": 4.0,
+        "nograss": 1.0,
+        "bush_dead_a": 0.1,
+        "cortadelia_selloana": 1.0
+      },
+      "roads_vegetation": {
+        "id": 41,
+        "generic_grass_tall_a": 1.0,
+        "generic_grass_tall_b": 1.0,
+        "bush_dead_a": 1.0,
+        "nograss": 1.0
+      },
+      "field_a": {
+        "id": 52,
+        "generic_grass_flat_a": 3.0,
+        "cortadelia_selloana_fields": 5.0,
+        "bush_a": 3.0,
+        "nograss": 1.0
+      },
+      "field_b": {
+        "id": 53,
+        "chamerion_angustifolium_blue": 5.0,
+        "nograss": 1.0
+      },
+      "field_c": {
+        "id": 54,
+        "matricaria_chamomilla": 5.0,
+        "nograss": 1.0
+      },
+      "field_d": {
+        "id": 55,
+        "generic_grass_flat_a": 3.0,
+        "tanacetum_vulgare": 5.0,
+        "bush_a": 3.0,
+        "nograss": 1.0
+      }
+    }
+  },
+  "unitedVdata.rendInst": {
+    "IB": 65536,
+    "VB1": 65536,
+    "VB2": 65536,
+    "VB3": 65536,
+    "VB4": 0
+  }
+}

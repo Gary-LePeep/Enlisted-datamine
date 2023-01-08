@@ -1,0 +1,576 @@
+{
+  "_infoCommonComponents": {
+    "ri_hit_points": {
+      "desc": "Special values are: 0 (default HP with regeneration), -1 (default HP with no regeneration) and -2 (invincible). Anything more than 0 is explicit hit points value with no regeneration."
+    }
+  },
+  "rendinst_base": {
+    "transform": [
+      [1.0,0.0,0.0],
+      [0.0,1.0,0.0],
+      [0.0,0.0,1.0],
+      [0.0,0.0,0.0]
+    ],
+    "_tracked": "transform",
+    "ri_extra__destroyed": false,
+    "riExtraAuthority:tag": {
+      "_tags": "server"
+    },
+    "riOffender:eid": {
+      "_tags": "server"
+    },
+    "ri_extra": []
+  },
+  "rendinst_handle": {
+    "_extends": "rendinst_base",
+    "ri_extra__handle:u64": {
+      "value": -1
+    }
+  },
+  "rendinst": {
+    "_extends": "rendinst_base",
+    "ri_extra__bboxMin": [0.0,0.0,0.0],
+    "ri_extra__bboxMax": [0.0,0.0,0.0],
+    "ri_extra__name:t": {
+      "value": "sandbags_wall_medium_rounded_a",
+      "_info": {
+        "desc": "Render model name for this extra render instance (RI)"
+      }
+    }
+  },
+  "game_rendinst": [
+    {
+      "_extends": "rendinst"
+    },
+    {
+      "_extends": "replicating"
+    },
+    {
+      "ri_shadow__prevBSphere": [0.0,0.0,0.0,0.0]
+    },
+    {
+      "gameRendInstTag:tag": []
+    },
+    {
+      "ri_extra__overrideHitPoints:i": {
+        "value": 0,
+        "_info": "ri_hit_points"
+      }
+    },
+    {
+      "isRendinstDestr:tag": {
+        "_tags": "render"
+      }
+    },
+    {
+      "_info": {
+        "desc": "Game level model (render instance or RI) with physical destruction (some are immortal). You can also create, copy and remove RI via Toolbox panel at right top corner of editor (Toolbox/RendInsts)."
+      }
+    }
+  ],
+  "game_rendinst_decor": [
+    {
+      "_extends": "rendinst"
+    },
+    {
+      "_extends": "replicating"
+    },
+    {
+      "ri_shadow__prevBSphere": [0.0,0.0,0.0,0.0]
+    },
+    {
+      "ri_extra__hasCollision": true
+    },
+    {
+      "gameRendInstTag:tag": []
+    },
+    {
+      "ri_extra__overrideHitPoints:i": {
+        "value": -2,
+        "_info": "ri_hit_points"
+      }
+    },
+    {
+      "_info": {
+        "desc": "Game level model (render instance or RI) without physical destruction. You can also create, copy and remove RI via Toolbox panel at right top corner of editor (Toolbox/RendInsts)."
+      }
+    }
+  ],
+  "unbaked_rendinst": [
+    {
+      "_extends": "rendinst"
+    },
+    {
+      "_extends": "replicating"
+    },
+    {
+      "ri_shadow__prevBSphere": [0.0,0.0,0.0,0.0]
+    },
+    {
+      "nonCreatableObj": true
+    },
+    {
+      "_skipInitialReplication": "rebake__tm,rebake__name"
+    },
+    {
+      "rebake__tm": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [0.0,0.0,0.0]
+      ]
+    },
+    {
+      "rebake__name": ""
+    },
+    {
+      "unbakedRendInstTag:tag": []
+    },
+    {
+      "ri_extra__overrideHitPoints:i": {
+        "value": 0,
+        "_info": "ri_hit_points"
+      }
+    },
+    {
+      "isRendinstDestr:tag": {
+        "_tags": "render"
+      }
+    },
+    {
+      "_info": {
+        "desc": "Original level model (render instance or RI) unbaked from level that could be freely moved, rotated and scaled. Please note, that you can select, remove and copy RI via Toolbox panel at right top corner of editor (RendInsts)."
+      }
+    }
+  ],
+  "enbaked_ri": {
+    "enbakedRITag:tag": {
+      "_tags": "render"
+    },
+    "ignoredEditable:tag": {
+      "_tags": "render"
+    }
+  },
+  "unbaked_door_ri": {
+    "_extends": "replicating",
+    "ri_replicateDoorTm": [
+      [1.0,0.0,0.0],
+      [0.0,1.0,0.0],
+      [0.0,0.0,1.0],
+      [0.0,0.0,0.0]
+    ],
+    "ri_extra__name": "",
+    "_skipInitialReplication": "rebake__tm,rebake__name",
+    "rebake__tm": [
+      [1.0,0.0,0.0],
+      [0.0,1.0,0.0],
+      [0.0,0.0,1.0],
+      [0.0,0.0,0.0]
+    ],
+    "rebake__name": "",
+    "clonedRIDoorTag:tag": []
+  },
+  "rebaked_rendinst": {
+    "_extends": "rendinst",
+    "ri_shadow__prevBSphere": [0.0,0.0,0.0,0.0],
+    "nonCreatableObj": true,
+    "editableObj": false,
+    "rebakedRendInstTag:tag": []
+  },
+  "animated_scripted_rendinst": [
+    {
+      "_extends": "rendinst"
+    },
+    {
+      "_extends": "key_track_animated"
+    },
+    {
+      "_extends": "set_rotation"
+    }
+  ],
+  "sandbags_ri": [
+    {
+      "_extends": "rendinst"
+    },
+    {
+      "_extends": "replicating"
+    }
+  ],
+  "sandbags_wall_high_10x8_canopy_a": [
+    {
+      "_extends": "rendinst"
+    },
+    {
+      "_extends": "replicating"
+    },
+    {
+      "ri_extra__name": "sandbags_wall_high_10x8_canopy_a"
+    }
+  ],
+  "sandbags_wall_low_l2000_a": [
+    {
+      "_extends": "rendinst"
+    },
+    {
+      "_extends": "replicating"
+    },
+    {
+      "ri_extra__name": "sandbags_wall_low_l2000_a"
+    }
+  ],
+  "target_round_a": [
+    {
+      "_extends": "rendinst"
+    },
+    {
+      "_extends": "replicating"
+    },
+    {
+      "ri_extra__name": "target_round_a"
+    }
+  ],
+  "target_round_b": [
+    {
+      "_extends": "rendinst"
+    },
+    {
+      "_extends": "replicating"
+    },
+    {
+      "ri_extra__name": "target_round_b"
+    }
+  ],
+  "target_round_c": [
+    {
+      "_extends": "rendinst"
+    },
+    {
+      "_extends": "replicating"
+    },
+    {
+      "ri_extra__name": "target_round_c"
+    }
+  ],
+  "target_silhouette_a": [
+    {
+      "_extends": "rendinst"
+    },
+    {
+      "_extends": "replicating"
+    },
+    {
+      "ri_extra__name": "target_silhouette_a"
+    }
+  ],
+  "target_silhouette_b": [
+    {
+      "_extends": "rendinst"
+    },
+    {
+      "_extends": "replicating"
+    },
+    {
+      "ri_extra__name": "target_silhouette_b"
+    }
+  ],
+  "target_silhouette_c": [
+    {
+      "_extends": "rendinst"
+    },
+    {
+      "_extends": "replicating"
+    },
+    {
+      "ri_extra__name": "target_silhouette_c"
+    }
+  ],
+  "target_tank_a": [
+    {
+      "_extends": "rendinst"
+    },
+    {
+      "_extends": "replicating"
+    },
+    {
+      "ri_extra__name": "target_tank_a"
+    }
+  ],
+  "target_tank_a_mission": [
+    {
+      "_extends": "rendinst"
+    },
+    {
+      "_extends": "replicating"
+    },
+    {
+      "ri_extra__name": "target_tank_a_mission"
+    }
+  ],
+  "russia_red_onion": [
+    {
+      "_extends": "rendinst"
+    },
+    {
+      "_extends": "replicating"
+    },
+    {
+      "ri_extra__name": "russia_red_onion"
+    }
+  ],
+  "russia_yellow_onion": [
+    {
+      "_extends": "rendinst"
+    },
+    {
+      "_extends": "replicating"
+    },
+    {
+      "ri_extra__name": "russia_yellow_onion"
+    }
+  ],
+  "storage_tank_c": [
+    {
+      "_extends": "rendinst"
+    },
+    {
+      "_extends": "replicating"
+    },
+    {
+      "ri_extra__name": "storage_tank_c"
+    }
+  ],
+  "opel_blitz_kfz_305_broken": [
+    {
+      "_extends": "rendinst"
+    },
+    {
+      "_extends": "replicating"
+    },
+    {
+      "ri_extra__name": "opel_blitz_kfz_305_broken"
+    }
+  ],
+  "88mm_flak_36_canon_b": [
+    {
+      "_extends": "rendinst"
+    },
+    {
+      "_extends": "replicating"
+    },
+    {
+      "ri_extra__name": "88mm_flak_36_canon_b"
+    }
+  ],
+  "150cm_flak_sw_37": [
+    {
+      "_extends": "rendinst"
+    },
+    {
+      "_extends": "replicating"
+    },
+    {
+      "ri_extra__name": "150cm_flak_sw_37"
+    }
+  ],
+  "24kw_flak_generator": [
+    {
+      "_extends": "rendinst"
+    },
+    {
+      "_extends": "replicating"
+    },
+    {
+      "ri_extra__name": "24kw_flak_generator"
+    }
+  ],
+  "bf_109g_14_a_destroyed": [
+    {
+      "_extends": "rendinst"
+    },
+    {
+      "_extends": "replicating"
+    },
+    {
+      "ri_extra__name": "bf_109g_14_a_destroyed"
+    }
+  ],
+  "tree_spruce_christmas_c": [
+    {
+      "_extends": "rendinst"
+    },
+    {
+      "_extends": "replicating"
+    },
+    {
+      "ri_extra__name": "tree_spruce_christmas_c"
+    }
+  ],
+  "debris_wooden_planks_stack_a": [
+    {
+      "_extends": "rendinst"
+    },
+    {
+      "_extends": "replicating"
+    },
+    {
+      "ri_extra__name": "debris_wooden_planks_stack_a"
+    }
+  ],
+  "sawmill_wood_boards_a": [
+    {
+      "_extends": "rendinst"
+    },
+    {
+      "_extends": "replicating"
+    },
+    {
+      "ri_extra__name": "sawmill_wood_boards_a"
+    }
+  ],
+  "russia_wooden_planks_b": [
+    {
+      "_extends": "rendinst"
+    },
+    {
+      "_extends": "replicating"
+    },
+    {
+      "ri_extra__name": "russia_wooden_planks_b"
+    }
+  ],
+  "animated_scene_rendinst": [
+    {
+      "_extends": "replicating"
+    },
+    {
+      "_extends": "key_track_animated"
+    },
+    {
+      "_extends": "set_rotation"
+    },
+    {
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [0.0,0.0,0.0]
+      ]
+    },
+    {
+      "initialTransform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [0.0,0.0,0.0]
+      ]
+    },
+    {
+      "_tracked": "transform"
+    },
+    {
+      "ri_extra__destroyed": false
+    },
+    {
+      "ri_extra": []
+    },
+    {
+      "ri_extra__handle:u64": {
+        "value": -1
+      }
+    }
+  ],
+  "floating_rendinst_system": {
+    "_singleton": true,
+    "floatingRiSystem__useRandomWaves": false,
+    "floatingRiSystem__volumePresets:object": {
+      "default_1:object": {
+        "floatVolumesCd": 0.57,
+        "sphereRad": 0.8,
+        "middleDepth": 0.0,
+        "volumesCount": 1
+      },
+      "default_4:object": {
+        "floatVolumesCd": 0.57,
+        "sphereRad": 0.57,
+        "sideDepth": 0.0,
+        "volumesCount": 4
+      },
+      "default_12:object": {
+        "floatVolumesCd": 0.57,
+        "sphereRad": 0.37,
+        "middleDepth": 0.5,
+        "sideDepth": 0.0,
+        "volumesCount": 12
+      }
+    },
+    "floatingRiSystem__userVolumePresets:object": []
+  },
+  "floating_rendinst_res_group": [
+    {
+      "_tracked": "floatingRiGroup__resName"
+    },
+    {
+      "_tracked": "floatingRiGroup__mass"
+    },
+    {
+      "_tracked": "floatingRiGroup__inertiaMult"
+    },
+    {
+      "_tracked": "floatingRiGroup__volumesCount"
+    },
+    {
+      "_tracked": "floatingRiGroup__volumePresetName"
+    },
+    {
+      "_tracked": "floatingRiGroup__geomCenterShift"
+    },
+    {
+      "_tracked": "floatingRiGroup__physBboxSizeMul"
+    },
+    {
+      "floatingRiGroup__resName": ""
+    },
+    {
+      "floatingRiGroup__mass": 1.0
+    },
+    {
+      "floatingRiGroup__inertiaMult": [80.0,0.1,80.0]
+    },
+    {
+      "floatingRiGroup__volumesCount": -1
+    },
+    {
+      "floatingRiGroup__volumePresetName": ""
+    },
+    {
+      "floatingRiGroup__wreckageFloatDuration": 15.0
+    },
+    {
+      "floatingRiGroup__updateDistSq": 1000000.0
+    },
+    {
+      "floatingRiGroup__interactionType": 0
+    },
+    {
+      "floatingRiGroup__interactionDistSq": 0.0
+    },
+    {
+      "floatingRiGroup__elasticity": 0.1
+    },
+    {
+      "floatingRiGroup__physUpdateDt": 0.0417
+    },
+    {
+      "floatingRiGroup__maxShiftDist": 1000.0
+    },
+    {
+      "floatingRiGroup__geomCenterShift": [0.0,0.0,0.0]
+    },
+    {
+      "floatingRiGroup__physBboxSizeMul": [1.0,1.0,1.0]
+    },
+    {
+      "floatingRiGroup__riPhysFloatingModel": []
+    }
+  ]
+}

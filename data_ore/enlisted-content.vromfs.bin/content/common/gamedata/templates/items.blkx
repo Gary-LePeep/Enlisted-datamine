@@ -1,0 +1,622 @@
+{
+  "item_with_owner": [
+    {
+      "_replicated": "item__ownerEid"
+    },
+    {
+      "_replicated": "item__lastOwner"
+    },
+    {
+      "_tracked": "item__ownerEid"
+    },
+    {
+      "_tracked": "item__lastOwner"
+    },
+    {
+      "item__ownerEid:eid": []
+    },
+    {
+      "item__lastOwner:eid": []
+    }
+  ],
+  "controllable_hero_item": {
+    "item__owned_controllable_hero:tag": []
+  },
+  "base_item": [
+    {
+      "_extends": "item_with_owner"
+    },
+    {
+      "_extends": "replicating"
+    },
+    {
+      "item__id": 0
+    },
+    {
+      "item__iconYaw": 45.0
+    },
+    {
+      "item__iconPitch": 0.0
+    },
+    {
+      "item__iconRoll": 0.0
+    },
+    {
+      "item__iconOffset": [0.0,0.0]
+    },
+    {
+      "item__iconScale": 1.0
+    },
+    {
+      "item__ui_priority": 0
+    },
+    {
+      "item__lootType": "item"
+    },
+    {
+      "item__alreadyLooted": false
+    },
+    {
+      "item__isOnGround": false
+    },
+    {
+      "item__visibleCheckHeight": 0.5
+    },
+    {
+      "item__recreateOnGround": "item_in_world"
+    },
+    {
+      "item__recreateInInventory": ""
+    },
+    {
+      "hide_counter": 0
+    },
+    {
+      "_replicated": "item__id"
+    },
+    {
+      "_replicated": "item__isOnGround"
+    },
+    {
+      "shreddableInDarkZone": true
+    },
+    {
+      "customProps:object": []
+    },
+    {
+      "net__notInInitialScope:tag": []
+    }
+  ],
+  "visibility_traceable_item": {
+    "item__visible": false,
+    "_tracked": "item__visible",
+    "traceVisibility:tag": []
+  },
+  "visibility_traceable_item_cache": {
+    "lastVisibilityTraceTime": 0.0,
+    "lastVisibilityTraceOffset": 0
+  },
+  "ui_visible": {
+    "ui_visible:tag": {
+      "_tags": "render"
+    }
+  },
+  "nonreplicated_tm_item_in_world": [
+    {
+      "_extends": "animchar"
+    },
+    {
+      "_extends": "visibility_traceable_item_cache"
+    },
+    {
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [0.0,0.0,0.0]
+      ]
+    },
+    {
+      "_tracked": "transform"
+    },
+    {
+      "item__isOnGround": true
+    },
+    {
+      "animchar__updatable": false
+    },
+    {
+      "spawnedInRegion": ""
+    },
+    {
+      "net__scopeDistanceSq": 2500.0
+    },
+    {
+      "ui__visibility_distance_sq": 100.0
+    },
+    {
+      "grid_obj__gridType": "loot"
+    },
+    {
+      "grid_obj__fixedTmScale": -1.0
+    },
+    {
+      "grid_obj": []
+    },
+    {
+      "collres": []
+    },
+    {
+      "item__isPickable:tag": []
+    },
+    {
+      "_group": {
+        "_tags": "ui",
+        "hud_marker__max_distance": 10.0
+      }
+    }
+  ],
+  "item_in_world": [
+    {
+      "_extends": "nonreplicated_tm_item_in_world"
+    },
+    {
+      "_extends": "disable_update"
+    },
+    {
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [0.0,0.0,0.0]
+      ]
+    },
+    {
+      "_replicated": "transform"
+    },
+    {
+      "_replicated": "item__isOnGround"
+    },
+    {
+      "item__isOnGround": true
+    },
+    {
+      "itemInWorld:tag": []
+    }
+  ],
+  "default_item_ui_info": {
+    "item__iconYaw": 45.0,
+    "item__iconPitch": 0.0,
+    "item__iconRoll": 0.0,
+    "item__iconOffset": [0.0,0.0],
+    "item__iconScale": 1.0,
+    "item__ui_priority": 0,
+    "item__lootType": "item",
+    "item__alreadyLooted": false
+  },
+  "attached_to_parent": {
+    "attachedToParent:tag": []
+  },
+  "equipable_item": [
+    {
+      "_extends": "ecs_no_debug"
+    },
+    {
+      "_extends": "base_item"
+    },
+    {
+      "_extends": "default_item_ui_info"
+    },
+    {
+      "_extends": "replicating"
+    },
+    {
+      "slot_attach__slotId": -1
+    },
+    {
+      "_tracked": "slot_attach__slotId"
+    },
+    {
+      "_replicated": "slot_attach__slotId"
+    },
+    {
+      "item__recreateOnGround": "item_in_world"
+    },
+    {
+      "item__recreateInEquipment": "base_vis_item"
+    },
+    {
+      "shreddableInDarkZone": true
+    },
+    {
+      "slot_attach:tag": []
+    },
+    {
+      "net__notInInitialScope:tag": []
+    },
+    {
+      "collres": []
+    }
+  ],
+  "heal_anim_item": {
+    "item__healAnimEnumValue": -1,
+    "item__healTargetAnimEnumValue": -1
+  },
+  "hidden_equipped_item": {
+    "_extends": "slot_attachable",
+    "slot_attach__visible": false,
+    "_tracked": "slot_attach__visible",
+    "animchar_render__enabled": false
+  },
+  "item_with_animchar_updatable": {
+    "_extends": "base_item"
+  },
+  "item": [
+    {
+      "_extends": "ecs_no_debug"
+    },
+    {
+      "_extends": "item_with_animchar_updatable"
+    },
+    {
+      "animchar__actOnDemand:tag": []
+    }
+  ],
+  "base_map_highlight": {
+    "map_highlight__type": "",
+    "map_highlight__template": "",
+    "map_highlight__visible": false,
+    "map_highlight__enabled": true,
+    "map_highlight__disableWhenOwned": true
+  },
+  "scope_map_icon": {
+    "map_marker__image": "!ui/skin#map_mole.svg"
+  },
+  "scope_highlight": {
+    "_extends": "base_map_highlight",
+    "map_highlight__type": "scope",
+    "map_highlight__template": "scope_map_icon"
+  },
+  "item_scope": [
+    {
+      "_extends": "item"
+    },
+    {
+      "_extends": "scope_highlight"
+    },
+    {
+      "item__iconYaw": 90.0
+    },
+    {
+      "item__lootType": "scope"
+    }
+  ],
+  "item_perk": {
+    "_extends": "equipable_item",
+    "item__lootType": "mod"
+  },
+  "item_bag": {
+    "_extends": "equipable_item",
+    "item__lootType": "bag",
+    "item__pickupScore": -1.0,
+    "_replicated": "item__pickupScore"
+  },
+  "item_food": [
+    {
+      "_extends": "item"
+    },
+    {
+      "_extends": "heal_anim_item"
+    },
+    {
+      "item__lootType": "food"
+    },
+    {
+      "item__useSpeech": "useFood"
+    },
+    {
+      "item__lootSoundType": "healing"
+    },
+    {
+      "item__healAnimEnumName": "first_aid_eat_generic"
+    },
+    {
+      "item__canUseWhileSwimmingStill:tag": []
+    },
+    {
+      "item__interruptsReloading:tag": []
+    }
+  ],
+  "item_armor": {
+    "_extends": "equipable_item",
+    "item__lootType": "armor",
+    "item__lootSoundType": "armor",
+    "item__iconPitch": 25.0,
+    "item__iconYaw": -90.0,
+    "item__iconRoll": 90.0,
+    "item__pickupScore": -1.0,
+    "_replicated": "item__pickupScore"
+  },
+  "helmet_item": [
+    {
+      "_extends": "item"
+    },
+    {
+      "_extends": "equipable_item"
+    },
+    {
+      "animchar_hider__camThreshold": 0.3
+    },
+    {
+      "slot_attach__slotName": "head_armor"
+    },
+    {
+      "item__iconYaw": 0.0
+    },
+    {
+      "item__iconPitch": 0.0
+    },
+    {
+      "item__iconRoll": 0.0
+    },
+    {
+      "item__lootSoundType": "armor"
+    },
+    {
+      "item__lootType": "armor"
+    },
+    {
+      "item__pickupScore": -1.0
+    },
+    {
+      "item__equipToSlots:array": {
+        "slot": "head"
+      }
+    },
+    {
+      "hides:array": {
+        "hides": "hair"
+      }
+    },
+    {
+      "item__armoredParts:array": {
+        "part": "Bip01 Head"
+      }
+    },
+    {
+      "hideFlags:array": {
+        "hideFlag": "helmet"
+      }
+    }
+  ],
+  "loot_box_item": [
+    {
+      "_extends": "item_with_animchar_updatable"
+    },
+    {
+      "_extends": "replicating"
+    },
+    {
+      "item__proto": "content/common/gamedata/items/loot_box.blk"
+    },
+    {
+      "outline__enabled": false
+    },
+    {
+      "outline__color": "#ffffffff"
+    },
+    {
+      "item__rarityColor": "#8a2be2ff"
+    },
+    {
+      "animchar__res": "medkit_char"
+    },
+    {
+      "collres__res": "medkit_collision"
+    },
+    {
+      "grid_obj__gridType": "loot"
+    },
+    {
+      "grid_obj__fixedTmScale": -1.0
+    },
+    {
+      "grid_obj": []
+    },
+    {
+      "collres": []
+    },
+    {
+      "container_contents_chances:object": {
+        "steel_helm_item": 0.8,
+        "scope_pu_item": 0.5
+      }
+    }
+  ],
+  "burnable_vis_item": {
+    "burning_effect": 0.0,
+    "_tracked": "burning_effect"
+  },
+  "base_local_invis_item": [
+    {
+      "_extends": "item_with_owner"
+    },
+    {
+      "_extends": "slot_attachable_no_slotname"
+    },
+    {
+      "_extends": "burnable_vis_item"
+    },
+    {
+      "slot_attach__visible": true
+    },
+    {
+      "_replicated": "slot_attach__visible"
+    },
+    {
+      "_tracked": "slot_attach__visible"
+    },
+    {
+      "animchar_render__enabled": true
+    },
+    {
+      "hide_counter": 0
+    },
+    {
+      "additional_data:list<p4>": {
+        "_tags": "render"
+      }
+    }
+  ],
+  "base_local_vis_item": [
+    {
+      "_extends": "animchar"
+    },
+    {
+      "_extends": "base_local_invis_item"
+    }
+  ],
+  "base_vis_item": [
+    {
+      "_extends": "base_local_vis_item"
+    },
+    {
+      "_extends": "replicating"
+    },
+    {
+      "net__notInInitialScope:tag": []
+    }
+  ],
+  "base_vis_item_with_fast_phys": {
+    "_extends": "base_vis_item",
+    "animchar_fast_phys": {
+      "_tags": "gameClient"
+    }
+  },
+  "base_vis_item_with_animchar_effect": {
+    "_extends": "base_vis_item",
+    "animchar_effect": {
+      "_tags": "render"
+    }
+  },
+  "base_collres_vis_item": {
+    "_extends": "base_vis_item",
+    "collres": []
+  },
+  "base_skeleton_attach": {
+    "skeleton_attach__skeletonRemap": [],
+    "skeleton_attach__skeletonRecalcBranch": []
+  },
+  "skeleton_attached": [
+    {
+      "skeleton_attach__attached": false
+    },
+    {
+      "_replicated": "skeleton_attach__attached"
+    },
+    {
+      "_replicated": "skeleton_attach__attachedTo"
+    },
+    {
+      "_tracked": "skeleton_attach__attachedTo"
+    },
+    {
+      "skeleton_attach__attachedTo:eid": []
+    }
+  ],
+  "attachable_wear_without_collres_animchar": [
+    {
+      "_extends": "ecs_no_debug"
+    },
+    {
+      "_extends": "skeleton_attached"
+    },
+    {
+      "_extends": "disable_update"
+    },
+    {
+      "item__recreateInEquipment": ""
+    },
+    {
+      "animchar__updatable": false
+    },
+    {
+      "paintColor": [1.0,1.0,1.0,0.0]
+    },
+    {
+      "_tracked": "paintColor"
+    }
+  ],
+  "attachable_wear": [
+    {
+      "_extends": "attachable_wear_without_collres_animchar"
+    },
+    {
+      "_extends": "base_collres_vis_item"
+    }
+  ],
+  "hair_item": {
+    "_extends": "item",
+    "slot_attach__visible": true,
+    "animchar_render__enabled": true
+  },
+  "item_usable_in_water": {
+    "item__canUseUnderWater:tag": [],
+    "item__canUseWhileSwimming:tag": [],
+    "item__canUseWhileSwimmingStill:tag": []
+  },
+  "human_can_revive_without_item": [
+    {
+      "_extends": "item_usable_in_water"
+    },
+    {
+      "_extends": "heal_anim_item"
+    },
+    {
+      "item__healTargetAnimEnumName": "first_aid_feed_generic"
+    },
+    {
+      "item__reviveAmount": 2.0
+    },
+    {
+      "item__useTimeToTarget": 5.0
+    },
+    {
+      "item__restoreBreath:tag": []
+    },
+    {
+      "canReviveWithoutItem:tag": []
+    },
+    {
+      "canBeUsedOutOfInventory:tag": []
+    }
+  ],
+  "vr_one_hand": {
+    "hand_num": 0,
+    "_extends": "animchar",
+    "animchar__res": "vr_l_hand_char",
+    "animchar_render__enabled": true,
+    "transform": [
+      [1.0,0.0,0.0],
+      [0.0,1.0,0.0],
+      [0.0,0.0,1.0],
+      [0.0,0.0,0.0]
+    ],
+    "vrHand:tag": []
+  },
+  "vr_hands": {
+    "_tags": "render,input",
+    "_singleton": true,
+    "vr_hands__model_name_l": "vr_l_hand_char",
+    "vr_hands__model_name_r": "vr_r_hand_char",
+    "vr_hands:vr::VrHands": [],
+    "leftAnimchar:eid": [],
+    "rightAnimchar:eid": [],
+    "vr_hands_input": {
+      "_tags": "input"
+    },
+    "input": {
+      "_tags": "input"
+    }
+  }
+}

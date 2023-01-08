@@ -1,0 +1,54 @@
+[
+  {
+    "import": {
+      "scene": "content/enlisted/gamedata/scenes/tutorial/_tutorial_training_ground.blk"
+    }
+  },
+  {
+    "entity": {
+      "_template": "team_tunisia_allies+team_narrator_invasion_defence+respawn_creators_team",
+      "team__countAdd": 0.0,
+      "team__memberCount": 0.0,
+      "team__scoreCap": 0.0,
+      "team__capturePenalty": 0.0,
+      "team__score": 0.0,
+      "team__id": 1,
+      "team__spawnBotArmy": "tunisia_allies",
+      "team__briefing": "training_ground/goals",
+      "team__winTitle": "debriefing/sucesful_tutorial_title",
+      "team__winSubtitle": "debriefing/sucesful_tutorial_subtitle"
+    }
+  },
+  {
+    "entity": {
+      "_template": "team_tunisia_axis+team_narrator_invasion_attack+respawn_creators_team",
+      "team__countAdd": 0.0,
+      "team__memberCount": 0.0,
+      "team__scoreCap": 0.0,
+      "team__capturePenalty": 0.0,
+      "team__score": 0.0,
+      "team__id": 2,
+      "team__spawnBotArmy": "tunisia_axis",
+      "team__briefing": "training_ground/goals",
+      "team__winTitle": "debriefing/sucesful_tutorial_title",
+      "team__winSubtitle": "debriefing/sucesful_tutorial_subtitle",
+      "team__locked": true,
+      "team__capacity": 0
+    }
+  },
+  {
+    "entity": {
+      "_template": "base_fortification_build+tutorial_ammunition_box_a",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [-525.565,10.1542,140.529]
+      ],
+      "team": 1,
+      "buildingRadius": 1.5,
+      "grenadeResupplyItem": "mk2_grenade_item",
+      "useful_box__maxUseCount": 99999
+    }
+  }
+]

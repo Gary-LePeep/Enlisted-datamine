@@ -1,0 +1,48 @@
+"@override:__allowedConfigOverrides"{
+  ps5_submission_circuit:t=""
+  ps5_circuit:t=""
+
+  embeddedUpdater { yupTag { __allow_all_params:b=yes; } }
+}
+
+"@override:video"{
+  "@delete:vsync":b=no
+  vsync:b=yes
+  vsync_tearing_tolerance_percents:i=10
+  antiAliasingMode:i=2
+  temporalUpsamplingRatio:r=100.0
+  ps5FpsLimit:i=90
+}
+
+"@override:texStreaming"{
+  forceGpuMemMB:i=2536
+}
+
+"@override:graphics"{
+  "@delete-all:gi":b=""
+  "@delete-all:giQuality":t=""
+  staticShadowsResolution:i=8192
+  giQuality:t="medium"
+  shadowsQuality:t="high"
+  texquality:t="medium"
+  taa_mip_bias:r=-0.5
+  taaQuality:i=1
+  anisotropy:i=4
+  aoQuality:t="high"
+  groundDeformations:t="medium"
+  effectsShadows:b=yes
+  dropletsOnScreen:b=yes
+  scopeImageQuality:i=1
+  shouldRenderHeroCockpit:b=yes
+  skiesQuality:t="high"
+  ssss:b=yes
+  lodsShiftDistMul:r=1.0
+  cloudsQuality:t="volumetric"
+  volumeFogQuality:t="close"
+}
+
+"@override:game_das_loading_threads":i=1
+
+"@override:replay"{
+  "@override:storageLimitMB":i=300
+}

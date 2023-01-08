@@ -1,0 +1,338 @@
+[
+  {
+    "import": {
+      "scene": "content/enlisted/gamedata/scenes/_normandy_sounds.blk"
+    }
+  },
+  {
+    "import": {
+      "scene": "content/enlisted/gamedata/scenes/_normandy_shore_sound.blk"
+    }
+  },
+  {
+    "entity": {
+      "_template": "level",
+      "level__blk": "content/enlisted/levels/normandy_coastal_area_1x1.blk",
+      "level__timeVec:array": [
+        {
+          "level_timeVec": 6.5
+        },
+        {
+          "level_timeVec": 7.5
+        },
+        {
+          "level_timeVec": 8.5
+        },
+        {
+          "level_timeVec": 17.0
+        }
+      ],
+      "level__weatherChoice:object": {
+        "weather_cloudy_a": 1.0
+      }
+    }
+  },
+  {
+    "entity": {
+      "_template": "minimap_normandy_coastal_area"
+    }
+  },
+  {
+    "entity": {
+      "_template": "water",
+      "water__strength": 0.27
+    }
+  },
+  {
+    "entity": {
+      "_template": "wind",
+      "wind__strength": 2.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "session_finalizer",
+      "session_finalizer__timer": 10.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "door_mult_ent_generator",
+      "ri_extra_gen__blk": "content/e_normandy/gamedata/normandy_doors.blk"
+    }
+  },
+  {
+    "entity": {
+      "_template": "shaderVars",
+      "shader_vars__vars:object": {
+        "hmap_displacement_up": 0.3,
+        "ocean1": "#8e894700",
+        "ocean0": "#4c3f0500",
+        "ocean_density": 0.1,
+        "land_selfillum_worldscale": 0.9,
+        "river1": "#8e894700",
+        "river0": "#4c3f0500",
+        "hmap_displacement_down": -0.15,
+        "autodetect_land_selfillum_color": [0.53,0.0,0.0,0.16],
+        "paint_details_tex": "normandy_wall_color_tex_palette*",
+        "puddle_increase": 0.01,
+        "land_selfillum_strength": 32.0,
+        "water_color_noise_size": 71.0,
+        "river_density": 0.3
+      }
+    }
+  },
+  {
+    "entity": {
+      "_template": "postfx_color_grading_tonemap_death_alive_enlisted"
+    }
+  },
+  {
+    "entity": {
+      "_template": "postfx_roundctrl"
+    }
+  },
+  {
+    "entity": {
+      "_template": "static_cam",
+      "camera__active": true,
+      "transform": [
+        [-0.891453,0.0,0.453112],
+        [0.0,1.0,0.0],
+        [-0.453112,0.0,-0.891453],
+        [345.981,4.99825,43.3608]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "group_activator",
+      "activator__activateChoice:object": {
+        "1_2": 1.0
+      }
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawn_camera",
+      "respawnCameraForTeam": 1,
+      "moveCameraToHeight": 80.0,
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [-95.023,103.181,14.9234]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawn_camera",
+      "respawnCameraForTeam": 2,
+      "moveCameraToHeight": 80.0,
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [-77.9592,101.389,19.8491]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "team_usa+team_narrator_invasion_attack+respawn_creators_team",
+      "team__deathPenaltyByMember": -5.0,
+      "team__minDeathPenalty": 10.0,
+      "team__memberCount": 0.0,
+      "team__scoreCap": 4000.0,
+      "team__capturePenalty": 0.0,
+      "team__botTemplate": "usa_npc_summer_soldier_1",
+      "team__score": 4000.0,
+      "team__deathPenalty": 35.0,
+      "team__id": 1,
+      "team__briefing": "invasion/attackers_goals",
+      "team__winSubtitle": "debriefing/won_invasion_subtitle",
+      "team__loseSubtitle": "debriefing/lost_invasion_subtitle",
+      "team__winTitle": "debriefing/usa_won_invasion_title"
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawnBase",
+      "team": 1,
+      "groupName": "1_2",
+      "active": true,
+      "transform": [
+        [-0.246217,0.0854253,0.965443],
+        [0.0211104,0.996345,-0.0827758],
+        [0.968985,0.0,0.247121],
+        [-95.023,23.1806,14.9234]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawnBase",
+      "transform": [
+        [0.639315,0.0,0.768945],
+        [0.0,1.0,0.0],
+        [-0.768945,-0.0,0.639315],
+        [-77.9592,21.3888,19.8491]
+      ],
+      "team": 2,
+      "groupName": "1_2",
+      "active": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "domination_sphere_capzone",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [266.209,4.49706,70.3886]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "domination_sphere_capzone",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [119.692,8.65717,103.27]
+      ],
+      "sphere_zone__radius": 15.0,
+      "decal__height": 2.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "domination_sphere_capzone",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [-156.362,24.5088,22.9015]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "domination_sphere_capzone",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [-141.506,25.828,162.318]
+      ],
+      "sphere_zone__radius": 15.0,
+      "decal__height": 2.0,
+      "decal__id": 3
+    }
+  },
+  {
+    "entity": {
+      "_template": "domination_sphere_capzone",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [-278.794,30.5878,92.7754]
+      ],
+      "sphere_zone__radius": 15.0,
+      "decal__height": 1.5
+    }
+  },
+  {
+    "entity": {
+      "_template": "domination_sphere_capzone",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [269.395,-0.052858,-245.357]
+      ],
+      "sphere_zone__radius": 20.0,
+      "decal__height": 2.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "domination_sphere_capzone",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [360.851,7.75605,-319.739]
+      ],
+      "sphere_zone__radius": 18.5
+    }
+  },
+  {
+    "entity": {
+      "_template": "domination_sphere_capzone",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [196.402,4.69577,-344.014]
+      ],
+      "sphere_zone__radius": 15.0,
+      "decal__height": 2.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "domination_sphere_capzone",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [-137.116,20.2825,-127.395]
+      ],
+      "decal__id": 10,
+      "sphere_zone__radius": 15.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "domination_sphere_capzone",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [213.272,6.3373,194.964]
+      ],
+      "sphere_zone__radius": 15.0,
+      "decal__height": 2.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "domination_sphere_capzone",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [-316.029,23.6907,-121.01]
+      ],
+      "sphere_zone__radius": 13.0,
+      "decal__height": 2.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "domination_sphere_capzone",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [-233.153,24.6789,-307.005]
+      ],
+      "sphere_zone__radius": 15.0
+    }
+  }
+]

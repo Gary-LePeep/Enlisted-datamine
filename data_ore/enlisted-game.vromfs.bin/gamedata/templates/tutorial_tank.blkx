@@ -1,0 +1,540 @@
+{
+  "tutorial_tank_passenger": {
+    "_extends": "ussr_base_soldier",
+    "animchar_render__enabled": false,
+    "human_equipment__initialEquip:object": {
+      "attachable_wear_tunic_08_1_ussr_summer_item": "tunic",
+      "attachable_wear_hands_01_ussr_summer_item": "gloves",
+      "attachable_wear_pants_02_ussr_summer_item": "pants",
+      "helmet_02_ussr_summer_item": "head",
+      "attachable_wear_head_male_36_ussr_item": "face",
+      "attachable_wear_backpack_s_01_ussr_summer_item": "backpack"
+    }
+  },
+  "germ_pzkpfw_V_ausf_a_panther_xray": {
+    "_extends": "animchar",
+    "transform": [
+      [1.0,0.0,0.0],
+      [0.0,1.0,0.0],
+      [0.0,0.0,1.0],
+      [0.0,0.0,0.0]
+    ],
+    "outline__enabled": true,
+    "outline__always_visible": true,
+    "outline__color": "#14420405",
+    "animchar_render__enabled": true,
+    "animchar__updatable": false,
+    "animchar__res": "pzkpfw_V_ausf_a_panther_tutorial_xray_char",
+    "tutorial_tank__xrayId": ""
+  },
+  "germ_pzkpfw_V_ausf_a_panther_xray2": {
+    "_extends": "animchar",
+    "transform": [
+      [1.0,0.0,0.0],
+      [0.0,1.0,0.0],
+      [0.0,0.0,1.0],
+      [0.0,0.0,0.0]
+    ],
+    "outline__enabled": true,
+    "outline__always_visible": true,
+    "outline__color": "#14420405",
+    "animchar_render__enabled": true,
+    "animchar__updatable": false,
+    "animchar__res": "pzkpfw_V_ausf_a_panther_char",
+    "tutorial_tank__xrayId": "tank_target_side"
+  },
+  "tutorial_tank_xray": {
+    "tutor_tank__xrayTemplate": ""
+  },
+  "tutorial_tank_disable_shell_change": {
+    "tutor__saveNextBulletType": 0,
+    "_singleton": true
+  },
+  "tutorial_tank_disable_gunner_change": {
+    "_singleton": true,
+    "tutor__saveVehicleSeats:list<b>": []
+  },
+  "tutorial_tank_ammo_tracker": {
+    "tutor_stage__next": "tutorial_tank_ammo_resupply",
+    "tutor_stage__deactivateZoneId": "waypoint_resupply_point",
+    "tutor_condition__zeroAmmo:tag": []
+  },
+  "tutorial_tank_ammo_resupply": {
+    "tutor_stage__next": "tutorial_tank_ammo_tracker",
+    "tutor_stage__activateZoneId": "waypoint_resupply_point",
+    "tutor_condition__resupplyAmmo:tag": []
+  },
+  "tutorial_tank_begin": {
+    "tutor_stage__next": "tutorial_tank_initial_hint",
+    "tutor_stage__onHeroRespawn:tag": [],
+    "tutor_stage__begin:tag": [],
+    "tutor_bq__sendOnBegin:tag": []
+  },
+  "tutorial_tank_initial_hint": {
+    "tutor_stage__next": "tutorial_tank_change_seat",
+    "tutor_stage__displayHint": "hint_tutorial_tank_welcome",
+    "tutor_stage__activateZoneId": "waypoint_change_seat",
+    "tutor_stage__playerZoneEnter": "waypoint_change_seat",
+    "tutor_condition__zoneEnterOnVehicle": true,
+    "tutor_stage__hintKeys:array": [
+      {
+        "key": "Vehicle.Throttle"
+      },
+      {
+        "key": "Vehicle.Steer"
+      }
+    ],
+    "tutor_bq__sendOnBegin:tag": []
+  },
+  "tutorial_tank_change_seat": {
+    "tutor_stage__next": "tutorial_tank_dm_panel_hint",
+    "tutor_stage__displayHint": "hint_tutorial_tank_change_seat",
+    "tutor_stage__deactivateZoneId": "waypoint_change_seat",
+    "tutor_stage__activateZoneId": "waypoint_dm_panel_hint",
+    "tutor_stage__playerZoneEnter": "waypoint_dm_panel_hint",
+    "tutor_condition__zoneEnterOnVehicle": true,
+    "tutor_stage__hintKeys:array": {
+      "key": "Human.ToggleHatch"
+    },
+    "tutor_bq__sendOnBegin:tag": []
+  },
+  "tutorial_tank_dm_panel_hint": {
+    "tutor_stage__next": "tutorial_tank_destroy_tracks_waypoint",
+    "tutor_stage__displayHint": "hint_tutorial_tank_dm_panel_orientation",
+    "tutor_stage__activateZoneId": "waypoint_destroy_tracks",
+    "tutor_stage__deactivateZoneId": "waypoint_resupply_point",
+    "tutor_stage__playerZoneEnter": "waypoint_destroy_tracks",
+    "tutor_condition__zoneEnterOnVehicle": true,
+    "tutor_bq__sendOnBegin:tag": []
+  },
+  "tutorial_tank_destroy_tracks_waypoint": {
+    "tutor_stage__next": "tutorial_tank_destroy_tracks",
+    "tutor_stage__playerZoneEnter": "waypoint_destroy_tracks",
+    "tutor_condition__zoneEnterOnVehicle": true,
+    "tutor_bq__sendOnBegin:tag": []
+  },
+  "tutorial_tank_destroy_tracks": {
+    "tutor_stage__next": "tutorial_tank_leave_vehicle",
+    "tutor_action__tankTrackDestroy:tag": []
+  },
+  "tutorial_tank_leave_vehicle": {
+    "tutor_stage__next": "tutorial_tank_repair_vehicle",
+    "tutor_stage__displayHint": "hint_tutorial_tank_leave",
+    "tutor_stage__hintKeys:array": {
+      "key": "Human.Use"
+    },
+    "tutor_condition__playerVehicleEnter:tag": [],
+    "tutor_bq__sendOnBegin:tag": []
+  },
+  "tutorial_tank_repair_vehicle": {
+    "tutor_stage__next": "tutorial_tank_player_vehicle_enter",
+    "tutor_stage__displayHint": "hint_tutorial_tank_repair",
+    "tutor_stage__hintKeys:array": {
+      "key": "Human.VehicleMaintenance"
+    },
+    "tutor_condition__tankRepairVehicle:tag": [],
+    "tutor_bq__sendOnBegin:tag": []
+  },
+  "tutorial_tank_player_vehicle_enter": {
+    "tutor_stage__next": "tutorial_tank_waypoint_shooting_range",
+    "tutor_stage__displayHint": "hint_tutorial_tank_player_vehicle_enter",
+    "tutor_stage__hintKeys:array": {
+      "key": "Human.Use"
+    },
+    "tutor_stage__playerVehicleEnter:tag": [],
+    "tutor_bq__sendOnBegin:tag": []
+  },
+  "tutorial_tank_waypoint_shooting_range": {
+    "tutor_stage__next": "tutorial_tank_destroy_light_target",
+    "tutor_stage__displayHint": "hint_tutorial_move_to_shooting_range",
+    "tutor_stage__activateZoneId": "waypoint_shooting_range_01",
+    "tutor_stage__playerZoneEnter": "waypoint_shooting_range_01",
+    "tutor_condition__zoneEnterOnVehicle": true,
+    "tutor_stage__hintKeys:array": [
+      {
+        "key": "Vehicle.Throttle"
+      },
+      {
+        "key": "Vehicle.Steer"
+      }
+    ],
+    "tutor_bq__sendOnBegin:tag": []
+  },
+  "tutorial_tank_destroy_light_target": {
+    "tutor_stage__next": "tutorial_tank_switch_to_gunner",
+    "tutor_stage__displayHint": "hint_tutorial_tank_light_target",
+    "tutor_stage__destroyTarget": "tank_target_light_vehicle",
+    "tutor_stage__activateZoneId": "tank_target_light_vehicle",
+    "tutor_stage__removeTemplateTarget": "tank_target_light_vehicle",
+    "tutor_stage__removeTemplate": "tutorial_dm_ignore",
+    "tutor_stage__hintKeys:array": {
+      "key": "Vehicle.Shoot"
+    },
+    "tutor_bq__sendOnBegin:tag": []
+  },
+  "tutorial_tank_switch_to_gunner": {
+    "tutor_stage__next": "tutorial_tank_seats_explanation",
+    "tutor_stage__deactivateZoneId": "tank_target_light_vehicle",
+    "tutor_stage__displayHint": "hint_tutorial_tank_switch_to_gunner",
+    "tutor_condition__switchToGunner:tag": [],
+    "tutor_action__destroySingletons:list<t>": {
+      "key": "tutorial_tank_disable_gunner_change"
+    },
+    "tutor_stage__hintKeys:array": {
+      "key": "Human.Seat02"
+    },
+    "tutor_bq__sendOnBegin:tag": []
+  },
+  "tutorial_tank_seats_explanation": {
+    "tutor_stage__next": "tutorial_tank_shoot_at_side_target",
+    "tutor_stage__displayHint": "hint_tutorial_tank_seats_explained",
+    "tutor_stage__time": 10.0,
+    "tutor_stage__timer": 0.0
+  },
+  "tutorial_tank_shoot_at_side_target": {
+    "tutor_stage__next": "tutorial_tank_hit_target_ap",
+    "tutor_stage__displayHint": "hint_tutorial_fire_range_practice01",
+    "tutor_stage__activateZoneId": "tank_target_side",
+    "tutor_stage__hitTarget": "tank_target_side",
+    "tutor_stage__hintKeys:array": {
+      "key": "Vehicle.Shoot"
+    },
+    "tutor_bq__sendOnBegin:tag": []
+  },
+  "tutorial_tank_hit_target_ap": {
+    "tutor_stage__next": "tutorial_tank_hint_ap",
+    "tutor_stage__displayHint": "hint_tutorial_tank_damage_marker",
+    "tutor_stage__time": 10.0,
+    "tutor_stage__timer": 0.0
+  },
+  "tutorial_tank_hint_ap": {
+    "tutor_stage__next": "tutorial_tank_fire_heat_shell_off",
+    "tutor_stage__displayHint": "hint_tutorial_tank_switch_ammo_to_ap",
+    "tutor_stage__hintKeys:array": {
+      "key": "Vehicle.NextBulletType"
+    },
+    "tutor_action__destroySingletons:list<t>": {
+      "key": "tutorial_tank_disable_shell_change"
+    },
+    "tutor_condition__pressKey:list<t>": {
+      "key": "Vehicle.NextBulletType"
+    },
+    "tutor_condition__pressKeyCode:list<i>": [],
+    "tutor_bq__sendOnBegin:tag": []
+  },
+  "tutorial_tank_fire_heat_shell_off": {
+    "tutor_stage__next": "tutorial_tank_hitcam_hint_01",
+    "tutor_stage__displayHint": "hint_tutorial_tank_fire_heat_shell_off",
+    "tutor_stage__hitTarget": "tank_target_side",
+    "tutor_stage__hintKeys:array": {
+      "key": "Vehicle.Shoot"
+    }
+  },
+  "tutorial_tank_hitcam_hint_01": {
+    "tutor_stage__next": "tutorial_tank_hitcam_hint_02",
+    "tutor_stage__displayHint": "hint_tutorial_tank_hitcam01",
+    "tutor_stage__time": 10.0,
+    "tutor_stage__timer": 0.0
+  },
+  "tutorial_tank_hitcam_hint_02": {
+    "tutor_stage__next": "tutorial_tank_hit_crew",
+    "tutor_stage__displayHint": "hint_tutorial_tank_hitcam02",
+    "tutor_stage__time": 10.0,
+    "tutor_stage__timer": 0.0
+  },
+  "tutorial_tank_hit_crew": {
+    "tutor_stage__next": "tutorial_tank_hit_tracks",
+    "tutor_stage__displayHint": "hint_tutorial_tank_hit_crew",
+    "tutor_stage__activateTarget": "tank_target_side",
+    "tutor_action__tankXRayId": "tank_target_side",
+    "tutor_stage__hintKeys:array": {
+      "key": "Vehicle.Shoot"
+    },
+    "tutor_stage__damagePassanger:tag": [],
+    "tutor_action__tankXRayPartEnable:list<t>": [
+      {
+        "part": "gunner_xray"
+      },
+      {
+        "part": "loader_xray"
+      },
+      {
+        "part": "commander_xray"
+      }
+    ],
+    "tutor_bq__sendOnBegin:tag": []
+  },
+  "tutorial_tank_hit_tracks": {
+    "tutor_stage__next": "tutorial_tank_hit_ammunition",
+    "tutor_stage__displayHint": "hint_tutorial_tank_hit_tracks",
+    "tutor_stage__activateTarget": "tank_target_side",
+    "tutor_action__tankXRayId": "tank_target_side",
+    "tutor_stage__hintKeys:array": {
+      "key": "Vehicle.Shoot"
+    },
+    "tutor_stage__damageTracks:tag": [],
+    "tutor_action__tankXRayPartEnable:list<t>": [
+      {
+        "part": "track_l"
+      },
+      {
+        "part": "wheel_l_02"
+      },
+      {
+        "part": "wheel_l_03"
+      },
+      {
+        "part": "wheel_l_04"
+      },
+      {
+        "part": "wheel_l_05"
+      },
+      {
+        "part": "wheel_l_06"
+      },
+      {
+        "part": "wheel_l_07"
+      },
+      {
+        "part": "wheel_l_08"
+      }
+    ],
+    "tutor_bq__sendOnBegin:tag": []
+  },
+  "tutorial_tank_hit_ammunition": {
+    "tutor_stage__next": "tutorial_tank_look_at_nearby_target",
+    "tutor_stage__displayHint": "hint_tutorial_tank_hit_ammunition",
+    "tutor_stage__activateTarget": "tank_target_side",
+    "tutor_action__tankXRayId": "tank_target_side",
+    "tutor_stage__hintKeys:array": {
+      "key": "Vehicle.Shoot"
+    },
+    "tutor_stage__damageAmmunition:tag": [],
+    "tutor_action__tankXRayPartEnable:list<t>": [
+      {
+        "part": "ammo_body_09_xray"
+      },
+      {
+        "part": "ammo_body_13_xray"
+      },
+      {
+        "part": "ammo_body_37_xray"
+      },
+      {
+        "part": "ammo_body_21_xray"
+      },
+      {
+        "part": "ammo_body_03_xray"
+      },
+      {
+        "part": "ammo_body_04_xray"
+      },
+      {
+        "part": "ammo_body_06_xray"
+      },
+      {
+        "part": "ammo_body_07_xray"
+      },
+      {
+        "part": "ammo_body_08_xray"
+      },
+      {
+        "part": "ammo_body_10_xray"
+      },
+      {
+        "part": "ammo_body_11_xray"
+      },
+      {
+        "part": "ammo_body_12_xray"
+      }
+    ],
+    "tutor_bq__sendOnBegin:tag": []
+  },
+  "tutorial_tank_look_at_nearby_target": {
+    "tutor_stage__next": "tutorial_tank_hit_engine",
+    "tutor_stage__displayHint": "hint_tutorial_tank_look_at_engine",
+    "tutor_stage__deactivateTarget": "tank_target_side",
+    "tutor_stage__deactivateZoneId": "tank_target_side",
+    "tutor_stage__activateZoneId": "tank_target_rear",
+    "tutor_action__tankXRayId": "tank_target_rear",
+    "tutor_stage__time": 10.0,
+    "tutor_stage__timer": 0.0,
+    "tutor_action__tankXRayPartEnable:list<t>": []
+  },
+  "tutorial_tank_hit_engine": {
+    "tutor_stage__next": "tutorial_tank_resupply_zone_goto_hint",
+    "tutor_stage__displayHint": "hint_tutorial_tank_hit_engine",
+    "tutor_stage__activateTarget": "tank_target_rear",
+    "tutor_action__tankXRayId": "tank_target_rear",
+    "tutor_stage__hintKeys:array": {
+      "key": "Vehicle.Shoot"
+    },
+    "tutor_stage__damageEngine:tag": [],
+    "tutor_action__tankXRayPartEnable:list<t>": {
+      "part": "engine_xray"
+    },
+    "tutor_bq__sendOnBegin:tag": []
+  },
+  "tutorial_tank_resupply_zone_goto_hint": {
+    "tutor_stage__next": "tutorial_tank_resupply_zone_inside_hint",
+    "tutor_stage__displayHint": "hint_tutorial_tank_out_of_ammo",
+    "tutor_stage__activateZoneId": "waypoint_resupply_point",
+    "tutor_stage__playerZoneEnter": "waypoint_resupply_point",
+    "tutor_condition__zoneEnterOnVehicle": true,
+    "tutor_stage__deactivateTarget": "tank_target_rear",
+    "tutor_stage__deactivateZoneId": "tank_target_rear",
+    "tutor_action__tankXRayPartEnable:list<t>": [],
+    "tutor_bq__sendOnBegin:tag": []
+  },
+  "tutorial_tank_resupply_zone_inside_hint": {
+    "tutor_stage__next": "tutorial_tank_resupply_zone_go_back_hint",
+    "tutor_stage__displayHint": "hint_tutorial_tank_resupply_zone",
+    "tutor_stage__deactivateZoneId": "waypoint_resupply_point",
+    "tutor_stage__time": 10.0,
+    "tutor_stage__timer": 0.0,
+    "tutor_bq__sendOnBegin:tag": []
+  },
+  "tutorial_tank_resupply_zone_go_back_hint": {
+    "tutor_stage__next": "tutorial_tank_armor_stage01",
+    "tutor_stage__displayHint": "hint_tutorial_tank_return_to_shooting_range",
+    "tutor_stage__activateZoneId": "waypoint_shooting_range_02",
+    "tutor_stage__playerZoneEnter": "waypoint_shooting_range_02",
+    "tutor_condition__zoneEnterOnVehicle": true,
+    "tutor_stage__hintKeys:array": [
+      {
+        "key": "Vehicle.Throttle"
+      },
+      {
+        "key": "Vehicle.Steer"
+      }
+    ],
+    "tutor_bq__sendOnBegin:tag": []
+  },
+  "tutorial_tank_armor_stage01": {
+    "tutor_stage__next": "tutorial_tank_armor_stage02",
+    "tutor_stage__displayHint": "hint_tutorial_tank_armor",
+    "tutor_stage__deactivateZoneId": "waypoint_shooting_range_02",
+    "tutor_stage__time": 10.0,
+    "tutor_stage__timer": 0.0
+  },
+  "tutorial_tank_armor_switch_to_gunner": {
+    "tutor_stage__next": "tutorial_tank_armor_switch_ammo",
+    "tutor_stage__displayHint": "hint_tutorial_tank_switch_to_gunner",
+    "tutor_condition__switchToGunner:tag": [],
+    "tutor_action__destroySingletons:list<t>": {
+      "key": "tutorial_tank_disable_gunner_change"
+    },
+    "tutor_stage__hintKeys:array": {
+      "key": "Human.Seat02"
+    },
+    "tutor_bq__sendOnBegin:tag": []
+  },
+  "tutorial_tank_armor_switch_ammo": {
+    "tutor_stage__next": "tutorial_tank_armor_stage02",
+    "tutor_stage__displayHint": "hint_tutorial_tank_switch_ammo_to_ap",
+    "tutor_stage__hintKeys:array": {
+      "key": "Vehicle.NextBulletType"
+    },
+    "tutor_action__destroySingletons:list<t>": {
+      "key": "tutorial_tank_disable_shell_change"
+    },
+    "tutor_stage__nextBulletType:tag": [],
+    "tutor_bq__sendOnBegin:tag": []
+  },
+  "tutorial_tank_armor_stage02": {
+    "tutor_stage__next": "tutorial_tank_long_distance_01",
+    "tutor_stage__destroyTarget": "tank_target_front",
+    "tutor_stage__activateZoneId": "tank_target_front",
+    "tutor_stage__displayHint": "hint_tutorial_tank_armor_destroy",
+    "tutor_stage__removeTemplateTarget": "tank_target_front",
+    "tutor_stage__removeTemplate": "tutorial_dm_ignore",
+    "tutor_bq__sendOnBegin:tag": []
+  },
+  "tutorial_tank_long_distance_01": {
+    "tutor_stage__next": "tutorial_tank_infantry_he",
+    "tutor_stage__deactivateZoneId": "tank_target_front",
+    "tutor_stage__hitTarget": "tank_target_far",
+    "tutor_stage__activateZoneId": "tank_target_far",
+    "tutor_stage__displayHint": "hint_tutorial_tank_long_distance_zoom",
+    "tutor_stage__time": 30.0,
+    "tutor_stage__timer": 0.0,
+    "tutor_stage__timeoutTemplate": "tutorial_tank_long_distance_timeout",
+    "tutor_stage__hintKeys:array": [
+      {
+        "key": "Vehicle.Zoom"
+      },
+      {
+        "key": "Vehicle.Shoot"
+      }
+    ],
+    "tutor_bq__sendOnBegin:tag": []
+  },
+  "tutorial_tank_long_distance_timeout": {
+    "tutor_stage__next": "tutorial_tank_infantry_he",
+    "tutor_stage__hitTarget": "tank_target_far",
+    "tutor_stage__displayHint": "hint_tutorial_tank_long_distance_additional"
+  },
+  "tutorial_tank_infantry_he": {
+    "tutor_stage__next": "tutorial_tank_infantry_mgun",
+    "tutor_stage__displayHint": "hint_tutorial_tank_infantry_he",
+    "tutor_stage__deactivateZoneId": "tank_target_far",
+    "tutor_stage__activateZoneId": "tank_target_infantry01",
+    "tutor_stage__activateTarget": "tank_target_infantry01",
+    "tutor_stage__hitTarget": "tank_target_infantry01",
+    "tutor_action__createEntity:list<t>": {
+      "key": "tutorial_restore_memorize"
+    },
+    "tutor_stage__hintKeys:array": [
+      {
+        "key": "Vehicle.NextBulletType"
+      },
+      {
+        "key": "Vehicle.Shoot"
+      }
+    ],
+    "tutor_bq__sendOnBegin:tag": []
+  },
+  "tutorial_tank_infantry_mgun": {
+    "tutor_stage__next": "tutorial_tank_final_words",
+    "tutor_stage__displayHint": "hint_tutorial_tank_infantry_mgun",
+    "tutor_stage__deactivateZoneId": "tank_target_infantry01",
+    "tutor_stage__activateZoneId": "tank_target_infantry_mgun01",
+    "tutor_stage__activateTarget": "tank_target_infantry_mgun01",
+    "tutor_stage__deactivateTarget": "tank_target_infantry01",
+    "tutor_stage__hitTarget": "tank_target_infantry_mgun01",
+    "tutor_stage__hintKeys:array": {
+      "key": "Vehicle.ShootMachinegun"
+    },
+    "tutor_bq__sendOnBegin:tag": []
+  },
+  "tutorial_tank_final_words": {
+    "tutor_stage__next": "tutorial_tank_finish",
+    "tutor_stage__displayHint": "hint_tutorial_tank_final",
+    "tutor_stage__time": 7.0,
+    "tutor_stage__timer": 0.0,
+    "tutor_stage__deactivateZoneId": "tank_target_infantry_mgun01",
+    "tutor_bq__sendOnBegin:tag": []
+  },
+  "tutorial_tank_finish": {
+    "tutor_stage__next": "",
+    "tutor_stage__complete:tag": [],
+    "tutor_bq__sendOnEnd:tag": []
+  },
+  "tutorial_dm_ignore": {
+    "dm__ignoreDamage": true
+  },
+  "tutorial_memorize_entity": {
+    "tutorial__memorizeEntity:tag": []
+  },
+  "tutorial_memorize_holder": {
+    "tutorial__memorizeEntities:array": []
+  },
+  "tutorial_restore_memorize": {
+    "tutorial__restoreMemorize:tag": []
+  },
+  "willys_mb_tutorial": {
+    "_extends": "willys_mb",
+    "vehicle_net_phys__blk": "content/e_ww2_common/gamedata/units/vehicles/willys_mb_tutorial.blk:VehiclePhys",
+    "damage_model__blk": "content/e_ww2_common/gamedata/units/vehicles/willys_mb_tutorial.blk"
+  }
+}

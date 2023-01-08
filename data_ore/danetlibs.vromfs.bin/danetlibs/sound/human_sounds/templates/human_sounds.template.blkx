@@ -1,0 +1,127 @@
+{
+  "sound_step_settings": {
+    "_extends": "sound_physmat",
+    "sound_step__queryResultToPuddleDepth": [0.1,0.4,0.0,0.05],
+    "_group": {
+      "_tags": "sound",
+      "sound_physmat__soundMaterials:list<t>": [
+        {
+          "mat": "grass"
+        },
+        {
+          "mat": "concrete"
+        },
+        {
+          "mat": "water"
+        },
+        {
+          "mat": "wood"
+        },
+        {
+          "mat": "metal"
+        },
+        {
+          "mat": "mud"
+        },
+        {
+          "mat": "highgrass"
+        },
+        {
+          "mat": "fabric"
+        },
+        {
+          "mat": "snow"
+        },
+        {
+          "mat": "sand"
+        },
+        {
+          "mat": "barbwire"
+        },
+        {
+          "mat": "ice"
+        },
+        {
+          "mat": "gravel"
+        },
+        {
+          "mat": "leaves"
+        }
+      ],
+      "sound_physmat__physmatToSoundmat:object": {
+        "waterPuddle": "water",
+        "water3d": "water",
+        "water": "water",
+        "concrete": "concrete",
+        "stone": "concrete",
+        "buildings": "concrete",
+        "soil": "concrete",
+        "road": "concrete",
+        "roadSoil": "concrete",
+        "roadSand": "concrete",
+        "quickSand": "concrete",
+        "rocks": "concrete",
+        "rocksSlippery": "concrete",
+        "rubber": "concrete",
+        "ceramic": "concrete",
+        "paper": "concrete",
+        "plastic": "concrete",
+        "small_debris": "concrete",
+        "small_decor": "concrete",
+        "wood": "wood",
+        "wood_railway": "wood",
+        "window_wood": "wood",
+        "cactus": "wood",
+        "softWoodDoor": "wood",
+        "steel": "metal",
+        "metal": "metal",
+        "train": "metal",
+        "softSteelDoor": "metal",
+        "mud": "mud",
+        "roadmud": "mud",
+        "sand": "sand",
+        "quarrySand": "sand",
+        "sand_slope": "sand",
+        "snow": "snow",
+        "snowLower": "snow",
+        "roadSnow": "snow",
+        "ice": "ice",
+        "gravel": "gravel",
+        "fabric": "fabric",
+        "hay": "highgrass",
+        "bushes": "highgrass",
+        "barbwire": "barbwire"
+      }
+    },
+    "soundStepSettings:tag": []
+  },
+  "human_death_sound": {
+    "humanDeathSound:tag": {
+      "_tags": "sound"
+    }
+  },
+  "human_fall_sound": {
+    "_tracked": "human_fall_sound__isFalling",
+    "_group": {
+      "_tags": "sound",
+      "human_fall_sound__isFalling": false,
+      "human_fall_sound__threshold": 20.0
+    }
+  },
+  "human_idle_sound": {
+    "_group": {
+      "_tags": "sound",
+      "human_idle_sound__paths:shared:object": [],
+      "human_idle_sound__event:SoundEvent": [],
+      "humanIdleSound:tag": []
+    }
+  },
+  "human_idle_active_sound": {
+    "_extends": "human_idle_sound",
+    "_tracked": "human_idle_sound__isActive",
+    "_group": {
+      "_tags": "sound",
+      "human_idle_sound__isActive": false
+    }
+  }
+}

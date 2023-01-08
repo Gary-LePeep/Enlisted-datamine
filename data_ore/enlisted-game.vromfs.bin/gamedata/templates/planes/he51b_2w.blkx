@@ -1,0 +1,186 @@
+{
+  "he51b_2w": [
+    {
+      "_extends": "he51b_2w_base"
+    },
+    {
+      "_extends": "squad_controlled_plane"
+    },
+    {
+      "item__name": "items/he51b_2w"
+    },
+    {
+      "vehicle_seats__seats:shared:array": {
+        "seats:object": {
+          "name": "driver",
+          "locName": "vehicle_seats/pilot",
+          "seatOwnsEntityControl": true,
+          "attachNode": "pilot1",
+          "ignoreAttachNodeRotation": true,
+          "attachTm": [
+            [1.0,0.0,0.0],
+            [0.0,1.0,0.0],
+            [0.0,0.0,1.0],
+            [0.0,0.0,-0.15]
+          ],
+          "seatComponent": "isDriver",
+          "receiveDamageFromDMPart": "pilot_dm",
+          "cameraNodeName": "",
+          "cameraOffset": [-0.982,0.886,-0.043],
+          "turretNames:array": [
+            {
+              "turret": "turret_01"
+            },
+            {
+              "turret": "turret_02"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "turret_control__emitterNodes:shared:array": [
+        {
+          "node": "flare1"
+        },
+        {
+          "node": "flare2"
+        }
+      ]
+    },
+    {
+      "turret_control__animVars:shared:array": [
+        {
+          "vars:object": {
+            "curYawParamName": "turret_01_yaw",
+            "curPitchParamName": "gun_01_pitch"
+          }
+        },
+        {
+          "vars:object": {
+            "curYawParamName": "turret_02_yaw",
+            "curPitchParamName": "gun_02_pitch"
+          }
+        }
+      ]
+    },
+    {
+      "turret_control__turretInfo:shared:array": [
+        {
+          "turretInfo:object": {
+            "turretName": "turret_01",
+            "turretGroup": "main_turrets",
+            "trigger": "machine_guns",
+            "gun": "planegun_he51b_2w_7_92mm_mg17_01"
+          }
+        },
+        {
+          "turretInfo:object": {
+            "turretName": "turret_02",
+            "turretGroup": "main_turrets",
+            "trigger": "machine_guns",
+            "gun": "planegun_he51b_2w_7_92mm_mg17_02"
+          }
+        }
+      ]
+    }
+  ],
+  "base_he51b_2w_7_92mm_mg17": {
+    "item__name": "guns/gunmg17",
+    "gun__blk": "content/enlisted/gamedata/weapons/he51b_2w/7_92mm_mg17.blk",
+    "gun__shotFreq": 16.66,
+    "gun__locName": "gunmg17",
+    "gun__shootNodeName": "bone_mg_gun_twin",
+    "gun__maxAmmo": 500,
+    "gun__firingModes:array": {
+      "mode:object": {
+        "modeType": "automatic"
+      }
+    },
+    "gun__firingModeNames:array": {
+      "mode": "automatic"
+    },
+    "gun__shellsAmmo:array": {
+      "ammo": 500
+    },
+    "gun__ammoSetsInfo:shared:array": {
+      "default:array": [
+        {
+          "shell:object": {
+            "blk": "content/enlisted/gamedata/weapons/shells/7_92mm_smk_l_spur_v_bullet.blk",
+            "name": "v",
+            "type": "ap_t_ball"
+          }
+        },
+        {
+          "shell:object": {
+            "blk": "content/enlisted/gamedata/weapons/shells/7_92mm_s_bullet.blk",
+            "name": "s",
+            "type": "ball"
+          }
+        },
+        {
+          "shell:object": {
+            "blk": "content/enlisted/gamedata/weapons/shells/7_92mm_s_bullet.blk",
+            "name": "s",
+            "type": "ball"
+          }
+        },
+        {
+          "shell:object": {
+            "blk": "content/enlisted/gamedata/weapons/shells/7_92mm_pmk_v_bullet.blk",
+            "name": "v",
+            "type": "ap_i_ball"
+          }
+        },
+        {
+          "shell:object": {
+            "blk": "content/enlisted/gamedata/weapons/shells/7_92mm_b_patrone_v_bullet.blk",
+            "name": "v",
+            "type": "he_ball"
+          }
+        }
+      ]
+    }
+  },
+  "planegun_he51b_2w_7_92mm_mg17_01": [
+    {
+      "_extends": "tankgun"
+    },
+    {
+      "_extends": "base_plane_machinegun"
+    },
+    {
+      "_extends": "base_he51b_2w_7_92mm_mg17"
+    },
+    {
+      "_extends": "gunsound_7_92mm_mg17_aircraft"
+    },
+    {
+      "gun__shootNodeName": "flare1"
+    },
+    {
+      "gun__maxAmmo": 500
+    }
+  ],
+  "planegun_he51b_2w_7_92mm_mg17_02": [
+    {
+      "_extends": "tankgun"
+    },
+    {
+      "_extends": "base_plane_machinegun"
+    },
+    {
+      "_extends": "base_he51b_2w_7_92mm_mg17"
+    },
+    {
+      "_extends": "gunsound_7_92mm_mg17_aircraft"
+    },
+    {
+      "gun__shootNodeName": "flare2"
+    },
+    {
+      "gun__maxAmmo": 500
+    }
+  ]
+}

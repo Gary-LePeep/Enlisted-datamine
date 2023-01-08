@@ -1,0 +1,847 @@
+{
+  "levelBin": "content/base/levels/battle_of_stalingrad_tractor_plant.bin",
+  "staticShadowsAdditionalHeight": 20.0,
+  "clipmap": {
+    "texelSize": 0.0078
+  },
+  "skies": {
+    "year": 1942,
+    "month": 9,
+    "day": 14,
+    "latitude": 10.719,
+    "longtitude": 44.502
+  },
+  "micro_details": [
+    {
+      "micro_detail": "microdetail_stone_a_tex_n*"
+    },
+    {
+      "micro_detail": "microdetail_stone_b_tex_n*"
+    },
+    {
+      "micro_detail": "microdetail_soil_b_tex_n*"
+    },
+    {
+      "micro_detail": "microdetail_sand_a_tex_n*"
+    },
+    {
+      "micro_detail": "microdetail_sand_c_tex_n*"
+    },
+    {
+      "micro_detail": "microdetail_soil_plants_a_tex_n*"
+    },
+    {
+      "micro_detail": "microdetail_soil_a_tex_n*"
+    },
+    {
+      "micro_detail": "microdetail_mud_a_tex_n*"
+    },
+    {
+      "micro_detail": "microdetail_generic_granules_a_tex_n*"
+    },
+    {
+      "micro_detail": "microdetail_snow_a_tex_n*"
+    },
+    {
+      "micro_detail": "microdetail_snow_a_tex_n*"
+    },
+    {
+      "micro_detail": "microdetail_snow_a_tex_n*"
+    },
+    {
+      "micro_detail": "microdetail_snow_a_tex_n*"
+    },
+    {
+      "micro_detail": "microdetail_snow_a_tex_n*"
+    },
+    {
+      "micro_detail": "microdetail_snow_a_tex_n*"
+    },
+    {
+      "micro_detail": "microdetail_snow_a_tex_n*"
+    },
+    {
+      "land_micro_details_uv_scale": 1.11
+    },
+    {
+      "microdetail_stone_a_tex_n*": {
+        "coloring": 0.3,
+        "porosity": 0.4
+      }
+    },
+    {
+      "microdetail_stone_b_tex_n*": {
+        "coloring": 0.4,
+        "porosity": 0.4
+      }
+    },
+    {
+      "microdetail_scan_gravel_a_tex_n*": {
+        "coloring": 0.3,
+        "porosity": 0.4
+      }
+    },
+    {
+      "microdetail_sand_a_tex_n*": {
+        "coloring": 0.8,
+        "porosity": 0.8
+      }
+    },
+    {
+      "microdetail_sand_c_tex_n*": {
+        "coloring": 0.9,
+        "porosity": 0.8
+      }
+    },
+    {
+      "microdetail_soil_plants_a_tex_n*": {
+        "coloring": 0.9,
+        "porosity": 0.8
+      }
+    },
+    {
+      "microdetail_soil_a_tex_n*": {
+        "coloring": 0.9,
+        "porosity": 0.9
+      }
+    },
+    {
+      "microdetail_mud_a_tex_n*": {
+        "coloring": 0.3,
+        "porosity": 0.8
+      }
+    },
+    {
+      "microdetail_wood_a_tex_n*": {
+        "coloring": 0.4,
+        "porosity": 0.4
+      }
+    },
+    {
+      "microdetail_moss_a_tex_n*": {
+        "coloring": 1.0,
+        "porosity": 0.6
+      }
+    },
+    {
+      "microdetail_grass_a_tex_n*": {
+        "coloring": 1.0,
+        "porosity": 0.5
+      }
+    },
+    {
+      "microdetail_forest_floor_a_tex_n*": {
+        "coloring": 0.7,
+        "porosity": 0.5
+      }
+    },
+    {
+      "microdetail_snow_a_tex_n*": {
+        "coloring": 0.1,
+        "porosity": 0.1
+      }
+    }
+  ],
+  "volFog": {
+    "rootFogGraph": "content/e_stalingrad/shaders/fog_battle_of_stalingrad_tractor_plant.json"
+  },
+  "grass": {
+    "stalingrad_tractor_plant_2x2_tex_d": "",
+    "grass_grid_size": 0.0625,
+    "grass_distance": 75.0,
+    "grassMaskResolution": 1024,
+    "hor_size_mul": 1.0,
+    "grass_types": {
+      "generic_grass_low_a": {
+        "diffuse": "grass_generic_grass_tall_a_tex_d",
+        "normal": "grass_generic_grass_tall_a_tex_n",
+        "variations": 1,
+        "ht": 0.4,
+        "ht_rnd_add": 0.55,
+        "hor_size": 0.25,
+        "hor_size_rnd_add": 0.55,
+        "stiffness": 0.35,
+        "color_mask_r_from": "#3f39335a",
+        "color_mask_r_to": "#a992715a",
+        "color_mask_g_from": "#61584b5a",
+        "color_mask_g_to": "#675e4f5a",
+        "color_mask_b_from": "#7c6b535a",
+        "color_mask_b_to": "#7b68515a",
+        "height_from_weight_mul": 0.3,
+        "height_from_weight_add": 0.7,
+        "density_from_weight_mul": 0.0,
+        "density_from_weight_add": 0.99,
+        "vertical_angle_add": 0.7,
+        "vertical_angle_mul": 0.1
+      },
+      "generic_grass_low_b": {
+        "diffuse": "grass_generic_grass_tall_b_tex_d",
+        "normal": "grass_generic_grass_tall_b_tex_n",
+        "variations": 1,
+        "height": 0.2,
+        "ht_rnd_add": 0.2,
+        "hor_size": 0.25,
+        "hor_size_rnd_add": 0.2,
+        "stiffness": 0.5,
+        "color_mask_r_from": "#746a605a",
+        "color_mask_r_to": "#a599895a",
+        "color_mask_g_from": "#5b56485a",
+        "color_mask_g_to": "#887c6c86",
+        "color_mask_b_from": "#685f4d5a",
+        "color_mask_b_to": "#6c5a435a",
+        "height_from_weight_mul": 0.3,
+        "height_from_weight_add": 0.7,
+        "density_from_weight_mul": 6.0,
+        "density_from_weight_add": 0.9,
+        "vertical_angle_add": 0.7,
+        "vertical_angle_mul": 0.1
+      },
+      "generic_grass_low_c": {
+        "diffuse": "grass_generic_grass_tall_a_tex_d",
+        "normal": "grass_generic_grass_tall_a_tex_n",
+        "variations": 1,
+        "height": 0.15,
+        "ht_rnd_add": 0.15,
+        "hor_size": 0.3,
+        "hor_size_rnd_add": 0.2,
+        "color_mask_r_from": "#806d605a",
+        "color_mask_r_to": "#7162535a",
+        "color_mask_g_from": "#80736b5a",
+        "color_mask_g_to": "#786b635a",
+        "color_mask_b_from": "#776b595a",
+        "color_mask_b_to": "#715f505a",
+        "height_from_weight_mul": 0.3,
+        "height_from_weight_add": 0.7,
+        "density_from_weight_mul": 4.0,
+        "density_from_weight_add": 0.2,
+        "vertical_angle_add": 0.7,
+        "vertical_angle_mul": 0.1
+      },
+      "generic_grass_low_c_dead": {
+        "diffuse": "grass_generic_grass_tall_a_tex_d",
+        "normal": "grass_generic_grass_tall_a_tex_n",
+        "variations": 1,
+        "height": 0.1,
+        "ht_rnd_add": 0.35,
+        "hor_size": 0.22,
+        "hor_size_rnd_add": 0.4,
+        "stiffness": 0.15,
+        "color_mask_r_from": "#4846455a",
+        "color_mask_r_to": "#61605e5a",
+        "color_mask_g_from": "#4544432f",
+        "color_mask_g_to": "#625f5f5a",
+        "color_mask_b_from": "#4f4b475a",
+        "color_mask_b_to": "#5a57545a",
+        "height_from_weight_mul": 0.3,
+        "height_from_weight_add": 0.7,
+        "density_from_weight_mul": 2.0,
+        "density_from_weight_add": 0.2,
+        "vertical_angle_add": 0.7,
+        "vertical_angle_mul": 0.1
+      },
+      "generic_grass_tall_b": {
+        "diffuse": "grass_generic_grass_tall_b_tex_d",
+        "normal": "grass_generic_grass_tall_b_tex_n",
+        "variations": 1,
+        "ht": 0.3,
+        "ht_rnd_add": 0.7,
+        "hor_size": 0.4,
+        "hor_size_rnd_add": 0.15,
+        "color_mask_r_from": "#80675e5a",
+        "color_mask_r_to": "#836a535a",
+        "color_mask_g_from": "#4343435a",
+        "color_mask_g_to": "#9d82675a",
+        "color_mask_b_from": "#5c40385a",
+        "color_mask_b_to": "#6d594e5a",
+        "height_from_weight_mul": 0.3,
+        "height_from_weight_add": 0.7,
+        "density_from_weight_mul": 0.6,
+        "density_from_weight_add": 0.0,
+        "vertical_angle_add": 0.1,
+        "vertical_angle_mul": 0.7
+      },
+      "generic_grass_tall_a_yellow": {
+        "diffuse": "grass_generic_grass_tall_a_tex_d",
+        "normal": "grass_generic_grass_tall_a_tex_n",
+        "variations": 1,
+        "height": 0.8,
+        "ht_rnd_add": 0.2,
+        "hor_size": 0.7,
+        "hor_size_rnd_add": 0.0,
+        "color_mask_r_from": "#7f73665a",
+        "color_mask_r_to": "#b7a9955a",
+        "color_mask_g_from": "#6b64535a",
+        "color_mask_g_to": "#97887586",
+        "color_mask_b_from": "#7267535a",
+        "color_mask_b_to": "#755f425a",
+        "height_from_weight_mul": 0.3,
+        "height_from_weight_add": 0.7,
+        "density_from_weight_mul": 0.4,
+        "density_from_weight_add": 0.2,
+        "vertical_angle_add": 0.1,
+        "vertical_angle_mul": 0.7
+      },
+      "generic_grass_medium_a_yellow": {
+        "diffuse": "grass_generic_grass_tall_a_tex_d",
+        "normal": "grass_generic_grass_tall_a_tex_n",
+        "variations": 1,
+        "height": 0.3,
+        "ht_rnd_add": 0.2,
+        "hor_size": 0.4,
+        "hor_size_rnd_add": 0.0,
+        "color_mask_r_from": "#7f73665a",
+        "color_mask_r_to": "#b7a9955a",
+        "color_mask_g_from": "#6b64535a",
+        "color_mask_g_to": "#97887586",
+        "color_mask_b_from": "#7267535a",
+        "color_mask_b_to": "#755f425a",
+        "height_from_weight_mul": 0.3,
+        "height_from_weight_add": 0.7,
+        "density_from_weight_mul": 0.4,
+        "density_from_weight_add": 0.2,
+        "vertical_angle_add": 0.1,
+        "vertical_angle_mul": 0.7
+      },
+      "generic_grass_tall_a_white": {
+        "diffuse": "grass_generic_grass_tall_a_tex_d",
+        "normal": "grass_generic_grass_tall_a_tex_n",
+        "variations": 1,
+        "height": 0.4,
+        "ht_rnd_add": 0.2,
+        "hor_size": 0.5,
+        "hor_size_rnd_add": 0.0,
+        "color_mask_r_from": "#7f7f7f5a",
+        "color_mask_r_to": "#b7b7b75a",
+        "color_mask_g_from": "#7272725a",
+        "color_mask_g_to": "#a7a7a786",
+        "color_mask_b_from": "#2323235a",
+        "color_mask_b_to": "#7575755a",
+        "height_from_weight_mul": 0.3,
+        "height_from_weight_add": 0.7,
+        "density_from_weight_mul": 0.4,
+        "density_from_weight_add": 0.8,
+        "vertical_angle_add": 0.1,
+        "vertical_angle_mul": 0.7
+      },
+      "generic_grass_winter": {
+        "diffuse": "grass_generic_grass_tall_b_tex_d",
+        "normal": "grass_generic_grass_tall_b_tex_n",
+        "variations": 1,
+        "height": 0.7,
+        "ht_rnd_add": 0.5,
+        "hor_size": 1.0,
+        "hor_size_rnd_add": 0.0,
+        "color_mask_r_from": "#60473a5a",
+        "color_mask_r_to": "#cdb59c5a",
+        "color_mask_g_from": "#38322c5a",
+        "color_mask_g_to": "#ab998a5a",
+        "color_mask_b_from": "#4439295a",
+        "color_mask_b_to": "#5b564b5a",
+        "height_from_weight_mul": 0.7,
+        "height_from_weight_add": 0.3,
+        "density_from_weight_mul": 0.65,
+        "density_from_weight_add": 0.95,
+        "vertical_angle_add": 0.2,
+        "vertical_angle_mul": 0.8
+      },
+      "generic_grass_tall_a_green": {
+        "diffuse": "grass_generic_grass_tall_a_tex_d",
+        "normal": "grass_generic_grass_tall_a_tex_n",
+        "variations": 1,
+        "height": 0.4,
+        "ht_rnd_add": 0.2,
+        "hor_size": 0.5,
+        "hor_size_rnd_add": 0.0,
+        "color_mask_r_from": "#2e510a5a",
+        "color_mask_r_to": "#41520a5a",
+        "color_mask_g_from": "#1f1f1f5a",
+        "color_mask_g_to": "#d9d9d95a",
+        "color_mask_b_from": "#64630a5a",
+        "color_mask_b_to": "#5f4b0e5a",
+        "height_from_weight_mul": 0.3,
+        "height_from_weight_add": 0.7,
+        "density_from_weight_mul": 0.4,
+        "density_from_weight_add": 0.2,
+        "vertical_angle_add": 0.1,
+        "vertical_angle_mul": 0.7
+      },
+      "rye_a": {
+        "diffuse": "grass_rye_tex_d",
+        "normal": "grass_rye_tex_n",
+        "variations": 1,
+        "height": 0.6,
+        "ht_rnd_add": 0.4,
+        "hor_size": 0.6,
+        "hor_size_rnd_add": 0.4,
+        "color_mask_r_from": "#7d78595a",
+        "color_mask_r_to": "#5735145a",
+        "color_mask_g_from": "#4f4f4f5a",
+        "color_mask_g_to": "#ecece65a",
+        "color_mask_b_from": "#2f240d5a",
+        "color_mask_b_to": "#361f1254",
+        "height_from_weight_mul": 0.3,
+        "height_from_weight_add": 0.7,
+        "density_from_weight_mul": 0.7,
+        "density_from_weight_add": 0.0
+      },
+      "wheat_a": {
+        "diffuse": "grass_wheat_tex_d",
+        "normal": "grass_wheat_tex_n",
+        "variations": 1,
+        "height": 1.0,
+        "ht_rnd_add": 0.3,
+        "hor_size": 1.0,
+        "hor_size_rnd_add": 0.3,
+        "color_mask_r_from": "#1c17105a",
+        "color_mask_r_to": "#2320185a",
+        "color_mask_g_from": "#5555555a",
+        "color_mask_g_to": "#f5f5f55a",
+        "color_mask_b_from": "#39260f5a",
+        "color_mask_b_to": "#2525255a",
+        "height_from_weight_mul": 0.3,
+        "height_from_weight_add": 0.7,
+        "density_from_weight_mul": 0.7,
+        "density_from_weight_add": 0.0
+      },
+      "wheat_dead_a": {
+        "diffuse": "grass_wheat_dead_tex_d",
+        "normal": "grass_wheat_dead_tex_n",
+        "variations": 1,
+        "height": 1.0,
+        "ht_rnd_add": 0.3,
+        "hor_size": 1.0,
+        "hor_size_rnd_add": 0.3,
+        "color_mask_r_from": "#1c17105a",
+        "color_mask_r_to": "#2320185a",
+        "color_mask_g_from": "#5555555a",
+        "color_mask_g_to": "#f5f5f55a",
+        "color_mask_b_from": "#39260f5a",
+        "color_mask_b_to": "#2525255a",
+        "height_from_weight_mul": 0.3,
+        "height_from_weight_add": 0.7,
+        "density_from_weight_mul": 0.7,
+        "density_from_weight_add": 0.0
+      },
+      "oat_a": {
+        "diffuse": "grass_oat_tex_d",
+        "normal": "grass_oat_tex_n",
+        "variations": 1,
+        "height": 0.9,
+        "ht_rnd_add": 0.3,
+        "hor_size": 0.9,
+        "hor_size_rnd_add": 0.3,
+        "color_mask_r_from": "#776f1c5a",
+        "color_mask_r_to": "#57402a5a",
+        "color_mask_g_from": "#6d6d6d6d",
+        "color_mask_g_to": "#dfdcdc5a",
+        "color_mask_b_from": "#46561f5a",
+        "color_mask_b_to": "#633d1d5a",
+        "height_from_weight_mul": 0.3,
+        "height_from_weight_add": 0.7,
+        "density_from_weight_mul": 0.7,
+        "density_from_weight_add": 0.0
+      },
+      "field_grass_a": {
+        "diffuse": "grass_generic_grass_tall_a_tex_d",
+        "normal": "grass_generic_grass_tall_a_tex_n",
+        "variations": 1,
+        "height": 0.6,
+        "ht_rnd_add": 0.3,
+        "hor_size": 0.6,
+        "hor_size_rnd_add": 0.5,
+        "color_mask_r_from": "#3e34195a",
+        "color_mask_r_to": "#566f1e5a",
+        "color_mask_g_from": "#6d6d6d5a",
+        "color_mask_g_to": "#e4e4e45a",
+        "color_mask_b_from": "#7c4c215a",
+        "color_mask_b_to": "#673f1e5a",
+        "height_from_weight_mul": 0.3,
+        "height_from_weight_add": 0.7,
+        "density_from_weight_mul": 0.7,
+        "density_from_weight_add": 0.0
+      },
+      "generic_grass_tall_b_dead": {
+        "diffuse": "grass_generic_grass_tall_b_tex_d",
+        "normal": "grass_generic_grass_tall_b_tex_n",
+        "variations": 1,
+        "height": 0.6,
+        "ht_rnd_add": 0.3,
+        "hor_size": 0.6,
+        "hor_size_rnd_add": 0.0,
+        "color_mask_r_from": "#4076055a",
+        "color_mask_r_to": "#80561a5a",
+        "color_mask_g_from": "#0505055a",
+        "color_mask_g_to": "#b6ad755a",
+        "color_mask_b_from": "#729c0a5a",
+        "color_mask_b_to": "#807f2b5a",
+        "height_from_weight_mul": 0.3,
+        "height_from_weight_add": 0.7,
+        "density_from_weight_mul": 0.0,
+        "density_from_weight_add": 0.2
+      },
+      "generic_grass_small_a": {
+        "diffuse": "grass_generic_grass_small_a_tex_d",
+        "normal": "grass_generic_grass_small_a_tex_n",
+        "variations": 1,
+        "height": 0.3,
+        "ht_rnd_add": 0.2,
+        "hor_size": 0.4,
+        "hor_size_rnd_add": 0.2,
+        "stiffness": 0.2,
+        "color_mask_r_from": "#201d015a",
+        "color_mask_r_to": "#553b275a",
+        "color_mask_g_from": "#0505055a",
+        "color_mask_g_to": "#ffffff5a",
+        "color_mask_b_from": "#382f225a",
+        "color_mask_b_to": "#5151405a",
+        "height_from_weight_mul": 0.5,
+        "height_from_weight_add": 0.5,
+        "density_from_weight_mul": 0.1,
+        "density_from_weight_add": 0.9,
+        "vertical_angle_add": 0.6,
+        "vertical_angle_mul": 0.7
+      },
+      "generic_grass_dry_a": {
+        "diffuse": "grass_generic_grass_small_a_tex_d",
+        "normal": "grass_generic_grass_small_a_tex_n",
+        "variations": 1,
+        "height": 0.1,
+        "ht_rnd_add": 0.45,
+        "hor_size": 0.05,
+        "hor_size_rnd_add": 0.8,
+        "color_mask_r_from": "#4e371e5a",
+        "color_mask_r_to": "#4128005a",
+        "color_mask_g_from": "#4b321f5a",
+        "color_mask_g_to": "#2e28275a",
+        "color_mask_b_from": "#201c1a5a",
+        "color_mask_b_to": "#2b25225a",
+        "height_from_weight_mul": 0.5,
+        "height_from_weight_add": 0.5,
+        "density_from_weight_mul": 0.75,
+        "density_from_weight_add": 0.9,
+        "vertical_angle_add": 0.0084,
+        "vertical_angle_mul": 0.4,
+        "stiffness": 0.45,
+        "horizontal_grass": false,
+        "underwater": false,
+        "size_lod_mul": 1.17
+      },
+      "generic_grass_flat_a": {
+        "diffuse": "grass_generic_grass_small_a_tex_d",
+        "normal": "grass_generic_grass_small_a_tex_n",
+        "variations": 1,
+        "horizontal_grass": true,
+        "height": 0.4,
+        "ht_rnd_add": 0.2,
+        "hor_size": 0.4,
+        "hor_size_rnd_add": 0.2,
+        "color_mask_r_from": "#2c200c5a",
+        "color_mask_r_to": "#7160575a",
+        "color_mask_g_from": "#0505055a",
+        "color_mask_g_to": "#ffffff5a",
+        "color_mask_b_from": "#1f1c0d5a",
+        "color_mask_b_to": "#2e21165a",
+        "height_from_weight_mul": 0.5,
+        "height_from_weight_add": 0.5,
+        "density_from_weight_mul": 0.5,
+        "density_from_weight_add": 0.0
+      },
+      "generic_grass_burnt_a": {
+        "diffuse": "grass_generic_grass_small_a_tex_d",
+        "normal": "grass_generic_grass_small_a_tex_n",
+        "variations": 1,
+        "height": 0.4,
+        "ht_rnd_add": 0.2,
+        "hor_size": 0.4,
+        "hor_size_rnd_add": 0.2,
+        "color_mask_r_from": "#0a09085a",
+        "color_mask_r_to": "#0908075a",
+        "color_mask_g_from": "#0505055a",
+        "color_mask_g_to": "#ffffff5a",
+        "color_mask_b_from": "#a56e535a",
+        "color_mask_b_to": "#46392e5a",
+        "height_from_weight_mul": 0.7,
+        "height_from_weight_add": 0.3,
+        "density_from_weight_mul": 0.2,
+        "density_from_weight_add": 0.0,
+        "vertical_angle_add": 0.1,
+        "vertical_angle_mul": 0.5
+      },
+      "bush_dead_a": {
+        "diffuse": "grass_generic_bush_dead_a_tex_d",
+        "normal": "grass_generic_bush_dead_a_tex_n",
+        "variations": 1,
+        "ht": 0.4,
+        "ht_rnd_add": 0.8,
+        "hor_size": 0.4,
+        "hor_size_rnd_add": 0.6,
+        "stiffness": 0.1,
+        "color_mask_r_from": "#bd9d0f5a",
+        "color_mask_r_to": "#4c2f1d5a",
+        "color_mask_g_from": "#3a2e135a",
+        "color_mask_g_to": "#3832305a",
+        "color_mask_b_from": "#290f455a",
+        "color_mask_b_to": "#31231b5a",
+        "height_from_weight_mul": 0.3,
+        "height_from_weight_add": 0.7,
+        "density_from_weight_mul": 0.4,
+        "density_from_weight_add": 0.0,
+        "vertical_angle_add": -0.2,
+        "vertical_angle_mul": 0.5
+      },
+      "bush_trunks_dead_a": {
+        "diffuse": "grass_generic_bush_trunks_dead_a_tex_d",
+        "normal": "grass_generic_bush_trunks_dead_a_tex_n",
+        "variations": 1,
+        "height": 0.3,
+        "ht_rnd_add": 0.15,
+        "hor_size": 0.5,
+        "hor_size_rnd_add": 0.3,
+        "stiffness": 0.3,
+        "color_mask_r_from": "#4d534e5a",
+        "color_mask_r_to": "#1d1d0c5a",
+        "color_mask_g_from": "#8c645f5a",
+        "color_mask_g_to": "#3e351886",
+        "color_mask_b_from": "#4f6f655a",
+        "color_mask_b_to": "#7169595a",
+        "height_from_weight_mul": 0.3,
+        "height_from_weight_add": 0.7,
+        "density_from_weight_mul": 0.4,
+        "density_from_weight_add": 0.3,
+        "vertical_angle_add": -0.2416,
+        "vertical_angle_mul": 0.5
+      },
+      "bush_burnt_a": {
+        "diffuse": "grass_generic_bush_dead_a_tex_d",
+        "normal": "grass_generic_bush_dead_a_tex_n",
+        "variations": 1,
+        "height": 0.4,
+        "ht_rnd_add": 0.3,
+        "hor_size": 0.4,
+        "hor_size_rnd_add": 0.3,
+        "stiffness": 0.1,
+        "color_mask_r_from": "#0f0d0b5a",
+        "color_mask_r_to": "#28190f5a",
+        "color_mask_g_from": "#0505055a",
+        "color_mask_g_to": "#fafafa5a",
+        "color_mask_b_from": "#2825255a",
+        "color_mask_b_to": "#493b255a",
+        "height_from_weight_mul": 0.3,
+        "height_from_weight_add": 0.7,
+        "density_from_weight_mul": 0.3,
+        "density_from_weight_add": 0.0,
+        "vertical_angle_add": -0.2,
+        "vertical_angle_mul": 0.5
+      },
+      "bush_a": {
+        "diffuse": "grass_generic_bush_a_tex_d",
+        "normal": "grass_generic_bush_a_tex_n",
+        "variations": 1,
+        "height": 0.4,
+        "height_rnd_add": 0.5,
+        "hor_size": 0.5,
+        "hor_size_rnd_add": 0.2,
+        "color_mask_r_from": "#3316015a",
+        "color_mask_r_to": "#401a055a",
+        "color_mask_g_from": "#6767675a",
+        "color_mask_g_to": "#a4a4a45a",
+        "color_mask_b_from": "#2f0b085a",
+        "color_mask_b_to": "#2d26225a",
+        "height_from_weight_mul": 0.2,
+        "height_from_weight_add": 0.8,
+        "density_from_weight_mul": 0.2,
+        "density_from_weight_add": 0.0
+      },
+      "blueberry": {
+        "diffuse": "grass_blueberry_tex_d",
+        "normal": "grass_blueberry_tex_n",
+        "variations": 1,
+        "height": 0.3,
+        "ht_rnd_add": 0.4,
+        "hor_size": 0.4,
+        "hor_size_rnd_add": 0.3,
+        "stiffness": 0.1,
+        "color_mask_r_from": "#2311445a",
+        "color_mask_r_to": "#0f161c5a",
+        "color_mask_g_from": "#0505055a",
+        "color_mask_g_to": "#fafafa5a",
+        "color_mask_b_from": "#4854005a",
+        "color_mask_b_to": "#3c351d5a",
+        "height_from_weight_mul": 0.5,
+        "height_from_weight_add": 0.5,
+        "density_from_weight_mul": 0.4,
+        "density_from_weight_add": 0.0,
+        "vertical_angle_add": 0.1,
+        "vertical_angle_mul": 0.7
+      },
+      "clover_flat": {
+        "diffuse": "grass_clover_flat_tex_d",
+        "normal": "grass_clover_flat_tex_n",
+        "variations": 1,
+        "horizontal_grass": true,
+        "height": 1.8,
+        "ht_rnd_add": 1.0,
+        "hor_size": 1.8,
+        "hor_size_rnd_add": 1.0,
+        "color_mask_r_from": "#32360c5a",
+        "color_mask_r_to": "#696b175a",
+        "color_mask_g_from": "#0505055a",
+        "color_mask_g_to": "#6b6b6b5a",
+        "color_mask_b_from": "#7c7b1d4c",
+        "color_mask_b_to": "#456e145a",
+        "height_from_weight_mul": 0.5,
+        "height_from_weight_add": 0.5,
+        "density_from_weight_mul": 0.185,
+        "density_from_weight_add": 0.0
+      },
+      "chamerion_angustifolium": {
+        "diffuse": "grass_chamerion_angustifolium_tex_d",
+        "normal": "grass_chamerion_angustifolium_tex_n",
+        "variations": 1,
+        "height": 1.3,
+        "ht_rnd_add": 0.4,
+        "hor_size": 1.3,
+        "hor_size_rnd_add": 0.2,
+        "color_mask_r_from": "#570a8c5a",
+        "color_mask_r_to": "#a31a215a",
+        "color_mask_g_from": "#0505055a",
+        "color_mask_g_to": "#ffffff5a",
+        "color_mask_b_from": "#7278065a",
+        "color_mask_b_to": "#333c005a",
+        "height_from_weight_mul": 0.5,
+        "height_from_weight_add": 0.5,
+        "density_from_weight_mul": 0.3,
+        "density_from_weight_add": 0.0
+      },
+      "ammophila_arenaria": {
+        "diffuse": "grass_ammophila_arenaria_tex_d",
+        "normal": "grass_ammophila_arenaria_tex_n",
+        "variations": 1,
+        "height": 0.7,
+        "ht_rnd_add": 0.4,
+        "hor_size": 0.7,
+        "hor_size_rnd_add": 0.2,
+        "color_mask_r_from": "#8172595a",
+        "color_mask_r_to": "#7b573a5a",
+        "color_mask_g_from": "#0505055a",
+        "color_mask_g_to": "#ffffff5a",
+        "color_mask_b_from": "#5649355a",
+        "color_mask_b_to": "#8e7f6e5a",
+        "height_from_weight_mul": 0.5,
+        "height_from_weight_add": 0.5,
+        "density_from_weight_mul": 0.5,
+        "density_from_weight_add": 0.0
+      },
+      "cortadelia_selloana": {
+        "diffuse": "grass_cortadelia_selloana_tex_d",
+        "normal": "grass_cortadelia_selloana_tex_n",
+        "variations": 1,
+        "height": 0.75,
+        "ht_rnd_add": 0.01,
+        "hor_size": 0.25,
+        "hor_size_rnd_add": 0.01,
+        "color_mask_r_from": "#b7a07e5a",
+        "color_mask_r_to": "#765e535a",
+        "color_mask_g_from": "#0505055a",
+        "color_mask_g_to": "#000000ff",
+        "color_mask_b_from": "#3730255a",
+        "color_mask_b_to": "#352f1e5a",
+        "height_from_weight_mul": 0.5,
+        "height_from_weight_add": 0.5,
+        "density_from_weight_mul": 0.5,
+        "density_from_weight_add": 0.0,
+        "size_lod_mul": 1.2
+      },
+      "tanacetum_vulgare": {
+        "diffuse": "grass_tanacetum_vulgare_tex_d",
+        "normal": "grass_tanacetum_vulgare_tex_n",
+        "variations": 1,
+        "height": 1.0,
+        "ht_rnd_add": 0.4,
+        "hor_size": 1.0,
+        "hor_size_rnd_add": 0.3,
+        "color_mask_r_from": "#b5915d5a",
+        "color_mask_r_to": "#ab64005a",
+        "color_mask_g_from": "#0505055a",
+        "color_mask_g_to": "#ffffff5a",
+        "color_mask_b_from": "#3421095a",
+        "color_mask_b_to": "#4a402d5a",
+        "height_from_weight_mul": 0.5,
+        "height_from_weight_add": 0.5,
+        "density_from_weight_mul": 0.5,
+        "density_from_weight_add": 0.0
+      },
+      "typha_a": {
+        "diffuse": "grass_typha_tex_d",
+        "normal": "grass_typha_tex_n",
+        "variations": 1,
+        "height": 1.0,
+        "ht_rnd_add": 0.5,
+        "hor_size": 1.6,
+        "hor_size_rnd_add": 0.2,
+        "color_mask_r_from": "#2922215a",
+        "color_mask_r_to": "#2c26235a",
+        "color_mask_g_from": "#0505055a",
+        "color_mask_g_to": "#ffffff5a",
+        "color_mask_b_from": "#443b2e5a",
+        "color_mask_b_to": "#6c54355a",
+        "height_from_weight_mul": 1.0,
+        "height_from_weight_add": 0.3,
+        "density_from_weight_mul": 0.2,
+        "density_from_weight_add": 0.0,
+        "vertical_angle_add": -0.03,
+        "vertical_angle_mul": 0.04
+      },
+      "grass_leaves_flat_a": {
+        "diffuse": "grass_leaves_flat_a_tex_d",
+        "normal": "grass_leaves_flat_a_tex_n",
+        "variations": 1,
+        "horizontal_grass": true,
+        "height": 0.75,
+        "ht_rnd_add": 0.35,
+        "hor_size": 0.75,
+        "hor_size_rnd_add": 0.35,
+        "color_mask_r_from": "#aa865b5a",
+        "color_mask_r_to": "#a84d415a",
+        "color_mask_g_from": "#918b7a80",
+        "color_mask_g_to": "#63565680",
+        "color_mask_b_from": "#bbb0645a",
+        "color_mask_b_to": "#c18c625a",
+        "height_from_weight_mul": 0.5,
+        "height_from_weight_add": 0.5,
+        "density_from_weight_mul": 0.0,
+        "density_from_weight_add": 0.1
+      },
+      "nograss": {
+        "density_from_weight_mul": 0.0,
+        "density_from_weight_add": 0.0
+      }
+    },
+    "decals": {
+      "yellow_grass_a": {
+        "id": 2,
+        "bush_trunks_dead_a": 3.0,
+        "bush_dead_a": 5.0,
+        "nograss": 6.0
+      },
+      "forest_a_grass_a": {
+        "id": 34,
+        "generic_grass_dry_a": 5.0,
+        "nograss": 7.0,
+        "bush_trunks_dead_a": 2.0,
+        "bush_dead_a": 4.0
+      }
+    }
+  },
+  "graphics": {
+    "IndoorProbes": true
+  },
+  "unitedVdata.rendInst": {
+    "IB": 65536,
+    "VB1": 65536,
+    "VB2": 65536,
+    "VB3": 65536,
+    "VB4": 26000,
+    "VB5": 0
+  }
+}

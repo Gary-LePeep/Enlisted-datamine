@@ -1,0 +1,154 @@
+{
+  "common_menu_animchar": [
+    {
+      "_extends": "base_menu_animchar"
+    },
+    {
+      "_extends": "usa_summer_1"
+    },
+    {
+      "_extends": "replicating"
+    },
+    {
+      "human_sec_anim__postFix": ""
+    },
+    {
+      "human_sec_anim__play": false
+    },
+    {
+      "human_sec_anim__setup": ""
+    },
+    {
+      "human_sec_anim__a2d": ""
+    },
+    {
+      "human_sec_anim__duration": 1.5
+    },
+    {
+      "human_sec_anim__reload": false
+    },
+    {
+      "human_sec_anim__playStartedAt": -1.0
+    },
+    {
+      "human_sec_anim__hideWeapon": false
+    },
+    {
+      "human_sec_anim__interruptsMovement": false
+    },
+    {
+      "human_sec_anim__instantlyStart": true
+    },
+    {
+      "human_sec_anim__hideMelee": false
+    },
+    {
+      "human_sec_anim": []
+    },
+    {
+      "animchar__objTexReplace:object": []
+    },
+    {
+      "phys_vars": []
+    }
+  ],
+  "customizable_menu_animchar": [
+    {
+      "_extends": "base_menu_animchar"
+    },
+    {
+      "_extends": "base_soldier"
+    },
+    {
+      "_extends": "human_anim_state_restrictions"
+    },
+    {
+      "_extends": "replicating"
+    },
+    {
+      "guid": ""
+    },
+    {
+      "guid_hash": 0
+    },
+    {
+      "human_inventory__capacity": 25.0
+    },
+    {
+      "human_sec_anim__postFix": ""
+    },
+    {
+      "human_inventory__currentVolume": 0.0
+    },
+    {
+      "human_sec_anim__play": false
+    },
+    {
+      "human_sec_anim__setup": ""
+    },
+    {
+      "human_sec_anim__a2d": ""
+    },
+    {
+      "human_sec_anim__duration": 1.5
+    },
+    {
+      "human_sec_anim__reload": false
+    },
+    {
+      "human_sec_anim__playStartedAt": -1.0
+    },
+    {
+      "human_sec_anim__hideWeapon": false
+    },
+    {
+      "human_sec_anim__interruptsMovement": false
+    },
+    {
+      "human_sec_anim__instantlyStart": true
+    },
+    {
+      "human_sec_anim__hideMelee": false
+    },
+    {
+      "human_sec_anim": []
+    },
+    {
+      "animchar__objTexReplace:object": []
+    },
+    {
+      "phys_vars": []
+    },
+    {
+      "itemContainer:list<eid>": []
+    },
+    {
+      "human_inventory__initialItems:object": []
+    },
+    {
+      "human_equipment__itemRemap:object": []
+    },
+    {
+      "attaches_list:list<eid>": []
+    },
+    {
+      "animchar_attaches_bbox": {
+        "_tags": "render"
+      }
+    }
+  ],
+  "customizable_benchmark_animchar": {
+    "_extends": "customizable_menu_animchar",
+    "animchar__res": "ger_summer_1_char",
+    "transform": [
+      [1.0,0.0,0.0],
+      [0.0,1.0,0.0],
+      [0.0,0.0,1.0],
+      [0.0,0.0,0.0]
+    ],
+    "animchar__animStateNames:object": {
+      "lower": "enlisted_action_idle_09_weapon",
+      "upper": "enlisted_action_idle_09_weapon"
+    }
+  }
+}

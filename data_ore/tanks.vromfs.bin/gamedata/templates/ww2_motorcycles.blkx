@@ -1,0 +1,288 @@
+[
+  {
+    "import": "motorcycles/guns/bike_7_92mm_bren.blk"
+  },
+  {
+    "import": "motorcycles/guns/bike_7_92mm_mg34.blk"
+  },
+  {
+    "import": "motorcycles/guns/bike_7_62mm_m1919a4.blk"
+  },
+  {
+    "import": "motorcycles/david_harleyson_wla_template.blk"
+  },
+  {
+    "import": "motorcycles/edward_big4_template.blk"
+  },
+  {
+    "import": "motorcycles/appzund_ks750_template.blk"
+  },
+  {
+    "import": "motorcycles/wbm_r75_template.blk"
+  },
+  {
+    "base_bike_left_sidecar": {
+      "_extends": "base_bike_common",
+      "dm_phys_parts__enginePartIds:list<i>": [],
+      "dm_phys_parts__transmissionPartIds:list<i>": [],
+      "dm_phys_parts__tracksPartIds:list<i>": [],
+      "dm_phys_parts__wheelsPartIds:list<i>": [],
+      "dm_phys_parts__engine:array": {
+        "engine": "engine"
+      },
+      "dm_phys_parts__transmission:array": {
+        "transmission": "transmission"
+      },
+      "dm_phys_parts__tracks:array": [],
+      "dm_phys_parts__ammo:array": [],
+      "dm_phys_parts__wheels:array": [
+        {
+          "wheel": "wheel_l_drive"
+        },
+        {
+          "wheel": "wheel_r_drive"
+        },
+        {
+          "wheel": "wheel_r_01"
+        }
+      ]
+    }
+  },
+  {
+    "base_bike_right_sidecar": {
+      "_extends": "base_bike_common",
+      "dm_phys_parts__enginePartIds:list<i>": [],
+      "dm_phys_parts__transmissionPartIds:list<i>": [],
+      "dm_phys_parts__tracksPartIds:list<i>": [],
+      "dm_phys_parts__wheelsPartIds:list<i>": [],
+      "dm_phys_parts__engine:array": {
+        "engine": "engine"
+      },
+      "dm_phys_parts__transmission:array": {
+        "transmission": "transmission"
+      },
+      "dm_phys_parts__tracks:array": [],
+      "dm_phys_parts__ammo:array": [],
+      "dm_phys_parts__wheels:array": [
+        {
+          "wheel": "wheel_l_drive"
+        },
+        {
+          "wheel": "wheel_r_drive"
+        },
+        {
+          "wheel": "wheel_l_01"
+        }
+      ]
+    }
+  },
+  {
+    "base_bike_common_sound": [
+      {
+        "_extends": "motorcycle_vehicle_brakes_sound"
+      },
+      {
+        "_extends": "motorcycle_vehicle_scrape_sound_setup"
+      },
+      {
+        "_extends": "motorcycle_vehicle_seat_sound"
+      },
+      {
+        "_extends": "motorcycle_vehicle_suspension_sound"
+      },
+      {
+        "_extends": "motorcycle_vehicle_tracks_sound"
+      },
+      {
+        "_extends": "motorcycle_vehicle_engine_sound"
+      },
+      {
+        "_extends": "motorcycle_vehicle_gear_sound"
+      },
+      {
+        "_extends": "motorcycle_vehicle_horn_sound"
+      },
+      {
+        "_extends": "vehicle_horn_note_E5"
+      }
+    ]
+  },
+  {
+    "base_bike_common": [
+      {
+        "_extends": "base_tank_without_xray_common"
+      },
+      {
+        "_extends": "bike_camera_setup"
+      },
+      {
+        "_extends": "base_tank_seat_templates"
+      },
+      {
+        "_extends": "base_phys_modifications"
+      },
+      {
+        "_extends": "vehicle_anim_steering_deflection"
+      },
+      {
+        "_extends": "resupply_vehicle"
+      },
+      {
+        "_extends": "vehicle_steering_assist"
+      },
+      {
+        "_extends": "vehicle_autodetect_team"
+      },
+      {
+        "_extends": "base_bike_common_sound"
+      },
+      {
+        "team": -1
+      },
+      {
+        "_replicated": "team"
+      },
+      {
+        "phys__maxMassRatioForPushOnCollision": 2.0
+      },
+      {
+        "vehicle__turretControlComponents": "bike_turret_control_components"
+      },
+      {
+        "last_driver_leave_time": 0.0
+      },
+      {
+        "camera__isStabilized": false
+      },
+      {
+        "vehicle_seats_switch_time__totalSwitchTime": 0.5
+      },
+      {
+        "vehicle_seats__enterTime": 0.5
+      },
+      {
+        "vehicle_seats__exitTime": 0.5
+      },
+      {
+        "isSimpleTurretCrosshair:b": {
+          "_tags": "gameClient",
+          "value": true
+        }
+      },
+      {
+        "last_driver:eid": []
+      },
+      {
+        "cockpit_animchar_res_preload": {
+          "_tags": "gameClient"
+        }
+      },
+      {
+        "animchar__objTexReplace:object": []
+      },
+      {
+        "ownedBySquad:eid": []
+      },
+      {
+        "ownedByPlayer:eid": []
+      },
+      {
+        "_group": {
+          "_tags": "render",
+          "bullet_holes__ignoreCollisionNodes:array": [],
+          "bullet_holes__movingCollisionNodes:array": []
+        }
+      },
+      {
+        "_group": {
+          "_tags": "server",
+          "dependent_templates:ecs::TemplatesListToInstantiate": [],
+          "dependent_templates_list:shared:list<t>": [
+            {
+              "template_name": "vehicle_seat_fire_ready"
+            },
+            {
+              "template_name": "bike_seat_driver"
+            },
+            {
+              "template_name": "vehicle_seat_commander"
+            }
+          ]
+        }
+      },
+      {
+        "_group": {
+          "vehicle_anim__steeringDeflectionLimit": [1.0,0.0],
+          "_tags": "render"
+        }
+      },
+      {
+        "vehicle_seats__canAcquireControls:shared:object": {
+          "driver:object": {
+            "movement": true,
+            "turrets": true
+          },
+          "commander:object": {
+            "movement": true,
+            "turrets": true,
+            "camera": true
+          },
+          "passenger1:object": {
+            "movement": true,
+            "camera": true
+          }
+        }
+      },
+      {
+        "vehicle_seats__seatTemplates:shared:object": {
+          "default": "vehicle_seat_fire_ready",
+          "driver": "bike_seat_driver",
+          "commander": "vehicle_seat_commander"
+        }
+      }
+    ]
+  },
+  {
+    "bike_camera_setup": {
+      "_extends": "tank_camera_setup",
+      "defaultCameraTypes:shared:object": {
+        "driver": "commander",
+        "commander": "commander",
+        "passenger1": "commander"
+      }
+    }
+  },
+  {
+    "bike_seat_driver": {
+      "_extends": "base_vehicle_seat",
+      "seats_order__canPlaceManually": true,
+      "seat_anim__upper": "drive_driver",
+      "seat_anim__lower": "drive_driver",
+      "commanderSeat:tag": []
+    }
+  },
+  {
+    "bike_phys_mods": {
+      "vehicle_mods__extraMass": 0.0,
+      "vehicle_mods__maxMomentMult": 1.0,
+      "vehicle_mods__maxBrakeForceMult": 1.0,
+      "vehicle_mods__suspensionDampeningMult": 1.0,
+      "vehicle_mods__suspensionRestingMult": 1.0,
+      "vehicle_mods__suspensionMinLimitMult": 1.0,
+      "vehicle_mods__suspensionMaxLimitMult": 1.0
+    }
+  },
+  {
+    "bike_mods": {
+      "_extends": "bike_phys_mods",
+      "vehicle_mods__maxHorDriveMult:r": {
+        "_tags": "server",
+        "value": 1.0
+      },
+      "vehicle_mods__maxVerDriveMult:r": {
+        "_tags": "server",
+        "value": 1.0
+      }
+    }
+  }
+]

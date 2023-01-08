@@ -1,0 +1,445 @@
+{
+  "phys": [
+    {
+      "oilLeakSpeed": 0.0024
+    },
+    {
+      "oilLeakTime": [420.0,210.0,20.0]
+    },
+    {
+      "oilEmptyDamageSpeed": 0.0042
+    },
+    {
+      "waterLeakSpeed": 0.0048
+    },
+    {
+      "waterLeakTime": [210.0,105.0,15.0]
+    },
+    {
+      "waterEmptyDamageSpeed": 0.0111
+    },
+    {
+      "leakIntensityByTankCapacity": [100.0,1000.0,0.012,0.12]
+    },
+    {
+      "alphaAileronMin": 0.2
+    },
+    {
+      "alphaRudderMin": 0.2
+    },
+    {
+      "alphaElevatorMin": 0.4
+    },
+    {
+      "allowStrongControlsRestrictions": true
+    },
+    {
+      "pseudoHingeMomentLimit": false
+    },
+    {
+      "setupWingSweepOnSpawn": false
+    },
+    {
+      "clToCmAsForceArm": true
+    },
+    {
+      "instructorPayloadCogOffsetMult": 1.0
+    },
+    {
+      "instructorPayloadCogOffsetMult": 1.0
+    },
+    {
+      "sceneMultiRayCast": true
+    },
+    {
+      "traceDownType": "cross"
+    },
+    {
+      "impulseBasedAircraftToSceneCollisionWithCollisionObjects": false
+    },
+    {
+      "impulseBasedAircraftGearToSceneCollision": false
+    },
+    {
+      "isSimulatedRendinstCollisionCheat": false
+    },
+    {
+      "collisionTracesMax": 64
+    },
+    {
+      "staticObjectsRayCastLength": -1.0
+    },
+    {
+      "terrainRoughnessWaveLengthMult": 2.0
+    },
+    {
+      "terrainRoughnessAmplitude": 0.0
+    },
+    {
+      "surfaceFriction": 0.8
+    },
+    {
+      "surfaceFrictionDamageMultiplier": [0.9,1.0,0.0,1.3]
+    },
+    {
+      "surfaceBounce": 0.05
+    },
+    {
+      "surfaceErpMult": 0.04
+    },
+    {
+      "moveMinSq": 0.0
+    },
+    {
+      "rotMinSq": 0.0
+    },
+    {
+      "rollingFriction": 0.02
+    },
+    {
+      "selfSteeringWheelSideFrictionMult": 2.0
+    },
+    {
+      "treeImpulseTreshold": 80000.0
+    },
+    {
+      "unitCollisionImpulseSpeedMax": 40.0
+    },
+    {
+      "sinkRateMult": 1.0
+    },
+    {
+      "explosionImpulseVel": 15.0
+    },
+    {
+      "contactImpulseSpeedTreshold": 3.0
+    },
+    {
+      "collisionImpulseSpeedToDamage": 75.0
+    },
+    {
+      "frictionImpulseSpeedToDamage": 15.0
+    },
+    {
+      "propellerImpulseMultiplierToDamage": 3.0
+    },
+    {
+      "contactDamageThreshold": 5.0
+    },
+    {
+      "contactDamageSphereRadius": 0.5
+    },
+    {
+      "automaticBackwardGroundSteering": false
+    },
+    {
+      "automaticBackwardRollProtection": false
+    },
+    {
+      "engineDegradationSpeed1": 0.0005
+    },
+    {
+      "engineDegradationSpeed2": 0.0035
+    },
+    {
+      "engineDegradationSpeed3": 0.025
+    },
+    {
+      "oilLeakTime1": 420.0
+    },
+    {
+      "oilLeakTime2": 210.0
+    },
+    {
+      "oilLeakTime3": 20.0
+    },
+    {
+      "waterLeakTime1": 210.0
+    },
+    {
+      "waterLeakTime2": 105.0
+    },
+    {
+      "waterLeakTime3": 15.0
+    },
+    {
+      "shaftDegradationSpeed1": 0.0005
+    },
+    {
+      "shaftDegradationSpeed2": 0.0035
+    },
+    {
+      "shaftDegradationSpeed3": 0.025
+    },
+    {
+      "normalizedFrictionAccelMax": true
+    },
+    {
+      "shaftDamageFrictionAccelMax": 0.002
+    },
+    {
+      "shaftCutFrictionAccelMax": 0.0003
+    },
+    {
+      "transmissionDamageFrictionAccelMax": 0.076
+    },
+    {
+      "transmissionCutFrictionAccelMax": 0.02
+    },
+    {
+      "trasmissionOilMinSafeLevel": 0.1
+    },
+    {
+      "forceTransmissionDamageLevelAfterShaftCut": 3
+    },
+    {
+      "forceTransmissionDamageLevelAfterPropeller": 3
+    },
+    {
+      "selfSealingTanksTreshold": 0.0
+    },
+    {
+      "damagedPropClMult": 0.4
+    },
+    {
+      "damagedPropCdMult": 3.0
+    },
+    {
+      "damagedSurfaceCxMultSquareRatioMin": 0.3
+    },
+    {
+      "damagedSurfaceCxMultSquareRatioMax": 0.5
+    },
+    {
+      "damagedSurfaceCxMultMax": 2.3
+    },
+    {
+      "propellerScreenEffectMultiRayCast": false
+    },
+    {
+      "distToSurfaceTimeConst": 0.2
+    },
+    {
+      "mainRotorLowSpeedAlarmPercent": 0.9
+    },
+    {
+      "vortexRingAlarmPercent": 0.7
+    },
+    {
+      "wheelBrakesSpeed": [100.0,2.0]
+    },
+    {
+      "arrestorAcceleration": [3.0,4.5]
+    },
+    {
+      "wingOverloadToBreakProbabilityMult": 6.0
+    },
+    {
+      "wingOverspeedToBreakProbabilityMult": 0.03
+    },
+    {
+      "controlFinsDestructionSpeedDiff": 10.0
+    },
+    {
+      "controlOverspeedToBreakProbabilityMult": 0.05
+    },
+    {
+      "tailDestructionSpeedDiff": 40.0
+    },
+    {
+      "tailOverspeedToBreakProbabilityMult": 0.05
+    },
+    {
+      "wingWaveMassRel": 0.25
+    },
+    {
+      "overspeedRelToWingWaveAmplitude": [0.8,1.0]
+    },
+    {
+      "overspeedRelToWingFakeWaveAmplitude": [0.85,1.15]
+    },
+    {
+      "wingspanToWingResonanceSpeed": 295.0
+    },
+    {
+      "rollingWingWaveRange": [0.1,2.0]
+    },
+    {
+      "rollingCameraShakingMult": 0.0
+    },
+    {
+      "wingSpringDampJoint": true
+    },
+    {
+      "wingSpringDampJointMult": [0.5,0.005]
+    },
+    {
+      "wingSpringDampJointArmRel": 1.0
+    },
+    {
+      "horsePowersToInfraRedBrightness": 0.42
+    },
+    {
+      "thrustKgsToInfraRedBrightness": 1.0
+    },
+    {
+      "afterburnerThrustKgsToInfraRedBrightness": 4.5
+    },
+    {
+      "analytics": {
+        "precisionDisplay": {
+          "speedSearchStep": 0.2,
+          "speedSearchSafetyIntervalInitial": 100.0,
+          "speedSearchSafetyIntervalNormal": 7.0,
+          "loadFactorSearchStep": 0.025,
+          "mainRotorAngleStep": 0.0035,
+          "mainRotorSearchIterMax": 250,
+          "propPitchSearchStep": 0.0005,
+          "omegaSearchStep": 0.2
+        },
+        "precisionInstructor": {
+          "speedSearchStep": 0.2,
+          "speedSearchSafetyIntervalInitial": 100.0,
+          "speedSearchSafetyIntervalNormal": 7.0,
+          "loadFactorSearchStep": 0.025,
+          "mainRotorAngleStep": 0.005,
+          "mainRotorSearchIterMax": 150,
+          "propPitchSearchStep": 0.0005,
+          "omegaSearchStep": 0.2
+        },
+        "precisionDamage": {
+          "speedSearchStep": 0.2,
+          "speedSearchSafetyIntervalInitial": 100.0,
+          "speedSearchSafetyIntervalNormal": 7.0,
+          "loadFactorSearchStep": 0.25,
+          "mainRotorAngleStep": 0.005,
+          "mainRotorSearchIterMax": 150,
+          "propPitchSearchStep": 0.0005,
+          "omegaSearchStep": 0.5
+        }
+      }
+    }
+  ],
+  "instructor": {
+    "minOnGroundSpeed": 0.1,
+    "adaptivePitchPropCoeffBase": 1.0,
+    "adaptivePitchDerrCoeffBase": 1.0,
+    "ailDegToPredict": 14.0,
+    "elevonDegToPredict": -18.0,
+    "maxCvtAngle": 1.5,
+    "instructorSmoothness": 0.29,
+    "instructorAlphaPrediction": 5.0,
+    "instructorCritAngleK": 0.2,
+    "constPitchPropCoeffBase": 1.0,
+    "constPitchDerrCoeffBase": 12.0,
+    "reducedFlightModelLoop": true
+  },
+  "orbit": {
+    "yawOffsetMult": 30.0,
+    "pitchKi": 0.01,
+    "pitchKd": 0.01,
+    "pitchMax": 15.0
+  },
+  "mouseAim": {
+    "mouseAimDisableControlTreshold": 0.8,
+    "disableMouseAimTime": 0.05,
+    "enableMouseAimTime": 0.1,
+    "numSteps": 5,
+    "maxNumSteps": 30,
+    "predictionTime": [0.17,3.0,0.7],
+    "scoreTreshold": 0.0001,
+    "analyticalScore": 0.085,
+    "angVelFactorMin": 1.42,
+    "rollRateToAngVelFactor": 0.497,
+    "localDirYawPitchRotYZMax0": 0.125,
+    "autoBankLevelMultToLocalDirYawPitchRotYZMax": 0.3,
+    "rollAndPullUpWishDirYMin": -0.7,
+    "rollandPullUpWishDirMin": 0.3,
+    "allowedRollRateCoeff": [0.17,0.3,0.4,1.5],
+    "rollTimeMult": 0.44,
+    "rollPidKpMult": 1.25,
+    "dirXZFactorPitch0": [0.15,2.0,0.35,0.06],
+    "dirXZFactorPitchMin": 0.02,
+    "dirXZFactorYaw0": [0.15,2.0,0.35,0.06],
+    "dirXZFactorYawMin": 0.02,
+    "rollRateLimToDirXZFactor": [0.7,1000000.0],
+    "angDistToRadialAngleAdd": [0.12,0.0,0.03,1.0],
+    "rollRateToRadialAngleAdd": 0.15,
+    "radialAngleAddMax": 0.3,
+    "applyFactorSpeedRange": [0.3,0.6],
+    "rotationStopTimeMax": 3.0,
+    "disableSolvingForDeadElevator": false,
+    "disableSolvingForDeadRudder": true,
+    "reducedFlightModelLoop": true,
+    "elevRuddTreshold": 0.01,
+    "elevRuddLinearSearchIterMax": 0,
+    "elevRuddPosCaching": false,
+    "elevRuddPosCachingTolerance": 0.001,
+    "elevRuddDiffTreshold": 0.0,
+    "sceneCollisionDetectionTickInterval": 5,
+    "preciseRotationStopTimeStepMult": 2.0,
+    "preciseRotationStopTickMult": 4
+  },
+  "autopilot": {
+    "Ailerons": {
+      "rateDeadZone": 0.0,
+      "angleDeadZone": 0.0,
+      "velDeadZone": 0.0,
+      "posDeadZone": 0.1,
+      "posHoldVelTreshold": 2.0,
+      "posHoldTimeOut": 3.0,
+      "angleLimByRaltitude": [15.0,20.0,50.0,190.0],
+      "angleLim": 190.0,
+      "angleLimFullRateMult": 0.8,
+      "autoRateDeadZone": 0.0,
+      "maxAutoRateMult": 0.85,
+      "limitHalfWingAoa": false,
+      "maxAoaMult": 0.8,
+      "rollTimeMultBase": 4.0
+    },
+    "Elevator": {
+      "rateDeadZone": 0.0,
+      "angleDeadZone": 0.0,
+      "velDeadZone": 0.0,
+      "posDeadZone": 0.1,
+      "posHoldVelTreshold": 2.0,
+      "posHoldTimeOut": 3.0,
+      "angleLimByRaltitude": [15.0,20.0,50.0,190.0],
+      "angleLim": 190.0,
+      "angleLimFullRateMult": 0.8,
+      "aoaFactorDeadZone": 0.0,
+      "loadFactorFilterViscosity": 0.05,
+      "loadFactorDeadZone": 0.0,
+      "maxLoadFactorMult": 0.85,
+      "targetMaxAoaFactorMult": 1.0,
+      "additionalAoaMaxFactorMult": 1.0,
+      "maxAoaFactorMult": 0.95,
+      "limitAoaByLoadFactor": true,
+      "limitStabAoa": false,
+      "loadFactorTimeMultBase": 5.0,
+      "aoaTimeMultBase": 0.2
+    },
+    "Yaw": {
+      "rateDeadZone": 0.0,
+      "headingHoldRateTreshold": 2.0,
+      "headingHoldTimeOut": 0.5
+    },
+    "Throttle": {
+      "climbDeadZone": 0.0,
+      "altDeadZone": 0.1,
+      "altHoldClimbTreshold": 0.5,
+      "altHoldTimeOut": 0.5,
+      "climbMinLimByHorSpeed": [40.0,-3.0,80.0,-15.0],
+      "climbMinLimByRAltitude": [15.0,-3.0,50.0,-15.0]
+    },
+    "Aim": {
+      "axesTreshold": 0.05,
+      "rollLim": 50.0,
+      "rollLimByRaltitude": [15.0,20.0,50.0,190.0],
+      "pitchLim": 20.0,
+      "pitchLimByRaltitude": [15.0,20.0,100.0,190.0],
+      "overridenRollLim": 30.0,
+      "angleLimFullRateMult": 0.8
+    }
+  }
+}

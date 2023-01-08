@@ -1,0 +1,689 @@
+[
+  {
+    "repeat": [
+      {
+        "name": "sub.passiveMoveReactionDefault"
+      },
+      {
+        "count": 1
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.chooseMaxStance"
+        }
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.deactivateWeapMod"
+        }
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.checkDowned"
+        }
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.checkBurning"
+        }
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.swimUpCheck"
+        }
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.tryToOpenDoors"
+        }
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.findDangerGrenade"
+        }
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.findDangerZone"
+        }
+      },
+      {
+        "sequencer": {
+          "name": "regroup",
+          "orderedSelector": {
+            "orderedSelector": [
+              {
+                "subTree": {
+                  "name": "",
+                  "refId": "checkCoverRef"
+                }
+              },
+              {
+                "subTree": {
+                  "name": "",
+                  "refId": "findCoverRef"
+                }
+              }
+            ],
+            "subTree": {
+              "name": "",
+              "treeName": "sub.regroupCheck"
+            }
+          }
+        }
+      }
+    ]
+  },
+  {
+    "repeat": [
+      {
+        "name": "sub.passiveMoveReactionTrain"
+      },
+      {
+        "count": 1
+      },
+      {
+        "getPointInTrainCapzone": {
+          "posParam": "regroupPosition"
+        }
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.chooseMaxStance"
+        }
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.deactivateWeapMod"
+        }
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.checkDowned"
+        }
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.checkBurning"
+        }
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.swimUpCheck"
+        }
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.tryToOpenDoors"
+        }
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.findDangerGrenade"
+        }
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.findDangerZone"
+        }
+      },
+      {
+        "sequencer": {
+          "name": "regroup",
+          "orderedSelector": {
+            "orderedSelector": [
+              {
+                "subTree": {
+                  "name": "",
+                  "refId": "checkCoverRef"
+                }
+              },
+              {
+                "subTree": {
+                  "name": "",
+                  "refId": "findCoverRef"
+                }
+              }
+            ],
+            "subTree": {
+              "name": "",
+              "treeName": "sub.regroupCheck"
+            }
+          }
+        }
+      }
+    ]
+  },
+  {
+    "repeat": [
+      {
+        "name": "sub.passiveStayReactionDefault"
+      },
+      {
+        "count": 1
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.chooseMaxStance"
+        }
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.deactivateWeapMod"
+        }
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.checkDowned"
+        }
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.checkBurning"
+        }
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.swimUpCheck"
+        }
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.tryToOpenDoors"
+        }
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.findDangerGrenade"
+        }
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.findDangerZone"
+        }
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.changeStanceWhenInTheSquadLeaderAim"
+        }
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.checkHealTeammatesAround"
+        }
+      },
+      {
+        "sequencer": {
+          "name": "regroup",
+          "orderedSelector": {
+            "orderedSelector": [
+              {
+                "subTree": {
+                  "name": "",
+                  "refId": "checkCoverRef"
+                }
+              },
+              {
+                "subTree": {
+                  "name": "",
+                  "treeName": "sub.stayFindCover"
+                }
+              }
+            ],
+            "subTree": {
+              "name": "",
+              "treeName": "sub.stayRegroupCheck"
+            }
+          }
+        }
+      }
+    ]
+  },
+  {
+    "repeat": [
+      {
+        "name": "sub.passiveStayReactionTrain"
+      },
+      {
+        "count": 1
+      },
+      {
+        "sequencer": {
+          "getPointInTrainCapzone": {
+            "posParam": "regroupPosition"
+          },
+          "recalculateTree": []
+        }
+      },
+      {
+        "sequencer": {
+          "name": "regroup",
+          "orderedSelector": {
+            "orderedSelector": [
+              {
+                "subTree": {
+                  "name": "",
+                  "refId": "checkCoverRef"
+                }
+              },
+              {
+                "subTree": {
+                  "name": "",
+                  "treeName": "sub.stayFindCover"
+                }
+              }
+            ],
+            "subTree": {
+              "name": "",
+              "treeName": "sub.stayRegroupCheck"
+            }
+          }
+        }
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.chooseMaxStance"
+        }
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.deactivateWeapMod"
+        }
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.checkDowned"
+        }
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.checkBurning"
+        }
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.swimUpCheck"
+        }
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.tryToOpenDoors"
+        }
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.findDangerGrenade"
+        }
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.findDangerZone"
+        }
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.changeStanceWhenInTheSquadLeaderAim"
+        }
+      }
+    ]
+  },
+  {
+    "repeat": [
+      {
+        "name": "sub.passiveBeh"
+      },
+      {
+        "subTree": {
+          "name": "",
+          "refId": "updateRegroupPos"
+        }
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.chooseMaxStance"
+        }
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.deactivateWeapMod"
+        }
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.swimUp"
+        }
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.selfExtinguish"
+        }
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.selfHealing"
+        }
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.dmgZoneEscape"
+        }
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.rethrowGrenade"
+        }
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.grenadeEscape"
+        }
+      },
+      {
+        "orderedSelector": {
+          "name": "attack",
+          "subTree": {
+            "name": "",
+            "treeName": "sub.enemyMelee"
+          },
+          "sequencer": {
+            "wasAttackedRecently": {
+              "targetUnitParam": "shootEnemy"
+            },
+            "orderedSelector": [
+              {
+                "sequencer": {
+                  "findDanger": {
+                    "paramName": "shootEnemy",
+                    "radiusParamName": "enemyNearRadius",
+                    "minDanger": 0.1,
+                    "tag": "human"
+                  },
+                  "subTree": {
+                    "treeName": "sub.oneShootAttack"
+                  },
+                  "getTime": {
+                    "to": "enemyNearTime"
+                  }
+                }
+              },
+              {
+                "sequencer": {
+                  "findDanger": {
+                    "paramName": "shootEnemy",
+                    "radiusParamName": "enemyRadius",
+                    "minDanger": 0.1,
+                    "tag": "human"
+                  },
+                  "subTree": {
+                    "treeName": "sub.oneShootAttack"
+                  },
+                  "parallel": {
+                    "wait": {
+                      "range": [0.5,1.0],
+                      "resetable": true
+                    },
+                    "sequencer": {
+                      "checkAtTime": {
+                        "timeParam": "rememberEnemyTime",
+                        "range": [0.0,10.0]
+                      },
+                      "checkTarget": {
+                        "targetUnitParam": "rememberEnemy"
+                      },
+                      "wanderLook": {
+                        "posParam": "rememberEnemyPos",
+                        "range": [0.2,0.1],
+                        "maxStanceParam": "coverStance"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      },
+      {
+        "sequencer": {
+          "isVarsIntEqual": {
+            "lhs": "tryBuild",
+            "rhs_value": 1
+          },
+          "setIntVar": {
+            "to": "tryBuild",
+            "value": 0
+          },
+          "subTree": {
+            "name": "",
+            "treeName": "sub.tryBuildAndPlace"
+          }
+        }
+      },
+      {
+        "sequencer": [
+          {
+            "name": "follow_position"
+          },
+          {
+            "orderedSelector": {
+              "sequencer": [
+                {
+                  "isVarsIntEqual": {
+                    "lhs": "isInShootState",
+                    "rhs_value": 1
+                  }
+                },
+                {
+                  "initPeriodicTimer": {
+                    "timeParam": "onBulletNearbyTimer",
+                    "timePeriod": [2.0,4.0]
+                  }
+                },
+                {
+                  "initPeriodicTimer": {
+                    "timeParam": "onTraceableDangerTimer",
+                    "timePeriod": [2.0,4.0]
+                  }
+                },
+                {
+                  "initPeriodicTimer": {
+                    "timeParam": "onFollowPosFindDangerTimer",
+                    "timePeriod": [2.0,4.0]
+                  }
+                }
+              ],
+              "continue": []
+            }
+          },
+          {
+            "setCurrentAiAction": {
+              "state": "move"
+            }
+          },
+          {
+            "subTree": {
+              "name": "",
+              "treeName": "sub.passiveMove"
+            }
+          },
+          {
+            "subTree": {
+              "name": "",
+              "treeName": "sub.passiveStay"
+            }
+          }
+        ]
+      },
+      {
+        "getRegroupPos": {
+          "posParam": "regroupPosition"
+        }
+      },
+      {
+        "copyPoint3Var": {
+          "from": "regroupPosition",
+          "to": "storedRegroupPosition"
+        }
+      }
+    ]
+  },
+  {
+    "orderedSelector": [
+      {
+        "name": "sub.passiveMove"
+      },
+      {
+        "reaction": {
+          "event": "onBulletNearby",
+          "sequencer": {
+            "periodicTimer": {
+              "timeParam": "onBulletNearbyTimer",
+              "timePeriod": [2.0,4.0]
+            },
+            "recalculateTree": []
+          }
+        }
+      },
+      {
+        "reaction": {
+          "event": "onEnemyPlayerNear",
+          "sequencer": {
+            "findDanger": {
+              "paramName": "shootEnemy",
+              "radiusParamName": "enemyNearRadius",
+              "minDanger": 0.1,
+              "tag": "human"
+            },
+            "recalculateTree": []
+          }
+        }
+      },
+      {
+        "reaction": {
+          "event": "regularCheck",
+          "subTree": {
+            "name": "",
+            "refId": "passiveMoveReaction"
+          }
+        }
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.moveToCover"
+        }
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.moveToPosition"
+        }
+      }
+    ]
+  },
+  {
+    "orderedSelector": [
+      {
+        "name": "sub.passiveStay"
+      },
+      {
+        "reaction": {
+          "event": "onBulletNearby",
+          "sequencer": {
+            "recalculateTree": []
+          }
+        }
+      },
+      {
+        "reaction": {
+          "event": "onEnemyPlayerNear",
+          "sequencer": {
+            "findDanger": {
+              "paramName": "shootEnemy",
+              "radiusParamName": "enemyNearRadius",
+              "minDanger": 0.1,
+              "tag": "human"
+            },
+            "recalculateTree": []
+          }
+        }
+      },
+      {
+        "reaction": {
+          "event": "regularCheck",
+          "subTree": {
+            "name": "",
+            "refId": "passiveStayReaction"
+          }
+        }
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.tryCallArtillery"
+        }
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.tryHealTeammateAround"
+        }
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.stayInCover"
+        }
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.stayAtPos"
+        }
+      }
+    ]
+  }
+]

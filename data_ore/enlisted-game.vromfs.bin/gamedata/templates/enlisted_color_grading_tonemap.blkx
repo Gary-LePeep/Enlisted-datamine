@@ -1,0 +1,135 @@
+{
+  "postfx_color_grading_tonemap_enlisted": [
+    {
+      "_extends": "postfx_color_grading_tonemap"
+    },
+    {
+      "_extends": "replicating"
+    },
+    {
+      "_singleton": true
+    },
+    {
+      "_tracked": "color_grading"
+    },
+    {
+      "_tracked": "tonemap"
+    },
+    {
+      "_tracked": "white_balance"
+    },
+    {
+      "color_grading:object": {
+        "colorSaturation": [1.0,1.0,1.0,1.0],
+        "colorContrast": [1.2,1.0,1.0,1.0],
+        "colorGamma": [1.0,1.0,1.0,1.0],
+        "colorGain": [1.0,1.0,1.0,1.0],
+        "colorOffset": [0.0,0.0,0.0,0.0],
+        "hueToSaturationKey": [1.0,0.0,0.0,0.0],
+        "hueToSaturationKeyFalloff": 0.001,
+        "hueToSaturationValueMul": [1.0,1.0,1.0,1.0],
+        "hueToSaturationValueAdd": [0.0,0.0,0.0,0.0],
+        "shadows_colorSaturation": [1.0,1.0,1.0,1.0],
+        "shadows_colorContrast": [1.15,1.0,1.0,1.0],
+        "shadows_colorGamma": [1.0,1.0,1.0,1.0],
+        "shadows_colorGain": [1.0,1.0,1.0,1.0],
+        "shadows_colorOffset": [0.003,0.0,0.0,0.0],
+        "midtones_colorSaturation": [1.0,1.0,1.0,1.0],
+        "midtones_colorContrast": [1.0,1.0,1.0,1.0],
+        "midtones_colorGamma": [1.0,1.0,1.0,1.0],
+        "midtones_colorGain": [1.0,1.0,1.0,1.0],
+        "midtones_colorOffset": [0.0,0.0,0.0,0.0],
+        "highlights_colorSaturation": [1.0,1.0,1.0,1.0],
+        "highlights_colorContrast": [1.0,1.0,1.0,1.0],
+        "highlights_colorGamma": [1.0,1.0,1.0,1.0],
+        "highlights_colorGain": [1.0,1.0,1.0,1.0],
+        "highlights_colorOffset": [0.0,0.0,0.0,0.0],
+        "colorCorrectionShadowsMax": 0.1,
+        "colorCorrectionHighlightsMin": 0.4,
+        "_tags": "render"
+      }
+    },
+    {
+      "tonemap:object": {
+        "tonemapContrast": 1.1,
+        "tonemapShoulder": 0.85,
+        "tonemapMidIn": 0.07,
+        "tonemapMidOut": 0.18,
+        "tonemapHdrMax": 4.0,
+        "_tags": "render"
+      }
+    },
+    {
+      "white_balance:object": {
+        "whiteTemp": 6500.0,
+        "whiteTint": 0.0,
+        "_tags": "render"
+      }
+    },
+    {
+      "tonemapper:tag": {
+        "_tags": "render"
+      }
+    },
+    {
+      "tonemap_save:object": {
+        "_tags": "render"
+      }
+    }
+  ],
+  "postfx_color_grading_tonemap_death_alive_enlisted": {
+    "_extends": "postfx_color_grading_tonemap_enlisted",
+    "_singleton": true,
+    "color_grading__death:object": {
+      "colorSaturation": [1.0,1.0,1.0,0.3],
+      "colorContrast": [1.0,1.0,1.0,1.2],
+      "colorGamma": [5.0,1.2,0.9,0.3],
+      "colorGain": [2.0,1.0,0.4,0.4],
+      "_tags": "render"
+    },
+    "color_grading__downed:object": {
+      "colorSaturation": [1.0,1.0,1.0,0.3],
+      "colorContrast": [1.0,1.0,1.0,1.1],
+      "colorGamma": [1.2,1.0,0.9,0.8],
+      "colorGain": [1.0,1.0,1.0,2.0],
+      "timings": [0.1,10000.0,0.0],
+      "_tags": "render"
+    },
+    "color_grading__alive:object": {
+      "colorSaturation": [1.0,1.0,1.0,1.0],
+      "colorContrast": [1.2,1.0,1.0,1.0],
+      "colorGamma": [1.0,1.0,1.0,1.0],
+      "colorGain": [1.0,1.0,1.0,1.0],
+      "_tags": "render"
+    },
+    "color_grading__is_no_vision:object": {
+      "colorSaturation": [0.6,0.3,0.2,0.3],
+      "colorContrast": [0.5,0.4,0.35,0.9],
+      "colorGamma": [0.9,0.9,0.9,0.3],
+      "colorGain": [2.0,1.0,0.4,0.4],
+      "_tags": "render"
+    },
+    "color_grading__outOfbattleArea:object": {
+      "colorSaturation": [1.0,1.0,1.0,0.4],
+      "colorContrast": [1.0,1.0,1.0,0.6],
+      "colorGamma": [1.0,1.0,1.0,0.8],
+      "colorGain": [1.3,1.2,1.0,0.9],
+      "_tags": "render"
+    },
+    "color_grading__burning:object": {
+      "colorSaturation": [1.0,1.0,1.0,0.3],
+      "colorContrast": [1.0,1.0,1.0,1.2],
+      "colorGamma": [5.0,1.2,0.9,0.3],
+      "colorGain": [2.0,1.0,0.4,0.4],
+      "_tags": "render"
+    },
+    "color_grading__concussion:object": {
+      "colorSaturation": [1.0,1.0,1.0,0.3],
+      "colorContrast": [1.0,1.0,1.0,1.1],
+      "colorGamma": [0.9,0.9,0.9,0.8],
+      "colorGain": [1.0,1.0,1.0,2.0],
+      "timings": [0.0,0.5,2.0],
+      "_tags": "render"
+    }
+  }
+}

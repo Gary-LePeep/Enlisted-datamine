@@ -1,0 +1,73 @@
+{
+  "mass": 5000.0,
+  "momentOfInertia": [0.0,0.0,1.0],
+  "centerOfMass": [0.0,0.0,0.0],
+  "physMat": "walkRay",
+  "useFutureContacts": true,
+  "logCCD": false,
+  "addToWorld": true,
+  "gravityMult": 0.0,
+  "ignoreCollision": true,
+  "shouldTraceGround": false,
+  "boundingRadius": 0.1,
+  "Empty": 5000.0,
+  "CenterOfGravity": [-0.2,0.0,0.0],
+  "AdvancedMass": false,
+  "CenterOfGravityClampY": [0.0,0.7],
+  "collisionResource": {
+    "props": {
+      "cls_body_00": "convex_hull",
+      "cls_body_01": "convex_hull",
+      "cls_body_02": "convex_hull",
+      "cls_body_03": "convex_hull",
+      "cls_body_04": "convex_hull",
+      "cls_body_05": "convex_hull",
+      "cls_body_06": "convex_hull",
+      "cls_body_07": "convex_hull",
+      "cls_body_08": "convex_hull",
+      "cls_body_09": "convex_hull",
+      "cls_body_10": "convex_hull",
+      "cls_body_11": "convex_hull"
+    }
+  },
+  "DamageParts": {
+    "formatVersion": 2,
+    "body": {
+      "hitTestType": "armor",
+      "armorClass": "RHA_tank",
+      "hp": 10000.0,
+      "armorThickness": 200.0
+    },
+    "body_02": {
+      "hitTestType": "armor",
+      "armorClass": "RHA_tank",
+      "hp": 10000.0,
+      "armorThickness": 200.0
+    },
+    "wheel_l_01": {
+      "hitTestType": "armor",
+      "armorClass": "RHA_tank",
+      "hp": 10000.0,
+      "armorThickness": 200.0
+    },
+    "wheel_r_01": {
+      "hitTestType": "armor",
+      "armorClass": "RHA_tank",
+      "hp": 10000.0,
+      "armorThickness": 200.0
+    },
+    "wheel_l_02": {
+      "hitTestType": "armor",
+      "armorClass": "RHA_tank",
+      "hp": 10000.0,
+      "armorThickness": 200.0
+    },
+    "wheel_r_02": {
+      "hitTestType": "armor",
+      "armorClass": "RHA_tank",
+      "hp": 10000.0,
+      "armorThickness": 200.0
+    }
+  },
+  "DamageEffects": []
+}

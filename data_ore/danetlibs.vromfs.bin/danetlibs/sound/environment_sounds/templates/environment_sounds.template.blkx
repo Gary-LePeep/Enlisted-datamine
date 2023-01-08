@@ -1,0 +1,249 @@
+{
+  "reverb_sound": {
+    "_extends": "replicating",
+    "_singleton": true,
+    "_group": {
+      "_tags": "sound",
+      "reverb_sound__path": "snapshots/reverb_indoor",
+      "reverb_sound__intensityVar": "reverbIndoor",
+      "reverb_sound__intensityMax": 0.625,
+      "reverb_sound__roomSizeVar": "roomSize",
+      "reverb_sound__roomSizeMax": 9.375,
+      "reverb_sound__rayLength": 10.0,
+      "reverb_sound__fadeOutPower": 10.0,
+      "reverb_sound__rayId": 0,
+      "reverb_sound__intensityValues": [0.0,0.0,0.0],
+      "reverb_sound__roomSizeValues": [0.0,0.0,0.0],
+      "reverb_sound__event:SoundEvent": [],
+      "reverb_sound__rays:list<p3>": [
+        {
+          "ray": [0.9034,0.0544,-0.4252]
+        },
+        {
+          "ray": [-0.1907,0.5076,-0.8402]
+        },
+        {
+          "ray": [-0.3827,0.8812,-0.2774]
+        },
+        {
+          "ray": [-0.8941,0.0904,0.4387]
+        },
+        {
+          "ray": [0.1873,0.4467,0.8749]
+        },
+        {
+          "ray": [0.4949,0.7792,0.3847]
+        },
+        {
+          "ray": [-0.7434,0.0884,-0.6629]
+        },
+        {
+          "ray": [-0.4784,0.4339,0.7634]
+        },
+        {
+          "ray": [0.3234,0.8234,-0.4663]
+        },
+        {
+          "ray": [0.8209,0.5661,-0.0749]
+        },
+        {
+          "ray": [0.4167,0.1168,-0.9015]
+        },
+        {
+          "ray": [-0.1942,0.9248,0.3273]
+        },
+        {
+          "ray": [-0.8791,0.4686,-0.0867]
+        }
+      ]
+    }
+  },
+  "underwater_sound": {
+    "_group": {
+      "_tags": "sound",
+      "underwater_sound__frame": 0,
+      "underwater_sound__path": "ambient/camera_underwater",
+      "underwater_sound__event:SoundEvent": []
+    }
+  },
+  "shore_sound": [
+    {
+      "_extends": "sound_bank_preset_state"
+    },
+    {
+      "_extends": "replicating"
+    },
+    {
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [0.0,0.0,0.0]
+      ]
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "shore_sound__path": "ambient/positioned/beach",
+        "shore_sound__event:SoundEvent": []
+      }
+    },
+    {
+      "shore_sound__offsets:list<p2>": []
+    }
+  ],
+  "river_sound": [
+    {
+      "_extends": "sound_bank_preset_state"
+    },
+    {
+      "_extends": "replicating"
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "river_sound__path": "ambient/positioned/river_mid",
+        "river_sound__wasStarted": false,
+        "river_sound__pos": [0.0,0.0,0.0],
+        "river_sound__radius": 0.0,
+        "river_sound__pointId": -1,
+        "river_sound__event:SoundEvent": []
+      }
+    },
+    {
+      "river_sound__points:list<p3>": []
+    }
+  ],
+  "ocean_sound": [
+    {
+      "_extends": "sound_bank_preset_state"
+    },
+    {
+      "_extends": "replicating"
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "ocean_sound__path": "ambient/positioned/beach",
+        "ocean_sound__waterLevel": 0.0,
+        "ocean_sound__event:SoundEvent": []
+      }
+    },
+    {
+      "ocean_sound__points:list<p4>": []
+    }
+  ],
+  "ambient_sound": [
+    {
+      "_extends": "replicating"
+    },
+    {
+      "_extends": "sound_bank_preset_state"
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "ambient_sound__path": "",
+        "ambient_sound__event:SoundEvent": []
+      }
+    }
+  ],
+  "biome_sound_query": {
+    "_extends": "replicating",
+    "_singleton": true,
+    "_group": {
+      "_tags": "sound",
+      "biome_sound_query__period": 1.0,
+      "biome_sound_query__range": 10.0,
+      "biome_sound_query__id": -1,
+      "biome_sound_query__nextQueryTime": 0.0,
+      "biome_sound_query__timeRange": [0.0,0.0],
+      "biome_sound_query__values:list<p3>": [],
+      "biome_sound_query__biomeNames:list<t>": [
+        {
+          "name": "forest"
+        },
+        {
+          "name": "grass"
+        },
+        {
+          "name": "swamp"
+        }
+      ],
+      "biome_sound_query__varNames:list<t>": [
+        {
+          "name": "biome_forest"
+        },
+        {
+          "name": "biome_grass"
+        },
+        {
+          "name": "biome_swamp"
+        }
+      ]
+    }
+  },
+  "rain_global_sound_var": {
+    "_extends": "replicating",
+    "_singleton": true,
+    "_group": {
+      "_tags": "sound",
+      "rain_global_sound_var__name": "rain",
+      "rain_global_sound_var__mult": 1.0
+    }
+  },
+  "daytime_global_sound_var": {
+    "_extends": "replicating",
+    "_singleton": true,
+    "_group": {
+      "_tags": "sound",
+      "daytime_global_sound_var__name": "daytime"
+    }
+  },
+  "altitude_global_sound_var": {
+    "_extends": "replicating",
+    "_singleton": true,
+    "_group": {
+      "_tags": "sound",
+      "altitude_global_sound_var__nextTime": 0.0,
+      "altitude_global_sound_var__name": "altitude",
+      "altitude_global_sound_var__interval": 1.0
+    }
+  },
+  "region_global_sound_var": {
+    "_extends": "replicating",
+    "_singleton": true,
+    "_group": {
+      "_tags": "sound",
+      "region_global_sound_var__curNextTime": [0.0,0.0],
+      "region_global_sound_var__values": [0.0,0.0],
+      "region_global_sound_var__value": 0.0,
+      "region_global_sound_var__updateInterval": 3.0,
+      "region_global_sound_var__name": "region"
+    }
+  },
+  "birds_global_sound_var": {
+    "_extends": "replicating",
+    "_singleton": true,
+    "_group": {
+      "_tags": "sound",
+      "birds_global_sound_var__name": "action",
+      "birds_global_sound_var__noiseTime": -10.0,
+      "birds_global_sound_var__timeRange": [9.5,10.0]
+    }
+  },
+  "global_sound_vars": [
+    {
+      "_extends": "rain_global_sound_var"
+    },
+    {
+      "_extends": "daytime_global_sound_var"
+    },
+    {
+      "_extends": "altitude_global_sound_var"
+    },
+    {
+      "_extends": "region_global_sound_var"
+    }
+  ]
+}

@@ -1,0 +1,250 @@
+{
+  "concrete_melee_hit": {
+    "fx": "soil_ejection_omni_hit_composite_fx",
+    "lifeTime": 0.0,
+    "softnessDepth": 0.1,
+    "granularity": 4,
+    "numInstances": 1000,
+    "numReserved": 30,
+    "minScale": 0.5,
+    "maxScale": 2.0,
+    "group": "highres"
+  },
+  "concrete_hands_hit": {
+    "fx": "soil_ejection_omni_hit_composite_fx",
+    "lifeTime": 0.0,
+    "softnessDepth": 0.1,
+    "granularity": 4,
+    "numInstances": 1000,
+    "numReserved": 30,
+    "minScale": 0.5,
+    "maxScale": 2.0,
+    "group": "highres"
+  },
+  "concrete_knife_hit": {
+    "fx": "soil_ejection_omni_hit_composite_fx",
+    "lifeTime": 0.0,
+    "softnessDepth": 0.1,
+    "granularity": 4,
+    "numInstances": 1000,
+    "numReserved": 30,
+    "minScale": 0.5,
+    "maxScale": 2.0,
+    "group": "highres"
+  },
+  "concrete_axe_hit": {
+    "fx": "soil_ejection_omni_hit_composite_fx",
+    "lifeTime": 0.0,
+    "softnessDepth": 0.1,
+    "granularity": 4,
+    "numInstances": 1000,
+    "numReserved": 30,
+    "minScale": 0.5,
+    "maxScale": 2.0,
+    "group": "highres"
+  },
+  "metal_melee_hit": {
+    "fx": "soil_ejection_omni_hit_composite_fx",
+    "lifeTime": 0.0,
+    "softnessDepth": 0.1,
+    "granularity": 4,
+    "numInstances": 1000,
+    "numReserved": 30,
+    "minScale": 0.5,
+    "maxScale": 2.0,
+    "group": "highres"
+  },
+  "metal_hands_hit": {
+    "fx": "soil_ejection_omni_hit_composite_fx",
+    "lifeTime": 0.0,
+    "softnessDepth": 0.1,
+    "granularity": 4,
+    "numInstances": 1000,
+    "numReserved": 30,
+    "minScale": 0.5,
+    "maxScale": 2.0,
+    "group": "highres"
+  },
+  "metal_knife_hit": {
+    "fx": "hit_metal_small_composite_fx",
+    "lifeTime": 0.0,
+    "softnessDepth": 0.1,
+    "granularity": 4,
+    "numInstances": 1000,
+    "numReserved": 30,
+    "minScale": 0.5,
+    "maxScale": 2.0,
+    "group": "highres"
+  },
+  "metal_axe_hit": {
+    "fx": "hit_metal_small_composite_fx",
+    "lifeTime": 0.0,
+    "softnessDepth": 0.1,
+    "granularity": 4,
+    "numInstances": 1000,
+    "numReserved": 30,
+    "minScale": 0.5,
+    "maxScale": 2.0,
+    "group": "highres"
+  },
+  "flesh_knife_hit": {
+    "fx": "blood_hit_composite_fx",
+    "lifeTime": 0.4,
+    "softnessDepth": 0.01,
+    "granularity": 4,
+    "numInstances": 1000,
+    "numReserved": 30,
+    "tag": "toGbuffer",
+    "group": "highres"
+  },
+  "flesh_axe_hit": {
+    "fx": "blood_hit_composite_fx",
+    "lifeTime": 0.4,
+    "softnessDepth": 0.01,
+    "granularity": 4,
+    "numInstances": 1000,
+    "numReserved": 30,
+    "tag": "toGbuffer",
+    "group": "highres"
+  },
+  "flesh_melee_hit": {
+    "fx": "blood_drops_fx",
+    "lifeTime": 0.0,
+    "softnessDepth": 0.01,
+    "granularity": 4,
+    "numInstances": 1000,
+    "numReserved": 30,
+    "tag": "toGbuffer",
+    "group": "highres"
+  },
+  "flesh_hands_hit": {
+    "fx": "blood_drops_fx",
+    "lifeTime": 0.0,
+    "softnessDepth": 0.01,
+    "granularity": 4,
+    "numInstances": 1000,
+    "numReserved": 30,
+    "tag": "toGbuffer",
+    "group": "highres"
+  },
+  "cactus_knife_hit": {
+    "fx": "hit_wood_small_composite_fx",
+    "lifeTime": 0.0,
+    "softnessDepth": 0.1,
+    "granularity": 4,
+    "numInstances": 1000,
+    "numReserved": 30,
+    "minScale": 0.5,
+    "maxScale": 2.0,
+    "group": "highres"
+  },
+  "cactus_axe_hit": {
+    "fx": "hit_wood_small_composite_fx",
+    "lifeTime": 0.0,
+    "softnessDepth": 0.1,
+    "granularity": 4,
+    "numInstances": 1000,
+    "numReserved": 30,
+    "minScale": 0.5,
+    "maxScale": 2.0,
+    "group": "highres"
+  },
+  "cactus_default_hit": {
+    "fx": "blood_drops_fx",
+    "lifeTime": 0.0,
+    "softnessDepth": 0.01,
+    "granularity": 4,
+    "numInstances": 1000,
+    "numReserved": 30,
+    "tag": "toGbuffer",
+    "group": "highres"
+  },
+  "default_melee_hit": {
+    "fx": "soil_ejection_omni_hit_composite_fx",
+    "lifeTime": 0.0,
+    "softnessDepth": 0.1,
+    "granularity": 4,
+    "numInstances": 1000,
+    "numReserved": 30,
+    "minScale": 0.5,
+    "maxScale": 2.0,
+    "group": "highres"
+  },
+  "default_hands_hit": {
+    "fx": "soil_ejection_omni_hit_composite_fx",
+    "lifeTime": 0.0,
+    "softnessDepth": 0.1,
+    "granularity": 4,
+    "numInstances": 1000,
+    "numReserved": 30,
+    "minScale": 0.5,
+    "maxScale": 2.0,
+    "group": "highres"
+  },
+  "default_knife_hit": {
+    "fx": "soil_ejection_omni_hit_composite_fx",
+    "lifeTime": 0.0,
+    "softnessDepth": 0.1,
+    "granularity": 4,
+    "numInstances": 1000,
+    "numReserved": 30,
+    "minScale": 0.5,
+    "maxScale": 2.0,
+    "group": "highres"
+  },
+  "default_axe_hit": {
+    "fx": "soil_ejection_omni_hit_composite_fx",
+    "lifeTime": 0.0,
+    "softnessDepth": 0.1,
+    "granularity": 4,
+    "numInstances": 1000,
+    "numReserved": 30,
+    "minScale": 0.5,
+    "maxScale": 2.0,
+    "group": "highres"
+  },
+  "wood_melee_hit": {
+    "fx": "hit_wood_small_composite_fx",
+    "lifeTime": 0.0,
+    "softnessDepth": 0.1,
+    "granularity": 4,
+    "numInstances": 1000,
+    "numReserved": 30,
+    "minScale": 0.5,
+    "maxScale": 2.0,
+    "group": "highres"
+  },
+  "wood_hands_hit": {
+    "fx": "hit_wood_small_composite_fx",
+    "lifeTime": 0.0,
+    "softnessDepth": 0.1,
+    "granularity": 4,
+    "numInstances": 1000,
+    "numReserved": 30,
+    "minScale": 0.5,
+    "maxScale": 2.0,
+    "group": "highres"
+  },
+  "wood_knife_hit": {
+    "fx": "hit_wood_small_composite_fx",
+    "lifeTime": 0.0,
+    "softnessDepth": 0.1,
+    "granularity": 4,
+    "numInstances": 1000,
+    "numReserved": 30,
+    "minScale": 0.5,
+    "maxScale": 2.0,
+    "group": "highres"
+  },
+  "wood_axe_hit": {
+    "fx": "hit_wood_small_composite_fx",
+    "lifeTime": 0.0,
+    "softnessDepth": 0.1,
+    "granularity": 4,
+    "numInstances": 1000,
+    "numReserved": 30,
+    "minScale": 0.5,
+    "maxScale": 2.0,
+    "group": "highres"
+  }
+}

@@ -1,0 +1,106 @@
+{
+  "sound_override_time_speed": {
+    "_extends": "replicating",
+    "_singleton": true,
+    "_group": {
+      "_tags": "sound",
+      "sound_override_time_speed": 1.0
+    }
+  },
+  "distant_delayable_sounds": {
+    "_extends": "replicating",
+    "_singleton": true,
+    "_group": {
+      "_tags": "sound",
+      "distantDelayableSounds:tag": []
+    }
+  },
+  "sound_debug_draw_enable": {
+    "soundDebugDrawEnable:tag": {
+      "_tags": "sound"
+    }
+  },
+  "sound_bank_preset_state": {
+    "_tracked": "sound_bank_preset_state__isValid",
+    "_group": {
+      "_tags": "sound",
+      "sound_bank_preset_state__isValid": false,
+      "sound_bank_preset_state__name": "master"
+    }
+  },
+  "watched_sound": {
+    "_tracked": "is_watched_sound",
+    "_group": {
+      "_tags": "sound",
+      "is_watched_sound": false
+    }
+  },
+  "watched_by_player_sound": {
+    "_extends": "watched_sound",
+    "watchedByPlayerSound:tag": []
+  },
+  "watched_entity_snapshot": {
+    "_group": {
+      "_tags": "sound",
+      "watched_entity_snapshot__path": "",
+      "watched_entity_snapshot__event:SoundEvent": []
+    }
+  },
+  "sound_control": {
+    "_extends": "sound_bank_preset_state",
+    "_tracked": "sound_control__shouldPlay",
+    "_group": {
+      "_tags": "sound",
+      "sound_control__range": 22.0,
+      "sound_control__inRange": false,
+      "sound_control__shouldPlay": false,
+      "sound_control__enable": true
+    }
+  },
+  "sound_control_disable_timer": {
+    "sound_control_disable_timer__endTime": -1.0,
+    "_replicated": "sound_control_disable_timer__endTime",
+    "_group": {
+      "_tags": "server",
+      "sound_control_disable_timer__duration": 60.0
+    }
+  },
+  "sound_destroy_timer": {
+    "_group": {
+      "_tags": "server",
+      "sound_destroy_timer__endTime": 0.0,
+      "sound_destroy_timer__duration": 60.0
+    }
+  },
+  "sound_event_group": {
+    "sound_event_group": {
+      "_tags": "sound"
+    }
+  },
+  "sound_paths": {
+    "sound_paths:shared:object": {
+      "_tags": "sound"
+    }
+  },
+  "sound_irqs": {
+    "sound_irqs:shared:object": {
+      "_tags": "sound"
+    }
+  },
+  "sound_tags": {
+    "sound_tags:object": {
+      "_tags": "sound"
+    }
+  },
+  "sound_player_components": [
+    {
+      "_extends": "sound_paths"
+    },
+    {
+      "_extends": "sound_irqs"
+    },
+    {
+      "_extends": "sound_tags"
+    }
+  ]
+}

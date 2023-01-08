@@ -1,0 +1,148 @@
+{
+  "mortar_input": {
+    "mortar_input__cancel": 0,
+    "mortar_input__switchShellType": 0
+  },
+  "wallposter_input": {
+    "wallposter_input__place": 0,
+    "wallposter_input__cancel": 0
+  },
+  "watched_by_player_item": {
+    "watchedPlayerItem:tag": []
+  },
+  "personal_bot_order": {
+    "personal_bot_order__inputSwitchBot": 0,
+    "_tracked": "personal_bot_order__currentBotEid",
+    "personal_bot_order__currentBotEid:eid": []
+  },
+  "binocular_input": {
+    "binocular_input__use": 0
+  },
+  "human_use_bomb_site": {
+    "human_use_bomb_site__checkInterval": 0.3,
+    "human_use_bomb_site__nextCheckTime": 0.0,
+    "human_use_bomb_site__traceSafeOffset": 0.2,
+    "human_use_bomb_site__lastSelected:eid": []
+  },
+  "offender_marks": {
+    "offender_marks__enabled": true,
+    "offender_marks__showOnlyLast": false,
+    "offender_marks__updateOffenderPos": true,
+    "offender_marks__showTime": 5.0,
+    "offender_marks:array": []
+  },
+  "human_hero_components": [
+    {
+      "_extends": "base_human_hero_components"
+    },
+    {
+      "_extends": "human_look_at_zone"
+    },
+    {
+      "_extends": "human_context_command"
+    },
+    {
+      "_extends": "wallposter_input"
+    },
+    {
+      "_extends": "shooter_input"
+    },
+    {
+      "_extends": "enlisted_human_squad_input"
+    },
+    {
+      "_extends": "enlisted_human_hooray_input"
+    },
+    {
+      "_extends": "enlisted_human_building_input"
+    },
+    {
+      "_extends": "enlisted_human_artillery_input"
+    },
+    {
+      "_extends": "enlisted_human_dig_input"
+    },
+    {
+      "_extends": "enlisted_bomb_site_input"
+    },
+    {
+      "_extends": "enlisted_fortification_mirror_preview_input"
+    },
+    {
+      "_extends": "mortar_input"
+    },
+    {
+      "_extends": "binocular_input"
+    },
+    {
+      "_extends": "personal_bot_order"
+    },
+    {
+      "_extends": "human_use_bomb_site"
+    },
+    {
+      "_extends": "offender_marks"
+    },
+    {
+      "heal__continuousInput": true
+    },
+    {
+      "_tracked": "heal__continuousInput"
+    },
+    {
+      "animchar__considerAsVisible:tag": []
+    },
+    {
+      "human_visibility_tracer:tag": []
+    }
+  ],
+  "human_hero_components_local": {
+    "_extends": "human_hero_components"
+  },
+  "human_hero_components_remote": [],
+  "human_hero_squad_components": {
+    "heroSquad:tag": []
+  },
+  "human_watched_squad_components": {
+    "watchedSquad:tag": []
+  },
+  "human_context_command": [
+    {
+      "human_context_command__aContextCommand": 0
+    },
+    {
+      "human_context_command__aCancelContextCommand": 0
+    },
+    {
+      "human_context_command__switchCommandModeInput": 0
+    },
+    {
+      "human_context_command__orderType": 0
+    },
+    {
+      "human_context_command__orderPosition": [0.0,0.0,0.0]
+    },
+    {
+      "_tracked": "human_context_command__orderType"
+    },
+    {
+      "_tracked": "human_context_command__orderUseEntity"
+    },
+    {
+      "human_context_command__updateInterval": 0.3
+    },
+    {
+      "human_context_command__nextUpdateTime": 0.0
+    },
+    {
+      "human_context_command_input:tag": []
+    },
+    {
+      "human_context_command__orderUseEntity:eid": []
+    }
+  ],
+  "human_look_at_zone": {
+    "_tracked": "human__lookAtZone",
+    "human__lookAtZone:eid": []
+  }
+}

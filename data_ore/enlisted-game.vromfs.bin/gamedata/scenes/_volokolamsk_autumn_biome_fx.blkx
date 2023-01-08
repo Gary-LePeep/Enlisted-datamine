@@ -1,0 +1,29 @@
+[
+  {
+    "entity": {
+      "_template": "ground_effect",
+      "ground_effect__fx_name": "envir_misc_floating_autumn_leaves_15m_effect",
+      "ground_effect__biome_group_name": "forest_leaves",
+      "ground_effect__rot_z": [0.0,10.0],
+      "ground_effect__offset_x": [0.0,0.0],
+      "ground_effect__offset_y": [1.0,1.0],
+      "ground_effect__offset_z": [0.0,0.0],
+      "ground_effect__grid_cell_size": 16.0,
+      "ground_effect__grid_world_origin": [0.0,0.0],
+      "ground_effect__vis_radius": 36.0,
+      "ground_effect__biome_weight_for_active_thr": 0.25,
+      "ground_effect__fx_radius": -1.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "ground_effect",
+      "ground_effect__fx_name": "envir_dust_ground_sand_15m_effect",
+      "ground_effect__biome_group_name": "sand_slope",
+      "ground_effect__grid_cell_size": 16.0,
+      "ground_effect__grid_world_origin": [0.0,0.0],
+      "ground_effect__vis_radius": 36.0,
+      "ground_effect__offset_y": [0.0,0.0]
+    }
+  }
+]

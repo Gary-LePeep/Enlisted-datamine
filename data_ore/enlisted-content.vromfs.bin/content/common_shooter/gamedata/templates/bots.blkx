@@ -1,0 +1,55 @@
+{
+  "attract_points_grid": {
+    "editableObj": false,
+    "_extends": "replicating",
+    "_singleton": true,
+    "grid_holder__type": "attract_point",
+    "grid_holder__typeHash": 0,
+    "grid_holder__smallCellSize": 32,
+    "grid_holder": []
+  },
+  "attract_point_base": {
+    "transform": [
+      [1.0,0.0,0.0],
+      [0.0,1.0,0.0],
+      [0.0,0.0,1.0],
+      [0.0,0.0,0.0]
+    ],
+    "attract_point__magnitude": 1.0,
+    "grid_obj__gridType": "attract_point",
+    "grid_obj__fixedTmScale": -1.0,
+    "grid_obj": []
+  },
+  "attract_point": {
+    "_extends": "attract_point_base",
+    "game_effect__timeToDestroy": 60.0,
+    "game_effect__destroyAt": 0.0
+  },
+  "attract_point_shrink": {
+    "attract_point__minMagnitude": 0.2,
+    "attract_point__shrinkSpeed": 0.05
+  },
+  "shrinkable_attract_point": [
+    {
+      "_extends": "attract_point"
+    },
+    {
+      "_extends": "attract_point_shrink"
+    }
+  ],
+  "visual_attract_point": {
+    "visual_attract_point__radius": 1.0,
+    "transform": [
+      [1.0,0.0,0.0],
+      [0.0,1.0,0.0],
+      [0.0,0.0,1.0],
+      [0.0,0.0,0.0]
+    ]
+  },
+  "visual_attract_point_debug": {
+    "visual_attract_point__debugDraw:tag": []
+  },
+  "debug_obstacles": {
+    "beh_tree__drawObstacles": false
+  }
+}

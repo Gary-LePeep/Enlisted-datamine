@@ -1,0 +1,39 @@
+{
+  "ShipPhys": {
+    "mass": {
+      "Empty": 350.0,
+      "Fuel": 0.0,
+      "TakeOff": 350.0,
+      "momentOfInertia": [2.0,1.0,1.0],
+      "CenterOfGravity": [0.0,-0.2,0.0]
+    },
+    "engines": {
+      "engine": {
+        "pos": [-5.0,-0.2,0.0],
+        "maxThrust": 10000.0,
+        "zeroThrustSpd": 1.0
+      }
+    },
+    "settings": {
+      "velMult": 3.0
+    },
+    "collisionProps": {
+      "cls_01": "convex_hull",
+      "cls_02": "convex_hull"
+    },
+    "hydrodynamics": {
+      "keelArea": 0.0,
+      "bodyArea": 0.0,
+      "keelArm": [-2.0,-0.2,0.0],
+      "bodyArm": [-0.5,-0.1,0.0],
+      "frontAng": 0.4,
+      "rudder": {
+        "pos": [-4.0,-1.0,0.0],
+        "area": 1.0,
+        "deflection": 45.0,
+        "outputParam": "rudder"
+      },
+      "ignoreNodes": []
+    }
+  }
+}

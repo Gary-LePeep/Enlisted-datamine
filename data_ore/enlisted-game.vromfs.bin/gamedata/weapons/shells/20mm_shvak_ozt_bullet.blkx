@@ -1,0 +1,95 @@
+{
+  "mass": 0.096,
+  "recoilMultiplier": 0.35,
+  "caliber": 0.02,
+  "speed": 800.0,
+  "maxDistance": 2500.0,
+  "normalizationPreset": "default",
+  "modelName": "tank_bullet_ap",
+  "ricochetPreset": "defaultExt",
+  "secondaryShattersPreset": "ap",
+  "explosiveType": "a_ix_2",
+  "stabilityThreshold": 0.05,
+  "explosiveMass": 0.0041,
+  "stabilityCaliberToArmorThreshold": 5.0,
+  "stabilityReductionAfterRicochet": 0.5,
+  "hitPowerMult": 1.0,
+  "stabilityReductionAfterPenetration": 0.15,
+  "onHitChanceMultFire": 1.5,
+  "bulletType": "frag_i_t",
+  "shellAnimation": "video/shells_animations/he.ivf",
+  "effectiveDistance": 700.0,
+  "relativeVelHitShift": [300.0,1000.0],
+  "relativeVelArmorShift": [200.0,1000.0],
+  "explodeTreshold": 0.1,
+  "explodeHitPower": 13.0,
+  "explodeArmorPower": 5.0,
+  "explodeRadius": [0.035,0.35],
+  "fuseDelayDist": 0.04,
+  "shutterDamage": true,
+  "shutterDamageRadius": 1.2,
+  "shutterAmount": 15,
+  "shutterArmorPower": 6.0,
+  "shutterHit": 3.5,
+  "selfDestructionFx": "explosion_air_selfexplosion_small",
+  "explosionEffect": "hit_19_27mm_metal_he",
+  "groundCollisionEffect": "hit_19_27mm_dirt_he",
+  "ricochetEffect": "hit_19_27mm_metal_ap",
+  "waterCollisionEffect": "hit_19_27mm_water",
+  "stabilityRicochetModifier": [
+    {
+      "mod1": [0.0,0.05]
+    },
+    {
+      "mod2": [20.0,0.1]
+    },
+    {
+      "mod3": [30.0,0.2]
+    },
+    {
+      "mod3": [45.0,0.3]
+    }
+  ],
+  "hitpower": {
+    "HitPower10m": [1.0,50.0],
+    "HitPower1000m": [0.92,1000.0],
+    "HitPower1500m": [0.75,1500.0],
+    "HitPower2000m": [0.3,2000.0]
+  },
+  "armorpower": {
+    "ArmorPower0m": [2.0,10.0],
+    "ArmorPower100m": [2.0,100.0],
+    "ArmorPower500m": [1.5,500.0],
+    "ArmorPower1000m": [1.0,1000.0],
+    "ArmorPower1450m": [0.5,1450.0],
+    "ArmorPower1500m": [0.0,1500.0]
+  },
+  "visual": {
+    "range_percent_of_ammo": [100.0,0.0],
+    "traceFreq": 1,
+    "tracer": "20mmRed",
+    "trail": "noTrail"
+  },
+  "hitFx": {
+    "steel": {
+      "fx": "hit_19_27mm_metal_he",
+      "fxScale": [1.0,1.0]
+    },
+    "wood": {
+      "fx": "hit_19_27mm_wood_he",
+      "fxScale": [1.0,1.0]
+    },
+    "glass": {
+      "fx": "hit_19_27mm_metal_he",
+      "fxScale": [1.0,1.0]
+    },
+    "stone": {
+      "fx": "hit_19_27mm_stone_he",
+      "fxScale": [1.0,1.0]
+    }
+  },
+  "tracer": {
+    "headColor": "#ff0f0fff",
+    "smokeColor": "#00000000"
+  }
+}

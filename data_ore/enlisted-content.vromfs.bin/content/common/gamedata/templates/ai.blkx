@@ -1,0 +1,457 @@
+{
+  "human_stat_tracking": {
+    "human_stat_tracking__spawnTime": 0.0,
+    "human_stat_tracking__ownerTime": 0.0,
+    "human_stat_tracking__ownedBy": 0,
+    "human_stat_tracking__targetTracesCount": 0,
+    "human_stat_tracking__killsCount": 0,
+    "human_stat_tracking__botsKillsCount": 0,
+    "human_stat_tracking__inVehicleKillsCount": 0,
+    "human_stat_tracking__killsDistance": 0.0,
+    "human_stat_tracking__maxKillsDistance": 0.0,
+    "human_stat_tracking__hitsCount": 0,
+    "human_stat_tracking__botsHitsCount": 0,
+    "human_stat_tracking__inVehicleHitsCount": 0,
+    "human_stat_tracking__hitsDistance": 0.0,
+    "human_stat_tracking__shotsCount": 0,
+    "human_stat_tracking__inVehicleShotsCount": 0,
+    "human_stat_tracking__prevShootAtTime": -1.0,
+    "human_stat_tracking__totalDangers": 0.0
+  },
+  "human_stat_tracking_ext": {
+    "human_stat_tracking__lastWeaponName": "",
+    "human_stat_tracking__lastWeaponTime": -1.0,
+    "human_stat_tracking__battleTimePerWeapon:object": [],
+    "human_stat_tracking__shotsPerWeapon:object": [],
+    "human_stat_tracking__inVehicleShotsPerWeapon:object": [],
+    "human_stat_tracking__killsPerWeapon:object": [],
+    "human_stat_tracking__inVehicleKillsPerWeapon:object": [],
+    "human_stat_tracking__killsDistancePerWeapon:object": [],
+    "human_stat_tracking__botsKillsPerWeapon:object": [],
+    "human_stat_tracking__hitsPerWeapon:object": [],
+    "human_stat_tracking__inVehicleHitsPerWeapon:object": [],
+    "human_stat_tracking__botsHitsPerWeapon:object": []
+  },
+  "squad_member_server_debug_ai": {
+    "_replicated": "beh_tree__debugState",
+    "beh_tree__debugState:t": {
+      "_tags": "dev",
+      "value": ""
+    },
+    "beh_tree__server_debug:tag": []
+  },
+  "squad_member_on_bullet_nearby_reaction": {
+    "agent_dangers__lastBulletReactionTime": 0.0,
+    "agent_dangers__lastBulletReactionOffenderEid:eid": []
+  },
+  "squad_member_on_hit_reaction": {
+    "agent_dangers__lastHitReactionTime": 0.0,
+    "agent_dangers__lastHitReactionOffenderEid:eid": []
+  },
+  "squad_member_ai": [
+    {
+      "_extends": "human_stat_tracking"
+    },
+    {
+      "_extends": "human_stat_tracking_ext"
+    },
+    {
+      "_extends": "walker_agent_danger_calc"
+    },
+    {
+      "_extends": "aware_of_dangers"
+    },
+    {
+      "_extends": "beh_tree_regular_check"
+    },
+    {
+      "_extends": "beh_tree_enemy_player_in_radius"
+    },
+    {
+      "_extends": "beh_tree_bomb_site_in_radius"
+    },
+    {
+      "_extends": "squad_member_on_hit_reaction"
+    },
+    {
+      "_extends": "squad_member_on_bullet_nearby_reaction"
+    },
+    {
+      "_extends": "beh_tree_agent_in_train_zone"
+    },
+    {
+      "_extends": "beh_tree_agent_on_train"
+    },
+    {
+      "_extends": "beh_tree_agent_leader"
+    },
+    {
+      "_extends": "beh_tree_agent_vehicle"
+    },
+    {
+      "_extends": "beh_tree_agent_bomb"
+    },
+    {
+      "beh_tree__node": "squad_member"
+    },
+    {
+      "beh_tree__debug": false
+    },
+    {
+      "walker_agent__velViscosity": 0.3
+    },
+    {
+      "walker_agent__velFactor": 1.0
+    },
+    {
+      "walker_agent__aimViscosity": 0.2
+    },
+    {
+      "walker_agent__aimSpeed": 1050.0
+    },
+    {
+      "walker_agent__gunAimOffsetCompensation": 0.9
+    },
+    {
+      "walker_agent__breathOffsetCompensation": 1.0
+    },
+    {
+      "walker_agent__serverAiAction": 0
+    },
+    {
+      "walker_agent__nextAiActionUpdate": -1.0
+    },
+    {
+      "walker_agent__currentAiAction": 0
+    },
+    {
+      "_tracked": "walker_agent__currentAiAction"
+    },
+    {
+      "_replicated": "walker_agent__currentAiAction"
+    },
+    {
+      "walker_agent__useObjectTimer": 1.0
+    },
+    {
+      "walker_agent__standShootLocalPos": [0.23,1.4,-0.15]
+    },
+    {
+      "walker_agent__crouchShootLocalPos": [0.23,0.95,-0.25]
+    },
+    {
+      "walker_agent__crawlShootLocalPos": [0.76,0.26,-0.18]
+    },
+    {
+      "beh_tree__blackboard__preferedWeapon": 0
+    },
+    {
+      "beh_tree__blackboard__enemyRadius": 60.0
+    },
+    {
+      "beh_tree__blackboard__enemyNearRadius": 16.0
+    },
+    {
+      "beh_tree__blackboard__enemyDefendRadius": 32.0
+    },
+    {
+      "beh_tree__blackboard__enemyMeleeRadius": 2.0
+    },
+    {
+      "beh_tree__blackboard__enemyVehicleRadius": 20.0
+    },
+    {
+      "beh_tree__data__defendPoint": "sub.defendPoint"
+    },
+    {
+      "beh_tree__data__personalOrder": "sub.personalOrder"
+    },
+    {
+      "beh_tree__data__agressiveBeh": "sub.agressiveBeh"
+    },
+    {
+      "beh_tree__data__passiveBeh": "sub.passiveBeh"
+    },
+    {
+      "beh_tree__data__runToTrain": "sub.runToTrain"
+    },
+    {
+      "beh_tree__data__useTrain": "sub.useTrain"
+    },
+    {
+      "beh_tree__data__outTrain": "sub.outTrain"
+    },
+    {
+      "beh_tree__data__passiveStayReactionTrain": "sub.passiveStayReactionTrain"
+    },
+    {
+      "beh_tree__data__passiveMoveReactionTrain": "sub.passiveMoveReactionTrain"
+    },
+    {
+      "beh_tree__data__agressiveStayReactionTrain": "sub.agressiveStayReactionTrain"
+    },
+    {
+      "beh_tree__data__agressiveMoveReactionTrain": "sub.agressiveMoveReactionTrain"
+    },
+    {
+      "beh_tree__data__updateRegroupPosTrain": "sub.updateRegroupPosTrain"
+    },
+    {
+      "beh_tree__data__orderReq": "sub.orderReq"
+    },
+    {
+      "beh_tree__data__plantBombReq": "sub.plantBombReq"
+    },
+    {
+      "beh_tree__data__defuseBombReq": "sub.defuseBombReq"
+    },
+    {
+      "beh_tree__data__ammoReq": "sub.ammoReq"
+    },
+    {
+      "beh_tree__data__healReq": "sub.healReq"
+    },
+    {
+      "beh_tree__data__artilleryReq": "sub.artilleryReq"
+    },
+    {
+      "beh_tree__data__buildReq": "sub.buildReq"
+    },
+    {
+      "beh_tree__data__attackReq": "sub.attackReq"
+    },
+    {
+      "beh_tree__data__useVehicleReq": "sub.useVehicleReq"
+    },
+    {
+      "beh_tree__data__vehicleBeh": "sub.vehicleBeh"
+    },
+    {
+      "beh_tree__data__findCoverBeh": "sub.findCover"
+    },
+    {
+      "beh_tree__data__checkCoverBeh": "sub.checkCover"
+    },
+    {
+      "beh_tree__data__findCoverAroundLeaderBeh": "sub.findCoverAroundLeader"
+    },
+    {
+      "beh_tree__data__findCoverAroundLeaderAwayBeh": "sub.findCoverAroundLeaderAway"
+    },
+    {
+      "beh_tree__data__findCoverAroundPointBeh": "sub.findCoverAroundPoint"
+    },
+    {
+      "beh_tree__data__checkCoverAroundPointBeh": "sub.checkCoverAroundPoint"
+    },
+    {
+      "beh_tree__refs__behaviour": "sub.agressiveBeh"
+    },
+    {
+      "beh_tree__refs__findCoverRef": "sub.findCover"
+    },
+    {
+      "beh_tree__refs__checkCoverRef": "sub.checkCover"
+    },
+    {
+      "beh_tree__refs__orderType": ""
+    },
+    {
+      "beh_tree__refs__passiveStayReaction": "sub.passiveStayReactionDefault"
+    },
+    {
+      "beh_tree__refs__passiveMoveReaction": "sub.passiveMoveReactionDefault"
+    },
+    {
+      "beh_tree__refs__agressiveStayReaction": "sub.agressiveStayReactionDefault"
+    },
+    {
+      "beh_tree__refs__agressiveMoveReaction": "sub.agressiveMoveReactionDefault"
+    },
+    {
+      "beh_tree__refs__updateRegroupPos": "sub.updateRegroupPosDefault"
+    },
+    {
+      "agent_dangers__maxDangerDist": 90.0
+    },
+    {
+      "agent_dangers__frustumAngle": 45.0
+    },
+    {
+      "agent_dangers__projectileDist": 4.0
+    },
+    {
+      "agent_dangers__silencedProjectileDist": 1.0
+    },
+    {
+      "agent_dangers__lastBulletReactionTime": -1.0
+    },
+    {
+      "agent_dangers__nextBulletReactionTime": -1.0
+    },
+    {
+      "agent_dangers__hmapTraceOffset": [0.0,-0.1,0.0]
+    },
+    {
+      "agent_dangers__nextDangersCheckTime": 0.0
+    },
+    {
+      "agent_dangers__nextDangersTraceTime": 0.0
+    },
+    {
+      "agent_dangers__standShootPos": [0.0,0.0,0.0]
+    },
+    {
+      "agent_dangers__standShootDir": [0.0,0.0,0.0]
+    },
+    {
+      "agent_dangers__minTraceableRatio": 1.5
+    },
+    {
+      "agent_dangers__targetAirplanePilots": false
+    },
+    {
+      "beh_tree__latencyLoadRequire": false
+    },
+    {
+      "_group": {
+        "_tags": "server",
+        "navigation__areasCost:list<p2>": {
+          "it": [6.0,40.0]
+        }
+      }
+    },
+    {
+      "beh_tree__resetBlackBoard:tag": []
+    },
+    {
+      "beh_tree__debugState:t": {
+        "_tags": "dev",
+        "value": ""
+      }
+    },
+    {
+      "walker_agent": {
+        "_tags": "server"
+      }
+    },
+    {
+      "beh_tree:BehaviourTree": {
+        "_tags": "server"
+      }
+    },
+    {
+      "beh_tree__latencyLoadBlackBoard:object": {
+        "_tags": "server"
+      }
+    },
+    {
+      "sight_avoid:SightAvoid": {
+        "_tags": "server"
+      }
+    },
+    {
+      "agent_dangers": {
+        "_tags": "server"
+      }
+    }
+  ],
+  "walker_agent_danger_calc": {
+    "alertness_calc__distCoef": [-0.03,0.8],
+    "alertness_calc__inFrustumCoef": [1.8,0.25],
+    "alertness_calc__frustumCoef": [5.0,1.0,0.0],
+    "alertness_calc__frustumOffset": [-0.1,0.23],
+    "alertness_calc__crouchCoef": 0.85,
+    "alertness_calc__crawlCoef": 0.5,
+    "alertness_calc__downedCoef": 0.75,
+    "alertness_calc__inVehicleCoef": 0.75,
+    "danger_calc__aiCoef": [1.1,1.0],
+    "danger_calc__avoidBulletsNearTime": 10.0,
+    "danger_calc__lastShootCoef": [1.0,1.0],
+    "danger_calc__noiseCoef": [0.2,1.0],
+    "danger_calc__lastBulletNearbyCoef": [10.0,10.0]
+  },
+  "awared_danger": {
+    "_group": {
+      "_tags": "server",
+      "danger__awareRadiusCoef": 2.0,
+      "danger__awareUpdateDistSq": 10000.0,
+      "danger__awareLastPos": [0.0,0.0,0.0],
+      "danger__awareSize": [0.0,0.0],
+      "danger__awareEids:list<eid>": []
+    }
+  },
+  "aware_of_dangers": {
+    "_group": {
+      "_tags": "server",
+      "aware__maxDangers": 3,
+      "aware__dangersEids:list<eid>": [],
+      "aware__dangersData:list<i>": []
+    }
+  },
+  "crawler_ai": {
+    "_extends": "squad_member_ai",
+    "beh_tree__node": "crawler",
+    "beh_tree__enabled": true
+  },
+  "croucher_ai": {
+    "_extends": "squad_member_ai",
+    "beh_tree__node": "croucher",
+    "beh_tree__enabled": true
+  },
+  "mean_enemy_pos": {
+    "mean_pos__pos": [0.0,0.0,0.0],
+    "mean_pos__team": -1
+  },
+  "moveable_obstacle": {
+    "editableTemplate": false,
+    "_group": {
+      "_tags": "server",
+      "moveable_obstacle:tag": []
+    }
+  },
+  "still_obstacle": {
+    "editableTemplate": false,
+    "_group": {
+      "_tags": "server",
+      "obstacle__lastCheckTime": -1.0,
+      "obstacle__checkDelta": 0.5,
+      "obstacle__lastStillTransform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [0.0,0.0,0.0]
+      ],
+      "obstacle__lastStillTime": -1.0,
+      "obstacle__stillPosThreshold": 0.3,
+      "obstacle__stillAngCosThreshold": 0.9,
+      "obstacle__initialStillTimeout": 5.0,
+      "obstacle__stillTimeout": 5.0,
+      "obstacle__stillCount": 0,
+      "obstacle__handle": 0,
+      "obstacle__padding": 0.7,
+      "obstacle__paddingSide": 0.13,
+      "obstacle__still:tag": []
+    }
+  },
+  "still_obstacles": {
+    "_singleton": true,
+    "_group": {
+      "_tags": "server",
+      "still_obstacles__obstacleTemplate": "still_obstacle",
+      "still_obstacles__lastCheckTime": -1.0,
+      "still_obstacles__checkDelta": 0.5
+    }
+  },
+  "level_ri_obstacles": {
+    "_group": {
+      "_tags": "server",
+      "level_ri_obstacles__padding": 0.7,
+      "level_ri_obstacles__paddingSide": 0.13,
+      "level_ri_obstacles__resNames:list<t>": []
+    }
+  },
+  "_componentFilters": {
+    "walker_agent__currentAiAction": "filter_friendly_team"
+  }
+}

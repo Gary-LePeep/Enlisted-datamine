@@ -1,0 +1,106 @@
+{
+  "ShipPhys": {
+    "skipUpdateOnSleep": true,
+    "sleepOnWater": true,
+    "settings": {
+      "groundBounceMult": 0.5
+    },
+    "mass": {
+      "Empty": 200.0,
+      "momentOfInertia": [0.5,2.0,2.0],
+      "CenterOfGravity": [-0.5,-0.2,0.15],
+      "doesPayloadAffectCOG": true
+    },
+    "engines": {
+      "maxSpeed": 17.0,
+      "maxReverseSpeed": 4.0,
+      "reverseMult": 1.0,
+      "speedToThrust": [
+        {
+          "row": [-1e+18,0.5]
+        },
+        {
+          "row": [0.0,0.5]
+        },
+        {
+          "row": [5.0,0.7]
+        },
+        {
+          "row": [10.0,1.2]
+        },
+        {
+          "row": [15.0,1.3]
+        },
+        {
+          "row": [20.0,0.5]
+        },
+        {
+          "row": [1e+18,0.1]
+        }
+      ],
+      "reverseSpeedToThrust": [
+        {
+          "row": [-1e+18,0.02]
+        },
+        {
+          "row": [-6.0,0.02]
+        },
+        {
+          "row": [-4.0,0.1]
+        },
+        {
+          "row": [-2.0,0.24]
+        },
+        {
+          "row": [0.0,0.15]
+        },
+        {
+          "row": [1e+18,0.2]
+        }
+      ],
+      "engine": {
+        "pos": [-3.0,-0.5,0.0],
+        "outputParam": "propeller_rotate:CRS",
+        "deflectionParam": "motor_deflection",
+        "deflectionParamMult": 0.5,
+        "engineDmPart": "engine_01_dm",
+        "transmissionDmPart": "transmission_01_dm",
+        "propeller": "propeller_01",
+        "maxDeflection": 80.0,
+        "maxThrust": 2000.0
+      }
+    },
+    "collisionProps": {
+      "collision_body": "convex_hull"
+    },
+    "hydrodynamics": {
+      "bodyArea": 0.0,
+      "ignoreNodes": {
+        "collision_motor": true
+      },
+      "hydrofoils": {
+        "hydrofoil": {
+          "euler": [0.0,0.0,10.0],
+          "pos": [1.0,-0.5,0.0],
+          "size": [3.0,0.05],
+          "maxV": 20.0,
+          "polar": {
+            "Cl0": 0.066,
+            "CdMin": 0.0016,
+            "lineClCoeff": 0.046,
+            "ClCritHigh": 0.7,
+            "ClCritLow": -0.62,
+            "alphaCritHigh": 5.0,
+            "alphaCritLow": -4.0
+          }
+        }
+      },
+      "rudder": {
+        "pos": [-3.0,-0.2,0.0],
+        "area": 0.2,
+        "deflection": 80.0,
+        "dmPart": "steering_gear_01_dm"
+      }
+    }
+  }
+}
