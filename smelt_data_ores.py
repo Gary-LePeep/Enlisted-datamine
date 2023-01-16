@@ -10,6 +10,8 @@ def translation_items():
     translations1_csv = open("./data_ore/enlisted-lang.vromfs.bin/lang/common/common.csv", encoding='utf-8').read()
     translations2_csv = open("./data_ore/enlisted-lang.vromfs.bin/lang/enlisted/enlisted.csv", encoding='utf-8').read()
     translations_list = translations1_csv.split('\n') + translations2_csv.split('\n')
+
+    # Soldier classes
     for translation in translations_list:
         if translation.startswith('"soldierClass/'):
             class_name = translation.split('"soldierClass/')[1].split('";"')[0]
@@ -23,6 +25,13 @@ def translation_items():
             perk_name = translation.split('/')[1].split('/')[0]
             english_json['perk.' + perk_name] = translation.split(';')[1].replace('"', '')
             russian_json['perk.' + perk_name] = translation.split(';')[2].replace('"', '')
+
+    # Item names only from first translation page
+    for translation in translations1_csv.split('\n'):
+        if translation.split('";"')[0].count('/') == 1 and translation.startswith('"items/'):
+            weapon_name = translation.split('/')[1].split('";"')[0]
+            english_json['item.' + weapon_name] = translation.split(';')[1].replace('"', '')
+            russian_json['item.' + weapon_name] = translation.split(';')[2].replace('"', '')
 
     # Sort and save
     english_json = dict(sorted(english_json.items()))
@@ -75,6 +84,7 @@ def get_weapons():
         gun['type'] = find_property(weapons, 'item__weapType', starting_extensions.copy())
         gun['weight'] = find_property(weapons, 'item__weight', starting_extensions.copy())
         gun['locName'] = find_property(weapons, 'gun__locName', starting_extensions.copy())
+        gun['locName'] = gun['locName'] if gun['locName'] is None else gun['locName'].replace("'", '~')
         gun['magazineName'] = find_property(weapons, 'gun__ammoHolders:array', starting_extensions.copy())
         gun['bullets'] = find_property(weapons, 'gun__shells:array', starting_extensions.copy())
         gun['firingModes'] = find_property(weapons, 'gun__firingModeNames:array', starting_extensions.copy())
@@ -85,8 +95,46 @@ def get_weapons():
         gun['altReload'] = find_property(weapons, 'gun__altReloadTime', starting_extensions.copy())
         gun['dualMagReload'] = find_property(weapons, 'gun__dualMagReloadTime', starting_extensions.copy())
         gun['proneRecoilMult'] = find_property(weapons, 'gun__crawlRecoilMult', starting_extensions.copy())
+        gun['zeroDist'] = find_property(weapons, 'gun__sightsDistance', starting_extensions.copy())
+        gun['reloadSingle'] = find_reload_single_bullet(weapons, starting_extensions.copy())
+        gun['recoilAmount'] = find_property(weapons, 'gun__recoilAmount', starting_extensions.copy())
+        gun['recoilDir'] = find_property(weapons, 'gun__recoilDir', starting_extensions.copy())
+        gun['recoilDirAmount'] = find_property(weapons, 'gun__recoilDirAmount', starting_extensions.copy())
+        gun['visualRecoilMult'] = find_property(weapons, 'gun__visualRecoilMult', starting_extensions.copy())
+        gun['recoilControlMult'] = find_property(weapons, 'gun__recoilControlMult', starting_extensions.copy())
+        gun['recoilOffsetMult'] = find_property(weapons, 'gun__recoilOffsMult', starting_extensions.copy())
+        gun['mods'] = find_property(weapons, 'gun_mods__slots:object', starting_extensions.copy())
+        gun['adsSpeedMult'] = find_property(weapons, 'gun__adsSpeedMult', starting_extensions.copy())
+        gun['damageMult'] = find_property(weapons, 'gun__kineticDamageMult', starting_extensions.copy())
+        gun['sightsMag'] = find_property(weapons, 'gun__magnification', starting_extensions.copy())
 
-    print(valid_guns)
+    with open('../Enlisted-remastered/static/datamine/weapons.json', 'w', encoding='utf-8') as f:
+        json.dump(valid_guns, f, ensure_ascii=False, indent=4)
+
+
+def find_reload_single_bullet(json_data, extensions):
+    if not extensions:
+        return False
+    for (k, v) in json_data.items():
+        if k != extensions[0]:
+            continue
+        if not isinstance(v, list):
+            new_v = []
+            for (a, b) in v.items():
+                new_v.append({
+                    a: b
+                })
+            v = new_v
+        # Add all extensions and search for RSB
+        for param in v:
+            if '_extends' == list(param.keys())[0]:
+                extensions.append(param['_extends'])
+                if "reload_single_bullet" == list(param.values())[0]:
+                    return True
+    # This one failed
+    extensions.pop(0)
+    # Look for property in extensions
+    return find_reload_single_bullet(json_data, extensions)
 
 
 def find_property(json_data, property_name, extensions):
@@ -116,7 +164,27 @@ def find_property(json_data, property_name, extensions):
     return find_property(json_data, property_name, extensions)
 
 
+def get_bullets():
+    # Get all bullets
+
+    bullets = {}
+    json_paths = list(Path('./data_ore/enlisted-content.vromfs.bin/content/e_ww2_common/gamedata/weapons/bullets').rglob('*.blkx')) + list(Path('./data_ore/enlisted-content.vromfs.bin/content/e_tunisia/gamedata/weapons/bullets').rglob('*.blkx'))
+    for path in json_paths:
+        bullet_json = json.load(open(path, encoding='utf-8'))
+        bullets['.'.join(path.name.split('.')[:-1])] = {
+            'maxDistance': bullet_json['maxDistance'] if 'maxDistance' in bullet_json else None,
+            'effectiveDistance': bullet_json['effectiveDistance'] if 'effectiveDistance' in bullet_json else None,
+            'hitPowerMult': bullet_json['hitPowerMult'] if 'hitPowerMult' in bullet_json else None,
+            'hitpower': bullet_json['hitpower'] if 'hitpower' in bullet_json else None,
+            'armorpower': bullet_json['armorpower'] if 'armorpower' in bullet_json else None
+        }
+    with open('../Enlisted-remastered/static/datamine/bullets.json', 'w', encoding='utf-8') as f:
+        json.dump(bullets, f, ensure_ascii=False, indent=4)
+
+
+
 if __name__ == "__main__":
     translation_items()
     soldier_damage()
     get_weapons()
+    get_bullets()
