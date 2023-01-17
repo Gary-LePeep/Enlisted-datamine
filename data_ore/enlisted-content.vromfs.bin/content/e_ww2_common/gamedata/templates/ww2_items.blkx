@@ -1848,6 +1848,30 @@
     "item__name": "items/ppk_42_magazine",
     "collres__res": "m1928a1_thompson_ammo_collision"
   },
+  "lad_mg_gun_item": [
+    {
+      "_extends": "item_gun"
+    },
+    {
+      "_extends": "lad_mg"
+    },
+    {
+      "collres__res": "lad_mg_collision"
+    }
+  ],
+  "lad_mg_drum_magazine": {
+    "_extends": "item_magazine",
+    "animchar__res": "mg_42_handheld_ammo_char",
+    "item__template": "lad_mg_drum_magazine",
+    "item__proto": "lad_mg_drum_magazine",
+    "item__locDetails": "",
+    "ammo_holder__templateName": "lad_mg_drum_magazine",
+    "ammo_holder__ammoCount": 150,
+    "item__weight": 2.0,
+    "item__volume": 1.0,
+    "item__name": "items/lad_mg_drum_magazine",
+    "collres__res": "mg_42_handheld_ammo_collision"
+  },
   "pdm_42_gun_item": [
     {
       "_extends": "item_gun"
@@ -5808,6 +5832,17 @@
     "item__name": "items/lanchester_50_round_magazine",
     "collres__res": "lanchester_50_round_ammo_collision"
   },
+  "lanchester_model_1_gun_item": [
+    {
+      "_extends": "item_gun"
+    },
+    {
+      "_extends": "lanchester_model_1"
+    },
+    {
+      "collres__res": "lanchester_model_1_collision"
+    }
+  ],
   "mp34o_gun_item": [
     {
       "_extends": "item_gun"
@@ -10233,6 +10268,30 @@
       "collres__res": "mp_40_1_collision"
     }
   ],
+  "coenders_mp_gun_item": [
+    {
+      "_extends": "item_gun"
+    },
+    {
+      "_extends": "coenders_mp"
+    },
+    {
+      "collres__res": "august_coenders_belt_fed_mg_collision"
+    }
+  ],
+  "coenders_mp_drum_magazine": {
+    "_extends": "item_magazine",
+    "animchar__res": "mg_42_handheld_ammo_char",
+    "item__template": "coenders_mp_drum_magazine",
+    "item__proto": "coenders_mp_drum_magazine",
+    "item__locDetails": "",
+    "ammo_holder__templateName": "coenders_mp_drum_magazine",
+    "ammo_holder__ammoCount": 100,
+    "item__weight": 2.0,
+    "item__volume": 1.0,
+    "item__name": "items/coenders_mp_drum_magazine",
+    "collres__res": "mg_42_handheld_ammo_collision"
+  },
   "erma_emp_44_gun_item": [
     {
       "_extends": "item_gun"
@@ -11062,6 +11121,17 @@
     },
     {
       "collres__res": "nambu_type_1_collision"
+    }
+  ],
+  "nambu_type_1_early_smg_gun_item": [
+    {
+      "_extends": "item_gun"
+    },
+    {
+      "_extends": "nambu_type_1_early_smg"
+    },
+    {
+      "collres__res": "nambu_type_1_early_collision"
     }
   ],
   "nambu_type_1_smg_magazine": {

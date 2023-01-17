@@ -1826,7 +1826,7 @@
       "capzone__curTeamCapturingZone": -1,
       "capzone__onlyTeamCanCapture": 1,
       "groupName": "sector_5_a",
-      "capzone__capTime": 70.0,
+      "capzone__capTime": 65.0,
       "capzone__capTeam": -1,
       "active": false,
       "capzone__decapTime": 6000.0,
@@ -1856,7 +1856,7 @@
       "capzone__curTeamCapturingZone": -1,
       "capzone__onlyTeamCanCapture": 1,
       "groupName": "sector_5_b",
-      "capzone__capTime": 70.0,
+      "capzone__capTime": 65.0,
       "capzone__capTeam": -1,
       "active": false,
       "capzone__decapTime": 6000.0,
@@ -1886,12 +1886,12 @@
       "capzone__curTeamCapturingZone": -1,
       "capzone__onlyTeamCanCapture": 1,
       "groupName": "sector_4_a",
-      "capzone__capTime": 80.0,
+      "capzone__capTime": 65.0,
       "capzone__capTeam": -1,
       "active": false,
       "capzone__decapTime": 6000.0,
       "ui_order": 2,
-      "capzone__capReward": 250.0,
+      "capzone__capReward": 500.0,
       "capzone__icon": "AAA",
       "capzone__caption": "capzone/guest_house",
       "capzone__deactivateAfterTimeout": 25.0,
@@ -1919,10 +1919,10 @@
       "groupName": "sector_4_b",
       "capzone__capRewardPartCap": 1.5,
       "capzone__onlyTeamCanCapture": 1,
-      "capzone__capReward": 250.0,
+      "capzone__capReward": 500.0,
       "capzone__icon": "AAA",
       "capzone__caption": "capzone/guest_house",
-      "capzone__capTime": 80.0,
+      "capzone__capTime": 65.0,
       "capzone__decapTime": 6000.0,
       "capzone__capTeam": -1,
       "active": false,
@@ -1954,7 +1954,7 @@
       "capzone__curTeamCapturingZone": -1,
       "capzone__onlyTeamCanCapture": 1,
       "groupName": "sector_3_a",
-      "capzone__capTime": 80.0,
+      "capzone__capTime": 70.0,
       "capzone__capTeam": -1,
       "active": false,
       "capzone__decapTime": 6000.0,
@@ -1988,7 +1988,7 @@
       "capzone__curTeamCapturingZone": -1,
       "capzone__onlyTeamCanCapture": 1,
       "groupName": "sector_3_b",
-      "capzone__capTime": 80.0,
+      "capzone__capTime": 70.0,
       "capzone__capTeam": -1,
       "active": false,
       "capzone__decapTime": 6000.0,
@@ -2021,10 +2021,10 @@
       "groupName": "sector_2_a",
       "capzone__capRewardPartCap": 1.25,
       "capzone__onlyTeamCanCapture": 1,
-      "capzone__capReward": 250.0,
+      "capzone__capReward": 500.0,
       "capzone__icon": "AAA",
       "capzone__caption": "capzone/guest_house",
-      "capzone__capTime": 70.0,
+      "capzone__capTime": 60.0,
       "capzone__decapTime": 6000.0,
       "capzone__capTeam": -1,
       "active": false,
@@ -2056,12 +2056,12 @@
       "capzone__curTeamCapturingZone": -1,
       "capzone__onlyTeamCanCapture": 1,
       "groupName": "sector_2_b",
-      "capzone__capTime": 70.0,
+      "capzone__capTime": 60.0,
       "capzone__capTeam": -1,
       "active": false,
       "capzone__decapTime": 6000.0,
       "ui_order": 4,
-      "capzone__capReward": 250.0,
+      "capzone__capReward": 350.0,
       "capzone__icon": "AAA",
       "capzone__caption": "capzone/apartments",
       "capzone__deactivateAfterTimeout": 25.0,
@@ -2077,76 +2077,35 @@
     }
   },
   {
-    "entity": [
-      {
-        "_template": "defend_zone_chained_box+defend_zone_respawnbase"
-      },
-      {
-        "transform": [
-          [37.6586,0.0,14.9269],
-          [0.0,8.85788,0.0],
-          [-16.9685,0.0,42.8092],
-          [336.82,16.9811,177.538]
-        ]
-      },
-      {
-        "groupName": "sector_1"
-      },
-      {
-        "capzone__capRewardPartCap": 1.125
-      },
-      {
-        "capzone__onlyTeamCanCapture": 1
-      },
-      {
-        "capzone__capReward": 250.0
-      },
-      {
-        "capzone__capReward": 250.0
-      },
-      {
-        "capzone__icon": "AAA"
-      },
-      {
-        "capzone__caption": "capzone/square"
-      },
-      {
-        "capzone__capTime": 55.0
-      },
-      {
-        "capzone__capTeam": -1
-      },
-      {
-        "active": false
-      },
-      {
-        "capzone__deactivateAfterTimeout": 25.0
-      },
-      {
-        "capzone__spawnAtZoneTimeout": 25.0
-      },
-      {
-        "capzone__createRespawnBaseForTeam": 2
-      },
-      {
-        "decal__thickness": 0.3
-      },
-      {
-        "decal__height": 2.5
-      },
-      {
-        "capzone__createRespawnBase": "respawnBaseGroupActivator"
-      },
-      {
-        "capzone__createdRespawnBaseGroup": 11
-      },
-      {
-        "capzone__activateChoice:object": {
-          "sector_2_a": 1.0,
-          "sector_2_b": 1.0
-        }
+    "entity": {
+      "_template": "defend_zone_chained_box+defend_zone_respawnbase",
+      "transform": [
+        [37.6586,0.0,14.9269],
+        [0.0,8.85788,0.0],
+        [-16.9685,0.0,42.8092],
+        [336.82,16.9811,177.538]
+      ],
+      "groupName": "sector_1",
+      "capzone__capRewardPartCap": 1.125,
+      "capzone__onlyTeamCanCapture": 1,
+      "capzone__icon": "AAA",
+      "capzone__caption": "capzone/square",
+      "capzone__capTime": 55.0,
+      "capzone__capTeam": -1,
+      "active": false,
+      "capzone__capReward": 350.0,
+      "capzone__deactivateAfterTimeout": 25.0,
+      "capzone__spawnAtZoneTimeout": 25.0,
+      "capzone__createRespawnBaseForTeam": 2,
+      "decal__thickness": 0.3,
+      "decal__height": 2.5,
+      "capzone__createRespawnBase": "respawnBaseGroupActivator",
+      "capzone__createdRespawnBaseGroup": 11,
+      "capzone__activateChoice:object": {
+        "sector_2_a": 1.0,
+        "sector_2_b": 1.0
       }
-    ]
+    }
   },
   {
     "entity": {

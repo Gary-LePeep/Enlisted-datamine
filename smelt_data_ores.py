@@ -33,6 +33,11 @@ def translation_items():
             english_json['item.' + weapon_name] = translation.split(';')[1].replace('"', '')
             russian_json['item.' + weapon_name] = translation.split(';')[2].replace('"', '')
 
+    # Remove apostrophes
+    for (k, v) in english_json.items():
+        if "'" in v:
+            english_json[k] = v.replace("'", '~')
+
     # Sort and save
     english_json = dict(sorted(english_json.items()))
     russian_json = dict(sorted(russian_json.items()))
@@ -107,6 +112,9 @@ def get_weapons():
         gun['adsSpeedMult'] = find_property(weapons, 'gun__adsSpeedMult', starting_extensions.copy())
         gun['damageMult'] = find_property(weapons, 'gun__kineticDamageMult', starting_extensions.copy())
         gun['sightsMag'] = find_property(weapons, 'gun__magnification', starting_extensions.copy())
+        gun['flamethrowerDPS'] = find_property(weapons, 'flamethrower__streamDamagePerSecond', starting_extensions.copy())
+        gun['flamethrowerMaxLength'] = find_property(weapons, 'flamethrower__maxFlameLength',
+                                                starting_extensions.copy())
 
     with open('../Enlisted-remastered/static/datamine/weapons.json', 'w', encoding='utf-8') as f:
         json.dump(valid_guns, f, ensure_ascii=False, indent=4)
@@ -168,15 +176,19 @@ def get_bullets():
     # Get all bullets
 
     bullets = {}
-    json_paths = list(Path('./data_ore/enlisted-content.vromfs.bin/content/e_ww2_common/gamedata/weapons/bullets').rglob('*.blkx')) + list(Path('./data_ore/enlisted-content.vromfs.bin/content/e_tunisia/gamedata/weapons/bullets').rglob('*.blkx'))
+    json_paths = list(Path('./data_ore/enlisted-content.vromfs.bin/content/e_ww2_common/gamedata/weapons/bullets').rglob('*.blkx')) + list(Path('./data_ore/enlisted-content.vromfs.bin/content/e_tunisia/gamedata/weapons/bullets').rglob('*.blkx')) + list(Path('./data_ore/enlisted-game.vromfs.bin/gamedata/weapons_enlisted/bullets').rglob('*.blkx'))
     for path in json_paths:
         bullet_json = json.load(open(path, encoding='utf-8'))
+        print('.'.join(path.name.split('.')[:-1]))
         bullets['.'.join(path.name.split('.')[:-1])] = {
             'maxDistance': bullet_json['maxDistance'] if 'maxDistance' in bullet_json else None,
             'effectiveDistance': bullet_json['effectiveDistance'] if 'effectiveDistance' in bullet_json else None,
             'hitPowerMult': bullet_json['hitPowerMult'] if 'hitPowerMult' in bullet_json else None,
             'hitpower': bullet_json['hitpower'] if 'hitpower' in bullet_json else None,
-            'armorpower': bullet_json['armorpower'] if 'armorpower' in bullet_json else None
+            'armorpower': bullet_json['armorpower'] if 'armorpower' in bullet_json else None,
+            'speed': bullet_json['speed'] if 'speed' in bullet_json else None,
+            'spawn': bullet_json['spawn'] if 'spawn' in bullet_json else None,
+            'cumulativeDamage': bullet_json['cumulativeDamage'] if 'cumulativeDamage' in bullet_json else None
         }
     with open('../Enlisted-remastered/static/datamine/bullets.json', 'w', encoding='utf-8') as f:
         json.dump(bullets, f, ensure_ascii=False, indent=4)

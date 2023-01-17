@@ -1997,7 +1997,7 @@
       "groupName": "sector_1_a",
       "active": false,
       "ui_order": 1,
-      "capzone__capReward": 250.0,
+      "capzone__capReward": 150.0,
       "capzone__caption": "capzone/canteen",
       "capzone__checkAllZonesInGroup": true,
       "capzone__deactivateAfterTimeout": 0.0,
@@ -2013,8 +2013,9 @@
         [-0.171556,0.0,-0.985174],
         [0.237022,-1.939,-0.0439758]
       ],
-      "capzone__timeToPlant": 30.0,
-      "capzone__timeToDefuse": 10.0,
+      "capzone__timeToPlant": 25.0,
+      "capzone__timeToDefuse": 15.0,
+      "capzone__timeToExplosion": 30.0,
       "capzone__activateChoice:object": {
         "sector_2_a": 1.0
       }
@@ -2052,8 +2053,9 @@
         [-0.933578,0.0,-0.35838],
         [-0.290539,-2.1177,-0.136414]
       ],
-      "capzone__timeToPlant": 30.0,
-      "capzone__timeToDefuse": 10.0,
+      "capzone__timeToPlant": 25.0,
+      "capzone__timeToDefuse": 15.0,
+      "capzone__timeToExplosion": 30.0,
       "capzone__activateChoice:object": {
         "sector_2_a": 1.0
       }
@@ -2089,8 +2091,9 @@
         [0.905271,0.0,-0.424833],
         [0.350573,-2.07041,-0.153992]
       ],
-      "capzone__timeToPlant": 30.0,
-      "capzone__timeToDefuse": 10.0,
+      "capzone__timeToPlant": 25.0,
+      "capzone__timeToDefuse": 15.0,
+      "capzone__timeToExplosion": 30.0,
       "capzone__activateChoice:object": {
         "sector_3_a": 1.0
       }
@@ -2128,8 +2131,9 @@
         [-0.781217,0.0,-0.624262],
         [-0.26812,-1.85491,0.276428]
       ],
-      "capzone__timeToPlant": 30.0,
-      "capzone__timeToDefuse": 10.0,
+      "capzone__timeToPlant": 25.0,
+      "capzone__timeToDefuse": 15.0,
+      "capzone__timeToExplosion": 30.0,
       "capzone__activateChoice:object": {
         "sector_3_a": 1.0
       }
@@ -2166,7 +2170,8 @@
         [-0.338547,-1.95302,-0.357742]
       ],
       "capzone__timeToPlant": 30.0,
-      "capzone__timeToDefuse": 10.0
+      "capzone__timeToDefuse": 15.0,
+      "capzone__timeToExplosion": 40.0
     }
   },
   {

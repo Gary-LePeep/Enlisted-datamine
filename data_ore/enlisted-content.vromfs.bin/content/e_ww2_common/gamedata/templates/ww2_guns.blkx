@@ -13971,6 +13971,243 @@
       ]
     }
   ],
+  "lad_mg": [
+    {
+      "_extends": "main_weap_slots"
+    },
+    {
+      "_extends": "ironsights_open_smg"
+    },
+    {
+      "animchar__res": "lad_mg_char"
+    },
+    {
+      "gun__blk": "content/e_ww2_common/gamedata/weapons/lad_mg.blk"
+    },
+    {
+      "item__template": "lad_mg_gun_item"
+    },
+    {
+      "item__proto": "content/e_ww2_common/gamedata/weapons/lad_mg.blk"
+    },
+    {
+      "item__locDetails": "RoF: 1000; 7.62x25mm;"
+    },
+    {
+      "item__id": 0
+    },
+    {
+      "item__weapTemplate": "lad_mg_gun"
+    },
+    {
+      "item__name": "items/lad_mg"
+    },
+    {
+      "item__weapType": "submachine_gun"
+    },
+    {
+      "item__weight": 7.63
+    },
+    {
+      "gun__locName": "LAD"
+    },
+    {
+      "gun__statName": "submachine_gun"
+    },
+    {
+      "gun__sightsDistance": 0.15
+    },
+    {
+      "gun__shotFreq": 10.0
+    },
+    {
+      "gun_spread__maxDeltaAngle": 0.87
+    },
+    {
+      "gun_deviation__omegaRange": [30.0,90.0]
+    },
+    {
+      "gun_deviation__omegaDevInc": [0.07,0.5]
+    },
+    {
+      "gun_deviation__movementRange": [2.1,4.0]
+    },
+    {
+      "gun_deviation__movementDevInc": [0.0,15.0]
+    },
+    {
+      "gun_deviation__onShotDeviationChange": 0.0
+    },
+    {
+      "gun_deviation__shotTau": 0.1
+    },
+    {
+      "gun_deviation__extraDeviationTau": 0.2
+    },
+    {
+      "gun_deviation__maxDeviation": 20.0
+    },
+    {
+      "gun__reloadTime": 5.6
+    },
+    {
+      "gun__altReloadTime": 5.1
+    },
+    {
+      "gun__kineticDamageMult": 1.0
+    },
+    {
+      "gun__adsSpeedMult": 0.6
+    },
+    {
+      "gun__ammoHolders:array": [
+        {
+          "ammoHolders": "lad_mg_drum_magazine"
+        },
+        {
+          "ammoHolders": "box_7_62x25_magazine"
+        }
+      ]
+    },
+    {
+      "gun__shells:array": {
+        "shells": "content/enlisted/gamedata/weapons_enlisted/bullets/7.62x25_tokarev_smg.blk"
+      }
+    },
+    {
+      "gun__firingModes:array": {
+        "mode:object": {
+          "modeType": "automatic"
+        }
+      }
+    },
+    {
+      "gun__firingModeNames:array": {
+        "mode": "full_auto"
+      }
+    }
+  ],
+  "lad_mg_gun": [
+    {
+      "_extends": "base_equipable_gun"
+    },
+    {
+      "_extends": "mp_ww2_preset"
+    },
+    {
+      "_extends": "lad_mg"
+    },
+    {
+      "_extends": "smg_muzzle_break_2_preset"
+    },
+    {
+      "_extends": "hit_effect_group_8_12mm"
+    },
+    {
+      "_extends": "gun_switch_firing_mode_sound"
+    },
+    {
+      "_extends": "mgun_gun_aim_sound"
+    },
+    {
+      "gun__standOffset": [0.2,0.05,0.15]
+    },
+    {
+      "gun__crouchOffset": [0.2,-0.07,0.25]
+    },
+    {
+      "gun__length": 0.4
+    },
+    {
+      "gun__recoilAmount": 0.033
+    },
+    {
+      "gun__recoilDirAmount": 0.65
+    },
+    {
+      "gun__recoilDir": 0.33
+    },
+    {
+      "gun__visualRecoilMult": 1.6
+    },
+    {
+      "meleeSoundType": "mgun"
+    },
+    {
+      "gun__recoilControlMult": 0.3
+    },
+    {
+      "gun__recoilOffsMult": 0.3
+    },
+    {
+      "gun__rotationSpringMult": [0.9,0.9,0.9]
+    },
+    {
+      "gun__crawlRecoilMult": 0.8
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "gun_sound__forceOneshot": true
+      }
+    },
+    {
+      "gun_sound__shotPath:shared:object": {
+        "_tags": "sound",
+        "path": "/weapon/mgun/pps_42"
+      }
+    },
+    {
+      "sound_irqs:shared:object": {
+        "_tags": "sound",
+        "reload1:object": {
+          "path": "/weapon/mgun/mg_34/reload1/change_ammo"
+        },
+        "reload2:object": {
+          "path": "/weapon/mgun/mg_34/reload2/change_ammo"
+        },
+        "reload3:object": {
+          "path": "/weapon/mgun/mg_34/reload3/change_ammo"
+        },
+        "reload4:object": {
+          "path": "/weapon/mgun/mg_34/reload4/change_ammo"
+        },
+        "reload5:object": {
+          "path": "/weapon/mgun/mg_34/reload5/change_ammo"
+        },
+        "reload6:object": {
+          "path": "/weapon/mgun/mg_34/reload6/change_ammo"
+        },
+        "reload7:object": {
+          "path": "/weapon/mgun/mg_34/reload7/change_ammo"
+        },
+        "boltAction:object": {
+          "path": "/weapon/rifle/mauser98k/bolt_action"
+        }
+      }
+    },
+    {
+      "gun__mountPoints:shared:array": [
+        {
+          "point:object": {
+            "type": "bipod",
+            "recoil": 0.25,
+            "offset": [0.74,0.02,0.0],
+            "forceOffset": true,
+            "angle": 30.0,
+            "length": 0.295
+          }
+        },
+        {
+          "point:object": {
+            "type": "rest",
+            "recoil": 0.65,
+            "offset": [0.74,0.005,0.0]
+          }
+        }
+      ]
+    }
+  ],
   "pdm_42": [
     {
       "_extends": "main_weap_slots"
@@ -25502,6 +25739,215 @@
     },
     {
       "meleeSoundType": "mgun"
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "gun_sound__forceOneshot": true
+      }
+    },
+    {
+      "gun_sound__shotPath:shared:object": {
+        "_tags": "sound",
+        "path": "/weapon/mgun/mp18"
+      }
+    },
+    {
+      "sound_irqs:shared:object": {
+        "_tags": "sound",
+        "reload1:object": {
+          "path": "/weapon/mgun/sten_mk2/reload1/change_ammo"
+        },
+        "reload2:object": {
+          "path": "/weapon/mgun/sten_mk2/reload2/change_ammo"
+        },
+        "reload3:object": {
+          "path": "/weapon/mgun/sten_mk2/reload3/change_ammo"
+        }
+      }
+    },
+    {
+      "gun__mountPoints:shared:array": {
+        "point:object": {
+          "type": "rest",
+          "recoil": 0.65,
+          "offset": [0.4,-0.01,0.0]
+        }
+      }
+    }
+  ],
+  "lanchester_model_1": [
+    {
+      "_extends": "main_weap_slots"
+    },
+    {
+      "_extends": "ironsights_open_smg"
+    },
+    {
+      "animchar__res": "lanchester_model_1_char"
+    },
+    {
+      "gun__blk": "content/e_ww2_common/gamedata/weapons/lanchester_model_1.blk"
+    },
+    {
+      "item__template": "lanchester_model_1_gun_item"
+    },
+    {
+      "item__proto": "content/e_ww2_common/gamedata/weapons/lanchester_model_1.blk"
+    },
+    {
+      "item__locDetails": "RoF: 600; 9x19mm;"
+    },
+    {
+      "item__id": 0
+    },
+    {
+      "item__weapTemplate": "lanchester_model_1_gun"
+    },
+    {
+      "item__name": "items/lanchester_model_1"
+    },
+    {
+      "item__weapType": "submachine_gun"
+    },
+    {
+      "item__weight": 4.8
+    },
+    {
+      "gun__locName": "Lanchester"
+    },
+    {
+      "gun__statName": "submachine_gun"
+    },
+    {
+      "gun__sightsDistance": 0.05
+    },
+    {
+      "gun__shotFreq": 13.33
+    },
+    {
+      "gun_spread__maxDeltaAngle": 0.84
+    },
+    {
+      "gun_deviation__omegaRange": [30.0,90.0]
+    },
+    {
+      "gun_deviation__omegaDevInc": [0.07,0.5]
+    },
+    {
+      "gun_deviation__movementRange": [2.1,4.0]
+    },
+    {
+      "gun_deviation__movementDevInc": [0.0,15.0]
+    },
+    {
+      "gun_deviation__onShotDeviationChange": 0.0
+    },
+    {
+      "gun_deviation__shotTau": 0.1
+    },
+    {
+      "gun_deviation__extraDeviationTau": 0.2
+    },
+    {
+      "gun_deviation__maxDeviation": 20.0
+    },
+    {
+      "gun__reloadTime": 2.6
+    },
+    {
+      "gun__altReloadTime": 2.0
+    },
+    {
+      "gun__ammoHolders:array": {
+        "ammoHolders": "lanchester_magazine"
+      }
+    },
+    {
+      "gun__shells:array": {
+        "shells": "content/enlisted/gamedata/weapons_enlisted/bullets/9x19_parabellum_smg.blk"
+      }
+    },
+    {
+      "gun__firingModes:array": [
+        {
+          "mode:object": {
+            "modeType": "automatic"
+          }
+        },
+        {
+          "mode:object": {
+            "modeType": "burst",
+            "burstSize": 1
+          }
+        }
+      ]
+    },
+    {
+      "gun__firingModeNames:array": [
+        {
+          "mode": "full_auto"
+        },
+        {
+          "mode": "semi_auto"
+        }
+      ]
+    }
+  ],
+  "lanchester_model_1_gun": [
+    {
+      "_extends": "base_equipable_gun"
+    },
+    {
+      "_extends": "mp_ww2_preset"
+    },
+    {
+      "_extends": "lanchester_model_1"
+    },
+    {
+      "_extends": "smg_muzzle_preset"
+    },
+    {
+      "_extends": "hit_effect_group_8_12mm"
+    },
+    {
+      "_extends": "mgun_gun_aim_sound"
+    },
+    {
+      "gun__standOffset": [0.2,0.05,0.15]
+    },
+    {
+      "gun__crouchOffset": [0.2,-0.07,0.25]
+    },
+    {
+      "gun__length": 0.4
+    },
+    {
+      "gun__recoilAmount": 0.048
+    },
+    {
+      "gun__recoilDirAmount": 0.5
+    },
+    {
+      "gun__recoilDir": 0.1
+    },
+    {
+      "gun__visualRecoilMult": 1.4
+    },
+    {
+      "meleeSoundType": "mgun"
+    },
+    {
+      "gun__recoilControlMult": 0.5
+    },
+    {
+      "gun__recoilOffsMult": 0.3
+    },
+    {
+      "gun__rotationSpringMult": [0.6,0.6,1.0]
+    },
+    {
+      "gun__adsSpeedMult": 1.2
     },
     {
       "_group": {
@@ -44846,6 +45292,229 @@
       ]
     }
   ],
+  "coenders_mp": [
+    {
+      "_extends": "main_weap_slots"
+    },
+    {
+      "_extends": "ironsights_open_smg"
+    },
+    {
+      "animchar__res": "august_coenders_belt_fed_mg_char"
+    },
+    {
+      "gun__blk": "content/e_ww2_common/gamedata/weapons/coenders_mp.blk"
+    },
+    {
+      "item__template": "coenders_mp_gun_item"
+    },
+    {
+      "item__proto": "content/e_ww2_common/gamedata/weapons/coenders_mp.blk"
+    },
+    {
+      "item__locDetails": "RoF: 500; 9x19mm;"
+    },
+    {
+      "item__id": 0
+    },
+    {
+      "item__weapTemplate": "coenders_mp_gun"
+    },
+    {
+      "item__name": "items/coenders_mp"
+    },
+    {
+      "item__weapType": "submachine_gun"
+    },
+    {
+      "item__weight": 3.97
+    },
+    {
+      "gun__locName": "MP 40"
+    },
+    {
+      "gun__statName": "submachine_gun"
+    },
+    {
+      "gun__sightsDistance": 0.25
+    },
+    {
+      "gun__shotFreq": 16.667
+    },
+    {
+      "gun_spread__maxDeltaAngle": 0.9
+    },
+    {
+      "gun_deviation__omegaRange": [30.0,90.0]
+    },
+    {
+      "gun_deviation__omegaDevInc": [0.07,0.5]
+    },
+    {
+      "gun_deviation__movementRange": [2.1,4.0]
+    },
+    {
+      "gun_deviation__movementDevInc": [0.0,15.0]
+    },
+    {
+      "gun_deviation__onShotDeviationChange": 0.0
+    },
+    {
+      "gun_deviation__shotTau": 0.1
+    },
+    {
+      "gun_deviation__extraDeviationTau": 0.2
+    },
+    {
+      "gun_deviation__maxDeviation": 20.0
+    },
+    {
+      "gun__reloadTime": 5.3
+    },
+    {
+      "gun__altReloadTime": 4.7
+    },
+    {
+      "gun__kineticDamageMult": 1.0
+    },
+    {
+      "gun__ammoHolders:array": {
+        "ammoHolders": "coenders_mp_drum_magazine"
+      }
+    },
+    {
+      "gun__shells:array": {
+        "shells": "content/enlisted/gamedata/weapons_enlisted/bullets/9x19_parabellum_smg.blk"
+      }
+    },
+    {
+      "gun__firingModes:array": {
+        "mode:object": {
+          "modeType": "automatic"
+        }
+      }
+    },
+    {
+      "gun__firingModeNames:array": {
+        "mode": "full_auto"
+      }
+    }
+  ],
+  "coenders_mp_gun": [
+    {
+      "_extends": "base_equipable_gun"
+    },
+    {
+      "_extends": "mp_ww2_preset"
+    },
+    {
+      "_extends": "coenders_mp"
+    },
+    {
+      "_extends": "smg_muzzle_preset"
+    },
+    {
+      "_extends": "hit_effect_group_8_12mm"
+    },
+    {
+      "_extends": "mgun_gun_aim_sound"
+    },
+    {
+      "gun__standOffset": [0.2,0.05,0.15]
+    },
+    {
+      "gun__crouchOffset": [0.2,-0.07,0.25]
+    },
+    {
+      "gun__length": 0.4
+    },
+    {
+      "gun__recoilAmount": 0.034
+    },
+    {
+      "gun__recoilDirAmount": 0.52
+    },
+    {
+      "gun__recoilDir": 0.35
+    },
+    {
+      "gun__visualRecoilMult": 1.6
+    },
+    {
+      "meleeSoundType": "mgun"
+    },
+    {
+      "gun__crawlRecoilMult": 0.8
+    },
+    {
+      "gun__recoilControlMult": 0.3
+    },
+    {
+      "gun__recoilOffsMult": 0.3
+    },
+    {
+      "gun__rotationSpringMult": [0.9,0.9,0.9]
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "gun_sound__forceOneshot": true
+      }
+    },
+    {
+      "gun_sound__shotPath:shared:object": {
+        "_tags": "sound",
+        "path": "/weapon/mgun/mp40"
+      }
+    },
+    {
+      "sound_irqs:shared:object": {
+        "_tags": "sound",
+        "reload1:object": {
+          "path": "/weapon/mgun/mg_34/reload1/change_ammo"
+        },
+        "reload2:object": {
+          "path": "/weapon/mgun/mg_34/reload2/change_ammo"
+        },
+        "reload3:object": {
+          "path": "/weapon/mgun/mg_34/reload3/change_ammo"
+        },
+        "reload4:object": {
+          "path": "/weapon/mgun/mg_34/reload4/change_ammo"
+        },
+        "reload5:object": {
+          "path": "/weapon/mgun/mg_34/reload5/change_ammo"
+        },
+        "reload6:object": {
+          "path": "/weapon/mgun/mg_34/reload6/change_ammo"
+        },
+        "reload7:object": {
+          "path": "/weapon/mgun/mg_34/reload7/change_ammo"
+        },
+        "boltAction:object": {
+          "path": "/weapon/rifle/mauser98k/bolt_action"
+        }
+      }
+    },
+    {
+      "gun__mountPoints:shared:array": [
+        {
+          "point:object": {
+            "type": "rest",
+            "recoil": 0.65,
+            "offset": [0.515,0.04,0.0]
+          }
+        },
+        {
+          "point:object": {
+            "type": "rest",
+            "recoil": 0.5,
+            "offset": [0.32,-0.155,0.0]
+          }
+        }
+      ]
+    }
+  ],
   "schmeisser_mk36_iii": [
     {
       "_extends": "main_weap_slots"
@@ -62931,6 +63600,225 @@
     },
     {
       "gun__recoilDirAmount": 0.64
+    },
+    {
+      "gun__recoilDir": 0.34
+    },
+    {
+      "gun__recoilControlMult": 0.65
+    },
+    {
+      "gun__visualRecoilMult": 1.0
+    },
+    {
+      "gun__rotationSpringMult": [0.65,0.9,0.9]
+    },
+    {
+      "gun__adsSpeedMult": 1.0
+    },
+    {
+      "gun__crawlRecoilMult": 0.85
+    },
+    {
+      "meleeSoundType": "mgun"
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "gun_sound__forceOneshot": true,
+        "gun_sound__forceOneshotEnemy": true
+      }
+    },
+    {
+      "gun_sound__shotPath:shared:object": {
+        "_tags": "sound",
+        "path": "/weapon/mgun/nambu_type_1_smg"
+      }
+    },
+    {
+      "sound_irqs:shared:object": {
+        "_tags": "sound",
+        "reload1:object": {
+          "path": "/weapon/mgun/sten_mk2/reload1/change_ammo"
+        },
+        "reload2:object": {
+          "path": "/weapon/mgun/sten_mk2/reload2/change_ammo"
+        },
+        "reload3:object": {
+          "path": "/weapon/mgun/sten_mk2/reload3/change_ammo"
+        }
+      }
+    },
+    {
+      "gun__mountPoints:shared:array": {
+        "point:object": {
+          "type": "rest",
+          "recoil": 0.65,
+          "offset": [0.3,-0.21,-0.014]
+        }
+      }
+    }
+  ],
+  "nambu_type_1_early_smg": [
+    {
+      "_extends": "main_weap_slots"
+    },
+    {
+      "_extends": "ironsights_open_smg"
+    },
+    {
+      "animchar__res": "nambu_type_1_early_char"
+    },
+    {
+      "gun__blk": "content/e_ww2_common/gamedata/weapons/nambu_type_1_early_smg.blk"
+    },
+    {
+      "item__proto": "content/e_ww2_common/gamedata/weapons/nambu_type_1_early_smg.blk"
+    },
+    {
+      "item__template": "nambu_type_1_early_smg_gun_item"
+    },
+    {
+      "item__weapTemplate": "nambu_type_1_early_smg_gun"
+    },
+    {
+      "item__name": "items/nambu_type_1_early_smg"
+    },
+    {
+      "item__id": 0
+    },
+    {
+      "item__weapType": "submachine_gun"
+    },
+    {
+      "item__weight": 4.0
+    },
+    {
+      "gun__locName": "Nambu Type 1"
+    },
+    {
+      "item__locDetails": ""
+    },
+    {
+      "gun__statName": "submachine_gun"
+    },
+    {
+      "gun__sightsDistance": 0.05
+    },
+    {
+      "gun__shotFreq": 8.333
+    },
+    {
+      "gun_spread__maxDeltaAngle": 0.76
+    },
+    {
+      "gun_deviation__omegaRange": [30.0,90.0]
+    },
+    {
+      "gun_deviation__omegaDevInc": [0.07,0.5]
+    },
+    {
+      "gun_deviation__movementRange": [2.1,4.0]
+    },
+    {
+      "gun_deviation__movementDevInc": [0.0,15.0]
+    },
+    {
+      "gun_deviation__onShotDeviationChange": 0.0
+    },
+    {
+      "gun_deviation__shotTau": 0.1
+    },
+    {
+      "gun_deviation__extraDeviationTau": 0.2
+    },
+    {
+      "gun_deviation__maxDeviation": 20.0
+    },
+    {
+      "gun__reloadTime": 3.0
+    },
+    {
+      "gun__altReloadTime": 2.6
+    },
+    {
+      "gun__ammoHolders:array": {
+        "ammoHolders": "nambu_type_1_smg_magazine"
+      }
+    },
+    {
+      "gun__shells:array": {
+        "shells": "content/e_ww2_common/gamedata/weapons/bullets/8x22_nambu_smg.blk"
+      }
+    },
+    {
+      "gun__firingModes:array": [
+        {
+          "mode:object": {
+            "modeType": "automatic"
+          }
+        },
+        {
+          "mode:object": {
+            "modeType": "automatic",
+            "shotFreqMult": 1.66
+          }
+        },
+        {
+          "mode:object": {
+            "modeType": "burst",
+            "burstSize": 1
+          }
+        }
+      ]
+    },
+    {
+      "gun__firingModeNames:array": [
+        {
+          "mode": "full_auto"
+        },
+        {
+          "mode": "full_auto_slow"
+        },
+        {
+          "mode": "semi_auto"
+        }
+      ]
+    }
+  ],
+  "nambu_type_1_early_smg_gun": [
+    {
+      "_extends": "base_equipable_gun"
+    },
+    {
+      "_extends": "mp_ww2_preset"
+    },
+    {
+      "_extends": "nambu_type_1_early_smg"
+    },
+    {
+      "_extends": "smg_muzzle_break_2_preset"
+    },
+    {
+      "_extends": "hit_effect_group_8_12mm"
+    },
+    {
+      "_extends": "mgun_gun_aim_sound"
+    },
+    {
+      "gun__standOffset": [0.2,0.05,0.15]
+    },
+    {
+      "gun__crouchOffset": [0.2,-0.07,0.25]
+    },
+    {
+      "gun__length": 0.4
+    },
+    {
+      "gun__recoilAmount": 0.039
+    },
+    {
+      "gun__recoilDirAmount": 0.62
     },
     {
       "gun__recoilDir": 0.34

@@ -2138,9 +2138,9 @@
       "capzone__capReward": 250.0,
       "capzone__lockAfterActivate": true,
       "capzone__unlockAfterTime": 110.0,
-      "capzone__capTimeTeam2": 80.0,
+      "capzone__capTimeTeam2": 70.0,
       "capzone__capTimeTeam1": 90.0,
-      "capzone__decapTimeTeam2": 40.0,
+      "capzone__decapTimeTeam2": 35.0,
       "capzone__decapTimeTeam1": 45.0,
       "capzone__capTeam": -1,
       "transform": [
@@ -2173,7 +2173,7 @@
       "capzone__lockAfterActivate": true,
       "capzone__unlockAfterTime": 130.0,
       "capzone__capTimeTeam2": 70.0,
-      "capzone__capTimeTeam1": 80.0,
+      "capzone__capTimeTeam1": 90.0,
       "capzone__decapTimeTeam2": 35.0,
       "capzone__decapTimeTeam1": 40.0,
       "capzone__capTeam": -1,
@@ -2209,9 +2209,9 @@
       "capzone__capReward": 250.0,
       "capzone__lockAfterActivate": true,
       "capzone__unlockAfterTime": 120.0,
-      "capzone__capTimeTeam2": 80.0,
+      "capzone__capTimeTeam2": 70.0,
       "capzone__capTimeTeam1": 90.0,
-      "capzone__decapTimeTeam2": 40.0,
+      "capzone__decapTimeTeam2": 35.0,
       "capzone__decapTimeTeam1": 45.0,
       "capzone__capTeam": -1,
       "transform": [
@@ -2232,6 +2232,41 @@
       },
       "capzone__activateChoiceTeam1:object": {
         "sector_2": 1.0
+      }
+    }
+  },
+  {
+    "entity": {
+      "_template": "zone_bidirectional_two_chains_sphere+separate_cap_decap_time+lockable_capzone",
+      "transform": [
+        [2.7943,0.0,0.0],
+        [0.0,2.7943,0.0],
+        [0.0,0.0,2.7943],
+        [-224.147,3.49759,289.287]
+      ],
+      "capzone__alwaysShow": true,
+      "capzone__capReward": 250.0,
+      "capzone__capRewardPartCap": 1.375,
+      "capzone__capTeam": -1,
+      "capzone__capTimeTeam2": 70.0,
+      "capzone__capTimeTeam1": 90.0,
+      "capzone__caption": "capzone/construction",
+      "capzone__icon": "AAA",
+      "capzone__iconOffsetY": 2.0,
+      "capzone__lockAfterActivate": true,
+      "capzone__unlockAfterTime": 130.0,
+      "decal__height": 1.0,
+      "groupName": "sector_4",
+      "ui_order": 4,
+      "active": false,
+      "capzone__decapTimeTeam2": 35.0,
+      "capzone__decapTimeTeam1": 45.0,
+      "capzone__activateChoiceTeam2:object": {
+        "sector_5_b": 1.0,
+        "sector_5_a": 1.0
+      },
+      "capzone__activateChoiceTeam1:object": {
+        "sector_3": 1.0
       }
     }
   },
@@ -3695,41 +3730,6 @@
       "groupName": "sector_4",
       "team": 2,
       "active": false
-    }
-  },
-  {
-    "entity": {
-      "_template": "zone_bidirectional_two_chains_sphere+separate_cap_decap_time+lockable_capzone",
-      "transform": [
-        [2.7943,0.0,0.0],
-        [0.0,2.7943,0.0],
-        [0.0,0.0,2.7943],
-        [-224.147,3.49759,289.287]
-      ],
-      "capzone__alwaysShow": true,
-      "capzone__capReward": 250.0,
-      "capzone__capRewardPartCap": 1.375,
-      "capzone__capTeam": -1,
-      "capzone__capTimeTeam2": 80.0,
-      "capzone__capTimeTeam1": 80.0,
-      "capzone__caption": "capzone/construction",
-      "capzone__icon": "AAA",
-      "capzone__iconOffsetY": 2.0,
-      "capzone__lockAfterActivate": true,
-      "capzone__unlockAfterTime": 130.0,
-      "decal__height": 1.0,
-      "groupName": "sector_4",
-      "ui_order": 4,
-      "active": false,
-      "capzone__decapTimeTeam2": 40.0,
-      "capzone__decapTimeTeam1": 40.0,
-      "capzone__activateChoiceTeam2:object": {
-        "sector_5_b": 1.0,
-        "sector_5_a": 1.0
-      },
-      "capzone__activateChoiceTeam1:object": {
-        "sector_3": 1.0
-      }
     }
   },
   {

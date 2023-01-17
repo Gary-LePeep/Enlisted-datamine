@@ -1322,8 +1322,8 @@
     "entity": {
       "_template": "team_usa+team_narrator_destruction_attack+respawn_creators_team",
       "team__memberCount": 0.0,
-      "team__scoreCap": 2300.0,
-      "team__score": 2300.0,
+      "team__scoreCap": 2700.0,
+      "team__score": 2700.0,
       "team__squadSpawnCost": 250,
       "team__firstSpawnCostMul": 0.0,
       "team__zeroScoreFailTimer": 60.0,
@@ -2321,8 +2321,9 @@
       "capzone__createdRespawnBaseGroup": 3,
       "capzone__plantingTeam": 1,
       "capzone__bombTemplate": "bomb_site+bomb_site_radar_hardware_animchar_03_without_antenna",
-      "capzone__timeToPlant": 15.0,
-      "capzone__timeToDefuse": 30.0,
+      "capzone__timeToPlant": 10.0,
+      "capzone__timeToDefuse": 10.0,
+      "capzone__timeToExplosion": 30.0,
       "capzone__iconOffsetY": 1.0,
       "capzone__bombTransformLocalPos": [
         [0.403996,0.0,-0.914761],
@@ -2365,8 +2366,9 @@
         [-0.704252,0.0,-0.709949],
         [-0.471741,-0.89909,0.0787354]
       ],
-      "capzone__timeToPlant": 15.0,
+      "capzone__timeToPlant": 10.0,
       "capzone__timeToDefuse": 10.0,
+      "capzone__timeToExplosion": 30.0,
       "capzone__iconOffsetY": 1.0,
       "capzone__activateChoice:object": {
         "sector_2": 1.0
@@ -2403,8 +2405,9 @@
         [-0.401464,0.0,-0.915873],
         [0.0,0.210957,0.0]
       ],
-      "capzone__timeToPlant": 15.0,
-      "capzone__timeToDefuse": 30.0,
+      "capzone__timeToPlant": 10.0,
+      "capzone__timeToDefuse": 10.0,
+      "capzone__timeToExplosion": 30.0,
       "capzone__iconOffsetY": 2.0,
       "capzone__activateChoice:object": {
         "sector_3": 1.0
@@ -2441,8 +2444,9 @@
         [-0.946179,0.0,-0.323643],
         [0.0900879,0.132946,-0.129578]
       ],
-      "capzone__timeToPlant": 15.0,
-      "capzone__timeToDefuse": 30.0,
+      "capzone__timeToPlant": 10.0,
+      "capzone__timeToDefuse": 10.0,
+      "capzone__timeToExplosion": 30.0,
       "capzone__iconOffsetY": 2.0,
       "capzone__activateChoice:object": {
         "sector_3": 1.0
@@ -2480,7 +2484,8 @@
         [0.0,-1.10457,0.0]
       ],
       "capzone__timeToPlant": 15.0,
-      "capzone__timeToDefuse": 30.0,
+      "capzone__timeToDefuse": 15.0,
+      "capzone__timeToExplosion": 40.0,
       "capzone__iconOffsetY": 0.5
     }
   },

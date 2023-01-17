@@ -966,6 +966,100 @@
     }
   },
   {
+    "bf_110f_2_winter_bp_prem": {
+      "_extends": "bf_110f_2",
+      "animchar__objTexReplace:object": {
+        "bf_110f_2_c*": "bf_110f_2_winter_c*",
+        "bf_110f_2_c_dmg*": "bf_110f_2_winter_c_dmg*"
+      },
+      "vehicle_seats__seats:shared:array": [
+        {
+          "seats:object": {
+            "name": "driver",
+            "locName": "vehicle_seats/pilot",
+            "seatOwnsEntityControl": true,
+            "attachNode": "pilot1",
+            "ignoreAttachNodeRotation": true,
+            "attachTm": [
+              [1.0,0.0,0.0],
+              [0.0,1.0,0.0],
+              [0.0,0.0,1.0],
+              [-0.15,0.05,-0.15]
+            ],
+            "seatComponent": "isDriver",
+            "receiveDamageFromDMPart": "pilot_dm",
+            "cameraNodeName": "",
+            "cameraOffset": [1.463,0.841,0.0],
+            "cockpitTemplate": "bf_110f_2_winter_bp_prem_cockpit",
+            "roomSpace": 0,
+            "turretNames:array": [
+              {
+                "turret": "turret_01"
+              },
+              {
+                "turret": "turret_02"
+              },
+              {
+                "turret": "turret_03"
+              },
+              {
+                "turret": "turret_04"
+              },
+              {
+                "turret": "turret_05"
+              },
+              {
+                "turret": "turret_06"
+              },
+              {
+                "turret": "turret_08"
+              },
+              {
+                "turret": "turret_09"
+              }
+            ],
+            "effectors:object": {
+              "r.hand": "stick_rhand_1",
+              "l.hand": "throttle_lhand_1",
+              "r.foot": "pedal_rfoot_1",
+              "l.foot": "pedal_lfoot_1"
+            }
+          }
+        },
+        {
+          "seats:object": {
+            "name": "main_gunner",
+            "locName": "vehicle_seats/gunner",
+            "attachNode": "gunner2",
+            "ignoreAttachNodeRotation": true,
+            "attachTm": [
+              [-1.0,0.0,1.50996e-07],
+              [0.0,1.0,0.0],
+              [-1.50996e-07,0.0,-1.0],
+              [0.0,0.0,0.0]
+            ],
+            "seatComponent": "isGunner",
+            "receiveDamageFromDMPart": "gunner2_dm",
+            "directTurretControl": true,
+            "roomSpace": 1,
+            "turretNames:array": {
+              "turret": "turret_07"
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "bf_110f_2_winter_bp_prem_cockpit": {
+      "_extends": "bf_110f_2_driver_cockpit",
+      "animchar__objTexReplace:object": {
+        "bf_110f_2_c*": "bf_110f_2_winter_c*",
+        "bf_110f_2_c_dmg*": "bf_110f_2_winter_c_dmg*"
+      }
+    }
+  },
+  {
     "ju_87b_2_winter_battlepass_premium": {
       "_extends": "ju_87b_2",
       "animchar__objTexReplace:object": {
@@ -1394,6 +1488,68 @@
           "node": "pylon_rocket10"
         }
       ]
+    }
+  },
+  {
+    "yak_1_series1_19_baranov_battlepass": {
+      "_extends": "yak_1_early",
+      "animchar__objTexReplace:object": {
+        "yak_1_early_green_a*": "yak_1_series1_19_baranov_a*",
+        "yak_1_early_green_a_dmg*": "yak_1_series1_19_baranov_a_dmg*"
+      },
+      "vehicle_seats__seats:shared:array": {
+        "seats:object": {
+          "name": "driver",
+          "locName": "vehicle_seats/pilot",
+          "seatOwnsEntityControl": true,
+          "attachNode": "pilot1",
+          "ignoreAttachNodeRotation": true,
+          "attachTm": [
+            [1.0,0.0,0.0],
+            [0.0,1.0,0.0],
+            [0.0,0.0,1.0],
+            [-0.15,0.15,-0.15]
+          ],
+          "seatComponent": "isDriver",
+          "receiveDamageFromDMPart": "pilot_dm",
+          "cameraNodeName": "",
+          "cameraOffset": [-0.84,0.618,0.0],
+          "cockpitTemplate": "yak_1_series1_19_baranov_battlepass_driver_cockpit",
+          "roomSpace": 0,
+          "turretNames:array": [
+            {
+              "turret": "turret_01"
+            },
+            {
+              "turret": "turret_02"
+            },
+            {
+              "turret": "turret_03"
+            },
+            {
+              "turret": "turret_04"
+            },
+            {
+              "turret": "turret_05"
+            }
+          ],
+          "effectors:object": {
+            "r.hand": "stick_rhand_1",
+            "l.hand": "throttle_lhand_1",
+            "r.foot": "pedal_rfoot_1",
+            "l.foot": "pedal_lfoot_1"
+          }
+        }
+      }
+    }
+  },
+  {
+    "yak_1_series1_19_baranov_battlepass_driver_cockpit": {
+      "_extends": "yak_1_early_driver_cockpit",
+      "animchar__objTexReplace:object": {
+        "yak_1_early_green_a*": "yak_1_series1_19_baranov_a*",
+        "yak_1_early_green_a_dmg*": "yak_1_series1_19_baranov_a_dmg*"
+      }
     }
   },
   {

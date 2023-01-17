@@ -2602,7 +2602,7 @@
       "item__proto": "content/e_tunisia/gamedata/weapons/scotti_model_x.blk"
     },
     {
-      "item__locDetails": "6.5x52 Carcano"
+      "item__locDetails": "6.5x52mm Carcano"
     },
     {
       "item__id": 0
@@ -2620,7 +2620,7 @@
       "item__weight": 4.0
     },
     {
-      "gun__locName": "Scotti mod X"
+      "gun__locName": "Scotti Model X"
     },
     {
       "gun__statName": "semiauto"
@@ -2629,7 +2629,7 @@
       "gun__sightsDistance": 0.05
     },
     {
-      "gun__shotFreq": 5.333
+      "gun__shotFreq": 5.0
     },
     {
       "gun__boltFreq": 7.0
@@ -2638,37 +2638,40 @@
       "gun__automaticReload": false
     },
     {
-      "gun_spread__maxDeltaAngle": 0.28
+      "gun_spread__maxDeltaAngle": 0.25
     },
     {
       "gun_deviation__omegaRange": [30.0,90.0]
     },
     {
-      "gun_deviation__omegaDevInc": [0.1,0.6]
+      "gun_deviation__omegaDevInc": [0.1,0.35]
     },
     {
       "gun_deviation__movementRange": [2.1,4.0]
     },
     {
-      "gun_deviation__movementDevInc": [0.0,15.0]
+      "gun_deviation__movementDevInc": [0.0,10.0]
     },
     {
       "gun_deviation__onShotDeviationChange": 0.0
     },
     {
-      "gun_deviation__shotTau": 0.1
+      "gun_deviation__shotTau": 0.15
     },
     {
-      "gun_deviation__extraDeviationTau": 0.3
+      "gun_deviation__extraDeviationTau": 0.25
     },
     {
-      "gun_deviation__maxDeviation": 30.0
+      "gun_deviation__maxDeviation": 18.0
     },
     {
-      "gun__reloadTime": 3.1
+      "gun__reloadTime": 2.6
     },
     {
-      "gun__altReloadTime": 3.6
+      "gun__altReloadTime": 3.2
+    },
+    {
+      "gun__kineticDamageMult": 1.066
     },
     {
       "gun__ammoHolders:array": {
@@ -2726,22 +2729,22 @@
       "gun__length": 0.4
     },
     {
-      "gun__recoilAmount": 0.11
+      "gun__recoilAmount": 0.125
     },
     {
-      "gun__recoilDirAmount": 0.75
+      "gun__recoilDirAmount": 0.8
     },
     {
-      "gun__recoilDir": 0.38
+      "gun__recoilDir": 0.4
     },
     {
-      "gun__visualRecoilMult": 1.1
+      "gun__visualRecoilMult": 0.75
     },
     {
       "gun_attach__slot": "weapon"
     },
     {
-      "gun__adsSpeedMult": 0.8
+      "gun__adsSpeedMult": 1.1
     },
     {
       "meleeSoundType": "rifle"
@@ -2749,23 +2752,23 @@
     {
       "gun_sound__shotPath:shared:object": {
         "_tags": "sound",
-        "path": "/weapon/rifle/armaguerra_mod_39"
+        "path": "/weapon/rifle/carcano_m41"
       }
     },
     {
       "sound_irqs:shared:object": {
         "_tags": "sound",
         "reload1:object": {
-          "path": "/weapon/rifle/armaguerra_mod_39/reload1/change_ammo"
+          "path": "/weapon/rifle/carcano_m41/reload1/change_ammo"
         },
         "reload2:object": {
-          "path": "/weapon/rifle/armaguerra_mod_39/reload2/change_ammo"
+          "path": "/weapon/rifle/carcano_m41/reload2/change_ammo"
         },
         "reload3:object": {
-          "path": "/weapon/rifle/armaguerra_mod_39/reload3/change_ammo"
+          "path": "/weapon/rifle/carcano_m41/reload3/change_ammo"
         },
         "boltAction:object": {
-          "path": "/weapon/rifle/armaguerra_mod_39/bolt_action"
+          "path": "/weapon/rifle/mosin/bolt_action"
         }
       }
     },
@@ -2774,7 +2777,7 @@
         "point:object": {
           "type": "rest",
           "recoil": 0.65,
-          "offset": [0.57,-0.025,-0.025]
+          "offset": [0.64,-0.02,0.0]
         }
       }
     }

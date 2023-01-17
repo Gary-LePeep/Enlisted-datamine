@@ -5,6 +5,20 @@
       "us_camo_olive*": "us_camo_desert_pink_lines*"
     }
   },
+  "us_m3a1_stuart_pacific_c_comp_1st_usmc_battlepass_premium": {
+    "_extends": "us_m3a1_stuart_common",
+    "animchar__objTexReplace:object": {
+      "us_camo_olive*": "us_camo_olive_drab*"
+    },
+    "animchar__objTexSet:object": {
+      "m3a1_stuart_body_c*:object": {
+        "m3a1_stuart_c_comp_1st_usmc_body_c*": "camo_skin_tex"
+      },
+      "m3a1_stuart_turret_c*:object": {
+        "m3a1_stuart_c_comp_1st_usmc_turret_c*": "camo_skin_tex"
+      }
+    }
+  },
   "us_m3a1_stuart_pacific": {
     "_extends": "us_m3a1_stuart_common"
   },
