@@ -33,6 +33,13 @@ def translation_items():
             english_json['item.' + weapon_name] = translation.split(';')[1].replace('"', '')
             russian_json['item.' + weapon_name] = translation.split(';')[2].replace('"', '')
 
+    # Firing modes
+    for translation in translations1_csv.split('\n'):
+        if translation.split('";"')[0].count('/') == 1 and translation.startswith('"firing_mode/'):
+            firing_mode = translation.split('/')[1].split('";"')[0]
+            english_json['firingMode.' + firing_mode] = translation.split(';')[1].replace('"', '')
+            russian_json['firingMode.' + firing_mode] = translation.split(';')[2].replace('"', '')
+
     # Remove apostrophes
     for (k, v) in english_json.items():
         if "'" in v:
@@ -82,7 +89,7 @@ def get_weapons():
                 valid_guns.append(new_gun)
 
     for gun in valid_guns:
-        starting_extensions = [gun['name']] if gun['name'].endswith('gun') else [gun['name'] + '_gun', gun['name']]
+        starting_extensions = [gun['name'] + '_gun', gun['name']]
         gun['rps'] = find_property(weapons, 'gun__shotFreq', starting_extensions.copy())
         gun['dispersion'] = find_property(weapons, 'gun_spread__maxDeltaAngle', starting_extensions.copy())
         gun['stat'] = find_property(weapons, 'gun__statName', starting_extensions.copy())
@@ -176,7 +183,7 @@ def get_bullets():
     # Get all bullets
 
     bullets = {}
-    json_paths = list(Path('./data_ore/enlisted-content.vromfs.bin/content/e_ww2_common/gamedata/weapons/bullets').rglob('*.blkx')) + list(Path('./data_ore/enlisted-content.vromfs.bin/content/e_tunisia/gamedata/weapons/bullets').rglob('*.blkx')) + list(Path('./data_ore/enlisted-game.vromfs.bin/gamedata/weapons_enlisted/bullets').rglob('*.blkx'))
+    json_paths = list(Path('./data_ore/enlisted-content.vromfs.bin/content/e_ww2_common/gamedata/weapons/bullets').rglob('*.blkx')) + list(Path('./data_ore/enlisted-content.vromfs.bin/content/e_tunisia/gamedata/weapons/bullets').rglob('*.blkx')) + list(Path('./data_ore/enlisted-game.vromfs.bin/gamedata/weapons_enlisted/bullets').rglob('*.blkx')) + list(Path('./data_ore/enlisted-content.vromfs.bin/content/e_ww2_common/gamedata/weapons/shells').rglob('*.blkx'))
     for path in json_paths:
         bullet_json = json.load(open(path, encoding='utf-8'))
         print('.'.join(path.name.split('.')[:-1]))
@@ -188,7 +195,8 @@ def get_bullets():
             'armorpower': bullet_json['armorpower'] if 'armorpower' in bullet_json else None,
             'speed': bullet_json['speed'] if 'speed' in bullet_json else None,
             'spawn': bullet_json['spawn'] if 'spawn' in bullet_json else None,
-            'cumulativeDamage': bullet_json['cumulativeDamage'] if 'cumulativeDamage' in bullet_json else None
+            'cumulativeDamage': bullet_json['cumulativeDamage'] if 'cumulativeDamage' in bullet_json else None,
+            'explodeHitPower': bullet_json['explodeHitPower'] if 'explodeHitPower' in bullet_json else None
         }
     with open('../Enlisted-remastered/static/datamine/bullets.json', 'w', encoding='utf-8') as f:
         json.dump(bullets, f, ensure_ascii=False, indent=4)
