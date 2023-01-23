@@ -30,6 +30,9 @@ def translation_items():
     for translation in translations1_csv.split('\n'):
         if translation.split('";"')[0].count('/') == 1 and translation.startswith('"items/'):
             weapon_name = translation.split('/')[1].split('";"')[0]
+            # Make exception for stalingrad guns
+            if 'mp_717r' == weapon_name:
+                weapon_name = 'stl_' + weapon_name
             english_json['item.' + weapon_name] = translation.split(';')[1].replace('"', '')
             russian_json['item.' + weapon_name] = translation.split(';')[2].replace('"', '')
 
@@ -88,6 +91,12 @@ def get_weapons():
             if 'gun__blk' == list(param.keys())[0]:
                 valid_guns.append(new_gun)
 
+    # Get all items
+    items_common = json.load(open("./data_ore/enlisted-content.vromfs.bin/content/e_ww2_common/gamedata/templates/ww2_items.blkx", encoding='utf-8'))
+    tunisia_common = json.load(open("./data_ore/enlisted-content.vromfs.bin/content/e_tunisia/gamedata/templates/tunisia_items.blkx",encoding='utf-8'))
+    stalingrad_common = json.load(open("./data_ore/enlisted-content.vromfs.bin/content/e_stalingrad/gamedata/templates/stalingrad_items.blkx",encoding='utf-8'))
+    items = {**items_common, **tunisia_common, **stalingrad_common}
+
     for gun in valid_guns:
         starting_extensions = [gun['name'] + '_gun', gun['name']]
         gun['rps'] = find_property(weapons, 'gun__shotFreq', starting_extensions.copy())
@@ -96,8 +105,19 @@ def get_weapons():
         gun['type'] = find_property(weapons, 'item__weapType', starting_extensions.copy())
         gun['weight'] = find_property(weapons, 'item__weight', starting_extensions.copy())
         gun['locName'] = find_property(weapons, 'gun__locName', starting_extensions.copy())
-        gun['locName'] = gun['locName'] if gun['locName'] is None else gun['locName'].replace("'", '~')
-        gun['magazineName'] = find_property(weapons, 'gun__ammoHolders:array', starting_extensions.copy())
+        gun['locName'] = None if gun['locName'] is None else gun['locName'].replace("'", '~')
+        mag_name = find_property(weapons, 'gun__ammoHolders:array', starting_extensions.copy())
+        gun['magazineName'] = mag_name
+        if mag_name is None:
+            gun['magazineSize'] = None
+        elif isinstance(mag_name, list):
+            print(mag_name[0])
+            magazine_item = items[mag_name[0]['ammoHolders']] if 'ammoHolders' in mag_name[0] else items[mag_name[0]['ammoHolder']]
+            gun['magazineSize'] = magazine_item['ammo_holder__ammoCount'] if 'ammo_holder__ammoCount' in magazine_item else None
+        elif 'smle_2_5_inch_rifle_grenade.blk' not in str(mag_name):  # Why is this even?
+            print(mag_name)
+            magazine_item = items[mag_name['ammoHolders']] if 'ammoHolders' in mag_name else items[mag_name['ammoHolder']]
+            gun['magazineSize'] = magazine_item['ammo_holder__ammoCount'] if 'ammo_holder__ammoCount' in magazine_item else None
         gun['bullets'] = find_property(weapons, 'gun__shells:array', starting_extensions.copy())
         gun['firingModes'] = find_property(weapons, 'gun__firingModeNames:array', starting_extensions.copy())
         gun['singleReloadPrep'] = find_property(weapons, 'single_reload__prepareTime', starting_extensions.copy())
@@ -186,7 +206,6 @@ def get_bullets():
     json_paths = list(Path('./data_ore/enlisted-content.vromfs.bin/content/e_ww2_common/gamedata/weapons/bullets').rglob('*.blkx')) + list(Path('./data_ore/enlisted-content.vromfs.bin/content/e_tunisia/gamedata/weapons/bullets').rglob('*.blkx')) + list(Path('./data_ore/enlisted-game.vromfs.bin/gamedata/weapons_enlisted/bullets').rglob('*.blkx')) + list(Path('./data_ore/enlisted-content.vromfs.bin/content/e_ww2_common/gamedata/weapons/shells').rglob('*.blkx'))
     for path in json_paths:
         bullet_json = json.load(open(path, encoding='utf-8'))
-        print('.'.join(path.name.split('.')[:-1]))
         bullets['.'.join(path.name.split('.')[:-1])] = {
             'maxDistance': bullet_json['maxDistance'] if 'maxDistance' in bullet_json else None,
             'effectiveDistance': bullet_json['effectiveDistance'] if 'effectiveDistance' in bullet_json else None,
@@ -200,8 +219,6 @@ def get_bullets():
         }
     with open('../Enlisted-remastered/static/datamine/bullets.json', 'w', encoding='utf-8') as f:
         json.dump(bullets, f, ensure_ascii=False, indent=4)
-
-
 
 if __name__ == "__main__":
     translation_items()
