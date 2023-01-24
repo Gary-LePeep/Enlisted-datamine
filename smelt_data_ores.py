@@ -93,8 +93,8 @@ def get_weapons():
 
     # Get all items
     items_common = json.load(open("./data_ore/enlisted-content.vromfs.bin/content/e_ww2_common/gamedata/templates/ww2_items.blkx", encoding='utf-8'))
-    tunisia_common = json.load(open("./data_ore/enlisted-content.vromfs.bin/content/e_tunisia/gamedata/templates/tunisia_items.blkx",encoding='utf-8'))
-    stalingrad_common = json.load(open("./data_ore/enlisted-content.vromfs.bin/content/e_stalingrad/gamedata/templates/stalingrad_items.blkx",encoding='utf-8'))
+    tunisia_common = json.load(open("./data_ore/enlisted-content.vromfs.bin/content/e_tunisia/gamedata/templates/tunisia_items.blkx", encoding='utf-8'))
+    stalingrad_common = json.load(open("./data_ore/enlisted-content.vromfs.bin/content/e_stalingrad/gamedata/templates/stalingrad_items.blkx", encoding='utf-8'))
     items = {**items_common, **tunisia_common, **stalingrad_common}
 
     for gun in valid_guns:
@@ -138,9 +138,7 @@ def get_weapons():
         gun['damageMult'] = find_property(weapons, 'gun__kineticDamageMult', starting_extensions.copy())
         gun['sightsMag'] = find_property(weapons, 'gun__magnification', starting_extensions.copy())
         gun['flamethrowerDPS'] = find_property(weapons, 'flamethrower__streamDamagePerSecond', starting_extensions.copy())
-        gun['flamethrowerMaxLength'] = find_property(weapons, 'flamethrower__maxFlameLength',
-                                                starting_extensions.copy())
-
+        gun['flamethrowerMaxLength'] = find_property(weapons, 'flamethrower__maxFlameLength', starting_extensions.copy())
     with open('../Enlisted-remastered/static/datamine/weapons.json', 'w', encoding='utf-8') as f:
         json.dump(valid_guns, f, ensure_ascii=False, indent=4)
 
@@ -199,7 +197,6 @@ def find_property(json_data, property_name, extensions):
 
 def get_bullets():
     # Get all bullets
-
     bullets = {}
     json_paths = list(Path('./data_ore/enlisted-content.vromfs.bin/content/e_ww2_common/gamedata/weapons/bullets').rglob('*.blkx')) + list(Path('./data_ore/enlisted-content.vromfs.bin/content/e_tunisia/gamedata/weapons/bullets').rglob('*.blkx')) + list(Path('./data_ore/enlisted-game.vromfs.bin/gamedata/weapons_enlisted/bullets').rglob('*.blkx')) + list(Path('./data_ore/enlisted-content.vromfs.bin/content/e_ww2_common/gamedata/weapons/shells').rglob('*.blkx'))
     for path in json_paths:
@@ -237,8 +234,41 @@ def get_bullets():
     with open('../Enlisted-remastered/static/datamine/bullets.json', 'w', encoding='utf-8') as f:
         json.dump(bullets, f, ensure_ascii=False, indent=4)
 
+
+def get_grenades():
+    # Get basic grenades
+    grenades = {}
+    json_paths = [
+        {'name': '', 'path': Path('./data_ore/enlisted-content.vromfs.bin/content/e_ww2_common/gamedata/weapons/grenades/explosion_pack.blkx')},
+        {'name': '', 'path': Path('./data_ore/enlisted-content.vromfs.bin/content/e_ww2_common/gamedata/weapons/grenades/f1.blkx')},
+        {'name': '', 'path': Path('./data_ore/enlisted-content.vromfs.bin/content/e_ww2_common/gamedata/weapons/grenades/molotov_base.blkx')},
+        {'name': '', 'path': Path('./data_ore/enlisted-content.vromfs.bin/content/e_ww2_common/gamedata/weapons/grenades/m_15_incendiary_grenade.blkx')},
+        {'name': '', 'path': Path('./data_ore/enlisted-content.vromfs.bin/content/e_ww2_common/gamedata/weapons/grenades/no_69_impact_grenade.blkx')},
+        {'name': '', 'path': Path('./data_ore/enlisted-content.vromfs.bin/content/e_ww2_common/gamedata/weapons/mines/antipersonnel_mine_item_gun.blkx')},
+        {'name': '', 'path': Path('./data_ore/enlisted-content.vromfs.bin/content/e_ww2_common/gamedata/weapons/mines/antitank_mine_item_gun.blkx')},
+        {'name': '', 'path': Path('./data_ore/enlisted-content.vromfs.bin/content/e_ww2_common/gamedata/weapons/tnt_block.blkx')}
+    ]
+    for json_item in json_paths:
+        grenade_json = json.load(open(json_item['path'], encoding='utf-8'))
+        if isinstance(grenade_json, list):
+            new_json = {}
+            for item in grenade_json:
+                new_json[list(item.keys())[0]] = list(item.values())[0]
+            grenade_json = new_json
+        grenades[json_item['name']] = {
+            'explodeHitPower': grenade_json['explodeHitPower'] if 'explodeHitPower' in grenade_json else None,
+            'explodeRadius': grenade_json['explodeRadius'] if 'explodeRadius' in grenade_json else None,
+            'armorpower': grenade_json['explodeArmorPower'] if 'explodeArmorPower' in grenade_json else None,
+            'splashDamage': grenade_json['splashDamage'] if 'splashDamage' in grenade_json else None,
+            'detonation': grenade_json['detonation'] if 'detonation' in grenade_json else None
+        }
+    with open('../Enlisted-remastered/static/datamine/grenades.json', 'w', encoding='utf-8') as f:
+        json.dump(grenades, f, ensure_ascii=False, indent=4)
+
+
 if __name__ == "__main__":
     translation_items()
     soldier_damage()
     get_weapons()
     get_bullets()
+    get_grenades()
