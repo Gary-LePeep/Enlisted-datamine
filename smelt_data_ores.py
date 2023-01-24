@@ -209,17 +209,31 @@ def get_bullets():
             for item in bullet_json:
                 new_json[list(item.keys())[0]] = list(item.values())[0]
             bullet_json = new_json
-        bullets['.'.join(path.name.split('.')[:-1])] = {
-            'maxDistance': bullet_json['maxDistance'] if 'maxDistance' in bullet_json else None,
-            'effectiveDistance': bullet_json['effectiveDistance'] if 'effectiveDistance' in bullet_json else None,
-            'hitPowerMult': bullet_json['hitPowerMult'] if 'hitPowerMult' in bullet_json else None,
-            'hitpower': bullet_json['hitpower'] if 'hitpower' in bullet_json else None,
-            'armorpower': bullet_json['armorpower'] if 'armorpower' in bullet_json else None,
-            'speed': bullet_json['speed'] if 'speed' in bullet_json else None,
-            'spawn': bullet_json['spawn'] if 'spawn' in bullet_json else None,
-            'cumulativeDamage': bullet_json['cumulativeDamage'] if 'cumulativeDamage' in bullet_json else None,
-            'explodeHitPower': bullet_json['explodeHitPower'] if 'explodeHitPower' in bullet_json else None
-        }
+        # If already exists, override unless override is null
+        if '.'.join(path.name.split('.')[:-1]) in bullets:
+            bullets['.'.join(path.name.split('.')[:-1])] = {
+                'maxDistance': bullet_json['maxDistance'] if 'maxDistance' in bullet_json else bullets['.'.join(path.name.split('.')[:-1])]['maxDistance'],
+                'effectiveDistance': bullet_json['effectiveDistance'] if 'effectiveDistance' in bullet_json else bullets['.'.join(path.name.split('.')[:-1])]['effectiveDistance'],
+                'hitPowerMult': bullet_json['hitPowerMult'] if 'hitPowerMult' in bullet_json else bullets['.'.join(path.name.split('.')[:-1])]['hitPowerMult'],
+                'hitpower': bullet_json['hitpower'] if 'hitpower' in bullet_json else bullets['.'.join(path.name.split('.')[:-1])]['hitpower'],
+                'armorpower': bullet_json['armorpower'] if 'armorpower' in bullet_json else bullets['.'.join(path.name.split('.')[:-1])]['armorpower'],
+                'speed': bullet_json['speed'] if 'speed' in bullet_json else bullets['.'.join(path.name.split('.')[:-1])]['speed'],
+                'spawn': bullet_json['spawn'] if 'spawn' in bullet_json else bullets['.'.join(path.name.split('.')[:-1])]['spawn'],
+                'cumulativeDamage': bullet_json['cumulativeDamage'] if 'cumulativeDamage' in bullet_json else bullets['.'.join(path.name.split('.')[:-1])]['cumulativeDamage'],
+                'explodeHitPower': bullet_json['explodeHitPower'] if 'explodeHitPower' in bullet_json else bullets['.'.join(path.name.split('.')[:-1])]['explodeHitPower']
+            }
+        else:
+            bullets['.'.join(path.name.split('.')[:-1])] = {
+                'maxDistance': bullet_json['maxDistance'] if 'maxDistance' in bullet_json else None,
+                'effectiveDistance': bullet_json['effectiveDistance'] if 'effectiveDistance' in bullet_json else None,
+                'hitPowerMult': bullet_json['hitPowerMult'] if 'hitPowerMult' in bullet_json else None,
+                'hitpower': bullet_json['hitpower'] if 'hitpower' in bullet_json else None,
+                'armorpower': bullet_json['armorpower'] if 'armorpower' in bullet_json else None,
+                'speed': bullet_json['speed'] if 'speed' in bullet_json else None,
+                'spawn': bullet_json['spawn'] if 'spawn' in bullet_json else None,
+                'cumulativeDamage': bullet_json['cumulativeDamage'] if 'cumulativeDamage' in bullet_json else None,
+                'explodeHitPower': bullet_json['explodeHitPower'] if 'explodeHitPower' in bullet_json else None
+            }
     with open('../Enlisted-remastered/static/datamine/bullets.json', 'w', encoding='utf-8') as f:
         json.dump(bullets, f, ensure_ascii=False, indent=4)
 
