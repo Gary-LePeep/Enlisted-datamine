@@ -111,11 +111,9 @@ def get_weapons():
         if mag_name is None:
             gun['magazineSize'] = None
         elif isinstance(mag_name, list):
-            print(mag_name[0])
             magazine_item = items[mag_name[0]['ammoHolders']] if 'ammoHolders' in mag_name[0] else items[mag_name[0]['ammoHolder']]
             gun['magazineSize'] = magazine_item['ammo_holder__ammoCount'] if 'ammo_holder__ammoCount' in magazine_item else None
         elif 'smle_2_5_inch_rifle_grenade.blk' not in str(mag_name):  # Why is this even?
-            print(mag_name)
             magazine_item = items[mag_name['ammoHolders']] if 'ammoHolders' in mag_name else items[mag_name['ammoHolder']]
             gun['magazineSize'] = magazine_item['ammo_holder__ammoCount'] if 'ammo_holder__ammoCount' in magazine_item else None
         gun['bullets'] = find_property(weapons, 'gun__shells:array', starting_extensions.copy())
@@ -206,6 +204,11 @@ def get_bullets():
     json_paths = list(Path('./data_ore/enlisted-content.vromfs.bin/content/e_ww2_common/gamedata/weapons/bullets').rglob('*.blkx')) + list(Path('./data_ore/enlisted-content.vromfs.bin/content/e_tunisia/gamedata/weapons/bullets').rglob('*.blkx')) + list(Path('./data_ore/enlisted-game.vromfs.bin/gamedata/weapons_enlisted/bullets').rglob('*.blkx')) + list(Path('./data_ore/enlisted-content.vromfs.bin/content/e_ww2_common/gamedata/weapons/shells').rglob('*.blkx'))
     for path in json_paths:
         bullet_json = json.load(open(path, encoding='utf-8'))
+        if isinstance(bullet_json, list):
+            new_json = {}
+            for item in bullet_json:
+                new_json[list(item.keys())[0]] = list(item.values())[0]
+            bullet_json = new_json
         bullets['.'.join(path.name.split('.')[:-1])] = {
             'maxDistance': bullet_json['maxDistance'] if 'maxDistance' in bullet_json else None,
             'effectiveDistance': bullet_json['effectiveDistance'] if 'effectiveDistance' in bullet_json else None,
