@@ -105,6 +105,7 @@
             "cameraOffset": [-0.0,0.0,0.0],
             "directTurretControl": true,
             "cockpitTemplate": "ussr_towed_at_53k_gunner_cockpit",
+            "isHoldGunModeAllowed": false,
             "lockSeats:list<t>": {
               "locked": "loader_marching"
             },
@@ -134,6 +135,7 @@
             "nextSeat": "main_gunner",
             "receiveDamageFromDMPart": "driver",
             "cameraNodeName": "root",
+            "isHoldGunModeAllowed": false,
             "copySkeletonNodesPostfix": "_gunner",
             "lockSeats:list<t>": {
               "locked": "loader"
@@ -172,6 +174,7 @@
             "cameraNodeName": "root",
             "nextSeat": "main_gunner",
             "vehicleReloadMult": 0.7,
+            "isHoldGunModeAllowed": false,
             "loaderTurretNames:array": {
               "turret": "turret_01"
             }
@@ -198,6 +201,7 @@
             "nextSeat": "main_gunner",
             "vehicleReloadMult": 0.7,
             "canPlaceManually": false,
+            "isHoldGunModeAllowed": false,
             "copySkeletonNodesPostfix": "_loader",
             "effectors:object": {
               "l.hand": "ik_hand_left_loader",

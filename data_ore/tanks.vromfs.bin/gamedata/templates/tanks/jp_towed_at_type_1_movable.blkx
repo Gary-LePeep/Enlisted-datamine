@@ -102,6 +102,7 @@
             "cameraOffset": [-0.0,0.0,0.0],
             "directTurretControl": true,
             "cockpitTemplate": "jp_towed_at_type_1_gunner_cockpit",
+            "isHoldGunModeAllowed": false,
             "lockSeats:list<t>": {
               "locked": "loader_marching"
             },
@@ -132,6 +133,7 @@
             "receiveDamageFromDMPart": "driver",
             "cameraNodeName": "root",
             "copySkeletonNodesPostfix": "_gunner",
+            "isHoldGunModeAllowed": false,
             "lockSeats:list<t>": {
               "locked": "loader"
             },
@@ -169,6 +171,7 @@
             "cameraNodeName": "root",
             "nextSeat": "main_gunner",
             "vehicleReloadMult": 0.7,
+            "isHoldGunModeAllowed": false,
             "loaderTurretNames:array": {
               "turret": "turret_01"
             }
@@ -196,6 +199,7 @@
             "vehicleReloadMult": 0.7,
             "canPlaceManually": false,
             "copySkeletonNodesPostfix": "_loader",
+            "isHoldGunModeAllowed": false,
             "effectors:object": {
               "l.hand": "ik_hand_left",
               "r.hand": "ik_hand_right"
