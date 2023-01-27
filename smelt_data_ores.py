@@ -139,6 +139,32 @@ def get_weapons():
         gun['sightsMag'] = find_property(weapons, 'gun__magnification', starting_extensions.copy())
         gun['flamethrowerDPS'] = find_property(weapons, 'flamethrower__streamDamagePerSecond', starting_extensions.copy())
         gun['flamethrowerMaxLength'] = find_property(weapons, 'flamethrower__maxFlameLength', starting_extensions.copy())
+    # Get basic grenades
+    json_paths = [
+        {'name': 'explosion_pack', 'path': Path('./data_ore/enlisted-content.vromfs.bin/content/e_ww2_common/gamedata/weapons/grenades/explosion_pack.blkx')},
+        {'name': 'grenade', 'path': Path('./data_ore/enlisted-content.vromfs.bin/content/e_ww2_common/gamedata/weapons/grenades/f1.blkx')},
+        {'name': 'molotov_grenade', 'path': Path('./data_ore/enlisted-content.vromfs.bin/content/e_ww2_common/gamedata/weapons/grenades/molotov_base.blkx')},
+        {'name': 'incendiary_grenade', 'path': Path('./data_ore/enlisted-content.vromfs.bin/content/e_ww2_common/gamedata/weapons/grenades/m_15_incendiary_grenade.blkx')},
+        {'name': 'impact_grenade', 'path': Path('./data_ore/enlisted-content.vromfs.bin/content/e_ww2_common/gamedata/weapons/grenades/no_69_impact_grenade.blkx')},
+        {'name': 'antipersonnel_mine', 'path': Path('./data_ore/enlisted-content.vromfs.bin/content/e_ww2_common/gamedata/weapons/antipersonnel_mine.blkx')},
+        {'name': 'antitank_mine', 'path': Path('./data_ore/enlisted-content.vromfs.bin/content/e_ww2_common/gamedata/weapons/antitank_mine.blkx')},
+        {'name': 'tnt_block', 'path': Path('./data_ore/enlisted-content.vromfs.bin/content/e_ww2_common/gamedata/weapons/tnt_block.blkx')}
+    ]
+    for json_item in json_paths:
+        grenade_json = json.load(open(json_item['path'], encoding='utf-8'))
+        if isinstance(grenade_json, list):
+            new_json = {}
+            for item in grenade_json:
+                new_json[list(item.keys())[0]] = list(item.values())[0]
+            grenade_json = new_json
+        valid_guns.append({
+            'name': json_item['name'],
+            'explosive': 'explosive',
+            'weight': grenade_json['mass'] if 'mass' in grenade_json else None,
+            'bullets': {
+                'shells': json_item['name']
+            },
+        })
     with open('../Enlisted-remastered/static/datamine/weapons.json', 'w', encoding='utf-8') as f:
         json.dump(valid_guns, f, ensure_ascii=False, indent=4)
 
@@ -198,7 +224,7 @@ def find_property(json_data, property_name, extensions):
 def get_bullets():
     # Get all bullets
     bullets = {}
-    json_paths = list(Path('./data_ore/enlisted-content.vromfs.bin/content/e_ww2_common/gamedata/weapons/bullets').rglob('*.blkx')) + list(Path('./data_ore/enlisted-content.vromfs.bin/content/e_tunisia/gamedata/weapons/bullets').rglob('*.blkx')) + list(Path('./data_ore/enlisted-game.vromfs.bin/gamedata/weapons_enlisted/bullets').rglob('*.blkx')) + list(Path('./data_ore/enlisted-content.vromfs.bin/content/e_ww2_common/gamedata/weapons/shells').rglob('*.blkx'))
+    json_paths = list(Path('./data_ore/enlisted-content.vromfs.bin/content/e_ww2_common/gamedata/weapons/bullets').rglob('*.blkx')) + list(Path('./data_ore/enlisted-content.vromfs.bin/content/e_tunisia/gamedata/weapons/bullets').rglob('*.blkx')) + list(Path('./data_ore/enlisted-game.vromfs.bin/gamedata/weapons_enlisted/bullets').rglob('*.blkx')) + list(Path('./data_ore/enlisted-content.vromfs.bin/content/e_ww2_common/gamedata/weapons/shells').rglob('*.blkx')) + list(Path('./data_ore/enlisted-game.vromfs.bin/gamedata/weapons_enlisted/shells').rglob('*.blkx'))
     for path in json_paths:
         bullet_json = json.load(open(path, encoding='utf-8'))
         if isinstance(bullet_json, list):
@@ -207,20 +233,24 @@ def get_bullets():
                 new_json[list(item.keys())[0]] = list(item.values())[0]
             bullet_json = new_json
         # If already exists, override unless override is null
-        if '.'.join(path.name.split('.')[:-1]) in bullets:
-            bullets['.'.join(path.name.split('.')[:-1])] = {
-                'maxDistance': bullet_json['maxDistance'] if 'maxDistance' in bullet_json else bullets['.'.join(path.name.split('.')[:-1])]['maxDistance'],
-                'effectiveDistance': bullet_json['effectiveDistance'] if 'effectiveDistance' in bullet_json else bullets['.'.join(path.name.split('.')[:-1])]['effectiveDistance'],
-                'hitPowerMult': bullet_json['hitPowerMult'] if 'hitPowerMult' in bullet_json else bullets['.'.join(path.name.split('.')[:-1])]['hitPowerMult'],
-                'hitpower': bullet_json['hitpower'] if 'hitpower' in bullet_json else bullets['.'.join(path.name.split('.')[:-1])]['hitpower'],
-                'armorpower': bullet_json['armorpower'] if 'armorpower' in bullet_json else bullets['.'.join(path.name.split('.')[:-1])]['armorpower'],
-                'speed': bullet_json['speed'] if 'speed' in bullet_json else bullets['.'.join(path.name.split('.')[:-1])]['speed'],
-                'spawn': bullet_json['spawn'] if 'spawn' in bullet_json else bullets['.'.join(path.name.split('.')[:-1])]['spawn'],
-                'cumulativeDamage': bullet_json['cumulativeDamage'] if 'cumulativeDamage' in bullet_json else bullets['.'.join(path.name.split('.')[:-1])]['cumulativeDamage'],
-                'explodeHitPower': bullet_json['explodeHitPower'] if 'explodeHitPower' in bullet_json else bullets['.'.join(path.name.split('.')[:-1])]['explodeHitPower']
+        old_name = '.'.join(path.name.split('.')[:-1])
+        if old_name in bullets:
+            bullets[old_name] = {
+                'maxDistance': bullet_json['maxDistance'] if 'maxDistance' in bullet_json else bullets[old_name]['maxDistance'],
+                'effectiveDistance': bullet_json['effectiveDistance'] if 'effectiveDistance' in bullet_json else bullets[old_name]['effectiveDistance'],
+                'hitPowerMult': bullet_json['hitPowerMult'] if 'hitPowerMult' in bullet_json else bullets[old_name]['hitPowerMult'],
+                'hitpower': bullet_json['hitpower'] if 'hitpower' in bullet_json else bullets[old_name]['hitpower'],
+                'armorpower': bullet_json['armorpower'] if 'armorpower' in bullet_json else bullets[old_name]['armorpower'],
+                'speed': bullet_json['speed'] if 'speed' in bullet_json else bullets[old_name]['speed'],
+                'spawn': bullet_json['spawn'] if 'spawn' in bullet_json else bullets[old_name]['spawn'],
+                'cumulativeDamage': bullet_json['cumulativeDamage'] if 'cumulativeDamage' in bullet_json else bullets[old_name]['cumulativeDamage'],
+                'explodeHitPower': bullet_json['explodeHitPower'] if 'explodeHitPower' in bullet_json else bullets[old_name]['explodeHitPower'],
+                'explodeRadius': bullet_json['explodeRadius'] if 'explodeRadius' in bullet_json else bullets[old_name]['explodeRadius'],
+                'splashDamage': bullet_json['splashDamage'] if 'splashDamage' in bullet_json else bullets[old_name]['splashDamage'],
+                'detonation': bullet_json['detonation'] if 'detonation' in bullet_json else bullets[old_name]['detonation'],
             }
         else:
-            bullets['.'.join(path.name.split('.')[:-1])] = {
+            bullets[old_name] = {
                 'maxDistance': bullet_json['maxDistance'] if 'maxDistance' in bullet_json else None,
                 'effectiveDistance': bullet_json['effectiveDistance'] if 'effectiveDistance' in bullet_json else None,
                 'hitPowerMult': bullet_json['hitPowerMult'] if 'hitPowerMult' in bullet_json else None,
@@ -229,24 +259,22 @@ def get_bullets():
                 'speed': bullet_json['speed'] if 'speed' in bullet_json else None,
                 'spawn': bullet_json['spawn'] if 'spawn' in bullet_json else None,
                 'cumulativeDamage': bullet_json['cumulativeDamage'] if 'cumulativeDamage' in bullet_json else None,
-                'explodeHitPower': bullet_json['explodeHitPower'] if 'explodeHitPower' in bullet_json else None
+                'explodeHitPower': bullet_json['explodeHitPower'] if 'explodeHitPower' in bullet_json else None,
+                'explodeRadius': bullet_json['explodeRadius'] if 'explodeRadius' in bullet_json else None,
+                'splashDamage': bullet_json['splashDamage'] if 'splashDamage' in bullet_json else None,
+                'detonation': bullet_json['detonation'] if 'detonation' in bullet_json else None,
             }
-    with open('../Enlisted-remastered/static/datamine/bullets.json', 'w', encoding='utf-8') as f:
-        json.dump(bullets, f, ensure_ascii=False, indent=4)
 
-
-def get_grenades():
     # Get basic grenades
-    grenades = {}
     json_paths = [
-        {'name': '', 'path': Path('./data_ore/enlisted-content.vromfs.bin/content/e_ww2_common/gamedata/weapons/grenades/explosion_pack.blkx')},
-        {'name': '', 'path': Path('./data_ore/enlisted-content.vromfs.bin/content/e_ww2_common/gamedata/weapons/grenades/f1.blkx')},
-        {'name': '', 'path': Path('./data_ore/enlisted-content.vromfs.bin/content/e_ww2_common/gamedata/weapons/grenades/molotov_base.blkx')},
-        {'name': '', 'path': Path('./data_ore/enlisted-content.vromfs.bin/content/e_ww2_common/gamedata/weapons/grenades/m_15_incendiary_grenade.blkx')},
-        {'name': '', 'path': Path('./data_ore/enlisted-content.vromfs.bin/content/e_ww2_common/gamedata/weapons/grenades/no_69_impact_grenade.blkx')},
-        {'name': '', 'path': Path('./data_ore/enlisted-content.vromfs.bin/content/e_ww2_common/gamedata/weapons/mines/antipersonnel_mine_item_gun.blkx')},
-        {'name': '', 'path': Path('./data_ore/enlisted-content.vromfs.bin/content/e_ww2_common/gamedata/weapons/mines/antitank_mine_item_gun.blkx')},
-        {'name': '', 'path': Path('./data_ore/enlisted-content.vromfs.bin/content/e_ww2_common/gamedata/weapons/tnt_block.blkx')}
+        {'name': 'explosion_pack', 'path': Path('./data_ore/enlisted-content.vromfs.bin/content/e_ww2_common/gamedata/weapons/grenades/explosion_pack.blkx')},
+        {'name': 'grenade', 'path': Path('./data_ore/enlisted-content.vromfs.bin/content/e_ww2_common/gamedata/weapons/grenades/f1.blkx')},
+        {'name': 'molotov_grenade', 'path': Path('./data_ore/enlisted-content.vromfs.bin/content/e_ww2_common/gamedata/weapons/grenades/molotov_base.blkx')},
+        {'name': 'incendiary_grenade', 'path': Path('./data_ore/enlisted-content.vromfs.bin/content/e_ww2_common/gamedata/weapons/grenades/m_15_incendiary_grenade.blkx')},
+        {'name': 'impact_grenade', 'path': Path('./data_ore/enlisted-content.vromfs.bin/content/e_ww2_common/gamedata/weapons/grenades/no_69_impact_grenade.blkx')},
+        {'name': 'antipersonnel_mine', 'path': Path('./data_ore/enlisted-content.vromfs.bin/content/e_ww2_common/gamedata/weapons/antipersonnel_mine.blkx')},
+        {'name': 'antitank_mine', 'path': Path('./data_ore/enlisted-content.vromfs.bin/content/e_ww2_common/gamedata/weapons/antitank_mine.blkx')},
+        {'name': 'tnt_block', 'path': Path('./data_ore/enlisted-content.vromfs.bin/content/e_ww2_common/gamedata/weapons/tnt_block.blkx')}
     ]
     for json_item in json_paths:
         grenade_json = json.load(open(json_item['path'], encoding='utf-8'))
@@ -255,15 +283,16 @@ def get_grenades():
             for item in grenade_json:
                 new_json[list(item.keys())[0]] = list(item.values())[0]
             grenade_json = new_json
-        grenades[json_item['name']] = {
+        bullets[json_item['name']] = {
             'explodeHitPower': grenade_json['explodeHitPower'] if 'explodeHitPower' in grenade_json else None,
             'explodeRadius': grenade_json['explodeRadius'] if 'explodeRadius' in grenade_json else None,
-            'armorpower': grenade_json['explodeArmorPower'] if 'explodeArmorPower' in grenade_json else None,
+            'explodeArmorPower': grenade_json['explodeArmorPower'] if 'explodeArmorPower' in grenade_json else None,
             'splashDamage': grenade_json['splashDamage'] if 'splashDamage' in grenade_json else None,
-            'detonation': grenade_json['detonation'] if 'detonation' in grenade_json else None
+            'detonation': grenade_json['detonation'] if 'detonation' in grenade_json else None,
+            'speed': grenade_json['speed'] if 'speed' in grenade_json else None
         }
-    with open('../Enlisted-remastered/static/datamine/grenades.json', 'w', encoding='utf-8') as f:
-        json.dump(grenades, f, ensure_ascii=False, indent=4)
+    with open('../Enlisted-remastered/static/datamine/bullets.json', 'w', encoding='utf-8') as f:
+        json.dump(bullets, f, ensure_ascii=False, indent=4)
 
 
 if __name__ == "__main__":
@@ -271,4 +300,3 @@ if __name__ == "__main__":
     soldier_damage()
     get_weapons()
     get_bullets()
-    get_grenades()
