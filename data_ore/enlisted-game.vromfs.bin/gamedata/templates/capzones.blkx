@@ -193,6 +193,15 @@
       "capzone__narrator_zoneCapturedEnable": false
     },
     {
+      "capzone_award__progressCheckpoint": 0
+    },
+    {
+      "capzone_award__awardedProgressStep": 5
+    },
+    {
+      "capzone_award__progressAwardPortion": 0.6666
+    },
+    {
       "ui_order": -1
     },
     {
@@ -320,10 +329,6 @@
       "_extends": "objective_zone_navmesh"
     }
   ],
-  "capzone_capture_award": {
-    "capzone__capturersEids:list<eid>": [],
-    "capzone__soldiersCapture:object": []
-  },
   "capzone_team_presence": {
     "trackedLastTime": 0.0,
     "trackInterval": [1.0,2.0],
@@ -338,9 +343,6 @@
   "base_capzone_without_navmesh": [
     {
       "_extends": "base_objective_zone_without_navmesh"
-    },
-    {
-      "_extends": "capzone_capture_award"
     },
     {
       "_extends": "capzone_team_presence"
