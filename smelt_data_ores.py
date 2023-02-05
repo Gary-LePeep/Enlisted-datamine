@@ -64,8 +64,9 @@ def soldier_damage():
         soldier_damage_list.append({
             k.split('Bip01 ')[1].split(':object')[0]: v['dmgMult']
         })
+    soldier_damage_list_neck_last = sorted(soldier_damage_list, key=lambda d: -abs(ord(list(d.keys())[0][0]) - ord('N')))
     with open('../Enlisted-remastered/static/soldierStats/soldierDamage.json', 'w', encoding='utf-8') as f:
-        json.dump(soldier_damage_list, f, ensure_ascii=False, indent=4)
+        json.dump(soldier_damage_list_neck_last, f, ensure_ascii=False, indent=4, sort_keys=True)
 
 
 def get_weapons():
