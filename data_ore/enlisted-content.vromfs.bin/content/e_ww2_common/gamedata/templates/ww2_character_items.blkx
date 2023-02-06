@@ -631,6 +631,15 @@
       "slot": "parachute_canopy"
     }
   },
+  "attachable_face_equipment": {
+    "_extends": "attachable_wear",
+    "item__equipToSlots:array": {
+      "slot": "face_equipment"
+    },
+    "hideFlags:array": {
+      "hideFlag": "face_equipment"
+    }
+  },
   "attachable_gasmask": {
     "_extends": "attachable_wear",
     "item__equipToSlots:array": {

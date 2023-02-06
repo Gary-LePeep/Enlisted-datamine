@@ -161,6 +161,7 @@ def get_weapons():
         valid_guns.append({
             'name': json_item['name'],
             'explosive': 'explosive',
+            'type': 'explosive',
             'weight': grenade_json['mass'] if 'mass' in grenade_json else None,
             'bullets': {
                 'shells': json_item['name']
@@ -290,7 +291,8 @@ def get_bullets():
             'explodeArmorPower': grenade_json['explodeArmorPower'] if 'explodeArmorPower' in grenade_json else None,
             'splashDamage': grenade_json['splashDamage'] if 'splashDamage' in grenade_json else None,
             'detonation': grenade_json['detonation'] if 'detonation' in grenade_json else None,
-            'speed': grenade_json['speed'] if 'speed' in grenade_json else None
+            'speed': grenade_json['speed'] if 'speed' in grenade_json else None,
+            'hitpower': None
         }
     with open('../Enlisted-remastered/static/datamine/bullets.json', 'w', encoding='utf-8') as f:
         json.dump(bullets, f, ensure_ascii=False, indent=4)

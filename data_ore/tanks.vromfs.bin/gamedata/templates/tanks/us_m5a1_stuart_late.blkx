@@ -1,5 +1,22 @@
 {
-  "us_m5a1_stuart_late": [
+  "us_m5a1_stuart_late": {
+    "_extends": "us_m5a1_stuart_late_common",
+    "turrets__initAmmoDistribution:array": [
+      {
+        "ammo:object": {
+          "slot": 0,
+          "fill": true
+        }
+      },
+      {
+        "ammo:object": {
+          "slot": 2,
+          "fill": true
+        }
+      }
+    ]
+  },
+  "us_m5a1_stuart_late_common": [
     {
       "_extends": "base_m5a1_stuart_late"
     },
@@ -8,22 +25,6 @@
     },
     {
       "item__iconOffset": [0.0,0.2]
-    },
-    {
-      "turrets__initAmmoDistribution:array": [
-        {
-          "ammo:object": {
-            "slot": 0,
-            "fill": true
-          }
-        },
-        {
-          "ammo:object": {
-            "slot": 2,
-            "fill": true
-          }
-        }
-      ]
     },
     {
       "bullet_holes__ignoreCollisionNodes:array": {
@@ -222,8 +223,44 @@
       "us_camo_olive*": "us_camo_olive_drab_olive*"
     }
   },
+  "us_m5a1_stuart_late_pacific_premium": {
+    "_extends": "us_m5a1_stuart_late_common",
+    "collision_damage__forwardDamageToHumanMult": 3.0,
+    "item__name": "items/us_m5a1_stuart_rhino_event_premium",
+    "item__iconOffset": [0.0,0.2],
+    "turrets__initAmmoDistribution:array": [
+      {
+        "ammo:object": {
+          "slot": 1,
+          "fill": true
+        }
+      },
+      {
+        "ammo:object": {
+          "slot": 2,
+          "fill": true
+        }
+      }
+    ],
+    "animchar__objTexReplace:object": {
+      "us_camo_olive*": "us_camo_dark_green_light_olive*"
+    },
+    "attach_decorators__entities:list<eid>": [],
+    "attach_decorators__templates:array": {
+      "templates:object": {
+        "relativeTm": [
+          [0.999388,2.56769e-08,-6.70233e-06],
+          [1.38098e-08,0.999913,1.17347e-06],
+          [2.69664e-06,3.54368e-07,0.99947],
+          [2.3596,-0.011091,0.600384]
+        ],
+        "template": "stuart_hedgerow_02_decor",
+        "nodeName": "root"
+      }
+    }
+  },
   "us_m5a1_stuart_rhino_event_premium": {
-    "_extends": "us_m5a1_stuart_late",
+    "_extends": "us_m5a1_stuart_late_common",
     "collision_damage__forwardDamageToHumanMult": 3.0,
     "item__name": "items/us_m5a1_stuart_rhino_event_premium",
     "item__iconOffset": [0.0,0.2],

@@ -6318,10 +6318,10 @@
       "gun__length": 0.4
     },
     {
-      "gun__recoilAmount": 0.055
+      "gun__recoilAmount": 0.057
     },
     {
-      "gun__recoilDirAmount": 0.63
+      "gun__recoilDirAmount": 0.68
     },
     {
       "gun__recoilDir": 0.0
@@ -6360,25 +6360,16 @@
       "sound_irqs:shared:object": {
         "_tags": "sound",
         "reload1:object": {
-          "path": "/weapon/mgun/zb_26/reload1/change_ammo"
-        },
-        "reload2:object": {
-          "path": "/weapon/mgun/zb_26/reload2/change_ammo"
+          "path": "/weapon/mgun/besal_lmg/reload1/change_ammo"
         },
         "reload3:object": {
-          "path": "/weapon/mgun/zb_26/reload3/change_ammo"
-        },
-        "reload4:object": {
-          "path": "/weapon/mgun/zb_26/reload4/change_ammo"
-        },
-        "reload5:object": {
-          "path": "/weapon/mgun/zb_26/reload5/change_ammo"
+          "path": "/weapon/mgun/besal_lmg/reload3/change_ammo"
         },
         "reload6:object": {
-          "path": "/weapon/mgun/zb_26/reload6/change_ammo"
+          "path": "/weapon/mgun/besal_lmg/reload6/change_ammo"
         },
         "reload7:object": {
-          "path": "/weapon/mgun/zb_26/reload7/change_ammo"
+          "path": "/weapon/mgun/besal_lmg/reload7/change_ammo"
         },
         "boltAction:object": {
           "path": "/weapon/rifle/mauser98k/bolt_action"
@@ -6391,10 +6382,10 @@
           "point:object": {
             "type": "bipod",
             "recoil": 0.25,
-            "offset": [0.74,0.03,-0.005],
+            "offset": [0.74,-0.01,-0.01],
             "forceOffset": true,
             "angle": 35.5,
-            "length": 0.28
+            "length": 0.24
           }
         },
         {
