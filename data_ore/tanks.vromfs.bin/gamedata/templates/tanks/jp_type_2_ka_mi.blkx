@@ -13,6 +13,9 @@
       "_extends": "tank_light_vehicle_tracks_sound"
     },
     {
+      "_extends": "floatable_vehicle"
+    },
+    {
       "item__iconOffset": [0.0,0.0]
     },
     {
@@ -138,6 +141,14 @@
           }
         }
       ]
+    },
+    {
+      "_group": {
+        "_tags": "gameClient",
+        "vehicle_attach__bodyParts:list<t>": {
+          "part": "turret_01_back"
+        }
+      }
     }
   ],
   "jp_type_2_ka_mi_driver_cockpit": {

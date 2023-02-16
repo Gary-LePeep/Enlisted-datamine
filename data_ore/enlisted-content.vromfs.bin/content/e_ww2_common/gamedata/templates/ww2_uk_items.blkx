@@ -1244,9 +1244,14 @@
     "collres__res": "uk_p37_webbing_belt_sas_tropic_collision"
   },
   "uk_m37_basic_pouches_blacklist": {
-    "animationBlacklistForMenu:list<t>": {
-      "anim": "enlisted_idle_13_weapon"
-    }
+    "animationBlacklistForMenu:list<t>": [
+      {
+        "anim": "enlisted_idle_13_weapon"
+      },
+      {
+        "anim": "enlisted_idle_14_weapon"
+      }
+    ]
   },
   "attachable_wear_uk_m37_basic_pouches_sas_squad_item": [
     {
@@ -1283,10 +1288,21 @@
     "animchar__res": "thompson_puch_02_uk_tropic_char",
     "collres__res": "thompson_puch_02_uk_tropic_collision"
   },
-  "attachable_wear_uk_m37_basic_pouches_serge_dress_item": {
-    "_extends": "attachable_belt2",
-    "item__uniqueName": "attachable_wear_uk_m37_basic_pouches_serge_dress_item",
-    "animchar__res": "uk_m37_basic_pouches_serge_dress_char",
-    "collres__res": "uk_m37_basic_pouches_serge_dress_collision"
-  }
+  "attachable_wear_uk_m37_basic_pouches_serge_dress_item": [
+    {
+      "_extends": "attachable_belt2"
+    },
+    {
+      "_extends": "uk_m37_basic_pouches_blacklist"
+    },
+    {
+      "item__uniqueName": "attachable_wear_uk_m37_basic_pouches_serge_dress_item"
+    },
+    {
+      "animchar__res": "uk_m37_basic_pouches_serge_dress_char"
+    },
+    {
+      "collres__res": "uk_m37_basic_pouches_serge_dress_collision"
+    }
+  ]
 }

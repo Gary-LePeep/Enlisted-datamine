@@ -26,15 +26,39 @@ def translation_items():
             english_json['perk.' + perk_name] = translation.split(';')[1].replace('"', '')
             russian_json['perk.' + perk_name] = translation.split(';')[2].replace('"', '')
 
-    # Item names only from first translation page
-    for translation in translations1_csv.split('\n'):
-        if translation.split('";"')[0].count('/') == 1 and translation.startswith('"items/'):
-            weapon_name = translation.split('/')[1].split('";"')[0]
-            # Make exception for stalingrad guns
-            if 'mp_717r' == weapon_name:
-                weapon_name = 'stl_' + weapon_name
-            english_json['item.' + weapon_name] = translation.split(';')[1].replace('"', '')
-            russian_json['item.' + weapon_name] = translation.split(';')[2].replace('"', '')
+    # Item names
+    for translation in translations_list:
+        if translation.split('";"')[0].count('/') == 1 and translation.startswith('"items/') and translation.count(';') >= 2:
+            item_name = translation.split('/')[1].split('";"')[0]
+            # Translation exceptions
+            if 'mp_717r' == item_name:
+                item_name = 'stl_' + item_name
+            if 'uk_valentine_mk_1' == item_name:
+                item_name = 'ussr_valentine_i'
+            if 'germ_pzkpfw_iii_ausf_j' == item_name:
+                item_name = 'germ_pzkpfw_iii_ausf_j1_l60'
+            if 'us_m4_sherman_calliope' == item_name:
+                item_name = 'us_m4_calliope'
+            if 'uk_a_22b_mk_3_churchill_1942' == item_name:
+                item_name = 'churchill_3'
+            if 'germ_pz_iv_l70' == item_name:
+                item_name = 'germ_panzerjager_iv_l_70'
+            if 'ussr_t_34_85e' == item_name:
+                item_name = 'ussr_t_34_85_e'
+            if 'germ_panzerjager_panther' == item_name:
+                item_name = 'germ_jagdpanther'
+            if 'germ_pz_iv_l70_a' == item_name:
+                item_name = 'germ_panzerjager_iv_l_70_a'
+            if 'uk_a_13_mk2' == item_name:
+                item_name = 'uk_a13_mk_2_1939'
+            if 'ussr_a_12_mk_2_matilda_2' == item_name:
+                item_name = 'ussr_matilda_iii'
+            if 'ussr_t_70_1942' == item_name:
+                item_name = 'ussr_t_70'
+            if 'us_m3_stuart' == item_name:
+                item_name = 'us_m3a1_stuart'
+            english_json['item.' + item_name] = translation.split(';')[1].replace('"', '')
+            russian_json['item.' + item_name] = translation.split(';')[2].replace('"', '')
 
     # Firing modes
     for translation in translations1_csv.split('\n'):
@@ -298,8 +322,32 @@ def get_bullets():
         json.dump(bullets, f, ensure_ascii=False, indent=4)
 
 
+def get_tanks():
+    # Get all tanks
+    tanks = []
+    json_paths = list(Path('./data_ore/tanks.vromfs.bin/gamedata/templates/tanks').rglob('*.blkx'))
+    for path in json_paths:
+        tank_json = json.load(open(path, encoding='utf-8'))
+        if isinstance(tank_json, list):
+            new_json = {}
+            for item in tank_json:
+                new_json[list(item.keys())[0]] = list(item.values())[0]
+            tank_json = new_json
+        name_game = '.'.join(path.name.split('.')[:-1])
+        name = list(tank_json)[0]
+        print(name)
+        tanks.append({
+            'name': name,
+            'nameGame': name_game,
+            'crew': len(find_property(tank_json, 'vehicle_seats__seats:shared:array', [name]))
+        })
+    with open('../Enlisted-remastered/static/tanks/tanks.json', 'w', encoding='utf-8') as f:
+        json.dump(tanks, f, ensure_ascii=False, indent=4)
+
+
 if __name__ == "__main__":
     translation_items()
     soldier_damage()
     get_weapons()
     get_bullets()
+    get_tanks()

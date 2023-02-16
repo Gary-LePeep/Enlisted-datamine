@@ -2028,18 +2028,50 @@
     "animchar__res": "belt_m36_03_us_summer_char",
     "collres__res": "belt_m36_03_us_summer_collision"
   },
-  "attachable_wear_us_gasbag_m7_jacket_m41_item": {
-    "_extends": "attachable_gasmask",
-    "item__uniqueName": "attachable_wear_us_gasbag_m7_jacket_m41_item",
-    "animchar__res": "us_gasbag_m7_jacket_m41_char",
-    "collres__res": "gasmask_m7_01_us_summer_collision"
+  "us_gasbag_m7_blacklist": {
+    "animationBlacklistForMenu:list<t>": [
+      {
+        "anim": "enlisted_idle_18_weapon"
+      },
+      {
+        "anim": "enlisted_idle_14_weapon"
+      }
+    ]
   },
-  "attachable_wear_gasmask_m7_01_us_summer_item": {
-    "_extends": "attachable_gasmask",
-    "item__uniqueName": "attachable_wear_gasmask_m7_01_us_summer_item",
-    "animchar__res": "gasmask_m7_01_us_summer_char",
-    "collres__res": "gasmask_m7_01_us_summer_collision"
-  },
+  "attachable_wear_us_gasbag_m7_jacket_m41_item": [
+    {
+      "_extends": "attachable_gasmask"
+    },
+    {
+      "_extends": "us_gasbag_m7_blacklist"
+    },
+    {
+      "item__uniqueName": "attachable_wear_us_gasbag_m7_jacket_m41_item"
+    },
+    {
+      "animchar__res": "us_gasbag_m7_jacket_m41_char"
+    },
+    {
+      "collres__res": "gasmask_m7_01_us_summer_collision"
+    }
+  ],
+  "attachable_wear_gasmask_m7_01_us_summer_item": [
+    {
+      "_extends": "attachable_gasmask"
+    },
+    {
+      "_extends": "us_gasbag_m7_blacklist"
+    },
+    {
+      "item__uniqueName": "attachable_wear_gasmask_m7_01_us_summer_item"
+    },
+    {
+      "animchar__res": "gasmask_m7_01_us_summer_char"
+    },
+    {
+      "collres__res": "gasmask_m7_01_us_summer_collision"
+    }
+  ],
   "attachable_wear_belt_m36_01_us_winter_item": {
     "_extends": "attachable_belt1",
     "item__uniqueName": "attachable_wear_belt_m36_01_us_winter_item",

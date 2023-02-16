@@ -317,12 +317,13 @@ class ChooseBestWeapon : BehNodeAdapter
               if otherWeaponPriority == 0
                 otherWeapon = i
             elif *specialAIWeaponType == 2 // pistols
-              otherWeapon = i
-              otherWeaponPriority = 10
-              allowedGun = isCurrent
-            elif *specialAIWeaponType == 3 // antitank rifles
               allowedGun = false
               if otherWeaponPriority < 10
+                otherWeapon = i
+                otherWeaponPriority = 10
+            elif *specialAIWeaponType == 3 // antitank rifles
+              allowedGun = false
+              if otherWeaponPriority < 5
                 otherWeapon = i
                 otherWeaponPriority = 5
           let rangeCoef = isCurrent ? 1.0 : switchRadiusCoef
@@ -333,8 +334,9 @@ class ChooseBestWeapon : BehNodeAdapter
         if currWeapon == i
           currAllowed = true
         if square(firingRange.y) < distToTargetSq
-          if otherWeapon == -1
+          if otherWeaponPriority < 15
             otherWeapon = i
+            otherWeaponPriority = 15
           continue
         if square(firingRange.x) < distToTargetSq
           bestWeapons |> push(i)

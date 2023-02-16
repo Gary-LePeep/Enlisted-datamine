@@ -6,7 +6,7 @@
       "Fuel": 270.0,
       "TakeOff": 9070.0,
       "momentOfInertia": [0.87,0.87,1.4],
-      "CenterOfGravity": [0.5,-0.1,0.0],
+      "CenterOfGravity": [0.0,-0.1,0.0],
       "AdvancedMass": false,
       "trackMass": 500.0,
       "CenterOfGravityClampY": [0.0,0.7]
@@ -67,12 +67,12 @@
       ]
     },
     "suspension": {
-      "suspensionOffsets": [-0.1,-0.08,0.06],
+      "suspensionOffsets": [-0.2,-0.1,0.06],
       "defaultGearRadius": 0.285,
       "topGearRadius": 0.145,
       "frontBackGearRadius": 0.32,
-      "defaultDampeningForce": [30000.0,30000.0],
-      "dampeningRelaxationRatio": 0.4,
+      "defaultDampeningForce": [40000.0,40000.0],
+      "dampeningRelaxationRatio": 1.0,
       "dampeningCompressionRatio": 0.15,
       "recalcWtms": true,
       "offsets": {

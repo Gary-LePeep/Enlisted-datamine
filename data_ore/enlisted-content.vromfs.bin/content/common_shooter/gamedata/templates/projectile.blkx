@@ -308,6 +308,15 @@
     },
     {
       "_extends": "bomb_projectile_lifetime_sound"
+    },
+    {
+      "shell__infantryKillStat": "infantry_bomb_kills"
+    },
+    {
+      "shell__crewKillStat": "infantry_bomb_kills"
+    },
+    {
+      "shell__vehicleKillStat": "vehicle_bomb_kills"
     }
   ],
   "rocket_motor_trail": {
@@ -340,6 +349,15 @@
     },
     {
       "rocket__launchTime": 0.0
+    },
+    {
+      "shell__infantryKillStat": "infantry_rocket_kills"
+    },
+    {
+      "shell__crewKillStat": "infantry_rocket_kills"
+    },
+    {
+      "shell__vehicleKillStat": "vehicle_rocket_kills"
     },
     {
       "rocket_motor_props:ballistics::RocketMotorProps": []
