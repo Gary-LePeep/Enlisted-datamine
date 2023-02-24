@@ -1,6 +1,14 @@
 import json
-import os
 from pathlib import Path
+
+
+def delistify(old_json):
+    if isinstance(old_json, list):
+        new_json = {}
+        for item in old_json:
+            new_json[list(item.keys())[0]] = list(item.values())[0]
+        old_json = new_json
+    return old_json
 
 
 def translation_items():
@@ -123,7 +131,7 @@ def get_weapons():
     items = {**items_common, **tunisia_common, **stalingrad_common}
 
     for gun in valid_guns:
-        starting_extensions = [gun['name'] + '_gun', gun['name']]
+        starting_extensions = [str(gun['name']) + '_gun', gun['name']]
         gun['rps'] = find_property(weapons, 'gun__shotFreq', starting_extensions.copy())
         gun['dispersion'] = find_property(weapons, 'gun_spread__maxDeltaAngle', starting_extensions.copy())
         gun['stat'] = find_property(weapons, 'gun__statName', starting_extensions.copy())
@@ -176,12 +184,7 @@ def get_weapons():
         {'name': 'tnt_block', 'path': Path('./data_ore/enlisted-content.vromfs.bin/content/e_ww2_common/gamedata/weapons/tnt_block.blkx')}
     ]
     for json_item in json_paths:
-        grenade_json = json.load(open(json_item['path'], encoding='utf-8'))
-        if isinstance(grenade_json, list):
-            new_json = {}
-            for item in grenade_json:
-                new_json[list(item.keys())[0]] = list(item.values())[0]
-            grenade_json = new_json
+        grenade_json = delistify(json.load(open(json_item['path'], encoding='utf-8')))
         valid_guns.append({
             'name': json_item['name'],
             'explosive': 'explosive',
@@ -252,12 +255,7 @@ def get_bullets():
     bullets = {}
     json_paths = list(Path('./data_ore/enlisted-content.vromfs.bin/content/e_ww2_common/gamedata/weapons/bullets').rglob('*.blkx')) + list(Path('./data_ore/enlisted-content.vromfs.bin/content/e_tunisia/gamedata/weapons/bullets').rglob('*.blkx')) + list(Path('./data_ore/enlisted-game.vromfs.bin/gamedata/weapons_enlisted/bullets').rglob('*.blkx')) + list(Path('./data_ore/enlisted-content.vromfs.bin/content/e_ww2_common/gamedata/weapons/shells').rglob('*.blkx')) + list(Path('./data_ore/enlisted-game.vromfs.bin/gamedata/weapons_enlisted/shells').rglob('*.blkx'))
     for path in json_paths:
-        bullet_json = json.load(open(path, encoding='utf-8'))
-        if isinstance(bullet_json, list):
-            new_json = {}
-            for item in bullet_json:
-                new_json[list(item.keys())[0]] = list(item.values())[0]
-            bullet_json = new_json
+        bullet_json = delistify(json.load(open(path, encoding='utf-8')))
         # If already exists, override unless override is null
         old_name = '.'.join(path.name.split('.')[:-1])
         if old_name in bullets:
@@ -303,12 +301,7 @@ def get_bullets():
         {'name': 'tnt_block', 'path': Path('./data_ore/enlisted-content.vromfs.bin/content/e_ww2_common/gamedata/weapons/tnt_block.blkx')}
     ]
     for json_item in json_paths:
-        grenade_json = json.load(open(json_item['path'], encoding='utf-8'))
-        if isinstance(grenade_json, list):
-            new_json = {}
-            for item in grenade_json:
-                new_json[list(item.keys())[0]] = list(item.values())[0]
-            grenade_json = new_json
+        grenade_json = delistify(json.load(open(json_item['path'], encoding='utf-8')))
         bullets[json_item['name']] = {
             'explodeHitPower': grenade_json['explodeHitPower'] if 'explodeHitPower' in grenade_json else None,
             'explodeRadius': grenade_json['explodeRadius'] if 'explodeRadius' in grenade_json else None,
@@ -326,20 +319,35 @@ def get_tanks():
     # Get all tanks
     tanks = []
     json_paths = list(Path('./data_ore/tanks.vromfs.bin/gamedata/templates/tanks').rglob('*.blkx'))
+
+    combined_tanks_json = {}
     for path in json_paths:
-        tank_json = json.load(open(path, encoding='utf-8'))
-        if isinstance(tank_json, list):
-            new_json = {}
-            for item in tank_json:
-                new_json[list(item.keys())[0]] = list(item.values())[0]
-            tank_json = new_json
+        tank_json = delistify(json.load(open(path, encoding='utf-8')))
+        for (k, v) in tank_json.items():
+            combined_tanks_json[k] = v
+
+    for path in json_paths:
+        tank_json = delistify(json.load(open(path, encoding='utf-8')))
         name_game = '.'.join(path.name.split('.')[:-1])
         name = list(tank_json)[0]
-        print(name)
+
+        file_json_name = name_game.replace('germ_', '').replace('it_', '').replace('jp_', '').replace('uk_', '').replace('us_', '').replace('ussr_', '')
+        # Fix some tank names
+        file_json_name = file_json_name.replace('flakpanzer', 'flpz').replace('jagdpanther', 'panzerjager_panther').replace('pzkpfw_iii_ausf_j', 'pzkpfw_iii_ausf_j_l42').replace('pzkpfw_iii_ausf_j_l421', 'pzkpfw_iii_ausf_j_l42').replace('_movable', '').replace('cromwel_5', 'cromwell_5').replace('is_2_1943', 'is_2').replace('su_100_1945', 'su_100').replace('m4_calliope', 'm4_sherman_calliope')
+        if 'jgdpz_38t' in file_json_name:
+            continue
+
+        turret_json = delistify(json.load(open(Path('./data_ore/tanks.vromfs.bin/gamedata/gen/templates/tanks/' + file_json_name + '.blkx'), encoding='utf-8')))
+        armor_json = delistify(json.load(open(Path('./data_ore/tanks.vromfs.bin/gamedata/gen/units/tanks/' + file_json_name + '.blkx'), encoding='utf-8')))
+
         tanks.append({
             'name': name,
             'nameGame': name_game,
-            'crew': len(find_property(tank_json, 'vehicle_seats__seats:shared:array', [name]))
+            'crew': len(find_property(combined_tanks_json, 'vehicle_seats__seats:shared:array', [name])),
+            'mass': armor_json['VehiclePhys']['Mass']['TakeOff'],
+            'horsepower': armor_json['VehiclePhys']['engine']['horsePowers'],
+            'engineRPM': armor_json['VehiclePhys']['engine']['maxRPM'],
+            'brake': armor_json['VehiclePhys']['mechanics']['maxBrakeForce']
         })
     with open('../Enlisted-remastered/static/tanks/tanks.json', 'w', encoding='utf-8') as f:
         json.dump(tanks, f, ensure_ascii=False, indent=4)
