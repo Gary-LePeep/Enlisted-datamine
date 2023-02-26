@@ -339,6 +339,80 @@ def get_tanks():
 
         turret_json = delistify(json.load(open(Path('./data_ore/tanks.vromfs.bin/gamedata/gen/templates/tanks/' + file_json_name + '.blkx'), encoding='utf-8')))
         armor_json = delistify(json.load(open(Path('./data_ore/tanks.vromfs.bin/gamedata/gen/units/tanks/' + file_json_name + '.blkx'), encoding='utf-8')))
+        distrib_json = delistify(json.load(open(Path('./data_ore/tanks.vromfs.bin/gamedata/templates/tanks/' + name_game + '.blkx'), encoding='utf-8')))
+
+        ammo_distrib_json = find_property(distrib_json, 'turrets__initAmmoDistribution:array', [list(distrib_json)[0]])
+        ammo_distrib = []
+        if ammo_distrib_json != None:
+            for ammo_slot in ammo_distrib_json:
+                ammo_distrib.append(ammo_slot['ammo:object']['slot'])
+        else:
+            ammo_distrib = [0, 1]
+
+        turrets = []
+        for (k, v) in turret_json.items():
+            if '_turret_' in k:
+                ammo_count = 0
+                if 'gun__shellsAmmo:array' in v and isinstance(v['gun__shellsAmmo:array'], list):
+                    for ammo in v['gun__shellsAmmo:array']:
+                        ammo_count += ammo['ammo']
+                else:
+                    ammo_count += find_property(turret_json, 'gun__shellsAmmo:array', [k])['ammo']
+
+                gun = {}
+                if k == 'ht_130_turret_01_ato_41' or 'flammenwerfer_anlagen' in k:
+                    # Flamethrower tanks are stupid. Just hardcode it.
+                    gun['name'] = 'ht_130_turret_01_ato_41'
+                elif 'tankgun_' in v['_extends']:
+                    gun['name'] = v['_extends'].replace('tankgun_', '')
+                    gun_json = delistify(json.load(open(Path('./data_ore/tanks.vromfs.bin/gamedata/gen/templates/weapons/' + gun['name'] + '.blkx'), encoding='utf-8')))
+                    gun_json = gun_json[list(gun_json)[0]]
+                    gun['rps'] = gun_json['gun__shotFreq']
+                    gun['shells'] = []
+                    i = 0
+                    for (k, v) in gun_json['gun__ammoSetsInfo:shared:array'].items():
+                        if i in ammo_distrib:
+                            shell_object = {}
+                            if isinstance(v, list):
+                                for shell in v:
+                                    shell_object['name'] = shell['shell:object']['name'] if 'name' in shell['shell:object'] else None
+                                    shell_object['type'] = shell['shell:object']['type']
+                                    shell_object['blk'] = shell['shell:object']['blk']
+                                    if shell_object in gun['shells']:
+                                        continue
+                                    gun['shells'].append(shell_object)
+                            else:
+                                shell_object['name'] = v['shell:object']['name'] if 'name' in v['shell:object'] else None
+                                shell_object['type'] = v['shell:object']['type']
+                                shell_object['blk'] = v['shell:object']['blk']
+                                if shell_object in gun['shells']:
+                                    continue
+                                gun['shells'].append(shell_object)
+                            print(shell_object['blk'])
+                            shell_object_json = delistify(json.load(open(Path('./data_ore/tanks.vromfs.bin/' + shell_object['blk'].replace('content/tanks/', '') + 'x'), encoding='utf-8')))
+                            shell_object['mass'] = shell_object_json['mass']
+                            shell_object['caliber'] = shell_object_json['caliber']
+                            shell_object['speed'] = shell_object_json['speed'] if 'speed' in shell_object_json else None
+                            shell_object['explosionPatchRadius'] = shell_object_json['explosionPatchRadius'] if 'explosionPatchRadius' in shell_object_json else None
+                            shell_object['explosiveMass'] = shell_object_json['explosiveMass'] if 'explosiveMass' in shell_object_json else None
+                            shell_object['Cx'] = shell_object_json['Cx'] if 'Cx' in shell_object_json else None
+                            shell_object['normalizationPreset'] = shell_object_json['normalizationPreset'] if 'normalizationPreset' in shell_object_json else None
+                            shell_object['stucking'] = shell_object_json['stucking'] if 'stucking' in shell_object_json else None
+                            shell_object['stuckingAngle'] = shell_object_json['stuckingAngle'] if 'stuckingAngle' in shell_object_json else None
+                            shell_object['fresnel'] = shell_object_json['fresnel'] if 'fresnel' in shell_object_json else None
+                        i += 1
+
+                turrets.append({
+                    'name': k,
+                    'yaw': find_property(turret_json, 'turret__yawSpeed', [k]),
+                    'pitch': find_property(turret_json, 'turret__pitchSpeed', [k]),
+                    'depression': find_property(turret_json, 'turret__limit', [k])[2] if find_property(turret_json, 'turret__limit', [k]) else None,
+                    'elevation': find_property(turret_json, 'turret__limit', [k])[3] if find_property(turret_json, 'turret__limit', [k]) else None,
+                    'rotation': find_property(turret_json, 'turret__limit', [k])[1] - find_property(turret_json, 'turret__limit', [k])[0] if find_property(turret_json, 'turret__limit', [k]) else None,
+                    'gun': gun,
+                    'ammo': ammo_count
+                })
+
 
         tanks.append({
             'name': name,
@@ -347,7 +421,9 @@ def get_tanks():
             'mass': armor_json['VehiclePhys']['Mass']['TakeOff'],
             'horsepower': armor_json['VehiclePhys']['engine']['horsePowers'],
             'engineRPM': armor_json['VehiclePhys']['engine']['maxRPM'],
-            'brake': armor_json['VehiclePhys']['mechanics']['maxBrakeForce']
+            'brake': armor_json['VehiclePhys']['mechanics']['maxBrakeForce'],
+            'turrets': turrets,
+            'ammoDistrib': ammo_distrib
         })
     with open('../Enlisted-remastered/static/tanks/tanks.json', 'w', encoding='utf-8') as f:
         json.dump(tanks, f, ensure_ascii=False, indent=4)
