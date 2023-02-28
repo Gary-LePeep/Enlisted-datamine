@@ -363,44 +363,57 @@ def get_tanks():
                 if k == 'ht_130_turret_01_ato_41' or 'flammenwerfer_anlagen' in k:
                     # Flamethrower tanks are stupid. Just hardcode it.
                     gun['name'] = 'ht_130_turret_01_ato_41'
+                    gun_json = delistify(json.load(open(Path('./data_ore/tanks.vromfs.bin/gamedata/gen/templates/tanks/ht_130.blkx'), encoding='utf-8'))[gun['name']])
                 elif 'tankgun_' in v['_extends']:
                     gun['name'] = v['_extends'].replace('tankgun_', '')
                     gun_json = delistify(json.load(open(Path('./data_ore/tanks.vromfs.bin/gamedata/gen/templates/weapons/' + gun['name'] + '.blkx'), encoding='utf-8')))
                     gun_json = gun_json[list(gun_json)[0]]
-                    gun['rps'] = gun_json['gun__shotFreq']
-                    gun['shells'] = []
-                    i = 0
-                    for (k, v) in gun_json['gun__ammoSetsInfo:shared:array'].items():
-                        if i in ammo_distrib:
-                            shell_object = {}
-                            if isinstance(v, list):
-                                for shell in v:
-                                    shell_object['name'] = shell['shell:object']['name'] if 'name' in shell['shell:object'] else None
-                                    shell_object['type'] = shell['shell:object']['type']
-                                    shell_object['blk'] = shell['shell:object']['blk']
-                                    if shell_object in gun['shells']:
-                                        continue
-                                    gun['shells'].append(shell_object)
-                            else:
-                                shell_object['name'] = v['shell:object']['name'] if 'name' in v['shell:object'] else None
-                                shell_object['type'] = v['shell:object']['type']
-                                shell_object['blk'] = v['shell:object']['blk']
-                                if shell_object in gun['shells']:
-                                    continue
-                                gun['shells'].append(shell_object)
-                            print(shell_object['blk'])
-                            shell_object_json = delistify(json.load(open(Path('./data_ore/tanks.vromfs.bin/' + shell_object['blk'].replace('content/tanks/', '') + 'x'), encoding='utf-8')))
-                            shell_object['mass'] = shell_object_json['mass']
-                            shell_object['caliber'] = shell_object_json['caliber']
-                            shell_object['speed'] = shell_object_json['speed'] if 'speed' in shell_object_json else None
-                            shell_object['explosionPatchRadius'] = shell_object_json['explosionPatchRadius'] if 'explosionPatchRadius' in shell_object_json else None
-                            shell_object['explosiveMass'] = shell_object_json['explosiveMass'] if 'explosiveMass' in shell_object_json else None
-                            shell_object['Cx'] = shell_object_json['Cx'] if 'Cx' in shell_object_json else None
-                            shell_object['normalizationPreset'] = shell_object_json['normalizationPreset'] if 'normalizationPreset' in shell_object_json else None
-                            shell_object['stucking'] = shell_object_json['stucking'] if 'stucking' in shell_object_json else None
-                            shell_object['stuckingAngle'] = shell_object_json['stuckingAngle'] if 'stuckingAngle' in shell_object_json else None
-                            shell_object['fresnel'] = shell_object_json['fresnel'] if 'fresnel' in shell_object_json else None
-                        i += 1
+                else:
+                    print('gun not found for turret: ' + k)
+                    continue
+                gun['rps'] = gun_json['gun__shotFreq']
+                gun['reload'] = (None if gun_json['gun__reloadTime'] < 0 else gun_json['gun__reloadTime']) if 'gun__reloadTime' in gun_json else None
+                gun['ammoBelt'] = gun_json['gun__maxAmmo'] if 'gun__maxAmmo' in gun_json else None
+                gun['shells'] = []
+                i = 0
+                for (l, w) in gun_json['gun__ammoSetsInfo:shared:array'].items():
+                    if i in ammo_distrib:
+                        shell_object = {}
+                        shell_object_blk = None
+                        if isinstance(w, list):
+                            shell_object_blk = w[0]['shell:object']['blk']
+                        else:
+                            shell_object_blk = w['shell:object']['blk']
+                        if 'flamethrower_dummy.blk' in shell_object_blk:
+                            break
+                        shell_object_json = delistify(json.load(open(Path('./data_ore/tanks.vromfs.bin/' + shell_object_blk.replace('content/tanks/', '') + 'x'), encoding='utf-8')))
+                        shell_object['name'] = shell_object_json['bulletName'] if 'bulletName' in shell_object_json else None
+                        shell_object['type'] = shell_object_json['bulletType']
+                        shell_object['mass'] = shell_object_json['mass']
+                        shell_object['caliber'] = shell_object_json['caliber']
+                        shell_object['speed'] = shell_object_json['speed'] if 'speed' in shell_object_json else None
+                        shell_object['Cx'] = shell_object_json['Cx'] if 'Cx' in shell_object_json else None
+                        shell_object['explosionPatchRadius'] = shell_object_json['explosionPatchRadius'] if 'explosionPatchRadius' in shell_object_json else None
+                        shell_object['explosiveMass'] = shell_object_json['explosiveMass'] if 'explosiveMass' in shell_object_json else None
+                        shell_object['normalizationPreset'] = shell_object_json['normalizationPreset'] if 'normalizationPreset' in shell_object_json else None
+                        shell_object['stucking'] = shell_object_json['stucking'] if 'stucking' in shell_object_json else None
+                        shell_object['stuckingAngle'] = shell_object_json['stuckingAngle'] if 'stuckingAngle' in shell_object_json else None
+                        shell_object['fresnel'] = shell_object_json['fresnel'] if 'fresnel' in shell_object_json else None
+                        shell_object['demarrePenetrationK'] = shell_object_json['damage']['kinetic']['demarrePenetrationK'] if 'demarrePenetrationK' in shell_object_json['damage']['kinetic'] else None
+                        shell_object['demarreSpeedPow'] = shell_object_json['damage']['kinetic']['demarreSpeedPow'] if 'demarreSpeedPow' in shell_object_json['damage']['kinetic'] else None
+                        shell_object['demarreMassPow'] = shell_object_json['damage']['kinetic']['demarreMassPow'] if 'demarreMassPow' in shell_object_json['damage']['kinetic'] else None
+                        shell_object['demarreCaliberPow'] = shell_object_json['damage']['kinetic']['demarreCaliberPow'] if 'demarreCaliberPow' in shell_object_json['damage']['kinetic'] else None
+                        shell_object['damageType'] = shell_object_json['damage']['kinetic']['damageType'] if 'damageType' in shell_object_json['damage']['kinetic'] else None
+                        shell_object['damage'] = shell_object_json['damage']['kinetic']['damage'] if 'damage' in shell_object_json['damage']['kinetic'] else None
+                        shell_object['cumulativeArmorPower'] = shell_object_json['cumulativeDamage']['armorPower'] if 'cumulativeDamage' in shell_object_json else None
+                        # Remove duplicates
+                        existing = False
+                        for shell_object_existing in gun['shells']:
+                            if shell_object_existing == shell_object:
+                                existing = True
+                        if not existing:
+                            gun['shells'].append(shell_object)
+                    i += 1
 
                 turrets.append({
                     'name': k,
