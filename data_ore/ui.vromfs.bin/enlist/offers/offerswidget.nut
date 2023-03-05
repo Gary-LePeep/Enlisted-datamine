@@ -4,7 +4,7 @@ let { sub_txt, h2_bold_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let { utf8ToUpper } = require("%sqstd/string.nut")
 let { startBtnWidth } = require("%enlist/startBtn.nut")
 let { doesLocTextExist } = require("dagor.localize")
-let { hasSpecialEvent, hasEventData, allActiveOffers, headingAndDescription, offersShortTitle
+let { hasSpecialEvent, hasEventData, allActiveOffers, offersPromoImage, offersShortTitle
 } = require("offersState.nut")
 let offersWindow = require("offersWindow.nut")
 let mkDotPaginator = require("%enlist/components/mkDotPaginator.nut")
@@ -14,8 +14,7 @@ let { accentTitleTxtColor, activeTxtColor, defBgColor, smallPadding, bigPadding,
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { hasBaseEvent, openEventModes, promotedEvent, eventStartTime, timeUntilStart
 } = require("%enlist/gameModes/eventModesState.nut")
-let {
-  needFreemiumStatus, campPresentation
+let { needFreemiumStatus, campPresentation
 } = require("%enlist/campaigns/campaignConfig.nut")
 let freemiumWnd = require("%enlist/currency/freemiumWnd.nut")
 let { gameProfile } = require("%enlist/soldiers/model/config/gameProfile.nut")
@@ -216,7 +215,7 @@ let widgetList = Computed(function() {
     list.append({
       id = WidgetType.EVENT_SPECIAL
       data = offersShortTitle.value
-      backImage = headingAndDescription.value?.heading.v ?? defOfferImg
+      backImage = offersPromoImage.value ?? defOfferImg
     })
 
   return list
@@ -245,7 +244,7 @@ let function offersPromoWidget() {
   if (widgets.len() == 0)
     return res
 
-  let { id = null, data = null, backImage = null, } = widgets?[curWidgetIdx.value]
+  let { id = null, data = null, backImage = null } = widgets?[curWidgetIdx.value]
   let { ctor = null, onClick = null } = widgetData?[id]
   let content = ctor?(data)
   return res.__update({

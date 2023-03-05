@@ -1177,6 +1177,26 @@
       "item__userstats__pickupName": "pickup_building_tool"
     }
   ],
+  "jp_building_tool_award_gun": {
+    "_extends": "jp_building_tool_gun",
+    "animchar__res": "engineer_hammer_char",
+    "item__weapTemplate": "jp_building_tool_award_gun",
+    "item__template": "jp_building_tool_award_item"
+  },
+  "jp_building_tool_award_item": [
+    {
+      "_extends": "item_melee"
+    },
+    {
+      "_extends": "jp_building_tool_award_gun"
+    },
+    {
+      "collres__res": "construction_hammer_collision"
+    },
+    {
+      "item__userstats__pickupName": "pickup_building_tool"
+    }
+  ],
   "artillery_radio_base": [
     {
       "_extends": "device_animation_state"

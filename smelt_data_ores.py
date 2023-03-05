@@ -416,7 +416,6 @@ def get_tanks():
                     i += 1
 
                 turrets.append({
-                    'name': k,
                     'yaw': find_property(turret_json, 'turret__yawSpeed', [k]),
                     'pitch': find_property(turret_json, 'turret__pitchSpeed', [k]),
                     'depression': find_property(turret_json, 'turret__limit', [k])[2] if find_property(turret_json, 'turret__limit', [k]) else None,

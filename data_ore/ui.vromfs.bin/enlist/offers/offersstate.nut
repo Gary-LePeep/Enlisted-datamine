@@ -228,6 +228,9 @@ let headingAndDescription = Computed(function() {
       }
 })
 
+let offersPromoImage = Computed(@()
+  offersData.value?.imagepromo ?? headingAndDescription.value?.heading.v)
+
 let function processOffersData(response) {
   isRequestInProgress(false)
   let { status = -1, http_code = 0, body = null } = response
@@ -308,6 +311,7 @@ return {
   markSeen
   offersTitle
   offersShortTitle
+  offersPromoImage
   offersDescription
   offersTags
   headingAndDescription

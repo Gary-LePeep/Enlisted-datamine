@@ -935,6 +935,49 @@ let rewardsPresentation = {
     bgImage = "ui/skin#/battlepass/bg_gold.png"
     cardImage = mkTemplateImageCtor([170, 150], [0, 12], "jp_type_97_kai_pacific_premium")
   },
+  ["415"] = {
+    name = loc("items/engineerDay23_event_portrait")
+    description = loc("decorator/engineerDay23_event_portrait/tip")
+    icon = "ui/portraits/default_portrait.svg"
+    bgImage = "ui/skin#/battlepass/bg_gold.png"
+    cardImage = mkImageCtor([72, 100], [0, 12], "!ui/portraits/default_portrait.svg")
+  },
+  ["316"] = {
+    name = loc("items/nickFrame")
+    description = loc("items/nickFrame/desc")
+    icon = "ui/skin#/currency/nickframe_order_event.svg"
+    bgImage = "ui/skin#/battlepass/bg_other.png"
+    cardImage = "ui/skin#/battlepass/nickframe_bp.png"
+    cardImageParams = mkImageParams([160, 178])
+  },
+  ["416"] = {
+    name = loc("items/engineer_event_reward_stalingrad_allies")
+    description = loc("items/engineer_event_reward_stalingrad_allies/desc")
+    icon = "ui/skin#/currency/event_order.svg"
+    bgImage = "ui/skin#/battlepass/bg_gold.png"
+    cardImage = mkImageCtor([72, 100], [0, 12], "!ui/skin#/currency/event_order.svg")
+  },
+  ["417"] = {
+    name = loc("items/engineer_event_reward_stalingrad_axis")
+    description = loc("items/engineer_event_reward_stalingrad_axis/desc")
+    icon = "ui/skin#/currency/event_order.svg"
+    bgImage = "ui/skin#/battlepass/bg_gold.png"
+    cardImage = mkImageCtor([72, 100], [0, 12], "!ui/skin#/currency/event_order.svg")
+  },
+  ["418"] = {
+    name = loc("items/engineer_event_reward_pacific_allies")
+    description = loc("items/engineer_event_reward_pacific_allies/desc")
+    icon = "ui/skin#/currency/event_order.svg"
+    bgImage = "ui/skin#/battlepass/bg_gold.png"
+    cardImage = mkImageCtor([72, 100], [0, 12], "!ui/skin#/currency/event_order.svg")
+  },
+  ["419"] = {
+    name = loc("items/engineer_event_reward_pacific_axis")
+    description = loc("items/engineer_event_reward_pacific_axis/desc")
+    icon = "ui/skin#/currency/event_order.svg"
+    bgImage = "ui/skin#/battlepass/bg_gold.png"
+    cardImage = mkImageCtor([72, 100], [0, 12], "!ui/skin#/currency/event_order.svg")
+  },
 
 
   // boosters presentation

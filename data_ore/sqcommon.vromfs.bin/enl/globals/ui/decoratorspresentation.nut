@@ -234,6 +234,9 @@ local portraits = {
   stalingrad_event_portrait_ussr = {
     icon = "ui/portraits/event/stalingrad_event_portrait_ussr.png"
   }
+  engineerDay23_event_portrait = {
+    icon = "ui/portraits/event/engineerDay23_event_portrait.png"
+  }
 
 
 
