@@ -253,7 +253,7 @@ def find_property(json_data, property_name, extensions):
 def get_bullets():
     # Get all bullets
     bullets = {}
-    json_paths = list(Path('./data_ore/enlisted-game.vromfs.bin/gamedata/weapons/bullets').rglob('*.blkx'))
+    json_paths = list(Path('./data_ore/enlisted-game.vromfs.bin/gamedata/weapons/bullets').rglob('*.blkx')) + list(Path('./data_ore/enlisted-game.vromfs.bin/gamedata/weapons/shells').rglob('*.blkx'))
     for path in json_paths:
         bullet_json = delistify(json.load(open(path, encoding='utf-8')))
         # If already exists, override unless override is null
