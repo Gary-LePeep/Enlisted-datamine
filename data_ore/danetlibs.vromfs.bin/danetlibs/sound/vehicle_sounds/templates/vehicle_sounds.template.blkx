@@ -560,6 +560,24 @@
       }
     }
   },
+  "tank_abrams_engine_sound": {
+    "_extends": "base_vehicle_engine_sound",
+    "_group": {
+      "_tags": "sound",
+      "vehicle_engine_sound__path:shared:object": {
+        "hero": "player/vehicle/tank/abrams/engine_interior",
+        "enemy": "enemy/vehicle/tank/abrams/engine"
+      },
+      "vehicle_engine_sound__startPath:shared:object": {
+        "hero": "player/vehicle/tank/abrams/engine_start_interior",
+        "enemy": "enemy/vehicle/tank/abrams/engine_start"
+      },
+      "vehicle_engine_sound__stopPath:shared:object": {
+        "hero": "player/vehicle/tank/abrams/engine_stop_interior",
+        "enemy": "enemy/vehicle/tank/abrams/engine_stop"
+      }
+    }
+  },
   "motorcycle_vehicle_engine_sound": {
     "_extends": "base_vehicle_engine_sound",
     "_group": {
@@ -823,7 +841,8 @@
     {
       "_group": {
         "_tags": "sound",
-        "sound_control__range": 160.0
+        "sound_control__range": 160.0,
+        "sound_control__autoRange": false
       }
     }
   ],

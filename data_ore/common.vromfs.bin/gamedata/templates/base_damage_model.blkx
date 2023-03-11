@@ -1,0 +1,194 @@
+{
+  "simple_damage_model": {
+    "damage_model__blk": "",
+    "damage_model_shared": [],
+    "damage_model": [],
+    "damage_model__castOnHitAfterPartDead:b": {
+      "value": true,
+      "_tags": "server"
+    }
+  },
+  "base_damage_model": [
+    {
+      "_extends": "simple_damage_model"
+    },
+    {
+      "isExploded": false
+    },
+    {
+      "triggerDamageEffects": true
+    },
+    {
+      "damage_model__blk": "content/enlisted/gamedata/units/cannons/germ_20mm_flak38_flakvierling.blk"
+    },
+    {
+      "_tracked": "isExploded"
+    },
+    {
+      "_tracked": "dm_state"
+    },
+    {
+      "_tracked": "fire_damage_state"
+    },
+    {
+      "_tracked": "fire_damage__isBurn"
+    },
+    {
+      "_replicated": "isExploded"
+    },
+    {
+      "_replicated": "vehicle__hp"
+    },
+    {
+      "_replicated": "fire_damage_state"
+    },
+    {
+      "_replicated": "fire_damage__isBurn"
+    },
+    {
+      "_replicated": "fire_damage__startTime"
+    },
+    {
+      "_replicated": "dm_state"
+    },
+    {
+      "_replicated": "damage_part_alive"
+    },
+    {
+      "vehicle__hp": 450.0
+    },
+    {
+      "vehicle__maxHp": 450.0
+    },
+    {
+      "vehicle__hpMetaPart": "armor_body"
+    },
+    {
+      "vehicle__hpMetaPartId": -1
+    },
+    {
+      "vehicle__sendMsgDamageThreshold": -1.0
+    },
+    {
+      "fire_damage__isBurn": false
+    },
+    {
+      "fire_damage__gunPropsId": -1
+    },
+    {
+      "fire_damage__shellId": -1
+    },
+    {
+      "fire_damage__isFatal": false
+    },
+    {
+      "fire_damage__startTime": -1.0
+    },
+    {
+      "fire_damage__totalTime": 0.0
+    },
+    {
+      "fire_damage__timeToExplosion": 180.0
+    },
+    {
+      "fire_damage__update_burn_interval": 1.0
+    },
+    {
+      "fire_damage__innerRadiusMult": 2.0
+    },
+    {
+      "damage_model__explosionDamageType": -1
+    },
+    {
+      "damage_model__fireDamageType": -1
+    },
+    {
+      "dm_state:list<u16>": []
+    },
+    {
+      "meta_parts_state": []
+    },
+    {
+      "damage_part_alive:list<b>": []
+    },
+    {
+      "damage_model_tree": []
+    },
+    {
+      "fire_damage": []
+    },
+    {
+      "fire_damage_state": []
+    },
+    {
+      "fire_protection": []
+    }
+  ],
+  "base_damage_model_fx": {
+    "fatal_explosion_fire__endTime": -1.0,
+    "fatal_explosion_fire__ttl": 60.0,
+    "fatal_fire_fx__timeToExplosion": 5.0,
+    "fatal_fire__timeToExplosion": 8.0,
+    "isFatalExplosionFxStarted:b": {
+      "_tags": "render",
+      "value": false
+    },
+    "_group": {
+      "_tags": "render",
+      "fatal_explosion_fx__eids:list<eid>": [],
+      "fatal_fire_fx__eids:list<eid>": [],
+      "destroyed_fx__eids:list<eid>": [],
+      "vehicle_fxs__effectsEids:list<eid>": []
+    },
+    "isDestroyedFxStarted:b": {
+      "_tags": "render",
+      "value": false
+    }
+  },
+  "hitcamera": [
+    {
+      "_tracked": "hitcamera__locked"
+    },
+    {
+      "_tracked": "hitcamera__target"
+    },
+    {
+      "_tracked": "hitcamera__renderState"
+    },
+    {
+      "hitcamera__locked": false
+    },
+    {
+      "hitcamera__renderState": 0
+    },
+    {
+      "hitcamera:tag": []
+    },
+    {
+      "dm_events_client": {
+        "_tags": "gameClient"
+      }
+    },
+    {
+      "dm_state_before_hit": []
+    },
+    {
+      "dm_last_projectile_state": []
+    },
+    {
+      "dm_state:list<u16>": []
+    },
+    {
+      "hitcamera__target:eid": []
+    },
+    {
+      "hitcamera__crew_hp_after_hit:list<i>": []
+    },
+    {
+      "hitcamera__deadMembers:i": []
+    },
+    {
+      "hitcamera__totalMembersBeforeShot:i": []
+    }
+  ]
+}

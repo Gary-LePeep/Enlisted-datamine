@@ -142,12 +142,12 @@
     "rootFogGraph": "content/common/shaders/fog_campaigns_menu_background.json"
   },
   "gi": {
-    "temporalQuality": 0.25,
+    "temporalQuality": 8.0,
     "volmapY": 16
   },
   "graphics": {
     "IndoorProbes": true,
-    "spotShadowBias": [-6.1e-05,-0.01,0.0001,0.0005],
+    "spotShadowBias": [-6.1e-05,-0.01,0.03,0.0001],
     "dynamicShadowsBias": [0.0,0.0005,0.4],
     "dynamicShadowsDistance": 18.0,
     "dynamicShadowsDistanceMultiplier_Low": 0.5,
@@ -158,7 +158,10 @@
     "dynamicShadowsNumCascades": 2,
     "dynamicShadowsCascadeDistributionPowerWeightOverride": 0.5,
     "dynamicShadowsCascade0DistanceOverride": 0.0,
-    "shadowQuality": "ultra"
+    "shadowQuality": "ultra",
+    "dynamicShadow32bit": true,
+    "giQuality": "low",
+    "ssrQuality": "ultra"
   },
   "unitedVdata.rendInst": {
     "IB": 65536,

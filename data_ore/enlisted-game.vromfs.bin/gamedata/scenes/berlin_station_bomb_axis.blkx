@@ -52,13 +52,13 @@
       "mission_name": "berlin_station_bomb",
       "loading_images:list<t>": [
         {
-          "item": "ui/berlin_station_01.jpg"
+          "item": "ui/berlin_station_01.avif"
         },
         {
-          "item": "ui/berlin_station_02.jpg"
+          "item": "ui/berlin_station_02.avif"
         },
         {
-          "item": "ui/berlin_station_03.jpg"
+          "item": "ui/berlin_station_03.avif"
         }
       ]
     }
@@ -75,8 +75,8 @@
     "entity": {
       "_template": "team_germany_berlin+team_narrator_destruction_attack+respawn_creators_team",
       "team__memberCount": 0.0,
-      "team__scoreCap": 2000.0,
-      "team__score": 2000.0,
+      "team__scoreCap": 2200.0,
+      "team__score": 2200.0,
       "team__squadSpawnCost": 250,
       "team__firstSpawnCostMul": 0.0,
       "team__zeroScoreFailTimer": 60.0,
@@ -124,7 +124,7 @@
       "capzone__timeToExplosion": 40.0,
       "active": false,
       "ui_order": 0,
-      "capzone__capReward": 250.0,
+      "capzone__capReward": 500.0,
       "capzone__checkAllZonesInGroup": true,
       "capzone__deactivateAfterTimeout": 0.0,
       "capzone__spawnAtZoneTimeout": 35.0,
@@ -157,7 +157,7 @@
       "capzone__capRewardPartCap": 1.8,
       "capzone__mustBeCapturedByTeam": 2,
       "groupName": "sector_1",
-      "capzone__capReward": 250.0,
+      "capzone__capReward": 500.0,
       "capzone__caption": "capzone/ticket_offices",
       "capzone__timeToPlant": 30.0,
       "capzone__timeToDefuse": 25.0,

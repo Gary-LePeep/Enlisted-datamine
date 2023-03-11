@@ -4705,13 +4705,13 @@
   {
     "entity": {
       "_template": "door_mult_ent_generator",
-      "ri_extra_gen__blk": "content/e_stalingrad/gamedata/stalingrad_doors.blk"
+      "ri_extra_gen__blk": "content/enlisted/gamedata/stalingrad_doors.blk"
     }
   },
   {
     "entity": {
       "_template": "sound_effect_generator",
-      "ri_extra_gen__blk": "content/e_stalingrad/gamedata/sound/stalingrad_sound_effects.blk"
+      "ri_extra_gen__blk": "content/enlisted/gamedata/sound/stalingrad_sound_effects.blk"
     }
   },
   {
@@ -4720,13 +4720,13 @@
       "mission_name": "stalingrad_univermag_conf",
       "loading_images:list<t>": [
         {
-          "item": "ui/stalingrad_inv_01.jpg"
+          "item": "ui/stalingrad_inv_01.avif"
         },
         {
-          "item": "ui/stalingrad_inv_04.jpg"
+          "item": "ui/stalingrad_inv_04.avif"
         },
         {
-          "item": "ui/stalingrad_inv_06.jpg"
+          "item": "ui/stalingrad_inv_06.avif"
         }
       ]
     }
@@ -4770,8 +4770,8 @@
     "entity": {
       "_template": "team_stalingrad_allies+team_narrator_confrontation_attack+respawn_creators_team",
       "team__memberCount": 0.0,
-      "team__scoreCap": 1900.0,
-      "team__score": 1900.0,
+      "team__scoreCap": 1800.0,
+      "team__score": 1800.0,
       "team__squadSpawnCost": 250,
       "team__minScoreCap": 100.0,
       "team__firstSpawnCostMul": 0.0,
@@ -4788,8 +4788,8 @@
     "entity": {
       "_template": "team_stalingrad_axis+team_narrator_confrontation_attack+respawn_creators_team",
       "team__memberCount": 0.0,
-      "team__scoreCap": 2100.0,
-      "team__score": 2100.0,
+      "team__scoreCap": 2150.0,
+      "team__score": 2150.0,
       "team__squadSpawnCost": 250,
       "team__minScoreCap": 100.0,
       "team__firstSpawnCostMul": 0.0,
@@ -4995,9 +4995,9 @@
       "capzone__lockAfterActivate": true,
       "capzone__unlockAfterTime": 130.0,
       "capzone__capTimeTeam1": 80.0,
-      "capzone__capTimeTeam2": 80.0,
+      "capzone__capTimeTeam2": 70.0,
       "capzone__decapTimeTeam1": 40.0,
-      "capzone__decapTimeTeam2": 40.0,
+      "capzone__decapTimeTeam2": 35.0,
       "capzone__capTeam": -1,
       "transform": [
         [1.0,0.0,0.0],
@@ -5030,9 +5030,9 @@
       "capzone__capReward": 350.0,
       "capzone__lockAfterActivate": true,
       "capzone__unlockAfterTime": 130.0,
-      "capzone__capTimeTeam1": 60.0,
+      "capzone__capTimeTeam1": 70.0,
       "capzone__capTimeTeam2": 60.0,
-      "capzone__decapTimeTeam1": 30.0,
+      "capzone__decapTimeTeam1": 35.0,
       "capzone__decapTimeTeam2": 30.0,
       "capzone__capTeam": -1,
       "transform": [
@@ -5067,9 +5067,9 @@
       "capzone__lockAfterActivate": true,
       "capzone__unlockAfterTime": 130.0,
       "capzone__capTimeTeam1": 80.0,
-      "capzone__capTimeTeam2": 80.0,
+      "capzone__capTimeTeam2": 70.0,
       "capzone__decapTimeTeam1": 40.0,
-      "capzone__decapTimeTeam2": 40.0,
+      "capzone__decapTimeTeam2": 35.0,
       "capzone__capTeam": -1,
       "transform": [
         [1.0,0.0,0.0],

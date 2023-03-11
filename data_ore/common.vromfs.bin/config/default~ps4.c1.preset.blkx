@@ -1,0 +1,535 @@
+{
+  "Camera.Move": {
+    "dev": 3,
+    "xAxis": 0,
+    "yAxis": 1,
+    "dzone": 0.1,
+    "axisSnapAngK": 0.01,
+    "xMinBtn": {
+      "dev": 1,
+      "btn": 203
+    },
+    "xMaxBtn": {
+      "dev": 1,
+      "btn": 205
+    },
+    "yMinBtn": {
+      "dev": 1,
+      "btn": 208
+    },
+    "yMaxBtn": {
+      "dev": 1,
+      "btn": 200
+    }
+  },
+  "Camera.Rotate": {
+    "dev": 3,
+    "xAxis": 2,
+    "yAxis": 3,
+    "inverseY": false,
+    "dzone": 0.0,
+    "axisSnapAngK": 0.0,
+    "nonlin": 0.0,
+    "maxVal": 1.0
+  },
+  "Camera.ZoomIn": {
+    "dev": 3,
+    "btn": 9
+  },
+  "Camera.ZoomOut": {
+    "dev": 3,
+    "btn": 8
+  },
+  "HUD.QuickHint": {
+    "dev": 3,
+    "btn": 0,
+    "type": 5
+  },
+  "HUD.SetMark": {
+    "dev": 3,
+    "btn": 9,
+    "type": 5
+  },
+  "HUD.GameMenu": {
+    "dev": 3,
+    "btn": 4,
+    "type": 1
+  },
+  "HUD.BigMap": {
+    "dev": 3,
+    "btn": 5
+  },
+  "HUD.ZoomIn": {
+    "dev": 3,
+    "axis": 5,
+    "dzone": 0.0,
+    "nonlin": 0.0,
+    "maxVal": 1.0
+  },
+  "HUD.ZoomOut": {
+    "dev": 3,
+    "axis": 4,
+    "dzone": 0.0,
+    "nonlin": 0.0,
+    "maxVal": 1.0
+  },
+  "HUD.Inventory": {
+    "dev": 3,
+    "btn": 4,
+    "type": 5
+  },
+  "HUD.Interactive": {
+    "dev": 3,
+    "btn": 15
+  },
+  "HUD.CloseMenu": {
+    "dev": 3,
+    "btn": 13,
+    "type": 4
+  },
+  "Human.Jump": {
+    "dev": 3,
+    "btn": 12
+  },
+  "Human.Sprint": {
+    "dev": 3,
+    "btn": 6,
+    "stickyToggle": true
+  },
+  "Human.Crawl": {
+    "dev": 3,
+    "btn": 13,
+    "type": 1
+  },
+  "Human.Crouch": {
+    "dev": 3,
+    "btn": 13,
+    "type": 5
+  },
+  "Human.Shoot": {
+    "dev": 3,
+    "btn": 17
+  },
+  "Human.Move": {
+    "dev": 3,
+    "xAxis": 0,
+    "yAxis": 1,
+    "dzone": 0.1,
+    "axisSnapAngK": 0.01,
+    "nonlin": 0.0,
+    "maxVal": 1.0
+  },
+  "Human.Aim": {
+    "dev": 3,
+    "xAxis": 2,
+    "yAxis": 3,
+    "dzone": 0.0,
+    "axisSnapAngK": 0.0,
+    "nonlin": 1.0,
+    "maxVal": 1.0,
+    "sensScale": 1.6
+  },
+  "Human.LeanX": {
+    "dzone": 0.35,
+    "nonlin": 1.0,
+    "maxVal": 1.0
+  },
+  "Human.AimDelta": {
+    "dev": 31
+  },
+  "Human.Aim1": {
+    "dev": 3,
+    "btn": 16,
+    "type": 5,
+    "stickyToggle": true
+  },
+  "Human.Aim2": {
+    "dev": 3,
+    "btn": 16,
+    "type": 0
+  },
+  "Human.Zoom": {
+    "dev": 3,
+    "btn": 16,
+    "type": 0
+  },
+  "Human.Melee": {
+    "dev": 3,
+    "btn": 7,
+    "type": 5
+  },
+  "Human.Throw": {
+    "dev": 3,
+    "btn": 8,
+    "type": 1
+  },
+  "Human.ThrowBack": {
+    "dev": 3,
+    "btn": 7,
+    "type": 1
+  },
+  "Human.GrenadeNext": {
+    "dev": 3,
+    "btn": 8,
+    "type": 5
+  },
+  "Human.Reload": {
+    "dev": 3,
+    "btn": 14,
+    "type": 1
+  },
+  "Human.WeapModToggle": {
+    "dev": 3,
+    "btn": 2,
+    "type": 1
+  },
+  "Human.HoldBreath": {
+    "dev": 3,
+    "btn": 6,
+    "stickyToggle": true
+  },
+  "Human.Recover": {
+    "dev": 3,
+    "btn": 14
+  },
+  "Human.Weapon3": {
+    "dev": 3,
+    "btn": 2,
+    "type": 5
+  },
+  "Human.Weapon4": {
+    "dev": 3,
+    "btn": 3,
+    "type": 5
+  },
+  "Human.WeaponNextMain": {
+    "dev": 3,
+    "btn": 15
+  },
+  "Human.SpecialItemSlot": {
+    "dev": 3,
+    "btn": 1,
+    "type": 5
+  },
+  "Human.FiringMode": {
+    "dev": 3,
+    "btn": 2,
+    "type": 1
+  },
+  "Human.CameraNext": {
+    "dev": 3,
+    "btn": 9,
+    "type": 5
+  },
+  "Human.SeatNext": {
+    "dev": 3,
+    "btn": 12,
+    "type": 5
+  },
+  "Human.DriverSeat": {
+    "dev": 3,
+    "btn": 12,
+    "type": 1
+  },
+  "Human.ToggleHatch": {
+    "dev": 3,
+    "btn": 13,
+    "type": 5
+  },
+  "Human.SquadNext": {
+    "dev": 3,
+    "btn": 7,
+    "type": 2
+  },
+  "Human.ToggleHoldGunMode": {
+    "dev": 3,
+    "btn": 7
+  },
+  "Human.Use": {
+    "dev": 3,
+    "btn": 14,
+    "type": 5
+  },
+  "Human.PushObject": {
+    "dev": 3,
+    "btn": 6
+  },
+  "Human.BuildingAction": {
+    "dev": 3,
+    "btn": 7,
+    "type": 1,
+    "stickyToggle": true
+  },
+  "Human.BipodToggle": {
+    "dev": 3,
+    "btn": 7,
+    "type": 1,
+    "mod": {
+      "dev": 3,
+      "btn": 16
+    }
+  },
+  "Inventory.Pickup": {
+    "dev": 3,
+    "btn": 14,
+    "type": 5
+  },
+  "Inventory.ForcedPickup": {
+    "dev": 3,
+    "btn": 14,
+    "type": 1
+  },
+  "Inventory.UseMedkit": {
+    "dev": 3,
+    "btn": 1,
+    "type": 1,
+    "stickyToggle": true
+  },
+  "Inventory.UseFlask": {
+    "dev": 3,
+    "btn": 0,
+    "type": 1,
+    "stickyToggle": true
+  },
+  "Spectator.Prev": {
+    "dev": 3,
+    "btn": 2,
+    "type": 0
+  },
+  "Spectator.Next": {
+    "dev": 3,
+    "btn": 3,
+    "type": 0
+  },
+  "Spectator.Aim": {
+    "dev": 3,
+    "xAxis": 2,
+    "yAxis": 3,
+    "dzone": 0.0,
+    "axisSnapAngK": 0.0,
+    "nonlin": 0.0,
+    "maxVal": 1.0
+  },
+  "Vehicle.Shoot": {
+    "dev": 3,
+    "btn": 17
+  },
+  "Vehicle.Steer": {
+    "dev": 3,
+    "axis": 0,
+    "dzone": 0.1,
+    "inverse": true,
+    "nonlin": 0.0,
+    "maxVal": 1.0
+  },
+  "Vehicle.Throttle": {
+    "dev": 3,
+    "axis": 1,
+    "dzone": 0.0,
+    "nonlin": 0.0,
+    "maxVal": 1.0
+  },
+  "Vehicle.Accel": {
+    "dev": 3,
+    "axis": 5,
+    "dzone": 0.0,
+    "nonlin": 0.0,
+    "maxVal": 1.0
+  },
+  "Vehicle.Brake": {
+    "dev": 3,
+    "axis": 4,
+    "dzone": 0.0,
+    "nonlin": 0.0,
+    "maxVal": 1.0
+  },
+  "Vehicle.Aim": {
+    "dev": 3,
+    "xAxis": 2,
+    "yAxis": 3,
+    "dzone": 0.0,
+    "axisSnapAngK": 0.0,
+    "nonlin": 0.0,
+    "maxVal": 1.0
+  },
+  "Vehicle.NextCockpitView": {
+    "dev": 3,
+    "btn": 12
+  },
+  "Vehicle.ShootGrenadeLauncher": {
+    "dev": 3,
+    "btn": 7,
+    "mod": {
+      "dev": 3,
+      "btn": 6
+    }
+  },
+  "Ship.Steer": {
+    "dev": 3,
+    "axis": 0,
+    "inverse": true,
+    "dzone": 0.1,
+    "nonlin": 0.0,
+    "maxVal": 1.0
+  },
+  "Ship.Throttle": {
+    "dev": 3,
+    "axis": 1,
+    "dzone": 0.0,
+    "nonlin": 0.0,
+    "maxVal": 1.0
+  },
+  "Ship.Accel": {
+    "dev": 3,
+    "axis": 5,
+    "dzone": 0.0,
+    "nonlin": 0.0,
+    "maxVal": 1.0
+  },
+  "Ship.Brake": {
+    "dev": 3,
+    "axis": 4,
+    "dzone": 0.0,
+    "nonlin": 0.0,
+    "maxVal": 1.0
+  },
+  "Plane.MouseAim": {
+    "dev": 3,
+    "xAxis": 2,
+    "yAxis": 3,
+    "dzone": 0.1,
+    "axisSnapAngK": 0.01,
+    "nonlin": 0.0,
+    "maxVal": 1.0
+  },
+  "Plane.Aim": {
+    "dev": 3,
+    "xAxis": 2,
+    "yAxis": 3,
+    "dzone": 0.1,
+    "axisSnapAngK": 0.01,
+    "nonlin": 0.0,
+    "maxVal": 1.0
+  },
+  "Plane.Look": {
+    "dev": 3,
+    "xAxis": 2,
+    "yAxis": 3,
+    "dzone": 0.0,
+    "axisSnapAngK": 0.0,
+    "nonlin": 1.0,
+    "maxVal": 1.0,
+    "mod": {
+      "dev": 3,
+      "btn": 6
+    }
+  },
+  "Plane.ZoomToggle": {
+    "dev": 3,
+    "btn": 16,
+    "type": 0,
+    "stickyToggle": true
+  },
+  "Plane.Shoot": {
+    "dev": 3,
+    "btn": 17
+  },
+  "Plane.ShootCannons": {
+    "dev": 3,
+    "btn": 17
+  },
+  "Plane.ShootAdditionalGuns": {
+    "dev": 3,
+    "btn": 17
+  },
+  "Plane.Bomb": {
+    "dev": 3,
+    "btn": 2
+  },
+  "Plane.Throttle": {
+    "dev": 3,
+    "axis": 1,
+    "axisRelativeVal": true,
+    "relIncScale": 0.5,
+    "dzone": 0.05,
+    "nonlin": 0.0,
+    "maxVal": 1.0
+  },
+  "Plane.Ailerons": {
+    "dev": 3,
+    "axis": 0,
+    "axisRelativeVal": true,
+    "relIncScale": 0.5,
+    "dzone": 0.05,
+    "nonlin": 0.0,
+    "maxVal": 1.0
+  },
+  "Plane.Airbrakes": {
+    "dev": 3,
+    "btn": 13,
+    "type": 1
+  },
+  "Plane.Rocket": {
+    "dev": 3,
+    "btn": 8
+  },
+  "Plane.ExtendFlaps": {
+    "dev": 3,
+    "btn": 1
+  },
+  "Plane.RaiseFlaps": {
+    "dev": 3,
+    "btn": 0
+  },
+  "Plane.ToggleGear": {
+    "dev": 3,
+    "btn": 3
+  },
+  "Mortar.Cancel": {
+    "dev": 3,
+    "btn": 16,
+    "type": 0
+  },
+  "Mortar.SwitchShellType": {
+    "dev": 3,
+    "btn": 14
+  },
+  "Replay.SpeedDown": {
+    "dev": 3,
+    "btn": 8
+  },
+  "Replay.Pause": {
+    "dev": 3,
+    "btn": 14
+  },
+  "Replay.SpeedUp": {
+    "dev": 3,
+    "btn": 9
+  },
+  "Replay.ToggleCamera": {
+    "dev": 3,
+    "btn": 6
+  },
+  "Replay.DisableGameHUD": {
+    "dev": 3,
+    "btn": 7
+  },
+  "Replay.AdvancedSettings": {
+    "dev": 3,
+    "btn": 15,
+    "type": 5
+  },
+  "Replay.DisableHUD": {
+    "dev": 3,
+    "btn": 15,
+    "type": 1
+  },
+  "Replay.NextCamera": {
+    "dev": 3,
+    "btn": 17
+  },
+  "Replay.PrevCamera": {
+    "dev": 3,
+    "btn": 16
+  }
+}

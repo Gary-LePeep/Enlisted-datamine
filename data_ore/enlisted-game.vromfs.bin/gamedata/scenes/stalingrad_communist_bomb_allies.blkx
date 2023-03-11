@@ -1881,13 +1881,13 @@
   {
     "entity": {
       "_template": "door_mult_ent_generator",
-      "ri_extra_gen__blk": "content/e_stalingrad/gamedata/stalingrad_doors.blk"
+      "ri_extra_gen__blk": "content/enlisted/gamedata/stalingrad_doors.blk"
     }
   },
   {
     "entity": {
       "_template": "sound_effect_generator",
-      "ri_extra_gen__blk": "content/e_stalingrad/gamedata/sound/stalingrad_sound_effects.blk"
+      "ri_extra_gen__blk": "content/enlisted/gamedata/sound/stalingrad_sound_effects.blk"
     }
   },
   {
@@ -1896,13 +1896,13 @@
       "mission_name": "stalingrad_communist_bomb",
       "loading_images:list<t>": [
         {
-          "item": "ui/stalingrad_inv_02.jpg"
+          "item": "ui/stalingrad_inv_02.avif"
         },
         {
-          "item": "ui/stalingrad_inv_05.jpg"
+          "item": "ui/stalingrad_inv_05.avif"
         },
         {
-          "item": "ui/stalingrad_inv_06.jpg"
+          "item": "ui/stalingrad_inv_06.avif"
         }
       ]
     }
@@ -1962,8 +1962,8 @@
     "entity": {
       "_template": "team_stalingrad_allies+team_narrator_destruction_attack+respawn_creators_team",
       "team__memberCount": 0.0,
-      "team__scoreCap": 1800.0,
-      "team__score": 1800.0,
+      "team__scoreCap": 1700.0,
+      "team__score": 1700.0,
       "team__squadSpawnCost": 250,
       "team__firstSpawnCostMul": 0.0,
       "team__zeroScoreFailTimer": 60.0,
@@ -1997,7 +1997,7 @@
       "groupName": "sector_1_a",
       "active": false,
       "ui_order": 1,
-      "capzone__capReward": 150.0,
+      "capzone__capReward": 250.0,
       "capzone__caption": "capzone/canteen",
       "capzone__checkAllZonesInGroup": true,
       "capzone__deactivateAfterTimeout": 0.0,
@@ -2014,8 +2014,8 @@
         [0.237022,-1.939,-0.0439758]
       ],
       "capzone__timeToPlant": 25.0,
-      "capzone__timeToDefuse": 15.0,
-      "capzone__timeToExplosion": 30.0,
+      "capzone__timeToDefuse": 20.0,
+      "capzone__timeToExplosion": 40.0,
       "capzone__activateChoice:object": {
         "sector_2_a": 1.0
       }
@@ -2054,8 +2054,8 @@
         [-0.290539,-2.1177,-0.136414]
       ],
       "capzone__timeToPlant": 25.0,
-      "capzone__timeToDefuse": 15.0,
-      "capzone__timeToExplosion": 30.0,
+      "capzone__timeToDefuse": 20.0,
+      "capzone__timeToExplosion": 40.0,
       "capzone__activateChoice:object": {
         "sector_2_a": 1.0
       }
@@ -2092,8 +2092,8 @@
         [0.350573,-2.07041,-0.153992]
       ],
       "capzone__timeToPlant": 25.0,
-      "capzone__timeToDefuse": 15.0,
-      "capzone__timeToExplosion": 30.0,
+      "capzone__timeToDefuse": 20.0,
+      "capzone__timeToExplosion": 40.0,
       "capzone__activateChoice:object": {
         "sector_3_a": 1.0
       }
@@ -2132,8 +2132,8 @@
         [-0.26812,-1.85491,0.276428]
       ],
       "capzone__timeToPlant": 25.0,
-      "capzone__timeToDefuse": 15.0,
-      "capzone__timeToExplosion": 30.0,
+      "capzone__timeToDefuse": 20.0,
+      "capzone__timeToExplosion": 40.0,
       "capzone__activateChoice:object": {
         "sector_3_a": 1.0
       }
@@ -2169,8 +2169,8 @@
         [-0.0546247,0.0,-0.998506],
         [-0.338547,-1.95302,-0.357742]
       ],
-      "capzone__timeToPlant": 30.0,
-      "capzone__timeToDefuse": 15.0,
+      "capzone__timeToPlant": 25.0,
+      "capzone__timeToDefuse": 20.0,
       "capzone__timeToExplosion": 40.0
     }
   },

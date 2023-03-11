@@ -19,7 +19,7 @@
       "vehicle_net_phys__blk": "content/tanks/gamedata/gen/units/tanks/towed_at_17pdr.blk:VehiclePhys"
     },
     {
-      "particle_phys__blk": "content/e_ww2_common/gamedata/suspension/empty.blk"
+      "particle_phys__blk": "content/enlisted/gamedata/suspension/empty.blk"
     },
     {
       "dmg_animchar__res": "towed_at_17pdr_dmg_char"
@@ -41,9 +41,6 @@
     },
     {
       "item__name": "items/uk_at_gun_qf17pounder"
-    },
-    {
-      "skin__template": "towed_at_17pdr_skins"
     },
     {
       "turret_gun_flash_fx__flashNodes:shared:array": {
@@ -133,57 +130,5 @@
     "_tags": "server",
     "_extends": "vehicle_ammo_stowages",
     "ammo_stowage__stowageTemplates:shared:list<t>": []
-  },
-  "towed_at_17pdr_skins": {
-    "skin__objTexReplace:array": [
-      {
-        "skin:object": {
-          "id": "towed_at_17pdr_winter",
-          "objTexReplace:object": {
-            "ussr_camo_green*": "ussr_camo_winter*"
-          }
-        }
-      },
-      {
-        "skin:object": {
-          "id": "towed_at_17pdr_forest",
-          "objTexReplace:object": {
-            "ussr_camo_green*": "ussr_camo_forest_01*"
-          }
-        }
-      },
-      {
-        "skin:object": {
-          "id": "towed_at_17pdr_ussr_camo_brown_lines",
-          "objTexReplace:object": {
-            "ussr_camo_green*": "ussr_camo_brown_lines*"
-          }
-        }
-      },
-      {
-        "skin:object": {
-          "id": "towed_at_17pdr_ussr_camo_green_ltbrown_lines",
-          "objTexReplace:object": {
-            "ussr_camo_green*": "ussr_camo_green_ltbrown_lines*"
-          }
-        }
-      },
-      {
-        "skin:object": {
-          "id": "towed_at_17pdr_ussr_camo_desert_yellow_brown",
-          "objTexReplace:object": {
-            "ussr_camo_green*": "ussr_camo_desert_yellow_brown*"
-          }
-        }
-      },
-      {
-        "skin:object": {
-          "id": "towed_at_17pdr_ussr_camo_winter_lines",
-          "objTexReplace:object": {
-            "ussr_camo_green*": "ussr_camo_winter_lines*"
-          }
-        }
-      }
-    ]
   }
 }

@@ -53,6 +53,12 @@
         }
       },
       {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.bombEscape"
+        }
+      },
+      {
         "orderedSelector": {
           "orderedSelector": {
             "subTree": {
@@ -1152,6 +1158,20 @@
               }
             },
             {
+              "orderedSelector": {
+                "sequencer": {
+                  "findWeaponSlotWithTag": {
+                    "tag": "buildingTool",
+                    "toParam": "buildToolSlot"
+                  },
+                  "changeWeapon": {
+                    "param": "buildToolSlot"
+                  }
+                },
+                "continue": []
+              }
+            },
+            {
               "setIntVar": {
                 "to": "buildPositionFounded",
                 "value": 1
@@ -1176,17 +1196,6 @@
                 "distThreshold": 0.5,
                 "avoidAiObstacles": false,
                 "incObstacles": false
-              }
-            },
-            {
-              "findWeaponSlotWithTag": {
-                "tag": "buildingTool",
-                "toParam": "buildToolSlot"
-              }
-            },
-            {
-              "changeWeapon": {
-                "param": "buildToolSlot"
               }
             },
             {

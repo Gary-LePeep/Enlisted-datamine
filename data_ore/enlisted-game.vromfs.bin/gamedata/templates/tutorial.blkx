@@ -12,6 +12,10 @@
     "isPractice:tag": [],
     "disableVehicleSpawnDelay:tag": []
   },
+  "tutorial_target_grenade_c": {
+    "_extends": "tutorial_target_silhouette_c",
+    "tutorial_target__grenade:tag": []
+  },
   "base_tutorial_zone": [
     {
       "transform": [
@@ -43,9 +47,16 @@
       "tutorial_zone__zoneId": ""
     },
     {
+      "tutorial_zone__icon": "waypoint"
+    },
+    {
       "tutorialZone:tag": []
     }
   ],
+  "hidden_tutorial_zone": {
+    "_extends": "base_tutorial_zone",
+    "tutorial_zone__hideWaypoint:tag": []
+  },
   "tutorial_zone_visitor": {
     "_track": true,
     "tutorial_zone_visitor__zone:eid": [],
@@ -124,6 +135,7 @@
     "_extends": "game_effect_base",
     "game_effect__forceAnimState": "enlisted_idle_13_weapon",
     "game_effect__forceAnimStateId": -1,
+    "notTakeDamageFromBattleArea:tag": [],
     "tutorial_bot_anim_state:tag": []
   },
   "tutorial_ammunition_box_a": [
@@ -153,7 +165,11 @@
   },
   "tutorial_grenade_count_observer": {
     "_singleton": true,
-    "tutorial_observer__grenade_count:tag": []
+    "tutorial_observer__restartFromStage": "inf_tutorial_grenade_switch",
+    "tutorial_observer__grenade_count:tag": [],
+    "tutorial_observer__resupplyGrenadesOnActivatingZones:list<t>": {
+      "zoneId": "target_grenade_expl_zone"
+    }
   },
   "tutorial_lock_soldier_change": {
     "_singleton": true,
@@ -306,30 +322,58 @@
   },
   "inf_tutorial_grenade_restore": {
     "_extends": "tutorial_restore_memorize",
-    "tutor_stage__next": "inf_tutorial_grenade"
+    "tutor_stage__next": "inf_tutorial_grenade_first_start"
   },
-  "inf_tutorial_grenade": {
-    "tutor_stage__next": "inf_tutorial_deactivate_grenade_resupply",
-    "tutor_stage__deactivateZoneId": "target02_marker_zone",
-    "tutor_stage__hitTarget": "infantry_target_grenade",
-    "tutor_stage__hitTargetByWeapon": "grenade",
-    "tutor_stage__activateZoneId": "target_grenade_expl_zone",
-    "tutor_condition__explodedInZone": "target_grenade_expl_zone",
-    "tutor_stage__displayHint": "hint_tutorial_fire_range_switch_to_grenades",
+  "inf_tutorial_grenade_first_start": {
+    "tutor_stage__next": "inf_tutorial_grenade_switch",
+    "tutor_stage__skip:tag": [],
     "tutor_action__createEntity:list<t>": {
       "key": "tutorial_grenade_count_observer"
-    },
+    }
+  },
+  "inf_tutorial_grenade_switch": {
+    "tutor_stage__next": "inf_tutorial_grenade_in_zone",
+    "tutor_stage__deactivateZoneId": "target02_marker_zone",
+    "tutor_stage__activateZoneId": "target_grenade_expl_zone",
+    "tutor_stage__displayHint": "hint_tutorial_fire_range_switch_to_grenades",
     "tutor_stage__hintKeys:array": {
       "key": "Human.GrenadeNext"
+    },
+    "tutor_stage__curGunComponentAny:list<t>": {
+      "comp": "grenade_thrower"
     }
+  },
+  "inf_tutorial_grenade_in_zone": {
+    "tutor_stage__next": "inf_tutorial_grenade",
+    "tutor_stage__hitTarget": "infantry_target_grenade",
+    "tutor_stage__hitTargetByWeapon": "grenade",
+    "tutor_condition__explodedInZone": "target_grenade_expl_zone",
+    "tutor_condition__grenadeStopInZone": "target_grenade_expl_zone",
+    "tutor_stage__displayHint": "",
+    "tutor_stage__hintKeys:array": []
+  },
+  "inf_tutorial_grenade": {
+    "tutor_stage__next": "inf_tutorial_grenade_destroy_target",
+    "tutor_stage__hitTarget": "infantry_target_grenade",
+    "tutor_stage__hitTargetByWeapon": "grenade",
+    "tutor_condition__explodedInZone": "target_grenade_expl_zone",
+    "tutor_stage__displayHint": "",
+    "tutor_stage__hintKeys:array": [],
+    "tutor_action__destroySingletons:list<t>": {
+      "key": "tutorial_grenade_count_observer"
+    }
+  },
+  "inf_tutorial_grenade_destroy_target": {
+    "tutor_stage__next": "inf_tutorial_deactivate_grenade_resupply",
+    "tutor_action__destroySingletons:list<t>": {
+      "key": "tutorial_grenade_target"
+    },
+    "tutor_stage__skip:tag": []
   },
   "inf_tutorial_deactivate_grenade_resupply": {
     "tutor_stage__next": "inf_tutorial_squad_intro",
     "tutor_stage__timer": 0.0,
-    "tutor_stage__deactivateZoneId": "target_grenade_resupply_zone",
-    "tutor_action__destroySingletons:list<t>": {
-      "key": "tutorial_grenade_count_observer"
-    }
+    "tutor_stage__deactivateZoneId": "target_grenade_resupply_zone"
   },
   "inf_tutorial_squad_intro": {
     "tutor_stage__displayHint": "hint_tutorial_about_squad",
@@ -445,5 +489,16 @@
   "tutorial_input_manager": {
     "_singleton": true,
     "tutorial__savedInput:object": []
-  }
+  },
+  "tutorial_grenade_target": [
+    {
+      "_extends": "tutorial_target_grenade_c"
+    },
+    {
+      "_extends": "tutorial_memorize_entity"
+    },
+    {
+      "_singleton": true
+    }
+  ]
 }

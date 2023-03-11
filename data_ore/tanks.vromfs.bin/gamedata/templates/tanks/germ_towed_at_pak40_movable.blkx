@@ -268,5 +268,52 @@
     "cockpit__slitIsGun:list<b>": {
       "slit": true
     }
+  },
+  "enlist_towed_at_pak40_75mm_pak40_3_l46": [
+    {
+      "_extends": "tankgun"
+    },
+    {
+      "_extends": "base_tankgun_cannon"
+    },
+    {
+      "_extends": "enlist_towed_at_pak40_turret_01_75mm_pak40_3_l46"
+    },
+    {
+      "turret__triggerGroup": 0
+    },
+    {
+      "turret__aimNodeName": "bone_turret"
+    },
+    {
+      "turret__limit": [-40.0,40.0,-2.0,20.0]
+    }
+  ],
+  "enlist_towed_at_pak40_turret_01_75mm_pak40_3_l46": {
+    "_extends": "base_75mm_pak40_3_l46",
+    "gun__shellsAmmo:array": [
+      {
+        "ammo": 10
+      },
+      {
+        "ammo": 15
+      }
+    ],
+    "gun__ammoSetsInfo:shared:array": {
+      "defaultSet:array": {
+        "shell:object": {
+          "blk": "content/tanks/gamedata/gen/weapons/shells/75mm_pak40_3_l46_defaultset.blk",
+          "name": "75mm_pzgr_39",
+          "type": "apcbc_tank"
+        }
+      },
+      "75mm_ger_kwk40_37_HE:array": {
+        "shell:object": {
+          "blk": "content/tanks/gamedata/gen/weapons/shells/75mm_pak40_3_l46_75mm_ger_kwk40_37_he.blk",
+          "name": "75mm_sprgr_34",
+          "type": "he_frag_tank"
+        }
+      }
+    }
   }
 }

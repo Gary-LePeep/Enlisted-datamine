@@ -1,0 +1,394 @@
+{
+  "builded_sg_gun": [
+    {
+      "_extends": "m5a1_stuart_late_turret_02_7_62mm_m1919a4"
+    },
+    {
+      "_extends": "controlled_by_ai_gunner"
+    },
+    {
+      "turret_ai__minWindow": [-0.0,-0.0]
+    },
+    {
+      "turret_ai__maxWindow": [0.0,0.0]
+    },
+    {
+      "turret_ai__amplitude": [0.3,0.3]
+    },
+    {
+      "turret_ai__period": [1.0,3.0]
+    },
+    {
+      "turret_ai__distrTimer": 10.0
+    },
+    {
+      "turret_ai__attackTimerr": 3.0
+    },
+    {
+      "turret_ai__sleepTimer": 1.0
+    },
+    {
+      "turret_ai__pauseTimer": 0.25
+    },
+    {
+      "gun__shootNodeName": "bone_gun"
+    },
+    {
+      "turret__yawSpeed": 90.0
+    },
+    {
+      "turret__pitchSpeed": 90.0
+    },
+    {
+      "turret__aimNodeName": "bone_gun"
+    },
+    {
+      "turret__limit": [-180.0,180.0,-35.0,35.0]
+    },
+    {
+      "turret_ai__atackDist": 100.0
+    },
+    {
+      "gun__maxAmmo": 900000
+    },
+    {
+      "gun__overheatPerShot": 0.0
+    },
+    {
+      "gun__blk": "gamedata/gen/weapons/7_62mm_m1919a4.blk"
+    },
+    {
+      "item__name": "building_tool/auto_cannon"
+    },
+    {
+      "gun_spread__maxDeltaAngle": 10.075
+    },
+    {
+      "gun_deviation__omegaRange": [30.0,90.0]
+    },
+    {
+      "gun_deviation__omegaDevInc": [0.07,0.5]
+    },
+    {
+      "gun_deviation__movementRange": [3.0,5.0]
+    },
+    {
+      "gun_deviation__movementDevInc": [0.0,6.0]
+    },
+    {
+      "gun_deviation__onShotDeviationChange": 0.3
+    },
+    {
+      "gun_deviation__maxDeviation": 30.0
+    },
+    {
+      "turret_ai__automatic:tag": {
+        "_tags": "server"
+      }
+    },
+    {
+      "gun__shellsAmmo:array": {
+        "ammo": 900000
+      }
+    },
+    {
+      "gun__ammoSetsInfo:shared:array": {
+        "defaultSet:array": {
+          "shell:object": {
+            "blk": "content/enlisted_extra/gamedata/weapons/bullets/turret_blaster_bullet.blk",
+            "type": "ap_ball"
+          }
+        }
+      }
+    }
+  ],
+  "builded_auto_turret_preview": {
+    "_extends": "base_animchar_builder_preview",
+    "animchar__res": "sg_turret_rounded_char",
+    "collres__res": "sg_turret_rounded_collision",
+    "instantiateTemplate": "builded_auto_turret",
+    "buildingDistance": 2.0,
+    "building_builder__maxTimeToBuild": 3.0,
+    "buildingCost": 1.0,
+    "preview_phys__blk": "content/enlisted/gamedata/units/cannons/sg_turret.blk",
+    "avaliableAngles": [-10.0,10.0],
+    "buildingSoundTag": "cannon",
+    "savePreviewTeam": true
+  },
+  "builded_auto_turret": [
+    {
+      "_extends": "replicating"
+    },
+    {
+      "_extends": "turret_sound_with_group"
+    },
+    {
+      "_extends": "base_net_phys"
+    },
+    {
+      "_extends": "phys_sleepable"
+    },
+    {
+      "_extends": "animchar"
+    },
+    {
+      "_extends": "base_dm_parts"
+    },
+    {
+      "_extends": "base_hitpoints"
+    },
+    {
+      "_extends": "base_burning"
+    },
+    {
+      "_extends": "base_turret_controls"
+    },
+    {
+      "mine__activated": true
+    },
+    {
+      "mineActivatorTemplate": "antitank_mine_activator"
+    },
+    {
+      "hitpoints__hp": 100.0
+    },
+    {
+      "hitpoints__maxHp": 100.0
+    },
+    {
+      "hitpoints__hpRecoverySpd": 0.0
+    },
+    {
+      "hitpoints__hpThreshold": 0.0
+    },
+    {
+      "hitpoints__stoppingPower": 0.0
+    },
+    {
+      "pair_collision__tag": "collidableToPhysObj"
+    },
+    {
+      "animchar__updatable": true
+    },
+    {
+      "animchar__res": "sg_turret_rounded_char"
+    },
+    {
+      "collres__res": "sg_turret_rounded_collision"
+    },
+    {
+      "net__controlsTickDelta": 0
+    },
+    {
+      "phys__maxMassRatioForPushOnCollision": 4.0
+    },
+    {
+      "phys_obj_net_phys__blk": "content/enlisted/gamedata/units/cannons/sg_turret.blk"
+    },
+    {
+      "turret__teamLightTemplate": "builded_auto_turret_enemy_light"
+    },
+    {
+      "turret__enemyTeamLight": "#f00a0a32"
+    },
+    {
+      "turret__allyTeamLight": "#0a0af032"
+    },
+    {
+      "killLogName": "building_tool/auto_cannon"
+    },
+    {
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [0.0,0.0,0.0]
+      ]
+    },
+    {
+      "team": -1
+    },
+    {
+      "_replicated": "team"
+    },
+    {
+      "_replicated": "phys__lowFreqTickrate"
+    },
+    {
+      "_replicated": "isAlive"
+    },
+    {
+      "animchar_render__enabled": true
+    },
+    {
+      "material": "steel"
+    },
+    {
+      "needsBlood": false
+    },
+    {
+      "phys__lowFreqTickrate": true
+    },
+    {
+      "net__physId": -1
+    },
+    {
+      "isAlive": true
+    },
+    {
+      "_tracked": "isAlive"
+    },
+    {
+      "grid_obj__gridType": "vehicles"
+    },
+    {
+      "grid_obj__fixedTmScale": -1.0
+    },
+    {
+      "ai_target__targetForAiGunner:tag": []
+    },
+    {
+      "placeable_item__ownerEid:eid": []
+    },
+    {
+      "engeneer_mine:tag": []
+    },
+    {
+      "killer:eid": []
+    },
+    {
+      "dm_parts__parts:object": {
+        "Turret_cls:object": {
+          "dmgMult": 1.0,
+          "armor": 0.0
+        }
+      }
+    },
+    {
+      "phys_obj_net_phys": []
+    },
+    {
+      "pair_collision__gridHolders": []
+    },
+    {
+      "pair_collision__gridNames:list<t>": [
+        {
+          "h": "humans"
+        },
+        {
+          "h": "vehicles"
+        }
+      ]
+    },
+    {
+      "collidableToPhysObj:tag": []
+    },
+    {
+      "phys__sleepless:tag": []
+    },
+    {
+      "animchar__updatableOnSleepPhys:tag": []
+    },
+    {
+      "collres": []
+    },
+    {
+      "turret_control__hasAiGunners:tag": []
+    },
+    {
+      "phys_vars__skipVisibilityCheck:tag": []
+    },
+    {
+      "turret__teamLightEid:eid": []
+    },
+    {
+      "net_phys__interpK:r": {
+        "_tags": "gameClient"
+      }
+    },
+    {
+      "vehicle__allAcquiredControls": {
+        "_tags": "server"
+      }
+    },
+    {
+      "scorchable:tag": {
+        "_tags": "render"
+      }
+    },
+    {
+      "grid_obj": []
+    },
+    {
+      "vehicle__localControls": {
+        "_tags": "gameClient"
+      }
+    },
+    {
+      "turret_gun_flash_fx__flashNodes:shared:array": {
+        "node": "bone_gun_barrel"
+      }
+    },
+    {
+      "turret_gun_flash_fx__flashFx:shared:array": {
+        "fx": "muzzle_ground_20mm"
+      }
+    },
+    {
+      "turret_gun_flash_fx__flashFxScale:shared:array": {
+        "scale": 1.0
+      }
+    },
+    {
+      "turret_control__emitterNodes:shared:array": {
+        "node": "bone_gun"
+      }
+    },
+    {
+      "turret_control__animVars:shared:array": {
+        "vars:object": {
+          "curYawParamName": "turret_01_yaw",
+          "curPitchParamName": "gun_01_pitch",
+          "aimActiveParamName": "aim_01_active",
+          "paramYawSpeed": "turret_01_yaw_speed",
+          "wishYawParamName": "gun_01_aim:targetYaw",
+          "paramYawAccel": "turret_01_yaw_accel",
+          "paramPitchSpeed": "gun_01_pitch_speed",
+          "wishPitchParamName": "gun_01_aim:targetPitch",
+          "paramPitchAccel": "gun_01_pitch_accel",
+          "gunRecoilParamName": "gun_01_recoil",
+          "paramMinYawAngle": "turret_01_min_yaw_angle",
+          "paramMaxYawAngle": "turret_01_max_yaw_angle",
+          "paramMinPitchAngle": "turret_01_min_pitch_angle",
+          "paramMaxPitchAngle": "turret_01_max_pitch_angle"
+        }
+      }
+    },
+    {
+      "turret_control__turretInfo:shared:array": {
+        "turretInfo:object": {
+          "turretName": "turret_01",
+          "turretGroup": "main_turrets",
+          "gun": "builded_sg_gun+turret_with_several_types_of_shells+main_turret",
+          "salt": 1
+        }
+      }
+    }
+  ],
+  "builded_auto_turret_enemy_light": {
+    "_extends": "spot_light",
+    "light__brightness": 110.0,
+    "light__max_radius": 14.0,
+    "light__color": "#ff0000ff",
+    "_group": {
+      "_tags": "render",
+      "_track": true,
+      "_replicate": true,
+      "spot_light__shadows": true,
+      "spot_light__dynamic_obj_shadows": true,
+      "spot_light__inner_attenuation": 0.1,
+      "spot_light__shadow_shrink": 0,
+      "spot_light__dynamic_light": false
+    }
+  }
+}

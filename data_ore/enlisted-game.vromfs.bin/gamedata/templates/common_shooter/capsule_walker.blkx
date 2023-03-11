@@ -1,0 +1,20 @@
+{
+  "capsule_walker_input": {
+    "capsule_walker_input__jump": 0,
+    "capsule_walker_input__move": 0,
+    "capsule_walker_input__aim": 0,
+    "capsule_walker_input__aimAngles": [0.0,0.0],
+    "_hide": true
+  },
+  "base_capsule_walker_hero_components": {
+    "_extends": "capsule_walker_input",
+    "hero:tag": []
+  },
+  "capsule_walker_hero_components": {
+    "_extends": "base_capsule_walker_hero_components"
+  },
+  "capsule_walker_hero_components_local": {
+    "_extends": "capsule_walker_hero_components"
+  },
+  "capsule_walker_hero_components_remote": []
+}

@@ -10,16 +10,15 @@
     "asset__rendInstType": -1,
     "asset__curCollisionPath": "",
     "asset__currentSearchFilter": "",
+    "asset__clipmapInvalidationEnabled": false,
     "asset__manager:DagorAssetMgr": [],
-    "asset__exportableTypes:list<i>": [],
     "_group": {
       "activeRI__lodDistances:list<r>": [],
       "activeRI__lodFiles:list<t>": []
-    },
-    "asset__currentDagTextures:list<t>": []
+    }
   },
   "composit_child_rendinst": {
-    "_extends": "game_rendinst",
+    "_extends": "rendinst",
     "ignoredEditable:tag": {
       "_tags": "render"
     }
@@ -50,6 +49,9 @@
     },
     {
       "animchar__res": ""
+    },
+    {
+      "animchar__animStateDirty": false
     },
     {
       "transform": [

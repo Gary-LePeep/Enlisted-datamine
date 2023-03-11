@@ -19,7 +19,7 @@
       }
     },
     "Camera": {
-      "internal": true,
+      "internal": false,
       "Camera.Move": {
         "type": "joystick_move",
         "quantize": "8bit"
@@ -39,10 +39,12 @@
         "type": "trigger"
       },
       "Camera.ZoomIn": {
-        "type": "digital_button"
+        "type": "digital_button",
+        "group_tag": "Replay"
       },
       "Camera.ZoomOut": {
-        "type": "digital_button"
+        "type": "digital_button",
+        "group_tag": "Replay"
       },
       "Camera.SpeedUp": {
         "type": "digital_button"
@@ -429,6 +431,9 @@
         "reuse_defined_earlier": true
       },
       "Human.Reload": {
+        "reuse_defined_earlier": true
+      },
+      "Human.HoldBreath": {
         "reuse_defined_earlier": true
       },
       "Vehicle.NextBulletType": {

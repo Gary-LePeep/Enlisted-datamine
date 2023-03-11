@@ -8,7 +8,15 @@
       "stug_iii_ausf_f_body_c*:object": {
         "stug_iii_ausf_f_16_body_c*": "camo_skin_tex"
       }
-    }
+    },
+    "disableDMParts:list<t>": [
+      {
+        "part": "track_r_01"
+      },
+      {
+        "part": "track_l_01"
+      }
+    ]
   },
   "germ_stug_iii_ausf_f_stalingrad": {
     "_extends": "germ_stug_iii_ausf_f"
@@ -17,7 +25,15 @@
     "_extends": "germ_stug_iii_ausf_f_common",
     "animchar__objTexReplace:object": {
       "ger_camo_grey*": "ger_camo_winter_grey*"
-    }
+    },
+    "disableDMParts:list<t>": [
+      {
+        "part": "track_r_01"
+      },
+      {
+        "part": "track_l_01"
+      }
+    ]
   },
   "germ_stug_iii_ausf_f_common": [
     {

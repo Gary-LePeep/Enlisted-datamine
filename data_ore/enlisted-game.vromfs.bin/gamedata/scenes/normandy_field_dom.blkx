@@ -424,7 +424,7 @@
   {
     "entity": {
       "_template": "door_mult_ent_generator",
-      "ri_extra_gen__blk": "content/e_normandy/gamedata/normandy_doors.blk"
+      "ri_extra_gen__blk": "content/enlisted/gamedata/normandy_doors.blk"
     }
   },
   {
@@ -506,13 +506,13 @@
       "mission_name": "normandy_field_dom",
       "loading_images:list<t>": [
         {
-          "item": "ui/normandy_field_01.jpg"
+          "item": "ui/normandy_field_01.avif"
         },
         {
-          "item": "ui/normandy_field_02.jpg"
+          "item": "ui/normandy_field_02.avif"
         },
         {
-          "item": "ui/normandy_field_03.jpg"
+          "item": "ui/normandy_field_03.avif"
         }
       ]
     }
@@ -529,8 +529,8 @@
     "entity": {
       "_template": "team_usa+team_narrator_domination+respawn_creators_team",
       "team__id": 1,
-      "team__score": 3200.0,
-      "team__scoreCap": 3200.0,
+      "team__score": 3300.0,
+      "team__scoreCap": 3300.0,
       "score_bleed__domBleed": 4.0,
       "score_bleed__domBleedOn": false,
       "score_bleed__totalDomZoneCount": 3,

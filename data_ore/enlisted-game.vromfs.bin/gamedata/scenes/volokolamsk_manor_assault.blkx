@@ -999,13 +999,13 @@
       "mission_name": "volokolamsk_manor_assault",
       "loading_images:list<t>": [
         {
-          "item": "ui/volokolamsk_manor_01.jpg"
+          "item": "ui/volokolamsk_manor_01.avif"
         },
         {
-          "item": "ui/volokolamsk_manor_02.jpg"
+          "item": "ui/volokolamsk_manor_02.avif"
         },
         {
-          "item": "ui/volokolamsk_manor_03.jpg"
+          "item": "ui/volokolamsk_manor_03.avif"
         }
       ]
     }
@@ -1069,7 +1069,7 @@
   {
     "entity": {
       "_template": "door_mult_ent_generator",
-      "ri_extra_gen__blk": "content/e_moscow/gamedata/volokolamsk_doors.blk"
+      "ri_extra_gen__blk": "content/enlisted/gamedata/volokolamsk_doors.blk"
     }
   },
   {
@@ -1146,8 +1146,8 @@
     "entity": {
       "_template": "team_germany_winter+team_narrator_assault_attack+respawn_creators_team",
       "team__memberCount": 0.0,
-      "team__scoreCap": 1900.0,
-      "team__score": 1900.0,
+      "team__scoreCap": 2000.0,
+      "team__score": 2000.0,
       "team__squadSpawnCost": 250,
       "team__firstSpawnCostMul": 0.0,
       "team__zeroScoreFailTimer": 60.0,
@@ -1174,7 +1174,7 @@
       "capzone__mustBeCapturedByTeam": 2,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_1",
-      "capzone__capTime": 30.0,
+      "capzone__capTime": 25.0,
       "capzone__capTeam": 1,
       "capzone__progress": 1.0,
       "transform": [
@@ -1184,11 +1184,11 @@
         [-422.567,10.7672,547.919]
       ],
       "active": false,
-      "capzone__decapTime": 10.0,
+      "capzone__decapTime": 20.0,
       "capzone__autoDecap": false,
       "capzone__autoCap": false,
       "ui_order": 1,
-      "capzone__capReward": 250.0,
+      "capzone__capReward": 500.0,
       "capzone__title": "A",
       "capzone__caption": "capzone/field_headquarters",
       "capzone__checkAllZonesInGroup": true,
@@ -1211,7 +1211,7 @@
       "capzone__mustBeCapturedByTeam": 2,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_1",
-      "capzone__capTime": 30.0,
+      "capzone__capTime": 25.0,
       "capzone__capTeam": 1,
       "capzone__progress": 1.0,
       "transform": [
@@ -1221,11 +1221,11 @@
         [-445.323,8.50834,644.823]
       ],
       "active": false,
-      "capzone__decapTime": 10.0,
+      "capzone__decapTime": 20.0,
       "capzone__autoDecap": false,
       "capzone__autoCap": false,
       "ui_order": 2,
-      "capzone__capReward": 250.0,
+      "capzone__capReward": 500.0,
       "capzone__title": "B",
       "capzone__caption": "capzone/stable",
       "capzone__checkAllZonesInGroup": true,
@@ -1248,7 +1248,7 @@
       "capzone__mustBeCapturedByTeam": 2,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_2",
-      "capzone__capTime": 30.0,
+      "capzone__capTime": 25.0,
       "capzone__capTeam": 1,
       "capzone__progress": 1.0,
       "transform": [
@@ -1258,11 +1258,11 @@
         [-563.839,9.44829,511.938]
       ],
       "active": false,
-      "capzone__decapTime": 10.0,
+      "capzone__decapTime": 20.0,
       "capzone__autoDecap": false,
       "capzone__autoCap": false,
       "ui_order": 3,
-      "capzone__capReward": 250.0,
+      "capzone__capReward": 500.0,
       "capzone__title": "C",
       "capzone__caption": "capzone/north_wing",
       "capzone__checkAllZonesInGroup": true,
@@ -1285,7 +1285,7 @@
       "capzone__mustBeCapturedByTeam": 2,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_2",
-      "capzone__capTime": 30.0,
+      "capzone__capTime": 25.0,
       "capzone__capTeam": 1,
       "capzone__progress": 1.0,
       "transform": [
@@ -1295,11 +1295,11 @@
         [-563.879,9.6313,660.942]
       ],
       "active": false,
-      "capzone__decapTime": 10.0,
+      "capzone__decapTime": 20.0,
       "capzone__autoDecap": false,
       "capzone__autoCap": false,
       "ui_order": 4,
-      "capzone__capReward": 250.0,
+      "capzone__capReward": 500.0,
       "capzone__title": "D",
       "capzone__caption": "capzone/south_wing",
       "capzone__checkAllZonesInGroup": true,
@@ -1332,7 +1332,7 @@
         [-612.883,9.38184,586.413]
       ],
       "active": false,
-      "capzone__decapTime": 15.0,
+      "capzone__decapTime": 20.0,
       "capzone__autoDecap": false,
       "capzone__autoCap": false,
       "ui_order": 5,

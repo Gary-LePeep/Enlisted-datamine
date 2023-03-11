@@ -43,9 +43,6 @@
       "item__name": "items/germ_at_gun_pak40"
     },
     {
-      "skin__template": "towed_at_pak40_skins"
-    },
-    {
       "turret_gun_flash_fx__flashNodes:shared:array": {
         "node": "emtr_gun_flame"
       }
@@ -133,57 +130,5 @@
     "_tags": "server",
     "_extends": "vehicle_ammo_stowages",
     "ammo_stowage__stowageTemplates:shared:list<t>": []
-  },
-  "towed_at_pak40_skins": {
-    "skin__objTexReplace:array": [
-      {
-        "skin:object": {
-          "id": "towed_at_pak40_winter",
-          "objTexReplace:object": {
-            "ussr_camo_green*": "ussr_camo_winter*"
-          }
-        }
-      },
-      {
-        "skin:object": {
-          "id": "towed_at_pak40_forest",
-          "objTexReplace:object": {
-            "ussr_camo_green*": "ussr_camo_forest_01*"
-          }
-        }
-      },
-      {
-        "skin:object": {
-          "id": "towed_at_pak40_ussr_camo_brown_lines",
-          "objTexReplace:object": {
-            "ussr_camo_green*": "ussr_camo_brown_lines*"
-          }
-        }
-      },
-      {
-        "skin:object": {
-          "id": "towed_at_pak40_ussr_camo_green_ltbrown_lines",
-          "objTexReplace:object": {
-            "ussr_camo_green*": "ussr_camo_green_ltbrown_lines*"
-          }
-        }
-      },
-      {
-        "skin:object": {
-          "id": "towed_at_pak40_ussr_camo_desert_yellow_brown",
-          "objTexReplace:object": {
-            "ussr_camo_green*": "ussr_camo_desert_yellow_brown*"
-          }
-        }
-      },
-      {
-        "skin:object": {
-          "id": "towed_at_pak40_ussr_camo_winter_lines",
-          "objTexReplace:object": {
-            "ussr_camo_green*": "ussr_camo_winter_lines*"
-          }
-        }
-      }
-    ]
   }
 }

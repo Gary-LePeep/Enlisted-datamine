@@ -1294,13 +1294,13 @@
       "mission_name": "pacific_gavutu_bomb",
       "loading_images:list<t>": [
         {
-          "item": "ui/pacific_gavutu_inv_01.jpg"
+          "item": "ui/pacific_gavutu_inv_01.avif"
         },
         {
-          "item": "ui/pacific_gavutu_inv_02.jpg"
+          "item": "ui/pacific_gavutu_inv_02.avif"
         },
         {
-          "item": "ui/pacific_gavutu_inv_04.jpg"
+          "item": "ui/pacific_gavutu_inv_04.avif"
         }
       ]
     }
@@ -1401,7 +1401,7 @@
       "groupName": "sector_1",
       "active": false,
       "ui_order": 1,
-      "capzone__capReward": 250.0,
+      "capzone__capReward": 500.0,
       "capzone__caption": "capzone/warehouse",
       "capzone__checkAllZonesInGroup": true,
       "capzone__deactivateAfterTimeout": 0.0,
@@ -1411,8 +1411,8 @@
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__plantingTeam": 1,
       "capzone__timeToPlant": 20.0,
-      "capzone__timeToDefuse": 15.0,
-      "capzone__timeToExplosion": 35.0,
+      "capzone__timeToDefuse": 20.0,
+      "capzone__timeToExplosion": 40.0,
       "capzone__bombTemplate": "bomb_site+bomb_site_radar_hardware_animchar_01_without_antenna",
       "capzone__bombTransformLocalPos": [
         [0.639618,0.0,0.829609],
@@ -1441,7 +1441,7 @@
       "groupName": "sector_1",
       "active": false,
       "ui_order": 1,
-      "capzone__capReward": 250.0,
+      "capzone__capReward": 500.0,
       "capzone__caption": "capzone/warehouse",
       "capzone__checkAllZonesInGroup": true,
       "capzone__deactivateAfterTimeout": 0.0,
@@ -1451,8 +1451,8 @@
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__plantingTeam": 1,
       "capzone__timeToPlant": 20.0,
-      "capzone__timeToDefuse": 15.0,
-      "capzone__timeToExplosion": 35.0,
+      "capzone__timeToDefuse": 20.0,
+      "capzone__timeToExplosion": 40.0,
       "capzone__bombTemplate": "bomb_site+bomb_site_radar_hardware_animchar_02_without_antenna",
       "capzone__bombTransformLocalPos": [
         [0.239519,0.0,0.902387],
@@ -1483,7 +1483,7 @@
       "active": false,
       "ui_order": 1,
       "capzone__owningTeam": 2,
-      "capzone__capReward": 250.0,
+      "capzone__capReward": 500.0,
       "capzone__checkAllZonesInGroup": true,
       "capzone__deactivateAfterTimeout": 0.0,
       "capzone__spawnAtZoneTimeout": 25.0,
@@ -1543,7 +1543,7 @@
         "capzone__owningTeam": 2
       },
       {
-        "capzone__capReward": 250.0
+        "capzone__capReward": 500.0
       },
       {
         "capzone__checkAllZonesInGroup": true
@@ -1667,7 +1667,7 @@
         "capzone__plantingTeam": 1
       },
       {
-        "capzone__timeToPlant": 25.0
+        "capzone__timeToPlant": 20.0
       },
       {
         "capzone__timeToDefuse": 20.0
@@ -2446,7 +2446,7 @@
   },
   {
     "import": {
-      "scene": "content/e_pacific/gamedata/scenes/_pacific_gavutu_common.blk"
+      "scene": "content/enlisted/gamedata/scenes/_pacific_gavutu_common.blk"
     }
   }
 ]

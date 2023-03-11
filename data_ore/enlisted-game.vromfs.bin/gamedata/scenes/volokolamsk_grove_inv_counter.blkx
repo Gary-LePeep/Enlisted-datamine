@@ -2997,7 +2997,7 @@
   {
     "entity": {
       "_template": "door_mult_ent_generator",
-      "ri_extra_gen__blk": "content/e_moscow/gamedata/volokolamsk_doors.blk"
+      "ri_extra_gen__blk": "content/enlisted/gamedata/volokolamsk_doors.blk"
     }
   },
   {
@@ -3082,13 +3082,13 @@
       "mission_name": "volokolamsk_grove_inv_counter",
       "loading_images:list<t>": [
         {
-          "item": "ui/volokolamsk_grove_01.jpg"
+          "item": "ui/volokolamsk_grove_01.avif"
         },
         {
-          "item": "ui/volokolamsk_grove_02.jpg"
+          "item": "ui/volokolamsk_grove_02.avif"
         },
         {
-          "item": "ui/volokolamsk_grove_03.jpg"
+          "item": "ui/volokolamsk_grove_03.avif"
         }
       ]
     }
@@ -3113,8 +3113,8 @@
     "entity": {
       "_template": "team_germany_winter+team_narrator_invasion_attack+respawn_creators_team",
       "team__memberCount": 0.0,
-      "team__scoreCap": 2000.0,
-      "team__score": 2000.0,
+      "team__scoreCap": 2100.0,
+      "team__score": 2100.0,
       "team__squadSpawnCost": 250,
       "team__firstSpawnCostMul": 0.0,
       "team__zeroScoreFailTimer": 60.0,
@@ -3212,7 +3212,7 @@
       "capzone__onlyTeamCanCapture": 2,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_2",
-      "capzone__capTime": 60.0,
+      "capzone__capTime": 50.0,
       "capzone__capTeam": -1,
       "transform": [
         [0.999962,0.0084932,0.0017888],
@@ -3247,7 +3247,7 @@
       "capzone__onlyTeamCanCapture": 2,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_2_b",
-      "capzone__capTime": 60.0,
+      "capzone__capTime": 50.0,
       "capzone__capTeam": -1,
       "transform": [
         [1.0,0.0,0.0],
@@ -3293,7 +3293,7 @@
       "active": false,
       "capzone__decapTime": 6000.0,
       "ui_order": 3,
-      "capzone__capReward": 250.0,
+      "capzone__capReward": 500.0,
       "capzone__icon": "AAA",
       "capzone__caption": "capzone/headquarters",
       "capzone__iconOffsetY": 3.0,

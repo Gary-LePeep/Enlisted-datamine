@@ -53,7 +53,7 @@
   {
     "entity": {
       "_template": "door_mult_ent_generator",
-      "ri_extra_gen__blk": "content/e_moscow/gamedata/volokolamsk_doors.blk"
+      "ri_extra_gen__blk": "content/enlisted/gamedata/volokolamsk_doors.blk"
     }
   },
   {
@@ -68,13 +68,13 @@
       "mission_name": "volokolamsk_river_dom",
       "loading_images:list<t>": [
         {
-          "item": "ui/volokolamsk_river_01.jpg"
+          "item": "ui/volokolamsk_river_01.avif"
         },
         {
-          "item": "ui/volokolamsk_river_02.jpg"
+          "item": "ui/volokolamsk_river_02.avif"
         },
         {
-          "item": "ui/volokolamsk_river_03.jpg"
+          "item": "ui/volokolamsk_river_03.avif"
         }
       ]
     }
@@ -83,8 +83,8 @@
     "entity": {
       "_template": "team_ussr+team_narrator_domination+respawn_creators_team",
       "team__id": 1,
-      "team__score": 2250.0,
-      "team__scoreCap": 2250.0,
+      "team__score": 2000.0,
+      "team__scoreCap": 2000.0,
       "score_bleed__domBleed": 4.0,
       "score_bleed__domBleedOn": false,
       "score_bleed__totalDomZoneCount": 3,

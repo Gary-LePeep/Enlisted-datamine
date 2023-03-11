@@ -31,7 +31,8 @@
             "receiveDamageFromDMPart": "pilot_dm",
             "cameraNodeName": "",
             "cameraOffset": [3.23,1.0,0.368],
-            "cockpitTemplate": "he_111_h16_driver_cockpit",
+            "cockpitTemplate": "ai_he_111_h16_driver_cockpit",
+            "roomSpace": 0,
             "turretNames:array": [
               {
                 "turret": "turret_01"
@@ -63,6 +64,7 @@
             "seatComponent": "isGunner",
             "receiveDamageFromDMPart": "gunner2_dm",
             "directTurretControl": true,
+            "roomSpace": 2,
             "turretNames:array": {
               "turret": "turret_06"
             }
@@ -83,6 +85,7 @@
             "seatComponent": "isGunner",
             "receiveDamageFromDMPart": "gunner3_dm",
             "directTurretControl": true,
+            "roomSpace": 3,
             "turretNames:array": [
               {
                 "turret": "turret_07"
@@ -157,116 +160,103 @@
         },
         {
           "vars:object": {
-            "paramMinYawAngle": "turret1_min_yaw_angle",
-            "paramMaxYawAngle": "turret1_max_yaw_angle",
             "paramMinPitchAngle": "turret1_min_pitch_angle",
-            "paramMaxPitchAngle": "turret1_max_pitch_angle",
-            "wishYawParamName": "gun1_aim:targetYaw",
             "wishPitchParamName": "gun1_aim:targetPitch",
-            "curYawParamName": "turret1_yaw",
-            "curPitchParamName": "gun1_pitch",
-            "aimActiveParamName": "gun1_aim_active",
-            "paramYawSpeed": "turret1_yaw_speed",
             "paramYawSpeedMul": "turret1_yaw_mul",
-            "paramYawAccel": "turret1_yaw_accel",
-            "paramPitchSpeed": "gun1_pitch_speed",
+            "paramYawSpeed": "turret1_yaw_speed",
+            "paramMaxYawAngle": "turret1_max_yaw_angle",
+            "aimActiveParamName": "gun1_aim_active",
             "paramPitchSpeedMul": "gun1_pitch_mul",
-            "paramPitchAccel": "gun1_pitch_accel"
+            "paramYawAccel": "turret1_yaw_accel",
+            "paramPitchAccel": "gun1_pitch_accel",
+            "paramPitchSpeed": "gun1_pitch_speed",
+            "wishYawParamName": "gun1_aim:targetYaw",
+            "paramMaxPitchAngle": "turret1_max_pitch_angle",
+            "curPitchParamName": "gun1_pitch",
+            "curYawParamName": "turret1_yaw",
+            "paramMinYawAngle": "turret1_min_yaw_angle"
           }
         },
         {
           "vars:object": {
-            "paramMinYawAngle": "turret2_min_yaw_angle",
-            "paramMaxYawAngle": "turret2_max_yaw_angle",
             "paramMinPitchAngle": "turret2_min_pitch_angle",
-            "paramMaxPitchAngle": "turret2_max_pitch_angle",
-            "wishYawParamName": "gun2_aim:targetYaw",
             "wishPitchParamName": "gun2_aim:targetPitch",
-            "curYawParamName": "turret2_yaw",
-            "curPitchParamName": "gun2_pitch",
-            "aimActiveParamName": "gun2_aim_active",
-            "paramYawSpeed": "turret2_yaw_speed",
             "paramYawSpeedMul": "turret2_yaw_mul",
-            "paramYawAccel": "turret2_yaw_accel",
-            "paramPitchSpeed": "gun2_pitch_speed",
+            "paramYawSpeed": "turret2_yaw_speed",
+            "paramMaxYawAngle": "turret2_max_yaw_angle",
+            "aimActiveParamName": "gun2_aim_active",
             "paramPitchSpeedMul": "gun2_pitch_mul",
-            "paramPitchAccel": "gun2_pitch_accel"
+            "paramYawAccel": "turret2_yaw_accel",
+            "paramPitchAccel": "gun2_pitch_accel",
+            "paramPitchSpeed": "gun2_pitch_speed",
+            "wishYawParamName": "gun2_aim:targetYaw",
+            "paramMaxPitchAngle": "turret2_max_pitch_angle",
+            "curPitchParamName": "gun2_pitch",
+            "curYawParamName": "turret2_yaw",
+            "paramMinYawAngle": "turret2_min_yaw_angle"
           }
         },
         {
           "vars:object": {
-            "paramMinYawAngle": "turret3_min_yaw_angle",
-            "paramMaxYawAngle": "turret3_max_yaw_angle",
             "paramMinPitchAngle": "turret3_min_pitch_angle",
-            "paramMaxPitchAngle": "turret3_max_pitch_angle",
-            "wishYawParamName": "gun3_aim:targetYaw",
             "wishPitchParamName": "gun3_aim:targetPitch",
-            "curYawParamName": "turret3_yaw",
-            "curPitchParamName": "gun3_pitch",
-            "aimActiveParamName": "gun3_aim_active",
-            "paramYawSpeed": "turret3_yaw_speed",
             "paramYawSpeedMul": "turret3_yaw_mul",
-            "paramYawAccel": "turret3_yaw_accel",
-            "paramPitchSpeed": "gun3_pitch_speed",
-            "paramPitchSpeedMul": "gun3_pitch_mul",
-            "paramPitchAccel": "gun3_pitch_accel"
-          }
-        },
-        {
-          "vars:object": {
-            "paramMinYawAngle": "turret3_min_yaw_angle",
+            "paramYawSpeed": "turret3_yaw_speed",
             "paramMaxYawAngle": "turret3_max_yaw_angle",
-            "paramMinPitchAngle": "turret3_min_pitch_angle",
-            "paramMaxPitchAngle": "turret3_max_pitch_angle",
-            "wishYawParamName": "gun3_aim:targetYaw",
-            "wishPitchParamName": "gun3_aim:targetPitch",
-            "curYawParamName": "turret3_yaw",
-            "curPitchParamName": "gun3_pitch",
             "aimActiveParamName": "gun3_aim_active",
-            "paramYawSpeed": "turret3_yaw_speed",
-            "paramYawSpeedMul": "turret3_yaw_mul",
-            "paramYawAccel": "turret3_yaw_accel",
-            "paramPitchSpeed": "gun3_pitch_speed",
             "paramPitchSpeedMul": "gun3_pitch_mul",
-            "paramPitchAccel": "gun3_pitch_accel"
+            "paramYawAccel": "turret3_yaw_accel",
+            "paramPitchAccel": "gun3_pitch_accel",
+            "paramPitchSpeed": "gun3_pitch_speed",
+            "wishYawParamName": "gun3_aim:targetYaw",
+            "paramMaxPitchAngle": "turret3_max_pitch_angle",
+            "curPitchParamName": "gun3_pitch",
+            "curYawParamName": "turret3_yaw",
+            "paramMinYawAngle": "turret3_min_yaw_angle"
           }
         },
         {
           "vars:object": {
-            "paramMinYawAngle": "turret4_min_yaw_angle",
-            "paramMaxYawAngle": "turret4_max_yaw_angle",
+            "curYawParamName": "turret3_yaw",
+            "curPitchParamName": "gun3_pitch"
+          }
+        },
+        {
+          "vars:object": {
             "paramMinPitchAngle": "turret4_min_pitch_angle",
-            "paramMaxPitchAngle": "turret4_max_pitch_angle",
-            "wishYawParamName": "gun4_aim:targetYaw",
             "wishPitchParamName": "gun4_aim:targetPitch",
-            "curYawParamName": "turret4_yaw",
-            "curPitchParamName": "gun4_pitch",
-            "aimActiveParamName": "gun4_aim_active",
-            "paramYawSpeed": "turret4_yaw_speed",
             "paramYawSpeedMul": "turret4_yaw_mul",
-            "paramYawAccel": "turret4_yaw_accel",
-            "paramPitchSpeed": "gun4_pitch_speed",
+            "paramYawSpeed": "turret4_yaw_speed",
+            "paramMaxYawAngle": "turret4_max_yaw_angle",
+            "aimActiveParamName": "gun4_aim_active",
             "paramPitchSpeedMul": "gun4_pitch_mul",
-            "paramPitchAccel": "gun4_pitch_accel"
+            "paramYawAccel": "turret4_yaw_accel",
+            "paramPitchAccel": "gun4_pitch_accel",
+            "paramPitchSpeed": "gun4_pitch_speed",
+            "wishYawParamName": "gun4_aim:targetYaw",
+            "paramMaxPitchAngle": "turret4_max_pitch_angle",
+            "curPitchParamName": "gun4_pitch",
+            "curYawParamName": "turret4_yaw",
+            "paramMinYawAngle": "turret4_min_yaw_angle"
           }
         },
         {
           "vars:object": {
-            "paramMinYawAngle": "turret5_min_yaw_angle",
-            "paramMaxYawAngle": "turret5_max_yaw_angle",
             "paramMinPitchAngle": "turret5_min_pitch_angle",
-            "paramMaxPitchAngle": "turret5_max_pitch_angle",
-            "wishYawParamName": "gun5_aim:targetYaw",
             "wishPitchParamName": "gun5_aim:targetPitch",
-            "curYawParamName": "turret5_yaw",
-            "curPitchParamName": "gun5_pitch",
-            "aimActiveParamName": "gun5_aim_active",
-            "paramYawSpeed": "turret5_yaw_speed",
             "paramYawSpeedMul": "turret5_yaw_mul",
-            "paramYawAccel": "turret5_yaw_accel",
-            "paramPitchSpeed": "gun5_pitch_speed",
+            "paramYawSpeed": "turret5_yaw_speed",
+            "paramMaxYawAngle": "turret5_max_yaw_angle",
+            "aimActiveParamName": "gun5_aim_active",
             "paramPitchSpeedMul": "gun5_pitch_mul",
-            "paramPitchAccel": "gun5_pitch_accel"
+            "paramYawAccel": "turret5_yaw_accel",
+            "paramPitchAccel": "gun5_pitch_accel",
+            "paramPitchSpeed": "gun5_pitch_speed",
+            "wishYawParamName": "gun5_aim:targetYaw",
+            "paramMaxPitchAngle": "turret5_max_pitch_angle",
+            "curPitchParamName": "gun5_pitch",
+            "curYawParamName": "turret5_yaw",
+            "paramMinYawAngle": "turret5_min_yaw_angle"
           }
         }
       ]
@@ -278,7 +268,7 @@
             "turretName": "turret_01",
             "turretGroup": "bomb_turrets",
             "trigger": "bombs",
-            "gun": "planegun_ai_he_111_h16_sc_100_launcher_01"
+            "gun": "planegun_ai_he_111_h16_sc_50_launcher_01"
           }
         },
         {
@@ -286,7 +276,7 @@
             "turretName": "turret_02",
             "turretGroup": "bomb_turrets",
             "trigger": "bombs",
-            "gun": "planegun_ai_he_111_h16_sc_100_launcher_02"
+            "gun": "planegun_ai_he_111_h16_sc_50_launcher_02"
           }
         },
         {
@@ -294,7 +284,7 @@
             "turretName": "turret_03",
             "turretGroup": "bomb_turrets",
             "trigger": "bombs",
-            "gun": "planegun_ai_he_111_h16_sc_100_launcher_03"
+            "gun": "planegun_ai_he_111_h16_sc_50_launcher_03"
           }
         },
         {
@@ -302,7 +292,7 @@
             "turretName": "turret_04",
             "turretGroup": "bomb_turrets",
             "trigger": "bombs",
-            "gun": "planegun_ai_he_111_h16_sc_100_launcher_04"
+            "gun": "planegun_ai_he_111_h16_sc_50_launcher_04"
           }
         },
         {
@@ -352,6 +342,108 @@
             "trigger": "machine_guns",
             "gun": "planegun_ai_he_111_h16_7_92mm_mg81_turret_04"
           }
+        }
+      ]
+    },
+    {
+      "turret_gun_flash_fx__flashNodes:shared:array": [
+        {
+          "node": "bomb9"
+        },
+        {
+          "node": "bomb10"
+        },
+        {
+          "node": "bomb11"
+        },
+        {
+          "node": "bomb12"
+        },
+        {
+          "node": "flare1"
+        },
+        {
+          "node": "flare2"
+        },
+        {
+          "node": "flare3"
+        },
+        {
+          "node": "flare6"
+        },
+        {
+          "node": "flare4"
+        },
+        {
+          "node": "flare5"
+        }
+      ]
+    },
+    {
+      "turret_gun_flash_fx__flashFx:shared:array": [
+        {
+          "fx": ""
+        },
+        {
+          "fx": ""
+        },
+        {
+          "fx": ""
+        },
+        {
+          "fx": ""
+        },
+        {
+          "fx": "muzzle_air_20mm"
+        },
+        {
+          "fx": "muzzle_air_15mm"
+        },
+        {
+          "fx": "muzzle_air_8mm"
+        },
+        {
+          "fx": "muzzle_air_8mm"
+        },
+        {
+          "fx": "muzzle_air_8mm"
+        },
+        {
+          "fx": "muzzle_air_8mm"
+        }
+      ]
+    },
+    {
+      "turret_gun_flash_fx__flashFxScale:shared:array": [
+        {
+          "scale": 1.0
+        },
+        {
+          "scale": 1.0
+        },
+        {
+          "scale": 1.0
+        },
+        {
+          "scale": 1.0
+        },
+        {
+          "scale": 1.0
+        },
+        {
+          "scale": 1.0
+        },
+        {
+          "scale": 1.0
+        },
+        {
+          "scale": 1.0
+        },
+        {
+          "scale": 1.0
+        },
+        {
+          "scale": 1.0
         }
       ]
     },
@@ -491,11 +583,11 @@
       ]
     }
   },
-  "base_ai_he_111_h16_sc_100_launcher": {
-    "item__name": "guns/de_sc100",
-    "gun__blk": "gamedata/weapons/he_111_h16/sc_100_launcher.blk",
+  "base_ai_he_111_h16_sc_50_launcher": {
+    "item__name": "guns/de_sc50",
+    "gun__blk": "gamedata/weapons/he_111_h16/sc_50_launcher.blk",
     "gun__shotFreq": 10.0,
-    "gun__locName": "de_sc100",
+    "gun__locName": "de_sc50",
     "gun__shootNodeName": "bone_mg_gun_twin",
     "gun__maxAmmo": 1,
     "gun__firingModes:array": {
@@ -512,19 +604,22 @@
     "gun__ammoSetsInfo:shared:array": {
       "default:array": {
         "shell:object": {
-          "blk": "gamedata/weapons/shells/sc_250.blk",
-          "name": "sc_250",
+          "blk": "gamedata/weapons/shells/sc_50.blk",
+          "name": "sc_50",
           "type": "he_frag_tank"
         }
       }
     }
   },
-  "planegun_ai_he_111_h16_sc_100_launcher_01": [
+  "planegun_ai_he_111_h16_sc_50_launcher_01": [
     {
-      "_extends": "ai_sc_100_launcher"
+      "_extends": "ai_sc_50_launcher"
     },
     {
-      "_extends": "base_ai_he_111_h16_sc_100_launcher"
+      "_extends": "base_ai_he_111_h16_sc_50_launcher"
+    },
+    {
+      "_extends": "gunsound_sc_50_launcher_aircraft"
     },
     {
       "gun__shootNodeName": "bomb9"
@@ -536,12 +631,15 @@
       "gun__maxAmmo": 1
     }
   ],
-  "planegun_ai_he_111_h16_sc_100_launcher_02": [
+  "planegun_ai_he_111_h16_sc_50_launcher_02": [
     {
-      "_extends": "ai_sc_100_launcher"
+      "_extends": "ai_sc_50_launcher"
     },
     {
-      "_extends": "base_ai_he_111_h16_sc_100_launcher"
+      "_extends": "base_ai_he_111_h16_sc_50_launcher"
+    },
+    {
+      "_extends": "gunsound_sc_50_launcher_aircraft"
     },
     {
       "gun__shootNodeName": "bomb10"
@@ -553,12 +651,15 @@
       "gun__maxAmmo": 1
     }
   ],
-  "planegun_ai_he_111_h16_sc_100_launcher_03": [
+  "planegun_ai_he_111_h16_sc_50_launcher_03": [
     {
-      "_extends": "ai_sc_100_launcher"
+      "_extends": "ai_sc_50_launcher"
     },
     {
-      "_extends": "base_ai_he_111_h16_sc_100_launcher"
+      "_extends": "base_ai_he_111_h16_sc_50_launcher"
+    },
+    {
+      "_extends": "gunsound_sc_50_launcher_aircraft"
     },
     {
       "gun__shootNodeName": "bomb11"
@@ -570,12 +671,15 @@
       "gun__maxAmmo": 1
     }
   ],
-  "planegun_ai_he_111_h16_sc_100_launcher_04": [
+  "planegun_ai_he_111_h16_sc_50_launcher_04": [
     {
-      "_extends": "ai_sc_100_launcher"
+      "_extends": "ai_sc_50_launcher"
     },
     {
-      "_extends": "base_ai_he_111_h16_sc_100_launcher"
+      "_extends": "base_ai_he_111_h16_sc_50_launcher"
+    },
+    {
+      "_extends": "gunsound_sc_50_launcher_aircraft"
     },
     {
       "gun__shootNodeName": "bomb12"

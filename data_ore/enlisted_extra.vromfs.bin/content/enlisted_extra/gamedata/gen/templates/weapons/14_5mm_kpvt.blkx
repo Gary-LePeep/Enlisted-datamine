@@ -1,0 +1,63 @@
+{
+  "base_14_5mm_kpvt": {
+    "item__name": "guns/14_5mm_kpvt",
+    "gun__blk": "content/enlisted_extra/gamedata/gen/weapons/14_5mm_kpvt.blk",
+    "gun__shotFreq": 10.0,
+    "gun__reloadTime": 8.0,
+    "gun__maxAmmo": 50,
+    "gun__locName": "14_5mm_kpvt",
+    "gun__firingModes:array": {
+      "mode:object": {
+        "modeType": "automatic"
+      }
+    },
+    "gun__firingModeNames:array": {
+      "mode": "automatic"
+    },
+    "gun__ammoSetsInfo:shared:array": {
+      "defaultSet:array": [
+        {
+          "shell:object": {
+            "blk": "content/enlisted_extra/gamedata/gen/weapons/shells/14_5mm_kpvt_defaultset_bullet_1.blk",
+            "name": "14mm_apit",
+            "type": "ap_i_t_ball"
+          }
+        },
+        {
+          "shell:object": {
+            "blk": "content/enlisted_extra/gamedata/gen/weapons/shells/14_5mm_kpvt_defaultset_bullet_2.blk",
+            "type": "apcr_i_ball_bs41"
+          }
+        },
+        {
+          "shell:object": {
+            "blk": "content/enlisted_extra/gamedata/gen/weapons/shells/14_5mm_kpvt_defaultset_bullet_3.blk",
+            "name": "14mm_apit",
+            "type": "ap_i_t_ball"
+          }
+        },
+        {
+          "shell:object": {
+            "blk": "content/enlisted_extra/gamedata/gen/weapons/shells/14_5mm_kpvt_defaultset_bullet_4.blk",
+            "name": "14mm_mdz",
+            "type": "he_i_ball"
+          }
+        }
+      ]
+    }
+  },
+  "tankgun_14_5mm_kpvt": [
+    {
+      "_extends": "tankgun"
+    },
+    {
+      "_extends": "base_tankgun_machinegun"
+    },
+    {
+      "_extends": "base_14_5mm_kpvt"
+    },
+    {
+      "turret__triggerGroup": 2
+    }
+  ]
+}

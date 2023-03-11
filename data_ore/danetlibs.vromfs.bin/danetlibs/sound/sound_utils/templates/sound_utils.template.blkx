@@ -52,6 +52,7 @@
     "_group": {
       "_tags": "sound",
       "sound_control__range": 22.0,
+      "sound_control__autoRange": false,
       "sound_control__inRange": false,
       "sound_control__shouldPlay": false,
       "sound_control__enable": true
@@ -102,5 +103,36 @@
     {
       "_extends": "sound_tags"
     }
-  ]
+  ],
+  "global_sound_listener_position": {
+    "_group": {
+      "_tags": "sound",
+      "global_sound_listener_position": [0.0,0.0,0.0]
+    }
+  },
+  "base_game_object_sound": {
+    "_extends": "replicating",
+    "game_object_sound__name": "",
+    "_group": {
+      "_tags": "sound",
+      "game_object_sound__path": ""
+    }
+  },
+  "game_object_sound": {
+    "_extends": "base_game_object_sound",
+    "transform": [
+      [1.0,0.0,0.0],
+      [0.0,1.0,0.0],
+      [0.0,0.0,1.0],
+      [0.0,0.0,0.0]
+    ],
+    "game_object_sound__shape:u32": {
+      "value": 0
+    }
+  },
+  "game_object_compound_sound": {
+    "_extends": "base_game_object_sound",
+    "game_object_compound_sound__transforms:list<m>": [],
+    "game_object_compound_sound__shapes:list<u32>": []
+  }
 }

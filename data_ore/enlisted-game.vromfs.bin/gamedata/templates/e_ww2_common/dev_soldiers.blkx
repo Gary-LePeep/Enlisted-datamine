@@ -1,0 +1,182 @@
+{
+  "duck_hunt": {
+    "duck__min": [0.0,0.0,0.0],
+    "duck__max": [0.0,0.0,0.0],
+    "duck__phaseShift": 0.0,
+    "duck__dir": [1.0,0.0,0.0],
+    "duck__speed": 0.25,
+    "duck__halfDist": 2.5
+  },
+  "dev_soldier_tag": {
+    "devSoldier:tag": []
+  },
+  "attachable_wear_belt_dev_with_nodes_item": {
+    "_extends": "attachable_belt1",
+    "item__uniqueName": "attachable_wear_belt_with_nodes_item",
+    "animchar__res": "belt_with_nodes_char",
+    "collres__res": "belt_with_nodes_collision",
+    "_tracked": "attaches_list",
+    "skeleton_attach__remapParentSlots:list<t>": {
+      "slot": "tunic"
+    },
+    "attaches_list:list<eid>": [],
+    "skeleton_attach__remapAffectSlots:list<t>": {
+      "slot": "pot"
+    }
+  },
+  "attachable_wear_tunic_dev_with_nodes_item": {
+    "_extends": "attachable_tunic",
+    "item__uniqueName": "attachable_wear_tunic_with_nodes_item",
+    "animchar__res": "tunic_with_nodes_char",
+    "collres__res": "tunic_with_nodes_collision",
+    "_tracked": "attaches_list",
+    "attaches_list:list<eid>": [],
+    "skeleton_attach__remapAffectSlots:list<t>": [
+      {
+        "slot": "belt_1"
+      },
+      {
+        "slot": "backpack"
+      },
+      {
+        "slot": "pot"
+      }
+    ]
+  },
+  "attachable_wear_overcoat_dev_with_nodes_item": {
+    "_extends": "attachable_tunic",
+    "item__uniqueName": "attachable_wear_overcoat_with_nodes_item",
+    "animchar__res": "overcoat_with_nodes_char",
+    "collres__res": "overcoat_with_nodes_collision",
+    "animchar_fast_phys__res": "overcoat_with_nodes_fastphys",
+    "_tracked": "attaches_list",
+    "animchar_fast_phys": {
+      "_tags": "gameClient"
+    },
+    "attaches_list:list<eid>": [],
+    "skeleton_attach__remapAffectSlots:list<t>": [
+      {
+        "slot": "belt_1"
+      },
+      {
+        "slot": "backpack"
+      },
+      {
+        "slot": "pot"
+      }
+    ]
+  },
+  "attachable_wear_tornister_backpack_m39_nodes_item": {
+    "_extends": "attachable_backpack",
+    "item__uniqueName": "attachable_wear_tornister_backpack_m39_nodes_item",
+    "animchar__res": "tornister_backpack_m39_nodes_char",
+    "collres__res": "tornister_backpack_m39_nodes_collision",
+    "animchar_fast_phys__res": "tornister_backpack_m39_nodes_fastphys",
+    "_tracked": "attaches_list",
+    "animchar_fast_phys": {
+      "_tags": "gameClient"
+    },
+    "skeleton_attach__remapParentSlots:list<t>": {
+      "slot": "tunic"
+    },
+    "attaches_list:list<eid>": [],
+    "skeleton_attach__remapAffectSlots:list<t>": {
+      "slot": "pot"
+    }
+  },
+  "attachable_wear_pot_with_nodes_item": {
+    "_extends": "attachable_pot",
+    "item__uniqueName": "attachable_wear_pot_with_nodes_item",
+    "animchar__res": "pot_with_nodes_char",
+    "collres__res": "pot_with_nodes_collision",
+    "animchar_fast_phys__res": "pot_with_nodes_fastphys",
+    "animchar_fast_phys": {
+      "_tags": "gameClient"
+    },
+    "skeleton_attach__remapParentSlots:list<t>": [
+      {
+        "slot": "backpack"
+      },
+      {
+        "slot": "belt_1"
+      },
+      {
+        "slot": "tunic"
+      }
+    ],
+    "skeleton_attach__skipParentsRemapNodes:list<t>": [
+      {
+        "node": "d_pot_01_A"
+      },
+      {
+        "node": "d_pot_01_B"
+      }
+    ]
+  },
+  "dev_soldier": [
+    {
+      "_extends": "usa_base_soldier"
+    },
+    {
+      "_extends": "dev_soldier_tag"
+    },
+    {
+      "_extends": "stats_count_as_kill"
+    },
+    {
+      "beh_tree__node": "wanderer"
+    },
+    {
+      "devSoldier:tag": []
+    },
+    {
+      "human_equipment__initialEquip:object": {
+        "attachable_wear_head_01_us_summer_item": "face",
+        "attachable_wear_tunic_dev_with_nodes_item": "tunic",
+        "attachable_wear_gloves_01_us_summer_item": "gloves",
+        "attachable_wear_pants_01_ger_summer_item": "pants",
+        "attachable_wear_belt_dev_with_nodes_item": "belt_1",
+        "attachable_wear_tornister_backpack_m39_nodes_item": "backpack",
+        "attachable_wear_pot_with_nodes_item": "pot"
+      }
+    }
+  ],
+  "walk_soldier": {
+    "_extends": "dev_soldier",
+    "beh_tree__node": "walker"
+  },
+  "editor_soldier": {
+    "_extends": "dev_soldier",
+    "hitpoints__hp": 999999995904.0,
+    "hitpoints__maxHp": 999999995904.0,
+    "human_weap__weapTemplates:object": {
+      "melee": "knife_weapon"
+    },
+    "editor_soldier:tag": []
+  },
+  "dead_dev_soldier": [
+    {
+      "_extends": "usa_base_soldier"
+    },
+    {
+      "_extends": "dev_soldier_tag"
+    },
+    {
+      "_extends": "stats_count_as_kill"
+    },
+    {
+      "hitpoints__hp": -100.0
+    },
+    {
+      "devSoldier:tag": []
+    },
+    {
+      "human_equipment__initialEquip:object": {
+        "attachable_wear_head_01_us_summer_item": "face",
+        "attachable_wear_tunic_01_ger_summer_item": "tunic",
+        "attachable_wear_gloves_01_us_summer_item": "gloves",
+        "attachable_wear_pants_01_ger_summer_item": "pants"
+      }
+    }
+  ]
+}

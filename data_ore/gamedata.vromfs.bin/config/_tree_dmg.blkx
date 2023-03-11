@@ -34,6 +34,50 @@
   },
   {
     "dmg": {
+      "name": "corn_field_a",
+      "material": "bushes",
+      "bushBehaviour": true,
+      "canopyTopPart": 0.85,
+      "canopyWidthPart": 0.1,
+      "canopyTopOffset": 0.2,
+      "canopyOpacity": 0.8
+    }
+  },
+  {
+    "dmg": {
+      "name": "corn_field_b",
+      "material": "bushes",
+      "bushBehaviour": true,
+      "canopyTopPart": 0.85,
+      "canopyWidthPart": 0.1,
+      "canopyTopOffset": 0.2,
+      "canopyOpacity": 0.8
+    }
+  },
+  {
+    "dmg": {
+      "name": "corn_field_c",
+      "material": "bushes",
+      "bushBehaviour": true,
+      "canopyTopPart": 0.85,
+      "canopyWidthPart": 0.1,
+      "canopyTopOffset": 0.2,
+      "canopyOpacity": 0.8
+    }
+  },
+  {
+    "dmg": {
+      "name": "corn_field_d",
+      "material": "bushes",
+      "bushBehaviour": true,
+      "canopyTopPart": 0.85,
+      "canopyWidthPart": 0.1,
+      "canopyTopOffset": 0.2,
+      "canopyOpacity": 0.8
+    }
+  },
+  {
+    "dmg": {
       "name": "corn_field_bunch_1x1_a",
       "material": "bushes",
       "bushBehaviour": true,
@@ -107,6 +151,17 @@
       "canopyWidthPart": 0.95,
       "canopyTopOffset": 0.2,
       "canopyOpacity": 0.7
+    }
+  },
+  {
+    "dmg": {
+      "name": "corn_field_bunch_corner_a",
+      "material": "bushes",
+      "bushBehaviour": true,
+      "canopyTopPart": 0.85,
+      "canopyWidthPart": 0.85,
+      "canopyTopOffset": 0.2,
+      "canopyOpacity": 0.8
     }
   },
   {
@@ -397,85 +452,85 @@
   {
     "dmg": {
       "name": "tree_joshua_large_a",
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_joshua_large_b",
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_joshua_large_c",
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_joshua_large_d",
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_joshua_large_f",
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_joshua_large_g",
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_birch_snow_medium_a",
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_birch_snow_medium_b",
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_birch_dead_small_a",
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_birch_dead_small_b",
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_joshua_medium_a",
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_joshua_medium_b",
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_joshua_medium_c",
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_joshua_medium_d",
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
@@ -513,14 +568,14 @@
   {
     "dmg": {
       "name": "dry_tree_smaller_a",
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_olive_a",
       "destructionImpulse": 5500.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.4,
       "canopyWidthPart": 0.5,
@@ -532,7 +587,7 @@
     "dmg": {
       "name": "tree_olive_b",
       "destructionImpulse": 5500.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.4,
       "canopyWidthPart": 0.5,
@@ -544,7 +599,7 @@
     "dmg": {
       "name": "tree_olive_c",
       "destructionImpulse": 5500.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.4,
       "canopyWidthPart": 0.5,
@@ -556,7 +611,7 @@
     "dmg": {
       "name": "tree_olive_d",
       "destructionImpulse": 5500.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.4,
       "canopyWidthPart": 0.5,
@@ -567,20 +622,20 @@
   {
     "dmg": {
       "name": "tree_snow_small_a",
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_snow_small_b",
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_spruce_small_a",
       "destructionImpulse": 5500.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": true,
       "canopyTopPart": 0.9,
       "canopyWidthPart": 0.3,
@@ -592,7 +647,7 @@
     "dmg": {
       "name": "tree_spruce_small_b",
       "destructionImpulse": 5500.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": true,
       "canopyTopPart": 0.9,
       "canopyWidthPart": 0.3,
@@ -604,30 +659,30 @@
     "dmg": {
       "name": "tree_joshua_large_a",
       "destructionImpulse": 50.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_joshua_large_b",
       "destructionImpulse": 50.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_joshua_large_c",
       "destructionImpulse": 50.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_pine_extra_small_a",
       "destructionImpulse": 50.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
-      "canopyTopPart": 0.6,
+      "canopyTopPart": 0.88,
       "canopyWidthPart": 0.25,
       "canopyTopOffset": 0.15,
       "canopyOpacity": 0.25
@@ -637,7 +692,7 @@
     "dmg": {
       "name": "tree_tilia_smaller_a",
       "destructionImpulse": 50.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.3,
       "canopyWidthPart": 0.35,
@@ -649,7 +704,7 @@
     "dmg": {
       "name": "tree_tilia_smaller_b",
       "destructionImpulse": 50.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.4,
       "canopyWidthPart": 0.2,
@@ -661,7 +716,7 @@
     "dmg": {
       "name": "tree_tilia_smaller_c",
       "destructionImpulse": 50.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.3,
       "canopyWidthPart": 0.25,
@@ -673,77 +728,77 @@
     "dmg": {
       "name": "dry_tree_small_a",
       "destructionImpulse": 4000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "dry_tree_small_b",
       "destructionImpulse": 4000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_apple_small_a",
       "destructionImpulse": 4000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_apple_small_b",
       "destructionImpulse": 4000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_maple_small_a",
       "destructionImpulse": 4000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_maple_small_b",
       "destructionImpulse": 4000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_birch_dead_medium_double_a",
       "destructionImpulse": 4000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_birch_dead_medium_triple_a",
       "destructionImpulse": 4000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_birch_dead_medium_a",
       "destructionImpulse": 4000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_birch_dead_medium_b",
       "destructionImpulse": 4000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_autumn_medium_a",
       "destructionImpulse": 4000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.4,
       "canopyWidthPart": 0.35,
@@ -755,7 +810,7 @@
     "dmg": {
       "name": "tree_autumn_medium_b",
       "destructionImpulse": 4000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.4,
       "canopyWidthPart": 0.35,
@@ -767,7 +822,7 @@
     "dmg": {
       "name": "tree_autumn_medium_c",
       "destructionImpulse": 4000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.4,
       "canopyWidthPart": 0.35,
@@ -779,7 +834,7 @@
     "dmg": {
       "name": "tree_autumn_medium_d",
       "destructionImpulse": 4000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.4,
       "canopyWidthPart": 0.35,
@@ -791,7 +846,7 @@
     "dmg": {
       "name": "tree_autumn_medium_a_limed",
       "destructionImpulse": 4000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.4,
       "canopyWidthPart": 0.35,
@@ -803,7 +858,7 @@
     "dmg": {
       "name": "tree_autumn_medium_b_limed",
       "destructionImpulse": 4000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.4,
       "canopyWidthPart": 0.35,
@@ -815,7 +870,7 @@
     "dmg": {
       "name": "tree_autumn_medium_c_limed",
       "destructionImpulse": 4000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.4,
       "canopyWidthPart": 0.35,
@@ -827,7 +882,7 @@
     "dmg": {
       "name": "tree_autumn_medium_d_limed",
       "destructionImpulse": 4000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.4,
       "canopyWidthPart": 0.35,
@@ -839,21 +894,21 @@
     "dmg": {
       "name": "tree_populus_medium_a",
       "destructionImpulse": 4000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_populus_medium_b",
       "destructionImpulse": 4000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_pine_medium_a",
       "destructionImpulse": 4000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": true,
       "canopyTopPart": 0.5,
       "canopyWidthPart": 0.3,
@@ -865,7 +920,7 @@
     "dmg": {
       "name": "tree_pine_medium_b",
       "destructionImpulse": 4000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": true,
       "canopyTopPart": 0.5,
       "canopyWidthPart": 0.3,
@@ -877,49 +932,49 @@
     "dmg": {
       "name": "tree_fir_snow_medium_a",
       "destructionImpulse": 4000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_fir_snow_medium_b",
       "destructionImpulse": 4000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_birch_snow_large_a",
       "destructionImpulse": 4000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_birch_snow_large_b",
       "destructionImpulse": 4000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_populus_small_a",
       "destructionImpulse": 4000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_populus_small_b",
       "destructionImpulse": 4000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_spruce_medium_a",
       "destructionImpulse": 4000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": true,
       "canopyTopPart": 0.75,
       "canopyWidthPart": 0.3,
@@ -931,7 +986,7 @@
     "dmg": {
       "name": "tree_spruce_medium_b",
       "destructionImpulse": 4000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": true,
       "canopyTopPart": 0.65,
       "canopyWidthPart": 0.3,
@@ -943,7 +998,7 @@
     "dmg": {
       "name": "tree_tilia_small_a",
       "destructionImpulse": 4000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.45,
       "canopyWidthPart": 0.3,
@@ -955,7 +1010,7 @@
     "dmg": {
       "name": "tree_tilia_small_b",
       "destructionImpulse": 4000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.45,
       "canopyWidthPart": 0.3,
@@ -967,21 +1022,21 @@
     "dmg": {
       "name": "tree_tilia_small_burnt_a",
       "destructionImpulse": 4000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_tilia_small_burnt_b",
       "destructionImpulse": 4000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_pine_small_a",
       "destructionImpulse": 5500.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": true,
       "canopyTopPart": 0.4,
       "canopyWidthPart": 0.4,
@@ -993,7 +1048,7 @@
     "dmg": {
       "name": "tree_pine_small_b",
       "destructionImpulse": 5050.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": true,
       "canopyTopPart": 0.4,
       "canopyWidthPart": 0.4,
@@ -1005,7 +1060,7 @@
     "dmg": {
       "name": "tree_pine_small_c",
       "destructionImpulse": 5500.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.4,
       "canopyWidthPart": 0.4,
@@ -1017,7 +1072,7 @@
     "dmg": {
       "name": "tree_pine_small_d",
       "destructionImpulse": 5050.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": true,
       "canopyTopPart": 0.4,
       "canopyWidthPart": 0.3,
@@ -1029,112 +1084,112 @@
     "dmg": {
       "name": "tree_apple_dead_small_a",
       "destructionImpulse": 2000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_apple_dead_small_b",
       "destructionImpulse": 2000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_poplar_bush_large_a",
       "destructionImpulse": 6000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_poplar_bush_large_b",
       "destructionImpulse": 6000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_fan_palm_small_a",
       "destructionImpulse": 6000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_fan_palm_small_b",
       "destructionImpulse": 6000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_fan_palm_small_c",
       "destructionImpulse": 6000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_fan_palm_small_d",
       "destructionImpulse": 6000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_date_palm_smaller_a",
       "destructionImpulse": 6000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_tilia_dead_small_a",
       "destructionImpulse": 6000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_tilia_dead_small_b",
       "destructionImpulse": 6000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_tilia_mobile_dead_small_a",
       "destructionImpulse": 6000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_tilia_mobile_dead_small_b",
       "destructionImpulse": 6000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_maple_medium_a",
       "destructionImpulse": 9000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_maple_medium_b",
       "destructionImpulse": 9000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_date_palm_medium_a",
       "destructionImpulse": 9000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.45,
       "canopyWidthPart": 0.3,
@@ -1146,7 +1201,7 @@
     "dmg": {
       "name": "tree_date_palm_medium_b",
       "destructionImpulse": 9000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.35,
       "canopyWidthPart": 0.4,
@@ -1158,7 +1213,7 @@
     "dmg": {
       "name": "tree_date_palm_medium_c",
       "destructionImpulse": 9000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.2,
       "canopyWidthPart": 0.3,
@@ -1170,7 +1225,7 @@
     "dmg": {
       "name": "tree_date_palm_medium_d",
       "destructionImpulse": 9000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.2,
       "canopyWidthPart": 0.3,
@@ -1182,7 +1237,7 @@
     "dmg": {
       "name": "tree_date_palm_large_tall_a",
       "destructionImpulse": 9000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.3,
       "canopyWidthPart": 0.2,
@@ -1194,7 +1249,7 @@
     "dmg": {
       "name": "tree_date_palm_large_tall_b",
       "destructionImpulse": 9000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.2,
       "canopyWidthPart": 0.3,
@@ -1206,7 +1261,7 @@
     "dmg": {
       "name": "tree_date_palm_large_tall_c",
       "destructionImpulse": 9000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.2,
       "canopyWidthPart": 0.3,
@@ -1218,7 +1273,7 @@
     "dmg": {
       "name": "tree_date_palm_large_tall_d",
       "destructionImpulse": 9000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.2,
       "canopyWidthPart": 0.25,
@@ -1230,7 +1285,7 @@
     "dmg": {
       "name": "tree_date_palm_large_tall_f",
       "destructionImpulse": 9000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.2,
       "canopyWidthPart": 0.25,
@@ -1242,56 +1297,56 @@
     "dmg": {
       "name": "tree_apple_medium_a",
       "destructionImpulse": 9000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_apple_medium_b",
       "destructionImpulse": 9000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_pine_wide_a",
       "destructionImpulse": 9000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_tilia_medium_a",
       "destructionImpulse": 9000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_tilia_medium_b",
       "destructionImpulse": 9000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_tilia_medium_c",
       "destructionImpulse": 9000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_tilia_medium_d",
       "destructionImpulse": 9000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_pinus_sibirica_medium_a",
       "destructionImpulse": 9000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.6,
       "canopyWidthPart": 0.1,
@@ -1303,7 +1358,7 @@
     "dmg": {
       "name": "tree_pinus_sibirica_medium_b",
       "destructionImpulse": 9000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.4,
       "canopyWidthPart": 0.15,
@@ -1315,21 +1370,104 @@
     "dmg": {
       "name": "tree_fir_snow_lush_medium_a",
       "destructionImpulse": 9000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_fir_snow_lush_medium_b",
       "destructionImpulse": 9000.0,
-      "material": "wood"
+      "material": "wood_solid"
+    }
+  },
+  {
+    "dmg": {
+      "name": "tree_guadua_angustifolia_medium_a",
+      "destructionImpulse": 9000.0,
+      "material": "wood_solid",
+      "canopyTriangle": false,
+      "canopyTopPart": 0.4,
+      "canopyWidthPart": 0.1,
+      "canopyTopOffset": 0.05,
+      "canopyOpacity": 0.5
+    }
+  },
+  {
+    "dmg": {
+      "name": "tree_guadua_angustifolia_medium_b",
+      "destructionImpulse": 9000.0,
+      "material": "wood_solid",
+      "canopyTriangle": false,
+      "canopyTopPart": 0.4,
+      "canopyWidthPart": 0.1,
+      "canopyTopOffset": 0.05,
+      "canopyOpacity": 0.5
+    }
+  },
+  {
+    "dmg": {
+      "name": "tree_guadua_angustifolia_small_a",
+      "destructionImpulse": 9000.0,
+      "material": "wood_solid",
+      "canopyTriangle": false,
+      "canopyTopPart": 0.4,
+      "canopyWidthPart": 0.1,
+      "canopyTopOffset": 0.05,
+      "canopyOpacity": 0.5
+    }
+  },
+  {
+    "dmg": {
+      "name": "tree_guadua_angustifolia_small_b",
+      "destructionImpulse": 9000.0,
+      "material": "wood_solid",
+      "canopyTriangle": false,
+      "canopyTopPart": 0.4,
+      "canopyWidthPart": 0.1,
+      "canopyTopOffset": 0.05,
+      "canopyOpacity": 0.5
+    }
+  },
+  {
+    "dmg": {
+      "name": "tree_guadua_angustifolia_bend_a",
+      "destructionImpulse": 9000.0,
+      "material": "wood_solid"
+    }
+  },
+  {
+    "dmg": {
+      "name": "tree_guadua_angustifolia_bend_b",
+      "destructionImpulse": 9000.0,
+      "material": "wood_solid"
+    }
+  },
+  {
+    "dmg": {
+      "name": "tree_guadua_angustifolia_bend_c",
+      "destructionImpulse": 9000.0,
+      "material": "wood_solid"
+    }
+  },
+  {
+    "dmg": {
+      "name": "tree_guadua_angustifolia_cut_a",
+      "destructionImpulse": 9000.0,
+      "material": "wood_solid"
+    }
+  },
+  {
+    "dmg": {
+      "name": "tree_guadua_angustifolia_cut_b",
+      "destructionImpulse": 9000.0,
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_date_palm_small_a",
       "destructionImpulse": 9000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.4,
       "canopyWidthPart": 0.4,
@@ -1341,7 +1479,7 @@
     "dmg": {
       "name": "tree_date_palm_small_b",
       "destructionImpulse": 9000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.4,
       "canopyWidthPart": 0.4,
@@ -1353,7 +1491,7 @@
     "dmg": {
       "name": "tree_date_palm_small_c",
       "destructionImpulse": 9000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.8,
       "canopyWidthPart": 0.5,
@@ -1365,7 +1503,7 @@
     "dmg": {
       "name": "tree_date_palm_small_d",
       "destructionImpulse": 9000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.8,
       "canopyWidthPart": 0.5,
@@ -1377,140 +1515,140 @@
     "dmg": {
       "name": "tree_fan_palm_medium_a",
       "destructionImpulse": 9000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_fan_palm_medium_b",
       "destructionImpulse": 9000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_populus_large_a",
       "destructionImpulse": 9000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_populus_large_b",
       "destructionImpulse": 9000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_snow_large_a",
       "destructionImpulse": 9000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_snow_large_b",
       "destructionImpulse": 9000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_snow_large_c",
       "destructionImpulse": 9000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_tilia_small_a",
       "destructionImpulse": 9000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_tilia_small_b",
       "destructionImpulse": 9000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_tilia_medium_burnt_a",
       "destructionImpulse": 9000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_tilia_medium_burnt_b",
       "destructionImpulse": 9000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_apple_dead_medium_a",
       "destructionImpulse": 9000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_apple_dead_medium_b",
       "destructionImpulse": 9000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_tilia_dead_medium_a",
       "destructionImpulse": 9000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_tilia_dead_medium_b",
       "destructionImpulse": 9000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_tilia_mobile_dead_medium_a",
       "destructionImpulse": 9000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_tilia_mobile_dead_medium_b",
       "destructionImpulse": 9000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_fir_snow_large_a",
       "destructionImpulse": 9000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_fir_snow_large_b",
       "destructionImpulse": 9000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_tectona_grandis_medium_a",
       "destructionImpulse": 9000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.35,
       "canopyWidthPart": 0.45,
@@ -1522,7 +1660,7 @@
     "dmg": {
       "name": "tree_tectona_grandis_medium_b",
       "destructionImpulse": 9000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.35,
       "canopyWidthPart": 0.45,
@@ -1534,7 +1672,7 @@
     "dmg": {
       "name": "tree_agathis_robusta_medium_a",
       "destructionImpulse": 9000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.35,
       "canopyWidthPart": 0.5,
@@ -1546,7 +1684,7 @@
     "dmg": {
       "name": "tree_agathis_robusta_medium_b",
       "destructionImpulse": 9000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.35,
       "canopyWidthPart": 0.4,
@@ -1558,7 +1696,7 @@
     "dmg": {
       "name": "tree_pacific_mangroves_a",
       "destructionImpulse": 90000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.5,
       "canopyWidthPart": 0.35,
@@ -1570,7 +1708,7 @@
     "dmg": {
       "name": "tree_pacific_mangroves_b",
       "destructionImpulse": 90000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.3,
       "canopyWidthPart": 0.35,
@@ -1582,7 +1720,7 @@
     "dmg": {
       "name": "tree_pacific_mangroves_c",
       "destructionImpulse": 90000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.3,
       "canopyWidthPart": 0.35,
@@ -1594,7 +1732,7 @@
     "dmg": {
       "name": "tree_olive_large_a",
       "destructionImpulse": 11000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.5,
       "canopyWidthPart": 0.6,
@@ -1606,7 +1744,7 @@
     "dmg": {
       "name": "tree_olive_large_b",
       "destructionImpulse": 11000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.5,
       "canopyWidthPart": 0.5,
@@ -1618,21 +1756,21 @@
     "dmg": {
       "name": "tree_populus_wide_a",
       "destructionImpulse": 11000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_populus_wide_b",
       "destructionImpulse": 11000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_acacia_wide_a",
       "destructionImpulse": 11000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.3,
       "canopyWidthPart": 0.7,
@@ -1644,7 +1782,7 @@
     "dmg": {
       "name": "tree_acacia_wide_b",
       "destructionImpulse": 11000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.3,
       "canopyWidthPart": 0.7,
@@ -1656,35 +1794,35 @@
     "dmg": {
       "name": "dry_tree_medium_a",
       "destructionImpulse": 11000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "dry_tree_medium_b",
       "destructionImpulse": 11000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_tilia_mobile_small_a",
       "destructionImpulse": 11000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_tilia_mobile_small_b",
       "destructionImpulse": 11000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "dry_tree_wide_b",
       "destructionImpulse": 11000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.5,
       "canopyWidthPart": 0.2,
@@ -1696,7 +1834,7 @@
     "dmg": {
       "name": "dry_tree_wide_c",
       "destructionImpulse": 11000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.5,
       "canopyWidthPart": 0.2,
@@ -1708,7 +1846,7 @@
     "dmg": {
       "name": "tree_agathis_robusta_tall_a",
       "destructionImpulse": 11000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.45,
       "canopyWidthPart": 0.35,
@@ -1720,7 +1858,7 @@
     "dmg": {
       "name": "tree_agathis_robusta_tall_b",
       "destructionImpulse": 11000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.45,
       "canopyWidthPart": 0.35,
@@ -1732,7 +1870,7 @@
     "dmg": {
       "name": "tree_autumn_large_a",
       "destructionImpulse": 9000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.45,
       "canopyWidthPart": 0.35,
@@ -1744,7 +1882,7 @@
     "dmg": {
       "name": "tree_autumn_large_b",
       "destructionImpulse": 9000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.45,
       "canopyWidthPart": 0.3,
@@ -1756,7 +1894,7 @@
     "dmg": {
       "name": "tree_autumn_large_c",
       "destructionImpulse": 9000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.45,
       "canopyWidthPart": 0.3,
@@ -1768,7 +1906,7 @@
     "dmg": {
       "name": "tree_autumn_large_d",
       "destructionImpulse": 9000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.55,
       "canopyWidthPart": 0.35,
@@ -1780,7 +1918,7 @@
     "dmg": {
       "name": "tree_autumn_large_a_limed",
       "destructionImpulse": 9000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.45,
       "canopyWidthPart": 0.35,
@@ -1792,7 +1930,7 @@
     "dmg": {
       "name": "tree_autumn_large_b_limed",
       "destructionImpulse": 9000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.45,
       "canopyWidthPart": 0.3,
@@ -1804,7 +1942,7 @@
     "dmg": {
       "name": "tree_autumn_large_c_limed",
       "destructionImpulse": 9000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.45,
       "canopyWidthPart": 0.3,
@@ -1816,7 +1954,7 @@
     "dmg": {
       "name": "tree_autumn_large_d_limed",
       "destructionImpulse": 9000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.55,
       "canopyWidthPart": 0.35,
@@ -1828,35 +1966,35 @@
     "dmg": {
       "name": "tree_birch_dead_tall_a",
       "destructionImpulse": 9000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_birch_dead_tall_b",
       "destructionImpulse": 9000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_poplar_medium_a",
       "destructionImpulse": 9000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_poplar_medium_b",
       "destructionImpulse": 9000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_eucalyptus_a",
       "destructionImpulse": 11000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.35,
       "canopyWidthPart": 0.35,
@@ -1868,7 +2006,7 @@
     "dmg": {
       "name": "tree_eucalyptus_b",
       "destructionImpulse": 11000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.35,
       "canopyWidthPart": 0.35,
@@ -1880,7 +2018,7 @@
     "dmg": {
       "name": "tree_eucalyptus_c",
       "destructionImpulse": 11000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.55,
       "canopyWidthPart": 0.4,
@@ -1892,7 +2030,7 @@
     "dmg": {
       "name": "tree_eucalyptus_d",
       "destructionImpulse": 11000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.5,
       "canopyWidthPart": 0.35,
@@ -1904,7 +2042,7 @@
     "dmg": {
       "name": "tree_eucalyptus_f",
       "destructionImpulse": 11000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.65,
       "canopyWidthPart": 0.5,
@@ -1916,7 +2054,7 @@
     "dmg": {
       "name": "tree_tectona_grandis_tall_a",
       "destructionImpulse": 90000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.35,
       "canopyWidthPart": 0.45,
@@ -1928,7 +2066,7 @@
     "dmg": {
       "name": "tree_tectona_grandis_tall_b",
       "destructionImpulse": 90000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.35,
       "canopyWidthPart": 0.45,
@@ -1940,7 +2078,7 @@
     "dmg": {
       "name": "tree_pine_tall_a",
       "destructionImpulse": 9000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": true,
       "canopyTopPart": 0.4,
       "canopyWidthPart": 0.2,
@@ -1952,7 +2090,7 @@
     "dmg": {
       "name": "tree_pine_tall_b",
       "destructionImpulse": 9000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": true,
       "canopyTopPart": 0.4,
       "canopyWidthPart": 0.2,
@@ -1964,7 +2102,7 @@
     "dmg": {
       "name": "tree_pine_tall_a_roots",
       "destructionImpulse": 90000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": true,
       "canopyTopPart": 0.4,
       "canopyWidthPart": 0.2,
@@ -1976,7 +2114,7 @@
     "dmg": {
       "name": "tree_pine_tall_b_roots",
       "destructionImpulse": 90000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": true,
       "canopyTopPart": 0.4,
       "canopyWidthPart": 0.2,
@@ -1988,63 +2126,63 @@
     "dmg": {
       "name": "tree_tilia_dead_slim_a",
       "destructionImpulse": 9000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_tilia_dead_slim_b",
       "destructionImpulse": 9000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_tilia_dead_slim_double_a",
       "destructionImpulse": 9000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_tilia_dead_slim_triple_a",
       "destructionImpulse": 9000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_fan_palm_large_a",
       "destructionImpulse": 9000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_fan_palm_large_b",
       "destructionImpulse": 9000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_fan_palm_large_c",
       "destructionImpulse": 9000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_fan_palm_large_d",
       "destructionImpulse": 9000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_date_palm_large_a",
       "destructionImpulse": 9000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.3,
       "canopyWidthPart": 0.35,
@@ -2056,7 +2194,7 @@
     "dmg": {
       "name": "tree_date_palm_large_b",
       "destructionImpulse": 9000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.3,
       "canopyWidthPart": 0.35,
@@ -2068,7 +2206,7 @@
     "dmg": {
       "name": "tree_date_palm_large_c",
       "destructionImpulse": 9000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.3,
       "canopyWidthPart": 0.35,
@@ -2080,7 +2218,7 @@
     "dmg": {
       "name": "tree_date_palm_large_d",
       "destructionImpulse": 9000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.2,
       "canopyWidthPart": 0.25,
@@ -2092,7 +2230,7 @@
     "dmg": {
       "name": "tree_date_palm_large_f",
       "destructionImpulse": 9000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.2,
       "canopyWidthPart": 0.35,
@@ -2104,7 +2242,7 @@
     "dmg": {
       "name": "tree_cypress_medium_a",
       "destructionImpulse": 9000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.75,
       "canopyWidthPart": 0.15,
@@ -2116,7 +2254,7 @@
     "dmg": {
       "name": "tree_cypress_medium_b",
       "destructionImpulse": 9000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.75,
       "canopyWidthPart": 0.15,
@@ -2128,7 +2266,7 @@
     "dmg": {
       "name": "tree_cypress_medium_c",
       "destructionImpulse": 9000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.6,
       "canopyWidthPart": 0.15,
@@ -2140,7 +2278,7 @@
     "dmg": {
       "name": "tree_cypress_medium_d",
       "destructionImpulse": 9000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.6,
       "canopyWidthPart": 0.15,
@@ -2152,56 +2290,56 @@
     "dmg": {
       "name": "tree_fir_snow_lush_large_a",
       "destructionImpulse": 9000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_fir_snow_lush_large_b",
       "destructionImpulse": 9000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_spruce_lush_medium_a",
       "destructionImpulse": 9000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_spruce_lush_medium_b",
       "destructionImpulse": 9000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_tilia_tall_a",
       "destructionImpulse": 9000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_tilia_tall_b",
       "destructionImpulse": 9000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_tilia_tall_c",
       "destructionImpulse": 9000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_spruce_tall_a",
       "destructionImpulse": 9000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": true,
       "canopyTopPart": 0.45,
       "canopyWidthPart": 0.25,
@@ -2213,7 +2351,7 @@
     "dmg": {
       "name": "tree_spruce_tall_b",
       "destructionImpulse": 9000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": true,
       "canopyTopPart": 0.4,
       "canopyWidthPart": 0.25,
@@ -2225,7 +2363,7 @@
     "dmg": {
       "name": "tree_pinus_sibirica_large_a",
       "destructionImpulse": 9000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.5,
       "canopyWidthPart": 0.1,
@@ -2237,7 +2375,7 @@
     "dmg": {
       "name": "tree_pinus_sibirica_large_b",
       "destructionImpulse": 9000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.6,
       "canopyWidthPart": 0.1,
@@ -2249,7 +2387,7 @@
     "dmg": {
       "name": "tree_pinus_sibirica_large_c",
       "destructionImpulse": 9000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.6,
       "canopyWidthPart": 0.1,
@@ -2261,7 +2399,7 @@
     "dmg": {
       "name": "tree_date_palm_cut_a",
       "destructionImpulse": 9000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.3,
       "canopyWidthPart": 0.15,
@@ -2273,7 +2411,7 @@
     "dmg": {
       "name": "tree_date_palm_cut_b",
       "destructionImpulse": 9000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.3,
       "canopyWidthPart": 0.15,
@@ -2285,154 +2423,154 @@
     "dmg": {
       "name": "tree_snow_larger_a",
       "destructionImpulse": 9000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_snow_larger_b",
       "destructionImpulse": 9000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_tilia_slim_a",
       "destructionImpulse": 9000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_tilia_slim_b",
       "destructionImpulse": 9000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_tilia_tall_burnt_a",
       "destructionImpulse": 9000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_tilia_tall_burnt_b",
       "destructionImpulse": 9000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_tilia_mobile_dead_tall_a",
       "destructionImpulse": 9000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_tilia_mobile_dead_tall_b",
       "destructionImpulse": 9000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_debris_spruce_a",
       "destructionImpulse": 9000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_apple_wide_a",
       "destructionImpulse": 50000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_apple_wide_b",
       "destructionImpulse": 50000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_apple_dead_wide_a",
       "destructionImpulse": 50000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_apple_dead_wide_b",
       "destructionImpulse": 50000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_oak_medium_a",
       "destructionImpulse": 50000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_oak_medium_b",
       "destructionImpulse": 50000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_tilia_mobile_medium_a",
       "destructionImpulse": 50000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_tilia_mobile_medium_b",
       "destructionImpulse": 50000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_tilia_mobile_wide_a",
       "destructionImpulse": 50000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_tilia_mobile_wide_b",
       "destructionImpulse": 50000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_tilia_mobile_dead_wide_a",
       "destructionImpulse": 50000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_tilia_mobile_dead_wide_b",
       "destructionImpulse": 50000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_maple_tall_a",
       "destructionImpulse": 60000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.5,
       "canopyWidthPart": 0.4,
@@ -2444,7 +2582,7 @@
     "dmg": {
       "name": "tree_maple_tall_b",
       "destructionImpulse": 60000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.5,
       "canopyWidthPart": 0.4,
@@ -2456,98 +2594,98 @@
     "dmg": {
       "name": "tree_fan_palm_tall_a",
       "destructionImpulse": 60000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_poplar_large_a",
       "destructionImpulse": 60000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_poplar_large_b",
       "destructionImpulse": 60000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_spruce_lush_a",
       "destructionImpulse": 60000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_spruce_lush_b",
       "destructionImpulse": 60000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_spruce_lush_c",
       "destructionImpulse": 60000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_spruce_lush_d",
       "destructionImpulse": 60000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_tilia_mobile_tall_a",
       "destructionImpulse": 60000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_tilia_mobile_tall_b",
       "destructionImpulse": 60000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_pine_tall_a",
       "destructionImpulse": 60000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_pine_tall_b",
       "destructionImpulse": 60000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_tilia_dead_tall_a",
       "destructionImpulse": 60000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_tilia_dead_tall_b",
       "destructionImpulse": 60000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "dry_tree_wide_d",
       "destructionImpulse": 60000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.5,
       "canopyWidthPart": 0.3,
@@ -2559,7 +2697,7 @@
     "dmg": {
       "name": "dry_tree_wide_a",
       "destructionImpulse": 60000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.5,
       "canopyWidthPart": 0.3,
@@ -2571,70 +2709,70 @@
     "dmg": {
       "name": "tree_tilia_wide_a",
       "destructionImpulse": 60000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_tilia_wide_b",
       "destructionImpulse": 60000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_tilia_wide_c",
       "destructionImpulse": 60000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_tilia_dead_wide_a",
       "destructionImpulse": 5000000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_tilia_dead_wide_b",
       "destructionImpulse": 5000000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_tropic_mobile_large_c",
       "destructionImpulse": 5000000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_tropic_mobile_large_a",
       "destructionImpulse": 5000000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_tropic_mobile_large_b",
       "destructionImpulse": 5000000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_tropic_mobile_large_c",
       "destructionImpulse": 5000000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_tropic_large_a",
       "destructionImpulse": 5000000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.2,
       "canopyWidthPart": 0.25,
@@ -2646,7 +2784,7 @@
     "dmg": {
       "name": "tree_tropic_large_b",
       "destructionImpulse": 5000000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.2,
       "canopyWidthPart": 0.25,
@@ -2658,7 +2796,7 @@
     "dmg": {
       "name": "tree_tropic_large_c",
       "destructionImpulse": 5000000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.2,
       "canopyWidthPart": 0.25,
@@ -2670,7 +2808,7 @@
     "dmg": {
       "name": "tree_cypress_large_a",
       "destructionImpulse": 5000000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.7,
       "canopyWidthPart": 0.15,
@@ -2682,7 +2820,7 @@
     "dmg": {
       "name": "tree_cypress_large_b",
       "destructionImpulse": 5000000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.7,
       "canopyWidthPart": 0.15,
@@ -2694,196 +2832,196 @@
     "dmg": {
       "name": "tree_pine_large_a",
       "destructionImpulse": 5000000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_pine_large_b",
       "destructionImpulse": 5000000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_pine_large_c",
       "destructionImpulse": 5000000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_fagus_tall_a",
       "destructionImpulse": 5000000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_fagus_tall_b",
       "destructionImpulse": 5000000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_fagus_tall_c",
       "destructionImpulse": 5000000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_fagus_tall_d",
       "destructionImpulse": 5000000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_crimea_pine_medium_a",
       "destructionImpulse": 5000000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_crimea_pine_medium_b",
       "destructionImpulse": 5000000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_crimea_pine_large_a",
       "destructionImpulse": 5000000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_crimea_pine_large_b",
       "destructionImpulse": 5000000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_crimea_pine_large_c",
       "destructionImpulse": 5000000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_crimea_pine_ivy_medium_a",
       "destructionImpulse": 5000000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_crimea_pine_ivy_large_a",
       "destructionImpulse": 5000000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_spruce_large_a",
       "destructionImpulse": 5000000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_spruce_large_b",
       "destructionImpulse": 5000000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_oak_dead_tall_a",
       "destructionImpulse": 5000000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_oak_dead_tall_b",
       "destructionImpulse": 5000000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_oak_dead_medium_a",
       "destructionImpulse": 5000000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_oak_dead_medium_b",
       "destructionImpulse": 5000000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_oak_dead_unic_a",
       "destructionImpulse": 5000000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_oak_dead_wide_a",
       "destructionImpulse": 5000000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_oak_dead_wide_b",
       "destructionImpulse": 5000000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_oak_tall_a",
       "destructionImpulse": 5000000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_oak_tall_b",
       "destructionImpulse": 5000000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_oak_wide_a",
       "destructionImpulse": 5000000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_oak_wide_b",
       "destructionImpulse": 5000000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_tilia_slim_double_a",
       "destructionImpulse": 5000000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.45,
       "canopyTopOffset": 0.1,
@@ -2895,7 +3033,7 @@
     "dmg": {
       "name": "tree_tilia_slim_double_b",
       "destructionImpulse": 5000000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.45,
       "canopyTopOffset": 0.1,
@@ -2907,7 +3045,7 @@
     "dmg": {
       "name": "tree_tilia_slim_triple_a",
       "destructionImpulse": 5000000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.45,
       "canopyTopOffset": 0.1,
@@ -2919,7 +3057,7 @@
     "dmg": {
       "name": "tree_tilia_slim_triple_b",
       "destructionImpulse": 5000000.0,
-      "material": "wood",
+      "material": "wood_solid",
       "canopyTriangle": false,
       "canopyTopPart": 0.45,
       "canopyTopOffset": 0.1,
@@ -2931,28 +3069,28 @@
     "dmg": {
       "name": "tree_tilia_unic_a",
       "destructionImpulse": 5000000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_tilia_wide_d",
       "destructionImpulse": 5000000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_apple_dead_wide_b",
       "destructionImpulse": 5000000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
     "dmg": {
       "name": "tree_debris_spruce_fallen_a",
       "destructionImpulse": 5000000.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
@@ -2966,7 +3104,8 @@
       "canopyOpacity": 0.5,
       "fx": "wood_mid_destr",
       "fxScale": 1.0,
-      "material": "wood"
+      "material": "wood_solid",
+      "isParent": true
     }
   },
   {
@@ -2980,7 +3119,8 @@
       "canopyOpacity": 0.5,
       "fx": "wood_mid_destr",
       "fxScale": 1.0,
-      "material": "wood"
+      "material": "wood_solid",
+      "isParent": true
     }
   },
   {
@@ -2994,7 +3134,8 @@
       "canopyOpacity": 0.5,
       "fx": "wood_mid_destr",
       "fxScale": 1.0,
-      "material": "wood"
+      "material": "wood_solid",
+      "isParent": true
     }
   },
   {
@@ -3008,7 +3149,8 @@
       "canopyOpacity": 0.5,
       "fx": "wood_mid_destr",
       "fxScale": 1.0,
-      "material": "wood"
+      "material": "wood_solid",
+      "isParent": true
     }
   },
   {
@@ -3022,7 +3164,8 @@
       "canopyOpacity": 0.5,
       "fx": "wood_mid_destr",
       "fxScale": 1.0,
-      "material": "wood"
+      "material": "wood_solid",
+      "isParent": true
     }
   },
   {
@@ -3036,7 +3179,8 @@
       "canopyOpacity": 0.5,
       "fx": "wood_mid_destr",
       "fxScale": 1.0,
-      "material": "wood"
+      "material": "wood_solid",
+      "isParent": true
     }
   },
   {
@@ -3050,7 +3194,8 @@
       "canopyOpacity": 0.5,
       "fx": "wood_mid_destr",
       "fxScale": 1.0,
-      "material": "wood"
+      "material": "wood_solid",
+      "isParent": true
     }
   },
   {
@@ -3064,7 +3209,8 @@
       "canopyOpacity": 0.5,
       "fx": "wood_mid_destr",
       "fxScale": 1.0,
-      "material": "wood"
+      "material": "wood_solid",
+      "isParent": true
     }
   },
   {
@@ -3078,7 +3224,8 @@
       "canopyOpacity": 0.5,
       "fx": "wood_mid_destr",
       "fxScale": 1.0,
-      "material": "wood"
+      "material": "wood_solid",
+      "isParent": true
     }
   },
   {
@@ -3092,7 +3239,8 @@
       "canopyOpacity": 0.5,
       "fx": "wood_mid_destr",
       "fxScale": 1.0,
-      "material": "wood"
+      "material": "wood_solid",
+      "isParent": true
     }
   },
   {
@@ -3106,7 +3254,8 @@
       "canopyOpacity": 0.5,
       "fx": "wood_mid_destr",
       "fxScale": 1.0,
-      "material": "wood"
+      "material": "wood_solid",
+      "isParent": true
     }
   },
   {
@@ -3120,7 +3269,8 @@
       "canopyOpacity": 0.5,
       "fx": "wood_mid_destr",
       "fxScale": 1.0,
-      "material": "wood"
+      "material": "wood_solid",
+      "isParent": true
     }
   },
   {
@@ -3134,7 +3284,7 @@
       "canopyOpacity": 0.5,
       "fx": "wood_mid_destr",
       "fxScale": 1.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
@@ -3148,7 +3298,7 @@
       "canopyOpacity": 0.5,
       "fx": "wood_mid_destr",
       "fxScale": 1.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
@@ -3162,7 +3312,7 @@
       "canopyOpacity": 0.5,
       "fx": "wood_mid_destr",
       "fxScale": 1.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
@@ -3176,7 +3326,7 @@
       "canopyOpacity": 0.5,
       "fx": "wood_mid_destr",
       "fxScale": 1.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
@@ -3190,7 +3340,7 @@
       "canopyOpacity": 0.5,
       "fx": "wood_mid_destr",
       "fxScale": 1.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
@@ -3204,7 +3354,7 @@
       "canopyOpacity": 0.5,
       "fx": "wood_mid_destr",
       "fxScale": 1.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
@@ -3218,7 +3368,7 @@
       "canopyOpacity": 0.5,
       "fx": "wood_small_destr",
       "fxScale": 1.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
@@ -3232,7 +3382,7 @@
       "canopyOpacity": 0.5,
       "fx": "wood_small_destr",
       "fxScale": 1.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
@@ -3246,7 +3396,7 @@
       "canopyOpacity": 0.5,
       "fx": "wood_small_destr",
       "fxScale": 1.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
@@ -3260,7 +3410,7 @@
       "canopyOpacity": 0.5,
       "fx": "wood_small_destr",
       "fxScale": 1.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
@@ -3274,7 +3424,7 @@
       "canopyOpacity": 0.5,
       "fx": "wood_small_destr",
       "fxScale": 1.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
@@ -3288,7 +3438,7 @@
       "canopyOpacity": 0.5,
       "fx": "wood_small_destr",
       "fxScale": 1.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {
@@ -3302,7 +3452,7 @@
       "canopyOpacity": 0.5,
       "fx": "wood_small_destr",
       "fxScale": 1.0,
-      "material": "wood"
+      "material": "wood_solid"
     }
   },
   {

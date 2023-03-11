@@ -9,28 +9,10 @@
     "import": "hardcore_mode.blk"
   },
   {
-    "import": "#content/common_shooter/gamedata/templates/projectile.blk"
-  },
-  {
-    "import": "#content/common_shooter/gamedata/templates/game_objects.blk"
-  },
-  {
-    "import": "#content/common_shooter/gamedata/templates/ui.blk"
-  },
-  {
-    "import": "#content/common_shooter/gamedata/templates/covers.blk"
-  },
-  {
     "import": "#content/common/gamedata/templates/respawn_bases.blk"
   },
   {
-    "import": "#content/common_shooter/gamedata/templates/common_placeable_rendinst.blk"
-  },
-  {
-    "import": "#content/common_shooter/gamedata/templates/guns.blk"
-  },
-  {
-    "import": "#content/common_shooter/gamedata/templates/mortar_map_markers.blk"
+    "import": "common_shooter/*.blk"
   },
   {
     "import": "game_mods.blk"
@@ -60,79 +42,19 @@
     "import": "bomb_crater.blk"
   },
   {
-    "import": "#content/common_shooter/gamedata/templates/squads.blk"
-  },
-  {
     "import": "#content/common/gamedata/templates/humans.blk"
   },
   {
     "import": "%danetlibs/spline_geometry/templates/spline_gen_geometry.blk"
   },
   {
-    "import": "#content/common_shooter/gamedata/templates/burning.blk"
-  },
-  {
     "import": "%danetlibs/blood_decals/templates/blood_decals.template.blk"
-  },
-  {
-    "import": "#content/common_shooter/gamedata/templates/blood_flow.blk"
-  },
-  {
-    "import": "#content/common_shooter/gamedata/templates/battle_areas.blk"
   },
   {
     "import": "enlisted_input.blk"
   },
   {
-    "import": "#content/e_ww2_common/gamedata/templates/base_soldier.blk"
-  },
-  {
-    "import": "#content/e_ww2_common/gamedata/templates/ger_soldiers.blk"
-  },
-  {
-    "import": "#content/e_ww2_common/gamedata/templates/it_soldiers.blk"
-  },
-  {
-    "import": "#content/e_ww2_common/gamedata/templates/ger_weapon_presets.blk"
-  },
-  {
-    "import": "#content/e_ww2_common/gamedata/templates/sov_soldiers.blk"
-  },
-  {
-    "import": "#content/e_ww2_common/gamedata/templates/uk_soldiers.blk"
-  },
-  {
-    "import": "#content/e_ww2_common/gamedata/templates/jap_soldiers.blk"
-  },
-  {
-    "import": "#content/e_ww2_common/gamedata/templates/moroc_soldiers.blk"
-  },
-  {
-    "import": "#content/e_ww2_common/gamedata/templates/usa_soldiers.blk"
-  },
-  {
-    "import": "#content/e_ww2_common/gamedata/templates/ussr_female_soldiers.blk"
-  },
-  {
-    "import": "#content/e_ww2_common/gamedata/templates/dev_soldiers.blk"
-  },
-  {
-    "import": "#content/e_ww2_common/gamedata/templates/usa_weapon_presets.blk"
-  },
-  {
-    "import": "#content/e_ww2_common/gamedata/templates/ussr_weapon_presets.blk"
-  },
-  {
-    "import": "#content/e_ww2_common/gamedata/templates/ww2_boats.blk"
-  },
-  {
-    "import": "#content/common_shooter/gamedata/templates/bots.blk"
-  },
-  {
-    "import": "#content/e_ww2_common/gamedata/templates/ww2_cars.blk"
-  },
-  {
-    "import": "#content/common_shooter/gamedata/templates/violence.blk"
+    "import": "e_ww2_common/*.blk"
   },
   {
     "import": "tutorial_minimap.blk"
@@ -159,9 +81,6 @@
     "import": "vote_to_kick.blk"
   },
   {
-    "import": "#content/common_shooter/gamedata/templates/shooter_humans.blk"
-  },
-  {
     "import": "enlisted_shooter_humans.blk"
   },
   {
@@ -171,58 +90,10 @@
     "import": "enlisted_debug.blk"
   },
   {
-    "import": "#content/e_ww2_common/gamedata/templates/ww2_guns.blk"
+    "import": "modern_items.blk"
   },
   {
-    "import": "#content/e_ww2_common/gamedata/templates/ww2_guns_mods.blk"
-  },
-  {
-    "import": "#content/e_ww2_common/gamedata/templates/ww2_items.blk"
-  },
-  {
-    "import": "#content/e_ww2_common/gamedata/templates/ww2_ussr_items.blk"
-  },
-  {
-    "import": "#content/e_ww2_common/gamedata/templates/ww2_us_items.blk"
-  },
-  {
-    "import": "#content/e_ww2_common/gamedata/templates/ww2_uk_items.blk"
-  },
-  {
-    "import": "#content/e_ww2_common/gamedata/templates/ww2_ger_items.blk"
-  },
-  {
-    "import": "#content/e_ww2_common/gamedata/templates/ww2_italy_items.blk"
-  },
-  {
-    "import": "#content/e_ww2_common/gamedata/templates/ww2_japan_items.blk"
-  },
-  {
-    "import": "#content/e_ww2_common/gamedata/templates/ww2_impact_grenades.blk"
-  },
-  {
-    "import": "#content/e_ww2_common/gamedata/templates/ww2_incendiary_grenades.blk"
-  },
-  {
-    "import": "#content/e_ww2_common/gamedata/templates/ww2_tnt_blocks.blk"
-  },
-  {
-    "import": "#content/e_ww2_common/gamedata/templates/ww2_mines.blk"
-  },
-  {
-    "import": "#content/e_ww2_common/gamedata/templates/ww2_binoculars.blk"
-  },
-  {
-    "import": "#content/e_ww2_common/gamedata/templates/ww2_game_objects.blk"
-  },
-  {
-    "import": "#content/e_ww2_common/gamedata/templates/ww2_character_items.blk"
-  },
-  {
-    "import": "#content/e_ww2_common/gamedata/templates/ww2_facegen_items.blk"
-  },
-  {
-    "import": "#content/modern_equipment/gamedata/templates/*.blk"
+    "import": "modern_scopes.blk"
   },
   {
     "import": "hero.blk"
@@ -237,16 +108,13 @@
     "import": "#content/common/gamedata/templates/entities.blk"
   },
   {
-    "import": "#content/common_shooter/gamedata/templates/weapon_items.blk"
-  },
-  {
     "import": "#content/common/gamedata/templates/ai.blk"
   },
   {
     "import": "#content/common/gamedata/templates/vehicles.blk"
   },
   {
-    "import": "#content/enlisted/gamedata/templates/*.pkg.entities.blk"
+    "import": "*.pkg.entities.blk"
   },
   {
     "import": "#content/dev/gamedata/templates/*.pkg.entities.blk"
@@ -255,13 +123,13 @@
     "import": "#content/enlisted_pkg_dev/gamedata/templates/*.blk"
   },
   {
-    "import": "#content/e_normandy/gamedata/templates/e_normandy.pkg.entities.blk"
+    "import": "e_normandy.pkg.entities.blk"
   },
   {
-    "import": "#content/enlisted/gamedata/templates/aircraft.blk"
+    "import": "aircraft.blk"
   },
   {
-    "import": "#content/enlisted/gamedata/templates/ww2_aircraft.blk"
+    "import": "ww2_aircraft.blk"
   },
   {
     "import": "#content/ships/gamedata/templates/ships.blk"
@@ -279,10 +147,7 @@
     "import": "enlisted_guns.blk"
   },
   {
-    "import": "#content/common_shooter/gamedata/templates/guns_hit_fx.blk"
-  },
-  {
-    "import": "#content/enlisted/gamedata/templates/enlisted_explosion_hit_fx.blk"
+    "import": "enlisted_explosion_hit_fx.blk"
   },
   {
     "import": "enlisted_items.blk"
@@ -318,10 +183,25 @@
     "import": "componentFilters.blk"
   },
   {
+    "import": "#content/enlisted_extra/gamedata/templates/*.blk"
+  },
+  {
+    "import": "#content/enlisted_extra/gamedata/gen/templates/*.blk"
+  },
+  {
+    "import": "#content/enlisted_extra/gamedata/templates/aprilfools_2022/*.blk"
+  },
+  {
+    "import": "#content/enlisted_extra/gamedata/templates/tanks/*.blk"
+  },
+  {
     "import": "%danetlibs/gpu_benchmark/templates/graphics_autodetect.blk"
   },
   {
     "import": "%danetlibs/assets_import/templates/assets_import.blk"
+  },
+  {
+    "import": "%danetlibs/ground_holes/templates/ground_holes.template.blk"
   },
   {
     "terraform": {
@@ -385,60 +265,82 @@
     }
   },
   {
-    "digging_config": {
-      "_extends": "replicating",
-      "_group": {
-        "_tags": "render",
-        "digging_config__fxName": "soil_digging_dirt",
-        "digging_config__fxScale": 1.5,
-        "digging_config__fxUpDirectionWeight": 0.25,
-        "digging_config__removePuddlesRadiusScale": 2.0,
-        "digging_config__decalScale": 1.5,
-        "digging_config__riGenDamageRadiusScale": 1.0,
-        "digging_config__decalNames:list<t>": [
-          {
-            "name": "shovel_dig"
-          },
-          {
-            "name": "shovel_dig_sand"
-          },
-          {
-            "name": "shovel_dig_sand"
-          },
-          {
-            "name": "shovel_dig_sand"
-          },
-          {
-            "name": "shovel_dig_sand"
-          },
-          {
-            "name": "shovel_dig_sand"
-          }
-        ],
-        "digging_config__decalIds:list<i>": [],
-        "digging_config__decalPhysmats:list<t>": [
-          {
-            "name": "default"
-          },
-          {
-            "name": "sand"
-          },
-          {
-            "name": "sand_slope"
-          },
-          {
-            "name": "roadSand"
-          },
-          {
-            "name": "quickSand"
-          },
-          {
-            "name": "quarrySand"
-          }
-        ],
-        "digging_config__decalPhysmatsIds:list<i>": []
+    "digging_config": [
+      {
+        "_extends": "replicating"
+      },
+      {
+        "digging_config__diggingRadiusLimits": [0.5,1.5]
+      },
+      {
+        "digging_config__diggedPlacesPos:list<p3>": []
+      },
+      {
+        "digging_config__diggedPlacesRadius:list<u8>": []
+      },
+      {
+        "digging_config__diggedPlacesMatId:list<i>": []
+      },
+      {
+        "_group": {
+          "tags": "server",
+          "digging_config__traceHeight": 0.5,
+          "digging_config__queryRIHalfHeight": 1.25
+        }
+      },
+      {
+        "_group": {
+          "_tags": "render",
+          "digging_config__fxTemplate": "misc_soil_digging_effect",
+          "digging_config__fxUpDirectionWeight": 0.25,
+          "digging_config__removePuddlesRadiusScale": 2.0,
+          "digging_config__decalScale": 1.5,
+          "digging_config__riGenDamageRadiusScale": 1.0,
+          "digging_config__decalNames:list<t>": [
+            {
+              "name": "shovel_dig"
+            },
+            {
+              "name": "shovel_dig_sand"
+            },
+            {
+              "name": "shovel_dig_sand"
+            },
+            {
+              "name": "shovel_dig_sand"
+            },
+            {
+              "name": "shovel_dig_sand"
+            },
+            {
+              "name": "shovel_dig_sand"
+            }
+          ],
+          "digging_config__decalIds:list<i>": [],
+          "digging_config__decalPhysmats:list<t>": [
+            {
+              "name": "default"
+            },
+            {
+              "name": "sand"
+            },
+            {
+              "name": "sand_slope"
+            },
+            {
+              "name": "roadSand"
+            },
+            {
+              "name": "quickSand"
+            },
+            {
+              "name": "quarrySand"
+            }
+          ],
+          "digging_config__decalPhysmatsIds:list<i>": []
+        }
       }
-    }
+    ]
   },
   {
     "grass_erasers": {
@@ -1327,7 +1229,8 @@
       "_extends": "menu_transform",
       "_track": true,
       "_singleton": true,
-      "menu_weapon_to_control:eid": []
+      "menu_weapon_to_control:eid": [],
+      "item_attaches:list<eid>": []
     }
   },
   {
@@ -1343,7 +1246,8 @@
       "_extends": "menu_transform",
       "_track": true,
       "_singleton": true,
-      "menu_new_items_to_control:eid": []
+      "menu_new_items_to_control:eid": [],
+      "item_attaches:list<eid>": []
     }
   },
   {
@@ -2088,6 +1992,9 @@
     "soldier_stats": {
       "soldierStats:object": {
         "_tags": "server"
+      },
+      "squadStats:object": {
+        "_tags": "server"
       }
     }
   },
@@ -2674,6 +2581,15 @@
       },
       {
         "_group": {
+          "_track": true,
+          "_replicate": true,
+          "controlled_soldier__sKind": "",
+          "controlled_soldier__sClassRare": 0,
+          "controlled_soldier__sClass": ""
+        }
+      },
+      {
+        "_group": {
           "_replicate": true,
           "decorators__nickFrame": "",
           "decorators__portrait": ""
@@ -2717,6 +2633,12 @@
         "_group": {
           "_tags": "server",
           "player_bots__nextHealWaitTime": 0.0
+        }
+      },
+      {
+        "_group": {
+          "_tags": "playingReplay",
+          "replay_player__catchPossessEntity": false
         }
       },
       {

@@ -1,0 +1,324 @@
+{
+  "base_t_80u": {
+    "_extends": "base_tank",
+    "killLogName": "ussr_t_80u",
+    "animchar__res": "t_80u_char",
+    "collres__res": "t_80u_collision",
+    "vehicle_net_phys__blk": "content/enlisted_extra/gamedata/gen/units/tanks/t_80u.blk:VehiclePhys",
+    "particle_phys__blk": "content/enlisted/gamedata/suspension/empty.blk",
+    "dmg_animchar__res": "t_80u_dmg_char",
+    "xray_resource__modelName": "t_80u",
+    "cockpit__zoomOutFov": 4.0805,
+    "cockpit__zoomInFov": 18.6453,
+    "cockpit__sightName": "sight_model/1g_46",
+    "cockpit__sightFov": 13.5,
+    "drowningHeight": 1.84,
+    "damage_model__blk": "content/enlisted_extra/gamedata/gen/units/tanks/t_80u.blk",
+    "item__name": "items/ussr_t_80u",
+    "skin__template": "t_80u_skins",
+    "turret_gun_flash_fx__flashNodes:shared:array": [
+      {
+        "node": "emtr_gun_flame"
+      },
+      {
+        "node": "emtr_mg_flame_01"
+      },
+      {
+        "node": "emtr_mg_aa_flame_01"
+      }
+    ],
+    "turret_gun_flash_fx__flashFx:shared:array": [
+      {
+        "fx": "muzzle_ground_125mm"
+      },
+      {
+        "fx": "muzzle_ground_8mm"
+      },
+      {
+        "fx": "muzzle_ground_15mm"
+      }
+    ],
+    "turret_gun_flash_fx__flashFxScale:shared:array": [
+      {
+        "scale": 1.0
+      },
+      {
+        "scale": 1.0
+      },
+      {
+        "scale": 1.0
+      }
+    ],
+    "turret_control__emitterNodes:shared:array": [
+      {
+        "node": "bone_gun_barrel"
+      },
+      {
+        "node": "bone_mg_twin_01"
+      },
+      {
+        "node": "bone_mg_aa_v_01"
+      }
+    ],
+    "turret_control__animVars:shared:array": [
+      {
+        "vars:object": {
+          "curYawParamName": "turret_01_yaw",
+          "curPitchParamName": "gun_01_pitch",
+          "aimActiveParamName": "aim_01_active",
+          "paramYawSpeed": "turret_01_yaw_speed",
+          "paramYawSpeedMul": "turret_01_yaw_mul",
+          "paramYawAccel": "turret_01_yaw_accel",
+          "paramMinYawAngle": "turret_01_min_yaw_angle",
+          "paramMaxYawAngle": "turret_01_max_yaw_angle",
+          "paramMinPitchAngle": "turret_01_min_pitch_angle",
+          "paramMaxPitchAngle": "turret_01_max_pitch_angle",
+          "paramPitchSpeed": "gun_01_pitch_speed",
+          "paramPitchSpeedMul": "gun_01_pitch_mul",
+          "paramPitchAccel": "gun_01_pitch_accel",
+          "wishYawParamName": "gun_01_aim:targetYaw",
+          "wishPitchParamName": "gun_01_aim:targetPitch",
+          "gunRecoilParamName": "gun_01_recoil"
+        }
+      },
+      {
+        "vars:object": {
+          "curYawParamName": "turret_02_yaw",
+          "curPitchParamName": "gun_02_pitch"
+        }
+      },
+      {
+        "vars:object": {
+          "curYawParamName": "turret_03_yaw",
+          "curPitchParamName": "gun_03_pitch",
+          "aimActiveParamName": "aim_03_active",
+          "paramYawSpeed": "turret_03_yaw_speed",
+          "paramYawSpeedMul": "turret_03_yaw_mul",
+          "paramYawAccel": "turret_03_yaw_accel",
+          "paramMinYawAngle": "turret_03_min_yaw_angle",
+          "paramMaxYawAngle": "turret_03_max_yaw_angle",
+          "paramMinPitchAngle": "turret_03_min_pitch_angle",
+          "paramMaxPitchAngle": "turret_03_max_pitch_angle",
+          "paramPitchSpeed": "gun_03_pitch_speed",
+          "paramPitchSpeedMul": "gun_03_pitch_mul",
+          "paramPitchAccel": "gun_03_pitch_accel",
+          "wishYawParamName": "gun_03_aim:targetYaw",
+          "wishPitchParamName": "gun_03_aim:targetPitch"
+        }
+      }
+    ],
+    "turret_control__turretInfo:shared:array": [
+      {
+        "turretInfo:object": {
+          "turretName": "turret_01",
+          "gun": "t_80u_turret_01_125mm_2a46_m1_t_80u+turret_with_several_types_of_shells+main_turret",
+          "barrelDm": "gun_barrel",
+          "breechDm": "cannon_breech",
+          "verDriveDm": "drive_turret_v",
+          "horDriveDm": "drive_turret_h",
+          "salt": 1
+        }
+      },
+      {
+        "turretInfo:object": {
+          "turretName": "turret_02",
+          "gun": "t_80u_turret_02_7_62mm_pkt",
+          "barrelDm": "gun_barrel_01",
+          "verDriveDm": "drive_turret_v",
+          "horDriveDm": "drive_turret_h",
+          "salt": 1
+        }
+      },
+      {
+        "turretInfo:object": {
+          "turretName": "turret_03",
+          "gun": "t_80u_turret_03_12_7mm_nsv",
+          "barrelDm": "gun_barrel_02",
+          "verDriveDm": "drive_turret_v",
+          "horDriveDm": "drive_turret_h",
+          "salt": 1
+        }
+      }
+    ]
+  },
+  "t_80u_turret_01_125mm_2a46_m1_t_80u": {
+    "_extends": "tankgun_125mm_2a46_m1_t_80u",
+    "gun__shootNodeName": "bone_gun_barrel",
+    "turret__yawSpeed": 24.0,
+    "turret__pitchSpeed": 4.4,
+    "turret__aimNodeName": "bone_turret",
+    "turret__limit": [-180.0,180.0,-5.0,15.0],
+    "turret__limitsTable:list<p4>": {
+      "lim1": [-180.0,-150.0,-4.0,15.0],
+      "lim2": [-150.0,150.0,-5.0,15.0],
+      "lim3": [150.0,180.0,-4.0,15.0]
+    },
+    "gun__shellsAmmo:array": [
+      {
+        "ammo": 9
+      },
+      {
+        "ammo": 6
+      },
+      {
+        "ammo": 6
+      },
+      {
+        "ammo": 6
+      },
+      {
+        "ammo": 6
+      },
+      {
+        "ammo": 6
+      },
+      {
+        "ammo": 6
+      }
+    ]
+  },
+  "t_80u_turret_02_7_62mm_pkt": {
+    "_extends": "tankgun_7_62mm_pkt",
+    "gun__shootNodeName": "bone_mg_twin_01",
+    "gun__shellsAmmo:array": {
+      "ammo": 1250
+    }
+  },
+  "t_80u_turret_03_12_7mm_nsv": {
+    "_extends": "tankgun_12_7mm_nsv",
+    "gun__shootNodeName": "bone_mg_aa_v_01",
+    "turret__yawSpeed": 90.0,
+    "turret__pitchSpeed": 90.0,
+    "turret__aimNodeName": "bone_mg_aa_h_01",
+    "turret__limit": [-180.0,180.0,-5.0,60.0],
+    "gun__shellsAmmo:array": {
+      "ammo": 300
+    }
+  },
+  "t_80u_skins": {
+    "skin__unlock:list<t>": [
+      {
+        "unlock": "t_80u_ussr_camo_czechoslovak_yellow_green"
+      },
+      {
+        "unlock": "t_80u_ussr_camo_desert_syrian_green_brown_yellow"
+      },
+      {
+        "unlock": "t_80u_ussr_camo_desert_yellow_brown"
+      },
+      {
+        "unlock": "t_80u_modern_desert"
+      },
+      {
+        "unlock": "t_80u_modern_forest"
+      },
+      {
+        "unlock": "t_80u_modern_winter"
+      },
+      {
+        "unlock": "t_80u_ussr_camo_finland_polygonal_threecolor"
+      },
+      {
+        "unlock": "t_80u_ussr_camo_deform"
+      },
+      {
+        "unlock": "t_80u_ussr_modern_green"
+      },
+      {
+        "unlock": "t_80u_ussr_camo_modern_desert_deform"
+      },
+      {
+        "unlock": "t_80u_ussr_south_korean_camo"
+      },
+      {
+        "unlock": "t_80u_tank_biathlon_red"
+      },
+      {
+        "unlock": "t_80u_tank_biathlon_green"
+      },
+      {
+        "unlock": "t_80u_tank_biathlon_blue"
+      },
+      {
+        "unlock": "t_80u_tank_biathlon_yellow"
+      }
+    ],
+    "skin__objTexReplace:array": [
+      {
+        "objTexReplace:object": {
+          "ussr_camo_green*": "ussr_camo_czechoslovak_yellow_green*"
+        }
+      },
+      {
+        "objTexReplace:object": {
+          "ussr_camo_green*": "ussr_camo_desert_syrian_green_brown_yellow*"
+        }
+      },
+      {
+        "objTexReplace:object": {
+          "ussr_camo_green*": "ussr_camo_desert_yellow_brown*"
+        }
+      },
+      {
+        "objTexReplace:object": {
+          "ussr_camo_green*": "ussr_modern_desert*"
+        }
+      },
+      {
+        "objTexReplace:object": {
+          "ussr_camo_green*": "ussr_modern_forest*"
+        }
+      },
+      {
+        "objTexReplace:object": {
+          "ussr_camo_green*": "ussr_modern_winter*"
+        }
+      },
+      {
+        "objTexReplace:object": {
+          "ussr_camo_green*": "fin_camo_black_green_dark*"
+        }
+      },
+      {
+        "objTexReplace:object": {
+          "ussr_camo_green*": "ussr_camo_deform*"
+        }
+      },
+      {
+        "objTexReplace:object": {
+          "ussr_camo_green*": "ussr_modern_green*"
+        }
+      },
+      {
+        "objTexReplace:object": {
+          "ussr_camo_green*": "ussr_camo_modern_desert_deform*"
+        }
+      },
+      {
+        "objTexReplace:object": {
+          "ussr_camo_green*": "ussr_south_korean_camo*"
+        }
+      },
+      {
+        "objTexReplace:object": {
+          "ussr_camo_green*": "ussr_camo_biathlon_red*"
+        }
+      },
+      {
+        "objTexReplace:object": {
+          "ussr_camo_green*": "ussr_camo_biathlon_green*"
+        }
+      },
+      {
+        "objTexReplace:object": {
+          "ussr_camo_green*": "ussr_camo_biathlon_blue*"
+        }
+      },
+      {
+        "objTexReplace:object": {
+          "ussr_camo_green*": "ussr_camo_biathlon_yellow*"
+        }
+      }
+    ]
+  }
+}

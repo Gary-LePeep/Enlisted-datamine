@@ -1,0 +1,80 @@
+{
+  "uk_towed_at_17pdr": {
+    "_extends": "base_anti_tank_cannon",
+    "killLogName": "uk_towed_at_17pdr",
+    "phys_obj_net_phys__blk": "content/enlisted/gamedata/units/cannons/towed_at_17pdr.blk",
+    "damage_model__blk": "content/enlisted/gamedata/units/cannons/towed_at_17pdr.blk",
+    "vehicle_seats_camera_nodes__defaultNode": "bone_camera_gunner",
+    "animchar__res": "towed_at_17pdr_char",
+    "collres__res": "towed_at_17pdr_collision",
+    "_group": {
+      "_tags": "render",
+      "animchar_camera_target__node_name": "bone_camera_gunner",
+      "animchar_camera_target__node_offset": [0.0,0.5,0.0],
+      "animchar_camera_target__nodeIndex": -1
+    },
+    "vehicle_seats__seats:shared:array": {
+      "seats:object": {
+        "name": "main_gunner",
+        "locName": "vehicle_seats/gunner",
+        "attachNode": "bone_gun",
+        "attachTm": [
+          [1.0,0.0,0.0],
+          [0.0,1.0,0.0],
+          [0.0,0.0,1.0],
+          [-0.8,-0.2,0.3]
+        ],
+        "seatComponent": "isDriver",
+        "ignoreAttachNodeRotation": true,
+        "cameraType": "machinegunner_cockpit",
+        "cameraNodeName": "bone_camera_gunner",
+        "cameraOffset": [-0.0,0.0,0.0],
+        "turretNames:array": {
+          "turret": "turret_01"
+        }
+      }
+    },
+    "turret_gun_flash_fx__flashNodes:shared:array": {
+      "node": "emtr_gun_flame"
+    },
+    "turret_gun_flash_fx__flashFx:shared:array": {
+      "fx": "muzzle_ground_60mm"
+    },
+    "turret_gun_flash_fx__flashFxScale:shared:array": {
+      "scale": 1.0
+    },
+    "turret_control__emitterNodes:shared:array": {
+      "node": "bone_gun_barrel"
+    },
+    "turret_control__animVars:shared:array": {
+      "vars:object": {
+        "curYawParamName": "turret_01_yaw",
+        "curPitchParamName": "gun_01_pitch",
+        "aimActiveParamName": "aim_01_active",
+        "paramYawSpeedMul": "turret_01_yaw_mul",
+        "paramPitchSpeedMul": "gun_01_pitch_mul",
+        "wishYawParamName": "gun_01_aim:targetYaw",
+        "wishPitchParamName": "gun_01_aim:targetPitch",
+        "gunRecoilParamName": "gun_01_recoil"
+      }
+    },
+    "turret_control__turretInfo:shared:array": {
+      "turretInfo:object": {
+        "turretName": "turret_01",
+        "gun": "towed_at_17pdr_turret_01_76mm_17pdr_qf+main_turret",
+        "barrelDm": "gun_barrel",
+        "breechDm": "cannon_breech",
+        "verDriveDm": "drive_turret_v",
+        "salt": 1
+      }
+    },
+    "disableDMParts:list<t>": [
+      {
+        "part": "gunner"
+      },
+      {
+        "part": "loader"
+      }
+    ]
+  }
+}

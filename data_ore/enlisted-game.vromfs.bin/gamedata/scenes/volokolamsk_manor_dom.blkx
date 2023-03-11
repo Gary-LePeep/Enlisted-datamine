@@ -324,7 +324,7 @@
   {
     "entity": {
       "_template": "door_mult_ent_generator",
-      "ri_extra_gen__blk": "content/e_moscow/gamedata/volokolamsk_doors.blk"
+      "ri_extra_gen__blk": "content/enlisted/gamedata/volokolamsk_doors.blk"
     }
   },
   {
@@ -337,8 +337,8 @@
     "entity": {
       "_template": "team_ussr+team_narrator_domination+respawn_creators_team",
       "team__id": 1,
-      "team__score": 1900.0,
-      "team__scoreCap": 1900.0,
+      "team__score": 1850.0,
+      "team__scoreCap": 1850.0,
       "score_bleed__domBleed": 4.0,
       "score_bleed__domBleedOn": false,
       "score_bleed__totalDomZoneCount": 3,
@@ -373,13 +373,13 @@
       "mission_name": "volokolamsk_manor_dom",
       "loading_images:list<t>": [
         {
-          "item": "ui/volokolamsk_manor_01.jpg"
+          "item": "ui/volokolamsk_manor_01.avif"
         },
         {
-          "item": "ui/volokolamsk_manor_02.jpg"
+          "item": "ui/volokolamsk_manor_02.avif"
         },
         {
-          "item": "ui/volokolamsk_manor_03.jpg"
+          "item": "ui/volokolamsk_manor_03.avif"
         }
       ]
     }

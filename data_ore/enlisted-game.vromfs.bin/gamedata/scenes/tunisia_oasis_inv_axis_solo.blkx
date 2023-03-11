@@ -15,13 +15,13 @@
       "mission_name": "tunisia_oasis_inv",
       "loading_images:list<t>": [
         {
-          "item": "ui/Tunisia_Oasis_Inv_01.jpg"
+          "item": "ui/Tunisia_Oasis_Inv_01.avif"
         },
         {
-          "item": "ui/Tunisia_Oasis_Inv_03.jpg"
+          "item": "ui/Tunisia_Oasis_Inv_03.avif"
         },
         {
-          "item": "ui/Tunisia_Oasis_Inv_04.jpg"
+          "item": "ui/Tunisia_Oasis_Inv_04.avif"
         }
       ]
     }
@@ -61,35 +61,6 @@
   {
     "entity": {
       "_template": "minimap_tunisia_tataouine"
-    }
-  },
-  {
-    "entity": {
-      "_template": "ground_effect",
-      "ground_effect__fx_name": "land_haze",
-      "ground_effect__biome_group_name": "dune",
-      "ground_effect__grid_cell_size": 16.0,
-      "ground_effect__grid_world_origin": [0.0,0.0],
-      "ground_effect__vis_radius": 50.0,
-      "ground_effect__biome_weight_for_active_thr": 0.25,
-      "ground_effect__fx_radius": -1.0,
-      "ground_effect__scale_x": [1.3,0.0],
-      "ground_effect__scale_y": [1.3,0.0],
-      "ground_effect__scale_z": [1.3,0.0]
-    }
-  },
-  {
-    "entity": {
-      "_template": "ground_effect",
-      "ground_effect__fx_name": "land_dust_storm",
-      "ground_effect__biome_group_name": "dune",
-      "ground_effect__grid_cell_size": 4.0,
-      "ground_effect__grid_world_origin": [0.0,0.0],
-      "ground_effect__vis_radius": 50.0,
-      "ground_effect__offset_y": [0.4,0.0],
-      "ground_effect__scale_x": [0.3,0.0],
-      "ground_effect__scale_y": [0.3,0.0],
-      "ground_effect__scale_z": [0.3,0.0]
     }
   },
   {
@@ -144,7 +115,7 @@
   {
     "entity": {
       "_template": "door_mult_ent_generator",
-      "ri_extra_gen__blk": "content/e_tunisia/gamedata/tunisia_doors.blk"
+      "ri_extra_gen__blk": "content/enlisted/gamedata/tunisia_doors.blk"
     }
   },
   {
@@ -5411,9 +5382,9 @@
         [0.91729,0.0,0.398224],
         [0.0,1.0,0.0],
         [-0.398224,0.0,0.91729],
-        [-1374.29,5.62156,-1147.1]
+        [-1233.0,6.85329,-809.682]
       ],
-      "resupply_zone__team": 2,
+      "resupply_zone__team": 1,
       "groupName": "sector_1_b",
       "active": false
     }
@@ -5425,7 +5396,7 @@
         [-0.503957,0.0,0.86373],
         [0.0,1.0,0.0],
         [-0.86373,0.0,-0.503957],
-        [-1150.34,11.7558,-1299.79]
+        [-1273.69,11.7558,-1205.51]
       ],
       "resupply_zone__team": 2,
       "groupName": "sector_1_b",

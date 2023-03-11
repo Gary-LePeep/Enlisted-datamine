@@ -504,22 +504,13 @@
       "ammo": 150
     },
     "gun__ammoSetsInfo:shared:array": {
-      "default:array": [
-        {
-          "shell:object": {
-            "blk": "gamedata/weapons/shells/23mm_vya_ozt_bullet.blk",
-            "name": "ozt",
-            "type": "frag_i_t"
-          }
-        },
-        {
-          "shell:object": {
-            "blk": "gamedata/weapons/shells/23mm_vya_bz_bullet.blk",
-            "name": "bz",
-            "type": "ap_i"
-          }
+      "default:array": {
+        "shell:object": {
+          "blk": "gamedata/weapons/shells/23mm_vya_bz_bullet.blk",
+          "name": "bz",
+          "type": "ap_i"
         }
-      ]
+      }
     }
   },
   "base_il_2m_type3_1945_7_62mm_shkas": {

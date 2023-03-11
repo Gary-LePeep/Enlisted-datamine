@@ -6,7 +6,8 @@
     {
       "_group": {
         "_tags": "sound",
-        "sound_control__range": 0.0
+        "sound_control__range": 0.0,
+        "sound_control__autoRange": true
       }
     },
     {
@@ -19,14 +20,21 @@
       }
     }
   ],
-  "moveable_sound_effect_tag": {
+  "moveable_sound_effect": {
     "movableSoundEffect:tag": {
       "_tags": "sound"
     }
   },
-  "watchable_sound_effect_tag": {
+  "watchable_sound_effect": {
     "watchableSoundEffect:tag": {
       "_tags": "sound"
+    }
+  },
+  "sound_effect_speed_var": {
+    "_group": {
+      "_tags": "sound",
+      "sound_effect_speed_var__pos": [0.0,0.0,0.0],
+      "sound_effect_speed_var__speedToVar": [0.0,10.0,0.0,100.0]
     }
   },
   "sound_effect_2d": [
@@ -45,13 +53,6 @@
       }
     }
   ],
-  "sound_effect_speed": {
-    "_group": {
-      "_tags": "sound",
-      "sound_effect_speed__pos": [0.0,0.0,0.0],
-      "sound_effect_speed__speedToVar": [0.0,10.0,0.0,100.0]
-    }
-  },
   "phys_obj_collision_sound": {
     "_group": {
       "_tags": "sound",

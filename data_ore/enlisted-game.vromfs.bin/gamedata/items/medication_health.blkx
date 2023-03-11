@@ -1,0 +1,19 @@
+{
+  "entityMods": {
+    "modProps": "content/enlisted/gamedata/items/medication_health.blk"
+  },
+  "visual": {
+    "template": "medication_health_item+item_in_world"
+  },
+  "equipable": [
+    {
+      "slot": "mod1"
+    },
+    {
+      "slot": "mod2"
+    }
+  ],
+  "hpIncrease": {
+    "amount": 10.0
+  }
+}

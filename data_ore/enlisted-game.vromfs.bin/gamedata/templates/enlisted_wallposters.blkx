@@ -19,7 +19,7 @@
     "wallposter_menu__text": "wallposter/german_a",
     "wallposter_menu__image": "building_wall",
     "use_texture:tag": [],
-    "riSemiTransRender": [],
+    "riPreviewResPreload": [],
     "wallposter_preview:tag": []
   },
   "wallposter": [
@@ -411,6 +411,30 @@
   "agit_poster_china_k": {
     "_extends": "wallposter",
     "ri_extra__name": "agit_poster_china_k"
+  },
+  "agit_poster_china_l_preview": {
+    "_extends": "wallposter_preview",
+    "ri_preview__name": "agit_poster_china_l",
+    "instantiateTemplate": "agit_poster_china_l",
+    "previewRotation": [-90.0,0.0,-90.0],
+    "wallposter_menu__text": "wp/agit_poster_china_l_preview/name",
+    "wallposter_menu__image": "building_wall"
+  },
+  "agit_poster_china_l": {
+    "_extends": "wallposter",
+    "ri_extra__name": "agit_poster_china_l"
+  },
+  "agit_poster_china_m_preview": {
+    "_extends": "wallposter_preview",
+    "ri_preview__name": "agit_poster_china_m",
+    "instantiateTemplate": "agit_poster_china_m",
+    "previewRotation": [-90.0,0.0,-90.0],
+    "wallposter_menu__text": "wp/agit_poster_china_m_preview/name",
+    "wallposter_menu__image": "building_wall"
+  },
+  "agit_poster_china_m": {
+    "_extends": "wallposter",
+    "ri_extra__name": "agit_poster_china_m"
   },
   "agit_poster_combat_engineers_preview": {
     "_extends": "wallposter_preview",

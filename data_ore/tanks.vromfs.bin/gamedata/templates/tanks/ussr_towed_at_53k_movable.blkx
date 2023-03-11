@@ -265,5 +265,58 @@
     "cockpit__slitIsGun:list<b>": {
       "slit": true
     }
+  },
+  "enlist_tankgun_towed_at_53k_45mm_20k": [
+    {
+      "_extends": "tankgun"
+    },
+    {
+      "_extends": "base_tankgun_cannon"
+    },
+    {
+      "_extends": "enlist_towed_at_53k_45mm_20k"
+    },
+    {
+      "item__name": "guns/45mm_53k"
+    },
+    {
+      "turret__triggerGroup": 0
+    },
+    {
+      "turret__aimNodeName": "bone_turret"
+    },
+    {
+      "turret__limit": [-40.0,40.0,-2.0,20.0]
+    }
+  ],
+  "enlist_towed_at_53k_45mm_20k": {
+    "_extends": "base_45mm_20k",
+    "item__name": "guns/45mm_53k",
+    "gun__blk": "gamedata/gen/weapons/45mm_53k.blk",
+    "gun__locName": "45mm_53k",
+    "gun__shellsAmmo:array": [
+      {
+        "ammo": 10
+      },
+      {
+        "ammo": 15
+      }
+    ],
+    "gun__ammoSetsInfo:shared:array": {
+      "defaultSet:array": {
+        "shell:object": {
+          "blk": "content/tanks/gamedata/gen/weapons/shells/45mm_20k_defaultset.blk",
+          "name": "45mm_br_243",
+          "type": "aphebc_tank"
+        }
+      },
+      "45mm_ussr_he:array": {
+        "shell:object": {
+          "blk": "content/tanks/gamedata/gen/weapons/shells/45mm_20k_45mm_ussr_he.blk",
+          "name": "45mm_o_243",
+          "type": "he_frag_tank"
+        }
+      }
+    }
   }
 }

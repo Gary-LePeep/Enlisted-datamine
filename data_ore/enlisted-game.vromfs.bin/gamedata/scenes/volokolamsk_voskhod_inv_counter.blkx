@@ -4174,7 +4174,7 @@
   {
     "entity": {
       "_template": "door_mult_ent_generator",
-      "ri_extra_gen__blk": "content/e_moscow/gamedata/volokolamsk_doors.blk"
+      "ri_extra_gen__blk": "content/enlisted/gamedata/volokolamsk_doors.blk"
     }
   },
   {
@@ -4240,13 +4240,13 @@
       "mission_name": "volokolamsk_voskhod_inv_counter",
       "loading_images:list<t>": [
         {
-          "item": "ui/volokolamsk_voskhod_inv_01.jpg"
+          "item": "ui/volokolamsk_voskhod_inv_01.avif"
         },
         {
-          "item": "ui/volokolamsk_voskhod_inv_02.jpg"
+          "item": "ui/volokolamsk_voskhod_inv_02.avif"
         },
         {
-          "item": "ui/volokolamsk_voskhod_inv_03.jpg"
+          "item": "ui/volokolamsk_voskhod_inv_03.avif"
         }
       ]
     }
@@ -4294,8 +4294,8 @@
     "entity": {
       "_template": "team_germany_winter+team_narrator_invasion_attack+respawn_creators_team",
       "team__memberCount": 0.0,
-      "team__scoreCap": 2150.0,
-      "team__score": 2150.0,
+      "team__scoreCap": 2200.0,
+      "team__score": 2200.0,
       "team__squadSpawnCost": 250,
       "team__firstSpawnCostMul": 0.0,
       "team__zeroScoreFailTimer": 60.0,
@@ -4323,7 +4323,7 @@
       "capzone__onlyTeamCanCapture": 2,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_1_a",
-      "capzone__capTime": 40.0,
+      "capzone__capTime": 35.0,
       "capzone__capTeam": -1,
       "transform": [
         [12.8347,0.0,-20.2721],
@@ -4357,7 +4357,7 @@
       "capzone__onlyTeamCanCapture": 2,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_1_b",
-      "capzone__capTime": 40.0,
+      "capzone__capTime": 35.0,
       "capzone__capTeam": -1,
       "transform": [
         [17.812,0.0,-25.3983],
@@ -4390,7 +4390,7 @@
       "capzone__onlyTeamCanCapture": 2,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_2_a",
-      "capzone__capTime": 45.0,
+      "capzone__capTime": 40.0,
       "capzone__capTeam": -1,
       "transform": [
         [1.0,0.0,0.0],
@@ -4425,7 +4425,7 @@
       "capzone__onlyTeamCanCapture": 2,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_2_b",
-      "capzone__capTime": 45.0,
+      "capzone__capTime": 40.0,
       "capzone__capTeam": -1,
       "transform": [
         [1.0,0.0,0.0],
@@ -4460,7 +4460,7 @@
       "capzone__onlyTeamCanCapture": 2,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_3_a",
-      "capzone__capTime": 50.0,
+      "capzone__capTime": 45.0,
       "capzone__capTeam": -1,
       "transform": [
         [1.0,0.0,0.0],

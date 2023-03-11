@@ -2304,7 +2304,7 @@
   {
     "entity": {
       "_template": "door_mult_ent_generator",
-      "ri_extra_gen__blk": "content/e_normandy/gamedata/normandy_doors.blk"
+      "ri_extra_gen__blk": "content/enlisted/gamedata/normandy_doors.blk"
     }
   },
   {
@@ -2371,13 +2371,13 @@
       "mission_name": "normandy_station_conf",
       "loading_images:list<t>": [
         {
-          "item": "ui/normandy_station_inv_01.jpg"
+          "item": "ui/normandy_station_inv_01.avif"
         },
         {
-          "item": "ui/normandy_station_inv_02.jpg"
+          "item": "ui/normandy_station_inv_02.avif"
         },
         {
-          "item": "ui/normandy_station_inv_03.jpg"
+          "item": "ui/normandy_station_inv_03.avif"
         }
       ]
     }
@@ -2412,8 +2412,8 @@
     "entity": {
       "_template": "team_germany+team_narrator_confrontation_attack+respawn_creators_team",
       "team__memberCount": 0.0,
-      "team__scoreCap": 2000.0,
-      "team__score": 2000.0,
+      "team__scoreCap": 1900.0,
+      "team__score": 1900.0,
       "team__squadSpawnCost": 250,
       "team__minScoreCap": 100.0,
       "team__firstSpawnCostMul": 0.0,

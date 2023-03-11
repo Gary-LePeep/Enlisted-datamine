@@ -1,0 +1,48 @@
+{
+  "maxDeltaAngle": 0.07,
+  "shotFreq": 0.8,
+  "recoilAmount": 0.1,
+  "recoilDirAmount": 0.6,
+  "recoilDir": 0.0,
+  "stat_name": "rifle",
+  "selWeaponVar": "mosin_m38",
+  "automaticReload": false,
+  "ownerAnimVars": {
+    "reye_offset_fwd0": -0.1,
+    "gun_offset_along": 0.0,
+    "gun_offset_across": 0.02,
+    "gun_offset_up": 0.0
+  },
+  "gunOffset": {
+    "offset": [0.2,0.05,0.15],
+    "crouchOffset": [0.2,-0.07,0.25],
+    "gunLen": 0.4
+  },
+  "shells": {
+    "shell": "content/enlisted/gamedata/weapons/bullets/7.62x54_r.blk"
+  },
+  "firingModes": {
+    "bolt_action": {
+      "modeType": "manual"
+    }
+  },
+  "shotDeviation": {
+    "onShotDeviationChange": 0.0,
+    "omegaRange": [30.0,90.0],
+    "omegaDevInc": [0.1,0.5],
+    "extraDeviationTau": 0.15,
+    "maxDeviation": 15.0,
+    "movementRange": [3.0,5.0],
+    "movementDevInc": [0.0,6.0]
+  },
+  "gunFlash": {
+    "gunFx_main": {
+      "fx": "muzzle_flash",
+      "scale": 0.04
+    },
+    "gunFx_add_bolt": {
+      "fx": "side_muzzle_flash",
+      "scale": 0.01
+    }
+  }
+}

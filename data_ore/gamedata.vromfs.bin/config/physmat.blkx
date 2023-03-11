@@ -20,39 +20,6 @@
         "type": "default_billboard_decal",
         "scale": 6.0
       },
-      "meleeHitFx": {
-        "hitSfxMaterial": "default",
-        "melee": {
-          "fx": "default_melee_hit"
-        },
-        "knife": {
-          "fx": "default_knife_hit"
-        },
-        "hands": {
-          "fx": "default_hands_hit"
-        },
-        "axe": {
-          "fx": "default_axe_hit"
-        },
-        "shovel": {
-          "fx": "default_axe_hit"
-        },
-        "default": {
-          "fx": "default_melee_hit"
-        }
-      },
-      "trackDirtFx": {
-        "back": "track_dirt_back",
-        "front": "track_dirt_front"
-      },
-      "planeWheelFx": {
-        "dust": "aircraft_wheels_ground_dust",
-        "friction": "aircraft_wheels_ground_friction"
-      },
-      "propellerFx": {
-        "propeller": "aircraft_propellers_ground_dust",
-        "rotor": "aircraft_propellers_ground_dust"
-      },
       "damageModel": {
         "ricochetAngleMult": 2.0,
         "ricochetAngle": 60.0,
@@ -72,18 +39,6 @@
       "billboardDecal": {
         "type": "soil_bullet_hole",
         "scale": 6.0
-      },
-      "trackDirtFx": {
-        "back": "track_dirt_back",
-        "front": "track_dirt_front"
-      },
-      "planeWheelFx": {
-        "dust": "aircraft_wheels_ground_dust",
-        "friction": "aircraft_wheels_ground_friction"
-      },
-      "propellerFx": {
-        "propeller": "aircraft_propellers_ground_dust",
-        "rotor": "aircraft_propellers_ground_dust"
       },
       "damageModel": {
         "ricochetAngleMult": 2.0,
@@ -108,10 +63,6 @@
       "color": "#0000ff0a",
       "sound_step_material": "water",
       "sound_material": "water",
-      "propellerFx": {
-        "propeller": "aircraft_propellers_water_splashes",
-        "rotor": "aircraft_propellers_water_splashes"
-      },
       "damageModel": {
         "ricochetAngleMult": 1.0,
         "ricochetAngle": 60.0,
@@ -123,22 +74,6 @@
       "color": "#ffa20064",
       "sound_step_material": "water",
       "sound_material": "water",
-      "shellHitFx": {
-        "bullet": {
-          "smoke": "water_splash",
-          "jet": "water_splash",
-          "scaleRange": [0.1,0.12]
-        },
-        "100mm_shell": {
-          "smoke": "100mm_ap_hit_water",
-          "jet": "100mm_ap_hit_water",
-          "scaleRange": [0.5,1.5]
-        }
-      },
-      "propellerFx": {
-        "propeller": "aircraft_propellers_water_splashes",
-        "rotor": "aircraft_propellers_water_splashes"
-      },
       "damageModel": {
         "ricochetAngleMult": 0.5,
         "ricochetAngle": 60.0,
@@ -150,10 +85,6 @@
       "color": "#0000ffc8",
       "sound_step_material": "water",
       "sound_material": "water",
-      "propellerFx": {
-        "propeller": "aircraft_propellers_water_splashes",
-        "rotor": "aircraft_propellers_water_splashes"
-      },
       "damageModel": {
         "ricochetAngleMult": 1.0,
         "ricochetAngle": 60.0,
@@ -170,38 +101,6 @@
       "vehicleSound": {
         "concrete": 1.0,
         "collDesc": "collConcrete"
-      },
-      "shellHitFx": {
-        "bullet": {
-          "smoke": "concrete_splash",
-          "jet": "ground_splash_direct",
-          "scaleRange": [0.5,0.7]
-        },
-        "100mm_shell": {
-          "smoke": "100mm_ap_hit_stone",
-          "jet": "100mm_ap_hit_stone"
-        }
-      },
-      "meleeHitFx": {
-        "hitSfxMaterial": "concrete",
-        "melee": {
-          "fx": "concrete_melee_hit"
-        },
-        "knife": {
-          "fx": "concrete_knife_hit"
-        },
-        "hands": {
-          "fx": "concrete_hands_hit"
-        },
-        "axe": {
-          "fx": "concrete_axe_hit"
-        },
-        "shovel": {
-          "fx": "concrete_axe_hit"
-        },
-        "default": {
-          "fx": "default_melee_hit"
-        }
       },
       "bulletHole": {
         "type": "bullet_hole",
@@ -231,42 +130,11 @@
         "type": "default_billboard_decal",
         "scale": 4.0
       },
-      "shellHitFx": {
-        "100mm_shell": {
-          "smoke": "100mm_ap_hit_stone",
-          "jet": "100mm_ap_hit_stone"
-        },
-        "bullet": {
-          "smoke": "concrete_splash",
-          "jet": "concrete_splash"
-        }
-      },
       "damageModel": {
         "ricochetAngleMult": 0.6,
         "ricochetAngle": 60.0,
         "ricochetCosinePower": 2.0,
         "ricochetCosineMult": 0.2
-      },
-      "meleeHitFx": {
-        "hitSfxMaterial": "concrete",
-        "melee": {
-          "fx": "concrete_melee_hit"
-        },
-        "knife": {
-          "fx": "concrete_knife_hit"
-        },
-        "hands": {
-          "fx": "concrete_hands_hit"
-        },
-        "axe": {
-          "fx": "concrete_axe_hit"
-        },
-        "shovel": {
-          "fx": "concrete_axe_hit"
-        },
-        "default": {
-          "fx": "default_melee_hit"
-        }
       }
     },
     "buildings": {
@@ -280,33 +148,6 @@
       "billboardDecal": {
         "type": "default_billboard_decal",
         "scale": 4.0
-      },
-      "shellHitFx": {
-        "bullet": {
-          "smoke": "concrete_splash",
-          "jet": "concrete_splash"
-        }
-      },
-      "meleeHitFx": {
-        "hitSfxMaterial": "concrete",
-        "melee": {
-          "fx": "concrete_melee_hit"
-        },
-        "knife": {
-          "fx": "concrete_knife_hit"
-        },
-        "hands": {
-          "fx": "concrete_hands_hit"
-        },
-        "axe": {
-          "fx": "concrete_axe_hit"
-        },
-        "shovel": {
-          "fx": "concrete_axe_hit"
-        },
-        "default": {
-          "fx": "default_melee_hit"
-        }
       }
     },
     "wood": {
@@ -327,47 +168,28 @@
         "ricochetAngle": 60.0,
         "ricochetCosinePower": 2.0,
         "ricochetCosineMult": 0.6,
+        "armorThickness": 0.1
+      }
+    },
+    "wood_solid": {
+      "bf_class": "wood",
+      "damage_k": 0.3,
+      "sound_step_material": "wood",
+      "sound_material": "wood",
+      "vehicleSound": {
+        "concrete": 0.5,
+        "collDesc": "collWood"
+      },
+      "billboardDecal": {
+        "type": "wood_bullet_hole",
+        "scale": 4.0
+      },
+      "damageModel": {
+        "ricochetAngleMult": 1.5,
+        "ricochetAngle": 60.0,
+        "ricochetCosinePower": 2.0,
+        "ricochetCosineMult": 0.6,
         "armorThickness": 15.0
-      },
-      "shellHitFx": {
-        "bullet": {
-          "smoke": "wood_splash",
-          "jet": "wood_splash"
-        }
-      },
-      "meleeHitFx": {
-        "hitSfxMaterial": "wood",
-        "melee": {
-          "fx": "wood_melee_hit"
-        },
-        "knife": {
-          "fx": "wood_knife_hit"
-        },
-        "hands": {
-          "fx": "wood_hands_hit"
-        },
-        "axe": {
-          "fx": "wood_axe_hit"
-        },
-        "shovel": {
-          "fx": "wood_axe_hit"
-        },
-        "default": {
-          "fx": "default_melee_hit"
-        }
-      },
-      "trackDirtFx": {
-        "back": "track_dirt_back",
-        "front": "track_dirt_front",
-        "spawnRateMult": 0.3
-      },
-      "planeWheelFx": {
-        "dust": "aircraft_wheels_ground_dust",
-        "friction": "aircraft_wheels_ground_friction"
-      },
-      "propellerFx": {
-        "propeller": "aircraft_propellers_ground_dust",
-        "rotor": "aircraft_propellers_ground_dust"
       }
     },
     "wood_railway": {
@@ -389,46 +211,6 @@
         "ricochetCosinePower": 2.0,
         "ricochetCosineMult": 0.6,
         "armorThickness": 0.1
-      },
-      "shellHitFx": {
-        "bullet": {
-          "smoke": "wood_splash",
-          "jet": "wood_splash"
-        }
-      },
-      "meleeHitFx": {
-        "hitSfxMaterial": "wood",
-        "melee": {
-          "fx": "wood_melee_hit"
-        },
-        "knife": {
-          "fx": "wood_knife_hit"
-        },
-        "hands": {
-          "fx": "wood_hands_hit"
-        },
-        "axe": {
-          "fx": "wood_axe_hit"
-        },
-        "shovel": {
-          "fx": "wood_axe_hit"
-        },
-        "default": {
-          "fx": "default_melee_hit"
-        }
-      },
-      "trackDirtFx": {
-        "back": "track_dirt_back",
-        "front": "track_dirt_front",
-        "spawnRateMult": 0.3
-      },
-      "planeWheelFx": {
-        "dust": "aircraft_wheels_ground_dust",
-        "friction": "aircraft_wheels_ground_friction"
-      },
-      "propellerFx": {
-        "propeller": "aircraft_propellers_ground_dust",
-        "rotor": "aircraft_propellers_ground_dust"
       }
     },
     "window_wood": {
@@ -454,46 +236,6 @@
         "ricochetCosinePower": 2.0,
         "ricochetCosineMult": 0.6,
         "armorThickness": 0.1
-      },
-      "shellHitFx": {
-        "bullet": {
-          "smoke": "wood_splash",
-          "jet": "wood_splash"
-        }
-      },
-      "meleeHitFx": {
-        "hitSfxMaterial": "wood",
-        "melee": {
-          "fx": "wood_melee_hit"
-        },
-        "knife": {
-          "fx": "wood_knife_hit"
-        },
-        "hands": {
-          "fx": "wood_hands_hit"
-        },
-        "axe": {
-          "fx": "wood_axe_hit"
-        },
-        "shovel": {
-          "fx": "wood_axe_hit"
-        },
-        "default": {
-          "fx": "default_melee_hit"
-        }
-      },
-      "trackDirtFx": {
-        "back": "track_dirt_back",
-        "front": "track_dirt_front",
-        "spawnRateMult": 0.3
-      },
-      "planeWheelFx": {
-        "dust": "aircraft_wheels_ground_dust",
-        "friction": "aircraft_wheels_ground_friction"
-      },
-      "propellerFx": {
-        "propeller": "aircraft_propellers_ground_dust",
-        "rotor": "aircraft_propellers_ground_dust"
       }
     },
     "glass": {
@@ -519,42 +261,11 @@
         "concrete": 0.5,
         "collDesc": "collMetal"
       },
-      "shellHitFx": {
-        "100mm_shell": {
-          "smoke": "bullet_hit_armor",
-          "jet": "bullet_hit_armor"
-        },
-        "bullet": {
-          "smoke": "metal_splash",
-          "jet": "metal_splash"
-        }
-      },
       "damageModel": {
         "ricochetAngleMult": 0.3,
         "ricochetAngle": 60.0,
         "ricochetCosinePower": 2.0,
         "ricochetCosineMult": 0.1
-      },
-      "meleeHitFx": {
-        "hitSfxMaterial": "metal",
-        "melee": {
-          "fx": "metal_melee_hit"
-        },
-        "knife": {
-          "fx": "metal_knife_hit"
-        },
-        "hands": {
-          "fx": "metal_hands_hit"
-        },
-        "axe": {
-          "fx": "metal_axe_hit"
-        },
-        "shovel": {
-          "fx": "metal_axe_hit"
-        },
-        "default": {
-          "fx": "default_melee_hit"
-        }
       },
       "bulletHole": {
         "type": "bullet_hole",
@@ -574,42 +285,11 @@
         "concrete": 0.5,
         "collDesc": "collMetal"
       },
-      "shellHitFx": {
-        "100mm_shell": {
-          "smoke": "bullet_hit_armor",
-          "jet": "bullet_hit_armor"
-        },
-        "bullet": {
-          "smoke": "metal_splash",
-          "jet": "metal_splash"
-        }
-      },
       "damageModel": {
         "ricochetAngleMult": 0.3,
         "ricochetAngle": 60.0,
         "ricochetCosinePower": 2.0,
         "ricochetCosineMult": 0.1
-      },
-      "meleeHitFx": {
-        "hitSfxMaterial": "metal",
-        "melee": {
-          "fx": "metal_melee_hit"
-        },
-        "knife": {
-          "fx": "metal_knife_hit"
-        },
-        "hands": {
-          "fx": "metal_hands_hit"
-        },
-        "axe": {
-          "fx": "metal_axe_hit"
-        },
-        "shovel": {
-          "fx": "metal_axe_hit"
-        },
-        "default": {
-          "fx": "default_melee_hit"
-        }
       },
       "bulletHole": {
         "type": "bullet_hole",
@@ -629,42 +309,11 @@
         "concrete": 0.5,
         "collDesc": "collMetal"
       },
-      "shellHitFx": {
-        "100mm_shell": {
-          "smoke": "bullet_hit_armor",
-          "jet": "bullet_hit_armor"
-        },
-        "bullet": {
-          "smoke": "metal_splash",
-          "jet": "metal_splash"
-        }
-      },
       "damageModel": {
         "ricochetAngleMult": 0.3,
         "ricochetAngle": 60.0,
         "ricochetCosinePower": 2.0,
         "ricochetCosineMult": 0.1
-      },
-      "meleeHitFx": {
-        "hitSfxMaterial": "metal",
-        "melee": {
-          "fx": "metal_melee_hit"
-        },
-        "knife": {
-          "fx": "metal_knife_hit"
-        },
-        "hands": {
-          "fx": "metal_hands_hit"
-        },
-        "axe": {
-          "fx": "metal_axe_hit"
-        },
-        "shovel": {
-          "fx": "metal_axe_hit"
-        },
-        "default": {
-          "fx": "default_melee_hit"
-        }
       },
       "bulletHole": {
         "type": "bullet_hole",
@@ -677,33 +326,6 @@
     },
     "flesh": {
       "bf_class": "flesh",
-      "shellHitFx": {
-        "bullet": {
-          "smoke": "flesh_splash",
-          "jet": "flesh_splash"
-        }
-      },
-      "meleeHitFx": {
-        "hitSfxMaterial": "",
-        "melee": {
-          "fx": "flesh_melee_hit"
-        },
-        "knife": {
-          "fx": "flesh_knife_hit"
-        },
-        "hands": {
-          "fx": "flesh_hands_hit"
-        },
-        "axe": {
-          "fx": "flesh_axe_hit"
-        },
-        "shovel": {
-          "fx": "flesh_knife_hit"
-        },
-        "default": {
-          "fx": "default_melee_hit"
-        }
-      },
       "billboardDecal": {
         "type": "blood_decal",
         "scale": 1.0
@@ -731,46 +353,6 @@
         "ricochetCosinePower": 2.0,
         "ricochetCosineMult": 0.6,
         "armorThickness": 0.05
-      },
-      "shellHitFx": {
-        "bullet": {
-          "smoke": "wood_splash",
-          "jet": "wood_splash"
-        }
-      },
-      "meleeHitFx": {
-        "hitSfxMaterial": "cactus",
-        "melee": {
-          "fx": "cactus_default_hit"
-        },
-        "knife": {
-          "fx": "cactus_knife_hit"
-        },
-        "hands": {
-          "fx": "cactus_default_hit"
-        },
-        "axe": {
-          "fx": "cactus_axe_hit"
-        },
-        "shovel": {
-          "fx": "cactus_axe_hit"
-        },
-        "default": {
-          "fx": "cactus_default_hit"
-        }
-      },
-      "trackDirtFx": {
-        "back": "track_dirt_back",
-        "front": "track_dirt_front",
-        "spawnRateMult": 0.3
-      },
-      "planeWheelFx": {
-        "dust": "aircraft_wheels_ground_dust",
-        "friction": "aircraft_wheels_ground_friction"
-      },
-      "propellerFx": {
-        "propeller": "aircraft_propellers_ground_dust",
-        "rotor": "aircraft_propellers_ground_dust"
       }
     },
     "soil": {
@@ -782,19 +364,6 @@
       "billboardDecal": {
         "type": "soil_bullet_hole",
         "scale": 4.0
-      },
-      "trackDirtFx": {
-        "back": "track_dirt_back",
-        "front": "track_dirt_front",
-        "spawnRateMult": 1.2
-      },
-      "planeWheelFx": {
-        "dust": "aircraft_wheels_ground_dust",
-        "friction": "aircraft_wheels_ground_friction"
-      },
-      "propellerFx": {
-        "propeller": "aircraft_propellers_ground_dust",
-        "rotor": "aircraft_propellers_ground_dust"
       },
       "damageModel": {
         "ricochetAngleMult": 2.0,
@@ -813,19 +382,6 @@
         "type": "soil_bullet_hole",
         "scale": 4.0
       },
-      "trackDirtFx": {
-        "back": "track_dirt_back",
-        "front": "track_dirt_front",
-        "spawnRateMult": 1.2
-      },
-      "planeWheelFx": {
-        "dust": "aircraft_wheels_ground_dust",
-        "friction": "aircraft_wheels_ground_friction"
-      },
-      "propellerFx": {
-        "propeller": "aircraft_propellers_ground_dust",
-        "rotor": "aircraft_propellers_ground_dust"
-      },
       "damageModel": {
         "ricochetAngleMult": 2.0,
         "ricochetAngle": 60.0,
@@ -842,19 +398,6 @@
       "billboardDecal": {
         "type": "soil_bullet_hole",
         "scale": 4.0
-      },
-      "trackDirtFx": {
-        "back": "track_dirt_back",
-        "front": "track_dirt_front",
-        "spawnRateMult": 1.2
-      },
-      "planeWheelFx": {
-        "dust": "aircraft_wheels_ground_dust",
-        "friction": "aircraft_wheels_ground_friction"
-      },
-      "propellerFx": {
-        "propeller": "aircraft_propellers_ground_dust",
-        "rotor": "aircraft_propellers_ground_dust"
       },
       "damageModel": {
         "ricochetAngleMult": 2.0,
@@ -873,19 +416,6 @@
         "type": "soil_bullet_hole",
         "scale": 4.0
       },
-      "trackDirtFx": {
-        "back": "track_dirt_back",
-        "front": "track_dirt_front",
-        "spawnRateMult": 1.2
-      },
-      "planeWheelFx": {
-        "dust": "aircraft_wheels_ground_dust",
-        "friction": "aircraft_wheels_ground_friction"
-      },
-      "propellerFx": {
-        "propeller": "aircraft_propellers_ground_dust",
-        "rotor": "aircraft_propellers_ground_dust"
-      },
       "damageModel": {
         "ricochetAngleMult": 2.0,
         "ricochetAngle": 60.0,
@@ -902,19 +432,6 @@
       "billboardDecal": {
         "type": "soil_bullet_hole",
         "scale": 4.0
-      },
-      "trackDirtFx": {
-        "back": "track_dirt_back",
-        "front": "track_dirt_front",
-        "spawnRateMult": 1.4
-      },
-      "planeWheelFx": {
-        "dust": "aircraft_wheels_ground_dust",
-        "friction": "aircraft_wheels_ground_friction"
-      },
-      "propellerFx": {
-        "propeller": "aircraft_propellers_ground_dust",
-        "rotor": "aircraft_propellers_ground_dust"
       }
     },
     "roadSoil": {
@@ -929,19 +446,6 @@
       "billboardDecal": {
         "type": "soil_bullet_hole",
         "scale": 4.0
-      },
-      "trackDirtFx": {
-        "back": "track_dirt_back",
-        "front": "track_dirt_front",
-        "spawnRateMult": 0.3
-      },
-      "planeWheelFx": {
-        "dust": "aircraft_wheels_ground_dust",
-        "friction": "aircraft_wheels_ground_friction"
-      },
-      "propellerFx": {
-        "propeller": "aircraft_propellers_ground_dust",
-        "rotor": "aircraft_propellers_ground_dust"
       }
     },
     "roadmud": {
@@ -953,19 +457,6 @@
       "billboardDecal": {
         "type": "soil_bullet_hole",
         "scale": 4.0
-      },
-      "trackDirtFx": {
-        "back": "track_dirt_back",
-        "front": "track_dirt_front",
-        "spawnRateMult": 1.2
-      },
-      "planeWheelFx": {
-        "dust": "aircraft_wheels_ground_dust",
-        "friction": "aircraft_wheels_ground_friction"
-      },
-      "propellerFx": {
-        "propeller": "aircraft_propellers_ground_dust",
-        "rotor": "aircraft_propellers_ground_dust"
       },
       "damageModel": {
         "ricochetAngleMult": 2.0,
@@ -982,18 +473,6 @@
       "billboardDecal": {
         "type": "soil_bullet_hole",
         "scale": 4.0
-      },
-      "trackDirtFx": {
-        "back": "track_sand_back",
-        "front": "track_sand_front"
-      },
-      "planeWheelFx": {
-        "dust": "aircraft_wheels_ground_dust",
-        "friction": "aircraft_wheels_ground_friction"
-      },
-      "propellerFx": {
-        "propeller": "aircraft_propellers_ground_dust",
-        "rotor": "aircraft_propellers_ground_dust"
       }
     },
     "moon_sand": {
@@ -1004,18 +483,6 @@
       "billboardDecal": {
         "type": "moon_sand_bullet_hole",
         "scale": 4.0
-      },
-      "trackDirtFx": {
-        "back": "track_sand_back",
-        "front": "track_sand_front"
-      },
-      "planeWheelFx": {
-        "dust": "aircraft_wheels_ground_dust",
-        "friction": "aircraft_wheels_ground_friction"
-      },
-      "propellerFx": {
-        "propeller": "aircraft_propellers_ground_dust",
-        "rotor": "aircraft_propellers_ground_dust"
       }
     },
     "quarrySand": {
@@ -1030,19 +497,6 @@
       "billboardDecal": {
         "type": "soil_bullet_hole",
         "scale": 4.0
-      },
-      "trackDirtFx": {
-        "back": "track_sand_back",
-        "front": "track_sand_front",
-        "spawnRateMult": 0.7
-      },
-      "planeWheelFx": {
-        "dust": "aircraft_wheels_ground_dust",
-        "friction": "aircraft_wheels_ground_friction"
-      },
-      "propellerFx": {
-        "propeller": "aircraft_propellers_ground_dust",
-        "rotor": "aircraft_propellers_ground_dust"
       }
     },
     "sand_slope": {
@@ -1057,19 +511,6 @@
       "billboardDecal": {
         "type": "soil_bullet_hole",
         "scale": 4.0
-      },
-      "trackDirtFx": {
-        "back": "track_sand_back",
-        "front": "track_sand_front",
-        "spawnRateMult": 0.7
-      },
-      "planeWheelFx": {
-        "dust": "aircraft_wheels_ground_dust",
-        "friction": "aircraft_wheels_ground_friction"
-      },
-      "propellerFx": {
-        "propeller": "aircraft_propellers_ground_dust",
-        "rotor": "aircraft_propellers_ground_dust"
       }
     },
     "roadSand": {
@@ -1084,19 +525,6 @@
       "billboardDecal": {
         "type": "soil_bullet_hole",
         "scale": 4.0
-      },
-      "trackDirtFx": {
-        "back": "track_sand_back",
-        "front": "track_sand_front",
-        "spawnRateMult": 0.7
-      },
-      "planeWheelFx": {
-        "dust": "aircraft_wheels_ground_dust",
-        "friction": "aircraft_wheels_ground_friction"
-      },
-      "propellerFx": {
-        "propeller": "aircraft_propellers_ground_dust",
-        "rotor": "aircraft_propellers_ground_dust"
       }
     },
     "quickSand": {
@@ -1106,38 +534,19 @@
       "sound_material": "dirt",
       "vehicleSound": {
         "concrete": 1.0
-      },
-      "trackDirtFx": {
-        "back": "track_sand_back",
-        "front": "track_sand_front",
-        "spawnRateMult": 0.5
-      },
-      "planeWheelFx": {
-        "dust": "aircraft_wheels_ground_dust",
-        "friction": "aircraft_wheels_ground_friction"
-      },
-      "propellerFx": {
-        "propeller": "aircraft_propellers_ground_dust",
-        "rotor": "aircraft_propellers_ground_dust"
       }
     },
     "snow": {
       "bf_class": "snow",
       "deformable_width": 0.3,
       "sound_step_material": "snow",
-      "sound_material": "dirt",
-      "trackDirtFx": {
-        "back": "track_snow_back",
-        "front": "track_snow_front"
-      },
-      "planeWheelFx": {
-        "dust": "aircraft_wheels_ground_dust",
-        "friction": "aircraft_wheels_ground_friction"
-      },
-      "propellerFx": {
-        "propeller": "aircraft_propellers_water_splashes",
-        "rotor": "aircraft_propellers_water_splashes"
-      }
+      "sound_material": "dirt"
+    },
+    "hardSnow": {
+      "bf_class": "snow",
+      "deformable_width": 0.3,
+      "sound_step_material": "snow",
+      "sound_material": "dirt"
     },
     "ice": {
       "bf_class": "ice",
@@ -1146,58 +555,19 @@
       "billboardDecal": {
         "type": "metal_bullet_hole",
         "scale": 4.0
-      },
-      "trackDirtFx": {
-        "back": "track_snow_back",
-        "front": "track_snow_front",
-        "spawnRateMult": 0.2
-      },
-      "planeWheelFx": {
-        "dust": "aircraft_wheels_ground_dust",
-        "friction": "aircraft_wheels_ground_friction"
-      },
-      "propellerFx": {
-        "propeller": "aircraft_propellers_water_splashes",
-        "rotor": "aircraft_propellers_water_splashes"
       }
     },
     "snowLower": {
       "bf_class": "snow",
       "deformable_width": 0.2,
       "sound_step_material": "snow",
-      "sound_material": "dirt",
-      "trackDirtFx": {
-        "back": "track_snow_back",
-        "front": "track_snow_front",
-        "spawnRateMult": 0.5
-      },
-      "planeWheelFx": {
-        "dust": "aircraft_wheels_ground_dust",
-        "friction": "aircraft_wheels_ground_friction"
-      },
-      "propellerFx": {
-        "propeller": "aircraft_propellers_water_splashes",
-        "rotor": "aircraft_propellers_water_splashes"
-      }
+      "sound_material": "dirt"
     },
     "roadSnow": {
       "bf_class": "roadSnow",
       "deformable_width": 0.05,
       "sound_step_material": "snow",
-      "sound_material": "dirt",
-      "trackDirtFx": {
-        "back": "track_snow_back",
-        "front": "track_snow_front",
-        "spawnRateMult": 0.2
-      },
-      "planeWheelFx": {
-        "dust": "aircraft_wheels_ground_dust",
-        "friction": "aircraft_wheels_ground_friction"
-      },
-      "propellerFx": {
-        "propeller": "aircraft_propellers_water_splashes",
-        "rotor": "aircraft_propellers_water_splashes"
-      }
+      "sound_material": "dirt"
     },
     "lava": {
       "bf_class": "lava",
@@ -1214,39 +584,6 @@
       "billboardDecal": {
         "type": "default_billboard_decal",
         "scale": 6.0
-      },
-      "meleeHitFx": {
-        "hitSfxMaterial": "default",
-        "melee": {
-          "fx": "default_melee_hit"
-        },
-        "knife": {
-          "fx": "default_knife_hit"
-        },
-        "hands": {
-          "fx": "default_hands_hit"
-        },
-        "axe": {
-          "fx": "default_axe_hit"
-        },
-        "shovel": {
-          "fx": "default_axe_hit"
-        },
-        "default": {
-          "fx": "default_melee_hit"
-        }
-      },
-      "trackDirtFx": {
-        "back": "track_dirt_back",
-        "front": "track_dirt_front"
-      },
-      "planeWheelFx": {
-        "dust": "aircraft_wheels_ground_dust",
-        "friction": "aircraft_wheels_ground_friction"
-      },
-      "propellerFx": {
-        "propeller": "aircraft_propellers_ground_dust",
-        "rotor": "aircraft_propellers_ground_dust"
       },
       "damageModel": {
         "ricochetAngleMult": 2.0,
@@ -1265,38 +602,6 @@
       "billboardDecal": {
         "type": "default_billboard_decal",
         "scale": 4.0
-      },
-      "shellHitFx": {
-        "bullet": {
-          "smoke": "concrete_splash",
-          "jet": "ground_splash_direct",
-          "scaleRange": [0.5,0.7]
-        },
-        "100mm_shell": {
-          "smoke": "100mm_ap_hit_stone",
-          "jet": "100mm_ap_hit_stone"
-        }
-      },
-      "meleeHitFx": {
-        "hitSfxMaterial": "concrete",
-        "melee": {
-          "fx": "concrete_melee_hit"
-        },
-        "knife": {
-          "fx": "concrete_knife_hit"
-        },
-        "hands": {
-          "fx": "concrete_hands_hit"
-        },
-        "axe": {
-          "fx": "concrete_axe_hit"
-        },
-        "shovel": {
-          "fx": "concrete_axe_hit"
-        },
-        "default": {
-          "fx": "default_melee_hit"
-        }
       },
       "bulletHole": {
         "type": "bullet_hole",
@@ -1319,12 +624,6 @@
       "billboardDecal": {
         "type": "default_billboard_decal",
         "scale": 4.0
-      },
-      "shellHitFx": {
-        "bullet": {
-          "smoke": "concrete_splash",
-          "jet": "concrete_splash"
-        }
       }
     },
     "gravel": {
@@ -1337,38 +636,6 @@
       "billboardDecal": {
         "type": "default_billboard_decal",
         "scale": 4.0
-      },
-      "shellHitFx": {
-        "bullet": {
-          "smoke": "concrete_splash",
-          "jet": "ground_splash_direct",
-          "scaleRange": [0.5,0.7]
-        },
-        "100mm_shell": {
-          "smoke": "100mm_ap_hit_stone",
-          "jet": "100mm_ap_hit_stone"
-        }
-      },
-      "meleeHitFx": {
-        "hitSfxMaterial": "concrete",
-        "melee": {
-          "fx": "concrete_melee_hit"
-        },
-        "knife": {
-          "fx": "concrete_knife_hit"
-        },
-        "hands": {
-          "fx": "concrete_hands_hit"
-        },
-        "axe": {
-          "fx": "concrete_axe_hit"
-        },
-        "shovel": {
-          "fx": "concrete_axe_hit"
-        },
-        "default": {
-          "fx": "default_melee_hit"
-        }
       },
       "bulletHole": {
         "type": "bullet_hole",
@@ -1413,27 +680,6 @@
         "type": "wood_bullet_hole",
         "scale": 5.0
       },
-      "meleeHitFx": {
-        "hitSfxMaterial": "default",
-        "melee": {
-          "fx": "default_melee_hit"
-        },
-        "knife": {
-          "fx": "default_knife_hit"
-        },
-        "hands": {
-          "fx": "default_hands_hit"
-        },
-        "axe": {
-          "fx": "default_axe_hit"
-        },
-        "shovel": {
-          "fx": "default_axe_hit"
-        },
-        "default": {
-          "fx": "default_melee_hit"
-        }
-      },
       "damageModel": {
         "armorThickness": 0.01
       }
@@ -1457,46 +703,6 @@
         "ricochetCosinePower": 2.0,
         "ricochetCosineMult": 0.6,
         "armorThickness": 0.7
-      },
-      "shellHitFx": {
-        "bullet": {
-          "smoke": "wood_splash",
-          "jet": "wood_splash"
-        }
-      },
-      "meleeHitFx": {
-        "hitSfxMaterial": "wood",
-        "melee": {
-          "fx": "wood_melee_hit"
-        },
-        "knife": {
-          "fx": "wood_knife_hit"
-        },
-        "hands": {
-          "fx": "wood_hands_hit"
-        },
-        "axe": {
-          "fx": "wood_axe_hit"
-        },
-        "shovel": {
-          "fx": "wood_axe_hit"
-        },
-        "default": {
-          "fx": "default_melee_hit"
-        }
-      },
-      "trackDirtFx": {
-        "back": "track_dirt_back",
-        "front": "track_dirt_front",
-        "spawnRateMult": 0.3
-      },
-      "planeWheelFx": {
-        "dust": "aircraft_wheels_ground_dust",
-        "friction": "aircraft_wheels_ground_friction"
-      },
-      "propellerFx": {
-        "propeller": "aircraft_propellers_ground_dust",
-        "rotor": "aircraft_propellers_ground_dust"
       }
     },
     "paper": {
@@ -1591,33 +797,6 @@
       "billboardDecal": {
         "type": "wood_bullet_hole",
         "scale": 4.0
-      },
-      "shellHitFx": {
-        "bullet": {
-          "smoke": "wood_splash",
-          "jet": "wood_splash"
-        }
-      },
-      "meleeHitFx": {
-        "hitSfxMaterial": "wood",
-        "melee": {
-          "fx": "wood_melee_hit"
-        },
-        "knife": {
-          "fx": "wood_knife_hit"
-        },
-        "hands": {
-          "fx": "wood_hands_hit"
-        },
-        "axe": {
-          "fx": "wood_axe_hit"
-        },
-        "shovel": {
-          "fx": "wood_axe_hit"
-        },
-        "default": {
-          "fx": "default_melee_hit"
-        }
       }
     },
     "softSteelDoor": {
@@ -1637,33 +816,6 @@
         "ricochetCosinePower": 2.0,
         "ricochetCosineMult": 0.2,
         "armorThickness": 40.0
-      },
-      "shellHitFx": {
-        "bullet": {
-          "smoke": "metal_splash",
-          "jet": "metal_splash"
-        }
-      },
-      "meleeHitFx": {
-        "hitSfxMaterial": "metal",
-        "melee": {
-          "fx": "metal_melee_hit"
-        },
-        "knife": {
-          "fx": "metal_knife_hit"
-        },
-        "hands": {
-          "fx": "metal_hands_hit"
-        },
-        "axe": {
-          "fx": "metal_axe_hit"
-        },
-        "shovel": {
-          "fx": "metal_axe_hit"
-        },
-        "default": {
-          "fx": "default_melee_hit"
-        }
       },
       "bulletHole": {
         "type": "bullet_hole",

@@ -1929,7 +1929,7 @@
   {
     "entity": {
       "_template": "door_mult_ent_generator",
-      "ri_extra_gen__blk": "content/e_moscow/gamedata/volokolamsk_doors.blk"
+      "ri_extra_gen__blk": "content/enlisted/gamedata/volokolamsk_doors.blk"
     }
   },
   {
@@ -1949,13 +1949,13 @@
       "mission_name": "volokolamsk_forestry_inv_counter",
       "loading_images:list<t>": [
         {
-          "item": "ui/volokolamsk_forestery_01.jpg"
+          "item": "ui/volokolamsk_forestery_01.avif"
         },
         {
-          "item": "ui/volokolamsk_forestery_02.jpg"
+          "item": "ui/volokolamsk_forestery_02.avif"
         },
         {
-          "item": "ui/volokolamsk_forestery_03.jpg"
+          "item": "ui/volokolamsk_forestery_03.avif"
         }
       ]
     }
@@ -2049,7 +2049,7 @@
       "capzone__capRewardPartCap": 1.125,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_1",
-      "capzone__capTime": 70.0,
+      "capzone__capTime": 60.0,
       "capzone__capTeam": -1,
       "transform": [
         [1.02362,0.00908744,-0.106018],
@@ -2085,7 +2085,7 @@
       "capzone__onlyTeamCanCapture": 1,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_2",
-      "capzone__capTime": 80.0,
+      "capzone__capTime": 70.0,
       "capzone__capTeam": -1,
       "transform": [
         [1.0,0.0,0.0],
@@ -2121,7 +2121,7 @@
       "capzone__onlyTeamCanCapture": 1,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_2_b",
-      "capzone__capTime": 80.0,
+      "capzone__capTime": 70.0,
       "capzone__capTeam": -1,
       "transform": [
         [0.983627,0.0,-0.156584],
@@ -2156,7 +2156,7 @@
       "capzone__onlyTeamCanCapture": 1,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_2_c",
-      "capzone__capTime": 80.0,
+      "capzone__capTime": 70.0,
       "capzone__capTeam": -1,
       "transform": [
         [1.0,0.0,0.0],
@@ -2264,7 +2264,7 @@
       "capzone__onlyTeamCanCapture": 1,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_4",
-      "capzone__capTime": 70.0,
+      "capzone__capTime": 80.0,
       "capzone__capTeam": -1,
       "transform": [
         [20.0968,0.0,-30.8061],
@@ -2297,7 +2297,7 @@
       "capzone__onlyTeamCanCapture": 1,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_4_b",
-      "capzone__capTime": 70.0,
+      "capzone__capTime": 80.0,
       "capzone__capTeam": -1,
       "transform": [
         [20.0968,0.0,-30.8061],
@@ -2331,13 +2331,13 @@
       "capzone__onlyTeamCanCapture": 1,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_5",
-      "capzone__capTime": 80.0,
+      "capzone__capTime": 70.0,
       "capzone__capTeam": -1,
       "transform": [
-        [1.0,0.0,0.0],
+        [1.07272,0.0,-0.396382],
         [0.0,1.0,0.0],
-        [0.0,0.0,1.0],
-        [-1228.5,4.23299,160.771]
+        [0.346607,-0.0,0.93801],
+        [-1227.28,4.60296,160.059]
       ],
       "active": false,
       "capzone__decapTime": 6000.0,
@@ -2349,7 +2349,7 @@
       "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 2,
-      "decal__height": 0.5,
+      "decal__height": 1.0,
       "decal__thickness": 0.4,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 3,
@@ -3355,9 +3355,9 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_fighter",
       "transform": [
-        [0.0260471,0.0,-0.999661],
+        [-0.225008,0.0,-0.974357],
         [0.0,1.0,0.0],
-        [0.999661,0.0,0.0260471],
+        [0.974357,0.0,-0.225008],
         [-624.161,1000.0,2748.41]
       ],
       "team": 2,
@@ -3370,9 +3370,9 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_assault",
       "transform": [
-        [0.0260471,0.0,-0.999661],
+        [-0.143727,0.0,-0.989618],
         [0.0,1.0,0.0],
-        [0.999661,0.0,0.0260471],
+        [0.989618,0.0,-0.143727],
         [-791.056,800.0,2745.04]
       ],
       "team": 2,
@@ -3385,9 +3385,9 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_fighter",
       "transform": [
-        [0.0260471,0.0,-0.999661],
+        [-0.171002,0.0,-0.985271],
         [0.0,1.0,0.0],
-        [0.999661,0.0,0.0260471],
+        [0.985271,0.0,-0.171002],
         [-791.056,1000.0,2745.04]
       ],
       "team": 2,
@@ -3400,9 +3400,9 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_assault",
       "transform": [
-        [0.0260471,0.0,-0.999661],
+        [-0.233325,0.0,-0.972399],
         [0.0,1.0,0.0],
-        [0.999661,0.0,0.0260471],
+        [0.972399,0.0,-0.233325],
         [-596.995,800.0,2750.45]
       ],
       "team": 2,
@@ -3427,9 +3427,9 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_fighter",
       "transform": [
-        [-0.217759,0.0,0.976002],
+        [-0.659672,0.0,0.751553],
         [0.0,1.0,0.0],
-        [-0.976002,0.0,-0.217759],
+        [-0.751553,0.0,-0.659672],
         [941.199,1000.0,-1638.53]
       ],
       "team": 1,
@@ -3442,9 +3442,9 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_assault",
       "transform": [
-        [-0.217759,0.0,0.976002],
+        [-0.751345,0.0,0.659908],
         [0.0,1.0,0.0],
-        [-0.976002,0.0,-0.217759],
+        [-0.659908,0.0,-0.751345],
         [941.199,800.0,-1638.53]
       ],
       "team": 1,
@@ -3457,9 +3457,9 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_fighter",
       "transform": [
-        [-0.217759,0.0,0.976002],
+        [-0.72529,0.0,0.688442],
         [0.0,1.0,0.0],
-        [-0.976002,0.0,-0.217759],
+        [-0.688442,0.0,-0.72529],
         [813.414,1000.0,-1657.64]
       ],
       "team": 1,
@@ -3472,9 +3472,9 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_assault",
       "transform": [
-        [-0.217759,0.0,0.976002],
+        [-0.717527,0.0,0.696529],
         [0.0,1.0,0.0],
-        [-0.976002,0.0,-0.217759],
+        [-0.696529,0.0,-0.717527],
         [783.694,800.0,-1664.78]
       ],
       "team": 1,

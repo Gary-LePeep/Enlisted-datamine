@@ -47,6 +47,7 @@ def bipod_init_offset(evt : Event;
   if gun__barrelTipOffsetOverride.x != 0.0
     gun__barrelTipOffset = gun__barrelTipOffsetOverride
 
+require enlisted.events_enlisted
 
 def bipod_update_height(var human_net_phys : HumanActor&; is_fpv : bool;
                         human_tm : float3x4; human_gun_eid : EntityId; bipod_is_crawl : bool; aim_pitch : float;
@@ -96,7 +97,7 @@ def bipod_update_height(var human_net_phys : HumanActor&; is_fpv : bool;
 
 
 [es(tag=netClient, REQUIRE_NOT=hero, after=human_phys_es, before=after_net_phys_sync)]
-def bipod_other_human_act_es(info : UpdateStageInfoAct;
+def bipod_other_human_act_es(info : ParallelUpdateFrameDelayed;
                              human_weap__currentGunEid : EntityId;
                              bipod__anchorPos : float3;
                              bipod__anchorHeight : float;

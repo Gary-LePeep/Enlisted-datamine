@@ -22,13 +22,14 @@
     "motion_matching__animationBlendTime": 0.45,
     "motion_matching__updateProgress": 0.0,
     "motion_matching__distanceFactor": 1.0,
-    "motion_matching__trajectoryTolerance": 3.0,
+    "motion_matching__trajectoryTolerance": 0.0,
     "motion_matching__presetIdx": -1,
     "motion_matching__dataBaseTemplateName": "motion_matchign_animation_database",
     "motion_matching__trajectoryTimes:list<r>": [],
+    "motion_matching__desiredPositions:list<p3>": [],
+    "motion_matching__desiredDirections:list<p3>": [],
     "motion_matching__predictedPositions:list<p3>": [],
-    "motion_matching__predictedVelocity:list<p3>": [],
-    "motion_matching__predictedRotation:list<p3>": [],
+    "motion_matching__predictedDirections:list<p3>": [],
     "motion_matching__goalFeature:FrameFeatures": [],
     "motion_matching__goalNodesIdx:list<i>": [],
     "motion_matching__goalTags:list<t>": [],
@@ -150,12 +151,40 @@
   },
   "animation_self_tester": [
     {
+      "_extends": "motion_matching_animchar_component"
+    },
+    {
       "_extends": "animation_tester"
     },
     {
       "_extends": "animation_test_target"
+    },
+    {
+      "motion_matching__debugLabel": ""
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "motion_matching__enabled": true,
+        "motion_matching__dataBaseTemplateName": "motion_matchign_animation_database_extended"
+      }
     }
   ],
+  "motion_matching_anim_tree_tester": {
+    "_extends": "animation_self_tester",
+    "motion_matching__debugLabel": "anim tree",
+    "motion_matching__animTreeTester:tag": []
+  },
+  "motion_matching_tester": {
+    "_extends": "animation_self_tester",
+    "motion_matching__debugLabel": "motion matching",
+    "motion_matching__MMTester:tag": []
+  },
+  "motion_matching_inertial_blend_tester": {
+    "_extends": "animation_self_tester",
+    "motion_matching__debugLabel": "inertial blend",
+    "motion_matching__inertialBlendTester:tag": []
+  },
   "animation_test_pair": {
     "_extends": "animation_test_target",
     "transform": [
@@ -165,7 +194,6 @@
       [0.0,0.0,0.0]
     ],
     "animationTestPair:tag": [],
-    "first_tester:eid": [],
-    "second_tester:eid": []
+    "tester_list:list<eid>": []
   }
 }

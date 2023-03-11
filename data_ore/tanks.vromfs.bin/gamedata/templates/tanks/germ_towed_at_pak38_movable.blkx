@@ -248,7 +248,7 @@
     "gun__recoilAmount": 0.08
   },
   "germ_towed_at_pak38_gunner_cockpit": {
-    "vehicle_sight__blk": "content/tanks/gamedata/sight/germ_tzf4.blk",
+    "vehicle_sight__blk": "content/tanks/gamedata/sight/germ_tzf4_towed.blk",
     "_extends": "base_gunner_cockpit",
     "animchar__res": "t_26_1940_gunner_char",
     "cockpit__zoomTimeMul": 1.3,
@@ -273,6 +273,53 @@
     },
     "cockpit__slitIsGun:list<b>": {
       "slit": true
+    }
+  },
+  "enlist_tankgun_towed_at_pak38_50mm_pak38": [
+    {
+      "_extends": "tankgun"
+    },
+    {
+      "_extends": "base_tankgun_cannon"
+    },
+    {
+      "_extends": "enlist_towed_at_pak38_50mm_pak38"
+    },
+    {
+      "turret__triggerGroup": 0
+    },
+    {
+      "turret__aimNodeName": "bone_turret"
+    },
+    {
+      "turret__limit": [-40.0,40.0,-2.0,20.0]
+    }
+  ],
+  "enlist_towed_at_pak38_50mm_pak38": {
+    "_extends": "base_50mm_pak38",
+    "gun__shellsAmmo:array": [
+      {
+        "ammo": 10
+      },
+      {
+        "ammo": 15
+      }
+    ],
+    "gun__ammoSetsInfo:shared:array": {
+      "defaultSet:array": {
+        "shell:object": {
+          "blk": "content/tanks/gamedata/gen/weapons/shells/50mm_pak38_defaultset.blk",
+          "name": "50mm_pzgr_39",
+          "type": "apc_tank"
+        }
+      },
+      "50mm_ger_he:array": {
+        "shell:object": {
+          "blk": "content/tanks/gamedata/gen/weapons/shells/50mm_pak38_50mm_ger_he.blk",
+          "name": "50mm_sprgr_38",
+          "type": "he_frag_tank"
+        }
+      }
     }
   }
 }

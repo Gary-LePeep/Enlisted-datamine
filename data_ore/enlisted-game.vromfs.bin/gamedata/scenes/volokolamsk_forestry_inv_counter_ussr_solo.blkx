@@ -285,7 +285,7 @@
         [0.859014,0.0,0.511952],
         [0.0,1.0,0.0],
         [-0.511952,0.0,0.859014],
-        [-938.047,-2.922,134.339]
+        [-926.147,-2.922,108.999]
       ],
       "battle_area_polygon_point__id": "point1",
       "battle_area_polygon_point__nextId": "point2",
@@ -383,7 +383,7 @@
         [0.859014,0.0,0.511952],
         [0.0,1.0,0.0],
         [-0.511952,0.0,0.859014],
-        [-819.824,-2.922,123.844]
+        [-819.266,-2.922,105.065]
       ],
       "battle_area_polygon_point__id": "point8",
       "battle_area_polygon_point__nextId": "point1",
@@ -509,7 +509,7 @@
         [0.859014,0.0,0.511952],
         [0.0,1.0,0.0],
         [-0.511952,0.0,0.859014],
-        [-882.689,-2.922,107.369]
+        [-882.689,-2.922,99.2047]
       ],
       "battle_area_polygon_point__id": "point1",
       "battle_area_polygon_point__nextId": "point2",
@@ -523,7 +523,7 @@
         [0.859014,0.0,0.511952],
         [0.0,1.0,0.0],
         [-0.511952,0.0,0.859014],
-        [-880.501,-2.922,-101.474]
+        [-880.501,-2.922,-97.3652]
       ],
       "battle_area_polygon_point__id": "point2",
       "battle_area_polygon_point__nextId": "point3",
@@ -579,7 +579,7 @@
         [0.859014,0.0,0.511952],
         [0.0,1.0,0.0],
         [-0.511952,0.0,0.859014],
-        [-819.281,-2.922,105.704]
+        [-820.779,-2.922,98.2391]
       ],
       "battle_area_polygon_point__id": "point6",
       "battle_area_polygon_point__nextId": "point1",
@@ -1181,7 +1181,7 @@
         [0.859014,0.0,0.511952],
         [0.0,1.0,0.0],
         [-0.511952,0.0,0.859014],
-        [-601.861,-2.922,62.2669]
+        [-602.157,-2.922,54.4379]
       ],
       "battle_area_polygon_point__id": "point4",
       "battle_area_polygon_point__nextId": "point5",
@@ -1195,7 +1195,7 @@
         [0.859014,0.0,0.511952],
         [0.0,1.0,0.0],
         [-0.511952,0.0,0.859014],
-        [-703.326,-2.922,74.2303]
+        [-702.863,-2.922,65.8207]
       ],
       "battle_area_polygon_point__id": "point5",
       "battle_area_polygon_point__nextId": "point1",
@@ -1279,7 +1279,7 @@
         [0.859014,0.0,0.511952],
         [0.0,1.0,0.0],
         [-0.511952,0.0,0.859014],
-        [-736.371,-2.922,88.7377]
+        [-736.371,-2.922,71.3705]
       ],
       "battle_area_polygon_point__id": "point1",
       "battle_area_polygon_point__nextId": "point2",
@@ -1349,7 +1349,7 @@
         [0.859014,0.0,0.511952],
         [0.0,1.0,0.0],
         [-0.511952,0.0,0.859014],
-        [-602.03,-2.922,69.0866]
+        [-602.03,-2.922,54.3994]
       ],
       "battle_area_polygon_point__id": "point6",
       "battle_area_polygon_point__nextId": "point1",
@@ -1929,7 +1929,7 @@
   {
     "entity": {
       "_template": "door_mult_ent_generator",
-      "ri_extra_gen__blk": "content/e_moscow/gamedata/volokolamsk_doors.blk"
+      "ri_extra_gen__blk": "content/enlisted/gamedata/volokolamsk_doors.blk"
     }
   },
   {
@@ -1949,13 +1949,13 @@
       "mission_name": "volokolamsk_forestry_inv_counter",
       "loading_images:list<t>": [
         {
-          "item": "ui/volokolamsk_forestery_01.jpg"
+          "item": "ui/volokolamsk_forestery_01.avif"
         },
         {
-          "item": "ui/volokolamsk_forestery_02.jpg"
+          "item": "ui/volokolamsk_forestery_02.avif"
         },
         {
-          "item": "ui/volokolamsk_forestery_03.jpg"
+          "item": "ui/volokolamsk_forestery_03.avif"
         }
       ]
     }
@@ -2334,10 +2334,10 @@
       "capzone__capTime": 30.0,
       "capzone__capTeam": -1,
       "transform": [
-        [1.0,0.0,0.0],
+        [1.07272,0.0,-0.396382],
         [0.0,1.0,0.0],
-        [0.0,0.0,1.0],
-        [-1228.5,4.23299,160.771]
+        [0.346607,-0.0,0.93801],
+        [-1227.28,4.60296,160.059]
       ],
       "active": false,
       "capzone__decapTime": 6000.0,
@@ -2349,7 +2349,7 @@
       "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 2,
-      "decal__height": 0.5,
+      "decal__height": 1.0,
       "decal__thickness": 0.4,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 3,
@@ -3355,9 +3355,9 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_fighter",
       "transform": [
-        [0.0260471,0.0,-0.999661],
+        [-0.225008,0.0,-0.974357],
         [0.0,1.0,0.0],
-        [0.999661,0.0,0.0260471],
+        [0.974357,0.0,-0.225008],
         [-624.161,1000.0,2748.41]
       ],
       "team": 2,
@@ -3370,9 +3370,9 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_assault",
       "transform": [
-        [0.0260471,0.0,-0.999661],
+        [-0.143727,0.0,-0.989618],
         [0.0,1.0,0.0],
-        [0.999661,0.0,0.0260471],
+        [0.989618,0.0,-0.143727],
         [-791.056,800.0,2745.04]
       ],
       "team": 2,
@@ -3385,9 +3385,9 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_fighter",
       "transform": [
-        [0.0260471,0.0,-0.999661],
+        [-0.171002,0.0,-0.985271],
         [0.0,1.0,0.0],
-        [0.999661,0.0,0.0260471],
+        [0.985271,0.0,-0.171002],
         [-791.056,1000.0,2745.04]
       ],
       "team": 2,
@@ -3400,9 +3400,9 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_assault",
       "transform": [
-        [0.0260471,0.0,-0.999661],
+        [-0.233325,0.0,-0.972399],
         [0.0,1.0,0.0],
-        [0.999661,0.0,0.0260471],
+        [0.972399,0.0,-0.233325],
         [-596.995,800.0,2750.45]
       ],
       "team": 2,
@@ -3427,9 +3427,9 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_fighter",
       "transform": [
-        [-0.217759,0.0,0.976002],
+        [-0.659672,0.0,0.751553],
         [0.0,1.0,0.0],
-        [-0.976002,0.0,-0.217759],
+        [-0.751553,0.0,-0.659672],
         [941.199,1000.0,-1638.53]
       ],
       "team": 1,
@@ -3442,9 +3442,9 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_assault",
       "transform": [
-        [-0.217759,0.0,0.976002],
+        [-0.751345,0.0,0.659908],
         [0.0,1.0,0.0],
-        [-0.976002,0.0,-0.217759],
+        [-0.659908,0.0,-0.751345],
         [941.199,800.0,-1638.53]
       ],
       "team": 1,
@@ -3457,9 +3457,9 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_fighter",
       "transform": [
-        [-0.217759,0.0,0.976002],
+        [-0.72529,0.0,0.688442],
         [0.0,1.0,0.0],
-        [-0.976002,0.0,-0.217759],
+        [-0.688442,0.0,-0.72529],
         [813.414,1000.0,-1657.64]
       ],
       "team": 1,
@@ -3472,9 +3472,9 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_assault",
       "transform": [
-        [-0.217759,0.0,0.976002],
+        [-0.717527,0.0,0.696529],
         [0.0,1.0,0.0],
-        [-0.976002,0.0,-0.217759],
+        [-0.696529,0.0,-0.717527],
         [783.694,800.0,-1664.78]
       ],
       "team": 1,

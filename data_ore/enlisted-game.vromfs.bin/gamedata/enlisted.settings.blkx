@@ -27,7 +27,7 @@
     "windowTitle": "Enlisted"
   },
   {
-    "bgImage": "ui/game_def_login_screen.jpg; ui/game_d_day_login_screen_2.jpg; ui/game_tunisia_login_screen_2.jpg; ui/armored_train_login_screen.jpg; ui/stalingrad_login_screen.jpg; ui/burning_sky_loading_screen.jpg; ui/pacific_usa_login_screen.jpg; ui/pacific_jap_login_screen.jpg; ui/high_caliber_login_screen.jpg; ui/ussr_moscow_prem_mgun_2.jpg; ui/ger_normandy_prem_assault_2.jpg; ui/ussr_berlin_prem_assault_1.jpg; ui/ger_moscow_prem_mgun_2.jpg;"
+    "bgImage": "ui/game_def_login_screen.avif; ui/game_d_day_login_screen_2.avif; ui/game_tunisia_login_screen_2.avif; ui/armored_train_login_screen.avif; ui/stalingrad_login_screen.avif; ui/burning_sky_loading_screen.avif; ui/pacific_usa_login_screen.avif; ui/pacific_jap_login_screen.avif; ui/high_caliber_login_screen.avif; ui/ussr_moscow_prem_mgun_2.avif; ui/ger_normandy_prem_assault_2.avif; ui/ussr_berlin_prem_assault_1.avif; ui/ger_moscow_prem_mgun_2.avif;"
   },
   {
     "scene": "content/enlisted/gamedata/scenes/campaigns_menu_squad_customization_scene.blk"
@@ -37,6 +37,9 @@
   },
   {
     "needPlatformMorphemesReplacement": true
+  },
+  {
+    "parallel_logic_mode": true
   },
   {
     "playerTemplateName": "enlisted_player"
@@ -190,6 +193,7 @@
       "max_genmip_tex_sz": 0,
       "mem_reserve_mb": 256,
       "enable_defrag": true,
+      "emergency_buffer_pages": 64,
       "resolution_config": true,
       "min_res": "1920x1080",
       "min_res_4k": "3200x1800",
@@ -213,7 +217,7 @@
   },
   {
     "phys": {
-      "fixedTimeStepHz": 30,
+      "fixedTimeStepHz": 32,
       "maxSubSteps": 1
     }
   },
@@ -270,561 +274,571 @@
         "pan3DDecay": 0.05
       },
       "banks": {
-        "master_banks": {
-          "master_bank": {
-            "async": false,
-            "preload": true,
-            "loadToMemory": true
+        "groups": {
+          "master": {
+            "master_bank": {
+              "async": true,
+              "preload": true,
+              "loadToMemory": true
+            },
+            "master_bank.strings": {
+              "async": true,
+              "preload": true,
+              "loadToMemory": true
+            },
+            "master_bank.assets": {
+              "async": true,
+              "preload": true,
+              "loadToMemory": true
+            }
           },
-          "master_bank.assets": {
-            "async": false,
-            "preload": true,
-            "loadToMemory": true
-          },
-          "master_bank.strings": {
-            "async": false,
-            "preload": true,
-            "loadToMemory": true
-          }
-        },
-        "cmn_banks": {
-          "cmn_ambient": {
-            "async": true,
-            "loadToMemory": true
-          },
-          "cmn_ambient.assets": {
-            "async": true,
-            "preload": false
-          },
-          "cmn_ambient_battle": {
-            "async": true,
-            "loadToMemory": true
-          },
-          "cmn_ambient_battle.assets": {
-            "async": true,
-            "preload": false
-          },
-          "cmn_ambient_desert": {
-            "async": true,
-            "loadToMemory": true
-          },
-          "cmn_ambient_desert.assets": {
-            "async": true,
-            "preload": false
-          },
-          "cmn_ambient_sea": {
-            "async": true,
-            "loadToMemory": true
-          },
-          "cmn_ambient_sea.assets": {
-            "async": true,
-            "preload": false
-          },
-          "cmn_ambient_summer": {
-            "async": true,
-            "loadToMemory": true
-          },
-          "cmn_ambient_summer.assets": {
-            "async": true,
-            "preload": false
-          },
-          "cmn_ambient_summer_pos": {
-            "async": true,
-            "loadToMemory": true
-          },
-          "cmn_ambient_summer_pos.assets": {
-            "async": true,
-            "preload": false
-          },
-          "cmn_ambient_winter": {
-            "async": true,
-            "loadToMemory": true
-          },
-          "cmn_ambient_winter.assets": {
-            "async": true,
-            "preload": false
-          },
-          "cmn_enlist": {
-            "loadToMemory": true
-          },
-          "cmn_enlist.assets": {
-            "async": false,
-            "preload": false
-          },
-          "cmn_fx_fire": {
-            "loadToMemory": true
-          },
-          "cmn_fx_fire.assets": {
-            "async": false,
-            "preload": false
-          },
-          "cmn_fx_impact": {
-            "loadToMemory": true
-          },
-          "cmn_fx_impact.assets": {
-            "async": false,
-            "preload": false
-          },
-          "cmn_fx_object_crash": {
-            "loadToMemory": true
-          },
-          "cmn_fx_object_crash.assets": {
-            "async": false,
-            "preload": false
-          },
-          "cmn_gen_ui": {
-            "async": true,
-            "loadToMemory": true
-          },
-          "cmn_gen_ui.assets": {
-            "async": true,
-            "preload": false
+          "cmn": {
+            "cmn_ambient": {
+              "async": true,
+              "loadToMemory": true
+            },
+            "cmn_ambient.assets": {
+              "async": true,
+              "preload": false
+            },
+            "cmn_ambient_battle": {
+              "async": true,
+              "loadToMemory": true
+            },
+            "cmn_ambient_battle.assets": {
+              "async": true,
+              "preload": false
+            },
+            "cmn_ambient_desert": {
+              "async": true,
+              "loadToMemory": true
+            },
+            "cmn_ambient_desert.assets": {
+              "async": true,
+              "preload": false
+            },
+            "cmn_ambient_sea": {
+              "async": true,
+              "loadToMemory": true
+            },
+            "cmn_ambient_sea.assets": {
+              "async": true,
+              "preload": false
+            },
+            "cmn_ambient_summer": {
+              "async": true,
+              "loadToMemory": true
+            },
+            "cmn_ambient_summer.assets": {
+              "async": true,
+              "preload": false
+            },
+            "cmn_ambient_summer_pos": {
+              "async": true,
+              "loadToMemory": true
+            },
+            "cmn_ambient_summer_pos.assets": {
+              "async": true,
+              "preload": false
+            },
+            "cmn_ambient_winter": {
+              "async": true,
+              "loadToMemory": true
+            },
+            "cmn_ambient_winter.assets": {
+              "async": true,
+              "preload": false
+            },
+            "cmn_enlist": {
+              "async": true,
+              "loadToMemory": true
+            },
+            "cmn_enlist.assets": {
+              "async": true,
+              "preload": false
+            },
+            "cmn_fx_fire": {
+              "async": true,
+              "loadToMemory": true
+            },
+            "cmn_fx_fire.assets": {
+              "async": true,
+              "preload": false
+            },
+            "cmn_fx_impact": {
+              "async": true,
+              "loadToMemory": true
+            },
+            "cmn_fx_impact.assets": {
+              "async": true,
+              "preload": false
+            },
+            "cmn_fx_object_crash": {
+              "async": true,
+              "loadToMemory": true
+            },
+            "cmn_fx_object_crash.assets": {
+              "async": true,
+              "preload": false
+            },
+            "cmn_gen_ui": {
+              "async": true,
+              "loadToMemory": true
+            },
+            "cmn_gen_ui.assets": {
+              "async": true,
+              "preload": false
+            },
+            "cmn_loc_vo": {
+              "async": true,
+              "loadToMemory": true
+            },
+            "cmn_loc_vo.assets": {
+              "async": true,
+              "preload": false
+            },
+            "cmn_sfx_door": {
+              "async": true,
+              "loadToMemory": true
+            },
+            "cmn_sfx_door.assets": {
+              "async": true,
+              "preload": false
+            },
+            "cmn_sfx_effect": {
+              "async": true,
+              "loadToMemory": true
+            },
+            "cmn_sfx_effect.assets": {
+              "async": true,
+              "preload": false
+            },
+            "cmn_sfx_item": {
+              "async": true,
+              "loadToMemory": true
+            },
+            "cmn_sfx_item.assets": {
+              "async": true,
+              "preload": false
+            },
+            "cmn_weapon": {
+              "async": true,
+              "loadToMemory": true
+            },
+            "cmn_weapon.assets": {
+              "async": true,
+              "loadToMemory": true
+            }
           },
           "cmn_loc_vo": {
-            "async": true,
-            "loadToMemory": true
-          },
-          "cmn_loc_vo.assets": {
-            "async": true,
-            "preload": false
-          },
-          "cmn_sfx_door": {
-            "async": true,
-            "loadToMemory": true
-          },
-          "cmn_sfx_door.assets": {
-            "async": true,
-            "preload": false
-          },
-          "cmn_sfx_effect": {
-            "async": true,
-            "loadToMemory": true
-          },
-          "cmn_sfx_effect.assets": {
-            "async": true,
-            "preload": false
-          },
-          "cmn_sfx_item": {
-            "async": true,
-            "loadToMemory": true
-          },
-          "cmn_sfx_item.assets": {
-            "async": true,
-            "preload": false
-          },
-          "cmn_weapon": {
-            "loadToMemory": true
-          },
-          "cmn_weapon.assets": {
-            "loadToMemory": true
-          }
-        },
-        "cmn_loc_vo_banks": {
-          "_cmn_loc_vo_<loc>": {
-            "async": true,
-            "loadToMemory": true
-          },
-          "_cmn_loc_vo_<loc>.assets": {
-            "async": true,
-            "preload": false
-          }
-        },
-        "cmn_loc_vo_en_banks": {
-          "_cmn_loc_vo_en": {
-            "async": true,
-            "loadToMemory": true
-          },
-          "_cmn_loc_vo_en.assets": {
-            "async": true,
-            "preload": false
-          }
-        },
-        "cmn_loc_vo_de_banks": {
-          "_cmn_loc_vo_de": {
-            "async": true,
-            "loadToMemory": true
-          },
-          "_cmn_loc_vo_de.assets": {
-            "async": true,
-            "preload": false
-          }
-        },
-        "cmn_loc_vo_ru_banks": {
-          "_cmn_loc_vo_ru": {
-            "async": true,
-            "loadToMemory": true
-          },
-          "_cmn_loc_vo_ru.assets": {
-            "async": true,
-            "preload": false
-          }
-        },
-        "cmn_loc_vo_fr_banks": {
-          "_cmn_loc_vo_fr": {
-            "async": true,
-            "loadToMemory": true
-          },
-          "_cmn_loc_vo_fr.assets": {
-            "async": true,
-            "preload": false
-          }
-        },
-        "cmn_loc_vo_it_banks": {
-          "_cmn_loc_vo_it": {
-            "async": true,
-            "loadToMemory": true
-          },
-          "_cmn_loc_vo_it.assets": {
-            "async": true,
-            "preload": false
-          }
-        },
-        "cmn_loc_vo_jp_banks": {
-          "_cmn_loc_vo_jp": {
-            "async": true,
-            "loadToMemory": true
-          },
-          "_cmn_loc_vo_jp.assets": {
-            "async": true,
-            "preload": false
-          }
-        },
-        "ww2_banks": {
-          "ww2_ambient_music": {
-            "async": true,
-            "loadToMemory": true
-          },
-          "ww2_ambient_music.assets": {
-            "async": true,
-            "preload": false
-          },
-          "ww2_enlist_ambient_music": {
-            "loadToMemory": true
-          },
-          "ww2_enlist_ambient_music.assets": {
-            "async": false,
-            "preload": false
-          },
-          "ww2_vehicle_aircraft_engine": {
-            "async": true,
-            "loadToMemory": true
-          },
-          "ww2_vehicle_aircraft_engine.assets": {
-            "async": true,
-            "preload": false
-          },
-          "ww2_vehicle_car_engine": {
-            "async": true,
-            "loadToMemory": true
-          },
-          "ww2_vehicle_car_engine.assets": {
-            "async": true,
-            "preload": false
-          },
-          "ww2_vehicle_tank_engine": {
-            "async": true,
-            "loadToMemory": true
-          },
-          "ww2_vehicle_tank_engine.assets": {
-            "async": true,
-            "preload": false
-          },
-          "ww2_vehicle_tank_impact": {
-            "async": true,
-            "loadToMemory": true
-          },
-          "ww2_vehicle_tank_impact.assets": {
-            "async": true,
-            "preload": false
-          },
-          "ww2_walker_soldier": {
-            "loadToMemory": true
-          },
-          "ww2_walker_soldier.assets": {
-            "async": false,
-            "preload": true
-          },
-          "ww2_walker_soldier01_voice": {
-            "async": true,
-            "loadToMemory": true
-          },
-          "ww2_walker_soldier01_voice.assets": {
-            "async": true,
-            "preload": false
-          },
-          "ww2_walker_soldier02_voice": {
-            "async": true,
-            "loadToMemory": true
-          },
-          "ww2_walker_soldier02_voice.assets": {
-            "async": true,
-            "preload": false
-          },
-          "ww2_walker_soldier03_voice": {
-            "async": true,
-            "loadToMemory": true
-          },
-          "ww2_walker_soldier03_voice.assets": {
-            "async": true,
-            "preload": false
-          },
-          "ww2_walker_soldier_voice": {
-            "async": true,
-            "loadToMemory": true
-          },
-          "ww2_walker_soldier_voice.assets": {
-            "async": true,
-            "preload": false
-          },
-          "ww2_weapon_antivehicle": {
-            "async": true,
-            "loadToMemory": true
-          },
-          "ww2_weapon_antivehicle.assets": {
-            "async": true,
-            "loadToMemory": true,
-            "preload": true
-          },
-          "ww2_weapon_antivehicle_foley": {
-            "async": true,
-            "loadToMemory": true
-          },
-          "ww2_weapon_antivehicle_foley.assets": {
-            "async": true,
-            "preload": true
-          },
-          "ww2_weapon_cannon": {
-            "async": true,
-            "loadToMemory": true
-          },
-          "ww2_weapon_cannon.assets": {
-            "async": true,
-            "loadToMemory": true,
-            "preload": true
-          },
-          "ww2_weapon_mgun": {
-            "async": true,
-            "loadToMemory": true
-          },
-          "ww2_weapon_mgun.assets": {
-            "async": true,
-            "loadToMemory": true,
-            "preload": true
-          },
-          "ww2_weapon_mgun_foley": {
-            "async": true,
-            "loadToMemory": true
-          },
-          "ww2_weapon_mgun_foley.assets": {
-            "async": true,
-            "preload": true
-          },
-          "ww2_weapon_mgun_mounted": {
-            "async": true,
-            "loadToMemory": true
-          },
-          "ww2_weapon_mgun_mounted.assets": {
-            "async": true,
-            "loadToMemory": true,
-            "preload": true
-          },
-          "ww2_weapon_mgun_mounted_foley": {
-            "async": true,
-            "loadToMemory": true
-          },
-          "ww2_weapon_mgun_mounted_foley.assets": {
-            "async": true,
-            "preload": true
-          },
-          "ww2_weapon_pistol": {
-            "async": true,
-            "loadToMemory": true
-          },
-          "ww2_weapon_pistol.assets": {
-            "async": true,
-            "loadToMemory": true,
-            "preload": true
-          },
-          "ww2_weapon_pistol_foley": {
-            "async": true,
-            "loadToMemory": true
-          },
-          "ww2_weapon_pistol_foley.assets": {
-            "async": true,
-            "preload": true
-          },
-          "ww2_weapon_rifle": {
-            "async": true,
-            "loadToMemory": true
-          },
-          "ww2_weapon_rifle.assets": {
-            "async": true,
-            "loadToMemory": true,
-            "preload": true
-          },
-          "ww2_weapon_rifle_foley": {
-            "async": true,
-            "loadToMemory": true
-          },
-          "ww2_weapon_rifle_foley.assets": {
-            "async": true,
-            "preload": true
-          },
-          "ww2_weapon_melee_foley": {
-            "async": true,
-            "loadToMemory": true
-          },
-          "ww2_weapon_melee_foley.assets": {
-            "async": true,
-            "preload": true
-          },
-          "ww2_mb": {
-            "async": true,
-            "loadToMemory": true
-          },
-          "ww2_mb.assets": {
-            "async": true,
-            "preload": true
-          }
-        },
-        "enl_banks": {
-          "enl_vo_de": {
-            "async": true,
-            "loadToMemory": true
-          },
-          "enl_vo_de.assets": {
-            "async": true,
-            "preload": false
-          },
-          "enl_vo_en": {
-            "async": true,
-            "loadToMemory": true
-          },
-          "enl_vo_en.assets": {
-            "async": true,
-            "preload": false
-          },
-          "enl_vo_ru": {
-            "async": true,
-            "loadToMemory": true
-          },
-          "enl_vo_ru.assets": {
-            "async": true,
-            "preload": false
-          },
-          "enl_vo_gb": {
-            "async": true,
-            "loadToMemory": true
-          },
-          "enl_vo_gb.assets": {
-            "async": true,
-            "preload": false
-          },
-          "enl_vo_it": {
-            "async": true,
-            "loadToMemory": true
-          },
-          "enl_vo_it.assets": {
-            "async": true,
-            "preload": false
-          },
-          "enl_vo_fr": {
-            "async": true,
-            "loadToMemory": true
-          },
-          "enl_vo_fr.assets": {
-            "async": true,
-            "preload": false
-          },
-          "enl_vo_jp": {
-            "async": true,
-            "loadToMemory": true
-          },
-          "enl_vo_jp.assets": {
-            "async": true,
-            "preload": false
-          }
-        },
-        "mc_banks": {
-          "mc_loc_vo": {
-            "optional": true,
-            "async": true,
-            "loadToMemory": true
-          },
-          "mc_loc_vo.assets": {
-            "optional": true,
-            "async": true,
-            "preload": true
-          },
-          "mc_loc_vo_en": {
-            "optional": true,
-            "async": true,
-            "loadToMemory": true
-          },
-          "mc_loc_vo_en.assets": {
-            "optional": true,
-            "async": true,
-            "preload": false
-          },
-          "mc_vo_en": {
-            "optional": true,
-            "async": true,
-            "loadToMemory": true
-          },
-          "mc_vo_en.assets": {
-            "optional": true,
-            "async": true,
-            "preload": false
-          },
-          "mc_sfx": {
-            "optional": true,
-            "async": true,
-            "loadToMemory": true
-          },
-          "mc_sfx.assets": {
-            "optional": true,
-            "async": true,
-            "preload": true
-          },
-          "mc_vehicle_aircraft_engine": {
-            "optional": true,
-            "async": true,
-            "loadToMemory": true
-          },
-          "mc_vehicle_aircraft_engine.assets": {
-            "optional": true,
-            "async": true,
-            "preload": true
-          },
-          "mc_vehicle_tank_engine": {
-            "optional": true,
-            "async": true,
-            "loadToMemory": true
-          },
-          "mc_vehicle_tank_engine.assets": {
-            "optional": true,
-            "async": true,
-            "preload": true
-          },
-          "mc_weapon_mgun": {
-            "optional": true,
-            "async": true,
-            "loadToMemory": true
-          },
-          "mc_weapon_mgun.assets": {
-            "optional": true,
-            "async": true,
-            "preload": true
-          },
-          "mc_weapon_mgun_foley": {
-            "optional": true,
-            "async": true,
-            "loadToMemory": true
-          },
-          "mc_weapon_mgun_foley.assets": {
-            "optional": true,
-            "async": true,
-            "preload": true
+            "_cmn_loc_vo_<loc>": {
+              "async": true,
+              "loadToMemory": true
+            },
+            "_cmn_loc_vo_<loc>.assets": {
+              "async": true,
+              "preload": false
+            }
+          },
+          "cmn_loc_vo_en": {
+            "_cmn_loc_vo_en": {
+              "async": true,
+              "loadToMemory": true
+            },
+            "_cmn_loc_vo_en.assets": {
+              "async": true,
+              "preload": false
+            }
+          },
+          "cmn_loc_vo_de": {
+            "_cmn_loc_vo_de": {
+              "async": true,
+              "loadToMemory": true
+            },
+            "_cmn_loc_vo_de.assets": {
+              "async": true,
+              "preload": false
+            }
+          },
+          "cmn_loc_vo_ru": {
+            "_cmn_loc_vo_ru": {
+              "async": true,
+              "loadToMemory": true
+            },
+            "_cmn_loc_vo_ru.assets": {
+              "async": true,
+              "preload": false
+            }
+          },
+          "cmn_loc_vo_fr": {
+            "_cmn_loc_vo_fr": {
+              "async": true,
+              "loadToMemory": true
+            },
+            "_cmn_loc_vo_fr.assets": {
+              "async": true,
+              "preload": false
+            }
+          },
+          "cmn_loc_vo_it": {
+            "_cmn_loc_vo_it": {
+              "async": true,
+              "loadToMemory": true
+            },
+            "_cmn_loc_vo_it.assets": {
+              "async": true,
+              "preload": false
+            }
+          },
+          "cmn_loc_vo_jp": {
+            "_cmn_loc_vo_jp": {
+              "async": true,
+              "loadToMemory": true
+            },
+            "_cmn_loc_vo_jp.assets": {
+              "async": true,
+              "preload": false
+            }
+          },
+          "ww2": {
+            "ww2_ambient_music": {
+              "async": true,
+              "loadToMemory": true
+            },
+            "ww2_ambient_music.assets": {
+              "async": true,
+              "preload": false
+            },
+            "ww2_enlist_ambient_music": {
+              "async": true,
+              "loadToMemory": true
+            },
+            "ww2_enlist_ambient_music.assets": {
+              "async": true,
+              "preload": false
+            },
+            "ww2_vehicle_aircraft_engine": {
+              "async": true,
+              "loadToMemory": true
+            },
+            "ww2_vehicle_aircraft_engine.assets": {
+              "async": true,
+              "preload": false
+            },
+            "ww2_vehicle_car_engine": {
+              "async": true,
+              "loadToMemory": true
+            },
+            "ww2_vehicle_car_engine.assets": {
+              "async": true,
+              "preload": false
+            },
+            "ww2_vehicle_tank_engine": {
+              "async": true,
+              "loadToMemory": true
+            },
+            "ww2_vehicle_tank_engine.assets": {
+              "async": true,
+              "preload": false
+            },
+            "ww2_vehicle_tank_impact": {
+              "async": true,
+              "loadToMemory": true
+            },
+            "ww2_vehicle_tank_impact.assets": {
+              "async": true,
+              "preload": false
+            },
+            "ww2_walker_soldier": {
+              "async": true,
+              "loadToMemory": true
+            },
+            "ww2_walker_soldier.assets": {
+              "async": true,
+              "preload": true
+            },
+            "ww2_walker_soldier01_voice": {
+              "async": true,
+              "loadToMemory": true
+            },
+            "ww2_walker_soldier01_voice.assets": {
+              "async": true,
+              "preload": false
+            },
+            "ww2_walker_soldier02_voice": {
+              "async": true,
+              "loadToMemory": true
+            },
+            "ww2_walker_soldier02_voice.assets": {
+              "async": true,
+              "preload": false
+            },
+            "ww2_walker_soldier03_voice": {
+              "async": true,
+              "loadToMemory": true
+            },
+            "ww2_walker_soldier03_voice.assets": {
+              "async": true,
+              "preload": false
+            },
+            "ww2_walker_soldier_voice": {
+              "async": true,
+              "loadToMemory": true
+            },
+            "ww2_walker_soldier_voice.assets": {
+              "async": true,
+              "preload": false
+            },
+            "ww2_weapon_antivehicle": {
+              "async": true,
+              "loadToMemory": true
+            },
+            "ww2_weapon_antivehicle.assets": {
+              "async": true,
+              "loadToMemory": true,
+              "preload": true
+            },
+            "ww2_weapon_antivehicle_foley": {
+              "async": true,
+              "loadToMemory": true
+            },
+            "ww2_weapon_antivehicle_foley.assets": {
+              "async": true,
+              "preload": true
+            },
+            "ww2_weapon_cannon": {
+              "async": true,
+              "loadToMemory": true
+            },
+            "ww2_weapon_cannon.assets": {
+              "async": true,
+              "loadToMemory": true,
+              "preload": true
+            },
+            "ww2_weapon_mgun": {
+              "async": true,
+              "loadToMemory": true
+            },
+            "ww2_weapon_mgun.assets": {
+              "async": true,
+              "loadToMemory": true,
+              "preload": true
+            },
+            "ww2_weapon_mgun_foley": {
+              "async": true,
+              "loadToMemory": true
+            },
+            "ww2_weapon_mgun_foley.assets": {
+              "async": true,
+              "preload": true
+            },
+            "ww2_weapon_mgun_mounted": {
+              "async": true,
+              "loadToMemory": true
+            },
+            "ww2_weapon_mgun_mounted.assets": {
+              "async": true,
+              "loadToMemory": true,
+              "preload": true
+            },
+            "ww2_weapon_mgun_mounted_foley": {
+              "async": true,
+              "loadToMemory": true
+            },
+            "ww2_weapon_mgun_mounted_foley.assets": {
+              "async": true,
+              "preload": true
+            },
+            "ww2_weapon_pistol": {
+              "async": true,
+              "loadToMemory": true
+            },
+            "ww2_weapon_pistol.assets": {
+              "async": true,
+              "loadToMemory": true,
+              "preload": true
+            },
+            "ww2_weapon_pistol_foley": {
+              "async": true,
+              "loadToMemory": true
+            },
+            "ww2_weapon_pistol_foley.assets": {
+              "async": true,
+              "preload": true
+            },
+            "ww2_weapon_rifle": {
+              "async": true,
+              "loadToMemory": true
+            },
+            "ww2_weapon_rifle.assets": {
+              "async": true,
+              "loadToMemory": true,
+              "preload": true
+            },
+            "ww2_weapon_rifle_foley": {
+              "async": true,
+              "loadToMemory": true
+            },
+            "ww2_weapon_rifle_foley.assets": {
+              "async": true,
+              "preload": true
+            },
+            "ww2_weapon_melee_foley": {
+              "async": true,
+              "loadToMemory": true
+            },
+            "ww2_weapon_melee_foley.assets": {
+              "async": true,
+              "preload": true
+            },
+            "ww2_mb": {
+              "async": true,
+              "loadToMemory": true
+            },
+            "ww2_mb.assets": {
+              "async": true,
+              "preload": true
+            }
+          },
+          "enl": {
+            "enl_vo_de": {
+              "async": true,
+              "loadToMemory": true
+            },
+            "enl_vo_de.assets": {
+              "async": true,
+              "preload": false
+            },
+            "enl_vo_en": {
+              "async": true,
+              "loadToMemory": true
+            },
+            "enl_vo_en.assets": {
+              "async": true,
+              "preload": false
+            },
+            "enl_vo_ru": {
+              "async": true,
+              "loadToMemory": true
+            },
+            "enl_vo_ru.assets": {
+              "async": true,
+              "preload": false
+            },
+            "enl_vo_gb": {
+              "async": true,
+              "loadToMemory": true
+            },
+            "enl_vo_gb.assets": {
+              "async": true,
+              "preload": false
+            },
+            "enl_vo_it": {
+              "async": true,
+              "loadToMemory": true
+            },
+            "enl_vo_it.assets": {
+              "async": true,
+              "preload": false
+            },
+            "enl_vo_fr": {
+              "async": true,
+              "loadToMemory": true
+            },
+            "enl_vo_fr.assets": {
+              "async": true,
+              "preload": false
+            },
+            "enl_vo_jp": {
+              "async": true,
+              "loadToMemory": true
+            },
+            "enl_vo_jp.assets": {
+              "async": true,
+              "preload": false
+            }
+          },
+          "mc": {
+            "mc_loc_vo": {
+              "optional": true,
+              "async": true,
+              "loadToMemory": true
+            },
+            "mc_loc_vo.assets": {
+              "optional": true,
+              "async": true,
+              "preload": true
+            },
+            "mc_loc_vo_en": {
+              "optional": true,
+              "async": true,
+              "loadToMemory": true
+            },
+            "mc_loc_vo_en.assets": {
+              "optional": true,
+              "async": true,
+              "preload": false
+            },
+            "mc_vo_en": {
+              "optional": true,
+              "async": true,
+              "loadToMemory": true
+            },
+            "mc_vo_en.assets": {
+              "optional": true,
+              "async": true,
+              "preload": false
+            },
+            "mc_sfx": {
+              "optional": true,
+              "async": true,
+              "loadToMemory": true
+            },
+            "mc_sfx.assets": {
+              "optional": true,
+              "async": true,
+              "preload": true
+            },
+            "mc_vehicle_aircraft_engine": {
+              "optional": true,
+              "async": true,
+              "loadToMemory": true
+            },
+            "mc_vehicle_aircraft_engine.assets": {
+              "optional": true,
+              "async": true,
+              "preload": true
+            },
+            "mc_vehicle_tank_engine": {
+              "optional": true,
+              "async": true,
+              "loadToMemory": true
+            },
+            "mc_vehicle_tank_engine.assets": {
+              "optional": true,
+              "async": true,
+              "preload": true
+            },
+            "mc_weapon_mgun": {
+              "optional": true,
+              "async": true,
+              "loadToMemory": true
+            },
+            "mc_weapon_mgun.assets": {
+              "optional": true,
+              "async": true,
+              "preload": true
+            },
+            "mc_weapon_mgun_foley": {
+              "optional": true,
+              "async": true,
+              "loadToMemory": true
+            },
+            "mc_weapon_mgun_foley.assets": {
+              "optional": true,
+              "async": true,
+              "preload": true
+            }
           }
         },
         "languageToLocale": {
@@ -832,41 +846,41 @@
           "Russian": "ru",
           "English": "en"
         },
-        "games": {
+        "presets": {
           "master": [
             {
-              "banks": "master"
+              "group": "master"
             },
             {
-              "banks": "cmn"
+              "group": "cmn"
             },
             {
-              "banks": "cmn_loc_vo"
+              "group": "cmn_loc_vo"
             },
             {
-              "banks": "ww2"
+              "group": "ww2"
             },
             {
-              "banks": "enl"
+              "group": "enl"
             }
           ],
           "narrator_loc_ru": {
-            "banks": "cmn_loc_vo_ru"
+            "group": "cmn_loc_vo_ru"
           },
           "narrator_loc_de": {
-            "banks": "cmn_loc_vo_de"
+            "group": "cmn_loc_vo_de"
           },
           "narrator_loc_en": {
-            "banks": "cmn_loc_vo_en"
+            "group": "cmn_loc_vo_en"
           },
           "narrator_loc_fr": {
-            "banks": "cmn_loc_vo_fr"
+            "group": "cmn_loc_vo_fr"
           },
           "narrator_loc_it": {
-            "banks": "cmn_loc_vo_it"
+            "group": "cmn_loc_vo_it"
           },
           "narrator_loc_jp": {
-            "banks": "cmn_loc_vo_jp"
+            "group": "cmn_loc_vo_jp"
           }
         }
       }
@@ -950,6 +964,7 @@
       "xboxScarlett_submission_circuit": "yes",
       "language": "",
       "harmonizationEnabled": true,
+      "hasFriendOnlineNotification": true,
       "ui": {
         "enableLabelOnLoot": true
       },
@@ -1011,7 +1026,10 @@
         "xboxOneFpsLimit": 0,
         "xboxScarlettFpsLimit": 0,
         "ps4FpsLimit": 0,
-        "ps5FpsLimit": 0
+        "ps5FpsLimit": 0,
+        "dynamicResolution": {
+          "__allow_all_params": true
+        }
       },
       "graphics": {
         "__allow_all_params": true,
@@ -1182,32 +1200,9 @@
     }
   },
   {
-    "scenes": [
-      {
-        "folder": "content/enlisted"
-      },
-      {
-        "folder": "content/e_berlin"
-      },
-      {
-        "folder": "content/e_stalingrad"
-      },
-      {
-        "folder": "content/e_moscow"
-      },
-      {
-        "folder": "content/e_normandy"
-      },
-      {
-        "folder": "content/e_tunisia"
-      },
-      {
-        "folder": "content/e_pacific"
-      },
-      {
-        "folder": "content/e_aprilfools_2022"
-      }
-    ]
+    "scenes": {
+      "folder": "content/enlisted"
+    }
   },
   {
     "addons": [
@@ -1400,14 +1395,6 @@
       },
       {
         "addon": {
-          "vrom": "content/enlisted/loading.vromfs.bin",
-          "vromOptionalForServer": true,
-          "mountAsPack": true,
-          "src": "../develop/gui/enlisted"
-        }
-      },
-      {
-        "addon": {
           "vrom": "content/enlisted/uiskin_update.vromfs.bin",
           "vromed": false,
           "src": "../develop/gui/enlisted/update"
@@ -1463,7 +1450,6 @@
       },
       {
         "addon": {
-          "folder": "content/enlisted",
           "vromed": false,
           "vrom": "content/enlisted/enlisted-game-dev.vromfs.bin"
         }
@@ -1471,6 +1457,13 @@
       {
         "addon": {
           "folder": "content/common",
+          "vrom": "content/common/common.vromfs.bin",
+          "vromed": true,
+          "src": "../prog/gameBase/content/common"
+        }
+      },
+      {
+        "addon": {
           "vrom": "content/common/common-content.vromfs.bin",
           "vromed": true,
           "src": "../develop/gameBase/content/common"
@@ -1478,64 +1471,30 @@
       },
       {
         "addon": {
-          "folder": "content/e_ww2_common",
-          "src": "../prog/gameBase/content/e_ww2_common",
-          "vromed": true
-        }
-      },
-      {
-        "addon": {
-          "folder": "content/e_tunisia",
-          "src": "../prog/gameBase/content/e_tunisia",
-          "vromed": false
+          "vrom": "content/enlisted/enlisted_extra.vromfs.bin",
+          "vromed": true,
+          "src": "../prog/gameBase/content/enlisted_extra"
         }
       },
       {
         "addon": [
           {
-            "vrom": "content/enlisted/enlisted-content.vromfs.bin"
+            "folder": "content/enlisted"
           },
           {
-            "vromed": true
-          },
-          {
-            "src": "../develop/gameBase/content/enlisted"
-          },
-          {
-            "src": "../develop/gameBase/content/common"
-          },
-          {
-            "src": "../prog/gameBase/content/common"
+            "src": "../prog/gameBase/content/enlisted"
           },
           {
             "src": "../prog/gameBase"
           },
           {
-            "src": "../prog/gameBase/content/common_shooter"
+            "src": "../prog/gameBase/content/enlisted"
           },
           {
-            "src": "../prog/gameBase/content/e_ww2_common"
+            "vromed": true
           },
           {
-            "src": "../prog/gameBase/content/e_normandy"
-          },
-          {
-            "src": "../prog/gameBase/content/e_berlin"
-          },
-          {
-            "src": "../prog/gameBase/content/e_stalingrad"
-          },
-          {
-            "src": "../prog/gameBase/content/e_pacific"
-          },
-          {
-            "src": "../prog/gameBase/content/e_aprilfools_2022"
-          },
-          {
-            "src": "../prog/gameBase/content/e_moscow"
-          },
-          {
-            "src": "../prog/gameBase/content/modern_equipment"
+            "vrom": "content/enlisted/enlisted-game.vromfs.bin"
           }
         ]
       },

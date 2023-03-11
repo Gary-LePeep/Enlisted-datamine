@@ -205,6 +205,8 @@
   "tutorial_engineer_build_respawner_2_start": {
     "tutor_stage__next": "tutorial_engineer_about_points_return",
     "tutor_stage__displayHint": "hint_tutorial_engineer_build_respawner_2",
+    "tutor_stage__buildFortication": "building_tool/rallypoint",
+    "tutor_stage__buildForticationAtZone": "build_respawner_zone_2",
     "tutor_stage__forticationStartBuild:tag": [],
     "tutor_bq__sendOnBegin:tag": []
   },
@@ -351,8 +353,12 @@
     "tutor_stage__displayHint": "hint_tutorial_engineer_destroy_target_mgun",
     "tutor_stage__deactivateZoneId": "shooting_range_waypoint",
     "tutor_stage__activateZoneId": "target",
+    "tutor_stage__activateTarget": "target",
     "tutor_stage__hitTarget": "target",
     "tutor_stage__hitTargetByWeapon": "machine_gun",
+    "tutor_action__createEntity:list<t>": {
+      "key": "tutorial_restore_memorize"
+    },
     "tutor_action__destroySingletons:list<t>": {
       "key": "tutorial_engineer_resupply_hint_disable"
     },
@@ -394,5 +400,9 @@
   "tutorial_destroy_player_ammo": {
     "_singleton": true,
     "tutor_action__destroyPlayerAmmo:tag": []
+  },
+  "tutorial_engineer_state": {
+    "_singleton": true,
+    "tutorial_engineer_state__currentUnlockIds:list<t>": []
   }
 }

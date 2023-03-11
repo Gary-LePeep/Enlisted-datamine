@@ -53,7 +53,7 @@
   {
     "entity": {
       "_template": "door_mult_ent_generator",
-      "ri_extra_gen__blk": "content/e_moscow/gamedata/volokolamsk_doors.blk"
+      "ri_extra_gen__blk": "content/enlisted/gamedata/volokolamsk_doors.blk"
     }
   },
   {
@@ -68,13 +68,13 @@
       "mission_name": "volokolamsk_lake_inv",
       "loading_images:list<t>": [
         {
-          "item": "ui/volokolamsk_lake_01.jpg"
+          "item": "ui/volokolamsk_lake_01.avif"
         },
         {
-          "item": "ui/volokolamsk_lake_02.jpg"
+          "item": "ui/volokolamsk_lake_02.avif"
         },
         {
-          "item": "ui/volokolamsk_lake_03.jpg"
+          "item": "ui/volokolamsk_lake_03.avif"
         }
       ]
     }
@@ -99,8 +99,8 @@
     "entity": {
       "_template": "team_ussr+team_narrator_invasion_attack+respawn_creators_team",
       "team__memberCount": 0.0,
-      "team__scoreCap": 1850.0,
-      "team__score": 1850.0,
+      "team__scoreCap": 1900.0,
+      "team__score": 1900.0,
       "team__squadSpawnCost": 250,
       "team__firstSpawnCostMul": 0.0,
       "team__zeroScoreFailTimer": 60.0,
@@ -2118,7 +2118,7 @@
       "capzone__onlyTeamCanCapture": 1,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_3",
-      "capzone__capTime": 85.0,
+      "capzone__capTime": 80.0,
       "capzone__capTeam": -1,
       "active": false,
       "capzone__decapTime": 6000.0,
@@ -2224,7 +2224,7 @@
       "capzone__onlyTeamCanCapture": 1,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_5",
-      "capzone__capTime": 90.0,
+      "capzone__capTime": 80.0,
       "capzone__capTeam": -1,
       "active": false,
       "capzone__decapTime": 6000.0,

@@ -298,7 +298,7 @@
   {
     "entity": {
       "_template": "door_mult_ent_generator",
-      "ri_extra_gen__blk": "content/e_normandy/gamedata/normandy_doors.blk"
+      "ri_extra_gen__blk": "content/enlisted/gamedata/normandy_doors.blk"
     }
   },
   {
@@ -365,13 +365,13 @@
       "mission_name": "normandy_omer_inv_counter",
       "loading_images:list<t>": [
         {
-          "item": "ui/normandy_urban_omer_01.jpg"
+          "item": "ui/normandy_urban_omer_01.avif"
         },
         {
-          "item": "ui/normandy_urban_omer_02.jpg"
+          "item": "ui/normandy_urban_omer_02.avif"
         },
         {
-          "item": "ui/normandy_urban_omer_03.jpg"
+          "item": "ui/normandy_urban_omer_03.avif"
         }
       ]
     }
@@ -624,7 +624,7 @@
         [1.0,0.0,0.0],
         [0.0,1.0,0.0],
         [0.0,0.0,1.0],
-        [172.469,3.70959,60.4339]
+        [172.845,3.70959,59.2038]
       ],
       "battle_area_polygon_point__id": "point3",
       "battle_area_polygon_point__nextId": "point4",
@@ -2170,7 +2170,7 @@
         [1.0,0.0,0.0],
         [0.0,1.0,0.0],
         [0.0,0.0,1.0],
-        [-82.4375,3.70959,-154.597]
+        [-81.8191,3.70959,-153.356]
       ],
       "battle_area_polygon_point__id": "point16",
       "battle_area_polygon_point__nextId": "point17",
@@ -2718,7 +2718,7 @@
         [1.0,0.0,0.0],
         [0.0,1.0,0.0],
         [0.0,0.0,1.0],
-        [-82.4375,3.70959,-154.597]
+        [-81.8152,3.70959,-153.387]
       ],
       "battle_area_polygon_point__id": "point16",
       "battle_area_polygon_point__nextId": "point17",
@@ -3266,7 +3266,7 @@
         [1.0,0.0,0.0],
         [0.0,1.0,0.0],
         [0.0,0.0,1.0],
-        [-82.4375,3.70959,-154.597]
+        [-81.8231,3.70959,-153.387]
       ],
       "battle_area_polygon_point__id": "point16",
       "battle_area_polygon_point__nextId": "point17",
@@ -3604,7 +3604,7 @@
         [1.0,0.0,0.0],
         [0.0,1.0,0.0],
         [0.0,0.0,1.0],
-        [381.233,3.70959,-40.342]
+        [381.442,3.70959,-40.2308]
       ],
       "battle_area_polygon_point__id": "point1",
       "battle_area_polygon_point__nextId": "point2",
@@ -3886,7 +3886,7 @@
         [1.0,0.0,0.0],
         [0.0,1.0,0.0],
         [0.0,0.0,1.0],
-        [381.233,3.70959,-40.342]
+        [381.499,3.70959,-40.2056]
       ],
       "battle_area_polygon_point__id": "point1",
       "battle_area_polygon_point__nextId": "point2",
@@ -4168,7 +4168,7 @@
         [1.0,0.0,0.0],
         [0.0,1.0,0.0],
         [0.0,0.0,1.0],
-        [381.233,3.70959,-40.342]
+        [381.501,3.70959,-40.2255]
       ],
       "battle_area_polygon_point__id": "point1",
       "battle_area_polygon_point__nextId": "point2",
@@ -4450,7 +4450,7 @@
         [1.0,0.0,0.0],
         [0.0,1.0,0.0],
         [0.0,0.0,1.0],
-        [381.233,3.70959,-40.342]
+        [381.467,3.70959,-40.2045]
       ],
       "battle_area_polygon_point__id": "point1",
       "battle_area_polygon_point__nextId": "point2",
@@ -4760,7 +4760,7 @@
         [1.0,0.0,0.0],
         [0.0,1.0,0.0],
         [0.0,0.0,1.0],
-        [-125.496,3.70959,231.836]
+        [-125.474,3.70959,231.415]
       ],
       "battle_area_polygon_point__id": "point3",
       "battle_area_polygon_point__nextId": "point4",
@@ -4830,7 +4830,7 @@
         [1.0,0.0,0.0],
         [0.0,1.0,0.0],
         [0.0,0.0,1.0],
-        [-195.669,3.70959,-58.6137]
+        [-203.751,3.70959,-61.7444]
       ],
       "battle_area_polygon_point__id": "point8",
       "battle_area_polygon_point__nextId": "point9",
@@ -4873,7 +4873,7 @@
         [1.0,0.0,0.0],
         [0.0,1.0,0.0],
         [0.0,0.0,1.0],
-        [-372.42,3.70959,126.914]
+        [-369.273,3.70959,114.25]
       ],
       "battle_area_polygon_point__id": "point1",
       "battle_area_polygon_point__nextId": "point2",
@@ -5421,7 +5421,7 @@
         [1.0,0.0,0.0],
         [0.0,1.0,0.0],
         [0.0,0.0,1.0],
-        [-2.65165,3.70959,317.531]
+        [-2.55197,3.70959,321.202]
       ],
       "battle_area_polygon_point__id": "point15",
       "battle_area_polygon_point__nextId": "point1",
@@ -6218,6 +6218,76 @@
   },
   {
     "entity": {
+      "_template": "capzone_area_polygon_point",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [192.959,-0.56966,-40.3433]
+      ],
+      "capzone_area_polygon_point__id": "point1",
+      "capzone_area_polygon_point__nextId": "point2",
+      "capzone_area_polygon_point__forcapzone_areaId": "caparea_1_a"
+    }
+  },
+  {
+    "entity": {
+      "_template": "capzone_area_polygon_point",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [220.237,9.34689,-24.1171]
+      ],
+      "capzone_area_polygon_point__id": "point2",
+      "capzone_area_polygon_point__nextId": "point3",
+      "capzone_area_polygon_point__forcapzone_areaId": "caparea_1_a"
+    }
+  },
+  {
+    "entity": {
+      "_template": "capzone_area_polygon_point",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [198.992,1.99135,11.0651]
+      ],
+      "capzone_area_polygon_point__id": "point3",
+      "capzone_area_polygon_point__nextId": "point4",
+      "capzone_area_polygon_point__forcapzone_areaId": "caparea_1_a"
+    }
+  },
+  {
+    "entity": {
+      "_template": "capzone_area_polygon_point",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [174.51,1.99134,-3.27218]
+      ],
+      "capzone_area_polygon_point__id": "point4",
+      "capzone_area_polygon_point__nextId": "point5",
+      "capzone_area_polygon_point__forcapzone_areaId": "caparea_1_a"
+    }
+  },
+  {
+    "entity": {
+      "_template": "capzone_area_polygon_point",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [183.042,1.99134,-19.2847]
+      ],
+      "capzone_area_polygon_point__id": "point5",
+      "capzone_area_polygon_point__nextId": "point1",
+      "capzone_area_polygon_point__forcapzone_areaId": "caparea_1_a"
+    }
+  },
+  {
+    "entity": {
       "_template": "normandy_level",
       "level__blk": "content/enlisted/levels/normandy_urban_area_2x2.blk"
     }
@@ -6661,7 +6731,7 @@
   },
   {
     "entity": {
-      "_template": "defend_zone_chained_box+defend_zone_respawnbase",
+      "_template": "defend_zone_chained_poly+defend_zone_respawnbase",
       "capzone__capRewardPartCap": 1.0,
       "capzone__onlyTeamCanCapture": 2,
       "capzone__curTeamCapturingZone": -1,
@@ -6669,24 +6739,24 @@
       "capzone__capTime": 35.0,
       "capzone__capTeam": -1,
       "transform": [
-        [25.4097,0.0,14.8391],
-        [0.0,9.9143,0.0],
-        [-20.6797,0.0,35.4107],
-        [197.103,4.7142,-14.0403]
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [-32.8484,6.80055,-136.163]
       ],
       "active": false,
       "capzone__decapTime": 6000.0,
-      "ui_order": 1,
+      "ui_order": 5,
       "capzone__capReward": 250.0,
       "capzone__icon": "AAA",
       "capzone__caption": "capzone/warehouse",
       "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 1,
-      "decal__thickness": 0.4,
-      "decal__height": 2.6,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
-      "capzone__createdRespawnBaseGroup": 3
+      "capzone__createdRespawnBaseGroup": 3,
+      "capzone__areaId": "caparea_1_a",
+      "capzone__iconOffsetY": 1.5
     }
   },
   {

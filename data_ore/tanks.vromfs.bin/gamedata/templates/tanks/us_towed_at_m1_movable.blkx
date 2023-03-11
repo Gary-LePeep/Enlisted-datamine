@@ -272,7 +272,7 @@
     "gun__recoilAmount": 0.03
   },
   "us_towed_at_m1_gunner_cockpit": {
-    "vehicle_sight__blk": "content/tanks/gamedata/sight/us_m70f.blk",
+    "vehicle_sight__blk": "content/tanks/gamedata/sight/us_m70f_towed.blk",
     "_extends": "base_gunner_cockpit",
     "animchar__res": "t_26_1940_gunner_char",
     "cockpit__zoomTimeMul": 1.3,
@@ -297,6 +297,53 @@
     },
     "cockpit__slitIsGun:list<b>": {
       "slit": true
+    }
+  },
+  "enlist_tankgun_towed_at_m1_57mm_6pdr_qqf_mk_3_l43": [
+    {
+      "_extends": "tankgun"
+    },
+    {
+      "_extends": "base_tankgun_cannon"
+    },
+    {
+      "_extends": "enlist_towed_at_m1_57mm_6pdr_qqf_mk_3_l43"
+    },
+    {
+      "turret__triggerGroup": 0
+    },
+    {
+      "turret__aimNodeName": "bone_turret"
+    },
+    {
+      "turret__limit": [-40.0,40.0,-2.0,20.0]
+    }
+  ],
+  "enlist_towed_at_m1_57mm_6pdr_qqf_mk_3_l43": {
+    "_extends": "base_57mm_6pdr_qqf_mk_3_l43",
+    "gun__shellsAmmo:array": [
+      {
+        "ammo": 10
+      },
+      {
+        "ammo": 15
+      }
+    ],
+    "gun__ammoSetsInfo:shared:array": {
+      "defaultSet:array": {
+        "shell:object": {
+          "blk": "content/tanks/gamedata/gen/weapons/shells/57mm_6pdr_qqf_mk_3_l43_defaultset.blk",
+          "name": "57mm_shot_mk5t",
+          "type": "ap_tank"
+        }
+      },
+      "57mm_britain_6pdr_he:array": {
+        "shell:object": {
+          "blk": "content/tanks/gamedata/gen/weapons/shells/57mm_6pdr_qqf_mk_3_l43_57mm_britain_6pdr_he.blk",
+          "name": "57mm_shell_mk10t",
+          "type": "he_frag_tank"
+        }
+      }
     }
   }
 }

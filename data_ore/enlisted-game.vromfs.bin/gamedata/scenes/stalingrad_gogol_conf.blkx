@@ -6715,13 +6715,13 @@
   {
     "entity": {
       "_template": "door_mult_ent_generator",
-      "ri_extra_gen__blk": "content/e_stalingrad/gamedata/stalingrad_doors.blk"
+      "ri_extra_gen__blk": "content/enlisted/gamedata/stalingrad_doors.blk"
     }
   },
   {
     "entity": {
       "_template": "sound_effect_generator",
-      "ri_extra_gen__blk": "content/e_stalingrad/gamedata/sound/stalingrad_sound_effects.blk"
+      "ri_extra_gen__blk": "content/enlisted/gamedata/sound/stalingrad_sound_effects.blk"
     }
   },
   {
@@ -6730,10 +6730,10 @@
       "mission_name": "stalingrad_gogol_conf",
       "loading_images:list<t>": [
         {
-          "item": "ui/stalingrad_inv_04.jpg"
+          "item": "ui/stalingrad_inv_04.avif"
         },
         {
-          "item": "ui/stalingrad_inv_05.jpg"
+          "item": "ui/stalingrad_inv_05.avif"
         }
       ]
     }
@@ -6777,8 +6777,8 @@
     "entity": {
       "_template": "team_stalingrad_allies+team_narrator_confrontation_attack+respawn_creators_team",
       "team__memberCount": 0.0,
-      "team__scoreCap": 2000.0,
-      "team__score": 2000.0,
+      "team__scoreCap": 1900.0,
+      "team__score": 1900.0,
       "team__squadSpawnCost": 250,
       "team__minScoreCap": 100.0,
       "team__firstSpawnCostMul": 0.0,
@@ -6795,8 +6795,8 @@
     "entity": {
       "_template": "team_stalingrad_axis+team_narrator_confrontation_attack+respawn_creators_team",
       "team__memberCount": 0.0,
-      "team__scoreCap": 2000.0,
-      "team__score": 2000.0,
+      "team__scoreCap": 2100.0,
+      "team__score": 2100.0,
       "team__squadSpawnCost": 250,
       "team__minScoreCap": 100.0,
       "team__firstSpawnCostMul": 0.0,
@@ -6823,7 +6823,7 @@
       "capzone__capRewardPartCap": 1.5,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_1_a",
-      "capzone__capReward": 500.0,
+      "capzone__capReward": 350.0,
       "capzone__lockAfterActivate": true,
       "capzone__unlockAfterTime": 140.0,
       "capzone__capTimeTeam1": 80.0,
@@ -6903,9 +6903,9 @@
       "capzone__capTeam": -1,
       "transform": [
         [-19.4491,0.0,-42.0964],
-        [0.0,6.65669,0.0],
+        [0.0,7.61262,0.0],
         [20.0281,0.0,-9.25327],
-        [-47.4353,9.31195,109.018]
+        [-47.4353,8.61761,109.018]
       ],
       "active": false,
       "capzone__decapTime": 6000.0,
@@ -6971,7 +6971,7 @@
       "capzone__capTimeTeam1": 90.0,
       "capzone__capTimeTeam2": 70.0,
       "capzone__decapTimeTeam1": 40.0,
-      "capzone__decapTimeTeam2": 40.0,
+      "capzone__decapTimeTeam2": 35.0,
       "capzone__capTeam": -1,
       "transform": [
         [1.0,0.0,0.0],
@@ -7002,9 +7002,9 @@
       "capzone__lockAfterActivate": true,
       "capzone__unlockAfterTime": 140.0,
       "capzone__capTimeTeam1": 80.0,
-      "capzone__capTimeTeam2": 80.0,
+      "capzone__capTimeTeam2": 70.0,
       "capzone__decapTimeTeam1": 40.0,
-      "capzone__decapTimeTeam2": 40.0,
+      "capzone__decapTimeTeam2": 35.0,
       "capzone__capTeam": -1,
       "transform": [
         [-3.01219,0.0,-23.7829],
@@ -7035,9 +7035,9 @@
       "capzone__lockAfterActivate": true,
       "capzone__unlockAfterTime": 140.0,
       "capzone__capTimeTeam1": 80.0,
-      "capzone__capTimeTeam2": 80.0,
+      "capzone__capTimeTeam2": 70.0,
       "capzone__decapTimeTeam1": 40.0,
-      "capzone__decapTimeTeam2": 40.0,
+      "capzone__decapTimeTeam2": 35.0,
       "capzone__capTeam": -1,
       "transform": [
         [-3.01837,0.0,-22.8724],
@@ -7068,9 +7068,9 @@
       "capzone__lockAfterActivate": true,
       "capzone__unlockAfterTime": 120.0,
       "capzone__capTimeTeam1": 80.0,
-      "capzone__capTimeTeam2": 80.0,
+      "capzone__capTimeTeam2": 70.0,
       "capzone__decapTimeTeam1": 40.0,
-      "capzone__decapTimeTeam2": 40.0,
+      "capzone__decapTimeTeam2": 35.0,
       "capzone__capTeam": -1,
       "transform": [
         [1.0,0.0,0.0],
@@ -7104,9 +7104,9 @@
       "capzone__lockAfterActivate": true,
       "capzone__unlockAfterTime": 120.0,
       "capzone__capTimeTeam1": 80.0,
-      "capzone__capTimeTeam2": 80.0,
+      "capzone__capTimeTeam2": 70.0,
       "capzone__decapTimeTeam1": 40.0,
-      "capzone__decapTimeTeam2": 40.0,
+      "capzone__decapTimeTeam2": 35.0,
       "capzone__capTeam": -1,
       "transform": [
         [41.1665,0.0,-5.60759],
@@ -7140,9 +7140,9 @@
       "capzone__lockAfterActivate": true,
       "capzone__unlockAfterTime": 120.0,
       "capzone__capTimeTeam1": 80.0,
-      "capzone__capTimeTeam2": 80.0,
+      "capzone__capTimeTeam2": 70.0,
       "capzone__decapTimeTeam1": 40.0,
-      "capzone__decapTimeTeam2": 40.0,
+      "capzone__decapTimeTeam2": 35.0,
       "capzone__capTeam": -1,
       "transform": [
         [-19.8569,0.0,-41.9056],
@@ -7176,9 +7176,9 @@
       "capzone__lockAfterActivate": true,
       "capzone__unlockAfterTime": 120.0,
       "capzone__capTimeTeam1": 80.0,
-      "capzone__capTimeTeam2": 80.0,
+      "capzone__capTimeTeam2": 70.0,
       "capzone__decapTimeTeam1": 40.0,
-      "capzone__decapTimeTeam2": 40.0,
+      "capzone__decapTimeTeam2": 35.0,
       "capzone__capTeam": -1,
       "transform": [
         [0.0536511,0.0,-0.532308],
@@ -7212,9 +7212,9 @@
       "capzone__lockAfterActivate": true,
       "capzone__unlockAfterTime": 140.0,
       "capzone__capTimeTeam1": 80.0,
-      "capzone__capTimeTeam2": 80.0,
+      "capzone__capTimeTeam2": 70.0,
       "capzone__decapTimeTeam1": 40.0,
-      "capzone__decapTimeTeam2": 40.0,
+      "capzone__decapTimeTeam2": 35.0,
       "capzone__capTeam": -1,
       "transform": [
         [-10.0648,0.0,-63.7642],

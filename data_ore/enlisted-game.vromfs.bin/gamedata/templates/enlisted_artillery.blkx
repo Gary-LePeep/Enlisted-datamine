@@ -13,7 +13,7 @@
     ],
     "_group": {
       "_tags": "server",
-      "danger__awareRadiusCoef": 2.7
+      "danger__awareRadiusCoef": 0.0
     }
   },
   "artillery_he": [
@@ -206,9 +206,9 @@
     "_extends": "aircraft_request",
     "_group": {
       "_tags": "server",
-      "aircraft_request__aircraftAfterBombingHeight": 400.0,
-      "aircraft_request__aircraftBombingHeight": 400.0,
-      "aircraft_request__aircraftSpawnHeight": 400.0,
+      "aircraft_request__aircraftAfterBombingHeight": 800.0,
+      "aircraft_request__aircraftBombingHeight": 500.0,
+      "aircraft_request__aircraftSpawnHeight": 600.0,
       "aircraft_request__aircraftTemplate": "ai_b_34+plane_spawn_in_air+requested_aircraft+aircraft_with_gun_redirect+ai_aircraft_crew_usa"
     }
   },
@@ -216,9 +216,9 @@
     "_extends": "aircraft_request",
     "_group": {
       "_tags": "server",
-      "aircraft_request__aircraftAfterBombingHeight": 450.0,
-      "aircraft_request__aircraftBombingHeight": 450.0,
-      "aircraft_request__aircraftSpawnHeight": 450.0,
+      "aircraft_request__aircraftAfterBombingHeight": 850.0,
+      "aircraft_request__aircraftBombingHeight": 550.0,
+      "aircraft_request__aircraftSpawnHeight": 650.0,
       "aircraft_request__aircraftTemplate": "ai_sm_79+plane_spawn_in_air+requested_aircraft+aircraft_with_gun_redirect+ai_aircraft_crew_ger"
     }
   },

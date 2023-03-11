@@ -1,0 +1,540 @@
+{
+  "antipersonnel_mine_shell": {
+    "_extends": "projectile_with_shell",
+    "animchar__res": "grenade_mk2_char",
+    "shell__expl_node": "weaponRoot",
+    "gun__statName": "mine",
+    "item__name": "items/antipersonnel_mine",
+    "shell__isKillerCamAllowed": false,
+    "shell__vehicleKillStat": "vehicle_mine_kills",
+    "shell__crewKillStat": "infantry_mine_kills",
+    "shell__infantryKillStat": "infantry_mine_kills",
+    "shell__killSoldierStat": "explosiveKills",
+    "shell__mine:tag": [],
+    "animchar_no_update:tag": []
+  },
+  "antitank_mine_shell": {
+    "_extends": "projectile_with_shell",
+    "animchar__res": "tnt_explosive_char",
+    "shell__expl_node": "weaponRoot",
+    "item__name": "items/antitank_mine",
+    "gun__statName": "mine",
+    "shell__isKillerCamAllowed": false,
+    "shell__vehicleKillStat": "vehicle_mine_kills",
+    "shell__crewKillStat": "infantry_antitank_mine_kills",
+    "shell__infantryKillStat": "infantry_antitank_mine_kills",
+    "shell__killSoldierStat": "explosiveKills",
+    "shell__mine:tag": [],
+    "animchar_no_update:tag": []
+  },
+  "placeable_item": {
+    "placeable_item__inProgress": false,
+    "placeable_item__verifyDistance": 1.75,
+    "placeable_item__additionalHeight": 0.0,
+    "placeable_item__placeTm": [
+      [1.0,0.0,0.0],
+      [0.0,1.0,0.0],
+      [0.0,0.0,1.0],
+      [0.0,0.0,0.0]
+    ],
+    "_tracked": "placeable_item__ownerEid",
+    "placeable_item__ownerTeam": -1,
+    "placeable_item__keepOldTemplate": true,
+    "placeable_item__template": "placeable_item_in_world",
+    "placeable_item__ownerEid:eid": [],
+    "_group": {
+      "placeable_item__placeRequestSend": false,
+      "placeable_item__placeRequestReady": false,
+      "placeable_item__additionalRotation": [0.0,0.0,0.0],
+      "placeable_item__allowablePlaceHeight": 0.15,
+      "placeable_item__maxAnimLenSq": 1.5625,
+      "placeable_item__minDistanceToWall": 0.25,
+      "placeable_item__lastPosition": [0.0,0.0,0.0],
+      "placeable_item__startPlacingPos": [0.0,0.0,0.0],
+      "_tags": "gameClient"
+    },
+    "placeable_item:tag": []
+  },
+  "placeable_item_in_world": {
+    "_extends": "item_in_world",
+    "net__inInitialScope:tag": []
+  },
+  "attached_to_vehicle": [
+    {
+      "_extends": "placeable_item_in_world"
+    },
+    {
+      "_extends": "node_attached_itm"
+    },
+    {
+      "node_attached__updateWtm:tag": []
+    }
+  ],
+  "attachable_to_vehicle": {
+    "attachable_to_vehicle__template": "attached_to_vehicle",
+    "attachableToVehicle:tag": []
+  },
+  "base_mine_item_gun": [
+    {
+      "_extends": "melee_weapon"
+    },
+    {
+      "_extends": "placeable_item"
+    },
+    {
+      "_extends": "replicating"
+    },
+    {
+      "_extends": "base_hitpoints"
+    },
+    {
+      "_extends": "base_dm_parts"
+    },
+    {
+      "weap__sprintLerpFactor": 1.0
+    },
+    {
+      "animchar__res": "antitank_mine_char"
+    },
+    {
+      "collres__res": "antitank_mine_collision"
+    },
+    {
+      "animchar_render__enabled": true
+    },
+    {
+      "item__template": "base_mine_item_gun"
+    },
+    {
+      "item__weapTemplate": "base_mine_item_gun"
+    },
+    {
+      "item__name": "items/antitank_mine"
+    },
+    {
+      "item__weapType": "mine"
+    },
+    {
+      "item__weight": 0.5
+    },
+    {
+      "melee_weapon__blk": "content/enlisted/gamedata/weapons/building_tool_gun.blk"
+    },
+    {
+      "gun__locName": "antitank_mine"
+    },
+    {
+      "gun__reloadable": false
+    },
+    {
+      "_tracked": "gun__owner"
+    },
+    {
+      "_tracked": "mine__activated"
+    },
+    {
+      "_tracked": "mine__blockedToTime"
+    },
+    {
+      "_replicated": "gun__owner"
+    },
+    {
+      "_replicated": "mine__activated"
+    },
+    {
+      "_replicated": "mine__blockedToTime"
+    },
+    {
+      "mineActivatorTemplate": "antipersonnel_mine_activator"
+    },
+    {
+      "activationRadius": 1.5
+    },
+    {
+      "mine__installBlockTime": 5.0
+    },
+    {
+      "mine__blockedToTime": -1.0
+    },
+    {
+      "mine__activated": false
+    },
+    {
+      "nextCheckTriggerAtTime": -1.0
+    },
+    {
+      "checkTriggerInterval": 0.1
+    },
+    {
+      "material": "steel"
+    },
+    {
+      "needsBlood": false
+    },
+    {
+      "unit_indicator__noRadar": true
+    },
+    {
+      "meleeSoundType": ""
+    },
+    {
+      "grid_obj__gridType": "interactable"
+    },
+    {
+      "grid_obj__fixedTmScale": -1.0
+    },
+    {
+      "hitpoints__hp": 10.0
+    },
+    {
+      "hitpoints__maxHp": 10.0
+    },
+    {
+      "hitpoints__hpRecoverySpd": 0.0
+    },
+    {
+      "hitpoints__hpThreshold": 0.0
+    },
+    {
+      "hitpoints__stoppingPower": 0.0
+    },
+    {
+      "hitpoints__shellDmgMult": 0.075
+    },
+    {
+      "hitpoints__shellSplashDmgMult": 0.075
+    },
+    {
+      "disableDestroyWithRi:tag": []
+    },
+    {
+      "build_attach__riexHandle:u64": {
+        "value": -1,
+        "_tags": "server"
+      }
+    },
+    {
+      "grid_obj": []
+    },
+    {
+      "item__weapSlots:array": {
+        "slot": "special"
+      }
+    },
+    {
+      "itemInWeaponSlot:tag": []
+    },
+    {
+      "collres": []
+    },
+    {
+      "gun__owner:eid": []
+    },
+    {
+      "net__notInInitialScope:tag": []
+    },
+    {
+      "specialWeapItem:tag": []
+    },
+    {
+      "disableMelee:tag": []
+    },
+    {
+      "mine_activation_zone__initEids:list<eid>": []
+    },
+    {
+      "engeneer_mine:tag": []
+    },
+    {
+      "dm_parts__parts:object": {
+        "mine_b_collision04:object": {
+          "dmgMult": 1.0,
+          "armor": 0.0
+        },
+        "mine_b_collision05:object": {
+          "dmgMult": 1.0,
+          "armor": 0.0
+        },
+        "mine_b_collision06:object": {
+          "dmgMult": 1.0,
+          "armor": 0.0
+        }
+      }
+    },
+    {
+      "allow_friendly_damage:tag": []
+    },
+    {
+      "killer:eid": []
+    },
+    {
+      "_group": {
+        "ui__geom_node_idx": -1,
+        "ui__node_pos": [0.0,0.0,0.0],
+        "ui__geom_node_name": "weaponRoot",
+        "_tags": "ui"
+      }
+    },
+    {
+      "animchar__noUpdateOnDedicated:tag": []
+    }
+  ],
+  "antitank_mine_item_gun": {
+    "_extends": "base_mine_item_gun",
+    "animchar__res": "tellermine_35_char",
+    "collres__res": "tellermine_35_collision",
+    "mineActivatorTemplate": "antitank_mine_activator",
+    "melee_weapon__blk": "content/enlisted/gamedata/weapons/mines/antitank_mine_item_gun.blk",
+    "gun__locName": "antitank_mine",
+    "item__name": "items/antitank_mine",
+    "item__template": "antitank_mine_item_gun",
+    "item__weapTemplate": "antitank_mine_item_gun",
+    "item__mineType": "antitank_mine",
+    "item__weight": 8.5,
+    "item__iconScale": 1.1,
+    "item__iconRoll": 30.0,
+    "item__iconYaw": 45.0,
+    "shell_explosion_fx__infoTemplate": "hit_effect_group_antitank_mine_explosion",
+    "shell__waterImpactFx": "hit_water_medium_effect",
+    "ui__placeableItemMarker:tag": {
+      "_tags": "ui"
+    },
+    "mine_activation__delay:r": {
+      "_tags": "server",
+      "value": 0.1
+    },
+    "vehicleTriggerable:tag": [],
+    "dm_parts__parts:object": {
+      "colBox:object": {
+        "dmgMult": 1.0,
+        "armor": 0.0
+      }
+    }
+  },
+  "antipersonnel_mine_item_gun": {
+    "_extends": "base_mine_item_gun",
+    "animchar__res": "sprengmine_35_char",
+    "collres__res": "sprengmine_35_collision",
+    "mineActivatorTemplate": "antipersonnel_mine_activator",
+    "melee_weapon__blk": "content/enlisted/gamedata/weapons/mines/antipersonnel_mine_item_gun.blk",
+    "gun__locName": "antipersonnel_mine",
+    "item__name": "items/antipersonnel_mine",
+    "item__template": "antipersonnel_mine_item_gun",
+    "item__weapTemplate": "antipersonnel_mine_item_gun",
+    "item__mineType": "antipersonnel_mine",
+    "item__weight": 4.0,
+    "activationRadius": 1.4,
+    "shell_explosion_fx__infoTemplate": "hit_effect_group_antipersonel_mine_explosion",
+    "shell__waterImpactFx": "hit_water_medium_effect",
+    "ui__placeableItemMarker:tag": {
+      "_tags": "ui"
+    },
+    "mine_activation__delay:r": {
+      "_tags": "server",
+      "value": 0.5
+    },
+    "vehicleTriggerable:tag": [],
+    "humanTriggerable:tag": [],
+    "dm_parts__parts:object": {
+      "volumeBox_1:object": {
+        "dmgMult": 1.0,
+        "armor": 0.0
+      },
+      "volumeBox_2:object": {
+        "dmgMult": 1.0,
+        "armor": 0.0
+      }
+    }
+  },
+  "usa_antipersonnel_mine": {
+    "_extends": "antipersonnel_mine_item_gun",
+    "animchar__res": "m2a3_mine_char",
+    "collres__res": "m2a3_mine_collision",
+    "melee_weapon__blk": "content/enlisted/gamedata/weapons/mines/usa_antipersonnel_mine.blk",
+    "item__template": "usa_antipersonnel_mine",
+    "item__weapTemplate": "usa_antipersonnel_mine",
+    "placeable_item__additionalHeight": 0.015,
+    "item__weight": 4.0,
+    "dm_parts__parts:object": {
+      "volumeBox_1:object": {
+        "dmgMult": 1.0,
+        "armor": 0.0
+      },
+      "volumeBox_2:object": {
+        "dmgMult": 1.0,
+        "armor": 0.0
+      },
+      "volumeBox_03:object": {
+        "dmgMult": 1.0,
+        "armor": 0.0
+      }
+    }
+  },
+  "usa_antitank_mine": {
+    "_extends": "antitank_mine_item_gun",
+    "animchar__res": "m1_antitank_mine_char",
+    "collres__res": "m1_antitank_mine_collision",
+    "melee_weapon__blk": "content/enlisted/gamedata/weapons/mines/usa_antitank_mine.blk",
+    "item__template": "usa_antitank_mine",
+    "item__weapTemplate": "usa_antitank_mine",
+    "item__weight": 8.5,
+    "placeable_item__additionalHeight": 0.02,
+    "dm_parts__parts:object": {
+      "Box001:object": {
+        "dmgMult": 1.0,
+        "armor": 0.0
+      }
+    },
+    "_group": {
+      "placeable_item__additionalRotation": [0.0,-10.0,0.0],
+      "_tags": "gameClient"
+    }
+  },
+  "ger_antipersonnel_mine": {
+    "_extends": "antipersonnel_mine_item_gun"
+  },
+  "ger_antitank_mine": {
+    "_extends": "antitank_mine_item_gun",
+    "placeable_item__additionalHeight": 0.07
+  },
+  "ussr_antipersonnel_mine": {
+    "_extends": "antipersonnel_mine_item_gun",
+    "animchar__res": "pomz_2_mine_char",
+    "collres__res": "pomz_2_mine_collision",
+    "melee_weapon__blk": "content/enlisted/gamedata/weapons/mines/ussr_antipersonnel_mine.blk",
+    "item__template": "ussr_antipersonnel_mine",
+    "item__weapTemplate": "ussr_antipersonnel_mine",
+    "item__weight": 4.0,
+    "placeable_item__additionalHeight": -0.04,
+    "dm_parts__parts:object": {
+      "volumeBox_1:object": {
+        "dmgMult": 1.0,
+        "armor": 0.0
+      },
+      "volumeBox_2:object": {
+        "dmgMult": 1.0,
+        "armor": 0.0
+      }
+    }
+  },
+  "ussr_antitank_mine": {
+    "_extends": "antitank_mine_item_gun",
+    "animchar__res": "tm_41_char",
+    "collres__res": "tm_41_collision",
+    "melee_weapon__blk": "content/enlisted/gamedata/weapons/mines/ussr_antitank_mine.blk",
+    "item__template": "ussr_antitank_mine",
+    "item__weapTemplate": "ussr_antitank_mine",
+    "item__weight": 8.5,
+    "placeable_item__additionalHeight": 0.07,
+    "dm_parts__parts:object": {
+      "volumeBox_01:object": {
+        "dmgMult": 1.0,
+        "armor": 0.0
+      }
+    }
+  },
+  "uk_antipersonnel_mine": {
+    "_extends": "antipersonnel_mine_item_gun",
+    "animchar__res": "uk_ap_mine_mk1_char",
+    "collres__res": "uk_ap_mine_mk1_collision",
+    "melee_weapon__blk": "content/enlisted/gamedata/weapons/mines/uk_antipersonnel_mine.blk",
+    "item__template": "uk_antipersonnel_mine",
+    "item__weapTemplate": "uk_antipersonnel_mine",
+    "item__weight": 4.0,
+    "placeable_item__additionalHeight": 0.015,
+    "dm_parts__parts:object": {
+      "volumeBox_1:object": {
+        "dmgMult": 1.0,
+        "armor": 0.0
+      },
+      "volumeBox_2:object": {
+        "dmgMult": 1.0,
+        "armor": 0.0
+      }
+    }
+  },
+  "uk_antitank_mine": {
+    "_extends": "antitank_mine_item_gun",
+    "animchar__res": "uk_at_mine_gs_mark_v_char",
+    "collres__res": "uk_at_mine_gs_mark_v_collision",
+    "melee_weapon__blk": "content/enlisted/gamedata/weapons/mines/uk_antitank_mine.blk",
+    "item__template": "uk_antitank_mine",
+    "item__weapTemplate": "uk_antitank_mine",
+    "item__weight": 8.5,
+    "placeable_item__additionalHeight": 0.03,
+    "dm_parts__parts:object": {
+      "Box001:object": {
+        "dmgMult": 1.0,
+        "armor": 0.0
+      }
+    }
+  },
+  "it_antipersonnel_mine": {
+    "_extends": "antipersonnel_mine_item_gun",
+    "animchar__res": "ita_vaudagna_b4_mine_char",
+    "collres__res": "ita_vaudagna_b4_mine_collision",
+    "melee_weapon__blk": "content/enlisted/gamedata/weapons/mines/it_antipersonnel_mine.blk",
+    "item__template": "it_antipersonnel_mine",
+    "item__weapTemplate": "it_antipersonnel_mine",
+    "item__weight": 4.0,
+    "placeable_item__additionalHeight": -0.025,
+    "dm_parts__parts:object": {
+      "volumeBox_1:object": {
+        "dmgMult": 1.0,
+        "armor": 0.0
+      }
+    }
+  },
+  "it_antitank_mine": {
+    "_extends": "antitank_mine_item_gun",
+    "animchar__res": "ita_pignone_type_II_at_mine_char",
+    "collres__res": "ita_pignone_type_II_at_mine_collision",
+    "melee_weapon__blk": "content/enlisted/gamedata/weapons/mines/it_antitank_mine.blk",
+    "item__template": "it_antitank_mine",
+    "item__weapTemplate": "it_antitank_mine",
+    "item__weight": 8.5,
+    "placeable_item__additionalHeight": 0.025,
+    "dm_parts__parts:object": {
+      "Box001:object": {
+        "dmgMult": 1.0,
+        "armor": 0.0
+      }
+    }
+  },
+  "jp_antipersonnel_mine": {
+    "_extends": "antipersonnel_mine_item_gun",
+    "animchar__res": "type_3_mine_char",
+    "collres__res": "type_3_mine_collision",
+    "melee_weapon__blk": "content/enlisted/gamedata/weapons/mines/jp_antipersonnel_mine.blk",
+    "item__template": "jp_antipersonnel_mine",
+    "item__weapTemplate": "jp_antipersonnel_mine",
+    "placeable_item__additionalHeight": 0.015,
+    "item__weight": 4.0,
+    "dm_parts__parts:object": {
+      "volumebox_01:object": {
+        "dmgMult": 1.0,
+        "armor": 0.0
+      }
+    }
+  },
+  "jp_antitank_mine": {
+    "_extends": "antitank_mine_item_gun",
+    "animchar__res": "type_93_mine_char",
+    "collres__res": "type_93_mine_collision",
+    "melee_weapon__blk": "content/enlisted/gamedata/weapons/mines/jp_antitank_mine.blk",
+    "item__template": "jp_antitank_mine",
+    "item__weapTemplate": "jp_antitank_mine",
+    "item__weight": 8.5,
+    "placeable_item__additionalHeight": 0.02,
+    "dm_parts__parts:object": {
+      "volumebox:object": {
+        "dmgMult": 1.0,
+        "armor": 0.0
+      }
+    },
+    "_group": {
+      "placeable_item__additionalRotation": [0.0,-10.0,0.0],
+      "_tags": "gameClient"
+    }
+  }
+}

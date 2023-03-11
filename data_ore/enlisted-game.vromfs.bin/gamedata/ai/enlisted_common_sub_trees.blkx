@@ -466,6 +466,79 @@
     ]
   },
   {
+    "sequencer": [
+      {
+        "name": "sub.bombEscape"
+      },
+      {
+        "reaction": {
+          "event": "regularCheck",
+          "repeat": [
+            {
+              "count": 1
+            },
+            {
+              "subTree": {
+                "name": "",
+                "treeName": "sub.chooseMaxStance"
+              }
+            },
+            {
+              "subTree": {
+                "name": "",
+                "treeName": "sub.checkDowned"
+              }
+            },
+            {
+              "subTree": {
+                "name": "",
+                "treeName": "sub.checkBurning"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "findDangerousBomb": {
+          "dangerPosParam": "bombDangerousPos"
+        }
+      },
+      {
+        "findSafeFromBombPos": {
+          "dangerPosParam": "bombDangerousPos",
+          "safePosParam": "currentSafePos"
+        }
+      },
+      {
+        "setCurrentAiAction": {
+          "state": "hide"
+        }
+      },
+      {
+        "wait": {
+          "range": [0.1,0.3],
+          "resetable": true
+        }
+      },
+      {
+        "wait": {
+          "range": [0.8,1.2],
+          "resetable": true
+        }
+      },
+      {
+        "moveToPos": {
+          "posParam": "currentSafePos",
+          "sprintTimerRange": [10.0,20.0],
+          "minDistToSprint": 0.5,
+          "tryClimbing": true,
+          "maxStanceParam": "maxStance",
+          "avoidAiObstacles": false
+        }
+      }
+    ]
+  },
+  {
     "sequencer": {
       "name": "sub.rethrowGrenade",
       "not": {
@@ -710,13 +783,16 @@
             "range": [0.2,0.3],
             "resetable": true
           },
-          "moveToPos": {
-            "posParam": "dmgZoneEscapePos",
-            "sprintTimerRange": [10.0,20.0],
-            "minDistToSprint": 0.5,
-            "tryClimbing": true,
-            "distThreshold": 1.0,
-            "avoidAiObstacles": false
+          "parallel": {
+            "moveToPos": {
+              "posParam": "dmgZoneEscapePos",
+              "sprintTimerRange": [10.0,20.0],
+              "minDistToSprint": 0.5,
+              "tryClimbing": true,
+              "distThreshold": 1.0,
+              "avoidAiObstacles": false
+            },
+            "extinguish": []
           }
         },
         "setIntVar": {
@@ -1837,295 +1913,145 @@
     }
   },
   {
-    "sequencer": [
-      {
-        "name": "sub.moveToPosition"
+    "sequencer": {
+      "name": "sub.moveToRegroupPosition",
+      "getRegroupPos": {
+        "posParam": "regroupPosition"
       },
-      {
-        "getRegroupPos": {
-          "posParam": "regroupPosition"
-        }
+      "getOrderPosition": {
+        "posParam": "regroupPosition",
+        "orderPosParam": "wishPosition"
       },
-      {
-        "getOrderPosition": {
-          "posParam": "regroupPosition",
-          "orderPosParam": "wishPosition"
-        }
-      },
-      {
-        "wait": {
-          "range": [0.1,0.3],
-          "resetable": true
-        }
-      },
-      {
-        "orderedSelector": {
-          "isVarsIntEqual": {
-            "lhs": "isUnreachable",
-            "rhs_value": 0
-          },
-          "not": {
-            "checkDistance": {
-              "posParam": "wishPosition",
-              "otherPosParam": "unreachablePos",
-              "radius": 2.0,
-              "yRadius": 1.0
-            }
-          }
-        }
-      },
-      {
-        "orderedSelector": [
-          {
-            "sequencer": {
-              "moveToPos": {
-                "posParam": "wishPosition",
-                "sprintTimerRange": [10.0,20.0],
-                "minDistToSprint": 1.5,
-                "lookVisc": 0.1,
-                "tryClimbing": true,
-                "maxStanceParam": "maxStance",
-                "stuckDirParam": "stuckDir",
-                "timeToStuck": 0.9,
-                "incObstacles": true,
-                "avoidAiObstacles": false,
-                "distThreshold": 1.0
-              },
-              "setIntVar": {
-                "to": "isUnreachable",
-                "value": 0
-              }
-            }
-          },
-          {
-            "sequencer": {
-              "moveToPos": {
-                "posParam": "wishPosition",
-                "sprintTimerRange": [10.0,20.0],
-                "minDistToSprint": 1.5,
-                "lookVisc": 0.1,
-                "tryClimbing": true,
-                "maxStanceParam": "maxStance",
-                "stuckDirParam": "stuckDir",
-                "timeToStuck": 0.9,
-                "incObstacles": false,
-                "avoidAiObstacles": false,
-                "distThreshold": 1.0
-              },
-              "setIntVar": {
-                "to": "isUnreachable",
-                "value": 0
-              }
-            }
-          },
-          {
-            "exitHandler": {
-              "sequencer": {
-                "setIntVar": {
-                  "to": "isUnreachable",
-                  "value": 1
-                },
-                "copyPoint3Var": {
-                  "from": "wishPosition",
-                  "to": "unreachablePos"
-                },
-                "not": {
-                  "repeatUntilFail": {
-                    "getPointAroundAIPos": {
-                      "dirParam": "stuckDir",
-                      "outPosParam": "outStuckPos",
-                      "forwPosParam": "outStuckForwPos",
-                      "fromPosParam": "moveFromPos",
-                      "toPosParam": "wishPosition",
-                      "resetAIPointsGeneratorParam": "resetAIPointsGenerator"
-                    },
-                    "not": {
-                      "sequencer": {
-                        "wait": {
-                          "range": [0.1,0.2],
-                          "resetable": true
-                        },
-                        "success": {
-                          "moveByDir": {
-                            "endPos": "outStuckPos",
-                            "duration": 0.7,
-                            "distThresholsd": 0.1
-                          }
-                        },
-                        "moveToPos": {
-                          "posParam": "wishPosition",
-                          "sprintTimerRange": [10.0,20.0],
-                          "minDistToSprint": 1.5,
-                          "lookVisc": 0.1,
-                          "tryClimbing": true,
-                          "maxStanceParam": "maxStance",
-                          "distThreshold": 1.0,
-                          "timeToStuck": 0.9,
-                          "avoidAiObstacles": false
-                        },
-                        "setIntVar": {
-                          "to": "isUnreachable",
-                          "value": 0
-                        }
-                      }
-                    }
-                  }
-                }
-              },
-              "setIntVar": {
-                "to": "resetAIPointsGenerator",
-                "value": 1
-              }
-            }
-          }
-        ]
-      },
-      {
-        "getAgentAIPos": {
-          "outPosParam": "moveFromPos"
-        }
+      "subTree": {
+        "name": "",
+        "treeName": "sub.moveToPosition"
       }
-    ]
+    }
   },
   {
-    "sequencer": [
-      {
-        "name": "sub.moveToCoverNearPosition"
+    "sequencer": {
+      "name": "sub.moveToPosition",
+      "wait": {
+        "range": [0.1,0.3],
+        "resetable": true
       },
-      {
-        "wait": {
-          "range": [0.1,0.3],
-          "resetable": true
-        }
+      "getAgentAIPos": {
+        "outPosParam": "moveFromPos"
       },
-      {
-        "orderedSelector": {
-          "isVarsIntEqual": {
-            "lhs": "isUnreachable",
-            "rhs_value": 0
-          },
-          "not": {
-            "checkDistance": {
+      "orderedSelector": [
+        {
+          "sequencer": {
+            "orderedSelector": {
+              "isOnNavmesh": [],
+              "subTree": {
+                "name": "",
+                "treeName": "sub.returnToNavmesh"
+              }
+            },
+            "moveToPos": {
               "posParam": "wishPosition",
-              "otherPosParam": "unreachablePos",
-              "radius": 2.0,
-              "yRadius": 1.0
+              "sprintTimerRange": [10.0,20.0],
+              "minDistToSprint": 1.5,
+              "lookVisc": 0.1,
+              "tryClimbing": true,
+              "maxStanceParam": "maxStance",
+              "stuckDirParam": "stuckDir",
+              "timeToStuck": 0.9,
+              "incObstacles": true,
+              "avoidAiObstacles": false,
+              "distThreshold": 1.0
+            },
+            "setIntVar": {
+              "to": "resetAIPointsGenerator",
+              "value": 1
             }
           }
-        }
-      },
-      {
-        "orderedSelector": [
-          {
-            "sequencer": {
-              "moveToPos": {
-                "posParam": "wishPosition",
-                "sprintTimerRange": [10.0,20.0],
-                "minDistToSprint": 1.5,
-                "lookVisc": 0.1,
-                "tryClimbing": true,
-                "maxStanceParam": "maxStance",
-                "stuckDirParam": "stuckDir",
-                "timeToStuck": 0.9,
-                "incObstacles": true,
-                "avoidAiObstacles": false,
-                "distThreshold": 1.0
-              },
-              "setIntVar": {
-                "to": "isUnreachable",
-                "value": 0
-              }
+        },
+        {
+          "sequencer": {
+            "moveToPos": {
+              "posParam": "wishPosition",
+              "sprintTimerRange": [10.0,20.0],
+              "minDistToSprint": 1.5,
+              "lookVisc": 0.1,
+              "tryClimbing": true,
+              "maxStanceParam": "maxStance",
+              "stuckDirParam": "stuckDir",
+              "timeToStuck": 0.9,
+              "incObstacles": false,
+              "avoidAiObstacles": false,
+              "distThreshold": 1.0
+            },
+            "setIntVar": {
+              "to": "resetAIPointsGenerator",
+              "value": 1
             }
-          },
-          {
-            "sequencer": {
-              "moveToPos": {
-                "posParam": "wishPosition",
-                "sprintTimerRange": [10.0,20.0],
-                "minDistToSprint": 1.5,
-                "lookVisc": 0.1,
-                "tryClimbing": true,
-                "maxStanceParam": "maxStance",
-                "stuckDirParam": "stuckDir",
-                "timeToStuck": 0.9,
-                "incObstacles": false,
-                "avoidAiObstacles": false,
-                "distThreshold": 1.0
-              },
-              "setIntVar": {
-                "to": "isUnreachable",
-                "value": 0
-              }
-            }
-          },
-          {
-            "exitHandler": {
-              "sequencer": {
-                "setIntVar": {
-                  "to": "isUnreachable",
-                  "value": 1
-                },
-                "copyPoint3Var": {
-                  "from": "wishPosition",
-                  "to": "unreachablePos"
-                },
-                "not": {
-                  "repeatUntilFail": {
-                    "getPointAroundAIPos": {
-                      "dirParam": "stuckDir",
-                      "outPosParam": "outStuckPos",
-                      "forwPosParam": "outStuckForwPos",
-                      "fromPosParam": "moveFromPos",
-                      "toPosParam": "wishPosition",
-                      "resetAIPointsGeneratorParam": "resetAIPointsGenerator"
-                    },
-                    "not": {
-                      "sequencer": {
-                        "wait": {
-                          "range": [0.1,0.2],
-                          "resetable": true
-                        },
-                        "success": {
-                          "moveByDir": {
-                            "endPos": "outStuckPos",
-                            "duration": 0.7,
-                            "distThresholsd": 0.1
-                          }
-                        },
-                        "moveToPos": {
-                          "posParam": "wishPosition",
-                          "sprintTimerRange": [10.0,20.0],
-                          "minDistToSprint": 1.5,
-                          "lookVisc": 0.1,
-                          "tryClimbing": true,
-                          "maxStanceParam": "maxStance",
-                          "distThreshold": 1.0,
-                          "timeToStuck": 0.9,
-                          "avoidAiObstacles": false
-                        },
-                        "setIntVar": {
-                          "to": "isUnreachable",
-                          "value": 0
-                        }
-                      }
-                    }
-                  }
+          }
+        },
+        {
+          "ifThenElse": [
+            {
+              "isOnNavmesh": []
+            },
+            {
+              "failed": {
+                "subTree": {
+                  "name": "",
+                  "treeName": "sub.moveToUnstuck"
                 }
-              },
-              "setIntVar": {
-                "to": "resetAIPointsGenerator",
-                "value": 1
+              }
+            },
+            {
+              "failed": {
+                "subTree": {
+                  "name": "",
+                  "treeName": "sub.returnToNavmesh"
+                }
               }
             }
-          }
-        ]
-      },
-      {
-        "getAgentAIPos": {
-          "outPosParam": "moveFromPos"
+          ]
         }
+      ]
+    }
+  },
+  {
+    "sequencer": {
+      "name": "sub.returnToNavmesh",
+      "wait": {
+        "range": [0.1,0.2],
+        "resetable": true
+      },
+      "findWayBackToNavmesh": {
+        "outPosParam": "outStuckPos"
+      },
+      "moveByDir": {
+        "endPos": "outStuckPos",
+        "duration": 1.2,
+        "distThresholsd": 0.1
       }
-    ]
+    }
+  },
+  {
+    "sequencer": {
+      "name": "sub.moveToUnstuck",
+      "wait": {
+        "range": [0.1,0.2],
+        "resetable": true
+      },
+      "getPointAroundAIPos": {
+        "dirParam": "stuckDir",
+        "outPosParam": "outStuckPos",
+        "forwPosParam": "outStuckForwPos",
+        "fromPosParam": "moveFromPos",
+        "toPosParam": "wishPosition",
+        "resetAIPointsGeneratorParam": "resetAIPointsGenerator"
+      },
+      "moveByDir": {
+        "endPos": "outStuckPos",
+        "duration": 1.5,
+        "distThresholsd": 0.1
+      }
+    }
   },
   {
     "sequencer": [
@@ -2439,7 +2365,7 @@
       {
         "subTree": {
           "name": "",
-          "treeName": "sub.moveToCoverNearPosition"
+          "treeName": "sub.moveToPosition"
         }
       }
     ]
@@ -2463,7 +2389,7 @@
       },
       {
         "subTree": {
-          "treeName": "sub.moveToPosition"
+          "treeName": "sub.moveToRegroupPosition"
         }
       }
     ]
@@ -2475,31 +2401,6 @@
       },
       {
         "isLeader": []
-      },
-      {
-        "checkAtTime": {
-          "timeParam": "underArtilleryTime",
-          "range": [10.0,1000000.0]
-        }
-      },
-      {
-        "not": {
-          "sequencer": {
-            "findActiveDamageZone": {
-              "safePosParam": "dmgZoneEscapePos",
-              "findWarning": true
-            },
-            "isIndoor": [],
-            "getTime": {
-              "to": "underArtilleryTime"
-            },
-            "success": {
-              "setSquadFormation": {
-                "formation": "closest"
-              }
-            }
-          }
-        }
       },
       {
         "success": {

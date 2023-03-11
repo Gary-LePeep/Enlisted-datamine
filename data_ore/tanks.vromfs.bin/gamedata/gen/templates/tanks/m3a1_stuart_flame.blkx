@@ -219,7 +219,7 @@
         {
           "turretInfo:object": {
             "turretName": "turret_04",
-            "gun": "m1_flamethrower_shorted",
+            "gun": "m1_flamethrower_shorted+turret_with_several_types_of_shells+main_turret",
             "barrelDm": "gun_barrel_02",
             "verDriveDm": "drive_turret_v",
             "horDriveDm": "drive_turret_h",
@@ -255,7 +255,7 @@
   },
   "m3a1_stuart_flame_turret_02_7_62mm_m1919a4": {
     "_extends": "tankgun_7_62mm_m1919a4",
-    "gun__shootNodeName": "bone_mg_aa_v_01",
+    "gun__shootNodeName": "emtr_mg_aa_flame_01",
     "turret__yawSpeed": 90.0,
     "turret__pitchSpeed": 90.0,
     "turret__aimNodeName": "bone_mg_aa_h_01",
@@ -407,7 +407,10 @@
       "gun__locName": "ato_41_flamethrower"
     },
     {
-      "gun__shootNodeName": "bone_gun_barrel"
+      "item__weapType": "flamethrower"
+    },
+    {
+      "gun__shootNodeName": "emtr_mg_flame_02"
     },
     {
       "turret__yawSpeed": 45.0
@@ -416,7 +419,7 @@
       "turret__pitchSpeed": 45.0
     },
     {
-      "turret__aimNodeName": "bone_turret"
+      "turret__aimNodeName": "bone_mg_h_01"
     },
     {
       "turret__limit": [-11.0,11.0,-11.0,11.0]
@@ -463,13 +466,13 @@
       "flamethrower__streamEffectNodeName": "gunFx_main"
     },
     {
-      "flamethrower__maxFlameLength": 18.0
+      "flamethrower__maxFlameLength": 20.0
     },
     {
       "flamethrower__flameStreamRadius": 0.03
     },
     {
-      "flamethrower__flameCloudRadius": 0.8
+      "flamethrower__flameCloudRadius": 1.0
     },
     {
       "flamethrower__streamDamagePerSecond": 40.0
@@ -520,9 +523,6 @@
       "flamethrower__maxFiresToReignite": 3
     },
     {
-      "flamethrower__backpackTemplate": "flamethrower_backpack_roks_3_gasbag"
-    },
-    {
       "flamethrower__streamEffectNodeIdx": -1
     },
     {
@@ -564,7 +564,7 @@
       "gun__ammoSetsInfo:shared:array": {
         "defaultSet:array": {
           "shell:object": {
-            "blk": "content/e_ww2_common/gamedata/weapons/bullets/flamethrower_dummy.blk",
+            "blk": "content/enlisted/gamedata/weapons/bullets/flamethrower_dummy.blk",
             "type": "flamethrower",
             "name": "flamethrower"
           }

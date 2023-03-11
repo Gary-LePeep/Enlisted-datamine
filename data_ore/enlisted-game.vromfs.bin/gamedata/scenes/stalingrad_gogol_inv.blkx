@@ -6715,13 +6715,13 @@
   {
     "entity": {
       "_template": "door_mult_ent_generator",
-      "ri_extra_gen__blk": "content/e_stalingrad/gamedata/stalingrad_doors.blk"
+      "ri_extra_gen__blk": "content/enlisted/gamedata/stalingrad_doors.blk"
     }
   },
   {
     "entity": {
       "_template": "sound_effect_generator",
-      "ri_extra_gen__blk": "content/e_stalingrad/gamedata/sound/stalingrad_sound_effects.blk"
+      "ri_extra_gen__blk": "content/enlisted/gamedata/sound/stalingrad_sound_effects.blk"
     }
   },
   {
@@ -6730,13 +6730,13 @@
       "mission_name": "stalingrad_gogol_inv",
       "loading_images:list<t>": [
         {
-          "item": "ui/stalingrad_inv_02.jpg"
+          "item": "ui/stalingrad_inv_02.avif"
         },
         {
-          "item": "ui/stalingrad_inv_04.jpg"
+          "item": "ui/stalingrad_inv_04.avif"
         },
         {
-          "item": "ui/stalingrad_inv_08.jpg"
+          "item": "ui/stalingrad_inv_08.avif"
         }
       ]
     }
@@ -6796,8 +6796,8 @@
     "entity": {
       "_template": "team_stalingrad_axis+team_narrator_invasion_attack+respawn_creators_team",
       "team__memberCount": 0.0,
-      "team__scoreCap": 2200.0,
-      "team__score": 2200.0,
+      "team__scoreCap": 2400.0,
+      "team__score": 2400.0,
       "team__squadSpawnCost": 250,
       "team__firstSpawnCostMul": 0.0,
       "team__zeroScoreFailTimer": 60.0,
@@ -6826,7 +6826,7 @@
       "capzone__onlyTeamCanCapture": 2,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_1_a",
-      "capzone__capTime": 45.0,
+      "capzone__capTime": 40.0,
       "capzone__capTeam": -1,
       "transform": [
         [51.0698,0.0,-6.49252],
@@ -6861,7 +6861,7 @@
       "capzone__onlyTeamCanCapture": 2,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_1_b",
-      "capzone__capTime": 45.0,
+      "capzone__capTime": 40.0,
       "capzone__capTeam": -1,
       "transform": [
         [-3.01219,0.0,-23.7829],
@@ -6896,7 +6896,7 @@
       "capzone__onlyTeamCanCapture": 2,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_1_c",
-      "capzone__capTime": 45.0,
+      "capzone__capTime": 40.0,
       "capzone__capTeam": -1,
       "transform": [
         [-3.01837,0.0,-22.8724],
@@ -7035,9 +7035,9 @@
       "capzone__capTeam": -1,
       "transform": [
         [-19.4491,0.0,-42.0964],
-        [0.0,6.65669,0.0],
+        [0.0,7.61262,0.0],
         [20.0281,0.0,-9.25327],
-        [-47.4353,9.31195,109.018]
+        [-47.4353,8.61761,109.018]
       ],
       "active": false,
       "capzone__decapTime": 6000.0,
@@ -7097,7 +7097,7 @@
       "capzone__onlyTeamCanCapture": 2,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_4_a",
-      "capzone__capTime": 60.0,
+      "capzone__capTime": 50.0,
       "capzone__capTeam": -1,
       "transform": [
         [0.484996,0.0,-0.225853],
@@ -7131,7 +7131,7 @@
       "capzone__onlyTeamCanCapture": 2,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_4_b",
-      "capzone__capTime": 60.0,
+      "capzone__capTime": 50.0,
       "capzone__capTeam": -1,
       "transform": [
         [0.0536511,0.0,-0.532308],

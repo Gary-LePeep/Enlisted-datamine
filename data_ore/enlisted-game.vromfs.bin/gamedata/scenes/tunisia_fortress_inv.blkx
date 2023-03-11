@@ -15,13 +15,13 @@
       "mission_name": "tunisia_fortress_inv",
       "loading_images:list<t>": [
         {
-          "item": "ui/tunisia_fortress_inv_01.jpg"
+          "item": "ui/tunisia_fortress_inv_01.avif"
         },
         {
-          "item": "ui/tunisia_fortress_inv_02.jpg"
+          "item": "ui/tunisia_fortress_inv_02.avif"
         },
         {
-          "item": "ui/tunisia_fortress_inv_03.jpg"
+          "item": "ui/tunisia_fortress_inv_03.avif"
         }
       ]
     }
@@ -100,7 +100,7 @@
   {
     "entity": {
       "_template": "door_mult_ent_generator",
-      "ri_extra_gen__blk": "content/e_tunisia/gamedata/tunisia_doors.blk"
+      "ri_extra_gen__blk": "content/enlisted/gamedata/tunisia_doors.blk"
     }
   },
   {
@@ -2124,12 +2124,12 @@
       "capzone__curTeamCapturingZone": -1,
       "capzone__onlyTeamCanCapture": 1,
       "groupName": "sector_1",
-      "capzone__capTime": 60.0,
+      "capzone__capTime": 50.0,
       "capzone__capTeam": -1,
       "active": false,
       "capzone__decapTime": 6000.0,
       "ui_order": 1,
-      "capzone__capReward": 250.0,
+      "capzone__capReward": 500.0,
       "capzone__icon": "AAA",
       "capzone__caption": "capzone/apartments",
       "capzone__deactivateAfterTimeout": 25.0,
@@ -2157,7 +2157,7 @@
       "capzone__curTeamCapturingZone": -1,
       "capzone__onlyTeamCanCapture": 1,
       "groupName": "sector_2",
-      "capzone__capTime": 75.0,
+      "capzone__capTime": 60.0,
       "capzone__capTeam": -1,
       "active": false,
       "capzone__decapTime": 6000.0,
@@ -2184,7 +2184,7 @@
       "capzone__onlyTeamCanCapture": 1,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_3",
-      "capzone__capTime": 80.0,
+      "capzone__capTime": 70.0,
       "capzone__capTeam": -1,
       "transform": [
         [0.93523,-0.0429406,-0.216558],
@@ -2226,7 +2226,7 @@
       "capzone__curTeamCapturingZone": -1,
       "capzone__onlyTeamCanCapture": 1,
       "groupName": "sector_4",
-      "capzone__capTime": 80.0,
+      "capzone__capTime": 70.0,
       "capzone__capTeam": -1,
       "active": false,
       "capzone__decapTime": 6000.0,
@@ -2259,7 +2259,7 @@
       "capzone__curTeamCapturingZone": -1,
       "capzone__onlyTeamCanCapture": 1,
       "groupName": "sector_4_b",
-      "capzone__capTime": 80.0,
+      "capzone__capTime": 70.0,
       "capzone__capTeam": -1,
       "active": false,
       "capzone__decapTime": 6000.0,
@@ -2292,7 +2292,7 @@
       "capzone__curTeamCapturingZone": -1,
       "capzone__onlyTeamCanCapture": 1,
       "groupName": "sector_5",
-      "capzone__capTime": 80.0,
+      "capzone__capTime": 70.0,
       "capzone__capTeam": -1,
       "active": false,
       "capzone__decapTime": 6000.0,

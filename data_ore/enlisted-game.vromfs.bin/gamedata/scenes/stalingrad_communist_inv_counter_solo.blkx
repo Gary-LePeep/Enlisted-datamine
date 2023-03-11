@@ -6955,13 +6955,13 @@
   {
     "entity": {
       "_template": "door_mult_ent_generator",
-      "ri_extra_gen__blk": "content/e_stalingrad/gamedata/stalingrad_doors.blk"
+      "ri_extra_gen__blk": "content/enlisted/gamedata/stalingrad_doors.blk"
     }
   },
   {
     "entity": {
       "_template": "sound_effect_generator",
-      "ri_extra_gen__blk": "content/e_stalingrad/gamedata/sound/stalingrad_sound_effects.blk"
+      "ri_extra_gen__blk": "content/enlisted/gamedata/sound/stalingrad_sound_effects.blk"
     }
   },
   {
@@ -6970,13 +6970,13 @@
       "mission_name": "stalingrad_communist_inv_counter",
       "loading_images:list<t>": [
         {
-          "item": "ui/stalingrad_inv_03.jpg"
+          "item": "ui/stalingrad_inv_03.avif"
         },
         {
-          "item": "ui/stalingrad_inv_05.jpg"
+          "item": "ui/stalingrad_inv_05.avif"
         },
         {
-          "item": "ui/stalingrad_inv_09.jpg"
+          "item": "ui/stalingrad_inv_09.avif"
         }
       ]
     }
@@ -10842,6 +10842,20 @@
         [100.948,5.83493,168.633]
       ],
       "resupply_zone__team": 2,
+      "groupName": "sector_3_d",
+      "active": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "resupply_for_ground_vehicle_zone",
+      "transform": [
+        [0.681802,0.0,0.731536],
+        [0.0,1.0,0.0],
+        [-0.731536,0.0,0.681802],
+        [-335.171,6.03651,208.139]
+      ],
+      "resupply_zone__team": 1,
       "groupName": "sector_3_d",
       "active": false
     }

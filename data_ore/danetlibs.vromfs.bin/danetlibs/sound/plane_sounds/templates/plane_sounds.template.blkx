@@ -101,15 +101,6 @@
       "_extends": "plane_watertracks_sound"
     },
     {
-      "plane_engine_sound__props": "content/enlisted/gamedata/units/sound/engine_props.blk"
-    },
-    {
-      "plane_engine_sound__propsId": -1
-    },
-    {
-      "plane_engine_sound__engine": "engine04"
-    },
-    {
       "_group": {
         "_tags": "sound",
         "vehicle_engine_sound__speedToVar": [0.0,100.0]
@@ -118,12 +109,18 @@
     {
       "_group": {
         "_tags": "sound",
-        "sound_control__range": 450.0
+        "sound_control__range": 450.0,
+        "sound_control__autoRange": false
       }
     },
     {
-      "plane_engine_sound": {
-        "_tags": "sound"
+      "_group": {
+        "_tags": "sound",
+        "plane_engine_sound__propsId": -1,
+        "plane_engine_sound__lastUpdateTime": 0.0,
+        "plane_engine_sound__props": "content/enlisted/gamedata/units/sound/engine_props.blk",
+        "plane_engine_sound__engine": "engine04",
+        "plane_engine_sound": []
       }
     }
   ]

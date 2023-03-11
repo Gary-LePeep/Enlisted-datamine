@@ -56,7 +56,7 @@
   {
     "entity": {
       "_template": "door_mult_ent_generator",
-      "ri_extra_gen__blk": "content/e_moscow/gamedata/volokolamsk_doors.blk"
+      "ri_extra_gen__blk": "content/enlisted/gamedata/volokolamsk_doors.blk"
     }
   },
   {
@@ -71,13 +71,13 @@
       "mission_name": "volokolamsk_quarry_inv",
       "loading_images:list<t>": [
         {
-          "item": "ui/volokolamsk_quarry_1.jpg"
+          "item": "ui/volokolamsk_quarry_1.avif"
         },
         {
-          "item": "ui/volokolamsk_quarry_2.jpg"
+          "item": "ui/volokolamsk_quarry_2.avif"
         },
         {
-          "item": "ui/volokolamsk_quarry_3.jpg"
+          "item": "ui/volokolamsk_quarry_3.avif"
         }
       ]
     }
@@ -102,8 +102,8 @@
     "entity": {
       "_template": "team_germany_winter+team_narrator_invasion_attack+respawn_creators_team",
       "team__memberCount": 0.0,
-      "team__scoreCap": 2500.0,
-      "team__score": 2500.0,
+      "team__scoreCap": 2700.0,
+      "team__score": 2700.0,
       "team__squadSpawnCost": 250,
       "team__firstSpawnCostMul": 0.0,
       "team__zeroScoreFailTimer": 60.0,

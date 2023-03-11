@@ -1,0 +1,27 @@
+{
+  "it_human_voice": {
+    "_group": {
+      "_tags": "sound",
+      "human_speech__locale": "it"
+    }
+  },
+  "it_base_soldier": [
+    {
+      "_extends": "ger_soldier"
+    },
+    {
+      "_extends": "enlisted_base_soldier"
+    },
+    {
+      "_extends": "it_human_voice"
+    }
+  ],
+  "ai_aircraft_crew_it_soldier": [
+    {
+      "_extends": "it_base_soldier"
+    },
+    {
+      "_extends": "ai_aircraft_crew_soldier_base"
+    }
+  ]
+}

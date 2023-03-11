@@ -1,0 +1,62 @@
+{
+  "ground_holes_updater": [
+    {
+      "_extends": "replicating"
+    },
+    {
+      "_singleton": true
+    },
+    {
+      "changed_ground_holes": false
+    },
+    {
+      "first_holes_update": true
+    },
+    {
+      "should_render_ground_holes": false
+    },
+    {
+      "gound_holes_temp_tex_size": 1024
+    },
+    {
+      "gound_holes_main_tex_size": 2048
+    },
+    {
+      "ground_holes_scale_offset": [-1.0,-1.0,-1.0,-1.0]
+    },
+    {
+      "_group": {
+        "_track": true,
+        "update_ground_holes": false
+      }
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "hmapHolesPrepareRenderer_name": "heightmap_holes_prepare",
+        "hmapHolesProcessRenderer_name": "heightmap_holes_process",
+        "hmapHolesPrepareRenderer:ShadersECS": [],
+        "hmapHolesProcessRenderer:PostFxRenderer": [],
+        "hmapHolesTex:UniqueTexHolder": [],
+        "hmapHolesTmpTex:UniqueTexHolder": [],
+        "hmapHolesBuf:UniqueBufHolder": [],
+        "holes:list<p4>": []
+      }
+    }
+  ],
+  "ground_hole": {
+    "_extends": "replicating",
+    "_track": true,
+    "transform": [
+      [1.0,0.0,0.0],
+      [0.0,1.0,0.0],
+      [0.0,0.0,1.0],
+      [0.0,0.0,0.0]
+    ],
+    "ground_hole_sphere_shape": false,
+    "_group": {
+      "processed": false,
+      "_tags": "gameClient"
+    }
+  }
+}

@@ -1441,13 +1441,13 @@
       "mission_name": "tunisia_farm_inv",
       "loading_images:list<t>": [
         {
-          "item": "ui/tunisia_farm_inv_01.jpg"
+          "item": "ui/tunisia_farm_inv_01.avif"
         },
         {
-          "item": "ui/tunisia_farm_inv_02.jpg"
+          "item": "ui/tunisia_farm_inv_02.avif"
         },
         {
-          "item": "ui/tunisia_farm_inv_03.jpg"
+          "item": "ui/tunisia_farm_inv_03.avif"
         }
       ]
     }
@@ -1494,8 +1494,8 @@
     "entity": {
       "_template": "team_tunisia_axis+team_narrator_invasion_attack+respawn_creators_team",
       "team__memberCount": 0.0,
-      "team__scoreCap": 1750.0,
-      "team__score": 1750.0,
+      "team__scoreCap": 1800.0,
+      "team__score": 1800.0,
       "team__squadSpawnCost": 250,
       "team__firstSpawnCostMul": 0.0,
       "team__zeroScoreFailTimer": 60.0,
@@ -1526,7 +1526,7 @@
   {
     "entity": {
       "_template": "door_mult_ent_generator",
-      "ri_extra_gen__blk": "content/e_tunisia/gamedata/tunisia_doors.blk"
+      "ri_extra_gen__blk": "content/enlisted/gamedata/tunisia_doors.blk"
     }
   },
   {
@@ -1574,7 +1574,7 @@
       "capzone__curTeamCapturingZone": -1,
       "capzone__onlyTeamCanCapture": 2,
       "groupName": "sector_1",
-      "capzone__capTime": 95.0,
+      "capzone__capTime": 90.0,
       "capzone__capTeam": -1,
       "active": false,
       "capzone__decapTime": 6000.0,

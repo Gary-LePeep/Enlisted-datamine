@@ -120,6 +120,9 @@
       "path": "/weapon/cannon/20mm_tnsh"
     }
   },
+  "gunsound_20mm_oerlikon": {
+    "_extends": "gunsound_20mm_tnsh"
+  },
   "gunsound_20mm_breda_m35": {
     "_extends": "gunsound_base_cannon",
     "_group": {
@@ -412,6 +415,9 @@
       "_tags": "sound",
       "path": "/weapon/cannon/76mm_f34"
     }
+  },
+  "gunsound_76mm_f32": {
+    "_extends": "gunsound_76mm_f34"
   },
   "gunsound_76mm_zis3": {
     "_extends": "gunsound_76mm_f34"

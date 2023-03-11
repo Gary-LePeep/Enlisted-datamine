@@ -123,5 +123,66 @@
       "_tags": "sound",
       "human_idle_sound__isActive": false
     }
+  },
+  "base_human_voice_effect": [
+    {
+      "_tracked": "human_voice_effect__isActive"
+    },
+    {
+      "_tracked": "human_voice_effect__activeEffects"
+    },
+    {
+      "_group": {
+        "_tags": "server",
+        "human_net_voice_effect__nextTime": 0.0,
+        "human_net_voice_effect__cooldown": 1.0,
+        "human_net_voice_effect__range": 50.0
+      }
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "human_voice_effect__type": "",
+        "human_voice_effect__isInited": false,
+        "human_voice_effect__isActive": false,
+        "human_voice_effect__activeEffects:object": [],
+        "human_voice_effect__orderedEffects:shared:list<t>": [],
+        "human_voice_effect__event:SoundEvent": []
+      }
+    }
+  ],
+  "human_speech_disable": {
+    "_group": {
+      "_tags": "sound",
+      "humanSpeechDisable:tag": {
+        "_tags": "sound"
+      }
+    }
+  },
+  "base_human_speech": {
+    "_group": {
+      "_tags": "sound",
+      "human_speech__canSpeak": false,
+      "human_speech__isSpeaking": false,
+      "human_speech__voiceIdx": 0,
+      "human_speech__locale": "en",
+      "human_speech__playerVoice": "vo/player/enlisted/soldier",
+      "human_speech__event:SoundEvent": [],
+      "human_speech__enemyVoices:list<t>": [
+        {
+          "voice": "vo/enemy/enlisted/soldier01"
+        },
+        {
+          "voice": "vo/enemy/enlisted/soldier02"
+        },
+        {
+          "voice": "vo/enemy/enlisted/soldier03"
+        }
+      ]
+    },
+    "human_net_speech__lastNextTime:list<p2>": {
+      "_tags": "server"
+    },
+    "human_speech__speeches:shared:array": []
   }
 }

@@ -1004,7 +1004,7 @@
   {
     "entity": {
       "_template": "door_mult_ent_generator",
-      "ri_extra_gen__blk": "content/e_normandy/gamedata/normandy_doors.blk"
+      "ri_extra_gen__blk": "content/enlisted/gamedata/normandy_doors.blk"
     }
   },
   {
@@ -1085,13 +1085,13 @@
       "mission_name": "normandy_coast_city_assault",
       "loading_images:list<t>": [
         {
-          "item": "ui/normandy_coast_city_01.jpg"
+          "item": "ui/normandy_coast_city_01.avif"
         },
         {
-          "item": "ui/normandy_coast_city_02.jpg"
+          "item": "ui/normandy_coast_city_02.avif"
         },
         {
-          "item": "ui/normandy_coast_city_03.jpg"
+          "item": "ui/normandy_coast_city_03.avif"
         }
       ]
     }
@@ -1100,8 +1100,8 @@
     "entity": {
       "_template": "team_usa+team_narrator_assault_attack+respawn_creators_team",
       "team__memberCount": 0.0,
-      "team__scoreCap": 3000.0,
-      "team__score": 3000.0,
+      "team__scoreCap": 3300.0,
+      "team__score": 3300.0,
       "team__squadSpawnCost": 250,
       "team__firstSpawnCostMul": 0.0,
       "team__zeroScoreFailTimer": 60.0,
@@ -1140,7 +1140,7 @@
   {
     "entity": {
       "_template": "defend_zone_chained_sphere+defend_zone_respawnbase",
-      "capzone__capRewardPartCap": 1.8,
+      "capzone__capRewardPartCap": 1.5,
       "capzone__mustBeCapturedByTeam": 1,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_1",
@@ -1154,7 +1154,7 @@
         [-280.854,30.7565,96.5235]
       ],
       "active": false,
-      "capzone__decapTime": 20.0,
+      "capzone__decapTime": 15.0,
       "ui_order": 1,
       "capzone__capReward": 600.0,
       "capzone__title": "A",
@@ -1176,7 +1176,7 @@
   {
     "entity": {
       "_template": "defend_zone_chained_sphere+defend_zone_respawnbase",
-      "capzone__capRewardPartCap": 1.8,
+      "capzone__capRewardPartCap": 1.5,
       "capzone__mustBeCapturedByTeam": 1,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_1",
@@ -1190,7 +1190,7 @@
         [-155.419,24.5704,21.9055]
       ],
       "active": false,
-      "capzone__decapTime": 20.0,
+      "capzone__decapTime": 15.0,
       "ui_order": 2,
       "capzone__capReward": 600.0,
       "capzone__title": "B",
@@ -1210,87 +1210,38 @@
     }
   },
   {
-    "entity": [
-      {
-        "_template": "defend_zone_chained_box+defend_zone_respawnbase"
-      },
-      {
-        "capzone__capRewardPartCap": 1.8
-      },
-      {
-        "capzone__mustBeCapturedByTeam": 1
-      },
-      {
-        "capzone__curTeamCapturingZone": -1
-      },
-      {
-        "groupName": "sector_2"
-      },
-      {
-        "capzone__capTime": 15.0
-      },
-      {
-        "capzone__capTeam": 2
-      },
-      {
-        "capzone__progress": 1.0
-      },
-      {
-        "transform": [
-          [27.8053,0.0,0.522062],
-          [0.0,11.5929,0.0],
-          [-0.810799,0.0,42.0462],
-          [-309.457,26.3326,-121.508]
-        ]
-      },
-      {
-        "active": false
-      },
-      {
-        "capzone__decapTime": 20.0
-      },
-      {
-        "ui_order": 3
-      },
-      {
-        "capzone__capReward": 600.0
-      },
-      {
-        "capzone__title": "C"
-      },
-      {
-        "capzone__caption": "capzone/warehouse"
-      },
-      {
-        "capzone__checkAllZonesInGroup": true
-      },
-      {
-        "decal__height": 2.0
-      },
-      {
-        "decal__height": 3.0
-      },
-      {
-        "capzone__deactivateAfterTimeout": 0.0
-      },
-      {
-        "capzone__spawnAtZoneTimeout": 25.0
-      },
-      {
-        "capzone__createRespawnBaseForTeam": 2
-      },
-      {
-        "capzone__createRespawnBase": "respawnBaseGroupActivator"
-      },
-      {
-        "capzone__createdRespawnBaseGroup": 5
-      },
-      {
-        "capzone__activateChoice:object": {
-          "sector_3": 1.0
-        }
+    "entity": {
+      "_template": "defend_zone_chained_box+defend_zone_respawnbase",
+      "capzone__capRewardPartCap": 1.8,
+      "capzone__mustBeCapturedByTeam": 1,
+      "capzone__curTeamCapturingZone": -1,
+      "groupName": "sector_2",
+      "capzone__capTime": 15.0,
+      "capzone__capTeam": 2,
+      "capzone__progress": 1.0,
+      "transform": [
+        [27.8053,0.0,0.522062],
+        [0.0,11.5929,0.0],
+        [-0.810799,0.0,42.0462],
+        [-309.457,26.3326,-121.508]
+      ],
+      "active": false,
+      "capzone__decapTime": 15.0,
+      "ui_order": 3,
+      "capzone__capReward": 600.0,
+      "capzone__title": "C",
+      "capzone__caption": "capzone/warehouse",
+      "capzone__checkAllZonesInGroup": true,
+      "capzone__deactivateAfterTimeout": 0.0,
+      "capzone__spawnAtZoneTimeout": 25.0,
+      "capzone__createRespawnBaseForTeam": 2,
+      "capzone__createRespawnBase": "respawnBaseGroupActivator",
+      "capzone__createdRespawnBaseGroup": 5,
+      "decal__height": 3.0,
+      "capzone__activateChoice:object": {
+        "sector_3": 1.0
       }
-    ]
+    }
   },
   {
     "entity": {
@@ -1309,7 +1260,7 @@
         [-139.929,20.5181,-126.788]
       ],
       "active": false,
-      "capzone__decapTime": 20.0,
+      "capzone__decapTime": 15.0,
       "ui_order": 4,
       "capzone__capReward": 600.0,
       "capzone__title": "D",

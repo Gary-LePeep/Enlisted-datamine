@@ -8957,13 +8957,13 @@
       "mission_name": "pacific_native_inv",
       "loading_images:list<t>": [
         {
-          "item": "ui/pacific_guadalcanal_inv_02.jpg"
+          "item": "ui/pacific_guadalcanal_inv_02.avif"
         },
         {
-          "item": "ui/pacific_guadalcanal_inv_05.jpg"
+          "item": "ui/pacific_guadalcanal_inv_05.avif"
         },
         {
-          "item": "ui/pacific_guadalcanal_inv_16.jpg"
+          "item": "ui/pacific_guadalcanal_inv_16.avif"
         }
       ]
     }
@@ -8972,8 +8972,8 @@
     "entity": {
       "_template": "team_pacific_allies+team_narrator_invasion_attack+respawn_creators_team",
       "team__memberCount": 0.0,
-      "team__scoreCap": 1900.0,
-      "team__score": 1900.0,
+      "team__scoreCap": 2000.0,
+      "team__score": 2000.0,
       "team__squadSpawnCost": 250,
       "team__firstSpawnCostMul": 0.0,
       "team__zeroScoreFailTimer": 60.0,
@@ -11836,7 +11836,7 @@
   },
   {
     "import": {
-      "scene": "content/e_pacific/gamedata/scenes/_pacific_guadalcanal_common.blk"
+      "scene": "content/enlisted/gamedata/scenes/_pacific_guadalcanal_common.blk"
     }
   }
 ]

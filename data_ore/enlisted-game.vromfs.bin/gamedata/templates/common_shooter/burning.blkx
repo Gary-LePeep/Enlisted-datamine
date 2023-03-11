@@ -1,0 +1,224 @@
+{
+  "base_burning": [
+    {
+      "_tracked": "burning__isBurning"
+    },
+    {
+      "_tracked": "burning__isPuttingOut"
+    },
+    {
+      "_tracked": "burning__force"
+    },
+    {
+      "_tracked": "burning__tickIncrement"
+    },
+    {
+      "_tracked": "burning__isBlackouted"
+    },
+    {
+      "_tracked": "burning__blackoutEffectEndTime"
+    },
+    {
+      "_tracked": "burning__blackoutDecreaseDuration"
+    },
+    {
+      "_replicated": "burning__isBurning"
+    },
+    {
+      "_replicated": "burning__isPuttingOut"
+    },
+    {
+      "_replicated": "burning__force"
+    },
+    {
+      "_replicated": "burning__tickIncrement"
+    },
+    {
+      "burning__isBlackouted": false
+    },
+    {
+      "burning__blackoutEffectEndTime": -1.0
+    },
+    {
+      "burning__blackoutDecreaseDuration": -1.0
+    },
+    {
+      "burning__affectTemplate": "burning_affect"
+    },
+    {
+      "burning__decrease": 0.3
+    },
+    {
+      "burning__damagePerSecond": 2.0
+    },
+    {
+      "burning__putOutDamageMult": 0.5
+    },
+    {
+      "burning__isBurning": false
+    },
+    {
+      "burning__isPuttingOut": false
+    },
+    {
+      "burning__putOutForce": 4.0
+    },
+    {
+      "burning__force": 0.0
+    },
+    {
+      "burning__maxForce": 10.0
+    },
+    {
+      "burning__tickIncrement": 0.0
+    },
+    {
+      "burning__animPutOutEnumName": "self_fire_extinguish"
+    },
+    {
+      "burning__animPutOutEnum": -1
+    },
+    {
+      "burning__extinguishWaterLevelStand": 1.0
+    },
+    {
+      "burning__extinguishWaterLevelCrouch": 0.6
+    },
+    {
+      "burning__extinguishWaterLevelCrawl": 0.2
+    },
+    {
+      "burning__underwaterNextCheckTime": 0.0
+    },
+    {
+      "burning__offenderGunPropsId": -1
+    },
+    {
+      "burning__offenderShellId": -1
+    },
+    {
+      "burning__friendlyDamagePerSecond": 0.1
+    },
+    {
+      "burning__friendlyDamageProtectionTime": 3.0
+    },
+    {
+      "burning__handsShakeMagnitude": 0.4
+    },
+    {
+      "burning__handsShakeSpeedMult": 6.0
+    },
+    {
+      "burning__absorbsFlameStream:tag": []
+    },
+    {
+      "burning__offender:eid": []
+    },
+    {
+      "burning__nextDamageAtTime:r": {
+        "_tags": "server",
+        "value": -1.0
+      }
+    },
+    {
+      "burning__updateInterval:r": {
+        "_tags": "server",
+        "value": 1.0
+      }
+    },
+    {
+      "burning__effectTemplate:t": {
+        "_tags": "render",
+        "value": "burning_entity_effect_template"
+      }
+    }
+  ],
+  "standalone_burning_effect": [
+    {
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [0.0,0.0,0.0]
+      ]
+    },
+    {
+      "effect__spawnRate": 1.0
+    },
+    {
+      "effect__colorMult": "#ffffffff"
+    },
+    {
+      "_tracked": "effect__spawnRate"
+    },
+    {
+      "_tracked": "effect__velocity"
+    },
+    {
+      "_tracked": "effect__colorMult"
+    },
+    {
+      "_extends": "effect_animation_activated"
+    },
+    {
+      "effect": {
+        "_tags": "render"
+      }
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "fire_character_cmps_fx",
+        "effect__velocity": [0.0,0.0,0.0]
+      }
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect_animation__stages:array": {
+          "stage1:object": {
+            "duration": 3.0,
+            "areaScale": [0.4,0.06,0.06],
+            "spawnRate": 0.1,
+            "colorMult": [1.0,1.0,1.0,0.1],
+            "velocity": [0.0,0.1,0.0]
+          },
+          "stage2:object": {
+            "duration": 1.5,
+            "areaScale": [0.8,0.8,0.8],
+            "spawnRate": 0.5,
+            "colorMult": [1.0,1.0,1.0,0.4],
+            "velocity": [0.0,0.3,0.0]
+          },
+          "stage3:object": {
+            "duration": 0.0,
+            "areaScale": [0.9,0.9,0.9],
+            "spawnRate": 1.0,
+            "colorMult": [1.0,1.0,1.0,1.0],
+            "velocity": [0.0,0.5,0.0]
+          }
+        }
+      }
+    },
+    {
+      "box_zone:tag": []
+    },
+    {
+      "burning:tag": []
+    },
+    {
+      "attachedEffect:tag": []
+    }
+  ],
+  "burning_entity_effect_template": [
+    {
+      "_extends": "node_attached_itm"
+    },
+    {
+      "_extends": "standalone_burning_effect"
+    },
+    {
+      "node_attached__destroyWithParent:tag": []
+    }
+  ]
+}

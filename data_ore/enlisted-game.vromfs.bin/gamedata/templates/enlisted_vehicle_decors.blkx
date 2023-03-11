@@ -373,12 +373,14 @@
   "vgt_straw_bales_a": {
     "_extends": "base_vehicle_decor",
     "animchar__res": "vgt_straw_bales_a_char",
-    "collres__res": "vgt_straw_bales_a_collision"
+    "collres__res": "vgt_straw_bales_a_collision",
+    "decor__boxMult": 0.05
   },
   "vgt_straw_bales_b": {
     "_extends": "base_vehicle_decor",
     "animchar__res": "vgt_straw_bales_b_char",
-    "collres__res": "vgt_straw_bales_b_collision"
+    "collres__res": "vgt_straw_bales_b_collision",
+    "decor__boxMult": 0.05
   },
   "gnome": {
     "_extends": "base_vehicle_decor",

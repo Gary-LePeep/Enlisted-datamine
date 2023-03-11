@@ -34,7 +34,7 @@
     "_extends": "base_animchar_builder_preview",
     "animchar__res": "cannon_germ_20mm_flak38_flakvierling_char",
     "collres__res": "cannon_germ_20mm_flak38_flakvierling_collision",
-    "preview_phys__blk": "content/e_ww2_common/gamedata/units/cannons/germ_20mm_flak38_flakvierling.blk",
+    "preview_phys__blk": "content/enlisted/gamedata/units/cannons/germ_20mm_flak38_flakvierling.blk",
     "avaliableAngles": [-10.0,10.0],
     "buildingSoundTag": "cannon",
     "building_builder__maxTimeToBuild": 16.0,
@@ -90,7 +90,7 @@
   },
   "cannon_germ_towed_at_pak38_movable_preview": {
     "_extends": "cannon_germ_towed_at_pak38_preview_common",
-    "preview_phys__blk": "content/e_ww2_common/gamedata/units/cannons/towed_at_pak38.blk",
+    "preview_phys__blk": "content/tanks/gamedata/gen/units/tanks/towed_at_pak38.blk",
     "instantiateTemplate": "builded_germ_towed_at_pak38_movable"
   },
   "cannon_germ_towed_at_pak38_preview": {
@@ -109,7 +109,7 @@
     "_extends": "base_animchar_builder_preview",
     "animchar__res": "towed_at_pak38_char",
     "collres__res": "towed_at_pak38_collision",
-    "preview_phys__blk": "content/e_ww2_common/gamedata/units/cannons/towed_at_pak38.blk",
+    "preview_phys__blk": "content/tanks/gamedata/gen/units/tanks/towed_at_pak38.blk",
     "avaliableAngles": [-10.0,10.0],
     "buildingSoundTag": "cannon",
     "building_builder__maxTimeToBuild": 20.0,
@@ -175,7 +175,7 @@
     "_extends": "base_animchar_builder_preview",
     "animchar__res": "towed_at_pak40_char",
     "collres__res": "towed_at_pak40_collision",
-    "preview_phys__blk": "content/e_ww2_common/gamedata/units/cannons/towed_at_pak40.blk",
+    "preview_phys__blk": "content/tanks/gamedata/gen/units/tanks/towed_at_pak40.blk",
     "avaliableAngles": [-10.0,10.0],
     "buildingSoundTag": "cannon",
     "building_builder__maxTimeToBuild": 20.0,
@@ -237,7 +237,7 @@
     "_extends": "base_animchar_builder_preview",
     "animchar__res": "towed_at_6pdr_char",
     "collres__res": "towed_at_6pdr_collision",
-    "preview_phys__blk": "content/e_ww2_common/gamedata/units/cannons/towed_at_m1.blk",
+    "preview_phys__blk": "content/tanks/gamedata/gen/units/tanks/towed_at_m1.blk",
     "instantiateTemplate": "builded_us_towed_at_m1",
     "avaliableAngles": [-10.0,10.0],
     "buildingSoundTag": "cannon",
@@ -286,14 +286,14 @@
   ],
   "cannon_ussr_towed_at_53k_movable_preview": {
     "_extends": "cannon_ussr_towed_at_53k_preview",
-    "preview_phys__blk": "content/e_ww2_common/gamedata/units/cannons/towed_at_53k.blk",
+    "preview_phys__blk": "content/tanks/gamedata/gen/units/tanks/towed_at_53k.blk",
     "instantiateTemplate": "builded_ussr_towed_at_53k_movable"
   },
   "cannon_ussr_towed_at_53k_preview": {
     "_extends": "base_animchar_builder_preview",
     "animchar__res": "towed_at_53k_char",
     "collres__res": "towed_at_53k_collision",
-    "preview_phys__blk": "content/e_ww2_common/gamedata/units/cannons/towed_at_53k.blk",
+    "preview_phys__blk": "content/tanks/gamedata/gen/units/tanks/towed_at_53k.blk",
     "instantiateTemplate": "builded_ussr_towed_at_53k",
     "avaliableAngles": [-10.0,10.0],
     "buildingSoundTag": "cannon",
@@ -315,7 +315,7 @@
     "_extends": "base_animchar_builder_preview",
     "animchar__res": "towed_at_47mm_type_1_char",
     "collres__res": "towed_at_47mm_type_1_collision",
-    "preview_phys__blk": "content/e_ww2_common/gamedata/units/cannons/towed_at_type_1.blk",
+    "preview_phys__blk": "content/tanks/gamedata/gen/units/tanks/towed_at_type_1.blk",
     "instantiateTemplate": "builded_jp_towed_at_type_1_movable",
     "avaliableAngles": [-10.0,10.0],
     "buildingSoundTag": "cannon",
@@ -2091,7 +2091,7 @@
     "instantiateTemplate": "czech_hedgehog_a",
     "ri_preview__name": "obstacle_czech_hedgehog_a",
     "buildingSoundTag": "fortification",
-    "preview_phys__blk": "content/e_ww2_common/gamedata/gameobjs/czech_hedgehog_preview_phys.blk",
+    "preview_phys__blk": "content/enlisted/gamedata/gameobjs/czech_hedgehog_preview_phys.blk",
     "building_builder__maxTimeToBuild": 12.0,
     "buildingCost": 2.0,
     "building_menu__text": "building_tool/hedgehog",
@@ -2139,7 +2139,7 @@
   "base_rallypoint_preview": {
     "_extends": "base_rendinst_builder_preview",
     "instantiateTemplate": "ger_rallypoint",
-    "preview_phys__blk": "content/e_ww2_common/gamedata/gameobjs/ger_rallypoint_phys.blk",
+    "preview_phys__blk": "content/enlisted/gamedata/gameobjs/ger_rallypoint_phys.blk",
     "ri_preview__name": "ger_rallypoint",
     "buildingDistance": 2.5,
     "savePreviewTeam": true,
@@ -2227,7 +2227,8 @@
     {
       "_group": {
         "_tags": "sound",
-        "sound_control__range": 50.0
+        "sound_control__range": 50.0,
+        "sound_control__autoRange": false
       }
     },
     {
@@ -2244,7 +2245,7 @@
     "_extends": "base_rallypoint_preview",
     "instantiateTemplate": "ger_rallypoint",
     "ri_preview__name": "ger_rallypoint",
-    "preview_phys__blk": "content/e_ww2_common/gamedata/gameobjs/ger_rallypoint_phys.blk"
+    "preview_phys__blk": "content/enlisted/gamedata/gameobjs/ger_rallypoint_phys.blk"
   },
   "ger_rallypoint": {
     "_extends": "base_rallypoint",
@@ -2254,7 +2255,7 @@
     "_extends": "base_rallypoint_preview",
     "instantiateTemplate": "usa_rallypoint",
     "ri_preview__name": "usa_rallypoint",
-    "preview_phys__blk": "content/e_ww2_common/gamedata/gameobjs/usa_rallypoint_phys.blk"
+    "preview_phys__blk": "content/enlisted/gamedata/gameobjs/usa_rallypoint_phys.blk"
   },
   "usa_rallypoint": {
     "_extends": "base_rallypoint",
@@ -2264,7 +2265,7 @@
     "_extends": "base_rallypoint_preview",
     "instantiateTemplate": "ussr_rallypoint",
     "ri_preview__name": "ussr_rallypoint",
-    "preview_phys__blk": "content/e_ww2_common/gamedata/gameobjs/ussr_rallypoint_phys.blk"
+    "preview_phys__blk": "content/enlisted/gamedata/gameobjs/ussr_rallypoint_phys.blk"
   },
   "ussr_rallypoint": {
     "_extends": "base_rallypoint",
@@ -2274,7 +2275,7 @@
     "_extends": "base_rallypoint_preview",
     "instantiateTemplate": "jp_rallypoint",
     "ri_preview__name": "jap_rallypoint",
-    "preview_phys__blk": "content/e_ww2_common/gamedata/gameobjs/jp_rallypoint_phys.blk"
+    "preview_phys__blk": "content/enlisted/gamedata/gameobjs/jp_rallypoint_phys.blk"
   },
   "jp_rallypoint": {
     "_extends": "base_rallypoint",
@@ -2292,7 +2293,7 @@
     "buildingCost": 4.0,
     "building_menu__text": "building_tool/ammunition_box",
     "building_menu__image": "building_ammo_box",
-    "preview_phys__blk": "content/e_ww2_common/gamedata/gameobjs/ammo_box_phys.blk",
+    "preview_phys__blk": "content/enlisted/gamedata/gameobjs/ammo_box_phys.blk",
     "destroySimilarBuilding:tag": [],
     "ammunitionBoxPreview:tag": []
   },
@@ -2497,6 +2498,8 @@
     "object__useDist": 2.0,
     "buildingRadius": 1.5,
     "team": -1,
+    "_tracked": "builder_info__team",
+    "builder_info__team": -1,
     "medic_box__isOpen": false,
     "_replicated": "medic_box__isOpen",
     "_group": {
@@ -2545,7 +2548,7 @@
       "_extends": "replicating"
     },
     {
-      "on_create__spawnActivatedShellBlk": "content/e_ww2_common/gamedata/weapons/antipersonnel_mine.blk"
+      "on_create__spawnActivatedShellBlk": "content/enlisted/gamedata/weapons/antipersonnel_mine.blk"
     },
     {
       "transform": [
@@ -2596,7 +2599,7 @@
   },
   "antitank_mine_activator": {
     "_extends": "mine_activator_sound",
-    "on_create__spawnActivatedShellBlk": "content/e_ww2_common/gamedata/weapons/antitank_mine.blk",
+    "on_create__spawnActivatedShellBlk": "content/enlisted/gamedata/weapons/antitank_mine.blk",
     "transform": [
       [1.0,0.0,0.0],
       [0.0,1.0,0.0],

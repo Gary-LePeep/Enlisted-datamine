@@ -1,0 +1,48 @@
+{
+  "base_7_62mm_m240": {
+    "item__name": "guns/7_62mm_m240",
+    "gun__blk": "content/enlisted_extra/gamedata/gen/weapons/7_62mm_m240.blk",
+    "gun__shotFreq": 15.67,
+    "gun__reloadTime": 8.0,
+    "gun__maxAmmo": 200,
+    "gun__locName": "7_62mm_m240",
+    "gun__firingModes:array": {
+      "mode:object": {
+        "modeType": "automatic"
+      }
+    },
+    "gun__firingModeNames:array": {
+      "mode": "automatic"
+    },
+    "gun__ammoSetsInfo:shared:array": {
+      "defaultSet:array": [
+        {
+          "shell:object": {
+            "blk": "content/enlisted_extra/gamedata/gen/weapons/shells/7_62mm_m240_defaultset_bullet_1.blk",
+            "type": "ap_ball"
+          }
+        },
+        {
+          "shell:object": {
+            "blk": "content/enlisted_extra/gamedata/gen/weapons/shells/7_62mm_m240_defaultset_bullet_2.blk",
+            "type": "t_ball"
+          }
+        }
+      ]
+    }
+  },
+  "tankgun_7_62mm_m240": [
+    {
+      "_extends": "tankgun"
+    },
+    {
+      "_extends": "base_tankgun_machinegun"
+    },
+    {
+      "_extends": "base_7_62mm_m240"
+    },
+    {
+      "turret__triggerGroup": 2
+    }
+  ]
+}

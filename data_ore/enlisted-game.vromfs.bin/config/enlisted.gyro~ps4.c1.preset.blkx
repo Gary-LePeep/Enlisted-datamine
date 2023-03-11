@@ -340,7 +340,7 @@
   {
     "Human.BuildingAction": {
       "dev": 3,
-      "btn": 14,
+      "btn": 7,
       "type": 1,
       "stickyToggle": true
     }
@@ -494,7 +494,11 @@
   },
   {
     "Ship.Throttle": {
-      "dev": 0
+      "dev": 3,
+      "axis": 1,
+      "dzone": 0.0,
+      "nonlin": 0.0,
+      "maxVal": 1.0
     }
   },
   {
@@ -678,15 +682,13 @@
   {
     "Replay.ToggleCamera": {
       "dev": 3,
-      "btn": 6,
-      "stickyToggle": true
+      "btn": 6
     }
   },
   {
     "Replay.DisableGameHUD": {
       "dev": 3,
-      "btn": 7,
-      "stickyToggle": true
+      "btn": 7
     }
   },
   {

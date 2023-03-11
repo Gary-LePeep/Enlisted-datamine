@@ -3032,7 +3032,7 @@
   {
     "entity": {
       "_template": "door_mult_ent_generator",
-      "ri_extra_gen__blk": "content/e_normandy/gamedata/normandy_doors.blk"
+      "ri_extra_gen__blk": "content/enlisted/gamedata/normandy_doors.blk"
     }
   },
   {
@@ -3098,13 +3098,13 @@
       "mission_name": "normandy_village_inv",
       "loading_images:list<t>": [
         {
-          "item": "ui/normandy_village_01.jpg"
+          "item": "ui/normandy_village_01.avif"
         },
         {
-          "item": "ui/normandy_village_04.jpg"
+          "item": "ui/normandy_village_04.avif"
         },
         {
-          "item": "ui/normandy_village_05.jpg"
+          "item": "ui/normandy_village_05.avif"
         }
       ]
     }
@@ -3121,8 +3121,8 @@
     "entity": {
       "_template": "team_usa+team_narrator_invasion_attack+respawn_creators_team",
       "team__memberCount": 0.0,
-      "team__scoreCap": 2250.0,
-      "team__score": 2250.0,
+      "team__scoreCap": 2350.0,
+      "team__score": 2350.0,
       "team__squadSpawnCost": 250,
       "team__firstSpawnCostMul": 0.0,
       "team__zeroScoreFailTimer": 60.0,

@@ -1891,7 +1891,7 @@
   {
     "entity": {
       "_template": "door_mult_ent_generator",
-      "ri_extra_gen__blk": "content/e_moscow/gamedata/volokolamsk_doors.blk"
+      "ri_extra_gen__blk": "content/enlisted/gamedata/volokolamsk_doors.blk"
     }
   },
   {
@@ -1906,13 +1906,13 @@
       "mission_name": "volokolamsk_fortification_inv",
       "loading_images:list<t>": [
         {
-          "item": "ui/volokolamsk_fortification_01.jpg"
+          "item": "ui/volokolamsk_fortification_01.avif"
         },
         {
-          "item": "ui/volokolamsk_fortification_02.jpg"
+          "item": "ui/volokolamsk_fortification_02.avif"
         },
         {
-          "item": "ui/volokolamsk_fortification_03.jpg"
+          "item": "ui/volokolamsk_fortification_03.avif"
         }
       ]
     }
@@ -1937,8 +1937,8 @@
     "entity": {
       "_template": "team_germany_winter+team_narrator_invasion_attack+respawn_creators_team",
       "team__memberCount": 0.0,
-      "team__scoreCap": 2000.0,
-      "team__score": 2000.0,
+      "team__scoreCap": 2200.0,
+      "team__score": 2200.0,
       "team__squadSpawnCost": 250,
       "team__firstSpawnCostMul": 0.0,
       "team__zeroScoreFailTimer": 60.0,
@@ -2253,10 +2253,10 @@
     "entity": {
       "_template": "respawnChooser+respTeam2",
       "transform": [
-        [0.988885,0.0,-0.148684],
+        [0.862766,0.0,-0.505604],
         [0.0,1.0,0.0],
-        [0.148684,0.0,0.988885],
-        [-493.586,7.54102,1402.62]
+        [0.505604,-0.0,0.862766],
+        [-490.622,7.54102,1399.63]
       ],
       "respawnBaseGroup": 2,
       "groupName": "sector_1",
@@ -2267,9 +2267,9 @@
     "entity": {
       "_template": "respawnChooser+respTeam2",
       "transform": [
-        [0.86989,0.0,-0.49325],
+        [0.76069,0.0,-0.649119],
         [0.0,1.0,0.0],
-        [0.49325,0.0,0.86989],
+        [0.649119,-0.0,0.76069],
         [-493.427,5.7156,1384.45]
       ],
       "respawnBaseGroup": 2,

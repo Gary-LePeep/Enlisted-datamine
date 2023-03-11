@@ -53,6 +53,7 @@
             "receiveDamageFromDMPart": "gunner",
             "cameraNodeName": "bone_camera_gunner",
             "cockpitTemplate": "us_m8_scott_gunner_cockpit",
+            "isHoldGunModeAllowed": false,
             "turretNames:array": {
               "turretNames": "turret_01"
             }
@@ -91,7 +92,7 @@
               "locName": "vehicle_seats/commander"
             },
             {
-              "attachNode": "commander"
+              "attachNode": "bone_mg_aa_h_01"
             },
             {
               "shouldHideOwner": false
@@ -101,10 +102,10 @@
             },
             {
               "attachTm": [
-                [1.0,0.0,0.0],
-                [0.0,1.0,0.0],
+                [0.93,0.05,0.0],
+                [-0.05,0.93,0.0],
                 [0.0,0.0,1.0],
-                [-0.7,0.5,-0.1]
+                [-0.28,-0.55,-0.02]
               ]
             },
             {
@@ -114,14 +115,28 @@
               "receiveDamageFromDMPart": "commander"
             },
             {
+              "isHoldGunModeAllowed": false
+            },
+            {
+              "maxPosWithOpenHatch": 0.6
+            },
+            {
+              "hatchRotationAxis": [0.0,0.0,0.0]
+            },
+            {
               "seatAnimUpper": "drive_passenger"
             },
             {
               "seatAnimLower": "drive_passenger"
             },
             {
-              "turretNames:array": {
+              "hatchTurretNames:array": {
                 "turret": "turret_02"
+              }
+            },
+            {
+              "hatchNodes:array": {
+                "node": "bone_camera_gunner"
               }
             }
           ]
@@ -141,6 +156,7 @@
             "shouldHideOwner": false,
             "receiveDamageFromDMPart": "loader",
             "cameraNodeName": "bone_camera_driver",
+            "isHoldGunModeAllowed": false,
             "loaderTurretNames:array": {
               "turret": "turret_01"
             }

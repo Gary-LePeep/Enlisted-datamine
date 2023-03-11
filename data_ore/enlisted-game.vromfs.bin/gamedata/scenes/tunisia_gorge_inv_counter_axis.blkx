@@ -3715,13 +3715,13 @@
       "mission_name": "tunisia_gorge_inv_counter",
       "loading_images:list<t>": [
         {
-          "item": "ui/tunisia_gorge_inv_01.jpg"
+          "item": "ui/tunisia_gorge_inv_01.avif"
         },
         {
-          "item": "ui/tunisia_gorge_inv_02.jpg"
+          "item": "ui/tunisia_gorge_inv_02.avif"
         },
         {
-          "item": "ui/tunisia_gorge_inv_03.jpg"
+          "item": "ui/tunisia_gorge_inv_03.avif"
         }
       ]
     }
@@ -3762,8 +3762,8 @@
     "entity": {
       "_template": "team_tunisia_axis+team_narrator_invasion_attack+respawn_creators_team",
       "team__memberCount": 0.0,
-      "team__scoreCap": 2300.0,
-      "team__score": 2300.0,
+      "team__scoreCap": 2200.0,
+      "team__score": 2200.0,
       "team__squadSpawnCost": 250,
       "team__firstSpawnCostMul": 0.0,
       "team__zeroScoreFailTimer": 60.0,
@@ -3794,7 +3794,7 @@
   {
     "entity": {
       "_template": "door_mult_ent_generator",
-      "ri_extra_gen__blk": "content/e_tunisia/gamedata/tunisia_doors.blk"
+      "ri_extra_gen__blk": "content/enlisted/gamedata/tunisia_doors.blk"
     }
   },
   {
@@ -3878,7 +3878,7 @@
       "active": false,
       "capzone__decapTime": 6000.0,
       "ui_order": 1,
-      "capzone__capReward": 500.0,
+      "capzone__capReward": 250.0,
       "capzone__icon": "AAA",
       "capzone__caption": "capzone/fountain_yard",
       "capzone__deactivateAfterTimeout": 25.0,
@@ -3912,7 +3912,7 @@
       "active": false,
       "capzone__decapTime": 6000.0,
       "ui_order": 5,
-      "capzone__capReward": 500.0,
+      "capzone__capReward": 250.0,
       "capzone__icon": "AAA",
       "capzone__caption": "capzone/palace",
       "capzone__deactivateAfterTimeout": 25.0,
@@ -3941,7 +3941,7 @@
       "capzone__curTeamCapturingZone": -1,
       "capzone__onlyTeamCanCapture": 2,
       "groupName": "sector_2",
-      "capzone__capTime": 60.0,
+      "capzone__capTime": 70.0,
       "capzone__capTeam": -1,
       "active": false,
       "capzone__decapTime": 6000.0,
@@ -3974,7 +3974,7 @@
       "capzone__curTeamCapturingZone": -1,
       "capzone__onlyTeamCanCapture": 2,
       "groupName": "sector_2_b",
-      "capzone__capTime": 60.0,
+      "capzone__capTime": 70.0,
       "capzone__capTeam": -1,
       "active": false,
       "capzone__decapTime": 6000.0,
@@ -4814,10 +4814,10 @@
     "entity": {
       "_template": "respawnChooser+respTeam1",
       "transform": [
-        [-0.448401,0.0,-0.893833],
+        [-0.765062,0.0,-0.643957],
         [0.0,1.0,0.0],
-        [0.893833,0.0,-0.448401],
-        [-12.5172,18.9077,-836.214]
+        [0.643957,0.0,-0.765062],
+        [-11.9405,18.9077,-837.049]
       ],
       "groupName": "sector_1",
       "respawnBaseGroup": 1,
@@ -4872,10 +4872,10 @@
     "entity": {
       "_template": "respawnChooser+respTeam2",
       "transform": [
-        [0.72625,0.0,0.687431],
+        [-0.517332,0.0,0.855785],
         [0.0,1.0,0.0],
-        [-0.687431,0.0,0.72625],
-        [-8.22816,7.3678,-1096.72]
+        [-0.855785,0.0,-0.517332],
+        [-17.0157,7.3678,-1093.51]
       ],
       "groupName": "sector_1",
       "respawnBaseGroup": 1,
@@ -4886,10 +4886,10 @@
     "entity": {
       "_template": "respawnChooser+respTeam2",
       "transform": [
-        [-0.326223,0.0,0.945293],
+        [-0.597324,0.0,0.802],
         [0.0,1.0,0.0],
-        [-0.945293,0.0,-0.326223],
-        [-9.1364,8.60954,-1093.34]
+        [-0.802,0.0,-0.597324],
+        [-14.7359,7.03403,-1087.62]
       ],
       "groupName": "sector_1",
       "respawnBaseGroup": 1,
@@ -4914,10 +4914,10 @@
     "entity": {
       "_template": "respawnChooser+respTeam2",
       "transform": [
-        [0.0136595,0.0,0.999907],
+        [-0.658705,0.0,0.752402],
         [0.0,1.0,0.0],
-        [-0.999907,0.0,0.0136595],
-        [43.9813,15.4743,-1070.18]
+        [-0.752402,0.0,-0.658705],
+        [50.2587,15.9126,-1071.52]
       ],
       "groupName": "sector_1",
       "respawnBaseGroup": 2,
@@ -5190,10 +5190,10 @@
     "entity": {
       "_template": "respawnChooser+respTeam1",
       "transform": [
-        [0.939887,0.0,-0.341489],
+        [0.791293,0.0,-0.611439],
         [0.0,1.0,0.0],
-        [0.341489,0.0,0.939887],
-        [-112.972,9.50593,-891.509]
+        [0.611439,-0.0,0.791293],
+        [-112.092,9.50593,-891.776]
       ],
       "groupName": "sector_1_b",
       "respawnBaseGroup": 2,
@@ -5221,7 +5221,7 @@
         [0.144857,0.0,-0.989453],
         [0.0,1.0,0.0],
         [0.989453,0.0,0.144857],
-        [-28.6035,19.0241,-851.848]
+        [-28.88,19.0241,-852.91]
       ],
       "groupName": "sector_1_b",
       "respawnBaseGroup": 1,
@@ -5235,7 +5235,7 @@
         [0.115188,0.0,-0.993344],
         [0.0,1.0,0.0],
         [0.993344,0.0,0.115188],
-        [-11.8375,19.109,-849.732]
+        [-11.74,19.109,-851.225]
       ],
       "groupName": "sector_1_b",
       "respawnBaseGroup": 1,
@@ -5738,35 +5738,6 @@
       "team": 1,
       "maxVehicleOnSpawn": 1,
       "respTime": 120
-    }
-  },
-  {
-    "entity": {
-      "_template": "ground_effect",
-      "ground_effect__fx_name": "land_haze",
-      "ground_effect__biome_group_name": "dune",
-      "ground_effect__grid_cell_size": 16.0,
-      "ground_effect__grid_world_origin": [0.0,0.0],
-      "ground_effect__vis_radius": 50.0,
-      "ground_effect__biome_weight_for_active_thr": 0.25,
-      "ground_effect__fx_radius": -1.0,
-      "ground_effect__scale_x": [1.3,0.0],
-      "ground_effect__scale_y": [1.3,0.0],
-      "ground_effect__scale_z": [1.3,0.0]
-    }
-  },
-  {
-    "entity": {
-      "_template": "ground_effect",
-      "ground_effect__fx_name": "land_dust_storm",
-      "ground_effect__biome_group_name": "dune",
-      "ground_effect__grid_cell_size": 4.0,
-      "ground_effect__grid_world_origin": [0.0,0.0],
-      "ground_effect__vis_radius": 50.0,
-      "ground_effect__offset_y": [0.4,0.0],
-      "ground_effect__scale_x": [0.3,0.0],
-      "ground_effect__scale_y": [0.3,0.0],
-      "ground_effect__scale_z": [0.3,0.0]
     }
   },
   {
@@ -6877,10 +6848,10 @@
     "entity": {
       "_template": "respawnChooser+respTeam1",
       "transform": [
-        [0.539747,0.0,-0.841827],
+        [0.411967,0.0,-0.911198],
         [0.0,1.0,0.0],
-        [0.841827,0.0,0.539747],
-        [-28.8119,18.926,-838.607]
+        [0.911198,-0.0,0.411967],
+        [-27.8337,18.926,-838.745]
       ],
       "groupName": "sector_1",
       "active": false

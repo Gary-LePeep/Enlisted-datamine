@@ -76,6 +76,7 @@
             "receiveDamageFromDMPart": "gunner",
             "cameraNodeName": "bone_camera_gunner",
             "cockpitTemplate": "us_m10_wolverine_gunner_cockpit",
+            "isHoldGunModeAllowed": false,
             "maxPosWithOpenHatch": 0.2,
             "turretNames:array": {
               "turretNames": "turret_01"
@@ -185,6 +186,7 @@
             "shouldHideOwner": false,
             "receiveDamageFromDMPart": "loader",
             "cameraNodeName": "bone_camera_driver",
+            "isHoldGunModeAllowed": false,
             "seatAnimUpper": "drive_driver",
             "seatAnimLower": "drive_driver",
             "loaderTurretNames:array": {

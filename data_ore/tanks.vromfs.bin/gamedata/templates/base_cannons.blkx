@@ -14,6 +14,11 @@
     ],
     "collidableToPhysObj:tag": []
   },
+  "vehicle_display_marker_over_head": {
+    "vehicleDisplayMarkerOverHead:tag": {
+      "tags": "ui"
+    }
+  },
   "base_cannon_no_phys": [
     {
       "_extends": "replicating"
@@ -43,7 +48,7 @@
       "_extends": "base_damage_model_fx"
     },
     {
-      "_extends": "turret_sound_group"
+      "_extends": "turret_manual_sound_with_group"
     },
     {
       "_extends": "watched_vehicle_sound"
@@ -85,6 +90,9 @@
     },
     {
       "_tracked": "vehicleCameraType"
+    },
+    {
+      "_tracked": "isTpsView"
     },
     {
       "squad": -1
@@ -142,6 +150,9 @@
     },
     {
       "vehicleCameraType": 0
+    },
+    {
+      "isTpsView": false
     },
     {
       "vehicleDeathCameraTemplate": "tank_cam"
@@ -217,11 +228,6 @@
       }
     },
     {
-      "vehicleDisplayMarkerOverHead:tag": {
-        "tags": "ui"
-      }
-    },
-    {
       "additiveSquadSpread:tag": []
     },
     {
@@ -259,12 +265,6 @@
         "fatal_explosion_external_fire__nodeNames:shared:array": {
           "node": "emtr_explosion_center"
         }
-      }
-    },
-    {
-      "_group": {
-        "_tags": "sound",
-        "turret_sound__path": "player/vehicle/tank/common/turret_manual"
       }
     },
     {
@@ -423,7 +423,7 @@
     "_group": {
       "_tags": "server",
       "dependent_templates:ecs::TemplatesListToInstantiate": [],
-      "dependent_templates_list:shared:list<t>": [
+      "dependent_templates_list_shared:shared:list<t>": [
         {
           "template_name": "movable_cannon_seat_default_sit"
         },
@@ -445,6 +445,9 @@
   "base_movable_cannon": [
     {
       "_extends": "base_cannon_no_phys"
+    },
+    {
+      "_extends": "vehicle_display_marker_over_head"
     },
     {
       "_extends": "movable_cannon_seat_templates"
@@ -583,7 +586,7 @@
       "_extends": "replicating"
     },
     {
-      "_extends": "turret_sound_group"
+      "_extends": "turret_sound_with_group"
     },
     {
       "_extends": "base_net_phys"

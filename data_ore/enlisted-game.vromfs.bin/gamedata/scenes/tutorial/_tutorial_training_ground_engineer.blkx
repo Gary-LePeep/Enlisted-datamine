@@ -10,13 +10,13 @@
       "mission_name": "basic_tutorial_mission",
       "loading_images:list<t>": [
         {
-          "item": "ui/loading_tutorial_01.jpg"
+          "item": "ui/loading_tutorial_01.avif"
         },
         {
-          "item": "ui/loading_tutorial_02.jpg"
+          "item": "ui/loading_tutorial_02.avif"
         },
         {
-          "item": "ui/loading_tutorial_03.jpg"
+          "item": "ui/loading_tutorial_03.avif"
         }
       ]
     }
@@ -39,6 +39,11 @@
   {
     "entity": {
       "_template": "tutorial_destroy_player_ammo"
+    }
+  },
+  {
+    "entity": {
+      "_template": "tutorial_engineer_state"
     }
   },
   {
@@ -132,6 +137,11 @@
   },
   {
     "entity": {
+      "_template": "tutorial_memorize_holder"
+    }
+  },
+  {
+    "entity": {
       "_template": "postfx_roundctrl"
     }
   },
@@ -206,7 +216,7 @@
   },
   {
     "entity": {
-      "_template": "tutorial_target_silhouette_c",
+      "_template": "tutorial_target_silhouette_c+tutorial_memorize_entity",
       "transform": [
         [-0.00797134,0.0,-0.999968],
         [0.0,1.0,0.0],

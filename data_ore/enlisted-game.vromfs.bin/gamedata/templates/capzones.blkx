@@ -138,6 +138,155 @@
     "_replicated": "capzone_timer__endTime",
     "_tracked": "capzone_timer__endTime"
   },
+  "domination_capzone_narrator": {
+    "capzone__domination:tag": [],
+    "_group": {
+      "_tags": "sound",
+      "narrator__phrase:shared:object": {
+        "allies:object": {
+          "all_zones_captured:object": {
+            "text": "We have captured all zones!",
+            "phrase": "allPointsCapturedAlly"
+          },
+          "zone_captured:object": {
+            "text": "We have captured zone %title%",
+            "phrase": "point%title%Captured"
+          }
+        },
+        "enemy:object": {
+          "all_zones_captured:object": {
+            "text": "Enemy have captured all zones!",
+            "phrase": "allPointsCapturedEnemy"
+          },
+          "zone_captured:object": {
+            "text": "Enemy have captured zone %title%",
+            "phrase": "point%title%CapturedEnemy"
+          }
+        }
+      }
+    }
+  },
+  "train_capzone_narrator": {
+    "_group": {
+      "_tags": "sound",
+      "narrator__phrase:shared:object": {
+        "allies:object": {
+          "zone_captured:object": {
+            "text": "Our train is halfway there",
+            "phrase": "trainHalfWay"
+          }
+        },
+        "enemy:object": {
+          "zone_captured:object": {
+            "text": "Enemy train is halfway there",
+            "phrase": "trainHalfWay"
+          }
+        }
+      }
+    }
+  },
+  "bomb_capzone_narrator": {
+    "_group": {
+      "_tags": "sound",
+      "narrator__phrase:shared:object": {
+        "allies:object": {
+          "last_sector_left:object": {
+            "text": "One last sector left!",
+            "phrase": "oneSectorLeft"
+          },
+          "sector_captured:object": {
+            "text": "We have explode sector!",
+            "phrase": "sectorCapturedAlly"
+          },
+          "one_zone_to_capture:object": {
+            "text": "Most of all bombs are explode, one left!",
+            "phrase": "onePointToCapture"
+          },
+          "half_zones_captured:object": {
+            "text": "We have explode half of all bombs!",
+            "phrase": "halfPointsCaptured"
+          },
+          "zone_captured:object": {
+            "text": "We have explode the bomb!",
+            "phrase": "pointCaptured"
+          }
+        },
+        "enemy:object": {
+          "sector_captured:object": {
+            "text": "Enemy has explode sector!",
+            "phrase": "sectorCapturedEnemy"
+          },
+          "one_zone_to_capture:object": {
+            "text": "Most of all bombs are explode by enemy, only one left to defend!",
+            "phrase": "onePointToDefend"
+          },
+          "half_zones_captured:object": {
+            "text": "Enemy have explode half of all bombs!",
+            "phrase": "halfPointsCapturedEnemy"
+          },
+          "zone_captured:object": {
+            "text": "Enemy have explode the bomb!",
+            "phrase": "pointCapturedEnemy"
+          }
+        }
+      }
+    }
+  },
+  "common_capzone_narrator": {
+    "_group": {
+      "_tags": "sound",
+      "narrator__phrase:shared:object": {
+        "allies:object": {
+          "last_sector_left:object": {
+            "text": "One last sector left!",
+            "phrase": "oneSectorLeft"
+          },
+          "sector_captured:object": {
+            "text": "We have captured sector!",
+            "phrase": "sectorCapturedAlly"
+          },
+          "one_zone_to_capture:object": {
+            "text": "Most of all zones are captured, one left!",
+            "phrase": "onePointToCapture"
+          },
+          "half_zones_captured:object": {
+            "text": "We have captured half of all zones!",
+            "phrase": "halfPointsCaptured"
+          },
+          "zone_captured:object": {
+            "text": "We have captured zone!",
+            "phrase": "pointCaptured"
+          },
+          "all_zones_captured:object": {
+            "text": "We have captured all zones!",
+            "phrase": "allPointsCapturedAlly"
+          }
+        },
+        "enemy:object": {
+          "sector_captured:object": {
+            "text": "Enemy has captured sector!",
+            "phrase": "sectorCapturedEnemy"
+          },
+          "one_zone_to_capture:object": {
+            "text": "Most of all zones are captured by enemy, only one left to defend!!",
+            "phrase": "onePointToDefend"
+          },
+          "half_zones_captured:object": {
+            "text": "Enemy have captured half of all zones!",
+            "phrase": "halfPointsCapturedEnemy"
+          },
+          "zone_captured:object": {
+            "text": "Enemy have captured zone!",
+            "phrase": "pointCapturedEnemy"
+          },
+          "all_zones_captured:object": {
+            "text": "Enemy have captured all zones!",
+            "phrase": "allPointsCapturedEnemy"
+          }
+        }
+      }
+    }
+  },
   "base_objective_zone_without_navmesh": [
     {
       "transform": [
@@ -149,6 +298,9 @@
     },
     {
       "_extends": "replicating"
+    },
+    {
+      "_extends": "common_capzone_narrator"
     },
     {
       "_extends": "capzone_timer"
@@ -176,18 +328,6 @@
     },
     {
       "capzone__stopFailTimerForTeam": -1
-    },
-    {
-      "capzone__narrator_zoneCaptured": ""
-    },
-    {
-      "capzone__narrator_zoneCapturedMessage": ""
-    },
-    {
-      "capzone__narrator_zoneCapturedEnemy": ""
-    },
-    {
-      "capzone__narrator_zoneCapturedEnemyMessage": ""
     },
     {
       "capzone__narrator_zoneCapturedEnable": false
@@ -230,6 +370,9 @@
     },
     {
       "_replicated": "capzone__alwaysShow"
+    },
+    {
+      "_replicated": "ui_order"
     },
     {
       "_tracked": "capzone__capTeam"
@@ -309,6 +452,12 @@
       "capzone__icon:t": {
         "value": "",
         "_info": "capzone__icon"
+      }
+    },
+    {
+      "ui_capzone__capTeamPrev:i": {
+        "value": -1,
+        "_tags": "ui"
       }
     },
     {
@@ -702,6 +851,9 @@
       "_extends": "capzone_sphere"
     },
     {
+      "_extends": "domination_capzone_narrator"
+    },
+    {
       "_extends": "objective_zone_smoke_signal"
     },
     {
@@ -734,40 +886,70 @@
       }
     }
   ],
-  "domination_poly_capzone": {
-    "_extends": "capzone_poly",
-    "capzone__autoDecap": false,
-    "capzone__autoCap": false,
-    "capzone__capTime:r": {
-      "value": 25.0,
-      "_info": "capzone__capTime"
+  "domination_poly_capzone": [
+    {
+      "_extends": "capzone_poly"
     },
-    "capzone__decapTime:r": {
-      "value": 15.0,
-      "_info": "capzone__decapTime"
+    {
+      "_extends": "domination_capzone_narrator"
     },
-    "capzone__ownTeamIcon:object": {
-      "team1": "!ui/uiskin/capture_bg_allies.svg",
-      "team2": "!ui/uiskin/capture_bg_axis.svg"
+    {
+      "capzone__autoDecap": false
+    },
+    {
+      "capzone__autoCap": false
+    },
+    {
+      "capzone__capTime:r": {
+        "value": 25.0,
+        "_info": "capzone__capTime"
+      }
+    },
+    {
+      "capzone__decapTime:r": {
+        "value": 15.0,
+        "_info": "capzone__decapTime"
+      }
+    },
+    {
+      "capzone__ownTeamIcon:object": {
+        "team1": "!ui/uiskin/capture_bg_allies.svg",
+        "team2": "!ui/uiskin/capture_bg_axis.svg"
+      }
     }
-  },
-  "domination_box_capzone_without_navmesh": {
-    "_extends": "capzone_box_without_navmesh",
-    "capzone__autoDecap": false,
-    "capzone__autoCap": false,
-    "capzone__capTime:r": {
-      "value": 25.0,
-      "_info": "capzone__capTime"
+  ],
+  "domination_box_capzone_without_navmesh": [
+    {
+      "_extends": "capzone_box_without_navmesh"
     },
-    "capzone__decapTime:r": {
-      "value": 15.0,
-      "_info": "capzone__decapTime"
+    {
+      "_extends": "domination_capzone_narrator"
     },
-    "capzone__ownTeamIcon:object": {
-      "team1": "!ui/uiskin/capture_bg_allies.svg",
-      "team2": "!ui/uiskin/capture_bg_axis.svg"
+    {
+      "capzone__autoDecap": false
+    },
+    {
+      "capzone__autoCap": false
+    },
+    {
+      "capzone__capTime:r": {
+        "value": 25.0,
+        "_info": "capzone__capTime"
+      }
+    },
+    {
+      "capzone__decapTime:r": {
+        "value": 15.0,
+        "_info": "capzone__decapTime"
+      }
+    },
+    {
+      "capzone__ownTeamIcon:object": {
+        "team1": "!ui/uiskin/capture_bg_allies.svg",
+        "team2": "!ui/uiskin/capture_bg_axis.svg"
+      }
     }
-  },
+  ],
   "domination_box_moveable_capzone": {
     "_extends": "moveable_capzone_box",
     "capzone__autoDecap": false,
@@ -864,6 +1046,12 @@
         "_info": {
           "desc": "The name of the point that will be active next, after capturing the current point"
         }
+      }
+    },
+    {
+      "capzone__isSectorCaptured:b": {
+        "value": false,
+        "_tags": "server"
       }
     },
     {
@@ -1055,6 +1243,9 @@
       "_extends": "ai_bomb_behaviour"
     },
     {
+      "_extends": "bomb_capzone_narrator"
+    },
+    {
       "capzone__isBombPlanted": false
     },
     {
@@ -1219,6 +1410,9 @@
     },
     {
       "_extends": "ai_train_behaviour"
+    },
+    {
+      "_extends": "train_capzone_narrator"
     },
     {
       "capzone__deactivateAfterCap": true

@@ -298,7 +298,7 @@
   {
     "entity": {
       "_template": "door_mult_ent_generator",
-      "ri_extra_gen__blk": "content/e_berlin/gamedata/berlin_doors.blk"
+      "ri_extra_gen__blk": "content/enlisted/gamedata/berlin_doors.blk"
     }
   },
   {
@@ -325,13 +325,13 @@
       "mission_name": "berlin_village_escort",
       "loading_images:list<t>": [
         {
-          "item": "ui/berlin_escort_01.jpg"
+          "item": "ui/berlin_escort_01.avif"
         },
         {
-          "item": "ui/berlin_escort_02.jpg"
+          "item": "ui/berlin_escort_02.avif"
         },
         {
-          "item": "ui/berlin_escort_03.jpg"
+          "item": "ui/berlin_escort_03.avif"
         }
       ]
     }
@@ -675,11 +675,6 @@
       "capzone_timer__timeLeft": 2700.0,
       "capzone__icon": "train_cross",
       "capzone__iconOffsetY": 3.0,
-      "capzone__narrator_zoneCaptured": "trainHalfWay",
-      "capzone__narrator_zoneCapturedMessage": "Our train is halfway there",
-      "capzone__narrator_zoneCapturedEnemy": "trainHalfWay",
-      "capzone__narrator_zoneCapturedEnemyMessage": "Enemy train is halfway there",
-      "capzone__narrator_zoneCapturedEnable": true,
       "active": false,
       "transform": [
         [1.0,0.0,0.0],
@@ -805,11 +800,6 @@
       "capzone_timer__timeLeft": 2700.0,
       "capzone__icon": "train_cross",
       "capzone__iconOffsetY": 3.0,
-      "capzone__narrator_zoneCaptured": "trainAlmostWay",
-      "capzone__narrator_zoneCapturedMessage": "Our train is almost there",
-      "capzone__narrator_zoneCapturedEnemy": "trainAlmostWay",
-      "capzone__narrator_zoneCapturedEnemyMessage": "Enemy train is almost there",
-      "capzone__narrator_zoneCapturedEnable": true,
       "active": false,
       "transform": [
         [1.0,0.0,0.0],
@@ -933,7 +923,6 @@
       "capzone_timer__timeLeft": 2700.0,
       "capzone__icon": "train_cross",
       "capzone__iconOffsetY": 3.0,
-      "capzone__narrator_zoneCapturedEnable": true,
       "active": false,
       "transform": [
         [1.0,0.0,0.0],

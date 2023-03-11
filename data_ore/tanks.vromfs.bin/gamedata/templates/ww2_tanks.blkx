@@ -87,7 +87,7 @@
         "ammoHolders": "content/tanks/gamedata/weapons/ammoholders/m1_tank_ammo_holder.blk"
       },
       "gun__shells:array": {
-        "shells": "content/e_ww2_common/gamedata/weapons/bullets/76mm_m62_apcbc.blk"
+        "shells": "content/enlisted/gamedata/weapons/bullets/76mm_m62_apcbc.blk"
       }
     }
   },
@@ -118,7 +118,7 @@
         "ammoholders": "content/tanks/gamedata/weapons/ammoholders/7_92mm_zb_vz37_ammo_holder.blk"
       },
       "gun__shells:array": {
-        "shells": "content/e_ww2_common/gamedata/weapons/bullets/30_06_springfield_tracer.blk"
+        "shells": "content/enlisted/gamedata/weapons/bullets/30_06_springfield_tracer.blk"
       },
       "gun__firingModes:array": {
         "mode:object": {
@@ -646,6 +646,9 @@
       },
       {
         "turretsCorrection:tag": []
+      },
+      {
+        "turretsCorrectionUseThreadPool:tag": []
       },
       {
         "setCameraDirByHero:tag": []
@@ -1238,7 +1241,7 @@
       "_group": {
         "_tags": "server",
         "dependent_templates:ecs::TemplatesListToInstantiate": [],
-        "dependent_templates_list:shared:list<t>": [
+        "dependent_templates_list_shared:shared:list<t>": [
           {
             "template_name": "vehicle_seat_default"
           },
@@ -1276,7 +1279,7 @@
         "_extends": "tank_vehicle_tracks_sound"
       },
       {
-        "_extends": "turret_sound_group"
+        "_extends": "turret_sound_with_group"
       },
       {
         "_extends": "tank_camera_inside_snapshot"
@@ -2401,7 +2404,8 @@
       "gun__projectileTemplate": "tank_grenade_projectile",
       "gun__projectileDebugTemplate": "tank_grenade_projectile+bomb_projectile_debug",
       "gun__icon": "tank/cannon_ammo_smoke.svg",
-      "gun_hit_fx__effectGroupName": "tank_grenades_smoke",
+      "gun_hit_fx__explEffectGroupName": "tank_grenades_smoke",
+      "gun_hit_fx__explEffectDescriptor": 0,
       "animchar": [],
       "gun__isLauncher:tag": [],
       "turret__disableAim:tag": [],
@@ -2680,6 +2684,9 @@
       },
       {
         "_extends": "gunsound_base_rocket_launcher"
+      },
+      {
+        "_extends": "hit_effect_group_bomb"
       },
       {
         "gun__isPayload": true

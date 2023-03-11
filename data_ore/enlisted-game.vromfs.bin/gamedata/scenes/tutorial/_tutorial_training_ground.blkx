@@ -31,13 +31,13 @@
       "mission_name": "basic_tutorial_mission",
       "loading_images:list<t>": [
         {
-          "item": "ui/loading_tutorial_01.jpg"
+          "item": "ui/loading_tutorial_01.avif"
         },
         {
-          "item": "ui/loading_tutorial_02.jpg"
+          "item": "ui/loading_tutorial_02.avif"
         },
         {
-          "item": "ui/loading_tutorial_03.jpg"
+          "item": "ui/loading_tutorial_03.avif"
         }
       ]
     }
@@ -715,7 +715,7 @@
   },
   {
     "entity": {
-      "_template": "tutorial_target_silhouette_c+tutorial_memorize_entity",
+      "_template": "tutorial_grenade_target",
       "transform": [
         [0.54765,0.0,-0.836708],
         [0.0,1.0,0.0],
@@ -961,7 +961,7 @@
   },
   {
     "entity": {
-      "_template": "base_tutorial_zone",
+      "_template": "hidden_tutorial_zone",
       "transform": [
         [3.34847,0.0,0.0525442],
         [0.0,6.90808,0.0],
@@ -974,7 +974,7 @@
   },
   {
     "entity": {
-      "_template": "base_tutorial_zone",
+      "_template": "hidden_tutorial_zone",
       "transform": [
         [3.34059,0.0,0.203527],
         [0.0,3.2274,0.0],
@@ -987,7 +987,7 @@
   },
   {
     "entity": {
-      "_template": "base_tutorial_zone",
+      "_template": "hidden_tutorial_zone",
       "transform": [
         [1.67065,0.0,0.0673883],
         [0.0,6.90808,0.0],
@@ -1001,7 +1001,7 @@
   {
     "entity": [
       {
-        "_template": "base_tutorial_zone"
+        "_template": "hidden_tutorial_zone"
       },
       {
         "transform": [
@@ -1025,7 +1025,7 @@
   {
     "entity": [
       {
-        "_template": "base_tutorial_zone"
+        "_template": "hidden_tutorial_zone"
       },
       {
         "transform": [

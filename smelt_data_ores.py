@@ -103,9 +103,9 @@ def soldier_damage():
 
 def get_weapons():
     # Get all weapons
-    weapons_ww2 = json.load(open("./data_ore/enlisted-content.vromfs.bin/content/e_ww2_common/gamedata/templates/ww2_guns.blkx", encoding='utf-8'))
-    weapons_tun = json.load(open("./data_ore/enlisted-content.vromfs.bin/content/e_tunisia/gamedata/templates/tunisia_guns.blkx", encoding='utf-8'))
-    weapons_stl = json.load(open("./data_ore/enlisted-content.vromfs.bin/content/e_stalingrad/gamedata/templates/stalingrad_guns.blkx", encoding='utf-8'))
+    weapons_ww2 = json.load(open("./data_ore/enlisted-game.vromfs.bin/gamedata/templates/e_ww2_common/ww2_guns.blkx", encoding='utf-8'))
+    weapons_tun = json.load(open("./data_ore/enlisted-game.vromfs.bin/gamedata/templates/tunisia/tunisia_guns.blkx", encoding='utf-8'))
+    weapons_stl = json.load(open("./data_ore/enlisted-game.vromfs.bin/gamedata/templates/stalingrad_guns.blkx", encoding='utf-8'))
     weapons = {**weapons_ww2, **weapons_tun, **weapons_stl}
 
     valid_guns = []
@@ -125,9 +125,9 @@ def get_weapons():
                 valid_guns.append(new_gun)
 
     # Get all items
-    items_common = json.load(open("./data_ore/enlisted-content.vromfs.bin/content/e_ww2_common/gamedata/templates/ww2_items.blkx", encoding='utf-8'))
-    tunisia_common = json.load(open("./data_ore/enlisted-content.vromfs.bin/content/e_tunisia/gamedata/templates/tunisia_items.blkx", encoding='utf-8'))
-    stalingrad_common = json.load(open("./data_ore/enlisted-content.vromfs.bin/content/e_stalingrad/gamedata/templates/stalingrad_items.blkx", encoding='utf-8'))
+    items_common = json.load(open("./data_ore/enlisted-game.vromfs.bin/gamedata/templates/e_ww2_common/ww2_items.blkx", encoding='utf-8'))
+    tunisia_common = json.load(open("./data_ore/enlisted-game.vromfs.bin/gamedata/templates/tunisia/tunisia_items.blkx", encoding='utf-8'))
+    stalingrad_common = json.load(open("./data_ore/enlisted-game.vromfs.bin/gamedata/templates/stalingrad_items.blkx", encoding='utf-8'))
     items = {**items_common, **tunisia_common, **stalingrad_common}
 
     for gun in valid_guns:
@@ -174,14 +174,14 @@ def get_weapons():
         gun['flamethrowerMaxLength'] = find_property(weapons, 'flamethrower__maxFlameLength', starting_extensions.copy())
     # Get basic grenades
     json_paths = [
-        {'name': 'explosion_pack', 'path': Path('./data_ore/enlisted-content.vromfs.bin/content/e_ww2_common/gamedata/weapons/grenades/explosion_pack.blkx')},
-        {'name': 'grenade', 'path': Path('./data_ore/enlisted-content.vromfs.bin/content/e_ww2_common/gamedata/weapons/grenades/f1.blkx')},
-        {'name': 'molotov_grenade', 'path': Path('./data_ore/enlisted-content.vromfs.bin/content/e_ww2_common/gamedata/weapons/grenades/molotov_base.blkx')},
-        {'name': 'incendiary_grenade', 'path': Path('./data_ore/enlisted-content.vromfs.bin/content/e_ww2_common/gamedata/weapons/grenades/m_15_incendiary_grenade.blkx')},
-        {'name': 'impact_grenade', 'path': Path('./data_ore/enlisted-content.vromfs.bin/content/e_ww2_common/gamedata/weapons/grenades/no_69_impact_grenade.blkx')},
-        {'name': 'antipersonnel_mine', 'path': Path('./data_ore/enlisted-content.vromfs.bin/content/e_ww2_common/gamedata/weapons/antipersonnel_mine.blkx')},
-        {'name': 'antitank_mine', 'path': Path('./data_ore/enlisted-content.vromfs.bin/content/e_ww2_common/gamedata/weapons/antitank_mine.blkx')},
-        {'name': 'tnt_block', 'path': Path('./data_ore/enlisted-content.vromfs.bin/content/e_ww2_common/gamedata/weapons/tnt_block.blkx')}
+        {'name': 'explosion_pack', 'path': Path('./data_ore/enlisted-game.vromfs.bin/gamedata/weapons/grenades/explosion_pack.blkx')},
+        {'name': 'grenade', 'path': Path('./data_ore/enlisted-game.vromfs.bin/gamedata/weapons/grenades/f1.blkx')},
+        {'name': 'molotov_grenade', 'path': Path('./data_ore/enlisted-game.vromfs.bin/gamedata/weapons/grenades/molotov_base.blkx')},
+        {'name': 'incendiary_grenade', 'path': Path('./data_ore/enlisted-game.vromfs.bin/gamedata/weapons/grenades/m_15_incendiary_grenade.blkx')},
+        {'name': 'impact_grenade', 'path': Path('./data_ore/enlisted-game.vromfs.bin/gamedata/weapons/grenades/no_69_impact_grenade.blkx')},
+        {'name': 'antipersonnel_mine', 'path': Path('./data_ore/enlisted-game.vromfs.bin/gamedata/weapons/antipersonnel_mine.blkx')},
+        {'name': 'antitank_mine', 'path': Path('./data_ore/enlisted-game.vromfs.bin/gamedata/weapons/antitank_mine.blkx')},
+        {'name': 'tnt_block', 'path': Path('./data_ore/enlisted-game.vromfs.bin/gamedata/weapons/tnt_block.blkx')}
     ]
     for json_item in json_paths:
         grenade_json = delistify(json.load(open(json_item['path'], encoding='utf-8')))
@@ -253,7 +253,7 @@ def find_property(json_data, property_name, extensions):
 def get_bullets():
     # Get all bullets
     bullets = {}
-    json_paths = list(Path('./data_ore/enlisted-content.vromfs.bin/content/e_ww2_common/gamedata/weapons/bullets').rglob('*.blkx')) + list(Path('./data_ore/enlisted-content.vromfs.bin/content/e_tunisia/gamedata/weapons/bullets').rglob('*.blkx')) + list(Path('./data_ore/enlisted-game.vromfs.bin/gamedata/weapons_enlisted/bullets').rglob('*.blkx')) + list(Path('./data_ore/enlisted-content.vromfs.bin/content/e_ww2_common/gamedata/weapons/shells').rglob('*.blkx')) + list(Path('./data_ore/enlisted-game.vromfs.bin/gamedata/weapons_enlisted/shells').rglob('*.blkx'))
+    json_paths = list(Path('./data_ore/enlisted-game.vromfs.bin/gamedata/weapons/bullets').rglob('*.blkx'))
     for path in json_paths:
         bullet_json = delistify(json.load(open(path, encoding='utf-8')))
         # If already exists, override unless override is null
@@ -291,14 +291,14 @@ def get_bullets():
 
     # Get basic grenades
     json_paths = [
-        {'name': 'explosion_pack', 'path': Path('./data_ore/enlisted-content.vromfs.bin/content/e_ww2_common/gamedata/weapons/grenades/explosion_pack.blkx')},
-        {'name': 'grenade', 'path': Path('./data_ore/enlisted-content.vromfs.bin/content/e_ww2_common/gamedata/weapons/grenades/f1.blkx')},
-        {'name': 'molotov_grenade', 'path': Path('./data_ore/enlisted-content.vromfs.bin/content/e_ww2_common/gamedata/weapons/grenades/molotov_base.blkx')},
-        {'name': 'incendiary_grenade', 'path': Path('./data_ore/enlisted-content.vromfs.bin/content/e_ww2_common/gamedata/weapons/grenades/m_15_incendiary_grenade.blkx')},
-        {'name': 'impact_grenade', 'path': Path('./data_ore/enlisted-content.vromfs.bin/content/e_ww2_common/gamedata/weapons/grenades/no_69_impact_grenade.blkx')},
-        {'name': 'antipersonnel_mine', 'path': Path('./data_ore/enlisted-content.vromfs.bin/content/e_ww2_common/gamedata/weapons/antipersonnel_mine.blkx')},
-        {'name': 'antitank_mine', 'path': Path('./data_ore/enlisted-content.vromfs.bin/content/e_ww2_common/gamedata/weapons/antitank_mine.blkx')},
-        {'name': 'tnt_block', 'path': Path('./data_ore/enlisted-content.vromfs.bin/content/e_ww2_common/gamedata/weapons/tnt_block.blkx')}
+        {'name': 'explosion_pack', 'path': Path('./data_ore/enlisted-game.vromfs.bin/gamedata/weapons/grenades/explosion_pack.blkx')},
+        {'name': 'grenade', 'path': Path('./data_ore/enlisted-game.vromfs.bin/gamedata/weapons/grenades/f1.blkx')},
+        {'name': 'molotov_grenade', 'path': Path('./data_ore/enlisted-game.vromfs.bin/gamedata/weapons/grenades/molotov_base.blkx')},
+        {'name': 'incendiary_grenade', 'path': Path('./data_ore/enlisted-game.vromfs.bin/gamedata/weapons/grenades/m_15_incendiary_grenade.blkx')},
+        {'name': 'impact_grenade', 'path': Path('./data_ore/enlisted-game.vromfs.bin/gamedata/weapons/grenades/no_69_impact_grenade.blkx')},
+        {'name': 'antipersonnel_mine', 'path': Path('./data_ore/enlisted-game.vromfs.bin/gamedata/weapons/antipersonnel_mine.blkx')},
+        {'name': 'antitank_mine', 'path': Path('./data_ore/enlisted-game.vromfs.bin/gamedata/weapons/antitank_mine.blkx')},
+        {'name': 'tnt_block', 'path': Path('./data_ore/enlisted-game.vromfs.bin/gamedata/weapons/tnt_block.blkx')}
     ]
     for json_item in json_paths:
         grenade_json = delistify(json.load(open(json_item['path'], encoding='utf-8')))

@@ -33,6 +33,9 @@
           },
           {
             "name": "gravel"
+          },
+          {
+            "name": "hardSnow"
           }
         ],
         "crater_config__disabledPhysMatIds:list<i>": [],
@@ -92,6 +95,7 @@
           "is_african_bed_c": false,
           "is_african_bed_d": false,
           "is_african_bed_e": false,
+          "military_barracks_decor_jamb_flat_a_1900": false,
           "well_concrete_a_ring": false,
           "well_concrete_a_cap": false,
           "concrete_barrier_a": false
@@ -197,6 +201,7 @@
     {
       "_group": {
         "_tags": "render",
+        "bomb_crater_config__smokeEffectTemplate": "explosion_smoke_crater_effect",
         "bomb_crater_config__decalNames:list<t>": [
           {
             "name": "explosion"

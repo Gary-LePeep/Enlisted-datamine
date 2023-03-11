@@ -2885,7 +2885,7 @@
   {
     "entity": {
       "_template": "door_mult_ent_generator",
-      "ri_extra_gen__blk": "content/e_normandy/gamedata/normandy_doors.blk"
+      "ri_extra_gen__blk": "content/enlisted/gamedata/normandy_doors.blk"
     }
   },
   {
@@ -2977,8 +2977,8 @@
     "entity": {
       "_template": "team_usa+team_narrator_invasion_attack+respawn_creators_team",
       "team__memberCount": 0.0,
-      "team__scoreCap": 2500.0,
-      "team__score": 2500.0,
+      "team__scoreCap": 2600.0,
+      "team__score": 2600.0,
       "team__squadSpawnCost": 250,
       "team__firstSpawnCostMul": 0.0,
       "team__zeroScoreFailTimer": 60.0,
@@ -5009,13 +5009,13 @@
       "mission_name": "normandy_beach_inv",
       "loading_images:list<t>": [
         {
-          "item": "ui/normandy_beach_inv_01.jpg"
+          "item": "ui/normandy_beach_inv_01.avif"
         },
         {
-          "item": "ui/normandy_beach_inv_02.jpg"
+          "item": "ui/normandy_beach_inv_02.avif"
         },
         {
-          "item": "ui/normandy_beach_inv_03.jpg"
+          "item": "ui/normandy_beach_inv_03.avif"
         }
       ]
     }
@@ -6067,10 +6067,10 @@
     "entity": {
       "_template": "respawnChooser+respTeam2",
       "transform": [
-        [0.968321,0.0,0.249712],
-        [0.0,1.0,0.0],
-        [-0.249712,0.0,0.968321],
-        [-12.5567,25.8454,36.1054]
+        [0.752604,0.0,0.658474],
+        [0.0,1.0,-0.0],
+        [-0.658474,0.0,0.752604],
+        [-11.247,25.8454,32.3404]
       ],
       "groupName": "sector_1_c",
       "respawnBaseGroup": 1,

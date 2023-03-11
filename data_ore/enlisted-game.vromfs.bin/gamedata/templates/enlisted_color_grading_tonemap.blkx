@@ -21,7 +21,7 @@
     {
       "color_grading:object": {
         "colorSaturation": [1.0,1.0,1.0,1.0],
-        "colorContrast": [1.2,1.0,1.0,1.0],
+        "colorContrast": [1.0,1.0,1.0,1.0],
         "colorGamma": [1.0,1.0,1.0,1.0],
         "colorGain": [1.0,1.0,1.0,1.0],
         "colorOffset": [0.0,0.0,0.0,0.0],
@@ -30,10 +30,10 @@
         "hueToSaturationValueMul": [1.0,1.0,1.0,1.0],
         "hueToSaturationValueAdd": [0.0,0.0,0.0,0.0],
         "shadows_colorSaturation": [1.0,1.0,1.0,1.0],
-        "shadows_colorContrast": [1.15,1.0,1.0,1.0],
+        "shadows_colorContrast": [1.0,1.0,1.0,1.0],
         "shadows_colorGamma": [1.0,1.0,1.0,1.0],
         "shadows_colorGain": [1.0,1.0,1.0,1.0],
-        "shadows_colorOffset": [0.003,0.0,0.0,0.0],
+        "shadows_colorOffset": [0.0,0.0,0.0,0.0],
         "midtones_colorSaturation": [1.0,1.0,1.0,1.0],
         "midtones_colorContrast": [1.0,1.0,1.0,1.0],
         "midtones_colorGamma": [1.0,1.0,1.0,1.0],
@@ -45,15 +45,15 @@
         "highlights_colorGain": [1.0,1.0,1.0,1.0],
         "highlights_colorOffset": [0.0,0.0,0.0,0.0],
         "colorCorrectionShadowsMax": 0.1,
-        "colorCorrectionHighlightsMin": 0.4,
+        "colorCorrectionHighlightsMin": 0.8,
         "_tags": "render"
       }
     },
     {
       "tonemap:object": {
-        "tonemapContrast": 1.1,
+        "tonemapContrast": 1.28,
         "tonemapShoulder": 0.85,
-        "tonemapMidIn": 0.07,
+        "tonemapMidIn": 0.06,
         "tonemapMidOut": 0.18,
         "tonemapHdrMax": 4.0,
         "_tags": "render"

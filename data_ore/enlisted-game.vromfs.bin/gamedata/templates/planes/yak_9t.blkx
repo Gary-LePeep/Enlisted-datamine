@@ -206,22 +206,13 @@
       "ammo": 30
     },
     "gun__ammoSetsInfo:shared:array": {
-      "default:array": [
-        {
-          "shell:object": {
-            "blk": "gamedata/weapons/shells/37mm_ns37_bt_bullet.blk",
-            "name": "bt",
-            "type": "ap_t"
-          }
-        },
-        {
-          "shell:object": {
-            "blk": "gamedata/weapons/shells/37mm_ns37_ofzt_bullet.blk",
-            "name": "ofzt",
-            "type": "he_i_t"
-          }
+      "default:array": {
+        "shell:object": {
+          "blk": "gamedata/weapons/shells/37mm_ns37_bt_bullet.blk",
+          "name": "bt",
+          "type": "ap_t"
         }
-      ]
+      }
     }
   },
   "planegun_yak_9t_12_7mm_ubs_01": [

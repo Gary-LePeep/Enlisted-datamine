@@ -4473,13 +4473,13 @@
       "mission_name": "pacific_gavutu_conf",
       "loading_images:list<t>": [
         {
-          "item": "ui/pacific_gavutu_inv_01.jpg"
+          "item": "ui/pacific_gavutu_inv_01.avif"
         },
         {
-          "item": "ui/pacific_gavutu_inv_02.jpg"
+          "item": "ui/pacific_gavutu_inv_02.avif"
         },
         {
-          "item": "ui/pacific_gavutu_inv_03.jpg"
+          "item": "ui/pacific_gavutu_inv_03.avif"
         }
       ]
     }
@@ -4488,8 +4488,8 @@
     "entity": {
       "_template": "team_pacific_allies+team_narrator_invasion_attack+respawn_creators_team",
       "team__memberCount": 0.0,
-      "team__scoreCap": 1600.0,
-      "team__score": 1600.0,
+      "team__scoreCap": 1700.0,
+      "team__score": 1700.0,
       "team__squadSpawnCost": 250,
       "team__minScoreCap": 100.0,
       "team__firstSpawnCostMul": 0.0,
@@ -4612,9 +4612,9 @@
       "capzone__lockAfterActivate": true,
       "capzone__unlockAfterTime": 150.0,
       "capzone__capTimeTeam1": 80.0,
-      "capzone__capTimeTeam2": 60.0,
+      "capzone__capTimeTeam2": 70.0,
       "capzone__decapTimeTeam1": 40.0,
-      "capzone__decapTimeTeam2": 30.0,
+      "capzone__decapTimeTeam2": 35.0,
       "capzone__capTeam": -1,
       "transform": [
         [0.722563,0.0,-0.126323],
@@ -4650,9 +4650,9 @@
       "capzone__lockAfterActivate": true,
       "capzone__unlockAfterTime": 150.0,
       "capzone__capTimeTeam1": 80.0,
-      "capzone__capTimeTeam2": 60.0,
+      "capzone__capTimeTeam2": 70.0,
       "capzone__decapTimeTeam1": 40.0,
-      "capzone__decapTimeTeam2": 30.0,
+      "capzone__decapTimeTeam2": 35.0,
       "capzone__capTeam": -1,
       "transform": [
         [1.0,0.0,0.0],
@@ -4791,9 +4791,9 @@
       "capzone__lockAfterActivate": true,
       "capzone__unlockAfterTime": 140.0,
       "capzone__capTimeTeam1": 80.0,
-      "capzone__capTimeTeam2": 60.0,
+      "capzone__capTimeTeam2": 70.0,
       "capzone__decapTimeTeam1": 40.0,
-      "capzone__decapTimeTeam2": 30.0,
+      "capzone__decapTimeTeam2": 35.0,
       "capzone__capTeam": -1,
       "transform": [
         [-32.5501,0.0,32.9299],
@@ -6285,7 +6285,7 @@
   },
   {
     "import": {
-      "scene": "content/e_pacific/gamedata/scenes/_pacific_gavutu_common.blk"
+      "scene": "content/enlisted/gamedata/scenes/_pacific_gavutu_common.blk"
     }
   }
 ]

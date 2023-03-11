@@ -56,7 +56,7 @@
   {
     "entity": {
       "_template": "door_mult_ent_generator",
-      "ri_extra_gen__blk": "content/e_moscow/gamedata/volokolamsk_doors.blk"
+      "ri_extra_gen__blk": "content/enlisted/gamedata/volokolamsk_doors.blk"
     }
   },
   {
@@ -71,13 +71,13 @@
       "mission_name": "volokolamsk_village_assault",
       "loading_images:list<t>": [
         {
-          "item": "ui/volokolamsk_village_01.jpg"
+          "item": "ui/volokolamsk_village_01.avif"
         },
         {
-          "item": "ui/volokolamsk_village_02.jpg"
+          "item": "ui/volokolamsk_village_02.avif"
         },
         {
-          "item": "ui/volokolamsk_village_03.jpg"
+          "item": "ui/volokolamsk_village_03.avif"
         }
       ]
     }
@@ -1392,7 +1392,7 @@
         [-104.209,9.69579,404.656]
       ],
       "active": false,
-      "capzone__decapTime": 10.0,
+      "capzone__decapTime": 30.0,
       "ui_order": 1,
       "capzone__capReward": 250.0,
       "capzone__title": "A",
@@ -1429,7 +1429,7 @@
         [-230.677,13.381,426.039]
       ],
       "active": false,
-      "capzone__decapTime": 10.0,
+      "capzone__decapTime": 30.0,
       "ui_order": 2,
       "capzone__capReward": 250.0,
       "capzone__title": "B",
@@ -1454,7 +1454,7 @@
       "capzone__mustBeCapturedByTeam": 2,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_2",
-      "capzone__capTime": 30.0,
+      "capzone__capTime": 40.0,
       "capzone__autoDecap": false,
       "capzone__autoCap": false,
       "capzone__capTeam": 1,
@@ -1466,7 +1466,7 @@
         [-191.877,10.5239,353.791]
       ],
       "active": false,
-      "capzone__decapTime": 10.0,
+      "capzone__decapTime": 40.0,
       "ui_order": 3,
       "capzone__capReward": 250.0,
       "capzone__title": "C",
@@ -1505,7 +1505,7 @@
         [-156.546,6.11526,249.58]
       ],
       "active": false,
-      "capzone__decapTime": 10.0,
+      "capzone__decapTime": 30.0,
       "ui_order": 4,
       "capzone__capReward": 250.0,
       "capzone__title": "D",
@@ -1541,7 +1541,7 @@
         [-215.595,7.61921,252.377]
       ],
       "active": false,
-      "capzone__decapTime": 10.0,
+      "capzone__decapTime": 30.0,
       "ui_order": 5,
       "capzone__capReward": 250.0,
       "capzone__title": "E",

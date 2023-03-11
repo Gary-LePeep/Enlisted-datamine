@@ -1878,13 +1878,13 @@
       "mission_name": "berlin_ministry_conf",
       "loading_images:list<t>": [
         {
-          "item": "ui/berlin_moat_01.jpg"
+          "item": "ui/berlin_moat_01.avif"
         },
         {
-          "item": "ui/berlin_moat_02.jpg"
+          "item": "ui/berlin_moat_02.avif"
         },
         {
-          "item": "ui/berlin_opera_inv_03.jpg"
+          "item": "ui/berlin_opera_inv_03.avif"
         }
       ]
     }
@@ -1893,8 +1893,8 @@
     "entity": {
       "_template": "team_germany_berlin+team_narrator_confrontation_attack+respawn_creators_team",
       "team__memberCount": 0.0,
-      "team__scoreCap": 2100.0,
-      "team__score": 2100.0,
+      "team__scoreCap": 2200.0,
+      "team__score": 2200.0,
       "team__squadSpawnCost": 250,
       "team__minScoreCap": 100.0,
       "team__firstSpawnCostMul": 0.0,
@@ -2103,7 +2103,7 @@
       "capzone__capRewardPartCap": 1.5,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_1_a",
-      "capzone__capReward": 500.0,
+      "capzone__capReward": 250.0,
       "capzone__lockAfterActivate": true,
       "capzone__unlockAfterTime": 110.0,
       "capzone__capTimeTeam2": 70.0,
@@ -2250,6 +2250,8 @@
       "capzone__capTeam": -1,
       "capzone__capTimeTeam2": 70.0,
       "capzone__capTimeTeam1": 90.0,
+      "capzone__decapTimeTeam2": 35.0,
+      "capzone__decapTimeTeam1": 45.0,
       "capzone__caption": "capzone/construction",
       "capzone__icon": "AAA",
       "capzone__iconOffsetY": 2.0,
@@ -2259,8 +2261,6 @@
       "groupName": "sector_4",
       "ui_order": 4,
       "active": false,
-      "capzone__decapTimeTeam2": 35.0,
-      "capzone__decapTimeTeam1": 45.0,
       "capzone__activateChoiceTeam2:object": {
         "sector_5_b": 1.0,
         "sector_5_a": 1.0
@@ -2279,9 +2279,9 @@
       "capzone__capReward": 250.0,
       "capzone__lockAfterActivate": true,
       "capzone__unlockAfterTime": 120.0,
-      "capzone__capTimeTeam2": 80.0,
+      "capzone__capTimeTeam2": 70.0,
       "capzone__capTimeTeam1": 90.0,
-      "capzone__decapTimeTeam2": 40.0,
+      "capzone__decapTimeTeam2": 35.0,
       "capzone__decapTimeTeam1": 45.0,
       "capzone__capTeam": -1,
       "transform": [
@@ -2313,9 +2313,9 @@
       "capzone__capReward": 250.0,
       "capzone__lockAfterActivate": true,
       "capzone__unlockAfterTime": 120.0,
-      "capzone__capTimeTeam2": 80.0,
+      "capzone__capTimeTeam2": 70.0,
       "capzone__capTimeTeam1": 90.0,
-      "capzone__decapTimeTeam2": 40.0,
+      "capzone__decapTimeTeam2": 35.0,
       "capzone__decapTimeTeam1": 45.0,
       "capzone__capTeam": -1,
       "transform": [

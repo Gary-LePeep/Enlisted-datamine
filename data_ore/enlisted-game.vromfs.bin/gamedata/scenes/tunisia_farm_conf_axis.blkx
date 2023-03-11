@@ -1539,13 +1539,13 @@
       "mission_name": "tunisia_farm_conf",
       "loading_images:list<t>": [
         {
-          "item": "ui/tunisia_farm_inv_01.jpg"
+          "item": "ui/tunisia_farm_inv_01.avif"
         },
         {
-          "item": "ui/tunisia_farm_inv_04.jpg"
+          "item": "ui/tunisia_farm_inv_04.avif"
         },
         {
-          "item": "ui/tunisia_farm_inv_03.jpg"
+          "item": "ui/tunisia_farm_inv_03.avif"
         }
       ]
     }
@@ -1592,8 +1592,8 @@
     "entity": {
       "_template": "team_tunisia_axis+team_narrator_confrontation_attack+respawn_creators_team",
       "team__memberCount": 0.0,
-      "team__scoreCap": 1000.0,
-      "team__score": 1000.0,
+      "team__scoreCap": 1100.0,
+      "team__score": 1100.0,
       "team__squadSpawnCost": 250,
       "team__minScoreCap": 100.0,
       "team__firstSpawnCostMul": 0.0,
@@ -1627,7 +1627,7 @@
   {
     "entity": {
       "_template": "door_mult_ent_generator",
-      "ri_extra_gen__blk": "content/e_tunisia/gamedata/tunisia_doors.blk"
+      "ri_extra_gen__blk": "content/enlisted/gamedata/tunisia_doors.blk"
     }
   },
   {

@@ -14,6 +14,7 @@
   "stabilityReductionAfterRicochet": 0.5,
   "stabilityReductionAfterPenetration": 0.3,
   "slopeEffectPreset": "ap",
+  "shellAnimation": "video/shells_animations/he_ball.ivf",
   "onHitChanceMultFire": 2.0,
   "effectiveDistance": 3000.0,
   "relativeVelHitShift": [300.0,3000.0],
@@ -48,8 +49,7 @@
   "visual": {
     "range_percent_of_ammo": [100.0,0.0],
     "traceFreq": 1,
-    "tracer": "12mmWhiteGreen",
-    "trail": "smallTrail"
+    "tracer": "noColor"
   },
   "hitpower": {
     "HitPower10m": [1.0,10.0],
@@ -86,7 +86,7 @@
     }
   },
   "tracer": {
-    "headColor": "#d0ffbfc8",
-    "smokeColor": "#e4e4e4e4"
+    "headColor": "#00000000",
+    "smokeColor": "#00000000"
   }
 }

@@ -7695,13 +7695,13 @@
       "mission_name": "pacific_guadalcanal_inv",
       "loading_images:list<t>": [
         {
-          "item": "ui/pacific_guadalcanal_inv_06.jpg"
+          "item": "ui/pacific_guadalcanal_inv_06.avif"
         },
         {
-          "item": "ui/pacific_guadalcanal_inv_10.jpg"
+          "item": "ui/pacific_guadalcanal_inv_10.avif"
         },
         {
-          "item": "ui/pacific_guadalcanal_inv_08.jpg"
+          "item": "ui/pacific_guadalcanal_inv_08.avif"
         }
       ]
     }
@@ -7710,8 +7710,8 @@
     "entity": {
       "_template": "team_pacific_allies+team_narrator_invasion_attack+respawn_creators_team",
       "team__memberCount": 0.0,
-      "team__scoreCap": 1800.0,
-      "team__score": 1800.0,
+      "team__scoreCap": 1950.0,
+      "team__score": 1950.0,
       "team__squadSpawnCost": 250,
       "team__firstSpawnCostMul": 0.0,
       "team__zeroScoreFailTimer": 60.0,
@@ -8068,7 +8068,7 @@
       "capzone__onlyTeamCanCapture": 1,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_5_a",
-      "capzone__capTime": 85.0,
+      "capzone__capTime": 70.0,
       "capzone__capTeam": -1,
       "transform": [
         [1.0,0.0,0.0],
@@ -8098,7 +8098,7 @@
       "capzone__onlyTeamCanCapture": 1,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_5_b",
-      "capzone__capTime": 85.0,
+      "capzone__capTime": 70.0,
       "capzone__capTeam": -1,
       "transform": [
         [1.0,0.0,0.0],
@@ -10587,7 +10587,7 @@
   },
   {
     "import": {
-      "scene": "content/e_pacific/gamedata/scenes/_pacific_guadalcanal_common.blk"
+      "scene": "content/enlisted/gamedata/scenes/_pacific_guadalcanal_common.blk"
     }
   }
 ]

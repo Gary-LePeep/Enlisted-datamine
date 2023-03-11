@@ -1,0 +1,39 @@
+{
+  "base_tank_plasmagun": {
+    "item__name": "guns/tank_plasmagun",
+    "gun__blk": "content/enlisted_extra/gamedata/gen/weapons/tank_plasmagun.blk",
+    "gun__shotFreq": 0.166,
+    "gun__locName": "tank_plasmagun",
+    "gun__ammoSetsInfo:shared:array": {
+      "defaultSet:array": {
+        "shell:object": {
+          "blk": "content/enlisted_extra/gamedata/gen/weapons/shells/tank_plasma_shell.blk",
+          "name": "plasma_tank",
+          "type": "plasma_tank"
+        }
+      }
+    }
+  },
+  "tank_plasmagun": [
+    {
+      "_extends": "tankgun"
+    },
+    {
+      "_extends": "base_tankgun_cannon"
+    },
+    {
+      "_extends": "base_tank_plasmagun"
+    },
+    {
+      "_extends": "gunsound_tank_plasmagun"
+    },
+    {
+      "turret__triggerGroup": 0
+    },
+    {
+      "gun__shellsAmmo:array": {
+        "ammo": 9999
+      }
+    }
+  ]
+}
