@@ -6,13 +6,15 @@ let { send_counter } = require("statsd")
 let { mkVersionFromString, versionToInt } = require("%sqstd/version.nut")
 let { gameLanguage } = require("%enlSqGlob/clientState.nut")
 let eventbus = require("eventbus")
-let http = require("dagor.http")
-let json = require("json")
+let { httpRequest, HTTP_SUCCESS } = require("dagor.http")
+let { parse_json } = require("json")
 let { exe_version } = require("%dngscripts/appInfo.nut")
 let { onlineSettingUpdated, settings } = require("%enlist/options/onlineSettings.nut")
-let { getPlatformId, getLanguageId } = require("httpPkg.nut")
+let { getPlatformId, getLanguageId } = require("%enlSqGlob/httpPkg.nut")
 let { get_setting_by_blk_path } = require("settings")
 let { maxVersionInt } = require("%enlSqGlob/client_version.nut")
+let { isStringInteger } = require("%sqstd/string.nut")
+let isNewbie = require("%enlist/unlocks/isNewbie.nut")
 
 let changelogDisabled = get_setting_by_blk_path("disableChangelog") ?? false
 
@@ -22,11 +24,11 @@ if (extNewsUrl == "")
 
 local URL_VERSIONS = get_setting_by_blk_path("versionUrl") ?? ""
 if (URL_VERSIONS == "")
-  URL_VERSIONS = "https://enlisted.net/{0}/patchnotes/?platform={1}&target=enlisted_game"
+  URL_VERSIONS = "https://newsfeed.gap.gaijin.net/api/patchnotes/enlisted/{0}/?platform={1}"
 
 local URL_PATCHNOTE = get_setting_by_blk_path("patchnoteUrl") ?? ""
 if (URL_PATCHNOTE == "")
-  URL_PATCHNOTE = "https://enlisted.net/{0}/patchnotes/patchnote/{2}?platform={1}&target=enlisted_game"
+  URL_PATCHNOTE = "https://newsfeed.gap.gaijin.net/api/patchnotes/enlisted/{0}/{2}?platform={1}"
 
 let function logError(event, params = {}) {
   log(event, params)
@@ -49,7 +51,8 @@ const PatchnoteIds = "PatchnoteIds"
 let lastSeenVersionIdState = Computed(function() {
   if (!onlineSettingUpdated.value)
     return -1
-  return settings.value?[SAVE_ID] ?? 0
+  let val = settings.value?[SAVE_ID]
+  return isStringInteger(val) ? val.tointeger() : 0
 })
 
 let chosenPatchnote = Watched(null)
@@ -59,7 +62,7 @@ let chosenPatchnoteTitle = nestWatched("chosenPatchnoteTitle", "")
 let patchnotesReceived = nestWatched("patchnotesReceived", false)
 let versions = nestWatched("versions", [])
 
-const maxVersionsAmount = 10
+const MAX_TAB_INDEX = 7
 
 // FIXME legacy block should be removed after next major update
 // >>> LEGACY
@@ -73,9 +76,12 @@ let shouldUpdateLegacyData = keepref(Computed(@() onlineSettingUpdated.value
 shouldUpdateLegacyData.subscribe(function(v) {
   if (!v)
     return
-  let iVersion = delete settings.value[LEGACY_ID]
+  let iVersion = settings.value[LEGACY_ID]
   let id = versions.value.findvalue(@(ver) versionToInt(ver.version) == iVersion)?.id ?? 0
-  settings.mutate(@(value) value[SAVE_ID] <- id)
+  defer(@() settings.mutate(function(value) {
+    value[SAVE_ID] <- id
+    delete value[LEGACY_ID]
+  }))
 })
 
 // <<< LEGACY
@@ -111,20 +117,20 @@ let function mkVersion(v){
   }
 }
 
-let function filterVersions(vers){
+let function filterVersions(vers) {
   let res = []
   local foundMajor = false
-  foreach (idx, version in vers){
-    if (idx >= maxVersionsAmount && foundMajor)
+  foreach (idx, version in vers) {
+    if (idx >= MAX_TAB_INDEX && foundMajor)
       break
     else if (maxVersionInt.value > 0 && maxVersionInt.value < version.iVersion) {
       continue
     }
     else if (version.versionType=="major"){
       res.append(version)
-      foundMajor=true
+      foundMajor = true
     }
-    else if (idx < maxVersionsAmount && !foundMajor){
+    else if (idx < MAX_TAB_INDEX && !foundMajor){
       res.append(version)
     }
   }
@@ -133,14 +139,14 @@ let function filterVersions(vers){
 
 let function processPatchnotesList(response) {
   let { status = -1, http_code = 0, body = null } = response
-  if (status != http.SUCCESS || http_code < 200 || 300 <= http_code) {
+  if (status != HTTP_SUCCESS || http_code < 200 || 300 <= http_code) {
     send_counter("changelog_receive_errors", 1, { http_code, stage = "get_versions" })
     return
   }
 
   local result
   try {
-    result = json.parse(body?.as_string())?.result
+    result = parse_json(body?.as_string())?.result
   } catch(e) {
   }
 
@@ -167,7 +173,7 @@ let function requestPatchnotes(){
   else
     request.callback <- processPatchnotesList
   patchnotesReceived(false)
-  http.request(request)
+  httpRequest(request)
 }
 
 let isVersion = @(version) type(version?.version) == "array"
@@ -206,6 +212,11 @@ let function markSeenVersion(v) {
     settings.mutate(@(value) value[SAVE_ID] <- v.id)
 }
 
+let function markLastSeen() {
+  let v = versions.value?[0]
+  markSeenVersion(v)
+}
+
 let updateVersion = @() markSeenVersion(curPatchnote.value)
 
 const PatchnoteReceived = "PatchnoteReceived"
@@ -222,13 +233,13 @@ let function setPatchnoteResult(result){
 
 let function cachePatchnote(response) {
   let { status = -1, http_code = 0, body = null } = response
-  if (status != http.SUCCESS || http_code < 200 || 300 <= http_code) {
+  if (status != HTTP_SUCCESS || http_code < 200 || 300 <= http_code) {
     send_counter("changelog_receive_errors", 1, { http_code, stage = "get_patchnote" })
   }
 
   local result
   try {
-    result = json.parse(body?.as_string())?.result
+    result = parse_json(body?.as_string())?.result
   } catch(e) {
   }
 
@@ -257,7 +268,7 @@ let function requestPatchnote(v){
   else
     request.callback <- cachePatchnote
   chosenPatchnoteLoaded(false)
-  http.request(request)
+  httpRequest(request)
 }
 
 if (UseEventBus) {
@@ -279,17 +290,32 @@ let function haveUnseenHotfixVersions(){
 
 let haveUnseenVersions = Computed(@() unseenPatchnote.value != null)
 
+let function selectPatchnote(v) {
+  chosenPatchnote(v)
+  requestPatchnote(v)
+}
+
 let mkChangePatchNote = @(delta=1) function() {
   if (versions.value.len() == 0)
     return
   let nextIdx = clamp(curPatchnoteIdx.value-delta, 0, versions.value.len()-1)
   let patchnote = versions.value[nextIdx]
-  chosenPatchnote(patchnote)
-  requestPatchnote(patchnote)
+  selectPatchnote(patchnote)
 }
 
 let nextPatchNote = mkChangePatchNote()
 let prevPatchNote = mkChangePatchNote(-1)
+
+patchnotesReceived.subscribe(function(v){
+  if (isNewbie.value) {
+    markLastSeen()
+    return
+  }
+  if (!v || !haveUnseenVersions.value || curPatchnote.value == null)
+    return
+
+  selectPatchnote(curPatchnote.value)
+})
 
 console_register_command(function() {
   if (SAVE_ID in settings.value)
@@ -320,4 +346,6 @@ return {
   chosenPatchnoteLoaded
   requestPatchnotes
   maxVersionInt
+  markLastSeen
+  selectPatchnote
 }

@@ -2,7 +2,25 @@
   {
     "sequencer": {
       "name": "sub.chooseMaxStance",
-      "chooseMaxStance": []
+      "orderedSelector": {
+        "chooseMinMaxStancesForCoverAttack": [],
+        "sequencer": {
+          "chooseMaxStance": [],
+          "orderedSelector": {
+            "sequencer": {
+              "isAgentPlayerBot": [],
+              "setIntVar": {
+                "to": "minStance",
+                "value": 1
+              }
+            },
+            "setIntVar": {
+              "to": "minStance",
+              "value": 0
+            }
+          }
+        }
+      }
     }
   },
   {
@@ -65,13 +83,35 @@
       "getRegroupPos": {
         "posParam": "regroupPosition"
       },
+      "ifThenElse": [
+        {
+          "and": {
+            "isSquadLeaderMoving": [],
+            "isAggressiveBehaviour": []
+          }
+        },
+        {
+          "setRealVar": {
+            "to": "possibleAngle",
+            "value": 180.0
+          }
+        },
+        {
+          "setRealVar": {
+            "to": "possibleAngle",
+            "value": 80.0
+          }
+        }
+      ],
       "orderedSelector": [
         {
           "findCoverAroundPoint": {
             "centerParam": "regroupPosition",
             "radius": 3.0,
+            "possibleAngleParam": "possibleAngle",
             "coverPosParam": "coverPos",
             "minDist": 2.0,
+            "maxOccupied": 3,
             "traceVisible": true
           }
         },
@@ -79,15 +119,18 @@
           "findCoverAroundPoint": {
             "centerParam": "regroupPosition",
             "radius": 4.0,
+            "possibleAngleParam": "possibleAngle",
             "coverPosParam": "coverPos",
             "minDist": 3.0,
+            "maxOccupied": 2,
             "traceVisible": true
           }
         },
         {
           "findCoverAroundPoint": {
             "centerParam": "regroupPosition",
-            "radius": 2.0,
+            "radius": 3.0,
+            "possibleAngle": 180.0,
             "coverPosParam": "coverPos",
             "minDist": 1.0
           }
@@ -105,13 +148,51 @@
       "getRegroupPos": {
         "posParam": "regroupPosition"
       },
+      "getOrderPosition": {
+        "posParam": "regroupPosition",
+        "orderPosParam": "spreadPos",
+        "traceVisible": true
+      },
+      "ifThenElse": [
+        {
+          "and": {
+            "isSquadLeaderMoving": [],
+            "isAggressiveBehaviour": []
+          }
+        },
+        {
+          "setRealVar": {
+            "to": "possibleAngle",
+            "value": 180.0
+          }
+        },
+        {
+          "setRealVar": {
+            "to": "possibleAngle",
+            "value": 100.0
+          }
+        }
+      ],
       "orderedSelector": [
         {
           "findCoverAroundPoint": {
-            "centerParam": "regroupPosition",
-            "radius": 9.0,
+            "centerParam": "spreadPos",
+            "radius": 5.0,
+            "possibleAngleParam": "possibleAngle",
             "coverPosParam": "coverPos",
-            "minDist": 5.0,
+            "minDist": 0.0,
+            "maxOccupied": 1,
+            "traceVisible": true
+          }
+        },
+        {
+          "findCoverAroundPoint": {
+            "centerParam": "spreadPos",
+            "radius": 3.0,
+            "possibleAngleParam": "possibleAngle",
+            "coverPosParam": "coverPos",
+            "minDist": 0.0,
+            "maxOccupied": 2,
             "traceVisible": true
           }
         },
@@ -119,16 +200,19 @@
           "findCoverAroundPoint": {
             "centerParam": "regroupPosition",
             "radius": 5.0,
+            "possibleAngle": 180.0,
             "coverPosParam": "coverPos",
-            "minDist": 3.0
+            "minDist": 3.0,
+            "traceVisible": true
           }
         },
         {
           "findCoverAroundPoint": {
             "centerParam": "regroupPosition",
             "radius": 3.0,
+            "possibleAngle": 180.0,
             "coverPosParam": "coverPos",
-            "minDist": 1.0
+            "minDist": 2.0
           }
         }
       ],
@@ -144,15 +228,36 @@
       "getRegroupPos": {
         "posParam": "regroupPosition"
       },
-      "getRegroupDistance": {
-        "minDist": 8.0,
-        "distParam": "regroupDistance"
+      "getOrderPosition": {
+        "posParam": "regroupPosition",
+        "orderPosParam": "spreadPos"
       },
       "orderedSelector": [
         {
           "findCoverAroundPoint": {
+            "centerParam": "spreadPos",
+            "radius": 7.0,
+            "coverPosParam": "coverPos",
+            "minDist": 0.0,
+            "maxOccupied": 1,
+            "traceVisible": true
+          }
+        },
+        {
+          "findCoverAroundPoint": {
+            "centerParam": "spreadPos",
+            "radius": 6.0,
+            "coverPosParam": "coverPos",
+            "minDist": 0.0,
+            "maxOccupied": 2,
+            "traceVisible": true
+          }
+        },
+        {
+          "findCoverAroundPoint": {
             "centerParam": "regroupPosition",
-            "radius": 8.0,
+            "radius": 5.0,
+            "possibleAngle": 180.0,
             "coverPosParam": "coverPos",
             "minDist": 2.0,
             "traceVisible": true
@@ -161,27 +266,13 @@
         {
           "findCoverAroundPoint": {
             "centerParam": "regroupPosition",
-            "radius": 4.0,
+            "radius": 3.0,
+            "possibleAngle": 180.0,
             "coverPosParam": "coverPos",
-            "minDist": 0.0,
-            "traceVisible": true
-          }
-        },
-        {
-          "findCoverAroundPoint": {
-            "centerParam": "regroupPosition",
-            "radius": 4.0,
-            "coverPosParam": "coverPos",
-            "minDist": 0.0
+            "minDist": 2.0
           }
         }
       ],
-      "checkDistance": {
-        "posParam": "regroupPosition",
-        "otherPosParam": "coverPos",
-        "radiusParam": "regroupDistance",
-        "yRadius": 2.5
-      },
       "copyPoint3Var": {
         "from": "coverPos",
         "to": "wishPosition"
@@ -202,6 +293,11 @@
       {
         "getCoverPosition": {
           "coverPosParam": "coverPos"
+        }
+      },
+      {
+        "checkAllowedPosition": {
+          "posParam": "coverPos"
         }
       },
       {
@@ -250,6 +346,9 @@
       "name": "sub.checkCoverAroundPoint",
       "getCoverPosition": {
         "coverPosParam": "coverPos"
+      },
+      "checkAllowedPosition": {
+        "posParam": "coverPos"
       },
       "getRegroupPos": {
         "posParam": "regroupPosition"
@@ -326,6 +425,9 @@
   {
     "sequencer": {
       "name": "sub.moveTraceableDangerCheck",
+      "isReadyForAction": {
+        "checkFence": true
+      },
       "periodicTimer": {
         "timeParam": "onTraceableDangerTimer",
         "timePeriod": [2.0,4.0]
@@ -336,12 +438,31 @@
         "minDanger": 0.1,
         "tag": "human"
       },
+      "increaseDangerLevel": {
+        "paramName": "dangerLevel",
+        "targetParam": "shootEnemy"
+      },
+      "decreaseDangerLevel": {
+        "paramName": "dangerLevel",
+        "decreaseCoef": 0.9
+      },
+      "decideOnAttackTarget": {
+        "targetParam": "shootEnemy",
+        "targetSeeTimeParam": "shootEnemyTime",
+        "stillTimeOutParam": "attackStillTime",
+        "turnAngleOutParam": "attackTurnAngle",
+        "focusTimeOutParam": "attackFocusTime",
+        "checkOnly": true
+      },
       "recalculateTree": []
     }
   },
   {
     "sequencer": {
       "name": "sub.moveFindDangerCheck",
+      "isReadyForAction": {
+        "checkFence": true
+      },
       "periodicTimer": {
         "timeParam": "onFollowPosFindDangerTimer",
         "timePeriod": [2.0,4.0]
@@ -541,9 +662,7 @@
   {
     "sequencer": {
       "name": "sub.rethrowGrenade",
-      "not": {
-        "isSwimming": []
-      },
+      "isReadyForAction": [],
       "findDangerGrenade": {
         "grenTargetParam": "dangerLookAt",
         "radius": 2.5,
@@ -875,6 +994,10 @@
       "getTime": {
         "to": "enemyNearTime"
       },
+      "increaseDangerLevel": {
+        "paramName": "dangerLevel",
+        "targetParam": "meleeEnemy"
+      },
       "setCurrentAiAction": {
         "state": "attack"
       },
@@ -882,7 +1005,8 @@
         "targetUnitParam": "meleeEnemy",
         "stopDist": 0.75,
         "aimToTarget": true,
-        "maxStanceParam": "maxStance"
+        "maxStanceParam": "maxStance",
+        "timeLimit": 3.0
       },
       "meleeAttack": {
         "targetUnitParam": "meleeEnemy",
@@ -942,6 +1066,11 @@
                 "name": "",
                 "treeName": "sub.findDangerZone"
               }
+            },
+            {
+              "not": {
+                "isGrenadeSelected": []
+              }
             }
           ]
         }
@@ -950,6 +1079,14 @@
         "reaction": {
           "event": "onEnemyPlayerNear",
           "orderedSelector": [
+            {
+              "not": {
+                "isVarsIntEqual": {
+                  "lhs": "coverAttack",
+                  "rhs_value": 0
+                }
+              }
+            },
             {
               "sequencer": {
                 "findDanger": {
@@ -974,6 +1111,7 @@
                     "lhs": "prevShootEnemy",
                     "rhs": "shootEnemy"
                   },
+                  "isGrenadeSelected": [],
                   "recalculateTree": []
                 }
               }
@@ -982,21 +1120,96 @@
         }
       },
       {
-        "setIntVar": {
-          "to": "isInShootState",
-          "value": 0
-        }
-      },
-      {
-        "chooseBestWeapon": {
-          "targetParam": "shootEnemy",
-          "allowGrenades": true,
-          "switchRadiusCoef": 0.85
+        "setCurrentAiAction": {
+          "state": "stand"
         }
       },
       {
         "setCurrentAiAction": {
           "state": "attack"
+        }
+      },
+      {
+        "orderedSelector": {
+          "not": {
+            "isVarsIntEqual": {
+              "lhs": "coverAttack",
+              "rhs_value": 0
+            }
+          },
+          "checkAtTime": {
+            "timeParam": "fastReactTime",
+            "range": [0.0,5.0]
+          },
+          "decideOnAttackTarget": {
+            "targetParam": "shootEnemy",
+            "targetSeeTimeParam": "shootEnemyTime",
+            "stillTimeOutParam": "attackStillTime",
+            "turnAngleOutParam": "attackTurnAngle",
+            "focusTimeOutParam": "attackFocusTime"
+          },
+          "failed": {
+            "wait": {
+              "range": [0.3,0.6],
+              "resetable": true
+            }
+          }
+        }
+      },
+      {
+        "orderedSelector": {
+          "not": {
+            "isVarsIntEqual": {
+              "lhs": "coverAttack",
+              "rhs_value": 0
+            }
+          },
+          "checkAtTime": {
+            "timeParam": "fastReactTime",
+            "range": [0.0,5.0]
+          },
+          "sequencer": [
+            {
+              "reaction": {
+                "event": "regularCheck",
+                "continue": []
+              }
+            },
+            {
+              "reaction": {
+                "event": "onEnemyPlayerNear",
+                "continue": []
+              }
+            },
+            {
+              "reaction": {
+                "event": "onTraceableDanger",
+                "continue": []
+              }
+            },
+            {
+              "wait": {
+                "timeParam": "attackStillTime",
+                "resetable": true
+              }
+            },
+            {
+              "sequencer": {
+                "reaction": {
+                  "event": "onBulletNearby",
+                  "continue": []
+                },
+                "rotateToPoint": {
+                  "angleParam": "attackTurnAngle",
+                  "aimSpeedCoef": 0.777
+                },
+                "wait": {
+                  "timeParam": "attackFocusTime",
+                  "resetable": true
+                }
+              }
+            }
+          ]
         }
       },
       {
@@ -1046,7 +1259,7 @@
                       },
                       {
                         "wait": {
-                          "range": [0.5,1.0],
+                          "range": [1.0,1.5],
                           "resetable": true
                         }
                       },
@@ -1101,19 +1314,26 @@
                           "radiusRange": [1.0,6.0],
                           "awayMinRadius": 0.0
                         },
-                        "moveToPos": {
-                          "posParam": "posNearTarget",
-                          "sprintTimerRange": [10.0,20.0],
-                          "minDistToSprint": 0.0,
-                          "distThreshold": 0.5,
-                          "avoidAiObstacles": false,
-                          "timeToStuck": 1.0
+                        "parallel": {
+                          "wait": {
+                            "range": [3.0,7.0],
+                            "resetable": true
+                          },
+                          "moveToPos": {
+                            "posParam": "posNearTarget",
+                            "sprintTimerRange": [10.0,20.0],
+                            "minDistToSprint": 0.0,
+                            "distThreshold": 0.5,
+                            "avoidAiObstacles": false,
+                            "timeToStuck": 1.0
+                          }
                         },
                         "moveToTarget": {
                           "targetUnitParam": "shootEnemy",
-                          "stopDist": 0.5,
+                          "stopDist": 0.75,
                           "aimToTarget": true,
-                          "maxStanceParam": "maxStance"
+                          "maxStanceParam": "maxStance",
+                          "timeLimit": 3.0
                         },
                         "meleeAttack": {
                           "targetUnitParam": "shootEnemy",
@@ -1132,18 +1352,55 @@
                           "to": "prevShootEnemy",
                           "from": "shootEnemy"
                         },
-                        "shootAtUnit": {
-                          "targetUnitParam": "shootEnemy",
-                          "minStanceParam": "minStance",
-                          "shootCycles": 1,
-                          "tryToSaveCurrentStance": false,
-                          "minStanceChance": 1.5,
-                          "shootTime": [0.2,1.0],
-                          "cooldownTime": [0.2,0.9],
-                          "minAimTime": [0.1,0.4],
-                          "maxStanceParam": "maxStance",
-                          "alwaysAiming": true
-                        }
+                        "orderedSelector": [
+                          {
+                            "sequencer": {
+                              "isCurrentWeaponRequiresLongAiming": [],
+                              "shootAtUnit": {
+                                "targetUnitParam": "shootEnemy",
+                                "minStanceParam": "minStance",
+                                "shootCycles": 1,
+                                "tryToSaveCurrentStance": false,
+                                "minStanceChance": 1.5,
+                                "shootTime": [1.0,1.0],
+                                "cooldownTime": [0.9,1.5],
+                                "minAimTime": [1.5,3.0],
+                                "maxStanceParam": "maxStance",
+                                "alwaysAiming": true,
+                                "cyclesSuccess": true
+                              }
+                            }
+                          },
+                          {
+                            "sequencer": {
+                              "shootAtUnit": {
+                                "targetUnitParam": "shootEnemy",
+                                "minStanceParam": "minStance",
+                                "shootCycles": 1,
+                                "tryToSaveCurrentStance": false,
+                                "minStanceChance": 1.5,
+                                "shootTime": [0.2,1.0],
+                                "cooldownTime": [0.2,0.9],
+                                "minAimTime": [0.1,0.4],
+                                "maxStanceParam": "maxStance",
+                                "alwaysAiming": true,
+                                "cyclesSuccess": true
+                              },
+                              "ignoreChance": {
+                                "chance": 0.3
+                              }
+                            }
+                          },
+                          {
+                            "sequencer": {
+                              "setIntVar": {
+                                "to": "coverAttack",
+                                "value": 0
+                              },
+                              "break": []
+                            }
+                          }
+                        ]
                       }
                     }
                   ],
@@ -1163,6 +1420,49 @@
             }
           }
         ]
+      },
+      {
+        "subTree": {
+          "treeName": "sub.tryBeginCoverAttack"
+        }
+      },
+      {
+        "subTree": {
+          "treeName": "sub.performCoverAttackMoves"
+        }
+      },
+      {
+        "increaseDangerLevel": {
+          "paramName": "dangerLevel",
+          "targetParam": "shootEnemy"
+        }
+      },
+      {
+        "decreaseDangerLevel": {
+          "paramName": "dangerLevel",
+          "decreaseCoef": 0.9
+        }
+      },
+      {
+        "not": {
+          "isVarsIntEqual": {
+            "lhs": "coverAttack",
+            "rhs_value": 1
+          }
+        }
+      },
+      {
+        "setIntVar": {
+          "to": "isInShootState",
+          "value": 0
+        }
+      },
+      {
+        "chooseBestWeapon": {
+          "targetParam": "shootEnemy",
+          "allowGrenades": true,
+          "switchRadiusCoef": 0.85
+        }
       }
     ]
   },
@@ -1256,6 +1556,12 @@
               }
             ]
           }
+        }
+      },
+      {
+        "increaseDangerLevel": {
+          "paramName": "dangerLevel",
+          "targetParam": "shootEnemy"
         }
       },
       {
@@ -1372,8 +1678,8 @@
         "timeParam": "enemyNearTime",
         "range": [10.0,1000000.0]
       },
-      "not": {
-        "isSwimming": []
+      "isReadyForAction": {
+        "checkFence": true
       },
       "sequencer": [
         {
@@ -1439,6 +1745,16 @@
           }
         },
         {
+          "not": {
+            "findDanger": {
+              "paramName": "shootEnemy",
+              "radiusParamName": "enemyNearRadius",
+              "minDanger": 0.5,
+              "tag": "human"
+            }
+          }
+        },
+        {
           "tryCallArtillery": {
             "initRange": [30.0,90.0],
             "repeatRange": [240.0,360.0]
@@ -1460,8 +1776,8 @@
         "timeParam": "enemyNearTime",
         "range": [5.0,1000000.0]
       },
-      "not": {
-        "isSwimming": []
+      "isReadyForAction": {
+        "checkFence": true
       },
       "isVarsIntEqual": {
         "lhs": "tryBuild",
@@ -1590,9 +1906,7 @@
         "timeParam": "enemyNearTime",
         "range": [5.0,1000000.0]
       },
-      "not": {
-        "isSwimming": []
-      },
+      "isReadyForAction": [],
       "exitHandler": {
         "sequencer": [
           {
@@ -1702,7 +2016,8 @@
                       "minDistToSprint": 4.0,
                       "distThreshold": 5.0,
                       "avoidAiObstacles": false,
-                      "timeToStuck": 5.0
+                      "timeToStuck": 5.0,
+                      "incLadders": true
                     }
                   },
                   {
@@ -1712,7 +2027,8 @@
                       "minDistToSprint": 4.0,
                       "distThreshold": 1.5,
                       "avoidAiObstacles": false,
-                      "timeToStuck": 5.0
+                      "timeToStuck": 5.0,
+                      "incLadders": true
                     }
                   },
                   {
@@ -1765,7 +2081,8 @@
                     "minDistToSprint": 4.0,
                     "distThreshold": 1.1,
                     "avoidAiObstacles": false,
-                    "timeToStuck": 5.0
+                    "timeToStuck": 5.0,
+                    "incLadders": true
                   },
                   "startBuildAmmoBox": {
                     "buildPosParam": "buildPos",
@@ -1801,7 +2118,8 @@
                     "minDistToSprint": 4.0,
                     "distThreshold": 1.1,
                     "avoidAiObstacles": false,
-                    "timeToStuck": 5.0
+                    "timeToStuck": 5.0,
+                    "incLadders": true
                   },
                   "placeMedBox": {
                     "buildPosParam": "buildPos"
@@ -1837,8 +2155,8 @@
   {
     "sequencer": {
       "name": "sub.checkHealTeammatesAround",
-      "not": {
-        "isSwimming": []
+      "isReadyForAction": {
+        "checkFence": true
       },
       "checkAtTime": {
         "timeParam": "enemyNearTime",
@@ -1862,8 +2180,8 @@
   {
     "sequencer": {
       "name": "sub.checkHealSquadmatesAround",
-      "not": {
-        "isSwimming": []
+      "isReadyForAction": {
+        "checkFence": true
       },
       "checkAtTime": {
         "timeParam": "enemyNearTime",
@@ -1888,9 +2206,7 @@
   {
     "sequencer": {
       "name": "sub.tryHealTeammateAround",
-      "not": {
-        "isSwimming": []
-      },
+      "isReadyForAction": [],
       "isVarsIntEqual": {
         "lhs": "tryHealMate",
         "rhs_value": 1
@@ -1940,27 +2256,122 @@
       },
       "orderedSelector": [
         {
-          "sequencer": {
-            "orderedSelector": {
-              "isOnNavmesh": [],
-              "subTree": {
-                "name": "",
-                "treeName": "sub.returnToNavmesh"
+          "sequencer": [
+            {
+              "orderedSelector": {
+                "isOnNavmesh": [],
+                "subTree": {
+                  "name": "",
+                  "treeName": "sub.returnToNavmesh"
+                }
               }
             },
-            "moveToPos": {
-              "posParam": "wishPosition",
-              "sprintTimerRange": [10.0,20.0],
-              "minDistToSprint": 1.5,
-              "lookVisc": 0.1,
-              "tryClimbing": true,
-              "maxStanceParam": "maxStance",
-              "stuckDirParam": "stuckDir",
-              "timeToStuck": 0.9,
-              "incObstacles": true,
-              "avoidAiObstacles": false,
-              "distThreshold": 1.0
+            {
+              "orderedSelector": [
+                {
+                  "moveToPos": {
+                    "posParam": "wishPosition",
+                    "sprintTimerRange": [10.0,20.0],
+                    "minDistToSprint": 1.5,
+                    "lookVisc": 0.1,
+                    "tryClimbing": true,
+                    "maxStanceParam": "maxStance",
+                    "stuckDirParam": "stuckDir",
+                    "incLadders": true,
+                    "timeToStuck": 0.9,
+                    "incObstacles": true,
+                    "avoidAiObstacles": false,
+                    "distThreshold": 1.0
+                  }
+                },
+                {
+                  "moveToPos": {
+                    "posParam": "wishPosition",
+                    "sprintTimerRange": [10.0,20.0],
+                    "minDistToSprint": 1.5,
+                    "lookVisc": 0.1,
+                    "tryClimbing": true,
+                    "maxStanceParam": "maxStance",
+                    "stuckDirParam": "stuckDir",
+                    "incLadders": true,
+                    "timeToStuck": 0.9,
+                    "incObstacles": false,
+                    "avoidAiObstacles": false,
+                    "distThreshold": 0.35
+                  }
+                }
+              ]
             },
+            {
+              "setIntVar": {
+                "to": "resetAIPointsGenerator",
+                "value": 1
+              }
+            }
+          ]
+        },
+        {
+          "sequencer": {
+            "success": {
+              "sequencer": {
+                "isUnderwater": [],
+                "findSwimUpPos": {
+                  "posParam": "swimUpPos",
+                  "swimUpDirParam": "swimUpDir",
+                  "radius": 1.0,
+                  "tries": 5
+                },
+                "parallel": {
+                  "moveToPos": {
+                    "posParam": "swimUpPos",
+                    "sprintTimerRange": [10.0,20.0],
+                    "minDistToSprint": 10.0,
+                    "distThreshold": 1.5,
+                    "avoidAiObstacles": true
+                  },
+                  "waitSwimUpPos": {
+                    "delay": 0.1,
+                    "maxTime": 4.0,
+                    "swimUpDirParam": "swimUpDir"
+                  }
+                },
+                "swimUp": {
+                  "swimUpDirParam": "swimUpDir"
+                }
+              }
+            },
+            "orderedSelector": [
+              {
+                "moveToPos": {
+                  "posParam": "wishPosition",
+                  "sprintTimerRange": [10.0,20.0],
+                  "minDistToSprint": 1.5,
+                  "lookVisc": 0.1,
+                  "tryClimbing": true,
+                  "maxStanceParam": "maxStance",
+                  "stuckDirParam": "stuckDir",
+                  "timeToStuck": 1.5,
+                  "incObstacles": true,
+                  "avoidAiObstacles": false,
+                  "distThreshold": 1.0
+                }
+              },
+              {
+                "moveToPos": {
+                  "posParam": "wishPosition",
+                  "sprintTimerRange": [10.0,20.0],
+                  "minDistToSprint": 1.5,
+                  "lookVisc": 0.1,
+                  "tryClimbing": true,
+                  "maxStanceParam": "maxStance",
+                  "stuckDirParam": "stuckDir",
+                  "timeToStuck": 1.5,
+                  "incObstacles": false,
+                  "avoidAiObstacles": false,
+                  "distThreshold": 0.35
+                }
+              }
+            ],
             "setIntVar": {
               "to": "resetAIPointsGenerator",
               "value": 1
@@ -1969,29 +2380,55 @@
         },
         {
           "sequencer": {
-            "moveToPos": {
-              "posParam": "wishPosition",
-              "sprintTimerRange": [10.0,20.0],
-              "minDistToSprint": 1.5,
-              "lookVisc": 0.1,
-              "tryClimbing": true,
-              "maxStanceParam": "maxStance",
-              "stuckDirParam": "stuckDir",
-              "timeToStuck": 0.9,
-              "incObstacles": false,
-              "avoidAiObstacles": false,
-              "distThreshold": 1.0
+            "or": {
+              "isSwimming": [],
+              "isUnderwater": []
+            },
+            "not": {
+              "checkDistance": {
+                "posParam": "wishPosition",
+                "radius": 2.0,
+                "yRadius": 1.0
+              }
+            },
+            "orderedSelector": {
+              "moveByDir": {
+                "endPos": "wishPosition",
+                "duration": 1.2,
+                "distThresholsd": 0.2
+              },
+              "sequencer": {
+                "findWayBackToNavmesh": {
+                  "outPosParam": "outStuckPos"
+                },
+                "moveByDir": {
+                  "endPos": "outStuckPos",
+                  "duration": 1.2,
+                  "distThresholsd": 0.2
+                }
+              }
             },
             "setIntVar": {
               "to": "resetAIPointsGenerator",
               "value": 1
             }
           }
+        },
+        {
+          "isUnderwater": []
         },
         {
           "ifThenElse": [
             {
-              "isOnNavmesh": []
+              "and": {
+                "isOnNavmesh": [],
+                "not": {
+                  "isVarsIntEqual": {
+                    "lhs": "resetAIPointsGenerator",
+                    "rhs_value": 2
+                  }
+                }
+              }
             },
             {
               "failed": {
@@ -2021,13 +2458,25 @@
         "range": [0.1,0.2],
         "resetable": true
       },
-      "findWayBackToNavmesh": {
-        "outPosParam": "outStuckPos"
-      },
-      "moveByDir": {
-        "endPos": "outStuckPos",
-        "duration": 1.2,
-        "distThresholsd": 0.1
+      "orderedSelector": {
+        "sequencer": {
+          "findWayBackToNavmesh": {
+            "outPosParam": "outStuckPos"
+          },
+          "moveByDir": {
+            "endPos": "outStuckPos",
+            "duration": 1.2,
+            "distThresholsd": 0.1
+          },
+          "setIntVar": {
+            "to": "resetAIPointsGenerator",
+            "value": 1
+          }
+        },
+        "setIntVar": {
+          "to": "resetAIPointsGenerator",
+          "value": 1
+        }
       }
     }
   },
@@ -2038,18 +2487,26 @@
         "range": [0.1,0.2],
         "resetable": true
       },
-      "getPointAroundAIPos": {
-        "dirParam": "stuckDir",
-        "outPosParam": "outStuckPos",
-        "forwPosParam": "outStuckForwPos",
-        "fromPosParam": "moveFromPos",
-        "toPosParam": "wishPosition",
-        "resetAIPointsGeneratorParam": "resetAIPointsGenerator"
-      },
-      "moveByDir": {
-        "endPos": "outStuckPos",
-        "duration": 1.5,
-        "distThresholsd": 0.1
+      "orderedSelector": {
+        "sequencer": {
+          "getPointAroundAIPos": {
+            "dirParam": "stuckDir",
+            "outPosParam": "outStuckPos",
+            "forwPosParam": "outStuckForwPos",
+            "fromPosParam": "moveFromPos",
+            "toPosParam": "wishPosition",
+            "resetAIPointsGeneratorParam": "resetAIPointsGenerator"
+          },
+          "moveByDir": {
+            "endPos": "outStuckPos",
+            "duration": 1.5,
+            "distThresholsd": 0.1
+          }
+        },
+        "setIntVar": {
+          "to": "resetAIPointsGenerator",
+          "value": 2
+        }
       }
     }
   },
@@ -2132,6 +2589,20 @@
         }
       },
       {
+        "orderedSelector": {
+          "not": {
+            "passedTimeSinceControlledByPlayer": {
+              "time": 30.0
+            }
+          },
+          "checkReloadWeapon": {
+            "waitReloadFinish": false,
+            "enoughAmmoRatio": 0.9,
+            "skipEnemyNearRadius": 10.0
+          }
+        }
+      },
+      {
         "orderedSelector": [
           {
             "sequencer": {
@@ -2149,15 +2620,21 @@
                 "to": "potentialEnemyPos",
                 "from": "rememberEnemyPos"
               },
+              "fixLookDirPos": {
+                "posParam": "potentialEnemyPos"
+              },
               "parallel": {
                 "wait": {
                   "range": [5.0,10.0],
                   "resetable": true
                 },
                 "wanderLook": {
-                  "posParam": "rememberEnemyPos",
+                  "posParam": "potentialEnemyPos",
                   "range": [0.2,0.1],
                   "maxStanceParam": "coverStance"
+                },
+                "subTree": {
+                  "treeName": "sub.cycleCheckAllowedPos"
                 }
               }
             }
@@ -2165,6 +2642,9 @@
           {
             "sequencer": {
               "findPotentialEnemyDirectionEntryPoint": {
+                "posParam": "potentialEnemyPos"
+              },
+              "fixLookDirPos": {
                 "posParam": "potentialEnemyPos"
               },
               "parallel": {
@@ -2176,6 +2656,9 @@
                   "posParam": "potentialEnemyPos",
                   "range": [0.2,0.1],
                   "maxStanceParam": "coverStance"
+                },
+                "subTree": {
+                  "treeName": "sub.cycleCheckAllowedPos"
                 }
               }
             }
@@ -2195,12 +2678,25 @@
         }
       },
       {
+        "fixLookDirPos": {
+          "posParam": "potentialEnemyPos"
+        }
+      },
+      {
+        "fixLookDirPos": {
+          "posParam": "potentialEnemyPos"
+        }
+      },
+      {
         "parallel": {
           "validateStandPosition": [],
           "wanderLook": {
             "posParam": "potentialEnemyPos",
             "range": [0.2,0.1],
             "maxStanceParam": "maxStance"
+          },
+          "subTree": {
+            "treeName": "sub.cycleCheckAllowedPos"
           }
         }
       },
@@ -2211,6 +2707,9 @@
             "posParam": "potentialEnemyPos",
             "range": [0.2,0.1],
             "maxStanceParam": "maxStance"
+          },
+          "subTree": {
+            "treeName": "sub.cycleCheckAllowedPos"
           }
         }
       },
@@ -2224,6 +2723,9 @@
             "posParam": "potentialEnemyPos",
             "range": [0.2,0.1],
             "maxStanceParam": "maxStance"
+          },
+          "subTree": {
+            "treeName": "sub.cycleCheckAllowedPos"
           }
         }
       },
@@ -2288,50 +2790,80 @@
       },
       {
         "orderedSelector": {
-          "sequencer": {
-            "ignoreChance": {
-              "chance": 0.2
-            },
-            "checkAtTime": {
-              "timeParam": "rememberEnemyTime",
-              "range": [0.0,20.0]
-            },
-            "checkTarget": {
-              "targetUnitParam": "rememberEnemy"
-            },
-            "copyPoint3Var": {
-              "to": "potentialEnemyPos",
-              "from": "rememberEnemyPos"
-            },
-            "parallel": {
-              "wait": {
-                "range": [5.0,10.0],
-                "resetable": true
-              },
-              "wanderLook": {
-                "posParam": "rememberEnemyPos",
-                "range": [0.2,0.1],
-                "maxStanceParam": "coverStance"
-              }
+          "not": {
+            "passedTimeSinceControlledByPlayer": {
+              "time": 30.0
             }
           },
-          "parallel": {
-            "wait": {
-              "range": [5.0,15.0],
-              "resetable": true
-            },
-            "wanderLook": {
-              "posParam": "potentialEnemyPos",
-              "range": [0.2,0.1],
-              "maxStanceParam": "maxStance"
-            }
+          "checkReloadWeapon": {
+            "waitReloadFinish": false,
+            "enoughAmmoRatio": 0.8,
+            "skipEnemyNearRadius": 10.0
           }
         }
       },
       {
-        "findPotentialEnemyDirectionEntryPoint": {
-          "posParam": "potentialEnemyPos"
-        }
+        "orderedSelector": [
+          {
+            "sequencer": {
+              "ignoreChance": {
+                "chance": 0.2
+              },
+              "checkAtTime": {
+                "timeParam": "rememberEnemyTime",
+                "range": [0.0,20.0]
+              },
+              "checkTarget": {
+                "targetUnitParam": "rememberEnemy"
+              },
+              "copyPoint3Var": {
+                "to": "potentialEnemyPos",
+                "from": "rememberEnemyPos"
+              },
+              "fixLookDirPos": {
+                "posParam": "potentialEnemyPos"
+              },
+              "parallel": {
+                "wait": {
+                  "range": [5.0,10.0],
+                  "resetable": true
+                },
+                "wanderLook": {
+                  "posParam": "potentialEnemyPos",
+                  "range": [0.2,0.1],
+                  "maxStanceParam": "coverStance"
+                },
+                "subTree": {
+                  "treeName": "sub.cycleCheckAllowedPos"
+                }
+              }
+            }
+          },
+          {
+            "sequencer": {
+              "findPotentialEnemyDirectionEntryPoint": {
+                "posParam": "potentialEnemyPos"
+              },
+              "fixLookDirPos": {
+                "posParam": "potentialEnemyPos"
+              },
+              "parallel": {
+                "wait": {
+                  "range": [5.0,15.0],
+                  "resetable": true
+                },
+                "wanderLook": {
+                  "posParam": "potentialEnemyPos",
+                  "range": [0.2,0.1],
+                  "maxStanceParam": "maxStance"
+                },
+                "subTree": {
+                  "treeName": "sub.cycleCheckAllowedPos"
+                }
+              }
+            }
+          }
+        ]
       },
       {
         "sequencer": {
@@ -2454,6 +2986,1365 @@
     }
   },
   {
+    "sequencer": {
+      "name": "sub.popFromCoverAttackCover",
+      "getTime": {
+        "to": "fastReactTime"
+      },
+      "getCoverPosAndDir": {
+        "coverIndexParam": "coverAttackCover",
+        "coverSlotParam": "coverAttackCoverSlot"
+      },
+      "rotateToPoint": {
+        "posParam": "coverLookPos"
+      },
+      "setIntVar": {
+        "to": "coverAttack",
+        "value": 2
+      },
+      "chooseMinMaxStancesForCoverAttack": [],
+      "changeStanceForCoverAttack": {
+        "hide": false
+      },
+      "orderedSelector": [
+        {
+          "sequencer": {
+            "isVarsIntEqual": {
+              "lhs": "coverAttackType",
+              "rhs_value": 4
+            },
+            "getCoverPosAndDir": {
+              "coverIndexParam": "coverAttackCover",
+              "coverSlotParam": "coverAttackCoverSlot",
+              "outLeftPosParam": "coverWalkPos"
+            },
+            "moveByDir": {
+              "endPos": "coverWalkPos",
+              "duration": 2.5,
+              "distThresholsd": 0.1,
+              "lookPosParam": "coverLookPos"
+            },
+            "rotateToPoint": {
+              "posParam": "coverLookPos"
+            }
+          }
+        },
+        {
+          "sequencer": {
+            "isVarsIntEqual": {
+              "lhs": "coverAttackType",
+              "rhs_value": 5
+            },
+            "getCoverPosAndDir": {
+              "coverIndexParam": "coverAttackCover",
+              "coverSlotParam": "coverAttackCoverSlot",
+              "outRightPosParam": "coverWalkPos"
+            },
+            "moveByDir": {
+              "endPos": "coverWalkPos",
+              "duration": 2.5,
+              "distThresholsd": 0.1,
+              "lookPosParam": "coverLookPos"
+            },
+            "rotateToPoint": {
+              "posParam": "coverLookPos"
+            }
+          }
+        },
+        {
+          "continue": []
+        }
+      ],
+      "wait": {
+        "range": [0.1,0.2],
+        "resetable": true
+      }
+    }
+  },
+  {
+    "sequencer": [
+      {
+        "name": "sub.hideToCoverAttackCover"
+      },
+      {
+        "setIntVar": {
+          "to": "minStance",
+          "value": 2
+        }
+      },
+      {
+        "setIntVar": {
+          "to": "maxStance",
+          "value": 2
+        }
+      },
+      {
+        "setIntVar": {
+          "to": "coverAttack",
+          "value": 1
+        }
+      },
+      {
+        "getTime": {
+          "to": "fastReactTime"
+        }
+      },
+      {
+        "changeStance": {
+          "stanceName": "stand",
+          "maxStanceParam": "maxStance"
+        }
+      },
+      {
+        "orderedSelector": {
+          "moveToPos": {
+            "posParam": "coverPos",
+            "sprintTimerRange": [10.0,20.0],
+            "minDistToSprint": 0.0,
+            "distThreshold": 0.3,
+            "avoidAiObstacles": false,
+            "timeToStuck": 0.3
+          },
+          "moveByDir": {
+            "endPos": "coverPos",
+            "duration": 1.5,
+            "distThreshold": 0.3
+          }
+        }
+      },
+      {
+        "rotateToPoint": {
+          "posParam": "coverLookPos"
+        }
+      },
+      {
+        "chooseMinMaxStancesForCoverAttack": []
+      },
+      {
+        "changeStanceForCoverAttack": {
+          "hide": true
+        }
+      },
+      {
+        "wait": {
+          "range": [0.5,0.7],
+          "resetable": true
+        }
+      },
+      {
+        "wait": {
+          "range": [0.1,0.2],
+          "resetable": true
+        }
+      },
+      {
+        "decreaseDangerLevel": {
+          "paramName": "dangerLevel",
+          "decreaseCoef": 0.1
+        }
+      }
+    ]
+  },
+  {
+    "sequencer": {
+      "name": "sub.trySkipMoveForStationaryGun",
+      "not": {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.regroupCheck"
+        }
+      },
+      "hasStationaryGunAssigned": {
+        "gunEidParam": "lastStGunEid"
+      }
+    }
+  },
+  {
+    "sequencer": [
+      {
+        "name": "sub.tryAttachToStationaryGun"
+      },
+      {
+        "assignStationaryGun": {
+          "gunEidParam": "lastStGunEid",
+          "assignForTime": 5.0
+        }
+      },
+      {
+        "orderedSelector": {
+          "attachToStationaryGun": {
+            "gunEidParam": "lastStGunEid"
+          },
+          "sequencer": {
+            "blacklistStationaryGun": {
+              "gunEidParam": "lastStGunEid"
+            },
+            "break": []
+          }
+        }
+      },
+      {
+        "orderedSelector": {
+          "isAttachedToStationaryGun": {
+            "gunEidParam": "lastStGunEid"
+          },
+          "sequencer": {
+            "blacklistStationaryGun": {
+              "gunEidParam": "lastStGunEid"
+            },
+            "break": []
+          }
+        }
+      },
+      {
+        "wait": {
+          "range": [0.2,0.2],
+          "resetable": true
+        }
+      }
+    ]
+  },
+  {
+    "sequencer": [
+      {
+        "name": "sub.tryStandByStationaryGun"
+      },
+      {
+        "checkAtTime": {
+          "timeParam": "lastStGunTimeWait",
+          "range": [5.0,1000000.0]
+        }
+      },
+      {
+        "getTime": {
+          "to": "lastStGunTimeWait"
+        }
+      },
+      {
+        "isAgentPlayerBot": []
+      },
+      {
+        "not": {
+          "isLeader": []
+        }
+      },
+      {
+        "not": {
+          "isAllyPlayerNear": []
+        }
+      },
+      {
+        "isReadyForAction": []
+      },
+      {
+        "isVarsIntEqual": {
+          "lhs": "coverAttack",
+          "rhs_value": 0
+        }
+      },
+      {
+        "orderedSelector": {
+          "hasStationaryGunAssigned": {
+            "gunEidParam": "lastStGunEid"
+          },
+          "findStationaryGun": {
+            "radius": 10.0,
+            "posOffset": [0.0,-0.5,0.5],
+            "gunEidOutParam": "lastStGunEid",
+            "extraChecks": true,
+            "rangeAITypes": [1,1],
+            "requireTargets": 0,
+            "requireEnemySide": true
+          }
+        }
+      },
+      {
+        "orderedSelector": {
+          "isAttachedToStationaryGun": {
+            "gunEidParam": "lastStGunEid"
+          },
+          "sequencer": {
+            "assignStationaryGun": {
+              "gunEidParam": "lastStGunEid",
+              "assignForTime": 5.0
+            },
+            "moveToPos": {
+              "posParam": "lastStGunPos",
+              "sprintTimerRange": [5.0,10.0]
+            },
+            "rotateToPoint": {
+              "posParam": "lastStGunLookPos",
+              "aimSpeedCoef": 0.5
+            },
+            "subTree": {
+              "name": "",
+              "treeName": "sub.tryAttachToStationaryGun"
+            }
+          }
+        }
+      },
+      {
+        "orderedSelector": {
+          "not": {
+            "isAllyPlayerNear": []
+          },
+          "sequencer": {
+            "detachFromStationaryGun": [],
+            "wait": {
+              "range": [0.2,0.2],
+              "resetable": true
+            },
+            "break": []
+          }
+        }
+      },
+      {
+        "orderedSelector": {
+          "not": {
+            "isAllyPlayerNear": []
+          },
+          "sequencer": {
+            "detachFromStationaryGun": [],
+            "wait": {
+              "range": [0.2,0.2],
+              "resetable": true
+            },
+            "break": []
+          }
+        }
+      },
+      {
+        "orderedSelector": {
+          "not": {
+            "isAllyPlayerNear": []
+          },
+          "sequencer": {
+            "detachFromStationaryGun": [],
+            "wait": {
+              "range": [0.2,0.2],
+              "resetable": true
+            },
+            "break": []
+          }
+        }
+      },
+      {
+        "orderedSelector": {
+          "not": {
+            "isAllyPlayerNear": []
+          },
+          "sequencer": {
+            "detachFromStationaryGun": [],
+            "wait": {
+              "range": [0.2,0.2],
+              "resetable": true
+            },
+            "break": []
+          }
+        }
+      },
+      {
+        "orderedSelector": {
+          "not": {
+            "isAllyPlayerNear": []
+          },
+          "sequencer": {
+            "detachFromStationaryGun": [],
+            "wait": {
+              "range": [0.2,0.2],
+              "resetable": true
+            },
+            "break": []
+          }
+        }
+      },
+      {
+        "orderedSelector": {
+          "not": {
+            "isAllyPlayerNear": []
+          },
+          "sequencer": {
+            "detachFromStationaryGun": [],
+            "wait": {
+              "range": [0.2,0.2],
+              "resetable": true
+            },
+            "break": []
+          }
+        }
+      },
+      {
+        "getStationaryGunInfo": {
+          "gunEidParam": "lastStGunEid",
+          "posOffset": [0.0,-0.5,0.5],
+          "posOutParam": "lastStGunPos",
+          "lookPosOutParam": "lastStGunLookPos",
+          "lookRandYawRange": [0.0,0.0],
+          "lookRandPitchRange": [0.0,0.0]
+        }
+      },
+      {
+        "getStationaryGunInfo": {
+          "gunEidParam": "lastStGunEid",
+          "posOffset": [0.0,-0.5,0.5],
+          "lookPosOutParam": "lastStGunLookPos",
+          "lookRandYawRange": [-0.7,-0.3],
+          "lookRandPitchRange": [-0.2,0.0]
+        }
+      },
+      {
+        "getStationaryGunInfo": {
+          "gunEidParam": "lastStGunEid",
+          "posOffset": [0.0,-0.5,0.5],
+          "lookPosOutParam": "lastStGunLookPos",
+          "lookRandYawRange": [-0.6,0.0],
+          "lookRandPitchRange": [-0.2,-0.05]
+        }
+      },
+      {
+        "getStationaryGunInfo": {
+          "gunEidParam": "lastStGunEid",
+          "posOffset": [0.0,-0.5,0.5],
+          "lookPosOutParam": "lastStGunLookPos",
+          "lookRandYawRange": [-0.5,0.5],
+          "lookRandPitchRange": [-0.2,-0.05]
+        }
+      },
+      {
+        "getStationaryGunInfo": {
+          "gunEidParam": "lastStGunEid",
+          "posOffset": [0.0,-0.5,0.5],
+          "lookPosOutParam": "lastStGunLookPos",
+          "lookRandYawRange": [0.0,0.6],
+          "lookRandPitchRange": [-0.2,-0.05]
+        }
+      },
+      {
+        "getStationaryGunInfo": {
+          "gunEidParam": "lastStGunEid",
+          "posOffset": [0.0,-0.5,0.5],
+          "lookPosOutParam": "lastStGunLookPos",
+          "lookRandYawRange": [0.3,0.7],
+          "lookRandPitchRange": [-0.2,-0.05]
+        }
+      },
+      {
+        "getStationaryGunInfo": {
+          "gunEidParam": "lastStGunEid",
+          "posOffset": [0.0,-0.5,0.5],
+          "lookPosOutParam": "lastStGunLookPos",
+          "lookRandYawRange": [-0.5,0.5],
+          "lookRandPitchRange": [-0.2,-0.05]
+        }
+      },
+      {
+        "getStationaryGunInfo": {
+          "gunEidParam": "lastStGunEid",
+          "posOffset": [0.0,-0.5,0.5],
+          "lookPosOutParam": "lastStGunLookPos",
+          "lookRandYawRange": [-0.7,0.7],
+          "lookRandPitchRange": [-0.2,-0.05]
+        }
+      },
+      {
+        "getStationaryGunInfo": {
+          "gunEidParam": "lastStGunEid",
+          "posOffset": [0.0,-0.5,0.5],
+          "lookPosOutParam": "lastStGunLookPos",
+          "lookRandYawRange": [-0.3,0.3],
+          "lookRandPitchRange": [-0.3,0.1]
+        }
+      },
+      {
+        "assignStationaryGun": {
+          "gunEidParam": "lastStGunEid",
+          "assignForTime": 5.0
+        }
+      },
+      {
+        "assignStationaryGun": {
+          "gunEidParam": "lastStGunEid",
+          "assignForTime": 5.0
+        }
+      },
+      {
+        "assignStationaryGun": {
+          "gunEidParam": "lastStGunEid",
+          "assignForTime": 5.0
+        }
+      },
+      {
+        "assignStationaryGun": {
+          "gunEidParam": "lastStGunEid",
+          "assignForTime": 5.0
+        }
+      },
+      {
+        "assignStationaryGun": {
+          "gunEidParam": "lastStGunEid",
+          "assignForTime": 5.0
+        }
+      },
+      {
+        "assignStationaryGun": {
+          "gunEidParam": "lastStGunEid",
+          "assignForTime": 5.0
+        }
+      },
+      {
+        "assignStationaryGun": {
+          "gunEidParam": "lastStGunEid",
+          "assignForTime": 5.0
+        }
+      },
+      {
+        "assignStationaryGun": {
+          "gunEidParam": "lastStGunEid",
+          "assignForTime": 5.0
+        }
+      },
+      {
+        "assignStationaryGun": {
+          "gunEidParam": "lastStGunEid",
+          "assignForTime": 5.0
+        }
+      },
+      {
+        "assignStationaryGun": {
+          "gunEidParam": "lastStGunEid",
+          "assignForTime": 5.0
+        }
+      },
+      {
+        "wait": {
+          "range": [1.0,2.0],
+          "resetable": true
+        }
+      },
+      {
+        "wait": {
+          "range": [1.0,2.0],
+          "resetable": true
+        }
+      },
+      {
+        "wait": {
+          "range": [1.0,2.0],
+          "resetable": true
+        }
+      },
+      {
+        "wait": {
+          "range": [1.0,2.0],
+          "resetable": true
+        }
+      },
+      {
+        "wait": {
+          "range": [1.0,2.0],
+          "resetable": true
+        }
+      },
+      {
+        "wait": {
+          "range": [1.0,2.0],
+          "resetable": true
+        }
+      },
+      {
+        "wait": {
+          "range": [2.0,3.0],
+          "resetable": true
+        }
+      },
+      {
+        "wait": {
+          "range": [1.0,2.0],
+          "resetable": true
+        }
+      },
+      {
+        "wait": {
+          "range": [1.0,1.0],
+          "resetable": true
+        }
+      },
+      {
+        "wait": {
+          "range": [0.2,0.2],
+          "resetable": true
+        }
+      },
+      {
+        "rotateToPoint": {
+          "posParam": "lastStGunLookPos",
+          "aimSpeedCoef": 0.07,
+          "aimViscosityCoef": 0.5
+        }
+      },
+      {
+        "rotateToPoint": {
+          "posParam": "lastStGunLookPos",
+          "aimSpeedCoef": 0.06,
+          "aimViscosityCoef": 0.2
+        }
+      },
+      {
+        "rotateToPoint": {
+          "posParam": "lastStGunLookPos",
+          "aimSpeedCoef": 0.05,
+          "aimViscosityCoef": 0.1
+        }
+      },
+      {
+        "rotateToPoint": {
+          "posParam": "lastStGunLookPos",
+          "aimSpeedCoef": 0.06,
+          "aimViscosityCoef": 0.1
+        }
+      },
+      {
+        "rotateToPoint": {
+          "posParam": "lastStGunLookPos",
+          "aimSpeedCoef": 0.05,
+          "aimViscosityCoef": 0.1
+        }
+      },
+      {
+        "rotateToPoint": {
+          "posParam": "lastStGunLookPos",
+          "aimSpeedCoef": 0.06,
+          "aimViscosityCoef": 0.1
+        }
+      },
+      {
+        "rotateToPoint": {
+          "posParam": "lastStGunLookPos",
+          "aimSpeedCoef": 0.07,
+          "aimViscosityCoef": 0.1
+        }
+      },
+      {
+        "rotateToPoint": {
+          "posParam": "lastStGunLookPos",
+          "aimSpeedCoef": 0.1,
+          "aimViscosityCoef": 0.5
+        }
+      },
+      {
+        "detachFromStationaryGun": []
+      }
+    ]
+  },
+  {
+    "sequencer": [
+      {
+        "name": "sub.tryBeginAttackWithStationaryGun"
+      },
+      {
+        "checkAtTime": {
+          "timeParam": "lastStGunTimeAttack",
+          "range": [2.0,1000000.0]
+        }
+      },
+      {
+        "getTime": {
+          "to": "lastStGunTimeAttack"
+        }
+      },
+      {
+        "isAgentPlayerBot": []
+      },
+      {
+        "not": {
+          "isLeader": []
+        }
+      },
+      {
+        "not": {
+          "isAllyPlayerNear": []
+        }
+      },
+      {
+        "isReadyForAction": []
+      },
+      {
+        "isVarsIntEqual": {
+          "lhs": "coverAttack",
+          "rhs_value": 0
+        }
+      },
+      {
+        "checkTarget": {
+          "targetUnitParam": "shootEnemy"
+        }
+      },
+      {
+        "findStationaryGun": {
+          "radius": 10.0,
+          "posOffset": [0.0,-0.5,0.5],
+          "gunEidOutParam": "lastStGunEid",
+          "extraChecks": true,
+          "rangeAITypes": [1,2],
+          "targetEidParam": "shootEnemy"
+        }
+      },
+      {
+        "setIntVar": {
+          "to": "dangerNearbyBeware",
+          "value": 1
+        }
+      },
+      {
+        "sequencer": [
+          {
+            "reaction": {
+              "event": "regularCheck",
+              "findObstaclesAlongsidePath": []
+            }
+          },
+          {
+            "reaction": {
+              "event": "onEnemyPlayerNear",
+              "continue": []
+            }
+          },
+          {
+            "reaction": {
+              "event": "onTraceableDanger",
+              "continue": []
+            }
+          },
+          {
+            "reaction": {
+              "event": "onBulletNearby",
+              "continue": []
+            }
+          },
+          {
+            "assignStationaryGun": {
+              "gunEidParam": "lastStGunEid",
+              "assignForTime": 5.0
+            }
+          },
+          {
+            "assignStationaryGun": {
+              "gunEidParam": "lastStGunEid",
+              "assignForTime": 5.0
+            }
+          },
+          {
+            "success": {
+              "checkReloadWeapon": []
+            }
+          },
+          {
+            "success": {
+              "shootAtUnit": {
+                "targetUnitParam": "lastStGunEnemy",
+                "shootCycles": 3,
+                "minStance": 2,
+                "maxStanceParam": "maxStance",
+                "maxTime": [2.0,3.0],
+                "cooldownTime": [0.0,0.1],
+                "minAimTime": [0.2,0.3],
+                "chooseStance": false
+              }
+            }
+          },
+          {
+            "success": {
+              "assignStationaryGun": {
+                "gunEidParam": "lastStGunEid",
+                "assignForTime": 5.0
+              }
+            }
+          },
+          {
+            "success": {
+              "shootAtUnit": {
+                "targetUnitParam": "lastStGunEnemy",
+                "shootCycles": 6,
+                "minStance": 2,
+                "maxStanceParam": "maxStance",
+                "maxTime": [2.0,3.0],
+                "cooldownTime": [0.3,0.5],
+                "minAimTime": [0.2,0.3],
+                "chooseStance": false
+              }
+            }
+          },
+          {
+            "success": {
+              "assignStationaryGun": {
+                "gunEidParam": "lastStGunEid",
+                "assignForTime": 5.0
+              }
+            }
+          },
+          {
+            "success": {
+              "shootAtUnit": {
+                "targetUnitParam": "lastStGunEnemy",
+                "shootCycles": 5,
+                "minStance": 2,
+                "maxStanceParam": "maxStance",
+                "maxTime": [2.0,3.0],
+                "cooldownTime": [0.3,0.5],
+                "minAimTime": [0.2,0.3],
+                "chooseStance": false
+              }
+            }
+          },
+          {
+            "success": {
+              "assignStationaryGun": {
+                "gunEidParam": "lastStGunEid",
+                "assignForTime": 5.0
+              }
+            }
+          },
+          {
+            "getStationaryGunInfo": {
+              "gunEidParam": "lastStGunEid",
+              "posOffset": [0.0,-0.5,0.5],
+              "posOutParam": "lastStGunPos",
+              "lookPosOutParam": "lastStGunLookPos",
+              "lookRandYawRange": [0.0,0.0],
+              "lookRandPitchRange": [0.0,0.0]
+            }
+          },
+          {
+            "orderedSelector": {
+              "isAttachedToStationaryGun": {
+                "gunEidParam": "lastStGunEid"
+              },
+              "sequencer": {
+                "assignStationaryGun": {
+                  "gunEidParam": "lastStGunEid",
+                  "assignForTime": 5.0
+                },
+                "moveToPos": {
+                  "posParam": "lastStGunPos",
+                  "sprintTimerRange": [1.5,20.0]
+                },
+                "rotateToPoint": {
+                  "posParam": "lastStGunLookPos",
+                  "aimSpeedCoef": 0.7
+                },
+                "subTree": {
+                  "name": "",
+                  "treeName": "sub.tryAttachToStationaryGun"
+                }
+              }
+            }
+          },
+          {
+            "orderedSelector": {
+              "not": {
+                "isAllyPlayerNear": []
+              },
+              "sequencer": {
+                "detachFromStationaryGun": [],
+                "wait": {
+                  "range": [0.2,0.2],
+                  "resetable": true
+                },
+                "break": []
+              }
+            }
+          },
+          {
+            "orderedSelector": {
+              "and": {
+                "checkTarget": {
+                  "targetUnitParam": "lastStGunEnemy"
+                },
+                "checkStationaryGunTarget": {
+                  "gunEidParam": "lastStGunEid",
+                  "targetEidParam": "lastStGunEnemy"
+                }
+              },
+              "sequencer": {
+                "detachFromStationaryGun": [],
+                "wait": {
+                  "range": [0.2,0.2],
+                  "resetable": true
+                },
+                "break": []
+              }
+            }
+          },
+          {
+            "orderedSelector": {
+              "not": {
+                "isAllyPlayerNear": []
+              },
+              "sequencer": {
+                "detachFromStationaryGun": [],
+                "wait": {
+                  "range": [0.2,0.2],
+                  "resetable": true
+                },
+                "break": []
+              }
+            }
+          },
+          {
+            "orderedSelector": {
+              "and": {
+                "checkTarget": {
+                  "targetUnitParam": "lastStGunEnemy"
+                },
+                "checkStationaryGunTarget": {
+                  "gunEidParam": "lastStGunEid",
+                  "targetEidParam": "lastStGunEnemy"
+                }
+              },
+              "sequencer": {
+                "detachFromStationaryGun": [],
+                "wait": {
+                  "range": [0.2,0.2],
+                  "resetable": true
+                },
+                "break": []
+              }
+            }
+          },
+          {
+            "copyIntVar": {
+              "to": "lastStGunEnemy",
+              "from": "shootEnemy"
+            }
+          },
+          {
+            "setPosFromEntity": {
+              "to": "lastStGunLookPos",
+              "from": "lastStGunEnemy"
+            }
+          },
+          {
+            "setPosFromEntity": {
+              "to": "lastStGunLookPos",
+              "from": "lastStGunEnemy"
+            }
+          },
+          {
+            "setPosFromEntity": {
+              "to": "lastStGunLookPos",
+              "from": "lastStGunEnemy"
+            }
+          },
+          {
+            "rotateToPoint": {
+              "posParam": "lastStGunLookPos",
+              "aimSpeedCoef": 0.2
+            }
+          },
+          {
+            "rotateToPoint": {
+              "posParam": "lastStGunLookPos",
+              "aimSpeedCoef": 0.3
+            }
+          },
+          {
+            "rotateToPoint": {
+              "posParam": "lastStGunLookPos",
+              "aimSpeedCoef": 0.5
+            }
+          },
+          {
+            "wait": {
+              "range": [1.0,2.0],
+              "resetable": true
+            }
+          },
+          {
+            "wait": {
+              "range": [1.0,2.0],
+              "resetable": true
+            }
+          },
+          {
+            "wait": {
+              "range": [1.0,1.0],
+              "resetable": true
+            }
+          },
+          {
+            "wait": {
+              "range": [0.2,0.2],
+              "resetable": true
+            }
+          },
+          {
+            "detachFromStationaryGun": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "sequencer": [
+      {
+        "name": "sub.tryContinueAttackWithStationaryGun"
+      },
+      {
+        "hasStationaryGunAssigned": {
+          "gunEidParam": "lastStGunEid"
+        }
+      },
+      {
+        "checkAtTime": {
+          "timeParam": "lastStGunTimeAttack",
+          "range": [3.0,1000000.0]
+        }
+      },
+      {
+        "getTime": {
+          "to": "lastStGunTimeAttack"
+        }
+      },
+      {
+        "isAgentPlayerBot": []
+      },
+      {
+        "not": {
+          "isLeader": []
+        }
+      },
+      {
+        "not": {
+          "isAllyPlayerNear": []
+        }
+      },
+      {
+        "isReadyForAction": []
+      },
+      {
+        "isVarsIntEqual": {
+          "lhs": "coverAttack",
+          "rhs_value": 0
+        }
+      },
+      {
+        "orderedSelector": {
+          "and": {
+            "ignoreChance": {
+              "chance": 0.9
+            },
+            "checkTarget": {
+              "targetUnitParam": "lastStGunEnemy"
+            },
+            "checkStationaryGunTarget": {
+              "gunEidParam": "lastStGunEid",
+              "targetEidParam": "lastStGunEnemy"
+            }
+          },
+          "findNextTargetForStationaryGun": {
+            "gunEidParam": "lastStGunEid",
+            "targetEidOutParam": "lastStGunEnemy"
+          }
+        }
+      },
+      {
+        "setIntVar": {
+          "to": "dangerNearbyBeware",
+          "value": 1
+        }
+      },
+      {
+        "sequencer": [
+          {
+            "reaction": {
+              "event": "regularCheck",
+              "findObstaclesAlongsidePath": []
+            }
+          },
+          {
+            "reaction": {
+              "event": "onEnemyPlayerNear",
+              "continue": []
+            }
+          },
+          {
+            "reaction": {
+              "event": "onTraceableDanger",
+              "continue": []
+            }
+          },
+          {
+            "reaction": {
+              "event": "onBulletNearby",
+              "continue": []
+            }
+          },
+          {
+            "assignStationaryGun": {
+              "gunEidParam": "lastStGunEid",
+              "assignForTime": 5.0
+            }
+          },
+          {
+            "success": {
+              "checkReloadWeapon": []
+            }
+          },
+          {
+            "success": {
+              "shootAtUnit": {
+                "targetUnitParam": "lastStGunEnemy",
+                "shootCycles": 4,
+                "minStance": 2,
+                "maxStanceParam": "maxStance",
+                "maxTime": [2.0,3.0],
+                "cooldownTime": [0.0,0.1],
+                "minAimTime": [0.2,0.3],
+                "chooseStance": false
+              }
+            }
+          },
+          {
+            "success": {
+              "assignStationaryGun": {
+                "gunEidParam": "lastStGunEid",
+                "assignForTime": 5.0
+              }
+            }
+          },
+          {
+            "success": {
+              "shootAtUnit": {
+                "targetUnitParam": "lastStGunEnemy",
+                "shootCycles": 5,
+                "minStance": 2,
+                "maxStanceParam": "maxStance",
+                "maxTime": [3.0,4.0],
+                "cooldownTime": [0.3,0.5],
+                "minAimTime": [0.2,0.3],
+                "chooseStance": false
+              }
+            }
+          },
+          {
+            "success": {
+              "assignStationaryGun": {
+                "gunEidParam": "lastStGunEid",
+                "assignForTime": 5.0
+              }
+            }
+          },
+          {
+            "success": {
+              "shootAtUnit": {
+                "targetUnitParam": "lastStGunEnemy",
+                "shootCycles": 6,
+                "minStance": 2,
+                "maxStanceParam": "maxStance",
+                "maxTime": [2.0,3.0],
+                "cooldownTime": [0.3,0.5],
+                "minAimTime": [0.2,0.3],
+                "chooseStance": false
+              }
+            }
+          },
+          {
+            "success": {
+              "assignStationaryGun": {
+                "gunEidParam": "lastStGunEid",
+                "assignForTime": 5.0
+              }
+            }
+          },
+          {
+            "getStationaryGunInfo": {
+              "gunEidParam": "lastStGunEid",
+              "posOffset": [0.0,-0.5,0.5],
+              "posOutParam": "lastStGunPos",
+              "lookPosOutParam": "lastStGunLookPos",
+              "lookRandYawRange": [0.0,0.0],
+              "lookRandPitchRange": [0.3,0.5]
+            }
+          },
+          {
+            "orderedSelector": {
+              "isAttachedToStationaryGun": {
+                "gunEidParam": "lastStGunEid"
+              },
+              "sequencer": {
+                "assignStationaryGun": {
+                  "gunEidParam": "lastStGunEid",
+                  "assignForTime": 5.0
+                },
+                "moveToPos": {
+                  "posParam": "lastStGunPos",
+                  "sprintTimerRange": [1.0,20.0]
+                },
+                "rotateToPoint": {
+                  "posParam": "lastStGunLookPos",
+                  "aimSpeedCoef": 0.2
+                },
+                "subTree": {
+                  "name": "",
+                  "treeName": "sub.tryAttachToStationaryGun"
+                }
+              }
+            }
+          },
+          {
+            "orderedSelector": {
+              "not": {
+                "isAllyPlayerNear": []
+              },
+              "sequencer": {
+                "detachFromStationaryGun": [],
+                "wait": {
+                  "range": [0.2,0.2],
+                  "resetable": true
+                },
+                "break": []
+              }
+            }
+          },
+          {
+            "orderedSelector": {
+              "and": {
+                "ignoreChance": {
+                  "chance": 0.1
+                },
+                "checkTarget": {
+                  "targetUnitParam": "lastStGunEnemy"
+                },
+                "checkStationaryGunTarget": {
+                  "gunEidParam": "lastStGunEid",
+                  "targetEidParam": "lastStGunEnemy"
+                }
+              },
+              "findNextTargetForStationaryGun": {
+                "gunEidParam": "lastStGunEid",
+                "targetEidOutParam": "lastStGunEnemy"
+              },
+              "sequencer": {
+                "detachFromStationaryGun": [],
+                "wait": {
+                  "range": [0.2,0.2],
+                  "resetable": true
+                },
+                "break": []
+              }
+            }
+          },
+          {
+            "orderedSelector": {
+              "not": {
+                "isAllyPlayerNear": []
+              },
+              "sequencer": {
+                "detachFromStationaryGun": [],
+                "wait": {
+                  "range": [0.2,0.2],
+                  "resetable": true
+                },
+                "break": []
+              }
+            }
+          },
+          {
+            "orderedSelector": {
+              "and": {
+                "ignoreChance": {
+                  "chance": 0.3
+                },
+                "checkTarget": {
+                  "targetUnitParam": "lastStGunEnemy"
+                },
+                "checkStationaryGunTarget": {
+                  "gunEidParam": "lastStGunEid",
+                  "targetEidParam": "lastStGunEnemy"
+                }
+              },
+              "findNextTargetForStationaryGun": {
+                "gunEidParam": "lastStGunEid",
+                "targetEidOutParam": "lastStGunEnemy"
+              },
+              "sequencer": {
+                "detachFromStationaryGun": [],
+                "wait": {
+                  "range": [0.2,0.2],
+                  "resetable": true
+                },
+                "break": []
+              }
+            }
+          },
+          {
+            "setPosFromEntity": {
+              "to": "lastStGunLookPos",
+              "from": "lastStGunEnemy"
+            }
+          },
+          {
+            "setPosFromEntity": {
+              "to": "lastStGunLookPos",
+              "from": "lastStGunEnemy"
+            }
+          },
+          {
+            "setPosFromEntity": {
+              "to": "lastStGunLookPos",
+              "from": "lastStGunEnemy"
+            }
+          },
+          {
+            "rotateToPoint": {
+              "posParam": "lastStGunLookPos",
+              "aimSpeedCoef": 0.4
+            }
+          },
+          {
+            "rotateToPoint": {
+              "posParam": "lastStGunLookPos",
+              "aimSpeedCoef": 0.5
+            }
+          },
+          {
+            "rotateToPoint": {
+              "posParam": "lastStGunLookPos",
+              "aimSpeedCoef": 0.4
+            }
+          },
+          {
+            "wait": {
+              "range": [0.2,0.9],
+              "resetable": true
+            }
+          },
+          {
+            "wait": {
+              "range": [0.3,1.1],
+              "resetable": true
+            }
+          },
+          {
+            "wait": {
+              "range": [0.2,0.9],
+              "resetable": true
+            }
+          },
+          {
+            "wait": {
+              "range": [0.2,0.2],
+              "resetable": true
+            }
+          },
+          {
+            "detachFromStationaryGun": []
+          }
+        ]
+      }
+    ]
+  },
+  {
     "orderedSelector": {
       "name": "sub.tryToOpenDoors",
       "findObstaclesAlongsidePath": []
@@ -2479,6 +4370,615 @@
     ]
   },
   {
+    "orderedSelector": [
+      {
+        "name": "sub.checkEndCoverAttack"
+      },
+      {
+        "isVarsIntEqual": {
+          "lhs": "coverAttack",
+          "rhs_value": 0
+        }
+      },
+      {
+        "sequencer": {
+          "checkCoverForCoverAttack": [],
+          "checkAtTime": {
+            "timeParam": "coverAttackEnemyTime",
+            "range": [0.0,5.0]
+          },
+          "success": {
+            "sequencer": {
+              "checkTargetTraceable": {
+                "targetParam": "coverAttackEnemy"
+              },
+              "getTime": {
+                "to": "coverAttackEnemyTime"
+              }
+            }
+          }
+        }
+      },
+      {
+        "sequencer": [
+          {
+            "success": {
+              "ignoreCover": {
+                "coverIndexParam": "coverAttackCover",
+                "coverSlotParam": "coverAttackCoverSlot",
+                "timeIgnore": [8.0,16.0]
+              }
+            }
+          },
+          {
+            "setIntVar": {
+              "to": "coverAttack",
+              "value": 0
+            }
+          },
+          {
+            "setIntVar": {
+              "to": "coverAttackType",
+              "value": 0
+            }
+          },
+          {
+            "setIntVar": {
+              "to": "coverAttackCover",
+              "value": -1
+            }
+          },
+          {
+            "setIntVar": {
+              "to": "coverAttackCoverSlot",
+              "value": 0
+            }
+          },
+          {
+            "setIntVar": {
+              "to": "coverAttackEnemy",
+              "value": 0
+            }
+          },
+          {
+            "setRealVar": {
+              "to": "coverAttackEnemyTime",
+              "value": 0.0
+            }
+          },
+          {
+            "wait": {
+              "range": [0.1,0.2],
+              "resetable": true
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "orderedSelector": [
+      {
+        "name": "sub.tryBeginCoverAttack"
+      },
+      {
+        "not": {
+          "isVarsIntEqual": {
+            "lhs": "coverAttack",
+            "rhs_value": 0
+          }
+        }
+      },
+      {
+        "not": {
+          "sequencer": [
+            {
+              "reaction": {
+                "event": "regularCheck",
+                "findObstaclesAlongsidePath": []
+              }
+            },
+            {
+              "reaction": {
+                "event": "onEnemyPlayerNear",
+                "orderedSelector": [
+                  {
+                    "sequencer": {
+                      "findDanger": {
+                        "paramName": "meleeEnemy",
+                        "radiusParamName": "enemyMeleeRadius",
+                        "minDanger": 0.5,
+                        "tag": "human"
+                      },
+                      "decreaseDangerLevel": {
+                        "paramName": "dangerLevel",
+                        "decreaseCoef": 0.1
+                      },
+                      "setIntVar": {
+                        "to": "coverAttack",
+                        "value": 0
+                      },
+                      "recalculateTree": []
+                    }
+                  },
+                  {
+                    "sequencer": {
+                      "findDanger": {
+                        "paramName": "reactShootEnemy",
+                        "radiusParamName": "enemyNearRadius",
+                        "minDanger": 0.5,
+                        "tag": "human"
+                      },
+                      "orderedSelector": [
+                        {
+                          "sequencer": {
+                            "isVarsIntEqual": {
+                              "lhs": "reactShootEnemy",
+                              "rhs": "shootEnemy"
+                            },
+                            "setRealVar": {
+                              "to": "enemyCloseRadius",
+                              "value": 7.0
+                            },
+                            "not": {
+                              "findDanger": {
+                                "paramName": "closeEnemy",
+                                "radiusParamName": "enemyCloseRadius",
+                                "minDanger": 0.5,
+                                "tag": "human"
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "sequencer": {
+                            "decreaseDangerLevel": {
+                              "paramName": "dangerLevel",
+                              "decreaseCoef": 0.1
+                            },
+                            "setIntVar": {
+                              "to": "coverAttack",
+                              "value": 0
+                            },
+                            "recalculateTree": []
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "reaction": {
+                "event": "onTraceableDanger",
+                "continue": []
+              }
+            },
+            {
+              "reaction": {
+                "event": "onBulletNearby",
+                "continue": []
+              }
+            },
+            {
+              "getRegroupPos": {
+                "posParam": "regroupPosition"
+              }
+            },
+            {
+              "findCoverForCoverAttack": {
+                "targetParam": "shootEnemy",
+                "approachPosParam": "regroupPosition"
+              }
+            },
+            {
+              "wait": {
+                "range": [0.1,0.2],
+                "resetable": true
+              }
+            },
+            {
+              "wait": {
+                "range": [0.1,0.2],
+                "resetable": true
+              }
+            },
+            {
+              "getCoverPosAndDir": {
+                "coverIndexParam": "coverAttackCover",
+                "coverSlotParam": "coverAttackCoverSlot",
+                "outPosParam": "coverPos"
+              }
+            },
+            {
+              "setIntVar": {
+                "to": "minStance",
+                "value": 2
+              }
+            },
+            {
+              "setIntVar": {
+                "to": "maxStance",
+                "value": 2
+              }
+            },
+            {
+              "setIntVar": {
+                "to": "coverAttack",
+                "value": 1
+              }
+            },
+            {
+              "setIntVar": {
+                "to": "dangerNearbyBeware",
+                "value": 1
+              }
+            },
+            {
+              "changeStance": {
+                "stanceName": "stand",
+                "maxStanceParam": "maxStance"
+              }
+            },
+            {
+              "orderedSelector": {
+                "not": {
+                  "passedTimeSinceControlledByPlayer": {
+                    "time": 15.0
+                  }
+                },
+                "checkReloadWeapon": {
+                  "waitReloadFinish": false
+                }
+              }
+            },
+            {
+              "orderedSelector": {
+                "moveToPos": {
+                  "posParam": "coverPos",
+                  "sprintTimerRange": [10.0,20.0],
+                  "minDistToSprint": 0.0,
+                  "distThreshold": 0.3,
+                  "avoidAiObstacles": false,
+                  "timeToStuck": 0.3
+                },
+                "continue": []
+              }
+            },
+            {
+              "setPosFromEntity": {
+                "to": "coverLookPos",
+                "from": "shootEnemy"
+              }
+            },
+            {
+              "rotateToPoint": {
+                "posParam": "coverLookPos"
+              }
+            },
+            {
+              "copyIntVar": {
+                "to": "coverAttackEnemy",
+                "from": "shootEnemy"
+              }
+            },
+            {
+              "getTime": {
+                "to": "coverAttackEnemyTime"
+              }
+            },
+            {
+              "chooseMinMaxStancesForCoverAttack": []
+            },
+            {
+              "changeStanceForCoverAttack": {
+                "hide": true
+              }
+            },
+            {
+              "decreaseDangerLevel": {
+                "paramName": "dangerLevel",
+                "decreaseCoef": 0.1
+              }
+            }
+          ]
+        }
+      },
+      {
+        "isVarsRealLess": {
+          "lhs": "dangerLevel",
+          "rhs_value": 0.9
+        }
+      }
+    ]
+  },
+  {
+    "orderedSelector": [
+      {
+        "name": "sub.performCoverAttackMoves"
+      },
+      {
+        "sequencer": {
+          "isVarsIntEqual": {
+            "lhs": "coverAttack",
+            "rhs_value": 1
+          },
+          "wait": {
+            "range": [0.3,0.5],
+            "resetable": true
+          },
+          "orderedSelector": [
+            {
+              "sequencer": [
+                {
+                  "reaction": {
+                    "event": "regularCheck",
+                    "findObstaclesAlongsidePath": []
+                  }
+                },
+                {
+                  "reaction": {
+                    "event": "onEnemyPlayerNear",
+                    "continue": []
+                  }
+                },
+                {
+                  "reaction": {
+                    "event": "onTraceableDanger",
+                    "continue": []
+                  }
+                },
+                {
+                  "reaction": {
+                    "event": "onBulletNearby",
+                    "continue": []
+                  }
+                },
+                {
+                  "getCoverPosAndDir": {
+                    "coverIndexParam": "coverAttackCover",
+                    "coverSlotParam": "coverAttackCoverSlot",
+                    "outPosParam": "coverPos"
+                  }
+                },
+                {
+                  "orderedSelector": {
+                    "checkDistance": {
+                      "posParam": "coverPos",
+                      "radius": 1.0,
+                      "yRadius": 1.0
+                    },
+                    "subTree": {
+                      "treeName": "sub.hideToCoverAttackCover"
+                    }
+                  }
+                },
+                {
+                  "orderedSelector": {
+                    "ignoreChance": {
+                      "chance": 0.3
+                    },
+                    "wait": {
+                      "range": [0.1,0.5],
+                      "resetable": true
+                    }
+                  }
+                },
+                {
+                  "orderedSelector": {
+                    "checkTargetTraceable": {
+                      "targetParam": "coverAttackEnemy"
+                    },
+                    "ignoreChance": {
+                      "chance": 0.5
+                    },
+                    "failed": {
+                      "sequencer": [
+                        {
+                          "increaseDangerLevel": {
+                            "paramName": "dangerLevel",
+                            "targetParam": "coverAttackEnemy"
+                          }
+                        },
+                        {
+                          "increaseDangerLevel": {
+                            "paramName": "dangerLevel",
+                            "targetParam": "coverAttackEnemy"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "checkReloadWeapon": []
+                },
+                {
+                  "wait": {
+                    "range": [0.3,0.5],
+                    "resetable": true
+                  }
+                },
+                {
+                  "subTree": {
+                    "treeName": "sub.popFromCoverAttackCover"
+                  }
+                },
+                {
+                  "ifThenElse": {
+                    "and": {
+                      "checkTooManyEnemiesWatching": [],
+                      "ignoreChance": {
+                        "chance": 0.5
+                      }
+                    },
+                    "sequencer": {
+                      "increaseDangerLevel": {
+                        "paramName": "dangerLevel",
+                        "targetParam": "coverAttackEnemy"
+                      },
+                      "subTree": {
+                        "treeName": "sub.hideToCoverAttackCover"
+                      },
+                      "wait": {
+                        "range": [0.5,1.0],
+                        "resetable": true
+                      },
+                      "break": []
+                    },
+                    "continue": []
+                  }
+                },
+                {
+                  "checkTarget": {
+                    "targetUnitParam": "coverAttackEnemy"
+                  }
+                },
+                {
+                  "setPosFromEntity": {
+                    "to": "coverLookPos",
+                    "from": "coverAttackEnemy"
+                  }
+                },
+                {
+                  "setIntVar": {
+                    "to": "coverAttack",
+                    "value": 2
+                  }
+                },
+                {
+                  "setIntVar": {
+                    "to": "dangerNearbyBeware",
+                    "value": 1
+                  }
+                },
+                {
+                  "getTime": {
+                    "to": "coverAttackEnemyTime"
+                  }
+                }
+              ]
+            },
+            {
+              "sequencer": [
+                {
+                  "ignoreCover": {
+                    "coverIndexParam": "coverAttackCover",
+                    "coverSlotParam": "coverAttackCoverSlot",
+                    "timeIgnore": [8.0,16.0]
+                  }
+                },
+                {
+                  "decreaseDangerLevel": {
+                    "paramName": "dangerLevel",
+                    "decreaseCoef": 0.1
+                  }
+                },
+                {
+                  "setIntVar": {
+                    "to": "dangerNearbyBeware",
+                    "value": 1
+                  }
+                },
+                {
+                  "setIntVar": {
+                    "to": "coverAttack",
+                    "value": 0
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "sequencer": [
+          {
+            "isVarsIntEqual": {
+              "lhs": "coverAttack",
+              "rhs_value": 2
+            }
+          },
+          {
+            "orderedSelector": {
+              "checkTarget": {
+                "targetUnitParam": "coverAttackEnemy"
+              },
+              "not": {
+                "sequencer": {
+                  "not": {
+                    "ignoreChance": {
+                      "chance": 0.1
+                    }
+                  },
+                  "ignoreCover": {
+                    "coverIndexParam": "coverAttackCover",
+                    "coverSlotParam": "coverAttackCoverSlot",
+                    "timeIgnore": [8.0,16.0]
+                  }
+                }
+              },
+              "failed": {
+                "sequencer": {
+                  "setIntVar": {
+                    "to": "coverAttack",
+                    "value": 0
+                  },
+                  "decreaseDangerLevel": {
+                    "paramName": "dangerLevel",
+                    "decreaseCoef": 0.1
+                  }
+                }
+              }
+            }
+          },
+          {
+            "orderedSelector": {
+              "not": {
+                "orderedSelector": {
+                  "checkReloadWeapon": {
+                    "checkOnly": true
+                  },
+                  "not": {
+                    "isVarsRealLess": {
+                      "lhs": "dangerLevel",
+                      "rhs_value": 0.9
+                    }
+                  }
+                }
+              },
+              "sequencer": {
+                "subTree": {
+                  "treeName": "sub.hideToCoverAttackCover"
+                },
+                "wait": {
+                  "range": [0.1,0.2],
+                  "resetable": true
+                },
+                "break": []
+              }
+            }
+          },
+          {
+            "getTime": {
+              "to": "coverAttackEnemyTime"
+            }
+          },
+          {
+            "setIntVar": {
+              "to": "dangerNearbyBeware",
+              "value": 1
+            }
+          }
+        ]
+      },
+      {
+        "continue": []
+      }
+    ]
+  },
+  {
     "repeatUntilFail": {
       "name": "sub.finishBuildTarget",
       "count": 1,
@@ -2498,11 +4998,16 @@
         "sprintTimerRange": [10.0,20.0],
         "minDistToSprint": 4.0,
         "distThreshold": 0.5,
-        "avoidAiObstacles": false
+        "avoidAiObstacles": false,
+        "incLadders": true
       },
       "changeStance": {
         "stanceName": "crouch",
         "maxStanceParam": "maxStance"
+      },
+      "wait": {
+        "range": [1.0,1.0],
+        "resetable": true
       },
       "parallel": {
         "lookAtTarget": {
@@ -2514,6 +5019,42 @@
           "targetUnitParam": "buildTarget"
         }
       }
+    }
+  },
+  {
+    "cycle": {
+      "name": "sub.cycleCheckAllowedPos",
+      "orderedSelector": [
+        {
+          "sequencer": {
+            "getAgentAIPos": {
+              "outPosParam": "checkPos"
+            },
+            "checkAllowedPosition": {
+              "posParam": "checkPos"
+            }
+          }
+        },
+        {
+          "sequencer": {
+            "changeStance": {
+              "stanceName": "crouch"
+            },
+            "orderedSelector": {
+              "checkAtTime": {
+                "timeParam": "avoidLeaderSightTime",
+                "range": [0.0,5.0]
+              },
+              "sequencer": {
+                "getTime": {
+                  "to": "avoidLeaderSightTime"
+                },
+                "break": []
+              }
+            }
+          }
+        }
+      ]
     }
   }
 ]

@@ -1,9 +1,22 @@
 {
   "us_m4a1_sherman_1942_pacific": {
-    "_extends": "us_m4a1_sherman_1942_common"
+    "_use": "us_m4a1_sherman_1942_common"
+  },
+  "us_m4a1_sherman_1942_sloppy_joe_battlepass_premium": {
+    "_use": "us_m4a1_sherman_1942_common",
+    "animchar__objTexSet:object": {
+      "m4a1_sherman_1942_body_c*:object": {
+        "m4a1_sherman_1942_sloppy_joe_body_c*": "camo_skin_tex"
+      },
+      "m4a1_sherman_1942_turret_c*:object": {
+        "m4a1_sherman_1942_sloppy_joe_turret_c*": "camo_skin_tex"
+      }
+    }
   },
   "us_m4a1_sherman_1942_common": {
-    "_extends": "base_m4a1_sherman_1942",
+    "_use": "base_m4a1_sherman_1942",
+    "commanderCockpitFpsCamMaxAngle": [40.0,5.0],
+    "gunner_cam_limit__useCockpitDir": true,
     "item__iconOffset": [0.0,0.2],
     "turrets__initAmmoDistribution:array": [
       {
@@ -175,11 +188,11 @@
     ]
   },
   "us_m4a1_sherman_1942_commander_cockpit": {
-    "_extends": "base_commander_cockpit_no_slits",
+    "_use": "base_commander_cockpit_no_slits",
     "animchar__res": "t_26_1940_commander_char",
-    "cockpit__offset": [-0.790842,0.958174,-0.499153],
+    "cockpit__offset": [-0.5,1.1,-0.499153],
     "cockpit__slitForwardOffset:list<r>": {
-      "slit": 0.15
+      "slit": 0.165
     },
     "cockpit__slitIsGun:list<b>": {
       "slit": true
@@ -193,12 +206,32 @@
       },
       {
         "node": "bone_gun"
+      },
+      {
+        "node": "bone_turret"
       }
-    ]
+    ],
+    "cockpit__periscopeLimits:list<p4>": {
+      "slit": [-45.0,45.0,-5.0,25.0]
+    },
+    "cockpit__periscopeSpeed:list<p2>": {
+      "slit": [35.0,35.0]
+    },
+    "cockpit__slitZoom:array": {
+      "slit:list<r>": {
+        "zoom": 1.44
+      }
+    },
+    "cockpit__slitZoomTime:list<r>": {
+      "slit": 0.0
+    },
+    "cockpit__slitTemplates:list<t>": {
+      "slit": "default_periscope"
+    },
+    "cockpit__slitEids:list<eid>": []
   },
   "us_m4a1_sherman_1942_gunner_cockpit": {
-    "vehicle_sight__blk": "content/tanks/gamedata/sight/us_m55.blk",
-    "_extends": "base_gunner_cockpit",
+    "_use": "base_gunner_cockpit",
     "animchar__res": "ba_11_gunner_char",
     "cockpit__offset": [-1.41499,0.391009,-0.320465],
     "cockpit__visibleVehicleNodeNames:list<t>": [
@@ -213,7 +246,7 @@
       "slit": "cam_front_right"
     },
     "cockpit__slitForwardOffset:list<r>": {
-      "slit": 0.2
+      "slit": 0.21
     },
     "cockpit__slitIsGun:list<b>": {
       "slit": true
@@ -221,28 +254,59 @@
     "cockpit__attachNodeNames:list<t>": {
       "node": "bone_gun_barrel"
     },
-    "cockpit__attachNodeIndices:list<i>": []
+    "cockpit__attachNodeIndices:list<i>": [],
+    "cockpit__slitZoom:array": {
+      "slit:list<r>": [
+        {
+          "zoom": 1.9
+        },
+        {
+          "zoom": 3.5
+        }
+      ]
+    },
+    "cockpit__slitZoomTime:list<r>": {
+      "slit": 0.05
+    },
+    "cockpit__slitTemplates:list<t>": {
+      "slit": "us_m55"
+    },
+    "cockpit__slitEids:list<eid>": []
   },
   "us_m4a1_sherman_1942_driver_cockpit": {
-    "_extends": "base_driver_cockpit",
+    "_use": "base_driver_cockpit",
     "animchar__res": "ba_11_driver_char",
     "cockpit__offset": [-0.3,-0.3,0.2],
-    "cockpit__visibleVehicleNodeNames:list<t>": [
-      {
-        "node": "gun_barrel"
-      },
-      {
-        "node": "track_l"
-      },
-      {
-        "node": "track_r"
-      },
-      {
-        "node": "ex_decor_l_01"
-      },
-      {
-        "node": "ex_decor_r_01"
+    "cockpit__visibleVehicleNodeNames:list<t>": {
+      "node": "gun_barrel"
+    },
+    "cockpit__slitForwardOffset:list<r>": {
+      "slit": -0.05
+    },
+    "cockpit__periscopeLimits:list<p4>": {
+      "slit": [-45.0,45.0,-0.0,0.0]
+    },
+    "cockpit__periscopeSpeed:list<p2>": {
+      "slit": [35.0,35.0]
+    },
+    "cockpit__slitZoom:array": {
+      "slit:list<r>": {
+        "zoom": 1.44
       }
-    ]
+    },
+    "cockpit__slitZoomTime:list<r>": {
+      "slit": 0.0
+    }
+  },
+  "us_m4a1_sherman_1942_usmc_171th_pacific_battlepass_premium_skin": {
+    "_use": "us_m4a1_sherman_1942_common",
+    "animchar__objTexSet:object": {
+      "m4a1_sherman_1942_body_c*:object": {
+        "m4a1_sherman_1942_171th_body_c*": "camo_skin_tex"
+      },
+      "m4a1_sherman_1942_turret_c*:object": {
+        "m4a1_sherman_1942_171th_turret_c*": "camo_skin_tex"
+      }
+    }
   }
 }

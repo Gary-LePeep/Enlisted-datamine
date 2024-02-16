@@ -1,9 +1,11 @@
 module fortifications_build_common shared
+require common_shooter.es.human_attached_gun_common
 require game.utils.team
 require GridCollision
-require EnlistedWeapon
+require DngWeapon
 require DagorSystem
 require DagorMath
+require PhysMat
 require Grid
 require RendInst
 require CollRes
@@ -109,7 +111,7 @@ def is_conflict_with_world(tm; collobj : CollisionObject; collobj_offset : float
     return false
   var tmCopy = tm
   tmCopy[3] = tmCopy[3] + normalize(tmCopy[1]) * collobj_offset
-  return test_collision_world(collobj, tmCopy, (*base_collres).boundingSphere.r)
+  return test_collision_world(collobj, tmCopy, (*base_collres).boundingSphereRad)
 
 def is_conflict_objects_in_building_box(tm, box; collobj : CollisionObject; collobj_offset : float; exclude_eid : EntityId = INVALID_ENTITY_ID; base_collres : CollisionResource const? = null)
   let isConflict = (is_conflict_with_server_preview(tm, box, exclude_eid, base_collres) ||
@@ -123,6 +125,19 @@ def soft_check_is_conflict_objects_in_building_box(tm : float3x4; box : BBox3)
                     is_conflict_with_other_buildings(tm, box) ||
                     is_conflict_with_objects_in_grid(tm, box))
   return isConflict
+
+def trace_ri_under_building(building_pos : float3; building_radius : float; rayMatId : int = PHYSMAT_INVALID)
+  var norm : float3
+  var len = building_radius
+  var riMatId = PHYSMAT_INVALID
+  var riDesc = RendInstDesc()
+  let traceDownDir = float3(0., -1., 0.)
+  let tracePos = building_pos - traceDownDir * (building_radius / 2.)
+  traceray_normalized(tracePos, traceDownDir, len, riMatId, norm, ETF_ALL, riDesc, rayMatId)
+  return riDesc.riExtraHandle
+
+def is_above_other_building(pos : float3; buildingRadius : float)
+  return find_ri_extra_eid(trace_ri_under_building(pos, buildingRadius)) |> has("building__canDismantle")
 
 def is_human_respawn_selector_in_radius_for_team(pos; radius; for_team)
   if radius < 0.0
@@ -286,7 +301,7 @@ def is_not_attachable_gun(building_eid : EntityId)
     return false
   return res
 
-def is_required_space_above_object_free(pos : float3; diameter : float; check_height : float; eps = 0.1)
+def is_required_space_above_object_free(pos : float3; diameter : float; check_height : float; offset)
   if check_height == 0.f
     return true
   let radius = 0.5 * diameter
@@ -296,9 +311,10 @@ def is_required_space_above_object_free(pos : float3; diameter : float; check_he
                 pos + float3(0.0, 0.0, radius);
                 pos + float3(0.0, 0.0, -radius)]]
   for curPos in poses
-    let traceStart = curPos + float3(0.0, check_height + eps, 0.0)
-    let dir = float3(0, -1, 0)
-    if rayhit_normalized(traceStart, dir, check_height, ETF_ALL, -1)
+    let traceStart = curPos + float3(0.0, check_height, 0.0)
+    var t = check_height - offset
+    var matId = -1
+    if tracedown_normalized(traceStart, t, matId, ETF_ALL)
       return false
   return true
 

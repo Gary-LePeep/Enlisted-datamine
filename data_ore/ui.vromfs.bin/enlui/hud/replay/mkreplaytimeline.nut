@@ -1,8 +1,9 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { accentColor, colPart, titleTxtColor, defBdColor, commonBorderRadius
+let { accentColor, titleTxtColor, defBdColor, commonBorderRadius
 } = require("%enlSqGlob/ui/designConst.nut")
-
+let cursors = require("%ui/style/cursors.nut")
+let { secondsToString } = require("%ui/helpers/time.nut")
 
 let function mkTimeLine(var, options={}) {
   let minval = options?.min ?? 0
@@ -22,13 +23,15 @@ let function mkTimeLine(var, options={}) {
     let factor = clamp((var.value.tofloat() - minval) / (maxval - minval), 0, 1)
     return {
       watch = var
-      size = [flex(), colPart(0.20)]
+      size = [flex(), hdpx(16)]
       behavior = Behaviors.Slider
       min = 0
       max = 1
+      unit = 0.001
       group
       fValue = factor
       onChange
+      onSliderMouseMove = @(val) cursors.setTooltip(val == null ? null : secondsToString(val.tofloat() * (maxval - minval) + minval))
       valign = ALIGN_CENTER
       children = [
         {

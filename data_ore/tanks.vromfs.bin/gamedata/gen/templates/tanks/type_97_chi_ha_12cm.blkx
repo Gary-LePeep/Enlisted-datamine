@@ -1,10 +1,10 @@
 {
   "base_type_97_chi_ha_12cm": [
     {
-      "_extends": "base_tank"
+      "_use": "base_tank"
     },
     {
-      "_extends": "type_97_chi_ha_12cm_ammo_stowages"
+      "_use": "type_97_chi_ha_12cm_ammo_stowages"
     },
     {
       "killLogName": "jp_type_97_chi_ha_12cm"
@@ -198,7 +198,7 @@
     }
   ],
   "type_97_chi_ha_12cm_turret_01_120mm_navy_short_gun": {
-    "_extends": "tankgun_120mm_navy_short_gun",
+    "_use": "tankgun_120mm_navy_short_gun",
     "gun__shootNodeName": "bone_gun_barrel",
     "turret__yawSpeed": 6.0,
     "turret__pitchSpeed": 4.0,
@@ -214,7 +214,7 @@
     ]
   },
   "type_97_chi_ha_12cm_turret_02_7_7mm_type_97": {
-    "_extends": "tankgun_7_7mm_type_97",
+    "_use": "tankgun_7_7mm_type_97",
     "gun__shootNodeName": "bone_mg_v_01",
     "turret__yawSpeed": 35.0,
     "turret__pitchSpeed": 35.0,
@@ -225,7 +225,7 @@
     }
   },
   "type_97_chi_ha_12cm_turret_03_7_7mm_type_97": {
-    "_extends": "tankgun_7_7mm_type_97",
+    "_use": "tankgun_7_7mm_type_97",
     "gun__shootNodeName": "bone_mg_aa_v_01",
     "turret__yawSpeed": 90.0,
     "turret__pitchSpeed": 90.0,
@@ -241,13 +241,13 @@
   },
   "type_97_chi_ha_12cm_ammo_stowages": {
     "_tags": "server",
-    "_extends": "vehicle_ammo_stowages",
+    "_use": "vehicle_ammo_stowages",
     "ammo_stowage__stowageTemplates:shared:list<t>": {
       "stowage": "type_97_chi_ha_12cm_ammo_stowage_1"
     }
   },
   "type_97_chi_ha_12cm_ammo_stowage_1": {
-    "_extends": "ammo_stowage",
+    "_use": "ammo_stowage",
     "ammo_stowage__clusterTemplates:shared:list<t>": {
       "cluster": "type_97_chi_ha_12cm_ammo_cluster_1_1"
     },
@@ -256,7 +256,7 @@
     }
   },
   "type_97_chi_ha_12cm_ammo_cluster_1_1": {
-    "_extends": "ammo_cluster",
+    "_use": "ammo_cluster",
     "ammo_cluster__isShell": true,
     "ammo_cluster__slotNames:shared:list<t>": [
       {

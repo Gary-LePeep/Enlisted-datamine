@@ -365,6 +365,11 @@
   },
   {
     "entity": {
+      "_template": "bloom"
+    }
+  },
+  {
+    "entity": {
       "_template": "postfx_roundctrl"
     }
   },
@@ -377,6 +382,7 @@
     "entity": {
       "_template": "briefing_domination",
       "mission_name": "normandy_city_dom",
+      "mission_outfit": "normandy",
       "loading_images:list<t>": [
         {
           "item": "ui/normandy_city_dom_01.avif"
@@ -426,34 +432,6 @@
   },
   {
     "entity": {
-      "_template": "respawn_camera",
-      "respawnCameraForTeam": 1,
-      "moveCameraToHeight": 200.0,
-      "respawnSelectorDistanceMult": 1.5,
-      "transform": [
-        [1.0,0.0,0.0],
-        [0.0,1.0,0.0],
-        [0.0,0.0,1.0],
-        [92.5511,267.635,-42.034]
-      ]
-    }
-  },
-  {
-    "entity": {
-      "_template": "respawn_camera",
-      "respawnCameraForTeam": 2,
-      "moveCameraToHeight": 200.0,
-      "respawnSelectorDistanceMult": 1.5,
-      "transform": [
-        [1.0,0.0,0.0],
-        [0.0,1.0,0.0],
-        [0.0,0.0,1.0],
-        [-8.54423,262.424,-589.661]
-      ]
-    }
-  },
-  {
-    "entity": {
       "_template": "domination_sphere_capzone",
       "transform": [
         [2.39954,0.0,0.995925],
@@ -463,7 +441,7 @@
       ],
       "capzone__title": "B",
       "capzone__caption": "capzone/normandy_cathedral",
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "decal__height": 0.4,
       "ui_order": 2
     }
@@ -842,7 +820,7 @@
   },
   {
     "entity": {
-      "_template": "benchmark_artillery_strike",
+      "_template": "artillery_strike_requester",
       "transform": [
         [0.206215,0.0854253,0.974771],
         [-0.0176807,0.996345,-0.0835757],

@@ -1,12 +1,12 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let {body_txt, sub_txt, fontawesome} = require("%enlSqGlob/ui/fonts_style.nut")
+let {fontBody, fontSub, fontawesome} = require("%enlSqGlob/ui/fontsStyle.nut")
 let fa = require("%ui/components/fontawesome.map.nut")
 let faComp = require("%ui/components/faComp.nut")
-let {
-  bigPadding, smallPadding, activeTxtColor, soldierLvlColor, titleTxtColor,
-  accentTitleTxtColor, accentColor
+let { activeTxtColor, soldierLvlColor, accentColor
 } = require("%enlSqGlob/ui/viewConst.nut")
+let { smallPadding, midPadding, startBtnWidth, attentionTxtColor, titleTxtColor
+} = require("%enlSqGlob/ui/designConst.nut")
 let { safeAreaSize, safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
 let { PrimaryFlat } = require("%ui/components/textButton.nut")
 let { makeHorizScroll } = require("%ui/components/scrollbar.nut")
@@ -24,9 +24,10 @@ let { prepareRewards } = require("rewardsPkg.nut")
 let { currencyBtn } = require("%enlist/currency/currenciesComp.nut")
 let { purchaseMsgBox } = require("%enlist/currency/purchaseMsgBox.nut")
 let {
-  bpHeader, bpTitle, sizeCard, mkCard, btnSize, btnBuyPremiumPass, gapCards
+  bpHeader, bpTitle, sizeCard, mkCard, btnSize, btnBuyPremiumPass, gapCards, lockScreen,
+  mkBpIconBlock
 } = require("bpPkg.nut")
-let spinner = require("%ui/components/spinner.nut")({ height = hdpx(70) })
+let spinner = require("%ui/components/spinner.nut")
 let eliteBattlePassWnd = require("eliteBattlePassWnd.nut")
 let closeBtnBase = require("%ui/components/closeBtn.nut")
 let { curArmy } = require("%enlist/soldiers/model/state.nut")
@@ -35,21 +36,25 @@ let {
   progressContainerCtor, gradientProgressLine, inactiveProgressCtor
 } = require("%enlist/components/mkProgressBar.nut")
 let { glareAnimation } = require("%enlSqGlob/ui/glareAnimation.nut")
-let itemMapping = require("%enlist/items/itemsMapping.nut")
+let itemsMapping = require("%enlist/items/itemsMapping.nut")
 let { commonArmy } = require("%enlist/meta/profile.nut")
 let { allItemTemplates } = require("%enlist/soldiers/model/all_items_templates.nut")
 let { isOpened, curItem, RewardState, unlockToShow, combinedRewards, curItemUpdate } = require("bpWindowState.nut")
 let { scenesListGeneration, getTopScene } = require("%enlist/navState.nut")
-let { dynamicSeasonBPIcon } = require("battlePassPkg.nut")
+let { serviceNotificationsList } = require("%enlSqGlob/serviceNotificationsList.nut")
+let { mkDailyTasksUi } = require("%enlist/unlocks/taskWidgetUi.nut")
+let weeklyTasksUi = require("%enlist/unlocks/weeklyTasksBtn.nut")
+let mkServiceNotification = require("%enlSqGlob/notifications/mkServiceNotification.nut")
+let { canTakeDailyTaskReward } = require("%enlist/unlocks/taskListState.nut")
 
-
+let waitingSpinner = spinner(hdpx(35))
 let progressWidth = hdpxi(174)
 let sizeBlocks    = fsh(40)
 let sizeStar      = hdpx(15)
-let hugePadding   = bigPadding * 4
+let hugePadding   = midPadding * 4
 let cardProgressBar = progressContainerCtor(
-  $"!ui/uiskin/battlepass/progress_bar_mask.svg:{progressWidth}:{progressBarHeight}:K",
-  $"!ui/uiskin/battlepass/progress_bar_border.svg:{progressWidth}:{progressBarHeight}:K",
+  $"ui/uiskin/battlepass/progress_bar_mask.svg",
+  $"ui/uiskin/battlepass/progress_bar_border.svg",
   [progressWidth, progressBarHeight]
 )
 let progressBarImage = @(isReceived, isPremium) !isReceived && isPremium ?
@@ -61,23 +66,32 @@ let showingItem = Computed(function() {
   if (curItem.value == null)
     return null
 
-  let reward = curItem.value.reward
+  let reward = clone curItem.value.reward
   let season = seasonIndex.value
   let weapId = reward?.specialRewards[season][curArmy.value]
-  if (weapId != null){
+  if (weapId != null) {
     let { gametemplate = reward.gametemplate } = allItemTemplates.value?[curArmy.value][weapId]
-    return reward.__merge({
-      isSpecial = true
-      gametemplate
-    })
+    reward.isSpecial <- true
+    reward.gametemplate <- gametemplate
+    return reward
   }
 
-  if ((curItem.value?.stage0idx ?? -1 ) >= 0)
-    return reward.__merge({isPremium = true})
+  if (reward?.itemTemplate && !reward?.gametemplate) {
+    let { gametemplate = null } = allItemTemplates.value?["common_army"][reward.itemTemplate]
+    if (gametemplate)
+      reward.gametemplate <- gametemplate
+  }
+
+  if ((curItem.value?.stage0idx ?? -1 ) >= 0) {
+    reward.isPremium <- true
+    return reward
+  }
 
   foreach (item in unlockToShow.value) {
-    if (item.stage == curItem.value?.stageIdx)
-      return reward.__merge({isPremium = item?.isPremium ?? false})
+    if (item.stage == curItem.value?.stageIdx) {
+      reward.isPremium <- item?.isPremium ?? false
+      return reward
+    }
   }
 
   return reward
@@ -94,7 +108,7 @@ let progressTxt = @(text = "") {
   padding = [0, hdpx(20), 0, 0]
   rendObj = ROBJ_TEXT
   text
-}.__update(body_txt)
+}.__update(fontBody)
 
 let function scrollToCurrent() {
   let cardIdx = (curItem.value?.stageIdx ?? "0").tointeger()
@@ -112,20 +126,19 @@ let cardsList = function() {
   let { isFinished = false } = premiumStage0Unlock.value
   let { rewards  = {} } = premiumStage0Unlock.value?.stages[0]
 
-  let mappedItems = itemMapping.value
   let templates = allItemTemplates.value?[commonArmy.value] ?? {}
 
   let children = [
     {
       size = [SIZE_TO_CONTENT, flex()]
       flow = FLOW_VERTICAL
-      gap = bigPadding * 2
+      gap = midPadding * 2
       valign = ALIGN_BOTTOM
       children = [
         {
           flow = FLOW_HORIZONTAL
           gap = gapCards
-          children = prepareRewards(rewards, mappedItems)
+          children = prepareRewards(rewards, itemsMapping.value)
             .map(@(r, idx) mkCard(r.reward, r.count, templates,
               @() curItem({ reward = r.reward, stage0idx = idx }),
               Computed(@() curItem.value?.stage0idx == idx),
@@ -162,7 +175,7 @@ let cardsList = function() {
 
   return {
     watch = [
-      combinedRewards, premiumStage0Unlock, itemMapping, allItemTemplates, commonArmy
+      combinedRewards, premiumStage0Unlock, itemsMapping, allItemTemplates, commonArmy
     ]
     flow = FLOW_HORIZONTAL
     gap = gapCards
@@ -176,7 +189,7 @@ let bpUnlocksList = @() {
   valign = ALIGN_BOTTOM
   watch = safeAreaSize
   xmbNode = XmbContainer({
-    canFocus = @() false
+    canFocus = false
     scrollSpeed = 5.0
     isViewport = true
   })
@@ -191,7 +204,7 @@ let bpUnlocksList = @() {
     size = SIZE_TO_CONTENT
     maxWidth = safeAreaSize.value[0]
     scrollHandler = tblScrollHandler
-    rootBase = class {
+    rootBase = {
       key = "battlepassUnlocksRoot"
       behavior = Behaviors.Pannable
       wheelStep = 0.82
@@ -200,26 +213,25 @@ let bpUnlocksList = @() {
 }
 
 let progressStyles = {
-  fa = { color = accentTitleTxtColor, font = fontawesome.font, fontSize = sizeStar }
+  fa = { color = attentionTxtColor, font = fontawesome.font, fontSize = sizeStar }
 }
 
 let bpInfoStage = {
-  size = [flex(), SIZE_TO_CONTENT]
   flow = FLOW_HORIZONTAL
   valign = ALIGN_CENTER
   children = [
     @() {
       rendObj = ROBJ_TEXT
-      size = [flex(), SIZE_TO_CONTENT]
       watch = progressCounters
+      halign = ALIGN_CENTER
       text = loc("bp/currentStage", progressCounters.value)
       color = activeTxtColor
-    }.__update(body_txt)
+    }.__update(fontBody)
   ]
 }
 
-let starFilled = faComp("star", { fontSize = sizeStar, color = accentTitleTxtColor })
-let starEmpty = faComp("star-o", { fontSize = sizeStar, color = accentTitleTxtColor })
+let starFilled = faComp("star", { fontSize = sizeStar, color = attentionTxtColor })
+let starEmpty = faComp("star-o", { fontSize = sizeStar, color = attentionTxtColor })
 
 let function bpInfoProgress () {
   let { current, required, interval } = currentProgress.value
@@ -232,13 +244,14 @@ let function bpInfoProgress () {
     valign = ALIGN_CENTER
     watch = [currentProgress, hasReward, basicProgress, combinedUnlocks, progressCounters]
     flow = FLOW_HORIZONTAL
-    gap = bigPadding
+    gap = midPadding
+    margin = [0,0,0,midPadding]
     children = [
       {
         rendObj = ROBJ_TEXT
         text = loc("nextReward")
         color = hasReward.value ? soldierLvlColor: activeTxtColor
-      }.__update(body_txt)
+      }.__update(fontBody)
       {
         flow = FLOW_HORIZONTAL
         gap = smallPadding
@@ -250,14 +263,24 @@ let function bpInfoProgress () {
 }
 
 let bpInfoDetails = @() {
-  watch = hasEliteBattlePass
+  watch = [hasEliteBattlePass, canTakeDailyTaskReward]
   rendObj = ROBJ_TEXTAREA
-  size = [pw(70), SIZE_TO_CONTENT]
-  text = loc(hasEliteBattlePass.value ? "bp/progressWithPremium" : "bp/howToProgress", fa)
+  size = [flex(), SIZE_TO_CONTENT]
+  margin = [0, midPadding]
+  text = !canTakeDailyTaskReward.value ? loc("unlocks/dailyTasksLimit")
+    : hasEliteBattlePass.value ? loc("bp/progressWithPremium", fa)
+    : loc("bp/howToProgress", fa)
   behavior = Behaviors.TextArea
   color = activeTxtColor
   tagsTable = progressStyles
-}.__update(sub_txt)
+  transform = {}
+  animations = [
+    { prop = AnimProp.translate, from = [-sizeBlocks, 0], to = [0, 0], duration = 0.2,
+      easing = InOutCubic, play = true }
+    { prop = AnimProp.opacity, from = 0, to = 1, duration = 0.5,
+      easing = InOutCubic, play = true}
+  ]
+}.__update(fontSub)
 
 let bpInfoPremPass = function() {
   let res = { watch = hasEliteBattlePass }
@@ -267,14 +290,14 @@ let bpInfoPremPass = function() {
   return res.__update({
     rendObj = ROBJ_TEXT
     text = loc("bp/battlePassBought")
-    color = accentTitleTxtColor
-  }, body_txt)
+    color = attentionTxtColor
+  }, fontBody)
 }
 
 let btnReceiveReward = @() {
   watch = [hasReward, receiveRewardInProgress]
   halign = ALIGN_CENTER
-  children = receiveRewardInProgress.value ? spinner
+  children = receiveRewardInProgress.value ? waitingSpinner
     : hasReward.value ? PrimaryFlat(loc("bp/getNextReward"), receiveNextReward, {
       hotkeys = [["^J:X | Enter | Space", { skip = true }]]
       size = btnSize
@@ -283,25 +306,8 @@ let btnReceiveReward = @() {
     : null
 }
 
-let premiumPassHeader = {
-  flow = FLOW_HORIZONTAL
-  gap = bigPadding
-  children = [
-    {
-      rendObj = ROBJ_TEXT
-      text = loc("bp/elite")
-      color = accentTitleTxtColor
-    }.__update(body_txt)
-    {
-      rendObj = ROBJ_TEXT
-      text = loc("bp/battlePass")
-      color = titleTxtColor
-    }.__update(body_txt)
-  ]
-}
-
 let mkBtnBuySkipStage = @(price) currencyBtn({
-  btnText = loc("bp/buyNextStage")
+  btnText = loc("bp/buy")
   currencyId = price.currency
   price = price.price
   cb = @() purchaseMsgBox({
@@ -315,10 +321,26 @@ let mkBtnBuySkipStage = @(price) currencyBtn({
   style = ({
     margin = 0
     hotkeys = [["^J:Y", { description = { skip = true }}]]
-    size = [SIZE_TO_CONTENT, btnSize[1]]
+    size = btnSize
     minWidth = btnSize[0]
   })
 })
+
+let mkBuySkipStageBlock = @(price) {
+  flow = FLOW_VERTICAL
+  size = [btnSize[0], SIZE_TO_CONTENT]
+  halign = ALIGN_CENTER
+  padding = [midPadding, 0, 0, 0]
+  gap = midPadding
+  children = [
+    {
+      rendObj = ROBJ_TEXT
+      text = loc("bp/buyNextStage")
+      color = titleTxtColor
+    }.__update(fontBody)
+    mkBtnBuySkipStage(price)
+  ]
+}
 
 let function buttonsBlock() {
   let res = { watch = [ hasEliteBattlePass, canBuyBattlePass, nextUnlockPrice,
@@ -333,89 +355,100 @@ let function buttonsBlock() {
       { prop = AnimProp.opacity, from = 0, to = 1, duration = 0.5,
         easing = InOutCubic, play = true }
     ]
-    margin = [0,0, hugePadding, 0]
     flow = FLOW_VERTICAL
-    gap = bigPadding
+    halign = ALIGN_CENTER
+    margin = [midPadding, 0, 0, 0]
+    gap = midPadding
     children = [
-      btnReceiveReward
       hasEliteBattlePass.value || !canBuyBattlePass.value ? null
         : btnBuyPremiumPass(loc("bp/buy"), eliteBattlePassWnd )
-      buyUnlockInProgress.value ? spinner
-        : price && !hasReward.value ? mkBtnBuySkipStage(price)
+      buyUnlockInProgress.value ? waitingSpinner
+        : price && !hasReward.value ? mkBuySkipStageBlock(price)
         : null
+      btnReceiveReward
     ]
   })
 }
 
-
-let bpLeftBlock = {
-  size = [sizeBlocks, flex()]
-  hplace = ALIGN_LEFT
-  vplace = ALIGN_CENTER
+let bpTasksBlock = @() {
+  watch = serviceNotificationsList
+  size = [startBtnWidth, SIZE_TO_CONTENT]
   flow = FLOW_VERTICAL
-  gap = bigPadding * 2
-  children = [
-    bpInfoStage
-    bpInfoProgress
-    bpInfoDetails
-    bpInfoPremPass
-  ]
-  transform = {}
-  animations = [
-    { prop = AnimProp.translate, from = [-sizeBlocks, 0], to = [0, 0], duration = 0.2,
-      easing = InOutCubic, play = true }
-    { prop = AnimProp.opacity, from = 0, to = 1, duration = 0.5,
-      easing = InOutCubic, play = true}
-  ]
-}
-
-let bpRightBlock = {
-  size = [SIZE_TO_CONTENT, flex()]
-  hplace = ALIGN_RIGHT
-  flow = FLOW_VERTICAL
-  halign = ALIGN_RIGHT
-  valign = ALIGN_TOP
-  gap = bigPadding
-  children = [
-    {
-      flow = FLOW_VERTICAL
-      halign = ALIGN_CENTER
-      children = [
-        premiumPassHeader
-        dynamicSeasonBPIcon(hdpx(220))
+  gap = midPadding
+  margin = [0,0,0,midPadding]
+  children = serviceNotificationsList.value.len() > 0
+    ? mkServiceNotification(serviceNotificationsList.value, { hplace = ALIGN_RIGHT })
+    : [
+        mkDailyTasksUi()
+        weeklyTasksUi
       ]
-    }
-    buttonsBlock
-  ]
 }
+
+let bpRightBlock = mkBpIconBlock([
+  bpInfoPremPass
+  buttonsBlock
+  bpInfoStage
+])
 
 let closeButton = closeBtnBase({ onClick = @() isOpened(false) })
+
+let bpLeftBlock = {
+  size = [SIZE_TO_CONTENT, flex()]
+  hplace = ALIGN_LEFT
+  flow = FLOW_VERTICAL
+  gap = midPadding
+  children = [
+    {
+      margin = [midPadding,0,midPadding,0]
+      children = bpTitle(hasEliteBattlePass.value, hdpx(100))
+    }
+    {
+      flow = FLOW_VERTICAL
+      size = [SIZE_TO_CONTENT, flex()]
+      valign = ALIGN_CENTER
+      gap = midPadding
+      children = [
+        bpInfoProgress
+        bpTasksBlock
+        bpInfoDetails
+      ]
+    }
+  ]
+}
 
 let bpWindow = @(){
   size = flex()
   watch = [safeAreaBorders, hasEliteBattlePass, showingItem]
-  padding = [safeAreaBorders.value[0] + hdpx(30), safeAreaBorders.value[1] + hdpx(25)]
-  flow = FLOW_VERTICAL
-  behavior = Behaviors.MenuCameraControl
+  padding = [
+    safeAreaBorders.value[0] + hdpx(30),
+    safeAreaBorders.value[1] + hdpx(25),
+    safeAreaBorders.value[0] + hdpx(60),
+    safeAreaBorders.value[1] + hdpx(25)
+  ]
   children = [
-    bpHeader(showingItem.value, closeButton)
     {
       size = flex()
+      flow = FLOW_VERTICAL
       children = [
         {
           flow = FLOW_VERTICAL
+          behavior = Behaviors.MenuCameraControl
+          size = flex()
           children = [
+            bpHeader(showingItem.value, closeButton)
             {
-              margin = [0,0,hdpx(80),0]
-              children = bpTitle(hasEliteBattlePass.value, hdpx(100))
+              size = flex()
+              children = [
+                bpLeftBlock
+                bpRightBlock
+              ]
             }
-            bpLeftBlock
           ]
         }
-        bpRightBlock
+        bpUnlocksList
       ]
     }
-    bpUnlocksList
+    lockScreen(showingItem.value)
   ]
 }
 

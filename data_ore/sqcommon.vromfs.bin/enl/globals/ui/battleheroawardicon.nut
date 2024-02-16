@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { h2_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontHeading2, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { BattleHeroesAward } = require("battleHeroesAwards.nut")
 
 let battleHeroAwardIcon = {
@@ -19,13 +19,22 @@ let battleHeroAwardIcon = {
   [BattleHeroesAward.TOP_KIND_TANKER] = { img = "ui/skin#battlehero/debriefing_awards_best_tanker.avif" },
   [BattleHeroesAward.TOP_KIND_ANTI_TANK] = { img = "ui/skin#battlehero/debriefing_awards_best_anti_tank.avif" },
   [BattleHeroesAward.TOP_KIND_SNIPER] = { img = "ui/skin#battlehero/debriefing_awards_best_sniper.avif" },
+  [BattleHeroesAward.TOP_KIND_MEDIC] = { img = "ui/skin#battlehero/debriefing_awards_best_medic.avif" },
+  [BattleHeroesAward.TOP_KIND_BIKER] = { img = "ui/skin#battlehero/debriefing_awards_best_biker.avif" },
+  [BattleHeroesAward.TOP_KIND_PARATROOPER] = { img = "ui/skin#battlehero/debriefing_awards_best_paratrooper.avif" },
   [BattleHeroesAward.TOP_VEHICLES_DESTROYED] = { img = "ui/skin#battlehero/debriefing_awards_crusher.avif" },
   [BattleHeroesAward.TOP_MELEE_KILLS] = { img = "ui/skin#battlehero/debriefing_awards_melee_specialist.avif" },
   [BattleHeroesAward.TOP_GRENADE_KILLS] = { img = "ui/skin#battlehero/debriefing_awards_explosives_specialist.avif" },
   [BattleHeroesAward.TOP_LONG_RANGE_KILLS] = { img = "ui/skin#battlehero/debriefing_awards_ranged_specialist.avif" },
+  [BattleHeroesAward.TOP_ENGINEER_BUILDER] = { img = "ui/skin#battlehero/debriefing_awards_best_engineer_builder.avif" },
+  [BattleHeroesAward.BERSERK] = { img = "ui/skin#battlehero/debriefing_awards_berserk.avif" },
+  [BattleHeroesAward.FURIOUS] = { img = "ui/skin#battlehero/debriefing_awards_furious.avif" },
+  [BattleHeroesAward.CONTRIBUTION_TO_VICTORY] = { img = "ui/skin#battlehero/debriefing_awards_contribution_to_victory.avif" },
+  [BattleHeroesAward.PARATROOPER] = { img = "ui/skin#battlehero/debriefing_awards_paratrooper.avif" },
   [BattleHeroesAward.TACTICIAN] = { img = "ui/skin#battlehero/debriefing_awards_tactician.avif" },
   [BattleHeroesAward.UNIVERSAL] = { img = "ui/skin#battlehero/debriefing_awards_universal.avif" },
   [BattleHeroesAward.MULTISPECIALIST] = { img = "ui/skin#battlehero/debriefing_awards_multispecialist.avif" },
+  [BattleHeroesAward.SQUAD_COMMAND] = { img = "ui/skin#battlehero/debriefing_awards_squad_command.avif" },
   [BattleHeroesAward.BATTLE_HEROES_CARD] = { img = "ui/skin#battlehero/debriefing_awards_postcard.avif" },
   [BattleHeroesAward.PLAYER_BATTLE_HERO] = { img = "ui/skin#battlehero/debriefing_awards_mvp.avif" },
 }
@@ -53,7 +62,7 @@ let mkAwardValue = @(value, isBig) {
   hplace = ALIGN_RIGHT
   vplace = ALIGN_BOTTOM
   text = value
-}.__update(isBig ? h2_txt : sub_txt)
+}.__update(isBig ? fontHeading2 : fontSub)
 
 let mkBattleHeroAwardIcon = function(award, size, isActive=true, isBig=false) {
   let awardId = award?.id ?? award

@@ -1,11 +1,11 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
 let { sceneWithCameraAdd, sceneWithCameraRemove } = require("%enlist/sceneWithCamera.nut")
 let {
-  vehicles, squadsWithVehicles, viewVehicle, selectVehicle, selectVehParams, curSquadId, setCurSquadId,
-  CAN_USE, CANT_USE, vehicleClear
+  vehicles, squadsWithVehicles, viewVehicle, selectedVehicle, selectVehicle, selectVehParams,
+  curSquadId, setCurSquadId, CANT_USE, LOCKED, vehicleClear, getVehicleSquad
 } = require("vehiclesListState.nut")
 let { getSquadConfig } = require("%enlist/soldiers/model/state.nut")
 let {
@@ -19,9 +19,15 @@ let closeBtnBase = require("%ui/components/closeBtn.nut")
 let mkHeader = require("%enlist/components/mkHeader.nut")
 let mkToggleHeader = require("%enlist/components/mkToggleHeader.nut")
 let mkCurSquadsList = require("%enlSqGlob/ui/mkSquadsList.nut")
-let { isDmViewerEnabled, onDmViewerMouseMove, dmViewerPanelUi } = require("%enlist/vehicles/dmViewer.nut")
-let { needFreemiumStatus } = require("%enlist/campaigns/campaignConfig.nut")
-let { freemiumWidget } = require("%enlSqGlob/ui/mkPromoWidget.nut")
+let {
+  isDmViewerEnabled, onDmViewerMouseMove, dmViewerPanelUi
+} = require("%enlist/vehicles/dmViewer.nut")
+let { changeCameraFov } = require("%enlist/showState.nut")
+let { getLiveSquadBR, loadBRForAllSquads, BRInfoBySquads
+} = require("%enlist/soldiers/armySquadTier.nut")
+
+const ADD_CAMERA_FOV_MIN = -25
+const ADD_CAMERA_FOV_MAX = 45
 
 
 let showNotAvailable = Watched(false)
@@ -38,12 +44,11 @@ let function createSquadHandlers(squads) {
 
 let notAvailableHeader = mkToggleHeader(showNotAvailable, loc("header/notAvailableVehicles"))
 
-let sortByStatus = @(a, b) a.flags <=> b.flags
-  || (a?.levelLimit ?? 0) <=> (b?.levelLimit ?? 0)
+let sortByStatus = @(a, b) (b != LOCKED) <=> (a != LOCKED) || a <=> b
 
 let function mkStatusHeader(status) {
-  let { statusTextShort = null, statusText = null } = status
-  let text = statusTextShort ?? statusText
+  let { statusTextShort = null, statusText = null, isHiddenInGroup = false } = status
+  let text = isHiddenInGroup ? null : (statusTextShort ?? statusText)
   return text == null ? null
     : {
         rendObj = ROBJ_TEXT
@@ -53,7 +58,7 @@ let function mkStatusHeader(status) {
         color = defTxtColor
         behavior = [Behaviors.Marquee, Behaviors.Button]
         scrollOnHover = true
-      }.__update(sub_txt)
+      }.__update(fontSub)
 }
 
 let function groupByStatus(itemsList) {
@@ -63,16 +68,15 @@ let function groupByStatus(itemsList) {
     groupedItems[statusText] <- (groupedItems?[statusText] ?? []).append(item)
   }
   let children = []
-  let itemsOrdered = groupedItems.values().sort(@(a, b) sortByStatus(a[0].status, b[0].status))
+  let itemsOrdered = groupedItems.values().sort(@(a, b)
+    sortByStatus(a[0].status.flags, b[0].status.flags))
   foreach (items in itemsOrdered) {
-    let { status } = items[0]
-    if (status.flags != CAN_USE)
-      children.append(mkStatusHeader(status))
+    children.append(mkStatusHeader(items[0].status))
     foreach (item in items)
       children.append(vehiclesListCard({
         item
-        onClick = @(item) viewVehicle(item)
-        onDoubleClick = @(item) selectVehicle(item)
+        onClick = @(item_) viewVehicle(item_)
+        onDoubleClick = @(item_) selectVehicle(item_)
       }))
   }
   return children
@@ -81,11 +85,16 @@ let function groupByStatus(itemsList) {
 let function vehiclesList() {
   let available = []
   let unavailable = []
-  foreach (vehicle in vehicles.value)
-    if ((vehicle.status.flags & CANT_USE) == 0)
+  foreach (vehicle in vehicles.value) {
+    // ignore selected for the other squads or the current squad
+    if (getVehicleSquad(vehicle) != null)
+      continue
+    if (!(vehicle.status.flags & CANT_USE))
       available.append(vehicle)
     else
       unavailable.append(vehicle)
+  }
+
   let children = groupByStatus(available)
   if (unavailable.len() > 0) {
     children.append(notAvailableHeader)
@@ -101,6 +110,14 @@ let function vehiclesList() {
   }
 }
 
+let currentVehicle = @() {
+  watch = selectedVehicle
+  children = vehiclesListCard({
+    item = selectedVehicle.value
+    onClick = @(item) viewVehicle(item)
+  })
+}
+
 let vehiclesBlock = {
   size = [SIZE_TO_CONTENT, flex()]
   rendObj = ROBJ_WORLD_BLUR_PANEL
@@ -108,10 +125,20 @@ let vehiclesBlock = {
   fillColor = blurBgFillColor
   padding = bigPadding
   flow = FLOW_VERTICAL
-  children = scrollbar.makeVertScroll(vehiclesList, {
-    size = [SIZE_TO_CONTENT, flex()]
-    needReservePlace = false
-  })
+  stopMouse = true
+  gap = smallPadding
+  children = [
+    {
+      rendObj = ROBJ_TEXT
+      text = loc("squad/vehicle")
+      color = defTxtColor
+    }.__update(fontSub)
+    currentVehicle
+    scrollbar.makeVertScroll(vehiclesList, {
+      size = [SIZE_TO_CONTENT, flex()]
+      needReservePlace = false
+    })
+  ]
 }
 
 let function mkSquadName(squadId, armyId) {
@@ -120,6 +147,12 @@ let function mkSquadName(squadId, armyId) {
     ? txt(loc(squadConfig?.titleLocId ?? ""))
     : null
 }
+
+let vehicleListWithBR = Computed(@()
+  (squadsWithVehicles.value ?? [])
+    .map(@(squad)
+      squad.__merge({ battleRating = getLiveSquadBR(BRInfoBySquads.value, squad.squadId) })
+    ))
 
 let selectVehicleContent = {
   size = flex()
@@ -130,16 +163,17 @@ let selectVehicleContent = {
       watch = selectVehParams
       children = mkSquadName(selectVehParams.value?.squadId, selectVehParams.value?.armyId)
     }
-    {
+    @() {
       size = flex()
       flow = FLOW_HORIZONTAL
       gap = bigPadding
+      watch = vehicleListWithBR
 
       behavior = Behaviors.MenuCameraControl
 
       children = [
         mkCurSquadsList({
-          curSquadsList = squadsWithVehicles
+          curSquadsList = vehicleListWithBR
           curSquadId
           setCurSquadId
           createHandlers = createSquadHandlers
@@ -152,13 +186,7 @@ let selectVehicleContent = {
         {
           size = [SIZE_TO_CONTENT, flex()]
           halign = ALIGN_RIGHT
-          children = [
-            @() {
-              watch = needFreemiumStatus
-              children = !needFreemiumStatus.value ? null : freemiumWidget("select_vehicle")
-            }
-            vehicleDetails
-          ]
+          children = vehicleDetails
         }
       ]
     }
@@ -170,8 +198,14 @@ let selectVehicleScene = @() {
   size = [sw(100), sh(100)]
   flow = FLOW_VERTICAL
   padding = safeAreaBorders.value
-  behavior = isDmViewerEnabled.value ? Behaviors.TrackMouse : null
-  onMouseMove = isDmViewerEnabled.value ? onDmViewerMouseMove : null
+  behavior = Behaviors.TrackMouse
+  onMouseMove = function(mouseEvent) {
+    if (isDmViewerEnabled.value)
+      onDmViewerMouseMove(mouseEvent)
+  }
+  onMouseWheel = function(mouseEvent) {
+    changeCameraFov(mouseEvent.button * 5, ADD_CAMERA_FOV_MIN, ADD_CAMERA_FOV_MAX)
+  }
   children = [
     @() {
       size = [flex(), SIZE_TO_CONTENT]
@@ -190,8 +224,12 @@ let selectVehicleScene = @() {
   ]
 }
 
+viewVehicle.subscribe(@(_v) changeCameraFov(0))
+
 let function open() {
+  viewVehicle(selectedVehicle.value)
   sceneWithCameraAdd(selectVehicleScene, "vehicles")
+  loadBRForAllSquads(squadsWithVehicles.value ?? [])
 }
 
 if (selectVehParams.value?.armyId != null
@@ -200,8 +238,12 @@ if (selectVehParams.value?.armyId != null
   open()
 
 selectVehParams.subscribe(function(p) {
-  if (p?.armyId != null && p?.squadId != null && !(p?.isCustomMode ?? false))
+  let { armyId = null, squadId = null, isCustomMode = false, isHitcamMode = false } = p
+  if (armyId != null && squadId != null && !isCustomMode && !isHitcamMode)
     open()
-  else
+  else {
     sceneWithCameraRemove(selectVehicleScene)
+    if (!isCustomMode && !isHitcamMode)
+      viewVehicle(null)
+  }
 })

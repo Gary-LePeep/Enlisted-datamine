@@ -1,4 +1,4 @@
-from "ui_library.nut" import *
+from "%enlSqGlob/ui_library.nut" import *
 
 let { globalWatched } = require("%dngscripts/globalState.nut")
 let {controllerDisconnected, controllerDisconnectedUpdate} = globalWatched("controllerDisconnected", @() false)

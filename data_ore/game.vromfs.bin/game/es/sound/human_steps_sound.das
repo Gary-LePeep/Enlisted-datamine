@@ -13,7 +13,7 @@ require CollisionTraces
 require PhysMat
 require Dacoll
 require HumanPhys
-require EnlistedHuman
+require DngHuman
 require math
 require math.base
 require game.utils.hero
@@ -40,83 +40,79 @@ def is_on_lmesh(pos : float3)
   return pos.y < ground + 0.05
 
 
-def watch_step(cur_eid : EntityId; pos : float3; offset, max_len : float;
-               var in_out_mat_id : int&; var out_water_depth : float&;
-               human_net_phys : HumanActor)
-
-  let from = float3(pos.x, pos.y + offset, pos.z)
-  var len = max_len
-  var matId = PHYSMAT_INVALID
-  if !tracedown_normalized(from, len, matId, ETF_DEFAULT, human_net_phys.phys.traceHandle)
-    len = max_len
-    matId = PHYSMAT_INVALID
-
-  trace_entities_in_grid(ecs_hash("vehicles"), from, float3(0., -1., 0.), len, cur_eid, SortIntersections NO) <| $(intersections : array<IntersectedEntity>#)
-    for it in intersections
-      if it.t < len + FLT_EPSILON
-        len = it.t
-        matId = PHYSMAT_INVALID
-        query(it.eid) <| $ [es] (material : string)
-          matId = get_material_id(material)
-        if matId == PHYSMAT_INVALID
-          matId = get_material_id("default")
-
-  if matId != PHYSMAT_INVALID
-    in_out_mat_id = matId
-
-  out_water_depth = 0.
-  var water = 0.
-  if traceht_water(from, water) && pos.y < water
-    let posXZ = pos.xz
-    let ground = traceht_lmesh(posXZ)
-    let floor = max(from.y - len, ground)
-    out_water_depth = max(0., water - floor)
-
-
-
 def play_footstep(desc : Object;
-                  eid : EntityId;
+                  human_eid : EntityId;
                   transform : float3x4;
                   team : int;
                   right_step : bool;
                   is_watched_sound : bool;
                   path : Object;
-                  tags : Object;
-                  _traceStepOffsetLen : float2;
-                  _friendVolume : float;
-                  _biomePhysMatId : int;
-                  _biomeOverridesWater : bool;
-                  _puddleDepth : float;
-                  var _matId : int&;
-                  var _waterDepth : float&;
-                  human_net_phys : HumanActor)
-  let nodePos = transform[3]
-  let volume = (!is_watched_sound && is_teams_friendly(team, (get_int(get_controlled_hero(), "team") ?? TEAM_UNASSIGNED))) ? _friendVolume : 1.
-
-  if is_watched_sound || right_step
-    watch_step(eid, nodePos, _traceStepOffsetLen.x, _traceStepOffsetLen.y, _matId, _waterDepth, human_net_phys)
+                  sound_tags : Object;
+                  human_steps_sound__traceStepOffsetLen : float2;
+                  human_steps_sound__friendVolume : float;
+                  sound_landmesh_queries__biomePhysMatId : int;
+                  sound_landmesh_queries__biomeOverridesWater : bool;
+                  sound_landmesh_queries__puddleDepth : float;
+                  var human_steps_sound__smid : float&;
+                  var human_steps_sound__waterDepth : float&;
+                  var human_net_phys : HumanActor)
+  let pos = transform[3]
+  let volume = (!is_watched_sound && is_teams_friendly(team, (get_int(get_controlled_hero(), "team") ?? TEAM_UNASSIGNED))) ? human_steps_sound__friendVolume : 1.
 
   var pmid = PHYSMAT_INVALID
-  let isOnLMesh = is_on_lmesh(transform[3])
-  let waterDepth = isOnLMesh ? max(_waterDepth, _puddleDepth) : _waterDepth
-  let isInWater = waterDepth > 0.
-  if isOnLMesh && _biomePhysMatId != PHYSMAT_INVALID && (!isInWater || _biomeOverridesWater)
-    pmid = _biomePhysMatId
-  else
-    pmid = isInWater ? get_material_id("water") : _matId;
-  if pmid == PHYSMAT_INVALID
-    return
+  if is_watched_sound || right_step
 
-  var pathStr : string
-  if sound_player_common::get_option_path(path, tags, is_watched_sound, pathStr)
-    var handle = sound_player_common::play_desc_path(desc, pathStr, nodePos, false)
-    if _waterDepth > 0.
-      set_var(handle, "depth", _waterDepth)
-    if read_sound_tag("armored", tags)
-      set_var(handle, "armored", 1.)
-    set_volume(handle, volume)
-    set_var(handle, "mat", get_sound_step_material_id(pmid))
-    abandon(handle)
+    assume offset = human_steps_sound__traceStepOffsetLen.x
+    assume maxLen = human_steps_sound__traceStepOffsetLen.y
+
+    let from = float3(pos.x, pos.y + offset, pos.z)
+    var len = maxLen
+    if !tracedown_normalized(from, len, pmid, ETF_DEFAULT, human_net_phys.phys |> human_phys_getTraceHandle())
+      len = maxLen
+      pmid = PHYSMAT_INVALID
+
+    trace_entities_in_grid(ecs_hash("vehicles"), from, float3(0., -1., 0.), len, human_eid, SortIntersections NO) <| $(intersections : array<IntersectedEntity>#)
+      for it in intersections
+        if it.t < len + FLT_EPSILON
+          len = it.t
+          pmid = PHYSMAT_INVALID
+          query(it.eid) <| $ [es] (material : string)
+            pmid = get_material_id(material)
+
+    human_steps_sound__waterDepth = 0.
+    var water = 0.
+    if traceht_water(from, water) && pos.y < water
+      let posXZ = pos.xz
+      let ground = traceht_lmesh(posXZ)
+      let floor = max(from.y - len, ground)
+      human_steps_sound__waterDepth = max(0., water - floor)
+
+
+  let isOnLMesh = is_on_lmesh(transform[3])
+  let waterDepth = isOnLMesh ? max(human_steps_sound__waterDepth, sound_landmesh_queries__puddleDepth) : human_steps_sound__waterDepth
+  let isInWater = waterDepth > 0.
+  if isOnLMesh && sound_landmesh_queries__biomePhysMatId != PHYSMAT_INVALID && (!isInWater || sound_landmesh_queries__biomeOverridesWater)
+    pmid = sound_landmesh_queries__biomePhysMatId
+  elif isInWater
+    pmid = get_material_id("water")
+
+  if pmid == PHYSMAT_INVALID
+    pmid = get_material_id("default")
+
+  if pmid != PHYSMAT_INVALID
+    human_steps_sound__smid = get_sound_step_material_id(pmid)
+
+  if human_steps_sound__smid >= 0.
+    var pathStr : string
+    if sound_player_common::get_option_path(path, sound_tags, is_watched_sound, pathStr)
+      var handle = sound_player_common::play_desc_path(desc, pathStr, pos, false)
+      if human_steps_sound__waterDepth > 0.
+        set_var(handle, "depth", human_steps_sound__waterDepth)
+      if read_sound_tag("armored", sound_tags)
+        set_var(handle, "armored", 1.)
+      set_volume(handle, volume)
+      set_var(handle, "mat", human_steps_sound__smid)
+      abandon(handle)
 
 
 [es(tag=sound, REQUIRE=humanSound)]
@@ -126,8 +122,8 @@ def human_steps_sound_irq(evt : CmdSoundStepIrq;
     human_steps_sound__irqObjIdx = evt.objIdx
 
 
-[es(tag=sound, after=(human_step_sound_queries_es, start_async_phys_sim_es))] // after start_async_phys_sim_es to start phys sim job earlier
-def human_steps_sound_irqs_update(info : ParallelUpdateFrameDelayed)
+[es(tag=sound, after=(sound_landmesh_queries_update, start_async_phys_sim_es))] // after start_async_phys_sim_es to start phys sim job earlier
+def human_steps_sound_update(info : ParallelUpdateFrameDelayed)
 
   let listenerPos = get_listener_pos()
 
@@ -144,15 +140,15 @@ def human_steps_sound_irqs_update(info : ParallelUpdateFrameDelayed)
                      var sound_event_group : SoundEventGroup&;
                      human_steps_sound__traceStepOffsetLen : float2;
                      human_steps_sound__friendVolume : float;
-                     human_step_sound_queries__biomePhysMatId : int;
-                     human_step_sound_queries__biomeOverridesWater : bool;
-                     human_step_sound_queries__puddleDepth : float;
-                     var human_steps_sound__matId : int&;
+                     sound_landmesh_queries__biomePhysMatId : int;
+                     sound_landmesh_queries__biomeOverridesWater : bool;
+                     sound_landmesh_queries__puddleDepth : float;
+                     var human_steps_sound__smid : float&;
                      var human_steps_sound__waterDepth : float&;
                      human_steps_sound__farawayThresholdSq : float;
                      human_net_phys__states : int = int(StateFlag ST_ON_GROUND);
                      human_net_phys__isClimbing : bool = false;
-                     human_net_phys : HumanActor)
+                     var human_net_phys : HumanActor)
 
     if human_steps_sound__irqObjIdx < FIRST_VALID_IRQ_OBJ_IDX
       return
@@ -177,10 +173,10 @@ def human_steps_sound_irqs_update(info : ParallelUpdateFrameDelayed)
                     sound_tags,
                     human_steps_sound__traceStepOffsetLen,
                     human_steps_sound__friendVolume,
-                    human_step_sound_queries__biomePhysMatId,
-                    human_step_sound_queries__biomeOverridesWater,
-                    human_step_sound_queries__puddleDepth,
-                    human_steps_sound__matId,
+                    sound_landmesh_queries__biomePhysMatId,
+                    sound_landmesh_queries__biomeOverridesWater,
+                    sound_landmesh_queries__puddleDepth,
+                    human_steps_sound__smid,
                     human_steps_sound__waterDepth,
                     human_net_phys)
 
@@ -190,12 +186,6 @@ def human_steps_sound_irqs_update(info : ParallelUpdateFrameDelayed)
     sound_player_common::play_path(isRun ? human_steps_sound__runVoiceFx : human_steps_sound__walkVoiceFx, sound_tags, is_watched_sound, transform[3], sound_hash(""), sound_event_group)
 
 
-
-[es(tag=sound, after=(human_step_sound_queries_es, start_async_phys_sim_es))] // after start_async_phys_sim_es to start phys sim job earlier
-def human_steps_sound_update(info : ParallelUpdateFrameDelayed)
-
-  let listenerPos = get_listener_pos()
-
   query() <| $ [es] (eid : EntityId;
                      transform : float3x4;
                      team : int;
@@ -203,20 +193,31 @@ def human_steps_sound_update(info : ParallelUpdateFrameDelayed)
                      [[shared_comp]] human_steps_sound__path : Object;
                      [[shared_comp]] human_steps_sound__descs : Object;
                      [[shared_comp]] human_steps_sound__jumpFx : Object;
+                     [[shared_comp]] sound_paths : Object;
                      sound_tags : Object;
                      human_steps_sound__farawayThresholdSq : float;
                      human_steps_sound__traceStepOffsetLen : float2;
                      human_steps_sound__friendVolume : float;
-                     human_step_sound_queries__biomePhysMatId : int;
-                     human_step_sound_queries__biomeOverridesWater : bool;
-                     human_step_sound_queries__puddleDepth : float;
+                     human_steps_sound__fallSpeedCollThreshold : float;
+
+                     sound_landmesh_queries__biomePhysMatId : int;
+                     sound_landmesh_queries__biomeOverridesWater : bool;
+                     sound_landmesh_queries__puddleDepth : float;
+
                      human_net_phys__states : int;
                      human_net_phys__isClimbing : bool;
-                     var human_steps_sound__matId : int&;
+
+                     var sound_landmesh_queries_vars__speedSq : float&;
+                     var sound_landmesh_queries_vars__isOnGround : bool&;
+
+                     var human_steps_sound__smid : float&;
                      var human_steps_sound__waterDepth : float&;
                      var human_steps_sound__physStates : int&;
                      var human_steps_sound__lastTimeOnGround : float&;
-                     human_net_phys : HumanActor)
+                     var human_net_phys : HumanActor)
+
+    sound_landmesh_queries_vars__speedSq = length_sq(human_net_phys.phys.currentState.velocity.xz)
+    sound_landmesh_queries_vars__isOnGround = read_flag(StateFlag ST_ON_GROUND, human_net_phys__states)
 
     if human_steps_sound__physStates < 0
       human_steps_sound__physStates = human_net_phys__states
@@ -239,8 +240,14 @@ def human_steps_sound_update(info : ParallelUpdateFrameDelayed)
       name = "jump"
       sound_player_common::play_path(human_steps_sound__jumpFx, sound_tags, is_watched_sound, transform[3])
     elif read_flag(StateFlag ST_ON_GROUND, raisedStates)
-      let threshold = 0.1
-      if !human_net_phys__isClimbing && info.curTime > human_steps_sound__lastTimeOnGround + threshold
+      let lastTimeOnGroundThreshold = 0.1
+      if !human_net_phys__isClimbing && info.curTime > human_steps_sound__lastTimeOnGround + lastTimeOnGroundThreshold
+
+        let speed = -min(human_net_phys.phys.currentState.velocity.y, human_net_phys.phys.previousState.velocity.y)
+        if speed >= human_steps_sound__fallSpeedCollThreshold
+          play_path("collision_fall", sound_paths, sound_tags, is_watched_sound, transform[3])
+          return
+
         name = "land"
     elif read_flag(StateFlag ST_SWIM, raisedStates)
       if !read_flag(StateFlag ST_ON_GROUND, human_net_phys__states)
@@ -258,7 +265,7 @@ def human_steps_sound_update(info : ParallelUpdateFrameDelayed)
     elif read_flag(StateFlag ST_CRAWL, clearedStates)
       name = "upGround"
 
-    if name != ""
+    if !empty(name)
       let desc = sound_player_common::get_desc(human_steps_sound__descs, name)
       if desc != null
         play_footstep(*desc,
@@ -271,10 +278,10 @@ def human_steps_sound_update(info : ParallelUpdateFrameDelayed)
                       sound_tags,
                       human_steps_sound__traceStepOffsetLen,
                       human_steps_sound__friendVolume,
-                      human_step_sound_queries__biomePhysMatId,
-                      human_step_sound_queries__biomeOverridesWater,
-                      human_step_sound_queries__puddleDepth,
-                      human_steps_sound__matId,
+                      sound_landmesh_queries__biomePhysMatId,
+                      sound_landmesh_queries__biomeOverridesWater,
+                      sound_landmesh_queries__puddleDepth,
+                      human_steps_sound__smid,
                       human_steps_sound__waterDepth,
                       human_net_phys)
 

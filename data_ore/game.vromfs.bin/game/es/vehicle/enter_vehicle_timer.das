@@ -10,7 +10,8 @@ def enter_vehicle_timer_es(info : UpdateStageInfoAct;
                            possessedByPlr : EntityId;
                            enter_vehicle__vehicleEid : EntityId;
                            var enter_vehicle__atTime : float&;
-                           var enter_vehicle__isInitDataSaved : bool&)
+                           var enter_vehicle__isInitDataSaved : bool&;
+                           human_vehicle__lastKnownSeatEid : EntityId = INVALID_ENTITY_ID)
   if enter_vehicle__atTime < 0.f
     return
   if possessedByPlr == INVALID_ENTITY_ID || isDowned || !isAlive
@@ -20,7 +21,9 @@ def enter_vehicle_timer_es(info : UpdateStageInfoAct;
     return
   enter_vehicle__atTime = -1.f
   query(enter_vehicle__vehicleEid) <| $ [es] (vehicle_seats__seatEids : EidList)
-    let requestSeatNo = find_highest_free_seat(possessedByPlr, vehicle_seats__seatEids)
+    var requestSeatNo = find_preferred_free_seat(possessedByPlr, vehicle_seats__seatEids, human_vehicle__lastKnownSeatEid)
+    if requestSeatNo < 0
+      requestSeatNo = find_highest_free_seat(possessedByPlr, vehicle_seats__seatEids)
     if requestSeatNo < 0
       return
     enter_vehicle_now(eid, enter_vehicle__vehicleEid, requestSeatNo)

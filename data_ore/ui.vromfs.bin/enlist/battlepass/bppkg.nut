@@ -1,12 +1,14 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let {
-  h0_txt, h2_txt, sub_txt, body_txt, tiny_txt
-} = require("%enlSqGlob/ui/fonts_style.nut")
+  fontTitle, fontHeading2, fontSub, fontBody, fontHeading1
+} = require("%enlSqGlob/ui/fontsStyle.nut")
 let {
-  smallPadding, bigPadding, titleTxtColor, activeTxtColor, defBgColor, defTxtColor,
-  accentTitleTxtColor
+  activeTxtColor, defBgColor
 } = require("%enlSqGlob/ui/viewConst.nut")
+let { smallPadding, midPadding, bigPadding, titleTxtColor, attentionTxtColor,
+  startBtnWidth, defSlotBgColor, defTxtColor
+} = require("%enlSqGlob/ui/designConst.nut")
 let { blinkUnseenIcon } = require("%ui/components/unseenSignal.nut")
 let { timeLeft } = require("bpState.nut")
 let { mkSeasonTime, mkRewardIcon, mkRewardImages, rewardWidthToHeight, defCardSize
@@ -23,12 +25,15 @@ let {
 let { setTooltip } = require("%ui/style/cursors.nut")
 let { hasEliteBattlePass } = require("eliteBattlePass.nut")
 let { getItemName } = require("%enlSqGlob/ui/itemsInfo.nut")
+let msgbox = require("%ui/components/msgbox.nut")
+let JB = require("%ui/control/gui_buttons.nut")
+let { dynamicSeasonBPIcon } = require("battlePassPkg.nut")
 
 const DAY_SEC = 86400
 const BP_LEFT_DAYS_ALERT = 3
 
 let sizeBlocks        = fsh(40)
-let hugePadding       = bigPadding * 4
+let hugePadding       = midPadding * 4
 let sizeIcon          = hdpx(35)
 let sizeCard          = [hdpx(180), hdpx(230)]
 let imageHeight       = hdpx(210)
@@ -42,11 +47,12 @@ let lockBPLarge       = [hdpxi(90), hdpxi(90)]
 let bgFree            = [hdpxi(180), hdpxi(30)]
 let logoBP            = [hdpxi(40), hdpxi(40)]
 let lockBPSmall       = [hdpxi(40), hdpxi(40)]
-let unseenIcon = blinkUnseenIcon(1.3, accentTitleTxtColor).__update({ pos = [-hdpx(36), -bigPadding] })
+let unseenIcon = blinkUnseenIcon(1, attentionTxtColor)
 
 let timeTracker = @() {
   watch = timeLeft
-  gap = bigPadding
+  gap = midPadding
+  margin = [0, 0, 0, midPadding]
   flow = FLOW_HORIZONTAL
   valign = ALIGN_CENTER
   children = [
@@ -61,20 +67,20 @@ let timeTracker = @() {
 
 let curItemName = @(locId) locId == null ? null : {
   rendObj = ROBJ_TEXT
-  padding = [bigPadding, 0]
+  padding = [midPadding, 0]
   text = loc(locId)
   color = titleTxtColor
-}.__update(h2_txt)
+}.__update(fontHeading2)
 
 let textAreaStyle = {
   rendObj = ROBJ_TEXTAREA
   behavior = Behaviors.TextArea
-}.__update(sub_txt)
+}.__update(fontSub)
 
 let curItemDescription = @(locId) locId == null ? null : {
   size = [hdpx(500), SIZE_TO_CONTENT]
   halign = ALIGN_CENTER
-  margin = [bigPadding, 0]
+  margin = [midPadding, 0]
   color = titleTxtColor
   text = loc(locId)
 }.__update(textAreaStyle)
@@ -85,18 +91,14 @@ let function lockScreenBlock() {
     return res
 
   return res.__update({
-    pos = [0, sh(49)]
     hplace = ALIGN_CENTER
-    halign = ALIGN_CENTER
+    vplace = ALIGN_CENTER
+    flow = FLOW_VERTICAL
+    pos = [-sh(0.5), -sh(8)]
+    gap = sh(12)
     children = [
       {
-        rendObj = ROBJ_TEXT
-        text = loc("bp/required")
-        color = titleTxtColor
-      }.__update(h2_txt)
-      {
         rendObj = ROBJ_IMAGE
-        pos = [-sh(0.5), -sh(22)]
         hplace = ALIGN_CENTER
         vplace = ALIGN_CENTER
         behavior = Behaviors.Button
@@ -104,6 +106,11 @@ let function lockScreenBlock() {
         onHover = @(on) setTooltip(on ? loc("bp/required/tip") : null)
         image = Picture($"!ui/uiskin/battlepass/lock_bp.svg:{lockBPLarge[0]}:{lockBPLarge[1]}:K")
       }
+      {
+        rendObj = ROBJ_TEXT
+        text = loc("bp/required")
+        color = titleTxtColor
+      }.__update(fontHeading2)
     ]
   })
 }
@@ -140,10 +147,10 @@ let function bpItemInfo(showingItem) {
 
 let bpTitle = @(hasPremiumBp, tailWidth = null) mkHeaderFlag(
   {
-    padding = [bigPadding * 2, bigPadding * 3]
+    padding = [midPadding * 2, midPadding * 3]
     rendObj = ROBJ_TEXT
     text = hasPremiumBp ? loc("bp/eliteBP") : loc("bp/battlePass")
-  }.__update(h0_txt),
+  }.__update(fontTitle),
   {
     tail = tailWidth
     transform = {}
@@ -156,43 +163,102 @@ let bpTitle = @(hasPremiumBp, tailWidth = null) mkHeaderFlag(
   }.__update(hasPremiumBp ? primeFlagStyle : casualFlagStyle)
 )
 
-let function mkEndSeasonMessage() {
+let msgEndSeason = @() msgbox.showMessageWithContent({
+  content = {
+    flow = FLOW_VERTICAL
+    size = [flex(), SIZE_TO_CONTENT]
+    halign = ALIGN_CENTER
+    gap = hdpx(40)
+    children = [
+      {
+        size = [sw(35), SIZE_TO_CONTENT]
+        halign = ALIGN_CENTER
+        rendObj = ROBJ_TEXT
+        color = attentionTxtColor
+        text = loc("bp/attention")
+      }.__update(fontHeading1)
+      {
+        size = [sw(50), SIZE_TO_CONTENT]
+        halign = ALIGN_CENTER
+        rendObj = ROBJ_TEXTAREA
+        behavior = Behaviors.TextArea
+        text = loc("bp/endSeasonMsg")
+      }.__update(fontBody)
+    ]
+  }
+  buttons = [
+    { text = loc("Close"), isCurrent = true, customStyle = { hotkeys = [[$"^{JB.B}"]] } }
+  ]
+})
+
+let endSeasonAlert = {
+  size = [flex(), SIZE_TO_CONTENT]
+  flow = FLOW_HORIZONTAL
+  valign = ALIGN_CENTER
+  children = [
+    unseenIcon
+    {
+      rendObj = ROBJ_TEXTAREA
+      behavior = [Behaviors.TextArea]
+      size = [flex(), SIZE_TO_CONTENT]
+      text = loc("bp/endSeasonMsgShort")
+      color = attentionTxtColor
+    }.__update(fontSub)
+  ]
+}
+
+let bpAlertBlock = watchElemState(@(sf) {
+  rendObj = ROBJ_BOX
+  size = [startBtnWidth, SIZE_TO_CONTENT]
+  flow = FLOW_HORIZONTAL
+  behavior = Behaviors.Button
+  onClick = msgEndSeason
+  padding = [midPadding, bigPadding]
+  margin = [0, midPadding]
+  valign = ALIGN_CENTER
+  borderWidth = [hdpx(1), 0, hdpx(1), 0]
+  borderColor = sf & S_HOVER ? attentionTxtColor : defSlotBgColor
+  opacity = sf & S_HOVER ? 0.8 : 1
+  gap = bigPadding
+  children = [
+    {
+      size = [flex(), SIZE_TO_CONTENT]
+      flow = FLOW_VERTICAL
+      children = [
+        timeTracker
+        endSeasonAlert
+      ]
+    }
+    faComp("chevron-right", {
+      fontSize = hdpxi(26)
+      vplace = ALIGN_CENTER
+      hplace = ALIGN_RIGHT
+      color = sf & S_HOVER ? attentionTxtColor : defTxtColor
+    })
+  ]
+})
+
+let function mkTimerBlock() {
   let hasAlert = Computed(@() timeLeft.value <= BP_LEFT_DAYS_ALERT * DAY_SEC)
   return @() {
     watch = hasAlert
-    size = [fsh(36), hdpx(180)]
-    children = !hasAlert.value ? null
-      : [
-          {
-            size = [flex(), SIZE_TO_CONTENT]
-            text = loc("bp/endSeasonMsg")
-            color = accentTitleTxtColor
-          }.__update(textAreaStyle, tiny_txt)
-          unseenIcon
-        ]
+    children = hasAlert.value ? bpAlertBlock
+      : timeTracker
   }
 }
 
-let bpHeader = @(showingItem, closeButton, needLockScreen = true) {
+let bpHeader = @(showingItem, closeButton) {
   size = [flex(), SIZE_TO_CONTENT]
-  gap = hdpx(100)
-  margin = [hugePadding,0,0,0]
   children = [
-    {
-      flow = FLOW_VERTICAL
-      gap = bigPadding
-      children = [
-        timeTracker
-        mkEndSeasonMessage()
-      ]
-    }
+    mkTimerBlock()
     bpItemInfo(showingItem)
-    needLockScreen && (showingItem?.isPremium || showingItem?.isSpecial)
-      ? lockScreenBlock
-      : null
     closeButton
   ]
 }
+
+let lockScreen = @(showingItem) (showingItem?.isPremium || showingItem?.isSpecial)
+  ? lockScreenBlock
+  : null
 
 let cardIconReceivedHeader = faComp("check", {
   padding = smallPadding
@@ -212,7 +278,7 @@ let mkCardTopText = @(text) {
     color = activeTxtColor
     hplace = ALIGN_CENTER
     vplace = ALIGN_CENTER
-  }.__update(sub_txt)
+  }.__update(fontSub)
 }
 
 let cardFreeHeader = mkCardTopText(loc("bp/freeReward"))
@@ -247,8 +313,8 @@ let cardCount = @(count, style = {}) {
     rendObj = ROBJ_TEXT
     padding = [0, smallPadding]
     text = count > 99 ? count : loc("common/amountShort", { count = count })
-    color = accentTitleTxtColor
-  }.__update(body_txt)
+    color = attentionTxtColor
+  }.__update(fontBody)
 }.__update(style)
 
 let mkCardCountCtor = @(size, fontStyle) @(count) {
@@ -256,7 +322,7 @@ let mkCardCountCtor = @(size, fontStyle) @(count) {
   rendObj = ROBJ_IMAGE
   hplace = ALIGN_RIGHT
   vplace = ALIGN_BOTTOM
-  margin = bigPadding
+  margin = midPadding
   halign = ALIGN_CENTER
   valign = ALIGN_CENTER
   image = Picture($"!ui/uiskin/battlepass/Ellipse.svg:{size}:{size}:K")
@@ -268,13 +334,13 @@ let mkCardCountCtor = @(size, fontStyle) @(count) {
   }.__update(fontStyle)
 }
 
-let cardCountCircle = mkCardCountCtor(hdpxi(43), body_txt)
-let cardCountCircleSmall = mkCardCountCtor(hdpxi(30), sub_txt)
+let cardCountCircle = mkCardCountCtor(hdpxi(43), fontBody)
+let cardCountCircleSmall = mkCardCountCtor(hdpxi(30), fontSub)
 
 let cardBottom = @(count, cardIcon){
   size = [flex(), SIZE_TO_CONTENT]
   flow = FLOW_HORIZONTAL
-  margin = bigPadding
+  margin = midPadding
   vplace = ALIGN_BOTTOM
   valign = ALIGN_BOTTOM
   halign = ALIGN_RIGHT
@@ -308,10 +374,10 @@ let function mkCard(reward, count, templates, onClick, isSelected, isReceived, i
       }
       {
         size = flex()
-        padding = bigPadding
+        padding = midPadding
         children = [
-          mkBoosterInfo(template, body_txt.__merge({ color = activeTxtColor }))
-          mkBoosterLimits(template, body_txt.__merge({ color = activeTxtColor }))
+          mkBoosterInfo(template, fontBody.__merge({ color = activeTxtColor }))
+          mkBoosterLimits(template, fontBody.__merge({ color = activeTxtColor }))
         ]
       }
       isReceived ? null : isPremium ? cardPremiumHeader : null
@@ -341,11 +407,11 @@ let function mkCard(reward, count, templates, onClick, isSelected, isReceived, i
     valign = ALIGN_BOTTOM
     vplace = ALIGN_BOTTOM
     halign = ALIGN_CENTER
-    gap = bigPadding * 2
+    gap = midPadding * 2
     children = [
       {
         xmbNode = XmbNode()
-        behavior = Behaviors.Button
+        behavior = isSelected.value ? null : Behaviors.Button
         onClick
         flow = FLOW_VERTICAL
         gap = 0.1 * imageHeight //FIXME: icon offset
@@ -379,6 +445,36 @@ let btnBuyPremiumPass = @(txt, cb) Purchase(txt, cb,
     hotkeys = [["^J:Y", { description = { skip = true }}]]
   })
 
+let premiumPassHeader = {
+  flow = FLOW_HORIZONTAL
+  gap = midPadding
+  padding = [sh(5), 0, 0, 0]
+  children = [
+    {
+      rendObj = ROBJ_TEXT
+      text = loc("bp/elite")
+      color = attentionTxtColor
+    }.__update(fontBody)
+    {
+      rendObj = ROBJ_TEXT
+      text = loc("bp/battlePass")
+      color = titleTxtColor
+    }.__update(fontBody)
+  ]
+}
+
+let mkBpIconBlock = @(children = []) {
+  size = [sw(20), flex()]
+  hplace = ALIGN_RIGHT
+  flow = FLOW_VERTICAL
+  halign = ALIGN_CENTER
+  gap = midPadding
+  children = [
+    premiumPassHeader
+    dynamicSeasonBPIcon(hdpxi(220))
+  ].extend(children)
+}
+
 return {
   timeTracker
   bpTitle
@@ -395,4 +491,7 @@ return {
   cardCountCircleSmall
   imageSize
   gapCards
+  lockScreen
+  premiumPassHeader
+  mkBpIconBlock
 }

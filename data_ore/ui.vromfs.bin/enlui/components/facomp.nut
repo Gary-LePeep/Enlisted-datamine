@@ -1,7 +1,8 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let {logerr} = require("dagor.debug")
-let {fontawesome} = require("%enlSqGlob/ui/fonts_style.nut")
+let {getstackinfos} = require("debug")
+let {fontawesome} = require("%enlSqGlob/ui/fontsStyle.nut")
 let fa = require("%ui/components/fontawesome.map.nut")
 let defParams = {
   rendObj = ROBJ_INSCRIPTION

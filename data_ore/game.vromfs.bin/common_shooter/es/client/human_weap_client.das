@@ -3,9 +3,9 @@ require common_shooter.es.human_weap_common
 require enlisted.events_enlisted
 require math.base
 require HumanPhys
-require EnlistedHuman
-require EnlistedWeapon
-require EnlistedCamera
+require DngHuman
+require DngWeapon
+require DngCamera
 require DagorMath
 require DagorMathUtils
 require DagorSystem
@@ -43,12 +43,9 @@ def human_weap_trace_es(info : ParallelUpdateFrameDelayed;
   if !isAlive || isDowned || human_net_phys.phys.currentState |> human_phys_state_attachedToLadder
     return
   let gunDir = angles_to_dir(human_weap__prevGunAngles)
-  let gunEid = get_human_gun_eid(eid)
-  if gunEid != INVALID_ENTITY_ID
-    query(gunEid) <| $ [es(REQUIRE_NOT=mortar)] ()
-      let cameraTm = get_cur_cam_entity() |> get_TMatrix("transform") ?? IDENT_TM
-      let camPos = cameraTm[3]
-      human_weap__traceIntersectedEid = find_object_on_ray(camPos, gunDir, human_weap__tracerayLen, eid)
+  let cameraTm = get_cur_cam_entity() |> get_TMatrix("transform") ?? IDENT_TM
+  let camPos = cameraTm[3]
+  human_weap__traceIntersectedEid = find_object_on_ray(camPos, gunDir, human_weap__tracerayLen, eid)
 
 [es(after=after_guns_update_sync, REQUIRE=(hero, human_weap))]
 def cache_trace_gun_angles(info : UpdateStageInfoAct;
@@ -61,7 +58,7 @@ def cache_trace_gun_angles(info : UpdateStageInfoAct;
   else
     human_weap__traceGunAngles = human_weap__prevGunAngles
 
-[es(after=human_phys_es, before=after_guns_update_sync, REQUIRE=(hero, human_weap))]
+[es(after=update_phys_es, before=after_guns_update_sync, REQUIRE=(hero, human_weap))]
 def human_weap_update_es(info : ParallelUpdateFrameDelayed;
                          eid : EntityId;
                          human_weap__gunAngleTau : float;
@@ -69,6 +66,7 @@ def human_weap_update_es(info : ParallelUpdateFrameDelayed;
                          human_vehicle__isHoldingGunPassenger : bool;
                          human_weap__crawlClampVertAngleRad : float2;
                          human_weap__clampVertAngleRad : float2;
+                         human_weap__gunEids : EidList;
                          human_weap__lockedGrenadeThrowingCounter : int = 0;
                          human_weap__mortarMode : bool = false;
                          human_weap__jumpDeviation : float = 0.;
@@ -84,7 +82,7 @@ def human_weap_update_es(info : ParallelUpdateFrameDelayed;
                          entity_mods__aimingAfterFireMult : float = 1.0;
                          entity_mods__boltActionMult : float = 1.0;
                          entity_mods__deviationBufferSizeMult : float = 1.0;
-                         human_use_object__selectedObject : EntityId const? = null;
+                         grenade_rethrow__grenadeEid : EntityId const? = null;
                          entity_mods__shotDeviationAdd : float = 0.0;
                          human_weap__fastThrowExclusive : bool = true;
                          human_weap__maxParallaxDeviation : float = 10.0;
@@ -96,7 +94,6 @@ def human_weap_update_es(info : ParallelUpdateFrameDelayed;
                          isReplayObserved : Tag const?;
                          var human_net_phys : HumanActor;
                          var transform : float3x4;
-                         var human_weap__gunEids : EidList;
                          var human_weap__throwMode : bool&;
                          var human_weap__prevGunAngles : float2&;
                          var human_weap__gunAngleSpeed : float2&)
@@ -187,7 +184,7 @@ def human_weap_update_es(info : ParallelUpdateFrameDelayed;
 
   human_weap_gun_update(human_net_phys, human_weap__gunEids, human_weap__throwMode,
                         updCtx, transform, gunDir, gunShootDir, transform,
-                        ct, human_use_object__selectedObject,
+                        ct, grenade_rethrow__grenadeEid,
                         human_unarmed__active, human_attached_gun__attachedGunEid,
                         human_weap__jumpDeviation, human_weap__changePosDeviationCanAim, human_weap__changePosDeviationCanNotAim,
                         human_phys__jumpEndTime, human_phys__afterJumpDelay, human_phys__isInAirLong)

@@ -7,7 +7,7 @@ let { controlledHeroEid } = require("%ui/hud/state/controlled_hero.nut")
 let { watchedHeroEid } = require("%ui/hud/state/watched_hero.nut")
 let { DEFAULT_TEXT_COLOR } = require("%ui/hud/style.nut")
 let { tipCmp, mkInputHintBlock, defTipAnimations } = require("%ui/hud/huds/tips/tipComponent.nut")
-let { inVehicle, inPlane, isPlayerCanExit, isVehicleAlive } = require("%ui/hud/state/vehicle_state.nut")
+let { inVehicle, inPlane, isPassengerInMobileRespawn, isPlayerCanExit, isVehicleAlive } = require("%ui/hud/state/vehicle_state.nut")
 let { isInHatch, canHoldWeapon, isHoldingGunPassenger } = require("%ui/hud/state/hero_in_vehicle_state.nut")
 let { isBinocularMode, hasHeroBinocular } = require("%ui/hud/state/binocular.nut")
 
@@ -19,9 +19,11 @@ let showExitAloneAction = Computed(@()
   && isPlayerCanExit.value
   && isVehicleAlive.value
   && !inPlane.value
-  && !isInHatch.value)
+  && !isInHatch.value
+  && !isPassengerInMobileRespawn.value)
 
 let showToggleHoldGunMode = Computed(@() canHoldWeapon.value && !isHoldingGunPassenger.value)
+let showToggleHoldGunModeCancel = Computed(@() isHoldingGunPassenger.value)
 let showUseBinocular = Computed(@() canHoldWeapon.value && hasHeroBinocular.value && !isBinocularMode.value)
 
 let canHatch = Computed(function() {
@@ -95,6 +97,19 @@ let function toggleHoldGunMode() {
   })
 }
 
+let function toggleHoldGunModeCancel() {
+  let res = { watch = showToggleHoldGunModeCancel }
+  if (!showToggleHoldGunModeCancel.value)
+    return res
+  return res.__update({
+    children = tipCmp({
+      text = loc("hud/toggleHoldGunModeCancel")
+      inputId = "Human.ToggleHoldGunMode"
+      textColor = DEFAULT_TEXT_COLOR
+    })
+  })
+}
+
 let function useBinocular() {
   let res = { watch = showUseBinocular }
   if (!showUseBinocular.value)
@@ -113,5 +128,6 @@ return [
   getOutOfTheTankHatch
   nextView
   toggleHoldGunMode
+  toggleHoldGunModeCancel
   useBinocular
 ]

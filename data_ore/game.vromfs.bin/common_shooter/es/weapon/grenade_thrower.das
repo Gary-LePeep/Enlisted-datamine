@@ -5,9 +5,9 @@ require game.utils.animchar
 require common_shooter.events_common_shooter
 require common_shooter.es.grenade_thrower_common
 require common_shooter.es.human_weap_common
-require EnlistedWeapon
-require EnlistedPhys
-require EnlistedHuman
+require DngWeapon
+require DngPhys
+require DngHuman
 require DaWeapons
 require DaWeaponProps
 require Gun
@@ -47,7 +47,9 @@ def grenade_thrower_phys_es(evt : CmdWeapPhysUpdate;
                              isInVehicle : bool = false;
                              human_vehicle__isHoldingGunPassenger : bool = false;
                              human_weap__fastThrowExclusive : bool = true;
-                             human_inventory__entityUseEnd : float = -1.0)
+                             human_inventory__entityUseEnd : float = -1.0;
+                             var human_net_phys : HumanActor&;
+                             var human_weap__throwMode : bool&)
     if !human_gun_attached && (!isInVehicle || human_vehicle__isHoldingGunPassenger) && evt.atTime > human_inventory__entityUseEnd
       sendEvent(eid, [[CmdWeapAttach toEid=ownerEid, isAttached=true, slotId=int(HUWeaponSlots EWS_GRENADE)]])
 
@@ -124,7 +126,9 @@ def grenade_thrower_phys_es(evt : CmdWeapPhysUpdate;
     sendEventImmediate(eid, [[CmdGunUpdate atTime=atTime, isForReal=isForReal, seed=rndSeed, gctrl=gctrl, gloc=gloc]])
 
     if isThrow && human_weap__quickThrowLastWeaponSlot >= 0
-      sendEvent(ownerEid, [[HumanWeapSetCurrentGun slot=uint8(human_weap__quickThrowLastWeaponSlot)]])
+      human_net_phys.phys.producedCT |> set_chosen_weapon(HUWeaponSlots(human_weap__quickThrowLastWeaponSlot))
+      if human_net_phys.phys.producedCT.chosenWeapon != HUWeaponSlots EWS_GRENADE //if fast throwing and grenade is not a selected weapon
+        human_weap__throwMode = false
       human_weap__quickThrowLastWeaponSlot = -1
 
 [es(on_appear)]

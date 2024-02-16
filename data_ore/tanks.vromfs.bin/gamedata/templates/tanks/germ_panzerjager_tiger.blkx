@@ -1,13 +1,13 @@
 {
   "germ_panzerjager_tiger": [
     {
-      "_extends": "base_panzerjager_tiger"
+      "_use": "base_panzerjager_tiger"
     },
     {
-      "_extends": "tank_panzer3_engine_sound"
+      "_use": "tank_panzer3_engine_sound"
     },
     {
-      "_extends": "tank_tiger_vehicle_tracks_sound"
+      "_use": "tank_tiger_vehicle_tracks_sound"
     },
     {
       "vehicle_seats__seats:shared:array": [

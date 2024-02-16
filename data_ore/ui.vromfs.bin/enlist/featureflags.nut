@@ -7,7 +7,6 @@ let {nestWatched} = require("%dngscripts/globalState.nut")
 
 let hasProfileCard = nestWatched("hasProfileCard", true)
 let hasMedals = nestWatched("hasMedals", true)
-let isItemTransferEnabled = nestWatched("isItemTransferEnabled", true)
 let hasCustomGames = nestWatched("hasCustomGames", true)
 let showEventsWidget = nestWatched("showEventsWidget", true)
 let hasUserLogs = nestWatched("hasUserLogs", DBGLEVEL > 0)
@@ -17,19 +16,20 @@ let isOffersVisible = nestWatched("isOffersVisible", true)
 let hasUsermail = nestWatched("hasUsermail", DBGLEVEL > 0)
 let showReplayTabInProfile = nestWatched("showReplayTabInProfile", true)
 let showUserProfile = nestWatched("showUserProfile", DBGLEVEL > 0)
-let multyPurchaseAllowed = nestWatched("multyPurchaseAllowed", DBGLEVEL > 0)
+let multiPurchaseAllowed = nestWatched("multiPurchaseAllowed", true)
 let PSNAllowShowQRCodeStore = nestWatched("PSNAllowShowQRCodeStore", false)
 let canRentSquad = nestWatched("canRentSquad", false)
 let hasMassVehDecorPaste = nestWatched("hasMassVehDecorPaste", true)
 let hasCampaignPromo = nestWatched("hasCampaignPromo", false)
+let hasAutoCluster = nestWatched("hasAutoCluster", false)
 let allowReconnect = nestWatched("allowReconnect", true)
+let hasHitCamera = nestWatched("hasHitCamera", DBGLEVEL > 0)
 
 
 let features = {
   hasProfileCard
   hasMedals
   hasUserLogs
-  isItemTransferEnabled
   hasCustomGames
   showEventsWidget
   showModsInCustomRoomCreateWnd
@@ -38,12 +38,14 @@ let features = {
   hasUsermail
   showReplayTabInProfile
   showUserProfile
-  multyPurchaseAllowed
+  multiPurchaseAllowed
   PSNAllowShowQRCodeStore
   canRentSquad
   hasMassVehDecorPaste
   hasCampaignPromo
+  hasAutoCluster
   allowReconnect
+  hasHitCamera
 }
 
 foreach (featureId, featureFlag in features)

@@ -78,8 +78,8 @@ let function onResume() {
 }
 
 let function do_logout() {
-    loginState.logOut()
-    msgbox.show({ text = loc("yn1/disconnection/psn", { game = loc("title/name") }) })
+  loginState.logOut()
+  msgbox.show({ text = loc("yn1/disconnection/psn", { game = loc("title/name") }) })
 }
 
 
@@ -162,7 +162,7 @@ eventbus.subscribe("showPsnUserInfo", @(msg) open_player_profile(
   {}
 ))
 
-eventbus.subscribe("PSNAuthContactsRecieved", function(_) {
+eventbus.subscribe("PSNAuthContactsReceived", function(_) {
   if (psn_invitation_data.value) {
     join_session(psn_invitation_data.value)
     psn_invitation_dataUpdate(null)

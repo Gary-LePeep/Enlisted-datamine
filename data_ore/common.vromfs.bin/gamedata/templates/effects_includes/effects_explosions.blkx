@@ -1,20 +1,35 @@
 {
-  "explosion_ampule": {
-    "_extends": "explosion_effect",
-    "wind_emitter__radius": 1.0,
-    "wind_emitter__duration": 1.0,
-    "wind_emitter__strength": 1.0,
+  "explosion_sound_effect_base": {
+    "_use": "sound_effect",
+    "_group": {
+      "_tags": "sound",
+      "sound_effect__abandonOnReset": true
+    }
+  },
+  "explosion_firebomb_effect": {
+    "_use": "explosion_effect",
+    "wind_emitter__radius": 6.0,
+    "wind_emitter__duration": 4.5,
+    "wind_emitter__strength": 10.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 8,
+    "wind_emitter__phaseAttack": true,
+    "paint_from_biome": false,
     "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
-      "effect__name": "explosion_ampule_cmps_fx"
-    }
+      "effect__name": "explosion_firebomb_cmps_fx"
+    },
+    "autodeleteEffectEntity:tag": []
   },
   "explosion_grenades_air_effect": {
-    "_extends": "explosion_effect",
-    "wind_emitter__radius": 1.0,
-    "wind_emitter__duration": 1.0,
-    "wind_emitter__strength": 1.0,
+    "_use": "explosion_effect",
+    "wind_emitter__radius": 2.0,
+    "wind_emitter__duration": 3.0,
+    "wind_emitter__strength": 2.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 5,
+    "wind_emitter__phaseAttack": true,
     "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
@@ -22,10 +37,14 @@
     }
   },
   "explosion_grenades_dirt_effect": {
-    "_extends": "explosion_effect",
-    "wind_emitter__radius": 1.0,
-    "wind_emitter__duration": 1.0,
-    "wind_emitter__strength": 1.0,
+    "_use": "explosion_effect",
+    "wind_emitter__radius": 2.0,
+    "wind_emitter__duration": 3.0,
+    "wind_emitter__strength": 2.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 5,
+    "wind_emitter__phaseAttack": true,
+    "paint_from_biome": true,
     "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
@@ -33,10 +52,14 @@
     }
   },
   "explosion_grenades_sand_effect": {
-    "_extends": "explosion_effect",
-    "wind_emitter__radius": 1.0,
-    "wind_emitter__duration": 1.0,
-    "wind_emitter__strength": 1.0,
+    "_use": "explosion_effect",
+    "wind_emitter__radius": 2.0,
+    "wind_emitter__duration": 3.0,
+    "wind_emitter__strength": 2.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 5,
+    "wind_emitter__phaseAttack": true,
+    "paint_from_biome": true,
     "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
@@ -44,10 +67,13 @@
     }
   },
   "explosion_grenades_snow_effect": {
-    "_extends": "explosion_effect",
-    "wind_emitter__radius": 1.0,
-    "wind_emitter__duration": 1.0,
-    "wind_emitter__strength": 1.0,
+    "_use": "explosion_effect",
+    "wind_emitter__radius": 2.0,
+    "wind_emitter__duration": 3.0,
+    "wind_emitter__strength": 2.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 5,
+    "wind_emitter__phaseAttack": true,
     "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
@@ -55,10 +81,13 @@
     }
   },
   "explosion_grenades_stone_effect": {
-    "_extends": "explosion_effect",
-    "wind_emitter__radius": 1.0,
-    "wind_emitter__duration": 1.0,
-    "wind_emitter__strength": 1.0,
+    "_use": "explosion_effect",
+    "wind_emitter__radius": 2.0,
+    "wind_emitter__duration": 3.0,
+    "wind_emitter__strength": 2.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 5,
+    "wind_emitter__phaseAttack": true,
     "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
@@ -67,19 +96,28 @@
   },
   "explosion_grenades_water_effect": [
     {
-      "_extends": "explosion_effect"
+      "_use": "explosion_effect"
     },
     {
-      "_extends": "hit_water_ripple_effect"
+      "_use": "hit_water_ripple_effect"
     },
     {
       "wind_emitter__radius": 1.0
     },
     {
-      "wind_emitter__duration": 1.0
+      "wind_emitter__duration": 2.0
     },
     {
       "wind_emitter__strength": 1.0
+    },
+    {
+      "wind_emitter__phaseSin": true
+    },
+    {
+      "wind_emitter__numWaves": 3
+    },
+    {
+      "wind_emitter__phaseAttack": true
     },
     {
       "wind_emitter__omni:tag": []
@@ -92,10 +130,13 @@
     }
   ],
   "explosion_grenades_phosphorus_effect": {
-    "_extends": "explosion_effect",
+    "_use": "explosion_effect",
     "wind_emitter__radius": 1.0,
-    "wind_emitter__duration": 1.0,
+    "wind_emitter__duration": 2.0,
     "wind_emitter__strength": 1.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 3,
+    "wind_emitter__phaseAttack": true,
     "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
@@ -104,10 +145,10 @@
   },
   "explosion_grenades_smoke_effect": [
     {
-      "_extends": "explosion_effect"
+      "_use": "explosion_effect"
     },
     {
-      "_extends": "sound_effect"
+      "_use": "sound_effect"
     },
     {
       "wind_emitter__radius": 1.0
@@ -138,11 +179,11 @@
     }
   ],
   "explosion_tank_grenades_smoke_effect": {
-    "_extends": "explosion_grenades_smoke_effect",
+    "_use": "explosion_grenades_smoke_effect",
     "wind_emitter__duration": 22.0
   },
   "base_explosion_grenades_smoke_occluders": {
-    "_extends": "smoke_occluders",
+    "_use": "smoke_occluders",
     "transform": [
       [1.0,0.0,0.0],
       [0.0,1.0,0.0],
@@ -153,7 +194,7 @@
     "smoke_occluders__updateInterval": 2.0
   },
   "explosion_grenades_smoke_smoke_occluders": {
-    "_extends": "base_explosion_grenades_smoke_occluders",
+    "_use": "base_explosion_grenades_smoke_occluders",
     "smoke_occluders__destroyDelay": 3.0,
     "smoke_occluders__info:shared:array": {
       "big:object": {
@@ -170,7 +211,7 @@
     "smoke_occluders__isStatic:tag": []
   },
   "explosion_grenades_smoke_shell_smoke_occluders": {
-    "_extends": "base_explosion_grenades_smoke_occluders",
+    "_use": "base_explosion_grenades_smoke_occluders",
     "smoke_occluders__destroyDelay": 6.0,
     "smoke_occluders__info:shared:array": {
       "big:object": {
@@ -187,7 +228,7 @@
     "smoke_occluders__isStatic:tag": []
   },
   "explosion_grenades_smoke_mortar_smoke_occluders": {
-    "_extends": "base_explosion_grenades_smoke_occluders",
+    "_use": "base_explosion_grenades_smoke_occluders",
     "smoke_occluders__destroyDelay": 3.0,
     "smoke_occluders__info:shared:array": {
       "big:object": {
@@ -204,7 +245,7 @@
     "smoke_occluders__isStatic:tag": []
   },
   "explosion_grenades_smoke_shell_effect": {
-    "_extends": "explosion_effect",
+    "_use": "explosion_effect",
     "wind_emitter__radius": 1.0,
     "wind_emitter__duration": 25.0,
     "wind_emitter__strength": 1.0,
@@ -217,10 +258,10 @@
   },
   "explosion_grenades_smoke_mortar_effect": [
     {
-      "_extends": "explosion_effect"
+      "_use": "explosion_effect"
     },
     {
-      "_extends": "sound_effect"
+      "_use": "sound_effect"
     },
     {
       "wind_emitter__radius": 1.0
@@ -251,10 +292,13 @@
     }
   ],
   "explosion_packet_air_effect": {
-    "_extends": "explosion_effect",
-    "wind_emitter__radius": 1.0,
-    "wind_emitter__duration": 1.0,
-    "wind_emitter__strength": 1.0,
+    "_use": "explosion_effect",
+    "wind_emitter__radius": 2.0,
+    "wind_emitter__duration": 3.0,
+    "wind_emitter__strength": 3.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 5,
+    "wind_emitter__phaseAttack": true,
     "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
@@ -262,10 +306,14 @@
     }
   },
   "explosion_packet_dirt_effect": {
-    "_extends": "explosion_effect",
-    "wind_emitter__radius": 1.0,
-    "wind_emitter__duration": 1.0,
-    "wind_emitter__strength": 1.0,
+    "_use": "explosion_effect",
+    "wind_emitter__radius": 2.0,
+    "wind_emitter__duration": 3.0,
+    "wind_emitter__strength": 3.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 5,
+    "wind_emitter__phaseAttack": true,
+    "paint_from_biome": true,
     "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
@@ -273,10 +321,14 @@
     }
   },
   "explosion_packet_sand_effect": {
-    "_extends": "explosion_effect",
-    "wind_emitter__radius": 1.0,
-    "wind_emitter__duration": 1.0,
-    "wind_emitter__strength": 1.0,
+    "_use": "explosion_effect",
+    "wind_emitter__radius": 2.0,
+    "wind_emitter__duration": 3.0,
+    "wind_emitter__strength": 3.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 5,
+    "wind_emitter__phaseAttack": true,
+    "paint_from_biome": true,
     "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
@@ -284,10 +336,13 @@
     }
   },
   "explosion_packet_snow_effect": {
-    "_extends": "explosion_effect",
-    "wind_emitter__radius": 1.0,
-    "wind_emitter__duration": 1.0,
-    "wind_emitter__strength": 1.0,
+    "_use": "explosion_effect",
+    "wind_emitter__radius": 2.0,
+    "wind_emitter__duration": 3.0,
+    "wind_emitter__strength": 3.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 5,
+    "wind_emitter__phaseAttack": true,
     "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
@@ -295,10 +350,13 @@
     }
   },
   "explosion_packet_stone_effect": {
-    "_extends": "explosion_effect",
-    "wind_emitter__radius": 1.0,
-    "wind_emitter__duration": 1.0,
-    "wind_emitter__strength": 1.0,
+    "_use": "explosion_effect",
+    "wind_emitter__radius": 2.0,
+    "wind_emitter__duration": 3.0,
+    "wind_emitter__strength": 3.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 5,
+    "wind_emitter__phaseAttack": true,
     "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
@@ -307,19 +365,28 @@
   },
   "explosion_packet_water_effect": [
     {
-      "_extends": "explosion_effect"
+      "_use": "explosion_effect"
     },
     {
-      "_extends": "hit_water_ripple_effect"
+      "_use": "hit_water_ripple_effect"
     },
     {
       "wind_emitter__radius": 1.0
     },
     {
-      "wind_emitter__duration": 1.0
+      "wind_emitter__duration": 2.0
     },
     {
       "wind_emitter__strength": 1.0
+    },
+    {
+      "wind_emitter__phaseSin": true
+    },
+    {
+      "wind_emitter__numWaves": 3
+    },
+    {
+      "wind_emitter__phaseAttack": true
     },
     {
       "wind_emitter__omni:tag": []
@@ -331,9 +398,132 @@
       }
     }
   ],
-  "explosion_50_100kg_dirt_effect": {
-    "_extends": "explosion_effect",
+  "explosion_mine_infantry_dirt_effect": {
+    "_use": "explosion_effect",
+    "wind_emitter__radius": 2.0,
+    "wind_emitter__duration": 3.0,
+    "wind_emitter__strength": 2.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 5,
+    "wind_emitter__phaseAttack": true,
     "paint_from_biome": true,
+    "wind_emitter__omni:tag": [],
+    "_group": {
+      "_tags": "render",
+      "effect__name": "explosion_infantry_mine_dirt_cmps_fx"
+    }
+  },
+  "explosion_mine_infantry_sand_effect": {
+    "_use": "explosion_effect",
+    "wind_emitter__radius": 2.0,
+    "wind_emitter__duration": 3.0,
+    "wind_emitter__strength": 2.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 5,
+    "wind_emitter__phaseAttack": true,
+    "paint_from_biome": true,
+    "wind_emitter__omni:tag": [],
+    "_group": {
+      "_tags": "render",
+      "effect__name": "explosion_infantry_mine_sand_cmps_fx"
+    }
+  },
+  "explosion_mine_infantry_snow_effect": {
+    "_use": "explosion_effect",
+    "wind_emitter__radius": 2.0,
+    "wind_emitter__duration": 3.0,
+    "wind_emitter__strength": 2.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 5,
+    "wind_emitter__phaseAttack": true,
+    "wind_emitter__omni:tag": [],
+    "_group": {
+      "_tags": "render",
+      "effect__name": "explosion_infantry_mine_snow_cmps_fx"
+    }
+  },
+  "explosion_mine_infantry_stone_effect": {
+    "_use": "explosion_effect",
+    "wind_emitter__radius": 2.0,
+    "wind_emitter__duration": 3.0,
+    "wind_emitter__strength": 2.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 5,
+    "wind_emitter__phaseAttack": true,
+    "wind_emitter__omni:tag": [],
+    "_group": {
+      "_tags": "render",
+      "effect__name": "explosion_infantry_mine_stone_cmps_fx"
+    }
+  },
+  "explosion_tank_mine_dirt_effect": {
+    "_use": "explosion_effect",
+    "wind_emitter__radius": 2.0,
+    "wind_emitter__duration": 3.0,
+    "wind_emitter__strength": 3.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 5,
+    "wind_emitter__phaseAttack": true,
+    "paint_from_biome": true,
+    "wind_emitter__omni:tag": [],
+    "_group": {
+      "_tags": "render",
+      "effect__name": "explosion_tank_mine_dirt_cmps_fx"
+    }
+  },
+  "explosion_tank_mine_sand_effect": {
+    "_use": "explosion_effect",
+    "wind_emitter__radius": 2.0,
+    "wind_emitter__duration": 3.0,
+    "wind_emitter__strength": 3.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 5,
+    "wind_emitter__phaseAttack": true,
+    "paint_from_biome": true,
+    "wind_emitter__omni:tag": [],
+    "_group": {
+      "_tags": "render",
+      "effect__name": "explosion_tank_mine_sand_cmps_fx"
+    }
+  },
+  "explosion_tank_mine_snow_effect": {
+    "_use": "explosion_effect",
+    "wind_emitter__radius": 2.0,
+    "wind_emitter__duration": 3.0,
+    "wind_emitter__strength": 3.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 5,
+    "wind_emitter__phaseAttack": true,
+    "wind_emitter__omni:tag": [],
+    "_group": {
+      "_tags": "render",
+      "effect__name": "explosion_tank_mine_snow_cmps_fx"
+    }
+  },
+  "explosion_tank_mine_stone_effect": {
+    "_use": "explosion_effect",
+    "wind_emitter__radius": 2.0,
+    "wind_emitter__duration": 3.0,
+    "wind_emitter__strength": 3.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 5,
+    "wind_emitter__phaseAttack": true,
+    "wind_emitter__omni:tag": [],
+    "_group": {
+      "_tags": "render",
+      "effect__name": "explosion_tank_mine_stone_cmps_fx"
+    }
+  },
+  "explosion_50_100kg_dirt_effect": {
+    "_use": "explosion_effect",
+    "wind_emitter__radius": 5.0,
+    "wind_emitter__duration": 4.0,
+    "wind_emitter__strength": 7.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 6,
+    "wind_emitter__phaseAttack": true,
+    "paint_from_biome": true,
+    "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
       "effect__name": "explosion_50_100kg_dirt_cmps_fx"
@@ -341,8 +531,15 @@
     "autodeleteEffectEntity:tag": []
   },
   "explosion_50_100kg_sand_effect": {
-    "_extends": "explosion_effect",
+    "_use": "explosion_effect",
+    "wind_emitter__radius": 5.0,
+    "wind_emitter__duration": 4.0,
+    "wind_emitter__strength": 7.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 6,
+    "wind_emitter__phaseAttack": true,
     "paint_from_biome": true,
+    "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
       "effect__name": "explosion_50_100kg_sand_cmps_fx"
@@ -350,8 +547,15 @@
     "autodeleteEffectEntity:tag": []
   },
   "explosion_50_100kg_snow_effect": {
-    "_extends": "explosion_effect",
+    "_use": "explosion_effect",
+    "wind_emitter__radius": 5.0,
+    "wind_emitter__duration": 4.0,
+    "wind_emitter__strength": 7.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 6,
+    "wind_emitter__phaseAttack": true,
     "paint_from_biome": false,
+    "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
       "effect__name": "explosion_50_100kg_snow_cmps_fx"
@@ -359,8 +563,15 @@
     "autodeleteEffectEntity:tag": []
   },
   "explosion_50_100kg_stone_effect": {
-    "_extends": "explosion_effect",
+    "_use": "explosion_effect",
+    "wind_emitter__radius": 5.0,
+    "wind_emitter__duration": 4.0,
+    "wind_emitter__strength": 7.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 6,
+    "wind_emitter__phaseAttack": true,
     "paint_from_biome": false,
+    "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
       "effect__name": "explosion_50_100kg_stone_cmps_fx"
@@ -369,13 +580,34 @@
   },
   "explosion_50_100kg_water_effect": [
     {
-      "_extends": "explosion_effect"
+      "_use": "explosion_effect"
     },
     {
-      "_extends": "hit_water_ripple_effect"
+      "_use": "hit_water_ripple_effect"
+    },
+    {
+      "wind_emitter__radius": 4.0
+    },
+    {
+      "wind_emitter__duration": 3.5
+    },
+    {
+      "wind_emitter__strength": 2.0
+    },
+    {
+      "wind_emitter__phaseSin": true
+    },
+    {
+      "wind_emitter__numWaves": 4
+    },
+    {
+      "wind_emitter__phaseAttack": true
     },
     {
       "paint_from_biome": false
+    },
+    {
+      "wind_emitter__omni:tag": []
     },
     {
       "_group": {
@@ -388,8 +620,15 @@
     }
   ],
   "explosion_100_250kg_dirt_effect": {
-    "_extends": "explosion_effect",
+    "_use": "explosion_effect",
+    "wind_emitter__radius": 6.0,
+    "wind_emitter__duration": 4.5,
+    "wind_emitter__strength": 10.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 8,
+    "wind_emitter__phaseAttack": true,
     "paint_from_biome": true,
+    "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
       "effect__name": "explosion_100_250kg_dirt_cmps_fx"
@@ -397,8 +636,15 @@
     "autodeleteEffectEntity:tag": []
   },
   "explosion_100_250kg_sand_effect": {
-    "_extends": "explosion_effect",
+    "_use": "explosion_effect",
+    "wind_emitter__radius": 6.0,
+    "wind_emitter__duration": 4.5,
+    "wind_emitter__strength": 10.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 8,
+    "wind_emitter__phaseAttack": true,
     "paint_from_biome": true,
+    "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
       "effect__name": "explosion_100_250kg_sand_cmps_fx"
@@ -406,8 +652,15 @@
     "autodeleteEffectEntity:tag": []
   },
   "explosion_100_250kg_snow_effect": {
-    "_extends": "explosion_effect",
+    "_use": "explosion_effect",
+    "wind_emitter__radius": 6.0,
+    "wind_emitter__duration": 4.5,
+    "wind_emitter__strength": 10.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 8,
+    "wind_emitter__phaseAttack": true,
     "paint_from_biome": false,
+    "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
       "effect__name": "explosion_100_250kg_snow_cmps_fx"
@@ -415,8 +668,15 @@
     "autodeleteEffectEntity:tag": []
   },
   "explosion_100_250kg_stone_effect": {
-    "_extends": "explosion_effect",
+    "_use": "explosion_effect",
+    "wind_emitter__radius": 6.0,
+    "wind_emitter__duration": 4.5,
+    "wind_emitter__strength": 10.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 8,
+    "wind_emitter__phaseAttack": true,
     "paint_from_biome": false,
+    "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
       "effect__name": "explosion_100_250kg_stone_cmps_fx"
@@ -425,13 +685,34 @@
   },
   "explosion_100_250kg_water_effect": [
     {
-      "_extends": "explosion_effect"
+      "_use": "explosion_effect"
     },
     {
-      "_extends": "hit_water_ripple_effect"
+      "_use": "hit_water_ripple_effect"
+    },
+    {
+      "wind_emitter__radius": 6.0
+    },
+    {
+      "wind_emitter__duration": 4.5
+    },
+    {
+      "wind_emitter__strength": 5.0
+    },
+    {
+      "wind_emitter__phaseSin": true
+    },
+    {
+      "wind_emitter__numWaves": 6
+    },
+    {
+      "wind_emitter__phaseAttack": true
     },
     {
       "paint_from_biome": false
+    },
+    {
+      "wind_emitter__omni:tag": []
     },
     {
       "_group": {
@@ -444,8 +725,15 @@
     }
   ],
   "explosion_250_500kg_dirt_effect": {
-    "_extends": "explosion_effect",
+    "_use": "explosion_effect",
+    "wind_emitter__radius": 8.0,
+    "wind_emitter__duration": 5.5,
+    "wind_emitter__strength": 15.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 10,
+    "wind_emitter__phaseAttack": true,
     "paint_from_biome": true,
+    "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
       "effect__name": "explosion_250_500kg_dirt_cmps_fx"
@@ -453,8 +741,15 @@
     "autodeleteEffectEntity:tag": []
   },
   "explosion_250_500kg_sand_effect": {
-    "_extends": "explosion_effect",
+    "_use": "explosion_effect",
+    "wind_emitter__radius": 8.0,
+    "wind_emitter__duration": 5.5,
+    "wind_emitter__strength": 15.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 10,
+    "wind_emitter__phaseAttack": true,
     "paint_from_biome": true,
+    "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
       "effect__name": "explosion_250_500kg_sand_cmps_fx"
@@ -462,8 +757,15 @@
     "autodeleteEffectEntity:tag": []
   },
   "explosion_250_500kg_snow_effect": {
-    "_extends": "explosion_effect",
+    "_use": "explosion_effect",
+    "wind_emitter__radius": 8.0,
+    "wind_emitter__duration": 5.5,
+    "wind_emitter__strength": 15.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 10,
+    "wind_emitter__phaseAttack": true,
     "paint_from_biome": false,
+    "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
       "effect__name": "explosion_250_500kg_snow_cmps_fx"
@@ -471,8 +773,15 @@
     "autodeleteEffectEntity:tag": []
   },
   "explosion_250_500kg_stone_effect": {
-    "_extends": "explosion_effect",
+    "_use": "explosion_effect",
+    "wind_emitter__radius": 8.0,
+    "wind_emitter__duration": 5.5,
+    "wind_emitter__strength": 15.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 10,
+    "wind_emitter__phaseAttack": true,
     "paint_from_biome": false,
+    "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
       "effect__name": "explosion_250_500kg_stone_cmps_fx"
@@ -481,10 +790,10 @@
   },
   "explosion_250_500kg_water_effect": [
     {
-      "_extends": "explosion_effect"
+      "_use": "explosion_effect"
     },
     {
-      "_extends": "hit_water_ripple_effect"
+      "_use": "hit_water_ripple_effect"
     },
     {
       "water_ripple__mass": 4.5
@@ -493,7 +802,28 @@
       "water_ripple__radius": 0.8
     },
     {
+      "wind_emitter__radius": 6.0
+    },
+    {
+      "wind_emitter__duration": 4.5
+    },
+    {
+      "wind_emitter__strength": 10.0
+    },
+    {
+      "wind_emitter__phaseSin": true
+    },
+    {
+      "wind_emitter__numWaves": 8
+    },
+    {
+      "wind_emitter__phaseAttack": true
+    },
+    {
       "paint_from_biome": false
+    },
+    {
+      "wind_emitter__omni:tag": []
     },
     {
       "_group": {
@@ -505,8 +835,15 @@
       "autodeleteEffectEntity:tag": []
     }
   ],
+  "explosion_midair_tiny_effect_sound": {
+    "_use": "explosion_sound_effect_base",
+    "_group": {
+      "_tags": "sound",
+      "sound_effect__path": "impact/flak_air"
+    }
+  },
   "explosion_midair_tiny_effect": {
-    "_extends": "explosion_effect",
+    "_use": "explosion_effect",
     "paint_from_biome": false,
     "_group": {
       "_tags": "render",
@@ -515,7 +852,7 @@
     "autodeleteEffectEntity:tag": []
   },
   "explosion_midair_small_effect": {
-    "_extends": "explosion_effect",
+    "_use": "explosion_effect",
     "paint_from_biome": false,
     "_group": {
       "_tags": "render",
@@ -524,7 +861,7 @@
     "autodeleteEffectEntity:tag": []
   },
   "explosion_midair_medium_effect": {
-    "_extends": "explosion_effect",
+    "_use": "explosion_effect",
     "paint_from_biome": false,
     "_group": {
       "_tags": "render",
@@ -533,7 +870,7 @@
     "autodeleteEffectEntity:tag": []
   },
   "explosion_midair_big_effect": {
-    "_extends": "explosion_effect",
+    "_use": "explosion_effect",
     "paint_from_biome": false,
     "_group": {
       "_tags": "render",
@@ -543,10 +880,10 @@
   },
   "explosion_midair_barrage_balloon_effect": [
     {
-      "_extends": "explosion_effect"
+      "_use": "explosion_effect"
     },
     {
-      "_extends": "sound_effect"
+      "_use": "explosion_sound_effect_base"
     },
     {
       "paint_from_biome": false
@@ -560,8 +897,7 @@
     {
       "_group": {
         "_tags": "sound",
-        "sound_effect__path": "impact/barrage_baloon",
-        "sound_effect__abandonOnReset": true
+        "sound_effect__path": "impact/barrage_baloon"
       }
     },
     {
@@ -569,8 +905,15 @@
     }
   ],
   "explosion_air_crash_land_effect": {
-    "_extends": "explosion_effect",
+    "_use": "explosion_effect",
+    "wind_emitter__radius": 6.0,
+    "wind_emitter__duration": 4.5,
+    "wind_emitter__strength": 10.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 8,
+    "wind_emitter__phaseAttack": true,
     "paint_from_biome": false,
+    "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
       "effect__name": "explosion_air_crash_land_cmps_fx"
@@ -579,10 +922,10 @@
   },
   "explosion_air_crash_water_effect": [
     {
-      "_extends": "explosion_effect"
+      "_use": "explosion_effect"
     },
     {
-      "_extends": "hit_water_ripple_effect"
+      "_use": "hit_water_ripple_effect"
     },
     {
       "water_ripple__mass": 4.5
@@ -591,7 +934,28 @@
       "water_ripple__radius": 0.8
     },
     {
+      "wind_emitter__radius": 6.0
+    },
+    {
+      "wind_emitter__duration": 4.5
+    },
+    {
+      "wind_emitter__strength": 5.0
+    },
+    {
+      "wind_emitter__phaseSin": true
+    },
+    {
+      "wind_emitter__numWaves": 6
+    },
+    {
+      "wind_emitter__phaseAttack": true
+    },
+    {
       "paint_from_biome": false
+    },
+    {
+      "wind_emitter__omni:tag": []
     },
     {
       "_group": {
@@ -603,36 +967,46 @@
       "autodeleteEffectEntity:tag": []
     }
   ],
-  "explosion_smoke_crater_effect": [
+  "explosion_smoke_crater_effect": {
+    "transform": [
+      [1.0,0.0,0.0],
+      [0.0,1.0,0.0],
+      [0.0,0.0,1.0],
+      [0.0,0.0,0.0]
+    ],
+    "_group": {
+      "_tags": "render",
+      "effect__name": "explosion_smoke_crater_cmps_fx",
+      "effect": []
+    },
+    "autodeleteEffectEntity:tag": [],
+    "staticEffect:tag": []
+  },
+  "explosion_smoke_crater_effect_with_sound": [
     {
-      "_extends": "sound_effect"
+      "_use": "explosion_smoke_crater_effect"
     },
     {
-      "transform": [
-        [1.0,0.0,0.0],
-        [0.0,1.0,0.0],
-        [0.0,0.0,1.0],
-        [0.0,0.0,0.0]
-      ]
-    },
-    {
-      "_group": {
-        "_tags": "render",
-        "effect__name": "explosion_smoke_crater_cmps_fx",
-        "effect": []
-      }
+      "_use": "sound_effect"
     },
     {
       "_group": {
         "_tags": "sound",
         "sound_effect__path": "env_effects/fire/dirt_fire_crackle"
       }
-    },
-    {
-      "autodeleteEffectEntity:tag": []
-    },
-    {
-      "staticEffect:tag": []
     }
-  ]
+  ],
+  "explosion_ampule_effect": {
+    "_use": "explosion_effect",
+    "wind_emitter__duration": 3.0,
+    "wind_emitter__strength": 2.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 5,
+    "wind_emitter__phaseAttack": true,
+    "wind_emitter__omni:tag": [],
+    "_group": {
+      "_tags": "render",
+      "effect__name": "explosion_ampule_cmps_fx"
+    }
+  }
 }

@@ -34,5 +34,6 @@ def game_object_spline_sound_generator(evt : Event;
   game_object_spline_sound_generator__entityEid = INVALID_ENTITY_ID
 
   if !empty(points)
+    points |> push(float4(0., 0., 0., -1.)) // should end with separator
     game_object_spline_sound_generator__entityEid = createEntity(game_object_spline_sound_generator__entityTemplate) <| $(var init)
       init |> set("spline_sound__points", points)

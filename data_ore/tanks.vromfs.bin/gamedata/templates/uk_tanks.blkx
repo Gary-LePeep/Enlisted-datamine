@@ -24,6 +24,9 @@
     "import": "tanks/uk_churchill_3.blk"
   },
   {
+    "import": "tanks/uk_ac1_sentinel.blk"
+  },
+  {
     "daimler_mk_2_turret_02_7_92mm_besa": {
       "_override": true,
       "gun__shellsAmmo:array": {
@@ -34,10 +37,10 @@
   {
     "uk_a22_mk_I_churchill": [
       {
-        "_extends": "base_tank"
+        "_use": "base_tank"
       },
       {
-        "_extends": "seats_layout_d_g_c_l_mg"
+        "_use": "seats_layout_d_g_c_l_mg"
       },
       {
         "particle_phys__blk": "content/enlisted/gamedata/suspension/empty.blk"
@@ -85,21 +88,7 @@
             "wishPitchParamName": "gun_aim:targetPitch",
             "curYawParamName": "turret_yaw",
             "curPitchParamName": "gun_pitch",
-            "gunRecoilParamName": "gun_recoil",
-            "gunFlash:object": {
-              "node": "emtr_gun_flame",
-              "fx": "muzzle_flash",
-              "fxId": -1,
-              "scale": 0.7,
-              "nodeId": -1,
-              "time": 0.2,
-              "multTm": [
-                [0.0,1.0,0.0],
-                [1.0,0.0,0.0],
-                [0.0,0.0,-1.0],
-                [0.0,0.0,0.0]
-              ]
-            }
+            "gunRecoilParamName": "gun_recoil"
           }
         }
       }
@@ -108,10 +97,10 @@
   {
     "uk_a22b_mk_III_churchill_1942": [
       {
-        "_extends": "base_tank"
+        "_use": "base_tank"
       },
       {
-        "_extends": "seats_layout_d_g_c_l_mg"
+        "_use": "seats_layout_d_g_c_l_mg"
       },
       {
         "particle_phys__blk": "content/enlisted/gamedata/suspension/empty.blk"
@@ -153,21 +142,7 @@
             "wishPitchParamName": "gun_aim:targetPitch",
             "curYawParamName": "turret_yaw",
             "curPitchParamName": "gun_pitch",
-            "gunRecoilParamName": "gun_recoil",
-            "gunFlash:object": {
-              "node": "emtr_gun_flame",
-              "fx": "muzzle_flash",
-              "fxId": -1,
-              "scale": 0.7,
-              "nodeId": -1,
-              "time": 0.2,
-              "multTm": [
-                [0.0,1.0,0.0],
-                [1.0,0.0,0.0],
-                [0.0,0.0,-1.0],
-                [0.0,0.0,0.0]
-              ]
-            }
+            "gunRecoilParamName": "gun_recoil"
           }
         }
       }

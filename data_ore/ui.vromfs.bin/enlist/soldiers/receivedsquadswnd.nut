@@ -3,7 +3,7 @@ from "%enlSqGlob/ui_library.nut" import *
 let closeBtnBase = require("%ui/components/closeBtn.nut")
 let colorize = require("%ui/components/colorize.nut")
 let { utf8ToUpper } = require("%sqstd/string.nut")
-let { sub_txt, body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub, fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { addModalWindow, removeModalWindow } = require("%ui/components/modalWindows.nut")
 let { gameProfile } = require("%enlist/soldiers/model/config/gameProfile.nut")
 let { txt, noteTextArea } = require("%enlSqGlob/ui/defcomps.nut")
@@ -13,6 +13,7 @@ let { bigPadding, smallPadding, tinyOffset, smallOffset, blurBgColor,
   defBgColor, activeTxtColor, accentTitleTxtColor, disabledTxtColor
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { arrayByRows } = require("%sqstd/underscore.nut")
+let { getCampaignTitle } = require("%enlSqGlob/ui/itemsInfo.nut")
 
 
 const WND_UID = "received_squads"
@@ -50,7 +51,7 @@ let function mkSquad(squadCfg) {
         .__update({
           padding = smallPadding
           color = activeTxtColor
-        }, sub_txt)
+        }, fontSub)
     ]
   }
 }
@@ -75,7 +76,7 @@ let function receivedSquadsUi() {
   let campaigns = (gameProfile.value?.campaigns ?? {})
     .map(@(campaignData, id) {
       id
-      title = campaignData.title
+      title = getCampaignTitle(id)
       armies = campaignData.armies
     })
     .values()
@@ -122,8 +123,9 @@ let function receivedSquadsUi() {
       }
 
     if (campaignSquads.len() > 0) {
-      let headerTxt = "{0} {1}".subst(loc(campaign.title),
-        isCurrent ? colorize(accentTitleTxtColor, loc("currentCampaign")) : "")
+      local headerTxt = campaign.title
+      if (isCurrent)
+        headerTxt = $"{headerTxt} {colorize(accentTitleTxtColor, loc("currentCampaign"))}"
       campaignSquads = arrayByRows(campaignSquads, SQUADS_PER_LINE)
         .map(@(list) {
           flow = FLOW_HORIZONTAL
@@ -135,7 +137,7 @@ let function receivedSquadsUi() {
         gap = smallPadding
         padding = bigPadding
         children = [
-          noteTextArea(headerTxt).__update({ color = activeTxtColor }, body_txt)
+          noteTextArea(headerTxt).__update({ color = activeTxtColor }, fontBody)
           campaignSquads.len() == 1
             ? campaignSquads[0]
             : {
@@ -159,7 +161,7 @@ let function receivedSquadsUi() {
             text = utf8ToUpper(loc("squad/gotNewSquads"))
             hplace = ALIGN_CENTER
             color = activeTxtColor
-          }).__update(body_txt)
+          }).__update(fontBody)
           closeButton
         ]
       }

@@ -112,6 +112,20 @@
     }
   },
   {
+    "Camera.Bank": {
+      "dev": 1,
+      "axis": -1,
+      "minBtn": {
+        "dev": 1,
+        "btn": 19
+      },
+      "maxBtn": {
+        "dev": 1,
+        "btn": 33
+      }
+    }
+  },
+  {
     "Global.Screenshot": {
       "dev": 1,
       "btn": 183
@@ -282,6 +296,12 @@
     }
   },
   {
+    "Human.RotateBuilding": {
+      "dev": 1,
+      "btn": 19
+    }
+  },
+  {
     "Human.WeapModToggle": {
       "dev": 1,
       "btn": 22
@@ -348,7 +368,7 @@
     }
   },
   {
-    "Human.BuildingAction": {
+    "Human.DestroyBuilding": {
       "dev": 1,
       "btn": 36
     }
@@ -386,6 +406,12 @@
   },
   {
     "Human.VehicleMaintenance": {
+      "dev": 1,
+      "btn": 20
+    }
+  },
+  {
+    "Human.RepairBuilding": {
       "dev": 1,
       "btn": 20
     }
@@ -437,6 +463,12 @@
     "Human.PushObject": {
       "dev": 1,
       "btn": 48
+    }
+  },
+  {
+    "Human.SupplyMenu": {
+      "dev": 1,
+      "btn": 33
     }
   },
   {
@@ -537,6 +569,34 @@
       "dev": 1,
       "btn": 35,
       "type": 1
+    }
+  },
+  {
+    "Mech.Strafe": {
+      "dev": 31,
+      "zone": 0.0,
+      "nonlin": 0.0,
+      "maxVal": 1.0,
+      "minBtn": {
+        "dev": 1,
+        "btn": 18
+      },
+      "maxBtn": {
+        "dev": 1,
+        "btn": 16
+      }
+    }
+  },
+  {
+    "Mech.ShootSecondary": {
+      "dev": 1,
+      "btn": 19
+    }
+  },
+  {
+    "Mech.ShootFlamethrower": {
+      "dev": 1,
+      "btn": 34
     }
   },
   {

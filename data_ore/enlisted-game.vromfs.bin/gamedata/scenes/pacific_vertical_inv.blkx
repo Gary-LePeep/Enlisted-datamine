@@ -6773,6 +6773,7 @@
     "entity": {
       "_template": "briefing_invasion",
       "mission_name": "pacific_vertical_inv",
+      "mission_outfit": "pacific",
       "loading_images:list<t>": [
         {
           "item": "ui/pacific_guadalcanal_inv_01.avif"
@@ -6790,8 +6791,8 @@
     "entity": {
       "_template": "team_pacific_allies+team_narrator_invasion_attack+respawn_creators_team",
       "team__memberCount": 0.0,
-      "team__scoreCap": 1950.0,
-      "team__score": 1950.0,
+      "team__scoreCap": 2000.0,
+      "team__score": 2000.0,
       "team__squadSpawnCost": 250,
       "team__firstSpawnCostMul": 0.0,
       "team__zeroScoreFailTimer": 60.0,
@@ -6799,7 +6800,7 @@
       "team__briefing": "invasion/attackers_goals",
       "team__winSubtitle": "debriefing/won_invasion_subtitle",
       "team__loseSubtitle": "debriefing/lost_invasion_subtitle",
-      "team__winTitle": "debriefing/usa_won_invasion",
+      "team__winTitle": "debriefing/allies_won_invasion",
       "team__spawnBotArmy": "pacific_allies"
     }
   },
@@ -6876,7 +6877,7 @@
       "capzone__onlyTeamCanCapture": 1,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_1_a",
-      "capzone__capTime": 60.0,
+      "capzone__capTime": 50.0,
       "capzone__capTeam": -1,
       "transform": [
         [23.7042,0.0,-3.99254],
@@ -6893,7 +6894,7 @@
       "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 2,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "decal__height": 0.4,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 3,
@@ -6910,7 +6911,7 @@
       "capzone__onlyTeamCanCapture": 1,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_1_b",
-      "capzone__capTime": 50.0,
+      "capzone__capTime": 40.0,
       "capzone__capTeam": -1,
       "transform": [
         [1.48623,0.0,-0.340687],
@@ -6927,7 +6928,7 @@
       "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 2,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "decal__height": 2.0,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 4,
@@ -6947,7 +6948,7 @@
       "capzone__onlyTeamCanCapture": 1,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_2_a",
-      "capzone__capTime": 70.0,
+      "capzone__capTime": 60.0,
       "capzone__capTeam": -1,
       "transform": [
         [20.178,0.0,-16.8326],
@@ -6964,7 +6965,7 @@
       "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 2,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "decal__height": 0.0,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 5,
@@ -6980,7 +6981,7 @@
       "capzone__onlyTeamCanCapture": 1,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_2_b",
-      "capzone__capTime": 70.0,
+      "capzone__capTime": 60.0,
       "capzone__capTeam": -1,
       "transform": [
         [1.0,0.0,0.0],
@@ -7013,7 +7014,7 @@
       "capzone__onlyTeamCanCapture": 1,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_2_c",
-      "capzone__capTime": 80.0,
+      "capzone__capTime": 60.0,
       "capzone__capTeam": -1,
       "transform": [
         [1.0,0.0,0.0],
@@ -7046,7 +7047,7 @@
       "capzone__onlyTeamCanCapture": 1,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_3_a",
-      "capzone__capTime": 90.0,
+      "capzone__capTime": 60.0,
       "capzone__capTeam": -1,
       "transform": [
         [12.8491,0.0,-12.3153],
@@ -7063,7 +7064,7 @@
       "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 2,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "decal__height": 0.9,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 8,
@@ -7079,7 +7080,7 @@
       "capzone__onlyTeamCanCapture": 1,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_3_b",
-      "capzone__capTime": 80.0,
+      "capzone__capTime": 60.0,
       "capzone__capTeam": -1,
       "transform": [
         [0.876218,0.0,0.253675],
@@ -7096,7 +7097,7 @@
       "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 2,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "decal__height": 7.0,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 9,
@@ -7114,7 +7115,7 @@
       "capzone__onlyTeamCanCapture": 1,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_4_a",
-      "capzone__capTime": 80.0,
+      "capzone__capTime": 60.0,
       "capzone__capTeam": -1,
       "transform": [
         [29.628,0.0,-23.9177],
@@ -7131,7 +7132,7 @@
       "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 2,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "decal__height": 1.8,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 11,
@@ -7147,7 +7148,7 @@
       "capzone__onlyTeamCanCapture": 1,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_4_b",
-      "capzone__capTime": 80.0,
+      "capzone__capTime": 60.0,
       "capzone__capTeam": -1,
       "transform": [
         [1.0,0.0,0.0],
@@ -7164,7 +7165,7 @@
       "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 2,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "decal__height": 2.0,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 12,
@@ -7182,7 +7183,7 @@
       "capzone__onlyTeamCanCapture": 1,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_5_a",
-      "capzone__capTime": 80.0,
+      "capzone__capTime": 50.0,
       "capzone__capTeam": -1,
       "transform": [
         [13.0754,0.0,-12.4419],
@@ -7199,7 +7200,7 @@
       "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 2,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "decal__height": 1.5,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 13
@@ -7212,7 +7213,7 @@
       "capzone__onlyTeamCanCapture": 1,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_5_b",
-      "capzone__capTime": 80.0,
+      "capzone__capTime": 50.0,
       "capzone__capTeam": -1,
       "transform": [
         [13.0754,0.0,-12.4419],
@@ -7229,7 +7230,7 @@
       "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 2,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "decal__height": 1.5,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 14

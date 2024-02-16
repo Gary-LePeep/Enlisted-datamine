@@ -1,107 +1,105 @@
 options no_aot
-require FrameGraph
+options persistent_heap
+
+require daBfg
 require DagorSystem
 require DagorShaders
 require DagorMath
 require WorldRenderer
-require danetlibs/frame_graph_renderer/render/node_macro
 require ecs
 require DagorConsole
+
+let debug_visualization_node_name = "debug_visualization_node"
+let debug_visualization_node_entity = "debug_visualization_node"
+
+let gbuffer_diffuse_override_node_name = "gbuffer_diffuse_override"
+let gbuffer_diffuse_override_node_entity = "gbuffer_diffuse_override_debug_node"
+
+let gbuffer_specular_override_node_name = "gbuffer_specular_override"
+let gbuffer_specular_override_node_entity = "gbuffer_specular_override_debug_node"
 
 def is_forward_rendering()
   return find_query() <| $ [es] (render_settings__forwardRendering : bool)
     return render_settings__forwardRendering
 
-[frame_graph_node]
-class DebugVisualizationNode : FrameGraphNode
-
-  def override onDeviceReset() : void { pass; }
-
-  def override declareResources(registrar : ResourceRegistrar)
+[bfg_ecs_node(name="debug_visualization_node", entity="debug_visualization_node", handle="node_handle")]
+def register_debug_visualization_node(var handle : NodeHandle& |#)
+  handle <- registerNode(debug_visualization_node_name) <| @(var registry : Registry)
     if is_forward_rendering()
-      registrar |> modifyResource(string_view("target_after_under_water_fog"))
+      registry |> requestRenderPass |> color([[auto[] "target_after_under_water_fog"]]) |> depthRo("depth_for_transparent_effects")
     else
-      registrar |> addPreviousNode(string_view("transparent_effects_node"))
-      registrar |> addFollowNode(string_view("transparent_scene_late_node"))
-    registrar |> setShaderBlockToLayer(ShaderBlockLayer LAYER_FRAME, string_view("global_frame"))
+      registry |> orderMeAfter("transparent_effects_node")
+      registry |> orderMeBefore("transparent_scene_late_node")
+      registry |> requestRenderPass |> color([[auto[] "opaque_final_target"]]) |> depthRw("depth_for_transparency")
 
-  [unused_argument(accessor)] def override execute(accessor : ResourceAccessor)
-    worldRenderer_renderDebug()
+    registry |> requestState() |> setFrameBlock("global_frame")
+    return <- @ <|
+      worldRenderer_renderDebug()
 
 
-//writes into 1-st gbuffer RT with RGB Write mask
-[frame_graph_node]
-class GbufferDiffuseOverride : FrameGraphNode
-  eid : EntityId
-
-  def override onDeviceReset() : void { pass; }
-
-  def override declareResources(registrar : ResourceRegistrar)
-    eid = getSingletonEntity("gbuffer_diffuse_override_debug_node")
-
-    registrar |> addPreviousNode(string_view("combine_shadows_node"))
-    registrar |> addFollowNode(string_view("resolve_gbuffer_node"))
-    registrar |> requestState() <| $(var requirements : NodeStateRequirements#)
-      requirements |> set_render_override([[OverrideRenderState colorWr = WriteMask RGB]])
-
-  [unused_argument(accessor)] def override execute(accessor : ResourceAccessor)
-    query(eid) <| $ [es] (debug_fill_gbuffer : PostFxRenderer; debug_fill_color : float4)
-      __scope_render_target() <| $()
+def register_gbuffer_override_node(var handle : NodeHandle& |#; name : string; entity : string; target : string; colorMask : WriteMask)
+  handle <- registerNode(name) <| @(var registry : Registry)
+    registry |> orderMeAfter("combine_shadows_node")
+    registry |> orderMeBefore("resolve_gbuffer_node")
+    registry |> requestState |> enableOverride([[OverrideRenderState colorWr = colorMask]])
+    registry |> requestRenderPass |> color([[auto[] target]])
+    let eid = getSingletonEntity(entity)
+    return <- @ <| [[=eid]]
+      query(eid) <| $ [es] (debug_fill_gbuffer : PostFxRenderer; debug_fill_color : float4)
         set_color4(get_shader_variable_id("gbuffer_fix_color", true), debug_fill_color)
         set_int(get_shader_variable_id("debug_fix_gbuffer", true), 0)
-        debug_fill_gbuffer |> render()
+        debug_fill_gbuffer |> render
 
 
+[bfg_ecs_node(name="gbuffer_diffuse_override", entity="gbuffer_diffuse_override_debug_node", handle="node_handle")]
+def register_gbuffer_diffuse_override_node(var handle : NodeHandle& |#)
+  handle |> register_gbuffer_override_node(gbuffer_diffuse_override_node_name, gbuffer_diffuse_override_node_entity, "gbuf_0", WriteMask RGB)
 
-//writes into 3-rd gbuffer RT with GREEN Write mask
-[frame_graph_node]
-class GbufferSpecularOverride : FrameGraphNode
-  eid : EntityId
 
-  def override onDeviceReset() : void { pass; }
-
-  def override declareResources(registrar : ResourceRegistrar)
-    eid = getSingletonEntity("gbuffer_specular_override_debug_node")
-
-    registrar |> addPreviousNode(string_view("combine_shadows_node"))
-    registrar |> addFollowNode(string_view("resolve_gbuffer_node"))
-    registrar |> requestState() <| $(var requirements : NodeStateRequirements#)
-      requirements |> set_render_override([[OverrideRenderState colorWr = WriteMask GREEN]])
-
-  [unused_argument(accessor)] def override execute(accessor : ResourceAccessor)
-    query(eid) <| $ [es] (debug_fill_gbuffer : PostFxRenderer; debug_fill_color : float4)
-      __scope_render_target() <| $()
-        set_color4(get_shader_variable_id("gbuffer_fix_color", true), debug_fill_color)
-        set_int(get_shader_variable_id("debug_fix_gbuffer", true), 2)
-        debug_fill_gbuffer |> render()
+[bfg_ecs_node(name="gbuffer_specular_override", entity="gbuffer_specular_override_debug_node", handle="node_handle")]
+def register_gbuffer_specular_override_node(var handle : NodeHandle& |#)
+  handle |> register_gbuffer_override_node(gbuffer_specular_override_node_name, gbuffer_specular_override_node_entity, "gbuf_2", WriteMask GREEN)
 
 
 [es(on_event=BeforeLoadLevel)]
 def init_debug_nodes(evt : Event)
-  createEntity("debug_visualization_node")
+  createEntity(debug_visualization_node_entity) <| $(init)
+    using() <| $(var handle : NodeHandle#)
+      handle |> register_debug_visualization_node
+      init |> set("node_handle", handle)
 
 
-def update_debug_entity(enable : bool; color : float; templ : string)
-
-  if is_forward_rendering()
-    return
-
-  var eid = getSingletonEntity(templ)
+[console_cmd(name="render.fixedDiffuse")]
+def const_diffuse(enable : bool; shade_of_gray : float = 0.5f)
+  var eid = getSingletonEntity(gbuffer_diffuse_override_node_entity)
   if !enable && eid != INVALID_ENTITY_ID
     destroyEntity(eid)
   if enable
     if !eid
-      eid = createEntity(templ) <| $(init)
-        set(init, "debug_fill_color", float4(color))
+      eid = createEntity(gbuffer_diffuse_override_node_entity) <| $(init)
+        using() <| $(var handle : NodeHandle#)
+          handle |> register_gbuffer_diffuse_override_node
+          init |> set("node_handle", handle)
+          init |> set("debug_fill_color", float4(shade_of_gray))
     else
-      query(eid) <| $ [es] (var debug_fill_color : float4&)
-        debug_fill_color = float4(color)
-
-[console_cmd(name="render.fixedDiffuse")]
-def const_diffuse(enable : bool; shade_of_gray : float = 0.5f)
-  update_debug_entity(enable, shade_of_gray, "gbuffer_diffuse_override_debug_node")
+      query(eid) <| $ [es] (var debug_fill_color : float4&; var node_handle : NodeHandle&)
+        debug_fill_color = float4(shade_of_gray)
+        node_handle |> register_gbuffer_diffuse_override_node
 
 
 [console_cmd(name="render.noSpecular")]
 def const_specular(enable : bool)
-  update_debug_entity(enable, 0f, "gbuffer_specular_override_debug_node")
+  var eid = getSingletonEntity(gbuffer_specular_override_node_entity)
+  if !enable && eid != INVALID_ENTITY_ID
+    destroyEntity(eid)
+  if enable
+    if !eid
+      eid = createEntity(gbuffer_specular_override_node_entity) <| $(init)
+        using() <| $(var handle : NodeHandle#)
+          handle |> register_gbuffer_specular_override_node
+          init |> set("node_handle", handle)
+          init |> set("debug_fill_color", float4(0.0))
+    else
+      query(eid) <| $ [es] (var debug_fill_color : float4&; var node_handle : NodeHandle&)
+        debug_fill_color = float4(0.0)
+        node_handle |> register_gbuffer_specular_override_node

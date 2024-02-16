@@ -43,7 +43,6 @@ def serialize_presets(path : string; presets : TagPresetVector; nodes_name : Str
         blk |> datablock_add_new_block("{tagName}") <| $(presetBlk)
           write_weights_to_block(presetBlk, preset.weights)
           presetBlk |> add("animationBlendTime", preset.animationBlendTime)
-          presetBlk |> add("trajectoryInertionFactor", preset.trajectoryInertionFactor)
           presetBlk |> add("linearVelocityViscosity", preset.linearVelocityViscosity)
           presetBlk |> add("angularVelocityViscosity", preset.angularVelocityViscosity)
 
@@ -111,9 +110,11 @@ def deserialize_presets(path : string;
         presets_tags_name |> push(presetBlk.getBlockName)
         read_weights_from_block(presets[j].weights, presetBlk, nodeCount, pointCount)
         presets[j].animationBlendTime = presetBlk |> datablock_getReal("animationBlendTime", 0f)
-        presets[j].trajectoryInertionFactor = presetBlk |> datablock_getReal("trajectoryInertionFactor", 0f)
         presets[j].linearVelocityViscosity = presetBlk |> datablock_getReal("linearVelocityViscosity", 0f)
         presets[j].angularVelocityViscosity = presetBlk |> datablock_getReal("angularVelocityViscosity", 0f)
+        presets[j].metricaToleranceMin = presetBlk |> datablock_getReal("metricaToleranceMin", 0f)
+        presets[j].metricaToleranceMax = presetBlk |> datablock_getReal("metricaToleranceMax", 0f)
+        presets[j].metricaToleranceDecayTime = presetBlk |> datablock_getReal("metricaToleranceDecayTime", 0f)
 
     result = true
   if presets |> length() == 0
@@ -143,11 +144,13 @@ def deserealize_root_motion_center_of_mass(blk : DataBlock;
 
 def deserialize_root_motions(path : string;
                              var rootNode : das_string;
+                             var rootMotionA2dNode : das_string;
                              var directionNodes : StringList;
                              var directionWeights : FloatList;
                              var centerOfMassNodes : StringList;
                              var centerOfMassParams : Point4List)
   rootNode := ""
+  rootMotionA2dNode := ""
   directionNodes |> clear()
   directionWeights |> clear()
   centerOfMassNodes |> clear()
@@ -158,6 +161,7 @@ def deserialize_root_motions(path : string;
     if !datablock_load(blk, path)
       return
     rootNode := blk |> datablock_getStr("root_node", "")
+    rootMotionA2dNode := blk |> datablock_getStr("root_motion_a2d_node", "")
     datablock_get_block(blk, "direction_nodes") <| $(directionsBlk)
       deserealize_root_motion_directions(directionsBlk, directionNodes, directionWeights)
     datablock_get_block(blk, "center_of_mass") <| $(conterOfMassBlk)

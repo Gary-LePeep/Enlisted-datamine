@@ -5,9 +5,9 @@ require game.es.ai.walker_common
 require common_shooter.events_common_shooter
 require pathfinder
 require game.utils.team
-require EnlistedWalkerai
-require EnlistedHuman
-require EnlistedWeapon
+require DngWalkerai
+require DngHuman
+require DngWeapon
 require DagorMath
 require DagorSystem
 require DaWeapons
@@ -44,7 +44,7 @@ def walker_agent_finish_init_es(evt : Event;
   beh_tree |> beh_tree_set_user_ptr(walker_agent)
 
 
-[es(after=human_phys_es, before=after_net_phys_sync)]
+[es(before=after_net_phys_sync)]
 def walker_agent_es(info : UpdateStageInfoAct;
                     human_net_phys : HumanActor;
                     transform : float3x4;
@@ -56,8 +56,11 @@ def walker_agent_es(info : UpdateStageInfoAct;
                     beh_tree__enabled : bool;
                     team : int = TEAM_UNASSIGNED;
                     var walker_agent : EntityAgent;
+                    var beh_tree__usingLadders : bool?;
                     var agent_dangers__standShootPos : float3&;
                     var agent_dangers__standShootDir : float3&)
+  if beh_tree__usingLadders != null
+    *beh_tree__usingLadders = walker_agent.usingLadders
   if !beh_tree__enabled
     return
 

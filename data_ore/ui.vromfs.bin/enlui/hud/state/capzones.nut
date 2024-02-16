@@ -6,7 +6,7 @@ let { TEAM_UNASSIGNED, FIRST_GAME_TEAM } = require("team")
 let {localPlayerTeamInfo} = require("%ui/hud/state/teams.nut")
 let {localPlayerTeam} = require("%ui/hud/state/local_player.nut")
 let {EventHeroChanged, EventLevelLoaded} = require("gameevents")
-let {EventCapZoneEnter, EventCapZoneLeave, CmdStartNarrator, CmdShowNarratorMessage} = require("dasevents")
+let {EventCapZoneEnter, EventCapZoneLeave, CmdTeamNarrator, CmdNarratorTextEvent} = require("dasevents")
 let { controlledHeroEid } = require("%ui/hud/state/controlled_hero.nut")
 let { watchedHeroEid } = require("%ui/hud/state/watched_hero.nut")
 let {playerEvents} = require("%ui/hud/state/eventlog.nut")
@@ -128,7 +128,7 @@ let function isFriendlyTeam(other_team, hero_team) {
 
 let function playNarrator(phrase) {
   if (phrase in (localPlayerTeamInfo.value?["team__narrator"] ?? {})) {
-    ecs.g_entity_mgr.broadcastEvent(CmdStartNarrator({phrase, replace=false}))
+    ecs.g_entity_mgr.broadcastEvent(CmdTeamNarrator({phrase, replace=false}))
     return true
   }
   return false
@@ -211,6 +211,8 @@ let function onCapzonesInitialized(_evt, eid, comp) {
     unlockAfterTime = comp["capzone__unlockAfterTime"]
     capzoneTwoChains = comp["capzoneTwoChains"] != null
     isBattleContract = comp["battle_contract"] != null
+    onlyTeamCanCapture = comp["capzone__onlyTeamCanCapture"]
+    nearToMobileRespawn = comp["capzone__isNearToMobileRespawn"]
   }
   zone.wasActive <- zone.active
   capZonesSetKeyVal(eid, zone)
@@ -245,6 +247,8 @@ let function onCapZoneChanged(_evt, eid, comp) {
   let changedZoneVals = {}
   foreach (attrName, v in comp){
     let zonePropName = attr2gui?[attrName]
+    if (zonePropName == null)
+      continue
     if (attrName == "capzone__ownTeamIcon") {
       let ico = mkOwnTeamIco(v, comp["capzone__owningTeam"])
       changedZoneVals.ownTeamIcon <- ico
@@ -253,7 +257,8 @@ let function onCapZoneChanged(_evt, eid, comp) {
       changedZoneVals[zonePropName] <- v?.getAll() ?? v
     }
   }
-  let attackTeam = comp["capzone__checkAllZonesInGroup"] ?
+  let checkAllZonesInGroup = comp.capzone__checkAllZonesInGroup
+  let attackTeam = checkAllZonesInGroup ?
                      comp["capzone__mustBeCapturedByTeam"] : comp["capzone__onlyTeamCanCapture"]
   let alwaysHide = comp["capzone__alwaysHide"]
   let heroTeam = localPlayerTeam.value
@@ -268,7 +273,7 @@ let function onCapZoneChanged(_evt, eid, comp) {
       changedZoneVals["alwaysHide"] <- alwaysHide
     let newZone = zone.__merge(changedZoneVals)
     if ("curTeamCapturingZone" in changedZoneVals){
-      notifyOnZoneVisitor(changedZoneVals.curTeamCapturingZone, zone.prevTeamCapturingZone, heroTeam, zone.attackTeam)
+      notifyOnZoneVisitor(changedZoneVals.curTeamCapturingZone, zone.prevTeamCapturingZone, heroTeam, checkAllZonesInGroup ? changedZoneVals.curTeamCapturingZone : zone.attackTeam)
       newZone.prevTeamCapturingZone = zone.curTeamCapturingZone
     }
     newZone.isCapturing = newZone.curTeamCapturingZone != TEAM_UNASSIGNED
@@ -355,13 +360,14 @@ ecs.register_es("capzones_ui_state_es",
       ["trainZone", ecs.TYPE_TAG, null],
       ["capzone__locked", ecs.TYPE_BOOL, false],
       ["capzone__endLockTime", ecs.TYPE_FLOAT, -1],
+      ["capzone__isNearToMobileRespawn", ecs.TYPE_BOOL, false]
     ],
   },
   { tags="gameClient" }
 )
 
 ecs.register_es("cmd_show_narrator_message_ui", // broadcast
-  { [CmdShowNarratorMessage] = function(evt, _eid, _comp) {
+  { [CmdNarratorTextEvent] = function(evt, _eid, _comp) {
       playerEvents.pushEvent({event=evt.event, text=loc(evt.text), myTeamScores=evt.myTeamScores})
     }
   }, {}, { tags = "ui" }
@@ -371,9 +377,9 @@ let queryTrainCheckpointProgress = ecs.SqQuery("queryTrainCheckpointProgress", {
 
 ecs.register_es("capzones_ui_state_train_progress",
   {
-    onUpdate = @(_, comp) queryTrainCheckpointProgress(comp.train_progress__nextCapzoneEid, function(eid, comp) {
+    onUpdate = @(_, comp) queryTrainCheckpointProgress(comp.train_progress__nextCapzoneEid, function(eid, capComp) {
       nextTrainCapzoneEid(eid)
-      trainCapzoneProgress(comp.capzone__trainProgress)
+      trainCapzoneProgress(capComp.capzone__trainProgress)
     })
   },
   { comps_ro = [["train_progress__nextCapzoneEid", ecs.TYPE_EID]] },

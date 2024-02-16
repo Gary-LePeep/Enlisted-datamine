@@ -74,7 +74,7 @@
     },
     {
       "decal__thickness:r": {
-        "value": 0.4,
+        "value": 0.15,
         "_info": {
           "desc": "Width of the strategic point boundaries decal line"
         }
@@ -155,7 +155,7 @@
         },
         "enemy:object": {
           "all_zones_captured:object": {
-            "text": "Enemy have captured all zones!",
+            "text": "Enemy has captured all zones!",
             "phrase": "allPointsCapturedEnemy"
           },
           "zone_captured:object": {
@@ -203,7 +203,7 @@
             "phrase": "onePointToCapture"
           },
           "half_zones_captured:object": {
-            "text": "We have explode half of all bombs!",
+            "text": "We have explode more than half of all bombs!",
             "phrase": "halfPointsCaptured"
           },
           "zone_captured:object": {
@@ -221,7 +221,7 @@
             "phrase": "onePointToDefend"
           },
           "half_zones_captured:object": {
-            "text": "Enemy have explode half of all bombs!",
+            "text": "Enemy have explode more than half of all bombs!",
             "phrase": "halfPointsCapturedEnemy"
           },
           "zone_captured:object": {
@@ -268,11 +268,11 @@
             "phrase": "sectorCapturedEnemy"
           },
           "one_zone_to_capture:object": {
-            "text": "Most of all zones are captured by enemy, only one left to defend!!",
+            "text": "Most of all zones are captured by enemy, only one left to defend!",
             "phrase": "onePointToDefend"
           },
           "half_zones_captured:object": {
-            "text": "Enemy have captured half of all zones!",
+            "text": "Enemy have captured more than half of all zones!",
             "phrase": "halfPointsCapturedEnemy"
           },
           "zone_captured:object": {
@@ -280,7 +280,7 @@
             "phrase": "pointCapturedEnemy"
           },
           "all_zones_captured:object": {
-            "text": "Enemy have captured all zones!",
+            "text": "Enemy has captured all zones!",
             "phrase": "allPointsCapturedEnemy"
           }
         }
@@ -297,16 +297,16 @@
       ]
     },
     {
-      "_extends": "replicating"
+      "_use": "replicating"
     },
     {
-      "_extends": "common_capzone_narrator"
+      "_use": "common_capzone_narrator"
     },
     {
-      "_extends": "capzone_timer"
+      "_use": "capzone_timer"
     },
     {
-      "_extends": "objective_zone_kill_bonus"
+      "_use": "objective_zone_kill_bonus"
     },
     {
       "capzone__captureStatus": 0
@@ -316,6 +316,9 @@
     },
     {
       "capzone__iconOffsetY": 0.0
+    },
+    {
+      "capzone__isNearToMobileRespawn": false
     },
     {
       "capzone__caption": ""
@@ -373,6 +376,9 @@
     },
     {
       "_replicated": "ui_order"
+    },
+    {
+      "_tracked": "capzone__isNearToMobileRespawn"
     },
     {
       "_tracked": "capzone__capTeam"
@@ -469,13 +475,13 @@
   ],
   "base_objective_zone": [
     {
-      "_extends": "base_objective_zone_without_navmesh"
+      "_use": "base_objective_zone_without_navmesh"
     },
     {
-      "_extends": "objective_zone_smoke_signal"
+      "_use": "objective_zone_smoke_signal"
     },
     {
-      "_extends": "objective_zone_navmesh"
+      "_use": "objective_zone_navmesh"
     }
   ],
   "capzone_team_presence": {
@@ -491,10 +497,10 @@
   },
   "base_capzone_without_navmesh": [
     {
-      "_extends": "base_objective_zone_without_navmesh"
+      "_use": "base_objective_zone_without_navmesh"
     },
     {
-      "_extends": "capzone_team_presence"
+      "_use": "capzone_team_presence"
     },
     {
       "capzone__curTeamCapturingZone": -1
@@ -582,10 +588,10 @@
   ],
   "base_capzone": [
     {
-      "_extends": "base_capzone_without_navmesh"
+      "_use": "base_capzone_without_navmesh"
     },
     {
-      "_extends": "objective_zone_navmesh"
+      "_use": "objective_zone_navmesh"
     }
   ],
   "separate_cap_decap_time": [
@@ -671,20 +677,20 @@
     "box_zone:tag": []
   },
   "objective_zone_sphere": {
-    "_extends": "base_objective_zone",
+    "_use": "base_objective_zone",
     "sphere_zone__radius": 8.0,
     "_tracked": "sphere_zone__radius"
   },
   "objective_zone_box": {
-    "_extends": "base_objective_zone",
+    "_use": "base_objective_zone",
     "box_zone:tag": []
   },
   "capzone_sphere": [
     {
-      "_extends": "base_capzone"
+      "_use": "base_capzone"
     },
     {
-      "_extends": "projective_decal"
+      "_use": "projective_decal"
     },
     {
       "sphere_zone__radius": 8.0
@@ -706,10 +712,13 @@
   },
   "capzone_poly": [
     {
-      "_extends": "base_capzone"
+      "_use": "base_capzone"
     },
     {
-      "_extends": "objective_zone_smoke_signal"
+      "_use": "objective_zone_smoke_signal"
+    },
+    {
+      "_use": "poly_area"
     },
     {
       "_group": {
@@ -738,10 +747,10 @@
   },
   "capzone_box_without_navmesh": [
     {
-      "_extends": "base_capzone_without_navmesh"
+      "_use": "base_capzone_without_navmesh"
     },
     {
-      "_extends": "objective_zone_smoke_signal"
+      "_use": "objective_zone_smoke_signal"
     },
     {
       "box_zone:tag": []
@@ -749,21 +758,21 @@
   ],
   "capzone_box": [
     {
-      "_extends": "capzone_box_without_navmesh"
+      "_use": "capzone_box_without_navmesh"
     },
     {
-      "_extends": "objective_zone_navmesh"
+      "_use": "objective_zone_navmesh"
     },
     {
-      "_extends": "projective_decal"
+      "_use": "projective_decal"
     }
   ],
   "moveable_capzone_box": [
     {
-      "_extends": "capzone_box_without_navmesh"
+      "_use": "capzone_box_without_navmesh"
     },
     {
-      "_extends": "objective_zone_navmesh"
+      "_use": "objective_zone_navmesh"
     },
     {
       "_group": {
@@ -779,10 +788,10 @@
   ],
   "capzone_relative_box": [
     {
-      "_extends": "base_capzone"
+      "_use": "base_capzone"
     },
     {
-      "_extends": "objective_zone_smoke_signal"
+      "_use": "objective_zone_smoke_signal"
     },
     {
       "box_zone__boxMin": [-0.0,-0.0,-0.0]
@@ -817,29 +826,29 @@
   },
   "defend_zone_sphere": [
     {
-      "_extends": "capzone_sphere"
+      "_use": "capzone_sphere"
     },
     {
-      "_extends": "objective_zone_smoke_signal"
+      "_use": "objective_zone_smoke_signal"
     },
     {
-      "_extends": "defend_zone"
+      "_use": "defend_zone"
     }
   ],
   "defend_zone_box": [
     {
-      "_extends": "capzone_box"
+      "_use": "capzone_box"
     },
     {
-      "_extends": "defend_zone"
+      "_use": "defend_zone"
     }
   ],
   "defend_zone_poly": [
     {
-      "_extends": "capzone_poly"
+      "_use": "capzone_poly"
     },
     {
-      "_extends": "defend_zone"
+      "_use": "defend_zone"
     }
   ],
   "capzone_respawn_activator": {
@@ -848,13 +857,13 @@
   },
   "domination_sphere_capzone": [
     {
-      "_extends": "capzone_sphere"
+      "_use": "capzone_sphere"
     },
     {
-      "_extends": "domination_capzone_narrator"
+      "_use": "domination_capzone_narrator"
     },
     {
-      "_extends": "objective_zone_smoke_signal"
+      "_use": "objective_zone_smoke_signal"
     },
     {
       "capzone__autoDecap": false
@@ -888,10 +897,10 @@
   ],
   "domination_poly_capzone": [
     {
-      "_extends": "capzone_poly"
+      "_use": "capzone_poly"
     },
     {
-      "_extends": "domination_capzone_narrator"
+      "_use": "domination_capzone_narrator"
     },
     {
       "capzone__autoDecap": false
@@ -920,10 +929,10 @@
   ],
   "domination_box_capzone_without_navmesh": [
     {
-      "_extends": "capzone_box_without_navmesh"
+      "_use": "capzone_box_without_navmesh"
     },
     {
-      "_extends": "domination_capzone_narrator"
+      "_use": "domination_capzone_narrator"
     },
     {
       "capzone__autoDecap": false
@@ -951,7 +960,7 @@
     }
   ],
   "domination_box_moveable_capzone": {
-    "_extends": "moveable_capzone_box",
+    "_use": "moveable_capzone_box",
     "capzone__autoDecap": false,
     "capzone__autoCap": false,
     "capzone__capTime:r": {
@@ -969,13 +978,13 @@
   },
   "domination_box_capzone": [
     {
-      "_extends": "domination_box_capzone_without_navmesh"
+      "_use": "domination_box_capzone_without_navmesh"
     },
     {
-      "_extends": "objective_zone_navmesh"
+      "_use": "objective_zone_navmesh"
     },
     {
-      "_extends": "projective_decal"
+      "_use": "projective_decal"
     },
     {
       "_info": {
@@ -1097,7 +1106,7 @@
     }
   },
   "zone_bidirectional_two_chains": {
-    "_extends": "zone_bidirectional_chained_base",
+    "_use": "zone_bidirectional_chained_base",
     "capzone__lastZoneForTeam:i": {
       "_tags": "server",
       "value": 0
@@ -1107,7 +1116,7 @@
     "capzoneTwoChains:tag": []
   },
   "zone_bidirectional_one_chain": {
-    "_extends": "zone_bidirectional_chained_base",
+    "_use": "zone_bidirectional_chained_base",
     "capzone__activateGroupNameAfterTeam1Cap": "_team1_group_name",
     "capzone__activateGroupNameAfterTeam2Cap": "_team2_group_name",
     "capzone__onlyTeamCanCapture": 0,
@@ -1117,10 +1126,10 @@
   },
   "defend_zone_chained_sphere": [
     {
-      "_extends": "defend_zone_sphere"
+      "_use": "defend_zone_sphere"
     },
     {
-      "_extends": "defend_zone_chained"
+      "_use": "defend_zone_chained"
     },
     {
       "_info": {
@@ -1130,37 +1139,37 @@
   ],
   "zone_bidirectional_two_chains_sphere": [
     {
-      "_extends": "capzone_sphere"
+      "_use": "capzone_sphere"
     },
     {
-      "_extends": "objective_zone_smoke_signal"
+      "_use": "objective_zone_smoke_signal"
     },
     {
-      "_extends": "zone_bidirectional_two_chains"
+      "_use": "zone_bidirectional_two_chains"
     }
   ],
   "zone_bidirectional_one_chain_sphere": [
     {
-      "_extends": "capzone_sphere"
+      "_use": "capzone_sphere"
     },
     {
-      "_extends": "objective_zone_smoke_signal"
+      "_use": "objective_zone_smoke_signal"
     },
     {
-      "_extends": "zone_bidirectional_one_chain"
+      "_use": "zone_bidirectional_one_chain"
     }
   ],
   "defend_zone_team_chained_sphere": {
-    "_extends": "defend_zone_chained_sphere",
+    "_use": "defend_zone_chained_sphere",
     "capzone__activateAfterTeam1Cap": "_another_zone_group_name_",
     "capzone__activateAfterTeam2Cap": "_another_zone_group_name_"
   },
   "defend_zone_chained_box": [
     {
-      "_extends": "defend_zone_box"
+      "_use": "defend_zone_box"
     },
     {
-      "_extends": "defend_zone_chained"
+      "_use": "defend_zone_chained"
     },
     {
       "_info": {
@@ -1170,51 +1179,51 @@
   ],
   "zone_bidirectional_two_chains_box": [
     {
-      "_extends": "capzone_box"
+      "_use": "capzone_box"
     },
     {
-      "_extends": "zone_bidirectional_two_chains"
+      "_use": "zone_bidirectional_two_chains"
     }
   ],
   "zone_bidirectional_one_chain_box": [
     {
-      "_extends": "capzone_box"
+      "_use": "capzone_box"
     },
     {
-      "_extends": "zone_bidirectional_one_chain"
+      "_use": "zone_bidirectional_one_chain"
     }
   ],
   "defend_zone_team_chained_box": {
-    "_extends": "defend_zone_chained_box",
+    "_use": "defend_zone_chained_box",
     "capzone__activateAfterTeam1Cap": "_another_zone_group_name_",
     "capzone__activateAfterTeam2Cap": "_another_zone_group_name_"
   },
   "defend_zone_chained_poly": [
     {
-      "_extends": "defend_zone_poly"
+      "_use": "defend_zone_poly"
     },
     {
-      "_extends": "defend_zone_chained"
+      "_use": "defend_zone_chained"
     }
   ],
   "zone_bidirectional_two_chains_poly": [
     {
-      "_extends": "capzone_poly"
+      "_use": "capzone_poly"
     },
     {
-      "_extends": "zone_bidirectional_two_chains"
+      "_use": "zone_bidirectional_two_chains"
     }
   ],
   "zone_bidirectional_one_chain_poly": [
     {
-      "_extends": "capzone_poly"
+      "_use": "capzone_poly"
     },
     {
-      "_extends": "zone_bidirectional_one_chain"
+      "_use": "zone_bidirectional_one_chain"
     }
   ],
   "defend_zone_team_chained_poly": {
-    "_extends": "defend_zone_chained_poly",
+    "_use": "defend_zone_chained_poly",
     "capzone__activateAfterTeam1Cap": "_another_zone_group_name_",
     "capzone__activateAfterTeam2Cap": "_another_zone_group_name_"
   },
@@ -1234,16 +1243,16 @@
   },
   "objective_bomb": [
     {
-      "_extends": "objective_progress"
+      "_use": "objective_progress"
     },
     {
-      "_extends": "objective_bomb_plant_award"
+      "_use": "objective_bomb_plant_award"
     },
     {
-      "_extends": "ai_bomb_behaviour"
+      "_use": "ai_bomb_behaviour"
     },
     {
-      "_extends": "bomb_capzone_narrator"
+      "_use": "bomb_capzone_narrator"
     },
     {
       "capzone__isBombPlanted": false
@@ -1316,30 +1325,30 @@
   ],
   "bomb_site_zone_chained_box": [
     {
-      "_extends": "objective_zone_box"
+      "_use": "objective_zone_box"
     },
     {
-      "_extends": "defend_zone_chained"
+      "_use": "defend_zone_chained"
     },
     {
-      "_extends": "objective_bomb"
+      "_use": "objective_bomb"
     },
     {
-      "_extends": "capzone_team_presence"
+      "_use": "capzone_team_presence"
     }
   ],
   "bomb_site_zone_chained_sphere": [
     {
-      "_extends": "objective_zone_sphere"
+      "_use": "objective_zone_sphere"
     },
     {
-      "_extends": "defend_zone_chained"
+      "_use": "defend_zone_chained"
     },
     {
-      "_extends": "objective_bomb"
+      "_use": "objective_bomb"
     },
     {
-      "_extends": "capzone_team_presence"
+      "_use": "capzone_team_presence"
     }
   ],
   "ai_domination_box_train_zone": {
@@ -1351,10 +1360,13 @@
   },
   "domination_box_train_capzone": [
     {
-      "_extends": "domination_box_moveable_capzone"
+      "_use": "domination_box_moveable_capzone"
     },
     {
-      "_extends": "ai_domination_box_train_zone"
+      "_use": "ai_domination_box_train_zone"
+    },
+    {
+      "_use": "respawn_camera_target"
     },
     {
       "capzone__offsetFromTrain": [0.0,0.0,0.0]
@@ -1394,25 +1406,25 @@
   },
   "objective_train_zone": [
     {
-      "_extends": "base_objective_zone_without_navmesh"
+      "_use": "base_objective_zone_without_navmesh"
     },
     {
-      "_extends": "objective_zone_smoke_signal"
+      "_use": "objective_zone_smoke_signal"
     },
     {
-      "_extends": "defend_zone"
+      "_use": "defend_zone"
     },
     {
-      "_extends": "defend_zone_chained"
+      "_use": "defend_zone_chained"
     },
     {
-      "_extends": "objective_train_progress"
+      "_use": "objective_train_progress"
     },
     {
-      "_extends": "ai_train_behaviour"
+      "_use": "ai_train_behaviour"
     },
     {
-      "_extends": "train_capzone_narrator"
+      "_use": "train_capzone_narrator"
     },
     {
       "capzone__deactivateAfterCap": true

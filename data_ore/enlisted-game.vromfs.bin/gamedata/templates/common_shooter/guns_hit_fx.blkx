@@ -1,127 +1,9 @@
 {
   "global_hit_fx_info": {
     "_singleton": true,
-    "_extends": "replicating",
+    "_use": "replicating",
     "_group": {
       "_hide": true,
-      "global_hit_fx__materialGroups:object": {
-        "wood:list<t>": [
-          {
-            "value": "wood"
-          },
-          {
-            "value": "wood_railway"
-          },
-          {
-            "value": "window_wood"
-          },
-          {
-            "value": "softWoodDoor"
-          }
-        ],
-        "stone:list<t>": [
-          {
-            "value": "concrete"
-          },
-          {
-            "value": "stone"
-          },
-          {
-            "value": "rocks"
-          },
-          {
-            "value": "rocksSlippery"
-          },
-          {
-            "value": "gravel"
-          },
-          {
-            "value": "ceramic"
-          }
-        ],
-        "water:list<t>": [
-          {
-            "value": "water"
-          },
-          {
-            "value": "water3d"
-          },
-          {
-            "value": "waterPuddle"
-          }
-        ],
-        "dirt:list<t>": [
-          {
-            "value": "mud"
-          },
-          {
-            "value": "roadmud"
-          },
-          {
-            "value": "soil"
-          },
-          {
-            "value": "hard_soil"
-          },
-          {
-            "value": "roadSoil"
-          },
-          {
-            "value": "dirt"
-          }
-        ],
-        "sand:list<t>": [
-          {
-            "value": "sand"
-          },
-          {
-            "value": "sand_slope"
-          },
-          {
-            "value": "quickSand"
-          },
-          {
-            "value": "roadSand"
-          },
-          {
-            "value": "quarrySand"
-          },
-          {
-            "value": "moon_sand"
-          }
-        ],
-        "metal:list<t>": [
-          {
-            "value": "steel"
-          },
-          {
-            "value": "metal"
-          },
-          {
-            "value": "train"
-          },
-          {
-            "value": "barbwire"
-          },
-          {
-            "value": "softSteelDoor"
-          }
-        ],
-        "snow:list<t>": [
-          {
-            "value": "snow"
-          },
-          {
-            "value": "ice"
-          },
-          {
-            "value": "snowLower"
-          },
-          {
-            "value": "roadSnow"
-          }
-        ]
-      },
       "global_hit_fx__bulletTypeGroups:object": {
         "smoke:list<t>": [
           {
@@ -339,6 +221,11 @@
       "global_hit_fx__effectGroups:array": [
         {
           "group:object": {
+            "name": "nothing"
+          }
+        },
+        {
+          "group:object": {
             "name": "tank_grenades_smoke",
             "defaultFx": "explosion_tank_grenades_smoke_effect"
           }
@@ -355,7 +242,7 @@
                 "penetrationFx": "hit_6_8mm_ap_wood_effect",
                 "ricochetFx": "hit_6_8mm_ap_wood_effect"
               },
-              "group__dirt:object": {
+              "group__dirt_and_mud:object": {
                 "fx": "hit_6_8mm_ap_mud_effect",
                 "penetrationFx": "hit_6_8mm_ap_mud_effect",
                 "ricochetFx": "hit_6_8mm_ap_mud_effect"
@@ -397,8 +284,32 @@
                 "penetrationFx": "hit_basic_cloth_effect"
               },
               "bushes:object": {
-                "fx": "hit_basic_vegitables_effect",
-                "penetrationFx": "hit_basic_vegitables_effect"
+                "fx": "hit_basic_bush_green_effect",
+                "penetrationFx": "hit_basic_bush_green_effect"
+              },
+              "bushes_fall:object": {
+                "fx": "hit_basic_bush_fall_effect",
+                "penetrationFx": "hit_basic_bush_fall_effect"
+              },
+              "bushes_palm:object": {
+                "fx": "hit_basic_bush_palm_effect",
+                "penetrationFx": "hit_basic_bush_palm_effect"
+              },
+              "bushes_dead:object": {
+                "fx": "hit_basic_bush_dead_effect",
+                "penetrationFx": "hit_basic_bush_dead_effect"
+              },
+              "bushes_snow:object": {
+                "fx": "hit_basic_bush_snow_effect",
+                "penetrationFx": "hit_basic_bush_snow_effect"
+              },
+              "cactus:object": {
+                "fx": "hit_basic_cactus_effect",
+                "penetrationFx": "hit_basic_cactus_effect"
+              },
+              "hay:object": {
+                "fx": "hit_basic_hay_effect",
+                "penetrationFx": "hit_basic_hay_effect"
               }
             }
           }
@@ -415,7 +326,7 @@
                 "penetrationFx": "hit_6_8mm_ap_wood_effect",
                 "ricochetFx": "hit_6_8mm_ap_wood_effect"
               },
-              "group__dirt:object": {
+              "group__dirt_and_mud:object": {
                 "fx": "hit_8_12mm_ap_mud_effect",
                 "penetrationFx": "hit_6_8mm_ap_mud_effect",
                 "ricochetFx": "hit_6_8mm_ap_mud_effect"
@@ -457,8 +368,32 @@
                 "penetrationFx": "hit_basic_cloth_effect"
               },
               "bushes:object": {
-                "fx": "hit_basic_vegitables_effect",
-                "penetrationFx": "hit_basic_vegitables_effect"
+                "fx": "hit_basic_bush_green_effect",
+                "penetrationFx": "hit_basic_bush_green_effect"
+              },
+              "bushes_fall:object": {
+                "fx": "hit_basic_bush_fall_effect",
+                "penetrationFx": "hit_basic_bush_fall_effect"
+              },
+              "bushes_palm:object": {
+                "fx": "hit_basic_bush_palm_effect",
+                "penetrationFx": "hit_basic_bush_palm_effect"
+              },
+              "bushes_dead:object": {
+                "fx": "hit_basic_bush_dead_effect",
+                "penetrationFx": "hit_basic_bush_dead_effect"
+              },
+              "bushes_snow:object": {
+                "fx": "hit_basic_bush_snow_effect",
+                "penetrationFx": "hit_basic_bush_snow_effect"
+              },
+              "cactus:object": {
+                "fx": "hit_basic_cactus_effect",
+                "penetrationFx": "hit_basic_cactus_effect"
+              },
+              "hay:object": {
+                "fx": "hit_basic_hay_effect",
+                "penetrationFx": "hit_basic_hay_effect"
               }
             }
           }
@@ -475,7 +410,7 @@
                 "penetrationFx": "hit_8_12mm_ap_wood_effect",
                 "ricochetFx": "hit_8_12mm_ap_wood_effect"
               },
-              "group__dirt:object": {
+              "group__dirt_and_mud:object": {
                 "fx": "hit_12_14mm_ap_mud_effect",
                 "penetrationFx": "hit_8_12mm_ap_mud_effect",
                 "ricochetFx": "hit_8_12mm_ap_mud_effect"
@@ -517,8 +452,32 @@
                 "penetrationFx": "hit_basic_cloth_effect"
               },
               "bushes:object": {
-                "fx": "hit_basic_vegitables_effect",
-                "penetrationFx": "hit_basic_vegitables_effect"
+                "fx": "hit_basic_bush_green_effect",
+                "penetrationFx": "hit_basic_bush_green_effect"
+              },
+              "bushes_fall:object": {
+                "fx": "hit_basic_bush_fall_effect",
+                "penetrationFx": "hit_basic_bush_fall_effect"
+              },
+              "bushes_palm:object": {
+                "fx": "hit_basic_bush_palm_effect",
+                "penetrationFx": "hit_basic_bush_palm_effect"
+              },
+              "bushes_dead:object": {
+                "fx": "hit_basic_bush_dead_effect",
+                "penetrationFx": "hit_basic_bush_dead_effect"
+              },
+              "bushes_snow:object": {
+                "fx": "hit_basic_bush_snow_effect",
+                "penetrationFx": "hit_basic_bush_snow_effect"
+              },
+              "cactus:object": {
+                "fx": "hit_basic_cactus_effect",
+                "penetrationFx": "hit_basic_cactus_effect"
+              },
+              "hay:object": {
+                "fx": "hit_basic_hay_effect",
+                "penetrationFx": "hit_basic_hay_effect"
               }
             }
           }
@@ -535,7 +494,7 @@
                 "penetrationFx": "hit_12_14mm_ap_wood_effect",
                 "ricochetFx": "hit_12_14mm_ap_wood_effect"
               },
-              "group__dirt:object": {
+              "group__dirt_and_mud:object": {
                 "fx": "hit_14_20mm_ap_mud_effect",
                 "penetrationFx": "hit_12_14mm_ap_mud_effect",
                 "ricochetFx": "hit_12_14mm_ap_mud_effect"
@@ -577,9 +536,33 @@
                 "penetrationFx": "hit_basic_cloth_effect"
               },
               "bushes:object": {
-                "fx": "hit_basic_vegitables_effect",
-                "penetrationFx": "hit_basic_vegitables_effect"
+                "fx": "hit_basic_bush_green_effect",
+                "penetrationFx": "hit_basic_bush_green_effect"
+              },
+              "bushes_fall:object": {
+                "fx": "hit_basic_bush_fall_effect",
+                "penetrationFx": "hit_basic_bush_fall_effect"
+              },
+              "bushes_palm:object": {
+                "fx": "hit_basic_bush_palm_effect",
+                "penetrationFx": "hit_basic_bush_palm_effect"
+              },
+              "bushes_dead:object": {
+                "fx": "hit_basic_bush_dead_effect",
+                "penetrationFx": "hit_basic_bush_dead_effect"
+              },
+              "bushes_snow:object": {
+                "fx": "hit_basic_bush_snow_effect",
+                "penetrationFx": "hit_basic_bush_snow_effect"
+              },
+              "cactus:object": {
+                "fx": "hit_basic_cactus_effect",
+                "penetrationFx": "hit_basic_cactus_effect"
               }
+            },
+            "hay:object": {
+              "fx": "hit_basic_hay_effect",
+              "penetrationFx": "hit_basic_hay_effect"
             }
           }
         },
@@ -632,8 +615,32 @@
                 "penetrationFx": "hit_basic_cloth_effect"
               },
               "bushes:object": {
-                "fx": "hit_basic_vegitables_effect",
-                "penetrationFx": "hit_basic_vegitables_effect"
+                "fx": "hit_basic_bush_green_effect",
+                "penetrationFx": "hit_basic_bush_green_effect"
+              },
+              "bushes_fall:object": {
+                "fx": "hit_basic_bush_fall_effect",
+                "penetrationFx": "hit_basic_bush_fall_effect"
+              },
+              "bushes_palm:object": {
+                "fx": "hit_basic_bush_palm_effect",
+                "penetrationFx": "hit_basic_bush_palm_effect"
+              },
+              "bushes_dead:object": {
+                "fx": "hit_basic_bush_dead_effect",
+                "penetrationFx": "hit_basic_bush_dead_effect"
+              },
+              "bushes_snow:object": {
+                "fx": "hit_basic_bush_snow_effect",
+                "penetrationFx": "hit_basic_bush_snow_effect"
+              },
+              "cactus:object": {
+                "fx": "hit_basic_cactus_effect",
+                "penetrationFx": "hit_basic_cactus_effect"
+              },
+              "hay:object": {
+                "fx": "hit_basic_hay_effect",
+                "penetrationFx": "hit_basic_hay_effect"
               }
             }
           }
@@ -688,7 +695,23 @@
               },
               "bushes:object": {
                 "fx": "explosion_grenades_smoke_shell_effect",
-                "penetrationFx": "hit_basic_vegitables_effect"
+                "penetrationFx": "hit_basic_bush_green_effect"
+              },
+              "bushes_fall:object": {
+                "fx": "explosion_grenades_smoke_shell_effect",
+                "penetrationFx": "hit_basic_bush_fall_effect"
+              },
+              "bushes_palm:object": {
+                "fx": "explosion_grenades_smoke_shell_effect",
+                "penetrationFx": "hit_basic_bush_palm_effect"
+              },
+              "bushes_dead:object": {
+                "fx": "explosion_grenades_smoke_shell_effect",
+                "penetrationFx": "hit_basic_bush_dead_effect"
+              },
+              "bushes_snow:object": {
+                "fx": "explosion_grenades_smoke_shell_effect",
+                "penetrationFx": "hit_basic_bush_snow_effect"
               }
             }
           }
@@ -742,8 +765,28 @@
                 "penetrationFx": "hit_basic_cloth_effect"
               },
               "bushes:object": {
-                "fx": "hit_basic_vegitables_effect",
-                "penetrationFx": "hit_basic_vegitables_effect"
+                "fx": "hit_basic_bush_green_effect",
+                "penetrationFx": "hit_basic_bush_green_effect"
+              },
+              "bushes_fall:object": {
+                "fx": "hit_basic_bush_fall_effect",
+                "penetrationFx": "hit_basic_bush_fall_effect"
+              },
+              "bushes_palm:object": {
+                "fx": "hit_basic_bush_palm_effect",
+                "penetrationFx": "hit_basic_bush_palm_effect"
+              },
+              "bushes_dead:object": {
+                "fx": "hit_basic_bush_dead_effect",
+                "penetrationFx": "hit_basic_bush_dead_effect"
+              },
+              "bushes_snow:object": {
+                "fx": "hit_basic_bush_snow_effect",
+                "penetrationFx": "hit_basic_bush_snow_effect"
+              },
+              "cactus:object": {
+                "fx": "hit_basic_cactus_effect",
+                "penetrationFx": "hit_basic_cactus_effect"
               }
             }
           }
@@ -797,8 +840,28 @@
                 "penetrationFx": "hit_basic_cloth_effect"
               },
               "bushes:object": {
-                "fx": "hit_basic_vegitables_effect",
-                "penetrationFx": "hit_basic_vegitables_effect"
+                "fx": "hit_basic_bush_green_effect",
+                "penetrationFx": "hit_basic_bush_green_effect"
+              },
+              "bushes_fall:object": {
+                "fx": "hit_basic_bush_fall_effect",
+                "penetrationFx": "hit_basic_bush_fall_effect"
+              },
+              "bushes_palm:object": {
+                "fx": "hit_basic_bush_palm_effect",
+                "penetrationFx": "hit_basic_bush_palm_effect"
+              },
+              "bushes_dead:object": {
+                "fx": "hit_basic_bush_dead_effect",
+                "penetrationFx": "hit_basic_bush_dead_effect"
+              },
+              "bushes_snow:object": {
+                "fx": "hit_basic_bush_snow_effect",
+                "penetrationFx": "hit_basic_bush_snow_effect"
+              },
+              "cactus:object": {
+                "fx": "hit_basic_cactus_effect",
+                "penetrationFx": "hit_basic_cactus_effect"
               }
             }
           }
@@ -853,7 +916,23 @@
               },
               "bushes:object": {
                 "fx": "explosion_grenades_smoke_shell_effect",
-                "penetrationFx": "hit_basic_vegitables_effect"
+                "penetrationFx": "hit_basic_bush_green_effect"
+              },
+              "bushes_fall:object": {
+                "fx": "explosion_grenades_smoke_shell_effect",
+                "penetrationFx": "hit_basic_bush_fall_effect"
+              },
+              "bushes_palm:object": {
+                "fx": "explosion_grenades_smoke_shell_effect",
+                "penetrationFx": "hit_basic_bush_palm_effect"
+              },
+              "bushes_dead:object": {
+                "fx": "explosion_grenades_smoke_shell_effect",
+                "penetrationFx": "hit_basic_bush_dead_effect"
+              },
+              "bushes_snow:object": {
+                "fx": "explosion_grenades_smoke_shell_effect",
+                "penetrationFx": "hit_basic_bush_snow_effect"
               }
             }
           }
@@ -907,8 +986,28 @@
                 "penetrationFx": "hit_basic_cloth_effect"
               },
               "bushes:object": {
-                "fx": "hit_basic_vegitables_effect",
-                "penetrationFx": "hit_basic_vegitables_effect"
+                "fx": "hit_basic_bush_green_effect",
+                "penetrationFx": "hit_basic_bush_green_effect"
+              },
+              "bushes_fall:object": {
+                "fx": "hit_basic_bush_fall_effect",
+                "penetrationFx": "hit_basic_bush_fall_effect"
+              },
+              "bushes_palm:object": {
+                "fx": "hit_basic_bush_palm_effect",
+                "penetrationFx": "hit_basic_bush_palm_effect"
+              },
+              "bushes_dead:object": {
+                "fx": "hit_basic_bush_dead_effect",
+                "penetrationFx": "hit_basic_bush_dead_effect"
+              },
+              "bushes_snow:object": {
+                "fx": "hit_basic_bush_snow_effect",
+                "penetrationFx": "hit_basic_bush_snow_effect"
+              },
+              "cactus:object": {
+                "fx": "hit_basic_cactus_effect",
+                "penetrationFx": "hit_basic_cactus_effect"
               }
             }
           }
@@ -962,8 +1061,28 @@
                 "penetrationFx": "hit_basic_cloth_effect"
               },
               "bushes:object": {
-                "fx": "hit_basic_vegitables_effect",
-                "penetrationFx": "hit_basic_vegitables_effect"
+                "fx": "hit_basic_bush_green_effect",
+                "penetrationFx": "hit_basic_bush_green_effect"
+              },
+              "bushes_fall:object": {
+                "fx": "hit_basic_bush_fall_effect",
+                "penetrationFx": "hit_basic_bush_fall_effect"
+              },
+              "bushes_palm:object": {
+                "fx": "hit_basic_bush_palm_effect",
+                "penetrationFx": "hit_basic_bush_palm_effect"
+              },
+              "bushes_dead:object": {
+                "fx": "hit_basic_bush_dead_effect",
+                "penetrationFx": "hit_basic_bush_dead_effect"
+              },
+              "bushes_snow:object": {
+                "fx": "hit_basic_bush_snow_effect",
+                "penetrationFx": "hit_basic_bush_snow_effect"
+              },
+              "cactus:object": {
+                "fx": "hit_basic_cactus_effect",
+                "penetrationFx": "hit_basic_cactus_effect"
               }
             }
           }
@@ -1018,7 +1137,23 @@
               },
               "bushes:object": {
                 "fx": "explosion_grenades_smoke_shell_effect",
-                "penetrationFx": "hit_basic_vegitables_effect"
+                "penetrationFx": "hit_basic_bush_green_effect"
+              },
+              "bushes_fall:object": {
+                "fx": "explosion_grenades_smoke_shell_effect",
+                "penetrationFx": "hit_basic_bush_fall_effect"
+              },
+              "bushes_palm:object": {
+                "fx": "explosion_grenades_smoke_shell_effect",
+                "penetrationFx": "hit_basic_bush_palm_effect"
+              },
+              "bushes_dead:object": {
+                "fx": "explosion_grenades_smoke_shell_effect",
+                "penetrationFx": "hit_basic_bush_dead_effect"
+              },
+              "bushes_snow:object": {
+                "fx": "explosion_grenades_smoke_shell_effect",
+                "penetrationFx": "hit_basic_bush_snow_effect"
               }
             }
           }
@@ -1073,8 +1208,28 @@
                 "penetrationFx": "hit_basic_cloth_effect"
               },
               "bushes:object": {
-                "fx": "hit_basic_vegitables_effect",
-                "penetrationFx": "hit_basic_vegitables_effect"
+                "fx": "hit_basic_bush_green_effect",
+                "penetrationFx": "hit_basic_bush_green_effect"
+              },
+              "bushes_fall:object": {
+                "fx": "hit_basic_bush_fall_effect",
+                "penetrationFx": "hit_basic_bush_fall_effect"
+              },
+              "bushes_palm:object": {
+                "fx": "hit_basic_bush_palm_effect",
+                "penetrationFx": "hit_basic_bush_palm_effect"
+              },
+              "bushes_dead:object": {
+                "fx": "hit_basic_bush_dead_effect",
+                "penetrationFx": "hit_basic_bush_dead_effect"
+              },
+              "bushes_snow:object": {
+                "fx": "hit_basic_bush_snow_effect",
+                "penetrationFx": "hit_basic_bush_snow_effect"
+              },
+              "cactus:object": {
+                "fx": "hit_basic_cactus_effect",
+                "penetrationFx": "hit_basic_cactus_effect"
               }
             }
           }
@@ -1128,8 +1283,28 @@
                 "penetrationFx": "hit_basic_cloth_effect"
               },
               "bushes:object": {
-                "fx": "hit_basic_vegitables_effect",
-                "penetrationFx": "hit_basic_vegitables_effect"
+                "fx": "hit_basic_bush_green_effect",
+                "penetrationFx": "hit_basic_bush_green_effect"
+              },
+              "bushes_fall:object": {
+                "fx": "hit_basic_bush_fall_effect",
+                "penetrationFx": "hit_basic_bush_fall_effect"
+              },
+              "bushes_palm:object": {
+                "fx": "hit_basic_bush_palm_effect",
+                "penetrationFx": "hit_basic_bush_palm_effect"
+              },
+              "bushes_dead:object": {
+                "fx": "hit_basic_bush_dead_effect",
+                "penetrationFx": "hit_basic_bush_dead_effect"
+              },
+              "bushes_snow:object": {
+                "fx": "hit_basic_bush_snow_effect",
+                "penetrationFx": "hit_basic_bush_snow_effect"
+              },
+              "cactus:object": {
+                "fx": "hit_basic_cactus_effect",
+                "penetrationFx": "hit_basic_cactus_effect"
               }
             }
           }
@@ -1184,7 +1359,23 @@
               },
               "bushes:object": {
                 "fx": "explosion_grenades_smoke_shell_effect",
-                "penetrationFx": "hit_basic_vegitables_effect"
+                "penetrationFx": "hit_basic_bush_green_effect"
+              },
+              "bushes_fall:object": {
+                "fx": "explosion_grenades_smoke_shell_effect",
+                "penetrationFx": "hit_basic_bush_fall_effect"
+              },
+              "bushes_palm:object": {
+                "fx": "explosion_grenades_smoke_shell_effect",
+                "penetrationFx": "hit_basic_bush_palm_effect"
+              },
+              "bushes_dead:object": {
+                "fx": "explosion_grenades_smoke_shell_effect",
+                "penetrationFx": "hit_basic_bush_dead_effect"
+              },
+              "bushes_snow:object": {
+                "fx": "explosion_grenades_smoke_shell_effect",
+                "penetrationFx": "hit_basic_bush_snow_effect"
               }
             }
           }
@@ -1197,7 +1388,7 @@
             "defaultRicochetFx": "hit_artillery_sand_effect",
             "waterSplashOnExplosion": true,
             "info:object": {
-              "group__dirt:object": {
+              "group__dirt_and_mud:object": {
                 "fx": "hit_artillery_dirt_effect",
                 "penetrationFx": "hit_artillery_dirt_effect",
                 "ricochetFx": "hit_artillery_dirt_effect"
@@ -1239,8 +1430,28 @@
                 "penetrationFx": "hit_basic_cloth_effect"
               },
               "bushes:object": {
-                "fx": "hit_basic_vegitables_effect",
-                "penetrationFx": "hit_basic_vegitables_effect"
+                "fx": "hit_basic_bush_green_effect",
+                "penetrationFx": "hit_basic_bush_green_effect"
+              },
+              "bushes_fall:object": {
+                "fx": "hit_basic_bush_fall_effect",
+                "penetrationFx": "hit_basic_bush_fall_effect"
+              },
+              "bushes_palm:object": {
+                "fx": "hit_basic_bush_palm_effect",
+                "penetrationFx": "hit_basic_bush_palm_effect"
+              },
+              "bushes_dead:object": {
+                "fx": "hit_basic_bush_dead_effect",
+                "penetrationFx": "hit_basic_bush_dead_effect"
+              },
+              "bushes_snow:object": {
+                "fx": "hit_basic_bush_snow_effect",
+                "penetrationFx": "hit_basic_bush_snow_effect"
+              },
+              "cactus:object": {
+                "fx": "hit_basic_cactus_effect",
+                "penetrationFx": "hit_basic_cactus_effect"
               }
             }
           }
@@ -1251,7 +1462,7 @@
             "defaultFx": "explosion_50_100kg_sand_effect",
             "waterSplashOnExplosion": true,
             "info:object": {
-              "group__dirt:object": {
+              "group__dirt_and_mud:object": {
                 "fx": "explosion_50_100kg_dirt_effect"
               },
               "group__snow:object": {
@@ -1272,7 +1483,7 @@
             "defaultFx": "explosion_100_250kg_sand_effect",
             "waterSplashOnExplosion": true,
             "info:object": {
-              "group__dirt:object": {
+              "group__dirt_and_mud:object": {
                 "fx": "explosion_100_250kg_dirt_effect"
               },
               "group__snow:object": {
@@ -1293,7 +1504,7 @@
             "defaultFx": "explosion_250_500kg_sand_effect",
             "waterSplashOnExplosion": true,
             "info:object": {
-              "group__dirt:object": {
+              "group__dirt_and_mud:object": {
                 "fx": "explosion_250_500kg_dirt_effect"
               },
               "group__snow:object": {
@@ -1456,7 +1667,7 @@
                 "key": 15.0
               },
               {
-                "key": 21.0
+                "key": 26.0
               },
               {
                 "key": 60.0
@@ -1495,7 +1706,65 @@
         "killFx": "hit_blood_entry_effect_longer",
         "killSideFx": "hit_blood_flow_light_effect_longer",
         "killExitFx": "hit_blood_exit_effect_longer"
-      }
+      },
+      "global_hit_fx__canopyEffects:object": {
+        "bushes": "hit_basic_bush_green_effect",
+        "bushes_fall": "hit_basic_bush_fall_effect",
+        "bushes_palm": "hit_basic_bush_palm_effect",
+        "bushes_dead": "hit_basic_bush_dead_effect",
+        "bushes_snow": "hit_basic_bush_snow_effect",
+        "wood": "hit_basic_bush_green_effect",
+        "wood_fall": "hit_basic_bush_fall_effect",
+        "wood_palm": "hit_basic_bush_palm_effect",
+        "wood_dead": "hit_basic_bush_dead_effect",
+        "wood_snow": "hit_basic_bush_snow_effect",
+        "wood_solid": "hit_basic_bush_green_effect",
+        "wood_fall_solid": "hit_basic_bush_fall_effect",
+        "wood_palm_solid": "hit_basic_bush_palm_effect",
+        "wood_dead_solid": "hit_basic_bush_dead_effect",
+        "wood_snow_solid": "hit_basic_bush_snow_effect"
+      },
+      "global_ground_wave_fx__maxImpulses:list<r>": [
+        {
+          "maxImpulse": 10.0
+        },
+        {
+          "maxImpulse": 100.0
+        },
+        {
+          "maxImpulse": 1000000.0
+        }
+      ],
+      "global_ground_wave_fx__effectGroups:array": [
+        {
+          "group:object": []
+        },
+        {
+          "group:object": {
+            "maxDistanceFromGun": 3.0,
+            "defaultFx": "hit_ground_wave_medium_dirt_effect",
+            "info:object": {
+              "group__dirt_and_mud": "hit_ground_wave_medium_dirt_effect",
+              "group__sand": "hit_ground_wave_medium_sand_effect",
+              "group__snow": "hit_ground_wave_medium_snow_effect",
+              "group__stone": "hit_ground_wave_medium_stone_effect"
+            }
+          }
+        },
+        {
+          "group:object": {
+            "maxDistanceFromGun": 4.0,
+            "defaultFx": "hit_ground_wave_big_dirt_effect",
+            "grassFx": "hit_ground_wave_big_grass_effect",
+            "info:object": {
+              "group__dirt_and_mud": "hit_ground_wave_big_dirt_effect",
+              "group__sand": "hit_ground_wave_big_sand_effect",
+              "group__snow": "hit_ground_wave_big_snow_effect",
+              "group__stone": "hit_ground_wave_big_stone_effect"
+            }
+          }
+        }
+      ]
     }
   },
   "hit_effect_group_6_8mm": {
@@ -1544,6 +1813,12 @@
     "gun_hit_fx__explEffectPresetName": "bomb_expl",
     "gun_hit_fx__explEffectDescriptor": 0
   },
+  "hit_effect_group_flame_bomb": {
+    "gun_hit_fx__hitEffectPresetName": "bomb_hit",
+    "gun_hit_fx__hitEffectDescriptor": 0,
+    "gun_hit_fx__explEffectGroupName": "nothing",
+    "gun_hit_fx__explEffectDescriptor": 0
+  },
   "hit_effect_group_melee": {
     "_tags": "render",
     "melee_fx__default": "hit_melee_wood_effect",
@@ -1562,8 +1837,14 @@
       "ceramic": "hit_melee_stone_effect",
       "glass": "hit_basic_glass_effect",
       "flesh": "hit_blood_entry_effect",
-      "fabric": "hit_melee_metal_effect",
-      "bushes": "hit_basic_vegitables_effect"
+      "fabric": "hit_basic_cloth_effect",
+      "bushes": "hit_basic_bush_green_effect",
+      "bushes_fall": "hit_basic_bush_fall_effect",
+      "bushes_palm": "hit_basic_bush_palm_effect",
+      "bushes_dead": "hit_basic_bush_dead_effect",
+      "bushes_snow": "hit_basic_bush_snow_effect",
+      "cactus": "hit_basic_cactus_effect",
+      "metal": "hit_melee_metal_effect"
     }
   }
 }

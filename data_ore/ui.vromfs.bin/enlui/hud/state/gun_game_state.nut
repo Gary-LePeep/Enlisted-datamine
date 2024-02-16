@@ -35,15 +35,19 @@ ecs.register_es("gun_game_team_levels_track", {
   comps_ro=[["team__id", ecs.TYPE_INT]]
 })
 
-let getPlayerNameAndTeamQuery = ecs.SqQuery("getPlayerNameAndTeamQuery",
-  { comps_ro = ["name", "team"] })
+let getPlayerNameAndTeamQuery = ecs.SqQuery("getPlayerNameAndTeamQuery", {
+  comps_ro = [
+    ["name", ecs.TYPE_STRING],
+    ["team", ecs.TYPE_INT]
+  ]
+})
 
 ecs.register_es("gun_game_leader_track", {
   [["onInit","onChange"]] = function(_eid,comp) {
     gunGameLeaderPlayerEid(comp.gun_game__leaderPlayerEid)
-    getPlayerNameAndTeamQuery(comp.gun_game__leaderPlayerEid, function(_eid, comp) {
-      gunGameLeaderTeam(comp.team)
-      gunGameLeaderName(comp.name)
+    getPlayerNameAndTeamQuery(comp.gun_game__leaderPlayerEid, function(_eid, playerComp) {
+      gunGameLeaderTeam(playerComp.team)
+      gunGameLeaderName(playerComp.name)
     })
   }
 },

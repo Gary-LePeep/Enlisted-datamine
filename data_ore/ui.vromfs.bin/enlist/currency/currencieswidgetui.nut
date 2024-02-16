@@ -12,7 +12,6 @@ let function currencyBalance(currency) {
   let stateFlags = Watched(0)
   return @() {
     watch = [currenciesBalance, stateFlags]
-    size = [SIZE_TO_CONTENT, flex()]
     valign = ALIGN_CENTER
     behavior = Behaviors.Button
     onElemState = @(sf) stateFlags(sf)
@@ -24,7 +23,7 @@ let function currencyBalance(currency) {
       currency
       price = currenciesBalance.value?[currency.id]
       txtStyle = { color = btnTranspTextColor(stateFlags.value, false, TextActive) }
-      iconSize = hdpx(30)
+      iconSize = hdpxi(30)
     })
   }
 }
@@ -34,7 +33,6 @@ let function currenciesWidget() {
   return {
     key = "currenciesWidget"
     watch = currenciesSorted
-    size = [SIZE_TO_CONTENT, flex()]
     flow = FLOW_HORIZONTAL
     gap = gap
     children = visibleCurrencies.map(currencyBalance)

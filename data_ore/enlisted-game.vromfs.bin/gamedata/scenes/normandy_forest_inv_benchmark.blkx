@@ -1,0 +1,291 @@
+[
+  {
+    "import": {
+      "scene": "content/enlisted/gamedata/scenes/_normandy_ardennes_benchmark_common.blk"
+    }
+  },
+  {
+    "entity": {
+      "_template": "screen_fade_anim",
+      "screen_fade": 0.9,
+      "anim_track_on": true
+    }
+  },
+  {
+    "entity": {
+      "_template": "ui_disabled"
+    }
+  },
+  {
+    "entity": {
+      "_template": "benchmark",
+      "benchmark_name": "normandy_ardennes_1_inv_benchmark",
+      "camera_tracks:array": [
+        {
+          "camera_tracks:object": {
+            "from_pos": [550.396,37.6487,111.203],
+            "from_dir": [-0.983367,-0.00911627,0.181399],
+            "from_fov": 75.0,
+            "to_pos": [509.503,52.5058,141.114],
+            "to_dir": [0.171053,-0.556449,-0.813084],
+            "to_fov": 90.0,
+            "duration": 20.0
+          }
+        },
+        {
+          "camera_tracks:object": {
+            "from_pos": [453.042,36.0731,142.037],
+            "from_dir": [-0.994564,-0.100189,0.028369],
+            "from_fov": 90.0,
+            "to_pos": [362.265,21.9109,136.757],
+            "to_dir": [-0.999428,-0.000320095,0.0338156],
+            "to_fov": 90.0,
+            "duration": 20.0
+          }
+        },
+        {
+          "camera_tracks:object": {
+            "from_pos": [321.97,21.0175,78.321],
+            "from_dir": [0.426679,-0.158704,0.89037],
+            "from_fov": 90.0,
+            "to_pos": [322.365,29.0984,112.262],
+            "to_dir": [0.489991,-0.519122,0.700301],
+            "to_fov": 90.0,
+            "duration": 20.0
+          }
+        },
+        {
+          "camera_tracks:object": {
+            "from_pos": [270.706,24.8934,100.267],
+            "from_dir": [-0.93631,0.0487487,-0.347774],
+            "from_fov": 90.0,
+            "to_pos": [236.417,36.9301,113.837],
+            "to_dir": [-0.720367,-0.0524049,-0.691611],
+            "to_fov": 90.0,
+            "duration": 20.0
+          }
+        },
+        {
+          "camera_tracks:object": {
+            "from_pos": [211.516,30.3773,29.1995],
+            "from_dir": [-0.724702,-0.0777992,-0.684656],
+            "from_fov": 90.0,
+            "to_pos": [210.648,36.9146,-33.7088],
+            "to_dir": [-0.555625,-0.12162,0.82249],
+            "to_fov": 90.0,
+            "duration": 20.0
+          }
+        },
+        {
+          "camera_tracks:object": {
+            "from_pos": [130.159,38.0226,-0.811604],
+            "from_dir": [-0.396544,0.0339192,0.917389],
+            "from_fov": 90.0,
+            "to_pos": [120.94,42.3625,71.6123],
+            "to_dir": [-0.594376,-0.0237971,-0.803835],
+            "to_fov": 90.0,
+            "duration": 20.0
+          }
+        },
+        {
+          "camera_tracks:object": {
+            "from_pos": [88.9853,51.9037,11.3029],
+            "from_dir": [-0.63036,-0.0128441,0.776197],
+            "from_fov": 90.0,
+            "to_pos": [5.6514,63.1329,20.9809],
+            "to_dir": [0.949851,-0.261002,0.172226],
+            "to_fov": 90.0,
+            "duration": 20.0
+          }
+        },
+        {
+          "camera_tracks:object": {
+            "from_pos": [-34.2122,53.3802,73.3051],
+            "from_dir": [-0.102736,0.15597,0.982405],
+            "from_fov": 90.0,
+            "to_pos": [-30.0044,73.4435,60.7988],
+            "to_dir": [-0.100736,-0.35037,0.931179],
+            "to_fov": 90.0,
+            "duration": 20.0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "customizable_benchmark_animchar",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [526.702,35.5533,114.679]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "customizable_benchmark_animchar",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [529.362,35.6195,114.55]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "customizable_benchmark_animchar",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [532.206,35.6045,114.338]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "customizable_benchmark_animchar",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [524.067,35.4785,114.551]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "customizable_benchmark_animchar",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [525.032,35.4993,117.485]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "customizable_benchmark_animchar",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [528.028,35.5179,117.194]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "customizable_benchmark_animchar",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [530.748,35.5437,117.086]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "customizable_benchmark_animchar",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [526.277,35.3698,111.603]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "customizable_benchmark_animchar",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [535.476,35.2788,110.902]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "customizable_benchmark_animchar",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [522.643,35.4992,119.355]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "customizable_benchmark_animchar",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [520.317,35.47,114.568]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "customizable_benchmark_animchar",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [519.789,35.4992,117.471]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "customizable_benchmark_animchar",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [538.574,35.3417,109.905]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "customizable_benchmark_animchar",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [541.305,35.4783,111.169]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "customizable_benchmark_animchar",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [541.416,35.4992,114.442]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "customizable_benchmark_animchar",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [546.119,35.5028,111.191]
+      ]
+    }
+  }
+]

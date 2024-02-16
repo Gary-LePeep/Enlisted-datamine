@@ -19,7 +19,7 @@
     }
   },
   "observed_local": {
-    "_extends": "observed"
+    "_use": "observed"
   },
   "observed_remote": [],
   "base_camera_shaker": {
@@ -41,7 +41,7 @@
     }
   },
   "camera_shaker_random": {
-    "_extends": "base_camera_shaker",
+    "_use": "base_camera_shaker",
     "camera_shaker": {
       "_tags": "gameClient"
     }
@@ -55,7 +55,7 @@
   },
   "camera_shaker_perlin": [
     {
-      "_extends": "base_camera_shaker"
+      "_use": "base_camera_shaker"
     },
     {
       "_group": {
@@ -110,7 +110,7 @@
     }
   },
   "animated_camera": {
-    "_extends": "static_cam",
+    "_use": "static_cam",
     "anim_track_on": false,
     "_tracked": "anim_track_on",
     "anim_key_track": [],
@@ -159,6 +159,7 @@
     "aim_data__isAiming": false,
     "aim_data__isAimingThroughScope": false,
     "aim_data__nightVision": false,
+    "aim_data__thermalVision": false,
     "aim_data__nearDofEnabled": false,
     "aim_data__farDofEnabled": false,
     "aim_data__simplifiedAimDof": false,
@@ -170,7 +171,7 @@
   },
   "base_shooter_cam": [
     {
-      "_extends": "camera_aim_data"
+      "_use": "camera_aim_data"
     },
     {
       "camera__active": false
@@ -387,10 +388,10 @@
   ],
   "shooter_cam_perlin": [
     {
-      "_extends": "camera_shaker_perlin"
+      "_use": "camera_shaker_perlin"
     },
     {
-      "_extends": "base_shooter_cam"
+      "_use": "base_shooter_cam"
     }
   ],
   "smooth_respawn_to_cam": {
@@ -414,22 +415,22 @@
   },
   "soldier_cam_perlin": [
     {
-      "_extends": "shooter_cam_perlin"
+      "_use": "shooter_cam_perlin"
     },
     {
-      "_extends": "smooth_respawn_to_cam"
+      "_use": "smooth_respawn_to_cam"
     }
   ],
   "shooter_cam": [
     {
-      "_extends": "camera_shaker_random"
+      "_use": "camera_shaker_random"
     },
     {
-      "_extends": "base_shooter_cam"
+      "_use": "base_shooter_cam"
     }
   ],
   "shooter_tps_cam": {
-    "_extends": "shooter_cam",
+    "_use": "shooter_cam",
     "shooter_cam__blk": "content/common/gamedata/cameras/shootertpscam.blk",
     "shooter_cam__moveInSpd": 6.0,
     "shooter_cam__moveOutSpd": 2.0,
@@ -445,11 +446,11 @@
     "isHeroCockpitCam": false
   },
   "dev_tps_cam": {
-    "_extends": "shooter_tps_cam",
+    "_use": "shooter_tps_cam",
     "shooter_cam__blk": "content/common/gamedata/cameras/shootertpscam_dev.blk"
   },
   "spectator": {
-    "_extends": "spectator_input",
+    "_use": "spectator_input",
     "spectator__teamId": -1,
     "spectator__dir": [1.0,0.0,0.0],
     "spectator__ang": [0.0,0.0],
@@ -461,10 +462,10 @@
   },
   "replay_observed": [
     {
-      "_extends": "replay_node_collapser"
+      "_use": "replay_node_collapser"
     },
     {
-      "_extends": "observed_local"
+      "_use": "observed_local"
     },
     {
       "replay__deadCamTime": 5.0
@@ -539,10 +540,10 @@
   ],
   "replay_camera": [
     {
-      "_extends": "base_replay_camera"
+      "_use": "base_replay_camera"
     },
     {
-      "_extends": "shooter_cam"
+      "_use": "shooter_cam"
     },
     {
       "isHeroCockpitCam": true
@@ -550,13 +551,13 @@
   ],
   "replay_camera_tps": [
     {
-      "_extends": "base_replay_camera"
+      "_use": "base_replay_camera"
     },
     {
-      "_extends": "shooter_tps_cam"
+      "_use": "shooter_tps_cam"
     },
     {
-      "_extends": "spectator_input"
+      "_use": "spectator_input"
     },
     {
       "spectator__dir": [1.0,0.0,0.0]
@@ -581,7 +582,7 @@
     }
   ],
   "replay_camera_operator": {
-    "_extends": "base_replay_camera",
+    "_use": "base_replay_camera",
     "isTpsView": true,
     "isHeroCockpitCam": false,
     "operator__horizontalOffset": [-2.0,2.0,0.0],
@@ -595,10 +596,10 @@
   },
   "base_replay_free_cam": [
     {
-      "_extends": "free_cam_input"
+      "_use": "free_cam_input"
     },
     {
-      "_extends": "base_replay_camera"
+      "_use": "base_replay_camera"
     },
     {
       "fov": 90.0
@@ -637,7 +638,7 @@
   ],
   "replay_camera_tps_free": [
     {
-      "_extends": "base_replay_free_cam"
+      "_use": "base_replay_free_cam"
     },
     {
       "camera__input_enabled": false
@@ -701,21 +702,21 @@
   ],
   "spectator_camera": [
     {
-      "_extends": "shooter_tps_cam"
+      "_use": "shooter_tps_cam"
     },
     {
-      "_extends": "spectator"
+      "_use": "spectator"
     }
   ],
   "shooter_tps_cine_cam": {
-    "_extends": "shooter_cam",
+    "_use": "shooter_cam",
     "shooter_cam__blk": "content/common/gamedata/cameras/shootertpscamcine.blk",
     "shooter_cam__moveInSpd": 6.0,
     "shooter_cam__moveOutSpd": 0.3,
     "isTpsView": true
   },
   "tank_cam": {
-    "_extends": "shooter_cam",
+    "_use": "shooter_cam",
     "shooter_cam__blk": "content/common/gamedata/cameras/tankcam.blk",
     "shooter_cam__alt_blk": "content/common/gamedata/cameras/tankcam_commander.blk",
     "shooter_cam__punch_x_range": [-0.0625,0.0625],
@@ -726,12 +727,12 @@
     "bindToVehicle": true
   },
   "dev_tps_tankcam": {
-    "_extends": "tank_cam",
+    "_use": "tank_cam",
     "shooter_cam__blk": "content/common/gamedata/cameras/tankcam_dev.blk",
     "shooter_cam__alt_blk": "content/common/gamedata/cameras/tankcam_dev.blk"
   },
   "car_tps_cam": {
-    "_extends": "tank_cam",
+    "_use": "tank_cam",
     "shooter_camera__forceStabilized": true
   },
   "base_tank_fps_cam": {
@@ -741,19 +742,14 @@
     "shooter_cam__punch_y_range": [-0.5,0.5],
     "shooter_cam__punch_strength": -2.0,
     "shooter_cam__tau_on_change": 0.0,
-    "bindToVehicle": true,
-    "_group": {
-      "_tags": "sound",
-      "camera_inside_snapshot__path": "snapshots/filter_tank_int",
-      "camera_inside_snapshot__event:SoundEvent": []
-    }
+    "bindToVehicle": true
   },
   "tank_fps_cam": [
     {
-      "_extends": "shooter_cam"
+      "_use": "shooter_cam"
     },
     {
-      "_extends": "base_tank_fps_cam"
+      "_use": "base_tank_fps_cam"
     },
     {
       "camera__fovSettingsPath": "vehicle_camera_fov"
@@ -761,14 +757,22 @@
   ],
   "tank_fps_cam_perlin": [
     {
-      "_extends": "shooter_cam_perlin"
+      "_use": "shooter_cam_perlin"
     },
     {
-      "_extends": "base_tank_fps_cam"
+      "_use": "base_tank_fps_cam"
+    }
+  ],
+  "bike_fps_cam": [
+    {
+      "_use": "tank_fps_cam"
+    },
+    {
+      "_use": "smooth_respawn_to_cam"
     }
   ],
   "plane_tps_cam": {
-    "_extends": "shooter_cam",
+    "_use": "shooter_cam",
     "shooter_cam__blk": "content/common/gamedata/cameras/planecam.blk",
     "zfar": 40000.0,
     "isTpsView": true,
@@ -779,7 +783,7 @@
     "isPlaneCockpitCam": false
   },
   "plane_fps_cam": {
-    "_extends": "shooter_cam",
+    "_use": "shooter_cam",
     "camera__fovSettingsPath": "vehicle_camera_fov",
     "shooter_cam__blk": "content/common/gamedata/cameras/planefpscam.blk",
     "camera__animcharMaxDtThreshold": 0.4,
@@ -789,15 +793,10 @@
     "shooter_cam__tau_on_change": 0.0,
     "isHeroCockpitCam": true,
     "isPlaneCockpitCam": true,
-    "plane_fps_cam__applyLookAroundOffset:tag": [],
-    "_group": {
-      "_tags": "sound",
-      "camera_inside_snapshot__path": "snapshots/filter_aircraft_int",
-      "camera_inside_snapshot__event:SoundEvent": []
-    }
+    "plane_fps_cam__applyLookAroundOffset:tag": []
   },
   "melee_tps_cam": {
-    "_extends": "shooter_cam",
+    "_use": "shooter_cam",
     "shooter_cam__blk": "content/common/gamedata/cameras/meleetpscam.blk"
   },
   "base_node_cam": {
@@ -816,7 +815,7 @@
     "entity:eid": []
   },
   "helmet_cam": {
-    "_extends": "base_node_cam",
+    "_use": "base_node_cam",
     "team": 0,
     "node_cam__node": "Bip01 Head",
     "node_cam__offset": [-0.3,0.1,0.1],
@@ -827,7 +826,7 @@
     }
   },
   "eye_cam": {
-    "_extends": "base_node_cam",
+    "_use": "base_node_cam",
     "team": 0,
     "node_cam__node": "reye",
     "node_cam__offset": [0.0,0.0,0.0],
@@ -845,18 +844,18 @@
   },
   "gun_cam": [
     {
-      "_extends": "base_gun_cam"
+      "_use": "base_gun_cam"
     },
     {
-      "_extends": "shooter_cam"
+      "_use": "shooter_cam"
     }
   ],
   "gun_cam_perlin": [
     {
-      "_extends": "base_gun_cam"
+      "_use": "base_gun_cam"
     },
     {
-      "_extends": "shooter_cam_perlin"
+      "_use": "shooter_cam_perlin"
     },
     {
       "shooter_cam__recoilOffset": 0.0
@@ -866,7 +865,7 @@
     }
   ],
   "observe_head_cam": {
-    "_extends": "base_node_cam",
+    "_use": "base_node_cam",
     "fov": 80.0,
     "shooter_cam__alternative_settings": false,
     "zoom": 0.0,
@@ -885,7 +884,7 @@
     "camera__target:eid": []
   },
   "observe_pelvis_cam": {
-    "_extends": "base_node_cam",
+    "_use": "base_node_cam",
     "fov": 80.0,
     "shooter_cam__alternative_settings": false,
     "zoom": 0.0,
@@ -904,11 +903,11 @@
     "camera__target:eid": []
   },
   "observe_ass_cam": {
-    "_extends": "observe_pelvis_cam",
+    "_use": "observe_pelvis_cam",
     "node_cam__angles": [25.0,0.0,0.0]
   },
   "observe_left_cam": {
-    "_extends": "observe_pelvis_cam",
+    "_use": "observe_pelvis_cam",
     "node_cam__node": "Bip01 Spine1",
     "node_cam__offset": [-2.5,-0.1,-0.5],
     "node_cam__angles": [-90.0,-10.0,-30.0]
@@ -938,11 +937,15 @@
     "camtracks__fade_out_time": 0.25
   },
   "respawn_cam": {
-    "_extends": "base_shooter_cam",
+    "_use": "base_shooter_cam",
     "shooter_cam__tauMult": 1.0,
     "camera__animcharMaxDtThreshold": 0.4,
     "shooter_cam__tau_on_change": 0.4,
+    "_tracked": "camera__accuratePos",
     "respawnCameraTargerPoint:eid": [],
-    "respawnCamera:tag": []
+    "respawnCamera:tag": [],
+    "camera__accuratePos": {
+      "_tags": "gameClient"
+    }
   }
 }

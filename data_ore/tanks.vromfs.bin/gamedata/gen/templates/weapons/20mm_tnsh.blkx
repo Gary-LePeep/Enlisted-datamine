@@ -65,16 +65,16 @@
   },
   "tankgun_20mm_tnsh": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_tankgun_autocannon"
+      "_use": "base_tankgun_autocannon"
     },
     {
-      "_extends": "base_20mm_tnsh"
+      "_use": "base_20mm_tnsh"
     },
     {
-      "_extends": "gunsound_20mm_tnsh"
+      "_use": "gunsound_20mm_tnsh"
     },
     {
       "turret__triggerGroup": 0

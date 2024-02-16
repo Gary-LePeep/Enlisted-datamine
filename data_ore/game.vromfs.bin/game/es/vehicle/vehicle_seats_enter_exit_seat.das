@@ -4,9 +4,9 @@ require ecs.common
 require game.es.events
 require game.es.vehicle.vehicle_events
 require game.es.vehicle.vehicle_seats_common
-require EnlistedActor
-require EnlistedHuman
-require EnlistedNet
+require DngActor
+require DngHuman
+require DngNet
 require game.utils.team
 require matching
 
@@ -32,11 +32,14 @@ def private attach_human_to_seat(eid : EntityId;
   query(eid) <| $ [es] (var isInVehicle : bool&;
                         var isInVehicleHidden : bool&;
                         var human_anim__vehicleSelected : EntityId&;
-                        var human_vehicle__occupiedSeatEid : EntityId&)
+                        var human_vehicle__occupiedSeatEid : EntityId&;
+                        var human_vehicle__lastKnownSeatEid : EntityId?)
     isInVehicle = hasVehicle
     isInVehicleHidden = should_hide && hasVehicle
     human_anim__vehicleSelected = vehicleEid
     human_vehicle__occupiedSeatEid = seatEid
+    if human_vehicle__lastKnownSeatEid != null
+      *human_vehicle__lastKnownSeatEid = human_vehicle__occupiedSeatEid
 
   setOptional(eid, "", uint(seat__component), hasVehicle)
 
@@ -54,6 +57,13 @@ def is_already_in_vehicle(requester : EntityId)
         return true
     return false
 
+def move_to_free_seat_or_kick(eid : EntityId; vehicle : EntityId; old_seat : EntityId; seats : EidList)
+  let availableSeat = find_vehicle_seat_for_bot(eid, seats)
+  if availableSeat >= 0
+    change_seat(eid, availableSeat, seats)
+  let toBeKicked = get_Eid(old_seat, "seat__ownerEid") ?? INVALID_ENTITY_ID
+  kick_from_vehicle(toBeKicked, vehicle, seats) // forcebly free old seat
+
 [es(tag=server, REQUIRE_NOT=deadEntity)]
 def vehicle_seats_enter_exit_seat_server_es(evt : CmdAcquireVehicleSeat;
                                             eid : EntityId;
@@ -67,7 +77,7 @@ def vehicle_seats_enter_exit_seat_server_es(evt : CmdAcquireVehicleSeat;
   var canUseVehicle = true
   query(requester) <| $ [es] (team : int; squad_member__playerEid : EntityId = INVALID_ENTITY_ID)
     let playerGroup = get_int64(squad_member__playerEid, "origGroupId") ?? int64(INVALID_GROUP_ID)
-    canUseVehicle = can_use_vehicle(team, vehicle_seats__restrictToTeam, playerGroup, vehicle_seats__restrictToGroup)
+    canUseVehicle = can_use_vehicle(team, vehicle_seats__restrictToTeam, playerGroup, vehicle_seats__restrictToGroup, eid, requester)
 
   if !canUseVehicle
     return
@@ -102,7 +112,7 @@ def vehicle_seats_enter_exit_seat_server_es(evt : CmdAcquireVehicleSeat;
       return
 
     if !!seat__ownerEid
-      kick_from_vehicle(seat__ownerEid, eid, vehicle_seats__seatEids)
+      move_to_free_seat_or_kick(seat__ownerEid, eid, reqSeatEid, vehicle_seats__seatEids)
 
     seat__isPlayer  = !!playerEid
     seat__ownerEid  = requester

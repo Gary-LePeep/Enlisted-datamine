@@ -1,0 +1,59 @@
+{
+  "tags": "sprint",
+  "optional_tags": "play_only_from_start",
+  "clips": {
+    "default_animation_mask": "soldier_sprint_nodemask",
+    "default_tags": "sprint",
+    "sprint_circle_l_mm": {
+      "use_foot_ik_locker": [],
+      "root_motion_smoothing": {
+        "position_filter_radius": 7,
+        "direction_filter_radius": 15
+      }
+    },
+    "sprint_circle_r_mm": {
+      "use_foot_ik_locker": [],
+      "root_motion_smoothing": {
+        "position_filter_radius": 7,
+        "direction_filter_radius": 15
+      }
+    },
+    "sprint_start_l_mm": {
+      "root_direction": [0.0,0.0,-1.0],
+      "optional_tags": "play_only_from_start",
+      "use_foot_ik_locker": [],
+      "extrapolate_trajectory": {
+        "end_velocity": [0.0,0.0,-5.2]
+      }
+    },
+    "sprint_start_r_mm": {
+      "root_direction": [0.0,0.0,-1.0],
+      "optional_tags": "play_only_from_start",
+      "use_foot_ik_locker": [],
+      "extrapolate_trajectory": {
+        "end_velocity": [0.0,0.0,-5.2]
+      }
+    },
+    "sprint_stop_l_mm": {
+      "root_direction": [0.0,0.0,-1.0],
+      "use_foot_ik_locker": [],
+      "extrapolate_trajectory": {
+        "start_velocity": [0.0,0.0,-5.2]
+      }
+    },
+    "sprint_stop_r_mm": {
+      "root_direction": [0.0,0.0,-1.0],
+      "use_foot_ik_locker": [],
+      "extrapolate_trajectory": {
+        "start_velocity": [0.0,0.0,-5.2]
+      }
+    },
+    "sprint_v5_mm": {
+      "root_direction": [0.0,0.0,-1.0],
+      "play_speed_multiplier_range": [0.5,2.0],
+      "nextClip": "sprint_v5_mm",
+      "endLabel": "end",
+      "use_foot_ik_locker": []
+    }
+  }
+}

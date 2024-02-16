@@ -9,7 +9,7 @@ let { addModalWindow, removeModalWindow } = require("%ui/components/modalWindows
 let {
   browser_add_window_method = @(_n,_c) null,
   BROWSER_EVENT_INITIALIZED = null
-} = require("browser")
+} = require_optional("browser")
 local isLoginStarted = false
 
 const LOGIN_WND_UID = "login_back_window"

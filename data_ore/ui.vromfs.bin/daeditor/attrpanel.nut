@@ -1,8 +1,9 @@
 from "%darg/ui_imports.nut" import *
 from "%darg/laconic.nut" import *
-from "ecs" import *
+from "%sqstd/ecs.nut" import *
 
 let { Point2, Point3, Point4 } = require("dagor.math")
+let math = require("math")
 
 let {endswith} = require("string")
 let {getValFromObj, isCompReadOnly, updateComp} = require("components/attrUtil.nut")
@@ -19,11 +20,13 @@ let deselectComp = function() {
 
 let entity_editor = require("entity_editor")
 let textButton = require("components/textButton.nut")
+let closeButton = require("components/closeButton.nut")
 let textInput = require("%daeditor/components/textInput.nut")
 let modalWindows = require("%daeditor/components/modalWindowsMngr.nut")({halign = ALIGN_CENTER valign = ALIGN_CENTER rendObj=ROBJ_WORLD_BLUR})
 let {addModalWindow, removeModalWindow, modalWindowsComponent} = modalWindows
 let {showMsgbox} = require("editor_msgbox.nut")
 let infoBox = @(text) showMsgbox({text})
+let mkSortModeButton = require("components/mkSortModeButton.nut")
 
 let cursors = require("components/cursors.nut")
 let {mkTemplateTooltip, mkCompMetaInfoText} = require("components/templateHelp.nut")
@@ -36,6 +39,9 @@ let compNameFilter = require("components/apNameFilter.nut")(filterString, select
 let {riSelectShown, riSelectWindow, openRISelectForEntity} = require("riSelect.nut")
 
 let combobox = require("%daeditor/components/combobox.nut")
+let {getEntityExtraName} = require("%daeditor/daeditor_es.nut")
+
+let entitySortState = Watched({})
 
 let windowState = Watched({
   pos = [-fsh(1.1), fsh(5)]
@@ -45,10 +51,10 @@ let windowState = Watched({
 
 let function onMoveResize(dx, dy, dw, dh) {
   let w = windowState.value
-  w.pos[0] = clamp(w.pos[0]+dx, -(sw(100)-w.size[0]), 0)
-  w.pos[1] = max(w.pos[1]+dy, 0)
-  w.size[0] = clamp(w.size[0]+dw, sw(14), sw(80))
-  w.size[1] = clamp(w.size[1]+dh, sh(20), sh(95))
+  w.pos[0] = math.clamp(w.pos[0]+dx, -(sw(100)-w.size[0]), 0)
+  w.pos[1] = math.max(w.pos[1]+dy, 0)
+  w.size[0] = math.clamp(w.size[0]+dw, sw(14), sw(80))
+  w.size[1] = math.clamp(w.size[1]+dh, sh(20), sh(95))
   return w
 }
 
@@ -128,7 +134,9 @@ let function panelRowColorC(comp_fullname, stateFlags, selectedCompNameVal, isOd
   if (comp_fullname == selectedCompNameVal) {
     color = colors.Active
   } else {
-    color = (stateFlags & S_TOP_HOVER) ? colors.GridRowHover : isOdd ? colors.GridBg[0] : colors.GridBg[1]
+    color = stateFlags & S_TOP_HOVER ? colors.GridRowHover
+      : isOdd ? colors.GridBg[0]
+      : colors.GridBg[1]
   }
   return color
 }
@@ -197,7 +205,10 @@ let function panelCompRow(params={}) {
   let isOdd = toggleBg()
   let stateFlags = Watched(0)
   let group = ElemGroup()
-  let comp_name_text = get_tagged_comp_name(comp_flags, (comp_name_ext ? comp_name_ext : comp_name))
+  local comp_name_text = get_tagged_comp_name(comp_flags, (comp_name_ext ? comp_name_ext : comp_name))
+  if (comp_sq_type == "TMatrix")
+    comp_name_text = $"{comp_name_text}[3]"
+
   local comp_fullname = clone rawComponentName
   foreach (comp_key in (path ?? []))
     comp_fullname = $"{comp_fullname}.{comp_key}"
@@ -394,6 +405,11 @@ let function warningGenerated() {
   }
 }
 
+let function closePropPanel() {
+  propPanelVisible(false)
+  propPanelClosed(true)
+}
+
 let function panelButtons() {
   return {
     size = [flex(), fsh(3.3)]
@@ -412,10 +428,7 @@ let function panelButtons() {
         isModifiedComponent(selectedCompComp.value, selectedCompPath.value) ? textButton("R", doResetSelectedComponent) : null
         textButton("-", openDelTemplateDialog)
         textButton("+", openAddTemplateDialog)
-        textButton("Close", function() {
-          propPanelVisible(false)
-          propPanelClosed(true)
-        })
+        textButton("Close", closePropPanel)
       ]
     }
   }
@@ -816,7 +829,7 @@ let collapsibleButtonsStyleDark = {
   }
 }
 
-local function mkCollapsible(isConst, caption, childrenCtor=@() null, len=0, tags = null, eid=null, rawComponentName=null, path=null){
+let function mkCollapsible(isConst, caption, childrenCtor=@() null, len=0, tags = null, eid=null, rawComponentName=null, path=null){
   let empty = len==0
   tags = tags ?? []
   let isRoot = (path?.len()??0) < 1
@@ -830,7 +843,7 @@ local function mkCollapsible(isConst, caption, childrenCtor=@() null, len=0, tag
   let gap = hdpx(4)
   let isOdd = toggleBg()
   if (empty){
-    return {
+    return @() {
       size = [flex(), SIZE_TO_CONTENT]
       flow = FLOW_HORIZONTAL
       children = [
@@ -1061,25 +1074,27 @@ let filteredCurComponents = Computed(function(){
 })
 
 
-let function mkEntityRow(eid,_v,is_odd) {
+let function mkEntityRow(eid, template_name, name, is_odd) {
   let group = ElemGroup()
   let stateFlags = Watched(0)
 
-  let riExtraName = obsolete_dbg_get_comp_val(eid, "ri_extra__name")
-  let extra = (riExtraName != null) ? $"/ {riExtraName}" : ""
+  let extraName = getEntityExtraName(eid)
+  let extra = (extraName != null) ? $"/ {extraName}" : ""
 
-  local tplName = g_entity_mgr.getEntityTemplateName(eid) ?? ""
-  let name = removeSelectedByEditorTemplate(tplName)
-  let div = (tplName != name) ? "•" : "|"
+  let div = (template_name != name) ? "•" : "|"
 
   return {
     size = [flex(), gridHeight]
     behavior = Behaviors.Button
 
-    onClick = function() {
+    onClick = function(evt) {
       if (selectedEntities.value.len() > 1) {
-        selectedEntity(eid)
-        entity_editor?.get_instance()?.setFocusedEntity(eid)
+        if (evt.ctrlKey)
+          entity_editor?.get_instance()?.selectEntity(eid, false/*selected*/)
+        else {
+          selectedEntity(eid)
+          entity_editor?.get_instance()?.setFocusedEntity(eid)
+        }
       }
     }
     onHover = @(_on) null
@@ -1110,6 +1125,25 @@ let function mkEntityRow(eid,_v,is_odd) {
   }
 }
 
+let sortedEntites = Computed(function() {
+  if (!propPanelVisible.value)
+    return []
+
+  local entitiesList = []
+  foreach (eid, _v in selectedEntities.value) {
+    let tplName = g_entity_mgr.getEntityTemplateName(eid) ?? ""
+    let name = removeSelectedByEditorTemplate(tplName)
+    entitiesList.append({
+      tplName
+      name
+      eid
+    })
+  }
+
+  if (entitySortState.value?.func != null)
+    entitiesList.sort(@(lsh, rsh) entitySortState.value.func(lsh.eid, rsh.eid))
+  return entitiesList
+})
 
 let function compPanel() {
 
@@ -1158,8 +1192,8 @@ let function compPanel() {
     local listRows = []
     if (showList) {
       local odd = true
-      foreach (k,v in selectedEntities.value) {
-        listRows.append(mkEntityRow(k,v,odd))
+      foreach (v in sortedEntites.value) {
+        listRows.append(mkEntityRow(v.eid, v.tplName, v.name, odd))
         odd = !odd
       }
     }
@@ -1180,7 +1214,7 @@ let function compPanel() {
       watch = [
         selectedEntity, selectedEntities, propPanelVisible, filterString,
         windowState, isCurEntityComponents, filteredCurComponents, selectedCompName,
-        de4workMode, riSelectShown
+        de4workMode, riSelectShown, sortedEntites
       ]
       size = [sw(100), sh(100)]
 
@@ -1196,10 +1230,10 @@ let function compPanel() {
           moveResizeCursors = cursors.moveResizeCursors
           cursor = cursors.normal
 
-          padding = [0, hdpx(2)]
+          padding = hdpx(2)
           rendObj = ROBJ_FRAME
           color = colors.ControlBg
-          borderWidth = [0, hdpx(2)]
+          borderWidth = hdpx(2)
 
           children = [
             {
@@ -1210,7 +1244,17 @@ let function compPanel() {
 
               flow = FLOW_VERTICAL
               children = [
-                panelCaption(captionText, templName)
+                {
+                  flow = FLOW_HORIZONTAL
+                  size = [flex(), SIZE_TO_CONTENT]
+                  fillColor = colors.ControlBg
+                  rendObj = ROBJ_BOX
+                  children = [
+                    showList ? mkSortModeButton(entitySortState, { fillColor = Color(0,10,20,210) }) : null
+                    panelCaption(captionText, templName)
+                    closeButton(closePropPanel)
+                  ]
+                }
                 nonSceneEntity ? warningGenerated() : null
                 showComps && isCurEntityComponents.value ? compNameFilter : null
                 showComps ? scrolledGrid : null

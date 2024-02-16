@@ -3,9 +3,8 @@ from "%enlSqGlob/ui_library.nut" import *
 let { debounce } = require("%sqstd/timers.nut")
 let {
   timeLeft, basicUnlockId, basicUnlock, basicProgress, premiumUnlockId, premiumUnlock,
-  premiumProgress, hasBattlePass, unlockPrices,
-  rewardsInProgress, purchaseInProgress, doReceiveRewards, doBuyUnlock,
-  nextBasicStage, nextPremiumStage, seasonIndex
+  premiumProgress, hasBattlePass, unlockPrices, purchaseInProgress, doReceiveRewards, doBuyUnlock,
+  rewardsInProgress, nextBasicStage, nextPremiumStage, seasonIndex
 } = require("%enlist/unlocks/taskRewardsState.nut")
 let { hasEliteBattlePass, premRewardsAllowed } = require("eliteBattlePass.nut")
 let { showMsgbox } = require("%enlist/components/msgbox.nut")
@@ -210,7 +209,6 @@ let nextStage = Computed(function() {
 })
 
 let nextUnlock = Computed(@() combinedUnlocks.value?[nextStage.value])
-
 
 let nextUnlockPrice = Computed(@() (basicProgress.value.hasReward
   || basicProgress.value.isFinished

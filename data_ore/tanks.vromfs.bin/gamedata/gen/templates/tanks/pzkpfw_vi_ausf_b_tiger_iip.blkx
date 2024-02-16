@@ -1,10 +1,10 @@
 {
   "base_pzkpfw_vi_ausf_b_tiger_iip": [
     {
-      "_extends": "base_tank"
+      "_use": "base_tank"
     },
     {
-      "_extends": "pzkpfw_vi_ausf_b_tiger_iip_ammo_stowages"
+      "_use": "pzkpfw_vi_ausf_b_tiger_iip_ammo_stowages"
     },
     {
       "killLogName": "germ_pzkpfw_vi_ausf_b_tiger_iip"
@@ -66,7 +66,7 @@
           "node": "emtr_mg_flame_03"
         },
         {
-          "node": "emtr_mortar_flame_01"
+          "node": ""
         }
       ]
     },
@@ -82,7 +82,7 @@
           "fx": "muzzle_ground_8mm"
         },
         {
-          "fx": "muzzle_ground_8mm"
+          "fx": ""
         }
       ]
     },
@@ -215,7 +215,7 @@
     }
   ],
   "pzkpfw_vi_ausf_b_tiger_iip_turret_01_88mm_kwk43": {
-    "_extends": "tankgun_88mm_kwk43",
+    "_use": "tankgun_88mm_kwk43",
     "gun__shootNodeName": "bone_gun_barrel",
     "turret__yawSpeed": 19.0,
     "turret__pitchSpeed": 4.0,
@@ -242,7 +242,7 @@
     ]
   },
   "pzkpfw_vi_ausf_b_tiger_iip_turret_02_7_92mm_mg34": {
-    "_extends": "tankgun_7_92mm_mg34",
+    "_use": "tankgun_7_92mm_mg34",
     "gun__shootNodeName": "bone_mg_gun_twin",
     "gun__shellsAmmo:array": [
       {
@@ -254,7 +254,7 @@
     ]
   },
   "pzkpfw_vi_ausf_b_tiger_iip_turret_03_7_92mm_mg34": {
-    "_extends": "tankgun_7_92mm_mg34",
+    "_use": "tankgun_7_92mm_mg34",
     "gun__shootNodeName": "bone_mg_aa_barrel",
     "turret__yawSpeed": 90.0,
     "turret__pitchSpeed": 90.0,
@@ -270,7 +270,7 @@
     ]
   },
   "pzkpfw_vi_ausf_b_tiger_iip_turret_04_91mm_germ_smoke_mortar_launcher": {
-    "_extends": "tankgun_91mm_germ_smoke_mortar_launcher",
+    "_use": "tankgun_91mm_germ_smoke_mortar_launcher",
     "gun__shootNodeName": "emtr_mortar_flame_01",
     "gun__shellsAmmo:array": {
       "ammo": 12
@@ -278,13 +278,13 @@
   },
   "pzkpfw_vi_ausf_b_tiger_iip_ammo_stowages": {
     "_tags": "server",
-    "_extends": "vehicle_ammo_stowages",
+    "_use": "vehicle_ammo_stowages",
     "ammo_stowage__stowageTemplates:shared:list<t>": {
       "stowage": "pzkpfw_vi_ausf_b_tiger_iip_ammo_stowage_1"
     }
   },
   "pzkpfw_vi_ausf_b_tiger_iip_ammo_stowage_1": {
-    "_extends": "ammo_stowage",
+    "_use": "ammo_stowage",
     "ammo_stowage__clusterTemplates:shared:list<t>": [
       {
         "cluster": "pzkpfw_vi_ausf_b_tiger_iip_ammo_cluster_1_1"
@@ -296,12 +296,17 @@
         "cluster": "pzkpfw_vi_ausf_b_tiger_iip_ammo_cluster_1_3"
       }
     ],
+    "_group": {
+      "_tags": "server",
+      "ammo_stowage__replenishmentDelay": 4.0,
+      "ammo_stowage__replenishmentTime": 15.0
+    },
     "ammo_stowage__turretNames:shared:list<t>": {
       "gun": "turret_01"
     }
   },
   "pzkpfw_vi_ausf_b_tiger_iip_ammo_cluster_1_1": {
-    "_extends": "ammo_cluster",
+    "_use": "ammo_cluster",
     "ammo_cluster__isShell": true,
     "ammo_cluster__slotNames:shared:list<t>": [
       {
@@ -381,7 +386,7 @@
     ]
   },
   "pzkpfw_vi_ausf_b_tiger_iip_ammo_cluster_1_2": {
-    "_extends": "ammo_cluster",
+    "_use": "ammo_cluster",
     "ammo_cluster__isShell": true,
     "ammo_cluster__slotNames:shared:list<t>": [
       {
@@ -509,7 +514,7 @@
     ]
   },
   "pzkpfw_vi_ausf_b_tiger_iip_ammo_cluster_1_3": {
-    "_extends": "ammo_cluster",
+    "_use": "ammo_cluster",
     "ammo_cluster__isShell": true,
     "ammo_cluster__slotNames:shared:list<t>": [
       {

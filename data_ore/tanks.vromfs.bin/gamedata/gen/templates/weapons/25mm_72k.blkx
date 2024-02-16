@@ -49,16 +49,16 @@
   },
   "tankgun_25mm_72k": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_tankgun_autocannon"
+      "_use": "base_tankgun_autocannon"
     },
     {
-      "_extends": "base_25mm_72k"
+      "_use": "base_25mm_72k"
     },
     {
-      "_extends": "gunsound_25mm_72k"
+      "_use": "gunsound_25mm_72k"
     },
     {
       "turret__triggerGroup": 0

@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { h2_txt, tiny_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontHeading2, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let {defTxtColor, noteTxtColor, bigPadding, textBgBlurColor, smallPadding,
   hoverBgColor, defBgColor, hoverTxtColor, activeTxtColor} = require("%enlSqGlob/ui/viewConst.nut")
 
@@ -12,14 +12,14 @@ let txt = @(text) {
 let note = @(text) {
   rendObj = ROBJ_TEXT
   color = noteTxtColor
-}.__update(typeof text != "table" ? { text = text } : text, tiny_txt)
+}.__update(typeof text != "table" ? { text = text } : text, fontSub)
 
 let noteTextArea = @(text) {
   size = [flex(), SIZE_TO_CONTENT]
   rendObj = ROBJ_TEXTAREA
   behavior = Behaviors.TextArea
   color = noteTxtColor
-}.__update(typeof text != "table" ? { text } : text, tiny_txt)
+}.__update(typeof text != "table" ? { text } : text, fontSub)
 
 let function bigTextWithNote(noteText, mainText) {
   let mainTextParams = (typeof mainText == "table") ? mainText : { text = mainText }
@@ -31,7 +31,7 @@ let function bigTextWithNote(noteText, mainText) {
         rendObj = ROBJ_TEXT
         color = defTxtColor
         margin = [0, bigPadding]
-      }.__update(h2_txt, mainTextParams)
+      }.__update(fontHeading2, mainTextParams)
     ]
   }
 }
@@ -40,7 +40,7 @@ let sceneHeaderText = @(text) {
   rendObj = ROBJ_TEXT
   text
   color = defTxtColor
-}.__update(h2_txt)
+}.__update(fontHeading2)
 
 let sceneHeader = @(text) {
   rendObj = ROBJ_WORLD_BLUR_PANEL
@@ -53,8 +53,8 @@ let function btn(params){
   let sFlags = params?.stateFlags ?? Watched(0)
   let group = params?.group ?? ElemGroup()
   let text = params?.text
-  let fillColorCtr = params?.fillColorCtr ?? @(flags) (flags & S_HOVER) ? hoverBgColor : defBgColor
-  let colorCtr = params?.colorCtr ?? @(flags) (flags & S_HOVER) ? hoverTxtColor : defTxtColor
+  let fillColorCtr = params?.fillColorCtr ?? @(flags) flags & S_HOVER ? hoverBgColor : defBgColor
+  let colorCtr = params?.colorCtr ?? @(flags) flags & S_HOVER ? hoverTxtColor : defTxtColor
   return @() {
     watch = [sFlags]
     onElemState = @(sf) sFlags.update(sf)
@@ -74,11 +74,11 @@ let function btn(params){
 }
 
 
-local function mCtor(ctor, selCtor, watch, checkSelected=@(_opt, idx, watch) watch.value==idx, onSelect=null, clickHandler = null, dblClickHandler = null){
+local function mCtor(ctor, selCtor, watch, checkSelected=@(_opt, idx, watched) watched.value==idx, onSelect=null, clickHandler = null, dblClickHandler = null){
   return function (opt, idx) {
     let group = ElemGroup()
     let stateFlags = Watched(0)
-    onSelect = onSelect ?? @(_opt, idx) watch(idx)
+    onSelect = onSelect ?? @(_opt, i) watch(i)
     clickHandler = clickHandler ?? @(_opt, _idx) null
     dblClickHandler = dblClickHandler ?? @(_opt, _idx) null
     return @(){
@@ -117,7 +117,7 @@ let function genericSelList(params = {}){
 let function select(watch, options, objStyle = {flow=FLOW_HORIZONTAL, gap=hdpx(5) rendObj=ROBJ_SOLID color=Color(0,0,0,50)}){
   return genericSelList({
     watch=watch, options=options, style = objStyle
-    checkSelected = @(opt, _idx, watch) watch.value==opt
+    checkSelected = @(opt, _idx, watched) watched.value==opt
     ctor = @(opt, idx, _group, _stateFlags) txt({text=opt, key=idx})
     selCtor = @(opt, idx, _group, _stateFlags) txt({text=opt color = Color(255,255,255), key=idx})
     onSelect = @(opt, _idx) watch(opt)

@@ -1,10 +1,10 @@
 {
   "p_47d_28": [
     {
-      "_extends": "p_47d_28_base"
+      "_use": "p_47d_28_base"
     },
     {
-      "_extends": "squad_controlled_plane"
+      "_use": "squad_controlled_plane"
     },
     {
       "item__name": "items/p_47d_28"
@@ -88,7 +88,7 @@
               "turret": "turret_19"
             }
           ],
-          "effectors:object": {
+          "cockpitEffectors:object": {
             "r.hand": "stick_rhand_1",
             "l.hand": "throttle_lhand_1",
             "r.foot": "pedal_rfoot_1",
@@ -741,13 +741,13 @@
   },
   "planegun_p_47d_28_500lb_anm_64a_1_launcher_01": [
     {
-      "_extends": "500lb_anm_64a_1_launcher"
+      "_use": "500lb_anm_64a_1_launcher"
     },
     {
-      "_extends": "base_p_47d_28_500lb_anm_64a_1_launcher"
+      "_use": "base_p_47d_28_500lb_anm_64a_1_launcher"
     },
     {
-      "_extends": "gunsound_500lb_anm_64a_1_launcher_aircraft"
+      "_use": "gunsound_500lb_anm_64a_1_launcher_aircraft"
     },
     {
       "gun__shootNodeName": "bomb3"
@@ -761,13 +761,13 @@
   ],
   "planegun_p_47d_28_hvar_launcher_01": [
     {
-      "_extends": "hvar_launcher"
+      "_use": "hvar_launcher"
     },
     {
-      "_extends": "base_p_47d_28_hvar_launcher"
+      "_use": "base_p_47d_28_hvar_launcher"
     },
     {
-      "_extends": "gunsound_hvar_launcher_aircraft"
+      "_use": "gunsound_hvar_launcher_aircraft"
     },
     {
       "gun__shootNodeName": "rocket5"
@@ -781,13 +781,13 @@
   ],
   "planegun_p_47d_28_hvar_launcher_02": [
     {
-      "_extends": "hvar_launcher"
+      "_use": "hvar_launcher"
     },
     {
-      "_extends": "base_p_47d_28_hvar_launcher"
+      "_use": "base_p_47d_28_hvar_launcher"
     },
     {
-      "_extends": "gunsound_hvar_launcher_aircraft"
+      "_use": "gunsound_hvar_launcher_aircraft"
     },
     {
       "gun__shootNodeName": "rocket6"
@@ -801,13 +801,13 @@
   ],
   "planegun_p_47d_28_hvar_launcher_03": [
     {
-      "_extends": "hvar_launcher"
+      "_use": "hvar_launcher"
     },
     {
-      "_extends": "base_p_47d_28_hvar_launcher"
+      "_use": "base_p_47d_28_hvar_launcher"
     },
     {
-      "_extends": "gunsound_hvar_launcher_aircraft"
+      "_use": "gunsound_hvar_launcher_aircraft"
     },
     {
       "gun__shootNodeName": "rocket4"
@@ -821,13 +821,13 @@
   ],
   "planegun_p_47d_28_hvar_launcher_04": [
     {
-      "_extends": "hvar_launcher"
+      "_use": "hvar_launcher"
     },
     {
-      "_extends": "base_p_47d_28_hvar_launcher"
+      "_use": "base_p_47d_28_hvar_launcher"
     },
     {
-      "_extends": "gunsound_hvar_launcher_aircraft"
+      "_use": "gunsound_hvar_launcher_aircraft"
     },
     {
       "gun__shootNodeName": "rocket7"
@@ -841,13 +841,13 @@
   ],
   "planegun_p_47d_28_hvar_launcher_05": [
     {
-      "_extends": "hvar_launcher"
+      "_use": "hvar_launcher"
     },
     {
-      "_extends": "base_p_47d_28_hvar_launcher"
+      "_use": "base_p_47d_28_hvar_launcher"
     },
     {
-      "_extends": "gunsound_hvar_launcher_aircraft"
+      "_use": "gunsound_hvar_launcher_aircraft"
     },
     {
       "gun__shootNodeName": "rocket3"
@@ -861,13 +861,13 @@
   ],
   "planegun_p_47d_28_hvar_launcher_06": [
     {
-      "_extends": "hvar_launcher"
+      "_use": "hvar_launcher"
     },
     {
-      "_extends": "base_p_47d_28_hvar_launcher"
+      "_use": "base_p_47d_28_hvar_launcher"
     },
     {
-      "_extends": "gunsound_hvar_launcher_aircraft"
+      "_use": "gunsound_hvar_launcher_aircraft"
     },
     {
       "gun__shootNodeName": "rocket8"
@@ -881,13 +881,13 @@
   ],
   "planegun_p_47d_28_hvar_launcher_07": [
     {
-      "_extends": "hvar_launcher"
+      "_use": "hvar_launcher"
     },
     {
-      "_extends": "base_p_47d_28_hvar_launcher"
+      "_use": "base_p_47d_28_hvar_launcher"
     },
     {
-      "_extends": "gunsound_hvar_launcher_aircraft"
+      "_use": "gunsound_hvar_launcher_aircraft"
     },
     {
       "gun__shootNodeName": "rocket2"
@@ -901,13 +901,13 @@
   ],
   "planegun_p_47d_28_hvar_launcher_08": [
     {
-      "_extends": "hvar_launcher"
+      "_use": "hvar_launcher"
     },
     {
-      "_extends": "base_p_47d_28_hvar_launcher"
+      "_use": "base_p_47d_28_hvar_launcher"
     },
     {
-      "_extends": "gunsound_hvar_launcher_aircraft"
+      "_use": "gunsound_hvar_launcher_aircraft"
     },
     {
       "gun__shootNodeName": "rocket9"
@@ -921,13 +921,13 @@
   ],
   "planegun_p_47d_28_hvar_launcher_09": [
     {
-      "_extends": "hvar_launcher"
+      "_use": "hvar_launcher"
     },
     {
-      "_extends": "base_p_47d_28_hvar_launcher"
+      "_use": "base_p_47d_28_hvar_launcher"
     },
     {
-      "_extends": "gunsound_hvar_launcher_aircraft"
+      "_use": "gunsound_hvar_launcher_aircraft"
     },
     {
       "gun__shootNodeName": "rocket1"
@@ -941,13 +941,13 @@
   ],
   "planegun_p_47d_28_hvar_launcher_10": [
     {
-      "_extends": "hvar_launcher"
+      "_use": "hvar_launcher"
     },
     {
-      "_extends": "base_p_47d_28_hvar_launcher"
+      "_use": "base_p_47d_28_hvar_launcher"
     },
     {
-      "_extends": "gunsound_hvar_launcher_aircraft"
+      "_use": "gunsound_hvar_launcher_aircraft"
     },
     {
       "gun__shootNodeName": "rocket10"
@@ -961,16 +961,16 @@
   ],
   "planegun_p_47d_28_12_7mm_browning50_m2_late_01": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_plane_machinegun"
+      "_use": "base_plane_machinegun"
     },
     {
-      "_extends": "base_p_47d_28_12_7mm_browning50_m2_late"
+      "_use": "base_p_47d_28_12_7mm_browning50_m2_late"
     },
     {
-      "_extends": "gunsound_12_7mm_browning50_m2_late_aircraft"
+      "_use": "gunsound_12_7mm_browning50_m2_late_aircraft"
     },
     {
       "gun__shootNodeName": "flare1"
@@ -981,16 +981,16 @@
   ],
   "planegun_p_47d_28_12_7mm_browning50_m2_late_02": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_plane_machinegun"
+      "_use": "base_plane_machinegun"
     },
     {
-      "_extends": "base_p_47d_28_12_7mm_browning50_m2_late"
+      "_use": "base_p_47d_28_12_7mm_browning50_m2_late"
     },
     {
-      "_extends": "gunsound_12_7mm_browning50_m2_late_aircraft"
+      "_use": "gunsound_12_7mm_browning50_m2_late_aircraft"
     },
     {
       "gun__shootNodeName": "flare2"
@@ -1001,16 +1001,16 @@
   ],
   "planegun_p_47d_28_12_7mm_browning50_m2_late_03": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_plane_machinegun"
+      "_use": "base_plane_machinegun"
     },
     {
-      "_extends": "base_p_47d_28_12_7mm_browning50_m2_late"
+      "_use": "base_p_47d_28_12_7mm_browning50_m2_late"
     },
     {
-      "_extends": "gunsound_12_7mm_browning50_m2_late_aircraft"
+      "_use": "gunsound_12_7mm_browning50_m2_late_aircraft"
     },
     {
       "gun__shootNodeName": "flare3"
@@ -1021,16 +1021,16 @@
   ],
   "planegun_p_47d_28_12_7mm_browning50_m2_late_04": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_plane_machinegun"
+      "_use": "base_plane_machinegun"
     },
     {
-      "_extends": "base_p_47d_28_12_7mm_browning50_m2_late"
+      "_use": "base_p_47d_28_12_7mm_browning50_m2_late"
     },
     {
-      "_extends": "gunsound_12_7mm_browning50_m2_late_aircraft"
+      "_use": "gunsound_12_7mm_browning50_m2_late_aircraft"
     },
     {
       "gun__shootNodeName": "flare4"
@@ -1041,16 +1041,16 @@
   ],
   "planegun_p_47d_28_12_7mm_browning50_m2_late_05": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_plane_machinegun"
+      "_use": "base_plane_machinegun"
     },
     {
-      "_extends": "base_p_47d_28_12_7mm_browning50_m2_late"
+      "_use": "base_p_47d_28_12_7mm_browning50_m2_late"
     },
     {
-      "_extends": "gunsound_12_7mm_browning50_m2_late_aircraft"
+      "_use": "gunsound_12_7mm_browning50_m2_late_aircraft"
     },
     {
       "gun__shootNodeName": "flare5"
@@ -1061,16 +1061,16 @@
   ],
   "planegun_p_47d_28_12_7mm_browning50_m2_late_06": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_plane_machinegun"
+      "_use": "base_plane_machinegun"
     },
     {
-      "_extends": "base_p_47d_28_12_7mm_browning50_m2_late"
+      "_use": "base_p_47d_28_12_7mm_browning50_m2_late"
     },
     {
-      "_extends": "gunsound_12_7mm_browning50_m2_late_aircraft"
+      "_use": "gunsound_12_7mm_browning50_m2_late_aircraft"
     },
     {
       "gun__shootNodeName": "flare6"
@@ -1081,16 +1081,16 @@
   ],
   "planegun_p_47d_28_12_7mm_browning50_m2_late_07": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_plane_machinegun"
+      "_use": "base_plane_machinegun"
     },
     {
-      "_extends": "base_p_47d_28_12_7mm_browning50_m2_late"
+      "_use": "base_p_47d_28_12_7mm_browning50_m2_late"
     },
     {
-      "_extends": "gunsound_12_7mm_browning50_m2_late_aircraft"
+      "_use": "gunsound_12_7mm_browning50_m2_late_aircraft"
     },
     {
       "gun__shootNodeName": "flare7"
@@ -1101,16 +1101,16 @@
   ],
   "planegun_p_47d_28_12_7mm_browning50_m2_late_08": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_plane_machinegun"
+      "_use": "base_plane_machinegun"
     },
     {
-      "_extends": "base_p_47d_28_12_7mm_browning50_m2_late"
+      "_use": "base_p_47d_28_12_7mm_browning50_m2_late"
     },
     {
-      "_extends": "gunsound_12_7mm_browning50_m2_late_aircraft"
+      "_use": "gunsound_12_7mm_browning50_m2_late_aircraft"
     },
     {
       "gun__shootNodeName": "flare8"
@@ -1120,7 +1120,7 @@
     }
   ],
   "p_47d_28_driver_cockpit": {
-    "_extends": "base_plane_cockpit",
+    "_use": "base_plane_cockpit",
     "cockpit__offset": [0.0,0.0,0.0],
     "cockpit__angles": [0.0,0.0,0.0],
     "cockpit__scale": [1.0,1.0,1.0],

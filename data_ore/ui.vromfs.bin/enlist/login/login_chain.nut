@@ -122,6 +122,8 @@ let function onStageResult(result) {
   }
 
   let idx = stagesOrder.indexof(stageName)
+  if (idx == null)
+    return
   if (idx == stagesOrder.len() - 1) {
     loginTime.update(get_time_msec())
     currentStage(null)

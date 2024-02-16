@@ -1,16 +1,20 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { sub_txt, tiny_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let faComp = require("%ui/components/faComp.nut")
-let { gap, noteTxtColor, defTxtColor, disabledTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
+let { gap, noteTxtColor, disabledTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
+let { defTxtColor, smallPadding, bigPadding, panelBgColor
+} = require("%enlSqGlob/ui/designConst.nut")
 let { autoscrollText, txt, note } = require("%enlSqGlob/ui/defcomps.nut")
 let tooltipBox = require("%ui/style/tooltipBox.nut")
 let { setTooltip } = require("%ui/style/cursors.nut")
 let { READY } = require("%enlSqGlob/readyStatus.nut")
-let { mkSquadPremIcon } = require("%enlSqGlob/ui/squadsUiComps.nut")
+let { mkSquadSpecIcon } = require("%enlSqGlob/ui/squadsUiComps.nut")
 let { kindIcon, kindName } = require("%enlSqGlob/ui/soldiersUiComps.nut")
 let mkSClassLimitsComp = require("%enlist/soldiers/model/squadClassLimits.nut")
-
+let { utf8ToUpper } = require("%sqstd/string.nut")
+let { getLiveSquadBR, BRInfoBySquads } = require("%enlist/soldiers/armySquadTier.nut")
+let { mkBattleRating } = require("%enlSqGlob/ui/battleRatingPkg.nut")
 
 let mkMaxSquadSizeComp = @(curSquadParams, vehicleCapacity) Computed(function() {
   let size = curSquadParams.value?.size ?? 1
@@ -18,51 +22,57 @@ let mkMaxSquadSizeComp = @(curSquadParams, vehicleCapacity) Computed(function() 
   return vCapacity > 0 ? min(size, vCapacity) : size
 })
 
-let classAmountHint = @(sClassLimits) @() {
-  watch = sClassLimits
-  flow = FLOW_VERTICAL
+let mkClassLimitsHint = @(classLimits) {
+  flow = FLOW_HORIZONTAL
+  valign = ALIGN_CENTER
   gap = gap
   children = [
-    txt({
-      text = loc("hint/squadClassLimits")
+    {
+      rendObj = ROBJ_TEXT
+      size = [hdpx(30), SIZE_TO_CONTENT]
+      text = $"{classLimits.used}/{classLimits.total}"
+    }
+    kindIcon(classLimits.sKind, hdpx(30))
+    kindName(classLimits.sKind).__update(fontSub, { color = defTxtColor })
+  ]
+}
+
+let classAmountHint = @(sClassLimits, battleRating) {
+  flow = FLOW_VERTICAL
+  gap
+  children = [
+    {
       rendObj = ROBJ_TEXTAREA
       behavior = Behaviors.TextArea
       maxWidth = hdpx(400)
-    })
-  ].extend(sClassLimits.value.map(@(c) {
-      flow = FLOW_HORIZONTAL
-      valign = ALIGN_CENTER
-      gap = gap
-      children = [
-        txt({ text = $"{c.used}/{c.total}", size = [hdpx(30), SIZE_TO_CONTENT], halign = ALIGN_RIGHT })
-        kindIcon(c.sKind, hdpx(30))
-        kindName(c.sKind).__update(sub_txt, { color = defTxtColor })
-      ]
-    }))
+      text = loc("hint/squadClassLimits")
+    }
+  ]
+    .extend(sClassLimits.map(mkClassLimitsHint))
+    .append(mkBattleRating(battleRating))
 }
 
 let mkClassAmount = @(sKind, total, used) {
-  size = [flex(), hdpx(34)]
+  size = SIZE_TO_CONTENT
   flow = FLOW_VERTICAL
-  maxWidth = pw(20)
   halign = ALIGN_CENTER
-  valign = ALIGN_CENTER
   children = [
     kindIcon(sKind, hdpx(24))
-    note({ text = $"{used}/{total}", color = noteTxtColor })
+    note({ text = $"{used}/{total}" })
   ]
 }
 
 let squadClassesUi = @(sClassLimits) @() {
   watch = sClassLimits
   size = [flex(), SIZE_TO_CONTENT]
-  margin = [gap, 0]
   flow = FLOW_HORIZONTAL
-  valign = ALIGN_CENTER
+  margin = [0, bigPadding]
+  halign = ALIGN_RIGHT
   gap = {
     rendObj = ROBJ_SOLID
     size = [hdpx(1), flex()]
     color = disabledTxtColor
+    margin = [0, bigPadding]
   }
   children = sClassLimits.value
     .filter(@(c) c.total > 0)
@@ -88,18 +98,20 @@ let squadSizeUi = @(battleAmount, maxSquadSize) function() {
     return res
 
   return res.__update({
-    hplace = ALIGN_RIGHT
     flow = FLOW_HORIZONTAL
+    margin = [smallPadding, bigPadding]
     valign = ALIGN_CENTER
+    vplace = ALIGN_BOTTOM
     behavior = Behaviors.Button
+    gap
     onHover = @(on) setTooltip(!on ? null : tooltipBox(sizeHint(battleAmount, maxSquadSize)))
     skipDirPadNav = true
     children = [
-      txt({ text = $"{battleAmount.value}/{size}", color = noteTxtColor })
       faComp("user-o", {
         fontSize = hdpx(12)
         color = noteTxtColor
       })
+      txt({ text = $"{battleAmount.value}/{size}", color = noteTxtColor})
     ]
   })
 }
@@ -111,36 +123,52 @@ let function squadHeader(curSquad, curSquadParams, soldiersList, vehicleCapacity
   let sClassLimits = mkSClassLimitsComp(curSquad, curSquadParams, soldiersList, soldiersStatuses)
 
   return function() {
-    let res = { watch = [ curSquad, sClassLimits ] }
+    let res = { watch = [ curSquad, sClassLimits, BRInfoBySquads ] }
     let squad = curSquad.value
     if (!squad)
       return res
 
     let group = ElemGroup()
+    let battleRating = getLiveSquadBR(BRInfoBySquads.value, curSquad.value.squadId)
     return res.__update({
-      group = group
-      size = [flex(), SIZE_TO_CONTENT]
+      size = [flex(), hdpx(70)]
       flow = FLOW_VERTICAL
       behavior = Behaviors.Button
-      onHover = @(on) setTooltip(on ? tooltipBox(classAmountHint(sClassLimits)) : null)
+      group
+      onHover = @(on) setTooltip(on
+        ? tooltipBox(classAmountHint(sClassLimits.value, battleRating))
+        : null)
       skipDirPadNav = true
+      rendObj = ROBJ_SOLID
+      color = panelBgColor
       children = [
         {
           size = [flex(), hdpx(26)]
           flow = FLOW_HORIZONTAL
-          gap = gap
+          gap
           children = [
-            mkSquadPremIcon(squad?.premIcon, { pos = [0, -hdpx(2)] })
-            autoscrollText({
-              group = group
-              text = loc(squad?.titleLocId)
-              color = noteTxtColor
-              textParams = tiny_txt
-            })
-            squadSizeUi(battleAmount, maxSquadSize)
+            mkSquadSpecIcon(squad)
+            {
+              size = [flex(), SIZE_TO_CONTENT]
+              margin = [smallPadding, bigPadding]
+              children = autoscrollText({
+                vplace = ALIGN_CENTER
+                group
+                text = utf8ToUpper(loc(squad?.titleLocId))
+                color = noteTxtColor
+                textParams = fontSub
+              })
+            }
           ]
         }
-        squadClassesUi(sClassLimits)
+        {
+          size = flex()
+          flow = FLOW_HORIZONTAL
+          children = [
+            squadSizeUi(battleAmount, maxSquadSize)
+            squadClassesUi(sClassLimits)
+          ]
+        }
       ]
     })
   }

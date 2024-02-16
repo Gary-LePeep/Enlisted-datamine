@@ -1,10 +1,10 @@
 {
   "potez_633": [
     {
-      "_extends": "potez_633_base"
+      "_use": "potez_633_base"
     },
     {
-      "_extends": "squad_controlled_plane"
+      "_use": "squad_controlled_plane"
     },
     {
       "item__name": "items/potez_633"
@@ -41,7 +41,7 @@
                 "turret": "turret_03"
               }
             ],
-            "effectors:object": {
+            "cockpitEffectors:object": {
               "r.hand": "stick_rhand_1",
               "l.hand": "throttle_lhand_1",
               "r.foot": "pedal_rfoot_1",
@@ -380,13 +380,13 @@
   },
   "planegun_potez_633_200kg_launcher_01": [
     {
-      "_extends": "200kg_launcher"
+      "_use": "200kg_launcher"
     },
     {
-      "_extends": "base_potez_633_200kg_launcher"
+      "_use": "base_potez_633_200kg_launcher"
     },
     {
-      "_extends": "gunsound_200kg_launcher_aircraft"
+      "_use": "gunsound_200kg_launcher_aircraft"
     },
     {
       "gun__shootNodeName": "fr_200kg_1"
@@ -400,13 +400,13 @@
   ],
   "planegun_potez_633_200kg_launcher_02": [
     {
-      "_extends": "200kg_launcher"
+      "_use": "200kg_launcher"
     },
     {
-      "_extends": "base_potez_633_200kg_launcher"
+      "_use": "base_potez_633_200kg_launcher"
     },
     {
-      "_extends": "gunsound_200kg_launcher_aircraft"
+      "_use": "gunsound_200kg_launcher_aircraft"
     },
     {
       "gun__shootNodeName": "fr_200kg_2"
@@ -420,16 +420,16 @@
   ],
   "planegun_potez_633_7_5mm_mac39_01": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_plane_machinegun"
+      "_use": "base_plane_machinegun"
     },
     {
-      "_extends": "base_potez_633_7_5mm_mac39"
+      "_use": "base_potez_633_7_5mm_mac39"
     },
     {
-      "_extends": "gunsound_7_5mm_mac39_aircraft"
+      "_use": "gunsound_7_5mm_mac39_aircraft"
     },
     {
       "gun__shootNodeName": "flare1"
@@ -440,16 +440,16 @@
   ],
   "planegun_potez_633_7_5mm_mac39_turret_01": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_plane_machinegun"
+      "_use": "base_plane_machinegun"
     },
     {
-      "_extends": "base_potez_633_7_5mm_mac39_turret"
+      "_use": "base_potez_633_7_5mm_mac39_turret"
     },
     {
-      "_extends": "gunsound_7_5mm_mac39_turret_aircraft"
+      "_use": "gunsound_7_5mm_mac39_turret_aircraft"
     },
     {
       "gun__shootNodeName": "flare3"
@@ -471,7 +471,7 @@
     }
   ],
   "potez_633_driver_cockpit": {
-    "_extends": "base_plane_cockpit",
+    "_use": "base_plane_cockpit",
     "cockpit__offset": [0.0,0.0,0.0],
     "cockpit__angles": [0.0,0.0,0.0],
     "cockpit__scale": [1.0,1.0,1.0],

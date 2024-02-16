@@ -10,13 +10,13 @@ require DagorMathUtils
 require math.base
 require math.ang
 require player
-require EnlistedHuman
+require DngHuman
 require AnimV20
 require GeomNodeTree
 require Dacoll
 require HumanPhys
 require GamePhys
-require EnlistedNet
+require DngNet
 require common_shooter.events_common_shooter
 require common_shooter.es.human.bipod_common
 
@@ -280,11 +280,12 @@ def gun_bipod_mandatory_show_hint(evt : EventDaInputActionTriggered;
                                   human_weap__canOperate : bool;
                                   human_input__shoot : int;
                                   human_input__reload : int;
+                                  human_input__quickReload : int;
                                   human_input__aim1 : int;
                                   human_input__aim2 : int)
   if !input__enabled || human_weap__canOperate
     return
 
   let action = int(evt.action)
-  if action == human_input__shoot || action == human_input__reload || action == human_input__aim1 || action == human_input__aim2
+  if action == human_input__shoot || action == human_input__reload || action == human_input__quickReload || action == human_input__aim1 || action == human_input__aim2
     broadcastEvent([[CmdShowHint event="gun_needs_bipod", text="gun_needs_bipod", unique="gun_needs_bipod", ttl=2.0]])

@@ -1,7 +1,7 @@
 {
   "us_20mm_oerlikon": [
     {
-      "_extends": "base_anti_aircraft_cannon"
+      "_use": "base_anti_aircraft_cannon"
     },
     {
       "killLogName": "us_20mm_erlikon"
@@ -170,7 +170,7 @@
           "fx:array": [
             {
               "fx:object": {
-                "name": "tank_smoke_big_template",
+                "name": "tank_smoke_medium_template",
                 "emitter": "guns"
               }
             },
@@ -182,7 +182,7 @@
             },
             {
               "fx:object": {
-                "name": "tank_fire_big_template",
+                "name": "tank_fire_medium_template",
                 "emitter": "guns"
               }
             },
@@ -251,11 +251,11 @@
   },
   "us_20mm_oerlikon_gunner_cockpit": {
     "vehicle_sight__blk": "content/tanks/gamedata/sight/default.blk",
-    "_extends": "base_gunner_cockpit",
+    "_use": "base_gunner_cockpit",
     "animchar__res": "t_26_1940_gunner_char",
     "cockpit__offset": [0.0,0.0,0.0],
-    "cockpit__zoomTimeMul": 3.0,
-    "cockpit__minZoom": 0.0,
+    "cockpit__forwardOffsetDuration": 0.33,
+    "cockpit__minForwardOffset": 0.0,
     "cockpit__cockpitOffsetBySlit:list<p3>": {
       "item": [-0.4,0.36,0.23]
     },
@@ -277,7 +277,7 @@
     }
   },
   "oerlikon_20mm_go": {
-    "_extends": "base_ai_gunner_turret",
+    "_use": "base_ai_gunner_turret",
     "animchar__res": "oerlikon_20mm_char",
     "collres__res": "oerlikon_20mm_collision",
     "phys_obj_net_phys__blk": "content/enlisted/gamedata/units/cannons/oerlikon_20mm.blk",
@@ -304,7 +304,7 @@
     }
   },
   "oerlikon_20mm_turret_01": {
-    "_extends": "tankgun_oerlikon_20mm",
+    "_use": "tankgun_oerlikon_20mm",
     "gun__shootNodeName": "bone_gun_barrel",
     "turret_ai__atackDist": 800.0,
     "turret__limit": [-120.0,120.0,-10.0,85.0],
@@ -315,19 +315,19 @@
   },
   "tankgun_oerlikon_20mm": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_tankgun_autocannon"
+      "_use": "base_tankgun_autocannon"
     },
     {
-      "_extends": "base_oerlikon_20mm"
+      "_use": "base_oerlikon_20mm"
     },
     {
-      "_extends": "gunsound_25mm_72k"
+      "_use": "gunsound_25mm_72k"
     },
     {
-      "_extends": "controlled_by_ai_gunner"
+      "_use": "controlled_by_ai_gunner"
     },
     {
       "turret_ai__shootAngleCos": 0.984

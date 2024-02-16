@@ -17,7 +17,32 @@
   },
   {
     "entity": {
+      "_template": "aircraft_box_battle_area",
+      "transform": [
+        [10698.15,0.0,0.0],
+        [0.0,10336.84,0.0],
+        [0.0,0.0,10256.29],
+        [-0.9878,9.75596,2.544]
+      ]
+    }
+  },
+  {
+    "entity": {
       "_template": "practice_map"
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawn_camera",
+      "respawnCameraForTeam": 1,
+      "respawnCameraStaticSideLook": true
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawn_camera",
+      "respawnCameraForTeam": 2,
+      "respawnCameraStaticSideLook": true
     }
   },
   {
@@ -97,6 +122,11 @@
         "water_color_noise_size": 71.0,
         "river_density": 0.3
       }
+    }
+  },
+  {
+    "entity": {
+      "_template": "bloom"
     }
   },
   {

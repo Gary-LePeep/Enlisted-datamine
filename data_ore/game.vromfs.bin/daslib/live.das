@@ -1,6 +1,7 @@
 options no_unused_block_arguments = false
 options no_unused_function_arguments = false
 options indenting = 4
+options strict_smart_pointers = true
 
 options multiple_contexts
 
@@ -28,7 +29,10 @@ var public decsLiveData : array<uint8>
 var private liveContext : smart_ptr<Context>
 
 def public get_live_context : smart_ptr<Context>
-    return liveContext
+    //! get live context. WARNING: this does not increase reference count, no need for delete
+    //! intended use is invoke_in_context(get_live_context()) <| @ ...
+    unsafe
+        return liveContext  // we don't clone here?
 
 [export]
 def saveLiveContext
@@ -82,7 +86,7 @@ def public invoke_live ( fn:string )
             unsafe
                 invoke_in_context(appPtr, fn)
         recover
-            to_log(LOG_ERROR, "exception during '{fn}'\n{appPtr.last_exception}\n{describe(appPtr.exceptionAt)}\n")
+            to_log(LOG_ERROR, "exception during '{fn}()'\n{appPtr.last_exception}\n{describe(appPtr.exceptionAt)}\n")
             appPtr := null
 
 def public invoke_live ( fn:string; a1 )
@@ -91,7 +95,7 @@ def public invoke_live ( fn:string; a1 )
             unsafe
                 invoke_in_context(appPtr, fn, a1)
         recover
-            to_log(LOG_ERROR, "exception during '{fn}'\n{appPtr.last_exception}\n{describe(appPtr.exceptionAt)}\n")
+            to_log(LOG_ERROR, "exception during '{fn}({a1})'\n{appPtr.last_exception}\n{describe(appPtr.exceptionAt)}\n")
             appPtr := null
 
 def public invoke_live ( fn:string; a1; a2 )
@@ -100,7 +104,7 @@ def public invoke_live ( fn:string; a1; a2 )
             unsafe
                 invoke_in_context(appPtr, fn, a1, a2)
         recover
-            to_log(LOG_ERROR, "exception during '{fn}'\n{appPtr.last_exception}\n{describe(appPtr.exceptionAt)}\n")
+            to_log(LOG_ERROR, "exception during '{fn}({a1},{a2})'\n{appPtr.last_exception}\n{describe(appPtr.exceptionAt)}\n")
             appPtr := null
 
 def public invoke_live ( fn:string; a1; a2; a3 )
@@ -109,7 +113,7 @@ def public invoke_live ( fn:string; a1; a2; a3 )
             unsafe
                 invoke_in_context(appPtr, fn, a1, a2, a3)
         recover
-            to_log(LOG_ERROR, "exception during '{fn}'\n{appPtr.last_exception}\n{describe(appPtr.exceptionAt)}\n")
+            to_log(LOG_ERROR, "exception during '{fn}({a1},{a2},{a3})'\n{appPtr.last_exception}\n{describe(appPtr.exceptionAt)}\n")
             appPtr := null
 
 def public invoke_live ( fn:string; a1; a2; a3; a4 )
@@ -118,7 +122,7 @@ def public invoke_live ( fn:string; a1; a2; a3; a4 )
             unsafe
                 invoke_in_context(appPtr, fn, a1, a2, a3, a4)
         recover
-            to_log(LOG_ERROR, "exception during '{fn}'\n{appPtr.last_exception}\n{describe(appPtr.exceptionAt)}\n")
+            to_log(LOG_ERROR, "exception during '{fn}({a1},{a2},{a3},{a4})'\n{appPtr.last_exception}\n{describe(appPtr.exceptionAt)}\n")
             appPtr := null
 
 def public watch_files
@@ -148,7 +152,7 @@ def private set_new_context ( var ptr : smart_ptr<Context>; full_restart:bool = 
             // fixup decs if its there
             var pvar = get_context_global_variable(appPtr, "decsState")
             if pvar != null
-                var pstate : array<uint8> ? = get_context_global_variable(appPtr, "decsLiveData")
+                var pstate : array<uint8> ? = unsafe(reinterpret<array<uint8>?> get_context_global_variable(appPtr, "decsLiveData"))
                 assert(pstate!=null)
                 var css <- @ <|
                     saveLiveContext()
@@ -163,7 +167,7 @@ def private set_new_context ( var ptr : smart_ptr<Context>; full_restart:bool = 
             // fixup decs if its there
             var pvar = get_context_global_variable(appPtr, "decsState")
             if pvar != null
-                var pstate : array<uint8> ? = get_context_global_variable(appPtr, "decsLiveData")
+                var pstate : array<uint8> ? = unsafe(reinterpret<array<uint8>?> get_context_global_variable(appPtr, "decsLiveData"))
                 assert(pstate!=null)
                 var css <- @ <| [[&decsState,&decsLiveData]] ( data : array<uint8># )
                     decsLiveData := data
@@ -184,9 +188,10 @@ def private set_new_context ( var ptr : smart_ptr<Context>; full_restart:bool = 
 
 def public recompile(full_restart:bool=false)
     to_log(LOG_TRACE, "LIVE: recompile full_restart={full_restart}\n")
-    var access := make_file_access("")
+    var inscope access <- make_file_access("")
     using <| $(var mg:ModuleGroup)
         using <| $(var cop:CodeOfPolicies)
+            cop.threadlock_context = true
             compile_file("{appDir}/{appFile}",access,unsafe(addr(mg)),cop) <| $(ok,program,issues)
                 if ok
                     simulate(program) <| $ ( sok; context; serrors )

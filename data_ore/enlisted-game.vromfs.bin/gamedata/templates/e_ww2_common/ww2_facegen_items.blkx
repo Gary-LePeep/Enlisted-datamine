@@ -1,12 +1,13 @@
 {
   "attachable_facial_hairs": {
-    "_extends": "attachable_wear",
+    "_use": "attachable_wear",
     "animchar__res": "",
     "collres__res": "",
     "slot_attach__slotName": "",
     "animchar_hider__camThreshold": 0.3,
     "slot_attach__attachedTo:eid": [],
-    "animchar__actOnDemand:tag": []
+    "animchar__actOnDemand:tag": [],
+    "attachable_facial_hairs:tag": []
   },
   "headgen_components": [
     {
@@ -32,126 +33,66 @@
         ],
         "face_gen__animcharRes:list<t>": [
           {
-            "res": "headgenmesh_european_01"
+            "res": "headgenmesh_jap_01"
           },
           {
-            "res": "headgenmesh_european_02"
+            "res": "headgenmesh_jap_02"
           },
           {
-            "res": "headgenmesh_european_03"
+            "res": "headgenmesh_jap_03"
           },
           {
-            "res": "headgenmesh_european_04"
+            "res": "headgenmesh_jap_04"
           },
           {
-            "res": "headgenmesh_european_05"
+            "res": "headgenmesh_jap_05"
           },
           {
-            "res": "headgenmesh_european_06"
+            "res": "headgenmesh_jap_06"
           },
           {
-            "res": "headgenmesh_european_07"
+            "res": "headgenmesh_jap_07"
           },
           {
-            "res": "headgenmesh_european_08"
+            "res": "headgenmesh_jap_08"
           },
           {
-            "res": "headgenmesh_european_09"
+            "res": "headgenmesh_jap_09"
           },
           {
-            "res": "headgenmesh_european_10"
-          },
-          {
-            "res": "headgenmesh_european_11"
-          },
-          {
-            "res": "headgenmesh_european_12"
-          },
-          {
-            "res": "headgenmesh_european_13"
-          },
-          {
-            "res": "headgenmesh_european_14"
-          },
-          {
-            "res": "headgenmesh_european_15"
-          },
-          {
-            "res": "headgenmesh_european_16"
-          },
-          {
-            "res": "headgenmesh_european_17"
-          },
-          {
-            "res": "headgenmesh_european_18"
-          },
-          {
-            "res": "headgenmesh_european_19"
-          },
-          {
-            "res": "headgenmesh_european_20"
+            "res": "headgenmesh_jap_10"
           }
         ],
         "headgen__skins:list<t>": [
           {
-            "tex": "head_european_01_tex"
+            "tex": "head_japanese_01_tex"
           },
           {
-            "tex": "head_european_02_tex"
+            "tex": "head_japanese_02_tex"
           },
           {
-            "tex": "head_european_03_tex"
+            "tex": "head_japanese_03_tex"
           },
           {
-            "tex": "head_european_04_tex"
+            "tex": "head_japanese_04_tex"
           },
           {
-            "tex": "head_european_05_tex"
+            "tex": "head_japanese_05_tex"
           },
           {
-            "tex": "head_european_06_tex"
+            "tex": "head_japanese_06_tex"
           },
           {
-            "tex": "head_european_07_tex"
+            "tex": "head_japanese_07_tex"
           },
           {
-            "tex": "head_european_08_tex"
+            "tex": "head_japanese_08_tex"
           },
           {
-            "tex": "head_european_09_tex"
+            "tex": "head_japanese_09_tex"
           },
           {
-            "tex": "head_european_10_tex"
-          },
-          {
-            "tex": "head_european_11_tex"
-          },
-          {
-            "tex": "head_european_12_tex"
-          },
-          {
-            "tex": "head_european_13_tex"
-          },
-          {
-            "tex": "head_european_14_tex"
-          },
-          {
-            "tex": "head_european_15_tex"
-          },
-          {
-            "tex": "head_european_16_tex"
-          },
-          {
-            "tex": "head_european_17_tex"
-          },
-          {
-            "tex": "head_european_18_tex"
-          },
-          {
-            "tex": "head_european_19_tex"
-          },
-          {
-            "tex": "head_european_20_tex"
+            "tex": "head_japanese_10_tex"
           }
         ],
         "headgen__beards:list<t>": [
@@ -225,13 +166,13 @@
   },
   "head_gen_base": [
     {
-      "_extends": "attachable_head_base"
+      "_use": "attachable_head_base"
     },
     {
-      "_extends": "replicating"
+      "_use": "replicating"
     },
     {
-      "_extends": "base_local_invis_item"
+      "_use": "base_local_invis_item"
     },
     {
       "item__uniqueName": "attachable_wear_head_01_ger_summer_item"
@@ -245,10 +186,10 @@
   ],
   "head_gen_base_item": [
     {
-      "_extends": "head_gen_base"
+      "_use": "head_gen_base"
     },
     {
-      "_extends": "headgen_components"
+      "_use": "headgen_components"
     },
     {
       "animchar__res": "headgenmesh_european_01_char"
@@ -261,7 +202,7 @@
     }
   ],
   "attachable_wear_head_european_item": {
-    "_extends": "attachable_head",
+    "_use": "attachable_head",
     "item__uniqueName": "attachable_wear_head_01_ger_summer_item",
     "animchar__res": "headgenmesh_european_01_char",
     "collres__res": "headgenmesh_european_01_collision",
@@ -472,7 +413,7 @@
     "eye_iris_color_b_to": [0.45,0.25,0.1,0.0],
     "eye_iris_radius": 0.03,
     "eye_parallax": 0.2,
-    "eye_reflectance": 0.95,
+    "eye_reflectance": 0.65,
     "eye_sclera_color_from": [0.62,0.58,0.58,0.0],
     "eye_sclera_color_to": [0.44,0.29,0.29,0.0],
     "eye_smoothness": 0.97,
@@ -487,63 +428,63 @@
     }
   },
   "black_eyes": {
-    "_extends": "eye_shader_vars",
+    "_use": "eye_shader_vars",
     "eye_iris_color_a_from": [0.2,0.2,0.2,0.0],
     "eye_iris_color_a_to": [0.6,0.6,0.6,0.0],
     "eye_iris_color_b_from": [0.2,0.2,0.2,0.0],
     "eye_iris_color_b_to": [0.15,0.15,0.15,0.0]
   },
   "blue_eyes_a": {
-    "_extends": "eye_shader_vars",
+    "_use": "eye_shader_vars",
     "eye_iris_color_a_from": [0.15,0.2,0.25,0.0],
     "eye_iris_color_a_to": [0.9,0.9,0.9,0.0],
     "eye_iris_color_b_from": [0.25,0.25,0.3,0.0],
     "eye_iris_color_b_to": [0.39,0.39,0.36,0.0]
   },
   "blue_eyes_b": {
-    "_extends": "eye_shader_vars",
+    "_use": "eye_shader_vars",
     "eye_iris_color_a_from": [0.05,0.15,0.2,0.0],
     "eye_iris_color_a_to": [0.2,0.9,0.75,0.0],
     "eye_iris_color_b_from": [0.15,0.15,0.25,0.0],
     "eye_iris_color_b_to": [0.19,0.6,0.7,0.0]
   },
   "brown_eyes": {
-    "_extends": "eye_shader_vars",
+    "_use": "eye_shader_vars",
     "eye_iris_color_a_from": [0.3,0.25,0.25,0.0],
     "eye_iris_color_a_to": [0.85,0.85,0.65,0.0],
     "eye_iris_color_b_from": [0.17,0.12,0.12,0.0],
     "eye_iris_color_b_to": [0.65,0.55,0.55,0.0]
   },
   "brown_yellow_eyes_a": {
-    "_extends": "eye_shader_vars",
+    "_use": "eye_shader_vars",
     "eye_iris_color_a_from": [0.2,0.21,0.01,0.0],
     "eye_iris_color_a_to": [0.5,0.63,0.05,0.0],
     "eye_iris_color_b_from": [0.47,0.19,0.1,0.0],
     "eye_iris_color_b_to": [0.82,0.55,0.2,0.0]
   },
   "brown_yellow_eyes_b": {
-    "_extends": "eye_shader_vars",
+    "_use": "eye_shader_vars",
     "eye_iris_color_a_from": [0.4,0.21,0.31,0.0],
     "eye_iris_color_a_to": [0.9,0.53,0.35,0.0],
     "eye_iris_color_b_from": [0.17,0.19,0.1,0.0],
     "eye_iris_color_b_to": [0.52,0.45,0.1,0.0]
   },
   "ligth_gray_eyes": {
-    "_extends": "eye_shader_vars",
+    "_use": "eye_shader_vars",
     "eye_iris_color_a_from": [0.55,0.55,0.55,0.0],
     "eye_iris_color_a_to": [0.01,0.01,0.01,0.0],
     "eye_iris_color_b_from": [0.25,0.25,0.25,0.0],
     "eye_iris_color_b_to": [0.55,0.55,0.55,0.0]
   },
   "green_eyes_a": {
-    "_extends": "eye_shader_vars",
+    "_use": "eye_shader_vars",
     "eye_iris_color_a_from": [0.2,0.27,0.25,0.0],
     "eye_iris_color_a_to": [0.95,0.95,0.95,0.0],
     "eye_iris_color_b_from": [0.25,0.25,0.25,0.0],
     "eye_iris_color_b_to": [0.45,0.25,0.1,0.0]
   },
   "green_eyes_b": {
-    "_extends": "eye_shader_vars",
+    "_use": "eye_shader_vars",
     "eye_iris_color_a_from": [0.4,0.25,0.15,0.0],
     "eye_iris_color_a_to": [0.65,0.37,0.45,0.0],
     "eye_iris_color_b_from": [0.15,0.33,0.1,0.0],
@@ -551,22 +492,22 @@
   },
   "ussr_gen_head_01": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_0"
+      "_use": "scar_preset_0"
     },
     {
-      "_extends": "blue_eyes_a"
+      "_use": "blue_eyes_a"
     },
     {
       "headgen__tex0": "head_european_08_tex"
@@ -585,23 +526,26 @@
     },
     {
       "headgen__blendFactor": 0.989
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "ussr_gen_head_02": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "ligth_gray_eyes"
+      "_use": "ligth_gray_eyes"
     },
     {
       "headgen__tex0": "head_european_11_tex"
@@ -620,26 +564,29 @@
     },
     {
       "headgen__blendFactor": 0.8629
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "ussr_gen_head_03": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_1"
+      "_use": "scar_preset_1"
     },
     {
-      "_extends": "green_eyes_a"
+      "_use": "green_eyes_a"
     },
     {
       "headgen__tex0": "head_european_19_tex"
@@ -658,23 +605,26 @@
     },
     {
       "headgen__blendFactor": 0.2834
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "ussr_gen_head_04": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "ligth_gray_eyes"
+      "_use": "ligth_gray_eyes"
     },
     {
       "headgen__tex0": "head_european_01_tex"
@@ -693,23 +643,26 @@
     },
     {
       "headgen__blendFactor": 0.9
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "ussr_gen_head_05": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "green_eyes_b"
+      "_use": "green_eyes_b"
     },
     {
       "headgen__tex0": "head_european_01_tex"
@@ -728,23 +681,26 @@
     },
     {
       "headgen__blendFactor": 0.9611
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "ussr_gen_head_06": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "brown_eyes"
+      "_use": "brown_eyes"
     },
     {
       "headgen__tex0": "head_european_14_tex"
@@ -763,26 +719,29 @@
     },
     {
       "headgen__blendFactor": 0.9614
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "ussr_gen_head_07": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_3"
+      "_use": "scar_preset_3"
     },
     {
-      "_extends": "brown_yellow_eyes_a"
+      "_use": "brown_yellow_eyes_a"
     },
     {
       "headgen__tex0": "head_european_20_tex"
@@ -801,23 +760,26 @@
     },
     {
       "headgen__blendFactor": 0.1757
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "ussr_gen_head_08": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "brown_yellow_eyes_b"
+      "_use": "brown_yellow_eyes_b"
     },
     {
       "headgen__tex0": "head_european_03_tex"
@@ -842,26 +804,29 @@
     },
     {
       "mustache_id": -1
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "ussr_gen_head_09": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_4"
+      "_use": "scar_preset_4"
     },
     {
-      "_extends": "green_eyes_a"
+      "_use": "green_eyes_a"
     },
     {
       "headgen__tex0": "head_european_17_tex"
@@ -886,23 +851,26 @@
     },
     {
       "mustache_id": 1
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "ussr_gen_head_10": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "brown_eyes"
+      "_use": "brown_eyes"
     },
     {
       "headgen__tex0": "head_european_01_tex"
@@ -927,26 +895,29 @@
     },
     {
       "mustache_id": 2
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "ussr_gen_head_11": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_5"
+      "_use": "scar_preset_5"
     },
     {
-      "_extends": "black_eyes"
+      "_use": "black_eyes"
     },
     {
       "headgen__tex0": "head_european_09_tex"
@@ -971,26 +942,29 @@
     },
     {
       "mustache_id": -1
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "ussr_gen_head_12": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_6"
+      "_use": "scar_preset_6"
     },
     {
-      "_extends": "green_eyes_b"
+      "_use": "green_eyes_b"
     },
     {
       "headgen__tex0": "head_european_14_tex"
@@ -1015,23 +989,26 @@
     },
     {
       "mustache_id": 0
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "ussr_gen_head_13": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "blue_eyes_b"
+      "_use": "blue_eyes_b"
     },
     {
       "headgen__tex0": "head_european_11_tex"
@@ -1056,26 +1033,29 @@
     },
     {
       "mustache_id": -1
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "ussr_gen_head_14": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_7"
+      "_use": "scar_preset_7"
     },
     {
-      "_extends": "brown_eyes"
+      "_use": "brown_eyes"
     },
     {
       "headgen__tex0": "head_european_14_tex"
@@ -1100,26 +1080,29 @@
     },
     {
       "mustache_id": -1
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "ussr_gen_head_15": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_2"
+      "_use": "scar_preset_2"
     },
     {
-      "_extends": "brown_yellow_eyes_a"
+      "_use": "brown_yellow_eyes_a"
     },
     {
       "headgen__tex0": "head_european_13_tex"
@@ -1144,26 +1127,29 @@
     },
     {
       "mustache_id": -1
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "ussr_gen_head_16": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_8"
+      "_use": "scar_preset_8"
     },
     {
-      "_extends": "black_eyes"
+      "_use": "black_eyes"
     },
     {
       "headgen__tex0": "head_european_03_tex"
@@ -1182,23 +1168,26 @@
     },
     {
       "headgen__blendFactor": 0.1
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "ussr_gen_head_17": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "blue_eyes_b"
+      "_use": "blue_eyes_b"
     },
     {
       "headgen__tex0": "head_european_05_tex"
@@ -1223,26 +1212,29 @@
     },
     {
       "mustache_id": -1
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "ussr_gen_head_18": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_9"
+      "_use": "scar_preset_9"
     },
     {
-      "_extends": "ligth_gray_eyes"
+      "_use": "ligth_gray_eyes"
     },
     {
       "headgen__tex0": "head_european_03_tex"
@@ -1267,23 +1259,26 @@
     },
     {
       "mustache_id": -1
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "ussr_gen_head_19": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "brown_eyes"
+      "_use": "brown_eyes"
     },
     {
       "headgen__tex0": "head_european_16_tex"
@@ -1308,26 +1303,29 @@
     },
     {
       "mustache_id": 0
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "ussr_gen_head_20": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_10"
+      "_use": "scar_preset_10"
     },
     {
-      "_extends": "ligth_gray_eyes"
+      "_use": "ligth_gray_eyes"
     },
     {
       "headgen__tex0": "head_european_15_tex"
@@ -1352,23 +1350,26 @@
     },
     {
       "mustache_id": -1
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "ussr_gen_head_21": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "blue_eyes_a"
+      "_use": "blue_eyes_a"
     },
     {
       "headgen__tex0": "head_european_09_tex"
@@ -1393,26 +1394,29 @@
     },
     {
       "mustache_id": -1
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "ussr_gen_head_22": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_0"
+      "_use": "scar_preset_0"
     },
     {
-      "_extends": "green_eyes_a"
+      "_use": "green_eyes_a"
     },
     {
       "headgen__tex0": "head_european_10_tex"
@@ -1437,23 +1441,26 @@
     },
     {
       "mustache_id": -1
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "ussr_gen_head_23": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "brown_eyes"
+      "_use": "brown_eyes"
     },
     {
       "headgen__tex0": "head_european_12_tex"
@@ -1478,26 +1485,29 @@
     },
     {
       "mustache_id": 2
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "ussr_gen_head_24": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_1"
+      "_use": "scar_preset_1"
     },
     {
-      "_extends": "green_eyes_b"
+      "_use": "green_eyes_b"
     },
     {
       "headgen__tex0": "head_european_14_tex"
@@ -1516,23 +1526,26 @@
     },
     {
       "headgen__blendFactor": 0.3679
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "ussr_gen_head_25": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "brown_yellow_eyes_b"
+      "_use": "brown_yellow_eyes_b"
     },
     {
       "headgen__tex0": "head_european_14_tex"
@@ -1551,23 +1564,26 @@
     },
     {
       "headgen__blendFactor": 0.7876
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "ger_gen_head_01": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "brown_yellow_eyes_a"
+      "_use": "brown_yellow_eyes_a"
     },
     {
       "headgen__tex0": "head_european_06_tex"
@@ -1586,23 +1602,26 @@
     },
     {
       "headgen__blendFactor": 0.8394
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "ger_gen_head_02": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "brown_eyes"
+      "_use": "brown_eyes"
     },
     {
       "headgen__tex0": "head_european_08_tex"
@@ -1621,26 +1640,29 @@
     },
     {
       "headgen__blendFactor": 0.1966
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "ger_gen_head_03": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_3"
+      "_use": "scar_preset_3"
     },
     {
-      "_extends": "green_eyes_a"
+      "_use": "green_eyes_a"
     },
     {
       "headgen__tex0": "head_european_14_tex"
@@ -1659,26 +1681,29 @@
     },
     {
       "headgen__blendFactor": 0.6618
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "ger_gen_head_04": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_1"
+      "_use": "scar_preset_1"
     },
     {
-      "_extends": "blue_eyes_a"
+      "_use": "blue_eyes_a"
     },
     {
       "headgen__tex0": "head_european_05_tex"
@@ -1697,26 +1722,29 @@
     },
     {
       "headgen__blendFactor": 0.1195
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "ger_gen_head_05": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_4"
+      "_use": "scar_preset_4"
     },
     {
-      "_extends": "blue_eyes_b"
+      "_use": "blue_eyes_b"
     },
     {
       "headgen__tex0": "head_european_04_tex"
@@ -1735,23 +1763,26 @@
     },
     {
       "headgen__blendFactor": 0.6875
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "ger_gen_head_06": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "green_eyes_b"
+      "_use": "green_eyes_b"
     },
     {
       "headgen__tex0": "head_european_04_tex"
@@ -1776,26 +1807,29 @@
     },
     {
       "mustache_id": 2
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "ger_gen_head_07": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_5"
+      "_use": "scar_preset_5"
     },
     {
-      "_extends": "ligth_gray_eyes"
+      "_use": "ligth_gray_eyes"
     },
     {
       "headgen__tex0": "head_european_06_tex"
@@ -1820,23 +1854,26 @@
     },
     {
       "mustache_id": 0
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "ger_gen_head_08": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "brown_eyes"
+      "_use": "brown_eyes"
     },
     {
       "headgen__tex0": "head_european_02_tex"
@@ -1855,26 +1892,29 @@
     },
     {
       "headgen__blendFactor": 0.9143
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "ger_gen_head_09": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_6"
+      "_use": "scar_preset_6"
     },
     {
-      "_extends": "green_eyes_a"
+      "_use": "green_eyes_a"
     },
     {
       "headgen__tex0": "head_european_15_tex"
@@ -1899,23 +1939,26 @@
     },
     {
       "mustache_id": 2
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "ger_gen_head_10": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "ligth_gray_eyes"
+      "_use": "ligth_gray_eyes"
     },
     {
       "headgen__tex0": "head_european_17_tex"
@@ -1934,26 +1977,29 @@
     },
     {
       "headgen__blendFactor": 0.2844
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "ger_gen_head_11": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_7"
+      "_use": "scar_preset_7"
     },
     {
-      "_extends": "brown_yellow_eyes_b"
+      "_use": "brown_yellow_eyes_b"
     },
     {
       "headgen__tex0": "head_european_19_tex"
@@ -1978,23 +2024,26 @@
     },
     {
       "mustache_id": 4
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "ger_gen_head_12": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "brown_yellow_eyes_a"
+      "_use": "brown_yellow_eyes_a"
     },
     {
       "headgen__tex0": "head_european_06_tex"
@@ -2019,26 +2068,29 @@
     },
     {
       "mustache_id": 1
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "ger_gen_head_13": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_8"
+      "_use": "scar_preset_8"
     },
     {
-      "_extends": "black_eyes"
+      "_use": "black_eyes"
     },
     {
       "headgen__tex0": "head_european_09_tex"
@@ -2063,23 +2115,26 @@
     },
     {
       "mustache_id": -1
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "ger_gen_head_14": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "brown_eyes"
+      "_use": "brown_eyes"
     },
     {
       "headgen__tex0": "head_european_01_tex"
@@ -2104,26 +2159,29 @@
     },
     {
       "mustache_id": 1
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "ger_gen_head_15": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_9"
+      "_use": "scar_preset_9"
     },
     {
-      "_extends": "green_eyes_b"
+      "_use": "green_eyes_b"
     },
     {
       "headgen__tex0": "head_european_19_tex"
@@ -2142,26 +2200,29 @@
     },
     {
       "headgen__blendFactor": 0.2418
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "ger_gen_head_16": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_2"
+      "_use": "scar_preset_2"
     },
     {
-      "_extends": "ligth_gray_eyes"
+      "_use": "ligth_gray_eyes"
     },
     {
       "headgen__tex0": "head_european_17_tex"
@@ -2186,26 +2247,29 @@
     },
     {
       "mustache_id": -1
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "ger_gen_head_17": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_10"
+      "_use": "scar_preset_10"
     },
     {
-      "_extends": "green_eyes_a"
+      "_use": "green_eyes_a"
     },
     {
       "headgen__tex0": "head_european_09_tex"
@@ -2230,23 +2294,26 @@
     },
     {
       "mustache_id": 0
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "ger_gen_head_18": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "ligth_gray_eyes"
+      "_use": "ligth_gray_eyes"
     },
     {
       "headgen__tex0": "head_european_12_tex"
@@ -2271,26 +2338,29 @@
     },
     {
       "mustache_id": -1
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "ger_gen_head_19": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_0"
+      "_use": "scar_preset_0"
     },
     {
-      "_extends": "black_eyes"
+      "_use": "black_eyes"
     },
     {
       "headgen__tex0": "head_european_05_tex"
@@ -2315,23 +2385,26 @@
     },
     {
       "mustache_id": 2
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "ger_gen_head_20": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "brown_eyes"
+      "_use": "brown_eyes"
     },
     {
       "headgen__tex0": "head_european_02_tex"
@@ -2350,23 +2423,26 @@
     },
     {
       "headgen__blendFactor": 0.3748
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "ger_gen_head_21": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "brown_yellow_eyes_b"
+      "_use": "brown_yellow_eyes_b"
     },
     {
       "headgen__tex0": "head_european_19_tex"
@@ -2391,23 +2467,26 @@
     },
     {
       "mustache_id": 2
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "ger_gen_head_22": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "brown_yellow_eyes_a"
+      "_use": "brown_yellow_eyes_a"
     },
     {
       "headgen__tex0": "head_european_06_tex"
@@ -2432,26 +2511,29 @@
     },
     {
       "mustache_id": 0
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "ger_gen_head_23": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_2"
+      "_use": "scar_preset_2"
     },
     {
-      "_extends": "ligth_gray_eyes"
+      "_use": "ligth_gray_eyes"
     },
     {
       "headgen__tex0": "head_european_06_tex"
@@ -2470,23 +2552,26 @@
     },
     {
       "headgen__blendFactor": 0.2483
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "ger_gen_head_24": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "blue_eyes_a"
+      "_use": "blue_eyes_a"
     },
     {
       "headgen__tex0": "head_european_20_tex"
@@ -2511,26 +2596,29 @@
     },
     {
       "mustache_id": 1
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "ger_gen_head_25": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_3"
+      "_use": "scar_preset_3"
     },
     {
-      "_extends": "brown_eyes"
+      "_use": "brown_eyes"
     },
     {
       "headgen__tex0": "head_european_17_tex"
@@ -2549,23 +2637,26 @@
     },
     {
       "headgen__blendFactor": 0.0536
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "gen_hero_head_01": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "blue_eyes_b"
+      "_use": "blue_eyes_b"
     },
     {
       "headgen__tex0": "head_european_16_tex"
@@ -2587,23 +2678,26 @@
     },
     {
       "headgen__blendFactor": 0.261
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "gen_hero_head_02": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "blue_eyes_a"
+      "_use": "blue_eyes_a"
     },
     {
       "headgen__tex0": "head_european_01_tex"
@@ -2625,23 +2719,26 @@
     },
     {
       "headgen__blendFactor": 0.9391
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "gen_hero_head_03": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "ligth_gray_eyes"
+      "_use": "ligth_gray_eyes"
     },
     {
       "headgen__tex0": "head_european_07_tex"
@@ -2663,23 +2760,26 @@
     },
     {
       "headgen__blendFactor": 0.3369
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "gen_hero_head_04": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "brown_yellow_eyes_b"
+      "_use": "brown_yellow_eyes_b"
     },
     {
       "headgen__tex0": "head_european_05_tex"
@@ -2701,23 +2801,26 @@
     },
     {
       "headgen__blendFactor": 0.3343
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "gen_hero_head_05": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "brown_yellow_eyes_a"
+      "_use": "brown_yellow_eyes_a"
     },
     {
       "headgen__tex0": "head_european_08_tex"
@@ -2739,23 +2842,26 @@
     },
     {
       "headgen__blendFactor": 0.3328
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "gen_hero_head_06": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "black_eyes"
+      "_use": "black_eyes"
     },
     {
       "headgen__tex0": "head_european_12_tex"
@@ -2777,23 +2883,26 @@
     },
     {
       "headgen__blendFactor": 0.3307
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "gen_hero_head_07": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "green_eyes_a"
+      "_use": "green_eyes_a"
     },
     {
       "headgen__tex0": "head_european_08_tex"
@@ -2815,23 +2924,26 @@
     },
     {
       "headgen__blendFactor": 0.0906
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "gen_hero_head_08": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "brown_eyes"
+      "_use": "brown_eyes"
     },
     {
       "headgen__tex0": "head_european_12_tex"
@@ -2853,23 +2965,26 @@
     },
     {
       "headgen__blendFactor": 0.571
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "gen_hero_head_09": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "ligth_gray_eyes"
+      "_use": "ligth_gray_eyes"
     },
     {
       "headgen__tex0": "head_european_01_tex"
@@ -2891,23 +3006,26 @@
     },
     {
       "headgen__blendFactor": 0.0465
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "gen_hero_head_10": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "ligth_gray_eyes"
+      "_use": "ligth_gray_eyes"
     },
     {
       "headgen__tex0": "head_european_04_tex"
@@ -2929,10 +3047,13 @@
     },
     {
       "headgen__blendFactor": 0.1532
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "dbg_hat_1": {
-    "_extends": "attachable_wear",
+    "_use": "attachable_wear",
     "animchar__res": "hat_01_proto_char",
     "collres__res": "hat_01_proto_collision",
     "slot_attach__slotName": "",
@@ -2940,7 +3061,7 @@
     "animchar__actOnDemand:tag": []
   },
   "dbg_hat_2": {
-    "_extends": "attachable_wear",
+    "_use": "attachable_wear",
     "animchar__res": "hat_02_proto_char",
     "collres__res": "hat_02_proto_collision",
     "slot_attach__slotName": "",
@@ -2948,7 +3069,7 @@
     "animchar__actOnDemand:tag": []
   },
   "dbg_hat_3": {
-    "_extends": "attachable_wear",
+    "_use": "attachable_wear",
     "animchar__res": "hat_03_proto_char",
     "collres__res": "hat_03_proto_collision",
     "slot_attach__slotName": "",
@@ -2956,7 +3077,7 @@
     "animchar__actOnDemand:tag": []
   },
   "dbg_hat_4": {
-    "_extends": "attachable_wear",
+    "_use": "attachable_wear",
     "animchar__res": "hat_04_proto_char",
     "collres__res": "hat_04_proto_collision",
     "slot_attach__slotName": "",
@@ -2965,19 +3086,19 @@
   },
   "dbg_head_1": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "brown_eyes"
+      "_use": "brown_eyes"
     },
     {
       "headgen__tex0": "head_european_02_tex"
@@ -3011,19 +3132,19 @@
   ],
   "dbg_head_2": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "brown_eyes"
+      "_use": "brown_eyes"
     },
     {
       "headgen__tex0": "head_european_02_tex"
@@ -3057,19 +3178,19 @@
   ],
   "dbg_head_3": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "brown_eyes"
+      "_use": "brown_eyes"
     },
     {
       "headgen__tex0": "head_european_02_tex"
@@ -3103,16 +3224,16 @@
   ],
   "gen_hero_head_11": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
       "headgen__tex0": "head_european_05_tex"
@@ -3134,26 +3255,29 @@
     },
     {
       "headgen__blendFactor": 0.2314
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "jap_gen_head_01": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_empty"
+      "_use": "scar_preset_empty"
     },
     {
-      "_extends": "brown_eyes"
+      "_use": "brown_eyes"
     },
     {
       "headgen__tex0": "head_japanese_05_tex"
@@ -3175,26 +3299,32 @@
     },
     {
       "headgen__blendFactor": 0.4574
+    },
+    {
+      "_tracked": "attaches_list"
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "jap_gen_head_02": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_empty"
+      "_use": "scar_preset_empty"
     },
     {
-      "_extends": "green_eyes_b"
+      "_use": "green_eyes_b"
     },
     {
       "headgen__tex0": "head_japanese_05_tex"
@@ -3216,26 +3346,32 @@
     },
     {
       "headgen__blendFactor": 0.4518
+    },
+    {
+      "_tracked": "attaches_list"
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "jap_gen_head_03": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_empty"
+      "_use": "scar_preset_empty"
     },
     {
-      "_extends": "brown_eyes"
+      "_use": "brown_eyes"
     },
     {
       "headgen__tex0": "head_japanese_01_tex"
@@ -3257,26 +3393,32 @@
     },
     {
       "headgen__blendFactor": 0.0437
+    },
+    {
+      "_tracked": "attaches_list"
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "jap_gen_head_04": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_empty"
+      "_use": "scar_preset_empty"
     },
     {
-      "_extends": "green_eyes_a"
+      "_use": "green_eyes_a"
     },
     {
       "headgen__tex0": "head_japanese_05_tex"
@@ -3298,26 +3440,32 @@
     },
     {
       "headgen__blendFactor": 0.4775
+    },
+    {
+      "_tracked": "attaches_list"
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "jap_gen_head_05": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_empty"
+      "_use": "scar_preset_empty"
     },
     {
-      "_extends": "blue_eyes_b"
+      "_use": "blue_eyes_b"
     },
     {
       "headgen__tex0": "head_japanese_07_tex"
@@ -3339,26 +3487,32 @@
     },
     {
       "headgen__blendFactor": 0.6594
+    },
+    {
+      "_tracked": "attaches_list"
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "jap_gen_head_06": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_empty"
+      "_use": "scar_preset_empty"
     },
     {
-      "_extends": "brown_yellow_eyes_b"
+      "_use": "brown_yellow_eyes_b"
     },
     {
       "headgen__tex0": "head_japanese_03_tex"
@@ -3380,26 +3534,32 @@
     },
     {
       "headgen__blendFactor": 0.2989
+    },
+    {
+      "_tracked": "attaches_list"
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "jap_gen_head_07": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_empty"
+      "_use": "scar_preset_empty"
     },
     {
-      "_extends": "brown_eyes"
+      "_use": "brown_eyes"
     },
     {
       "headgen__tex0": "head_japanese_10_tex"
@@ -3421,26 +3581,32 @@
     },
     {
       "headgen__blendFactor": 0.9779
+    },
+    {
+      "_tracked": "attaches_list"
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "jap_gen_head_08": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_empty"
+      "_use": "scar_preset_empty"
     },
     {
-      "_extends": "brown_eyes"
+      "_use": "brown_eyes"
     },
     {
       "headgen__tex0": "head_japanese_09_tex"
@@ -3462,26 +3628,32 @@
     },
     {
       "headgen__blendFactor": 0.823
+    },
+    {
+      "_tracked": "attaches_list"
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "jap_gen_head_09": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_empty"
+      "_use": "scar_preset_empty"
     },
     {
-      "_extends": "brown_yellow_eyes_a"
+      "_use": "brown_yellow_eyes_a"
     },
     {
       "headgen__tex0": "head_japanese_03_tex"
@@ -3503,26 +3675,32 @@
     },
     {
       "headgen__blendFactor": 0.2838
+    },
+    {
+      "_tracked": "attaches_list"
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "jap_gen_head_10": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_0"
+      "_use": "scar_preset_0"
     },
     {
-      "_extends": "brown_eyes"
+      "_use": "brown_eyes"
     },
     {
       "headgen__tex0": "head_japanese_10_tex"
@@ -3544,26 +3722,32 @@
     },
     {
       "headgen__blendFactor": 0.9927
+    },
+    {
+      "_tracked": "attaches_list"
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "jap_gen_head_11": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_3"
+      "_use": "scar_preset_3"
     },
     {
-      "_extends": "blue_eyes_a"
+      "_use": "blue_eyes_a"
     },
     {
       "headgen__tex0": "head_japanese_05_tex"
@@ -3585,26 +3769,32 @@
     },
     {
       "headgen__blendFactor": 0.4743
+    },
+    {
+      "_tracked": "attaches_list"
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "jap_gen_head_12": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_4"
+      "_use": "scar_preset_4"
     },
     {
-      "_extends": "brown_yellow_eyes_a"
+      "_use": "brown_yellow_eyes_a"
     },
     {
       "headgen__tex0": "head_japanese_10_tex"
@@ -3626,26 +3816,32 @@
     },
     {
       "headgen__blendFactor": 0.1537
+    },
+    {
+      "_tracked": "attaches_list"
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "jap_gen_head_13": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_2"
+      "_use": "scar_preset_2"
     },
     {
-      "_extends": "green_eyes_a"
+      "_use": "green_eyes_a"
     },
     {
       "headgen__tex0": "head_japanese_01_tex"
@@ -3667,26 +3863,32 @@
     },
     {
       "headgen__blendFactor": 0.0955
+    },
+    {
+      "_tracked": "attaches_list"
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "jap_gen_head_14": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_5"
+      "_use": "scar_preset_5"
     },
     {
-      "_extends": "ligth_gray_eyes"
+      "_use": "ligth_gray_eyes"
     },
     {
       "headgen__tex0": "head_japanese_10_tex"
@@ -3708,26 +3910,32 @@
     },
     {
       "headgen__blendFactor": 0.9951
+    },
+    {
+      "_tracked": "attaches_list"
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "jap_gen_head_15": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_10"
+      "_use": "scar_preset_10"
     },
     {
-      "_extends": "brown_yellow_eyes_b"
+      "_use": "brown_yellow_eyes_b"
     },
     {
       "headgen__tex0": "head_japanese_04_tex"
@@ -3749,26 +3957,32 @@
     },
     {
       "headgen__blendFactor": 0.3638
+    },
+    {
+      "_tracked": "attaches_list"
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "jap_gen_head_16": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_9"
+      "_use": "scar_preset_9"
     },
     {
-      "_extends": "blue_eyes_b"
+      "_use": "blue_eyes_b"
     },
     {
       "headgen__tex0": "head_japanese_10_tex"
@@ -3790,23 +4004,29 @@
     },
     {
       "headgen__blendFactor": 0.7684
+    },
+    {
+      "_tracked": "attaches_list"
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "jap_gen_head_17": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_empty"
+      "_use": "scar_preset_empty"
     },
     {
       "headgen__tex0": "head_japanese_09_tex"
@@ -3828,26 +4048,32 @@
     },
     {
       "headgen__blendFactor": 0.8581
+    },
+    {
+      "_tracked": "attaches_list"
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "jap_gen_head_18": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_5"
+      "_use": "scar_preset_5"
     },
     {
-      "_extends": "green_eyes_b"
+      "_use": "green_eyes_b"
     },
     {
       "headgen__tex0": "head_japanese_10_tex"
@@ -3869,26 +4095,32 @@
     },
     {
       "headgen__blendFactor": 0.2424
+    },
+    {
+      "_tracked": "attaches_list"
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "jap_gen_head_19": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_6"
+      "_use": "scar_preset_6"
     },
     {
-      "_extends": "blue_eyes_b"
+      "_use": "blue_eyes_b"
     },
     {
       "headgen__tex0": "head_japanese_02_tex"
@@ -3910,26 +4142,32 @@
     },
     {
       "headgen__blendFactor": 0.1271
+    },
+    {
+      "_tracked": "attaches_list"
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "jap_gen_head_20": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_8"
+      "_use": "scar_preset_8"
     },
     {
-      "_extends": "brown_yellow_eyes_a"
+      "_use": "brown_yellow_eyes_a"
     },
     {
       "headgen__tex0": "head_japanese_06_tex"
@@ -3951,26 +4189,32 @@
     },
     {
       "headgen__blendFactor": 0.593
+    },
+    {
+      "_tracked": "attaches_list"
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "usa_gen_head_01": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_empty"
+      "_use": "scar_preset_empty"
     },
     {
-      "_extends": "brown_eyes"
+      "_use": "brown_eyes"
     },
     {
       "headgen__tex0": "head_european_10_tex"
@@ -3992,26 +4236,29 @@
     },
     {
       "headgen__blendFactor": 0.1866
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "usa_gen_head_02": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_empty"
+      "_use": "scar_preset_empty"
     },
     {
-      "_extends": "brown_yellow_eyes_a"
+      "_use": "brown_yellow_eyes_a"
     },
     {
       "headgen__tex0": "head_european_03_tex"
@@ -4033,26 +4280,29 @@
     },
     {
       "headgen__blendFactor": 0.7908
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "usa_gen_head_03": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_empty"
+      "_use": "scar_preset_empty"
     },
     {
-      "_extends": "brown_eyes"
+      "_use": "brown_eyes"
     },
     {
       "headgen__tex0": "head_european_07_tex"
@@ -4074,26 +4324,29 @@
     },
     {
       "headgen__blendFactor": 0.188
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "usa_gen_head_04": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_empty"
+      "_use": "scar_preset_empty"
     },
     {
-      "_extends": "brown_eyes"
+      "_use": "brown_eyes"
     },
     {
       "headgen__tex0": "head_european_08_tex"
@@ -4115,26 +4368,29 @@
     },
     {
       "headgen__blendFactor": 0.8488
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "usa_gen_head_05": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_empty"
+      "_use": "scar_preset_empty"
     },
     {
-      "_extends": "green_eyes_a"
+      "_use": "green_eyes_a"
     },
     {
       "headgen__tex0": "head_european_03_tex"
@@ -4156,26 +4412,29 @@
     },
     {
       "headgen__blendFactor": 0.1382
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "usa_gen_head_06": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_empty"
+      "_use": "scar_preset_empty"
     },
     {
-      "_extends": "brown_yellow_eyes_b"
+      "_use": "brown_yellow_eyes_b"
     },
     {
       "headgen__tex0": "head_european_08_tex"
@@ -4197,26 +4456,29 @@
     },
     {
       "headgen__blendFactor": 0.3845
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "usa_gen_head_07": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_empty"
+      "_use": "scar_preset_empty"
     },
     {
-      "_extends": "brown_eyes"
+      "_use": "brown_eyes"
     },
     {
       "headgen__tex0": "head_european_08_tex"
@@ -4238,26 +4500,29 @@
     },
     {
       "headgen__blendFactor": 0.6978
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "usa_gen_head_08": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_empty"
+      "_use": "scar_preset_empty"
     },
     {
-      "_extends": "ligth_gray_eyes"
+      "_use": "ligth_gray_eyes"
     },
     {
       "headgen__tex0": "head_european_02_tex"
@@ -4279,26 +4544,29 @@
     },
     {
       "headgen__blendFactor": 0.0595
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "usa_gen_head_09": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_empty"
+      "_use": "scar_preset_empty"
     },
     {
-      "_extends": "brown_eyes"
+      "_use": "brown_eyes"
     },
     {
       "headgen__tex0": "head_european_14_tex"
@@ -4320,26 +4588,29 @@
     },
     {
       "headgen__blendFactor": 0.9422
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "usa_gen_head_10": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_6"
+      "_use": "scar_preset_6"
     },
     {
-      "_extends": "blue_eyes_b"
+      "_use": "blue_eyes_b"
     },
     {
       "headgen__tex0": "head_european_13_tex"
@@ -4361,20 +4632,23 @@
     },
     {
       "headgen__blendFactor": 0.0188
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "usa_gen_head_11": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
       "headgen__tex0": "head_european_08_tex"
@@ -4396,26 +4670,29 @@
     },
     {
       "headgen__blendFactor": 0.9323
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "usa_gen_head_12": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_0"
+      "_use": "scar_preset_0"
     },
     {
-      "_extends": "green_eyes_a"
+      "_use": "green_eyes_a"
     },
     {
       "headgen__tex0": "head_european_09_tex"
@@ -4437,26 +4714,29 @@
     },
     {
       "headgen__blendFactor": 0.4382
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "usa_gen_head_13": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_3"
+      "_use": "scar_preset_3"
     },
     {
-      "_extends": "blue_eyes_b"
+      "_use": "blue_eyes_b"
     },
     {
       "headgen__tex0": "head_european_17_tex"
@@ -4478,26 +4758,29 @@
     },
     {
       "headgen__blendFactor": 0.4322
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "usa_gen_head_14": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_9"
+      "_use": "scar_preset_9"
     },
     {
-      "_extends": "ligth_gray_eyes"
+      "_use": "ligth_gray_eyes"
     },
     {
       "headgen__tex0": "head_european_11_tex"
@@ -4519,26 +4802,29 @@
     },
     {
       "headgen__blendFactor": 0.196
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "usa_gen_head_15": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_empty"
+      "_use": "scar_preset_empty"
     },
     {
-      "_extends": "blue_eyes_b"
+      "_use": "blue_eyes_b"
     },
     {
       "headgen__tex0": "head_european_10_tex"
@@ -4560,26 +4846,29 @@
     },
     {
       "headgen__blendFactor": 0.9316
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "usa_gen_head_16": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_2"
+      "_use": "scar_preset_2"
     },
     {
-      "_extends": "green_eyes_b"
+      "_use": "green_eyes_b"
     },
     {
       "headgen__tex0": "head_european_02_tex"
@@ -4601,26 +4890,29 @@
     },
     {
       "headgen__blendFactor": 0.0787
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "usa_gen_head_17": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_4"
+      "_use": "scar_preset_4"
     },
     {
-      "_extends": "blue_eyes_b"
+      "_use": "blue_eyes_b"
     },
     {
       "headgen__tex0": "head_european_03_tex"
@@ -4642,26 +4934,29 @@
     },
     {
       "headgen__blendFactor": 0.6276
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "usa_gen_head_18": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_0"
+      "_use": "scar_preset_0"
     },
     {
-      "_extends": "brown_yellow_eyes_b"
+      "_use": "brown_yellow_eyes_b"
     },
     {
       "headgen__tex0": "head_european_11_tex"
@@ -4683,26 +4978,29 @@
     },
     {
       "headgen__blendFactor": 0.5206
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "usa_gen_head_19": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_10"
+      "_use": "scar_preset_10"
     },
     {
-      "_extends": "ligth_gray_eyes"
+      "_use": "ligth_gray_eyes"
     },
     {
       "headgen__tex0": "head_european_08_tex"
@@ -4724,26 +5022,29 @@
     },
     {
       "headgen__blendFactor": 0.3814
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "usa_gen_head_20": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_8"
+      "_use": "scar_preset_8"
     },
     {
-      "_extends": "blue_eyes_b"
+      "_use": "blue_eyes_b"
     },
     {
       "headgen__tex0": "head_european_05_tex"
@@ -4765,23 +5066,26 @@
     },
     {
       "headgen__blendFactor": 0.2409
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "gen_hero_head_12": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_1"
+      "_use": "scar_preset_1"
     },
     {
       "headgen__tex0": "head_european_01_tex"
@@ -4803,23 +5107,26 @@
     },
     {
       "headgen__blendFactor": 0.3314
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "gen_hero_head_13": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_empty"
+      "_use": "scar_preset_empty"
     },
     {
       "headgen__tex0": "head_european_07_tex"
@@ -4841,23 +5148,26 @@
     },
     {
       "headgen__blendFactor": 0.3495
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "gen_hero_head_14": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_2"
+      "_use": "scar_preset_2"
     },
     {
       "headgen__tex0": "head_european_13_tex"
@@ -4879,23 +5189,26 @@
     },
     {
       "headgen__blendFactor": 0.6457
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "gen_hero_head_15": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_empty"
+      "_use": "scar_preset_empty"
     },
     {
       "headgen__tex0": "head_european_18_tex"
@@ -4917,23 +5230,26 @@
     },
     {
       "headgen__blendFactor": 0.7282
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "gen_hero_head_16": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_4"
+      "_use": "scar_preset_4"
     },
     {
       "headgen__tex0": "head_european_07_tex"
@@ -4955,23 +5271,26 @@
     },
     {
       "headgen__blendFactor": 0.4941
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "gen_hero_head_17": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_empty"
+      "_use": "scar_preset_empty"
     },
     {
       "headgen__tex0": "head_european_13_tex"
@@ -4993,23 +5312,26 @@
     },
     {
       "headgen__blendFactor": 0.1574
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "gen_hero_head_18": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_3"
+      "_use": "scar_preset_3"
     },
     {
       "headgen__tex0": "head_european_01_tex"
@@ -5031,23 +5353,26 @@
     },
     {
       "headgen__blendFactor": 0.3574
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "gen_hero_head_19": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_empty"
+      "_use": "scar_preset_empty"
     },
     {
       "headgen__tex0": "head_european_19_tex"
@@ -5069,23 +5394,26 @@
     },
     {
       "headgen__blendFactor": 0.9053
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "gen_hero_head_20": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_empty"
+      "_use": "scar_preset_empty"
     },
     {
       "headgen__tex0": "head_european_15_tex"
@@ -5107,23 +5435,26 @@
     },
     {
       "headgen__blendFactor": 0.7266
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "gen_hero_head_21": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_empty"
+      "_use": "scar_preset_empty"
     },
     {
       "headgen__tex0": "head_japanese_10_tex"
@@ -5145,23 +5476,26 @@
     },
     {
       "headgen__blendFactor": 0.9668
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "gen_hero_head_22": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_5"
+      "_use": "scar_preset_5"
     },
     {
       "headgen__tex0": "head_japanese_08_tex"
@@ -5183,23 +5517,26 @@
     },
     {
       "headgen__blendFactor": 0.7253
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "gen_hero_head_23": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_empty"
+      "_use": "scar_preset_empty"
     },
     {
       "headgen__tex0": "head_european_16_tex"
@@ -5221,26 +5558,29 @@
     },
     {
       "headgen__blendFactor": 0.7947
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "gen_hero_head_24": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_6"
+      "_use": "scar_preset_6"
     },
     {
-      "_extends": "blue_eyes_b"
+      "_use": "blue_eyes_b"
     },
     {
       "headgen__tex0": "head_european_07_tex"
@@ -5262,23 +5602,26 @@
     },
     {
       "headgen__blendFactor": 0.3176
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "gen_hero_head_25": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_empty"
+      "_use": "scar_preset_empty"
     },
     {
       "headgen__tex0": "head_japanese_08_tex"
@@ -5300,23 +5643,26 @@
     },
     {
       "headgen__blendFactor": 0.4781
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "gen_hero_head_26": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_1"
+      "_use": "scar_preset_1"
     },
     {
       "headgen__tex0": "head_european_07_tex"
@@ -5338,23 +5684,26 @@
     },
     {
       "headgen__blendFactor": 0.7624
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "gen_hero_head_27": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_4"
+      "_use": "scar_preset_4"
     },
     {
       "headgen__tex0": "head_european_18_tex"
@@ -5376,23 +5725,26 @@
     },
     {
       "headgen__blendFactor": 0.4407
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "gen_hero_head_28": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_empty"
+      "_use": "scar_preset_empty"
     },
     {
       "headgen__tex0": "head_european_07_tex"
@@ -5414,23 +5766,26 @@
     },
     {
       "headgen__blendFactor": 0.7253
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "gen_hero_head_29": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_10"
+      "_use": "scar_preset_10"
     },
     {
       "headgen__tex0": "head_european_02_tex"
@@ -5452,23 +5807,26 @@
     },
     {
       "headgen__blendFactor": 0.0987
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "gen_hero_head_30": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_3"
+      "_use": "scar_preset_3"
     },
     {
       "headgen__tex0": "head_european_15_tex"
@@ -5490,23 +5848,26 @@
     },
     {
       "headgen__blendFactor": 0.7189
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "gen_hero_head_31": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_empty"
+      "_use": "scar_preset_empty"
     },
     {
       "headgen__tex0": "head_european_13_tex"
@@ -5528,23 +5889,26 @@
     },
     {
       "headgen__blendFactor": 0.1684
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ],
   "gen_hero_head_32": [
     {
-      "_extends": "head_gen_base_item"
+      "_use": "head_gen_base_item"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
-      "_extends": "head_gen_animphys"
+      "_use": "head_gen_animphys"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "scar_preset_empty"
+      "_use": "scar_preset_empty"
     },
     {
       "headgen__tex0": "head_european_04_tex"
@@ -5566,6 +5930,1160 @@
     },
     {
       "headgen__blendFactor": 0.1809
+    },
+    {
+      "attaches_list:list<eid>": []
+    }
+  ],
+  "gen_hero_head_33": [
+    {
+      "_use": "head_gen_base_item"
+    },
+    {
+      "_use": "base_collres_vis_item"
+    },
+    {
+      "_use": "head_gen_animphys"
+    },
+    {
+      "_use": "animchar"
+    },
+    {
+      "_use": "scar_preset_empty"
+    },
+    {
+      "headgen__tex0": "head_european_14_tex"
+    },
+    {
+      "headgen__tex1": "head_european_07_tex"
+    },
+    {
+      "animchar__res": "headgenmesh_european_10_char"
+    },
+    {
+      "collres__res": "headgenmesh_european_10_collision"
+    },
+    {
+      "beard_id": 3
+    },
+    {
+      "mustache_id": 2
+    },
+    {
+      "headgen__blendFactor": 0.6006
+    },
+    {
+      "attaches_list:list<eid>": []
+    }
+  ],
+  "gen_hero_head_34": [
+    {
+      "_use": "head_gen_base_item"
+    },
+    {
+      "_use": "base_collres_vis_item"
+    },
+    {
+      "_use": "head_gen_animphys"
+    },
+    {
+      "_use": "animchar"
+    },
+    {
+      "_use": "scar_preset_1"
+    },
+    {
+      "headgen__tex0": "head_european_06_tex"
+    },
+    {
+      "headgen__tex1": "head_european_01_tex"
+    },
+    {
+      "animchar__res": "headgenmesh_european_06_char"
+    },
+    {
+      "collres__res": "headgenmesh_european_06_collision"
+    },
+    {
+      "beard_id": -1
+    },
+    {
+      "mustache_id": -1
+    },
+    {
+      "headgen__blendFactor": 0.2627
+    },
+    {
+      "attaches_list:list<eid>": []
+    }
+  ],
+  "gen_hero_head_35": [
+    {
+      "_use": "head_gen_base_item"
+    },
+    {
+      "_use": "base_collres_vis_item"
+    },
+    {
+      "_use": "head_gen_animphys"
+    },
+    {
+      "_use": "animchar"
+    },
+    {
+      "_use": "scar_preset_10"
+    },
+    {
+      "headgen__tex0": "head_european_15_tex"
+    },
+    {
+      "headgen__tex1": "head_european_20_tex"
+    },
+    {
+      "animchar__res": "headgenmesh_european_12_char"
+    },
+    {
+      "collres__res": "headgenmesh_european_12_collision"
+    },
+    {
+      "beard_id": 8
+    },
+    {
+      "mustache_id": 4
+    },
+    {
+      "headgen__blendFactor": 0.7463
+    },
+    {
+      "attaches_list:list<eid>": []
+    }
+  ],
+  "gen_hero_head_36": [
+    {
+      "_use": "head_gen_base_item"
+    },
+    {
+      "_use": "base_collres_vis_item"
+    },
+    {
+      "_use": "head_gen_animphys"
+    },
+    {
+      "_use": "animchar"
+    },
+    {
+      "_use": "scar_preset_6"
+    },
+    {
+      "headgen__tex0": "head_european_17_tex"
+    },
+    {
+      "headgen__tex1": "head_european_15_tex"
+    },
+    {
+      "animchar__res": "headgenmesh_european_04_char"
+    },
+    {
+      "collres__res": "headgenmesh_european_04_collision"
+    },
+    {
+      "beard_id": 9
+    },
+    {
+      "mustache_id": 3
+    },
+    {
+      "headgen__blendFactor": 0.8448
+    },
+    {
+      "attaches_list:list<eid>": []
+    }
+  ],
+  "gen_hero_head_37": [
+    {
+      "_use": "head_gen_base_item"
+    },
+    {
+      "_use": "base_collres_vis_item"
+    },
+    {
+      "_use": "head_gen_animphys"
+    },
+    {
+      "_use": "animchar"
+    },
+    {
+      "_use": "scar_preset_empty"
+    },
+    {
+      "headgen__tex0": "head_european_07_tex"
+    },
+    {
+      "headgen__tex1": "head_european_18_tex"
+    },
+    {
+      "animchar__res": "headgenmesh_european_10_char"
+    },
+    {
+      "collres__res": "headgenmesh_european_10_collision"
+    },
+    {
+      "beard_id": -1
+    },
+    {
+      "mustache_id": 1
+    },
+    {
+      "headgen__blendFactor": 0.3147
+    },
+    {
+      "attaches_list:list<eid>": []
+    }
+  ],
+  "gen_hero_head_38": [
+    {
+      "_use": "head_gen_base_item"
+    },
+    {
+      "_use": "base_collres_vis_item"
+    },
+    {
+      "_use": "head_gen_animphys"
+    },
+    {
+      "_use": "animchar"
+    },
+    {
+      "_use": "scar_preset_empty"
+    },
+    {
+      "headgen__tex0": "head_european_11_tex"
+    },
+    {
+      "headgen__tex1": "head_european_17_tex"
+    },
+    {
+      "animchar__res": "headgenmesh_european_02_char"
+    },
+    {
+      "collres__res": "headgenmesh_european_02_collision"
+    },
+    {
+      "beard_id": 5
+    },
+    {
+      "mustache_id": 4
+    },
+    {
+      "headgen__blendFactor": 0.5342
+    },
+    {
+      "attaches_list:list<eid>": []
+    }
+  ],
+  "gen_hero_head_39": [
+    {
+      "_use": "head_gen_base_item"
+    },
+    {
+      "_use": "base_collres_vis_item"
+    },
+    {
+      "_use": "head_gen_animphys"
+    },
+    {
+      "_use": "animchar"
+    },
+    {
+      "_use": "scar_preset_3"
+    },
+    {
+      "headgen__tex0": "head_european_16_tex"
+    },
+    {
+      "headgen__tex1": "head_european_18_tex"
+    },
+    {
+      "animchar__res": "headgenmesh_european_05_char"
+    },
+    {
+      "collres__res": "headgenmesh_european_05_collision"
+    },
+    {
+      "beard_id": 8
+    },
+    {
+      "mustache_id": 4
+    },
+    {
+      "headgen__blendFactor": 0.7609
+    },
+    {
+      "attaches_list:list<eid>": []
+    }
+  ],
+  "gen_hero_head_40": [
+    {
+      "_use": "head_gen_base_item"
+    },
+    {
+      "_use": "base_collres_vis_item"
+    },
+    {
+      "_use": "head_gen_animphys"
+    },
+    {
+      "_use": "animchar"
+    },
+    {
+      "_use": "scar_preset_empty"
+    },
+    {
+      "headgen__tex0": "head_european_17_tex"
+    },
+    {
+      "headgen__tex1": "head_european_16_tex"
+    },
+    {
+      "animchar__res": "headgenmesh_us_09_char"
+    },
+    {
+      "collres__res": "headgenmesh_us_09_collision"
+    },
+    {
+      "beard_id": 8
+    },
+    {
+      "mustache_id": 2
+    },
+    {
+      "headgen__blendFactor": 0.9799
+    },
+    {
+      "attaches_list:list<eid>": []
+    }
+  ],
+  "gen_hero_head_41": [
+    {
+      "_use": "head_gen_base_item"
+    },
+    {
+      "_use": "base_collres_vis_item"
+    },
+    {
+      "_use": "head_gen_animphys"
+    },
+    {
+      "_use": "animchar"
+    },
+    {
+      "_use": "scar_preset_10"
+    },
+    {
+      "headgen__tex0": "head_european_15_tex"
+    },
+    {
+      "headgen__tex1": "head_european_19_tex"
+    },
+    {
+      "animchar__res": "headgenmesh_us_04_char"
+    },
+    {
+      "collres__res": "headgenmesh_us_04_collision"
+    },
+    {
+      "beard_id": 8
+    },
+    {
+      "mustache_id": 4
+    },
+    {
+      "headgen__blendFactor": 0.7357
+    },
+    {
+      "attaches_list:list<eid>": []
+    }
+  ],
+  "gen_hero_head_42": [
+    {
+      "_use": "head_gen_base_item"
+    },
+    {
+      "_use": "base_collres_vis_item"
+    },
+    {
+      "_use": "head_gen_animphys"
+    },
+    {
+      "_use": "animchar"
+    },
+    {
+      "_use": "scar_preset_empty"
+    },
+    {
+      "headgen__tex0": "head_japanese_02_tex"
+    },
+    {
+      "headgen__tex1": "head_japanese_03_tex"
+    },
+    {
+      "animchar__res": "headgenmesh_jap_08_char"
+    },
+    {
+      "collres__res": "headgenmesh_jap_08_collision"
+    },
+    {
+      "beard_id": -1
+    },
+    {
+      "mustache_id": -1
+    },
+    {
+      "headgen__blendFactor": 0.1802
+    },
+    {
+      "attaches_list:list<eid>": []
+    }
+  ],
+  "gen_hero_head_43": [
+    {
+      "_use": "head_gen_base_item"
+    },
+    {
+      "_use": "base_collres_vis_item"
+    },
+    {
+      "_use": "head_gen_animphys"
+    },
+    {
+      "_use": "animchar"
+    },
+    {
+      "_use": "scar_preset_7"
+    },
+    {
+      "headgen__tex0": "head_european_13_tex"
+    },
+    {
+      "headgen__tex1": "head_european_09_tex"
+    },
+    {
+      "animchar__res": "headgenmesh_european_05_char"
+    },
+    {
+      "collres__res": "headgenmesh_european_09_collision"
+    },
+    {
+      "beard_id": 2
+    },
+    {
+      "mustache_id": 4
+    },
+    {
+      "headgen__blendFactor": 0.4006
+    },
+    {
+      "attaches_list:list<eid>": []
+    }
+  ],
+  "gen_hero_head_44": [
+    {
+      "_use": "head_gen_base_item"
+    },
+    {
+      "_use": "base_collres_vis_item"
+    },
+    {
+      "_use": "head_gen_animphys"
+    },
+    {
+      "_use": "animchar"
+    },
+    {
+      "_use": "scar_preset_empty"
+    },
+    {
+      "headgen__tex0": "head_european_09_tex"
+    },
+    {
+      "headgen__tex1": "head_european_02_tex"
+    },
+    {
+      "animchar__res": "headgenmesh_european_07_char"
+    },
+    {
+      "collres__res": "headgenmesh_european_07_collision"
+    },
+    {
+      "beard_id": 0
+    },
+    {
+      "mustache_id": 1
+    },
+    {
+      "headgen__blendFactor": 0.6526
+    },
+    {
+      "attaches_list:list<eid>": []
+    }
+  ],
+  "gen_hero_head_45": [
+    {
+      "_use": "head_gen_base_item"
+    },
+    {
+      "_use": "base_collres_vis_item"
+    },
+    {
+      "_use": "head_gen_animphys"
+    },
+    {
+      "_use": "animchar"
+    },
+    {
+      "_use": "scar_preset_empty"
+    },
+    {
+      "headgen__tex0": "head_european_19_tex"
+    },
+    {
+      "headgen__tex1": "head_european_02_tex"
+    },
+    {
+      "animchar__res": "headgenmesh_european_16_char"
+    },
+    {
+      "collres__res": "headgenmesh_european_16_collision"
+    },
+    {
+      "beard_id": 5
+    },
+    {
+      "mustache_id": 3
+    },
+    {
+      "headgen__blendFactor": 0.3443
+    },
+    {
+      "attaches_list:list<eid>": []
+    }
+  ],
+  "gen_hero_head_46": [
+    {
+      "_use": "head_gen_base_item"
+    },
+    {
+      "_use": "base_collres_vis_item"
+    },
+    {
+      "_use": "head_gen_animphys"
+    },
+    {
+      "_use": "animchar"
+    },
+    {
+      "_use": "scar_preset_empty"
+    },
+    {
+      "headgen__tex0": "head_european_14_tex"
+    },
+    {
+      "headgen__tex1": "head_european_19_tex"
+    },
+    {
+      "animchar__res": "headgenmesh_european_11_char"
+    },
+    {
+      "collres__res": "headgenmesh_european_11_collision"
+    },
+    {
+      "beard_id": 4
+    },
+    {
+      "mustache_id": 1
+    },
+    {
+      "headgen__blendFactor": 0.5679
+    },
+    {
+      "attaches_list:list<eid>": []
+    }
+  ],
+  "gen_hero_head_47": [
+    {
+      "_use": "head_gen_base_item"
+    },
+    {
+      "_use": "base_collres_vis_item"
+    },
+    {
+      "_use": "head_gen_animphys"
+    },
+    {
+      "_use": "animchar"
+    },
+    {
+      "_use": "scar_preset_empty"
+    },
+    {
+      "headgen__tex0": "head_european_07_tex"
+    },
+    {
+      "headgen__tex1": "head_european_11_tex"
+    },
+    {
+      "animchar__res": "headgenmesh_european_19_char"
+    },
+    {
+      "collres__res": "headgenmesh_european_19_collision"
+    },
+    {
+      "beard_id": 3
+    },
+    {
+      "mustache_id": 0
+    },
+    {
+      "headgen__blendFactor": 0.7457
+    },
+    {
+      "attaches_list:list<eid>": []
+    }
+  ],
+  "gen_hero_head_48": [
+    {
+      "_use": "head_gen_base_item"
+    },
+    {
+      "_use": "base_collres_vis_item"
+    },
+    {
+      "_use": "head_gen_animphys"
+    },
+    {
+      "_use": "animchar"
+    },
+    {
+      "_use": "scar_preset_2"
+    },
+    {
+      "headgen__tex0": "head_european_01_tex"
+    },
+    {
+      "headgen__tex1": "head_european_12_tex"
+    },
+    {
+      "animchar__res": "headgenmesh_european_12_char"
+    },
+    {
+      "collres__res": "headgenmesh_european_12_collision"
+    },
+    {
+      "beard_id": 2
+    },
+    {
+      "mustache_id": 1
+    },
+    {
+      "headgen__blendFactor": 0.8534
+    },
+    {
+      "attaches_list:list<eid>": []
+    }
+  ],
+  "gen_hero_head_49": [
+    {
+      "_use": "head_gen_base_item"
+    },
+    {
+      "_use": "base_collres_vis_item"
+    },
+    {
+      "_use": "head_gen_animphys"
+    },
+    {
+      "_use": "animchar"
+    },
+    {
+      "_use": "scar_preset_4"
+    },
+    {
+      "headgen__tex0": "head_european_14_tex"
+    },
+    {
+      "headgen__tex1": "head_european_09_tex"
+    },
+    {
+      "animchar__res": "headgenmesh_european_17_char"
+    },
+    {
+      "collres__res": "headgenmesh_european_17_collision"
+    },
+    {
+      "beard_id": -1
+    },
+    {
+      "mustache_id": 0
+    },
+    {
+      "headgen__blendFactor": 0.7846
+    },
+    {
+      "attaches_list:list<eid>": []
+    }
+  ],
+  "gen_hero_head_50": [
+    {
+      "_use": "head_gen_base_item"
+    },
+    {
+      "_use": "base_collres_vis_item"
+    },
+    {
+      "_use": "head_gen_animphys"
+    },
+    {
+      "_use": "animchar"
+    },
+    {
+      "_use": "scar_preset_empty"
+    },
+    {
+      "headgen__tex0": "head_european_07_tex"
+    },
+    {
+      "headgen__tex1": "head_european_13_tex"
+    },
+    {
+      "animchar__res": "headgenmesh_us_03_char"
+    },
+    {
+      "collres__res": "headgenmesh_us_03_collision"
+    },
+    {
+      "beard_id": 7
+    },
+    {
+      "mustache_id": 1
+    },
+    {
+      "headgen__blendFactor": 0.7544
+    },
+    {
+      "attaches_list:list<eid>": []
+    }
+  ],
+  "gen_hero_head_51": [
+    {
+      "_use": "head_gen_base_item"
+    },
+    {
+      "_use": "base_collres_vis_item"
+    },
+    {
+      "_use": "head_gen_animphys"
+    },
+    {
+      "_use": "animchar"
+    },
+    {
+      "_use": "scar_preset_empty"
+    },
+    {
+      "headgen__tex0": "head_european_05_tex"
+    },
+    {
+      "headgen__tex1": "head_european_14_tex"
+    },
+    {
+      "animchar__res": "headgenmesh_us_07_char"
+    },
+    {
+      "collres__res": "headgenmesh_us_07_collision"
+    },
+    {
+      "beard_id": 4
+    },
+    {
+      "mustache_id": 0
+    },
+    {
+      "headgen__blendFactor": 0.1677
+    },
+    {
+      "attaches_list:list<eid>": []
+    }
+  ],
+  "gen_hero_head_52": [
+    {
+      "_use": "head_gen_base_item"
+    },
+    {
+      "_use": "base_collres_vis_item"
+    },
+    {
+      "_use": "head_gen_animphys"
+    },
+    {
+      "_use": "animchar"
+    },
+    {
+      "_use": "scar_preset_empty"
+    },
+    {
+      "headgen__tex0": "head_japanese_09_tex"
+    },
+    {
+      "headgen__tex1": "head_japanese_10_tex"
+    },
+    {
+      "animchar__res": "headgenmesh_jap_09_char"
+    },
+    {
+      "collres__res": "headgenmesh_jap_09_collision"
+    },
+    {
+      "beard_id": -1
+    },
+    {
+      "mustache_id": 0
+    },
+    {
+      "headgen__blendFactor": 0.8802
+    },
+    {
+      "attaches_list:list<eid>": []
+    }
+  ],
+  "gen_hero_head_53": [
+    {
+      "_use": "head_gen_base_item"
+    },
+    {
+      "_use": "base_collres_vis_item"
+    },
+    {
+      "_use": "head_gen_animphys"
+    },
+    {
+      "_use": "animchar"
+    },
+    {
+      "_use": "scar_preset_empty"
+    },
+    {
+      "headgen__tex0": "head_european_12_tex"
+    },
+    {
+      "headgen__tex1": "head_european_10_tex"
+    },
+    {
+      "animchar__res": "headgenmesh_european_16_char"
+    },
+    {
+      "collres__res": "headgenmesh_european_16_collision"
+    },
+    {
+      "beard_id": 10
+    },
+    {
+      "mustache_id": 1
+    },
+    {
+      "headgen__blendFactor": 0.6747
+    },
+    {
+      "attaches_list:list<eid>": []
+    }
+  ],
+  "gen_hero_head_54": [
+    {
+      "_use": "head_gen_base_item"
+    },
+    {
+      "_use": "base_collres_vis_item"
+    },
+    {
+      "_use": "head_gen_animphys"
+    },
+    {
+      "_use": "animchar"
+    },
+    {
+      "_use": "scar_preset_1"
+    },
+    {
+      "headgen__tex0": "head_european_19_tex"
+    },
+    {
+      "headgen__tex1": "head_european_16_tex"
+    },
+    {
+      "animchar__res": "headgenmesh_us_06_char"
+    },
+    {
+      "collres__res": "headgenmesh_us_06_collision"
+    },
+    {
+      "beard_id": 1
+    },
+    {
+      "mustache_id": -1
+    },
+    {
+      "headgen__blendFactor": 0.5679
+    },
+    {
+      "attaches_list:list<eid>": []
+    }
+  ],
+  "gen_hero_head_55": [
+    {
+      "_use": "head_gen_base_item"
+    },
+    {
+      "_use": "base_collres_vis_item"
+    },
+    {
+      "_use": "head_gen_animphys"
+    },
+    {
+      "_use": "animchar"
+    },
+    {
+      "_use": "scar_preset_5"
+    },
+    {
+      "headgen__tex0": "head_european_05_tex"
+    },
+    {
+      "headgen__tex1": "head_european_14_tex"
+    },
+    {
+      "animchar__res": "headgenmesh_european_07_char"
+    },
+    {
+      "collres__res": "headgenmesh_european_08_collision"
+    },
+    {
+      "beard_id": 0
+    },
+    {
+      "mustache_id": 0
+    },
+    {
+      "headgen__blendFactor": 0.6677
+    },
+    {
+      "attaches_list:list<eid>": []
+    }
+  ],
+  "gen_hero_head_56": [
+    {
+      "_use": "head_gen_base_item"
+    },
+    {
+      "_use": "base_collres_vis_item"
+    },
+    {
+      "_use": "head_gen_animphys"
+    },
+    {
+      "_use": "animchar"
+    },
+    {
+      "_use": "scar_preset_empty"
+    },
+    {
+      "headgen__tex0": "head_japanese_09_tex"
+    },
+    {
+      "headgen__tex1": "head_japanese_06_tex"
+    },
+    {
+      "animchar__res": "headgenmesh_jap_02_char"
+    },
+    {
+      "collres__res": "headgenmesh_jap_04_collision"
+    },
+    {
+      "beard_id": -1
+    },
+    {
+      "mustache_id": 4
+    },
+    {
+      "headgen__blendFactor": 0.4245
+    },
+    {
+      "attaches_list:list<eid>": []
+    }
+  ],
+  "gen_hero_head_57": [
+    {
+      "_use": "head_gen_base_item"
+    },
+    {
+      "_use": "base_collres_vis_item"
+    },
+    {
+      "_use": "head_gen_animphys"
+    },
+    {
+      "_use": "animchar"
+    },
+    {
+      "_use": "scar_preset_empty"
+    },
+    {
+      "headgen__tex0": "head_european_11_tex"
+    },
+    {
+      "headgen__tex1": "head_european_09_tex"
+    },
+    {
+      "animchar__res": "headgenmesh_european_02_char"
+    },
+    {
+      "collres__res": "headgenmesh_european_01_collision"
+    },
+    {
+      "beard_id": 1
+    },
+    {
+      "mustache_id": 0
+    },
+    {
+      "headgen__blendFactor": 0.5331
+    },
+    {
+      "attaches_list:list<eid>": []
+    }
+  ],
+  "gen_hero_head_58": [
+    {
+      "_use": "head_gen_base_item"
+    },
+    {
+      "_use": "base_collres_vis_item"
+    },
+    {
+      "_use": "head_gen_animphys"
+    },
+    {
+      "_use": "animchar"
+    },
+    {
+      "_use": "blue_eyes_a"
+    },
+    {
+      "headgen__tex0": "head_european_16_tex"
+    },
+    {
+      "headgen__tex1": "head_european_20_tex"
+    },
+    {
+      "animchar__res": "headgenmesh_us_06_char"
+    },
+    {
+      "collres__res": "headgenmesh_us_06_collision"
+    },
+    {
+      "facial_hair__key": 1
+    },
+    {
+      "headgen__blendFactor": 0.653
+    },
+    {
+      "beard_id": -1
+    },
+    {
+      "mustache_id": -1
+    },
+    {
+      "attaches_list:list<eid>": []
+    }
+  ],
+  "gen_hero_head_59": [
+    {
+      "_use": "head_gen_base_item"
+    },
+    {
+      "_use": "base_collres_vis_item"
+    },
+    {
+      "_use": "head_gen_animphys"
+    },
+    {
+      "_use": "animchar"
+    },
+    {
+      "_use": "scar_preset_empty"
+    },
+    {
+      "headgen__tex0": "head_european_07_tex"
+    },
+    {
+      "headgen__tex1": "head_european_09_tex"
+    },
+    {
+      "animchar__res": "headgenmesh_european_14_char"
+    },
+    {
+      "collres__res": "headgenmesh_european_14_collision"
+    },
+    {
+      "beard_id": -1
+    },
+    {
+      "mustache_id": -1
+    },
+    {
+      "headgen__blendFactor": 0.2432
+    },
+    {
+      "attaches_list:list<eid>": []
+    }
+  ],
+  "gen_hero_head_60": [
+    {
+      "_use": "head_gen_base_item"
+    },
+    {
+      "_use": "base_collres_vis_item"
+    },
+    {
+      "_use": "head_gen_animphys"
+    },
+    {
+      "_use": "animchar"
+    },
+    {
+      "_use": "scar_preset_empty"
+    },
+    {
+      "headgen__tex0": "head_japanese_04_tex"
+    },
+    {
+      "headgen__tex1": "head_japanese_03_tex"
+    },
+    {
+      "animchar__res": "headgenmesh_jap_08_char"
+    },
+    {
+      "collres__res": "headgenmesh_jap_08_collision"
+    },
+    {
+      "beard_id": -1
+    },
+    {
+      "mustache_id": -1
+    },
+    {
+      "headgen__blendFactor": 0.2341
+    },
+    {
+      "attaches_list:list<eid>": []
     }
   ]
 }

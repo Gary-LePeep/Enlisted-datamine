@@ -4,7 +4,7 @@ let sClassesCfg = require("%enlist/soldiers/model/config/sClassesConfig.nut")
 let armyEffects = require("%enlist/soldiers/model/armyEffects.nut")
 let { curArmy } = require("%enlist/soldiers/model/state.nut")
 
-let TRAINING_ORDER = "soldier_order"
+let TRAINING_ORDER = "enlisted_silver"
 let trainingPrices = Computed(@() sClassesCfg.value.reduce(function(res, cfgClass, sClass) {
   let { upgradeOrdersRequire = [] } = cfgClass
   if (upgradeOrdersRequire.len() > 0)

@@ -1,16 +1,17 @@
 {
   "bomb_crater_config_override": {
-    "_extends": "replicating",
+    "_use": "replicating",
     "bomb_crater_config_override__decalName": "explosion"
   },
   "bomb_crater_config": [
     {
-      "_extends": "replicating"
+      "_use": "replicating"
     },
     {
       "_group": {
         "_tags": "server",
         "crater_config__maxRIRadiusToRemove": 2.0,
+        "crater_config__uncollideOffset": 0.05,
         "bullet_crater_config__innerRadiusScale": 0.8,
         "bullet_crater_config__innerDepthScale": 0.4,
         "bullet_crater_config__outerAltScale": 0.35,
@@ -62,6 +63,14 @@
           "aborigen_village_module_floor_a_a": false,
           "aborigen_village_module_floor_a_b": false,
           "aborigen_village_module_floor_b_a": false,
+          "frame_stairs_outdoor_a": false,
+          "frame_stairs_outdoor_b_a": false,
+          "frame_stairs_outdoor_b_b": false,
+          "frame_stairs_outdoor_b_c": false,
+          "frame_stairs_outdoor_c": false,
+          "frame_stairs_outdoor_d": false,
+          "frame_stairs_outdoor_e": false,
+          "frame_horsehouse_b_stair_a": false,
           "debris_pile_wood_burnt_a_a": false,
           "debris_pile_wood_burnt_a_b": false,
           "debris_pile_wood_burnt_a_c": false,
@@ -98,7 +107,27 @@
           "military_barracks_decor_jamb_flat_a_1900": false,
           "well_concrete_a_ring": false,
           "well_concrete_a_cap": false,
-          "concrete_barrier_a": false
+          "concrete_barrier_a": false,
+          "sample_box_1000x1000x1000": false,
+          "obstacle_czech_hedgehog_a": false,
+          "fortification_concrete_high_a": false,
+          "fortification_concrete_low_a": false,
+          "fortification_concrete_low_b": false,
+          "fortification_concrete_low_c": false,
+          "fortification_concrete_low_d": false,
+          "fortification_concrete_middle_a": false,
+          "fortification_concrete_middle_b": false,
+          "fortification_concrete_middle_c": false,
+          "fortification_concrete_middle_d": false,
+          "fortification_concrete_middle_e": false,
+          "fortification_concrete_middle_f": false,
+          "fortification_concrete_middle_g": false,
+          "military_tent_big_a_a_dmg": false,
+          "military_tent_big_a_b_dmg": false,
+          "military_tent_big_b_a_dmg": false,
+          "military_tent_big_a_a_section_a_dmg": false,
+          "military_tent_big_a_a_section_b_dmg": false,
+          "military_tent_big_a_a_section_c_dmg": false
         },
         "crater_config__unremovableRIPoolsByNamePart:list<t>": [
           {
@@ -141,25 +170,22 @@
         "crater_config__riPoolFlags:list<i>": [],
         "bullet_crater_config__explosiveMassToCraterRadius:list<p2>": [
           {
-            "p": [0.1,0.35]
+            "p": [0.03,0.4]
           },
           {
-            "p": [0.3,0.7]
+            "p": [1.5,0.8]
           },
           {
-            "p": [1.0,1.4]
+            "p": [2.5,1.0]
           },
           {
-            "p": [2.0,2.4]
+            "p": [4.0,2.0]
           },
           {
-            "p": [4.0,2.85]
+            "p": [5.0,2.7]
           },
           {
-            "p": [5.0,3.2]
-          },
-          {
-            "p": [12.0,4.0]
+            "p": [12.0,3.3]
           }
         ],
         "bomb_crater_config__splashToCraterRadius:list<p2>": [
@@ -201,7 +227,10 @@
     {
       "_group": {
         "_tags": "render",
+        "bomb_crater_config__decalScale": 1.35,
+        "bomb_crater_config__minOuterRadiusForSoundEffect": 1.2,
         "bomb_crater_config__smokeEffectTemplate": "explosion_smoke_crater_effect",
+        "bomb_crater_config__smokeEffectWithSoundTemplate": "explosion_smoke_crater_effect_with_sound",
         "bomb_crater_config__decalNames:list<t>": [
           {
             "name": "explosion"
@@ -220,6 +249,12 @@
           },
           {
             "name": "explosion_sand"
+          },
+          {
+            "name": "explosion_sand"
+          },
+          {
+            "name": "explosion_snow"
           }
         ],
         "bomb_crater_config__decalPhysmats:list<t>": [
@@ -236,10 +271,16 @@
             "name": "roadSand"
           },
           {
+            "name": "roadSoil"
+          },
+          {
             "name": "quickSand"
           },
           {
             "name": "quarrySand"
+          },
+          {
+            "name": "snow"
           }
         ],
         "bomb_crater_config__decalIds:list<i>": [],
@@ -264,11 +305,14 @@
       "bomb_crater_terraformer__availablePartsMask:u64": {
         "value": 0
       },
+      "bomb_crater_terraformer__availableDigPartsMask:u64": {
+        "value": 0
+      },
       "bomb_crater_terraformer__riHandlesToRemove:list<u64>": []
     }
   },
   "bomb_crater": {
-    "_extends": "replicating",
+    "_use": "replicating",
     "bomb_crater__removeRiCountPerFrame": 7,
     "bomb_crater__position": [0.0,0.0,0.0],
     "bomb_crater__innerRadius": 0.0,
@@ -281,6 +325,9 @@
     "bomb_crater__isTerraformed": false,
     "bomb_crater__mainPhysmatId": -1,
     "bomb_crater__availablePartsMask:u64": {
+      "value": 0
+    },
+    "bomb_crater__availableDigPartsMask:u64": {
       "value": 0
     },
     "bomb_crater__riHandlesToRemove:list<u64>": []

@@ -6,7 +6,7 @@ require DagorMath
 require DagorMathUtils
 require DagorInput
 require math.ang
-require EnlistedCamera
+require DngCamera
 require common_shooter.es.weapon.turret_common
 
 def calc_aim_pos(aim_angles : float2)
@@ -15,22 +15,16 @@ def calc_aim_pos(aim_angles : float2)
   return camPos + angles_to_dir(aim_angles) * AIM_DISTANCE
 
 def apply_turret_input(turret_control__gunEids : EidList;
-                       aim : AnalogStickAction;
-                       zoomToggle : DigitalAction;
-                       zoom : DigitalAction)
+                       aim : AnalogStickAction)
   var isFirstAimPosVaild = false
   var firstAimPos = float3()
 
   for gunEid in turret_control__gunEids
-    query(gunEid) <| $ [es(REQUIRE=(resolvedTurret, firstTurretInput))] (turret__canZoom : bool;
-                                                                         var turret_input__aimAngles : float2&;
+    query(gunEid) <| $ [es(REQUIRE=(resolvedTurret, firstTurretInput))] (var turret_input__aimAngles : float2&;
                                                                          var turret_input__aimPos : float3&;
-                                                                         var turret_input__firstUpdate : bool&;
-                                                                         var turret_input__isZoom : bool&)
+                                                                         var turret_input__firstUpdate : bool&)
       assume aimAngles = turret_input__aimAngles
       assume aimPos = turret_input__aimPos
-
-      turret_input__isZoom = turret__canZoom && (zoomToggle.bActive && zoomToggle.bState || zoom.bActive && zoom.bState)
 
       if aim.bActive && !turret_input__firstUpdate
         let dx = aim.x * PI
@@ -76,3 +70,20 @@ def release_weapon(turret_control__gunEids : EidList; state : bool; trigger : in
         indexInSalvo = (indexInSalvo + 1) % salvo_size
     if isFired && indexInSalvo == 0
       break
+
+def toggle_telesight_zoom(cockpit__eid : EntityId;
+                          plane_input__zoomToggle : int;
+                          var plane_input__mouseAimLimitYaw : float&;
+                          var plane_input__mouseAimLimitPitch : float&)
+  query(cockpit__eid) <| $ [es] (cockpit__cameraTime : float;
+                                 gunmod__defaultMouseAimLimits : float2;
+                                 gunmod__zoomMouseAimLimits : float2;
+                                 var gunmod__isZoom : bool&)
+    if cockpit__cameraTime < 1.0
+      return
+
+    let zoomToggle = get_digital_action_state(uint16(plane_input__zoomToggle))
+    gunmod__isZoom = zoomToggle.bState
+
+    plane_input__mouseAimLimitYaw = gunmod__isZoom ? gunmod__zoomMouseAimLimits.x : gunmod__defaultMouseAimLimits.x
+    plane_input__mouseAimLimitPitch = gunmod__isZoom ? gunmod__zoomMouseAimLimits.y : gunmod__defaultMouseAimLimits.y

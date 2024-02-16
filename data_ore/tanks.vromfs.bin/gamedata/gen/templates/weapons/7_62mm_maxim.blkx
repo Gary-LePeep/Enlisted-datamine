@@ -97,16 +97,16 @@
   },
   "tankgun_7_62mm_maxim": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_tankgun_autocannon"
+      "_use": "base_tankgun_autocannon"
     },
     {
-      "_extends": "base_7_62mm_maxim"
+      "_use": "base_7_62mm_maxim"
     },
     {
-      "_extends": "gunsound_7_62mm_maxim"
+      "_use": "gunsound_7_62mm_maxim"
     },
     {
       "turret__triggerGroup": 0

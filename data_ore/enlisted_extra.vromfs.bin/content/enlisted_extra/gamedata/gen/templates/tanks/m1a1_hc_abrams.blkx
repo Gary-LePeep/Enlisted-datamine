@@ -1,6 +1,6 @@
 {
   "base_m1a1_hc_abrams": {
-    "_extends": "base_tank",
+    "_use": "base_tank",
     "killLogName": "us_m1a1_hc_abrams",
     "animchar__res": "m1a1_hc_abrams_char",
     "collres__res": "m1a1_hc_abrams_collision",
@@ -177,7 +177,7 @@
     ]
   },
   "m1a1_hc_abrams_turret_01_120mm_m256": {
-    "_extends": "tankgun_120mm_m256",
+    "_use": "tankgun_120mm_m256",
     "gun__shootNodeName": "bone_gun_barrel",
     "turret__yawSpeed": 40.0,
     "turret__pitchSpeed": 24.0,
@@ -204,7 +204,7 @@
     ]
   },
   "m1a1_hc_abrams_turret_02_12_7mm_m2_hb": {
-    "_extends": "tankgun_12_7mm_m2_hb",
+    "_use": "tankgun_12_7mm_m2_hb",
     "gun__shootNodeName": "emtr_mg_aa_flame_01",
     "turret__yawSpeed": 90.0,
     "turret__pitchSpeed": 90.0,
@@ -234,7 +234,7 @@
     ]
   },
   "m1a1_hc_abrams_turret_03_7_62mm_m240": {
-    "_extends": "tankgun_7_62mm_m240",
+    "_use": "tankgun_7_62mm_m240",
     "gun__shootNodeName": "bone_mg_aa_v",
     "turret__yawSpeed": 90.0,
     "turret__pitchSpeed": 90.0,
@@ -251,7 +251,7 @@
     }
   },
   "m1a1_hc_abrams_turret_04_7_62mm_m240": {
-    "_extends": "tankgun_7_62mm_m240",
+    "_use": "tankgun_7_62mm_m240",
     "gun__shootNodeName": "bone_mg_twin",
     "gun__shellsAmmo:array": {
       "ammo": 10000

@@ -1,16 +1,16 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { showMsgbox } = require("%enlist/components/msgbox.nut")
-let { body_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let checkbox = require("%ui/components/checkbox.nut")
 let crossplayIcon = require("%enlist/components/crossplayIcon.nut")
-let {
-  isInQueue, leaveQueue, joinQueue, timeInQueue, curQueueParam
+let { isInQueue, leaveQueue, joinQueue, timeInQueue, curGameMode
 } = require("%enlist/quickMatchQueue.nut")
 let { curUnfinishedBattleTutorial } = require("tutorial/battleTutorial.nut")
-let { isInSquad, isSquadLeader } = require("%enlist/squad/squadState.nut")
+let { isInSquad, isSquadLeader, squadLeaderState } = require("%enlist/squad/squadState.nut")
 let { curArmiesList, armies } = require("%enlist/meta/profile.nut")
-let { mteam } = require("%enlist/soldiers/model/state.nut")
+let { curArmy } = require("%enlist/soldiers/model/state.nut")
+let { endswith } = require("string")
 let localSettings = require("%enlist/options/localSettings.nut")("quickMatch/")
 let { currentGameMode, eventGameModes } = require("gameModes/gameModeState.nut")
 let saveCrossnetworkPlayValue = require("%enlist/options/crossnetwork_save.nut")
@@ -19,16 +19,25 @@ let { txt } = require("%enlSqGlob/ui/defcomps.nut")
 let { titleTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
 let { is_xbox } = require("%dngscripts/platform.nut")
 let { selEvent, isEventModesOpened } = require("%enlist/gameModes/eventModesState.nut")
-let {nestWatched} = require("%dngscripts/globalState.nut")
+let { nestWatched } = require("%dngscripts/globalState.nut")
+let isChineseVersion = require("%enlSqGlob/isChineseVersion.nut")
+let { getArmyBR, maxMatesArmiesTiers, BRByArmies, getLiveArmyBR
+} = require("%enlist/soldiers/armySquadTier.nut")
+let { selectedGameMode } = require("%enlist/mainScene/changeGameModeButton.nut")
+let { missionsByQueue, campaignsByMissions } = require("%enlist/gameModes/missionsQueues.nut")
 
-let lastQueue = nestWatched("lastQueue", null)
+let lastGameMode = nestWatched("lastGameMode", null)
 
 let isInEventGM = Computed(@() isEventModesOpened.value
-  || (curQueueParam.value != null
-    && eventGameModes.value.findvalue(@(v) v.queue.queueId == curQueueParam.value?.queueId)))
+  || (curGameMode.value != null
+    && eventGameModes.value.findvalue(function(v) {
+      let isSameQueueId = v.queues.findvalue(@(q) q.queueId == curGameMode.value?.queueId) != null
+      return isSameQueueId
+    })))
 
-let matchRandomTeamCommon = localSettings(true, "matchRandomTeam")
-let matchRandomTeamEvent = localSettings(true, "matchRandomTeamEvent")
+let defaultRandomTeam = !isChineseVersion
+let matchRandomTeamCommon = localSettings(defaultRandomTeam, "matchRandomTeam")
+let matchRandomTeamEvent = localSettings(defaultRandomTeam, "matchRandomTeamEvent")
 let matchRandomTeam = Computed(@() isInEventGM.value
   ? matchRandomTeamEvent.value
   : matchRandomTeamCommon.value)
@@ -45,22 +54,136 @@ let randTeamAvailable = Computed(function () {
     .reduce(@(pre, cur) pre && armies.value[cur].level >= minCampaignLevelReq, isAvailable)
 })
 
-let function joinImpl(queue) {
-  lastQueue(queue)
-  let queueSuffixes = curArmiesList.value.map(@(army) armies.value[army].level.tostring())
-  let params = { queueSuffixes }
-  let queueTeam = queue?.eventCurArmy ?? mteam.value
-  params.mteams <- matchRandomTeam.value || queueTeam == null
-    ? [0, 1]
-    : [queueTeam]
-  joinQueue(queue, params)
+let queuesCampaignsData = Computed(function() {
+  local brMin = null, brMax = null
+  let armyId = curArmy.value
+  local isRandom = matchRandomTeam.value
+  let mapsList = {}
+
+  let squadLeaderInfo = squadLeaderState.value
+  if (isInSquad.value && squadLeaderInfo != null) {
+    isRandom = squadLeaderInfo?.isTeamRandom ?? false
+  }
+
+  foreach (queue in selectedGameMode.value?.queues ?? []) {
+    if (queue?.isLocal)
+      continue
+
+    let { teamAllies = [], teamAxis = [] } = queue?.extraParams
+    let queueTeam = teamAllies.contains(armyId) ? 0
+      : teamAxis.contains(armyId) ? 1
+      : null
+    if (!isRandom && queueTeam == null)
+      continue
+
+    local queueSuffixes = [
+      curArmiesList.value.findvalue(@(army) teamAllies.contains(army)) ?? curArmiesList.value[0]
+      curArmiesList.value.findvalue(@(army) teamAxis.contains(army)) ?? curArmiesList.value[1]
+    ]
+
+    let queueBRs = queue.queueSuffixes.map(@(v) v.tointeger())
+    if (queueBRs.len() == 0)
+      queueBRs.append(1,2,3,4,5)
+    local hasTeam = false
+    queueSuffixes.each(function(army) {
+      let br = maxMatesArmiesTiers.value?[army].tier ?? getLiveArmyBR(BRByArmies.value, army)
+      if (!queueBRs.contains(br) || (!isRandom && army != armyId))
+        return
+
+      hasTeam = true
+
+      if (army not in mapsList)
+        mapsList[army] <- {}
+
+      let campaigns = mapsList?[army] ?? {}
+      let missions = missionsByQueue?[queue.id] ?? []
+      foreach (mission in missions) {
+        let campaign = campaignsByMissions?[mission]
+        if (campaign)
+          campaigns[campaign] <- true
+      }
+    })
+
+    if (!hasTeam)
+      continue
+
+    foreach (br in queueBRs) {
+      if (brMin == null || br < brMin)
+        brMin = br
+      if (brMax == null || br > brMax)
+        brMax = br
+    }
+  }
+
+  foreach (army, campaigns in mapsList) {
+    mapsList[army] = campaigns.keys()
+  }
+
+  return {
+    brMin
+    brMax
+    mapsList
+  }
+})
+
+let function joinImpl(gameMode) {
+  lastGameMode(gameMode)
+
+  let gameParams = {}
+  let armyId = curArmy.value
+  let teamLegacy = endswith(armyId, "_allies") ? 0
+    : endswith(armyId, "_axis") ? 1
+    : null
+  let isRandom = matchRandomTeam.value
+
+  foreach (queue in gameMode?.queues ?? []) {
+    let { teamAllies = [], teamAxis = [] } = queue?.extraParams
+    let team = teamAllies.contains(armyId) ? 0
+      : teamAxis.contains(armyId) ? 1
+      : null
+    let queueTeam = gameMode?.eventCurArmy ?? team ?? teamLegacy
+    if (!isRandom && queueTeam == null)
+      continue
+
+    local queueSuffixes = [
+      curArmiesList.value.findvalue(@(army) teamAllies.contains(army)) ?? curArmiesList.value[0]
+      curArmiesList.value.findvalue(@(army) teamAxis.contains(army)) ?? curArmiesList.value[1]
+    ]
+    if (isInSquad.value && isSquadLeader.value && maxMatesArmiesTiers.value != null)
+      queueSuffixes = queueSuffixes.map(function(army) {
+        let { tier = 1 } = maxMatesArmiesTiers.value?[army]
+        return max(tier, getArmyBR(army)).tostring()
+      })
+    else {
+      local skipCount = 0
+      let queueBRs = queue.queueSuffixes
+      queueSuffixes = queueSuffixes.map(function(army) {
+        let br = getArmyBR(army).tostring()
+        if (!queueBRs.contains(br))
+          skipCount++
+        return br
+      })
+
+      if (skipCount > 1)
+        continue
+    }
+
+    gameParams[queue.queueId] <- {
+      mteams = isRandom
+        ? [0, 1]
+        : [queueTeam]
+      queueSuffixes
+    }
+  }
+
+  joinQueue(gameMode, gameParams)
 }
 
-let function join(queue) {
+let function join(gameMode) {
   if (isInQueue.value)
-    leaveQueue(@() joinImpl(queue))
+    leaveQueue(@() joinImpl(gameMode))
   else
-    joinImpl(queue)
+    joinImpl(gameMode)
 }
 
 let function setRandTeamValue(val) {
@@ -70,17 +193,18 @@ let function setRandTeamValue(val) {
   watch(val)
 
   if (isInQueue.value)
-    join(lastQueue.value)
+    join(lastGameMode.value)
 }
 
 let randTeamBoxStyle = {
   text = loc("queue/join_any_team")
   margin = 0
-}.__update(body_txt)
+}.__update(fontBody)
 
 let randTeamCheckbox = checkbox(matchRandomTeam, randTeamBoxStyle, {
   setValue = setRandTeamValue
   textOnTheLeft = true
+  hotkeys = [["^J:RS.Tilted"]]
 })
 
 let alwaysRandTeamSign = checkbox(Watched(true), randTeamBoxStyle, {
@@ -112,7 +236,7 @@ let crossplayCheckbox = checkbox(isCrossplayStateOn,
     text = loc("queue/switchCrossplay")
     color = Color(255,255,255)
     margin = 0
-  }.__update(body_txt),
+  }.__update(fontBody),
   {
     setValue = activateCrossplay
     textOnTheLeft = true
@@ -133,7 +257,7 @@ let crossplayHint = @() {
             txt({
               text = loc("queueCrossplayHint")
               color = titleTxtColor
-            }).__update(sub_txt)
+            }).__update(fontSub)
             canSwitchCrossplayState.value ? crossplayCheckbox : null
           ]
         }
@@ -142,7 +266,7 @@ let crossplayHint = @() {
 }
 
 let isCurQueueReqRandomSide = Computed(@()
-  lastQueue.value?.alwaysRandomSide ?? false)
+  lastGameMode.value?.alwaysRandomSide ?? false)
 
 let isCurEventReqRandomSide = keepref(Computed(@()
   (selEvent.value?.alwaysRandomSide ?? false) && isEventModesOpened.value))
@@ -160,4 +284,5 @@ return {
   joinQueue = join
   matchRandomTeam
   isCurQueueReqRandomSide
+  queuesCampaignsData
 }

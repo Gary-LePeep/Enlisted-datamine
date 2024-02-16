@@ -5,10 +5,10 @@
   },
   "f4u_1d_wreckage": [
     {
-      "_extends": "base_f4u_1d"
+      "_use": "base_f4u_1d"
     },
     {
-      "_extends": "plane_wreckage"
+      "_use": "plane_wreckage"
     },
     {
       "plane_wreckage__nodeName": ""
@@ -19,10 +19,10 @@
   ],
   "f4u_1d_base": [
     {
-      "_extends": "plane_with_cockpit"
+      "_use": "plane_with_cockpit"
     },
     {
-      "_extends": "base_f4u_1d"
+      "_use": "base_f4u_1d"
     },
     {
       "collres__res": "f4u_1d_collision"

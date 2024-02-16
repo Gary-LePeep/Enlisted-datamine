@@ -2,7 +2,13 @@ import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
 let rand = require("%sqstd/rand.nut")
-let findNextSpectatorHumanTargetQuery = ecs.SqQuery("findNextSpectatorTargetQuery", {comps_rq=["human"], comps_ro=[["isAlive"], ["countAsAlive"]]}, "and(isAlive,countAsAlive)")
+let findNextSpectatorHumanTargetQuery = ecs.SqQuery("findNextSpectatorHumanTargetQuery", {
+  comps_rq=["human"],
+  comps_ro=[
+    ["isAlive", ecs.TYPE_BOOL],
+    ["countAsAlive", ecs.TYPE_BOOL]
+  ]
+}, "and(isAlive,countAsAlive)")
 let findNextSpectatorTargetQuery = ecs.SqQuery("findNextSpectatorTargetQuery", {comps_rq=["transform", "camera__lookDir", "camera__look_at"]})
 
 console_register_command(function(){

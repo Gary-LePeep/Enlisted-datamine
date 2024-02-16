@@ -10,13 +10,14 @@
   "boundingRadius": 0.1,
   "collisionResource": {
     "props": {
-      "cls_body": "box"
+      "cls_body": "convex_hull"
     }
   },
   "ccdSpheres": {
     "ccd": [0.0,0.2,0.0,0.15]
   },
   "DamageParts": {
+    "formatVersion": 2,
     "turret_front": {
       "vital": false,
       "hitTestType": "armor",
@@ -169,6 +170,50 @@
       "armorClass": "RHA_tank",
       "hp": 500.0,
       "armorThickness": 15.0
+    },
+    "drive_turret_v": {
+      "hitTestType": "inner",
+      "malfunctionDamage": 0.7,
+      "stopChanceOnDeadPart": 1.0,
+      "castOnKillAfterTankPartDead": false,
+      "fireProtectionHp": 5.0,
+      "externalArmor": false,
+      "minRelHpSelfRepair": 0.5,
+      "maxRelHpSelfRepair": 0.5,
+      "selfRepairDelay": 0.0,
+      "selfRepairTime": -1.0,
+      "ignoreDeadWithSplash": false,
+      "splashPenetrationToArmorThreshold": 0.33,
+      "pressureDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
+      "vital": true,
+      "armorClass": "tank_structural_steel",
+      "hp": 150.0,
+      "armorThickness": 30.0,
+      "armorThrough": 15.0,
+      "hidableInViewer": false
+    },
+    "drive_turret_h": {
+      "hitTestType": "inner",
+      "malfunctionDamage": 0.7,
+      "stopChanceOnDeadPart": 1.0,
+      "castOnKillAfterTankPartDead": false,
+      "fireProtectionHp": 5.0,
+      "externalArmor": false,
+      "minRelHpSelfRepair": 0.5,
+      "maxRelHpSelfRepair": 0.5,
+      "selfRepairDelay": 0.0,
+      "selfRepairTime": -1.0,
+      "ignoreDeadWithSplash": false,
+      "splashPenetrationToArmorThreshold": 0.33,
+      "pressureDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
+      "vital": true,
+      "armorClass": "tank_structural_steel",
+      "hp": 150.0,
+      "armorThickness": 30.0,
+      "armorThrough": 15.0,
+      "hidableInViewer": false
     }
   },
   "MetaParts": {

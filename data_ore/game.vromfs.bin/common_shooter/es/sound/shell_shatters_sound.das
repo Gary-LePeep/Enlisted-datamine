@@ -2,56 +2,92 @@ require ecs
 require app
 require soundEvent
 require soundSystem
-require soundProps
 require common_shooter.events_common_shooter
 require sound_utils.modules.sound_physmat_common
-require EnlistedDm
+require DngDm
+require dm
 require Dacoll
 require DagorRandom
 require math.base
+require DagorMath
 require BallisticsProps
+require shellSoundProps
+require strings
 
 
 [es(tag=sound, REQUIRE=msg_sink)]
 def shell_shatters_sound(evt : EventOnShellExploded)
-  let shellSoundProps = shell_sound_try_get_props(int(evt.shellId))
-  if shellSoundProps == null
-    return
-  assume props = *shellSoundProps
 
-  let maxRadius = get_shell_max_radius(int(evt.shellId), int(evt.damageId), int(evt.ballisticsId))
-  let minMaxRayLen = props.shattersMinMaxRayLenMul * maxRadius
-  if length_sq(get_listener_pos() - evt.explPos) >= square(props.shattersSampleRangeAroundListener + minMaxRayLen.y)
-    return
+  query() <| $ [es] (shell_shatter_sound__maxRadiusMul : float;
+                     shell_shatter_sound__countToSoundCount : float4;
+                     shell_shatter_sound__chance : int;
+                     var shell_shatter_sound__nextTime : float&;
+                     shell_shatter_sound__cooldown : float;
+                     shell_shatter_sound__radiusAroundListener : float;
+                     shell_shatter_sound__traceStart : float;
+                     shell_shatter_sound__hitSoundDistStart : float;
+                     shell_shatter_sound__hitPath : string;
+                     shell_shatter_sound__wizPath : string)
 
-  projectile_get_props(int(evt.shellId)) <| $(projectileProps : ProjectileProps)
-    let caliberVar = projectileProps.caliber
-    var count = rnd_int(props.shattersMinMaxCount.x, props.shattersMinMaxCount.y)
-    if count <= 0
+    var hitPath = shell_shatter_sound__hitPath
+    var wizPath = shell_shatter_sound__wizPath
+    shell_shatter_sound_get_props(int(evt.shellId)) <| $(shellShatterSoundProps : ShellShatterSoundProps)
+      hitPath = shellShatterSoundProps.hitPath
+      wizPath = shellShatterSoundProps.wizPath
+    if empty(hitPath) && empty(wizPath)
       return
 
-    let needCooldown = find_query() <| $ [es] (var shell_shatters_sounds__nextTime : float&; shell_shatters_sounds__cooldown : float)
-      let res = get_sync_time() < shell_shatters_sounds__nextTime
-      shell_shatters_sounds__nextTime = get_sync_time() + shell_shatters_sounds__cooldown
-      return res
-    if needCooldown
-      return
+    projectile_get_props(int(evt.shellId)) <| $(projectileProps : ProjectileProps)
+      using() <| $(var shatterParams : SyntheticShattersParams#)
+        shatterParams = calc_synthetic_shatter_params(int(evt.damageId), projectileProps.mass, false)
+        let maxRadius = max(shatterParams.radius, get_shell_max_radius(int(evt.shellId), int(evt.damageId), int(evt.ballisticsId))) * shell_shatter_sound__maxRadiusMul
+        let listener = get_listener_pos()
+        assume radiusAround = shell_shatter_sound__radiusAroundListener
 
-    while --count >= 0
-      let ptAroundListener = get_listener_pos() + float3(rnd_float(-1., 1.), rnd_float(-1., 1.), rnd_float(-1., 1.)) * props.shattersSampleRangeAroundListener
-      let traceDir = normalize(ptAroundListener - evt.explPos)
-      let traceStart = evt.explPos + traceDir * minMaxRayLen.x
-      var norm : float3
-      var pmid = -1
-      var riDesc = RendInstDesc()
-      var distance = minMaxRayLen.y - minMaxRayLen.x
-      if traceray_normalized(traceStart, traceDir, distance, pmid, norm, ETF_LMESH | ETF_HEIGHTMAP | ETF_FRT | ETF_RI | ETF_STRUCTURES, riDesc, -1)
-        var soundHandle = soundEvent::play(props.shattersHitPath, traceStart + traceDir * distance) // shatter surface hit sound
-        set_var(soundHandle, "cal", caliberVar)
-        set_var(soundHandle, "mat", get_projectile_sound_material_id(pmid))
-        abandon(soundHandle)
-      let t = dot(get_listener_pos() - traceStart, traceDir)
-      if t > 0. && t < distance
-        var soundHandle = soundEvent::play(props.shattersWizPath, traceStart + traceDir * t) // shatter wiz fly sound
-        set_var(soundHandle, "cal", caliberVar)
-        abandon(soundHandle)
+        if length_sq(listener - evt.explPos) >= square(maxRadius + radiusAround)
+          return
+
+        assume shatter2SoundCount = shell_shatter_sound__countToSoundCount
+        var soundCount = int(cvt(shatterParams.count, shatter2SoundCount.x, shatter2SoundCount.y, shatter2SoundCount.z, shatter2SoundCount.w))
+        if soundCount <= 0
+          return
+
+        let curTime = get_sync_time()
+        if curTime < shell_shatter_sound__nextTime
+          return
+        shell_shatter_sound__nextTime = curTime + shell_shatter_sound__cooldown
+
+        while --soundCount >= 0
+          if rnd_int(0, 99) < shell_shatter_sound__chance
+
+            let ptNearListener = listener + float3(rnd_float(-radiusAround, radiusAround), rnd_float(-radiusAround, radiusAround), rnd_float(-radiusAround, radiusAround))
+            let traceDir = normalize(ptNearListener - evt.explPos)
+            let traceFrom = evt.explPos + traceDir * shell_shatter_sound__traceStart
+            let traceDist = maxRadius + radiusAround - shell_shatter_sound__traceStart
+
+            var hitPos = traceFrom + traceDir * traceDist
+
+            var norm : float3
+            var pmid = -1
+            var riDesc = RendInstDesc()
+            var dist = traceDist
+
+            if traceray_normalized(traceFrom, traceDir, dist, pmid, norm, ETF_LMESH | ETF_HEIGHTMAP | ETF_FRT | ETF_RI | ETF_STRUCTURES, riDesc, -1)
+              hitPos = traceFrom + traceDir * dist
+              // hit sound
+              if dist > shell_shatter_sound__hitSoundDistStart && !empty(hitPath)
+                var soundHandle = soundEvent::play(hitPath, hitPos)
+                set_var(soundHandle, "cal", projectileProps.caliber)
+                set_var(soundHandle, "mat", get_projectile_sound_material_id(pmid))
+                abandon(soundHandle)
+
+            // wiz sound
+            if !empty(wizPath)
+              assume dir = traceDir
+              assume pos = hitPos
+              assume prevPos = evt.explPos
+              let wizPos = pos + dir * dot(listener - pos, dir)
+              if dot(prevPos - wizPos, dir) <= 0. && dot(pos - wizPos, dir) > 0.
+                var soundHandle = soundEvent::play(wizPath, wizPos)
+                set_var(soundHandle, "cal", projectileProps.caliber)
+                abandon(soundHandle)

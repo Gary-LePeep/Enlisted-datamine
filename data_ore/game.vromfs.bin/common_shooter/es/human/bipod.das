@@ -3,7 +3,7 @@ require app
 require DagorMath
 require DagorMathUtils
 require HumanPhys
-require EnlistedHuman
+require DngHuman
 require AnimV20
 require GeomNodeTree
 require Dacoll
@@ -96,8 +96,8 @@ def bipod_update_height(var human_net_phys : HumanActor&; is_fpv : bool;
   human_net_phys.phys.currentState.height = height
 
 
-[es(tag=netClient, REQUIRE_NOT=hero, after=human_phys_es, before=after_net_phys_sync)]
-def bipod_other_human_act_es(info : ParallelUpdateFrameDelayed;
+[es(tag=netClient, REQUIRE_NOT=hero, on_event=UpdatePhysEvent, after=human_phys_es)]
+def bipod_other_human_act_es(evt : Event;
                              human_weap__currentGunEid : EntityId;
                              bipod__anchorPos : float3;
                              bipod__anchorHeight : float;
@@ -130,7 +130,7 @@ let
   BIPOD_MAX_AWAY_DIST_SQ     = square(BIPOD_MAX_AWAY_DIST)
   BIPOD_MAX_AWAY_DIST_OFF_SQ = square(BIPOD_MAX_AWAY_DIST_OFF)
 
-[es(after=human_phys_es, before=after_net_phys_sync)]
+[es(before=after_net_phys_sync)]
 def bipod_human_act_es(evt : CmdPostPhysUpdate;
                        human_weap__currentGunEid : EntityId;
                        bipod__anchorPos : float3;

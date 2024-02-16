@@ -1,10 +1,10 @@
 {
   "base_pzkpfw_iii_ausf_m": [
     {
-      "_extends": "base_tank"
+      "_use": "base_tank"
     },
     {
-      "_extends": "pzkpfw_iii_ausf_m_ammo_stowages"
+      "_use": "pzkpfw_iii_ausf_m_ammo_stowages"
     },
     {
       "killLogName": "germ_pzkpfw_iii_ausf_m"
@@ -66,29 +66,29 @@
           "node": "emtr_mg_flame_03"
         },
         {
-          "node": "emtr_mortar_flame_01"
+          "node": ""
         },
         {
-          "node": "emtr_mortar_flame_02"
+          "node": ""
         },
         {
-          "node": "emtr_mortar_flame_03"
+          "node": ""
         },
         {
-          "node": "emtr_mortar_flame_04"
+          "node": ""
         },
         {
-          "node": "emtr_mortar_flame_05"
+          "node": ""
         },
         {
-          "node": "emtr_mortar_flame_06"
+          "node": ""
         }
       ]
     },
     {
       "turret_gun_flash_fx__flashFx:shared:array": [
         {
-          "fx": "muzzle_ground_60mm_brake"
+          "fx": "muzzle_ground_60mm"
         },
         {
           "fx": "muzzle_ground_8mm"
@@ -97,22 +97,22 @@
           "fx": "muzzle_ground_8mm"
         },
         {
-          "fx": "muzzle_ground_8mm"
+          "fx": ""
         },
         {
-          "fx": "muzzle_ground_8mm"
+          "fx": ""
         },
         {
-          "fx": "muzzle_ground_8mm"
+          "fx": ""
         },
         {
-          "fx": "muzzle_ground_8mm"
+          "fx": ""
         },
         {
-          "fx": "muzzle_ground_8mm"
+          "fx": ""
         },
         {
-          "fx": "muzzle_ground_8mm"
+          "fx": ""
         }
       ]
     },
@@ -350,7 +350,7 @@
     }
   ],
   "pzkpfw_iii_ausf_m_turret_01_50mm_kwk39": {
-    "_extends": "tankgun_50mm_kwk39",
+    "_use": "tankgun_50mm_kwk39",
     "gun__shootNodeName": "bone_gun_barrel",
     "turret__yawSpeed": 14.0,
     "turret__pitchSpeed": 4.0,
@@ -379,7 +379,7 @@
     ]
   },
   "pzkpfw_iii_ausf_m_turret_02_7_92mm_mg34": {
-    "_extends": "tankgun_7_92mm_mg34",
+    "_use": "tankgun_7_92mm_mg34",
     "gun__shootNodeName": "bone_mg_gun_twin",
     "gun__shellsAmmo:array": [
       {
@@ -391,7 +391,7 @@
     ]
   },
   "pzkpfw_iii_ausf_m_turret_03_7_92mm_mg34": {
-    "_extends": "tankgun_7_92mm_mg34",
+    "_use": "tankgun_7_92mm_mg34",
     "gun__shootNodeName": "bone_mg_aa_barrel",
     "turret__yawSpeed": 90.0,
     "turret__pitchSpeed": 90.0,
@@ -407,42 +407,42 @@
     ]
   },
   "pzkpfw_iii_ausf_m_turret_04_91mm_germ_smoke_grenade_launcher": {
-    "_extends": "tankgun_91mm_germ_smoke_grenade_launcher",
+    "_use": "tankgun_91mm_germ_smoke_grenade_launcher",
     "gun__shootNodeName": "emtr_mortar_flame_01",
     "gun__shellsAmmo:array": {
       "ammo": 1
     }
   },
   "pzkpfw_iii_ausf_m_turret_05_91mm_germ_smoke_grenade_launcher": {
-    "_extends": "tankgun_91mm_germ_smoke_grenade_launcher",
+    "_use": "tankgun_91mm_germ_smoke_grenade_launcher",
     "gun__shootNodeName": "emtr_mortar_flame_02",
     "gun__shellsAmmo:array": {
       "ammo": 1
     }
   },
   "pzkpfw_iii_ausf_m_turret_06_91mm_germ_smoke_grenade_launcher": {
-    "_extends": "tankgun_91mm_germ_smoke_grenade_launcher",
+    "_use": "tankgun_91mm_germ_smoke_grenade_launcher",
     "gun__shootNodeName": "emtr_mortar_flame_03",
     "gun__shellsAmmo:array": {
       "ammo": 1
     }
   },
   "pzkpfw_iii_ausf_m_turret_07_91mm_germ_smoke_grenade_launcher": {
-    "_extends": "tankgun_91mm_germ_smoke_grenade_launcher",
+    "_use": "tankgun_91mm_germ_smoke_grenade_launcher",
     "gun__shootNodeName": "emtr_mortar_flame_04",
     "gun__shellsAmmo:array": {
       "ammo": 1
     }
   },
   "pzkpfw_iii_ausf_m_turret_08_91mm_germ_smoke_grenade_launcher": {
-    "_extends": "tankgun_91mm_germ_smoke_grenade_launcher",
+    "_use": "tankgun_91mm_germ_smoke_grenade_launcher",
     "gun__shootNodeName": "emtr_mortar_flame_05",
     "gun__shellsAmmo:array": {
       "ammo": 1
     }
   },
   "pzkpfw_iii_ausf_m_turret_09_91mm_germ_smoke_grenade_launcher": {
-    "_extends": "tankgun_91mm_germ_smoke_grenade_launcher",
+    "_use": "tankgun_91mm_germ_smoke_grenade_launcher",
     "gun__shootNodeName": "emtr_mortar_flame_06",
     "gun__shellsAmmo:array": {
       "ammo": 1
@@ -450,49 +450,535 @@
   },
   "pzkpfw_iii_ausf_m_ammo_stowages": {
     "_tags": "server",
-    "_extends": "vehicle_ammo_stowages",
+    "_use": "vehicle_ammo_stowages",
     "ammo_stowage__stowageTemplates:shared:list<t>": {
       "stowage": "pzkpfw_iii_ausf_m_ammo_stowage_1"
     }
   },
   "pzkpfw_iii_ausf_m_ammo_stowage_1": {
-    "_extends": "ammo_stowage",
-    "ammo_stowage__clusterTemplates:shared:list<t>": {
-      "cluster": "pzkpfw_iii_ausf_m_ammo_cluster_1_1"
+    "_use": "ammo_stowage",
+    "ammo_stowage__clusterTemplates:shared:list<t>": [
+      {
+        "cluster": "pzkpfw_iii_ausf_m_ammo_cluster_1_1"
+      },
+      {
+        "cluster": "pzkpfw_iii_ausf_m_ammo_cluster_1_2"
+      }
+    ],
+    "_group": {
+      "_tags": "server",
+      "ammo_stowage__replenishmentDelay": 4.0,
+      "ammo_stowage__replenishmentTime": 15.0
     },
     "ammo_stowage__turretNames:shared:list<t>": {
       "gun": "turret_01"
     }
   },
   "pzkpfw_iii_ausf_m_ammo_cluster_1_1": {
-    "_extends": "ammo_cluster",
+    "_use": "ammo_cluster",
     "ammo_cluster__isShell": true,
     "ammo_cluster__slotNames:shared:list<t>": [
-      {
-        "part": "ammo_turret"
-      },
       {
         "part": "ammo_body_01"
       },
       {
-        "part": "ammo_body_l_01"
+        "part": "ammo_body_02"
       },
       {
-        "part": "ammo_body_r_01"
+        "part": "ammo_body_03"
+      },
+      {
+        "part": "ammo_body_04"
+      },
+      {
+        "part": "ammo_body_05"
+      },
+      {
+        "part": "ammo_body_06"
+      },
+      {
+        "part": "ammo_body_07"
+      },
+      {
+        "part": "ammo_body_08"
+      },
+      {
+        "part": "ammo_body_09"
+      },
+      {
+        "part": "ammo_body_10"
+      },
+      {
+        "part": "ammo_body_11"
+      },
+      {
+        "part": "ammo_body_12"
+      },
+      {
+        "part": "ammo_body_13"
+      },
+      {
+        "part": "ammo_body_14"
+      },
+      {
+        "part": "ammo_body_15"
+      },
+      {
+        "part": "ammo_body_16"
+      },
+      {
+        "part": "ammo_body_17"
+      },
+      {
+        "part": "ammo_body_18"
+      },
+      {
+        "part": "ammo_body_19"
+      },
+      {
+        "part": "ammo_body_20"
+      },
+      {
+        "part": "ammo_body_21"
+      },
+      {
+        "part": "ammo_body_22"
       }
     ],
     "ammo_cluster__slotsMaxAmmo:list<i>": [
       {
-        "count": 15
+        "count": 1
       },
       {
-        "count": 8
+        "count": 1
       },
       {
-        "count": 28
+        "count": 1
       },
       {
-        "count": 33
+        "count": 1
+      },
+      {
+        "count": 1
+      },
+      {
+        "count": 1
+      },
+      {
+        "count": 1
+      },
+      {
+        "count": 1
+      },
+      {
+        "count": 1
+      },
+      {
+        "count": 1
+      },
+      {
+        "count": 1
+      },
+      {
+        "count": 1
+      },
+      {
+        "count": 1
+      },
+      {
+        "count": 1
+      },
+      {
+        "count": 1
+      },
+      {
+        "count": 1
+      },
+      {
+        "count": 1
+      },
+      {
+        "count": 1
+      },
+      {
+        "count": 1
+      },
+      {
+        "count": 1
+      },
+      {
+        "count": 1
+      },
+      {
+        "count": 1
+      }
+    ]
+  },
+  "pzkpfw_iii_ausf_m_ammo_cluster_1_2": {
+    "_use": "ammo_cluster",
+    "ammo_cluster__isShell": true,
+    "ammo_cluster__slotNames:shared:list<t>": [
+      {
+        "part": "ammo_body_23"
+      },
+      {
+        "part": "ammo_body_24"
+      },
+      {
+        "part": "ammo_body_25"
+      },
+      {
+        "part": "ammo_body_26"
+      },
+      {
+        "part": "ammo_body_27"
+      },
+      {
+        "part": "ammo_body_28"
+      },
+      {
+        "part": "ammo_body_29"
+      },
+      {
+        "part": "ammo_body_30"
+      },
+      {
+        "part": "ammo_body_31"
+      },
+      {
+        "part": "ammo_body_32"
+      },
+      {
+        "part": "ammo_body_33"
+      },
+      {
+        "part": "ammo_body_34"
+      },
+      {
+        "part": "ammo_body_35"
+      },
+      {
+        "part": "ammo_body_36"
+      },
+      {
+        "part": "ammo_body_37"
+      },
+      {
+        "part": "ammo_body_38"
+      },
+      {
+        "part": "ammo_body_39"
+      },
+      {
+        "part": "ammo_body_40"
+      },
+      {
+        "part": "ammo_body_41"
+      },
+      {
+        "part": "ammo_body_42"
+      },
+      {
+        "part": "ammo_body_43"
+      },
+      {
+        "part": "ammo_body_44"
+      },
+      {
+        "part": "ammo_body_45"
+      },
+      {
+        "part": "ammo_body_46"
+      },
+      {
+        "part": "ammo_body_47"
+      },
+      {
+        "part": "ammo_body_48"
+      },
+      {
+        "part": "ammo_body_49"
+      },
+      {
+        "part": "ammo_body_50"
+      },
+      {
+        "part": "ammo_body_51"
+      },
+      {
+        "part": "ammo_body_52"
+      },
+      {
+        "part": "ammo_body_53"
+      },
+      {
+        "part": "ammo_body_54"
+      },
+      {
+        "part": "ammo_body_55"
+      },
+      {
+        "part": "ammo_body_56"
+      },
+      {
+        "part": "ammo_body_58"
+      },
+      {
+        "part": "ammo_body_59"
+      },
+      {
+        "part": "ammo_body_60"
+      },
+      {
+        "part": "ammo_body_61"
+      },
+      {
+        "part": "ammo_body_62"
+      },
+      {
+        "part": "ammo_body_63"
+      },
+      {
+        "part": "ammo_body_64"
+      },
+      {
+        "part": "ammo_body_65"
+      },
+      {
+        "part": "ammo_body_66"
+      },
+      {
+        "part": "ammo_body_67"
+      },
+      {
+        "part": "ammo_turret_01"
+      },
+      {
+        "part": "ammo_turret_02"
+      },
+      {
+        "part": "ammo_turret_03"
+      },
+      {
+        "part": "ammo_turret_04"
+      },
+      {
+        "part": "ammo_turret_05"
+      },
+      {
+        "part": "ammo_turret_06"
+      },
+      {
+        "part": "ammo_turret_07"
+      },
+      {
+        "part": "ammo_turret_08"
+      },
+      {
+        "part": "ammo_turret_09"
+      },
+      {
+        "part": "ammo_turret_10"
+      },
+      {
+        "part": "ammo_turret_11"
+      },
+      {
+        "part": "ammo_turret_12"
+      },
+      {
+        "part": "ammo_turret_13"
+      },
+      {
+        "part": "ammo_turret_14"
+      },
+      {
+        "part": "ammo_turret_15"
+      },
+      {
+        "part": "ammo_turret_16"
+      }
+    ],
+    "ammo_cluster__slotsMaxAmmo:list<i>": [
+      {
+        "count": 1
+      },
+      {
+        "count": 1
+      },
+      {
+        "count": 1
+      },
+      {
+        "count": 1
+      },
+      {
+        "count": 1
+      },
+      {
+        "count": 1
+      },
+      {
+        "count": 1
+      },
+      {
+        "count": 1
+      },
+      {
+        "count": 1
+      },
+      {
+        "count": 1
+      },
+      {
+        "count": 1
+      },
+      {
+        "count": 1
+      },
+      {
+        "count": 1
+      },
+      {
+        "count": 1
+      },
+      {
+        "count": 1
+      },
+      {
+        "count": 1
+      },
+      {
+        "count": 1
+      },
+      {
+        "count": 1
+      },
+      {
+        "count": 1
+      },
+      {
+        "count": 1
+      },
+      {
+        "count": 1
+      },
+      {
+        "count": 1
+      },
+      {
+        "count": 1
+      },
+      {
+        "count": 1
+      },
+      {
+        "count": 1
+      },
+      {
+        "count": 1
+      },
+      {
+        "count": 1
+      },
+      {
+        "count": 1
+      },
+      {
+        "count": 1
+      },
+      {
+        "count": 1
+      },
+      {
+        "count": 1
+      },
+      {
+        "count": 1
+      },
+      {
+        "count": 1
+      },
+      {
+        "count": 1
+      },
+      {
+        "count": 1
+      },
+      {
+        "count": 1
+      },
+      {
+        "count": 1
+      },
+      {
+        "count": 1
+      },
+      {
+        "count": 1
+      },
+      {
+        "count": 1
+      },
+      {
+        "count": 1
+      },
+      {
+        "count": 1
+      },
+      {
+        "count": 1
+      },
+      {
+        "count": 1
+      },
+      {
+        "count": 1
+      },
+      {
+        "count": 1
+      },
+      {
+        "count": 1
+      },
+      {
+        "count": 1
+      },
+      {
+        "count": 1
+      },
+      {
+        "count": 1
+      },
+      {
+        "count": 1
+      },
+      {
+        "count": 1
+      },
+      {
+        "count": 1
+      },
+      {
+        "count": 1
+      },
+      {
+        "count": 1
+      },
+      {
+        "count": 1
+      },
+      {
+        "count": 1
+      },
+      {
+        "count": 1
+      },
+      {
+        "count": 1
+      },
+      {
+        "count": 1
       }
     ]
   },

@@ -1,20 +1,17 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { body_txt, sub_txt, fontawesome } = require("%enlSqGlob/ui/fonts_style.nut")
-let tooltipBox = require("%ui/style/tooltipBox.nut")
+let { fontBody, fontawesome } = require("%enlSqGlob/ui/fontsStyle.nut")
+let tooltipCtor = require("%ui/style/tooltipCtor.nut")
 let fa = require("%ui/components/fontawesome.map.nut")
-let { getRomanNumeral } = require("%sqstd/math.nut")
 let {
-  gap, bigGap, defTxtColor, soldierExpColor, soldierLvlColor, soldierGainLvlColor,
-  soldierLockedLvlColor, msgHighlightedTxtColor
+  gap, bigGap, defTxtColor, soldierLockedLvlColor, msgHighlightedTxtColor
 } = require("%enlSqGlob/ui/viewConst.nut")
 let colorize = require("%ui/components/colorize.nut")
 let soldiersPresentation = require("%enlSqGlob/ui/soldiersPresentation.nut")
 let { getClassCfg, getKindCfg } = require("%enlSqGlob/ui/soldierClasses.nut")
-let blinkingIcon = require("%enlSqGlob/ui/blinkingIcon.nut")
-let defcomps = require("%enlSqGlob/ui/defcomps.nut")
+let { blinkingIcon } = require("%enlSqGlob/ui/blinkingIcon.nut")
+let { txt, note } = require("%enlSqGlob/ui/defcomps.nut")
 
-const MAX_LEVEL_SOLDIER = 5
 const PERK_ALERT_SIGN = "caret-square-o-up"
 const ITEM_ALERT_SIGN = "dropbox"
 const REQ_MANAGE_SIGN = "plus-square"
@@ -24,7 +21,7 @@ let iconSize = hdpxi(26)
 let formatIconName = memoize(function(icon, width, height = null) {
   if (icon.endswith(".svg")) {
     log("getting svg icon for soldiers")
-    return $"{icon}:{width.tointeger()}:{(height ?? width).tointeger()}:K"
+    return $"{icon}:{width.tointeger()}:{(height ?? width).tointeger()}:P"
   }
   return $"{icon}?Ac"
 })
@@ -36,7 +33,7 @@ let mkAlertIcon = @(icon, unseenWatch = Watched(true), hasBlink = false)
       : res.__update(blinkingIcon(icon), hasBlink ? {} : { animations = null })
   }
 
-let mkLevelIcon = @(fontSize = hdpx(10), color = soldierExpColor, fName = "star") {
+let mkLevelIcon = @(fontSize = hdpx(10), color = msgHighlightedTxtColor, fName = "star") {
   rendObj = ROBJ_INSCRIPTION
   validateStaticText = false
   text = fa[fName]
@@ -78,30 +75,14 @@ let mkAnimatedLevelIcon = function(guid, color, fontSize) {
     }
   }
 
-let function levelBlock(allParams) {
-  local { curLevel, tier = 1, gainLevel = 0, leftLevel = 0, lockedLevel = 0, fontSize = hdpx(12),
-    hasLeftLevelBlink = false, guid = "", isFreemiumMode = false, thresholdColor = 0
-  } = allParams
-  local color = soldierExpColor
-  local freemiumStars = 0
-  if (isFreemiumMode && curLevel + leftLevel < MAX_LEVEL_SOLDIER) {
-    lockedLevel = tier == MAX_LEVEL_SOLDIER ? 1 : 0
-    freemiumStars = MAX_LEVEL_SOLDIER - curLevel - leftLevel
-    color = thresholdColor
-  }
-
+let function levelBlock(params) {
+  let { level = 1, maxLevel = 1, fontSize = hdpx(12) } = params
   return {
     size = SIZE_TO_CONTENT
     flow = FLOW_HORIZONTAL
     children = [
-      mkIconBar(curLevel - 2, color, fontSize, "star")
-      curLevel > 1
-        ? mkAnimatedLevelIcon(guid, color, fontSize)
-        : null
-      mkIconBar(gainLevel, soldierGainLvlColor, fontSize)
-      mkIconBar(leftLevel, color, fontSize, "star-o", hasLeftLevelBlink)
-      mkIconBar(freemiumStars, color, fontSize, "star-o")
-      mkIconBar(lockedLevel, soldierLockedLvlColor, fontSize)
+      mkIconBar(level, msgHighlightedTxtColor, fontSize, "star")
+      mkIconBar(max(maxLevel - level, 0), soldierLockedLvlColor, fontSize)
     ]
     animations = [ mkHiddenAnim() ]
   }
@@ -113,7 +94,7 @@ let mkUnknownClassIcon = @(iSize) {
   halign = ALIGN_CENTER
   text = "?"
   color = defTxtColor
-}.__update(body_txt)
+}.__update(fontBody)
 
 let getKindIcon = memoize(@(img, sz) Picture("ui/skin#{0}:{1}:{1}:K".subst(img, sz.tointeger())))
 let getClassIcon = memoize(@(img, sz) Picture("{0}:{1}:{1}:K".subst(img, sz.tointeger())))
@@ -149,90 +130,80 @@ let function classIcon(armyId, sClass, iSize, override = {}) {
   }.__update(override)
 }
 
-let kindName = @(sKind) defcomps.note({
+let kindName = @(sKind) note({
   text = loc(getKindCfg(sKind).locId)
   vplace = ALIGN_CENTER
   color = defTxtColor
 })
 
-let className = @(sClass, count = 0) defcomps.note({
+let className = @(sClass, count = 0) note({
   text = count <= 1 ? loc(getClassCfg(sClass).locId)
     : $"{loc(getClassCfg(sClass).locId)} {loc("common/amountShort", { count })}"
   vplace = ALIGN_CENTER
   color = defTxtColor
 })
 
-let classNameColored = @(sClass, sKind, sClassRare) defcomps.note({
+let classNameColored = @(sClass, sKind, sClassRare) txt({
   text = loc(getClassCfg(sClass).locId)
   vplace = ALIGN_CENTER
   color = getKindCfg(sKind)?.colorsByRare[sClassRare] ?? defTxtColor
 })
 
-let tierText = @(tier) defcomps.note({
-    text = getRomanNumeral(tier)
-    color = soldierLvlColor
-  }.__update(sub_txt))
-
 let function calcExperienceData(soldier, expToLevel) {
-  let { perksCount = 0, level = 1, maxLevel = 1, exp = 0 } = soldier
-  let expToNextLevel = max(1, level < maxLevel ? (expToLevel?[level] ?? 0) : 0)
-  let perksLevel = min(level, maxLevel)
-  return { level, maxLevel, exp, expToNextLevel, perksCount, perksLevel }
+  let { level = 1, maxLevel = 1, exp = 0 } = soldier
+  let expToNextLevel = level < maxLevel ? (expToLevel?[level] ?? 0) : 0
+  return { level, maxLevel, exp, expToNextLevel }
 }
 
-let classTooltip = @(armyId, sClass, sKind) tooltipBox({
-  flow = FLOW_VERTICAL
-  size = [hdpx(500), SIZE_TO_CONTENT]
-  gap = bigGap
-  children = [
-    {
-      flow = FLOW_HORIZONTAL
-      valign = ALIGN_CENTER
-      gap = gap
-      children = [
-        kindIcon(sKind, iconSize)
-        classIcon(armyId, sClass, iconSize)
-        defcomps.txt(loc(getClassCfg(sClass).locId))
-      ]
-    }
-    defcomps.txt(loc($"squadPromo/{sClass}/longDesc")).__update({
-      rendObj = ROBJ_TEXTAREA
-      behavior = Behaviors.TextArea
-      size = [flex(), SIZE_TO_CONTENT]
-    })
-  ]
-})
-
-let rankingTooltip = @(curRank) loc("tooltip/soldierRanking", {
-  current = colorize(msgHighlightedTxtColor, getRomanNumeral(curRank))
-  max = colorize(msgHighlightedTxtColor, getRomanNumeral(MAX_LEVEL_SOLDIER))
-})
-
-let experienceTooltip = kwarg(function(
-  level, maxLevel, exp, expToNextLevel, perksCount, perksLevel
-) {
-  let limitLoc = perksCount >= maxLevel ? ""
-    : perksCount >= perksLevel ? loc("hint/perksLevelLimit", { count = perksLevel })
-    : ""
-  return loc(level < maxLevel ? "hint/soldierLevel" : "hint/soldierMaxLevel", {
-    level = colorize(msgHighlightedTxtColor, level - 1)
-    maxLevel = maxLevel - 1
-    exp = colorize(msgHighlightedTxtColor, exp)
-    expToNextLevel = expToNextLevel
-    limit = limitLoc
+let classTooltip = function(armyId, sClass, sKind, tierMapsHint = null) {
+  let classCfg = getClassCfg(sClass)
+  return tooltipCtor({
+    flow = FLOW_VERTICAL
+    size = [hdpx(500), SIZE_TO_CONTENT]
+    gap = bigGap
+    children = [
+      {
+        flow = FLOW_HORIZONTAL
+        valign = ALIGN_CENTER
+        gap = gap
+        children = [
+          kindIcon(sKind, iconSize)
+          classIcon(armyId, sClass, iconSize)
+          txt(loc(classCfg.locId))
+        ]
+      }
+      {
+        rendObj = ROBJ_TEXTAREA
+        size = [flex(), SIZE_TO_CONTENT]
+        text = loc(classCfg.longLocId)
+        color = defTxtColor
+        behavior = Behaviors.TextArea
+      }
+      tierMapsHint
+    ]
   })
-})
+}
+
+let experienceTooltip = kwarg(@(level, maxLevel, exp, expToNextLevel)
+  loc(level < maxLevel ? "hint/soldierLevel" : "hint/soldierMaxLevel", {
+    level = colorize(msgHighlightedTxtColor, level)
+    maxLevel
+    exp = colorize(msgHighlightedTxtColor, exp)
+    expToNextLevel
+  })
+)
 
 let function mkSoldierMedalIcon(soldierInfo, size) {
-  let { heroTpl = null, armyId = null } = soldierInfo
-  let { heroIcon = null } = soldiersPresentation?[armyId]
-  if ((heroTpl ?? "") == "" || heroIcon == null)
+  let { isHero = false, armyId = null, country = null } = soldierInfo
+  let heroIcon = soldiersPresentation?[country] ?? soldiersPresentation?[armyId] // FIXME backward compatibility
+  if (heroIcon == null || !isHero)
     return null
 
   return {
     rendObj = ROBJ_IMAGE
     size = [size, size]
     image = Picture(formatIconName(heroIcon, size))
+    keepAspect = KEEP_ASPECT_FIT
   }
 }
 
@@ -244,10 +215,8 @@ return {
   classIcon
   className
   classNameColored
-  tierText
   calcExperienceData
   classTooltip
-  rankingTooltip
   experienceTooltip
   mkLevelIcon
   mkSoldierMedalIcon

@@ -1,38 +1,39 @@
 {
   "ship_hero_components": [
     {
-      "_extends": "base_vehicle_hero_components"
+      "_use": "base_vehicle_hero_components"
     },
     {
-      "_extends": "ship_input"
+      "_use": "ship_input"
     }
   ],
   "ship_control_components": {
     "vehicle_input_axes:list<r>": {
       "_tags": "input"
-    }
+    },
+    "hasVehicleControl:tag": []
   },
   "base_ship": [
     {
-      "_extends": "replicating"
+      "_use": "replicating"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "base_vehicle"
+      "_use": "base_vehicle"
     },
     {
-      "_extends": "base_vehicle_seats"
+      "_use": "base_vehicle_seats"
     },
     {
-      "_extends": "base_damage_model"
+      "_use": "base_damage_model"
     },
     {
-      "_extends": "ship_sound"
+      "_use": "ship_sound"
     },
     {
-      "_extends": "phys_sleepable"
+      "_use": "phys_sleepable"
     },
     {
       "net__physId": -1
@@ -79,15 +80,6 @@
       ]
     },
     {
-      "_tracked": "transform"
-    },
-    {
-      "_tracked": "vehicle__localControls"
-    },
-    {
-      "_tracked": "isAlive"
-    },
-    {
       "auto_anchor__minSpeedForAnchor": 20.0
     },
     {
@@ -101,6 +93,12 @@
     },
     {
       "vehicle_acceleration__viscAcceleration": [0.0,0.0,0.0]
+    },
+    {
+      "_tracked": "vehicle__localControls"
+    },
+    {
+      "_tracked": "isAlive"
     },
     {
       "last_driver_leave_time": 0.0
@@ -124,6 +122,9 @@
       "passengerFpsCamMaxAngle": [90.0,50.0]
     },
     {
+      "hitmarks_victim__group": "ship"
+    },
+    {
       "pair_collision__tag": "collidableToShip"
     },
     {
@@ -133,10 +134,16 @@
       "grid_obj__fixedTmScale": -1.0
     },
     {
+      "grid_obj__updateAlways:tag": []
+    },
+    {
       "ship:tag": []
     },
     {
       "ship_net_phys": []
+    },
+    {
+      "base_net_phys_ptr": []
     },
     {
       "pair_collision__gridHolders": []
@@ -184,6 +191,42 @@
       }
     },
     {
+      "_group": {
+        "_tags": "input",
+        "vehicle__steerTips:list<t>": [
+          {
+            "tip": "Vehicle.Brake"
+          },
+          {
+            "tip": "Vehicle.Accel"
+          },
+          {
+            "tip": "Vehicle.Steer"
+          },
+          {
+            "tip": "Vehicle.Throttle"
+          },
+          {
+            "tip": "Vehicle.Horn"
+          }
+        ]
+      }
+    },
+    {
+      "_group": {
+        "_tags": "server",
+        "dependent_templates:ecs::TemplatesListToInstantiate": [],
+        "dependent_templates_list_shared:shared:list<t>": [
+          {
+            "template_name": "vehicle_seat_fire_ready"
+          },
+          {
+            "template_name": "vehicle_seat_driver"
+          }
+        ]
+      }
+    },
+    {
       "nonLethalExplodeOnFire:tag": []
     },
     {
@@ -211,20 +254,6 @@
       "vehicle_seats__seatTemplates:shared:object": {
         "default": "vehicle_seat_fire_ready",
         "driver": "vehicle_seat_driver"
-      }
-    },
-    {
-      "_group": {
-        "_tags": "server",
-        "dependent_templates:ecs::TemplatesListToInstantiate": [],
-        "dependent_templates_list_shared:shared:list<t>": [
-          {
-            "template_name": "vehicle_seat_fire_ready"
-          },
-          {
-            "template_name": "vehicle_seat_driver"
-          }
-        ]
       }
     },
     {
@@ -259,16 +288,16 @@
   },
   "civil_boat": [
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "base_dm_parts"
+      "_use": "base_dm_parts"
     },
     {
-      "_extends": "phys_sleepable"
+      "_use": "phys_sleepable"
     },
     {
-      "_extends": "replicating"
+      "_use": "replicating"
     },
     {
       "material": "wood"
@@ -366,9 +395,6 @@
       ]
     },
     {
-      "_tracked": "transform"
-    },
-    {
       "pair_collision__tag": "collidableToShip"
     },
     {
@@ -380,14 +406,6 @@
         "_replicate": true,
         "hitpoints__maxHp": 250.0,
         "hitpoints__hp": 250.0
-      }
-    },
-    {
-      "_group": {
-        "_track": true,
-        "vehicle_view__rpm": 0,
-        "vehicle_view__speed": 0,
-        "vehicle_view__fuelPct": 0.0
       }
     },
     {
@@ -408,6 +426,9 @@
     },
     {
       "ship_net_phys": []
+    },
+    {
+      "base_net_phys_ptr": []
     },
     {
       "pair_collision__gridHolders": []

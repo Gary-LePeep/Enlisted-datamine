@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import gui_scene, log
+from "%enlSqGlob/ui_library.nut" import *
 
 let {DBGLEVEL} = require("dagor.system")
 let { platformId, is_sony, is_ps5, is_xbox, is_xbox_scarlett, is_pc } = require("%dngscripts/platform.nut")
@@ -36,6 +36,16 @@ let isInBattleRumbleEnabled = inBattleRumbleSave.watch
 let setInBattleRumble = inBattleRumbleSave.setValue
 isInBattleRumbleEnabled.subscribe(function(val) {
   set_setting_by_blk_path(inBattleRumbleSettingId, val)
+  save_settings()
+})
+
+let gyroOnlyInAimOrZoomSettingId = "input/gyroOnlyInAimOrZoom"
+let gyroOnlyInAimOrZoomSave = mkOnlineSaveData(gyroOnlyInAimOrZoomSettingId, @() get_setting_by_blk_path(gyroOnlyInAimOrZoomSettingId) ?? false)
+
+let isGyroOnlyInAimOrZoomEnabled = gyroOnlyInAimOrZoomSave.watch
+let setGyroOnlyInAimOrZoom = gyroOnlyInAimOrZoomSave.setValue
+isGyroOnlyInAimOrZoomEnabled.subscribe(function(val) {
+  set_setting_by_blk_path(gyroOnlyInAimOrZoomSettingId, val)
   save_settings()
 })
 
@@ -116,6 +126,9 @@ let onlineControls = {
 
   setInBattleRumble
   isInBattleRumbleEnabled
+
+  setGyroOnlyInAimOrZoom
+  isGyroOnlyInAimOrZoomEnabled
 
   isAimAssistExists
   isAimAssistEnabled

@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { fontMedium, fontSmall } = require("%enlSqGlob/ui/fontsStyle.nut")
-let { panelBgColor, commonBtnHeight, defTxtColor, midPadding, darkTxtColor, activeBgColor,
+let { fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { panelBgColor, commonBtnHeight, defTxtColor, midPadding, darkTxtColor, accentColor,
   commonBorderRadius, defBdColor, hoverBdColor, smallBtnHeight, disabledBgColor
 } = require("%enlSqGlob/ui/designConst.nut")
 let faComp = require("%ui/components/faComp.nut")
@@ -10,16 +10,16 @@ let modalPopupWnd = require("%ui/components/modalPopupWnd.nut")
 let isExpanded = Watched(false)
 const WND_UID = "SELECTION_WND"
 
-let calcLineBgColor = @(sf) sf & S_HOVER ? activeBgColor : panelBgColor
+let calcLineBgColor = @(sf) sf & S_HOVER ? accentColor : panelBgColor
 let borderWidth = hdpx(1)
 
 let defTxtStyle = {
   color = defTxtColor
-}.__update(fontMedium)
+}.__update(fontBody)
 
 let hoverTxtStyle = {
   color = darkTxtColor
-}.__update(fontMedium)
+}.__update(fontBody)
 
 
 let dropDownHead = @(label, onClick, sf, isEnabled) {
@@ -30,7 +30,7 @@ let dropDownHead = @(label, onClick, sf, isEnabled) {
     : sf & S_HOVER ? hoverBdColor
     : defBdColor
   fillColor = onClick == null || !isEnabled ? disabledBgColor
-    : sf & S_HOVER ? activeBgColor
+    : sf & S_HOVER ? accentColor
     : panelBgColor
   size = flex()
   flow = FLOW_HORIZONTAL
@@ -45,7 +45,8 @@ let dropDownHead = @(label, onClick, sf, isEnabled) {
       text = label
     }.__update(sf & S_HOVER ? hoverTxtStyle : defTxtStyle)
     faComp("chevron-down", {
-      fontSize = fontSmall.fontSize
+      fontSize = fontSub.fontSize
+      color = sf & S_HOVER ? hoverTxtStyle.color : defTxtStyle.color
     })
   ]
 }

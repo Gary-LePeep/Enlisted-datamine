@@ -8,7 +8,7 @@ let { mkSeasonTime } = require("%enlist/battlepass/rewardsPkg.nut")
 let { timeLeft } = require("%enlist/battlepass/bpState.nut")
 let { Bordered } = require("%ui/components/textButton.nut")
 let { setTooltip } = require("%ui/style/cursors.nut")
-let { h2_txt, tiny_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontHeading2, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { bigPadding, smallPadding, idleBgColor, accentTitleTxtColor, defTxtColor
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
@@ -18,7 +18,7 @@ const RANK_WND_UID = "RankToolTip"
 const MAX_RANKS_IN_COLUMN = 10
 
 let rankRowHeight = hdpx(40)
-let rankRewardIconSize = hdpx(12)
+let rankRewardIconSize = hdpxi(12)
 let columnRankHeigth = (rankRowHeight + smallPadding) * MAX_RANKS_IN_COLUMN
 
 let wrapParams = {
@@ -130,8 +130,6 @@ let headerBlock = {
 }
 
 let rankToolTip = {
-  rendObj = ROBJ_SOLID
-  color = Color(0, 0, 0, 210)
   size = [flex(), SIZE_TO_CONTENT]
   vplace = ALIGN_CENTER
   children = {
@@ -144,7 +142,7 @@ let rankToolTip = {
       {
         rendObj = ROBJ_TEXT
         text = loc("rank/title")
-      }.__update(h2_txt)
+      }.__update(fontHeading2)
       headerBlock
       {
         rendObj = ROBJ_TEXTAREA
@@ -159,7 +157,7 @@ let rankToolTip = {
           rendObj = ROBJ_TEXT
           text = loc("rank/needAchieve")
           color = accentTitleTxtColor
-        }.__update(tiny_txt)
+        }.__update(fontSub)
       }
       {
         flow = FLOW_HORIZONTAL
@@ -176,7 +174,7 @@ let rankToolTip = {
           {
             rendObj = ROBJ_TEXT
             text = loc ("rank/rewardTip")
-          }.__update(tiny_txt)
+          }.__update(fontSub)
         ]
       }
       Bordered(loc("BackBtn"), @() removeModalWindow(RANK_WND_UID),
@@ -194,10 +192,14 @@ let rankToolTip = {
 let open = @() addModalWindow({
   rendObj = ROBJ_WORLD_BLUR_PANEL
   size = flex()
-  vplace = ALIGN_CENTER
   key = RANK_WND_UID
   onClick = @() null
-  children = rankToolTip
+  children = {
+    size = flex()
+    rendObj = ROBJ_SOLID
+    color = Color(0, 0, 0, 210)
+    children = rankToolTip
+  }
 })
 
 return open

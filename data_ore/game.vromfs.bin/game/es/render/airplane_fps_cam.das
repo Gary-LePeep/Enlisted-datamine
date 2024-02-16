@@ -1,4 +1,5 @@
 require ecs
+require vehicle
 require math.base
 require DagorMath
 require DagorMathUtils
@@ -14,10 +15,12 @@ def airplane_fps_camera_offset(info : UpdateStageInfoAct;
     return
 
   query(camera__target) <| $ [es(REQUIRE=(airplane, vehicleWithWatched))] (transform aka target_transform : float3x4;
+                                                                           vehicleCameraType : int;
                                                                            camera__lookAroundOffsetRange : float2)
-    let invCamTm = inverse(camera_transform)
-    let angle = dir_to_angles(rotate(invCamTm, -target_transform[2])).x
-    let offsetX = (angle >= 0.
-      ? cvt(angle, 0., HALF_PI, 0., camera__lookAroundOffsetRange.x)
-      : -cvt(angle, 0., -HALF_PI, 0., camera__lookAroundOffsetRange.y))
-    shooter_cam__offset = rotate(invCamTm, target_transform[2] * offsetX)
+    if vehicleCameraType == int(VehicleCameraType VEHICLE_CAMERA_DRIVER)
+      let invCamTm = inverse(camera_transform)
+      let angle = dir_to_angles(rotate(invCamTm, -target_transform[2])).x
+      let offsetX = (angle >= 0.
+        ? cvt(angle, 0., HALF_PI, 0., camera__lookAroundOffsetRange.x)
+        : -cvt(angle, 0., -HALF_PI, 0., camera__lookAroundOffsetRange.y))
+      shooter_cam__offset = rotate(invCamTm, target_transform[2] * offsetX)

@@ -1,10 +1,15 @@
 {
   "uk_mk_1_grant": {
-    "_extends": "uk_mk_1_grant_common"
+    "_use": "uk_mk_1_grant_common"
   },
   "uk_mk_1_grant_common": {
-    "_extends": "base_mk_1_grant",
-    "item__iconOffset": [0.0,0.3],
+    "_use": "base_mk_1_grant",
+    "commanderCockpitFpsCamMaxAngle": [40.0,5.0],
+    "gunner_cam_limit__useCockpitDir": true,
+    "item__iconOffset": [0.0,0.15],
+    "item__iconScale": 1.25,
+    "armorThicknessHull": [51.0,38.1,38.1],
+    "armorThicknessTurret": [76.0,51.0,51.0],
     "vehicle_seats__seatsProvideOrder:tag": [],
     "vehicle_seats__seats:shared:array": [
       {
@@ -189,9 +194,12 @@
     ]
   },
   "uk_mk_1_grant_driver_cockpit": {
-    "_extends": "base_driver_cockpit",
+    "_use": "base_driver_cockpit",
     "animchar__res": "kv_1_driver_char",
     "cockpit__offset": [-0.2,-0.0,-0.0],
+    "cockpit__slitForwardOffset:list<r>": {
+      "slit": 0.1
+    },
     "cockpit__visibleVehicleNodeNames:list<t>": [
       {
         "node": "track_l"
@@ -208,10 +216,9 @@
     ]
   },
   "uk_mk_1_grant_gunner_75mm_hull_cockpit": {
-    "vehicle_sight__blk": "content/tanks/gamedata/sight/us_m21a1.blk",
-    "_extends": "base_gunner_cockpit",
+    "_use": "base_gunner_cockpit",
     "animchar__res": "t_26_1940_gunner_char",
-    "cockpit__minZoom": -0.27,
+    "cockpit__minForwardOffset": -0.27,
     "cockpit__offset": [-0.0,-0.0,-0.0],
     "cockpit__cockpitOffsetBySlit:list<p3>": {
       "slit": [-0.4,-0.05,0.2]
@@ -227,17 +234,29 @@
       "slit": "cam_front_right"
     },
     "cockpit__slitForwardOffset:list<r>": {
-      "slit": 0.19
+      "slit": 0.22
     },
     "cockpit__slitIsGun:list<b>": {
       "slit": true
-    }
+    },
+    "cockpit__slitZoom:array": {
+      "slit:list<r>": [
+        {
+          "zoom": 1.9
+        },
+        {
+          "zoom": 3.5
+        }
+      ]
+    },
+    "cockpit__slitTemplates:list<t>": {
+      "slit": "us_m21a1"
+    },
+    "cockpit__slitEids:list<eid>": []
   },
   "uk_mk_1_grant_gunner_37mm_turret_cockpit": {
-    "vehicle_sight__blk": "content/tanks/gamedata/sight/us_m55.blk",
-    "_extends": "base_gunner_cockpit",
+    "_use": "base_gunner_cockpit",
     "animchar__res": "t_26_1940_gunner_char",
-    "cockpit__minZoom": -0.27,
     "cockpit__offset": [-0.0,-0.0,-0.0],
     "cockpit__cockpitOffsetBySlit:list<p3>": {
       "slit": [-0.38,-0.07,0.21]
@@ -253,18 +272,33 @@
       "slit": "cam_front_right"
     },
     "cockpit__slitForwardOffset:list<r>": {
-      "slit": 0.19
+      "slit": 0.22
     },
     "cockpit__slitIsGun:list<b>": {
       "slit": true
-    }
+    },
+    "cockpit__slitZoom:array": {
+      "slit:list<r>": [
+        {
+          "zoom": 1.9
+        },
+        {
+          "zoom": 3.5
+        }
+      ]
+    },
+    "cockpit__slitTemplates:list<t>": {
+      "slit": "us_m55"
+    },
+    "cockpit__slitEids:list<eid>": []
   },
   "uk_mk_1_grant_commander_cockpit": {
-    "_extends": "base_commander_cockpit_no_slits",
+    "_use": "base_commander_cockpit_no_slits",
     "animchar__res": "t_26_1940_commander_char",
     "cockpit__offset": [-0.0,0.0,0.0],
+    "cockpit__minForwardOffset": -0.0,
     "cockpit__cockpitOffsetBySlit:list<p3>": {
-      "slit": [-0.8,0.88,0.37]
+      "slit": [-0.6,1.25,0.25]
     },
     "cockpit__attachNodeNames:list<t>": {
       "node": "bone_camera_gunner"
@@ -275,20 +309,56 @@
       },
       {
         "node": "gun_barrel_01"
+      },
+      {
+        "node": "bone_turret_01"
+      },
+      {
+        "node": "hatch_01"
+      },
+      {
+        "node": "hatch_02"
+      },
+      {
+        "node": "bone_gun_01"
+      },
+      {
+        "node": "@root"
+      },
+      {
+        "node": "ex_decor_l_04"
       }
     ],
     "cockpit__slitForwardOffset:list<r>": {
-      "slit": 0.15
+      "slit": 0.165
     },
     "cockpit__slitIsGun:list<b>": {
       "slit": true
     },
     "cockpit__slitNodeNames:list<t>": {
       "slit": "cam_front"
-    }
+    },
+    "cockpit__periscopeLimits:list<p4>": {
+      "slit": [-90.0,90.0,-5.0,25.0]
+    },
+    "cockpit__periscopeSpeed:list<p2>": {
+      "slit": [35.0,35.0]
+    },
+    "cockpit__slitZoom:array": {
+      "slit:list<r>": {
+        "zoom": 1.44
+      }
+    },
+    "cockpit__slitZoomTime:list<r>": {
+      "slit": 0.0
+    },
+    "cockpit__slitTemplates:list<t>": {
+      "slit": "default_periscope"
+    },
+    "cockpit__slitEids:list<eid>": []
   },
   "uk_mk_1_grant_atlanta2_battlepass_premium": {
-    "_extends": "uk_mk_1_grant_common",
+    "_use": "uk_mk_1_grant_common",
     "animchar__objTexSet:object": {
       "mk_I_grant_body_c*:object": {
         "mk_I_grant_atlanta2_body_c*": "camo_skin_tex"

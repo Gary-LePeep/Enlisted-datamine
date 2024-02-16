@@ -7,28 +7,35 @@ require game.utils.team
 require math
 require math.base
 require app
+require enlisted.events_enlisted
 
 [es(tag=server, on_appear)]
 def respawn_bases_check_group_es(evt : Event; respawnBaseGroup : int)
   if respawnBaseGroup == -1
     logerr("respawn base has group (component respawnBaseGroup) but equal -1")
 
-def calc_tm_for_respawn_group_icon(icon_team, icon_group, icon_type)
+def calc_tm_for_respawn_group_icon(icon_team, icon_group, icon_type, mobile_respawn)
+  var tm = IDENT_TM
+  if mobile_respawn
+    return tm
   var posSum : float3 = float3()
   var respawns_count = 0.0;
   ecs::query() <| $ [es(REQUIRE_NOT=aircraftRespbase)] (eid : EntityId; active : bool; team : int; respawnBaseGroup : int; transform : float3x4; respawnbaseType : string)
     if (active || has(eid, "customRespawnBase")) && team == icon_team && respawnBaseGroup == icon_group && respawnbaseType == icon_type
       respawns_count += 1.0
       posSum += transform[3]
-  var tm = IDENT_TM
   if respawns_count == 0.0
     logerr("Can't find active respawns for icon group: {icon_group} type: {icon_type}")
     return tm
   tm[3] = posSum / respawns_count
   return tm
 
-def create_respawn_icon(active, icon_group, icon_type, icon_tm, icon_team, custom_respawn)
-  let iconTemplate = custom_respawn ? "respawn_point_selector" : "respawn_point_selector+auto_respawn_point_selector"
+def create_respawn_icon(active, icon_group, icon_type, icon_tm, icon_team, custom_respawn, mobile_respawn)
+  let isPlayerSpawn = find_query() <| $ [es(REQUIRE=playerRespawnBase)] (team : int; respawnBaseGroup : int; respawnbaseType : string)
+    if team == icon_team && icon_group == respawnBaseGroup && icon_type == respawnbaseType
+      return true
+    return false
+  let iconTemplate = mobile_respawn ? "mobile_respawn_point_selector" : custom_respawn ? "respawn_point_selector" : "respawn_point_selector+auto_respawn_point_selector"
   createEntitySync(iconTemplate) <| $(var init : ComponentsInitializer)
     set(init, "respawn_icon__active", active)
     set(init, "transform", icon_tm)
@@ -36,8 +43,10 @@ def create_respawn_icon(active, icon_group, icon_type, icon_tm, icon_team, custo
     set(init, "selectedGroup", icon_group)
     set(init, "respawnIconType", icon_type)
     set(init, "team", icon_team)
+    if isPlayerSpawn
+      set(init, "respawn_icon__isPlayerSpawn", true)
 
-def update_respawn_icon(respawn_base_group, respawn_base_type, respawn_base_team, respawn_base_by_group_active, custom_respawn)
+def update_respawn_icon(respawn_base_group, respawn_base_type, respawn_base_team, respawn_base_by_group_active, custom_respawn, mobile_respawn)
   let isIconExist = find_query() <| $ [es] (eid : EntityId;
                                             team : int;
                                             selectedGroup : int;
@@ -47,16 +56,16 @@ def update_respawn_icon(respawn_base_group, respawn_base_type, respawn_base_team
                                             var respawn_icon__position : float3&)
     if team == respawn_base_team && selectedGroup == respawn_base_group && respawnIconType == respawn_base_type
       respawn_icon__active = respawn_base_by_group_active
-      if !respawn_icon__active && !custom_respawn
+      if !respawn_icon__active && !custom_respawn && !mobile_respawn
         destroyEntity(eid)
         return true
-      transform = calc_tm_for_respawn_group_icon(team, selectedGroup, respawnIconType)
+      transform = calc_tm_for_respawn_group_icon(team, selectedGroup, respawnIconType, mobile_respawn)
       respawn_icon__position = transform[3]
       return true
     return false
   if !isIconExist && (respawn_base_by_group_active || custom_respawn)
-    let iconTm = calc_tm_for_respawn_group_icon(respawn_base_team, respawn_base_group, respawn_base_type)
-    create_respawn_icon(respawn_base_by_group_active, respawn_base_group, respawn_base_type, iconTm, respawn_base_team, custom_respawn)
+    let iconTm = calc_tm_for_respawn_group_icon(respawn_base_team, respawn_base_group, respawn_base_type, mobile_respawn)
+    create_respawn_icon(respawn_base_by_group_active, respawn_base_group, respawn_base_type, iconTm, respawn_base_team, custom_respawn, mobile_respawn)
 
 [es(tag=gameClient, track=respawn_icon__position, REQUIRE=autoRespawnSelector)]
 def respawn_icons_update_position_es(evt : Event; respawn_icon__position : float3; var transform : float3x4&)
@@ -74,10 +83,11 @@ def has_active_respawns_by_group(respawn_team : int; respawn_group : int; respaw
                                on_event=EventOnChangeSpawnTeams)]
 def respawn_bases_selector_group_es(evt : Event; eid : EntityId; respawnBaseGroup : int; team : int; respawnbaseType : string; active : bool)
   let isCustomRespawn = has(eid, "customRespawnBase")
+  let isMobileRespawn = has(eid, "mobileRespawnTag")
   var hasActiveRespawnsByGroup = active
   if !active
     hasActiveRespawnsByGroup = has_active_respawns_by_group(team, respawnBaseGroup, respawnbaseType)
-  update_respawn_icon(respawnBaseGroup, respawnbaseType, team, hasActiveRespawnsByGroup, isCustomRespawn)
+  update_respawn_icon(respawnBaseGroup, respawnbaseType, team, hasActiveRespawnsByGroup, isCustomRespawn, isMobileRespawn)
 
 [es(tag=server, on_event=(EventEntityDestroyed, EventComponentsDisappear), REQUIRE=(respawnBaseGroup, active))]
 def respawn_bases_destroy_group_es(evt : Event; eid : EntityId; team : int; respawnBaseGroup : int; respawnbaseType : string)
@@ -85,7 +95,8 @@ def respawn_bases_destroy_group_es(evt : Event; eid : EntityId; team : int; resp
   let hasActiveRespawnsByGroup = has_active_respawns_by_group(team, respawnBaseGroup, respawnbaseType, eid)
   if hasActiveRespawnsByGroup
     let isCustomRespawn = has(eid, "customRespawnBase")
-    update_respawn_icon(respawnBaseGroup, respawnbaseType, team, hasActiveRespawnsByGroup, isCustomRespawn)
+    let isMobileRespawn = has(eid, "mobileRespawnTag")
+    update_respawn_icon(respawnBaseGroup, respawnbaseType, team, hasActiveRespawnsByGroup, isCustomRespawn, isMobileRespawn)
     return
   find_query() <| $ [es] (eid : EntityId; team : int; selectedGroup : int; respawnIconType : string)
     if team == respawnBaseTeam && selectedGroup == respawnBaseGroup && respawnIconType == respawnbaseType

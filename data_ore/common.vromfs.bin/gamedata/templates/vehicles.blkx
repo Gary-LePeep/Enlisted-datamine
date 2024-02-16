@@ -2,7 +2,7 @@
   "import": "civil_vehicles.blk",
   "vehicles_grid": {
     "editableObj": false,
-    "_extends": "replicating",
+    "_use": "replicating",
     "_singleton": true,
     "grid_holder__type": "vehicles",
     "grid_holder__typeHash": 0,
@@ -10,7 +10,7 @@
     "grid_holder": []
   },
   "vehicle": {
-    "_extends": "vehicle_no_ai",
+    "_use": "vehicle_no_ai",
     "agent_dangers__tag": "vehicle",
     "ai_target__invisibleTimeTo": 0.0,
     "ai_target__noiseLevel": 0.0,
@@ -47,10 +47,10 @@
     }
   },
   "airplane_turret_control_components": {
-    "_extends": "turret_control_components"
+    "_use": "turret_control_components"
   },
   "tank_turret_control_components": {
-    "_extends": "turret_control_components",
+    "_use": "turret_control_components",
     "turret_input__actionSet": "VehicleTurret",
     "_group": {
       "_tags": "input",
@@ -63,11 +63,12 @@
       "vehicle_input__shootGrenadeLauncher": 0,
       "vehicle_input__shootTurret03": 0,
       "vehicle_input__mainNextBulletType": 0,
-      "vehicle_input__secondaryNextBulletType": 0
+      "vehicle_input__secondaryNextBulletType": 0,
+      "vehicle_input__toggleStabilizer": 0
     }
   },
   "cannon_turret_control_components": {
-    "_extends": "turret_control_components",
+    "_use": "turret_control_components",
     "turret_input__actionSet": "VehicleTurret",
     "_group": {
       "_tags": "input",
@@ -80,11 +81,12 @@
       "vehicle_input__shootGrenadeLauncher": 0,
       "vehicle_input__shootTurret03": 0,
       "vehicle_input__mainNextBulletType": 0,
-      "vehicle_input__secondaryNextBulletType": 0
+      "vehicle_input__secondaryNextBulletType": 0,
+      "vehicle_input__toggleStabilizer": 0
     }
   },
   "bike_turret_control_components": {
-    "_extends": "turret_control_components",
+    "_use": "turret_control_components",
     "turret_input__actionSet": "VehicleTurret",
     "_group": {
       "_tags": "input",
@@ -97,7 +99,8 @@
       "vehicle_input__shootGrenadeLauncher": 0,
       "vehicle_input__shootTurret03": 0,
       "vehicle_input__mainNextBulletType": 0,
-      "vehicle_input__secondaryNextBulletType": 0
+      "vehicle_input__secondaryNextBulletType": 0,
+      "vehicle_input__toggleStabilizer": 0
     }
   },
   "turret_input": {
@@ -123,17 +126,10 @@
     }
   },
   "first_turret": {
-    "_extends": "first_watched_turret",
+    "_use": "first_watched_turret",
     "isForestall": true,
     "firstTurretInput:tag": {
       "_tags": "input"
-    },
-    "_group": {
-      "_tags": "input",
-      "turret_input__isZoom": false,
-      "turret_input__zoom": 0.0,
-      "turret_input__minZoom": 1.0,
-      "turret_input__maxZoom": 2.0
     }
   },
   "turret_with_several_types_of_shells": [
@@ -162,10 +158,14 @@
       "turretWithSeveralTypeOfShells:tag": []
     }
   ],
+  "xray_activator": {
+    "xrayActivator:tag": []
+  },
   "main_turret": {
-    "xrayActivator:tag": [],
+    "_use": "xray_activator",
     "mainTurret:tag": [],
-    "aiAvoidTurret:tag": []
+    "aiAvoidTurret:tag": [],
+    "gun__canPierceHPEntity:tag": []
   },
   "resolved_turret": {
     "resolvedTurret:tag": []
@@ -202,25 +202,86 @@
       "_track": true,
       "ui_turret_reload_progress__startTime": -1.0,
       "ui_turret_reload_progress__finishTime": -1.0,
-      "ui_turret_reload_progress__progressStopped": -1.0,
-      "ui_turret_reload_progress__reloadTimeMult": 1.0
+      "ui_turret_reload_progress__progressStopped": -1.0
     }
+  },
+  "ui_turret_replenishment_progress": [
+    {
+      "_group": {
+        "_replicate": true,
+        "_track": true,
+        "turret__replenishmentStartTime": -1.0,
+        "turret__replenishmentFinishTime": -1.0
+      }
+    },
+    {
+      "_group": {
+        "_tags": "ui",
+        "_track": true,
+        "ui_turret_replenishment_progress__startTime": -1.0,
+        "ui_turret_replenishment_progress__finishTime": -1.0
+      }
+    }
+  ],
+  "turret_dust_fx": {
+    "_tags": "render",
+    "turret_dust_fx__minImpulse": 100.0,
+    "turret_dust_fx__fxTemplate": "hit_ground_wave_dust_surface_effect",
+    "turret_dust_fx__nodes:list<t>": [
+      {
+        "node": "emtr_fire_small_dmg_01"
+      },
+      {
+        "node": "emtr_fire_small_dmg_02"
+      },
+      {
+        "node": "emtr_fire_small_dmg_03"
+      },
+      {
+        "node": "emtr_fire_small_dmg_04"
+      },
+      {
+        "node": "emtr_fire_small_dmg_05"
+      },
+      {
+        "node": "emtr_smoke_small_dmg_01"
+      },
+      {
+        "node": "emtr_smoke_small_dmg_02"
+      },
+      {
+        "node": "emtr_smoke_small_dmg_03"
+      },
+      {
+        "node": "emtr_smoke_small_dmg_04"
+      },
+      {
+        "node": "emtr_smoke_small_dmg_05"
+      }
+    ],
+    "turret_dust_fx__nodeIds:list<i>": []
   },
   "turret_base": [
     {
-      "_extends": "base_gun"
+      "_use": "base_gun"
     },
     {
-      "_extends": "turret_ammo_sets"
+      "_use": "turret_ammo_sets"
     },
     {
-      "_extends": "turret_gun_sound"
+      "_use": "turret_gun_sound"
     },
     {
-      "_extends": "ui_turret_reload_progress"
+      "_use": "ui_turret_reload_progress"
     },
     {
-      "_extends": "hit_effect_group_turret"
+      "_use": "ui_turret_replenishment_progress"
+    },
+    {
+      "_use": "hit_effect_group_turret"
+    },
+    {
+      "_use": "turret_dust_fx"
     },
     {
       "gun__useLocalPlayerTracer": false
@@ -295,7 +356,7 @@
       "turret__isUnderwater": false
     },
     {
-      "turret__canZoom": true
+      "turret__stabilizerError": 0.0
     },
     {
       "turret_aim__shootToPos": [0.0,0.0,0.0]
@@ -376,6 +437,12 @@
       "turret__aimNodeId": -1
     },
     {
+      "turret__numAmmoFirstStage:i": {
+        "vlaue": -1,
+        "_replicate": true
+      }
+    },
+    {
       "_group": {
         "_track": true,
         "turret__yawSpeed": -1.0,
@@ -390,6 +457,7 @@
           "value": false,
           "_hide": true
         },
+        "turret__emitterOwner:eid": [],
         "turret__emitterNodeId:i": {
           "value": -1,
           "_hide": true
@@ -435,6 +503,26 @@
           "_hide": true
         },
         "turret__turretAimActiveVarId:i": {
+          "value": -1,
+          "_hide": true
+        },
+        "turret__stabilizerYawActiveVarId:i": {
+          "value": -1,
+          "_hide": true
+        },
+        "turret__stabilizerPitchActiveVarId:i": {
+          "value": -1,
+          "_hide": true
+        },
+        "turret__stabilizerErrorVarId:i": {
+          "value": -1,
+          "_hide": true
+        },
+        "turret__stabilizerYawFrictionMultVarId:i": {
+          "value": -1,
+          "_hide": true
+        },
+        "turret__stabilizerPitchFrictionMultVarId:i": {
           "value": -1,
           "_hide": true
         },
@@ -488,6 +576,20 @@
         "turret_aim__shootCorrectionPos": [0.0,0.0,0.0],
         "turret_aim__shootCorrectionDir": [1.0,0.0,0.0],
         "turret_aim__correctionTraceLen": 0.0
+      }
+    },
+    {
+      "turret__perksReloadMult:r": {
+        "value": 1.0,
+        "_replicate": true,
+        "_track": true
+      }
+    },
+    {
+      "turret__ammoStowageReloadMult:r": {
+        "value": 1.0,
+        "_replicate": true,
+        "_track": true
       }
     },
     {
@@ -590,6 +692,13 @@
       "gun__reloadFinishTime": -1.0
     },
     {
+      "gun__isReloading:b": {
+        "value": false,
+        "_tags": "server",
+        "_track": true
+      }
+    },
+    {
       "gunAutoReloadOnEmpty:tag": []
     },
     {
@@ -600,16 +709,16 @@
     }
   ],
   "tankgun": {
-    "_extends": "turret_base",
-    "gun__projectileTemplate": "bullet_projectile",
-    "gun__projectileDebugTemplate": "bullet_projectile+bullet_projectile_debug"
+    "_use": "turret_base",
+    "gun__projectileTemplate": "tankgun_projectile",
+    "gun__projectileDebugTemplate": "tankgun_projectile+bullet_projectile_debug"
   },
   "plane_machinegun": [
     {
-      "_extends": "turret_base"
+      "_use": "turret_base"
     },
     {
-      "_extends": "reloadable_turret"
+      "_use": "reloadable_turret"
     }
   ],
   "turret_with_group": {
@@ -1388,9 +1497,31 @@
     "_tracked": "vehicle__isHighSpeedWarningEnabled",
     "vehicle__highSpeedWarningLimits": [0.0,0.0]
   },
+  "plane_overload_warning": [
+    {
+      "_tags": "ui"
+    },
+    {
+      "plane__flapsCritical": false
+    },
+    {
+      "plane__overloadCritical": false
+    },
+    {
+      "_tracked": "plane__flapsCritical"
+    },
+    {
+      "_tracked": "plane__overloadCritical"
+    }
+  ],
   "_componentFilters": {
+    "turret__numAmmoFirstStage": "filter_possessed_and_spectated_vehicle",
     "gun__ammo_by_shell": "filter_possessed_and_spectated_vehicle",
     "currentBulletId": "filter_possessed_and_spectated_vehicle",
-    "nextBulletId": "filter_possessed_and_spectated_vehicle"
+    "nextBulletId": "filter_possessed_and_spectated_vehicle",
+    "turret__replenishmentStartTime": "filter_possessed_and_spectated_vehicle",
+    "turret__replenishmentFinishTime": "filter_possessed_and_spectated_vehicle",
+    "turret__perksReloadMult": "filter_possessed_and_spectated_vehicle",
+    "turret__ammoStowageReloadMult": "filter_possessed_and_spectated_vehicle"
   }
 }

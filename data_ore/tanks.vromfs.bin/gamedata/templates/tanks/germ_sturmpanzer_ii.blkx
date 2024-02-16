@@ -1,13 +1,13 @@
 {
   "germ_sturmpanzer_II": [
     {
-      "_extends": "base_sturmpanzer_ii"
+      "_use": "base_sturmpanzer_ii"
     },
     {
-      "_extends": "tank_panzer3_engine_sound"
+      "_use": "tank_panzer3_engine_sound"
     },
     {
-      "_extends": "tank_light_vehicle_tracks_sound"
+      "_use": "tank_light_vehicle_tracks_sound"
     },
     {
       "bullet_holes__movingCollisionNodes:array": {

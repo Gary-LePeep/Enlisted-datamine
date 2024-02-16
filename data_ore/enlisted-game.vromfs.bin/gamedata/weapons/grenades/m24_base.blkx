@@ -5,11 +5,12 @@
   "speed": 18.5,
   "speedPitch": 5.0,
   "maxDistance": 5.0,
-  "physMat": "walkRay",
+  "physMat": "grenadeRay",
   "useFutureContacts": true,
   "logCCD": false,
   "frictionGround": 2.0,
   "noSleepAtTheSlopeCos": 0.766,
+  "ccdClipVelocityMult": 0.0,
   "collisionResource": {
     "props": {
       "volumeBox": "box"

@@ -1,10 +1,10 @@
 {
   "sbd_3": [
     {
-      "_extends": "sbd_3_base"
+      "_use": "sbd_3_base"
     },
     {
-      "_extends": "squad_controlled_plane"
+      "_use": "squad_controlled_plane"
     },
     {
       "item__name": "items/sbd_3"
@@ -22,7 +22,7 @@
               [1.0,0.0,0.0],
               [0.0,1.0,0.0],
               [0.0,0.0,1.0],
-              [-0.15,0.05,-0.15]
+              [-0.01,0.05,-0.15]
             ],
             "seatComponent": "isDriver",
             "receiveDamageFromDMPart": "pilot_dm",
@@ -47,7 +47,7 @@
                 "turret": "turret_05"
               }
             ],
-            "effectors:object": {
+            "cockpitEffectors:object": {
               "r.hand": "stick_rhand_1",
               "l.hand": "throttle_lhand_1",
               "r.foot": "pedal_rfoot_1",
@@ -498,13 +498,13 @@
   },
   "planegun_sbd_3_100lb_anm_30_launcher_01": [
     {
-      "_extends": "100lb_anm_30_launcher"
+      "_use": "100lb_anm_30_launcher"
     },
     {
-      "_extends": "base_sbd_3_100lb_anm_30_launcher"
+      "_use": "base_sbd_3_100lb_anm_30_launcher"
     },
     {
-      "_extends": "gunsound_100lb_anm_30_launcher_aircraft"
+      "_use": "gunsound_100lb_anm_30_launcher_aircraft"
     },
     {
       "gun__shootNodeName": "bomb2"
@@ -518,13 +518,13 @@
   ],
   "planegun_sbd_3_100lb_anm_30_launcher_02": [
     {
-      "_extends": "100lb_anm_30_launcher"
+      "_use": "100lb_anm_30_launcher"
     },
     {
-      "_extends": "base_sbd_3_100lb_anm_30_launcher"
+      "_use": "base_sbd_3_100lb_anm_30_launcher"
     },
     {
-      "_extends": "gunsound_100lb_anm_30_launcher_aircraft"
+      "_use": "gunsound_100lb_anm_30_launcher_aircraft"
     },
     {
       "gun__shootNodeName": "bomb3"
@@ -538,13 +538,13 @@
   ],
   "planegun_sbd_3_1000lb_anm_65a_1_launcher_01": [
     {
-      "_extends": "1000lb_anm_65a_1_launcher"
+      "_use": "1000lb_anm_65a_1_launcher"
     },
     {
-      "_extends": "base_sbd_3_1000lb_anm_65a_1_launcher"
+      "_use": "base_sbd_3_1000lb_anm_65a_1_launcher"
     },
     {
-      "_extends": "gunsound_1000lb_anm_65a_1_launcher_aircraft"
+      "_use": "gunsound_1000lb_anm_65a_1_launcher_aircraft"
     },
     {
       "gun__shootNodeName": "bomb1"
@@ -558,16 +558,16 @@
   ],
   "planegun_sbd_3_12_7mm_browning50_early_01": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_plane_machinegun"
+      "_use": "base_plane_machinegun"
     },
     {
-      "_extends": "base_sbd_3_12_7mm_browning50_early"
+      "_use": "base_sbd_3_12_7mm_browning50_early"
     },
     {
-      "_extends": "gunsound_12_7mm_browning50_early_aircraft"
+      "_use": "gunsound_12_7mm_browning50_early_aircraft"
     },
     {
       "gun__shootNodeName": "flare1"
@@ -578,16 +578,16 @@
   ],
   "planegun_sbd_3_12_7mm_browning50_early_02": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_plane_machinegun"
+      "_use": "base_plane_machinegun"
     },
     {
-      "_extends": "base_sbd_3_12_7mm_browning50_early"
+      "_use": "base_sbd_3_12_7mm_browning50_early"
     },
     {
-      "_extends": "gunsound_12_7mm_browning50_early_aircraft"
+      "_use": "gunsound_12_7mm_browning50_early_aircraft"
     },
     {
       "gun__shootNodeName": "flare2"
@@ -598,16 +598,16 @@
   ],
   "planegun_sbd_3_7_62mm_browning30_turret_01": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_plane_machinegun"
+      "_use": "base_plane_machinegun"
     },
     {
-      "_extends": "base_sbd_3_7_62mm_browning30_turret"
+      "_use": "base_sbd_3_7_62mm_browning30_turret"
     },
     {
-      "_extends": "gunsound_7_62mm_browning30_turret_aircraft"
+      "_use": "gunsound_7_62mm_browning30_turret_aircraft"
     },
     {
       "gun__shootNodeName": "flare3"
@@ -630,16 +630,16 @@
   ],
   "planegun_sbd_3_7_62mm_browning30_turret_02": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_plane_machinegun"
+      "_use": "base_plane_machinegun"
     },
     {
-      "_extends": "base_sbd_3_7_62mm_browning30_turret"
+      "_use": "base_sbd_3_7_62mm_browning30_turret"
     },
     {
-      "_extends": "gunsound_7_62mm_browning30_turret_aircraft"
+      "_use": "gunsound_7_62mm_browning30_turret_aircraft"
     },
     {
       "gun__shootNodeName": "flare4"
@@ -662,10 +662,10 @@
   ],
   "sbd_3_driver_cockpit": [
     {
-      "_extends": "base_plane_cockpit"
+      "_use": "base_plane_cockpit"
     },
     {
-      "_extends": "plane_telesight"
+      "_use": "plane_telesight"
     },
     {
       "cockpit__offset": [0.0,0.0,0.0]

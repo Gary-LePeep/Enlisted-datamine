@@ -12,15 +12,15 @@ const SEEN_ID = "seen/rank_stage_idx"
 
 
 let rankUnlock = Computed(function() {
-  let rankUnlock = allUnlocks.value?[RANK_UNLOCK]
-  if (rankUnlock == null)
+  let rankUn = allUnlocks.value?[RANK_UNLOCK]
+  if (rankUn == null)
     return null
 
   local rankState = []
-  rankUnlock.stages.each(@(stage, idx) stage.progress >= rankUnlock.meta.godRating ? null
+  rankUn.stages.each(@(stage, idx) stage.progress >= rankUn.meta.godRating ? null
     : rankState.append({
         progress = stage.progress / 100
-        ratingOnNextSeason = rankUnlock.meta.ratingOnNextSeason[idx]
+        ratingOnNextSeason = rankUn.meta.ratingOnNextSeason[idx]
         index = idx + 1
       })
   )

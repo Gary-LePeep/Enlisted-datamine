@@ -1,7 +1,6 @@
 {
   "sound_step_settings": {
-    "_extends": "sound_physmat",
-    "sound_step__queryResultToPuddleDepth": [0.1,0.4,0.0,0.05],
+    "_use": "sound_physmat",
     "_group": {
       "_tags": "sound",
       "sound_physmat__soundMaterials:list<t>": [
@@ -70,6 +69,7 @@
         "small_decor": "concrete",
         "wood": "wood",
         "wood_railway": "wood",
+        "wood_solid": "wood",
         "window_wood": "wood",
         "cactus": "wood",
         "softWoodDoor": "wood",
@@ -100,14 +100,6 @@
       "_tags": "sound"
     }
   },
-  "human_fall_sound": {
-    "_tracked": "human_fall_sound__isFalling",
-    "_group": {
-      "_tags": "sound",
-      "human_fall_sound__isFalling": false,
-      "human_fall_sound__threshold": 20.0
-    }
-  },
   "human_idle_sound": {
     "_group": {
       "_tags": "sound",
@@ -117,7 +109,7 @@
     }
   },
   "human_idle_active_sound": {
-    "_extends": "human_idle_sound",
+    "_use": "human_idle_sound",
     "_tracked": "human_idle_sound__isActive",
     "_group": {
       "_tags": "sound",
@@ -184,5 +176,67 @@
       "_tags": "server"
     },
     "human_speech__speeches:shared:array": []
-  }
+  },
+  "base_human_collision_hit_sound": {
+    "_group": {
+      "_tags": "sound",
+      "human_collision_hit_sound__forceMax": 0.0,
+      "human_collision_hit_sound__spdSummaryToForce": [0.2,2.0,0.0,1.0],
+      "human_collision_hit_sound__vertSpeedThreshold": 0.5
+    }
+  },
+  "base_human_collision_scrape_sound": [
+    {
+      "human_collision_scrape_sound__descIdx": -1
+    },
+    {
+      "_replicated": "human_collision_scrape_sound__descIdx"
+    },
+    {
+      "_group": {
+        "_tags": "server",
+        "human_collision_scrape_net_sound__physmatIds:list<i>": [],
+        "human_collision_scrape_net_sound__physmatNames:shared:list<t>": [
+          {
+            "name": "bushes"
+          },
+          {
+            "name": "bushes_fall"
+          },
+          {
+            "name": "bushes_palm"
+          },
+          {
+            "name": "bushes_dead"
+          },
+          {
+            "name": "bushes_snow"
+          }
+        ]
+      }
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "human_collision_scrape_sound__speedToForce": [0.04,3.0,0.0,1.0],
+        "human_collision_scrape_sound__descs:shared:array": {
+          "bush:object": {
+            "path": "/walker/ww2_soldier/collision/bush"
+          },
+          "bushesFall:object": {
+            "path": "/walker/ww2_soldier/collision/bush"
+          },
+          "bushesPalm:object": {
+            "path": "/walker/ww2_soldier/collision/bush"
+          },
+          "bushesDead:object": {
+            "path": "/walker/ww2_soldier/collision/bush"
+          },
+          "bushesSnow:object": {
+            "path": "/walker/ww2_soldier/collision/bush"
+          }
+        }
+      }
+    }
+  ]
 }

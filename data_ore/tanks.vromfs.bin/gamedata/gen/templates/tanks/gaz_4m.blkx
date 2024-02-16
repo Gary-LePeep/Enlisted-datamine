@@ -1,10 +1,10 @@
 {
   "base_gaz_4m": [
     {
-      "_extends": "base_tank"
+      "_use": "base_tank"
     },
     {
-      "_extends": "gaz_4m_ammo_stowages"
+      "_use": "gaz_4m_ammo_stowages"
     },
     {
       "killLogName": "ussr_gaz_4m"
@@ -249,7 +249,7 @@
     }
   ],
   "gaz_4m_turret_01_7_62mm_maxim": {
-    "_extends": "tankgun_7_62mm_maxim",
+    "_use": "tankgun_7_62mm_maxim",
     "gun__shootNodeName": "bone_gun_barrel_01",
     "turret__yawSpeed": 60.0,
     "turret__pitchSpeed": 20.0,
@@ -272,13 +272,13 @@
   },
   "gaz_4m_ammo_stowages": {
     "_tags": "server",
-    "_extends": "vehicle_ammo_stowages",
+    "_use": "vehicle_ammo_stowages",
     "ammo_stowage__stowageTemplates:shared:list<t>": {
       "stowage": "gaz_4m_ammo_stowage_1"
     }
   },
   "gaz_4m_ammo_stowage_1": {
-    "_extends": "ammo_stowage",
+    "_use": "ammo_stowage",
     "ammo_stowage__clusterTemplates:shared:list<t>": {
       "cluster": "gaz_4m_ammo_cluster_1_1"
     },
@@ -287,7 +287,7 @@
     }
   },
   "gaz_4m_ammo_cluster_1_1": {
-    "_extends": "ammo_cluster",
+    "_use": "ammo_cluster",
     "ammo_cluster__isShell": true,
     "ammo_cluster__slotNames:shared:list<t>": [
       {
@@ -313,7 +313,7 @@
     ]
   },
   "gaz_4m_turret_02_7_62mm_maxim": {
-    "_extends": "tankgun_7_62mm_maxim",
+    "_use": "tankgun_7_62mm_maxim",
     "gun__shootNodeName": "bone_gun_barrel_02",
     "turret__yawSpeed": 60.0,
     "turret__pitchSpeed": 20.0,
@@ -335,7 +335,7 @@
     ]
   },
   "gaz_4m_turret_03_7_62mm_maxim": {
-    "_extends": "tankgun_7_62mm_maxim",
+    "_use": "tankgun_7_62mm_maxim",
     "gun__shootNodeName": "bone_gun_barrel_03",
     "turret__yawSpeed": 60.0,
     "turret__pitchSpeed": 20.0,
@@ -357,7 +357,7 @@
     ]
   },
   "gaz_4m_turret_04_7_62mm_maxim": {
-    "_extends": "tankgun_7_62mm_maxim",
+    "_use": "tankgun_7_62mm_maxim",
     "gun__shootNodeName": "bone_gun_barrel_04",
     "turret__yawSpeed": 60.0,
     "turret__pitchSpeed": 20.0,

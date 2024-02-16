@@ -1,22 +1,16 @@
 {
   "base_plane_cockpit": [
     {
-      "_extends": "base_cockpit"
+      "_use": "base_cockpit"
     },
     {
-      "_extends": "plane_cutting"
+      "_use": "plane_cutting"
     },
     {
-      "_extends": "vehicle_decals"
+      "_use": "vehicle_decals"
     },
     {
-      "cockpit__zoomTimeMul": 1.3
-    },
-    {
-      "cockpit__cameraTimeMul": 1.5
-    },
-    {
-      "cockpit__minZoom": -0.27
+      "cockpit__minForwardOffset": -0.27
     },
     {
       "fixed_sight_presents": false

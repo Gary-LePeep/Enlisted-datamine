@@ -461,6 +461,11 @@
   },
   {
     "entity": {
+      "_template": "bloom"
+    }
+  },
+  {
+    "entity": {
       "_template": "postfx_roundctrl",
       "post_fx:object": []
     }
@@ -505,6 +510,7 @@
     "entity": {
       "_template": "briefing_invasion",
       "mission_name": "berlin_railway_inv",
+      "mission_outfit": "berlin",
       "loading_images:list<t>": [
         {
           "item": "ui/berlin_railway_inv_01.avif"
@@ -554,30 +560,6 @@
   },
   {
     "entity": {
-      "_template": "respawn_camera",
-      "respawnCameraForTeam": 1,
-      "transform": [
-        [1.0,0.0,0.0],
-        [0.0,1.0,0.0],
-        [0.0,0.0,1.0],
-        [1876.04,310.922,499.695]
-      ]
-    }
-  },
-  {
-    "entity": {
-      "_template": "respawn_camera",
-      "respawnCameraForTeam": 2,
-      "transform": [
-        [1.0,0.0,0.0],
-        [0.0,1.0,0.0],
-        [0.0,0.0,1.0],
-        [978.952,309.222,354.801]
-      ]
-    }
-  },
-  {
-    "entity": {
       "_template": "domination_sphere_capzone",
       "transform": [
         [1.26003,0.0,0.0],
@@ -588,7 +570,7 @@
       "sphere_zone__radius": 23.0,
       "capzone__title": "B",
       "decal__height": 1.5,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "active": true
     }
   },
@@ -775,7 +757,7 @@
   },
   {
     "entity": {
-      "_template": "benchmark_artillery_strike",
+      "_template": "artillery_strike_requester",
       "transform": [
         [-0.983494,0.0,0.180943],
         [0.0,1.0,0.0],
@@ -794,7 +776,7 @@
   },
   {
     "entity": {
-      "_template": "benchmark_artillery_strike",
+      "_template": "artillery_strike_requester",
       "transform": [
         [-0.983494,0.0,0.180943],
         [0.0,1.0,0.0],

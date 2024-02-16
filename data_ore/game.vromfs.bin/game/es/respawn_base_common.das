@@ -15,6 +15,7 @@ struct private RespawnBase
   eid : EntityId
   pos : float3
   team : int
+  priority : int = 0
 
 def private get_random_eid(arr : array<EntityId>)
   return length(arr) > 0 ? (arr[rnd_int(0, length(arr) - 1)]) : INVALID_ENTITY_ID
@@ -39,7 +40,14 @@ def find_respawn_base_for_team(team_id : int)
 
 def find_respawn_base_for_team_with_type(team : int; resp_type : string; subtypes : array<string>; group : int = -1)
   let bases <- find_all_respawn_bases_for_team_with_type(team, resp_type, subtypes, group)
-  return get_random_respawn_base(bases)
+  var topPriority = 0
+  for base in bases
+    topPriority = max(topPriority, base.priority)
+  var priorityBases : array<RespawnBase>
+  for base in bases
+    if base.priority == topPriority
+      priorityBases |> push(base)
+  return get_random_respawn_base(priorityBases)
 
 def private is_valid_respawn_subtype(subtype : string; subtypes : array<string>)
   return length(subtypes) == 0 || find_index(subtypes, subtype) >= 0
@@ -55,13 +63,14 @@ def private find_all_respawn_bases_for_team_with_type(for_team : int;
                      respawnbaseType : string;
                      respawnbaseSubtype : string = "";
                      respawnBaseGroup : int = -1;
+                     respbase__priority : int = 0;
                      team : int = TEAM_UNASSIGNED)
     if (active
         && (for_team == team || team == TEAM_UNASSIGNED)
         && respawnbaseType == resp_type
         && is_valid_respawn_subtype(respawnbaseSubtype, subtypes)
         && (group < 0 || group == respawnBaseGroup))
-      res |> emplace([[RespawnBase eid=eid, pos=transform[3], team = team]])
+      res |> emplace([[RespawnBase eid=eid, pos=transform[3], team = team, priority = respbase__priority]])
   return <- res
 
 def private get_closest_dist_sq(to_pos : float3; positions : array<float3>)
@@ -282,6 +291,17 @@ def check_exists_navmesh_path_from_respawn_to_capzone(respawnPointEid : EntityId
 
   return result > 0
 
+def find_middle_resp_point(respTeam : int)
+  var pos = float3(0.0, 0.0, 0.0)
+  var respsFound = 0
+  ecs::query() <| $ [es(REQUIRE=respbase, REQUIRE_NOT=(aircraftRespbase, playerRespawnBase, mobileRespawnTag))] (eid : EntityId; team : int; active : bool; transform : float3x4)
+    if (active || has(eid, "customRespawnBase")) && (is_teams_friendly(team, respTeam) || team == TEAM_UNASSIGNED)
+      respsFound++
+      pos += transform[3]
+  if respsFound > 0
+    pos = pos / float(respsFound)
+  return pos
+
 def find_target_point_for_respawn_cam()
   var pos = float3(0.0, 0.0, 0.0)
   var pointsFound = 0
@@ -290,10 +310,42 @@ def find_target_point_for_respawn_cam()
       pointsFound++
       pos += transform[3]
   if pointsFound == 0
-    ecs::query() <| $ [es(REQUIRE=respbase, REQUIRE_NOT=(aircraftRespbase, playerRespawnBase, customRespawnBase))] (active : bool; transform : float3x4)
+    ecs::query() <| $ [es(REQUIRE=respbaseCamTarget, REQUIRE_NOT=(aircraftRespbase, mobileRespawnTag, playerRespawnBase, customRespawnBase))] (active : bool; transform : float3x4)
       if active
         pointsFound++
         pos += transform[3]
   if pointsFound > 0
     pos = pos / float(pointsFound)
   return [[auto pointsFound, pos]]
+
+def get_new_respawn_group(team : int) : int
+  var groupId = -1
+  find_query() <| $ [es] (team__id : int; var respawnCreatorId : int&)
+    if team__id == team
+      groupId = respawnCreatorId
+      respawnCreatorId++
+      return true
+    return false
+  return groupId
+
+def create_respawn_icon_with_params(tm : float3x4; group : int; icon_type : string; team : int; players_count : int = 0; active : bool = true) : EntityId
+  return createEntity("respawn_point_selector") <| $(var init : ComponentsInitializer)
+    set(init, "respawn_icon__active", active)
+    set(init, "transform", tm)
+    set(init, "respawn_icon__position", tm[3])
+    set(init, "selectedGroup", group)
+    set(init, "respawnIconType", icon_type)
+    set(init, "team", team)
+    if players_count != 0
+      set(init, "respawn_icon__playersCount", players_count)
+
+def try_reserve_mobile_respawn(player_team : int; player_eid : EntityId; respawn_group : int)
+  var respawnEid = INVALID_ENTITY_ID
+  find_query() <| $ [es] (respawnBaseGroup : int; team : int; eid : EntityId; var mobile_respawn__reservedPlayerEid : EntityId&)
+    if respawn_group == respawnBaseGroup && player_team == team
+      if !mobile_respawn__reservedPlayerEid || mobile_respawn__reservedPlayerEid == player_eid
+        respawnEid = eid
+        mobile_respawn__reservedPlayerEid = player_eid
+      return true
+    return false
+  return respawnEid

@@ -1,7 +1,8 @@
 import "%dngscripts/ecs.nut" as ecs
+from "math" import max, abs
+
 let {TEAM_UNASSIGNED} = require("team")
 let {INVALID_GROUP_ID} = require("matching.errors")
-let abs = require("math").abs
 
 let function getScorePlaceStats(roundResult, team, score) {
   let stats = {}
@@ -62,21 +63,29 @@ let playerUserstatComps = [
   ["scoring_player__killsByPlayer", ecs.TYPE_INT, 0],
   ["scoring_player__bestPossessedInfantryKillstreak", ecs.TYPE_INT, 0],
   ["scoring_player__tankKills", ecs.TYPE_INT, 0],
+  ["scoring_player__apcKills", ecs.TYPE_INT, 0],
   ["scoring_player__planeKills", ecs.TYPE_INT, 0],
+  ["scoring_player__aiPlaneKills", ecs.TYPE_INT, 0],
   ["scoring_player__battleTime", ecs.TYPE_FLOAT, 0.0],
   ["scoring_player__soldierDeaths", ecs.TYPE_INT, 0],
   ["scoring_player__squadDeaths", ecs.TYPE_INT, 0],
   ["scoring_player__assists", ecs.TYPE_INT, 0],
   ["scoring_player__attackKills", ecs.TYPE_INT, 0],
   ["scoring_player__defenseKills", ecs.TYPE_INT, 0],
+  ["scoring_player__longRangeKills", ecs.TYPE_INT, 0],
   ["scoring_player__builtAmmoBoxRefills", ecs.TYPE_INT, 0],
   ["scoring_player__builtRallyPointUses", ecs.TYPE_INT, 0],
+  ["scoring_player__ownedMobileSpawnUses", ecs.TYPE_INT, 0],
   ["scoring_player__builtGunKills", ecs.TYPE_INT, 0],
   ["scoring_player__builtGunKillAssists", ecs.TYPE_INT, 0],
   ["scoring_player__builtGunTankKills", ecs.TYPE_INT, 0],
   ["scoring_player__builtGunTankKillAssists", ecs.TYPE_INT, 0],
+  ["scoring_player__builtGunApcKills", ecs.TYPE_INT, 0],
+  ["scoring_player__builtGunApcKillAssists", ecs.TYPE_INT, 0],
   ["scoring_player__builtGunPlaneKills", ecs.TYPE_INT, 0],
+  ["scoring_player__builtGunAiPlaneKills", ecs.TYPE_INT, 0],
   ["scoring_player__builtGunPlaneKillAssists", ecs.TYPE_INT, 0],
+  ["scoring_player__builtGunAiPlaneKillAssists", ecs.TYPE_INT, 0],
   ["scoring_player__builtBarbwireActivations", ecs.TYPE_INT, 0],
   ["scoring_player__builtCapzoneFortificationActivations", ecs.TYPE_INT, 0],
   ["scoring_player__enemyBuiltFortificationDestructions", ecs.TYPE_INT, 0],
@@ -95,8 +104,12 @@ let getEngineerBuildingUsages = @(comp)
   + comp["scoring_player__builtGunKillAssists"]
   + comp["scoring_player__builtGunTankKills"]
   + comp["scoring_player__builtGunTankKillAssists"]
+  + comp["scoring_player__builtGunApcKills"]
+  + comp["scoring_player__builtGunApcKillAssists"]
   + comp["scoring_player__builtGunPlaneKills"]
+  + comp["scoring_player__builtGunAiPlaneKills"]
   + comp["scoring_player__builtGunPlaneKillAssists"]
+  + comp["scoring_player__builtGunAiPlaneKillAssists"]
   + comp["scoring_player__builtBarbwireActivations"]
   + comp["scoring_player__builtCapzoneFortificationActivations"]
 
@@ -115,16 +128,19 @@ let function getPlayerCurrentUserstats(comp, roundResult = null) {
   addStat(stats, comp, "scoring_player__defenseKills", "kills_while_defending_point")
   addStat(stats, comp, "scoring_player__kills", "kills")
   addStat(stats, comp, "scoring_player__killsByPlayer", "kills_by_player")
+  addStat(stats, comp, "scoring_player__longRangeKills", "long_range_kills")
   addStat(stats, comp, "scoring_player__bestPossessedInfantryKillstreak", "best_possessed_infantry_killstreak")
   if (comp.scoring_player__bestPossessedInfantryKillstreak >= 10)
     addStatValue(stats, 1, "best_possessed_infantry_killstreak_10")
   addStat(stats, comp, "scoring_player__tankKills", "tank_kills")
-  addStat(stats, comp, "scoring_player__planeKills", "aircraft_kills")
+  addStat(stats, comp, "scoring_player__apcKills", "apc_kills")
+  addStatValue(stats, comp.scoring_player__planeKills + comp.scoring_player__aiPlaneKills, "aircraft_kills")
   addStat(stats, comp, "scoring_player__soldierDeaths", "deaths")
   addStat(stats, comp, "scoring_player__squadDeaths", "squad_deaths")
   addStat(stats, comp, "scoring_player__assists", "assists")
   addStat(stats, comp, "squads__spawnCount", "friendly_fire_squad_spawns")
   addStat(stats, comp, "scoring_player__builtRallyPointUses", "engineer_rally_point_usage")
+  addStat(stats, comp, "scoring_player__ownedMobileSpawnUses", "owned_mobile_spawn_usage")
   addStat(stats, comp, "scoring_player__builtAmmoBoxRefills", "engineer_ammo_box_usage")
   addStatValue(stats, abs(comp["scoring_player__friendlyFirePenalty"]), "friendly_fire_score")
   addStatValue(stats, getEngineerBuildingUsages(comp), "engineer_building_usage")

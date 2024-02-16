@@ -5,26 +5,43 @@ let { ceil } = require("%sqstd/math.nut")
 let { getLinkedArmyName, isObjLinkedToAnyOfObjects } = require("%enlSqGlob/ui/metalink.nut")
 let { upgradeLocksByArmy, upgradeCostMultByArmy, disposeCountMultByArmy
 } = require("%enlist/researches/researchesSummary.nut")
-let { maxCampaignLevel, armyItemCountByTpl } = require("state.nut")
+let { armyItemCountByTpl } = require("state.nut")
 let { allItemTemplates, findItemTemplate } = require("all_items_templates.nut")
-let { disabledSectionsData } = require("%enlist/mainMenu/disabledSections.nut")
+let { hasShopSection } = require("%enlist/mainMenu/disabledSections.nut")
 let { trimUpgradeSuffix } = require("%enlSqGlob/ui/itemsInfo.nut")
 let { curUpgradeDiscount } = require("%enlist/campaigns/campaignConfig.nut")
 let { curCampSoldiers } = require("%enlist/meta/profile.nut")
 
-const MODIFY_ITEM_REQ_LVL = 3
-
 let disposableTypes = {
   sideweapon = true
   launcher = true
+  flaregun = true
+  antitank_rifle = true
   mortar = true
   flamethrower = true
+  scope = true
+  bayonet = true
   melee = true
+  axe = true
+  sword = true
   medkits = true
+  repair_kit = true
+  shovel = true
+  binoculars_usable = true
+  flask_usable = true
+  molotov = true
+  grenade = true
+  tnt_block_exploder = true
+  explosion_pack = true
+  smoke_grenade = true
+  impact_grenade = true
+  incendiary_grenade = true
+  antitank_mine = true
+  antipersonnel_mine = true
+  lunge_mine = true
+  small_backpack = true
+  backpack = true
 }
-
-let canModifyItems = Computed(@() maxCampaignLevel.value >= MODIFY_ITEM_REQ_LVL
-  && !(disabledSectionsData.value?.LOGISTICS ?? false))
 
 let canUpgrade = @(item)
    (item?.guid ?? "") != "" && (item?.upgradeitem ?? "") != ""
@@ -50,7 +67,7 @@ let mkItemUpgradeData = function(item) {
       priceOptions = []
     }
 
-    if (!canModifyItems.value)
+    if (!hasShopSection.value)
       return res
 
     let itemType = findItemTemplate(allItemTemplates, armyId, itemBaseTpl).itemtype
@@ -118,7 +135,7 @@ let mkItemDisposeData = function(item) {
       itemBaseTpl
       guids = null
     }
-    if (!canModifyItems.value)
+    if (!hasShopSection.value)
       return res
 
     let itemType = findItemTemplate(allItemTemplates, armyId, itemBaseTpl).itemtype
@@ -128,13 +145,16 @@ let mkItemDisposeData = function(item) {
 
     disposes = disposes.values()[0] // TODO suggest multiple selection instead of first price
 
-    let { isDestructible = false, count = 0, batchSize = 1 } = disposes
+    let { isDestructible = false, count = 0, batchSize = 1, isFixedPrice = false } = disposes
     if (!isDestructible && itemBaseTpl == basetpl)
       return res
 
-    local disposeMult = 1.0 + (disposeCountMultByArmy.value?[armyId][itemBaseTpl] ?? 0.0)
-    disposeMult *= 1.0 - curUpgradeDiscount.value
-    let orderCount = ceil(count * disposeMult).tointeger()
+    local disposeMult = 1.0
+    if (!isFixedPrice) {
+      disposeMult += (disposeCountMultByArmy.value?[armyId][itemBaseTpl] ?? 0.0)
+      disposeMult *= 1.0 - curUpgradeDiscount.value
+    }
+    let orderCount = count * disposeMult
     let orderTpl = disposes.itemTpl
     let guids = isObjLinkedToAnyOfObjects(item, curCampSoldiers.value ?? {}) ? null
       : item?.guids ?? [item?.guid]
@@ -148,7 +168,6 @@ let mkItemDisposeData = function(item) {
 }
 
 return {
-  canModifyItems
   mkItemUpgradeData
   mkItemDisposeData
 }

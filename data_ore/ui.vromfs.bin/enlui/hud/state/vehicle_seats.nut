@@ -60,15 +60,15 @@ let function trackComponents(_eid, comp) {
 
     let orderDesc = {
       seatNo = i
-      canPlaceManually = getVehicleManualPlace(seatEid, @(_, comp)
-        comp["seats_order__canPlaceManually"])
+      canPlaceManually = getVehicleManualPlace(seatEid, @(_, vehComp)
+        vehComp["seats_order__canPlaceManually"])
     }
 
-    let ownerDesc = getVehicleSquad(seatEid, @(_, comp) {
-      eid      = comp["seat__ownerEid"]
-      player   = comp["seat__playerEid"]
-      squad    = comp["seat__squadEid"]
-      isPlayer = comp["seat__isPlayer"]
+    let ownerDesc = getVehicleSquad(seatEid, @(_, squadComp) {
+      eid      = squadComp["seat__ownerEid"]
+      player   = squadComp["seat__playerEid"]
+      squad    = squadComp["seat__squadEid"]
+      isPlayer = squadComp["seat__isPlayer"]
     })
 
     data.append({

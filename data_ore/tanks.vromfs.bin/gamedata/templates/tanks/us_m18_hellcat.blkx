@@ -1,6 +1,6 @@
 {
   "us_m18_hellcat_normandy": {
-    "_extends": "us_m18_hellcat_common",
+    "_use": "us_m18_hellcat_common",
     "turrets__initAmmoDistribution:array": [
       {
         "ammo:object": {
@@ -24,16 +24,28 @@
   },
   "us_m18_hellcat_common": [
     {
-      "_extends": "base_m18_hellcat"
+      "_use": "base_m18_hellcat"
     },
     {
-      "_extends": "tank_m10_engine_sound"
+      "_use": "tank_m10_engine_sound"
     },
     {
-      "_extends": "tank_heavy_vehicle_tracks_sound"
+      "_use": "tank_heavy_vehicle_tracks_sound"
     },
     {
-      "item__iconOffset": [0.0,0.1]
+      "commanderCockpitFpsCamMaxAngle": [40.0,5.0]
+    },
+    {
+      "gunner_cam_limit__useCockpitDir": true
+    },
+    {
+      "item__iconOffset": [0.05,0.1]
+    },
+    {
+      "item__iconScale": 1.33
+    },
+    {
+      "vehicle_seats__effectors:array": []
     },
     {
       "vehicle_seats__seats:shared:array": [
@@ -44,10 +56,10 @@
             "attachNode": "gunner",
             "ignoreAttachNodeRotation": true,
             "attachTm": [
-              [1.0,0.0,0.0],
-              [0.0,1.0,0.0],
-              [0.0,0.0,1.0],
-              [-0.3,-0.3,0.1]
+              [0.878189,-0.275636,-0.390977],
+              [0.215401,0.95763,-0.191303],
+              [0.427126,0.0837805,0.900322],
+              [-0.3,-0.28,0.1]
             ],
             "seatComponent": "isGunner",
             "nextSeat": "driver",
@@ -55,13 +67,18 @@
             "receiveDamageFromDMPart": "gunner",
             "cameraNodeName": "bone_camera_gunner",
             "cockpitTemplate": "us_m18_hellcat_gunner_cockpit",
-            "maxPosWithOpenHatch": 0.3,
+            "maxPosWithOpenHatch": 0.0,
             "isHoldGunModeAllowed": false,
+            "seatAnimUpper": "drive_passenger",
+            "seatAnimLower": "drive_passenger",
             "turretNames:array": {
               "turretNames": "turret_01"
             },
-            "hatchNodes:array": {
-              "node": "bone_camera_gunner"
+            "effectors:object": {
+              "r.hand": "righthand_2",
+              "l.hand": "lefthand_2",
+              "r.foot": "pedal_rfoot_2",
+              "l.foot": "pedal_lfoot_2"
             }
           }
         },
@@ -73,17 +90,25 @@
             "attachNode": "driver",
             "ignoreAttachNodeRotation": true,
             "attachTm": [
-              [1.0,0.0,0.0],
-              [0.0,1.0,0.0],
-              [0.0,0.0,1.0],
-              [-0.25,-0.25,0.0]
+              [0.965927,0.258819,0.0],
+              [-0.258819,0.965927,0.0],
+              [0.0,0.0,1.00007],
+              [-0.06,-0.45,-0.03]
             ],
             "seatComponent": "isDriver",
             "nextSeat": "main_gunner",
-            "shouldHideOwner": true,
+            "shouldHideOwner": false,
             "receiveDamageFromDMPart": "driver",
             "cameraNodeName": "bone_camera_driver",
-            "cockpitTemplate": "us_m18_hellcat_driver_cockpit"
+            "cockpitTemplate": "us_m18_hellcat_driver_cockpit",
+            "seatAnimUpper": "drive_passenger",
+            "seatAnimLower": "drive_passenger",
+            "effectors:object": {
+              "r.hand": "righthand_4",
+              "l.hand": "lefthand_4",
+              "r.foot": "pedal_rfoot_4",
+              "l.foot": "pedal_lfoot_4"
+            }
           }
         },
         {
@@ -157,10 +182,10 @@
             },
             {
               "attachTm": [
-                [1.0,0.0,0.0],
-                [0.0,1.0,0.0],
-                [0.0,0.0,1.0],
-                [-0.2,-0.3,-0.1]
+                [0.964932,-0.139163,-0.222701],
+                [0.102984,0.980669,-0.166592],
+                [0.241571,0.137811,0.960575],
+                [-0.24,-0.25,-0.12]
               ]
             },
             {
@@ -194,6 +219,14 @@
               "loaderTurretNames:array": {
                 "turret": "turret_01"
               }
+            },
+            {
+              "effectors:object": {
+                "r.hand": "righthand_1",
+                "l.hand": "lefthand_1",
+                "r.foot": "pedal_rfoot_1",
+                "l.foot": "pedal_lfoot_1"
+              }
             }
           ]
         },
@@ -209,31 +242,52 @@
               [-0.25,-0.5,0.0]
             ],
             "seatComponent": "isPassenger",
-            "shouldHideOwner": true,
+            "shouldHideOwner": false,
             "receiveDamageFromDMPart": "machine_gunner",
-            "cameraNodeName": "bone_camera_driver"
+            "cameraNodeName": "bone_camera_driver",
+            "seatAnimUpper": "drive_passenger",
+            "seatAnimLower": "drive_passenger",
+            "effectors:object": {
+              "r.hand": "righthand_3",
+              "l.hand": "lefthand_3",
+              "r.foot": "pedal_rfoot_3",
+              "l.foot": "pedal_lfoot_3"
+            }
           }
         }
       ]
     }
   ],
   "us_m18_hellcat_driver_cockpit": {
-    "_extends": "base_driver_cockpit",
+    "_use": "base_driver_cockpit",
     "animchar__res": "ba_11_driver_char",
     "cockpit__offset": [0.0,0.0,0.0],
     "cockpit__cockpitOffsetBySlit:list<p3>": {
-      "item": [-0.285047,-0.261837,0.0704271]
+      "item": [-0.285047,-0.35,0.0704271]
     },
     "cockpit__slitForwardOffset:list<r>": {
-      "slit": -0.01
+      "slit": -0.05
     },
     "cockpit__visibleVehicleNodeNames:list<t>": {
       "node": "gun_barrel"
+    },
+    "cockpit__periscopeLimits:list<p4>": {
+      "slit": [-45.0,45.0,-0.0,0.0]
+    },
+    "cockpit__periscopeSpeed:list<p2>": {
+      "slit": [35.0,35.0]
+    },
+    "cockpit__slitZoom:array": {
+      "slit:list<r>": {
+        "zoom": 1.44
+      }
+    },
+    "cockpit__slitZoomTime:list<r>": {
+      "slit": 0.0
     }
   },
   "us_m18_hellcat_gunner_cockpit": {
-    "vehicle_sight__blk": "content/tanks/gamedata/sight/us_m70g.blk",
-    "_extends": "base_gunner_cockpit",
+    "_use": "base_gunner_cockpit",
     "animchar__res": "ba_11_gunner_char",
     "cockpit__offset": [0.0,0.0,0.0],
     "cockpit__cockpitOffsetBySlit:list<p3>": {
@@ -246,7 +300,7 @@
       "slit": "cam_front_right"
     },
     "cockpit__slitForwardOffset:list<r>": {
-      "slit": 0.19
+      "slit": 0.21
     },
     "cockpit__slitIsGun:list<b>": {
       "slit": true
@@ -254,6 +308,23 @@
     "cockpit__cockpit__attachNodeNames:list<t>": {
       "node": "bone_camera_gunner"
     },
-    "cockpit__cockpit__attachNodeIndices:list<i>": []
+    "cockpit__cockpit__attachNodeIndices:list<i>": [],
+    "cockpit__slitZoom:array": {
+      "slit:list<r>": [
+        {
+          "zoom": 1.9
+        },
+        {
+          "zoom": 3.5
+        }
+      ]
+    },
+    "cockpit__slitZoomTime:list<r>": {
+      "slit": 0.05
+    },
+    "cockpit__slitTemplates:list<t>": {
+      "slit": "us_m70g"
+    },
+    "cockpit__slitEids:list<eid>": []
   }
 }

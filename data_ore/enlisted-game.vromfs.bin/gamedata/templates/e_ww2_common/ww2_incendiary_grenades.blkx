@@ -1,13 +1,13 @@
 {
   "incendiary_grenade_base": {
-    "_extends": "grenade_base"
+    "_use": "grenade_base"
   },
   "incendiary_grenade_shell_base": [
     {
-      "_extends": "incendiary_grenade_base"
+      "_use": "incendiary_grenade_base"
     },
     {
-      "_extends": "projectile_with_shell"
+      "_use": "projectile_with_shell"
     },
     {
       "shell__explNodeIdx": -1
@@ -18,28 +18,28 @@
   ],
   "incendiary_grenade_phys_base": [
     {
-      "_extends": "awared_danger"
+      "_use": "awared_danger"
     },
     {
-      "_extends": "projectile_phys_with_shell"
+      "_use": "projectile_phys_with_shell"
     },
     {
-      "_extends": "incendiary_grenade_base"
+      "_use": "incendiary_grenade_base"
     },
     {
-      "_extends": "projectile_phys"
+      "_use": "projectile_phys"
     },
     {
-      "_extends": "fire_splash_shell"
+      "_use": "fire_splash_shell"
     },
     {
-      "_extends": "hud_grenade_marker"
+      "_use": "hud_grenade_marker"
     },
     {
-      "_extends": "grenade_throw_sound"
+      "_use": "grenade_throw_sound"
     },
     {
-      "_extends": "grenade_phys_collision_sound"
+      "_use": "grenade_phys_collision_sound"
     },
     {
       "shell_explosion_fx__infoTemplate": "hit_effect_group_phosphorus_grenade_explosion"
@@ -90,10 +90,19 @@
   ],
   "white_phosphorus_damage_zone": [
     {
-      "_extends": "replicating"
+      "_use": "replicating"
     },
     {
-      "_extends": "white_phosphorus_smoke_effect"
+      "_use": "white_phosphorus_smoke_effect"
+    },
+    {
+      "_use": "voxel_grid"
+    },
+    {
+      "voxel_grid__step": 0.3
+    },
+    {
+      "voxel_grid_init__managerSubTemplate": "voxel_grid_init_manager"
     },
     {
       "transform": [
@@ -125,20 +134,13 @@
       "dmgzone__gunPropsId": -1
     },
     {
-      "sphere_zone__radius": 6.5
+      "sphere_zone__radius": 3.4
     },
     {
       "game_effect__timeToDestroy": 8.0
     },
     {
       "game_effect__destroyAt": -1.0
-    },
-    {
-      "_group": {
-        "_tags": "server",
-        "obstacle__padding": 1.2,
-        "obstacle__handle": 0
-      }
     },
     {
       "dmgzone__offender:eid": []
@@ -148,7 +150,7 @@
     }
   ],
   "incendiary_grenade_fire": {
-    "_extends": "fire_source",
+    "_use": "fire_source",
     "sphere_zone__radius": 0.3,
     "dmgzone__maxRadius": 0.67,
     "fire_source__spreadTime": 0.5,
@@ -162,19 +164,19 @@
     }
   },
   "incendiary_grenade_spread": {
-    "_extends": "explosion_spread",
+    "_use": "explosion_spread",
     "explosion_spread__traceCount": 5,
-    "explosion_spread__length": [2.0,12.0],
+    "explosion_spread__length": [2.0,8.0],
     "explosion_spread__downLengthMult": 1.75,
     "explosion_spread__createOnTrace": "incendiary_grenade_fire",
     "explosion_spread__staticDir": [0.0,1.0,0.0],
     "explosion_spread__stepBack": -0.4
   },
   "incendiary_grenade": {
-    "_extends": "incendiary_grenade_shell_base"
+    "_use": "incendiary_grenade_shell_base"
   },
   "incendiary_grenade_item_base": {
-    "_extends": "item_grenade",
+    "_use": "item_grenade",
     "item__locDetails": "",
     "item__grenadeType": "incendiary"
   },
@@ -185,18 +187,18 @@
   },
   "m_15_incendiary_grenade": [
     {
-      "_extends": "incendiary_grenade"
+      "_use": "incendiary_grenade"
     },
     {
-      "_extends": "m_15_incendiary_grenade_base"
+      "_use": "m_15_incendiary_grenade_base"
     }
   ],
   "m_15_incendiary_grenade_phys": [
     {
-      "_extends": "incendiary_grenade_phys_base"
+      "_use": "incendiary_grenade_phys_base"
     },
     {
-      "_extends": "m_15_incendiary_grenade_base"
+      "_use": "m_15_incendiary_grenade_base"
     },
     {
       "phys_obj_net_phys__blk": "content/enlisted/gamedata/weapons/grenades/m_15_incendiary_grenade.blk"
@@ -204,10 +206,10 @@
   ],
   "m_15_incendiary_grenade_item": [
     {
-      "_extends": "incendiary_grenade_item_base"
+      "_use": "incendiary_grenade_item_base"
     },
     {
-      "_extends": "m_15_incendiary_grenade_base"
+      "_use": "m_15_incendiary_grenade_base"
     },
     {
       "item__weight": 0.88
@@ -223,6 +225,9 @@
     },
     {
       "item__proto": "content/enlisted/gamedata/weapons/grenades/m_15_incendiary_grenade.blk"
+    },
+    {
+      "menu_item__rotationOffset": [0.0,0.07,0.0]
     }
   ],
   "type_91_incendiary_grenade_base": {
@@ -232,18 +237,18 @@
   },
   "type_91_incendiary_grenade": [
     {
-      "_extends": "incendiary_grenade"
+      "_use": "incendiary_grenade"
     },
     {
-      "_extends": "type_91_incendiary_grenade_base"
+      "_use": "type_91_incendiary_grenade_base"
     }
   ],
   "type_91_incendiary_grenade_phys": [
     {
-      "_extends": "incendiary_grenade_phys_base"
+      "_use": "incendiary_grenade_phys_base"
     },
     {
-      "_extends": "type_91_incendiary_grenade_base"
+      "_use": "type_91_incendiary_grenade_base"
     },
     {
       "phys_obj_net_phys__blk": "content/enlisted/gamedata/weapons/grenades/type_91_incendiary_grenade.blk"
@@ -251,10 +256,10 @@
   ],
   "type_91_incendiary_grenade_item": [
     {
-      "_extends": "incendiary_grenade_item_base"
+      "_use": "incendiary_grenade_item_base"
     },
     {
-      "_extends": "type_91_incendiary_grenade_base"
+      "_use": "type_91_incendiary_grenade_base"
     },
     {
       "item__weight": 0.5
@@ -270,6 +275,9 @@
     },
     {
       "item__proto": "content/enlisted/gamedata/weapons/grenades/type_91_incendiary_grenade.blk"
+    },
+    {
+      "menu_item__rotationOffset": [0.0,0.07,0.0]
     }
   ],
   "uk_no_77_incendiary_grenade_base": {
@@ -279,18 +287,18 @@
   },
   "uk_no_77_incendiary_grenade": [
     {
-      "_extends": "incendiary_grenade"
+      "_use": "incendiary_grenade"
     },
     {
-      "_extends": "uk_no_77_incendiary_grenade_base"
+      "_use": "uk_no_77_incendiary_grenade_base"
     }
   ],
   "uk_no_77_incendiary_grenade_phys": [
     {
-      "_extends": "incendiary_grenade_phys_base"
+      "_use": "incendiary_grenade_phys_base"
     },
     {
-      "_extends": "uk_no_77_incendiary_grenade_base"
+      "_use": "uk_no_77_incendiary_grenade_base"
     },
     {
       "phys_obj_net_phys__blk": "content/enlisted/gamedata/weapons/grenades/uk_no_77_incendiary_grenade.blk"
@@ -298,10 +306,10 @@
   ],
   "uk_no_77_incendiary_grenade_item": [
     {
-      "_extends": "incendiary_grenade_item_base"
+      "_use": "incendiary_grenade_item_base"
     },
     {
-      "_extends": "uk_no_77_incendiary_grenade_base"
+      "_use": "uk_no_77_incendiary_grenade_base"
     },
     {
       "item__weight": 0.5
@@ -317,6 +325,9 @@
     },
     {
       "item__proto": "content/enlisted/gamedata/weapons/grenades/uk_no_77_incendiary_grenade.blk"
+    },
+    {
+      "menu_item__rotationOffset": [0.0,0.05,0.0]
     }
   ],
   "srcm_mod_35_incendiary_grenade_base": {
@@ -326,18 +337,18 @@
   },
   "srcm_mod_35_incendiary_grenade": [
     {
-      "_extends": "incendiary_grenade"
+      "_use": "incendiary_grenade"
     },
     {
-      "_extends": "srcm_mod_35_incendiary_grenade_base"
+      "_use": "srcm_mod_35_incendiary_grenade_base"
     }
   ],
   "srcm_mod_35_incendiary_grenade_phys": [
     {
-      "_extends": "incendiary_grenade_phys_base"
+      "_use": "incendiary_grenade_phys_base"
     },
     {
-      "_extends": "srcm_mod_35_incendiary_grenade_base"
+      "_use": "srcm_mod_35_incendiary_grenade_base"
     },
     {
       "phys_obj_net_phys__blk": "content/enlisted/gamedata/weapons/grenades/srcm_mod_35_incendiary_grenade.blk"
@@ -345,10 +356,10 @@
   ],
   "srcm_mod_35_incendiary_grenade_item": [
     {
-      "_extends": "incendiary_grenade_item_base"
+      "_use": "incendiary_grenade_item_base"
     },
     {
-      "_extends": "srcm_mod_35_incendiary_grenade_base"
+      "_use": "srcm_mod_35_incendiary_grenade_base"
     },
     {
       "item__weight": 0.5
@@ -364,6 +375,9 @@
     },
     {
       "item__proto": "content/enlisted/gamedata/weapons/grenades/srcm_mod_35_incendiary_grenade.blk"
+    },
+    {
+      "menu_item__rotationOffset": [0.0,0.09,0.0]
     }
   ]
 }

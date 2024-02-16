@@ -15,7 +15,7 @@
       },
       "VoiceChat.Record": {
         "type": "digital_button",
-        "group_tag": "VoiceChat"
+        "group_tag": "Other,platform=pc"
       }
     },
     "Camera": {
@@ -54,6 +54,10 @@
       },
       "Camera.SpeedReset": {
         "type": "digital_button"
+      },
+      "Camera.Bank": {
+        "type": "steerwheel",
+        "quantize": "8bit"
       },
       "Camera.LockOri": {
         "type": "digital_button"
@@ -191,6 +195,10 @@
       "Human.Reload": {
         "type": "digital_button",
         "group_tag": "Weapon"
+      },
+      "Human.RotateBuilding": {
+        "type": "digital_button",
+        "group_tag": "Other"
       },
       "Human.WeapModToggle": {
         "type": "digital_button",
@@ -348,6 +356,10 @@
         "type": "digital_button",
         "group_tag": "Other"
       },
+      "Human.SupplyMenu": {
+        "type": "digital_button",
+        "group_tag": "Other"
+      },
       "Inventory.Pickup": {
         "type": "digital_button",
         "group_tag": "Other"
@@ -385,9 +397,35 @@
         "type": "digital_button",
         "group_tag": "Other"
       },
-      "Human.BuildingAction": {
+      "Human.DestroyBuilding": {
         "type": "digital_button",
         "group_tag": "Other"
+      },
+      "Human.RepairBuilding": {
+        "type": "digital_button",
+        "group_tag": "Other"
+      }
+    },
+    "VehicleTurret": {
+      "group_tag": "Vehicle",
+      "Vehicle.Shoot": {
+        "type": "digital_button"
+      },
+      "Vehicle.ShootSecondary": {
+        "type": "digital_button"
+      },
+      "Vehicle.ShootMachinegun": {
+        "type": "digital_button"
+      },
+      "Vehicle.ShootGrenadeLauncher": {
+        "type": "digital_button"
+      },
+      "Vehicle.ShootTurret03": {
+        "type": "digital_button"
+      },
+      "Vehicle.StabilizerToggle": {
+        "type": "digital_button",
+        "group_tag": "Vehicle,not_important"
       }
     },
     "Vehicle": {
@@ -423,6 +461,12 @@
         "gpadAxisScaleX": 3200.0,
         "gpadAxisScaleY": 1100.0
       },
+      "Vehicle.ZoomToggle": {
+        "type": "digital_button"
+      },
+      "Vehicle.Zoom": {
+        "type": "digital_button"
+      },
       "Human.CameraNext": {
         "reuse_defined_earlier": true
       },
@@ -442,6 +486,9 @@
         "reuse_defined_earlier": true
       },
       "Human.HoldBreath": {
+        "reuse_defined_earlier": true
+      },
+      "Vehicle.ShootGrenadeLauncher": {
         "reuse_defined_earlier": true
       },
       "Vehicle.NextBulletType": {
@@ -469,30 +516,6 @@
         "type": "digital_button"
       },
       "Vehicle.PrevCockpitView": {
-        "type": "digital_button"
-      }
-    },
-    "VehicleTurret": {
-      "group_tag": "Vehicle",
-      "Vehicle.ZoomToggle": {
-        "type": "digital_button"
-      },
-      "Vehicle.Zoom": {
-        "type": "digital_button"
-      },
-      "Vehicle.Shoot": {
-        "type": "digital_button"
-      },
-      "Vehicle.ShootSecondary": {
-        "type": "digital_button"
-      },
-      "Vehicle.ShootMachinegun": {
-        "type": "digital_button"
-      },
-      "Vehicle.ShootGrenadeLauncher": {
-        "type": "digital_button"
-      },
-      "Vehicle.ShootTurret03": {
         "type": "digital_button"
       }
     },

@@ -1,38 +1,46 @@
 {
   "europe_summer_beach_ambient_sound": {
-    "_extends": "ambient_sound",
+    "_use": "ambient_sound",
     "_singleton": true,
     "_group": {
       "_tags": "sound",
       "ambient_sound__path": "ambient/europe_summer_beach"
     }
   },
-  "desert_ambient_sound": {
-    "_extends": "ambient_sound",
-    "_singleton": true,
-    "_group": {
-      "_tags": "sound",
-      "ambient_sound__path": "ambient/desert"
-    }
-  },
-  "europe_winter_ambient_sound": {
-    "_extends": "ambient_sound",
-    "_singleton": true,
-    "_group": {
-      "_tags": "sound",
-      "ambient_sound__path": "ambient/europe_winter"
-    }
-  },
   "europe_summer_battle_ambient_sound": {
-    "_extends": "ambient_sound",
+    "_use": "ambient_sound",
     "_singleton": true,
     "_group": {
       "_tags": "sound",
       "ambient_sound__path": "ambient/europe_summer_battle"
     }
   },
+  "europe_autumn_ambient_sound": {
+    "_use": "ambient_sound",
+    "_singleton": true,
+    "_group": {
+      "_tags": "sound",
+      "ambient_sound__path": "ambient/europe_autumn"
+    }
+  },
+  "europe_winter_ambient_sound": {
+    "_use": "ambient_sound",
+    "_singleton": true,
+    "_group": {
+      "_tags": "sound",
+      "ambient_sound__path": "ambient/europe_winter"
+    }
+  },
+  "desert_ambient_sound": {
+    "_use": "ambient_sound",
+    "_singleton": true,
+    "_group": {
+      "_tags": "sound",
+      "ambient_sound__path": "ambient/desert"
+    }
+  },
   "city_battle_ambient_sound": {
-    "_extends": "ambient_sound",
+    "_use": "ambient_sound",
     "_singleton": true,
     "_group": {
       "_tags": "sound",
@@ -40,7 +48,7 @@
     }
   },
   "walla_screams_ambient_sound": {
-    "_extends": "ambient_sound",
+    "_use": "ambient_sound",
     "_singleton": true,
     "_group": {
       "_tags": "sound",
@@ -48,7 +56,7 @@
     }
   },
   "stalingrad_ambient_sound": {
-    "_extends": "ambient_sound",
+    "_use": "ambient_sound",
     "_singleton": true,
     "_group": {
       "_tags": "sound",
@@ -56,7 +64,7 @@
     }
   },
   "stalingrad_plant_ambient_sound": {
-    "_extends": "ambient_sound",
+    "_use": "ambient_sound",
     "_singleton": true,
     "_group": {
       "_tags": "sound",
@@ -64,15 +72,23 @@
     }
   },
   "tropics_ambient_sound": {
-    "_extends": "ambient_sound",
+    "_use": "ambient_sound",
     "_singleton": true,
     "_group": {
       "_tags": "sound",
       "ambient_sound__path": "ambient/tropics"
     }
   },
+  "new_georgia_ambient_sound": {
+    "_use": "ambient_sound",
+    "_singleton": true,
+    "_group": {
+      "_tags": "sound",
+      "ambient_sound__path": "ambient/new_georgia"
+    }
+  },
   "menu_ambient_sound": {
-    "_extends": "ambient_sound",
+    "_use": "ambient_sound",
     "_singleton": true,
     "_group": {
       "_tags": "sound",
@@ -80,7 +96,7 @@
     }
   },
   "music_launcher_ambient_sound": {
-    "_extends": "ambient_sound",
+    "_use": "ambient_sound",
     "_singleton": true,
     "_group": {
       "_tags": "sound",
@@ -88,7 +104,7 @@
     }
   },
   "ny_menu_ambient_sound": {
-    "_extends": "ambient_sound",
+    "_use": "ambient_sound",
     "_singleton": true,
     "_group": {
       "_tags": "sound",
@@ -96,11 +112,27 @@
     }
   },
   "ny_music_launcher_ambient_sound": {
-    "_extends": "ambient_sound",
+    "_use": "ambient_sound",
     "_singleton": true,
     "_group": {
       "_tags": "sound",
       "ambient_sound__path": "music/launcher_ny"
+    }
+  },
+  "ny_moon_menu_ambient_sound": {
+    "_use": "ambient_sound",
+    "_singleton": true,
+    "_group": {
+      "_tags": "sound",
+      "ambient_sound__path": "ambient/enl_menu_ny_moon"
+    }
+  },
+  "ny_moon_music_launcher_ambient_sound": {
+    "_use": "ambient_sound",
+    "_singleton": true,
+    "_group": {
+      "_tags": "sound",
+      "ambient_sound__path": "music/launcher_ny_moon"
     }
   }
 }

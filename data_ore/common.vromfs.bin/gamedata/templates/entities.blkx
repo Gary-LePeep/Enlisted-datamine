@@ -42,6 +42,9 @@
     "import": "gun_sounds.blk"
   },
   {
+    "import": "environment_sounds.blk"
+  },
+  {
     "import": "hitpoints.blk"
   },
   {
@@ -70,9 +73,6 @@
   },
   {
     "import": "lights.blk"
-  },
-  {
-    "import": "light_flicker.blk"
   },
   {
     "import": "teams.blk"
@@ -117,49 +117,7 @@
     "import": "smoke_occluders.blk"
   },
   {
-    "import": "%danetlibs/wounds/templates/wounds.template.blk"
-  },
-  {
-    "import": "%danetlibs/sound/sound_utils/templates/sound_utils.template.blk"
-  },
-  {
-    "import": "%danetlibs/sound/sound_utils_net/templates/sound_utils_net.template.blk"
-  },
-  {
-    "import": "%danetlibs/sound/common_sounds/templates/common_sounds.template.blk"
-  },
-  {
-    "import": "%danetlibs/sound/environment_sounds/templates/environment_sounds.template.blk"
-  },
-  {
-    "import": "%danetlibs/sound/door_sounds/templates/door_sounds.template.blk"
-  },
-  {
-    "import": "%danetlibs/sound/human_sounds/templates/human_sounds.template.blk"
-  },
-  {
-    "import": "%danetlibs/sound/human_sounds_net/templates/human_sounds_net.template.blk"
-  },
-  {
-    "import": "%danetlibs/sound/vehicle_sounds/templates/vehicle_sounds.template.blk"
-  },
-  {
-    "import": "%danetlibs/sound/vehicle_sounds_net/templates/vehicle_sounds_net.template.blk"
-  },
-  {
-    "import": "%danetlibs/sound/ship_sounds/templates/ship_sounds.template.blk"
-  },
-  {
-    "import": "%danetlibs/sound/plane_sounds/templates/plane_sounds.template.blk"
-  },
-  {
-    "import": "%danetlibs/sound/weapon_sounds/templates/weapon_sounds.template.blk"
-  },
-  {
     "import": "cockpit.blk"
-  },
-  {
-    "import": "%danetlibs/ssss/templates/ssss.template.blk"
   },
   {
     "import": "updatable.blk"
@@ -168,43 +126,16 @@
     "import": "dedicated_server.blk"
   },
   {
-    "import": "%danetlibs/outline/templates/outline.template.blk"
-  },
-  {
-    "import": "%danetlibs/cables/templates/cables.template.blk"
-  },
-  {
-    "import": "%danetlibs/route_prober/templates/route_prober.blk"
-  },
-  {
     "import": "darg_panels.blk"
-  },
-  {
-    "import": "%danetlibs/screen_blood/templates/screen_blood.template.blk"
   },
   {
     "import": "custom_envi_probe.blk"
   },
   {
-    "import": "%danetlibs/motion_matching/templates/motion_matching.template.blk"
+    "import": "ground_hole.blk"
   },
   {
-    "import": "%danetlibs/renderer/templates/render_settings.template.blk"
-  },
-  {
-    "import": "%danetlibs/renderer/templates/blood.template.blk"
-  },
-  {
-    "import": "%danetlibs/renderer/templates/grass_render.template.blk"
-  },
-  {
-    "import": "%danetlibs/frame_graph_renderer/templates/frame_graph_nodes.template.blk"
-  },
-  {
-    "import": "%danetlibs/hero_cockpit/templates/hero_cockpit.template.blk"
-  },
-  {
-    "import": "%danetlibs/assets_import/templates/assets_import.blk"
+    "import": "dng_lib_entities.blk"
   },
   {
     "ecs_no_debug": {
@@ -268,7 +199,7 @@
   {
     "screen_fade_anim": {
       "screen_fade": 0.0,
-      "_extends": "attr_float_key_track_anim",
+      "_use": "attr_float_key_track_anim",
       "_tracked": "screen_fade",
       "_singleton": true
     }
@@ -315,7 +246,7 @@
   {
     "psn_external_match_id": [
       {
-        "_extends": "replicating"
+        "_use": "replicating"
       },
       {
         "_singleton": true
@@ -364,7 +295,7 @@
   },
   {
     "session_finalizer": {
-      "_extends": "replicating",
+      "_use": "replicating",
       "_singleton": true,
       "session_finalizer__timer": 10.0,
       "is_session_finalizing": false
@@ -416,7 +347,7 @@
     "shaderVars": {
       "_tracked": "shader_vars__vars",
       "_replicated": "shader_vars__vars",
-      "_extends": "replicating",
+      "_use": "replicating",
       "_singleton": true,
       "shader_vars__vars:object": [],
       "shader_vars__original_vars:object": []
@@ -425,7 +356,7 @@
   {
     "loot_grid": {
       "editableObj": false,
-      "_extends": "replicating",
+      "_use": "replicating",
       "_singleton": true,
       "grid_holder__type": "loot",
       "grid_holder__typeHash": 0,
@@ -456,26 +387,26 @@
   },
   {
     "newbie_loot_generator": {
-      "_extends": "loot_generator",
+      "_use": "loot_generator",
       "loot_generator__personalLootRadius": 50.0,
       "loot_generator__maxCountBattlesPlayed": 0
     }
   },
   {
     "loot_generator_fixed_seed": {
-      "_extends": "loot_generator",
+      "_use": "loot_generator",
       "loot_generator__seed": 0
     }
   },
   {
     "regional_loot_generator": {
-      "_extends": "loot_generator",
+      "_use": "loot_generator",
       "loot_generator__regionName": ""
     }
   },
   {
     "loot_point_generator": {
-      "_extends": "loot_generator",
+      "_use": "loot_generator",
       "loot_points__radius": 0.0,
       "loot_points__numPoints": 0,
       "loot_points__center": [0.0,0.0,0.0],
@@ -484,7 +415,7 @@
   },
   {
     "probabilistic_loot_generator": {
-      "_extends": "loot_generator",
+      "_use": "loot_generator",
       "loot_generator__probability": 0.5
     }
   },
@@ -551,42 +482,122 @@
     }
   },
   {
-    "respawn_camera": {
-      "_extends": "replicating",
-      "moveCameraToHeight": 300.0,
-      "transform": [
-        [1.0,0.0,0.0],
-        [0.0,1.0,0.0],
-        [0.0,0.0,1.0],
-        [0.0,0.0,0.0]
-      ],
-      "camera__lookDir": [1.0,0.0,0.0],
-      "camera__isStabilized": false,
-      "camera__tauMult": 10.0,
-      "respawnCamera__showDelay": 2.0,
-      "respawnCameraForTeam": -1,
-      "respawnSelectorDistanceMult": 2.0,
-      "respawnCameraLookFrom": [0.0,0.0,0.0],
-      "respawnCameraTemplate": "respawn_cam",
-      "respawnCameraLODMultiplier": 0.33,
-      "_replicated": "respawnCameraLookFrom",
-      "_group": {
-        "_tags": "gameClient",
-        "respawn_camera__lookAt": [0.0,0.0,0.0],
-        "respawn_camera__lookAtCurrent": [0.0,0.0,0.0],
-        "respawn_camera__maxSpeed": 2.7,
-        "respawn_camera__minSpeed": 1.0,
-        "respawn_camera__acceleration": 1.8,
-        "respawn_camera__currentSpeed": 1.0
+    "respawn_camera": [
+      {
+        "_use": "replicating"
       },
-      "camera__look_at:dp3": {
-        "_tags": "render"
+      {
+        "moveCameraToHeight": 300.0
+      },
+      {
+        "transform": [
+          [1.0,0.0,0.0],
+          [0.0,1.0,0.0],
+          [0.0,0.0,1.0],
+          [0.0,0.0,0.0]
+        ]
+      },
+      {
+        "camera__lookDir": [1.0,0.0,0.0]
+      },
+      {
+        "camera__isStabilized": false
+      },
+      {
+        "camera__tauMult": 10.0
+      },
+      {
+        "respawnCamera__showDelay": 2.0
+      },
+      {
+        "respawnCameraForTeam": -1
+      },
+      {
+        "respawnSelectorDistanceMult": 2.0
+      },
+      {
+        "respawnSelectorDistanceMultAbove": 8.0
+      },
+      {
+        "respawnSelectorAboveHeight": 400.0
+      },
+      {
+        "respawnCameraLookFrom": [0.0,0.0,0.0]
+      },
+      {
+        "respawnCameraLookFromSide": [0.0,0.0,0.0]
+      },
+      {
+        "respawnCameraTemplate": "respawn_cam"
+      },
+      {
+        "respawnCameraLODMultiplier": 0.33
+      },
+      {
+        "respawnCameraStaticSideLook": false
+      },
+      {
+        "_replicated": "respawnCameraLookFromSide"
+      },
+      {
+        "_tracked": "respawnCameraLookFromSide"
+      },
+      {
+        "_tracked": "respawn_camera__lookAtCurrent"
+      },
+      {
+        "_tracked": "respawn_camera__lookSide"
+      },
+      {
+        "_tracked": "respawnCameraLookFrom"
+      },
+      {
+        "respawn_camera__lookAt": [0.0,0.0,0.0]
+      },
+      {
+        "_group": {
+          "_tags": "gameClient",
+          "respawn_camera__lookAtCurrent": [0.0,0.0,0.0],
+          "respawn_camera__maxSpeed": 2.7,
+          "respawn_camera__minSpeed": 1.0,
+          "respawn_camera__acceleration": 1.8,
+          "respawn_camera__currentSpeed": 1.0,
+          "respawn_camera__lookSide": true
+        }
+      },
+      {
+        "camera__look_at:dp3": {
+          "_tags": "render"
+        }
+      },
+      {
+        "net__inInitialScope:tag": []
       }
+    ]
+  },
+  {
+    "respawn_camera_target": {
+      "respawn_camera_target__curLookPos": [0.0,0.0,0.0],
+      "respawn_camera_target__posChangeDist": 900.0
+    }
+  },
+  {
+    "human_vehicle_custom_exit_animator": {
+      "human_vehicle__exitAnimatorTime": 1.0,
+      "human_vehicle__exitAtTime": -1.0,
+      "human_vehicle__exitAnimator:tag": [],
+      "human_vehicle__hideExitProgress:tag": []
+    }
+  },
+  {
+    "horizontal_air_resistance": {
+      "horizontal_air_resistance__isOn": false,
+      "horizontal_air_resistance__accel": 20.0
     }
   },
   {
     "base_menu_animchar": {
-      "_extends": "animchar_turn_dir",
+      "_use": "animchar_turn_dir",
       "animchar_render__enabled": true,
       "menuChar": true,
       "transform": [
@@ -603,6 +614,8 @@
       "animchar__transformScale": [1.0,1.0,1.0],
       "animchar__appliedAnimSpeed": 0.0,
       "randomAnimStart": true,
+      "animchar__actOnCreate:tag": [],
+      "animchar__considerAsVisible:tag": [],
       "animchar__animStateNames:object": {
         "upper": "presentation_idle",
         "lower": "presentation_idle"
@@ -624,69 +637,15 @@
     }
   },
   {
-    "base_menu_animchar_controller": [
-      {
-        "menu_char_controller__uid": 0
-      },
-      {
-        "menu_char_controller__characterTemplate": "base_menu_animchar"
-      },
-      {
-        "menu_char_controller__show": true
-      },
-      {
-        "transform": [
-          [1.0,0.0,0.0],
-          [0.0,1.0,0.0],
-          [0.0,0.0,1.0],
-          [0.0,0.0,0.0]
-        ]
-      },
-      {
-        "_tracked": "menu_char_controller__characterToControl"
-      },
-      {
-        "_tracked": "menu_char_controller__itemsList"
-      },
-      {
-        "_tracked": "menu_char_controller__show"
-      },
-      {
-        "menu_char_controller__characterToControl:eid": []
-      },
-      {
-        "menu_char_controller__myEid:eid": []
-      },
-      {
-        "menu_char_controller__ignoreComponents:list<t>": []
-      },
-      {
-        "menu_char_controller__itemsList:array": []
-      }
-    ]
-  },
-  {
-    "menu_animchar_controller": {
-      "_extends": "base_menu_animchar_controller",
-      "_singleton": true
-    }
-  },
-  {
     "slot_attachable_no_slotname": [
       {
         "_tracked": "slot_attach__attachedTo"
-      },
-      {
-        "_tracked": "slot_attach__inAttachedList"
       },
       {
         "_tracked": "slot_attach__slotId"
       },
       {
         "_replicated": "slot_attach__attachedTo"
-      },
-      {
-        "_replicated": "slot_attach__inAttachedList"
       },
       {
         "_replicated": "slot_attach__slotId"
@@ -707,7 +666,7 @@
   },
   {
     "slot_attachable": {
-      "_extends": "slot_attachable_no_slotname",
+      "_use": "slot_attachable_no_slotname",
       "slot_attach__slotName": ""
     }
   },
@@ -721,10 +680,10 @@
   {
     "weapon_slot_attachable": [
       {
-        "_extends": "slot_attachable"
+        "_use": "slot_attachable"
       },
       {
-        "_extends": "weapon_slot_indexed"
+        "_use": "weapon_slot_indexed"
       }
     ]
   },
@@ -732,7 +691,13 @@
     "menu_gun": {
       "menuPoseNodeName": "menu_pose",
       "animchar__turnDir": true,
-      "menuPoseTm": {
+      "menuPoseTm:m": {
+        "value": [
+          [1.0,0.0,0.0],
+          [0.0,1.0,0.0],
+          [0.0,0.0,1.0],
+          [0.0,0.0,0.0]
+        ],
         "_tags": "gameClient"
       }
     }
@@ -743,7 +708,7 @@
       "phys_props__initialGravity": 9.8067,
       "_tracked": "phys_props__gravity",
       "_replicated": "phys_props__gravity",
-      "_extends": "replicating"
+      "_use": "replicating"
     }
   },
   {
@@ -762,6 +727,7 @@
         [0.0,0.0,0.0]
       ],
       "spawnItemStep": [1.0,0.0,0.0],
+      "spawn_item__rotationDeg": [0.0,0.0,0.0],
       "team": -1,
       "spawnItemList:array": []
     }
@@ -823,7 +789,7 @@
   },
   {
     "skies_settings": {
-      "_extends": "replicating",
+      "_use": "replicating",
       "_singleton": true,
       "_group": {
         "_track": true,
@@ -926,18 +892,34 @@
     }
   },
   {
-    "clouds_hole_target": {
-      "_extends": "replicating",
-      "_singleton": true,
-      "transform": [
-        [1.0,0.0,0.0],
-        [0.0,1.0,0.0],
-        [0.0,0.0,1.0],
-        [0.0,0.0,0.0]
-      ],
-      "_tracked": "transform",
-      "clouds_hole_tag:tag": []
-    }
+    "clouds_hole_target": [
+      {
+        "_use": "replicating"
+      },
+      {
+        "_singleton": true
+      },
+      {
+        "transform": [
+          [1.0,0.0,0.0],
+          [0.0,1.0,0.0],
+          [0.0,0.0,1.0],
+          [0.0,0.0,0.0]
+        ]
+      },
+      {
+        "density": 0.0
+      },
+      {
+        "_tracked": "transform"
+      },
+      {
+        "_tracked": "density"
+      },
+      {
+        "clouds_hole_tag:tag": []
+      }
+    ]
   },
   {
     "moon_parameters": {
@@ -956,6 +938,8 @@
       "frames": 0,
       "slowFrames": 0,
       "verySlowFrames": 0,
+      "rangeDt": 0.0,
+      "rangeFrames": 0,
       "maxMemoryUsedKb": 0,
       "allMemoryUsedKb": 0,
       "maxDeviceVRamUsedKb": 0,
@@ -963,12 +947,13 @@
       "maxSharedVRamUsedKb": 0,
       "allSharedVRamUsedKb": 0,
       "currentRun": 0,
-      "benchmark_active": false
+      "benchmark_active": false,
+      "rangeAvgTimes:array": []
     }
   },
   {
     "benchmark": {
-      "_extends": "benchmark_perf",
+      "_use": "benchmark_perf",
       "benchmark_name": "benchmark",
       "benchmark_runs": 3,
       "camera_tracks:array": []
@@ -989,7 +974,7 @@
   },
   {
     "regression_tests": {
-      "_extends": "benchmark_perf",
+      "_use": "benchmark_perf",
       "regression_tests:tag": [],
       "camera_locations:array": []
     }
@@ -1097,6 +1082,20 @@
     ]
   },
   {
+    "beh_tree_agent_parachute": {
+      "_group": {
+        "_tags": "server",
+        "beh_tree__isFreefallOrParachute": false
+      }
+    }
+  },
+  {
+    "beh_tree_agent_ladders": {
+      "beh_tree__usingLadders": false,
+      "_replicated": "beh_tree__usingLadders"
+    }
+  },
+  {
     "beh_tree_agent_leader": {
       "_group": {
         "_tags": "server",
@@ -1173,15 +1172,15 @@
   },
   {
     "envi_probe_render_settings": {
+      "_use": "replicating",
       "_singleton": true,
-      "_tags": "render",
       "envi_probe_use_geometry": false,
       "envi_probe_sun_enabled": false
     }
   },
   {
     "screen_droplets_settings": {
-      "_extends": "replicating",
+      "_use": "replicating",
       "_group": {
         "_track": true,
         "screen_droplets__has_leaks": true,
@@ -1211,6 +1210,12 @@
           "dynmat_param__emission_albedo_mult": 0.1
         }
       }
+    }
+  },
+  {
+    "asset_manager": {
+      "_tags": "render",
+      "_use": "base_asset_manager"
     }
   }
 ]

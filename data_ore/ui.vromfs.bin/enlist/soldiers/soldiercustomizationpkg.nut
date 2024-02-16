@@ -1,14 +1,14 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let {
   soldierWndWidth, bigPadding, smallPadding, listCtors, slotBaseSize
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { soldiersLook } = require("%enlist/meta/servProfile.nut")
 let icon3dByGameTemplate = require("%enlSqGlob/ui/icon3dByGameTemplate.nut")
 let {
-  availableCItem, currentItemPart, curSoldierItemsPrice, oldSoldiersLook,
-  itemBlockOnClick, blockOnClick, customizationToApply, customizationItems, itemsInfo
+  currentItemPart, oldSoldiersLook, itemBlockOnClick, blockOnClick,
+  customizationToApply, itemsInfo
 } = require("soldierCustomizationState.nut")
 let { curSoldierInfo } = require("%enlist/soldiers/model/curSoldiersState.nut")
 let { mkItemCurrency } = require("%enlist/shop/currencyComp.nut")
@@ -23,7 +23,8 @@ let listTxtColor = listCtors.txtColor
 
 let blockHeight = hdpx(124)
 let blockWidth = (soldierWndWidth - bigPadding * 3) / 2
-let currencyIconSize = hdpx(30)
+let currencyIconSize = hdpxi(30)
+
 
 let itemParams = {
   width = blockWidth / 2
@@ -57,7 +58,7 @@ let mkPriceInteractive = @(currencyId, count, group, isSelected) watchElemState(
     : mkItemCurrency({
         currencyTpl = currencyId
         count
-        textStyle = { color = listTxtColor(sf, isSelected), fontSize = body_txt.fontSize }
+        textStyle = { color = listTxtColor(sf, isSelected), fontSize = fontBody.fontSize }
       })
 })
 
@@ -118,18 +119,18 @@ local mkCustomizationSlot = @(itemToShow, itemsPrices) watchElemState(function(s
     ]}
 })
 
-let function mkPrice(currencyId, count){
+let function mkPrice(currencyId, count, style){
   if (currencyId == "EnlistedGold")
     return mkCurrency({
       currency = enlistedGold
       price = count
       iconSize = currencyIconSize
-    })
+    }.__update({ txtStyle = style }))
 
   return mkItemCurrency({
     currencyTpl = currencyId
     count
-    textStyle = { fontSize = body_txt.fontSize }
+    textStyle = style.__merge({ fontSize = fontBody.fontSize })
   })
 }
 
@@ -163,17 +164,27 @@ let defaultItemTitle = @(sf, isSelected){
   color = listTxtColor(sf, isSelected)
 }
 
+let emptySlotTitle = @(sf, isSelected){
+  rendObj = ROBJ_TEXT
+  text = loc("appearance/empty_slot")
+  hplace = ALIGN_RIGHT
+  color = listTxtColor(sf, isSelected)
+}
+
 
 let function selectingItemBlock(item, itemTemplate, guid, isSelected,
   iconAttachments, premiumItemsCount, itemPrice
 ){
   let group = ElemGroup()
   let isDefaultItem = soldiersLook.value[guid].items.findvalue(@(val) val == item) != null
-  let rightTopInfo = @(sf, isSelected) isDefaultItem
-    ? defaultItemTitle(sf, isSelected)
+  let isEmptySlot = itemTemplate == null
+  let rightTopInfo = @(sf, isSel) isEmptySlot
+    ? emptySlotTitle(sf, isSel)
+    : isDefaultItem
+      ? defaultItemTitle(sf, isSel)
       : item in premiumItemsCount && premiumItemsCount[item] > 1
-    ? amountText(premiumItemsCount[item], sf, isSelected)
-      : null
+        ? amountText(premiumItemsCount[item], sf, isSel)
+        : null
 
   return watchElemState(@(sf){
     watch = soldiersLook
@@ -182,19 +193,32 @@ let function selectingItemBlock(item, itemTemplate, guid, isSelected,
     padding = bigPadding
     xmbNode = XmbNode()
     behavior = Behaviors.Button
+    sound = {
+      hover = "ui/enlist/button_highlight"
+      click = "ui/enlist/button_click"
+      active = "ui/enlist/button_action"
+    }
     halign = ALIGN_RIGHT
     color = listBgColor(sf, isSelected)
     onClick = @() itemBlockOnClick(item)
     group
     onHover = function(hovered){
       let currentSlot = currentItemPart.value
-      local res = appearanceToRender.value ?? {}
+      local res = (clone appearanceToRender.value) ?? {}
       let itemToShow = hovered
         ? item
-        : customizationToApply.value?[currentSlot] ?? oldSoldiersLook.value?[currentSlot]
-      if (itemToShow == null)
-        return
-      res = res.__merge({ [currentSlot] = itemToShow })
+        : customizationToApply.value?[currentSlot]
+
+      if (itemToShow == null || itemToShow == oldSoldiersLook.value?[currentSlot]) {
+        if (currentSlot in res) {
+          //No need to left item in slot, because we override with watch data
+          //before render soldier. oldSoldiersLook includes premium items too.
+          delete res[currentSlot]
+        }
+      }
+      else
+        res[currentSlot] <- itemToShow
+
       appearanceToRender(res)
     }
 
@@ -213,75 +237,58 @@ let function selectingItemBlock(item, itemTemplate, guid, isSelected,
   })
 }
 
-let purchasingItemBlock = @(item, itemTemplate, premiumItemsCount, removeAction,
-  iconAttachments, itemPrice) watchElemState(@(sf){
-    flow = FLOW_VERTICAL
-    gap = smallPadding
-    halign = ALIGN_CENTER
-    children = [{
-      size = [blockHeight, blockHeight]
-      rendObj = ROBJ_SOLID
-      color = listBgColor(sf)
-      children = [
-        (premiumItemsCount ?? []).len() <= 1 ? null : amountText(premiumItemsCount.len(), sf, false)
-        icon3dByGameTemplate(itemTemplate, purchasingItemParams.__merge({
-          genOverride = { iconAttachments }
-          shading = "same"
-        }))
+let purchasingItemBlock = function(item, itemTemplate, premiumItemsCount, removeAction,
+  iconAttachments, itemPrice) {
+    let count = premiumItemsCount?[item] ?? 0
+    let icon = icon3dByGameTemplate(itemTemplate, purchasingItemParams.__merge({
+      genOverride = { iconAttachments }
+      shading = "same"
+    }))
+    return watchElemState(@(sf) {
+      flow = FLOW_VERTICAL
+      gap = smallPadding
+      halign = ALIGN_CENTER
+      children = [{
+        size = [blockHeight, blockHeight]
+        rendObj = ROBJ_SOLID
+        color = listBgColor(sf)
+        children = [
+          count <= 1 ? null : amountText(count, sf, false)
+          icon
+        ]
+      }
+        priceBlock(itemPrice)
+        removeBtn(item, removeAction)
       ]
-    }
-      priceBlock(itemPrice)
-      removeBtn(item, removeAction)
-    ]
-  })
+    })
+  }
 
 
-let itemBlock = @(item, itemsPrices, premiumItemsCount = [], removeAction = null) function(){
+let itemBlock = @(itemId, itemsPrices, premiumItemsCount, removeAction = null) function(){
   let { guid } = curSoldierInfo.value
-  let { gametemplate, iconAttachments = [] } = itemsInfo.value[item]
-  let isSelected = Computed(@() removeAction == null && item in customizationItems.value)
-  let itemPrice = itemsPrices?[item] ?? {}
+  let { gametemplate = null, iconAttachments = [], itemSlot = "" } = itemsInfo.value?[itemId]
+  let isSelected = Computed(function() {
+    let curItemIdCheck = customizationToApply.value?[itemSlot] ?? oldSoldiersLook.value?[itemSlot]
+    return removeAction == null && curItemIdCheck == itemId
+  })
+  let itemPrice = itemsPrices?[itemId] ?? {}
   return {
     watch = [curSoldierInfo, isSelected, itemsInfo]
     flow = FLOW_VERTICAL
     gap = smallPadding
     children = [
       removeAction == null
-        ? selectingItemBlock(item, gametemplate, guid, isSelected.value,
+        ? selectingItemBlock(itemId, gametemplate, guid, isSelected.value,
             iconAttachments, premiumItemsCount, itemPrice)
-        : purchasingItemBlock(item, gametemplate, premiumItemsCount, removeAction,
+        : purchasingItemBlock(itemId, gametemplate, premiumItemsCount, removeAction,
             iconAttachments, itemPrice)
     ]}
 }
 
-let lookWrapParams = {
-  width = soldierWndWidth
-  vGap = bigPadding
-}
-
-
-let lookCustomizationBlock = @(){
-  watch = [availableCItem, currentItemPart, curSoldierItemsPrice]
-  size = flex()
-  halign = ALIGN_CENTER
-  flow = FLOW_VERTICAL
-  gap = hdpx(20)
-  children = [wrap(availableCItem.value.map(@(item)
-    mkCustomizationSlot(item, curSoldierItemsPrice.value)), lookWrapParams)
-    currentItemPart.value != "tunic" ? null : {
-      rendObj = ROBJ_TEXTAREA
-      behavior = Behaviors.TextArea
-      size = [flex(), SIZE_TO_CONTENT]
-      text = loc("appearance/attachments_override")
-      halign = ALIGN_CENTER
-    }.__update(body_txt)
-  ]
-}
-
 
 return {
-  lookCustomizationBlock
   itemBlock
   currencyIconSize
+  mkCustomizationSlot
   mkPrice
 }

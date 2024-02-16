@@ -42,9 +42,188 @@
     "import": "%danetlibs/renderer/templates/effects.template.blk"
   },
   {
+    "global_fx_info": {
+      "_singleton": true,
+      "_tags": "render",
+      "global_fx__target": 0,
+      "global_fx__riColorSaturationMult": 0.5,
+      "global_fx__riColorSaturationInc": 0.5,
+      "global_fx__riColorValueMult": 0.5,
+      "global_fx__riColorValueInc": 0.5,
+      "global_fx__rendinstColors:list<p4>": [],
+      "global_fx__materialGroups:object": {
+        "wood:list<t>": [
+          {
+            "value": "wood"
+          },
+          {
+            "value": "wood_solid"
+          },
+          {
+            "value": "wood_railway"
+          },
+          {
+            "value": "window_wood"
+          },
+          {
+            "value": "softWoodDoor"
+          },
+          {
+            "value": "wood_fall"
+          },
+          {
+            "value": "wood_palm"
+          },
+          {
+            "value": "wood_dead"
+          },
+          {
+            "value": "wood_snow"
+          },
+          {
+            "value": "wood_fall_solid"
+          },
+          {
+            "value": "wood_palm_solid"
+          },
+          {
+            "value": "wood_dead_solid"
+          },
+          {
+            "value": "wood_snow_solid"
+          }
+        ],
+        "stone:list<t>": [
+          {
+            "value": "concrete"
+          },
+          {
+            "value": "stone"
+          },
+          {
+            "value": "rocks"
+          },
+          {
+            "value": "rocksSlippery"
+          },
+          {
+            "value": "gravel"
+          },
+          {
+            "value": "ceramic"
+          }
+        ],
+        "water:list<t>": [
+          {
+            "value": "water"
+          },
+          {
+            "value": "water3d"
+          },
+          {
+            "value": "waterPuddle"
+          }
+        ],
+        "dirt_and_mud:list<t>": [
+          {
+            "value": "mud"
+          },
+          {
+            "value": "roadmud"
+          },
+          {
+            "value": "soil"
+          },
+          {
+            "value": "hard_soil"
+          },
+          {
+            "value": "roadSoil"
+          },
+          {
+            "value": "dirt"
+          }
+        ],
+        "mud:list<t>": [
+          {
+            "value": "mud"
+          },
+          {
+            "value": "roadmud"
+          }
+        ],
+        "dirt:list<t>": [
+          {
+            "value": "soil"
+          },
+          {
+            "value": "hard_soil"
+          },
+          {
+            "value": "roadSoil"
+          },
+          {
+            "value": "dirt"
+          }
+        ],
+        "sand:list<t>": [
+          {
+            "value": "sand"
+          },
+          {
+            "value": "sand_slope"
+          },
+          {
+            "value": "quickSand"
+          },
+          {
+            "value": "roadSand"
+          },
+          {
+            "value": "quarrySand"
+          },
+          {
+            "value": "moon_sand"
+          }
+        ],
+        "metal:list<t>": [
+          {
+            "value": "steel"
+          },
+          {
+            "value": "metal"
+          },
+          {
+            "value": "train"
+          },
+          {
+            "value": "barbwire"
+          },
+          {
+            "value": "softSteelDoor"
+          }
+        ],
+        "snow:list<t>": [
+          {
+            "value": "snow"
+          },
+          {
+            "value": "ice"
+          },
+          {
+            "value": "snowLower"
+          },
+          {
+            "value": "roadSnow"
+          }
+        ]
+      }
+    }
+  },
+  {
     "level_effect": [
       {
-        "_extends": "sound_control"
+        "_use": "sound_control"
       },
       {
         "transform": [
@@ -68,8 +247,7 @@
       {
         "_group": {
           "_tags": "sound",
-          "sound_control__range": 35.0,
-          "sound_control__autoRange": false
+          "sound_control__range": 35.0
         }
       },
       {
@@ -80,10 +258,13 @@
   {
     "base_effect": [
       {
-        "_extends": "replicating"
+        "_use": "replicating"
       },
       {
-        "_extends": "sound_control"
+        "_use": "sound_control"
+      },
+      {
+        "_use": "ecs_no_debug"
       },
       {
         "transform": [
@@ -107,16 +288,15 @@
       {
         "_group": {
           "_tags": "sound",
-          "sound_control__range": 35.0,
-          "sound_control__autoRange": false
+          "sound_control__range": 35.0
         }
       }
     ]
   },
   {
-    "effect_light_restriction": [
+    "effect_light_restriction_no_fx": [
       {
-        "_extends": "replicating"
+        "_use": "replicating"
       },
       {
         "effect__box": [
@@ -140,13 +320,16 @@
       },
       {
         "_tracked": "effect__automatic_box"
-      },
-      {
-        "effect": {
-          "_tags": "render"
-        }
       }
     ]
+  },
+  {
+    "effect_light_restriction": {
+      "_use": "effect_light_restriction_no_fx",
+      "effect": {
+        "_tags": "render"
+      }
+    }
   },
   {
     "burst_fx_base": {
@@ -165,15 +348,18 @@
     }
   },
   {
-    "bonfire_effect_no_occluders": [
+    "bonfire_effect_no_occluders_no_fx": [
       {
-        "_extends": "replicating"
+        "_use": "replicating"
       },
       {
-        "_extends": "sound_control"
+        "_use": "sound_control"
       },
       {
-        "_extends": "effect_light_restriction"
+        "_use": "effect_light_restriction_no_fx"
+      },
+      {
+        "_use": "damage_zone_obstacle_base"
       },
       {
         "dmgzone__teamToDamage": -1
@@ -205,11 +391,6 @@
         ]
       },
       {
-        "effect": {
-          "_tags": "render"
-        }
-      },
-      {
         "_group": {
           "_tags": "render",
           "effect__name": "bonfire"
@@ -217,16 +398,8 @@
       },
       {
         "_group": {
-          "_tags": "server",
-          "obstacle__handle": 0,
-          "obstacle__padding": 1.2
-        }
-      },
-      {
-        "_group": {
           "_tags": "sound",
-          "sound_control__range": 35.0,
-          "sound_control__autoRange": false
+          "sound_control__range": 35.0
         }
       },
       {
@@ -241,12 +414,34 @@
     ]
   },
   {
-    "bonfire_effect": [
+    "bonfire_effect_no_occluders": [
       {
-        "_extends": "bonfire_effect_no_occluders"
+        "_use": "bonfire_effect_no_occluders_no_fx"
       },
       {
-        "_extends": "smoke_occluders"
+        "_use": "effect_light_restriction"
+      },
+      {
+        "effect": {
+          "_tags": "render"
+        }
+      }
+    ]
+  },
+  {
+    "fire_effect_additive": {
+      "effect": {
+        "_tags": "render"
+      }
+    }
+  },
+  {
+    "bonfire_effect": [
+      {
+        "_use": "bonfire_effect_no_occluders"
+      },
+      {
+        "_use": "smoke_occluders"
       },
       {
         "sphere_zone__radius": 0.55
@@ -295,7 +490,7 @@
   },
   {
     "bonfire_effect_menu": {
-      "_extends": "replicating",
+      "_use": "replicating",
       "sphere_zone__radius": 0.55,
       "transform": [
         [1.0,0.0,0.0],
@@ -315,10 +510,10 @@
   {
     "bonfire_effect_medium": [
       {
-        "_extends": "bonfire_effect_no_occluders"
+        "_use": "bonfire_effect_no_occluders"
       },
       {
-        "_extends": "smoke_occluders"
+        "_use": "smoke_occluders"
       },
       {
         "smoke_occluders__updateInterval": 5.0
@@ -371,10 +566,10 @@
   {
     "bonfire_effect_big": [
       {
-        "_extends": "bonfire_effect_no_occluders"
+        "_use": "bonfire_effect_no_occluders"
       },
       {
-        "_extends": "smoke_occluders"
+        "_use": "smoke_occluders"
       },
       {
         "sphere_zone__radius": 1.3
@@ -429,7 +624,7 @@
   },
   {
     "bonfire_effect_volcano_smoke": {
-      "_extends": "bonfire_effect_no_occluders",
+      "_use": "bonfire_effect_no_occluders",
       "_group": {
         "_tags": "render",
         "effect__name": "volcano_smoke"
@@ -438,7 +633,7 @@
   },
   {
     "bonfire_effect_big_background": {
-      "_extends": "bonfire_effect_no_occluders",
+      "_use": "bonfire_effect_no_occluders",
       "_group": {
         "_tags": "render",
         "effect__name": "fire_big_background"
@@ -447,7 +642,7 @@
   },
   {
     "bonfire_effect_background_flash_8s_fx": {
-      "_extends": "bonfire_effect_no_occluders",
+      "_use": "bonfire_effect_no_occluders",
       "_group": {
         "_tags": "render",
         "effect__name": "background_flash_8s_fx"
@@ -456,7 +651,7 @@
   },
   {
     "bonfire_effect_background_flash_11s_fx": {
-      "_extends": "bonfire_effect_no_occluders",
+      "_use": "bonfire_effect_no_occluders",
       "_group": {
         "_tags": "render",
         "effect__name": "background_flash_11s_fx"
@@ -465,7 +660,7 @@
   },
   {
     "effect_entity": {
-      "_extends": "ecs_no_debug",
+      "_use": "ecs_no_debug",
       "effect": {
         "_tags": "render"
       },
@@ -474,7 +669,7 @@
   },
   {
     "entity_binded_effect": {
-      "_extends": "effect_entity",
+      "_use": "effect_entity",
       "entity_binded_effect__collNodeId": -1,
       "entity_binded_effect__localEmitter": [
         [1.0,0.0,0.0],
@@ -510,7 +705,7 @@
   },
   {
     "blood_puddle_emitter": {
-      "_extends": "ecs_no_debug",
+      "_use": "ecs_no_debug",
       "blood_puddle_emitter__collNodeId": 0,
       "blood_puddle_emitter__lastPos": [0.0,0.0,0.0],
       "blood_puddle_emitter__stableTime": 0.0,
@@ -520,7 +715,7 @@
   },
   {
     "blood_splash_emitter": {
-      "_extends": "ecs_no_debug",
+      "_use": "ecs_no_debug",
       "blood_splash_emitter__pos": [0.0,0.0,0.0],
       "blood_splash_emitter__targetPos": [0.0,0.0,0.0],
       "blood_splash_emitter__gravity": [0.0,0.0,0.0],
@@ -549,10 +744,10 @@
   {
     "lightning_animchar": [
       {
-        "_extends": "animchar"
+        "_use": "animchar"
       },
       {
-        "_extends": "lightning_sound"
+        "_use": "lightning_sound"
       },
       {
         "animchar__res": "lightning_short_aa_char"
@@ -600,7 +795,7 @@
   {
     "lightning_animchar_manager": {
       "_singleton": true,
-      "_extends": "replicating",
+      "_use": "replicating",
       "lightning__animchars_eids_base:list<eid>": [],
       "lightning_tag:tag": [],
       "lightning__animchars:list<t>": [
@@ -638,7 +833,7 @@
   {
     "lightning_volumetric": {
       "_singleton": true,
-      "_extends": "replicating",
+      "_use": "replicating",
       "lightning__is_volumetric": true,
       "lightning_tag:tag": [],
       "lightning:LightningFX": {
@@ -691,7 +886,7 @@
   {
     "lightning_panorama": {
       "_singleton": true,
-      "_extends": "lightning_volumetric",
+      "_use": "lightning_volumetric",
       "lightning__is_volumetric": false,
       "lightning__point_light_radius": 4000.0,
       "lightning__point_light_strength_interval": [1.0,3.0],
@@ -704,7 +899,7 @@
         "_singleton": true
       },
       {
-        "_extends": "falling_weather_effect_template"
+        "_use": "falling_weather_effect_template"
       },
       {
         "_group": {
@@ -734,7 +929,8 @@
       {
         "_group": {
           "_tags": "render",
-          "effect__offset": [0.0,-4.0,0.0]
+          "effect__offset": [0.0,-4.0,0.0],
+          "needsWaterDroplets:tag": []
         }
       },
       {
@@ -767,7 +963,7 @@
         "_singleton": true
       },
       {
-        "_extends": "falling_weather_effect_template"
+        "_use": "falling_weather_effect_template"
       },
       {
         "_group": {
@@ -794,7 +990,7 @@
   {
     "dafx_dust": {
       "_singleton": true,
-      "_extends": "falling_weather_effect_template",
+      "_use": "falling_weather_effect_template",
       "_group": {
         "_track": true,
         "dust__length": 1.0,
@@ -807,6 +1003,21 @@
     }
   },
   {
+    "dafx_storm": {
+      "_singleton": true,
+      "_use": "falling_weather_effect_template",
+      "_group": {
+        "_track": true,
+        "storm__length": 1.0,
+        "storm__speed": 1.0,
+        "storm__width": 1.0,
+        "storm__density": 10.0,
+        "storm__alpha": 1.0,
+        "storm__maxDensity": 10.0
+      }
+    }
+  },
+  {
     "metaball_system": {
       "transform": [
         [1.0,0.0,0.0],
@@ -814,7 +1025,7 @@
         [0.0,0.0,1.0],
         [0.0,0.0,0.0]
       ],
-      "_extends": "replicating",
+      "_use": "replicating",
       "deform_bbox__bmin": [0.0,0.0,0.0],
       "deform_bbox__bmax": [0.0,0.0,0.0],
       "_group": {
@@ -838,7 +1049,7 @@
         "metaball_system__isTrans": true,
         "metaball_system__aggressiveMode": false,
         "metaball_system__loweringLevel": 0.0,
-        "metaball_system__aggresiveTriggerDistance": 5.0,
+        "metaball_system__aggressiveTriggerDistance": 5.0,
         "metaball_system__balls:array": []
       }
     }
@@ -853,13 +1064,16 @@
   {
     "projectors_manager": {
       "_singleton": true,
-      "_extends": "replicating",
+      "_use": "replicating",
       "projectors_manager__atmosphereDensity": 1.0,
       "projectors_manager__atmosphereMoveDir": [1.0,0.0,0.0],
       "projectors_manager__atmosphereMoveSpeed": 0.0,
       "projectors_manager__noiseScale": 1.0,
       "projectors_manager__noiseStrength": 0.0,
       "projectors_manager": {
+        "_tags": "render"
+      },
+      "projectors_node:dabfg::NodeHandle": {
         "_tags": "render"
       }
     }
@@ -872,7 +1086,7 @@
         [0.0,0.0,1.0],
         [0.0,0.0,0.0]
       ],
-      "_extends": "replicating",
+      "_use": "replicating",
       "projector__id": -1,
       "projector__color": [1.0,1.0,1.0],
       "projector__angle": 3.0,
@@ -886,7 +1100,7 @@
   },
   {
     "projector_source": {
-      "_extends": "projector",
+      "_use": "projector",
       "projector__color": [0.12,0.12,0.12],
       "projector__sourceWidth": 5.0,
       "projector__xAngleAmplitude": 0.0,
@@ -901,12 +1115,12 @@
         [0.0,0.0,1.0],
         [0.0,0.0,0.0]
       ],
-      "_extends": "replicating",
+      "_use": "replicating",
       "_group": {
         "effect_area__frequency": 0.9,
         "effect_area__pauseChance": 0.1,
         "effect_area__pauseLengthMax": 1.0,
-        "effect_area__effectName": "ground_splash",
+        "effect_area__effectName": "hit_footstep_sand_cmps_fx",
         "effect_area__isPaused": false,
         "_track": true
       }
@@ -914,7 +1128,7 @@
   },
   {
     "effect_area_box": {
-      "_extends": "effect_area",
+      "_use": "effect_area",
       "effect_area": {
         "_tags": "render"
       },
@@ -923,7 +1137,7 @@
   },
   {
     "effect_area_sphere": {
-      "_extends": "effect_area",
+      "_use": "effect_area",
       "sphere_zone__radius": 1.0,
       "effect_area": {
         "_tags": "render"
@@ -932,7 +1146,7 @@
   },
   {
     "background_tracer": {
-      "_extends": "ecs_no_debug",
+      "_use": "ecs_no_debug",
       "_tags": "render",
       "background_tracer__pos": [0.0,0.0,0.0],
       "background_tracer__vel": [0.0,0.0,0.0],
@@ -948,7 +1162,7 @@
         [0.0,0.0,1.0],
         [0.0,0.0,0.0]
       ],
-      "_extends": "replicating",
+      "_use": "replicating",
       "tracer_launcher__bullet_size": 5.0,
       "tracer_launcher__bullet_ttl": 2.5,
       "tracer_launcher__bullet_speed": 100.0,
@@ -964,7 +1178,7 @@
   },
   {
     "altar_fire_effect": {
-      "_extends": "bonfire_effect_no_occluders",
+      "_use": "bonfire_effect_no_occluders",
       "dmgzone__fireAffect": -1.0,
       "sphere_zone__radius": 0.7
     }
@@ -972,16 +1186,16 @@
   {
     "effect_volcano_crater": [
       {
-        "_extends": "base_effect"
+        "_use": "base_effect"
       },
       {
-        "_extends": "burst_fx_base"
+        "_use": "burst_fx_base"
       },
       {
-        "_extends": "omni_light_huge"
+        "_use": "omni_light_huge"
       },
       {
-        "_extends": "lava_sound"
+        "_use": "lava_sound"
       },
       {
         "light__max_radius": 6.0
@@ -1019,13 +1233,13 @@
   {
     "effect_volcano_crater_big": [
       {
-        "_extends": "base_effect"
+        "_use": "base_effect"
       },
       {
-        "_extends": "burst_fx_base"
+        "_use": "burst_fx_base"
       },
       {
-        "_extends": "omni_light_huge"
+        "_use": "omni_light_huge"
       },
       {
         "warm_source__radius": 60.0
@@ -1061,13 +1275,13 @@
   {
     "effect_volcano_lava": [
       {
-        "_extends": "base_effect"
+        "_use": "base_effect"
       },
       {
-        "_extends": "burst_fx_base"
+        "_use": "burst_fx_base"
       },
       {
-        "_extends": "lava_sound"
+        "_use": "lava_sound"
       },
       {
         "warm_source__radius": 20.0
@@ -1093,7 +1307,7 @@
   },
   {
     "effect_volcano_smoke": {
-      "_extends": "base_effect",
+      "_use": "base_effect",
       "_group": {
         "_tags": "render",
         "effect__name": "lava_vapor_smoke"
@@ -1133,19 +1347,19 @@
   {
     "effect_geyser": [
       {
-        "_extends": "base_effect"
+        "_use": "base_effect"
       },
       {
-        "_extends": "directional_push_affect"
+        "_use": "directional_push_affect"
       },
       {
-        "_extends": "effect_scale_randomizer"
+        "_use": "effect_scale_randomizer"
       },
       {
-        "_extends": "effect_controller"
+        "_use": "effect_controller"
       },
       {
-        "_extends": "geyser_sound"
+        "_use": "geyser_sound"
       },
       {
         "warm_source__radius": 5.0
@@ -1187,7 +1401,7 @@
   },
   {
     "ri_gpu_object": {
-      "_extends": "replicating",
+      "_use": "replicating",
       "_group": {
         "_track": true,
         "ri_gpu_object__name": "ammunition_box_n",
@@ -1268,6 +1482,8 @@
           "gpu_object_placer__filled": false,
           "gpu_object_placer__buffer_offset": -1,
           "gpu_object_placer__buffer_size": -1,
+          "gpu_object_placer__on_rendinst_geometry_count": 0,
+          "gpu_object_placer__on_terrain_geometry_count": 0,
           "gpu_object_placer__show_geometry": false,
           "gpu_object_placer__place_on_geometry": true,
           "gpu_object_placer__min_gathered_triangle_size": 0.1,
@@ -1277,14 +1493,75 @@
     ]
   },
   {
-    "gpu_object_placer_box": {
-      "_extends": "gpu_object_placer",
-      "box_zone:tag": []
-    }
+    "gpu_object_placer_box": [
+      {
+        "_use": "gpu_object_placer"
+      },
+      {
+        "_use": "replicating"
+      },
+      {
+        "ri_preload:GpuObjectRiResourcePreload": {
+          "_tags": "render"
+        }
+      },
+      {
+        "box_zone:tag": []
+      }
+    ]
+  },
+  {
+    "gpu_object_placer_liane_f": [
+      {
+        "_use": "gpu_object_placer"
+      },
+      {
+        "_use": "replicating"
+      },
+      {
+        "ri_gpu_object__name": "tree_liane_f"
+      },
+      {
+        "ri_preload:GpuObjectRiResourcePreload": {
+          "_tags": "render"
+        }
+      },
+      {
+        "_group": {
+          "gpu_object_placer__object_scale_range": [0.5,1.0],
+          "gpu_object_placer__min_gathered_triangle_size": 0.1,
+          "_tags": "render"
+        }
+      },
+      {
+        "box_zone:tag": []
+      }
+    ]
+  },
+  {
+    "gpu_object_placer_stone": [
+      {
+        "_use": "gpu_object_placer"
+      },
+      {
+        "_use": "replicating"
+      },
+      {
+        "ri_gpu_object__name": "earthen_eroded_stone_small_a"
+      },
+      {
+        "ri_preload:GpuObjectRiResourcePreload": {
+          "_tags": "render"
+        }
+      },
+      {
+        "box_zone:tag": []
+      }
+    ]
   },
   {
     "chimney_fire": {
-      "_extends": "replicating",
+      "_use": "replicating",
       "transform": [
         [1.0,0.0,0.0],
         [0.0,1.0,0.0],
@@ -1319,7 +1596,7 @@
   },
   {
     "volfog": {
-      "_extends": "replicating",
+      "_use": "replicating",
       "volfog": ""
     }
   },
@@ -1342,7 +1619,7 @@
   },
   {
     "volfog_spheres_manager": {
-      "_extends": "replicating",
+      "_use": "replicating",
       "_group": {
         "volfog_spheres_manager__class_name": "default"
       },
@@ -1367,7 +1644,6 @@
         [0.0,0.0,1.0],
         [0.0,0.0,0.0]
       ],
-      "attachedEffect:tag": [],
       "effect": {
         "_tags": "render"
       },
@@ -1379,43 +1655,47 @@
   },
   {
     "explosion_effect_small": {
-      "_extends": "explosion_effect",
+      "_use": "explosion_effect",
       "wind_emitter__radius": 1.0,
       "wind_emitter__duration": 1.0,
       "wind_emitter__strength": 1.0,
+      "wind_emitter__phaseAttack": true,
       "wind_emitter__omni:tag": []
     }
   },
   {
     "explosion_effect_medium": {
-      "_extends": "explosion_effect",
+      "_use": "explosion_effect",
       "wind_emitter__radius": 1.5,
       "wind_emitter__duration": 1.5,
       "wind_emitter__strength": 1.5,
+      "wind_emitter__phaseAttack": true,
       "wind_emitter__omni:tag": []
     }
   },
   {
     "explosion_effect_large": {
-      "_extends": "explosion_effect",
+      "_use": "explosion_effect",
       "wind_emitter__radius": 2.0,
       "wind_emitter__duration": 2.0,
       "wind_emitter__strength": 2.0,
+      "wind_emitter__phaseAttack": true,
       "wind_emitter__omni:tag": []
     }
   },
   {
     "explosion_effect_extra_large": {
-      "_extends": "explosion_effect",
+      "_use": "explosion_effect",
       "wind_emitter__radius": 2.5,
       "wind_emitter__duration": 2.5,
       "wind_emitter__strength": 2.5,
+      "wind_emitter__phaseAttack": true,
       "wind_emitter__omni:tag": []
     }
   },
   {
     "bomb_expl_50kg": {
-      "_extends": "explosion_effect_extra_large",
+      "_use": "explosion_effect_extra_large",
       "_group": {
         "_tags": "render",
         "effect__name": "bomb_expl_50kg"
@@ -1424,7 +1704,7 @@
   },
   {
     "bomb_expl_100kg": {
-      "_extends": "explosion_effect_extra_large",
+      "_use": "explosion_effect_extra_large",
       "_group": {
         "_tags": "render",
         "effect__name": "bomb_expl_100kg"
@@ -1433,7 +1713,7 @@
   },
   {
     "bomb_expl_200kg": {
-      "_extends": "explosion_effect_extra_large",
+      "_use": "explosion_effect_extra_large",
       "_group": {
         "_tags": "render",
         "effect__name": "bomb_expl_200kg"
@@ -1442,10 +1722,11 @@
   },
   {
     "bomb_expl_500kg": {
-      "_extends": "explosion_effect_extra_large",
+      "_use": "explosion_effect_extra_large",
       "wind_emitter__radius": 2.5,
       "wind_emitter__duration": 2.5,
       "wind_emitter__strength": 2.5,
+      "wind_emitter__phaseAttack": true,
       "_group": {
         "_tags": "render",
         "effect__name": "bomb_expl_500kg"
@@ -1455,7 +1736,7 @@
   },
   {
     "flash_explosion_effect_small": {
-      "_extends": "explosion_effect_small",
+      "_use": "explosion_effect_small",
       "_group": {
         "_tags": "render",
         "effect__name": "grenade_flash_expl"
@@ -1464,7 +1745,7 @@
   },
   {
     "mine_explosion_effect_small": {
-      "_extends": "explosion_effect_small",
+      "_use": "explosion_effect_small",
       "_group": {
         "_tags": "render",
         "effect__name": "mine_expl"
@@ -1473,7 +1754,7 @@
   },
   {
     "mine_explosion_effect_medium": {
-      "_extends": "explosion_effect_medium",
+      "_use": "explosion_effect_medium",
       "_group": {
         "_tags": "render",
         "effect__name": "mine_expl"
@@ -1482,7 +1763,7 @@
   },
   {
     "mine_explosion_effect_large": {
-      "_extends": "explosion_effect_large",
+      "_use": "explosion_effect_large",
       "_group": {
         "_tags": "render",
         "effect__name": "mine_expl"
@@ -1491,7 +1772,7 @@
   },
   {
     "mine_explosion_effect_extra_large": {
-      "_extends": "explosion_effect_extra_large",
+      "_use": "explosion_effect_extra_large",
       "_group": {
         "_tags": "render",
         "effect__name": "mine_expl"
@@ -1500,20 +1781,25 @@
   },
   {
     "turret_gun_flash_effect_base": {
-      "_extends": "ecs_no_debug",
+      "_use": "ecs_no_debug",
       "transform": [
         [1.0,0.0,0.0],
         [0.0,1.0,0.0],
         [0.0,0.0,1.0],
         [0.0,0.0,0.0]
       ],
-      "attachedEffect:tag": [],
       "updateOnEffectLifeTime:tag": [],
       "_group": {
         "_tags": "render",
-        "gun_flash_fx__nodeId": -1,
+        "gun_fx__nodeId": -1,
+        "gun_fx__nodeMultTm": [
+          [0.0,1.0,0.0],
+          [1.0,0.0,0.0],
+          [0.0,0.0,-1.0],
+          [0.0,0.0,0.0]
+        ],
         "effect": [],
-        "gun_flash_fx__gunEid:eid": []
+        "gun_fx__gunEid:eid": []
       },
       "autodeleteEffectEntity:tag": []
     }
@@ -1525,7 +1811,7 @@
   },
   {
     "big_gun_flame": {
-      "_extends": "turret_gun_flash_effect_base",
+      "_use": "turret_gun_flash_effect_base",
       "_group": {
         "_tags": "render",
         "effect__name": "big_gun_flame"
@@ -1534,7 +1820,7 @@
   },
   {
     "big_gun_mb_flame": {
-      "_extends": "turret_gun_flash_effect_base",
+      "_use": "turret_gun_flash_effect_base",
       "_group": {
         "_tags": "render",
         "effect__name": "big_gun_mb_flame"
@@ -1543,7 +1829,7 @@
   },
   {
     "small_gun_flame": {
-      "_extends": "turret_gun_flash_effect_base",
+      "_use": "turret_gun_flash_effect_base",
       "_group": {
         "_tags": "render",
         "effect__name": "small_gun_flame"
@@ -1552,7 +1838,7 @@
   },
   {
     "machine_gun_flame": {
-      "_extends": "turret_gun_flash_effect_base",
+      "_use": "turret_gun_flash_effect_base",
       "_group": {
         "_tags": "render",
         "effect__name": "machine_gun_flame"
@@ -1561,7 +1847,7 @@
   },
   {
     "mg_flame_muzzle_brake": {
-      "_extends": "turret_gun_flash_effect_base",
+      "_use": "turret_gun_flash_effect_base",
       "_group": {
         "_tags": "render",
         "effect__name": "mg_flame_muzzle_brake"
@@ -1570,7 +1856,7 @@
   },
   {
     "aaa_gun_flame": {
-      "_extends": "turret_gun_flash_effect_base",
+      "_use": "turret_gun_flash_effect_base",
       "_group": {
         "_tags": "render",
         "effect__name": "aaa_gun_flame"
@@ -1602,7 +1888,7 @@
         [0.0,0.0,1.0],
         [0.0,0.0,0.0]
       ],
-      "_extends": "replicating",
+      "_use": "replicating",
       "effect": {
         "_tags": "render"
       },
@@ -1627,31 +1913,31 @@
       },
       "_group": {
         "_tags": "render",
-        "effect__name": "capzone_signal_smoke"
+        "effect__name": "envir_smoke_checkpoint_cmps_fx"
       }
     }
   },
   {
     "capzone_signal_friendly_smoke_effect": {
-      "_extends": "capzone_signal_smoke_effect",
+      "_use": "capzone_signal_smoke_effect",
       "effect__colorMult": "#0000ffc8"
     }
   },
   {
     "capzone_signal_neutral_smoke_effect": {
-      "_extends": "capzone_signal_smoke_effect",
+      "_use": "capzone_signal_smoke_effect",
       "effect__colorMult": "#ffffffc8"
     }
   },
   {
     "capzone_signal_enemy_smoke_effect": {
-      "_extends": "capzone_signal_smoke_effect",
+      "_use": "capzone_signal_smoke_effect",
       "effect__colorMult": "#ff0f00c8"
     }
   },
   {
     "explosion_air_selfexplosion_big": {
-      "_extends": "explosion_effect_extra_large",
+      "_use": "explosion_effect_extra_large",
       "_group": {
         "_tags": "render",
         "effect__name": "mine_expl"
@@ -1669,7 +1955,7 @@
       ],
       "game_effect__timeToDestroy": 15.0,
       "game_effect__destroyAt": -1.0,
-      "_extends": "smoke_occluders",
+      "_use": "smoke_occluders",
       "smoke_occluders__updateInterval": 2.0,
       "effect": {
         "_tags": "render"
@@ -1696,7 +1982,7 @@
   },
   {
     "white_phosphorus_smoke_effect": {
-      "_extends": "smoke_occluders",
+      "_use": "smoke_occluders",
       "transform": [
         [1.0,0.0,0.0],
         [0.0,1.0,0.0],
@@ -1730,13 +2016,13 @@
   {
     "fireworks_shell_effect": [
       {
-        "_extends": "replicating"
+        "_use": "replicating"
       },
       {
-        "_extends": "smoke_shell_effect"
+        "_use": "smoke_shell_effect"
       },
       {
-        "_extends": "sound_effect"
+        "_use": "sound_effect"
       },
       {
         "_group": {
@@ -1773,7 +2059,7 @@
   {
     "globe_entity": {
       "_singleton": true,
-      "_extends": "replicating",
+      "_use": "replicating",
       "globeRenderer:GlobeRenderer": {
         "_tags": "render"
       },
@@ -1809,22 +2095,50 @@
     }
   },
   {
-    "hit_fx_readback_info": {
-      "biome_color_query_id": -1,
-      "live_frames": 10,
-      "biome_color": [1.0,1.0,1.0,0.5],
+    "biome_query": {
+      "_use": "ecs_no_debug",
       "transform": [
         [1.0,0.0,0.0],
         [0.0,1.0,0.0],
         [0.0,0.0,1.0],
         [0.0,0.0,0.0]
       ],
-      "hit_fx_name": ""
+      "_tracked": "biome_query__state",
+      "_group": {
+        "_tags": "render",
+        "biome_query__state": 0,
+        "biome_query__id": -1,
+        "biome_query__radius": 0.1,
+        "biome_query__liveFrames": 10,
+        "biome_query__groupId": -1,
+        "biome_query__color": [1.0,1.0,1.0,0.5]
+      }
+    }
+  },
+  {
+    "hit_fx_readback_info": {
+      "_use": "biome_query",
+      "hit_fx_name": "",
+      "_group": {
+        "_tags": "render",
+        "biome_query__desiredBiomeName": ""
+      }
+    }
+  },
+  {
+    "burning_grass_readback_info": {
+      "_use": "hit_fx_readback_info",
+      "hit_fx_name": "envir_misc_floating_ashes_2m_up_effect",
+      "_group": {
+        "_tags": "render",
+        "biome_query__radius": 0.3,
+        "biome_query__desiredBiomeName": "grass"
+      }
     }
   },
   {
     "base_hit_fx": {
-      "_extends": "ecs_no_debug",
+      "_use": "ecs_no_debug",
       "transform": [
         [1.0,0.0,0.0],
         [0.0,1.0,0.0],
@@ -1841,7 +2155,7 @@
   },
   {
     "ground_effect_base": {
-      "_extends": "ecs_no_debug",
+      "_use": "ecs_no_debug",
       "transform": [
         [1.0,0.0,0.0],
         [0.0,1.0,0.0],
@@ -1860,7 +2174,7 @@
   },
   {
     "lava_field_sparks_a_fx": {
-      "_extends": "ground_effect_base",
+      "_use": "ground_effect_base",
       "_group": {
         "_tags": "render",
         "effect__name": "lava_field_sparks_a_fx"
@@ -1869,7 +2183,7 @@
   },
   {
     "location_sand_wind_ground_fx": {
-      "_extends": "ground_effect_base",
+      "_use": "ground_effect_base",
       "_group": {
         "_tags": "render",
         "effect__name": "location_sand_wind_ground_fx"
@@ -1878,7 +2192,7 @@
   },
   {
     "ground_sparkles_10m": {
-      "_extends": "ground_effect_base",
+      "_use": "ground_effect_base",
       "_group": {
         "_tags": "render",
         "effect__name": "ground_sparkles_10m"
@@ -1887,7 +2201,7 @@
   },
   {
     "ground_sparkles_10m": {
-      "_extends": "ground_effect_base",
+      "_use": "ground_effect_base",
       "_group": {
         "_tags": "render",
         "effect__name": "ground_sparkles_10m"
@@ -1896,7 +2210,7 @@
   },
   {
     "ground_ashes_10m": {
-      "_extends": "ground_effect_base",
+      "_use": "ground_effect_base",
       "_group": {
         "_tags": "render",
         "effect__name": "ground_ashes_10m"
@@ -1905,7 +2219,7 @@
   },
   {
     "ground_leaves_10m": {
-      "_extends": "ground_effect_base",
+      "_use": "ground_effect_base",
       "_group": {
         "_tags": "render",
         "effect__name": "ground_leaves_10m"
@@ -1914,7 +2228,7 @@
   },
   {
     "land_haze": {
-      "_extends": "ground_effect_base",
+      "_use": "ground_effect_base",
       "_group": {
         "_tags": "render",
         "effect__name": "land_haze"
@@ -1923,7 +2237,7 @@
   },
   {
     "land_dust_storm": {
-      "_extends": "ground_effect_base",
+      "_use": "ground_effect_base",
       "_group": {
         "_tags": "render",
         "effect__name": "land_dust_storm"
@@ -1932,7 +2246,7 @@
   },
   {
     "land_snow_storm": {
-      "_extends": "ground_effect_base",
+      "_use": "ground_effect_base",
       "_group": {
         "_tags": "render",
         "effect__name": "land_snow_storm"
@@ -1941,7 +2255,7 @@
   },
   {
     "ground_papers_10m": {
-      "_extends": "ground_effect_base",
+      "_use": "ground_effect_base",
       "_group": {
         "_tags": "render",
         "effect__name": "ground_papers_10m"
@@ -1950,7 +2264,7 @@
   },
   {
     "chimney_exhaust": {
-      "_extends": "ground_effect_base",
+      "_use": "ground_effect_base",
       "_group": {
         "_tags": "render",
         "effect__name": "chimney_exhaust"
@@ -1958,8 +2272,8 @@
     }
   },
   {
-    "base_gun_flash_unattached_fx": {
-      "_extends": "ecs_no_debug",
+    "base_gun_unattached_fx": {
+      "_use": "ecs_no_debug",
       "transform": [
         [1.0,0.0,0.0],
         [0.0,1.0,0.0],
@@ -1969,27 +2283,36 @@
       "_group": {
         "_tags": "render",
         "effect__name": "muzzle_flash",
-        "gun_flash_fx__nodeId": -1,
+        "gun_fx__nodeId": -1,
         "effect": [],
-        "gun_flash_fx__gunEid:eid": []
-      },
-      "autodeleteEffectEntity:tag": []
+        "gun_fx__gunEid:eid": []
+      }
     }
   },
   {
     "base_gun_flash_fx": {
-      "_extends": "base_gun_flash_unattached_fx",
+      "_use": "base_gun_unattached_fx",
+      "attachedEffect:tag": [],
+      "autodeleteEffectEntity:tag": []
+    }
+  },
+  {
+    "base_gun_smoke_fx": {
+      "_use": "base_gun_unattached_fx",
+      "_tracked": "effect__colorMult",
+      "effect__colorMult": "#ffffffff",
+      "gun_fx__destroyIfGunDoesNotExist:tag": [],
       "attachedEffect:tag": []
     }
   },
   {
     "muzzle_flash": {
-      "_extends": "base_gun_flash_fx"
+      "_use": "base_gun_flash_fx"
     }
   },
   {
     "side_muzzle_flash": {
-      "_extends": "base_gun_flash_fx",
+      "_use": "base_gun_flash_fx",
       "_group": {
         "_tags": "render",
         "effect__name": "side_muzzle_flash"
@@ -1998,7 +2321,7 @@
   },
   {
     "falling_weather_effect_template": {
-      "_extends": "replicating",
+      "_use": "replicating",
       "transform": [
         [1.0,0.0,0.0],
         [0.0,1.0,0.0],
@@ -2018,6 +2341,9 @@
       },
       "effect": {
         "_tags": "render"
+      },
+      "request_depth_above_render_transparent:tag": {
+        "_tags": "render"
       }
     }
   },
@@ -2030,7 +2356,7 @@
   },
   {
     "camera_rain_light_template": {
-      "_extends": "dafx_rain",
+      "_use": "dafx_rain",
       "effect": {
         "_tags": "render"
       },
@@ -2042,7 +2368,7 @@
   },
   {
     "camera_rain_heavy_template": {
-      "_extends": "dafx_rain",
+      "_use": "dafx_rain",
       "effect": {
         "_tags": "render"
       },
@@ -2086,7 +2412,7 @@
   },
   {
     "camera_snow_light_template": {
-      "_extends": "dafx_snow",
+      "_use": "dafx_snow",
       "effect": {
         "_tags": "render"
       },
@@ -2098,7 +2424,7 @@
   },
   {
     "camera_snow_heavy_template": {
-      "_extends": "dafx_snow",
+      "_use": "dafx_snow",
       "effect": {
         "_tags": "render"
       },
@@ -2110,7 +2436,7 @@
   },
   {
     "camera_dust_template": {
-      "_extends": "dafx_dust",
+      "_use": "dafx_dust",
       "effect": {
         "_tags": "render"
       },
@@ -2121,9 +2447,47 @@
     }
   },
   {
+    "camera_storm_fall_template": {
+      "_use": "dafx_storm",
+      "effect": {
+        "_tags": "render"
+      },
+      "_group": {
+        "_tags": "render",
+        "effect__name": "camera_storm_fall_cmps_fx"
+      }
+    }
+  },
+  {
+    "camera_storm_green_template": {
+      "_use": "dafx_storm",
+      "effect": {
+        "_tags": "render"
+      },
+      "_group": {
+        "_tags": "render",
+        "effect__name": "camera_storm_green_cmps_fx"
+      }
+    }
+  },
+  {
+    "camera_underwater_template": {
+      "_use": "dafx_dust",
+      "editableObj": false,
+      "effect": {
+        "_tags": "render"
+      },
+      "_group": {
+        "_tags": "render",
+        "effect__offset": [0.0,0.02,0.0],
+        "effect__name": "camera_underwater_cmps_fx"
+      }
+    }
+  },
+  {
     "shell_explosion_fx_info": {
       "_singleton": true,
-      "_extends": "replicating",
+      "_use": "replicating",
       "shell_explosion_fx__default": "",
       "shell_explosion_fx__traceLength": 0.5,
       "shell_explosion_fx__infoTemplate": ""
@@ -2131,7 +2495,7 @@
   },
   {
     "flesh_knife_hit": {
-      "_extends": "ecs_no_debug",
+      "_use": "ecs_no_debug",
       "transform": [
         [1.0,0.0,0.0],
         [0.0,1.0,0.0],
@@ -2146,6 +2510,13 @@
         "gun_flash_fx__timeToDestroy": 1.0,
         "effect": []
       }
+    }
+  },
+  {
+    "gi_ignore_static_shadows": {
+      "_singleton": true,
+      "_tags": "render",
+      "gi_ignore_static_shadows:tag": []
     }
   }
 ]

@@ -6,32 +6,85 @@
         "onceUntilReset": []
       },
       {
-        "setIntVar": {
-          "to": "isUnreachable",
-          "value": 0
-        }
-      },
-      {
-        "setIntVar": {
-          "to": "minStance",
-          "value": 0
-        }
-      },
-      {
         "stopAim": []
       },
       {
         "success": {
           "sequencer": {
-            "isAgentPlayerBot": [],
-            "setIntVar": {
-              "to": "minStance",
-              "value": 1
-            }
+            "findWeaponSlotWithTag": {
+              "tag": "buildingTool",
+              "toParam": "buildToolSlot"
+            },
+            "isWeaponSlotSelected": {
+              "slotParam": "buildToolSlot"
+            },
+            "chooseBestWeapon": []
           }
+        }
+      },
+      {
+        "success": {
+          "sequencer": {
+            "isGrenadeSelected": [],
+            "chooseBestWeapon": []
+          }
+        }
+      },
+      {
+        "success": {
+          "detachFromStationaryGun": []
         }
       }
     ],
+    "orderedSelector": {
+      "isVarsIntEqual": {
+        "lhs": "forceMove",
+        "rhs_value": 0
+      },
+      "success": {
+        "sequencer": [
+          {
+            "setIntVar": {
+              "to": "forceMove",
+              "value": 0
+            }
+          },
+          {
+            "wait": {
+              "range": [0.5,1.0],
+              "resetable": true
+            }
+          },
+          {
+            "wait": {
+              "range": [0.1,0.5],
+              "resetable": true
+            }
+          },
+          {
+            "parallel": {
+              "moveToPos": {
+                "posParam": "forceMovePos",
+                "sprintTimerRange": [10.0,20.0],
+                "minDistToSprint": 1.5,
+                "lookVisc": 0.1,
+                "tryClimbing": false,
+                "maxStanceParam": "maxStance",
+                "stuckDirParam": "stuckDir",
+                "timeToStuck": 0.5,
+                "incObstacles": true,
+                "avoidAiObstacles": false,
+                "distThreshold": 1.0
+              },
+              "wait": {
+                "range": [0.5,1.0],
+                "resetable": true
+              }
+            }
+          }
+        ]
+      }
+    },
     "subTree": {
       "name": "",
       "refId": "behaviour"

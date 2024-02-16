@@ -1,11 +1,11 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { utf8ToUpper } = require("%sqstd/string.nut")
-let { body_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
-let { bigPadding, bonusColor, defTxtColor, activeTxtColor, titleTxtColor, discountBgColor
+let { fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { bigPadding, bonusColor, defTxtColor, activeTxtColor, titleTxtColor
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
-let { currenciesList } = require("%enlist/currency/currencies.nut")
+let { currenciesList, currenciesById } = require("%enlist/currency/currencies.nut")
 let { curCampItemsCount } = require("%enlist/soldiers/model/state.nut")
 let { mkItemCurrency } = require("currencyComp.nut")
 let { mkCurrency, mkCurrencyCount, oldPriceLine } = require("%enlist/currency/currenciesComp.nut")
@@ -14,6 +14,7 @@ let mkCountdownTimer = require("%enlSqGlob/ui/mkCountdownTimer.nut")
 let { mkHeaderFlag, primeFlagStyle } = require("%enlSqGlob/ui/mkHeaderFlag.nut")
 let { shopItemContentCtor } = require("%enlist/shop/armyShopState.nut")
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
+let { brightAccentColor } = require("%enlSqGlob/ui/designConst.nut")
 
 
 let sidePadding = fsh(2)
@@ -38,7 +39,7 @@ let mkPurchaseText = @(isSoldier) isSoldier ? loc("mainmenu/enlistFor") : loc("m
 let function mkItemPurchaseInfo(shopItem, campItems, currencies, isNarrow) {
   let { curItemCost, curShopItemPrice, shop_price_curr = "",
     shop_price = 0, shop_price_full = 0, discountInPercent = 0,
-    isPriceHidden = false
+    isPriceHidden = false, hideDiscount = false
   } = shopItem
 
   let hasBarter = hasItemsToBarter(curItemCost, campItems)
@@ -49,7 +50,7 @@ let function mkItemPurchaseInfo(shopItem, campItems, currencies, isNarrow) {
       text = isSoldier ? loc("mainmenu/enlist") : loc("mainmenu/receive")
       color = activeTxtColor
       padding = [0, sidePadding, 0, 0]
-    }.__update(body_txt))
+    }.__update(fontBody))
 
   let { price, fullPrice, currencyId = null } = curShopItemPrice
   //block for Ingame Currencies: Gold, etc
@@ -65,7 +66,7 @@ let function mkItemPurchaseInfo(shopItem, campItems, currencies, isNarrow) {
           : txt({
               text = mkPurchaseText(isSoldier)
               color = activeTxtColor
-            }.__update(sub_txt))
+            }.__update(fontSub))
         mkDiscountWidget(discountInPercent)
         isPriceHidden ? null : mkCurrency({
           currency
@@ -84,7 +85,7 @@ let function mkItemPurchaseInfo(shopItem, campItems, currencies, isNarrow) {
         children.append(txt({
           text = mkPurchaseText(isSoldier)
           color = activeTxtColor
-        }.__update(sub_txt)))
+        }.__update(fontSub)))
 
       children.append(mkCurrencyCount(
         mkPriceText(shop_price, shop_price_curr),
@@ -97,7 +98,8 @@ let function mkItemPurchaseInfo(shopItem, campItems, currencies, isNarrow) {
           oldPriceLine.__merge({ color = defTxtColor })
         ]})
     }
-    children.append(mkDiscountWidget(discountInPercent))
+    if (!hideDiscount)
+      children.append(mkDiscountWidget(discountInPercent))
 
     return {
       flow = FLOW_HORIZONTAL
@@ -125,7 +127,7 @@ let function mkItemBarterInfo(shopItem, campItems) {
       keySuffix = guid
       textStyle = (inStock >= reqCount
         ? { color = bonusColor,  }
-        : {}).__update(body_txt)
+        : {}).__merge(fontBody)
     }))
   }
   return {
@@ -136,40 +138,53 @@ let function mkItemBarterInfo(shopItem, campItems) {
   }
 }
 
+let baseIconSize = [hdpxi(25), hdpxi(25)]
+
 let mkPrice = @(shopItem, bgParams = {}, needPriceText = true,
-  showGoldPrice = true, styleOverride = {}
-) shopItem?.isPriceHidden ?? false ? null : function() {
+  showGoldPrice = true, styleOverride = {}, discountStyle = null,
+  iconSize = baseIconSize, dimStyle = {}
+) (shopItem?.isPriceHidden ?? false) ? null : function() {
     let children = []
     foreach (itemTpl, value in shopItem.curItemCost)
       children.append(mkItemCurrency({
-        currencyTpl = itemTpl, count = value, keySuffix = shopItem.guid, textStyle = styleOverride
+        currencyTpl = itemTpl
+        count = value
+        keySuffix = shopItem.guid
+        textStyle = styleOverride
+        iconSize
       }))
     if (showGoldPrice) {
       let { curShopItemPrice } = shopItem
       let { price, fullPrice, currencyId = null } = curShopItemPrice
-      let currency = currenciesList.value.findvalue(@(c) c.id == currencyId)
+      let currency = currenciesById.value?[currencyId]
       if (currency != null && price > 0) {
         if (children.len() > 0)
-          children.append(txt({ text = loc("mainmenu/or")}.__update(body_txt)))
+          children.append(txt({ text = loc("mainmenu/or")}.__update(fontBody)))
         children.append(mkCurrency({
           currency
           price
           fullPrice
+          discountStyle
+          dimStyle
+          txtStyle = styleOverride
+          iconSize = iconSize[0]
         }))
       }
     }
 
+    let otherTxtStyle = fontBody.__merge(styleOverride)
     if (children.len() == 0) {
       let { shop_price_curr = "", shop_price = 0 } = shopItem
       children.append(txt({
         text = loc($"priceText/{shop_price_curr}", { price = shop_price })
-      }.__update(body_txt)))
+      }.__update(otherTxtStyle)))
     }
 
     if (needPriceText && children.len() > 0)
-      children.insert(0, txt({ text = loc("price")}.__update(body_txt)))
+      children.insert(0, txt({ text = loc("price")}.__update(otherTxtStyle)))
 
     return {
+      watch = currenciesById
       flow = FLOW_HORIZONTAL
       gap = bigPadding
       halign = ALIGN_CENTER
@@ -177,6 +192,20 @@ let mkPrice = @(shopItem, bgParams = {}, needPriceText = true,
       children
     }.__update(bgParams)
   }
+
+let function mkSinglePrice(priceData, count, guid) {
+  let { currTpl = "", value = 0, price = 0, fullPrice = 0} = priceData
+  if (currTpl == "EnlistedGold"){
+    let currency = currenciesById.value?[currTpl]
+    return mkCurrency({ currency, price = price * count, fullPrice = fullPrice * count})
+  }
+
+  return mkItemCurrency({
+    currencyTpl = currTpl,
+    count = value * count,
+    keySuffix = guid
+  })
+}
 
 let function mkDiscountInfo(discountData) {
   if (discountData == null)
@@ -195,13 +224,13 @@ let function mkDiscountInfo(discountData) {
         txt({
           text = utf8ToUpper(loc(locId))
           color = titleTxtColor
-        }.__update(sub_txt))
-        endTime == 0 ? null : mkCountdownTimer({ timestamp = endTime })
+        }.__update(fontSub))
+        endTime == 0 ? null : mkCountdownTimer({ timestamp = endTime, color = titleTxtColor })
       ]
     }, primeFlagStyle.__merge({
       size = SIZE_TO_CONTENT
       offset = 0
-      flagColor = discountBgColor
+      flagColor = brightAccentColor
     }))
   }
 }
@@ -210,7 +239,7 @@ local function mkShopItemPrice(shopItem, personalOffer = null, isNarrow = false)
   local {
     curItemCost, curShopItemPrice, shop_price_curr = "",
     shop_price = 0, discountInPercent = 0,
-    discountIntervalTs = [], isPriceHidden = false
+    discountIntervalTs = [], isPriceHidden = false, showSpecialOfferText = false
   } = shopItem
   let { price } = curShopItemPrice
   let [ beginTime = 0, endTime = 0 ] = discountIntervalTs
@@ -223,7 +252,7 @@ local function mkShopItemPrice(shopItem, personalOffer = null, isNarrow = false)
       }
     : discountInPercent > 0 || (discountInPercent == 0 && isDiscountActive) ? {
         endTime
-        locId = "shop/discountNotify"
+        locId = showSpecialOfferText ? "specialOfferShort" : "shop/discountNotify"
       }
     : null
 
@@ -251,4 +280,5 @@ local function mkShopItemPrice(shopItem, personalOffer = null, isNarrow = false)
 return {
   mkShopItemPrice
   mkPrice = kwarg(mkPrice)
+  mkSinglePrice
 }

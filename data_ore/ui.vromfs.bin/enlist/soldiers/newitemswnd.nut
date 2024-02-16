@@ -1,9 +1,11 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { h2_txt, body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontHeading2, fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let {
-  bigPadding, soldierLvlColor, activeTxtColor, smallPadding, defBgColor
+  soldierLvlColor, activeTxtColor, defBgColor, warningColor
 } = require("%enlSqGlob/ui/viewConst.nut")
+let { smallPadding, midPadding, bigPadding
+} = require("%enlSqGlob/ui/designConst.nut")
 let JB = require("%ui/control/gui_buttons.nut")
 let textButton = require("%ui/components/textButton.nut")
 let { withTooltip } = require("%ui/style/cursors.nut")
@@ -19,10 +21,10 @@ let closeBtnBase = require("%ui/components/closeBtn.nut")
 let {
   sceneWithCameraAdd, sceneWithCameraRemove
 } = require("%enlist/sceneWithCamera.nut")
-let { curSelectedItem } = require("%enlist/showState.nut")
+let { curSelectedItem, changeCameraFov } = require("%enlist/showState.nut")
 let mkAnimatedItemsBlock = require("%enlist/soldiers/mkAnimatedItemsBlock.nut")
 let { mkSoldierMedalIcon } = require("%enlSqGlob/ui/soldiersUiComps.nut")
-let { sound_play } = require("sound")
+let { sound_play } = require("%dngscripts/sound_system.nut")
 let { mkTierStars, mkItemTier } = require("%enlSqGlob/ui/itemTier.nut")
 let { allItemTemplates, findItemTemplate
 } = require("%enlist/soldiers/model/all_items_templates.nut")
@@ -34,8 +36,9 @@ let { specialUnlock } = require("%enlist/unlocks/dailyRewardsState.nut")
 let { activeUnlocks } = require("%enlSqGlob/userstats/unlocksState.nut")
 let { makeVertScroll } = require("%ui/components/scrollbar.nut")
 let allowedVehicles = require("%enlist/vehicles/allowedVehicles.nut")
-let { curArmy, curUnlockedSquads } = require("%enlist/soldiers/model/state.nut")
-let { selectVehParams, setCurSquadId } = require("%enlist/vehicles/vehiclesListState.nut")
+let { curArmy, curUnlockedSquads, setCurSquadId } = require("%enlist/soldiers/model/state.nut")
+let { getGoodManageObject } = require("%enlist/shop/shopState.nut")
+let { selectVehParams } = require("%enlist/vehicles/vehiclesListState.nut")
 let { curArmySquadsUnlocks, scrollToCampaignLvl
 } = require("%enlist/soldiers/model/armyUnlocksState.nut")
 let { closeAndOpenCampaign } = require("%enlist/soldiers/model/chooseSquadsState.nut")
@@ -43,6 +46,22 @@ let { mkPerksPoints } = require("%enlist/soldiers/soldierPerksPkg.nut")
 let { dismissBtn } = require("%enlist/soldiers/soldierDismissBtn.nut")
 let { mkItemUpgradeData } = require("model/mkItemModifyData.nut")
 let { openUpgradeItemMsg } = require("components/modifyItemComp.nut")
+let { isItemActionInProgress } = require("model/itemActions.nut")
+let spinner = require("%ui/components/spinner.nut")
+let { mkOnlineSaveData } = require("%enlSqGlob/mkOnlineSaveData.nut")
+let { setCurSection, curSection, mainSectionId
+} = require("%enlist/mainMenu/sectionsState.nut")
+let { purchasesCount } = require("%enlist/meta/servProfile.nut")
+let { startswith } = require("string")
+let { itemToShopItem } = require("%enlist/soldiers/model/cratesContent.nut")
+let {
+  addToPresentList, needGoodManage, goodManageData
+} = require("%enlist/shop/armyShopState.nut")
+
+
+const ADD_CAMERA_FOV_MIN = -20
+const ADD_CAMERA_FOV_MAX = 5
+
 
 const SHOW_ITEM_DELAY = 1.0 //wait for fadeout
 const ITEM_SELECT_DELAY = 0.01
@@ -52,12 +71,17 @@ const ANIM_TITLE_TRIGGER = "reward_title_wnd_anim"
 
 const STAR_DEF_DURATION = 0.2
 const STAR_BLICK_DURATION = 0.4
-const STAR_DEF_DELAY = 0.2
+//const STAR_DEF_DELAY = 0.2
 const STAR_DEF_DELAY_INCREASE = 0.1
 const STAR_NEXT_DELAY = 0.3
 
+let waitingSpinner = spinner(hdpx(25))
+
 let isAnimFinished = Watched(false)
 let wndCanBeClosed = Watched(true)
+
+let firstPurchases = mkOnlineSaveData("hasFirstPurchases", @() null)
+let firstPurchasesStored = firstPurchases.watch
 
 let curItem = Watched(null)
 curItem.subscribe(function(v) {
@@ -71,6 +95,75 @@ curItem.subscribe(function(v) {
     curSelectedItem(null)
 })
 
+let needGoodManageBtn = Computed(@() curSection.value != mainSectionId && needGoodManage.value)
+
+
+let isGoodWeapon = @(item) item?.ammotemplate != null
+let isGoodSoldier = @(item) item?.itemtype  == "soldier"
+
+let needShowFirstPurchaseBtn = Computed(function() {
+  let item = curItem.value
+  let { weapon = true, soldier = true } = firstPurchasesStored.value
+  return needGoodManageBtn.value &&
+    ((isGoodWeapon(item) && !weapon) || (isGoodSoldier(item) && !soldier))
+})
+
+
+let function updateFirstPurchases(purchases) {
+  let joined = clone firstPurchasesStored.value ?? {}
+  purchases.each(@(val, key) joined[key] <- val || (joined?[key] ?? false))
+  firstPurchases.setValue(joined)
+}
+
+let function checkIsFirstPurchase() {
+  if (firstPurchasesStored.value != null)
+    return
+
+  local soldiersPurchased = 0
+  local weaponsPurchased = 0
+  let soldier = {}
+  let weapon = {}
+
+  foreach (shopItemsByArmy in itemToShopItem.value) {
+    shopItemsByArmy.each(function(shopItems, id) {
+      shopItems.each(function(shopItem) {
+        if (startswith(id, "soldier:"))
+          soldier[shopItem] <- true
+        else
+          foreach (itemsByArmy in allItemTemplates.value) {
+            if (itemsByArmy?[id].ammotemplate != null) {
+              weapon[shopItem] <- true
+              break
+            }
+          }
+      })
+    })
+  }
+
+  foreach (key, val in purchasesCount.value) {
+    if (soldiersPurchased > 1 && weaponsPurchased > 1)
+      break
+
+    if (key in soldier)
+      soldiersPurchased += val.amount
+    if (key in weapon)
+      weaponsPurchased += val.amount
+  }
+
+  updateFirstPurchases({
+    soldier = soldiersPurchased > 1
+    weapon = weaponsPurchased > 1
+  })
+}
+newItemsToShow.subscribe(function(v) {
+  let { allItems = [] } = v
+  let { guid = null } = curItem.value
+  let item = allItems.findvalue(@(i) i.guid == guid) ?? allItems?[0]
+  curItem(item)
+  addToPresentList(allItems)
+  checkIsFirstPurchase()
+})
+
 local animEndTime = -1
 
 let function tryMarkSeen() {
@@ -81,6 +174,7 @@ let function tryMarkSeen() {
     return
   }
   markNewItemsSeen()
+  needGoodManage(false)
 }
 
 let textAnimations = @(trigger = null) [
@@ -98,7 +192,7 @@ let title = @(titleText) {
   transform = {}
   animations = textAnimations(ANIM_TITLE_TRIGGER)
   text = loc(titleText)
-}.__update(h2_txt)
+}.__update(fontHeading2)
 
 let curItemDescription = @(item) {
   size = [sw(50), SIZE_TO_CONTENT]
@@ -109,7 +203,7 @@ let curItemDescription = @(item) {
   text = getItemDesc(item)
   transform = {}
   animations = textAnimations(ANIM_TEXT_TRIGGER)
-}.__update(body_txt)
+}.__update(fontBody)
 
 let function soldierMedal(soldier) {
   if (soldier?.itemtype != "soldier")
@@ -120,22 +214,36 @@ let function soldierMedal(soldier) {
     : withTooltip(medal, @() loc("hero/medal"))
 }
 
-let curItemName = @(item) {
-  flow = FLOW_HORIZONTAL
-
-  gap = bigPadding
-  valign = ALIGN_CENTER
-  padding = [bigPadding, 0]
-  transform = {}
-  animations = textAnimations(ANIM_TEXT_TRIGGER)
-  children = [
-    {
-      rendObj = ROBJ_TEXT
-      size = SIZE_TO_CONTENT
-      text =  getObjectName(item)
-    }.__update(h2_txt)
-    soldierMedal(item)
-  ]
+let function curItemName(item, armyInfoId) {
+  let belongingObject = (armyInfoId ?? "") == "" ? null
+    : {
+        rendObj = ROBJ_TEXT
+        text = loc($"{armyInfoId}/full")
+        color = warningColor
+      }.__update(fontBody)
+  return {
+    flow = FLOW_VERTICAL
+    halign = ALIGN_CENTER
+    children = [
+      {
+        flow = FLOW_HORIZONTAL
+        gap = midPadding
+        valign = ALIGN_CENTER
+        padding = [midPadding, 0]
+        children = [
+          {
+            rendObj = ROBJ_TEXT
+            size = SIZE_TO_CONTENT
+            text = getObjectName(item)
+          }.__update(fontHeading2)
+          soldierMedal(item)
+        ]
+      }
+      belongingObject
+    ]
+    transform = {}
+    animations = textAnimations(ANIM_TEXT_TRIGGER)
+  }
 }
 
 let underline = {
@@ -193,8 +301,8 @@ let function animatedStars(item){
   if (item?.itemtype != "soldier")
     return null
   local delay = 0.2
-  let tier = item?.tier ?? 0
-  let stars = array(tier, 1)
+  let level = item?.level ?? 1
+  let stars = array(level, 1)
   return @() {
     watch = isAnimFinished
     size = [flex(), SIZE_TO_CONTENT]
@@ -202,28 +310,27 @@ let function animatedStars(item){
     valign = ALIGN_CENTER
     halign = ALIGN_CENTER
     padding = [0 ,0, fsh(1) ,0]
-    onAttach = tier >= 4 ? @() wndCanBeClosed(false) : null
+    onAttach = level >= 4 ? @() wndCanBeClosed(false) : null
     children = stars.map(@(star, idx) function(){
       delay += STAR_DEF_DELAY_INCREASE
       return mkTierStars(star, {
         fontSize = hdpx(45),
         transform = {}
         animations = isAnimFinished.value ? null
-          : tier <= 3
-            ? casualStarAnim(delay, tier)
-          : advancedStarAnim(delay, tier, idx + 1)
-        padding = bigPadding
+          : level <= 3 ? casualStarAnim(delay, level)
+          : advancedStarAnim(delay, level, idx + 1)
+        padding = midPadding
       })
     })
   }
 }
 
-let function newIemsWndContent() {
+let function newItemsWndContent() {
   let itemsToShow = newItemsToShow.value
   if (itemsToShow == null)
     return null
 
-  let { itemsGuids, soldiersGuids, allItems, header } = itemsToShow
+  let { itemsGuids, soldiersGuids, allItems, header, armyByGuid } = itemsToShow
   justPurchasedItems(clone itemsGuids)
 
   let itemsCount = itemsGuids.len()
@@ -233,48 +340,53 @@ let function newIemsWndContent() {
     : soldiersCount > 1 ? "delivery/soldiers"
     : "delivery/soldier"
 
-  sound_play( itemsCount > 0 ? "ui/weaponry_delivery" : "ui/troops_reinforcement")
-  let animBlock = mkAnimatedItemsBlock({ items = allItems }, {
-    width = sw(80)
-    addChildren = []
-    hasAnim = !isAnimFinished.value
-    baseAnimDelay = SHOW_ITEM_DELAY
-    animTrigger = ANIM_TRIGGER
-    hasItemTypeTitle = false
-    selectedKey = curItem
-    onItemClick = @(item) curItem(item)
-    onVisibleCb = function() {
-      sound_play("ui/debriefing/new_equip")
-    }
-    isDisarmed = true
-  })
+  let curItemValue = curItem.value
+  let { guid = null, expMul = 0 } = curItemValue
+  let animBlock = mkAnimatedItemsBlock({ items = allItems },
+    curItemValue?.basetpl, // TODO remove cascading and use curItem at final component
+    {
+      width = sw(80)
+      addChildren = []
+      hasAnim = !isAnimFinished.value
+      baseAnimDelay = SHOW_ITEM_DELAY
+      animTrigger = ANIM_TRIGGER
+      hasItemTypeTitle = false
+      onItemClick = @(item) curItem(item)
+      onVisibleCb = function() {
+        sound_play("ui/debriefing/new_equip")
+      }
+      isDisarmed = true
+      armyByGuid
+    })
 
   animEndTime = get_time_msec() + 1000 * animBlock.totalTime
-  let curItemValue = curItem.value
   let specialUnlockHeader =
     activeUnlocks.value?[specialUnlock.value].meta.congratulationLangId ?? ""
+
   return {
     watch = [newItemsToShow, curItem, specialUnlock, isAnimFinished]
     size = [sw(80), fsh(86)]
     flow = FLOW_VERTICAL
     gap = smallPadding
     halign = ALIGN_CENTER
-
     children = [
       {
         size = flex()
         flow = FLOW_VERTICAL
         halign = ALIGN_CENTER
-        gap = bigPadding
+        gap = midPadding
         children = [
-          title(specialUnlockHeader == "" ? header : specialUnlockHeader)
+          title(specialUnlockHeader != "" ? specialUnlockHeader
+            : expMul < 0 ? loc("battlePenaltyTitle")
+            : header
+          )
           underline
-          curItemName(curItemValue)
+          curItemName(curItemValue, armyByGuid?[guid])
           soldiersCount <= 0 || curItemValue?.itemtype != "soldier" ? null
             : {
                 rendObj = ROBJ_SOLID
                 color = defBgColor
-                children = mkPerksPoints(curItemValue.guid)
+                children = mkPerksPoints(guid)
               }
           { size = flex() }
           curItemDescription(curItemValue)
@@ -284,7 +396,7 @@ let function newIemsWndContent() {
       underline
       title(subtitle)
       {
-        margin = [hdpx(50), 0, 0, 0]
+        margin = [bigPadding, 0]
         size = [pw(100), SIZE_TO_CONTENT]
         children =  makeVertScroll(animBlock.component,
           {
@@ -299,14 +411,13 @@ let function newIemsWndContent() {
 }
 
 let function goToReceivedSquad(receivedSquad) {
-  if (receivedSquad != null) {
+  if (receivedSquad != null)
     selectVehParams.mutate(@(params) params.__update({
       armyId = curArmy.value
       squadId = receivedSquad
       isCustomMode = false
+      isHitcamMode = false
     }))
-    setCurSquadId(receivedSquad)
-  }
 }
 
 
@@ -376,7 +487,7 @@ let function soldierDismissBtn() {
 }
 
 let function upgradeItemBtn() {
-  let res = { watch = curItem }
+  let res = { watch = [curItem, isItemActionInProgress] }
   let justUpgradedItem = curItem.value
   let upgradeDataWatch = mkItemUpgradeData(justUpgradedItem)
   let upgradeData = upgradeDataWatch.value
@@ -390,10 +501,10 @@ let function upgradeItemBtn() {
   local nextUpgrade = findItemTemplate(allItemTemplates, armyId, upgradeitem)
   nextUpgrade = justUpgradedItem.__merge(nextUpgrade)
 
-  res.__update({ children = textButton("",
+  res.__update({ children = isItemActionInProgress.value ? waitingSpinner : textButton("",
     function() {
-        tryMarkSeen()
-        openUpgradeItemMsg(justUpgradedItem, upgradeData)
+      tryMarkSeen()
+      openUpgradeItemMsg(justUpgradedItem, upgradeData)
     }, {
       textCtor = @(_textField, params, handler, group, sf) textButtonTextCtor({
         children = {
@@ -403,53 +514,101 @@ let function upgradeItemBtn() {
           children = mkTextRow(loc("btn/upgrade/nextTier"),
             @(t) txt(t).__update({
               color = sf & S_HOVER ? TextHover : TextNormal
-            }, body_txt),
+            }, fontBody),
             {
               ["{stars}"] = mkItemTier(nextUpgrade) //warning disable: -forgot-subst
             })
         }
       }, params, handler, group, sf)
+      hotkeys = [["^J:X"]]
     })
   })
   return res
 }
 
-let newItemsWnd = @() {
-  watch = [safeAreaBorders, wndCanBeClosed, isAnimFinished]
-  key = $"newItemsWindow"
-  size = flex()
-  padding = safeAreaBorders.value
-  halign = ALIGN_CENTER
-  behavior = Behaviors.MenuCameraControl
-  flow = FLOW_VERTICAL
-  children = [
-    {
-      margin = [bigPadding * 4, 0, 0, 0]
-      hplace = ALIGN_RIGHT
-      size = [flex(), fsh(2)]
-      children = wndCanBeClosed.value || isAnimFinished.value
-        ? closeBtnBase({ onClick = tryMarkSeen })
-        : null
+let function markFirstPurchases() {
+  updateFirstPurchases({
+    soldier = curItem.value?.itemtype == "soldier"
+    weapon = curItem.value?.ammotemplate != null
+  })
+}
+
+let function goToManagement() {
+  let item = curItem.value
+  if (isGoodSoldier(item)) {
+    let { squadId = null } = getGoodManageObject({ soldier = item })
+    if (squadId != null) {
+      setCurSquadId(squadId)
+      goodManageData({ squadId })
     }
-    newIemsWndContent
-    {
-      size = [flex(), SIZE_TO_CONTENT]
-      halign = ALIGN_CENTER
-      valign = ALIGN_CENTER
-      flow = FLOW_HORIZONTAL
-      gap = smallPadding
-      children = wndCanBeClosed.value || isAnimFinished.value
-        ? [
-            textButton(loc("Ok"), tryMarkSeen, {
-              hotkeys = [[$"^{JB.B} | Esc | Space | Enter", { description = loc("Close") }]]
-            })
-            soldierDismissBtn
-            vehicleSquadBtn
-            upgradeItemBtn
-          ]
-        : null
+  }
+  else if (isGoodWeapon(item)) {
+    let {
+      squadId = null, soldierIdx = null, manageSlotType = null
+    } = getGoodManageObject({ weapon = item })
+    if (squadId != null && soldierIdx != null && manageSlotType != null) {
+      setCurSquadId(squadId)
+      goodManageData({ soldierIdx, manageSlotType})
     }
-  ]
+  }
+
+  markFirstPurchases()
+  tryMarkSeen()
+  setCurSection(mainSectionId)
+}
+
+let toManagementBtn = textButton.PrimaryFlat(loc("btn/goToManagement"), goToManagement,
+  { hotkeys = [["^J:X"]] })
+
+let closeBtn = textButton(loc("Close"), tryMarkSeen,
+  { hotkeys = [[$"^{JB.B} | Esc | Space | Enter"]] })
+
+let function newItemsWnd () {
+  let buttonsBlock = []
+  if (needShowFirstPurchaseBtn.value || needGoodManageBtn.value)
+    buttonsBlock.append(toManagementBtn)
+  if (!needShowFirstPurchaseBtn.value)
+    buttonsBlock.append(closeBtn)
+
+  return {
+    watch = [safeAreaBorders, wndCanBeClosed, isAnimFinished, needShowFirstPurchaseBtn,
+      needGoodManageBtn]
+    key = $"newItemsWindow"
+    size = flex()
+    padding = safeAreaBorders.value
+    halign = ALIGN_CENTER
+    behavior = [Behaviors.MenuCameraControl, Behaviors.TrackMouse]
+    flow = FLOW_VERTICAL
+    onMouseWheel = function(mouseEvent) {
+      changeCameraFov(mouseEvent.button * 5, ADD_CAMERA_FOV_MIN, ADD_CAMERA_FOV_MAX)
+    }
+    children = [
+      {
+        margin = [midPadding * 4, 0, 0, 0]
+        hplace = ALIGN_RIGHT
+        size = [flex(), fsh(2)]
+        children = !needShowFirstPurchaseBtn.value && (wndCanBeClosed.value || isAnimFinished.value)
+          ? closeBtnBase({ onClick = tryMarkSeen })
+          : null
+      }
+      newItemsWndContent
+      !wndCanBeClosed.value && !isAnimFinished.value ? null
+        : {
+            size = [flex(), SIZE_TO_CONTENT]
+            halign = ALIGN_CENTER
+            valign = ALIGN_CENTER
+            flow = FLOW_HORIZONTAL
+            gap = smallPadding
+            children = buttonsBlock.append(soldierDismissBtn, vehicleSquadBtn, upgradeItemBtn)
+          }
+    ]
+  }
+}
+
+let function playOpenSceneSound() {
+  sound_play( (newItemsToShow.value?.itemsGuids ?? []).len() > 0
+    ? "ui/weaponry_delivery"
+    : "ui/troops_reinforcement")
 }
 
 let function close() {
@@ -459,9 +618,9 @@ let function close() {
 }
 
 let function open() {
+  playOpenSceneSound()
   anim_start(ANIM_TITLE_TRIGGER)
   sceneWithCameraAdd(newItemsWnd, "new_items")
-  curItem(newItemsToShow.value?.allItems[0])
 }
 
 if (needNewItemsWindow.value || specialUnlock.value != null)

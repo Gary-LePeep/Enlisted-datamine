@@ -123,11 +123,20 @@ struct CmdStopExtinguisher
   eid : EntityId
 
 [cpp_event(unicast)]
+struct EventOnStartBurn
+  fireId : int
+  paramsId : int
+  nodeId : int
+  offset : float3
+  center : float3
+
+[cpp_event(unicast)]
 struct CmdStopBurn {}
 
 [event(unicast, routing=ROUTING_CLIENT_TO_SERVER)]
 struct RequestStartMaintenance
   target : EntityId
+  partId : int
 
 [event(unicast, routing=ROUTING_CLIENT_TO_SERVER)]
 struct RequestStopMaintenance
@@ -136,6 +145,7 @@ struct RequestStopMaintenance
 [event(unicast)]
 struct CmdStartMaintenance
   target : EntityId
+  partId : int
 
 [event(unicast)]
 struct CmdStopMaintenance
@@ -144,6 +154,12 @@ struct CmdStopMaintenance
 [event(unicast)]
 struct CmdStartRepair
   target : EntityId
+  partId : int
+
+[event(unicast)]
+struct CmdRepairKitWeaponUse
+  target : EntityId
+  partId : int
 
 [event(unicast)]
 struct CmdStopRepair
@@ -207,6 +223,10 @@ struct RequestVehicleSeat
 struct CmdKickFromVehicle
   eid : EntityId
 
+[event(unicast, routing=ROUTING_SERVER_TO_CLIENT)]
+struct CmdStartParatroopersExit
+  aircraftEid : EntityId
+
 [event(unicast, routing=ROUTING_CLIENT_TO_SERVER)]
 struct RequestKickFromVehicle
   requester : EntityId
@@ -224,3 +244,10 @@ struct EventOnSeatOwnersChanged {}
 [event(unicast)]
 struct EventOnVehicleExtinguished
   eid : EntityId
+
+[event(broadcast)]
+struct CmdShootGunScreenSpace
+  gunTemplate : string
+  bulletNo : int
+  distance : float
+  screenPos : float2

@@ -19,32 +19,35 @@
   },
   "vehicle_hero_components": [
     {
-      "_extends": "base_vehicle_hero_components"
+      "_use": "base_vehicle_hero_components"
     },
     {
-      "_extends": "vehicle_input"
+      "_use": "vehicle_input"
     }
   ],
   "walker_hero_components": [
     {
-      "_extends": "base_vehicle_hero_components"
+      "_use": "base_vehicle_hero_components"
     },
     {
-      "_extends": "walker_input"
+      "_use": "walker_input"
     }
   ],
-  "walker_control_components": [],
+  "walker_control_components": {
+    "hasVehicleControl:tag": []
+  },
   "vehicle_control_components": {
     "vehicle_input_axes:list<r>": {
       "_tags": "input"
-    }
+    },
+    "hasVehicleControl:tag": []
   },
   "camera_control_components": [
     {
-      "_extends": "base_vehicle_hero_components"
+      "_use": "base_vehicle_hero_components"
     },
     {
-      "_extends": "vehicle_input"
+      "_use": "vehicle_input"
     }
   ],
   "vehicle_autodetect_team": {
@@ -55,16 +58,17 @@
   },
   "phys_obj_hero_components": [
     {
-      "_extends": "base_vehicle_hero_components"
+      "_use": "base_vehicle_hero_components"
     },
     {
-      "_extends": "vehicle_input"
+      "_use": "vehicle_input"
     }
   ],
   "phys_obj_control_components": {
     "vehicle_input_axes:list<r>": {
       "_tags": "input"
-    }
+    },
+    "hasVehicleControl:tag": []
   },
   "dm_debug": {
     "dm_debug__draw_parts_mask:list<b>": {
@@ -170,10 +174,19 @@
   },
   "base_vehicle": [
     {
-      "_extends": "base_net_phys"
+      "_use": "base_net_phys"
     },
     {
-      "_extends": "base_nav_object"
+      "_use": "base_nav_object"
+    },
+    {
+      "netLodZones": [2500.0,22500.0,62500.0,6250000.0]
+    },
+    {
+      "hitmarks_victim__group": "vehicle"
+    },
+    {
+      "hitmarks_victim__groupId": -1
     },
     {
       "transform_lastFrame": [
@@ -182,6 +195,12 @@
         [0.0,0.0,1.0],
         [0.0,0.0,0.0]
       ]
+    },
+    {
+      "vehicle_phys__defTrackedNormSuspForceLerp": 0.0
+    },
+    {
+      "vehicle_phys__deTrackedSideFricProjLerp": 0.0
     },
     {
       "battle_area__timeToDamageType": "vehicle"
@@ -214,6 +233,29 @@
     },
     {
       "blockTerraform:tag": []
+    },
+    {
+      "hitmarks__groups:list<t>": [
+        {
+          "group": "plane"
+        },
+        {
+          "group": "infantry"
+        }
+      ]
+    },
+    {
+      "hitmarks__groupsIds:list<i>": []
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "vehicle_tracks__surface_pressure_mult": 1.0,
+        "vehicle_tracks__lastUpdatePos": [0.0,-1000.0,0.0],
+        "vehicle_tracks__nodeIds:list<i>": [],
+        "vehicle_tracks__nodesFilter:list<u8>": [],
+        "vehicle_tracks__emitter_id:list<i>": []
+      }
     }
   ],
   "base_vehicle_seats": {
@@ -253,10 +295,11 @@
     }
   },
   "plane_vehicle_seats": {
-    "_extends": "base_vehicle_seats",
+    "_use": "base_vehicle_seats",
     "vehicle_seats__seatTemplates:shared:object": {
       "default": "vehicle_seat_default",
-      "driver": "vehicle_seat_pilot_driver"
+      "driver": "vehicle_seat_pilot_driver",
+      "paratrooper": "vehicle_seat_paratrooper"
     },
     "_group": {
       "_tags": "server",
@@ -267,13 +310,16 @@
         },
         {
           "template_name": "vehicle_seat_pilot_driver"
+        },
+        {
+          "template_name": "vehicle_seat_paratrooper"
         }
       ]
     }
   },
   "base_vehicle_seat": [
     {
-      "_extends": "replicating"
+      "_use": "replicating"
     },
     {
       "seat__enumVarId": -1
@@ -465,6 +511,9 @@
       "seats_order__seatNo": -1
     },
     {
+      "seats_order__canPlaceOnlyOwner": false
+    },
+    {
       "seats_order__canPlaceManually": false
     },
     {
@@ -532,21 +581,27 @@
     }
   ],
   "vehicle_seat_default": {
-    "_extends": "base_vehicle_seat",
+    "_use": "base_vehicle_seat",
     "seat_anim__upper": "drive_passenger",
     "seat_anim__lower": "drive_passenger"
   },
   "vehicle_seat_driver": {
-    "_extends": "base_vehicle_seat",
+    "_use": "base_vehicle_seat",
     "seats_order__canPlaceManually": true,
     "seat_anim__upper": "drive_driver",
     "seat_anim__lower": "drive_driver"
   },
   "vehicle_seat_pilot_driver": {
-    "_extends": "base_vehicle_seat",
+    "_use": "base_vehicle_seat",
     "seats_order__canPlaceManually": true,
     "seat_anim__upper": "drive_pilot_driver",
     "seat_anim__lower": "drive_pilot_driver"
+  },
+  "vehicle_seat_paratrooper": {
+    "_use": "base_vehicle_seat",
+    "seats_order__canPlaceManually": true,
+    "seat_anim__upper": "parachute_pre_jump_anim",
+    "seat_anim__lower": "parachute_pre_jump_anim"
   },
   "vehicle_driver_skills": {
     "vehicle_net_phys__brakingTau": 0.14,
@@ -599,34 +654,34 @@
   },
   "vehicle_no_ai": [
     {
-      "_extends": "phys_sleepable"
+      "_use": "phys_sleepable"
     },
     {
-      "_extends": "base_vehicle"
+      "_use": "base_vehicle"
     },
     {
-      "_extends": "base_vehicle_seats"
+      "_use": "base_vehicle_seats"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "vehicle_sound"
+      "_use": "vehicle_sound"
     },
     {
-      "_extends": "capturer"
+      "_use": "capturer"
     },
     {
-      "_extends": "vehicle_driver_skills"
+      "_use": "vehicle_driver_skills"
     },
     {
-      "_extends": "vehicle_underwater"
+      "_use": "vehicle_underwater"
     },
     {
-      "_extends": "vehicle_exhaust_fx"
+      "_use": "vehicle_exhaust_fx"
     },
     {
-      "_extends": "replicating"
+      "_use": "replicating"
     },
     {
       "zones_visitor__triggerTag": "vehicleTriggerable"
@@ -688,7 +743,13 @@
       ]
     },
     {
-      "_tracked": "transform"
+      "shreddableInDarkZone": true
+    },
+    {
+      "vehicleCameraType": 0
+    },
+    {
+      "isTpsView": false
     },
     {
       "_tracked": "isTpsView"
@@ -701,15 +762,6 @@
     },
     {
       "_tracked": "isAlive"
-    },
-    {
-      "shreddableInDarkZone": true
-    },
-    {
-      "vehicleCameraType": 0
-    },
-    {
-      "isTpsView": false
     },
     {
       "driverFpsCamMaxAngle": [90.0,50.0]
@@ -775,26 +827,34 @@
       "particle_phys__blk": "content/enlisted/gamedata/suspension/empty.blk"
     },
     {
+      "collision_physMatId": -1
+    },
+    {
       "vehicle_seats__restrictToGroup": 0
     },
     {
       "pair_collision__tag": "collidableToVehicle"
     },
     {
+      "grid_obj__updateAlways:tag": []
+    },
+    {
       "grid_obj": []
     },
     {
-      "_group": {
-        "_track": true,
-        "vehicle_view__gear": 0,
-        "vehicle_view__neutralGear": 0,
-        "vehicle_view__rpm": 0,
-        "vehicle_view__cruiseControl": 0,
-        "vehicle_view__speed": 0,
-        "vehicle_view__fuelPct": 0.0,
-        "vehicle_view__isHandBraking": false,
-        "vehicle_view__isAutomaticTransmission": true
-      }
+      "setCameraDirByHero:tag": []
+    },
+    {
+      "collres": []
+    },
+    {
+      "phys_vars": []
+    },
+    {
+      "vehicle_net_phys": []
+    },
+    {
+      "base_net_phys_ptr": []
     },
     {
       "_group": {
@@ -846,18 +906,6 @@
         "dm_panel__prevLod": -1,
         "dm_panel__outlineResolutionScale": 1.0
       }
-    },
-    {
-      "setCameraDirByHero:tag": []
-    },
-    {
-      "collres": []
-    },
-    {
-      "phys_vars": []
-    },
-    {
-      "vehicle_net_phys": []
     },
     {
       "pair_collision__gridHolders": []

@@ -4,7 +4,7 @@ let {
   unlocksSorted, unlockProgress, emptyProgress, activeUnlocks
 } = require("%enlSqGlob/userstats/unlocksState.nut")
 let {
-  receiveUnlockRewards, userstatUnlocks, userstatStats, rerollUnlock
+  receiveUnlockRewards, receiveUnlockRewardsAll, userstatUnlocks, userstatStats, rerollUnlock
 } = require("%enlSqGlob/userstats/userstat.nut")
 
 const BP_DAILY_POINTS = "battle_pass_daily_points"
@@ -58,6 +58,9 @@ let function receiveTaskRewards(task) {
   receiveUnlockRewards(uName, stage)
 }
 
+let receiveTaskRewardsAll = @(arrTaskRewards)
+  receiveUnlockRewardsAll(arrTaskRewards.filter(@(task) task.hasReward))
+
 let achievementsList = Computed(function() {
   let progresses = unlockProgress.value
   return activeUnlocks.value
@@ -104,6 +107,10 @@ let function doRerollUnlock(unlockDesc) {
   })
 }
 
+let rewardDailyTask = Computed(@() canTakeDailyTaskReward.value
+  ? dailyTasks.value.findvalue(@(task) task.hasReward)
+  : null)
+
 return {
   dailyTasks
   dailyTasksByDifficulty
@@ -115,6 +122,8 @@ return {
   bpDailyTaskProgress
   bpDailyTaskPremProgress
   receiveTaskRewards
+  receiveTaskRewardsAll
+  rewardDailyTask
   canTakeDailyTaskReward
 
   getLeftRerolls

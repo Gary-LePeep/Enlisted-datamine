@@ -1,7 +1,7 @@
 options always_export_initializer = true
 
 require ecs
-require EnlistedNet
+require DngNet
 require app
 require enlisted.game.es.ai.ai_aiming_common
 require enlisted.game.es.squad_behaviour_command_common
@@ -13,20 +13,17 @@ require CollRes
 require DagorSystem
 require DagorDataBlock
 require math
+require math.random
 require DagorMathUtils
 require DagorMath
-require DagorRandom
 require BehNodes
 require Grid
-require GridCollision
 require pathfinder
 require Dacoll
-require RendInst
-require SmokeOccluder
-require EnlistedWalkerai
+require DngWalkerai
 require enlisted.events_enlisted
 require HumanPhys
-require EnlistedHuman
+require DngHuman
 require vehicle
 require zones
 require game.utils.team
@@ -40,9 +37,10 @@ require common_shooter.es.squad_common
 require common_shooter.events_common_shooter
 require enlisted.game.es.bomb_site_common
 require enlisted.game.es.enlisted_squad_common
+require enlisted.game.es.ai.ai_covers_common
+require enlisted.game.es.fortifications_build_common
 require walkerai
 require game.es.squad_order_common
-require math.linear
 
 
 [beh_node(name="isInConcussion")]
@@ -106,7 +104,7 @@ class ChooseMaxStanceNode : BehNodeAdapter
 
 
 [beh_node(name="isSwimming")]
-class IsSwmmingNode : BehNodeAdapter
+class IsSwimmingNode : BehNodeAdapter
   def override update(dt : float) : EBehResult
     let eid = beh_tree_eid(owner)
     var isSwimming = false
@@ -115,6 +113,48 @@ class IsSwmmingNode : BehNodeAdapter
     if !isSwimming
       return EBehResult ER_FAILED
     return EBehResult ER_SUCCESS
+
+[beh_node(name="isReadyForAction")]
+class IsReadyForAction : BehNodeAdapter
+  checkFence : bool = false
+  fenceFailedTimeParam = -1
+
+  timeKeepFail : float = 2.5
+  minHeightDown : float = 0.5
+  distAheadCheck : float = 1.0
+
+  def override loadFromBlk(var data : DataBlock) : void
+    checkFence = datablock_getBool(data, "checkFence", checkFence)
+    if checkFence
+      fenceFailedTimeParam = owner.blackBoard |> get_or_create("fenceFailedTimeParam", -1.0)
+      timeKeepFail = datablock_getReal(data, "timeKeepFail", timeKeepFail)
+
+  def override update(dt : float) : EBehResult
+    let eid = beh_tree_eid(owner)
+    var readyForAction = true
+    query(eid) <| $ [es] (human_net_phys : HumanActor; walker_agent : EntityAgent; transform : float3x4; beh_tree__usingLadders : bool = false)
+      if human_phys_state_get_is_swimming(human_net_phys.phys.currentState)
+        readyForAction = false
+        return
+      if human_phys_state_get_is_underwater(human_net_phys.phys.currentState)
+        readyForAction = false
+        return
+      if beh_tree__usingLadders && human_net_phys.phys.currentState.isAttachedToLadder
+        readyForAction = false
+        return
+      if checkFence && fenceFailedTimeParam >= 0
+        let lastTimeFailed = owner.blackBoard |> datablock_getReal(fenceFailedTimeParam)
+        if lastTimeFailed >= 0.0 && get_sync_time() < lastTimeFailed + timeKeepFail
+          readyForAction = false
+          return
+        let pos = transform[3]
+        var nextPos = float3()
+        if get_agent_pathPos(walker_agent, 0, nextPos)
+          if pos.y > nextPos.y + minHeightDown
+            owner.blackBoard |> set(fenceFailedTimeParam, get_sync_time())
+            readyForAction = false
+            return
+    return readyForAction ? EBehResult ER_SUCCESS : EBehResult ER_FAILED
 
 
 [beh_node(name="isIndoor")]
@@ -806,11 +846,14 @@ class InteractWithBuildingTarget : BehNodeAdapter
       endAtTimeLimit = get_sync_time() + maxInteractTime + syncDelayExtraTime
 
     let weapon = get_Eid(agent.eid, "human_weap__currentGunEid") ?? INVALID_ENTITY_ID
-    if has(weapon, "buildingTool")
+    let buildingToolSelected = has(weapon, "buildingTool")
+    if buildingToolSelected
       phys.producedCT |> human_control_state_set_control_bit(HumanPhysControlType HCT_SHOOT, true)
 
     if get_Eid(agent.eid, "building_action__target") ?? INVALID_ENTITY_ID != target
       if has(target, "builder_server_preview")
+        if !buildingToolSelected
+          return EBehResult ER_SUCCESS // don't try to build without building tool
         send_net_event(agent.eid, [[EventSetBuildingTarget target = target]])
       else
         send_net_event(agent.eid, [[EventDismantleBuilding target=target]])
@@ -828,6 +871,89 @@ def is_in_set(set : int; index : int)
   return (set & (1 << index)) != 0
 
 
+let
+  SEAT_DRIVER = 0
+  SEAT_MAIN_GUNNER = 1
+  SEAT_LOADER = 2
+  SEAT_COMMANDER = 3
+  SEAT_EXTRA_GUNNER = 4
+  SEAT_PLAYER_SWAP = 5
+
+struct AgentSeatSkills
+  found : bool = false
+  driverScore : float = 0.0
+  gunnerScore : float = 0.0
+  loaderScore : float = 0.0
+
+def get_agent_seat_skills(agent_eid : EntityId) : AgentSeatSkills
+  var skills : AgentSeatSkills
+  query(agent_eid) <| $ [es] (driver_skills__brakingTauMult : float = 1.0;
+                              driver_skills__gearChangeTimeMult : float = 1.0;
+                              driver_skills__drivingSpeedThresholdMult : float = 1.0;
+                              entity_mods__turretPitchMultWhenAimingYaw : float = 0.0;
+                              entity_mods__canChangeShellDuringVehicleGunReload : bool = false;
+                              entity_mods__vehicleReloadMult : float = 1.0)
+    skills.found = true
+    skills.driverScore = cvt(driver_skills__brakingTauMult * driver_skills__gearChangeTimeMult * driver_skills__drivingSpeedThresholdMult, 1.0, 0.0, 0.0, 0.9)
+    skills.gunnerScore = cvt(entity_mods__turretPitchMultWhenAimingYaw, 0.0, 10.0, 0.0, 0.9)
+    skills.loaderScore = cvt(entity_mods__vehicleReloadMult * (entity_mods__canChangeShellDuringVehicleGunReload ? 0.5 : 1.0), 1.0, 0.0, 0.0, 0.9)
+  return skills
+
+def get_seat_affinity(seat_eid : EntityId; soldier_squad : EntityId; allow_non_controllable_gunner_seat : bool)
+  var mask = 0
+  query(seat_eid) <| $ [es] (seat__availableControls : VehicleControlsState;
+                             seat__commonTurretControlMask : uint;
+                             seats_order__canPlaceManually : bool;
+                             seats_order__canPlaceOnlyOwner : bool = false;
+                             seat__vehicleEid : EntityId;
+                             seat__squadEid : EntityId;
+                             seat__ownerEid : EntityId;
+                             seats_order__isExtraPlace : bool = false;
+                             seat__loaderTurretIds : IntList const?;
+                             seatsCommander : Tag const?)
+    let seatHasGuns = (seat__availableControls.turretsMask & ~seat__commonTurretControlMask) != 0u
+    let vehicleOwnerSquad = get_Eid(seat__vehicleEid, "ownedBySquad") ?? INVALID_ENTITY_ID
+    if seats_order__canPlaceOnlyOwner && !!vehicleOwnerSquad && vehicleOwnerSquad != soldier_squad
+      return
+    if !!seat__ownerEid && seat__squadEid == vehicleOwnerSquad && soldier_squad != vehicleOwnerSquad
+      return
+    let isCommanderSeat = seatsCommander != null
+    let isDriverSeat = seat__availableControls.canControlVehicle
+    let isMainGunnerSeat = seatHasGuns && (seats_order__canPlaceManually || allow_non_controllable_gunner_seat) && !seats_order__isExtraPlace
+    let isLoaderSeat = seat__loaderTurretIds != null && length(*seat__loaderTurretIds) > 0
+    let isExtraGunnerSeat = seatHasGuns && !isMainGunnerSeat
+    let isPlayerSwapSeat = seats_order__canPlaceManually
+
+    if isCommanderSeat
+      add_to_set(mask, SEAT_COMMANDER)
+    elif isDriverSeat
+      add_to_set(mask, SEAT_DRIVER)
+    elif isMainGunnerSeat
+      add_to_set(mask, SEAT_MAIN_GUNNER)
+    elif isLoaderSeat
+      add_to_set(mask, SEAT_LOADER)
+    elif isExtraGunnerSeat
+      add_to_set(mask, SEAT_EXTRA_GUNNER)
+    elif isPlayerSwapSeat
+      add_to_set(mask, SEAT_PLAYER_SWAP)
+  return mask
+
+def get_seat_priority(seat_mask : int; agent_skills : AgentSeatSkills)
+  if is_in_set(seat_mask, SEAT_DRIVER)
+    return 6.0 + agent_skills.driverScore - (agent_skills.gunnerScore + agent_skills.loaderScore) * 0.05
+  if is_in_set(seat_mask, SEAT_MAIN_GUNNER)
+    return 5.0 + agent_skills.gunnerScore - (agent_skills.driverScore + agent_skills.loaderScore) * 0.05
+  if is_in_set(seat_mask, SEAT_LOADER)
+    return 4.0 + agent_skills.loaderScore - (agent_skills.driverScore * agent_skills.gunnerScore) * 0.05
+  if is_in_set(seat_mask, SEAT_COMMANDER)
+    return 3.0
+  if is_in_set(seat_mask, SEAT_EXTRA_GUNNER)
+    return 2.0 + agent_skills.gunnerScore - (agent_skills.driverScore + agent_skills.loaderScore) * 0.05
+  if is_in_set(seat_mask, SEAT_PLAYER_SWAP)
+    return 1.0
+  return 0.0
+
+
 [beh_node(name="checkVehicleSeats")]
 class CheckVehicleSeats : BehNodeAdapter
 
@@ -838,131 +964,140 @@ class CheckVehicleSeats : BehNodeAdapter
 
     query(eid) <| $ [es] (human_anim__vehicleSelected : EntityId;
                           isInVehicle : bool = false;
+                          isAlive : bool = false;
+                          squad_member__squad : EntityId;
                           maxVehicleVelocityCanReEnter : float = 1.0)
       let vehicleEid = human_anim__vehicleSelected
-      if !isInVehicle || !vehicleEid
+      if !vehicleEid || !isInVehicle || !isAlive
         return
+
       query(vehicleEid) <| $ [es] (vehicle_seats__seatEids : EidList;
                                    net_phys__currentStateVelocity : float3 = float3())
-        var walkerSeatNo = -1
-        var walkerRoomSpace = -1
-        var canWalkerControlTurrets = false
-        var isWalkerSeatCanPlaceMan = false
+        var nowSeatNo = -1
+        var nowRoomSpace = -1
+        var nowBusy = false
+
         for seatNo, seatEid in iter_range(vehicle_seats__seatEids), vehicle_seats__seatEids
-          var doNotChangeSeat = false
-          query(seatEid) <| $ [es] (seat__availableControls : VehicleControlsState;
-                                    seat__commonTurretControlMask : uint;
-                                    seat__ownerEid : EntityId;
-                                    seats_order__canPlaceManually : bool;
-                                    seats_switch_time__time : float;
-                                    seat__roomSpace : int = -1)
+          query(seatEid) <| $ [es] (seat__ownerEid : EntityId;
+                                    seat__roomSpace : int = -1;
+                                    seats_switch_time__time : float)
             if seat__ownerEid == eid
-              walkerSeatNo = seatNo
-              walkerRoomSpace = seat__roomSpace
-              canWalkerControlTurrets = (seat__availableControls.turretsMask & ~seat__commonTurretControlMask) != 0u
-              isWalkerSeatCanPlaceMan = seats_order__canPlaceManually
-              let isCurrentlyDriver = seat__availableControls.canControlVehicle
-              let alreadyChangingSeat = seats_switch_time__time > 0.0
-              if isCurrentlyDriver || alreadyChangingSeat
-                doNotChangeSeat = true
-                return
-          if doNotChangeSeat
-            return
-        if walkerSeatNo < 0
+              nowSeatNo = seatNo
+              nowRoomSpace = seat__roomSpace
+              nowBusy = seats_switch_time__time > 0.0
+          if nowSeatNo >= 0
+            break
+        if nowBusy || nowSeatNo < 0
           return
 
         let curvel = net_phys__currentStateVelocity
         let maxvel = maxVehicleVelocityCanReEnter
         let canChangeRoomNow = maxvel < 0.0 || length_sq(curvel) < maxvel * maxvel
 
-        var seatsCommand : int = 0
-        var seatsDrivers : int = 0
-        var seatsGunners : int = 0
-        var seatsLoaders : int = 0
-        var seatsMoreGunners : int = 0
-        var seatsForPlayer : int = 0
-        var seatsFilter : int = -1
+        var seatsAll = 0
+        var seatsFilter = -1
+        var numOtherDrivers = 0
+        var numOtherCommanders = 0
+        var seatMasks : array<int>
+        var crewSkills : array<AgentSeatSkills>
+        resize(seatMasks, length(vehicle_seats__seatEids))
+        resize(crewSkills, length(vehicle_seats__seatEids))
+
+        var hasMainGunner = false
+        for seatNo, seatEid in iter_range(vehicle_seats__seatEids), vehicle_seats__seatEids
+          let seatMask = get_seat_affinity(seatEid, squad_member__squad, false)
+          seatMasks[seatNo] = seatMask
+          if is_in_set(seatMask, SEAT_MAIN_GUNNER)
+            hasMainGunner = true
+        if !hasMainGunner
+          for seatNo, seatEid in iter_range(vehicle_seats__seatEids), vehicle_seats__seatEids
+            let seatMask = get_seat_affinity(seatEid, squad_member__squad, true)
+            seatMasks[seatNo] = seatMask
 
         for seatNo, seatEid in iter_range(vehicle_seats__seatEids), vehicle_seats__seatEids
-          query(seatEid) <| $ [es] (seat__availableControls : VehicleControlsState;
-                                    seat__commonTurretControlMask : uint;
-                                    seat__ownerEid : EntityId;
-                                    seats_order__canPlaceManually : bool;
-                                    seats_order__isExtraPlace : bool = false;
-                                    seats_order__notForBots : bool = false;
+          query(seatEid) <| $ [es] (seat__ownerEid : EntityId;
                                     seats_switch_time__time : float;
-                                    seats_switch_time__newSeatNo : int;
-                                    seat__loaderTurretIds : IntList const?;
-                                    seat_perks__vehicleReloadMult : float = 1.;
+                                    seats_switch_time__newSeatNo : int = -1;
                                     seat__adjacentSeat : int = -1;
-                                    seat__isLocked : bool = false;
                                     seat__roomSpace : int = -1;
-                                    seatsCommander : Tag const?)
-            let canMoveToSeatRoom = canChangeRoomNow || walkerRoomSpace == seat__roomSpace || walkerRoomSpace < 0 || seat__roomSpace < 0
-            if !canMoveToSeatRoom || seat__isLocked
-              return
+                                    seat__isLocked : bool = false;
+                                    seats_order__notForBots : bool = false)
+            let isBusySeat = nowSeatNo == seatNo || seats_switch_time__time > 0.0 || seats_switch_time__newSeatNo >= 0
+            let hasAliveOwner = !!seat__ownerEid && get_bool(seat__ownerEid, "isAlive") ?? false
+            let isAIEnabled = get_bool(seat__ownerEid, "beh_tree__enabled") ?? false
+            let canMoveToSeatRoom = canChangeRoomNow || nowRoomSpace == seat__roomSpace || nowRoomSpace < 0 || seat__roomSpace < 0
 
-            let isSeatCanPlaceMan = seats_order__canPlaceManually
-            var isSeatAcceptable  = eid == seat__ownerEid || (seats_switch_time__time <= 0.0 && !(get_bool(seat__ownerEid, "isAlive") ?? false))
+            add_to_set(seatsAll, seatNo)
 
-            if seats_order__notForBots
-              isSeatAcceptable = false
+            if hasAliveOwner && isAIEnabled
+              crewSkills[seatNo] = get_agent_seat_skills(seat__ownerEid)
+
+            if isBusySeat || (hasAliveOwner && !isAIEnabled) || !canMoveToSeatRoom || seat__isLocked || seats_order__notForBots
+              remove_from_set(seatsFilter, seatNo)
+
+            if hasAliveOwner && seats_switch_time__time > 0.0 && seats_switch_time__newSeatNo >= 0
+              remove_from_set(seatsFilter, seats_switch_time__newSeatNo)
 
             if seat__adjacentSeat > -1
               query(vehicle_seats__seatEids[seat__adjacentSeat]) <| $ [es] (seat__ownerEid aka adjacent_seat__ownerEid : EntityId)
-                isSeatAcceptable &&= !adjacent_seat__ownerEid || !(get_bool(adjacent_seat__ownerEid, "isAlive") ?? false)
-              if !isSeatAcceptable
-                remove_from_set(seatsFilter, seat__adjacentSeat)
+                if !!adjacent_seat__ownerEid && (get_bool(adjacent_seat__ownerEid, "isAlive") ?? false)
+                  remove_from_set(seatsFilter, seat__adjacentSeat)
+                  remove_from_set(seatsFilter, seatNo)
 
-            if seats_switch_time__newSeatNo >= 0
-              remove_from_set(seatsFilter, seats_switch_time__newSeatNo)
+            let seatMask = seatMasks[seatNo]
+            if hasAliveOwner && !isBusySeat
+              if is_in_set(seatMask, SEAT_DRIVER)
+                ++numOtherDrivers
+              if is_in_set(seatMask, SEAT_COMMANDER)
+                ++numOtherCommanders
 
-            if isSeatAcceptable
-              if seatsCommander != null
-                add_to_set(seatsCommand, seatNo)
-              elif seat__availableControls.canControlVehicle
-                add_to_set(seatsDrivers, seatNo)
-              elif (seat__availableControls.turretsMask & ~seat__commonTurretControlMask) != 0u
-                add_to_set(isSeatCanPlaceMan && !seats_order__isExtraPlace ? seatsGunners : seatsMoreGunners, seatNo)
-              elif (seat_perks__vehicleReloadMult < 1.0) || (seat__loaderTurretIds != null && length(*seat__loaderTurretIds) > 0)
-                add_to_set(seatsLoaders, seatNo)
-              elif isSeatCanPlaceMan
-                add_to_set(seatsForPlayer, seatNo)
-
-        if canWalkerControlTurrets
-          seatsGunners = 0
-          seatsLoaders = 0
-          seatsMoreGunners = 0
-          seatsForPlayer = 0
-        if isWalkerSeatCanPlaceMan
-          seatsForPlayer = 0
-
-        var seats = seatsCommand & seatsFilter
-        if seats == 0
-          seats = seatsDrivers & seatsFilter
-        if seats == 0
-          seats = seatsGunners & seatsFilter
-        if seats == 0
-          seats = seatsLoaders & seatsFilter
-        if seats == 0
-          seats = seatsMoreGunners & seatsFilter
-        if seats == 0
-          seats = seatsForPlayer & seatsFilter
-        if seats == 0
+        let seatsFiltered = seatsAll & seatsFilter
+        if seatsFiltered == 0
           return
 
-        for seatOrder, seatEid in iter_range(vehicle_seats__seatEids), vehicle_seats__seatEids
-          let seatNo = get_int(seatEid, "seats_order__seatNo") ?? seatOrder
-          if !is_in_set(seats, seatNo)
+        let nowSeatMask = seatMasks[nowSeatNo]
+        if is_in_set(nowSeatMask, SEAT_DRIVER) && numOtherDrivers <= 0
+          return
+
+        let agentSkills = crewSkills[nowSeatNo]
+        var nowPriority = get_seat_priority(nowSeatMask, agentSkills)
+        if is_in_set(nowSeatMask, SEAT_COMMANDER) && numOtherCommanders > 0
+          nowPriority = 0.0
+
+        var seatTakeNo = -1
+        var seatTakePriority = -1.0
+        for seatOrder, seatOrderEid in iter_range(vehicle_seats__seatEids), vehicle_seats__seatEids
+          let seatNo = get_int(seatOrderEid, "seats_order__seatNo") ?? seatOrder
+          if !is_in_set(seatsFiltered, seatNo) || seatNo < 0
             continue
-          var curSeatOwnerEid = INVALID_ENTITY_ID
-          query(seatEid) <| $ [es] (seat__ownerEid : EntityId)
-            curSeatOwnerEid = seat__ownerEid
-          if eid == curSeatOwnerEid
-            break
-          sendEvent(vehicleEid, [[CmdVehicleChangeSeat eid=eid, seat=seatNo]])
+
+          let takePriority = get_seat_priority(seatMasks[seatNo], agentSkills)
+          if takePriority <= nowPriority
+            continue
+          let thatPriority = crewSkills[seatNo].found ? get_seat_priority(seatMasks[seatNo], crewSkills[seatNo]) : -1.0
+          if thatPriority >= takePriority
+            continue
+
+          var bestCrewSeatNo = -1
+          var bestCrewPriority = -1.0
+          for crewSeatNo, crewMemberSkills in iter_range(crewSkills), crewSkills
+            if crewMemberSkills.found
+              let crewPriority = get_seat_priority(seatMasks[crewSeatNo], crewMemberSkills)
+              let takeCrewPriority = get_seat_priority(seatMasks[seatNo], crewMemberSkills)
+              if takeCrewPriority > crewPriority && (bestCrewSeatNo < 0 || bestCrewPriority < crewPriority)
+                bestCrewSeatNo = crewSeatNo
+                bestCrewPriority = crewPriority
+
+          if bestCrewSeatNo >= 0 && (takePriority < bestCrewPriority || (takePriority == bestCrewPriority && bestCrewSeatNo > nowSeatNo))
+            return
+
+          if seatTakeNo < 0 || seatTakePriority < takePriority
+            seatTakeNo = seatNo
+            seatTakePriority = takePriority
+
+        if seatTakeNo >= 0
+          sendEvent(vehicleEid, [[CmdVehicleChangeSeat eid=eid, seat=seatTakeNo]])
           res = EBehResult ER_SUCCESS
-          break
     return res
 
 
@@ -993,11 +1128,13 @@ class FindWeaponSlotWithTag : BehNodeAdapter
 class GetOrderPosition : BehNodeAdapter
   posParam : int = -1
   orderPosParam : int = -1
+  traceVisible : bool = false
 
   def override loadFromBlk(var data : DataBlock) : void
     let agent = beh_tree_entity_agent(*owner)
     posParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "posParam", "wishPosition"), agent.pos)
     orderPosParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "orderPosParam", "wishPosition"), agent.pos)
+    traceVisible = datablock_getBool(data, "traceVisible", traceVisible)
 
   def override update(dt : float) : EBehResult
     let agent = beh_tree_entity_agent(*owner)
@@ -1020,8 +1157,23 @@ class GetOrderPosition : BehNodeAdapter
                                             squad__regroupPos : float3;
                                             squad__spreadAroundOrderPoint : float3)
         if !squad_member__isPersonalOrder && squad__leader != agent.eid
-          let wishPosition = find_best_squad_pos(squad__leader, squad__orderType, squad__regroupPos,
+          var wishPosition = find_best_squad_pos(squad__leader, squad__orderType, squad__regroupPos,
             squad_member__offset, squad__spreadAroundOrderPoint.x)
+
+          if wishPosition.isValidPt && traceVisible
+            let actorRadius = 0.3
+            var ofs = wishPosition.p - squad__regroupPos; ofs.y = 0.0
+            let dir = normalize(ofs)
+            var t1 = length(ofs) + actorRadius
+            var t2 = t1
+            var norm : float3
+            if (traceray_normalized(squad__regroupPos + float3(0.0, 0.3, 0.0), dir, t1, norm, ETF_ALL)
+             || traceray_normalized(squad__regroupPos + float3(0.0, 1.3, 0.0), dir, t2, norm, ETF_ALL))
+              let dist = max(0.0, min(t1, t2) - actorRadius)
+              let projExtents = float3(0.5, 2.5, 0.5)
+              var tracedPos = squad__regroupPos + dir * dist
+              if pathfinder::project_to_nearest_navmesh_point_no_obstacles(tracedPos, projExtents)
+                wishPosition.p = tracedPos
 
           if wishPosition.isValidPt && is_point_safe(wishPosition.p, agent.teamId)
             set(owner.blackBoard, orderPosParam, wishPosition.p)
@@ -1393,9 +1545,8 @@ class GetRandomPointAroundTarget : BehNodeAdapter
       return EBehResult ER_FAILED
 
     var agentTeam = TEAM_UNASSIGNED
-    query(beh_tree_eid(owner)) <| $ [es] (squad_member__playerEid : EntityId)
-      query(squad_member__playerEid) <| $ [es] (team : int)
-        agentTeam = team
+    query(beh_tree_eid(owner)) <| $ [es] (team : int)
+      agentTeam = team
 
     for _i in range(maxTries)
       var pos = targetPos
@@ -1416,16 +1567,13 @@ class GetRandomPointAroundTarget : BehNodeAdapter
         for_each_entity_in_grid(ecs_hash("humans"), BSphere3(pos, minDistanceFromAllies), GridEntCheck BOUNDING) <| $(human_eid : EntityId)
           query(human_eid) <| $ [es(REQUIRE_NOT=deadEntity)] (isAlive : bool;
                                                               transform : float3x4;
-                                                              squad_member__playerEid : EntityId;
+                                                              team : int = TEAM_UNASSIGNED;
                                                               isInVehicleHidden : bool = false)
             if !isAlive || isInVehicleHidden
               return
             if distance_sq(transform[3], pos) > minDistanceFromAlliesSq
               return
-            var human_team = TEAM_UNASSIGNED
-            query(squad_member__playerEid) <| $ [es] (team : int)
-              human_team = team
-            if human_team == agentTeam
+            if team == agentTeam
               ++numAllies
         if numAllies > 0
           continue
@@ -1437,32 +1585,57 @@ class GetRandomPointAroundTarget : BehNodeAdapter
 [beh_node(name="rotateToPoint")]
 class RotateToPoint : BehNodeAdapter
   posParam : int = -1
+  angleParam : int = -1
+  aimSpeedCoef : float = 1.0
+  aimViscosityCoef : float = 1.0
 
   walker_agent__aimVelocity = float2()
   wishAimingSpeed : float = 16.
+  vertAimingCoef : float = 1.0
   wishDir : float3
 
   def override loadFromBlk(var data : DataBlock) : void
-    posParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "posParam", ""), float3(0., 0., 0.))
+    if datablock_find_param(data, "posParam") >= 0
+      posParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "posParam", ""), float3(0., 0., 0.))
+    elif datablock_find_param(data, "angleParam") >= 0
+      angleParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "angleParam", ""), 0.)
+    aimSpeedCoef = data |> datablock_getReal("aimSpeedCoef", aimSpeedCoef)
+    aimViscosityCoef = data |> datablock_getReal("aimViscosityCoef", aimViscosityCoef)
 
   def override init()
     let agentEid = beh_tree_eid(owner)
     query(agentEid) <| $ [es] (agent_dangers__standShootPos : float3;
+                               walker_agent : EntityAgent;
                                walker_agent__minMaxAimSpeed : float2;
                                walker_agent__minMaxDist : float2)
-      let agentShootPos = agent_dangers__standShootPos
-
-      let dist = length(owner.blackBoard |> datablock_getPoint3(posParam) - agentShootPos);
-
-      let ratio = ((walker_agent__minMaxAimSpeed.y - walker_agent__minMaxAimSpeed.x) /
-                   (walker_agent__minMaxDist.y - walker_agent__minMaxDist.x))
-
-      wishAimingSpeed = clamp(walker_agent__minMaxAimSpeed.y - ratio * (dist - walker_agent__minMaxDist.x),
-                              walker_agent__minMaxAimSpeed.x, walker_agent__minMaxAimSpeed.y);
-
-      wishAimingSpeed = deg_to_rad(wishAimingSpeed)
-
-      wishDir = normalize(owner.blackBoard |> datablock_getPoint3(posParam) - agentShootPos);
+      assume minMaxDist = walker_agent__minMaxDist
+      assume minMaxAimSpeed = walker_agent__minMaxAimSpeed
+      assume agentShootPos = agent_dangers__standShootPos
+      if posParam >= 0
+        let delta = owner.blackBoard |> datablock_getPoint3(posParam) - agentShootPos
+        let dist = length(delta)
+        let ratio = (minMaxAimSpeed.y - minMaxAimSpeed.x) * safeinv(minMaxDist.y - minMaxDist.x)
+        wishAimingSpeed = clamp(minMaxAimSpeed.y - ratio * (dist - minMaxDist.x), minMaxAimSpeed.x, minMaxAimSpeed.y)
+        wishAimingSpeed = deg_to_rad(wishAimingSpeed)
+        wishDir = normalize(delta)
+        let anglesAt = dir_to_angles(walker_agent.shootDir)
+        let anglesTo = dir_to_angles(wishDir)
+        vertAimingCoef = safediv(abs(anglesTo.y - anglesAt.y), abs(norm_s_ang(anglesTo.x - anglesAt.x)))
+        vertAimingCoef = min(vertAimingCoef * 2.0, 1.0)
+      else
+        wishAimingSpeed = deg_to_rad(minMaxAimSpeed.x)
+        vertAimingCoef = 1.0
+        let turnAngle = (angleParam >= 0) ? (owner.blackBoard |> datablock_getReal(angleParam)) : 0.0
+        if abs(turnAngle) < 0.0001
+          wishDir = float3()
+        else
+          let shootDir = walker_agent.shootDir
+          let angleDir = atan2(shootDir.z, shootDir.x) + turnAngle
+          wishDir.x = cos(angleDir)
+          wishDir.y = shootDir.y * 0.5
+          wishDir.z = sin(angleDir)
+          wishDir = normalize(wishDir)
+    wishAimingSpeed *= aimSpeedCoef
 
   def override update(dt : float) : EBehResult
     if length_sq(wishDir) < 1e-3
@@ -1486,15 +1659,19 @@ class RotateToPoint : BehNodeAdapter
         res = EBehResult ER_SUCCESS
         return
 
-      let dir = calc_wish_approach_vel(dt, wishAimingSpeed, phys.producedCT.wishShootDir, wishDir,
+      let nowDir = phys.producedCT.wishShootDir
+      var dir = calc_wish_approach_vel(dt, wishAimingSpeed, nowDir, wishDir,
                                        walker_agent__gunAimOffsetCompensation,
                                        walker_agent__breathOffsetCompensation,
-                                       walker_agent__aimViscosity,
-                                       walker_agent__velViscosity,
+                                       walker_agent__aimViscosity * aimViscosityCoef,
+                                       walker_agent__velViscosity * aimViscosityCoef,
                                        walker_agent__velFactor,
                                        phys.currentState.gunAimOffset,
                                        phys.currentState.breathOffset,
                                        walker_agent__aimVelocity)
+
+      let dy = dir.y - nowDir.y
+      dir.y = nowDir.y + dy * vertAimingCoef
 
       phys.producedCT |> human_control_state_set_wish_shoot_dir(dir)
       phys.producedCT |> human_control_state_set_wish_look_dir(dir)
@@ -1509,31 +1686,30 @@ class RotateToPoint : BehNodeAdapter
 class IsSquadLeaderCrawl : BehNodeAdapter
   def override update(dt : float) : EBehResult
     var res = EBehResult ER_FAILED
-
     let agentEid = beh_tree_eid(owner)
-
     query(agentEid) <| $ [es] (squad_member__squad : EntityId)
       query(squad_member__squad) <| $ [es] (squad__leader : EntityId)
         query(squad__leader) <| $ [es] (human_net_phys : HumanActor)
           assume squadLeaderPhys = human_net_phys.phys
-
           if determinate_stance(squadLeaderPhys.currentState) == STANCE_CRAWL
             res = EBehResult ER_SUCCESS
-
     return res
 
-[beh_node(name="isAgressiveBehaviour")]
-class IsAgressiveBehaviour : BehNodeAdapter
+[beh_node(name="isSquadLeaderMoving")]
+class IsSquadLeaderMoving : BehNodeAdapter
   def override update(dt : float) : EBehResult
     var res = EBehResult ER_FAILED
-
     let agentEid = beh_tree_eid(owner)
-
     query(agentEid) <| $ [es] (squad_member__squad : EntityId)
-      query(squad_member__squad) <| $ [es] (squad__squadBehaviour : int)
-        if squad__squadBehaviour == int(SquadBehaviour ESB_AGRESSIVE)
-          res = EBehResult ER_SUCCESS
-
+      query(squad_member__squad) <| $ [es] (squad__leader : EntityId)
+        query(squad__leader) <| $ [es] (human_net_phys : HumanActor;
+                                        isDowned : bool = false)
+          if isDowned
+            return
+          assume currentState = human_net_phys.phys.currentState
+          assume moveState = currentState.moveState
+          if moveState == HUMoveState EMS_WALK || moveState == HUMoveState EMS_RUN || moveState == HUMoveState EMS_SPRINT
+            res = EBehResult ER_SUCCESS
     return res
 
 [beh_node(name="wasAttackedRecently")]
@@ -2019,6 +2195,7 @@ class MoveByDir : BehNodeAdapter
   curTime : float = 0.
 
   endPosParam : int = -1
+  lookPosParam : int = -1
 
   distThresholdSq : float = 0.25
 
@@ -2028,7 +2205,10 @@ class MoveByDir : BehNodeAdapter
     let distThreshold = data |> datablock_getReal("distThreshold", 0.5)
     distThresholdSq = distThreshold * distThreshold
 
-    endPosParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "endPos", ""), float3(0., 0., 0.))
+    endPosParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "endPos", ""), float3())
+
+    if datablock_find_param(data, "lookPosParam") >= 0
+      lookPosParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "lookPosParam", ""), float3())
 
   def override init()
     curTime = get_sync_time()
@@ -2039,22 +2219,27 @@ class MoveByDir : BehNodeAdapter
                                           transform : float3x4)
       assume phys = human_net_phys.phys
 
-      let startPos = transform[3]
+      let curPos = transform[3]
       let endPos = owner.blackBoard |> datablock_getPoint3(endPosParam)
 
-      if length_sq(endPos - startPos) < distThresholdSq
+      let deltaPos = endPos - curPos
+      if length_sq(deltaPos) < distThresholdSq
         phys.producedCT |> human_control_state_set_walk_speed(0.)
         phys.producedCT |> human_control_state_set_control_bit(HumanPhysControlType HCT_SPRINT, false)
-
         res = EBehResult ER_SUCCESS
         return
 
-      let dir = normalize(endPos - startPos)
+      let dir = normalize(deltaPos)
 
-      phys.producedCT |> human_control_state_set_wish_shoot_dir(normalize(float3(dir.x, 0., dir.z)))
-      phys.producedCT |> human_control_state_set_wish_look_dir(normalize(float3(dir.x, 0., dir.z)))
+      var lookDir = dir
+      if lookPosParam >= 0
+        let lookPos = owner.blackBoard |> datablock_getPoint3(lookPosParam)
+        lookDir = normalize(lookPos - curPos)
 
-      phys.producedCT |> human_control_state_set_world_walk_dir(dir.xz, dir.xz)
+      phys.producedCT |> human_control_state_set_wish_shoot_dir(normalize(float3(lookDir.x, 0., lookDir.z)))
+      phys.producedCT |> human_control_state_set_wish_look_dir(normalize(float3(lookDir.x, 0., lookDir.z)))
+
+      phys.producedCT |> human_control_state_set_world_walk_dir(dir.xz, lookDir.xz)
       phys.producedCT |> human_control_state_set_walk_speed(1.)
 
       phys.producedCT |> human_control_state_set_control_bit(HumanPhysControlType HCT_SPRINT, true)
@@ -2524,6 +2709,7 @@ class GetPointAroundAIPos : BehNodeAdapter
     ++counter
     return EBehResult ER_SUCCESS
 
+
 [beh_node(name="findCoverAroundPoint")]
 class FindCoverAroundPoint : BehNodeAdapter
   centerParam   : int = -1
@@ -2532,21 +2718,25 @@ class FindCoverAroundPoint : BehNodeAdapter
 
   radius     : float = 5.0
   minDist    : float = 0.0
-  wallOffset : float = 0.25
 
   possibleCosAngle   : float = 0.5
-  coverSideThreshold : float = 0.1
-  keepOldCoverChance : float = 0.6
+  possibleAngleParam : int = -1
 
+  keepOldCoverChance : float = 0.9
+
+  maxOccupied  : int = -1
   traceVisible : bool = false
 
+  avoidLeaderActing : LeaderActingInfo
+
   def override loadFromBlk(var data : DataBlock) : void
-    coverSideThreshold = datablock_getReal(data, "coverSideThreshold", 0.1)
     radius = datablock_getReal(data, "radius", 5.)
     minDist = datablock_getReal(data, "minDist", 0.0)
-    wallOffset = datablock_getReal(data, "wallOffset", 0.5)
+
     let possibleAngle = datablock_getReal(data, "possibleAngle", 90.)
     possibleCosAngle  = cos(deg_to_rad(possibleAngle))
+    if datablock_find_param(data, "possibleAngleParam") >= 0
+      possibleAngleParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "possibleAngleParam", ""), 90.)
 
     let agent = beh_tree_entity_agent(*owner)
     centerParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "centerParam", ""), agent.pos)
@@ -2555,18 +2745,36 @@ class FindCoverAroundPoint : BehNodeAdapter
     if maxDistParamName != ""
       maxDistParam = owner.blackBoard |> get_or_create(maxDistParamName, radius)
 
-    traceVisible = datablock_getBool(data, "traceVisible", false)
     keepOldCoverChance = datablock_getReal(data, "keepOldCoverChance", 0.6)
+
+    maxOccupied = datablock_getInt(data, "maxOccupied", maxOccupied)
+    traceVisible = datablock_getBool(data, "traceVisible", traceVisible)
+
+  def override init()
+    if possibleAngleParam >= 0
+      possibleCosAngle = cos(deg_to_rad(datablock_getReal(owner.blackBoard, possibleAngleParam)))
+
+    let agentEid = beh_tree_eid(owner)
+    avoidLeaderActing = get_squad_leader_acting_for_agent(agentEid)
 
   def override update(dt : float) : EBehResult
     var res = EBehResult ER_FAILED
+    let visibleMap = get_global_visible_covers_map()
+
+    let agentEid = beh_tree_eid(owner)
     query() <| $ [es] (var covers : CoversComponent&)
-      query(beh_tree_eid(owner)) <| $ [es] (walker_agent : EntityAgent;
-                                            team : int = TEAM_UNASSIGNED;
-                                            var cover_updater__heldCovers : ecs::IPoint2List&)
+      query(agentEid) <| $ [es] (walker_agent : EntityAgent;
+                                 team : int = TEAM_UNASSIGNED;
+                                 squad_member__squad : EntityId = INVALID_ENTITY_ID;
+                                 var cover_updater__heldCovers : ecs::IPoint2List&)
         var prevCoverId = int2(-1, 0)
         if length(cover_updater__heldCovers) > 0
           prevCoverId = cover_updater__heldCovers[0]
+
+        var allowTight = false
+        query(squad_member__squad) <| $ [es] (squad__formationSpread : int)
+          if squad__formationSpread == int(SquadFormationSpread ESFN_CLOSEST)
+            allowTight = true
 
         reset_covers(covers, cover_updater__heldCovers)
 
@@ -2580,72 +2788,107 @@ class FindCoverAroundPoint : BehNodeAdapter
         box.bmax.xyz = centerPos + float3(maxDist, 2.5f, maxDist)
         box.bmin.xyz = centerPos - float3(maxDist, 0.5f, maxDist)
 
-        let heightUp1 = float3(0.0, 1.5, 0.0)
-        let heightUp2 = float3(0.0, 1.0, 0.0)
-
         let midPos = walker_agent.pos * 0.3 + centerPos * 0.7
-        let likelyChangeCover = rnd_float(0.0, 1.0) < keepOldCoverChance
+        let likelyKeepCover = rnd_float(0.0, 1.0) < keepOldCoverChance
+
+        let traceStartPos = centerPos + float3(0.0, 1.0, 0.0)
+        let traceHeightUp = float3(0.0, 0.5, 0.0)
 
         var bestDistSq = FLT_MAX
         var bestCoverId = int2(-1, 0)
-        var bestZeroUsed = false
+        var bestScore = 0
+        var bestTight = true
+        var bestOKDir = false
+        var bestFound = false
+
+        var dangerPoints : array<float3>
+        get_danger_points(dangerPoints, agentEid, walker_agent.pos, team)
+
+        let filterInfo = get_filter_covers_info()
         covers_box_cull(covers, box) <| $ [unused_argument(tm)] (id : int;
                                                                  tm : mat44f#)
+          if bestFound
+            return
+          if tm.col3.xyz == float3() // was destroyed
+            return
+          if team != TEAM_UNASSIGNED && glob_vis_covers_map_has_other_teams(visibleMap, id, team)
+            return
+
           assume cover     = covers.list[id]
           assume coverDesc = covers.coverDescs[id]
-
-          if coverDesc.numUsedSlots >= length(coverDesc.slots)
-            return
-
-          let heightDiff = abs(cover.groundLeft.y - cover.groundRight.y)
-          let groundLen = max(1.0, length_sq(cover.groundLeft - cover.groundRight))
-          if heightDiff / groundLen > coverSideThreshold
-            return
-
-          let minH = min(cover.groundLeft.y, cover.groundRight.y)
-          if minH > box.bmax.xyz.y
-            return
-          let maxH = max(cover.groundLeft.y + cover.hLeft, cover.groundRight.y + cover.hRight)
-          if maxH < box.bmin.xyz.y
+          if filter_cover(cover, coverDesc, box, maxOccupied, filterInfo)
             return
 
           let numSlots = length(coverDesc.slots)
+          let isPrevCover = prevCoverId.x == id && likelyKeepCover
 
-          let isPrevCover = prevCoverId.x == id && likelyChangeCover
-          var totalUsed = 0
-          if !isPrevCover
-            for i in range(0, numSlots)
-              totalUsed += coverDesc.slots[i].numUsed
-          let zeroUsed = totalUsed == 0
-
+          var slotBestCoverId = int2(id, -1)
+          var slotBestDistSq = bestDistSq
+          var slotBestScore = bestScore
+          var slotBestTight = bestTight
+          var slotBestOKDir = bestOKDir
           for i in range(0, numSlots)
-            if coverDesc.slots[i].numUsed > 0 && !(isPrevCover && i == prevCoverId.y)
+            if coverDesc.slots[i].numUsed > 0
               continue
-            let zeroUsedForSlot = zeroUsed || (numSlots >= 5 && (i == 0 || i == numSlots - 1))
-            let coverId = int2(id, i)
-            if !bestZeroUsed || zeroUsedForSlot
-              let coverCheckPos = coverDesc.slots[i].pos
-              if !is_point_safe(coverCheckPos - cover.dir * wallOffset, team)
+            let isPrevCoverSlot = isPrevCover && i == prevCoverId.y
+            let coverSlotPosBase = get_cover_slot_pos(cover, coverDesc, i)
+            if is_conflict_with_squad_leader_acting(avoidLeaderActing, coverSlotPosBase, agentEid)
+              continue
+            let isTight = !allowTight && check_covers_nearby_occupied(coverSlotPosBase, id, i, covers.list, covers.coverDescs)
+            let goodDir = check_cover_pos_vs_points(coverSlotPosBase, cover.dir, dangerPoints)
+            if isTight && !slotBestTight && !isPrevCoverSlot
+              continue
+            let isBetterByDir = goodDir && !slotBestOKDir
+            let isBetterByTight = !isTight && slotBestTight
+            let isBetter = isPrevCoverSlot || isBetterByTight || isBetterByDir
+            let extraScore = (isPrevCoverSlot ? 50 : 0) + (isTight ? 0 : 50) + (goodDir ? 101 : 0)
+            let score = eval_cover_score_stay(cover, coverDesc, i) * 100 + extraScore
+            if score < slotBestScore && !isBetter
+              continue
+            let coverSlotPos = coverSlotPosBase + traceHeightUp
+            let coverSlotOfs = coverSlotPos - traceStartPos
+            let cosAngle = dot(cover.dir, normalize(float3(coverSlotOfs.x, 0.0, coverSlotOfs.z)))
+            if cosAngle < possibleCosAngle
+              continue
+            let distToCenterSq = length_sq(coverSlotOfs)
+            let distFromAgentSq = distance_sq(midPos, coverSlotPos)
+            if distToCenterSq < minDistSq || distToCenterSq > maxDistSq
+              continue
+            if distFromAgentSq > slotBestDistSq && score == slotBestScore && !isBetter
+              continue
+            if !is_point_safe(coverSlotPos, team)
+              continue
+            if traceVisible && !isPrevCoverSlot
+              let dir = normalize(coverSlotOfs)
+              var t1 = length(coverSlotOfs)
+              var t2 = t1
+              var norm : float3
+              if (traceray_normalized(traceStartPos, dir, t1, norm, ETF_ALL)
+               && traceray_normalized(traceStartPos + traceHeightUp, dir, t2, norm, ETF_ALL))
                 continue
-              let coverOffset = coverCheckPos - centerPos
-              let cosAngle = dot(cover.dir, normalize(float3(coverOffset.x, 0.0, coverOffset.z)))
-              if cosAngle > possibleCosAngle
-                let distToCenterSq = length_sq(coverOffset)
-                let distFromAgentSq = distance_sq(midPos, coverCheckPos)
-                if distToCenterSq >= minDistSq && distToCenterSq <= maxDistSq && (distFromAgentSq < bestDistSq || (!bestZeroUsed && zeroUsedForSlot) || isPrevCover)
-                  if traceVisible && !isPrevCover
-                    let dir = normalize(coverOffset)
-                    var t1 = length(coverOffset)
-                    var t2 = t1
-                    var norm : float3
-                    if (traceray_normalized(centerPos + heightUp1, dir, t1, norm, ETF_ALL)
-                     && traceray_normalized(centerPos + heightUp2, dir, t2, norm, ETF_ALL))
-                      continue
-                  bestDistSq = distFromAgentSq
-                  bestCoverId = coverId
-                  bestZeroUsed = zeroUsedForSlot
-                  if isPrevCover
-                    return
+            slotBestDistSq = distFromAgentSq
+            slotBestCoverId = int2(id, i)
+            slotBestScore = score
+            slotBestTight = isTight
+            slotBestOKDir = goodDir
+            if isPrevCoverSlot && !isTight
+              bestDistSq = slotBestDistSq
+              bestCoverId = slotBestCoverId
+              bestScore = slotBestScore
+              bestTight = slotBestTight
+              bestOKDir = slotBestOKDir
+              bestFound = true
+              return
+          if slotBestCoverId.y != -1
+            assume cover2     = covers.list[slotBestCoverId.x]
+            assume coverDesc2 = covers.coverDescs[slotBestCoverId.x]
+            let coverAIPos = get_cover_slot_pos(cover2, coverDesc2, slotBestCoverId.y)
+            if check_cover_pos_valid(coverAIPos)
+              bestDistSq = slotBestDistSq
+              bestCoverId = slotBestCoverId
+              bestScore = slotBestScore
+              bestTight = slotBestTight
+              bestOKDir = slotBestOKDir
 
         if bestCoverId.x != -1
           assume cover     = covers.list[bestCoverId.x]
@@ -2656,11 +2899,9 @@ class FindCoverAroundPoint : BehNodeAdapter
           if coverDesc.slots[bestCoverId.y].numUsed == 1
             coverDesc.numUsedSlots += 1
 
-          let coverAIPos = coverDesc.slots[bestCoverId.y].pos - cover.dir * wallOffset
+          let coverAIPos = get_cover_slot_pos(cover, coverDesc, bestCoverId.y)
           owner.blackBoard |> set(coverPosParam, coverAIPos)
-
           res = EBehResult ER_SUCCESS
-
     return res
 
 [beh_node(name="onceUntilReset")]
@@ -2675,47 +2916,6 @@ class OnceUntilResetNode : BehNodeAdapter
       return EBehResult ER_FAILED
     isDone = true
     return EBehResult ER_SUCCESS
-
-[beh_node(name="startAim")]
-class StartAim : BehNodeAdapter
-
-  def override update(dt : float) : EBehResult
-    query(beh_tree_eid(owner)) <| $ [es] (var human_net_phys : HumanActor&)
-      assume ct = human_net_phys.phys.producedCT
-      ct |> human_control_state_set_control_bit(HumanPhysControlType HCT_AIM, true)
-    return EBehResult ER_SUCCESS
-
-[beh_node(name="stopAim")]
-class StopAim : BehNodeAdapter
-
-  def override update(dt : float) : EBehResult
-    query(beh_tree_eid(owner)) <| $ [es] (var human_net_phys : HumanActor&)
-      assume ct = human_net_phys.phys.producedCT
-      ct |> human_control_state_set_control_bit(HumanPhysControlType HCT_AIM, false)
-    return EBehResult ER_SUCCESS
-
-[beh_node(name="canHoldWeaponInVehicle")]
-class CanHoldWeaponInVehicle : BehNodeAdapter
-
-  def override update(dt : float) : EBehResult
-    return (get_bool(beh_tree_eid(owner), "human_vehicle__canHoldWeapon") ?? false) ? EBehResult ER_SUCCESS : EBehResult ER_FAILED
-
-[beh_node(name="checkReloadWeapon")]
-class ReloadWeapon : BehNodeAdapter
-
-  def override update(dt : float) : EBehResult
-    var res = EBehResult ER_SUCCESS
-    let ownerEid = beh_tree_eid(owner)
-    query(ownerEid) <| $ [es] (human_weap__reloadAtTime : float; human_weap__currentGunEid : EntityId)
-      let atTime = get_sync_time()
-      if atTime < human_weap__reloadAtTime
-        res = EBehResult ER_RUNNING
-      else
-        query(human_weap__currentGunEid) <| $ [es] (gun__ammo : int; gun__totalAmmo : int)
-          if gun__totalAmmo > 0 && gun__ammo == 0
-            sendEventImmediate(ownerEid, [[CmdRequestReload atTime=atTime, gunEid=human_weap__currentGunEid]])
-            res = EBehResult ER_RUNNING
-    return res
 
 [beh_node(name="findDangerousBomb")]
 class FindDangerousBomb : BehNodeAdapter
@@ -2805,12 +3005,17 @@ class FindWayBackToNavmesh : BehNodeAdapter
     angleStep = data |> datablock_getReal("angleStep", angleStep)
 
   def override init()
-    currentPolyIndex = 0
+    currentPolyIndex = -1
     currentTraceIndex = 0
-    query(beh_tree_eid(owner)) <| $ [es] (transform : float3x4; var walker_agent__getBackToNavmeshPolys : UInt64List&)
+    query(beh_tree_eid(owner)) <| $ [es] (transform : float3x4;
+                                          var walker_agent__getBackToNavmeshPolys : UInt64List&;
+                                          var walker_agent__getBackToNavmeshTraces : Point3List&)
+      walker_agent__getBackToNavmeshPolys |> clear()
+      walker_agent__getBackToNavmeshTraces |> clear()
       find_polys_in_circle(transform[3], radius, heightHalfOffset) <| $(polyRefs)
         for polyRef in polyRefs
           walker_agent__getBackToNavmeshPolys |> push(polyRef)
+      shuffle(walker_agent__getBackToNavmeshPolys)
 
   def override exit()
     query(beh_tree_eid(owner)) <| $ [es] (var walker_agent__getBackToNavmeshPolys : UInt64List&;
@@ -2859,6 +3064,7 @@ class FindWayBackToNavmesh : BehNodeAdapter
         if currentPolyIndex < length(walker_agent__getBackToNavmeshPolys)
           let polyRef = walker_agent__getBackToNavmeshPolys[currentPolyIndex]
           collect_traces_for_poly(agent.pos, polyRef, walker_agent__getBackToNavmeshTraces, traceDist)
+          shuffle(walker_agent__getBackToNavmeshTraces)
         res = EBehResult ER_RUNNING
         return
 

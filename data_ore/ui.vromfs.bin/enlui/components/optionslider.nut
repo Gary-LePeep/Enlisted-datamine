@@ -10,7 +10,7 @@ let function optionSlider(opt, group, xmbNode) {
       min = opt?.min ?? 0
       max = opt?.max ?? 1
       unit = opt?.unit ?? 0.1
-      scaling = opt?.scaling
+      scaling = opt?.scaling ?? slider.scales.linear
       pageScroll = opt?.pageScroll ?? 0.1
       group
       xmbNode

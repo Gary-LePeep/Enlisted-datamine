@@ -9,9 +9,6 @@
     "import": "tanks/us_m4a3e2_sherman_jumbo.blk"
   },
   {
-    "import": "tanks/us_m4a3e2_76w_sherman_jumbo.blk"
-  },
-  {
     "import": "tanks/uk_sherman_ic_firefly.blk"
   },
   {
@@ -57,8 +54,14 @@
     "import": "tanks/us_m2a4.blk"
   },
   {
+    "import": "tanks/us_m4a3_105_sherman.blk"
+  },
+  {
+    "import": "tanks/us_m4a1_sherman_1942.blk"
+  },
+  {
     "us_halftrack_m3_75mm_gmc": {
-      "_extends": "base_tank",
+      "_use": "base_tank",
       "particle_phys__blk": "content/enlisted/gamedata/suspension/empty.blk",
       "animchar__res": "halftrack_m3_t48_char",
       "collres__res": "halftrack_m3_t48_collision",
@@ -83,21 +86,7 @@
           "curYawParamName": "turret_yaw",
           "curPitchParamName": "gun_pitch",
           "gunRecoilParamName": "gun_recoil",
-          "gunRecoilDuration": 0.5,
-          "gunFlash:object": {
-            "node": "emtr_gun_flame",
-            "fx": "muzzle_flash",
-            "fxId": -1,
-            "scale": 0.7,
-            "nodeId": -1,
-            "time": 0.2,
-            "multTm": [
-              [0.0,1.0,0.0],
-              [1.0,0.0,0.0],
-              [0.0,0.0,-1.0],
-              [0.0,0.0,0.0]
-            ]
-          }
+          "gunRecoilDuration": 0.5
         }
       },
       "vehicle_seats__seats:shared:array": [

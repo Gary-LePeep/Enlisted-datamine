@@ -11,6 +11,7 @@ let hasSquadsEffects = @(armyEffects) (armyEffects?.maxSquadsInBattle ?? 0) > 0
   || (armyEffects?.maxInfantrySquads ?? 0) > 0
   || (armyEffects?.maxBikeSquads ?? 0) > 0
   || (armyEffects?.maxVehicleSquads ?? 0) > 0
+  || (armyEffects?.maxTransportSquads ?? 0) > 0
 
 let sellingBonusData = Computed(function() {
   if (!hasPremium.value)
@@ -31,6 +32,7 @@ let armySlotItem = Computed(@() shopItems.value?[sellingBonusData.value?.guid])
 let armySlotDiscount = Computed(@() armySlotItem.value?.discountInPercent ?? 0)
 
 return {
+  hasSquadsEffects
   armySlotDiscount
   armySlotItem
 }

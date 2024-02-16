@@ -1,140 +1,347 @@
 {
-  "ussr_gaz_mm_72k": {
-    "_extends": "base_gaz_mm_72k",
-    "_group": {
-      "_tags": "render",
-      "bullet_holes__ignoreCollisionNodes:array": [],
-      "bullet_holes__movingCollisionNodes:array": []
+  "ussr_gaz_mm_72k_moscow_premium": {
+    "_use": "base_gaz_mm_72k_common"
+  },
+  "base_gaz_mm_72k_common": [
+    {
+      "_use": "base_gaz_mm_72k"
     },
-    "vehicle_seats__seats:shared:array": [
-      {
-        "seats:object": {
-          "name": "driver",
-          "locName": "vehicle_seats/driver",
-          "seatOwnsEntityControl": true,
-          "attachNode": "driver",
-          "ignoreAttachNodeRotation": true,
-          "attachTm": [
-            [1.0,0.0,0.0],
-            [0.0,1.0,0.0],
-            [0.0,0.0,1.0],
-            [-0.25,-0.25,0.0]
-          ],
-          "seatComponent": "isDriver",
-          "nextSeat": "main_gunner",
-          "shouldHideOwner": false,
-          "receiveDamageFromDMPart": "driver",
-          "cameraNodeName": "bone_camera_driver"
+    {
+      "_use": "vehicle_steering_assist"
+    },
+    {
+      "_use": "apc_engine_sound"
+    },
+    {
+      "_use": "apc_with_wheels_vehicle_tracks_sound"
+    },
+    {
+      "_use": "car_vehicle_suspension_sound"
+    },
+    {
+      "_use": "car_vehicle_brakes_sound"
+    },
+    {
+      "_use": "car_vehicle_seat_sound"
+    },
+    {
+      "_use": "car_vehicle_gear_sound"
+    },
+    {
+      "_use": "car_inside_sound_for_driver_passenger1"
+    },
+    {
+      "_use": "turret_manual_sound_with_group"
+    },
+    {
+      "_use": "forestall"
+    },
+    {
+      "_use": "car_vehicle_horn_sound"
+    },
+    {
+      "_use": "vehicle_horn_note_D5"
+    },
+    {
+      "destroyIfNoCrewLeft": false
+    },
+    {
+      "armorThicknessHull": [0.0,0.0,0.0]
+    },
+    {
+      "armorThicknessTurret": [7.0,0.0,0.0]
+    },
+    {
+      "vehicle_seats__exitTime": 1.0
+    },
+    {
+      "vehicle_seats__enterTime": 2.0
+    },
+    {
+      "item__iconOffset": [-0.0,0.05]
+    },
+    {
+      "item__iconScale": 1.1
+    },
+    {
+      "commanderCockpitFpsCamMaxAngle": [40.0,5.0]
+    },
+    {
+      "gunner_cam_limit__useCockpitDir": true
+    },
+    {
+      "vehicle_commander_cam__attachToVehicle": true
+    },
+    {
+      "dm_parts_repair_names:list<t>": [
+        {
+          "part": "part:t="
+        },
+        {
+          "part": "drive_turret_h"
+        },
+        {
+          "part": "drive_turret_v"
+        },
+        {
+          "part": "cannon_breech"
+        },
+        {
+          "part": "engine"
+        },
+        {
+          "part": "transmission"
+        },
+        {
+          "part": "gun_barrel"
+        },
+        {
+          "part": "gun_barrel_01"
+        },
+        {
+          "part": "gun_barrel_02"
+        },
+        {
+          "part": "gun_barrel_03"
+        },
+        {
+          "part": "gun_barrel_04"
+        },
+        {
+          "part": "gun_barrel_05"
+        },
+        {
+          "part": "track_r"
+        },
+        {
+          "part": "track_l"
+        },
+        {
+          "part": "track_r_01"
+        },
+        {
+          "part": "track_l_01"
+        },
+        {
+          "part": "wheel_l_back"
+        },
+        {
+          "part": "wheel_l_front"
+        },
+        {
+          "part": "wheel_l_drive"
+        },
+        {
+          "part": "wheel_r_back"
+        },
+        {
+          "part": "wheel_r_front"
+        },
+        {
+          "part": "wheel_r_drive"
+        },
+        {
+          "part": "wheel_r_01"
+        },
+        {
+          "part": "wheel_r_02"
+        },
+        {
+          "part": "wheel_r_03"
+        },
+        {
+          "part": "wheel_r_04"
+        },
+        {
+          "part": "wheel_r_05"
+        },
+        {
+          "part": "wheel_r_06"
+        },
+        {
+          "part": "wheel_r_07"
+        },
+        {
+          "part": "wheel_r_08"
+        },
+        {
+          "part": "wheel_l_01"
+        },
+        {
+          "part": "wheel_l_02"
+        },
+        {
+          "part": "wheel_l_03"
+        },
+        {
+          "part": "wheel_l_04"
+        },
+        {
+          "part": "wheel_l_05"
+        },
+        {
+          "part": "wheel_l_06"
+        },
+        {
+          "part": "wheel_l_07"
+        },
+        {
+          "part": "wheel_l_08"
         }
-      },
-      {
-        "seats:object": {
-          "name": "main_gunner",
-          "locName": "vehicle_seats/gunner",
-          "attachNode": "gunner",
-          "ignoreAttachNodeRotation": true,
-          "attachTm": [
-            [1.0,0.0,0.0],
-            [0.0,1.0,0.0],
-            [0.0,0.0,1.0],
-            [-0.25,-0.5,0.0]
-          ],
-          "seatComponent": "isGunner",
-          "nextSeat": "driver",
-          "shouldHideOwner": false,
-          "receiveDamageFromDMPart": "gunner",
-          "cameraNodeName": "bone_camera_gunner",
-          "turretNames:array": {
-            "turret": "turret_01"
+      ]
+    },
+    {
+      "dm_parts__repairGroups:object": []
+    },
+    {
+      "vehicle_seats__effectors:array": []
+    },
+    {
+      "item__iconRecalcAnim:tag": {
+        "_tags": "ui"
+      }
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "animchar_camera_target__node_name": "bone_camera_driver",
+        "animchar_camera_target__node_offset": [0.0,0.0,0.0]
+      }
+    },
+    {
+      "vehicle_seats__seats:shared:array": [
+        {
+          "seats:object": {
+            "name": "driver",
+            "locName": "vehicle_seats/driver",
+            "seatOwnsEntityControl": true,
+            "attachNode": "driver",
+            "ignoreAttachNodeRotation": true,
+            "attachTm": [
+              [0.996191,0.0871554,0.0],
+              [-0.0871554,0.996191,0.0],
+              [0.0,0.0,0.999997],
+              [-0.12,-0.37,0.03]
+            ],
+            "seatComponent": "isDriver",
+            "nextSeat": "main_gunner",
+            "shouldHideOwner": false,
+            "receiveDamageFromDMPart": "driver",
+            "cameraNodeName": "bone_camera_driver",
+            "seatAnimUpper": "drive_passenger",
+            "seatAnimLower": "drive_passenger",
+            "cameraType": "commander",
+            "cameraOffset": [-0.6,0.1,0.0],
+            "isHoldGunModeAllowed": false,
+            "effectors:object": {
+              "r.hand": "righthand_1",
+              "l.hand": "lefthand_1",
+              "r.foot": "pedal_rfoot_1",
+              "l.foot": "pedal_lfoot_1"
+            }
           }
-        }
-      },
-      {
-        "seats:object": [
-          {
-            "name": "commander"
-          },
-          {
-            "locName": "vehicle_seats/commander"
-          },
-          {
-            "locName": "vehicle_seats/commander"
-          },
-          {
-            "attachNode": "commander"
-          },
-          {
-            "shouldHideOwner": false
-          },
-          {
-            "ignoreAttachNodeRotation": true
-          },
-          {
-            "maxPosWithOpenHatch": 0.4
-          },
-          {
+        },
+        {
+          "seats:object": {
+            "name": "main_gunner",
+            "locName": "vehicle_seats/gunner",
+            "attachNode": "gunner",
             "attachTm": [
               [1.0,0.0,0.0],
               [0.0,1.0,0.0],
               [0.0,0.0,1.0],
-              [-0.0,0.1,0.1]
-            ]
-          },
-          {
-            "cameraType": "commander"
-          },
-          {
-            "seatComponent": "isDriver"
-          },
-          {
-            "receiveDamageFromDMPart": "commander"
+              [-0.1,-0.21,0.0]
+            ],
+            "seatComponent": "isGunner",
+            "ignoreAttachNodeRotation": true,
+            "cameraType": "gunner",
+            "cameraNodeName": "bone_camera_gunner",
+            "cameraOffset": [-0.65,-0.15,0.0],
+            "directTurretControl": true,
+            "cockpitTemplate": "ussr_gaz_mm_72k_gunner_cockpit",
+            "hideHeroAnimcharLocal": true,
+            "canLoadInHatch": true,
+            "maxPosWithOpenHatch": 0.0,
+            "hatchRotationAxis": [0.0,0.0,0.0],
+            "isHatchControlInversed": true,
+            "isHoldGunModeAllowed": false,
+            "receiveDamageFromDMPart": "gunner",
+            "hatchNodes:array": {
+              "node": "bone_camera_gunner"
+            },
+            "hatchTurretNames:array": {
+              "turret": "turret_01"
+            },
+            "turretNames:array": {
+              "turret": "turret_01"
+            },
+            "effectors:object": {
+              "r.hand": "righthand_2",
+              "l.hand": "lefthand_2",
+              "r.foot": "pedal_rfoot_2",
+              "l.foot": "pedal_lfoot_2"
+            }
           }
-        ]
-      },
-      {
-        "seats:object": {
-          "attachNode": "loader",
-          "locName": "vehicle_seats/loader",
-          "ignoreAttachNodeRotation": true,
-          "attachTm": [
-            [1.0,0.0,0.0],
-            [0.0,1.0,0.0],
-            [0.0,0.0,1.0],
-            [-0.0,-0.0,0.0]
-          ],
-          "seatComponent": "isPassenger",
-          "shouldHideOwner": false,
-          "receiveDamageFromDMPart": "loader",
-          "cameraNodeName": "bone_camera_driver"
+        },
+        {
+          "seats:object": {
+            "name": "machine_gunner",
+            "locName": "vehicle_seats/commander",
+            "attachNode": "commander",
+            "shouldHideOwner": false,
+            "ignoreAttachNodeRotation": true,
+            "attachTm": [
+              [0.98769,0.156432,0.0],
+              [-0.156432,0.98769,0.0],
+              [0.0,0.0,1.00001],
+              [-0.11,-0.39,-0.03]
+            ],
+            "seatComponent": "isPassenger",
+            "isHoldGunModeAllowed": false,
+            "receiveDamageFromDMPart": "commander",
+            "seatAnimUpper": "drive_passenger",
+            "seatAnimLower": "drive_passenger",
+            "effectors:object": {
+              "l.hand": "lefthand_4",
+              "r.foot": "pedal_rfoot_4",
+              "l.foot": "pedal_lfoot_4"
+            }
+          }
+        },
+        {
+          "seats:object": {
+            "name": "loader",
+            "locName": "vehicle_seats/loader",
+            "attachNode": "loader",
+            "ignoreAttachNodeRotation": true,
+            "attachTm": [
+              [1.0,0.0,0.0],
+              [0.0,1.0,0.0],
+              [0.0,0.0,1.0],
+              [-0.1,-0.21,-0.0]
+            ],
+            "seatComponent": "isPassenger",
+            "receiveDamageFromDMPart": "loader",
+            "cameraNodeName": "root",
+            "nextSeat": "main_gunner",
+            "vehicleReloadMult": 0.7,
+            "isHoldGunModeAllowed": false,
+            "loaderTurretNames:array": {
+              "turret": "turret_01"
+            },
+            "effectors:object": {
+              "r.hand": "righthand_3",
+              "r.foot": "pedal_rfoot_3",
+              "l.foot": "pedal_lfoot_3"
+            }
+          }
         }
-      }
-    ],
-    "dm_phys_parts__enginePartIds:list<i>": [],
-    "dm_phys_parts__transmissionPartIds:list<i>": [],
-    "dm_phys_parts__tracksPartIds:list<i>": [],
-    "dm_phys_parts__wheelsPartIds:list<i>": [],
-    "dm_phys_parts__engine:array": {
-      "engine": "engine"
+      ]
     },
-    "dm_phys_parts__transmission:array": {
-      "transmission": "transmission"
-    },
-    "dm_phys_parts__tracks:array": [],
-    "dm_phys_parts__wheels:array": [
-      {
-        "wheel": "wheel_r_01"
-      },
-      {
-        "wheel": "wheel_r_02"
-      },
-      {
-        "wheel": "wheel_l_01"
-      },
-      {
-        "wheel": "wheel_l_02"
-      }
-    ]
-  },
+    {
+      "dm_phys_parts__wheelsPartIds:list<i>": []
+    }
+  ],
   "gaz_mm_72k_skins": {
     "_override": true,
     "skin__objTexReplace:array": [
@@ -163,5 +370,48 @@
         }
       }
     ]
+  },
+  "ussr_gaz_mm_72k_gunner_cockpit": {
+    "_use": "base_gunner_cockpit",
+    "animchar__res": "t_26_1940_gunner_char",
+    "cockpit__offset": [0.0,0.0,0.0],
+    "cockpit__forwardOffsetDuration": 0.33,
+    "cockpit__minForwardOffset": 0.0,
+    "cockpit__cockpitOffsetBySlit:list<p3>": {
+      "item": [-0.8,0.35,-0.45]
+    },
+    "cockpit__attachNodeNames:list<t>": {
+      "node": "bone_gun"
+    },
+    "cockpit__attachNodeIndices:list<i>": [],
+    "cockpit__visibleVehicleNodeNames:list<t>": {
+      "node": "gun_barrel"
+    },
+    "cockpit__slitNodeNames:list<t>": {
+      "slit": "cam_front_right"
+    },
+    "cockpit__slitForwardOffset:list<r>": {
+      "slit": 0.23
+    },
+    "cockpit__slitIsGun:list<b>": {
+      "slit": true
+    },
+    "cockpit__slitZoom:array": {
+      "slit:list<r>": [
+        {
+          "zoom": 1.44
+        },
+        {
+          "zoom": 2.5
+        }
+      ]
+    },
+    "cockpit__slitZoomTime:list<r>": {
+      "slit": 0.05
+    },
+    "cockpit__slitTemplates:list<t>": {
+      "slit": "ussr_ring"
+    },
+    "cockpit__slitEids:list<eid>": []
   }
 }

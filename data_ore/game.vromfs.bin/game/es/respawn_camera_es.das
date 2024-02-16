@@ -9,6 +9,11 @@ require player
 require replay
 require DagorSystem
 require game.es.respawn_base_common
+require enlisted.events_enlisted
+require game.es.paratroopers_common
+require game.es.battle_area_common
+require game.es.respawn_camera_common
+require DagorMathUtils
 
 [es(track=respawner__respStartTime, after=respawn_camera_apply_target_es)]
 def respawn_camera_delay_change_target_es(evt : Event;
@@ -30,11 +35,6 @@ def reset_respawn_camera_rotation(evt : Event; var transform : float3x4)
   newTm[3] = transform[3]
   transform = newTm
 
-def setup_camera_as_active(cam_eid : EntityId; cam_name : string)
-  query(get_local_player_eid()) <| $ [es] (var activeCamEid : EntityId&; var activeCamName : das_string)
-    activeCamEid = cam_eid
-    activeCamName := cam_name
-
 def create_respawn_cam(fromEid, toEid : EntityId; transform : float3x4)
   ecs::query(toEid) <| $ [es] (respawnCameraTemplate : string; respawnCameraForTeam : int)
     let respawnCam = createEntity(respawnCameraTemplate) <| $(var init : ComponentsInitializer)
@@ -45,6 +45,12 @@ def create_respawn_cam(fromEid, toEid : EntityId; transform : float3x4)
       set(init, "shooter_cam__lastPos", transform[3])
       set(init, "respawnCameraTargerPoint", toEid)
     setup_camera_as_active(respawnCam, respawnCameraTemplate)
+  update_respawn_cameras()
+
+[es(tag=gameClient, on_appear)]
+def set_respawn_camera_mode(evt : Event; var respawn_camera__lookSide : bool&)
+  query(get_local_player_eid()) <| $ [es] (respawner__paratroopersChooserOn : bool)
+    respawn_camera__lookSide = !respawner__paratroopersChooserOn
 
 [es(REQUIRE=respawnCamera, after=lut_switcher_on_vehicle_gain_input_es)]
 def respawn_camera_apply_target_test_es(info : UpdateStageInfoAct;
@@ -64,7 +70,7 @@ def set_respawn_cam(targetEid : EntityId)
 def respawn_camera_apply_target(team : int; var respawner__changeCameraAtTime : float&)
   if respawner__changeCameraAtTime <= 0.0 || get_sync_time() < respawner__changeCameraAtTime
     return
-  ecs::query() <| $ [es] (eid : EntityId; respawnCameraForTeam : int)
+  query() <| $ [es] (eid : EntityId; respawnCameraForTeam : int)
     if is_teams_friendly(team, respawnCameraForTeam) || respawnCameraForTeam == TEAM_UNASSIGNED
       set_respawn_cam(eid)
       ecs::find_query() <| $ [es(REQUIRE=color_grading)] (eid : EntityId)
@@ -87,48 +93,103 @@ def respawn_camera_apply_target_respawner_es(info : UpdateStageInfoAct;
   if shouldEnableCam
     respawn_camera_apply_target(team, respawner__changeCameraAtTime)
 
-def find_middle_resp_point(respTeam : int)
-  var pos = float3(0.0, 0.0, 0.0)
-  var respsFound = 0
-  ecs::query() <| $ [es(REQUIRE=respbase, REQUIRE_NOT=(aircraftRespbase, playerRespawnBase))] (eid : EntityId; team : int; active : bool; transform : float3x4)
-    if (active || has(eid, "customRespawnBase")) && (is_teams_friendly(team, respTeam) || team == TEAM_UNASSIGNED)
-      respsFound++
-      pos += transform[3]
-  if respsFound > 0
-    pos = pos / float(respsFound)
-  return pos
+def get_camera_look_from(team : int; camera_height : float; respawn_mult : float3)
+  // this naming is a mess and i hope you are brave enough to fix it. cause im not.
+  var lookAt = find_middle_resp_point(team)
+  let lookTo = find_target_point_for_respawn_cam()
+  var found = false
+  find_query() <| $ [es] (respawnBaseGroup : int)
+    if respawnBaseGroup != -1
+      found = true
+    return found
+  if found
+    let diff = lookAt - lookTo._1
+    lookAt += diff * respawn_mult
+  lookAt[1] = lookAt[1] + camera_height
+  return lookAt
 
-[es(tag=server, on_appear, on_event=EventLevelLoaded, track=(active, team), REQUIRE=active, REQUIRE=respbase)]
-def respawn_camera_set_target_params_es(evt : Event; team : int)
-  ecs::query() <| $ [es] (moveCameraToHeight : float;
-                          var respawnCameraLookFrom : float3&;
-                          respawnCameraForTeam : int;
-                          respawnSelectorDistanceMult : float)
+
+def set_look_params_for_above_respawn_camera(eid : EntityId; isFirstSpawn : bool)
+  query(eid) <| $ [es] (respawnCameraLookFromSide : float3;
+                        respawnSelectorAboveHeight : float;
+                        respawnSelectorDistanceMultAbove : float;
+                        respawnCameraStaticSideLook : bool;
+                        var respawn_camera__lookAt : float3&;
+                        var respawnCameraLookFrom : float3&)
+    var aboveCamTarget : float2
+    if !respawnCameraStaticSideLook
+      aboveCamTarget = get_above_camera_target()
+    else
+      find_query() <| $ [es(REQUIRE=initialCamTag)] (transform : float3x4)
+        aboveCamTarget = transform[3].xz
+        return true
+    var diff : float3
+    if isFirstSpawn || respawnCameraStaticSideLook
+      query() <| $ [es(REQUIRE=initialCamTag)] (transform : float3x4)
+        diff = -transform[2]
+    else
+      diff = respawnCameraLookFromSide - float3(aboveCamTarget.x, 0., aboveCamTarget.y)
+    diff.y = 0.
+    diff = normalize(diff)
+    respawn_camera__lookAt = float3(aboveCamTarget.x, 0., aboveCamTarget.y)
+    respawnCameraLookFrom = respawn_camera__lookAt + diff * respawnSelectorDistanceMultAbove + float3(0., respawnSelectorAboveHeight, 0.)
+
+
+[es(tag=gameClient, after=set_respawn_camera_mode, on_appear, track=(respawnCameraLookFromSide, respawn_camera__lookSide), REQUIRE=(respawnCameraLookFromSide, respawn_camera__lookSide))]
+def update_cameras_on_params_change(evt : Event)
+  update_respawn_cameras()
+
+[es(tag=server, on_appear, on_event=EventLevelLoaded, track=(active, team), REQUIRE=(active, respbase))]
+def respawn_camera_set_look_from_side_es(evt : Event; team : int)
+  query() <| $ [es] (moveCameraToHeight : float;
+                     respawnCameraForTeam : int;
+                     respawnSelectorDistanceMult : float;
+                     var respawnCameraLookFromSide : float3&)
     if !(is_teams_friendly(respawnCameraForTeam, team) || respawnCameraForTeam == TEAM_UNASSIGNED)
       return
-    var lookAt = find_middle_resp_point(team)
-    let lookTo = find_target_point_for_respawn_cam()
-    var found = false
-    ecs::find_query() <| $ [es] (respawnBaseGroup : int)
-      if respawnBaseGroup != -1
-        found = true
-      return found
-    if found
-      let diff = lookAt - lookTo._1
-      lookAt += diff * respawnSelectorDistanceMult
-    lookAt[1] = lookAt[1] + moveCameraToHeight
-    respawnCameraLookFrom = lookAt;
+
+    respawnCameraLookFromSide = get_camera_look_from(team, moveCameraToHeight, float3(respawnSelectorDistanceMult))
 
 def update_respawn_cameras()
-  ecs::query() <| $ [es] (eid : EntityId;
-                          respawn_camera__minSpeed : float;
-                          var respawn_camera__currentSpeed : float&;
-                          var respawn_camera__lookAt : float3&)
-    let lookAt = find_target_point_for_respawn_cam()
-    if lookAt._0 > 0
-      respawn_camera__lookAt = lookAt._1
-      addSubTemplate(eid, "respawn_camera_update_transform")
-      respawn_camera__currentSpeed = respawn_camera__minSpeed
+  query() <| $ [es] (eid : EntityId;
+                     respawn_camera__minSpeed : float;
+                     respawnCameraLookFromSide : float3;
+                     respawnCameraStaticSideLook : bool;
+                     respawn_camera__lookSide : bool;
+                     respawn_camera__reserveAngleForSoldierMenu : float = 0.;
+                     var respawnCameraLookFrom : float3&;
+                     var respawn_camera__currentSpeed : float&;
+                     var respawn_camera__lookAt : float3&)
+    var isFirstSpawn = false
+    query(get_local_player_eid()) <| $ [es] (respawner__isFirstSpawn : bool)
+      isFirstSpawn = respawner__isFirstSpawn
+    if !respawn_camera__lookSide
+      set_look_params_for_above_respawn_camera(eid, isFirstSpawn)
+    else
+      if isFirstSpawn || respawnCameraStaticSideLook
+        query() <| $ [es(REQUIRE=initialCamTag)] (transform : float3x4)
+          respawnCameraLookFrom = transform[3]
+          respawn_camera__lookAt = transform[3] + transform[2] * 100.
+      else
+        let lookAt = find_target_point_for_respawn_cam()
+        if lookAt._0 > 0
+          respawn_camera__lookAt = lookAt._1
+          respawnCameraLookFrom = respawnCameraLookFromSide
+          if respawn_camera__reserveAngleForSoldierMenu != 0.
+            var dir = respawn_camera__lookAt - respawnCameraLookFrom
+            let len = length(dir)
+            var angels  = dir_to_angles(dir)
+            angels[0] = angels[0] - deg_to_rad(respawn_camera__reserveAngleForSoldierMenu)
+            dir = angles_to_dir(angels)
+            respawn_camera__lookAt = respawnCameraLookFrom + dir * len
+
+
+    addSubTemplate(eid, "respawn_camera_update_transform")
+    respawn_camera__currentSpeed = respawn_camera__minSpeed
+
+[es(tag=gameClient, on_appear, track=battle_area__requireUpdate, REQUIRE=battle_area__requireUpdate)]
+def update_cameras_on_battle_area_appear(evt : Event)
+  update_respawn_cameras()
 
 [es(tag=gameClient, on_appear, on_event=EventLevelLoaded, track=active, REQUIRE=active, REQUIRE=capzone)]
 def respawn_camera_zone_changed_params_es(evt : Event)
@@ -138,13 +199,13 @@ def respawn_camera_zone_changed_params_es(evt : Event)
 def respawn_camera_appear_update(evt : Event)
   update_respawn_cameras()
 
-[es(tag=gameClient, on_appear, track=respawnCameraLookFrom, REQUIRE=respawnCameraLookFrom)]
-def respawn_camera_set_position_params_es(evt : Event;
-                                          eid : EntityId;
-                                          respawn_camera__minSpeed : float;
-                                          var respawn_camera__currentSpeed : float&)
-  addSubTemplate(eid, "respawn_camera_update_transform")
-  respawn_camera__currentSpeed = respawn_camera__minSpeed
+[es(tag=gameClient, REQUIRE=respawner__isFirstSpawn, track=respawner__isFirstSpawn)]
+def respawn_camera_update_after_first_spawn(evt : Event)
+  update_respawn_cameras()
+
+[es(tag=gameClient, track=active, on_appear, REQUIRE=(active, respbaseCamTarget), REQUIRE_NOT=(aircraftRespbase, mobileRespawnTag, playerRespawnBase, customRespawnBase))]
+def respawn_cameras_on_capzone_appear(evt : Event)
+  update_respawn_cameras()
 
 [es(tag=gameClient, before=(shooter_cam_rotate_es, shooter_cam_update_tm_es), REQUIRE=respawnCameraUpdateTransform)]
 def respawn_camera_update(info : UpdateStageInfoAct;
@@ -182,3 +243,63 @@ def check_respawn_camera_team_set(evt : Event; eid : EntityId; respawnCameraForT
   if respawnCameraForTeam == TEAM_UNASSIGNED
     let templateName = getEntityTemplateName(eid)
     logerr("Respawn camera eid: {eid} template: {templateName} has no team assigned")
+
+
+[es(tag=gameClient, REQUIRE=localPlayer, on_appear, on_event=CmdTurnParatroopersCamera)]
+def create_respawn_camera_on_turn_camera_mode(evt : Event;
+                                              team : int;
+                                              respawner__paratroopersChooserOn : bool;
+                                              respawner__isFirstSpawn : bool;
+                                              var respawner__isRespawnCameraCreated : bool&)
+  if respawner__isRespawnCameraCreated || (respawner__isFirstSpawn && !respawner__paratroopersChooserOn)
+    return
+  if (find_query() <| $ [es(REQUIRE=respawnCamera)] () => true)
+    return
+  if (find_query() <| $ [es(REQUIRE=benchmark_active)] () => true)
+    return
+  let isReplay = find_query() <| $ [es(REQUIRE=replayIsPlaying)] => true
+  if isReplay
+    return
+  find_query() <| $ [es] (eid : EntityId;
+                          respawnCameraForTeam : int;
+                          transform : float3x4)
+    if team != respawnCameraForTeam
+      return false
+    query() <| $ [es] (var camera__active : bool&)
+      camera__active = false
+    respawner__isRespawnCameraCreated = true
+    create_respawn_cam(eid, eid, transform)
+    return true
+
+[es(tag=gameClient, on_appear)]
+def apply_camera_on_camera_target_appear_on_first_spawn(evt : Event;
+                                                        eid : EntityId;
+                                                        respawnCameraForTeam : int;
+                                                        transform : float3x4)
+  if (find_query() <| $ [es(REQUIRE=respawnCamera)] () => true)
+    return
+  query(get_local_player_eid()) <| $ [es] (team : int;
+                                           respawner__isFirstSpawn : bool;
+                                           respawner__paratroopersChooserOn : bool;
+                                           var respawner__isRespawnCameraCreated : bool&)
+    if team != respawnCameraForTeam || respawner__isRespawnCameraCreated || (!respawner__paratroopersChooserOn && respawner__isFirstSpawn)
+      return
+    query() <| $ [es] (var camera__active : bool&)
+      camera__active = false
+    respawner__isRespawnCameraCreated = true
+    create_respawn_cam(eid, eid, transform)
+
+[es(tag=gameClient, on_appear, REQUIRE=respawnCamera)]
+def delete_respawn_non_active_respawn_cameras(evt : Event; eid aka activeCam_eid : EntityId)
+  query() <| $ [es(REQUIRE=respawnCamera)] (eid aka oldCam_eid : EntityId)
+    if oldCam_eid != activeCam_eid
+      destroyEntity(oldCam_eid)
+
+[es(tag=gameClient)]
+def update_camera_target_pos(info : ParallelUpdateFrameDelayed;
+                             transform : float3x4;
+                             respawn_camera_target__posChangeDist : float;
+                             var respawn_camera_target__curLookPos : float3&)
+  if distance_sq(respawn_camera_target__curLookPos, transform[3]) > respawn_camera_target__posChangeDist
+    respawn_camera_target__curLookPos = transform[3]
+    update_respawn_cameras()

@@ -12,12 +12,13 @@ let { CmdChangeTimeOfDay, CmdSetCameraFov, CmdSetBloomThreshold, CmdSetChromatic
 let { take_screenshot_nogui } = require("screencap")
 let { chooseRandom } = require("%sqstd/rand.nut")
 let { is_upsampling } = require("videomode")
+let { addPopup } = require("%enlSqGlob/ui/popup/popupsState.nut")
 let msgbox = require("%ui/components/msgbox.nut")
 
-const SNOW_TEMPLATE = "camera_snow_heavy_template"
-const RAIN_TEMPLATE = "camera_rain_heavy_template"
-const LIGHTNING_TEMPLATE = "camera_lightning_heavy_template"
-const CINEMATIC_MODE = "cinematic_mode"
+//const SNOW_TEMPLATE = "camera_snow_heavy_template"
+//const RAIN_TEMPLATE = "camera_rain_heavy_template"
+//const LIGHTNING_TEMPLATE = "camera_lightning_heavy_template"
+//const CINEMATIC_MODE = "cinematic_mode"
 
 let levelTimeOfDay = Watched(0)
 let cameraFov = Watched(0)
@@ -54,7 +55,7 @@ let isCinemaRecording = Watched(false)
 let superPixel = Watched(1)
 let isCustomSettings = Watched(false)
 let isSettingsChecked = Watched(false)
-
+let isHudSettingsEnable = Watched(false)
 
 ecs.register_es("ui_time_of_day_track_es",
   {
@@ -138,8 +139,8 @@ ecs.register_es("ui_dof_track_es",
 ecs.register_es("ui_cinematic_mode_es",
   {
     [["onInit","onChange"]] = function(_eid, comp) {
-      motionBlur(comp.cinematic_mode__mb_scale)
-      bloomEffect(1.0 - comp.cinematic_mode__bloomThreshold)
+      motionBlur(comp.motion_blur__scale)
+      bloomEffect(1.0 - comp.bloom__threshold)
       abberation(1.0 - comp.cinematic_mode__chromaticAberration.z)
       filmGrain(comp.cinematic_mode__filmGrain.x)
       vigneteEffect(comp.cinematic_mode__vignetteStrength)
@@ -167,8 +168,8 @@ ecs.register_es("ui_cinematic_mode_es",
   {
     comps_track=[
       ["cinematic_mode__lenseFlareIntensity", ecs.TYPE_FLOAT],
-      ["cinematic_mode__mb_scale", ecs.TYPE_FLOAT],
-      ["cinematic_mode__bloomThreshold", ecs.TYPE_FLOAT],
+      ["motion_blur__scale", ecs.TYPE_FLOAT],
+      ["bloom__threshold", ecs.TYPE_FLOAT],
       ["cinematic_mode__chromaticAberration", ecs.TYPE_POINT3],
       ["cinematic_mode__filmGrain", ecs.TYPE_POINT3],
       ["cinematic_mode__vignetteStrength", ecs.TYPE_FLOAT],
@@ -183,12 +184,9 @@ ecs.register_es("ui_cinematic_mode_es",
   }
 )
 
-let function changeWeatherPreset(newVal) {
-  if (newVal == null)
-    return
-  ecs.g_entity_mgr.broadcastEvent( CmdWeather({ preset = (typeof newVal == "string")
-    ? newVal
-    : weatherPresetList.value[newVal].preset }))
+let function changeWeatherPreset(preset) {
+  if (preset != null)
+    ecs.g_entity_mgr.broadcastEvent( CmdWeather({ preset }))
 }
 
 ecs.register_es("ui_cinematic_weather_presets_es",
@@ -198,7 +196,7 @@ ecs.register_es("ui_cinematic_weather_presets_es",
       res = res.map(@(v) {
         loc = loc($"weatherPreset/{v}")
         preset = v
-        setValue = changeWeatherPreset
+        setValue = @(_) changeWeatherPreset(v)
       })
       weatherPresetList(res)
     }
@@ -279,6 +277,15 @@ let function changeSuperPixel(newVal) {
 let toggleCustomSettings = @() ecs.g_entity_mgr.broadcastEvent(
   CmdSetCinematicCustomSettings({ enabled = !isCustomSettings.value }))
 
+let function takeScreenshot() {
+  take_screenshot_nogui()
+  addPopup({
+    id = "cinema_screenshot_done_alert"
+    text = loc("replay/screenshotDone")
+    needPopup = true
+    showTime = 2
+  })
+}
 
 let function makeScreenShot(){
   if (is_upsampling() && !isCustomSettings.value && !isSettingsChecked.value)
@@ -289,34 +296,34 @@ let function makeScreenShot(){
           text = loc("replay/setOptimalSettings")
           action = function() {
             toggleCustomSettings()
-            take_screenshot_nogui()
+            takeScreenshot()
             isSettingsChecked(true)
           }
         },
         {
           text = loc("replay/screenshotAnyway")
           action = function() {
-            take_screenshot_nogui()
+            takeScreenshot()
             isSettingsChecked(true)
           }
         }
       ]
     })
   else
-    take_screenshot_nogui()
+    takeScreenshot()
 }
 
 
-let updateDofCinematic = @() ecs.g_entity_mgr.broadcastEvent(
-  CmdSetCameraDofEnabled({ enabled  = isDofCameraEnabled.value }))
-let updateDofFilmic = @() ecs.g_entity_mgr.broadcastEvent(
-  CmdSetDofIsFilmic({ isFilmic = isDofCameraEnabled.value }))
+let updateIsDofEnabled = @(v) ecs.g_entity_mgr.broadcastEvent(
+  CmdSetCameraDofEnabled({ enabled = v }))
 
-isDofCameraEnabled.subscribe(function(v) {
-  updateDofCinematic()
-  isDofFilmic(v)
-  updateDofFilmic()
+isDofFilmic.subscribe(function(v) {
+  isDofCameraEnabled(v)
+  ecs.g_entity_mgr.broadcastEvent(
+    CmdSetDofIsFilmic({ isFilmic = v }))
 })
+
+isDofCameraEnabled.subscribe(@(v) updateIsDofEnabled(v))
 
 isDofFocalActive.subscribe(function(v) {
   if (!v) {
@@ -376,6 +383,7 @@ return {
   weatherPreset
   weatherPresetList
   isDofCameraEnabled
+  isDofFilmic
   isDofFocalActive
   dofFocusDist
   dofFocalLength
@@ -404,4 +412,5 @@ return {
   changeSuperPixel
   makeScreenShot
   superPixel
+  isHudSettingsEnable
 }

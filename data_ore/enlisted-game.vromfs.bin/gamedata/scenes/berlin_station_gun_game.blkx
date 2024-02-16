@@ -314,6 +314,11 @@
   },
   {
     "entity": {
+      "_template": "bloom"
+    }
+  },
+  {
+    "entity": {
       "_template": "postfx_roundctrl",
       "post_fx:object": []
     }
@@ -358,6 +363,7 @@
     "entity": {
       "_template": "briefing_gun_game",
       "mission_name": "berlin_station_gun_game",
+      "mission_outfit": "berlin",
       "loading_images:list<t>": {
         "item": "ui/berlin_station_01.avif"
       }

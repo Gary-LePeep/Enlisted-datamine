@@ -1,12 +1,12 @@
 [
   {
     "import": {
-      "scene": "content/enlisted/gamedata/scenes/_volokolamsk_biom_fx.blk"
+      "scene": "content/enlisted/gamedata/scenes/_volokolamsk_autumn_gpu_objects.blk"
     }
   },
   {
     "import": {
-      "scene": "content/enlisted/gamedata/scenes/_volokolamsk_gpu_objects.blk"
+      "scene": "content/enlisted/gamedata/scenes/_volokolamsk_autumn_biome_fx.blk"
     }
   },
   {
@@ -94,6 +94,11 @@
         "water_color_noise_size": 71.0,
         "river_density": 0.3
       }
+    }
+  },
+  {
+    "entity": {
+      "_template": "bloom"
     }
   },
   {

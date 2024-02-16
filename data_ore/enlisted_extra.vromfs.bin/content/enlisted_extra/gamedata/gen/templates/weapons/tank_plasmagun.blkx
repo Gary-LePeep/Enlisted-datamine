@@ -16,16 +16,16 @@
   },
   "tank_plasmagun": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_tankgun_cannon"
+      "_use": "base_tankgun_cannon"
     },
     {
-      "_extends": "base_tank_plasmagun"
+      "_use": "base_tank_plasmagun"
     },
     {
-      "_extends": "gunsound_tank_plasmagun"
+      "_use": "gunsound_tank_plasmagun"
     },
     {
       "turret__triggerGroup": 0

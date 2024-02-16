@@ -27,14 +27,14 @@ ecs.register_es("ui_useful_box_hint_es",
       local hintEmpty = null
       local isBoxEmpty = false
       local usefulBox = ecs.INVALID_ENTITY_ID
-      usefulBoxQuery(selectedObject, function(eid, comp) {
-        if (!comp.useful_box__anyTeam && !is_teams_friendly(localPlayerTeam.value, comp.team))
+      usefulBoxQuery(selectedObject, function(eid, boxComp) {
+        if (!boxComp.useful_box__anyTeam && !is_teams_friendly(localPlayerTeam.value, boxComp.team))
           return
 
         usefulBox = eid
-        hintFull = comp["useful_box__hintFull"]
-        hintEmpty = comp["useful_box__hintEmpty"]
-        isBoxEmpty = (comp["useful_box__useCount"] == 0)
+        hintFull = boxComp["useful_box__hintFull"]
+        hintEmpty = boxComp["useful_box__hintEmpty"]
+        isBoxEmpty = (boxComp["useful_box__useCount"] == 0)
       })
       usefulBoxHintFull(hintFull)
       usefulBoxHintEmpty(hintEmpty)

@@ -3,6 +3,9 @@ from "%enlSqGlob/ui_library.nut" import *
 let { settings, onlineSettingUpdated } = require("%enlist/options/onlineSettings.nut")
 let { achievementsList } = require("taskListState.nut")
 let { weeklyTasks } = require("weeklyUnlocksState.nut")
+let { mkOnlineSaveData } = require("%enlSqGlob/mkOnlineSaveData.nut")
+let { unlockProgress } = require("%enlSqGlob/userstats/unlocksState.nut")
+let isNewbie = require("%enlist/unlocks/isNewbie.nut")
 
 
 enum SeenMarks {
@@ -13,6 +16,10 @@ enum SeenMarks {
 
 const SEEN_ID = "seen/unlocks"
 const WEEKLYTASKS_SEEN_ID = "seen/weeklytasks"
+
+let sessionsCount = mkOnlineSaveData("sessionsCount", @() 0)
+let sessionsCountStored = sessionsCount.watch
+
 
 let function moveWeeklyUnlocks() {
   if (WEEKLYTASKS_SEEN_ID not in settings.value)
@@ -85,6 +92,8 @@ let seenUnlocks = Computed(function() {
 let hasUnopenedAchievements = Computed(@()
   (seenUnlocks.value?.unopenedAchievements ?? {}).len() > 0)
 
+let hasWeeklyTasks = Computed(@() weeklyTasks.value.len() > 0)
+
 let hasUnopenedWeeklyTasks = Computed(@()
   (seenUnlocks.value?.unopenedWeeklyTasks ?? {}).len() > 0)
 
@@ -92,22 +101,47 @@ let hasUnseenWeeklyTasks = Computed(@()
   weeklyTasks.value.findindex(@(u) u?.hasReward ?? false) != null
     || (seenUnlocks.value?.unseenWeeklyTasks ?? {}).len() > 0)
 
-let function markUnlocksOpened(names) {
-  if (names.len() > 0)
-    settings.mutate(function(set) {
-      let saved = clone (set?[SEEN_ID] ?? {})
-      foreach(name in names)
-        saved[name] <- SeenMarks.OPENED
-      set[SEEN_ID] <- saved
-    })
+let function changeStatus(status, names) {
+  let unlocksNames = type(names) == "array" ? names : [names]
+  let update = {}
+  foreach (name in unlocksNames)
+    if (getSeenStatus(settings.value?[SEEN_ID][name]) != status)
+      update[name] <- status
+
+  if (update.len() == 0)
+    return
+
+  settings.mutate(function(set) {
+    let saved = clone set?[SEEN_ID] ?? {}
+    saved.__update(update)
+    set[SEEN_ID] <- saved
+  })
 }
 
-let function markUnlockSeen(id) {
-  if (id not in seenUnlocks.value?.seen)
-    settings.mutate(function(set) {
-      set[SEEN_ID] <- (set?[SEEN_ID] ?? {}).__merge({ [id] = SeenMarks.SEEN })
-    })
-}
+
+let markUnlockSeen = @(names) changeStatus(SeenMarks.SEEN, names)
+
+let markUnlocksOpened = @(names) changeStatus(SeenMarks.OPENED, names)
+
+let hasNecessaryData = keepref(Computed(@() onlineSettingUpdated.value
+  && "not_a_new_player_unlock" in unlockProgress.value
+  && weeklyTasks.value != null))
+
+
+hasNecessaryData.subscribe(function(hasData) {
+  if (!hasData || !isNewbie.value)
+    return
+  let sessions = sessionsCountStored.value
+  if (sessions == 0) {
+    let unlocksToMarkUnseen = (weeklyTasks.value.reduce(@(res, v) res.append(v.name), []))
+    markUnlockSeen(unlocksToMarkUnseen)
+    sessionsCount.setValue(1)
+  }
+  else
+    sessionsCount.setValue(sessions + 1)
+})
+
+let hasNewbieUnlocksData = Computed(@() hasNecessaryData.value && isNewbie.value)
 
 console_register_command(@() settings.mutate(@(v) delete v[SEEN_ID]), "meta.resetSeenUnlocks")
 
@@ -116,6 +150,8 @@ return {
   markUnlockSeen
   markUnlocksOpened
   hasUnopenedAchievements
+  hasWeeklyTasks
   hasUnopenedWeeklyTasks
   hasUnseenWeeklyTasks
+  hasNewbieUnlocksData
 }

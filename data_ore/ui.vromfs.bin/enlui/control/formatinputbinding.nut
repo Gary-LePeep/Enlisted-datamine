@@ -198,7 +198,7 @@ local function buildElems(textlist, params = {imgFunc=null, textFunc=mkText, eve
         return eventTextFunc?(inParents(loc(text)))
 
       else if (type(text)=="string")
-        return textFunc?(loc(text))
+        return textFunc(loc(text))
       else
         return null
     }

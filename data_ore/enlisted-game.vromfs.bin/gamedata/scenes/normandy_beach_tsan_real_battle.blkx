@@ -2925,6 +2925,11 @@
   },
   {
     "entity": {
+      "_template": "bloom"
+    }
+  },
+  {
+    "entity": {
       "_template": "postfx_roundctrl"
     }
   },
@@ -3042,7 +3047,7 @@
       "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 2,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "decal__height": 0.3,
       "capzone__iconOffsetY": 1.0,
       "capzone__activateChoice:object": {
@@ -3660,7 +3665,7 @@
       "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 2,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "decal__height": 0.3,
       "capzone__activateChoice:object": {
         "sector_4": 1.0,
@@ -3865,7 +3870,7 @@
         "capzone__createRespawnBaseForTeam": 2
       },
       {
-        "decal__thickness": 0.4
+        "decal__thickness": 0.15
       },
       {
         "capzone__activateChoice:object": {
@@ -4100,7 +4105,7 @@
         "capzone__createRespawnBaseForTeam": 2
       },
       {
-        "decal__thickness": 0.4
+        "decal__thickness": 0.15
       },
       {
         "decal__height": 2.2
@@ -4324,7 +4329,7 @@
         "capzone__createRespawnBaseForTeam": 2
       },
       {
-        "decal__thickness": 0.3
+        "decal__thickness": 0.15
       }
     ]
   },
@@ -4931,6 +4936,7 @@
     "entity": {
       "_template": "briefing_invasion",
       "mission_name": "normandy_beach_inv",
+      "mission_outfit": "normandy",
       "loading_images:list<t>": [
         {
           "item": "ui/normandy_beach_inv_01.avif"
@@ -5564,7 +5570,7 @@
       "capzone__icon": "AAA",
       "capzone__caption": "capzone/mill",
       "decal__height": 2.4,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "sphere_zone__radius": 11.0,
       "capzone__iconOffsetY": 3.0
     }
@@ -5785,7 +5791,7 @@
       "capzone__createRespawnBaseForTeam": 2,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 4,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "decal__height": 0.3,
       "capzone__iconOffsetY": 2.0,
       "capzone__activateChoice:object": {
@@ -5996,7 +6002,7 @@
       "capzone__createRespawnBaseForTeam": 2,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 5,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "decal__height": 0.3,
       "capzone__iconOffsetY": 1.0,
       "capzone__activateChoice:object": {

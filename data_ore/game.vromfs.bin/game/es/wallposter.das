@@ -4,7 +4,7 @@ require Dacoll
 require CollRes
 require RendInst
 require PhysMat
-require EnlistedNet
+require DngNet
 require enlisted.events_enlisted
 require danetlibs.native_dasevents.main.native_events
 require game.utils.hero
@@ -221,7 +221,7 @@ def wallposter_hero_status_change_es(evt : Event;
   if isDowned || !isAlive || isInVehicle
     sendEventImmediate(get_local_player_eid(), [[CmdWallposterPreview enable=false, wallPosterId=0]])
 
-[es(tag=gameClient, on_event=(EventComponentsDisappear, EventEntityDestroyed), REQUIRE=hero)]
+[es(tag=gameClient, on_disappear, REQUIRE=hero)]
 def wallposter_hero_changed_es(evt : Event)
   sendEventImmediate(get_local_player_eid(), [[CmdWallposterPreview enable=false, wallPosterId=0]])
 

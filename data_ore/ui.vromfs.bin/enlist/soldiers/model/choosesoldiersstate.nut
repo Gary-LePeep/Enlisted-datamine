@@ -1,8 +1,8 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { curCampSquads, soldiersBySquad, squadsByArmy, objInfoByGuid } = require("state.nut")
-let { curSoldierIdx, defSoldierGuid, collectSoldierData } = require("%enlist/soldiers/model/curSoldiersState.nut")
-let { manage_squad_soldiers, dismiss_reserve_soldier, update_profile,
+let { curCampSquads, soldiersBySquad, squadsByArmy, objInfoByGuid, curArmy } = require("state.nut")
+let { defSoldierGuid, collectSoldierData } = require("%enlist/soldiers/model/curSoldiersState.nut")
+let { manage_squad_soldiers, dismiss_reserve_soldiers, update_profile,
   lastRequests, swap_soldiers_equipment } = require("%enlist/meta/clientApi.nut")
 let { allReserveSoldiers } = require("reserve.nut")
 let { READY, TOO_MUCH_CLASS, NOT_FIT_CUR_SQUAD, NOT_READY_BY_EQUIP, invalidEquipSoldiers
@@ -18,7 +18,10 @@ let { getClosestResearch, focusResearch } = require("%enlist/researches/research
 let { armiesResearches, allResearchStatus, RESEARCHED, GROUP_RESEARCHED
 } = require("%enlist/researches/researchesState.nut")
 let { sendBigQueryUIEvent } = require("%enlist/bigQueryEvents.nut")
-
+let JB = require("%ui/control/gui_buttons.nut")
+let { unseenSoldiers, markSoldierSeen } = require("%enlist/soldiers/model/unseenSoldiers.nut")
+let { isChangesBlocked, showBlockedChangesMessage } = require("%enlist/quickMatchQueue.nut")
+let { calcBROnSoldierChange } = require("%enlist/soldiers/armySquadTier.nut")
 
 let curSquadSoldierIdx = Watched(null)
 let selectedSoldierGuid = Watched(null)
@@ -88,7 +91,7 @@ let function calcSoldiersStatuses(squadParams, chosen, reserve, invalidEquip, ki
     res[soldier.guid] <- status
   }
   foreach (soldier in reserve) {
-    let { sKind } = soldier
+    let { sKind = null } = soldier
     local status
     if ((maxClasses?[sKind] ?? 0) <= 0)
       status = sKind in kindResearches ? TOO_MUCH_CLASS
@@ -105,32 +108,37 @@ let function calcSoldiersStatuses(squadParams, chosen, reserve, invalidEquip, ki
 let soldiersStatuses = Computed(@() calcSoldiersStatuses(soldiersSquadParams.value,
   squadSoldiers.value, reserveSoldiers.value, invalidEquipSoldiers.value, squadKindResearches.value))
 
-let function updateSoldiersList() {
-  let all = (clone curSquadSoldiers.value).extend(curReserveSoldiers.value)
-  if (all.len() == 0) {
+
+let function updateSoldiersList(sort = false) {
+  if (curSquadSoldiers.value.len() == 0 && curReserveSoldiers.value.len() == 0) {
     squadSoldiers.mutate(@(v) v.clear())
     reserveSoldiers.mutate(@(v) v.clear())
     return
   }
   let byGuid = {}
-  all.each(@(s) byGuid[s.guid] <- s)
+  curSquadSoldiers.value.each(@(s) byGuid[s.guid] <- s)
+  curReserveSoldiers.value.each(@(s) byGuid[s.guid] <- s)
+
   local chosen = squadSoldiers.value.map(@(s) byGuid?[s?.guid])
   let chosenCount = chosen.filter(@(s) s != null).len()
   local reserve = reserveSoldiers.value.map(@(s) byGuid?[s.guid])
     .filter(@(s) s != null)
 
-  local needSort = false
+  local needSort = sort
   if (chosenCount == 0 && reserve.len() == 0) { //new list, or just opened window
     chosen = clone curSquadSoldiers.value
     reserve = clone curReserveSoldiers.value
     needSort = true
   }
   else {
-    let left = clone byGuid
-    chosen.each(function(s) { if (s != null) delete left[s.guid] })
-    reserve.each(@(s) delete left[s.guid])
-    foreach (soldier in all)
-      if (soldier.guid in left)
+    chosen.each(function(s) { if (s != null) delete byGuid[s.guid] })
+    reserve.each(@(s) delete byGuid[s.guid])
+    foreach (soldier in curSquadSoldiers.value)
+      if (soldier.guid in byGuid)
+        reserve.append(soldier)
+
+    foreach (soldier in curReserveSoldiers.value)
+      if (soldier.guid in byGuid)
         reserve.append(soldier)
   }
 
@@ -151,7 +159,6 @@ let function updateSoldiersList() {
     let statuses = calcSoldiersStatuses(soldiersSquadParams.value,
       chosen, reserve, invalidEquipSoldiers.value, squadKindResearches.value)
     reserve.sort(@(a, b) statuses[a.guid] <=> statuses[b.guid]
-      || b.tier <=> a.tier
       || b.level <=> a.level
       || a.sKind <=> b.sKind
       || a.sClass <=> b.sClass)
@@ -162,7 +169,8 @@ let function updateSoldiersList() {
 }
 
 updateSoldiersList()
-let updateSoldiersListDebounced = debounce(updateSoldiersList, 0.01)
+let updateSoldiersListDebounced = debounce(@() updateSoldiersList(), 0.05)
+let updateSoldiersListAndSortDebounced = debounce(@() updateSoldiersList(true), 0.05)
 foreach (v in [curSquadSoldiers, curReserveSoldiers, maxSoldiersInBattle, objInfoByGuid])
   v.subscribe(@(_) updateSoldiersListDebounced())
 
@@ -242,6 +250,10 @@ let function sendSoldierActionToBQ(eventType, soldier, squadGuid = "") {
 }
 
 let function changeSoldierOrderByIdx(idxFrom, idxTo) {
+  if (isChangesBlocked.value) {
+    showBlockedChangesMessage()
+    return
+  }
   let watchFrom = idxFrom < maxSoldiersInBattle.value ? squadSoldiers : reserveSoldiers
   if (idxFrom >= maxSoldiersInBattle.value)
     idxFrom -= maxSoldiersInBattle.value
@@ -277,22 +289,21 @@ let function changeSoldierOrderByIdx(idxFrom, idxTo) {
     sendSoldierActionToBQ("move_to_squad", reserveSoldier, soldiersSquadGuid.value)
     squadSoldiers.mutate(@(list) list[idxTo] = reserveSoldier)
     reserveSoldiers.mutate(function(list) {
-      if (prevSoldier != null) {
+      if (prevSoldier != null)
         list[idxFrom] = prevSoldier
-        if (reserveSoldier.equipSchemeId == prevSoldier.equipSchemeId)
-          msgbox.show({
-            text = loc("swapSoldiersEquipmentConfirm")
-            buttons = [
-              { text = loc("Yes"), action = function() {
-                swap_soldiers_equipment(reserveSoldier.guid, prevSoldier.guid)
-              }}
-              { text = loc("No"), isCancel = true}
-            ]
-          })
-        return
-      }
-      list.remove(idxFrom)
+      else
+        list.remove(idxFrom)
     })
+    if (reserveSoldier.equipSchemeId == prevSoldier?.equipSchemeId)
+      msgbox.show({
+        text = loc("swapSoldiersEquipmentConfirm")
+        buttons = [
+          { text = loc("Yes"), action = function() {
+            swap_soldiers_equipment(reserveSoldier.guid, prevSoldier.guid)
+          }}
+          { text = loc("No"), isCancel = true}
+        ]
+      })
     return
   }
 
@@ -330,6 +341,10 @@ let function moveCurSoldier(direction) {
 }
 
 let function soldierToReserveByIdx(idx) {
+  if (isChangesBlocked.value) {
+    showBlockedChangesMessage()
+    return
+  }
   if (idx == null)
     return
 
@@ -351,6 +366,10 @@ let function curSoldierToReserve() {
 }
 
 let function soldierToSquadByIdx(idx) {
+  if (isChangesBlocked.value) {
+    showBlockedChangesMessage()
+    return
+  }
   if (idx == null)
     return
 
@@ -386,6 +405,10 @@ let function soldierToSquadByIdx(idx) {
 }
 
 let function curSoldierToSquad() {
+  if (isChangesBlocked.value) {
+    showBlockedChangesMessage()
+    return
+  }
   let guid = selectedSoldierGuid.value
   if (guid == null)
     return
@@ -396,9 +419,9 @@ let function curSoldierToSquad() {
 
 let close = function() {
   selectedSoldierGuid(null)
-  curSoldierIdx(curSquadSoldierIdx.value)
   soldiersSquadGuid(null)
   isPurchaseWndOpend(false)
+  markSoldierSeen(curArmy.value, unseenSoldiers.value.keys())
 }
 
 let function applySoldierManageImpl(cb) {
@@ -450,13 +473,16 @@ let function applySoldierManageImpl(cb) {
   log($"To reserve ({reserveSoldiers.value.len()}) = ", reserveSoldiers.value.map(@(s) s.guid))
   log("lastRequests: ")
   debugTableData(lastRequests.value, { recursionLevel = 7 })
+  let squadGuid = soldiersSquadGuid.value // to capture value: when the cb is called, it's null
   manage_squad_soldiers(soldiersArmy.value,
     soldiersSquadGuid.value,
     squadSoldiers.value.map(@(s) s.guid),
     reserveSoldiers.value.map(@(s) s.guid),
     function(res) {
-      if (res?.error == null)
+      if (res?.error == null) {
+        calcBROnSoldierChange(curCampSquads.value?[squadGuid])
         return
+      }
       //usually this error mean that soldiers list of client and server is not the same.
       log($"Request update_profile after fail change soldiers order")
       update_profile()
@@ -486,18 +512,18 @@ let function applySoldierManage(cb = @() null) {
       text = msg
       buttons = [
         { text = loc("Ok"), action = @() applySoldierManageImpl(cb), isCurrent = true }
-        { text = loc("Cancel"), isCancel = true }
+        { text = loc("Cancel"), isCancel = true, customStyle = { hotkeys = [[$"^{JB.B} | Esc"]] } }
       ]
     })
 }
 
 let isDismissInProgress = Watched(false)
-let function dismissSoldier(armyId, soldierGuid) {
+let function dismissSoldiers(armyId, guidsList) {
   if (isDismissInProgress.value)
     return
 
   isDismissInProgress(true)
-  dismiss_reserve_soldier(armyId, soldierGuid, function(_) {
+  dismiss_reserve_soldiers(armyId, guidsList, function(_) {
     isDismissInProgress(false)
   })
 }
@@ -513,6 +539,7 @@ return {
   }
   closeChooseSoldiersWnd = close
   applySoldierManage
+  updateSoldiersListAndSort = updateSoldiersListAndSortDebounced
 
   soldiersArmy
   soldiersSquad
@@ -532,7 +559,7 @@ return {
   soldierToSquadByIdx
   curSoldierToSquad
   getCanTakeSlots
-  dismissSoldier
+  dismissSoldiers
   isDismissInProgress
   curSquadSoldierIdx
   isPurchaseWndOpend

@@ -1,25 +1,25 @@
 {
   "bike_7_92mm_bren": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_tankgun_machinegun"
+      "_use": "base_tankgun_machinegun"
     },
     {
-      "_extends": "base_7_92mm_besa"
+      "_use": "base_7_92mm_besa"
     },
     {
-      "_extends": "gun_switch_firing_mode_sound"
+      "_use": "gun_switch_firing_mode_sound"
     },
     {
-      "_extends": "mgun_gun_aim_sound"
+      "_use": "mgun_gun_aim_sound"
     },
     {
-      "_extends": "machinegun_gun_overheat_sound"
+      "_use": "machinegun_gun_overheat_sound"
     },
     {
-      "_extends": "machinegun_gun_reload_sounds"
+      "_use": "machinegun_gun_reload_sounds"
     },
     {
       "turret__triggerGroup": 0

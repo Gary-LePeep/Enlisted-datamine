@@ -1,14 +1,14 @@
 {
   "base_beaufighter_mkx": {
-    "plane_phys_damage__blk": "content/enlisted/gamedata/units/beaufighter_mkx.blk",
+    "plane_phys_damage__blk": "gamedata/units/beaufighter_mkx.blk",
     "animchar__res": "beaufighter_mkx_char"
   },
   "beaufighter_mkx_wreckage": [
     {
-      "_extends": "base_beaufighter_mkx"
+      "_use": "base_beaufighter_mkx"
     },
     {
-      "_extends": "plane_wreckage"
+      "_use": "plane_wreckage"
     },
     {
       "plane_wreckage__nodeName": ""
@@ -19,28 +19,31 @@
   ],
   "beaufighter_mkx_base": [
     {
-      "_extends": "plane_with_cockpit"
+      "_use": "plane_with_cockpit"
     },
     {
-      "_extends": "base_beaufighter_mkx"
+      "_use": "base_beaufighter_mkx"
     },
     {
       "collres__res": "beaufighter_mkx_collision"
     },
     {
-      "plane_net_phys__blk": "content/enlisted/gamedata/units/beaufighter_mkx.blk"
+      "plane_net_phys__blk": "gamedata/units/beaufighter_mkx.blk"
     },
     {
-      "damage_model__blk": "content/enlisted/gamedata/units/beaufighter_mkx.blk"
+      "damage_model__blk": "gamedata/units/beaufighter_mkx.blk"
     },
     {
-      "plane_collision__blk": "content/enlisted/gamedata/units/beaufighter_mkx.blk"
+      "plane_collision__blk": "gamedata/units/beaufighter_mkx.blk"
     },
     {
-      "plane_anim__blk": "content/enlisted/gamedata/units/beaufighter_mkx.blk"
+      "plane_anim__blk": "gamedata/units/beaufighter_mkx.blk"
     },
     {
-      "plane_sight__blk": "content/enlisted/gamedata/units/beaufighter_mkx.blk"
+      "plane_sight__blk": "gamedata/units/beaufighter_mkx.blk"
+    },
+    {
+      "plane_input__autopilotImpl": "No"
     },
     {
       "canUseRespawnbaseType": "aircraft_assault"

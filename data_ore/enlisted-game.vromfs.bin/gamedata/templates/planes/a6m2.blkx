@@ -1,10 +1,10 @@
 {
   "a6m2": [
     {
-      "_extends": "a6m2_base"
+      "_use": "a6m2_base"
     },
     {
-      "_extends": "squad_controlled_plane"
+      "_use": "squad_controlled_plane"
     },
     {
       "item__name": "items/a6m2_zero"
@@ -49,7 +49,7 @@
               "turret": "turret_06"
             }
           ],
-          "effectors:object": {
+          "cockpitEffectors:object": {
             "r.hand": "stick_rhand_1",
             "l.hand": "throttle_lhand_1",
             "r.foot": "pedal_rfoot_1",
@@ -443,13 +443,13 @@
   },
   "planegun_a6m2_navy_type_97mod_6_60kg_launcher_01": [
     {
-      "_extends": "navy_type_97mod_6_60kg_launcher"
+      "_use": "navy_type_97mod_6_60kg_launcher"
     },
     {
-      "_extends": "base_a6m2_navy_type_97mod_6_60kg_launcher"
+      "_use": "base_a6m2_navy_type_97mod_6_60kg_launcher"
     },
     {
-      "_extends": "gunsound_navy_type_97mod_6_60kg_launcher_aircraft"
+      "_use": "gunsound_navy_type_97mod_6_60kg_launcher_aircraft"
     },
     {
       "gun__shootNodeName": "bomb1"
@@ -463,13 +463,13 @@
   ],
   "planegun_a6m2_navy_type_97mod_6_60kg_launcher_02": [
     {
-      "_extends": "navy_type_97mod_6_60kg_launcher"
+      "_use": "navy_type_97mod_6_60kg_launcher"
     },
     {
-      "_extends": "base_a6m2_navy_type_97mod_6_60kg_launcher"
+      "_use": "base_a6m2_navy_type_97mod_6_60kg_launcher"
     },
     {
-      "_extends": "gunsound_navy_type_97mod_6_60kg_launcher_aircraft"
+      "_use": "gunsound_navy_type_97mod_6_60kg_launcher_aircraft"
     },
     {
       "gun__shootNodeName": "bomb2"
@@ -483,16 +483,16 @@
   ],
   "planegun_a6m2_7_7mm_type97_01": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_plane_machinegun"
+      "_use": "base_plane_machinegun"
     },
     {
-      "_extends": "base_a6m2_7_7mm_type97"
+      "_use": "base_a6m2_7_7mm_type97"
     },
     {
-      "_extends": "gunsound_7_7mm_type97_aircraft"
+      "_use": "gunsound_7_7mm_type97_aircraft"
     },
     {
       "gun__shootNodeName": "flare1"
@@ -503,16 +503,16 @@
   ],
   "planegun_a6m2_7_7mm_type97_02": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_plane_machinegun"
+      "_use": "base_plane_machinegun"
     },
     {
-      "_extends": "base_a6m2_7_7mm_type97"
+      "_use": "base_a6m2_7_7mm_type97"
     },
     {
-      "_extends": "gunsound_7_7mm_type97_aircraft"
+      "_use": "gunsound_7_7mm_type97_aircraft"
     },
     {
       "gun__shootNodeName": "flare2"
@@ -523,16 +523,16 @@
   ],
   "planegun_a6m2_20mm_type99_01": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_plane_machinegun"
+      "_use": "base_plane_machinegun"
     },
     {
-      "_extends": "base_a6m2_20mm_type99"
+      "_use": "base_a6m2_20mm_type99"
     },
     {
-      "_extends": "gunsound_20mm_type99_aircraft"
+      "_use": "gunsound_20mm_type99_aircraft"
     },
     {
       "gun__shootNodeName": "flare3"
@@ -543,16 +543,16 @@
   ],
   "planegun_a6m2_20mm_type99_02": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_plane_machinegun"
+      "_use": "base_plane_machinegun"
     },
     {
-      "_extends": "base_a6m2_20mm_type99"
+      "_use": "base_a6m2_20mm_type99"
     },
     {
-      "_extends": "gunsound_20mm_type99_aircraft"
+      "_use": "gunsound_20mm_type99_aircraft"
     },
     {
       "gun__shootNodeName": "flare4"
@@ -562,7 +562,7 @@
     }
   ],
   "a6m2_driver_cockpit": {
-    "_extends": "base_plane_cockpit",
+    "_use": "base_plane_cockpit",
     "cockpit__offset": [0.0,0.0,0.0],
     "cockpit__angles": [0.0,0.0,0.0],
     "cockpit__scale": [1.0,1.0,1.0],

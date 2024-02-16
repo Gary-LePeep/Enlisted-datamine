@@ -34,7 +34,7 @@
   {
     "entity": {
       "_template": "water",
-      "water__strength": 0.27
+      "water__strength": 2.0
     }
   },
   {
@@ -64,21 +64,26 @@
         "ocean0": "#4c3f0500",
         "ocean_density": 0.1,
         "land_selfillum_worldscale": 0.9,
-        "river1": "#8e894700",
-        "river0": "#4c3f0500",
+        "river1": "#526e4000",
+        "river0": "#383b3e00",
         "hmap_displacement_down": -0.15,
         "autodetect_land_selfillum_color": [0.53,0.0,0.0,0.16],
         "paint_details_tex": "normandy_wall_color_tex_palette*",
+        "puddle_increase": 0.01,
         "land_selfillum_strength": 32.0,
-        "water_color_noise_size": 71.0,
-        "river_density": 0.3,
-        "puddle_increase": 0.01
+        "water_color_noise_size": 256.0,
+        "river_density": 0.3
       }
     }
   },
   {
     "entity": {
       "_template": "postfx_color_grading_tonemap_death_alive_enlisted"
+    }
+  },
+  {
+    "entity": {
+      "_template": "bloom"
     }
   },
   {

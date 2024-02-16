@@ -1,10 +1,10 @@
 {
   "base_t_60_1941": [
     {
-      "_extends": "base_tank"
+      "_use": "base_tank"
     },
     {
-      "_extends": "t_60_1941_ammo_stowages"
+      "_use": "t_60_1941_ammo_stowages"
     },
     {
       "killLogName": "ussr_t_60_1941"
@@ -146,7 +146,7 @@
     }
   ],
   "t_60_1941_turret_01_20mm_tnsh": {
-    "_extends": "tankgun_20mm_tnsh",
+    "_use": "tankgun_20mm_tnsh",
     "gun__shootNodeName": "bone_gun_barrel",
     "turret__yawSpeed": 15.0,
     "turret__pitchSpeed": 10.0,
@@ -168,7 +168,7 @@
     ]
   },
   "t_60_1941_turret_02_7_62mm_dt": {
-    "_extends": "tankgun_7_62mm_dt",
+    "_use": "tankgun_7_62mm_dt",
     "gun__shootNodeName": "bone_mg_gun_twin",
     "gun__shellsAmmo:array": [
       {
@@ -181,13 +181,13 @@
   },
   "t_60_1941_ammo_stowages": {
     "_tags": "server",
-    "_extends": "vehicle_ammo_stowages",
+    "_use": "vehicle_ammo_stowages",
     "ammo_stowage__stowageTemplates:shared:list<t>": {
       "stowage": "t_60_1941_ammo_stowage"
     }
   },
   "t_60_1941_ammo_stowage": {
-    "_extends": "ammo_stowage",
+    "_use": "ammo_stowage",
     "ammo_stowage__clusterTemplates:shared:list<t>": {
       "cluster": "t_60_1941_ammo_cluster"
     },
@@ -196,7 +196,7 @@
     }
   },
   "t_60_1941_ammo_cluster": {
-    "_extends": "ammo_cluster",
+    "_use": "ammo_cluster",
     "ammo_cluster__isShell": true,
     "ammo_cluster__slotNames:shared:list<t>": [
       {

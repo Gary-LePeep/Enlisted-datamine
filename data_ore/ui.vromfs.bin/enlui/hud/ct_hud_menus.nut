@@ -74,7 +74,7 @@ let function setMenuVisibility(id, isVisible){
 let function switchMenu(id){
   let menusDescr = getHudMenus()
   let menu = menusDescr.findvalue(@(v) v.id == id)
-  if (!menu.show.value){
+  if (!menu?.show.value){
     openMenu_int(menu, menusDescr)
   }
   else
@@ -83,7 +83,7 @@ let function switchMenu(id){
 
 let function mkMenuEventHandlers(menu) {
   let eventName = menu?.event
-  let holdToToggleDurMsec = menu?.holdToToggleDurMsec ?? 500
+  let holdToToggleDurMsec = menu?.holdToToggleDurMsec() ?? 500
   if (!( menu?.show instanceof Watched) && !("close" in menu && "open" in menu))
     return {}
 
@@ -111,11 +111,11 @@ let function menusUi() {
       watch.append(menu.show)
       if (menu?.show?.value)
         children.append(menu?.menu)
-    } else {
+    }
+    else {
       children.append(menu?.menu)
     }
   }
-
   return {
     size = flex()
     watch

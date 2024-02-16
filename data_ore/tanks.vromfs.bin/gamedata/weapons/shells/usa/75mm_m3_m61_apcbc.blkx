@@ -17,7 +17,6 @@
   "ricochetEffect": "cannon_ricochet",
   "waterCollisionEffect": "120-203_water_splash",
   "waterFxScale": [0.7,0.8],
-  "explosionPatchRadius": 1.8,
   "secondaryShattersPreset": "ap",
   "hitpower": {
     "HitPower0m": [0.85,500.0],
@@ -351,15 +350,6 @@
           "mod3": [45.0,0.3]
         }
       ]
-    }
-  },
-  "hitFx": {
-    "fxScale": [0.9,1.0],
-    "defaultFx": "50_75_ap_hit_ground",
-    "jetFx": "50_75_ap_hit_ground",
-    "steel": {
-      "fx": "cannon_hit_apds",
-      "fxScale": [0.8,1.0]
     }
   }
 }

@@ -1,8 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-#explicit-this
 
-let {sound_play} = require("sound")
+let {sound_play} = require("%dngscripts/sound_system.nut")
 let getByPath = require("%sqstd/table.nut").getValInTblPath
 let {get_time_msec} = require("dagor.time")
 const MAX_EVENTS_DEFAULT = 10
@@ -65,7 +64,7 @@ local EventLogState = class {
     let event = clone eventExt
     local funcCollapseBy = null
     if (type(collapseBy)=="array"){
-      funcCollapseBy = @(lastev, event) getByPath(lastev,collapseBy) == getByPath(event,collapseBy)
+      funcCollapseBy = @(lastevt, evt) getByPath(lastevt,collapseBy) == getByPath(evt,collapseBy)
     }
     let funcToCheck = funcCollapseBy ?? this.checkCollapseByFunc
     this.events.mutate(function(_) {

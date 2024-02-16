@@ -33,13 +33,13 @@
   },
   "tankgun_7_62mm_m240": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_tankgun_machinegun"
+      "_use": "base_tankgun_machinegun"
     },
     {
-      "_extends": "base_7_62mm_m240"
+      "_use": "base_7_62mm_m240"
     },
     {
       "turret__triggerGroup": 2

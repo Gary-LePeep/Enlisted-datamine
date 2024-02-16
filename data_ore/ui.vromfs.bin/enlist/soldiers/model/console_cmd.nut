@@ -49,7 +49,8 @@ console_register_command(@() appearance_change(curSoldier.value), "meta.changeSo
 
 console_register_command(@()
   console_print($"{userInfo.value.nameorig}:{userInfo.value.userId}"), "whoami")
-console_register_command(@() resetProfile(), "meta.resetProfile")
+console_register_command(@() resetProfile(true), "meta.resetProfile")
+console_register_command(@() resetProfile(false), "meta.resetProfileLegacy")
 console_register_command(@() dumpProfile(), "meta.dumpProfile")
 console_register_command(@() reset_mutations_timestamp(), "meta.resetMutationsTimestamp")
 console_register_command(@(key) apply_profile_mutation(key), "meta.applyMutation")

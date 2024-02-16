@@ -3,14 +3,14 @@ let {colors} = require("style.nut")
 
 let math = require("math")
 
-let calcFrameColor = @(sf) (sf & S_KB_FOCUS) ? colors.TextActive
-                           : (sf & S_HOVER)    ? colors.TextHover
-                                               : colors.comboboxBorderColor
+let calcFrameColor = @(sf) sf & S_KB_FOCUS ? colors.TextActive
+  : sf & S_HOVER ? colors.TextHover
+  : colors.comboboxBorderColor
 
 let opaque = Color(0,0,0,255)
-let calcKnobColor =  @(sf) (sf & S_KB_FOCUS) ? (colors.TextActive | opaque)
-                           : (sf & S_HOVER)    ? (colors.TextHover | opaque)
-                                               : (colors.TextDefault | opaque)
+let calcKnobColor =  @(sf) sf & S_KB_FOCUS ? (colors.TextActive | opaque)
+  : sf & S_HOVER ? (colors.TextHover | opaque)
+  : (colors.TextDefault | opaque)
 
 let scales = {}
 scales.linear <- {
@@ -66,17 +66,17 @@ let function slider(orient, var, options={}) {
     hotkeys = [
       ["Left | J:D.Left", sliderLeftLoc, function() {
         let delta = maxval > minval ? -pageScroll : pageScroll
-        onChange(clamp(scaling.to(var.value + delta, minval, maxval), 0, 1))
+        onChange(math.clamp(scaling.to(var.value + delta, minval, maxval), 0, 1))
       }],
       ["Right | J:D.Right", sliderRightLoc, function() {
         let delta = maxval > minval ? pageScroll : -pageScroll
-        onChange(clamp(scaling.to(var.value + delta, minval, maxval), 0, 1))
+        onChange(math.clamp(scaling.to(var.value + delta, minval, maxval), 0, 1))
       }],
     ]
   }
 
   return function() {
-    let factor = clamp(scaling.to(var.value, minval, maxval), 0, 1)
+    let factor = math.clamp(scaling.to(var.value, minval, maxval), 0, 1)
     return {
       size = flex()
       behavior = Behaviors.Slider

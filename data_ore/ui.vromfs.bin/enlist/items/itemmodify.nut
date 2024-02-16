@@ -1,3 +1,5 @@
+from "math" import min
+
 let { curCampItems } = require("%enlist/soldiers/model/state.nut")
 
 let function mkGuidsCountTbl(guids, total) {

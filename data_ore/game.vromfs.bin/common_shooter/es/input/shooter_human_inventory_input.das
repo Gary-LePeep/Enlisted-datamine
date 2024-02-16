@@ -6,8 +6,9 @@ require game.es.events
 require game.es.input.input_events
 require ForceFeedbackRumble
 require game.es.input.input_common
-require EnlistedHuman
+require DngHuman
 require HumanPhys
+require game.es.inventory_common
 require common_shooter.events_common_shooter
 require common_shooter.events_common_shooter
 
@@ -35,7 +36,7 @@ def human_inventory_input_action_triggered_es(evt : EventDaInputActionTriggered;
   let isForcedPickup = (action == human_inventory_input__forcedPickup)
 
   if isForcedPickup || action == human_inventory_input__pickup
-    if !doesEntityExist(selectedItem) || has(selectedItem, "disableItemDrop")
+    if !doesEntityExist(selectedItem)
       return
 
     let isForcedOrFastPickup = isForcedPickup || is_fast_pickup_item(eid, selectedItem)

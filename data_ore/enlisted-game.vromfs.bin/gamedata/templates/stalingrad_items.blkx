@@ -1,10 +1,10 @@
 {
   "kar98k_wartime_production_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "kar98k_wartime_production"
+      "_use": "kar98k_wartime_production"
     },
     {
       "item__iconYaw": 0.0
@@ -15,10 +15,10 @@
   ],
   "stl_kar98k_wartime_production_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "stl_kar98k_wartime_production"
+      "_use": "stl_kar98k_wartime_production"
     },
     {
       "item__iconYaw": 0.0
@@ -29,10 +29,10 @@
   ],
   "stl_kar98k_with_schiessbecher_grenade_launcher_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "stl_kar98k_with_schiessbecher_grenade_launcher"
+      "_use": "stl_kar98k_with_schiessbecher_grenade_launcher"
     },
     {
       "collres__res": "kar98k_with_schiessbecher_grenade_launcher_collision"
@@ -40,10 +40,10 @@
   ],
   "stl_kar98k_with_gg_p_40_grenade_launcher_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "stl_kar98k_with_gg_p_40_grenade_launcher"
+      "_use": "stl_kar98k_with_gg_p_40_grenade_launcher"
     },
     {
       "collres__res": "kar98k_with_gg_p_40_grenade_launcher_collision"
@@ -51,10 +51,10 @@
   ],
   "stl_kar98k_with_scope_mount_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "stl_kar98k_with_scope_mount_gun"
+      "_use": "stl_kar98k_with_scope_mount_gun"
     },
     {
       "collres__res": "pre_war_kar98k_collision"
@@ -62,10 +62,10 @@
   ],
   "stl_pre_war_kar98k_with_scope_mount_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "stl_pre_war_kar98k_with_scope_mount_gun"
+      "_use": "stl_pre_war_kar98k_with_scope_mount_gun"
     },
     {
       "collres__res": "pre_war_kar98k_collision"
@@ -73,10 +73,10 @@
   ],
   "mannlicher_m93_roman_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "mannlicher_m93_roman"
+      "_use": "mannlicher_m93_roman"
     },
     {
       "collres__res": "romanian_mannlicher_m93_collision"
@@ -84,17 +84,17 @@
   ],
   "stl_mannlicher_m93_roman_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "stl_mannlicher_m93_roman"
+      "_use": "stl_mannlicher_m93_roman"
     },
     {
       "collres__res": "romanian_mannlicher_m93_collision"
     }
   ],
   "mannlicher_m93_magazine": {
-    "_extends": "item_magazine",
+    "_use": "item_magazine",
     "animchar__res": "romanian_mannlicher_m93_ammo_char",
     "item__template": "mannlicher_m93_magazine",
     "item__proto": "mannlicher_m93_magazine",
@@ -107,7 +107,7 @@
     "collres__res": "romanian_mannlicher_m93_ammo_collision"
   },
   "mannlicher_m93_roman_bayonet_item": {
-    "_extends": "item_scope",
+    "_use": "item_scope",
     "animchar__res": "romanian_mannlicher_m93_bayonet_char",
     "collres__res": "romanian_mannlicher_m93_bayonet_collision",
     "item__template": "mannlicher_m93_roman_bayonet_item",
@@ -125,10 +125,10 @@
   },
   "stl_mannlicher_m1895_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "stl_mannlicher_m1895"
+      "_use": "stl_mannlicher_m1895"
     },
     {
       "collres__res": "mannlicher_m1895_collision"
@@ -136,10 +136,10 @@
   ],
   "stl_mosin_m38_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "stl_mosin_m38"
+      "_use": "stl_mosin_m38"
     },
     {
       "collres__res": "stl_mosin_m38_collision"
@@ -147,10 +147,10 @@
   ],
   "stl_mosin_m91_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "stl_mosin_m91"
+      "_use": "stl_mosin_m91"
     },
     {
       "collres__res": "mosin_m91_collision"
@@ -158,10 +158,10 @@
   ],
   "stl_mosin_m91_30_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "stl_mosin_m91_30"
+      "_use": "stl_mosin_m91_30"
     },
     {
       "collres__res": "mosin_m91_30_collision"
@@ -169,10 +169,10 @@
   ],
   "stl_mosin_m91_30_vpgs_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "stl_mosin_m91_30_vpgs"
+      "_use": "stl_mosin_m91_30_vpgs"
     },
     {
       "collres__res": "mosin_m91_30_collision"
@@ -180,10 +180,10 @@
   ],
   "stl_mosin_1928_grenade_launcher_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "stl_mosin_1928_grenade_launcher"
+      "_use": "stl_mosin_1928_grenade_launcher"
     },
     {
       "collres__res": "mosin_1928_grenade_launcher_collision"
@@ -191,10 +191,10 @@
   ],
   "stl_winchester_1895_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "stl_winchester_1895"
+      "_use": "stl_winchester_1895"
     },
     {
       "collres__res": "stl_winchester_1895_collision"
@@ -202,10 +202,10 @@
   ],
   "stl_gewehr_41_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "stl_gewehr_41"
+      "_use": "stl_gewehr_41"
     },
     {
       "collres__res": "gewehr_41_collision"
@@ -213,10 +213,10 @@
   ],
   "stl_zh_29_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "stl_zh_29"
+      "_use": "stl_zh_29"
     },
     {
       "collres__res": "zh_29_collision"
@@ -224,10 +224,10 @@
   ],
   "stl_svt_38_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "stl_svt_38"
+      "_use": "stl_svt_38"
     },
     {
       "collres__res": "svt_38_collision"
@@ -235,10 +235,10 @@
   ],
   "stl_sniper_svt_38_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "stl_sniper_svt_38_gun"
+      "_use": "stl_sniper_svt_38_gun"
     },
     {
       "collres__res": "svt_38_collision"
@@ -246,10 +246,10 @@
   ],
   "stl_svt_40_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "stl_svt_40"
+      "_use": "stl_svt_40"
     },
     {
       "collres__res": "svt_40_collision"
@@ -257,10 +257,10 @@
   ],
   "stl_avt_40_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "stl_avt_40"
+      "_use": "stl_avt_40"
     },
     {
       "collres__res": "avt_40_collision"
@@ -268,10 +268,10 @@
   ],
   "stl_sniper_avs_36_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "stl_sniper_avs_36_gun"
+      "_use": "stl_sniper_avs_36_gun"
     },
     {
       "collres__res": "avs_36_collision"
@@ -279,10 +279,10 @@
   ],
   "orita_m1941_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "orita_m1941"
+      "_use": "orita_m1941"
     },
     {
       "collres__res": "orita_m1941_collision"
@@ -290,10 +290,10 @@
   ],
   "stl_orita_m1941_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "stl_orita_m1941"
+      "_use": "stl_orita_m1941"
     },
     {
       "collres__res": "orita_m1941_collision"
@@ -301,10 +301,10 @@
   ],
   "stl_mp_40_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "stl_mp_40"
+      "_use": "stl_mp_40"
     },
     {
       "collres__res": "mp40_collision"
@@ -312,10 +312,10 @@
   ],
   "stl_mp_28_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "stl_mp_28"
+      "_use": "stl_mp_28"
     },
     {
       "collres__res": "mp_28_collision"
@@ -323,10 +323,10 @@
   ],
   "stl_danuvia_39_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "stl_danuvia_39"
+      "_use": "stl_danuvia_39"
     },
     {
       "collres__res": "danuvia_39_collision"
@@ -334,10 +334,10 @@
   ],
   "stl_ppsh_41_german_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "stl_ppsh_41_german"
+      "_use": "stl_ppsh_41_german"
     },
     {
       "collres__res": "ppsh_41_german_collision"
@@ -345,10 +345,10 @@
   ],
   "stl_mp_717r_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "stl_mp_717r"
+      "_use": "stl_mp_717r"
     },
     {
       "collres__res": "ppsh_41_early_collision"
@@ -356,10 +356,10 @@
   ],
   "stl_suomi_kp_31_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "stl_suomi_kp_31"
+      "_use": "stl_suomi_kp_31"
     },
     {
       "collres__res": "suomi_kp_31_collision"
@@ -367,10 +367,10 @@
   ],
   "stl_silenced_erma_emp_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "stl_silenced_erma_emp"
+      "_use": "stl_silenced_erma_emp"
     },
     {
       "collres__res": "silenced_erma_emp_collision"
@@ -378,10 +378,10 @@
   ],
   "stl_mkb_42_h_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "stl_mkb_42_h"
+      "_use": "stl_mkb_42_h"
     },
     {
       "collres__res": "mkb_42_h_collision"
@@ -389,10 +389,10 @@
   ],
   "stl_mkb_42_h_with_scope_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "stl_mkb_42_h_with_scope_gun"
+      "_use": "stl_mkb_42_h_with_scope_gun"
     },
     {
       "collres__res": "mkb_42_h_collision"
@@ -400,10 +400,10 @@
   ],
   "ppsh_2_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "ppsh_2"
+      "_use": "ppsh_2"
     },
     {
       "collres__res": "pps_42_collision"
@@ -411,10 +411,10 @@
   ],
   "stl_ppsh_2_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "stl_ppsh_2"
+      "_use": "stl_ppsh_2"
     },
     {
       "collres__res": "ppsh_2_collision"
@@ -422,10 +422,10 @@
   ],
   "stl_ppsh_41_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "stl_ppsh_41"
+      "_use": "stl_ppsh_41"
     },
     {
       "collres__res": "ppsh_41_late_collision"
@@ -433,10 +433,10 @@
   ],
   "stl_ppsh_41_phosphated_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "stl_ppsh_41_phosphated"
+      "_use": "stl_ppsh_41_phosphated"
     },
     {
       "collres__res": "ppsh_41_phosphatated_collision"
@@ -444,10 +444,10 @@
   ],
   "stl_pps_42_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "stl_pps_42"
+      "_use": "stl_pps_42"
     },
     {
       "collres__res": "pps_42_collision"
@@ -455,10 +455,10 @@
   ],
   "stl_pps_42_red_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "stl_pps_42_red"
+      "_use": "stl_pps_42_red"
     },
     {
       "collres__res": "pps_42_collision"
@@ -466,10 +466,10 @@
   ],
   "stl_ppd_3438_box_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "stl_ppd_3438_box"
+      "_use": "stl_ppd_3438_box"
     },
     {
       "collres__res": "ppd_3438_box_collision"
@@ -477,21 +477,24 @@
   ],
   "stl_thompson_m1921_28_box_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "stl_thompson_m1921_28_box"
+      "_use": "stl_thompson_m1921_28_box"
     },
     {
       "collres__res": "thompson_m1921_28_box_collision"
+    },
+    {
+      "menu_item__rotationOffset": [0.0,0.08,0.0]
     }
   ],
   "stl_ppd_bramit_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "stl_ppd_bramit"
+      "_use": "stl_ppd_bramit"
     },
     {
       "collres__res": "ppd_bramit_collision"
@@ -499,10 +502,10 @@
   ],
   "stl_walther_ppk_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "stl_walther_ppk"
+      "_use": "stl_walther_ppk"
     },
     {
       "collres__res": "walther_ppk_collision"
@@ -510,10 +513,10 @@
   ],
   "stl_p38_walther_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "stl_p38_walther"
+      "_use": "stl_p38_walther"
     },
     {
       "collres__res": "p38_walther_collision"
@@ -521,10 +524,10 @@
   ],
   "stl_p08_luger_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "stl_p08_luger"
+      "_use": "stl_p08_luger"
     },
     {
       "collres__res": "p08_luger_collision"
@@ -532,10 +535,10 @@
   ],
   "stl_mauser_c96_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "stl_mauser_c96"
+      "_use": "stl_mauser_c96"
     },
     {
       "collres__res": "mauser_c96_collision"
@@ -543,10 +546,10 @@
   ],
   "stl_nagant_m1895_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "stl_nagant_m1895"
+      "_use": "stl_nagant_m1895"
     },
     {
       "collres__res": "nagant_m1895_collision"
@@ -554,10 +557,10 @@
   ],
   "stl_tk_26_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "stl_tk_26"
+      "_use": "stl_tk_26"
     },
     {
       "collres__res": "tk_26_collision"
@@ -565,10 +568,10 @@
   ],
   "stl_tt_33_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "stl_tt_33"
+      "_use": "stl_tt_33"
     },
     {
       "collres__res": "tt_33_collision"
@@ -576,10 +579,10 @@
   ],
   "stl_ptrs_41_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "stl_ptrs_41"
+      "_use": "stl_ptrs_41"
     },
     {
       "collres__res": "ptrs_41_collision"
@@ -587,10 +590,10 @@
   ],
   "stl_grb_39_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "stl_grb_39"
+      "_use": "stl_grb_39"
     },
     {
       "collres__res": "grb_39_collision"
@@ -598,10 +601,10 @@
   ],
   "stl_mg_13_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "stl_mg_13"
+      "_use": "stl_mg_13"
     },
     {
       "collres__res": "mg_13_collision"
@@ -609,10 +612,10 @@
   ],
   "stl_mg_34_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "stl_mg_34"
+      "_use": "stl_mg_34"
     },
     {
       "collres__res": "mg_34_collision"
@@ -620,10 +623,10 @@
   ],
   "stl_mg_42_handheld_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "stl_mg_42_handheld"
+      "_use": "stl_mg_42_handheld"
     },
     {
       "collres__res": "mg_42_late_collision"
@@ -631,10 +634,10 @@
   ],
   "stl_breda_mod_30_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "stl_breda_mod_30"
+      "_use": "stl_breda_mod_30"
     },
     {
       "collres__res": "breda_mod_30_collision"
@@ -642,10 +645,10 @@
   ],
   "stl_dp_27_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "stl_dp_27"
+      "_use": "stl_dp_27"
     },
     {
       "collres__res": "dp_27_collision"
@@ -653,10 +656,10 @@
   ],
   "stl_dt_29_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "stl_dt_29"
+      "_use": "stl_dt_29"
     },
     {
       "collres__res": "dt_29_collision"
@@ -664,10 +667,10 @@
   ],
   "ampula_item": [
     {
-      "_extends": "item_grenade"
+      "_use": "item_grenade"
     },
     {
-      "_extends": "molotov_shell_base"
+      "_use": "molotov_shell_base"
     },
     {
       "item__template": "ampula_item"

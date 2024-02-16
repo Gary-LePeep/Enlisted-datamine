@@ -1,10 +1,10 @@
 {
   "base_pzkpfw_v_ausf_f_panther": [
     {
-      "_extends": "base_tank"
+      "_use": "base_tank"
     },
     {
-      "_extends": "pzkpfw_v_ausf_f_panther_ammo_stowages"
+      "_use": "pzkpfw_v_ausf_f_panther_ammo_stowages"
     },
     {
       "killLogName": "germ_pzkpfw_v_ausf_f_panther"
@@ -176,7 +176,7 @@
     }
   ],
   "pzkpfw_v_ausf_f_panther_turret_01_75mm_kwk44": {
-    "_extends": "tankgun_75mm_kwk44",
+    "_use": "tankgun_75mm_kwk44",
     "gun__shootNodeName": "bone_gun_barrel",
     "turret__yawSpeed": 15.0,
     "turret__pitchSpeed": 4.0,
@@ -200,7 +200,7 @@
     ]
   },
   "pzkpfw_v_ausf_f_panther_turret_02_7_92mm_mg42": {
-    "_extends": "tankgun_7_92mm_mg42",
+    "_use": "tankgun_7_92mm_mg42",
     "gun__shootNodeName": "bone_mg_gun_twin",
     "gun__shellsAmmo:array": [
       {
@@ -212,7 +212,7 @@
     ]
   },
   "pzkpfw_v_ausf_f_panther_turret_03_91mm_germ_smoke_mortar_launcher": {
-    "_extends": "tankgun_91mm_germ_smoke_mortar_launcher",
+    "_use": "tankgun_91mm_germ_smoke_mortar_launcher",
     "gun__shootNodeName": "emtr_mortar_flame_01",
     "gun__shellsAmmo:array": {
       "ammo": 12
@@ -220,13 +220,13 @@
   },
   "pzkpfw_v_ausf_f_panther_ammo_stowages": {
     "_tags": "server",
-    "_extends": "vehicle_ammo_stowages",
+    "_use": "vehicle_ammo_stowages",
     "ammo_stowage__stowageTemplates:shared:list<t>": {
       "stowage": "pzkpfw_v_ausf_f_panther_ammo_stowage_1"
     }
   },
   "pzkpfw_v_ausf_f_panther_ammo_stowage_1": {
-    "_extends": "ammo_stowage",
+    "_use": "ammo_stowage",
     "ammo_stowage__clusterTemplates:shared:list<t>": {
       "cluster": "pzkpfw_v_ausf_f_panther_ammo_cluster_1_1"
     },
@@ -235,7 +235,7 @@
     }
   },
   "pzkpfw_v_ausf_f_panther_ammo_cluster_1_1": {
-    "_extends": "ammo_cluster",
+    "_use": "ammo_cluster",
     "ammo_cluster__isShell": true,
     "ammo_cluster__slotNames:shared:list<t>": [
       {

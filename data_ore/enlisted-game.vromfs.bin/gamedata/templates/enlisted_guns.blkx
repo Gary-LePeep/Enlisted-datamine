@@ -18,13 +18,13 @@
   },
   "base_fortification_build": [
     {
-      "_extends": "shred_outside_battle_area"
+      "_use": "shred_outside_battle_area"
     },
     {
-      "_extends": "fortification_builder_info"
+      "_use": "fortification_builder_info"
     },
     {
-      "_extends": "fortification_ai_target"
+      "_use": "fortification_ai_target"
     },
     {
       "buildingCost": 0.0
@@ -40,6 +40,9 @@
     },
     {
       "buildingRadius": 0.0
+    },
+    {
+      "buildingCenterOffset": [0.0,0.0,0.0]
     },
     {
       "buildingCostructedAtTime": 0.0
@@ -63,13 +66,16 @@
       "building_destroy__lastDamageAtTime": -1.0
     },
     {
-      "building_destroy__timeToResetDestructionTimer": 5.0
+      "building_destroy__timeToResetDestructionTimer": 15.0
     },
     {
       "building_destroy__distanceVerifyThreshold": 1.5
     },
     {
       "building_destroy__disassembleSound": "env_effects/building/destroy_action"
+    },
+    {
+      "building__canDismantle:tag": []
     },
     {
       "build_attach__riexHandle:u64": {
@@ -97,19 +103,19 @@
   ],
   "network_fortification_preview": [
     {
-      "_extends": "replicating"
+      "_use": "replicating"
     },
     {
-      "_extends": "semi_transparent_render"
+      "_use": "semi_transparent_render"
     },
     {
-      "_extends": "shred_outside_battle_area"
+      "_use": "shred_outside_battle_area"
     },
     {
-      "_extends": "fortification_builder_info"
+      "_use": "fortification_builder_info"
     },
     {
-      "_extends": "fortification_ai_target"
+      "_use": "fortification_ai_target"
     },
     {
       "previewTeam": -1
@@ -145,6 +151,9 @@
       "buildingRadius": 0.0
     },
     {
+      "buildingCenterOffset": [0.0,0.0,0.0]
+    },
+    {
       "buildTypeId": 0
     },
     {
@@ -166,6 +175,12 @@
       "building_builder__distanceVerifyThreshold": 1.5
     },
     {
+      "grid_obj__gridType": "vehicles"
+    },
+    {
+      "grid_obj__fixedTmScale": -1.0
+    },
+    {
       "onlyForEngineer:tag": []
     },
     {
@@ -176,6 +191,12 @@
         "_tags": "server",
         "obstacle__initialStillTimeout": 0.0
       }
+    },
+    {
+      "grid_obj": []
+    },
+    {
+      "blockTerraform:tag": []
     }
   ],
   "disable_item_drop": {
@@ -183,10 +204,10 @@
   },
   "building_tool": [
     {
-      "_extends": "melee_weapon"
+      "_use": "melee_weapon"
     },
     {
-      "_extends": "disable_item_drop"
+      "_use": "disable_item_drop"
     },
     {
       "builder__shootPressed": false
@@ -238,10 +259,10 @@
   ],
   "building_tool_gun": [
     {
-      "_extends": "building_tool"
+      "_use": "building_tool"
     },
     {
-      "_extends": "replicating"
+      "_use": "replicating"
     },
     {
       "_tracked": "gun__owner"
@@ -280,6 +301,9 @@
       "gun__blk": "content/enlisted/gamedata/weapons/building_tool_gun.blk"
     },
     {
+      "gun__canAim": false
+    },
+    {
       "item__template": "building_tools_item"
     },
     {
@@ -287,9 +311,6 @@
     },
     {
       "item__proto": "content/enlisted/gamedata/weapons/building_tool_gun.blk"
-    },
-    {
-      "item__id": 0
     },
     {
       "item__weapTemplate": "building_tool_gun"
@@ -322,9 +343,6 @@
       "gun__statName": "melee"
     },
     {
-      "gun__reloadable": false
-    },
-    {
       "weap__sprintLerpFactor": 1.0
     },
     {
@@ -332,6 +350,22 @@
     },
     {
       "melee_weapon__attackTime": 1.0
+    },
+    {
+      "gun__reloadable": true
+    },
+    {
+      "item__id:i": {
+        "value": 0,
+        "_hide": true
+      }
+    },
+    {
+      "_group": {
+        "_track": true,
+        "gun__ammo": 0,
+        "gun__totalAmmo": 0
+      }
     },
     {
       "gun__owner:eid": []
@@ -342,41 +376,50 @@
     {
       "previewTemplate:list<t>": [
         {
-          "template": "sandbags_wall_2_preview"
+          "template": "ger_rallypoint_preview"
         },
         {
-          "template": "sandbags_wall_mg_preview"
-        },
-        {
-          "template": "cannon_germ_20mm_flak38_flakvierling_preview"
-        },
-        {
-          "template": "cannon_ussr_towed_at_53k_preview"
-        },
-        {
-          "template": "cannon_germ_towed_at_pak38_preview"
+          "template": "ammunition_box_a_preview"
         },
         {
           "template": "czech_hedgehog_a_preview"
         },
         {
-          "template": "ger_rallypoint_preview"
-        },
-        {
           "template": "barbedwire_engineer_a_preview"
         },
         {
-          "template": "ammunition_box_a_preview"
+          "template": "sandbags_wall_2_preview"
+        },
+        {
+          "template": "cannon_germ_20mm_flak38_preview"
+        },
+        {
+          "template": "cannon_ussr_towed_at_pak40_preview"
+        },
+        {
+          "template": "cannon_germ_towed_at_pak40_preview"
+        },
+        {
+          "template": "sandbags_wall_mg_preview"
         }
       ]
     },
     {
       "buildingLimits:list<i>": [
         {
+          "limit": 1
+        },
+        {
+          "limit": 3
+        },
+        {
+          "limit": 6
+        },
+        {
           "limit": 10
         },
         {
-          "limit": 1
+          "limit": 10
         },
         {
           "limit": 2
@@ -388,441 +431,62 @@
           "limit": 1
         },
         {
-          "limit": 6
-        },
-        {
           "limit": 1
-        },
-        {
-          "limit": 10
-        },
-        {
-          "limit": 3
         }
       ]
     }
   ],
   "ussr_building_tool_gun": {
-    "_extends": "building_tool_gun",
+    "_use": "building_tool_gun",
     "item__weapTemplate": "ussr_building_tool_gun",
     "item__template": "ussr_building_tools_item",
     "previewTemplate:list<t>": [
-      {
-        "template": "sandbags_wall_2_preview"
-      },
-      {
-        "template": "sandbags_wall_dshk_1942_preview"
-      },
-      {
-        "template": "sandbags_wall_maxim_no_shield_preview"
-      },
-      {
-        "template": "cannon_germ_20mm_flak38_flakvierling_preview"
-      },
-      {
-        "template": "cannon_ussr_towed_at_53k_preview"
-      },
-      {
-        "template": "czech_hedgehog_a_preview"
-      },
       {
         "template": "ussr_rallypoint_preview"
       },
       {
-        "template": "barbedwire_engineer_a_preview"
-      },
-      {
         "template": "ammunition_box_a_preview"
-      }
-    ],
-    "buildingLimits:list<i>": [
-      {
-        "limit": 10
-      },
-      {
-        "limit": 1
-      },
-      {
-        "limit": 1
-      },
-      {
-        "limit": 2
-      },
-      {
-        "limit": 1
-      },
-      {
-        "limit": 6
-      },
-      {
-        "limit": 1
-      },
-      {
-        "limit": 10
-      },
-      {
-        "limit": 3
-      }
-    ]
-  },
-  "usa_building_tool_gun": {
-    "_extends": "building_tool_gun",
-    "item__weapTemplate": "usa_building_tool_gun",
-    "item__template": "usa_building_tools_item",
-    "previewTemplate:list<t>": [
-      {
-        "template": "sandbags_wall_2_preview"
-      },
-      {
-        "template": "sandbags_wall_browning_m2_preview"
-      },
-      {
-        "template": "sandbags_wall_browning_m1919a4_preview"
-      },
-      {
-        "template": "cannon_germ_20mm_flak38_flakvierling_green_preview"
-      },
-      {
-        "template": "cannon_us_towed_at_m1_preview"
       },
       {
         "template": "czech_hedgehog_a_preview"
       },
       {
-        "template": "usa_rallypoint_preview"
-      },
-      {
         "template": "barbedwire_engineer_a_preview"
       },
-      {
-        "template": "ammunition_box_a_preview"
-      }
-    ],
-    "buildingLimits:list<i>": [
-      {
-        "limit": 10
-      },
-      {
-        "limit": 1
-      },
-      {
-        "limit": 1
-      },
-      {
-        "limit": 2
-      },
-      {
-        "limit": 1
-      },
-      {
-        "limit": 6
-      },
-      {
-        "limit": 1
-      },
-      {
-        "limit": 10
-      },
-      {
-        "limit": 3
-      }
-    ]
-  },
-  "uk_building_tool_gun": {
-    "_extends": "usa_building_tool_gun",
-    "previewTemplate:list<t>": [
       {
         "template": "sandbags_wall_2_preview"
       },
       {
-        "template": "sandbags_wall_browning_m2_preview"
-      },
-      {
-        "template": "sandbags_wall_browning_m1919a4_preview"
-      },
-      {
-        "template": "cannon_germ_20mm_flak38_flakvierling_green_preview"
-      },
-      {
-        "template": "cannon_uk_towed_at_6pdr_preview"
-      },
-      {
-        "template": "czech_hedgehog_a_preview"
-      },
-      {
-        "template": "usa_rallypoint_preview"
-      },
-      {
-        "template": "barbedwire_engineer_a_preview"
-      },
-      {
-        "template": "ammunition_box_a_preview"
-      }
-    ]
-  },
-  "ger_normandy_building_tool_gun": {
-    "_extends": "ger_building_tool_gun",
-    "previewTemplate:list<t>": [
-      {
-        "template": "sandbags_wall_2_preview"
-      },
-      {
-        "template": "sandbags_wall_mg_131_preview"
-      },
-      {
-        "template": "sandbags_wall_mg_34_preview"
-      },
-      {
-        "template": "cannon_germ_20mm_flak38_flakvierling_green_preview"
-      },
-      {
-        "template": "cannon_germ_towed_at_pak38_no_camo_preview"
-      },
-      {
-        "template": "czech_hedgehog_a_preview"
-      },
-      {
-        "template": "ger_rallypoint_preview"
-      },
-      {
-        "template": "barbedwire_engineer_a_preview"
-      },
-      {
-        "template": "ammunition_box_a_preview"
-      }
-    ]
-  },
-  "ger_tunisian_building_tool_gun": {
-    "_extends": "building_tool_gun",
-    "item__weapTemplate": "ger_building_tool_gun",
-    "item__template": "ger_building_tools_item",
-    "previewTemplate:list<t>": [
-      {
-        "template": "sandbags_wall_2_preview"
-      },
-      {
-        "template": "sandbags_wall_mg_131_preview"
-      },
-      {
-        "template": "sandbags_wall_mg_34_preview"
-      },
-      {
-        "template": "cannon_germ_20mm_flak38_flakvierling_desert_preview"
-      },
-      {
-        "template": "cannon_germ_towed_at_pak38_desert_preview"
-      },
-      {
-        "template": "czech_hedgehog_a_preview"
-      },
-      {
-        "template": "ger_rallypoint_preview"
-      },
-      {
-        "template": "barbedwire_engineer_a_preview"
-      },
-      {
-        "template": "ammunition_box_a_preview"
-      }
-    ],
-    "buildingLimits:list<i>": [
-      {
-        "limit": 10
-      },
-      {
-        "limit": 1
-      },
-      {
-        "limit": 1
-      },
-      {
-        "limit": 2
-      },
-      {
-        "limit": 1
-      },
-      {
-        "limit": 6
-      },
-      {
-        "limit": 1
-      },
-      {
-        "limit": 10
-      },
-      {
-        "limit": 3
-      }
-    ]
-  },
-  "ger_building_tool_gun": {
-    "_extends": "building_tool_gun",
-    "item__weapTemplate": "ger_building_tool_gun",
-    "item__template": "ger_building_tools_item",
-    "previewTemplate:list<t>": [
-      {
-        "template": "sandbags_wall_2_preview"
-      },
-      {
-        "template": "sandbags_wall_mg_131_preview"
-      },
-      {
-        "template": "sandbags_wall_mg_34_preview"
-      },
-      {
-        "template": "cannon_germ_20mm_flak38_flakvierling_preview"
-      },
-      {
-        "template": "cannon_germ_towed_at_pak38_preview"
-      },
-      {
-        "template": "czech_hedgehog_a_preview"
-      },
-      {
-        "template": "ger_rallypoint_preview"
-      },
-      {
-        "template": "barbedwire_engineer_a_preview"
-      },
-      {
-        "template": "ammunition_box_a_preview"
-      }
-    ],
-    "buildingLimits:list<i>": [
-      {
-        "limit": 10
-      },
-      {
-        "limit": 1
-      },
-      {
-        "limit": 1
-      },
-      {
-        "limit": 2
-      },
-      {
-        "limit": 1
-      },
-      {
-        "limit": 6
-      },
-      {
-        "limit": 1
-      },
-      {
-        "limit": 10
-      },
-      {
-        "limit": 3
-      }
-    ]
-  },
-  "ger_berlin_building_tool_gun": {
-    "_extends": "building_tool_gun",
-    "item__weapTemplate": "ger_building_tool_gun",
-    "item__template": "ger_building_tools_item",
-    "previewTemplate:list<t>": [
-      {
-        "template": "sandbags_wall_2_preview"
-      },
-      {
-        "template": "sandbags_wall_mg_131_preview"
-      },
-      {
-        "template": "sandbags_wall_mg_34_preview"
-      },
-      {
-        "template": "cannon_germ_20mm_flak38_flakvierling_preview"
-      },
-      {
-        "template": "cannon_germ_towed_at_pak40_preview"
-      },
-      {
-        "template": "czech_hedgehog_a_preview"
-      },
-      {
-        "template": "ger_rallypoint_preview"
-      },
-      {
-        "template": "barbedwire_engineer_a_preview"
-      },
-      {
-        "template": "ammunition_box_a_preview"
-      }
-    ],
-    "buildingLimits:list<i>": [
-      {
-        "limit": 10
-      },
-      {
-        "limit": 1
-      },
-      {
-        "limit": 1
-      },
-      {
-        "limit": 2
-      },
-      {
-        "limit": 1
-      },
-      {
-        "limit": 6
-      },
-      {
-        "limit": 1
-      },
-      {
-        "limit": 10
-      },
-      {
-        "limit": 3
-      }
-    ]
-  },
-  "ussr_berlin_building_tool_gun": {
-    "_extends": "building_tool_gun",
-    "item__weapTemplate": "ussr_building_tool_gun",
-    "item__template": "ussr_building_tools_item",
-    "previewTemplate:list<t>": [
-      {
-        "template": "sandbags_wall_2_preview"
-      },
-      {
-        "template": "sandbags_wall_dshk_1942_preview"
-      },
-      {
-        "template": "sandbags_wall_maxim_no_shield_preview"
-      },
-      {
-        "template": "cannon_germ_20mm_flak38_flakvierling_preview"
+        "template": "cannon_ussr_25mm_72k_preview"
       },
       {
         "template": "cannon_ussr_towed_at_pak40_preview"
       },
       {
-        "template": "czech_hedgehog_a_preview"
+        "template": "sandbags_wall_maxim_no_shield_preview"
       },
       {
-        "template": "ussr_rallypoint_preview"
+        "template": "sandbags_wall_dshk_1942_preview"
       },
       {
-        "template": "barbedwire_engineer_a_preview"
-      },
-      {
-        "template": "ammunition_box_a_preview"
+        "template": "sandbags_wall_ampulomet_preview"
       }
     ],
     "buildingLimits:list<i>": [
       {
+        "limit": 1
+      },
+      {
+        "limit": 3
+      },
+      {
+        "limit": 6
+      },
+      {
         "limit": 10
       },
       {
-        "limit": 1
-      },
-      {
-        "limit": 1
+        "limit": 10
       },
       {
         "limit": 2
@@ -831,61 +495,490 @@
         "limit": 1
       },
       {
-        "limit": 6
+        "limit": 1
       },
       {
         "limit": 1
       },
       {
-        "limit": 10
-      },
-      {
-        "limit": 3
+        "limit": 1
       }
     ]
   },
-  "jp_building_tool_gun": {
-    "_extends": "building_tool_gun",
-    "item__weapTemplate": "jp_building_tool_gun",
-    "item__template": "jp_building_tool_item",
+  "usa_building_tool_gun": {
+    "_use": "building_tool_gun",
+    "item__weapTemplate": "usa_building_tool_gun",
+    "item__template": "usa_building_tools_item",
     "previewTemplate:list<t>": [
+      {
+        "template": "usa_rallypoint_preview"
+      },
+      {
+        "template": "ammunition_box_a_preview"
+      },
+      {
+        "template": "czech_hedgehog_a_preview"
+      },
+      {
+        "template": "barbedwire_engineer_a_preview"
+      },
       {
         "template": "sandbags_wall_2_preview"
       },
       {
-        "template": "sandbags_wall_type_93_hmg_preview"
+        "template": "cannon_us_20mm_polsten_preview"
       },
       {
-        "template": "sandbags_wall_type_92_hmg_preview"
+        "template": "cannon_us_towed_at_m1_preview"
       },
       {
-        "template": "cannon_germ_20mm_flak38_flakvierling_green_preview"
+        "template": "sandbags_wall_browning_m1919a4_preview"
+      },
+      {
+        "template": "sandbags_wall_browning_m2_preview"
+      }
+    ],
+    "buildingLimits:list<i>": [
+      {
+        "limit": 1
+      },
+      {
+        "limit": 3
+      },
+      {
+        "limit": 6
+      },
+      {
+        "limit": 10
+      },
+      {
+        "limit": 10
+      },
+      {
+        "limit": 2
+      },
+      {
+        "limit": 1
+      },
+      {
+        "limit": 1
+      },
+      {
+        "limit": 1
+      }
+    ]
+  },
+  "uk_building_tool_gun": {
+    "_use": "usa_building_tool_gun",
+    "previewTemplate:list<t>": [
+      {
+        "template": "usa_rallypoint_preview"
+      },
+      {
+        "template": "ammunition_box_a_preview"
+      },
+      {
+        "template": "czech_hedgehog_a_preview"
+      },
+      {
+        "template": "barbedwire_engineer_a_preview"
+      },
+      {
+        "template": "sandbags_wall_2_preview"
+      },
+      {
+        "template": "cannon_us_20mm_polsten_preview"
+      },
+      {
+        "template": "cannon_uk_towed_at_6pdr_preview"
+      },
+      {
+        "template": "sandbags_wall_browning_m1919a4_preview"
+      },
+      {
+        "template": "sandbags_wall_browning_m2_preview"
+      }
+    ]
+  },
+  "ger_normandy_building_tool_gun": {
+    "_use": "ger_building_tool_gun",
+    "previewTemplate:list<t>": [
+      {
+        "template": "ger_rallypoint_preview"
+      },
+      {
+        "template": "ammunition_box_a_preview"
+      },
+      {
+        "template": "czech_hedgehog_a_preview"
+      },
+      {
+        "template": "barbedwire_engineer_a_preview"
+      },
+      {
+        "template": "sandbags_wall_2_preview"
+      },
+      {
+        "template": "cannon_germ_20mm_flak38_green_preview"
+      },
+      {
+        "template": "cannon_germ_towed_at_pak40_preview"
+      },
+      {
+        "template": "sandbags_wall_mg_34_preview"
+      },
+      {
+        "template": "sandbags_wall_mg_131_preview"
+      }
+    ],
+    "buildingLimits:list<i>": [
+      {
+        "limit": 1
+      },
+      {
+        "limit": 3
+      },
+      {
+        "limit": 6
+      },
+      {
+        "limit": 10
+      },
+      {
+        "limit": 10
+      },
+      {
+        "limit": 2
+      },
+      {
+        "limit": 1
+      },
+      {
+        "limit": 1
+      },
+      {
+        "limit": 1
+      }
+    ]
+  },
+  "ger_tunisian_building_tool_gun": {
+    "_use": "building_tool_gun",
+    "item__weapTemplate": "ger_building_tool_gun",
+    "item__template": "ger_building_tools_item",
+    "previewTemplate:list<t>": [
+      {
+        "template": "ger_rallypoint_preview"
+      },
+      {
+        "template": "ammunition_box_a_preview"
+      },
+      {
+        "template": "czech_hedgehog_a_preview"
+      },
+      {
+        "template": "barbedwire_engineer_a_preview"
+      },
+      {
+        "template": "sandbags_wall_2_preview"
+      },
+      {
+        "template": "cannon_germ_20mm_flak38_desert_preview"
+      },
+      {
+        "template": "cannon_germ_towed_at_pak40_preview"
+      },
+      {
+        "template": "sandbags_wall_mg_34_preview"
+      },
+      {
+        "template": "sandbags_wall_mg_131_preview"
+      }
+    ],
+    "buildingLimits:list<i>": [
+      {
+        "limit": 1
+      },
+      {
+        "limit": 3
+      },
+      {
+        "limit": 6
+      },
+      {
+        "limit": 10
+      },
+      {
+        "limit": 10
+      },
+      {
+        "limit": 2
+      },
+      {
+        "limit": 1
+      },
+      {
+        "limit": 1
+      },
+      {
+        "limit": 1
+      }
+    ]
+  },
+  "ger_building_tool_gun": {
+    "_use": "building_tool_gun",
+    "item__weapTemplate": "ger_building_tool_gun",
+    "item__template": "ger_building_tools_item",
+    "previewTemplate:list<t>": [
+      {
+        "template": "ger_rallypoint_preview"
+      },
+      {
+        "template": "ammunition_box_a_preview"
+      },
+      {
+        "template": "czech_hedgehog_a_preview"
+      },
+      {
+        "template": "barbedwire_engineer_a_preview"
+      },
+      {
+        "template": "sandbags_wall_2_preview"
+      },
+      {
+        "template": "cannon_germ_20mm_flak38_preview"
+      },
+      {
+        "template": "cannon_germ_towed_at_pak40_preview"
+      },
+      {
+        "template": "sandbags_wall_mg_34_preview"
+      },
+      {
+        "template": "sandbags_wall_mg_131_preview"
+      },
+      {
+        "template": "sandbags_wall_ampulomet_preview"
+      }
+    ],
+    "buildingLimits:list<i>": [
+      {
+        "limit": 1
+      },
+      {
+        "limit": 3
+      },
+      {
+        "limit": 6
+      },
+      {
+        "limit": 10
+      },
+      {
+        "limit": 10
+      },
+      {
+        "limit": 2
+      },
+      {
+        "limit": 1
+      },
+      {
+        "limit": 1
+      },
+      {
+        "limit": 1
+      },
+      {
+        "limit": 1
+      }
+    ]
+  },
+  "ger_berlin_building_tool_gun": {
+    "_use": "building_tool_gun",
+    "item__weapTemplate": "ger_building_tool_gun",
+    "item__template": "ger_building_tools_item",
+    "previewTemplate:list<t>": [
+      {
+        "template": "ger_rallypoint_preview"
+      },
+      {
+        "template": "ammunition_box_a_preview"
+      },
+      {
+        "template": "czech_hedgehog_a_preview"
+      },
+      {
+        "template": "barbedwire_engineer_a_preview"
+      },
+      {
+        "template": "sandbags_wall_2_preview"
+      },
+      {
+        "template": "cannon_germ_20mm_flak38_preview"
+      },
+      {
+        "template": "cannon_germ_towed_at_pak40_preview"
+      },
+      {
+        "template": "sandbags_wall_mg_34_preview"
+      },
+      {
+        "template": "sandbags_wall_mg_131_preview"
+      },
+      {
+        "template": "sandbags_wall_ampulomet_preview"
+      }
+    ],
+    "buildingLimits:list<i>": [
+      {
+        "limit": 1
+      },
+      {
+        "limit": 3
+      },
+      {
+        "limit": 6
+      },
+      {
+        "limit": 10
+      },
+      {
+        "limit": 10
+      },
+      {
+        "limit": 2
+      },
+      {
+        "limit": 1
+      },
+      {
+        "limit": 1
+      },
+      {
+        "limit": 1
+      },
+      {
+        "limit": 1
+      }
+    ]
+  },
+  "ussr_berlin_building_tool_gun": {
+    "_use": "building_tool_gun",
+    "item__weapTemplate": "ussr_building_tool_gun",
+    "item__template": "ussr_building_tools_item",
+    "previewTemplate:list<t>": [
+      {
+        "template": "ussr_rallypoint_preview"
+      },
+      {
+        "template": "ammunition_box_a_preview"
+      },
+      {
+        "template": "czech_hedgehog_a_preview"
+      },
+      {
+        "template": "barbedwire_engineer_a_preview"
+      },
+      {
+        "template": "sandbags_wall_2_preview"
+      },
+      {
+        "template": "cannon_ussr_25mm_72k_preview"
+      },
+      {
+        "template": "cannon_ussr_towed_at_pak40_preview"
+      },
+      {
+        "template": "sandbags_wall_maxim_no_shield_preview"
+      },
+      {
+        "template": "sandbags_wall_dshk_1942_preview"
+      },
+      {
+        "template": "sandbags_wall_ampulomet_preview"
+      }
+    ],
+    "buildingLimits:list<i>": [
+      {
+        "limit": 1
+      },
+      {
+        "limit": 3
+      },
+      {
+        "limit": 6
+      },
+      {
+        "limit": 10
+      },
+      {
+        "limit": 10
+      },
+      {
+        "limit": 2
+      },
+      {
+        "limit": 1
+      },
+      {
+        "limit": 1
+      },
+      {
+        "limit": 1
+      },
+      {
+        "limit": 1
+      }
+    ]
+  },
+  "jp_building_tool_gun": {
+    "_use": "building_tool_gun",
+    "item__weapTemplate": "jp_building_tool_gun",
+    "item__template": "jp_building_tool_item",
+    "previewTemplate:list<t>": [
+      {
+        "template": "jp_rallypoint_preview"
+      },
+      {
+        "template": "ammunition_box_a_preview"
+      },
+      {
+        "template": "czech_hedgehog_a_preview"
+      },
+      {
+        "template": "barbedwire_engineer_a_preview"
+      },
+      {
+        "template": "sandbags_wall_2_preview"
+      },
+      {
+        "template": "cannon_jp_20mm_type98_preview"
       },
       {
         "template": "cannon_jp_towed_at_type_1_preview"
       },
       {
-        "template": "czech_hedgehog_a_preview"
+        "template": "sandbags_wall_type_92_hmg_preview"
       },
       {
-        "template": "jp_rallypoint_preview"
-      },
-      {
-        "template": "barbedwire_engineer_a_preview"
-      },
-      {
-        "template": "ammunition_box_a_preview"
+        "template": "sandbags_wall_type_93_hmg_preview"
       }
     ],
     "buildingLimits:list<i>": [
       {
+        "limit": 1
+      },
+      {
+        "limit": 3
+      },
+      {
+        "limit": 6
+      },
+      {
         "limit": 10
       },
       {
-        "limit": 1
-      },
-      {
-        "limit": 1
+        "limit": 10
       },
       {
         "limit": 2
@@ -894,21 +987,15 @@
         "limit": 1
       },
       {
-        "limit": 6
-      },
-      {
         "limit": 1
       },
       {
-        "limit": 10
-      },
-      {
-        "limit": 3
+        "limit": 1
       }
     ]
   },
   "developer_building_tool_gun": {
-    "_extends": "building_tool_gun",
+    "_use": "building_tool_gun",
     "item__weapTemplate": "developer_building_tool_gun",
     "item__template": "modern_event_building_tool_item",
     "previewTemplate:list<t>": [
@@ -938,6 +1025,9 @@
       },
       {
         "template": "sandbags_wall_mg_131_preview_dev"
+      },
+      {
+        "template": "sandbags_wall_ampulomet_preview"
       }
     ],
     "buildingLimits:list<i>": [
@@ -967,15 +1057,51 @@
       },
       {
         "limit": 2
+      },
+      {
+        "limit": 2
+      }
+    ]
+  },
+  "modern_event_building_tool_gun": {
+    "_use": "building_tool_gun",
+    "item__weapTemplate": "modern_event_building_tool_gun",
+    "item__template": "modern_event_building_tool_item",
+    "previewTemplate:list<t>": [
+      {
+        "template": "usa_rallypoint_preview"
+      },
+      {
+        "template": "ammunition_box_a_preview"
+      },
+      {
+        "template": "barbedwire_engineer_a_preview"
+      },
+      {
+        "template": "sandbags_wall_2_preview"
+      }
+    ],
+    "buildingLimits:list<i>": [
+      {
+        "limit": 1
+      },
+      {
+        "limit": 3
+      },
+      {
+        "limit": 6
+      },
+      {
+        "limit": 10
       }
     ]
   },
   "building_tools_item": [
     {
-      "_extends": "item_melee"
+      "_use": "item_melee"
     },
     {
-      "_extends": "building_tool_gun"
+      "_use": "building_tool_gun"
     },
     {
       "collres__res": "construction_hammer_collision"
@@ -986,10 +1112,10 @@
   ],
   "ussr_building_tools_item": [
     {
-      "_extends": "item_melee"
+      "_use": "item_melee"
     },
     {
-      "_extends": "ussr_building_tool_gun"
+      "_use": "ussr_building_tool_gun"
     },
     {
       "collres__res": "construction_hammer_collision"
@@ -1000,10 +1126,10 @@
   ],
   "usa_building_tools_item": [
     {
-      "_extends": "item_melee"
+      "_use": "item_melee"
     },
     {
-      "_extends": "usa_building_tool_gun"
+      "_use": "usa_building_tool_gun"
     },
     {
       "collres__res": "construction_hammer_collision"
@@ -1014,10 +1140,10 @@
   ],
   "ger_building_tools_item": [
     {
-      "_extends": "item_melee"
+      "_use": "item_melee"
     },
     {
-      "_extends": "ger_building_tool_gun"
+      "_use": "ger_building_tool_gun"
     },
     {
       "collres__res": "construction_hammer_collision"
@@ -1028,10 +1154,10 @@
   ],
   "jp_building_tool_item": [
     {
-      "_extends": "item_melee"
+      "_use": "item_melee"
     },
     {
-      "_extends": "jp_building_tool_gun"
+      "_use": "jp_building_tool_gun"
     },
     {
       "collres__res": "construction_hammer_collision"
@@ -1041,17 +1167,17 @@
     }
   ],
   "ussr_building_tool_award_gun": {
-    "_extends": "ussr_building_tool_gun",
+    "_use": "ussr_building_tool_gun",
     "animchar__res": "engineer_hammer_char",
     "item__weapTemplate": "ussr_building_tool_award_gun",
     "item__template": "ussr_building_tool_award_item"
   },
   "ussr_building_tool_award_item": [
     {
-      "_extends": "item_melee"
+      "_use": "item_melee"
     },
     {
-      "_extends": "ussr_building_tool_award_gun"
+      "_use": "ussr_building_tool_award_gun"
     },
     {
       "collres__res": "construction_hammer_collision"
@@ -1061,17 +1187,17 @@
     }
   ],
   "usa_building_tool_award_gun": {
-    "_extends": "usa_building_tool_gun",
+    "_use": "usa_building_tool_gun",
     "animchar__res": "engineer_hammer_char",
     "item__weapTemplate": "usa_building_tool_award_gun",
     "item__template": "usa_building_tool_award_item"
   },
   "usa_building_tool_award_item": [
     {
-      "_extends": "item_melee"
+      "_use": "item_melee"
     },
     {
-      "_extends": "usa_building_tool_award_gun"
+      "_use": "usa_building_tool_award_gun"
     },
     {
       "collres__res": "construction_hammer_collision"
@@ -1081,17 +1207,17 @@
     }
   ],
   "ger_normandy_building_tool_award_gun": {
-    "_extends": "ger_normandy_building_tool_gun",
+    "_use": "ger_normandy_building_tool_gun",
     "animchar__res": "engineer_hammer_char",
     "item__weapTemplate": "ger_normandy_building_tool_award_gun",
     "item__template": "ger_normandy_building_tool_award_item"
   },
   "ger_normandy_building_tool_award_item": [
     {
-      "_extends": "item_melee"
+      "_use": "item_melee"
     },
     {
-      "_extends": "ger_normandy_building_tool_award_gun"
+      "_use": "ger_normandy_building_tool_award_gun"
     },
     {
       "collres__res": "construction_hammer_collision"
@@ -1101,17 +1227,17 @@
     }
   ],
   "ger_tunisian_building_tool_award_gun": {
-    "_extends": "ger_tunisian_building_tool_gun",
+    "_use": "ger_tunisian_building_tool_gun",
     "animchar__res": "engineer_hammer_char",
     "item__weapTemplate": "ger_tunisian_building_tool_award_gun",
     "item__template": "ger_tunisian_building_tool_award_item"
   },
   "ger_tunisian_building_tool_award_item": [
     {
-      "_extends": "item_melee"
+      "_use": "item_melee"
     },
     {
-      "_extends": "ger_tunisian_building_tool_award_gun"
+      "_use": "ger_tunisian_building_tool_award_gun"
     },
     {
       "collres__res": "construction_hammer_collision"
@@ -1121,17 +1247,17 @@
     }
   ],
   "ger_building_tool_award_gun": {
-    "_extends": "ger_building_tool_gun",
+    "_use": "ger_building_tool_gun",
     "animchar__res": "engineer_hammer_char",
     "item__weapTemplate": "ger_building_tool_award_gun",
     "item__template": "ger_building_tool_award_item"
   },
   "ger_building_tool_award_item": [
     {
-      "_extends": "item_melee"
+      "_use": "item_melee"
     },
     {
-      "_extends": "ger_building_tool_award_gun"
+      "_use": "ger_building_tool_award_gun"
     },
     {
       "collres__res": "construction_hammer_collision"
@@ -1141,17 +1267,17 @@
     }
   ],
   "ger_berlin_building_tool_award_gun": {
-    "_extends": "ger_berlin_building_tool_gun",
+    "_use": "ger_berlin_building_tool_gun",
     "animchar__res": "engineer_hammer_char",
     "item__weapTemplate": "ger_berlin_building_tool_award_gun",
     "item__template": "ger_berlin_building_tool_award_item"
   },
   "ger_berlin_building_tool_award_item": [
     {
-      "_extends": "item_melee"
+      "_use": "item_melee"
     },
     {
-      "_extends": "ger_berlin_building_tool_award_gun"
+      "_use": "ger_berlin_building_tool_award_gun"
     },
     {
       "collres__res": "construction_hammer_collision"
@@ -1161,17 +1287,17 @@
     }
   ],
   "ussr_berlin_building_tool_award_gun": {
-    "_extends": "ussr_berlin_building_tool_gun",
+    "_use": "ussr_berlin_building_tool_gun",
     "animchar__res": "engineer_hammer_char",
     "item__weapTemplate": "ussr_berlin_building_tool_award_gun",
     "item__template": "ussr_berlin_building_tool_award_item"
   },
   "ussr_berlin_building_tool_award_item": [
     {
-      "_extends": "item_melee"
+      "_use": "item_melee"
     },
     {
-      "_extends": "ussr_berlin_building_tool_award_gun"
+      "_use": "ussr_berlin_building_tool_award_gun"
     },
     {
       "collres__res": "construction_hammer_collision"
@@ -1181,17 +1307,31 @@
     }
   ],
   "jp_building_tool_award_gun": {
-    "_extends": "jp_building_tool_gun",
+    "_use": "jp_building_tool_gun",
     "animchar__res": "engineer_hammer_char",
     "item__weapTemplate": "jp_building_tool_award_gun",
     "item__template": "jp_building_tool_award_item"
   },
   "jp_building_tool_award_item": [
     {
-      "_extends": "item_melee"
+      "_use": "item_melee"
     },
     {
-      "_extends": "jp_building_tool_award_gun"
+      "_use": "jp_building_tool_award_gun"
+    },
+    {
+      "collres__res": "construction_hammer_collision"
+    },
+    {
+      "item__userstats__pickupName": "pickup_building_tool"
+    }
+  ],
+  "modern_event_building_tool_item": [
+    {
+      "_use": "item_melee"
+    },
+    {
+      "_use": "modern_event_building_tool_gun"
     },
     {
       "collres__res": "construction_hammer_collision"
@@ -1202,16 +1342,16 @@
   ],
   "artillery_radio_base": [
     {
-      "_extends": "device_animation_state"
+      "_use": "device_animation_state"
     },
     {
-      "_extends": "ecs_no_debug"
+      "_use": "ecs_no_debug"
     },
     {
-      "_extends": "slot_attachable"
+      "_use": "slot_attachable"
     },
     {
-      "_extends": "disable_item_drop"
+      "_use": "disable_item_drop"
     },
     {
       "slot_attach__slotName": "body_armor_back"
@@ -1238,10 +1378,13 @@
       "item__weight": 3.0
     },
     {
-      "item__id": 0
+      "device_animation__postTime": 1.0
     },
     {
-      "device_animation__postTime": 1.0
+      "item__id:i": {
+        "value": 0,
+        "_hide": true
+      }
     },
     {
       "item__equipToSlots:array": {
@@ -1253,7 +1396,7 @@
     }
   ],
   "feldfu_b_radio": {
-    "_extends": "artillery_radio_base",
+    "_use": "artillery_radio_base",
     "gun__locName": "Feldfu.b radio communication station",
     "animchar__res": "feldfu_b_radio_char",
     "item__iconYaw": 130.0,
@@ -1265,40 +1408,24 @@
     "item__weapTemplate": "feldfu_b_radio_gun",
     "item__name": "items/feldfu_b_radio_communication_station"
   },
-  "gun_anim": {
-    "_tags": "render",
-    "gun_anim__boltActionVarId": -1,
-    "gun_anim__reloadVarId": -1,
-    "gun_anim__singleReloadVarId": -1,
-    "gun_anim__reloadStyleVarId": -1,
-    "gun_anim__singleReloadStateVarId": -1,
-    "gun_anim__haveProjectileInChamberVarId": -1,
-    "gun_anim__curNumAmmoVarId": -1,
-    "gun_anim__haveOpticsVarId": -1,
-    "gun_anim__isSecondMagVarId": -1,
-    "gun_anim__weapModStateVarId": -1,
-    "gun_anim__singleReloadStates:list<i>": [],
-    "gun_anim__reloadStyles:list<i>": [],
-    "gun_anim__weapModStates:list<i>": []
-  },
   "feldfu_b_radio_gun": [
     {
       "weap__sprintLerpFactor": 0.0
     },
     {
-      "_extends": "feldfu_b_radio"
+      "_use": "feldfu_b_radio"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "disable_update"
+      "_use": "disable_update"
     },
     {
-      "_extends": "replicating"
+      "_use": "replicating"
     },
     {
-      "_extends": "gun_anim_vars"
+      "_use": "gun_anim_vars"
     },
     {
       "gun__propsId": -1
@@ -1308,9 +1435,6 @@
     },
     {
       "_replicated": "gun__owner"
-    },
-    {
-      "_replicated": "gun__holsterGen"
     },
     {
       "_replicated": "slot_attach__visible"
@@ -1326,12 +1450,6 @@
     },
     {
       "_tracked": "gun__visible"
-    },
-    {
-      "gun__prevHolsterGen": 0
-    },
-    {
-      "gun__holsterGen": 0
     },
     {
       "animchar__updatable": false
@@ -1399,7 +1517,7 @@
     }
   ],
   "ussr_p13_radio": {
-    "_extends": "artillery_radio_base",
+    "_use": "artillery_radio_base",
     "gun__locName": "ussr p13 radio communication station",
     "animchar__res": "ussr_p13_radio_char",
     "item__iconYaw": 145.0,
@@ -1416,22 +1534,22 @@
       "weap__sprintLerpFactor": 0.0
     },
     {
-      "_extends": "ussr_p13_radio"
+      "_use": "ussr_p13_radio"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "disable_update"
+      "_use": "disable_update"
     },
     {
-      "_extends": "replicating"
+      "_use": "replicating"
     },
     {
-      "_extends": "gun_anim_vars"
+      "_use": "gun_anim_vars"
     },
     {
-      "_extends": "gun_anim"
+      "_use": "gun_anim"
     },
     {
       "gun__propsId": -1
@@ -1441,9 +1559,6 @@
     },
     {
       "_replicated": "gun__owner"
-    },
-    {
-      "_replicated": "gun__holsterGen"
     },
     {
       "_replicated": "slot_attach__visible"
@@ -1459,12 +1574,6 @@
     },
     {
       "_tracked": "gun__visible"
-    },
-    {
-      "gun__prevHolsterGen": 0
-    },
-    {
-      "gun__holsterGen": 0
     },
     {
       "animchar__updatable": false
@@ -1532,7 +1641,7 @@
     }
   ],
   "scr_300": {
-    "_extends": "artillery_radio_base",
+    "_use": "artillery_radio_base",
     "gun__locName": "SCR-300 radio communication station",
     "animchar__res": "scr_300_char",
     "item__iconYaw": 145.0,
@@ -1549,22 +1658,22 @@
       "weap__sprintLerpFactor": 0.0
     },
     {
-      "_extends": "scr_300"
+      "_use": "scr_300"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "disable_update"
+      "_use": "disable_update"
     },
     {
-      "_extends": "replicating"
+      "_use": "replicating"
     },
     {
-      "_extends": "gun_anim_vars"
+      "_use": "gun_anim_vars"
     },
     {
-      "_extends": "gun_anim"
+      "_use": "gun_anim"
     },
     {
       "gun__propsId": -1
@@ -1574,9 +1683,6 @@
     },
     {
       "_replicated": "gun__owner"
-    },
-    {
-      "_replicated": "gun__holsterGen"
     },
     {
       "_replicated": "slot_attach__visible"
@@ -1592,12 +1698,6 @@
     },
     {
       "_tracked": "gun__visible"
-    },
-    {
-      "gun__prevHolsterGen": 0
-    },
-    {
-      "gun__holsterGen": 0
     },
     {
       "animchar__updatable": false
@@ -1665,7 +1765,7 @@
     }
   ],
   "type_94_6_radio": {
-    "_extends": "artillery_radio_base",
+    "_use": "artillery_radio_base",
     "gun__locName": "Type 94-6 radio communication station",
     "animchar__res": "type_94_6_radio_char",
     "item__iconYaw": 145.0,
@@ -1682,22 +1782,22 @@
       "weap__sprintLerpFactor": 0.0
     },
     {
-      "_extends": "type_94_6_radio"
+      "_use": "type_94_6_radio"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "disable_update"
+      "_use": "disable_update"
     },
     {
-      "_extends": "replicating"
+      "_use": "replicating"
     },
     {
-      "_extends": "gun_anim_vars"
+      "_use": "gun_anim_vars"
     },
     {
-      "_extends": "gun_anim"
+      "_use": "gun_anim"
     },
     {
       "gun__propsId": -1
@@ -1707,9 +1807,6 @@
     },
     {
       "_replicated": "gun__owner"
-    },
-    {
-      "_replicated": "gun__holsterGen"
     },
     {
       "_replicated": "slot_attach__visible"
@@ -1725,12 +1822,6 @@
     },
     {
       "_tracked": "gun__visible"
-    },
-    {
-      "gun__prevHolsterGen": 0
-    },
-    {
-      "gun__holsterGen": 0
     },
     {
       "animchar__updatable": false
@@ -1769,6 +1860,23 @@
       "gun_attach__altSlotId": -1
     },
     {
+      "slot_attach__posOffset": [0.0,0.0,0.0]
+    },
+    {
+      "slot_attach__rotTm": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [0.0,0.0,0.0]
+      ]
+    },
+    {
+      "gun_attach__holsterPosOffset": [-0.045,0.03,0.04]
+    },
+    {
+      "gun_attach__holsterAnimLerpFactor": 12.0
+    },
+    {
       "gun__owner:eid": []
     },
     {
@@ -1798,7 +1906,7 @@
     }
   ],
   "ita_rf1_radio": {
-    "_extends": "artillery_radio_base",
+    "_use": "artillery_radio_base",
     "gun__locName": "SCR-300 radio communication station",
     "animchar__res": "ita_rf1_radio_char",
     "item__iconYaw": 145.0,
@@ -1815,22 +1923,22 @@
       "weap__sprintLerpFactor": 0.0
     },
     {
-      "_extends": "ita_rf1_radio"
+      "_use": "ita_rf1_radio"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "disable_update"
+      "_use": "disable_update"
     },
     {
-      "_extends": "replicating"
+      "_use": "replicating"
     },
     {
-      "_extends": "gun_anim_vars"
+      "_use": "gun_anim_vars"
     },
     {
-      "_extends": "gun_anim"
+      "_use": "gun_anim"
     },
     {
       "gun__propsId": -1
@@ -1840,9 +1948,6 @@
     },
     {
       "_replicated": "gun__owner"
-    },
-    {
-      "_replicated": "gun__holsterGen"
     },
     {
       "_replicated": "slot_attach__visible"
@@ -1858,12 +1963,6 @@
     },
     {
       "_tracked": "gun__visible"
-    },
-    {
-      "gun__prevHolsterGen": 0
-    },
-    {
-      "gun__holsterGen": 0
     },
     {
       "animchar__updatable": false
@@ -1932,21 +2031,26 @@
   ],
   "ita_rf1_radio_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "ita_rf1_radio"
+      "_use": "ita_rf1_radio"
     },
     {
       "collres__res": "ita_rf1_radio_collision"
+    },
+    {
+      "hideFlags:array": {
+        "hideFlag": "backpack"
+      }
     }
   ],
   "feldfu_b_radio_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "feldfu_b_radio"
+      "_use": "feldfu_b_radio"
     },
     {
       "item__template": "feldfu_b_radio_gun_item"
@@ -1960,10 +2064,10 @@
   ],
   "ussr_p13_radio_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "ussr_p13_radio"
+      "_use": "ussr_p13_radio"
     },
     {
       "item__template": "ussr_p13_radio_gun_item"
@@ -1977,10 +2081,10 @@
   ],
   "scr_300_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "scr_300"
+      "_use": "scr_300"
     },
     {
       "item__template": "scr_300_gun_item"
@@ -1994,10 +2098,10 @@
   ],
   "type_94_6_radio_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "type_94_6_radio"
+      "_use": "type_94_6_radio"
     },
     {
       "item__proto": "content/enlisted/gamedata/weapons/radio/type_94_6_radio.blk"
@@ -2008,10 +2112,10 @@
   ],
   "shovel": [
     {
-      "_extends": "melee_weap_slots"
+      "_use": "melee_weap_slots"
     },
     {
-      "_extends": "base_dig_tool"
+      "_use": "base_dig_tool"
     },
     {
       "animchar__res": "ger_entrenchment_tool_char"
@@ -2027,9 +2131,6 @@
     },
     {
       "item__locDetails": "Dmg: 1hp"
-    },
-    {
-      "item__id": 0
     },
     {
       "item__weapTemplate": "shovel_weapon"
@@ -2057,14 +2158,20 @@
     },
     {
       "weap__sprintLerpFactor": 1.0
+    },
+    {
+      "item__id:i": {
+        "value": 0,
+        "_hide": true
+      }
     }
   ],
   "shovel_weapon": [
     {
-      "_extends": "melee_weapon"
+      "_use": "melee_weapon"
     },
     {
-      "_extends": "shovel"
+      "_use": "shovel"
     },
     {
       "meleeSoundType": "shovel"
@@ -2074,59 +2181,59 @@
     }
   ],
   "usa_shovel": {
-    "_extends": "shovel",
+    "_use": "shovel",
     "animchar__res": "usa_m1943_shovel_char",
     "item__weapTemplate": "usa_shovel_weapon",
     "item__template": "usa_shovel_item"
   },
   "usa_shovel_weapon": [
     {
-      "_extends": "shovel_weapon"
+      "_use": "shovel_weapon"
     },
     {
-      "_extends": "usa_shovel"
+      "_use": "usa_shovel"
     }
   ],
   "uk_shovel": {
-    "_extends": "shovel",
+    "_use": "shovel",
     "animchar__res": "uk_army_spade_char",
     "item__weapTemplate": "uk_shovel_weapon",
     "item__template": "uk_shovel_item"
   },
   "uk_shovel_weapon": [
     {
-      "_extends": "shovel_weapon"
+      "_use": "shovel_weapon"
     },
     {
-      "_extends": "uk_shovel"
+      "_use": "uk_shovel"
     }
   ],
   "ussr_shovel": {
-    "_extends": "shovel",
+    "_use": "shovel",
     "animchar__res": "ussr_m41_shovel_char",
     "item__weapTemplate": "ussr_shovel_weapon",
     "item__template": "ussr_shovel_item"
   },
   "ussr_shovel_weapon": [
     {
-      "_extends": "shovel_weapon"
+      "_use": "shovel_weapon"
     },
     {
-      "_extends": "ussr_shovel"
+      "_use": "ussr_shovel"
     }
   ],
   "jp_shovel": {
-    "_extends": "shovel",
+    "_use": "shovel",
     "animchar__res": "jap_type_98_entrenching_tool_char",
     "item__weapTemplate": "jp_shovel_weapon",
     "item__template": "jp_shovel_item"
   },
   "jp_shovel_weapon": [
     {
-      "_extends": "shovel_weapon"
+      "_use": "shovel_weapon"
     },
     {
-      "_extends": "jp_shovel"
+      "_use": "jp_shovel"
     }
   ]
 }

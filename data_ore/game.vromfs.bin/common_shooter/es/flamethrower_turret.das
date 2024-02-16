@@ -5,7 +5,7 @@ require common_shooter.events_common_shooter
 require common_shooter.es.flamethrower_common
 require enlisted.events_enlisted
 
-[es(tag=input, REQUIRE=(resolvedTurret, flamethrower__active), after=vehicle_input_gunner_es, before=vehicle_input_gunner_turret_with_group_es)]
+[es(tag=input, REQUIRE_NOT=flamethrower__skipCheckOverheat, REQUIRE=(resolvedTurret, flamethrower__active), after=vehicle_input_gunner_es, before=vehicle_input_gunner_turret_with_group_es)]
 def shoot_to_overheat_turret_es(info : ParallelUpdateFrameDelayed;
                                 turret_aim__shootFlag : bool;
                                 gun__isOverheat : bool;
@@ -22,6 +22,7 @@ def flamethrower_turret_phys(evt : CmdGunUpdate;
                              gun__owner : EntityId;
                              turret__owner : EntityId;
                              gun__propsId : int = -1;
+                             gun__projectileRayMatId : int = -1;
                              flamethrower__fireTemplate : string;
                              flamethrower__flameStreamRadius : float;
                              flamethrower__flameCloudRadius : float;
@@ -78,7 +79,7 @@ def flamethrower_turret_phys(evt : CmdGunUpdate;
                    flamethrower__maxFlameLength, flamethrower__flameSpeed,
                    dropletsSpread, flamethrower__addFullForceTimePerSec, flamethrower__maxFiresToReignite,
                    flamethrower__flameCurrentLength, flamethrower__hitAnything, turret__owner,
-                   flamethrower__minRadiusForSphereCast, flamethrower__numTracesSphereCast)
+                   flamethrower__minRadiusForSphereCast, flamethrower__numTracesSphereCast, gun__projectileRayMatId)
     flamethrower__active = evt.gctrl.shoot && canShoot
 
 [es(tag=server, track=gun__owner)]

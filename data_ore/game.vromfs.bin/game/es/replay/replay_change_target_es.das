@@ -2,8 +2,8 @@ require ecs
 require math.base
 require game.events_game
 require enlisted.events_enlisted
-require EnlistedCamera
-require EnlistedHuman
+require DngCamera
+require DngHuman
 require HumanPhys
 require app
 require game.es.player_common
@@ -113,20 +113,16 @@ def set_human_as_replay_target_es(evt : SetReplayTarget; eid : EntityId)
     replay_player__catchPossessEntity = false
   sendEvent(eid, [[ReplayPossessEntity]])
 
-[es(tag=playingReplay)]
-def replay_on_possess_hero_msg(evt : PossessHero; eid : EntityId; squad_member__playerEid : EntityId)
-  if !evt.possess || get_local_player_eid() != squad_member__playerEid
-    return
-
-  query(squad_member__playerEid) <| $ [es] (replay_player__catchPossessEntity : bool)
-    if replay_player__catchPossessEntity
-      sendEvent(eid, [[ReplayPossessEntity]])
+[es(tag=playingReplay, track=possessed, on_appear)]
+def replay_on_possess_hero_msg(evt : Event; possessed : EntityId; replay_player__catchPossessEntity : bool)
+  if !!possessed && replay_player__catchPossessEntity
+    sendEvent(possessed, [[ReplayPossessEntity]])
 
 // Hack for fix broken fps view in replay mode
 // Real fix: we need update phys for observed soldier in replay mode
 // for do this thing we need set ROLE_REMOTELY_CONTROLLED_AUTHORITY, but for some reason it broken soldier at all
 // See also: updateNetPhys
-[es(tag=playingReplay, before=human_look_dir_camera_es, before=human_phys_es, REQUIRE=(watchedByPlr, isReplayObserved))]
+[es(tag=playingReplay, before=human_look_dir_camera_es, REQUIRE=(watchedByPlr, isReplayObserved))]
 def replay_simulate_net_phys_update_es(info : UpdateStageInfoAct;
                                        var human_net_phys : HumanActor&;
                                        isDowned : bool;

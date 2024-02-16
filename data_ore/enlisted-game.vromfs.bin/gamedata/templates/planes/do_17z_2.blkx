@@ -1,10 +1,10 @@
 {
   "do_17z_2": [
     {
-      "_extends": "do_17z_2_base"
+      "_use": "do_17z_2_base"
     },
     {
-      "_extends": "squad_controlled_plane"
+      "_use": "squad_controlled_plane"
     },
     {
       "item__name": "items/do_17z_2"
@@ -40,7 +40,7 @@
                 "turret": "turret_05"
               }
             ],
-            "effectors:object": {
+            "cockpitEffectors:object": {
               "r.hand": "stick_rhand_1",
               "l.hand": "throttle_lhand_1",
               "r.foot": "pedal_rfoot_1",
@@ -565,13 +565,13 @@
   },
   "planegun_do_17z_2_sc_250_launcher_01": [
     {
-      "_extends": "sc_250_launcher"
+      "_use": "sc_250_launcher"
     },
     {
-      "_extends": "base_do_17z_2_sc_250_launcher"
+      "_use": "base_do_17z_2_sc_250_launcher"
     },
     {
-      "_extends": "gunsound_sc_250_launcher_aircraft"
+      "_use": "gunsound_sc_250_launcher_aircraft"
     },
     {
       "gun__shootNodeName": "de_cs250_1"
@@ -585,13 +585,13 @@
   ],
   "planegun_do_17z_2_sc_250_launcher_02": [
     {
-      "_extends": "sc_250_launcher"
+      "_use": "sc_250_launcher"
     },
     {
-      "_extends": "base_do_17z_2_sc_250_launcher"
+      "_use": "base_do_17z_2_sc_250_launcher"
     },
     {
-      "_extends": "gunsound_sc_250_launcher_aircraft"
+      "_use": "gunsound_sc_250_launcher_aircraft"
     },
     {
       "gun__shootNodeName": "de_cs250_2"
@@ -605,16 +605,16 @@
   ],
   "planegun_do_17z_2_7_92mm_mg15_turret_01": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_plane_machinegun"
+      "_use": "base_plane_machinegun"
     },
     {
-      "_extends": "base_do_17z_2_7_92mm_mg15_turret"
+      "_use": "base_do_17z_2_7_92mm_mg15_turret"
     },
     {
-      "_extends": "gunsound_7_92mm_mg15_turret_aircraft"
+      "_use": "gunsound_7_92mm_mg15_turret_aircraft"
     },
     {
       "gun__shootNodeName": "flare1"
@@ -637,16 +637,16 @@
   ],
   "planegun_do_17z_2_7_92mm_mg15_turret_02": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_plane_machinegun"
+      "_use": "base_plane_machinegun"
     },
     {
-      "_extends": "base_do_17z_2_7_92mm_mg15_turret"
+      "_use": "base_do_17z_2_7_92mm_mg15_turret"
     },
     {
-      "_extends": "gunsound_7_92mm_mg15_turret_aircraft"
+      "_use": "gunsound_7_92mm_mg15_turret_aircraft"
     },
     {
       "gun__shootNodeName": "flare2"
@@ -669,16 +669,16 @@
   ],
   "planegun_do_17z_2_7_92mm_mg15_01": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_plane_machinegun"
+      "_use": "base_plane_machinegun"
     },
     {
-      "_extends": "base_do_17z_2_7_92mm_mg15"
+      "_use": "base_do_17z_2_7_92mm_mg15"
     },
     {
-      "_extends": "gunsound_7_92mm_mg15_aircraft"
+      "_use": "gunsound_7_92mm_mg15_aircraft"
     },
     {
       "gun__shootNodeName": "flare3"
@@ -689,16 +689,16 @@
   ],
   "planegun_do_17z_2_7_92mm_mg15_turret_03": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_plane_machinegun"
+      "_use": "base_plane_machinegun"
     },
     {
-      "_extends": "base_do_17z_2_7_92mm_mg15_turret"
+      "_use": "base_do_17z_2_7_92mm_mg15_turret"
     },
     {
-      "_extends": "gunsound_7_92mm_mg15_turret_aircraft"
+      "_use": "gunsound_7_92mm_mg15_turret_aircraft"
     },
     {
       "gun__shootNodeName": "flare4"
@@ -721,16 +721,16 @@
   ],
   "planegun_do_17z_2_7_92mm_mg15_turret_04": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_plane_machinegun"
+      "_use": "base_plane_machinegun"
     },
     {
-      "_extends": "base_do_17z_2_7_92mm_mg15_turret"
+      "_use": "base_do_17z_2_7_92mm_mg15_turret"
     },
     {
-      "_extends": "gunsound_7_92mm_mg15_turret_aircraft"
+      "_use": "gunsound_7_92mm_mg15_turret_aircraft"
     },
     {
       "gun__shootNodeName": "flare5"
@@ -753,16 +753,16 @@
   ],
   "planegun_do_17z_2_7_92mm_mg15_turret_05": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_plane_machinegun"
+      "_use": "base_plane_machinegun"
     },
     {
-      "_extends": "base_do_17z_2_7_92mm_mg15_turret"
+      "_use": "base_do_17z_2_7_92mm_mg15_turret"
     },
     {
-      "_extends": "gunsound_7_92mm_mg15_turret_aircraft"
+      "_use": "gunsound_7_92mm_mg15_turret_aircraft"
     },
     {
       "gun__shootNodeName": "flare6"

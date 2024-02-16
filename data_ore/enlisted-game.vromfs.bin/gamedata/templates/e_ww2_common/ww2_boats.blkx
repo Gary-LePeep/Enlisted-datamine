@@ -1,6 +1,6 @@
 {
   "elco77_pt20": {
-    "_extends": "base_ship",
+    "_use": "base_ship",
     "animchar__res": "elco77_pt20_char",
     "collres__res": "elco77_pt20_collision",
     "ship_net_phys__blk": "content/enlisted/gamedata/units/ships/elco77_pt20.blk:ShipPhys",
@@ -23,10 +23,10 @@
   },
   "pv_sturmbot39": [
     {
-      "_extends": "civil_boat"
+      "_use": "civil_boat"
     },
     {
-      "_extends": "four_seats_vehicle"
+      "_use": "four_seats_vehicle"
     },
     {
       "animchar__res": "pv_sturmbot39_char"
@@ -292,22 +292,22 @@
   },
   "american_assault_boat_m1": [
     {
-      "_extends": "base_ship"
+      "_use": "base_ship"
     },
     {
-      "_extends": "ship_camera"
+      "_use": "ship_camera"
     },
     {
-      "_extends": "nine_boat_seats"
+      "_use": "nine_boat_seats"
     },
     {
-      "_extends": "vehicle_seats_effectors"
+      "_use": "vehicle_seats_effectors"
     },
     {
-      "_extends": "simple_damage_model"
+      "_use": "simple_damage_model"
     },
     {
-      "_extends": "pushable_object"
+      "_use": "pushable_object"
     },
     {
       "vehicle_seats__exitTime": 0.25
@@ -389,22 +389,22 @@
   ],
   "german_assault_boat_39": [
     {
-      "_extends": "base_ship"
+      "_use": "base_ship"
     },
     {
-      "_extends": "ship_camera"
+      "_use": "ship_camera"
     },
     {
-      "_extends": "nine_boat_seats"
+      "_use": "nine_boat_seats"
     },
     {
-      "_extends": "vehicle_seats_effectors"
+      "_use": "vehicle_seats_effectors"
     },
     {
-      "_extends": "simple_damage_model"
+      "_use": "simple_damage_model"
     },
     {
-      "_extends": "pushable_object"
+      "_use": "pushable_object"
     },
     {
       "vehicle_seats__exitTime": 0.25
@@ -486,25 +486,25 @@
   ],
   "poluglisser_pg_117": [
     {
-      "_extends": "base_ship"
+      "_use": "base_ship"
     },
     {
-      "_extends": "ship_camera"
+      "_use": "ship_camera"
     },
     {
-      "_extends": "four_boat_seats"
+      "_use": "four_boat_seats"
     },
     {
-      "_extends": "vehicle_horn_note_E5"
+      "_use": "vehicle_horn_note_E5"
     },
     {
-      "_extends": "vehicle_seats_effectors"
+      "_use": "vehicle_seats_effectors"
     },
     {
-      "_extends": "simple_damage_model"
+      "_use": "simple_damage_model"
     },
     {
-      "_extends": "pushable_object"
+      "_use": "pushable_object"
     },
     {
       "vehicle_seats__exitTime": 0.25

@@ -1,10 +1,10 @@
 {
   "base_isu_152": [
     {
-      "_extends": "base_tank"
+      "_use": "base_tank"
     },
     {
-      "_extends": "isu_152_ammo_stowages"
+      "_use": "isu_152_ammo_stowages"
     },
     {
       "killLogName": "ussr_isu_152"
@@ -159,7 +159,7 @@
     }
   ],
   "isu_152_turret_01_152mm_ml20s": {
-    "_extends": "tankgun_152mm_ml20s",
+    "_use": "tankgun_152mm_ml20s",
     "gun__shootNodeName": "bone_gun_barrel",
     "turret__yawSpeed": 8.0,
     "turret__pitchSpeed": 2.0,
@@ -181,7 +181,7 @@
     ]
   },
   "isu_152_turret_02_12_7mm_dshk": {
-    "_extends": "tankgun_12_7mm_dshk",
+    "_use": "tankgun_12_7mm_dshk",
     "gun__shootNodeName": "bone_mg_aa_v_01",
     "turret__yawSpeed": 90.0,
     "turret__pitchSpeed": 90.0,
@@ -193,13 +193,13 @@
   },
   "isu_152_ammo_stowages": {
     "_tags": "server",
-    "_extends": "vehicle_ammo_stowages",
+    "_use": "vehicle_ammo_stowages",
     "ammo_stowage__stowageTemplates:shared:list<t>": {
       "stowage": "isu_152_ammo_stowage_1"
     }
   },
   "isu_152_ammo_stowage_1": {
-    "_extends": "ammo_stowage",
+    "_use": "ammo_stowage",
     "ammo_stowage__clusterTemplates:shared:list<t>": [
       {
         "cluster": "isu_152_ammo_cluster_1_1"
@@ -213,7 +213,7 @@
     }
   },
   "isu_152_ammo_cluster_1_1": {
-    "_extends": "ammo_cluster",
+    "_use": "ammo_cluster",
     "ammo_cluster__isShell": true,
     "ammo_cluster__slotNames:shared:list<t>": [
       {
@@ -341,7 +341,7 @@
     ]
   },
   "isu_152_ammo_cluster_1_2": {
-    "_extends": "ammo_cluster",
+    "_use": "ammo_cluster",
     "ammo_cluster__isShell": false,
     "ammo_cluster__slotNames:shared:list<t>": [
       {

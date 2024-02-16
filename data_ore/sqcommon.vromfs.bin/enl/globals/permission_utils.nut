@@ -1,4 +1,3 @@
-from "frp" import *
 let decode_jwt = require("jwt").decode
 let {logerr} = require("dagor.debug")
 

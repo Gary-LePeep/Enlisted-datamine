@@ -1,9 +1,9 @@
 {
   "us_m2a4_pacific": {
-    "_extends": "us_m2a4_common"
+    "_use": "us_m2a4_common"
   },
   "us_m2a4_pacific_twitch_premium": {
-    "_extends": "us_m2a4_common",
+    "_use": "us_m2a4_common",
     "animchar__objTexReplace:object": {
       "us_camo_olive*": "us_camo_desert_pink_olive_drab_dark_earth*"
     },
@@ -85,13 +85,19 @@
   },
   "us_m2a4_common": [
     {
-      "_extends": "base_m2a4"
+      "_use": "base_m2a4"
     },
     {
-      "_extends": "tank_light_vehicle_tracks_sound"
+      "_use": "tank_light_vehicle_tracks_sound"
     },
     {
       "item__iconOffset": [0.0,0.0]
+    },
+    {
+      "commanderCockpitFpsCamMaxAngle": [40.0,5.0]
+    },
+    {
+      "gunner_cam_limit__useCockpitDir": true
     },
     {
       "vehicle_seats__seats:shared:array": [
@@ -203,7 +209,7 @@
     }
   ],
   "us_m2a4_driver_cockpit": {
-    "_extends": "base_driver_cockpit_no_slits",
+    "_use": "base_driver_cockpit_no_slits",
     "animchar__res": "bt_7_driver_char",
     "cockpit__offset": [0.848571,1.04145,0.397907],
     "cockpit__visibleVehicleNodeNames:list<t>": [],
@@ -222,10 +228,9 @@
     "cockpit__attachNodeIndices:list<i>": []
   },
   "us_m2a4_gunner_cockpit": {
-    "vehicle_sight__blk": "content/tanks/gamedata/sight/us_m70d.blk",
-    "_extends": "base_gunner_cockpit",
+    "_use": "base_gunner_cockpit",
     "animchar__res": "ba_11_gunner_char",
-    "cockpit__offset": [-0.595204,-0.0694052,0.233446],
+    "cockpit__offset": [-0.3,-0.0694052,0.233446],
     "cockpit__visibleVehicleNodeNames:list<t>": [
       {
         "node": "root"
@@ -238,7 +243,7 @@
       "slit": "cam_front_right"
     },
     "cockpit__slitForwardOffset:list<r>": {
-      "slit": 0.17
+      "slit": 0.21
     },
     "cockpit__slitIsGun:list<b>": {
       "slit": true
@@ -246,10 +251,27 @@
     "cockpit__attachNodeNames:list<t>": {
       "node": "bone_camera_gunner"
     },
-    "cockpit__attachNodeIndices:list<i>": []
+    "cockpit__attachNodeIndices:list<i>": [],
+    "cockpit__slitZoom:array": {
+      "slit:list<r>": [
+        {
+          "zoom": 1.9
+        },
+        {
+          "zoom": 3.5
+        }
+      ]
+    },
+    "cockpit__slitZoomTime:list<r>": {
+      "slit": 0.05
+    },
+    "cockpit__slitTemplates:list<t>": {
+      "slit": "us_m70d"
+    },
+    "cockpit__slitEids:list<eid>": []
   },
   "us_m2a4_commander_cockpit": {
-    "_extends": "base_commander_cockpit_no_slits",
+    "_use": "base_commander_cockpit_no_slits",
     "animchar__res": "pzkpfw_iii_b_commander_char",
     "cockpit__offset": [-0.18043,0.538962,0.188423],
     "cockpit__visibleVehicleNodeNames:list<t>": [
@@ -318,6 +340,38 @@
       },
       {
         "slit": false
+      }
+    ],
+    "cockpit__slitZoom:array": [
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
       }
     ],
     "cockpit__slitNodeNames:list<t>": [

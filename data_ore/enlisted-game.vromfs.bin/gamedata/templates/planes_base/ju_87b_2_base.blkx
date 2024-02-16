@@ -5,10 +5,10 @@
   },
   "ju_87b_2_wreckage": [
     {
-      "_extends": "base_ju_87b_2"
+      "_use": "base_ju_87b_2"
     },
     {
-      "_extends": "plane_wreckage"
+      "_use": "plane_wreckage"
     },
     {
       "plane_wreckage__nodeName": ""
@@ -19,13 +19,13 @@
   ],
   "ju_87b_2_base": [
     {
-      "_extends": "plane_with_cockpit"
+      "_use": "plane_with_cockpit"
     },
     {
-      "_extends": "plane_dive_siren"
+      "_use": "plane_dive_siren"
     },
     {
-      "_extends": "base_ju_87b_2"
+      "_use": "base_ju_87b_2"
     },
     {
       "collres__res": "ju_87b_2_collision"

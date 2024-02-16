@@ -5,7 +5,7 @@ require dm
 require vehicle
 require ecs
 require danetlibs.native_dasevents.main.native_events
-
+require strings
 
 def is_in_array(value : int; arr : ecs::IntList) : bool
   for item in arr
@@ -120,3 +120,72 @@ def vehicle_damage_part_events_es(evt : EventOnPartDamaged;
     dm_phys_parts__transmissionPartIds,
     dm_phys_parts__tracksPartIds,
     eid)
+
+def read_part_ids(damage_model : DamageModel; part_names : StringList; var part_ids : IntList&)
+  for part in part_names
+    peek(part) <| $(partName)
+      let partId = damage_model |> find_part_id_by_name(partName)
+      if partId >= 0 && damage_model.dmData.parts[partId].enabled
+        part_ids |> push(partId)
+
+def read_part_ids_starts_with(damage_model : DamageModel; prefix : string; var part_ids : IntList&)
+  assume partProps = damage_model.dmData.partProps
+  for id, partProp in iter_range(partProps), partProps
+    let partName = damagePart_getName(partProp)
+    if partName |> starts_with(prefix) && damage_model.dmData.parts[id].enabled
+      part_ids |> push(id)
+
+[es(tag=server, on_appear, after=dm_phys_parts_es)]
+def init_dm_phys_parts_engines(evt : Event;
+                               damage_model : DamageModel;
+                               dm_parts__engine : StringList;
+                               var dm_phys_parts__enginePartIds : IntList&)
+  read_part_ids(damage_model, dm_parts__engine, dm_phys_parts__enginePartIds)
+
+[es(tag=server, on_appear, after=dm_phys_parts_es)]
+def init_dm_phys_parts_transmission(evt : Event;
+                                    damage_model : DamageModel;
+                                    dm_parts__transmission : StringList;
+                                    var dm_phys_parts__transmissionPartIds : IntList&)
+  read_part_ids(damage_model, dm_parts__transmission, dm_phys_parts__transmissionPartIds)
+
+[es(tag=server, on_appear, after=dm_phys_parts_es)]
+def init_dm_phys_parts_tracks(evt : Event;
+                              damage_model : DamageModel;
+                              dm_parts__tracks : StringList;
+                              var dm_phys_parts__tracksPartIds : IntList&)
+  read_part_ids(damage_model, dm_parts__tracks, dm_phys_parts__tracksPartIds)
+
+[es(tag=server, on_appear, after=dm_phys_parts_es)]
+def init_dm_phys_parts_wheels(evt : Event;
+                              damage_model : DamageModel;
+                              dm_parts__wheels : StringList;
+                              var dm_phys_parts__wheelsPartIds : IntList&)
+  read_part_ids(damage_model, dm_parts__wheels, dm_phys_parts__wheelsPartIds)
+
+[es(tag=server, on_appear, after=dm_phys_parts_es)]
+def init_dm_phys_parts_ammo(evt : Event;
+                            damage_model : DamageModel;
+                            dm_parts__ammo : StringList;
+                            var dm_phys_parts__ammoPartIds : IntList&)
+  read_part_ids(damage_model, dm_parts__ammo, dm_phys_parts__ammoPartIds)
+
+[es(tag=server, on_appear, after=dm_phys_parts_es, REQUIRE_NOT=(dm_parts__tracks, dm_phys_parts__tracks))]
+def init_dm_phys_parts_tracks_by_prefix(evt : Event;
+                                        damage_model : DamageModel;
+                                        var dm_phys_parts__tracksPartIds : IntList&)
+  read_part_ids_starts_with(damage_model, "track_l", dm_phys_parts__tracksPartIds)
+  read_part_ids_starts_with(damage_model, "track_r", dm_phys_parts__tracksPartIds)
+
+[es(tag=server, on_appear, after=dm_phys_parts_es, REQUIRE_NOT=(dm_parts__wheels, dm_phys_parts__wheels))]
+def init_dm_phys_parts_wheels_by_prefix(evt : Event;
+                                        damage_model : DamageModel;
+                                        var dm_phys_parts__wheelsPartIds : IntList&)
+  read_part_ids_starts_with(damage_model, "wheel_l", dm_phys_parts__wheelsPartIds)
+  read_part_ids_starts_with(damage_model, "wheel_r", dm_phys_parts__wheelsPartIds)
+
+[es(tag=server, on_appear, after=dm_phys_parts_es, REQUIRE_NOT=(dm_parts__ammo, dm_phys_parts__ammo))]
+def init_dm_phys_parts_ammo_by_prefix(evt : Event;
+                                      damage_model : DamageModel;
+                                      var dm_phys_parts__ammoPartIds : IntList&)
+  read_part_ids_starts_with(damage_model, "ammo_", dm_phys_parts__ammoPartIds)

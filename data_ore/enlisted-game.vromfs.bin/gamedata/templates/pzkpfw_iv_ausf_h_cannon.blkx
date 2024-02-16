@@ -1,37 +1,34 @@
 {
   "pzkpfw_IV_ausf_H_turret": [
     {
-      "_extends": "base_cannon"
+      "_use": "base_cannon"
     },
     {
-      "_extends": "vehicle_fatal_explosion_external_fire"
+      "_use": "vehicle_fatal_explosion_external_fire"
     },
     {
-      "_extends": "tank_ammo_distribution_default"
+      "_use": "tank_ammo_distribution_default"
     },
     {
-      "_extends": "base_tank_seat_templates"
+      "_use": "base_tank_seat_templates"
     },
     {
-      "_extends": "turret_controls_hit_result_info"
+      "_use": "turret_controls_hit_result_info"
     },
     {
-      "_extends": "base_xray"
+      "_use": "base_xray"
     },
     {
-      "_extends": "killer_outline"
+      "_use": "killer_outline"
     },
     {
-      "_extends": "vehicle_enter_accessibility"
+      "_use": "vehicle_enter_accessibility"
     },
     {
-      "_extends": "vehicle_maintenance"
+      "_use": "vehicle_maintenance"
     },
     {
       "vehicle__brokenUsePrompt": "hud/train_turret_locked_needs_repair"
-    },
-    {
-      "hitmarks__showUserHits": false
     },
     {
       "killLogName": "Tank"
@@ -109,6 +106,9 @@
       "buildingRadius": 5.0
     },
     {
+      "buildingCenterOffset": [0.0,0.0,0.0]
+    },
+    {
       "fortification_repair__text": "hud/repair_turret"
     },
     {
@@ -142,10 +142,19 @@
       "vehicle__lockIfTurretBroken:tag": []
     },
     {
+      "hitmarks__groups:list<t>": []
+    },
+    {
+      "hitmarks__groupsIds:list<i>": []
+    },
+    {
       "engineer_building__isUsable:tag": []
     },
     {
       "fortification__canRepairDead:tag": []
+    },
+    {
+      "building__canRepairBroken:tag": []
     },
     {
       "buildByPlayer:eid": []
@@ -406,11 +415,6 @@
       "dm_phys_parts__ammoPartIds:list<i>": []
     },
     {
-      "dm_phys_parts__ammo:array": {
-        "ammo": "ammo_\\w+"
-      }
-    },
-    {
       "fatal_explosion_fx__fx:array": [
         {
           "fx:object": {
@@ -418,7 +422,7 @@
             "fx:array": [
               {
                 "fx:object": {
-                  "name": "tank_smoke_big_template",
+                  "name": "tank_smoke_medium_template",
                   "emitter": "emtr_smoke_dmg"
                 }
               },
@@ -520,7 +524,7 @@
               },
               {
                 "fx:object": {
-                  "name": "tank_fire_big_template",
+                  "name": "tank_fire_medium_template",
                   "emitter": "emtr_fire_dmg"
                 }
               },
@@ -1181,7 +1185,7 @@
     }
   ],
   "pzkpfw_iv_ausf_h_turret_turret_01_75mm_kwk40_l48_1": {
-    "_extends": "pzkpfw_iv_ausf_h_turret_01_75mm_kwk40_l48",
+    "_use": "pzkpfw_iv_ausf_h_turret_01_75mm_kwk40_l48",
     "gun__shellsAmmo:array": [
       {
         "ammo": 2000
@@ -1204,7 +1208,7 @@
     ]
   },
   "pzkpfw_iv_ausf_h_turret_turret_02_7_92mm_mg34": {
-    "_extends": "pzkpfw_iv_ausf_h_turret_02_7_92mm_mg34",
+    "_use": "pzkpfw_iv_ausf_h_turret_02_7_92mm_mg34",
     "gun__shellsAmmo:array": [
       {
         "ammo": 15000

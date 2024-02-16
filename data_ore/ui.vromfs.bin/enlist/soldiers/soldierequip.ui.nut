@@ -1,33 +1,34 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
-let { blinkUnseenIcon } = require("%ui/components/unseenSignal.nut")
-let spinner = require("%ui/components/spinner.nut")({ height = hdpx(50) })
-let { Flat } = require("%ui/components/textButton.nut")
-let { smallPadding, bigPadding, soldierWndWidth, unitSize, msgHighlightedTxtColor, slotBaseSize
-} = require("%enlSqGlob/ui/viewConst.nut")
-let { note } = require("%enlSqGlob/ui/defcomps.nut")
-let { curArmy, objInfoByGuid, getSoldierItemSlots } = require("model/state.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
+let spinner = require("%ui/components/spinner.nut")
+let { Bordered } = require("%ui/components/txtButton.nut")
+let { smallPadding, bigPadding, defTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
+let {
+  commonBorderRadius, disabledBgColor, leftAppearanceAnim, defItemBlur, fullTransparentBgColor
+} = require("%enlSqGlob/ui/designConst.nut")
+let { curArmy, objInfoByGuid, squadsByArmy, canChangeEquipmentInSlot
+} = require("model/state.nut")
 let { classSlotLocksByArmy } = require("%enlist/researches/researchesSummary.nut")
-let { equipGroups, slotTypeToEquipGroup } = require("model/config/equipGroups.nut")
-let { openSelectItem, getPossibleUnequipList, getAlternativeEquipList, getBetterItem,
-  getWorseItem, getPossibleEquipList
-} = require("model/selectItemState.nut")
-let { curUnseenAvailableUpgrades, isUpgradeUsed } = require("model/unseenUpgrades.nut")
+let { equipSlotRows } = require("model/config/equipGroups.nut")
+let { openSelectItem } = require("model/selectItemState.nut")
 let mkItemWithMods = require("mkItemWithMods.nut")
 let soldierSlotsCount = require("model/soldierSlotsCount.nut")
 let { getLinkedArmyName, getLinkedSquadGuid } = require("%enlSqGlob/ui/metalink.nut")
 let { unseenSoldiersWeaponry } = require("model/unseenWeaponry.nut")
-let { equipByList, isItemActionInProgress } = require("model/itemActions.nut")
-let { reserveSoldiers } = require("model/chooseSoldiersState.nut")
 let { campItemsByLink } = require("%enlist/meta/profile.nut")
-let { textMargin } = require("%ui/components/textButton.style.nut")
 let { getErrorSlots } = require("%enlSqGlob/ui/itemsInfo.nut")
+let { isItemActionInProgress } = require("model/itemActions.nut")
+let { getItemSlotsWithPreset } = require("%enlist/preset/presetEquipUtils.nut")
+let { togglePresetEquipBlock, previewPreset } = require("%enlist/preset/presetEquipUi.nut")
+let { goodManageData } = require("%enlist/shop/armyShopState.nut")
+let { manageBlinkingObject } = require("%enlSqGlob/ui/blinkingIcon.nut")
 
 
-const opacityForDisabledItems = 0.3
-const MAX_ITEMS_IN_ROW = 4
-const MAX_SLOT_TYPES_IN_ROW = 3
+//const opacityForDisabledItems = 0.3
+//const MAX_ITEMS_IN_ROW = 4
+//const MAX_SLOT_TYPES_IN_ROW = 3
+let waitingSpinner = spinner(hdpx(25))
 
 let function openEquipMenu(p /*onClick params from mkItem*/) {
   openSelectItem({
@@ -38,13 +39,8 @@ let function openEquipMenu(p /*onClick params from mkItem*/) {
   })
 }
 
-let mkItem = function(params) {
-  return mkItemWithMods((params ?? {}).__merge({
-    onClickCb = openEquipMenu
-  }))
-}
-
-let soldierWndInnerWidth = soldierWndWidth - 2 * bigPadding
+let mkItem = @(params) mkItemWithMods(params)
+  .__merge({ size = [flex(), params.itemSize[1]] })
 
 let function collectSlots(slotType, totalSlots, slotsItems, soldierGuid) {
   let soldierData = objInfoByGuid.value?[soldierGuid]
@@ -55,7 +51,8 @@ let function collectSlots(slotType, totalSlots, slotsItems, soldierGuid) {
     isAvailable = (classSlotLocksByArmy.value?[armyId][sClass] ?? []).indexof(slotType) == null
   }
 
-  let emptySlot = { item = null, slotType = slotType, slotId = -1, isLocked = !isAvailable }
+  let emptySlot = { item = null, slotType = slotType, slotId = -1, isLocked = !isAvailable,
+    canDrag = true }
   let slots = slotsItems.filter(@(s) s.slotType == slotType)
     .map(@(s) emptySlot.__merge(s))
   if (totalSlots <= 0)
@@ -68,178 +65,240 @@ let function collectSlots(slotType, totalSlots, slotsItems, soldierGuid) {
     : emptySlot.__merge({ slotId = slotId, isLocked = true }))
 }
 
-let mkItemsBlock = kwarg(function(
-  soldierGuid, canManage, slots = [], itemCtor = mkItem, numInRow = MAX_ITEMS_IN_ROW,
-  gap = smallPadding
+let lockIconSize = hdpxi(32)
+let lockObjSize = hdpx(50)
+
+let mkLockedBlock = @(color) {
+  rendObj = ROBJ_WORLD_BLUR
+  size = flex()
+  fillColor = color
+  color = defItemBlur
+  halign = ALIGN_CENTER
+  valign = ALIGN_CENTER
+  children = [
+    {
+      size = flex()
+      rendObj = ROBJ_VECTOR_CANVAS
+      lineWidth = hdpx(2)
+      color = fullTransparentBgColor
+      opacity = 0.05
+      commands = [[ VECTOR_LINE, 0, 0, 100, 100 ], [ VECTOR_LINE, 0, 100, 100, 0 ]]
+    }
+    {
+      size = [lockObjSize, lockObjSize]
+      rendObj = ROBJ_VECTOR_CANVAS
+      commands = [[ VECTOR_ELLIPSE, 50, 50, 50, 50 ]]
+      fillColor = color
+      color
+    }
+    {
+      rendObj = ROBJ_IMAGE
+      size = array(2, lockIconSize)
+      image = Picture($"ui/skin#locked_icon.svg:{lockIconSize}:{lockIconSize}:K")
+      color = fullTransparentBgColor
+      opacity = 0.05
+    }
+  ]
+}
+
+
+let mkDisabledSlot = @(slotSize) {
+  size = slotSize
+  rendObj = ROBJ_BOX
+  fillColor = disabledBgColor
+  borderRadius = commonBorderRadius
+  children = mkLockedBlock(disabledBgColor)
+}
+
+let mkParatrooperSlot = @(slotSize, headerText) {
+  flow = FLOW_VERTICAL
+  children = [
+    headerText == "" ? null
+      : {
+          size = [flex(), SIZE_TO_CONTENT]
+          children = {
+            rendObj = ROBJ_TEXT
+            text = headerText
+          }.__update(fontSub)
+        }
+    {
+      size = slotSize
+      rendObj = ROBJ_BOX
+      fillColor = 0x40052060
+      borderRadius = commonBorderRadius
+
+      children = {
+        rendObj = ROBJ_TEXT
+        text = loc("slot/equipInBattle")
+        margin = smallPadding
+        color = defTxtColor
+        vplace = ALIGN_BOTTOM
+        hplace = ALIGN_LEFT
+        opacity = 0.5
+      }.__update(fontSub)
+    }
+  ]
+}
+
+
+let function mkSlot(rowIdx, slotData, guid) {
+  let { slotSize, slotCtor = null, scheme = null } = slotData
+  let key = $"slot_{guid}_{rowIdx}"
+
+  if (slotData?.isParatrooperSlot)
+    return mkParatrooperSlot(slotSize, loc(slotData.headerLocId))
+      .__update({ key }, leftAppearanceAnim(0.05 * rowIdx))
+  if (scheme == null || slotCtor == null)
+    return mkDisabledSlot(slotSize).__update({ key }, leftAppearanceAnim(0.05 * rowIdx))
+
+  return slotCtor(slotData)
+    .__update(leftAppearanceAnim(0.05 * rowIdx), { key } )
+}
+
+
+let function mkSlotsList(slotData, soldier, canManage, slotsCount, slotsItems,
+  maxSlotIndex, slotCtor, objectsByGuid
 ) {
-  let itemsNum = min(slots.len(), numInRow)
-  if (itemsNum == 0)
-    return null
+  let { slotType, slotSize, slotImg, hasName = false, headerLocId = "" } = slotData
 
-  let itemWidth = (soldierWndInnerWidth - gap * (itemsNum - 1)) / itemsNum
-  let itemSize = [itemWidth, min(itemWidth, unitSize * 2)]
-  return wrap(
-    slots.map(@(slot) itemCtor(
-      slot.__merge({
-        soldierGuid = soldierGuid
-        itemSize = itemSize
-        isInteractive = canManage
-        hasUnseenSign = slot.isUnseen
-        hasWarningSign = slot.hasWarning
-        canDrag = true
-      }))),
-    { width = soldierWndInnerWidth, hGap = gap, vGap = gap, hplace = ALIGN_CENTER }
-  )
-})
+  let { equipScheme = {}, guid, sClass } = soldier
+
+  let availableType = slotType in equipScheme
+    ? slotType
+    : equipScheme.findindex(@(v) v?.ingameWeaponSlot == slotType)
+
+  if (availableType == null)
+    return []
+
+  let errorSlotTypes = getErrorSlots(slotsItems, equipScheme)
+
+  let curSlotsCount = slotsCount.value?[availableType] ?? 0
+  let scheme = equipScheme?[availableType]
+  let { isDisabled = false } = scheme
+  let hasWarning = errorSlotTypes?[availableType] ?? false
+
+  let needShowUnseenIcon = canChangeEquipmentInSlot(sClass, availableType)
+
+  local isParatrooperSlot = false
+  if (slotType == "secondary") {
+    let squadGuid = getLinkedSquadGuid(soldier)
+    let soldierSquad = squadsByArmy.value?[curArmy.value].findvalue(@(v) v.guid == squadGuid)
+    isParatrooperSlot = soldierSquad?.isParatroopers ?? false
+  }
+
+  let slotsList = collectSlots(availableType, max(curSlotsCount, maxSlotIndex), slotsItems, guid)
+  slotsList.each(function(s) {
+    let item = objectsByGuid?[s.item?.guid] ?? s.item
+    s.__update({
+      item, scheme, isDisabled, hasWarning, canManage, soldierGuid = guid,
+      slotSize, slotCtor, hasName, headerLocId, slotImg, isParatrooperSlot
+      itemSize = slotSize
+      isLocked = s.isLocked || s.slotId >= curSlotsCount
+    })
+    if (needShowUnseenIcon) {
+      s.hasUnseenSign <- Computed(@() unseenSoldiersWeaponry.value?[guid][availableType] ?? false)
+    }
+  })
+  return slotsList
+}
 
 
+let mkEquipRow = @(equipRow, rowIdx, soldier, canManage, slotsCount, slotsItems,
+    slotCtor, manageSlotType)
+  function() {
+    let slotsList = []
+    let { guid } = soldier
 
-let mkItemsChapter = kwarg(function mkItemsChapterImpl(
-  equipGroup, soldier, canManage, slotsCount, itemCtor = mkItem
-) {
-  let header = "locId" in equipGroup ? note(loc(equipGroup.locId)) : null
-  let { equipScheme = {} } = soldier
-  let groupSchemes = equipScheme
-    .filter(@(_, slotType) slotTypeToEquipGroup?[slotType] == equipGroup)
-    .map(@(scheme, slotType) scheme.__merge({ slotType }))
-    .values()
-  if (groupSchemes.len() == 0)
-    return null
-
-  groupSchemes.sort(@(a, b) (a?.uiOrder ?? 0) <=> (b?.uiOrder ?? 0))
-  let soldierGuid = soldier.guid
-
-  return function() {
-    let slotsItems = getSoldierItemSlots(soldierGuid, campItemsByLink.value)
-    let errorSlotTypes = getErrorSlots(slotsItems, equipScheme)
-
-    let rowsData = []
-    local lastRow = null
-    foreach (scheme in groupSchemes) {
-      let { slotType, isPrimary = false, isDisabled = false } = scheme
-      let currentSlotsCount = slotsCount.value?[slotType] ?? 0
-      let slotsList = collectSlots(slotType, currentSlotsCount, slotsItems, soldierGuid)
-      slotsList.each(@(s) s.__update({
-        item = objInfoByGuid.value?[s.item?.guid]
-        scheme = scheme
-        hasWarning = errorSlotTypes?[slotType] ?? false
-        isDisabled = isDisabled
-        isUnseen = Computed(function() {
-          let hasUnseenUpgradesMark = s?.item.basetpl in curUnseenAvailableUpgrades.value
-            && !(isUpgradeUsed.value ?? false)
-          return hasUnseenUpgradesMark
-            || (unseenSoldiersWeaponry.value?[soldierGuid][slotType] ?? false)
-        })
-      }))
-
-      if (!isPrimary && lastRow != null
-        && lastRow.slots.len() < (equipGroup?.maxSlotTypesInRow ?? MAX_SLOT_TYPES_IN_ROW)) {
-        lastRow.slots.extend(slotsList)
-        continue
+    foreach (slotData in equipRow) {
+      if ("slotType" in slotData)
+        slotsList.extend(
+          mkSlotsList(slotData, soldier, canManage, slotsCount, slotsItems, 0,
+            slotCtor, objInfoByGuid.value)
+        )
+      else {
+        let { unitedSlots = [], slots = 1 } = slotData
+        foreach (sData in unitedSlots) {
+          slotsList.extend(
+            mkSlotsList(sData, soldier, canManage, slotsCount, slotsItems, slots,
+              slotCtor, objInfoByGuid.value)
+          )
+        }
       }
-
-      rowsData.append({
-        slots = slotsList
-        soldierGuid
-        canManage
-        itemCtor
-        numInRow = isPrimary ? 1 : (equipGroup?.maxSlotInRow ?? MAX_ITEMS_IN_ROW)
-      })
-      lastRow = isPrimary ? null : rowsData.top()
     }
 
     return {
-      watch = [slotsCount, objInfoByGuid, campItemsByLink]
-      size = [soldierWndInnerWidth, SIZE_TO_CONTENT]
-      flow = FLOW_VERTICAL
-      gap = smallPadding
-      children = [ header ]
-        .extend(rowsData.map(@(s) mkItemsBlock(s)))
-    }
-  }
-})
-
-let unequipUnseenIcon = blinkUnseenIcon(0.9, msgHighlightedTxtColor, "th-large")
-
-let mkEquipBtn = @(soldier, objInfoByGuidWatched, reserveSoldiersWatch)
-  function() {
-    let res = {
-      watch = [objInfoByGuidWatched, isItemActionInProgress, reserveSoldiersWatch]
-    }
-    let sGuid = soldier.guid
-    let isInReserve = reserveSoldiersWatch.value.findindex(@(s) s.guid == sGuid) != null
-    local changeEquipList = []
-    local btnTextLocId = ""
-    local unequipIcon = null
-    if (isInReserve) {
-      btnTextLocId = "removeAllEquipment"
-      unequipIcon = unequipUnseenIcon
-      let toRemoveEquipList = getPossibleUnequipList(sGuid)
-      changeEquipList = getAlternativeEquipList(soldier, getWorseItem, toRemoveEquipList)
-        .extend(toRemoveEquipList)
-    }
-    else if (getLinkedSquadGuid(soldier) != null) {
-      btnTextLocId = "autoEquip"
-      let toAddEquipList = getPossibleEquipList(soldier)
-      changeEquipList = getAlternativeEquipList(soldier, getBetterItem)
-        .extend(toAddEquipList)
-    }
-
-    if (changeEquipList.len() == 0)
-      return res
-
-    return res.__update({
       size = [flex(), SIZE_TO_CONTENT]
-      halign = ALIGN_CENTER
-      children = isItemActionInProgress.value
-        ? spinner
-        : {
-            size = [flex(), SIZE_TO_CONTENT]
-            halign = ALIGN_CENTER
-            children = Flat(loc(btnTextLocId),
-              @() equipByList(sGuid, changeEquipList),
-              {
-                margin = 0
-                flow = FLOW_HORIZONTAL
-                fgChild = unequipIcon
-                minWidth = slotBaseSize[0]
-                textParams = {
-                  margin = [textMargin[0], hdpx(10), textMargin[0], textMargin[1]]
-                }.__update(sub_txt)
-              })
-          }
-    })
+      flow = FLOW_HORIZONTAL
+      gap = bigPadding
+      valign = ALIGN_BOTTOM
+      watch = [objInfoByGuid, campItemsByLink, previewPreset]
+      children = slotsList.map(function(slot) {
+        let hasManageBlink = slot?.slotType == manageSlotType
+        return {
+          size = [flex(), SIZE_TO_CONTENT]
+          children = [
+            mkSlot(rowIdx, slot, guid)
+            hasManageBlink ? manageBlinkingObject : null
+          ]
+        }
+      })
+    }
   }
+
+let mkEquipPresetBtn = @() {
+  watch = isItemActionInProgress
+  size = [flex(), SIZE_TO_CONTENT]
+  halign = ALIGN_CENTER
+  children = isItemActionInProgress.value
+    ? waitingSpinner
+    : Bordered(loc("preset/equip/open"), togglePresetEquipBlock, {
+        btnWidth = flex()
+      })
+}
 
 let soldierEquip = @(soldier, canManage = true, selectedKeyWatch = Watched(null),
   onDoubleClickCb = null, onResearchClickCb = null, dropExceptionCb = null
 ) function() {
     let itemCtor = @(p) mkItem(p.__merge({
+      onClickCb = openEquipMenu
       selectedKey = selectedKeyWatch
       onDoubleClickCb = onDoubleClickCb
       onDropExceptionCb = dropExceptionCb
       onResearchClickCb = onResearchClickCb
     }))
 
-    let sGuid = soldier.value.guid
-    let groupParams = {
-      soldier = soldier.value
-      canManage
-      itemCtor
-      slotsCount = soldierSlotsCount(sGuid, soldier.value?.equipScheme ?? {})
-    }
+    let slotsCount = soldierSlotsCount(soldier.value.guid,
+      soldier.value?.equipScheme ?? {}, previewPreset.value?.slotsIncrease)
 
-    let children = equipGroups.map(@(equipGroup)
-      mkItemsChapter(groupParams.__merge({ equipGroup })))
+    let slotsItems = getItemSlotsWithPreset(soldier.value,
+      campItemsByLink.value, previewPreset.value)
 
-    children.append(mkEquipBtn(soldier.value, objInfoByGuid, reserveSoldiers))
-
-    return {
-      watch = soldier
+    let { manageSlotType = null } = goodManageData.value
+    local rowIdx = 0
+    let children = equipSlotRows.map(@(slotGroup) {
       flow = FLOW_VERTICAL
       gap = bigPadding
-      size = SIZE_TO_CONTENT
-      children = children
+      size = [flex(), SIZE_TO_CONTENT]
+      children = slotGroup.map(@(equipRow)
+        mkEquipRow(equipRow, rowIdx++, soldier.value, canManage,
+          slotsCount, slotsItems, itemCtor, manageSlotType))
+    })
+
+    children.append(mkEquipPresetBtn)
+
+    return {
+      watch = [soldier, previewPreset, goodManageData]
+      flow = FLOW_VERTICAL
+      size = flex()
+      gap = bigPadding
+      children = [
+        {
+          size = flex()
+          gap = bigPadding * 2
+          flow = FLOW_VERTICAL
+          children
+        }
+      ]
     }
 }
 

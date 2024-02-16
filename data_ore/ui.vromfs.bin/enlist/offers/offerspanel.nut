@@ -1,39 +1,56 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { fontLarge, fontSmall } = require("%enlSqGlob/ui/fontsStyle.nut")
+let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
+let shopItemClick = require("%enlist/shop/shopItemClick.nut")
+let isChineseVersion = require("%enlSqGlob/isChineseVersion.nut")
+let { fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { utf8ToUpper } = require("%sqstd/string.nut")
 let { doesLocTextExist } = require("dagor.localize")
-let { hasSpecialEvent, eventsAvailable, allActiveOffers } = require("offersState.nut")
-let { taskSlotPadding } = require("%enlSqGlob/ui/taskPkg.nut")
+let { eventsData, eventsKeysSorted, allActiveOffers } = require("offersState.nut")
+let { taskSlotPadding } = require("%enlSqGlob/ui/tasksPkg.nut")
 let offersWindow = require("offersWindow.nut")
 let mkCountdownTimer = require("%enlSqGlob/ui/mkCountdownTimer.nut")
 let offersPromoWndOpen = require("offersPromoWindow.nut")
-let { titleTxtColor, defTxtColor, colPart, startBtnWidth, defVertGradientImg, hoverVertGradientImg,
-  accentColor, bigPadding, transpPanelBgColor, miniPadding, midPadding, darkTxtColor
+let { defTxtColor, startBtnWidth, accentColor, bigPadding, miniPadding, midPadding, darkTxtColor,
+  smallPadding, defItemBlur, transpPanelBgColor, transpBgColor, highlightLineTop, highlightLineHgt,
+  hoverSlotBgColor, mkTimerIcon, brightAccentColor
 } = require("%enlSqGlob/ui/designConst.nut")
-let { hasBaseEvent, openEventModes, promotedEvent, eventStartTime, timeUntilStart
+let { hasBaseEvent, openEventModes, promotedEvent, eventStartTime
 } = require("%enlist/gameModes/eventModesState.nut")
-let { needFreemiumStatus, campPresentation
+let { needFreemiumStatus, campPresentation, isCampaignBought
 } = require("%enlist/campaigns/campaignConfig.nut")
 let freemiumWnd = require("%enlist/currency/freemiumWnd.nut")
 let { sendBigQueryUIEvent } = require("%enlist/bigQueryEvents.nut")
 let { mkDiscountWidget } = require("%enlist/shop/currencyComp.nut")
 let { eventForcedUrl } = require("%enlist/unlocks/eventsTaskState.nut")
-let openUrl = require("%ui/components/openUrl.nut")
+let { openUrl } = require("%ui/components/openUrl.nut")
 let premiumWnd = require("%enlist/currency/premiumWnd.nut")
-let faComp = require("%ui/components/faComp.nut")
 let { curCampaignLocId } = require("%enlist/meta/curCampaign.nut")
+let { curArmy, armySquadsById, armyItemCountByTpl } = require("%enlist/soldiers/model/state.nut")
+let { purchasesCount } = require("%enlist/meta/profile.nut")
+let { hasClientPermission } = require("%enlSqGlob/client_user_rights.nut")
+let { shopItems } = require("%enlist/shop/shopItems.nut")
+let { mkShopState, isTemporaryVisible } = require("%enlist/shop/shopState.nut")
+let { isShopItemAvailable } = require("%enlist/shop/armyShopState.nut")
 
 
-let defSmallTxtStyle = { color = defTxtColor }.__update(fontSmall)
-let smallDiscountTxtStyle = { color = darkTxtColor }.__update(fontSmall)
-let headerTxtStyle = @(sf) { color = sf & S_HOVER ?  titleTxtColor : defTxtColor }
-  .__update(fontLarge)
-let smallWidgetHeight = colPart(1.29)
-let largeWidgetHeight = colPart(4.29)
-let largeWidgetInfoHeight = colPart(1.35)
+const MAX_WIDGETS = 4
+const DUR = 0.15
+
+let defSmallTxtStyle = { color = defTxtColor }.__update(fontSub)
+let smallDiscountTxtStyle = { color = darkTxtColor }.__update(fontSub)
+let headerTxtStyle = @(sf) { color = sf & S_HOVER ?  darkTxtColor : defTxtColor }
+  .__update(fontBody)
+let smallWidgetHeight = hdpx(72) + highlightLineHgt
+let largeWidgetHeight = hdpx(248)
+let widgetHeightDif = largeWidgetHeight - smallWidgetHeight
+let largeWidgetInfoHeight = hdpxi(76)
 let largeWidgetImgheight = largeWidgetHeight - largeWidgetInfoHeight
+let smallImgWidth = hdpxi(148)
+
 let curLargeWidgetIdx = Watched(0)
+local oldLargeWidgetIdx = 0
+let timerSize = defSmallTxtStyle.fontSize
 
 
 enum WidgetType {
@@ -42,6 +59,7 @@ enum WidgetType {
   EVENT_BASE
   EVENT_SPECIAL
   URL
+  FEATURED
 }
 
 let customOfferActions = {
@@ -55,8 +73,12 @@ const defExtUrlImg = "ui/normandy_village_04.avif"
 local offers = 1
 let switchTime = Watched(SWITCH_SEC)
 let displayedOffers = {}
-let goToNextOffer = @() curLargeWidgetIdx((curLargeWidgetIdx.value + 1) % offers)
+let goToNextOffer = function() {
+  oldLargeWidgetIdx = curLargeWidgetIdx.value
+  curLargeWidgetIdx((curLargeWidgetIdx.value + 1) % offers)
+}
 
+let isDebugShowPermission = hasClientPermission("debug_shop_show")
 
 let function startSwitchTimer(_ = null) {
   anim_skip(curLargeWidgetIdx.value)
@@ -68,142 +90,175 @@ let function startSwitchTimer(_ = null) {
 }
 
 
-let mkOfferImage = @(img) {
-  size = [flex(), largeWidgetImgheight]
-  key = $"offer_{img}"
+let anims = freeze([
+  { prop = AnimProp.scale, from = [0.301, 1], to = [1, 1], duration = DUR, play = true }
+])
+
+let mkOfferImage = @(image, imgVertAlign) freeze({
+  size = flex()
+  key = image
   rendObj = ROBJ_IMAGE
-  image = Picture(img)
+  image = Picture(image)
   keepAspect = KEEP_ASPECT_FILL
-  imageHalign = ALIGN_RIGHT
+  imageHalign = ALIGN_CENTER
+  imageValign = imgVertAlign
+  transform = { pivot = [0, 0] }
+  animations = anims
+})
+
+let mkSmallImage = @(image, imgVertAlign) {
+  size = [smallImgWidth, smallWidgetHeight - highlightLineHgt]
+  rendObj = ROBJ_IMAGE
+  image = Picture(image)
+  keepAspect = KEEP_ASPECT_FILL
+  imageHalign = ALIGN_CENTER
+  imageValign = imgVertAlign
 }
 
 let discountIconStyle = {
-  size = [colPart(1.23), colPart(0.62)]
+  size = [hdpx(76), hdpx(38)]
   hplace = ALIGN_LEFT
   vplace = ALIGN_CENTER
 }
 
 
 let smallDiscountIconStyle = {
-  size = [colPart(0.8), colPart(0.4)]
+  size = [hdpx(50), hdpx(24)]
   vplace = ALIGN_BOTTOM
   hplace = ALIGN_LEFT
-  pos = [-colPart(2.4), 0]
+  pos = [-smallImgWidth, 0]
   textStyle = smallDiscountTxtStyle
 }
 
 
 let timerStyle = {
-  rendObj = ROBJ_BOX
+  rendObj = ROBJ_WORLD_BLUR_PANEL
+  fillColor = transpBgColor
+  color = defItemBlur
   hplace = ALIGN_RIGHT
   vplace = ALIGN_TOP
-  valign = ALIGN_TOP
   padding = taskSlotPadding
-  fillColor = transpPanelBgColor
 }
 
 let mkInfo = @(nameTxt, sf, override = {}) {
-  rendObj = ROBJ_IMAGE
-  image = sf & S_HOVER ? hoverVertGradientImg : defVertGradientImg
   size = [flex(), largeWidgetInfoHeight]
-  padding = bigPadding
   vplace = ALIGN_BOTTOM
   valign = ALIGN_CENTER
-  children = {
-    size = [flex(), SIZE_TO_CONTENT]
-    rendObj = ROBJ_TEXTAREA
-    behavior = Behaviors.TextArea
-    text = nameTxt
-  }.__update(headerTxtStyle(sf))
+  children = [
+    highlightLineTop
+    {
+      size = [flex(), SIZE_TO_CONTENT]
+      rendObj = ROBJ_TEXTAREA
+      behavior = Behaviors.TextArea
+      margin = bigPadding
+      text = nameTxt
+    }.__update(headerTxtStyle(sf))
+  ]
 }.__update(override)
 
 
-let smallTimer = @(timestamp) timestamp <= 0 ? null : faComp("clock-o", {
-  fontSize = defSmallTxtStyle.fontSize
-  color = accentColor
-  padding = miniPadding
+let timer = mkTimerIcon(timerSize, {
+  color = brightAccentColor
+  margin = [miniPadding, smallPadding]
   hplace = ALIGN_RIGHT
 })
 
 
-let mkSmallInfo = @(nameTxt) {
-  rendObj = ROBJ_IMAGE
-  image = defVertGradientImg
+let smallTimer = @(timestamp) timestamp <= 0 ? null : timer
+
+let mkSmallInfo = @(nameTxt, override = {}) {
+  rendObj = ROBJ_WORLD_BLUR
   size = flex()
-  padding = midPadding
+  fillColor = transpPanelBgColor
+  color = defItemBlur
   children = {
     size = [flex(), SIZE_TO_CONTENT]
     rendObj = ROBJ_TEXTAREA
     behavior = Behaviors.TextArea
     vplace = ALIGN_CENTER
+    margin = midPadding
     text = nameTxt
   }.__update(defSmallTxtStyle)
-}
+}.__update(override)
 
 
-let function mkSmallOfferInfo(offer) {
-  let { endTime = 0, widgetTxt = "", discountInPercent = 0, shopItemGuid = "" } = offer
-  if (shopItemGuid not in displayedOffers) {
-    displayedOffers[shopItemGuid] <- true
+let function mkSmallOfferInfo(endTime, txt, discount, guid, anim) {
+  if (guid not in displayedOffers) {
+    displayedOffers[guid] <- true
     sendBigQueryUIEvent("display_offer", null, {
-      shopItem = shopItemGuid
-      discountInPercent
+      shopItem = guid
+      discountInPercent = discount
     })
   }
 
   return {
-    rendObj = ROBJ_SOLID
-    color = 0xAAAA0000
+    rendObj = ROBJ_WORLD_BLUR
+    color = defItemBlur
+    fillColor = transpPanelBgColor
     size = flex()
     children = [
-      mkSmallInfo(widgetTxt)
-      mkDiscountWidget(discountInPercent, smallDiscountIconStyle)
+      mkSmallInfo(txt)
+      mkDiscountWidget(discount, smallDiscountIconStyle)
       smallTimer(endTime)
     ]
-  }
+  }.__update(anim)
 }
 
 
-let function mkOfferInfo(offer, sf) {
-  let { endTime = 0, widgetTxt = "", discountInPercent = 0, shopItemGuid = "" } = offer
-  let timerObject = mkCountdownTimer({
-    timestamp = endTime
-    override = timerStyle
-  })
+let function mkOfferInfo(endTime, txt, discount, guid, sf, anim) {
+  let timerObject = endTime <= 0 ? null
+    : {
+      pos = [0, -widgetHeightDif]
+      hplace = ALIGN_RIGHT
+      children = mkCountdownTimer({
+        timestamp = endTime
+        override = timerStyle
+        color = accentColor
+      })
+    }
 
-  if (shopItemGuid not in displayedOffers) {
-    displayedOffers[shopItemGuid] <- true
+  if (guid not in displayedOffers) {
+    displayedOffers[guid] <- true
     sendBigQueryUIEvent("display_offer", null, {
-      shopItem = shopItemGuid
-      discountInPercent
+      shopItem = guid
+      discountInPercent = discount
     })
   }
 
   return {
     size = flex()
     children = [
-      mkInfo(widgetTxt, sf)
-      mkDiscountWidget(discountInPercent, discountIconStyle)
+      mkInfo(txt, sf)
+      mkDiscountWidget(discount, { pos = [0, -hdpx(76)] }.__update(discountIconStyle))
       timerObject
     ]
-  }
+  }.__update(anim)
 }
 
 let timeBeforeEvent = @(timestamp) timestamp <= 0 ? null : mkCountdownTimer({
   timestamp = timestamp
   override = timerStyle
   prefixLocId = loc("events/comingIn")
-  prefixColor = accentColor
+  prefixColor = brightAccentColor
   expiredLocId = ""
+})
+
+
+let contentAnim = freeze({
+  animations = [
+    freeze({ prop = AnimProp.opacity, from = 0, to = 0, duration = DUR / 1.5, play = true })
+    freeze({ prop = AnimProp.opacity, from = 0, to = 1, delay = DUR / 1.5, duration = DUR / 1.5, play = true })
+  ]
 })
 
 
 let widgetData = freeze({
   [WidgetType.FREEMIUM] = {
-    ctor = @(campaignId, isSmall = false) function(sf) {
-      let infoContent = (sf & S_HOVER) != 0 || !isSmall
-        ? mkInfo(loc("freemium/title/full", { name = utf8ToUpper(loc(campaignId)) }), sf)
-        : mkSmallInfo(loc("freemium/title/full", { name = utf8ToUpper(loc(campaignId)) }))
+    ctor = @(campaignId, isSmall = false, hasAnim = true) function(sf) {
+      let anim = hasAnim ? contentAnim : {}
+      let infoContent = (sf & S_HOVER) || !isSmall
+        ? mkInfo(loc("freemium/title/full", { name = utf8ToUpper(loc(campaignId)) }), sf, anim)
+        : mkSmallInfo(loc("freemium/title/full", { name = utf8ToUpper(loc(campaignId)) }), anim)
       return {
         size = flex()
         flow = FLOW_VERTICAL
@@ -215,10 +270,12 @@ let widgetData = freeze({
   },
 
   [WidgetType.OFFER] = {
-    ctor = @(specOffer, isSmall = false) function(sf) {
+    ctor = @(specOffer, isSmall = false, hasAnim = true) function(sf) {
+      let { endTime = 0, widgetTxt = "", discountInPercent = 0, shopItemGuid = "" } = specOffer
+      let anim = hasAnim ? contentAnim : {}
       let infoContent = (sf & S_HOVER) != 0 || !isSmall
-        ? mkOfferInfo(specOffer, sf)
-        : mkSmallOfferInfo(specOffer)
+        ? mkOfferInfo(endTime, widgetTxt, discountInPercent, shopItemGuid, sf, anim)
+        : mkSmallOfferInfo(endTime, widgetTxt, discountInPercent, shopItemGuid, anim)
       return infoContent
     }
     onClick = function(specOffer) {
@@ -232,132 +289,347 @@ let widgetData = freeze({
     }
   },
 
-  [WidgetType.EVENT_BASE] = {
-    ctor = @(eventData, isSmall = false) function(sf) {
+  [WidgetType.FEATURED] = {
+    ctor = @(sItem, isSmall = false, hasAnim = true) function(sf) {
+      let {
+        isHidden = false, showIntervalTs = [], menuFeaturedIntervalTs = [],
+        nameLocId = "", discountInPercent = 0, guid = ""
+      } = sItem
+      let endTime = !isHidden ? 0
+        : max((showIntervalTs?[1] ?? 0), (menuFeaturedIntervalTs?[1] ?? 0))
+      let txt = loc(nameLocId)
+      let anim = hasAnim ? contentAnim : {}
       let infoContent = (sf & S_HOVER) != 0 || !isSmall
-        ? mkInfo(eventData.text, sf)
-        : mkSmallInfo(eventData.text)
-      let timerCtor = (sf & S_HOVER) != 0 || !isSmall ? timeBeforeEvent : smallTimer
+        ? mkOfferInfo(endTime, txt, discountInPercent, guid, sf, anim)
+        : mkSmallOfferInfo(endTime, txt, discountInPercent, guid, anim)
+      return infoContent
+    }
+    onClick = @(sItem) shopItemClick(sItem)
+  },
+
+  [WidgetType.EVENT_BASE] = {
+    ctor = @(eventData, isSmall = false, hasAnim = true) function(sf) {
+      let anim = hasAnim ? contentAnim : {}
+      let isBig = !!(sf & S_HOVER) || !isSmall
+      let infoContent = isBig
+        ? mkInfo(eventData.text, sf, anim)
+        : mkSmallInfo(eventData.text, anim)
+      let timerCtor = isBig ? timeBeforeEvent : smallTimer
       return @() {
         size = flex()
         watch = eventStartTime
         halign = ALIGN_CENTER
         children = [
           infoContent
-          timerCtor(eventStartTime.value?[eventData.queueId] ?? 0)
+          {
+            size = flex()
+            pos = [0, isBig ? -widgetHeightDif : 0]
+            children = timerCtor(eventStartTime.value?[eventData.queueId] ?? 0)
+          }.__update(anim)
         ]
       }}
     onClick = @(_) openEventModes()
   },
 
   [WidgetType.EVENT_SPECIAL] = {
-    ctor = @(v, isSmall = false) function(sf) {
-      let infoContent = (sf & S_HOVER) != 0 || !isSmall
-        ? mkInfo(utf8ToUpper(v.titleshort), sf)
-        : mkSmallInfo(utf8ToUpper(v.titleshort))
+    ctor = @(v, isSmall = false, hasAnim = true) function(sf) {
+      let anim = hasAnim ? contentAnim : {}
+      let infoContent = (sf & S_HOVER) || !isSmall
+        ? mkInfo(utf8ToUpper(v.titleshort), sf, anim)
+        : mkSmallInfo(utf8ToUpper(v.titleshort), anim)
       return infoContent
     }
     onClick = @(v) offersPromoWndOpen(v.id)
   },
 
   [WidgetType.URL] = {
-    ctor = @(v, isSmall = false) function(sf) {
+    ctor = @(v, isSmall = false, hasAnim = true) function(sf) {
+      let anim = hasAnim ? contentAnim : {}
       let infoContent = isSmall
-        ? mkSmallInfo(v.title)
-        : mkInfo(v.title, sf)
+        ? mkSmallInfo(v.title, anim)
+        : mkInfo(v.title, sf, anim)
       return infoContent
     }
     onClick = @(v) openUrl(v.url)
   }
 })
 
-let widgetList = Computed(function() {
-  let list = []
+let featuredSwitchTime = Watched(0)
 
-  if (needFreemiumStatus.value)
-    list.append({
-      widgetType = WidgetType.FREEMIUM
-      data = curCampaignLocId.value
-      backImage = campPresentation.value?.widgetImage ?? defOfferImg
-    })
+let function updateSwitchTime(...) {
+  let currentTs = serverTime.value
+  let nextTime = shopItems.value.reduce(function(firstTs, item) {
+    let { menuFeaturedIntervalTs = null } = item
+    if ((menuFeaturedIntervalTs?.len() ?? 0) == 0)
+      return firstTs
 
-  list.extend(allActiveOffers.value.map(@(specOffer) {
-    widgetType = WidgetType.OFFER
-    data = specOffer
-    backImage = specOffer?.widgetImg ?? defOfferImg
-  }))
-
-  if (hasBaseEvent.value) {
-    let title = loc(doesLocTextExist(promotedEvent.value?.locId ?? "")
-      ? promotedEvent.value.locId
-      : "events_and_custom_matches")
-
-    timeUntilStart()
-
-    list.append({
-      widgetType = WidgetType.EVENT_BASE
-      data = { text = utf8ToUpper(title), queueId = promotedEvent.value?.queueId ?? "" }
-      backImage = promotedEvent.value?.extraParams.image ?? defOfferImg
-    })
-  }
-
-  list.extend(eventForcedUrl.value.map(@(v) {
-    widgetType = WidgetType.URL
-    data = v
-    backImage = v?.image ?? defExtUrlImg
-  }))
-
-  if (hasSpecialEvent.value)
-    eventsAvailable.value.each(function(event) {
-      let { id, imagepromo = defOfferImg } = event
-      list.append({
-        id
-        widgetType = WidgetType.EVENT_SPECIAL
-        data = event
-        backImage = imagepromo
-      })
-    })
-
-  return list
-})
-
-
-let mkSmallImage = @(image) {
-  size = [colPart(2.38), smallWidgetHeight]
-  key = $"offer_{image}"
-  rendObj = ROBJ_IMAGE
-  image = Picture(image)
-  keepAspect = KEEP_ASPECT_FILL
+    let [from, to = 0] = menuFeaturedIntervalTs
+    return (currentTs < from && (from < firstTs || firstTs == 0)) ? from
+      : (currentTs < to && (to < firstTs || firstTs == 0)) ? to
+      : firstTs
+  }, 0) - currentTs
+  if (nextTime > 0)
+    gui_scene.resetTimeout(nextTime, updateSwitchTime)
+  featuredSwitchTime(currentTs)
 }
 
+let function onServerTime(t) {
+  if (t <= 0)
+    return
+  serverTime.unsubscribe(callee())
+  updateSwitchTime()
+}
 
-let function mkSmallWidget(content, offerData, idx) {
-  if (content == null)
-    return null
-  let { data = null, backImage = null } = content
-  let { ctor = null, onClick = null } = offerData
-  let wContent = ctor?(data, true)
-  return watchElemState(@(sf) {
-    size = [startBtnWidth, smallWidgetHeight]
-    behavior = Behaviors.Button
-    onClick = @() onClick?(data)
-    onHover = @(_on) curLargeWidgetIdx(idx)
-    flow = FLOW_HORIZONTAL
-    clipChildren = true
-    children = [
-      mkSmallImage(backImage)
-      wContent?(sf)
-    ]
+let function onOffersAttach() {
+  serverTime.subscribe(onServerTime)
+  shopItems.subscribe(updateSwitchTime)
+}
+
+let function onOffersDetach() {
+  serverTime.unsubscribe(onServerTime)
+  shopItems.unsubscribe(updateSwitchTime)
+  foreach (v in [curLargeWidgetIdx, switchTime])
+    v.unsubscribe(startSwitchTimer)
+}
+
+let function isFeaturedVisible(id, sItem, itemCount, itemsByTime, featuredByTime) {
+  let { isHidden = false, isHiddenOnChinese = false } = sItem
+  if (isChineseVersion && isHiddenOnChinese)
+    return false
+
+  return !isHidden
+    || isTemporaryVisible(id, sItem, itemCount, itemsByTime)
+    || isTemporaryVisible(id, sItem, itemCount, featuredByTime)
+}
+
+let function mkWidgetList() {
+  let { shownByTimestamp } = mkShopState()
+
+  let shownFeaturedByTimestamp = Computed(function() {
+    let res = {}
+    let ts = featuredSwitchTime.value
+    foreach (id, item in shopItems.value) {
+      let { menuFeaturedIntervalTs = null } = item
+      if ((menuFeaturedIntervalTs?.len() ?? 0) == 0)
+        continue
+
+      let [from, to = 0] = menuFeaturedIntervalTs
+      if (from <= ts && (ts < to || to == 0))
+        res[id] <- true
+    }
+    return res
+  })
+
+  let featuredItem = Computed(function() {
+    let armyId = curArmy.value
+    let squadsById = armySquadsById.value
+    let purchases = purchasesCount.value
+    let debugPermission = isDebugShowPermission.value
+    let notFreemium = isCampaignBought.value
+    let itemsByTime = shownByTimestamp.value
+    let featuredByTime = shownFeaturedByTimestamp.value
+    let itemCount = armyItemCountByTpl.value ?? {}
+    return shopItems.value.filter(function(sItem, id) {
+      let { armies = [], menuFeaturedWeight = 0 } = sItem
+      return menuFeaturedWeight > 0
+        && (armies.contains(armyId) || armies.len() == 0)
+        && isFeaturedVisible(id, sItem, itemCount, itemsByTime, featuredByTime)
+        && isShopItemAvailable(sItem, squadsById, purchases, debugPermission, notFreemium)
+    }).values()
+    .reduce(function(res, val) {
+      let valWeight = val?.menuFeaturedWeight ?? 0
+      let resWeight = res?.menuFeaturedWeight ?? 0
+      let hasValTx = (val?.menuFeaturedIntervalTs ?? []).len() == 2
+      let hasResTs = (res?.menuFeaturedIntervalTs ?? []).len() == 2
+      return (hasValTx && (!hasResTs || valWeight > resWeight))
+        || (!hasResTs && valWeight > resWeight) ? val : res
+    })
+  })
+
+  return Computed(function() {
+    let list = []
+    let activeOffers = allActiveOffers.value
+    if (activeOffers.len() > 0)
+      list.extend(activeOffers.map(@(specOffer, idx) {
+        widgetType = WidgetType.OFFER
+        data = specOffer
+        id = idx
+        backImage = specOffer?.widgetImg ?? defOfferImg
+      }))
+    else if (featuredItem.value != null)
+      list.append({
+        widgetType = WidgetType.FEATURED
+        data = featuredItem.value
+        backImage = featuredItem.value?.image ?? defOfferImg
+      })
+
+    if (hasBaseEvent.value && eventsKeysSorted.value.len() < MAX_WIDGETS - 1) {
+      let title = loc(doesLocTextExist(promotedEvent.value?.locId ?? "")
+        ? promotedEvent.value.locId
+        : "events_and_custom_matches")
+      list.append({
+        widgetType = WidgetType.EVENT_BASE
+        data = { text = utf8ToUpper(title), queueId = promotedEvent.value?.queueId ?? "" }
+        backImage = promotedEvent.value?.extraParams.image ?? defOfferImg
+      })
+    }
+
+    if (list.len() < MAX_WIDGETS)
+      list.extend(eventForcedUrl.value.map(@(v, idx) {
+        widgetType = WidgetType.URL
+        data = v
+        id = idx
+        backImage = v?.image ?? defExtUrlImg
+      }))
+
+    foreach (eventId in eventsKeysSorted.value) {
+      if (list.len() >= MAX_WIDGETS)
+        break
+      let event = eventsData.value?[eventId]
+      if (event != null) {
+        let { id, imagepromo = defOfferImg } = event
+        list.append({
+          id
+          widgetType = WidgetType.EVENT_SPECIAL
+          data = event
+          backImage = imagepromo
+        })
+      }
+    }
+
+    // DEPRECATED
+    if (list.len() < MAX_WIDGETS && needFreemiumStatus.value)
+      list.insert(0, {
+        widgetType = WidgetType.FREEMIUM
+        data = curCampaignLocId.value
+        backImage = campPresentation.value?.widgetImage ?? defOfferImg
+      })
+
+    return list
   })
 }
 
 
-let function mkLargeWidget(content, offerData, idx) {
+let animTable = {
+  shrinksBelowAnim = {
+    transform = { pivot = [1, 0] }
+    animations = [
+      { prop = AnimProp.opacity, from = 1, to = 0.7, duration = DUR, play = true}
+      { prop = AnimProp.scale, from = [1, 3.325], to = [1, 1], duration = DUR, play = true }
+    ]
+  }
+  shrinksAboveAnim = {
+    transform = { pivot = [1, 1] }
+    animations = [
+      { prop = AnimProp.opacity, from = 1, to = 0.7, duration = DUR, play = true}
+      { prop = AnimProp.scale, from = [1, 3.325], to = [1, 1], duration = DUR, play = true }
+    ]
+  }
+  moveUpAnim = {
+    transform = { pivot = [0, 0] }
+    animations = [
+      { prop = AnimProp.translate, from = [0, widgetHeightDif], to = [0, 0], duration = DUR, play = true}
+    ]
+  }
+  moveDownAnim = {
+    transform = { pivot = [0, 0] }
+    animations = [
+      { prop = AnimProp.translate, from = [0, -widgetHeightDif], to = [0, 0], duration = DUR, play = true}
+    ]
+  }
+}
+
+let contentImgAnim = {
+  transform = { pivot = [0, 0] }
+  animations = [
+    { prop = AnimProp.scale, from = [3.325, 1], to = [1, 1], duration = DUR, play = true }
+  ]
+}
+
+
+let function mkSmallWidget(content, idx, oldIdx, curIdx) {
   if (content == null)
     return null
-  let { id = null, data = null, backImage = null } = content
+
+  let animKey = idx > oldIdx && idx < curIdx ? "moveUpAnim"
+    : idx < oldIdx && idx > curIdx ? "moveDownAnim"
+    : oldIdx == idx && curIdx > idx ? "shrinksBelowAnim"
+    : oldIdx == idx && curIdx < idx ? "shrinksAboveAnim"
+    : null
+
+  let hasContAnim = animKey == "shrinksBelowAnim" || animKey == "shrinksAboveAnim"
+  let contImgAnim = hasContAnim ? contentImgAnim : {}
+
+  let { widgetType, id = "", data = null, backImage = null } = content
+  let offerData = widgetData[widgetType]
+  let { ctor = null, onClick = null } = offerData
+  let imgVertAlign = widgetType != WidgetType.FEATURED ? ALIGN_CENTER : ALIGN_TOP
+  let smallImg = freeze({
+    size = [smallImgWidth, flex()]
+    clipChildren = true
+    valign = ALIGN_BOTTOM
+    children = mkSmallImage(backImage, imgVertAlign).__update(contImgAnim)
+  })
+
+  let wContent = ctor?(data, true, hasContAnim)
+  return watchElemState(@(sf) {
+    size = [startBtnWidth, smallWidgetHeight]
+    key = id
+    behavior = Behaviors.Button
+    onClick = @() onClick?(data)
+    onHover = function(_on) {
+      oldLargeWidgetIdx = curLargeWidgetIdx.value
+      curLargeWidgetIdx(idx)
+    }
+    flow = FLOW_VERTICAL
+    clipChildren = true
+    rendObj = ROBJ_WORLD_BLUR
+    fillColor = transpPanelBgColor
+    color = defItemBlur
+    children = [
+      highlightLineTop
+      {
+        flow = FLOW_HORIZONTAL
+        size = flex()
+        children = [
+          smallImg
+          wContent?(sf)
+        ]
+      }
+    ]
+  }.__update(animKey == null ? {} : animTable[animKey]))
+}
+
+
+let animations1 = freeze([{ prop = AnimProp.fillColor, from = transpPanelBgColor, to = hoverSlotBgColor,
+        duration = DUR, play = true, trigger = "hovered+asasd"}])
+let animations0 = freeze([
+  { prop = AnimProp.color, from = transpPanelBgColor, to = hoverSlotBgColor, duration = 1, play = true,
+    trigger = "hovered",}
+  { prop = AnimProp.opacity, from = 0.7, to = 1, duration = DUR, play = true}
+  { prop = AnimProp.scale, from = [1, 0.301], to = [1, 1], duration = DUR, play = true }
+])
+
+
+let function mkLargeWidget(content, idx, oldIdx) {
+  if (content == null)
+    return null
+
+  let { widgetType, id = "", data = null, backImage = null } = content
+  let offerData = widgetData[widgetType]
   let { ctor = null, onClick = null } = offerData
   let wContent = ctor?(data)
+  let imgVertAlign = widgetType != WidgetType.FEATURED ? ALIGN_CENTER : ALIGN_TOP
+
+  let bgImage = freeze({
+    rendObj = ROBJ_WORLD_BLUR
+    size = [flex(), largeWidgetImgheight]
+    color = defItemBlur
+    fillColor = transpPanelBgColor
+    clipChildren = true
+    children = mkOfferImage(backImage, imgVertAlign)
+  })
+
   return watchElemState(@(sf) {
     key = id
     size = [startBtnWidth, largeWidgetHeight]
@@ -367,52 +639,65 @@ let function mkLargeWidget(content, offerData, idx) {
       curLargeWidgetIdx(idx)
       if (on) {
         anim_skip(id)
+        anim_start("hovered+asasd")
         gui_scene.clearTimer(goToNextOffer)
       }
       else
         startSwitchTimer()
     }
     clipChildren = true
-    transform = {}
-    animations = [
-      { prop = AnimProp.opacity, from = 0.7, to = 1.0, duration = 0.2, play = true}
-      { prop = AnimProp.scale, from = [1.0, 0.9], to = [1.0, 1.0], duration = 0.2, play = true }
-    ]
     children = [
-      mkOfferImage(backImage)
-      wContent?(sf)
+      bgImage
+      {
+        rendObj = ROBJ_WORLD_BLUR
+        size = [flex(), largeWidgetInfoHeight]
+        vplace = ALIGN_BOTTOM
+        fillColor = sf & S_HOVER ? hoverSlotBgColor : transpPanelBgColor
+        color = defItemBlur
+        animations = animations1
+        transform = {}
+        children = wContent?(sf)
+      }
     ]
+    transform = { pivot = [1, idx < oldIdx ? 0 : 1] }
+    animations = animations0
   })
 }
 
 
-let function offersPromoWidget() {
-  let res = { watch = [widgetList, curLargeWidgetIdx] }
-  let widgets = widgetList.value
-  if (widgets.len() == 0)
-    return res
-  offers = widgets.len()
-  if (offers <= 1) {
-    gui_scene.clearTimer(goToNextOffer)
-    foreach (v in [curLargeWidgetIdx, switchTime])
-      v.unsubscribe(startSwitchTimer)
+let function mkOffersPromoWidget(isExpandLocked) {
+  let widgetList = mkWidgetList()
+  let watch = [widgetList, curLargeWidgetIdx, isExpandLocked]
+  return function() {
+    let widgets = widgetList.value
+    offers = widgets.len()
+    if (offers <= 1) {
+      gui_scene.clearTimer(goToNextOffer)
+      foreach (v in [curLargeWidgetIdx, switchTime])
+        v.unsubscribe(startSwitchTimer)
+    }
+    else {
+      foreach (v in [curLargeWidgetIdx, switchTime])
+        v.subscribe(startSwitchTimer)
+      startSwitchTimer()
+    }
+    if (widgets.len() == 0)
+      return {watch}
+    let curIdx = isExpandLocked.value ? -1 : curLargeWidgetIdx.value
+    return {
+      watch
+      size = [startBtnWidth, SIZE_TO_CONTENT]
+      flow = FLOW_VERTICAL
+      gap = smallPadding
+      halign = ALIGN_RIGHT
+      onAttach = onOffersAttach
+      onDetach = onOffersDetach
+      children = widgets.map(@(w, idx) curIdx == idx
+        ? mkLargeWidget(w, idx, oldLargeWidgetIdx)
+        : mkSmallWidget(w, idx, oldLargeWidgetIdx, curLargeWidgetIdx.value)
+      )
+    }
   }
-  else {
-    foreach (v in [curLargeWidgetIdx, switchTime])
-      v.subscribe(startSwitchTimer)
-    startSwitchTimer()
-  }
-  return res.__update({
-    size = [startBtnWidth, SIZE_TO_CONTENT]
-    flow = FLOW_VERTICAL
-    gap = bigPadding
-    children = widgets.map(function(w, idx) {
-      let { widgetType = null } = w
-      return curLargeWidgetIdx.value == idx
-        ? mkLargeWidget(w, widgetData?[widgetType], idx)
-        : mkSmallWidget(w, widgetData?[widgetType], idx)
-    })
-  })
 }
 
-return offersPromoWidget
+return mkOffersPromoWidget

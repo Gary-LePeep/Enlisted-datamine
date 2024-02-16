@@ -5,25 +5,25 @@
     "game_effect__lastAttachedTo:eid": []
   },
   "game_effect_with_duration": {
-    "_extends": "game_effect_base",
+    "_use": "game_effect_base",
     "game_effect__timeToDestroy": -1.0,
     "game_effect__destroyAt": -1.0
   },
   "client_game_effect_with_duration": {
-    "_extends": "game_effect_base",
+    "_use": "game_effect_base",
     "game_effect__timeToDestroy": -1.0,
     "game_effect__clientDestroyAt": -1.0
   },
   "replicated_game_effect": [
     {
-      "_extends": "game_effect_base"
+      "_use": "game_effect_base"
     },
     {
-      "_extends": "replicating"
+      "_use": "replicating"
     }
   ],
   "vehicle_game_effect": {
-    "_extends": "replicated_game_effect",
+    "_use": "replicated_game_effect",
     "game_effect__vehicle:eid": []
   },
   "locked_looting_soldier_base": {
@@ -31,9 +31,6 @@
     "_tracked": "locked__pickupItemsLockedByAffect"
   },
   "locked_use_objects_soldier_base": [
-    {
-      "human_use_object__lockGrenadeRethrowing": false
-    },
     {
       "human_use_object__lockVehicleUse": false
     },
@@ -66,7 +63,7 @@
     }
   ],
   "burning_affect": {
-    "_extends": "replicated_game_effect",
+    "_use": "replicated_game_effect",
     "ingame_rumble__whenEffectAttached": "combustion",
     "burning_affect:tag": [],
     "locked_inventory__lockPickup:tag": [],
@@ -76,7 +73,7 @@
     "locked_use_object__lockDoorUse:tag": []
   },
   "confusion_affect": {
-    "_extends": "replicated_game_effect",
+    "_use": "replicated_game_effect",
     "confusion__duration": 5.0,
     "confusion__startedAtTime": 0.0,
     "confusion__intensity": 0.005,
@@ -99,53 +96,30 @@
     "push_effect__shipEnergyScale": 100.0
   },
   "human_freefall_animation": {
-    "_extends": "replicated_game_effect",
+    "_use": "replicated_game_effect",
     "game_effect__forceAnimState": "parachute_free_fly_anim",
     "game_effect__forceAnimStateId": -1,
     "game_effect__activateUnarmed:tag": [],
     "game_effect__hiddenWeapon:tag": [],
-    "locked_weapon__grenadeThrowing:tag": []
+    "locked_weapon__grenadeThrowing:tag": [],
+    "human_freefall__affect:tag": []
   },
-  "human_parachute_affect_open": [
-    {
-      "_extends": "client_game_effect_with_duration"
-    },
-    {
-      "_extends": "game_effect_sound"
-    },
-    {
-      "game_effect__timeToDestroy": 2.2
-    },
-    {
-      "game_effect_sound__hero": "player/effects/parachute_open"
-    }
-  ],
-  "human_parachute_affect_land": [
-    {
-      "_extends": "client_game_effect_with_duration"
-    },
-    {
-      "_extends": "game_effect_sound"
-    },
-    {
-      "game_effect__timeToDestroy": 1.0
-    },
-    {
-      "game_effect_sound__hero": "player/effects/parachute_landing"
-    }
-  ],
+  "human_freefall_animation_paratroopers": {
+    "_use": "human_freefall_animation",
+    "game_effect__forceAnimState": "parachute_free_fly_paratroopers_anim"
+  },
   "human_parachute_affect_hide_weapon": {
-    "_extends": "replicated_game_effect",
+    "_use": "replicated_game_effect",
     "game_effect__activateUnarmed:tag": [],
     "game_effect__hiddenWeapon:tag": [],
     "locked_weapon__grenadeThrowing:tag": []
   },
   "flask_affect": [
     {
-      "_extends": "game_effect_with_duration"
+      "_use": "game_effect_with_duration"
     },
     {
-      "_extends": "replicating"
+      "_use": "replicating"
     },
     {
       "game_effect__timeToDestroy": 60.0
@@ -156,5 +130,11 @@
     {
       "flaskAffect:tag": []
     }
-  ]
+  ],
+  "human_on_ladder_animation": {
+    "_use": "game_effect_base",
+    "game_effect__forceAnimState": "climb_ladder",
+    "game_effect__forceAnimStateId": -1,
+    "human_on_ladder_animation:tag": []
+  }
 }

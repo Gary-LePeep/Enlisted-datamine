@@ -1,10 +1,10 @@
 {
   "base_t_28": [
     {
-      "_extends": "base_tank"
+      "_use": "base_tank"
     },
     {
-      "_extends": "t_28_ammo_stowages"
+      "_use": "t_28_ammo_stowages"
     },
     {
       "killLogName": "ussr_t_28"
@@ -243,7 +243,7 @@
     }
   ],
   "t_28_turret_01_76mm_l10": {
-    "_extends": "tankgun_76mm_l10",
+    "_use": "tankgun_76mm_l10",
     "gun__shootNodeName": "bone_gun_barrel_01",
     "turret__yawSpeed": 15.0,
     "turret__pitchSpeed": 3.0,
@@ -267,7 +267,7 @@
     ]
   },
   "t_28_turret_02_7_62mm_dt": {
-    "_extends": "tankgun_7_62mm_dt",
+    "_use": "tankgun_7_62mm_dt",
     "gun__shootNodeName": "bone_gun_barrel_02",
     "turret__yawSpeed": 25.0,
     "turret__pitchSpeed": 15.0,
@@ -283,7 +283,7 @@
     ]
   },
   "t_28_turret_03_7_62mm_dt": {
-    "_extends": "tankgun_7_62mm_dt",
+    "_use": "tankgun_7_62mm_dt",
     "gun__shootNodeName": "bone_gun_barrel_03",
     "turret__yawSpeed": 25.0,
     "turret__pitchSpeed": 15.0,
@@ -299,7 +299,7 @@
     ]
   },
   "t_28_turret_04_7_62mm_dt": {
-    "_extends": "tankgun_7_62mm_dt",
+    "_use": "tankgun_7_62mm_dt",
     "gun__shootNodeName": "bone_mg_turret_01",
     "turret__yawSpeed": 25.0,
     "turret__pitchSpeed": 15.0,
@@ -316,13 +316,13 @@
   },
   "t_28_ammo_stowages": {
     "_tags": "server",
-    "_extends": "vehicle_ammo_stowages",
+    "_use": "vehicle_ammo_stowages",
     "ammo_stowage__stowageTemplates:shared:list<t>": {
       "stowage": "t_28_ammo_stowage_1"
     }
   },
   "t_28_ammo_stowage_1": {
-    "_extends": "ammo_stowage",
+    "_use": "ammo_stowage",
     "ammo_stowage__clusterTemplates:shared:list<t>": {
       "cluster": "t_28_ammo_cluster_1_1"
     },
@@ -331,7 +331,7 @@
     }
   },
   "t_28_ammo_cluster_1_1": {
-    "_extends": "ammo_cluster",
+    "_use": "ammo_cluster",
     "ammo_cluster__isShell": true,
     "ammo_cluster__slotNames:shared:list<t>": [
       {

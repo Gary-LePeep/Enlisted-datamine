@@ -1,10 +1,10 @@
 {
   "ju_88a_4": [
     {
-      "_extends": "ju_88a_4_base"
+      "_use": "ju_88a_4_base"
     },
     {
-      "_extends": "squad_controlled_plane"
+      "_use": "squad_controlled_plane"
     },
     {
       "item__name": "items/ju_88a_4"
@@ -293,6 +293,8 @@
             "paramYawSpeed": "turret1_yaw_speed",
             "paramMaxYawAngle": "turret1_max_yaw_angle",
             "aimActiveParamName": "gun1_aim_active",
+            "curWorldPitchParamName": "gun1_world_pitch",
+            "curWorldYawParamName": "turret1_world_yaw",
             "paramPitchSpeedMul": "gun1_pitch_mul",
             "paramYawAccel": "turret1_yaw_accel",
             "paramPitchAccel": "gun1_pitch_accel",
@@ -312,6 +314,8 @@
             "paramYawSpeed": "turret2_yaw_speed",
             "paramMaxYawAngle": "turret2_max_yaw_angle",
             "aimActiveParamName": "gun2_aim_active",
+            "curWorldPitchParamName": "gun2_world_pitch",
+            "curWorldYawParamName": "turret2_world_yaw",
             "paramPitchSpeedMul": "gun2_pitch_mul",
             "paramYawAccel": "turret2_yaw_accel",
             "paramPitchAccel": "gun2_pitch_accel",
@@ -331,6 +335,8 @@
             "paramYawSpeed": "turret3_yaw_speed",
             "paramMaxYawAngle": "turret3_max_yaw_angle",
             "aimActiveParamName": "gun3_aim_active",
+            "curWorldPitchParamName": "gun3_world_pitch",
+            "curWorldYawParamName": "turret3_world_yaw",
             "paramPitchSpeedMul": "gun3_pitch_mul",
             "paramYawAccel": "turret3_yaw_accel",
             "paramPitchAccel": "gun3_pitch_accel",
@@ -344,6 +350,8 @@
         },
         {
           "vars:object": {
+            "curWorldPitchParamName": "gun3_world_pitch",
+            "curWorldYawParamName": "turret3_world_yaw",
             "curYawParamName": "turret3_yaw",
             "curPitchParamName": "gun3_pitch"
           }
@@ -864,13 +872,13 @@
   },
   "planegun_ju_88a_4_sc_250_launcher_01": [
     {
-      "_extends": "sc_250_launcher"
+      "_use": "sc_250_launcher"
     },
     {
-      "_extends": "base_ju_88a_4_sc_250_launcher"
+      "_use": "base_ju_88a_4_sc_250_launcher"
     },
     {
-      "_extends": "gunsound_sc_250_launcher_aircraft"
+      "_use": "gunsound_sc_250_launcher_aircraft"
     },
     {
       "gun__shootNodeName": "bomb29"
@@ -884,13 +892,13 @@
   ],
   "planegun_ju_88a_4_sc_250_launcher_02": [
     {
-      "_extends": "sc_250_launcher"
+      "_use": "sc_250_launcher"
     },
     {
-      "_extends": "base_ju_88a_4_sc_250_launcher"
+      "_use": "base_ju_88a_4_sc_250_launcher"
     },
     {
-      "_extends": "gunsound_sc_250_launcher_aircraft"
+      "_use": "gunsound_sc_250_launcher_aircraft"
     },
     {
       "gun__shootNodeName": "bomb30"
@@ -904,13 +912,13 @@
   ],
   "planegun_ju_88a_4_sc_250_launcher_03": [
     {
-      "_extends": "sc_250_launcher"
+      "_use": "sc_250_launcher"
     },
     {
-      "_extends": "base_ju_88a_4_sc_250_launcher"
+      "_use": "base_ju_88a_4_sc_250_launcher"
     },
     {
-      "_extends": "gunsound_sc_250_launcher_aircraft"
+      "_use": "gunsound_sc_250_launcher_aircraft"
     },
     {
       "gun__shootNodeName": "bomb31"
@@ -924,13 +932,13 @@
   ],
   "planegun_ju_88a_4_sc_250_launcher_04": [
     {
-      "_extends": "sc_250_launcher"
+      "_use": "sc_250_launcher"
     },
     {
-      "_extends": "base_ju_88a_4_sc_250_launcher"
+      "_use": "base_ju_88a_4_sc_250_launcher"
     },
     {
-      "_extends": "gunsound_sc_250_launcher_aircraft"
+      "_use": "gunsound_sc_250_launcher_aircraft"
     },
     {
       "gun__shootNodeName": "bomb32"
@@ -944,13 +952,13 @@
   ],
   "planegun_ju_88a_4_sc_50_launcher_01": [
     {
-      "_extends": "sc_50_launcher"
+      "_use": "sc_50_launcher"
     },
     {
-      "_extends": "base_ju_88a_4_sc_50_launcher"
+      "_use": "base_ju_88a_4_sc_50_launcher"
     },
     {
-      "_extends": "gunsound_sc_50_launcher_aircraft"
+      "_use": "gunsound_sc_50_launcher_aircraft"
     },
     {
       "gun__shootNodeName": "bomb19"
@@ -964,13 +972,13 @@
   ],
   "planegun_ju_88a_4_sc_50_launcher_02": [
     {
-      "_extends": "sc_50_launcher"
+      "_use": "sc_50_launcher"
     },
     {
-      "_extends": "base_ju_88a_4_sc_50_launcher"
+      "_use": "base_ju_88a_4_sc_50_launcher"
     },
     {
-      "_extends": "gunsound_sc_50_launcher_aircraft"
+      "_use": "gunsound_sc_50_launcher_aircraft"
     },
     {
       "gun__shootNodeName": "bomb20"
@@ -984,13 +992,13 @@
   ],
   "planegun_ju_88a_4_sc_50_launcher_03": [
     {
-      "_extends": "sc_50_launcher"
+      "_use": "sc_50_launcher"
     },
     {
-      "_extends": "base_ju_88a_4_sc_50_launcher"
+      "_use": "base_ju_88a_4_sc_50_launcher"
     },
     {
-      "_extends": "gunsound_sc_50_launcher_aircraft"
+      "_use": "gunsound_sc_50_launcher_aircraft"
     },
     {
       "gun__shootNodeName": "bomb21"
@@ -1004,13 +1012,13 @@
   ],
   "planegun_ju_88a_4_sc_50_launcher_04": [
     {
-      "_extends": "sc_50_launcher"
+      "_use": "sc_50_launcher"
     },
     {
-      "_extends": "base_ju_88a_4_sc_50_launcher"
+      "_use": "base_ju_88a_4_sc_50_launcher"
     },
     {
-      "_extends": "gunsound_sc_50_launcher_aircraft"
+      "_use": "gunsound_sc_50_launcher_aircraft"
     },
     {
       "gun__shootNodeName": "bomb22"
@@ -1024,13 +1032,13 @@
   ],
   "planegun_ju_88a_4_sc_50_launcher_05": [
     {
-      "_extends": "sc_50_launcher"
+      "_use": "sc_50_launcher"
     },
     {
-      "_extends": "base_ju_88a_4_sc_50_launcher"
+      "_use": "base_ju_88a_4_sc_50_launcher"
     },
     {
-      "_extends": "gunsound_sc_50_launcher_aircraft"
+      "_use": "gunsound_sc_50_launcher_aircraft"
     },
     {
       "gun__shootNodeName": "bomb23"
@@ -1044,13 +1052,13 @@
   ],
   "planegun_ju_88a_4_sc_50_launcher_06": [
     {
-      "_extends": "sc_50_launcher"
+      "_use": "sc_50_launcher"
     },
     {
-      "_extends": "base_ju_88a_4_sc_50_launcher"
+      "_use": "base_ju_88a_4_sc_50_launcher"
     },
     {
-      "_extends": "gunsound_sc_50_launcher_aircraft"
+      "_use": "gunsound_sc_50_launcher_aircraft"
     },
     {
       "gun__shootNodeName": "bomb24"
@@ -1064,13 +1072,13 @@
   ],
   "planegun_ju_88a_4_sc_50_launcher_07": [
     {
-      "_extends": "sc_50_launcher"
+      "_use": "sc_50_launcher"
     },
     {
-      "_extends": "base_ju_88a_4_sc_50_launcher"
+      "_use": "base_ju_88a_4_sc_50_launcher"
     },
     {
-      "_extends": "gunsound_sc_50_launcher_aircraft"
+      "_use": "gunsound_sc_50_launcher_aircraft"
     },
     {
       "gun__shootNodeName": "bomb25"
@@ -1084,13 +1092,13 @@
   ],
   "planegun_ju_88a_4_sc_50_launcher_08": [
     {
-      "_extends": "sc_50_launcher"
+      "_use": "sc_50_launcher"
     },
     {
-      "_extends": "base_ju_88a_4_sc_50_launcher"
+      "_use": "base_ju_88a_4_sc_50_launcher"
     },
     {
-      "_extends": "gunsound_sc_50_launcher_aircraft"
+      "_use": "gunsound_sc_50_launcher_aircraft"
     },
     {
       "gun__shootNodeName": "bomb26"
@@ -1104,13 +1112,13 @@
   ],
   "planegun_ju_88a_4_sc_50_launcher_09": [
     {
-      "_extends": "sc_50_launcher"
+      "_use": "sc_50_launcher"
     },
     {
-      "_extends": "base_ju_88a_4_sc_50_launcher"
+      "_use": "base_ju_88a_4_sc_50_launcher"
     },
     {
-      "_extends": "gunsound_sc_50_launcher_aircraft"
+      "_use": "gunsound_sc_50_launcher_aircraft"
     },
     {
       "gun__shootNodeName": "bomb27"
@@ -1124,13 +1132,13 @@
   ],
   "planegun_ju_88a_4_sc_50_launcher_10": [
     {
-      "_extends": "sc_50_launcher"
+      "_use": "sc_50_launcher"
     },
     {
-      "_extends": "base_ju_88a_4_sc_50_launcher"
+      "_use": "base_ju_88a_4_sc_50_launcher"
     },
     {
-      "_extends": "gunsound_sc_50_launcher_aircraft"
+      "_use": "gunsound_sc_50_launcher_aircraft"
     },
     {
       "gun__shootNodeName": "bomb28"
@@ -1144,16 +1152,16 @@
   ],
   "planegun_ju_88a_4_7_92mm_mg81_01": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_plane_machinegun"
+      "_use": "base_plane_machinegun"
     },
     {
-      "_extends": "base_ju_88a_4_7_92mm_mg81"
+      "_use": "base_ju_88a_4_7_92mm_mg81"
     },
     {
-      "_extends": "gunsound_7_92mm_mg81_aircraft"
+      "_use": "gunsound_7_92mm_mg81_aircraft"
     },
     {
       "gun__shootNodeName": "flare5"
@@ -1164,16 +1172,16 @@
   ],
   "planegun_ju_88a_4_7_92mm_mg81_turret_01": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_plane_machinegun"
+      "_use": "base_plane_machinegun"
     },
     {
-      "_extends": "base_ju_88a_4_7_92mm_mg81_turret"
+      "_use": "base_ju_88a_4_7_92mm_mg81_turret"
     },
     {
-      "_extends": "gunsound_7_92mm_mg81_turret_aircraft"
+      "_use": "gunsound_7_92mm_mg81_turret_aircraft"
     },
     {
       "gun__shootNodeName": "flare1"
@@ -1196,16 +1204,16 @@
   ],
   "planegun_ju_88a_4_7_92mm_mg81_turret_02": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_plane_machinegun"
+      "_use": "base_plane_machinegun"
     },
     {
-      "_extends": "base_ju_88a_4_7_92mm_mg81_turret"
+      "_use": "base_ju_88a_4_7_92mm_mg81_turret"
     },
     {
-      "_extends": "gunsound_7_92mm_mg81_turret_aircraft"
+      "_use": "gunsound_7_92mm_mg81_turret_aircraft"
     },
     {
       "gun__shootNodeName": "flare2"
@@ -1228,16 +1236,16 @@
   ],
   "planegun_ju_88a_4_7_92mm_mg81_turret_03": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_plane_machinegun"
+      "_use": "base_plane_machinegun"
     },
     {
-      "_extends": "base_ju_88a_4_7_92mm_mg81_turret"
+      "_use": "base_ju_88a_4_7_92mm_mg81_turret"
     },
     {
-      "_extends": "gunsound_7_92mm_mg81_turret_aircraft"
+      "_use": "gunsound_7_92mm_mg81_turret_aircraft"
     },
     {
       "gun__shootNodeName": "flare3"
@@ -1260,16 +1268,16 @@
   ],
   "planegun_ju_88a_4_7_92mm_mg81_turret_04": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_plane_machinegun"
+      "_use": "base_plane_machinegun"
     },
     {
-      "_extends": "base_ju_88a_4_7_92mm_mg81_turret"
+      "_use": "base_ju_88a_4_7_92mm_mg81_turret"
     },
     {
-      "_extends": "gunsound_7_92mm_mg81_turret_aircraft"
+      "_use": "gunsound_7_92mm_mg81_turret_aircraft"
     },
     {
       "gun__shootNodeName": "flare4"

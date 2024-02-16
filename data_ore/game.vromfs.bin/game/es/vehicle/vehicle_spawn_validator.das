@@ -1,8 +1,9 @@
 require ecs
 require game.es.events
 require pathfinder
+require math.base
 
-[es(tag=server, REQUIRE=vehicleSpawnValidation, on_appear)]
+[es(tag=server, REQUIRE=vehicleSpawnValidation, REQUIRE_NOT=spawn_validation__spreadDir, on_appear)]
 def vehicle_spawn_validate(evt : Event;
                            eid : EntityId;
                            transform : float3x4;
@@ -41,4 +42,42 @@ def vehicle_spawn_validate(evt : Event;
       project_to_nearest_navmesh_point(wishPos, spawn_validation__spreadDistance)
     var wishTm = transform
     wishTm[3] = wishPos
+    sendEventImmediate(createdVehicleEid, [[CmdTeleportEntity newTm=wishTm, hard=false]])
+
+[es(REQUIRE=vehicleSpawnValidation, on_appear, on_event=EventOnEntityTeleported)]
+def vehicle_spawn_validate_directed(evt : Event;
+                                    eid : EntityId;
+                                    transform : float3x4;
+                                    spawn_validation__spreadDistance : float;
+                                    var spawn_validation__isValidated : bool&;
+                                    spawn_validation__spreadDir : float3)
+  if spawn_validation__isValidated
+    return
+
+  let createdVehicleEid = eid
+  var wishPos = transform[3]
+  var rotTm = transform
+  rotTm[3] = float3()
+  let worldSpreadDir = rotTm * spawn_validation__spreadDir
+  var vehiclesPos : array<float3>
+  query() <| $ [es(REQUIRE=vehicle)] (eid : EntityId; transform : float3x4)
+    if eid == createdVehicleEid
+      return
+    push(vehiclesPos, transform[3])
+  let distSq = square(spawn_validation__spreadDistance)
+  var findNewPos = false
+  var noObstacle = false
+  while (!noObstacle)
+    noObstacle = true
+    for pos in vehiclesPos
+      if distance_sq(wishPos, pos) < distSq
+        wishPos += worldSpreadDir
+        findNewPos = true
+        noObstacle = false
+        break
+
+  if findNewPos
+    var wishTm = transform
+    wishTm[3] = wishPos
+    spawn_validation__isValidated = true
     sendEventImmediate(createdVehicleEid, [[CmdTeleportEntity newTm=wishTm, hard=false]])

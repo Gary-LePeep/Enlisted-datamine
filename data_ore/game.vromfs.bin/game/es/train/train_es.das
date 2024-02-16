@@ -1,5 +1,5 @@
 require ecs
-require EnlistedNet
+require DngNet
 require math.base
 require math.shooter_phys_common
 require GamePhys
@@ -7,9 +7,9 @@ require CollRes
 require DagorMath
 require DagorConsole
 require PhysObj
-require EnlistedPhysObj
-require EnlistedHuman
-require EnlistedActor
+require DngPhysObj
+require DngHuman
+require DngActor
 require game.es.events
 require enlisted.events_enlisted
 require enlisted.game.es.train.train_common
@@ -231,7 +231,7 @@ def calc_primary_cart_tick_es(info : ParallelUpdateFrameDelayed;
     return true
 
 
-[es(REQUIRE=train__primaryCart, before=human_phys_es, after=(apply_train_server_state_es, change_train_velocity_es))]
+[es(REQUIRE=train__primaryCart, after=(apply_train_server_state_es, change_train_velocity_es))]
 def move_primary_cart_es(evt : CmdPostPhysUpdate;
                          var phys_obj_net_phys aka primary_phys_obj_net_phys : PhysObjActor;
                          var train__currentVelocity : float&;
@@ -269,7 +269,7 @@ def move_primary_cart_es(evt : CmdPostPhysUpdate;
       query(cartEid) <| $ [es(REQUIRE_NOT=train__primaryCart)] (var phys_obj_net_phys aka secondary_phys_obj_net_phys : PhysObjActor;
                                                                 collres : CollisionResource;
                                                                 train__offset : float)
-        secondary_phys_obj_net_phys.phys.previousState = secondary_phys_obj_net_phys.phys.currentState
+        secondary_phys_obj_net_phys.phys.previousState := secondary_phys_obj_net_phys.phys.currentState
         secondary_phys_obj_net_phys.phys.previousState.atTick = evt.tick
 
         assume secondaryCurrentState = secondary_phys_obj_net_phys.phys.currentState

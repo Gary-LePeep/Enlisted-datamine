@@ -34,13 +34,12 @@ let mkGetExpToNextLevel = @(expToLevel)
     : 0
 
 let function extrapolateStatsExp(soldier, expData, getExpToNextLevel) {
-  local { maxLevel, level, exp, availPerks } = soldier
+  local { maxLevel, level, exp } = soldier
   let addExp = expData.exp
   local nextExp = getExpToNextLevel(level, maxLevel)
   let wasExp = {
     exp
     level
-    availPerks
     nextExp
   }
   exp += addExp
@@ -48,7 +47,6 @@ let function extrapolateStatsExp(soldier, expData, getExpToNextLevel) {
     exp -= nextExp
     if (level < maxLevel)
       level++
-    availPerks++
     nextExp = getExpToNextLevel(level, maxLevel)
   }
 
@@ -58,7 +56,6 @@ let function extrapolateStatsExp(soldier, expData, getExpToNextLevel) {
     newExp = {
       exp
       level
-      availPerks
       nextExp
     }
   })
@@ -112,8 +109,9 @@ let function applyRewardOnce() {
 
   let isSingleMission = get_session_id() == INVALID_SESSION
   let sMissionRewardId = isSingleMission ? singleMissionRewardId.value : null
-  let { armyExp = 0, squadsExp = {}, soldiersExp = {}, armyExpDetailed = {}, boosts = {} }
-    = !isSingleMission || isDebugDebriefingMode ? battleStats.value?.expReward
+  let { armyExp = 0, squadsExp = {}, soldiersExp = {}, armyExpDetailed = {},
+    boosts = {}, expMode = ""
+  } = !isSingleMission || isDebugDebriefingMode ? battleStats.value?.expReward
       : sMissionRewardId != null ? calcSingleMissionExpReward(battleStats.value?.expReward)
       : null
   let { isArmyProgressLocked = false } = battleStats.value
@@ -149,9 +147,11 @@ let function applyRewardOnce() {
     armyExpDetailed
     isArmyProgressLocked
     armyWasExp = armyData.value?.exp
+    armyWasGrowthExp = armyData.value?.growthExp
     globalData = armyData.value?.globalData
     armyWasLevel = armyData.value?.level
     armyProgress = armyData.value?.armyProgress
+    growthProgress = armyData.value?.growthProgress
     premiumExpMul = armyData.value?.premiumExpMul
     heroes = battleStats.value?.heroes
     battleHeroAwards = battleStats.value?.battleHeroAwards
@@ -159,9 +159,11 @@ let function applyRewardOnce() {
     battleHeroSoldier = battleStats.value?.battleHeroSoldier
     wasPlayerRank = battleStats.value?.wasPlayerRank
     playerRank = battleStats.value?.playerRank
+    scorePrices = battleStats.value?.scorePrices
     players
     awards
     boosts
+    expMode
   })
 
   if (sMissionRewardId != null && !isDebugDebriefingMode)

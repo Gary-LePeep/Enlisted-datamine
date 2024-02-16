@@ -1,10 +1,10 @@
 {
   "base_a13_mk_2_1939": [
     {
-      "_extends": "base_tank"
+      "_use": "base_tank"
     },
     {
-      "_extends": "a13_mk_2_1939_ammo_stowages"
+      "_use": "a13_mk_2_1939_ammo_stowages"
     },
     {
       "killLogName": "uk_a_13_mk2_1939"
@@ -137,7 +137,11 @@
             "paramPitchAccel": "gun_01_pitch_accel",
             "wishYawParamName": "gun_01_aim:targetYaw",
             "wishPitchParamName": "gun_01_aim:targetPitch",
-            "gunRecoilParamName": "gun_01_recoil"
+            "gunRecoilParamName": "gun_01_recoil",
+            "hasStabilizerParamName": "gun_01_aim:hasStab",
+            "stabilizerPitchParamName": "gun_01_aim:stabPitch",
+            "stabilizerErrorParamName": "gun_01_aim:stabError",
+            "stabilizerPitchMultParamName": "gun_01_aim:stabPitchMult"
           }
         },
         {
@@ -203,17 +207,30 @@
     }
   ],
   "a13_mk_2_1939_turret_01_40mm_qf_2pdr": {
-    "_extends": "tankgun_40mm_qf_2pdr",
+    "_use": "tankgun_40mm_qf_2pdr",
     "gun__shootNodeName": "bone_gun_barrel",
     "turret__yawSpeed": 16.0,
     "turret__pitchSpeed": 15.0,
     "turret__aimNodeName": "bone_turret",
     "turret__limit": [-180.0,180.0,-15.0,20.0],
+    "turret__stabilizerPitchFrictionMult": 0.8,
+    "turret__stabilizerPitchSpeedLimitKph": 10.0,
     "turret__limitsTable:list<p4>": {
       "lim1": [-180.0,-135.0,-7.0,20.0],
       "lim2": [-135.0,135.0,-15.0,20.0],
       "lim3": [135.0,180.0,-7.0,20.0]
     },
+    "turret__stabilizerErrorByKphSpeedTable:list<p2>": [
+      {
+        "row": [5.0,0.0]
+      },
+      {
+        "row": [8.0,0.2]
+      },
+      {
+        "row": [10.0,0.4]
+      }
+    ],
     "gun__shellsAmmo:array": [
       {
         "ammo": 19
@@ -233,21 +250,21 @@
     ]
   },
   "a13_mk_2_1939_turret_02_7_7mm_vikkers": {
-    "_extends": "tankgun_7_7mm_vikkers",
+    "_use": "tankgun_7_7mm_vikkers",
     "gun__shootNodeName": "bone_mg_gun_twin",
     "gun__shellsAmmo:array": {
       "ammo": 3500
     }
   },
   "a13_mk_2_1939_turret_03_76mm_nato_smoke_grenade_launcher_single": {
-    "_extends": "tankgun_76mm_nato_smoke_grenade_launcher_single",
+    "_use": "tankgun_76mm_nato_smoke_grenade_launcher_single",
     "gun__shootNodeName": "emtr_mortar_flame_01",
     "gun__shellsAmmo:array": {
       "ammo": 1
     }
   },
   "a13_mk_2_1939_turret_04_76mm_nato_smoke_grenade_launcher_single": {
-    "_extends": "tankgun_76mm_nato_smoke_grenade_launcher_single",
+    "_use": "tankgun_76mm_nato_smoke_grenade_launcher_single",
     "gun__shootNodeName": "emtr_mortar_flame_02",
     "gun__shellsAmmo:array": {
       "ammo": 1
@@ -255,13 +272,13 @@
   },
   "a13_mk_2_1939_ammo_stowages": {
     "_tags": "server",
-    "_extends": "vehicle_ammo_stowages",
+    "_use": "vehicle_ammo_stowages",
     "ammo_stowage__stowageTemplates:shared:list<t>": {
       "stowage": "a13_mk_2_1939_ammo_stowage_1"
     }
   },
   "a13_mk_2_1939_ammo_stowage_1": {
-    "_extends": "ammo_stowage",
+    "_use": "ammo_stowage",
     "ammo_stowage__clusterTemplates:shared:list<t>": {
       "cluster": "a13_mk_2_1939_ammo_cluster_1_1"
     },
@@ -270,7 +287,7 @@
     }
   },
   "a13_mk_2_1939_ammo_cluster_1_1": {
-    "_extends": "ammo_cluster",
+    "_use": "ammo_cluster",
     "ammo_cluster__isShell": true,
     "ammo_cluster__slotNames:shared:list<t>": [
       {

@@ -1,9 +1,11 @@
 {
   "uk_ac1_sentinel_pacific_premium": {
-    "_extends": "uk_ac1_sentinel_common"
+    "_use": "uk_ac1_sentinel_common"
   },
   "uk_ac1_sentinel_common": {
-    "_extends": "base_ac1_sentinel",
+    "_use": "base_ac1_sentinel",
+    "commanderCockpitFpsCamMaxAngle": [40.0,5.0],
+    "gunner_cam_limit__useCockpitDir": true,
     "item__iconOffset": [0.0,0.0],
     "vehicle_seats__seats:shared:array": [
       {
@@ -131,7 +133,7 @@
     ]
   },
   "uk_ac1_sentinel_driver_cockpit": {
-    "_extends": "base_driver_cockpit_no_slits",
+    "_use": "base_driver_cockpit_no_slits",
     "animchar__res": "bt_7_driver_char",
     "cockpit__offset": [0.0727883,-0.352521,0.00298698],
     "cockpit__visibleVehicleNodeNames:list<t>": {
@@ -148,8 +150,7 @@
     }
   },
   "uk_ac1_sentinel_gunner_cockpit": {
-    "vehicle_sight__blk": "content/tanks/gamedata/sight/default.blk",
-    "_extends": "base_gunner_cockpit",
+    "_use": "base_gunner_cockpit",
     "animchar__res": "ba_11_gunner_char",
     "cockpit__offset": [-0.590791,-0.0570703,0.23677],
     "cockpit__visibleVehicleNodeNames:list<t>": {
@@ -159,7 +160,7 @@
       "slit": "cam_front_right"
     },
     "cockpit__slitForwardOffset:list<r>": {
-      "slit": 0.19
+      "slit": 0.21
     },
     "cockpit__slitIsGun:list<b>": {
       "slit": true
@@ -167,10 +168,33 @@
     "cockpit__attachNodeNames:list<t>": {
       "node": "bone_camera_gunner"
     },
-    "cockpit__attachNodeIndices:list<i>": []
+    "cockpit__attachNodeIndices:list<i>": [],
+    "cockpit__periscopeLimits:list<p4>": {
+      "slit": [-0.0,0.0,0.0,0.0]
+    },
+    "cockpit__periscopeSpeed:list<p2>": {
+      "slit": [-1.0,-1.0]
+    },
+    "cockpit__slitZoomTime:list<r>": {
+      "slit": 0.05
+    },
+    "cockpit__slitZoom:array": {
+      "slit:list<r>": [
+        {
+          "zoom": 1.9
+        },
+        {
+          "zoom": 3.5
+        }
+      ]
+    },
+    "cockpit__slitTemplates:list<t>": {
+      "slit": "uk_no_33_mkii_s"
+    },
+    "cockpit__slitEids:list<eid>": []
   },
   "uk_ac1_sentinel_machinegunner_cockpit": {
-    "_extends": "base_gunner_cockpit",
+    "_use": "base_gunner_cockpit",
     "animchar__res": "ba_11_machinegunner_char",
     "cockpit__offset": [-0.18876,-0.259953,-0.198009],
     "cockpit__visibleVehicleNodeNames:list<t>": {
@@ -180,7 +204,7 @@
       "slit": "cam_mg"
     },
     "cockpit__slitForwardOffset:list<r>": {
-      "slit": -0.05
+      "slit": -0.0
     },
     "cockpit__slitIsGun:list<b>": {
       "slit": true
@@ -188,10 +212,22 @@
     "cockpit__attachNodeNames:list<t>": {
       "node": "bone_mg_v"
     },
-    "cockpit__attachNodeIndices:list<i>": []
+    "cockpit__attachNodeIndices:list<i>": [],
+    "cockpit__slitZoom:array": {
+      "slit:list<r>": {
+        "zoom": 2.0
+      }
+    },
+    "cockpit__slitZoomTime:list<r>": {
+      "slit": 0.05
+    },
+    "cockpit__slitTemplates:list<t>": {
+      "slit": "cross"
+    },
+    "cockpit__slitEids:list<eid>": []
   },
   "uk_ac1_sentinel_commander_cockpit": {
-    "_extends": "base_commander_cockpit_no_slits",
+    "_use": "base_commander_cockpit_no_slits",
     "animchar__res": "ba_11_gunner_char",
     "cockpit__offset": [-0.0,0.0,-0.0],
     "cockpit__cockpitOffsetBySlit:list<p3>": {
@@ -213,6 +249,24 @@
     },
     "cockpit__slitNodeNames:list<t>": {
       "slit": "cam_front_right"
-    }
+    },
+    "cockpit__periscopeLimits:list<p4>": {
+      "slit": [-0.0,0.0,-5.0,25.0]
+    },
+    "cockpit__periscopeSpeed:list<p2>": {
+      "slit": [35.0,35.0]
+    },
+    "cockpit__slitZoom:array": {
+      "slit:list<r>": {
+        "zoom": 1.44
+      }
+    },
+    "cockpit__slitZoomTime:list<r>": {
+      "slit": 0.0
+    },
+    "cockpit__slitTemplates:list<t>": {
+      "slit": "default_periscope"
+    },
+    "cockpit__slitEids:list<eid>": []
   }
 }

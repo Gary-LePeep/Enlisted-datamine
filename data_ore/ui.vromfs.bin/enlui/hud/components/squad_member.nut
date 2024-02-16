@@ -1,36 +1,37 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { HIT_RES_KILLED, HIT_RES_DOWNED, HIT_RES_NORMAL } = require("dm")
+let { HitResult } = require("%enlSqGlob/dasenums.nut")
 let { HEAL_RES_COMMON, HEAL_RES_REVIVE, ATTACK_RES } = require("%ui/hud/state/squad_members.nut")
 let { DEFAULT_TEXT_COLOR, DEAD_TEXT_COLOR } = require("%ui/hud/style.nut")
 let { mkGrenadeIcon } = require("%ui/hud/huds/player_info/grenadeIcon.nut")
 let { mkMineIcon } = require("%ui/hud/huds/player_info/mineIcon.nut")
-let { mkMedkitIcon } = require("%ui/hud/huds/player_info/medkitIcon.nut")
-let { mkFlaskIcon } = require("%ui/hud/huds/player_info/flaskIcon.nut")
+let mkMedkitIcon = require("%ui/hud/huds/player_info/medkitIcon.nut")
+let mkFlaskIcon = require("%ui/hud/huds/player_info/flaskIcon.nut")
 let { kindIcon } = require("%enlSqGlob/ui/soldiersUiComps.nut")
 let { controlledHeroEid } = require("%ui/hud/state/controlled_hero.nut")
 let {AI_ACTION_UNKNOWN, AI_ACTION_STAND, AI_ACTION_HEAL,
   AI_ACTION_HIDE, AI_ACTION_MOVE, AI_ACTION_ATTACK, AI_ACTION_IN_COVER, AI_ACTION_RELOADING, AI_ACTION_DOWNED} = require("ai")
+let { defTxtColor } = require("%enlSqGlob/ui/designConst.nut")
 
 let calcIconHpColor = @(ratio, defColor) ratio < 0.3 ? Color(200,50,50)
   : ratio < 0.75 ? Color(200,100,100)
   : defColor
 
-let mkGrenadeIconByMember = @(member, size) member.isAlive && member.grenadeType != null
-  ? mkGrenadeIcon(member.grenadeType, size)
-  : null
+let mkGrenadeIconByMember = @(member, size, color = defTxtColor)
+  member.isAlive && member.grenadeType != null
+    ? mkGrenadeIcon(member.grenadeType, size, color)
+    : null
 
-let mkMineIconByMember = @(member, size) member.isAlive && member.mineType != null
-  ? mkMineIcon(member.mineType, size)
-  : null
+let mkMineIconByMember = @(member, size, color = defTxtColor)
+  member.isAlive && member.mineType != null
+    ? mkMineIcon(member.mineType, size, color)
+    : null
 
-let mkMemberHealsBlock = @(member, size) member.isAlive && member.targetHealCount > 0
-  ? mkMedkitIcon(size)
-  : null
+let mkMemberHealsBlock = @(member, size, color = defTxtColor)
+  member.isAlive && member.targetHealCount > 0 ? mkMedkitIcon(size, color) : null
 
-let mkMemberFlaskBlock = @(member, size) member.isAlive && member.hasFlask
-  ? mkFlaskIcon(size)
-  : null
+let mkMemberFlaskBlock = @(member, size, color = defTxtColor)
+  member.isAlive && member.hasFlask ? mkFlaskIcon(size, color) : null
 
 let animByTrigger = @(color, time, trigger) trigger
   ? { prop=AnimProp.color, from=color, easing=OutCubic, duration=time, trigger=trigger }
@@ -52,7 +53,7 @@ let mkAiImage = memoize(function(image, size) {
   return Picture($"ui/skin#{image}:{size}:{size}:K")
 })
 
-let function mkAiActionIcon(member, size) {
+let function mkAiActionIcon(member, size, color = defTxtColor) {
   let image = aiActionIcons?[member.currentAiAction]
   if (member.eid == controlledHeroEid.value || !member.isAlive || !member.hasAI || !image)
     return null
@@ -63,9 +64,9 @@ let function mkAiActionIcon(member, size) {
     size = [size, size]
     rendObj = ROBJ_IMAGE
     image = mkAiImage(image, size)
-    color = member.maxHp > 0 ? calcIconHpColor(member.hp / member.maxHp, 0xFFFFFFFF) : 0xFFFFFFFF
+    color = member.maxHp > 0 ? calcIconHpColor(member.hp / member.maxHp, color) : color
     animations = [
-      animByTrigger(Color(200, 0, 0, 200), 1.0, member.hitTriggers[HIT_RES_NORMAL])
+      animByTrigger(Color(200, 0, 0, 200), 1.0, member.hitTriggers[HitResult.HIT_RES_NORMAL])
       animByTrigger(Color(200, 0, 0, 200), 1.0, member.hitTriggers[ATTACK_RES])
     ]
   }
@@ -81,14 +82,14 @@ let deaths = freeze({
 let mkStatusIcon = @(member, size, color=DEFAULT_TEXT_COLOR) {
   size = flex()
   animations = [
-    animByTrigger(Color(200, 0, 0, 200), 1.0, member?.hitTriggers[HIT_RES_NORMAL])
-    animByTrigger(Color(200, 100, 0, 200), 3.0, member?.hitTriggers[HIT_RES_DOWNED])
-    animByTrigger(Color(200, 0, 0, 200), 3.0, member?.hitTriggers[HIT_RES_KILLED])
+    animByTrigger(Color(200, 0, 0, 200), 1.0, member?.hitTriggers[HitResult.HIT_RES_NORMAL])
+    animByTrigger(Color(200, 100, 0, 200), 3.0, member?.hitTriggers[HitResult.HIT_RES_DOWNED])
+    animByTrigger(Color(200, 0, 0, 200), 3.0, member?.hitTriggers[HitResult.HIT_RES_KILLED])
     animByTrigger(Color(0, 200, 100, 200), 1.0, member?.hitTriggers[HEAL_RES_COMMON])
     animByTrigger(Color(0, 100, 200, 200), 3.0, member?.hitTriggers[HEAL_RES_REVIVE])
   ]
   children = member.isAlive
-    ? kindIcon(member?.sKind, size, member?.sClassRare).__update({color, vplace = ALIGN_CENTER})
+    ? kindIcon(member?.displayedKind ?? member?.sKind, size, member?.sClassRare).__update({color, vplace = ALIGN_CENTER})
     : deaths
 }
 

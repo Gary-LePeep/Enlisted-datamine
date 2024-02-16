@@ -237,7 +237,57 @@ local portraits = {
   engineerDay23_event_portrait = {
     icon = "ui/portraits/event/engineerDay23_event_portrait.avif"
   }
-
+  portrait_preorder_paratrooper = {
+    icon = "ui/portraits/event/portrait_preorder_paratrooper.avif"
+  }
+  mech_event_portrait = {
+    icon = "ui/portraits/event/mech_event_portrait.avif"
+  }
+  berlin_operation_medic_portrait = {
+    icon = "ui/portraits/event/berlin_operation_medic_portrait.avif"
+  }
+  portrait_preorder_sniper = {
+    icon = "ui/portraits/event/portrait_preorder_sniper.avif"
+  }
+  stalingrad_bonus_portrait_ussr = {
+    icon = "ui/portraits/event/stalingrad_bonus_portrait_ussr.avif"
+  }
+  stalingrad_bonus_portrait_ger = {
+    icon = "ui/portraits/event/stalingrad_bonus_portrait_ger.avif"
+  }
+  armory2_bonus_portrait_ussr = {
+    icon = "ui/portraits/event/armory2_bonus_portrait_ussr.avif"
+  }
+  armory2_bonus_portrait_ger = {
+    icon = "ui/portraits/event/armory2_bonus_portrait_ger.avif"
+  }
+  armory3_bonus_portrait_italy = {
+    icon = "ui/portraits/event/armory3_bonus_portrait_italy.avif"
+  }
+  armory3_bonus_portrait_britain = {
+    icon = "ui/portraits/event/armory3_bonus_portrait_britain.avif"
+  }
+  portrait_opendev_23 = {
+    icon = "ui/portraits/event/portrait_opendev_23.avif"
+  }
+  battlepass_11_portrait = {
+    icon = "ui/portraits/event/battlepass_11_portrait.avif"
+  }
+   birthday2_bonus_portrait_tanker = {
+    icon = "ui/portraits/event/birthday2_bonus_portrait_tanker.avif"
+  }
+  birthday2_bonus_portrait_pilot = {
+    icon = "ui/portraits/event/birthday2_bonus_portrait_pilot.avif"
+  }
+  portrait_preorder_apc_driver = {
+    icon = "ui/portraits/event/portrait_preorder_apc_driver.avif"
+  }
+  battlepass_12_portrait = {
+    icon = "ui/portraits/event/battlepass_12_portrait.avif"
+  }
+  lunarNewyear24_bonus_portrait = {
+    icon = "ui/portraits/event/lunarNewyear24_bonus_portrait.avif"
+  }
 
 
   common_china_portrait_1 = {
@@ -283,6 +333,42 @@ local portraits = {
   common_china_portrait_14 = {
     icon = "ui/portraits/common/china_portrait_14.avif"
     bgimg = "ui/portraits/back_t1.avif"
+  }
+  common_china_portrait_15 = {
+    icon = "ui/portraits/common/china_portrait_15.avif"
+  }
+  common_china_portrait_16 = {
+    icon = "ui/portraits/common/china_portrait_16.avif"
+  }
+  common_china_portrait_17 = {
+    icon = "ui/portraits/common/china_portrait_17.avif"
+  }
+  common_china_portrait_18 = {
+    icon = "ui/portraits/common/china_portrait_18.avif"
+  }
+  common_china_portrait_19 = {
+    icon = "ui/portraits/common/china_portrait_19.avif"
+  }
+  common_china_portrait_20 = {
+    icon = "ui/portraits/common/china_portrait_20.avif"
+  }
+  common_china_portrait_21 = {
+    icon = "ui/portraits/common/china_portrait_21.avif"
+  }
+  common_china_portrait_22 = {
+    icon = "ui/portraits/common/china_portrait_22.avif"
+  }
+  common_china_portrait_23 = {
+    icon = "ui/portraits/common/china_portrait_23.avif"
+  }
+  common_china_portrait_24 = {
+    icon = "ui/portraits/common/china_portrait_24.avif"
+  }
+  common_china_portrait_25 = {
+    icon = "ui/portraits/common/china_portrait_25.avif"
+  }
+  common_china_portrait_26 = {
+    icon = "ui/portraits/common/china_portrait_26.avif"
   }
   common_top_rank_portrait_1 = {
     icon = "ui/portraits/common/top_rank_portrait_1.avif"
@@ -389,11 +475,19 @@ local nickFrames = {
   nickFrame_samurai = @(n) $"┄{n}┄"
   nickFrame_mgun = @(n) $"┏{n}┏"
   nickFrame_preorder_mgun = @(n) $"┏{n}┏"
+  nickFrame_preorder_paratrooper = @(n) $"┒{n}┒"
+  nickFrame_alfa_tester = @(n) $"┓{n}┓"
+  nickFrame_preorder_sniper = @(n) $"└{n}└"
+  nickFrame_prem_shop_bonus = @(n) $"┕{n}┕"
+  nickFrame_bday_3 = @(n) $"┖{n}┖"
+  nickFrame_preorder_apc_driver = @(n) $"┗{n}┗"
+  nickFrame_new_year24_event = @(n) $"┘{n}┙"
+  nickFrame_lunarNewyear24_event = @(n) $"┦{n}┧"
 }
 
 local decoratorsPresentation = {
   portrait = portraits
-  nickFrame = nickFrames.map(@(framedNickName) { framedNickName }) //is we really need this?
+  nickFrame = nickFrames.map(@(framedNickName) { framedNickName }) //do we really need this?
 }
 
 return {

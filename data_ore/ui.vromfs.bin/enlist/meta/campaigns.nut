@@ -2,28 +2,53 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { isPlatformRelevant } = require("%dngscripts/platform.nut")
 let { configs } = require("%enlist/meta/configs.nut")
-let { purchasesCount } = require("%enlist/meta/servProfile.nut")
+let { purchasesCount, armies } = require("%enlist/meta/servProfile.nut")
+let { gameProfile } = require("%enlist/soldiers/model/config/gameProfile.nut")
 let { maxVersionStr, maxVersionInt } = require("%enlSqGlob/client_version.nut")
 let { check_version } = require("%sqstd/version_compare.nut")
+let { renameCommonArmies } = require("%enlSqGlob/renameCommonArmies.nut")
 
 let unlocks = Computed(function() {
   let { shop_items = {}, locked_campaigns = [], locked_progress_campaigns = [] } = configs.value
-  let res = { open = {}, progress = {} }
+  let open = {}
+  let progress = {}
   foreach (camp in locked_campaigns)
-    res.open[camp] <- []
+    open[camp] <- []
   foreach (camp in locked_progress_campaigns)
-    res.progress[camp] <- []
+    progress[camp] <- []
 
   foreach (id, item in shop_items) {
     foreach (camp in item?.campaigns ?? [])
-      if (camp in res.open)
-        res.open[camp].append(id)
+      if (camp in open)
+        open[camp].append(id)
     foreach (camp in item?.campaignsProgress ?? [])
-      if (camp in res.progress)
-        res.progress[camp].append(id)
+      if (camp in progress)
+        progress[camp].append(id)
   }
 
-  return res
+  return { open, progress }
+})
+
+let visibleCampaigns = Computed(function() {
+  let armiesData = armies.value
+  let legacyCampaignsList = []
+  let unitedCampaignsList = []
+  local hasActiveLegacyArmy = false
+  foreach (campaignId in configs.value?.gameProfile.visibleCampaigns ?? []) {
+    let campaign = gameProfile.value?.campaigns[campaignId] ?? {}
+    if (campaign?.isUnited ?? false)
+      unitedCampaignsList.append(campaignId)
+    else {
+      legacyCampaignsList.append(campaignId)
+      foreach (armyId in campaign?.armies ?? []) {
+        let { exp = 0, level = 0 } = armiesData?[armyId]
+        if (exp > 0 || level > 0)
+          hasActiveLegacyArmy = true
+      }
+    }
+  }
+
+  return hasActiveLegacyArmy ? legacyCampaignsList : unitedCampaignsList
 })
 
 let isUnlocked = @(campUnlocks, purchases)
@@ -67,9 +92,17 @@ let campaignsInfo = Computed(function() {
   return { unlocked, locked, lockedProgress }
 })
 
+let function isUnited() {
+  return renameCommonArmies.findvalue(function(_, armyId) {
+    let { exp = 0, level = 0 } = armies.value?[armyId]
+    return exp != 0 || level != 0
+  }) == null
+}
+
 return {
-  lockedCampaigns   = Computed(@() campaignsInfo.value.locked)
+  lockedCampaigns = Computed(@() campaignsInfo.value.locked)
   unlockedCampaigns = Computed(@() campaignsInfo.value.unlocked)
   lockedProgressCampaigns = Computed(@() campaignsInfo.value.lockedProgress)
-  visibleCampaigns = Computed(@() (configs.value?.gameProfile.visibleCampaigns ?? []))
+  visibleCampaigns
+  isUnited
 }

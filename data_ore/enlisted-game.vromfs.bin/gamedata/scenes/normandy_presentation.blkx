@@ -114,6 +114,11 @@
   },
   {
     "entity": {
+      "_template": "bloom"
+    }
+  },
+  {
+    "entity": {
       "_template": "postfx_roundctrl"
     }
   },
@@ -131,7 +136,7 @@
       "team__briefing": "invasion/attackers_goals",
       "team__winSubtitle": "debriefing/won_invasion_subtitle",
       "team__loseSubtitle": "debriefing/lost_invasion_subtitle",
-      "team__winTitle": "debriefing/normandy/usa_won_invasion_title",
+      "team__winTitle": "debriefing/normandy/allies_won_invasion_title",
       "team__spawnBotArmy": "normandy_allies"
     }
   },
@@ -148,7 +153,7 @@
       "team__briefing": "invasion/defenders_goals",
       "team__winSubtitle": "debriefing/won_defence_subtitle",
       "team__loseSubtitle": "debriefing/lost_defence_subtitle",
-      "team__winTitle": "debriefing/normandy/ger_won_defence_title",
+      "team__winTitle": "debriefing/normandy/axis_won_defence_title",
       "team__spawnBotArmy": "normandy_axis"
     }
   },

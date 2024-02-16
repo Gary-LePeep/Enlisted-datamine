@@ -1,10 +1,10 @@
 {
   "base_su_100": [
     {
-      "_extends": "base_tank"
+      "_use": "base_tank"
     },
     {
-      "_extends": "su_100_ammo_stowages"
+      "_use": "su_100_ammo_stowages"
     },
     {
       "killLogName": "ussr_su_100_1945"
@@ -108,7 +108,7 @@
     }
   ],
   "su_100_turret_01_100mm_d10s": {
-    "_extends": "tankgun_100mm_d10s",
+    "_use": "tankgun_100mm_d10s",
     "gun__shootNodeName": "bone_gun_barrel",
     "turret__yawSpeed": 7.0,
     "turret__pitchSpeed": 4.0,
@@ -143,13 +143,13 @@
   },
   "su_100_ammo_stowages": {
     "_tags": "server",
-    "_extends": "vehicle_ammo_stowages",
+    "_use": "vehicle_ammo_stowages",
     "ammo_stowage__stowageTemplates:shared:list<t>": {
       "stowage": "su_100_ammo_stowage_1"
     }
   },
   "su_100_ammo_stowage_1": {
-    "_extends": "ammo_stowage",
+    "_use": "ammo_stowage",
     "ammo_stowage__clusterTemplates:shared:list<t>": {
       "cluster": "su_100_ammo_cluster_1_1"
     },
@@ -158,7 +158,7 @@
     }
   },
   "su_100_ammo_cluster_1_1": {
-    "_extends": "ammo_cluster",
+    "_use": "ammo_cluster",
     "ammo_cluster__isShell": true,
     "ammo_cluster__slotNames:shared:list<t>": [
       {

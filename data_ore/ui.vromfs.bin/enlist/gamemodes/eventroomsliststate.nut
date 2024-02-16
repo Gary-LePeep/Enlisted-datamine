@@ -13,7 +13,7 @@ let {get_setting_by_blk_path} = require("settings")
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
 let { crossnetworkPlay, CrossplayState } = require("%enlSqGlob/crossnetwork_state.nut")
 let { featuredMods, featuredModsRoomsList } = require("sandbox/customMissionOfferState.nut")
-let { nestWatched, globalWatched } = require("%dngscripts/globalState.nut")
+let { nestWatched } = require("%dngscripts/globalState.nut")
 
 
 let matchingGameName = get_setting_by_blk_path("matchingGameName")
@@ -23,7 +23,7 @@ const REFRESH_PERIOD = 5.0
 let isDebugMode = mkWatched(persist, "isDebugMode", false)
 let isRequestInProgress = Watched(false)
 let isRefreshEnabled = mkWatched(persist, "isRefreshEnabled", false)
-let { lastResult, lastResultUpdate } = globalWatched("lastResult", @() {})
+let lastResult = nestWatched("lastResult", {})
 let roomsListError = Computed(@()
   lastResult.value?.error ? error_string(lastResult.value.error) : null)
 let hideFullRooms = optFullRooms.curValue
@@ -53,7 +53,7 @@ let roomsList = Computed(function() {
 
 roomsList.subscribe(function(v){
   let featuredModsIds = {}
-  featuredMods.value.each(@(v) featuredModsIds[v.id] <- true)
+  featuredMods.value.each(@(val) featuredModsIds[val.id] <- true)
   return featuredModsRoomsList(v.filter(@(mod) (mod?.modId ?? "") in featuredModsIds))
 })
 
@@ -99,7 +99,7 @@ let fixedFilters = {
 let function getFiltersByOptions() {
   let res = {}
   let { defaults = {} } = createEventRoomCfg.value?[allModes.value?[0]]
-  foreach (opt in [optMode, optDifficulty, optCampaigns, optCluster]) {
+  foreach (opt in [optMode, optDifficulty, optArmiesA, optArmiesB, optCluster]) {
     if (opt.optType != OPT_MULTISELECT) {
       logerr("Filter rooms by options support only multiselect options yet")
       continue
@@ -154,7 +154,7 @@ let function updateListRooms() {
   matchingCall("mrooms.fetch_rooms_digest2",
     function(response) {
       isRequestInProgress(false)
-      lastResultUpdate(isDebugMode.value
+      lastResult(isDebugMode.value
         ? { digest = mkDebugRooms(math.rand() % 100) }
         : response)
     },
@@ -172,7 +172,9 @@ let function updateRefreshTimer() {
 updateRefreshTimer()
 isRefreshEnabled.subscribe(@(_) updateRefreshTimer())
 
-foreach (opt in [optMode, optDifficulty, optCrossplay, optCampaigns, optCluster, optFullRooms])
+foreach (opt in [optMode, optDifficulty, optCrossplay, optArmiesA,
+  optArmiesB, optCluster, optFullRooms]
+)
   (opt?.curValue ?? opt.curValues).subscribe(debounce(@(_) updateListRooms(), 0.2))
 
 let function toggleDebugMode() {

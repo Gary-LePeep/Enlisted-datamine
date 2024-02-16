@@ -1,5 +1,10 @@
 [
   {
+    "import": {
+      "scene": "content/enlisted/gamedata/scenes/_berlin_railway_sounds.blk"
+    }
+  },
+  {
     "entity": {
       "_template": "battle_area_polygon_point",
       "transform": [
@@ -1699,6 +1704,11 @@
   },
   {
     "entity": {
+      "_template": "bloom"
+    }
+  },
+  {
+    "entity": {
       "_template": "postfx_roundctrl",
       "post_fx:object": []
     }
@@ -1729,6 +1739,7 @@
     "entity": {
       "_template": "briefing_confrontation",
       "mission_name": "berlin_railway_conf",
+      "mission_outfit": "berlin",
       "loading_images:list<t>": [
         {
           "item": "ui/berlin_railway_inv_01.avif"
@@ -1774,7 +1785,7 @@
       "team__briefing": "confrontation/attackers_goals",
       "team__winSubtitle": "debriefing/won_invasion_subtitle",
       "team__loseSubtitle": "debriefing/lost_invasion_subtitle",
-      "team__winTitle": "debriefing/ger_won_invasion",
+      "team__winTitle": "debriefing/axis_won_invasion",
       "team__spawnBotArmy": "moscow_axis"
     }
   },
@@ -1834,7 +1845,7 @@
       "capzone__caption": "capzone/farm_house",
       "capzone__deactivateAfterTimeout": 25.0,
       "decal__height": 2.0,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "sphere_zone__radius": 10.0,
       "capzone__iconOffsetY": 2.5,
       "capzone__activateChoiceTeam1:object": {
@@ -1867,7 +1878,7 @@
       "capzone__caption": "capzone/village_house",
       "capzone__deactivateAfterTimeout": 25.0,
       "decal__height": 2.0,
-      "decal__thickness": 0.3,
+      "decal__thickness": 0.15,
       "sphere_zone__radius": 10.0,
       "capzone__iconOffsetY": 1.5,
       "capzone__activateChoiceTeam1:object": {
@@ -1900,7 +1911,7 @@
       "capzone__caption": "capzone/village_house",
       "capzone__deactivateAfterTimeout": 25.0,
       "decal__height": 2.0,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "sphere_zone__radius": 10.0,
       "capzone__iconOffsetY": 1.5,
       "capzone__activateChoiceTeam1:object": {
@@ -1936,7 +1947,7 @@
       "capzone__caption": "capzone/farm_house",
       "capzone__deactivateAfterTimeout": 25.0,
       "decal__height": 1.0,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "sphere_zone__radius": 10.0,
       "capzone__iconOffsetY": 1.5,
       "capzone__activateChoiceTeam1:object": {
@@ -1972,7 +1983,7 @@
       "capzone__caption": "capzone/station",
       "capzone__deactivateAfterTimeout": 25.0,
       "sphere_zone__radius": 23.0,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "decal__height": 1.5,
       "capzone__iconOffsetY": 1.5,
       "capzone__activateChoiceTeam1:object": {
@@ -2008,7 +2019,7 @@
       "capzone__icon": "AAA",
       "capzone__caption": "capzone/warehouse",
       "capzone__deactivateAfterTimeout": 25.0,
-      "decal__thickness": 0.3,
+      "decal__thickness": 0.15,
       "decal__height": 2.6,
       "capzone__activateChoiceTeam1:object": {
         "sector_5": 1.0
@@ -2041,7 +2052,7 @@
       "capzone__icon": "AAA",
       "capzone__caption": "capzone/warehouse",
       "capzone__deactivateAfterTimeout": 25.0,
-      "decal__thickness": 0.3,
+      "decal__thickness": 0.15,
       "decal__height": 2.6,
       "capzone__iconOffsetY": 1.0,
       "capzone__activateChoiceTeam1:object": {

@@ -1,11 +1,11 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let faComp = require("%ui/components/faComp.nut")
-let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let {
-  smallOffset, bigPadding, smallPadding, activeTxtColor, discountBgColor
+  smallOffset, bigPadding, smallPadding, activeTxtColor
 } = require("%enlSqGlob/ui/viewConst.nut")
-
+let { brightAccentColor } = require("%enlSqGlob/ui/designConst.nut")
 let { addScene, removeScene } = require("%enlist/navState.nut")
 let { navHeight } = require("%enlist/mainMenu/mainmenu.style.nut")
 let { squadsCfgById } = require("%enlist/soldiers/model/config/squadsConfig.nut")
@@ -22,7 +22,7 @@ let { purchaseMsgBox } = require("%enlist/currency/purchaseMsgBox.nut")
 let activatePremiumBttn = require("activatePremiumBtn.nut")
 let { isTestDriveProfileInProgress, startSquadTestDrive } = require("%enlist/battleData/testDrive.nut")
 let { Bordered, Purchase, PrimaryFlat } = require("%ui/components/textButton.nut")
-let spinner = require("%ui/components/spinner.nut")({ height = btnSizeBig[1] })
+let spinner = require("%ui/components/spinner.nut")
 let { mkPrice } = require("%enlist/shop/mkShopItemPrice.nut")
 let { offersByShopItem } = require("%enlist/offers/offersState.nut")
 let { CAMPAIGN_NONE } = require("%enlist/campaigns/campaignConfig.nut")
@@ -33,10 +33,12 @@ let { txt } = require("%enlSqGlob/ui/defcomps.nut")
 let { secondsToHoursLoc } = require("%ui/helpers/time.nut")
 let { wallpostersCfg } = require("%enlist/profile/wallpostersState.nut")
 let { mkWallposterImg } = require("%enlist/profile/wallpostersPkg.nut")
+let { mkProductView } = require("%enlist/shop/shopPkg.nut")
+let { allItemTemplates } = require("%enlist/soldiers/model/all_items_templates.nut")
 
 
-let defTxtStyle = { color = activeTxtColor }.__update(sub_txt)
-
+let defTxtStyle = { color = activeTxtColor }.__update(fontSub)
+let waitingSpinner = spinner(btnSizeBig[1]/2)
 let buySquadParams = mkWatched(persist, "buySquadParams")
 
 let open = @(params) buySquadParams(params)
@@ -58,12 +60,14 @@ let viewData = Computed(function() {
 
   let squadCfg = squadsCfgById.value?[armyId][squadId]
   let offer = offersByShopItem.value?[shopItem.guid]
+  let productView = mkProductView(shopItem, allItemTemplates)
 
   return squadCfg == null ? null
     : params.__merge({
         squad
         squadCfg
         offer
+        productView
       })
 })
 
@@ -139,7 +143,7 @@ let function mkButtonsBlock(viewOptions, rentOptions) {
         ]
       }, primeFlagStyle.__merge({
         offset = 0
-        flagColor = discountBgColor
+        flagColor = brightAccentColor
       }))
 
   let summary = mkPrice({
@@ -184,7 +188,7 @@ let function mkButtonsBlock(viewOptions, rentOptions) {
       timerObj
       purchaseBtn
       canRentSquad.value ? rentBtn : null
-      isTestDriveProfileInProgress.value ? spinner
+      isTestDriveProfileInProgress.value ? waitingSpinner
         : Bordered(loc("testDrive/squad"),
             @() startSquadTestDrive(armyId, squadId, shopItem?.guid ?? ""),
             {

@@ -1,0 +1,54 @@
+[
+  {
+    "import": {
+      "scene": "content/enlisted/gamedata/scenes/_stalingrad_tractor_plant_common.blk"
+    }
+  },
+  {
+    "entity": {
+      "_template": "briefing_invasion",
+      "mission_name": "stalingrad_entrance_inv",
+      "mission_outfit": "stalingrad",
+      "loading_images:list<t>": [
+        {
+          "item": "ui/stalingrad_tractor_plant_01.avif"
+        },
+        {
+          "item": "ui/stalingrad_tractor_plant_04.avif"
+        },
+        {
+          "item": "ui/stalingrad_tractor_plant_06.avif"
+        }
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "screen_fade_anim",
+      "screen_fade": 0.9,
+      "anim_track_on": true
+    }
+  },
+  {
+    "entity": {
+      "_template": "ui_disabled"
+    }
+  },
+  {
+    "entity": {
+      "_template": "benchmark",
+      "benchmark_name": "stalingrad",
+      "camera_tracks:array": {
+        "camera_tracks:object": {
+          "from_fov": 90.0,
+          "from_pos": [-122.0,26.7,-6.67],
+          "to_dir": [-0.468,-0.046,0.882],
+          "duration": 10000.0,
+          "to_pos": [-122.0,26.7,-6.67],
+          "to_fov": 90.0,
+          "from_dir": [-0.468,-0.046,0.882]
+        }
+      }
+    }
+  }
+]

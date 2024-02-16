@@ -9,6 +9,7 @@
   "useFutureContacts": true,
   "logCCD": false,
   "frictionGround": 2.0,
+  "ccdClipVelocityMult": 0.0,
   "collisionResource": {
     "props": {
       "volumeBox": "box"
@@ -36,5 +37,9 @@
   },
   "shellSound": {
     "activatePath": "/weapon/molotov/activate"
+  },
+  "shellShatterSound": {
+    "wizPath": "",
+    "hitPath": ""
   }
 }

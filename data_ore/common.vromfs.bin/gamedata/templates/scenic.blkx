@@ -20,13 +20,13 @@
   },
   "level": [
     {
-      "_extends": "replicating"
+      "_use": "replicating"
     },
     {
-      "_extends": "nav_rebuilding"
+      "_use": "nav_rebuilding"
     },
     {
-      "_extends": "dead_entity_recreate"
+      "_use": "dead_entity_recreate"
     },
     {
       "_singleton": true
@@ -95,6 +95,12 @@
       "level__loadNavMesh": true
     },
     {
+      "level__loadExtraNavMeshes": ""
+    },
+    {
+      "level__useGroundHolesCollision": false
+    },
+    {
       "level__minimapDefaultVisibleRadius": 150
     },
     {
@@ -148,7 +154,7 @@
     }
   ],
   "menu_level": {
-    "_extends": "level",
+    "_use": "level",
     "level__renderFeaturesOverrides:object": {
       "microdetails": true,
       "clusteredLights": true,
@@ -164,10 +170,10 @@
       "_singleton": true
     },
     {
-      "_extends": "replicating"
+      "_use": "replicating"
     },
     {
-      "_extends": "underwater_sound"
+      "_use": "underwater_sound"
     },
     {
       "waterTrail__cascadeArea": 128.0
@@ -208,20 +214,53 @@
     {
       "_group": {
         "_track": true,
+        "water__level": 0.0,
+        "water__max_tessellation": 4,
+        "water__smallWaterAIWalkHeight": 0.3,
         "water__strength": 4.0,
         "water__wind_dir": 40.0,
-        "water__level": 0.0,
-        "water__smallWaterAIWalkHeight": 0.3,
+        "water__wind_strength": 0.2,
         "water__deepWaterAIAreaCost": -1.0,
         "water__fft_resolution": 7,
-        "water__max_tessellation": 4,
-        "water__flowmap": false,
+        "water__colormap_area": [-512.0,512.0,512.0,-512.0],
+        "water__colormap_tex": "",
+        "water__flowmap": true,
         "water__flowmap_tex": "",
         "water__flowmap_area": [-512.0,512.0,512.0,-512.0],
-        "water__wind_strength": 0.2,
-        "water__flowmap_strength": 1.0,
-        "water__colormap_tex": "",
-        "water__colormap_area": [-512.0,512.0,512.0,-512.0],
+        "water__flowmap_fading": 4.0,
+        "water__flowmap_foam_depth_max": 3.0,
+        "water__flowmap_foam_power": 0.5,
+        "water__flowmap_foam_reflectivity": 0.2,
+        "water__flowmap_foam_scale": 0.4,
+        "water__flowmap_foam_speed_scale": 8.0,
+        "water__flowmap_foam_threshold": 1.2,
+        "water__flowmap_foam_tiling": 0.75,
+        "water__flowmap_max_distance": 0.9,
+        "water__flowmap_min_distance": 0.4,
+        "water__flowmap_prebaked_foam_power": 0.6,
+        "water__flowmap_prebaked_foam_scale": 1.0,
+        "water__flowmap_prebaked_foamfx": 0.5,
+        "water__flowmap_prebaked_speed": 3.0,
+        "water__flowmap_simulated_foam_scale": 1.0,
+        "water__flowmap_simulated_speed": 0.2,
+        "water__flowmap_slope": 1.2,
+        "water__flowmap_speed_depth_max": 20.0,
+        "water__flowmap_speed_depth_scale": 0.2,
+        "foamfx__distortion_scale": 0.6,
+        "foamfx__gradient_gamma": 1.0,
+        "foamfx__gradient_tex": "foam_generator_a_gradient_tex_n",
+        "foamfx__mask_gamma": 1.0,
+        "foamfx__normal_scale": 0.05,
+        "foamfx__overfoam_color": [2.0,2.0,2.0],
+        "foamfx__overfoam_threshold": 0.1,
+        "foamfx__overfoam_weight": 1.0,
+        "foamfx__pattern_gamma": 1.0,
+        "foamfx__reflectivity": 0.2,
+        "foamfx__tile_tex": "foam_generator_a_tile_tex_n",
+        "foamfx__tile_uv_scale": 0.4,
+        "foamfx__underfoam_color": [0.0,0.0,0.0],
+        "foamfx__underfoam_threshold": 0.3,
+        "foamfx__underfoam_weight": 0.9,
         "shore__enabled": true,
         "shore__texture_size": 1024,
         "shore__hmap_size": 1024.0,
@@ -238,13 +277,21 @@
     },
     {
       "water": []
+    },
+    {
+      "needsWaterDroplets:tag": {
+        "_tags": "render"
+      }
     }
   ],
   "wind": {
     "dyn_wind__cumulus_alt_multiplier": 12.0,
     "dyn_wind__strata_alt_multiplier": 4.0,
-    "_extends": "replicating",
+    "_use": "replicating",
     "_singleton": true,
+    "ambient_wind:AmbientWind": {
+      "_tags": "render"
+    },
     "_group": {
       "_track": true,
       "wind__flowMap": "",
@@ -260,7 +307,7 @@
   },
   "distant_haze": {
     "_singleton": true,
-    "_extends": "replicating",
+    "_use": "replicating",
     "distant_haze__is_center_fixed": false,
     "distant_haze__center": [0.0,0.0],
     "distant_haze__radius": 400.0,

@@ -4,13 +4,13 @@ require ecs.safe
 require math.base
 require DagorMath
 require Plane
-require EnlistedPlane
-require EnlistedActor
-require EnlistedDm
+require DngPlane
+require DngActor
+require DngDm
 require dm
 require game.utils.team
 require game.es.events
-require EnlistedNet
+require DngNet
 require enlisted.events_enlisted
 require game.es.vehicle.vehicle_events
 require game.es.aircraft.aircraft_common
@@ -54,8 +54,12 @@ def respawn_plane(plane_eid : EntityId; transform : float3x4; is_water_spawn : b
   tm := transform
   orthonormalize(tm)
 
-  send_net_event(plane_eid, [[CmdResupplyVehicle]])
   send_net_event(plane_eid, [[CmdResetupVehicle setupOnWater=is_water_spawn, tm=tm, speed=0.0]])
+
+def start_resupply_timer(plane_eid : EntityId; time : float)
+  query(plane_eid) <| $ [es] (var resupplyAtTime : float&; var resupplyStarted : bool&)
+    resupplyAtTime = time
+    resupplyStarted = true
 
 def is_valid_respawn(subtype : string; valid_subtypes : StringList const?)
   return valid_subtypes == null || length(*valid_subtypes) == 0 || find_index(*valid_subtypes, subtype) >= 0
@@ -130,6 +134,7 @@ def plane_landing_check_if_landed(evt : CmdPostPhysUpdate;
                                                            sphere_zone__radius : float;
                                                            landing_zone__maxSpeed : float = 10.0;
                                                            landing_zone__respawnAfterTime : float = 10.0;
+                                                           landing_zone__resupplyDelay : float = 1.0;
                                                            landing_zone__isWater : Tag const?;
                                                            team : int = TEAM_UNASSIGNED)
     let isSpeedLow = plane_net_phys.phys.speed < landing_zone__maxSpeed
@@ -148,6 +153,7 @@ def plane_landing_check_if_landed(evt : CmdPostPhysUpdate;
         plane_landing__timeAfterLanding = 0.0
         plane_landing__respawnInProgress = true
         respawn_plane(plane_eid, zone_transform, isWaterRespawn)
+        start_resupply_timer(plane_eid, get_sync_time() + landing_zone__resupplyDelay)
       return true
     return false
 
@@ -159,12 +165,17 @@ def plane_landing_check_if_landed(evt : CmdPostPhysUpdate;
 def plane_resetup_teleport(evt : CmdResetupVehicle;
                            eid : EntityId;
                            collres : CollisionResource;
+                           setup_on_ground__setupMaxHeight : float;
                            var plane_net_phys : PlaneActor&;
                            var damage_model : DamageModel&;
                            var fire_protection : FireProtection&;
                            var meta_parts_state : MetaPartsState&)
   repair_plane(eid, plane_net_phys, damage_model, fire_protection, meta_parts_state)
-  teleport_plane(evt.tm, collres, plane_net_phys)
+  teleport_plane(evt.tm, collres, setup_on_ground__setupMaxHeight, plane_net_phys)
+
+[es(before=plane_resetup_teleport)]
+def reset_spawn_validator_on_resetup(evt : CmdResetupVehicle; var spawn_validation__isValidated : bool&)
+  spawn_validation__isValidated = false
 
 [es(tag=input, after=plane_resetup_teleport)]
 def plane_landing_reset_look_dir(evt : CmdResetupVehicle;
@@ -180,9 +191,12 @@ def plane_landing_reset_look_dir(evt : CmdResetupVehicle;
   plane_input.resetLookDirection = true
 
 [es(tag=input)]
-def plane_langing_resetup_input(evt : CmdResetupVehicle; var plane_input : PlaneInput; var flaps_position : int&)
-  plane_input.currFlapsPosIndex = uint8(0)
-  flaps_position = length(plane_input.flapsIndices) > 0 ? int(plane_input.flapsIndices[0]) : 0
+def plane_langing_resetup_input(evt : CmdResetupVehicle;
+                                plane__flapsIndices : IntList;
+                                var plane__currFlapsPosIndex : int&;
+                                var flaps_position : int&)
+  plane__currFlapsPosIndex = 0
+  flaps_position = length(plane__flapsIndices) > 0 ? plane__flapsIndices[0] : 0
 
 [es(tag=server, on_event=CmdResetupVehicle)]
 def plane_landing_set_status_after_repair(evt : Event;

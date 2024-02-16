@@ -8,23 +8,21 @@
   "Cx": 0.2873,
   "normalizationPreset": "apcr",
   "ricochetPreset": "apcr",
+  "groundRicochetPreset": "apcr",
   "secondaryShattersPreset": "apcr",
   "stabilityThreshold": 0.05,
   "stabilityCaliberToArmorThreshold": 5.0,
+  "relativeVelArmorShift": [200.0,1000.0],
   "stabilityReductionAfterRicochet": 0.5,
-  "stabilityReductionAfterPenetration": 0.15,
   "bulletType": "apcr_t",
   "slopeEffectPreset": "apcr",
   "fresnel": [0.23,0.1,2.0],
-  "shellAnimation": "video/shells_animations/apcr.ivf",
+  "breakingArmorThicknessEffective": true,
+  "breakingArmorThickness": [2.0,40.0],
+  "breakingCriticalSpeed": 700.0,
+  "breakingDistance": 0.02,
+  "waterRicochetEffect": "hit_28_38mm_water",
   "relativeVelHitShift": [300.0,1000.0],
-  "relativeVelArmorShift": [200.0,1000.0],
-  "selfDestructionFx": "explosion_air_selfexplosion_small",
-  "explosionEffect": "hit_28_38mm_metal_ap",
-  "groundCollisionEffect": "hit_28_38mm_dirt_ap",
-  "ricochetEffect": "hit_28_38mm_metal_ap",
-  "waterCollisionEffect": "hit_28_38mm_water",
-  "explosionPatchRadius": 0.4,
   "stabilityRicochetModifier": [
     {
       "mod1": [0.0,0.05]
@@ -39,10 +37,18 @@
       "mod3": [45.0,0.3]
     }
   ],
+  "visual": {
+    "range_percent_of_ammo": [100.0,0.0],
+    "traceFreq": 1,
+    "tracer": "30mmRed",
+    "trail": "black"
+  },
   "hitpower": {
-    "HitPower0m": [1.0,0.0],
-    "HitPower1000m": [0.9,0.0],
-    "HitPower10000m": [0.8,10000.0]
+    "HitPower0m": [1.0,300.0],
+    "HitPower1000m": [0.7,1000.0],
+    "HitPower1500m": [0.6,1500.0],
+    "HitPower2500m": [0.6,2500.0],
+    "HitPower10000m": [0.5,10000.0]
   },
   "damage": {
     "kinetic": {
@@ -51,30 +57,16 @@
       "demarreSpeedPow": 1.43,
       "demarreMassPow": 0.71,
       "demarreCaliberPow": 1.07
-    }
-  },
-  "visual": {
-    "range_percent_of_ammo": [100.0,0.0],
-    "traceFreq": 1,
-    "tracer": "30mmRed",
-    "trail": "black"
-  },
-  "hitFx": {
-    "steel": {
-      "fx": "hit_28_38mm_metal_ap",
-      "fxScale": [1.0,1.0]
     },
-    "wood": {
-      "fx": "hit_28_38mm_wood_ap",
-      "fxScale": [1.0,1.0]
+    "breakingScaleByArmor": {
+      "mod0": [5.0,1.0],
+      "mod1": [10.0,0.8],
+      "mod2": [40.0,0.5]
     },
-    "glass": {
-      "fx": "hit_28_38mm_metal_ap",
-      "fxScale": [1.0,1.0]
-    },
-    "stone": {
-      "fx": "hit_28_38mm_stone_ap",
-      "fxScale": [1.0,1.0]
+    "breakingScaleByAir": {
+      "mod0": [0.05,1.0],
+      "mod1": [0.2,0.7],
+      "mod2": [0.5,0.5]
     }
   },
   "tracer": {

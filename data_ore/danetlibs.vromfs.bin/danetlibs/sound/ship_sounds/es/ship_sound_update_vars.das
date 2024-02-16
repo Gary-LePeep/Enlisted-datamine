@@ -1,29 +1,37 @@
 require ecs
 require DagorMath
 require math.base
-require EnlistedShip
+require DngShip
 require Dacoll
 require CollRes
 require sound_utils_net.modules.sound_utils_net_events
 
 
-[es(tag=sound, on_event=ParallelUpdateFrameDelayed, after=(vehicle_phys_es, sound_control_update))]
+[es(tag=sound, on_event=ParallelUpdateFrameDelayed, after=(vehicle_phys_es, sound_control_update), before=vehicle_engine_sound)]
 def ship_engine_sound_update_vars(evt : Event;
+                                  isAlive : bool;
                                   ship_net_phys : ShipActor;
                                   var vehicle_engine_sound_vars__rpm : float&;
                                   var vehicle_engine_sound_vars__load : float&;
                                   var vehicle_engine_sound_vars__isStarted : bool&;
-                                  isAlive : bool)
+                                  shipEngineSoundSeatStartStop : Tag const?)
   vehicle_engine_sound_vars__rpm = cvt(abs(ship_net_phys.phys.engineRPM), ship_net_phys.phys.engineRPMRange.x, ship_net_phys.phys.engineRPMRange.y, 0., 100.)
   vehicle_engine_sound_vars__load = max(abs(ship_net_phys.phys.currentState.leftThrottle), abs(ship_net_phys.phys.currentState.rightThrottle))
-  vehicle_engine_sound_vars__isStarted = isAlive && ship_net_phys.phys.engineRPM != 0.
+  if shipEngineSoundSeatStartStop == null || !isAlive
+    vehicle_engine_sound_vars__isStarted = isAlive && ship_net_phys.phys.engineRPM != 0.
 
 
-[es(tag=sound, after=(vehicle_phys_es, sound_control_update, ship_engine_sound_update_vars, vehicle_sound_update_speed))]
+[es(tag=sound, track=seat__ownerEid, REQUIRE=seats__isDriver)]
+def ship_engine_sound_seat_start_stop(evt : Event; seat__vehicleEid, seat__ownerEid : EntityId)
+  query(seat__vehicleEid) <| $ [es(REQUIRE=shipEngineSoundSeatStartStop)] (isAlive : bool; var vehicle_engine_sound_vars__isStarted : bool&)
+    vehicle_engine_sound_vars__isStarted = isAlive && seat__ownerEid != INVALID_ENTITY_ID
+
+
+[es(tag=sound, after=(vehicle_phys_es, sound_control_update, ship_engine_sound_update_vars, vehicle_sound_update_speed), before=(vehicle_tracks_sound, vehicle_engine_sound, vehicle_collision_sound))]
 def ship_sound_update_vars(info : ParallelUpdateFrameDelayed;
                            sound_control__shouldPlay : bool;
                            ship_net_phys : ShipActor;
-                           var vehicle_sound_vars__slip : float&;
+                           var vehicle_tracks_sound_vars__slip : float&;
                            vehicle_sound_vars__speed : float;
                            var vehicle_sound_vars__prevSoundShockSummary : float&;
                            var vehicle_sound_vars__deltaShock : float&;
@@ -33,10 +41,10 @@ def ship_sound_update_vars(info : ParallelUpdateFrameDelayed;
                            var vehicle_sound_vars__noiseReductionTimer : float&;
                            var vehicle_sound_vars__noiseReduction : float&;
                            var ship_sound_vars__waterTimer : float&;
-                           var vehicle_sound_vars__water : float&;
+                           var vehicle_tracks_sound_vars__water : float&;
                            transform : float3x4)
 
-  vehicle_sound_vars__slip = length(ship_net_phys.phys.currentState.omega)
+  vehicle_tracks_sound_vars__slip = length(ship_net_phys.phys.currentState.omega)
 
   if sound_control__shouldPlay
     vehicle_sound_vars__deltaShock = vehicle_sound_vars__prevSoundShockSummary >= 0. && ship_net_phys.phys.soundShockImpulse > vehicle_sound_vars__prevSoundShockSummary ? ship_net_phys.phys.soundShockImpulse - vehicle_sound_vars__prevSoundShockSummary : 0.
@@ -48,10 +56,10 @@ def ship_sound_update_vars(info : ParallelUpdateFrameDelayed;
     ship_sound_vars__waterTimer += info.dt
     if ship_sound_vars__waterTimer * (1. + vehicle_sound_vars__speed) > 1.
       ship_sound_vars__waterTimer = 0.
-      vehicle_sound_vars__water = 0.
+      vehicle_tracks_sound_vars__water = 0.
       var water = 0.
       if traceht_water(transform[3], water)
         let posXZ = transform[3].xz
-        vehicle_sound_vars__water = max(0., water - traceht_lmesh(posXZ))
+        vehicle_tracks_sound_vars__water = max(0., water - traceht_lmesh(posXZ))
   else
-    vehicle_sound_vars__water = 0.
+    vehicle_tracks_sound_vars__water = 0.

@@ -123,7 +123,7 @@
     "BombBayCd": 0.007,
     "FuseCd": 0.0,
     "AirbrakeCd": 0.0,
-    "CockpitDoorCd": 0.007,
+    "CockpitDoorCd": 0.0532,
     "FlapsPolarBlending1": [0.0,0.0],
     "FlapsPolarBlending2": [0.1,0.25],
     "FlapsPolarBlending3": [0.33,0.65],
@@ -682,6 +682,12 @@
         "fromRPM": 240.0,
         "toRPM": 540.0
       }
+    },
+    "FireExtinguisher": {
+      "Num": 0,
+      "UseTime": 5.0,
+      "Power": 1500.0,
+      "Automatic": false
     }
   },
   "Engine1": {
@@ -1017,6 +1023,12 @@
         "fromRPM": 240.0,
         "toRPM": 540.0
       }
+    },
+    "FireExtinguisher": {
+      "Num": 0,
+      "UseTime": 5.0,
+      "Power": 1500.0,
+      "Automatic": false
     }
   },
   "Mass": {

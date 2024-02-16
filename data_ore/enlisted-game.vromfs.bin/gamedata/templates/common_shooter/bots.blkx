@@ -1,7 +1,7 @@
 {
   "attract_points_grid": {
     "editableObj": false,
-    "_extends": "replicating",
+    "_use": "replicating",
     "_singleton": true,
     "grid_holder__type": "attract_point",
     "grid_holder__typeHash": 0,
@@ -21,7 +21,7 @@
     "grid_obj": []
   },
   "attract_point": {
-    "_extends": "attract_point_base",
+    "_use": "attract_point_base",
     "game_effect__timeToDestroy": 60.0,
     "game_effect__destroyAt": 0.0
   },
@@ -31,10 +31,10 @@
   },
   "shrinkable_attract_point": [
     {
-      "_extends": "attract_point"
+      "_use": "attract_point"
     },
     {
-      "_extends": "attract_point_shrink"
+      "_use": "attract_point_shrink"
     }
   ],
   "visual_attract_point": {

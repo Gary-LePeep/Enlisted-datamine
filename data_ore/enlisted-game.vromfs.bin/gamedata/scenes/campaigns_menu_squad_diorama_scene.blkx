@@ -1,0 +1,2939 @@
+[
+  {
+    "import": {
+      "scene": "content/enlisted/gamedata/scenes/_menu_sounds.blk"
+    }
+  },
+  {
+    "entity": {
+      "_template": "settings_override_manager+settings_override_settings",
+      "settings_override__useCustomSettings": true,
+      "settings_override__graphicsSettings:object": {
+        "graphics/skiesQuality": "low",
+        "graphics/shadowsQuality": "low",
+        "graphics/giQuality": "low",
+        "graphics/ssssQuality": "high",
+        "graphics/waterQuality": "medium",
+        "graphics/cloudsQuality": "default",
+        "graphics/aoQuality": "medium",
+        "graphics/volumeFogQuality": "close"
+      },
+      "settings_override__graphicsSettings_ps4:object": {
+        "graphics/dynamicShadowsQuality": "low",
+        "graphics/ssssQuality": "low",
+        "graphics/waterQuality": "low"
+      },
+      "settings_override__graphicsSettings_xboxone:object": {
+        "graphics/dynamicShadowsQuality": "low",
+        "graphics/ssssQuality": "low",
+        "graphics/waterQuality": "low"
+      }
+    }
+  },
+  {
+    "entity": {
+      "_template": "custom_envi_probe",
+      "custom_envi_probe__cubemap_res": "american_outdoor_cubemap",
+      "custom_envi_probe__outside_mul": 5.75,
+      "custom_envi_probe__x_rotation": 0.0,
+      "custom_envi_probe__y_rotation": 0.0,
+      "custom_envi_probe__needs_render": true,
+      "custom_envi_probe__is_inside": true,
+      "custom_envi_probe__inside_mul": 1.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "menu_level",
+      "level__blk": "content/enlisted/levels/campaigns_menu_diorama.blk",
+      "level__fpsLimit": 60,
+      "level__latitude": -36.0,
+      "level__longtitude": 0.0,
+      "level__day": 23,
+      "level__month": 6,
+      "level__year": 1944,
+      "level__timeSeed": 1,
+      "level__timeOfDay": 10.0,
+      "level__weatherSeed": 1,
+      "level__renderFeaturesOverrideFromLevelBlk": true,
+      "level__weatherChoice:object": {
+        "weather_poor_menu_scene": 1.0
+      },
+      "level__timeVec:array": {
+        "level__timeVec": 10.0
+      }
+    }
+  },
+  {
+    "entity": {
+      "_template": "clouds_hole_target",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [0.0,0.0,0.0]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "disable_vehicle_sound"
+    }
+  },
+  {
+    "entity": {
+      "_template": "shaderVars",
+      "shader_vars__vars:object": {
+        "layered_fog_density": 0.0,
+        "land_selfillum_worldscale": 1.0,
+        "river1": [0.29,0.349,0.345,0.0],
+        "river0": [0.02,0.208,0.302,0.0],
+        "autodetect_land_selfillum_color": [0.33,0.05,0.0,0.1],
+        "land_selfillum_strength": 32.0,
+        "river_density": 3.3
+      }
+    }
+  },
+  {
+    "entity": {
+      "_template": "postfx_color_grading_tonemap",
+      "color_grading:object": {
+        "colorContrast": [1.2,1.0,1.0,1.0]
+      },
+      "tonemap:object": {
+        "tonemapMidOut": 0.1,
+        "tonemapMidIn": 0.17,
+        "tonemapShoulder": 1.1,
+        "tonemapContrast": 1.55,
+        "tonemapHdrMax": 2.0
+      },
+      "tonemap_save:object": {
+        "colorContrast": [1.2,1.0,1.0,1.0],
+        "tonemapMidOut": 0.1,
+        "tonemapMidIn": 0.12,
+        "tonemapShoulder": 1.025,
+        "whiteTint": 0.0,
+        "whiteTemp": 7900.0,
+        "tonemapContrast": 1.25,
+        "tonemapHdrMax": 2.0
+      },
+      "white_balance:object": {
+        "whiteTint": 0.0,
+        "whiteTemp": 7500.0
+      }
+    }
+  },
+  {
+    "entity": {
+      "_template": "bloom",
+      "bloom__highQuality": true,
+      "bloom__radius": 1.0,
+      "bloom__threshold": 5.8,
+      "bloom__upSample": 0.2
+    }
+  },
+  {
+    "entity": {
+      "_template": "postfx_roundctrl",
+      "post_fx:object": {
+        "smoke_blackout_effect__minIntensity": 0.9,
+        "adaptation__highPart": 0.0,
+        "damage_indicator__color": [1.0,0.3,0.3,0.0],
+        "smoke_blackout_effect__increaseDuration": 3.0,
+        "damage_indicator__size": 0.5,
+        "adaptation__adaptUpSpeed": 3.0,
+        "smoke_blackout_effect__decreaseDuration": 2.0,
+        "adaptation__brightnessPerceptionLinear": 0.9,
+        "adaptation__autoExposureScale": 1.0,
+        "adaptation__fixedExposure": -1.0,
+        "smoke_blackout_effect__maxIntensity": 1.3,
+        "flash_blind__decay_color": [0.9,0.95,1.0,1.0],
+        "adaptation__on": true,
+        "adaptation__minExposure": 0.85,
+        "adaptation__lowPart": 0.0,
+        "adaptation__maxExposure": 0.85,
+        "adaptation__brightnessPerceptionPower": 0.9,
+        "flash_blind__desaturation_scale": 0.5,
+        "adaptation__adaptDownSpeed": 4.0
+      }
+    }
+  },
+  {
+    "entity": {
+      "_template": "water",
+      "water__strength": 0.6,
+      "water__level": -4.0,
+      "water__wind_dir": 40.0,
+      "water__max_tessellation": 0,
+      "water__wind_strength": 0.2,
+      "water__smallWaterAIWalkHeight": 0.0,
+      "water__flowmap": false,
+      "shore__enabled": false,
+      "shore__wave_height_to_amplitude": 0.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "vehicle_decals_manager"
+    }
+  },
+  {
+    "entity": {
+      "_template": "ui_disabled",
+      "ui__disabled": true
+    }
+  },
+  {
+    "entity": {
+      "_template": "menu_camera",
+      "transform": [
+        [-0.80392,0.010745,0.59464],
+        [0.00744822,0.99994,-0.0079991],
+        [-0.594691,-0.00200163,-0.803952],
+        [8.09097,23.9186,86.542]
+      ],
+      "menu_cam__offset": [0.6,0.0,-7.8],
+      "menu_cam__offset_smooth_internal": [-1.0,0.2,-0.8],
+      "fov": 45.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "camera_scenic_place_dof",
+      "fov": 90.0,
+      "transform": [
+        [0.0110471,0.0,-0.999939],
+        [-0.0133532,0.999911,-0.000147523],
+        [0.99985,0.013354,0.0110461],
+        [-3.34434,11.6736,236.764]
+      ],
+      "scene": "researches",
+      "dof__on": true,
+      "dof__farDofAmountPercent": 0.009,
+      "dof__farDofStart": 14.0,
+      "dof__farDofEnd": 35.0,
+      "dof__bokehShape_kernelSize": 16.2,
+      "dof__bokehShape_bladesCount": 3.0,
+      "dof__minCheckDistance": 1.0,
+      "dof__nearDofAmountPercent": 0.0,
+      "dof__is_filmic": false,
+      "dof__fStop": 2.0,
+      "dof__focusDistance": -1.0,
+      "dof__focalLength_mm": -1.0,
+      "dof__sensorHeight_mm": 24.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "camera_scenic_place_dof",
+      "fov": 35.0,
+      "transform": [
+        [-0.398938,0.0,0.916978],
+        [-0.0184884,0.999797,-0.00804351],
+        [-0.916791,-0.0201623,-0.398857],
+        [-489.3,1.22488,95.4203]
+      ],
+      "scene": "main_menu",
+      "dof__on": true,
+      "dof__farDofAmountPercent": 0.0,
+      "dof__farDofStart": 15.0,
+      "dof__farDofEnd": 135.0,
+      "dof__bokehShape_kernelSize": 4.8,
+      "dof__bokehShape_bladesCount": 5.0,
+      "dof__fStop": 4.2,
+      "dof__minCheckDistance": 1.0,
+      "dof__nearDofAmountPercent": 0.0,
+      "dof__is_filmic": false,
+      "dof__nearDofEnd": 2.0,
+      "dof__nearDofStart": 0.01
+    }
+  },
+  {
+    "entity": {
+      "_template": "camera_scenic_place_dof",
+      "fov": 35.0,
+      "transform": [
+        [-0.398938,0.0,0.916978],
+        [-0.0184884,0.999797,-0.00804351],
+        [-0.916791,-0.0201623,-0.398857],
+        [-489.3,1.22488,94.6]
+      ],
+      "scene": "squad",
+      "dof__on": true,
+      "dof__farDofAmountPercent": 0.0,
+      "dof__farDofStart": 0.0,
+      "dof__farDofEnd": 135.0,
+      "dof__bokehShape_kernelSize": 4.8,
+      "dof__bokehShape_bladesCount": 5.0,
+      "dof__fStop": 4.2,
+      "dof__minCheckDistance": 1.0,
+      "dof__nearDofAmountPercent": 0.0,
+      "dof__is_filmic": false,
+      "dof__nearDofEnd": 2.0,
+      "dof__nearDofStart": 0.01
+    }
+  },
+  {
+    "entity": {
+      "_template": "menu_vehicle_respawnbase",
+      "menuPosFilter": "plane",
+      "transform": [
+        [0.990168,0.0,0.139889],
+        [0.0,1.0,-0.0],
+        [-0.139889,0.0,0.990168],
+        [306.945,0.154376,224.417]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "menu_soldier_respawnbase",
+      "transform": [
+        [0.971861,0.0,0.23556],
+        [0.0,1.0,0.0],
+        [-0.23556,0.0,0.971861],
+        [313.394,0.146919,229.3]
+      ],
+      "menuPosFilter": "plane",
+      "priority_order": 0
+    }
+  },
+  {
+    "entity": {
+      "_template": "menu_soldier_respawnbase",
+      "transform": [
+        [0.953408,-0.000925899,0.301683],
+        [0.00169681,0.999996,-0.00229333],
+        [-0.30168,0.00269838,0.953405],
+        [312.899,0.14717,228.548]
+      ],
+      "menuPosFilter": "plane",
+      "priority_order": 1
+    }
+  },
+  {
+    "entity": {
+      "_template": "menu_soldier_respawnbase",
+      "transform": [
+        [0.745902,0.0,0.666056],
+        [0.0,1.0,-0.0],
+        [-0.666056,0.0,0.745902],
+        [312.568,0.146338,227.854]
+      ],
+      "menuPosFilter": "plane",
+      "priority_order": 2
+    }
+  },
+  {
+    "entity": {
+      "_template": "menu_soldier_respawnbase",
+      "priority_order": 3,
+      "menuPosFilter": "plane",
+      "transform": [
+        [0.37078,0.0,0.92872],
+        [0.0,1.0,-0.0],
+        [-0.92872,0.0,0.37078],
+        [313.46,0.165749,227.187]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "menu_soldier_respawnbase",
+      "priority_order": 4,
+      "menuPosFilter": "plane",
+      "transform": [
+        [0.849975,0.0,0.526822],
+        [0.0,1.0,0.0],
+        [-0.526822,0.0,0.849975],
+        [312.757,0.166278,227.134]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "camera_scenic_place_dof",
+      "fov": 65.0,
+      "transform": [
+        [-0.593051,0.0,0.805165],
+        [-0.0201828,0.999686,-0.0148658],
+        [-0.804912,-0.0250667,-0.592865],
+        [316.722,1.17121,230.787]
+      ],
+      "scene": "main_menu_plane",
+      "dof__on": false,
+      "dof__farDofAmountPercent": 0.0011,
+      "dof__farDofStart": 14.0,
+      "dof__farDofEnd": 35.0,
+      "dof__bokehShape_kernelSize": 2.8,
+      "dof__bokehShape_bladesCount": 4.0,
+      "dof__minCheckDistance": 1.0,
+      "dof__nearDofAmountPercent": 0.0,
+      "dof__is_filmic": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "camera_scenic_place_dof",
+      "fov": 65.0,
+      "transform": [
+        [-0.593051,0.0,0.805165],
+        [-0.0201828,0.999686,-0.0148658],
+        [-0.804912,-0.0250667,-0.592865],
+        [316.722,1.17121,230.787]
+      ],
+      "scene": "squad_plane",
+      "dof__on": false,
+      "dof__farDofAmountPercent": 0.0011,
+      "dof__farDofStart": 14.0,
+      "dof__farDofEnd": 35.0,
+      "dof__bokehShape_kernelSize": 2.8,
+      "dof__bokehShape_bladesCount": 4.0,
+      "dof__minCheckDistance": 1.0,
+      "dof__nearDofAmountPercent": 0.0,
+      "dof__is_filmic": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "ammunition_box_n",
+      "transform": [
+        [0.146129,0.0,-1.14052],
+        [0.0,0.568124,0.0],
+        [1.14052,-0.0,0.146129],
+        [-497.568,0.18529,91.9061]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "menu_vehicle_respawnbase",
+      "menuPosFilter": "bike",
+      "transform": [
+        [0.997474,-0.0310858,-0.0638866],
+        [0.029818,0.99934,-0.0207031],
+        [0.0644881,0.0187458,0.997743],
+        [-499.06,0.193676,89.7708]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "menu_soldier_respawnbase",
+      "transform": [
+        [0.925897,0.0,0.377779],
+        [0.0,1.0,-0.0],
+        [-0.377779,0.0,0.925897],
+        [-495.966,0.167228,92.7282]
+      ],
+      "menuPosFilter": "bike",
+      "priority_order": 0
+    }
+  },
+  {
+    "entity": {
+      "_template": "menu_soldier_respawnbase",
+      "transform": [
+        [0.847733,0.0,0.530425],
+        [0.0,1.0,-0.0],
+        [-0.530425,0.0,0.847733],
+        [-497.073,0.170996,92.8101]
+      ],
+      "menuPosFilter": "bike",
+      "priority_order": 2
+    }
+  },
+  {
+    "entity": {
+      "_template": "camera_scenic_place_dof",
+      "fov": 35.0,
+      "transform": [
+        [-0.427295,0.0,0.904112],
+        [-0.018229,0.999797,-0.00861524],
+        [-0.903929,-0.0201623,-0.427208],
+        [-489.901,1.21149,95.1376]
+      ],
+      "scene": "main_menu_bike",
+      "dof__on": true,
+      "dof__farDofAmountPercent": 0.0,
+      "dof__farDofStart": 0.0,
+      "dof__farDofEnd": 135.0,
+      "dof__bokehShape_kernelSize": 4.8,
+      "dof__bokehShape_bladesCount": 5.0,
+      "dof__fStop": 4.2,
+      "dof__minCheckDistance": 1.0,
+      "dof__nearDofAmountPercent": 0.0,
+      "dof__is_filmic": false,
+      "dof__nearDofEnd": 2.0,
+      "dof__nearDofStart": 0.01
+    }
+  },
+  {
+    "entity": {
+      "_template": "camera_scenic_place_dof",
+      "fov": 35.0,
+      "transform": [
+        [-0.427295,0.0,0.904112],
+        [-0.018229,0.999797,-0.00861524],
+        [-0.903929,-0.0201623,-0.427208],
+        [-489.901,1.21149,95.1376]
+      ],
+      "scene": "squad_bike",
+      "dof__on": true,
+      "dof__farDofAmountPercent": 0.0,
+      "dof__farDofStart": 0.0,
+      "dof__farDofEnd": 135.0,
+      "dof__bokehShape_kernelSize": 4.8,
+      "dof__bokehShape_bladesCount": 5.0,
+      "dof__fStop": 4.2,
+      "dof__minCheckDistance": 1.0,
+      "dof__nearDofAmountPercent": 0.0,
+      "dof__is_filmic": false,
+      "dof__nearDofEnd": 2.0,
+      "dof__nearDofStart": 0.01
+    }
+  },
+  {
+    "entity": {
+      "_template": "menu_vehicle_respawnbase",
+      "menuPosFilter": "plane_floating",
+      "transform": [
+        [0.993126,0.0,-0.117058],
+        [0.0,1.0,0.0],
+        [0.117058,0.0,0.993126],
+        [-183.419,-4.02219,241.916]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "menu_soldier_respawnbase",
+      "transform": [
+        [0.971861,0.0,0.23556],
+        [0.0,1.0,0.0],
+        [-0.23556,0.0,0.971861],
+        [-176.874,-3.7216,246.323]
+      ],
+      "menuPosFilter": "plane_floating",
+      "priority_order": 0
+    }
+  },
+  {
+    "entity": {
+      "_template": "menu_soldier_respawnbase",
+      "transform": [
+        [0.953408,-0.000925899,0.301683],
+        [0.00169681,0.999996,-0.00229333],
+        [-0.30168,0.00269838,0.953405],
+        [-177.369,-3.65196,245.571]
+      ],
+      "menuPosFilter": "plane_floating",
+      "priority_order": 1
+    }
+  },
+  {
+    "entity": {
+      "_template": "camera_scenic_place_dof",
+      "fov": 45.0,
+      "transform": [
+        [-0.544892,0.0,0.838506],
+        [-0.00567318,0.999977,-0.00368664],
+        [-0.838487,-0.00676581,-0.544879],
+        [-172.313,-2.71304,248.572]
+      ],
+      "scene": "main_menu_plane_floating",
+      "dof__on": false,
+      "dof__farDofAmountPercent": 0.0,
+      "dof__farDofStart": 14.0,
+      "dof__farDofEnd": 35.0,
+      "dof__bokehShape_kernelSize": 2.8,
+      "dof__bokehShape_bladesCount": 4.0,
+      "dof__minCheckDistance": 1.0,
+      "dof__nearDofAmountPercent": 0.0,
+      "dof__is_filmic": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "camera_scenic_place_dof",
+      "fov": 45.0,
+      "transform": [
+        [-0.544892,0.0,0.838506],
+        [-0.00567318,0.999977,-0.00368664],
+        [-0.838487,-0.00676581,-0.544879],
+        [-172.313,-2.71304,248.572]
+      ],
+      "scene": "squad_plane_floating",
+      "dof__on": false,
+      "dof__farDofAmountPercent": 0.0,
+      "dof__farDofStart": 14.0,
+      "dof__farDofEnd": 35.0,
+      "dof__bokehShape_kernelSize": 2.8,
+      "dof__bokehShape_bladesCount": 4.0,
+      "dof__minCheckDistance": 1.0,
+      "dof__nearDofAmountPercent": 0.0,
+      "dof__is_filmic": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "camera_scenic_place_dof",
+      "scene": "soldiers",
+      "fov": 55.0,
+      "transform": [
+        [-0.83446,5.82076e-11,0.551068],
+        [-0.000924115,0.999999,-0.00139935],
+        [-0.551068,-0.00167695,-0.834459],
+        [-185.711,0.913543,-213.514]
+      ],
+      "menu_cam__offset": [-0.65,0.9207,-4.3],
+      "menu_cam__offsetMult": [1.0,1.0,1.0],
+      "menu_cam__limitYaw": [-180.0,180.0],
+      "menu_cam__limitPitch": [0.0,0.0],
+      "menu_cam__shouldRotateTarget": false,
+      "dof__on": true,
+      "dof__farDofAmountPercent": 0.01,
+      "dof__farDofStart": 12.0,
+      "dof__farDofEnd": 300.0,
+      "dof__bokehShape_kernelSize": 2.8,
+      "dof__bokehShape_bladesCount": 9.0,
+      "dof__minCheckDistance": 1.0,
+      "dof__nearDofAmountPercent": 0.0,
+      "dof__is_filmic": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "camera_scenic_place_dof",
+      "scene": "soldiers_quarters",
+      "fov": 55.0,
+      "transform": [
+        [-0.83446,5.82076e-11,0.551068],
+        [-0.000924115,0.999999,-0.00139935],
+        [-0.551068,-0.00167695,-0.834459],
+        [-185.711,0.913543,-213.514]
+      ],
+      "menu_cam__offset": [-1.1,0.9207,-4.3],
+      "menu_cam__offsetMult": [1.0,1.0,1.0],
+      "menu_cam__limitYaw": [-180.0,180.0],
+      "menu_cam__limitPitch": [0.0,0.0],
+      "menu_cam__shouldRotateTarget": false,
+      "dof__on": true,
+      "dof__farDofAmountPercent": 0.1,
+      "dof__farDofStart": 9.0,
+      "dof__farDofEnd": 300.0,
+      "dof__bokehShape_kernelSize": 2.8,
+      "dof__bokehShape_bladesCount": 9.0,
+      "dof__minCheckDistance": 1.0,
+      "dof__nearDofAmountPercent": 0.0,
+      "dof__is_filmic": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "camera_scenic_place_dof",
+      "scene": "soldier_customization",
+      "fov": 50.0,
+      "transform": [
+        [-0.810145,-9.31322e-10,0.58623],
+        [-0.0059187,0.999949,-0.00817938],
+        [-0.586201,-0.0100962,-0.810104],
+        [-185.806,0.93966,-214.011]
+      ],
+      "menu_cam__offset": [-0.37,0.907,-3.8],
+      "menu_cam__offsetMult": [1.0,1.0,1.0],
+      "menu_cam__limitYaw": [-180.0,180.0],
+      "menu_cam__limitPitch": [0.0,0.0],
+      "menu_cam__shouldRotateTarget": false,
+      "dof__on": true,
+      "dof__farDofAmountPercent": 0.1,
+      "dof__farDofStart": 7.0,
+      "dof__farDofEnd": 300.0,
+      "dof__bokehShape_kernelSize": 2.8,
+      "dof__bokehShape_bladesCount": 9.0,
+      "dof__minCheckDistance": 1.0,
+      "dof__nearDofAmountPercent": 0.0,
+      "dof__is_filmic": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "menu_soldier",
+      "transform": [
+        [0.646103,0.0,0.76325],
+        [-0.0,1.0,0.0],
+        [-0.76325,-0.0,0.646103],
+        [-188.855,-0.0219807,-217.201]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "camera_scenic_place_dof",
+      "scene": "soldier_in_middle",
+      "fov": 45.0,
+      "transform": [
+        [-0.720284,-1.86264e-09,0.693679],
+        [-0.0377424,0.998519,-0.0391899],
+        [-0.692652,-0.0544089,-0.719217],
+        [-185.614,1.3588,-213.811]
+      ],
+      "menu_cam__offset": [0.0,1.07,-5.0],
+      "menu_cam__offsetMult": [1.0,1.0,1.0],
+      "menu_cam__limitYaw": [-180.0,180.0],
+      "menu_cam__limitPitch": [0.0,0.0],
+      "menu_cam__shouldRotateTarget": false,
+      "dof__on": true,
+      "dof__farDofAmountPercent": 0.1,
+      "dof__farDofStart": 7.0,
+      "dof__farDofEnd": 300.0,
+      "dof__bokehShape_kernelSize": 2.8,
+      "dof__bokehShape_bladesCount": 9.0,
+      "dof__minCheckDistance": 1.0,
+      "dof__nearDofAmountPercent": 0.0,
+      "dof__is_filmic": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "menu_aircraft_floating",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [-189.862,-4.0,395.791]
+      ]
+    }
+  },
+  {
+    "entity": [
+      {
+        "_template": "camera_scenic_place_dof"
+      },
+      {
+        "scene": "aircrafts_floating"
+      },
+      {
+        "fov": 60.0
+      },
+      {
+        "transform": [
+          [-0.574526,0.0,0.818486],
+          [0.0,1.0,0.0],
+          [-0.818486,0.0,-0.574526],
+          [-180.506,-1.75153,401.907]
+        ]
+      },
+      {
+        "menu_cam__offset": [-0.5,-0.4,-7.8]
+      },
+      {
+        "menu_cam__offsetMult": [1.4,1.4,1.4]
+      },
+      {
+        "menu_cam__limitYaw": [-180.0,180.0]
+      },
+      {
+        "menu_cam__limitPitch": [0.0,28.0]
+      },
+      {
+        "menu_cam__shouldRotateTarget": false
+      },
+      {
+        "dof__on": false
+      },
+      {
+        "dof__is_filmic": false
+      },
+      {
+        "dof__is_filmic": false
+      },
+      {
+        "dof__fStop": 3.6
+      },
+      {
+        "dof__focusDistance": 11.0
+      },
+      {
+        "dof__farDofAmountPercent": 0.0
+      },
+      {
+        "dof__farDofEnd": 400.0
+      },
+      {
+        "dof__farDofStart": 18.0
+      },
+      {
+        "dof__nearDofAmountPercent": 0.0
+      },
+      {
+        "dof__nearDofEnd": 6.0
+      },
+      {
+        "dof__nearDofStart": 1.5
+      },
+      {
+        "dof__minCheckDistance": 0.5
+      },
+      {
+        "dof__bokehShape_bladesCount": 6.0
+      },
+      {
+        "dof__bokehShape_kernelSize": 18.0
+      },
+      {
+        "dof__focalLength_mm": 35.0
+      }
+    ]
+  },
+  {
+    "entity": {
+      "_template": "menu_aircraft",
+      "transform": [
+        [-0.953943,0.0,0.29999],
+        [0.0,1.0,0.0],
+        [-0.29999,0.0,-0.953943],
+        [295.242,0.199866,81.6764]
+      ]
+    }
+  },
+  {
+    "entity": [
+      {
+        "_template": "camera_scenic_place_dof"
+      },
+      {
+        "scene": "aircrafts"
+      },
+      {
+        "fov": 60.0
+      },
+      {
+        "transform": [
+          [0.269082,0.0,-0.963117],
+          [0.0555773,0.998334,0.0155276],
+          [0.961512,-0.0577056,0.268634],
+          [284.782,1.70798,78.5097]
+        ]
+      },
+      {
+        "menu_cam__offset": [-0.0,-0.4,-1.2]
+      },
+      {
+        "menu_cam__offsetMult": [9.4,9.4,9.4]
+      },
+      {
+        "menu_cam__limitYaw": [-180.0,180.0]
+      },
+      {
+        "menu_cam__limitPitch": [0.0,21.0]
+      },
+      {
+        "menu_cam__shouldRotateTarget": false
+      },
+      {
+        "dof__on": true
+      },
+      {
+        "dof__farDofAmountPercent": 0.001
+      },
+      {
+        "dof__farDofStart": 16.5
+      },
+      {
+        "dof__farDofEnd": 30.0
+      },
+      {
+        "dof__nearDofAmountPercent": 0.03
+      },
+      {
+        "dof__nearDofAmountPercent": 0.0
+      },
+      {
+        "dof__nearDofEnd": 3.35
+      },
+      {
+        "dof__nearDofStart": 1.0
+      },
+      {
+        "dof__minCheckDistance": 0.5
+      },
+      {
+        "dof__fStop": 2.0
+      },
+      {
+        "dof__is_filmic": false
+      }
+    ]
+  },
+  {
+    "entity": {
+      "_template": "menu_inspected_vehicle_pos",
+      "transform": [
+        [-0.0942966,0.0,0.995544],
+        [0.0,1.0,0.0],
+        [-0.995544,0.0,-0.0942966],
+        [310.598,8.33013,-250.56]
+      ]
+    }
+  },
+  {
+    "entity": [
+      {
+        "_template": "camera_scenic_place_dof"
+      },
+      {
+        "scene": "vehicles"
+      },
+      {
+        "fov": 60.0
+      },
+      {
+        "transform": [
+          [-0.817227,0.0,-0.576316],
+          [0.00915453,0.999874,-0.0129813],
+          [0.576243,-0.0158846,-0.817124],
+          [305.671,9.37057,-243.226]
+        ]
+      },
+      {
+        "menu_cam__offset": [-0.3,0.9,-1.5]
+      },
+      {
+        "menu_cam__offsetMult": [5.9,3.9,5.9]
+      },
+      {
+        "menu_cam__limitYaw": [-180.0,180.0]
+      },
+      {
+        "menu_cam__limitPitch": [0.0,39.0]
+      },
+      {
+        "menu_cam__shouldRotateTarget": false
+      },
+      {
+        "dof__on": true
+      },
+      {
+        "dof__farDofAmountPercent": 0.01
+      },
+      {
+        "dof__farDofStart": 25.0
+      },
+      {
+        "dof__farDofEnd": 150.0
+      },
+      {
+        "dof__nearDofAmountPercent": 0.1
+      },
+      {
+        "dof__nearDofAmountPercent": 0.1
+      },
+      {
+        "dof__nearDofStart": 0.1
+      },
+      {
+        "dof__nearDofEnd": 3.3
+      },
+      {
+        "dof__bokehShape_kernelSize": 2.8
+      },
+      {
+        "dof__bokehShape_bladesCount": 3.0
+      },
+      {
+        "dof__fStop": 4.3
+      },
+      {
+        "dof__minCheckDistance": 1.0
+      },
+      {
+        "dof__is_filmic": false
+      }
+    ]
+  },
+  {
+    "entity": {
+      "_template": "camera_scenic_place_dof",
+      "scene": "armory",
+      "fov": 60.0,
+      "transform": [
+        [0.778832,0.00269778,0.627225],
+        [-0.20392,0.946756,0.249138],
+        [-0.593157,-0.321941,0.737915],
+        [7.54006,24.5867,84.2305]
+      ],
+      "menu_cam__limitYaw": [-180.0,180.0],
+      "menu_cam__limitPitch": [-80.0,80.0],
+      "menu_cam__shouldRotateTarget": true,
+      "dof__on": false,
+      "dof__is_filmic": false,
+      "dof__fStop": 18.0,
+      "dof__focusDistance": 0.85,
+      "dof__farDofAmountPercent": 0.0027,
+      "dof__farDofEnd": 20.0,
+      "dof__farDofStart": 2.0,
+      "dof__nearDofAmountPercent": 0.02,
+      "dof__nearDofEnd": 0.5,
+      "dof__nearDofStart": 0.01,
+      "dof__minCheckDistance": 0.05,
+      "dof__bokehShape_bladesCount": 5.2,
+      "dof__bokehShape_kernelSize": 6.8
+    }
+  },
+  {
+    "entity": {
+      "_template": "camera_scenic_place_dof",
+      "scene": "items_inventory",
+      "fov": 60.0,
+      "transform": [
+        [-0.0331776,0.0,0.999449],
+        [-0.00442279,0.99999,-0.000146819],
+        [-0.99944,-0.00442523,-0.0331773],
+        [8.67695,24.1963,85.2625]
+      ],
+      "menu_cam__limitYaw": [-180.0,180.0],
+      "menu_cam__limitPitch": [-80.0,80.0],
+      "menu_cam__shouldRotateTarget": true,
+      "dof__on": false,
+      "dof__is_filmic": false,
+      "dof__fStop": 18.0,
+      "dof__focusDistance": 0.85,
+      "dof__farDofAmountPercent": 0.0027,
+      "dof__farDofEnd": 20.0,
+      "dof__farDofStart": 4.0,
+      "dof__nearDofAmountPercent": 0.02,
+      "dof__nearDofEnd": 0.5,
+      "dof__nearDofStart": 0.01,
+      "dof__minCheckDistance": 0.05,
+      "dof__bokehShape_bladesCount": 5.2,
+      "dof__bokehShape_kernelSize": 6.8
+    }
+  },
+  {
+    "entity": {
+      "_template": "camera_scenic_place_dof",
+      "scene": "inv_items",
+      "fov": 90.0,
+      "transform": [
+        [-0.0246029,0.0,0.999697],
+        [0.008584,0.999963,0.000211255],
+        [-0.99966,0.0085866,-0.024602],
+        [7.83152,24.234,85.1745]
+      ],
+      "menu_cam__limitYaw": [-180.0,180.0],
+      "menu_cam__limitPitch": [-30.0,30.0],
+      "menu_cam__shouldRotateTarget": true,
+      "dof__on": false,
+      "dof__farDofAmountPercent": 0.29,
+      "dof__farDofStart": 1.2,
+      "dof__farDofEnd": 300.0,
+      "dof__nearDofAmountPercent": 0.0,
+      "dof__bokehShape_kernelSize": 2.8
+    }
+  },
+  {
+    "entity": {
+      "_template": "menu_weapon",
+      "transform": [
+        [0.523384,0.0448554,-0.850916],
+        [-0.0500476,0.998508,0.0218522],
+        [0.850627,0.0311493,0.524848],
+        [7.04563,24.2208,85.4106]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "menu_inv_items",
+      "transform": [
+        [-0.71417,0.0763896,-0.695791],
+        [-0.672431,-0.350963,0.651661],
+        [-0.194416,0.933268,0.302014],
+        [7.04563,24.2208,85.4106]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "camera_scenic_place_dof",
+      "scene": "new_items",
+      "fov": 60.0,
+      "transform": [
+        [-0.80392,0.010745,0.59464],
+        [0.00744822,0.99994,-0.0079991],
+        [-0.594691,-0.00200163,-0.803952],
+        [8.09097,23.9186,86.542]
+      ],
+      "menu_cam__limitYaw": [-180.0,180.0],
+      "menu_cam__limitPitch": [-30.0,30.0],
+      "menu_cam__shouldRotateTarget": true,
+      "dof__on": false,
+      "dof__farDofAmountPercent": 0.0,
+      "dof__farDofEnd": 200.0,
+      "dof__farDofStart": 2.0,
+      "dof__nearDofAmountPercent": 0.0,
+      "dof__nearDofEnd": 0.5,
+      "dof__nearDofStart": 0.01,
+      "dof__minCheckDistance": 0.05,
+      "dof__bokehShape_kernelSize": 2.8,
+      "dof__bokehShape_bladesCount": 9.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "camera_scenic_place_dof",
+      "scene": "shop_items",
+      "fov": 60.0,
+      "transform": [
+        [-0.787702,0.0066088,0.616021],
+        [0.113879,0.984272,0.135057],
+        [-0.60544,0.176536,-0.776066],
+        [8.09096,23.9679,86.542]
+      ],
+      "menu_cam__limitYaw": [-180.0,180.0],
+      "menu_cam__limitPitch": [-30.0,30.0],
+      "menu_cam__shouldRotateTarget": true,
+      "dof__on": false,
+      "dof__farDofAmountPercent": 0.0,
+      "dof__farDofEnd": 200.0,
+      "dof__farDofStart": 2.0,
+      "dof__nearDofAmountPercent": 0.0,
+      "dof__nearDofEnd": 0.5,
+      "dof__nearDofStart": 0.01,
+      "dof__minCheckDistance": 0.05,
+      "dof__bokehShape_kernelSize": 2.8,
+      "dof__bokehShape_bladesCount": 9.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "menu_shop_items",
+      "transform": [
+        [0.637509,-0.196664,0.74492],
+        [0.0997916,0.979805,0.173273],
+        [-0.763953,-0.0361265,0.64426],
+        [7.04563,24.2275,85.2036]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "menu_new_items",
+      "transform": [
+        [0.606647,0.00149151,0.79497],
+        [0.00539456,0.999967,-0.00599275],
+        [-0.794953,0.007924,0.606619],
+        [7.07213,24.0371,85.1759]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "menu_battle_pass",
+      "transform": [
+        [-0.71417,0.0763896,-0.695791],
+        [-0.672431,-0.350963,0.651661],
+        [-0.194416,0.933268,0.302014],
+        [27.1512,22.854,395.587]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "camera_scenic_place_dof",
+      "scene": "events",
+      "fov": 50.0,
+      "transform": [
+        [0.020239,0.00114305,-0.999794],
+        [0.0237837,0.999716,0.00162442],
+        [0.999512,-0.0238117,0.0202061],
+        [-2.56001,18.2513,235.653]
+      ],
+      "menu_cam__offset": [0.0,1.07,-5.0],
+      "menu_cam__offsetMult": [1.0,1.0,1.0],
+      "menu_cam__limitYaw": [-180.0,180.0],
+      "menu_cam__limitPitch": [0.0,0.0],
+      "menu_cam__shouldRotateTarget": false,
+      "dof__on": true,
+      "dof__farDofAmountPercent": 0.1,
+      "dof__farDofStart": 7.0,
+      "dof__farDofEnd": 300.0,
+      "dof__nearDofAmountPercent": 0.0,
+      "dof__bokehShape_kernelSize": 2.8,
+      "dof__bokehShape_bladesCount": 9.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "camera_scenic_place_dof",
+      "fov": 90.0,
+      "transform": [
+        [-0.0560272,0.0,0.998429],
+        [0.00857311,0.999963,0.000481083],
+        [-0.998392,0.0085866,-0.0560251],
+        [28.4184,22.619,395.664]
+      ],
+      "scene": "battle_pass",
+      "menu_cam__limitYaw": [-180.0,180.0],
+      "menu_cam__limitPitch": [-30.0,30.0],
+      "menu_cam__shouldRotateTarget": true,
+      "dof__on": true,
+      "dof__farDofAmountPercent": 0.0028,
+      "dof__farDofStart": 1.5,
+      "dof__farDofEnd": 300.0,
+      "dof__bokehShape_kernelSize": 8.0,
+      "dof__fStop": 4.3,
+      "dof__bokehShape_bladesCount": 2.0,
+      "dof__minCheckDistance": 1.0,
+      "dof__nearDofAmountPercent": 0.0,
+      "dof__is_filmic": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "menu_vehicle_respawnbase",
+      "transform": [
+        [0.178826,-0.0310858,0.98339],
+        [0.0240129,0.99934,0.0272233],
+        [-0.983588,0.0187458,0.179454],
+        [-500.403,0.163004,90.5179]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "menu_machinegun_respawnbase",
+      "transform": [
+        [-0.762834,0.0,0.646596],
+        [0.0,1.0,0.0],
+        [-0.646596,0.0,-0.762834],
+        [-494.889,0.183947,91.4787]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "menu_item_respawnbase",
+      "transform": [
+        [-0.71417,0.0763896,-0.695791],
+        [-0.672431,-0.350963,0.651661],
+        [-0.194416,0.933268,0.302014],
+        [7.04563,24.2208,85.4106]
+      ],
+      "priority_order": 0
+    }
+  },
+  {
+    "entity": {
+      "_template": "menu_item_respawnbase",
+      "transform": [
+        [-0.71417,0.0763896,-0.695791],
+        [-0.672431,-0.350963,0.651661],
+        [-0.194416,0.933268,0.302014],
+        [7.04563,24.2208,85.4106]
+      ],
+      "priority_order": 1
+    }
+  },
+  {
+    "entity": {
+      "_template": "menu_item_respawnbase",
+      "transform": [
+        [-0.71417,0.0763896,-0.695791],
+        [-0.672431,-0.350963,0.651661],
+        [-0.194416,0.933268,0.302014],
+        [7.04563,24.2208,85.4106]
+      ],
+      "priority_order": 2
+    }
+  },
+  {
+    "entity": {
+      "_template": "menu_item_respawnbase",
+      "transform": [
+        [-0.71417,0.0763896,-0.695791],
+        [-0.672431,-0.350963,0.651661],
+        [-0.194416,0.933268,0.302014],
+        [7.04563,24.2208,85.4106]
+      ],
+      "priority_order": 3
+    }
+  },
+  {
+    "entity": {
+      "_template": "menu_item_respawnbase",
+      "transform": [
+        [-0.71417,0.0763896,-0.695791],
+        [-0.672431,-0.350963,0.651661],
+        [-0.194416,0.933268,0.302014],
+        [7.04563,24.2208,85.4106]
+      ],
+      "priority_order": 4
+    }
+  },
+  {
+    "entity": {
+      "_template": "menu_item_respawnbase",
+      "transform": [
+        [-0.71417,0.0763896,-0.695791],
+        [-0.672431,-0.350963,0.651661],
+        [-0.194416,0.933268,0.302014],
+        [7.04563,24.2208,85.4106]
+      ],
+      "priority_order": 5
+    }
+  },
+  {
+    "entity": {
+      "_template": "menu_item_respawnbase",
+      "transform": [
+        [-0.71417,0.0763896,-0.695791],
+        [-0.672431,-0.350963,0.651661],
+        [-0.194416,0.933268,0.302014],
+        [7.04563,24.2208,85.4106]
+      ],
+      "priority_order": 6
+    }
+  },
+  {
+    "entity": {
+      "_template": "menu_item_respawnbase",
+      "transform": [
+        [-0.71417,0.0763896,-0.695791],
+        [-0.672431,-0.350963,0.651661],
+        [-0.194416,0.933268,0.302014],
+        [7.04563,24.2208,85.4106]
+      ],
+      "priority_order": 7
+    }
+  },
+  {
+    "entity": {
+      "_template": "menu_item_respawnbase",
+      "transform": [
+        [-0.71417,0.0763896,-0.695791],
+        [-0.672431,-0.350963,0.651661],
+        [-0.194416,0.933268,0.302014],
+        [7.04563,24.2208,85.4106]
+      ],
+      "priority_order": 8
+    }
+  },
+  {
+    "entity": {
+      "_template": "menu_soldier_respawnbase",
+      "transform": [
+        [0.925897,0.0,0.377779],
+        [0.0,1.0,-0.0],
+        [-0.377779,0.0,0.925897],
+        [-496.129,0.167228,92.5792]
+      ],
+      "priority_order": 0
+    }
+  },
+  {
+    "entity": {
+      "_template": "menu_soldier_respawnbase",
+      "transform": [
+        [0.858332,0.0,0.513096],
+        [0.0,1.0,-0.0],
+        [-0.513096,0.0,0.858332],
+        [-496.939,0.170996,92.8755]
+      ],
+      "priority_order": 1
+    }
+  },
+  {
+    "entity": {
+      "_template": "menu_soldier_respawnbase",
+      "transform": [
+        [0.91021,-0.000925899,0.414144],
+        [0.00196028,0.999996,-0.00207264],
+        [-0.41414,0.00269837,0.910208],
+        [-496.76,0.159716,91.6684]
+      ],
+      "priority_order": 2
+    }
+  },
+  {
+    "entity": {
+      "_template": "menu_soldier_respawnbase",
+      "transform": [
+        [0.704848,0.0,0.709357],
+        [0.0,1.0,-0.0],
+        [-0.709359,0.0,0.704849],
+        [-495.508,0.156488,91.9137]
+      ],
+      "priority_order": 5,
+      "isSiting": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "menu_soldier_respawnbase",
+      "transform": [
+        [0.967641,0.0,0.25233],
+        [0.0,1.0,-0.0],
+        [-0.25233,0.0,0.967641],
+        [-496.324,0.163708,93.4322]
+      ],
+      "priority_order": 6,
+      "isSiting": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "menu_soldier_respawnbase",
+      "priority_order": 7,
+      "transform": [
+        [0.88422,0.0,0.46707],
+        [0.0,1.0,-0.0],
+        [-0.46707,0.0,0.88422],
+        [-497.618,0.441151,92.3644]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "menu_soldier_respawnbase",
+      "transform": [
+        [0.878428,0.0,0.477874],
+        [0.0,1.0,-0.0],
+        [-0.477875,0.0,0.878428],
+        [-497.496,0.449726,91.6332]
+      ],
+      "priority_order": 8
+    }
+  },
+  {
+    "entity": {
+      "_template": "menu_soldier_respawnbase",
+      "transform": [
+        [0.914332,0.0,0.404965],
+        [0.0,1.0,-0.0],
+        [-0.404965,0.0,0.914332],
+        [-494.589,0.156932,93.0406]
+      ],
+      "priority_order": 3,
+      "isSiting": true
+    }
+  },
+  {
+    "entity": {
+      "_template": "menu_soldier_respawnbase",
+      "transform": [
+        [0.645416,0.0,0.76383],
+        [0.0,1.0,-0.0],
+        [-0.76383,0.0,0.645416],
+        [-495.41,0.17391,93.6435]
+      ],
+      "priority_order": 4,
+      "isSiting": true
+    }
+  },
+  {
+    "entity": {
+      "_template": "screen_fade_anim",
+      "screen_fade": 0.0,
+      "anim_track_on": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "light_bunker_ceiling",
+      "transform": [
+        [-0.807212,-0.144102,6.68785],
+        [-6.68887,0.103997,-0.805099],
+        [-0.0860085,-6.73564,-0.155526],
+        [292.708,6.3444,81.3415]
+      ],
+      "light__max_radius": 7.0,
+      "spot_light__shadows": true,
+      "spot_light__dynamic_obj_shadows": true,
+      "spot_light__shadow_shrink": 0,
+      "light__color": "#e1b99bff",
+      "light__brightness": 250.0,
+      "spot_light__inner_attenuation": 0.9,
+      "light__affect_volumes": false,
+      "spot_light__contact_shadows": false,
+      "spot_light__dynamic_light": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "spot_light",
+      "transform": [
+        [-2.41536,0.311447,0.418209],
+        [-0.325513,-2.44882,-0.0563252],
+        [0.407357,-0.110149,2.43472],
+        [7.31354,24.3079,83.7363]
+      ],
+      "light__brightness": 1.0,
+      "spot_light__shadows": true,
+      "spot_light__dynamic_obj_shadows": true,
+      "light__max_radius": 6.0,
+      "spot_light__inner_attenuation": 0.1,
+      "spot_light__shadow_shrink": 0,
+      "spot_light__dynamic_light": false,
+      "light__color": "#ffffffff",
+      "light__affect_volumes": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "light_bunker_ceiling",
+      "transform": [
+        [-0.340265,-0.0607434,2.81914],
+        [-2.81958,0.043838,-0.339375],
+        [-0.0362554,-2.83928,-0.0655593],
+        [296.598,6.58089,85.1232]
+      ],
+      "light__max_radius": 9.0,
+      "spot_light__shadows": true,
+      "spot_light__dynamic_obj_shadows": true,
+      "spot_light__shadow_shrink": 0,
+      "light__color": "#e1b9b9ff",
+      "light__brightness": 150.0,
+      "spot_light__inner_attenuation": 0.1,
+      "light__affect_volumes": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "light_bunker_ceiling",
+      "transform": [
+        [-0.306095,0.00160525,2.53571],
+        [-2.53563,-0.0233167,-0.306071],
+        [0.0229564,-2.55405,0.004388],
+        [299.593,6.05958,80.6485]
+      ],
+      "light__max_radius": 9.0,
+      "spot_light__shadows": true,
+      "spot_light__dynamic_obj_shadows": true,
+      "spot_light__shadow_shrink": 0,
+      "light__color": "#e1b9b9ff",
+      "light__brightness": 120.0,
+      "spot_light__inner_attenuation": 0.9,
+      "light__affect_volumes": false,
+      "spot_light__contact_shadows": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "light_bunker_ceiling",
+      "transform": [
+        [2.66203,-0.803679,0.0484583],
+        [-0.0424922,0.0269165,2.7807],
+        [-0.804024,-2.66236,0.0134846],
+        [7.71798,25.4946,85.2272]
+      ],
+      "light__brightness": 1.0,
+      "light__affect_volumes": false,
+      "spot_light__contact_shadows": true
+    }
+  },
+  {
+    "entity": {
+      "_template": "spot_light",
+      "transform": [
+        [2.26987,-0.0446162,0.363987],
+        [-0.364246,-0.0105266,2.27022],
+        [-0.0423901,-2.29882,-0.0174653],
+        [310.774,17.8857,-250.501]
+      ],
+      "light__brightness": 1900.0,
+      "light__max_radius": 11.0,
+      "spot_light__inner_attenuation": 0.1,
+      "light__color": "#373741ff",
+      "spot_light__dynamic_obj_shadows": true,
+      "spot_light__shadows": true,
+      "spot_light__dynamic_light": false,
+      "spot_light__contact_shadows": true,
+      "light__render_gpu_objects": false,
+      "light__affect_volumes": false,
+      "spot_light__shadow_shrink": 0
+    }
+  },
+  {
+    "entity": {
+      "_template": "spot_light",
+      "transform": [
+        [2.10647,4.02258,-0.622231],
+        [4.0231,-2.16395,-0.369838],
+        [-0.618392,-0.376214,-4.52561],
+        [316.639,10.4078,-243.171]
+      ],
+      "light__brightness": 210.0,
+      "light__max_radius": 12.0,
+      "spot_light__inner_attenuation": 0.1,
+      "light__color": "#ff280aff",
+      "spot_light__dynamic_obj_shadows": true,
+      "spot_light__shadows": true,
+      "spot_light__dynamic_light": false,
+      "spot_light__contact_shadows": true,
+      "light__render_gpu_objects": false,
+      "light__affect_volumes": false,
+      "spot_light__shadow_shrink": 0
+    }
+  },
+  {
+    "entity": {
+      "_template": "spot_light",
+      "transform": [
+        [-0.64683,-0.51949,4.63274],
+        [-3.14907,-3.40004,-0.820939],
+        [3.43739,-3.21257,0.119695],
+        [-501.186,5.31604,92.3743]
+      ],
+      "light__brightness": 125.0,
+      "light__color": "#ffc39bff",
+      "light__max_radius": 6.0,
+      "spot_light__inner_attenuation": 0.1,
+      "spot_light__dynamic_obj_shadows": false,
+      "spot_light__shadows": false,
+      "light__affect_volumes": false,
+      "spot_light__dynamic_light": false,
+      "spot_light__contact_shadows": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "spot_light",
+      "transform": [
+        [3.70321,2.23836,-2.2286],
+        [-2.96132,3.65498,-1.24977],
+        [1.09877,2.30677,4.14267],
+        [304.509,10.7765,-256.863]
+      ],
+      "light__brightness": 2400.0,
+      "light__max_radius": 12.0,
+      "spot_light__inner_attenuation": 0.1,
+      "light__color": "#373741ff",
+      "spot_light__dynamic_obj_shadows": true,
+      "spot_light__shadows": true,
+      "spot_light__dynamic_light": false,
+      "spot_light__contact_shadows": false,
+      "light__render_gpu_objects": false,
+      "light__affect_volumes": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "spot_light",
+      "transform": [
+        [-2.77041,2.22309,15.4882],
+        [9.43334,12.7862,-0.147895],
+        [-12.4834,9.16886,-3.54897],
+        [316.935,10.9355,-250.44]
+      ],
+      "light__brightness": 410.0,
+      "light__max_radius": 8.2,
+      "spot_light__inner_attenuation": 0.1,
+      "light__color": "#373741ff",
+      "spot_light__dynamic_obj_shadows": false,
+      "spot_light__shadows": true,
+      "spot_light__dynamic_light": false,
+      "spot_light__contact_shadows": true,
+      "light__render_gpu_objects": false,
+      "light__affect_volumes": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "omni_light_huge",
+      "transform": [
+        [-3.38932,-3.95935,155.499],
+        [-35.318,151.493,3.0876],
+        [-151.488,-35.2312,-4.19865],
+        [1.34473,11.9345,236.81]
+      ],
+      "light__brightness": 300.0,
+      "light__max_radius": 11.5,
+      "light__color": "#787878ff"
+    }
+  },
+  {
+    "entity": {
+      "_template": "omni_light_huge",
+      "transform": [
+        [-4.22994,-0.208072,155.529],
+        [1.53152,155.578,0.249791],
+        [-155.522,1.53775,-4.22771],
+        [21.4694,21.6556,396.124]
+      ],
+      "light__brightness": 200.0,
+      "light__max_radius": 25.5,
+      "light__color": "#ffffffff",
+      "light__affect_volumes": true
+    }
+  },
+  {
+    "entity": {
+      "_template": "envir_sparks_ground_1m_effect+disable_sound_effect",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [-0.572235,11.1137,237.172]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "envir_sparks_ground_1m_effect+disable_sound_effect",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [0.0867553,10.9715,239.341]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "envir_sparks_ground_1m_effect+disable_sound_effect",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [-0.423335,10.5746,235.103]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "envir_sparks_ground_1m_effect+disable_sound_effect",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [26.4908,21.3944,392.687]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "envir_sparks_ground_1m_effect+disable_sound_effect",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [26.4908,21.3944,397.771]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "envir_sparks_ground_1m_effect+disable_sound_effect",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [26.4908,21.3944,395.55]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "spot_light",
+      "transform": [
+        [3.57563,-2.13961,1.06529],
+        [-2.38362,-3.33369,1.30495],
+        [0.176534,-1.67527,-3.95728],
+        [-188.881,1.43045,-215.968]
+      ],
+      "light__brightness": 2.0,
+      "light__color": "#b98769ff",
+      "light__max_radius": 4.0,
+      "spot_light__inner_attenuation": 0.9,
+      "spot_light__dynamic_obj_shadows": true,
+      "spot_light__shadows": true,
+      "light__affect_volumes": false,
+      "spot_light__contact_shadows": true,
+      "spot_light__dynamic_light": false,
+      "light__render_gpu_objects": false,
+      "light__dynamic_light": false,
+      "spot_light__shadow_shrink": 0
+    }
+  },
+  {
+    "entity": {
+      "_template": "spot_light",
+      "transform": [
+        [-0.820323,0.00879329,-0.826401],
+        [0.00850751,-1.16424,-0.020833],
+        [-0.826397,-0.0207137,0.820099],
+        [314.447,1.66075,228.078]
+      ],
+      "light__brightness": 1.0,
+      "light__color": "#9b7d7dff",
+      "light__max_radius": 3.0,
+      "spot_light__inner_attenuation": 0.1,
+      "spot_light__dynamic_obj_shadows": true,
+      "spot_light__shadows": true,
+      "light__affect_volumes": false,
+      "spot_light__contact_shadows": true
+    }
+  },
+  {
+    "entity": {
+      "_template": "spot_light",
+      "transform": [
+        [1.39435,1.54568,-2.40289],
+        [0.0613529,-2.68936,-1.69435],
+        [-2.85643,0.696745,-1.20934],
+        [315.293,1.90867,231.601]
+      ],
+      "light__brightness": 35.0,
+      "light__color": "#af877dff",
+      "light__max_radius": 5.0,
+      "spot_light__inner_attenuation": 0.1,
+      "spot_light__dynamic_obj_shadows": true,
+      "spot_light__shadows": true,
+      "light__affect_volumes": false,
+      "spot_light__contact_shadows": true
+    }
+  },
+  {
+    "entity": {
+      "_template": "spot_light",
+      "transform": [
+        [0.985026,0.0240074,-3.02265],
+        [0.0612091,-3.1786,-0.00529913],
+        [-3.02211,-0.056553,-0.985301],
+        [315.13,2.04163,228.216]
+      ],
+      "light__brightness": 20.0,
+      "light__color": "#9b7d7dff",
+      "light__max_radius": 5.0,
+      "spot_light__inner_attenuation": 0.1,
+      "spot_light__dynamic_obj_shadows": true,
+      "spot_light__shadows": true,
+      "light__affect_volumes": false,
+      "spot_light__contact_shadows": true
+    }
+  },
+  {
+    "entity": {
+      "_template": "spot_light",
+      "transform": [
+        [1.74136,-1.69936,-2.92847],
+        [-2.71238,-2.67117,-0.0628128],
+        [-2.02649,2.11495,-2.4323],
+        [310.739,1.12878,228.683]
+      ],
+      "light__brightness": 122.0,
+      "light__color": "#c3d2faff",
+      "light__max_radius": 12.0,
+      "spot_light__inner_attenuation": 0.1,
+      "spot_light__dynamic_obj_shadows": true,
+      "spot_light__shadows": true,
+      "light__affect_volumes": false,
+      "spot_light__contact_shadows": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "omni_light_huge",
+      "transform": [
+        [-0.0566438,-0.00278632,2.08271],
+        [0.0205088,2.08337,0.00334499],
+        [-2.08262,0.0205922,-0.0566139],
+        [8.43472,22.8009,85.2143]
+      ],
+      "light__brightness": 1.0,
+      "light__max_radius": 4.0,
+      "light__color": "#ffffffff",
+      "light__affect_volumes": false,
+      "omni_light__shadows": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "omni_light_huge",
+      "transform": [
+        [-0.732326,-0.0360233,26.9266],
+        [0.265151,26.9351,0.0432461],
+        [-26.9254,0.266229,-0.731939],
+        [29.0781,23.4943,395.657]
+      ],
+      "light__brightness": 5.0,
+      "light__max_radius": 4.0,
+      "light__color": "#ffffffff",
+      "light__affect_volumes": false,
+      "omni_light__shadows": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "spot_light",
+      "transform": [
+        [3.49607,1.15362,1.87324],
+        [0.619909,2.85808,-2.91709],
+        [-2.11083,2.75007,2.24587],
+        [-184.247,-3.53415,391.739]
+      ],
+      "light__brightness": 121.0,
+      "spot_light__shadows": true,
+      "spot_light__dynamic_obj_shadows": true,
+      "light__max_radius": 9.0,
+      "spot_light__inner_attenuation": 0.1,
+      "spot_light__shadow_shrink": 0,
+      "spot_light__dynamic_light": false,
+      "light__color": "#f5501eff",
+      "light__affect_volumes": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "light_bunker_ceiling",
+      "transform": [
+        [-2.70435,0.762639,2.2531],
+        [-2.31297,-0.046781,-2.76038],
+        [-0.555242,-3.51966,0.524894],
+        [-186.553,1.29413,395.906]
+      ],
+      "light__brightness": 26.0,
+      "light__max_radius": 8.0,
+      "spot_light__shadows": true,
+      "spot_light__dynamic_obj_shadows": true,
+      "spot_light__shadow_shrink": 0,
+      "light__color": "#ffe6c8ff",
+      "spot_light__inner_attenuation": 0.6,
+      "light__affect_volumes": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "light_bunker_ceiling",
+      "transform": [
+        [-2.05208,-0.0572686,1.71933],
+        [-1.72021,0.0413302,-2.05176],
+        [0.0173461,-2.67686,-0.0684677],
+        [-188.791,2.14583,399.668]
+      ],
+      "light__max_radius": 15.0,
+      "spot_light__shadows": true,
+      "spot_light__dynamic_obj_shadows": true,
+      "spot_light__shadow_shrink": 0,
+      "light__color": "#ffe6c8ff",
+      "light__brightness": 16.0,
+      "spot_light__inner_attenuation": 0.6,
+      "spot_light__dynamic_light": false,
+      "light__affect_volumes": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "light_bunker_ceiling",
+      "transform": [
+        [-4.41366,-0.123174,3.69797],
+        [-3.69986,0.0888937,-4.41295],
+        [0.0373082,-5.75744,-0.147261],
+        [-193.982,2.41883,390.509]
+      ],
+      "light__brightness": 36.0,
+      "light__max_radius": 11.0,
+      "spot_light__shadows": true,
+      "spot_light__dynamic_obj_shadows": true,
+      "spot_light__shadow_shrink": 0,
+      "light__color": "#ffe6c8ff",
+      "spot_light__inner_attenuation": 0.6,
+      "light__affect_volumes": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "light_bunker_ceiling",
+      "transform": [
+        [-4.06388,-0.113413,3.40491],
+        [-3.40665,0.081849,-4.06323],
+        [0.0343516,-5.30117,-0.135591],
+        [-194.039,2.41883,397.294]
+      ],
+      "light__brightness": 16.0,
+      "light__max_radius": 11.0,
+      "spot_light__shadows": true,
+      "spot_light__dynamic_obj_shadows": true,
+      "spot_light__shadow_shrink": 0,
+      "light__color": "#ffe6c8ff",
+      "spot_light__inner_attenuation": 0.6,
+      "light__affect_volumes": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "spot_light",
+      "transform": [
+        [3.29113,1.086,1.76343],
+        [0.583571,2.69055,-2.74609],
+        [-1.98709,2.58886,2.11422],
+        [-177.744,-3.90586,237.269]
+      ],
+      "light__brightness": 241.0,
+      "spot_light__shadows": true,
+      "spot_light__dynamic_obj_shadows": false,
+      "light__max_radius": 9.0,
+      "spot_light__inner_attenuation": 0.1,
+      "spot_light__shadow_shrink": 3,
+      "spot_light__dynamic_light": false,
+      "light__color": "#f5501eff",
+      "light__affect_volumes": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "spot_light",
+      "transform": [
+        [1.51369,1.01922,2.92978],
+        [1.07354,-3.23068,0.569245],
+        [2.91031,0.661592,-1.73379],
+        [-178.091,-2.50524,247.41]
+      ],
+      "light__brightness": 30.0,
+      "light__color": "#69877dff",
+      "light__max_radius": 3.0,
+      "spot_light__inner_attenuation": 0.1,
+      "spot_light__dynamic_obj_shadows": true,
+      "spot_light__shadows": true,
+      "light__affect_volumes": false,
+      "spot_light__contact_shadows": true
+    }
+  },
+  {
+    "entity": {
+      "_template": "spot_light",
+      "transform": [
+        [-0.927958,0.00879329,-0.703408],
+        [0.00550681,-1.16424,-0.0218189],
+        [-0.703433,-0.0207137,0.927733],
+        [-175.469,-1.94355,244.892]
+      ],
+      "light__brightness": 3.0,
+      "light__color": "#d7d2d2ff",
+      "light__max_radius": 4.0,
+      "spot_light__inner_attenuation": 0.1,
+      "spot_light__dynamic_obj_shadows": true,
+      "spot_light__shadows": true,
+      "light__affect_volumes": false,
+      "spot_light__contact_shadows": true,
+      "spot_light__shadow_shrink": 0
+    }
+  },
+  {
+    "entity": {
+      "_template": "light_bunker_ceiling",
+      "transform": [
+        [0.230278,-0.938847,2.49719],
+        [-2.35998,1.09726,0.630152],
+        [-1.2442,-2.25502,-0.733069],
+        [311.244,5.79018,226.981]
+      ],
+      "light__max_radius": 10.0,
+      "spot_light__shadows": true,
+      "spot_light__dynamic_obj_shadows": true,
+      "spot_light__shadow_shrink": 1,
+      "light__color": "#ffe6c8ff",
+      "light__brightness": 120.0,
+      "spot_light__inner_attenuation": 0.1,
+      "spot_light__dynamic_light": false,
+      "light__affect_volumes": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "spot_light",
+      "transform": [
+        [2.01232,1.35802,0.152478],
+        [-0.70007,1.25754,-1.96096],
+        [-1.17361,1.57837,1.43118],
+        [311.488,1.2316,219.739]
+      ],
+      "light__brightness": 341.0,
+      "spot_light__shadows": true,
+      "spot_light__dynamic_obj_shadows": true,
+      "light__max_radius": 15.0,
+      "spot_light__inner_attenuation": 0.1,
+      "spot_light__shadow_shrink": 0,
+      "spot_light__dynamic_light": false,
+      "light__color": "#f5501eff",
+      "light__affect_volumes": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "spot_light",
+      "transform": [
+        [-2.00202,1.27217,-1.30735],
+        [-0.588709,1.38664,2.25084],
+        [1.72656,1.94794,-0.748455],
+        [291.686,1.26243,87.2417]
+      ],
+      "light__brightness": 341.0,
+      "spot_light__shadows": true,
+      "spot_light__dynamic_obj_shadows": true,
+      "light__max_radius": 12.0,
+      "spot_light__inner_attenuation": 0.1,
+      "spot_light__shadow_shrink": 0,
+      "spot_light__dynamic_light": false,
+      "light__color": "#f5501eff",
+      "light__affect_volumes": false,
+      "spot_light__contact_shadows": true
+    }
+  },
+  {
+    "entity": {
+      "_template": "light_bunker_ceiling",
+      "transform": [
+        [-0.139502,-0.0249036,1.15579],
+        [-1.15597,0.0179727,-0.139137],
+        [-0.014864,-1.16405,-0.026878],
+        [299.857,6.58089,90.5873]
+      ],
+      "light__max_radius": 5.0,
+      "spot_light__shadows": false,
+      "spot_light__dynamic_obj_shadows": false,
+      "spot_light__shadow_shrink": 0,
+      "light__color": "#e18c6eff",
+      "light__brightness": 86.0,
+      "spot_light__inner_attenuation": 0.9,
+      "light__affect_volumes": true
+    }
+  },
+  {
+    "entity": {
+      "_template": "light_bunker_ceiling",
+      "transform": [
+        [-0.139502,-0.0249036,1.15579],
+        [-1.15597,0.0179727,-0.139137],
+        [-0.014864,-1.16405,-0.026878],
+        [308.844,6.58089,90.5873]
+      ],
+      "light__max_radius": 5.0,
+      "spot_light__shadows": false,
+      "spot_light__dynamic_obj_shadows": false,
+      "spot_light__shadow_shrink": 0,
+      "light__color": "#e18c6eff",
+      "light__brightness": 5.0,
+      "spot_light__inner_attenuation": 0.9,
+      "light__affect_volumes": true
+    }
+  },
+  {
+    "entity": {
+      "_template": "light_bunker_ceiling",
+      "transform": [
+        [-0.139502,-0.0249036,1.15579],
+        [-1.15597,0.0179727,-0.139137],
+        [-0.014864,-1.16405,-0.026878],
+        [304.97,6.58089,82.243]
+      ],
+      "light__max_radius": 5.0,
+      "spot_light__shadows": false,
+      "spot_light__dynamic_obj_shadows": false,
+      "spot_light__shadow_shrink": 0,
+      "light__color": "#e18c6eff",
+      "light__brightness": 70.0,
+      "spot_light__inner_attenuation": 0.9,
+      "light__affect_volumes": true
+    }
+  },
+  {
+    "entity": {
+      "_template": "light_bunker_ceiling",
+      "transform": [
+        [-0.139502,-0.0249036,1.15579],
+        [-1.15597,0.0179727,-0.139137],
+        [-0.014864,-1.16405,-0.026878],
+        [299.82,6.58089,73.9774]
+      ],
+      "light__max_radius": 5.0,
+      "spot_light__shadows": false,
+      "spot_light__dynamic_obj_shadows": false,
+      "spot_light__shadow_shrink": 0,
+      "light__color": "#e18c6eff",
+      "light__brightness": 56.0,
+      "spot_light__inner_attenuation": 0.9,
+      "light__affect_volumes": true
+    }
+  },
+  {
+    "entity": {
+      "_template": "light_bunker_ceiling",
+      "transform": [
+        [-0.139502,-0.0249036,1.15579],
+        [-1.15597,0.0179727,-0.139137],
+        [-0.014864,-1.16405,-0.026878],
+        [290.864,6.58089,74.03]
+      ],
+      "light__max_radius": 5.0,
+      "spot_light__shadows": false,
+      "spot_light__dynamic_obj_shadows": false,
+      "spot_light__shadow_shrink": 0,
+      "light__color": "#e18c6eff",
+      "light__brightness": 16.0,
+      "spot_light__inner_attenuation": 0.9,
+      "light__affect_volumes": true
+    }
+  },
+  {
+    "entity": {
+      "_template": "light_bunker_ceiling",
+      "transform": [
+        [-0.139502,-0.0249036,1.15579],
+        [-1.15597,0.0179727,-0.139137],
+        [-0.014864,-1.16405,-0.026878],
+        [287.182,6.58089,82.3547]
+      ],
+      "light__max_radius": 5.0,
+      "spot_light__shadows": false,
+      "spot_light__dynamic_obj_shadows": false,
+      "spot_light__shadow_shrink": 0,
+      "light__color": "#e18c6eff",
+      "light__brightness": 5.0,
+      "spot_light__inner_attenuation": 0.9,
+      "light__affect_volumes": true
+    }
+  },
+  {
+    "entity": {
+      "_template": "light_bunker_ceiling",
+      "transform": [
+        [-0.139502,-0.0249036,1.15579],
+        [-1.15597,0.0179727,-0.139137],
+        [-0.014864,-1.16405,-0.026878],
+        [290.974,6.58089,90.6393]
+      ],
+      "light__max_radius": 5.0,
+      "spot_light__shadows": false,
+      "spot_light__dynamic_obj_shadows": false,
+      "spot_light__shadow_shrink": 0,
+      "light__color": "#e18c6eff",
+      "light__brightness": 66.0,
+      "spot_light__inner_attenuation": 0.9,
+      "light__affect_volumes": true
+    }
+  },
+  {
+    "entity": {
+      "_template": "spot_light",
+      "transform": [
+        [-1.85786,-0.114107,-0.774736],
+        [-0.162741,-1.89484,0.669343],
+        [-0.765998,0.679323,1.73685],
+        [-494.319,1.19682,89.991]
+      ],
+      "light__brightness": 8.0,
+      "light__color": "#9bd2ffff",
+      "light__max_radius": 5.0,
+      "spot_light__inner_attenuation": 0.1,
+      "spot_light__dynamic_obj_shadows": true,
+      "spot_light__shadows": true,
+      "light__affect_volumes": false,
+      "spot_light__dynamic_light": false,
+      "spot_light__contact_shadows": true
+    }
+  },
+  {
+    "entity": {
+      "_template": "spot_light",
+      "transform": [
+        [2.7548,1.46712,-1.99817],
+        [0.00634659,-2.99138,-2.18762],
+        [-2.47891,1.62273,-2.22613],
+        [-495.479,0.75138,95.8993]
+      ],
+      "light__brightness": 15.0,
+      "light__color": "#ffb987ff",
+      "light__max_radius": 6.0,
+      "spot_light__inner_attenuation": 0.1,
+      "spot_light__dynamic_obj_shadows": true,
+      "spot_light__shadows": true,
+      "light__affect_volumes": false,
+      "spot_light__dynamic_light": false,
+      "spot_light__contact_shadows": true,
+      "spot_light__shadow_shrink": 0
+    }
+  },
+  {
+    "entity": {
+      "_template": "light_bunker_ceiling",
+      "transform": [
+        [-7.93354,10.7335,10.7026],
+        [-8.8197,6.5556,-13.1123],
+        [-12.3276,-11.598,2.49336],
+        [-181.057,1.31025,245.279]
+      ],
+      "light__brightness": 166.0,
+      "light__max_radius": 10.0,
+      "spot_light__shadows": true,
+      "spot_light__dynamic_obj_shadows": true,
+      "spot_light__shadow_shrink": 3,
+      "light__color": "#ffe6c8ff",
+      "spot_light__inner_attenuation": 0.5,
+      "light__affect_volumes": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "light_bunker_ceiling",
+      "transform": [
+        [-0.3567,-0.0636774,2.9553],
+        [-2.95576,0.0459554,-0.355767],
+        [-0.0380066,-2.97642,-0.0687259],
+        [294.438,6.58089,77.18]
+      ],
+      "light__max_radius": 9.0,
+      "spot_light__shadows": true,
+      "spot_light__dynamic_obj_shadows": true,
+      "spot_light__shadow_shrink": 0,
+      "light__color": "#e1b9b9ff",
+      "light__brightness": 150.0,
+      "spot_light__inner_attenuation": 0.1,
+      "light__affect_volumes": false,
+      "spot_light__contact_shadows": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "spot_light",
+      "transform": [
+        [-1.56812,1.08212,0.659448],
+        [-0.593679,-1.55426,1.13875],
+        [1.11956,0.691504,1.5275],
+        [-499.182,2.16082,85.1841]
+      ],
+      "light__brightness": 216.0,
+      "light__color": "#9bd2ffff",
+      "light__max_radius": 11.0,
+      "spot_light__inner_attenuation": 0.1,
+      "spot_light__dynamic_obj_shadows": true,
+      "spot_light__shadows": true,
+      "light__affect_volumes": false,
+      "spot_light__dynamic_light": false,
+      "spot_light__contact_shadows": true
+    }
+  },
+  {
+    "entity": {
+      "_template": "spot_light",
+      "transform": [
+        [2.82457,1.39301,-3.86776],
+        [-3.38486,3.45116,-1.22895],
+        [2.33294,3.32072,2.89971],
+        [289.444,1.49065,77.3259]
+      ],
+      "light__brightness": 145.0,
+      "spot_light__shadows": false,
+      "spot_light__dynamic_obj_shadows": true,
+      "light__max_radius": 12.0,
+      "spot_light__inner_attenuation": 0.1,
+      "spot_light__shadow_shrink": 0,
+      "spot_light__dynamic_light": false,
+      "light__color": "#f5f5f5ff",
+      "light__affect_volumes": false,
+      "spot_light__contact_shadows": true
+    }
+  },
+  {
+    "entity": {
+      "_template": "fire_spot_1m_effect+disable_sound_effect",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [303.382,10.1013,-219.032]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "fire_spot_2m_effect+disable_sound_effect",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [297.265,7.82755,-241.854]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "fire_bonfire_effect+disable_sound_effect",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [279.61,9.99787,-256.203]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "fire_spot_1m_effect+disable_sound_effect",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [329.366,10.5384,-242.916]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "fire_spot_2m_effect+disable_sound_effect",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [324.077,8.14345,-258.138]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "fire_bonfire_effect+disable_sound_effect",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [281.84,8.54963,-274.408]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "fire_spot_1m_effect+disable_sound_effect",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [318.656,8.9538,-270.52]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "fire_bonfire_effect+disable_sound_effect",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [306.16,10.2955,-293.684]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "spot_light",
+      "transform": [
+        [0.319348,0.515026,0.25813],
+        [-0.452461,0.0415389,0.476887],
+        [0.356597,-0.408518,0.373916],
+        [-190.214,2.9491,-218.054]
+      ],
+      "light__brightness": 19.0,
+      "light__color": "#9b7d7dff",
+      "light__max_radius": 5.0,
+      "spot_light__inner_attenuation": 0.1,
+      "spot_light__dynamic_obj_shadows": true,
+      "spot_light__shadows": true,
+      "light__affect_volumes": false,
+      "spot_light__contact_shadows": true,
+      "spot_light__dynamic_light": false,
+      "light__render_gpu_objects": false,
+      "light__dynamic_light": false,
+      "spot_light__shadow_shrink": 0
+    }
+  },
+  {
+    "entity": {
+      "_template": "light_bunker_wall+game_object",
+      "transform": [
+        [-5.91728e-08,1.0,1.91046e-07],
+        [0.295864,2e-07,-0.955229],
+        [-0.955229,0.0,-0.295864],
+        [295.799,0.260868,81.2159]
+      ],
+      "light__contact_shadows": false,
+      "light__brightness": 3.95,
+      "light__affect_volumes": false,
+      "light__automatic_box": true
+    }
+  },
+  {
+    "entity": {
+      "_template": "omni_light_huge",
+      "transform": [
+        [-1.73277,-0.00278632,1.15688],
+        [0.00911694,2.08337,0.018673],
+        [-1.15686,0.0205923,-1.73268],
+        [7.4976,24.2478,86.1128]
+      ],
+      "light__brightness": 2.75,
+      "light__max_radius": 4.0,
+      "light__color": "#ffffffff",
+      "light__affect_volumes": false,
+      "omni_light__shadows": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "omni_light_huge",
+      "transform": [
+        [14.0541,0.0,0.0],
+        [0.0,14.0541,0.0],
+        [0.0,0.0,14.0541],
+        [-189.028,4.12613,238.627]
+      ],
+      "light__color": "#afd7ff0a",
+      "omni_light__shadow_quality": 0,
+      "light__brightness": 0.0,
+      "light__max_radius": 20.0,
+      "light__automatic_box": false,
+      "light__contact_shadows": false,
+      "light__use_box": false,
+      "light__affect_volumes": true
+    }
+  },
+  {
+    "entity": {
+      "_template": "omni_light_huge",
+      "transform": [
+        [1.82608,-0.00278632,1.00314],
+        [0.0123566,2.08337,-0.0167067],
+        [-1.00308,0.0205923,1.82602],
+        [7.65618,24.2478,84.4269]
+      ],
+      "light__brightness": 3.5,
+      "light__max_radius": 4.0,
+      "light__color": "#ffffffff",
+      "light__affect_volumes": false,
+      "omni_light__shadows": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "spot_light",
+      "transform": [
+        [-0.414651,-1.67129,-1.9928],
+        [1.64577,1.39399,-1.51154],
+        [2.01395,-1.48324,0.824894],
+        [-497.186,3.52504,92.2883]
+      ],
+      "light__brightness": 20.0,
+      "light__color": "#ffffffff",
+      "light__max_radius": 4.0,
+      "spot_light__inner_attenuation": 0.1,
+      "spot_light__dynamic_obj_shadows": true,
+      "spot_light__shadows": true,
+      "light__affect_volumes": false,
+      "spot_light__dynamic_light": false,
+      "spot_light__contact_shadows": true
+    }
+  },
+  {
+    "entity": {
+      "_template": "envir_misc_floating_leaves_5m_effect",
+      "transform": [
+        [-0.290464,0.939109,-0.183592],
+        [0.253181,-0.1096,-0.96119],
+        [-0.922784,-0.325673,-0.20593],
+        [-190.085,-1.91558,-218.218]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "spot_light",
+      "transform": [
+        [-0.369387,0.00568587,-0.656099],
+        [0.00888267,-0.752814,-0.011525],
+        [-0.656052,-0.0133938,0.369244],
+        [-187.934,1.54723,-218.62]
+      ],
+      "light__brightness": 0.95,
+      "light__color": "#fafafaff",
+      "light__max_radius": 1.7,
+      "spot_light__inner_attenuation": 0.9,
+      "spot_light__dynamic_obj_shadows": false,
+      "spot_light__shadows": false,
+      "light__affect_volumes": false,
+      "spot_light__contact_shadows": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "envir_sparks_small_continious_column_effect+disable_sound_effect",
+      "transform": [
+        [0.514593,-0.857434,0.0],
+        [0.857434,0.514593,0.0],
+        [-0.0,0.0,1.0],
+        [304.833,6.74567,82.2422]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "envir_sparks_burst_big_effect+disable_sound_effect",
+      "transform": [
+        [-0.868435,0.0,0.495803],
+        [0.0,1.0,0.0],
+        [-0.495803,0.0,-0.868435],
+        [308.978,0.22234,80.0426]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "envir_sparks_burst_line_effect+disable_sound_effect",
+      "transform": [
+        [-0.231581,-0.181142,-0.955803],
+        [-0.342853,-0.904273,0.254445],
+        [-0.910397,0.386624,0.147308],
+        [313.077,8.4666,-249.649]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "omni_light_huge",
+      "transform": [
+        [14.0541,0.0,0.0],
+        [0.0,14.0541,0.0],
+        [0.0,0.0,14.0541],
+        [306.302,7.11683,225.909]
+      ],
+      "light__color": "#c3d7ff0a",
+      "omni_light__shadow_quality": 0,
+      "light__brightness": 20.5,
+      "light__max_radius": 25.0,
+      "light__automatic_box": false,
+      "light__contact_shadows": false,
+      "light__use_box": false,
+      "light__affect_volumes": true
+    }
+  },
+  {
+    "entity": {
+      "_template": "omni_light_huge",
+      "transform": [
+        [-0.0918033,-0.0676459,3.40224],
+        [-0.00430491,3.40348,0.0675543],
+        [-3.40295,-0.00248072,-0.0918716],
+        [310.943,7.28673,-255.162]
+      ],
+      "light__brightness": 10.0,
+      "light__max_radius": 4.0,
+      "light__color": "#ffffffff",
+      "light__affect_volumes": false,
+      "light__contact_shadows": false,
+      "omni_light__shadow_quality": 0
+    }
+  },
+  {
+    "entity": {
+      "_template": "spot_light",
+      "transform": [
+        [-0.321653,-0.148669,-0.664365],
+        [0.221148,-0.717751,0.0535463],
+        [-0.643865,-0.172252,0.350274],
+        [-187.525,1.2175,-217.798]
+      ],
+      "light__brightness": 0.7,
+      "light__color": "#fafafaff",
+      "light__max_radius": 2.0,
+      "spot_light__inner_attenuation": 0.9,
+      "spot_light__dynamic_obj_shadows": false,
+      "spot_light__shadows": true,
+      "light__affect_volumes": false,
+      "spot_light__contact_shadows": true
+    }
+  },
+  {
+    "entity": {
+      "_template": "gi_ignore_static_shadows"
+    }
+  },
+  {
+    "entity": {
+      "_template": "wind",
+      "wind__strength": 3.0,
+      "wind__dir": 100.0,
+      "dyn_wind__cumulus_alt_multiplier": 0.0,
+      "dyn_wind__strata_alt_multiplier": 0.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "envir_sparks_ground_1m_effect+disable_sound_effect",
+      "transform": [
+        [1.0,0.0,0.0],
+        [-0.0,0.606367,0.795185],
+        [0.0,-0.795185,0.606367],
+        [-500.347,-0.104178,85.3032]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "envir_misc_burned_ground_fire_5m_low_effect+disable_sound_effect",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [-501.755,-0.0835867,93.2367]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "envir_misc_burned_ground_smoke_single_effect+disable_sound_effect",
+      "transform": [
+        [-0.030812,0.0,0.999525],
+        [0.0,1.0,0.0],
+        [-0.999525,0.0,-0.030812],
+        [-191.071,-1.49086,-218.374]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "factory_lamp_a_red_flicker+disable_sound_effect",
+      "transform": [
+        [-4.11843,-0.37777,1.31355],
+        [0.0,4.17026,1.19935],
+        [-1.36679,1.1383,-3.95799],
+        [-187.315,-3.72845,248.705]
+      ],
+      "light__affect_volumes": false,
+      "light__max_radius": 12.0,
+      "spot_light__shadows": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "fire_spot_vertical_effect+disable_sound_effect",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [325.066,8.99183,-250.688]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "envir_misc_burned_ground_smoke_single_effect+disable_sound_effect",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [-504.949,-0.625262,88.4373]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "spot_light",
+      "transform": [
+        [-2.00867,-0.135844,-0.107982],
+        [0.149647,-1.99118,-0.278771],
+        [-0.0878608,-0.28575,1.99387],
+        [-496.742,0.285543,90.495]
+      ],
+      "light__brightness": 2.0,
+      "light__color": "#9bd2ffff",
+      "light__max_radius": 2.3,
+      "spot_light__inner_attenuation": 0.1,
+      "spot_light__dynamic_obj_shadows": true,
+      "spot_light__shadows": true,
+      "light__affect_volumes": false,
+      "spot_light__dynamic_light": false,
+      "spot_light__contact_shadows": false,
+      "spot_light__shadow_shrink": 2
+    }
+  },
+  {
+    "entity": {
+      "_template": "spot_light",
+      "transform": [
+        [1.47495,-0.119858,0.0872467],
+        [-0.110014,-1.46969,-0.159212],
+        [0.0993726,0.151938,-1.47121],
+        [-497.146,2.14675,92.8725]
+      ],
+      "light__brightness": 0.0,
+      "light__color": "#ffc3c3ff",
+      "light__max_radius": 1.7,
+      "spot_light__inner_attenuation": 0.1,
+      "spot_light__dynamic_obj_shadows": true,
+      "spot_light__shadows": true,
+      "light__affect_volumes": false,
+      "spot_light__dynamic_light": false,
+      "spot_light__contact_shadows": true,
+      "spot_light__shadow_shrink": 0
+    }
+  },
+  {
+    "entity": {
+      "_template": "menu_soldier_respawnbase",
+      "transform": [
+        [0.95836,0.0,0.285569],
+        [0.0,1.0,-0.0],
+        [-0.285569,0.0,0.95836],
+        [-496.66,0.167228,91.922]
+      ],
+      "menuPosFilter": "bike",
+      "priority_order": 1
+    }
+  },
+  {
+    "entity": {
+      "_template": "spot_light",
+      "transform": [
+        [2.51429,-1.5472,2.4043],
+        [0.966437,-2.55335,-2.65377],
+        [2.69078,2.36274,-1.29342],
+        [311.532,1.6821,229.879]
+      ],
+      "light__brightness": 92.0,
+      "light__color": "#69d2faff",
+      "light__max_radius": 8.0,
+      "spot_light__inner_attenuation": 0.1,
+      "spot_light__dynamic_obj_shadows": true,
+      "spot_light__shadows": true,
+      "light__affect_volumes": false,
+      "spot_light__contact_shadows": true
+    }
+  },
+  {
+    "entity": {
+      "_template": "omni_light_huge",
+      "transform": [
+        [0.100811,2.31914,-2.48992],
+        [0.00448376,2.49092,2.32025],
+        [3.40269,-0.0719927,0.0707127],
+        [310.294,7.59714,-245.874]
+      ],
+      "light__brightness": 10.0,
+      "light__max_radius": 4.0,
+      "light__color": "#ffffffff",
+      "light__affect_volumes": false,
+      "light__contact_shadows": false,
+      "omni_light__shadow_quality": 0
+    }
+  },
+  {
+    "entity": {
+      "_template": "light_bunker_ceiling",
+      "transform": [
+        [1.7765,-2.1374,0.10113],
+        [-1.32656,-0.996971,2.23184],
+        [-1.679,-1.47387,-1.65634],
+        [7.92546,25.1308,86.7697]
+      ],
+      "light__brightness": 10.0,
+      "light__affect_volumes": false,
+      "spot_light__contact_shadows": true
+    }
+  },
+  {
+    "entity": {
+      "_template": "omni_light_huge",
+      "transform": [
+        [0.478501,-0.00278632,-2.02778],
+        [-0.0194018,2.08337,-0.007441],
+        [2.02771,0.0205923,0.478455],
+        [5.15515,24.1071,84.9048]
+      ],
+      "light__brightness": 2.0,
+      "light__max_radius": 4.0,
+      "light__color": "#ffffffff",
+      "light__affect_volumes": false,
+      "omni_light__shadows": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "envir_sparks_burst_big_effect+disable_sound_effect",
+      "transform": [
+        [0.00900391,0.99585,-0.0905624],
+        [-5.82077e-11,0.0905661,0.99589],
+        [0.999959,-0.00896691,0.000815448],
+        [286.833,10.428,74.3993]
+      ],
+      "effect__emit_range_limit": 10.0,
+      "effect__emit_range_gap": 0.1
+    }
+  },
+  {
+    "entity": {
+      "_template": "sg_light_spot_ceiling_red",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,0.865844,-0.500314],
+        [-0.0,0.500314,0.865844],
+        [309.432,0.445758,78.4166]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "omni_light_huge",
+      "transform": [
+        [-8.7102,-0.0140061,5.81534],
+        [0.0458286,10.4726,0.0938645],
+        [-5.81524,0.103512,-8.70974],
+        [3.97876,24.3672,81.1083]
+      ],
+      "light__brightness": 9.75,
+      "light__max_radius": 3.0,
+      "light__color": "#ebebf5ff",
+      "light__affect_volumes": true,
+      "omni_light__shadows": false,
+      "light__contact_shadows": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "omni_light_huge",
+      "transform": [
+        [-5.8153,-0.00935106,3.88257],
+        [0.0305971,6.99195,0.0626679],
+        [-3.8825,0.069109,-5.81499],
+        [4.31772,22.6036,90.7755]
+      ],
+      "light__brightness": 4.75,
+      "light__max_radius": 3.0,
+      "light__color": "#ebebf5ff",
+      "light__affect_volumes": true,
+      "omni_light__shadows": false,
+      "light__contact_shadows": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "spot_light",
+      "transform": [
+        [0.0817147,1.74157,0.349452],
+        [-0.820754,-0.273219,1.55357],
+        [1.57528,-0.232691,0.791303],
+        [-190.148,1.49491,-217.008]
+      ],
+      "light__brightness": 5.0,
+      "light__color": "#9bd2ffff",
+      "light__max_radius": 5.0,
+      "spot_light__inner_attenuation": 0.9,
+      "spot_light__dynamic_obj_shadows": true,
+      "spot_light__shadows": true,
+      "light__affect_volumes": false,
+      "spot_light__contact_shadows": true,
+      "spot_light__dynamic_light": false,
+      "light__render_gpu_objects": false,
+      "light__dynamic_light": false,
+      "spot_light__shadow_shrink": 0
+    }
+  }
+]

@@ -1,19 +1,28 @@
 {
   "jp_type_97_kai_pacific_premium": {
-    "_extends": "jp_type_97_kai_common"
+    "_use": "jp_type_97_kai_common"
   },
   "jp_type_97_kai_common": [
     {
-      "_extends": "base_type_97_kai"
+      "_use": "base_type_97_kai"
     },
     {
-      "_extends": "tank_m10_engine_sound"
+      "_use": "tank_m10_engine_sound"
     },
     {
-      "_extends": "tank_light_vehicle_tracks_sound"
+      "_use": "tank_light_vehicle_tracks_sound"
     },
     {
-      "item__iconOffset": [0.0,0.0]
+      "commanderCockpitFpsCamMaxAngle": [40.0,5.0]
+    },
+    {
+      "gunner_cam_limit__useCockpitDir": true
+    },
+    {
+      "item__iconOffset": [-0.05,0.0]
+    },
+    {
+      "item__iconScale": 1.11
     },
     {
       "vehicle_seats__seats:shared:array": [
@@ -173,7 +182,7 @@
     }
   ],
   "jp_type_97_kai_driver_cockpit": {
-    "_extends": "base_driver_cockpit_no_slits",
+    "_use": "base_driver_cockpit_no_slits",
     "animchar__res": "bt_7_driver_char",
     "cockpit__offset": [0.0646394,-0.374342,0.00730274],
     "cockpit__visibleVehicleNodeNames:list<t>": [],
@@ -188,8 +197,7 @@
     }
   },
   "jp_type_97_kai_gunner_cockpit": {
-    "vehicle_sight__blk": "gamedata/sight/jp_47mm_1_1.blk",
-    "_extends": "base_gunner_cockpit",
+    "_use": "base_gunner_cockpit",
     "animchar__res": "ba_11_gunner_char",
     "cockpit__offset": [-0.578069,-0.0561157,0.244711],
     "cockpit__visibleVehicleNodeNames:list<t>": [],
@@ -197,7 +205,7 @@
       "slit": "cam_front_right"
     },
     "cockpit__slitForwardOffset:list<r>": {
-      "slit": 0.1
+      "slit": 0.21
     },
     "cockpit__slitIsGun:list<b>": {
       "slit": true
@@ -205,14 +213,31 @@
     "cockpit__attachNodeNames:list<t>": {
       "node": "bone_camera_gunner"
     },
-    "cockpit__attachNodeIndices:list<i>": []
+    "cockpit__attachNodeIndices:list<i>": [],
+    "cockpit__slitZoom:array": {
+      "slit:list<r>": [
+        {
+          "zoom": 1.9
+        },
+        {
+          "zoom": 3.5
+        }
+      ]
+    },
+    "cockpit__slitZoomTime:list<r>": {
+      "slit": 0.05
+    },
+    "cockpit__slitTemplates:list<t>": {
+      "slit": "jp_47mm_1_1"
+    },
+    "cockpit__slitEids:list<eid>": []
   },
   "jp_type_97_kai_commander_cockpit": {
-    "_extends": "base_commander_cockpit_no_slits",
+    "_use": "base_commander_cockpit_no_slits",
     "animchar__res": "t_26_1940_commander_char",
     "cockpit__offset": [-0.0,0.0,0.0],
     "cockpit__cockpitOffsetBySlit:list<p3>": {
-      "item": [-0.101439,0.711889,-0.442527]
+      "item": [-0.0,0.85,-0.442527]
     },
     "cockpit__visibleVehicleNodeNames:list<t>": [
       {
@@ -223,19 +248,37 @@
       }
     ],
     "cockpit__slitForwardOffset:list<r>": {
-      "slit": 0.17
+      "slit": 0.16
     },
     "cockpit__slitIsGun:list<b>": {
       "slit": true
     },
     "cockpit__slitNodeNames:list<t>": {
       "slit": "cam_front"
-    }
+    },
+    "cockpit__periscopeLimits:list<p4>": {
+      "slit": [-45.0,45.0,-5.0,25.0]
+    },
+    "cockpit__periscopeSpeed:list<p2>": {
+      "slit": [35.0,35.0]
+    },
+    "cockpit__slitZoom:array": {
+      "slit:list<r>": {
+        "zoom": 1.44
+      }
+    },
+    "cockpit__slitZoomTime:list<r>": {
+      "slit": 0.0
+    },
+    "cockpit__slitTemplates:list<t>": {
+      "slit": "default_periscope"
+    },
+    "cockpit__slitEids:list<eid>": []
   },
   "jp_type_97_kai_machinegunner_cockpit": {
-    "_extends": "base_gunner_cockpit",
+    "_use": "base_gunner_cockpit",
     "animchar__res": "ba_11_machinegunner_char",
-    "cockpit__offset": [-0.0,-0.0,-0.0],
+    "cockpit__offset": [-0.2,-0.2,-0.2],
     "cockpit__visibleVehicleNodeNames:list<t>": {
       "node": "root"
     },
@@ -243,7 +286,7 @@
       "slit": "cam_mg"
     },
     "cockpit__slitForwardOffset:list<r>": {
-      "slit": -0.09
+      "slit": -0.0
     },
     "cockpit__slitIsGun:list<b>": {
       "slit": true
@@ -251,6 +294,18 @@
     "cockpit__attachNodeNames:list<t>": {
       "node": "bone_mg_v_01"
     },
-    "cockpit__attachNodeIndices:list<i>": []
+    "cockpit__attachNodeIndices:list<i>": [],
+    "cockpit__slitZoom:array": {
+      "slit:list<r>": {
+        "zoom": 2.0
+      }
+    },
+    "cockpit__slitZoomTime:list<r>": {
+      "slit": 0.05
+    },
+    "cockpit__slitTemplates:list<t>": {
+      "slit": "cross"
+    },
+    "cockpit__slitEids:list<eid>": []
   }
 }

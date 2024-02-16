@@ -1,16 +1,19 @@
 {
   "us_halftrack_m3_75mm_gmc_pacific_premium": {
-    "_extends": "us_halftrack_m3_75mm_gmc_common"
+    "_use": "us_halftrack_m3_75mm_gmc_common"
   },
   "us_halftrack_m3_75mm_gmc_common": [
     {
-      "_extends": "base_halftrack_m3_75mm_gmc"
+      "_use": "base_halftrack_m3_75mm_gmc"
     },
     {
-      "_extends": "tank_light_vehicle_tracks_sound"
+      "_use": "tank_light_vehicle_tracks_sound"
     },
     {
-      "item__iconScale": 0.8
+      "item__iconOffset": [0.0,0.35]
+    },
+    {
+      "item__iconScale": 1.7
     },
     {
       "turrets__initAmmoDistribution:array": [
@@ -167,9 +170,9 @@
   ],
   "us_halftrack_m3_75mm_gmc_gunner_cockpit": {
     "vehicle_sight__blk": "content/tanks/gamedata/sight/default.blk",
-    "_extends": "base_gunner_cockpit",
+    "_use": "base_gunner_cockpit",
     "animchar__res": "t_26_1940_gunner_char",
-    "cockpit__minZoom": -0.27,
+    "cockpit__minForwardOffset": -0.27,
     "cockpit__offset": [-0.0,0.0,0.0],
     "cockpit__cockpitOffsetBySlit:list<p3>": {
       "item": [-1.23064,-0.0575288,0.606497]

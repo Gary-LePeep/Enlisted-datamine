@@ -1,6 +1,6 @@
 {
   "bofors_40mm_quadruple_go": {
-    "_extends": "base_ai_gunner_turret",
+    "_use": "base_ai_gunner_turret",
     "animchar__res": "bofors_40mm_quadruple_char",
     "collres__res": "bofors_40mm_quadruple_collision",
     "phys_obj_net_phys__blk": "content/enlisted/gamedata/units/cannons/bofors_40mm_quadruple.blk",
@@ -138,7 +138,7 @@
     ]
   },
   "bofors_40mm_twin_go": {
-    "_extends": "base_ai_gunner_turret",
+    "_use": "base_ai_gunner_turret",
     "animchar__res": "bofors_40mm_twin_char",
     "collres__res": "bofors_40mm_twin_collision",
     "phys_obj_net_phys__blk": "content/enlisted/gamedata/units/cannons/bofors_40mm_twin.blk",
@@ -222,27 +222,27 @@
     ]
   },
   "bofors_40mm_turret_01": {
-    "_extends": "turret_ai_bofors_40mm_main",
+    "_use": "turret_ai_bofors_40mm_main",
     "gun__shootNodeName": "bone_gun_barrel_01"
   },
   "bofors_40mm_turret_02": {
-    "_extends": "turret_ai_bofors_40mm",
+    "_use": "turret_ai_bofors_40mm",
     "gun__shootNodeName": "bone_gun_barrel_02"
   },
   "bofors_40mm_turret_03": {
-    "_extends": "turret_ai_bofors_40mm",
+    "_use": "turret_ai_bofors_40mm",
     "gun__shootNodeName": "bone_gun_barrel_03"
   },
   "bofors_40mm_turret_04": {
-    "_extends": "turret_ai_bofors_40mm",
+    "_use": "turret_ai_bofors_40mm",
     "gun__shootNodeName": "bone_gun_barrel_04"
   },
   "turret_ai_bofors_40mm_main": [
     {
-      "_extends": "turret_ai_bofors_40mm"
+      "_use": "turret_ai_bofors_40mm"
     },
     {
-      "_extends": "controlled_by_ai_gunner"
+      "_use": "controlled_by_ai_gunner"
     },
     {
       "turret_ai__shootAngleCos": 0.984
@@ -286,16 +286,16 @@
   ],
   "turret_ai_bofors_40mm": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_tankgun_autocannon"
+      "_use": "base_tankgun_autocannon"
     },
     {
-      "_extends": "base_bofors_40mm"
+      "_use": "base_bofors_40mm"
     },
     {
-      "_extends": "gunsound_45mm_20k"
+      "_use": "gunsound_45mm_20k"
     },
     {
       "turret__triggerGroup": 0

@@ -1,16 +1,25 @@
 {
   "jp_type_2_ho_i_pacific": {
-    "_extends": "jp_type_2_ho_i_common"
+    "_use": "jp_type_2_ho_i_common"
   },
   "jp_type_2_ho_i_common": [
     {
-      "_extends": "base_type_2_ho_i"
+      "_use": "base_type_2_ho_i"
     },
     {
-      "_extends": "tank_m10_engine_sound"
+      "_use": "tank_m10_engine_sound"
     },
     {
-      "item__iconOffset": [0.0,0.0]
+      "item__iconOffset": [-0.05,0.05]
+    },
+    {
+      "item__iconScale": 1.25
+    },
+    {
+      "commanderCockpitFpsCamMaxAngle": [40.0,5.0]
+    },
+    {
+      "gunner_cam_limit__useCockpitDir": true
     },
     {
       "turrets__initAmmoDistribution:array": [
@@ -160,7 +169,7 @@
     }
   ],
   "jp_type_2_ho_i_driver_cockpit": {
-    "_extends": "base_driver_cockpit_no_slits",
+    "_use": "base_driver_cockpit_no_slits",
     "animchar__res": "bt_7_driver_char",
     "cockpit__offset": [0.0646394,-0.374342,0.00730274],
     "cockpit__visibleVehicleNodeNames:list<t>": {
@@ -177,8 +186,7 @@
     }
   },
   "jp_type_2_ho_i_gunner_cockpit": {
-    "vehicle_sight__blk": "gamedata/sight/jp_75mm.blk",
-    "_extends": "base_gunner_cockpit",
+    "_use": "base_gunner_cockpit",
     "animchar__res": "ba_11_gunner_char",
     "cockpit__offset": [-0.578069,-0.0561157,0.244711],
     "cockpit__visibleVehicleNodeNames:list<t>": {
@@ -188,7 +196,7 @@
       "slit": "cam_front_right"
     },
     "cockpit__slitForwardOffset:list<r>": {
-      "slit": 0.17
+      "slit": 0.21
     },
     "cockpit__slitIsGun:list<b>": {
       "slit": true
@@ -196,10 +204,27 @@
     "cockpit__attachNodeNames:list<t>": {
       "node": "bone_camera_gunner"
     },
-    "cockpit__attachNodeIndices:list<i>": []
+    "cockpit__attachNodeIndices:list<i>": [],
+    "cockpit__slitZoom:array": {
+      "slit:list<r>": [
+        {
+          "zoom": 1.9
+        },
+        {
+          "zoom": 3.5
+        }
+      ]
+    },
+    "cockpit__slitZoomTime:list<r>": {
+      "slit": 0.05
+    },
+    "cockpit__slitTemplates:list<t>": {
+      "slit": "jp_75mm"
+    },
+    "cockpit__slitEids:list<eid>": []
   },
   "jp_type_2_ho_i_commander_cockpit": {
-    "_extends": "base_commander_tower_cockit_no_slits",
+    "_use": "base_commander_tower_cockpit",
     "animchar__res": "pzkpfw_iii_b_commander_char",
     "cockpit__offset": [-0.29198,0.57366,0.264992],
     "cockpit__visibleVehicleNodeNames:list<t>": [
@@ -270,6 +295,38 @@
         "slit": false
       }
     ],
+    "cockpit__slitZoom:array": [
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      }
+    ],
     "cockpit__slitNodeNames:list<t>": [
       {
         "slit": "cam_front"
@@ -292,7 +349,7 @@
     ]
   },
   "jp_type_2_ho_i_machinegunner_cockpit": {
-    "_extends": "base_gunner_cockpit",
+    "_use": "base_gunner_cockpit",
     "animchar__res": "ba_11_machinegunner_char",
     "cockpit__offset": [-0.269704,-0.242768,-0.192939],
     "cockpit__visibleVehicleNodeNames:list<t>": {
@@ -302,7 +359,7 @@
       "slit": "cam_mg"
     },
     "cockpit__slitForwardOffset:list<r>": {
-      "slit": -0.05
+      "slit": -0.0
     },
     "cockpit__slitIsGun:list<b>": {
       "slit": true
@@ -310,6 +367,18 @@
     "cockpit__attachNodeNames:list<t>": {
       "node": "bone_mg_v_01"
     },
-    "cockpit__attachNodeIndices:list<i>": []
+    "cockpit__attachNodeIndices:list<i>": [],
+    "cockpit__slitZoom:array": {
+      "slit:list<r>": {
+        "zoom": 2.0
+      }
+    },
+    "cockpit__slitZoomTime:list<r>": {
+      "slit": 0.05
+    },
+    "cockpit__slitTemplates:list<t>": {
+      "slit": "cross"
+    },
+    "cockpit__slitEids:list<eid>": []
   }
 }

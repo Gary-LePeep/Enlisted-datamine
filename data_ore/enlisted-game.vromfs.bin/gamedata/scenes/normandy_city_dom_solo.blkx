@@ -69,6 +69,11 @@
   },
   {
     "entity": {
+      "_template": "bloom"
+    }
+  },
+  {
+    "entity": {
       "_template": "postfx_roundctrl"
     }
   },
@@ -93,6 +98,7 @@
     "entity": {
       "_template": "briefing_domination",
       "mission_name": "normandy_city_dom",
+      "mission_outfit": "normandy",
       "loading_images:list<t>": [
         {
           "item": "ui/normandy_city_dom_01.avif"
@@ -104,6 +110,14 @@
           "item": "ui/normandy_city_dom_03.avif"
         }
       ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "spawn_switcher",
+      "swapProbability": 0.5,
+      "team1": 2,
+      "team2": 1
     }
   },
   {
@@ -173,13 +187,13 @@
       "_template": "domination_box_capzone",
       "transform": [
         [18.0037,0.0,0.376661],
-        [0.0,10.5586,0.0],
+        [0.0,7.82838,0.0],
         [-0.0703578,0.0,14.592],
-        [44.6478,72.0401,-313.297]
+        [44.6478,71.8673,-313.297]
       ],
       "capzone__title": "A",
       "capzone__caption": "capzone/field_headquarters",
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "decal__height": 2.7,
       "ui_order": 1
     }
@@ -195,7 +209,7 @@
       ],
       "capzone__title": "B",
       "capzone__caption": "capzone/normandy_cathedral",
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "decal__height": 0.4,
       "ui_order": 2,
       "capzone__iconOffsetY": 2.0
@@ -212,7 +226,7 @@
       ],
       "capzone__title": "C",
       "capzone__caption": "capzone/warehouse",
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "decal__height": 2.4,
       "ui_order": 3
     }
@@ -708,9 +722,9 @@
         [-0.999999,0.0,-0.000445871],
         [0.0,1.0,0.0],
         [0.000445871,0.0,-0.999999],
-        [1595.04,1000.0,2601.8]
+        [1885.65,733.582,-2607.75]
       ],
-      "resupply_zone__team": 1
+      "resupply_zone__team": 2
     }
   },
   {
@@ -718,12 +732,12 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_fighter",
       "transform": [
-        [0.0312836,0.0,0.999511],
+        [1.0,0.0,-0.000872128],
         [0.0,1.0,0.0],
-        [-0.999511,0.0,0.0312836],
-        [-191.863,1023.92,-2474.34]
+        [0.000872128,-0.0,1.0],
+        [-3463.97,1023.92,-327.82]
       ],
-      "team": 2,
+      "team": 1,
       "maxVehicleOnSpawn": 1,
       "respTime": 120
     }
@@ -733,12 +747,12 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_assault",
       "transform": [
-        [-0.066378,0.0,0.997795],
-        [0.0,1.0,0.0],
-        [-0.997795,0.0,-0.066378],
-        [-369.084,823.92,-2474.23]
+        [0.995315,0.0,0.0966926],
+        [0.0,1.0,-0.0],
+        [-0.0966926,0.0,0.995315],
+        [-3469.25,823.92,-150.676]
       ],
-      "team": 2,
+      "team": 1,
       "maxVehicleOnSpawn": 1,
       "respTime": 120
     }
@@ -748,12 +762,12 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_fighter",
       "transform": [
-        [-0.0120528,0.0,0.999928],
-        [0.0,1.0,0.0],
-        [-0.999928,0.0,-0.0120528],
-        [-348.307,1023.92,-2466.71]
+        [0.999099,0.0,0.0424572],
+        [0.0,1.0,-0.0],
+        [-0.0424572,0.0,0.999099],
+        [-3461.1,1023.92,-171.216]
       ],
-      "team": 2,
+      "team": 1,
       "maxVehicleOnSpawn": 1,
       "respTime": 120
     }
@@ -763,12 +777,12 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_assault",
       "transform": [
-        [-0.00207494,0.0,0.999998],
-        [0.0,1.0,0.0],
-        [-0.999998,0.0,-0.00207494],
-        [-191.863,823.92,-2474.34]
+        [0.999472,0.0,0.0324866],
+        [0.0,1.0,-0.0],
+        [-0.0324866,0.0,0.999472],
+        [-3463.97,823.92,-327.82]
       ],
-      "team": 2,
+      "team": 1,
       "maxVehicleOnSpawn": 1,
       "respTime": 120
     }
@@ -780,9 +794,9 @@
         [0.327869,0.0,-0.944724],
         [0.0,1.0,0.0],
         [0.944724,0.0,0.327869],
-        [-1972.94,1023.92,-3391.65]
+        [-2326.6,785.48,-1894.95]
       ],
-      "resupply_zone__team": 2
+      "resupply_zone__team": 1
     }
   },
   {
@@ -790,12 +804,12 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_fighter",
       "transform": [
-        [-0.0399923,0.0,-0.9992],
+        [-0.99377,0.0,0.111453],
         [0.0,1.0,0.0],
-        [0.9992,0.0,-0.0399923],
-        [-167.613,1000.0,1885.34]
+        [-0.111453,0.0,-0.99377],
+        [3686.32,1000.0,-445.488]
       ],
-      "team": 1,
+      "team": 2,
       "maxVehicleOnSpawn": 1,
       "respTime": 120
     }
@@ -805,12 +819,12 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_assault",
       "transform": [
-        [-0.0399923,0.0,-0.9992],
+        [-0.99377,0.0,0.111453],
         [0.0,1.0,0.0],
-        [0.9992,0.0,-0.0399923],
-        [-167.613,800.0,1885.34]
+        [-0.111453,0.0,-0.99377],
+        [3686.32,800.0,-445.488]
       ],
-      "team": 1,
+      "team": 2,
       "maxVehicleOnSpawn": 1,
       "respTime": 120
     }
@@ -820,12 +834,12 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_fighter",
       "transform": [
-        [-0.0399923,0.0,-0.9992],
+        [-0.99377,0.0,0.111453],
         [0.0,1.0,0.0],
-        [0.9992,0.0,-0.0399923],
-        [-18.7795,1000.0,1908.26]
+        [-0.111453,0.0,-0.99377],
+        [3698.52,1000.0,-595.582]
       ],
-      "team": 1,
+      "team": 2,
       "maxVehicleOnSpawn": 1,
       "respTime": 120
     }
@@ -835,12 +849,12 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_assault",
       "transform": [
-        [-0.0399923,0.0,-0.9992],
+        [-0.99377,0.0,0.111453],
         [0.0,1.0,0.0],
-        [0.9992,0.0,-0.0399923],
-        [11.0203,800.0,1874.98]
+        [-0.111453,0.0,-0.99377],
+        [3663.19,800.0,-622.922]
       ],
-      "team": 1,
+      "team": 2,
       "maxVehicleOnSpawn": 1,
       "respTime": 120
     }
@@ -903,6 +917,94 @@
         [-20.2651,66.9026,-431.997]
       ],
       "team": 2
+    }
+  },
+  {
+    "entity": {
+      "_template": "stationary_mg42+game_object",
+      "transform": [
+        [1.0,0.0,-0.00079596],
+        [-9.52119e-06,0.999928,-0.0119619],
+        [0.000795903,0.0119619,0.999928],
+        [301.642,69.6241,-224.219]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "stationary_mg42+game_object",
+      "transform": [
+        [0.0115923,0.0,0.999933],
+        [0.0119611,0.999928,-0.000138666],
+        [-0.999861,0.0119619,0.0115915],
+        [296.656,69.7222,-220.062]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "stationary_mg42+game_object",
+      "transform": [
+        [-1.0,0.0,0.000796111],
+        [9.523e-06,0.999928,0.0119619],
+        [-0.000796054,0.0119619,-0.999928],
+        [301.863,69.6241,-210.161]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "stationary_mg42+game_object",
+      "transform": [
+        [-0.0162879,0.0,-0.999867],
+        [-0.0119603,0.999928,0.000194835],
+        [0.999795,0.0119619,-0.0162868],
+        [239.372,68.9999,-220.913]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "stationary_mg42+game_object",
+      "transform": [
+        [-1.62921e-07,0.0,1.0],
+        [0.0119619,0.999928,1.94885e-09],
+        [-0.999928,0.0119619,-1.62909e-07],
+        [207.805,68.8688,-151.536]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "stationary_mg42+game_object",
+      "transform": [
+        [0.21644,0.0,0.976296],
+        [0.0116784,0.999928,-0.00258903],
+        [-0.976226,0.0119619,0.216424],
+        [-90.1627,69.7515,-301.895]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "stationary_mg42+game_object",
+      "transform": [
+        [-0.276356,0.0,0.961055],
+        [0.011496,0.999928,0.00330574],
+        [-0.960986,0.0119619,-0.276336],
+        [-110.529,67.5704,-313.108]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "stationary_mg42+game_object",
+      "transform": [
+        [-1.62921e-07,0.0,1.0],
+        [0.0119619,0.999928,1.94885e-09],
+        [-0.999928,0.0119619,-1.62909e-07],
+        [-135.614,70.0421,-317.538]
+      ]
     }
   }
 ]

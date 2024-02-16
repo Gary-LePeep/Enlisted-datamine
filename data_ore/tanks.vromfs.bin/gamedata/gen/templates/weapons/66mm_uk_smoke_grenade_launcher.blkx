@@ -16,16 +16,16 @@
   },
   "tankgun_66mm_uk_smoke_grenade_launcher": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_tankgun_smoke_grenade_launcher"
+      "_use": "base_tankgun_smoke_grenade_launcher"
     },
     {
-      "_extends": "base_66mm_uk_smoke_grenade_launcher"
+      "_use": "base_66mm_uk_smoke_grenade_launcher"
     },
     {
-      "_extends": "gunsound_66mm_uk_smoke_grenade_launcher"
+      "_use": "gunsound_66mm_uk_smoke_grenade_launcher"
     },
     {
       "turret__triggerGroup": 3

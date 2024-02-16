@@ -17,6 +17,8 @@ def spawn_tutorial_player_immediate_es(evt : CmdSpawnEntityForPlayer;
                                        var isFirstSpawn : bool&;
                                        var respawner__canSpawnMinTime : float&;
                                        var respawner__missionStartDelay : float&)
+  if !isFirstSpawn
+    return
   find_query() <| $ [es(REQUIRE=spawnPlayerImmediate)] ()
     respawner__enabled = false
     respawner__respStartTime = -1.f
@@ -31,6 +33,7 @@ def spawn_tutorial_player_immediate_es(evt : CmdSpawnEntityForPlayer;
                                    possessed=evt.possessed,
                                    squadId=respawner__respRequestedSquadId,
                                    memberId=respawner__respRequestedMemberId,
-                                   respawnGroupId=respawner__respawnGroupId]])
+                                   respawnGroupId=respawner__respawnGroupId,
+                                   existedVehicleEid=INVALID_ENTITY_ID]])
     return true
 

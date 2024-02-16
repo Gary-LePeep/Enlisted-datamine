@@ -71,9 +71,9 @@ return {
   stages = [
     { id = "check_age", action = @(_state, cb) check_age_restrictions(cb), actionOnReload = @(_state, _cb) null },
     { id = "parental_control", action = @(_state, cb) check_parental_control(cb), actionOnReload = @(_state, _cb) null },
-    { id = "ps4_auth_data", action = @(_state, cb) ps4_auth_data_cb(cb), actionOnReload = @(_state, _cb) null },
-    { id = "auth_psn", action = login_psn, actionOnReload = @(_state, _cb) null },
+    { id = "ps4_auth_data", action = @(_state, cb) ps4_auth_data_cb(cb), actionOnReload = @(_state, _cb) null },    { id = "auth_psn", action = login_psn, actionOnReload = @(_state, _cb) null },
     { id = "check_plus", action = update_premium_permissions, actionOnReload = @(_state, _cb) null },
+    require("%enlist/login/stages/eula_before_login.nut"),
     require("%enlist/login/stages/auth_result.nut"),
     require("%enlist/login/stages/char.nut"),
     require("%enlist/login/stages/online_settings.nut"),

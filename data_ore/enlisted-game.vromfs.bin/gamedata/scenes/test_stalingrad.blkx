@@ -526,6 +526,11 @@
   },
   {
     "entity": {
+      "_template": "bloom"
+    }
+  },
+  {
+    "entity": {
       "_template": "postfx_roundctrl",
       "post_fx:object": []
     }
@@ -546,6 +551,7 @@
     "entity": {
       "_template": "briefing_invasion",
       "mission_name": "test_stalingrad",
+      "mission_outfit": "stalingrad",
       "loading_images:list<t>": [
         {
           "item": "ui/volokolamsk_grove_01.avif"

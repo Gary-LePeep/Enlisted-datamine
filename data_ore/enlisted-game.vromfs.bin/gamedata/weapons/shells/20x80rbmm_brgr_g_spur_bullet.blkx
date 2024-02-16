@@ -8,21 +8,16 @@
   "normalizationPreset": "default",
   "ricochetPreset": "defaultExt",
   "modelName": "tank_bullet_he",
+  "groundRicochetPreset": "defaultExt",
   "secondaryShattersPreset": "ap",
-  "stabilityThreshold": 0.05,
   "hitPowerMult": 10.0,
-  "stabilityCaliberToArmorThreshold": 5.0,
+  "stabilityThreshold": 0.05,
   "onHitChanceMultFire": 7.0,
-  "stabilityReductionAfterPenetration": 0.15,
+  "stabilityReductionAfterRicochet": 0.5,
   "effectiveDistance": 700.0,
-  "bulletType": "i_t",
+  "stabilityReductionAfterPenetration": 0.15,
   "relativeVelHitShift": [300.0,1000.0],
   "relativeVelArmorShift": [200.0,1000.0],
-  "selfDestructionFx": "explosion_air_selfexplosion_small",
-  "explosionEffect": "hit_19_27mm_metal_he",
-  "groundCollisionEffect": "hit_19_27mm_dirt_he",
-  "ricochetEffect": "hit_19_27mm_metal_ap",
-  "waterCollisionEffect": "hit_19_27mm_water",
   "stabilityRicochetModifier": [
     {
       "mod1": [0.0,0.05]
@@ -55,24 +50,6 @@
     "traceFreq": 1,
     "tracer": "20mmWhite",
     "trail": "black"
-  },
-  "hitFx": {
-    "steel": {
-      "fx": "hit_19_27mm_metal_he",
-      "fxScale": [1.0,1.0]
-    },
-    "wood": {
-      "fx": "hit_19_27mm_wood_he",
-      "fxScale": [1.0,1.0]
-    },
-    "glass": {
-      "fx": "hit_19_27mm_metal_he",
-      "fxScale": [1.0,1.0]
-    },
-    "stone": {
-      "fx": "hit_19_27mm_stone_he",
-      "fxScale": [1.0,1.0]
-    }
   },
   "tracer": {
     "headColor": "#ffffff78",

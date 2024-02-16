@@ -1,6 +1,8 @@
+import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
-let {sub_txt} = require("%enlSqGlob/ui/fonts_style.nut")
+let {get_sync_time} = require("net")
+let {fontSub} = require("%enlSqGlob/ui/fontsStyle.nut")
 let {SELECTION_BORDER_COLOR} = require("%ui/hud/style.nut")
 let { blurBack } = require("style.nut")
 let iconWidget = require("%ui/components/icon3d.nut")
@@ -16,8 +18,8 @@ let function itemAppearing(duration=0.2) {
   return {prop=AnimProp.opacity, from=0, to=1, duration=duration, play=true, easing=InOutCubic}
 }
 let wWidth = hdpx(280)
-let aHgt = calc_str_box("A", sub_txt)[1]*2 //we want to be sure that weapon name and icon could be displayed without big overlapping
-let wHeight = max(aHgt+hdpx(2), hdpx(40))
+let aHgt = calc_str_box("A", fontSub)[1]*2 //we want to be sure that weapon name and icon could be displayed without big overlapping
+let wHeight = max(aHgt+hdpxi(2), hdpxi(40))
 
 
 let function weaponId(weapon, turretsAmmo, params={width=flex() height=wHeight}) {
@@ -45,7 +47,7 @@ let function weaponId(weapon, turretsAmmo, params={width=flex() height=wHeight})
           fontFxColor = Color(0,0,0,30)
           key = name
           color = weapon?.isCurrent ? curColor : color
-        }.__update(sub_txt)
+        }.__update(fontSub)
       }
     }
   }
@@ -67,7 +69,7 @@ let function weaponAmmo(weapon, turretsAmmo, params=wAmmoDef) {
 
   return function() {
     local {
-      curAmmo = 0, totalAmmo = 0, ammoByBullet = [], reloadAmmo = 0, groupAmmo = 0
+      curAmmo = 0, totalAmmo = 0, ammoByBullet = [], reloadAmmo = 0, groupAmmo = 0, firstStageAmmo = 0
     } = combinedAmmo.value
     let setAmmo = ammoByBullet?[weapon?.setId]
     totalAmmo = reloadAmmo ?? totalAmmo
@@ -77,10 +79,18 @@ let function weaponAmmo(weapon, turretsAmmo, params=wAmmoDef) {
         : ammoByBullet?[weapon?.setId] ?? totalAmmo
     }
     curAmmo = groupAmmo ?? curAmmo
-    let ammo_string = (totalAmmo + curAmmo <= 0 && !showZeroAmmo) ? ""
-      : instant ? (totalAmmo + curAmmo)
-      : (weapon?.isReloadable ?? false) ? $"{curAmmo}/{totalAmmo}"
-      : totalAmmo
+    local firstStage = ""
+    if (!weapon?.isCurrent)
+      firstStageAmmo = 0
+    else if (firstStageAmmo > 0) {
+      firstStageAmmo = min(firstStageAmmo, totalAmmo)
+      firstStage = $"{firstStageAmmo}+"
+      totalAmmo = totalAmmo - firstStageAmmo
+    }
+    let ammo_string = (totalAmmo + curAmmo + firstStageAmmo <= 0 && !showZeroAmmo) ? ""
+      : instant ? $"{firstStage}{(totalAmmo + curAmmo)}"
+      : (weapon?.isReloadable ?? false) ? $"{curAmmo}/{firstStage}{totalAmmo}"
+      : $"{firstStage}{totalAmmo}"
     return {
       watch = [combinedAmmo]
       rendObj = ROBJ_TEXT
@@ -128,13 +138,56 @@ let currentBorder = { size = flex(), rendObj = ROBJ_FRAME, borderWidth = 1, colo
 let nextBorder = { size = flex(), rendObj = ROBJ_FRAME, borderWidth = 1, color = nextBorderColor, key = {}
   animations = [{ prop = AnimProp.opacity, from = 0.5, to = 1, duration = 1, play = true, loop = true, easing = CosineFull }] }
 
-let function weaponWidget(weapon, turretsAmmo, hint = null, width = wWidth, height = wHeight, showHint = true, iconCtor = iconCtorDefault) {
+let mkReplenishmentProgress = @(from, to, duration, key) {
+  margin = [0, 0, 0, hdpx(10)]
+  rendObj = ROBJ_PROGRESS_LINEAR
+  imageHalign = ALIGN_CENTER
+  imageValign = ALIGN_CENTER
+  vplace = ALIGN_CENTER
+  hplace = ALIGN_CENTER
+  fValue = 0
+  size = flex()
+  fgColor = Color(0,255,0)
+  bgColor = Color(0,150,0)
+  key
+  animations = [
+    { prop = AnimProp.fValue, from, to, duration, play = true }
+  ]
+}
+
+let function turretStowageReplenishmentTip(weapon, turretsReplenishment, width) {
+  if (!weapon?.isControlled || !weapon?.isCurrent)
+    return null
+  let gunEid = weapon?.gunEid ?? ecs.INVALID_ENTITY_ID
+  let turretReplenishmentState = Computed(@() turretsReplenishment.value?[gunEid] ?? {})
+
+  return function() {
+    let { totalTime = -1, endTime = -1 } = turretReplenishmentState.value
+    let timeLeft = max(0, endTime - get_sync_time())
+    let startProgress = totalTime > 0 ? max(0, 1 - timeLeft / totalTime) : 0
+    let endProgress = 1
+    let isReplenishing = endTime > 0
+    return {
+      watch = turretReplenishmentState
+      valign = ALIGN_CENTER
+      vplace = ALIGN_CENTER
+      size = [width, hdpx(3)]
+      children = isReplenishing
+        ? mkReplenishmentProgress(startProgress, endProgress, timeLeft, turretReplenishmentState.value)
+        : null
+    }
+  }
+}
+
+let iconBlockWidth = hdpxi(230)
+
+let function weaponWidget(weapon, turretsAmmo, turretsReplenishment, hint = null, width = wWidth, height = wHeight, showHint = true, iconCtor = iconCtorDefault) {
   let markAsSelected = weapon?.isEquiping || (weapon?.isCurrent && !weapon?.isHolstering)
   let borderComp = markAsSelected ? currentBorder
     : weapon?.isNext ? nextBorder
     : null
 
-  let weaponHudIcon = iconCtor(weapon, hdpx(128), height - hdpx(2) * 2)
+  let weaponHudIcon = iconCtor(weapon, iconBlockWidth, height - hdpx(2) * 2)
 
   let controlHint = showHint ? hint : null
   let hintsPadding = showHint ? wHeight + hdpx(2) : hdpx(2)
@@ -165,7 +218,13 @@ let function weaponWidget(weapon, turretsAmmo, hint = null, width = wWidth, heig
                       valign = ALIGN_CENTER
                       children = [
                         weaponId(weapon, turretsAmmo, { size=[flex(),height/2]})
-                        weaponAmmo(weapon, turretsAmmo, {width = SIZE_TO_CONTENT height=wHeight/2 hplace=ALIGN_RIGHT vplace = ALIGN_CENTER})
+                        {
+                          flow = FLOW_VERTICAL
+                          children = [
+                            weaponAmmo(weapon, turretsAmmo, {width = SIZE_TO_CONTENT height=wHeight/2 hplace=ALIGN_RIGHT vplace = ALIGN_CENTER})
+                            turretStowageReplenishmentTip(weapon, turretsReplenishment, (width-hintsPadding-iconBlockWidth) * 0.5)
+                          ]
+                        }
                       ]
                     }
                   ]
@@ -180,4 +239,11 @@ let function weaponWidget(weapon, turretsAmmo, hint = null, width = wWidth, heig
   }
 }
 
-return kwarg(weaponWidget)
+let vehicleWeaponWidget = kwarg(weaponWidget)
+
+return {
+  vehicleWeaponWidget
+  wWidth
+  wHeight
+  weaponWidgetAnims
+}

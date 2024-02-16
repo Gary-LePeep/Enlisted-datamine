@@ -1,6 +1,6 @@
 {
   "crosshair": {
-    "_extends": "replicating",
+    "_use": "replicating",
     "_singleton": true,
     "_tags": "ui",
     "ui_crosshair_state__deviation": [0.0,0.0],
@@ -29,7 +29,7 @@
     }
   },
   "connectivity_status": {
-    "_extends": "replicating",
+    "_use": "replicating",
     "_singleton": true,
     "hud_state__connectivity": 0,
     "_tracked": "hud_state__connectivity",
@@ -37,7 +37,7 @@
   },
   "perf_stats": [
     {
-      "_extends": "replicating"
+      "_use": "replicating"
     },
     {
       "_singleton": true
@@ -74,12 +74,12 @@
     }
   ],
   "level_is_loading": {
-    "_extends": "replicating",
+    "_use": "replicating",
     "level_is_loading": false,
     "_tracked": "level_is_loading"
   },
   "minimap_context": {
-    "_extends": "replicating",
+    "_use": "replicating",
     "_singleton": true,
     "_tags": "ui",
     "minimap_context:tag": []

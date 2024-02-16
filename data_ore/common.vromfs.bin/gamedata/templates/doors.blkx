@@ -1,7 +1,7 @@
 {
   "doors_grid": {
     "editableObj": false,
-    "_extends": "replicating",
+    "_use": "replicating",
     "_singleton": true,
     "grid_holder__type": "doors",
     "grid_holder__typeHash": 0,
@@ -15,7 +15,8 @@
     "decals__useDecalMatrices": false,
     "decals__bulletHoleMatrixId": 0,
     "decals__sprayMatrixId": 0,
-    "decals__bloodPuddlesMatrixId": 0
+    "decals__bloodPuddlesMatrixId": 0,
+    "decals__explosionPatchMatrixId": 0
   },
   "door_client_prediction_tracker": {
     "door_client_prediction__atTime": -1.0,
@@ -24,10 +25,10 @@
   },
   "base_door": [
     {
-      "_extends": "rotating_rendinst_decal_matrixes"
+      "_use": "rotating_rendinst_decal_matrixes"
     },
     {
-      "_extends": "replicating"
+      "_use": "replicating"
     },
     {
       "_tracked": "transform"
@@ -158,13 +159,16 @@
   ],
   "standart_right_door": [
     {
-      "_extends": "base_door"
+      "_use": "base_door"
     },
     {
-      "_extends": "standart_door_sounds"
+      "_use": "standart_door_sounds"
     },
     {
       "rendinst_axis_rotation__targetAngle": -95.0
+    },
+    {
+      "door_operations__serverTargetAngle": -95.0
     },
     {
       "rendinst_axis_rotation__curAngle": -95.0
@@ -181,13 +185,16 @@
   ],
   "standart_right_door_90": [
     {
-      "_extends": "base_door"
+      "_use": "base_door"
     },
     {
-      "_extends": "standart_door_sounds"
+      "_use": "standart_door_sounds"
     },
     {
       "rendinst_axis_rotation__targetAngle": -90.0
+    },
+    {
+      "door_operations__serverTargetAngle": -90.0
     },
     {
       "rendinst_axis_rotation__curAngle": -90.0
@@ -204,13 +211,16 @@
   ],
   "standart_left_door": [
     {
-      "_extends": "base_door"
+      "_use": "base_door"
     },
     {
-      "_extends": "standart_door_sounds"
+      "_use": "standart_door_sounds"
     },
     {
       "rendinst_axis_rotation__targetAngle": 95.0
+    },
+    {
+      "door_operations__serverTargetAngle": 95.0
     },
     {
       "rendinst_axis_rotation__curAngle": 95.0
@@ -227,13 +237,16 @@
   ],
   "standart_left_door_90": [
     {
-      "_extends": "base_door"
+      "_use": "base_door"
     },
     {
-      "_extends": "standart_door_sounds"
+      "_use": "standart_door_sounds"
     },
     {
       "rendinst_axis_rotation__targetAngle": 90.0
+    },
+    {
+      "door_operations__serverTargetAngle": 90.0
     },
     {
       "rendinst_axis_rotation__curAngle": 90.0
@@ -250,13 +263,16 @@
   ],
   "standart_r_door": [
     {
-      "_extends": "base_door"
+      "_use": "base_door"
     },
     {
-      "_extends": "standart_door_sounds"
+      "_use": "standart_door_sounds"
     },
     {
       "rendinst_axis_rotation__targetAngle": 95.0
+    },
+    {
+      "door_operations__serverTargetAngle": 95.0
     },
     {
       "door_operations__openedAngle": 0.0
@@ -273,13 +289,16 @@
   ],
   "standart_l_door": [
     {
-      "_extends": "base_door"
+      "_use": "base_door"
     },
     {
-      "_extends": "standart_door_sounds"
+      "_use": "standart_door_sounds"
     },
     {
       "rendinst_axis_rotation__targetAngle": -95.0
+    },
+    {
+      "door_operations__serverTargetAngle": -95.0
     },
     {
       "door_operations__openedAngle": 0.0
@@ -296,13 +315,16 @@
   ],
   "closed_r_door": [
     {
-      "_extends": "base_door"
+      "_use": "base_door"
     },
     {
-      "_extends": "standart_door_sounds"
+      "_use": "standart_door_sounds"
     },
     {
       "rendinst_axis_rotation__targetAngle": 0.0
+    },
+    {
+      "door_operations__serverTargetAngle": 0.0
     },
     {
       "rendinst_axis_rotation__curAngle": 0.0
@@ -319,13 +341,16 @@
   ],
   "closed_l_door_90": [
     {
-      "_extends": "base_door"
+      "_use": "base_door"
     },
     {
-      "_extends": "standart_door_sounds"
+      "_use": "standart_door_sounds"
     },
     {
       "rendinst_axis_rotation__targetAngle": 0.0
+    },
+    {
+      "door_operations__serverTargetAngle": 0.0
     },
     {
       "rendinst_axis_rotation__curAngle": 0.0
@@ -342,13 +367,16 @@
   ],
   "one_sided_closed_l_door_90": [
     {
-      "_extends": "base_door"
+      "_use": "base_door"
     },
     {
-      "_extends": "metal_gate_door_sounds"
+      "_use": "metal_gate_door_sounds"
     },
     {
       "rendinst_axis_rotation__targetAngle": 0.0
+    },
+    {
+      "door_operations__serverTargetAngle": 0.0
     },
     {
       "rendinst_axis_rotation__curAngle": 0.0
@@ -371,13 +399,16 @@
   ],
   "closed_r_door_90": [
     {
-      "_extends": "base_door"
+      "_use": "base_door"
     },
     {
-      "_extends": "standart_door_sounds"
+      "_use": "standart_door_sounds"
     },
     {
       "rendinst_axis_rotation__targetAngle": 0.0
+    },
+    {
+      "door_operations__serverTargetAngle": 0.0
     },
     {
       "rendinst_axis_rotation__curAngle": 0.0
@@ -394,13 +425,16 @@
   ],
   "one_sided_closed_r_door_90": [
     {
-      "_extends": "base_door"
+      "_use": "base_door"
     },
     {
-      "_extends": "metal_gate_door_sounds"
+      "_use": "metal_gate_door_sounds"
     },
     {
       "rendinst_axis_rotation__targetAngle": 0.0
+    },
+    {
+      "door_operations__serverTargetAngle": 0.0
     },
     {
       "rendinst_axis_rotation__curAngle": 0.0
@@ -423,13 +457,16 @@
   ],
   "closed_l_door": [
     {
-      "_extends": "base_door"
+      "_use": "base_door"
     },
     {
-      "_extends": "standart_door_sounds"
+      "_use": "standart_door_sounds"
     },
     {
       "rendinst_axis_rotation__targetAngle": 0.0
+    },
+    {
+      "door_operations__serverTargetAngle": 0.0
     },
     {
       "rendinst_axis_rotation__curAngle": 0.0
@@ -445,18 +482,19 @@
     }
   ],
   "wc_door": {
-    "_extends": "standart_l_door",
+    "_use": "standart_l_door",
     "rendinst_axis_rotation__targetAngle": -90.0,
+    "door_operations__serverTargetAngle": -90.0,
     "rendinst_axis_rotation__curAngle": -90.0,
     "door_operations__closedAngle": -90.0,
     "door_operations__omniRotate": false
   },
   "standart_right_window": [
     {
-      "_extends": "base_door"
+      "_use": "base_door"
     },
     {
-      "_extends": "standart_window_sounds"
+      "_use": "standart_window_sounds"
     },
     {
       "isDoor": false
@@ -477,15 +515,18 @@
       "rendinst_axis_rotation__targetAngle": 0.0
     },
     {
+      "door_operations__serverTargetAngle": 0.0
+    },
+    {
       "door_operations__omniRotate": false
     }
   ],
   "standart_left_window": [
     {
-      "_extends": "base_door"
+      "_use": "base_door"
     },
     {
-      "_extends": "standart_window_sounds"
+      "_use": "standart_window_sounds"
     },
     {
       "isDoor": false
@@ -506,26 +547,32 @@
       "rendinst_axis_rotation__targetAngle": 0.0
     },
     {
+      "door_operations__serverTargetAngle": 0.0
+    },
+    {
       "door_operations__omniRotate": false
     }
   ],
   "standart_right_shutters": {
-    "_extends": "standart_right_window",
+    "_use": "standart_right_window",
     "door_operations__openedAngle": -95.0
   },
   "standart_left_shutters": {
-    "_extends": "standart_left_window",
+    "_use": "standart_left_window",
     "door_operations__openedAngle": 95.0
   },
   "gate_door_left": [
     {
-      "_extends": "base_door"
+      "_use": "base_door"
     },
     {
-      "_extends": "gate_door_sounds"
+      "_use": "gate_door_sounds"
     },
     {
       "rendinst_axis_rotation__targetAngle": 0.0
+    },
+    {
+      "door_operations__serverTargetAngle": 0.0
     },
     {
       "doorEscapePos": [1.5,0.0,0.0]
@@ -545,13 +592,16 @@
   ],
   "gate_door_left_90": [
     {
-      "_extends": "base_door"
+      "_use": "base_door"
     },
     {
-      "_extends": "metal_gate_door_sounds"
+      "_use": "metal_gate_door_sounds"
     },
     {
       "rendinst_axis_rotation__targetAngle": 90.0
+    },
+    {
+      "door_operations__serverTargetAngle": 90.0
     },
     {
       "doorEscapePos": [1.5,0.0,0.0]
@@ -571,13 +621,16 @@
   ],
   "gate_door_l": [
     {
-      "_extends": "base_door"
+      "_use": "base_door"
     },
     {
-      "_extends": "normandy_decor_gate_door_sounds"
+      "_use": "normandy_decor_gate_door_sounds"
     },
     {
       "rendinst_axis_rotation__targetAngle": -95.0
+    },
+    {
+      "door_operations__serverTargetAngle": -95.0
     },
     {
       "doorEscapePos": [3.1,0.0,0.0]
@@ -597,13 +650,16 @@
   ],
   "gate_door_r": [
     {
-      "_extends": "base_door"
+      "_use": "base_door"
     },
     {
-      "_extends": "normandy_decor_gate_door_sounds"
+      "_use": "normandy_decor_gate_door_sounds"
     },
     {
       "rendinst_axis_rotation__targetAngle": 95.0
+    },
+    {
+      "door_operations__serverTargetAngle": 95.0
     },
     {
       "doorEscapePos": [3.1,0.0,0.0]
@@ -623,13 +679,16 @@
   ],
   "closed_gate_door_l": [
     {
-      "_extends": "base_door"
+      "_use": "base_door"
     },
     {
-      "_extends": "normandy_decor_gate_door_sounds"
+      "_use": "normandy_decor_gate_door_sounds"
     },
     {
       "rendinst_axis_rotation__targetAngle": 0.0
+    },
+    {
+      "door_operations__serverTargetAngle": 0.0
     },
     {
       "rendinst_axis_rotation__curAngle": 0.0
@@ -649,13 +708,16 @@
   ],
   "closed_gate_door_l_90": [
     {
-      "_extends": "base_door"
+      "_use": "base_door"
     },
     {
-      "_extends": "normandy_decor_gate_door_sounds"
+      "_use": "normandy_decor_gate_door_sounds"
     },
     {
       "rendinst_axis_rotation__targetAngle": 0.0
+    },
+    {
+      "door_operations__serverTargetAngle": 0.0
     },
     {
       "rendinst_axis_rotation__curAngle": 0.0
@@ -675,13 +737,16 @@
   ],
   "closed_gate_door_r": [
     {
-      "_extends": "base_door"
+      "_use": "base_door"
     },
     {
-      "_extends": "normandy_decor_gate_door_sounds"
+      "_use": "normandy_decor_gate_door_sounds"
     },
     {
       "rendinst_axis_rotation__targetAngle": 0.0
+    },
+    {
+      "door_operations__serverTargetAngle": 0.0
     },
     {
       "rendinst_axis_rotation__curAngle": 0.0
@@ -701,13 +766,16 @@
   ],
   "closed_gate_door_r_90": [
     {
-      "_extends": "base_door"
+      "_use": "base_door"
     },
     {
-      "_extends": "normandy_decor_gate_door_sounds"
+      "_use": "normandy_decor_gate_door_sounds"
     },
     {
       "rendinst_axis_rotation__targetAngle": 0.0
+    },
+    {
+      "door_operations__serverTargetAngle": 0.0
     },
     {
       "rendinst_axis_rotation__curAngle": 0.0
@@ -727,13 +795,16 @@
   ],
   "fence_door_lr": [
     {
-      "_extends": "base_door"
+      "_use": "base_door"
     },
     {
-      "_extends": "metal_gate_door_sounds"
+      "_use": "metal_gate_door_sounds"
     },
     {
       "rendinst_axis_rotation__targetAngle": 0.0
+    },
+    {
+      "door_operations__serverTargetAngle": 0.0
     },
     {
       "door_operations__openedAngle": -95.0
@@ -747,13 +818,16 @@
   ],
   "bunker_door_left": [
     {
-      "_extends": "base_door"
+      "_use": "base_door"
     },
     {
-      "_extends": "bunker_door_sounds"
+      "_use": "bunker_door_sounds"
     },
     {
       "rendinst_axis_rotation__targetAngle": -90.0
+    },
+    {
+      "door_operations__serverTargetAngle": -90.0
     },
     {
       "rendinst_axis_rotation__rotSpeed": 45.0
@@ -773,13 +847,16 @@
   ],
   "bunker_door_right": [
     {
-      "_extends": "base_door"
+      "_use": "base_door"
     },
     {
-      "_extends": "bunker_door_sounds"
+      "_use": "bunker_door_sounds"
     },
     {
       "rendinst_axis_rotation__targetAngle": 90.0
+    },
+    {
+      "door_operations__serverTargetAngle": 90.0
     },
     {
       "rendinst_axis_rotation__rotSpeed": 45.0
@@ -799,13 +876,16 @@
   ],
   "bunker_closed_door_left": [
     {
-      "_extends": "base_door"
+      "_use": "base_door"
     },
     {
-      "_extends": "bunker_door_sounds"
+      "_use": "bunker_door_sounds"
     },
     {
       "rendinst_axis_rotation__targetAngle": 0.0
+    },
+    {
+      "door_operations__serverTargetAngle": 0.0
     },
     {
       "rendinst_axis_rotation__curAngle": 0.0
@@ -828,13 +908,16 @@
   ],
   "bunker_closed_door_right": [
     {
-      "_extends": "base_door"
+      "_use": "base_door"
     },
     {
-      "_extends": "bunker_door_sounds"
+      "_use": "bunker_door_sounds"
     },
     {
       "rendinst_axis_rotation__targetAngle": 0.0
+    },
+    {
+      "door_operations__serverTargetAngle": 0.0
     },
     {
       "rendinst_axis_rotation__curAngle": 0.0
@@ -857,13 +940,16 @@
   ],
   "gate_door_right": [
     {
-      "_extends": "base_door"
+      "_use": "base_door"
     },
     {
-      "_extends": "gate_door_sounds"
+      "_use": "gate_door_sounds"
     },
     {
       "rendinst_axis_rotation__targetAngle": 45.0
+    },
+    {
+      "door_operations__serverTargetAngle": 45.0
     },
     {
       "doorEscapePos": [1.5,0.0,0.0]
@@ -883,13 +969,16 @@
   ],
   "gate_door_right_90": [
     {
-      "_extends": "base_door"
+      "_use": "base_door"
     },
     {
-      "_extends": "metal_gate_door_sounds"
+      "_use": "metal_gate_door_sounds"
     },
     {
       "rendinst_axis_rotation__targetAngle": -90.0
+    },
+    {
+      "door_operations__serverTargetAngle": -90.0
     },
     {
       "doorEscapePos": [1.5,0.0,0.0]
@@ -909,13 +998,16 @@
   ],
   "gate_huge_door_right_90": [
     {
-      "_extends": "base_door"
+      "_use": "base_door"
     },
     {
-      "_extends": "metal_gate_door_sounds"
+      "_use": "metal_gate_door_sounds"
     },
     {
       "rendinst_axis_rotation__targetAngle": -90.0
+    },
+    {
+      "door_operations__serverTargetAngle": -90.0
     },
     {
       "doorEscapePos": [1.5,0.0,0.0]
@@ -935,13 +1027,16 @@
   ],
   "gate_huge_door_left_90": [
     {
-      "_extends": "base_door"
+      "_use": "base_door"
     },
     {
-      "_extends": "metal_gate_door_sounds"
+      "_use": "metal_gate_door_sounds"
     },
     {
       "rendinst_axis_rotation__targetAngle": 90.0
+    },
+    {
+      "door_operations__serverTargetAngle": 90.0
     },
     {
       "doorEscapePos": [1.5,0.0,0.0]
@@ -961,13 +1056,16 @@
   ],
   "european_fence_arch_gate_door_l": [
     {
-      "_extends": "base_door"
+      "_use": "base_door"
     },
     {
-      "_extends": "metal_gate_door_sounds"
+      "_use": "metal_gate_door_sounds"
     },
     {
       "rendinst_axis_rotation__targetAngle": 90.0
+    },
+    {
+      "door_operations__serverTargetAngle": 90.0
     },
     {
       "rendinst_axis_rotation__curAngle": 90.0
@@ -984,13 +1082,16 @@
   ],
   "european_fence_arch_gate_door_r": [
     {
-      "_extends": "base_door"
+      "_use": "base_door"
     },
     {
-      "_extends": "metal_gate_door_sounds"
+      "_use": "metal_gate_door_sounds"
     },
     {
       "rendinst_axis_rotation__targetAngle": -90.0
+    },
+    {
+      "door_operations__serverTargetAngle": -90.0
     },
     {
       "rendinst_axis_rotation__curAngle": -90.0
@@ -1007,10 +1108,10 @@
   ],
   "base_hatch": [
     {
-      "_extends": "base_door"
+      "_use": "base_door"
     },
     {
-      "_extends": "hatch_door_sounds"
+      "_use": "hatch_door_sounds"
     },
     {
       "rendinst_axis_rotation__axis": [0.0,1.0,0.0]
@@ -1023,6 +1124,9 @@
     },
     {
       "rendinst_axis_rotation__targetAngle": 0.0
+    },
+    {
+      "door_operations__serverTargetAngle": 0.0
     },
     {
       "door_operations__openedAngle": 105.0
@@ -1039,13 +1143,16 @@
   ],
   "one_sided_door_left": [
     {
-      "_extends": "base_door"
+      "_use": "base_door"
     },
     {
-      "_extends": "standart_door_sounds"
+      "_use": "standart_door_sounds"
     },
     {
       "rendinst_axis_rotation__targetAngle": -90.0
+    },
+    {
+      "door_operations__serverTargetAngle": -90.0
     },
     {
       "rendinst_axis_rotation__rotSpeed": 85.0
@@ -1065,13 +1172,16 @@
   ],
   "one_sided_door_right": [
     {
-      "_extends": "base_door"
+      "_use": "base_door"
     },
     {
-      "_extends": "standart_door_sounds"
+      "_use": "standart_door_sounds"
     },
     {
       "rendinst_axis_rotation__targetAngle": 90.0
+    },
+    {
+      "door_operations__serverTargetAngle": 90.0
     },
     {
       "rendinst_axis_rotation__rotSpeed": 85.0
@@ -1091,13 +1201,16 @@
   ],
   "locker_door_left_90": [
     {
-      "_extends": "base_door"
+      "_use": "base_door"
     },
     {
-      "_extends": "metal_gate_door_sounds"
+      "_use": "metal_gate_door_sounds"
     },
     {
       "rendinst_axis_rotation__targetAngle": 1.0
+    },
+    {
+      "door_operations__serverTargetAngle": 1.0
     },
     {
       "doorEscapePos": [0.02,0.0,0.0]
@@ -1114,13 +1227,16 @@
   ],
   "locker_door_right_90": [
     {
-      "_extends": "base_door"
+      "_use": "base_door"
     },
     {
-      "_extends": "metal_gate_door_sounds"
+      "_use": "metal_gate_door_sounds"
     },
     {
       "rendinst_axis_rotation__targetAngle": 1.0
+    },
+    {
+      "door_operations__serverTargetAngle": 1.0
     },
     {
       "doorEscapePos": [0.02,0.0,0.0]
@@ -1137,13 +1253,16 @@
   ],
   "closed_huge_metal_door_r_90": [
     {
-      "_extends": "base_door"
+      "_use": "base_door"
     },
     {
-      "_extends": "bunker_door_sounds"
+      "_use": "bunker_door_sounds"
     },
     {
       "rendinst_axis_rotation__targetAngle": 0.0
+    },
+    {
+      "door_operations__serverTargetAngle": 0.0
     },
     {
       "rendinst_axis_rotation__curAngle": 0.0
@@ -1163,13 +1282,16 @@
   ],
   "closed_huge_metal_door_l_90": [
     {
-      "_extends": "base_door"
+      "_use": "base_door"
     },
     {
-      "_extends": "bunker_door_sounds"
+      "_use": "bunker_door_sounds"
     },
     {
       "rendinst_axis_rotation__targetAngle": 0.0
+    },
+    {
+      "door_operations__serverTargetAngle": 0.0
     },
     {
       "rendinst_axis_rotation__curAngle": 0.0
@@ -1195,7 +1317,7 @@
     }
   },
   "door_mult_ent_generator": {
-    "_extends": "replicating",
+    "_use": "replicating",
     "ri_extra_gen__blk": "",
     "ri_extra_gen__createEntityWhenDone": "doors_generation_done",
     "ri_extra_gen": {

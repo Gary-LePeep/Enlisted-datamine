@@ -7,11 +7,11 @@
       "displacementMin": -0.25,
       "displacementMax": 0.35,
       "displacementScale": 0.3,
+      "displacementFalloffRadius": 0.65,
       "displacementMask": true,
       "reflectance": 0.15,
       "ao": 0.9,
       "microdetail": 102,
-      "sizeScale": 1.35,
       "decalsCount": 1000
     },
     "explosion_sand": {
@@ -21,11 +21,25 @@
       "displacementMin": -0.25,
       "displacementMax": 0.35,
       "displacementScale": 0.3,
+      "displacementFalloffRadius": 0.65,
       "displacementMask": true,
       "reflectance": 0.15,
       "ao": 0.9,
       "microdetail": 102,
-      "sizeScale": 1.35,
+      "decalsCount": 1000
+    },
+    "explosion_snow": {
+      "diffuse_tex": "explosion_patch_snow_emission_c",
+      "normal_tex": "explosion_patch_ground_n",
+      "alpha_threshold": 42,
+      "displacementMin": -0.25,
+      "displacementMax": 0.35,
+      "displacementScale": 0.3,
+      "displacementFalloffRadius": 0.65,
+      "displacementMask": true,
+      "reflectance": 0.15,
+      "ao": 0.9,
+      "microdetail": 102,
       "decalsCount": 1000
     },
     "explosion_moon": {
@@ -35,10 +49,10 @@
       "displacementMin": -0.25,
       "displacementMax": 0.35,
       "displacementScale": 0.3,
+      "displacementFalloffRadius": 0.65,
       "displacementMask": true,
       "reflectance": 0.15,
       "microdetail": 102,
-      "sizeScale": 1.35,
       "decalsCount": 1000
     },
     "shovel_dig": {

@@ -50,46 +50,52 @@
   },
   "squad_member_ai": [
     {
-      "_extends": "human_stat_tracking"
+      "_use": "human_stat_tracking"
     },
     {
-      "_extends": "human_stat_tracking_ext"
+      "_use": "human_stat_tracking_ext"
     },
     {
-      "_extends": "walker_agent_danger_calc"
+      "_use": "walker_agent_danger_calc"
     },
     {
-      "_extends": "aware_of_dangers"
+      "_use": "aware_of_dangers"
     },
     {
-      "_extends": "beh_tree_regular_check"
+      "_use": "beh_tree_regular_check"
     },
     {
-      "_extends": "beh_tree_enemy_player_in_radius"
+      "_use": "beh_tree_enemy_player_in_radius"
     },
     {
-      "_extends": "beh_tree_bomb_site_in_radius"
+      "_use": "beh_tree_bomb_site_in_radius"
     },
     {
-      "_extends": "squad_member_on_hit_reaction"
+      "_use": "squad_member_on_hit_reaction"
     },
     {
-      "_extends": "squad_member_on_bullet_nearby_reaction"
+      "_use": "squad_member_on_bullet_nearby_reaction"
     },
     {
-      "_extends": "beh_tree_agent_in_train_zone"
+      "_use": "beh_tree_agent_in_train_zone"
     },
     {
-      "_extends": "beh_tree_agent_on_train"
+      "_use": "beh_tree_agent_on_train"
     },
     {
-      "_extends": "beh_tree_agent_leader"
+      "_use": "beh_tree_agent_leader"
     },
     {
-      "_extends": "beh_tree_agent_vehicle"
+      "_use": "beh_tree_agent_vehicle"
     },
     {
-      "_extends": "beh_tree_agent_bomb"
+      "_use": "beh_tree_agent_bomb"
+    },
+    {
+      "_use": "beh_tree_agent_parachute"
+    },
+    {
+      "_use": "beh_tree_agent_ladders"
     },
     {
       "beh_tree__node": "squad_member"
@@ -117,6 +123,9 @@
     },
     {
       "walker_agent__serverAiAction": 0
+    },
+    {
+      "walker_agent__serverAiActionTime": 0.0
     },
     {
       "walker_agent__nextAiActionUpdate": -1.0
@@ -167,7 +176,7 @@
       "beh_tree__data__personalOrder": "sub.personalOrder"
     },
     {
-      "beh_tree__data__agressiveBeh": "sub.agressiveBeh"
+      "beh_tree__data__aggressiveBeh": "sub.aggressiveBeh"
     },
     {
       "beh_tree__data__passiveBeh": "sub.passiveBeh"
@@ -188,10 +197,10 @@
       "beh_tree__data__passiveMoveReactionTrain": "sub.passiveMoveReactionTrain"
     },
     {
-      "beh_tree__data__agressiveStayReactionTrain": "sub.agressiveStayReactionTrain"
+      "beh_tree__data__aggressiveStayReactionTrain": "sub.aggressiveStayReactionTrain"
     },
     {
-      "beh_tree__data__agressiveMoveReactionTrain": "sub.agressiveMoveReactionTrain"
+      "beh_tree__data__aggressiveMoveReactionTrain": "sub.aggressiveMoveReactionTrain"
     },
     {
       "beh_tree__data__updateRegroupPosTrain": "sub.updateRegroupPosTrain"
@@ -227,6 +236,9 @@
       "beh_tree__data__vehicleBeh": "sub.vehicleBeh"
     },
     {
+      "beh_tree__data__parachuteBeh": "sub.parachuteBeh"
+    },
+    {
       "beh_tree__data__findCoverBeh": "sub.findCover"
     },
     {
@@ -245,7 +257,7 @@
       "beh_tree__data__checkCoverAroundPointBeh": "sub.checkCoverAroundPoint"
     },
     {
-      "beh_tree__refs__behaviour": "sub.agressiveBeh"
+      "beh_tree__refs__behaviour": "sub.aggressiveBeh"
     },
     {
       "beh_tree__refs__findCoverRef": "sub.findCover"
@@ -263,10 +275,10 @@
       "beh_tree__refs__passiveMoveReaction": "sub.passiveMoveReactionDefault"
     },
     {
-      "beh_tree__refs__agressiveStayReaction": "sub.agressiveStayReactionDefault"
+      "beh_tree__refs__aggressiveStayReaction": "sub.aggressiveStayReactionDefault"
     },
     {
-      "beh_tree__refs__agressiveMoveReaction": "sub.agressiveMoveReactionDefault"
+      "beh_tree__refs__aggressiveMoveReaction": "sub.aggressiveMoveReactionDefault"
     },
     {
       "beh_tree__refs__updateRegroupPos": "sub.updateRegroupPosDefault"
@@ -326,6 +338,26 @@
     },
     {
       "beh_tree__resetBlackBoard:tag": []
+    },
+    {
+      "agent__checkCoversList:list<i>": {
+        "_tags": "server"
+      }
+    },
+    {
+      "agent__ignoredCoversSlots:list<i>": {
+        "_tags": "server"
+      }
+    },
+    {
+      "agent__ignoredCoversTimes:list<r>": {
+        "_tags": "server"
+      }
+    },
+    {
+      "agent__ignoredCoversLast:i": {
+        "_tags": "server"
+      }
     },
     {
       "beh_tree__debugState:t": {
@@ -393,18 +425,20 @@
     }
   },
   "crawler_ai": {
-    "_extends": "squad_member_ai",
+    "_use": "squad_member_ai",
     "beh_tree__node": "crawler",
     "beh_tree__enabled": true
   },
   "croucher_ai": {
-    "_extends": "squad_member_ai",
+    "_use": "squad_member_ai",
     "beh_tree__node": "croucher",
     "beh_tree__enabled": true
   },
   "mean_enemy_pos": {
     "mean_pos__pos": [0.0,0.0,0.0],
-    "mean_pos__team": -1
+    "mean_pos__team": -1,
+    "mean_pos__noiseRadius": [5.0,50.0],
+    "mean_pos__noiseAmount": [1.0,25.0,0.1]
   },
   "moveable_obstacle": {
     "editableTemplate": false,
@@ -454,6 +488,29 @@
       "level_ri_obstacles__resNames:list<t>": []
     }
   },
+  "ai_enabled": [
+    {
+      "_tags": "server"
+    },
+    {
+      "_tracked": "ai_enabled__inSandbox"
+    },
+    {
+      "_tracked": "ai_enabled__inGame"
+    },
+    {
+      "_tracked": "ai_enabled"
+    },
+    {
+      "ai_enabled__inSandbox": false
+    },
+    {
+      "ai_enabled__inGame": true
+    },
+    {
+      "ai_enabled": true
+    }
+  ],
   "_componentFilters": {
     "walker_agent__currentAiAction": "filter_friendly_team"
   }

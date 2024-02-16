@@ -3,6 +3,7 @@ maxRiExPerCell:i=81920
 rendinstPreloadDistance:r = 2500
 rendinstMaxLod0Dist:r = 1200
 nodeBasedShadersFolder:t="enlisted"
+glassShadowK:r = 0.7
 disableShadowImpostorForAllLod:b=yes
 
 physmatBlk:t="config/physmat.blk"
@@ -36,16 +37,19 @@ commonScenes{
   scene:t="content/enlisted/gamedata/scenes/bullet_types_water.blk"
   scene:t="content/enlisted/gamedata/scenes/shell_explosions.blk"
   scene:t="content/enlisted/gamedata/scenes/projectile_params.blk"
+  scene:t="content/enlisted/gamedata/scenes/common_paratroopers_supply_schemes.blk"
 }
 
 commonClientScenes{
   scene:t="content/common/gamedata/scenes/_common_render_scene.blk"//should be created before WorldRenderer
   scene:t="content/enlisted/gamedata/scenes/common_xray_scene.blk"
   scene:t="content/common/gamedata/scenes/animchars_shadows_culling.blk"
-  scene:t="%danetlibs/ssss/scenes/ssss_scene.blk"
   scene:t="content/enlisted/gamedata/scenes/_cutting_planes_mgr_scene.blk"
   scene:t="content/enlisted/gamedata/scenes/_common_wounds.blk"
   scene:t="content/common/gamedata/scenes/hero_cockpit.blk"
+  scene:t="content/common/gamedata/scenes/outdated_effects.blk"
+  scene:t="content/common/gamedata/scenes/battle_perfstat.blk"
+  scene:t="content/enlisted/gamedata/scenes/global_fx_client.blk"
 }
 
 bulletHoles
@@ -73,10 +77,14 @@ riDestr {
   }
 }
 
-riExtraGrids{
-  gridCount:i=2
-  grid1cell:i=8
-  grid2cell:i=64
+riExtraGrid{
+  cellSize:i=64
+  maxMainExtension:r=40
+  maxSubExtension:r=3
+  maxSubRadius:r=4
+  objectsToCreateSubGrid:i=200
+  maxLeafObjects:i=40
+  reserveObjectsOnGrow:i=4
 }
 
 riExtraTiledScenes{//to be replaced with auto detection
@@ -94,8 +102,10 @@ rendinstOpt
   minLodForMode0:i=3; maxLodForMode0:i=15 // aircraft
 }
 
+debugRiTexture:t="blockout_grid_a_tex_d"
+
 unitedVdata.dynModel.def { // hint for initial minimum allocated buffer size, in KB (for IB and VBs)
-  IB:i=49152
+  IB:i=65536
   VB1:i=65536
   VB2:i=65536
   VB3:i=32768
@@ -131,4 +141,18 @@ terraform {
   minLevel:r = -1.5
   maxLevel:r = 1.1
   maxPrimHeight:r = 0.7
+}
+
+treeCrownTransmittance {
+  brightness:r = 0.7; // default - 0.5
+  falloffStart:r = 0.01; // default - 0.01
+  falloffStop:r = 1.6; // default - 1.
+  enabled:b = yes; // default - no
+}
+
+glassScratches {
+  texcoord_mul:r = 10.0;
+  alpha_mul:r = 0.0;
+  radius_pow:r = 45.0;
+  mul:r = 4;
 }

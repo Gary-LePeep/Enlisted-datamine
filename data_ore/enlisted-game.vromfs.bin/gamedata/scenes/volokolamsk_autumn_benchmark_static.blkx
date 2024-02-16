@@ -460,6 +460,11 @@
   },
   {
     "entity": {
+      "_template": "bloom"
+    }
+  },
+  {
+    "entity": {
       "_template": "postfx_roundctrl"
     }
   },
@@ -479,6 +484,7 @@
     "entity": {
       "_template": "briefing_invasion",
       "mission_name": "volokolamsk_quarry_inv",
+      "mission_outfit": "moscow",
       "loading_images:list<t>": [
         {
           "item": "ui/volokolamsk_quarry_1.avif"
@@ -533,34 +539,6 @@
   },
   {
     "entity": {
-      "_template": "respawn_camera",
-      "respawnCameraForTeam": 1,
-      "moveCameraToHeight": 170.0,
-      "respawnSelectorDistanceMult": 1.0,
-      "transform": [
-        [1.0,0.0,0.0],
-        [0.0,1.0,0.0],
-        [0.0,0.0,1.0],
-        [-590.001,170.988,-1262.44]
-      ]
-    }
-  },
-  {
-    "entity": {
-      "_template": "respawn_camera",
-      "respawnCameraForTeam": 2,
-      "moveCameraToHeight": 170.0,
-      "respawnSelectorDistanceMult": 1.0,
-      "transform": [
-        [1.0,0.0,0.0],
-        [0.0,1.0,0.0],
-        [0.0,0.0,1.0],
-        [-670.309,187.537,-793.069]
-      ]
-    }
-  },
-  {
-    "entity": {
       "_template": "domination_sphere_capzone",
       "transform": [
         [1.28286,-0.0389111,0.18382],
@@ -571,7 +549,7 @@
       "sphere_zone__radius": 19.0,
       "capzone__title": "B",
       "decal__height": 4.0,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "active": true
     }
   },
@@ -786,7 +764,7 @@
   },
   {
     "entity": {
-      "_template": "benchmark_artillery_strike",
+      "_template": "artillery_strike_requester",
       "transform": [
         [-0.972276,0.0,0.233835],
         [0.0,1.0,0.0],

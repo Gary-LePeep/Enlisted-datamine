@@ -51,17 +51,12 @@ def play_impl(hash : uint; pos : float3; param : float; descs : Object; is_watch
 [es(tag=sound)]
 def play_net_sound_pos_impl_cmd(cmd : CmdPlayNetSoundPos; eid : EntityId; [[shared_comp]] net_sound__descs : Object; var sound_event_group : SoundEventGroup?)
   if get_sync_time() < cmd.time + MAX_NET_DELAY
-    play_impl(cmd.hash, cmd.pos, cmd.param, net_sound__descs, has(eid, "hero"), sound_event_group)
+    play_impl(cmd.hash, cmd.pos, 0., net_sound__descs, has(eid, "hero"), sound_event_group)
 
 [es(tag=sound)]
 def play_net_sound_impl_cmd(cmd : CmdPlayNetSound; eid : EntityId; [[shared_comp]] net_sound__descs : Object; var sound_event_group : SoundEventGroup?; transform : float3x4)
   if get_sync_time() < cmd.time + MAX_NET_DELAY
     play_impl(cmd.hash, transform[3], cmd.param, net_sound__descs, has(eid, "hero"), sound_event_group)
-
-[es(tag=sound)]
-def play_net_sound_impl_simple(cmd : CmdPlayNetSoundSimple; eid : EntityId; [[shared_comp]] net_sound__descs : Object; var sound_event_group : SoundEventGroup?; transform : float3x4)
-  if get_sync_time() < cmd.time + MAX_NET_DELAY
-    play_impl(cmd.hash, transform[3], 0., net_sound__descs, has(eid, "hero"), sound_event_group)
 
 [es(tag=sound)]
 def play_net_sound_impl_client(cmd : CmdPlaySound; eid : EntityId; [[shared_comp]] net_sound__descs : Object; var sound_event_group : SoundEventGroup?)

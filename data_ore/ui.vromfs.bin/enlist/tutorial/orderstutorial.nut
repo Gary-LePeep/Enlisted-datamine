@@ -1,6 +1,8 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { viewArmyCurrency } = require("%enlist/shop/armyShopState.nut")
+let { setAutoGroup } = require("%enlist/shop/shopState.nut")
+
 let { mkLogisticsPromoMsgbox } = require("%enlist/shop/currencyComp.nut")
 let { needNewItemsWindow } = require("%enlist/soldiers/model/newItemsToShow.nut")
 let { getCurrencyPresentation } = require("%enlist/shop/currencyPresentation.nut")
@@ -9,7 +11,7 @@ let { settings, onlineSettingUpdated
 } = require("%enlist/options/onlineSettings.nut")
 let { nestWatched } = require("%dngscripts/globalState.nut")
 let canDisplayOffers = require("%enlist/canDisplayOffers.nut")
-
+let JB = require("%ui/control/gui_buttons.nut")
 
 const SEEN_ID = "seen/orderTutorials"
 
@@ -70,13 +72,20 @@ let function startTutorialDelayed() {
 
     canRunTutorial(false)
     mkLogisticsPromoMsgbox(currencyList,
-      [{
-        text = loc("btn/gotoLogistics")
-        action = function() {
-          markSeen(tutorialId)
-          setCurSection("SHOP")
+      [
+        {
+          text = loc("btn/gotoLogistics")
+          action = function() {
+            markSeen(tutorialId)
+            setAutoGroup(tutorialId)
+            setCurSection("SHOP")
+          }
+          customStyle = { hotkeys = [["^J:X"]] }
         }
-      }])
+        { text = loc("Close"), isCancel = true, action = @() markSeen(tutorialId),
+          customStyle = { hotkeys = [[$"^{JB.B}" ]] }
+        }
+      ])
   })
 }
 

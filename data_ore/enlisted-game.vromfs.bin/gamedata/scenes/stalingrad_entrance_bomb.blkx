@@ -1158,6 +1158,7 @@
     "entity": {
       "_template": "briefing_destruction",
       "mission_name": "stalingrad_entrance_bomb",
+      "mission_outfit": "stalingrad",
       "loading_images:list<t>": [
         {
           "item": "ui/stalingrad_tractor_plant_02.avif"
@@ -1183,7 +1184,7 @@
       "team__briefing": "destruction/defenders_goals",
       "team__winSubtitle": "debriefing/won_defence_destruction",
       "team__loseSubtitle": "debriefing/lost_defence_destruction",
-      "team__winTitle": "debriefing/ussr_won_defence",
+      "team__winTitle": "debriefing/ussr_won_destruction_defence_title",
       "team__spawnBotArmy": "stalingrad_allies"
     }
   },
@@ -1191,8 +1192,8 @@
     "entity": {
       "_template": "team_stalingrad_axis+team_narrator_destruction_attack+respawn_creators_team",
       "team__memberCount": 0.0,
-      "team__scoreCap": 2400.0,
-      "team__score": 2400.0,
+      "team__scoreCap": 2000.0,
+      "team__score": 2000.0,
       "team__squadSpawnCost": 250,
       "team__firstSpawnCostMul": 0.0,
       "team__zeroScoreFailTimer": 60.0,
@@ -1200,7 +1201,7 @@
       "team__briefing": "destruction/attackers_goals",
       "team__winSubtitle": "debriefing/won_invasion_destruction",
       "team__loseSubtitle": "debriefing/lost_invasion_destruction",
-      "team__winTitle": "debriefing/ger_won_invasion",
+      "team__winTitle": "debriefing/axis_won_destruction_attack_title",
       "team__spawnBotArmy": "stalingrad_axis"
     }
   },
@@ -1232,7 +1233,7 @@
       "capzone__timeToDefuse": 30.0,
       "capzone__timeToExplosion": 40.0,
       "capzone__checkAllZonesInGroup": true,
-      "capzone__deactivateAfterTimeout": 0.0,
+      "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 1,
       "capzone__createdRespawnBaseGroup": 3,
@@ -1270,7 +1271,7 @@
       "capzone__timeToDefuse": 30.0,
       "capzone__timeToExplosion": 40.0,
       "capzone__checkAllZonesInGroup": true,
-      "capzone__deactivateAfterTimeout": 0.0,
+      "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 1,
       "capzone__createdRespawnBaseGroup": 3,
@@ -1308,7 +1309,7 @@
       "capzone__timeToDefuse": 30.0,
       "capzone__timeToExplosion": 40.0,
       "capzone__checkAllZonesInGroup": true,
-      "capzone__deactivateAfterTimeout": 0.0,
+      "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 1,
       "capzone__createdRespawnBaseGroup": 4,
@@ -1346,7 +1347,7 @@
       "capzone__timeToDefuse": 30.0,
       "capzone__timeToExplosion": 40.0,
       "capzone__checkAllZonesInGroup": true,
-      "capzone__deactivateAfterTimeout": 0.0,
+      "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 1,
       "capzone__createdRespawnBaseGroup": 4,
@@ -1384,7 +1385,7 @@
       "capzone__timeToDefuse": 30.0,
       "capzone__timeToExplosion": 40.0,
       "capzone__checkAllZonesInGroup": true,
-      "capzone__deactivateAfterTimeout": 0.0,
+      "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 1,
       "capzone__createdRespawnBaseGroup": 5,
@@ -1419,7 +1420,7 @@
       "capzone__timeToDefuse": 30.0,
       "capzone__timeToExplosion": 40.0,
       "capzone__checkAllZonesInGroup": true,
-      "capzone__deactivateAfterTimeout": 0.0,
+      "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 1,
       "capzone__createdRespawnBaseGroup": 5,
@@ -1439,10 +1440,10 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_fighter",
       "transform": [
-        [-0.975479,0.0,0.220091],
+        [-0.987489,0.0,0.157685],
         [0.0,1.0,0.0],
-        [-0.220091,0.0,-0.975479],
-        [1926.64,1000.0,-201.798]
+        [-0.157685,0.0,-0.987489],
+        [3339.94,1000.0,-380.674]
       ],
       "team": 1,
       "maxVehicleOnSpawn": 1,
@@ -1454,10 +1455,10 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_assault",
       "transform": [
-        [-0.975479,0.0,0.220091],
+        [-0.987489,0.0,0.157685],
         [0.0,1.0,0.0],
-        [-0.220091,0.0,-0.975479],
-        [1926.64,800.0,-201.798]
+        [-0.157685,0.0,-0.987489],
+        [3339.94,800.0,-380.674]
       ],
       "team": 1,
       "maxVehicleOnSpawn": 1,
@@ -1469,10 +1470,10 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_fighter",
       "transform": [
-        [-0.975479,0.0,0.220091],
+        [-0.987489,0.0,0.157685],
         [0.0,1.0,0.0],
-        [-0.220091,0.0,-0.975479],
-        [1922.26,1000.0,-352.323]
+        [-0.157685,0.0,-0.987489],
+        [3345.13,1000.0,-531.174]
       ],
       "team": 1,
       "maxVehicleOnSpawn": 1,
@@ -1484,10 +1485,10 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_assault",
       "transform": [
-        [-0.975479,0.0,0.220091],
+        [-0.987489,0.0,0.157685],
         [0.0,1.0,0.0],
-        [-0.220091,0.0,-0.975479],
-        [1884.13,800.0,-375.609]
+        [-0.157685,0.0,-0.987489],
+        [3308.55,800.0,-556.834]
       ],
       "team": 1,
       "maxVehicleOnSpawn": 1,
@@ -1501,7 +1502,7 @@
         [-0.999999,0.0,-0.000445871],
         [0.0,1.0,0.0],
         [0.000445871,0.0,-0.999999],
-        [1819.69,1000.0,-2183.4]
+        [1753.86,615.456,-2093.13]
       ],
       "resupply_zone__team": 1
     }
@@ -1511,10 +1512,10 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_fighter",
       "transform": [
-        [0.906698,0.0,-0.421782],
-        [0.0,1.0,0.0],
-        [0.421782,0.0,0.906698],
-        [-2406.24,1023.92,29.3383]
+        [0.999918,0.0,0.0128618],
+        [0.0,1.0,-0.0],
+        [-0.0128618,0.0,0.999918],
+        [-3832.61,1023.92,-34.4668]
       ],
       "team": 2,
       "maxVehicleOnSpawn": 1,
@@ -1526,10 +1527,10 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_assault",
       "transform": [
-        [0.906698,0.0,-0.421782],
-        [0.0,1.0,0.0],
-        [0.421782,0.0,0.906698],
-        [-2370.97,823.92,203.015]
+        [0.999918,0.0,0.0128618],
+        [0.0,1.0,-0.0],
+        [-0.0128618,0.0,0.999918],
+        [-3876.1,823.92,137.337]
       ],
       "team": 2,
       "maxVehicleOnSpawn": 1,
@@ -1541,10 +1542,10 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_fighter",
       "transform": [
-        [0.906698,0.0,-0.421782],
-        [0.0,1.0,0.0],
-        [0.421782,0.0,0.906698],
-        [-2367.72,1023.92,181.158]
+        [0.999918,0.0,0.0128618],
+        [0.0,1.0,-0.0],
+        [-0.0128618,0.0,0.999918],
+        [-3863.7,1023.92,119.048]
       ],
       "team": 2,
       "maxVehicleOnSpawn": 1,
@@ -1556,10 +1557,10 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_assault",
       "transform": [
-        [0.906698,0.0,-0.421782],
-        [0.0,1.0,0.0],
-        [0.421782,0.0,0.906698],
-        [-2406.24,823.92,29.3383]
+        [0.999918,0.0,0.0128618],
+        [0.0,1.0,-0.0],
+        [-0.0128618,0.0,0.999918],
+        [-3832.61,823.92,-34.4668]
       ],
       "team": 2,
       "maxVehicleOnSpawn": 1,
@@ -1573,7 +1574,7 @@
         [0.327869,0.0,-0.944724],
         [0.0,1.0,0.0],
         [0.944724,0.0,0.327869],
-        [-2778.11,1023.92,-1496.4]
+        [-2778.86,554.677,-1493.15]
       ],
       "resupply_zone__team": 2
     }

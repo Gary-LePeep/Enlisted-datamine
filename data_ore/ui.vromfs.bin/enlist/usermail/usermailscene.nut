@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { sceneWithCameraAdd, sceneWithCameraRemove
 } = require("%enlist/sceneWithCamera.nut")
 let { bigPadding, smallPadding, defInsideBgColor, defTxtColor, blurBgFillColor, activeTxtColor,
@@ -10,7 +10,7 @@ let { Bordered } = require("%ui/components/textButton.nut")
 let { letters, requestLetters, takeLetterReward, isRequest, closeUsermailWindow, isUsermailWndOpend,
   selectedLetterIdx, hasUnseenLetters
 } = require("%enlist/usermail/usermailState.nut")
-let spinner = require("%ui/components/spinner.nut")({ height = hdpx(80)})
+let spinner = require("%ui/components/spinner.nut")
 let { makeVertScroll, thinStyle } = require("%ui/components/scrollbar.nut")
 let JB = require("%ui/control/gui_buttons.nut")
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
@@ -21,6 +21,7 @@ let mkWindowTab = require("%enlist/components/mkWindowTab.nut")
 let mailPadding = hdpx(15)
 let mailBigPadding = hdpx(40)
 let MAIL_WND_WIDTH = fsh(100)
+let waitingSpinner = spinner()
 
 let listBgColor = @(sf, isSelected) isSelected ? opaqueBgColor
   : sf & S_HOVER ? defInsideBgColor
@@ -35,7 +36,7 @@ let noMessagesTitle = {
   halign = ALIGN_CENTER
   color = activeTxtColor
   text = loc("mail/no_messages")
-}.__update(body_txt)
+}.__update(fontBody)
 
 let function mkRewards(rewards, hasReceived = true) {
   if (rewards.len() == 0)
@@ -85,7 +86,7 @@ let function messageRow(message, idx) {
               textOverflowY = TOVERFLOW_LINE
               text = loc(text)
               color = listTxtColor(sf, isSelected)
-            }.__update(body_txt)
+            }.__update(fontBody)
             hasTimeout ? mkSeasonTime(timeToEnd) : null
           ]
         }
@@ -106,17 +107,13 @@ let function messageRow(message, idx) {
   })
 }
 
-let waitingSpinner = spinner.__update({
-  vplace = ALIGN_CENTER
-  hplace = ALIGN_CENTER
-})
 
 let backBtn = Bordered(loc("BackBtn"), closeUsermailWindow, {
   margin = 0
   hotkeys = [[$"^{JB.B} | Esc", { description = loc("BackBtn") } ]]
 })
 
-let lettersBlock = @(letters) letters.len() <= 0 ? noMessagesTitle
+let lettersBlock = @(lettrs) lettrs.len() <= 0 ? noMessagesTitle
   : makeVertScroll(
     {
       size = [flex(), SIZE_TO_CONTENT]
@@ -126,7 +123,7 @@ let lettersBlock = @(letters) letters.len() <= 0 ? noMessagesTitle
         size = [flex(), hdpx(2)]
         color = airBgColor
       }
-      children = letters.map(@(val, idx) messageRow(val, idx))
+      children = lettrs.map(@(val, idx) messageRow(val, idx))
     },
     {
       size = flex()

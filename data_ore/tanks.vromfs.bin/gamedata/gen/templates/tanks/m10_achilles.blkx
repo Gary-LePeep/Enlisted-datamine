@@ -1,10 +1,10 @@
 {
   "base_m10_achilles": [
     {
-      "_extends": "base_tank"
+      "_use": "base_tank"
     },
     {
-      "_extends": "m10_achilles_ammo_stowages"
+      "_use": "m10_achilles_ammo_stowages"
     },
     {
       "killLogName": "uk_17_pdr_m10_achilles"
@@ -139,7 +139,7 @@
         {
           "turretInfo:object": {
             "turretName": "turret_01",
-            "gun": "m10_achilles_turret_01_76mm_17pdr_qf+turret_with_several_types_of_shells+main_turret",
+            "gun": "m10_achilles_turret_01_76mm_17pdr_qf_open_turret+turret_with_several_types_of_shells+main_turret",
             "barrelDm": "gun_barrel",
             "breechDm": "cannon_breech",
             "verDriveDm": "drive_turret_v",
@@ -157,8 +157,8 @@
       ]
     }
   ],
-  "m10_achilles_turret_01_76mm_17pdr_qf": {
-    "_extends": "tankgun_76mm_17pdr_qf",
+  "m10_achilles_turret_01_76mm_17pdr_qf_open_turret": {
+    "_use": "tankgun_76mm_17pdr_qf_open_turret",
     "gun__shootNodeName": "bone_gun_barrel",
     "turret__yawSpeed": 4.5,
     "turret__pitchSpeed": 4.0,
@@ -191,7 +191,7 @@
     ]
   },
   "m10_achilles_turret_02_12_7mm_m2_hb": {
-    "_extends": "tankgun_12_7mm_m2_hb",
+    "_use": "tankgun_12_7mm_m2_hb",
     "gun__shootNodeName": "bone_mg_aa_v_01",
     "turret__yawSpeed": 90.0,
     "turret__pitchSpeed": 90.0,
@@ -217,22 +217,22 @@
   },
   "m10_achilles_ammo_stowages": {
     "_tags": "server",
-    "_extends": "vehicle_ammo_stowages",
+    "_use": "vehicle_ammo_stowages",
     "ammo_stowage__stowageTemplates:shared:list<t>": {
-      "stowage": "m10_achilles_primary_ammo_stowage"
+      "stowage": "m10_achilles_ammo_stowage_1"
     }
   },
-  "m10_achilles_primary_ammo_stowage": {
-    "_extends": "ammo_stowage",
+  "m10_achilles_ammo_stowage_1": {
+    "_use": "ammo_stowage",
     "ammo_stowage__clusterTemplates:shared:list<t>": {
-      "cluster": "m10_achilles_primary_shells_ammo_cluster"
+      "cluster": "m10_achilles_ammo_cluster_1_1"
     },
     "ammo_stowage__turretNames:shared:list<t>": {
       "gun": "turret_01"
     }
   },
-  "m10_achilles_primary_shells_ammo_cluster": {
-    "_extends": "ammo_cluster",
+  "m10_achilles_ammo_cluster_1_1": {
+    "_use": "ammo_cluster",
     "ammo_cluster__isShell": true,
     "ammo_cluster__slotNames:shared:list<t>": [
       {

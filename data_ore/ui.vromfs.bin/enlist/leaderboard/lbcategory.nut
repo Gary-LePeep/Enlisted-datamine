@@ -1,6 +1,5 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-#explicit-this
 
 let lbDataType = require("%enlSqGlob/leaderboard/lbDataType.nut")
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
@@ -38,7 +37,7 @@ let categoriesBase = {
     field = "name"
     dataType = lbDataType.NICKNAME
     locId = "lb/name"
-    relWidth = 3.5
+    relWidth = 4.5
   }
 
   VICTORIES_PERCENT = {
@@ -89,6 +88,12 @@ let categoriesBase = {
   KILLS_USING_TANK = {
     field = "kills_using_tank"
     locId = "lb/tank_kills"
+    icon = "ui/skin#kills_using_tank.svg"
+  }
+
+  KILLS_USING_APC = {
+    field = "kills_using_apc"
+    locId = "lb/apc_kills"
     icon = "ui/skin#kills_using_tank.svg"
   }
 

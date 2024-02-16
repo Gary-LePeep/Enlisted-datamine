@@ -1,7 +1,7 @@
 require ecs
 require app
 require HumanPhys
-require EnlistedHuman
+require DngHuman
 require game.es.events
 require game.utils.team
 require math.base
@@ -19,6 +19,7 @@ def human_inventory_interrupt_item_use_base(cur_time : float;
                                             human_net_phys : HumanActor;
                                             ct : HumanControlState;
                                             human_weap__reloadFinishTime : float;
+                                            human_weap__isReloading : bool;
                                             human_weap__weapModActivateStartTime : float;
                                             isInVehicle : bool;
                                             human_freefall__isFreefall : bool;
@@ -68,6 +69,7 @@ def human_inventory_interrupt_item_use_base(cur_time : float;
       || (isInVehicle && currentState.isAiming)
       || human_freefall__isFreefall
       || parachuteDeployed != null
+      || human_weap__isReloading
       || (stopUseWhileBurning && burning__isBurning)
       || (stopUseWhileJumping && ((uint(currentState.states) & uint(StateFlag ST_JUMP)) != 0u))
       || (stopUseWhileAiming && isStartAiming && isHctZoomViewBit))
@@ -97,6 +99,7 @@ def human_inventory_interrupt_item_use_server(cur_time : float;
                                               human_net_phys : HumanActor;
                                               ct : HumanControlState;
                                               human_weap__reloadFinishTime : float;
+                                              human_weap__isReloading : bool;
                                               human_weap__weapModActivateStartTime : float;
                                               isInVehicle : bool;
                                               human_freefall__isFreefall : bool;
@@ -106,17 +109,18 @@ def human_inventory_interrupt_item_use_server(cur_time : float;
     sendEventImmediate(eid, [[EventInterruptItemUse]])
     return
   human_inventory_interrupt_item_use_base(cur_time, eid, human_inventory__entityToUse, human_net_phys, ct,
-                                          human_weap__reloadFinishTime, human_weap__weapModActivateStartTime, isInVehicle,
+                                          human_weap__reloadFinishTime, human_weap__isReloading, human_weap__weapModActivateStartTime, isInVehicle,
                                           human_freefall__isFreefall, burning__isBurning, parachuteDeployed)
 
 
 
-[es(tag=gameClient, after=(human_input_es, human_phys_es), before=before_human_inventory_use_update)]
+[es(tag=gameClient, after=(human_input_es, update_phys_es), before=before_human_inventory_use_update)]
 def human_inventory_interrupt_item_use_es(info : ParallelUpdateFrameDelayed;
                                           eid : EntityId;
                                           human_inventory__entityToUse : EntityId;
                                           human_net_phys : HumanActor;
                                           human_weap__reloadFinishTime : float;
+                                          human_weap__isReloading : bool;
                                           human_weap__weapModActivateStartTime : float;
                                           isInVehicle : bool;
                                           burning__isBurning : bool;
@@ -124,7 +128,7 @@ def human_inventory_interrupt_item_use_es(info : ParallelUpdateFrameDelayed;
                                           parachuteDeployed : Tag const?)
   if !!human_inventory__entityToUse
     human_inventory_interrupt_item_use_base(info.curTime, eid, human_inventory__entityToUse, human_net_phys, human_net_phys.phys.producedCT,
-                                            human_weap__reloadFinishTime, human_weap__weapModActivateStartTime, isInVehicle,
+                                            human_weap__reloadFinishTime, human_weap__isReloading, human_weap__weapModActivateStartTime, isInVehicle,
                                             human_freefall__isFreefall, burning__isBurning, parachuteDeployed)
 
 [es(tag=server, before=human_weap_es)]
@@ -133,6 +137,7 @@ def human_inventory_interrupt_item_use_on_post_phys_es(evt : CmdPostPhysUpdate;
                                                        human_inventory__entityToUse : EntityId;
                                                        human_net_phys : HumanActor;
                                                        human_weap__reloadFinishTime : float;
+                                                       human_weap__isReloading : bool;
                                                        human_weap__weapModActivateStartTime : float;
                                                        isInVehicle : bool;
                                                        burning__isBurning : bool;
@@ -140,7 +145,7 @@ def human_inventory_interrupt_item_use_on_post_phys_es(evt : CmdPostPhysUpdate;
                                                        parachuteDeployed : Tag const?)
   if !!human_inventory__entityToUse
     human_inventory_interrupt_item_use_server(get_sync_time(), eid, human_inventory__entityToUse, human_net_phys,
-                                              human_net_phys.phys.appliedCT, human_weap__reloadFinishTime,
+                                              human_net_phys.phys.appliedCT, human_weap__reloadFinishTime, human_weap__isReloading,
                                               human_weap__weapModActivateStartTime, isInVehicle,
                                               human_freefall__isFreefall, burning__isBurning, parachuteDeployed)
 

@@ -4,10 +4,11 @@ let dagorsys = require("dagor.system")
 let { get_matching_invite_data, set_matching_invite_data } = require("app")
 let { EventLevelLoaded } = require("gameevents")
 let { isSandboxContext, getSandboxConfigValue } = require("sandbox_read_config.nut")
-let {INVALID_USER_ID} = require("matching.errors")
+let { renameCommonArmies } = require("%enlSqGlob/renameCommonArmies.nut")
+let { INVALID_USER_ID } = require("matching.errors")
 
-const TEAM_ALIES = 1
-const TEAM_AXIS = 2
+const ARMIES_TEAM_A = 1
+const ARMIES_TEAM_B = 2
 
 
 let modifyTeamQuery = ecs.SqQuery("modifyTeamQuery",
@@ -19,7 +20,7 @@ let function initMatchingData() {
   logImd("Init matching data")
 
   let modeInfo = get_matching_invite_data()?.mode_info
-  local { teamArmies = "historical", campaigns = [], difficulty = "standard",
+  local { campaigns = [], difficulty = "standard", armiesTeamA = [], armiesTeamB = [],
     botpop = null, botAutoSquad = null, botSpawnPeriod = null, mode = null,
     voteToKick = false, creatorId = INVALID_USER_ID, spawnMode = null
   } = modeInfo
@@ -54,14 +55,40 @@ let function initMatchingData() {
   if (voteToKick)
     ecs.g_entity_mgr.createEntity("vote_to_kick", {})
 
-  if (campaigns.len() > 0) {
-    let armiesByTeam = { [TEAM_ALIES] = "{0}_allies", [TEAM_AXIS] = "{0}_axis" }
-      .map(@(ac) campaigns.map(@(c) ac.subst(c)))
-    if (teamArmies != "historical") {
-      armiesByTeam[TEAM_ALIES].extend(armiesByTeam[TEAM_AXIS])
-      armiesByTeam[TEAM_AXIS] = armiesByTeam[TEAM_ALIES]
+  local armiesAllies = {}
+  local armiesAxis = {}
+  let camp = type(campaigns) == "string" ? [campaigns] : campaigns
+  // TODO remove after matching will send armies instead of campaigns
+  foreach (campId in camp) {
+    let allies = $"{campId}_allies"
+    let axis = $"{campId}_axis"
+    if (creatorId != INVALID_USER_ID) {
+      if (allies in renameCommonArmies)
+        armiesAllies[allies] <- true
+      if (axis in renameCommonArmies)
+        armiesAxis[axis] <- true
     }
-    logImd("Team armies: ", armiesByTeam)
+    else {
+      let newAlliesArmy = renameCommonArmies?[allies]
+      let newAxisArmy = renameCommonArmies?[axis]
+      if (newAlliesArmy != null)
+        armiesAllies[newAlliesArmy] <- true
+      if (newAxisArmy != null)
+        armiesAxis[newAxisArmy] <- true
+    }
+  }
+
+  armiesTeamA.each(@(armyId) armiesAllies[armyId] <- true)
+  armiesTeamB.each(@(armyId) armiesAxis[armyId] <- true)
+  armiesAllies = armiesAllies.keys()
+  armiesAxis = armiesAxis.keys()
+  logImd("Team armies:", armiesAllies, armiesAxis)
+
+  if (armiesAllies.len() > 0 && armiesAxis.len() > 0) {
+    let armiesByTeam = {
+      [ARMIES_TEAM_A] = armiesAllies,
+      [ARMIES_TEAM_B] = armiesAxis
+    }
 
     local inited = 0
     modifyTeamQuery(function(_eid, comp) {

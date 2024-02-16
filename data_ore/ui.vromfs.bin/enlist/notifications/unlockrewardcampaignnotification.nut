@@ -9,6 +9,7 @@ let { gameProfile } = require("%enlist/soldiers/model/config/gameProfile.nut")
 let { curCampaign, setCurCampaign } = require("%enlist/meta/curCampaign.nut")
 let { showMsgbox } = require("%enlist/components/msgbox.nut")
 let colorize = require("%ui/components/colorize.nut")
+let JB = require("%ui/control/gui_buttons.nut")
 
 
 let waitForUnlockReward = Watched({})
@@ -17,7 +18,7 @@ unlockRewardsInProgress.subscribe(function(v) {
   foreach (id, _ in v) {
     let { lastRewardedStage = -1 } = unlockProgress.value?[id]
     if (lastRewardedStage >= 0)
-      waitForUnlockReward.mutate(@(v) v[id] <- lastRewardedStage) //warning disable: -iterator-in-lambda
+      waitForUnlockReward.mutate(@(val) val[id] <- lastRewardedStage) //warning disable: -iterator-in-lambda
   }
 })
 
@@ -50,6 +51,7 @@ let function showUnlockRewardMsgBox(id, lastRewardedStage) {
       }
       { text = loc("Cancel")
         isCancel = true
+        customStyle = { hotkeys = [[$"^{JB.B} | Esc"]] }
       }
     ]
   })

@@ -1,10 +1,10 @@
 {
   "hud_grenade_marker": [
     {
-      "_extends": "visibility_traceable_item"
+      "_use": "visibility_traceable_item"
     },
     {
-      "_extends": "visibility_traceable_item_cache"
+      "_use": "visibility_traceable_item_cache"
     },
     {
       "_group": {
@@ -37,20 +37,20 @@
     "gun__mountPoints:shared:array": []
   },
   "gun_anim_vars": {
-    "gun_anim_var__reyeOffsetFwd0": -0.0,
-    "gun_anim_var__gunOffsetAlong": 0.0,
-    "gun_anim_var__gunOffsetAcross": 0.0,
-    "gun_anim_var__gunOffsetUp": 0.0
+    "gun_anim_var__defReyeOffsetFwd0": -0.0,
+    "gun_anim_var__defGunOffsetAlong": 0.0,
+    "gun_anim_var__defGunOffsetAcross": 0.0,
+    "gun_anim_var__defGunOffsetUp": 0.0
   },
   "base_gun": [
     {
-      "_extends": "replicating"
+      "_use": "replicating"
     },
     {
-      "_extends": "ecs_no_debug"
+      "_use": "ecs_no_debug"
     },
     {
-      "_extends": "gun_anim_vars"
+      "_use": "gun_anim_vars"
     },
     {
       "gun__inertialMass": 3.0
@@ -128,6 +128,9 @@
       "_tracked": "gun__isAmmoLoaded"
     },
     {
+      "_tracked": "gun__boxNode"
+    },
+    {
       "_tracked": "gun__ammoHolderIds"
     },
     {
@@ -192,6 +195,9 @@
     },
     {
       "gun__ammoSyncDelay": 0.6
+    },
+    {
+      "gun__saveAmmoInChamberOnReload": false
     },
     {
       "gun__firingModeName": ""
@@ -329,6 +335,12 @@
       "gun_deviation__bufferThreshold": 20.0
     },
     {
+      "gun__boxNode": "weaponRoot"
+    },
+    {
+      "gun__boxNodeId": -1
+    },
+    {
       "gun__initialSlotId": -1
     },
     {
@@ -396,7 +408,7 @@
   ],
   "gun": [
     {
-      "_extends": "base_gun"
+      "_use": "base_gun"
     },
     {
       "_skipInitialReplication": "gun_anim__reloadProgress"
@@ -443,16 +455,16 @@
   ],
   "visual_gun_with_animchar_updatable": [
     {
-      "_extends": "gun"
+      "_use": "gun"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "weapon_slot_attachable"
+      "_use": "weapon_slot_attachable"
     },
     {
-      "_extends": "disable_update"
+      "_use": "disable_update"
     },
     {
       "animchar__updatable": true
@@ -462,7 +474,7 @@
     }
   ],
   "visual_gun": {
-    "_extends": "visual_gun_with_animchar_updatable",
+    "_use": "visual_gun_with_animchar_updatable",
     "animchar__actOnDemand:tag": []
   },
   "gun_shell_ejection": {
@@ -472,10 +484,10 @@
   },
   "base_ejected_shell": [
     {
-      "_extends": "ecs_no_debug"
+      "_use": "ecs_no_debug"
     },
     {
-      "_extends": "animchar_turn_dir"
+      "_use": "animchar_turn_dir"
     },
     {
       "ballistic_phys__velocity": [0.0,0.0,0.0]
@@ -499,23 +511,23 @@
     }
   ],
   "m1a1_thompson_ejected_shell": {
-    "_extends": "base_ejected_shell",
+    "_use": "base_ejected_shell",
     "animchar__res": "45_cal_shell_char"
   },
   "mauser_98k_ejected_shell": {
-    "_extends": "base_ejected_shell",
+    "_use": "base_ejected_shell",
     "animchar__res": "8mm_mauser_shell_char"
   },
   "mp_38_ejected_shell": {
-    "_extends": "base_ejected_shell",
+    "_use": "base_ejected_shell",
     "animchar__res": "9mm_parabellum_shell_char"
   },
   "stg_44_ejected_shell": {
-    "_extends": "base_ejected_shell",
+    "_use": "base_ejected_shell",
     "animchar__res": "7mm_intermediate_shell_char"
   },
   "ptrd_41_ejected_shell": {
-    "_extends": "base_ejected_shell",
+    "_use": "base_ejected_shell",
     "animchar__res": "14mm_ptrd_shell_char"
   },
   "gun_with_additional_head_angles": {
@@ -528,6 +540,7 @@
   "gun_anim": {
     "_tags": "render",
     "gun_anim__boltActionVarId": -1,
+    "gun_anim__reloadStateId": -1,
     "gun_anim__reloadVarId": -1,
     "gun_anim__singleReloadVarId": -1,
     "gun_anim__reloadStyleVarId": -1,
@@ -539,29 +552,67 @@
     "gun_anim__weapModStateVarId": -1,
     "gun_anim__singleReloadStates:list<i>": [],
     "gun_anim__reloadStyles:list<i>": [],
+    "gun_anim__reloadStates:list<i>": [],
     "gun_anim__weapModStates:list<i>": []
   },
-  "base_stationary_gun": [
+  "gun_reload": [
     {
-      "_extends": "visual_gun_with_animchar_updatable"
+      "gun_reload__isNextStateSelected": false
     },
     {
-      "_extends": "gun_sound_with_animchar"
+      "gun_reload__state": 0
     },
     {
-      "_extends": "gun_overheat_speech_enable"
+      "gun_reload__stateStartTime": -1.0
     },
     {
-      "_extends": "machinegun_gun_overheat_sound"
+      "gun_reload__stateEndTime": -1.0
     },
     {
-      "_extends": "gun_with_additional_head_angles"
+      "gun_reload__stateAcceptsInterruptRequest": false
     },
     {
-      "_extends": "replicating"
+      "_group": {
+        "_track": true,
+        "gun_reload__isRequesting": false
+      }
     },
     {
-      "_extends": "gun_anim"
+      "_group": {
+        "_replicate": true,
+        "_track": true,
+        "gun_reload__isReloading": false,
+        "gun_reload__shouldInterrupt": false
+      }
+    },
+    {
+      "_group": {
+        "tags": "gameClient",
+        "gun_reload__stateAnimId": -1
+      }
+    }
+  ],
+  "stationary_gun": [
+    {
+      "_use": "visual_gun_with_animchar_updatable"
+    },
+    {
+      "_use": "gun_sound_with_animchar"
+    },
+    {
+      "_use": "gun_overheat_speech_enable"
+    },
+    {
+      "_use": "machinegun_gun_overheat_sound"
+    },
+    {
+      "_use": "gun_with_additional_head_angles"
+    },
+    {
+      "_use": "replicating"
+    },
+    {
+      "_use": "gun_anim"
     },
     {
       "_replicated": "mounted_gun__active"
@@ -635,7 +686,7 @@
       "gun__boxNodeId": -1
     },
     {
-      "entity__recreateToOnDeath": "base_dead_stationary_gun"
+      "entity__recreateToOnDeath": "dead_stationary_gun"
     },
     {
       "stationary_gun:tag": []
@@ -654,25 +705,39 @@
       }
     },
     {
+      "_group": {
+        "_tags": "server",
+        "stationary_gun__botAssignedTimeout": 0.0,
+        "stationary_gun__botsBlacklisted": 0,
+        "stationary_gun__botAssignedEid:eid": []
+      }
+    },
+    {
       "camera__look_at:dp3": {
         "_tags": "render"
       }
     }
   ],
-  "base_dead_stationary_gun": {
-    "_extends": "stationary_mg42_without_shell_ejection",
-    "animchar__physSymDependence:tag": [],
-    "dm_parts__parts:object": []
-  },
-  "stationary_gun": {
-    "_extends": "base_stationary_gun",
-    "gun_flash_fx": {
-      "_tags": "render"
+  "dead_stationary_gun": [
+    {
+      "_use": "stationary_mg42_without_shell_ejection"
+    },
+    {
+      "_use": "dead_entity"
+    },
+    {
+      "_use": "ragdoll_common"
+    },
+    {
+      "animchar__physSymDependence:tag": []
+    },
+    {
+      "dm_parts__parts:object": []
     }
-  },
+  ],
   "interactable_grid": {
     "editableObj": false,
-    "_extends": "replicating",
+    "_use": "replicating",
     "_singleton": true,
     "grid_holder__type": "interactable",
     "grid_holder__typeHash": 0,
@@ -683,24 +748,27 @@
     "gun_autodetach__threshold": [1.5,1.3,1.5],
     "gun_autodetach__nodeId": -1
   },
-  "base_equipable_gun": [
+  "equipable_gun": [
     {
-      "_extends": "visual_gun"
+      "_use": "visual_gun"
     },
     {
-      "_extends": "melee_weapon"
+      "_use": "melee_weapon"
     },
     {
-      "_extends": "gun_sound_with_animchar"
+      "_use": "gun_sound_with_animchar"
     },
     {
-      "_extends": "gun_overheat_speech_enable"
+      "_use": "gun_overheat_speech_enable"
     },
     {
-      "_extends": "gun_with_additional_head_angles"
+      "_use": "gun_with_additional_head_angles"
     },
     {
-      "_extends": "gun_anim"
+      "_use": "gun_anim"
+    },
+    {
+      "_use": "gun_reload"
     },
     {
       "weap__sprintLerpFactor": 1.0
@@ -710,9 +778,6 @@
     },
     {
       "_replicated": "weap__current_sight_preset"
-    },
-    {
-      "_replicated": "gun__holsterGen"
     },
     {
       "weap__backoffDegreeMult": 40.0
@@ -751,12 +816,6 @@
       "gun__useLocalPlayerTracer": false
     },
     {
-      "gun__prevHolsterGen": 0
-    },
-    {
-      "gun__holsterGen": 0
-    },
-    {
       "gun_attach__slot": "weapon"
     },
     {
@@ -769,6 +828,9 @@
       "gun_attach__altSlotId": -1
     },
     {
+      "_tracked": "gun_anim__weapModEid"
+    },
+    {
       "rumble__isHighBand": true
     },
     {
@@ -778,7 +840,8 @@
       "_group": {
         "_tags": "render",
         "weapon_rearsight_node__nodeIdx": -1,
-        "weapon_rearsight_node__nodeTm": []
+        "weapon_rearsight_node__nodeTm": [],
+        "weap__sightEid:eid": []
       }
     },
     {
@@ -815,14 +878,8 @@
       "gun_attach__holsterSlotsIds:list<i>": []
     }
   ],
-  "equipable_gun": {
-    "_extends": "base_equipable_gun",
-    "gun_flash_fx": {
-      "_tags": "render"
-    }
-  },
   "gun_with_subsidiary": {
-    "_extends": "replicating",
+    "_use": "replicating",
     "oldTemplateName": "",
     "_replicated": "subsidiaryGunEid",
     "skip_common_weap_phys_update:tag": [],
@@ -860,10 +917,10 @@
   ],
   "projectile": [
     {
-      "_extends": "animchar_turn_dir"
+      "_use": "animchar_turn_dir"
     },
     {
-      "_extends": "slot_attachable"
+      "_use": "slot_attachable"
     },
     {
       "slot_attach__visible": false
@@ -906,24 +963,29 @@
   ],
   "projectile_with_shell": [
     {
-      "_extends": "projectile"
+      "_use": "projectile"
     },
     {
-      "_extends": "shell"
+      "_use": "shell"
     }
   ],
   "client_side": {
     "clientSide:tag": []
   },
+  "projectile_trail_fx": {
+    "_tags": "render",
+    "projectile_trail_fx__flightFxTemplate": "trail_projectile_launch_smoke_effect",
+    "projectile_trail_fx__flightFxEid:eid": []
+  },
   "projectile_phys": [
     {
-      "_extends": "phys_sleepable"
+      "_use": "phys_sleepable"
     },
     {
-      "_extends": "animchar_turn_dir"
+      "_use": "animchar_turn_dir"
     },
     {
-      "_extends": "slot_attachable"
+      "_use": "slot_attachable"
     },
     {
       "slot_attach__visible": true
@@ -973,6 +1035,9 @@
       "ai_target__invisibleTimeTo": 0.0
     },
     {
+      "collision_physMatId": -1
+    },
+    {
       "pair_collision__tag": "collidableToPhysObj"
     },
     {
@@ -998,6 +1063,9 @@
     },
     {
       "phys_obj_net_phys": []
+    },
+    {
+      "base_net_phys_ptr": []
     },
     {
       "pair_collision__gridHolders": []
@@ -1043,17 +1111,17 @@
   },
   "projectile_phys_with_shell": [
     {
-      "_extends": "projectile_phys"
+      "_use": "projectile_phys"
     },
     {
-      "_extends": "shell"
+      "_use": "shell"
     },
     {
       "shell__rethrowTime": 180.0
     }
   ],
   "default_explosion_flash": {
-    "_extends": "omni_light",
+    "_use": "omni_light",
     "light__dynamic_light": true,
     "light__max_radius": 5.0,
     "light__color": "#8c3a00ff",
@@ -1077,28 +1145,28 @@
       "_skipInitialReplication": "gun_anim__reloadProgress"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "weapon_slot_attachable"
+      "_use": "weapon_slot_attachable"
     },
     {
-      "_extends": "ecs_no_debug"
+      "_use": "ecs_no_debug"
     },
     {
-      "_extends": "disable_update"
+      "_use": "disable_update"
     },
     {
-      "_extends": "gun_anim_vars"
+      "_use": "gun_anim_vars"
     },
     {
-      "_extends": "hit_effect_group_melee"
+      "_use": "hit_effect_group_melee"
     },
     {
-      "_extends": "gun_anim"
+      "_use": "gun_anim"
     },
     {
-      "_extends": "replicating"
+      "_use": "replicating"
     },
     {
       "animchar__updatable": false
@@ -1244,7 +1312,7 @@
     ]
   },
   "gun_icon": {
-    "item__iconYaw": 90.0
+    "item__iconYaw": -90.0
   },
   "melee_icon": {
     "item__iconRoll": 43.0,
@@ -1268,13 +1336,13 @@
   },
   "weapon_mod": [
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "weapon_slot_attachable"
+      "_use": "weapon_slot_attachable"
     },
     {
-      "_extends": "replicating"
+      "_use": "replicating"
     },
     {
       "_tracked": "slot_attach__visible"
@@ -1286,7 +1354,10 @@
       "animchar_render__enabled": false
     },
     {
-      "item__id": 0
+      "item__id:i": {
+        "value": 0,
+        "_hide": true
+      }
     },
     {
       "slot_attach__secondaryUpdate:tag": []
@@ -1326,29 +1397,29 @@
   },
   "scope_gunmod": [
     {
-      "_extends": "weapon_mod"
+      "_use": "weapon_mod"
     },
     {
-      "_extends": "scope"
+      "_use": "scope"
     }
   ],
   "subsidiary_gunmod": [
     {
-      "_extends": "weapon_mod"
+      "_use": "weapon_mod"
     },
     {
-      "_extends": "visual_gun"
+      "_use": "visual_gun"
     },
     {
       "subsidiaryGun:tag": []
     }
   ],
   "ramrod_subsidiary_gunmod": {
-    "_extends": "subsidiary_gunmod",
+    "_use": "subsidiary_gunmod",
     "ramrodGun:tag": []
   },
   "grenade_launcher_gunmod": {
-    "_extends": "subsidiary_gunmod",
+    "_use": "subsidiary_gunmod",
     "weapon_mod__active": false,
     "_tracked": "weapon_mod__active",
     "_replicated": "weapon_mod__active",
@@ -1356,7 +1427,7 @@
     "weapon_mod__deactivateTime": 1.0
   },
   "ramrod_grenade_launcher_gunmod": {
-    "_extends": "ramrod_subsidiary_gunmod",
+    "_use": "ramrod_subsidiary_gunmod",
     "weapon_mod__active": false,
     "_tracked": "weapon_mod__active",
     "_replicated": "weapon_mod__active",
@@ -1364,9 +1435,9 @@
     "weapon_mod__deactivateTime": 1.0
   },
   "bayonet_gunmod": {
-    "_extends": "weapon_mod",
+    "_use": "weapon_mod",
     "melee_weapon__propsId": -1,
-    "item__iconYaw": 90.0,
+    "item__iconYaw": -90.0,
     "item__iconRoll": -30.0,
     "weaponMeleeMod:tag": [],
     "meleeChargeMod:tag": [],
@@ -1389,5 +1460,24 @@
     "gun__additionalAmmo": 0,
     "_replicated": "gun__additionalAmmo",
     "_tracked": "gun__isDualMagReady"
+  },
+  "gun_ammo_load_on_init": {
+    "gun__loadAmmo": true
+  },
+  "gun_override_projectile_distance": {
+    "gun__overrideProjectileDistance": 0.0
+  },
+  "shell_override_projectile_distance": {
+    "projectile__overrideLaunchDistance:tag": []
+  },
+  "gun_with_initial_ammo": {
+    "_tags": "server",
+    "gun__isInitialAmmoHoldersSpawned": false,
+    "gun__initialAmmoHoldersCount:list<i>": []
+  },
+  "human_weap_reload_force_params": {
+    "human_weap_reload_force_params__force_jam": false,
+    "human_weap_reload_force_params__force_alt": false,
+    "human_weap_reload_force_params:tag": []
   }
 }

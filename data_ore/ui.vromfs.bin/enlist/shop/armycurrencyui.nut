@@ -1,21 +1,42 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { bigPadding, warningColor, bonusColor } = require("%enlSqGlob/ui/viewConst.nut")
+let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { abbreviateAmount } = require("%enlist/shop/numberUtils.nut")
 let { mkCurrencyOverall, mkCurrencyImage } = require("currencyComp.nut")
 let { setCurSection, curSection } = require("%enlist/mainMenu/sectionsState.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
-let {
-  viewArmyCurrency, realCurrencies, viewCurrencies
+let { viewArmyCurrency, realCurrencies, viewCurrencies, isItemsShopOpened
 } = require("armyShopState.nut")
-let {
-  currencyPresentation, ticketGroups, getCurrencyPresentation
+let { currencyPresentation, ticketGroups, getCurrencyPresentation
 } = require("currencyPresentation.nut")
+let { setAutoGroup } = require("%enlist/shop/shopState.nut")
+let { curGrowthFreeExp } = require("%enlist/growth/growthState.nut")
+let { bigPadding, warningColor, bonusColor, defTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
 
 
-let openShop = @() setCurSection("SHOP")
-let isInShop = Computed(@() curSection.value == "SHOP")
+let isInShop = Computed(@() curSection.value == "SHOP" || isItemsShopOpened.value)
+let isInGrowth = Computed(@() curSection.value == "GROWTH")
 
 let ADDING_ORDER_SIZE = [hdpx(20), hdpx(20)]
+let SILVER_KEY = "enlisted_silver"
+
+let freeExpIconSize = [hdpxi(30), hdpxi(30)]
+
+let mkExpIcon = @(size) {
+  rendObj = ROBJ_IMAGE
+  size = size
+  image = Picture("!ui/uiskin/research/experience_points_icon.svg:{0}:{1}:K"
+    .subst(size[0], size[1]))
+}
+
+
+let function filterCurrencies(tbl) {
+  let res = clone tbl
+  delete res[SILVER_KEY]
+  return res
+}
+
+let filterCurrenciesSilver = @(tbl) { [SILVER_KEY] = tbl[SILVER_KEY] }
 
 local diffAnimCounter = 0
 let function mkDiffCurrency(curr, idx, onFinish) {
@@ -49,7 +70,7 @@ let function mkDiffCurrency(curr, idx, onFinish) {
   }
 }
 
-let function getSortedCards(armyCurrency) {
+let function getSortedCards(armyCurrency, currencyPresentationList) {
   let sortedCards = []
   ticketGroups.map(function(groupContent, groupName) {
     let showInCurrentSection = groupContent?.showInSection.contains(curSection.value) ?? true
@@ -61,8 +82,9 @@ let function getSortedCards(armyCurrency) {
         showIfZero = groupContent.isShownIfEmpty
         isInteractive = groupContent.isInteractive
       }
-      currencyPresentation.each(function(value, key) {
-        if (value.group == groupContent) {
+      currencyPresentationList.each(function(value, key) {
+        let { group = null } = value
+        if (group == groupContent) {
           armyCurrency.each(function(val, k) {
             if (key == k)
               cardsTable.cards[k] <- val
@@ -79,24 +101,26 @@ let function getSortedCards(armyCurrency) {
   return sortedCards.sort(@(a,b) a.groupOrder <=> b.groupOrder)
 }
 
-let function mkCurrenciesDiffAnim(realCurr, sectionCurr, viewCurrWatch) {
+let function mkCurrenciesDiffAnim(realCurr, sectionCurr, viewCurrWatch, currencyPresentationList) {
   let viewCurr = viewCurrWatch.value ?? {}
   if (isEqual(realCurr, viewCurr))
     return null
 
-  let sortedCards = getSortedCards(sectionCurr)
+  let sortedCards = getSortedCards(sectionCurr, currencyPresentationList)
   let diff = []
   foreach (currTpl, count in realCurr) {
-    let viewCount = viewCurr?[currTpl] ?? 0
-    if (currTpl not in sectionCurr)
-      viewCurr[currTpl] <- count
-    else if (viewCount != count) {
-      let orderNumber = sortedCards.findindex(@(v) currTpl in v.cards) ?? 0
-      diff.append({
-        currTpl
-        count = count - viewCount
-        offset = sortedCards.len() == 0 ? 0 : 100 * orderNumber / sortedCards.len() + 10
-      })
+    if (currTpl in currencyPresentationList) {
+      let viewCount = viewCurr?[currTpl] ?? 0
+      if (currTpl not in sectionCurr)
+        viewCurr[currTpl] <- count
+      else if (viewCount != count) {
+        let orderNumber = sortedCards.findindex(@(v) currTpl in v.cards) ?? 0
+        diff.append({
+          currTpl
+          count = count - viewCount
+          offset = sortedCards.len() == 0 ? 0 : 100 * orderNumber / sortedCards.len() + 10
+        })
+      }
     }
   }
   viewCurrWatch(viewCurr)
@@ -107,19 +131,25 @@ let function mkCurrenciesDiffAnim(realCurr, sectionCurr, viewCurrWatch) {
   diff.sort(@(a, b) a.offset <=> b.offset)
   diffAnimCounter++
   return diff.map(@(curr, idx) mkDiffCurrency(curr, idx, @()
-    viewCurrWatch(viewCurrWatch.value.__merge({
-      [curr.currTpl] = realCurr?[curr.currTpl] ?? 0
-    }))
+    viewCurrWatch.mutate(@(v) v[curr.currTpl] <- realCurr?[curr.currTpl] ?? 0)
   ))
 }
 
-let mkArmyCurrency = @(armyCurrency, isShop)
-  getSortedCards(armyCurrency).map(@(value)
-    mkCurrencyOverall(value.type,
-      value.cards,
-      value.isInteractive ? openShop : null,
-      value,
-      isShop))
+let function addClickAutoShop(value, isShop) {
+  let function openShop() {
+    setAutoGroup(value.type)
+    setCurSection("SHOP")
+  }
+  return mkCurrencyOverall(
+    value.type,
+    value.cards,
+    value.isInteractive && !isShop ? openShop : null,
+    value,
+    isShop)
+}
+
+let mkArmyCurrency = @(armyCurrency, currencyPresentationList, isShop)
+  getSortedCards(armyCurrency, currencyPresentationList).map(@(v) addClickAutoShop(v, isShop))
 
 let sectionCurrency = Computed(function() {
   let currencies = viewCurrencies.value
@@ -131,17 +161,22 @@ let sectionCurrency = Computed(function() {
     .map(@(_, key) currencies?[key] ?? 0))
 })
 
-let currencyUi = {
+let mkCurrencyUi = @(currencyWatch, filter = @(v) v) {
   size = [SIZE_TO_CONTENT, flex()]
   minHeight = SIZE_TO_CONTENT
   children = [
     @() {
-      watch = [sectionCurrency, isInShop]
+      watch = [currencyWatch, isInShop]
       size = [SIZE_TO_CONTENT, flex()]
       minHeight = SIZE_TO_CONTENT
       flow = FLOW_HORIZONTAL
+      halign = ALIGN_RIGHT
       gap = bigPadding
-      children = mkArmyCurrency(sectionCurrency.value, isInShop.value)
+      children = mkArmyCurrency(
+        currencyWatch.value,
+        filter(currencyPresentation),
+        isInShop.value
+      )
     }
     @() {
       // I deliberately didn't subscribe to <sectionCurrency> and <viewCurrencies>
@@ -149,9 +184,37 @@ let currencyUi = {
       watch = realCurrencies
       size = flex()
       valign = ALIGN_CENTER
-      children = mkCurrenciesDiffAnim(realCurrencies.value, sectionCurrency.value, viewCurrencies)
+      children = mkCurrenciesDiffAnim(
+        realCurrencies.value,
+        currencyWatch.value,
+        viewCurrencies,
+        filter(currencyPresentation)
+      )
     }
   ]
 }
 
-return currencyUi
+let freeExpUi = @() {
+  watch = [isInGrowth, curGrowthFreeExp]
+  children = !isInGrowth.value ? null
+    : {
+        flow = FLOW_HORIZONTAL
+        valign = ALIGN_CENTER
+        gap = bigPadding
+        children = [
+          mkExpIcon(freeExpIconSize)
+          {
+            rendObj = ROBJ_TEXT
+            color = defTxtColor
+            text = abbreviateAmount(curGrowthFreeExp.value)
+          }.__update(fontBody)
+        ]
+      }
+}
+
+return {
+  currencyUi = mkCurrencyUi(sectionCurrency, filterCurrencies)
+  currencySilverUi = mkCurrencyUi(sectionCurrency, filterCurrenciesSilver)
+  freeExpUi
+  mkExpIcon
+}

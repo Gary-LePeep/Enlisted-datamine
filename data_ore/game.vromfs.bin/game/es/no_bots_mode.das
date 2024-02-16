@@ -5,7 +5,7 @@ def no_bots_init_soldier_revive_points(evt : Event)
   query() <| $ [es(REQUIRE=player)] (eid : EntityId)
     addSubTemplate(eid, "soldier_revive_points")
 
-[es(tag=server, REQUIRE=noBotsMode, on_event=(EventComponentsDisappear, EventEntityDestroyed))]
+[es(tag=server, REQUIRE=noBotsMode, on_disappear)]
 def no_bots_remove_soldier_revive_points(evt : Event)
   query() <| $ [es(REQUIRE=player)] (eid : EntityId)
     removeSubTemplate(eid, "soldier_revive_points")

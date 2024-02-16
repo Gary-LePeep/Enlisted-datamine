@@ -63,7 +63,6 @@
         {
           "shell:object": {
             "blk": "gamedata/gen/weapons/shells/20mm_breda_20_65_m35_20mm_ger_kwk30_apcr_bullet_1.blk",
-            "name": "20mm_pzgr_40",
             "type": "apcr_t"
           }
         },
@@ -79,16 +78,16 @@
   },
   "tankgun_20mm_breda_20_65_m35": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_tankgun_autocannon"
+      "_use": "base_tankgun_autocannon"
     },
     {
-      "_extends": "base_20mm_breda_20_65_m35"
+      "_use": "base_20mm_breda_20_65_m35"
     },
     {
-      "_extends": "gunsound_20mm_breda_20_65_m35"
+      "_use": "gunsound_20mm_breda_20_65_m35"
     },
     {
       "turret__triggerGroup": 0

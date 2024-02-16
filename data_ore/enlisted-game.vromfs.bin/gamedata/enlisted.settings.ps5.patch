@@ -12,6 +12,7 @@
   antiAliasingMode:i=2
   temporalUpsamplingRatio:r=100.0
   ps5FpsLimit:i=90
+  enableHdr:b=yes
 }
 
 "@override:texStreaming"{
@@ -25,7 +26,6 @@
   giQuality:t="medium"
   shadowsQuality:t="high"
   texquality:t="medium"
-  taa_mip_bias:r=-0.5
   taaQuality:i=1
   anisotropy:i=4
   aoQuality:t="high"
@@ -35,7 +35,7 @@
   scopeImageQuality:i=1
   shouldRenderHeroCockpit:b=yes
   skiesQuality:t="high"
-  ssss:t="high"
+  ssssQuality:t="high"
   lodsShiftDistMul:r=1.0
   cloudsQuality:t="volumetric"
   volumeFogQuality:t="close"

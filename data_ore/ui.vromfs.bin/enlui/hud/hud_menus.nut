@@ -7,7 +7,7 @@ let briefing = require("huds/overlays/enlisted_briefing.nut")
 let { showBriefing } = require("state/briefingState.nut")
 let { playersMenuUi, showPlayersMenu } = require("%ui/hud/menus/players.nut")
 
-let { menusUi, hudMenus, openMenu } = require("%ui/hud/ct_hud_menus.nut")
+let { hudMenus, openMenu } = require("%ui/hud/ct_hud_menus.nut")
 let { scoresMenuUi, showScores } = require("huds/scores.nut")
 let { showBigMap, bigMap } = require("%ui/hud/menus/big_map.nut")
 let { showPieMenu } = require("%ui/hud/state/pie_menu_state.nut")
@@ -17,8 +17,11 @@ let buildingToolMenu = require("%ui/hud/huds/building_tool_menu.ui.nut")
 let { isBuildingToolMenuAvailable } = require("%ui/hud/state/building_tool_state.nut")
 let squadSoldiersMenu = require("%ui/hud/huds/squad_soldiers_menu.ui.nut")
 let { showSquadSoldiersMenu, isSquadSoldiersMenuAvailable } = require("%ui/hud/state/squad_soldiers_menu_state.nut")
-let { forceDisableBattleChat } = require("%ui/hud/state/hudOptionsState.nut")
+let supplyMenu = require("%ui/hud/huds/paratroopers_supply_menu.ui.nut")
+let { showSupplyMenu } = require("%ui/hud/state/paratroopers_supply_menu_state.nut")
+let { showBattleChat, forceDisableBattleChat } = require("%ui/hud/state/hudOptionsState.nut")
 let { isReplay } = require("%ui/hud/state/replay_state.nut")
+let { isGamepad } = require("%ui/control/active_controls.nut")
 let dainput = require("dainput2")
 //local { forcedMinimalHud } = require("state/hudGameModes.nut")
 
@@ -50,7 +53,7 @@ let groups = {
   chatInput = 4
   pieMenu   = 5
 }
-let showChatInputAct = Computed( @() /*!forcedMinimalHud.value && */ showChatInput.value)
+let showChatInputAct = Computed(@() !forceDisableBattleChat.value && showChatInput.value)
 let showPieMenuAct = Computed(@() showPieMenu.value && !isReplay.value)
 
 let disableMenu = get_setting_by_blk_path("disableMenu") ?? false
@@ -58,6 +61,7 @@ let huds = [
   {
     show = showBuildingToolMenu
     menu = buildingToolMenu
+    holdToToggleDurMsec = @() isGamepad.value ? -1 : null
     close = @() showBuildingToolMenu(false)
     open = openBuildingToolMenu
     event = "HUD.BuildingToolMenu"
@@ -72,7 +76,7 @@ let huds = [
     },
     close = @() showPieMenu(false)
     menu = pieMenu
-    holdToToggleDurMsec = -1
+    holdToToggleDurMsec = @() -1
     event = "HUD.CommandsMenu"
     group = groups.pieMenu
     id = "PieMenu"
@@ -81,16 +85,16 @@ let huds = [
     show = showSquadSoldiersMenu
     menu = squadSoldiersMenu
     open = openSquadSoldiersMenu
-    holdToToggleDurMsec = -1
+    holdToToggleDurMsec = @() -1
     close = @() showSquadSoldiersMenu(false)
     event = "HUD.SquadSoldiersMenu"
     group = groups.pieMenu
     id = "SquadSoldiersMenu"
   },
-  forceDisableBattleChat ? null : {
+  {
     show = showChatInputAct
     open = function() {
-      // if (!forcedMinimalHud.value)
+      if (showBattleChat.value || !forceDisableBattleChat.value)
         showChatInput(true)
     }
     close = @() showChatInput(false)
@@ -110,6 +114,12 @@ let huds = [
     menu = artilleryMap
     group = groups.gameHud
     id = "ArtilleryMap"
+  },
+  {
+    show = showSupplyMenu
+    menu = supplyMenu
+    group = groups.gameHud
+    id = "SupplyMenu"
   },
   {
     show = showBigMap
@@ -158,4 +168,3 @@ debriefingDataExt.subscribe(function(val) {
     openMenu("Debriefing")
 })
 
-return menusUi

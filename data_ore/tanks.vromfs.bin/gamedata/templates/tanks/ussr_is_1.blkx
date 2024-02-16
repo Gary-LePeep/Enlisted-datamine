@@ -1,16 +1,28 @@
 {
   "ussr_is_1": {
-    "_extends": "ussr_is_1_common"
+    "_use": "ussr_is_1_common"
   },
   "ussr_is_1_common": [
     {
-      "_extends": "base_is_1"
+      "_use": "base_is_1"
     },
     {
-      "_extends": "tank_t34_engine_sound"
+      "_use": "tank_t34_engine_sound"
     },
     {
-      "_extends": "tank_heavy_vehicle_tracks_sound"
+      "_use": "tank_heavy_vehicle_tracks_sound"
+    },
+    {
+      "commanderCockpitFpsCamMaxAngle": [40.0,5.0]
+    },
+    {
+      "gunner_cam_limit__useCockpitDir": true
+    },
+    {
+      "item__iconOffset": [0.09,-0.0]
+    },
+    {
+      "item__iconScale": 1.15
     },
     {
       "vehicle_seats__seats:shared:array": [
@@ -116,7 +128,7 @@
     }
   ],
   "ussr_is_1_driver_cockpit": {
-    "_extends": "base_driver_cockpit",
+    "_use": "base_driver_cockpit",
     "animchar__res": "kv_1_driver_char",
     "cockpit__offset": [-0.173574,-0.166206,0.000368625],
     "cockpit__visibleVehicleNodeNames:list<t>": [],
@@ -125,17 +137,16 @@
     }
   },
   "ussr_is_1_gunner_cockpit": {
-    "vehicle_sight__blk": "content/tanks/gamedata/sight/ussr_pt_1.blk",
-    "_extends": "base_gunner_cockpit",
+    "_use": "base_gunner_cockpit",
     "animchar__res": "t_26_1940_gunner_char",
-    "cockpit__minZoom": -0.27,
+    "cockpit__minForwardOffset": -0.27,
     "cockpit__offset": [-0.0,-0.0,-0.0],
     "cockpit__cockpitOffsetBySlit:list<p3>": [
       {
         "slit": [-0.5,-0.05,0.197]
       },
       {
-        "slit": [0.194,1.032,0.535]
+        "slit": [0.3,1.2,0.535]
       }
     ],
     "cockpit__attachNodeNames:list<t>": [
@@ -160,10 +171,10 @@
     ],
     "cockpit__slitForwardOffset:list<r>": [
       {
-        "slit": 0.17
+        "slit": 0.22
       },
       {
-        "slit": 0.2
+        "slit": 0.19
       }
     ],
     "cockpit__slitIsGun:list<b>": [
@@ -173,10 +184,60 @@
       {
         "slit": false
       }
-    ]
+    ],
+    "cockpit__periscopeLimits:list<p4>": [
+      {
+        "slit": [-0.0,0.0,0.0,0.0]
+      },
+      {
+        "slit": [-90.0,55.0,-0.0,25.0]
+      }
+    ],
+    "cockpit__periscopeSpeed:list<p2>": [
+      {
+        "slit": [-1.0,-1.0]
+      },
+      {
+        "slit": [35.0,35.0]
+      }
+    ],
+    "cockpit__slitZoom:array": [
+      {
+        "slit:list<r>": [
+          {
+            "zoom": 1.9
+          },
+          {
+            "zoom": 3.5
+          }
+        ]
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      }
+    ],
+    "cockpit__slitZoomTime:list<r>": [
+      {
+        "slit": 0.05
+      },
+      {
+        "slit": 0.0
+      }
+    ],
+    "cockpit__slitTemplates:list<t>": [
+      {
+        "slit": "ussr_tsh_15"
+      },
+      {
+        "slit": "default_periscope"
+      }
+    ],
+    "cockpit__slitEids:list<eid>": []
   },
   "ussr_is_1_commander_cockpit": {
-    "_extends": "base_commander_tower_cockit_no_slits",
+    "_use": "base_commander_tower_cockpit",
     "animchar__res": "pzkpfw_iii_b_commander_char",
     "cockpit__offset": [-0.457179,1.03337,0.404117],
     "cockpit__visibleVehicleNodeNames:list<t>": [
@@ -248,6 +309,38 @@
       },
       {
         "slit": false
+      }
+    ],
+    "cockpit__slitZoom:array": [
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
       }
     ],
     "cockpit__slitNodeNames:list<t>": [
@@ -323,5 +416,13 @@
         }
       }
     ]
+  },
+  "ussr_is_1_13th_guardian_berlin_battlepass_premium_skin": {
+    "_use": "ussr_is_1_common",
+    "animchar__objTexSet:object": {
+      "is_1_turret_c*:object": {
+        "is_1_13th_guardian_turret_c*": "camo_skin_tex"
+      }
+    }
   }
 }

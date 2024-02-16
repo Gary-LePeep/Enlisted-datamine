@@ -2,10 +2,10 @@
   "mass": 0.0113,
   "cartridgeMass": 0.0252,
   "caliber": 0.0077,
-  "speed": 690.0,
+  "speed": 730.0,
   "maxDistance": 1500.0,
   "bulletType": "ball",
-  "hitPowerMult": 22.2,
+  "hitPowerMult": 22.5,
   "effectiveDistance": 500.0,
   "relativeVelHitShift": [300.0,1000.0],
   "relativeVelArmorShift": [200.0,1000.0],
@@ -28,12 +28,6 @@
     "traceFreq": 1,
     "tracer": "7mmYellow",
     "trail": "smallTrail"
-  },
-  "hitFx": {
-    "fxScale": [1.0,1.3],
-    "defaultFx": "ground_splash",
-    "jetFx": "ground_splash_direct",
-    "preset": "bullet"
   },
   "tracer": {
     "ignitionTime": 0.002,

@@ -1,5 +1,6 @@
 {
   "tnt_block_exploder_sound": {
+    "_use": "gun_shot_dry_sound",
     "_group": {
       "_tags": "sound",
       "gun_shot_dry_sound__path": "player/weapon/tnt_block_exploder/activate"
@@ -7,13 +8,13 @@
   },
   "tnt_block_exploder": [
     {
-      "_extends": "item"
+      "_use": "item"
     },
     {
-      "_extends": "equipable_gun"
+      "_use": "equipable_gun"
     },
     {
-      "_extends": "tnt_block_exploder_sound"
+      "_use": "tnt_block_exploder_sound"
     },
     {
       "animchar__res": "sov_pm_2_char"
@@ -88,9 +89,6 @@
       "item__locDetails": ""
     },
     {
-      "item__id": 0
-    },
-    {
       "tnt_block_exploder__state": 0
     },
     {
@@ -138,6 +136,12 @@
       }
     },
     {
+      "item__id:i": {
+        "value": 0,
+        "_hide": true
+      }
+    },
+    {
       "item__weapSlots:array": {
         "slot": "special"
       }
@@ -173,19 +177,20 @@
     }
   ],
   "tnt_block_shell": {
-    "_extends": "projectile_with_shell",
+    "_use": "projectile_with_shell",
     "animchar__res": "satchel_charge_char",
     "shell__expl_node": "weaponRoot",
     "item__name": "items/tnt_block",
     "gun__statName": "tnt_block",
     "shell__infantryKillStat": "infantry_tnt_kills",
     "shell__crewKillStat": "crew_tnt_kills",
+    "shell__crewKillAward": "infantry_tnt_kills",
     "shell__vehicleKillStat": "vehicle_tnt_kills",
     "shell__killSoldierStat": "explosiveKills",
     "animchar_no_update:tag": []
   },
   "tnt_block_phys": {
-    "_extends": "explosion_pack_phys"
+    "_use": "explosion_pack_phys"
   },
   "tnt_block_activator": {
     "on_create__spawnActivatedShellBlk": "content/enlisted/gamedata/weapons/tnt_block.blk",
@@ -200,25 +205,25 @@
   },
   "base_tnt_block": [
     {
-      "_extends": "replicating"
+      "_use": "replicating"
     },
     {
-      "_extends": "item"
+      "_use": "item"
     },
     {
-      "_extends": "melee_weapon"
+      "_use": "melee_weapon"
     },
     {
-      "_extends": "placeable_item"
+      "_use": "placeable_item"
     },
     {
-      "_extends": "base_hitpoints"
+      "_use": "base_hitpoints"
     },
     {
-      "_extends": "base_dm_parts"
+      "_use": "base_dm_parts"
     },
     {
-      "_extends": "attachable_to_vehicle"
+      "_use": "attachable_to_vehicle"
     },
     {
       "animchar_render__enabled": true
@@ -228,12 +233,6 @@
     },
     {
       "collres__res": "tnt_charge_collision"
-    },
-    {
-      "grid_obj__gridType": "loot"
-    },
-    {
-      "grid_obj__fixedTmScale": -1.0
     },
     {
       "material": "steel"
@@ -308,6 +307,12 @@
       "placeable_item__additionalHeight": 0.012
     },
     {
+      "placeable_item__template": "lootable_placeable_item_in_world"
+    },
+    {
+      "attachable_to_vehicle__template": "attached_to_vehicle+lootable_placeable_item_in_world"
+    },
+    {
       "_replicated": "gun__owner"
     },
     {
@@ -315,9 +320,6 @@
     },
     {
       "collres": []
-    },
-    {
-      "grid_obj": []
     },
     {
       "killer:eid": []
@@ -395,21 +397,21 @@
     }
   ],
   "ussr_tnt_block": {
-    "_extends": "base_tnt_block",
+    "_use": "base_tnt_block",
     "animchar__res": "tnt_charge_ussr_char",
     "collres__res": "tnt_charge_ussr_collision",
     "item__proto": "ussr_tnt_block",
     "item__template": "ussr_tnt_block"
   },
   "ger_tnt_block": {
-    "_extends": "base_tnt_block",
+    "_use": "base_tnt_block",
     "animchar__res": "tnt_charge_char",
     "collres__res": "tnt_charge_collision",
     "item__proto": "ger_tnt_block",
     "item__template": "ger_tnt_block"
   },
   "usa_tnt_block": {
-    "_extends": "base_tnt_block",
+    "_use": "base_tnt_block",
     "animchar__res": "tnt_charge_usa_char",
     "collres__res": "tnt_charge_usa_collision",
     "item__proto": "usa_tnt_block",
@@ -417,21 +419,21 @@
     "placeable_item__additionalHeight": 0.01
   },
   "uk_tnt_block": {
-    "_extends": "base_tnt_block",
+    "_use": "base_tnt_block",
     "animchar__res": "tnt_charge_char",
     "collres__res": "tnt_charge_collision",
     "item__proto": "uk_tnt_block",
     "item__template": "uk_tnt_block"
   },
   "it_tnt_block": {
-    "_extends": "base_tnt_block",
+    "_use": "base_tnt_block",
     "animchar__res": "tnt_charge_char",
     "collres__res": "tnt_charge_collision",
     "item__proto": "it_tnt_block",
     "item__template": "it_tnt_block"
   },
   "jap_tnt_block": {
-    "_extends": "base_tnt_block",
+    "_use": "base_tnt_block",
     "animchar__res": "tnt_charge_jap_char",
     "collres__res": "tnt_charge_collision",
     "item__proto": "jap_tnt_block",

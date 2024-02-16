@@ -1,14 +1,14 @@
 require app
 require DagorSystem
 require ecs
-require EnlistedActor
-require EnlistedCamera
+require DngActor
+require DngCamera
 require game.es.camera_common
 require game.es.player_common
 require game.es.player_events
 require game.events_game
 require level
-require EnlistedNet
+require DngNet
 require player
 require strings
 require replay
@@ -90,4 +90,4 @@ def on_possess_hero_msg(evt : PossessHero; eid : EntityId)
     possessLocalPlayerIfLevelLoaded(eid)
   else
     unpossess_entity(eid)
-    emit_hero_changed_event(INVALID_ENTITY_ID) // for cases when new hero would not be recieved
+    emit_hero_changed_event(INVALID_ENTITY_ID) // for cases when new hero would not be received

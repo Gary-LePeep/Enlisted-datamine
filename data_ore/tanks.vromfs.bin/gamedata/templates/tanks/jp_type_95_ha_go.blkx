@@ -1,47 +1,16 @@
 {
-  "jp_type_95_ha_go_14th_inf_div_peleliu_pacific_battlepass_premium": {
-    "_extends": "jp_jp_type_95_ha_go_common_with_base",
-    "animchar__objTexReplace:object": {
-      "jp_camo_artillery_brown*": "jp_camo_late_brown_olive_yellow_lines*"
-    },
-    "animchar__objTexSet:object": {
-      "type_95_ha_go_turret_c*:object": {
-        "type_95_ha_go_14th_inf_div_peleliu_turret_c*": "camo_skin_tex"
-      }
-    },
-    "disableDMParts:list<t>": {
-      "part": "ex_smoke_01"
-    }
-  },
-  "jp_type_95_ha_go_siam_thailand_pacific_battlepass_premium": {
-    "_extends": "jp_jp_type_95_ha_go_common_with_base",
-    "animchar__objTexReplace:object": {
-      "jp_camo_artillery_brown*": "jp_camo_olive*"
-    },
-    "animchar__objTexSet:object": {
-      "type_95_ha_go_body_c*:object": {
-        "type_95_ha_go_siam_thailand_body_c*": "camo_skin_tex"
-      },
-      "type_95_ha_go_turret_c*:object": {
-        "type_95_ha_go_siam_thailand_turret_c*": "camo_skin_tex"
-      }
-    },
-    "disableDMParts:list<t>": {
-      "part": "ex_smoke_01"
-    }
-  },
   "jp_type_95_ha_go_pacific": {
-    "_extends": "jp_jp_type_95_ha_go_common_with_base",
+    "_use": "jp_jp_type_95_ha_go_common_with_base",
     "disableDMParts:list<t>": {
       "part": "ex_smoke_01"
     }
   },
   "jp_type_95_ha_go_commander_pacific_premium": [
     {
-      "_extends": "base_type_95_ha_go_commander"
+      "_use": "base_type_95_ha_go_commander"
     },
     {
-      "_extends": "jp_type_95_ha_go_common"
+      "_use": "jp_type_95_ha_go_common"
     },
     {
       "animchar__objTexReplace:object": {
@@ -51,21 +20,36 @@
   ],
   "jp_jp_type_95_ha_go_common_with_base": [
     {
-      "_extends": "base_type_95_ha_go"
+      "_use": "base_type_95_ha_go"
     },
     {
-      "_extends": "jp_type_95_ha_go_common"
+      "_use": "jp_type_95_ha_go_common"
     }
   ],
   "jp_type_95_ha_go_common": [
     {
-      "_extends": "tank_m10_engine_sound"
+      "_use": "tank_m10_engine_sound"
     },
     {
-      "_extends": "tank_light_vehicle_tracks_sound"
+      "_use": "tank_light_vehicle_tracks_sound"
     },
     {
-      "item__iconOffset": [0.0,0.0]
+      "item__iconOffset": [-0.05,0.05]
+    },
+    {
+      "item__iconScale": 1.2
+    },
+    {
+      "commanderCockpitFpsCamMaxAngle": [40.0,5.0]
+    },
+    {
+      "gunner_cam_limit__useCockpitDir": true
+    },
+    {
+      "armorThicknessHull": [12.0,12.0,10.0]
+    },
+    {
+      "armorThicknessTurret": [30.0,12.0,12.0]
     },
     {
       "vehicle_seats__seats:shared:array": [
@@ -169,7 +153,7 @@
     }
   ],
   "jp_type_95_ha_go_driver_cockpit": {
-    "_extends": "base_driver_cockpit_no_slits",
+    "_use": "base_driver_cockpit_no_slits",
     "animchar__res": "bt_7_driver_char",
     "cockpit__offset": [-0.0865046,-0.354197,0.00298843],
     "cockpit__visibleVehicleNodeNames:list<t>": [
@@ -203,8 +187,7 @@
     }
   },
   "jp_type_95_ha_go_gunner_cockpit": {
-    "vehicle_sight__blk": "gamedata/sight/jp_37mm_94.blk",
-    "_extends": "base_gunner_cockpit",
+    "_use": "base_gunner_cockpit",
     "animchar__res": "ba_11_gunner_char",
     "cockpit__offset": [-0.590791,-0.0570703,0.23677],
     "cockpit__visibleVehicleNodeNames:list<t>": {
@@ -214,7 +197,7 @@
       "slit": "cam_front_right"
     },
     "cockpit__slitForwardOffset:list<r>": {
-      "slit": 0.18
+      "slit": 0.21
     },
     "cockpit__slitIsGun:list<b>": {
       "slit": true
@@ -222,12 +205,29 @@
     "cockpit__attachNodeNames:list<t>": {
       "node": "bone_camera_gunner"
     },
-    "cockpit__attachNodeIndices:list<i>": []
+    "cockpit__attachNodeIndices:list<i>": [],
+    "cockpit__slitZoom:array": {
+      "slit:list<r>": [
+        {
+          "zoom": 1.9
+        },
+        {
+          "zoom": 3.5
+        }
+      ]
+    },
+    "cockpit__slitZoomTime:list<r>": {
+      "slit": 0.05
+    },
+    "cockpit__slitTemplates:list<t>": {
+      "slit": "jp_37mm_94"
+    },
+    "cockpit__slitEids:list<eid>": []
   },
   "jp_type_95_ha_go_machinegunner_cockpit": {
-    "_extends": "base_gunner_cockpit",
+    "_use": "base_gunner_cockpit",
     "animchar__res": "ba_11_machinegunner_char",
-    "cockpit__offset": [-0.0,-0.0,-0.0],
+    "cockpit__offset": [-0.35,-0.2,-0.195],
     "cockpit__visibleVehicleNodeNames:list<t>": {
       "node": "@root"
     },
@@ -235,7 +235,7 @@
       "slit": "cam_mg"
     },
     "cockpit__slitForwardOffset:list<r>": {
-      "slit": -0.07
+      "slit": 0.0
     },
     "cockpit__slitIsGun:list<b>": {
       "slit": true
@@ -243,6 +243,66 @@
     "cockpit__attachNodeNames:list<t>": {
       "node": "bone_mg_v_01"
     },
-    "cockpit__attachNodeIndices:list<i>": []
+    "cockpit__attachNodeIndices:list<i>": [],
+    "cockpit__slitZoom:array": {
+      "slit:list<r>": {
+        "zoom": 2.0
+      }
+    },
+    "cockpit__slitZoomTime:list<r>": {
+      "slit": 0.05
+    },
+    "cockpit__slitTemplates:list<t>": {
+      "slit": "cross"
+    },
+    "cockpit__slitEids:list<eid>": []
+  },
+  "jp_type_95_ha_go_14th_inf_div_peleliu_pacific_battlepass_premium": {
+    "_use": "jp_jp_type_95_ha_go_common_with_base",
+    "animchar__objTexReplace:object": {
+      "jp_camo_artillery_brown*": "jp_camo_late_brown_olive_yellow_lines*"
+    },
+    "animchar__objTexSet:object": {
+      "type_95_ha_go_turret_c*:object": {
+        "type_95_ha_go_14th_inf_div_peleliu_turret_c*": "camo_skin_tex"
+      }
+    },
+    "disableDMParts:list<t>": {
+      "part": "ex_smoke_01"
+    }
+  },
+  "jp_type_95_ha_go_siam_thailand_pacific_battlepass_premium": {
+    "_use": "jp_jp_type_95_ha_go_common_with_base",
+    "animchar__objTexReplace:object": {
+      "jp_camo_artillery_brown*": "jp_camo_olive*"
+    },
+    "animchar__objTexSet:object": {
+      "type_95_ha_go_body_c*:object": {
+        "type_95_ha_go_siam_thailand_body_c*": "camo_skin_tex"
+      },
+      "type_95_ha_go_turret_c*:object": {
+        "type_95_ha_go_siam_thailand_turret_c*": "camo_skin_tex"
+      }
+    },
+    "disableDMParts:list<t>": {
+      "part": "ex_smoke_01"
+    }
+  },
+  "jp_type_95_ha_go_5th_sensha_pacific_battlepass_premium": {
+    "_use": "jp_jp_type_95_ha_go_common_with_base",
+    "animchar__objTexReplace:object": {
+      "jp_camo_artillery_brown*": "jp_camo_olive*"
+    },
+    "animchar__objTexSet:object": {
+      "type_95_ha_go_body_c*:object": {
+        "type_95_ha_go_5th_sensha_body_c*": "camo_skin_tex"
+      },
+      "type_95_ha_go_turret_c*:object": {
+        "type_95_ha_go_5th_sensha_turret_c*": "camo_skin_tex"
+      }
+    },
+    "disableDMParts:list<t>": {
+      "part": "ex_smoke_01"
+    }
   }
 }

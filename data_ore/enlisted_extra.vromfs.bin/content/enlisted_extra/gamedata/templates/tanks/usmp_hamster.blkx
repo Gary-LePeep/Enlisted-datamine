@@ -1,10 +1,10 @@
 {
   "usmp_hamster": [
     {
-      "_extends": "us_t54e1"
+      "_use": "us_t54e1"
     },
     {
-      "_extends": "moon_event_fx"
+      "_use": "moon_event_fx"
     },
     {
       "item__name": "items/usmp_hamster"
@@ -29,7 +29,7 @@
     }
   ],
   "us_t54e1": {
-    "_extends": "base_t54e1",
+    "_use": "base_t54e1",
     "bullet_holes__ignoreCollisionNodes:array": {
       "_tags": "render"
     },
@@ -180,9 +180,9 @@
     }
   },
   "us_t54e1_commander_cockpit": {
-    "_extends": "base_commander_cockpit_no_slits",
+    "_use": "base_commander_cockpit_no_slits",
     "animchar__res": "pzkpfw_iii_b_commander_char",
-    "cockpit__minZoom": -0.05,
+    "cockpit__minForwardOffset": -0.05,
     "cockpit__offset": [-2.37704,0.573652,-0.61302],
     "cockpit__cockpitOffsetBySlit:list<p3>": [
       {
@@ -295,10 +295,10 @@
     "cockpit__attachNodeIndices:list<i>": []
   },
   "us_t54e1_driver_cockpit": {
-    "_extends": "base_driver_cockpit",
+    "_use": "base_driver_cockpit",
     "animchar__res": "ba_11_driver_char",
     "cockpit__offset": [-0.3,-0.26,0.23],
-    "cockpit__minZoom": -0.0,
+    "cockpit__minForwardOffset": -0.0,
     "cockpit__visibleVehicleNodeNames:list<t>": {
       "node": "gun_barrel"
     },
@@ -307,7 +307,7 @@
     }
   },
   "us_t54e1_gunner_cockpit": {
-    "_extends": "base_gunner_cockpit",
+    "_use": "base_gunner_cockpit",
     "animchar__res": "ba_11_gunner_char",
     "cockpit__offset": [0.353981,-0.289382,-0.0467697],
     "cockpit__visibleVehicleNodeNames:list<t>": [

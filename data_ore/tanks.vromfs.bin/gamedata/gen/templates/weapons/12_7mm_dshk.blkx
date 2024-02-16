@@ -19,29 +19,25 @@
         {
           "shell:object": {
             "blk": "gamedata/gen/weapons/shells/12_7mm_dshk_defaultset_bullet_1.blk",
-            "name": "ap_i_t_ball_bzt_44",
             "type": "ap_i_t_ball"
           }
         },
         {
           "shell:object": {
             "blk": "gamedata/gen/weapons/shells/12_7mm_dshk_defaultset_bullet_2.blk",
-            "name": "i_ball_mdz",
             "type": "he_i_ball"
           }
         },
         {
           "shell:object": {
             "blk": "gamedata/gen/weapons/shells/12_7mm_dshk_defaultset_bullet_3.blk",
-            "name": "ap_i_t_ball_bzt_44",
             "type": "ap_i_t_ball"
           }
         },
         {
           "shell:object": {
             "blk": "gamedata/gen/weapons/shells/12_7mm_dshk_defaultset_bullet_4.blk",
-            "name": "apcr_i_ball_bs41",
-            "type": "apcr_i_ball"
+            "type": "apcr_i_ball_bs41"
           }
         }
       ]
@@ -49,16 +45,16 @@
   },
   "tankgun_12_7mm_dshk": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_tankgun_machinegun"
+      "_use": "base_tankgun_machinegun"
     },
     {
-      "_extends": "base_12_7mm_dshk"
+      "_use": "base_12_7mm_dshk"
     },
     {
-      "_extends": "gunsound_12_7mm_dshk"
+      "_use": "gunsound_12_7mm_dshk"
     },
     {
       "turret__triggerGroup": 2

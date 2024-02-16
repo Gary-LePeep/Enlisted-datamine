@@ -1,39 +1,51 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { sub_txt, fontawesome } = require("%enlSqGlob/ui/fonts_style.nut")
-let fa = require("%ui/components/fontawesome.map.nut")
+let faComp = require("%ui/components/faComp.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { spawnNotReadyColor, multySquadPanelSize } = require("%enlSqGlob/ui/viewConst.nut")
 let {
-  smallPadding, activeBgColor, hoverBgColor, defBgColor, selectedTxtColor,
-  defTxtColor, spawnNotReadyColor, multySquadPanelSize, blinkingSignalsGreenDark
-} = require("%enlSqGlob/ui/viewConst.nut")
-let { mkHintRow } = require("%ui/components/uiHotkeysHint.nut")
+  miniPadding, smallPadding, midPadding, darkTxtColor, defTxtColor,
+  squadSlotBgIdleColor, squadSlotBgHoverColor, squadSlotBgActiveColor,
+  squadSlotBgAlertColor, levelNestGradient
+} = require("%enlSqGlob/ui/designConst.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
 let { soldierKinds } = require("%enlSqGlob/ui/soldierClasses.nut")
+let { getLinkedArmyName } = require("%enlSqGlob/ui/metalink.nut")
+let armiesPresentation = require("%enlSqGlob/ui/armiesPresentation.nut")
+let squadsPresentation = require("%enlSqGlob/ui/squadsPresentation.nut")
+let { mkBattleRatingShort } = require("%enlSqGlob/ui/battleRatingPkg.nut")
 
-let txtColor = @(flags, selected = false)
-  selected || (flags & S_HOVER) ? selectedTxtColor : defTxtColor
+let txtColor = @(flags, _selected=false)
+  flags & S_HOVER ? darkTxtColor : defTxtColor
 
-const ICON_SCALE = 0.85
+const ICON_SCALE = 0.65
 const defaultSquadIcon = "!ui/uiskin/squad_default.svg"
 
-let squadTypeIconSize = hdpxi(30)
+let squadTypeIconSize = hdpxi(24)
 let premIconSize = hdpxi(26)
+
+let isSquadPremium = @(squad) squad?.premIcon != null
+  || (squad?.premSquadExpBonus ?? 0) > 0
+  || (squad?.battleExpBonus ?? 0) > 0
 
 let squadTypeSvg = soldierKinds.map(@(c) c.icon)
   .__update({
       tank = "tank_icon.svg"
       aircraft = "aircraft_icon.svg"
+      assault_aircraft = "assault_aircraft_icon.svg"
       bike = "bike_icon.svg"
+      mech = "mech_icon.svg"
+      truck = "truck_icon.svg"
     })
   .map(@(key) $"ui/skin#{key}")
 
-let getSquadTypeIcon = @(squadType) squadTypeSvg?[squadType] ?? "ui/skin#rifle.svg"
+let getSquadTypeIcon = @(squadType) squadTypeSvg?[squadType] ?? squadTypeSvg.unknown
 
 let mkText = @(text) {
   rendObj = ROBJ_TEXT
   text
   color = defTxtColor
-}.__update(sub_txt)
+}.__update(fontSub)
 
 let mkTextArea = @(text) mkText(text).__update({
   rendObj = ROBJ_TEXTAREA
@@ -42,31 +54,19 @@ let mkTextArea = @(text) mkText(text).__update({
   maxWidth = pw(80)
 })
 
-let mkKeyboardHint = @(keyBordKey, postKeyTxt = null){
-  size = [flex(), SIZE_TO_CONTENT]
-  hplace = ALIGN_CENTER
-  halign = ALIGN_CENTER
-  flow = FLOW_HORIZONTAL
-  gap = hdpx(2)
-  children = [
-    mkHintRow(keyBordKey)
-    {
-      rendObj = ROBJ_TEXT
-      text = postKeyTxt
-    }
-  ]
-}
 
-let function mkSquadSpawnDesc(canSpawnSquad, readiness, canSpawnSoldier = true) {
+let function mkSquadSpawnDesc(canSpawnSquad, readiness, canSpawnSoldier, isAffordable, price, score) {
   if (canSpawnSquad == null || readiness == null)
     return mkTextArea(loc("respawn/squadNotChoosen"))
 
-  let descKeyId = !canSpawnSquad && readiness == 100 ? "respawn/squadNotParticipate"
+  let descKeyId = !canSpawnSquad && readiness == 100 && price <= 0 ? "respawn/squadNotParticipate"
+    : price > 0 && !isAffordable ? "respawn/notAffordableSubtext"
     : !canSpawnSquad ? "respawn/squadNotReady"
     : !canSpawnSoldier ? "respawn/soldierNotReady"
-    : readiness == 100 ? "respawn/squadReady"
-    : "respawn/squadPartiallyReady"
-  return mkTextArea(loc(descKeyId, { number = readiness }))
+    : readiness < 100 ? "respawn/squadPartiallyReady"
+    : price > 0 ? "respawn/squadReadyWithCost"
+    : null
+  return descKeyId == null ? null : mkTextArea(loc(descKeyId, { number = readiness, price, score }))
 }
 
 let mkSquadSpawnIcon = @(size = hdpxi(20))
@@ -100,138 +100,206 @@ local function mkSquadIcon(img, override = {}) {
   }.__update(override)
 }
 
-let squadBgColor = @(flags, selected, hasAlertStyle = false)
-  selected ? activeBgColor
-    : flags & S_HOVER ? hoverBgColor
-    : hasAlertStyle ? Color(30,0,0,150) : defBgColor
+let squadBgColor = @(sf, selected, hasAlertStyle = false)
+  sf & S_HOVER ? squadSlotBgHoverColor
+    : selected ? squadSlotBgActiveColor
+    : hasAlertStyle ? squadSlotBgAlertColor
+    : squadSlotBgIdleColor
 
 
-let blockActiveBgColor = mul_color(activeBgColor, 0.5)
-let blockHoverBgColor = mul_color(hoverBgColor, 0.5)
-let squadBlockBgColor = @(flags, isSelected)
-  isSelected ? blockActiveBgColor
-    : flags & S_HOVER ? blockHoverBgColor
-    : defBgColor
-
-let mkCardText = @(t, sf, selected) txt({
-  text = t
-  color = txtColor(sf, selected)
-})
-
-let mkSquadTypeIcon = @(squadType, sf, selected, iconSize = squadTypeIconSize) {
-  padding = [0, smallPadding]
-  children = {
-    size = [iconSize, iconSize]
-    rendObj = ROBJ_IMAGE
-    image = Picture("{0}:{1}:{1}:K".subst(getSquadTypeIcon(squadType), iconSize))
-    keepAspect = KEEP_ASPECT_FIT
-    color = txtColor(sf, selected)
-  }
+let mkCardText = @(text, sf) {
+  rendObj = ROBJ_TEXT
+  behavior = Behaviors.Marquee
+  scrollOnHover = true
+  text
+  color = txtColor(sf)
 }
 
-let mkActiveBlock = @(sf, selected, content) {
-  rendObj = ROBJ_SOLID
+let squadTypeIcon = @(squadType, iconSize = squadTypeIconSize, override = {}) {
+  size = [iconSize, iconSize]
+  rendObj = ROBJ_IMAGE
+  image = Picture("{0}:{1}:{1}:K".subst(getSquadTypeIcon(squadType), iconSize))
+  keepAspect = KEEP_ASPECT_FIT
+}.__update(override)
+
+let mkSquadTypeIcon = @(squadType, sf, _selected, iconSize = squadTypeIconSize) {
+  padding = [0, smallPadding]
+  children = squadTypeIcon(squadType, iconSize, { color = txtColor(sf) })
+}
+
+
+let typeCircleSize = hdpx(34)
+let mkSquadType = @(squadType) {
+  size = [typeCircleSize, typeCircleSize]
+  halign = ALIGN_CENTER
+  valign = ALIGN_CENTER
+  rendObj = ROBJ_VECTOR_CANVAS
+  commands = [[ VECTOR_ELLIPSE, 50, 50, 50, 50 ]]
+  fillColor = 0xFF000000
+  color = 0xFF000000
+  children = mkSquadTypeIcon(squadType, 0, false)
+}
+
+
+let mkSquadUnits = @(amount, sf) (amount ?? 0) == 0 ? null : {
   size = SIZE_TO_CONTENT
   flow = FLOW_HORIZONTAL
-  color = squadBlockBgColor(sf, selected)
-  children = content
-}
-
-let mkSquadUnits = @(amount, squadType, sf, selected, addedRightObj, mkChild = null) {
-  size = flex()
+  gap = miniPadding
+  margin = miniPadding
+  valign = ALIGN_CENTER
   children = [
-    addedRightObj
-    mkChild?(sf, selected)
-    mkActiveBlock(sf, selected, mkSquadTypeIcon(squadType, sf, selected))
-      .__update({
-        hplace = ALIGN_LEFT
-        vplace = ALIGN_BOTTOM
-      })
-    mkActiveBlock(sf, selected,
-      [
-        mkCardText(amount, sf, selected)
-        mkCardText(fa["user-o"], sf, selected).__update({
-          rendObj = ROBJ_INSCRIPTION
-          font = fontawesome.font
-          fontSize = hdpx(12)
-        })
-      ]).__update({
-        padding = smallPadding
-        gap = hdpx(3)
-        hplace = ALIGN_RIGHT
-        vplace = ALIGN_BOTTOM
-        valign = ALIGN_CENTER
-      })
+    txt({ text = amount, color = txtColor(sf) })
+    faComp("user", { fontSize = hdpx(12), color = txtColor(sf) })
   ]
 }
 
-let mkSquadLevel = @(level, sf, selected) level == null ? null
-  : mkActiveBlock(sf, selected,
-      mkCardText(loc("level/short", { level = level + 1 }), sf, selected)
-        .__update({ margin = smallPadding }))
-
-let mkSquadPremIcon = @(premIcon, override = null) premIcon == null ? null : {
-  rendObj = ROBJ_IMAGE
-  size = [premIconSize, premIconSize]
-  keepAspect = KEEP_ASPECT_FIT
-  image = Picture($"{premIcon}:{premIconSize}:{premIconSize}:K")
-}.__update(override ?? {})
+let mkUnlockLevel = @(unlockLevel, sf) (unlockLevel ?? 0) == 0 ? null
+  : {
+      flow = FLOW_HORIZONTAL
+      gap = miniPadding
+      children = [
+        faComp("lock", { fontSize = fontSub.fontSize, color = txtColor(sf) })
+        txt({ text = loc("level/short", { level = unlockLevel }), color = txtColor(sf) })
+      ]
+    }
 
 
 let timerIcon = "ui/skin#/battlepass/boost_time.svg"
 let timerSize = hdpxi(18)
 
-let squadTimer = {
+let mkSquadTimer = @(sf) {
   rendObj = ROBJ_IMAGE
   size = [timerSize, timerSize]
   margin = smallPadding
   image = Picture($"{timerIcon}:{timerSize}:{timerSize}:K")
-  color = blinkingSignalsGreenDark
+  color = txtColor(sf)
 }
+
+let borderThickness = hdpxi(3)
+let mkSquadLevel = @(battleRating, level, expireTime, sf, addChild) {
+  size = [flex(), SIZE_TO_CONTENT]
+  valign = ALIGN_CENTER
+  margin = [0,0,borderThickness,0]
+  children = [
+    {
+      padding = [miniPadding, midPadding]
+      children = addChild
+    }
+    {
+      size = [flex(), SIZE_TO_CONTENT]
+      flow = FLOW_HORIZONTAL
+      gap = miniPadding
+      padding = [miniPadding, midPadding]
+      vplace = ALIGN_BOTTOM
+      valign = ALIGN_CENTER
+      halign = ALIGN_RIGHT
+      rendObj = ROBJ_IMAGE
+      image = levelNestGradient
+      children = [
+        expireTime == 0 ? null : mkSquadTimer(sf)
+        level == null ? null
+          : battleRating != null ? null
+          : mkCardText(loc("level/short", { level = level + 1 }), sf).__update({
+              hplace = ALIGN_RIGHT
+            })
+        battleRating == null ? null : mkBattleRatingShort(battleRating)
+      ]
+    }
+  ]
+}
+
+
+let function mkSquadPremIcon(premIcon, override = null) {
+  if (premIcon == null)
+    return null
+
+  let [ iconW = premIconSize, iconH = premIconSize ] = override?.size
+  return (override ?? {}).__merge({
+    rendObj = ROBJ_IMAGE
+    size = [iconW, iconH]
+    keepAspect = KEEP_ASPECT_FIT
+    image = Picture($"{premIcon}:{iconW}:{iconH}:K")
+  })
+}
+
+let function mkSquadSpecIconFields(armyId, squad, isPremium = false, override = null) {
+  local { squadId = null, premIcon = null } = squad
+  if (isPremium && premIcon == null)
+    premIcon = squadsPresentation?[armyId][squadId] ?? armiesPresentation?[armyId].premIcon
+  if (premIcon == null)
+    return null
+
+  return mkSquadPremIcon(premIcon, override)
+}
+
+let function mkSquadSpecIcon(squad, override = null) {
+  let armyId = getLinkedArmyName(squad)
+  let isPremium = isSquadPremium(squad)
+  return mkSquadSpecIconFields(armyId, squad, isPremium, override)
+}
+
 
 let mkSquadCard = kwarg(function (idx, isSelected, addChild = null, icon = "",
   squadType = null, squadSize = null, level = null, isFaded = false,
   premIcon = null, onClick = null, addedRightObj = null, mkChild = null,
-  expireTime = 0
+  expireTime = 0, onDoubleClick = null, onHover = null, squadCardSize = null,
+  unlockLevel = null, battleRating = null
 ) {
   let stateFlags = Watched(0)
-  let selected = isSelected.value
   icon = (icon ?? "").len() > 0 ? icon : defaultSquadIcon
+  let size = squadCardSize ?? multySquadPanelSize
 
   return function() {
     let sf = stateFlags.value
-    let topRightChilds = expireTime == 0 ? addChild
-      : {
-          flow = FLOW_HORIZONTAL
-          hplace = ALIGN_RIGHT
-          children = [
-            addChild
-            squadTimer
-          ]
-        }
+    let selected = isSelected.value
 
     return {
-      rendObj = ROBJ_SOLID
-      size = multySquadPanelSize
-      color = squadBgColor(sf, selected)
-      key = $"squad{idx}"
-      behavior = Behaviors.Button
+      watch = [stateFlags, isSelected]
+      key = idx
+      size
+      borderWidth = selected ? [0,0,borderThickness,0] : 0
+      rendObj = ROBJ_BOX
+      fillColor = squadBgColor(sf, selected)
+      behavior = onClick == null ? null : Behaviors.Button
+      sound = {
+        hover = "ui/enlist/button_highlight"
+        click = "ui/enlist/button_click"
+        active = "ui/enlist/button_action"
+      }
       xmbNode = XmbNode()
       opacity = isFaded ? 0.7 : 1.0
       onElemState = @(nsf) stateFlags(nsf)
-      onClick = onClick
-      watch = stateFlags
+      onHover
+      onClick
+      onDoubleClick
       children = [
         mkSquadIcon(icon, {
-          size = multySquadPanelSize.map(@(val) val * ICON_SCALE)
-          hplace = ALIGN_CENTER
+          size = array(2, size[1] * ICON_SCALE)
+          margin = [0, midPadding]
           vplace = ALIGN_CENTER
         })
-        mkSquadUnits(squadSize, squadType, sf, selected, addedRightObj, mkChild)
-        premIcon != null
-          ? mkSquadPremIcon(premIcon, { margin = [0, hdpx(6)] })
-          : mkSquadLevel(level, sf, selected)
-      ].append(topRightChilds)
+        {
+          size = [flex(), SIZE_TO_CONTENT]
+          vplace = ALIGN_BOTTOM
+          children = mkSquadLevel(battleRating,
+            premIcon == null ? level : null, expireTime, sf, addChild)
+        }
+        premIcon == null ? null : mkSquadPremIcon(premIcon)
+        {
+          flow = FLOW_VERTICAL
+          gap = smallPadding
+          margin = [smallPadding, midPadding]
+          hplace = ALIGN_RIGHT
+          halign = ALIGN_RIGHT
+          children = [
+            mkSquadType(squadType)
+            addedRightObj
+              ?? mkChild?(sf)
+              ?? mkSquadUnits(squadSize, sf)
+              ?? mkUnlockLevel(unlockLevel, sf)
+          ]
+        }
+      ]
     }
   }
 })
@@ -239,14 +307,16 @@ let mkSquadCard = kwarg(function (idx, isSelected, addChild = null, icon = "",
 
 return {
   txtColor
+  isSquadPremium
   mkSquadCard
-  mkKeyboardHint
   mkSquadIcon
+  squadTypeIcon
   mkSquadTypeIcon
   mkSquadPremIcon
+  mkSquadSpecIconFields
+  mkSquadSpecIcon
   squadBgColor
   mkCardText
-  mkActiveBlock
   mkSquadSpawnIcon
   mkSquadSpawnDesc
 }

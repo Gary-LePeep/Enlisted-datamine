@@ -110,8 +110,8 @@ let function join(session_id, invitation_id, on_success) {
       })
     }
 
-    psn.send(psn.session.join(session_id), function(_resp, err) {
-      if (err) {
+    psn.send(psn.session.join(session_id), function(_resp, curErr) {
+      if (curErr) {
         log("[PSNSESSION] Failed to join session by invitation")
         return
       }

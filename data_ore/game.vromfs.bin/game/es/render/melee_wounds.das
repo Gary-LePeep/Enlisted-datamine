@@ -2,8 +2,9 @@ require ecs
 require app
 require enlisted.events_enlisted
 require Grid
-require EnlistedWounds
+require DngWounds
 require PhysDecl
+require Dacoll
 require AnimV20
 require ecs.common
 require math.base
@@ -13,7 +14,8 @@ require GridCollision
 require CollisionTraces
 require danetlibs.native_dasevents.main.native_events
 require common_shooter.events_common_shooter
-require EnlistedDm
+require common_shooter.es.hit_result_common
+require DngDm
 
 def apply_melee_wounds(owner : EntityId; attach_eid : EntityId; break_param : int)
   query(attach_eid) <| $ [es] (var broken_bones_nodes : BrokenBonesNodes)
@@ -37,9 +39,13 @@ def hero_melee_wounds_apply_es(evt : EventOnEntityHit;
     if melee_wounds__boneBreakOwner == evt.victim
       apply_melee_wounds(melee_wounds__boneBreakOwner, melee_wounds__boneBreakEid, melee_wounds__boneBreakParam)
       query(melee_wounds__boneBreakOwner) <| $ [es(REQUIRE=deadEntity)] (var animchar__updatable : bool&;
+                                                                         animchar : AnimcharBaseComponent;
                                                                          var ragdoll : PhysRagdoll)
         animchar__updatable = true
-        ragdoll |> ragdoll_wakeUp()
+        if ! ragdoll |> ragdoll_wakeUp()
+          ragdoll |> ragdoll_startRagdoll(int(PhysLayer EPL_CHARACTER),
+                                          int(PhysLayer EPL_ALL & (~(PhysLayer EPL_KINEMATIC | PhysLayer EPL_CHARACTER))),
+                                          animchar.nodeTree)
 
     else
       melee_wounds__boneBreakLatencyTarget = evt.victim

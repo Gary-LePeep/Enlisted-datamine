@@ -1,32 +1,30 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let msgbox = require("%ui/components/msgbox.nut")
-let mkVehicleSeats = require("%enlSqGlob/squad_vehicle_seats.nut")
+let JB = require("%ui/control/gui_buttons.nut")
+let { showMsgbox } = require("%enlist/components/msgbox.nut")
 let {
-  getLinksByType, getObjectsByLink, getLinkedArmyName
+  getFirstLinkByType, getObjectsByLink, getLinkedArmyName
 } = require("%enlSqGlob/ui/metalink.nut")
-let { itemsByArmies, armies, vehDecorators } = require("%enlist/meta/profile.nut")
-let {
-  squadsByArmy, setVehicleToSquad, objInfoByGuid, curVehicle
-} = require("%enlist/soldiers/model/state.nut")
-let {
-  prepareItems, addShopItems, findItemByGuid, putToStackTop
-} = require("%enlist/soldiers/model/items_list_lib.nut")
+let { itemsByArmies } = require("%enlist/meta/profile.nut")
+let { curArmy, squadsByArmy, vehicleBySquad } = require("%enlist/soldiers/model/state.nut")
+let { addShopItems, findItemByGuid } = require("%enlist/soldiers/model/items_list_lib.nut")
 let allowedVehicles = require("allowedVehicles.nut")
 let { squadsCfgById } = require("%enlist/soldiers/model/config/squadsConfig.nut")
-let { armiesRewards } = require("%enlist/campaigns/armiesConfig.nut")
 let { trimUpgradeSuffix } = require("%enlSqGlob/ui/itemsInfo.nut")
-let { curSection } = require("%enlist/mainMenu/sectionsState.nut")
-let { transfer_item } = require("%enlist/meta/clientApi.nut")
+let { curSection, jumpToArmyGrowth } = require("%enlist/mainMenu/sectionsState.nut")
+let { transfer_item, set_vehicle_to_squad } = require("%enlist/meta/clientApi.nut")
+let { curGrowthByItem} = require("%enlist/growth/growthState.nut")
+let { itemToShopItem } = require("%enlist/soldiers/model/cratesContent.nut")
+let { curArmyItemsPrefiltered } = require("%enlist/shop/armyShopState.nut")
+let { isChangesBlocked, showBlockedChangesMessage } = require("%enlist/quickMatchQueue.nut")
+let { updateBROnVehicleChange } = require("%enlist/soldiers/armySquadTier.nut")
 
-
-let AVAILABLE_AT_CAMPAIGN      = 0x01
-let CAN_RECEIVE_BY_ARMY_LEVEL  = 0x02
-let CAN_PURCHASE               = 0x04
-let NEED_LEVEL_TO_PURCHASE     = 0x08
+let CAN_USE                    = 0
+let AVAILABLE_IN_GROWTH        = 0x01
+let CAN_PURCHASE               = 0x02
+let IS_BUSY_BY_SQUAD           = 0x04
 let LOCKED                     = 0x10
 let CANT_USE                   = 0x20 //never can use for this squad
-let CAN_USE                    = 0
 
 let viewVehicle = mkWatched(persist, "viewVehicle")
 let selectVehParams = mkWatched(persist, "selectVehParams", {})
@@ -44,7 +42,6 @@ let curSquad = Computed(function() {
 })
 
 let curSquadArmy = Computed(@() curSquad.value == null ? null : getLinkedArmyName(curSquad.value))
-let curSquadArmyLevel = Computed(@() armies.value?[curSquadArmy.value].level ?? 0)
 
 let curVehicleType = Computed(function() {
   let { armyId = null, squadId = null } = selectVehParams.value
@@ -54,63 +51,75 @@ let curVehicleType = Computed(function() {
   return squadsCfgById.value?[armyId][squadId].vehicleType
 })
 
-let getVehicleSquad = @(vehicle) getLinksByType(vehicle, "curVehicle")?[0]
+let getVehicleSquad = @(vehicle) getFirstLinkByType(vehicle, "curVehicle")
 let findSelVehicle = @(vehicleList, squadGuid) getObjectsByLink(vehicleList, squadGuid, "curVehicle")?[0].guid
 
-let function calcVehicleStatus(vehicle, curSquadAllowedVehicles, armyRewards, armyLevel) {
-  let { basetpl, unlocklevel = -1 } = vehicle
-  let trimmed = trimUpgradeSuffix(vehicle.basetpl)
-  let isAllowed = trimmed in curSquadAllowedVehicles
-  let rewards = armyRewards?[basetpl] ?? []
-  let levelLimit = rewards.findvalue(@(level) level > armyLevel) ?? -1
-  let levelCampaign = rewards?[0] ?? -1
+let function calcVehicleStatus(vehicle, vehicles, growthByItem, itemLinks, shopItems, vehByOwner) {
+  let { basetpl } = vehicle
+  let trimmed = trimUpgradeSuffix(basetpl)
+  let isAllowed = trimmed in vehicles
+  let growthId = growthByItem?[trimmed]
+  let shopItemId = (itemLinks?[basetpl] ?? [])
+    .findvalue(@(id) id in shopItems)
 
   local flags = CAN_USE
   if (!isAllowed)
     flags = flags | CANT_USE
-  if (vehicle?.isShopItem) {
+  else if (vehicle?.isShopItem) {
     flags = flags | LOCKED
-    if (levelCampaign > 0)
-      flags = flags | AVAILABLE_AT_CAMPAIGN
-    if (levelLimit > 0)
-      flags = flags | CAN_RECEIVE_BY_ARMY_LEVEL
-    if (unlocklevel >= 0)
-      flags = flags | (armyLevel >= unlocklevel ? CAN_PURCHASE : NEED_LEVEL_TO_PURCHASE)
+    if (basetpl in vehByOwner)
+      flags = flags | IS_BUSY_BY_SQUAD
+    else if (growthId != null)
+      flags = flags | AVAILABLE_IN_GROWTH
+    else if (shopItemId != null)
+      flags = flags | CAN_PURCHASE
   }
 
   let res = { flags }
+  if (flags == CAN_USE)
+    res.__update({
+      canUse = true
+      statusText = loc("squad/vehicles")
+    })
   if (flags & CANT_USE)
-    res.statusText <- loc("hint/notAllowedForCurSquad")
+    res.__update({
+      isHiddenInGroup = true
+      statusText = loc("hint/notAllowedForCurSquad")
+    })
+  else if (flags & AVAILABLE_IN_GROWTH)
+    res.__update({
+      growthId
+      statusText = loc("itemDemandsHeader/canObtainInGrowth")
+    })
   else if (flags & CAN_PURCHASE)
-    res.statusText <- loc("itemDemandsHeader/canObtainInShop_yes")
-  else if (flags & NEED_LEVEL_TO_PURCHASE)
     res.__update({
-      levelLimit = unlocklevel
-      statusText = loc("vehicleObtainInShopAtLevel", { level = unlocklevel })
-      statusTextShort = loc("itemDemandsHeader/canObtainInShop_yes")
+      shopItemId // TODO: Need to jump to item in shop section
+      statusText = loc("itemDemandsHeader/canObtainInShop_yes")
     })
-  else if (flags & CAN_RECEIVE_BY_ARMY_LEVEL)
+  else if (flags & IS_BUSY_BY_SQUAD)
     res.__update({
-      levelLimit
-      statusText = loc("hint/receiveVehicleByCampaignRewards", { level = levelLimit })
-      statusTextShort = loc($"itemDemandsHeader/levelLimit", { levelLimit })
-    })
-  else if (flags & AVAILABLE_AT_CAMPAIGN)
-    res.__update({
-      levelLimit = levelCampaign
-      statusText = loc("hint/receiveVehicleByCampaignRewards", { level = levelCampaign })
-      statusTextShort = loc($"itemDemandsHeader/canObtainInCampaign")
+      owners = vehByOwner[basetpl]
+      statusText = loc("itemDemandsHeader/busyBySquad")
     })
   else if (flags & LOCKED)
     res.statusText <- loc("hint/unknowVehicleReceive")
+
   return res
 }
 
-let vehicleSort = @(vehicles, curVehicle)
-  vehicles.sort(@(a, b) (b == curVehicle) <=> (a == curVehicle)
+let vehicleSort = @(vehicles, curVeh)
+  vehicles.sort(@(a, b) (b == curVeh) <=> (a == curVeh)
     || (a?.status.flags ?? 0) <=> (b?.status.flags ?? 0)
     || (a?.tier ?? 0) <=> (b?.tier ?? 0)
-    || a.basetpl <=> b.basetpl)
+    || a.basetpl <=> b.basetpl
+    || (a?.guid ?? "") <=> (b?.guid ?? ""))
+
+
+let curArmyVehicles = Computed(function() {
+  let armyId = curArmy.value
+  return (itemsByArmies.value?[armyId] ?? {}).filter(@(i) i?.itemtype == "vehicle")
+})
+
 
 let vehicles = Computed(function() {
   local res = []
@@ -120,33 +129,35 @@ let vehicles = Computed(function() {
     return res
 
   let armyId = getLinkedArmyName(curSquad.value)
-  let items = itemsByArmies.value?[armyId] ?? {}
-  foreach (item in items) {
-    if (item?.itemtype != "vehicle"
-        || item?.itemsubtype != vehicleType
-        || armyId != getLinkedArmyName(item))
+  let curVehicles = curArmyVehicles.value
+  let vehByOwner = {}
+  foreach (item in curVehicles) {
+    if (item?.itemsubtype != vehicleType)
       continue
+
+    let tpl = trimUpgradeSuffix(item.basetpl)
     let ownerGuid = getVehicleSquad(item)
-    if (!ownerGuid || ownerGuid == squadGuid)
+    if (ownerGuid == null || ownerGuid == squadGuid)
       res.append(item)
+    if (ownerGuid != null)
+      vehByOwner[tpl] <- (vehByOwner?[tpl] ?? []).append(ownerGuid)
   }
 
   let selectedGuid = findSelVehicle(res, squadGuid)
-  res = prepareItems(res, objInfoByGuid.value)
-  let haveTmpls = res.reduce(@(tbl, v)
-    tbl.__merge({ [trimUpgradeSuffix(v.basetpl)] = true }), {})
-  if (selectedGuid != null)
-    putToStackTop(res, items?[selectedGuid])
-  addShopItems(res, armyId, @(tplId, tpl) tpl?.itemtype == "vehicle"
-    && tpl?.itemsubtype == vehicleType
+  let haveTmpls = res.reduce(@(r, v) r.rawset(trimUpgradeSuffix(v.basetpl), true), {})
+  let filterFunc = @(tplId, tpl) tpl?.itemtype == "vehicle"
+    && (tpl?.itemsubtype ?? "") == vehicleType
     && (tpl?.upgradeIdx ?? 0) == 0
-    && trimUpgradeSuffix(tplId) not in haveTmpls)
+    && trimUpgradeSuffix(tplId) not in haveTmpls
 
-  let curSquadAllowedVehicles = allowedVehicles.value?[armyId][curSquad.value?.squadId] ?? {}
-  let armyRewards = armiesRewards.value?[armyId]
-  let armyLevel = curSquadArmyLevel.value
+  addShopItems(res, armyId, filterFunc)
+
+  let allowed = allowedVehicles.value?[armyId][curSquad.value?.squadId] ?? {}
+  let growthByItem = curGrowthByItem.value
+  let itemLinks = itemToShopItem.value?[armyId] ?? {}
+  let shopItems = curArmyItemsPrefiltered.value
   res = res.map(@(vehicle) vehicle.__merge({
-    status = calcVehicleStatus(vehicle, curSquadAllowedVehicles, armyRewards, armyLevel)
+    status = calcVehicleStatus(vehicle, allowed, growthByItem, itemLinks, shopItems, vehByOwner)
   }))
   vehicleSort(res, res.findvalue(@(v) v.guid == selectedGuid))
   return res
@@ -170,23 +181,49 @@ if (viewVehicle.value != null) {
     : null
   viewVehicle(new ?? selectedVehicle.value)
 }
+
 selectedVehicle.subscribe(@(v) viewVehicle(v))
 
+let function setVehicleToSquad(squadGuid, vehicleGuid) {
+  if (vehicleBySquad.value?[squadGuid] == vehicleGuid)
+    return
+
+  set_vehicle_to_squad(vehicleGuid, squadGuid, @(_) updateBROnVehicleChange(squadGuid))
+}
+
 let function selectVehicle(vehicle) {
-  let { statusText = null } = vehicle?.status
-  if ((statusText ?? "") != "")
-    return msgbox.show({ text = statusText })
+  if (isChangesBlocked.value) {
+    showBlockedChangesMessage()
+    return
+  }
+  let { canUse = false, statusText = null, growthId = null } = vehicle?.status
+  if (!canUse) {
+    let buttons = [{
+      text = loc("Close"), isCancel = true, customStyle = { hotkeys = [[$"^{JB.B} | Esc"]] }
+    }]
+    if (growthId != null)
+      buttons.append({
+        text = loc("GoToGrowth")
+        action = @() jumpToArmyGrowth(growthId)
+        customStyle = { hotkeys = [["^J:Y"]] }
+      })
+    return showMsgbox({
+      text = statusText
+      buttons
+    })
+  }
 
   let squad = curSquad.value
-  if (squad)
+  if (squad != null)
     setVehicleToSquad(squad.guid, vehicle?.guid)
+
   vehicleClear()
 }
 
 let hasSquadVehicle = @(squadCfg) (squadCfg?.vehicleType ?? "") != ""
 
 let squadsWithVehicles = Computed(function() {
-  let armyId = selectVehParams.value?.armyId
+  let { armyId = null } = selectVehParams.value
   if (!armyId)
     return null
 
@@ -199,25 +236,10 @@ let curSquadId = Computed(@()
   selectVehParams.value?.squadId ?? squadsWithVehicles.value?[0].squadId)
 
 let function setCurSquadId(id) {
-  if (selectVehParams.value != null && selectVehParams.value.squadId != id)
+  let { squadId = null } = selectVehParams.value
+  if (squadId != null && squadId != id)
     selectVehParams.mutate(@(params) params.__update({ squadId = id }))
 }
-
-
-let curVehicleBadgeData = Computed(function() {
-  let vehGuid = curVehicle.value
-  if (vehGuid == null)
-    return null
-
-  let skin = (vehDecorators.value ?? {})
-    .findvalue(@(d) d.cType == "vehCamouflage" && d.vehGuid == vehGuid)
-
-  let vehicle = objInfoByGuid.value?[vehGuid]
-  return vehicle == null ? null : vehicle.__merge(skin == null ? {} : { skin })
-})
-
-let curVehicleSeats = mkVehicleSeats(curVehicleBadgeData)
-
 
 console_register_command(function(armyId) {
   let { guid = "" } = viewVehicle.value
@@ -241,14 +263,11 @@ return {
   vehicleClear
   selectVehicle
   hasSquadVehicle
+  getVehicleSquad
 
-  curVehicleBadgeData
-  curVehicleSeats
-
-  AVAILABLE_AT_CAMPAIGN
-  CAN_RECEIVE_BY_ARMY_LEVEL
+  AVAILABLE_IN_GROWTH
+  IS_BUSY_BY_SQUAD
   CAN_PURCHASE
-  NEED_LEVEL_TO_PURCHASE
   LOCKED
   CANT_USE
   CAN_USE

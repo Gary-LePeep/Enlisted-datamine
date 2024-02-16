@@ -1,10 +1,10 @@
 {
   "ki_44_2": [
     {
-      "_extends": "ki_44_2_base"
+      "_use": "ki_44_2_base"
     },
     {
-      "_extends": "squad_controlled_plane"
+      "_use": "squad_controlled_plane"
     },
     {
       "item__name": "items/ki_44_2_otsu"
@@ -49,7 +49,7 @@
               "turret": "turret_06"
             }
           ],
-          "effectors:object": {
+          "cockpitEffectors:object": {
             "r.hand": "stick_rhand_1",
             "l.hand": "throttle_lhand_1",
             "r.foot": "pedal_rfoot_1",
@@ -346,13 +346,13 @@
   },
   "planegun_ki_44_2_type_94mod_10_launcher_01": [
     {
-      "_extends": "type_94mod_10_launcher"
+      "_use": "type_94mod_10_launcher"
     },
     {
-      "_extends": "base_ki_44_2_type_94mod_10_launcher"
+      "_use": "base_ki_44_2_type_94mod_10_launcher"
     },
     {
-      "_extends": "gunsound_type_94mod_10_launcher_aircraft"
+      "_use": "gunsound_type_94mod_10_launcher_aircraft"
     },
     {
       "gun__shootNodeName": "bomb1"
@@ -366,13 +366,13 @@
   ],
   "planegun_ki_44_2_type_94mod_10_launcher_02": [
     {
-      "_extends": "type_94mod_10_launcher"
+      "_use": "type_94mod_10_launcher"
     },
     {
-      "_extends": "base_ki_44_2_type_94mod_10_launcher"
+      "_use": "base_ki_44_2_type_94mod_10_launcher"
     },
     {
-      "_extends": "gunsound_type_94mod_10_launcher_aircraft"
+      "_use": "gunsound_type_94mod_10_launcher_aircraft"
     },
     {
       "gun__shootNodeName": "bomb2"
@@ -386,16 +386,16 @@
   ],
   "planegun_ki_44_2_12_7mm_ho103_01": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_plane_machinegun"
+      "_use": "base_plane_machinegun"
     },
     {
-      "_extends": "base_ki_44_2_12_7mm_ho103"
+      "_use": "base_ki_44_2_12_7mm_ho103"
     },
     {
-      "_extends": "gunsound_12_7mm_ho103_aircraft"
+      "_use": "gunsound_12_7mm_ho103_aircraft"
     },
     {
       "gun__shootNodeName": "flare1"
@@ -406,16 +406,16 @@
   ],
   "planegun_ki_44_2_12_7mm_ho103_02": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_plane_machinegun"
+      "_use": "base_plane_machinegun"
     },
     {
-      "_extends": "base_ki_44_2_12_7mm_ho103"
+      "_use": "base_ki_44_2_12_7mm_ho103"
     },
     {
-      "_extends": "gunsound_12_7mm_ho103_aircraft"
+      "_use": "gunsound_12_7mm_ho103_aircraft"
     },
     {
       "gun__shootNodeName": "flare2"
@@ -426,16 +426,16 @@
   ],
   "planegun_ki_44_2_40mm_ho301_01": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_plane_machinegun"
+      "_use": "base_plane_machinegun"
     },
     {
-      "_extends": "base_ki_44_2_40mm_ho301"
+      "_use": "base_ki_44_2_40mm_ho301"
     },
     {
-      "_extends": "gunsound_40mm_ho301_aircraft"
+      "_use": "gunsound_40mm_ho301_aircraft"
     },
     {
       "gun__shootNodeName": "flare3"
@@ -446,16 +446,16 @@
   ],
   "planegun_ki_44_2_40mm_ho301_02": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_plane_machinegun"
+      "_use": "base_plane_machinegun"
     },
     {
-      "_extends": "base_ki_44_2_40mm_ho301"
+      "_use": "base_ki_44_2_40mm_ho301"
     },
     {
-      "_extends": "gunsound_40mm_ho301_aircraft"
+      "_use": "gunsound_40mm_ho301_aircraft"
     },
     {
       "gun__shootNodeName": "flare4"
@@ -466,10 +466,10 @@
   ],
   "ki_44_2_driver_cockpit": [
     {
-      "_extends": "base_plane_cockpit"
+      "_use": "base_plane_cockpit"
     },
     {
-      "_extends": "plane_telesight"
+      "_use": "plane_telesight"
     },
     {
       "cockpit__offset": [0.0,0.0,0.0]

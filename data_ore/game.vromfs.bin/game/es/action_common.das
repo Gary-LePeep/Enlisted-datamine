@@ -3,7 +3,7 @@ require ecs
 require ecs.safe
 require net
 require Action
-require EnlistedNet
+require DngNet
 require game.events_game
 require game.utils.net_utils
 require DagorSystem
@@ -19,7 +19,7 @@ def run_action_by_id(eid : EntityId; action_id : int; override_props_id : int; i
     send_net_event(eid, [[RunActionCmd id=action_id, overridePropsId=override_props_id,
       overrideTime=override_time, overrideAt=override_at, actionPeriod=action_period, progress=progress,
       timeMult=time_mult]],
-      target_entity_pos_range_except_hero(eid, DEF_ACTION_RANGE, /*is_player_relative*/ true))
+      target_entity_pos_range_except_hero(eid, DEF_ACTION_RANGE))
   run_action_impl(eid, action_id, override_props_id, interp_delay_ticks, override_time, override_at, action_period, progress, time_mult)
 
 def run_action(eid : EntityId; action : string;

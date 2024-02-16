@@ -6,8 +6,9 @@ let utf8 = require("utf8")
 let { CASE_PAIR_LOWER, CASE_PAIR_UPPER } = require("%sqstd/string.nut")
 let iconByGameTemplate = require("%enlSqGlob/ui/icon3dByGameTemplate.nut")
 let itemsPresentation = require("%enlSqGlob/ui/itemsPresentation.nut")
-let { secondsToHoursLoc } = require("%ui/helpers/time.nut")
-
+let { secondsToTime } = require("%sqstd/time.nut")
+let { abs } = require("math")
+let { SIGN_PREMIUM, SIGN_EVENT, SIGN_BP } = require("%enlSqGlob/ui/mkSpecialItemIcon.nut")
 
 const UPGRADE_TEMPLATE_SUFFIX = "_upgrade_"
 
@@ -23,7 +24,7 @@ let ITEM_DETAILS_BRIEF = [
 
 let ITEM_DETAILS_FULL = [
   { key = "caliber", measure = "mm", mult = 1000, precision = 0.01 }
-  { key = "hitPowerTotal", precision = 0.1 }
+  { key = "hitPowerTotal", precision = 0.1, range = [0, 26] }
   { key = "explodeHitPower", precision = 0.1 }
   { key = "hitpower", measure = "meters", precision = 0.1, baseKey = "hitPowerTotal" }
   { key = "cumulativeArmorPower", measure = "mm", precision = 0.1 }
@@ -69,7 +70,12 @@ let SPEC_TANK_DETAILS = [
 
 let VEHICLE_DETAILS = [].extend(GENERAL_VEHICLE_DETAILS, SPEC_PLANE_DETAILS, SPEC_TANK_DETAILS)
 
-local function getArmaments(guns) {
+let function getCampaignTitle(campId) {
+  let locId = $"{campId}/full"
+  return doesLocTextExist(locId) ? loc(locId) : campId
+}
+
+let function getArmaments(guns) {
   guns = (guns ?? []).filter(@(gun) (gun?["gun__maxAmmo"] ?? 0) > 0)
   if (guns.len() == 0)
     return null
@@ -115,28 +121,34 @@ let function trimUpgradeSuffix(tmpl) {
 
 let itemDescByType = {
   function booster(item) {
-    let { lifeTime = 0, battles = 0 } = item
-    let limitsList = []
-    if (lifeTime > 0)
-      limitsList.append(secondsToHoursLoc(lifeTime))
-    if (battles > 0)
-      limitsList.append(loc("boostName/battlesLimit", { battles }))
+    let { battles = 0, expMul = 0.0, lifeTime = 0 } = item
+    let percent = abs(expMul * 100).tointeger()
+    let boosterType = (expMul < 0) ? "penalty" : "booster"
 
-    return limitsList.len() == 0 ? ""
-      : loc("boostName/limit", { limits = " / ".join(limitsList) })
+    local descLimit = ""
+    if (lifeTime > 0) {
+      local { days = 0, hours = 0 } = secondsToTime(lifeTime)
+      let limit = days == 7 ? loc($"items/booster/limit/week")
+        : days > 0 ? loc($"items/booster/limit/days", { lifetime = days })
+        : loc($"items/booster/limit/hours", { lifetime = hours })
+      descLimit = loc("items/booster/desc/lifetime", { lifetime = limit })
+    }
+
+    let descExp = battles > 0
+      ? loc($"items/{boosterType}/desc/battles", { percent, battles, limit = descLimit })
+      : loc($"items/{boosterType}/desc/exp", { percent, limit = descLimit })
+
+    return descExp
   }
 }
 
 let itemNameByType = {
   function booster(item) {
-    let { bType = "", expMul = 0.0 } = item
+    let { expMul = 0.0 } = item
+    let percent = abs(expMul * 100).tointeger()
+    let boosterType = expMul < 0 ? "penalty" : "booster"
 
-    let percent = 100 * expMul
-    let limitsText = loc("textInRoundBracket", {
-      txt = itemDescByType.booster(item)
-    })
-
-    return loc($"boostName/{bType}", { percent, limitsText })
+    return loc($"items/{boosterType}/name", { percent })
   }
 }
 
@@ -154,6 +166,15 @@ let function getItemName(item) {
   let tmpl = trimUpgradeSuffix(basetpl ?? item)
   return loc($"items/{tmpl}")
 }
+
+let signLocalization = {
+  [SIGN_PREMIUM] = loc("campaign/premSquadWeapon"),
+  [SIGN_EVENT] = loc("campaign/eventSquadWeapon"),
+  [SIGN_BP] = loc("campaign/bpSquadWeapon"),
+}
+
+let getItemOrigin = @(item)
+  signLocalization?[item?.sign] ?? loc("campaign/promoSquadWeapon")
 
 // works both with item instance or basetpl string value
 let function getItemDesc(item) {
@@ -221,9 +242,7 @@ let function localizeSoldierName(soldier) {
 
 let function getObjectName(obj) {
   let { name, surname } = localizeSoldierName(obj)
-  return name == "" ? getItemTypeName(obj)
-    : surname == "" ? getItemName(obj)
-    : $"{loc(name)} {loc(surname)}"
+  return surname == "" ? getItemName(obj) : $"{name} {surname}"
 }
 
 let function soldierNameSlicer(soldier = null, useCallname = true) {
@@ -232,11 +251,11 @@ let function soldierNameSlicer(soldier = null, useCallname = true) {
   if (callname != "" && useCallname)
     return callname
   if (surname == "")
-    return loc(name)
+    return name
   let first = utf8(name).slice(0, 1)
   return (CASE_PAIR_UPPER.indexof(first) == null && CASE_PAIR_LOWER.indexof(first) == null)
-    ? $"{loc(name)} {loc(surname)}"
-    : $"{first}. {loc(surname)}"
+    ? $"{name} {surname}"
+    : $"{first}. {surname}"
 }
 
 let function getErrorSlots(slotsItems, equipScheme) {
@@ -259,7 +278,7 @@ let function getErrorSlots(slotsItems, equipScheme) {
     if (group in equipped)
       equipped[group] = true
 
-    local { basetpl, itemtype } = item
+    local { basetpl, itemtype = null } = item
     basetpl = trimUpgradeSuffix(basetpl)
     let { items = [], itemTypes = [] } = equipScheme?[slotType]
     if ((itemTypes.len() != 0 || items.len() != 0)
@@ -281,12 +300,14 @@ return {
   TANK_DETAILS = [].extend(GENERAL_VEHICLE_DETAILS, SPEC_TANK_DETAILS)
   ARMOR_ORDER
   VEHICLE_DETAILS
+  getCampaignTitle
   getArmaments
   trimUpgradeSuffix
   iconByGameTemplate
   iconByItem
   getItemName
   getItemDesc
+  getItemOrigin
   getItemTypeName
   localizeSoldierName
   getObjectName

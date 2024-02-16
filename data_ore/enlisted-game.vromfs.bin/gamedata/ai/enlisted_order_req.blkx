@@ -59,6 +59,12 @@
         }
       },
       {
+        "setIntVar": {
+          "to": "coverAttack",
+          "value": 0
+        }
+      },
+      {
         "orderedSelector": {
           "orderedSelector": {
             "subTree": {
@@ -68,12 +74,24 @@
             "sequencer": {
               "findDanger": {
                 "paramName": "shootEnemy",
+                "outSeeTimeParam": "shootEnemyTime",
                 "radiusParamName": "enemyNearRadius",
                 "minDanger": 0.1,
                 "tag": "human"
               },
+              "getTime": {
+                "to": "enemyNearTime"
+              },
               "subTree": {
                 "treeName": "sub.oneShootAttack"
+              }
+            },
+            "failed": {
+              "sequencer": {
+                "decreaseDangerLevel": {
+                  "paramName": "dangerLevel",
+                  "decreaseCoef": 0.5
+                }
               }
             }
           },
@@ -87,12 +105,22 @@
   },
   {
     "repeat": {
+      "name": "sub.parachuteBeh",
+      "freefallOrParachuteBeh": []
+    }
+  },
+  {
+    "repeat": {
       "name": "sub.vehicleBeh",
       "checkVehicleSeats": [],
-      "canHoldWeaponInVehicle": [],
+      "wait": {
+        "range": [0.5,1.5],
+        "resetable": true
+      },
       "exitHandler": {
         "repeatUntilFail": {
           "sequencer": {
+            "canHoldWeaponInVehicle": [],
             "findDanger": {
               "paramName": "shootEnemy",
               "radiusParamName": "enemyRadius",
@@ -233,7 +261,8 @@
               "minDistToSprint": 0.5,
               "tryClimbing": true,
               "distThreshold": 1.0,
-              "avoidAiObstacles": false
+              "avoidAiObstacles": false,
+              "incLadders": true
             }
           },
           {
@@ -349,7 +378,8 @@
               "minDistToSprint": 0.5,
               "tryClimbing": true,
               "distThreshold": 1.0,
-              "avoidAiObstacles": false
+              "avoidAiObstacles": false,
+              "incLadders": true
             }
           },
           {
@@ -461,13 +491,54 @@
           }
         },
         {
-          "moveToTarget": {
-            "targetUnitParam": "ammoRequester",
-            "stopDistRange": [1.5,1.5],
-            "aimToTarget": true,
-            "maxStanceParam": "maxStance",
-            "jumpOver": false
-          }
+          "orderedSelector": [
+            {
+              "moveToTarget": {
+                "targetUnitParam": "ammoRequester",
+                "stopDistRange": [1.5,1.5],
+                "aimToTarget": true,
+                "maxStanceParam": "maxStance",
+                "jumpOver": false
+              }
+            },
+            {
+              "sequencer": {
+                "setPosFromEntity": {
+                  "to": "tempPos",
+                  "from": "ammoRequester"
+                },
+                "moveToPos": {
+                  "posParam": "tempPos",
+                  "sprintTimerRange": [10.0,20.0],
+                  "minDistToSprint": 10.0,
+                  "distThreshold": 1.5,
+                  "avoidAiObstacles": false,
+                  "incObstacles": false,
+                  "tryClimbing": false,
+                  "maxStanceParam": "maxStance",
+                  "timeToStuck": 5.0
+                }
+              }
+            },
+            {
+              "sequencer": {
+                "setPosFromEntity": {
+                  "to": "tempPos",
+                  "from": "ammoRequester"
+                },
+                "moveToPos": {
+                  "posParam": "tempPos",
+                  "sprintTimerRange": [10.0,20.0],
+                  "minDistToSprint": 10.0,
+                  "distThreshold": 2.0,
+                  "avoidAiObstacles": true,
+                  "incObstacles": false,
+                  "tryClimbing": true,
+                  "timeToStuck": 7.0
+                }
+              }
+            }
+          ]
         },
         {
           "giveAmmo": {
@@ -569,13 +640,54 @@
           }
         },
         {
-          "moveToTarget": {
-            "targetUnitParam": "healRequester",
-            "stopDistRange": [1.5,1.5],
-            "aimToTarget": true,
-            "maxStanceParam": "maxStance",
-            "jumpOver": false
-          }
+          "orderedSelector": [
+            {
+              "moveToTarget": {
+                "targetUnitParam": "healRequester",
+                "stopDistRange": [1.5,1.5],
+                "aimToTarget": true,
+                "maxStanceParam": "maxStance",
+                "jumpOver": false
+              }
+            },
+            {
+              "sequencer": {
+                "setPosFromEntity": {
+                  "to": "tempPos",
+                  "from": "healRequester"
+                },
+                "moveToPos": {
+                  "posParam": "tempPos",
+                  "sprintTimerRange": [10.0,20.0],
+                  "minDistToSprint": 10.0,
+                  "distThreshold": 1.5,
+                  "avoidAiObstacles": false,
+                  "incObstacles": false,
+                  "tryClimbing": false,
+                  "maxStanceParam": "maxStance",
+                  "timeToStuck": 5.0
+                }
+              }
+            },
+            {
+              "sequencer": {
+                "setPosFromEntity": {
+                  "to": "tempPos",
+                  "from": "healRequester"
+                },
+                "moveToPos": {
+                  "posParam": "tempPos",
+                  "sprintTimerRange": [10.0,20.0],
+                  "minDistToSprint": 10.0,
+                  "distThreshold": 2.0,
+                  "avoidAiObstacles": true,
+                  "incObstacles": false,
+                  "tryClimbing": true,
+                  "timeToStuck": 7.0
+                }
+              }
+            }
+          ]
         },
         {
           "wait": {
@@ -1006,7 +1118,8 @@
                   "minDistToSprint": 0.5,
                   "tryClimbing": true,
                   "distThreshold": 2.5,
-                  "avoidAiObstacles": false
+                  "avoidAiObstacles": false,
+                  "incLadders": true
                 },
                 "orderedSelector": {
                   "useVehicle": {
@@ -1195,7 +1308,14 @@
                 "minDistToSprint": 4.0,
                 "distThreshold": 0.5,
                 "avoidAiObstacles": false,
-                "incObstacles": false
+                "incObstacles": false,
+                "incLadders": true
+              }
+            },
+            {
+              "wait": {
+                "range": [1.0,1.0],
+                "resetable": true
               }
             },
             {

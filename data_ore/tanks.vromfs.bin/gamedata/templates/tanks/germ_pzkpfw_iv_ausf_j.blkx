@@ -1,9 +1,6 @@
 {
   "germ_pzkpfw_IV_ausf_J": {
-    "_extends": "germ_pzkpfw_IV_ausf_J_common",
-    "animchar__objTexReplace:object": {
-      "ger_camo_dunkelgelb*": "ger_camo_dunkelgelb_green_braun_blots*"
-    },
+    "_use": "germ_pzkpfw_IV_ausf_J_common",
     "disableDMParts:list<t>": [
       {
         "part": "ex_armor_04"
@@ -39,13 +36,28 @@
   },
   "germ_pzkpfw_IV_ausf_J_common": [
     {
-      "_extends": "base_pzkpfw_iv_ausf_j"
+      "_use": "base_pzkpfw_iv_ausf_j"
     },
     {
-      "_extends": "tank_panzer3_engine_sound"
+      "_use": "tank_panzer3_engine_sound"
     },
     {
-      "item__iconOffset": [0.0,0.2]
+      "item__iconOffset": [0.1,0.15]
+    },
+    {
+      "item__iconScale": 1.4
+    },
+    {
+      "commanderCockpitFpsCamMaxAngle": [40.0,5.0]
+    },
+    {
+      "gunner_cam_limit__useCockpitDir": true
+    },
+    {
+      "armorThicknessHull": [80.0,30.0,20.0]
+    },
+    {
+      "armorThicknessTurret": [50.0,30.0,30.0]
     },
     {
       "turrets__initAmmoDistribution:array": [
@@ -214,7 +226,7 @@
     }
   ],
   "germ_pzkpfw_IV_ausf_J_commander_cockpit": {
-    "_extends": "base_commander_tower_cockit_no_slits",
+    "_use": "base_commander_tower_cockpit",
     "animchar__res": "pzkpfw_iii_e_commander_char",
     "cockpit__offset": [-0.42,0.51,-0.0],
     "cockpit__cockpitOffsetBySlit:list<p3>": [
@@ -291,6 +303,33 @@
         "slit": false
       }
     ],
+    "cockpit__slitZoom:array": [
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      }
+    ],
     "cockpit__slitNodeNames:list<t>": [
       {
         "slit": "cam_front"
@@ -310,11 +349,9 @@
     ]
   },
   "germ_pzkpfw_IV_ausf_J_gunner_cockpit": {
-    "vehicle_sight__blk": "content/tanks/gamedata/sight/germ_tzf5f_2.blk",
-    "_extends": "base_gunner_cockpit",
+    "_use": "base_gunner_cockpit",
     "animchar__res": "pzkpfw_iii_e_gunner_char",
     "cockpit__offset": [-0.9,0.03,0.12],
-    "cockpit__minZoom": -0.4,
     "cockpit__attachNodeNames:list<t>": {
       "node": "bone_camera_gunner"
     },
@@ -358,17 +395,34 @@
       }
     ],
     "cockpit__slitForwardOffset:list<r>": {
-      "slit": 0.245
+      "slit": 0.29
     },
     "cockpit__slitIsGun:list<b>": {
       "slit": true
     },
     "cockpit__slitNodeNames:list<t>": {
       "slit": "cam_front"
-    }
+    },
+    "cockpit__slitZoom:array": {
+      "slit:list<r>": [
+        {
+          "zoom": 1.9
+        },
+        {
+          "zoom": 3.5
+        }
+      ]
+    },
+    "cockpit__slitZoomTime:list<r>": {
+      "slit": 0.05
+    },
+    "cockpit__slitTemplates:list<t>": {
+      "slit": "germ_tzf5f_2"
+    },
+    "cockpit__slitEids:list<eid>": []
   },
   "germ_pzkpfw_IV_ausf_J_vanguard_premium": {
-    "_extends": "germ_pzkpfw_IV_ausf_J_common",
+    "_use": "germ_pzkpfw_IV_ausf_J_common",
     "animchar__objTexReplace:object": {
       "ger_camo_dunkelgelb*": "ger_camo_hinterhalt_daimler*"
     },

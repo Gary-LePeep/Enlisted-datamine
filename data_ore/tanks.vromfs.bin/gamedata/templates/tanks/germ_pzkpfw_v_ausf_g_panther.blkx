@@ -1,18 +1,101 @@
 {
-  "germ_pzkpfw_V_ausf_g_panther": [
-    {
-      "_extends": "base_pzkpfw_v_ausf_g_panther"
-    },
-    {
-      "_extends": "tank_panzer3_engine_sound"
-    },
-    {
-      "_extends": "tank_heavy_vehicle_tracks_sound"
-    },
-    {
-      "animchar__objTexReplace:object": {
-        "ger_camo_dunkelgelb*": "ger_camo_dunkelgelb_green_braun_blots*"
+  "germ_pzkpfw_v_ausf_g_panther_normandy": {
+    "_use": "germ_pzkpfw_V_ausf_g_panther_common",
+    "disableDMParts:list<t>": [
+      {
+        "part": "ex_armor_turret_l_01"
+      },
+      {
+        "part": "ex_armor_turret_l_02"
+      },
+      {
+        "part": "ex_armor_turret_l_03"
+      },
+      {
+        "part": "ex_armor_turret_l_04"
+      },
+      {
+        "part": "ex_armor_turret_l_05"
+      },
+      {
+        "part": "ex_armor_turret_r_01"
+      },
+      {
+        "part": "ex_armor_turret_r_02"
+      },
+      {
+        "part": "ex_armor_turret_r_03"
+      },
+      {
+        "part": "ex_armor_turret_r_04"
+      },
+      {
+        "part": "ex_armor_turret_r_05"
       }
+    ]
+  },
+  "germ_pzkpfw_V_ausf_g_panther": {
+    "_use": "germ_pzkpfw_V_ausf_g_panther_common",
+    "disableDMParts:list<t>": [
+      {
+        "part": "ex_armor_turret_l_01"
+      },
+      {
+        "part": "ex_armor_turret_l_02"
+      },
+      {
+        "part": "ex_armor_turret_l_03"
+      },
+      {
+        "part": "ex_armor_turret_l_04"
+      },
+      {
+        "part": "ex_armor_turret_l_05"
+      },
+      {
+        "part": "ex_armor_turret_r_01"
+      },
+      {
+        "part": "ex_armor_turret_r_02"
+      },
+      {
+        "part": "ex_armor_turret_r_03"
+      },
+      {
+        "part": "ex_armor_turret_r_04"
+      },
+      {
+        "part": "ex_armor_turret_r_05"
+      }
+    ]
+  },
+  "germ_pzkpfw_V_ausf_g_panther_common": [
+    {
+      "_use": "base_pzkpfw_v_ausf_g_panther"
+    },
+    {
+      "_use": "tank_panzer3_engine_sound"
+    },
+    {
+      "_use": "tank_heavy_vehicle_tracks_sound"
+    },
+    {
+      "item__iconOffset": [0.04,0.1]
+    },
+    {
+      "item__iconScale": 1.19
+    },
+    {
+      "commanderCockpitFpsCamMaxAngle": [40.0,5.0]
+    },
+    {
+      "gunner_cam_limit__useCockpitDir": true
+    },
+    {
+      "armorThicknessHull": [80.0,50.0,40.0]
+    },
+    {
+      "armorThicknessTurret": [110.0,45.0,45.0]
     },
     {
       "vehicle_seats__seats:shared:array": [
@@ -130,44 +213,10 @@
           }
         }
       ]
-    },
-    {
-      "disableDMParts:list<t>": [
-        {
-          "part": "ex_armor_turret_l_01"
-        },
-        {
-          "part": "ex_armor_turret_l_02"
-        },
-        {
-          "part": "ex_armor_turret_l_03"
-        },
-        {
-          "part": "ex_armor_turret_l_04"
-        },
-        {
-          "part": "ex_armor_turret_l_05"
-        },
-        {
-          "part": "ex_armor_turret_r_01"
-        },
-        {
-          "part": "ex_armor_turret_r_02"
-        },
-        {
-          "part": "ex_armor_turret_r_03"
-        },
-        {
-          "part": "ex_armor_turret_r_04"
-        },
-        {
-          "part": "ex_armor_turret_r_05"
-        }
-      ]
     }
   ],
   "germ_pzkpfw_V_ausf_g_panther_driver_cockpit": {
-    "_extends": "base_driver_cockpit",
+    "_use": "base_driver_cockpit",
     "animchar__res": "kv_1_driver_char",
     "cockpit__offset": [0.1,-0.0,-0.0],
     "cockpit__visibleVehicleNodeNames:list<t>": [
@@ -180,10 +229,8 @@
     ]
   },
   "germ_pzkpfw_V_ausf_g_panther_gunner_cockpit": {
-    "vehicle_sight__blk": "content/tanks/gamedata/sight/germ_tzf12a.blk",
-    "_extends": "base_gunner_cockpit",
+    "_use": "base_gunner_cockpit",
     "animchar__res": "t_26_1940_gunner_char",
-    "cockpit__minZoom": -0.27,
     "cockpit__offset": [-0.0,-0.0,-0.0],
     "cockpit__cockpitOffsetBySlit:list<p3>": {
       "slit": [-0.45,-0.03,0.2]
@@ -199,14 +246,31 @@
       "slit": "cam_front_right"
     },
     "cockpit__slitForwardOffset:list<r>": {
-      "slit": 0.18
+      "slit": 0.205
     },
     "cockpit__slitIsGun:list<b>": {
       "slit": true
-    }
+    },
+    "cockpit__slitZoom:array": {
+      "slit:list<r>": [
+        {
+          "zoom": 2.5
+        },
+        {
+          "zoom": 5.0
+        }
+      ]
+    },
+    "cockpit__slitZoomTime:list<r>": {
+      "slit": 0.05
+    },
+    "cockpit__slitTemplates:list<t>": {
+      "slit": "germ_tzf12a"
+    },
+    "cockpit__slitEids:list<eid>": []
   },
   "germ_pzkpfw_V_ausf_g_panther_commander_cockpit": {
-    "_extends": "base_commander_tower_cockit_no_slits",
+    "_use": "base_commander_tower_cockpit",
     "animchar__res": "pzkpfw_iii_b_commander_char",
     "cockpit__offset": [-0.29,0.9,0.37],
     "cockpit__cockpitOffsetBySlit:list<p3>": [
@@ -234,25 +298,25 @@
     ],
     "cockpit__slitForwardOffset:list<r>": [
       {
-        "slit": -0.06
+        "slit": -0.07
       },
       {
-        "slit": -0.06
+        "slit": -0.07
       },
       {
-        "slit": -0.06
+        "slit": -0.07
       },
       {
-        "slit": -0.065
+        "slit": -0.07
       },
       {
-        "slit": -0.06
+        "slit": -0.07
       },
       {
-        "slit": -0.06
+        "slit": -0.07
       },
       {
-        "slit": -0.06
+        "slit": -0.07
       }
     ],
     "cockpit__slitIsGun:list<b>": [
@@ -276,6 +340,43 @@
       },
       {
         "slit": false
+      }
+    ],
+    "cockpit__slitZoom:array": [
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
       }
     ],
     "cockpit__slitNodeNames:list<t>": [
@@ -310,11 +411,8 @@
       }
     ]
   },
-  "germ_pzkpfw_V_ausf_g_panther_24_pzrgt_premium_skin": {
-    "_extends": "germ_pzkpfw_V_ausf_g_panther"
-  },
   "germ_pzkpfw_V_ausf_g_panther_kurmark_pzrgt_premium_skin": {
-    "_extends": "germ_pzkpfw_V_ausf_g_panther",
+    "_use": "germ_pzkpfw_V_ausf_g_panther",
     "animchar__objTexSet:object": {
       "pzkpfw_V_ausf_g_panther_body_c*:object": {
         "pzkpfw_V_ausf_g_panther_skin_line_body_c*": "camo_skin_tex"
@@ -465,8 +563,8 @@
       }
     ]
   },
-  "germ_pzkpfw_V_ausf_g_panther_sparanstrich_premium_skin": {
-    "_extends": "germ_pzkpfw_V_ausf_g_panther",
+  "germ_pzkpfw_V_ausf_g_panther_sparanstrich_berlin_battlepass_premium_skin": {
+    "_use": "germ_pzkpfw_V_ausf_g_panther",
     "animchar__objTexSet:object": {
       "pzkpfw_V_ausf_g_panther_body_c*:object": {
         "pzkpfw_V_ausf_g_panther_skin_man_body_c*": "camo_skin_tex"

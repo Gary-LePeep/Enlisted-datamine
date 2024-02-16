@@ -1,11 +1,11 @@
 require ecs
 require ecs.extra_set
 require app
-require EnlistedNet
+require DngNet
 require player
 require game.utils.net_utils
 require ecs.common
-require EnlistedDm
+require DngDm
 require game.utils.team
 require game.es.events
 require enlisted.events_enlisted
@@ -72,6 +72,8 @@ def vote_to_kick_es(evt : CmdVoteToKick; eid : EntityId; team aka player_team : 
 [es(tag=server, no_order)]
 def vote_to_kick_timer_es(info : UpdateStageInfoAct;
                           eid : EntityId;
+                          kick_voting__teammateKillerVoteThreshold : float;
+                          kick_voting__defaultVoteThreshold : float;
                           kick_voting__timer : float;
                           kick_voting__voteYes : EidList;
                           kick_voting__voteNo : EidList;
@@ -85,14 +87,17 @@ def vote_to_kick_timer_es(info : UpdateStageInfoAct;
   query(kick_voting__accused) <| $ [es] (connid : int;
                                          userid : uint64;
                                          team : int;
+                                         scoring_player__friendlyKills : int;
                                          var disconnected : bool&;
                                          var possessed : EntityId&;
                                          var clientNetFlags : int&;
                                          var vote_to_kick__kicked : bool&)
 
     let totalPlayerCount = get_player_count_in_team(team)
-    print("[VOTE]: diff={voteDiff}; total player={totalPlayerCount}")
-    if voteDiff <= totalPlayerCount / 2
+    let votePercentageToKick = scoring_player__friendlyKills > 0 ? kick_voting__teammateKillerVoteThreshold : kick_voting__defaultVoteThreshold
+    let fltYesVotesCount = float(length(kick_voting__voteYes))
+    print("[VOTE]: diff={voteDiff}; total player={totalPlayerCount}; teammates killed {scoring_player__friendlyKills}")
+    if voteDiff < 1 || fltYesVotesCount < float(totalPlayerCount) * votePercentageToKick
       destroyEntity(eid)
       return
 

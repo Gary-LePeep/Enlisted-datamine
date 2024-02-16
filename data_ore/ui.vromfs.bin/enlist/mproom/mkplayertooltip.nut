@@ -1,19 +1,19 @@
 from "%enlSqGlob/ui_library.nut" import *
-let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { smallPadding, bigPadding, activeBgColor, defTxtColor
 } = require("%enlSqGlob/ui/viewConst.nut")
-let { smallCampaignIcon } = require("%enlist/gameModes/roomsPkg.nut")
 let tooltipBox = require("%ui/style/tooltipBox.nut")
 let { getPortrait } = require("%enlSqGlob/ui/decoratorsPresentation.nut")
 let roomMemberStatuses = require("roomMemberStatuses.nut")
 let { mkArmySimpleIcon } = require("%enlist/soldiers/components/armyPackage.nut")
 let { memberName, mkStatusImg } = require("components/memberComps.nut")
+let { allArmiesInfo } = require("%enlist/soldiers/model/config/gameProfile.nut")
 
-let PORTRAIT_SIZE = hdpx(140)
+let portraitSize = hdpxi(132)
 
 let mkText = @(text, color = defTxtColor) {
   rendObj = ROBJ_TEXT, color, text
-}.__update(sub_txt)
+}.__update(fontSub)
 
 let mkTextWithIcon = @(icon, text) {
   flow = FLOW_HORIZONTAL
@@ -29,18 +29,15 @@ let mkTextWithIcon = @(icon, text) {
 
 let function mkPortrait(portrait) {
   let { icon } = getPortrait(portrait)
-  if (icon == "")
-    return null
   return {
-    size = [PORTRAIT_SIZE, PORTRAIT_SIZE]
     padding = smallPadding
     rendObj = ROBJ_BOX
     borderColor = activeBgColor
     borderWidth = hdpx(1)
     children = {
-      size = flex()
+      size = [portraitSize, portraitSize]
       rendObj = ROBJ_IMAGE
-      image = Picture(icon)
+      image = Picture("!{0}:{1}:{1}:K".subst(icon, portraitSize))
     }
   }
 }
@@ -51,25 +48,29 @@ let mkStatusRow = @(statusCfg) mkTextWithIcon(
 
 let function mkPlayerTooltip(player) {
   let { public, nameText } = player
-  let { army = null, campaign = null, status = null, portrait = "", nickFrame = "" } = public
+  let { army = null, status = null, portrait = "", nickFrame = "" } = public
   let statusCfg = roomMemberStatuses?[status]
+  if (army == "")
+    log($"army is an empty string in mkPlayerTooltip in {player}")
   return tooltipBox({
-     flow = FLOW_HORIZONTAL
-     gap = bigPadding
-     children = [
-       mkPortrait(portrait)
-       {
-         flow = FLOW_VERTICAL
-         gap = bigPadding
-         children = [
-           memberName(nameText, nickFrame)
-           statusCfg == null ? null : mkStatusRow(statusCfg)
-           campaign == null ? null : mkTextWithIcon(smallCampaignIcon(campaign), loc($"{campaign}/full"))
-           army == null ? null : mkTextWithIcon(mkArmySimpleIcon(army, hdpx(20), { margin = 0 }), loc(army))
-         ]
-       }
-     ]
-  })
+    flow = FLOW_HORIZONTAL
+    gap = bigPadding
+    children = [
+      mkPortrait(portrait)
+      @() {
+        watch = allArmiesInfo
+        flow = FLOW_VERTICAL
+        gap = bigPadding
+        children = [
+          memberName(nameText, nickFrame)
+          statusCfg == null ? null : mkStatusRow(statusCfg)
+          army == null || army == "" ? null
+            : mkTextWithIcon(mkArmySimpleIcon(army, hdpx(20), { margin = 0 }),
+              loc($"country/{allArmiesInfo.value[army].country}"))
+        ]
+      }
+    ]
+})
 }
 
 return mkPlayerTooltip

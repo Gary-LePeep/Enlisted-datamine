@@ -5,6 +5,9 @@ require math.base
 
 [es(tag=server)]
 def disable_respbase_on_hit_es(evt : EventOnEntityHit)
+  if evt.victim == evt.offender
+    return
+
   query(evt.victim) <| $ [es] (transform : float3x4;
                                spawn_immunity__initialPos : float3 const&;
                                spawn_immunity__immuneDistance : float;

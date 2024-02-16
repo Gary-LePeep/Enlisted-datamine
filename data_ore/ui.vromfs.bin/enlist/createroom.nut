@@ -1,13 +1,13 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 from "%darg/laconic.nut" import *
-from "modFiles.nut" import USER_MODS_FOLDER, MODS_EXT, BASE_URL, statusText, isStrHash
+from "modFiles.nut" import USER_MODS_FOLDER, MODS_EXT, statusText, isStrHash
 
 let { debounce } = require("%sqstd/timers.nut")
 let eventbus = require("eventbus")
-let json = require("json")
+let { parse_json } = require("json")
 let { gameLanguage } = require("%enlSqGlob/clientState.nut")
-let {h2_txt, body_txt, sub_txt} = require("%enlSqGlob/ui/fonts_style.nut")
+let {fontHeading2, fontBody, fontSub} = require("%enlSqGlob/ui/fontsStyle.nut")
 let {checkMultiplayerPermissions} = require("permissions/permissions.nut")
 let {createRoom} = require("state/roomState.nut")
 let textButton = require("%ui/components/textButton.nut")
@@ -27,11 +27,12 @@ let {mkSelectWindow, mkOpenSelectWindowBtn} = require("%enlist/components/select
 let {scan_folder, file_exists} = require("dagor.fs")
 let {request_ugm_manifest} = require("game_load")
 let { logerr } = require("dagor.debug")
-let http = require("dagor.http")
-let spinner = require("%ui/components/spinner.nut")({height=hdpx(80)})
+let { httpRequest, HTTP_SUCCESS } = require("dagor.http")
+let spinner = require("%ui/components/spinner.nut")
 let {getBaseFromManifestUrl, getHashesFromManifest, requestModFiles} = require("%enlSqGlob/game_mods.nut")
 let { send_counter } = require("statsd")
 let {nestWatched} = require("%dngscripts/globalState.nut")
+let { MOD_FILE_URL } = require("%enlSqGlob/game_mods_constant.nut")
 
 const EVENT_MOD_VROM_INFO = "mod_info_vrom_loaded"
 let playersAmountList = [1, 2, 4, 8, 12, 16, 20, 24, 32, 40, 50, 64, 70, 80, 100, 128]
@@ -41,6 +42,7 @@ let groupSizes = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 let usePassword = nestWatched("usePassword", false)
 let password = nestWatched("password", "")
 let focusedField = Watched(null)
+let waitingSpinner = spinner()
 
 let function createRoomCb(response) {
   if (response.error != 0) {
@@ -82,7 +84,7 @@ let manifest = Watched(null)
 let MANIFEST_EVENT = "MANIFEST_EVENT"
 let function requestManifest(url) {
   manifest(null)
-  http.request({
+  httpRequest({
     method = "GET"
     url
     respEventId = MANIFEST_EVENT
@@ -91,13 +93,13 @@ let function requestManifest(url) {
 }
 eventbus.subscribe(MANIFEST_EVENT, tryCatch(function(response){
   let { status, http_code } = response
-  if (status != http.SUCCESS || http_code == null
+  if (status != HTTP_SUCCESS || http_code == null
       || http_code < 200 || 300 >= http_code) {
     send_counter("manifest_request_receive_errors", 1, { http_code })
     log("status = ", statusText?[status], "http_code = ", http_code)
     throw("haven't received manifest")
   }
-  let man = json.parse(response.body.as_string())
+  let man = parse_json(response.body.as_string())
   manifest(man)
 },function(e) {
   log(e)
@@ -129,8 +131,8 @@ const WAITING = "WAITING"
 const SUCCESS = "SUCCESS"
 
 let function reqFileHeaders(hash){
-  let url = $"{BASE_URL}{hash}"
-  http.request({
+  let url = MOD_FILE_URL.subst(hash)
+  httpRequest({
     method = "HEAD"
     url
     respEventId = FILE_EXISTS_ON_SERVER_EVENT
@@ -173,7 +175,7 @@ eventbus.subscribe(FILE_EXISTS_ON_SERVER_EVENT, function(response){
     return
   try{
     let { status, http_code } = response
-    if (status != http.SUCCESS || http_code == null
+    if (status != HTTP_SUCCESS || http_code == null
       || http_code < 200 || 300 >= http_code) {
       send_counter("file_request_receive_errors", 1, { http_code })
       log($"couldn't get file '{hash}' data from live,  request status = ", statusText?[status], "http_code =", http_code)
@@ -208,7 +210,7 @@ let function jsonSafeParse(v){
   if (v=="")
     return null
   try{
-   return json.parse(v)
+   return parse_json(v)
   }
   catch(e) {
     logerr(e)
@@ -260,7 +262,7 @@ let allModInfos = Computed(@() receivedModInfos.value.map(@(_, v) getModInfo(v))
 
 let modInfo = Computed(function(){
   if (urlToManifest.value != "")
-  NOUSE(receivedModInfos.value?[modPath.value])
+    NOUSE(receivedModInfos.value?[modPath.value])
   return getModInfo(modPath.value)
 })
 
@@ -407,7 +409,7 @@ let titletxt = @(title){
   color = Color(180,180,180)
   vplace = ALIGN_CENTER
   size=[flex(), fontH(180)]
-}.__update(sub_txt)
+}.__update(fontSub)
 
 let formComboWithTitle = @(watch, values, title) {
   size=[flex(), fontH(180)]
@@ -422,7 +424,7 @@ let formComboWithTitle = @(watch, values, title) {
       children = comboBox(watch, values)
     }
   ]
-}.__update(body_txt)
+}.__update(fontBody)
 
 let humanTitle = @(scn) (scn?.title ?? "_untitled_").replace(".blk", "")
 
@@ -444,7 +446,7 @@ let openScenesMenu = mkSelectWindow({
   filterPlaceHolder=loc("filter scene")
   filterState = filterSceneStr
   mkTxt = humanTitle
-  titleStyle = h2_txt
+  titleStyle = fontHeading2
 })
 
 let selectSceneBtn = mkOpenSelectWindowBtn(scene, loc("Current scene"), openScenesMenu, humanTitle)
@@ -478,7 +480,7 @@ let openModsWindow = mkSelectWindow({
       request_ugm_manifest(m, EVENT_MOD_VROM_INFO)
     }
   }
-  titleStyle = h2_txt
+  titleStyle = fontHeading2
   mkTxt = modName
 })
 
@@ -536,7 +538,7 @@ let function createRoomWnd() {
           children.append(createRoomBtn)
 
         if (curModHashesWaiting.value)
-          children.append(spinner)
+          children.append(waitingSpinner)
         else if (!curModHashesOk.value)
           children.append(txt(loc("modFilesAreNotAvailableOnline")))
 

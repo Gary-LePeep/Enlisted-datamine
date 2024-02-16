@@ -2344,7 +2344,7 @@
         [1.0,0.0,0.0],
         [0.0,1.0,0.0],
         [0.0,0.0,1.0],
-        [-186.399,41.4171,-267.653]
+        [-185.455,41.4171,-278.309]
       ],
       "battle_area_polygon_point__id": "point25",
       "battle_area_polygon_point__nextId": "point26",
@@ -8955,6 +8955,7 @@
     "entity": {
       "_template": "briefing_invasion",
       "mission_name": "pacific_native_inv",
+      "mission_outfit": "pacific",
       "loading_images:list<t>": [
         {
           "item": "ui/pacific_guadalcanal_inv_02.avif"
@@ -8997,7 +8998,7 @@
       "team__briefing": "invasion/defenders_goals",
       "team__winSubtitle": "debriefing/won_defence_subtitle",
       "team__loseSubtitle": "debriefing/lost_defence_subtitle",
-      "team__winTitle": "debriefing/usa_won_defence",
+      "team__winTitle": "debriefing/allies_won_defence",
       "team__spawnBotArmy": "pacific_allies"
     }
   },
@@ -9176,7 +9177,7 @@
       "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 1,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "decal__height": 0.0,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 6,
@@ -9278,7 +9279,7 @@
       "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 1,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "decal__height": 7.0,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 9,
@@ -9346,7 +9347,7 @@
       "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 1,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "decal__height": 2.0,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 11,
@@ -9378,7 +9379,7 @@
       "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 1,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "decal__height": 0.4,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 12

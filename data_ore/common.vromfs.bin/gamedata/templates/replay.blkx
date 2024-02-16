@@ -1,14 +1,16 @@
 {
   "base_replay_meta": {
-    "replay__firstHumanSpawnTime": 0.0,
-    "replay__startAt": 0.0
+    "replay__startAt": 0.0,
+    "replay__keyFrameTimes:list<i>": []
   },
   "replay_meta_record": {
-    "_extends": "base_replay_meta",
+    "_use": "base_replay_meta",
     "replay__totalPlayTime": -1.0,
     "replay__isFinished": false,
     "replay__firstHumanSpawnTime": 0.0,
     "replay__startAt": 0.0,
+    "replay__nextKeyTimeSec": 180.0,
+    "replay__keyFrameTimerSec": 180.0,
     "_group": {
       "mission__startTime": 0,
       "replay__isFirstHumanSpawned": false,
@@ -17,7 +19,7 @@
   },
   "replay_meta": [
     {
-      "_extends": "base_replay_meta"
+      "_use": "base_replay_meta"
     },
     {
       "replay__speed": 1.0
@@ -39,6 +41,12 @@
     },
     {
       "replay__humanFov": 100.0
+    },
+    {
+      "replay__isKeyFrameRewind": false
+    },
+    {
+      "replay__isRewinding": false
     },
     {
       "_tags": "playingReplay"
@@ -64,6 +72,9 @@
     },
     {
       "replay__curCam:eid": []
+    },
+    {
+      "replay__savedState:object": []
     }
   ],
   "replay_acceleration_to": {
@@ -73,7 +84,7 @@
     "replay__accelerationTime": 0.0
   },
   "replay_acceleration_to_debug": {
-    "_extends": "replay_acceleration_to",
+    "_use": "replay_acceleration_to",
     "replay__accelerationDebug:tag": []
   },
   "replay_input": {

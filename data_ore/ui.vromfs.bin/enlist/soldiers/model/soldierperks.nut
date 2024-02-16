@@ -16,8 +16,12 @@ let {
 } = require("%enlist/meta/clientApi.nut")
 let serverPerks = require("%enlist/meta/servProfile.nut").soldierPerks
 let { configs } = require("%enlist/meta/configs.nut")
-let popupsState = require("%enlist/popup/popupsState.nut")
+let popupsState = require("%enlSqGlob/ui/popup/popupsState.nut")
 let { gameProfile } = require("%enlist/soldiers/model/config/gameProfile.nut")
+let { getPerkPointsInfo } = require("%enlist/meta/perks/perkTreePkg.nut")
+let perksList = require("%enlist/meta/perks/perksList.nut")
+let sClassesCfg = require("%enlist/soldiers/model/config/sClassesConfig.nut")
+
 
 let perkActionsInProgress = Watched({})
 let perkChoiceWndParams = mkWatched(persist, "perkChoiceWndParams")
@@ -169,6 +173,11 @@ let notChoosenPerkSquads = Watched({})
 let notChoosenPerkArmies = Watched({})
 
 let function updateNotChosenPerks(...) {
+  let pList = perksList.value
+  let pData = perksData.value
+  let classesCfg = sClassesCfg.value
+  let { perkTrees = {}, perkTreesSpecial = {} } = configs.value
+
   let soldiersList = {}
   let squadsList = {}
   let armiesList = {}
@@ -181,21 +190,29 @@ let function updateNotChosenPerks(...) {
       continue
 
     foreach (soldier in getSoldiersByArmy(armyId)) {
-      let guid = soldier.guid
-      let perks = perksData.value?[guid]
-      if (perks?.canChangePerk)
-        continue
+      let { guid, sClass } = soldier
+      let perks = pData?[guid]
+      let tree = perkTrees?[perkTreesSpecial?[sClass] ?? classesCfg?[sClass].kind] ?? []
 
-      local availPerks = (perks?.availPerks ?? 0)
-      if ((perks?.prevTier ?? -1) >= 0)
-        availPerks++
-      if (availPerks == 0)
-        continue
-      soldiersList[guid] <- availPerks
+      let ppInfo = getPerkPointsInfo(pList, perks)
+      let availPoints = {}
+      foreach(pointId, count in ppInfo.total)
+        availPoints[pointId] <- count - (ppInfo.used?[pointId] ?? 0)
+
+      foreach (perkId in tree) {
+        let perk = pList[perkId]
+        if ((perk.available ?? 1) > (perks?.perks[perkId] ?? 0))
+          foreach (pointId, pointReq in perk.cost) {
+            let pointHave = availPoints?[pointId] ?? 0
+            if (pointReq > 0 && pointHave >= pointReq)
+              soldiersList[guid] <- (soldiersList?[guid] ?? 0) + pointHave
+          }
+      }
 
       let squadId = curCampSquads.value?[getLinkedSquadGuid(soldier)].squadId
       if (squadId == null)
         continue
+
       squadsList[armyId][squadId] <- (squadsList[armyId]?[squadId] ?? 0) + 1
 
       if (chosenSquads.findindex(@(s) s?.squadId == squadId) != null)
@@ -216,30 +233,9 @@ updateNotChosenPerks()
 foreach (w in [perksData, curCampaign, chosenSquadsByArmy])
   w.subscribe(updateNotChosenPerks)
 
-let function getPerkPointsInfo(perksListTable, sPerksData, exclude = {}) {
-  let res = {
-    used = {}
-    total = clone (sPerksData?.points ?? {})
-    bonus = {}
-  }
 
-  foreach (pTier in sPerksData.tiers)
-    foreach (pSlot in pTier.slots)
-      if (pSlot != null && !exclude?[pSlot]) {
-        let perkCfg = perksListTable?[pSlot] ?? {}
-        foreach (pPointId, pPointCost in perkCfg?.cost ?? {})
-          res.used[pPointId] <- (res.used?[pPointId] ?? 0) + pPointCost
-        foreach (pPointId, pPointBonus in perkCfg?.bonus ?? {}) {
-          res.bonus[pPointId] <- (res.bonus?[pPointId] ?? 0) + pPointBonus
-          res.total[pPointId] <- (res.total?[pPointId] ?? 0) + pPointBonus
-        }
-      }
-
-  return res
-}
-
-let function useSoldierLevelupOrders(guid, barterData, cb) {
-  use_soldier_levelup_orders(guid, barterData, cb)
+let function useSoldierLevelupOrders(guid, barterData) {
+  use_soldier_levelup_orders(guid, barterData)
 }
 
 let function buySoldierLevel(perks, cb) {
@@ -291,7 +287,6 @@ return {
   getTotalPerkValue
   getPerksCount
 
-  getPerkPointsInfo
   buySoldierLevel
   useSoldierLevelupOrders
   buySoldierMaxLevel

@@ -1,0 +1,226 @@
+[
+  {
+    "entity": {
+      "_template": "aircraft_box_battle_area",
+      "transform": [
+        [18586.6,0.0,-24824.9],
+        [0.0,8000.03,0.0],
+        [24824.0,0.0,18587.7],
+        [-102.581,240.916,-845.005]
+      ],
+      "battle_area__team": -1
+    }
+  },
+  {
+    "entity": {
+      "_template": "box_battle_area",
+      "transform": [
+        [18586.6,0.0,-24824.9],
+        [0.0,8000.03,0.0],
+        [24824.0,0.0,18587.7],
+        [-102.581,240.916,-845.005]
+      ],
+      "battle_area__team": -1
+    }
+  },
+  {
+    "entity": {
+      "_template": "static_cam",
+      "camera__active": true,
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [180.9,5.0,104.573]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "level",
+      "level__blk": "content/enlisted/levels/biome_test_level.blk",
+      "level__timeRange": [11.0,13.0],
+      "level__day": 16,
+      "level__weatherChoice:object": {
+        "weather_clear_a": 1.0
+      }
+    }
+  },
+  {
+    "entity": {
+      "_template": "postfx_color_grading_tonemap_death_alive"
+    }
+  },
+  {
+    "entity": {
+      "_template": "shaderVars",
+      "shader_vars__vars:object": {
+        "hmap_displacement_up": 0.3,
+        "ocean1": "#44464600",
+        "ocean0": "#383b3e00",
+        "ocean_density": 0.1,
+        "land_selfillum_worldscale": 0.9,
+        "river1": "#44464600",
+        "river0": "#383b3e00",
+        "hmap_displacement_down": -0.15,
+        "autodetect_land_selfillum_color": [0.53,0.0,0.0,0.16],
+        "paint_details_tex": "normandy_wall_color_tex_palette*",
+        "land_selfillum_strength": 32.0,
+        "water_color_noise_size": 71.0,
+        "river_density": 3.0
+      }
+    }
+  },
+  {
+    "entity": [
+      {
+        "_template": "team_usa"
+      },
+      {
+        "team__id": 1
+      },
+      {
+        "team__roundScore": 0
+      },
+      {
+        "team__roundScore": 0
+      },
+      {
+        "team__score": 9000.0
+      },
+      {
+        "team__scoreCap": 9000.0
+      },
+      {
+        "team__botTemplate": "usa_npc_summer_soldier_1"
+      }
+    ]
+  },
+  {
+    "entity": [
+      {
+        "_template": "team_germany"
+      },
+      {
+        "team__id": 2
+      },
+      {
+        "team__roundScore": 0
+      },
+      {
+        "team__roundScore": 0
+      },
+      {
+        "team__score": 9000.0
+      },
+      {
+        "team__scoreCap": 9000.0
+      }
+    ]
+  },
+  {
+    "entity": {
+      "_template": "respawnBase",
+      "transform": [
+        [-0.176704,0.0,0.984264],
+        [0.0,1.0,0.0],
+        [-0.984264,0.0,-0.176704],
+        [139.508,4.42985,-322.546]
+      ],
+      "team": -1
+    }
+  },
+  {
+    "entity": {
+      "_template": "water",
+      "water__strength": 0.3,
+      "water__level": 0.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawnChooser+respVehicle",
+      "transform": [
+        [-0.176704,0.0,0.984264],
+        [0.0,1.0,0.0],
+        [-0.984264,0.0,-0.176704],
+        [145.253,4.42985,-321.69]
+      ],
+      "team": -1,
+      "respTime": 10,
+      "maxVehicleOnSpawn": 100
+    }
+  },
+  {
+    "entity": {
+      "_template": "resupply_in_air_zone",
+      "transform": [
+        [-0.998928,0.0,-0.0462803],
+        [0.0,1.0,0.0],
+        [0.0462803,0.0,-0.998928],
+        [-148.987,313.62,836.819]
+      ],
+      "resupply_zone__team": -1
+    }
+  },
+  {
+    "entity": {
+      "_template": "respAircraftInAir",
+      "respawnbaseType": "aircraft_fighter",
+      "transform": [
+        [-0.723157,0.0,0.690686],
+        [0.0,1.0,0.0],
+        [-0.690685,0.0,-0.723156],
+        [1277.44,735.23,-1305.65]
+      ],
+      "team": -1,
+      "maxVehicleOnSpawn": 10,
+      "respTime": 10
+    }
+  },
+  {
+    "entity": {
+      "_template": "respAircraftInAir",
+      "respawnbaseType": "aircraft_assault",
+      "transform": [
+        [-0.78709,0.0,0.616839],
+        [0.0,1.0,0.0],
+        [-0.616839,0.0,-0.78709],
+        [1159.03,535.23,-1437.5]
+      ],
+      "team": -1,
+      "maxVehicleOnSpawn": 10,
+      "respTime": 10
+    }
+  },
+  {
+    "entity": {
+      "_template": "respAircraftInAir",
+      "respawnbaseType": "aircraft_fighter",
+      "transform": [
+        [-0.752403,0.0,0.658704],
+        [0.0,1.0,0.0],
+        [-0.658704,0.0,-0.752403],
+        [1167.3,735.23,-1417.01]
+      ],
+      "team": -1,
+      "maxVehicleOnSpawn": 10,
+      "respTime": 10
+    }
+  },
+  {
+    "entity": {
+      "_template": "respAircraftInAir",
+      "respawnbaseType": "aircraft_assault",
+      "transform": [
+        [-0.745794,0.0,0.666178],
+        [0.0,1.0,0.0],
+        [-0.666177,0.0,-0.745793],
+        [1277.44,535.23,-1305.65]
+      ],
+      "team": -1,
+      "maxVehicleOnSpawn": 10,
+      "respTime": 10
+    }
+  }
+]

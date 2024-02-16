@@ -28,6 +28,13 @@
     "animchar_bsph": {
       "_tags": "render"
     },
+    "animchar_bsph_precalculated": {
+      "_tags": "render"
+    },
+    "animchar__usePrecalculatedData:b": {
+      "_tags": "render",
+      "value": false
+    },
     "animchar_bbox": {
       "_tags": "render"
     },
@@ -58,7 +65,7 @@
     "requires_trans_render:tag": []
   },
   "animchar_turn_dir": {
-    "_extends": "animchar",
+    "_use": "animchar",
     "animchar__turnDir": true,
     "animchar": []
   },

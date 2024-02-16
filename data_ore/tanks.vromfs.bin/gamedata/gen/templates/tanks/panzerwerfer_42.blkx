@@ -1,10 +1,10 @@
 {
   "base_panzerwerfer_42": [
     {
-      "_extends": "base_tank"
+      "_use": "base_tank"
     },
     {
-      "_extends": "panzerwerfer_42_ammo_stowages"
+      "_use": "panzerwerfer_42_ammo_stowages"
     },
     {
       "killLogName": "germ_panzerwerfer_42"
@@ -155,7 +155,7 @@
     }
   ],
   "base_panzerwerfer_42_projectile": {
-    "_extends": "rocket_projectile",
+    "_use": "rocket_projectile",
     "animchar__res": "nebelwerfer_42_rocket_char",
     "shell__concussionMaxRadius:r": {
       "value": 4.0,
@@ -164,10 +164,10 @@
   },
   "panzerwerfer_42_rocket": [
     {
-      "_extends": "base_tank_rocket_gun"
+      "_use": "base_tank_rocket_gun"
     },
     {
-      "_extends": "reloadable_turret"
+      "_use": "reloadable_turret"
     },
     {
       "gun__projectileTemplate": "panzerwerfer_42_projectile"
@@ -223,11 +223,11 @@
     }
   ],
   "panzerwerfer_42_item": {
-    "_extends": "base_tank_rocket_item",
+    "_use": "base_tank_rocket_item",
     "animchar__res": "nebelwerfer_42_rocket_char"
   },
   "panzerwerfer_42_turret_01_7_92mm_mg42": {
-    "_extends": "tankgun_7_92mm_mg42",
+    "_use": "tankgun_7_92mm_mg42",
     "gun__shootNodeName": "bone_mg_aa_v",
     "turret__yawSpeed": 90.0,
     "turret__pitchSpeed": 90.0,
@@ -244,13 +244,13 @@
   },
   "panzerwerfer_42_ammo_stowages": {
     "_tags": "server",
-    "_extends": "vehicle_ammo_stowages",
+    "_use": "vehicle_ammo_stowages",
     "ammo_stowage__stowageTemplates:shared:list<t>": {
       "stowage": "panzerwerfer_42_ammo_stowage_1"
     }
   },
   "panzerwerfer_42_ammo_stowage_1": {
-    "_extends": "ammo_stowage",
+    "_use": "ammo_stowage",
     "ammo_stowage__clusterTemplates:shared:list<t>": [
       {
         "cluster": "panzerwerfer_42_ammo_cluster_1_1"
@@ -261,7 +261,7 @@
     ]
   },
   "panzerwerfer_42_ammo_cluster_1_1": {
-    "_extends": "ammo_cluster",
+    "_use": "ammo_cluster",
     "ammo_cluster__isShell": true,
     "ammo_cluster__slotNames:shared:list<t>": [
       {
@@ -329,7 +329,7 @@
     ]
   },
   "panzerwerfer_42_ammo_cluster_1_2": {
-    "_extends": "ammo_cluster",
+    "_use": "ammo_cluster",
     "ammo_cluster__isShell": true,
     "ammo_cluster__slotNames:shared:list<t>": [
       {

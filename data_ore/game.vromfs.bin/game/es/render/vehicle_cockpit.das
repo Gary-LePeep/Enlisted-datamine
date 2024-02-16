@@ -57,7 +57,7 @@ def vehicle_change_cockpit_es(evt : Event;
   if cockpitTemplate == ""
     return
 
-  let effectors = get_ecs_object(seat, "effectors")
+  let cockpitEffectors = get_ecs_object(seat, "cockpitEffectors")
 
   vehicle_sight__opacity = 0.f
 
@@ -66,10 +66,10 @@ def vehicle_change_cockpit_es(evt : Event;
     set(init, "cockpit__vehicleEid", eid)
     set(init, "cockpit__seatNo", heroSeatIdx)
     set(init, "cockpit__cameraTime", 1.f)
-    set(init, "cockpit__zoomTime", 0.f)
+    set(init, "cockpit__forwardOffsetTime", 0.f)
     set(init, "cockpit__isAttached", true)
-    if effectors != null
-      set(init, "cockpit__effectorsInfo", *effectors)
+    if cockpitEffectors != null
+      set(init, "cockpit__effectorsInfo", *cockpitEffectors)
 
 [es(on_appear)]
 def cockpit_attach_nodes_init(evt : Event;
@@ -189,14 +189,18 @@ def vehicle_cockpit_slits_init(evt : Event;
                                transform : float3x4;
                                var cockpit__slitNodes : IntList;
                                var cockpit__slitCameraOffsets : Point3List;
-                               var cockpit__slitCameraDirs : Point3List)
+                               var cockpit__slotRelToCockpitOffset : Point3List;
+                               var cockpit__slitCameraDirs : Point3List;
+                               var cockpit__periscopeAngles : Point2List)
   if !cockpit__isAttached
     return
 
   let nodesCount = length(cockpit__slitNodeNames)
   resize(cockpit__slitNodes, nodesCount)
   resize(cockpit__slitCameraOffsets, nodesCount)
+  resize(cockpit__slotRelToCockpitOffset, nodesCount)
   resize(cockpit__slitCameraDirs, nodesCount)
+  resize(cockpit__periscopeAngles, nodesCount)
 
   var cockpitTm := transform
   cockpitTm[2] = -cockpitTm[2]
@@ -219,6 +223,7 @@ def vehicle_cockpit_slits_init(evt : Event;
 
     let slitRelToCockpitTm = cockpitItm * slitNodeWtm
     cockpit__slitCameraOffsets[i] = slitRelToCockpitTm[3] + offset
+    cockpit__slotRelToCockpitOffset[i] = slitRelToCockpitTm[3]
 
     if cockpit__slitAngles != null
       let angle = deg_to_rad((*cockpit__slitAngles)[i])
@@ -324,9 +329,9 @@ def vehicle_cockpit_on_attach_dm_parts_map_init(evt : Event;
                                                 animchar_render : AnimcharRendComponent;
                                                 var cockpit__partToAnimcharNodeMap : IntList)
   query(cockpit__vehicleEid) <| $ [es] (damage_model : DamageModel)
-    assume parts = damage_model.dmData.parts
-    for part in parts
-      let nodeNameDm = damagePart_getName(part)
+    assume partProps = damage_model.dmData.partProps
+    for partProp in partProps
+      let nodeNameDm = damagePart_getName(partProp)
       var nodeId = -1
       if nodeNameDm |> ends_with("_dm")
         let nodeName = chop(nodeNameDm, 0, length(nodeNameDm) - 3)
@@ -356,7 +361,7 @@ def vehicle_cockpit_on_slit_change(evt : Event;
                                    cockpit__slitCameraDirs : Point3List;
                                    cockpit__slitCameraOffsets : Point3List;
                                    cockpit__attachNodeIndices : IntList const?;
-                                   cockpit__minZoom : float;
+                                   cockpit__minForwardOffset : float;
                                    cockpit__seatNo : int;
                                    cockpit__vehicleEid : EntityId;
                                    var cockpit__cameraTime : float&;
@@ -365,11 +370,11 @@ def vehicle_cockpit_on_slit_change(evt : Event;
 
   let prevCameraOffset = cockpit__slitCameraOffsets[cockpit__prevSlit]
   let prevCameraDir    = cockpit__slitCameraDirs[cockpit__prevSlit]
-  let prevOffset       = prevCameraDir * cockpit__minZoom
+  let prevOffset       = prevCameraDir * cockpit__minForwardOffset
 
   let cameraOffset = cockpit__slitCameraOffsets[cockpit__nextSlit]
   let cameraDir    = cockpit__slitCameraDirs[cockpit__nextSlit]
-  let offset       = cameraDir * cockpit__minZoom
+  let offset       = cameraDir * cockpit__minForwardOffset
 
   var endPos = cameraOffset + offset
   query(cockpit__vehicleEid) <| $ [es] (animchar : AnimcharBaseComponent; vehicle_seats__seatEids : EidList)
@@ -439,36 +444,41 @@ def vehicle_cockpit_slits_transition(info : ParallelUpdateFrameDelayed;
                                      cockpit__nextSlit : int;
                                      cockpit__slitCameraDirs : Point3List;
                                      cockpit__cockpitOffsetBySlit : Point3List const?;
+                                     cockpit__forwardOffsetDuration : float;
                                      cockpit__attachNodeIndices : IntList const?;
                                      cockpit__offset : float3;
+                                     cockpit__slitTransitionDuration : float;
                                      var transform : float3x4;
                                      var cockpit__startCameraDir : float3&;
                                      var cockpit__endCameraOrient : float4&;
                                      var cockpit__endOrientX : float4&;
                                      var cockpit__endOrientY : float4&;
                                      var cockpit__currentSlit : int&;
-                                     var cockpit__zoomTime : float&;
-                                     var cockpit__cameraTime : float&;
-                                     cockpit__zoomTimeMul = 1.f;
-                                     cockpit__cameraTimeMul = 1.f)
+                                     var cockpit__forwardOffsetTime : float&;
+                                     var cockpit__cameraTime : float&)
   let inTransition = cockpit__cameraTime < 1.f
 
-  let wasInZoom = cockpit__zoomTime > 0.f
-  cockpit__zoomTime = saturate(cockpit__zoomTime + (inTransition ? -info.dt : info.dt) * cockpit__zoomTimeMul)
+  let prevForwardOffsetTime = cockpit__forwardOffsetTime
+  if cockpit__forwardOffsetDuration < VERY_SMALL_NUMBER
+    cockpit__forwardOffsetTime = inTransition ? 0. : 1.
+  else
+    cockpit__forwardOffsetTime = saturate(cockpit__forwardOffsetTime + (inTransition ? -info.dt : info.dt) / cockpit__forwardOffsetDuration)
 
-  let inZoom = cockpit__zoomTime > 0.f
-  if inZoom
+  if cockpit__forwardOffsetTime > 0.f
     return
 
   if !inTransition
     return
 
-  cockpit__cameraTime += info.dt * cockpit__cameraTimeMul
+  if cockpit__slitTransitionDuration < VERY_SMALL_NUMBER
+    cockpit__cameraTime = 1.0
+  else
+    cockpit__cameraTime = saturate(cockpit__cameraTime + info.dt / cockpit__slitTransitionDuration)
 
   ecs::query(cockpit__vehicleEid) <| $ [es] (animchar : AnimcharBaseComponent; vehicle_seats__seatEids : EidList; var animchar_camera_target__node_offset : float3&; var cockpit__cameraDir : float3&)
     geomtree_getNodeWtmScalar(*animchar.nodeTree, cockpit__attachNodeIndex, transform)
 
-    if wasInZoom
+    if prevForwardOffsetTime > 0.
       let cameraDir = cockpit__slitCameraDirs[cockpit__nextSlit]
       var nextAttachTm : float3x4
       if cockpit__attachNodeIndices != null
@@ -499,6 +509,95 @@ def vehicle_cockpit_slits_transition(info : ParallelUpdateFrameDelayed;
   if cockpit__cameraTime >= 1.0f
     cockpit__currentSlit = cockpit__nextSlit
 
+def get_periscope_angles(transform : float3x4;
+                         cockpit__periscopeAngles : Point2List;
+                         cockpit__slitCameraDirs : Point3List;
+                         cockpit__periscopeLimits : Point4List;
+                         cockpit__periscopeSpeed : Point2List;
+                         cockpit__currentSlit : int;
+                         camera__lookDir : float3;
+                         dt : float)
+  let localSlitDir = cockpit__slitCameraDirs[cockpit__currentSlit]
+  var cockpitTm := transform
+  cockpitTm[2] = -cockpitTm[2]
+  let slitDir = rotate(cockpitTm, localSlitDir)
+  let slitAngles = dir_to_angles(slitDir)
+  let wishAngles = renorm_ang(dir_to_angles(camera__lookDir), slitAngles) - slitAngles
+  var periscopeAngles = wishAngles
+  let prevAngles = renorm_ang(cockpit__periscopeAngles[cockpit__currentSlit], periscopeAngles)
+  let rotateSpeed = deg_to_rad(cockpit__periscopeSpeed?[cockpit__currentSlit] ?? float2())
+  if rotateSpeed.x >= 0.
+    periscopeAngles.x = move_to(prevAngles.x, periscopeAngles.x, dt, rotateSpeed.x)
+  if rotateSpeed.y >= 0.
+    periscopeAngles.y = move_to(prevAngles.y, periscopeAngles.y, dt, rotateSpeed.y)
+  let limits = deg_to_rad(cockpit__periscopeLimits?[cockpit__currentSlit] ?? float4())
+  return clamp(periscopeAngles, limits.xz, limits.yw)
+
+def apply_cockpit_periscope_angles(periscope_angles : float2;
+                                   animchar : AnimcharBaseComponent;
+                                   cockpit__attachNodeIndex : int;
+                                   animchar_camera_target__node_offset : float3;
+                                   cockpit__slitCameraDirs : Point3List;
+                                   cockpit__slotRelToCockpitOffset : Point3List;
+                                   cockpit__currentSlit : int;
+                                   cockpit__forwardOffset : float;
+                                   var transform : float3x4&;
+                                   var cockpit__cameraDir : float3&)
+  let localSlitDir = cockpit__slitCameraDirs[cockpit__currentSlit]
+  transform[2] = -transform[2]
+  let slitDir = rotate(transform, localSlitDir)
+  transform[2] = -transform[2]
+
+  let pitchAxis = cross(slitDir, transform[1])
+  let yaw = quat(transform[1], periscope_angles.x)
+  let pitch = quat(pitchAxis, periscope_angles.y)
+  var rotTm : float3x4
+  (yaw * pitch) |> make_tm(rotTm)
+
+  // rotate
+  transform = rotTm * transform
+  // restore camera pos
+  var tm : float3x4
+  geomtree_getNodeWtmScalar(*animchar.nodeTree, cockpit__attachNodeIndex, tm)
+  let cameraSlitPos = tm * animchar_camera_target__node_offset
+  transform[2] = -transform[2]
+  cockpit__cameraDir = rotate(transform, localSlitDir)
+  let cameraForwardOffset = cockpit__cameraDir * cockpit__forwardOffset
+  let cockpitSlitPos = transform * cockpit__slotRelToCockpitOffset[cockpit__currentSlit]
+  transform[3] += cameraSlitPos - cockpitSlitPos - cameraForwardOffset
+  transform[2] = -transform[2]
+
+[es(tag=render, REQUIRE=cockpit__vehicleEid, after=vehicle_cockpit_slits_transition, before=animchar_cam_target__with_offset_es)]
+def vehicle_cockpit_rotate(info : ParallelUpdateFrameDelayed;
+                           cockpit__isAttached : bool;
+                           cockpit__vehicleEid : EntityId;
+                           cockpit__cameraTime : float;
+                           cockpit__attachNodeIndex : int;
+                           cockpit__currentSlit : int;
+                           cockpit__slotRelToCockpitOffset : Point3List;
+                           cockpit__slitCameraDirs : Point3List;
+                           cockpit__forwardOffset : float;
+                           cockpit__periscopeLimits : Point4List;
+                           cockpit__periscopeSpeed : Point2List;
+                           var cockpit__periscopeAngles : Point2List&;
+                           var cockpit__isPeriscope : bool&;
+                           var transform : float3x4&)
+  cockpit__isPeriscope = length_sq(cockpit__periscopeLimits?[cockpit__currentSlit] ?? float4()) > 0.
+  let inTransition = cockpit__cameraTime < 1.f
+  if inTransition || !cockpit__isAttached || cockpit__currentSlit >= length(cockpit__periscopeAngles)
+    return
+  query(cockpit__vehicleEid) <| $ [es] (camera__lookDir : float3;
+                                        animchar : AnimcharBaseComponent;
+                                        animchar_camera_target__node_offset : float3;
+                                        var cockpit__cameraDir : float3&)
+    cockpit__periscopeAngles[cockpit__currentSlit] = get_periscope_angles(transform, cockpit__periscopeAngles, cockpit__slitCameraDirs,
+                                                                          cockpit__periscopeLimits, cockpit__periscopeSpeed,
+                                                                          cockpit__currentSlit, camera__lookDir, info.dt)
+    apply_cockpit_periscope_angles(cockpit__periscopeAngles[cockpit__currentSlit],
+                                   animchar, cockpit__attachNodeIndex, animchar_camera_target__node_offset,
+                                   cockpit__slitCameraDirs, cockpit__slotRelToCockpitOffset, cockpit__currentSlit, cockpit__forwardOffset,
+                                   transform, cockpit__cameraDir)
+
 [es(tag=render, REQUIRE=cockpit__vehicleEid, after=(after_animchar_update_sync, vehicle_attach_cockpit_es, vehicle_cockpit_slits_transition))]
 def vehicle_cockpit_update_animchar(info : ParallelUpdateFrameDelayed;
                                     transform : float3x4;
@@ -512,8 +611,8 @@ def vehicle_cockpit_update_animchar(info : ParallelUpdateFrameDelayed;
 [es(tag=render, after=(animchar_es, vehicle_attach_cockpit_es), before=animchar_cam_target__with_offset_es)]
 def vehicle_cockpit_slits(info : ParallelUpdateFrameDelayed;
                           cockpit__isAttached : bool;
-                          cockpit__zoomTime : float;
-                          cockpit__minZoom : float;
+                          cockpit__forwardOffsetTime : float;
+                          cockpit__minForwardOffset : float;
                           cockpit__attachNodeIndex : int;
                           cockpit__vehicleEid : EntityId;
                           cockpit__currentSlit : int;
@@ -521,7 +620,7 @@ def vehicle_cockpit_slits(info : ParallelUpdateFrameDelayed;
                           cockpit__slitForwardOffset : FloatList;
                           cockpit__slitCameraOffsets : Point3List;
                           cockpit__slitCameraDirs : Point3List;
-                          var cockpit__zoom : float&)
+                          var cockpit__forwardOffset : float&)
   if !cockpit__isAttached || cockpit__currentSlit >= length(cockpit__slitNodes)
     return
 
@@ -529,13 +628,12 @@ def vehicle_cockpit_slits(info : ParallelUpdateFrameDelayed;
   if nodeId < 0
     return
 
-  let t = inOutSine(cockpit__zoomTime)
-  let zoom = lerp(cockpit__minZoom, cockpit__slitForwardOffset[cockpit__currentSlit], t)
-  cockpit__zoom = zoom
+  let t = inOutSine(cockpit__forwardOffsetTime)
+  cockpit__forwardOffset = lerp(cockpit__minForwardOffset, cockpit__slitForwardOffset[cockpit__currentSlit], t)
 
   let cameraOffset = cockpit__slitCameraOffsets[cockpit__currentSlit]
   let cameraDir    = cockpit__slitCameraDirs[cockpit__currentSlit]
-  let offset       = cameraDir * zoom
+  let offset       = cameraDir * cockpit__forwardOffset
 
   ecs::query(cockpit__vehicleEid) <| $ [es] (animchar : AnimcharBaseComponent;
                                              var vehicle_sight__opacity : float&;
@@ -550,7 +648,7 @@ def vehicle_cockpit_slits(info : ParallelUpdateFrameDelayed;
 
     cockpit__cameraDir = rotate(cockpitTm, cameraDir)
 
-    vehicle_sight__opacity = inQuintic(cockpit__zoomTime)
+    vehicle_sight__opacity = inQuintic(cockpit__forwardOffsetTime)
 
 
 [es(tag=render, after=(animchar_es, vehicle_attach_cockpit_es), before=vehicle_cockpit_slits)]
@@ -588,3 +686,18 @@ def set_decals_to_cockpit(evt : Event;
                           var animcharDecalsData aka cockpit_animcharDecalsData : Array&)
   query(cockpit__vehicleEid) <| $ [es] (animcharDecalsData : Array)
     cockpit_animcharDecalsData := animcharDecalsData
+
+[es(tag=gameClient, on_appear)]
+def cockpit_init_slits(evt : Event; cockpit__slitTemplates : StringList; var cockpit__slitEids : EidList&)
+  cockpit__slitEids |> resize(length(cockpit__slitTemplates))
+  for indx, slitTemplateStr in iter_range(cockpit__slitTemplates), cockpit__slitTemplates
+    peek(slitTemplateStr) <| $(slitTemplate)
+      if empty(slitTemplateStr)
+        cockpit__slitEids[indx] = INVALID_ENTITY_ID
+      else
+        cockpit__slitEids[indx] = createEntity(slitTemplate)
+
+[es(tag=gameClient, on_disappear)]
+def cockpit_destroy_slits(evt : Event; cockpit__slitEids : EidList)
+  for eid in cockpit__slitEids
+    destroyEntity(eid)

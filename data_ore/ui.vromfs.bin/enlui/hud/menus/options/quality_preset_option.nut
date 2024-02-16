@@ -24,7 +24,6 @@ let {
   ,optGroundDisplacementQuality
   ,optGroundDeformations
   ,optTaaQuality
-  ,optTaaMipBias
   ,optAnisotropy
   ,optOnlyonlyHighResFx
   ,optDropletsOnScreen
@@ -33,6 +32,8 @@ let {
   ,optTexQuality
   ,optFFTWaterQuality
   ,optHQProbeReflections
+  ,optHQVolumetricClouds
+  ,optHQVolfog
   ,optSSSS
   } = require("%ui/hud/menus/options/render_options.nut")
 
@@ -44,7 +45,9 @@ let presetsRequired = freeze([BARE_MINIMUM, MINIMUM, LOW, MEDIUM, HIGH, ULTRA])
 let numPresets = presetsRequired.len()
 let bareShaderFile = $"compiledShaders/compatPC/game{is_dx12() ? "DX12" : ""}.ps50.shdump.bin"
 let hasBareMinimum = platform.is_pc && file_exists(bareShaderFile)
-let avPresets = freeze((hasBareMinimum ? [BARE_MINIMUM] : []).append(MINIMUM, LOW, MEDIUM, HIGH, ULTRA, CUSTOM))
+let presets = hasBareMinimum ? [BARE_MINIMUM] : []
+presets.append(MINIMUM, LOW, MEDIUM, HIGH, ULTRA, CUSTOM)
+let avPresets = freeze(presets)
 
 let mapOptionsByPreset = {
    //!!! MEDIUM preset is preset with 'default settings' as they are set in render_options.
@@ -67,13 +70,14 @@ let mapOptionsByPreset = {
   [optWaterQuality]              = ["low",         "low",     "low",    "low",    "medium",   "high"],
   [optGroundDisplacementQuality] = [0,             0,         0,        1,        1,          2],
   [optGroundDeformations]        = ["off",         "off",     "low",    "medium", "high",     "high"],
-  [optTaaMipBias]                = [0.0,           0.0,       -0.15,    -0.5,     -0.5,       -1.0],
-  [optOnlyonlyHighResFx]         = ["lowres",      "lowres",  "lowres", "lowres", "lowres", "highres"],
+  [optOnlyonlyHighResFx]         = ["lowres",      "lowres",  "lowres", "medres", "medres", "highres"],
   [optDropletsOnScreen]          = [false,         false,     false,    true,     true,       true],
   [optSSRQuality]                = ["low",         "low",     "low",    "low",    "medium",   "high"],
   [optScopeImageQuality]         = [0,             0,         0,        1,        2,          3],
   [optFFTWaterQuality]           = ["low",         "low",     "medium", "high",   "ultra",    "ultra"],
   [optHQProbeReflections]        = [false,         false,     false,    true,     true,       true],
+  [optHQVolumetricClouds]        = [false,         false,     false,    false,     false,       false], // disabled everywhere by default, way too expensive
+  [optHQVolfog]                  = [false,         false,     false,    false,     false,       false], // disabled everywhere by default, way too expensive
   [optSSSS]                      = ["off",         "off",     "off",    "low",    "high",     "high"],
 }
 
@@ -116,11 +120,14 @@ foreach (o, q in mapOptionsByPreset){
   })
 }
 
-let function setOptionsByPreset(...){
-  let gp = graphicsPreset.value
+let function getOptionsByPreset(gp) {
   if (gp == CUSTOM || !optGraphicsQualityPreset.isAvailable())
-    return
+    return null
   let idx = presetsRequired.indexof(gp)
+  if (idx==null)
+    return null
+  let changedOptsVals = []
+  let presetOptsVals = []
   foreach (o, q in mapOptionsByPreset){
     let opt = o
     let qualities = q
@@ -129,8 +136,16 @@ let function setOptionsByPreset(...){
     if ("isDisabled" in opt && opt.isDisabled())
       continue
     let val = qualities[idx]
-    if (opt?.var.value ==  val)
-      continue
+    presetOptsVals.append({opt, val})
+    if (opt?.var.value != val)
+      changedOptsVals.append({opt, val})
+  }
+  return {presetOptsVals, changedOptsVals}
+}
+
+let function setOptionsByOptVals(changedOptsVals){
+  foreach (i in changedOptsVals) {
+    let {opt, val} = i
     if ("setValue" in opt)
       opt.setValue(val)
     else if ("var" in opt)
@@ -138,9 +153,11 @@ let function setOptionsByPreset(...){
   }
 }
 
-graphicsPreset.subscribe(setOptionsByPreset)
-setOptionsByPreset()
+graphicsPreset.subscribe(@(v) setOptionsByOptVals(getOptionsByPreset(v)?.changedOptsVals ?? []))
+setOptionsByOptVals(getOptionsByPreset(graphicsPreset.value)?.changedOptsVals ?? [])
 
 return {
   optGraphicsQualityPreset
+  getOptionsByPreset
+  setOptionsByOptVals
 }

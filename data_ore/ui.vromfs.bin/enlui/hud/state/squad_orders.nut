@@ -40,7 +40,7 @@ ecs.register_es("squad_orders_ui_es",
 )
 
 let localSquadOrder = Computed(function() {
-  let v = squad_orders_State.value.findvalue(@(v) v.owner == localPlayerEid.value)
+  let v = squad_orders_State.value.findvalue(@(val) val.owner == localPlayerEid.value)
   if (v != null && v.orderType == SquadOrder.ESO_DEFEND_POINT && v.isAlive==true)
     return v.orderPosition
   return null

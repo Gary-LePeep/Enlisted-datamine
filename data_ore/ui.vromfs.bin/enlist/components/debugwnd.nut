@@ -1,8 +1,8 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let JB = require("%ui/control/gui_buttons.nut")
-let { copy_to_clipboard } = require("dagor.clipboard")
-let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { set_clipboard_text } = require("dagor.clipboard")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { tostring_r, utf8ToLower } = require("%sqstd/string.nut")
 let { startswith, endswith } = require("string")
 let { makeVertScroll } = require("%ui/components/scrollbar.nut")
@@ -25,7 +25,7 @@ let function tabButton(text, idx, curTab){
         rendObj = ROBJ_TEXT
         text
         color = isSelected ? Color(255,255,255) : defaultColor
-      }.__update(sub_txt)
+      }.__update(fontSub)
       behavior = Behaviors.Button
       onClick = @() curTab(idx)
       onElemState = @(s) stateFlags(s)
@@ -57,7 +57,7 @@ let textArea = @(text) {
   behavior = Behaviors.TextArea
   preformatted = FMT_AS_IS //FMT_KEEP_SPACES
   text
-}.__update(sub_txt)
+}.__update(fontSub)
 
 let dataToText = @(data) tostring_r(data, { maxdeeplevel = 10, compact = false })
 
@@ -113,7 +113,6 @@ let function filterData(data, curLevel, filterLevel, rowFilter, countLeft) {
       res[key] <- curData
     if (countLeft.value < 0)
       break
-    continue
   }
   return (curLevel == 0 || res.len() > 0) ? res : null
 }
@@ -159,7 +158,7 @@ let function mkInfoBlock(curTabIdx, tabs, filterText) {
   mkInfoBlockKey++
   let function copytoCb() {
     log_for_user("copied to clipboard")
-    copy_to_clipboard(textWatch.value)
+    set_clipboard_text(textWatch.value)
   }
   return @() {
     watch = [textWatch]
@@ -205,7 +204,7 @@ let debugShopWnd = @(tabs, curTab, filterText) {
           margin = 0
           onChange = @(value) filterText(value)
           onEscape = @() filterText("")
-        }.__update(sub_txt))
+        }.__update(fontSub))
       ]
     }
     makeVertScroll(mkCurInfo(curTab, tabs, filterText))

@@ -132,9 +132,9 @@ return {
                         "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_05_ussr_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_01_9_windings_ussr_winter_item",
@@ -249,9 +249,9 @@ return {
                         "gametemplate" : "hair_02_us_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_02_ussr_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_01_9_windings_ussr_winter_item",
@@ -378,9 +378,9 @@ return {
                         "gametemplate" : "hair_01_us_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_05_ussr_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_02_ussr_summer_item",
@@ -495,9 +495,9 @@ return {
                         "gametemplate" : "hair_02_us_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_02_ussr_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_02_ussr_summer_item",
@@ -612,9 +612,9 @@ return {
                         "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_02_ussr_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_02_1_ussr_summer_item",
@@ -752,9 +752,9 @@ return {
                         "gametemplate" : "hair_02_us_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_05_ussr_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_ameba_ussr_summer_item",
@@ -877,9 +877,9 @@ return {
                         "gametemplate" : "hair_02_us_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_05_ussr_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_ameba_ussr_summer_item",
@@ -998,9 +998,9 @@ return {
                         "gametemplate" : "hair_01_us_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_02_ussr_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_ameba_1_ussr_summer_item",
@@ -1120,9 +1120,9 @@ return {
                         "gametemplate" : "hair_01_us_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_05_ussr_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_ameba_1_ussr_summer_item",
@@ -1309,9 +1309,9 @@ return {
                         "gametemplate" : "hair_01_us_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_07_ussr_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_01_ussr_summer_item",
@@ -1427,9 +1427,9 @@ return {
                         "gametemplate" : "hair_01_us_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "tanker_helmet_gls_01_ussr_winter_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_01_ussr_summer_item",
@@ -1545,9 +1545,9 @@ return {
                         "gametemplate" : "hair_01_us_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_07_ussr_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_01_ussr_summer_item",
@@ -1678,9 +1678,9 @@ return {
                         "gametemplate" : "hair_01_us_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_02_ussr_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_01_5_windings_ussr_winter_item",
@@ -1795,9 +1795,9 @@ return {
                         "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_05_ussr_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_01_6_windings_ussr_winter_item",
@@ -1916,9 +1916,9 @@ return {
                         "gametemplate" : "hair_02_us_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_05_ussr_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_02_ussr_summer_item",
@@ -2041,9 +2041,9 @@ return {
                         "gametemplate" : "hair_02_us_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_05_ussr_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_01_7_windings_ussr_winter_item",
@@ -2215,9 +2215,9 @@ return {
                         "gametemplate" : "hair_01_us_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "flight_helmet_01_ussr_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "tunic" : {
                         "gametemplate" : "attachable_wear_pilot_overall_ussr_winter_item",
@@ -2344,9 +2344,9 @@ return {
                         "gametemplate" : "hair_01_us_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_02_ussr_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_02_ussr_summer_item",
@@ -2475,9 +2475,9 @@ return {
                         "gametemplate" : "hair_01_us_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_05_ussr_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_01_windings_ussr_winter_item",
@@ -2589,9 +2589,9 @@ return {
                         "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_05_ussr_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_01_1_windings_ussr_winter_item",
@@ -2766,9 +2766,9 @@ return {
                         "gametemplate" : "hair_02_us_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "flight_helmet_01_ussr_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "tunic" : {
                         "gametemplate" : "attachable_wear_pilot_overall_ussr_winter_item",
@@ -2986,17 +2986,17 @@ return {
                         "gametemplate" : "attachable_wear_head_02_ger_summer_item",
                         "slot" : "face"
                      },
-                     "front_belt_r" : {
+                     "side_belt_r" : {
                         "gametemplate" : "attachable_wear_map_case_01_ger_summer_item",
-                        "slot" : "front_belt_r"
+                        "slot" : "side_belt_r"
                      },
                      "gloves" : {
                         "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_06_ger_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_02_ger_summer_item",
@@ -3119,9 +3119,9 @@ return {
                         "gametemplate" : "hair_02_ger_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_06_ger_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_volkssturm_01_ger_summer_item",
@@ -3233,17 +3233,17 @@ return {
                         "gametemplate" : "attachable_wear_head_male_11_ger_item",
                         "slot" : "face"
                      },
-                     "front_belt_r" : {
+                     "side_belt_r" : {
                         "gametemplate" : "attachable_wear_map_case_01_ger_summer_item",
-                        "slot" : "front_belt_r"
+                        "slot" : "side_belt_r"
                      },
                      "gloves" : {
                         "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_06_ger_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_02_ger_summer_item",
@@ -3366,9 +3366,9 @@ return {
                         "gametemplate" : "hair_01_ger_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_06_ger_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_volkssturm_01_ger_summer_item",
@@ -3483,9 +3483,9 @@ return {
                         "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_06_ger_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_volkssturm_01_ger_summer_item",
@@ -3627,9 +3627,9 @@ return {
                         "gametemplate" : "hair_01_ger_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_01_ger_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_02_ger_winter_item",
@@ -3752,9 +3752,9 @@ return {
                         "gametemplate" : "hair_01_ger_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_01_ger_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_02_ger_winter_item",
@@ -3870,9 +3870,9 @@ return {
                         "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_01_ger_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_02_ger_winter_item",
@@ -3983,9 +3983,9 @@ return {
                         "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_01_ger_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_02_ger_winter_item",
@@ -4664,9 +4664,9 @@ return {
                         "gametemplate" : "attachable_wear_head_male_12_ger_item",
                         "slot" : "face"
                      },
-                     "front_belt_r" : {
+                     "side_belt_r" : {
                         "gametemplate" : "attachable_wear_map_case_01_ger_summer_item",
-                        "slot" : "front_belt_r"
+                        "slot" : "side_belt_r"
                      },
                      "gloves" : {
                         "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
@@ -4676,9 +4676,9 @@ return {
                         "gametemplate" : "hair_02_ger_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_03_s_ger_winter_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_volkssturm_01_ger_summer_item",
@@ -4797,9 +4797,9 @@ return {
                         "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_03_s_ger_winter_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_volkssturm_01_ger_summer_item",
@@ -4910,17 +4910,17 @@ return {
                         "gametemplate" : "attachable_wear_head_02_ger_summer_item",
                         "slot" : "face"
                      },
-                     "front_belt_r" : {
+                     "side_belt_r" : {
                         "gametemplate" : "attachable_wear_map_case_01_ger_summer_item",
-                        "slot" : "front_belt_r"
+                        "slot" : "side_belt_r"
                      },
                      "gloves" : {
                         "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_03_s_ger_winter_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_volkssturm_01_ger_summer_item",
@@ -5224,9 +5224,9 @@ return {
                         "gametemplate" : "hair_02_ger_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_03_ger_summer_splittertarnung_camo_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_02_ger_winter_item",
@@ -5341,9 +5341,9 @@ return {
                         "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_03_ger_summer_splittertarnung_camo_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_02_ger_winter_item",
@@ -5462,9 +5462,9 @@ return {
                         "gametemplate" : "hair_02_ger_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_03_ger_summer_splittertarnung_camo_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_02_ger_winter_item",
@@ -5580,9 +5580,9 @@ return {
                         "gametemplate" : "hair_01_ger_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_03_ger_summer_splittertarnung_camo_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_02_ger_winter_item",
@@ -5815,9 +5815,9 @@ return {
                         "gametemplate" : "hair_01_us_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_07_02_ussr_winter_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_01_windings_ussr_winter_item",
@@ -5938,9 +5938,9 @@ return {
                         "gametemplate" : "attachable_wear_gloves_01_ussr_winter_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_07_02_ussr_winter_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_01_6_windings_ussr_winter_item",
@@ -6055,9 +6055,9 @@ return {
                         "gametemplate" : "attachable_wear_gloves_01_ussr_winter_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_07_ussr_winter_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_01_5_windings_ussr_winter_item",
@@ -6176,9 +6176,9 @@ return {
                         "gametemplate" : "attachable_wear_gloves_01_ussr_winter_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_05_ussr_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_01_9_windings_ussr_winter_item",
@@ -6309,9 +6309,9 @@ return {
                         "gametemplate" : "hair_02_us_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_07_02_ussr_winter_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_01_8_windings_ussr_winter_item",
@@ -6749,9 +6749,9 @@ return {
                         "gametemplate" : "hair_01_us_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "nkvd_cap_ussr_winter_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_04_ussr_winter_item",
@@ -6874,9 +6874,9 @@ return {
                         "gametemplate" : "attachable_wear_nkvd_gloves_ussr_winter_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "nkvd_cap_ussr_winter_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_04_ussr_winter_item",
@@ -6991,9 +6991,9 @@ return {
                         "gametemplate" : "attachable_wear_nkvd_gloves_ussr_winter_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "nkvd_cap_ussr_winter_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_04_ussr_winter_item",
@@ -7104,9 +7104,9 @@ return {
                         "gametemplate" : "attachable_wear_nkvd_gloves_ussr_winter_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "nkvd_cap_ussr_winter_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_04_ussr_winter_item",
@@ -7277,9 +7277,9 @@ return {
                         "gametemplate" : "attachable_wear_gloves_01_ussr_winter_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "flight_helmet_01_ussr_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "tunic" : {
                         "gametemplate" : "attachable_wear_pilot_overall_ussr_winter_item",
@@ -7418,9 +7418,9 @@ return {
                         "gametemplate" : "hair_02_us_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_01_ussr_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_01_1_windings_ussr_winter_item",
@@ -7545,9 +7545,9 @@ return {
                         "gametemplate" : "attachable_wear_gloves_01_ussr_winter_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_01_ussr_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_01_4_windings_ussr_winter_item",
@@ -7666,9 +7666,9 @@ return {
                         "gametemplate" : "attachable_wear_gloves_01_ussr_winter_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_01_ussr_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_01_7_windings_ussr_winter_item",
@@ -7843,9 +7843,9 @@ return {
                         "gametemplate" : "attachable_wear_gloves_01_ussr_winter_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "flight_helmet_01_ussr_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "tunic" : {
                         "gametemplate" : "attachable_wear_pilot_overall_ussr_winter_item",
@@ -7968,9 +7968,9 @@ return {
                         "gametemplate" : "attachable_wear_gloves_01_ussr_winter_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_01_ussr_winter_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_01_windings_ussr_winter_item",
@@ -8091,9 +8091,9 @@ return {
                         "gametemplate" : "attachable_wear_gloves_01_ussr_winter_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_05_ussr_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_01_1_windings_ussr_winter_item",
@@ -8213,9 +8213,9 @@ return {
                         "gametemplate" : "hair_02_us_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_07_02_ussr_winter_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_01_3_windings_ussr_winter_item",
@@ -8334,9 +8334,9 @@ return {
                         "gametemplate" : "attachable_wear_gloves_01_ussr_winter_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_07_ussr_winter_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_01_4_windings_ussr_winter_item",
@@ -9476,9 +9476,9 @@ return {
                         "gametemplate" : "hair_01_ger_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_03_s_ger_winter_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_02_ger_summer_item",
@@ -11289,9 +11289,9 @@ return {
                         "gametemplate" : "hair_02_us_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_04_us_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_airborne_pants_item",
@@ -11402,9 +11402,9 @@ return {
                         "gametemplate" : "hair_01_us_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_03_us_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "helmet_deco" : {
                         "gametemplate" : "m1_garand_clip_01_item",
@@ -11517,9 +11517,9 @@ return {
                         "gametemplate" : "hair_02_us_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_04_us_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "helmet_deco" : {
                         "gametemplate" : "m44_goggles_01_item",
@@ -11636,9 +11636,9 @@ return {
                         "gametemplate" : "hair_01_us_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_03_us_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "helmet_deco" : {
                         "gametemplate" : "cigarette_lighter_01_item",
@@ -11774,9 +11774,9 @@ return {
                         "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_02_us_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "helmet_deco" : {
                         "gametemplate" : "death_card_ace_01_item",
@@ -11899,9 +11899,9 @@ return {
                         "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_01_us_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "helmet_deco" : {
                         "gametemplate" : "m1_garand_clip_01_item",
@@ -12030,9 +12030,9 @@ return {
                         "gametemplate" : "hair_02_us_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_03_us_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "helmet_deco" : {
                         "gametemplate" : "death_card_ace_01_item",
@@ -12157,9 +12157,9 @@ return {
                         "gametemplate" : "hair_02_us_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_01_us_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "helmet_deco" : {
                         "gametemplate" : "m1_garand_clip_01_item",
@@ -12284,9 +12284,9 @@ return {
                         "gametemplate" : "hair_02_us_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_01_us_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_01_us_summer_item",
@@ -12464,9 +12464,9 @@ return {
                         "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "tanker_helmet_01_us_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "tunic" : {
                         "gametemplate" : "attachable_wear_tanker_overall_green_item",
@@ -12574,9 +12574,9 @@ return {
                         "gametemplate" : "hair_02_us_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "tanker_helmet_01_us_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "tunic" : {
                         "gametemplate" : "attachable_wear_tanker_overall_green_item",
@@ -12684,9 +12684,9 @@ return {
                         "gametemplate" : "hair_02_us_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "tanker_helmet_01_us_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "tunic" : {
                         "gametemplate" : "attachable_wear_tanker_overall_green_item",
@@ -12850,9 +12850,9 @@ return {
                         "gametemplate" : "hair_02_us_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "pilot_helmet_us_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pilot_pants_us_item",
@@ -12971,9 +12971,9 @@ return {
                         "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_03_us_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "helmet_deco" : {
                         "gametemplate" : "m44_goggles_01_item",
@@ -13094,9 +13094,9 @@ return {
                         "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_01_us_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "helmet_deco" : {
                         "gametemplate" : "death_card_ace_01_item",
@@ -13213,9 +13213,9 @@ return {
                         "gametemplate" : "hair_02_us_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_04_us_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_04_us_summer_item",
@@ -13388,9 +13388,9 @@ return {
                         "gametemplate" : "hair_01_us_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "pilot_helmet_us_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pilot_pants_us_item",
@@ -13509,9 +13509,9 @@ return {
                         "gametemplate" : "hair_01_us_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_03_us_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "helmet_deco" : {
                         "gametemplate" : "m1_garand_clip_01_item",
@@ -13624,9 +13624,9 @@ return {
                         "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_04_us_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "helmet_deco" : {
                         "gametemplate" : "grenade_rings_01_item",
@@ -13736,9 +13736,9 @@ return {
                         "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_04_us_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_04_us_summer_item",
@@ -13851,9 +13851,9 @@ return {
                         "gametemplate" : "hair_01_us_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_04_us_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "helmet_deco" : {
                         "gametemplate" : "m44_goggles_01_item",
@@ -14088,9 +14088,9 @@ return {
                         "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_01_ger_summer_2_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "helmet_deco" : {
                         "gametemplate" : "helmet_grid_01_item",
@@ -14209,9 +14209,9 @@ return {
                         "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_01_ger_summer_2_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "helmet_deco" : {
                         "gametemplate" : "helmet_grid_01_item",
@@ -14340,9 +14340,9 @@ return {
                         "gametemplate" : "hair_01_ger_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_01_ger_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "helmet_deco" : {
                         "gametemplate" : "helmet_band_02_grid_item",
@@ -14471,9 +14471,9 @@ return {
                         "gametemplate" : "hair_02_ger_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_01_ger_summer_2_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "helmet_deco" : {
                         "gametemplate" : "helmet_grid_01_item",
@@ -14613,9 +14613,9 @@ return {
                         "gametemplate" : "hair_02_ger_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_06_ger_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_01_ger_summer_item",
@@ -14730,9 +14730,9 @@ return {
                         "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_06_ger_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_01_ger_summer_item",
@@ -14857,9 +14857,9 @@ return {
                         "gametemplate" : "hair_01_ger_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_01_ger_summer_2_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_01_ger_summer_item",
@@ -14984,9 +14984,9 @@ return {
                         "gametemplate" : "hair_01_ger_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_01_ger_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_01_ger_summer_item",
@@ -15107,9 +15107,9 @@ return {
                         "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_06_ger_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_01_ger_summer_item",
@@ -15794,9 +15794,9 @@ return {
                         "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_06_ger_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_02_ger_summer_item",
@@ -15923,9 +15923,9 @@ return {
                         "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_06_ger_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_02_ger_summer_item",
@@ -16046,9 +16046,9 @@ return {
                         "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_01_ger_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_01_ger_summer_item",
@@ -16354,9 +16354,9 @@ return {
                         "gametemplate" : "hair_02_ger_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_01_ger_summer_2_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "helmet_deco" : {
                         "gametemplate" : "helmet_grid_01_item",
@@ -16483,9 +16483,9 @@ return {
                         "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_01_ger_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "helmet_deco" : {
                         "gametemplate" : "helmet_grid_01_item",
@@ -16606,9 +16606,9 @@ return {
                         "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_01_ger_summer_2_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "helmet_deco" : {
                         "gametemplate" : "helmet_band_02_grid_item",
@@ -16734,9 +16734,9 @@ return {
                         "gametemplate" : "hair_02_ger_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_01_ger_summer_2_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "helmet_deco" : {
                         "gametemplate" : "helmet_band_02_grid_item",
@@ -17029,7 +17029,7 @@ return {
                   "human_weap__weapTemplates" : {
                      "grenade" : "grenade_thrower",
                      "melee" : "knife_weapon",
-                     "primary" : "stl_mosin_m91_30_gun",
+                     "primary" : "mosin_m91_30_gun",
                      "secondary" : "",
                      "tertiary" : ""
                   },
@@ -17094,9 +17094,9 @@ return {
                         "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_05_ussr_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_01_windings_ussr_winter_item",
@@ -17144,7 +17144,7 @@ return {
                   "human_weap__weapTemplates" : {
                      "grenade" : "grenade_thrower",
                      "melee" : "knife_weapon",
-                     "primary" : "stl_mosin_m38_gun",
+                     "primary" : "mosin_m38_gun",
                      "secondary" : "",
                      "tertiary" : ""
                   },
@@ -17260,7 +17260,7 @@ return {
                   "human_weap__weapTemplates" : {
                      "grenade" : "grenade_thrower",
                      "melee" : "knife_weapon",
-                     "primary" : "stl_mosin_m38_gun",
+                     "primary" : "mosin_m38_gun",
                      "secondary" : "",
                      "tertiary" : ""
                   },
@@ -17372,7 +17372,7 @@ return {
                   "human_weap__weapTemplates" : {
                      "grenade" : "grenade_thrower",
                      "melee" : "knife_weapon",
-                     "primary" : "stl_mosin_m38_gun",
+                     "primary" : "mosin_m38_gun",
                      "secondary" : "",
                      "tertiary" : ""
                   },
@@ -17441,9 +17441,9 @@ return {
                         "gametemplate" : "hair_01_us_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_05_ussr_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_01_windings_ussr_winter_item",
@@ -17491,7 +17491,7 @@ return {
                   "human_weap__weapTemplates" : {
                      "grenade" : "grenade_thrower",
                      "melee" : "knife_weapon",
-                     "primary" : "stl_mosin_m38_gun",
+                     "primary" : "mosin_m38_gun",
                      "secondary" : "",
                      "tertiary" : ""
                   },
@@ -17673,7 +17673,7 @@ return {
                      "melee" : "knife_weapon",
                      "primary" : "",
                      "secondary" : "",
-                     "tertiary" : "stl_nagant_m1895_gun"
+                     "tertiary" : "nagant_m1895_gun"
                   },
                   "id" : 0,
                   "inventory" : [
@@ -17779,7 +17779,7 @@ return {
                      "melee" : "knife_weapon",
                      "primary" : "",
                      "secondary" : "",
-                     "tertiary" : "stl_nagant_m1895_gun"
+                     "tertiary" : "nagant_m1895_gun"
                   },
                   "id" : 1,
                   "inventory" : [
@@ -17866,9 +17866,9 @@ return {
                         "gametemplate" : "hair_01_us_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_07_ussr_winter_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_07_ussr_winter_item",
@@ -17914,7 +17914,7 @@ return {
                   "human_weap__weapTemplates" : {
                      "grenade" : "grenade_thrower",
                      "melee" : "knife_weapon",
-                     "primary" : "stl_ppd_3438_box_gun",
+                     "primary" : "ppd_3438_box_gun",
                      "secondary" : "medic_box_item",
                      "tertiary" : ""
                   },
@@ -17990,9 +17990,9 @@ return {
                         "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_07_ussr_winter_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_07_ussr_winter_item",
@@ -18040,7 +18040,7 @@ return {
                   "human_weap__weapTemplates" : {
                      "grenade" : "grenade_thrower",
                      "melee" : "knife_weapon",
-                     "primary" : "stl_mosin_m38_gun",
+                     "primary" : "mosin_m38_gun",
                      "secondary" : "medic_box_item",
                      "tertiary" : ""
                   },
@@ -18120,9 +18120,9 @@ return {
                         "gametemplate" : "hair_01_us_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_07_ussr_winter_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_07_ussr_winter_item",
@@ -18170,7 +18170,7 @@ return {
                   "human_weap__weapTemplates" : {
                      "grenade" : "grenade_thrower",
                      "melee" : "knife_weapon",
-                     "primary" : "stl_mosin_m38_gun",
+                     "primary" : "mosin_m38_gun",
                      "secondary" : "medic_box_item",
                      "tertiary" : ""
                   },
@@ -18302,9 +18302,9 @@ return {
                         "gametemplate" : "hair_02_us_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "flight_helmet_01_ussr_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "tunic" : {
                         "gametemplate" : "attachable_wear_pilot_overall_ussr_winter_item",
@@ -18348,7 +18348,7 @@ return {
                      "melee" : "knife_weapon",
                      "primary" : "",
                      "secondary" : "",
-                     "tertiary" : "stl_nagant_m1895_gun"
+                     "tertiary" : "nagant_m1895_gun"
                   },
                   "id" : 0,
                   "inventory" : [
@@ -18427,9 +18427,9 @@ return {
                         "gametemplate" : "hair_01_us_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_01_ussr_winter_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_01_windings_ussr_winter_item",
@@ -18481,7 +18481,7 @@ return {
                   "human_weap__weapTemplates" : {
                      "grenade" : "grenade_thrower",
                      "melee" : "knife_weapon",
-                     "primary" : "stl_svt_38_gun",
+                     "primary" : "svt_38_gun",
                      "secondary" : "",
                      "tertiary" : ""
                   },
@@ -18546,9 +18546,9 @@ return {
                         "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_01_ussr_winter_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_01_windings_ussr_winter_item",
@@ -18596,7 +18596,7 @@ return {
                   "human_weap__weapTemplates" : {
                      "grenade" : "grenade_thrower",
                      "melee" : "knife_weapon",
-                     "primary" : "stl_mosin_m38_gun",
+                     "primary" : "mosin_m38_gun",
                      "secondary" : "",
                      "tertiary" : ""
                   },
@@ -18658,9 +18658,9 @@ return {
                         "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_01_ussr_winter_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_01_windings_ussr_winter_item",
@@ -18708,7 +18708,7 @@ return {
                   "human_weap__weapTemplates" : {
                      "grenade" : "grenade_thrower",
                      "melee" : "knife_weapon",
-                     "primary" : "stl_mosin_m38_gun",
+                     "primary" : "mosin_m38_gun",
                      "secondary" : "",
                      "tertiary" : ""
                   },
@@ -18837,9 +18837,9 @@ return {
                         "gametemplate" : "hair_01_us_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "flight_helmet_01_ussr_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "tunic" : {
                         "gametemplate" : "attachable_wear_pilot_overall_ussr_winter_item",
@@ -18883,7 +18883,7 @@ return {
                      "melee" : "knife_weapon",
                      "primary" : "",
                      "secondary" : "",
-                     "tertiary" : "stl_nagant_m1895_gun"
+                     "tertiary" : "nagant_m1895_gun"
                   },
                   "id" : 0,
                   "inventory" : [
@@ -18962,9 +18962,9 @@ return {
                         "gametemplate" : "hair_01_us_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_05_ussr_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_07_ussr_winter_item",
@@ -19010,7 +19010,7 @@ return {
                   "human_weap__weapTemplates" : {
                      "grenade" : "grenade_thrower",
                      "melee" : "knife_weapon",
-                     "primary" : "stl_pps_42_gun",
+                     "primary" : "pps_42_gun",
                      "secondary" : "",
                      "tertiary" : ""
                   },
@@ -19132,7 +19132,7 @@ return {
                   "human_weap__weapTemplates" : {
                      "grenade" : "grenade_thrower",
                      "melee" : "knife_weapon",
-                     "primary" : "stl_mosin_m38_gun",
+                     "primary" : "mosin_m38_gun",
                      "secondary" : "",
                      "tertiary" : ""
                   },
@@ -19200,9 +19200,9 @@ return {
                         "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_05_ussr_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_07_ussr_winter_item",
@@ -19250,7 +19250,7 @@ return {
                   "human_weap__weapTemplates" : {
                      "grenade" : "grenade_thrower",
                      "melee" : "knife_weapon",
-                     "primary" : "stl_mosin_m38_gun",
+                     "primary" : "mosin_m38_gun",
                      "secondary" : "",
                      "tertiary" : ""
                   },
@@ -19362,7 +19362,7 @@ return {
                   "human_weap__weapTemplates" : {
                      "grenade" : "grenade_thrower",
                      "melee" : "knife_weapon",
-                     "primary" : "stl_mosin_m38_gun",
+                     "primary" : "mosin_m38_gun",
                      "secondary" : "",
                      "tertiary" : ""
                   },
@@ -19446,9 +19446,9 @@ return {
                         "gametemplate" : "hair_02_us_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "earflaps_closed_07_ussr_winter_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_01_windings_ussr_winter_item",
@@ -19496,8 +19496,8 @@ return {
                   "human_weap__weapTemplates" : {
                      "grenade" : "grenade_thrower",
                      "melee" : "knife_weapon",
-                     "primary" : "stl_avt_40_gun",
-                     "secondary" : "stl_ussr_building_tool_gun",
+                     "primary" : "avt_40_gun",
+                     "secondary" : "ussr_building_tool_gun",
                      "tertiary" : ""
                   },
                   "id" : 0,
@@ -19565,9 +19565,9 @@ return {
                         "gametemplate" : "hair_01_us_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "earflaps_closed_07_ussr_winter_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_01_windings_ussr_winter_item",
@@ -19615,7 +19615,7 @@ return {
                   "human_weap__weapTemplates" : {
                      "grenade" : "grenade_thrower",
                      "melee" : "knife_weapon",
-                     "primary" : "stl_mosin_m38_gun",
+                     "primary" : "mosin_m38_gun",
                      "secondary" : "",
                      "tertiary" : ""
                   },
@@ -19681,9 +19681,9 @@ return {
                         "gametemplate" : "hair_02_us_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "earflaps_closed_07_ussr_winter_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_01_windings_ussr_winter_item",
@@ -19731,7 +19731,7 @@ return {
                   "human_weap__weapTemplates" : {
                      "grenade" : "grenade_thrower",
                      "melee" : "knife_weapon",
-                     "primary" : "stl_mosin_m38_gun",
+                     "primary" : "mosin_m38_gun",
                      "secondary" : "",
                      "tertiary" : ""
                   },
@@ -19796,9 +19796,9 @@ return {
                         "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "earflaps_closed_07_ussr_winter_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_01_windings_ussr_winter_item",
@@ -19846,7 +19846,7 @@ return {
                   "human_weap__weapTemplates" : {
                      "grenade" : "grenade_thrower",
                      "melee" : "knife_weapon",
-                     "primary" : "stl_mosin_m38_gun",
+                     "primary" : "mosin_m38_gun",
                      "secondary" : "",
                      "tertiary" : ""
                   },
@@ -20022,9 +20022,9 @@ return {
                         "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "fur_cap_01_ger_winter_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_02_ger_summer_item",
@@ -20072,7 +20072,7 @@ return {
                   "human_weap__weapTemplates" : {
                      "grenade" : "grenade_thrower",
                      "melee" : "knife_weapon",
-                     "primary" : "stl_mannlicher_m93_roman_gun",
+                     "primary" : "mannlicher_m93_roman_gun",
                      "secondary" : "",
                      "tertiary" : ""
                   },
@@ -20137,9 +20137,9 @@ return {
                         "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "fur_cap_01_ger_winter_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_02_ger_summer_item",
@@ -20187,7 +20187,7 @@ return {
                   "human_weap__weapTemplates" : {
                      "grenade" : "grenade_thrower",
                      "melee" : "knife_weapon",
-                     "primary" : "stl_kar98k_wartime_production_gun",
+                     "primary" : "kar98k_wartime_production_gun",
                      "secondary" : "",
                      "tertiary" : ""
                   },
@@ -20256,9 +20256,9 @@ return {
                         "gametemplate" : "hair_01_ger_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "fur_cap_01_ger_winter_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_02_ger_summer_item",
@@ -20306,7 +20306,7 @@ return {
                   "human_weap__weapTemplates" : {
                      "grenade" : "grenade_thrower",
                      "melee" : "knife_weapon",
-                     "primary" : "stl_kar98k_wartime_production_gun",
+                     "primary" : "kar98k_wartime_production_gun",
                      "secondary" : "",
                      "tertiary" : ""
                   },
@@ -20374,9 +20374,9 @@ return {
                         "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "fur_cap_01_ger_winter_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_02_ger_summer_item",
@@ -20424,7 +20424,7 @@ return {
                   "human_weap__weapTemplates" : {
                      "grenade" : "grenade_thrower",
                      "melee" : "knife_weapon",
-                     "primary" : "stl_kar98k_wartime_production_gun",
+                     "primary" : "kar98k_wartime_production_gun",
                      "secondary" : "",
                      "tertiary" : ""
                   },
@@ -20546,7 +20546,7 @@ return {
                   "human_weap__weapTemplates" : {
                      "grenade" : "grenade_thrower",
                      "melee" : "knife_weapon",
-                     "primary" : "stl_kar98k_wartime_production_gun",
+                     "primary" : "kar98k_wartime_production_gun",
                      "secondary" : "",
                      "tertiary" : ""
                   },
@@ -20729,7 +20729,7 @@ return {
                      "melee" : "knife_weapon",
                      "primary" : "",
                      "secondary" : "",
-                     "tertiary" : "stl_walther_ppk_gun"
+                     "tertiary" : "walther_ppk_gun"
                   },
                   "id" : 0,
                   "inventory" : [
@@ -20839,7 +20839,7 @@ return {
                      "melee" : "knife_weapon",
                      "primary" : "",
                      "secondary" : "",
-                     "tertiary" : "stl_walther_ppk_gun"
+                     "tertiary" : "walther_ppk_gun"
                   },
                   "id" : 1,
                   "inventory" : [
@@ -20945,7 +20945,7 @@ return {
                      "melee" : "knife_weapon",
                      "primary" : "",
                      "secondary" : "",
-                     "tertiary" : "stl_walther_ppk_gun"
+                     "tertiary" : "walther_ppk_gun"
                   },
                   "id" : 2,
                   "inventory" : [
@@ -21028,9 +21028,9 @@ return {
                         "gametemplate" : "hair_01_ger_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_m35_medic_white_01_ger_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_02_ger_winter_item",
@@ -21076,7 +21076,7 @@ return {
                   "human_weap__weapTemplates" : {
                      "grenade" : "grenade_thrower",
                      "melee" : "knife_weapon",
-                     "primary" : "stl_mp_28_gun",
+                     "primary" : "mp_28_gun",
                      "secondary" : "medic_box_item",
                      "tertiary" : ""
                   },
@@ -21152,9 +21152,9 @@ return {
                         "gametemplate" : "hair_01_ger_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_m35_medic_white_01_ger_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_02_ger_winter_item",
@@ -21202,7 +21202,7 @@ return {
                   "human_weap__weapTemplates" : {
                      "grenade" : "grenade_thrower",
                      "melee" : "knife_weapon",
-                     "primary" : "stl_kar98k_wartime_production_gun",
+                     "primary" : "kar98k_wartime_production_gun",
                      "secondary" : "medic_box_item",
                      "tertiary" : ""
                   },
@@ -21278,9 +21278,9 @@ return {
                         "gametemplate" : "hair_02_ger_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_m35_medic_white_01_ger_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_02_ger_winter_item",
@@ -21328,7 +21328,7 @@ return {
                   "human_weap__weapTemplates" : {
                      "grenade" : "grenade_thrower",
                      "melee" : "knife_weapon",
-                     "primary" : "stl_kar98k_wartime_production_gun",
+                     "primary" : "kar98k_wartime_production_gun",
                      "secondary" : "medic_box_item",
                      "tertiary" : ""
                   },
@@ -21498,7 +21498,7 @@ return {
                      "melee" : "knife_weapon",
                      "primary" : "",
                      "secondary" : "",
-                     "tertiary" : "stl_walther_ppk_gun"
+                     "tertiary" : "walther_ppk_gun"
                   },
                   "id" : 0,
                   "inventory" : [
@@ -21577,9 +21577,9 @@ return {
                         "gametemplate" : "hair_02_ger_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "werchmaht_cap_01_ger_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_02_ger_summer_item",
@@ -21631,7 +21631,7 @@ return {
                   "human_weap__weapTemplates" : {
                      "grenade" : "grenade_thrower",
                      "melee" : "knife_weapon",
-                     "primary" : "stl_gewehr_41_gun",
+                     "primary" : "gewehr_41_gun",
                      "secondary" : "",
                      "tertiary" : ""
                   },
@@ -21696,9 +21696,9 @@ return {
                         "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "werchmaht_cap_01_ger_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_02_ger_summer_item",
@@ -21746,7 +21746,7 @@ return {
                   "human_weap__weapTemplates" : {
                      "grenade" : "grenade_thrower",
                      "melee" : "knife_weapon",
-                     "primary" : "stl_kar98k_wartime_production_gun",
+                     "primary" : "kar98k_wartime_production_gun",
                      "secondary" : "",
                      "tertiary" : ""
                   },
@@ -21808,9 +21808,9 @@ return {
                         "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "werchmaht_cap_01_ger_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_02_ger_summer_item",
@@ -21858,7 +21858,7 @@ return {
                   "human_weap__weapTemplates" : {
                      "grenade" : "grenade_thrower",
                      "melee" : "knife_weapon",
-                     "primary" : "stl_kar98k_wartime_production_gun",
+                     "primary" : "kar98k_wartime_production_gun",
                      "secondary" : "",
                      "tertiary" : ""
                   },
@@ -21976,9 +21976,9 @@ return {
                         "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "ger_ssk90_m41_pilot_helmet_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "tunic" : {
                         "gametemplate" : "attachable_wear_sommer_fliegerkombi_brown_ger_item",
@@ -22022,7 +22022,7 @@ return {
                      "melee" : "knife_weapon",
                      "primary" : "",
                      "secondary" : "",
-                     "tertiary" : "stl_walther_ppk_gun"
+                     "tertiary" : "walther_ppk_gun"
                   },
                   "id" : 0,
                   "inventory" : [
@@ -22101,9 +22101,9 @@ return {
                         "gametemplate" : "hair_01_ger_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_01_ger_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "helmet_deco" : {
                         "gametemplate" : "helmet_grid_01_item",
@@ -22153,7 +22153,7 @@ return {
                   "human_weap__weapTemplates" : {
                      "grenade" : "grenade_thrower",
                      "melee" : "knife_weapon",
-                     "primary" : "stl_mp_40_gun",
+                     "primary" : "mp_40_gun",
                      "secondary" : "",
                      "tertiary" : ""
                   },
@@ -22225,9 +22225,9 @@ return {
                         "gametemplate" : "hair_02_ger_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_01_ger_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "helmet_deco" : {
                         "gametemplate" : "helmet_grid_01_item",
@@ -22279,7 +22279,7 @@ return {
                   "human_weap__weapTemplates" : {
                      "grenade" : "grenade_thrower",
                      "melee" : "knife_weapon",
-                     "primary" : "stl_kar98k_wartime_production_gun",
+                     "primary" : "kar98k_wartime_production_gun",
                      "secondary" : "",
                      "tertiary" : ""
                   },
@@ -22345,9 +22345,9 @@ return {
                         "gametemplate" : "hair_01_ger_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_01_ger_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_02_ger_summer_item",
@@ -22395,7 +22395,7 @@ return {
                   "human_weap__weapTemplates" : {
                      "grenade" : "grenade_thrower",
                      "melee" : "knife_weapon",
-                     "primary" : "stl_kar98k_wartime_production_gun",
+                     "primary" : "kar98k_wartime_production_gun",
                      "secondary" : "",
                      "tertiary" : ""
                   },
@@ -22457,9 +22457,9 @@ return {
                         "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_01_ger_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_02_ger_summer_item",
@@ -22507,7 +22507,7 @@ return {
                   "human_weap__weapTemplates" : {
                      "grenade" : "grenade_thrower",
                      "melee" : "knife_weapon",
-                     "primary" : "stl_kar98k_wartime_production_gun",
+                     "primary" : "kar98k_wartime_production_gun",
                      "secondary" : "",
                      "tertiary" : ""
                   },
@@ -22584,9 +22584,9 @@ return {
                         "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_01_ger_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_02_ger_summer_item",
@@ -22632,8 +22632,8 @@ return {
                   "human_weap__weapTemplates" : {
                      "grenade" : "grenade_thrower",
                      "melee" : "knife_weapon",
-                     "primary" : "stl_mkb_42_h_gun",
-                     "secondary" : "stl_ger_building_tool_gun",
+                     "primary" : "mkb_42_h_gun",
+                     "secondary" : "ger_building_tool_gun",
                      "tertiary" : ""
                   },
                   "id" : 0,
@@ -22701,9 +22701,9 @@ return {
                         "gametemplate" : "hair_01_ger_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_01_ger_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_02_ger_summer_item",
@@ -22751,7 +22751,7 @@ return {
                   "human_weap__weapTemplates" : {
                      "grenade" : "grenade_thrower",
                      "melee" : "knife_weapon",
-                     "primary" : "stl_kar98k_wartime_production_gun",
+                     "primary" : "kar98k_wartime_production_gun",
                      "secondary" : "",
                      "tertiary" : ""
                   },
@@ -22817,9 +22817,9 @@ return {
                         "gametemplate" : "hair_02_ger_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_01_ger_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_02_ger_summer_item",
@@ -22867,7 +22867,7 @@ return {
                   "human_weap__weapTemplates" : {
                      "grenade" : "grenade_thrower",
                      "melee" : "knife_weapon",
-                     "primary" : "stl_kar98k_wartime_production_gun",
+                     "primary" : "kar98k_wartime_production_gun",
                      "secondary" : "",
                      "tertiary" : ""
                   },
@@ -22932,9 +22932,9 @@ return {
                         "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_01_ger_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_02_ger_summer_item",
@@ -22982,7 +22982,7 @@ return {
                   "human_weap__weapTemplates" : {
                      "grenade" : "grenade_thrower",
                      "melee" : "knife_weapon",
-                     "primary" : "stl_kar98k_wartime_production_gun",
+                     "primary" : "kar98k_wartime_production_gun",
                      "secondary" : "",
                      "tertiary" : ""
                   },
@@ -23154,9 +23154,9 @@ return {
                         "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_04_us_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "helmet_deco" : {
                         "gametemplate" : "death_card_ace_01_item",
@@ -23272,9 +23272,9 @@ return {
                         "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_04_us_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_m43_tankers_jacket_item",
@@ -23385,9 +23385,9 @@ return {
                         "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_01_us_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "helmet_deco" : {
                         "gametemplate" : "m1_garand_clip_01_item",
@@ -23506,9 +23506,9 @@ return {
                         "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_01_us_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "helmet_deco" : {
                         "gametemplate" : "m1_garand_clip_01_item",
@@ -23627,9 +23627,9 @@ return {
                         "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_04_us_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "helmet_deco" : {
                         "gametemplate" : "m1_garand_clip_01_item",
@@ -23808,9 +23808,9 @@ return {
                         "gametemplate" : "hair_02_us_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "khaki_beret_black_01_uk_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "tunic" : {
                         "gametemplate" : "attachable_wear_denim_tank_suit_uk_item",
@@ -23910,9 +23910,9 @@ return {
                         "gametemplate" : "hair_02_us_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "khaki_beret_black_01_uk_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "tunic" : {
                         "gametemplate" : "attachable_wear_denim_tank_suit_uk_item",
@@ -24008,9 +24008,9 @@ return {
                         "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "khaki_beret_black_01_uk_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "tunic" : {
                         "gametemplate" : "attachable_wear_denim_tank_suit_uk_item",
@@ -24125,9 +24125,9 @@ return {
                         "gametemplate" : "attachable_wear_head_01_uk_item",
                         "slot" : "face"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "brodie_helmet_01_uk_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_kd_shorts_m41_uk_tropic_01_item",
@@ -24238,9 +24238,9 @@ return {
                         "gametemplate" : "hair_01_us_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "brodie_helmet_01_uk_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_kd_shorts_m41_uk_tropic_01_item",
@@ -24347,9 +24347,9 @@ return {
                         "gametemplate" : "attachable_wear_head_05_uk_item",
                         "slot" : "face"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "brodie_helmet_01_uk_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_kd_shorts_m41_uk_tropic_01_item",
@@ -24456,9 +24456,9 @@ return {
                         "gametemplate" : "attachable_wear_head_09_uk_item",
                         "slot" : "face"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "brodie_helmet_01_uk_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_kd_shorts_m41_uk_tropic_01_item",
@@ -24625,9 +24625,9 @@ return {
                         "gametemplate" : "attachable_wear_head_09_uk_item",
                         "slot" : "face"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "raf_helmet_with_goggles_uk_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_serge_battle_dress_pants_uk_item",
@@ -24754,9 +24754,9 @@ return {
                         "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "brodie_helmet_01_uk_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_serge_battle_dress_pants_uk_item",
@@ -24877,9 +24877,9 @@ return {
                         "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "brodie_helmet_01_uk_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_serge_battle_dress_pants_uk_item",
@@ -24994,9 +24994,9 @@ return {
                         "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "brodie_helmet_01_uk_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_serge_battle_dress_pants_uk_item",
@@ -25163,9 +25163,9 @@ return {
                         "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "pilot_helmet_us_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pilot_pants_us_item",
@@ -25284,9 +25284,9 @@ return {
                         "gametemplate" : "hair_01_us_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_04_us_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "helmet_deco" : {
                         "gametemplate" : "m1_garand_clip_01_item",
@@ -25403,9 +25403,9 @@ return {
                         "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_03_us_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "helmet_deco" : {
                         "gametemplate" : "cigarette_matches_01_item",
@@ -25516,9 +25516,9 @@ return {
                         "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_01_us_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_04_us_summer_item",
@@ -25629,9 +25629,9 @@ return {
                         "gametemplate" : "hair_02_us_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_04_us_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "helmet_deco" : {
                         "gametemplate" : "m1_garand_clip_01_item",
@@ -25856,17 +25856,17 @@ return {
                         "gametemplate" : "attachable_wear_head_male_18b_us_item",
                         "slot" : "face"
                      },
-                     "front_belt_r" : {
+                     "ammo_case" : {
                         "gametemplate" : "attachable_wear_case_01_ger_tropic_item",
-                        "slot" : "front_belt_r"
+                        "slot" : "ammo_case"
                      },
                      "hair" : {
                         "gametemplate" : "hair_02_ger_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_01_ger_tropic_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_dak_brown_01_ger_tropic_item",
@@ -25970,9 +25970,9 @@ return {
                         "gametemplate" : "attachable_wear_head_01_us_summer_item",
                         "slot" : "face"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_01_ger_tropic_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_dak_brown_01_ger_tropic_item",
@@ -26085,17 +26085,17 @@ return {
                         "gametemplate" : "attachable_wear_head_male_26_us_item",
                         "slot" : "face"
                      },
-                     "front_belt_r" : {
+                     "ammo_case" : {
                         "gametemplate" : "attachable_wear_case_01_ger_tropic_item",
-                        "slot" : "front_belt_r"
+                        "slot" : "ammo_case"
                      },
                      "hair" : {
                         "gametemplate" : "hair_02_ger_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_01_ger_tropic_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_01_ger_tropic_item",
@@ -26208,17 +26208,17 @@ return {
                         "gametemplate" : "attachable_wear_head_male_23_ger_item",
                         "slot" : "face"
                      },
-                     "front_belt_r" : {
+                     "ammo_case" : {
                         "gametemplate" : "attachable_wear_case_01_ger_tropic_item",
-                        "slot" : "front_belt_r"
+                        "slot" : "ammo_case"
                      },
                      "hair" : {
                         "gametemplate" : "hair_01_ger_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_01_ger_tropic_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_dak_brown_01_ger_tropic_item",
@@ -26328,17 +26328,17 @@ return {
                         "gametemplate" : "attachable_wear_head_male_47_ussr_item",
                         "slot" : "face"
                      },
-                     "front_belt_r" : {
+                     "ammo_case" : {
                         "gametemplate" : "attachable_wear_case_01_ger_tropic_item",
-                        "slot" : "front_belt_r"
+                        "slot" : "ammo_case"
                      },
                      "hair" : {
                         "gametemplate" : "hair_02_ger_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_01_ger_tropic_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_01_ger_tropic_item",
@@ -26865,9 +26865,9 @@ return {
                         "gametemplate" : "attachable_wear_head_02_ger_summer_item",
                         "slot" : "face"
                      },
-                     "front_belt_r" : {
+                     "ammo_case" : {
                         "gametemplate" : "attachable_wear_case_02_ger_tropic_item",
-                        "slot" : "front_belt_r"
+                        "slot" : "ammo_case"
                      },
                      "gloves" : {
                         "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
@@ -26877,9 +26877,9 @@ return {
                         "gametemplate" : "hair_02_ger_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_01_ger_tropic_camo_nobelt_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_02_ger_tropic_item",
@@ -26994,17 +26994,17 @@ return {
                         "gametemplate" : "attachable_wear_head_male_40_ger_item",
                         "slot" : "face"
                      },
-                     "front_belt_r" : {
+                     "ammo_case" : {
                         "gametemplate" : "attachable_wear_case_02_ger_tropic_item",
-                        "slot" : "front_belt_r"
+                        "slot" : "ammo_case"
                      },
                      "gloves" : {
                         "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_01_ger_tropic_camo_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_02_ger_tropic_item",
@@ -27121,9 +27121,9 @@ return {
                         "gametemplate" : "attachable_wear_head_male_21_us_item",
                         "slot" : "face"
                      },
-                     "front_belt_r" : {
+                     "ammo_case" : {
                         "gametemplate" : "attachable_wear_case_02_ger_tropic_item",
-                        "slot" : "front_belt_r"
+                        "slot" : "ammo_case"
                      },
                      "gloves" : {
                         "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
@@ -27133,9 +27133,9 @@ return {
                         "gametemplate" : "hair_01_ger_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_01_ger_tropic_camo_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_02_ger_tropic_item",
@@ -27245,17 +27245,17 @@ return {
                         "gametemplate" : "attachable_wear_head_male_43_ger_item",
                         "slot" : "face"
                      },
-                     "front_belt_r" : {
+                     "ammo_case" : {
                         "gametemplate" : "attachable_wear_case_02_ger_tropic_item",
-                        "slot" : "front_belt_r"
+                        "slot" : "ammo_case"
                      },
                      "gloves" : {
                         "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_01_ger_tropic_camo_nobelt_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_02_ger_tropic_item",
@@ -27425,9 +27425,9 @@ return {
                         "gametemplate" : "hair_01_ger_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
-                        "gametemplate" : "pilot_helmet_w_goggles_01_ita_summer_item",
-                        "slot" : "head"
+                     "skined_helmet" : {
+                        "gametemplate" : "attachable_wear_pilot_helmet_w_goggles_01_ita_summer_item",
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pilot_pants_boots_ita_tropic_item",
@@ -27546,9 +27546,9 @@ return {
                         "gametemplate" : "hair_02_ger_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_02_ger_tropic_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_sahariani_trousers_01_ita_tropic_item",
@@ -27661,9 +27661,9 @@ return {
                         "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_02_ger_tropic_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_sahariani_trousers_01_ita_tropic_item",
@@ -27776,9 +27776,9 @@ return {
                         "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_02_ger_tropic_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_sahariani_trousers_01_ita_tropic_item",
@@ -28064,13 +28064,13 @@ return {
                         "gametemplate" : "attachable_wear_head_01_ger_summer_item",
                         "slot" : "face"
                      },
-                     "front_belt_r" : {
+                     "ammo_case" : {
                         "gametemplate" : "attachable_wear_case_01_ger_tropic_item",
-                        "slot" : "front_belt_r"
+                        "slot" : "ammo_case"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_01_ger_tropic_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_01_ger_tropic_item",
@@ -28183,13 +28183,13 @@ return {
                         "gametemplate" : "attachable_wear_head_male_40_ger_item",
                         "slot" : "face"
                      },
-                     "front_belt_r" : {
+                     "ammo_case" : {
                         "gametemplate" : "attachable_wear_case_01_ger_tropic_item",
-                        "slot" : "front_belt_r"
+                        "slot" : "ammo_case"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_01_ger_tropic_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_01_ger_tropic_item",
@@ -28303,9 +28303,9 @@ return {
                         "gametemplate" : "hair_02_ger_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_01_ger_tropic_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_01_ger_tropic_item",
@@ -28422,9 +28422,9 @@ return {
                         "gametemplate" : "hair_01_ger_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_01_ger_tropic_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_01_ger_tropic_item",
@@ -29251,9 +29251,9 @@ return {
                         "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "tanker_helmet_01_us_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "side_belt_r" : {
                         "gametemplate" : "attachable_wear_us_m1916_holster_tanker_coverall_item",
@@ -29361,9 +29361,9 @@ return {
                         "gametemplate" : "hair_02_ger_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "tanker_helmet_01_us_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "side_belt_r" : {
                         "gametemplate" : "attachable_wear_us_m1916_holster_tanker_coverall_item",
@@ -29471,9 +29471,9 @@ return {
                         "gametemplate" : "hair_01_ger_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "tanker_helmet_01_us_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "side_belt_r" : {
                         "gametemplate" : "attachable_wear_us_m1916_holster_tanker_coverall_item",
@@ -29597,9 +29597,9 @@ return {
                         "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "m1_helmet_medic_04_us_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_m43_khaki_item",
@@ -29717,9 +29717,9 @@ return {
                         "gametemplate" : "hair_02_ger_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "m1_helmet_medic_04_us_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_m43_khaki_item",
@@ -29835,9 +29835,9 @@ return {
                         "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "m1_helmet_medic_04_us_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_m43_khaki_item",
@@ -29965,9 +29965,9 @@ return {
                         "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_04_us_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_04_us_summer_item",
@@ -30078,9 +30078,9 @@ return {
                         "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_04_us_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_04_us_summer_item",
@@ -30190,9 +30190,9 @@ return {
                         "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_04_us_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_04_us_summer_item",
@@ -30311,9 +30311,9 @@ return {
                         "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_04_us_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_04_us_summer_item",
@@ -30488,9 +30488,9 @@ return {
                         "gametemplate" : "hair_01_ger_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "pilot_helmet_us_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pilot_pants_us_item",
@@ -30610,9 +30610,9 @@ return {
                         "gametemplate" : "hair_02_ger_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_04_us_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_04_us_summer_item",
@@ -30731,9 +30731,9 @@ return {
                         "gametemplate" : "hair_02_ger_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_04_us_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_04_us_summer_item",
@@ -30856,9 +30856,9 @@ return {
                         "gametemplate" : "hair_01_ger_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_04_us_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_04_us_summer_item",
@@ -31038,9 +31038,9 @@ return {
                         "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                         "slot" : "gloves"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "pilot_helmet_us_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pilot_pants_us_item",

@@ -4,9 +4,11 @@ let { logerr } = require("dagor.debug")
 let { round_by_value } = require("%sqstd/math.nut")
 let { do_research, change_research, buy_change_research, buy_squad_exp, add_army_squad_exp_by_id
 } = require("%enlist/meta/clientApi.nut")
-let servResearches = require("%enlist/meta/profile.nut").researches
+let profile = require("%enlist/meta/profile.nut")
+let { researchProgress, squadProgress } = profile
 let { configs } = require("%enlist/meta/configs.nut")
-let { curArmiesList, armySquadsById, curSquadId, curArmy, maxCampaignLevel, armyItemCountByTpl,
+let { toIntegerSafe } = require("%sqstd/string.nut")
+let { curArmiesList, armySquadsById, curSquadId, curArmy, armyItemCountByTpl,
   curCampItems
 } = require("%enlist/soldiers/model/state.nut")
 let { allItemTemplates } = require("%enlist/soldiers/model/all_items_templates.nut")
@@ -20,8 +22,7 @@ let { isResearchesOpened } = require("%enlist/mainMenu/sectionsState.nut")
 let { get_setting_by_blk_path } = require("settings")
 let hideLockedResearches = get_setting_by_blk_path("hideLockedResearches") ?? false
 
-const WORKSHOP_UNLOCK_LEVEL = 3
-const WORKSHOP_PAGE_ID = 2
+
 const CHANGE_RESEARCH_TPL = "research_change_order"
 
 let hasResearchesSection = Computed(@() !(disabledSectionsData.value?.RESEARCHES ?? false))
@@ -49,8 +50,8 @@ let configResearches = Computed(function() {
     foreach (squadId, pageList in armyConfig?.pages ?? {})
       armyPages[squadId] <- pageList.map(function(page, idx) {
         page = (page ?? {}).__merge(presentList?[idx] ?? {})
-        if ("tables" not in page)
-          page.tables <- {}
+        page.tables <- (page?.tables ?? {})
+          .filter(@(r) !hideLockedResearches || !(r?.isLocked ?? false))
         return page
       })
   }
@@ -64,8 +65,7 @@ let armiesResearches = Computed(function() {
     foreach (squadPages in armyConfig.pages)
       foreach (page in squadPages)
         foreach (research in page.tables)
-          if (!hideLockedResearches || !(research?.isLocked ?? false))
-            researchesMap[research.research_id] <- research
+          researchesMap[research.research_id] <- research
 
     res[armyId] <- {
       squads = armyConfig.squads
@@ -76,16 +76,9 @@ let armiesResearches = Computed(function() {
   return res
 })
 
-let stateResearches = Computed(@() servResearches.value.map(@(data) {
-    guid = data.guid
-    researched = data.researched ?? {}
-    squadProgress = data.squadProgress ?? {}
-  }))
-
 let selectedResearch = Watched(null)
 let selectedTable = mkWatched(persist,"selectedTable", 0)
 
-let LOCKED_BY_CAMPAIGN_LVL = 0
 let LOCKED = 1
 let DEPENDENT = 2
 let NOT_ENOUGH_EXP = 3
@@ -93,39 +86,34 @@ let GROUP_RESEARCHED = 4
 let CAN_RESEARCH = 5
 let RESEARCHED = 6
 
-let squadResearches = Computed(function() {
+let squadResearchPages = Computed(function() {
   let armyId = curArmy.value
-  local { researches = null } = armiesResearches.value?[armyId]
-  if (!researches)
+  let squadId = viewSquadId.value
+  let squadTables = armiesResearches.value?[armyId].pages?[squadId]
+  if (!squadTables)
     return null
 
-  let squadId = viewSquadId.value
-  return researches
-    .filter(@(r) r.squad_id == squadId)
-    .reduce(function(res, r) {
-      let { page_id = 0 } = r
-      while (res.len() <= page_id)
-        res.append([])
-      res[page_id].append(r)
-      return res
-    }, [])
-    .map(function(lst) {
-      let pageContext = {
-        armyId
-        squadId
-        squadsCfg = squadsCfgById.value
-        alltemplates = allItemTemplates.value
-      }
-      lst.sort(@(a, b) a.line <=> b.line || a.tier <=> b.tier)
-      lst = lst
-        .map(@(research) prepareResearch(research, pageContext))
-        .reduce(function(res, r) {
-          res[r.research_id] <- r
-          return res
-        }, {})
-      recalcMultiResearchPos(lst)
-      return lst
-    })
+  return squadTables.map(function(config) {
+    let pageContext = {
+      armyId
+      squadId
+      squadsCfg = squadsCfgById.value
+      alltemplates = allItemTemplates.value
+    }
+    let researchList = config.tables.values()
+      .sort(@(a, b) a.line <=> b.line || a.tier <=> b.tier)
+      .map(@(research) prepareResearch(research, pageContext))
+      .reduce(function(res, r) {
+        res[r.research_id] <- r
+        return res
+      }, {})
+      // TODO
+      // The following: values().sort().reduce() come from the old version of this code
+      // Removing these calls makes the researches of the same type trade places in the result graph
+      // Should be fixed
+    recalcMultiResearchPos(researchList)
+    return researchList
+  })
 })
 
 let tableStructure = Computed(function() {
@@ -150,7 +138,7 @@ let tableStructure = Computed(function() {
     return ret
 
   ret.pages = pages
-  ret.researches = squadResearches.value?[selectedTable.value] ?? {}
+  ret.researches = squadResearchPages.value?[selectedTable.value] ?? {}
 
   local minTier = -1
   local maxTier = -1
@@ -168,69 +156,85 @@ let tableStructure = Computed(function() {
 let isOpenResearch = @(research, researched)
   (research?.requirements ?? []).findindex(@(id) !researched?[id]) == null
 
-let function isResearched(research, researched) {
-  return researched?[research.research_id] ?? false
-}
+let isResearched = @(research, researched) research.research_id in researched
 
 let function calcResearchedGroups(researches, researched) {
   let res = {}
   foreach (rId, val in researched) {
     if (!val)
       continue
-    let { squad_id = "", page_id = 0, multiresearchGroup = 0 } = researches?[rId]
+    let { squadIdList = {}, squad_id = "", page_id = 0, multiresearchGroup = 0 } = researches?[rId]
     if (multiresearchGroup <= 0)
       continue
-    if (squad_id not in res)
-      res[squad_id] <- {}
-    if (page_id not in res[squad_id])
-      res[squad_id][page_id] <- {}
-    res[squad_id][page_id][multiresearchGroup] <- true
+
+    if (squadIdList.len() == 0 && squad_id != "")
+      squadIdList[squad_id] <- true
+
+    foreach (squadId, _ in squadIdList) {
+      if (squadId not in res)
+        res[squadId] <- {}
+      if (page_id not in res[squadId])
+        res[squadId][page_id] <- {}
+      res[squadId][page_id][multiresearchGroup] <- true
+    }
   }
   return res
 }
 
-let isCampaignLevelLow = @(campLevel, pageId)
-  campLevel < WORKSHOP_UNLOCK_LEVEL && pageId == WORKSHOP_PAGE_ID
+let isSquadLocked = function(squads, research) {
+  foreach (squadId, _ in research?.squadIdList ?? {}) {
+    if (squadId in squads)
+      return false
+  }
+  if ((research?.squad_id ?? "") in squads)
+    return false
+  return true
+}
+
+let function researchStatusArmy
+    (armyResearches, researched, progress, squads, selectedSquadId = null) {
+  let groups = calcResearchedGroups(armyResearches, researched)
+  return armyResearches.map(function(research) {
+    let squad_id = research?.squad_id ??
+      (selectedSquadId in research.squadIdList
+        ? selectedSquadId
+        : research.squadIdList.keys().top())
+    return isResearched(research, researched) ? RESEARCHED
+      : (research?.isLocked ?? false) ? LOCKED
+      : (research?.multiresearchGroup ?? 0) > 0
+          && (groups?[squad_id][research?.page_id ?? 0][research.multiresearchGroup] ?? false)
+        ? GROUP_RESEARCHED
+      : isSquadLocked(squads, research) || !isOpenResearch(research, researched) ? DEPENDENT
+      : (research?.price ?? 0) <= (progress?[squad_id].points ?? 0) ? CAN_RESEARCH
+      : NOT_ENOUGH_EXP
+  })
+}
 
 let allResearchStatus = Computed(function() {
   let res = {}
-  let campLevel = maxCampaignLevel.value
+  let allArmiesResearches = armiesResearches.value
+  let progress = squadProgress.value
   foreach (armyId in curArmiesList.value) {
-    let researches = armiesResearches.value?[armyId].researches ?? {}
-    let researched = stateResearches.value?[armyId].researched ?? {}
-    let squadProgress = stateResearches.value?[armyId].squadProgress
+    let armyResearches = allArmiesResearches?[armyId].researches ?? {}
+    let researched = researchProgress.value
     let squads = armySquadsById.value?[armyId] ?? {}
-    let groups = calcResearchedGroups(researches, researched)
-    res[armyId] <- researches.map(@(research)
-      isResearched(research, researched) ? RESEARCHED
-        : isCampaignLevelLow(campLevel, research?.page_id ?? 0) ? LOCKED_BY_CAMPAIGN_LVL
-        : (research?.isLocked ?? false) ? LOCKED
-        : (research?.multiresearchGroup ?? 0) > 0
-            && (groups?[research.squad_id][research?.page_id ?? 0][research.multiresearchGroup] ?? false)
-          ? GROUP_RESEARCHED
-        : squads?[research.squad_id] == null || !isOpenResearch(research, researched) ? DEPENDENT
-        : (research?.price ?? 0) <= (squadProgress?[research.squad_id].points ?? 0) ? CAN_RESEARCH
-        : NOT_ENOUGH_EXP)
+    res[armyId] <- researchStatusArmy(armyResearches, researched, progress, squads)
   }
   return res
 })
 
-let allResearchProgress = Computed(function() {
-  let res = {}
-  foreach (armyId in curArmiesList.value) {
-    let researches = armiesResearches.value?[armyId].researches ?? {}
-    let researched = stateResearches.value?[armyId].researched ?? {}
-    res[armyId] <- researched.reduce(@(cnt, val, key)
-      val && (researches?[key].price ?? 0) > 0 ? cnt + 1 : cnt, 0)
-  }
-  return res
+let researchStatuses = Computed(function() {
+  // as in allResearchStatus with selectedSquadId specified
+  let armyId = curArmy.value
+  let armyResearches = armiesResearches.value?[armyId].researches ?? {}
+  let researched = researchProgress.value
+  let squads = armySquadsById.value?[armyId] ?? {}
+  return researchStatusArmy(armyResearches, researched, squadProgress.value,
+    squads, viewSquadId.value)
 })
 
-let researchStatuses = Computed(@() allResearchStatus.value?[curArmy.value] ?? {})
-let curArmySquadsProgress = Computed(@() stateResearches.value?[curArmy.value].squadProgress)
-let allSquadsPoints = Computed(@() (curArmySquadsProgress.value ?? {}).map(@(p) p.points))
-let allSquadsLevels = Computed(@() (curArmySquadsProgress.value ?? {}).map(@(p) p.level))
-let curSquadPoints = Computed(@() allSquadsPoints.value?[viewSquadId.value] ?? 0)
+let allSquadsPoints = Computed(@() squadProgress.value.map(@(p) p.points))
+let allSquadsLevels = Computed(@() squadProgress.value.map(@(p) p.level))
 
 let curSquadProgress = Computed(function() {
   let squadCfg = armiesResearches.value?[curArmy.value].squads[viewSquadId.value]
@@ -242,7 +246,7 @@ let curSquadProgress = Computed(function() {
     nextLevelExp = 0
     levelCost = 0
     maxLevel = levels.len()
-  }.__update(curArmySquadsProgress.value?[viewSquadId.value] ?? {})
+  }.__update(squadProgress.value?[viewSquadId.value] ?? {})
 
   let levelExp = levels?[res.level].exp ?? 0
   let levelCost = levels?[res.level].levelCost ?? 0
@@ -256,7 +260,7 @@ let curSquadProgress = Computed(function() {
 })
 
 let function addArmySquadExp(armyId, exp, squadId) {
-  if (!(armyId in stateResearches.value)) {
+  if (armyId not in armySquadsById.value) {
     logerr($"Unable to charge exp for army {armyId}")
     return
   }
@@ -264,7 +268,7 @@ let function addArmySquadExp(armyId, exp, squadId) {
   add_army_squad_exp_by_id(armyId, exp, squadId)
 }
 
-let function research(researchId) {
+let function researchAction(researchId) {
   if (isResearchInProgress.value || researchStatuses.value?[researchId] != CAN_RESEARCH)
     return
   isResearchInProgress(true)
@@ -288,13 +292,13 @@ let function buyChangeResearch(researchFrom, researchTo) {
   if (isResearchInProgress.value
       || researchStatuses.value?[researchTo] != GROUP_RESEARCHED
       || researchStatuses.value?[researchFrom] != RESEARCHED)
-  isResearchInProgress(true)
+    isResearchInProgress(true)
   buy_change_research(tableStructure.value.armyId, researchFrom, researchTo, changeResearchGoldCost.value,
     @(_) isResearchInProgress(false))
 }
 
 let closestTargets = Computed(function() {
-  let list = squadResearches.value
+  let list = squadResearchPages.value
   if (!list)
     return null
 
@@ -341,8 +345,6 @@ let function findAndSelectClosestTarget(...) {
       selectedResearch(val)
       return
     }
-    if (status == LOCKED_BY_CAMPAIGN_LVL)
-      isLockedByCampaignLvl = true
   }
   selectedResearch({
     isLockedByCampaignLvl
@@ -351,6 +353,182 @@ let function findAndSelectClosestTarget(...) {
     description = "researches/allResearchesResearchedDescription"
   })
 }
+
+
+let mkCurRequirements = @() Computed(function() {
+  let res = {}
+  foreach (research in tableStructure.value.researches) {
+    let { research_id, requirements = [] } = research
+    if (requirements.len() > 0)
+      foreach (requirementId in requirements)
+        res[requirementId] <- (res?[requirementId] ?? []).append(research_id)
+  }
+  return res
+})
+
+let mkCurResearchChains = @(curRequirements) Computed(function() {
+  let allRequirements = curRequirements.value
+  let res = {}
+  foreach (research in tableStructure.value.researches) {
+    let { research_id } = research
+    local nextRes = research_id
+    res[research_id] <- []
+    while (nextRes != null) {
+      res[research_id].append(nextRes)
+      nextRes = allRequirements?[nextRes]?[0]
+    }
+  }
+  return res
+})
+
+let function isNamesSimilar(nameA, nameB) {
+  let nameArrA = nameA.split("_")
+  let nameArrB = nameB.split("_")
+  if (nameArrA.len() != nameArrB.len() || nameArrA.len() < 2)
+    return false
+  if (toIntegerSafe(nameArrA.top(), -1, false) < 0 || toIntegerSafe(nameArrB.top(), -1, false) < 0)
+    return false
+  nameArrA.resize(nameArrA.len() - 1)
+  nameArrB.resize(nameArrB.len() - 1)
+  return "_".join(nameArrA) == "_".join(nameArrB)
+}
+
+let validateMainResearch = @(curRes, mainRes, chainLen)
+  curRes == null ? null
+    : chainLen > 1 || (chainLen == 1 && isNamesSimilar(curRes, mainRes)) ? curRes
+    : null
+
+let function mkViewStructure() {
+  let curRequirements = mkCurRequirements()
+  let curResearchChaines = mkCurResearchChains(curRequirements)
+  return Computed(function() {
+    let { researches } = tableStructure.value
+    let allRequirements = curRequirements.value
+    let allChaines = curResearchChaines.value
+
+    local columns = []
+    local hasTemplatesLine = false
+    let templateCount = {}
+    local order=0
+    // iterate through all of the starting nodes
+    foreach (baseResId, baseRes in researches) {
+      if ((baseRes?.requirements.len() ?? 0) > 0)
+        continue
+      local mainRes = baseResId
+      // iterate through all nodes connected to the starting one
+      while (mainRes != null) {
+        let research = researches[mainRes]
+        let followResearches = allRequirements?[mainRes] ?? []
+        let { gametemplate = null, requirements = [] } = research
+        if (requirements.len() == 0)
+          order += 100
+        columns.append({
+          main = mainRes
+          order = order++
+          children = []
+          template = gametemplate
+          tplCount = 0
+          toChildren = 0
+        })
+        if (gametemplate != null) {
+          hasTemplatesLine = true
+          templateCount[gametemplate] <- (templateCount?[gametemplate] ?? 0) + 1
+        }
+        let hasMultResearches = followResearches.findvalue(@(resId)
+          (researches?[resId].multiresearchGroup ?? 0) > 0) != null
+        mainRes = followResearches.len() > 1
+          ? followResearches.findvalue(function(resId) {
+              // return true if there is a connected research that requires a new column
+              if ((researches?[resId].multiresearchGroup ?? 0) > 0)
+                return false
+              if ((allRequirements?[resId].len() ?? 0) > 1)
+                return true
+              let currChain = allChaines?[resId] ?? []
+              return currChain.len() > 2
+                || (currChain.len() == 2 && (isNamesSimilar(mainRes, resId) || hasMultResearches))
+            })
+          : validateMainResearch(followResearches?[0], mainRes,
+              allChaines?[followResearches?[0]].len() ?? 0)
+      }
+    }
+
+    columns.sort(@(a,b) a.order <=> b.order )
+
+    foreach (idx, column in columns) {
+      let { main } = column
+      let nextMain = columns?[idx + 1].main
+      foreach (resId in allRequirements?[main] ?? []) {
+        if (resId == nextMain)
+          continue
+        let { multiresearchGroup = 0 } = researches[resId]
+        if (multiresearchGroup == 0)
+          column.children.append({
+            multiresearchGroup
+            children = allChaines?[resId] ?? []
+          })
+        else {
+          let cIdx = column.children
+            .findindex(@(r) (r?.multiresearchGroup ?? 0) == multiresearchGroup)
+          if (cIdx == null)
+            column.children.append({ multiresearchGroup, children = [resId] })
+          else
+            column.children[cIdx].children.append(resId)
+        }
+      }
+    }
+    let maxChildHeight = [0, 0]
+    let childCount = []
+    foreach (column in columns) {
+      let { template } = column
+      if (template != "" && template in templateCount) {
+        column.tplCount = templateCount[template]
+        delete templateCount[template]
+      }
+      if ("children" not in column) {
+        childCount.append(0, 0)
+        continue
+      }
+      let prevCountTop = childCount?[childCount.len() - 2] ?? 0
+      let prevCountBtm = childCount?[childCount.len() - 1] ?? 0
+      let childTop = column?.children[0]
+      let childBtm = column?.children[1]
+      let countTop = (childTop?.multiresearchGroup ?? 0) == 0
+        ? min((childTop?.children ?? []).len(), 1)
+        : childTop.children.len()
+      let countBtm = (childBtm?.multiresearchGroup ?? 0) == 0
+        ? min((childBtm ?? []).len(), 1)
+        : childBtm.children.len()
+      let heightTop = max(maxChildHeight[0],
+        (childTop?.multiresearchGroup ?? 0) == 0 ? (childTop?.children ?? []).len() : 1)
+      let heightBtm = max(maxChildHeight[1],
+        (childBtm?.multiresearchGroup ?? 0) == 0 ? (childBtm?.children ?? []).len() : 1)
+      if (prevCountTop + countTop < 5 && prevCountBtm + countBtm < 5) {
+        childCount.append(countTop, countBtm)
+        maxChildHeight[0] = heightTop
+        maxChildHeight[1] = heightBtm
+      }
+      else {
+        column.children.clear()
+        column.children.append(childBtm, childTop)
+        childCount.append(countBtm, countTop)
+        maxChildHeight[0] = heightBtm
+        maxChildHeight[1] = heightTop
+      }
+    }
+    local toChildren = 0
+    for (local i = columns.len() - 1; i >= 0 ; i--) {
+      let column = columns[i]
+      if (column.children.findvalue(@(ch) ch != null) != null)
+        toChildren = 0
+      else
+        toChildren++
+      column.toChildren = toChildren
+    }
+    return { columns, maxChildHeight, hasTemplatesLine }
+  })
+}
+
+
 researchStatuses.subscribe(findAndSelectClosestTarget)
 tableStructure.subscribe(findAndSelectClosestTarget)
 findAndSelectClosestTarget()
@@ -377,23 +555,23 @@ return {
   viewSquadId
 
   allResearchStatus
-  allResearchProgress
   researchStatuses
   allSquadsLevels
   allSquadsPoints
-  curSquadPoints
-  curArmySquadsProgress
+  squadProgress
   curSquadProgress
   changeResearchBalance
   changeResearchGoldCost
 
-  research
+  researchAction
   changeResearch
   buyChangeResearch
   isResearchInProgress
   isBuyLevelInProgress
   addArmySquadExp
   buySquadLevel
+
+  mkViewStructure
 
   LOCKED
   DEPENDENT

@@ -3,17 +3,17 @@ from "%enlSqGlob/ui_library.nut" import *
 let {
   mkTaskEmblem, taskHeader, taskMinHeight, taskSlotPadding,
   taskDescription, taskDescPadding
-} = require("%enlSqGlob/ui/taskPkg.nut")
+} = require("%enlSqGlob/ui/tasksPkg.nut")
 let {
   darkBgColor, smallPadding
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { DAILY_TASK_KEY } = require("%enlSqGlob/userstats/unlocksState.nut")
 
-let function mkTaskContent(unlockDesc) {
+let mkTaskContent = function(unlockDesc) {
   let {
-    isCompleted = false, isFinished = false, required = 0, current = 0
+    isCompleted = false, isFinished = false, required = 0, current = 0, stage = 0
   } = unlockDesc
-  let progress = { isCompleted, required, current, isFinished }
+  let progress = { isCompleted, required, current, isFinished, stage }
   return watchElemState(@(sf) {
     size = [flex(), SIZE_TO_CONTENT]
     valign = ALIGN_CENTER

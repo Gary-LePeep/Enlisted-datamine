@@ -1,6 +1,6 @@
 {
   "base_e100": {
-    "_extends": "base_tank",
+    "_use": "base_tank",
     "killLogName": "germ_pzkpfw_e_100",
     "animchar__res": "e100_char",
     "collres__res": "e100_collision",
@@ -110,7 +110,7 @@
     ]
   },
   "gm_e_99_plasmagun": {
-    "_extends": "tank_plasmagun",
+    "_use": "tank_plasmagun",
     "gun__shootNodeName": "emtr_gun_flame_01",
     "turret__yawSpeed": 8.0,
     "turret__pitchSpeed": 4.0,
@@ -118,7 +118,7 @@
     "turret__limit": [-180.0,180.0,-7.0,23.0]
   },
   "gm_e_99_blastergun": {
-    "_extends": "tank_blastergun",
+    "_use": "tank_blastergun",
     "gun__shootNodeName": "bone_mg_gun_twin_v",
     "turret__yawSpeed": 8.0,
     "turret__pitchSpeed": 4.0,

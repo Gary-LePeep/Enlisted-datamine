@@ -1,12 +1,14 @@
 {
   "global_track_fx_info": {
     "_singleton": true,
-    "_extends": "replicating",
     "global_track_fx__materialToGroupMap:object": [],
     "global_track_fx__materialGroups:object": {
       "wood:list<t>": [
         {
           "value": "wood"
+        },
+        {
+          "value": "wood_solid"
         },
         {
           "value": "wood_railway"
@@ -122,7 +124,7 @@
     }
   },
   "vehicle_effect_base": {
-    "_extends": "ecs_no_debug",
+    "_use": "ecs_no_debug",
     "transform": [
       [1.0,0.0,0.0],
       [0.0,1.0,0.0],
@@ -145,25 +147,24 @@
     "staticEffect:tag": [],
     "autodeleteEffectEntity:tag": []
   },
-  "vehicle_effect_sound_base": [
+  "vehicle_sound_effect_base": [
     {
-      "_extends": "sound_effect"
+      "_use": "sound_effect"
     },
     {
-      "_extends": "moveable_sound_effect"
+      "_use": "moveable_sound_effect"
     },
     {
       "_group": {
         "_tags": "sound",
         "sound_effect__path": "",
         "sound_effect__abandonOnReset": true,
-        "sound_control__range": 0.0,
-        "sound_control__autoRange": true
+        "sound_effect__autoRange": true
       }
     }
   ],
   "pv_broken_exhaust_base_template": {
-    "_extends": "vehicle_effect_base",
+    "_use": "vehicle_effect_base",
     "_group": {
       "_tags": "render",
       "effect__name": "pv_broken_exhaust_base_fx"
@@ -171,10 +172,10 @@
   },
   "tank_engine_fire_template": [
     {
-      "_extends": "vehicle_effect_base"
+      "_use": "vehicle_effect_base"
     },
     {
-      "_extends": "vehicle_effect_sound_base"
+      "_use": "vehicle_sound_effect_base"
     },
     {
       "_group": {
@@ -190,25 +191,45 @@
     }
   ],
   "tank_engine_smoke_template": {
-    "_extends": "vehicle_effect_base",
+    "_use": "vehicle_effect_base",
     "_group": {
       "_tags": "render",
       "effect__name": "fire_tank_smoke_small_cmps_fx"
     }
   },
   "tank_smoke_big_template": {
-    "_extends": "vehicle_effect_base",
+    "_use": "vehicle_effect_base",
     "_group": {
       "_tags": "render",
       "effect__name": "fire_tank_smoke_big_cmps_fx"
     }
   },
-  "tank_smoke_small_template": [
+  "tank_smoke_medium_template": [
     {
-      "_extends": "vehicle_effect_base"
+      "_use": "vehicle_effect_base"
     },
     {
-      "_extends": "vehicle_effect_sound_base"
+      "_use": "vehicle_sound_effect_base"
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "fire_tank_smoke_medium_cmps_fx"
+      }
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "sound_effect__path": "env_effects/fire/fire_small"
+      }
+    }
+  ],
+  "tank_smoke_small_template": [
+    {
+      "_use": "vehicle_effect_base"
+    },
+    {
+      "_use": "vehicle_sound_effect_base"
     },
     {
       "_group": {
@@ -225,10 +246,10 @@
   ],
   "tank_fire_big_template": [
     {
-      "_extends": "vehicle_effect_base"
+      "_use": "vehicle_effect_base"
     },
     {
-      "_extends": "vehicle_effect_sound_base"
+      "_use": "vehicle_sound_effect_base"
     },
     {
       "_group": {
@@ -243,12 +264,32 @@
       }
     }
   ],
-  "tank_fire_small_template": [
+  "tank_fire_medium_template": [
     {
-      "_extends": "vehicle_effect_base"
+      "_use": "vehicle_effect_base"
     },
     {
-      "_extends": "vehicle_effect_sound_base"
+      "_use": "vehicle_sound_effect_base"
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "fire_tank_medium_cmps_fx"
+      }
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "sound_effect__path": "env_effects/fire/fire_vehicle"
+      }
+    }
+  ],
+  "tank_fire_small_template": [
+    {
+      "_use": "vehicle_effect_base"
+    },
+    {
+      "_use": "vehicle_sound_effect_base"
     },
     {
       "_group": {
@@ -265,10 +306,10 @@
   ],
   "tank_ammo_fire_template": [
     {
-      "_extends": "vehicle_effect_base"
+      "_use": "vehicle_effect_base"
     },
     {
-      "_extends": "vehicle_effect_sound_base"
+      "_use": "vehicle_sound_effect_base"
     },
     {
       "_group": {
@@ -290,6 +331,13 @@
       [0.0,0.0,1.0],
       [0.0,0.0,0.0]
     ],
+    "wind_emitter__radius": 5.0,
+    "wind_emitter__duration": 4.0,
+    "wind_emitter__strength": 7.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 6,
+    "wind_emitter__phaseAttack": true,
+    "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
       "effect__name": "explosion_tank_base_cmps_fx",
@@ -302,10 +350,10 @@
   },
   "tank_smoke_destroyed_template": [
     {
-      "_extends": "vehicle_effect_base"
+      "_use": "vehicle_effect_base"
     },
     {
-      "_extends": "vehicle_effect_sound_base"
+      "_use": "vehicle_sound_effect_base"
     },
     {
       "game_effect__timeToDestroy": 90.0
@@ -328,10 +376,10 @@
   ],
   "tank_exhaust_template": [
     {
-      "_extends": "base_effect"
+      "_use": "base_effect"
     },
     {
-      "_extends": "range_pauseable_effect"
+      "_use": "range_pauseable_effect"
     },
     {
       "effect__emit_range_limit": 140.0
@@ -361,10 +409,10 @@
   ],
   "tank_broken_exhaust_template": [
     {
-      "_extends": "tank_exhaust_template"
+      "_use": "tank_exhaust_template"
     },
     {
-      "_extends": "range_pauseable_effect"
+      "_use": "range_pauseable_effect"
     },
     {
       "effect__emit_range_limit": 140.0
@@ -378,10 +426,10 @@
   ],
   "tank_exhaust_broken_template": [
     {
-      "_extends": "vehicle_effect_base"
+      "_use": "vehicle_effect_base"
     },
     {
-      "_extends": "range_pauseable_effect"
+      "_use": "range_pauseable_effect"
     },
     {
       "effect__emit_range_limit": 140.0
@@ -395,7 +443,7 @@
   ],
   "track_effect_base": [
     {
-      "_extends": "ecs_no_debug"
+      "_use": "ecs_no_debug"
     },
     {
       "paint_from_biome": false
@@ -431,10 +479,10 @@
   ],
   "tank_tracks_sand_top": [
     {
-      "_extends": "track_effect_base"
+      "_use": "track_effect_base"
     },
     {
-      "_extends": "range_pauseable_effect"
+      "_use": "range_pauseable_effect"
     },
     {
       "paint_from_biome": true
@@ -451,10 +499,10 @@
   ],
   "tank_track_sand_bottom": [
     {
-      "_extends": "track_effect_base"
+      "_use": "track_effect_base"
     },
     {
-      "_extends": "range_pauseable_effect"
+      "_use": "range_pauseable_effect"
     },
     {
       "paint_from_biome": true
@@ -471,10 +519,10 @@
   ],
   "tank_tracks_dirt_top": [
     {
-      "_extends": "track_effect_base"
+      "_use": "track_effect_base"
     },
     {
-      "_extends": "range_pauseable_effect"
+      "_use": "range_pauseable_effect"
     },
     {
       "paint_from_biome": true
@@ -491,10 +539,10 @@
   ],
   "tank_track_dirt_bottom": [
     {
-      "_extends": "track_effect_base"
+      "_use": "track_effect_base"
     },
     {
-      "_extends": "range_pauseable_effect"
+      "_use": "range_pauseable_effect"
     },
     {
       "paint_from_biome": true
@@ -511,10 +559,10 @@
   ],
   "tank_tracks_snow_top": [
     {
-      "_extends": "track_effect_base"
+      "_use": "track_effect_base"
     },
     {
-      "_extends": "range_pauseable_effect"
+      "_use": "range_pauseable_effect"
     },
     {
       "paint_from_biome": true
@@ -531,10 +579,10 @@
   ],
   "tank_track_snow_bottom": [
     {
-      "_extends": "track_effect_base"
+      "_use": "track_effect_base"
     },
     {
-      "_extends": "range_pauseable_effect"
+      "_use": "range_pauseable_effect"
     },
     {
       "paint_from_biome": true
@@ -551,10 +599,10 @@
   ],
   "tank_tracks_mud_top": [
     {
-      "_extends": "track_effect_base"
+      "_use": "track_effect_base"
     },
     {
-      "_extends": "range_pauseable_effect"
+      "_use": "range_pauseable_effect"
     },
     {
       "paint_from_biome": true
@@ -571,10 +619,10 @@
   ],
   "tank_track_mud_bottom": [
     {
-      "_extends": "track_effect_base"
+      "_use": "track_effect_base"
     },
     {
-      "_extends": "range_pauseable_effect"
+      "_use": "range_pauseable_effect"
     },
     {
       "paint_from_biome": true
@@ -591,10 +639,10 @@
   ],
   "tank_tracks_water_top": [
     {
-      "_extends": "track_effect_base"
+      "_use": "track_effect_base"
     },
     {
-      "_extends": "range_pauseable_effect"
+      "_use": "range_pauseable_effect"
     },
     {
       "paint_from_biome": false
@@ -611,10 +659,10 @@
   ],
   "tank_track_water_bottom": [
     {
-      "_extends": "track_effect_base"
+      "_use": "track_effect_base"
     },
     {
-      "_extends": "range_pauseable_effect"
+      "_use": "range_pauseable_effect"
     },
     {
       "paint_from_biome": false

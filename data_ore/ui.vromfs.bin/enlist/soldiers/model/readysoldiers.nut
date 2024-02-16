@@ -47,7 +47,7 @@ let function updateInvalidSoldiers() {
         if (item == null)
           continue
 
-        local { basetpl, itemtype } = item
+        local { basetpl, itemtype = null } = item
         basetpl = trimUpgradeSuffix(basetpl)
         let { items = [], itemTypes = [] } = slot
         if ((itemTypes.len() != 0 || items.len() != 0)
@@ -77,6 +77,8 @@ let getSoldiersBattleReady = kwarg(
     foreach (soldier in soldiers) {
       local state = READY
       let sKind = soldier?.sKind ?? classesCfg?[soldier.sClass].kind
+      if (sKind == null)
+        continue
       if (soldier.guid in invalidSoldiers)
         state = state | NOT_READY_BY_EQUIP
       else if (totalReady >= squadSize)

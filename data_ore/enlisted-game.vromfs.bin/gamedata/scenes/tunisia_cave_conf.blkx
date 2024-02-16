@@ -2251,6 +2251,7 @@
     "entity": {
       "_template": "briefing_confrontation",
       "mission_name": "tunisia_cave_conf",
+      "mission_outfit": "tunisia",
       "loading_images:list<t>": [
         {
           "item": "ui/tunisia_cave_inv_01.avif"
@@ -2299,6 +2300,11 @@
   },
   {
     "entity": {
+      "_template": "bloom"
+    }
+  },
+  {
+    "entity": {
       "_template": "postfx_roundctrl"
     }
   },
@@ -2312,8 +2318,8 @@
     "entity": {
       "_template": "team_tunisia_allies+team_narrator_confrontation_attack+respawn_creators_team",
       "team__memberCount": 0.0,
-      "team__scoreCap": 2000.0,
-      "team__score": 2000.0,
+      "team__scoreCap": 1800.0,
+      "team__score": 1800.0,
       "team__squadSpawnCost": 250,
       "team__minScoreCap": 100.0,
       "team__firstSpawnCostMul": 0.0,
@@ -2322,7 +2328,7 @@
       "team__briefing": "confrontation/attackers_goals",
       "team__winSubtitle": "debriefing/won_invasion_subtitle",
       "team__loseSubtitle": "debriefing/lost_invasion_subtitle",
-      "team__winTitle": "debriefing/britain_won_invasion_title",
+      "team__winTitle": "debriefing/allies_won_invasion",
       "team__spawnBotArmy": "tunisia_allies"
     }
   },
@@ -2330,8 +2336,8 @@
     "entity": {
       "_template": "team_tunisia_axis+team_narrator_confrontation_attack+respawn_creators_team",
       "team__memberCount": 0.0,
-      "team__scoreCap": 2000.0,
-      "team__score": 2000.0,
+      "team__scoreCap": 1800.0,
+      "team__score": 1800.0,
       "team__squadSpawnCost": 250,
       "team__minScoreCap": 100.0,
       "team__firstSpawnCostMul": 0.0,
@@ -2357,7 +2363,7 @@
         [-0.130834,0.0,-0.991403],
         [0.0,1.0,0.0],
         [0.991403,0.0,-0.130834],
-        [-1184.23,784.228,2114.84]
+        [-1499.8,538.768,2519.4]
       ],
       "resupply_zone__team": 2
     }
@@ -2370,7 +2376,7 @@
         [-0.994744,0.0,-0.102399],
         [0.0,1.0,0.0],
         [0.102399,0.0,-0.994744],
-        [2699.41,751.203,1400.78]
+        [4625.04,751.203,1535.9]
       ],
       "team": 1,
       "maxVehicleOnSpawn": 1,
@@ -2385,7 +2391,7 @@
         [-0.968391,0.0,-0.249439],
         [0.0,1.0,0.0],
         [0.249439,0.0,-0.968391],
-        [2665.21,598.667,1266.96]
+        [4590.83,598.667,1402.08]
       ],
       "team": 1,
       "maxVehicleOnSpawn": 1,
@@ -2400,7 +2406,7 @@
         [-0.949333,0.0,-0.314274],
         [0.0,1.0,0.0],
         [0.314274,0.0,-0.949333],
-        [2727.87,751.203,1246.76]
+        [4653.5,751.203,1381.88]
       ],
       "team": 1,
       "maxVehicleOnSpawn": 1,
@@ -2415,7 +2421,7 @@
         [-0.989305,0.0,-0.145864],
         [0.0,1.0,0.0],
         [0.145864,0.0,-0.989305],
-        [2624.67,598.667,1439.48]
+        [4550.29,598.667,1574.6]
       ],
       "team": 1,
       "maxVehicleOnSpawn": 1,
@@ -2429,7 +2435,7 @@
         [0.883982,0.0,0.467523],
         [0.0,1.0,0.0],
         [-0.467523,0.0,0.883982],
-        [3155.7,882.623,-321.722]
+        [3537.78,556.343,-550.53]
       ],
       "resupply_zone__team": 1
     }
@@ -2439,10 +2445,10 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_fighter",
       "transform": [
-        [0.963087,0.0,0.269189],
-        [0.0,1.0,0.0],
-        [-0.269189,0.0,0.963087],
-        [-548.267,739.75,668.03]
+        [0.978558,0.0,0.205971],
+        [0.0,1.0,-0.0],
+        [-0.205971,0.0,0.978558],
+        [-2506.6,739.75,242.239]
       ],
       "team": 2,
       "maxVehicleOnSpawn": 1,
@@ -2454,10 +2460,10 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_assault",
       "transform": [
-        [0.994323,0.0,0.106411],
-        [0.0,1.0,0.0],
-        [-0.106411,0.0,0.994323],
-        [-513.686,612.849,673.62]
+        [0.999139,0.0,0.0415054],
+        [0.0,1.0,-0.0],
+        [-0.0415054,0.0,0.999139],
+        [-2471.73,612.849,245.568]
       ],
       "team": 2,
       "maxVehicleOnSpawn": 1,
@@ -2469,10 +2475,10 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_fighter",
       "transform": [
-        [0.995148,0.0,-0.0983859],
+        [0.98664,0.0,-0.162911],
         [0.0,1.0,0.0],
-        [0.0983859,0.0,0.995148],
-        [-607.467,739.75,806.494]
+        [0.162911,-0.0,0.98664],
+        [-2556.67,739.75,384.261]
       ],
       "team": 2,
       "maxVehicleOnSpawn": 1,
@@ -2484,10 +2490,10 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_assault",
       "transform": [
-        [0.99939,0.0,-0.0349198],
+        [0.995002,0.0,-0.0998557],
         [0.0,1.0,0.0],
-        [0.0349198,0.0,0.99939],
-        [-548.052,612.849,849.224]
+        [0.0998557,-0.0,0.995002],
+        [-2494.6,612.849,423.036]
       ],
       "team": 2,
       "maxVehicleOnSpawn": 1,
@@ -2548,7 +2554,7 @@
       "sphere_zone__radius": 15.0,
       "active": false,
       "ui_order": 1,
-      "capzone__capReward": 350.0,
+      "capzone__capReward": 250.0,
       "capzone__icon": "AAA",
       "capzone__caption": "capzone/cave_house",
       "capzone__deactivateAfterTimeout": 25.0,
@@ -2569,9 +2575,9 @@
       "groupName": "sector_2_a",
       "capzone__lockAfterActivate": true,
       "capzone__unlockAfterTime": 150.0,
-      "capzone__capTimeTeam1": 60.0,
+      "capzone__capTimeTeam1": 70.0,
       "capzone__capTimeTeam2": 70.0,
-      "capzone__decapTimeTeam1": 30.0,
+      "capzone__decapTimeTeam1": 35.0,
       "capzone__decapTimeTeam2": 35.0,
       "capzone__capTeam": -1,
       "transform": [
@@ -2583,7 +2589,7 @@
       "sphere_zone__radius": 15.0,
       "active": false,
       "ui_order": 2,
-      "capzone__capReward": 350.0,
+      "capzone__capReward": 250.0,
       "capzone__icon": "AAA",
       "capzone__caption": "capzone/cave_house",
       "capzone__deactivateAfterTimeout": 25.0,
@@ -2604,13 +2610,13 @@
       "capzone__capRewardPartCap": 1.5,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_2_b",
-      "capzone__capReward": 350.0,
+      "capzone__capReward": 250.0,
       "capzone__lockAfterActivate": true,
       "capzone__unlockAfterTime": 150.0,
       "capzone__capTimeTeam1": 70.0,
       "capzone__capTimeTeam2": 70.0,
-      "capzone__decapTimeTeam1": 40.0,
-      "capzone__decapTimeTeam2": 40.0,
+      "capzone__decapTimeTeam1": 35.0,
+      "capzone__decapTimeTeam2": 35.0,
       "capzone__capTeam": -1,
       "transform": [
         [14.5425,0.0,11.1685],
@@ -2623,7 +2629,7 @@
       "capzone__icon": "AAA",
       "capzone__caption": "capzone/village_house",
       "capzone__deactivateAfterTimeout": 25.0,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "decal__height": 1.0,
       "capzone__activateChoiceTeam1:object": {
         "sector_3": 1.0
@@ -2641,9 +2647,9 @@
       "groupName": "sector_3",
       "capzone__lockAfterActivate": true,
       "capzone__unlockAfterTime": 150.0,
-      "capzone__capTimeTeam1": 60.0,
+      "capzone__capTimeTeam1": 70.0,
       "capzone__capTimeTeam2": 70.0,
-      "capzone__decapTimeTeam1": 30.0,
+      "capzone__decapTimeTeam1": 35.0,
       "capzone__decapTimeTeam2": 35.0,
       "capzone__capTeam": -1,
       "transform": [
@@ -2655,11 +2661,11 @@
       "sphere_zone__radius": 15.0,
       "active": false,
       "ui_order": 3,
-      "capzone__capReward": 350.0,
+      "capzone__capReward": 250.0,
       "capzone__icon": "AAA",
       "capzone__caption": "capzone/cave_house",
       "capzone__deactivateAfterTimeout": 25.0,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "decal__height": 2.0,
       "capzone__iconOffsetY": 7.0,
       "capzone__activateChoiceTeam2:object": {
@@ -2694,7 +2700,7 @@
       "sphere_zone__radius": 15.0,
       "active": false,
       "ui_order": 4,
-      "capzone__capReward": 350.0,
+      "capzone__capReward": 250.0,
       "capzone__icon": "AAA",
       "capzone__caption": "capzone/cave_house",
       "capzone__deactivateAfterTimeout": 25.0,
@@ -2731,11 +2737,11 @@
       "sphere_zone__radius": 15.0,
       "active": false,
       "ui_order": 4,
-      "capzone__capReward": 350.0,
+      "capzone__capReward": 250.0,
       "capzone__icon": "AAA",
       "capzone__caption": "capzone/market",
       "capzone__deactivateAfterTimeout": 25.0,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "decal__height": 1.0,
       "capzone__iconOffsetY": 10.0,
       "capzone__activateChoiceTeam1:object": {
@@ -2768,7 +2774,7 @@
       "sphere_zone__radius": 15.0,
       "active": false,
       "ui_order": 5,
-      "capzone__capReward": 350.0,
+      "capzone__capReward": 250.0,
       "capzone__icon": "AAA",
       "capzone__caption": "capzone/cave_house",
       "capzone__deactivateAfterTimeout": 25.0,

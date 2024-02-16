@@ -1292,6 +1292,7 @@
     "entity": {
       "_template": "briefing_destruction",
       "mission_name": "pacific_gavutu_bomb",
+      "mission_outfit": "pacific",
       "loading_images:list<t>": [
         {
           "item": "ui/pacific_gavutu_inv_01.avif"
@@ -1334,7 +1335,7 @@
       "team__briefing": "destruction/defenders_goals",
       "team__winSubtitle": "debriefing/won_defence_destruction",
       "team__loseSubtitle": "debriefing/lost_defence_destruction",
-      "team__winTitle": "debriefing/britain_won_destruction_defence_title",
+      "team__winTitle": "debriefing/allies_won_destruction_defence_title",
       "team__spawnBotArmy": "pacific_allies"
     }
   },
@@ -1404,12 +1405,15 @@
       "capzone__capReward": 750.0,
       "capzone__caption": "capzone/warehouse",
       "capzone__checkAllZonesInGroup": true,
-      "capzone__deactivateAfterTimeout": 0.0,
+      "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 1,
       "capzone__createdRespawnBaseGroup": 7,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__plantingTeam": 2,
+      "capzone__timeToPlant": 20.0,
+      "capzone__timeToDefuse": 30.0,
+      "capzone__timeToExplosion": 40.0,
       "capzone__bombTemplate": "bomb_site+bomb_site_radar_hardware_animchar_01_without_antenna",
       "capzone__bombTransformLocalPos": [
         [0.639618,0.0,0.829609],
@@ -1441,12 +1445,15 @@
       "capzone__capReward": 750.0,
       "capzone__caption": "capzone/warehouse",
       "capzone__checkAllZonesInGroup": true,
-      "capzone__deactivateAfterTimeout": 0.0,
+      "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 1,
       "capzone__createdRespawnBaseGroup": 7,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__plantingTeam": 2,
+      "capzone__timeToPlant": 20.0,
+      "capzone__timeToDefuse": 30.0,
+      "capzone__timeToExplosion": 40.0,
       "capzone__bombTemplate": "bomb_site+bomb_site_radar_hardware_animchar_02_without_antenna",
       "capzone__bombTransformLocalPos": [
         [0.239519,0.0,0.902387],
@@ -1479,13 +1486,16 @@
       "capzone__owningTeam": 1,
       "capzone__capReward": 750.0,
       "capzone__checkAllZonesInGroup": true,
-      "capzone__deactivateAfterTimeout": 0.0,
+      "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 1,
       "sphere_zone__radius": 25.0,
       "capzone__createdRespawnBaseGroup": 5,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__plantingTeam": 2,
+      "capzone__timeToPlant": 20.0,
+      "capzone__timeToDefuse": 30.0,
+      "capzone__timeToExplosion": 40.0,
       "capzone__bombTemplate": "bomb_site+bomb_site_radar_hardware_animchar_03_without_antenna",
       "capzone__bombTransformLocalPos": [
         [-0.939772,0.0,-0.270219],
@@ -1540,7 +1550,7 @@
         "capzone__checkAllZonesInGroup": true
       },
       {
-        "capzone__deactivateAfterTimeout": 0.0
+        "capzone__deactivateAfterTimeout": 25.0
       },
       {
         "capzone__spawnAtZoneTimeout": 25.0
@@ -1562,6 +1572,15 @@
       },
       {
         "capzone__plantingTeam": 2
+      },
+      {
+        "capzone__timeToPlant": 20.0
+      },
+      {
+        "capzone__timeToDefuse": 30.0
+      },
+      {
+        "capzone__timeToExplosion": 40.0
       },
       {
         "capzone__bombTemplate": "bomb_site+bomb_site_radar_hardware_animchar_04_without_antenna"
@@ -1625,7 +1644,7 @@
         "capzone__checkAllZonesInGroup": true
       },
       {
-        "capzone__deactivateAfterTimeout": 0.0
+        "capzone__deactivateAfterTimeout": 25.0
       },
       {
         "capzone__spawnAtZoneTimeout": 25.0
@@ -1647,6 +1666,15 @@
       },
       {
         "capzone__plantingTeam": 2
+      },
+      {
+        "capzone__timeToPlant": 20.0
+      },
+      {
+        "capzone__timeToDefuse": 30.0
+      },
+      {
+        "capzone__timeToExplosion": 40.0
       },
       {
         "capzone__bombTemplate": "bomb_site+bomb_site_radar_hardware_animchar_01"

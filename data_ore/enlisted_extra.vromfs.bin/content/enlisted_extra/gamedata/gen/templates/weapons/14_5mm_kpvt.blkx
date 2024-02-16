@@ -48,13 +48,13 @@
   },
   "tankgun_14_5mm_kpvt": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_tankgun_machinegun"
+      "_use": "base_tankgun_machinegun"
     },
     {
-      "_extends": "base_14_5mm_kpvt"
+      "_use": "base_14_5mm_kpvt"
     },
     {
       "turret__triggerGroup": 2

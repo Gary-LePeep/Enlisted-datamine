@@ -1,7 +1,7 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
-let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { isGamepad } = require("%ui/control/active_controls.nut")
 let style = require("%ui/hud/style.nut")
 let { watchedHeroSquadMembers } = require("%ui/hud/state/squad_members.nut")
@@ -14,6 +14,7 @@ let NORMAL_HINT_SIZE = hdpx(20)
 let GAMEPAD_HINT_SIZE = hdpx(36)
 
 let colorBlue = Color(150, 160, 255, 180)
+let maxSeatsCountToShow = 9
 
 let memberTextColor = @(member) (member.eid == watchedHeroEid.value) ? style.SUCCESS_TEXT_COLOR
   : member.isAlive ? style.DEFAULT_TEXT_COLOR
@@ -39,7 +40,7 @@ let function seatMember(seatDesc) {
     rendObj = ROBJ_TEXT
     text = $"{place}{name}"
     color
-  }.__update(sub_txt)
+  }.__update(fontSub)
 }
 
 let mkEmptyHint = @(width) {
@@ -51,7 +52,7 @@ let seatHint = @(seat, hintWidth) seat.order.canPlaceManually
       id = $"Human.Seat0{seat.order.seatNo + 1}"
       size = [hintWidth, SIZE_TO_CONTENT]
       hplace = ALIGN_RIGHT
-      text_params = sub_txt
+      text_params = fontSub
     })
   : mkEmptyHint(hintWidth)
 
@@ -78,13 +79,14 @@ let function vehicleSeats() {
   if (!hasVehicleSeats.value)
     return res
 
-  return res.__update({
+  let seatsToShow = min(vehicleSeatsState.value.data.len(), maxSeatsCountToShow)
+    return res.__update({
     flow = FLOW_VERTICAL
     size = [flex(), SIZE_TO_CONTENT]
     hplace = ALIGN_RIGHT
     padding = fsh(1)
     gap = hdpx(2)
-    children = vehicleSeatsState.value.data.map(@(seat) mkSeat(seat, isGamepad.value))
+    children = vehicleSeatsState.value.data.slice(0, seatsToShow).map(@(seat) mkSeat(seat, isGamepad.value))
   })
 }
 

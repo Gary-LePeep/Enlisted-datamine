@@ -1,0 +1,120 @@
+{
+  "base_sdkfz_251_1": {
+    "_use": "base_tank",
+    "killLogName": "germ_sdkfz_251_1",
+    "animchar__res": "sdkfz_251_1_char",
+    "collres__res": "sdkfz_251_1_collision",
+    "vehicle_net_phys__blk": "gamedata/gen/units/tanks/sdkfz_251_1_apc.blk:VehiclePhys",
+    "particle_phys__blk": "gamedata/suspension/empty.blk",
+    "dmg_animchar__res": "sdkfz_251_1_dmg_char",
+    "xray_resource__modelName": "sdkfz_251_1",
+    "cockpit__zoomOutFov": 2.7475,
+    "cockpit__zoomInFov": 5.3955,
+    "cockpit__sightName": "sight_model/default_tank_spg",
+    "cockpit__sightFov": 20.0,
+    "drowningHeight": 1.75,
+    "damage_model__blk": "gamedata/gen/units/tanks/sdkfz_251_1_apc.blk",
+    "item__name": "items/germ_sdkfz_251_1",
+    "skin__template": "sdkfz_251_1_skins",
+    "turret_gun_flash_fx__flashNodes:shared:array": {
+      "node": "emtr_gun_flame"
+    },
+    "turret_gun_flash_fx__flashFx:shared:array": {
+      "fx": "muzzle_ground_8mm"
+    },
+    "turret_gun_flash_fx__flashFxScale:shared:array": {
+      "scale": 1.0
+    },
+    "turret_control__emitterNodes:shared:array": {
+      "node": "gun_barrel_01"
+    },
+    "turret_control__animVars:shared:array": {
+      "vars:object": {
+        "curYawParamName": "turret_01_yaw",
+        "curPitchParamName": "gun_01_pitch",
+        "aimActiveParamName": "aim_01_active",
+        "paramYawSpeed": "turret_01_yaw_speed",
+        "paramYawSpeedMul": "turret_01_yaw_mul",
+        "paramYawAccel": "turret_01_yaw_accel",
+        "paramMinYawAngle": "turret_01_min_yaw_angle",
+        "paramMaxYawAngle": "turret_01_max_yaw_angle",
+        "paramMinPitchAngle": "turret_01_min_pitch_angle",
+        "paramMaxPitchAngle": "turret_01_max_pitch_angle",
+        "paramPitchSpeed": "gun_01_pitch_speed",
+        "paramPitchSpeedMul": "gun_01_pitch_mul",
+        "paramPitchAccel": "gun_01_pitch_accel",
+        "wishYawParamName": "gun_01_aim:targetYaw",
+        "wishPitchParamName": "gun_01_aim:targetPitch",
+        "gunRecoilParamName": "gun_01_recoil"
+      }
+    },
+    "turret_control__turretInfo:shared:array": {
+      "turretInfo:object": {
+        "turretName": "turret_01",
+        "turretGroup": "main_turrets",
+        "gun": "sdkfz_251_1_turret_01_7_92mm_mg42",
+        "barrelDm": "gun_barrel_01",
+        "breechDm": "gun_barrel_01",
+        "verDriveDm": "gun_barrel_01",
+        "horDriveDm": "gun_barrel_01",
+        "salt": 1
+      }
+    }
+  },
+  "sdkfz_251_1_turret_01_7_92mm_mg42": {
+    "_use": "tankgun_7_92mm_mg42",
+    "turret__triggerGroup": 0,
+    "gun__shootNodeName": "emtr_gun_flame",
+    "turret__yawSpeed": 60.0,
+    "turret__pitchSpeed": 60.0,
+    "turret__aimNodeName": "bone_turret",
+    "turret__limit": [-20.0,20.0,-15.0,5.0],
+    "gun__shellsAmmo:array": {
+      "ammo": 3000
+    }
+  },
+  "sdkfz_251_1_skins": {
+    "skin__objTexReplace:array": [
+      {
+        "skin:object": {
+          "id": "sdkfz_251_1_green",
+          "objTexReplace:object": {
+            "ger_camo_dunkelgelb*": "ger_camo_dunkelgelb_green*"
+          }
+        }
+      },
+      {
+        "skin:object": {
+          "id": "sdkfz_251_1_blots",
+          "objTexReplace:object": {
+            "ger_camo_dunkelgelb*": "ger_camo_dunkelgelb_green_braun_blots*"
+          }
+        }
+      },
+      {
+        "skin:object": {
+          "id": "sdkfz_251_1_lines",
+          "objTexReplace:object": {
+            "ger_camo_dunkelgelb*": "ger_camo_dunkelgelb_green_braun_lines*"
+          }
+        }
+      },
+      {
+        "skin:object": {
+          "id": "sdkfz_251_1_winter",
+          "objTexReplace:object": {
+            "ger_camo_dunkelgelb*": "ger_camo_winter_dunkelgelb*"
+          }
+        }
+      },
+      {
+        "skin:object": {
+          "id": "sdkfz_251_1_ger_camo_winter_waves",
+          "objTexReplace:object": {
+            "ger_camo_dunkelgelb*": "ger_camo_winter_waves_bicolor*"
+          }
+        }
+      }
+    ]
+  }
+}

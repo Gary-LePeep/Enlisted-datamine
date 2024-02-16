@@ -1,10 +1,10 @@
 {
   "soc_1": [
     {
-      "_extends": "soc_1_base"
+      "_use": "soc_1_base"
     },
     {
-      "_extends": "squad_controlled_plane"
+      "_use": "squad_controlled_plane"
     },
     {
       "item__name": "items/soc_1"
@@ -41,7 +41,7 @@
                 "turret": "turret_03"
               }
             ],
-            "effectors:object": {
+            "cockpitEffectors:object": {
               "r.hand": "stick_rhand_1",
               "l.hand": "throttle_lhand_1",
               "r.foot": "pedal_rfoot_1",
@@ -367,13 +367,13 @@
   },
   "planegun_soc_1_100lb_anm_30_launcher_01": [
     {
-      "_extends": "100lb_anm_30_launcher"
+      "_use": "100lb_anm_30_launcher"
     },
     {
-      "_extends": "base_soc_1_100lb_anm_30_launcher"
+      "_use": "base_soc_1_100lb_anm_30_launcher"
     },
     {
-      "_extends": "gunsound_100lb_anm_30_launcher_aircraft"
+      "_use": "gunsound_100lb_anm_30_launcher_aircraft"
     },
     {
       "gun__shootNodeName": "bomb1"
@@ -387,13 +387,13 @@
   ],
   "planegun_soc_1_100lb_anm_30_launcher_02": [
     {
-      "_extends": "100lb_anm_30_launcher"
+      "_use": "100lb_anm_30_launcher"
     },
     {
-      "_extends": "base_soc_1_100lb_anm_30_launcher"
+      "_use": "base_soc_1_100lb_anm_30_launcher"
     },
     {
-      "_extends": "gunsound_100lb_anm_30_launcher_aircraft"
+      "_use": "gunsound_100lb_anm_30_launcher_aircraft"
     },
     {
       "gun__shootNodeName": "bomb2"
@@ -407,16 +407,16 @@
   ],
   "planegun_soc_1_7_62mm_browning30_usaaf_01": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_plane_machinegun"
+      "_use": "base_plane_machinegun"
     },
     {
-      "_extends": "base_soc_1_7_62mm_browning30_usaaf"
+      "_use": "base_soc_1_7_62mm_browning30_usaaf"
     },
     {
-      "_extends": "gunsound_7_62mm_browning30_usaaf_aircraft"
+      "_use": "gunsound_7_62mm_browning30_usaaf_aircraft"
     },
     {
       "gun__shootNodeName": "flare1"
@@ -427,16 +427,16 @@
   ],
   "planegun_soc_1_7_62mm_browning30_turret_01": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_plane_machinegun"
+      "_use": "base_plane_machinegun"
     },
     {
-      "_extends": "base_soc_1_7_62mm_browning30_turret"
+      "_use": "base_soc_1_7_62mm_browning30_turret"
     },
     {
-      "_extends": "gunsound_7_62mm_browning30_turret_aircraft"
+      "_use": "gunsound_7_62mm_browning30_turret_aircraft"
     },
     {
       "gun__shootNodeName": "flare2"
@@ -459,10 +459,10 @@
   ],
   "soc_1_driver_cockpit": [
     {
-      "_extends": "base_plane_cockpit"
+      "_use": "base_plane_cockpit"
     },
     {
-      "_extends": "plane_telesight"
+      "_use": "plane_telesight"
     },
     {
       "cockpit__offset": [0.0,0.0,0.0]
@@ -511,17 +511,17 @@
           "item": [0.02,0.02,0.01]
         },
         {
-          "item": [0.024,-0.0245,-0.028]
+          "item": [0.019,0.001,-0.0335]
         }
       ]
     },
     {
       "move_cockpit_node__rotation:list<p2>": [
         {
-          "item": [15.0,10.0]
+          "item": [15.7,10.0]
         },
         {
-          "item": [-38.3,-5.7]
+          "item": [-65.7,6.3]
         }
       ]
     }

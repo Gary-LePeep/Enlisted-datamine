@@ -58,16 +58,16 @@
   },
   "tankgun_85mm_d5t": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_tankgun_cannon"
+      "_use": "base_tankgun_cannon"
     },
     {
-      "_extends": "base_85mm_d5t"
+      "_use": "base_85mm_d5t"
     },
     {
-      "_extends": "gunsound_85mm_d5t"
+      "_use": "gunsound_85mm_d5t"
     },
     {
       "turret__triggerGroup": 0

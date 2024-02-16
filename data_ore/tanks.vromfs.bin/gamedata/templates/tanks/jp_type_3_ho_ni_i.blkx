@@ -1,0 +1,329 @@
+{
+  "jp_type_3_ho_ni_i_pacific": {
+    "_use": "jp_type_3_ho_ni_i_common"
+  },
+  "jp_type_3_ho_ni_i_common": [
+    {
+      "_use": "base_type_3_ho_ni_i"
+    },
+    {
+      "_use": "tank_m10_engine_sound"
+    },
+    {
+      "_use": "tank_light_vehicle_tracks_sound"
+    },
+    {
+      "commanderCockpitFpsCamMaxAngle": [40.0,5.0]
+    },
+    {
+      "gunner_cam_limit__useCockpitDir": true
+    },
+    {
+      "item__iconOffset": [-0.3,0.1]
+    },
+    {
+      "item__iconScale": 1.7
+    },
+    {
+      "armorThicknessTurret": [25.0,25.0,0.0]
+    },
+    {
+      "turrets__initAmmoDistribution:array": [
+        {
+          "ammo:object": {
+            "slot": 0,
+            "fill": true
+          }
+        },
+        {
+          "ammo:object": {
+            "slot": 1,
+            "fill": true
+          }
+        },
+        {
+          "ammo:object": {
+            "slot": 2,
+            "count": 7
+          }
+        }
+      ]
+    },
+    {
+      "vehicle_seats__effectors:array": []
+    },
+    {
+      "vehicle_seats__seats:shared:array": [
+        {
+          "seats:object": {
+            "name": "main_gunner",
+            "locName": "vehicle_seats/gunner",
+            "attachNode": "gunner",
+            "ignoreAttachNodeRotation": true,
+            "attachTm": [
+              [0.8274,-0.390731,-0.403523],
+              [0.351192,0.920558,-0.171276],
+              [0.438371,6.7461e-08,0.898854],
+              [-0.37,0.0,0.0]
+            ],
+            "seatComponent": "isGunner",
+            "nextSeat": "driver",
+            "shouldHideOwner": false,
+            "receiveDamageFromDMPart": "commander",
+            "cameraNodeName": "bone_camera_gunner",
+            "cockpitTemplate": "jp_type_3_ho_ni_i_gunner_cockpit",
+            "hatchRotationAxis": [1.5,0.0,0.0],
+            "maxPosWithOpenHatch": 0.3,
+            "seatAnimUpper": "drive_passenger",
+            "seatAnimLower": "drive_passenger",
+            "turretNames:array": {
+              "turret": "turret_01"
+            },
+            "effectors:object": {
+              "l.hand": "lefthand_1",
+              "r.foot": "pedal_rfoot_1",
+              "l.foot": "pedal_lfoot_1"
+            }
+          }
+        },
+        {
+          "seats:object": {
+            "name": "driver",
+            "locName": "vehicle_seats/driver",
+            "seatOwnsEntityControl": true,
+            "attachNode": "driver",
+            "ignoreAttachNodeRotation": true,
+            "attachTm": [
+              [0.974354,-0.224946,-0.0],
+              [0.224946,0.974354,0.0],
+              [0.0,-0.0,0.999988],
+              [-0.33,-0.28,0.0]
+            ],
+            "seatComponent": "isDriver",
+            "nextSeat": "main_gunner",
+            "shouldHideOwner": false,
+            "receiveDamageFromDMPart": "driver",
+            "cameraNodeName": "bone_camera_driver",
+            "cockpitTemplate": "jp_type_3_ho_ni_i_driver_cockpit",
+            "seatAnimUpper": "drive_passenger",
+            "seatAnimLower": "drive_passenger",
+            "effectors:object": {
+              "r.hand": "righthand_3",
+              "l.hand": "lefthand_3",
+              "r.foot": "pedal_rfoot_3",
+              "l.foot": "pedal_lfoot_3"
+            }
+          }
+        },
+        {
+          "seats:object": {
+            "name": "commander",
+            "locName": "vehicle_seats/commander",
+            "attachNode": "commander",
+            "shouldHideOwner": false,
+            "ignoreAttachNodeRotation": true,
+            "attachTm": [
+              [0.474163,-0.390638,0.788897],
+              [0.442963,0.880173,0.169595],
+              [-0.760745,0.269083,0.590485],
+              [-0.14,0.03,-0.25]
+            ],
+            "cameraType": "commander",
+            "seatComponent": "isDriver",
+            "cockpitTemplate": "jp_type_3_ho_ni_i_commander_cockpit",
+            "receiveDamageFromDMPart": "commander",
+            "seatAnimUpper": "drive_passenger",
+            "seatAnimLower": "drive_passenger",
+            "isHoldGunModeAllowed": false,
+            "effectors:object": {
+              "r.foot": "pedal_rfoot_2",
+              "l.foot": "pedal_lfoot_2"
+            },
+            "loaderTurretNames:array": {
+              "turret": "turret_01"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "jp_type_3_ho_ni_i_driver_cockpit": {
+    "_use": "base_driver_cockpit_no_slits",
+    "animchar__res": "pzkpfw_iii_e_driver_char",
+    "cockpit__offset": [-0.2,-0.17,-0.05],
+    "cockpit__visibleVehicleNodeNames:list<t>": [
+      {
+        "node": "ex_decor_r_01"
+      },
+      {
+        "node": "track_r"
+      },
+      {
+        "node": "hatch_02"
+      },
+      {
+        "node": "ex_lantern_01"
+      },
+      {
+        "node": "ex_decor_01"
+      },
+      {
+        "node": "wheel_r_drive"
+      },
+      {
+        "node": "ex_decor_l_01"
+      },
+      {
+        "node": "gun_barrel"
+      }
+    ],
+    "cockpit__slitForwardOffset:list<r>": {
+      "slit": -0.0
+    },
+    "cockpit__slitIsGun:list<b>": {
+      "slit": false
+    },
+    "cockpit__slitNodeNames:list<t>": {
+      "slit": "cam_front"
+    }
+  },
+  "jp_type_3_ho_ni_i_gunner_cockpit": {
+    "_use": "base_gunner_cockpit",
+    "animchar__res": "t_26_1940_gunner_char",
+    "cockpit__offset": [-0.0,-0.0,-0.0],
+    "cockpit__minForwardOffset": -0.05,
+    "cockpit__cockpitOffsetBySlit:list<p3>": [
+      {
+        "slit": [-0.55,-0.05,0.2]
+      },
+      {
+        "slit": [-0.5,0.55,0.3]
+      }
+    ],
+    "cockpit__attachNodeNames:list<t>": [
+      {
+        "node": "bone_camera_gunner"
+      },
+      {
+        "node": "bone_turret"
+      }
+    ],
+    "cockpit__attachNodeIndices:list<i>": [],
+    "cockpit__visibleVehicleNodeNames:list<t>": [
+      {
+        "node": "gun_barrel"
+      },
+      {
+        "node": "root"
+      }
+    ],
+    "cockpit__slitNodeNames:list<t>": [
+      {
+        "slit": "cam_front_right"
+      },
+      {
+        "slit": "cam_front"
+      }
+    ],
+    "cockpit__slitForwardOffset:list<r>": [
+      {
+        "slit": 0.22
+      },
+      {
+        "slit": 0.2
+      }
+    ],
+    "cockpit__slitIsGun:list<b>": [
+      {
+        "slit": true
+      },
+      {
+        "slit": false
+      }
+    ],
+    "cockpit__periscopeLimits:list<p4>": [
+      {
+        "slit": [-0.0,0.0,0.0,0.0]
+      },
+      {
+        "slit": [-90.0,90.0,-0.0,25.0]
+      }
+    ],
+    "cockpit__periscopeSpeed:list<p2>": [
+      {
+        "slit": [-1.0,-1.0]
+      },
+      {
+        "slit": [35.0,35.0]
+      }
+    ],
+    "cockpit__slitZoom:array": [
+      {
+        "slit:list<r>": [
+          {
+            "zoom": 1.9
+          },
+          {
+            "zoom": 3.5
+          }
+        ]
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      }
+    ],
+    "cockpit__slitZoomTime:list<r>": [
+      {
+        "slit": 0.05
+      },
+      {
+        "slit": 0.0
+      }
+    ],
+    "cockpit__slitTemplates:list<t>": [
+      {
+        "slit": "jp_120mm"
+      },
+      {
+        "slit": "default_periscope"
+      }
+    ],
+    "cockpit__slitEids:list<eid>": []
+  },
+  "jp_type_3_ho_ni_i_commander_cockpit": {
+    "_use": "base_commander_cockpit_no_slits",
+    "animchar__res": "pzkpfw_iii_e_driver_char",
+    "cockpit__offset": [0.7,1.95,-0.45],
+    "cockpit__cockpitOffsetBySlit:list<p3>": {
+      "item": [0.0,0.0,0.0]
+    },
+    "cockpit__visibleVehicleNodeNames:list<t>": [
+      {
+        "node": "gun_barrel"
+      },
+      {
+        "node": "bone_gun"
+      }
+    ],
+    "cockpit__slitNodeNames:list<t>": {
+      "slit": "cam_front"
+    },
+    "cockpit__slitForwardOffset:list<r>": {
+      "slit": -0.04
+    },
+    "cockpit__slitIsGun:list<b>": {
+      "slit": true
+    },
+    "cockpit__attachNodeNames:list<t>": {
+      "node": "root"
+    },
+    "cockpit__attachNodeIndices:list<i>": [],
+    "cockpit__slitZoom:array": {
+      "slit:list<r>": {
+        "zoom": 1.44
+      }
+    }
+  }
+}

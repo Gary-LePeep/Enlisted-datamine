@@ -1,0 +1,76 @@
+{
+  "mass": 0.37,
+  "momentOfInertia": [0.04,0.008,0.04],
+  "caliber": 0.04,
+  "speed": 54.0,
+  "speedPitch": 3.0,
+  "maxDistance": 6.0,
+  "physMat": "grenadeRay",
+  "useFutureContacts": true,
+  "frictionGround": 0.5,
+  "bullets": 1,
+  "noSleepAtTheSlopeCos": 0.766,
+  "normalizationPreset": "heat",
+  "ricochetPreset": "he",
+  "slopeEffectPreset": "ap",
+  "secondaryShattersPreset": "ap",
+  "cumulativeSecondaryShattersPreset": "heat_fs",
+  "fresnel": [0.23,0.1,2.0],
+  "stabilityThreshold": 0.4,
+  "stabilityCaliberToArmorThreshold": 10.0,
+  "stabilityReductionAfterRicochet": 0.45,
+  "stabilityReductionAfterPenetration": 1.0,
+  "explodeOnRendinst": true,
+  "logCCD": false,
+  "entityTemplate": "type_2_grenade_discharger_shell_phys",
+  "entityPhysTemplate": "type_2_grenade_discharger_shell_phys",
+  "explosiveType": "tnt",
+  "explosiveMass": 0.031,
+  "visual": {
+    "template": "type_2_grenade_discharger_shell_item+item_in_world"
+  },
+  "collisionResource": {
+    "props": {
+      "volumeBox": "box"
+    }
+  },
+  "ccdSpheres": [
+    {
+      "ccd": [0.05,0.0,0.0,0.015]
+    },
+    {
+      "ccd": [0.2,0.0,0.0,0.015]
+    },
+    {
+      "ccd": [-0.05,0.0,0.0,0.015]
+    }
+  ],
+  "splashDamage": {
+    "radius": [1.0,10.0],
+    "penetration": [15.0,2.0],
+    "damage": 20.0,
+    "dmgOffset": [0.0,0.25,0.0]
+  },
+  "explFx": {
+    "fxScale": [0.8,0.9],
+    "effectTemplName": "explosion_effect_small+disable_effect_sfx"
+  },
+  "explSound": {
+    "explSoundPath": "impact/grenade"
+  },
+  "cumulativeDamage": {
+    "armorPower": 50.0,
+    "distance": 3.0,
+    "damage": 120.0,
+    "onHitChanceMultFire": 15.0
+  },
+  "damage": {
+    "explosive": {
+      "strengthEquivalent": 1.0,
+      "brisanceEquivalent": 1.0
+    }
+  },
+  "solver": {
+    "energyConservation": 0.85
+  }
+}

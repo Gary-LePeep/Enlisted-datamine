@@ -1,9 +1,11 @@
 {
   "ussr_bm_8_24_moscow_premium": {
-    "_extends": "ussr_bm_8_24_common"
+    "_use": "ussr_bm_8_24_common"
   },
   "ussr_bm_8_24_common": {
-    "_extends": "base_bm_8_24",
+    "_use": "base_bm_8_24",
+    "item__iconOffset": [0.0,-0.05],
+    "item__iconScale": 1.11,
     "vehicle_seats__seats:shared:array": [
       {
         "seats:object": {
@@ -56,7 +58,7 @@
     ]
   },
   "ussr_bm_8_24_driver_cockpit": {
-    "_extends": "base_driver_cockpit",
+    "_use": "base_driver_cockpit",
     "animchar__res": "bt_7_driver_char",
     "cockpit__offset": [-0.0117086,-0.373324,0.0237377],
     "cockpit__visibleVehicleNodeNames:list<t>": [
@@ -81,10 +83,8 @@
     }
   },
   "ussr_bm_8_24_gunner_cockpit": {
-    "vehicle_sight__blk": "content/tanks/gamedata/sight/ussr_top_1_bm.blk",
-    "_extends": "base_gunner_cockpit",
+    "_use": "base_gunner_cockpit",
     "animchar__res": "t_26_1940_gunner_char",
-    "cockpit__minZoom": -0.27,
     "cockpit__offset": [-0.0,0.0,0.0],
     "cockpit__cockpitOffsetBySlit:list<p3>": [
       {
@@ -114,10 +114,10 @@
     ],
     "cockpit__slitForwardOffset:list<r>": [
       {
-        "slit": 0.195
+        "slit": 0.22
       },
       {
-        "slit": 0.0
+        "slit": 0.04
       }
     ],
     "cockpit__slitIsGun:list<b>": [
@@ -127,6 +127,23 @@
       {
         "slit": false
       }
-    ]
+    ],
+    "cockpit__slitTemplates:list<t>": {
+      "slit": "ussr_top_1_bm"
+    },
+    "cockpit__slitEids:list<eid>": [],
+    "cockpit__slitZoom:array": {
+      "slit:list<r>": [
+        {
+          "zoom": 1.9
+        },
+        {
+          "zoom": 3.5
+        }
+      ]
+    },
+    "cockpit__slitZoomTime:list<r>": {
+      "slit": 0.05
+    }
   }
 }

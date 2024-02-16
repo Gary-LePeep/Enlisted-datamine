@@ -16,13 +16,13 @@
         "shell:object": {
           "blk": "gamedata/gen/weapons/shells/37mm_m5_early_37mm_usa_m3_he.blk",
           "name": "37mm_m63",
-          "type": "he_frag_tank"
+          "type": "sap_hei_tank"
         }
       },
       "37mm_usa_m3_APC:array": {
         "shell:object": {
           "blk": "gamedata/gen/weapons/shells/37mm_m5_early_37mm_usa_m3_apc.blk",
-          "name": "37mm_m51",
+          "name": "37mm_m51b1",
           "type": "apcbc_solid_medium_caliber_tank"
         }
       }
@@ -30,16 +30,16 @@
   },
   "tankgun_37mm_m5_early": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_tankgun_cannon"
+      "_use": "base_tankgun_cannon"
     },
     {
-      "_extends": "base_37mm_m5_early"
+      "_use": "base_37mm_m5_early"
     },
     {
-      "_extends": "gunsound_37mm_m5_early"
+      "_use": "gunsound_37mm_m5_early"
     },
     {
       "turret__triggerGroup": 0

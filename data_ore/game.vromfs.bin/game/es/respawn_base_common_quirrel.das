@@ -37,7 +37,7 @@ def count_vehicles_of_type(count_team : int; respawnbase_type : string)
 def is_vehicle_spawn_allowed_by_limit(team : int; resp_type : string)
   return respawn_base_common::is_vehicle_spawn_allowed_by_limit(team, resp_type)
 
-[quirrel_bind(module_name="das.respawn")]
+[quirrel_bind(module_name="das.respawn", stub_res_type="\{\}")]
 def get_can_use_respawnbase_type(templ_name : string)
   return <- respawn_base_common::get_can_use_respawnbase_type(templ_name)
 

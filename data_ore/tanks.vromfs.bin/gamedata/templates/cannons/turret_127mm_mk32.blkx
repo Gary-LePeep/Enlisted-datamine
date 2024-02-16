@@ -1,6 +1,6 @@
 {
   "turret_127mm_mk32_single_go": {
-    "_extends": "base_ai_gunner_turret",
+    "_use": "base_ai_gunner_turret",
     "animchar__res": "turret_127mm_mk32_single_char",
     "collres__res": "turret_127mm_mk32_single_collision",
     "phys_obj_net_phys__blk": "content/enlisted/gamedata/units/cannons/turret_127mm_mk32_single.blk",
@@ -27,7 +27,7 @@
     }
   },
   "turret_127mm_mk32_twin_go": {
-    "_extends": "base_ai_gunner_turret",
+    "_use": "base_ai_gunner_turret",
     "animchar__res": "turret_127mm_mk32_twin_char",
     "collres__res": "turret_127mm_mk32_twin_collision",
     "phys_obj_net_phys__blk": "content/enlisted/gamedata/units/cannons/turret_127mm_mk32_twin.blk",
@@ -111,23 +111,23 @@
     ]
   },
   "turret_127mm_mk32_turret_01": {
-    "_extends": "turret_ai_127mm_mk32_main",
+    "_use": "turret_ai_127mm_mk32_main",
     "gun__shootNodeName": "bone_gun_barrel"
   },
   "turret_127mm_mk32_twin_turret_01": {
-    "_extends": "turret_ai_127mm_mk32_main",
+    "_use": "turret_ai_127mm_mk32_main",
     "gun__shootNodeName": "bone_gun_barrel_01"
   },
   "turret_127mm_mk32_twin_turret_02": {
-    "_extends": "turret_ai_127mm_mk32",
+    "_use": "turret_ai_127mm_mk32",
     "gun__shootNodeName": "bone_gun_barrel_02"
   },
   "turret_ai_127mm_mk32_main": [
     {
-      "_extends": "turret_ai_127mm_mk32"
+      "_use": "turret_ai_127mm_mk32"
     },
     {
-      "_extends": "controlled_by_ai_gunner"
+      "_use": "controlled_by_ai_gunner"
     },
     {
       "turret_ai__shootAngleCos": 0.984
@@ -171,16 +171,16 @@
   ],
   "turret_ai_127mm_mk32": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_tankgun_cannon"
+      "_use": "base_tankgun_cannon"
     },
     {
-      "_extends": "base_127mm_mk32"
+      "_use": "base_127mm_mk32"
     },
     {
-      "_extends": "gunsound_128mm_pak44"
+      "_use": "gunsound_128mm_pak44"
     },
     {
       "turret__triggerGroup": 0

@@ -1,22 +1,22 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let json = require("%sqstd/json.nut")
+let { loadJson, saveJson, json_to_string } = require("%sqstd/json.nut")
 let debriefingState = require("debriefingStateInMenu.nut") //can be overrided by game
 let { dbgShow, dbgData } = require("debriefingDbgState.nut")
 
 local cfg = {
   state = debriefingState
   savePath = "debriefing.json"
-  samplePath = ["../prog/enlist/debriefing/debriefing_sample.json"]
+  samplePath = ["debriefing_sample.json"]
   loadPostProcess = function(_debriefingData) {} //for difference in json saving format, as integer keys in table
 }
 
 let saveDebriefing = @(path = null)
-  json.save(path ?? cfg.savePath, cfg.state.data.value, {logger = log_for_user})
+  saveJson(path ?? cfg.savePath, cfg.state.data.value, {logger = log_for_user})
 
 local function loadDebriefing(path = null) {
   path = path ?? cfg.savePath
-  let data = json.load(path, { logger = log_for_user })
+  let data = loadJson(path, { logger = log_for_user })
   if (data == null)
     return false
 
@@ -43,7 +43,6 @@ let saveDebriefingBySession = @()
 
 let loadSample = @(idx) loadDebriefing(cfg.samplePath[idx])
 
-console_register_command(@() loadSample(0), "ui.debriefing_sample")
 console_register_command(@() saveDebriefing(), "ui.debriefing_save")
 console_register_command(@() loadDebriefing(), "ui.debriefing_load")
 console_register_command(@() saveDebriefingBySession(), "ui.debriefing_save_by_session")
@@ -54,7 +53,7 @@ let function saveToLog(dData) {
   if (dData?.isDebug)
     return
   let { sessionId = "0" } = dData
-  let jsonstr = json.to_string(dData, true)
+  let jsonstr = json_to_string(dData, true)
   log($"Debriefing for session {sessionId } json:\n======\n{jsonstr}======")
 }
 
@@ -70,9 +69,10 @@ let function saveToFile(dData, path) {
 return {
   init = function(params) {
     cfg = cfg.__merge(params.filter(@(_value, key) key in cfg))
-    for(local i = 1; i < cfg.samplePath.len(); i++) {
-      let idx = i
-      console_register_command(@() loadSample(idx), $"ui.debriefing_sample{idx+1}")
+    for(local i = 0; i < cfg.samplePath.len(); i++) {
+      let idx = i // to capture i value
+      let cmd = i > 0 ? $"{i + 1}" : ""
+      console_register_command(@() loadSample(idx), $"ui.debriefing_sample{cmd}")
     }
   }
   saveDebriefingToFile = saveToFile

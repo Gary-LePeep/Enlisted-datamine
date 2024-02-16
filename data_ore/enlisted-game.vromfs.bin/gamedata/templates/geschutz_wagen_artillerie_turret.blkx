@@ -1,37 +1,34 @@
 {
   "geschutz_wagen_artillerie_turret": [
     {
-      "_extends": "base_cannon"
+      "_use": "base_cannon"
     },
     {
-      "_extends": "vehicle_fatal_explosion_external_fire"
+      "_use": "vehicle_fatal_explosion_external_fire"
     },
     {
-      "_extends": "tank_ammo_distribution_default"
+      "_use": "tank_ammo_distribution_default"
     },
     {
-      "_extends": "base_tank_seat_templates"
+      "_use": "base_tank_seat_templates"
     },
     {
-      "_extends": "turret_controls_hit_result_info"
+      "_use": "turret_controls_hit_result_info"
     },
     {
-      "_extends": "base_xray"
+      "_use": "base_xray"
     },
     {
-      "_extends": "killer_outline"
+      "_use": "killer_outline"
     },
     {
-      "_extends": "vehicle_enter_accessibility"
+      "_use": "vehicle_enter_accessibility"
     },
     {
-      "_extends": "vehicle_maintenance"
+      "_use": "vehicle_maintenance"
     },
     {
       "vehicle__brokenUsePrompt": "hud/train_turret_locked_needs_repair"
-    },
-    {
-      "hitmarks__showUserHits": false
     },
     {
       "killLogName": "Tank"
@@ -97,6 +94,9 @@
       "buildingRadius": 5.0
     },
     {
+      "buildingCenterOffset": [0.0,0.0,0.0]
+    },
+    {
       "fortification_repair__text": "hud/repair_turret"
     },
     {
@@ -142,10 +142,19 @@
       "vehicle__lockIfTurretBroken:tag": []
     },
     {
+      "hitmarks__groups:list<t>": []
+    },
+    {
+      "hitmarks__groupsIds:list<i>": []
+    },
+    {
       "engineer_building__isUsable:tag": []
     },
     {
       "fortification__canRepairDead:tag": []
+    },
+    {
+      "building__canRepairBroken:tag": []
     },
     {
       "buildByPlayer:eid": []
@@ -331,7 +340,7 @@
     }
   ],
   "geschutz_wagen_artillerie_turret_01_105mm": {
-    "_extends": "tankgun_105mm_stuh42",
+    "_use": "tankgun_105mm_stuh42",
     "item__name": "guns/105mm_train_artillerie_gun",
     "gun__locName": "105mm_train_artillerie_gun",
     "gun__shootNodeName": "bone_gun_barrel",
@@ -355,10 +364,10 @@
     ]
   },
   "geschutz_wagen_artillerie_turret_gunner_cockpit": {
-    "_extends": "base_gunner_cockpit",
+    "_use": "base_gunner_cockpit",
     "animchar__res": "pzkpfw_iii_e_gunner_char",
     "cockpit__offset": [-0.9,0.03,0.12],
-    "cockpit__minZoom": -0.4,
+    "cockpit__minForwardOffset": -0.4,
     "cockpit__attachNodeNames:list<t>": {
       "node": "bone_camera_gunner"
     },

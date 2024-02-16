@@ -1,23 +1,24 @@
 
-require FrameGraph
+require daBfg
 require DagorShaders
 require DagorMath
-require danetlibs/frame_graph_renderer/render/node_macro
 require ecs
 
 struct Trajectory
-  start, vel : float3
+  start, vel, gravity_dir : float3
   time, gravity, wideStart, wideEnd, colorGamma : float
   center, border : Color4
 
 def render_grenade_trajectory(t : Trajectory)
   let numSegments = clamp(int(4. + t.time * 24.), 2, 512)
   query() <| $ [es] (trajectory_start_gravity : ShaderVar;
+                     trajectory_gravity_dir : ShaderVar;
                      trajectory_vel_time : ShaderVar;
                      trajectory_center : ShaderVar;
                      trajectory_border : ShaderVar;
                      trajectory_total_thickness_gamma : ShaderVar)
     DagorShaders::set_color4(trajectory_start_gravity.varId, t.start, t.gravity)
+    DagorShaders::set_color4(trajectory_gravity_dir.varId, t.gravity_dir, 0.0)
     DagorShaders::set_color4(trajectory_vel_time.varId, t.vel, t.time)
     DagorShaders::set_color4(trajectory_center.varId, t.center)
     DagorShaders::set_color4(trajectory_border.varId, t.border)
@@ -35,7 +36,8 @@ def render_grenade_trajectories()
                      trajectory__wide_start : float = 0.3;
                      trajectory__wide_end : float = 0.2;
                      trajectory__color_gamma : float = 8.;
-                     trajectory__gravity : float = 9.81)
+                     trajectory__gravity : float = 9.81;
+                     trajectory__gravity_dir : float3 = float3(0.0, -1.0, 0.0))
     let centerColor = Color4(trajectory__center ?? E3DCOLOR(0xFFFFFFFF))
     let borderColor = Color4(trajectory__border ?? E3DCOLOR(0x7F7FFFFF))
     if (!trajectory__enabled || (borderColor.a == 0.0 && centerColor.a == 0.0))
@@ -50,6 +52,7 @@ def render_grenade_trajectories()
     render_grenade_trajectory([[Trajectory
                                 start=trajectory__start,
                                 vel=trajectory__vel,
+                                gravity_dir=trajectory__gravity_dir,
                                 time=trajectory__time,
                                 gravity=trajectory__gravity,
                                 wideStart=trajectory__wide_start,
@@ -62,31 +65,35 @@ def is_forward_render()
   return find_query() <| $ [es] (render_settings__forwardRendering : bool)
     return render_settings__forwardRendering
 
-[frame_graph_node]
-class GrenadeTrajectoryNode : FrameGraphNode
-  globalFrameBlockId = getBlockId("global_frame")
+let grenade_trajectory_node_name = "grenade_trajectory_node"
+let grenade_trajectory_node_entity = "grenade_trajectory_node"
 
-  def override onDeviceReset() : void { pass; }
-
-  def override declareResources(registrar : ResourceRegistrar)
+[bfg_ecs_node(name="grenade_trajectory_node", entity="grenade_trajectory_node", handle="node_handle")]
+def register_grenade_trajectory_node(var handle : NodeHandle& |#)
+  handle <- registerNode(grenade_trajectory_node_name) <| @(var registry : Registry)
     if is_forward_render()
-      registrar |> modifyResource(string_view("target_after_transparent_scene_late"))
-      registrar |> bindResourceToShaderVar(string_view("depth_gbuf"),
-                                           string_view("depth_for_transparent_effects"),
-                                           ResourceUsageStage POST_RASTER,
-                                           false)
+      registry |> read("depth_for_transparent_effects") |> texture |> atStage(Stage POST_RASTER) |> bindToShaderVar("depth_gbuf")
+      registry |> requestRenderPass |> color([[auto[] "target_after_transparent_scene_late"]])
     else
-      registrar |> addPreviousNode(string_view("transparent_scene_late_node"))
-      registrar |> addFollowNode(string_view("after_world_render_node"))
-      registrar |> bindResourceToShaderVar(string_view("downsampled_far_depth_tex"),
-                                           string_view("far_downsampled_depth"),
-                                           ResourceUsageStage POST_RASTER,
-                                           false)
+      registry |> orderMeAfter("transparent_scene_late_node")
+      registry |> orderMeBefore("after_world_render_node")
+      registry |> read("far_downsampled_depth") |> texture |> atStage(Stage POST_RASTER) |> bindToShaderVar("downsampled_far_depth_tex")
+      registry |> requestRenderPass |> color([[auto[] "opaque_final_target"]])
+    return <- @ <|
+      ecs::query() <| $ [es] (render_settings__forwardRendering : bool)
+        if render_settings__forwardRendering
+          DagorShaders::setBlock(-1, LAYER_FRAME)
 
-  [unused_argument(accessor)] def override execute(accessor : ResourceAccessor)
-    d3d_set_depth(null, false)
-    ecs::query() <| $ [es] (render_settings__forwardRendering : bool)
-      if render_settings__forwardRendering
-        DagorShaders::setBlock(-1, LAYER_FRAME)
+      render_grenade_trajectories()
 
-    render_grenade_trajectories()
+
+[cpp_event(broadcast)]
+struct OnRenderSettingsReady {}
+
+
+[es(on_event=OnRenderSettingsReady)]
+def init_grenade_trajectory_node(evt : Event)
+  let eid = getSingletonEntity(grenade_trajectory_node_entity)
+  query(eid) <| $ [es] (var node_handle : NodeHandle&)
+    node_handle |> register_grenade_trajectory_node
+

@@ -19,3 +19,8 @@ struct CmdRequestPlayNetSound
 struct CmdRequestPlayNetSoundPos
   name : string
   pos : float3
+
+[event(unicast)]
+struct CmdRequestPlayNetSoundPosToTarget
+  name : string
+  pos : float3

@@ -1,11 +1,13 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let function getPayItemsData(costData, campItems, count = 1) {
-  if (costData.len() == 0)
+  if (costData == null || costData.len() == 0)
     return null
   let allAvailableItems = campItems.filter(@(item) (item.basetpl in costData))
   let res = {}
   foreach (payItemTpl, cost in costData) {
+    if (cost == 0)
+      continue
     local requiredItems = cost * count
     let inventoryItems = allAvailableItems.filter(@(item) item.basetpl == payItemTpl)
     foreach (i in inventoryItems) {
@@ -17,7 +19,7 @@ let function getPayItemsData(costData, campItems, count = 1) {
     if (requiredItems > 0)
       return null
   }
-  return res
+  return res.len() > 0 ? res : null
 }
 
 return getPayItemsData

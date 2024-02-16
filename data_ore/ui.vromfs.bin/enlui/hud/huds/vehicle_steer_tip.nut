@@ -1,30 +1,34 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let {sub_txt} = require("%enlSqGlob/ui/fonts_style.nut")
+let dainput = require("dainput2")
+let {fontSub} = require("%enlSqGlob/ui/fontsStyle.nut")
 let {tipCmp} = require("%ui/hud/huds/tips/tipComponent.nut")
-let { inGroundVehicle, inShip, isDriver, inTank } = require("%ui/hud/state/vehicle_state.nut")
-let {mkHasBinding } = require("%ui/components/controlHudHint.nut")
+let {inGroundVehicle, controlledVehicleEid} = require("%ui/hud/state/vehicle_state.nut")
+let {steerTipDuration, vehicleSteerTips} = require("%ui/hud/state/vehicle_steer_tips.nut")
 let {textListFromAction, keysImagesMap} = require("%ui/control/formatInputBinding.nut")
 let {isGamepad} = require("%ui/control/active_controls.nut")
 
-let PASSENGER_TIPS = ["Human.SeatNext"]
-let DRIVER_TIPS = ["Human.SeatNext", "Vehicle.Brake", "Vehicle.Accel", "Vehicle.Steer", "Vehicle.Throttle", "Vehicle.Horn"]
-let WHEELED_VEHICLE_DRIVER_TIPS = ["Human.SeatNext", "Vehicle.Brake", "Vehicle.HandBrake", "Vehicle.Accel", "Vehicle.Steer", "Vehicle.Throttle", "Vehicle.Horn"]
-
-let watches = {}
-foreach (key in [].extend(WHEELED_VEHICLE_DRIVER_TIPS).extend(PASSENGER_TIPS))
-  watches[key] <- mkHasBinding(key)
-
 let showTip = Watched(true)
 let animations =[{ prop=AnimProp.opacity, from=1, to=0, duration=0.5, playFadeOut = true, easing=InOutCubic}]
-let defWatches = [inGroundVehicle, inShip, isDriver]
-let fullWatches = [showTip,keysImagesMap].extend(defWatches).extend(watches.values())
+let defWatches = [inGroundVehicle]
+let fullWatches = [showTip,keysImagesMap,vehicleSteerTips, steerTipDuration].extend(defWatches)
 
-const showTipFor = 15
 inGroundVehicle.subscribe(@(v) showTip(v))
-let hideTip = @() gui_scene.setTimeout(showTipFor, @() showTip(false))
+let hideTipCb = @() showTip(false)
+let hideTip = function() {
+  let duration = steerTipDuration.value
+  if (duration > 0)
+    gui_scene.resetTimeout(duration, hideTipCb)
+}
+steerTipDuration.subscribe(function(duration) {
+  if (duration < 0)
+    gui_scene.clearTimer(hideTipCb)
+  else
+    gui_scene.resetTimeout(duration, hideTipCb)
+})
 showTip.subscribe(function(v) {if (v) hideTip()})
 hideTip()
+controlledVehicleEid.subscribe(@(_) showTip(true))
 
 let function prepareTipCmp(key,imageMap) {
   if (isGamepad.value) {
@@ -38,19 +42,19 @@ let function prepareTipCmp(key,imageMap) {
       text = loc($"controls/{key}")
       style = {rendObj = null}
       animations = animations
-    }.__update(sub_txt))
+    }.__update(fontSub))
 }
 
 return function() {
-  let res = { watch = defWatches}
+  let res = { watch = defWatches }
   if (!inGroundVehicle.value)
     return res
   res.watch = fullWatches
-  let tips = !isDriver.value || inTank.value ? PASSENGER_TIPS
-    : inShip.value ? DRIVER_TIPS
-    : WHEELED_VEHICLE_DRIVER_TIPS
-
-  let children = showTip.value ? tips.filter(@(key) watches[key].value).map(@(key) prepareTipCmp(key,keysImagesMap.value)): null
+  let children = showTip.value ?
+    vehicleSteerTips.value
+      .filter(@(key) dainput.is_action_binding_set(dainput.get_action_handle(key, 0xFFFF), isGamepad.value ? 1 : 0))
+      .map(@(key) prepareTipCmp(key,keysImagesMap.value))
+    : null
   return res.__update({
     flow = FLOW_VERTICAL
     gap = hdpx(3)

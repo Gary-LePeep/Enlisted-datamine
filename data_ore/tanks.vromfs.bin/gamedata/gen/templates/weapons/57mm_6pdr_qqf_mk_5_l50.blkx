@@ -37,23 +37,23 @@
         "shell:object": {
           "blk": "gamedata/gen/weapons/shells/57mm_6pdr_qqf_mk_5_l50_57mm_britain_6pdr_apds.blk",
           "name": "57mm_shot_mk1bt",
-          "type": "apds_tank"
+          "type": "apds_early_tank"
         }
       }
     }
   },
   "tankgun_57mm_6pdr_qqf_mk_5_l50": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_tankgun_cannon"
+      "_use": "base_tankgun_cannon"
     },
     {
-      "_extends": "base_57mm_6pdr_qqf_mk_5_l50"
+      "_use": "base_57mm_6pdr_qqf_mk_5_l50"
     },
     {
-      "_extends": "gunsound_57mm_6pdr_qqf_mk_5_l50"
+      "_use": "gunsound_57mm_6pdr_qqf_mk_5_l50"
     },
     {
       "turret__triggerGroup": 0

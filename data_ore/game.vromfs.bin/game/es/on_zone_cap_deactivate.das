@@ -17,7 +17,7 @@ def on_deactivation(zone_eid : EntityId; team_id : int)
     if !capzone__deactivateAfterCap
       return
     if (capzone__checkAllZonesInGroup
-        && (team_id != capzone__mustBeCapturedByTeam || !all_capzones_in_group_captured_by_team(zone_eid, team_id, groupName)))
+        && (team_id != capzone__mustBeCapturedByTeam || !all_capzones_in_group_captured_by_team(team_id, groupName)))
       return
     query() <| $ [es(REQUIRE_NOT=respbase)] (eid : EntityId;
                                              groupName aka target_groupName : string;
@@ -57,7 +57,14 @@ def capzone_on_deactivate_delayed(evt : EventZoneDeactivated)
 
 [es(tag=server)]
 def capzone_start_deactivation(evt : EventZoneIsAboutToBeCaptured)
-  query(evt.zone) <| $ [es(REQUIRE_NOT=capzone__deactivateAtTime)] (eid : EntityId; capzone__deactivateAfterTimeout : float)
+  query(evt.zone) <| $ [es(REQUIRE_NOT=capzone__deactivateAtTime)] (eid : EntityId;
+                                                                    capzone__deactivateAfterTimeout : float;
+                                                                    capzone__checkAllZonesInGroup : bool = false;
+                                                                    groupName : string = "";
+                                                                    capzone__mustBeCapturedByTeam : int = TEAM_UNASSIGNED)
+    if (capzone__checkAllZonesInGroup &&
+       (evt.team != capzone__mustBeCapturedByTeam || !all_capzones_in_group_captured_by_team(evt.team, groupName)))
+      return
     addSubTemplate(eid, "deactivating_capzone") <| $(var init)
       set(init, "capzone__deactivateTeam", evt.team)
       set(init, "capzone__deactivateAtTime", get_sync_time() + capzone__deactivateAfterTimeout)

@@ -1,5 +1,4 @@
 #no-plus-concat
-#explicit-this
 
 let { regexp, format, startswith, endswith, strip }=require("string")
 let math=require("math")
@@ -207,7 +206,7 @@ local function tostring_any(input, tostringfunc=null, compact=true) {
   if (tostringfunc!=null) {
     if (type(tostringfunc) == "table")
       tostringfunc = [tostringfunc]
-    else if (type(tostringfunc) == "array") {
+    if (type(tostringfunc) == "array") {
       foreach (tf in tostringfunc){
         if (tf?.compare != null && tf.compare(input)){
           return tf.tostring(input)
@@ -247,7 +246,7 @@ let function tableLen(t){
 }
 
 local table_types = ["table","class","instance"]
-local function tostring_r(input, params=defTostringParams) {
+local function tostring_r(inp, params=defTostringParams) {
   local newline = params?.newline ?? defTostringParams.newline
   local maxdeeplevel = params?.maxdeeplevel ?? defTostringParams.maxdeeplevel
   local separator = params?.separator ?? defTostringParams.separator
@@ -316,7 +315,7 @@ local function tostring_r(input, params=defTostringParams) {
     newline = " "
     indentOnNewline = ""
   }
-  local function sub_tostring_r(input, indent, curdeeplevel, arrayElem = false, sep = newline, arrInd=null) {
+  let function sub_tostring_r(input, indent, curdeeplevel, arrayElem = false, sep = newline, arrInd=null) {
     if (arrInd==null)
       arrInd=indent
     local out = []
@@ -371,7 +370,7 @@ local function tostring_r(input, params=defTostringParams) {
     }
     return "".join(out)
   }
-  return sub_tostring_r([input], "", 0,true)
+  return sub_tostring_r([inp], "", 0,true)
 }
 
 
@@ -408,7 +407,7 @@ local function substring(str, start = 0, length = null) {
     local total = str.len()
     if (start < 0)
       start += total
-    start = clamp(start, 0, total)
+    start = math.clamp(start, 0, total)
     end = start + length
   }
   return slice(str, start, end)
@@ -522,7 +521,7 @@ local function lastIndexOfAny(str, anyOf, startIndex = 0) {
 local function countSubstrings(str, substr) {
   local res = -1
   local findex = -1
-  for(res; findex != null; res++) {
+  for(res; findex != 0; res++) {
     findex = str.indexof(substr, ++findex)
   }
   return res
@@ -663,20 +662,10 @@ local function toIntegerSafe(str, defValue = 0, needAssert = true) {
 
 
 
-local intToUtf8Char
 local utf8ToUpper
 local utf8ToLower
 
 if (utf8 != null) {
-  intToUtf8Char = function intToUtf8CharImpl(c) {
-    if (c <= 0x7F)
-      return c.tochar()
-    if (c <= 0x7FF)
-      return (0xc0 + (c>>6)).tochar() + (0x80 + (c & 0x3F)).tochar()
-    //if (c <= 0xFFFF)
-    return (0xe0 + (c>>12)).tochar() + (0x80 + ((c>>6) & 0x3F)).tochar() + (0x80 + (c & 0x3F)).tochar()
-  }
-
   utf8ToUpper = function utf8ToUpperImpl(str, symbolsNum = 0) {
     if(str.len() < 1)
       return str
@@ -694,10 +683,47 @@ if (utf8 != null) {
 }
 else {
   local function noUtf8Module(...) { assert("No 'utf8' module") }
-
-  intToUtf8Char = noUtf8Module
   utf8ToUpper = noUtf8Module
   utf8ToLower = noUtf8Module
+}
+
+let function intToUtf8Char(c) {
+  if (c <= 0x7F)
+    return c.tochar()
+  if (c <= 0x7FF)
+    return "".concat((0xC0 + (c>>6)).tochar(), (0x80 + (c & 0x3F)).tochar())
+  if (c <= 0xFFFF)
+    return "".concat((0xE0 + (c>>12)).tochar(), (0x80 + ((c>>6) & 0x3F)).tochar(), (0x80 + (c & 0x3F)).tochar())
+  if (c <= 0x10FFFF)
+    return "".concat((0xF0 + (c>>12)).tochar(), (0x80 + ((c>>12) & 0x3F)).tochar(), (0x80 + ((c>>6) & 0x3F)).tochar(), (0x80 + (c & 0x3F)).tochar())
+  return ""
+}
+
+let firstOctet = [
+  { ofs = 0, mask = 0x7F }
+  { ofs = 0xC0, mask = 0x1F }
+  { ofs = 0xE0, mask = 0x0F }
+  { ofs = 0xF0, mask = 0x07 }
+]
+let nextOctet = { ofs = 0x80, mask = 0x3F }
+let function utf8CharToInt(str) {
+  let list = []
+  foreach (i in str)
+    list.append(i)
+
+  local res = 0
+  for (local i = list.len() - 1; i >= 0; i--) {
+    let { ofs = null, mask = null } = i > 0 ? nextOctet
+      : firstOctet?[list.len() - 1]
+    if (ofs == null)
+      return 0 //too many chars
+    let val = list[i]
+    if ((val & ~mask) != ofs)
+      return 0 //bad code
+    res += (val & mask) << ((list.len() - 1 - i) * 6)
+  }
+
+  return res
 }
 
 
@@ -844,7 +870,7 @@ local function validateEmail(no_dump_email) {
   if (quotes == null && locpart.indexof("@")!=null)
     return false //no @ without quotes
 
-  if (dompart.indexof(".") == null || dompart.indexof(".") > dompart.len() - 3) // warning disable: -func-can-return-null
+  if (dompart.indexof(".") == null || dompart.indexof(".") > dompart.len() - 3) // warning disable: -func-can-return-null -potentially-nulled-ops
     return false  //too short first level domain or no periods
 
   return true
@@ -871,7 +897,7 @@ local function splitStringBySize(str, maxSize) {
   local start = 0
   let l = str.len()
   while (start < l) {
-    let pieceSize = min(l - start, maxSize)
+    let pieceSize = math.min(l - start, maxSize)
     result.append(str.slice(start, start + pieceSize))
     start += pieceSize
   }
@@ -901,6 +927,7 @@ return {
   isStringFloat
   isStringLatin = @(str) regexp(@"[a-z,A-Z]*").match(str)
   intToUtf8Char
+  utf8CharToInt
   toUpper
   toLower
   utf8ToUpper

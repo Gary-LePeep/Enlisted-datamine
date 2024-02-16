@@ -14,6 +14,7 @@ let premiumBonusesFields = {
   maxInfantrySquads = 0
   maxBikeSquads = 0
   maxVehicleSquads = 0
+  maxTransportSquads = 0
   soldiersReserve = 0
 }.map(@(def, key) Computed(@() gameProfile.value?.premiumBonuses[key] ?? def))
 

@@ -1,6 +1,6 @@
 {
   "germ_pzkpfw_iv_ausf_f2_panzergrenadier_division_voronesh_stalingrad_battlepass_premium": {
-    "_extends": "germ_pzkpfw_iv_ausf_f2",
+    "_use": "germ_pzkpfw_iv_ausf_f2",
     "animchar__objTexReplace:object": {
       "ger_camo_grey*": "ger_camo_dunkelgelb_green*"
     },
@@ -14,7 +14,7 @@
     }
   },
   "germ_pzkpfw_iv_ausf_f2": {
-    "_extends": "germ_pzkpfw_iv_ausf_f2_common",
+    "_use": "germ_pzkpfw_iv_ausf_f2_common",
     "disableDMParts:list<t>": [
       {
         "part": "track_r_01"
@@ -34,10 +34,19 @@
       {
         "part": "ex_armor_body_r_02"
       }
-    ]
+    ],
+    "_group": {
+      "_tags": "gameClient",
+      "vehicle_attach__bodyParts:list<t>": {
+        "part": "turret_01_back"
+      }
+    }
   },
   "germ_pzkpfw_iv_ausf_f2_7th_regiment_10th_division_tunis_battlepass_premium": {
-    "_extends": "germ_pzkpfw_iv_ausf_f2_tunis",
+    "_use": "germ_pzkpfw_iv_ausf_f2_tunis",
+    "animchar__objTexReplace:object": {
+      "ger_camo_grey*": "ger_camo_dunkelgelb_africa*"
+    },
     "animchar__objTexSet:object": {
       "pzkpfw_iv_ausf_f_body_c*:object": {
         "pzkpfw_iv_ausf_f_7th_regiment_10th_division_body_c*": "camo_skin_tex"
@@ -61,7 +70,7 @@
     }
   },
   "germ_pzkpfw_iv_ausf_f2_tunis": {
-    "_extends": "germ_pzkpfw_iv_ausf_f2_common",
+    "_use": "germ_pzkpfw_iv_ausf_f2_common",
     "disableDMParts:list<t>": [
       {
         "part": "track_r_01"
@@ -81,13 +90,10 @@
       {
         "part": "ex_armor_body_r_02"
       }
-    ],
-    "animchar__objTexReplace:object": {
-      "ger_camo_grey*": "ger_camo_dunkelgelb_africa*"
-    }
+    ]
   },
   "germ_pzkpfw_iv_ausf_f2_moscow": {
-    "_extends": "germ_pzkpfw_iv_ausf_f2_common",
+    "_use": "germ_pzkpfw_iv_ausf_f2_common",
     "disableDMParts:list<t>": [
       {
         "part": "track_r_01"
@@ -99,13 +105,28 @@
   },
   "germ_pzkpfw_iv_ausf_f2_common": [
     {
-      "_extends": "base_pzkpfw_iv_ausf_f2"
+      "_use": "base_pzkpfw_iv_ausf_f2"
     },
     {
-      "_extends": "tank_panzer3_engine_sound"
+      "_use": "tank_panzer3_engine_sound"
     },
     {
-      "item__iconOffset": [0.0,0.2]
+      "item__iconOffset": [0.05,0.15]
+    },
+    {
+      "item__iconScale": 1.5
+    },
+    {
+      "commanderCockpitFpsCamMaxAngle": [40.0,5.0]
+    },
+    {
+      "gunner_cam_limit__useCockpitDir": true
+    },
+    {
+      "armorThicknessHull": [50.0,30.0,20.0]
+    },
+    {
+      "armorThicknessTurret": [50.0,30.0,30.0]
     },
     {
       "turrets__initAmmoDistribution:array": [
@@ -259,7 +280,7 @@
     }
   ],
   "germ_pzkpfw_iv_ausf_f2_driver_cockpit": {
-    "_extends": "base_driver_cockpit_no_slits",
+    "_use": "base_driver_cockpit_no_slits",
     "animchar__res": "pzkpfw_iii_e_driver_char",
     "cockpit__offset": [-0.35,-0.2,0.01],
     "cockpit__visibleVehicleNodeNames:list<t>": [
@@ -302,11 +323,9 @@
     ]
   },
   "germ_pzkpfw_iv_ausf_f2_gunner_cockpit": {
-    "vehicle_sight__blk": "content/tanks/gamedata/sight/germ_tzf5f.blk",
-    "_extends": "base_gunner_cockpit",
+    "_use": "base_gunner_cockpit",
     "animchar__res": "pzkpfw_iii_e_gunner_char",
     "cockpit__offset": [0.0,0.0,0.0],
-    "cockpit__minZoom": -0.4,
     "cockpit__attachNodeNames:list<t>": [
       {
         "node": "bone_camera_gunner"
@@ -341,7 +360,7 @@
     ],
     "cockpit__slitForwardOffset:list<r>": [
       {
-        "slit": 0.27
+        "slit": 0.29
       },
       {
         "slit": 0.0
@@ -382,10 +401,47 @@
       {
         "slit": [0.1,0.32,0.56]
       }
-    ]
+    ],
+    "cockpit__slitZoom:array": [
+      {
+        "slit:list<r>": [
+          {
+            "zoom": 1.9
+          },
+          {
+            "zoom": 3.5
+          }
+        ]
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.0
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.0
+        }
+      }
+    ],
+    "cockpit__slitZoomTime:list<r>": [
+      {
+        "slit": 0.05
+      },
+      {
+        "slit": 0.0
+      },
+      {
+        "slit": 0.0
+      }
+    ],
+    "cockpit__slitTemplates:list<t>": {
+      "slit": "germ_tzf5f"
+    },
+    "cockpit__slitEids:list<eid>": []
   },
   "germ_pzkpfw_iv_ausf_f2_commander_cockpit": {
-    "_extends": "base_commander_tower_cockit_no_slits",
+    "_use": "base_commander_tower_cockpit",
     "animchar__res": "pzkpfw_iii_e_commander_char",
     "cockpit__offset": [-0.4,0.5,-0.0],
     "cockpit__cockpitOffsetBySlit:list<p3>": [
@@ -447,6 +503,33 @@
         "slit": false
       }
     ],
+    "cockpit__slitZoom:array": [
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      }
+    ],
     "cockpit__slitNodeNames:list<t>": [
       {
         "slit": "cam_front"
@@ -466,7 +549,7 @@
     ]
   },
   "germ_pzkpfw_iv_ausf_f2_stalingrad_rg24_1233_battlepass_premium": {
-    "_extends": "germ_pzkpfw_iv_ausf_f2_common",
+    "_use": "germ_pzkpfw_iv_ausf_f2_common",
     "disableDMParts:list<t>": [
       {
         "part": "track_r_01"
@@ -500,7 +583,7 @@
     }
   },
   "germ_pzkpfw_iv_ausf_f2_n1_voronesh_43_battlepass_premium": {
-    "_extends": "germ_pzkpfw_iv_ausf_f2_common",
+    "_use": "germ_pzkpfw_iv_ausf_f2_common",
     "disableDMParts:list<t>": [
       {
         "part": "track_r_01"

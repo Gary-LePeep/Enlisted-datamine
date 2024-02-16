@@ -2,6 +2,8 @@ require ecs
 require ecs.common
 require game.es.events
 require inventory
+require game.es.inventory_common
+require common_shooter.es.human_weap_common
 require common_shooter.events_common_shooter
 
 

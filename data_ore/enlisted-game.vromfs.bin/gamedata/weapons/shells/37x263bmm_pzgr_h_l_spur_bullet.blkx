@@ -15,15 +15,9 @@
   "stabilityCaliberToArmorThreshold": 5.0,
   "stabilityReductionAfterPenetration": 0.15,
   "bulletType": "apcr_t",
-  "selfDestructionFx": "explosion_air_selfexplosion_small",
   "slopeEffectPreset": "apcr",
-  "explosionEffect": "hit_39_58mm_metal_ap",
   "fresnel": [0.23,0.1,2.0],
-  "groundCollisionEffect": "hit_39_58mm_dirt_ap",
-  "shellAnimation": "video/shells_animations/apcr.ivf",
-  "ricochetEffect": "hit_39_58mm_metal_ap",
   "relativeVelHitShift": [300.0,1000.0],
-  "explosionPatchRadius": 0.7,
   "stabilityRicochetModifier": [
     {
       "mod1": [0.0,0.05]
@@ -48,24 +42,6 @@
     "HitPower0m": [1.0,0.0],
     "HitPower1000m": [0.9,0.0],
     "HitPower10000m": [0.8,10000.0]
-  },
-  "hitFx": {
-    "steel": {
-      "fx": "hit_39_58mm_metal_ap",
-      "fxScale": [1.0,1.0]
-    },
-    "wood": {
-      "fx": "hit_39_58mm_wood_ap",
-      "fxScale": [1.0,1.0]
-    },
-    "glass": {
-      "fx": "hit_39_58mm_metal_ap",
-      "fxScale": [1.0,1.0]
-    },
-    "stone": {
-      "fx": "hit_39_58mm_stone_ap",
-      "fxScale": [1.0,1.0]
-    }
   },
   "tracer": {
     "headColor": "#ff0f0fff",

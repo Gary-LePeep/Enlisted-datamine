@@ -30,16 +30,16 @@
   },
   "tankgun_76mm_l10": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_tankgun_cannon"
+      "_use": "base_tankgun_cannon"
     },
     {
-      "_extends": "base_76mm_l10"
+      "_use": "base_76mm_l10"
     },
     {
-      "_extends": "gunsound_76mm_l10"
+      "_use": "gunsound_76mm_l10"
     },
     {
       "turret__triggerGroup": 0

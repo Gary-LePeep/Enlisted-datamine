@@ -1,0 +1,72 @@
+{
+  "bulletCount": 25,
+  "mass": 7.0,
+  "explosiveType": "exp_d",
+  "explosiveMass": 0.065,
+  "caliber": 0.0762,
+  "speed": 792.0,
+  "Cx": 0.4,
+  "maxDistance": 10000.0,
+  "normalizationPreset": "apbc",
+  "ricochetPreset": "apbc",
+  "groundRicochetPreset": "apbc",
+  "secondaryShattersPreset": "ap",
+  "stabilityThreshold": 0.05,
+  "stabilityCaliberToArmorThreshold": 5.0,
+  "stabilityReductionAfterRicochet": 0.3,
+  "stabilityReductionAfterPenetration": 0.0,
+  "stucking": 0.7,
+  "stuckingAngle": 45.0,
+  "bulletType": "apcbc_tank",
+  "slopeEffectPreset": "apc",
+  "fresnel": [0.23,0.1,2.0],
+  "bulletName": "76mm_m62",
+  "relativeVelHitShift": [300.0,1000.0],
+  "fuseDelayDist": 1.2,
+  "explodeTreshold": 14.0,
+  "relativeVelArmorShift": [200.0,1000.0],
+  "waterRicochetEffect": "hit_59_80mm_water",
+  "groundRicochetEffect": "hit_59_80mm_dirt_ap",
+  "modelName": "tank_bullet_apcbc",
+  "stabilityRicochetModifier": [
+    {
+      "mod1": [0.0,0.2]
+    },
+    {
+      "mod2": [20.0,0.4]
+    },
+    {
+      "mod3": [30.0,0.6]
+    },
+    {
+      "mod3": [45.0,0.9]
+    }
+  ],
+  "hitpower": {
+    "HitPower0m": [1.0,0.0],
+    "HitPower1000m": [0.9,0.0],
+    "HitPower10000m": [0.8,10000.0]
+  },
+  "damage": {
+    "kinetic": {
+      "damageType": "generic",
+      "demarrePenetrationK": 1.0,
+      "demarreSpeedPow": 1.43,
+      "demarreMassPow": 0.71,
+      "demarreCaliberPow": 1.07
+    }
+  },
+  "visual": {
+    "range_percent_of_ammo": [100.0,0.0],
+    "traceFreq": 1,
+    "tracer": "76mmRed",
+    "trail": "black"
+  },
+  "kineticDamage": {
+    "damageType": "generic"
+  },
+  "tracer": {
+    "headColor": "#ff0f0fff",
+    "smokeColor": "#505050ba"
+  }
+}

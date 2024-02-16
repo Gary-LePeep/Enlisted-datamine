@@ -1,10 +1,10 @@
 {
   "base_cockpit": [
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "animchar_act_on_demand"
+      "_use": "animchar_act_on_demand"
     },
     {
       "animchar_render__enabled": true
@@ -51,19 +51,22 @@
       "cockpit__currentSlit": 0
     },
     {
-      "cockpit__zoom": -0.2
+      "cockpit__forwardOffset": -0.2
     },
     {
-      "cockpit__minZoom": -0.2
-    },
-    {
-      "cockpit__isZoom": false
+      "cockpit__minForwardOffset": -0.2
     },
     {
       "cockpit__cameraTime": 1.0
     },
     {
-      "cockpit__zoomTime": 0.0
+      "cockpit__slitTransitionDuration": 0.66
+    },
+    {
+      "cockpit__forwardOffsetTime": 0.0
+    },
+    {
+      "cockpit__forwardOffsetDuration": 0.7
     },
     {
       "cockpit__startCameraDir": [1.0,0.0,0.0]
@@ -84,6 +87,9 @@
       "cockpit__endOrientY": [0.0,0.0,0.0,1.0]
     },
     {
+      "cockpit__isPeriscope": false
+    },
+    {
       "cockpitEntity:tag": []
     },
     {
@@ -94,6 +100,9 @@
     },
     {
       "cockpit__slitCameraOffsets:list<p3>": []
+    },
+    {
+      "cockpit__slotRelToCockpitOffset:list<p3>": []
     },
     {
       "cockpit__slitCameraDirs:list<p3>": []
@@ -109,23 +118,21 @@
     },
     {
       "cockpit__effectors:object": []
+    },
+    {
+      "cockpit__periscopeAngles:list<p2>": []
+    },
+    {
+      "cockpit__periscopeLimits:list<p4>": []
+    },
+    {
+      "cockpit__periscopeSpeed:list<p2>": []
+    },
+    {
+      "cockpit__slitZoom:array": []
+    },
+    {
+      "cockpit__slitZoomTime:list<r>": []
     }
-  ],
-  "base_driver_cockpit_no_slits": {
-    "_extends": "base_cockpit",
-    "cockpit__zoomTimeMul": 1.3,
-    "cockpit__cameraTimeMul": 1.5,
-    "cockpit__minZoom": -0.27,
-    "animchar_render__nodeVisibleStgFilters:list<u8>": {
-      "_tags": "render"
-    }
-  },
-  "base_commander_cockpit_no_slits": {
-    "_extends": "base_cockpit",
-    "cockpit__zoomTimeMul": 1.3,
-    "cockpit__cameraTimeMul": 1.5,
-    "animchar_render__nodeVisibleStgFilters:list<u8>": {
-      "_tags": "render"
-    }
-  }
+  ]
 }

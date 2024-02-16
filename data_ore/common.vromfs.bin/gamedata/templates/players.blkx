@@ -31,6 +31,9 @@
       "origGroupId": 0
     },
     {
+      "wishGroupId": 0
+    },
+    {
       "player_group__memberIndex": 0
     },
     {
@@ -49,10 +52,10 @@
       "canBeLocal": true
     },
     {
-      "_extends": "replicating"
+      "_use": "replicating"
     },
     {
-      "_extends": "player_hits_counter"
+      "_use": "player_hits_counter"
     },
     {
       "markerDistMult": 1.0
@@ -208,10 +211,13 @@
     }
   ],
   "local_player": {
-    "localPlayer:tag": []
+    "local_player_lastHumanInputStandState": 0,
+    "localPlayer:tag": [],
+    "hitcam__owner:tag": [],
+    "hitcam__listener:tag": []
   },
   "first_blood_award": {
-    "awards__firstBlood:tag": []
+    "awards__isFirstBloodSpilled": false
   },
   "player_afk": {
     "_group": {
@@ -227,7 +233,7 @@
     }
   },
   "bot_player": {
-    "_extends": "player",
+    "_use": "player",
     "playerIsBot:tag": []
   },
   "player_hits_counter": {

@@ -128,7 +128,7 @@ let function CharClientEvent(settings) {
         result = {success = false, error = err}
       }
 
-      debug($"{label} error: {utils.shortKeyValue(result.error)}")
+      debug($"{label} error: {utils.shortKeyValue(result?.error)}")
     }
 
     let executeBefore = context?.executeBefore

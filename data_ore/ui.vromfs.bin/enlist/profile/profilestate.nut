@@ -11,6 +11,7 @@ let killsList = [
   "submachine_gun_kills"
   "machine_gun_kills"
   "grenade_kills"
+  "kills_using_apc"
   "kills_using_tank"
   "kills_using_aircraft"
   "artillery_kills"
@@ -19,6 +20,7 @@ let killsList = [
   "mortar_kills"
   "melee_kills"
   "launcher_kills"
+  "apc_kills"
   "tank_kills"
   "aircraft_kills"
 ]
@@ -30,7 +32,11 @@ let playerStatsList = [
   }
   {
     statId = "killsDeaths"
-    calculator = @(stat) $"{stat?.kills ?? 0}/{stat?.deaths ?? 0}"
+    calculator = function(stat) {
+      let { kills = 0, deaths = 0 } = stat
+      return deaths <= 0 ? 0
+        : round_by_value(kills.tofloat() / deaths.tofloat(), 0.01)
+    }
   }
   {
     statId = "winRate"

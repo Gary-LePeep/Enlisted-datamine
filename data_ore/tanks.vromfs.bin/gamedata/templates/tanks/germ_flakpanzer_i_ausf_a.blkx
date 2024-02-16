@@ -1,17 +1,182 @@
 {
-  "germ_flakpanzer_I_ausf_A": [
+  "germ_flakpanzer_i_ausf_a_moscow_premium": {
+    "_use": "germ_flakpanzer_i_ausf_a_common"
+  },
+  "germ_flakpanzer_i_ausf_a_common": [
     {
-      "_extends": "base_flpz_i_ausf_a"
+      "_use": "base_flpz_i_ausf_a"
     },
     {
-      "_extends": "tank_panzer3_engine_sound"
+      "_use": "tank_panzer3_engine_sound"
     },
     {
-      "_extends": "tank_light_vehicle_tracks_sound"
+      "_use": "tank_light_vehicle_tracks_sound"
     },
     {
-      "bullet_holes__movingCollisionNodes:array": {
-        "_tags": "render"
+      "_use": "turret_manual_sound_with_group"
+    },
+    {
+      "_use": "forestall"
+    },
+    {
+      "destroyIfNoCrewLeft": false
+    },
+    {
+      "armorThicknessHull": [13.0,13.0,13.0]
+    },
+    {
+      "armorThicknessTurret": [7.0,0.0,0.0]
+    },
+    {
+      "vehicle_seats__exitTime": 1.0
+    },
+    {
+      "vehicle_seats__enterTime": 2.0
+    },
+    {
+      "item__iconOffset": [-0.03,0.05]
+    },
+    {
+      "item__iconScale": 1.15
+    },
+    {
+      "commanderCockpitFpsCamMaxAngle": [40.0,5.0]
+    },
+    {
+      "gunner_cam_limit__useCockpitDir": true
+    },
+    {
+      "vehicle_commander_cam__attachToVehicle": true
+    },
+    {
+      "dm_parts_repair_names:list<t>": [
+        {
+          "part": "part:t="
+        },
+        {
+          "part": "drive_turret_h"
+        },
+        {
+          "part": "drive_turret_v"
+        },
+        {
+          "part": "cannon_breech"
+        },
+        {
+          "part": "engine"
+        },
+        {
+          "part": "transmission"
+        },
+        {
+          "part": "gun_barrel"
+        },
+        {
+          "part": "gun_barrel_01"
+        },
+        {
+          "part": "gun_barrel_02"
+        },
+        {
+          "part": "gun_barrel_03"
+        },
+        {
+          "part": "gun_barrel_04"
+        },
+        {
+          "part": "gun_barrel_05"
+        },
+        {
+          "part": "track_r"
+        },
+        {
+          "part": "track_l"
+        },
+        {
+          "part": "track_r_01"
+        },
+        {
+          "part": "track_l_01"
+        },
+        {
+          "part": "wheel_l_back"
+        },
+        {
+          "part": "wheel_l_front"
+        },
+        {
+          "part": "wheel_l_drive"
+        },
+        {
+          "part": "wheel_r_back"
+        },
+        {
+          "part": "wheel_r_front"
+        },
+        {
+          "part": "wheel_r_drive"
+        },
+        {
+          "part": "wheel_r_05"
+        },
+        {
+          "part": "wheel_l_05"
+        }
+      ]
+    },
+    {
+      "dm_parts__repairGroups:object": {
+        "1:list<t>": [
+          {
+            "part": "track_r"
+          },
+          {
+            "part": "track_r_01"
+          },
+          {
+            "part": "wheel_r_back"
+          },
+          {
+            "part": "wheel_r_front"
+          },
+          {
+            "part": "wheel_r_drive"
+          },
+          {
+            "part": "wheel_r_05"
+          }
+        ],
+        "2:list<t>": [
+          {
+            "part": "track_l"
+          },
+          {
+            "part": "track_l_01"
+          },
+          {
+            "part": "wheel_l_back"
+          },
+          {
+            "part": "wheel_l_front"
+          },
+          {
+            "part": "wheel_l_drive"
+          },
+          {
+            "part": "wheel_l_05"
+          }
+        ]
+      }
+    },
+    {
+      "vehicle_seats__effectors:array": []
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "animchar_camera_target__node_name": "bone_camera_gunner",
+        "animchar_camera_target__node_offset": [0.0,0.5,0.0],
+        "animchar_camera_target__nodeIndex": -1
       }
     },
     {
@@ -24,16 +189,25 @@
             "attachNode": "driver",
             "ignoreAttachNodeRotation": true,
             "attachTm": [
-              [1.0,0.0,0.0],
-              [0.0,1.0,0.0],
-              [0.0,0.0,1.0],
-              [-0.25,-0.25,0.0]
+              [0.882965,-0.469466,-0.0],
+              [0.469466,0.882965,0.0],
+              [0.0,-0.0,1.00027],
+              [-0.59,-0.3,-0.03]
             ],
             "seatComponent": "isDriver",
             "nextSeat": "main_gunner",
-            "shouldHideOwner": true,
+            "shouldHideOwner": false,
             "receiveDamageFromDMPart": "driver",
-            "cameraNodeName": "bone_camera_driver"
+            "cameraOffset": [0.15,-0.0,-0.0],
+            "cockpitTemplate": "germ_flakpanzer_i_ausf_a_driver_cockpit",
+            "seatAnimUpper": "drive_passenger",
+            "seatAnimLower": "drive_passenger",
+            "effectors:object": {
+              "r.hand": "righthand_1",
+              "l.hand": "lefthand_1",
+              "r.foot": "pedal_rfoot_1",
+              "l.foot": "pedal_lfoot_1"
+            }
           }
         },
         {
@@ -41,24 +215,124 @@
             "name": "main_gunner",
             "locName": "vehicle_seats/gunner",
             "attachNode": "gunner",
-            "ignoreAttachNodeRotation": true,
             "attachTm": [
-              [1.0,0.0,0.0],
-              [0.0,1.0,0.0],
-              [0.0,0.0,1.0],
-              [-0.25,-0.5,0.0]
+              [0.981495,0.190781,0.0],
+              [-0.190781,0.981495,0.0],
+              [0.0,0.0,0.999598],
+              [-0.13,-0.4,0.0]
             ],
             "seatComponent": "isGunner",
-            "nextSeat": "driver",
-            "shouldHideOwner": false,
-            "receiveDamageFromDMPart": "gunner",
+            "ignoreAttachNodeRotation": true,
             "cameraNodeName": "bone_camera_gunner",
+            "directTurretControl": true,
+            "cockpitTemplate": "germ_flakpanzer_i_ausf_a_gunner_cockpit",
+            "hideHeroAnimcharLocal": true,
+            "canLoadInHatch": true,
+            "maxPosWithOpenHatch": 0.0,
+            "hatchRotationAxis": [0.0,0.0,0.0],
+            "isHatchControlInversed": true,
+            "isHoldGunModeAllowed": false,
+            "cameraOffset": [0.0,0.2,0.0],
+            "hatchNodes:array": {
+              "node": "bone_camera_gunner"
+            },
+            "hatchTurretNames:array": {
+              "turret": "turret_01"
+            },
             "turretNames:array": {
               "turret": "turret_01"
+            },
+            "effectors:object": {
+              "r.hand": "righthand_2",
+              "r.foot": "pedal_rfoot_2",
+              "l.foot": "pedal_lfoot_2"
             }
           }
         }
       ]
     }
-  ]
+  ],
+  "germ_flakpanzer_i_ausf_a_driver_cockpit": {
+    "_use": "base_driver_cockpit_no_slits",
+    "animchar__res": "pzkpfw_iii_e_driver_char",
+    "cockpit__offset": [0.8,1.1,0.35],
+    "cockpit__slitForwardOffset:list<r>": [
+      {
+        "slit": -0.07
+      },
+      {
+        "slit": -0.05
+      }
+    ],
+    "cockpit__slitIsGun:list<b>": [
+      {
+        "slit": false
+      },
+      {
+        "slit": false
+      }
+    ],
+    "cockpit__visibleVehicleNodeNames:list<t>": {
+      "node": "gun_barrel"
+    },
+    "cockpit__slitNodeNames:list<t>": [
+      {
+        "slit": "cam_front"
+      },
+      {
+        "slit": "cam_left"
+      }
+    ],
+    "cockpit__attachNodeNames:list<t>": [
+      {
+        "node": "root"
+      },
+      {
+        "node": "root"
+      }
+    ],
+    "cockpit__attachNodeIndices:list<i>": []
+  },
+  "germ_flakpanzer_i_ausf_a_gunner_cockpit": {
+    "_use": "base_gunner_cockpit",
+    "animchar__res": "t_26_1940_gunner_char",
+    "cockpit__offset": [0.0,0.0,0.0],
+    "cockpit__minForwardOffset": 0.0,
+    "cockpit__cockpitOffsetBySlit:list<p3>": {
+      "item": [-0.7,0.31,-0.15]
+    },
+    "cockpit__attachNodeNames:list<t>": {
+      "node": "bone_gun"
+    },
+    "cockpit__attachNodeIndices:list<i>": [],
+    "cockpit__visibleVehicleNodeNames:list<t>": {
+      "node": "gun_barrel"
+    },
+    "cockpit__slitNodeNames:list<t>": {
+      "slit": "cam_front_right"
+    },
+    "cockpit__slitForwardOffset:list<r>": {
+      "slit": 0.23
+    },
+    "cockpit__slitIsGun:list<b>": {
+      "slit": true
+    },
+    "cockpit__slitZoom:array": {
+      "slit:list<r>": [
+        {
+          "zoom": 1.44
+        },
+        {
+          "zoom": 2.5
+        }
+      ]
+    },
+    "cockpit__slitZoomTime:list<r>": {
+      "slit": 0.05
+    },
+    "cockpit__slitTemplates:list<t>": {
+      "slit": "germ_zf_3x8_flakpanzer"
+    },
+    "cockpit__slitEids:list<eid>": []
+  }
 }

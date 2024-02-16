@@ -1,0 +1,223 @@
+{
+  "baseBoid": {
+    "_use": "ecs_no_debug",
+    "position": [0.0,0.0,0.0],
+    "prevPosition": [0.0,0.0,0.0],
+    "velocity": [0.0,0.0,0.0],
+    "groundNormal": [1.0,0.0,0.0],
+    "groundAvoidanceDist": 2.0,
+    "boidStamina": 1.0,
+    "staying_time": 0.0,
+    "boid_state": 0,
+    "prev_boid_state": 0,
+    "parentSwarmIdx": -1,
+    "parentSwarm:eid": [],
+    "orientation_quat": {
+      "_tags": "render"
+    },
+    "prev_orientation_quat": {
+      "_tags": "render"
+    }
+  },
+  "deadBoid": {
+    "_use": "baseBoid",
+    "boidDead:tag": []
+  },
+  "hittableBoid": {
+    "boid__isHitted": false
+  },
+  "idleBoid": [
+    {
+      "_use": "baseBoid"
+    },
+    {
+      "_use": "hittableBoid"
+    },
+    {
+      "boidIdle:tag": []
+    }
+  ],
+  "boidElement": [
+    {
+      "_use": "baseBoid"
+    },
+    {
+      "_use": "hittableBoid"
+    },
+    {
+      "boidElement:tag": []
+    }
+  ],
+  "trajectoryBoid": {
+    "_use": "baseBoid",
+    "trajectoryPos:list<p4>": [],
+    "trajectoryOrientation:list<p4>": []
+  },
+  "trajectoryBoidElement": [
+    {
+      "_use": "boidElement"
+    },
+    {
+      "_use": "trajectoryBoid"
+    }
+  ],
+  "trajectoryDeadBoid": [
+    {
+      "_use": "deadBoid"
+    },
+    {
+      "_use": "trajectoryBoid"
+    }
+  ],
+  "swarm_renderer": {
+    "_singleton": true,
+    "globalSwarmRenders:object": [],
+    "swarmRenderer": {
+      "_tags": "render"
+    }
+  },
+  "swarm_render_base": {
+    "animchar": [],
+    "animchar_render": {
+      "_tags": "render"
+    }
+  },
+  "animated_swarm_render": {
+    "_use": "swarm_render_base",
+    "animchar_vertex_anim": {
+      "_tags": "render"
+    }
+  },
+  "swarm_disabled": {
+    "swarm__disabled:tag": []
+  },
+  "flying_swarm_base": {
+    "swarmRenderTemplate": "",
+    "isSwarmRenderCreating": false,
+    "swarm__heightGridCreationPos": [0.0,0.0,0.0],
+    "boids_spawner__created": false,
+    "count": 1000,
+    "position": [0.0,20.0,0.0],
+    "_use": "replicating",
+    "swarmIdx": -1,
+    "swarm__elementsBBoxMin": [0.0,0.0,0.0],
+    "swarm__elementsBBoxMax": [0.0,0.0,0.0],
+    "swarm__cellSize": 4.0,
+    "swarm__targetWeight": 3.0,
+    "swarm__obstacleAversionDistance": 3.0,
+    "swarm__alignmentWeight": 1.0,
+    "swarm__separationWeight": 1.0,
+    "swarm__moveSpeed": 10.0,
+    "swarm__rotSpeed": 4.0,
+    "swarm__horizontalOrientation": 1.0,
+    "swarm__animationSpeed": 2.3,
+    "swarmRenderEntity:eid": [],
+    "flyingSwarmObject:tag": [],
+    "swarm__heightGrid:list<r>": [],
+    "boids_spawner:tag": [],
+    "swarmRenderData:list<p4>": {
+      "_tags": "render"
+    },
+    "clusterData": {
+      "_tags": "render"
+    }
+  },
+  "swarm_metatex": {
+    "swarm__metatex_material_params:array": {
+      "swarm__metatex_parameters_channel:object": {
+        "swarm__color_black_from": [0.0,0.0,0.0,0.0],
+        "swarm__color_black_to": [0.0,0.0,0.0,0.0],
+        "swarm__color_red_from": [0.0,0.0,0.0,0.0],
+        "swarm__color_red_to": [0.0,0.0,0.0,0.0],
+        "swarm__color_green_from": [0.0,0.0,0.0,0.0],
+        "swarm__color_green_to": [0.0,0.0,0.0,0.0],
+        "swarm__color_blue_from": [0.0,0.0,0.0,0.0],
+        "swarm__color_blue_to": [0.0,0.0,0.0,0.0],
+        "swarm__color_alpha_from": [0.0,0.0,0.0,0.0],
+        "swarm__color_alpha_to": [0.0,0.0,0.0,0.0],
+        "swarm__emissive_black_from": 0.0,
+        "swarm__emissive_black_to": 0.0,
+        "swarm__emissive_red_from": 0.0,
+        "swarm__emissive_red_to": 0.0,
+        "swarm__emissive_green_from": 0.0,
+        "swarm__emissive_green_to": 0.0,
+        "swarm__emissive_blue_from": 0.0,
+        "swarm__emissive_blue_to": 0.0,
+        "swarm__emissive_alpha_from": 0.0,
+        "swarm__emissive_alpha_to": 0.0,
+        "swarm__emissive_color": [1.0,1.0,1.0,1.0],
+        "swarm__albedo_blend_for_emission": 1.0,
+        "swarm__opacity_black_from": 0.0,
+        "swarm__opacity_black_to": 0.0,
+        "swarm__opacity_red_from": 0.0,
+        "swarm__opacity_red_to": 0.0,
+        "swarm__opacity_green_from": 0.0,
+        "swarm__opacity_green_to": 0.0,
+        "swarm__opacity_blue_from": 0.0,
+        "swarm__opacity_blue_to": 0.0,
+        "swarm__opacity_alpha_from": 0.0,
+        "swarm__opacity_alpha_to": 0.0
+      }
+    }
+  },
+  "swarm_emission": {
+    "_group": {
+      "swarm__emissionColor1": [1.0,1.0,1.0,-1.0],
+      "swarm__emissionColor2": [1.0,1.0,1.0,1.0],
+      "_tags": "render"
+    }
+  },
+  "aggressive_swarm_cluster": {
+    "swarm_cluster__aggroDist": 35.0,
+    "swarm_cluster__targetLostTimer": 0.0,
+    "swarm_cluster__damage": 0.5,
+    "swarm_cluster__timeToDamage": 1.0,
+    "swarm_cluster__target:eid": []
+  },
+  "swarm_cluster": [
+    {
+      "_use": "replicating"
+    },
+    {
+      "_use": "loc_snapshots"
+    },
+    {
+      "swarm_cluster__velocity": [0.0,0.0,0.0]
+    },
+    {
+      "swarm_cluster__radius": 10.0
+    },
+    {
+      "swarm_cluster__targetPos": [0.0,0.0,0.0]
+    },
+    {
+      "swarm_cluster__maxSpeed": 10.0
+    },
+    {
+      "swarm_cluster__acceleration": 7.0
+    },
+    {
+      "swarm_cluster__shotSoundAggroDist": 150.0
+    },
+    {
+      "swarm_cluster__hivePos": [0.0,0.0,0.0]
+    },
+    {
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [0.0,0.0,0.0]
+      ]
+    },
+    {
+      "_replicated": "swarm_cluster__targetPos"
+    },
+    {
+      "swarm_cluster__contactPoints:list<p4>": []
+    },
+    {
+      "loc_snapshots__scaledTransform:tag": []
+    }
+  ]
+}

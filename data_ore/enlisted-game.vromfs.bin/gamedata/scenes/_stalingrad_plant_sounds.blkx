@@ -13,5 +13,18 @@
     "entity": {
       "_template": "stalingrad_plant_ambient_sound"
     }
+  },
+  {
+    "entity": {
+      "_template": "game_object_compound_sound_generator",
+      "game_object_compound_sound_generator__entityTypes:array": {
+        "entity:object": {
+          "soundName": "plant",
+          "objectTypes:object": {
+            "ambient_sound_plant_box": "box"
+          }
+        }
+      }
+    }
   }
 ]

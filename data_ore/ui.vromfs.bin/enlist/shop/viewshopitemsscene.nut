@@ -1,7 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { startsWith } = require("%sqstd/string.nut")
-let { h2_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let mkHeader = require("%enlist/components/mkHeader.nut")
 let closeBtnBase = require("%ui/components/closeBtn.nut")
 let mkItemWithMods = require("%enlist/soldiers/mkItemWithMods.nut")
@@ -9,38 +8,44 @@ let buyShopItem = require("buyShopItem.nut")
 let activatePremiumBttn = require("activatePremiumBtn.nut")
 let { PrimaryFlat, Flat } = require("%ui/components/textButton.nut")
 let {
-  mkShopItemView, shopItemLockedMsgBox, mkShopItemImg, mkLevelLockLine, mkShopItemPriceLine,
-  mkShopItemInfoBlock
+  mkShopItemView, shopItemLockedMsgBox, mkShopItemImg, mkLevelLockLine,
+  mkShopItemPriceLine, mkShopItemInfoBlock, getCantBuyData
 } = require("shopPkg.nut")
+let { mkShopMsgBoxView, mkCanUseShopItemInfo } = require("shopPackage.nut")
 let { makeVertScroll } = require("%ui/components/scrollbar.nut")
-let { allItemTemplates } = require("%enlist/soldiers/model/all_items_templates.nut")
+let { allItemTemplates, itemTypesInSlots
+} = require("%enlist/soldiers/model/all_items_templates.nut")
 let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
 let { curArmyData } = require("%enlist/soldiers/model/state.nut")
-let { shopItemContentCtor, purchaseIsPossible } = require("armyShopState.nut")
+let { shopItemContentCtor, purchaseIsPossible, needGoodManage
+} = require("armyShopState.nut")
 let { mkShopItem } = require("%enlist/soldiers/model/items_list_lib.nut")
-let { mkDetailsInfo, detailsStatusTier } = require("%enlist/soldiers/components/itemDetailsComp.nut")
-let { blur, mkVehicleDetails, mkUpgrades } = require("%enlist/soldiers/components/itemDetailsPkg.nut")
-let { sceneWithCameraAdd, sceneWithCameraRemove
-} = require("%enlist/sceneWithCamera.nut")
-let { bigPadding, smallPadding, blurBgColor, blurBgFillColor, unitSize, detailsHeaderColor
+let { mkViewItemWatchDetails } = require("%enlist/soldiers/components/itemDetailsComp.nut")
+let { sceneWithCameraAdd, sceneWithCameraRemove } = require("%enlist/sceneWithCamera.nut")
+let {
+  bigPadding, smallPadding, blurBgColor, blurBgFillColor, unitSize
 } = require("%enlSqGlob/ui/viewConst.nut")
-let { curSelectedItem } = require("%enlist/showState.nut")
-let { getItemName } = require("%enlSqGlob/ui/itemsInfo.nut")
+let { curSelectedItem, changeCameraFov } = require("%enlist/showState.nut")
 let { makeCrateToolTip } = require("%enlist/items/crateInfo.nut")
-let { CAMPAIGN_NONE, needFreemiumStatus } = require("%enlist/campaigns/campaignConfig.nut")
-let shopItemFreemiumMsgBox = require("%enlist/shop/shopItemFreemiumMsgBox.nut")
 let checkLootRestriction = require("hasLootRestriction.nut")
+let {
+  curGrowthState, curGrowthConfig, curGrowthProgress, curGrowthTiers, GrowthStatus
+} = require("%enlist/growth/growthState.nut")
+
+
+const ADD_CAMERA_FOV_MIN = -20
+const ADD_CAMERA_FOV_MAX = 5
+
 
 let shopItem = mkWatched(persist, "shopItem", null)
 let selectedKey = Computed(@() curSelectedItem.value?.basetpl)
-let isSelectedVehicle = Computed(@() curSelectedItem.value?.itemtype == "vehicle")
 
 let shopItemWidth = 9.0 * unitSize
 let shopItemHeight = 6.0 * unitSize
 
 let function mkShopItemContent(sItem) {
   let crateContentWatch = shopItemContentCtor(sItem)
-  return crateContentWatch == null ? null
+  return crateContentWatch.value == null ? null
     : function() {
         let { armyId, content } = crateContentWatch.value
         let templates = allItemTemplates.value?[armyId]
@@ -53,7 +58,7 @@ let function mkShopItemContent(sItem) {
           .filter(@(item) item != null)
           .sort(@(a,b) (a?.tier ?? 0) <=> (b?.tier ?? 0))
 
-        let res = { watch = [crateContentWatch, allItemTemplates] }
+        let res = { watch = [crateContentWatch, allItemTemplates, itemTypesInSlots] }
         if (crateItems.len() == 0)
           return res
 
@@ -66,7 +71,7 @@ let function mkShopItemContent(sItem) {
           onAttach = @() curSelectedItem(crateItems[0])
           onDetach = @() curSelectedItem(null)
           xmbNode = XmbContainer({
-            canFocus = @() false
+            canFocus = false
             scrollSpeed = 5.0
             isViewport = true
           })
@@ -78,7 +83,7 @@ let function mkShopItemContent(sItem) {
                 selectKey = item?.basetpl
                 isXmb = true
                 canDrag = false
-                itemSize = [shopItemWidth, 2.0 * unitSize]
+                itemSize = [shopItemWidth, 2.2 * unitSize]
                 onClickCb = @(_) curSelectedItem(item)
                 hideStatus = true
                 isAvailable = true
@@ -104,66 +109,63 @@ let function purchaseBtnUi() {
   if (offerContainer.len() > 0)
     return null
 
-  let { armyLevel = 0, campaignGroup = CAMPAIGN_NONE } = requirements
-  let { level = 0 } = curArmyData.value
-  let btnCtor = armyLevel > level ? Flat : PrimaryFlat
+  let army = curArmyData.value
+  let growths = curGrowthState.value
+  let growthCfg = curGrowthConfig.value
+  let grTiers = curGrowthProgress.value
+  let grTierCfg = curGrowthTiers.value
+  let templates = allItemTemplates.value
+
+  let lockData = getCantBuyData(army, requirements, growths, growthCfg,
+    grTiers, grTierCfg, templates)
+
+  let btnCtor = lockData != null ? Flat : PrimaryFlat
   let crateContent = shopItemContentCtor(shopItemData)
+  let countWatched = Watched(1)
+  let description = mkCanUseShopItemInfo(crateContent)
+
   return {
-    watch = [curArmyData, shopItem, purchaseIsPossible]
+    watch = [
+      curArmyData, curGrowthState, curGrowthConfig, curGrowthProgress,
+      curGrowthTiers, allItemTemplates, shopItem, purchaseIsPossible
+    ]
     rendObj = ROBJ_BOX
     borderWidth = hdpx(1)
     size = [flex(), SIZE_TO_CONTENT]
     children = !purchaseIsPossible.value ? null
       : btnCtor(loc("btn/buy"),
           function() {
-            if (campaignGroup != CAMPAIGN_NONE && needFreemiumStatus.value)
-              return shopItemFreemiumMsgBox(@() shopItem(null))
-
-            if (armyLevel > level)
-              return shopItemLockedMsgBox(armyLevel, @() shopItem(null))
+            if (lockData != null)
+              return shopItemLockedMsgBox(lockData, @() shopItem(null))
 
             shopItem(null)
             checkLootRestriction(
-              @() buyShopItem({
-                shopItem = shopItemData
-                activatePremiumBttn
-                productView = mkShopItemImg(shopItemData.image, {
-                  size = [fsh(40), fsh(24)]
+              function() {
+                buyShopItem({
+                  shopItem = shopItemData
+                  activatePremiumBttn
+                  productView = mkShopMsgBoxView(shopItemData, crateContent, countWatched)
+                  description
+                  countWatched
                 })
-                description = mkShopItemInfoBlock(crateContent)
-              }),
+                needGoodManage(true)
+              },
               {
                 itemView = mkShopItemImg(shopItemData.image, {
                   size = [fsh(40), fsh(24)]
                 })
+                description
               },
               crateContent
             )
           },
           {
             margin = 0
+            hotkeys = [["^J:Y"]]
             minWidth = pw(100)
           }
       )
   }
-}
-
-let vehicleDetails = @() {
-  watch = curSelectedItem
-  flow = FLOW_VERTICAL
-  halign = ALIGN_RIGHT
-  children = [
-    blur({
-      children = {
-        rendObj = ROBJ_TEXT
-        color = detailsHeaderColor
-        text = getItemName(curSelectedItem.value)
-      }.__update(h2_txt)
-    })
-    detailsStatusTier(curSelectedItem.value)
-    mkVehicleDetails(curSelectedItem.value, true)
-    mkUpgrades(curSelectedItem.value)
-  ]
 }
 
 let function mkShopItemInfo(item) {
@@ -189,7 +191,10 @@ let shopItemsScene = @() {
   size = [sw(100), sh(100)]
   flow = FLOW_VERTICAL
   padding = safeAreaBorders.value
-  behavior = Behaviors.MenuCameraControl
+  behavior = [Behaviors.MenuCameraControl, Behaviors.TrackMouse]
+  onMouseWheel = function(mouseEvent) {
+    changeCameraFov(mouseEvent.button * 5, ADD_CAMERA_FOV_MIN, ADD_CAMERA_FOV_MAX)
+  }
   children = [
     mkHeader({
       // FIXME: Need to add some parameter to shop item to determine starter pack
@@ -207,16 +212,26 @@ let shopItemsScene = @() {
           gap = smallPadding
           children = [
             function() {
-              let res = { watch = [shopItem, curArmyData] }
+              let res = { watch = [shopItem, curArmyData, curGrowthState, curGrowthProgress] }
               if (shopItem.value == null)
                 return res
-              let { armyLevel = 0 } = shopItem.value?.requirements
+              let { armyLevel = 0, growthId = "", growthTierId = "" } = shopItem.value?.requirements
               let { level = 0 } = curArmyData.value
+
+              let gr = curGrowthState.value
+              let isGrowthAllowed = growthId == ""
+                || (gr?[growthId].status ?? GrowthStatus.UNAVAILABLE) == GrowthStatus.REWARDED
+
+              let tr = curGrowthProgress.value
+              let isGrTierAllowed = growthTierId == ""
+                || (tr?[growthTierId].status ?? GrowthStatus.UNAVAILABLE) == GrowthStatus.COMPLETED
+
+              let isLocked = armyLevel > level || !isGrowthAllowed || !isGrTierAllowed
               return res.__update({
                 size = [flex(), shopItemHeight]
                 flow = FLOW_VERTICAL
                 children = [
-                  mkShopItemView({ shopItem = shopItem.value, isLocked = armyLevel > level })
+                  mkShopItemView({ shopItem = shopItem.value, isLocked })
                   armyLevel > level ? mkLevelLockLine(armyLevel)
                     : mkShopItemPriceLine(shopItem.value)
                 ]
@@ -228,14 +243,11 @@ let shopItemsScene = @() {
             purchaseBtnUi
           ]
         }
-        @() {
-          watch = isSelectedVehicle
+        {
           size = flex()
           halign = ALIGN_RIGHT
           valign = ALIGN_BOTTOM
-          children = isSelectedVehicle.value
-            ? vehicleDetails
-            : mkDetailsInfo(curSelectedItem)
+          children = mkViewItemWatchDetails(curSelectedItem)
         }
       ]
     }
@@ -247,10 +259,10 @@ shopItem.subscribe(function(val) {
     sceneWithCameraRemove(shopItemsScene)
     return
   }
-  sceneWithCameraAdd(shopItemsScene, "new_items")
+  sceneWithCameraAdd(shopItemsScene, "shop_items")
 })
 
 if (shopItem.value != null)
-  sceneWithCameraAdd(shopItemsScene, "new_items")
+  sceneWithCameraAdd(shopItemsScene, "shop_items")
 
 return @(val) shopItem(val)

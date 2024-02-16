@@ -1,68 +1,26 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let {
-  gap, bigPadding, soldierWndWidth, blurBgColor, blurBgFillColor, listBtnAirStyle
-} = require("%enlSqGlob/ui/viewConst.nut")
-let textButton = require("%ui/components/textButton.nut")
-let { notChoosenPerkSoldiers } = require("model/soldierPerks.nut")
+let { smallPadding, bigPadding, soldierWndWidth } = require("%enlSqGlob/ui/designConst.nut")
 let soldierEquipUi = require("soldierEquip.ui.nut")
-let soldierPerksUi = require("soldierPerks.ui.nut")
-let mkSoldierCustomisationTab = require("mkSoldierCustomisationTab.nut")
 let soldierLookUi = require("soldierLook.ui.nut")
-let {
-  mkAlertIcon, PERK_ALERT_SIGN, ITEM_ALERT_SIGN
-} = require("%enlSqGlob/ui/soldiersUiComps.nut")
-let { unseenSoldiersWeaponry } = require("model/unseenWeaponry.nut")
-let { curUnseenUpgradesBySoldier, isUpgradeUsed } = require("model/unseenUpgrades.nut")
-let { hasClientPermission } = require("%enlSqGlob/client_user_rights.nut")
-let canSwitchSoldierLook = hasClientPermission("debug_soldier_look")
 let mkNameBlock = require("%enlist/components/mkNameBlock.nut")
+let { closeEquipPresets } = require("%enlist/preset/presetEquipUi.nut")
+let { hasClientPermission } = require("%enlSqGlob/client_user_rights.nut")
+let { Bordered, FAButton } = require("%ui/components/txtButton.nut")
+let { isCustomizationWndOpened } = require("%enlist/soldiers/soldierCustomizationState.nut")
+let { openPerkTree } = require("%enlist/meta/perks/perkTree.nut")
+let { getLinkedSquadGuid } = require("%enlSqGlob/ui/metalink.nut")
+let { notChoosenPerkSoldiers } = require("model/soldierPerks.nut")
+let { mkAlertIcon, PERK_ALERT_SIGN } = require("%enlSqGlob/ui/soldiersUiComps.nut")
+let { isDebugBuild } = require("%dngscripts/appInfo.nut")
 
-let tabsData = {
-  weaponry = {
-    locId = "soldierWeaponry"
-    content = soldierEquipUi
-    childCtor = @(soldier) soldier == null ? null
-      : mkAlertIcon(ITEM_ALERT_SIGN, Computed(function() {
-          let weapCount = unseenSoldiersWeaponry.value?[soldier?.guid].len() ?? 0
-          let upgrCount = (isUpgradeUsed.value ?? false) ? 0
-            : (curUnseenUpgradesBySoldier.value?[soldier?.guid] ?? 0)
-          return weapCount + upgrCount > 0
-        }))
-  }
-  perks = {
-    locId = "soldierPerks"
-    content = soldierPerksUi
-    childCtor = @(soldier) soldier == null ? null
-      : mkAlertIcon(PERK_ALERT_SIGN, Computed(@()
-          (notChoosenPerkSoldiers.value?[soldier.guid] ?? 0) > 0
-        ))
-  }
-  customize = {
-    iconId = "pencil"
-    content = mkSoldierCustomisationTab
-  }
-  look = {
-    iconId = "address-card"
-    content = soldierLookUi
-  }
-}
+let hasDebugSoldierLook = hasClientPermission("debug_soldier_look")
+let canSwitchSoldierLook = Computed(@() hasDebugSoldierLook.value || isDebugBuild)
 
-let tabs = Computed(function() {
-  let res = ["weaponry", "perks", "customize"]
-  if (canSwitchSoldierLook.value)
-    res.append("look")
-  return res
-})
+let soldierLookOpened = Watched(false)
+soldierLookOpened.subscribe(@(_) closeEquipPresets())
 
-let curTabId = mkWatched(persist, "soldierInfoTabId", tabs.value[0])
-let getTabById = @(tabId) tabsData?[tabId] ?? tabsData[tabs.value[0]]
-
-let hdrAnimations = [
-  { prop = AnimProp.opacity, from = 0, to = 1, duration = 0.3, easing = OutCubic, trigger = "hdrAnim"}
-  { prop = AnimProp.translate, from =[-hdpx(70), 0], to = [0, 0], duration = 0.15, easing = OutQuad, trigger = "hdrAnim"}
-]
-
+let btnStyle = { btnWidth = flex() }
 
 let mkAnimations = @(isMoveRight) [
   { prop = AnimProp.opacity, from = 0, to = 1, duration = 0.5, play = true, easing = OutCubic }
@@ -71,88 +29,78 @@ let mkAnimations = @(isMoveRight) [
   { prop = AnimProp.translate, from =[0, 0], playFadeOut = true, to = [hdpx(150) * (isMoveRight ? 1 : -1), 0], duration = 0.2, easing = OutQuad }
 ]
 
-let listBtnStyle = @(isSelected, idx)
-  listBtnAirStyle(isSelected, idx).__update({ size = [flex(), SIZE_TO_CONTENT] })
-
-let tabsList = @(soldier, availTabs) @() {
-  animations = hdrAnimations
-  transform = {}
-  watch = [tabs, curTabId, soldier]
-  size = [flex(), SIZE_TO_CONTENT]
-  valign = ALIGN_BOTTOM
-  flow = FLOW_HORIZONTAL
-  gap = gap
-  children = tabs.value
-    .filter(@(id) availTabs.len() == 0 || availTabs.contains(id))
-    .map(function(id, idx) {
-      let tab = tabsData[id]
-      let isCurrent = curTabId.value == id
-      return "locId" in tab ? {
-            size = [flex(), SIZE_TO_CONTENT]
-            children = [
-              textButton(loc(tab.locId), @() curTabId(id),
-                listBtnStyle(isCurrent, idx))
-              tab?.childCtor(soldier.value)
-            ]
-          }
-        : "iconId" in tab ? {
-            size = [ph(100), SIZE_TO_CONTENT]
-            children = [
-              textButton.FAButton(tab.iconId, @() curTabId(id),
-                listBtnStyle(isCurrent, idx).__update({padding = [hdpx(13), 0, 0, 0]}))
-            ]
-          }
+let mkCustomButtons = function(curSoldierInfo) {
+  let needPerkNotifier = Computed(@()
+    (notChoosenPerkSoldiers.value?[curSoldierInfo.value?.guid] ?? 0) > 0)
+  return @() {
+    watch = [canSwitchSoldierLook, curSoldierInfo]
+    size = [flex(), SIZE_TO_CONTENT]
+    flow = FLOW_HORIZONTAL
+    halign = ALIGN_CENTER
+    vplace = ALIGN_BOTTOM
+    gap = bigPadding
+    children = [
+      Bordered(loc("soldierAppearance"), @() isCustomizationWndOpened(true), btnStyle.__merge({
+        isEnabled = getLinkedSquadGuid(curSoldierInfo.value) != null
+      }))
+      Bordered(loc("perks/tree"), @() openPerkTree(curSoldierInfo), btnStyle.__merge({
+        fgChild = {
+          vplace = ALIGN_TOP
+          hplace = ALIGN_RIGHT
+          children = mkAlertIcon(PERK_ALERT_SIGN, needPerkNotifier)
+          padding = smallPadding
+        }
+      }))
+      canSwitchSoldierLook.value
+        ? FAButton("address-card", @() soldierLookOpened(!soldierLookOpened.value))
         : null
-    })
+    ]
+  }
 }
 
 let content = kwarg(@(
   soldier, canManage, animations, selectedKeyWatch, mkDismissBtn,
-  availTabs, onDoubleClickCb = null, onResearchClickCb = null,
-  dropExceptionCb = null
+  onDoubleClickCb = null, onResearchClickCb = null, dropExceptionCb = null, buttons = null
 ) {
-  clipChildren = true
-  rendObj = ROBJ_WORLD_BLUR_PANEL
-  color = blurBgColor
-  fillColor = blurBgFillColor
   size = [soldierWndWidth, flex()]
-  animations = animations
-  transform = {}
-  children = {
-    size = [soldierWndWidth, flex()]
-    gap = bigPadding
-    flow = FLOW_VERTICAL
-    padding = bigPadding
-    children = [
-      mkNameBlock(soldier)
-      tabsList(soldier, availTabs)
-      @() {
-        animations = hdrAnimations
-        transform = {}
-        watch = curTabId
-        size = flex()
-        children = getTabById(curTabId.value).content({
-          soldier
-          canManage
-          selectedKeyWatch
-          onDoubleClickCb
-          dropExceptionCb
-          onResearchClickCb
-        }, KWARG_NON_STRICT)
-      }
-      @() {
+  flow = FLOW_VERTICAL
+  gap = bigPadding
+  children = [
+    {
+      size = [flex(), SIZE_TO_CONTENT]
+      animations
+      transform = {}
+      children = mkNameBlock(soldier)
+    }
+    @() {
+      watch = soldierLookOpened
+      size = flex()
+      children = (soldierLookOpened.value ? soldierLookUi : soldierEquipUi)({
+        soldier
+        canManage
+        selectedKeyWatch
+        onDoubleClickCb
+        dropExceptionCb
+        onResearchClickCb
+      }, KWARG_NON_STRICT)
+    }
+    function() {
+      let children = mkDismissBtn(soldier.value)
+      return {
         watch = soldier
         size = [flex(), SIZE_TO_CONTENT]
-        children = mkDismissBtn(soldier.value)
+        margin = children == null ? null : [bigPadding,0,0,0]
+        children
       }
-    ]
-  }
+    }
+    buttons
+  ]
 })
 
-return kwarg(function(
+let mkSoldierInfo = kwarg(function(
   soldierInfoWatch, isMoveRight = true, selectedKeyWatch = Watched(null),
   onDoubleClickCb = null, onResearchClickCb = null, mkDismissBtn = @(_) null,
-  dropExceptionCb = null, availTabs = []
+  dropExceptionCb = null, buttons = null
 ) {
   let animations = mkAnimations(isMoveRight)
   local lastSoldierGuid = soldierInfoWatch.value?.guid
@@ -166,7 +114,7 @@ return kwarg(function(
     dropExceptionCb
     onResearchClickCb
     mkDismissBtn
-    availTabs
+    buttons
   })
 
   return function() {
@@ -182,3 +130,8 @@ return kwarg(function(
     }
   }
 })
+
+return {
+  mkSoldierInfo
+  mkCustomButtons
+}

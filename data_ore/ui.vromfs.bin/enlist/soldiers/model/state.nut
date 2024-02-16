@@ -1,30 +1,32 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let json = require("%sqstd/json.nut")
+let { saveJson } = require("%sqstd/json.nut")
 let userInfo = require("%enlSqGlob/userInfo.nut")
-let { profile } = require("%enlist/meta/servProfile.nut")
-let { endswith } = require("string")
+let servProfile = require("%enlist/meta/servProfile.nut")
 let { gameProfile, allArmiesInfo } = require("config/gameProfile.nut")
 let { unlockedCampaigns } = require("%enlist/meta/campaigns.nut")
 let { curCampaign, setCurCampaign } = require("%enlist/meta/curCampaign.nut")
 let { hasPremium } = require("%enlist/currency/premium.nut")
 let { squadsCfgById } = require("config/squadsConfig.nut")
 let armyEffects = require("armyEffects.nut")
-let { add_army_exp, reset_profile, update_profile, set_vehicle_to_squad, drop_items,
+let { add_army_exp, reset_profile, update_profile, drop_items,
   soldiers_regenerate_view, add_squad, add_all_squads, add_soldier, add_items, add_items_by_type,
-  check_purchases, get_shop_item, remove_squad, add_outfit
+  check_purchases, get_shop_item, remove_squad, add_outfit,
+  set_squad_outfit_preset, make_squad_researches, force_squad_outfit_preset
 } = require("%enlist/meta/clientApi.nut")
-let { armies, curArmiesList, itemsByArmies, curArmiesListExt,
+let { armies, curArmiesList, itemsByArmies, curArmiesListExt, commonArmy,
   curCampItems, soldiersByArmies, curCampSoldiers, squadsByArmies, curCampSquads, campItemsByLink
 } = require("%enlist/meta/profile.nut")
-let { getObjectsByLinkSorted, getObjectsTableByLinkType, getLinkedSquadGuid, getItemIndex
+let {
+  getObjectsByLinkSorted, getObjectsTableByLinkType, getLinkedSquadGuid, getItemIndex
 } = require("%enlSqGlob/ui/metalink.nut")
 let squadsParams = require("squadsParams.nut")
 let { mkOnlineSaveData } = require("%enlSqGlob/mkOnlineSaveData.nut")
-let { onlineSettingUpdated } = require("%enlist/options/onlineSettings.nut")
 let armiesPresentation = require("%enlSqGlob/ui/armiesPresentation.nut")
 let squadsPresentation = require("%enlSqGlob/ui/squadsPresentation.nut")
 let { expiredRentedSquads } = require("rentedSquads.nut")
+let { getClassCfg } = require("%enlSqGlob/ui/soldierClasses.nut")
+let { weaponSlotsKeys, EWS_PRIMARY } = require("%enlSqGlob/weapon_slots.nut")
 
 
 let curArmiesStorage = mkOnlineSaveData("curArmies", @() {})
@@ -57,13 +59,12 @@ let function selectArmy(army) {
 
 let curArmyData = Computed(@() armies.value?[curArmy.value])
 
-let mteam = Computed(@() endswith(curArmy.value ?? "", "axis") ? 1 : 0)
-
 let armyLimitsDefault = {
   maxSquadsInBattle = 1
   maxInfantrySquads = 1
   maxBikeSquads = 0
   maxVehicleSquads = 0
+  maxTransportSquads = 0
   soldiersReserve = 0
 }
 
@@ -122,6 +123,7 @@ let function mixSquadData(config, presentation) {
     capacity = config?.size ?? 0
     squadType = config?.squadType ?? "unknown"
     vehicleType = config?.vehicleType ?? ""
+    isParatroopers = config?.isParatroopers
     icon = presentation?.icon ?? ""
     image = presentation?.image ?? ""
     nameLocId = presentation?.nameLocId ?? "squad/defaultName"
@@ -202,7 +204,8 @@ let chosenSquadsByArmy = Computed(function() {
   let expired = expiredRentedSquads.value
   foreach (armyId in curArmiesList.value) {
     let squadsLimits = limitsByArmy.value?[armyId] ?? armyLimitsDefault
-    local { maxSquadsInBattle, maxInfantrySquads, maxBikeSquads, maxVehicleSquads } = squadsLimits
+    local { maxSquadsInBattle, maxInfantrySquads, maxBikeSquads, maxVehicleSquads,
+      maxTransportSquads } = squadsLimits
     let squadsList = []
     foreach (squad in squadsByArmy.value?[armyId] ?? []) {
       let { guid, vehicleType = "" } = squad
@@ -213,6 +216,11 @@ let chosenSquadsByArmy = Computed(function() {
         if (maxBikeSquads <= 0)
           continue
         maxBikeSquads--
+      }
+      else if (vehicleType == "truck") {
+        if (maxTransportSquads <= 0)
+          continue
+        maxTransportSquads--
       }
       else if (vehicleType != "") {
         if (maxVehicleSquads <= 0)
@@ -237,7 +245,19 @@ let chosenSquadsByArmy = Computed(function() {
 
 let curChoosenSquads = Computed(@() chosenSquadsByArmy.value?[curArmy.value] ?? [])
 
+let curForcedSquadId = Watched(null)
+let function setCurForcedSquadId(squadId) {
+  curForcedSquadId(squadId)
+}
+let function clearCurForcedSquadId() {
+  curForcedSquadId(null)
+}
+
 let curSquadId = Computed(function() {
+  let forcedSquadId = curForcedSquadId.value
+  if (forcedSquadId != null)
+    return forcedSquadId
+
   local squadId = null
   let choosenSquads = curChoosenSquads.value ?? []
   if (choosenSquads.len() > 0) {
@@ -249,8 +269,6 @@ let curSquadId = Computed(function() {
 })
 
 let function setCurSquadId(squadId) {
-  if (!onlineSettingUpdated.value)
-    return
   let armyId = curArmy.value
   if (armyId && squadId != playerSelectedSquads.value?[armyId])
     setPlayerSelectedSquads(playerSelectedSquads.value.__merge({ [armyId] = squadId }))
@@ -304,7 +322,7 @@ let itemCountByArmy = Computed(function() {
 
 let armyItemCountByTpl = Computed(function() {
   let curArmyId = curArmy.value
-  let commonArmyId = gameProfile.value?.commonArmy
+  let commonArmyId = commonArmy.value
   let res = {}
   foreach (armyId, armyData in itemCountByArmy.value) {
     if (armyId != curArmyId && armyId != commonArmyId)
@@ -342,15 +360,8 @@ let function addArmyExp(armyId, exp, cb = null) {
   add_army_exp(armyId, exp, cb)
 }
 
-let function setVehicleToSquad(squadGuid, vehicleGuid) {
-  if (vehicleBySquad.value?[squadGuid] == vehicleGuid)
-    return
-
-  set_vehicle_to_squad(vehicleGuid, squadGuid)
-}
-
-let function resetProfile() {
-  reset_profile(function(res) {
+let function resetProfile(isUnited) {
+  reset_profile(isUnited, function(res) {
     debugTableData(res)
     check_purchases()
   })
@@ -362,7 +373,7 @@ let function dumpProfile() {
     return
 
   let path = $"enlisted_profile_{userId}.json"
-  json.save(path, profile.value, { logger = log_for_user })
+  saveJson(path, servProfile.map(@(w) w.value), { logger = log_for_user })
   console_print($"Current user profile saved to {path}")
 }
 
@@ -383,7 +394,7 @@ let function getDemandingSlots(ownerGuid, slotType, objInfo, itemsByLink) {
   return equipGroup != ""
     ? equipScheme
         .filter(@(s) s?.atLeastOne == equipGroup)
-        .map(@(_, slotType) getEquippedItemGuid(itemsByLink, ownerGuid, slotType, null)) //lists with atLeastOne does not supported yet
+        .map(@(_, slotTyp) getEquippedItemGuid(itemsByLink, ownerGuid, slotTyp, null)) //lists with atLeastOne does not supported yet
     : {}
 }
 
@@ -392,7 +403,16 @@ let function getDemandingSlotsInfo(ownerGuid, slotType) {
   return equipGroup != "" ? loc($"equipDemand/{equipGroup}") : ""
 }
 
-let maxCampaignLevel = Computed(@() armies.value.reduce(@(v,camp) max(v, camp?.level ?? 0), 0))
+let unequippableSlots = {
+  paratrooper = ["secondary"]
+}
+
+let function canChangeEquipmentInSlot(soldierClass, weaponSlot) {
+  let { isPremium = false, kind = "unknown" } = getClassCfg(soldierClass)
+  return (!isPremium || weaponSlot != weaponSlotsKeys[EWS_PRIMARY])
+    && !unequippableSlots?[kind].contains(weaponSlot)
+}
+
 
 console_register_command(function() {
   setCurCampaign(null)
@@ -409,7 +429,7 @@ console_register_command(function() {
   setCurArmies(tmpArmies)
 }, "meta.selectArmyScene")
 console_register_command(@(exp) addArmyExp(curArmy.value, exp), "meta.addCurArmyExp")
-console_register_command(@(squadId) add_squad(curArmy.value, squadId), "meta.addSquad")
+console_register_command(@(squadId) add_squad(squadId), "meta.addSquad")
 console_register_command(@(guid) remove_squad(guid), "meta.removeSquad")
 console_register_command(@() add_all_squads(), "meta.addAllSquads")
 console_register_command(@(shopId) get_shop_item(shopId), "meta.getFromShop")
@@ -418,15 +438,19 @@ console_register_command(@(itemTmpl) add_items(curArmy.value, itemTmpl, 1), "met
 console_register_command(@(itemTmpl, count) add_items(curArmy.value, itemTmpl, count), "meta.addItems")
 console_register_command(@(itemTmpl, count) add_items("common_army", itemTmpl, count), "meta.addCommonItems")
 console_register_command(@(itemTmpl) add_outfit(curArmy.value, itemTmpl, 1), "meta.addOutfit")
+console_register_command(@(campaignId) set_squad_outfit_preset(curSquad.value?.guid, campaignId), "meta.dressUpCurSquadForCampaign")
+console_register_command(@(presetId) force_squad_outfit_preset(curSquad.value?.guid, presetId), "meta.forceDressUpCurSquadByPreset")
+console_register_command(@(squadId)
+  make_squad_researches(curArmy.value, squadId), "meta.makeSquadResearches")
 
 let DROP_COMMANDS = {
   addAllVehicles          = ["vehicle"]
-  addAllSemiautos         = ["semiauto", "carbine_tanker"]
+  addAllSemiautos         = ["semiauto", "carbine_tanker", "assault_semi"]
   addAllShotguns          = ["shotgun"]
   addAllSniperBoltactions = ["boltaction"]
   addAllSniperSemiautos   = ["semiauto_sniper"]
   addAllBoltactions       = ["boltaction_noscope"]
-  addAllGrenadeRifles     = ["rifle_grenade_launcher"]
+  addAllGrenadeRifles     = ["rifle_grenade_launcher", "rifle_at_grenade_launcher"]
   addAllAntitankRifles    = ["antitank_rifle"]
   addAllGrenadeLaunchers  = ["grenade_launcher"]
   addAllInfantryLaunchers = ["infantry_launcher"]
@@ -444,9 +468,9 @@ let DROP_COMMANDS = {
                              "impact_grenade", "smoke_grenade", "incendiary_grenade"]
   addAllMines             = ["antipersonnel_mine", "antitank_mine", "lunge_mine"]
   addAllRepairKits        = ["repair_kit"]
-  addAllMelee             = ["melee", "shovel"]
+  addAllMelee             = ["melee", "shovel", "axe", "sword"]
   addAllBayonet           = ["bayonet"]
-  addAllBackpacks         = ["backpack"]
+  addAllBackpacks         = ["backpack", "small_backpack"]
   addAllBinoculars        = ["binoculars_usable"]
   addAllFlasks            = ["flask_usable"]
 }
@@ -480,6 +504,7 @@ console_register_command(function() {
 
 let vehicleInfo = Computed(@() objInfoByGuid.value?[curVehicle.value])
 
+
 return {
   resetProfile
   dumpProfile
@@ -487,7 +512,10 @@ return {
   curCampSquads
   curCampItems
   curSquadId
+  curForcedSquadId
   setCurSquadId
+  setCurForcedSquadId
+  clearCurForcedSquadId
   curUnlockedSquads
   allUnlockedSquadsSoldiers
   curUnlockedSquadsSoldiers
@@ -512,7 +540,6 @@ return {
   getSoldierItem
   getDemandingSlots
   getDemandingSlotsInfo
-  maxCampaignLevel
 
   setCurArmies
   curArmies
@@ -531,7 +558,6 @@ return {
   curVehicle
   vehicleInfo
   getSquadConfig
-  mteam
   allAvailableArmies
 
   getItemIndex
@@ -542,6 +568,6 @@ return {
   getItemOwnerSoldier
 
   addArmyExp
-  setVehicleToSquad
   getEquippedItemGuid
+  canChangeEquipmentInSlot
 }

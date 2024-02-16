@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { get_country_code } = require("auth")
 let {
   isLootBoxProhibited, setProhibitingLootbox, ProhibitionStatus
@@ -9,6 +9,7 @@ let { get_setting_by_blk_path } = require("settings")
 let { showMessageWithContent } = require("%enlist/components/msgbox.nut")
 let userInfo = require("%enlSqGlob/userInfo.nut")
 let { bigPadding } = require("%enlSqGlob/ui/viewConst.nut")
+let JB = require("%ui/control/gui_buttons.nut")
 
 let skipCountryCheck = mkWatched(persist, "skipCountryCheck", false)
 
@@ -52,7 +53,7 @@ let function checkLootRestriction(cb, content, crateContent) {
           rendObj = ROBJ_TEXTAREA
           behavior = Behaviors.TextArea
           text = loc("countryRestriction/confirmation")
-        }.__update(body_txt)
+        }.__update(fontBody)
       }
       buttons = [
         { text = loc("buyAnyway"),
@@ -87,13 +88,13 @@ let function checkLootRestriction(cb, content, crateContent) {
           size = [sw(50), SIZE_TO_CONTENT]
           maxWidth = hdpx(1000)
           text = loc("countryRestriction", { country = loc(get_country_code())})
-        }.__update(body_txt)
+        }.__update(fontBody)
       ]
     }
     buttons = [
       { text = loc("buyAnyway"), action = onAccept}
       { text = loc("notFrom", { country = loc(get_country_code())}), action = onDecline}
-      { text = loc("Cancel"), isCancel = true}
+      { text = loc("Cancel"), isCancel = true, customStyle = { hotkeys = [[$"^{JB.B} | Esc"]] }}
     ]
   })
 }

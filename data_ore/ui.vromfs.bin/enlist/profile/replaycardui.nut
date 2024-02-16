@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { body_txt, fontawesome } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody, fontawesome } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
 let { rowBg, bigPadding, blockedTxtColor, defTxtColor, commonBtnHeight
 } = require("%enlSqGlob/ui/viewConst.nut")
@@ -15,9 +15,11 @@ let { is_pc } = require("%dngscripts/platform.nut")
 let fa = require("%ui/components/fontawesome.map.nut")
 let textButton = require("%ui/components/textButton.nut")
 let msgbox = require("%ui/components/msgbox.nut")
-let openUrl = require("%ui/components/openUrl.nut")
+let { openUrl } = require("%ui/components/openUrl.nut")
+let { getReplayPortalUrl } = require("%ui/networkedUrls.nut")
+let JB = require("%ui/control/gui_buttons.nut")
 
-const REPLAY_URL = "https://enlisted.net/replays"
+let replayPortalUrl = getReplayPortalUrl() ?? "https://enlisted.net/replays"
 
 let displayPerPage = 11
 let maxListHeight = (displayPerPage + 1) * commonBtnHeight
@@ -28,8 +30,8 @@ let listPadding = [0, listGap]
 let isCurrentRecordProtocolValid = Watched(true)
 let totalPages = Computed(@() ceil(records.value.len().tofloat() / displayPerPage).tointeger())
 
-let defTxtStyle = { color = defTxtColor }.__update(body_txt)
-let disabledTxtStyle = { color = blockedTxtColor }.__update(body_txt)
+let defTxtStyle = { color = defTxtColor }.__update(fontBody)
+let disabledTxtStyle = { color = blockedTxtColor }.__update(fontBody)
 
 records.subscribe(function(_) {
   if (totalPages.value < curPage.value)
@@ -37,7 +39,7 @@ records.subscribe(function(_) {
 })
 
 let mkProtocolBlock = @(isValid) {
-  size = [flex(1.5), SIZE_TO_CONTENT]
+  size = [flex(1.3), SIZE_TO_CONTENT]
   rendObj = ROBJ_TEXT
   text = isValid ? loc("replay/readyToPlay") : loc("replay/protocolMisMatch")
 }.__update(isValid ? defTxtStyle : disabledTxtStyle)
@@ -53,11 +55,11 @@ let listHeader = [
   }
   {
     locId = loc("replay/gameTime")
-    size = [flex(0.5), flex()]
+    size = [flex(0.7), flex()]
   }
   {
     locId = loc("replay/availabilityStatus")
-    size = [flex(1.5), flex()]
+    size = [flex(1.3), flex()]
   }
 ]
 
@@ -100,19 +102,19 @@ let function mkReplay(record, idx) {
         size = [flex(), SIZE_TO_CONTENT]
         text = format_unix_time(replayInfo?.start_timestamp ?? 0)
           .replace("T", " ").replace("Z", "")
-      }.__update(body_txt)
+      }.__update(fontBody)
       {
         rendObj = ROBJ_TEXT
         size = [flex(1.5), SIZE_TO_CONTENT]
         behavior = Behaviors.Marquee
         text = loc(replayInfo?.mission_name ?? "replay/UnknownMission",
-          { mission_type=loc($"missionType/{replayInfo?.mission_type}" ?? "unknownMissionType") })
-      }.__update(body_txt)
+          { mission_type=loc(replayInfo?.mission_type ? $"missionType/{replayInfo.mission_type}" : "unknownMissionType") })
+      }.__update(fontBody)
       {
-        size = [flex(0.5), SIZE_TO_CONTENT]
+        size = [flex(0.7), SIZE_TO_CONTENT]
         rendObj = ROBJ_TEXT
         text = secondsToStringLoc(replayInfo?.total_play_time ?? 0)
-      }.__update(body_txt)
+      }.__update(fontBody)
       mkProtocolBlock(isValid)
     ]
   })
@@ -153,6 +155,7 @@ let deleteReplayMsgbox = @() msgbox.show({
     {
       text = loc("No")
       isCancel = true
+      customStyle = { hotkeys = [[$"^{JB.B} | Esc"]] }
     }
   ]
 })
@@ -213,7 +216,7 @@ let mkReplayControl = {
                 txt({ text = fa["folder-open"] }).__merge(iconParam)
               ]
             }) : null
-            textButton(loc("replay/replaysOnSite"), @() openUrl(REPLAY_URL), {
+            textButton(loc("replay/replaysOnSite"), @() openUrl(replayPortalUrl), {
               margin = 0
             })
           ]

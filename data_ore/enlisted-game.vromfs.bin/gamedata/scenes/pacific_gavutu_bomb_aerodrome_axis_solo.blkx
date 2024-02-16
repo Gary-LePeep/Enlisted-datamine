@@ -1334,6 +1334,7 @@
     "entity": {
       "_template": "briefing_destruction",
       "mission_name": "pacific_gavutu_bomb_aerodrome",
+      "mission_outfit": "pacific",
       "loading_images:list<t>": [
         {
           "item": "ui/pacific_gavutu_inv_01.avif"
@@ -1376,7 +1377,7 @@
       "team__briefing": "destruction/defenders_goals",
       "team__winSubtitle": "debriefing/won_defence_destruction",
       "team__loseSubtitle": "debriefing/lost_defence_destruction",
-      "team__winTitle": "debriefing/britain_won_destruction_defence_title",
+      "team__winTitle": "debriefing/allies_won_destruction_defence_title",
       "team__spawnBotArmy": "pacific_allies"
     }
   },
@@ -1441,15 +1442,15 @@
       "capzone__capRewardPartCap": 1.8,
       "capzone__mustBeCapturedByTeam": 2,
       "groupName": "sector_1",
-      "capzone__timeToPlant": 15.0,
-      "capzone__timeToDefuse": 10.0,
-      "capzone__timeToExplosion": 35.0,
+      "capzone__timeToPlant": 20.0,
+      "capzone__timeToDefuse": 30.0,
+      "capzone__timeToExplosion": 40.0,
       "active": false,
       "ui_order": 1,
       "capzone__capReward": 500.0,
       "capzone__caption": "capzone/warehouse",
       "capzone__checkAllZonesInGroup": true,
-      "capzone__deactivateAfterTimeout": 0.0,
+      "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 1,
       "capzone__createdRespawnBaseGroup": 3,
@@ -1481,18 +1482,18 @@
       "capzone__capRewardPartCap": 1.8,
       "capzone__mustBeCapturedByTeam": 2,
       "groupName": "sector_1",
-      "capzone__timeToPlant": 15.0,
-      "capzone__timeToDefuse": 10.0,
-      "capzone__timeToExplosion": 35.0,
+      "capzone__timeToPlant": 20.0,
+      "capzone__timeToDefuse": 30.0,
+      "capzone__timeToExplosion": 40.0,
       "active": false,
       "ui_order": 1,
       "capzone__capReward": 500.0,
       "capzone__caption": "capzone/warehouse",
       "capzone__checkAllZonesInGroup": true,
-      "capzone__deactivateAfterTimeout": 0.0,
+      "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 1,
-      "capzone__createdRespawnBaseGroup": 4,
+      "capzone__createdRespawnBaseGroup": 3,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__plantingTeam": 2,
       "capzone__bombTemplate": "bomb_site+bomb_site_radar_hardware_animchar_02_without_antenna",
@@ -1519,8 +1520,8 @@
         [-13.1074,4.87139,-119.852]
       ],
       "groupName": "sector_2",
-      "capzone__timeToPlant": 15.0,
-      "capzone__timeToDefuse": 10.0,
+      "capzone__timeToPlant": 20.0,
+      "capzone__timeToDefuse": 30.0,
       "capzone__timeToExplosion": 40.0,
       "capzone__capRewardPartCap": 1.8,
       "capzone__mustBeCapturedByTeam": 2,
@@ -1530,11 +1531,11 @@
       "capzone__owningTeam": 1,
       "capzone__capReward": 500.0,
       "capzone__checkAllZonesInGroup": true,
-      "capzone__deactivateAfterTimeout": 0.0,
+      "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 1,
       "sphere_zone__radius": 25.0,
-      "capzone__createdRespawnBaseGroup": 5,
+      "capzone__createdRespawnBaseGroup": 4,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__plantingTeam": 2,
       "capzone__bombTemplate": "bomb_site+bomb_site_radar_hardware_animchar_03_without_antenna",
@@ -1560,8 +1561,8 @@
         [67.088,3.17265,-26.005]
       ],
       "groupName": "sector_2",
-      "capzone__timeToPlant": 15.0,
-      "capzone__timeToDefuse": 10.0,
+      "capzone__timeToPlant": 20.0,
+      "capzone__timeToDefuse": 30.0,
       "capzone__timeToExplosion": 40.0,
       "capzone__capRewardPartCap": 1.8,
       "capzone__mustBeCapturedByTeam": 2,
@@ -1571,10 +1572,10 @@
       "capzone__owningTeam": 1,
       "capzone__capReward": 500.0,
       "capzone__checkAllZonesInGroup": true,
-      "capzone__deactivateAfterTimeout": 0.0,
+      "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 1,
-      "capzone__createdRespawnBaseGroup": 6,
+      "capzone__createdRespawnBaseGroup": 4,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__plantingTeam": 2,
       "capzone__bombTemplate": "bomb_site+bomb_site_radar_hardware_animchar_04",
@@ -1601,8 +1602,8 @@
         [-90.8745,3.88821,50.3149]
       ],
       "groupName": "sector_3",
-      "capzone__timeToPlant": 15.0,
-      "capzone__timeToDefuse": 10.0,
+      "capzone__timeToPlant": 20.0,
+      "capzone__timeToDefuse": 30.0,
       "capzone__timeToExplosion": 40.0,
       "capzone__capRewardPartCap": 1.8,
       "capzone__mustBeCapturedByTeam": 2,
@@ -1612,10 +1613,10 @@
       "capzone__owningTeam": 1,
       "capzone__capReward": 500.0,
       "capzone__checkAllZonesInGroup": true,
-      "capzone__deactivateAfterTimeout": 0.0,
+      "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 1,
-      "capzone__createdRespawnBaseGroup": 7,
+      "capzone__createdRespawnBaseGroup": 5,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__plantingTeam": 2,
       "capzone__bombTemplate": "bomb_site+bomb_site_radar_hardware_animchar_01",
@@ -1889,7 +1890,7 @@
       ],
       "groupName": "sector_2",
       "team": 1,
-      "respawnBaseGroup": 5
+      "respawnBaseGroup": 4
     }
   },
   {
@@ -1903,7 +1904,7 @@
       ],
       "groupName": "sector_2",
       "team": 1,
-      "respawnBaseGroup": 5,
+      "respawnBaseGroup": 4,
       "active": false
     }
   },
@@ -1918,7 +1919,7 @@
       ],
       "groupName": "sector_3",
       "team": 1,
-      "respawnBaseGroup": 7,
+      "respawnBaseGroup": 5,
       "active": false
     }
   },
@@ -1933,7 +1934,7 @@
       ],
       "groupName": "sector_3",
       "team": 1,
-      "respawnBaseGroup": 7,
+      "respawnBaseGroup": 5,
       "active": false
     }
   },
@@ -1948,7 +1949,7 @@
       ],
       "groupName": "sector_1",
       "team": 1,
-      "respawnBaseGroup": 4,
+      "respawnBaseGroup": 3,
       "active": false
     }
   },
@@ -1963,7 +1964,7 @@
       ],
       "groupName": "sector_1",
       "team": 1,
-      "respawnBaseGroup": 4,
+      "respawnBaseGroup": 3,
       "active": false
     }
   },
@@ -2174,7 +2175,7 @@
       ],
       "groupName": "sector_2",
       "team": 1,
-      "respawnBaseGroup": 6,
+      "respawnBaseGroup": 4,
       "active": false
     }
   },
@@ -2189,7 +2190,7 @@
       ],
       "groupName": "sector_2",
       "team": 1,
-      "respawnBaseGroup": 6,
+      "respawnBaseGroup": 4,
       "active": false
     }
   },

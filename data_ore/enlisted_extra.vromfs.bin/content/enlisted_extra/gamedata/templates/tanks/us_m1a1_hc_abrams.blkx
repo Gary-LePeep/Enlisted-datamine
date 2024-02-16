@@ -1,0 +1,310 @@
+{
+  "us_m1a1_hc_abrams": [
+    {
+      "_use": "base_m1a1_hc_abrams"
+    },
+    {
+      "_use": "tank_abrams_vehicle_tracks_sound"
+    },
+    {
+      "commanderCockpitFpsCamMaxAngle": [40.0,5.0]
+    },
+    {
+      "gunner_cam_limit__useCockpitDir": true
+    },
+    {
+      "disableDMParts:list<t>": [
+        {
+          "part": "ex_armor_08"
+        },
+        {
+          "part": "roll_01"
+        },
+        {
+          "part": "roll_02"
+        },
+        {
+          "part": "roll_03"
+        },
+        {
+          "part": "roll_04"
+        },
+        {
+          "part": "body_01"
+        },
+        {
+          "part": "body_02"
+        }
+      ]
+    },
+    {
+      "vehicle_seats__seats:shared:array": [
+        {
+          "seats:object": {
+            "name": "main_gunner",
+            "locName": "vehicle_seats/gunner",
+            "attachNode": "gunner",
+            "ignoreAttachNodeRotation": true,
+            "attachTm": [
+              [1.0,0.0,0.0],
+              [0.0,1.0,0.0],
+              [0.0,0.0,1.0],
+              [-0.25,-0.5,0.0]
+            ],
+            "seatComponent": "isGunner",
+            "nextSeat": "driver",
+            "shouldHideOwner": true,
+            "receiveDamageFromDMPart": "gunner",
+            "cameraNodeName": "bone_camera_gunner",
+            "cockpitTemplate": "us_m1a1_hc_abrams_gunner_cockpit",
+            "turretNames:array": [
+              {
+                "turretNames": "turret_01"
+              },
+              {
+                "turretNames": "turret_04"
+              }
+            ]
+          }
+        },
+        {
+          "seats:object": {
+            "name": "driver",
+            "locName": "vehicle_seats/driver",
+            "seatOwnsEntityControl": true,
+            "attachNode": "driver",
+            "ignoreAttachNodeRotation": true,
+            "attachTm": [
+              [1.0,0.0,0.0],
+              [0.0,1.0,0.0],
+              [0.0,0.0,1.0],
+              [-0.25,-0.25,0.0]
+            ],
+            "seatComponent": "isDriver",
+            "nextSeat": "main_gunner",
+            "shouldHideOwner": true,
+            "receiveDamageFromDMPart": "driver",
+            "cameraNodeName": "bone_camera_driver",
+            "cockpitTemplate": "us_m1a1_hc_abrams_driver_cockpit"
+          }
+        },
+        {
+          "seats:object": [
+            {
+              "name": "commander"
+            },
+            {
+              "locName": "vehicle_seats/commander"
+            },
+            {
+              "locName": "vehicle_seats/commander"
+            },
+            {
+              "attachNode": "commander"
+            },
+            {
+              "shouldHideOwner": true
+            },
+            {
+              "hatchRotationAxis": [1.8,0.0,0.0]
+            },
+            {
+              "ignoreAttachNodeRotation": true
+            },
+            {
+              "attachTm": [
+                [1.0,0.0,0.0],
+                [0.0,1.0,0.0],
+                [0.0,0.0,1.0],
+                [-0.52,-0.35,0.06]
+              ]
+            },
+            {
+              "seatComponent": "isDriver"
+            },
+            {
+              "receiveDamageFromDMPart": "commander"
+            },
+            {
+              "cameraNodeName": "bone_turret"
+            },
+            {
+              "cockpitTemplate": "us_m1a1_hc_abrams_commander_cockpit"
+            },
+            {
+              "hatchNodes:array": {
+                "node": "hatch_04"
+              }
+            },
+            {
+              "hatchTurretNames:array": [
+                {
+                  "turret": "turret_02"
+                },
+                {
+                  "turret": "turret_03"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "seats:object": {
+            "attachNode": "loader",
+            "locName": "vehicle_seats/loader",
+            "ignoreAttachNodeRotation": true,
+            "attachTm": [
+              [1.0,0.0,0.0],
+              [0.0,1.0,0.0],
+              [0.0,0.0,1.0],
+              [-0.25,-0.5,0.0]
+            ],
+            "seatComponent": "isPassenger",
+            "shouldHideOwner": true,
+            "receiveDamageFromDMPart": "loader",
+            "cameraNodeName": "bone_camera_driver",
+            "loaderTurretNames:array": {
+              "turret": "turret_01"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "dm_panel__redrawInterval:r": {
+        "_tags": "gameClient",
+        "value": 9000.0
+      }
+    }
+  ],
+  "us_m1a1_hc_abrams_commander_cockpit": {
+    "_use": "base_commander_cockpit_no_slits",
+    "animchar__res": "t_26_1940_commander_char",
+    "cockpit__minForwardOffset": -0.05,
+    "cockpit__offset": [-0.0,0.0,-0.0],
+    "cockpit__cockpitOffsetBySlit:list<p3>": {
+      "slit": [-0.85,1.24991,-0.604864]
+    },
+    "cockpit__slitForwardOffset:list<r>": {
+      "slit": 0.17
+    },
+    "cockpit__slitIsGun:list<b>": {
+      "slit": true
+    },
+    "cockpit__slitNodeNames:list<t>": {
+      "slit": "cam_front"
+    },
+    "cockpit__visibleVehicleNodeNames:list<t>": [
+      {
+        "node": "gun_barrel"
+      },
+      {
+        "node": "root"
+      },
+      {
+        "node": "gun_mask"
+      },
+      {
+        "node": "turret"
+      }
+    ],
+    "cockpit__periscopeLimits:list<p4>": {
+      "slit": [-45.0,45.0,-5.0,25.0]
+    },
+    "cockpit__periscopeSpeed:list<p2>": {
+      "slit": [35.0,35.0]
+    },
+    "cockpit__slitZoom:array": {
+      "slit:list<r>": {
+        "zoom": 1.44
+      }
+    },
+    "cockpit__slitZoomTime:list<r>": {
+      "slit": 0.0
+    },
+    "cockpit__slitTemplates:list<t>": {
+      "slit": "default_periscope"
+    },
+    "cockpit__slitEids:list<eid>": []
+  },
+  "us_m1a1_hc_abrams_driver_cockpit": {
+    "_use": "base_driver_cockpit",
+    "animchar__res": "ba_11_driver_char",
+    "cockpit__offset": [-0.3,-0.26,0.23],
+    "cockpit__minForwardOffset": -0.0,
+    "cockpit__visibleVehicleNodeNames:list<t>": [
+      {
+        "node": "gun_barrel"
+      },
+      {
+        "node": "root"
+      },
+      {
+        "node": "turret"
+      },
+      {
+        "node": "ex_lantern_01"
+      },
+      {
+        "node": "ex_lantern_02"
+      },
+      {
+        "node": "ex_decor_l_01"
+      },
+      {
+        "node": "ex_decor_r_01"
+      }
+    ],
+    "cockpit__slitForwardOffset:list<r>": {
+      "slit": 0.0
+    }
+  },
+  "us_m1a1_hc_abrams_gunner_cockpit": {
+    "_use": "base_gunner_cockpit",
+    "animchar__res": "ba_11_gunner_char",
+    "cockpit__minForwardOffset": -0.27,
+    "cockpit__offset": [-0.0,-0.0,-0.0],
+    "cockpit__cockpitOffsetBySlit:list<p3>": {
+      "item": [-0.0,-0.19,-0.14]
+    },
+    "cockpit__attachNodeNames:list<t>": {
+      "node": "bone_gun"
+    },
+    "cockpit__attachNodeIndices:list<i>": [],
+    "cockpit__visibleVehicleNodeNames:list<t>": {
+      "node": "gun_barrel"
+    },
+    "cockpit__slitNodeNames:list<t>": {
+      "slit": "cam_front_right"
+    },
+    "cockpit__slitForwardOffset:list<r>": {
+      "slit": 0.19
+    },
+    "cockpit__slitIsGun:list<b>": {
+      "slit": true
+    },
+    "cockpit__periscopeLimits:list<p4>": {
+      "slit": [-0.0,0.0,0.0,0.0]
+    },
+    "cockpit__periscopeSpeed:list<p2>": {
+      "slit": [-1.0,-1.0]
+    },
+    "cockpit__slitZoom:array": {
+      "slit:list<r>": [
+        {
+          "zoom": 3.0
+        },
+        {
+          "zoom": 10.0
+        }
+      ]
+    },
+    "cockpit__slitZoomTime:list<r>": {
+      "slit": 0.05
+    },
+    "cockpit__slitTemplates:list<t>": {
+      "slit": "m1a1_gunner_optic"
+    },
+    "cockpit__slitEids:list<eid>": []
+  }
+}

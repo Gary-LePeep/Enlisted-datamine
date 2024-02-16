@@ -1,13 +1,13 @@
 {
   "germ_pzkpfw_38t_Marder_III": [
     {
-      "_extends": "base_pzkpfw_38t_marder_iii"
+      "_use": "base_pzkpfw_38t_marder_iii"
     },
     {
-      "_extends": "tank_panzer3_engine_sound"
+      "_use": "tank_panzer3_engine_sound"
     },
     {
-      "_extends": "tank_light_vehicle_tracks_sound"
+      "_use": "tank_light_vehicle_tracks_sound"
     },
     {
       "bullet_holes__movingCollisionNodes:array": [

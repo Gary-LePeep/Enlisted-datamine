@@ -1,16 +1,16 @@
 {
   "germ_jgdpz_38t": {
-    "_extends": "germ_jgdpz_38t_common"
+    "_use": "germ_jgdpz_38t_common"
   },
   "germ_jgdpz_38t_common": [
     {
-      "_extends": "base_panzerjager_hetzer"
+      "_use": "base_panzerjager_hetzer"
     },
     {
-      "_extends": "tank_panzer3_engine_sound"
+      "_use": "tank_panzer3_engine_sound"
     },
     {
-      "_extends": "tank_light_vehicle_tracks_sound"
+      "_use": "tank_light_vehicle_tracks_sound"
     },
     {
       "vehicle_seats__seats:shared:array": [
@@ -114,7 +114,7 @@
     }
   ],
   "germ_jgdpz_38t_driver_cockpit": {
-    "_extends": "base_driver_cockpit_no_slits",
+    "_use": "base_driver_cockpit_no_slits",
     "animchar__res": "pzkpfw_iii_e_driver_char",
     "cockpit__offset": [-0.0,-0.0,0.0],
     "cockpit__visibleVehicleNodeNames:list<t>": [
@@ -152,10 +152,10 @@
   },
   "germ_jgdpz_38t_gunner_cockpit": {
     "vehicle_sight__blk": "content/tanks/gamedata/sight/germ_tzf4.blk",
-    "_extends": "base_gunner_cockpit",
+    "_use": "base_gunner_cockpit",
     "animchar__res": "pzkpfw_iii_e_gunner_char",
     "cockpit__offset": [0.0,0.0,0.0],
-    "cockpit__minZoom": -0.4,
+    "cockpit__minForwardOffset": -0.4,
     "cockpit__attachNodeNames:list<t>": [
       {
         "node": "bone_camera_gunner"
@@ -190,7 +190,7 @@
     }
   },
   "germ_jgdpz_38t_commander_cockpit": {
-    "_extends": "base_commander_cockpit_no_slits",
+    "_use": "base_commander_cockpit_no_slits",
     "animchar__res": "t_26_1940_commander_char",
     "cockpit__offset": [-0.0,0.0,0.0],
     "cockpit__cockpitOffsetBySlit:list<p3>": {
@@ -224,6 +224,6 @@
     }
   },
   "germ_jgdpz_38t_normanydy_premium": {
-    "_extends": "germ_jgdpz_38t_common"
+    "_use": "germ_jgdpz_38t_common"
   }
 }

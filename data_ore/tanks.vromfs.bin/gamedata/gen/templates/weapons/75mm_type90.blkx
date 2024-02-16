@@ -1,0 +1,45 @@
+{
+  "base_75mm_type90": {
+    "item__name": "guns/75mm_type90",
+    "gun__blk": "gamedata/gen/weapons/75mm_type90.blk",
+    "gun__shotFreq": 0.166,
+    "gun__locName": "75mm_type90",
+    "gun__ammoSetsInfo:shared:array": {
+      "defaultSet:array": {
+        "shell:object": {
+          "blk": "gamedata/gen/weapons/shells/75mm_type90_defaultset.blk",
+          "name": "75mm_type1_ap",
+          "type": "aphe_tank"
+        }
+      },
+      "75mm_type94_HE:array": {
+        "shell:object": {
+          "blk": "gamedata/gen/weapons/shells/75mm_type90_75mm_type94_he.blk",
+          "name": "75mm_type94_he",
+          "type": "he_frag_tank"
+        }
+      },
+      "75mm_jp_Smoke:array": {
+        "shell:object": {
+          "blk": "gamedata/gen/weapons/shells/75mm_type90_75mm_jp_smoke.blk",
+          "name": "75mm_type90_smoke",
+          "type": "smoke_tank"
+        }
+      }
+    }
+  },
+  "tankgun_75mm_type90": [
+    {
+      "_use": "tankgun"
+    },
+    {
+      "_use": "base_tankgun_cannon"
+    },
+    {
+      "_use": "base_75mm_type90"
+    },
+    {
+      "turret__triggerGroup": 0
+    }
+  ]
+}

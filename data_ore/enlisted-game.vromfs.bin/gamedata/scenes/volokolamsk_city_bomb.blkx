@@ -50,6 +50,11 @@
   },
   {
     "entity": {
+      "_template": "bloom"
+    }
+  },
+  {
+    "entity": {
       "_template": "postfx_roundctrl"
     }
   },
@@ -69,6 +74,7 @@
     "entity": {
       "_template": "briefing_destruction",
       "mission_name": "volokolamsk_city_bomb",
+      "mission_outfit": "moscow",
       "loading_images:list<t>": [
         {
           "item": "ui/volokolamsk_city_01.avif"
@@ -86,8 +92,8 @@
     "entity": {
       "_template": "team_germany_winter+team_narrator_destruction_attack+respawn_creators_team",
       "team__memberCount": 0.0,
-      "team__scoreCap": 2500.0,
-      "team__score": 2500.0,
+      "team__scoreCap": 2000.0,
+      "team__score": 2000.0,
       "team__squadSpawnCost": 250,
       "team__firstSpawnCostMul": 0.0,
       "team__zeroScoreFailTimer": 60.0,
@@ -95,7 +101,7 @@
       "team__briefing": "destruction/attackers_goals",
       "team__winSubtitle": "debriefing/won_invasion_destruction",
       "team__loseSubtitle": "debriefing/lost_invasion_destruction",
-      "team__winTitle": "debriefing/germany_won_destruction_attack_title",
+      "team__winTitle": "debriefing/axis_won_destruction_attack_title",
       "team__spawnBotArmy": "moscow_axis"
     }
   },
@@ -955,11 +961,11 @@
       "ui_order": 0,
       "capzone__capReward": 500.0,
       "capzone__caption": "capzone/artillery_emplacement",
-      "capzone__timeToPlant": 25.0,
-      "capzone__timeToDefuse": 15.0,
-      "capzone__timeToExplosion": 35.0,
+      "capzone__timeToPlant": 20.0,
+      "capzone__timeToDefuse": 30.0,
+      "capzone__timeToExplosion": 40.0,
       "capzone__checkAllZonesInGroup": true,
-      "capzone__deactivateAfterTimeout": 0.0,
+      "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 1,
       "capzone__createdRespawnBaseGroup": 3,
@@ -993,11 +999,11 @@
       "ui_order": 1,
       "capzone__capReward": 500.0,
       "capzone__caption": "capzone/stable",
-      "capzone__timeToPlant": 25.0,
-      "capzone__timeToDefuse": 15.0,
-      "capzone__timeToExplosion": 35.0,
+      "capzone__timeToPlant": 20.0,
+      "capzone__timeToDefuse": 30.0,
+      "capzone__timeToExplosion": 40.0,
       "capzone__checkAllZonesInGroup": true,
-      "capzone__deactivateAfterTimeout": 0.0,
+      "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 1,
       "capzone__createdRespawnBaseGroup": 4,
@@ -1031,11 +1037,11 @@
       "ui_order": 2,
       "capzone__capReward": 500.0,
       "capzone__caption": "capzone/shop",
-      "capzone__timeToPlant": 25.0,
-      "capzone__timeToDefuse": 15.0,
+      "capzone__timeToPlant": 20.0,
+      "capzone__timeToDefuse": 30.0,
       "capzone__timeToExplosion": 40.0,
       "capzone__checkAllZonesInGroup": true,
-      "capzone__deactivateAfterTimeout": 0.0,
+      "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 1,
       "capzone__createdRespawnBaseGroup": 5,
@@ -1069,11 +1075,11 @@
       "ui_order": 4,
       "capzone__capReward": 500.0,
       "capzone__caption": "capzone/canteen",
-      "capzone__timeToPlant": 25.0,
-      "capzone__timeToDefuse": 15.0,
-      "capzone__timeToExplosion": 35.0,
+      "capzone__timeToPlant": 20.0,
+      "capzone__timeToDefuse": 30.0,
+      "capzone__timeToExplosion": 40.0,
       "capzone__checkAllZonesInGroup": true,
-      "capzone__deactivateAfterTimeout": 0.0,
+      "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 1,
       "capzone__createdRespawnBaseGroup": 6,
@@ -1104,11 +1110,11 @@
       "ui_order": 5,
       "capzone__capReward": 500.0,
       "capzone__caption": "capzone/garage",
-      "capzone__timeToPlant": 25.0,
-      "capzone__timeToDefuse": 15.0,
-      "capzone__timeToExplosion": 35.0,
+      "capzone__timeToPlant": 20.0,
+      "capzone__timeToDefuse": 30.0,
+      "capzone__timeToExplosion": 40.0,
       "capzone__checkAllZonesInGroup": true,
-      "capzone__deactivateAfterTimeout": 0.0,
+      "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 1,
       "capzone__createdRespawnBaseGroup": 7,
@@ -1591,10 +1597,10 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_fighter",
       "transform": [
-        [0.403239,0.0,0.915094],
-        [0.0,1.0,0.0],
-        [-0.915094,0.0,0.403239],
-        [-2163.59,1000.0,-1387.48]
+        [0.476982,0.0,0.878912],
+        [0.0,1.0,-0.0],
+        [-0.878912,0.0,0.476982],
+        [-3242.38,1000.0,-2417.75]
       ],
       "team": 2,
       "maxVehicleOnSpawn": 1,
@@ -1606,10 +1612,10 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_assault",
       "transform": [
-        [0.403239,0.0,0.915094],
-        [0.0,1.0,0.0],
-        [-0.915094,0.0,0.403239],
-        [-2328.32,800.0,-1300.94]
+        [0.476982,0.0,0.878912],
+        [0.0,1.0,-0.0],
+        [-0.878912,0.0,0.476982],
+        [-3105.92,800.0,-2492.33]
       ],
       "team": 2,
       "maxVehicleOnSpawn": 1,
@@ -1621,10 +1627,10 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_fighter",
       "transform": [
-        [0.403239,0.0,0.915094],
-        [0.0,1.0,0.0],
-        [-0.915094,0.0,0.403239],
-        [-2311.86,1000.0,-1309.01]
+        [0.476982,0.0,0.878912],
+        [0.0,1.0,-0.0],
+        [-0.878912,0.0,0.476982],
+        [-3105.92,1000.0,-2492.33]
       ],
       "team": 2,
       "maxVehicleOnSpawn": 1,
@@ -1636,10 +1642,10 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_assault",
       "transform": [
-        [0.403239,0.0,0.915094],
-        [0.0,1.0,0.0],
-        [-0.915094,0.0,0.403239],
-        [-2163.59,800.0,-1387.48]
+        [0.476982,0.0,0.878912],
+        [0.0,1.0,-0.0],
+        [-0.878912,0.0,0.476982],
+        [-3240.96,800.0,-2403.86]
       ],
       "team": 2,
       "maxVehicleOnSpawn": 1,
@@ -1653,7 +1659,7 @@
         [0.403239,0.0,0.915094],
         [0.0,1.0,0.0],
         [-0.915094,0.0,0.403239],
-        [-1475.77,1000.0,-968.293]
+        [-959.823,434.522,-2267.88]
       ],
       "resupply_zone__team": 2
     }
@@ -1663,10 +1669,10 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_fighter",
       "transform": [
-        [-0.387956,0.0,-0.921679],
+        [-0.381774,0.0,-0.924257],
         [0.0,1.0,0.0],
-        [0.921679,0.0,-0.387956],
-        [-335.869,1000.0,2553.34]
+        [0.924257,0.0,-0.381774],
+        [-43.7034,1000.0,3946.93]
       ],
       "team": 1,
       "maxVehicleOnSpawn": 1,
@@ -1678,10 +1684,10 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_assault",
       "transform": [
-        [-0.387956,0.0,-0.921679],
+        [-0.381774,0.0,-0.924257],
         [0.0,1.0,0.0],
-        [0.921679,0.0,-0.387956],
-        [-471.471,800.0,2603.08]
+        [0.924257,0.0,-0.381774],
+        [92.6474,800.0,3881.12]
       ],
       "team": 1,
       "maxVehicleOnSpawn": 1,
@@ -1693,10 +1699,10 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_fighter",
       "transform": [
-        [-0.387956,0.0,-0.921679],
+        [-0.381774,0.0,-0.924257],
         [0.0,1.0,0.0],
-        [0.921679,0.0,-0.387956],
-        [-471.471,1000.0,2603.08]
+        [0.924257,0.0,-0.381774],
+        [85.9722,1000.0,3889.19]
       ],
       "team": 1,
       "maxVehicleOnSpawn": 1,
@@ -1708,10 +1714,10 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_assault",
       "transform": [
-        [-0.387956,0.0,-0.921679],
+        [-0.381774,0.0,-0.924257],
         [0.0,1.0,0.0],
-        [0.921679,0.0,-0.387956],
-        [-320.074,800.0,2541.79]
+        [0.924257,0.0,-0.381774],
+        [-43.7034,800.0,3946.93]
       ],
       "team": 1,
       "maxVehicleOnSpawn": 1,
@@ -1725,7 +1731,7 @@
         [-0.387956,0.0,-0.921679],
         [0.0,1.0,0.0],
         [0.921679,0.0,-0.387956],
-        [-1253.03,1000.0,2107.75]
+        [-1821.57,480.309,3509.73]
       ],
       "resupply_zone__team": 1
     }

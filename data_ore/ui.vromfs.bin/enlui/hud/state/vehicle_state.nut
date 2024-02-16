@@ -2,7 +2,7 @@ import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 let { watchedTable2TableOfWatched } = require("%sqstd/frp.nut")
 let { mkFrameIncrementObservable } = require("%ui/ec_to_watched.nut")
-
+let { localPlayerEid } = require("%ui/hud/state/local_player.nut")
 /*
 //tag heroVehicle exists in vehicle controlled by players
 //human_anim.vehicleSelected is eid in controlled human that shows vehicle that player is seated in
@@ -11,6 +11,8 @@ let inVehicleDefValue = freeze({
   inTank = false
   inPlane = false
   inShip = false
+  isPassengerInMobileRespawn = false
+  isOwnerInMobileRespawn = false
   inGroundVehicle = false
   isVehicleAlive = false
   isVehicleCanBeRessuplied = false
@@ -21,7 +23,7 @@ let inVehicleDefValue = freeze({
 
 let { inVehicleState, inVehicleStateSetValue } = mkFrameIncrementObservable(inVehicleDefValue, "inVehicleState")
 let {
-  inTank, inPlane, inShip, inGroundVehicle, isVehicleAlive, isVehicleCanBeRessuplied, isPlaneOnCarrier, vehicleResupplyType, controlledVehicleEid
+  inTank, inPlane, inShip, isPassengerInMobileRespawn, isOwnerInMobileRespawn, inGroundVehicle, isVehicleAlive, isVehicleCanBeRessuplied, isPlaneOnCarrier, vehicleResupplyType, controlledVehicleEid
 } = watchedTable2TableOfWatched(inVehicleState)
 
 let rolesDefValue = freeze({
@@ -42,6 +44,13 @@ let actionsDefValue = freeze({
 let { actionsState, actionsStateSetValue } = mkFrameIncrementObservable(actionsDefValue, "actionsState")
 let actionsExport = watchedTable2TableOfWatched(actionsState)
 
+let planeStateDefValue = freeze({
+  isFlapsCritical = false
+  isOverloadCritical = false
+})
+let { planeState, planeStateSetValue } = mkFrameIncrementObservable(planeStateDefValue, "planeState")
+let planeStateExport = watchedTable2TableOfWatched(planeState)
+
 local lastInitedStateEid = ecs.INVALID_ENTITY_ID
 
 ecs.register_es("ui_in_vehicle_eid_es",
@@ -50,9 +59,12 @@ ecs.register_es("ui_in_vehicle_eid_es",
       let inPlaneC = comp["airplane"] != null
       let inTankC = comp["isTank"] != null
       let inShipC = comp["ship"] != null
+      let isOwnerInMobileRespawnC = comp["mobileRespawnTag"] != null && comp["ownedByPlayer"] == localPlayerEid.value
+      let isPassengerInMobileRespawnC = comp["mobileRespawnTag"] != null && !isOwnerInMobileRespawnC
       let canBeRessuplied = comp.resupplyAtTime != null && comp.disableVehicleResupply == null
       inVehicleStateSetValue({
-        inPlane=inPlaneC, inTank = inTankC, inShip=inShipC, inGroundVehicle=!inPlaneC,
+        inPlane=inPlaneC, inTank = inTankC, inShip=inShipC, isOwnerInMobileRespawn = isOwnerInMobileRespawnC,
+        isPassengerInMobileRespawn = isPassengerInMobileRespawnC, inGroundVehicle=!inPlaneC,
         vehicleResupplyType = comp.vehicle_resupply__type
         isVehicleAlive = comp["isAlive"]
         isVehicleCanBeRessuplied = canBeRessuplied
@@ -75,6 +87,8 @@ ecs.register_es("ui_in_vehicle_eid_es",
       ["airplane", ecs.TYPE_TAG, null],
       ["isTank", ecs.TYPE_TAG, null],
       ["ship", ecs.TYPE_TAG, null],
+      ["mobileRespawnTag", ecs.TYPE_TAG, null],
+      ["ownedByPlayer", ecs.TYPE_EID, ecs.INVALID_ENTITY_ID],
       ["vehicle_resupply__type", ecs.TYPE_STRING, ""],
       ["resupplyAtTime", ecs.TYPE_FLOAT, null],
       ["disableVehicleResupply", ecs.TYPE_TAG, null],
@@ -143,8 +157,26 @@ ecs.register_es("ui_vehicle_state_es",
   { updateInterval = 0.5, before="*", after="*" }
 )
 
-return rolesExport.__merge(actionsExport, {
-  inTank, inPlane, inShip, inGroundVehicle, isVehicleAlive, isVehicleCanBeRessuplied, isPlaneOnCarrier, controlledVehicleEid,
+ecs.register_es("ui_plane_state_es",
+  {
+    [["onInit", "onChange"]] = function (_, comp) {
+      planeStateSetValue({
+        isFlapsCritical = comp.plane__flapsCritical
+        isOverloadCritical = comp.plane__overloadCritical
+      })
+    }
+  },
+  {
+    comps_track = [
+      ["plane__flapsCritical", ecs.TYPE_BOOL, false],
+      ["plane__overloadCritical", ecs.TYPE_BOOL, false],
+    ],
+    comps_rq = ["vehicleWithWatched"]
+  }
+)
+
+return rolesExport.__merge(actionsExport, planeStateExport, {
+  inTank, inPlane, inShip, isOwnerInMobileRespawn, isPassengerInMobileRespawn, inGroundVehicle, isVehicleAlive, isVehicleCanBeRessuplied, isPlaneOnCarrier, controlledVehicleEid,
   vehicleResupplyType,
   inVehicle = Computed(@() inGroundVehicle.value || inPlane.value)
 })

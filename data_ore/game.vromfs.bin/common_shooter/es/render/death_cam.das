@@ -1,8 +1,9 @@
 require ecs
 require ecs.safe
 require DaWeaponProps
-require EnlistedDm
+require DngDm
 require common_shooter.events_common_shooter
+require common_shooter.es.hit_result_common
 
 [es(tag=render, REQUIRE=watchedByPlr)]
 def set_death_cam_killer(evt : EventOnEntityHit; eid : EntityId; var death_cam__killer : EntityId&)

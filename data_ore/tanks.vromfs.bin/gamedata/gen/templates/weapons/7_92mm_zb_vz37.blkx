@@ -19,13 +19,13 @@
         {
           "shell:object": {
             "blk": "gamedata/gen/weapons/shells/7_92mm_zb_vz37_defaultset_bullet_1.blk",
-            "type": "ap_i_ball"
+            "type": "ap_ball"
           }
         },
         {
           "shell:object": {
             "blk": "gamedata/gen/weapons/shells/7_92mm_zb_vz37_defaultset_bullet_2.blk",
-            "type": "ap_i_ball"
+            "type": "ap_ball"
           }
         },
         {
@@ -39,13 +39,13 @@
         {
           "shell:object": {
             "blk": "gamedata/gen/weapons/shells/7_92mm_zb_vz37_7_92mm_mg34_ap_bullet_1.blk",
-            "type": "ap_i_ball"
+            "type": "ap_ball"
           }
         },
         {
           "shell:object": {
             "blk": "gamedata/gen/weapons/shells/7_92mm_zb_vz37_7_92mm_mg34_ap_bullet_2.blk",
-            "type": "ap_i_ball"
+            "type": "ap_ball"
           }
         }
       ]
@@ -53,16 +53,16 @@
   },
   "tankgun_7_92mm_zb_vz37": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_tankgun_machinegun"
+      "_use": "base_tankgun_machinegun"
     },
     {
-      "_extends": "base_7_92mm_zb_vz37"
+      "_use": "base_7_92mm_zb_vz37"
     },
     {
-      "_extends": "gunsound_7_92mm_zb_vz37"
+      "_use": "gunsound_7_92mm_zb_vz37"
     },
     {
       "turret__triggerGroup": 2

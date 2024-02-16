@@ -2,7 +2,7 @@ import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
 let queueState = require("%enlist/state/queueState.nut")
-let { STATUS, curQueueParam, queueStatus, isInQueue,
+let { STATUS, curGameMode, queueStatus, isInQueue,
   timeInQueue, queueClusters, queueInfo } = queueState
 
 let { revokeAllSquadInvites, dismissAllOfflineSquadmates, squadOnlineMembers,
@@ -17,11 +17,14 @@ let { get_time_msec } = require("dagor.time")
 let { get_app_id } = require("app")
 let { checkMultiplayerPermissions } = require("permissions/permissions.nut")
 let { EventUserMMQueueJoined } = require("gameevents")
+let JB = require("%ui/control/gui_buttons.nut")
+let userInfo = require("%enlSqGlob/userInfo.nut")
 
 let { crossnetworkPlay } = require("%enlSqGlob/crossnetwork_state.nut")
 let eventbus = require("eventbus")
-
-
+let isChangesBlocked = Computed(@() isInQueue.value
+  || squadMembers.value?[userInfo.value?.userId].state.ready)
+let showBlockedChangesMessage = @() msgbox.show({ text = loc("queue/changesBlocked") })
 let startQueueTime = Watched(0)
 let private = {
   nextQPosUpdateTime  = 0
@@ -53,7 +56,7 @@ queueStatus.subscribe(function(s) {
     timeInQueue(0)
     startQueueTime(get_time_msec())
     queueInfo(null)
-    curQueueParam(null)
+    curGameMode(null)
     gui_scene.clearTimer(onTimer)
   } else if (s == STATUS.JOINING || (s == STATUS.IN_QUEUE && wasStatus == STATUS.NOT_IN_QUEUE)) {
     startQueueTime(get_time_msec())
@@ -74,17 +77,21 @@ let function errorText(response) {
   return loc($"error/{errKey}")
 }
 
-let function joinImpl(queue, queue_params) {
+let function joinQueueCallback(response) {
+  if (response.error == 0)
+    return
+
+  log(response)
+  queueStatus(STATUS.NOT_IN_QUEUE)
+  msgbox.show({ text = errorText(response) })
+}
+
+let function joinImpl(gameMode, gameParams) {
   netStateCall(function() {
-    let params = {
-      queueId = queue.id
-      clusters = queueClusters.value.filter(@(has) has).keys()
-      allowFillGroup = autoSquad.value ?? queue?.allowFillGroup ?? false
-      appId = get_app_id()
-      crossplayType = crossnetworkPlay.value
-    }.__update(queue_params)
-    log("enlmm.join_quick_match_queue", params)
-    curQueueParam(params)
+    curGameMode(gameMode)
+    queueStatus(STATUS.JOINING)
+
+    local squadParams = {}
     if (isInSquad.value && squadOnlineMembers.value.len() > 1) {
       let smembers = []
       let appIds = {}
@@ -92,35 +99,46 @@ let function joinImpl(queue, queue_params) {
         smembers.append(uid)
         appIds[uid.tostring()] <- member.state?.appId ?? get_app_id()
       }
-      let squad = {
-        members = smembers
-        leader = squadId.value
+      squadParams = {
+        squad = {
+          members = smembers
+          leader = squadId.value
+        }
+        appIds
       }
-      params.squad <- squad
-      params.appIds <- appIds
     }
 
-    queueStatus(STATUS.JOINING)
+    foreach (queue in gameMode.queues) {
+      let queueId = queue.id
+      let queueParams = gameParams?[queueId]
+      if (queueParams == null)
+        continue
 
-    matchingCall("enlmm.join_quick_match_queue", function(response) {
-      if (response.error != 0){
-        log(response)
-        queueStatus(STATUS.NOT_IN_QUEUE)
-        msgbox.show({text = errorText(response) })
-      }
-    }, params)
+      let params = {
+        queueId
+        clusters = queueClusters.value.filter(@(has) has).keys()
+        allowFillGroup = autoSquad.value ?? queue?.allowFillGroup ?? false
+        appId = get_app_id()
+        crossplayType = crossnetworkPlay.value
+      }.__update(squadParams, queueParams)
+      log("enlmm.join_quick_match_queue", params)
+      matchingCall("enlmm.join_quick_match_queue", joinQueueCallback, params)
+    }
   })
 }
 
-let function joinQueue(queue, queue_params = {}) {
+let function joinQueue(gameMode, gameParams = {}) {
   if (!checkMultiplayerPermissions()) {
     log("no permissions to run multiplayer")
     return
   }
-  if (!isInSquad.value)
-    return joinImpl(queue, queue_params)
 
-  let { maxGroupSize = 1, minGroupSize = 1 } = queue
+  if (!isInSquad.value) {
+    joinImpl(gameMode, gameParams)
+    return
+  }
+
+  let { maxGroupSize = 1, minGroupSize = 1 } = gameMode
   local notReadyMembers = ""
   let squadOnlineMembersVal = squadOnlineMembers.value
   let squadOnlineMembersAmount = squadOnlineMembersVal.len()
@@ -149,15 +167,15 @@ let function joinQueue(queue, queue_params = {}) {
           action = function() {
             dismissAllOfflineSquadmates()
             revokeAllSquadInvites()
-            joinImpl(queue, queue_params)
+            joinImpl(gameMode, gameParams)
           }
         }
-        { text = loc("Cancel"), isCancel = true }
+        { text = loc("Cancel"), isCancel = true, customStyle = { hotkeys = [[$"^{JB.B} | Esc"]] } }
       ]
     })
   }
   else
-    joinImpl(queue, queue_params)
+    joinImpl(gameMode, gameParams)
 }
 
 let function leaveQueue(cb = null) {
@@ -227,4 +245,6 @@ squadMembersGeneration.subscribe(function(_) {
 return queueState.__merge({
   joinQueue
   leaveQueue
+  isChangesBlocked
+  showBlockedChangesMessage
 })

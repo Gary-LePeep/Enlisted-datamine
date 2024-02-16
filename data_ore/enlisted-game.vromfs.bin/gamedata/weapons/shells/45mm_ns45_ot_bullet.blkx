@@ -7,43 +7,32 @@
   "maxDistance": 3500.0,
   "normalizationPreset": "heat",
   "ricochetPreset": "he",
-  "secondaryShattersPreset": "ap",
-  "stabilityThreshold": 0.05,
+  "groundRicochetPreset": "he",
   "hitPowerMult": 3.0,
-  "stabilityCaliberToArmorThreshold": 5.0,
+  "secondaryShattersPreset": "ap",
   "onHitChanceMultFire": 3.0,
-  "stabilityReductionAfterRicochet": 0.5,
+  "stabilityThreshold": 0.05,
   "nearHitPower": [1.0,50.0],
-  "stabilityReductionAfterPenetration": 0.15,
+  "stabilityCaliberToArmorThreshold": 5.0,
   "midHitPower": [0.9,300.0],
-  "bulletType": "he_frag_i_t",
+  "stabilityReductionAfterRicochet": 0.5,
   "farHitPower": [0.1,700.0],
-  "slopeEffectPreset": "ap",
+  "stabilityReductionAfterPenetration": 0.15,
   "endHitPower": [0.008,1500.0],
   "nearArmorPower": [4.0,150.0],
-  "fresnel": [0.23,0.1,2.0],
+  "bulletType": "he_frag_i_t",
   "relativeVelHitShift": [300.0,1000.0],
   "midArmorPower": [4.0,600.0],
-  "explodeOnRendinst": true,
+  "slopeEffectPreset": "ap",
   "farArmorPower": [4.0,1000.0],
-  "shellAnimation": "video/shells_animations/he.ivf",
+  "fresnel": [0.23,0.1,2.0],
   "relativeVelArmorShift": [200.0,1000.0],
+  "explodeOnRendinst": true,
+  "fuseOnWater": true,
+  "fuseOnWaterProbability": 1.0,
+  "ricochetTimeToLive": 0.085,
   "fuseDelayDist": 0.3,
   "explodeTreshold": 0.1,
-  "explodeHitPower": 45.0,
-  "explodeArmorPower": 8.6,
-  "explodeRadius": [0.22,1.24],
-  "shutterDamage": true,
-  "shutterDamageRadius": 5.0,
-  "shutterAmount": 80,
-  "shutterArmorPower": 6.0,
-  "shutterHit": 6.0,
-  "selfDestructionFx": "explosion_air_selfexplosion_small",
-  "explosionEffect": "hit_28_38mm_metal_he",
-  "groundCollisionEffect": "hit_28_38mm_dirt_he",
-  "ricochetEffect": "hit_28_38mm_metal_ap",
-  "waterCollisionEffect": "hit_28_38mm_water",
-  "explosionPatchRadius": 1.0,
   "stabilityRicochetModifier": [
     {
       "mod1": [0.0,0.05]
@@ -58,29 +47,52 @@
       "mod3": [45.0,0.3]
     }
   ],
+  "pressureDamage": {
+    "damageType": "pressure"
+  },
+  "damage": {
+    "kinetic": {
+      "damageType": "generic",
+      "demarrePenetrationK": 0.15,
+      "demarreSpeedPow": 1.43,
+      "demarreMassPow": 0.71,
+      "demarreCaliberPow": 1.07
+    },
+    "shatter": [
+      {
+        "useRealShatters": true
+      },
+      {
+        "countPortion": 0.5
+      },
+      {
+        "segment": {
+          "radiusScale": 1.0,
+          "penetrationScale": 1.2,
+          "damageScale": 1.15,
+          "angles": [0.0,179.0],
+          "countPortion": 0.5
+        }
+      },
+      {
+        "segment": {
+          "radiusScale": 1.0,
+          "penetrationScale": 1.2,
+          "damageScale": 1.15,
+          "angles": [180.0,359.0],
+          "countPortion": 0.5
+        }
+      }
+    ]
+  },
+  "shatterDamage": {
+    "breachConeAngle": 45.0
+  },
   "visual": {
     "range_percent_of_ammo": [100.0,0.0],
     "traceFreq": 1,
     "tracer": "37mmLightRed",
     "trail": "black"
-  },
-  "hitFx": {
-    "steel": {
-      "fx": "hit_28_38mm_metal_he",
-      "fxScale": [1.0,1.0]
-    },
-    "wood": {
-      "fx": "hit_28_38mm_wood_he",
-      "fxScale": [1.0,1.0]
-    },
-    "glass": {
-      "fx": "hit_28_38mm_metal_he",
-      "fxScale": [1.0,1.0]
-    },
-    "stone": {
-      "fx": "hit_28_38mm_stone_he",
-      "fxScale": [1.0,1.0]
-    }
   },
   "tracer": {
     "headColor": "#fff7d4c8",

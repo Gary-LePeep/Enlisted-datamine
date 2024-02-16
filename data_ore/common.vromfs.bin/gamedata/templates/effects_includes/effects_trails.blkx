@@ -13,38 +13,39 @@
     "staticEffect:tag": []
   },
   "trail_rocket_dark_effect": {
-    "_extends": "trails_effect_base",
+    "_use": "trails_effect_base",
     "_group": {
       "_tags": "render",
       "effect__name": "trail_rocket_dark_cmps_fx"
     }
   },
   "trail_rocket_small_effect": {
-    "_extends": "trails_effect_base",
+    "_use": "trails_effect_base",
     "_group": {
       "_tags": "render",
       "effect__name": "trail_rocket_small_cmps_fx"
     }
   },
   "trail_rocket_medium_effect": {
-    "_extends": "trails_effect_base",
+    "_use": "trails_effect_base",
     "_group": {
       "_tags": "render",
       "effect__name": "trail_rocket_medium_cmps_fx"
     }
   },
   "trail_rocket_heavy_effect": {
-    "_extends": "trails_effect_base",
+    "_use": "trails_effect_base",
     "_group": {
       "_tags": "render",
       "effect__name": "trail_rocket_heavy_cmps_fx"
     }
   },
-  "trail_rocket_launch_smoke_effect": {
-    "_extends": "trails_effect_base",
+  "trail_projectile_launch_smoke_effect": {
+    "_use": "trails_effect_base",
     "_group": {
       "_tags": "render",
-      "effect__name": "trail_rocket_launch_smoke_cmps_fx"
+      "effect__name": "trail_rocket_launch_smoke_cmps_fx",
+      "gun_flash_fx__timeToDestroy": 0.5
     }
   }
 }

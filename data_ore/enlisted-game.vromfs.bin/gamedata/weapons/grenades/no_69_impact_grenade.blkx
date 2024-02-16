@@ -11,8 +11,7 @@
   "frictionGround": 2.0,
   "entityTemplate": "no_69_impact_grenade",
   "entityPhysTemplate": "no_69_impact_grenade_phys",
-  "explosiveType": "tnt",
-  "explosiveMass": 0.18,
+  "ccdClipVelocityMult": 0.0,
   "collisionResource": {
     "props": {
       "volumeBox": "box"
@@ -34,8 +33,8 @@
   },
   "splashDamage": {
     "radius": [1.0,8.0],
-    "penetration": [15.0,2.0],
-    "damage": 25.0,
+    "penetration": [5.0,2.0],
+    "damage": 100.0,
     "dmgOffset": [0.0,0.25,0.0]
   },
   "explFx": {
@@ -43,20 +42,9 @@
     "effectTemplName": "explosion_effect_small+disable_effect_sfx"
   },
   "explSound": {
-    "explSoundPath": "impact/grenade",
-    "shattersWizPath": "impact/wiz_fragment",
-    "shattersHitPath": "impact/fragment",
-    "shattersSampleRangeAroundListener": 20.0,
-    "shattersMinMaxRayLenMul": [0.5,4.0],
-    "shattersMinMaxCount": [0,4]
+    "explSoundPath": "impact/grenade"
   },
   "shellSound": {
     "activatePath": "/weapon/grenade/activate"
-  },
-  "damage": {
-    "explosive": {
-      "strengthEquivalent": 1.0,
-      "brisanceEquivalent": 1.0
-    }
   }
 }

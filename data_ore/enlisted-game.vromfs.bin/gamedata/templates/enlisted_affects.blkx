@@ -1,6 +1,6 @@
 {
   "enlisted_burning_affect": {
-    "_extends": "replicated_game_effect",
+    "_use": "replicated_game_effect",
     "burning_affect:tag": [],
     "locked_use_object__lockStationaryGunUse:tag": [],
     "locked_inventory__lockPickup:tag": [],
@@ -8,10 +8,10 @@
   },
   "bomb_site_animation_base": [
     {
-      "_extends": "replicated_game_effect"
+      "_use": "replicated_game_effect"
     },
     {
-      "_extends": "game_effect_sound"
+      "_use": "game_effect_sound"
     },
     {
       "game_effect__forceAnimUpperNonCrawlState": "upper_satchel"
@@ -30,21 +30,21 @@
     }
   ],
   "bomb_site_plant_animation": {
-    "_extends": "bomb_site_animation_base",
+    "_use": "bomb_site_animation_base",
     "game_effect__forceAnimUpperNonCrawlState": "upper_satchel",
     "game_effect__forceAnimUpperCrawlState": "satchel_plant_crawl",
     "game_effect_sound__hero": "env_effects/bomb_site/activate_action",
     "game_effect_sound__enemy": "env_effects/bomb_site/activate_action"
   },
   "bomb_site_reset_animation": {
-    "_extends": "bomb_site_animation_base",
+    "_use": "bomb_site_animation_base",
     "game_effect__forceAnimUpperNonCrawlState": "upper_satchel",
     "game_effect__forceAnimUpperCrawlState": "satchel_plant_crawl",
     "game_effect_sound__hero": "env_effects/bomb_site/deactivate_action",
     "game_effect_sound__enemy": "env_effects/bomb_site/deactivate_action"
   },
   "bomb_site_defuse_animation": {
-    "_extends": "bomb_site_animation_base",
+    "_use": "bomb_site_animation_base",
     "game_effect__forceAnimUpperNonCrawlState": "upper_satchel",
     "game_effect__forceAnimUpperCrawlState": "satchel_plant_crawl",
     "game_effect_sound__hero": "env_effects/bomb_site/deactivate_action",
@@ -52,10 +52,10 @@
   },
   "game_effect_attached_animchar": [
     {
-      "_extends": "slot_attachable_no_slotname"
+      "_use": "slot_attachable_no_slotname"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
       "transform": [
@@ -77,13 +77,13 @@
   ],
   "vehicle_repair_animation": [
     {
-      "_extends": "replicated_game_effect"
+      "_use": "replicated_game_effect"
     },
     {
-      "_extends": "game_effect_sound"
+      "_use": "game_effect_sound"
     },
     {
-      "_extends": "game_effect_attached_animchar"
+      "_use": "game_effect_attached_animchar"
     },
     {
       "game_effect__forceAnimUpperNonCrawlState": "upper_wrench_use"
@@ -110,7 +110,7 @@
       "slot_attach__slotName": "weapon"
     },
     {
-      "slot_attach__rotOffset": [-90.0,10.0,0.0]
+      "slot_attach__rotOffset": [130.0,0.0,90.0]
     },
     {
       "slot_attach__rotTm": [

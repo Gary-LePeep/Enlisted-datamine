@@ -11,6 +11,8 @@ let {
 let { armySquadsById } = require("%enlist/soldiers/model/state.nut")
 let { squadsCfgById } = require("%enlist/soldiers/model/config/squadsConfig.nut")
 let { allItemTemplates } = require("%enlist/soldiers/model/all_items_templates.nut")
+let { growthSquadsByArmy } = require("%enlist/growth/growthState.nut")
+
 
 
 let researchToShow = Watched(null)
@@ -24,18 +26,23 @@ let getClosestResearch = @(army_id, researches, statuses) researches //FIXME: Be
       ? val : res)
 
 let function focusResearch(research) {
-  let { army_id = null, squad_id = null, page_id = 0, research_id = null } = research
+  let { army_id = null, squad_id = null, squadIdList = {},
+    page_id = 0, research_id = null } = research
   let researchData = armiesResearches.value?[army_id].researches[research_id]
-  if (squad_id == null || researchData == null)
+  if ((squad_id == null && squadIdList.len() == 0) || researchData == null)
     return
+
+  local squadToOpen = squad_id ?? squadIdList
+    .findindex(@(_, squadId) squadId in armySquadsById.value?[army_id])
+
   jumpToResearches()
   // do not switch army, because all visible researches are belong to the current army
-  viewSquadId(squad_id)
+  viewSquadId(squadToOpen)
   selectedTable(page_id)
 
   let context = {
     armyId = army_id
-    squadId = squad_id
+    squadId = squadToOpen
     squadsCfg = squadsCfgById.value
     alltemplates = allItemTemplates.value
   }
@@ -54,35 +61,59 @@ let function findResearchById(research_id) {
   return null
 }
 
-let hasResearchSquad = @(armyId, researchData)
-  researchData.squad_id in armySquadsById.value?[armyId]
+let hasResearchSquad = function(armyId, researchData) {
+  let { squad_id = "" } = researchData
+  if (squad_id != "")
+    return squad_id in armySquadsById.value?[armyId]
 
-let function findClosestResearch(armyId, checkFunc) {
+  return researchData.squadIdList
+    .findvalue(@(_, squadId) squadId in armySquadsById.value?[armyId]) != null
+}
+
+
+let function findResearchesByFunc(armyId, checkFunc) {
   let researches = []
   let allResearches = armiesResearches.value?[armyId].researches ?? {}
   foreach (researchData in allResearches)
     if (checkFunc(researchData))
       researches.append(researchData)
+
+  return researches
+}
+
+let function findClosestResearch(armyId, checkFunc) {
+  let researches = findResearchesByFunc(armyId, checkFunc)
   return getClosestResearch(armyId, researches, allResearchStatus.value?[armyId] ?? {})
 }
 
-let function findResearchSlotUnlock(soldier, slotType) {
+
+let function findSlotUnlockRequirement(soldier, slotType) {
   if (soldier == null || slotType == null)
     return null
+
   let armyId = getLinkedArmyName(soldier)
+  let statuses = allResearchStatus.value?[armyId] ?? {}
   let { sClass = "unknown" } = soldier
-  return findClosestResearch(armyId, @(researchData)
-    (researchData?.effect.slot_unlock[sClass] ?? []).contains(slotType)
-    && hasResearchSquad(armyId, researchData))
+  let researches = findResearchesByFunc(armyId, @(researchData)
+    (researchData?.effect.slot_unlock[sClass] ?? []).contains(slotType))
+
+  let availResearches = researches.filter(@(r) hasResearchSquad(armyId, r))
+
+  if (availResearches.len() > 0)
+    return { research = getClosestResearch(armyId, availResearches, statuses) }
+  if (researches.len() > 0) {
+    let research = researches.top()
+    return { squadId = research?.squad_id ?? research?.squadIdList.keys().top() }
+  }
+  return null
 }
 
-let function findResearchUpgradeUnlock(armyId, item) {
+let function findResearchesUpgradeUnlock(armyId, item) {
   if (item == null)
     return null
   let upgradetpl = item?.upgradeitem
-  return findClosestResearch(armyId, @(researchData)
-    (researchData?.effect.weapon_upgrades ?? []).contains(upgradetpl)
-    && hasResearchSquad(armyId, researchData))
+  return findResearchesByFunc(armyId, @(researchData)
+    (researchData?.effect.weapon_upgrades ?? []).contains(upgradetpl))
 }
 
 let function findResearchTrainClass(soldier) {
@@ -90,8 +121,10 @@ let function findResearchTrainClass(soldier) {
     return null
   let armyId = getLinkedArmyName(soldier)
   let { sClass = "unknown" } = soldier
-  return findClosestResearch(armyId, @(researchData)
-    (researchData?.effect.class_training[sClass] ?? 0) > 0)
+  let researches = findResearchesByFunc(armyId, @(r) (r?.effect.class_training[sClass] ?? 0) > 0)
+    .filter(@(research) research.squadIdList
+      .findvalue(@(_, squadId) squadId in growthSquadsByArmy.value?[armyId]) != null)
+  return getClosestResearch(armyId, researches, allResearchStatus.value?[armyId] ?? {})
 }
 
 console_register_command(@(researchId)
@@ -100,8 +133,8 @@ console_register_command(@(researchId)
 return {
   researchToShow
   focusResearch
-  findResearchSlotUnlock
-  findResearchUpgradeUnlock
+  findSlotUnlockRequirement
+  findResearchesUpgradeUnlock
   findResearchTrainClass
   findClosestResearch
   getClosestResearch

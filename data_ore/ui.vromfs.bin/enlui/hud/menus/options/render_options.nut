@@ -21,6 +21,9 @@ let { DLSS_BLK_PATH, DLSS_OFF, dlssAvailable, dlssValue, dlssToString,
 let { XESS_BLK_PATH, XESS_OFF, xessAvailable, xessValue, xessToString,
   xessSetValue, xessNotAllowLocId
 } = require("xess_state.nut")
+let { FSR2_BLK_PATH, FSR2_OFF, fsr2Supported, fsr2Available, fsr2Value, fsr2ToString,
+  fsr2SetValue
+} = require("fsr2_state.nut")
 let { LOW_LATENCY_BLK_PATH, LOW_LATENCY_OFF, LOW_LATENCY_NV_ON,
   LOW_LATENCY_NV_BOOST, lowLatencyAvailable, lowLatencyValue,
   lowLatencySetValue, lowLatencyToString, lowLatencySupported
@@ -29,11 +32,13 @@ let { PERF_METRICS_BLK_PATH, PERF_METRICS_FPS,
   perfMetricsAvailable, perfMetricsValue, perfMetricsSetValue, perfMetricsToString
 } = require("performance_metrics_options.nut")
 let { is_inline_rt_supported, is_dx12, is_hdr_available, is_hdr_enabled, change_paper_white_nits,
-  change_gamma
+  change_gamma, is_gui_driver_select_enabled
 } = require("videomode")
 let { availableMonitors, monitorValue, get_friendly_monitor_name } = require("monitor_state.nut")
 let { fpsList, UNLIMITED_FPS_LIMIT } = require("fps_list.nut")
 let {isBareMinimum} = require("quality_preset_common.nut")
+let msgbox = require("%ui/components/msgbox.nut")
+let { globalWatched } = require("%dngscripts/globalState.nut")
 
 let resolutionToString = @(v) typeof v == "string" ? v : $"{v[0]} x {v[1]}"
 
@@ -52,6 +57,11 @@ let consoleSettingsEnabled = (consoleGfxSettingsBlk != null) && (consoleGfxSetti
 
 let isOptAvailable = @() platform.is_pc || (DBGLEVEL > 0 && (platform.is_sony || platform.is_xbox) && consoleSettingsEnabled)
 let isPcDx12 = @() platform.is_pc && is_dx12()
+let isDriverOptAvailable = @() platform.is_win64 && is_gui_driver_select_enabled()
+
+const defDriver = "auto"
+let originalDriverValue = get_setting_by_blk_path("video/driver") ?? defDriver
+let driverValue = Watched(originalDriverValue)
 
 let optSafeArea = optionCtor({
   name = loc("options/safeArea")
@@ -65,11 +75,28 @@ let optSafeArea = optionCtor({
   available = safeAreaList
   valToString = @(s) $"{s*100}%"
   isEqual = defCmp
+  restart = false
+  reload = true
+})
+
+let optDriver = optionCtor({
+  name = loc("options/driver")
+  widgetCtor = optionSpinner
+  tab = "Graphics"
+  blkPath = "video/driver"
+  isAvailable = isDriverOptAvailable
+  defVal = "auto"
+  var = driverValue
+  available = DBGLEVEL > 0 ? ["auto", "dx11", "dx12", "vulkan"] : ["auto", "dx11", "dx12"]
+  restart = true
+  valToString = loc_opt
 })
 
 const defVideoMode = "fullscreen"
 let originalValVideoMode = get_setting_by_blk_path("video/mode") ?? defVideoMode
 let videoModeVar = Watched(originalValVideoMode)
+
+let isDx12Selected = Computed(@() (isDriverOptAvailable() ? driverValue.value == "dx12" : isPcDx12()))
 
 let optVideoMode = optionCtor({
   name = loc("options/mode")
@@ -135,7 +162,8 @@ let optHdr = optionCtor({
   name = loc("options/hdr", "HDR")
   tab = "Graphics"
   blkPath = "video/enableHdr"
-  isAvailable = isPcDx12
+  isAvailable = @() isPcDx12() || platform.is_sony
+  restart = platform.is_sony
   widgetCtor = mkDisableableCtor(
     Computed(@() is_hdr_available(monitorValue.value) ? null : "{0} ({1})".subst(loc("option/off"), loc("option/monitor_does_not_support", "Monitor doesn't support"))),
     optionCheckBox)
@@ -147,25 +175,27 @@ const MAX_PAPER_WHITE_NITS = 1000
 const PAPER_WHITE_NITS_STEP = 10
 const DEF_PAPER_WHITE_NITS = 200
 
-let optionPaperWhiteNitsSliderCtor = mkSliderWithText
-
-let originalValPaperWhiteNits = get_setting_by_blk_path("video/paperWhiteNits") ?? DEF_PAPER_WHITE_NITS
-let paperWhiteNitsVar = Watched(originalValPaperWhiteNits)
-
-paperWhiteNitsVar.subscribe(change_paper_white_nits)
+let paperWhiteBlkPath = "video/paperWhiteNits"
+let paperWhiteOptData = getOnlineSaveData(paperWhiteBlkPath,
+  @() get_setting_by_blk_path(paperWhiteBlkPath) ?? DEF_PAPER_WHITE_NITS,
+  @(p) clamp(p.tointeger(), MIN_PAPER_WHITE_NITS, MAX_PAPER_WHITE_NITS))
 
 let optPaperWhiteNits = optionCtor({
   name = loc("options/paperWhiteNits", "Paper White Nits")
   tab = "Graphics"
-  blkPath = "video/paperWhiteNits"
   isAvailable = is_hdr_enabled
-  widgetCtor = optionPaperWhiteNitsSliderCtor
-  var = paperWhiteNitsVar
+  widgetCtor = mkSliderWithText
+  var = paperWhiteOptData.watch
+  setValue = function(val) {
+    paperWhiteOptData.setValue(val)
+    change_paper_white_nits(val)
+  }
+  blkPath = paperWhiteBlkPath
+  defVal = DEF_PAPER_WHITE_NITS
   min = MIN_PAPER_WHITE_NITS
   max = MAX_PAPER_WHITE_NITS
+  step = PAPER_WHITE_NITS_STEP
   pageScroll = PAPER_WHITE_NITS_STEP
-  step = PAPER_WHITE_NITS_STEP.tofloat()
-  convertForBlk = @(v) (v < MIN_PAPER_WHITE_NITS || v > MAX_PAPER_WHITE_NITS) ? DEF_PAPER_WHITE_NITS : (v).tointeger()
 })
 
 let optVsync = optionCtor({
@@ -262,7 +292,7 @@ let rtGIValue = Computed(@() ((is_inline_rt_supported() && !rtGIDisabled.value)
 let optRTGi = optionCtor({
   name = loc("options/RTGI", "Ray Tracing Enhanced Global Illumination")
   tab = "Graphics"
-  isAvailable = isPcDx12
+  isAvailable = @() isPcDx12() && isDevBuild()
   widgetCtor = mkDisableableCtor(Computed(@() !is_inline_rt_supported()
         ? loc("options/inlne_rt_not_supported", "Inline Raytracing not supported")
       : rtGIDisabled.value
@@ -391,7 +421,9 @@ let optAntiAliasingMode = optionCtor({
                 antiAliasingMode.TAA,
                 antiAliasingMode.TSR,
                 dlssNotAllowLocId.value == null ? antiAliasingMode.DLSS : null,
-                xessNotAllowLocId.value == null && isPcDx12 ? antiAliasingMode.XESS : null ].filter(@(q) q != null))
+                (xessNotAllowLocId.value == null && isDx12Selected.value) ? antiAliasingMode.XESS : null,
+                (fsr2Supported.value && isDx12Selected.value) ? antiAliasingMode.FSR2 : null,
+                antiAliasingMode.SSAA ].filter(@(q) q != null))
   valToString = @(v) loc(antiAliasingModeToString[v].optName, antiAliasingModeToString[v].defLocString)
 }.__update(renderSettingsTbl.antiAliasingModeChosen, { var = antiAliasingModeValue }))
 
@@ -427,7 +459,7 @@ let optXess = optionCtor({
   widgetCtor = mkDisableableCtor(
     Computed(@() xessNotAllowLocId.value == null ? null : "{0} ({1})".subst(loc("option/off"), loc(xessNotAllowLocId.value))),
     optionSpinner)
-  isAvailableWatched = Computed(@() isOptAvailable() && antiAliasingModeValue.value == antiAliasingMode.XESS)
+  isAvailableWatched = Computed(@() isOptAvailable() && antiAliasingModeValue.value == antiAliasingMode.XESS && isDx12Selected.value)
   blkPath = XESS_BLK_PATH
   defVal = XESS_OFF
   var = xessValue
@@ -436,14 +468,34 @@ let optXess = optionCtor({
   valToString = @(v) loc(xessToString[v])
 })
 
-let optTaaMipBias = optionCtor({
-  name = loc("options/taa_mip_bias", "Enhanced Texture Filtering")
+let optFsr2 = optionCtor({
+  name = loc("options/fsr2Quality", "FSR2 Quality")
   tab = "Graphics"
-  isAvailableWatched = Computed(@() isOptAvailable() && !isBareMinimum.value)
-  widgetCtor = optionSlider
-  min = 0 max = -1.2 unit = 0.05 pageScroll = 0.05
+  widgetCtor = mkDisableableCtor(
+    Computed(@() fsr2Supported.value ? null : "{0} ({1})".subst(loc("option/off"), loc("fsr2/notSupported"))),
+    optionSpinner)
+  isAvailableWatched = Computed(@() isOptAvailable() && antiAliasingModeValue.value == antiAliasingMode.FSR2)
+  blkPath = FSR2_BLK_PATH
+  defVal = FSR2_OFF
+  var = fsr2Value
+  setValue = fsr2SetValue
+  available = fsr2Available
+  valToString = @(v) loc(fsr2ToString[v])
+})
+
+let optSharpening = optionCtor({
+  name = loc("options/sharpening", "Sharpening")
+  isAvailableWatched = Computed(@() isOptAvailable())
+  widgetCtor = mkDisableableCtor(bareOffText, optionPercentTextSliderCtor)
+  min = 0.0
+  max = 100.0
+  unit = 5.0/100.0
+  pageScroll = 5.0
   restart = false
-}.__update(renderSettingsTbl.taaMipBias))
+  tab = "Graphics"
+  valToString = loc_opt
+  isEqual = defCmp
+}.__update(renderSettingsTbl.sharpening))
 
 const DYNAMIC_RESOLUTION_BLK_PATH = "video/dynamicResolution/targetFPS"
 const DYNAMIC_RESOLUTION_OFF = 0
@@ -546,7 +598,7 @@ let optOnlyonlyHighResFx = optionCtor({
   tab = "Graphics"
   isAvailable = isOptAvailable
   widgetCtor = mkDisableableCtor(bareOffText, optionSpinner)
-  available = ["lowres", "highres"]
+  available = ["lowres", "medres", "highres"]
   restart = false
   valToString = loc_opt
 }.__update(renderSettingsTbl.onlyHighResFx))
@@ -627,6 +679,22 @@ let optHQProbeReflections = optionCtor({
   restart = false
 }.__update(renderSettingsTbl.hqProbeReflections))
 
+let optHQVolumetricClouds = optionCtor({
+  name = loc("options/HQVolumetricClouds")
+  tab = "Graphics"
+  isAvailable = @() platform.is_pc
+  widgetCtor = mkDisableableCtor(bareOffText, optionCheckBox)
+  restart = false
+}.__update(renderSettingsTbl.hqVolumetricClouds))
+
+let optHQVolfog= optionCtor({
+  name = loc("options/HQVolfog")
+  tab = "Graphics"
+  isAvailable = @() platform.is_pc
+  widgetCtor = mkDisableableCtor(bareOffText, optionCheckBox)
+  restart = false
+}.__update(renderSettingsTbl.hqVolfog))
+
 let optSSSS = optionCtor({
   name = loc("options/ssss")
   tab = "Graphics"
@@ -637,8 +705,19 @@ let optSSSS = optionCtor({
   valToString = loc_opt
 }.__update(renderSettingsTbl.ssss))
 
+let { wasSSAAWarningShown, wasSSAAWarningShownUpdate
+} = globalWatched("wasSSAAWarningShown", @() false)
+
+antiAliasingModeChosen.subscribe(function(mode) {
+  if (!wasSSAAWarningShown.value && mode == antiAliasingMode.SSAA) {
+    wasSSAAWarningShownUpdate(true)
+    msgbox.show({text=loc("settings/ssaa_warning")})
+  }
+})
+
 return {
   resolutionToString
+  optDriver
   optResolution
   optSafeArea
   optVideoMode
@@ -663,7 +742,6 @@ return {
   optGroundDeformations
   optImpostor
   optTaaQuality
-  optTaaMipBias
   optGammaCorrection
   optTexQuality
   optAnisotropy
@@ -674,12 +752,16 @@ return {
   optUncompressedScreenshots
   optDlss
   optXess
+  optFsr2
+  optSharpening
   optTemporalUpsamplingRatio
   optStaticResolutionScale
   optStaticUplsamplingQuality
   optFSR
   optFFTWaterQuality
   optHQProbeReflections
+  optHQVolumetricClouds
+  optHQVolfog
   optSSSS
   optAntiAliasingMode
 
@@ -688,6 +770,7 @@ return {
 
     // Display
     {name = loc("group/display", "Display") isSeparator=true tab="Graphics"},
+    optDriver,
     optResolution,
     optVideoMode,
     optMonitorSelection,
@@ -703,7 +786,6 @@ return {
     {name = loc("group/antialiasing", "Antialiasing") isSeparator=true tab="Graphics"},
     optAntiAliasingMode,
     optTaaQuality,
-    optTaaMipBias,
     optDynamicResolution,
     optTemporalUpsamplingRatio,
     optStaticResolutionScale,
@@ -712,6 +794,8 @@ return {
     optFSR,
     optDlss,
     optXess,
+    optFsr2,
+    optSharpening,
 
     // Shadows & lighting
     {name = loc("group/shadows_n_lighting", "Shadows & Lighting") isSeparator=true tab="Graphics"},
@@ -720,7 +804,6 @@ return {
 
     // Lighting
     optGiQuality,
-    optRTGi,
     optSkiesQuality,
     optSsaoQuality,
     optSSRQuality,
@@ -753,5 +836,11 @@ return {
     {name = "Dev options" isSeparator=true tab="Graphics" isAvailable = isDevBuild },
     optImpostor,
     optObjectsDistanceMul,
+
+    // Advanced
+    { name = loc("group/advanced", "Advanced options"), isSeparator = true, tab = "Graphics" },
+    optRTGi,
+    optHQVolumetricClouds,
+    optHQVolfog,
   ]
 }

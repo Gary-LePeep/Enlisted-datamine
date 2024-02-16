@@ -15,21 +15,21 @@
   },
   "moroc_base_soldier": [
     {
-      "_extends": "usa_soldier"
+      "_use": "usa_soldier"
     },
     {
-      "_extends": "enlisted_base_soldier"
+      "_use": "enlisted_base_soldier"
     },
     {
-      "_extends": "moroc_human_voice"
+      "_use": "moroc_human_voice"
     }
   ],
   "ai_aircraft_crew_moroc_soldier": [
     {
-      "_extends": "moroc_base_soldier"
+      "_use": "moroc_base_soldier"
     },
     {
-      "_extends": "ai_aircraft_crew_soldier_base"
+      "_use": "ai_aircraft_crew_soldier_base"
     }
   ]
 }

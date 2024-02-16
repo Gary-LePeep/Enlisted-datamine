@@ -4,14 +4,14 @@ require ecs.common
 require player
 require game.utils.hero
 require game.es.stat_bq_common
-require EnlistedDm
+require DngDm
 require game.events_game
 require enlisted.events_enlisted
 require DagorConsole
 require DagorMath
 require Dacoll
 require enlisted.game.es.enlisted_squad_common
-require EnlistedNet
+require DngNet
 require game.es.server_debug_common
 require game.es.net_console_macro
 
@@ -58,12 +58,8 @@ def squad_suicide_bots_debug([[net_hero]] hero_eid : EntityId)
   let squadEid = get_Eid(hero_eid, "squad_member__squad") ?? INVALID_ENTITY_ID
   suicideBots(squadEid)
 
-[console_cmd(name="squad.changeTeam")]
-def squad_change_team()
-  let playerEid = get_local_player_eid()
-  if !playerEid
-    visual_log("local player is INVALID")
-    return
+[net_console_cmd(name="squad.changeTeam")]
+def squad_change_team([[net_player]] playerEid : EntityId)
   let possessed = get_Eid(playerEid, "possessed") ?? INVALID_ENTITY_ID
   let squadEid = get_Eid(possessed, "squad_member__squad") ?? INVALID_ENTITY_ID
   let team = get_int(playerEid, "team") ?? 1
@@ -74,7 +70,7 @@ def squad_change_team()
   broadcastEvent([[EventTeamMemberJoined eid=playerEid, team = newTeam]])
   set(playerEid, "team", newTeam)
   set(playerEid, "armiesReceivedTeam", newTeam)
-  sendEvent(playerEid, [[CmdSpawnSquad team=newTeam, possessed=possessed, squadId=0, memberId=0, respawnGroupId=-1]])
+  sendEvent(playerEid, [[CmdSpawnSquad team=newTeam, possessed=possessed, squadId=0, memberId=0, respawnGroupId=-1, existedVehicleEid=INVALID_ENTITY_ID]])
 
 def spawn_soldiers_at_pos(pos : float3; count, team : int; spawn_template : string; cell_size : float)
   query() <| $ [es(REQUIRE=devSoldier)] (eid : EntityId) { destroyEntity(eid); }
@@ -141,7 +137,7 @@ def spawnSquadById(squadId : string; squadForUserid : uint64; memberId : int)
 
           kill_squad(get_squad_eid(0u, 0u))
 
-          sendEvent(eid, [[CmdSpawnSquad team=team, possessed=INVALID_ENTITY_ID, squadId=squadNo, memberId=memberId, respawnGroupId=-1]])
+          sendEvent(eid, [[CmdSpawnSquad team=team, possessed=INVALID_ENTITY_ID, squadId=squadNo, memberId=memberId, respawnGroupId=-1, existedVehicleEid=INVALID_ENTITY_ID]])
 
           return true
 

@@ -25,7 +25,7 @@ let defStyle = require("select.style.nut")
 
 let mkSelItem = @(state, onClickCtor=null, isCurrent=null, textCtor=null, elemCtor = null, style=null) elemCtor==null ? function selItem(p, idx, list){
   let stateFlags = Watched(0)
-  isCurrent = isCurrent ?? @(p, _idx) p==state.value
+  isCurrent = isCurrent ?? @(v, _idx) v==state.value
   let onClick = onClickCtor!=null ? onClickCtor(p, idx) : @() state(p)
   let text = textCtor != null ? textCtor(p, idx, stateFlags) : p
   let {textOvr = {}, textCommonColor, textActiveColor, textHoverColor, borderColor, borderRadius, borderWidth,

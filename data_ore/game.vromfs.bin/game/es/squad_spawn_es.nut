@@ -1,5 +1,6 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/library_logs.nut" import *
+from "math" import max
 
 let { mkEventOnSpawnError } = require("%enlSqGlob/sqevents.nut")
 
@@ -28,6 +29,7 @@ let teamSquadQuery = ecs.SqQuery("teamSquadQuery", {
     ["team__memberEids", ecs.TYPE_EID_LIST],
     ["team__firstSpawnCostMul", ecs.TYPE_FLOAT],
     ["team__eachSquadMaxSpawns", ecs.TYPE_INT],
+    ["team__vehicleSquadSpawnCost", ecs.TYPE_INT, null],
   ]
 })
 
@@ -47,11 +49,13 @@ let canSpawnTeamSquads = @(team, playerSpawnCount)
       playerSpawnCount < comp["team__eachSquadMaxSpawns"])
   )
 
-let updateTeamScore = @(team, playerSpawnCount) teamSquadQueryPerform(team, function (_eid, comp) {
+let updateTeamScore = @(team, playerSpawnCount, squadCostMult, hasVehicle) teamSquadQueryPerform(team, function (_eid, comp) {
   let membersCount = comp["team__memberEids"].len().tofloat()
   if (membersCount <= 0)
     return
-  local spawnCost = comp["team__squadSpawnCost"] / membersCount
+
+  local spawnCost = hasVehicle ? (comp?.team__vehicleSquadSpawnCost ?? comp.team__squadSpawnCost) : comp.team__squadSpawnCost
+  spawnCost = ((squadCostMult ?? 1) * spawnCost) / membersCount
   if (playerSpawnCount == 0)
     spawnCost *= comp["team__firstSpawnCostMul"]
 
@@ -68,18 +72,21 @@ let function initPlayerRespawner(comp) {
   comp["respawner__canRespawnWaitNumber"] = -1
 }
 
-let function rejectSpawn(reason, team, playerEid, comp) {
+let function rejectSpawn(reason, team, playerEid, comp, needCooldown = true) {
   debug($"RejectSpawn: '{reason}' for team {team} and player {playerEid}")
   ecs.server_send_event(playerEid, mkEventOnSpawnError({reason=reason}), [ecs.obsolete_dbg_get_comp_val(playerEid, "connid", -1)])
 
+  let time = get_sync_time()
   comp["respawner__enabled"] = true
-  comp["respawner__respEndTime"] = 300 + get_sync_time() // TODO: see initPlayerRespawner
-  comp["respawner__canRespawnTime"] = 10 + get_sync_time() // TODO: see initPlayerRespawner
+  comp["respawner__respStartTime"] = needCooldown ? time : time - comp["respawner__respTime"]
+  comp["respawner__respEndTime"] = needCooldown ? 300 + time : time // TODO: see initPlayerRespawner
+  comp["respawner__canRespawnTime"] = needCooldown ? 10 + time : time // TODO: see initPlayerRespawner
   comp["respawner__canRespawnWaitNumber"] = -1
 }
 
-let function onSuccessfulSpawn(comp) {
-  updateTeamScore(comp.team, comp["squads__spawnCount"])
+let function onSuccessfulSpawn(comp, spawnCostTeamMult, spawnCostPersonal, hasVehicle) {
+  updateTeamScore(comp.team, comp.squads__spawnCount, spawnCostTeamMult, hasVehicle)
+  comp.respawner__spawnScore = comp.respawner__spawnScore - spawnCostPersonal
   comp["squads__spawnCount"]++
   comp["squads__squadsCanSpawn"] = canSpawnPlayerSquads(comp.team, comp["squads__spawnCount"])
   if (comp["scoring_player__firstSpawnTime"] <= 0.0)
@@ -240,7 +247,7 @@ let function trySpawnVehicleSquad(ctx, comp) {
     // In theory this situation is migh be an error (bug), but in practice no one is going to fix it anytime soon
     // (and its' kind hard to due to eventual consistency of replication) so report it as ordinary log message
     debug($"Spawn {vehicle} squad [{squadId}, {memberId}] for team {team} is forbidden by limit")
-    rejectSpawn("The vehicle is not ready for this squad", team, eid, comp)
+    rejectSpawn("The vehicle is not ready for this squad", team, eid, comp, false)
     let teamEid = get_team_eid(team) ?? ecs.INVALID_ENTITY_ID
     debugTableData(ecs.obsolete_dbg_get_comp_val(teamEid, "team__spawnPending")?.getAll() ?? {})
     return false
@@ -283,11 +290,13 @@ let validateSpawnRotation = @(playerEid, squadId, memberId) respawnPointsQuery.p
   return squadRevivePoints == 100 && soldierRevivePoints == 100
 }) ?? true
 
+let validateSpawnCost = @(score, cost) cost <= 0 || score >= cost
+
 let noBotsModeQuery = ecs.SqQuery("noBotsModeQuery", {comps_rq=["noBotsMode"]})
 
 let isNoBotsMode = @() noBotsModeQuery.perform(@(...) true) ?? false
 
-local function spawnSquadImpl(eid, comp, team, squadId, memberId, respawnGroupId) {
+local function spawnSquadImpl(eid, comp, team, squadId, memberId, respawnGroupId, existedVehicleEid) {
   if (team == TEAM_UNASSIGNED) {
     debug($"Cannot create player possessed entity for team {team}")
     return
@@ -367,11 +376,13 @@ local function spawnSquadImpl(eid, comp, team, squadId, memberId, respawnGroupId
 
   squadParams.__update({
     playerEid = eid
+    existedVehicleEid = existedVehicleEid
     isBot     = comp.playerIsBot
     squad     = squad
     vehicle   = vehicle
     vehicleComps = vehicleComps
     squadProfileId = squadProfileId
+    disableSquadRotation = squadInfo?.disableSquadRotation
   })
 
   let spawnCtx = {
@@ -386,9 +397,17 @@ local function spawnSquadImpl(eid, comp, team, squadId, memberId, respawnGroupId
   }
 
   let soldierId = squad?[memberId]?.id ?? -1
-  if (comp.shouldValidateSpawnRules && !validateSpawnRotation(eid, squadId, soldierId)) {
-    rejectSpawn($"Spawn squad {squadId} member {soldierId} is not allowed by spawn rotation rules", team, eid, comp)
-    return
+  let spawnCostPersonalScore = comp.respawner__scorePricePerSquad?[squadId] ?? 0
+  let personalScore = comp.respawner__spawnScore
+
+  if (comp.shouldValidateSpawnRules) {
+    if (!validateSpawnRotation(eid, squadId, soldierId)) {
+      rejectSpawn($"Spawn squad {squadId} member {soldierId} is not allowed by spawn rotation rules", team, eid, comp)
+      return
+    } else if (!validateSpawnCost(personalScore, spawnCostPersonalScore)) {
+      rejectSpawn($"Spawn squad {squadId} member {soldierId} is not allowed by score: cost {spawnCostPersonalScore} / score {personalScore}", team, eid, comp)
+      return
+    }
   }
 
   if (vehicle) {
@@ -397,10 +416,10 @@ local function spawnSquadImpl(eid, comp, team, squadId, memberId, respawnGroupId
       nextSpawnTimeBySquad = comp.respawner__nextSpawnOnVehicleTimeBySquad
     })
     if (trySpawnVehicleSquad(spawnCtx, comp))
-      onSuccessfulSpawn(comp)
+      onSuccessfulSpawn(comp, squadInfo?.spawnCostTeamScoreMult, spawnCostPersonalScore, true/*hasVehicle*/)
   }
   else if (trySpawnSquad(spawnCtx, comp))
-    onSuccessfulSpawn(comp)
+    onSuccessfulSpawn(comp, squadInfo?.spawnCostTeamScoreMult, spawnCostPersonalScore, false/*hasVehicle*/)
 }
 
 let comps = {
@@ -413,10 +432,12 @@ let comps = {
     ["respawner__nextSpawnOnVehicleTimeBySquad", ecs.TYPE_INT_LIST],
     ["respawner__respToBot", ecs.TYPE_BOOL],
     ["respawner__isFirstSpawn", ecs.TYPE_BOOL],
+    ["respawner__respStartTime", ecs.TYPE_FLOAT],
     ["respawner__respEndTime", ecs.TYPE_FLOAT],
     ["respawner__canRespawnTime", ecs.TYPE_FLOAT],
     ["respawner__canRespawnWaitNumber", ecs.TYPE_INT],
     ["respawner__enabled", ecs.TYPE_BOOL],
+    ["respawner__spawnScore", ecs.TYPE_INT],
   ]
 
   comps_ro = [
@@ -427,15 +448,17 @@ let comps = {
     ["army", ecs.TYPE_STRING],
     ["scoring_player__firstSpawnTime", ecs.TYPE_FLOAT],
     ["shouldValidateSpawnRules", ecs.TYPE_BOOL],
-    ["playerIsBot", ecs.TYPE_TAG, null]
+    ["playerIsBot", ecs.TYPE_TAG, null],
+    ["respawner__scorePricePerSquad", ecs.TYPE_INT_LIST, null],
+    ["respawner__respTime", ecs.TYPE_FLOAT, 10.0],
   ]
 }
 
 ecs.register_es("spawn_squad_es", {
-  [CmdSpawnSquad] = @(evt, eid, comp) spawnSquadImpl(eid, comp, evt.team, evt.squadId, evt.memberId, evt.respawnGroupId),
+  [CmdSpawnSquad] = @(evt, eid, comp) spawnSquadImpl(eid, comp, evt.team, evt.squadId, evt.memberId, evt.respawnGroupId, evt.existedVehicleEid),
   [CmdSpawnEntityForPlayer] = function(evt, eid, comp) {
     if (comp.isFirstSpawn)
-      spawnSquadImpl(eid, comp, evt.team, 0, 0, -1)
+      spawnSquadImpl(eid, comp, evt.team, 0, 0, -1, ecs.INVALID_ENTITY_ID )
   }
 }, comps)
 

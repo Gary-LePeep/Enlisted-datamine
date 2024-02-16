@@ -1,7 +1,7 @@
 require ecs
 require ecs.safe
 require app
-require EnlistedNet
+require DngNet
 require soundSystem
 require game.utils.team
 require DagorMath
@@ -88,20 +88,18 @@ def human_net_speech_request(evt : CmdRequestHumanSpeech;
   let minMaxCooldown = (*desc).minMaxCooldown ?? float2(0., 0.)
   set_speech_time(phraseIdx, curTime, curTime + rnd_float(minMaxCooldown.x, minMaxCooldown.y), human_net_speech__lastNextTime)
 
-  let eventType = get_string(*desc, "type", "")
-  if eventType == "watched"
-    send_net_event(eid, [[CmdHumanWatchedSpeech phraseIdx=phraseIdx, time=curTime]], target_entity_conn(eid))
-  elif eventType == "chat"
-    send_net_event(eid, [[CmdHumanQuickChatSpeech phraseIdx=phraseIdx, time=curTime]]) // for bypass team range distance
-  elif eventType == "target"
-    send_net_event(eid, [[CmdHumanSpeech phraseIdx=phraseIdx, time=curTime]], target_entity_conn(eid))
-  elif eventType == "squad"
-    send_net_event(eid, [[CmdHumanSpeech phraseIdx=phraseIdx, time=curTime]], target_entity_squad(eid))
-  elif eventType == "vehicle"
-    send_net_event(eid, [[CmdHumanSpeech phraseIdx=phraseIdx, time=curTime]], target_entity_vehicle(eid))
-  elif eventType == "team"
-    send_net_event(eid, [[CmdHumanSpeech phraseIdx=phraseIdx, time=curTime]], target_entity_pos_range_team(eid))
-  elif eventType == ""
-    send_net_event(eid, [[CmdHumanSpeech phraseIdx=phraseIdx, time=curTime]], target_entity_pos_range(eid))
+  let rcptFilter = get_string(*desc, "rcptFilter", "posRange")
+  if rcptFilter == "team"
+    send_net_event(eid, [[CmdNetHumanSpeech phraseIdx=phraseIdx, time=curTime]], target_entity_team(eid))
+  elif rcptFilter == "posRangeTeam"
+    send_net_event(eid, [[CmdNetHumanSpeech phraseIdx=phraseIdx, time=curTime]], target_entity_pos_range_team(eid))
+  elif rcptFilter == "target"
+    send_net_event(eid, [[CmdNetHumanSpeech phraseIdx=phraseIdx, time=curTime]], target_entity_conn(eid))
+  elif rcptFilter == "squad"
+    send_net_event(eid, [[CmdNetHumanSpeech phraseIdx=phraseIdx, time=curTime]], target_entity_squad(eid))
+  elif rcptFilter == "vehicle"
+    send_net_event(eid, [[CmdNetHumanSpeech phraseIdx=phraseIdx, time=curTime]], target_entity_vehicle(eid))
+  elif rcptFilter == "posRange"
+    send_net_event(eid, [[CmdNetHumanSpeech phraseIdx=phraseIdx, time=curTime]], target_entity_pos_range(eid))
   else
-    logerr("unknown eventType {eventType}")
+    logerr("unknown rcptFilter {rcptFilter}")

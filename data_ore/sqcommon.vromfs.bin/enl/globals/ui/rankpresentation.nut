@@ -9,6 +9,7 @@ let mkGenRank = @(rank, rankName, rankBack) {
 
 let rankIconSize = hdpxi(24)
 let imageSize = hdpxi(50)
+let bgIconSize = hdpxi(80)
 
 let ranks = freeze([
   mkGenRank("01", "noRank", "01")
@@ -36,11 +37,11 @@ let ranks = freeze([
 
 let getRankConfig = @(rank) ranks?[rank] ?? ranks[0]
 
-let function mkRankImage(rank) {
+let function mkRankImage(rank, override = {}) {
   let rankCfg = getRankConfig(rank)
   return {
     rendObj = ROBJ_IMAGE
-    size = [hdpx(80), hdpx(80)]
+    size = [bgIconSize, bgIconSize]
     image = Picture(rankCfg.imageBack)
     halign = ALIGN_CENTER
     valign = ALIGN_CENTER
@@ -49,17 +50,17 @@ let function mkRankImage(rank) {
       size = [imageSize, imageSize]
       image = Picture($"{rankCfg.image}:{imageSize}:{imageSize}:K")
     }
-  }
+  }.__update(override)
 }
 
-let function mkRankIcon(rank, iconSize = rankIconSize ,override = {}) {
+let function mkRankIcon(rank, override = {}) {
   if (rank == null)
     return null
   let rankCfg = getRankConfig(rank)
   return {
     rendObj = ROBJ_IMAGE
-    size = [iconSize, iconSize]
-    image = Picture($"{rankCfg.imageScore}:{iconSize}:{iconSize}:K")
+    size = [rankIconSize, rankIconSize]
+    image = Picture($"{rankCfg.imageScore}:{rankIconSize}:{rankIconSize}:K")
   }.__update(override)
 }
 

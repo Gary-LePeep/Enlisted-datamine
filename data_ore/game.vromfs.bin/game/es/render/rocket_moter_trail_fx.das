@@ -60,8 +60,11 @@ def rocket_motor_trail_on_update(info : UpdateStageInfoAct;
 
   let flightTime = get_sync_time() - rocket__launchTime
 
-  let thrust = calc_rocket_motor_propulsive_thrust(rocket_motor_props, flightTime)
-  if thrust < 1.0
+  var propulsion : float
+  var lostMass : float
+  var thrustVectoringAngleMax : float
+  calc_rocket_motor_propulsion_mass(rocket_motor_props, flightTime, propulsion, lostMass, thrustVectoringAngleMax)
+  if propulsion < 1.0
     rocket_motor_trail__endedSmoke = true
   elif !rocket_motor_trail__isEffectsStarted
     rocket_motor_trail__isEffectsStarted = true

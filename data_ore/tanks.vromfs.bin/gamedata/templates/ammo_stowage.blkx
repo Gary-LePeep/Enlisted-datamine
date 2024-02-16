@@ -5,6 +5,7 @@
   },
   "ammo_cluster": {
     "ammo_cluster__isShell": true,
+    "ammo_cluster__reloadTimeMult": 1.0,
     "ammo_cluster__restoreAfterDead": false,
     "ammo_cluster__slotNames:shared:list<t>": [],
     "ammo_cluster__mapSlotToPartId:list<i>": [],
@@ -13,14 +14,39 @@
     "ammo_cluster__slotsMaxAmmo:list<i>": [],
     "ammo_cluster__vehicleEid:eid": []
   },
+  "ammo_cluster_first_stage": {
+    "ammo_cluster__isFirstStage:tag": []
+  },
   "ammo_stowage": {
     "ammo_stowage__numAmmo": 0,
-    "ammo_stowage__removeLoadedAmmo": true,
+    "ammo_stowage__maxAmmoFirstStage": 0,
+    "ammo_stowage__numAmmoFirstStage:i": {
+      "value": 0,
+      "_track": true
+    },
     "ammo_stowage__vehicleEid:eid": [],
     "ammo_stowage__clusterTemplates:shared:list<t>": [],
     "ammo_stowage__clusters:list<eid>": [],
     "ammo_stowage__turretNames:shared:list<t>": [],
-    "ammo_stowage__gunEids:list<eid>": []
+    "ammo_stowage__gunEids:list<eid>": [],
+    "_group": {
+      "_tags": "server",
+      "ammo_stowage__isReloading": false,
+      "ammo_stowage__replenishmentDelay": 3.0,
+      "ammo_stowage__replenishmentTime": 7.0,
+      "ammo_stowage__replenishmentStartTime:r": {
+        "value": -1.0,
+        "_track": true
+      },
+      "ammo_stowage__nextReplenishmentAtTime:r": {
+        "value": -1.0,
+        "_track": true
+      },
+      "ammo_stowage__replenishmentTimeMult:r": {
+        "value": 1.0,
+        "_track": true
+      }
+    }
   },
   "vehicle_ammo_stowages": {
     "_tags": "server",

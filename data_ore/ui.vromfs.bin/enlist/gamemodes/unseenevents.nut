@@ -11,7 +11,7 @@ let SEEN_TIMEOUT = 14 * DAY
 
 let seen = Computed(@() (settings.value?[SEEN_ID] ?? {}))
 
-let curEventsQueueId = Computed(@() eventGameModes.value.map(@(v) v.queue.queueId))
+let curEventsQueueId = Computed(@() eventGameModes.value.map(@(v) v.id))
 
 let unseenEvents = Computed(function() {
   let res = []

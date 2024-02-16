@@ -1,13 +1,17 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let {
-  upgrade_items_count, equip_item, swap_items, equip_by_list, dispose_items_count
+  upgrade_items_count, equip_item, swap_items, equip_by_list, dispose_items_count, mass_equip
 } = require("%enlist/meta/clientApi.nut")
+let { isChangesBlocked, showBlockedChangesMessage } = require("%enlist/quickMatchQueue.nut")
+let { updateBROnItemChange } = require("%enlist/soldiers/armySquadTier.nut")
 
 let isItemActionInProgress = Watched(false)
 
-let mkActionCb = @(cb) function(res) {
+let mkActionCb = @(cb, soldierGuid = null) function(res) {
   isItemActionInProgress(false)
+  if (soldierGuid != null)
+    updateBROnItemChange(soldierGuid)
   cb?(res)
 }
 
@@ -18,25 +22,37 @@ let function upgradeItem(guidsTbl, spendItemGuids, cb = null) {
   upgrade_items_count(guidsTbl, spendItemGuids, mkActionCb(cb))
 }
 
-let function equipItem(itemGuid, slotType, slotId, targetGuid) {
+let function equipItem(itemGuid, slotType, slotId, targetGuid, cb = null) {
+  if (isChangesBlocked.value) {
+    showBlockedChangesMessage()
+    return
+  }
   if (isItemActionInProgress.value)
     return
   isItemActionInProgress(true)
-  equip_item(targetGuid, itemGuid, slotType, slotId, mkActionCb(null))
+  equip_item(targetGuid, itemGuid, slotType, slotId, mkActionCb(cb, targetGuid))
 }
 
 let function swapItems(soldierGuid1, slotType1, slotId1, soldierGuid2, slotType2, slotId2){
   if (isItemActionInProgress.value)
     return
   isItemActionInProgress(true)
-  swap_items(soldierGuid1, slotType1, slotId1, soldierGuid2, slotType2, slotId2, mkActionCb(null))
+  swap_items(soldierGuid1, slotType1, slotId1, soldierGuid2, slotType2, slotId2,
+    mkActionCb(null, soldierGuid1))
 }
 
 let function equipByList(sGuid, equipList, cb = null) {
   if (isItemActionInProgress.value)
     return
   isItemActionInProgress(true)
-  equip_by_list(sGuid, equipList, mkActionCb(cb))
+  equip_by_list(sGuid, equipList, mkActionCb(cb, sGuid))
+}
+
+let function massEquipItems(equipListBySoldier, cb = null) {
+  if (isItemActionInProgress.value)
+    return
+  isItemActionInProgress(true)
+  mass_equip(equipListBySoldier, mkActionCb(cb))
 }
 
 let function disposeItem(guidsTbl, cb = null) {
@@ -53,5 +69,6 @@ return {
   equipItem
   swapItems
   equipByList
+  massEquipItems
   disposeItem
 }

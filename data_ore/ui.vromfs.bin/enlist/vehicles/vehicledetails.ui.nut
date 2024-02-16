@@ -1,33 +1,31 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { h2_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { round_by_value } = require("%sqstd/math.nut")
-let {
-  unitSize, bigPadding, smallPadding, textBgBlurColor, detailsHeaderColor,
-  activeTxtColor
+let { bigPadding, smallPadding, textBgBlurColor, activeTxtColor
 } = require("%enlSqGlob/ui/viewConst.nut")
 let defcomps = require("%enlSqGlob/ui/defcomps.nut")
 let { Flat, PrimaryFlat } = require("%ui/components/textButton.nut")
 let { statusIconLocked, statusIconBlocked, hintText
 } = require("%enlSqGlob/ui/itemPkg.nut")
-let { viewVehicle, selectVehicle, selectedVehicle, selectVehParams,
-  CAN_USE, LOCKED, CANT_USE, AVAILABLE_AT_CAMPAIGN, CAN_PURCHASE,
-  CAN_RECEIVE_BY_ARMY_LEVEL, vehicleClear
+let {
+  viewVehicle, selectVehicle, selectedVehicle, selectVehParams,
+  vehicleClear, squadsWithVehicles, setCurSquadId,
+  CAN_USE, CANT_USE, CAN_PURCHASE, AVAILABLE_IN_GROWTH, IS_BUSY_BY_SQUAD
 } = require("vehiclesListState.nut")
-let { getItemName } = require("%enlSqGlob/ui/itemsInfo.nut")
 let { isGamepad } = require("%ui/control/active_controls.nut")
-let { focusResearch, findResearchUpgradeUnlock
+let { focusResearch, findResearchesUpgradeUnlock, getClosestResearch
 } = require("%enlist/researches/researchesFocus.nut")
-let { jumpToArmyProgress } = require("%enlist/mainMenu/sectionsState.nut")
-let { blur, mkItemDescription, mkVehicleDetails, mkUpgrades
-} = require("%enlist/soldiers/components/itemDetailsPkg.nut")
-let { scrollToCampaignLvl } = require("%enlist/soldiers/model/armyUnlocksState.nut")
-let spinner = require("%ui/components/spinner.nut")({height = hdpx(50)})
+let { allResearchStatus } = require("%enlist/researches/researchesState.nut")
+let { getSortedGrowthsByResearch } = require("%enlist/growth/growthState.nut")
+let { jumpToArmyGrowth } = require("%enlist/mainMenu/sectionsState.nut")
+let { mkViewItemDetails } = require("%enlist/soldiers/components/itemDetailsComp.nut")
+let spinner = require("%ui/components/spinner.nut")
 let { isItemActionInProgress } = require("%enlist/soldiers/model/itemActions.nut")
 let { showMsgbox } = require("%enlist/components/msgbox.nut")
 let { blinkUnseenIcon } = require("%ui/components/unseenSignal.nut")
 let hoverHoldAction = require("%darg/helpers/hoverHoldAction.nut")
-let { canModifyItems, mkItemUpgradeData, mkItemDisposeData
+let { mkItemUpgradeData, mkItemDisposeData
 } = require("%enlist/soldiers/model/mkItemModifyData.nut")
 let { markSeenUpgrades, curUnseenAvailableUpgrades, isUpgradeUsed
 } = require("%enlist/soldiers/model/unseenUpgrades.nut")
@@ -37,21 +35,27 @@ let { openUpgradeItemMsg, openDisposeItemMsg
 } = require("%enlist/soldiers/components/modifyItemComp.nut")
 let { getShopItemsCmp, curArmyShopItems, openAndHighlightItems
 } = require("%enlist/shop/armyShopState.nut")
-let { mkSpecialItemIcon } = require("%enlSqGlob/ui/mkSpecialItemIcon.nut")
 let { isDmViewerEnabled } = require("%enlist/vehicles/dmViewer.nut")
-let { detailsStatusTier } = require("%enlist/soldiers/components/itemDetailsComp.nut")
+let { inventoryItemDetailsWidth, disabledBdColor, defBdColor, commonBorderRadius
+} = require("%enlSqGlob/ui/designConst.nut")
+let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
+let { mkSquadIcon } = require("%enlSqGlob/ui/squadsUiComps.nut")
+let { armySquadsById } = require("%enlist/soldiers/model/state.nut")
+let { isChangesBlocked } = require("%enlist/quickMatchQueue.nut")
+
 
 let unseenIcon = blinkUnseenIcon(0.8).__update({ hplace = ALIGN_RIGHT })
+let waitingSpinner = spinner(hdpx(25))
 
 let function txt(text) {
   return type(text) == "string"
-    ? defcomps.txt({text}.__update(sub_txt))
+    ? defcomps.txt({text}.__update(fontSub))
     : defcomps.txt(text)
 }
 
 let mkStatusRow = @(text, icon) {
   size = [flex(), SIZE_TO_CONTENT]
-  padding = smallPadding
+  padding = [smallPadding, 0]
   flow = FLOW_HORIZONTAL
   valign = ALIGN_CENTER
   gap = smallPadding
@@ -61,57 +65,70 @@ let mkStatusRow = @(text, icon) {
   ]
 }
 
-let vehicleNameRow = @(item) item == null ? null
-  : {
-      flow = FLOW_HORIZONTAL
-      gap = hdpx(6)
-      vplace = ALIGN_BOTTOM
-      valign = ALIGN_CENTER
-      children = [
-        mkSpecialItemIcon(item, hdpx(30))
-        defcomps.txt({
-          color = detailsHeaderColor
-          text = getItemName(item)
-        }.__update(h2_txt))
-      ]
+
+let mkVehOwnersUi = @(owners) owners.len() == 0 ? null
+  : function() {
+      let vehSquads = squadsWithVehicles.value
+      return {
+        watch = [squadsWithVehicles]
+        children = owners.map(function(guid) {
+          let squad = vehSquads.findvalue(@(v) v.guid == guid)
+          return squad == null ? null
+            : watchElemState(@(sf) {
+                rendObj = ROBJ_BOX
+                borderWidth = hdpx(1)
+                borderRadius = commonBorderRadius
+                borderColor = sf & S_HOVER ? defBdColor : disabledBdColor
+                behavior = Behaviors.Button
+                onClick = @() setCurSquadId(squad.squadId)
+                children = mkSquadIcon(squad?.icon, {
+                  size = [hdpxi(50), hdpxi(50)]
+                  margin = smallPadding
+                })
+              })
+        })
+      }
     }
 
-let vehicleStatusRow = @(item) item == null || item.status.flags == CAN_USE ? null
-  : mkStatusRow(item.status?.statusText ?? "",
-      (item.status.flags & (LOCKED | CANT_USE)) ? statusIconLocked : statusIconBlocked)
+let function vehicleStatusRow(item) {
+  let { flags, statusText = "", owners = [] } = item.status
+  if (item == null || flags == CAN_USE)
+    return null
+
+  if (IS_BUSY_BY_SQUAD & flags) {
+    return mkStatusRow(statusText, mkVehOwnersUi(owners))
+  }
+
+  return mkStatusRow(statusText, CANT_USE & flags ? statusIconBlocked : statusIconLocked)
+}
 
 let backButton = Flat(loc("mainmenu/btnBack"), vehicleClear,
   { margin = [0, bigPadding, 0, 0] })
 
-let openResearchUpgradeMsgbox = function(item, armyId) {
-  let research = findResearchUpgradeUnlock(armyId, item)
-  if (research == null)
-    showMsgbox({
-      text = loc("itemUpgradeNoSquad")
-      buttons = [
-        {
-          text = loc("squads/gotoUnlockBtn")
-          action = jumpToArmyProgress
-          isCurrent = true
-        }
-        { text = loc("Ok"), isCancel = true }
-      ]
-    })
-  else
-    showMsgbox({
-      text = loc("itemUpgradeResearch")
-      buttons = [
-        {
-          text = loc("mainmenu/btnResearch")
-          action = function() {
-            focusResearch(research)
-          }
-          isCurrent = true
-        }
-        { text = loc("Ok"), isCancel = true }
-      ]
-    })
-}
+// TODO same as selectItemScene.nut, should be joined in one module
+let openResearchGrowthMsgbox = @(growth) showMsgbox({
+  text = loc("itemUpgradeNoSquad", { squad = loc($"squad/{growth.reward.squadId}") })
+  buttons = [
+    {
+      text = loc("GoToGrowth")
+      action = @() jumpToArmyGrowth(growth.id)
+      isCurrent = true
+    }
+    { text = loc("Close"), isCancel = true }
+  ]
+})
+
+let openResearchUpgradeMsgbox = @(research) showMsgbox({
+  text = loc("itemUpgradeResearch")
+  buttons = [
+    {
+      text = loc("mainmenu/btnResearch")
+      action = @() focusResearch(research)
+      isCurrent = true
+    }
+    { text = loc("Close"), isCancel = true }
+  ]
+})
 
 let function mkUpgradeBtn(item) {
   let upgradeDataWatch = mkItemUpgradeData(item)
@@ -127,14 +144,30 @@ let function mkUpgradeBtn(item) {
     res.margin <- [0, bigPadding, 0, 0]
     let { isResearchRequired, armyId, hasEnoughOrders, upgradeMult, itemBaseTpl } = upgradeData
 
-    if (isResearchRequired)
-      return res.__update({
-        children = Flat(loc("btn/upgrade"), @() openResearchUpgradeMsgbox(item, armyId), {
+    if (isResearchRequired) {
+      local researchCb = null
+      let researches = findResearchesUpgradeUnlock(armyId, item)
+      let growthList = getSortedGrowthsByResearch(armyId, researches?[0])
+      let squads = growthList.map(@(v) v.reward.squadId)
+      let researchedSquad = squads.findvalue(@(squad) squad in armySquadsById.value?[armyId])
+      let growth = growthList?[0]
+      if (researchedSquad == null && growth != null)
+        researchCb = @() openResearchGrowthMsgbox(growth)
+      else {
+        let research = getClosestResearch(armyId, researches, allResearchStatus.value?[armyId] ?? {})
+        if (research != null)
+        researchCb = @() openResearchUpgradeMsgbox(research)
+      }
+
+      return researchCb == null ? res : res.__update({
+        children = Flat(loc("btn/upgrade"), researchCb, {
           margin = 0
           cursor = normalTooltipTop
           onHover = @(on) setTooltip(on ? loc("tip/btnUpgradeVehicle") : null)
+          hotkeys = [["^J:X"]]
         })
       })
+    }
 
     let discount = round_by_value(100 - upgradeMult * 100, 1).tointeger()
     let bCtor = hasEnoughOrders ? PrimaryFlat : Flat
@@ -164,6 +197,7 @@ let function mkUpgradeBtn(item) {
                       @(tpl) markSeenUpgrades(selectVehParams.value?.armyId, [tpl]))(on)
                   setTooltip(on ? loc("tip/btnUpgrade") : null)
                 }
+                hotkeys = [["^J:X"]]
               })
             !isUpgradeUsed.value && item?.basetpl in curUnseenAvailableUpgrades.value
               ? unseenIcon
@@ -213,43 +247,33 @@ let function mkDisposeBtn(item) {
   }
 }
 
-let function mkChooseButton(curVehicle, selVehicle) {
-  if (curVehicle == selVehicle || curVehicle == null)
-    return null
 
-  let { status } = curVehicle
-  let { flags = 0 } = status
-  if (flags == CAN_USE)
-    return PrimaryFlat(loc("mainmenu/btnSelect"), @()
-      selectVehicle(curVehicle), {
-        margin = [0, bigPadding, 0, 0]
-        hotkeys = [[ "^J:Y" ]]
-      })
-
-  if (flags & LOCKED)
-    return !(flags & (CAN_RECEIVE_BY_ARMY_LEVEL | AVAILABLE_AT_CAMPAIGN)) ? null
-      : Flat(loc("GoToArmyLeveling"),
-          function() {
-            scrollToCampaignLvl(status?.levelLimit)
-            jumpToArmyProgress()
-          },
-          { margin = [0, bigPadding, 0, 0] })
-
-  return null
+let btnStyle = {
+  margin = [0, bigPadding, 0, 0]
+  hotkeys = [[ "^J:Y" ]]
 }
 
-let function goShopBtn(vehicle) {
-  if (vehicle == null)
+let function mkChooseButton(curVehicle, selVehicle, isBlocked = false) {
+  if (curVehicle.basetpl == (selVehicle?.basetpl ?? "") || curVehicle == null)
     return null
-  let { status, basetpl } = vehicle
-  let { flags } = status
-  if (!(flags & CAN_PURCHASE))
-    return null
-  let shopItemsCmp = getShopItemsCmp(basetpl)
-  return Flat(loc("GoToShop"),
-    @() openAndHighlightItems(shopItemsCmp.value, curArmyShopItems.value),
-    { margin = [0, bigPadding, 0, 0] }
-  )
+
+  let { flags = 0, growthId = null } = curVehicle.status
+  if (flags == CAN_USE)
+    return PrimaryFlat(loc("mainmenu/btnSelect"), @() selectVehicle(curVehicle), btnStyle.__merge({
+      isEnabled = !isBlocked
+    }))
+
+  else if (flags & AVAILABLE_IN_GROWTH)
+    return Flat(loc("GoToGrowth"), @() jumpToArmyGrowth(growthId), btnStyle )
+
+  else if (flags & CAN_PURCHASE) {
+    let { basetpl } = curVehicle
+    let shopItemsCmp = getShopItemsCmp(basetpl)
+    return Flat(loc("GoToShop"),
+      @() openAndHighlightItems(shopItemsCmp.value, curArmyShopItems.value), btnStyle)
+  }
+
+  return null
 }
 
 let animations = [
@@ -260,7 +284,7 @@ let animations = [
 ]
 
 let manageButtons = @() {
-  watch = [viewVehicle, canModifyItems, selectedVehicle, isGamepad]
+  watch = [viewVehicle, selectedVehicle, isGamepad, isChangesBlocked]
   flow = FLOW_VERTICAL
   halign = ALIGN_RIGHT
   gap = bigPadding
@@ -271,12 +295,11 @@ let manageButtons = @() {
     padding = [bigPadding, 0, bigPadding, bigPadding]
     valign = ALIGN_BOTTOM
     children = isItemActionInProgress.value
-      ? [spinner]
+      ? [waitingSpinner]
       : [
-          goShopBtn(viewVehicle.value)
           mkUpgradeBtn(viewVehicle.value)
           mkDisposeBtn(viewVehicle.value)
-          mkChooseButton(viewVehicle.value, selectedVehicle.value)
+          mkChooseButton(viewVehicle.value, selectedVehicle.value, isChangesBlocked.value)
         ]
       .append(isGamepad.value
         ? null
@@ -295,30 +318,30 @@ return function() {
     lastVehicleTpl = vehicle?.basetpl
     anim_start("vehicleDetailsAnim")
   }
+
   return res.__update({
-    size = [unitSize * 10, flex()]
+    size = [inventoryItemDetailsWidth, flex()]
     flow = FLOW_VERTICAL
-    gap = bigPadding
+    gap = hdpx(30)
     valign = ALIGN_BOTTOM
     halign = ALIGN_RIGHT
     transform = {}
     animations = animations
     children = !isDmViewerEnabled.value
       ? [
-          blur({
-            flow = FLOW_VERTICAL
-            gap = bigPadding
-            children = [
-              vehicleNameRow(vehicle)
-              detailsStatusTier(vehicle)
-              vehicleStatusRow(vehicle)
-              mkItemDescription(vehicle)
-              mkVehicleDetails(vehicle, true)
-              mkUpgrades(vehicle)
-            ]
-          })
-          manageButtons
-        ]
+          {
+          size = flex()
+          flow = FLOW_VERTICAL
+          valign = ALIGN_BOTTOM
+          gap = bigPadding
+          children = [
+            mkViewItemDetails(viewVehicle.value, Watched(true),
+              fsh(75) - safeAreaBorders.value[0] - safeAreaBorders.value[2])
+            vehicleStatusRow(vehicle)
+          ]
+        }
+        manageButtons
+      ]
       : manageButtons
   })
 }

@@ -256,6 +256,11 @@ def tutorial_on_hero_respawn_es(evt : Event)
   query() <| $ [es(REQUIRE=tutor_stage__onHeroRespawn)] (eid : EntityId)
     destroyEntity(eid)
 
+[es(on_appear, REQUIRE=heroVehicle)]
+def tutorial_on_hero_vehicle_respawn_es(evt : Event)
+  query() <| $ [es(REQUIRE=tutor_stage__onHeroVehicleRespawn)] (eid : EntityId)
+    destroyEntity(eid)
+
 [es(track=isAlive, REQUIRE=isAlive)]
 def tutorial_destroy_target_es(evt : Event; tutorial_target__targetId : string; tutorial_target__active : bool)
   if !tutorial_target__active
@@ -298,6 +303,21 @@ def tutorial_create_entity_es(evt : Event; tutor_action__createEntity : StringLi
 def private set_not_null(var obj : Object; name : string; val)
   if val != null
     obj |> set(name, *val)
+
+[es(REQUIRE=(tutorial__memorizeEntity, tutorial__memorizeImmortal), on_event=EventEntityDestroyed)]
+def tutorial_memorize_entity_immortal_es(evt : Event;
+                                         eid : EntityId;
+                                         transform : float3x4;
+                                         tutorial_target__targetId : string = "";
+                                         tutorial_zone__zoneId : string = "";
+                                         tutorial_target__active : bool = false;
+                                         tutorial_zone__active : bool = false)
+  createEntity(getEntityTemplateName(eid)) <| $(var init)
+    init |> set("transform", transform)
+    init |> set("tutorial_target__targetId", tutorial_target__targetId)
+    init |> set("tutorial_zone__zoneId", tutorial_zone__zoneId)
+    init |> set("tutorial_target__active", tutorial_target__active)
+    init |> set("tutorial_zone__active", tutorial_zone__active)
 
 [es(REQUIRE=tutorial__memorizeEntity, on_event=EventEntityDestroyed)]
 def tutorial_memorize_entity_es(evt : Event;

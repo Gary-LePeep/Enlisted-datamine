@@ -1,17 +1,17 @@
 {
   "germ_pzkpfw_V_ausf_f_panther": [
     {
-      "_extends": "germ_pzkpfw_V_ausf_g_panther"
+      "_use": "germ_pzkpfw_V_ausf_g_panther"
     },
     {
-      "_extends": "tank_panzer3_engine_sound"
+      "_use": "tank_panzer3_engine_sound"
     },
     {
-      "_extends": "tank_heavy_vehicle_tracks_sound"
+      "_use": "tank_heavy_vehicle_tracks_sound"
     }
   ],
   "germ_pzkpfw_V_ausf_f_panther_premium": {
-    "_extends": "base_pzkpfw_v_ausf_f_panther",
+    "_use": "base_pzkpfw_v_ausf_f_panther",
     "vehicle_seats__seats:shared:array": [
       {
         "seats:object": {
@@ -124,7 +124,7 @@
     ]
   },
   "germ_pzkpfw_V_ausf_f_panther_driver_cockpit": {
-    "_extends": "base_driver_cockpit",
+    "_use": "base_driver_cockpit",
     "animchar__res": "kv_1_driver_char",
     "cockpit__offset": [0.1,-0.0,-0.0],
     "cockpit__visibleVehicleNodeNames:list<t>": [
@@ -138,9 +138,9 @@
   },
   "germ_pzkpfw_V_ausf_f_panther_gunner_cockpit": {
     "vehicle_sight__blk": "content/tanks/gamedata/sight/germ_tzf4.blk",
-    "_extends": "base_gunner_cockpit",
+    "_use": "base_gunner_cockpit",
     "animchar__res": "t_26_1940_gunner_char",
-    "cockpit__minZoom": -0.27,
+    "cockpit__minForwardOffset": -0.27,
     "cockpit__offset": [-0.0,-0.0,-0.0],
     "cockpit__cockpitOffsetBySlit:list<p3>": {
       "slit": [-0.65,-0.03,0.2]
@@ -163,7 +163,7 @@
     }
   },
   "germ_pzkpfw_V_ausf_f_panther_commander_cockpit": {
-    "_extends": "base_commander_tower_cockit_no_slits",
+    "_use": "base_commander_tower_cockpit",
     "animchar__res": "pzkpfw_iii_b_commander_char",
     "cockpit__offset": [-0.0,0.0,-0.0],
     "cockpit__cockpitOffsetBySlit:list<p3>": [
@@ -233,6 +233,43 @@
       },
       {
         "slit": false
+      }
+    ],
+    "cockpit__slitZoom:array": [
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
       }
     ],
     "cockpit__slitNodeNames:list<t>": [

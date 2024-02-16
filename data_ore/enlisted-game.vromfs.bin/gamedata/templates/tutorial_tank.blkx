@@ -1,18 +1,18 @@
 {
   "tutorial_tank_passenger": {
-    "_extends": "ussr_base_soldier",
+    "_use": "ussr_base_soldier",
     "animchar_render__enabled": false,
     "human_equipment__initialEquip:object": {
       "attachable_wear_tunic_08_1_ussr_summer_item": "tunic",
       "attachable_wear_hands_01_ussr_summer_item": "gloves",
       "attachable_wear_pants_02_ussr_summer_item": "pants",
-      "helmet_02_ussr_summer_item": "head",
+      "helmet_02_ussr_summer_item": "skined_helmet",
       "attachable_wear_head_male_36_ussr_item": "face",
       "attachable_wear_backpack_s_01_ussr_summer_item": "backpack"
     }
   },
   "germ_pzkpfw_V_ausf_a_panther_xray": {
-    "_extends": "animchar",
+    "_use": "animchar",
     "transform": [
       [1.0,0.0,0.0],
       [0.0,1.0,0.0],
@@ -28,7 +28,7 @@
     "tutorial_tank__xrayId": ""
   },
   "germ_pzkpfw_V_ausf_a_panther_xray2": {
-    "_extends": "animchar",
+    "_use": "animchar",
     "transform": [
       [1.0,0.0,0.0],
       [0.0,1.0,0.0],
@@ -526,6 +526,10 @@
   "tutorial_memorize_entity": {
     "tutorial__memorizeEntity:tag": []
   },
+  "tutorial_memorize_entity_immortal": {
+    "_use": "tutorial_memorize_entity",
+    "tutorial__memorizeImmortal:tag": []
+  },
   "tutorial_memorize_holder": {
     "tutorial__memorizeEntities:array": []
   },
@@ -533,7 +537,7 @@
     "tutorial__restoreMemorize:tag": []
   },
   "willys_mb_tutorial": {
-    "_extends": "willys_mb",
+    "_use": "willys_mb",
     "vehicle_net_phys__blk": "content/enlisted/gamedata/units/vehicles/willys_mb_tutorial.blk:VehiclePhys",
     "damage_model__blk": "content/enlisted/gamedata/units/vehicles/willys_mb_tutorial.blk"
   }

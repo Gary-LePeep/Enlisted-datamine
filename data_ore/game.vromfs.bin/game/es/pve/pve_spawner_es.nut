@@ -23,19 +23,22 @@ ecs.register_es("pve_stage_active_es",
       local enemyCount = 0
       let pveStageSpawner = comp["pve_stage__spawner"].getAll()
       let botExtraTemplate = comp["pve_stage__botExtraTemplate"]
-      pveMissionInfoQuery(function(_eid, comp) {
-        let botProfile = comp["pve__botProfile"].getAll()
+      pveMissionInfoQuery(function(_eid, compMissionInfo) {
+        let botProfile = compMissionInfo["pve__botProfile"].getAll()
 
         foreach (spawner in pveStageSpawner) {
           let squads = botProfile[spawner["armyId"]].squads
-          let squad = squads.findvalue(@(val) val.squadId == spawner["squadId"]).squad
+          let squad = squads.findvalue(@(val) val.squadId == spawner["squadId"])?.squad
+          if (squad == null)
+            continue
 
           enemyCount += spawner["count"] * squad.len()
           let spawnPos = spawner?.spawnPos
           for (local i = 0; i < spawner["count"]; ++i) {
             spawnSquad({
               squad = squad
-              team = comp["pve__botTeam"]
+              existedVehicleEid = ecs.INVALID_ENTITY_ID
+              team = compMissionInfo["pve__botTeam"]
               playerEid = ecs.INVALID_ENTITY_ID
               memberId = squad.findindex(@(val) val.guid == spawner["soldierGuid"])
               addTemplatesOnSpawn = botExtraTemplate

@@ -56,16 +56,16 @@
   },
   "tankgun_20mm_kwk38": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_tankgun_autocannon"
+      "_use": "base_tankgun_autocannon"
     },
     {
-      "_extends": "base_20mm_kwk38"
+      "_use": "base_20mm_kwk38"
     },
     {
-      "_extends": "gunsound_20mm_kwk30"
+      "_use": "gunsound_20mm_kwk30"
     },
     {
       "turret__triggerGroup": 0

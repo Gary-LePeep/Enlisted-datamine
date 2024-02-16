@@ -4,7 +4,8 @@ let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
 let { configs } = require("%enlist/meta/configs.nut")
 let { goodsInfo } = require("%enlist/shop/goodsAndPurchases_pc.nut")
 let { purchasesCount, squadsByArmies } = require("%enlist/meta/profile.nut")
-let { isPlatformRelevant } = require("%dngscripts/platform.nut")
+let { isPlatformRelevant, is_pc } = require("%dngscripts/platform.nut")
+let isDmmDistr = require("%enlSqGlob/dmm_distr.nut")
 
 
 let shopItemsBase = Computed(function() {
@@ -94,9 +95,12 @@ let function updateItemCost(sItem, purchases) {
 
 let function updateStoreItemCost(sItem, gItem) {
   let item = {}.__update(sItem, gItem)
-  let showCountdown = (gItem?.discount_countdown ?? "0") != "0" //original param name is show_countdown, string
-  let discountInPercent = gItem?.discount_mul ? ((100 * (1.0 - gItem.discount_mul)) + 0.5).tointeger() : 0
+  let discountInPercent = gItem?.discount_mul
+    ? ((100 * (1.0 - gItem.discount_mul)) + 0.5).tointeger()
+    : 0
+
   local discountIntervalTs = []
+  let showCountdown = (gItem?.discount_countdown ?? "0") != "0" //original param name is show_countdown, string
   if (showCountdown && gItem?.discount_till && serverTime.value < gItem.discount_till)
     discountIntervalTs = [ serverTime.value, gItem.discount_till ]
 
@@ -105,21 +109,43 @@ let function updateStoreItemCost(sItem, gItem) {
   return resItem
 }
 
+let itemsOfferResultCache = {}
+
+let function isItemAllowed(item, items) {
+  let { offerContainer = "" } = item
+
+  if (offerContainer == "") {
+    let { isDmm = false, isHiddenForDmm = false, platforms = [] } = item
+    if (platforms.len() > 0 && !isPlatformRelevant(platforms))
+      return false
+
+    if (is_pc && ((!isDmmDistr && isDmm) || (isDmmDistr && isHiddenForDmm)))
+      return false
+    return true
+  }
+
+  if (offerContainer in itemsOfferResultCache)
+    return itemsOfferResultCache[offerContainer]
+
+  let result = items.findvalue(function(i) {
+    return i?.offerGroup == offerContainer
+      && (!is_pc || ((isDmmDistr && i?.isDmm) || !i?.isHiddenForDmm))
+      && isPlatformRelevant(i?.platforms ?? [])
+  }) != null
+
+  itemsOfferResultCache[offerContainer] <- result
+  return result
+}
+
 let shopItems = Computed(function() {
   // simple increment, we don't actually need its value, just an update trigger
   let needsUpdate = shopDiscountGen.value //warning disable: -declared-never-used
   let discounts = priorityDiscounts.value
   let items = shopItemsBase.value
   let goods = goodsInfo.value
+  itemsOfferResultCache.clear()
   return items
-    .filter(function(item) {
-      let { offerContainer = "" } = item
-      if (offerContainer == "")
-        return isPlatformRelevant(item?.platforms ?? [])
-
-      return items.findvalue(@(i) i?.offerGroup == offerContainer
-        && isPlatformRelevant(i?.platforms ?? [])) != null
-    })
+    .filter(@(item) isItemAllowed(item, items))
     .map(function(item, guid) {
       local newItem = item.__merge({ guid, curItemCost = item?.itemCost ?? {} })
 
@@ -131,9 +157,10 @@ let shopItems = Computed(function() {
       newItem.__update(offerDiscount, goodsInfo.value?[item?.purchaseGuid] ?? {})
       newItem = updateItemCost(newItem, purchasesCount.value)
 
-      if (goods?[newItem?.pcLinkGuid] && (newItem?.curShopItemPrice.fullPrice ?? 0) == 0)
+      let { purchaseGuid = null } = newItem
+      if (goods?[purchaseGuid] && (newItem?.curShopItemPrice.fullPrice ?? 0) == 0)
         //Item from web store
-        newItem = updateStoreItemCost(newItem, goods[newItem.pcLinkGuid])
+        newItem = updateStoreItemCost(newItem, goods[purchaseGuid])
 
       return newItem
     })

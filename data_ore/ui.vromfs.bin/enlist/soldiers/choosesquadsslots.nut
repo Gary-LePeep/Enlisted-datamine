@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let faComp = require("%ui/components/faComp.nut")
 let fontIconButton = require("%ui/components/fontIconButton.nut")
 let mkCountdownTimer = require("%enlSqGlob/ui/mkCountdownTimer.nut")
@@ -19,9 +19,11 @@ let {
 } = require("model/chooseSquadsState.nut")
 let { isGamepad } = require("%ui/control/active_controls.nut")
 let openSquadTextTutorial = require("%enlist/tutorial/squadTextTutorial.nut")
-let { sound_play } = require("sound")
+let { sound_play } = require("%dngscripts/sound_system.nut")
+let { mkBattleRating } = require("%enlSqGlob/ui/battleRatingPkg.nut")
+let { getSquadBR } = require("%enlist/soldiers/armySquadTier.nut")
 
-let squadIconSize = [hdpx(60), hdpx(60)]
+let squadIconSize = [hdpxi(60), hdpxi(60)]
 let squadTypeIconSize = hdpxi(20)
 let dragIconWidth = hdpxi(25)
 
@@ -50,27 +52,23 @@ let getMoveDirSameList = @(idx, dropIdx, targetIdx)
     : dropIdx > idx && targetIdx <= idx ? 1
     : 0
 
-let function squadDragAnim(idx, fixedSlots, stateFlags, content,
-                              chContent, needMoveCursor = false) {
-  let watch = [curDropData, curDropTgtIdx].extend(content?.watch == null ? []
-    : typeof content.watch != "array" ? [content.watch]
-    : content.watch)
-
+let mkMoveDirComputed = @(idx, fixedSlots) Computed(function() {
   let dropIdx = curDropData.value?.squadIdx ?? -1
   let targetIdx = curDropTgtIdx.value
+  if (targetIdx < 0 || dropIdx < 0)
+    return 0
+  if (idx < fixedSlots)
+    return dropIdx < fixedSlots && targetIdx < fixedSlots
+      ? getMoveDirSameList(idx, dropIdx, targetIdx)
+      : 0
+  return dropIdx >= fixedSlots && targetIdx >= fixedSlots
+    ? getMoveDirSameList(idx, dropIdx, targetIdx)
+    : dropIdx < fixedSlots && targetIdx >= fixedSlots && targetIdx <= idx
+      ? 1
+      : 0
+})
 
-  local moveDir = 0
-  if (targetIdx >= 0 && dropIdx >= 0)
-    if (idx < fixedSlots)
-      moveDir = dropIdx < fixedSlots && targetIdx < fixedSlots
-        ? getMoveDirSameList(idx, dropIdx, targetIdx)
-        : 0
-    else
-      moveDir = dropIdx >= fixedSlots && targetIdx >= fixedSlots
-          ? getMoveDirSameList(idx, dropIdx, targetIdx)
-        : dropIdx < fixedSlots && targetIdx >= fixedSlots && targetIdx <= idx ? 1
-        : 0
-
+let function squadDragAnim(moveDir, idx, stateFlags, content, chContent, needMoveCursor = false) {
   let function onAttach(elem) {
     if (isGamepad.value && needMoveCursor)
       move_mouse_cursor(elem, false)
@@ -86,12 +84,8 @@ let function squadDragAnim(idx, fixedSlots, stateFlags, content,
       curDropTgtIdx(-1)
   }
 
-  let transform = idx == dropIdx ? {}
-    : { translate = [0, moveDir * (squadSlotHorSize[1] + bigPadding)] }
-
   return content.__merge({
-    watch
-    behavior = [Behaviors.DragAndDrop, Behaviors.RecalcHandler]
+    behavior = Behaviors.DragAndDrop
     onAttach
     xmbNode = XmbNode()
     canDrop = @(data) data?.dragid == "squad"
@@ -100,18 +94,20 @@ let function squadDragAnim(idx, fixedSlots, stateFlags, content,
       if (on)
         sound_play("ui/inventory_item_take")
       curDropData(on ? data : null)
-
     }
     onElemState
     transform = {}
-    children = chContent.__merge({
-      transform
+    children = curDropData.value ? chContent.__merge({
+      transform = {}
       transitions = [{ prop = AnimProp.translate, duration = 0.3, easing = OutQuad }]
-    })
+      behavior = Behaviors.RtPropUpdate
+      rtAlwaysUpdate = true
+      update = @() {
+        transform = { translate = [0, moveDir.value * (squadSlotHorSize[1] + bigPadding)] }
+      }
+    }) : chContent
   })
 }
-
-let bonusText = @(val) "+{0}%".subst((100 * val).tointeger())
 
 let highlightBorder = {
   size = flex()
@@ -120,17 +116,31 @@ let highlightBorder = {
   color = activeBgColor
 }
 
-let mkInfoBtn = @(onInfoCb, squadId, override, isHovered, isSelected)
+let getIconColor = @(sf, isHovered, isSelected) sf & S_ACTIVE ? selectedTxtColor
+  : sf & S_HOVER ? Color(70,70,70)
+  : isHovered || isSelected ? selectedTxtColor
+  : defTxtColor
+
+let mkInfoBtn = @(onInfoCb, squadId, override, stateFlags, isHovered, isSelected)
   fontIconButton("info", {
+    stateFlags
     onClick = @() onInfoCb(squadId)
     margin = 0
     iconParams = { size = [dragIconWidth, dragIconWidth], halign = ALIGN_CENTER }
     fontSize = dragIconWidth
-    iconColor = @(sflag) sflag & S_ACTIVE ? selectedTxtColor
-      : sflag & S_HOVER ? Color(70,70,70)
-      : isHovered || isSelected ? selectedTxtColor
-      : defTxtColor
+    iconColor = @(sf) getIconColor(sf, isHovered, isSelected)
   }.__update(override))
+
+let mkSellBtn = @(onSellCb, override, stateFlags, isHovered, isSelected)
+  fontIconButton("trash", {
+    stateFlags
+    onClick = onSellCb
+    margin = 0
+    iconParams = { size = [dragIconWidth, dragIconWidth], halign = ALIGN_CENTER }
+    fontSize = dragIconWidth
+    iconColor = @(sf) getIconColor(sf, isHovered, isSelected)
+  }.__update(override))
+
 
 let dragIcon = @(sf) {
   rendObj = ROBJ_IMAGE
@@ -148,18 +158,16 @@ let tutorialIcon = @(squadType, isHovered, isSelected) watchElemState(@(sf) {
   onClick = @() openSquadTextTutorial(squadType)
   size = [dragIconWidth, dragIconWidth]
   image = Picture("!ui/squads/tutorial_squad.svg:{0}:{0}:K".subst(dragIconWidth))
-  color = sf & S_ACTIVE ? selectedTxtColor
-    : sf & S_HOVER ? Color(70,70,70)
-    : isHovered || isSelected ? selectedTxtColor
-    : defTxtColor
+  color = getIconColor(sf, isHovered, isSelected)
 })
+
 
 let mkHorizontalSlot = kwarg(function (guid, squadId, idx, onClick, manageLocId,
   isSelected = Watched(false), onInfoCb = null, onDropCb = null, group = null, addChildren = null,
   icon = "", squadType = "", level = 0, vehicle = null, squadSize = null, battleExpBonus = 0,
-  isOwn = true, fixedSlots = -1, override = {}, premIcon = null, isLocked = false, unlocObj = null,
+  isOwn = true, fixedSlots = -1, override = {}, premIcon = null, isLocked = false, unlockObj = null,
   needMoveCursor = false, firstSlotToAnim = null, secondSlotToAnim = null, stateFlags = null,
-  needSquadTutorial = false, expireTime = 0, size = null
+  needSquadTutorial = false, expireTime = 0, size = null, onSellCb = null
 ) {
   let stateFlagsUnfiltered = stateFlags ?? Watched(0)
   stateFlags = Computed(@() stateFlagsUnfiltered.value & ~S_TOP_HOVER)
@@ -189,11 +197,25 @@ let mkHorizontalSlot = kwarg(function (guid, squadId, idx, onClick, manageLocId,
   }
 
   let squadIcon = mkSquadIcon(icon, { size = squadIconSize, margin = bigPadding })
-
-  let squadPremIcon = mkSquadPremIcon(premIcon, { margin = [0, hdpx(5), 0, hdpx(2)] })
-
+  let squadPremIcon = mkSquadPremIcon(premIcon, { margin = [hdpx(2), 0] })
   let watch = [isSelected, stateFlags, isDropTarget, needHighlight, isGamepad]
   let infoBtnStateFlags = Watched(0)
+  let sellBtnStateFlags = Watched(0)
+
+  let opacity = isOwn ? 1.0 : 0.5
+
+  local bonusText = ""
+  if (battleExpBonus > 0) {
+    let expBonus = (100 * battleExpBonus).tointeger()
+    bonusText = $"{loc("XP")}{loc("ui/colon")}+{expBonus}%"
+  }
+  else
+    bonusText = loc("levelInfo", { level = level + 1 })
+
+  let mainText = $"{bonusText}, {loc("squad/contain")}{squadSize ?? size}"
+  let vehicleText = vehicle ? $"{loc("menu/vehicle")} {getItemName(vehicle)}" : ""
+  let manageText = loc(manageLocId)
+  let moveDir = onDropCb != null ? mkMoveDirComputed(idx, fixedSlots) : null
 
   return function() {
     let sf = stateFlags.value
@@ -201,8 +223,8 @@ let mkHorizontalSlot = kwarg(function (guid, squadId, idx, onClick, manageLocId,
     let timerObj = expireTime == 0 ? null
       : mkCountdownTimer({
           timestamp = expireTime
-          prefixLocId = loc("rented")
-          expiredLocId = loc("rentExpired")
+          prefixLocId = "rented"
+          expiredLocId = "rentExpired"
           color = txtColor(sf, selected)
           prefixColor = txtColor(sf, selected)
         })
@@ -211,7 +233,7 @@ let mkHorizontalSlot = kwarg(function (guid, squadId, idx, onClick, manageLocId,
     let chContent = {
       key
       size = flex()
-      opacity = isOwn ? 1.0 : 0.5
+      opacity
       transform = {}
       onAttach
       animations
@@ -224,7 +246,12 @@ let mkHorizontalSlot = kwarg(function (guid, squadId, idx, onClick, manageLocId,
           gap = bigPadding
           color = bgColor
           children = [
-            squadIcon
+            {
+              children = [
+                squadIcon
+                squadPremIcon
+              ]
+            }
             {
               size = flex()
               flow = FLOW_VERTICAL
@@ -234,55 +261,65 @@ let mkHorizontalSlot = kwarg(function (guid, squadId, idx, onClick, manageLocId,
               children = [
                 {
                   size = [flex(), SIZE_TO_CONTENT]
-                  group = group
                   behavior = Behaviors.Marquee
                   scrollOnHover = true
-                  flow = FLOW_HORIZONTAL
-                  children = [
-                    squadPremIcon
-                    mkCardText(loc(manageLocId), sf, selected)
-                  ]
+                  children = mkCardText(manageText, sf)
                 }
                 {
-                  size = SIZE_TO_CONTENT
                   flow = FLOW_HORIZONTAL
-                  valign = ALIGN_CENTER
+                  valign = ALIGN_BOTTOM
                   children = [
                     mkSquadTypeIcon(squadType, sf, selected, squadTypeIconSize)
-                    battleExpBonus == 0
-                      ? mkCardText(loc("levelInfo", { level = level + 1 }), sf, selected)
-                      : mkCardText("".concat(loc("XP"), loc("ui/colon"), bonusText(battleExpBonus)),
-                        sf, selected)
-                    mkCardText(", {0} ".subst(loc("squad/contain")), sf, selected)
-                    mkCardText(squadSize ?? size, sf, selected)
-                    faComp("user-o", {
-                      fontSize = hdpx(12)
-                      color = txtColor(sf & S_HOVER, selected)
-                    })
-                    vehicle == null
-                      ? null
-                      : mkCardText($", {loc("menu/vehicle")} {getItemName(vehicle)}", sf, selected)
+                    {
+                      flow = FLOW_HORIZONTAL
+                      valign = ALIGN_CENTER
+                      gap = bigPadding
+                      children = [
+                        {
+                          flow = FLOW_HORIZONTAL
+                          valign = ALIGN_CENTER
+                          children = [
+                            mkCardText(mainText, sf)
+                            faComp("user-o", {
+                              fontSize = hdpx(12)
+                              color = txtColor(sf & S_HOVER, selected)
+                            })
+                          ]
+                        }
+                        isLocked ? null
+                          : mkBattleRating(getSquadBR(squadId), { color = txtColor(sf) })
+                        vehicle == null
+                          ? null
+                          : mkCardText(vehicleText, sf)
+                      ]
+                    }
                   ]
                 }
               ]
             }
             timerObj
-            unlocObj
+            unlockObj
+            onSellCb != null
+              ? mkSellBtn(onSellCb, override, sellBtnStateFlags, sf & S_HOVER, selected)
+              : null
             needSquadTutorial ? tutorialIcon(squadType, sf & S_HOVER, selected) : null
             onInfoCb != null && !isGamepad.value
               ? mkInfoBtn(onInfoCb, squadId,
-                          override.__merge({stateFlags = infoBtnStateFlags}),
+                          override, infoBtnStateFlags,
                           sf & S_HOVER, selected)
               : null
             !isLocked ? dragIcon(sf) : null
           ]
         }
         needHighlight.value ? highlightBorder : null
-      ].extend(addChildren ?? [])
+      ]
     }
 
+    if (addChildren)
+      chContent.children.extend(addChildren)
+
     return onDropCb != null
-      ? squadDragAnim(idx, fixedSlots, stateFlagsUnfiltered,
+      ? squadDragAnim(moveDir, idx, stateFlagsUnfiltered,
           {
             watch
             group
@@ -298,7 +335,8 @@ let mkHorizontalSlot = kwarg(function (guid, squadId, idx, onClick, manageLocId,
           size = squadSlotHorSize
           onClick
           behavior = Behaviors.Button
-          onElemState = @(sf) stateFlagsUnfiltered(sf)
+          xmbNode = XmbNode()
+          onElemState = @(s) stateFlagsUnfiltered(s)
           transform = {}
           children = chContent
         }
@@ -319,7 +357,7 @@ let horSlotText = @(hasBlink, isDropTarget, text, style = {}) {
         duration = 1, play = true, loop = true, easing = Blink
       }]
     : null
-}.__merge(sub_txt, style)
+}.__merge(fontSub, style)
 
 let angleLeft = faComp("angle-left", { hplace = ALIGN_RIGHT, padding = [0, hdpx(15)], fontSize = hdpx(30)})
 
@@ -331,6 +369,7 @@ let mkEmptyHorizontalSlot = kwarg(
       && (curDropData.value?.squadIdx ?? -1) >= fixedSlots)
     let needHighlight = Computed(@() highlightSlots.value?[idx] ?? false)
     let onDrop = @(data) onDropCb(data?.squadIdx, idx)
+    let moveDir = mkMoveDirComputed(idx, fixedSlots)
 
     return function() {
       let chContent = {
@@ -354,15 +393,15 @@ let mkEmptyHorizontalSlot = kwarg(
           needHighlight.value ? highlightBorder : null
         ]
       }
-      return squadDragAnim(idx, fixedSlots, stateFlags,
+      return squadDragAnim(moveDir, idx, stateFlags,
         {
           watch = [stateFlags, isDropTarget, needHighlight]
           size = squadSlotHorSize
           key = $"empty_{idx}"
           onDrop
           dropData = null
-          fixedSlots = fixedSlots
-          group = group
+          fixedSlots
+          group
         },
         chContent)
     }

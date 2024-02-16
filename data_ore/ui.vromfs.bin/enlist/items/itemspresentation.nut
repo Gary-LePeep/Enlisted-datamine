@@ -7,32 +7,33 @@ let { portraits, nickFrames } = require("%enlSqGlob/ui/decoratorsPresentation.nu
 let { medalsPresentation } = require("%enlist/profile/medalsPresentation.nut")
 let { accentTitleTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
 let { secondsToHoursLoc } = require("%ui/helpers/time.nut")
+let { darkTxtColor } = require("%enlSqGlob/ui/designConst.nut")
+let { mkRadialGradientImg } = require("%darg/helpers/mkGradientImg.nut")
+let { mkColoredGradientY } = require("%enlSqGlob/ui/gradients.nut")
 
-
-let rewardBgSizePx = [170, 210]
+let rewardBgSizePx = [hdpx(170), hdpx(210)]
 let rewardWidthToHeight = rewardBgSizePx[0].tofloat() / rewardBgSizePx[1]
 
-let mkSizeByParent = @(size) [pw(100.0 * size[0] / rewardBgSizePx[0]), ph(100.0 * size[1] / rewardBgSizePx[1])]
-let mkImageParams = @(pxSize, pxOffset = [0, 12]) {
-  hplace = ALIGN_CENTER
-  vplace = ALIGN_CENTER
-  size = mkSizeByParent(pxSize)
-  pos = mkSizeByParent(pxOffset)
-}
-
-let calcSize = @(pxSize, sizeBg) [
-  (pxSize[0].tofloat() / rewardBgSizePx[0] * sizeBg[0]).tointeger(),
-  (pxSize[1].tofloat() / rewardBgSizePx[1] * sizeBg[1]).tointeger()
+let calcSize = @(sizeBg, pxSize) [
+  hdpxi(sizeBg[0] * pxSize[0].tofloat() / rewardBgSizePx[0]),
+  hdpxi(sizeBg[1] * pxSize[1].tofloat() / rewardBgSizePx[1])
 ]
 
-let mkImageCtor = @(pxSize, pxOffset, image) function(sizeBg) {
-  let size = calcSize(pxSize, sizeBg)
+let mkImageParams = @(pxSize, pxOffset = [0, 12]) @(sizeBg) {
+  hplace = ALIGN_CENTER
+  vplace = ALIGN_CENTER
+  size = calcSize(sizeBg, pxSize)
+  pos = calcSize(sizeBg, pxOffset)
+}
+
+let mkImageCtor = @(pxSize, pxOffset = [0, 12]) function(sizeBg, image) {
+  let size = calcSize(sizeBg, pxSize)
   let img = endswith(image,".svg")
     ? $"{image}:{size[0]}:{size[1]}:F"
     : image
   return {
     size
-    pos = mkSizeByParent(pxOffset)
+    pos = calcSize(sizeBg, pxOffset)
     hplace = ALIGN_CENTER
     vplace = ALIGN_CENTER
     rendObj = ROBJ_IMAGE
@@ -40,12 +41,12 @@ let mkImageCtor = @(pxSize, pxOffset, image) function(sizeBg) {
   }
 }
 
-let mkTemplateImageCtor = @(pxSize, pxOffset, gametemplate, genOverride = {}) function(sizeBg) {
-  let size = calcSize(pxSize, sizeBg)
+let mkTemplateImageCtor = @(pxSize, pxOffset, gametemplate, genOverride = {}) function(sizeBg, _) {
+  let size = calcSize(sizeBg, pxSize)
   return icon3dByGameTemplate(gametemplate, {
     width = size[0]
     height = size[1]
-    pos = mkSizeByParent(pxOffset)
+    pos = calcSize(sizeBg, pxOffset)
     hplace = ALIGN_CENTER
     vplace = ALIGN_CENTER
     genOverride
@@ -75,12 +76,13 @@ let function mkReward(reward, pName = "") {
           {
             img = icon
             params = {
-              size = mkSizeByParent([170, 210])
+              size = flex()
               hplace = ALIGN_CENTER
               vplace = ALIGN_CENTER
             }
           }
         ]
+        gametemplate = guid
       }
     }
     if (guid in nickFrames){
@@ -107,51 +109,71 @@ let function mkReward(reward, pName = "") {
   return null
 }
 
+let goldRadialGradient = {
+  rendObj = ROBJ_IMAGE
+  size = flex()
+  image = mkRadialGradientImg({
+    width = 16
+    height = 16
+    points = [
+      { color = [0xFA, 0xD9, 0x7A] }
+      { color = [0xC3, 0xAA, 0x5C] }
+    ]
+  })
+}
+
+let goldVerticalGradient = freeze({
+  rendObj = ROBJ_IMAGE
+  size = flex()
+  image = mkColoredGradientY({colorTop=0xFFFAD97A, colorBottom=0xFF7D6D3D})
+})
+
 let defRewardPresentation = {
   cardImage = "ui/skin#rewards/crate_small_1.avif"
   cardImageParams = mkImageParams([240, 240])
+  cardImageOpen = "ui/skin#rewards/crate_small_1_open.avif"
 }
 
 let rewardsPresentation = {
   ["9"] = {
-    name = loc("items/weapon_order")
-    description = loc("items/weapon_order/battlepass_desc")
-    icon = "ui/skin#/currency/weapon_order.svg"
-    gametemplate = "weapons_supply_ticket_bronze"
+    name = loc("currency/silver_currency")
+    description = loc("currency/silver_currency_desc")
+    icon = "!ui/uiskin/currency/enlisted_silver.svg"
+    gametemplate = "item_silver_coin"
     worth = 0.5
     bgImage = "ui/skin#/battlepass/bg_other.avif"
-    cardImage = "ui/skin#/battlepass/silver_weapons.avif"
-    cardImageParams = mkImageParams([142, 170], [0, 17])
+    cardImage = "ui/skin#/battlepass/silver_coins.avif"
+    cardImageParams = mkImageParams([166, 136], [0, -4])
   },
   ["10"] = {
-    name = loc("items/soldier_order")
-    description = loc("items/soldier_order/battlepass_desc")
-    icon = "ui/skin#/currency/soldier_order.svg"
-    gametemplate = "soldiers_supply_ticket_bronze"
+    name = loc("currency/silver_currency")
+    description = loc("currency/silver_currency_desc")
+    icon = "!ui/uiskin/currency/enlisted_silver.svg"
+    gametemplate = "item_silver_coin"
     worth = 0.5
     bgImage = "ui/skin#/battlepass/bg_other.avif"
-    cardImage = "ui/skin#/battlepass/silver_soldier.avif"
-    cardImageParams = mkImageParams([160, 178])
+    cardImage = "ui/skin#/battlepass/silver_coins.avif"
+    cardImageParams = mkImageParams([166, 136], [0, -4])
   },
   ["11"] = {
-    name = loc("items/weapon_order_silver")
-    description = loc("items/weapon_order_silver/battlepass_desc")
-    icon = "ui/skin#/currency/weapon_order_silver.svg"
-    gametemplate = "weapons_supply_ticket_silver"
+    name = loc("currency/silver_currency")
+    description = loc("currency/silver_currency_desc")
+    icon = "!ui/uiskin/currency/enlisted_silver.svg"
+    gametemplate = "item_silver_coin"
     worth = 1
     bgImage = "ui/skin#/battlepass/bg_silver.avif"
-    cardImage = "ui/skin#/battlepass/silver_weapons.avif"
-    cardImageParams = mkImageParams([142, 170], [0, 17])
+    cardImage = "ui/skin#/battlepass/silver_coins.avif"
+    cardImageParams = mkImageParams([166, 136], [0, -4])
   },
   ["12"] = {
-    name = loc("items/soldier_order_silver")
-    description = loc("items/soldier_order_silver/battlepass_desc")
-    icon = "ui/skin#/currency/soldier_order_silver.svg"
-    gametemplate = "soldiers_supply_ticket_silver"
+    name = loc("currency/silver_currency")
+    description = loc("currency/silver_currency_desc")
+    icon = "!ui/uiskin/currency/enlisted_silver.svg"
+    gametemplate = "item_silver_coin"
     worth = 1
     bgImage = "ui/skin#/battlepass/bg_silver.avif"
-    cardImage = "ui/skin#/battlepass/silver_soldier.avif"
-    cardImageParams = mkImageParams([160, 178])
+    cardImage = "ui/skin#/battlepass/silver_coins.avif"
+    cardImageParams = mkImageParams([166, 136], [0, -4])
   },
   ["13"] = {
     name = loc("items/weapon_order_gold")
@@ -163,19 +185,11 @@ let rewardsPresentation = {
     cardImage = "ui/skin#/battlepass/gold_weapons.avif"
     cardImageParams = mkImageParams([144, 170], [0, 17])
     specialRewards = {
-      [9] = {
-        normandy_allies = "lanchester_model_1"
-        normandy_axis = "coenders_mp"
-        berlin_allies = "lad_mg"
-        berlin_axis = "coenders_mp"
-        moscow_allies = "ppsh_40"
-        moscow_axis = "mkb_42_w"
-        tunisia_allies = "lanchester_model_1"
-        tunisia_axis = "scotti_model_x"
-        stalingrad_allies = "ppsh_40"
-        stalingrad_axis = "mkb_42_w"
-        pacific_allies = "lanchester_model_1"
-        pacific_axis = "nambu_type_1_early_smg"
+      [13] = {
+        ussr = "bezruchko_vysotsky_smg"
+        ger = "wz_39_mors"
+        usa = "owen_45_acp_1941"
+        jap = "sig_1930"
       }
     }
   },
@@ -187,7 +201,7 @@ let rewardsPresentation = {
     worth = 3
     bgImage = "ui/skin#/battlepass/bg_gold.avif"
     cardImage = "ui/skin#/battlepass/gold_soldier.avif"
-    cardImageParams = mkImageParams([162, 178], [0, 12])
+    cardImageParams = mkImageParams([162, 178])
   },
   ["23"] = {
     name = loc("items/random_battlepass_order_crate")
@@ -290,47 +304,43 @@ let rewardsPresentation = {
     description = loc("items/marathon_2021_summer_order/desc")
     icon = "ui/skin#/currency/event_order.svg"
     bgImage = "ui/skin#/battlepass/bg_gold.avif"
-    cardImage = mkImageCtor([72, 100], [0, 12], "!ui/skin#/currency/event_order.svg") //432 * 600
+    cardImage = "!ui/skin#/currency/event_order.svg"
+    mkImage = mkImageCtor([72, 100]) //432 * 600
   },
   ["41"] = {
     name = loc("vehicleDetails/fw_189a_1")
     description = loc("items/fw_189a_1/desc")
     icon = "ui/skin#/aircraft_icon.svg"
     bgImage = "ui/skin#/battlepass/bg_gold.avif"
-    cardImage = mkTemplateImageCtor([190, 190], [0, 18], "fw_189a1", { iconRoll = 50, iconYaw = -35 })
+    mkImage = mkTemplateImageCtor([190, 190], [0, 18], "fw_189a1", { iconRoll = 50, iconYaw = -35 })
   },
   ["42"] = {
     name = loc("vehicleDetails/us_m5a1_stuart_rhino_event_premium")
     description = loc("items/us_m5a1_stuart_rhino_event_premium/desc")
     icon = "ui/skin#/tank_icon.svg"
     bgImage = "ui/skin#/battlepass/bg_gold.avif"
-    cardImage = mkTemplateImageCtor([170, 150], [0, 12], "us_m5a1_stuart_rhino_event_premium")
+    mkImage = mkTemplateImageCtor([170, 150], [0, 12], "us_m5a1_stuart_rhino_event_premium")
   },
   ["43"] = {
     name = loc("squad/ussr_berlin_event_assault_1")
     description = loc("squadannounce/ussr_berlin_event_assault_1")
     icon = "ui/skin#/research/squad_points_icon.svg"
     bgImage = "ui/skin#/battlepass/bg_gold.avif"
-    cardImage = mkImageCtor([120, 111], [-4, 28], "!ui/soldiers/ussr/ussr_berlin_event_assault_1_icon.svg") //600 * 555
+    cardImage = "!ui/soldiers/ussr/ussr_berlin_event_assault_1_icon.svg"
+    mkImage = mkImageCtor([120, 111], [-4, 28]) //600 * 555
   },
   ["45"] = defRewardPresentation.__merge({
     name = loc("smallTrophyTitle_1")
   }),
   ["49"] = {
-    name = loc("items/battlepass_buster_1")
-    description = loc("items/battlepass_buster_1/desc")
     icon = "ui/skin#/battlepass/base_booster_icon.svg"
-    gametemplate = "battlepass_buster_1_template"
     worth = 2
     bgImage = "ui/skin#/battlepass/bg_boost.avif"
     cardImage = "ui/skin#/battlepass/boost_global.avif"
     cardImageParams = mkImageParams([154, 144], [0, 15])
   },
   ["50"] = {
-    name = loc("items/battlepass_buster_3")
-    description = loc("items/battlepass_buster_3/desc")
     icon = "ui/skin#/battlepass/base_booster_icon.svg"
-    gametemplate = "battlepass_buster_3_template"
     worth = 2
     bgImage = "ui/skin#/battlepass/bg_boost.avif"
     cardImage = "ui/skin#/battlepass/boost_global.avif"
@@ -370,56 +380,62 @@ let rewardsPresentation = {
     description = loc("squadannounce/allies_tunisia_event_mgun_1")
     icon = "ui/skin#/research/squad_points_icon.svg"
     bgImage = "ui/skin#/battlepass/bg_gold.avif"
-    cardImage = mkImageCtor([120, 111], [-4, 28], "!ui/soldiers/usa/allies_tunisia_event_mgun_1_icon.svg") //600 * 555
+    cardImage = "!ui/soldiers/usa/allies_tunisia_event_mgun_1_icon.svg"
+    mkImage = mkImageCtor([120, 111], [-4, 28]) //600 * 555
   },
   ["180"] = {
     name = loc("items/tunisia_axis_hero_marathon_2021_autumn")
     description = loc("items/tunisia_axis_hero_marathon_2021_autumn/desc")
     icon = "ui/squads/germany/italy_hero_medal_1_icon.svg"
     bgImage = "ui/skin#/battlepass/bg_gold.avif"
-    cardImage = mkImageCtor([72, 100], [0, 12], "!ui/squads/germany/italy_hero_medal_1_icon.svg")
+    cardImage = "!ui/squads/germany/italy_hero_medal_1_icon.svg"
+    mkImage = mkImageCtor([72, 100])
   },
   ["181"] = {
     name = loc("items/p_47d_22_re")
     description = loc("items/p_47d_22_re/desc")
     icon = "ui/skin#/aircraft_icon.svg"
     bgImage = "ui/skin#/battlepass/bg_gold.avif"
-    cardImage = mkTemplateImageCtor([190, 190], [0, 18], "p_47d_22_re_joan_premium", { iconRoll = 50, iconYaw = -35 })
+    mkImage = mkTemplateImageCtor([190, 190], [0, 18], "p_47d_22_re_joan_premium", { iconRoll = 50, iconYaw = -35 })
   },
   ["182"] = {
     name = loc("items/germ_jgdpz_iv_l48")
     description = loc("items/germ_jgdpz_iv_l48/desc")
     icon = "ui/skin#/tank_icon.svg"
     bgImage = "ui/skin#/battlepass/bg_gold.avif"
-    cardImage = mkTemplateImageCtor([170, 150], [0, 12], "germ_panzerjager_IV_L_48_berlin_premium")
+    mkImage = mkTemplateImageCtor([170, 150], [0, 12], "germ_panzerjager_IV_L_48_berlin_premium")
   },
   ["189"] = {
     name = loc("items/marathon_2021_summer_order")
     description = loc("items/marathon_2021_summer_order/desc")
     icon = "ui/skin#/currency/event_order.svg"
     bgImage = "ui/skin#/battlepass/bg_gold.avif"
-    cardImage = mkImageCtor([72, 100], [0, 12], "!ui/skin#/currency/event_order.svg")
+    cardImage = "!ui/skin#/currency/event_order.svg"
+    mkImage = mkImageCtor([72, 100])
   },
   ["190"] = {
     name = loc("items/marathon_2021_summer_order")
     description = loc("items/marathon_2021_summer_order/desc")
     icon = "ui/skin#/currency/event_order.svg"
     bgImage = "ui/skin#/battlepass/bg_gold.avif"
-    cardImage = mkImageCtor([72, 100], [0, 12], "!ui/skin#/currency/event_order.svg")
+    cardImage = "!ui/skin#/currency/event_order.svg"
+    mkImage = mkImageCtor([72, 100])
   },
   ["191"] = {
     name = loc("items/marathon_2021_summer_order")
     description = loc("items/marathon_2021_summer_order/desc")
     icon = "ui/skin#/currency/event_order.svg"
     bgImage = "ui/skin#/battlepass/bg_gold.avif"
-    cardImage = mkImageCtor([72, 100], [0, 12], "!ui/skin#/currency/event_order.svg")
+    cardImage = "!ui/skin#/currency/event_order.svg"
+    mkImage = mkImageCtor([72, 100])
   },
   ["192"] = {
     name = loc("items/marathon_2021_summer_order")
     description = loc("items/marathon_2021_summer_order/desc")
     icon = "ui/skin#/currency/event_order.svg"
     bgImage = "ui/skin#/battlepass/bg_gold.avif"
-    cardImage = mkImageCtor([72, 100], [0, 12], "!ui/skin#/currency/event_order.svg")
+    cardImage = "!ui/skin#/currency/event_order.svg"
+    mkImage = mkImageCtor([72, 100])
   },
   ["209"] = {
     name = loc("wp/agit_poster_china_a_preview/name")
@@ -432,10 +448,7 @@ let rewardsPresentation = {
     cardImageParams = mkImageParams([154, 174], [0, 13])
   },
   ["210"] = {
-    name = loc("items/battlepass_buster_50_3")
-    description = loc("items/battlepass_buster_50_3/desc")
     icon = "ui/skin#/battlepass/base_booster_icon.svg"
-    gametemplate = "battlepass_buster_50_3_template"
     worth = 2
     bgImage = "ui/skin#/battlepass/bg_boost.avif"
     cardImage = "ui/skin#/battlepass/boost_global.avif"
@@ -451,10 +464,7 @@ let rewardsPresentation = {
     cardImageParams = mkImageParams([154, 174], [0, 13])
   },
   ["212"] = {
-    name = loc("items/booster_30_battle_1")
-    description = loc("items/booster_30_battle_1/desc")
     icon = "ui/skin#/battlepass/base_booster_icon.svg"
-    gametemplate = "battlepass_buster_1_template"
     worth = 2
     bgImage = "ui/skin#/battlepass/bg_boost.avif"
     cardImage = "ui/skin#/battlepass/boost_global.avif"
@@ -464,55 +474,60 @@ let rewardsPresentation = {
     name = loc("items/engineer_event_reward_moscow_allies")
     description = loc("items/engineer_event_reward_moscow_allies/desc")
     icon = "ui/skin#/currency/event_order.svg"
-    cardImage = mkImageCtor([350, 200], [0, 0], "!ui/shop/weapons/engineer_award_building_tool.avif")
+    cardImage = "!ui/shop/weapons/engineer_award_building_tool.avif"
+    mkImage = mkImageCtor([350, 200], [0, 0])
   },
   ["214"] = {
     name = loc("items/engineer_event_reward_moscow_axis")
     description = loc("items/engineer_event_reward_moscow_axis/desc")
     icon = "ui/skin#/currency/event_order.svg"
-    cardImage = mkImageCtor([350, 200], [0, 0], "!ui/shop/weapons/engineer_award_building_tool.avif")
+    cardImage = "!ui/shop/weapons/engineer_award_building_tool.avif"
+    mkImage = mkImageCtor([350, 200], [0, 0])
   },
   ["215"] = {
     name = loc("items/engineer_event_reward_normandy_allies")
     description = loc("items/engineer_event_reward_normandy_allies/desc")
     icon = "ui/skin#/currency/event_order.svg"
-    cardImage = mkImageCtor([350, 200], [0, 0], "!ui/shop/weapons/engineer_award_building_tool.avif")
+    cardImage = "!ui/shop/weapons/engineer_award_building_tool.avif"
+    mkImage = mkImageCtor([350, 200], [0, 0])
   },
   ["216"] = {
     name = loc("items/engineer_event_reward_normandy_axis")
     description = loc("items/engineer_event_reward_normandy_axis/desc")
     icon = "ui/skin#/currency/event_order.svg"
-    cardImage = mkImageCtor([350, 200], [0, 0], "!ui/shop/weapons/engineer_award_building_tool.avif")
+    cardImage = "!ui/shop/weapons/engineer_award_building_tool.avif"
+    mkImage = mkImageCtor([350, 200], [0, 0])
   },
   ["217"] = {
     name = loc("items/engineer_event_reward_berlin_allies")
     description = loc("items/engineer_event_reward_berlin_allies/desc")
     icon = "ui/skin#/currency/event_order.svg"
-    cardImage = mkImageCtor([350, 200], [0, 0], "!ui/shop/weapons/engineer_award_building_tool.avif")
+    cardImage = "!ui/shop/weapons/engineer_award_building_tool.avif"
+    mkImage = mkImageCtor([350, 200], [0, 0])
   },
   ["218"] = {
     name = loc("items/engineer_event_reward_berlin_axis")
     description = loc("items/engineer_event_reward_berlin_axis/desc")
     icon = "ui/skin#/currency/event_order.svg"
-    cardImage = mkImageCtor([350, 200], [0, 0], "!ui/shop/weapons/engineer_award_building_tool.avif")
+    cardImage = "!ui/shop/weapons/engineer_award_building_tool.avif"
+    mkImage = mkImageCtor([350, 200], [0, 0])
   },
   ["219"] = {
     name = loc("items/engineer_event_reward_tunisia_allies")
     description = loc("items/engineer_event_reward_tunisia_allies/desc")
     icon = "ui/skin#/currency/event_order.svg"
-    cardImage = mkImageCtor([350, 200], [0, 0], "!ui/shop/weapons/engineer_award_building_tool.avif")
+    cardImage = "!ui/shop/weapons/engineer_award_building_tool.avif"
+    mkImage = mkImageCtor([350, 200], [0, 0])
   },
   ["220"] = {
     name = loc("items/engineer_event_reward_tunisia_axis")
     description = loc("items/engineer_event_reward_tunisia_axis/desc")
     icon = "ui/skin#/currency/event_order.svg"
-    cardImage = mkImageCtor([350, 200], [0, 0], "!ui/shop/weapons/engineer_award_building_tool.avif")
+    cardImage = "!ui/shop/weapons/engineer_award_building_tool.avif"
+    mkImage = mkImageCtor([350, 200], [0, 0])
   },
   ["241"] = {
-    name = loc("items/booster_global_300_battle_2")
-    description = loc("items/booster_global_300_battle_2/desc")
     icon = "ui/skin#/battlepass/base_booster_icon.svg"
-    gametemplate = "battlepass_buster_1_template"
     worth = 2
     bgImage = "ui/skin#/battlepass/bg_boost.avif"
     cardImage = "ui/skin#/battlepass/boost_global.avif"
@@ -523,7 +538,8 @@ let rewardsPresentation = {
     description = loc("items/victory_day_event_order/desc")
     icon = "ui/skin#/currency/event_order.svg"
     bgImage = "ui/skin#/battlepass/bg_gold.avif"
-    cardImage = mkImageCtor([72, 100], [0, 12], "!ui/skin#/currency/event_order.svg")
+    cardImage = "!ui/skin#/currency/event_order.svg"
+    mkImage = mkImageCtor([72, 100])
   },
   ["243"] = {
     name = loc("items/soldier_exclusive")
@@ -533,23 +549,17 @@ let rewardsPresentation = {
     worth = 3
     bgImage = "ui/skin#/battlepass/bg_gold.avif"
     cardImage = "ui/skin#/battlepass/gold_soldier.avif"
-    cardImageParams = mkImageParams([162, 178], [0, 12])
+    cardImageParams = mkImageParams([162, 178])
   },
   ["244"] = {
-    name = loc("items/booster_global_battlepass_50_battle_12")
-    description = loc("items/booster_global_battlepass_50_battle_12/desc")
     icon = "ui/skin#/battlepass/base_booster_icon.svg"
-    gametemplate = "booster_global_battlepass_50_battle_12_template"
     worth = 2
     bgImage = "ui/skin#/battlepass/bg_boost.avif"
     cardImage = "ui/skin#/battlepass/boost_global.avif"
     cardImageParams = mkImageParams([154, 144], [0, 15])
   },
   ["245"] = {
-    name = loc("items/booster_global_battlepass_100_battle_12")
-    description = loc("items/booster_global_battlepass_100_battle_12/desc")
     icon = "ui/skin#/battlepass/base_booster_icon.svg"
-    gametemplate = "booster_global_battlepass_100_battle_12_template"
     worth = 2
     bgImage = "ui/skin#/battlepass/bg_boost.avif"
     cardImage = "ui/skin#/battlepass/boost_global.avif"
@@ -565,20 +575,14 @@ let rewardsPresentation = {
     cardImageParams = mkImageParams([154, 174], [0, 13])
   },
   ["247"] = {
-    name = loc("items/booster_global_battlepass_100_battle_6")
-    description = loc("items/booster_global_battlepass_100_battle_6/desc")
     icon = "ui/skin#/battlepass/base_booster_icon.svg"
-    gametemplate = "booster_global_battlepass_100_battle_6_template"
     worth = 2
     bgImage = "ui/skin#/battlepass/bg_boost.avif"
     cardImage = "ui/skin#/battlepass/boost_global.avif"
     cardImageParams = mkImageParams([154, 144], [0, 15])
   },
   ["248"] = {
-    name = loc("items/booster_global_battlepass_100_battle_24")
-    description = loc("items/booster_global_battlepass_100_battle_24/desc")
     icon = "ui/skin#/battlepass/base_booster_icon.svg"
-    gametemplate = "booster_global_battlepass_100_battle_24_template"
     worth = 2
     bgImage = "ui/skin#/battlepass/bg_boost.avif"
     cardImage = "ui/skin#/battlepass/boost_global.avif"
@@ -599,55 +603,58 @@ let rewardsPresentation = {
     description = loc("squadannounce/allies_tunisia_event_assault_1")
     icon = "ui/skin#/research/squad_points_icon.svg"
     bgImage = "ui/skin#/battlepass/bg_gold.avif"
-    cardImage = mkImageCtor([120, 111], [-4, 28], "!ui/soldiers/usa/allies_tunisia_event_assault_1_icon.svg") //600 * 555
+    cardImage = "!ui/soldiers/usa/allies_tunisia_event_assault_1_icon.svg"
+    mkImage = mkImageCtor([120, 111], [-4, 28]) //600 * 555
   },
   ["251"] = {
     name = loc("squad/ger_normandy_event_assault_1")
     description = loc("squadannounce/ger_normandy_event_assault_1")
     icon = "ui/skin#/research/squad_points_icon.svg"
     bgImage = "ui/skin#/battlepass/bg_gold.avif"
-    cardImage = mkImageCtor([120, 111], [-4, 28], "!ui/soldiers/germany/ger_normandy_event_assault_1_icon.svg") //600 * 555
+    cardImage = "!ui/soldiers/germany/ger_normandy_event_assault_1_icon.svg"
+    mkImage = mkImageCtor([120, 111], [-4, 28]) //600 * 555
   },
   ["252"] = {
     name = loc("items/ussr_bt_7a_f32")
     description = loc("items/ussr_bt_7a_f32/desc")
     icon = "ui/skin#/tank_icon.svg"
     bgImage = "ui/skin#/battlepass/bg_gold.avif"
-    cardImage = mkTemplateImageCtor([170, 150], [0, 12], "ussr_bt_7a_f32_stalingrad_premium")
+    mkImage = mkTemplateImageCtor([170, 150], [0, 12], "ussr_bt_7a_f32_stalingrad_premium")
   },
   ["253"] = {
     name = loc("items/moscow_allies_hero_marathon_2022_summer")
     description = loc("items/moscow_allies_hero_marathon_2022_summer/desc")
     icon = "ui/squads/ussr/ussr_hero_medal_1_icon.svg"
     bgImage = "ui/skin#/battlepass/bg_gold.avif"
-    cardImage = mkImageCtor([72, 100], [0, 12], "!ui/squads/ussr/ussr_hero_medal_1_icon.svg")
+    cardImage = "!ui/squads/ussr/ussr_hero_medal_1_icon.svg"
+    mkImage = mkImageCtor([72, 100])
   },
   ["254"] = {
     name = loc("items/normandy_axis_event_marathon_summer_2022_portrait")
     description = loc("items/normandy_axis_event_marathon_summer_2022_portrait/desc")
     icon = "ui/portraits/default_portrait.svg"
     bgImage = "ui/skin#/battlepass/bg_gold.avif"
-    cardImage = mkImageCtor([72, 100], [0, 12], "!ui/portraits/default_portrait.svg")
+    cardImage = "!ui/portraits/default_portrait.svg"
+    mkImage = mkImageCtor([72, 100])
   },
   ["255"] = {
     name = loc("items/tunisia_allies_event_marathon_summer_2022_portrait")
     description = loc("items/tunisia_allies_event_marathon_summer_2022_portrait/desc")
     icon = "ui/portraits/default_portrait.svg"
     bgImage = "ui/skin#/battlepass/bg_gold.avif"
-    cardImage = mkImageCtor([72, 100], [0, 12], "!ui/portraits/default_portrait.svg")
+    cardImage = "!ui/portraits/default_portrait.svg"
+    mkImage = mkImageCtor([72, 100])
   },
   ["256"] = {
     name = loc("items/marathon_2022_summer_event_order")
     description = loc("items/marathon_2022_summer_event_order/desc")
     icon = "ui/skin#/currency/event_order.svg"
     bgImage = "ui/skin#/battlepass/bg_gold.avif"
-    cardImage = mkImageCtor([72, 100], [0, 12], "!ui/skin#/currency/event_order.svg")
+    cardImage = "!ui/skin#/currency/event_order.svg"
+    mkImage = mkImageCtor([72, 100])
   },
   ["257"] = {
-    name = loc("items/booster_global_100_battle_2")
-    description = loc("items/booster_global_100_battle_2/desc")
     icon = "ui/skin#/battlepass/base_booster_icon.svg"
-    gametemplate = "battlepass_buster_1_template"
     worth = 2
     bgImage = "ui/skin#/battlepass/bg_boost.avif"
     cardImage = "ui/skin#/battlepass/boost_global.avif"
@@ -708,7 +715,8 @@ let rewardsPresentation = {
     description = loc("items/normandy_allies_hero_airborne_day_2022/desc")
     icon = "ui/squads/usa/usa_hero_medal_1_icon.svg"
     bgImage = "ui/skin#/battlepass/bg_gold.avif"
-    cardImage = mkImageCtor([72, 100], [0, 12], "!ui/squads/usa/usa_hero_medal_1_icon.svg")
+    cardImage = "!ui/squads/usa/usa_hero_medal_1_icon.svg"
+    mkImage = mkImageCtor([72, 100])
   },
   ["324"] = {
     name = loc("items/nickFrame")
@@ -723,7 +731,8 @@ let rewardsPresentation = {
     description = loc("items/pacific_event_2022_order/desc")
     icon = "ui/skin#/currency/event_order.svg"
     bgImage = "ui/skin#/battlepass/bg_gold.avif"
-    cardImage = mkImageCtor([72, 100], [0, 12], "!ui/skin#/currency/event_order.svg")
+    cardImage = "!ui/skin#/currency/event_order.svg"
+    mkImage = mkImageCtor([72, 100])
   },
   ["348"] = {
     name = loc("items/wallposter_battlepass_order")
@@ -767,28 +776,32 @@ let rewardsPresentation = {
     description = loc("items/sea_predator_decal_order/desc")
     icon = "ui/skin#/currency/decal_order_event.svg"
     bgImage = "ui/skin#/battlepass/bg_gold.avif"
-    cardImage = mkImageCtor([72, 100], [0, 12], "!ui/skin#/currency/decal_order_event.svg")
+    cardImage = "!ui/skin#/currency/decal_order_event.svg"
+    mkImage = mkImageCtor([72, 100])
   },
   ["359"] = {
     name = loc("items/armory_event_crate")
     description = loc("items/armory_event_crate/desc")
     icon = "ui/skin#/currency/random_reward_order.svg"
     bgImage = "ui/skin#/battlepass/bg_gold.avif"
-    cardImage = mkImageCtor([72, 100], [0, 12], "!ui/skin#/currency/random_reward_order.svg") //432 * 600
+    cardImage = "!ui/skin#/currency/random_reward_order.svg"
+    mkImage = mkImageCtor([72, 100]) //432 * 600
   },
   ["360"] = {
     name = loc("items/armory_event_portrait_usa")
     description = loc("decorator/armory_event_portrait_usa/tip")
     icon = "ui/portraits/default_portrait.svg"
     bgImage = "ui/skin#/battlepass/bg_gold.avif"
-    cardImage = mkImageCtor([72, 100], [0, 12], "!ui/portraits/default_portrait.svg")
+    cardImage = "!ui/portraits/default_portrait.svg"
+    mkImage = mkImageCtor([72, 100])
   },
   ["361"] = {
     name = loc("items/armory_event_portrait_ger")
     description = loc("decorator/armory_event_portrait_ger/tip")
     icon = "ui/portraits/default_portrait.svg"
     bgImage = "ui/skin#/battlepass/bg_gold.avif"
-    cardImage = mkImageCtor([72, 100], [0, 12], "!ui/portraits/default_portrait.svg")
+    cardImage = "!ui/portraits/default_portrait.svg"
+    mkImage = mkImageCtor([72, 100])
   },
   ["364"] = {
     name = loc("wp/agit_poster_china_i_preview/name")
@@ -815,56 +828,64 @@ let rewardsPresentation = {
     description = loc("decorator/enlisted2years_portrait/tip")
     icon = "ui/uiskin/currency/portrait_order_event.svg"
     bgImage = "ui/skin#/battlepass/bg_gold.avif"
-    cardImage = mkImageCtor([72, 100], [0, 12], "!ui/portraits/default_portrait.svg")
+    cardImage = "!ui/portraits/default_portrait.svg"
+    mkImage = mkImageCtor([72, 100])
   },
   ["369"] = {
     name = loc("items/enlisted2years_portrait_britain")
     description = loc("decorator/enlisted2years_portrait/tip")
     icon = "ui/uiskin/currency/portrait_order_event.svg"
     bgImage = "ui/skin#/battlepass/bg_gold.avif"
-    cardImage = mkImageCtor([72, 100], [0, 12], "!ui/portraits/default_portrait.svg")
+    cardImage = "!ui/portraits/default_portrait.svg"
+    mkImage = mkImageCtor([72, 100])
   },
   ["370"] = {
     name = loc("items/enlisted2years_portrait_usa")
     description = loc("decorator/enlisted2years_portrait/tip")
     icon = "ui/uiskin/currency/portrait_order_event.svg"
     bgImage = "ui/skin#/battlepass/bg_gold.avif"
-    cardImage = mkImageCtor([72, 100], [0, 12], "!ui/portraits/default_portrait.svg")
+    cardImage = "!ui/portraits/default_portrait.svg"
+    mkImage = mkImageCtor([72, 100])
   },
   ["371"] = {
     name = loc("decals/su_ulan_ude_bear")
     description = loc("decals/su_ulan_ude_bear/desc")
     icon = "ui/uiskin/currency/decal_order_event.svg"
     bgImage = "ui/skin#/battlepass/bg_gold.avif"
-    cardImage = mkImageCtor([144, 170], [0, 17], "!ui/skin#/battlepass/silver_weapons.avif")
+    cardImage = "!ui/skin#/battlepass/silver_weapons.avif"
+    mkImage = mkImageCtor([144, 170], [0, 17])
   },
   ["372"] = {
     name = loc("decals/uk_britannia_defiant")
     description = loc("decals/uk_britannia_defiant/desc")
     icon = "ui/uiskin/currency/decal_order_event.svg"
     bgImage = "ui/skin#/battlepass/bg_gold.avif"
-    cardImage = mkImageCtor([144, 170], [0, 17], "!ui/skin#/battlepass/silver_weapons.avif")
+    cardImage = "!ui/skin#/battlepass/silver_weapons.avif"
+    mkImage = mkImageCtor([144, 170], [0, 17])
   },
   ["373"] = {
     name = loc("decals/su_guards_emblem")
     description = loc("decals/su_guards_emblem/desc")
     icon = "ui/uiskin/currency/decal_order_event.svg"
     bgImage = "ui/skin#/battlepass/bg_gold.avif"
-    cardImage = mkImageCtor([144, 170], [0, 17], "!ui/skin#/battlepass/silver_weapons.avif")
+    cardImage = "!ui/skin#/battlepass/silver_weapons.avif"
+    mkImage = mkImageCtor([144, 170], [0, 17])
   },
   ["374"] = {
     name = loc("decals/us_836_bmb_sqn_liberty_belle")
     description = loc("decals/us_836_bmb_sqn_liberty_belle/desc")
     icon = "ui/uiskin/currency/decal_order_event.svg"
     bgImage = "ui/skin#/battlepass/bg_gold.avif"
-    cardImage = mkImageCtor([144, 170], [0, 17], "!ui/skin#/battlepass/silver_weapons.avif")
+    cardImage = "!ui/skin#/battlepass/silver_weapons.avif"
+    mkImage = mkImageCtor([144, 170], [0, 17])
   },
   ["375"] = {
     name = loc("decals/de_jg26_sqn_4_who_tiger")
     description = loc("decals/de_jg26_sqn_4_who_tiger/desc")
     icon = "ui/uiskin/currency/decal_order_event.svg"
     bgImage = "ui/skin#/battlepass/bg_gold.avif"
-    cardImage = mkImageCtor([144, 170], [0, 17], "!ui/skin#/battlepass/silver_weapons.avif")
+    cardImage = "!ui/skin#/battlepass/silver_weapons.avif"
+    mkImage = mkImageCtor([144, 170], [0, 17])
   },
   ["377"] = {
     name = loc("wp/agit_poster_china_k_preview/name")
@@ -881,21 +902,24 @@ let rewardsPresentation = {
     description = loc("items/xmas_event_order/desc")
     icon = "ui/skin#/currency/event_order.svg"
     bgImage = "ui/skin#/battlepass/bg_gold.avif"
-    cardImage = mkImageCtor([72, 100], [0, 12], "!ui/skin#/currency/event_order.svg")
+    cardImage = "!ui/skin#/currency/event_order.svg"
+    mkImage = mkImageCtor([72, 100])
   },
   ["379"] = {
     name = loc("items/xmas_event_ussr_portrait")
     description = loc("decorator/xmas_event_portrait/tip")
     icon = "ui/uiskin/currency/portrait_order_event.svg"
     bgImage = "ui/skin#/battlepass/bg_gold.avif"
-    cardImage = mkImageCtor([72, 100], [0, 12], "!ui/portraits/default_portrait.svg")
+    cardImage = "!ui/portraits/default_portrait.svg"
+    mkImage = mkImageCtor([72, 100])
   },
   ["380"] = {
     name = loc("items/xmas_event_ger_portrait")
     description = loc("decorator/xmas_event_portrait/tip")
     icon = "ui/uiskin/currency/portrait_order_event.svg"
     bgImage = "ui/skin#/battlepass/bg_gold.avif"
-    cardImage = mkImageCtor([72, 100], [0, 12], "!ui/portraits/default_portrait.svg")
+    cardImage = "!ui/portraits/default_portrait.svg"
+    mkImage = mkImageCtor([72, 100])
   },
   ["382"] = {
     name = loc("items/wallposter_battlepass_order")
@@ -911,21 +935,23 @@ let rewardsPresentation = {
     description = loc("decorator/stalingrad_event_portrait_ussr/tip")
     icon = "ui/portraits/default_portrait.svg"
     bgImage = "ui/skin#/battlepass/bg_gold.avif"
-    cardImage = mkImageCtor([72, 100], [0, 12], "!ui/portraits/default_portrait.svg")
+    cardImage = "!ui/portraits/default_portrait.svg"
+    mkImage = mkImageCtor([72, 100])
   },
   ["385"] = {
     name = loc("items/heavy_weapons_event_order")
     description = loc("items/heavy_weapons_event_order/desc")
     icon = "ui/skin#/currency/event_order.svg"
     bgImage = "ui/skin#/battlepass/bg_gold.avif"
-    cardImage = mkImageCtor([72, 100], [0, 12], "!ui/skin#/currency/event_order.svg")
+    cardImage = "!ui/skin#/currency/event_order.svg"
+    mkImage = mkImageCtor([72, 100])
   },
   ["386"] = {
     name = loc("vehicleDetails/jp_type_97_kai")
     description = loc("items/jp_type_97_kai/desc")
     icon = "ui/skin#/tank_icon.svg"
     bgImage = "ui/skin#/battlepass/bg_gold.avif"
-    cardImage = mkTemplateImageCtor([170, 150], [0, 12], "jp_type_97_kai_pacific_premium")
+    mkImage = mkTemplateImageCtor([170, 150], [0, 12], "jp_type_97_kai_pacific_premium")
   },
   ["412"] = {
     name = loc("wp/agit_poster_china_l_preview/name")
@@ -948,12 +974,9 @@ let rewardsPresentation = {
     cardImageParams = mkImageParams([154, 174], [0, 13])
   },
   ["414"] = {
-    name = loc("items/battlepass_buster_1")
-    description = loc("items/battlepass_buster_1/desc")
-    icon = "ui/skin#/battlepass/base_booster_icon.svg"
-    gametemplate = "battlepass_buster_1_template"
+    icon = "ui/skin#/battlepass/deserter_penalty_icon.svg"
     worth = 2
-    bgImage = "ui/skin#/battlepass/bg_boost.avif"
+    bgImage = "ui/skin#/battlepass/bg_penalty.avif"
     cardImage = "ui/skin#/battlepass/boost_global.avif"
     cardImageParams = mkImageParams([154, 144], [0, 15])
   },
@@ -962,7 +985,8 @@ let rewardsPresentation = {
     description = loc("decorator/engineerDay23_event_portrait/tip")
     icon = "ui/portraits/default_portrait.svg"
     bgImage = "ui/skin#/battlepass/bg_gold.avif"
-    cardImage = mkImageCtor([72, 100], [0, 12], "!ui/portraits/default_portrait.svg")
+    cardImage = "!ui/portraits/default_portrait.svg"
+    mkImage = mkImageCtor([72, 100])
   },
   ["316"] = {
     name = loc("items/nickFrame")
@@ -976,59 +1000,455 @@ let rewardsPresentation = {
     name = loc("items/engineer_event_reward_stalingrad_allies")
     description = loc("items/engineer_event_reward_stalingrad_allies/desc")
     icon = "ui/skin#/currency/event_order.svg"
-    cardImage = mkImageCtor([350, 200], [0, 0], "!ui/shop/weapons/engineer_award_building_tool.avif")
+    cardImage = "!ui/shop/weapons/engineer_award_building_tool.avif"
+    mkImage = mkImageCtor([350, 200], [0, 0])
   },
   ["417"] = {
     name = loc("items/engineer_event_reward_stalingrad_axis")
     description = loc("items/engineer_event_reward_stalingrad_axis/desc")
     icon = "ui/skin#/currency/event_order.svg"
-    cardImage = mkImageCtor([350, 200], [0, 0], "!ui/shop/weapons/engineer_award_building_tool.avif")
+    cardImage = "!ui/shop/weapons/engineer_award_building_tool.avif"
+    mkImage = mkImageCtor([350, 200], [0, 0])
   },
   ["418"] = {
     name = loc("items/engineer_event_reward_pacific_allies")
     description = loc("items/engineer_event_reward_pacific_allies/desc")
     icon = "ui/skin#/currency/event_order.svg"
-    cardImage = mkImageCtor([350, 200], [0, 0], "!ui/shop/weapons/engineer_award_building_tool.avif")
+    cardImage = "!ui/shop/weapons/engineer_award_building_tool.avif"
+    mkImage = mkImageCtor([350, 200], [0, 0])
   },
   ["419"] = {
     name = loc("items/engineer_event_reward_pacific_axis")
     description = loc("items/engineer_event_reward_pacific_axis/desc")
     icon = "ui/skin#/currency/event_order.svg"
-    cardImage = mkImageCtor([350, 200], [0, 0], "!ui/shop/weapons/engineer_award_building_tool.avif")
+    cardImage = "!ui/shop/weapons/engineer_award_building_tool.avif"
+    mkImage = mkImageCtor([350, 200], [0, 0])
   },
   ["420"] = {
     name = loc("items/m2_mortar")
     description = loc("items/m2_mortar/desc")
     icon = "ui/skin#/currency/event_order.svg"
-    cardImage = mkImageCtor([350, 200], [0, 0], "!ui/shop/weapons/m2_mortar.avif")
+    cardImage = "!ui/shop/weapons/m2_mortar.avif"
+    mkImage = mkImageCtor([350, 200], [0, 0])
   },
   ["421"] = {
     name = loc("squad/ussr_moscow_event_antitank_1")
     description = loc("squadannounce/ussr_moscow_event_antitank_1")
     icon = "ui/skin#/research/squad_points_icon.svg"
-    cardImage = mkImageCtor([400, 300], [0, 0], "!ui/soldiers/ussr/ussr_moscow_event_antitank_1_image.avif")
+    cardImage = "!ui/soldiers/ussr/ussr_moscow_event_antitank_1_image.avif"
+    mkImage = mkImageCtor([400, 300], [0, 0])
   },
   ["422"] = {
     name = loc("squad/ger_moscow_event_antitank_1")
     description = loc("squadannounce/ger_moscow_event_antitank_1")
     icon = "ui/skin#/research/squad_points_icon.svg"
-    cardImage = mkImageCtor([400, 300], [0, 0], "!ui/soldiers/germany/ger_moscow_event_antitank_1_image.avif")
+    cardImage = "!ui/soldiers/germany/ger_moscow_event_antitank_1_image.avif"
+    mkImage = mkImageCtor([400, 300], [0, 0])
+  },
+  ["423"] = {
+    name = loc("items/mech_event_crate")
+    description = loc("items/mech_event_crate/desc")
+    cardImage = "!ui/skin#/random_reward_chest.avif"
+    mkImage = mkImageCtor([200, 200], [0, 0]) //432 * 600
+  },
+  ["436"] = {
+    name = loc("squad/usa_normandy_event_paratrooper_1")
+    description = loc("squadannounce/usa_normandy_event_paratrooper_1")
+    icon = "ui/skin#/research/squad_points_icon.svg"
+    cardImage = "!ui/soldiers/usa/usa_normandy_event_paratrooper_1_image.avif"
+    mkImage = mkImageCtor([400, 300], [0, 0])
+  },
+  ["437"] = {
+    name = loc("squad/ger_normandy_event_paratrooper_1")
+    description = loc("squadannounce/ger_normandy_event_paratrooper_1")
+    icon = "ui/skin#/research/squad_points_icon.svg"
+    cardImage = "!ui/soldiers/germany/ger_normandy_event_paratrooper_1_image.avif"
+    mkImage = mkImageCtor([400, 300], [0, 0])
+  },
+  ["438"] = {
+    name = loc("squad/allies_pacific_event_paratrooper_1")
+    description = loc("squadannounce/allies_pacific_event_paratrooper_1")
+    icon = "ui/skin#/research/squad_points_icon.svg"
+    cardImage = "!ui/soldiers/usa/allies_pacific_event_paratrooper_1_image.avif"
+    mkImage = mkImageCtor([400, 300], [0, 0])
+  },
+  ["439"] = {
+    name = loc("squad/axis_pacific_event_paratrooper_1")
+    description = loc("squadannounce/axis_pacific_event_paratrooper_1")
+    icon = "ui/skin#/research/squad_points_icon.svg"
+    cardImage = "!ui/soldiers/japan/axis_pacific_event_paratrooper_1_image.avif"
+    mkImage = mkImageCtor([400, 300], [0, 0])
+  },
+  ["440"] = {
+    name = loc("items/wallposter_battlepass_order")
+    description = loc("items/wallposter_battlepass_order/desc")
+    gametemplate = "poster_ticket_9"
+    worth = 2
+    bgImage = "ui/skin#/battlepass/bg_poster.avif"
+    cardImage = "ui/skin#/battlepass/posters.avif"
+    cardImageParams = mkImageParams([154, 174], [0, 13])
+  },
+  ["441"] = {
+    name = loc("items/berlin_operation_medic_portrait")
+    description = loc("decorator/berlin_operation_medic_portrait/tip")
+    icon = "ui/portraits/default_portrait.svg"
+    bgImage = "ui/skin#/battlepass/bg_gold.avif"
+    cardImage = "!ui/portraits/default_portrait.svg"
+    mkImage = mkImageCtor([72, 100])
+  },
+  ["442"] = {
+    name = loc("squad/ussr_moscow_event_tank_1")
+    description = loc("squadannounce/ussr_moscow_event_tank_1")
+    icon = "ui/skin#/research/squad_points_icon.svg"
+    cardImage = "!ui/soldiers/ussr/ussr_moscow_event_tank_1_image.avif"
+    mkImage = mkImageCtor([400, 300], [0, 0])
+  },
+  ["443"] = {
+    name = loc("squad/ger_moscow_event_tank_1")
+    description = loc("squadannounce/ger_moscow_event_tank_1")
+    icon = "ui/skin#/research/squad_points_icon.svg"
+    cardImage = "!ui/soldiers/germany/ger_moscow_event_tank_1_image.avif"
+    mkImage = mkImageCtor([400, 300], [0, 0])
+  },
+  ["444"] = {
+    name = loc("items/victory_day_2023_event_order")
+    description = loc("items/victory_day_2023_event_order/desc")
+    icon = "ui/skin#/currency/event_order.svg"
+    bgImage = "ui/skin#/battlepass/bg_gold.avif"
+    cardImage = "!ui/skin#/currency/event_order.svg"
+    mkImage = mkImageCtor([72, 100])
+  },
+  ["445"] = {
+    name = loc("items/victory_day_2023_event_crate")
+    description = loc("items/victory_day_2023_event_crate/desc")
+    icon = "ui/skin#/currency/random_reward_order.svg"
+    bgImage = "ui/skin#/battlepass/bg_gold.avif"
+    cardImage = "!ui/skin#/currency/random_reward_order.svg"
+    mkImage = mkImageCtor([72, 100]) //432 * 600
+  },
+  ["446"] = {
+    name = loc("items/armedForces_day_2023_event_order")
+    description = loc("items/armedForces_day_2023_event_order/desc")
+    icon = "ui/skin#/currency/event_order.svg"
+    bgImage = "ui/skin#/battlepass/bg_gold.avif"
+    cardImage = "!ui/skin#/currency/event_order.svg"
+    mkImage = mkImageCtor([72, 100])
+  },
+  ["448"] = {
+    name = loc("decals/summer_ops_girl_usa")
+    description = loc("decals/summer_ops_girl_usa/desc")
+    icon = "ui/uiskin/currency/decal_order_event.svg"
+    cardImage = "https://static-ggc.gaijin.net/chronicle/item_summer_ops_girl_usa.png"
+    mkImage = mkImageCtor([170, 170], [0, 17])
+  },
+  ["449"] = {
+    name = loc("items/stalingrad_2023_event_order")
+    description = loc("items/stalingrad_2023_event_order/desc")
+    icon = "ui/skin#/currency/event_order.svg"
+    bgImage = "ui/skin#/battlepass/bg_gold.avif"
+    cardImage = "!ui/skin#/currency/event_order.svg"
+    mkImage = mkImageCtor([72, 100])
+  },
+  ["450"] = {
+    name = loc("items/wallposter_battlepass_order")
+    description = loc("items/wallposter_battlepass_order/desc")
+    gametemplate = "poster_ticket_10"
+    worth = 2
+    bgImage = "ui/skin#/battlepass/bg_poster.avif"
+    cardImage = "ui/skin#/battlepass/posters.avif"
+    cardImageParams = mkImageParams([154, 174], [0, 13])
+  },
+  ["451"] = {
+    name = loc("items/armory2_bonus_portrait_ussr")
+    description = loc("items/armory2_bonus_portrait_ussr/desc")
+    icon = "ui/portraits/default_portrait.svg"
+    cardImage = "!ui/portraits/event/armory2_bonus_portrait_ussr.avif"
+    mkImage = mkImageCtor([150, 150])
+  },
+  ["452"] = {
+    name = loc("items/armory2_bonus_portrait_ger")
+    description = loc("items/armory2_bonus_portrait_ger/desc")
+    icon = "ui/portraits/default_portrait.svg"
+    cardImage = "!ui/portraits/event/armory2_bonus_portrait_ger.avif"
+    mkImage = mkImageCtor([150, 150])
+  },
+  ["453"] = {
+    name = loc("items/armory2_event_order")
+    description = loc("items/armory2_event_order/desc")
+    icon = "ui/skin#/currency/event_order.svg"
+    bgImage = "ui/skin#/battlepass/bg_gold.avif"
+    cardImage = "!ui/skin#/currency/event_order.svg"
+    mkImage = mkImageCtor([72, 100])
+  },
+  ["454"] = {
+    name = loc("items/luftfaust_b")
+    description = loc("items/luftfaust_b/desc")
+    icon = "ui/skin#/currency/event_order.svg"
+    cardImage = "!ui/shop/weapons/luftfaust_b.avif"
+    mkImage = mkImageCtor([350, 200], [0, 0])
+  },
+  ["455"] = {
+    name = loc("squad/axis_pacific_event_pilot_fighter_1")
+    description = loc("squadannounce/axis_pacific_event_pilot_fighter_1")
+    icon = "ui/skin#/research/squad_points_icon.svg"
+    cardImage = "!ui/soldiers/japan/axis_pacific_event_pilot_fighter_1_image.avif"
+    mkImage = mkImageCtor([300, 225], [0, 0])
+  },
+  ["456"] = {
+    name = loc("squad/allies_pacific_event_pilot_fighter_1")
+    description = loc("squadannounce/allies_pacific_event_pilot_fighter_1")
+    icon = "ui/skin#/research/squad_points_icon.svg"
+    cardImage = "!ui/soldiers/usa/allies_pacific_event_pilot_fighter_1_image.avif"
+    mkImage = mkImageCtor([300, 225], [0, 0])
+  },
+  ["457"] = {
+    name = loc("decals/uk_no_2_sqn_fox_head")
+    description = loc("decals/uk_no_2_sqn_fox_head/desc")
+    icon = "ui/uiskin/currency/decal_order_event.svg"
+    cardImage = "!ui/skin#/battlepass/silver_weapons.avif"
+    mkImage = mkImageCtor([170, 170], [0, 17])
+  },
+  ["458"] = {
+    name = loc("squad/squad_uk_paratrooper_2_event_2")
+    description = loc("squadannounce/squad_uk_paratrooper_2_event_2")
+    icon = "ui/skin#/research/squad_points_icon.svg"
+    cardImage = "!ui/soldiers/usa/squad_uk_paratrooper_2_event_2_image.avif"
+    mkImage = mkImageCtor([300, 225], [0, 0])
+  },
+  ["459"] = {
+    name = loc("squad/squad_it_paratrooper_2_event_2")
+    description = loc("squadannounce/squad_it_paratrooper_2_event_2")
+    icon = "ui/skin#/research/squad_points_icon.svg"
+    cardImage = "!ui/soldiers/germany/squad_it_paratrooper_2_event_2_image.avif"
+    mkImage = mkImageCtor([300, 225], [0, 0])
+  },
+  ["460"] = {
+    name = loc("items/italyParatroopers_event_order")
+    description = loc("items/italyParatroopers_event_order/desc")
+    icon = "ui/skin#/currency/event_order.svg"
+    bgImage = "ui/skin#/battlepass/bg_gold.avif"
+    cardImage = "!ui/skin#/currency/event_order.svg"
+    mkImage = mkImageCtor([72, 100])
+  },
+  ["461"] = {
+    name = loc("currency/silver_currency")
+    description = loc("currency/silver_currency_desc")
+    icon = "!ui/uiskin/currency/enlisted_silver.svg"
+    gametemplate = "item_silver_coin"
+    worth = 0.5
+    bgImage = "ui/skin#/battlepass/bg_other.avif"
+    cardImage = "ui/skin#/battlepass/silver_coins.avif"
+    cardImageParams = mkImageParams([166, 136], [0, -4])
+  },
+  ["476"] = {
+    name = loc("items/armory3_event_order")
+    description = loc("items/armory3_event_order/desc")
+    icon = "ui/skin#/currency/event_order.svg"
+    bgImage = "ui/skin#/battlepass/bg_gold.avif"
+    cardImage = "!ui/skin#/currency/event_order.svg"
+    mkImage = mkImageCtor([72, 100])
+  },
+  ["477"] = {
+    name = loc("decorator/armory3_bonus_portrait_italy")
+    description = loc("decorator/armory3_bonus_portrait_italy/desc")
+    icon = "ui/portraits/default_portrait.svg"
+    cardImage = "!ui/portraits/event/armory3_bonus_portrait_italy.avif"
+    mkImage = mkImageCtor([150, 150])
+  },
+  ["478"] = {
+    name = loc("decorator/armory3_bonus_portrait_britain")
+    description = loc("decorator/armory3_bonus_portrait_britain/desc")
+    icon = "ui/portraits/default_portrait.svg"
+    cardImage = "!ui/portraits/event/armory3_bonus_portrait_britain.avif"
+    mkImage = mkImageCtor([150, 150])
+  },
+  ["479"] = {
+    name = loc("squad/squad_ussr_paratrooper_2_event_1")
+    description = loc("squadannounce/squad_ussr_paratrooper_2_event_1")
+    icon = "ui/skin#/research/squad_points_icon.svg"
+    cardImage = "!ui/soldiers/ussr/squad_ussr_paratrooper_2_event_1_image.avif"
+    mkImage = mkImageCtor([300, 225], [0, 0])
+  },
+  ["481"] = {
+    name = loc("items/battlepass_11_portrait")
+    icon = "ui/portraits/default_portrait.svg"
+    cardImage = "!ui/portraits/event/battlepass_11_portrait.avif"
+    mkImage = mkImageCtor([150, 150])
+  },
+  ["482"] = {
+    name = loc("items/nickFrame")
+    description = loc("items/nickFrame/desc")
+    icon = "ui/skin#/currency/nickframe_order_event.svg"
+    bgImage = "ui/skin#/battlepass/bg_other.avif"
+    cardImage = "ui/skin#/battlepass/nickframe_bp.avif"
+    cardImageParams = mkImageParams([160, 178])
+  },
+  ["484"] = {
+    name = loc("decorator/birthday2_bonus_portrait_tanker")
+    description = loc("decorator/birthday2_bonus_portrait_tanker/desc")
+    icon = "ui/portraits/default_portrait.svg"
+    cardImage = "!ui/portraits/event/birthday2_bonus_portrait_tanker.avif"
+    mkImage = mkImageCtor([150, 150])
+  },
+  ["485"] = {
+    name = loc("decorator/birthday2_bonus_portrait_pilot")
+    description = loc("decorator/birthday2_bonus_portrait_pilot/desc")
+    icon = "ui/portraits/default_portrait.svg"
+    cardImage = "!ui/portraits/event/birthday2_bonus_portrait_pilot.avif"
+    mkImage = mkImageCtor([150, 150])
+  },
+  ["486"] = {
+    name = loc("items/ussr_hero_birthday_2023")
+    description = loc("items/ussr_hero_birthday_2023/desc")
+    icon = "ui/squads/ussr/ussr_hero_medal_1_icon.svg"
+    bgImage = "ui/skin#/battlepass/bg_gold.avif"
+    cardImage = "!ui/squads/ussr/ussr_hero_medal_1_icon.svg"
+    mkImage = mkImageCtor([72, 100])
+  },
+  ["487"] = {
+    name = loc("items/birthday2_event_order")
+    description = loc("items/birthday2_event_order/desc")
+    icon = "ui/skin#/currency/event_order.svg"
+    bgImage = "ui/skin#/battlepass/bg_gold.avif"
+    cardImage = "!ui/skin#/currency/event_order.svg"
+    mkImage = mkImageCtor([72, 100])
+  },
+  ["490"] = {
+    name = loc("squad/ussr_berlin_event_assault_2")
+    description = loc("squadannounce/ussr_berlin_event_assault_2")
+    icon = "ui/skin#/research/squad_points_icon.svg"
+    cardImage = "ui/skin#/research/squad_points_icon.svg"
+    mkImage = mkImageCtor([150, 150], [0, 0])
+  },
+  ["491"] = {
+    name = loc("squad/ger_berlin_event_assault_1")
+    description = loc("squadannounce/ger_berlin_event_assault_1")
+    icon = "ui/skin#/research/squad_points_icon.svg"
+    cardImage = "ui/skin#/research/squad_points_icon.svg"
+    mkImage = mkImageCtor([150, 150], [0, 0])
+  },
+  ["492"] = {
+    name = loc("decorator/usentry_bonus_portrait")
+    description = loc("decorator/usentry_bonus_portrait/desc")
+    icon = "ui/portraits/default_portrait.svg"
+    cardImage = "!ui/portraits/event/usentry_bonus_portrait.avif"
+    mkImage = mkImageCtor([150, 150])
+  },
+  ["493"] = {
+    name = loc("decals/new_year24_event_decal")
+    description = loc("decals/new_year24_event_decal/desc")
+    icon = "ui/skin#/currency/decal_order_event.svg"
+    bgImage = "ui/skin#/battlepass/bg_gold.avif"
+    cardImage = "!ui/skin#/currency/decal_order_event.svg"
+    mkImage = mkImageCtor([72, 100])
+  },
+  ["494"] = {
+    name = loc("items/nickFrame")
+    description = loc("items/nickFrame/desc")
+    icon = "ui/skin#/currency/nickframe_order_event.svg"
+    bgImage = "ui/skin#/battlepass/bg_other.avif"
+    cardImage = "ui/skin#/battlepass/nickframe_bp.avif"
+    cardImageParams = mkImageParams([160, 178])
+  },
+  ["495"] = {
+    name = loc("decorator/snowshoes")
+    description = loc("decorator/snowshoes/desc")
+    icon = "ui/skin#/currency/decal_order_event.svg"
+    bgImage = "ui/skin#/battlepass/bg_gold.avif"
+    cardImage = "!ui/skin#/currency/decal_order_event.svg"
+    mkImage = mkImageCtor([72, 100])
+  },
+  ["496"] = {
+    name = loc("decorator/ski")
+    description = loc("decorator/ski/desc")
+    icon = "ui/skin#/currency/decal_order_event.svg"
+    bgImage = "ui/skin#/battlepass/bg_gold.avif"
+    cardImage = "!ui/skin#/currency/decal_order_event.svg"
+    mkImage = mkImageCtor([72, 100])
+  },
+  ["497"] = {
+    name = loc("items/wallposter_battlepass_order")
+    description = loc("items/wallposter_battlepass_order/desc")
+    gametemplate = "poster_ticket_12"
+    worth = 2
+    bgImage = "ui/skin#/battlepass/bg_poster.avif"
+    cardImage = "ui/skin#/battlepass/posters.avif"
+    cardImageParams = mkImageParams([154, 174], [0, 13])
+  },
+  ["498"] = {
+    name = loc("items/battlepass_12_portrait")
+    icon = "!ui/portraits/default_portrait.svg"
+    cardImage = "!ui/portraits/event/battlepass_12_portrait.avif"
+    mkImage = mkImageCtor([150, 150])
+  },
+  ["499"] = {
+    name = loc("squad/squad_uk_apc_driver_2_event_1")
+    description = loc("squadannounce/squad_uk_apc_driver_2_event_1")
+    icon = "ui/skin#/research/squad_points_icon.svg"
+    cardImage = "!ui/soldiers/usa/squad_uk_apc_driver_2_event_1_image.avif"
+    mkImage = mkImageCtor([300, 225], [0, 0])
+  },
+  ["500"] = {
+    name = loc("squad/squad_ger_apc_driver_2_event_1")
+    description = loc("squadannounce/squad_ger_apc_driver_2_event_1")
+    icon = "ui/skin#/research/squad_points_icon.svg"
+    cardImage = "!ui/soldiers/germany/squad_ger_apc_driver_2_event_1_image.avif"
+    mkImage = mkImageCtor([300, 225], [0, 0])
+  },
+  ["501"] = {
+    name = loc("items/ger_pelzmutze_m43_closed_1")
+    description = loc("items/ger_pelzmutze_m43_closed_1/desc")
+    icon = "!ui/portraits/default_portrait.svg"
+    cardImage = "ui/skin#/battlepass/battle_pass_ger_outfit_1.avif"
+    bgImage = "ui/skin#/battlepass/bg_other.avif"
+    mkImage = mkImageCtor([180, 180], [0, -5])
+  },
+  ["504"] = {
+    name = loc("items/lunarNewyear24_bonus_portrait")
+    icon = "!ui/portraits/default_portrait.svg"
+    cardImage = "!ui/portraits/event/lunarNewyear24_bonus_portrait.avif"
+    mkImage = mkImageCtor([150, 150])
+  },
+  ["505"] = {
+    name = loc("items/nickFrame")
+    description = loc("items/nickFrame/desc")
+    icon = "ui/skin#currency/nickframe_order_event.svg"
+    bgImage = "ui/skin#battlepass/bg_other.avif"
+    cardImage = "ui/skin#battlepass/nickframe_bp.avif"
+    cardImageParams = mkImageParams([160, 178])
   },
 
 
 
   // boosters presentation
+  ["mech_event_weapon_prize"] = defRewardPresentation.__merge({
+    name = loc("items/mech_event_crate")
+    description = loc("items/mech_event_crate/desc")
+    icon = "ui/skin#/currency/random_reward_order.svg"
+    bgImage = "ui/skin#/battlepass/bg_gold.avif"
+    cardImage = "!ui/skin#/currency/random_reward_order.svg"
+    mkImage = mkImageCtor([72, 100]) //432 * 600
+  }),
   ["every_day_award_small_pack"] = defRewardPresentation.__merge({
     name = loc("smallTrophyTitle_2")
     cardImage = "ui/skin#rewards/crate_small_2.avif"
+    cardImageOpen = "ui/skin#rewards/crate_small_2_open.avif"
   }),
   ["every_day_award_medium_pack"] = defRewardPresentation.__merge({
     name = loc("mediumTrophyTitle_1")
     cardImage = "ui/skin#rewards/crate_medium_1.avif"
+    cardImageOpen = "ui/skin#rewards/crate_medium_1_open.avif"
   }),
   ["every_day_award_big_pack"] = defRewardPresentation.__merge({
     name = loc("bigTrophyTitle_1")
     cardImage = "ui/skin#rewards/crate_big_1.avif"
+    cardImageOpen = "ui/skin#rewards/crate_big_1_open.avif"
+    background = goldRadialGradient
+    rewardGlow = "!ui/gameImage/enlisted_box_glow_dark_small.avif"
+    progressConfig = {
+      textColor = darkTxtColor
+      background = goldVerticalGradient
+    }
   })
 }
 
@@ -1036,6 +1456,5 @@ return freeze({
   rewardWidthToHeight
   rewardsPresentation
   rewardBgSizePx
-  mkImageCtor
   mkReward
 })

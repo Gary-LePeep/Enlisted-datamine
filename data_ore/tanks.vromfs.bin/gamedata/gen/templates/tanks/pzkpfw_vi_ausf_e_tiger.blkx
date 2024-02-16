@@ -1,10 +1,10 @@
 {
   "base_pzkpfw_vi_ausf_e_tiger": [
     {
-      "_extends": "base_tank"
+      "_use": "base_tank"
     },
     {
-      "_extends": "pzkpfw_vi_ausf_e_tiger_ammo_stowages"
+      "_use": "pzkpfw_vi_ausf_e_tiger_ammo_stowages"
     },
     {
       "killLogName": "germ_pzkpfw_vi_ausf_e_tiger"
@@ -215,7 +215,7 @@
     }
   ],
   "pzkpfw_vi_ausf_e_tiger_turret_01_88mm_kwk36": {
-    "_extends": "tankgun_88mm_kwk36",
+    "_use": "tankgun_88mm_kwk36",
     "gun__shootNodeName": "bone_gun_barrel",
     "turret__yawSpeed": 14.0,
     "turret__pitchSpeed": 4.0,
@@ -245,7 +245,7 @@
     ]
   },
   "pzkpfw_vi_ausf_e_tiger_turret_02_7_92mm_mg34": {
-    "_extends": "tankgun_7_92mm_mg34",
+    "_use": "tankgun_7_92mm_mg34",
     "gun__shootNodeName": "bone_mg_gun_twin",
     "gun__shellsAmmo:array": [
       {
@@ -257,7 +257,7 @@
     ]
   },
   "pzkpfw_vi_ausf_e_tiger_turret_03_7_92mm_mg34": {
-    "_extends": "tankgun_7_92mm_mg34",
+    "_use": "tankgun_7_92mm_mg34",
     "gun__shootNodeName": "bone_mg_aa_barrel",
     "turret__yawSpeed": 90.0,
     "turret__pitchSpeed": 90.0,
@@ -273,7 +273,7 @@
     ]
   },
   "pzkpfw_vi_ausf_e_tiger_turret_04_91mm_germ_smoke_mortar_launcher": {
-    "_extends": "tankgun_91mm_germ_smoke_mortar_launcher",
+    "_use": "tankgun_91mm_germ_smoke_mortar_launcher",
     "gun__shootNodeName": "emtr_mortar_flame_01",
     "gun__shellsAmmo:array": {
       "ammo": 6
@@ -281,13 +281,13 @@
   },
   "pzkpfw_vi_ausf_e_tiger_ammo_stowages": {
     "_tags": "server",
-    "_extends": "vehicle_ammo_stowages",
+    "_use": "vehicle_ammo_stowages",
     "ammo_stowage__stowageTemplates:shared:list<t>": {
       "stowage": "pzkpfw_vi_ausf_e_tiger_primary_ammo_stowage"
     }
   },
   "pzkpfw_vi_ausf_e_tiger_primary_ammo_stowage": {
-    "_extends": "ammo_stowage",
+    "_use": "ammo_stowage",
     "ammo_stowage__clusterTemplates:shared:list<t>": {
       "cluster": "pzkpfw_vi_ausf_e_tiger_primary_shells_ammo_cluster"
     },
@@ -296,7 +296,7 @@
     }
   },
   "pzkpfw_vi_ausf_e_tiger_primary_shells_ammo_cluster": {
-    "_extends": "ammo_cluster",
+    "_use": "ammo_cluster",
     "ammo_cluster__isShell": true,
     "ammo_cluster__slotNames:shared:list<t>": [
       {

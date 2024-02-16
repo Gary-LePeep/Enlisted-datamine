@@ -88,6 +88,7 @@
     "entity": {
       "_template": "briefing_invasion",
       "mission_name": "stalingrad_foundry_inv",
+      "mission_outfit": "stalingrad",
       "loading_images:list<t>": {
         "item": "ui/stalingrad_inv_05.avif"
       }
@@ -122,7 +123,7 @@
       "team__briefing": "invasion/attackers_goals",
       "team__winSubtitle": "debriefing/won_invasion_subtitle",
       "team__loseSubtitle": "debriefing/lost_invasion_subtitle",
-      "team__winTitle": "debriefing/ger_won_invasion",
+      "team__winTitle": "debriefing/axis_won_invasion",
       "team__spawnBotArmy": "stalingrad_axis"
     }
   },
@@ -158,7 +159,7 @@
       "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 1,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "decal__height": 1.0,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 3,
@@ -192,7 +193,7 @@
       "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 1,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "decal__height": 1.0,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 4,
@@ -225,7 +226,7 @@
       "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 1,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "decal__height": 1.0,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 4,
@@ -258,7 +259,7 @@
       "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 1,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "decal__height": 0.5,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 5,
@@ -292,7 +293,7 @@
       "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 1,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "decal__height": 0.5,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 6,
@@ -326,7 +327,7 @@
       "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 1,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "decal__height": 0.7,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 7,
@@ -360,7 +361,7 @@
       "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 1,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "decal__height": 0.5,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 8
@@ -390,7 +391,7 @@
       "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 1,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "decal__height": 0.7,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 9

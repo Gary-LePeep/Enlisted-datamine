@@ -1,10 +1,10 @@
 {
   "base_tgdgb_m40_lv": [
     {
-      "_extends": "base_tank"
+      "_use": "base_tank"
     },
     {
-      "_extends": "tgdgb_m40_lv_ammo_stowages"
+      "_use": "tgdgb_m40_lv_ammo_stowages"
     },
     {
       "killLogName": "sw_tgdgb_m40_lv"
@@ -108,7 +108,7 @@
     }
   ],
   "tgdgb_m40_lv_turret_01_40mm_lva_kan_m36": {
-    "_extends": "tankgun_40mm_lva_kan_m36",
+    "_use": "tankgun_40mm_lva_kan_m36",
     "gun__shootNodeName": "bone_gun_barrel",
     "turret__yawSpeed": 21.0,
     "turret__pitchSpeed": 24.0,
@@ -135,13 +135,13 @@
   },
   "tgdgb_m40_lv_ammo_stowages": {
     "_tags": "server",
-    "_extends": "vehicle_ammo_stowages",
+    "_use": "vehicle_ammo_stowages",
     "ammo_stowage__stowageTemplates:shared:list<t>": {
       "stowage": "tgdgb_m40_lv_ammo_stowage_1"
     }
   },
   "tgdgb_m40_lv_ammo_stowage_1": {
-    "_extends": "ammo_stowage",
+    "_use": "ammo_stowage",
     "ammo_stowage__clusterTemplates:shared:list<t>": {
       "cluster": "tgdgb_m40_lv_ammo_cluster_1_1"
     },
@@ -150,7 +150,7 @@
     }
   },
   "tgdgb_m40_lv_ammo_cluster_1_1": {
-    "_extends": "ammo_cluster",
+    "_use": "ammo_cluster",
     "ammo_cluster__isShell": true,
     "ammo_cluster__slotNames:shared:list<t>": [
       {

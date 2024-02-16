@@ -21,9 +21,10 @@ let function traceSearch(pos, top_offs) {
   let t = top_offs
   if (!rayhit_normalized(pos, Point3(0.0, -1.0, 0.0), t)) {
     let hitT = traceray_normalized(pos + Point3(0.0, top_offs, 0.0), Point3(0.0, -1.0, 0.0), top_offs)
-    if (hitT != null) {
+    const errTerm = 0.4
+    if (hitT != null && top_offs - hitT > errTerm) {
       let maxHt = pos.y + top_offs - hitT
-      return traceBinarySearch(pos, maxHt, 0.4)
+      return traceBinarySearch(pos, maxHt, errTerm)
     }
   }
   return pos

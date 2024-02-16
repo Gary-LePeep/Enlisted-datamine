@@ -1,6 +1,25 @@
 {
+  "us_m4a3e2_sherman_jumbo_jackson_battlepass_premium": {
+    "_use": "us_m4a3e2_sherman_jumbo",
+    "animchar__objTexSet:object": {
+      "m4a3e2_sherman_jumbo_body_c*:object": {
+        "m4a3e2_sherman_jumbo_jackson_body_c*": "camo_skin_tex"
+      },
+      "m4a3e2_sherman_jumbo_gun_c*:object": {
+        "m4a3e2_sherman_jumbo_jackson_gun_c*": "camo_skin_tex"
+      },
+      "m4a3e2_sherman_jumbo_turret_c*:object": {
+        "m4a3e2_sherman_jumbo_jackson_turret_c*": "camo_skin_tex"
+      }
+    },
+    "animchar__objTexReplace:object": {
+      "pzkpfw_IV_ausf_H_addarmor_ao*": "m4a3e2_sherman_jumbo_body_n*",
+      "pzkpfw_IV_ausf_H_addarmor_n*": "m4a3e2_sherman_jumbo_gun_n*",
+      "m4a3e2_sherman_jumbo_turret_n*": "m4a3e2_sherman_jumbo_jackson_turret_n*"
+    }
+  },
   "us_m4a3e2_sherman_jumbo": {
-    "_extends": "us_m4a3e2_sherman_jumbo_common",
+    "_use": "us_m4a3e2_sherman_jumbo_common",
     "disableDMParts:list<t>": [
       {
         "part": "ex_decor_14"
@@ -39,13 +58,28 @@
   },
   "us_m4a3e2_sherman_jumbo_common": [
     {
-      "_extends": "base_m4a3e2_sherman_jumbo"
+      "_use": "base_m4a3e2_sherman_jumbo"
     },
     {
-      "_extends": "tank_heavy_vehicle_tracks_sound"
+      "_use": "tank_heavy_vehicle_tracks_sound"
     },
     {
-      "item__iconOffset": [0.0,0.2]
+      "commanderCockpitFpsCamMaxAngle": [40.0,5.0]
+    },
+    {
+      "gunner_cam_limit__useCockpitDir": true
+    },
+    {
+      "item__iconOffset": [0.03,0.18]
+    },
+    {
+      "item__iconScale": 1.3
+    },
+    {
+      "armorThicknessHull": [101.0,76.0,38.0]
+    },
+    {
+      "armorThicknessTurret": [177.0,152.0,152.0]
     },
     {
       "turrets__initAmmoDistribution:array": [
@@ -66,30 +100,6 @@
             "slot": 4,
             "count": 7
           }
-        }
-      ]
-    },
-    {
-      "bullet_holes__ignoreCollisionNodes:array": {
-        "_tags": "render"
-      }
-    },
-    {
-      "bullet_holes__movingCollisionNodes:array": [
-        {
-          "_tags": "render"
-        },
-        {
-          "movingCollisionNodes": "cls_turret_01"
-        },
-        {
-          "movingCollisionNodes": "turret_front"
-        },
-        {
-          "movingCollisionNodes": "turret_side"
-        },
-        {
-          "movingCollisionNodes": "gun_mask"
         }
       ]
     },
@@ -141,7 +151,7 @@
             "shouldHideOwner": true,
             "receiveDamageFromDMPart": "driver",
             "cameraNodeName": "bone_camera_driver",
-            "cockpitTemplate": "base_driver_cockpit"
+            "cockpitTemplate": "us_m4a2_sherman_1944_driver_cockpit"
           }
         },
         {
@@ -240,14 +250,14 @@
     }
   ],
   "us_m4a3e2_sherman_jumbo_commander_cockpit": {
-    "_extends": "base_commander_cockpit_no_slits",
+    "_use": "base_commander_cockpit_no_slits",
     "animchar__res": "t_26_1940_commander_char",
-    "cockpit__offset": [-0.0,0.9,-0.46],
+    "cockpit__offset": [0.0,0.0,0.0],
     "cockpit__cockpitOffsetBySlit:list<p3>": {
-      "slit": [0.0,0.0,0.0]
+      "slit": [-0.4,1.0,-0.4]
     },
     "cockpit__slitForwardOffset:list<r>": {
-      "slit": 0.15
+      "slit": 0.16
     },
     "cockpit__slitIsGun:list<b>": {
       "slit": true
@@ -255,34 +265,144 @@
     "cockpit__slitNodeNames:list<t>": {
       "slit": "cam_front"
     },
-    "cockpit__visibleVehicleNodeNames:list<t>": {
-      "node": "gun_barrel"
-    }
+    "cockpit__visibleVehicleNodeNames:list<t>": [
+      {
+        "node": "gun_barrel"
+      },
+      {
+        "node": "bone_gun"
+      },
+      {
+        "node": "bone_turret"
+      },
+      {
+        "node": "bone_mg_aa_h_01"
+      },
+      {
+        "node": "bone_mg_aa_v_01"
+      },
+      {
+        "node": "hatch_02"
+      },
+      {
+        "node": "ex_lantern_03"
+      }
+    ],
+    "cockpit__periscopeLimits:list<p4>": {
+      "slit": [-90.0,90.0,-0.0,25.0]
+    },
+    "cockpit__periscopeSpeed:list<p2>": {
+      "slit": [35.0,35.0]
+    },
+    "cockpit__slitZoom:array": {
+      "slit:list<r>": {
+        "zoom": 1.44
+      }
+    },
+    "cockpit__slitZoomTime:list<r>": {
+      "slit": 0.0
+    },
+    "cockpit__slitTemplates:list<t>": {
+      "slit": "default_periscope"
+    },
+    "cockpit__slitEids:list<eid>": []
   },
   "us_m4a3e2_sherman_jumbo_gunner_cockpit": {
-    "vehicle_sight__blk": "content/tanks/gamedata/sight/us_m71g.blk",
-    "_extends": "base_gunner_cockpit",
+    "_use": "base_gunner_cockpit",
     "animchar__res": "ba_11_gunner_char",
-    "cockpit__offset": [-0.65,-0.065,0.233],
+    "cockpit__offset": [0.0,0.0,0.0],
+    "cockpit__cockpitOffsetBySlit:list<p3>": [
+      {
+        "slit": [-0.65,-0.065,0.233]
+      },
+      {
+        "slit": [-0.0,0.8,-0.38]
+      }
+    ],
     "cockpit__visibleVehicleNodeNames:list<t>": {
       "node": "gun_barrel"
     },
-    "cockpit__slitNodeNames:list<t>": {
-      "slit": "cam_front_right"
-    },
-    "cockpit__slitForwardOffset:list<r>": {
-      "slit": 0.11
-    },
-    "cockpit__slitIsGun:list<b>": {
-      "slit": true
-    },
-    "cockpit__cockpit__attachNodeNames:list<t>": {
-      "node": "bone_camera_gunner"
-    },
-    "cockpit__cockpit__attachNodeIndices:list<i>": []
+    "cockpit__slitNodeNames:list<t>": [
+      {
+        "slit": "cam_front_right"
+      },
+      {
+        "slit": "cam_front"
+      }
+    ],
+    "cockpit__slitForwardOffset:list<r>": [
+      {
+        "slit": 0.15
+      },
+      {
+        "slit": 0.165
+      }
+    ],
+    "cockpit__slitIsGun:list<b>": [
+      {
+        "slit": true
+      },
+      {
+        "slit": true
+      }
+    ],
+    "cockpit__attachNodeNames:list<t>": [
+      {
+        "node": "bone_camera_gunner"
+      },
+      {
+        "node": "bone_turret"
+      }
+    ],
+    "cockpit__attachNodeIndices:list<i>": [],
+    "cockpit__periscopeLimits:list<p4>": [
+      {
+        "slit": [-0.0,0.0,0.0,0.0]
+      },
+      {
+        "slit": [-0.0,0.0,-8.0,25.0]
+      }
+    ],
+    "cockpit__periscopeSpeed:list<p2>": [
+      {
+        "slit": [-1.0,-1.0]
+      },
+      {
+        "slit": [35.0,35.0]
+      }
+    ],
+    "cockpit__slitZoom:array": [
+      {
+        "slit:list<r>": {
+          "zoom": 5.0
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      }
+    ],
+    "cockpit__slitZoomTime:list<r>": [
+      {
+        "slit": 0.05
+      },
+      {
+        "slit": 0.0
+      }
+    ],
+    "cockpit__slitTemplates:list<t>": [
+      {
+        "slit": "us_m71g"
+      },
+      {
+        "slit": "default_periscope"
+      }
+    ],
+    "cockpit__slitEids:list<eid>": []
   },
   "us_m4a3e2_sherman_jumbo_rhino_premium": {
-    "_extends": "us_m4a3e2_sherman_jumbo_common",
+    "_use": "us_m4a3e2_sherman_jumbo_common",
     "collision_damage__forwardDamageToHumanMult": 100.0,
     "animchar__objTexReplace:object": {
       "us_camo_olive*": "us_camo_olive_drab_olive*"

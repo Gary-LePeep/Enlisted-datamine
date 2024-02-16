@@ -14,6 +14,8 @@ require strings
 let SPEECH_WATCHED_VOLUME = 1.5
 let SPEECH_TEAM_VOLUME = 1.5
 let SPEECH_MAX_NET_DELAY = 4.
+let SPEECH_DEF_MAX_DISTANCE = 50.
+let SPEECH_IGNORE_MAX_DISTANCE_VALUE = -1.
 
 
 def get_enemy_voice(voice_id : int; voices : StringList)
@@ -25,6 +27,8 @@ def get_enemy_voice(voice_id : int; voices : StringList)
 def is_player_team(team : int)
   return team != TEAM_UNASSIGNED && (get_int(get_local_player_eid(), "team") ?? TEAM_UNASSIGNED) == team
 
+def is_hardcore_mode()
+  return find_query() <| $ [es(REQUIRE=noBotsMode)] () { return true; }
 
 def start_speech(phrase_idx : int;
                  human_speech__canSpeak : bool;
@@ -36,28 +40,40 @@ def start_speech(phrase_idx : int;
                  is_watched_sound : bool;
                  var human_speech__event : SoundEvent&;
                  transform : float3x4;
-                 team : int = TEAM_UNASSIGNED;
-                 human_speech__distThreshold = 50.)
-  if human_speech__canSpeak && uint(phrase_idx) < uint(human_speech__speeches.size) && (is_watched_sound || should_play(transform[3], human_speech__distThreshold))
-    let desc = human_speech__speeches[phrase_idx] as Object
-    if desc != null
-      if !(desc?.replace ?? false) && is_playing(human_speech__event.handle)
-        return
-      release(human_speech__event.handle)
-      let path = is_watched_sound ? human_speech__playerVoice : get_enemy_voice(human_speech__voiceIdx, human_speech__enemyVoices)
-      if empty(human_speech__locale)
-        human_speech__event.handle = sound_player_common::play_desc_path(*desc, path, transform[3], false)
-      else
-        human_speech__event.handle = sound_player_common::play_desc_path(*desc, "{path}/{human_speech__locale}", transform[3], false)
+                 team : int = TEAM_UNASSIGNED)
+  if !human_speech__canSpeak || uint(phrase_idx) >= uint(human_speech__speeches.size)
+    return
+  let desc = human_speech__speeches[phrase_idx] as Object
+  if desc == null
+    return
 
-      if is_watched_sound
-        set_volume(human_speech__event.handle, SPEECH_WATCHED_VOLUME)
-      elif is_player_team(team)
-        set_volume(human_speech__event.handle, SPEECH_TEAM_VOLUME)
+  let isWatchedSound = is_watched_sound || (desc?.treatAsWatched ?? false)
+
+  let hardcoreModeMaxDist = desc?.hardcoreModeMaxDist ?? SPEECH_IGNORE_MAX_DISTANCE_VALUE
+  if hardcoreModeMaxDist != SPEECH_IGNORE_MAX_DISTANCE_VALUE
+    if is_hardcore_mode() && !should_play(transform[3], hardcoreModeMaxDist)
+      return
+  elif !isWatchedSound && !should_play(transform[3], desc?.maxDist ?? SPEECH_DEF_MAX_DISTANCE)
+    return
+
+  if !(desc?.replace ?? false) && is_playing(human_speech__event.handle)
+    return
+
+  release(human_speech__event.handle)
+  let path = isWatchedSound ? human_speech__playerVoice : get_enemy_voice(human_speech__voiceIdx, human_speech__enemyVoices)
+  if empty(human_speech__locale)
+    human_speech__event.handle = sound_player_common::play_desc_path(*desc, path, transform[3], false)
+  else
+    human_speech__event.handle = sound_player_common::play_desc_path(*desc, "{path}/{human_speech__locale}", transform[3], false)
+
+  if isWatchedSound
+    set_volume(human_speech__event.handle, SPEECH_WATCHED_VOLUME)
+  elif is_player_team(team)
+    set_volume(human_speech__event.handle, SPEECH_TEAM_VOLUME)
 
 
 [es(tag=sound)]
-def human_speech_cmd(evt : CmdHumanSpeech;
+def human_speech_cmd(evt : CmdNetHumanSpeech;
                      human_speech__canSpeak : bool;
                      human_speech__playerVoice : string;
                      human_speech__enemyVoices : StringList;
@@ -83,73 +99,14 @@ def human_speech_cmd(evt : CmdHumanSpeech;
 
 
 [es(tag=sound)]
-def human_speech_quick_chat(evt : CmdHumanQuickChatSpeech;
-                            human_speech__canSpeak : bool;
-                            human_speech__playerVoice : string;
-                            human_speech__enemyVoices : StringList;
-                            human_speech__locale : string;
-                            human_speech__voiceIdx : int;
-                            [[shared_comp]] human_speech__speeches : Array;
-                            is_watched_sound : bool;
-                            var human_speech__event : SoundEvent&;
-                            transform : float3x4;
-                            team : int;
-                            human_speech__hardcoreMaxDistance : float = 50.)
-  if !is_player_team(team) || get_sync_time() >= evt.time + SPEECH_MAX_NET_DELAY
-    return
-
-  let isHardcoreMode = find_query() <| $ [es(REQUIRE=noBotsMode)] () { return true; }
-  if isHardcoreMode && !should_play(transform[3], human_speech__hardcoreMaxDistance)
-    return
-
-  let unlimitedMaxDistance = -1.
-  start_speech(evt.phraseIdx,
-               human_speech__canSpeak,
-               human_speech__playerVoice,
-               human_speech__enemyVoices,
-               human_speech__locale,
-               human_speech__voiceIdx,
-               human_speech__speeches,
-               is_watched_sound,
-               human_speech__event,
-               transform,
-               team,
-               unlimitedMaxDistance)
-
-
-[es(tag=sound)]
-def human_speech_cmd_human_watched_speech(evt : CmdHumanWatchedSpeech;
-                                          human_speech__canSpeak : bool;
-                                          human_speech__playerVoice : string;
-                                          human_speech__enemyVoices : StringList;
-                                          human_speech__locale : string;
-                                          human_speech__voiceIdx : int;
-                                          [[shared_comp]] human_speech__speeches : Array;
-                                          var human_speech__event : SoundEvent&;
-                                          transform : float3x4;
-                                          team : int = TEAM_UNASSIGNED)
-  if get_sync_time() < evt.time + SPEECH_MAX_NET_DELAY
-    start_speech(evt.phraseIdx,
-                 human_speech__canSpeak,
-                 human_speech__playerVoice,
-                 human_speech__enemyVoices,
-                 human_speech__locale,
-                 human_speech__voiceIdx,
-                 human_speech__speeches,
-                 true,
-                 human_speech__event,
-                 transform,
-                 team)
-
-
-[es(tag=sound)]
-def human_speech_cmd_hero_speech(evt : CmdHeroSpeech;
+def human_speech_cmd_hero_speech(evt : CmdClientHumanSpeech;
                                  human_speech__canSpeak : bool;
                                  human_speech__playerVoice : string;
                                  human_speech__enemyVoices : StringList;
                                  human_speech__locale : string;
                                  human_speech__voiceIdx : int;
                                  [[shared_comp]] human_speech__speeches : Array;
+                                 is_watched_sound : bool;
                                  var human_speech__event : SoundEvent&;
                                  transform : float3x4;
                                  team : int = TEAM_UNASSIGNED)
@@ -162,7 +119,7 @@ def human_speech_cmd_hero_speech(evt : CmdHeroSpeech;
                  human_speech__locale,
                  human_speech__voiceIdx,
                  human_speech__speeches,
-                 true,
+                 is_watched_sound,
                  human_speech__event,
                  transform,
                  team)

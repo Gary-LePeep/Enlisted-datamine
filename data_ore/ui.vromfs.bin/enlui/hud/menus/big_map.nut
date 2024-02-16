@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 from "minimap" import MinimapState
 
-let { h1_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontHeading1 } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { mmChildrenCtors } = require("%ui/hud/minimap_ctors.nut")
 let { bigmapDefaultVisibleRadius } = require("bigmap_state.nut")
 let mmContext = require("%ui/hud/huds/minimap/minimap_ctx.nut")
@@ -25,6 +25,7 @@ let { battleUnlocks, statsInGame, getTasksWithProgress } = require("%ui/hud/stat
 let { unlockProgress } = require("%enlSqGlob/userstats/unlocksState.nut")
 let { missionName, missionType } = require("%enlSqGlob/missionParams.nut")
 let { isReplay } = require("%ui/hud/state/replay_state.nut")
+let { attentionTxtColor } = require("%enlSqGlob/ui/designConst.nut")
 
 let isMapAutonomousInReplay = Watched(true)
 let isMapInteractive = Computed(@() hudIsInteractive.value
@@ -44,6 +45,18 @@ else if ( screen_aspect_ratio <= 4.0/3 ) {
   leftPadding(0)
 }
 
+let tasksListWidth = hdpx(450)
+let interactiveTipsHeight = hdpx(100)
+
+let statsUpdateTip = {
+  rendObj = ROBJ_TEXT
+  size = [tasksListWidth, interactiveTipsHeight]
+  halign = ALIGN_CENTER
+  valign = ALIGN_CENTER
+  text = loc("hud/stats_update_tip")
+  color = attentionTxtColor
+}
+
 let showBigMap = mkWatched(persist, "showBigMap", false)
 let needShowTasks = Computed(@() battleUnlocks.value.len()>0)
 let mapSize = Computed(@() needShowTasks.value
@@ -52,7 +65,7 @@ let mapSize = Computed(@() needShowTasks.value
 
 let tasksList = @() {
   watch = [mapSize, battleUnlocks, unlockProgress, statsInGame]
-  size = [hdpx(450), SIZE_TO_CONTENT]
+  size = [tasksListWidth, mapSize.value[0]]
   key = "big_map_tasks"
   children = makeVertScroll({
     size = [flex(), SIZE_TO_CONTENT]
@@ -108,9 +121,9 @@ let modeHotkeyTip = tipCmp({
   style = {rendObj=null}
 })
 
-let mkPlacePointsTip = @(mapSize, addChild) @() {
-  watch = [mapSize, isGamepad]
-  size = [mapSize.value[0], SIZE_TO_CONTENT]
+let mkPlacePointsTip = @(mapSizeW, addChild) @() {
+  watch = [mapSizeW, isGamepad]
+  size = [mapSizeW.value[0], SIZE_TO_CONTENT]
   flow = FLOW_VERTICAL
   halign = ALIGN_CENTER
   gap = fsh(0.5)
@@ -120,15 +133,15 @@ let mkPlacePointsTip = @(mapSize, addChild) @() {
     addChild
   ]
 }
-let mkInteractiveTips = @(internactiveTips, notInteractiveTips) @() {
+let mkInteractiveTips = @(interactiveTips, notInteractiveTips) @() {
   watch = isMapInteractive
-  size = [flex(), hdpx(100)]
+  size = [flex(), interactiveTipsHeight]
   valign = ALIGN_CENTER
   flow = FLOW_VERTICAL
   gap = fsh(0.5)
   padding = [mapPadding, 0]
   halign = ALIGN_CENTER
-  children = isMapInteractive.value ? internactiveTips : notInteractiveTips
+  children = isMapInteractive.value ? interactiveTips : notInteractiveTips
 }
 
 let function interactiveFrame() {
@@ -227,13 +240,30 @@ let baseMap = @() {
   onDoubleClick = onDoubleClickMap
 }
 
+let backMap = @() {
+  size = mapSize.value
+  watch = [isMapInteractive, mapSize]
+  minimapState = minimapState
+  rendObj = ROBJ_MINIMAP_BACK
+  transform = mapTransform
+  behavior = [Behaviors.Minimap]
+  color = Color(255, 255, 255, 200)
+
+  halign = ALIGN_CENTER
+  valign = ALIGN_CENTER
+
+  clipChildren = true
+  eventPassThrough = true
+  stickCursor = false
+}
+
 let mapLayers = @() {
   behavior = Behaviors.ActivateActionSet
   actionSet = "BigMap"
   watch = [ mapSize]
   size = mapSize.value
   children = [
-    baseMap
+    backMap, baseMap
   ]
     .extend(mmChildrenCtors.map(@(c) mkMapLayer(c, markersParams, mapSize.value)))
     .append(interactiveFrame)
@@ -258,21 +288,25 @@ let missionTitle = @(){
     rendObj = ROBJ_TEXT
     text = loc(missionName.value, { mission_type = loc($"missionType/{missionType.value}") })
     fontFxColor = DEFAULT_TEXT_COLOR
-  }.__update(h1_txt)
+  }.__update(fontHeading1)
 }
 
 
 let mapContent = @() {
-  watch = needShowTasks
+  watch = [needShowTasks, isReplay]
   flow = FLOW_HORIZONTAL
   children = [
     mapBlock
-    needShowTasks.value
+    needShowTasks.value && !isReplay.value
       ? @() {
-          watch = [isReplay, isMapInteractive]
+          watch = isMapInteractive
           size = [SIZE_TO_CONTENT, flex()]
           disableInput = !isMapInteractive.value
-          children = isReplay.value ? null : tasksList
+          flow = FLOW_VERTICAL
+          children = [
+            tasksList
+            statsUpdateTip
+          ]
         }
       : null
   ]

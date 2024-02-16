@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { PrimaryFlat } = require("%ui/components/textButton.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
 let { bigPadding, lockedSquadBgColor, activeTxtColor, defTxtColor, titleTxtColor,
@@ -60,7 +60,7 @@ let mkUnlockInfo = @(t) t == null ? null : {
   children = txt({
     text = t
     color = activeTxtColor
-  }.__update(body_txt))
+  }.__update(fontBody))
 }
 
 let function mkUnlockDescription(itemTpl) {
@@ -180,6 +180,7 @@ let mkItemPromo = kwarg(function(armyId, itemTpl, presentation, unlockInfo) {
       rewardToScroll(unlockInfo.unlockUid)
       viewItemScene(itemToView)
     }
+    xmbNode = XmbNode()
     gap = bigPadding
     children = [
       mkBackWithImage(presentation?.image, unlockInfo != null)

@@ -25,6 +25,8 @@ def auto_gun_controller_es(info : ParallelUpdateFrameDelayed;
                            auto_gun_controller__changeTargetTime = 10.f;
                            auto_gun_controller__traceTime : float = -1.f;
                            auto_gun_controller__targetOffset : float3 = float3();
+                           auto_gun_controller__randomDelay : float2 = float2(0, 0);
+                           var auto_gun_controller__randomDelayEndTime : float?;
                            var auto_gun_controller__lastTargetPos : float3?;
                            var mounted_gun : MountedGun;
                            var phys_vars : PhysVars;
@@ -37,7 +39,7 @@ def auto_gun_controller_es(info : ParallelUpdateFrameDelayed;
   mounted_gun.wishShoot = false // allow to reload after shot
   let gunShootPos = gun.shootNodePos
   let aimDirClampVal = 0.95f
-  let canShoot = info.curTime >= gun.nextShotAtTime
+  var canShoot = info.curTime >= gun.nextShotAtTime
   if (!doesEntityExist(auto_gun_controller__selectedTarget) ||
       !(get_bool(auto_gun_controller__selectedTarget, "isAlive") ?? false) ||
       info.curTime > auto_gun_controller__nextChangeTargetTime)
@@ -72,6 +74,9 @@ def auto_gun_controller_es(info : ParallelUpdateFrameDelayed;
     return
 
   query(auto_gun_controller__selectedTarget) <| $ [es] (ai_target : Target)
+    if canShoot && auto_gun_controller__randomDelayEndTime != null && *auto_gun_controller__randomDelayEndTime < gun.nextShotAtTime
+      *auto_gun_controller__randomDelayEndTime = gun.nextShotAtTime + rnd_float(auto_gun_controller__randomDelay.x, auto_gun_controller__randomDelay.y)
+
     if auto_gun_controller__lastTargetPos != null
       if !canShoot && length_sq(*auto_gun_controller__lastTargetPos - ai_target.targetPos) < 1e-5f
         return
@@ -92,6 +97,7 @@ def auto_gun_controller_es(info : ParallelUpdateFrameDelayed;
     dist = length(dir)
     dir *= safeinv(dist)
     let additionalAngles = float2()
+    canShoot &&= info.curTime > (auto_gun_controller__randomDelayEndTime ?? 0.)
     mounted_gun |> mounted_gun_setControls(gun, dir, dir, canShoot, info.dt, info.curTime, phys_vars, additionalAngles)
 
 

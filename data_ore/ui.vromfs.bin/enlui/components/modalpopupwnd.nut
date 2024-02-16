@@ -25,7 +25,7 @@ let POPUP_PARAMS = {
   fillColor = BtnBgNormal
   padding = gap
   popupBg = {}
-  moveDuraton = 0.3
+  moveDuration = 0.3
 }
 
 let remove = @(uid) removeModalWindow(uid)
@@ -103,7 +103,7 @@ local function add(rectOrPos, popup) {
 
           transform = {}
           animations = [
-            translateAnimation(popup.popupFlow, offsets.halign, offsets.valign, popup.moveDuraton)
+            translateAnimation(popup.popupFlow, offsets.halign, offsets.valign, popup.moveDuration)
           ]
         }
       }

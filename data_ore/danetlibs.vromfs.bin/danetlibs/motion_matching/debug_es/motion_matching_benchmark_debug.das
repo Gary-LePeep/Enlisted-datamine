@@ -9,40 +9,34 @@ require Dacoll
 require DagorDebug3D
 require DagorTime
 require daProfiler
-require EnlistedCamera
+require DngCamera
+require DngActor
 require MotionMatching
-
-[console_cmd(name="motion_matching.enable_on_base_soldier")]
-def enable_optinal_motion_matching()
-  query()  <| $ [es(REQUIRE=optionalRequestMotionMatching)] (eid : EntityId)
-    addSubTemplate(eid, "motion_matching_animchar_component")
 
 def randXZfloat3(scale : float)
   return (float3(gfrnd(), 0.f, gfrnd()) * 2.0 - float3(1, 0, 1)) * scale
 
-def spawn_dev_soldier(pos : float3; templateName : string; team = 1)
+def spawn_dev_soldier(pos : float3; templateName : string; init_block : block<(var compInit : ComponentsInitializer) : void>)
   return createEntity(templateName) <| $(var init : ComponentsInitializer)
     var tm = IDENT_TM
     tm[3] = pos
     set(init, "transform", tm)
-    set(init, "team", team)
+    set(init, "team", 1)
+    invoke(init_block, init)
 
+def spawn_dev_soldier(pos : float3; templateName : string)
+  return spawn_dev_soldier(pos, templateName) <| $ [unused_argument(init)] (var init)
+    return
+
+def set_weapon(var init : ComponentsInitializer; primary_weapon : string)
+  using() <| $(var obj : Object)
+    set(obj, "primary", primary_weapon)
+    set(init, "human_weap__weapTemplates", obj)
 
 [es(on_appear)]
-def test_target_appear(event : Event; var test_target, test_target_center, test_target_velocity : float3&; transform : float3x4)
+def test_target_appear(event : Event; var test_target, test_target_origin : float3&; transform : float3x4)
   test_target = transform[3]
-  test_target_center = transform[3]
-  test_target_velocity = float3(0, 0, 2)
-
-[es(on_appear, REQUIRE=animationTestPair)]
-def test_pair_appear(event : Event; var tester_list : EidList; transform : float3x4)
-  let right = transform[0]
-
-  tester_list |> push(spawn_dev_soldier(transform[3] - right, "walk_soldier+dev_soldier_tag+motion_matching_anim_tree_tester"))
-  tester_list |> push(spawn_dev_soldier(transform[3] + right, "walk_soldier+dev_soldier_tag+motion_matching_tester"))
-  tester_list |> push(spawn_dev_soldier(transform[3] + right, "walk_soldier+dev_soldier_tag+motion_matching_inertial_blend_tester"))
-
-  enable_free_camera()
+  test_target_origin = transform[3]
 
 def clamp_point_in_circle(center, point : float3; radius : float)
   let d = center - point
@@ -56,8 +50,8 @@ def clamp_point_in_circle(center, point : float3; radius : float)
 [es(no_order)]
 def tester_target_update(info : ecs::UpdateStageInfoAct;
                          var animation_tester__moveTarget : float3&;
-                         test_target : float3)
-  animation_tester__moveTarget = test_target
+                         test_target, test_target_posOffset : float3)
+  animation_tester__moveTarget = test_target + test_target_posOffset
 
 
 [es(no_order, REQUIRE=motion_matching__animTreeTester)]
@@ -76,7 +70,6 @@ def inertial_blend_tester_update(info : ecs::UpdateStageInfoAct; var motion_matc
 def test_pair_update(info : ecs::UpdateStageInfoAct;
                      var transform : float3x4&;
                      tester_list : EidList)
-
   var avgPos = float3(0)
   if empty(tester_list)
     return
@@ -88,17 +81,39 @@ def test_pair_update(info : ecs::UpdateStageInfoAct;
   avgPos /= float(length(tester_list))
   transform[3] = avgPos
 
+[es(on_appear)]
+def test_pair_camera_look_at_target(event : Event;
+                                    motion_matching__followWithFreeCamera : bool;
+                                    motion_matching__freeCameraOffset : float3)
+  if !motion_matching__followWithFreeCamera
+    return
   find_query() <| $ [es] (camera__active : bool; var transform : float3x4&)
     if !camera__active
       return false
-    transform[3] = avgPos + float3(0, 1, 0) * 4f + float3(0, 0, -1) * 4f
+    let lookDir = -normalize(motion_matching__freeCameraOffset)
+    transform[0] = normalize(cross(float3(0, 1, 0), lookDir))
+    transform[1] = cross(lookDir, transform[0])
+    transform[2] = lookDir
     return true
 
 [es(no_order)]
-def test_target_update(info : ecs::UpdateStageInfoAct;
-                       transform : float3x4;
-                       var test_target, test_target_velocity : float3&;
-                       test_target_center : float3)
+def test_pair_update_camera(info : ecs::UpdateStageInfoAct;
+                            transform : float3x4;
+                            motion_matching__followWithFreeCamera : bool;
+                            motion_matching__freeCameraOffset : float3)
+  if !motion_matching__followWithFreeCamera
+    return
+  let cameraTarget = transform[3]
+  find_query() <| $ [es] (camera__active : bool; var transform : float3x4&)
+    if !camera__active
+      return false
+    transform[3] = cameraTarget + motion_matching__freeCameraOffset
+    return true
+
+def default_test_target_update(info : ecs::UpdateStageInfoAct;
+                               transform : float3x4;
+                               var test_target, test_target_velocity : float3&;
+                               test_target_center : float3)
   let position = transform[3]
   let r = length(test_target_velocity)//radius
   let a = atan2(test_target_velocity.x, test_target_velocity.z)//angle
@@ -123,6 +138,28 @@ def test_target_update(info : ecs::UpdateStageInfoAct;
 
   let color = E3DCOLOR(0xFF00FF00)
   draw_debug_sphere_buffered(test_target, 0.1, color, 12, 10)
+
+[es(no_order)]
+def test_target_update(info : ecs::UpdateStageInfoAct;
+                       eid : EntityId;
+                       var transform : float3x4&;
+                       var test_target, test_target_velocity : float3&;
+                       var test_target_time : float&;
+                       test_target_timeToReset : float;
+                       test_target_origin : float3;
+                       test_target_mode : string)
+  test_target_time += info.dt
+  if test_target_timeToReset > 0.0f && test_target_time > test_target_timeToReset
+    transform[3] = test_target_origin
+    teleport_phys_actor(eid, transform)
+    test_target = test_target_origin
+    test_target_time = 0.0f
+    return
+
+  if test_target_mode == "run forward"
+    test_target += test_target_velocity * info.dt
+  elif test_target_mode == "default"
+    default_test_target_update(info, transform, test_target, test_target_velocity, test_target_origin)
 
 [es(no_order)]
 def test_pair_text_update(info : UpdateStageInfoRenderDebug;
@@ -152,19 +189,16 @@ def test_pair_beh_tree_controll(info : ecs::UpdateStageInfoAct;
 
 
 [es(no_order)]
-def tester_beh_tree_controll(info : ecs::UpdateStageInfoAct;
-                             animation_tester__moveTarget : float3;
-                             var beh_tree : BehaviourTree&)
+def tester_beh_tree_control(info : ecs::UpdateStageInfoAct;
+                            animation_tester__moveTarget : float3;
+                            var beh_tree : BehaviourTree&)
   beh_tree.blackBoard |> get_or_create("wishPos", animation_tester__moveTarget)
   beh_tree.blackBoard |> set("wishPos", animation_tester__moveTarget)
   let color = E3DCOLOR(0xFFFFFF00)
   draw_debug_sphere_buffered(animation_tester__moveTarget, 0.1, color, 12, 10)
 
-
-[console_cmd(name="motion_matching.spawn_test_pair")]
-def spawn_test_pair()
-  clear_bots()
-
+def get_spawn_pos_from_current_camera()
+  var targetPos = float3(0, 0, 0)
   find_query() <| $ [es] (camera__active : bool; transform : float3x4)
     if camera__active
       let cameraPos = transform[3]
@@ -172,12 +206,35 @@ def spawn_test_pair()
       var dist = 500.0f
       var norm : float3
       traceray_normalized(cameraPos, dir, dist, norm)
-      let spawnTransform = pos_tm(cameraPos + dist * dir)
-      createEntity("animation_test_pair") <| $(var init : ComponentsInitializer)
-        set(init, "transform", spawnTransform)
+      targetPos = cameraPos + dist * dir
     return camera__active
+  return targetPos
 
+[console_cmd(name="motion_matching.spawn_test_pair")]
+def spawn_test_pair()
+  clear_bots()
+  let spawnTransform = pos_tm(get_spawn_pos_from_current_camera())
+  createEntity("animation_test_pair") <| $(var init : ComponentsInitializer)
+    set(init, "transform", spawnTransform)
+    let right = spawnTransform[0]
+    assume tm = spawnTransform
+    using() <| $(var tester_list : EidList)
+      tester_list |> push(spawn_dev_soldier(tm[3] - right, "walk_soldier+dev_soldier_tag+motion_matching_anim_tree_tester"))
+      tester_list |> push(spawn_dev_soldier(tm[3], "walk_soldier+dev_soldier_tag+motion_matching_tester"))
+      tester_list |> push(spawn_dev_soldier(tm[3] + right, "walk_soldier+dev_soldier_tag+motion_matching_inertial_blend_tester"))
+      set(init, "tester_list", tester_list)
+  enable_free_camera()
 
+[console_cmd(name="motion_matching.test_run_forward")]
+def spawn_test_soldier()
+  clear_bots()
+  let spawnPos = get_spawn_pos_from_current_camera()
+  spawn_dev_soldier(spawnPos, "walk_soldier+dev_soldier_tag+animation_self_tester") <| $(var init : ComponentsInitializer)
+    set(init, "test_target_posOffset", float3(0.0, 0.0, 5.0))
+    set(init, "test_target_velocity", float3(0.0, 0.0, 3.0))
+    set(init, "test_target_mode", "run forward")
+    set(init, "test_target_timeToReset", 5.0)
+    set_weapon(init, "gewehr_43_gun")
 
 
 [console_cmd(name="motion_matching.spawn_bots")]

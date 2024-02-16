@@ -38,11 +38,11 @@ ecs.register_es("vote_to_kick_process_ui_es",
 
       let voteYes = comp["kick_voting__voteYes"]
       let voteNo = comp["kick_voting__voteNo"]
-      getAccusedInfoQuery(accused, function(_, comp) {
-        if (comp["team"] != localPlayerTeam.value)
+      getAccusedInfoQuery(accused, function(_, infoComp) {
+        if (infoComp["team"] != localPlayerTeam.value)
           return
 
-        voteToKickAccusedName(remap_nick(comp["name"]))
+        voteToKickAccusedName(remap_nick(infoComp["name"]))
         voteToKickYes(voteYes.getAll())
         voteToKickNo(voteNo.getAll())
         voteToKickAccused(accused)
@@ -50,8 +50,8 @@ ecs.register_es("vote_to_kick_process_ui_es",
     },
     onDestroy = function(_eid, comp) {
       let accused = comp["kick_voting__accused"]
-      getAccusedInfoQuery(accused, function(_, comp) {
-        if (comp["team"] != localPlayerTeam.value)
+      getAccusedInfoQuery(accused, function(_, infoComp) {
+        if (infoComp["team"] != localPlayerTeam.value)
           return
 
         voteToKickAccusedName(null)

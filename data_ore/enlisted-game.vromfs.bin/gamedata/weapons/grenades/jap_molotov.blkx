@@ -9,6 +9,7 @@
   "useFutureContacts": true,
   "logCCD": false,
   "frictionGround": 2.0,
+  "ccdClipVelocityMult": 0.0,
   "entityTemplate": "jap_molotov",
   "entityPhysTemplate": "jap_molotov_phys",
   "collisionResource": {
@@ -38,5 +39,9 @@
   },
   "shellSound": {
     "activatePath": "/weapon/molotov/activate"
+  },
+  "shellShatterSound": {
+    "wizPath": "",
+    "hitPath": ""
   }
 }

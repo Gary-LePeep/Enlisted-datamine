@@ -4281,6 +4281,11 @@
   },
   {
     "entity": {
+      "_template": "bloom"
+    }
+  },
+  {
+    "entity": {
       "_template": "postfx_roundctrl"
     }
   },
@@ -4333,6 +4338,7 @@
     "entity": {
       "_template": "briefing_invasion",
       "mission_name": "normandy_coast_ruins_inv",
+      "mission_outfit": "normandy",
       "loading_images:list<t>": [
         {
           "item": "ui/normandy_coast_ruins_01.avif"
@@ -4356,7 +4362,7 @@
       "team__briefing": "invasion/attackers_goals",
       "team__winSubtitle": "debriefing/won_invasion_subtitle",
       "team__loseSubtitle": "debriefing/lost_invasion_subtitle",
-      "team__winTitle": "debriefing/normandy/usa_won_invasion_title",
+      "team__winTitle": "debriefing/normandy/allies_won_invasion_title",
       "team__spawnBotArmy": "normandy_allies"
     }
   },
@@ -4372,7 +4378,7 @@
       "team__briefing": "invasion/defenders_goals",
       "team__winSubtitle": "debriefing/won_defence_subtitle",
       "team__loseSubtitle": "debriefing/lost_defence_subtitle",
-      "team__winTitle": "debriefing/normandy/ger_won_defence_title",
+      "team__winTitle": "debriefing/normandy/axis_won_defence_title",
       "team__spawnBotArmy": "normandy_axis"
     }
   },
@@ -4413,7 +4419,7 @@
       "capzone__createRespawnBaseForTeam": 2,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 3,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "decal__height": 0.3,
       "capzone__activateChoice:object": {
         "sector_2": 1.0
@@ -4631,7 +4637,7 @@
       "capzone__createRespawnBaseForTeam": 2,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 4,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "decal__height": 0.3,
       "capzone__activateChoice:object": {
         "sector_2": 1.0
@@ -5099,7 +5105,7 @@
       "capzone__createRespawnBaseForTeam": 2,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 6,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "decal__height": 0.5,
       "capzone__activateChoice:object": {
         "sector_3": 1.0
@@ -5343,7 +5349,7 @@
       "capzone__createRespawnBaseForTeam": 2,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 7,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "decal__height": 0.5,
       "capzone__activateChoice:object": {
         "sector_3": 1.0,
@@ -5549,7 +5555,7 @@
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 8,
       "sphere_zone__radius": 12.0,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "decal__height": 0.3,
       "capzone__activateChoice:object": {
         "sector_4": 1.0
@@ -5752,7 +5758,7 @@
       "capzone__createRespawnBaseForTeam": 2,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 9,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "decal__height": 2.0,
       "sphere_zone__radius": 17.0,
       "capzone__activateChoice:object": {
@@ -6417,7 +6423,7 @@
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 12,
       "sphere_zone__radius": 18.65,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "decal__height": 0.1
     }
   },
@@ -6675,7 +6681,7 @@
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 13,
       "sphere_zone__radius": 15.0,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "decal__height": 1.0
     }
   },
@@ -7673,17 +7679,6 @@
         [-0.00401981,0.999991,0.0013575],
         [0.496601,0.00317454,-0.867973],
         [299.81,-0.236316,-118.271]
-      ]
-    }
-  },
-  {
-    "entity": {
-      "_template": "88mm_flak_36_canon_b",
-      "transform": [
-        [-0.735245,0.0381502,-0.676727],
-        [0.0,0.998415,0.0562852],
-        [0.677802,0.0413834,-0.734079],
-        [271.235,2.60199,151.609]
       ]
     }
   },

@@ -1,0 +1,109 @@
+{
+  "nodes_name": [
+    {
+      "node": "Bip01 L Foot"
+    },
+    {
+      "node": "Bip01 R Foot"
+    }
+  ],
+  "prediction_times": [
+    {
+      "time": -0.33
+    },
+    {
+      "time": 0.33
+    },
+    {
+      "time": 0.66
+    }
+  ],
+  "default": [
+    {
+      "animationBlendTime": 0.2
+    },
+    {
+      "linearVelocityViscosity": 0.1
+    },
+    {
+      "angularVelocityViscosity": 0.1
+    },
+    {
+      "node": {
+        "position_weight": 0.75,
+        "velocity_weight": 1.0
+      }
+    },
+    {
+      "node": {
+        "position_weight": 0.75,
+        "velocity_weight": 1.0
+      }
+    },
+    {
+      "point": {
+        "position_weight": 1.0,
+        "velocity_weight": 1.5
+      }
+    },
+    {
+      "point": {
+        "position_weight": 1.0,
+        "velocity_weight": 1.5
+      }
+    },
+    {
+      "point": {
+        "position_weight": 1.0,
+        "velocity_weight": 1.5
+      }
+    }
+  ],
+  "sprint": [
+    {
+      "animationBlendTime": 0.4
+    },
+    {
+      "linearVelocityViscosity": 0.2
+    },
+    {
+      "angularVelocityViscosity": 0.1
+    },
+    {
+      "metricaToleranceMax": 2.0
+    },
+    {
+      "metricaToleranceDecayTime": 0.5
+    },
+    {
+      "node": {
+        "position_weight": 0.75,
+        "velocity_weight": 1.0
+      }
+    },
+    {
+      "node": {
+        "position_weight": 0.75,
+        "velocity_weight": 1.0
+      }
+    },
+    {
+      "point": {
+        "position_weight": 1.0,
+        "velocity_weight": 1.5
+      }
+    },
+    {
+      "point": {
+        "position_weight": 1.0,
+        "velocity_weight": 1.5
+      }
+    },
+    {
+      "point": {
+        "position_weight": 1.0,
+        "velocity_weight": 1.5
+      }
+    }
+  ]
+}

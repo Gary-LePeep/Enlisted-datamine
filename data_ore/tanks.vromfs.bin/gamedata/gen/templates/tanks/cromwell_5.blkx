@@ -1,10 +1,10 @@
 {
   "base_cromwell_5": [
     {
-      "_extends": "base_tank"
+      "_use": "base_tank"
     },
     {
-      "_extends": "cromwell_5_ammo_stowages"
+      "_use": "cromwell_5_ammo_stowages"
     },
     {
       "killLogName": "uk_a27m_cromwell_5"
@@ -176,7 +176,7 @@
     }
   ],
   "cromwell_5_turret_01_75mm_qqf_mkv": {
-    "_extends": "tankgun_75mm_qqf_mkv",
+    "_use": "tankgun_75mm_qqf_mkv",
     "gun__shootNodeName": "bone_gun_barrel",
     "turret__yawSpeed": 25.0,
     "turret__pitchSpeed": 4.0,
@@ -203,7 +203,7 @@
     ]
   },
   "cromwell_5_turret_02_7_92mm_besa": {
-    "_extends": "tankgun_7_92mm_besa",
+    "_use": "tankgun_7_92mm_besa",
     "gun__shootNodeName": "bone_mg_twin",
     "gun__shellsAmmo:array": [
       {
@@ -215,7 +215,7 @@
     ]
   },
   "cromwell_5_turret_03_50mm_uk_smoke_mortar_launcher": {
-    "_extends": "tankgun_50mm_uk_smoke_mortar_launcher",
+    "_use": "tankgun_50mm_uk_smoke_mortar_launcher",
     "gun__shootNodeName": "emtr_mortar_flame_01",
     "gun__shellsAmmo:array": {
       "ammo": 20
@@ -223,13 +223,13 @@
   },
   "cromwell_5_ammo_stowages": {
     "_tags": "server",
-    "_extends": "vehicle_ammo_stowages",
+    "_use": "vehicle_ammo_stowages",
     "ammo_stowage__stowageTemplates:shared:list<t>": {
       "stowage": "cromwell_5_ammo_stowage_1"
     }
   },
   "cromwell_5_ammo_stowage_1": {
-    "_extends": "ammo_stowage",
+    "_use": "ammo_stowage",
     "ammo_stowage__clusterTemplates:shared:list<t>": {
       "cluster": "cromwell_5_ammo_cluster_1_1"
     },
@@ -238,7 +238,7 @@
     }
   },
   "cromwell_5_ammo_cluster_1_1": {
-    "_extends": "ammo_cluster",
+    "_use": "ammo_cluster",
     "ammo_cluster__isShell": true,
     "ammo_cluster__slotNames:shared:list<t>": [
       {

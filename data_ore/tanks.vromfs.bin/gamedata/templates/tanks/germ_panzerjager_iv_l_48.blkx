@@ -1,19 +1,37 @@
 {
   "germ_panzerjager_IV_L_48": {
-    "_extends": "germ_panzerjager_IV_L_48_common"
+    "_use": "germ_panzerjager_IV_L_48_common"
   },
   "germ_panzerjager_iv_l_48_normandy": {
-    "_extends": "germ_panzerjager_IV_L_48_common"
+    "_use": "germ_panzerjager_IV_L_48_common"
   },
   "germ_panzerjager_IV_L_48_common": [
     {
-      "_extends": "base_panzerjager_iv_l_48"
+      "_use": "base_panzerjager_iv_l_48"
     },
     {
-      "_extends": "tank_panzer3_engine_sound"
+      "_use": "tank_panzer3_engine_sound"
+    },
+    {
+      "commanderCockpitFpsCamMaxAngle": [40.0,5.0]
+    },
+    {
+      "gunner_cam_limit__useCockpitDir": true
     },
     {
       "gunnerFpsCamMaxAngle": [8.0,5.0]
+    },
+    {
+      "item__iconOffset": [0.05,0.17]
+    },
+    {
+      "item__iconScale": 1.35
+    },
+    {
+      "armorThicknessHull": [60.0,30.0,30.0]
+    },
+    {
+      "armorThicknessTurret": [60.0,30.0,22.0]
     },
     {
       "turrets__initAmmoDistribution:array": [
@@ -156,36 +174,118 @@
     }
   ],
   "germ_panzerjager_IV_L_48_commander_cockpit": {
-    "_extends": "base_commander_cockpit_no_slits",
+    "_use": "base_commander_cockpit_no_slits",
     "animchar__res": "t_26_1940_commander_char",
     "cockpit__offset": [-0.0,0.0,0.0],
+    "cockpit__minForwardOffset": -0.0,
     "cockpit__cockpitOffsetBySlit:list<p3>": {
-      "item": [-1.9,0.9,-0.004]
+      "item": [-2.3,0.75,-0.004]
     },
-    "cockpit__visibleVehicleNodeNames:list<t>": {
-      "node": "gun_barrel"
-    },
+    "cockpit__visibleVehicleNodeNames:list<t>": [
+      {
+        "node": "gun_barrel"
+      },
+      {
+        "node": "@root"
+      },
+      {
+        "node": "bone_gun"
+      },
+      {
+        "node": "bone_turret"
+      },
+      {
+        "node": "hatch_01"
+      },
+      {
+        "node": "hatch_02"
+      },
+      {
+        "node": "hatch_05"
+      },
+      {
+        "node": "hatch_06"
+      },
+      {
+        "node": "hatch_07"
+      },
+      {
+        "node": "ex_decor_l_05"
+      },
+      {
+        "node": "ex_decor_l_04"
+      },
+      {
+        "node": "ex_decor_r_07"
+      },
+      {
+        "node": "ex_decor_r_08"
+      },
+      {
+        "node": "ex_decor_r_04"
+      },
+      {
+        "node": "ex_decor_r_05"
+      },
+      {
+        "node": "ex_decor_r_06"
+      },
+      {
+        "node": "ex_armor_body_l_02"
+      },
+      {
+        "node": "ex_armor_body_l_01"
+      },
+      {
+        "node": "ex_armor_body_04"
+      },
+      {
+        "node": "ex_armor_body_05"
+      },
+      {
+        "node": "ex_armor_body_03"
+      },
+      {
+        "node": "ex_armor_body_02"
+      }
+    ],
     "cockpit__slitForwardOffset:list<r>": {
-      "slit": 0.15
+      "slit": 0.165
     },
     "cockpit__slitIsGun:list<b>": {
       "slit": true
     },
     "cockpit__slitNodeNames:list<t>": {
       "slit": "cam_front"
-    }
+    },
+    "cockpit__periscopeLimits:list<p4>": {
+      "slit": [-90.0,90.0,-5.0,25.0]
+    },
+    "cockpit__periscopeSpeed:list<p2>": {
+      "slit": [35.0,35.0]
+    },
+    "cockpit__slitZoom:array": {
+      "slit:list<r>": {
+        "zoom": 1.44
+      }
+    },
+    "cockpit__slitZoomTime:list<r>": {
+      "slit": 0.0
+    },
+    "cockpit__slitTemplates:list<t>": {
+      "slit": "default_periscope"
+    },
+    "cockpit__slitEids:list<eid>": []
   },
   "germ_panzerjager_IV_L_48_gunner_cockpit": {
-    "vehicle_sight__blk": "content/tanks/gamedata/sight/germ_sfl_zf_1a.blk",
-    "_extends": "base_gunner_cockpit",
+    "_use": "base_gunner_cockpit",
     "animchar__res": "t_26_1940_gunner_char",
-    "cockpit__minZoom": -0.4,
     "cockpit__offset": [-1.32982,0.479557,0.728512],
     "cockpit__cockpitOffsetBySlit:list<p3>": {
       "item": [-1.74148,0.160683,0.142087]
     },
     "cockpit__slitForwardOffset:list<r>": {
-      "slit": 0.1
+      "slit": 0.15
     },
     "cockpit__attachNodeNames:list<t>": {
       "node": "bone_gun_barrel"
@@ -199,10 +299,27 @@
     },
     "cockpit__slitIsGun:list<b>": {
       "slit": true
-    }
+    },
+    "cockpit__slitZoom:array": {
+      "slit:list<r>": [
+        {
+          "zoom": 4.5
+        },
+        {
+          "zoom": 5.0
+        }
+      ]
+    },
+    "cockpit__slitZoomTime:list<r>": {
+      "slit": 0.05
+    },
+    "cockpit__slitTemplates:list<t>": {
+      "slit": "germ_sfl_zf_1a"
+    },
+    "cockpit__slitEids:list<eid>": []
   },
   "germ_panzerjager_IV_L_48_driver_cockpit": {
-    "_extends": "base_driver_cockpit_no_slits",
+    "_use": "base_driver_cockpit_no_slits",
     "animchar__res": "pzkpfw_iii_e_driver_char",
     "cockpit__offset": [-0.330518,-0.183788,-0.0599079],
     "cockpit__visibleVehicleNodeNames:list<t>": [
@@ -214,7 +331,7 @@
       }
     ],
     "cockpit__slitForwardOffset:list<r>": {
-      "slit": -0.07
+      "slit": -0.05
     },
     "cockpit__slitIsGun:list<b>": {
       "slit": false
@@ -224,7 +341,7 @@
     }
   },
   "germ_panzerjager_IV_L_48_berlin_premium": {
-    "_extends": "germ_panzerjager_IV_L_48_common",
+    "_use": "germ_panzerjager_IV_L_48_common",
     "animchar__objTexReplace:object": {
       "ger_camo_dunkelgelb*": "ger_camo_hinterhalt_daimler*"
     },

@@ -24,7 +24,7 @@
     ]
   },
   "helmet_armor": {
-    "_extends": "helmet_armor_vis",
+    "_use": "helmet_armor_vis",
     "item__iconYaw": 160.0,
     "item_mods__enableFlag": "char_flags__hasHeadwearOn",
     "collres__res": "medkit_collision",
@@ -46,10 +46,10 @@
   },
   "helmet_rus_a_item": [
     {
-      "_extends": "helmet_item"
+      "_use": "helmet_item"
     },
     {
-      "_extends": "helmet_armor"
+      "_use": "helmet_armor"
     },
     {
       "animchar__res": "warfare_helmet_ww_rus_a_char"
@@ -77,10 +77,10 @@
   ],
   "helmet_rus_a": [
     {
-      "_extends": "base_vis_item"
+      "_use": "base_vis_item"
     },
     {
-      "_extends": "helmet_armor_vis"
+      "_use": "helmet_armor_vis"
     },
     {
       "animchar__res": "warfare_helmet_ww_rus_a_char"
@@ -94,10 +94,10 @@
   ],
   "helmet_swat_a_item": [
     {
-      "_extends": "helmet_item"
+      "_use": "helmet_item"
     },
     {
-      "_extends": "helmet_armor"
+      "_use": "helmet_armor"
     },
     {
       "animchar__res": "warfare_helmet_ww_swat_a_char"
@@ -122,7 +122,7 @@
     }
   ],
   "modern_armor_item": {
-    "_extends": "item_armor",
+    "_use": "item_armor",
     "collres__res": "medkit_collision",
     "item__iconScale": 1.0,
     "item__iconYaw": 0.0,
@@ -144,7 +144,7 @@
     ]
   },
   "attachable_wear_rus_armor_item": {
-    "_extends": "modern_armor_item",
+    "_use": "modern_armor_item",
     "animchar__res": "armor_ww_rus_a_char",
     "collres__res": "armor_ww_rus_a_collision",
     "item__proto": "items/armor_rus",
@@ -157,7 +157,7 @@
     }
   },
   "attachable_wear_rus_armor": {
-    "_extends": "attachable_wear",
+    "_use": "attachable_wear",
     "animchar__res": "armor_ww_rus_a_char",
     "collres__res": "armor_ww_rus_a_collision",
     "base_vis_item__hideFromNode:list<t>": {
@@ -169,12 +169,12 @@
     }
   },
   "attachable_wear_rus_armor_female": {
-    "_extends": "attachable_wear_rus_armor",
+    "_use": "attachable_wear_rus_armor",
     "animchar__res": "armor_ww_rus_a_female_char",
     "collres__res": "armor_ww_rus_a_female_collision"
   },
   "attachable_wear_armor_eagle_low_m_item": {
-    "_extends": "modern_armor_item",
+    "_use": "modern_armor_item",
     "animchar__res": "armor_eagle_low_m_char",
     "collres__res": "armor_eagle_low_m_collision",
     "item__proto": "items/armor_eagle_low_m",
@@ -186,7 +186,7 @@
     }
   },
   "attachable_wear_armor_eagle_low_m": {
-    "_extends": "attachable_wear",
+    "_use": "attachable_wear",
     "animchar__res": "armor_eagle_low_m_char",
     "collres__res": "armor_eagle_low_m_collision",
     "base_vis_item__hideFromNode:list<t>": {
@@ -198,12 +198,12 @@
     }
   },
   "attachable_wear_armor_eagle_low_female": {
-    "_extends": "attachable_wear_armor_eagle_low_m",
+    "_use": "attachable_wear_armor_eagle_low_m",
     "animchar__res": "armor_eagle_low_female_char",
     "collres__res": "armor_eagle_low_female_collision"
   },
   "attachable_wear_armor_nivel_3_m_item": {
-    "_extends": "modern_armor_item",
+    "_use": "modern_armor_item",
     "animchar__res": "armor_nivel_3_m_char",
     "collres__res": "armor_nivel_3_m_collision",
     "item__proto": "items/armor_nivel_3_m",
@@ -215,7 +215,7 @@
     }
   },
   "attachable_wear_armor_nivel_3_m": {
-    "_extends": "attachable_wear",
+    "_use": "attachable_wear",
     "animchar__res": "armor_nivel_3_m_char",
     "collres__res": "armor_nivel_3_m_collision",
     "base_vis_item__hideFromNode:list<t>": {
@@ -227,12 +227,12 @@
     }
   },
   "attachable_wear_armor_nivel_3_female": {
-    "_extends": "attachable_wear_armor_nivel_3_m",
+    "_use": "attachable_wear_armor_nivel_3_m",
     "animchar__res": "armor_nivel_3_female_char",
     "collres__res": "armor_nivel_3_female_collision"
   },
   "attachable_wear_armor_nivel_4_m_item": {
-    "_extends": "modern_armor_item",
+    "_use": "modern_armor_item",
     "animchar__res": "armor_nivel_4_m_char",
     "collres__res": "armor_nivel_4_m_collision",
     "item__proto": "items/armor_nivel_4_m",
@@ -244,7 +244,7 @@
     }
   },
   "attachable_wear_armor_nivel_4_m": {
-    "_extends": "attachable_wear",
+    "_use": "attachable_wear",
     "animchar__res": "armor_nivel_4_m_char",
     "collres__res": "armor_nivel_4_m_collision",
     "base_vis_item__hideFromNode:list<t>": {
@@ -256,12 +256,12 @@
     }
   },
   "attachable_wear_armor_nivel_4_female": {
-    "_extends": "attachable_wear_armor_nivel_4_m",
+    "_use": "attachable_wear_armor_nivel_4_m",
     "animchar__res": "armor_nivel_4_female_char",
     "collres__res": "armor_nivel_4_female_collision"
   },
   "attachable_wear_armor_second_chance_spa2_m_item": {
-    "_extends": "modern_armor_item",
+    "_use": "modern_armor_item",
     "animchar__res": "armor_second_chance_spa2_m_char",
     "collres__res": "armor_second_chance_spa2_m_collision",
     "item__proto": "items/armor_second_chance_spa2_m",
@@ -273,7 +273,7 @@
     }
   },
   "attachable_wear_armor_second_chance_spa2_m": {
-    "_extends": "attachable_wear",
+    "_use": "attachable_wear",
     "animchar__res": "armor_second_chance_spa2_m_char",
     "collres__res": "armor_second_chance_spa2_m_collision",
     "base_vis_item__hideFromNode:list<t>": {
@@ -285,12 +285,12 @@
     }
   },
   "attachable_wear_armor_second_chance_spa2_female": {
-    "_extends": "attachable_wear_armor_second_chance_spa2_m",
+    "_use": "attachable_wear_armor_second_chance_spa2_m",
     "animchar__res": "armor_second_chance_spa2_female_char",
     "collres__res": "armor_second_chance_spa2_female_collision"
   },
   "attachable_wear_armor_vest_tactical_us_m_item": {
-    "_extends": "modern_armor_item",
+    "_use": "modern_armor_item",
     "animchar__res": "armor_vest_tactical_us_m_char",
     "collres__res": "armor_vest_tactical_us_m_collision",
     "item__proto": "items/armor_vest_tactical_us_m",
@@ -302,7 +302,7 @@
     }
   },
   "attachable_wear_armor_vest_tactical_us_m": {
-    "_extends": "attachable_wear",
+    "_use": "attachable_wear",
     "animchar__res": "armor_vest_tactical_us_m_char",
     "collres__res": "armor_vest_tactical_us_m_collision",
     "base_vis_item__hideFromNode:list<t>": {
@@ -314,45 +314,53 @@
     }
   },
   "attachable_wear_armor_vest_tactical_us_female": {
-    "_extends": "attachable_wear_armor_vest_tactical_us_m",
+    "_use": "attachable_wear_armor_vest_tactical_us_m",
     "animchar__res": "armor_vest_tactical_us_female_char",
     "collres__res": "armor_vest_tactical_us_female_collision"
   },
-  "attachable_wear_armor_ww_rus_a_aztec": {
-    "_extends": "attachable_wear_rus_armor",
-    "animchar__res": "armor_ww_rus_a_aztec_char",
-    "collres__res": "armor_ww_rus_a_aztec_collision",
-    "animchar_node_collapser": {
-      "_tags": "render"
+  "attachable_wear_armor_ww_rus_a_aztec": [
+    {
+      "_use": "attachable_wear_rus_armor"
     },
-    "animchar_node_collapser__nodes:object": {
-      "Bip01 Neck": "",
-      "Bip01 Head": "",
-      "_tags": "render"
+    {
+      "_use": "node_collapser"
+    },
+    {
+      "animchar__res": "armor_ww_rus_a_aztec_char"
+    },
+    {
+      "collres__res": "armor_ww_rus_a_aztec_collision"
+    },
+    {
+      "animchar_node_collapser__nodes:object": {
+        "Bip01 Neck": "",
+        "Bip01 Head": "",
+        "_tags": "render"
+      }
     }
-  },
+  ],
   "attachable_wear_armor_second_chance_spa2_m_aztec": {
-    "_extends": "attachable_wear_armor_second_chance_spa2_m",
+    "_use": "attachable_wear_armor_second_chance_spa2_m",
     "animchar__res": "armor_second_chance_spa2_m_aztec_char",
     "collres__res": "armor_second_chance_spa2_m_aztec_collision"
   },
   "attachable_wear_armor_nivel_4_m_aztec": {
-    "_extends": "attachable_wear_armor_nivel_4_m",
+    "_use": "attachable_wear_armor_nivel_4_m",
     "animchar__res": "armor_nivel_4_m_aztec_char",
     "collres__res": "armor_nivel_4_m_aztec_collision"
   },
   "attachable_wear_armor_nivel_3_m_aztec": {
-    "_extends": "attachable_wear_armor_nivel_3_m",
+    "_use": "attachable_wear_armor_nivel_3_m",
     "animchar__res": "armor_nivel_3_m_aztec_char",
     "collres__res": "armor_nivel_3_m_aztec_collision"
   },
   "attachable_wear_armor_eagle_low_m_aztec": {
-    "_extends": "attachable_wear_armor_eagle_low_m",
+    "_use": "attachable_wear_armor_eagle_low_m",
     "animchar__res": "armor_eagle_low_m_aztec_char",
     "collres__res": "armor_eagle_low_m_aztec_collision"
   },
   "attachable_wear_armor_vest_tactical_us_m_aztec": {
-    "_extends": "attachable_wear_armor_vest_tactical_us_m",
+    "_use": "attachable_wear_armor_vest_tactical_us_m",
     "animchar__res": "armor_vest_tactical_us_m_aztec_char",
     "collres__res": "armor_vest_tactical_us_m_aztec_collision"
   }

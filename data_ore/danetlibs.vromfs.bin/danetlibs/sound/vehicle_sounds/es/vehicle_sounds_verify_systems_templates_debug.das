@@ -8,12 +8,12 @@ require soundEvent
 require vehicle_sounds_net.modules.vehicle_sounds_net_events
 
 
-[req_template] // vehicle_sound_update_vars
-struct VehiclePhysSoundState
+[req_template] // ground_vehicle_sound_update_vars
+struct GroundVehiclePhysSoundState
   sound_control__shouldPlay : bool
   vehicle_net_phys : VehiclePhysActor
   vehicle_sound_vars__isOnGround : bool
-  vehicle_sound_vars__slip : float
+  vehicle_tracks_sound_vars__slip : float
   vehicle_sound_vars__speed : float
   vehicle_sound_vars__prevSoundShockSummary : float
   vehicle_sound_vars__deltaShock : float
@@ -27,27 +27,27 @@ struct VehiclePhysSoundState
   isAlive : bool
 
 
-[req_template] // vehicle_brakes_sound
-struct VehicleBrakesSound
+[req_template] // ground_vehicle_brakes_sound
+struct GroundVehicleBrakesSound
   sound_control__shouldPlay : bool
   vehicle_net_phys : VehiclePhysActor
   vehicle_sound_vars__isOnGround : bool
-  vehicle_brakes_sound__brakes : float
-  vehicle_brakes_sound__brakesStart : float
-  vehicle_brakes_sound__speedFadeInOut : float2
+  ground_vehicle_brakes_sound__brakes : float
+  ground_vehicle_brakes_sound__brakesStart : float
+  ground_vehicle_brakes_sound__speedFadeInOut : float2
   sound_event_group : SoundEventGroup
   is_watched_sound : bool
-  vehicle_brakes_sound__path : SharedObject
+  ground_vehicle_brakes_sound__path : SharedObject
   sound_tags : Object
   transform : float3x4
 
 
-[req_template] // vehicle_gear_sound
-struct VehicleGearSound
+[req_template] // ground_vehicle_gear_sound
+struct GroundVehicleGearSound
   sound_control__shouldPlay : bool
   vehicle_net_phys : VehiclePhysActor
-  vehicle_gear_sound__gear : int
-  vehicle_gear_sound__path : SharedObject
+  ground_vehicle_gear_sound__gear : int
+  ground_vehicle_gear_sound__path : SharedObject
   is_watched_sound : bool
   sound_tags : Object
   transform : float3x4
@@ -62,33 +62,33 @@ struct VehicleTracksSound
   vehicle_tracks_sound__speedToTurnMul : float4
   vehicle_sound_vars__speed : float
   vehicle_sound_vars__noiseReduction : float
-  vehicle_sound_vars__slip : float
+  vehicle_tracks_sound_vars__slip : float
   is_watched_sound : bool
   vehicle_tracks_sound__path : SharedObject
   sound_tags : Object
   transform : float3x4
 
 
-[req_template] // vehicle_suspension_hit_sound
-struct VehicleSuspensionHitSound
+[req_template] // ground_vehicle_suspension_sound
+struct GroundVehicleSuspensionSound
   sound_control__shouldPlay : bool
   vehicle_net_phys : VehiclePhysActor
-  vehicle_suspension_sound__hitToVar : float2
-  vehicle_suspension_sound__event : SoundEvent
-  vehicle_suspension_sound__hitTime : float
-  vehicle_suspension_sound__hitForce : float
+  ground_vehicle_suspension_sound__hitToVar : float2
+  ground_vehicle_suspension_sound__event : SoundEvent
+  ground_vehicle_suspension_sound__hitTime : float
+  ground_vehicle_suspension_sound__hitForce : float
   vehicle_sound_vars__noiseReduction : float
-  vehicle_suspension_sound__path : SharedObject
+  ground_vehicle_suspension_sound__path : SharedObject
   sound_tags : Object
   transform : float3x4
 
 
-[req_template] // vehicle_suspension_sound_update_surface
-struct VehicleSoundUpdateSurface
+[req_template] // ground_vehicle_suspension_sound_update_surface
+struct GroundVehicleSoundUpdateSurface
   sound_control__shouldPlay : bool
   vehicle_net_phys : VehiclePhysActor
-  vehicle_sound_vars__concrete : float
-  vehicle_sound_vars__water : float
+  vehicle_tracks_sound_vars__concrete : float
+  vehicle_tracks_sound_vars__water : float
   vehicle_sound_update_surface__wheelIdx : int
   vehicle_sound_update_surface__waterSurfaceMax : float
   vehicle_sound_update_surface__concreteSurfaceMax : float

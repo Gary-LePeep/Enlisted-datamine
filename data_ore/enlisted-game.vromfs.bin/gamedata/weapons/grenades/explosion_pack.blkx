@@ -13,6 +13,7 @@
   "noSleepAtTheSlopeCos": 0.766,
   "entityTemplate": "explosion_pack",
   "entityPhysTemplate": "explosion_pack_phys",
+  "ccdClipVelocityMult": 0.0,
   "explodeHitPower": 250.0,
   "explodeArmorPower": 35.0,
   "explodeRadius": [1.0,2.5],
@@ -56,6 +57,6 @@
     "dmgOffset": [0.0,0.25,0.0]
   },
   "solver": {
-    "energyConservation": 0.85
+    "energyConservation": 0.15
   }
 }

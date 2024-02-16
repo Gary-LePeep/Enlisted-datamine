@@ -2,29 +2,25 @@
   "mass": 0.46,
   "caliber": 0.03,
   "speed": 800.0,
+  "Cx": 0.4578,
   "explosiveType": "petn",
   "explosiveMass": 0.0052,
   "maxDistance": 2500.0,
   "normalizationPreset": "default",
   "modelName": "tank_bullet_he",
   "ricochetPreset": "defaultExt",
+  "groundRicochetPreset": "defaultExt",
   "secondaryShattersPreset": "ap",
-  "stabilityThreshold": 0.05,
   "hitPowerMult": 15.0,
-  "stabilityCaliberToArmorThreshold": 5.0,
+  "stabilityThreshold": 0.05,
   "onHitChanceMultFire": 6.0,
-  "stabilityReductionAfterRicochet": 0.5,
+  "stabilityCaliberToArmorThreshold": 5.0,
   "recoilMultiplier": 0.4,
-  "bulletType": "i",
+  "stabilityReductionAfterPenetration": 0.15,
   "effectiveDistance": 300.0,
+  "bulletType": "i_t",
   "relativeVelHitShift": [300.0,1000.0],
   "relativeVelArmorShift": [200.0,1000.0],
-  "selfDestructionFx": "explosion_air_selfexplosion_small",
-  "explosionEffect": "hit_28_38mm_metal_he",
-  "groundCollisionEffect": "hit_28_38mm_dirt_he",
-  "ricochetEffect": "hit_28_38mm_metal_ap",
-  "waterCollisionEffect": "hit_28_38mm_water",
-  "explosionPatchRadius": 1.0,
   "stabilityRicochetModifier": [
     {
       "mod1": [0.0,0.05]
@@ -45,38 +41,11 @@
     "HitPower1500m": [0.5,700.0],
     "HitPower2000m": [0.1,1500.0]
   },
-  "damage": {
-    "kinetic": {
-      "damageType": "generic",
-      "demarrePenetrationK": 0.9,
-      "demarreSpeedPow": 1.43,
-      "demarreMassPow": 0.71,
-      "demarreCaliberPow": 1.07
-    }
-  },
   "visual": {
     "range_percent_of_ammo": [100.0,0.0],
     "traceFreq": 1,
     "tracer": "30mmRed",
     "trail": "black"
-  },
-  "hitFx": {
-    "steel": {
-      "fx": "hit_28_38mm_metal_he",
-      "fxScale": [1.0,1.0]
-    },
-    "wood": {
-      "fx": "hit_28_38mm_wood_he",
-      "fxScale": [1.0,1.0]
-    },
-    "glass": {
-      "fx": "hit_28_38mm_metal_he",
-      "fxScale": [1.0,1.0]
-    },
-    "stone": {
-      "fx": "hit_28_38mm_stone_he",
-      "fxScale": [1.0,1.0]
-    }
   },
   "tracer": {
     "headColor": "#ff0f0fff",

@@ -1,10 +1,10 @@
 {
   "base_type_98_ke_ni": [
     {
-      "_extends": "base_tank"
+      "_use": "base_tank"
     },
     {
-      "_extends": "type_98_ke_ni_ammo_stowages"
+      "_use": "type_98_ke_ni_ammo_stowages"
     },
     {
       "killLogName": "jp_type_98_ke_ni"
@@ -110,7 +110,11 @@
             "paramPitchAccel": "gun_01_pitch_accel",
             "wishYawParamName": "gun_01_aim:targetYaw",
             "wishPitchParamName": "gun_01_aim:targetPitch",
-            "gunRecoilParamName": "gun_01_recoil"
+            "gunRecoilParamName": "gun_01_recoil",
+            "hasStabilizerParamName": "gun_01_aim:hasStab",
+            "stabilizerPitchParamName": "gun_01_aim:stabPitch",
+            "stabilizerErrorParamName": "gun_01_aim:stabError",
+            "stabilizerPitchMultParamName": "gun_01_aim:stabPitchMult"
           }
         },
         {
@@ -146,12 +150,25 @@
     }
   ],
   "type_98_ke_ni_turret_01_37mm_type100": {
-    "_extends": "tankgun_37mm_type100",
+    "_use": "tankgun_37mm_type100",
     "gun__shootNodeName": "bone_gun_barrel",
     "turret__yawSpeed": 17.0,
     "turret__pitchSpeed": 15.0,
     "turret__aimNodeName": "bone_turret",
     "turret__limit": [-180.0,180.0,-15.0,18.0],
+    "turret__stabilizerPitchFrictionMult": 0.8,
+    "turret__stabilizerPitchSpeedLimitKph": 10.0,
+    "turret__stabilizerErrorByKphSpeedTable:list<p2>": [
+      {
+        "row": [5.0,0.0]
+      },
+      {
+        "row": [8.0,0.2]
+      },
+      {
+        "row": [10.0,0.4]
+      }
+    ],
     "gun__shellsAmmo:array": [
       {
         "ammo": 55
@@ -162,7 +179,7 @@
     ]
   },
   "type_98_ke_ni_turret_02_7_7mm_type_97": {
-    "_extends": "tankgun_7_7mm_type_97",
+    "_use": "tankgun_7_7mm_type_97",
     "gun__shootNodeName": "bone_mg_gun_twin",
     "gun__shellsAmmo:array": {
       "ammo": 3000
@@ -170,13 +187,13 @@
   },
   "type_98_ke_ni_ammo_stowages": {
     "_tags": "server",
-    "_extends": "vehicle_ammo_stowages",
+    "_use": "vehicle_ammo_stowages",
     "ammo_stowage__stowageTemplates:shared:list<t>": {
       "stowage": "type_98_ke_ni_primary_ammo_stowage"
     }
   },
   "type_98_ke_ni_primary_ammo_stowage": {
-    "_extends": "ammo_stowage",
+    "_use": "ammo_stowage",
     "ammo_stowage__clusterTemplates:shared:list<t>": {
       "cluster": "type_98_ke_ni_primary_shells_ammo_cluster"
     },
@@ -185,7 +202,7 @@
     }
   },
   "type_98_ke_ni_primary_shells_ammo_cluster": {
-    "_extends": "ammo_cluster",
+    "_use": "ammo_cluster",
     "ammo_cluster__isShell": true,
     "ammo_cluster__slotNames:shared:list<t>": [
       {

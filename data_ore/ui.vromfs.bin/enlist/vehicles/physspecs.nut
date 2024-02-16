@@ -2,48 +2,75 @@ import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
 let { logerr } = require("dagor.debug")
+let upgrades = require("%enlist/soldiers/model/config/upgradesConfig.nut")
 
 let DB = ecs.g_entity_mgr.getTemplateDB()
-let vehicleSpecsDB = mkWatched(persist, "vehicleSpecsDB", {})
+let specsCache = Watched({}) // {}[gametemplate][upgradeIdx]
+let specsQueue = [] // [{ gametemplate, upgradesId, upgradeIdx }]
+local specsCur = null
 
 let function getVehicleSpecBlkPath(template, name) {
   let path = template.getCompValNullable(name)
-  if (path != null)
-    return path.slice(0, path.indexof(":") ?? path.len())
-  return null
+  if (path == null)
+    return null
+  let idx = path.indexof(":")
+  return idx == null ? path : path.slice(0, idx)
 }
 
-let function isVehicleNeedsCalc(specsDB, templateName, curUpgrades) {
-  let specsTmpl = specsDB?[templateName]
-  if (specsTmpl == null)
-    return true
+let mkModificationsBlk = @(curUpgrades)
+  curUpgrades.reduce(@(res, value, name) $"{res}{name}:r={value / 100.0 + 1.0};", "")
 
-  let { upgrades = {} } = specsTmpl
-  if (upgrades.len() != curUpgrades.len())
-    return true
+let getItemUpgrade = @(upgradesValue, upgradesId, upgradeIdx)
+  upgradesValue?[upgradesId][upgradeIdx] ?? {}
 
-  foreach (k, v in curUpgrades)
-    if (upgrades?[k] != v)
-      return true
-
-  return false
+let function setItemSpec(specs, data) {
+  let { gametemplate, upgradeIdx } = specs
+  specsCache.mutate(function(v) {
+    local upgradesList = v?[gametemplate]
+    if (upgradesList == null) {
+      upgradesList = []
+      v[gametemplate] <- upgradesList
+    }
+    if (upgradesList.len() <= upgradeIdx)
+      upgradesList.resize(upgradeIdx + 1, null)
+    let curData = upgradesList?[upgradeIdx] ?? {}
+    upgradesList[upgradeIdx] = curData.__merge(data)
+  })
 }
 
-let function requireVehicleSpec(templateName, upgrades = {}) {
-  if (!isVehicleNeedsCalc(vehicleSpecsDB.value, templateName, upgrades))
-    return {}
+local requireVehicleSpec
 
+let function processSpecs() {
+  if (specsCur != null)
+    return
+
+  while (specsQueue.len() > 0) {
+    let specs = specsQueue.remove(0)
+    let { gametemplate, upgradesId, upgradeIdx } = specs
+    if (specsCache.value?[gametemplate][upgradeIdx] == null) {
+      let curUpgrades = getItemUpgrade(upgrades.value, upgradesId, upgradeIdx)
+      let isDelayed = requireVehicleSpec(gametemplate, curUpgrades)
+      if (isDelayed) {
+        specsCur = specs
+        return
+      }
+    }
+  }
+}
+
+let function requireSpecsUpdate(gametemplate, upgradesId, upgradeIdx) {
+  specsQueue.append({ gametemplate, upgradesId, upgradeIdx })
+  processSpecs()
+}
+
+requireVehicleSpec = function(templateName, curUpgrades = {}) {
   let template = DB.getTemplateByName(templateName)
   if (template == null) {
     logerr($"Template '{templateName}' was not found")
-    return {}
+    return false
   }
 
-  local physModificationsBlk = ""
-  foreach (name, value in upgrades) {
-    let v = value / 100 + 1
-    physModificationsBlk = $"{physModificationsBlk}{name}:r={v};";
-  }
+  let physModificationsBlk = mkModificationsBlk(curUpgrades)
 
   let tankSpecBlkPath = getVehicleSpecBlkPath(template, "vehicle_net_phys__blk")
   if (tankSpecBlkPath != null) {
@@ -52,11 +79,7 @@ let function requireVehicleSpec(templateName, upgrades = {}) {
       "tank_phys_spec__blk"  : [tankSpecBlkPath,      ecs.TYPE_STRING]
       "physModificationsBlk" : [physModificationsBlk, ecs.TYPE_STRING]
     })
-
-    return {
-      upgrades
-      maxSpeed = 0.0
-    }
+    return true
   }
 
   let planeSpecBlkPath = getVehicleSpecBlkPath(template, "plane_net_phys__blk")
@@ -64,39 +87,29 @@ let function requireVehicleSpec(templateName, upgrades = {}) {
     let collresName = template.getCompValNullable("collres__res")
     if (collresName == null) {
       logerr($"Component 'collres__res' was not found for template '{templateName}'")
-      return {}
+      return false
     }
-
     ecs.g_entity_mgr.createEntity("plane_phys_spec", {
       "planeTemplateName"    : [templateName,         ecs.TYPE_STRING]
       "plane_phys_spec__blk" : [planeSpecBlkPath,     ecs.TYPE_STRING]
       "collresName"          : [collresName,          ecs.TYPE_STRING]
       "physModificationsBlk" : [physModificationsBlk, ecs.TYPE_STRING]
     })
-
-    return {
-      upgrades
-      maxSpeed = 0.0
-      maxClimb = 0.0
-      bestTurnTime = 0.0
-    }
+    return true
   }
 
-  return {}
+  return false
 }
 
 ecs.register_es("tank_phys_spec_calculated_es",
   {
     function onChange(_evt, eid, comp) {
-      let { tankTemplateName } = comp
-      vehicleSpecsDB.mutate(function(v) {
-        // to be sure that data table will be changed, thus triggering computed at mkSpecsWatch
-        let data = v?[tankTemplateName] ?? {}
-        data["maxSpeed"] <- comp["tank_phys_spec_result__maxSpeed"]
-        v[tankTemplateName] <- data
+      setItemSpec(specsCur, {
+        maxSpeed = comp["tank_phys_spec_result__maxSpeed"]
       })
-
       ecs.g_entity_mgr.destroyEntity(eid)
+      specsCur = null
+      processSpecs()
     }
   },
   {
@@ -112,16 +125,14 @@ ecs.register_es("tank_phys_spec_calculated_es",
 ecs.register_es("plane_phys_spec_calculated_es",
   {
     function onChange(_evt, eid, comp) {
-      let { planeTemplateName } = comp
-      vehicleSpecsDB.mutate(function(v) {
-        let data = v?[planeTemplateName] ?? {}
-        data["maxSpeed"]     <- comp["plane_phys_spec_result__maxSpeed"]
-        data["maxClimb"]     <- comp["plane_phys_spec_result__maxClimb"]
-        data["bestTurnTime"] <- comp["plane_phys_spec_result__bestTurnTime"]
-        v[planeTemplateName] <- data
+      setItemSpec(specsCur, {
+        maxSpeed = comp["plane_phys_spec_result__maxSpeed"]
+        maxClimb = comp["plane_phys_spec_result__maxClimb"]
+        bestTurnTime = comp["plane_phys_spec_result__bestTurnTime"]
       })
-
       ecs.g_entity_mgr.destroyEntity(eid)
+      specsCur = null
+      processSpecs()
     }
   },
   {
@@ -136,20 +147,24 @@ ecs.register_es("plane_phys_spec_calculated_es",
   }
 )
 
-let mkUpgradeWatch = @(upgradesWatch, upgradesId, upgradeIdx)
-  Computed(@() upgradesWatch.value?[upgradesId][upgradeIdx] ?? {})
+let function getItemSpec(specsValue, item) {
+  let { gametemplate = null, itemtype = null, upgradeIdx = 0 } = item
+  if (itemtype != "vehicle")
+    return {}
 
-let function mkSpecsWatch(upgradesWatch, item) {
-  let { gametemplate = null, itemtype = null } = item
-  return itemtype == "vehicle"
-    ? Computed(@() requireVehicleSpec(gametemplate, upgradesWatch.value)
-        .__update(vehicleSpecsDB.value?[gametemplate] ?? {}))
-    : Computed(@() vehicleSpecsDB.value?[gametemplate] ?? {})
+  return specsValue?[gametemplate][upgradeIdx] ?? {}
+}
+
+let function requireItemSpec(item) {
+  let { gametemplate = null, itemtype = null, upgradesId = null, upgradeIdx = 0 } = item
+  if (itemtype == "vehicle")
+    requireSpecsUpdate(gametemplate, upgradesId ?? "", upgradeIdx)
 }
 
 return {
-  vehicleSpecsDB
+  specsCache
   requireVehicleSpec
-  mkUpgradeWatch
-  mkSpecsWatch
+  getItemUpgrade
+  getItemSpec
+  requireItemSpec
 }

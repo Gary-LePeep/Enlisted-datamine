@@ -33,16 +33,16 @@
   },
   "tankgun_7_62mm_m1919a4": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_tankgun_machinegun"
+      "_use": "base_tankgun_machinegun"
     },
     {
-      "_extends": "base_7_62mm_m1919a4"
+      "_use": "base_7_62mm_m1919a4"
     },
     {
-      "_extends": "gunsound_7_62mm_m1919a4"
+      "_use": "gunsound_7_62mm_m1919a4"
     },
     {
       "turret__triggerGroup": 2

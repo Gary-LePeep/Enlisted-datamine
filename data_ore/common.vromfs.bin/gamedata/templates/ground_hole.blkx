@@ -1,0 +1,61 @@
+{
+  "ground_hole_box_top_projection": {
+    "_use": "ground_hole",
+    "transform": [
+      [1.0,0.0,0.0],
+      [0.0,1.0,0.0],
+      [0.0,0.0,1.0],
+      [0.0,0.0,0.0]
+    ],
+    "ground_hole_sphere_shape": false,
+    "box_zone__boxMin": [-1.0,-1.0,-1.0],
+    "box_zone__boxMax": [1.0,1.0,1.0]
+  },
+  "ground_hole_sphere_top_projection": {
+    "_use": "ground_hole",
+    "transform": [
+      [1.0,0.0,0.0],
+      [0.0,1.0,0.0],
+      [0.0,0.0,1.0],
+      [0.0,0.0,0.0]
+    ],
+    "ground_hole_sphere_shape": true,
+    "sphere_zone__radius": 1.0
+  },
+  "ground_hole_box_intersection": {
+    "_use": "ground_hole",
+    "transform": [
+      [1.0,0.0,0.0],
+      [0.0,1.0,0.0],
+      [0.0,0.0,1.0],
+      [0.0,0.0,0.0]
+    ],
+    "ground_hole_sphere_shape": false,
+    "ground_hole_shape_intersection": true,
+    "box_zone__boxMin": [-1.0,-1.0,-1.0],
+    "box_zone__boxMax": [1.0,1.0,1.0]
+  },
+  "ground_hole_sphere_intersection": {
+    "_use": "ground_hole",
+    "transform": [
+      [1.0,0.0,0.0],
+      [0.0,1.0,0.0],
+      [0.0,0.0,1.0],
+      [0.0,0.0,0.0]
+    ],
+    "ground_hole_sphere_shape": true,
+    "ground_hole_shape_intersection": true,
+    "sphere_zone__radius": 1.0
+  },
+  "underground_zone_box": {
+    "_use": "replicating",
+    "transform": [
+      [1.0,0.0,0.0],
+      [0.0,1.0,0.0],
+      [0.0,0.0,1.0],
+      [0.0,0.0,0.0]
+    ],
+    "underground_zone:tag": [],
+    "box_zone:tag": []
+  }
+}

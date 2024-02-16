@@ -1,0 +1,58 @@
+{
+  "mass": 0.119,
+  "caliber": 0.02,
+  "speed": 702.0,
+  "Cx": 0.45,
+  "maxDistance": 2000.0,
+  "normalizationPreset": "ap",
+  "ricochetPreset": "ap",
+  "recoilMultiplier": 0.3,
+  "groundRicochetPreset": "ap",
+  "secondaryShattersPreset": "ap",
+  "onHitChanceMultFire": 4.0,
+  "stabilityCaliberToArmorThreshold": 5.0,
+  "relativeVelHitShift": [300.0,1000.0],
+  "stabilityReductionAfterPenetration": 0.15,
+  "bulletType": "ap_t",
+  "slopeEffectPreset": "ap",
+  "waterRicochetEffect": "hit_19_27mm_water",
+  "groundRicochetEffect": "hit_19_27mm_metal_ap",
+  "stabilityRicochetModifier": [
+    {
+      "mod1": [0.0,0.05]
+    },
+    {
+      "mod2": [20.0,0.1]
+    },
+    {
+      "mod3": [30.0,0.2]
+    },
+    {
+      "mod3": [45.0,0.3]
+    }
+  ],
+  "hitpower": {
+    "HitPower0m": [1.0,0.0],
+    "HitPower1000m": [0.9,0.0],
+    "HitPower10000m": [0.8,10000.0]
+  },
+  "damage": {
+    "kinetic": {
+      "damageType": "generic",
+      "demarrePenetrationK": 0.9,
+      "demarreSpeedPow": 1.43,
+      "demarreMassPow": 0.71,
+      "demarreCaliberPow": 1.07
+    }
+  },
+  "visual": {
+    "range_percent_of_ammo": [100.0,0.0],
+    "traceFreq": 1,
+    "tracer": "20mmBrightRed",
+    "trail": "black"
+  },
+  "tracer": {
+    "headColor": "#ff4736b4",
+    "smokeColor": "#505050ba"
+  }
+}

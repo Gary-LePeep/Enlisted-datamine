@@ -179,7 +179,7 @@ def facegen_create_new_template(template_name : string)
       return
 
     blk |> datablock_add_new_block(template_name) <| $(new_template)
-      new_template |> set("_extends", "head_gen_base_item")
+      new_template |> set("_use", "head_gen_base_item")
     datablock_save_to_text_file(blk, templatePath)
 
     console_command("ecs.reload_templates")
@@ -224,9 +224,9 @@ def save_info_for_facegen(evt : faceGenSaveInfo;
     datablock_load(blk, templatePath)
     datablock_get_block(blk, baseTemplate) <| $(originTemplate)
       if evt.initialSave
-        originTemplate |> add("_extends", "base_collres_vis_item")
-        originTemplate |> add("_extends", "head_gen_animphys")
-        originTemplate |> add("_extends", "animchar")
+        originTemplate |> add("_use", "base_collres_vis_item")
+        originTemplate |> add("_use", "head_gen_animphys")
+        originTemplate |> add("_use", "animchar")
       originTemplate |> set("headgen__tex0", headgen__tex0)
       originTemplate |> set("headgen__tex1", headgen__tex1)
       originTemplate |> set("animchar__res", animchar__res)

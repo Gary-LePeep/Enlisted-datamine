@@ -2,19 +2,14 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let colorize = require("%ui/components/colorize.nut")
 let { utf8ToUpper } = require("%sqstd/string.nut")
-let { txt } = require("%enlSqGlob/ui/defcomps.nut")
 let { secondsToHoursLoc } = require("%ui/helpers/time.nut")
 let { premiumActiveTime, hasPremium } = require("premium.nut")
-let {
-  hasPremiumColor, defTxtColor, activeTxtColor
-} = require("%enlSqGlob/ui/viewConst.nut")
-let { colFull } = require("%enlSqGlob/ui/designConst.nut")
-let { isNewDesign } = require("%enlSqGlob/designState.nut")
-let premiumBtnSize = colFull(1)
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { hasPremiumColor, defTxtColor, activeTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
 
-let premiumImagePath = @(size) (isNewDesign.value
-    ? "!ui/uiskin/premium/icon_prem.svg:{0}:{0}:K"
-    : "!ui/uiskin/currency/enlisted_prem.svg:{0}:{0}:K")
+let premiumBtnSize = hdpxi(62)
+
+let premiumImagePath = @(size) "!ui/uiskin/currency/enlisted_prem.svg:{0}:{0}:K"
     .subst(size.tointeger())
 
 let premiumImage = @(size, override = {}) @() {
@@ -26,26 +21,25 @@ let premiumImage = @(size, override = {}) @() {
 }.__update(override)
 
 
-let premiumActiveInfo = @(customStyle = {}, premColor = hasPremiumColor)
-  function() {
-    let activeTime = premiumActiveTime.value
-    return txt({
-      watch = premiumActiveTime
-      rendObj = ROBJ_TEXTAREA
-      behavior = Behaviors.TextArea
-      color = activeTime > 0 ? activeTxtColor : defTxtColor
-      text = " {status} {left}".subst({
-        status = utf8ToUpper(loc(activeTime > 0
-          ? "premium/activated"
-          : "premium/notActivated"))
-        left = activeTime > 0
-          ? loc("premium/activatedLeft", {
-              timeInfo = colorize(premColor, secondsToHoursLoc(activeTime))
-            })
-          : ""
-      })
-    }).__update(customStyle)
-  }
+let function premiumActiveInfo(customStyle = {}, premColor = hasPremiumColor) {
+  let timeLeft = Computed(@()
+    premiumActiveTime.value > 0 ? secondsToHoursLoc(premiumActiveTime.value) : null)
+  return @() timeLeft.value
+    ? {
+        watch = timeLeft
+        rendObj = ROBJ_TEXTAREA
+        behavior = Behaviors.TextArea
+        color = activeTxtColor
+        text = utf8ToUpper("{0} {1}".subst(loc("premium/activated"),
+          loc("premium/activatedLeft", { timeInfo = colorize(premColor, timeLeft.value) })))
+      }.__update(fontSub, customStyle)
+    : {
+        watch = timeLeft
+        rendObj = ROBJ_TEXT
+        color =  defTxtColor
+        text = utf8ToUpper(loc("premium/notActivated"))
+      }.__update(fontSub, customStyle)
+}
 
 
 let premiumBg = @(size) Picture("!ui/uiskin/premium/prem_bg.svg:{0}:{0}:K".subst(size))

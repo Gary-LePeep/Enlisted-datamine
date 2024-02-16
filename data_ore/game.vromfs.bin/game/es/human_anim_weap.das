@@ -1,6 +1,6 @@
 require ecs
 require math.base
-require EnlistedHumanAnim
+require DngHumanAnim
 require PhysVars
 require DagorRandom
 require DagorMath
@@ -89,7 +89,7 @@ def human_anim_weap(info : ParallelUpdateFrameDelayed; human_anim : HumanAnimCtx
       let omegaRecoilMult = random_p3(gun__recoilRotationMean, gun__recoilRotationDeviation)
       human_weap__gunOmega += human_weap__recoil * human_weap__recoilToImpulseMult * invMoi * omegaRecoilMult * recoilOriMult
 
-    human_weap__gunOmega += human_weap__gunOffsAngles
+    human_weap__gunOmega += human_weap__gunOffsAngles * info.dt * 60.
     let invMass = safeinv(gun__inertialMass)
     prevVisualBoltActionProgress = boltActionProgress
     human_weap__recoil = 0.f

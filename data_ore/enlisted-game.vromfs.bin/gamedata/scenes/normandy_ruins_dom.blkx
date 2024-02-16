@@ -363,6 +363,11 @@
   },
   {
     "entity": {
+      "_template": "bloom"
+    }
+  },
+  {
+    "entity": {
       "_template": "postfx_roundctrl"
     }
   },
@@ -411,6 +416,7 @@
     "entity": {
       "_template": "briefing_domination",
       "mission_name": "normandy_coast_ruins_dom",
+      "mission_outfit": "normandy",
       "loading_images:list<t>": [
         {
           "item": "ui/normandy_coast_ruins_01.avif"
@@ -422,6 +428,14 @@
           "item": "ui/normandy_coast_ruins_03.avif"
         }
       ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "spawn_switcher",
+      "swapProbability": 0.5,
+      "team1": 2,
+      "team2": 1
     }
   },
   {

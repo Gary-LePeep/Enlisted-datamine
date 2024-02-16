@@ -218,6 +218,7 @@
     "entity": {
       "_template": "briefing_gun_game",
       "mission_name": "tunisia_city_gun_game",
+      "mission_outfit": "tunisia",
       "loading_images:list<t>": {
         "item": "ui/tunisia_city_inv_03.avif"
       }
@@ -243,6 +244,11 @@
   {
     "entity": {
       "_template": "postfx_color_grading_tonemap_death_alive_enlisted"
+    }
+  },
+  {
+    "entity": {
+      "_template": "bloom"
     }
   },
   {

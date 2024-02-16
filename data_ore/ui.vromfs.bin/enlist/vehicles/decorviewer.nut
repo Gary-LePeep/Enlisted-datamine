@@ -16,7 +16,7 @@ let decalSize = Watched(1)
 let decalRotation = Watched(0)
 
 let setDecalTargetQuery = ecs.SqQuery("setDecalTargetQuery",
-  { comps_rw = [ "decals_manager__target" ]})
+  { comps_rw = [[ "decals_manager__target", ecs.TYPE_EID ]]})
 
 let function setDecalTarget(targetEid) {
   vehTargetEid(targetEid)
@@ -27,7 +27,7 @@ let function setDecalTarget(targetEid) {
 
 
 let setDecalSlotQuery = ecs.SqQuery("setDecalSlotQuery",
-  { comps_rw = [ "decals_manager__active_slot" ]})
+  { comps_rw = [ ["decals_manager__active_slot", ecs.TYPE_INT ] ]})
 
 let function setDecalSlot(slot) {
   setDecalSlotQuery.perform(function(_eid, comp) {
@@ -37,7 +37,10 @@ let function setDecalSlot(slot) {
 
 
 let setDecalInfoQuery = ecs.SqQuery("setDecorInfoQuery",
-  { comps_rw = [ "current_decal__name", "current_decor__type" ]})
+  { comps_rw = [
+    [ "current_decal__name", ecs.TYPE_STRING ],
+    [ "current_decor__type", ecs.TYPE_STRING ]
+  ]})
 
 let function setDecorInfo(dName, dType) {
   setDecalInfoQuery.perform(function(_eid, comp) {
@@ -48,7 +51,7 @@ let function setDecorInfo(dName, dType) {
 
 
 let setDecalMirroredQuery = ecs.SqQuery("setDecalMirroredQuery",
-  { comps_rw = [ "current_decal__mirrored" ] })
+  { comps_rw = [[ "current_decal__mirrored", ecs.TYPE_BOOL ]] })
 
 let function setDecalMirrored(isMirrored) {
   setDecalMirroredQuery.perform(function(_eid, comp) {
@@ -58,7 +61,10 @@ let function setDecalMirrored(isMirrored) {
 
 
 let setDecalTwoSideQuery = ecs.SqQuery("setDecalTwoSideQuery",
-  { comps_rw = [ "current_decal__twoSided", "current_decal__oppositeMirrored" ] })
+  { comps_rw = [
+    [ "current_decal__twoSided", ecs.TYPE_BOOL ],
+    [ "current_decal__oppositeMirrored", ecs.TYPE_BOOL ]
+  ] })
 
 let function setDecalTwoSide(isTwoSided, isMirrored) {
   setDecalTwoSideQuery.perform(function(_eid, comp) {
@@ -69,7 +75,10 @@ let function setDecalTwoSide(isTwoSided, isMirrored) {
 
 
 let setDecalScreenPosQuery = ecs.SqQuery("setDecalScreenPosQuery",
-  { comps_rw = [ "decals_manager__screenPos", "decals_manager__invalidate" ] })
+  { comps_rw = [
+    [ "decals_manager__screenPos", ecs.TYPE_POINT2 ],
+    [ "decals_manager__invalidate", ecs.TYPE_BOOL ]
+  ] })
 
 let function onDecalMouseMove(mouseEvent) {
   setDecalScreenPosQuery.perform(function(_eid, comp) {
@@ -81,10 +90,10 @@ let function onDecalMouseMove(mouseEvent) {
 
 let setDecalMouseWheelQuery = ecs.SqQuery("setDecalMouseWheelQuery", {
   comps_rw = [
-    "current_decal__size",
-    "current_decal__vehicleSize",
-    "current_decal__rotation",
-    "decals_manager__invalidate"
+    [ "current_decal__size", ecs.TYPE_FLOAT ],
+    [ "current_decal__vehicleSize", ecs.TYPE_FLOAT ],
+    [ "current_decal__rotation", ecs.TYPE_FLOAT ],
+    [ "decals_manager__invalidate", ecs.TYPE_BOOL ]
   ]
 })
 

@@ -1,10 +1,10 @@
 {
   "base_towed_at_pak38": [
     {
-      "_extends": "base_movable_anti_tank_cannon"
+      "_use": "base_movable_anti_tank_cannon"
     },
     {
-      "_extends": "towed_at_pak38_ammo_stowages"
+      "_use": "towed_at_pak38_ammo_stowages"
     },
     {
       "killLogName": "germ_at_gun_pak38"
@@ -80,7 +80,11 @@
           "paramPitchAccel": "gun_01_pitch_accel",
           "wishYawParamName": "gun_01_aim:targetYaw",
           "wishPitchParamName": "gun_01_aim:targetPitch",
-          "gunRecoilParamName": "gun_01_recoil"
+          "gunRecoilParamName": "gun_01_recoil",
+          "hasStabilizerParamName": "gun_01_aim:hasStab",
+          "stabilizerPitchParamName": "gun_01_aim:stabPitch",
+          "stabilizerErrorParamName": "gun_01_aim:stabError",
+          "stabilizerPitchMultParamName": "gun_01_aim:stabPitchMult"
         }
       }
     },
@@ -99,12 +103,25 @@
     }
   ],
   "towed_at_pak38_turret_01_50mm_pak38": {
-    "_extends": "tankgun_50mm_pak38",
+    "_use": "tankgun_50mm_pak38",
     "gun__shootNodeName": "bone_gun_barrel",
     "turret__yawSpeed": 35.0,
     "turret__pitchSpeed": 20.0,
     "turret__aimNodeName": "bone_turret",
     "turret__limit": [-40.0,40.0,-2.0,20.0],
+    "turret__stabilizerPitchFrictionMult": 0.8,
+    "turret__stabilizerPitchSpeedLimitKph": 10.0,
+    "turret__stabilizerErrorByKphSpeedTable:list<p2>": [
+      {
+        "row": [5.0,0.0]
+      },
+      {
+        "row": [8.0,0.2]
+      },
+      {
+        "row": [10.0,0.4]
+      }
+    ],
     "gun__shellsAmmo:array": [
       {
         "ammo": 81
@@ -122,7 +139,7 @@
   },
   "towed_at_pak38_ammo_stowages": {
     "_tags": "server",
-    "_extends": "vehicle_ammo_stowages",
+    "_use": "vehicle_ammo_stowages",
     "ammo_stowage__stowageTemplates:shared:list<t>": []
   }
 }

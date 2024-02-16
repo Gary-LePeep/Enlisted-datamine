@@ -18,5 +18,5 @@ def send_dev_aot_loading_statsd(evt : Event)
       return
 
     let isAsan = get_DAGOR_ADDRESS_SANITIZER()
-    statsd_profile("das.load_time_ms", float(das_load_time_ms()), "is_asan", "{isAsan}")
+    statsd_profile("das.load_time_ms", int(das_load_time_ms()), "is_asan", "{isAsan}")
     statsd_counter("das.memory_usage_kb", int(das_memory_usage() / 1024l), "is_asan", "{isAsan}")

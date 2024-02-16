@@ -1,13 +1,13 @@
 {
   "base_pzkpfw_ii_flamm": [
     {
-      "_extends": "base_tank"
+      "_use": "base_tank"
     },
     {
-      "_extends": "pzkpfw_ii_flamm_ammo_01"
+      "_use": "pzkpfw_ii_flamm_ammo_01"
     },
     {
-      "_extends": "pzkpfw_ii_flamm_ammo_02"
+      "_use": "pzkpfw_ii_flamm_ammo_02"
     },
     {
       "killLogName": "germ_pzkpfw_2_flamm_ausf_a"
@@ -203,11 +203,11 @@
     }
   ],
   "pzkpfw_ii_flamm_turret_01_flammenwerfer_anlagen": {
-    "_extends": "ht_130_turret_01_ato_41",
+    "_use": "ht_130_turret_01_ato_41",
     "item__name": "guns/flammenwerfer_anlagen",
     "gun__locName": "flammenwerfer_anlagen",
     "turret__aimNodeName": "bone_turret_01",
-    "gun__shootNodeName": "bone_gun_barrel_01",
+    "gun__shootNodeName": "emtr_gun_flame_01",
     "turret__yawSpeed": 16.0,
     "turret__pitchSpeed": 4.0,
     "turret__limit": [-60.0,120.0,-6.0,22.0],
@@ -216,13 +216,13 @@
     }
   },
   "pzkpfw_ii_flamm_turret_02_flammenwerfer_anlagen": {
-    "_extends": "pzkpfw_ii_flamm_turret_01_flammenwerfer_anlagen",
+    "_use": "pzkpfw_ii_flamm_turret_01_flammenwerfer_anlagen",
     "turret__aimNodeName": "bone_turret_02",
-    "gun__shootNodeName": "bone_gun_barrel_02",
+    "gun__shootNodeName": "emtr_gun_flame_02",
     "turret__limit": [-120.0,60.0,-6.0,22.0]
   },
   "pzkpfw_ii_flamm_turret_02_7_92mm_mg34": {
-    "_extends": "tankgun_7_92mm_mg34",
+    "_use": "tankgun_7_92mm_mg34",
     "gun__shootNodeName": "bone_gun_barrel",
     "turret__yawSpeed": 25.0,
     "turret__pitchSpeed": 15.0,
@@ -267,13 +267,13 @@
   },
   "pzkpfw_ii_flamm_ammo_01": {
     "_tags": "server",
-    "_extends": "vehicle_ammo_stowages",
+    "_use": "vehicle_ammo_stowages",
     "ammo_stowage__stowageTemplates:shared:list<t>": {
       "stowage": "pzkpfw_ii_flamm_ammo_stowage_01"
     }
   },
   "pzkpfw_ii_flamm_ammo_stowage_01": {
-    "_extends": "ammo_stowage",
+    "_use": "ammo_stowage",
     "ammo_stowage__clusterTemplates:shared:list<t>": {
       "cluster": "pzkpfw_ii_flamm_ammo_cluster_01"
     },
@@ -282,7 +282,7 @@
     }
   },
   "pzkpfw_ii_flamm_ammo_cluster_01": {
-    "_extends": "ammo_cluster",
+    "_use": "ammo_cluster",
     "ammo_cluster__isShell": true,
     "ammo_cluster__slotNames:shared:list<t>": {
       "part": "ammo_body_01"
@@ -293,13 +293,13 @@
   },
   "pzkpfw_ii_flamm_ammo_02": {
     "_tags": "server",
-    "_extends": "vehicle_ammo_stowages",
+    "_use": "vehicle_ammo_stowages",
     "ammo_stowage__stowageTemplates:shared:list<t>": {
       "stowage": "pzkpfw_ii_flamm_ammo_stowage_02"
     }
   },
   "pzkpfw_ii_flamm_ammo_stowage_02": {
-    "_extends": "ammo_stowage",
+    "_use": "ammo_stowage",
     "ammo_stowage__clusterTemplates:shared:list<t>": {
       "cluster": "pzkpfw_ii_flamm_ammo_cluster_02"
     },
@@ -309,10 +309,10 @@
   },
   "pzkpfw_ii_flamm_ammo_cluster_02": [
     {
-      "_extends": "ammo_cluster"
+      "_use": "ammo_cluster"
     },
     {
-      "_extends": "pzkpfw_ii_flamm_ammo_cluster_01"
+      "_use": "pzkpfw_ii_flamm_ammo_cluster_01"
     },
     {
       "ammo_cluster__slotNames:shared:list<t>": {

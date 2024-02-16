@@ -1,10 +1,10 @@
 {
   "d3a1": [
     {
-      "_extends": "d3a1_base"
+      "_use": "d3a1_base"
     },
     {
-      "_extends": "squad_controlled_plane"
+      "_use": "squad_controlled_plane"
     },
     {
       "item__name": "items/d3a1"
@@ -22,12 +22,12 @@
               [1.0,0.0,0.0],
               [0.0,1.0,0.0],
               [0.0,0.0,1.0],
-              [0.0,0.0,-0.15]
+              [-0.08,0.1,-0.15]
             ],
             "seatComponent": "isDriver",
             "receiveDamageFromDMPart": "pilot_dm",
             "cameraNodeName": "",
-            "cameraOffset": [0.15,0.823,0.002],
+            "cameraOffset": [-0.05,0.823,0.002],
             "cockpitTemplate": "d3a1_driver_cockpit",
             "roomSpace": 0,
             "turretNames:array": [
@@ -47,7 +47,7 @@
                 "turret": "turret_05"
               }
             ],
-            "effectors:object": {
+            "cockpitEffectors:object": {
               "r.hand": "stick_rhand_1",
               "l.hand": "throttle_lhand_1",
               "r.foot": "pedal_rfoot_1",
@@ -460,13 +460,13 @@
   },
   "planegun_d3a1_navy_type_97mod_6_60kg_launcher_01": [
     {
-      "_extends": "navy_type_97mod_6_60kg_launcher"
+      "_use": "navy_type_97mod_6_60kg_launcher"
     },
     {
-      "_extends": "base_d3a1_navy_type_97mod_6_60kg_launcher"
+      "_use": "base_d3a1_navy_type_97mod_6_60kg_launcher"
     },
     {
-      "_extends": "gunsound_navy_type_97mod_6_60kg_launcher_aircraft"
+      "_use": "gunsound_navy_type_97mod_6_60kg_launcher_aircraft"
     },
     {
       "gun__shootNodeName": "bomb2"
@@ -480,13 +480,13 @@
   ],
   "planegun_d3a1_navy_type_97mod_6_60kg_launcher_02": [
     {
-      "_extends": "navy_type_97mod_6_60kg_launcher"
+      "_use": "navy_type_97mod_6_60kg_launcher"
     },
     {
-      "_extends": "base_d3a1_navy_type_97mod_6_60kg_launcher"
+      "_use": "base_d3a1_navy_type_97mod_6_60kg_launcher"
     },
     {
-      "_extends": "gunsound_navy_type_97mod_6_60kg_launcher_aircraft"
+      "_use": "gunsound_navy_type_97mod_6_60kg_launcher_aircraft"
     },
     {
       "gun__shootNodeName": "bomb3"
@@ -500,13 +500,13 @@
   ],
   "planegun_d3a1_navy_mod_25mark_2_250kg_launcher_01": [
     {
-      "_extends": "navy_mod_25mark_2_250kg_launcher"
+      "_use": "navy_mod_25mark_2_250kg_launcher"
     },
     {
-      "_extends": "base_d3a1_navy_mod_25mark_2_250kg_launcher"
+      "_use": "base_d3a1_navy_mod_25mark_2_250kg_launcher"
     },
     {
-      "_extends": "gunsound_navy_mod_25mark_2_250kg_launcher_aircraft"
+      "_use": "gunsound_navy_mod_25mark_2_250kg_launcher_aircraft"
     },
     {
       "gun__shootNodeName": "bomb1"
@@ -520,16 +520,16 @@
   ],
   "planegun_d3a1_7_7mm_type97_01": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_plane_machinegun"
+      "_use": "base_plane_machinegun"
     },
     {
-      "_extends": "base_d3a1_7_7mm_type97"
+      "_use": "base_d3a1_7_7mm_type97"
     },
     {
-      "_extends": "gunsound_7_7mm_type97_aircraft"
+      "_use": "gunsound_7_7mm_type97_aircraft"
     },
     {
       "gun__shootNodeName": "flare1"
@@ -540,16 +540,16 @@
   ],
   "planegun_d3a1_7_7mm_type97_02": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_plane_machinegun"
+      "_use": "base_plane_machinegun"
     },
     {
-      "_extends": "base_d3a1_7_7mm_type97"
+      "_use": "base_d3a1_7_7mm_type97"
     },
     {
-      "_extends": "gunsound_7_7mm_type97_aircraft"
+      "_use": "gunsound_7_7mm_type97_aircraft"
     },
     {
       "gun__shootNodeName": "flare2"
@@ -560,16 +560,16 @@
   ],
   "planegun_d3a1_7_7mm_type92_turret_01": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_plane_machinegun"
+      "_use": "base_plane_machinegun"
     },
     {
-      "_extends": "base_d3a1_7_7mm_type92_turret"
+      "_use": "base_d3a1_7_7mm_type92_turret"
     },
     {
-      "_extends": "gunsound_7_7mm_type92_turret_aircraft"
+      "_use": "gunsound_7_7mm_type92_turret_aircraft"
     },
     {
       "gun__shootNodeName": "flare3"
@@ -592,10 +592,10 @@
   ],
   "d3a1_driver_cockpit": [
     {
-      "_extends": "base_plane_cockpit"
+      "_use": "base_plane_cockpit"
     },
     {
-      "_extends": "plane_telesight"
+      "_use": "plane_telesight"
     },
     {
       "cockpit__offset": [0.0,0.0,0.0]

@@ -1,10 +1,10 @@
 {
   "base_pzkpfw_38t_ausf_f": [
     {
-      "_extends": "base_tank"
+      "_use": "base_tank"
     },
     {
-      "_extends": "pzkpfw_38t_ausf_f_ammo_stowages"
+      "_use": "pzkpfw_38t_ausf_f_ammo_stowages"
     },
     {
       "killLogName": "germ_pzkpfw_38t_ausf_f"
@@ -173,7 +173,11 @@
             "paramPitchAccel": "gun_01_pitch_accel",
             "wishYawParamName": "gun_01_aim:targetYaw",
             "wishPitchParamName": "gun_01_aim:targetPitch",
-            "gunRecoilParamName": "gun_01_recoil"
+            "gunRecoilParamName": "gun_01_recoil",
+            "hasStabilizerParamName": "gun_01_aim:hasStab",
+            "stabilizerPitchParamName": "gun_01_aim:stabPitch",
+            "stabilizerErrorParamName": "gun_01_aim:stabError",
+            "stabilizerPitchMultParamName": "gun_01_aim:stabPitchMult"
           }
         },
         {
@@ -284,12 +288,25 @@
     }
   ],
   "pzkpfw_38t_ausf_f_turret_01_37mm_kwk38_t": {
-    "_extends": "tankgun_37mm_kwk38_t",
+    "_use": "tankgun_37mm_kwk38_t",
     "gun__shootNodeName": "bone_gun_barrel",
     "turret__yawSpeed": 14.0,
     "turret__pitchSpeed": 15.0,
     "turret__aimNodeName": "bone_turret",
     "turret__limit": [-180.0,180.0,-10.0,25.0],
+    "turret__stabilizerPitchFrictionMult": 0.8,
+    "turret__stabilizerPitchSpeedLimitKph": 10.0,
+    "turret__stabilizerErrorByKphSpeedTable:list<p2>": [
+      {
+        "row": [5.0,0.0]
+      },
+      {
+        "row": [8.0,0.2]
+      },
+      {
+        "row": [10.0,0.4]
+      }
+    ],
     "gun__shellsAmmo:array": [
       {
         "ammo": 24
@@ -306,7 +323,7 @@
     ]
   },
   "pzkpfw_38t_ausf_f_turret_02_7_92mm_zb_vz37": {
-    "_extends": "tankgun_7_92mm_zb_vz37",
+    "_use": "tankgun_7_92mm_zb_vz37",
     "gun__shootNodeName": "bone_mg_gun_twin",
     "gun__shellsAmmo:array": [
       {
@@ -318,35 +335,35 @@
     ]
   },
   "pzkpfw_38t_ausf_f_turret_03_66mm_germ_smoke_candle_launcher": {
-    "_extends": "tankgun_66mm_germ_smoke_candle_launcher",
+    "_use": "tankgun_66mm_germ_smoke_candle_launcher",
     "gun__shootNodeName": "emtr_mortar_flame_01",
     "gun__shellsAmmo:array": {
       "ammo": 1
     }
   },
   "pzkpfw_38t_ausf_f_turret_04_66mm_germ_smoke_candle_launcher": {
-    "_extends": "tankgun_66mm_germ_smoke_candle_launcher",
+    "_use": "tankgun_66mm_germ_smoke_candle_launcher",
     "gun__shootNodeName": "emtr_mortar_flame_02",
     "gun__shellsAmmo:array": {
       "ammo": 1
     }
   },
   "pzkpfw_38t_ausf_f_turret_05_66mm_germ_smoke_candle_launcher": {
-    "_extends": "tankgun_66mm_germ_smoke_candle_launcher",
+    "_use": "tankgun_66mm_germ_smoke_candle_launcher",
     "gun__shootNodeName": "emtr_mortar_flame_03",
     "gun__shellsAmmo:array": {
       "ammo": 1
     }
   },
   "pzkpfw_38t_ausf_f_turret_06_66mm_germ_smoke_candle_launcher": {
-    "_extends": "tankgun_66mm_germ_smoke_candle_launcher",
+    "_use": "tankgun_66mm_germ_smoke_candle_launcher",
     "gun__shootNodeName": "emtr_mortar_flame_04",
     "gun__shellsAmmo:array": {
       "ammo": 1
     }
   },
   "pzkpfw_38t_ausf_f_turret_07_66mm_germ_smoke_candle_launcher": {
-    "_extends": "tankgun_66mm_germ_smoke_candle_launcher",
+    "_use": "tankgun_66mm_germ_smoke_candle_launcher",
     "gun__shootNodeName": "emtr_mortar_flame_05",
     "gun__shellsAmmo:array": {
       "ammo": 1
@@ -354,13 +371,13 @@
   },
   "pzkpfw_38t_ausf_f_ammo_stowages": {
     "_tags": "server",
-    "_extends": "vehicle_ammo_stowages",
+    "_use": "vehicle_ammo_stowages",
     "ammo_stowage__stowageTemplates:shared:list<t>": {
       "stowage": "pzkpfw_38t_ausf_f_ammo_stowage"
     }
   },
   "pzkpfw_38t_ausf_f_ammo_stowage": {
-    "_extends": "ammo_stowage",
+    "_use": "ammo_stowage",
     "ammo_stowage__clusterTemplates:shared:list<t>": {
       "cluster": "pzkpfw_38t_ausf_f_ammo_cluster"
     },
@@ -369,7 +386,7 @@
     }
   },
   "pzkpfw_38t_ausf_f_ammo_cluster": {
-    "_extends": "ammo_cluster",
+    "_use": "ammo_cluster",
     "ammo_cluster__isShell": true,
     "ammo_cluster__slotNames:shared:list<t>": [
       {

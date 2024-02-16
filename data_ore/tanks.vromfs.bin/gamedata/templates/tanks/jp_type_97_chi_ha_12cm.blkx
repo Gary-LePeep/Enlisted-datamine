@@ -1,19 +1,36 @@
 {
   "jp_type_97_chi_ha_12cm_pacific": {
-    "_extends": "jp_type_97_chi_ha_12cm_common"
+    "_use": "jp_type_97_chi_ha_12cm_common"
   },
   "jp_type_97_chi_ha_12cm_common": [
     {
-      "_extends": "base_type_97_chi_ha_12cm"
+      "_use": "base_type_97_chi_ha_12cm"
     },
     {
-      "_extends": "tank_m10_engine_sound"
+      "_use": "tank_m10_engine_sound"
     },
     {
-      "_extends": "tank_light_vehicle_tracks_sound"
+      "_use": "tank_light_vehicle_tracks_sound"
     },
     {
-      "item__iconOffset": [0.0,0.0]
+      "item__iconOffset": [0.0,0.05]
+    },
+    {
+      "item__iconScale": 1.11
+    },
+    {
+      "commanderCockpitFpsCamMaxAngle": [40.0,5.0]
+    },
+    {
+      "gunner_cam_limit__useCockpitDir": true
+    },
+    {
+      "turrets__initAmmoDistribution:array": {
+        "ammo:object": {
+          "slot": 1,
+          "fill": true
+        }
+      }
     },
     {
       "vehicle_seats__seats:shared:array": [
@@ -75,7 +92,7 @@
               [1.0,0.0,0.0],
               [0.0,1.0,0.0],
               [0.0,0.0,1.0],
-              [-0.24,-0.75,-0.07]
+              [-0.24,-0.4,-0.07]
             ],
             "seatComponent": "isDriver",
             "receiveDamageFromDMPart": "commander",
@@ -138,26 +155,10 @@
           }
         }
       ]
-    },
-    {
-      "turrets__initAmmoDistribution:array": [
-        {
-          "ammo:object": {
-            "slot": 0,
-            "fill": true
-          }
-        },
-        {
-          "ammo:object": {
-            "slot": 2,
-            "fill": true
-          }
-        }
-      ]
     }
   ],
   "jp_type_97_chi_ha_12cm_driver_cockpit": {
-    "_extends": "base_driver_cockpit_no_slits",
+    "_use": "base_driver_cockpit_no_slits",
     "animchar__res": "bt_7_driver_char",
     "cockpit__offset": [0.0646394,-0.374342,0.00730274],
     "cockpit__visibleVehicleNodeNames:list<t>": [],
@@ -172,8 +173,7 @@
     }
   },
   "jp_type_97_chi_ha_12cm_gunner_cockpit": {
-    "vehicle_sight__blk": "gamedata/sight/jp_120mm.blk",
-    "_extends": "base_gunner_cockpit",
+    "_use": "base_gunner_cockpit",
     "animchar__res": "ba_11_gunner_char",
     "cockpit__offset": [-0.578069,-0.0561157,0.244711],
     "cockpit__visibleVehicleNodeNames:list<t>": [],
@@ -181,7 +181,7 @@
       "slit": "cam_front_right"
     },
     "cockpit__slitForwardOffset:list<r>": {
-      "slit": 0.17
+      "slit": 0.21
     },
     "cockpit__slitIsGun:list<b>": {
       "slit": true
@@ -189,10 +189,27 @@
     "cockpit__attachNodeNames:list<t>": {
       "node": "bone_camera_gunner"
     },
-    "cockpit__attachNodeIndices:list<i>": []
+    "cockpit__attachNodeIndices:list<i>": [],
+    "cockpit__slitZoom:array": {
+      "slit:list<r>": [
+        {
+          "zoom": 1.9
+        },
+        {
+          "zoom": 3.5
+        }
+      ]
+    },
+    "cockpit__slitZoomTime:list<r>": {
+      "slit": 0.05
+    },
+    "cockpit__slitTemplates:list<t>": {
+      "slit": "jp_120mm"
+    },
+    "cockpit__slitEids:list<eid>": []
   },
   "jp_type_97_chi_ha_12cm_commander_cockpit": {
-    "_extends": "base_commander_tower_cockit_no_slits",
+    "_use": "base_commander_tower_cockpit",
     "animchar__res": "pzkpfw_iii_b_commander_char",
     "cockpit__offset": [-0.0693817,0.368593,-0.287207],
     "cockpit__visibleVehicleNodeNames:list<t>": [
@@ -225,22 +242,22 @@
     ],
     "cockpit__slitForwardOffset:list<r>": [
       {
-        "slit": -0.05
+        "slit": -0.09
       },
       {
-        "slit": -0.05
+        "slit": -0.09
       },
       {
-        "slit": -0.05
+        "slit": -0.09
       },
       {
-        "slit": -0.05
+        "slit": -0.09
       },
       {
-        "slit": -0.05
+        "slit": -0.09
       },
       {
-        "slit": -0.05
+        "slit": -0.09
       }
     ],
     "cockpit__slitIsGun:list<b>": [
@@ -261,6 +278,38 @@
       },
       {
         "slit": false
+      }
+    ],
+    "cockpit__slitZoom:array": [
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
       }
     ],
     "cockpit__slitNodeNames:list<t>": [
@@ -285,7 +334,7 @@
     ]
   },
   "jp_type_97_chi_ha_12cm_machinegunner_cockpit": {
-    "_extends": "base_gunner_cockpit",
+    "_use": "base_gunner_cockpit",
     "animchar__res": "ba_11_machinegunner_char",
     "cockpit__offset": [-0.242443,-0.248463,-0.197987],
     "cockpit__visibleVehicleNodeNames:list<t>": [],
@@ -293,7 +342,7 @@
       "slit": "cam_mg"
     },
     "cockpit__slitForwardOffset:list<r>": {
-      "slit": -0.05
+      "slit": -0.0
     },
     "cockpit__slitIsGun:list<b>": {
       "slit": true
@@ -301,6 +350,18 @@
     "cockpit__attachNodeNames:list<t>": {
       "node": "bone_mg_v_01"
     },
-    "cockpit__attachNodeIndices:list<i>": []
+    "cockpit__attachNodeIndices:list<i>": [],
+    "cockpit__slitZoom:array": {
+      "slit:list<r>": {
+        "zoom": 2.0
+      }
+    },
+    "cockpit__slitZoomTime:list<r>": {
+      "slit": 0.05
+    },
+    "cockpit__slitTemplates:list<t>": {
+      "slit": "cross"
+    },
+    "cockpit__slitEids:list<eid>": []
   }
 }

@@ -5,7 +5,7 @@
     }
   },
   "msg_sink": {
-    "_extends": "replicating",
+    "_use": "replicating",
     "_singleton": true,
     "msg_sink": []
   },

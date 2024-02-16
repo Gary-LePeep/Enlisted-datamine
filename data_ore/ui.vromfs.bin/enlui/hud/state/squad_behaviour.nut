@@ -8,7 +8,7 @@ let { SquadBehaviour } = require("%enlSqGlob/dasenums.nut")
 let { find_local_player } = require("%dngscripts/common_queries.nut")
 
 let savedSquadBehaviours = get_setting_by_blk_path("ai/squadBehaviour") ?? {}
-let DEFAULT_BEHAVIOUR = SquadBehaviour.ESB_AGRESSIVE
+let DEFAULT_BEHAVIOUR = SquadBehaviour.ESB_AGGRESSIVE
 let squadBehaviour = Watched(DEFAULT_BEHAVIOUR)
 
 
@@ -36,8 +36,8 @@ let function setSquadBehaviour(behaviour) {
   heroSquadEidQuery(controlledHeroEid.value, function(_, comp) {
     let squadEid = comp.squad_member__squad
     applyNewBehaviour(squadEid, behaviour)
-    squadProfileIdQuery(squadEid, @(_, comp)
-      saveSquadBehaviour(comp.squad__squadProfileId, behaviour))
+    squadProfileIdQuery(squadEid, @(_, sqComp)
+      saveSquadBehaviour(sqComp.squad__squadProfileId, behaviour))
   })
 }
 

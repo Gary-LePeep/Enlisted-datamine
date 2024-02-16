@@ -21,6 +21,609 @@ let genSquadUsa = mkGenSquad("usa")
 let genSquadJap = mkGenSquad("japan")
 
 return freeze({
+
+
+//USSR----------------------------------------------------------------------------------------------------------------
+  ussr = {
+
+    squad_ussr_apc_driver_2 = genSquadUssr("squad_ussr_apc_driver_2")
+    squad_ussr_mgun_3 = genSquadUssr("squad_ussr_mgun_3")
+
+    ussr_moscow_mgun_1 = genSquadUssr("ussr_moscow_mgun_1")
+    ussr_moscow_tank_1 = genSquadUssr("ussr_moscow_tank_1")
+    ussr_moscow_tank_2 = genSquadUssr("ussr_moscow_tank_2")
+    ussr_moscow_mortarman_1 = genSquadUssr("ussr_moscow_mortarman_1")
+    ussr_moscow_sniper_1 = genSquadUssr("ussr_moscow_sniper_1")
+    ussr_moscow_rifle_1 = genSquadUssr("ussr_moscow_rifle_1")
+    ussr_moscow_antitank_1 = genSquadUssr("ussr_moscow_antitank_1")
+    ussr_moscow_assault_1 = genSquadUssr("ussr_moscow_assault_1")
+    ussr_moscow_flametrooper_1 = genSquadUssr("ussr_moscow_flametrooper_1")
+    ussr_moscow_pilot_fighter_1 = genSquadUssr("ussr_moscow_pilot_fighter_1")
+    ussr_moscow_pilot_assaulter_1 = genSquadUssr("ussr_moscow_pilot_assaulter_1")
+    ussr_moscow_radioman_1 = genSquadUssr("ussr_moscow_radioman_1")
+    ussr_moscow_engineer_1 = genSquadUssr("ussr_moscow_engineer_1")
+    ussr_moscow_rifle_2 = genSquadUssr("ussr_moscow_rifle_2")
+    ussr_moscow_pilot_fighter_2 = genSquadUssr("ussr_moscow_pilot_fighter_2")
+    ussr_moscow_mgun_2 = genSquadUssr("ussr_moscow_mgun_2")
+    ussr_moscow_engineer_2 = genSquadUssr("ussr_moscow_engineer_2")
+    ussr_moscow_assault_2 = genSquadUssr("ussr_moscow_assault_2")
+    ussr_moscow_sniper_2 = genSquadUssr("ussr_moscow_sniper_2")
+    ussr_moscow_pilot_assaulter_2 = genSquadUssr("ussr_moscow_pilot_assaulter_2")
+    ussr_moscow_radioman_2 = genSquadUssr("ussr_moscow_radioman_2")
+    ussr_moscow_antitank_2 = genSquadUssr("ussr_moscow_antitank_2")
+    ussr_moscow_assault_3 = genSquadUssr("ussr_moscow_assault_3")
+    ussr_moscow_sniper_3 = genSquadUssr("ussr_moscow_sniper_3")
+    ussr_moscow_flametrooper_2 = genSquadUssr("ussr_moscow_flametrooper_2")
+    ussr_moscow_tank_3 = genSquadUssr("ussr_moscow_tank_3")
+    ussr_moscow_pilot_assaulter_3 = genSquadUssr("ussr_moscow_pilot_assaulter_3")
+    ussr_moscow_assault_4 = genSquadUssr("ussr_moscow_assault_4")
+
+    ussr_berlin_tank_1 = genSquadUssr("ussr_berlin_tank_1")
+    ussr_berlin_mortarman_1 = genSquadUssr("ussr_berlin_mortarman_1")
+    ussr_berlin_antitank_1 = genSquadUssr("ussr_berlin_antitank_1")
+    ussr_berlin_mgun_1 = genSquadUssr("ussr_berlin_mgun_1")
+    ussr_berlin_pilot_fighter_1 = genSquadUssr("ussr_berlin_pilot_fighter_1")
+    ussr_berlin_sniper_1 = genSquadUssr("ussr_berlin_sniper_1")
+    ussr_berlin_rifle_1 = genSquadUssr("ussr_berlin_rifle_1")
+    ussr_berlin_assault_1 = genSquadUssr("ussr_berlin_assault_1")
+    ussr_berlin_flametrooper_1 = genSquadUssr("ussr_berlin_flametrooper_1")
+    ussr_berlin_radioman_1 = genSquadUssr("ussr_berlin_radioman_1")
+    ussr_berlin_pilot_assaulter_1 = genSquadUssr("ussr_berlin_pilot_assaulter_1")
+    ussr_berlin_engineer_1 = genSquadUssr("ussr_berlin_engineer_1")
+    ussr_berlin_sniper_2 = genSquadUssr("ussr_berlin_sniper_2")
+    ussr_berlin_assault_2 = genSquadUssr("ussr_berlin_assault_2")
+    ussr_berlin_rifle_2 = genSquadUssr("ussr_berlin_rifle_2")
+    ussr_berlin_pilot_assaulter_2 = genSquadUssr("ussr_berlin_pilot_assaulter_2")
+    ussr_berlin_engineer_2 = genSquadUssr("ussr_berlin_engineer_2")
+    ussr_berlin_mgun_2 = genSquadUssr("ussr_berlin_mgun_2")
+    ussr_berlin_pilot_fighter_2 = genSquadUssr("ussr_berlin_pilot_fighter_2")
+    ussr_berlin_flametrooper_2 = genSquadUssr("ussr_berlin_flametrooper_2")
+    ussr_berlin_radioman_2 = genSquadUssr("ussr_berlin_radioman_2")
+    ussr_berlin_tank_2 = genSquadUssr("ussr_berlin_tank_2")
+    ussr_berlin_assault_3 = genSquadUssr("ussr_berlin_assault_3")
+    ussr_berlin_sniper_3 = genSquadUssr("ussr_berlin_sniper_3")
+
+    allies_stalingrad_rifle_1 = genSquadUssr("allies_stalingrad_rifle_1")
+    allies_stalingrad_tank_1 = genSquadUssr("allies_stalingrad_tank_1")
+    allies_stalingrad_sniper_1 = genSquadUssr("allies_stalingrad_sniper_1")
+    allies_stalingrad_medic_1 = genSquadUssr("allies_stalingrad_medic_1")
+    allies_stalingrad_pilot_fighter_1 = genSquadUssr("allies_stalingrad_pilot_fighter_1")
+    allies_stalingrad_engineer_1 = genSquadUssr("allies_stalingrad_engineer_1")
+    allies_stalingrad_mgun_1 = genSquadUssr("allies_stalingrad_mgun_1")
+    allies_stalingrad_radioman_1 = genSquadUssr("allies_stalingrad_radioman_1")
+    allies_stalingrad_antitank_1 = genSquadUssr("allies_stalingrad_antitank_1")
+    allies_stalingrad_pilot_assaulter_1 = genSquadUssr("allies_stalingrad_pilot_assaulter_1")
+    allies_stalingrad_mortarman_1 = genSquadUssr("allies_stalingrad_mortarman_1")
+    allies_stalingrad_tank_2 = genSquadUssr("allies_stalingrad_tank_2")
+    allies_stalingrad_rifle_2 = genSquadUssr("allies_stalingrad_rifle_2")
+    allies_stalingrad_assault_2 = genSquadUssr("allies_stalingrad_assault_2")
+    allies_stalingrad_pilot_fighter_2 = genSquadUssr("allies_stalingrad_pilot_fighter_2")
+    allies_stalingrad_sniper_2 = genSquadUssr("allies_stalingrad_sniper_2")
+    allies_stalingrad_flametrooper_1 = genSquadUssr("allies_stalingrad_flametrooper_1")
+    allies_stalingrad_mgun_2 = genSquadUssr("allies_stalingrad_mgun_2")
+    allies_stalingrad_engineer_2 = genSquadUssr("allies_stalingrad_engineer_2")
+    allies_stalingrad_sniper_3 = genSquadUssr("allies_stalingrad_sniper_3")
+    allies_stalingrad_pilot_assaulter_2 = genSquadUssr("allies_stalingrad_pilot_assaulter_2")
+    allies_stalingrad_assault_3 = genSquadUssr("allies_stalingrad_assault_3")
+    allies_stalingrad_rifle_3 = genSquadUssr("allies_stalingrad_rifle_3")
+    allies_stalingrad_pilot_fighter_3 = genSquadUssr("allies_stalingrad_pilot_fighter_3")
+
+
+
+//prems
+    squad_ussr_apc_driver_2_premium_1 = genSquadUssr("squad_ussr_apc_driver_2_premium_1")
+    squad_ussr_paratrooper_2_event_1 = genSquadUssr("squad_ussr_paratrooper_2_event_1", {premIcon = ICON_EVENT})
+    squad_ussr_paratrooper_2_premium_1 = genSquadUssr("squad_ussr_paratrooper_2_premium_1")
+
+    ussr_moscow_prem_assault_1 = genSquadUssr("ussr_moscow_prem_assault_1")
+    ussr_moscow_prem_assault_1_ch = genSquadUssr("ussr_moscow_prem_assault_1")
+    ussr_moscow_prem_mgun_1 = genSquadUssr("ussr_moscow_prem_mgun_1")
+    ussr_moscow_prem_mgun_1_ch = genSquadUssr("ussr_moscow_prem_mgun_1")
+    ussr_moscow_prem_mgun_1_legacy = genSquadUssr("ussr_moscow_prem_mgun_1_legacy")
+    ussr_moscow_prem_assault_2 = genSquadUssr("ussr_moscow_prem_assault_2")
+    ussr_moscow_prem_tank_1 = genSquadUssr("ussr_moscow_prem_tank_1")
+    ussr_moscow_prem_pilot_fighter_1 = genSquadUssr("ussr_moscow_prem_pilot_fighter_1")
+    ussr_moscow_prem_engineer_1 = genSquadUssr("ussr_moscow_prem_engineer_1")
+    ussr_moscow_prem_rifle_1 = genSquadUssr("ussr_moscow_prem_rifle_1")
+    ussr_moscow_prem_tank_2 = genSquadUssr("ussr_moscow_prem_tank_2")
+    ussr_moscow_prem_mgun_2 = genSquadUssr("ussr_moscow_prem_mgun_2")
+    ussr_moscow_prem_tank_3 = genSquadUssr("ussr_moscow_prem_tank_3")
+    ussr_moscow_prem_tank_4 = genSquadUssr("ussr_moscow_prem_tank_4")
+    ussr_moscow_prem_sniper_1 = genSquadUssr("ussr_moscow_prem_sniper_1")
+    ussr_moscow_prem_pilot_fighter_2 = genSquadUssr("ussr_moscow_prem_pilot_fighter_2")
+    ussr_moscow_prem_mgun_3 = genSquadUssr("ussr_moscow_prem_mgun_3")
+    ussr_moscow_event_antitank_1 = genSquadUssr("ussr_moscow_event_antitank_1", {premIcon = ICON_EVENT})
+    ussr_moscow_event_tank_1 = genSquadUssr("ussr_moscow_event_tank_1", {premIcon = ICON_EVENT})
+
+    ussr_berlin_prem_assault_1 = genSquadUssr("ussr_berlin_prem_assault_1")
+    ussr_berlin_prem_engineer_1 = genSquadUssr("ussr_berlin_prem_engineer_1")
+    ussr_berlin_prem_engineer_1_ch = genSquadUssr("ussr_berlin_prem_engineer_1")
+    ussr_berlin_prem_rifle_1 = genSquadUssr("ussr_berlin_prem_rifle_1")
+    ussr_berlin_prem_tank_1 = genSquadUssr("ussr_berlin_prem_tank_1")
+    ussr_berlin_prem_tank_2 = genSquadUssr("ussr_berlin_prem_tank_2")
+    ussr_berlin_prem_pilot_fighter_1 = genSquadUssr("ussr_berlin_prem_pilot_fighter_1")
+    ussr_berlin_prem_assault_2 = genSquadUssr("ussr_berlin_prem_assault_2")
+    ussr_berlin_event_assault_1 = genSquadUssr("ussr_berlin_event_assault_1", {premIcon = ICON_EVENT})
+    ussr_berlin_prem_pilot_assaulter_1 = genSquadUssr("ussr_berlin_prem_pilot_assaulter_1")
+    ussr_berlin_prem_assault_3 = genSquadUssr("ussr_berlin_prem_assault_3")
+    ussr_berlin_prem_mgun_1 = genSquadUssr("ussr_berlin_prem_mgun_1")
+    ussr_berlin_prem_tank_3 = genSquadUssr("ussr_berlin_prem_tank_3")
+    ussr_berlin_event_assault_2 = genSquadUssr("ussr_berlin_event_assault_2", {premIcon = ICON_EVENT})
+
+
+    allies_stalingrad_prem_tank_1 = genSquadUssr("allies_stalingrad_prem_tank_1")
+    allies_stalingrad_prem_medic_1 = genSquadUssr("allies_stalingrad_prem_medic_1")
+    allies_stalingrad_prem_pilot_assaulter_1 = genSquadUssr("allies_stalingrad_prem_pilot_assaulter_1")
+    allies_stalingrad_prem_assault_1 = genSquadUssr("allies_stalingrad_prem_assault_1")
+    allies_stalingrad_prem_assault_1_ch = genSquadUssr("allies_stalingrad_prem_assault_1")
+    allies_stalingrad_prem_tank_2 = genSquadUssr("allies_stalingrad_prem_tank_2")
+
+//special
+//moon squads
+    ussr_moon_assault_1 = genSquadUssr("ussr_moon_assault_1")
+    ussr_moon_sniper_1 = genSquadUssr("ussr_moon_sniper_1")
+    ussr_moon_antitank_1 = genSquadUssr("ussr_moon_antitank_1")
+    ussr_moon_tank_1 = genSquadUssr("ussr_moon_tank_1")
+
+//modern squads
+    ussr_modern_inf_1 = genSquadUssr("ussr_modern_inf_1")
+    ussr_modern_inf_2 = genSquadUssr("ussr_modern_inf_2")
+    ussr_modern_inf_3 = genSquadUssr("ussr_modern_inf_3")
+    ussr_modern_tank_1 = genSquadUssr("ussr_modern_tank_1")
+
+//mech event
+    allies_stalingrad_mech_1 = genSquadUssr("allies_stalingrad_mech_1")
+
+  }
+
+
+//GERMANY AND ITALY----------------------------------------------------------------------------------------------------------------
+  ger = {
+    squad_ger_apc_driver_2 = genSquadGer("squad_ger_apc_driver_2")
+
+    ger_moscow_engineer_1 = genSquadGer("ger_moscow_engineer_1")
+    ger_moscow_tank_1 = genSquadGer("ger_moscow_tank_1")
+    ger_moscow_tank_2 = genSquadGer("ger_moscow_tank_2")
+    ger_moscow_antitank_1 = genSquadGer("ger_moscow_antitank_1")
+    ger_moscow_assault_1 = genSquadGer("ger_moscow_assault_1")
+    ger_moscow_rifle_1 = genSquadGer("ger_moscow_rifle_1")
+    ger_moscow_radioman_1 = genSquadGer("ger_moscow_radioman_1")
+    ger_moscow_mgun_1 = genSquadGer("ger_moscow_mgun_1")
+    ger_moscow_mortarman_1 = genSquadGer("ger_moscow_mortarman_1")
+    ger_moscow_sniper_1 = genSquadGer("ger_moscow_sniper_1")
+    ger_moscow_flametrooper_1 = genSquadGer("ger_moscow_flametrooper_1")
+    ger_moscow_pilot_fighter_1 = genSquadGer("ger_moscow_pilot_fighter_1")
+    ger_moscow_pilot_assaulter_1 = genSquadGer("ger_moscow_pilot_assaulter_1")
+    ger_moscow_rifle_2 = genSquadGer("ger_moscow_rifle_2")
+    ger_moscow_pilot_fighter_2 = genSquadGer("ger_moscow_pilot_fighter_2")
+    ger_moscow_mgun_2 = genSquadGer("ger_moscow_mgun_2")
+    ger_moscow_engineer_2 = genSquadGer("ger_moscow_engineer_2")
+    ger_moscow_assault_2 = genSquadGer("ger_moscow_assault_2")
+    ger_moscow_sniper_2 = genSquadGer("ger_moscow_sniper_2")
+    ger_moscow_pilot_assaulter_2 = genSquadGer("ger_moscow_pilot_assaulter_2")
+    ger_moscow_radioman_2 = genSquadGer("ger_moscow_radioman_2")
+    ger_moscow_antitank_2 = genSquadGer("ger_moscow_antitank_2")
+    ger_moscow_assault_3 = genSquadGer("ger_moscow_assault_3")
+    ger_moscow_sniper_3 = genSquadGer("ger_moscow_sniper_3")
+    ger_moscow_flametrooper_2 = genSquadGer("ger_moscow_flametrooper_2")
+    ger_moscow_tank_3 = genSquadGer("ger_moscow_tank_3")
+    ger_moscow_pilot_assaulter_3 = genSquadGer("ger_moscow_pilot_assaulter_3")
+    ger_moscow_assault_4 = genSquadGer("ger_moscow_assault_4")
+
+    ger_normandy_rifle_1 = genSquadGer("ger_normandy_rifle_1")
+    ger_normandy_sniper_1 = genSquadGer("ger_normandy_sniper_1")
+    ger_normandy_assault_1 = genSquadGer("ger_normandy_assault_1")
+    ger_normandy_tank_1 = genSquadGer("ger_normandy_tank_1")
+    ger_normandy_engineer_1 = genSquadGer("ger_normandy_engineer_1")
+    ger_normandy_pilot_assaulter_1 = genSquadGer("ger_normandy_pilot_assaulter_1")
+    ger_normandy_flametrooper_1 = genSquadGer("ger_normandy_flametrooper_1")
+    ger_normandy_radioman_1 = genSquadGer("ger_normandy_radioman_1")
+    ger_normandy_antitank_1 = genSquadGer("ger_normandy_antitank_1")
+    ger_normandy_mgun_1 = genSquadGer("ger_normandy_mgun_1")
+    ger_normandy_pilot_fighter_1 = genSquadGer("ger_normandy_pilot_fighter_1")
+    ger_normandy_mortarman_1 = genSquadGer("ger_normandy_mortarman_1")
+    ger_normandy_sniper_2 = genSquadGer("ger_normandy_sniper_2")
+    ger_normandy_rifle_2 = genSquadGer("ger_normandy_rifle_2")
+    ger_normandy_pilot_assaulter_2 = genSquadGer("ger_normandy_pilot_assaulter_2")
+    ger_normandy_tank_2 = genSquadGer("ger_normandy_tank_2")
+    ger_normandy_sniper_3 = genSquadGer("ger_normandy_sniper_3")
+    ger_normandy_assault_2 = genSquadGer("ger_normandy_assault_2")
+    ger_normandy_engineer_2 = genSquadGer("ger_normandy_engineer_2")
+    ger_normandy_mgun_2 = genSquadGer("ger_normandy_mgun_2")
+    ger_normandy_pilot_fighter_2 = genSquadGer("ger_normandy_pilot_fighter_2")
+    ger_normandy_flametrooper_2 = genSquadGer("ger_normandy_flametrooper_2")
+    ger_normandy_tank_3 = genSquadGer("ger_normandy_tank_3")
+    ger_normandy_assault_3 = genSquadGer("ger_normandy_assault_3")
+    ger_normandy_rifle_3 = genSquadGer("ger_normandy_rifle_3")
+    ger_normandy_mgun_3 = genSquadGer("ger_normandy_mgun_3")
+    ger_normandy_antitank_2 = genSquadGer("ger_normandy_antitank_2")
+
+    ger_berlin_sniper_1 = genSquadGer("ger_berlin_sniper_1")
+    ger_berlin_antitank_1 = genSquadGer("ger_berlin_antitank_1")
+    ger_berlin_mgun_1 = genSquadGer("ger_berlin_mgun_1")
+    ger_berlin_assault_1 = genSquadGer("ger_berlin_assault_1")
+    ger_berlin_tank_1 = genSquadGer("ger_berlin_tank_1")
+    ger_berlin_mortarman_1 = genSquadGer("ger_berlin_mortarman_1")
+    ger_berlin_rifle_1 = genSquadGer("ger_berlin_rifle_1")
+    ger_berlin_flametrooper_1 = genSquadGer("ger_berlin_flametrooper_1")
+    ger_berlin_radioman_1 = genSquadGer("ger_berlin_radioman_1")
+    ger_berlin_engineer_1 = genSquadGer("ger_berlin_engineer_1")
+    ger_berlin_pilot_fighter_1 = genSquadGer("ger_berlin_pilot_fighter_1")
+    ger_berlin_pilot_assaulter_1 = genSquadGer("ger_berlin_pilot_assaulter_1")
+    ger_berlin_sniper_2 = genSquadGer("ger_berlin_sniper_2")
+    ger_berlin_assault_2 = genSquadGer("ger_berlin_assault_2")
+    ger_berlin_rifle_2 = genSquadGer("ger_berlin_rifle_2")
+    ger_berlin_pilot_assaulter_2 = genSquadGer("ger_berlin_pilot_assaulter_2")
+    ger_berlin_engineer_2 = genSquadGer("ger_berlin_engineer_2")
+    ger_berlin_mgun_2 = genSquadGer("ger_berlin_mgun_2")
+    ger_berlin_pilot_fighter_2 = genSquadGer("ger_berlin_pilot_fighter_2")
+    ger_berlin_flametrooper_2 = genSquadGer("ger_berlin_flametrooper_2")
+    ger_berlin_radioman_2 = genSquadGer("ger_berlin_radioman_2")
+    ger_berlin_tank_2 = genSquadGer("ger_berlin_tank_2")
+    ger_berlin_assault_3 = genSquadGer("ger_berlin_assault_3")
+    ger_berlin_sniper_3 = genSquadGer("ger_berlin_sniper_3")
+
+    axis_tunisia_rifle_1 = genSquadGer("axis_tunisia_rifle_1")
+    axis_tunisia_tank_1 = genSquadGer("axis_tunisia_tank_1")
+    axis_tunisia_sniper_1 = genSquadGer("axis_tunisia_sniper_1")
+    axis_tunisia_radioman_1 = genSquadGer("axis_tunisia_radioman_1")
+    axis_tunisia_assault_1 = genSquadGer("axis_tunisia_assault_1")
+    axis_tunisia_pilot_fighter_1 = genSquadGer("axis_tunisia_pilot_fighter_1")
+    axis_tunisia_antitank_1 = genSquadGer("axis_tunisia_antitank_1")
+    axis_tunisia_engineer_1 = genSquadGer("axis_tunisia_engineer_1")
+    axis_tunisia_mgun_1 = genSquadGer("axis_tunisia_mgun_1")
+    axis_tunisia_pilot_assaulter_1 = genSquadGer("axis_tunisia_pilot_assaulter_1")
+    axis_tunisia_mortarman_1 = genSquadGer("axis_tunisia_mortarman_1")
+    axis_tunisia_sniper_2 = genSquadGer("axis_tunisia_sniper_2")
+    axis_tunisia_flametrooper_1 = genSquadGer("axis_tunisia_flametrooper_1")
+    axis_tunisia_tank_2 = genSquadGer("axis_tunisia_tank_2")
+    axis_tunisia_rifle_2 = genSquadGer("axis_tunisia_rifle_2")
+    axis_tunisia_biker_1 = genSquadGer("axis_tunisia_biker_1")
+    axis_tunisia_assault_2 = genSquadGer("axis_tunisia_assault_2")
+    axis_tunisia_pilot_fighter_2 = genSquadGer("axis_tunisia_pilot_fighter_2")
+    axis_tunisia_engineer_2 = genSquadGer("axis_tunisia_engineer_2")
+    axis_tunisia_sniper_3 = genSquadGer("axis_tunisia_sniper_3")
+    axis_tunisia_mgun_2 = genSquadGer("axis_tunisia_mgun_2")
+    axis_tunisia_pilot_assaulter_2 = genSquadGer("axis_tunisia_pilot_assaulter_2")
+    axis_tunisia_tank_3 = genSquadGer("axis_tunisia_tank_3")
+    axis_tunisia_assault_3 = genSquadGer("axis_tunisia_assault_3")
+    axis_tunisia_antitank_2 = genSquadGer("axis_tunisia_antitank_2")
+
+    axis_stalingrad_rifle_1 = genSquadGer("axis_stalingrad_rifle_1")
+    axis_stalingrad_tank_1 = genSquadGer("axis_stalingrad_tank_1")
+    axis_stalingrad_sniper_1 = genSquadGer("axis_stalingrad_sniper_1")
+    axis_stalingrad_medic_1 = genSquadGer("axis_stalingrad_medic_1")
+    axis_stalingrad_pilot_fighter_1 = genSquadGer("axis_stalingrad_pilot_fighter_1")
+    axis_stalingrad_engineer_1 = genSquadGer("axis_stalingrad_engineer_1")
+    axis_stalingrad_mgun_1 = genSquadGer("axis_stalingrad_mgun_1")
+    axis_stalingrad_radioman_1 = genSquadGer("axis_stalingrad_radioman_1")
+    axis_stalingrad_antitank_1 = genSquadGer("axis_stalingrad_antitank_1")
+    axis_stalingrad_pilot_assaulter_1 = genSquadGer("axis_stalingrad_pilot_assaulter_1")
+    axis_stalingrad_mortarman_1 = genSquadGer("axis_stalingrad_mortarman_1")
+    axis_stalingrad_tank_2 = genSquadGer("axis_stalingrad_tank_2")
+    axis_stalingrad_rifle_2 = genSquadGer("axis_stalingrad_rifle_2")
+    axis_stalingrad_assault_2 = genSquadGer("axis_stalingrad_assault_2")
+    axis_stalingrad_pilot_fighter_2 = genSquadGer("axis_stalingrad_pilot_fighter_2")
+    axis_stalingrad_sniper_2 = genSquadGer("axis_stalingrad_sniper_2")
+    axis_stalingrad_flametrooper_1 = genSquadGer("axis_stalingrad_flametrooper_1")
+    axis_stalingrad_mgun_2 = genSquadGer("axis_stalingrad_mgun_2")
+    axis_stalingrad_engineer_2 = genSquadGer("axis_stalingrad_engineer_2")
+    axis_stalingrad_sniper_3 = genSquadGer("axis_stalingrad_sniper_3")
+    axis_stalingrad_pilot_assaulter_2 = genSquadGer("axis_stalingrad_pilot_assaulter_2")
+    axis_stalingrad_assault_3 = genSquadGer("axis_stalingrad_assault_3")
+    axis_stalingrad_rifle_3 = genSquadGer("axis_stalingrad_rifle_3")
+    axis_stalingrad_pilot_fighter_3 = genSquadGer("axis_stalingrad_pilot_fighter_3")
+
+//prems
+    squad_ger_apc_driver_2_premium_1 = genSquadGer("squad_ger_apc_driver_2_premium_1")
+    squad_ger_apc_driver_2_event_1 = genSquadGer("squad_ger_apc_driver_2_event_1", {premIcon = ICON_EVENT})
+    squad_it_paratrooper_2_event_2 = genSquadGer("squad_it_paratrooper_2_event_2", {premIcon = ICON_EVENT})
+
+    ger_moscow_prem_assault_1 = genSquadGer("ger_moscow_prem_assault_1")
+    ger_moscow_prem_assault_1_ch = genSquadGer("ger_moscow_prem_assault_1")
+    ger_moscow_prem_mgun_1 = genSquadGer("ger_moscow_prem_mgun_1")
+    ger_moscow_prem_mgun_1_ch = genSquadGer("ger_moscow_prem_mgun_1")
+    ger_moscow_prem_mgun_1_legacy = genSquadGer("ger_moscow_prem_mgun_1_legacy")
+    ger_moscow_prem_tank_1 = genSquadGer("ger_moscow_prem_tank_1")
+    ger_moscow_prem_assault_2 = genSquadGer("ger_moscow_prem_assault_2")
+    ger_moscow_prem_pilot_fighter_1 = genSquadGer("ger_moscow_prem_pilot_fighter_1")
+    ger_moscow_prem_engineer_1 = genSquadGer("ger_moscow_prem_engineer_1")
+    ger_moscow_prem_rifle_1 = genSquadGer("ger_moscow_prem_rifle_1")
+    ger_moscow_prem_tank_2 = genSquadGer("ger_moscow_prem_tank_2")
+    ger_moscow_prem_mgun_2 = genSquadGer("ger_moscow_prem_mgun_2")
+    ger_moscow_prem_pilot_fighter_2 = genSquadGer("ger_moscow_prem_pilot_fighter_2")
+    ger_moscow_prem_sniper_1 = genSquadGer("ger_moscow_prem_sniper_1")
+    ger_moscow_prem_tank_3 = genSquadGer("ger_moscow_prem_tank_3")
+    ger_moscow_prem_mgun_3 = genSquadGer("ger_moscow_prem_mgun_3")
+    ger_moscow_event_antitank_1 = genSquadGer("ger_moscow_event_antitank_1", {premIcon = ICON_EVENT})
+    ger_moscow_event_tank_1 = genSquadGer("ger_moscow_event_tank_1", {premIcon = ICON_EVENT})
+
+    ger_normandy_prem_assault_1 = genSquadGer("ger_normandy_prem_assault_1")
+    ger_normandy_prem_assault_1_ch = genSquadGer("ger_normandy_prem_assault_1")
+    ger_normandy_prem_assault_2 = genSquadGer("ger_normandy_prem_assault_2")
+    ger_normandy_prem_mgun_1 = genSquadGer("ger_normandy_prem_mgun_1")
+    ger_normandy_prem_mgun_1_ch = genSquadGer("ger_normandy_prem_mgun_1")
+    ger_normandy_prem_pilot_fighter_1 = genSquadGer("ger_normandy_prem_pilot_fighter_1")
+    ger_normandy_prem_engineer_1 = genSquadGer("ger_normandy_prem_engineer_1")
+    ger_normandy_prem_tank_1 = genSquadGer("ger_normandy_prem_tank_1")
+    ger_normandy_prem_assault_3 = genSquadGer("ger_normandy_prem_assault_3")
+    ger_normandy_prem_pilot_fighter_2 = genSquadGer("ger_normandy_prem_pilot_fighter_2")
+    ger_normandy_prem_tank_3 = genSquadGer("ger_normandy_prem_tank_3")
+    ger_normandy_prem_tank_2 = genSquadGer("ger_normandy_prem_tank_2")
+    ger_normandy_prem_assault_4 = genSquadGer("ger_normandy_prem_assault_4")
+    ger_normandy_prem_tank_4 = genSquadGer("ger_normandy_prem_tank_4")
+    ger_normandy_event_assault_1 = genSquadGer("ger_normandy_event_assault_1", {premIcon = ICON_EVENT})
+    ger_normandy_prem_pilot_fighter_3 = genSquadGer("ger_normandy_prem_pilot_fighter_3")
+    ger_normandy_prem_assault_5 = genSquadGer("ger_normandy_prem_assault_5")
+    ger_normandy_prem_paratrooper_1 = genSquadGer("ger_normandy_prem_paratrooper_1")
+    ger_normandy_event_paratrooper_1 = genSquadGer("ger_normandy_event_paratrooper_1", {premIcon = ICON_EVENT})
+
+    ger_berlin_prem_assault_1 = genSquadGer("ger_berlin_prem_assault_1")
+    ger_berlin_prem_engineer_1 = genSquadGer("ger_berlin_prem_engineer_1")
+    ger_berlin_prem_engineer_1_ch = genSquadGer("ger_berlin_prem_engineer_1")
+    ger_berlin_prem_rifle_1 = genSquadGer("ger_berlin_prem_rifle_1")
+    ger_berlin_prem_tank_1 = genSquadGer("ger_berlin_prem_tank_1")
+    ger_berlin_prem_tank_2 = genSquadGer("ger_berlin_prem_tank_2")
+    ger_berlin_prem_pilot_fighter_1 = genSquadGer("ger_berlin_prem_pilot_fighter_1")
+    ger_berlin_prem_rifle_2 = genSquadGer("ger_berlin_prem_rifle_2")
+    ger_berlin_prem_tank_3 = genSquadGer("ger_berlin_prem_tank_3")
+    ger_berlin_prem_assault_2 = genSquadGer("ger_berlin_prem_assault_2")
+    ger_berlin_prem_mgun_1 = genSquadGer("ger_berlin_prem_mgun_1")
+    ger_berlin_prem_tank_4 = genSquadGer("ger_berlin_prem_tank_4")
+    ger_berlin_event_assault_1 = genSquadGer("ger_berlin_event_assault_1", {premIcon = ICON_EVENT})
+
+    axis_tunisia_prem_biker_1 = genSquadGer("axis_tunisia_prem_biker_1")
+    axis_tunisia_prem_tank_1 = genSquadGer("axis_tunisia_prem_tank_1")
+    axis_tunisia_prem_assault_1 = genSquadGer("axis_tunisia_prem_assault_1")
+    axis_tunisia_prem_radioman_1 = genSquadGer("axis_tunisia_prem_radioman_1")
+    axis_tunisia_prem_radioman_1_ch = genSquadGer("axis_tunisia_prem_radioman_1")
+    axis_tunisia_prem_pilot_assaulter_1 = genSquadGer("axis_tunisia_prem_pilot_assaulter_1")
+    axis_tunisia_prem_rifle_1 = genSquadGer("axis_tunisia_prem_rifle_1")
+    axis_tunisia_prem_tank_2 = genSquadGer("axis_tunisia_prem_tank_2")
+    axis_tunisia_prem_pilot_assaulter_2 = genSquadGer("axis_tunisia_prem_pilot_assaulter_2")
+    axis_tunisia_prem_flametrooper_1 = genSquadGer("axis_tunisia_prem_flametrooper_1")
+    axis_tunisia_prem_assault_2 = genSquadGer("axis_tunisia_prem_assault_2")
+    axis_tunisia_prem_pilot_fighter_1 = genSquadGer("axis_tunisia_prem_pilot_fighter_1")
+
+    axis_stalingrad_prem_tank_1 = genSquadGer("axis_stalingrad_prem_tank_1")
+    axis_stalingrad_prem_medic_1 = genSquadGer("axis_stalingrad_prem_medic_1")
+    axis_stalingrad_prem_assault_1 = genSquadGer("axis_stalingrad_prem_assault_1")
+    axis_stalingrad_prem_assault_1_ch = genSquadGer("axis_stalingrad_prem_assault_1")
+    axis_stalingrad_prem_tank_2 = genSquadGer("axis_stalingrad_prem_tank_2")
+
+//special
+//moon squads
+    germany_moon_assault_1 = genSquadGer("germany_moon_assault_1")
+    germany_moon_sniper_1 = genSquadGer("germany_moon_sniper_1")
+    germany_moon_antitank_1 = genSquadGer("germany_moon_antitank_1")
+    germany_moon_tank_1 = genSquadGer("germany_moon_tank_1")
+
+//mech event
+    ger_normandy_mech_1 = genSquadGer("ger_normandy_mech_1")
+    axis_stalingrad_mech_1 = genSquadGer("axis_stalingrad_mech_1")
+  }
+
+
+
+//USA, UK, MOROCCAN----------------------------------------------------------------------------------------------------------------
+  usa = {
+
+    squad_usa_apc_driver_2 = genSquadUsa("squad_usa_apc_driver_2")
+    squad_usa_pilot_fighter_3 = genSquadUsa("squad_usa_pilot_fighter_3")
+    squad_usa_pilot_assaulter_3 = genSquadUsa("squad_usa_pilot_assaulter_3")
+    squad_usa_assault_4 = genSquadUsa("squad_usa_assault_4")
+
+    usa_normandy_rifle_1 = genSquadUsa("usa_normandy_rifle_1")
+    usa_normandy_sniper_1 = genSquadUsa("usa_normandy_sniper_1")
+    usa_normandy_assault_1 = genSquadUsa("usa_normandy_assault_1")
+    usa_normandy_tank_1 = genSquadUsa("usa_normandy_tank_1")
+    usa_normandy_engineer_1 = genSquadUsa("usa_normandy_engineer_1")
+    usa_normandy_pilot_fighter_1 = genSquadUsa("usa_normandy_pilot_fighter_1")
+    usa_normandy_flametrooper_1 = genSquadUsa("usa_normandy_flametrooper_1")
+    usa_normandy_radioman_1 = genSquadUsa("usa_normandy_radioman_1")
+    usa_normandy_antitank_1 = genSquadUsa("usa_normandy_antitank_1")
+    usa_normandy_mgun_1 = genSquadUsa("usa_normandy_mgun_1")
+    usa_normandy_pilot_fighter_2 = genSquadUsa("usa_normandy_pilot_fighter_2")
+    usa_normandy_mortarman_1 = genSquadUsa("usa_normandy_mortarman_1")
+    usa_normandy_sniper_2 = genSquadUsa("usa_normandy_sniper_2")
+    usa_normandy_rifle_2 = genSquadUsa("usa_normandy_rifle_2")
+    usa_normandy_pilot_assaulter_1 = genSquadUsa("usa_normandy_pilot_assaulter_1")
+    usa_normandy_tank_2 = genSquadUsa("usa_normandy_tank_2")
+    usa_normandy_sniper_3 = genSquadUsa("usa_normandy_sniper_3")
+    usa_normandy_assault_2 = genSquadUsa("usa_normandy_assault_2")
+    usa_normandy_engineer_2 = genSquadUsa("usa_normandy_engineer_2")
+    usa_normandy_mgun_2 = genSquadUsa("usa_normandy_mgun_2")
+    usa_normandy_pilot_assaulter_2 = genSquadUsa("usa_normandy_pilot_assaulter_2")
+    usa_normandy_flametrooper_2 = genSquadUsa("usa_normandy_flametrooper_2")
+    usa_normandy_tank_3 = genSquadUsa("usa_normandy_tank_3")
+    usa_normandy_assault_3 = genSquadUsa("usa_normandy_assault_3")
+    usa_normandy_rifle_3 = genSquadUsa("usa_normandy_rifle_3")
+    usa_normandy_mgun_3 = genSquadUsa("usa_normandy_mgun_3")
+    usa_normandy_antitank_2 = genSquadUsa("usa_normandy_antitank_2")
+
+    allies_tunisia_rifle_1 = genSquadUsa("allies_tunisia_rifle_1")
+    allies_tunisia_radioman_1 = genSquadUsa("allies_tunisia_radioman_1")
+    allies_tunisia_tank_1 = genSquadUsa("allies_tunisia_tank_1")
+    allies_tunisia_sniper_1 = genSquadUsa("allies_tunisia_sniper_1")
+    allies_tunisia_assault_1 = genSquadUsa("allies_tunisia_assault_1")
+    allies_tunisia_pilot_fighter_1 = genSquadUsa("allies_tunisia_pilot_fighter_1")
+    allies_tunisia_antitank_1 = genSquadUsa("allies_tunisia_antitank_1")
+    allies_tunisia_engineer_1 = genSquadUsa("allies_tunisia_engineer_1")
+    allies_tunisia_mgun_1 = genSquadUsa("allies_tunisia_mgun_1")
+    allies_tunisia_pilot_assaulter_1 = genSquadUsa("allies_tunisia_pilot_assaulter_1")
+    allies_tunisia_mortarman_1 = genSquadUsa("allies_tunisia_mortarman_1")
+    allies_tunisia_sniper_2 = genSquadUsa("allies_tunisia_sniper_2")
+    allies_tunisia_flametrooper_1 = genSquadUsa("allies_tunisia_flametrooper_1")
+    allies_tunisia_tank_2 = genSquadUsa("allies_tunisia_tank_2")
+    allies_tunisia_rifle_2 = genSquadUsa("allies_tunisia_rifle_2")
+    allies_tunisia_biker_1 = genSquadUsa("allies_tunisia_biker_1")
+    allies_tunisia_assault_2 = genSquadUsa("allies_tunisia_assault_2")
+    allies_tunisia_pilot_fighter_2 = genSquadUsa("allies_tunisia_pilot_fighter_2")
+    allies_tunisia_engineer_2 = genSquadUsa("allies_tunisia_engineer_2")
+    allies_tunisia_sniper_3 = genSquadUsa("allies_tunisia_sniper_3")
+    allies_tunisia_mgun_2 = genSquadUsa("allies_tunisia_mgun_2")
+    allies_tunisia_pilot_assaulter_2 = genSquadUsa("allies_tunisia_pilot_assaulter_2")
+    allies_tunisia_tank_3 = genSquadUsa("allies_tunisia_tank_3")
+    allies_tunisia_assault_3 = genSquadUsa("allies_tunisia_assault_3")
+    allies_tunisia_antitank_2 = genSquadUsa("allies_tunisia_antitank_2")
+
+    allies_pacific_rifle_1 = genSquadUsa("allies_pacific_rifle_1")
+    allies_pacific_tank_1 = genSquadUsa("allies_pacific_tank_1")
+    allies_pacific_sniper_1 = genSquadUsa("allies_pacific_sniper_1")
+    allies_pacific_medic_1 = genSquadUsa("allies_pacific_medic_1")
+    allies_pacific_engineer_1 = genSquadUsa("allies_pacific_engineer_1")
+    allies_pacific_pilot_assaulter_1 = genSquadUsa("allies_pacific_pilot_assaulter_1")
+    allies_pacific_antitank_1 = genSquadUsa("allies_pacific_antitank_1")
+    allies_pacific_mgun_1 = genSquadUsa("allies_pacific_mgun_1")
+    allies_pacific_mortarman_1 = genSquadUsa("allies_pacific_mortarman_1")
+    allies_pacific_radioman_1 = genSquadUsa("allies_pacific_radioman_1")
+    allies_pacific_pilot_fighter_1 = genSquadUsa("allies_pacific_pilot_fighter_1")
+    allies_pacific_assault_2 = genSquadUsa("allies_pacific_assault_2")
+    allies_pacific_flametrooper_1 = genSquadUsa("allies_pacific_flametrooper_1")
+    allies_pacific_rifle_2 = genSquadUsa("allies_pacific_rifle_2")
+    allies_pacific_pilot_fighter_2 = genSquadUsa("allies_pacific_pilot_fighter_2")
+    allies_pacific_sniper_2 = genSquadUsa("allies_pacific_sniper_2")
+    allies_pacific_engineer_2 = genSquadUsa("allies_pacific_engineer_2")
+    allies_pacific_tank_2 = genSquadUsa("allies_pacific_tank_2")
+    allies_pacific_mgun_2 = genSquadUsa("allies_pacific_mgun_2")
+    allies_pacific_flametrooper_2 = genSquadUsa("allies_pacific_flametrooper_2")
+    allies_pacific_assault_3 = genSquadUsa("allies_pacific_assault_3")
+    allies_pacific_antitank_2 = genSquadUsa("allies_pacific_antitank_2")
+    allies_pacific_pilot_assaulter_2 = genSquadUsa("allies_pacific_pilot_assaulter_2")
+    allies_pacific_radioman_2 = genSquadUsa("allies_pacific_radioman_2")
+    allies_pacific_tank_3 = genSquadUsa("allies_pacific_tank_3")
+
+//prems
+    squad_usa_apc_driver_2_premium_2 = genSquadUsa("squad_usa_apc_driver_2_premium_2")
+    squad_uk_apc_driver_2_event_1 = genSquadUsa("squad_uk_apc_driver_2_event_1", {premIcon = ICON_EVENT})
+    squad_aus_tanker_2_premium_2 = genSquadUsa("squad_aus_tanker_2_premium_2")
+    squad_uk_paratrooper_2_event_2 = genSquadUsa("squad_uk_paratrooper_2_event_2", {premIcon = ICON_EVENT})
+
+    usa_normandy_prem_assault_1 = genSquadUsa("usa_normandy_prem_assault_1")
+    usa_normandy_prem_assault_1_ch = genSquadUsa("usa_normandy_prem_assault_1")
+    usa_normandy_prem_assault_2 = genSquadUsa("usa_normandy_prem_assault_2")
+    usa_normandy_prem_mgun_1 = genSquadUsa("usa_normandy_prem_mgun_1")
+    usa_normandy_prem_mgun_1_ch = genSquadUsa("usa_normandy_prem_mgun_1")
+    usa_normandy_prem_pilot_fighter_1 = genSquadUsa("usa_normandy_prem_pilot_fighter_1")
+    usa_normandy_prem_engineer_1 = genSquadUsa("usa_normandy_prem_engineer_1")
+    usa_normandy_prem_tank_1 = genSquadUsa("usa_normandy_prem_tank_1")
+    usa_normandy_prem_assault_3 = genSquadUsa("usa_normandy_prem_assault_3")
+    usa_normandy_prem_tank_2 = genSquadUsa("usa_normandy_prem_tank_2")
+    usa_normandy_prem_tank_3 = genSquadUsa("usa_normandy_prem_tank_3")
+    usa_normandy_prem_tank_4 = genSquadUsa("usa_normandy_prem_tank_4")
+    usa_normandy_prem_mgun_2 = genSquadUsa("usa_normandy_prem_mgun_2")
+    usa_normandy_prem_tank_5 = genSquadUsa("usa_normandy_prem_tank_5")
+    usa_normandy_prem_pilot_fighter_2 = genSquadUsa("usa_normandy_prem_pilot_fighter_2")
+    usa_normandy_prem_assault_4 = genSquadUsa("usa_normandy_prem_assault_4")
+    usa_normandy_prem_paratrooper_1 = genSquadUsa("usa_normandy_prem_paratrooper_1")
+    usa_normandy_event_paratrooper_1 = genSquadUsa("usa_normandy_event_paratrooper_1", {premIcon = ICON_EVENT})
+
+    allies_tunisia_prem_biker_1 = genSquadUsa("allies_tunisia_prem_biker_1")
+    allies_tunisia_prem_tank_1 = genSquadUsa("allies_tunisia_prem_tank_1")
+    allies_tunisia_prem_assault_1 = genSquadUsa("allies_tunisia_prem_assault_1")
+    allies_tunisia_prem_radioman_1 = genSquadUsa("allies_tunisia_prem_radioman_1")
+    allies_tunisia_prem_radioman_1_ch = genSquadUsa("allies_tunisia_prem_radioman_1")
+    allies_tunisia_prem_pilot_assaulter_1 = genSquadUsa("allies_tunisia_prem_pilot_assaulter_1")
+    allies_tunisia_prem_rifle_1 = genSquadUsa("allies_tunisia_prem_rifle_1")
+    allies_tunisia_event_mgun_1 = genSquadUsa("allies_tunisia_event_mgun_1", {premIcon = ICON_EVENT})
+    allies_tunisia_prem_tank_2 = genSquadUsa("allies_tunisia_prem_tank_2")
+    allies_tunisia_prem_pilot_assaulter_2 = genSquadUsa("allies_tunisia_prem_pilot_assaulter_2")
+    allies_tunisia_event_assault_1 = genSquadUsa("allies_tunisia_event_assault_1", {premIcon = ICON_EVENT})
+    allies_tunisia_prem_flametrooper_1 = genSquadUsa("allies_tunisia_prem_flametrooper_1")
+    allies_tunisia_prem_pilot_fighter_1 = genSquadUsa("allies_tunisia_prem_pilot_fighter_1")
+    allies_tunisia_prem_assault_2 = genSquadUsa("allies_tunisia_prem_assault_2")
+
+    allies_pacific_prem_medic_1 = genSquadUsa("allies_pacific_prem_medic_1")
+    allies_pacific_prem_assault_1 = genSquadUsa("allies_pacific_prem_assault_1")
+    allies_pacific_prem_tank_1 = genSquadUsa("allies_pacific_prem_tank_1")
+    allies_pacific_prem_tank_2 = genSquadUsa("allies_pacific_prem_tank_2")
+    allies_pacific_prem_pilot_fighter_1 = genSquadUsa("allies_pacific_prem_pilot_fighter_1")
+    allies_pacific_prem_engineer_1 = genSquadUsa("allies_pacific_prem_engineer_1")
+    allies_pacific_event_assault_1 = genSquadUsa("allies_pacific_event_assault_1", {premIcon = ICON_EVENT})
+    allies_pacific_event_paratrooper_1 = genSquadUsa("allies_pacific_event_paratrooper_1", {premIcon = ICON_EVENT})
+    allies_pacific_prem_sniper_1 = genSquadUsa("allies_pacific_prem_sniper_1")
+    allies_pacific_prem_pilot_fighter_2 = genSquadUsa("allies_pacific_prem_pilot_fighter_2")
+    allies_pacific_event_pilot_fighter_1 = genSquadUsa("allies_pacific_event_pilot_fighter_1", {premIcon = ICON_EVENT})
+
+//special
+//moon squads
+    usa_moon_assault_1 = genSquadUsa("usa_moon_assault_1")
+    usa_moon_sniper_1 = genSquadUsa("usa_moon_sniper_1")
+    usa_moon_antitank_1 = genSquadUsa("usa_moon_antitank_1")
+    usa_moon_tank_1 = genSquadUsa("usa_moon_tank_1")
+
+//modern squads
+    usa_modern_inf_1 = genSquadUsa("usa_modern_inf_1")
+    usa_modern_inf_2 = genSquadUsa("usa_modern_inf_2")
+    usa_modern_inf_3 = genSquadUsa("usa_modern_inf_3")
+    usa_modern_tank_1 = genSquadUsa("usa_modern_tank_1")
+
+//mech event
+    usa_normandy_mech_1 = genSquadUsa("usa_normandy_mech_1")
+
+  }
+
+
+
+//JAPAN----------------------------------------------------------------------------------------------------------------
+  jap = {
+    squad_jap_assault_4 = genSquadJap("squad_jap_assault_4")
+    squad_jap_apc_driver_2 = genSquadJap("squad_jap_apc_driver_2")
+
+    squad_jap_rifle_3 = genSquadJap("squad_jap_rifle_3")
+    squad_jap_mgun_3 = genSquadJap("squad_jap_mgun_3")
+    squad_jap_pilot_fighter_3 = genSquadJap("squad_jap_pilot_fighter_3")
+    squad_jap_pilot_assaulter_3 = genSquadJap("squad_jap_pilot_assaulter_3")
+
+    axis_pacific_rifle_1 = genSquadJap("axis_pacific_rifle_1")
+    axis_pacific_tank_1 = genSquadJap("axis_pacific_tank_1")
+    axis_pacific_sniper_1 = genSquadJap("axis_pacific_sniper_1")
+    axis_pacific_medic_1 = genSquadJap("axis_pacific_medic_1")
+    axis_pacific_engineer_1 = genSquadJap("axis_pacific_engineer_1")
+    axis_pacific_pilot_assaulter_1 = genSquadJap("axis_pacific_pilot_assaulter_1")
+    axis_pacific_antitank_1 = genSquadJap("axis_pacific_antitank_1")
+    axis_pacific_mgun_1 = genSquadJap("axis_pacific_mgun_1")
+    axis_pacific_mortarman_1 = genSquadJap("axis_pacific_mortarman_1")
+    axis_pacific_radioman_1 = genSquadJap("axis_pacific_radioman_1")
+    axis_pacific_pilot_fighter_1 = genSquadJap("axis_pacific_pilot_fighter_1")
+    axis_pacific_assault_2 = genSquadJap("axis_pacific_assault_2")
+    axis_pacific_flametrooper_1 = genSquadJap("axis_pacific_flametrooper_1")
+    axis_pacific_rifle_2 = genSquadJap("axis_pacific_rifle_2")
+    axis_pacific_pilot_fighter_2 = genSquadJap("axis_pacific_pilot_fighter_2")
+    axis_pacific_sniper_2 = genSquadJap("axis_pacific_sniper_2")
+    axis_pacific_engineer_2 = genSquadJap("axis_pacific_engineer_2")
+    axis_pacific_tank_2 = genSquadJap("axis_pacific_tank_2")
+    axis_pacific_mgun_2 = genSquadJap("axis_pacific_mgun_2")
+    axis_pacific_flametrooper_2 = genSquadJap("axis_pacific_flametrooper_2")
+    axis_pacific_assault_3 = genSquadJap("axis_pacific_assault_3")
+    axis_pacific_antitank_2 = genSquadJap("axis_pacific_antitank_2")
+    axis_pacific_pilot_assaulter_2 = genSquadJap("axis_pacific_pilot_assaulter_2")
+    axis_pacific_radioman_2 = genSquadJap("axis_pacific_radioman_2")
+    axis_pacific_tank_3 = genSquadJap("axis_pacific_tank_3")
+
+
+//prems
+    squad_jap_apc_driver_2_premium_2 = genSquadJap("squad_jap_apc_driver_2_premium_2")
+    squad_jap_tanker_2_premium_2 = genSquadJap("squad_jap_tanker_2_premium_2")
+
+    axis_pacific_prem_medic_1 = genSquadJap("axis_pacific_prem_medic_1")
+    axis_pacific_prem_assault_1 = genSquadJap("axis_pacific_prem_assault_1")
+    axis_pacific_prem_tank_1 = genSquadJap("axis_pacific_prem_tank_1")
+    axis_pacific_prem_tank_2 = genSquadJap("axis_pacific_prem_tank_2")
+    axis_pacific_prem_pilot_fighter_1 = genSquadJap("axis_pacific_prem_pilot_fighter_1")
+    axis_pacific_prem_engineer_1 = genSquadJap("axis_pacific_prem_engineer_1")
+    axis_pacific_event_rifle_1 = genSquadJap("axis_pacific_event_rifle_1", {premIcon = ICON_EVENT})
+    axis_pacific_event_paratrooper_1 = genSquadJap("axis_pacific_event_paratrooper_1", {premIcon = ICON_EVENT})
+    axis_pacific_prem_sniper_1 = genSquadJap("axis_pacific_prem_sniper_1")
+    axis_pacific_prem_pilot_fighter_2 = genSquadJap("axis_pacific_prem_pilot_fighter_2")
+    axis_pacific_event_pilot_fighter_1 = genSquadJap("axis_pacific_event_pilot_fighter_1", {premIcon = ICON_EVENT})
+  }
+
+
+
+
+//OLD SQUADS----------------------------------------------------------------------------------------------------------------
+
   berlin_allies = {
     ussr_berlin_tank_1 = genSquadUssr("ussr_berlin_tank_1")
     ussr_berlin_mortarman_1 = genSquadUssr("ussr_berlin_mortarman_1")
@@ -61,6 +664,7 @@ return freeze({
     ussr_berlin_prem_assault_3 = genSquadUssr("ussr_berlin_prem_assault_3")
     ussr_berlin_prem_mgun_1 = genSquadUssr("ussr_berlin_prem_mgun_1")
     ussr_berlin_prem_tank_3 = genSquadUssr("ussr_berlin_prem_tank_3")
+    ussr_berlin_event_assault_2 = genSquadUssr("ussr_berlin_event_assault_2", {premIcon = ICON_EVENT})
 
 //moon squads
     ussr_moon_assault_1 = genSquadUssr("ussr_moon_assault_1")
@@ -114,6 +718,7 @@ return freeze({
     ger_berlin_prem_assault_2 = genSquadGer("ger_berlin_prem_assault_2")
     ger_berlin_prem_mgun_1 = genSquadGer("ger_berlin_prem_mgun_1")
     ger_berlin_prem_tank_4 = genSquadGer("ger_berlin_prem_tank_4")
+    ger_berlin_event_assault_1 = genSquadGer("ger_berlin_event_assault_1", {premIcon = ICON_EVENT})
 
 //moon squads
     germany_moon_assault_1 = genSquadGer("germany_moon_assault_1")
@@ -171,6 +776,7 @@ return freeze({
     ussr_moscow_prem_pilot_fighter_2 = genSquadUssr("ussr_moscow_prem_pilot_fighter_2")
     ussr_moscow_prem_mgun_3 = genSquadUssr("ussr_moscow_prem_mgun_3")
     ussr_moscow_event_antitank_1 = genSquadUssr("ussr_moscow_event_antitank_1", {premIcon = ICON_EVENT})
+    ussr_moscow_event_tank_1 = genSquadUssr("ussr_moscow_event_tank_1", {premIcon = ICON_EVENT})
   }
 
   moscow_axis = {
@@ -221,6 +827,7 @@ return freeze({
     ger_moscow_prem_tank_3 = genSquadGer("ger_moscow_prem_tank_3")
     ger_moscow_prem_mgun_3 = genSquadGer("ger_moscow_prem_mgun_3")
     ger_moscow_event_antitank_1 = genSquadGer("ger_moscow_event_antitank_1", {premIcon = ICON_EVENT})
+    ger_moscow_event_tank_1 = genSquadGer("ger_moscow_event_tank_1", {premIcon = ICON_EVENT})
   }
 
   normandy_allies = {
@@ -275,12 +882,17 @@ return freeze({
     usa_normandy_prem_tank_5 = genSquadUsa("usa_normandy_prem_tank_5")
     usa_normandy_prem_pilot_fighter_2 = genSquadUsa("usa_normandy_prem_pilot_fighter_2")
     usa_normandy_prem_assault_4 = genSquadUsa("usa_normandy_prem_assault_4")
+    usa_normandy_prem_paratrooper_1 = genSquadUsa("usa_normandy_prem_paratrooper_1")
+    usa_normandy_event_paratrooper_1 = genSquadUsa("usa_normandy_event_paratrooper_1", {premIcon = ICON_EVENT})
 
 //modern squads
     usa_modern_inf_1 = genSquadUsa("usa_modern_inf_1")
     usa_modern_inf_2 = genSquadUsa("usa_modern_inf_2")
     usa_modern_inf_3 = genSquadUsa("usa_modern_inf_3")
     usa_modern_tank_1 = genSquadUsa("usa_modern_tank_1")
+
+//mech event
+    usa_normandy_mech_1 = genSquadUsa("usa_normandy_mech_1")
   }
 
   normandy_axis = {
@@ -330,9 +942,16 @@ return freeze({
     ger_normandy_event_assault_1 = genSquadGer("ger_normandy_event_assault_1", {premIcon = ICON_EVENT})
     ger_normandy_prem_pilot_fighter_3 = genSquadGer("ger_normandy_prem_pilot_fighter_3")
     ger_normandy_prem_assault_5 = genSquadGer("ger_normandy_prem_assault_5")
+    ger_normandy_prem_paratrooper_1 = genSquadGer("ger_normandy_prem_paratrooper_1")
+    ger_normandy_event_paratrooper_1 = genSquadGer("ger_normandy_event_paratrooper_1", {premIcon = ICON_EVENT})
+
+//mech event
+    ger_normandy_mech_1 = genSquadGer("ger_normandy_mech_1")
   }
 
   tunisia_allies = {
+    squad_uk_paratrooper_2_event_2 = genSquadUsa("squad_uk_paratrooper_2_event_2", {premIcon = ICON_EVENT})
+
     allies_tunisia_rifle_1 = genSquadUsa("allies_tunisia_rifle_1")
     allies_tunisia_radioman_1 = genSquadUsa("allies_tunisia_radioman_1")
     allies_tunisia_tank_1 = genSquadUsa("allies_tunisia_tank_1")
@@ -379,6 +998,8 @@ return freeze({
 
 
   tunisia_axis = {
+    squad_it_paratrooper_2_event_2 = genSquadGer("squad_it_paratrooper_2_event_2", {premIcon = ICON_EVENT})
+
     axis_tunisia_rifle_1 = genSquadGer("axis_tunisia_rifle_1")
     axis_tunisia_tank_1 = genSquadGer("axis_tunisia_tank_1")
     axis_tunisia_sniper_1 = genSquadGer("axis_tunisia_sniper_1")
@@ -455,6 +1076,9 @@ return freeze({
     allies_stalingrad_prem_assault_1 = genSquadUssr("allies_stalingrad_prem_assault_1")
     allies_stalingrad_prem_assault_1_ch = genSquadUssr("allies_stalingrad_prem_assault_1")
     allies_stalingrad_prem_tank_2 = genSquadUssr("allies_stalingrad_prem_tank_2")
+
+//mech event
+    allies_stalingrad_mech_1 = genSquadUssr("allies_stalingrad_mech_1")
   }
 
 
@@ -491,6 +1115,9 @@ return freeze({
     axis_stalingrad_prem_assault_1 = genSquadGer("axis_stalingrad_prem_assault_1")
     axis_stalingrad_prem_assault_1_ch = genSquadGer("axis_stalingrad_prem_assault_1")
     axis_stalingrad_prem_tank_2 = genSquadGer("axis_stalingrad_prem_tank_2")
+
+//mech event
+    axis_stalingrad_mech_1 = genSquadGer("axis_stalingrad_mech_1")
   }
 
 
@@ -517,8 +1144,10 @@ return freeze({
     allies_pacific_mgun_2 = genSquadUsa("allies_pacific_mgun_2")
     allies_pacific_flametrooper_2 = genSquadUsa("allies_pacific_flametrooper_2")
     allies_pacific_assault_3 = genSquadUsa("allies_pacific_assault_3")
-    allies_pacific_pilot_assaulter_2 = genSquadUsa("allies_pacific_pilot_assaulter_2")
     allies_pacific_antitank_2 = genSquadUsa("allies_pacific_antitank_2")
+    allies_pacific_pilot_assaulter_2 = genSquadUsa("allies_pacific_pilot_assaulter_2")
+    allies_pacific_radioman_2 = genSquadUsa("allies_pacific_radioman_2")
+    allies_pacific_tank_3 = genSquadUsa("allies_pacific_tank_3")
 
 
 //prems
@@ -529,6 +1158,10 @@ return freeze({
     allies_pacific_prem_pilot_fighter_1 = genSquadUsa("allies_pacific_prem_pilot_fighter_1")
     allies_pacific_prem_engineer_1 = genSquadUsa("allies_pacific_prem_engineer_1")
     allies_pacific_event_assault_1 = genSquadUsa("allies_pacific_event_assault_1", {premIcon = ICON_EVENT})
+    allies_pacific_event_paratrooper_1 = genSquadUsa("allies_pacific_event_paratrooper_1", {premIcon = ICON_EVENT})
+    allies_pacific_prem_sniper_1 = genSquadUsa("allies_pacific_prem_sniper_1")
+    allies_pacific_prem_pilot_fighter_2 = genSquadUsa("allies_pacific_prem_pilot_fighter_2")
+    allies_pacific_event_pilot_fighter_1 = genSquadUsa("allies_pacific_event_pilot_fighter_1", {premIcon = ICON_EVENT})
   }
 
 
@@ -555,8 +1188,10 @@ return freeze({
     axis_pacific_mgun_2 = genSquadJap("axis_pacific_mgun_2")
     axis_pacific_flametrooper_2 = genSquadJap("axis_pacific_flametrooper_2")
     axis_pacific_assault_3 = genSquadJap("axis_pacific_assault_3")
-    axis_pacific_pilot_assaulter_2 = genSquadJap("axis_pacific_pilot_assaulter_2")
     axis_pacific_antitank_2 = genSquadJap("axis_pacific_antitank_2")
+    axis_pacific_pilot_assaulter_2 = genSquadJap("axis_pacific_pilot_assaulter_2")
+    axis_pacific_radioman_2 = genSquadJap("axis_pacific_radioman_2")
+    axis_pacific_tank_3 = genSquadJap("axis_pacific_tank_3")
 
 
 //prems
@@ -567,5 +1202,9 @@ return freeze({
     axis_pacific_prem_pilot_fighter_1 = genSquadJap("axis_pacific_prem_pilot_fighter_1")
     axis_pacific_prem_engineer_1 = genSquadJap("axis_pacific_prem_engineer_1")
     axis_pacific_event_rifle_1 = genSquadJap("axis_pacific_event_rifle_1", {premIcon = ICON_EVENT})
+    axis_pacific_event_paratrooper_1 = genSquadJap("axis_pacific_event_paratrooper_1", {premIcon = ICON_EVENT})
+    axis_pacific_prem_sniper_1 = genSquadJap("axis_pacific_prem_sniper_1")
+    axis_pacific_prem_pilot_fighter_2 = genSquadJap("axis_pacific_prem_pilot_fighter_2")
+    axis_pacific_event_pilot_fighter_1 = genSquadJap("axis_pacific_event_pilot_fighter_1", {premIcon = ICON_EVENT})
   }
 })

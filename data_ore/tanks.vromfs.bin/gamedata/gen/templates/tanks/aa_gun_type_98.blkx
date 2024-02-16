@@ -1,10 +1,10 @@
 {
   "base_aa_gun_type_98": [
     {
-      "_extends": "base_tank"
+      "_use": "base_tank"
     },
     {
-      "_extends": "aa_gun_type_98_ammo_stowages"
+      "_use": "aa_gun_type_98_ammo_stowages"
     },
     {
       "killLogName": "jp_aa_gun_type_98"
@@ -108,7 +108,7 @@
     }
   ],
   "aa_gun_type_98_turret_01_20mm_type98": {
-    "_extends": "tankgun_20mm_type98",
+    "_use": "tankgun_20mm_type98",
     "gun__shootNodeName": "bone_gun_barrel",
     "turret__yawSpeed": 35.0,
     "turret__pitchSpeed": 20.0,
@@ -128,7 +128,7 @@
   },
   "aa_gun_type_98_ammo_stowages": {
     "_tags": "server",
-    "_extends": "vehicle_ammo_stowages",
+    "_use": "vehicle_ammo_stowages",
     "ammo_stowage__stowageTemplates:shared:list<t>": []
   },
   "aa_gun_type_98_skins": {

@@ -1,6 +1,6 @@
 {
   "hit_effect_group_grenade_explosion": {
-    "_extends": "shell_explosion_fx_info",
+    "_use": "shell_explosion_fx_info",
     "shell_explosion_fx__default": "explosion_grenades_air_effect",
     "shell_explosion_fx__traceLength": 1.5,
     "shell_explosion_fx__info:object": {
@@ -11,6 +11,15 @@
         "fx": "explosion_grenades_dirt_effect"
       },
       "mud:object": {
+        "fx": "explosion_grenades_dirt_effect"
+      },
+      "roadmud:object": {
+        "fx": "explosion_grenades_dirt_effect"
+      },
+      "roadSoil:object": {
+        "fx": "explosion_grenades_dirt_effect"
+      },
+      "hard_soil:object": {
         "fx": "explosion_grenades_dirt_effect"
       },
       "concrete:object": {
@@ -46,12 +55,12 @@
     }
   },
   "hit_effect_group_smoke_grenade_explosion": {
-    "_extends": "shell_explosion_fx_info",
+    "_use": "shell_explosion_fx_info",
     "shell_explosion_fx__default": "explosion_grenades_smoke_effect",
     "shell_explosion_fx__traceLength": 1.5
   },
   "hit_effect_group_explosion_packet_explosion": {
-    "_extends": "shell_explosion_fx_info",
+    "_use": "shell_explosion_fx_info",
     "shell_explosion_fx__default": "explosion_packet_air_effect",
     "shell_explosion_fx__traceLength": 1.7,
     "shell_explosion_fx__tracePosOffset": [0.0,0.2,0.0],
@@ -63,6 +72,15 @@
         "fx": "explosion_packet_dirt_effect"
       },
       "mud:object": {
+        "fx": "explosion_packet_dirt_effect"
+      },
+      "roadmud:object": {
+        "fx": "explosion_packet_dirt_effect"
+      },
+      "roadSoil:object": {
+        "fx": "explosion_packet_dirt_effect"
+      },
+      "hard_soil:object": {
         "fx": "explosion_packet_dirt_effect"
       },
       "concrete:object": {
@@ -98,12 +116,12 @@
     }
   },
   "hit_effect_group_phosphorus_grenade_explosion": {
-    "_extends": "shell_explosion_fx_info",
+    "_use": "shell_explosion_fx_info",
     "shell_explosion_fx__default": "explosion_grenades_phosphorus_effect",
     "shell_explosion_fx__traceLength": 1.5
   },
   "hit_effect_group_mortar_shell_explosion": {
-    "_extends": "shell_explosion_fx_info",
+    "_use": "shell_explosion_fx_info",
     "shell_explosion_fx__default": "explosion_packet_air_effect",
     "shell_explosion_fx__traceLength": 1.7,
     "shell_explosion_fx__tracePosOffset": [0.0,0.2,0.0],
@@ -115,6 +133,15 @@
         "fx": "explosion_packet_dirt_effect"
       },
       "mud:object": {
+        "fx": "explosion_packet_dirt_effect"
+      },
+      "roadmud:object": {
+        "fx": "explosion_packet_dirt_effect"
+      },
+      "roadSoil:object": {
+        "fx": "explosion_packet_dirt_effect"
+      },
+      "hard_soil:object": {
         "fx": "explosion_packet_dirt_effect"
       },
       "concrete:object": {
@@ -150,17 +177,195 @@
     }
   },
   "hit_effect_group_mortar_smoke_shell_explosion": {
-    "_extends": "shell_explosion_fx_info",
+    "_use": "shell_explosion_fx_info",
     "shell_explosion_fx__default": "explosion_grenades_smoke_mortar_effect",
     "shell_explosion_fx__traceLength": 1.5
   },
   "hit_effect_group_antitank_rocket_explosion": {
-    "_extends": "hit_effect_group_explosion_packet_explosion"
+    "_use": "hit_effect_group_explosion_packet_explosion"
+  },
+  "hit_effect_group_small_rocket_explosion": {
+    "_use": "shell_explosion_fx_info",
+    "shell_explosion_fx__default": "hit_20_60mm_he_sand_effect",
+    "shell_explosion_fx__traceLength": 1.5,
+    "shell_explosion_fx__info:object": {
+      "soil:object": {
+        "fx": "hit_20_60mm_he_sand_effect"
+      },
+      "dirt:object": {
+        "fx": "hit_20_60mm_he_sand_effect"
+      },
+      "mud:object": {
+        "fx": "hit_20_60mm_he_sand_effect"
+      },
+      "roadmud:object": {
+        "fx": "hit_20_60mm_he_sand_effect"
+      },
+      "roadSoil:object": {
+        "fx": "hit_20_60mm_he_sand_effect"
+      },
+      "hard_soil:object": {
+        "fx": "hit_20_60mm_he_sand_effect"
+      },
+      "concrete:object": {
+        "fx": "hit_20_60mm_he_stone_effect"
+      },
+      "sand:object": {
+        "fx": "hit_20_60mm_he_sand_effect"
+      },
+      "snow:object": {
+        "fx": "hit_20_60mm_he_snow_effect"
+      },
+      "ice:object": {
+        "fx": "hit_20_60mm_he_snow_effect"
+      },
+      "water3d:object": {
+        "fx": "hit_water_medium_big_effect"
+      },
+      "stone:object": {
+        "fx": "hit_20_60mm_he_stone_effect"
+      },
+      "ceramic:object": {
+        "fx": "hit_20_60mm_he_sand_effect"
+      },
+      "glass:object": {
+        "fx": "hit_basic_glass_effect"
+      },
+      "flesh:object": {
+        "fx": "hit_20_60mm_he_sand_effect"
+      },
+      "fabric:object": {
+        "fx": "hit_basic_cloth_effect"
+      }
+    }
   },
   "hit_effect_group_antipersonel_mine_explosion": {
-    "_extends": "hit_effect_group_grenade_explosion"
+    "_use": "hit_effect_group_grenade_explosion",
+    "shell_explosion_fx__default": "explosion_grenades_air_effect",
+    "shell_explosion_fx__traceLength": 1.5,
+    "shell_explosion_fx__info:object": {
+      "soil:object": {
+        "fx": "explosion_mine_infantry_dirt_effect"
+      },
+      "dirt:object": {
+        "fx": "explosion_mine_infantry_dirt_effect"
+      },
+      "mud:object": {
+        "fx": "explosion_mine_infantry_dirt_effect"
+      },
+      "roadmud:object": {
+        "fx": "explosion_mine_infantry_dirt_effect"
+      },
+      "roadSoil:object": {
+        "fx": "explosion_mine_infantry_dirt_effect"
+      },
+      "hard_soil:object": {
+        "fx": "explosion_mine_infantry_dirt_effect"
+      },
+      "concrete:object": {
+        "fx": "explosion_mine_infantry_stone_effect"
+      },
+      "sand:object": {
+        "fx": "explosion_mine_infantry_sand_effect"
+      },
+      "snow:object": {
+        "fx": "explosion_mine_infantry_snow_effect"
+      },
+      "ice:object": {
+        "fx": "explosion_mine_infantry_snow_effect"
+      },
+      "water3d:object": {
+        "fx": "explosion_grenades_water_effect"
+      },
+      "stone:object": {
+        "fx": "explosion_mine_infantry_stone_effect"
+      },
+      "ceramic:object": {
+        "fx": "explosion_mine_infantry_stone_effect"
+      },
+      "glass:object": {
+        "fx": "explosion_grenades_air_effect"
+      },
+      "flesh:object": {
+        "fx": "explosion_grenades_air_effect"
+      },
+      "fabric:object": {
+        "fx": "explosion_grenades_air_effect"
+      }
+    }
   },
-  "hit_effect_group_antitank_mine_explosion": {
-    "_extends": "hit_effect_group_explosion_packet_explosion"
+  "hit_effect_group_antitank_mine_explosion": [
+    {
+      "_use": "hit_effect_group_explosion_packet_explosion"
+    },
+    {
+      "_use": "shell_explosion_fx_info"
+    },
+    {
+      "shell_explosion_fx__default": "explosion_packet_air_effect"
+    },
+    {
+      "shell_explosion_fx__traceLength": 1.7
+    },
+    {
+      "shell_explosion_fx__tracePosOffset": [0.0,0.2,0.0]
+    },
+    {
+      "shell_explosion_fx__info:object": {
+        "soil:object": {
+          "fx": "explosion_tank_mine_dirt_effect"
+        },
+        "dirt:object": {
+          "fx": "explosion_tank_mine_dirt_effect"
+        },
+        "mud:object": {
+          "fx": "explosion_tank_mine_dirt_effect"
+        },
+        "roadmud:object": {
+          "fx": "explosion_tank_mine_dirt_effect"
+        },
+        "roadSoil:object": {
+          "fx": "explosion_tank_mine_dirt_effect"
+        },
+        "hard_soil:object": {
+          "fx": "explosion_tank_mine_dirt_effect"
+        },
+        "concrete:object": {
+          "fx": "explosion_tank_mine_stone_effect"
+        },
+        "sand:object": {
+          "fx": "explosion_tank_mine_sand_effect"
+        },
+        "snow:object": {
+          "fx": "explosion_tank_mine_snow_effect"
+        },
+        "ice:object": {
+          "fx": "explosion_tank_mine_snow_effect"
+        },
+        "water3d:object": {
+          "fx": "explosion_packet_water_effect"
+        },
+        "stone:object": {
+          "fx": "explosion_tank_mine_stone_effect"
+        },
+        "ceramic:object": {
+          "fx": "explosion_tank_mine_stone_effect"
+        },
+        "glass:object": {
+          "fx": "explosion_tank_mine_stone_effect"
+        },
+        "flesh:object": {
+          "fx": "explosion_packet_air_effect"
+        },
+        "fabric:object": {
+          "fx": "explosion_packet_air_effect"
+        }
+      }
+    }
+  ],
+  "hit_effect_group_ampula_explosion": {
+    "_use": "shell_explosion_fx_info",
+    "shell_explosion_fx__default": "explosion_ampule_effect",
+    "shell_explosion_fx__traceLength": 1.5
   }
 }

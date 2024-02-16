@@ -1,6 +1,6 @@
 {
   "germ_stug_iii_ausf_a_moscow_premium": {
-    "_extends": "germ_stug_III_ausf_A",
+    "_use": "germ_stug_III_ausf_A",
     "turrets__initAmmoDistribution:array": [
       {
         "ammo:object": {
@@ -24,10 +24,28 @@
   },
   "germ_stug_III_ausf_A": [
     {
-      "_extends": "base_stug_iii_ausf_a"
+      "_use": "base_stug_iii_ausf_a"
     },
     {
-      "_extends": "tank_panzer3_engine_sound"
+      "_use": "tank_panzer3_engine_sound"
+    },
+    {
+      "commanderCockpitFpsCamMaxAngle": [40.0,5.0]
+    },
+    {
+      "gunner_cam_limit__useCockpitDir": true
+    },
+    {
+      "item__iconOffset": [0.0,0.25]
+    },
+    {
+      "item__iconScale": 1.5
+    },
+    {
+      "armorThicknessHull": [50.0,30.0,30.0]
+    },
+    {
+      "armorThicknessTurret": [50.0,30.0,30.0]
     },
     {
       "turrets__initAmmoDistribution:array": [
@@ -159,7 +177,7 @@
     }
   ],
   "germ_stug_iii_ausf_a_commander_cockpit": {
-    "_extends": "base_commander_cockpit_no_slits",
+    "_use": "base_commander_cockpit_no_slits",
     "animchar__res": "t_26_1940_commander_char",
     "cockpit__offset": [-0.468794,2.21173,0.501026],
     "cockpit__slitForwardOffset:list<r>": {
@@ -186,25 +204,93 @@
       },
       {
         "node": "hatch_16"
+      },
+      {
+        "node": "hatch_15"
+      },
+      {
+        "node": "hatch_14"
+      },
+      {
+        "node": "hatch_04"
+      },
+      {
+        "node": "hatch_03"
+      },
+      {
+        "node": "hatch_02"
+      },
+      {
+        "node": "hatch_01"
+      },
+      {
+        "node": "ex_decor_l_12"
+      },
+      {
+        "node": "ex_decor_l_06"
+      },
+      {
+        "node": "ex_decor_l_08"
+      },
+      {
+        "node": "ex_decor_l_09"
+      },
+      {
+        "node": "ex_decor_r_07"
+      },
+      {
+        "node": "ex_decor_l_07"
+      },
+      {
+        "node": "ex_smoke_01"
+      },
+      {
+        "node": "ex_decor_r_07"
+      },
+      {
+        "node": "ex_decor_r_06"
+      },
+      {
+        "node": "ex_decor_r_10"
+      },
+      {
+        "node": "hatch_06"
+      },
+      {
+        "node": "hatch_05"
       }
     ],
     "cockpit__attachNodeNames:list<t>": {
       "node": "root"
     },
-    "cockpit__attachNodeIndices:list<i>": []
+    "cockpit__attachNodeIndices:list<i>": [],
+    "cockpit__periscopeLimits:list<p4>": {
+      "slit": [-90.0,90.0,-8.0,25.0]
+    },
+    "cockpit__periscopeSpeed:list<p2>": {
+      "slit": [35.0,35.0]
+    },
+    "cockpit__slitZoom:array": {
+      "slit:list<r>": {
+        "zoom": 1.44
+      }
+    },
+    "cockpit__slitTemplates:list<t>": {
+      "slit": "default_periscope"
+    },
+    "cockpit__slitEids:list<eid>": []
   },
   "germ_stug_iii_ausf_a_gunner_cockpit": {
-    "vehicle_sight__blk": "content/tanks/gamedata/sight/germ_sfl_zf_1a.blk",
-    "_extends": "base_gunner_cockpit",
+    "_use": "base_gunner_cockpit",
     "animchar__res": "pzkpfw_iii_e_gunner_char",
     "cockpit__offset": [-0.724572,0.296057,0.544658],
-    "cockpit__minZoom": -0.4,
+    "cockpit__minForwardOffset": -0.4,
     "cockpit__attachNodeNames:list<t>": {
       "node": "bone_gun"
     },
     "cockpit__attachNodeIndices:list<i>": [],
     "cockpit__slitForwardOffset:list<r>": {
-      "slit": 0.16
+      "slit": 0.22
     },
     "cockpit__slitIsGun:list<b>": {
       "slit": true
@@ -222,10 +308,47 @@
       {
         "node": "bone_gun"
       }
-    ]
+    ],
+    "cockpit__slitZoom:array": [
+      {
+        "slit:list<r>": [
+          {
+            "zoom": 3.5
+          },
+          {
+            "zoom": 4.0
+          }
+        ]
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.0
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.0
+        }
+      }
+    ],
+    "cockpit__slitZoomTime:list<r>": [
+      {
+        "slit": 0.05
+      },
+      {
+        "slit": 0.0
+      },
+      {
+        "slit": 0.0
+      }
+    ],
+    "cockpit__slitTemplates:list<t>": {
+      "slit": "germ_sfl_zf_1a"
+    },
+    "cockpit__slitEids:list<eid>": []
   },
   "germ_stug_iii_ausf_a_driver_cockpit": {
-    "_extends": "base_driver_cockpit_no_slits",
+    "_use": "base_driver_cockpit_no_slits",
     "animchar__res": "pzkpfw_iii_e_driver_char",
     "cockpit__offset": [0.0,0.0,0.0],
     "cockpit__cockpitOffsetBySlit:list<p3>": [

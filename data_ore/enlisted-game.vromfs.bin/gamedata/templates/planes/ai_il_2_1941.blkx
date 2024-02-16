@@ -1,6 +1,6 @@
 {
   "ai_il_2_1941": {
-    "_extends": "il_2_1941",
+    "_use": "il_2_1941",
     "_group": {
       "_tags": "ui",
       "hud_aircraft_marker__isVisible": false,
@@ -140,13 +140,13 @@
   },
   "planegun_ai_il_2_1941_fab_50_launcher_01": [
     {
-      "_extends": "ai_fab_100_launcher"
+      "_use": "ai_fab_100_launcher"
     },
     {
-      "_extends": "base_il_2_1941_fab_50_launcher"
+      "_use": "base_il_2_1941_fab_50_launcher"
     },
     {
-      "_extends": "gunsound_fab_50_launcher_aircraft"
+      "_use": "gunsound_fab_50_launcher_aircraft"
     },
     {
       "gun__shootNodeName": "bomb3"
@@ -160,13 +160,13 @@
   ],
   "planegun_ai_il_2_1941_fab_50_launcher_02": [
     {
-      "_extends": "ai_fab_100_launcher"
+      "_use": "ai_fab_100_launcher"
     },
     {
-      "_extends": "base_il_2_1941_fab_50_launcher"
+      "_use": "base_il_2_1941_fab_50_launcher"
     },
     {
-      "_extends": "gunsound_fab_50_launcher_aircraft"
+      "_use": "gunsound_fab_50_launcher_aircraft"
     },
     {
       "gun__shootNodeName": "bomb4"
@@ -180,13 +180,13 @@
   ],
   "planegun_ai_il_2_1941_fab_50_launcher_03": [
     {
-      "_extends": "ai_fab_100_launcher"
+      "_use": "ai_fab_100_launcher"
     },
     {
-      "_extends": "base_il_2_1941_fab_50_launcher"
+      "_use": "base_il_2_1941_fab_50_launcher"
     },
     {
-      "_extends": "gunsound_fab_50_launcher_aircraft"
+      "_use": "gunsound_fab_50_launcher_aircraft"
     },
     {
       "gun__shootNodeName": "bomb5"
@@ -200,13 +200,13 @@
   ],
   "planegun_ai_il_2_1941_fab_50_launcher_04": [
     {
-      "_extends": "ai_fab_100_launcher"
+      "_use": "ai_fab_100_launcher"
     },
     {
-      "_extends": "base_il_2_1941_fab_50_launcher"
+      "_use": "base_il_2_1941_fab_50_launcher"
     },
     {
-      "_extends": "gunsound_fab_50_launcher_aircraft"
+      "_use": "gunsound_fab_50_launcher_aircraft"
     },
     {
       "gun__shootNodeName": "bomb6"

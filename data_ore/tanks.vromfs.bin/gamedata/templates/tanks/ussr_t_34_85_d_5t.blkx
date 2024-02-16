@@ -1,13 +1,34 @@
 {
   "ussr_t_34_85_d_5t": [
     {
-      "_extends": "base_t_34_85_d_5t"
+      "_use": "base_t_34_85_d_5t"
     },
     {
-      "_extends": "tank_t34_engine_sound"
+      "_use": "tank_t34_engine_sound"
     },
     {
-      "_extends": "tank_t34_vehicle_tracks_sound"
+      "_use": "tank_t34_vehicle_tracks_sound"
+    },
+    {
+      "commanderCockpitFpsCamMaxAngle": [40.0,5.0]
+    },
+    {
+      "gunner_cam_limit__useCockpitDir": true
+    },
+    {
+      "item__iconOffset": [0.1,-0.0]
+    },
+    {
+      "item__iconScale": 1.15
+    },
+    {
+      "armorThicknessHull": [45.0,45.0,45.0]
+    },
+    {
+      "armorThicknessTurret": [54.0,54.0,54.0]
+    },
+    {
+      "armorThicknessTopBottom": [20.0,20.0]
     },
     {
       "vehicle_seats__seats:shared:array": [
@@ -25,7 +46,7 @@
               [0.0,0.0,1.0],
               [-0.2,-0.55,0.13]
             ],
-            "seatComponent": "isDriver",
+            "seatComponent": "isGunner",
             "receiveDamageFromDMPart": "commander",
             "cameraNodeName": "bone_turret",
             "cockpitTemplate": "ussr_t_34_85_d_5t_gunner_cockpit",
@@ -110,7 +131,7 @@
     }
   ],
   "ussr_t_34_85_d_5t_driver_cockpit": {
-    "_extends": "base_driver_cockpit",
+    "_use": "base_driver_cockpit",
     "animchar__res": "kv_1_driver_char",
     "cockpit__offset": [-0.2,-0.0,-0.0],
     "cockpit__visibleVehicleNodeNames:list<t>": [],
@@ -119,17 +140,16 @@
     }
   },
   "ussr_t_34_85_d_5t_gunner_cockpit": {
-    "vehicle_sight__blk": "content/tanks/gamedata/sight/ussr_tsh_15.blk",
-    "_extends": "base_gunner_cockpit",
+    "_use": "base_gunner_cockpit",
     "animchar__res": "t_26_1940_gunner_char",
-    "cockpit__minZoom": -0.05,
+    "cockpit__minForwardOffset": -0.05,
     "cockpit__offset": [-0.0,-0.0,-0.0],
     "cockpit__cockpitOffsetBySlit:list<p3>": [
       {
         "item": [-0.342191,-0.040123,0.194089]
       },
       {
-        "item": [-0.0,0.98,0.42]
+        "item": [0.1,1.1,0.42]
       }
     ],
     "cockpit__attachNodeNames:list<t>": [
@@ -154,7 +174,7 @@
     ],
     "cockpit__slitForwardOffset:list<r>": [
       {
-        "slit": 0.105
+        "slit": 0.19
       },
       {
         "slit": 0.19
@@ -167,10 +187,60 @@
       {
         "slit": false
       }
-    ]
+    ],
+    "cockpit__periscopeLimits:list<p4>": [
+      {
+        "slit": [-0.0,0.0,0.0,0.0]
+      },
+      {
+        "slit": [-45.0,45.0,-0.0,25.0]
+      }
+    ],
+    "cockpit__periscopeSpeed:list<p2>": [
+      {
+        "slit": [-1.0,-1.0]
+      },
+      {
+        "slit": [35.0,35.0]
+      }
+    ],
+    "cockpit__slitZoom:array": [
+      {
+        "slit:list<r>": [
+          {
+            "zoom": 3.5
+          },
+          {
+            "zoom": 4.0
+          }
+        ]
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      }
+    ],
+    "cockpit__slitZoomTime:list<r>": [
+      {
+        "slit": 0.05
+      },
+      {
+        "slit": 0.0
+      }
+    ],
+    "cockpit__slitTemplates:list<t>": [
+      {
+        "slit": "ussr_tsh_15"
+      },
+      {
+        "slit": "default_periscope"
+      }
+    ],
+    "cockpit__slitEids:list<eid>": []
   },
   "ussr_t_34_85_d_5t_premium": {
-    "_extends": "ussr_t_34_85_d_5t"
+    "_use": "ussr_t_34_85_d_5t"
   },
   "t_34_85_d_5t_skins": {
     "_override": true,

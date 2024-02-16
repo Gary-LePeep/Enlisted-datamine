@@ -10,7 +10,7 @@ def on_zone_activate_multiple(zone_eid : EntityId; team_id : int)
                              groupName : string;
                              capzone__mustBeCapturedByTeam : int = TEAM_UNASSIGNED)
     if (capzone__checkAllZonesInGroup
-        && (team_id != capzone__mustBeCapturedByTeam || !all_capzones_in_group_captured_by_team(zone_eid, team_id, groupName)))
+        && (team_id != capzone__mustBeCapturedByTeam || !all_capzones_in_group_captured_by_team(team_id, groupName)))
       return
     let teams = get_ecs_object(capzone__activateChoiceAfterCap["team"])
     if teams != null
@@ -28,7 +28,7 @@ def on_zone_captured(zone_eid : EntityId; team_id : int)
                              capzone__checkAllZonesInGroup : bool = false;
                              capzone__mustBeCapturedByTeam : int = TEAM_UNASSIGNED)
     if (capzone__checkAllZonesInGroup
-        && (team_id != capzone__mustBeCapturedByTeam || !all_capzones_in_group_captured_by_team(zone_eid, team_id, groupName)))
+        && (team_id != capzone__mustBeCapturedByTeam || !all_capzones_in_group_captured_by_team(team_id, groupName)))
       return
     var nextGroupName = string(capzone__activateAfterCap)
     if team_id == 1
@@ -48,7 +48,7 @@ def on_zone_captured_delayed(zone_eid : EntityId; team_id : int)
                              capzone__checkAllZonesInGroup : bool = false;
                              capzone__mustBeCapturedByTeam : int = TEAM_UNASSIGNED)
     if (capzone__checkAllZonesInGroup
-        && (team_id != capzone__mustBeCapturedByTeam || !all_capzones_in_group_captured_by_team(zone_eid, team_id, current_groupName)))
+        && (team_id != capzone__mustBeCapturedByTeam || !all_capzones_in_group_captured_by_team(team_id, current_groupName)))
       return
     var nextGroupName = string(capzone__activateAfterCap)
     if team_id == 1

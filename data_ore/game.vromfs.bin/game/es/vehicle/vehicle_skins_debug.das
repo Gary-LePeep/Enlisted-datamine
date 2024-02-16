@@ -10,7 +10,7 @@ require DagorSystem
 
 [console_cmd(name="vehicle.skins_to_profile", hint="0 = filter '_skins' by default 1 = custom path 2 = customFileName")]
 def vehicle_save_skins_to_profile(filter = "_skins";
-                                  file_path = "../prog/enlisted/scripts/enlisted/profileServer/config/";
+                                  file_path = "../profileServer/config/";
                                   file_name = "vehCamouflageConfig.das")
   let fileRegExp = ".*{filter}"
   let fullPathFile = "{file_path}{file_name}"

@@ -2,7 +2,7 @@
   "base_150mm_sig_33": {
     "item__name": "guns/150mm_sig_33",
     "gun__blk": "gamedata/gen/weapons/150mm_sig_33.blk",
-    "gun__shotFreq": 0.075,
+    "gun__shotFreq": 0.09,
     "gun__locName": "150mm_sig_33",
     "gun__ammoSetsInfo:shared:array": {
       "defaultSet:array": {
@@ -23,16 +23,16 @@
   },
   "tankgun_150mm_sig_33": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_tankgun_cannon"
+      "_use": "base_tankgun_cannon"
     },
     {
-      "_extends": "base_150mm_sig_33"
+      "_use": "base_150mm_sig_33"
     },
     {
-      "_extends": "gunsound_150mm_sig_33"
+      "_use": "gunsound_150mm_sig_33"
     },
     {
       "turret__triggerGroup": 0

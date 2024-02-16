@@ -1,8 +1,8 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let {shell_execute} = require("dagor.shell")
-let {startswith, strip} = require("string")
-let {get_authenticated_url_sso=null, get_kongzhong_authenticated_url, YU2_OK} = require("auth")
+let { shell_execute } = require("dagor.shell")
+let { startswith, strip } = require("string")
+let { get_authenticated_url_sso = null, get_kongzhong_authenticated_url, YU2_OK } = require("auth")
 let steam = require("steam")
 let platform = require("%dngscripts/platform.nut")
 let regexp2 = require("regexp2")
@@ -11,10 +11,19 @@ let { get_setting_by_blk_path } = require("settings")
 let { showBrowser } = require("browserWidget.nut")
 let logOU = require("%enlSqGlob/library_logs.nut").with_prefix("[OPEN_URL] ")
 let wegame = require("wegame")
-let { getStoreUrl, getEventUrl, getPremiumUrl, getBattlePassUrl, getSquadCashUrl } = require("%ui/networkedUrls.nut")
+let { getStoreUrl, getReplayPortalUrl, getEventUrl, getPremiumUrl, getBattlePassUrl,
+  getSquadCashUrl } = require("%ui/networkedUrls.nut")
 
 let openLinksInEmbeddedBrowser = get_setting_by_blk_path("openLinksInEmbeddedBrowser") ?? false
 let useKongZhongOpenUrl = get_setting_by_blk_path("useKongZhongOpenUrl") ?? false
+
+let requestQueue = {}
+local requestAuth = null
+enum AuthenticationMode {
+  NOT_AUTHENTICATED = 0
+  AUTHENTICATED = 1
+  WEGAME_AUTH = 2
+}
 
 let function open_url(url) {
   if (type(url)!="string" || (!startswith(url, "http://") && !startswith(url, "https://")))
@@ -27,7 +36,7 @@ let function open_url(url) {
     if (openLinksInEmbeddedBrowser)
       showBrowser(url)
     else
-      shell_execute({file=url})
+      shell_execute({file=url, force_sync=false}) // do not open url sync, due game can freeze
   }
   else if (platform.is_android)
     shell_execute({file=url, cmd="action"})
@@ -128,16 +137,67 @@ let function getUrlTypeByUrl(url) {
 }
 
 
-local function isWegameLoginRequiredUrl(url) {
+let function isWegameLoginRequiredUrl(url) {
   if (!wegame.is_running())
     return false
 
   return url == getStoreUrl() || url == getEventUrl() || url == getPremiumUrl() ||
-    url == getBattlePassUrl() || url == getSquadCashUrl()
+    url == getBattlePassUrl() || url == getSquadCashUrl() || url == getReplayPortalUrl()
 }
 
 
-local function openUrl(baseUrl, isAlreadyAuthenticated = false, shouldExternalBrowser = false, goToUrl = null) {
+let function processQueue() {
+  if (requestQueue.len() == 0) {
+    logOU("Queue is empty")
+    return
+  }
+  if (requestAuth != null) {
+    logOU($"Processing {requestAuth}")
+    return
+  }
+
+  let self = callee()
+  requestAuth = requestQueue.findindex(@(_) true)
+  let { baseUrl, goToUrl, authenticationType, ssoService = null } = requestQueue[requestAuth] // -potentially-nulled-index
+  eventbus.subscribe_onehit(requestAuth,
+    function(result)  {
+      delete requestQueue[requestAuth]
+      requestAuth = null
+      if (result.status == YU2_OK) {
+        // use result.url string
+        logOU($"Authenticated Url = {result.url}")
+        goToUrl(result.url)
+      }
+      else {
+        logOU($"Error: failed to get_authenticated_url, status = {result.status}")
+        goToUrl(baseUrl) // anyway open url without authentication
+      }
+      self()
+    }
+  )
+
+  if (!useKongZhongOpenUrl) {
+    if (ssoService == null || get_authenticated_url_sso == null) {
+      logOU($"Error: failed to get_authenticated_url_sso, service is undefined")
+      goToUrl(baseUrl) // anyway open url without authentication
+      delete requestQueue[requestAuth]
+      requestAuth = null
+      self()
+    }
+    else
+      get_authenticated_url_sso(baseUrl, AUTH_TOKEN_HOST, ssoService, requestAuth)
+  }
+  else if ((wegame.is_running() && AuthenticationMode.WEGAME_AUTH == authenticationType)
+    || isWegameLoginRequiredUrl(baseUrl))
+      wegame.get_authenticated_url(baseUrl, requestAuth)
+  else
+    get_kongzhong_authenticated_url(baseUrl, requestAuth)
+}
+
+
+let function openUrl(baseUrl, authenticationType = AuthenticationMode.NOT_AUTHENTICATED,
+  shouldExternalBrowser = false, goToUrl = null
+) {
   let url = baseUrl ? strip(baseUrl) : ""
   if (url == "") {
     logOU("Error: tried to openUrl an empty url")
@@ -154,42 +214,27 @@ local function openUrl(baseUrl, isAlreadyAuthenticated = false, shouldExternalBr
   if (urlType.typeName == "steam_market" && !steam.is_overlay_enabled())
     logOU("Warning: trying to open steam url without steam overlay")
 
-  if (isAlreadyAuthenticated || !urlType.autologin) {
+  if (AuthenticationMode.AUTHENTICATED == authenticationType || !urlType.autologin) {
+    logOU($"Direct Url = {url}")
     goToUrl(url)
     return
   }
 
   let cbEvent = $"openUrl.{url}"
-  eventbus.subscribe_onehit(cbEvent,
-    function(result)  {
-      if (result.status == YU2_OK) {
-        // use result.url string
-        logOU($"Authentcated Url = {result.url}")
-        goToUrl(result.url)
-        return
-      }
-      logOU($"Error: failed to get_authenticated_url, status = {result.status}")
-      goToUrl(baseUrl) // anyway open url without authentication
-    }
-  )
+  if (cbEvent in requestQueue) {
+    logOU("Already queued")
+    return
+  }
 
-  if (!useKongZhongOpenUrl) {
-    let { ssoService = null } = urlType
-    if (ssoService == null || get_authenticated_url_sso == null) {
-      logOU($"Error: failed to get_authenticated_url_sso, service is undefined")
-      goToUrl(baseUrl) // anyway open url without authentication
-    }
-    else
-      get_authenticated_url_sso(baseUrl, AUTH_TOKEN_HOST, ssoService, cbEvent)
-  }
-  else {
-    if (isWegameLoginRequiredUrl(baseUrl))
-      wegame.get_authenticated_url(baseUrl, cbEvent)
-    else
-      get_kongzhong_authenticated_url(baseUrl, cbEvent)
-  }
+  let queuedData = urlType.__merge({ baseUrl, goToUrl, authenticationType })
+  logOU("Queued data:", queuedData)
+  requestQueue[cbEvent] <- queuedData
+  processQueue()
 }
 
 console_register_command(open_url, "app.open_url")
 
-return openUrl
+return {
+  openUrl
+  AuthenticationMode
+}

@@ -1,23 +1,28 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { h2_txt, body_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontHeading2, fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let msgbox = require("%enlist/components/msgbox.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
 let {
   bigGap, smallPadding, defTxtColor, activeTxtColor, isWide, accentTitleTxtColor
 } = require("%enlSqGlob/ui/viewConst.nut")
+let { midPadding } = require("%enlSqGlob/ui/designConst.nut")
 let { getCurrencyPresentation, ticketGroups } = require("currencyPresentation.nut")
 let { Purchase } = require("%ui/components/textButton.nut")
 let textButtonTextCtor = require("%ui/components/textButtonTextCtor.nut")
 let tooltipBox = require("%ui/style/tooltipBox.nut")
 let cursors = require("%ui/style/cursors.nut")
 let colorize = require("%ui/components/colorize.nut")
+let { abbreviateAmount } = require("%enlist/shop/numberUtils.nut")
+let { splitThousands } = require("%sqstd/math.nut")
+let { viewCurrencies } = require("%enlist/shop/armyShopState.nut")
+
 
 let mkDefaultTooltipText = @(text) {
   rendObj = ROBJ_TEXT
   text
   color = activeTxtColor
-}.__update(sub_txt)
+}.__update(fontSub)
 
 let mkCurrencyTooltipContainer = @(name, desc = null) tooltipBox({
   flow = FLOW_VERTICAL
@@ -30,7 +35,7 @@ let mkCurrencyTooltipContainer = @(name, desc = null) tooltipBox({
       size = [fsh(30), SIZE_TO_CONTENT]
       text = desc
       color = defTxtColor
-    }.__update(sub_txt)
+    }.__update(fontSub)
   ]
 })
 
@@ -60,7 +65,7 @@ let iconTextRow = @(icon, text, sizeArr = [hdpx(10), hdpx(10)], textStyle = {}){
       padding = [0, hdpx(3)]
       rendObj = ROBJ_TEXT
       text
-    }.__update(sub_txt, textStyle)
+    }.__update(fontBody, textStyle)
   ]
 }
 
@@ -71,7 +76,8 @@ let function cardsInRow(cards){
     valign = ALIGN_CENTER
     children =
       cards.map(@(value)
-        iconTextRow(value.icon, value.amount, [hdpx(20),hdpx(25)]))
+        iconTextRow(value.icon, splitThousands(value.amount, loc("amount/separator")),
+          [hdpx(20),hdpx(25)]))
   }
 }
 
@@ -94,7 +100,7 @@ let function mkCurrencyCardsTooltip(cardType, cards = [], expandOrders = false) 
         size = [flex(), SIZE_TO_CONTENT]
         text = descText
         color = defTxtColor
-      }.__update(sub_txt)
+      }.__update(fontSub)
     ]
   })
 }
@@ -105,13 +111,13 @@ let mkCurrencyInShop = @(cards){
   size = SIZE_TO_CONTENT
   text = "|".join(cards.map(@(value)
     colorize(value.color, value.amount)))
-}.__update(body_txt)
+}.__update(fontBody)
 
 let mkCurrencyCommon = @(sf, summ){
   rendObj = ROBJ_TEXT
   color = sf & S_HOVER ? activeTxtColor : defTxtColor
-  text = summ
-}.__update(body_txt)
+  text = abbreviateAmount(summ)
+}.__update(fontBody)
 
 let function mkCurrencyOverall(cardType, cardsTable = {}, onClick = null,
                                   keySuffix = "", isShop = false) {
@@ -135,14 +141,14 @@ let function mkCurrencyOverall(cardType, cardsTable = {}, onClick = null,
     minHeight = SIZE_TO_CONTENT
     flow = FLOW_HORIZONTAL
     valign = ALIGN_CENTER
-    gap = smallPadding
+    gap = midPadding
     margin = [0,0,0,hdpx(10)]
     onHover = @(on) cursors.setTooltip(on
       ? mkCurrencyCardsTooltip(cardType, sortedCards, expandOrders)
       : null)
     key = $"currency_{cardsTable}{keySuffix}"
     behavior = Behaviors.Button
-    skipDirPadNav = true
+    //skipDirPadNav = true
     transform = { pivot = [0.5, 0.5] }
     animations = [
       { prop = AnimProp.scale, easing = InOutCubic, trigger,
@@ -160,7 +166,7 @@ let function mkCurrencyOverall(cardType, cardsTable = {}, onClick = null,
     ]
     onClick = onClick
     children = [
-      mkCurrencyImage(ticketGroups[cardType].icon, [hdpx(45), hdpx(30)])
+      mkCurrencyImage(ticketGroups[cardType].icon, [hdpx(30), hdpx(30)])
       expandOrders
         ? mkCurrencyInShop(sortedCards)
         : mkCurrencyCommon(stateFlag.value, currencySumm)
@@ -168,7 +174,9 @@ let function mkCurrencyOverall(cardType, cardsTable = {}, onClick = null,
   }
 }
 
-let function mkItemCurrency(currencyTpl, count, keySuffix = "", textStyle = {}) {
+let function mkItemCurrency(currencyTpl, count, keySuffix = "", textStyle = {},
+  iconSize = [hdpx(25),hdpx(25)]
+) {
   let currentCurrency = getCurrencyPresentation(currencyTpl)
   return {
     key = $"currency_{currencyTpl}{keySuffix}"
@@ -177,7 +185,7 @@ let function mkItemCurrency(currencyTpl, count, keySuffix = "", textStyle = {}) 
     flow = FLOW_HORIZONTAL
     valign = ALIGN_CENTER
     gap = smallPadding
-    children = iconTextRow(currentCurrency?.icon, count, [hdpx(25),hdpx(25)], textStyle)
+    children = iconTextRow(currentCurrency?.icon, count, iconSize, textStyle)
   }
 }
 
@@ -194,7 +202,7 @@ let mkCurrencyButton = @(text, currency, count = null, cb = null, style = {})
           rendObj = ROBJ_TEXT
           color = defTxtColor
           text = count
-        }.__update(body_txt)
+        }.__update(fontBody)
       ]
     }, params, handler, group, sf)
   }))
@@ -208,7 +216,7 @@ let mkLogisticsPromoMsgbox = @(currencies, buttons = []) msgbox.showMessageWithC
     children = [
       txt(loc("menu/enlistedShop")).__update({
         color = activeTxtColor
-      }, h2_txt)
+      }, fontHeading2)
       {
         rendObj = ROBJ_TEXTAREA
         behavior = Behaviors.TextArea
@@ -233,14 +241,14 @@ let mkLogisticsPromoMsgbox = @(currencies, buttons = []) msgbox.showMessageWithC
               children = [
                 txt(loc($"items/{currencyTpl}")).__update({
                   color = activeTxtColor
-                }, sub_txt)
+                }, fontSub)
                 {
                   rendObj = ROBJ_TEXTAREA
                   behavior = Behaviors.TextArea
                   size = [flex(), SIZE_TO_CONTENT]
                   text = loc($"items/{currencyTpl}/desc", "")
                   color = defTxtColor
-                }.__update(sub_txt)
+                }.__update(fontSub)
               ]
             }
           ]
@@ -273,10 +281,19 @@ let function mkDiscountWidget(discountInPercent, override = {}) {
         color  = Color(0,0,0)
         vplace = ALIGN_CENTER
         margin = [0, 0, 0, smallPadding]
-      }.__update(override?.textStyle ?? body_txt))
+      }.__update(override?.textStyle ?? fontBody))
     ]
   }.__update(override)
 }
+
+let mkCurrencyUi = @(currencyTpl) watchElemState(@(sf) {
+  watch = viewCurrencies
+  behavior = Behaviors.Button
+  onHover = @(on) cursors.setTooltip(on ? mkCurrencyTooltip(currencyTpl) : null)
+  children = mkItemCurrency(currencyTpl, viewCurrencies.value?[currencyTpl] ?? 0, "", {
+    color = sf & S_HOVER ? activeTxtColor : defTxtColor
+  })
+})
 
 return {
   mkCurrencyOverall
@@ -288,4 +305,6 @@ return {
   mkItemCurrency = kwarg(mkItemCurrency)
   mkLogisticsPromoMsgbox
   mkDiscountWidget
+  mkCurrencyCardsTooltip
+  mkCurrencyUi
 }

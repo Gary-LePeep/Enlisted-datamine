@@ -1,33 +1,35 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 
-let { fontMedium } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { currenciesList } = require("%enlist/currency/currencies.nut")
 let { curCampItemsCount } = require("%enlist/soldiers/model/state.nut")
 let { mkCurrency, mkCurrencyCount } = require("%enlist/currency/currenciesComp.nut")
 let { mkColoredGradientX } = require("%enlSqGlob/ui/gradients.nut")
-let { defTxtColor, titleTxtColor, colPart, columnGap
-} = require("%enlSqGlob/ui/designConst.nut")
+let { defTxtColor, titleTxtColor, largePadding } = require("%enlSqGlob/ui/designConst.nut")
 let { mkItemCurrency } = require("currencyComp.nut")
+let isChineseVersion = require("%enlSqGlob/isChineseVersion.nut")
 
 
-let priceSize = [colPart(4), colPart(0.8)]
+let priceSize = [hdpx(248), hdpx(50)]
 
 let transpLineColor    = 0x00000000
 let realPriceLineColor = 0xFF334E80
 let goldPriceLineColor = 0xFF6E0F0F
 let mixPriceLineColor  = 0xFF797979
 
-let realPriceGradient = mkColoredGradientX(realPriceLineColor, transpLineColor)
-let goldPriceGradient = mkColoredGradientX(goldPriceLineColor, transpLineColor)
-let mixPriceGradient  = mkColoredGradientX(mixPriceLineColor, transpLineColor)
+let realPriceGradient = mkColoredGradientX({colorLeft=realPriceLineColor, colorRight=transpLineColor})
+let goldPriceGradient = mkColoredGradientX({colorLeft=goldPriceLineColor, colorRight=transpLineColor})
+let mixPriceGradient  = mkColoredGradientX({colorLeft=mixPriceLineColor, colorRight=transpLineColor})
 
-let defTxtStyle = { color = defTxtColor }.__update(fontMedium)
-let titleTxtStyle = { color = titleTxtColor }.__update(fontMedium)
+
+let defTxtStyle = freeze({ color = defTxtColor }.__update(fontBody))
+let countTxtStyle = freeze({ color = titleTxtColor }.__update(fontBody))
+let missTxtStyle = freeze({ color = defTxtColor }.__update(fontBody))
 
 
 let priceSeparator = {
-  padding = [0, columnGap]
+  padding = [0, largePadding]
   valign = ALIGN_BOTTOM
   rendObj = ROBJ_TEXT
   text = loc("mainmenu/or")
@@ -43,7 +45,7 @@ let mkPriceBar = @(bgImg, children) {
   size = flex()
   flow = FLOW_HORIZONTAL
   gap = priceSeparator
-  padding = [0, columnGap]
+  padding = [0, largePadding]
   valign = ALIGN_CENTER
   rendObj = ROBJ_IMAGE
   image = bgImg
@@ -65,15 +67,16 @@ let shopPriceFrame = @(bgImg, priceContent) {
 let mkPriceText = @(price, currencyId) loc($"priceText/{currencyId}",
   { price }, $"{price}{currencyId}")
 
-let function mkItemPurchaseInfo(currencies, currencyPrice, shop_price_curr, shop_price) {
+let function mkItemPurchaseInfo(currencies, currencyPrice, shop_price_curr, shop_price, params = {}) {
   let { price, fullPrice, currencyId = null } = currencyPrice
   let currency = currencies.findvalue(@(c) c.id == currencyId)
+  let { iconSize = hdpxi(24), txtStyle = null } = params
   if (currency != null && price > 0)
-    return mkCurrency({ currency, price, fullPrice })
+    return mkCurrency({ currency, price, fullPrice, iconSize, txtStyle })
 
   // this block for console platform specific prices:
   if (shop_price_curr != "" && shop_price > 0)
-    return mkCurrencyCount(mkPriceText(shop_price, shop_price_curr), {})
+    return mkCurrencyCount(mkPriceText(shop_price, shop_price_curr), txtStyle)
 
   return null
 }
@@ -84,28 +87,29 @@ let function mkItemBarterInfo(guid, curItemCost, campItems) {
     let inStock = campItems?[itemTpl] ?? 0
     children.append(mkItemCurrency({
       currencyTpl = itemTpl
-      count = $"{reqCount}"
+      count = reqCount
       keySuffix = guid
-      textStyle = inStock >= reqCount
-        ? defTxtStyle
-        : titleTxtStyle
+      textStyle = inStock >= reqCount ? countTxtStyle : missTxtStyle
     }))
   }
   return children.len() == 0 ? null
     : {
         flow = FLOW_HORIZONTAL
-        gap = columnGap
+        gap = largePadding
         children
       }
 }
 
 
-let function mkShopItemPrice(shopItem, lockObject) {
+let function mkShopItemPrice(shopItem, lockObject = null) {
   let { guid, curItemCost, curShopItemPrice,
     shop_price_curr = "", shop_price = 0
   } = shopItem
   let { price, currencyId = null } = curShopItemPrice
   let hasRealPrice = shop_price_curr != "" && shop_price > 0
+  if (hasRealPrice && isChineseVersion)
+    return null
+
   let hasGoldPrice = currencyId != null && price > 0
   let hasItemPrice = curItemCost.len() > 0
   let bgImg = hasRealPrice ? realPriceGradient
@@ -115,23 +119,25 @@ let function mkShopItemPrice(shopItem, lockObject) {
   if (lockObject != null)
     return shopPriceFrame(bgImg, lockObject).__update({ size = priceSize })
 
-  let currencyObj = mkItemPurchaseInfo(
-    currenciesList.value,
-    curShopItemPrice,
-    shop_price_curr,
-    shop_price
-  )
+  return function() {
+    let currencyObj = mkItemPurchaseInfo(
+      currenciesList.value,
+      curShopItemPrice,
+      shop_price_curr,
+      shop_price
+    )
+    let barterObj = mkItemBarterInfo(guid, curItemCost, curCampItemsCount.value)
 
-  let barterObj = mkItemBarterInfo(guid, curItemCost, curCampItemsCount.value)
-
-  return @() {
-    watch = [curCampItemsCount, currenciesList]
-    size = priceSize
-    children = currencyObj == null && barterObj == null ? null
-      : shopPriceFrame(bgImg, [currencyObj, barterObj])
+    return {
+      size = priceSize
+      children = currencyObj == null && barterObj == null ? null
+        : shopPriceFrame(bgImg, [currencyObj, barterObj])
+    }
   }
 }
 
 return {
   mkShopItemPrice
+  mkItemPurchaseInfo
+  mkItemBarterInfo
 }

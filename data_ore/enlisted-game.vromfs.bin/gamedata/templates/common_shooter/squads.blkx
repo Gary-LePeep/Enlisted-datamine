@@ -1,7 +1,7 @@
 {
   "squad": [
     {
-      "_extends": "replicating"
+      "_use": "replicating"
     },
     {
       "_group": {
@@ -23,6 +23,7 @@
         "squad__overlapMembersUpdate": 0.3,
         "squad__id": -1,
         "squad__revivePointsAfterDeath": -1,
+        "squad__disableSquadRotation": false,
         "squad__isLeaderNeedsAmmo": false,
         "squad__orderUseEntity:eid": [],
         "squad__respawnBaseEid:eid": []

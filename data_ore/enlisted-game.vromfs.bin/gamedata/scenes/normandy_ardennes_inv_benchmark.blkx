@@ -1,0 +1,346 @@
+[
+  {
+    "import": {
+      "scene": "content/enlisted/gamedata/scenes/_normandy_ardennes_benchmark_common.blk"
+    }
+  },
+  {
+    "entity": {
+      "_template": "screen_fade_anim",
+      "screen_fade": 0.9,
+      "anim_track_on": true
+    }
+  },
+  {
+    "entity": {
+      "_template": "ui_disabled"
+    }
+  },
+  {
+    "entity": {
+      "_template": "benchmark",
+      "benchmark_name": "normandy_ardennes_1_inv_benchmark",
+      "camera_tracks:array": [
+        {
+          "camera_tracks:object": {
+            "from_fov": 110.0,
+            "from_pos": [607.812,17.2569,555.527],
+            "to_dir": [-2.57251e-05,-0.00428536,-0.999991],
+            "duration": 20.0,
+            "to_pos": [613.454,16.8802,451.046],
+            "to_fov": 90.0,
+            "from_dir": [-0.027067,-0.0248116,-0.999326]
+          }
+        },
+        {
+          "camera_tracks:object": {
+            "from_fov": 90.0,
+            "from_pos": [558.187,18.1372,382.84],
+            "to_dir": [-0.307749,-0.0253219,-0.951131],
+            "duration": 20.0,
+            "to_pos": [626.46,29.7535,245.066],
+            "to_fov": 90.0,
+            "from_dir": [0.850899,-0.108694,-0.513962]
+          }
+        },
+        {
+          "camera_tracks:object": {
+            "from_fov": 90.0,
+            "from_pos": [687.806,60.3559,148.573],
+            "to_dir": [-0.862426,-0.191833,-0.468425],
+            "duration": 20.0,
+            "to_pos": [560.32,41.6239,130.809],
+            "to_fov": 90.0,
+            "from_dir": [-0.845003,-0.336351,0.415738]
+          }
+        },
+        {
+          "camera_tracks:object": {
+            "from_fov": 90.0,
+            "from_pos": [482.809,49.2461,87.7735],
+            "to_dir": [-0.564245,-0.169863,0.807945],
+            "duration": 20.0,
+            "to_pos": [558.652,45.8812,80.3147],
+            "to_fov": 90.0,
+            "from_dir": [0.867646,-0.3829,0.317142]
+          }
+        },
+        {
+          "camera_tracks:object": {
+            "from_fov": 90.0,
+            "from_pos": [497.954,40.7189,88.2319],
+            "to_dir": [-0.820993,0.0138346,-0.57077],
+            "duration": 20.0,
+            "to_pos": [468.974,14.0212,-22.0853],
+            "to_fov": 90.0,
+            "from_dir": [-0.50191,-0.205982,-0.840035]
+          }
+        },
+        {
+          "camera_tracks:object": {
+            "from_fov": 90.0,
+            "from_pos": [440.081,13.165,-39.2275],
+            "to_dir": [0.557106,-0.619461,0.553083],
+            "duration": 20.0,
+            "to_pos": [429.169,23.1065,-67.8394],
+            "to_fov": 90.0,
+            "from_dir": [-0.30617,0.01633,-0.951837]
+          }
+        },
+        {
+          "camera_tracks:object": {
+            "from_fov": 90.0,
+            "from_pos": [476.756,12.6647,-90.5265],
+            "to_dir": [-0.999991,0.0029149,-0.00300261],
+            "duration": 20.0,
+            "to_pos": [383.348,12.9953,-90.9777],
+            "to_fov": 90.0,
+            "from_dir": [-0.999417,-0.00591616,0.0336292]
+          }
+        },
+        {
+          "camera_tracks:object": {
+            "from_fov": 90.0,
+            "from_pos": [366.369,12.5506,-97.5102],
+            "to_dir": [0.016299,-0.0773631,-0.99687],
+            "duration": 20.0,
+            "to_pos": [366.003,15.9911,-114.736],
+            "to_fov": 90.0,
+            "from_dir": [-0.0269523,0.0379272,-0.998917]
+          }
+        },
+        {
+          "camera_tracks:object": {
+            "from_fov": 90.0,
+            "from_pos": [321.131,12.4013,-152.379],
+            "to_dir": [0.57634,-0.113274,-0.809322],
+            "duration": 20.0,
+            "to_pos": [322.601,24.3546,-142.491],
+            "to_fov": 90.0,
+            "from_dir": [0.818325,0.0879361,-0.567989]
+          }
+        },
+        {
+          "camera_tracks:object": {
+            "from_fov": 90.0,
+            "from_pos": [326.952,13.5473,-239.579],
+            "to_dir": [0.0139277,0.0164425,0.999768],
+            "duration": 20.0,
+            "to_pos": [409.266,13.8527,-227.907],
+            "to_fov": 90.0,
+            "from_dir": [-0.0363206,0.0337781,0.998769]
+          }
+        },
+        {
+          "camera_tracks:object": {
+            "from_fov": 90.0,
+            "from_pos": [265.966,25.7425,-324.136],
+            "to_dir": [0.99439,0.012643,-0.105015],
+            "duration": 20.0,
+            "to_pos": [309.373,27.2211,-300.561],
+            "to_fov": 90.0,
+            "from_dir": [0.913539,0.0299357,0.405648]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "customizable_benchmark_animchar",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [526.702,35.5533,114.679]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "customizable_benchmark_animchar",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [529.362,35.6195,114.55]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "customizable_benchmark_animchar",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [532.206,35.6045,114.338]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "customizable_benchmark_animchar",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [524.067,35.4785,114.551]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "customizable_benchmark_animchar",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [525.032,35.4993,117.485]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "customizable_benchmark_animchar",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [528.028,35.5179,117.194]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "customizable_benchmark_animchar",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [530.748,35.5437,117.086]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "customizable_benchmark_animchar",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [526.277,35.3698,111.603]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "customizable_benchmark_animchar",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [535.476,35.2788,110.902]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "customizable_benchmark_animchar",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [522.643,35.4992,119.355]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "customizable_benchmark_animchar",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [520.317,35.47,114.568]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "customizable_benchmark_animchar",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [519.789,35.4992,117.471]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "customizable_benchmark_animchar",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [538.574,35.3417,109.905]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "customizable_benchmark_animchar",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [541.305,35.4783,111.169]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "customizable_benchmark_animchar",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [541.416,35.4992,114.442]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "customizable_benchmark_animchar",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [546.119,35.5028,111.191]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "m4a2_sherman_1944_destroyed",
+      "transform": [
+        [0.999992,-0.00386403,0.00141313],
+        [0.00387175,0.999977,-0.00550532],
+        [-0.00139182,0.00551074,0.999984],
+        [608.14,14.3379,442.783]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "m4a2_sherman_1944_destroyed",
+      "transform": [
+        [0.99999,-0.00445337,0.00112582],
+        [0.0044569,0.999985,-0.00315249],
+        [-0.00111176,0.00315747,0.999994],
+        [622.521,14.421,441.785]
+      ]
+    }
+  }
+]

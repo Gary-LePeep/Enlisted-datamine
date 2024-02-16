@@ -4,7 +4,7 @@ let {
   basicProgress, premiumProgress, combinedUnlocks, nextStage, nextRewardStage,
   progressCounters, currentProgress
 } = require("bpState.nut")
-let itemMapping = require("%enlist/items/itemsMapping.nut")
+let itemsMapping = require("%enlist/items/itemsMapping.nut")
 let { hasEliteBattlePass } = require("eliteBattlePass.nut")
 let { getOneReward } = require("rewardsPkg.nut")
 
@@ -22,12 +22,12 @@ let unlockToShow = Computed(@() progressCounters.value.isCompleted
   ? combinedUnlocks.value
   : combinedUnlocks.value.slice(0, progressCounters.value.total))
 
-let getOneRewardByStageData = @(stageData, mappedItems = {})
-  getOneReward(stageData?.rewards ?? stageData?.currencyRewards ?? {}, mappedItems)
+let getOneRewardByStageData = @(stageData, itemsMappingVal)
+  getOneReward(stageData?.rewards ?? stageData?.currencyRewards ?? {}, itemsMappingVal)
 
 let combinedRewards = Computed(function(){
   let { current, required, interval } = currentProgress.value
-  let mappedItems = itemMapping.value
+  let mappedItems = itemsMapping.value
 
   let basicRewarded = basicProgress.value.lastRewardedStage
   let premiumRewarded = premiumProgress.value.lastRewardedStage
@@ -78,7 +78,7 @@ let function getRewardIdx(rewardTemplate = ""){
 let function curItemUpdate(rewardIdx = null){
   rewardIdx = rewardIdx ?? nextRewardStage.value ?? nextStage.value
   curItem({
-    reward = getOneRewardByStageData(combinedUnlocks.value?[rewardIdx])?.reward
+    reward = getOneRewardByStageData(combinedUnlocks.value?[rewardIdx], itemsMapping.value)?.reward
     stageIdx = rewardIdx
   })
 }

@@ -5,7 +5,7 @@
       "_tags": "render",
       "debug_node_type": "DebugVisualizationNode",
       "debug_node_name": "debug_visualization_node",
-      "debug_node:FrameGraphNodePtr": []
+      "node_handle:dabfg::NodeHandle": []
     }
   },
   "gbuffer_diffuse_override_debug_node": {
@@ -16,7 +16,7 @@
       "debug_node_name": "gbuffer_diffuse_override",
       "debug_fill_gbuffer_name": "debug_fill_gbuffer",
       "debug_fill_color": [0.5,0.5,0.5,0.5],
-      "debug_node:FrameGraphNodePtr": [],
+      "node_handle:dabfg::NodeHandle": [],
       "debug_fill_gbuffer:PostFxRenderer": []
     }
   },
@@ -28,7 +28,7 @@
       "debug_node_name": "gbuffer_specular_override",
       "debug_fill_gbuffer_name": "debug_fill_gbuffer",
       "debug_fill_color": [0.0,0.0,0.0,0.0],
-      "debug_node:FrameGraphNodePtr": [],
+      "node_handle:dabfg::NodeHandle": [],
       "debug_fill_gbuffer:PostFxRenderer": []
     }
   },
@@ -38,7 +38,7 @@
     "upscale_node_type": "UpscaleTexGenerationNode",
     "upscale_node_name": "upscale_tex_gen_node",
     "upscale_shader_name": "upscale_sampling",
-    "upscale_node:FrameGraphNodePtr": [],
+    "node_handle:dabfg::NodeHandle": [],
     "upscale_shader:PostFxRenderer": [],
     "upscale_weights_buffer:UniqueBufHolder": []
   },
@@ -48,9 +48,10 @@
     "grenade_trajectory_node_type": "GrenadeTrajectoryNode",
     "grenade_trajectory_node_name": "grenade_trajectory_node",
     "trajectory_renderer_shader_name": "trajectory_renderer",
-    "grenade_trajectory_node:FrameGraphNodePtr": [],
+    "node_handle:dabfg::NodeHandle": [],
     "trajectory_renderer_shader:ShadersECS": [],
     "trajectory_start_gravity:ShaderVar": [],
+    "trajectory_gravity_dir:ShaderVar": [],
     "trajectory_vel_time:ShaderVar": [],
     "trajectory_center:ShaderVar": [],
     "trajectory_border:ShaderVar": [],

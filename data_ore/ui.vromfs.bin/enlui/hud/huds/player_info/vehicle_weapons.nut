@@ -2,18 +2,18 @@ import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
 let faComp = require("%ui/components/faComp.nut")
-let {body_txt, fontawesome} = require("%enlSqGlob/ui/fonts_style.nut")
+let {fontBody, fontawesome} = require("%enlSqGlob/ui/fontsStyle.nut")
 let {HUD_TIPS_HOTKEY_FG, FAIL_TEXT_COLOR, DEFAULT_TEXT_COLOR} = require("%ui/hud/style.nut")
 let heroVehicleState = require("%ui/hud/state/vehicle_hp.nut").hero
-let {vehicleTurrets, turretsReload, turretsAmmo, showVehicleWeapons} = require("%ui/hud/state/vehicle_turret_state.nut")
+let {vehicleTurrets, turretsReload, turretsReplenishment, turretsAmmo, showVehicleWeapons} = require("%ui/hud/state/vehicle_turret_state.nut")
 let { generation } = require("%ui/hud/menus/controls_state.nut")
-let vehicleWeaponWidget = require("vehicle_weapon_widget.nut")
+let { vehicleWeaponWidget } = require("vehicle_weapon_widget.nut")
 let { isGamepad } = require("%ui/control/active_controls.nut")
-let mkBulletTypeIcon = require("mkBulletTypeIcon.nut")
+let mkBulletTypeIcon = require("%enlSqGlob/ui/mkBulletTypeIcon.nut")
 let {get_sync_time} = require("net")
 let fa = require("%ui/components/fontawesome.map.nut")
 let { isReplay } = require("%ui/hud/state/replay_state.nut")
-
+let { mobileRespawnWidget, mobileRespawnOccupiedSeats } = require("mobile_respawn_widget.nut")
 let healthBar = require("mk_health_bar.nut")
 let { textListFromAction, buildElems } = require("%ui/control/formatInputBinding.nut")
 let { mkShortHudHintFromList } = require("%ui/components/controlHudHint.nut")
@@ -28,7 +28,7 @@ let mkControlText = @(text) {
   text,
   color = HUD_TIPS_HOTKEY_FG,
   rendObj = ROBJ_TEXT padding = hdpx(4)
-}.__update(body_txt)
+}.__update(fontBody)
 
 const eventTypeToText = false
 let makeTurretControlTip = @(hotkey) function(){
@@ -62,7 +62,7 @@ let reloadLessOne = freeze({
   hplace = ALIGN_CENTER
 })
 
-let mkReloadProgress = @(from, to, duration, key, mult) {
+let mkReloadProgress = @(from, to, duration, key, perksMult, stowageMult) {
   margin = [0, 0, 0, hdpx(10)]
   rendObj = ROBJ_PROGRESS_CIRCULAR
   image = reloadImg
@@ -70,14 +70,18 @@ let mkReloadProgress = @(from, to, duration, key, mult) {
   imageValign = ALIGN_CENTER
   vplace = ALIGN_CENTER
   hplace = ALIGN_CENTER
+  halign = ALIGN_CENTER
   size = [reloadProgressSize, reloadProgressSize]
   fValue = 0
   key
-  children = [
-    mult > 1.
-      ? reloadMoreOne
-      : mult < 1. ? reloadLessOne : null
-  ]
+  flow = FLOW_HORIZONTAL
+  children =
+    perksMult < 1. && stowageMult <= 1.
+      ? reloadLessOne
+      : [
+          perksMult > 1. ? reloadMoreOne : null,
+          stowageMult > 1. ? reloadMoreOne : null
+        ]
   animations = [
     { prop = AnimProp.fValue, from, to, duration, play = true}
   ]
@@ -93,7 +97,9 @@ let function turretControlTip(turret, index) {
   let turretReloadState = Computed(@() turretsReload.value?[gunEid] ?? {})
 
   return function() {
-    let { progressStopped = -1, totalTime = -1, endTime = -1, reloadTimeMult = 1. } = turretReloadState.value
+    let {
+      progressStopped = -1, totalTime = -1, endTime = -1, perksReloadTimeMult = 1., ammoStowageReloadTimeMult = 1.
+    } = turretReloadState.value
     let reloadTimeLeft = max(0, endTime - get_sync_time())
     let isReloadStopped = progressStopped >= 0
     let startProgress = isReloadStopped ? progressStopped
@@ -106,7 +112,7 @@ let function turretControlTip(turret, index) {
       valign = ALIGN_CENTER
       vplace = ALIGN_CENTER
       children = [
-        isReloading ? mkReloadProgress(startProgress, endProgress, reloadTimeLeft, turretReloadState.value, reloadTimeMult)
+        isReloading ? mkReloadProgress(startProgress, endProgress, reloadTimeLeft, turretReloadState.value, perksReloadTimeMult, ammoStowageReloadTimeMult)
                     : makeTurretControlTip(hotkey ?? (triggerGroup != -1
                       ? triggerGroupTurretControlTips[triggerGroup]
                       : defaultTurretControlTips?[index]))
@@ -120,9 +126,7 @@ let function turretNextBulletTip(triggerGroup) {
   return makeTurretControlTip(triggerGroupNextBulletTips?[triggerGroup] ?? triggerGroupNextBulletTips[0])
 }
 
-let iconBlockWidth = hdpxi(230)
-let function turretIconCtor(weapon, _baseWidth, baseHeight) {
-  let width = iconBlockWidth
+let function turretIconCtor(weapon, width, baseHeight) {
   let height = (0.8 * baseHeight).tointeger()
   let size = [width, height]
   let bulletIcon = mkBulletTypeIcon(weapon, size)
@@ -151,6 +155,7 @@ let function vehicleTurretBlock(turret, idx) {
       hint = turretControlTip(turret, idx)
       iconCtor = turretIconCtor
       turretsAmmo
+      turretsReplenishment
     })
 
   return function() {
@@ -181,6 +186,7 @@ let function vehicleTurretBlock(turret, idx) {
           : null
         iconCtor = turretIconCtor
         turretsAmmo
+        turretsReplenishment
       })
     })
     return {
@@ -242,10 +248,15 @@ let function vehicleHp() {
 }
 
 return function() {
-  let turrets = showVehicleWeapons.value ? {
+  let turretsChildren = []
+  if (mobileRespawnOccupiedSeats.value != null)
+    turretsChildren.append(mobileRespawnWidget(mobileRespawnOccupiedSeats.value))
+  if (showVehicleWeapons.value)
+    turretsChildren.extend(vehicleTurrets.value.map(vehicleTurretBlock))
+  let turrets = turretsChildren.len() != 0 ? {
     flow = FLOW_VERTICAL
     gap = gap
-    children = vehicleTurrets.value.map(vehicleTurretBlock)
+    children = turretsChildren
   } : null
 
   return {
@@ -253,7 +264,7 @@ return function() {
     halign = ALIGN_RIGHT
     gap = hdpx(30)
     size = SIZE_TO_CONTENT
-    watch = [vehicleTurrets, showVehicleWeapons]
+    watch = [vehicleTurrets, showVehicleWeapons, mobileRespawnOccupiedSeats]
 
     children = [
       turrets

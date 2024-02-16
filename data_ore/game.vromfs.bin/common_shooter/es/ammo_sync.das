@@ -49,7 +49,7 @@ def sync_ammo_with_server_custom_es(evt : Event; var gun__ammo : int&; gun__serv
   gun__ammo = gun__serverAmmo
 
 
-[es(tag=net, tag=gameClient, after=human_phys_es, REQUIRE_NOT=skip_common_weap_phys_update)]
+[es(tag=net, tag=gameClient, after=update_phys_es, REQUIRE_NOT=skip_common_weap_phys_update)]
 def delayed_sync_ammo_with_server_es(info : ParallelUpdateFrameDelayed;
                                      var gun__ammo : int&;
                                      var gun__delayedAmmoSyncTime : float&;

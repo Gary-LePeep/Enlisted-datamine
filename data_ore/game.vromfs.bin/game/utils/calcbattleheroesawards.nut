@@ -1,10 +1,13 @@
+let { pow } = require("math")
 let { isNoBotsMode, getMissionType } = require("%enlSqGlob/missionType.nut")
 let {
   BattleHeroesAward, requiredScoreTable, requiredValueTable, requiredSoldierKindScoreTable, getAwardBySoldierKind,
-  awardScoreStats, tacticianStats, isBigAward, WINNING_TEAM_BATTLE_HEROES_COUNT, LOSING_TEAM_BATTLE_HEROES_COUNT
+  awardScoreStats, tacticianStats, isBigAward, WINNING_TEAM_BATTLE_HEROES_COUNT, LOSING_TEAM_BATTLE_HEROES_COUNT,
+  SQUAD_COMMAND_MIN_NUM_SQUADS, SQUAD_COMMAND_MAX_NUM_SQUADS
 } = require("%enlSqGlob/ui/battleHeroesAwards.nut")
 let { logerr } = require("dagor.debug")
 let calcSoldierScore = require("%scripts/game/utils/calcSoldierScore.nut")
+let calcScoringPlayerScore = require("%scripts/game/utils/calcPlayerScore.nut")
 
 let getTop = @(comparator)
   @(data) data.filter(@(v) v != null).reduce(@(a, b) comparator(a, b) > 0 ? a : b)
@@ -17,20 +20,82 @@ let getTopStatSoldier = getTop(@(a,b) a.stat <=> b.stat || a.soldier.score <=> b
 
 let statAwardConfig = {
   [BattleHeroesAward.TOP_VEHICLES_DESTROYED] = {
-    playerStat = @(player) (player.stats?["scoring_player__tankKills"] ?? 0) + (player.stats?["scoring_player__planeKills"] ?? 0)
-    soldierStat = @(soldier) (soldier.stats?["tankKills"] ?? 0) + (soldier.stats?["planeKills"] ?? 0)
+    playerStat = @(player, _) (player.stats?["scoring_player__tankKills"] ?? 0)
+                            + (player.stats?["scoring_player__apcKills"] ?? 0)
+                            + (player.stats?["scoring_player__planeKills"] ?? 0)
+                            + (player.stats?["scoring_player__aiPlaneKills"] ?? 0)
+    soldierStat = @(soldier, _) (soldier.stats?["tankKills"] ?? 0)
+                              + (soldier.stats?["apcKills"] ?? 0)
+                              + (soldier.stats?["planeKills"] ?? 0)
+                              + (soldier.stats?["aiPlaneKills"] ?? 0)
   },
   [BattleHeroesAward.TOP_MELEE_KILLS] = {
-    playerStat = @(player) (player.stats?["scoring_player__meleeKills"] ?? 0)
-    soldierStat = @(soldier) (soldier.stats?["meleeKills"] ?? 0)
+    playerStat = @(player, _) (player.stats?["scoring_player__meleeKills"] ?? 0)
+    soldierStat = @(soldier, _) (soldier.stats?["meleeKills"] ?? 0)
   },
   [BattleHeroesAward.TOP_GRENADE_KILLS] = {
-    playerStat = @(player) (player.stats?["scoring_player__explosiveKills"] ?? 0)
-    soldierStat = @(soldier) (soldier.stats?["explosiveKills"] ?? 0)
+    playerStat = @(player, _) (player.stats?["scoring_player__explosiveKills"] ?? 0)
+    soldierStat = @(soldier, _) (soldier.stats?["explosiveKills"] ?? 0)
   },
   [BattleHeroesAward.TOP_LONG_RANGE_KILLS] = {
-    playerStat = @(player) (player.stats?["scoring_player__longRangeKills"] ?? 0)
-    soldierStat = @(soldier) (soldier.stats?["longRangeKills"] ?? 0)
+    playerStat = @(player, _) (player.stats?["scoring_player__longRangeKills"] ?? 0)
+    soldierStat = @(soldier, _) (soldier.stats?["longRangeKills"] ?? 0)
+  },
+  [BattleHeroesAward.BERSERK] = {
+    playerStat = @(player, _) (player.stats?["scoring_player__bestOneSoldierLifeInfantryKills"] ?? 0)
+    // Priority to soldier that made kills and not just participated as crew
+    soldierStat = @(soldier, _) pow(soldier.stats?["bestOneLifeInfantryKillsWithCrew"] ?? 0, 2) + (soldier.stats?["bestOneLifeInfantryKills"] ?? 0)
+  },
+  [BattleHeroesAward.FURIOUS] = {
+    playerStat = @(player, _) (player.stats?["scoring_player__bestOneSoldierLifeVehicleKills"] ?? 0)
+    // Priority to soldier that made kills and not just participated as crew
+    soldierStat = @(soldier, _) pow(soldier.stats?["bestOneLifeVehicleKillsWithCrew"] ?? 0, 2) + (soldier.stats?["bestOneLifeVehicleKills"] ?? 0)
+  },
+  [BattleHeroesAward.CONTRIBUTION_TO_VICTORY] = {
+    playerStat = @(player, _) player.stats?["scoring_player__contributionToVictory"] ?? 0
+    soldierStat = @(soldier, _) soldier.stats?["contributionToVictory"] ?? 0
+  },
+  [BattleHeroesAward.PARATROOPER] = {
+    playerStat = @(player, _) player.stats?["scoring_player__bestOneSodierLifeParatrooperKills"] ?? 0
+    soldierStat = @(soldier, _) soldier.stats?["bestOneLifeParatrooperKills"] ?? 0
+  },
+  [BattleHeroesAward.TOP_ENGINEER_BUILDER] = {
+    playerStat = @(player, noBotsMode) calcScoringPlayerScore(player.stats?.filter(@(_, stat) stat in {
+      scoring_player__builtStructures = true
+      scoring_player__builtBarbwireActivations = true
+      scoring_player__builtAmmoBoxRefills = true
+      scoring_player__builtMedBoxRefills = true
+      scoring_player__builtCapzoneFortificationActivations = true
+      scoring_player__builtRallyPointUses = true
+      scoring_player__builtGunKills = true
+      scoring_player__builtGunKillAssists = true
+      scoring_player__builtGunTankKills = true
+      scoring_player__builtGunTankKillAssists = true
+      scoring_player__builtGunApcKills = true
+      scoring_player__builtGunApcKillAssists = true
+      scoring_player__builtGunPlaneKills = true
+      scoring_player__builtGunAiPlaneKills = true
+      scoring_player__builtGunPlaneKillAssists = true
+      scoring_player__builtGunAiPlaneKillAssists = true
+    }), noBotsMode)
+    soldierStat = @(soldier, noBotsMode) calcSoldierScore(soldier.stats?.filter(@(_, stat) stat in {
+      builtStructures = true
+      builtBarbwireActivations = true
+      builtAmmoBoxRefills = true
+      builtMedBoxRefills = true
+      builtCapzoneFortificationActivations = true
+      builtRallyPointUses = true
+      builtGunKills = true
+      builtGunKillAssists = true
+      builtGunTankKills = true
+      builtGunTankKillAssists = true
+      builtGunApcKills = true
+      builtGunApcKillAssists = true
+      builtGunPlaneKills = true
+      builtGunAiPlaneKills = true
+      builtGunPlaneKillAssists = true
+      builtGunAiPlaneKillAssists = true
+    }), noBotsMode)
   },
 }
 
@@ -73,16 +138,16 @@ let getSquadAwardInfo = @(data) {
 
 let getRequiredValueForReward = @(award) requiredValueTable?[award] ?? 0
 
-let getPlayerForAward = @(players, award, awardConfig)
+let getPlayerForAward = @(players, award, awardConfig, noBotsMode)
   getTopStatPlayer(players
-    .map(@(player) { stat = awardConfig.playerStat(player), player })
+    .map(@(player) { stat = awardConfig.playerStat(player, noBotsMode), player })
     .filter(@(player) player.stat >= getRequiredValueForReward(award))
   )?.player
 
-let function getSoldierOfPlayerForAward(player, awardConfig) {
+let function getSoldierOfPlayerForAward(player, awardConfig, noBotsMode) {
   let topSoldier = getTopStatSoldier(player.squads.map(@(squad)
     getTopStatSoldier(squad.soldiers.map(@(soldier)
-      { stat = awardConfig.soldierStat(soldier), soldier }))))
+      { stat = awardConfig.soldierStat(soldier, noBotsMode), soldier }))))
   return {
     soldier = topSoldier.soldier
     score = topSoldier.soldier.score
@@ -121,7 +186,7 @@ let function getTopSoldierPerKind(detailedPlayersScore) {
 let getPlayerStatSum = @(player, stats)
   stats.map(@(stat) player.stats?[stat] ?? 0.0).reduce(@(a,b) a + b, 0) ?? 0
 
-let function getTacticianAward(players, awards) {
+let function getTacticianAward(players, awards, noBotsMode) {
   let award = BattleHeroesAward.TACTICIAN
   let { statsA, requiredA, statsB, requiredB, statsA2, requiredA2 } = tacticianStats
   let awardCompetitors = players
@@ -146,17 +211,17 @@ let function getTacticianAward(players, awards) {
   if (awardedPlayerStatA == awardedPlayerStatB && awardedPlayerStatA != null) {
     awardedPlayer = awardedPlayerStatA
   } else {
-    if (awardedPlayerStatA != null && awards.findvalue(@(award) award.playerEid == awardedPlayerStatA.eid) != null)
+    if (awardedPlayerStatA != null && awards.findvalue(@(awrd) awrd.playerEid == awardedPlayerStatA.eid) != null)
       awardedPlayerStatA = null
-    if (awardedPlayerStatB != null && awards.findvalue(@(award) award.playerEid == awardedPlayerStatB.eid) != null)
+    if (awardedPlayerStatB != null && awards.findvalue(@(awrd) awrd.playerEid == awardedPlayerStatB.eid) != null)
       awardedPlayerStatB = null
     awardedPlayer = getTopScorePlayer([awardedPlayerStatA, awardedPlayerStatB])
   }
   if (awardedPlayer == null)
     return null
   return getSoldierOfPlayerForAward(awardedPlayer, {
-    soldierStat = @(soldier) calcSoldierScore(soldier.stats.filter(@(_, key) key in awardScoreStats[award]), isNoBotsMode())
-  }).__merge({award})
+    soldierStat = @(soldier, mode) calcSoldierScore(soldier.stats.filter(@(_, key) key in awardScoreStats[award]), mode)
+  }, noBotsMode).__merge({award})
 }
 
 let function getUniversalAwards(players, awards) {
@@ -178,6 +243,44 @@ let function getUniversalAwards(players, awards) {
         bigAwardCountByTeam[team] < (player.isWinnerTeam ? WINNING_TEAM_BATTLE_HEROES_COUNT : LOSING_TEAM_BATTLE_HEROES_COUNT))
     universalPlayer = universalPlayer?[0]
     return universalPlayer != null ? getTopScoreSoldierOfPlayer(universalPlayer).__merge({award=BattleHeroesAward.UNIVERSAL}) : null
+  }).values().filter(@(a) a != null)
+}
+
+let function getPlayerSquadCommandInfo(player, requiredSquadScore) {
+  let squads = player.squads
+    .filter(@(squad) squad.score > requiredSquadScore)
+    .sort(@(a, b) b.score <=> a.score)
+    .slice(0, SQUAD_COMMAND_MAX_NUM_SQUADS)
+  let stat = squads.reduce(@(res, squad) res + squad.score, 0)
+  let numSquads = squads.len()
+  return { player, stat, numSquads }
+}
+
+let function getSquadCommandAwards(players, awards) {
+  let bigAwards = awards.filter(@(a) isBigAward(a.award))
+  let bigAwardsByTeam = groupBy(bigAwards, "team")
+  let requiredSquadScore = getRequiredScoreForReward(BattleHeroesAward.SQUAD_COMMAND)
+  return groupBy(players, "team").map(function(teamPlayers, team) {
+    let teamBigAwards = bigAwardsByTeam?[team] ?? []
+    let topTeamPlayer = teamBigAwards.findvalue(@(a) a.award == BattleHeroesAward.TOP_PLACE)?.playerEid
+    let awardedPlayer = getTopStatPlayer(teamPlayers
+      .filter(@(player) player.eid != topTeamPlayer)
+      .map(@(player) getPlayerSquadCommandInfo(player, requiredSquadScore))
+      .filter(@(award) award.numSquads >= SQUAD_COMMAND_MIN_NUM_SQUADS)
+    )?.player
+
+    if (awardedPlayer == null)
+      return null
+
+    let bigAwardsByPlayer = teamBigAwards?.map(@(awards_) groupBy(awards_,"playerEid")) ?? {}
+    let awardLimit = awardedPlayer.isWinnerTeam ? WINNING_TEAM_BATTLE_HEROES_COUNT : LOSING_TEAM_BATTLE_HEROES_COUNT
+    let isTeamAwardOverLimit = bigAwardsByPlayer.len() >= awardLimit
+    let hasBigAward = bigAwardsByPlayer?[awardedPlayer.eid] != null
+    if (isTeamAwardOverLimit && !hasBigAward)
+      return null
+
+    return getTopScoreSoldierOfPlayer(awardedPlayer).__merge({award=BattleHeroesAward.SQUAD_COMMAND})
+
   }).values().filter(@(a) a != null)
 }
 
@@ -206,15 +309,19 @@ let function calcBattleHeroAwards(detailedPlayersScore) {
   awards.extend(
     topSoldiersPerKind.map(@(soldier, kind) soldier.__merge({award=getAwardBySoldierKind(kind)}))
     .values().filter(@(s) s?.award != null))
+  let noBotsMode = isNoBotsMode()
   foreach (award, awardConfig in statAwardConfig) {
-    let awardedPlayer = getPlayerForAward(detailedPlayersScore, award, awardConfig)
+    let awardedPlayer = getPlayerForAward(detailedPlayersScore, award, awardConfig, noBotsMode)
     if (awardedPlayer != null)
-      awards.append(getSoldierOfPlayerForAward(awardedPlayer, awardConfig).__merge({award}))
+      awards.append(getSoldierOfPlayerForAward(awardedPlayer, awardConfig, noBotsMode).__merge({award}))
   }
 
-  let tacticianAward = getTacticianAward(detailedPlayersScore, awards)
+  let tacticianAward = getTacticianAward(detailedPlayersScore, awards, noBotsMode)
   if (tacticianAward != null)
     awards.append(tacticianAward)
+
+  let squadCommandAwards = getSquadCommandAwards(detailedPlayersScore, awards)
+  awards.extend(squadCommandAwards)
 
   let universalAwards = getUniversalAwards(detailedPlayersScore, awards)
   awards.extend(universalAwards)

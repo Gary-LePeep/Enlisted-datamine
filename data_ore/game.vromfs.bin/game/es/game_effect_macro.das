@@ -7,7 +7,7 @@ require ecs.macro_common
 require daslib/ast_boost
 require daslib/templates_boost
 
-require game.events_game
+require game.events_game public
 
 def get_game_effect_block(invert : bool; field_name : string)
   if !invert
@@ -32,17 +32,17 @@ class GameEffectAnnotation : AstFunctionAnnotation
       errors := "es_game_effect function should be without arguments"
       return false
 
-    let fieldArg = find_arg("bool_flag", args)
+    let fieldArg = find_arg(args, "bool_flag")
     if !validate_string_argument(fieldArg, "bool_flag", errors)
       return false
     let fieldName = "{fieldArg}"
 
-    let tagArg = find_arg("tag", args)
+    let tagArg = find_arg(args, "tag")
     if !validate_string_argument(tagArg, "tag", errors)
       return false
     let tagName = "{tagArg}"
 
-    let invertArg = find_arg("invert", args)
+    let invertArg = find_arg(args, "invert")
     if !(invertArg is nothing) && !(invertArg is tBool)
       errors := "invert arg should be bool value"
       return false
@@ -51,7 +51,7 @@ class GameEffectAnnotation : AstFunctionAnnotation
     let esAnn = find_annotation("ecs", "es")
     assert(esAnn != null)
 
-    var blk <- get_game_effect_block(invert, fieldName)
+    var inscope blk <- get_game_effect_block(invert, fieldName)
     blk |> force_at(func.body.at)
     blk |> force_generated(true)
 
@@ -61,14 +61,13 @@ class GameEffectAnnotation : AstFunctionAnnotation
         ann.arguments |> clear()
         ann.arguments |> add_annotation_argument("REQUIRE", tagName)
 
-    func.body := null // dec use count
-    func.body <- blk
+    func.body |> move() <| blk
 
     func.arguments |> emplace_new <| new [[Variable() name := "evt", at = func.at, flags = VariableFlags generated,
-      _type := typeinfo(ast_typedecl type<GameEffectStateChanged const>)
+      _type <- typeinfo(ast_typedecl type<GameEffectStateChanged const>)
     ]]
     func.arguments |> emplace_new <| new [[Variable() name := "eid", at = func.at, flags = VariableFlags generated,
-      _type := typeinfo(ast_typedecl type<ecs::EntityId const>)
+      _type <- typeinfo(ast_typedecl type<ecs::EntityId const>)
     ]]
 
     func |> append_annotation("ecs", "es", [{auto

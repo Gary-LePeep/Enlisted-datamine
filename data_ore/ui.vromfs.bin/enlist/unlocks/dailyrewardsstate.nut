@@ -104,14 +104,14 @@ let function getStageRewardsData(rewards, mappedItems, cratesComp, armyId) {
     if (count <= 0)
       continue
 
-    let presentanion = mappedItems?[rewardId.tostring()]
-    if (presentanion == null)
+    let presentation = mappedItems?[rewardId.tostring()]
+    if (presentation == null)
       continue
 
-    let { itemTemplate = "", crateId = "" } = presentanion
+    let { itemTemplate = "", crateId = "" } = presentation
     if (itemTemplate != "") {
       if (itemTemplate not in itemsData)
-        itemsData[itemTemplate] <- { count, presentanion }
+        itemsData[itemTemplate] <- { count, presentation }
       else
         itemsData[itemTemplate].count += count
     }
@@ -122,8 +122,8 @@ let function getStageRewardsData(rewards, mappedItems, cratesComp, armyId) {
   let cratesContent = {}
   foreach (crateId in crates)
     foreach (itemTemplate, count in (cratesComp?[armyId][crateId].items ?? [])) {
-      let presentanion = mappedItems.findvalue(@(pres) pres?.itemTemplate == itemTemplate)
-      cratesContent[itemTemplate] <- { count, itemTemplate, presentanion }
+      let presentation = mappedItems.findvalue(@(pres) pres?.itemTemplate == itemTemplate)
+      cratesContent[itemTemplate] <- { count, itemTemplate, presentation }
     }
 
   return {
@@ -134,18 +134,18 @@ let function getStageRewardsData(rewards, mappedItems, cratesComp, armyId) {
 }
 
 let boosterLogs = Computed(@() (unlockLogs.value ?? [])
-  .filter(@(log) log.type == "ADD_BOOSTER"))
+  .filter(@(blog) blog.type == "ADD_BOOSTER"))
 
 let curBoosteredDailyTask = Computed(function() {
   let tasks = dailyTasks.value ?? []
-  let logs = boosterLogs.value.filter(@(log)
-    tasks.findvalue(@(u) u.name == log.unlock) != null)
+  let logs = boosterLogs.value.filter(@(blog)
+    tasks.findvalue(@(u) u.name == blog.unlock) != null)
 
   if (logs.len() == 0)
     return null
 
   let boosterLog = logs.top()
-  return tasks.findvalue(@(u) u.name == boosterLog.unlock)
+  return tasks.findvalue(@(u) u.name == boosterLog.unlock) //cant happen warning: -access-potentially-nulled
     .__merge({ boosterLog })
 })
 
@@ -187,15 +187,15 @@ let function imitateCrateReward(boostersData, receivedItems, mappedItems, rType 
   foreach (booster in boostersData)
     foreach (boosterPack in booster)
       foreach (mappedItem, count in boosterPack.items) {
-        let presentanion = mappedItems?[mappedItem]
-        if (presentanion == null)
+        let presentation = mappedItems?[mappedItem]
+        if (presentation == null)
           continue
 
-        let itemTemplate = presentanion?.itemTemplate
+        let itemTemplate = presentation?.itemTemplate
         if (itemTemplate == null)
           continue
 
-        res.cratesContent[itemTemplate] <- { itemTemplate, count, presentanion }
+        res.cratesContent[itemTemplate] <- { itemTemplate, count, presentation }
       }
 
   foreach (receivedItem in receivedItems) {

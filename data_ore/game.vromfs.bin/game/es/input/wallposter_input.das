@@ -26,7 +26,7 @@ def wallposter_input_setup_es(evt : EventDaInputInit; var wallposter_input__plac
 def wallposter_input_appear_es(evt : Event; var wallposter_input__place, wallposter_input__cancel : int&)
   initActions(wallposter_input__place, wallposter_input__cancel)
 
-[es(tag=input, on_event=(EventComponentsDisappear, EventEntityDestroyed))]
+[es(tag=input, on_disappear)]
 def wallposter_input_disappear_es(evt : Event; var wallposter_input__place, wallposter_input__cancel : int&)
   resetActions(wallposter_input__place, wallposter_input__cancel)
 

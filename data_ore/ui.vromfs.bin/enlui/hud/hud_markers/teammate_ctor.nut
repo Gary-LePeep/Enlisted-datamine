@@ -19,9 +19,10 @@ let { heroSoldierKind } = require("%ui/hud/state/soldier_class_state.nut")
 let { MedicHealState } = require("%enlSqGlob/dasenums.nut")
 let { heroMedicMedpacks } = require("%ui/hud/state/medic_state.nut")
 let { teammatesAvatarsSet, teammatesAvatarsGetWatched } = require("%ui/hud/state/human_teammates.nut")
+let { showTeammateName, showTeammateMarkers } = require("%ui/hud/state/hudOptionsState.nut")
 
 let defTransform = {}
-let hpIconSize = [fsh(2.5), fsh(2.5)]
+let hpIconSize = [hdpxi(27), hdpxi(27)]
 
 let mkIcon = function(colorInner, colorOuter, sizeFactor) {
   let unitIconSize = [fsh(1*sizeFactor), fsh(1.25*sizeFactor)].map(@(v) v.tointeger())
@@ -86,7 +87,7 @@ let mkHpIcon = @(eid, colorInner, colorOuter) {
   ]
 }
 
-let ammoBoxIconSize = [fsh(6.0), fsh(6.0)]
+let ammoBoxIconSize = [hdpxi(65), hdpxi(65)]
 let build_ammo_ico = Picture($"ui/skin#building_ammo_box.svg:{ammoBoxIconSize[0]}:{ammoBoxIconSize[1]}:K")
 let requestAmmoBoxIcon = freeze({
   rendObj = ROBJ_IMAGE
@@ -96,7 +97,7 @@ let requestAmmoBoxIcon = freeze({
   minDistance = 0.5
 })
 
-let rallyPointIconSize = [fsh(6.0), fsh(6.0)]
+let rallyPointIconSize = [hdpxi(65), hdpxi(65)]
 let pic_rally = Picture($"ui/skin#custom_spawn_point.svg:{rallyPointIconSize[0]}:{rallyPointIconSize[1]}:K")
 let requestRallyPointIcon = freeze({
   rendObj = ROBJ_IMAGE
@@ -120,7 +121,7 @@ let hasEngineers = Computed(@() engineersInSquad.value >0)
 
 let unit = function(eid, showMed){
   let infoState = teammatesAvatarsGetWatched(eid)
-  let watch = [infoState, hasEngineers, showMed ? needShowMed : null, forcedMinimalHud, watchedHeroSquadEid, localPlayerGroupMembers]
+  let watch = [infoState, hasEngineers, showMed ? needShowMed : null, forcedMinimalHud, watchedHeroSquadEid, localPlayerGroupMembers, showTeammateName, showTeammateMarkers]
   return function() {
     let info = infoState.value
     if (!info.isAlive )
@@ -137,7 +138,7 @@ let unit = function(eid, showMed){
     let isGroupmate = !isSquadmate && info.squad_member__playerEid in localPlayerGroupMembers.value
 
     let minHud = forcedMinimalHud.value
-    let showName = info?.name && isGroupmate && !isBot
+    let showName = info?.name && isGroupmate && !isBot && showTeammateName.value
     let nameComp = showName
       ? teammateName(eid, frameNick(remap_nick(info?.name), info?["decorators__nickFrame"]),
             HUD_COLOR_TEAMMATE_INNER)
@@ -200,7 +201,11 @@ let unit = function(eid, showMed){
             ]
           }
           nameComp
-          showMed && needShowMed.value && iconHpColor ? mkHpIcon(eid, iconHpColor, HUD_COLOR_MEDIC_HP_OUTER) : icon
+          showTeammateMarkers.value
+          ? (showMed && needShowMed.value && iconHpColor
+              ? mkHpIcon(eid, iconHpColor, HUD_COLOR_MEDIC_HP_OUTER)
+              : icon)
+          : { size=[hdpxi(10), hdpxi(13)] }
         ]
       }
     }

@@ -1,8 +1,8 @@
 require ecs
 require AnimV20
-require EnlistedDm
+require DngDm
 require DagorTexture3D
-require MaterialRecreate
+require DagorMaterials
 
 [es(tag=render, on_appear, track=isExploded, REQUIRE=scorchable)]
 def tank_explosion_animchar_es(evt : Event;

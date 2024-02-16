@@ -58,11 +58,10 @@ let vehicleInfo = Computed(function() {
   return vehicle.__merge(override)
 })
 
-let canUseRespawnbaseByType = Computed(@() get_can_use_respawnbase_type(vehicleInfo.value?.gametemplate)?.canUseRespawnbaseType ?? "human")
-let currentRespawnGroup = Computed(@() selectedRespawnGroupId.value?[canUseRespawnbaseByType.value] ?? -1)
-
 let squadMemberIdForSpawn = mkWatched(persist, "squadMemberIdForSpawn", 0)
 let squadsRevivePoints = mkWatched(persist, "squadsRevivePoints", [])
+let squadsAffordability = mkWatched(persist, "squadsAffordability", [])
+let squadsScorePrice = mkWatched(persist, "squadsScorePrice", [])
 let soldierRevivePoints = mkWatched(persist, "soldierRevivePoints", [])
 let isSpectatorEnabled = mkWatched(persist, "isSpectatorEnabled", false)
 let maxSpawnVehiclesOnPointBySquad = mkWatched(persist, "maxSpawnVehiclesOnPointBySquad", [])
@@ -79,42 +78,11 @@ let showSquadSpawn = Computed(@() needSpawnMenu.value && !respawnsInBot.value)
 let timeToCanRespawn = mkCountdownTimerPerSec(canRespawnTime)
 let isSquadAvailableByTime = Watched([])
 let canSpawnOnVehicleBySquad = Computed(@() maxSpawnVehiclesOnPointBySquad.value.map(@(maxVehicles, k) maxVehicles == -1 && (isSquadAvailableByTime.value?[k] ?? true)))
-
-let function updateVehicleSpawnAvailableTimer(...) {
-  let curTime = app.get_sync_time()
-  isSquadAvailableByTime(nextSpawnOnVehicleInTimeBySquad.value.map(@(v) v <= curTime))
-  let nextEndTime = nextSpawnOnVehicleInTimeBySquad.value
-    .filter(@(it) it > curTime)
-    .reduce(@(a,b) min(a,b)) ?? -1.0
-  let minDelay = nextEndTime - curTime
-  if (minDelay > 0) {
-    gui_scene.clearTimer(updateVehicleSpawnAvailableTimer)
-    gui_scene.setTimeout(minDelay, updateVehicleSpawnAvailableTimer)
-  }
-}
-nextSpawnOnVehicleInTimeBySquad.subscribe(updateVehicleSpawnAvailableTimer)
-updateVehicleSpawnAvailableTimer()
-
-let function requestRespawn() {
-  let squadId = squadIndexForSpawn.value
-  let spawnGroup = currentRespawnGroup.value
-  let memberId = squadMemberIdForSpawn.value
-  let curSpawnSquadId = spawnSquadId.value
-  setSpawnedSquads((curSpawnedSquads.value ?? {}).__merge({ [curSpawnSquadId] = true }))
-  logHR($"Request respawn, respawnerEid {respawnerEid.value}, squadId {squadId}, memberId {memberId}")
-  sendNetEvent(respawnerEid.value, CmdRequestRespawn({ squadId = squadId, memberId = memberId, spawnGroup = spawnGroup }))
-}
-
-let function cancelRequestRespawn() {
-  let squadId = squadIndexForSpawn.value
-  let memberId = squadMemberIdForSpawn.value
-  let spawnGroup = queueRespawnGroupId.value
-  logHR($"Request cancel respawn, respawnerEid {respawnerEid.value}, squadId {squadId}, memberId {memberId}")
-  sendNetEvent(respawnerEid.value, CmdCancelRequestRespawn({ squadId = squadId, memberId = memberId, spawnGroup = spawnGroup }))
-  queuedRespawnGroupId(queueRespawnGroupId.value)
-}
+let spawnScoreActual = mkWatched(persist, "spawnScore", 0)
+let spawnScore = Computed(@() needSpawnMenu.value ? spawnScoreActual.value : 0) //we no need to recalc while not in the respawn screen.
 
 let hasVehicleRespawns = Computed(@() vehicleRespawnBases.value.eids.len() > 0)
+
 let squadsList = Computed(function(prev) {
   if (!needSpawnMenu.value) //we no need to recalc squads while not in the respawn screen.
     return prev != FRP_INITIAL ? prev : []
@@ -127,7 +95,9 @@ let squadsList = Computed(function(prev) {
       if ((squad?.battleExpBonus ?? 0) > 0)
         premIcon = premIcon ?? armiesPresentation?[armyId].premIcon
       let readinessPercent = squadsRevivePoints.value?[idx] ?? -1
-      local canSpawn = readinessPercent == 100
+      let isAffordable = squadsAffordability.value?[idx] ?? true
+      let scorePrice = squadsScorePrice.value?[idx] ?? 0
+      local canSpawn = readinessPercent == 100 && isAffordable
       if (canSpawn) {
         if (squad?.curVehicle != null) {
           let { canUseRespawnbaseType = null, canUseRespawnbaseSubtypes = [] } = get_can_use_respawnbase_type(squad.curVehicle?.gametemplate)
@@ -155,10 +125,72 @@ let squadsList = Computed(function(prev) {
 
         canSpawn = canSpawn
         readinessPercent = readinessPercent
+        isAffordable
+        scorePrice
       }
     })
   }
 )
+
+let curSquadData = Computed(@()
+  squadsList.value.findvalue(@(val) val?.squadId == spawnSquadId.value))
+
+let paratroopersPointSelectorRequested = Watched(false)
+let paratroopersOn = Watched(false)
+let isParatroopersSquad = Computed(@()
+  armyData.value?.squads[squadIndexForSpawn.value].isParatroopers && curSquadData.value?.canSpawn)
+
+let paratroopersPointSelectorOn = Computed(@()
+  showSquadSpawn.value && isParatroopersSquad.value && paratroopersPointSelectorRequested.value)
+
+isParatroopersSquad.subscribe(@(v) paratroopersPointSelectorRequested(v))
+
+let canUseRespawnbaseByType = Computed(function() {
+  let templ = vehicleInfo.value?.gametemplate
+  let HUMAN = paratroopersPointSelectorOn.value ? "paratroopers" : "human"
+  if (templ==null)
+    return HUMAN
+  return get_can_use_respawnbase_type(vehicleInfo.value.gametemplate)?.canUseRespawnbaseType ?? HUMAN
+})
+
+let currentRespawnGroup = Computed(@()
+  selectedRespawnGroupId.value?[canUseRespawnbaseByType.value] ?? -1)
+
+let function updateVehicleSpawnAvailableTimer(...) {
+  let curTime = app.get_sync_time()
+  isSquadAvailableByTime(nextSpawnOnVehicleInTimeBySquad.value.map(@(v) v <= curTime))
+  let nextEndTime = nextSpawnOnVehicleInTimeBySquad.value
+    .filter(@(it) it > curTime)
+    .reduce(@(a,b) min(a,b)) ?? -1.0
+  let minDelay = nextEndTime - curTime
+  if (minDelay > 0) {
+    gui_scene.clearTimer(updateVehicleSpawnAvailableTimer)
+    gui_scene.setTimeout(minDelay, updateVehicleSpawnAvailableTimer)
+  }
+}
+nextSpawnOnVehicleInTimeBySquad.subscribe(updateVehicleSpawnAvailableTimer)
+updateVehicleSpawnAvailableTimer()
+
+let function requestRespawn() {
+  let squadId = squadIndexForSpawn.value
+  let spawnGroup = currentRespawnGroup.value
+  let memberId = squadMemberIdForSpawn.value
+  let curSpawnSquadId = spawnSquadId.value
+  setSpawnedSquads((curSpawnedSquads.value ?? {}).__merge({ [curSpawnSquadId] = true }))
+  logHR($"Request respawn, respawnerEid {respawnerEid.value}, squadId {squadId}, memberId {memberId}")
+  sendNetEvent(respawnerEid.value, CmdRequestRespawn({ squadId = squadId, memberId = memberId, spawnGroup = spawnGroup, isParatroopers = paratroopersOn.value }))
+}
+
+let function cancelRequestRespawn() {
+  let squadId = squadIndexForSpawn.value
+  let memberId = squadMemberIdForSpawn.value
+  let spawnGroup = queueRespawnGroupId.value
+  logHR($"Request cancel respawn, respawnerEid {respawnerEid.value}, squadId {squadId}, memberId {memberId}")
+  sendNetEvent(respawnerEid.value, CmdCancelRequestRespawn({ squadId = squadId, memberId = memberId, spawnGroup = spawnGroup, isParatroopers = paratroopersOn.value }))
+  queuedRespawnGroupId(queueRespawnGroupId.value)
+}
+
+
 
 let function cancelRespawn() {
   if (respRequested.value)
@@ -169,10 +201,11 @@ let function cancelRespawn() {
 
 let function onActive() {
   respawnLastActiveTime(app.get_sync_time())
+  if (canRespawnWaitNumber.value > 0)
+    requestRespawn()
   cancelRespawn()
 }
 
-armyData.subscribe(@(data) spawnSquadId(data?.curSquadId))
 
 let function updateSquadSpawnIndex(...) {
   squadIndexForSpawn(squadsList.value.findindex(@(s) s.squadId == spawnSquadId.value) ?? 0)
@@ -207,15 +240,13 @@ let function updateSpawnSquadId() {
   let squads = squadsList.value
   let spawnedSquads = curSpawnedSquads.value
   let preferSquads = squads.filter(@(s) s.squadId not in spawnedSquads)
-  let curSpawnSquadId = spawnSquadId.value
+  let curSpawnSquadId = spawnSquadId.value ?? armyData.value?.curSquadId
   let bestSquadId = getBestSquadId(preferSquads, curSpawnSquadId)
     ?? getBestSquadId(squads, curSpawnSquadId, squads?[0].squadId)
 
   spawnSquadId(bestSquadId)
 }
 
-let curSquadData = Computed(@()
-  squadsList.value.findvalue(@(val) val?.squadId == spawnSquadId.value))
 
 let soldiersList = Computed(function() {
   let squadId = spawnSquadId.value
@@ -229,7 +260,7 @@ let soldiersList = Computed(function() {
       let { premIcon = null } = squadsPresentation?[armyId][squadId]
       return soldiersData.value?[s.guid].__merge({
         canSpawn = (readinessPercents?[s.id] ?? 100) == 100
-        premIcon = premIcon ?? (s?.isPremium ?? false) ? armiesPresentation?[armyId].premIcon : null
+        premIcon = premIcon ?? ((s?.isPremium ?? false) ? armiesPresentation?[armyId].premIcon : null)
       })
     })
     .filter(@(s) s != null)
@@ -248,12 +279,23 @@ let respawnBlockedReason = Computed(function() {
         return  {reason = "respawn/waiting_in_queue", waitNumber = canRespawnWaitNumber.value, timeToActivate = zone.activateAtTime}
       if (!zone.isActive && zone.activateAtTime > 0.0)
         return {reason = "respawn/blocked_by_timer", timeToActivate = zone.activateAtTime}
+      if (!zone.isActive && zone.isMobileSpawn && zone.playersCount > 0)
+        return {reason = "respawn/blocked_by_timer", timeToActivate = zone.playersCount}
+      if (!zone.isActive && zone.isOccupied)
+        return {reason = "respawn/is_occupied"}
+      if (!zone.isActive && zone.isMobileSpawn && zone.additionalInfo != "")
+        return {reason = zone.additionalInfo}
       if (!zone.isActive)
         return {reason = "respawn/respawn_disabled"}
     }
   }
   return {}
 })
+
+let respawnSelectedEid = Computed(@() spawnZonesState.value.findindex(@(zone)
+  localPlayerTeam.value == zone.forTeam &&
+  canUseRespawnbaseByType.value == zone.iconType &&
+  (selectedRespawnGroupId.value?[zone.iconType] ?? -1) == zone.selectedGroup) ?? ecs.INVALID_ENTITY_ID)
 
 let canSpawnCurrentSoldier = Computed(@() soldiersList.value?[curSoldierIdx.value]?.canSpawn ?? true)
 let canSpawnCurrentSquadAndSoldier = Computed(@() (curSquadData.value?.canSpawn ?? false) && canSpawnCurrentSoldier.value)
@@ -321,7 +363,7 @@ let function setPendingResp(_) {
     logHR("Check pending resp. respEndTime = {0}, respEndTotalTime = {1}, timeToRespawn = {2} "
       .subst(respEndTime.value, respEndTotalTime.value, timeToRespawn.value))
     if (needSpawnMenu.value && respEndTime.value <= 0 && respEndTotalTime.value > 0
-        && timeToRespawn.value == 0)
+        && timeToRespawn.value == 0 && !paratroopersPointSelectorOn.value)
       requestRespawn()
   }
   defer(pendingResp)
@@ -400,6 +442,27 @@ ecs.register_es("squads_state_ui_es", {
   ]
 })
 
+ecs.register_es("respawn_affordability_state_ui_es", {
+    [["onInit", "onChange"]] = @(_, comp) equalUpdate(squadsAffordability, comp.squads__affordabilityList?.getAll() ?? [])
+}, {
+  comps_track = [["squads__affordabilityList", ecs.TYPE_BOOL_LIST]]
+  comps_rq = ["localPlayer"]
+})
+
+ecs.register_es("respawn_spawn_cost_state_ui_es", {
+    [["onInit", "onChange"]] = @(_, comp) equalUpdate(squadsScorePrice, comp?.respawner__scorePricePerSquad?.getAll() ?? [])
+}, {
+  comps_track = [["respawner__scorePricePerSquad", ecs.TYPE_INT_LIST]]
+  comps_rq = ["localPlayer"]
+})
+
+ecs.register_es("respawn_score_state_ui_es", {
+    [["onInit", "onChange"]] = @(_, comp) spawnScoreActual(comp.respawner__spawnScore)
+}, {
+  comps_track = [["respawner__spawnScore", ecs.TYPE_INT]]
+  comps_rq = ["localPlayer"]
+})
+
 ecs.register_es("solder_revive_points_state_ui_es", {
     [["onInit","onDestroy","onChange"]] = function(_evt, _eid, comp) {
       if (comp.is_local)
@@ -449,10 +512,16 @@ let state = {
   canSpawnCurrentSoldier
   soldiersList
   curSoldierIdx
+  spawnScore
   respawnBlockedReason
+  respawnSelectedEid
   // functions
   updateSpawnSquadId
   requestRespawnToEntity
+  paratroopersPointSelectorOn
+  paratroopersOn
+  isParatroopersSquad
+  paratroopersPointSelectorRequested
 }
 
 let debugSpawn = mkWatched(persist,"debugSpawn")

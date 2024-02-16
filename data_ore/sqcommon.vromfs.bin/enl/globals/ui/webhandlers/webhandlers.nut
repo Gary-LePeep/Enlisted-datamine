@@ -16,6 +16,7 @@ let handlers = {
     })
   }
   replay_start = @(_ev, params) eventbus.send("replay.download", params)
+  hangar_install = @(_ev, params) eventbus.send("hangar.install", params)
 }
 
 subscribe("web-service", @(ev) handlers?[ev?.func](ev, ev?.params ?? {}))

@@ -1,36 +1,41 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { fontawesome } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontawesome } = require("%enlSqGlob/ui/fontsStyle.nut")
 let faComp = require("%ui/components/faComp.nut")
 let { CheckBoxContentActive, CheckBoxContentHover, CheckBoxContentDefault, ControlBg
 } = require("%ui/style/colors.nut")
 let { stateChangeSounds } = require("%ui/style/sounds.nut")
 let fa = require("%ui/components/fontawesome.map.nut")
-let { sound_play } = require("sound")
+let { sound_play } = require("%dngscripts/sound_system.nut")
 let { isGamepad } = require("%ui/control/active_controls.nut")
+let { mkImageCompByDargKey } = require("%ui/components/gamepadImgByKey.nut")
+let getGamepadHotkeys = require("%ui/components/getGamepadHotkeys.nut")
 
 let checkFontSize = hdpx(12)
 let boxSize = hdpx(20)
-let calcColor = @(sf)
-  (sf & S_ACTIVE) ? CheckBoxContentActive
-  : (sf & S_HOVER) ? CheckBoxContentHover
+let calcColor = @(sf) sf & S_ACTIVE ? CheckBoxContentActive
+  : sf & S_HOVER ? CheckBoxContentHover
   : CheckBoxContentDefault
 
-let box = @(stateFlags, state) function() {
-  let color = calcColor(stateFlags.value)
-  return {
-    watch = stateFlags
-    size = [boxSize, boxSize]
-    rendObj = ROBJ_BOX
-    fillColor = ControlBg
-    borderWidth = hdpx(1)
-    borderColor = color
-    borderRadius = hdpx(3)
-    halign = ALIGN_CENTER
-    valign = ALIGN_CENTER
-    children = state.value
-      ? faComp("check", {color, fontSize = checkFontSize})
-      : null
+let function box(stateFlags, state) {
+  let size = [boxSize, boxSize]
+  let watch = [stateFlags, state]
+  return function() {
+    let color = calcColor(stateFlags.value)
+    return {
+      watch
+      size
+      rendObj = ROBJ_BOX
+      fillColor = ControlBg
+      borderWidth = hdpx(1)
+      borderColor = color
+      borderRadius = hdpx(3)
+      halign = ALIGN_CENTER
+      valign = ALIGN_CENTER
+      children = state.value
+        ? faComp("check", {color, fontSize = checkFontSize})
+        : null
+    }
   }
 }
 
@@ -41,7 +46,7 @@ let mkCheckMark = @(stateFlags, state, group) @(){
   text = state.value ? fa["check"] : null
   vplace = ALIGN_CENTER
   color = calcColor(stateFlags.value)
-  size = [boxHeight,SIZE_TO_CONTENT]
+  size = [boxHeight, SIZE_TO_CONTENT]
   group
   rendObj = ROBJ_INSCRIPTION
   halign = ALIGN_CENTER
@@ -104,18 +109,27 @@ return function (state, label_text_params=null, params = {}) {
     setValue(!state.value)
     sound_play(state.value ? "ui/enlist/flag_set" : "ui/enlist/flag_unset")
   }
-  let hotkeysElem = params?.useHotkeys ? {
-    key = "hotkeys"
-    hotkeys = [
-      ["Left | J:D.Left", hotkeyLoc, onClick],
-      ["Right | J:D.Right", hotkeyLoc, onClick],
-    ]
-  } : null
+
+  let { hotkeys = null } = params
+  let hotkeyName = getGamepadHotkeys(hotkeys)
+  let image = hotkeyName != "" ? mkImageCompByDargKey(hotkeyName) : null
+  let hotkeysElem = hotkeys ? {
+        key = "hotkeys"
+        hotkeys = hotkeys.map(@(hotkey) hotkey.append(onClick))
+      }
+    : params?.useHotkeys ? {
+        key = "hotkeys"
+        hotkeys = [
+          ["Left | J:D.Left | Right | J:D.Right", hotkeyLoc, onClick]
+        ]
+      }
+    : null
   return function(){
     let children = [
+      isGamepad.value ? image : null
       isGamepad.value ? switchbox(stateFlags, state, group) : box(stateFlags, state)
       label(stateFlags, label_text_params, group, onClick)
-      stateFlags.value & S_HOVER ? hotkeysElem : null
+      hotkeys || (stateFlags.value & S_HOVER) ? hotkeysElem : null
     ]
     if (params?.textOnTheLeft)
       children.reverse()

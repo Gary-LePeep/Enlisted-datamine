@@ -1,20 +1,15 @@
 options no_aot
 require ecs
-require app
-require common_shooter.events_common_shooter
 require DagorConsole
 require DagorMath
 require DagorDebug3D
 require Dacoll
-require Gun
-require DaWeapons
-require EnlistedPhys
 require GridCollision
 require game.utils.hero
-require EnlistedNet
+require DngNet
 require game.es.server_debug_common
-require daslib/safe_addr
 require game.es.net_console_macro
+require game.es.gun_common
 
 [console_cmd(name="gun.draw_aim")]
 def draw_camera_gun_aim()
@@ -47,29 +42,6 @@ def draw_camera_gun_aim_es(evt : UpdateStageInfoRenderDebug)
     let pos = tracePos + traceDir * len
     draw_debug_sphere_buffered(pos, 0.25, color, 24, 5)
     return true
-
-def shoot_from_gun(gun_eid : EntityId; gun_tm : float3x4?; start_vel : float)
-  let atTime = get_sync_time()
-  let gctrl = [[GunControls() shoot=true, wishShoot=true, boltActionMult = 1., timeStep = 0.01]]
-  let gunPos = (*gun_tm)[3]
-  let gunDir = (*gun_tm)[0]
-  let gunVel = start_vel * gunDir
-  let gloc = [[GunLocation() gunDir      = gunDir,
-                              gunShootDir = gunDir,
-                              gunVel      = safe_addr(gunVel),
-                              gunPos      = safe_addr(gunPos),
-                              visTm       = gun_tm,
-                              physTm      = gun_tm]]
-
-  sendEventImmediate(gun_eid, [[CmdGunUpdate atTime=atTime, isForReal=true, seed=phys_time_to_seed(atTime), gctrl=gctrl, gloc=gloc]])
-
-def shoot_from_gun(gun_templ : string; bullet_type_index : int; start_vel : float; tm : float3x4?)
-  let finalizeCreation <- @ <| (gunEid : EntityId)
-    shoot_from_gun(gunEid, tm, start_vel)
-
-  let templateName = "{gun_templ}+turret_with_several_types_of_shells+gun_ammo_load_debug"
-  createEntity(templateName, finalizeCreation) <| $(var init : ComponentsInitializer)
-    set(init, "currentBulletId", bullet_type_index)
 
 def get_camera_tm()
   var tm : float3x4

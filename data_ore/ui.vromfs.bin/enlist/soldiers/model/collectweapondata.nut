@@ -2,7 +2,7 @@ import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
 let DataBlock = require("DataBlock")
-let { Point2, Point3} = require("dagor.math")
+let { Point2, Point3 } = require("dagor.math")
 let { round_by_value } = require("%sqstd/math.nut")
 
 let cachedBlocks = {}
@@ -45,6 +45,8 @@ let VEHICLE_DATA_FIELDS = {
   ["vehicle_seats__seats"] = TYPE_ARRAY,
   ["damage_model__blk"] = TYPE_STRING,
   ["turret_control__turretInfo"] = TYPE_ARRAY,
+  ["armorThicknessHull"] = TYPE_POINT3,
+  ["armorThicknessTurret"] = TYPE_POINT3,
 }
 
 let SHELLS_DATA_FIELDS = {
@@ -79,8 +81,11 @@ let SHELLS_DATA_FIELDS = {
     damage = TYPE_FLOAT
     dmgOffset = TYPE_POINT3
   }
-
 }
+
+let ignoreArmorClass = { wood = true, tank_structural_steel = true }
+
+let armorPointKeys = { x = "front", y = "side", z = "back" }
 
 let MODEL_DATA_FIELDS = {
   VehiclePhys = {
@@ -88,22 +93,22 @@ let MODEL_DATA_FIELDS = {
     engine = { horsePowers = TYPE_FLOAT, minRPM = TYPE_FLOAT, maxRPM = TYPE_FLOAT }
   }
   DamageParts = {
-    body_front = { armorThickness = TYPE_FLOAT }
-    body_side = { armorThickness = TYPE_FLOAT }
-    body_back = { armorThickness = TYPE_FLOAT }
-    body_bottom = { armorThickness = TYPE_FLOAT }
-    superstructure_front = { armorThickness = TYPE_FLOAT }
-    superstructure_side = { armorThickness = TYPE_FLOAT }
-    superstructure_back = { armorThickness = TYPE_FLOAT }
-    superstructure_bottom = { armorThickness = TYPE_FLOAT }
-    turret_front = { armorThickness = TYPE_FLOAT }
-    turret_side = { armorThickness = TYPE_FLOAT }
-    turret_top = { armorThickness = TYPE_FLOAT }
-    turret_back = { armorThickness = TYPE_FLOAT }
-    turret_01_front = { armorThickness = TYPE_FLOAT }
-    turret_01_side = { armorThickness = TYPE_FLOAT }
-    turret_01_top = { armorThickness = TYPE_FLOAT }
-    turret_01_back = { armorThickness = TYPE_FLOAT }
+    body_front = { armorThickness = TYPE_FLOAT, armorClass = TYPE_STRING }
+    body_side = { armorThickness = TYPE_FLOAT, armorClass = TYPE_STRING }
+    body_back = { armorThickness = TYPE_FLOAT, armorClass = TYPE_STRING }
+    body_bottom = { armorThickness = TYPE_FLOAT, armorClass = TYPE_STRING }
+    superstructure_front = { armorThickness = TYPE_FLOAT, armorClass = TYPE_STRING }
+    superstructure_side = { armorThickness = TYPE_FLOAT, armorClass = TYPE_STRING }
+    superstructure_back = { armorThickness = TYPE_FLOAT, armorClass = TYPE_STRING }
+    superstructure_bottom = { armorThickness = TYPE_FLOAT, armorClass = TYPE_STRING }
+    turret_front = { armorThickness = TYPE_FLOAT, armorClass = TYPE_STRING }
+    turret_side = { armorThickness = TYPE_FLOAT, armorClass = TYPE_STRING }
+    turret_top = { armorThickness = TYPE_FLOAT, armorClass = TYPE_STRING }
+    turret_back = { armorThickness = TYPE_FLOAT, armorClass = TYPE_STRING }
+    turret_01_front = { armorThickness = TYPE_FLOAT, armorClass = TYPE_STRING }
+    turret_01_side = { armorThickness = TYPE_FLOAT, armorClass = TYPE_STRING }
+    turret_01_top = { armorThickness = TYPE_FLOAT, armorClass = TYPE_STRING }
+    turret_01_back = { armorThickness = TYPE_FLOAT, armorClass = TYPE_STRING }
   }
 }
 
@@ -139,8 +144,13 @@ let function readTemplate(template, scheme) {
         break
       case TYPE_POINT2:
         let point = template.getCompValNullable(key)
-        if (point != null && (point?.x ?? 0) != 0 && (point?.y ?? 0) != 0)
-          value = Point2(point.x, point.y)
+        if (point != null)
+          value = Point2(point?.x ?? 0.0, point?.y ?? 0.0)
+        break
+      case TYPE_POINT3:
+        let point = template.getCompValNullable(key)
+        if (point != null)
+          value = Point3(point?.x ?? 0.0, point?.y ?? 0.0, point?.z ?? 0.0)
         break
       case TYPE_ARRAY:
         value = template.getCompValNullable(key)?.getAll()
@@ -180,6 +190,9 @@ let function readBlock(blockData, scheme) {
         value = blockData.getPoint3(key, zeroPoint3)
         if (value.x == 0.0 && value.y == 0.0 && value.z == 0.0)
           value = null
+        break
+      case TYPE_STRING:
+        value = blockData.getStr(key, "") || null
         break
       default:
         foreach (blk in (blockData % key) ?? []) {
@@ -313,6 +326,20 @@ let function getWeaponData(templateId) {
   return itemData
 }
 
+let function processArmorOverride(data, sourceKey, targetKey, addParam = {}) {
+  if (sourceKey not in data)
+    return
+  let points = delete data[sourceKey]
+  let armor = {}
+  foreach (key, target in armorPointKeys)
+    if (key in points)
+      armor[target] <- points[key]
+
+  armor.__update(addParam)
+  if (armor.len() > 0)
+    data[targetKey] <- armor
+}
+
 let function getVehicleData(templateId) {
   let tmplDB = ecs.g_entity_mgr.getTemplateDB()
   let template = tmplDB.getTemplateByName(templateId)
@@ -364,10 +391,10 @@ let function getVehicleData(templateId) {
     let armorOrders = {} // to get damage parts of minimal order
     foreach (armorKey, armorData in armorParts) {
       let val = armorData?.armorThickness ?? 0.0
-      if (val <= 0)
+      if (val <= 0.0 || armorData?.armorClass in ignoreArmorClass)
         continue
       local counter = 0
-      local [part, dir, dirAlt = null] = armorKey.split("_")
+      local [ part, dir, dirAlt = null ] = armorKey.split("_")
       if (dirAlt != null) {
         // multi turret vehicles
         counter = dir.tointeger()
@@ -389,6 +416,14 @@ let function getVehicleData(templateId) {
     if (addFront)
       addFront.front <- addFront?.front ?? addFront?.side
   }
+
+  // vehicle template with predefined armor setup
+  let turretTop = (vehicleData?.armor__turret.top ?? 0).tointeger()
+  let bodyBottom = (vehicleData?.armor__body.bottom ?? 0).tointeger()
+  processArmorOverride(vehicleData, "armorThicknessHull", "armor__body",
+    bodyBottom > 0 ? { bottom = bodyBottom } : {})
+  processArmorOverride(vehicleData, "armorThicknessTurret", "armor__turret",
+    turretTop > 0 ? { top = turretTop } : {})
 
   return vehicleData
 }

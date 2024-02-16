@@ -3,51 +3,76 @@ require ecs.safe
 require ecs.common
 require app
 require DagorSystem
+require AnimV20
+require CollRes
 require game.es.events
 require game.es.player_events
 require enlisted.game.es.spawn_soldier_events
 require game.es.spawn_soldier_common
+require game.es.vehicle.vehicle_seats_common
 require game.es.vehicle.vehicle_events
 require common_shooter.es.human.human_parachute_common
+require game.es.artillery_aircraft_common
+require game.es.respawn_base_common
 
-def get_item_sub_template(itemTemplate; slot) : string
-  let tpl = getTemplateByName(itemTemplate)
-  if tpl == null
-    logerr("Cannot create an equipment: template '{itemTemplate}' is not found for the slot '{slot}'")
-    return ""
+let
+  RECURSIVE = true
+  NON_RECURSIVE = false
 
-  return getTemplateComponent(*tpl, "item__recreateInEquipment") ?? "base_vis_item"
+def create_additional_equipment(item_eid : EntityId; spawner_eid : EntityId; use_vehicle : bool)
+  var equipmentLeftToCreate = 0
+  query(item_eid) <| $ [es] (item__additionalSlotTemplates : Object)
+    using() <| $(var subequipment : Object)
+      for it in item__additionalSlotTemplates
+        let subitemTemplate = it.value ?? ""
+        subequipment |> set(subitemTemplate, it.key)
+        using() <| $(var emptyObj : Object)
+          equipmentLeftToCreate += create_equipment(spawner_eid, subequipment, emptyObj, use_vehicle, NON_RECURSIVE)
+  return equipmentLeftToCreate
 
-[es(tag=server, on_appear)]
-def spawn_soldier(evt : Event; eid : EntityId; var soldierComponents : Object; var equipmentLeftToCreate : int&)
-  var equipmentPtr = getRW_ecs_object(soldierComponents, "human_equipment__initialEquip")
-  assume equipment = *equipmentPtr
-  var equipmentComponentsPtr = getRW_ecs_object(soldierComponents, "human_equipment__initialEquipComponents")
-  assume equipmentComponents = *equipmentComponentsPtr
-
-  equipmentLeftToCreate = length(equipment)
-
-  let spawnerEid = eid
+def create_equipment(spawner_eid : EntityId; equipment : Object; equipment_components : Object; use_vehicle : bool; is_recursive : bool)
+  var equipmentToCreateCount = 0
   for kv in equipment
     let gametempate = kv.key
     let slot := get_string(kv.value, "")
-    let addTemplate = get_item_sub_template(gametempate, slot)
+
+    let itemTemplate = get_item_template_for_equipment(gametempate, use_vehicle)
+    if empty(itemTemplate)
+      continue
+    equipmentToCreateCount++
 
     let finalizeCreation <- @ <| (itemEid : EntityId)
-      ecs::query(spawnerEid) <| $ [es] (var equipmentEids : Object; var equipmentLeftToCreate : int&)
+      query(spawner_eid) <| $ [es] (var equipmentEids : Object; var equipmentLeftToCreate : int&)
         set(equipmentEids, slot, itemEid)
         equipmentLeftToCreate -= 1
+        if is_recursive
+          equipmentLeftToCreate += create_additional_equipment(itemEid, spawner_eid, use_vehicle)
         if equipmentLeftToCreate <= 0
-          sendEvent(spawnerEid, [[SoldierSpawnEquipmentCreated]])
+          sendEvent(spawner_eid, [[SoldierSpawnEquipmentCreated]])
 
-    createEntity("{gametempate}+{addTemplate}", finalizeCreation) <| $(var init : ComponentsInitializer)
-      let components = get_ecs_object(equipmentComponents, gametempate)
+    createEntity(itemTemplate, finalizeCreation) <| $(var init : ComponentsInitializer)
+      let components = get_ecs_object(equipment_components, gametempate)
       if components != null
         let tpl = getTemplateByName(gametempate)
         for comp in *components
           let keyHash = ecs_hash(comp.key)
           if tpl != null && templateHasComponent(*tpl, comp.key, keyHash)
             set(init, comp.key, keyHash, comp.value)
+  return equipmentToCreateCount
+
+[es(tag=server, on_appear)]
+def spawn_soldier(evt : Event;
+                  eid : EntityId;
+                  useVechicle : EntityId = INVALID_ENTITY_ID;
+                  var soldierComponents : Object;
+                  var equipmentLeftToCreate : int&)
+  var equipmentPtr = getRW_ecs_object(soldierComponents, "human_equipment__initialEquip")
+  assume equipment = *equipmentPtr
+  var equipmentComponentsPtr = getRW_ecs_object(soldierComponents, "human_equipment__initialEquipComponents")
+  assume equipmentComponents = *equipmentComponentsPtr
+
+  equipmentLeftToCreate = length(equipment)
+  equipmentLeftToCreate = create_equipment(eid, equipment, *equipmentComponentsPtr, !!useVechicle, RECURSIVE)
 
   clear(equipment)
   clear(equipmentComponents)
@@ -88,7 +113,30 @@ def spawn_soldier_done(evt : Event;
       init_item_container(soldierEid)
 
       if !!useVechicle
-        use_vehicle_on_spawn(soldierEid, squadEid, playerEid, useVechicle, soldierIndexInSquad)
+        var seatsOffset = soldierIndexInSquad
+        query(playerEid) <| $ [es] (respawner__mobileRespawnEid : EntityId)
+          if respawner__mobileRespawnEid == useVechicle
+            seatsOffset = -1
+            query(useVechicle) <| $ [es] (var mobile_respawn__nextSpawnTimer : float&;
+                                          var mobile_respawn__reservedPlayerEid : EntityId&;
+                                          var active : bool&;
+                                          vehicle_seats__seatEids : EidList;
+                                          mobile_respawn__spawnCooldown : float)
+              for seatNo in range(length(vehicle_seats__seatEids))
+                query(vehicle_seats__seatEids[seatNo]) <| $ [es] (seat__ownerEid : EntityId; seats_order__canPlaceOnlyOwner : bool = false)
+                  if !seat__ownerEid && !seats_order__canPlaceOnlyOwner
+                    seatsOffset = seatNo
+                if seatsOffset != -1
+                  break
+              mobile_respawn__nextSpawnTimer = get_sync_time() + mobile_respawn__spawnCooldown
+              active = false
+              if mobile_respawn__reservedPlayerEid == playerEid
+                mobile_respawn__reservedPlayerEid = INVALID_ENTITY_ID
+        if seatsOffset < 0
+          let templ = getEntityTemplateName(useVechicle)
+          logerr("No free seats in mobile respawn {templ}, player {playerEid}")
+          return
+        use_vehicle_on_spawn(soldierEid, squadEid, playerEid, useVechicle, seatsOffset)
 
   let baseTemplateName = split_template(soldierTemplate)[0]
   let tpl = getTemplateByName(baseTemplateName)
@@ -116,7 +164,10 @@ def finalize_soldier_creation(evt : FinalizeSoldierCreation; eid : EntityId)
 
 // Do not send any net events from here, its used in finilizer block
 def use_vehicle_on_spawn(possessed : EntityId; squad : EntityId; player_eid : EntityId; vehicle : EntityId; seat_order_no : int)
-  query(vehicle) <| $ [es] (vehicle_seats__seatEids : EidList)
+  query(vehicle) <| $ [es] (vehicle_seats__seatEids : EidList;
+                            animchar : AnimcharBaseComponent;
+                            collres : CollisionResource;
+                            transform aka vehicle_transform : float3x4)
     if seat_order_no >= length(vehicle_seats__seatEids)
       logerr("Seats order index is out of range ({seat_order_no} >= {length(vehicle_seats__seatEids)})")
       return
@@ -124,14 +175,24 @@ def use_vehicle_on_spawn(possessed : EntityId; squad : EntityId; player_eid : En
     var isPlayer = false
     let seatNo = get_int(vehicle_seats__seatEids[seat_order_no], "seats_order__seatNo") ?? -1
     query(possessed) <| $ [es] (possessedByPlr : ecs::EntityId;
+                                var transform aka human_transform : float3x4&;
                                 var isInVehicle : bool&;
                                 var disable_collision : bool&;
                                 var human_anim__vehicleSelected : ecs::EntityId&;
                                 var human_vehicle__occupiedSeatEid : ecs::EntityId&;
+                                var human_vehicle__lastKnownSeatEid : ecs::EntityId?;
                                 var vehicle__lastEid : ecs::EntityId&;
-                                var vehicle__lastTime : float&)
+                                var vehicle__lastTime : float&;
+                                var vehicle__localSeatTm : float3x4&;
+                                var vehicle__globalSeatTm : float3x4&)
       if seatNo >= 0
         human_vehicle__occupiedSeatEid = vehicle_seats__seatEids[seatNo]
+        if human_vehicle__lastKnownSeatEid != null
+          *human_vehicle__lastKnownSeatEid = human_vehicle__occupiedSeatEid
+        if get_seat_attach_tm(human_vehicle__occupiedSeatEid, animchar, collres, vehicle_transform, vehicle__globalSeatTm)
+          let inverseTm = inverse(vehicle_transform);
+          vehicle__localSeatTm = inverseTm * vehicle__globalSeatTm
+          human_transform = vehicle__globalSeatTm
 
       isPlayer = possessedByPlr != INVALID_ENTITY_ID
       isInVehicle = true

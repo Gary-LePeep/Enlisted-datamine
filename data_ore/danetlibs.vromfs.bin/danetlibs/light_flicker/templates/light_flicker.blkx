@@ -1,0 +1,138 @@
+{
+  "light_flicker_sound": {
+    "_group": {
+      "_tags": "sound",
+      "light_flicker_sound__enabled": false,
+      "light_flicker_sound__inited": false
+    }
+  },
+  "light_flicker": [
+    {
+      "light_flicker__name": "undefined"
+    },
+    {
+      "_tracked": "light_flicker__state"
+    },
+    {
+      "_group": {
+        "_replicate": true,
+        "light_flicker__attack_time": [0.01,0.4],
+        "light_flicker__release_time": [0.01,0.1],
+        "light_flicker__on_brightness": [0.7,1.0],
+        "light_flicker__off_brightness": [0.0,0.3],
+        "light_flicker__on_time": [0.2,3.0],
+        "light_flicker__off_time": [0.1,0.2],
+        "light_flicker__noise_brightness_on": [0.7,1.0],
+        "light_flicker__noise_brightness_off": [0.7,1.0],
+        "light_flicker__noise_time": 10.0,
+        "light_flicker__time": 0.0,
+        "light_flicker__seed": 0,
+        "light_flicker__brightness": 0.0,
+        "light_flicker__nightly": false
+      }
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "light_flicker__state": 0,
+        "light_flicker__lightEids:list<eid>": []
+      }
+    }
+  ],
+  "light_flicker_sparks_vfx": {
+    "_tags": "render",
+    "light_flicker__sparksEffectTemplate": "envir_sparks_burst_tiny_smoke_lamp_effect",
+    "light_flicker__sparksEffectSpawnChance": 0.3
+  },
+  "light_flicker_with_sparks": [
+    {
+      "_use": "light_flicker"
+    },
+    {
+      "_use": "light_flicker_sound"
+    },
+    {
+      "_use": "light_flicker_sparks_vfx"
+    }
+  ],
+  "light_flicker_with_sparks_nightly": {
+    "_use": "light_flicker_with_sparks",
+    "light_flicker__nightly": true
+  },
+  "light_flicker_updater_sound": [
+    {
+      "_use": "sound_control"
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "sound_control__enable": false
+      }
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "light_flicker_updater_sound__path": "env_effects/lamp_hum",
+        "light_flicker_updater_sound__onPath": "env_effects/lamp_on",
+        "light_flicker_updater_sound__offPath": "env_effects/lamp_off",
+        "light_flicker_updater_sound__event:SoundEvent": []
+      }
+    }
+  ],
+  "light_flicker_updater": [
+    {
+      "_use": "light_flicker_updater_sound"
+    },
+    {
+      "_use": "replicating"
+    },
+    {
+      "_tracked": "light_flicker_updater__template"
+    },
+    {
+      "light_flicker_updater__template": ""
+    },
+    {
+      "light_flicker_updater__color_full_brightness": [1.0,1.0,1.0,1.0]
+    },
+    {
+      "light_flicker_updater__parentEid:eid": []
+    }
+  ],
+  "light_flicker_updater_light": {
+    "_use": "light_flicker_updater",
+    "light__force_max_light_radius": true
+  },
+  "light_flicker_updater_mesh": [
+    {
+      "_use": "light_flicker_updater"
+    },
+    {
+      "_use": "animchar"
+    },
+    {
+      "_use": "dynmat_params_base"
+    },
+    {
+      "animchar__res": ""
+    },
+    {
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [0.0,0.0,0.0]
+      ]
+    },
+    {
+      "dynamic_material_channels_arr:array": {
+        "_tags": "render",
+        "dynamic_material_channel:object": {
+          "dynamic_material_type": "emissive",
+          "dynmat_param__emissive_color": [1.0,1.0,1.0,10.0],
+          "dynmat_param__emission_albedo_mult": 0.1
+        }
+      }
+    }
+  ]
+}

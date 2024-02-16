@@ -111,11 +111,14 @@
   },
   {
     "entity": {
-      "_template": "postfx_roundctrl",
-      "post_fx:object": {
-        "bloom__threshold": 3.8,
-        "bloom__upSample": 0.15
-      }
+      "_template": "bloom",
+      "bloom__threshold": 3.8,
+      "bloom__upSample": 0.15
+    }
+  },
+  {
+    "entity": {
+      "_template": "postfx_roundctrl"
     }
   },
   {
@@ -1589,21 +1592,6 @@
         [0.992085,-0.00633177,-0.125409],
         [-437.451,15.0358,407.736]
       ]
-    }
-  },
-  {
-    "entity": {
-      "_template": "game_object_compound_sound_generator",
-      "game_object_compound_sound_generator__entityTypes:array": {
-        "entity:object": {
-          "singleEntityTemplate": "volume_ambient_sound",
-          "compoundEntityTemplate": "compound_ambient_sound",
-          "soundName": "plant",
-          "objectTypes:object": {
-            "ambient_sound_plant_box": "box"
-          }
-        }
-      }
     }
   }
 ]

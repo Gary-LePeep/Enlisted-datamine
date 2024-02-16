@@ -2,7 +2,7 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let loginCb = require("%enlist/login/login_cb.nut")
 let auth = require("auth")
-let user = require("%xboxLib/impl/user.nut")
+let user = require("%xboxLib/user.nut")
 let privileges = require("%xboxLib/impl/privileges.nut")
 let { xbox_login } = require("%enlist/xbox/login.nut")
 
@@ -11,8 +11,8 @@ let { xbox_login } = require("%enlist/xbox/login.nut")
 let function init_user(state, cb) {
   let login_function =
     (state.params?.xuid != null)
-    ? user.init_default_user
-    : user.init_user_with_ui
+    ? user.init_default
+    : user.init_with_ui
 
   login_function(function(xuid) {
     if (xuid > 0)
@@ -40,14 +40,14 @@ let function login_live(state, cb) {
 let function check_priveleges(_state, cb) {
   let failure_loc_key = "permission_check_failure_mp" // Multiplayer is not permited
   let error_callback = error_cb(cb, failure_loc_key, false)
-  privileges.retrieve_current_state(privileges.Privilege.Multiplayer, true, function(success, state, reason) {
+  privileges.retrieve_current_state(privileges.Privilege.Multiplayer, function(success, state, reason) {
     if (state == privileges.State.ResolutionRequired) {
       // if privilege was denied, check reason. If it requires resolution for Gold membership, allow login
       if (reason == privileges.DenyReason.PurchaseRequired)
         error_callback(true)
       else
-        privileges.resolve_with_ui(privileges.Privilege.Multiplayer, function(success, state) {
-          error_callback(success && (state == privileges.State.Allowed))
+        privileges.resolve_with_ui(privileges.Privilege.Multiplayer, function(resolved_success, resolved_state) {
+          error_callback(resolved_success && (resolved_state == privileges.State.Allowed))
         })
     } else
       error_callback(success && (state == privileges.State.Allowed))
@@ -55,7 +55,7 @@ let function check_priveleges(_state, cb) {
 }
 
 let function onInterrupt(state) {
-  user.shutdown_user()
+  user.shutdown()
   loginCb.onInterrupt(state)
 }
 
@@ -63,6 +63,7 @@ return {
   stages = [
     { id = "init_user", action = init_user, actionOnReload = @(_state, _cb) null },
     { id = "auth_xbox", action = login_live, actionOnReload = @(_state, _cb) null },
+    require("%enlist/login/stages/eula_before_login.nut"),
     require("%enlist/login/stages/auth_result.nut"),
     { id = "permissions", action = check_priveleges, actionOnReload = @(_state, _cb) null },
     require("%enlist/login/stages/char.nut"),

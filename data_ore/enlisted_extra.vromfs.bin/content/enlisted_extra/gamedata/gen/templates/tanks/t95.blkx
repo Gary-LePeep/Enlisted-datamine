@@ -1,10 +1,10 @@
 {
   "base_t95": [
     {
-      "_extends": "base_tank"
+      "_use": "base_tank"
     },
     {
-      "_extends": "t95_ammo_stowages"
+      "_use": "t95_ammo_stowages"
     },
     {
       "killLogName": "us_t95"
@@ -158,7 +158,7 @@
     }
   ],
   "t95_turret_01_105mm_t15e2": {
-    "_extends": "tankgun_105mm_t15e2",
+    "_use": "tankgun_105mm_t15e2",
     "gun__shootNodeName": "bone_gun_barrel",
     "turret__yawSpeed": 10.0,
     "turret__pitchSpeed": 4.0,
@@ -180,7 +180,7 @@
     ]
   },
   "t95_turret_02_12_7mm_m2_hb": {
-    "_extends": "tankgun_12_7mm_m2_hb",
+    "_use": "tankgun_12_7mm_m2_hb",
     "gun__shootNodeName": "bone_mg_aa_v_01",
     "turret__yawSpeed": 90.0,
     "turret__pitchSpeed": 90.0,
@@ -206,13 +206,13 @@
   },
   "t95_ammo_stowages": {
     "_tags": "server",
-    "_extends": "vehicle_ammo_stowages",
+    "_use": "vehicle_ammo_stowages",
     "ammo_stowage__stowageTemplates:shared:list<t>": {
       "stowage": "t95_primary_ammo_stowage"
     }
   },
   "t95_primary_ammo_stowage": {
-    "_extends": "ammo_stowage",
+    "_use": "ammo_stowage",
     "ammo_stowage__clusterTemplates:shared:list<t>": [
       {
         "cluster": "t95_primary_shells_ammo_cluster"
@@ -226,7 +226,7 @@
     }
   },
   "t95_primary_shells_ammo_cluster": {
-    "_extends": "ammo_cluster",
+    "_use": "ammo_cluster",
     "ammo_cluster__isShell": true,
     "ammo_cluster__slotNames:shared:list<t>": [
       {
@@ -420,7 +420,7 @@
     ]
   },
   "t95_primary_charges_ammo_cluster": {
-    "_extends": "ammo_cluster",
+    "_use": "ammo_cluster",
     "ammo_cluster__isShell": false,
     "ammo_cluster__slotNames:shared:list<t>": [
       {

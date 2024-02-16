@@ -7,9 +7,9 @@ require game.utils.team
 require zones
 require AnimV20
 require GeomNodeTree
-require EnlistedWeapon
-require EnlistedHuman
-require EnlistedCamera
+require DngWeapon
+require DngHuman
+require DngCamera
 require DagorMath
 require Grid
 require RendInst
@@ -181,7 +181,7 @@ def hero_human_use_human_object_es(info : ParallelUpdateFrameDelayed;
           if !isAlive
             return
           let playerGroup = get_int64(squad_member__playerEid, "origGroupId") ?? int64(INVALID_GROUP_ID)
-          if !can_use_vehicle(team_human, vehicle_seats__restrictToTeam, playerGroup, vehicle_seats__restrictToGroup)
+          if !can_use_vehicle(team_human, vehicle_seats__restrictToTeam, playerGroup, vehicle_seats__restrictToGroup, entity.eid, eid)
             return
           if is_vehicle_has_free_player_seats(entity.eid, possessedByPlr)
             human_use_object__selectedObject = entity.eid
@@ -201,7 +201,7 @@ def hero_human_use_human_object_es(info : ParallelUpdateFrameDelayed;
         break
 
 
-[es(REQUIRE=hero, after=(hero_human_use_grenade_rethrow_object_es, hero_human_pre_use_object_es), before=hero_human_final_use_object_sync)]
+[es(REQUIRE=hero, after=(hero_human_pre_use_object_es, hero_human_pre_use_object_es), before=hero_human_final_use_object_sync)]
 def hero_human_use_downed_human_object_es(info : ParallelUpdateFrameDelayed;
                                           animchar : AnimcharBaseComponent;
                                           team aka team_hero : int;

@@ -1,7 +1,12 @@
 {
-  "import": {
-    "scene": "content/enlisted/gamedata/scenes/_tunisia_biome_fx.blk"
-  },
+  "import": [
+    {
+      "scene": "content/enlisted/gamedata/scenes/_tunisia_biome_fx.blk"
+    },
+    {
+      "scene": "content/enlisted/gamedata/scenes/_tunisia_gpu_objects.blk"
+    }
+  ],
   "entity": {
     "_template": "shaderVars",
     "shader_vars__vars:object": {

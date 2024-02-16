@@ -2,7 +2,7 @@ import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
 let { forcedMinimalHud } = require("%ui/hud/state/hudGameModes.nut")
-let { h2_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontHeading2, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let playerGrenades = require("player_info/grenades.ui.nut")
 let {medicMedpacks} = require("player_info/medic_medpacks.ui.nut")
 let { barWidth } = require("player_info/style.nut")
@@ -15,28 +15,30 @@ let {weaponItems} = require("player_info/player_weapon_switch.nut")
 let mkAmmoInfo = require("player_info/player_ammo.ui.nut")
 let { controlledHeroEid } = require("%ui/hud/state/controlled_hero.nut")
 let {minimalistHud} = require("%ui/hud/state/hudOptionsState.nut")
-let { currentGunEid } = require("%ui/hud/state/hero_weapons.nut")
-let {mkMedkitIcon} = require("player_info/medkitIcon.nut")
+let { currentGunEid, showAllWeaponsTrigger } = require("%ui/hud/state/hero_weapons.nut")
+let mkMedkitIcon = require("player_info/medkitIcon.nut")
 let {selfHealMedkits} = require("%ui/hud/state/total_medkits.nut")
+let { defTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
+let { mobileRespawnOccupiedSeats } = require("%ui/hud/huds/player_info/mobile_respawn_widget.nut")
 
 let hasMedkit = Computed(@() selfHealMedkits.value > 0)
-let medkitIco = mkMedkitIcon(hdpx(25))
+let medkitIco = mkMedkitIcon(hdpxi(25), defTxtColor)
 let playerMedkits = @() {
   watch = hasMedkit
   children = hasMedkit.value ? medkitIco : null
 }
 
 let mainStyles = {
-  curAmmo = {fontFxColor=Color(0,0,0,50) fontFx=FFT_GLOW}.__update(h2_txt)
-  sep = {fontFxColor=Color(0,0,0,50) fontFx=FFT_GLOW}.__update(h2_txt)
-  totalAmmo = {fontFxColor=Color(0,0,0,50) fontFx=FFT_GLOW}.__update(h2_txt)
+  curAmmo = {fontFxColor=Color(0,0,0,50) fontFx=FFT_GLOW}.__update(fontHeading2)
+  sep = {fontFxColor=Color(0,0,0,50) fontFx=FFT_GLOW}.__update(fontHeading2)
+  totalAmmo = {fontFxColor=Color(0,0,0,50) fontFx=FFT_GLOW}.__update(fontHeading2)
   useBlur = false
 }
 
 let secondaryStyles = {
-  curAmmo = {fontFxColor=Color(0,0,0,50) fontFx=FFT_GLOW}.__update(sub_txt)
-  sep = {fontFxColor=Color(0,0,0,50) fontFx=FFT_GLOW}.__update(sub_txt)
-  totalAmmo = {fontFxColor=Color(0,0,0,50) fontFx=FFT_GLOW}.__update(sub_txt)
+  curAmmo = {fontFxColor=Color(0,0,0,50) fontFx=FFT_GLOW}.__update(fontSub)
+  sep = {fontFxColor=Color(0,0,0,50) fontFx=FFT_GLOW}.__update(fontSub)
+  totalAmmo = {fontFxColor=Color(0,0,0,50) fontFx=FFT_GLOW}.__update(fontSub)
   useBlur = false
 }
 
@@ -95,6 +97,7 @@ let function activateShowAllWeapons(...){
   gui_scene.resetTimeout(4, hideAllWeapons)
 }
 activateShowAllWeapons()
+showAllWeaponsTrigger.subscribe(activateShowAllWeapons)
 controlledHeroEid.subscribe(activateShowAllWeapons)
 currentGunEid.subscribe(function(eid) {
   if (eid != ecs.INVALID_ENTITY_ID)
@@ -118,10 +121,10 @@ let function playerBlock() {
     halign = ALIGN_RIGHT
     size = [barWidth, SIZE_TO_CONTENT]
     gap = fsh(0.5)
-    watch = [showPlayerHuds, showVehicleWeapons, forcedMinimalHud]
+    watch = [showPlayerHuds, showVehicleWeapons, forcedMinimalHud, mobileRespawnOccupiedSeats]
     children = showPlayerHuds.value ? [
       !showVehicleWeapons.value ? playerDynamic : null,
-      showVehicleWeapons.value ? vehicleBlock : null,
+      (showVehicleWeapons.value || mobileRespawnOccupiedSeats.value != null) ? vehicleBlock : null,
       vitalPlayerInfo
     ] : null
   }

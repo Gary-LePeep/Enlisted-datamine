@@ -22,119 +22,73 @@
   },
   {
     "base_bike_left_sidecar": {
-      "_extends": "base_bike_common",
-      "dm_phys_parts__enginePartIds:list<i>": [],
-      "dm_phys_parts__transmissionPartIds:list<i>": [],
-      "dm_phys_parts__tracksPartIds:list<i>": [],
-      "dm_phys_parts__wheelsPartIds:list<i>": [],
-      "dm_phys_parts__engine:array": {
-        "engine": "engine"
-      },
-      "dm_phys_parts__transmission:array": {
-        "transmission": "transmission"
-      },
-      "dm_phys_parts__tracks:array": [],
-      "dm_phys_parts__ammo:array": [],
-      "dm_phys_parts__wheels:array": [
-        {
-          "wheel": "wheel_l_drive"
-        },
-        {
-          "wheel": "wheel_r_drive"
-        },
-        {
-          "wheel": "wheel_r_01"
-        }
-      ]
+      "_use": "base_bike_common"
     }
   },
   {
     "base_bike_right_sidecar": {
-      "_extends": "base_bike_common",
-      "dm_phys_parts__enginePartIds:list<i>": [],
-      "dm_phys_parts__transmissionPartIds:list<i>": [],
-      "dm_phys_parts__tracksPartIds:list<i>": [],
-      "dm_phys_parts__wheelsPartIds:list<i>": [],
-      "dm_phys_parts__engine:array": {
-        "engine": "engine"
-      },
-      "dm_phys_parts__transmission:array": {
-        "transmission": "transmission"
-      },
-      "dm_phys_parts__tracks:array": [],
-      "dm_phys_parts__ammo:array": [],
-      "dm_phys_parts__wheels:array": [
-        {
-          "wheel": "wheel_l_drive"
-        },
-        {
-          "wheel": "wheel_r_drive"
-        },
-        {
-          "wheel": "wheel_l_01"
-        }
-      ]
+      "_use": "base_bike_common"
     }
   },
   {
     "base_bike_common_sound": [
       {
-        "_extends": "motorcycle_vehicle_brakes_sound"
+        "_use": "motorcycle_vehicle_brakes_sound"
       },
       {
-        "_extends": "motorcycle_vehicle_scrape_sound_setup"
+        "_use": "motorcycle_vehicle_scrape_sound_setup"
       },
       {
-        "_extends": "motorcycle_vehicle_seat_sound"
+        "_use": "motorcycle_vehicle_seat_sound"
       },
       {
-        "_extends": "motorcycle_vehicle_suspension_sound"
+        "_use": "motorcycle_vehicle_suspension_sound"
       },
       {
-        "_extends": "motorcycle_vehicle_tracks_sound"
+        "_use": "motorcycle_vehicle_tracks_sound"
       },
       {
-        "_extends": "motorcycle_vehicle_engine_sound"
+        "_use": "motorcycle_vehicle_engine_sound"
       },
       {
-        "_extends": "motorcycle_vehicle_gear_sound"
+        "_use": "motorcycle_vehicle_gear_sound"
       },
       {
-        "_extends": "motorcycle_vehicle_horn_sound"
+        "_use": "motorcycle_vehicle_horn_sound"
       },
       {
-        "_extends": "vehicle_horn_note_E5"
+        "_use": "vehicle_horn_note_E5"
       }
     ]
   },
   {
     "base_bike_common": [
       {
-        "_extends": "base_tank_without_xray_common"
+        "_use": "base_tank_without_xray_common"
       },
       {
-        "_extends": "bike_camera_setup"
+        "_use": "bike_camera_setup"
       },
       {
-        "_extends": "base_tank_seat_templates"
+        "_use": "base_tank_seat_templates"
       },
       {
-        "_extends": "base_phys_modifications"
+        "_use": "base_phys_modifications"
       },
       {
-        "_extends": "vehicle_anim_steering_deflection"
+        "_use": "vehicle_anim_steering_deflection"
       },
       {
-        "_extends": "resupply_vehicle"
+        "_use": "resupply_vehicle"
       },
       {
-        "_extends": "vehicle_steering_assist"
+        "_use": "vehicle_steering_assist"
       },
       {
-        "_extends": "vehicle_autodetect_team"
+        "_use": "vehicle_autodetect_team"
       },
       {
-        "_extends": "base_bike_common_sound"
+        "_use": "base_bike_common_sound"
       },
       {
         "team": -1
@@ -162,6 +116,168 @@
       },
       {
         "vehicle_seats__exitTime": 0.5
+      },
+      {
+        "vehicle_free_look__zoomIn": 1.5
+      },
+      {
+        "item__iconOffset": [0.0,-0.2]
+      },
+      {
+        "item__iconScale": 1.15
+      },
+      {
+        "item__iconYaw": 25.0
+      },
+      {
+        "item__iconPitch": -3.0
+      },
+      {
+        "item__iconRoll": 15.0
+      },
+      {
+        "item__lightZenith": 180.0
+      },
+      {
+        "item__lightAzimuth": 140.0
+      },
+      {
+        "fatal_explosion_fx__fx:array": [
+          {
+            "fx:object": {
+              "dmParts:array": [],
+              "fx:array": [
+                {
+                  "fx:object": {
+                    "name": "tank_fire_medium_template",
+                    "emitter": "emtr_fire_engine"
+                  }
+                },
+                {
+                  "fx:object": {
+                    "name": "tank_fire_small_template",
+                    "emitter": "emtr_fire_small_dmg_01"
+                  }
+                },
+                {
+                  "fx:object": {
+                    "name": "tank_fire_small_template",
+                    "emitter": "emtr_fire_small_dmg_02"
+                  }
+                },
+                {
+                  "fx:object": {
+                    "name": "tank_fire_small_template",
+                    "emitter": "emtr_fire_small_dmg_03"
+                  }
+                },
+                {
+                  "fx:object": {
+                    "name": "tank_fire_small_template",
+                    "emitter": "emtr_fire_small_dmg_04"
+                  }
+                },
+                {
+                  "fx:object": {
+                    "name": "tank_fire_small_template",
+                    "emitter": "emtr_fire_small_dmg_05"
+                  }
+                },
+                {
+                  "fx:object": {
+                    "name": "tank_fire_small_template",
+                    "emitter": "emtr_fire_small_dmg_06"
+                  }
+                },
+                {
+                  "fx:object": {
+                    "name": "tank_fire_small_template",
+                    "emitter": "emtr_fire_small_dmg_07"
+                  }
+                },
+                {
+                  "fx:object": {
+                    "name": "tank_fire_small_template",
+                    "emitter": "emtr_fire_small_dmg_08"
+                  }
+                },
+                {
+                  "fx:object": {
+                    "name": "tank_fire_small_template",
+                    "emitter": "emtr_fire_small_dmg_09"
+                  }
+                },
+                {
+                  "fx:object": {
+                    "name": "tank_fire_small_template",
+                    "emitter": "emtr_fire_small_dmg_10"
+                  }
+                },
+                {
+                  "fx:object": {
+                    "name": "tank_fire_small_template",
+                    "emitter": "emtr_fire_small_dmg_11"
+                  }
+                },
+                {
+                  "fx:object": {
+                    "name": "tank_fire_small_template",
+                    "emitter": "emtr_fire_small_dmg_12"
+                  }
+                },
+                {
+                  "fx:object": {
+                    "name": "tank_fire_small_template",
+                    "emitter": "emtr_fire_small_dmg_13"
+                  }
+                },
+                {
+                  "fx:object": {
+                    "name": "tank_fire_small_template",
+                    "emitter": "emtr_fire_small_dmg_14"
+                  }
+                },
+                {
+                  "fx:object": {
+                    "name": "tank_fire_small_template",
+                    "emitter": "emtr_fire_small_dmg_15"
+                  }
+                },
+                {
+                  "fx:object": {
+                    "name": "tank_fire_small_template",
+                    "emitter": "emtr_fire_small_dmg_16"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "fx:object": {
+              "dmParts:array": [],
+              "fx:array": [
+                {
+                  "fx:object": {
+                    "name": "tank_smoke_small_template",
+                    "emitter": "emtr_fire_ammo"
+                  }
+                },
+                {
+                  "fx:object": {
+                    "name": "tank_smoke_small_template",
+                    "emitter": "emtr_fire_ammo_01"
+                  }
+                },
+                {
+                  "fx:object": {
+                    "name": "tank_smoke_small_template",
+                    "emitter": "emtr_fire_ammo_02"
+                  }
+                }
+              ]
+            }
+          }
+        ]
       },
       {
         "isSimpleTurretCrosshair:b": {
@@ -239,12 +355,143 @@
           "driver": "bike_seat_driver",
           "commander": "vehicle_seat_commander"
         }
+      },
+      {
+        "bike:tag": []
+      },
+      {
+        "dm_parts_repair_names:list<t>": [
+          {
+            "part": "part:t="
+          },
+          {
+            "part": "drive_turret_h"
+          },
+          {
+            "part": "drive_turret_v"
+          },
+          {
+            "part": "cannon_breech"
+          },
+          {
+            "part": "engine"
+          },
+          {
+            "part": "transmission"
+          },
+          {
+            "part": "gun_barrel"
+          },
+          {
+            "part": "gun_barrel_01"
+          },
+          {
+            "part": "gun_barrel_02"
+          },
+          {
+            "part": "gun_barrel_03"
+          },
+          {
+            "part": "gun_barrel_04"
+          },
+          {
+            "part": "gun_barrel_05"
+          },
+          {
+            "part": "track_r"
+          },
+          {
+            "part": "track_l"
+          },
+          {
+            "part": "track_r_01"
+          },
+          {
+            "part": "track_l_01"
+          },
+          {
+            "part": "wheel_l_back"
+          },
+          {
+            "part": "wheel_l_front"
+          },
+          {
+            "part": "wheel_l_drive"
+          },
+          {
+            "part": "wheel_r_back"
+          },
+          {
+            "part": "wheel_r_front"
+          },
+          {
+            "part": "wheel_r_drive"
+          },
+          {
+            "part": "wheel_r_01"
+          },
+          {
+            "part": "wheel_r_02"
+          },
+          {
+            "part": "wheel_r_03"
+          },
+          {
+            "part": "wheel_r_04"
+          },
+          {
+            "part": "wheel_r_05"
+          },
+          {
+            "part": "wheel_r_06"
+          },
+          {
+            "part": "wheel_r_07"
+          },
+          {
+            "part": "wheel_r_08"
+          },
+          {
+            "part": "wheel_l_01"
+          },
+          {
+            "part": "wheel_l_02"
+          },
+          {
+            "part": "wheel_l_03"
+          },
+          {
+            "part": "wheel_l_04"
+          },
+          {
+            "part": "wheel_l_05"
+          },
+          {
+            "part": "wheel_l_06"
+          },
+          {
+            "part": "wheel_l_07"
+          },
+          {
+            "part": "wheel_l_08"
+          }
+        ]
+      },
+      {
+        "dm_parts__repairGroups:object": []
+      },
+      {
+        "dm_phys_parts__wheelsPartIds:list<i>": []
       }
     ]
   },
   {
     "bike_camera_setup": {
-      "_extends": "tank_camera_setup",
+      "_use": "tank_camera_setup",
+      "camName": "bike_fps_cam",
+      "camNames:array": {
+        "camNames": "bike_fps_cam"
+      },
       "defaultCameraTypes:shared:object": {
         "driver": "commander",
         "commander": "commander",
@@ -254,7 +501,7 @@
   },
   {
     "bike_seat_driver": {
-      "_extends": "base_vehicle_seat",
+      "_use": "base_vehicle_seat",
       "seats_order__canPlaceManually": true,
       "seat_anim__upper": "drive_driver",
       "seat_anim__lower": "drive_driver",
@@ -274,7 +521,7 @@
   },
   {
     "bike_mods": {
-      "_extends": "bike_phys_mods",
+      "_use": "bike_phys_mods",
       "vehicle_mods__maxHorDriveMult:r": {
         "_tags": "server",
         "value": 1.0

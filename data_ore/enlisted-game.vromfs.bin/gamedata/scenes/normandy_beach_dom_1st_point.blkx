@@ -1,0 +1,1615 @@
+[
+  {
+    "import": {
+      "scene": "content/enlisted/gamedata/scenes/_normandy_sounds.blk"
+    }
+  },
+  {
+    "import": {
+      "scene": "content/enlisted/gamedata/scenes/_normandy_shore_sound.blk"
+    }
+  },
+  {
+    "import": {
+      "scene": "content/enlisted/gamedata/scenes/_normandy_beach_fortified_biom_fx.blk"
+    }
+  },
+  {
+    "import": {
+      "scene": "content/enlisted/gamedata/scenes/_normandy_beach_scene_fx.blk"
+    }
+  },
+  {
+    "entity": {
+      "_template": "poly_battle_area",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [32.7095,3.03128,321.265]
+      ],
+      "battleAreaId": "area1_1",
+      "battle_area__team": 1,
+      "groupName": "sector_1",
+      "active": false,
+      "poly_area__points:list<p3>": [
+        {
+          "item": [70.5079,16.0361,153.958]
+        },
+        {
+          "item": [158.354,16.0361,162.272]
+        },
+        {
+          "item": [158.575,-0.21521,465.561]
+        },
+        {
+          "item": [-129.793,-0.0982361,464.435]
+        },
+        {
+          "item": [-128.246,17.8595,171.193]
+        },
+        {
+          "item": [-52.3915,14.8479,175.352]
+        },
+        {
+          "item": [-42.3421,16.423,161.416]
+        },
+        {
+          "item": [14.4482,14.316,162.736]
+        },
+        {
+          "item": [29.0473,10.1059,153.654]
+        },
+        {
+          "item": [48.9095,13.8898,152.702]
+        }
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "poly_battle_area",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [32.8425,3.03128,320.031]
+      ],
+      "battleAreaId": "area1_2",
+      "battle_area__team": 2,
+      "groupName": "sector_1",
+      "active": false,
+      "poly_area__points:list<p3>": [
+        {
+          "item": [-127.594,17.5646,172.633]
+        },
+        {
+          "item": [-102.542,44.5583,77.6251]
+        },
+        {
+          "item": [-62.5868,38.7382,18.9768]
+        },
+        {
+          "item": [-49.1762,36.0729,-7.89364]
+        },
+        {
+          "item": [-12.3269,37.3519,-50.1745]
+        },
+        {
+          "item": [12.954,37.5398,-60.4231]
+        },
+        {
+          "item": [162.058,61.9681,-47.2174]
+        },
+        {
+          "item": [158.737,8.8752,233.497]
+        },
+        {
+          "item": [142.854,11.7135,235.622]
+        },
+        {
+          "item": [136.538,14.2718,236.212]
+        },
+        {
+          "item": [134.59,14.0967,239.335]
+        },
+        {
+          "item": [133.052,14.4961,242.673]
+        },
+        {
+          "item": [125.815,13.5916,243.095]
+        },
+        {
+          "item": [121.696,11.2378,246.347]
+        },
+        {
+          "item": [118.733,10.0795,255.069]
+        },
+        {
+          "item": [114.531,8.06733,262.088]
+        },
+        {
+          "item": [109.732,10.1879,266.642]
+        },
+        {
+          "item": [98.3277,9.64103,266.51]
+        },
+        {
+          "item": [73.1935,7.4704,266.283]
+        },
+        {
+          "item": [37.2926,7.64934,264.994]
+        },
+        {
+          "item": [7.92448,6.757,264.554]
+        },
+        {
+          "item": [-23.834,5.79697,262.871]
+        },
+        {
+          "item": [-48.8444,6.87576,261.229]
+        },
+        {
+          "item": [-75.2179,9.39638,259.008]
+        },
+        {
+          "item": [-90.8901,12.2654,256.581]
+        },
+        {
+          "item": [-109.833,11.841,255.507]
+        },
+        {
+          "item": [-111.31,10.102,249.883]
+        },
+        {
+          "item": [-127.437,8.78546,245.265]
+        }
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "aircraft_box_battle_area",
+      "transform": [
+        [11269.8,0.0,-1003.34],
+        [0.0,8000.03,0.0],
+        [1002.81,0.0,11269.8],
+        [-6.3324,240.916,-60.7029]
+      ],
+      "battle_area__team": -1
+    }
+  },
+  {
+    "entity": {
+      "_template": "minimap_normandy_beach_fortified"
+    }
+  },
+  {
+    "entity": {
+      "_template": "wind",
+      "wind__strength": 2.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "session_finalizer",
+      "session_finalizer__timer": 10.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "door_mult_ent_generator",
+      "ri_extra_gen__blk": "content/enlisted/gamedata/normandy_doors.blk"
+    }
+  },
+  {
+    "entity": {
+      "_template": "shaderVars",
+      "shader_vars__vars:object": {
+        "hmap_displacement_up": 0.3,
+        "ocean1": "#44464600",
+        "ocean0": "#383b3e00",
+        "ocean_density": 0.1,
+        "land_selfillum_worldscale": 0.9,
+        "river1": "#44464600",
+        "river0": "#383b3e00",
+        "hmap_displacement_down": -0.15,
+        "autodetect_land_selfillum_color": [0.53,0.0,0.0,0.16],
+        "paint_details_tex": "normandy_wall_color_tex_palette*",
+        "land_selfillum_strength": 32.0,
+        "water_color_noise_size": 71.0,
+        "river_density": 3.0
+      }
+    }
+  },
+  {
+    "entity": {
+      "_template": "postfx_color_grading_tonemap_death_alive_enlisted"
+    }
+  },
+  {
+    "entity": {
+      "_template": "bloom"
+    }
+  },
+  {
+    "entity": {
+      "_template": "postfx_roundctrl"
+    }
+  },
+  {
+    "entity": {
+      "_template": "enemy_attack_marker"
+    }
+  },
+  {
+    "entity": {
+      "_template": "static_cam",
+      "camera__active": true,
+      "transform": [
+        [0.0492757,0.0,-0.998787],
+        [0.0,1.0,0.0],
+        [0.998787,0.0,0.0492757],
+        [-53.9659,12.7881,351.013]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "group_activator",
+      "activator__activateChoice:object": {
+        "sector_1": 1.0
+      }
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawn_camera",
+      "respawnCameraForTeam": 1,
+      "moveCameraToHeight": 150.0,
+      "respawnSelectorDistanceMult": 1.5,
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [-31.6157,90.4736,546.785]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawn_camera",
+      "respawnCameraForTeam": 2,
+      "moveCameraToHeight": 150.0,
+      "respawnSelectorDistanceMult": 1.5,
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [-2.72687,125.654,37.2185]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "team_usa+team_narrator_domination+respawn_creators_team",
+      "team__id": 1,
+      "team__score": 3000.0,
+      "team__scoreCap": 3000.0,
+      "score_bleed__domBleed": 4.0,
+      "score_bleed__domBleedOn": false,
+      "score_bleed__totalDomZoneCount": 3,
+      "score_bleed__totalDomBleedMul": 2.0,
+      "score_bleed__totalDomBleedOn": false,
+      "team__briefing": "domination/common_goals",
+      "team__numZonesCaptured": 0,
+      "team__deathPenalty": 2.0,
+      "team__spawnBotArmy": "normandy_allies"
+    }
+  },
+  {
+    "entity": {
+      "_template": "team_germany+team_narrator_domination+respawn_creators_team",
+      "team__id": 2,
+      "team__score": 3000.0,
+      "team__scoreCap": 3000.0,
+      "score_bleed__domBleed": 4.0,
+      "score_bleed__domBleedOn": false,
+      "score_bleed__totalDomZoneCount": 3,
+      "score_bleed__totalDomBleedMul": 2.0,
+      "score_bleed__totalDomBleedOn": false,
+      "team__briefing": "domination/common_goals",
+      "team__numZonesCaptured": 0,
+      "team__deathPenalty": 2.0,
+      "team__spawnBotArmy": "normandy_axis"
+    }
+  },
+  {
+    "entity": {
+      "_template": "domination_sphere_capzone",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [14.2265,9.63905,199.563]
+      ],
+      "capzone__title": "A",
+      "capzone__caption": "capzone/beach_bunker",
+      "ui_order": 3,
+      "sphere_zone__radius": 17.0,
+      "decal__height": 4.0,
+      "capzone__iconOffsetY": 3.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawnChooser+respTeam1",
+      "transform": [
+        [0.768367,0.0,-0.640009],
+        [0.0,1.0,0.0],
+        [0.640009,-0.0,0.768368],
+        [4.31709,1.10742,355.389]
+      ],
+      "groupName": "sector_1",
+      "respawnBaseGroup": 1,
+      "active": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawnChooser+respTeam1",
+      "transform": [
+        [0.327077,0.0,-0.944997],
+        [0.0,1.0,0.0],
+        [0.944998,-0.0,0.327077],
+        [54.7749,1.33111,377.383]
+      ],
+      "groupName": "sector_1",
+      "respawnBaseGroup": 1,
+      "active": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawnChooser+respTeam1",
+      "transform": [
+        [-0.37425,0.0,-0.927326],
+        [0.0,1.0,0.0],
+        [0.927327,0.0,-0.37425],
+        [-78.9173,1.42262,357.178]
+      ],
+      "groupName": "sector_1",
+      "respawnBaseGroup": 2,
+      "active": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawnChooser+respTeam1",
+      "transform": [
+        [-0.0370695,0.0,-0.999312],
+        [0.0,1.0,0.0],
+        [0.999312,0.0,-0.0370707],
+        [-55.056,0.932402,358.881]
+      ],
+      "groupName": "sector_1",
+      "respawnBaseGroup": 2,
+      "active": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawnChooser+respTeam1",
+      "transform": [
+        [-0.42518,0.0,-0.905108],
+        [0.0,1.0,0.0],
+        [0.905109,0.0,-0.42518],
+        [-37.2886,1.34244,358.169]
+      ],
+      "groupName": "sector_1",
+      "respawnBaseGroup": 2,
+      "active": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawnChooser+respTeam1",
+      "transform": [
+        [0.735204,0.0,-0.677844],
+        [0.0,1.0,0.0],
+        [0.677845,-0.0,0.735205],
+        [23.4798,1.30132,369.128]
+      ],
+      "groupName": "sector_1",
+      "respawnBaseGroup": 1,
+      "active": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawnChooser+respTeam2",
+      "transform": [
+        [0.547695,0.0,0.836677],
+        [0.0,1.0,-0.0],
+        [-0.836677,0.0,0.547695],
+        [-62.7496,22.5871,82.5572]
+      ],
+      "groupName": "sector_1",
+      "respawnBaseGroup": 1,
+      "active": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawnChooser+respTeam2",
+      "transform": [
+        [0.412898,0.0,0.910777],
+        [0.0,1.0,-0.0],
+        [-0.910777,0.0,0.412898],
+        [-58.4259,22.8881,82.1744]
+      ],
+      "groupName": "sector_1",
+      "respawnBaseGroup": 1,
+      "active": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawnChooser+respTeam2",
+      "transform": [
+        [-0.695011,0.0,0.718999],
+        [0.0,1.0,0.0],
+        [-0.718999,0.0,-0.695011],
+        [88.1212,21.0655,96.4011]
+      ],
+      "groupName": "sector_1",
+      "respawnBaseGroup": 2,
+      "active": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawnChooser+respTeam2",
+      "transform": [
+        [-0.511411,0.0,0.859335],
+        [0.0,1.0,0.0],
+        [-0.859335,0.0,-0.511411],
+        [84.7345,21.3783,94.5924]
+      ],
+      "groupName": "sector_1",
+      "respawnBaseGroup": 2,
+      "active": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawnChooser+respVehicle+vehicle_resp_soft_ground_collision",
+      "transform": [
+        [0.247998,0.0,-0.968761],
+        [0.0,1.0,0.0],
+        [0.968761,0.0,0.247998],
+        [33.272,1.11696,378.956]
+      ],
+      "groupName": "sector_1",
+      "active": false,
+      "team": 1,
+      "maxVehicleOnSpawn": 2,
+      "respTime": 120,
+      "respawnBaseGroup": 1
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawnChooser+respVehicle+vehicle_resp_soft_ground_collision",
+      "transform": [
+        [-0.70629,0.0,0.707921],
+        [0.0,1.0,0.0],
+        [-0.707921,0.0,-0.70629],
+        [20.3185,19.1248,42.7555]
+      ],
+      "active": false,
+      "team": 2,
+      "groupName": "sector_1",
+      "maxVehicleOnSpawn": 2,
+      "respTime": 120,
+      "respawnBaseGroup": 1
+    }
+  },
+  {
+    "entity": {
+      "_template": "turret_105_skc_32",
+      "transform": [
+        [-0.995194,0.0,-0.0979228],
+        [0.0,1.0,0.0],
+        [0.0979228,0.0,-0.995194],
+        [-304.204,58.5957,202.12]
+      ],
+      "animchar_render__enabled": false,
+      "interactable": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "turret_105_skc_32",
+      "transform": [
+        [-0.995194,0.0,-0.0979228],
+        [0.0,1.0,0.0],
+        [0.0979228,0.0,-0.995194],
+        [276.1,41.26,91.3931]
+      ],
+      "interactable": false,
+      "animchar_render__enabled": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "turret_105_skc_32",
+      "transform": [
+        [-0.995194,0.0,-0.0979228],
+        [0.0,1.0,0.0],
+        [0.0979228,0.0,-0.995194],
+        [211.467,55.7869,33.1447]
+      ],
+      "interactable": false,
+      "animchar_render__enabled": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "turret_105_skc_32",
+      "transform": [
+        [-0.995194,0.0,-0.0979228],
+        [0.0,1.0,0.0],
+        [0.0979228,0.0,-0.995194],
+        [113.11,55.221,66.0643]
+      ],
+      "animchar_render__enabled": false,
+      "interactable": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "ship_gun_105mm",
+      "transform": [
+        [0.994167,0.0,-0.10785],
+        [0.0,1.0,0.0],
+        [0.10785,0.0,0.994167],
+        [55.2549,11.0548,766.882]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "ship_gun_105mm",
+      "transform": [
+        [0.994167,0.0,-0.10785],
+        [0.0,1.0,0.0],
+        [0.10785,0.0,0.994167],
+        [15.7021,8.48837,807.208]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "ship_gun_105mm",
+      "transform": [
+        [0.994167,0.0,-0.10785],
+        [0.0,1.0,0.0],
+        [0.10785,0.0,0.994167],
+        [9.1231,5.88644,814.142]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "ship_gun_105mm",
+      "transform": [
+        [0.245069,0.0,-0.969505],
+        [0.0,1.0,0.0],
+        [0.969505,0.0,0.245069],
+        [-89.1134,8.94576,747.342]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "ship_gun_105mm",
+      "transform": [
+        [0.245069,0.0,-0.969505],
+        [0.0,1.0,0.0],
+        [0.969505,0.0,0.245069],
+        [-63.0216,8.48837,804.29]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "ship_gun_105mm",
+      "transform": [
+        [0.778533,0.0,-0.627603],
+        [0.0,1.0,0.0],
+        [0.627603,0.0,0.778533],
+        [-26.0808,8.94576,911.319]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "ship_gun_105mm",
+      "transform": [
+        [0.778533,0.0,-0.627603],
+        [0.0,1.0,0.0],
+        [0.627603,0.0,0.778533],
+        [-39.4516,8.48837,972.516]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "ship_gun_105mm",
+      "transform": [
+        [0.784886,0.0,-0.619639],
+        [0.0,1.0,0.0],
+        [0.619639,0.0,0.784886],
+        [382.272,5.88644,973.393]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "ship_gun_105mm",
+      "transform": [
+        [0.784886,0.0,-0.619639],
+        [0.0,1.0,0.0],
+        [0.619639,0.0,0.784886],
+        [396.239,11.0548,908.843]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "ship_gun_105mm",
+      "transform": [
+        [0.530201,0.0,-0.847871],
+        [0.0,1.0,0.0],
+        [0.847871,0.0,0.530201],
+        [351.821,5.88644,808.152]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "ship_gun_105mm",
+      "transform": [
+        [0.530201,0.0,-0.847871],
+        [0.0,1.0,0.0],
+        [0.847871,0.0,0.530201],
+        [343.221,11.0548,742.671]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "ship_gun_105mm",
+      "transform": [
+        [0.991511,0.0,-0.130021],
+        [0.0,1.0,0.0],
+        [0.130021,0.0,0.991511],
+        [433.337,5.88644,806.199]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "ship_gun_105mm",
+      "transform": [
+        [0.991511,0.0,-0.130021],
+        [0.0,1.0,0.0],
+        [0.130021,0.0,0.991511],
+        [478.402,11.0548,757.92]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "ship_gun_105mm",
+      "transform": [
+        [0.991511,0.0,-0.130021],
+        [0.0,1.0,0.0],
+        [0.130021,0.0,0.991511],
+        [483.058,8.94576,753.853]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "ship_gun_105mm",
+      "transform": [
+        [0.991511,0.0,-0.130021],
+        [0.0,1.0,0.0],
+        [0.130021,0.0,0.991511],
+        [439.76,8.48837,799.119]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "ship_gun_105mm",
+      "transform": [
+        [0.446701,0.0,-0.894683],
+        [0.0,1.0,0.0],
+        [0.894683,0.0,0.446701],
+        [589.875,8.94576,847.053]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "ship_gun_105mm",
+      "transform": [
+        [0.446701,0.0,-0.894683],
+        [0.0,1.0,0.0],
+        [0.894683,0.0,0.446701],
+        [166.676,11.0548,861.668]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "ship_gun_105mm",
+      "transform": [
+        [0.446701,0.0,-0.894683],
+        [0.0,1.0,0.0],
+        [0.894683,0.0,0.446701],
+        [165.908,8.94576,855.534]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "ship_gun_105mm",
+      "transform": [
+        [0.446701,0.0,-0.894683],
+        [0.0,1.0,0.0],
+        [0.894683,0.0,0.446701],
+        [179.22,8.48837,916.743]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "ship_gun_105mm",
+      "transform": [
+        [0.915991,0.0,0.401199],
+        [0.0,1.0,0.0],
+        [-0.401199,0.0,0.915991],
+        [223.209,5.88644,1006.15]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "ship_gun_105mm",
+      "transform": [
+        [0.915991,0.0,0.401199],
+        [0.0,1.0,0.0],
+        [-0.401199,0.0,0.915991],
+        [286.742,11.0548,988.11]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "ship_gun_105mm",
+      "transform": [
+        [0.915991,0.0,0.401199],
+        [0.0,1.0,0.0],
+        [-0.401199,0.0,0.915991],
+        [292.83,8.94576,987.036]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "ship_gun_105mm",
+      "transform": [
+        [0.915991,0.0,0.401199],
+        [0.0,1.0,0.0],
+        [-0.401199,0.0,0.915991],
+        [232.366,8.48837,1003.41]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "ship_gun_105mm",
+      "transform": [
+        [0.915991,0.0,0.401199],
+        [0.0,1.0,0.0],
+        [-0.401199,0.0,0.915991],
+        [-130.693,8.94576,995.523]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "ship_gun_105mm",
+      "transform": [
+        [0.915991,0.0,0.401199],
+        [0.0,1.0,0.0],
+        [-0.401199,0.0,0.915991],
+        [-191.157,8.48837,1011.89]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "ship_gun_105mm",
+      "transform": [
+        [0.915991,0.0,0.401199],
+        [0.0,1.0,0.0],
+        [-0.401199,0.0,0.915991],
+        [-446.943,5.88644,988.579]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "ship_gun_105mm",
+      "transform": [
+        [0.915991,0.0,0.401199],
+        [0.0,1.0,0.0],
+        [-0.401199,0.0,0.915991],
+        [-437.786,8.48837,985.838]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "ship_gun_105mm",
+      "transform": [
+        [0.834993,0.0,0.55026],
+        [0.0,1.0,0.0],
+        [-0.55026,0.0,0.834993],
+        [-357.701,5.88644,836.736]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "ship_gun_105mm",
+      "transform": [
+        [0.834993,0.0,0.55026],
+        [0.0,1.0,0.0],
+        [-0.55026,0.0,0.834993],
+        [-292.034,11.0548,829.7]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "ship_gun_105mm",
+      "transform": [
+        [0.834993,0.0,0.55026],
+        [0.0,1.0,0.0],
+        [-0.55026,0.0,0.834993],
+        [-285.852,8.94576,829.669]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "ship_gun_105mm",
+      "transform": [
+        [0.58393,0.0,0.811803],
+        [0.0,1.0,0.0],
+        [-0.811803,0.0,0.58393],
+        [-608.349,11.0548,836.017]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "ship_gun_105mm",
+      "transform": [
+        [0.849216,0.0,-0.528045],
+        [0.0,1.0,0.0],
+        [0.528045,0.0,0.849216],
+        [-236.901,5.88644,893.893]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "ship_gun_105mm",
+      "transform": [
+        [0.849216,0.0,-0.528045],
+        [0.0,1.0,0.0],
+        [0.528045,0.0,0.849216],
+        [-233.977,8.48837,884.793]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "turret_105_skc_32",
+      "transform": [
+        [-0.995194,0.0,-0.0979228],
+        [0.0,1.0,0.0],
+        [0.0979228,0.0,-0.995194],
+        [-86.7128,34.3919,108.545]
+      ],
+      "interactable": false,
+      "animchar_render__enabled": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "briefing_invasion",
+      "mission_name": "normandy_beach_inv",
+      "mission_outfit": "normandy",
+      "loading_images:list<t>": [
+        {
+          "item": "ui/normandy_beach_inv_01.avif"
+        },
+        {
+          "item": "ui/normandy_beach_inv_02.avif"
+        },
+        {
+          "item": "ui/normandy_beach_inv_03.avif"
+        }
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "88mm_cannon_b",
+      "transform": [
+        [-0.695939,0.0,-0.718101],
+        [0.0,1.0,0.0],
+        [0.718101,0.0,-0.695939],
+        [16.5327,19.6337,16.4528]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "88mm_cannon_b",
+      "transform": [
+        [-0.958334,0.0,0.28565],
+        [0.0,1.0,0.0],
+        [-0.28565,0.0,-0.958334],
+        [-19.2994,24.6865,39.2396]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "searchlight",
+      "transform": [
+        [0.899054,-0.204221,0.387292],
+        [0.188423,0.978922,0.0787893],
+        [-0.395219,0.00213876,0.918584],
+        [-27.1972,25.7536,37.8146]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "searchlight_base",
+      "transform": [
+        [0.336387,0.242852,-0.909872],
+        [-0.087323,0.970058,0.226632],
+        [0.937667,0.00321683,0.347521],
+        [-18.9264,24.2572,44.6248]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "searchlight_no_base",
+      "transform": [
+        [0.784644,-0.415873,0.459765],
+        [0.468304,0.883567,0.0],
+        [-0.406233,0.21531,0.888041],
+        [-28.3202,26.5856,37.3476]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "searchlight_no_base",
+      "transform": [
+        [-0.082479,0.564454,-0.821334],
+        [-0.231364,0.79078,0.56669],
+        [0.969365,0.236767,0.0653714],
+        [-16.3448,25.4191,46.9821]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "88mm_cannon_b",
+      "transform": [
+        [-0.975687,0.0,0.219167],
+        [0.0,1.0,0.0],
+        [-0.219167,0.0,-0.975687],
+        [7.07417,46.7249,-85.5442]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "searchlight_base",
+      "transform": [
+        [0.996695,-0.0794032,0.0171702],
+        [0.0772673,0.991831,0.101497],
+        [-0.0250885,-0.0998345,0.994688],
+        [25.3831,20.1154,9.14236]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "generator",
+      "transform": [
+        [-0.997208,0.0681473,0.030541],
+        [0.064537,0.992195,-0.106697],
+        [-0.0375738,-0.104428,-0.993822],
+        [11.9968,19.9871,22.4744]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "generator",
+      "transform": [
+        [-0.997208,0.0681473,0.030541],
+        [0.064537,0.992195,-0.106697],
+        [-0.0375738,-0.104428,-0.993822],
+        [11.9968,19.9871,22.4744]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "rangefinder_a",
+      "transform": [
+        [0.983352,0.0,-0.18171],
+        [0.0,1.0,0.0],
+        [0.18171,-0.0,0.983352],
+        [9.70982,46.8765,-83.4601]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "mbs_field_table_a",
+      "transform": [
+        [0.0754539,0.0,-0.997149],
+        [0.0,1.0,0.0],
+        [0.997149,0.0,0.0754539],
+        [67.5791,69.7513,-198.574]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "mbs_desktop_stuff_a_map",
+      "transform": [
+        [1.89919,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.43306],
+        [67.242,70.4063,-198.633]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "mbs_ger_radio_kw_e_a",
+      "transform": [
+        [0.0388397,0.0,-0.999245],
+        [0.0,1.0,0.0],
+        [0.999245,0.0,0.0388397],
+        [67.8844,70.4357,-198.45]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "mbs_field_table_b",
+      "transform": [
+        [0.888324,0.0,1.01639],
+        [0.0,1.34987,0.0],
+        [-1.01639,0.0,0.888324],
+        [69.0541,69.5943,-202.467]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "generator",
+      "transform": [
+        [0.68031,0.0,0.732924],
+        [0.0,1.0,0.0],
+        [-0.732924,0.0,0.68031],
+        [71.2507,69.5693,-199.444]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "mbs_chair_a",
+      "transform": [
+        [0.629759,0.0,0.77679],
+        [0.0,1.0,0.0],
+        [-0.77679,0.0,0.629759],
+        [71.5025,69.6554,-202.724]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "mbs_chair_a",
+      "transform": [
+        [0.930778,0.0,0.365586],
+        [0.0,1.0,0.0],
+        [-0.365586,0.0,0.930778],
+        [70.3091,69.6554,-200.642]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "mbs_field_table_a",
+      "transform": [
+        [-0.809453,0.0,0.587184],
+        [0.0,1.0,0.0],
+        [-0.587184,0.0,-0.809453],
+        [68.7863,69.6121,-209.926]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "mbs_desktop_stuff_a_map",
+      "transform": [
+        [-1.25056,0.0,-1.42933],
+        [0.0,1.0,0.0],
+        [1.07853,0.0,-0.943635],
+        [68.9957,70.2671,-209.627]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "mbs_desktop_stuff_a_binoculars",
+      "transform": [
+        [-0.0407696,0.0,-0.999169],
+        [0.0,1.0,0.0],
+        [0.999169,0.0,-0.0407696],
+        [68.8521,70.2671,-209.614]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "mbs_desktop_stuff_a_folder",
+      "transform": [
+        [-0.732056,0.0,-0.681245],
+        [0.0,1.0,0.0],
+        [0.681245,0.0,-0.732056],
+        [69.1211,70.2671,-209.546]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "mbs_ger_radio_feld_fu",
+      "transform": [
+        [-0.573337,0.0,-0.819319],
+        [0.0,1.0,0.0],
+        [0.819319,0.0,-0.573337],
+        [68.5837,70.2968,-210.133]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "mbs_chair_a",
+      "transform": [
+        [0.774401,0.0,-0.632695],
+        [0.0,1.0,0.0],
+        [0.632695,0.0,0.774401],
+        [68.413,69.5162,-209.263]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "mbs_chair_a",
+      "transform": [
+        [0.190689,0.0,0.98165],
+        [0.0,1.0,0.0],
+        [-0.98165,0.0,0.190689],
+        [67.2503,69.6554,-199.38]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "is_gramophone_a",
+      "transform": [
+        [0.629159,0.0,0.777276],
+        [0.0,1.0,0.0],
+        [-0.777276,0.0,0.629159],
+        [68.9671,70.6741,-202.351]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "mbs_field_table_a",
+      "transform": [
+        [-0.670314,0.0,-0.742077],
+        [0.0,1.0,0.0],
+        [0.742077,0.0,-0.670314],
+        [72.0293,69.6284,-201.974]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "mbs_desktop_stuff_a_map",
+      "transform": [
+        [1.49206,0.0,-1.17502],
+        [0.0,1.0,0.0],
+        [0.886629,0.0,1.12585],
+        [71.7782,70.2905,-201.798]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "mbs_desktop_stuff_a_tablet",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [71.7229,70.2834,-201.837]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "mbs_stool_a",
+      "transform": [
+        [0.872329,0.0,0.488919],
+        [0.0,1.0,0.0],
+        [-0.488919,0.0,0.872329],
+        [67.9529,69.6763,-199.171]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "mbs_desktop_stuff_a_folder",
+      "transform": [
+        [0.710524,0.0,-0.703673],
+        [0.0,1.0,0.0],
+        [0.703673,0.0,0.710524],
+        [72.4921,70.3021,-202.276]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "mbs_ger_radio_feld_fu",
+      "transform": [
+        [0.982234,0.0,-0.187659],
+        [0.0,1.0,0.0],
+        [0.187659,0.0,0.982234],
+        [72.1859,70.3071,-202.095]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "resupply_in_air_zone",
+      "transform": [
+        [-0.999999,0.0,-0.000445871],
+        [0.0,1.0,0.0],
+        [0.000445871,0.0,-0.999999],
+        [1500.98,726.796,2479.75]
+      ],
+      "resupply_zone__team": 1
+    }
+  },
+  {
+    "entity": {
+      "_template": "respAircraftInAir",
+      "respawnbaseType": "aircraft_fighter",
+      "transform": [
+        [0.00725762,0.0,0.999974],
+        [0.0,1.0,-0.0],
+        [-0.999974,0.0,0.00725762],
+        [-48.4594,1023.92,-3604.66]
+      ],
+      "team": 2,
+      "maxVehicleOnSpawn": 1,
+      "respTime": 120
+    }
+  },
+  {
+    "entity": {
+      "_template": "respAircraftInAir",
+      "respawnbaseType": "aircraft_assault",
+      "transform": [
+        [-0.0903345,0.0,0.995912],
+        [0.0,1.0,0.0],
+        [-0.995912,0.0,-0.0903345],
+        [-225.632,823.92,-3608.81]
+      ],
+      "team": 2,
+      "maxVehicleOnSpawn": 1,
+      "respTime": 120
+    }
+  },
+  {
+    "entity": {
+      "_template": "respAircraftInAir",
+      "respawnbaseType": "aircraft_fighter",
+      "transform": [
+        [-0.0360763,0.0,0.99935],
+        [0.0,1.0,0.0],
+        [-0.99935,0.0,-0.0360763],
+        [-205.042,1023.92,-3600.79]
+      ],
+      "team": 2,
+      "maxVehicleOnSpawn": 1,
+      "respTime": 120
+    }
+  },
+  {
+    "entity": {
+      "_template": "respAircraftInAir",
+      "respawnbaseType": "aircraft_assault",
+      "transform": [
+        [-0.026103,0.0,0.999659],
+        [0.0,1.0,0.0],
+        [-0.999659,0.0,-0.026103],
+        [-48.4594,823.92,-3604.66]
+      ],
+      "team": 2,
+      "maxVehicleOnSpawn": 1,
+      "respTime": 120
+    }
+  },
+  {
+    "entity": {
+      "_template": "resupply_in_air_zone",
+      "transform": [
+        [0.327869,0.0,-0.944724],
+        [0.0,1.0,0.0],
+        [0.944724,0.0,0.327869],
+        [-1719.06,751.67,-2382.95]
+      ],
+      "resupply_zone__team": 2
+    }
+  },
+  {
+    "entity": {
+      "_template": "respAircraftInAir",
+      "respawnbaseType": "aircraft_fighter",
+      "transform": [
+        [-0.011948,0.0,-0.999929],
+        [0.0,1.0,0.0],
+        [0.999929,0.0,-0.011948],
+        [-154.597,1000.0,3503.2]
+      ],
+      "team": 1,
+      "maxVehicleOnSpawn": 1,
+      "respTime": 120
+    }
+  },
+  {
+    "entity": {
+      "_template": "respAircraftInAir",
+      "respawnbaseType": "aircraft_assault",
+      "transform": [
+        [-0.011948,0.0,-0.999929],
+        [0.0,1.0,0.0],
+        [0.999929,0.0,-0.011948],
+        [-154.597,800.0,3503.2]
+      ],
+      "team": 1,
+      "maxVehicleOnSpawn": 1,
+      "respTime": 120
+    }
+  },
+  {
+    "entity": {
+      "_template": "respAircraftInAir",
+      "respawnbaseType": "aircraft_fighter",
+      "transform": [
+        [-0.011948,0.0,-0.999929],
+        [0.0,1.0,0.0],
+        [0.999929,0.0,-0.011948],
+        [-6.46494,1000.0,3530.28]
+      ],
+      "team": 1,
+      "maxVehicleOnSpawn": 1,
+      "respTime": 120
+    }
+  },
+  {
+    "entity": {
+      "_template": "respAircraftInAir",
+      "respawnbaseType": "aircraft_assault",
+      "transform": [
+        [-0.011948,0.0,-0.999929],
+        [0.0,1.0,0.0],
+        [0.999929,0.0,-0.011948],
+        [24.2567,800.0,3497.85]
+      ],
+      "team": 1,
+      "maxVehicleOnSpawn": 1,
+      "respTime": 120
+    }
+  },
+  {
+    "entity": {
+      "_template": "normandy_level",
+      "level__blk": "content/enlisted/levels/normandy_beach_fortified_1x1.blk"
+    }
+  },
+  {
+    "entity": {
+      "_template": "clouds_hole_target",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [0.0,0.0,0.0]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "water",
+      "water__strength": 3.0,
+      "water__max_tessellation": 0
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawnChooser+respMotorcycle",
+      "active": false,
+      "transform": [
+        [0.247998,0.0,-0.968761],
+        [0.0,1.0,0.0],
+        [0.968761,0.0,0.247998],
+        [33.272,1.11696,378.956]
+      ],
+      "team": 1,
+      "groupName": "sector_1"
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawnChooser+respMotorcycle",
+      "active": false,
+      "transform": [
+        [-0.70629,0.0,0.707921],
+        [0.0,1.0,0.0],
+        [-0.707921,0.0,-0.70629],
+        [20.3979,19.1248,42.823]
+      ],
+      "team": 2,
+      "groupName": "sector_1"
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawnChooser+respVehicle+vehicle_resp_soft_ground_collision",
+      "transform": [
+        [0.852554,0.0,-0.52264],
+        [0.0,1.0,0.0],
+        [0.52264,0.0,0.852554],
+        [-104.716,1.25912,328.628]
+      ],
+      "groupName": "sector_1",
+      "active": false,
+      "team": 1,
+      "maxVehicleOnSpawn": 2,
+      "respTime": 120,
+      "respawnBaseGroup": 1
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawnChooser+respMotorcycle",
+      "active": false,
+      "transform": [
+        [0.852554,0.0,-0.52264],
+        [0.0,1.0,0.0],
+        [0.52264,0.0,0.852554],
+        [-102.008,1.25912,327.706]
+      ],
+      "team": 1,
+      "groupName": "sector_1",
+      "respawnBaseGroup": 1
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawnChooser+respMotorcycle",
+      "active": false,
+      "transform": [
+        [-0.293024,0.0,-0.956106],
+        [0.0,1.0,0.0],
+        [0.956106,0.0,-0.293024],
+        [128.408,1.11696,363.809]
+      ],
+      "team": 1,
+      "groupName": "sector_1",
+      "respawnBaseGroup": 1
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawnChooser+respVehicle+vehicle_resp_soft_ground_collision",
+      "transform": [
+        [-0.293024,0.0,-0.956106],
+        [0.0,1.0,0.0],
+        [0.956106,0.0,-0.293024],
+        [128.456,1.11696,363.786]
+      ],
+      "groupName": "sector_1",
+      "active": false,
+      "team": 1,
+      "maxVehicleOnSpawn": 2,
+      "respTime": 120,
+      "respawnBaseGroup": 1
+    }
+  },
+  {
+    "entity": {
+      "_template": "resupply_for_ground_vehicle_zone",
+      "transform": [
+        [0.247998,0.0,-0.968761],
+        [0.0,1.0,0.0],
+        [0.968761,0.0,0.247998],
+        [75.9726,1.11696,366.239]
+      ],
+      "resupply_zone__team": 1,
+      "groupName": "sector_1",
+      "active": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "resupply_for_ground_vehicle_zone",
+      "transform": [
+        [-0.70629,0.0,0.707921],
+        [0.0,1.0,0.0],
+        [-0.707921,0.0,-0.70629],
+        [5.36057,19.1248,60.7746]
+      ],
+      "resupply_zone__team": 2,
+      "groupName": "sector_1",
+      "active": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "german_officer_sword_item+item_in_world",
+      "transform": [
+        [0.0333695,-0.996839,0.072098],
+        [0.998728,0.0305302,-0.0401304],
+        [0.0378024,0.0733455,0.99659],
+        [7.27658,10.5588,147.463]
+      ]
+    }
+  }
+]

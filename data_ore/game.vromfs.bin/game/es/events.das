@@ -3,7 +3,7 @@
 //shouldDecreaseSize, allowedSizeIncrease = 0
 module events shared
 require ecs
-require EnlistedNet
+require DngNet
 require Dacoll
 
 [cpp_event(unicast)]
@@ -38,10 +38,6 @@ struct CmdTeleportEntity
   newTm : float3x4
   hard : bool
 
-[cpp_event(unicast)]
-struct CmdSetCameraTarget
-  target : EntityId
-
 [event(unicast)]
 struct EventOnVehiclePartTypeDamaged
   partType : string
@@ -55,7 +51,7 @@ struct EventOnRepaired
 struct EventRiExtraDestroyed
   offenderEid : ecs::EntityId
 
-[cpp_event(unicast)]
+[event(unicast)]
 struct EventOnLootPickup
   itemEid : ecs::EntityId
 
@@ -110,6 +106,14 @@ struct EventOnLootItemUsed
   target : ecs::EntityId
 
 [cpp_event(unicast)]
+struct EventOnApplyWounds
+  pos : float3
+  normal : float3
+  coll_node : int
+  explosion : bool
+  damage : float
+
+[cpp_event(unicast)]
 struct CmdPostPhysUpdate
   tick : int
   dt : float
@@ -140,7 +144,11 @@ struct CmdEquipItemEntity
   slot : string
   name : string
 
-[cpp_event(unicast)]
+[event(unicast)]
+struct EventOnEquipmentEquiped
+  equipmentEid : EntityId
+
+[event(unicast)]
 struct EventOnEquipmentUnequiped
   equipmentEid : EntityId
 
@@ -172,7 +180,7 @@ struct EventOnItemStartUse
 struct CmdChatMessage//mode="team",text="",qmsg=null
   data : Object
 
-[cpp_event(unicast)]
+[event(unicast)]
 struct CmdEquipItem
   itemEid : EntityId
   slotName : string
@@ -197,10 +205,10 @@ struct CmdScaledRumble
   eventMaxName : string
   scale : float
 
-[cpp_event(unicast)]
+[event(unicast)]
 struct EventInterruptItemUse {}
 
-[cpp_event(unicast)]
+[event(unicast)]
 struct CmdLoadAmmo
   ammoNum : int
 
@@ -300,7 +308,7 @@ struct EventOnPhysImpulse
   atTime : float
   nodeId : int
   pos : float3
-  dir : float3
+  impulse : float3
 
 [cpp_event(unicast)]
 struct EventFlashExploded
@@ -328,7 +336,8 @@ struct CmdUseUsefulBox
   requesterEid : EntityId
 
 [event(unicast, routing=ROUTING_SERVER_TO_CLIENT, net_liable=ignore)]
-struct CmdUsefulBoxCompleteUse {}
+struct CmdUsefulBoxCompleteUse
+  box : EntityId
 
 [cpp_event(unicast)]
 struct EventRIGenExtraRequested {}
@@ -351,3 +360,39 @@ struct CmdAddDefaultEntitiesInNetScope
 [event(unicast, routing=ROUTING_SERVER_TO_CLIENT)]
 struct CmdServerLoadAmmo
   ammoNum : int
+
+[event(unicast)]
+struct CmdPickupSpecialItem
+  pickuperEid : EntityId
+  usefulOnly : bool
+
+[cpp_event(unicast)]
+struct EventOnServerActionDisabled
+  reason : int
+  coinsNeed : int
+  coinsHave : int
+
+[event(unicast, routing=ROUTING_CLIENT_CONTROLLED_ENTITY_TO_SERVER)]
+struct HumanPickupItemRequest
+  itemEid : EntityId
+  usefulOnly : bool
+
+[event(unicast, routing=ROUTING_CLIENT_CONTROLLED_ENTITY_TO_SERVER)]
+struct HumanDropItemRequest
+  itemEid : EntityId
+
+[event(unicast, routing=ROUTING_CLIENT_CONTROLLED_ENTITY_TO_SERVER)]
+struct HumanStopUseItemRequest {}
+
+[event(unicast, routing=ROUTING_CLIENT_CONTROLLED_ENTITY_TO_SERVER)]
+struct HumanDropGearRequest
+  slotName : string
+
+[event(unicast, routing=ROUTING_CLIENT_CONTROLLED_ENTITY_TO_SERVER)]
+struct HumanPickupGearRequest
+  itemEid : EntityId
+  slotName : string
+
+[cpp_event(unicast)]
+struct EventOnActionDisabled
+  action : string

@@ -48,15 +48,15 @@ ecs.register_es("ui_maintenance_es",
       if (mntTgtEid != ecs.INVALID_ENTITY_ID){
         res.isRepairRequired <- comp.maintenance__targetNeedsRepair
         res.isExtinguishRequired <- comp.maintenance__targetNeedsExtinguishing
-        maintenanceTargetQuery.perform(mntTgtEid, function(_eid, comp){
-          res.vehicleRepairTime <- ((comp["repairable__inProgress"] && isHeroRepairing) ? comp["repairable__repairTime"] : null)
-          if (comp["extinguishable__inProgress"] && isHeroExtinguishing) {
-            res.maintenanceTime <- comp["extinguishable__extinguishTime"] + get_sync_time()
-            res.maintenanceTotalTime <- comp["extinguishable__extinguishTotalTime"]
+        maintenanceTargetQuery.perform(mntTgtEid, function(_eid, mntTgtComp){
+          res.vehicleRepairTime <- ((mntTgtComp["repairable__inProgress"] && isHeroRepairing) ? mntTgtComp["repairable__repairTime"] : null)
+          if (mntTgtComp["extinguishable__inProgress"] && isHeroExtinguishing) {
+            res.maintenanceTime <- mntTgtComp["extinguishable__extinguishTime"] + get_sync_time()
+            res.maintenanceTotalTime <- mntTgtComp["extinguishable__extinguishTotalTime"]
           }
-          else if (comp["repairable__inProgress"] && isHeroRepairing) {
-            res.maintenanceTime <- comp["repairable__repairTime"] + get_sync_time()
-            res.maintenanceTotalTime <- comp["repairable__repairTotalTime"]
+          else if (mntTgtComp["repairable__inProgress"] && isHeroRepairing) {
+            res.maintenanceTime <- mntTgtComp["repairable__repairTime"] + get_sync_time()
+            res.maintenanceTotalTime <- mntTgtComp["repairable__repairTotalTime"]
           }
           else {
             res.maintenanceTime <- 0.0

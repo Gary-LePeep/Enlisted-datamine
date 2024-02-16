@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let json = require("json")
-let http = require("dagor.http")
+let { parse_json } = require("json")
+let { HTTP_SUCCESS, httpRequest } = require("dagor.http")
 let userInfo = require("%enlSqGlob/userInfo.nut")
 
 let hasLog = {}
@@ -13,12 +13,12 @@ let function logByUrlOnce(url, text) {
 }
 
 let function requestData(url, params, onSuccess, onFailure=null) {
-  http.request({
+  httpRequest({
     method = "POST"
-    url = url
+    url
     data = params
     callback = function(response) {
-      if (response.status != http.SUCCESS || !response?.body) {
+      if (response.status != HTTP_SUCCESS || !response?.body) {
         onFailure?()
         return
       }
@@ -30,7 +30,7 @@ let function requestData(url, params, onSuccess, onFailure=null) {
           onFailure?()
           return
         }
-        let data = json.parse(str)
+        let data = parse_json(str)
         if (data?.status == "OK")
           onSuccess(data)
         else
@@ -45,12 +45,12 @@ let function requestData(url, params, onSuccess, onFailure=null) {
 }
 
 let function createGuidsRequestParams(guids) {
-  local res = guids.reduce(@(res, guid) $"{res}guids[]={guid}&", "")
+  local res = guids.reduce(@(acc, guid) $"{acc}guids[]={guid}&", "")
   res = $"{res}token={userInfo.value?.token ?? ""}&special=1"
   return res
 }
 
 return {
-  requestData = requestData
-  createGuidsRequestParams = createGuidsRequestParams
+  requestData
+  createGuidsRequestParams
 }

@@ -9,14 +9,15 @@
   "shouldTraceGround": true,
   "boundingRadius": 0.1,
   "collisionResource": {
+    "kinematic": true,
     "props": {
-      "cls_body_box_01": "box",
-      "cls_body_box_02": "box",
-      "cls_body_box_03": "box"
+      "cls_body_box_01": "convex_hull",
+      "cls_body_box_02": "convex_hull",
+      "cls_body_box_03": "convex_hull"
     }
   },
   "ccdSpheres": {
-    "ccd": [0.0,0.2,0.0,0.15]
+    "ccd": [0.0,0.4,0.0,0.15]
   },
   "DamageParts": {
     "formatVersion": 2,

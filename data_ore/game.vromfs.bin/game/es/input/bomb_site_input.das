@@ -1,5 +1,5 @@
 require ecs
-require EnlistedNet
+require DngNet
 require game.es.input.input_events
 require DagorInput
 require enlisted.events_enlisted
@@ -22,7 +22,7 @@ def human_interact_bomb_site_input_setup(evt : EventDaInputInit; var human_input
 def human_interact_bomb_site_input_appear(evt : Event; var human_input__interactBombSite : int&)
   initActions(human_input__interactBombSite)
 
-[es(tag=input, on_event=(EventComponentsDisappear, EventEntityDestroyed))]
+[es(tag=input, on_disappear)]
 def human_interact_bomb_site_input_disappear(evt : Event; var human_input__interactBombSite : int&)
   resetActions(human_input__interactBombSite)
 

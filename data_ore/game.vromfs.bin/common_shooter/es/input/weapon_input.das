@@ -1,5 +1,5 @@
 require app
-require EnlistedNet
+require DngNet
 require ecs
 require Gun
 require game.es.events
@@ -7,7 +7,7 @@ require game.es.input.input_events
 require game.es.vehicle.vehicle_seats_common
 require DagorInput
 require TouchInput
-require EnlistedHuman
+require DngHuman
 require HumanPhys
 require common_shooter.events_common_shooter
 
@@ -158,6 +158,7 @@ def human_weapon_switch_input_es(evt : EventDaInputActionTriggered;
                                  human_input__weaponPrevMain : int;
                                  human_input__grenadeNext : int;
                                  human_input__specialItemSlot : int;
+                                 human_input__melee : int;
                                  input__enabled : bool;
                                  isInVehicle : bool;
                                  bipod__enabled : bool = false;
@@ -175,6 +176,8 @@ def human_weapon_switch_input_es(evt : EventDaInputActionTriggered;
   if time - human_input__lastShootInput < get_interp_delay_time(human_net_phys)
     return
   if time <= human_weap__weapModActivateFinishTime
+    return
+  if get_digital_action_state(uint16(human_input__melee)).bState || is_button_pressed(uint16(human_input__melee))
     return
   if !isInVehicle || human_vehicle__isHoldingGunPassenger
     for i in range(0, human_input__weaponSlotCount)
@@ -197,7 +200,7 @@ def human_weapon_switch_input_es(evt : EventDaInputActionTriggered;
     for i in range(int(HUWeaponSlots EWS_SECONDARY), int(HUWeaponSlots EWS_NUM))
       let slot = get_weapon_slot_at(cur_weap, forward, i)
       let weapon = human_weap__gunEids[int(slot)]
-      if !!weapon && slot != (HUWeaponSlots EWS_GRENADE)
+      if !!weapon && slot != (HUWeaponSlots EWS_GRENADE) && !(has(weapon, "disallowUseInHoldGunMode") && human_vehicle__isHoldingGunPassenger)
         set_weapon_slot(time, weapon, slot, ct, last_change_time)
         return
 
@@ -208,7 +211,7 @@ def human_weapon_switch_input_es(evt : EventDaInputActionTriggered;
     for i in range(1, count + 1)
       let slot = get_weapon_slot_at(main_weap, forward, i, HUWeaponSlots(count))
       let weapon = human_weap__gunEids[int(slot)]
-      if !!weapon && slot != HUWeaponSlots(cur_weap)
+      if !!weapon && slot != HUWeaponSlots(cur_weap) && !(has(weapon, "disallowUseInHoldGunMode") && human_vehicle__isHoldingGunPassenger)
         set_weapon_slot(time, weapon, slot, ct, last_change_time)
         return
 

@@ -2,14 +2,13 @@ from "%enlSqGlob/ui_library.nut" import *
 let { OK, error_string } = require("matching.errors")
 let { removeMsgboxByUid, showWithCloseButton, showMsgbox
 } = require("%enlist/components/msgbox.nut")
-let { joinRoom } = require("%enlist/state/roomState.nut")
+let { joinRoom, isHostInGame } = require("%enlist/state/roomState.nut")
 let { squadId } = require("%enlist/squad/squadState.nut")
 let { selRoom } = require("eventRoomsListState.nut")
-let getMissionInfo = require("getMissionInfo.nut")
-let { unlockedCampaigns } = require("%enlist/meta/campaigns.nut")
 let textInput = require("%ui/components/textInput.nut")
 let userInfo = require("%enlSqGlob/userInfo.nut")
 let { bigPadding } = require("%enlSqGlob/ui/viewConst.nut")
+let JB = require("%ui/control/gui_buttons.nut")
 
 local roomParams = Watched({})
 let passwordMsgBoxUid = "room-password"
@@ -29,12 +28,6 @@ let function joinCb(response) {
     roomParams({})
     removeMsgboxByUid(passwordMsgBoxUid)
   }
-}
-
-let function getLockedCampaign(room) {
-  let { campaigns = [], scenes = [] } = room
-  return campaigns.findvalue(@(c) !unlockedCampaigns.value.contains(c))
-    ?? scenes.findvalue(@(s) !unlockedCampaigns.value.contains(getMissionInfo(s).campaign))
 }
 
 let passwordHint = {
@@ -69,7 +62,7 @@ let function showPasswordMsgbox(params){
   showWithCloseButton({
     uid = passwordMsgBoxUid
     size = [flex(), SIZE_TO_CONTENT]
-    text = params?.isRetry ?? false ? loc("lobby/invalidPass") : loc("lobby/enterPass")
+    text = (params?.isRetry ?? false) ? loc("lobby/invalidPass") : loc("lobby/enterPass")
     children = {
       flow = FLOW_VERTICAL
       gap = bigPadding
@@ -88,6 +81,7 @@ let function showPasswordMsgbox(params){
       }
       {
         text = loc("Cancel")
+        customStyle = { hotkeys = [[$"^{JB.B} | Esc"]] }
       }
     ]
   })
@@ -100,18 +94,18 @@ let function joinSelEventRoom() {
   if (room == null)
     return
   roomParams({})
-  let campaign = getLockedCampaign(room)
-  if (campaign != null)
-    return showMsgbox({ text = loc("msg/cantJoinHasLockedCampaign",
-      { campaign = loc($"{campaign}/full") }) })
 
   let params = { roomId = room.roomId.tointeger() }
+  let isCreator = room?.creatorId == userInfo.value.userId
   if (squadId.value != null)
     params.member <- { public = { squadId = squadId.value } }
-  if (!(room?.hasPassword ?? false) || room?.creatorId == userInfo.value.userId) {
+
+  if (!(room?.hasPassword ?? false))
+    joinRoom(params, true, joinCb)
+  else if (isCreator) {
+    isHostInGame(false)
     joinRoom(params, true, joinCb)
   }
-
   else
     roomParams(params)
 }

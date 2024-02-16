@@ -1,13 +1,13 @@
 {
   "germ_sdkfz_251_10": [
     {
-      "_extends": "base_sdkfz_251_10"
+      "_use": "base_sdkfz_251_10"
     },
     {
-      "_extends": "tank_panzer3_engine_sound"
+      "_use": "tank_panzer3_engine_sound"
     },
     {
-      "_extends": "tank_light_vehicle_tracks_sound"
+      "_use": "tank_light_vehicle_tracks_sound"
     },
     {
       "vehicle_seats_switch_time__totalSwitchTime": 2.0
@@ -229,7 +229,7 @@
     }
   ],
   "germ_sdkfz_251_10_driver_cockpit": {
-    "_extends": "base_driver_cockpit_no_slits",
+    "_use": "base_driver_cockpit_no_slits",
     "animchar__res": "pz_2c_driver_char",
     "cockpit__offset": [-0.9,-0.3,-0.2],
     "cockpit__visibleVehicleNodeNames:list<t>": [],
@@ -245,10 +245,10 @@
   },
   "germ_sdkfz_251_10_gunner_cockpit": {
     "vehicle_sight__blk": "content/tanks/gamedata/sight/germ_tzf4.blk",
-    "_extends": "base_gunner_cockpit",
+    "_use": "base_gunner_cockpit",
     "animchar__res": "pz_2c_commander_char",
     "cockpit__offset": [-0.0,-0.0,-0.0],
-    "cockpit__minZoom": -0.27,
+    "cockpit__minForwardOffset": -0.27,
     "cockpit__attachNodeNames:list<t>": {
       "node": "bone_camera_gunner"
     },

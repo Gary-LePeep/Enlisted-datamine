@@ -1292,6 +1292,7 @@
     "entity": {
       "_template": "briefing_destruction",
       "mission_name": "pacific_gavutu_bomb",
+      "mission_outfit": "pacific",
       "loading_images:list<t>": [
         {
           "item": "ui/pacific_gavutu_inv_01.avif"
@@ -1309,8 +1310,8 @@
     "entity": {
       "_template": "team_pacific_axis+team_narrator_destruction_attack+respawn_creators_team",
       "team__memberCount": 0.0,
-      "team__scoreCap": 2200.0,
-      "team__score": 2200.0,
+      "team__scoreCap": 2100.0,
+      "team__score": 2100.0,
       "team__squadSpawnCost": 250,
       "team__firstSpawnCostMul": 0.0,
       "team__zeroScoreFailTimer": 60.0,
@@ -1334,7 +1335,7 @@
       "team__briefing": "destruction/defenders_goals",
       "team__winSubtitle": "debriefing/won_defence_destruction",
       "team__loseSubtitle": "debriefing/lost_defence_destruction",
-      "team__winTitle": "debriefing/britain_won_destruction_defence_title",
+      "team__winTitle": "debriefing/allies_won_destruction_defence_title",
       "team__spawnBotArmy": "pacific_allies"
     }
   },
@@ -1408,7 +1409,7 @@
       "capzone__capReward": 750.0,
       "capzone__caption": "capzone/warehouse",
       "capzone__checkAllZonesInGroup": true,
-      "capzone__deactivateAfterTimeout": 0.0,
+      "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 1,
       "capzone__createdRespawnBaseGroup": 7,
@@ -1449,7 +1450,7 @@
       "capzone__capReward": 750.0,
       "capzone__caption": "capzone/warehouse",
       "capzone__checkAllZonesInGroup": true,
-      "capzone__deactivateAfterTimeout": 0.0,
+      "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 1,
       "capzone__createdRespawnBaseGroup": 7,
@@ -1491,7 +1492,7 @@
       "capzone__owningTeam": 1,
       "capzone__capReward": 750.0,
       "capzone__checkAllZonesInGroup": true,
-      "capzone__deactivateAfterTimeout": 0.0,
+      "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 1,
       "sphere_zone__radius": 25.0,
@@ -1564,7 +1565,7 @@
         "capzone__checkAllZonesInGroup": true
       },
       {
-        "capzone__deactivateAfterTimeout": 0.0
+        "capzone__deactivateAfterTimeout": 25.0
       },
       {
         "capzone__spawnAtZoneTimeout": 25.0
@@ -1661,7 +1662,7 @@
         "capzone__checkAllZonesInGroup": true
       },
       {
-        "capzone__deactivateAfterTimeout": 0.0
+        "capzone__deactivateAfterTimeout": 25.0
       },
       {
         "capzone__spawnAtZoneTimeout": 25.0

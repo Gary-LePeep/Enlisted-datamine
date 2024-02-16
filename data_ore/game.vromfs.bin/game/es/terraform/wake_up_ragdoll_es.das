@@ -1,6 +1,7 @@
 require ecs
 require math.base
 require PhysDecl
+require Dacoll
 require AnimV20
 require GeomNodeTree
 require enlisted.events_enlisted
@@ -13,7 +14,10 @@ def private wake_up_ragdoll_on_terraform_impl(terraformPos : float3;
   let rootPos = geomtree_getNodeWpos(*animchar.nodeTree, 0)
   if length_sq(terraformPos - rootPos) < square(2. * terraformRadius)
     animchar__updatable = true
-    ragdoll |> ragdoll_wakeUp()
+    if ! ragdoll |> ragdoll_wakeUp()
+      ragdoll |> ragdoll_startRagdoll(int(PhysLayer EPL_CHARACTER),
+                                      int(PhysLayer EPL_ALL & (~(PhysLayer EPL_KINEMATIC | PhysLayer EPL_CHARACTER))),
+                                      animchar.nodeTree)
 
 [es(tag=gameClient, REQUIRE=deadEntity, REQUIRE_NOT=animchar__actOnDemand, after=apply_terraform_es)]
 def wake_up_ragdoll_on_terraform(evt : CmdDig;

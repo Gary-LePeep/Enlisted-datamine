@@ -37,13 +37,13 @@
   },
   "tankgun_120mm_m256": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_tankgun_cannon"
+      "_use": "base_tankgun_cannon"
     },
     {
-      "_extends": "base_120mm_m256"
+      "_use": "base_120mm_m256"
     },
     {
       "turret__triggerGroup": 0

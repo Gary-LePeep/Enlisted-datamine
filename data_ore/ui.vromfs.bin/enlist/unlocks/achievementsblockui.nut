@@ -3,22 +3,23 @@ from "%enlSqGlob/ui_library.nut" import *
 let { achievementsByTypes, receiveTaskRewards } = require("taskListState.nut")
 let { getUnlockProgress, unlockProgress } = require("%enlSqGlob/userstats/unlocksState.nut")
 let { unlockRewardsInProgress } = require("%enlSqGlob/userstats/userstat.nut")
-let {
-  smallPadding, bigPadding, defBgColor
+let { smallPadding, bigPadding, defBgColor, smallOffset
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { mkAchievementTitle, mkTaskEmblem, taskHeader, taskDescription, taskDescPadding,
   statusBlock, taskMinHeight, taskSlotPadding, mkGetTaskRewardBtn
-} = require("%enlSqGlob/ui/taskPkg.nut")
-let { mkTaskRewards } = require("mkUnlockSlot.nut")
+} = require("%enlSqGlob/ui/tasksPkg.nut")
+let itemsMapping = require("%enlist/items/itemsMapping.nut")
+let { mkTaskRewards } = require("mkUnlockSlots.nut")
 let scrollbar = require("%ui/components/scrollbar.nut")
 let { seenUnlocks, markUnlocksOpened } = require("%enlist/unlocks/unseenUnlocksState.nut")
+let { hoverSlotBgColor } = require("%enlSqGlob/ui/designConst.nut")
 
 
-let mkTaskContent = @(task)
+let mkTaskContent = @(task, sf)
   function() {
-    let progress = getUnlockProgress(task)
+    let progress = getUnlockProgress(task, unlockProgress.value)
     return {
-      watch = [unlockProgress]
+      watch = unlockProgress
       size = [flex(), SIZE_TO_CONTENT]
       valign = ALIGN_CENTER
       children = {
@@ -33,8 +34,8 @@ let mkTaskContent = @(task)
             flow = FLOW_VERTICAL
             gap = taskDescPadding
             children = [
-              taskHeader(task, progress)
-              taskDescription(task.localization.description)
+              taskHeader(task, progress, true, sf)
+              taskDescription(task.localization.description, sf)
             ]
           }
         ]
@@ -43,30 +44,36 @@ let mkTaskContent = @(task)
   }
 
 let finishedOpacity = 0.5
+let finishedHoveredOpacity = 0.75
 let finishedBgColor = mul_color(defBgColor, 1.0 / finishedOpacity)
 let mkAchievementSlot = @(task) {
   size = [flex(), SIZE_TO_CONTENT]
   children = [
-    {
+    watchElemState(@(sf) {
       size = [flex(), SIZE_TO_CONTENT]
+      watch = itemsMapping
       minHeight = taskMinHeight
       rendObj = ROBJ_SOLID
       xmbNode = XmbNode()
       behavior = Behaviors.Button
-      color = task.isFinished ? finishedBgColor : defBgColor
-      opacity = task.isFinished ? finishedOpacity : 1.0
+      color = sf & S_HOVER ? hoverSlotBgColor
+        : task.isFinished ? finishedBgColor
+        : defBgColor
+      opacity = !task.isFinished ? 1.0
+        : sf & S_HOVER ? finishedHoveredOpacity
+        : finishedOpacity
       flow = FLOW_HORIZONTAL
       padding = taskSlotPadding
       gap = smallPadding
       valign = ALIGN_CENTER
       children = [
-        mkTaskContent(task)
+        mkTaskContent(task, sf)
         task.hasReward
           ? mkGetTaskRewardBtn(task, receiveTaskRewards, unlockRewardsInProgress)
           : null
-        mkTaskRewards(task, true)
+        mkTaskRewards(task, itemsMapping.value, true)
       ]
-    }
+    })
     statusBlock(task)
   ]
 }
@@ -88,13 +95,14 @@ let achievementsBlockUI = {
       size = [flex(), SIZE_TO_CONTENT]
       minHeight = ph(100)
       xmbNode = XmbContainer({
-        canFocus = @() false
+        canFocus = false
         scrollSpeed = 5
         isViewport = true
+        wrap = false
       })
       flow = FLOW_VERTICAL
       gap = smallPadding
-      margin = [0,0,0,hdpxi(18)]
+      margin = [0,0,0,smallOffset]
       halign = ALIGN_CENTER
       children = [mkAchievementTitle(achievements, "achievementsTitle")]
         .extend(achievements.map(@(achievement) mkAchievementSlot(achievement)))

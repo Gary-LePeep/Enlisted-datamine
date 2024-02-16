@@ -1,0 +1,50 @@
+{
+  "base_14mm_boys": {
+    "item__name": "items/atr_boys",
+    "gun__blk": "gamedata/gen/weapons/14mm_boys.blk",
+    "gun__shotFreq": 0.55,
+    "gun__reloadTime": 4.4,
+    "gun__maxAmmo": 5,
+    "gun__locName": "atr_boys",
+    "gun__firingModes:array": {
+      "mode:object": {
+        "modeType": "automatic"
+      }
+    },
+    "gun__firingModeNames:array": {
+      "mode": "automatic"
+    },
+    "gun__ammoSetsInfo:shared:array": {
+      "defaultSet:array": {
+        "shell:object": {
+          "blk": "content/enlisted/gamedata/weapons/bullets/13.9x99_boys.blk",
+          "name": "14mm_ap",
+          "type": "ap_ball"
+        }
+      }
+    }
+  },
+  "tankgun_14mm_boys": [
+    {
+      "_use": "tankgun"
+    },
+    {
+      "_use": "base_tankgun_autocannon"
+    },
+    {
+      "_use": "base_14mm_boys"
+    },
+    {
+      "_use": "gunsound_37mm_flak36"
+    },
+    {
+      "turret__triggerGroup": 0
+    },
+    {
+      "gun_sound__shotPath:shared:object": {
+        "_tags": "sound",
+        "path": "/weapon/antivehicle/ptrs41"
+      }
+    }
+  ]
+}

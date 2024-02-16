@@ -1,7 +1,7 @@
 {
   "team_generic_capture": [
     {
-      "_extends": "team_generic"
+      "_use": "team_generic"
     },
     {
       "team__deathPenaltyByMember": 0.0
@@ -79,6 +79,9 @@
       "team__squadSpawnCost": 0
     },
     {
+      "team__vehicleSquadSpawnCost": -1
+    },
+    {
       "team__firstSpawnCostMul": 1.0
     },
     {
@@ -101,9 +104,6 @@
     },
     {
       "team__roundScore": 0
-    },
-    {
-      "team__allowRebalance": false
     },
     {
       "team__captureSpeedMult": 1.0
@@ -210,13 +210,26 @@
     {
       "_group": {
         "_tags": "server",
-        "team_bots__maxCustomSpawns": 1,
+        "team_bots__maxCustomSpawns": 3,
         "team_bots__customSpawnsDestroyedAvoidRadius": 20.0,
         "team_bots__customSpawnsDestroyedMaxAmount": 2,
         "team_bots__buildWaitForTime": 0.0,
         "team_bots__placeMedBoxWaitForTime": 0.0,
         "team_bots__customSpawnsBuildingEids:list<eid>": [],
         "team_bots__customSpawnsDestroyed:list<p3>": []
+      }
+    },
+    {
+      "_group": {
+        "_tags": "server",
+        "team__lastAutoSpawnCapZoneEid:eid": [],
+        "team__prevAutoSpawnCapZoneEid:eid": []
+      }
+    },
+    {
+      "_group": {
+        "_tags": "server",
+        "paratroopersAircraftSpawnPoints:object": []
       }
     }
   ],
@@ -225,7 +238,7 @@
   },
   "team_usa": [
     {
-      "_extends": "team_generic_capture"
+      "_use": "team_generic_capture"
     },
     {
       "team__id": 1
@@ -270,9 +283,14 @@
       "_replicated": "team__lang"
     },
     {
-      "team__armies:list<t>": {
-        "army": "normandy_allies"
-      }
+      "team__armies:list<t>": [
+        {
+          "army": "normandy_allies"
+        },
+        {
+          "army": "usa"
+        }
+      ]
     },
     {
       "team__unitTemplates:object": {
@@ -305,16 +323,21 @@
     }
   ],
   "team_germany": {
-    "_extends": "team_generic_capture",
+    "_use": "team_generic_capture",
     "team__id": 2,
     "team__unitTemplate": "ger_soldier",
     "team__botTemplate": "ger_npc_summer_soldier_1",
     "team__lang": "de",
     "team__name": "Germany forces",
     "team__icon": "!ui/uiskin/balkenkreuz.svg",
-    "team__armies:list<t>": {
-      "army": "normandy_axis"
-    },
+    "team__armies:list<t>": [
+      {
+        "army": "normandy_axis"
+      },
+      {
+        "army": "ger"
+      }
+    ],
     "team__unitTemplates:object": {
       "ger_summer_soldier_1": 1.0,
       "ger_summer_soldier_2": 1.0,
@@ -340,12 +363,17 @@
     }
   },
   "team_germany_winter": {
-    "_extends": "team_germany",
+    "_use": "team_germany",
     "team__unitTemplate": "ger_soldier_winter",
     "team__botTemplate": "ger_winter_npc_soldier",
-    "team__armies:list<t>": {
-      "army": "moscow_axis"
-    },
+    "team__armies:list<t>": [
+      {
+        "army": "moscow_axis"
+      },
+      {
+        "army": "ger"
+      }
+    ],
     "team__unitTemplates:object": {
       "ger_winter_soldier_1": 1.0,
       "ger_winter_soldier_4": 1.0
@@ -363,12 +391,17 @@
     }
   },
   "team_germany_berlin": {
-    "_extends": "team_germany",
+    "_use": "team_germany",
     "team__unitTemplate": "ger_soldier_winter",
     "team__botTemplate": "ger_winter_npc_soldier",
-    "team__armies:list<t>": {
-      "army": "berlin_axis"
-    },
+    "team__armies:list<t>": [
+      {
+        "army": "berlin_axis"
+      },
+      {
+        "army": "ger"
+      }
+    ],
     "team__unitTemplates:object": {
       "ger_winter_soldier_1": 1.0,
       "ger_winter_soldier_4": 1.0
@@ -386,7 +419,7 @@
     }
   },
   "team_ussr": {
-    "_extends": "team_generic_capture",
+    "_use": "team_generic_capture",
     "team__id": 1,
     "team__unitTemplate": "sov_soldier_winter",
     "team__botTemplate": "sov_winter_npc_soldier",
@@ -416,12 +449,17 @@
       "ussr_marksman_preset": 1.0,
       "ussr_heavy_assault_preset": 1.0
     },
-    "team__armies:list<t>": {
-      "army": "moscow_allies"
-    }
+    "team__armies:list<t>": [
+      {
+        "army": "moscow_allies"
+      },
+      {
+        "army": "ussr"
+      }
+    ]
   },
   "team_ussr_berlin": {
-    "_extends": "team_generic_capture",
+    "_use": "team_generic_capture",
     "team__id": 1,
     "team__unitTemplate": "sov_soldier_winter",
     "team__botTemplate": "sov_winter_npc_soldier",
@@ -451,12 +489,17 @@
       "ussr_marksman_preset": 1.0,
       "ussr_heavy_assault_preset": 1.0
     },
-    "team__armies:list<t>": {
-      "army": "berlin_allies"
-    }
+    "team__armies:list<t>": [
+      {
+        "army": "berlin_allies"
+      },
+      {
+        "army": "ussr"
+      }
+    ]
   },
   "team_ussr_winter": {
-    "_extends": "team_generic_capture",
+    "_use": "team_generic_capture",
     "team__randomizeTemplate": true,
     "team__id": 1,
     "team__unitTemplate": "sov_soldier_winter",
@@ -481,49 +524,95 @@
       "ussr_marksman_preset": 1.0,
       "ussr_heavy_assault_preset": 1.0
     },
-    "team__armies:list<t>": {
-      "army": "moscow_allies"
-    }
+    "team__armies:list<t>": [
+      {
+        "army": "moscow_allies"
+      },
+      {
+        "army": "ussr"
+      }
+    ]
+  },
+  "team_japan": {
+    "_use": "team_germany",
+    "team__armies:list<t>": [
+      {
+        "army": "pacific_axis"
+      },
+      {
+        "army": "jap"
+      }
+    ]
   },
   "team_tunisia_allies": {
-    "_extends": "team_usa",
-    "team__armies:list<t>": {
-      "army": "tunisia_allies"
-    }
+    "_use": "team_usa",
+    "team__armies:list<t>": [
+      {
+        "army": "tunisia_allies"
+      },
+      {
+        "army": "usa"
+      }
+    ]
   },
   "team_tunisia_axis": {
-    "_extends": "team_germany",
-    "team__armies:list<t>": {
-      "army": "tunisia_axis"
-    }
+    "_use": "team_germany",
+    "team__armies:list<t>": [
+      {
+        "army": "tunisia_axis"
+      },
+      {
+        "army": "ger"
+      }
+    ]
   },
   "team_stalingrad_allies": {
-    "_extends": "team_ussr",
-    "team__armies:list<t>": {
-      "army": "stalingrad_allies"
-    }
+    "_use": "team_ussr",
+    "team__armies:list<t>": [
+      {
+        "army": "stalingrad_allies"
+      },
+      {
+        "army": "ussr"
+      }
+    ]
   },
   "team_stalingrad_axis": {
-    "_extends": "team_germany",
-    "team__armies:list<t>": {
-      "army": "stalingrad_axis"
-    }
+    "_use": "team_germany",
+    "team__armies:list<t>": [
+      {
+        "army": "stalingrad_axis"
+      },
+      {
+        "army": "ger"
+      }
+    ]
   },
   "team_pacific_allies": {
-    "_extends": "team_usa",
-    "team__armies:list<t>": {
-      "army": "pacific_allies"
-    }
+    "_use": "team_usa",
+    "team__armies:list<t>": [
+      {
+        "army": "pacific_allies"
+      },
+      {
+        "army": "usa"
+      }
+    ]
   },
   "team_pacific_axis": {
-    "_extends": "team_germany",
-    "team__armies:list<t>": {
-      "army": "pacific_axis"
-    }
+    "_use": "team_germany",
+    "team__armies:list<t>": [
+      {
+        "army": "pacific_axis"
+      },
+      {
+        "army": "jap"
+      }
+    ]
   },
   "army_language": {
     "_tags": "gameClient",
-    "_extends": "replicating",
+    "_use": "replicating",
     "_singleton": true,
     "armyLanguage:object": {
       "normandy_allies": "en",
@@ -537,7 +626,11 @@
       "stalingrad_allies": "ru",
       "stalingrad_axis": "de",
       "pacific_allies": "en",
-      "pacific_axis": "jp"
+      "pacific_axis": "jp",
+      "ussr": "ru",
+      "usa": "en",
+      "ger": "de",
+      "jap": "jp"
     }
   }
 }

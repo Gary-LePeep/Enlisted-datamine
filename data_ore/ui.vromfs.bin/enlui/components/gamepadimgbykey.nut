@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let controlsTypes = require("%ui/control/controls_types.nut")
 let controllerType = require("%ui/control/controller_type.nut")
 let dainput = require("dainput2")
@@ -23,12 +23,12 @@ local dargJKeys2X1Image = {
   "J:Select"        : "back",
   "J:View"          : "back",
 
-  "J:L.Thumb"       : "lstick_pressed",
+  "J:LS.Tilted"     : "lstick_pressed",
   "J:LS"            : "lstick_pressed",
   "J:L3"            : "lstick_pressed",
   "J:L3.Centered"   : "lstick_pressed",
   "J:LS.Centered"   : "lstick_pressed",
-  "J:R.Thumb"       : "rstick_pressed",
+  "J:RS.Tilted"     : "rstick_pressed",
   "J:RS"            : "rstick_pressed",
   "J:R3"            : "rstick_pressed",
   "J:R3.Centered"   : "rstick_pressed",
@@ -221,7 +221,7 @@ let function getBtnImageHeight(imageName, aHeight) {
   return ((heightMuls?[imageName] ?? defHeightMul) * aHeight).tointeger()
 }
 
-let defHeight = calc_str_box("A", body_txt)[1].tointeger()
+let defHeight = calc_str_box("A", fontBody)[1].tointeger()
 let pic = memoize( @(text, hgt) Picture("ui/input#{0}.svg:{1}:{1}:K".subst(text, hgt)))
 
 local function mkImageComp(text, params = defHeight){

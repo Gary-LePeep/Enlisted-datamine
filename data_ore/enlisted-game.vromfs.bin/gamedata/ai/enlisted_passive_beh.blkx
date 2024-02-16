@@ -428,6 +428,18 @@
         }
       },
       {
+        "setIntVar": {
+          "to": "coverAttack",
+          "value": 0
+        }
+      },
+      {
+        "setIntVar": {
+          "to": "dangerNearbyBeware",
+          "value": 0
+        }
+      },
+      {
         "orderedSelector": {
           "name": "attack",
           "subTree": {
@@ -443,22 +455,32 @@
                 "sequencer": {
                   "findDanger": {
                     "paramName": "shootEnemy",
+                    "outSeeTimeParam": "shootEnemyTime",
                     "radiusParamName": "enemyNearRadius",
                     "minDanger": 0.1,
                     "tag": "human"
                   },
-                  "subTree": {
-                    "treeName": "sub.oneShootAttack"
+                  "setIntVar": {
+                    "to": "dangerNearbyBeware",
+                    "value": 1
                   },
                   "getTime": {
                     "to": "enemyNearTime"
+                  },
+                  "subTree": {
+                    "treeName": "sub.oneShootAttack"
                   }
                 }
               },
               {
                 "sequencer": {
+                  "isVarsIntEqual": {
+                    "lhs": "dangerNearbyBeware",
+                    "rhs_value": 0
+                  },
                   "findDanger": {
                     "paramName": "shootEnemy",
+                    "outSeeTimeParam": "shootEnemyTime",
                     "radiusParamName": "enemyRadius",
                     "minDanger": 0.1,
                     "tag": "human"
@@ -471,42 +493,68 @@
                       "range": [0.5,1.0],
                       "resetable": true
                     },
-                    "sequencer": {
-                      "checkAtTime": {
-                        "timeParam": "rememberEnemyTime",
-                        "range": [0.0,10.0]
-                      },
-                      "checkTarget": {
-                        "targetUnitParam": "rememberEnemy"
-                      },
-                      "wanderLook": {
-                        "posParam": "rememberEnemyPos",
-                        "range": [0.2,0.1],
-                        "maxStanceParam": "coverStance"
+                    "success": {
+                      "sequencer": {
+                        "checkAtTime": {
+                          "timeParam": "rememberEnemyTime",
+                          "range": [0.0,10.0]
+                        },
+                        "checkTarget": {
+                          "targetUnitParam": "rememberEnemy"
+                        },
+                        "wanderLook": {
+                          "posParam": "rememberEnemyPos",
+                          "range": [0.2,0.1],
+                          "maxStanceParam": "coverStance"
+                        }
                       }
                     }
                   }
                 }
               }
             ]
+          },
+          "failed": {
+            "sequencer": {
+              "isVarsIntEqual": {
+                "lhs": "dangerNearbyBeware",
+                "rhs_value": 0
+              },
+              "decreaseDangerLevel": {
+                "paramName": "dangerLevel",
+                "decreaseCoef": 0.5
+              }
+            }
           }
         }
       },
       {
-        "sequencer": {
-          "isVarsIntEqual": {
-            "lhs": "tryBuild",
-            "rhs_value": 1
+        "sequencer": [
+          {
+            "isVarsIntEqual": {
+              "lhs": "tryBuild",
+              "rhs_value": 1
+            }
           },
-          "setIntVar": {
-            "to": "tryBuild",
-            "value": 0
+          {
+            "isVarsIntEqual": {
+              "lhs": "dangerNearbyBeware",
+              "rhs_value": 0
+            }
           },
-          "subTree": {
-            "name": "",
-            "treeName": "sub.tryBuildAndPlace"
+          {
+            "setIntVar": {
+              "to": "tryBuild",
+              "value": 0
+            }
+          },
+          {
+            "subTree": {
+              "name": "",
+              "treeName": "sub.tryBuildAndPlace"
+            }
           }
-        }
+        ]
       },
       {
         "sequencer": [
@@ -545,6 +593,18 @@
             }
           },
           {
+            "orderedSelector": {
+              "isVarsIntEqual": {
+                "lhs": "dangerNearbyBeware",
+                "rhs_value": 1
+              },
+              "subTree": {
+                "name": "",
+                "treeName": "sub.passiveStay"
+              }
+            }
+          },
+          {
             "setCurrentAiAction": {
               "state": "move"
             }
@@ -553,12 +613,6 @@
             "subTree": {
               "name": "",
               "treeName": "sub.passiveMove"
-            }
-          },
-          {
-            "subTree": {
-              "name": "",
-              "treeName": "sub.passiveStay"
             }
           }
         ]
@@ -585,6 +639,9 @@
         "reaction": {
           "event": "onBulletNearby",
           "sequencer": {
+            "isReadyForAction": {
+              "checkFence": true
+            },
             "periodicTimer": {
               "timeParam": "onBulletNearbyTimer",
               "timePeriod": [2.0,4.0]
@@ -597,6 +654,9 @@
         "reaction": {
           "event": "onEnemyPlayerNear",
           "sequencer": {
+            "isReadyForAction": {
+              "checkFence": true
+            },
             "findDanger": {
               "paramName": "shootEnemy",
               "radiusParamName": "enemyNearRadius",

@@ -5,9 +5,10 @@
   "speed": 18.5,
   "speedPitch": 5.0,
   "maxDistance": 5.0,
-  "physMat": "walkRay",
+  "physMat": "grenadeRay",
   "useFutureContacts": true,
   "logCCD": false,
+  "ccdClipVelocityMult": 0.0,
   "entityTemplate": "signal_flare",
   "entityPhysTemplate": "signal_flare_phys",
   "collisionResource": {

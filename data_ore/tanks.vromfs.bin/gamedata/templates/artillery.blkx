@@ -13,7 +13,7 @@
     "auto_shoot__applyGravityOffset:tag": []
   },
   "artillery": {
-    "_extends": "replicating",
+    "_use": "replicating",
     "artillery_zone__radius": 24.0,
     "artillery__dispersion": 12.0,
     "artillery__adjustmentDispersion": 24.0,
@@ -35,10 +35,10 @@
   },
   "artillery_gun": [
     {
-      "_extends": "tankgun_76mm_l11"
+      "_use": "tankgun_76mm_l11"
     },
     {
-      "_extends": "hit_effect_group_artillery"
+      "_use": "hit_effect_group_artillery"
     },
     {
       "gun__ammo": 111
@@ -94,7 +94,7 @@
     }
   ],
   "adjustment_artillery_gun": {
-    "_extends": "artillery_gun",
+    "_use": "artillery_gun",
     "gun__ammoSetsInfo:shared:array": {
       "HE:array": {
         "shell:object": {

@@ -1,0 +1,223 @@
+{
+  "base_type_3_ho_ni_i": [
+    {
+      "_use": "base_tank"
+    },
+    {
+      "_use": "type_3_ho_ni_i_ammo_stowages"
+    },
+    {
+      "killLogName": "jp_type_3_ho_ni_i"
+    },
+    {
+      "animchar__res": "type_3_ho_ni_I_char"
+    },
+    {
+      "collres__res": "type_3_ho_ni_I_collision"
+    },
+    {
+      "vehicle_net_phys__blk": "gamedata/gen/units/tanks/type_3_ho_ni_i.blk:VehiclePhys"
+    },
+    {
+      "particle_phys__blk": "gamedata/suspension/empty.blk"
+    },
+    {
+      "dmg_animchar__res": "type_3_ho_ni_I_dmg_char"
+    },
+    {
+      "xray_resource__modelName": "type_3_ho_ni_I"
+    },
+    {
+      "cockpit__zoomOutFov": 2.7475
+    },
+    {
+      "cockpit__zoomInFov": 5.3955
+    },
+    {
+      "cockpit__sightName": "sight_model/default_tank_spg"
+    },
+    {
+      "cockpit__sightFov": 20.0
+    },
+    {
+      "drowningHeight": 1.752
+    },
+    {
+      "damage_model__blk": "gamedata/gen/units/tanks/type_3_ho_ni_i.blk"
+    },
+    {
+      "item__name": "items/jp_type_3_ho_ni_i"
+    },
+    {
+      "skin__template": "type_3_ho_ni_i_skins"
+    },
+    {
+      "turret_gun_flash_fx__flashNodes:shared:array": {
+        "node": "emtr_gun_flame"
+      }
+    },
+    {
+      "turret_gun_flash_fx__flashFx:shared:array": {
+        "fx": "muzzle_ground_60mm"
+      }
+    },
+    {
+      "turret_gun_flash_fx__flashFxScale:shared:array": {
+        "scale": 1.0
+      }
+    },
+    {
+      "turret_control__emitterNodes:shared:array": {
+        "node": "bone_gun_barrel"
+      }
+    },
+    {
+      "turret_control__animVars:shared:array": {
+        "vars:object": {
+          "curYawParamName": "turret_01_yaw",
+          "curPitchParamName": "gun_01_pitch",
+          "aimActiveParamName": "aim_01_active",
+          "paramYawSpeed": "turret_01_yaw_speed",
+          "paramYawSpeedMul": "turret_01_yaw_mul",
+          "paramYawAccel": "turret_01_yaw_accel",
+          "paramMinYawAngle": "turret_01_min_yaw_angle",
+          "paramMaxYawAngle": "turret_01_max_yaw_angle",
+          "paramMinPitchAngle": "turret_01_min_pitch_angle",
+          "paramMaxPitchAngle": "turret_01_max_pitch_angle",
+          "paramPitchSpeed": "gun_01_pitch_speed",
+          "paramPitchSpeedMul": "gun_01_pitch_mul",
+          "paramPitchAccel": "gun_01_pitch_accel",
+          "wishYawParamName": "gun_01_aim:targetYaw",
+          "wishPitchParamName": "gun_01_aim:targetPitch",
+          "gunRecoilParamName": "gun_01_recoil"
+        }
+      }
+    },
+    {
+      "turret_control__turretInfo:shared:array": {
+        "turretInfo:object": {
+          "turretName": "turret_01",
+          "gun": "type_3_ho_ni_i_turret_01_75mm_type90+turret_with_several_types_of_shells+main_turret",
+          "barrelDm": "gun_barrel",
+          "breechDm": "cannon_breech",
+          "verDriveDm": "drive_turret_v",
+          "horDriveDm": "drive_turret_h",
+          "salt": 1
+        }
+      }
+    }
+  ],
+  "type_3_ho_ni_i_turret_01_75mm_type90": {
+    "_use": "tankgun_75mm_type90",
+    "gun__shootNodeName": "bone_gun_barrel",
+    "turret__yawSpeed": 16.0,
+    "turret__pitchSpeed": 4.0,
+    "turret__aimNodeName": "bone_turret",
+    "turret__limit": [-10.0,10.0,-10.0,20.0],
+    "gun__shellsAmmo:array": [
+      {
+        "ammo": 14
+      },
+      {
+        "ammo": 13
+      },
+      {
+        "ammo": 13
+      }
+    ]
+  },
+  "type_3_ho_ni_i_ammo_stowages": {
+    "_tags": "server",
+    "_use": "vehicle_ammo_stowages",
+    "ammo_stowage__stowageTemplates:shared:list<t>": {
+      "stowage": "type_3_ho_ni_i_ammo_stowage_1"
+    }
+  },
+  "type_3_ho_ni_i_ammo_stowage_1": {
+    "_use": "ammo_stowage",
+    "ammo_stowage__clusterTemplates:shared:list<t>": {
+      "cluster": "type_3_ho_ni_i_ammo_cluster_1_1"
+    },
+    "ammo_stowage__turretNames:shared:list<t>": {
+      "gun": "turret_01"
+    }
+  },
+  "type_3_ho_ni_i_ammo_cluster_1_1": {
+    "_use": "ammo_cluster",
+    "ammo_cluster__isShell": true,
+    "ammo_cluster__slotNames:shared:list<t>": [
+      {
+        "part": "ammo_body_01"
+      },
+      {
+        "part": "ammo_body_02"
+      },
+      {
+        "part": "ammo_body_03"
+      }
+    ],
+    "ammo_cluster__slotsMaxAmmo:list<i>": [
+      {
+        "count": 13
+      },
+      {
+        "count": 23
+      },
+      {
+        "count": 4
+      }
+    ]
+  },
+  "type_3_ho_ni_i_skins": {
+    "skin__objTexReplace:array": [
+      {
+        "skin:object": {
+          "id": "type_3_ho_ni_i_brown",
+          "objTexReplace:object": {
+            "jp_camo_artillery_brown*": "jp_camo_brown*"
+          }
+        }
+      },
+      {
+        "skin:object": {
+          "id": "type_3_ho_ni_i_grey",
+          "objTexReplace:object": {
+            "jp_camo_artillery_brown*": "jp_camo_warship_grey*"
+          }
+        }
+      },
+      {
+        "skin:object": {
+          "id": "type_3_ho_ni_i_green",
+          "objTexReplace:object": {
+            "jp_camo_artillery_brown*": "jp_camo_willow_green*"
+          }
+        }
+      },
+      {
+        "skin:object": {
+          "id": "type_3_ho_ni_i_early_era_brown_yellow_lines",
+          "objTexReplace:object": {
+            "jp_camo_artillery_brown*": "jp_camo_early_brown_yellow_lines*"
+          }
+        }
+      },
+      {
+        "skin:object": {
+          "id": "type_3_ho_ni_i_post_era_winter",
+          "objTexReplace:object": {
+            "jp_camo_artillery_brown*": "jp_camo_post_winter*"
+          }
+        }
+      },
+      {
+        "skin:object": {
+          "id": "type_3_ho_ni_i_jp_camo_winter_early",
+          "objTexReplace:object": {
+            "jp_camo_artillery_brown*": "jp_camo_winter_early*"
+          }
+        }
+      }
+    ]
+  }
+}

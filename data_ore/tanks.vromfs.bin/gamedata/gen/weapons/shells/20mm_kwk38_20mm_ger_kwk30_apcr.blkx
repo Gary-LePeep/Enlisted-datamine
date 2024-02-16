@@ -11,13 +11,7 @@
   "normalizationPreset": "apcr",
   "bulletType": "apcr_t",
   "fresnel": [0.23,0.1,2.0],
-  "shellAnimation": "video/shells_animations/apcr_belt.ivf",
   "bulletName": "20mm_pzgr_40",
-  "selfDestructionFx": "explosion_air_selfexplosion_small",
-  "explosionEffect": "hit_19_27mm_metal_ap",
-  "groundCollisionEffect": "hit_19_27mm_dirt_ap",
-  "ricochetEffect": "hit_19_27mm_metal_ap",
-  "waterCollisionEffect": "hit_19_27mm_water",
   "modelName": "tank_bullet_apcr",
   "secondaryShattersPreset": "apcr",
   "hitpower": {
@@ -203,27 +197,6 @@
           "mod3": [45.0,0.3]
         }
       ]
-    }
-  },
-  "hitFx": {
-    "fxScale": [1.0,1.0],
-    "defaultFx": "hit_19_27mm_dirt_ap",
-    "jetFx": "hit_19_27mm_dirt_ap",
-    "steel": {
-      "fx": "hit_19_27mm_metal_ap",
-      "fxScale": [1.0,1.0]
-    },
-    "wood": {
-      "fx": "hit_19_27mm_wood_ap",
-      "fxScale": [1.0,1.0]
-    },
-    "glass": {
-      "fx": "hit_19_27mm_metal_ap",
-      "fxScale": [1.0,1.0]
-    },
-    "stone": {
-      "fx": "hit_19_27mm_stone_ap",
-      "fxScale": [1.0,1.0]
     }
   },
   "tracer": {

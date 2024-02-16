@@ -68,6 +68,8 @@ def turret_control_init_es(evt : Event;
                            turret__pitchAccel : float = -1.0;
                            turret__fireFxOn : bool = true;
                            turret__limit : float4 const? = null;
+                           turret__stabilizerYawFrictionMult : float = 0.0;
+                           turret__stabilizerPitchFrictionMult : float = 0.0;
                            var turret__resolved : bool&;
                            var turret__wishYawVarId : int&;
                            var turret__wishPitchVarId : int&;
@@ -86,8 +88,14 @@ def turret_control_init_es(evt : Event;
                            var turret__minPitchAngleVarId : int&;
                            var turret__maxPitchAngleVarId : int&;
                            var turret__gunRecoilVarId : int&;
+                           var turret__emitterOwner : EntityId&;
                            var turret__emitterNodeId : int&;
-                           var turret__turretAimActiveVarId : int&)
+                           var turret__turretAimActiveVarId : int&;
+                           var turret__stabilizerYawActiveVarId : int&;
+                           var turret__stabilizerPitchActiveVarId : int&;
+                           var turret__stabilizerErrorVarId : int&;
+                           var turret__stabilizerYawFrictionMultVarId : int&;
+                           var turret__stabilizerPitchFrictionMultVarId : int&)
   if !turret__owner
     // Turret without owner is not attached to any vehicle.
     // So, such turret do not need to be resoved.
@@ -99,9 +107,11 @@ def turret_control_init_es(evt : Event;
 
   query(turret__owner) <| $ [es] ([[shared_comp]] turret_control__animVars : Array;
                                   [[shared_comp]] turret_control__emitterNodes : Array;
+                                  turret_control__isStabilizerEnabled : bool = true;
                                   animchar : AnimcharBaseComponent;
                                   var anim_phys : AnimatedPhys;
                                   var phys_vars : PhysVars)
+    turret__emitterOwner = turret__owner
     turret__emitterNodeId = find_node_index(animchar, turret_control__emitterNodes, turret__id)
 
     let animVars = get_ecs_object(turret_control__animVars, turret__id)
@@ -120,15 +130,24 @@ def turret_control_init_es(evt : Event;
       turret__pitchAccelVarId      = registerVar(phys_vars, *animVars, "paramPitchAccel")
       turret__gunRecoilVarId       = registerVar(phys_vars, *animVars, "gunRecoilParamName")
       turret__turretAimActiveVarId = registerVar(phys_vars, *animVars, "aimActiveParamName", 1.f)
+      let stabilizerVal = turret_control__isStabilizerEnabled ? 1. : 0.
+      turret__stabilizerYawActiveVarId   = registerVar(phys_vars, *animVars, "stabilizerYawParamName", stabilizerVal)
+      turret__stabilizerPitchActiveVarId = registerVar(phys_vars, *animVars, "stabilizerPitchParamName", stabilizerVal)
+      turret__stabilizerErrorVarId       = registerVar(phys_vars, *animVars, "stabilizerErrorParamName")
+      turret__stabilizerYawFrictionMultVarId = registerVar(phys_vars, *animVars, "stabilizerYawMultParamName", clamp(1.0 - turret__stabilizerYawFrictionMult, 0., 1.))
+      turret__stabilizerPitchFrictionMultVarId = registerVar(phys_vars, *animVars, "stabilizerPitchMultParamName", clamp(1.0 - turret__stabilizerPitchFrictionMult, 0., 1.))
+      let hasStab = turret__stabilizerYawActiveVarId >= 0 || turret__stabilizerPitchActiveVarId >= 0
+      registerVar(phys_vars, *animVars, "hasStabilizerParamName", hasStab ? 1.0 : 0.0)
       if turret__limit != null
         turret__minYawAngleVarId     = registerVar(phys_vars, *animVars, "paramMinYawAngle")
         turret__maxYawAngleVarId     = registerVar(phys_vars, *animVars, "paramMaxYawAngle")
         turret__minPitchAngleVarId   = registerVar(phys_vars, *animVars, "paramMinPitchAngle")
         turret__maxPitchAngleVarId   = registerVar(phys_vars, *animVars, "paramMaxPitchAngle")
+        // NOTE: yaw limits are inverted, because of how AnimPostBlendAimCtrl works
         if turret__minYawAngleVarId >= 0
-          setVar(phys_vars, turret__minYawAngleVarId, (*turret__limit).x)
+          setVar(phys_vars, turret__minYawAngleVarId, -(*turret__limit).y)
         if turret__maxYawAngleVarId >= 0
-          setVar(phys_vars, turret__maxYawAngleVarId, (*turret__limit).y)
+          setVar(phys_vars, turret__maxYawAngleVarId, -(*turret__limit).x)
         if turret__minPitchAngleVarId >= 0
           setVar(phys_vars, turret__minPitchAngleVarId, (*turret__limit).z)
         if turret__maxPitchAngleVarId >= 0
@@ -148,6 +167,9 @@ def turret_control_init_es(evt : Event;
     turret__resolved = true
 
     addSubTemplate(eid, "resolved_turret")
+
+    if !turret__resolved
+      logerr("Turret '{turret__name}' for '{turret__owner}' ({getEntityTemplateName(turret__owner)}) was no resolved")
 
 [es(on_appear)]
 def turret_control_init_flash_nodes(evt : Event; turret__owner : EntityId; turret__id : int; var turret__flashNodeId : int&)
@@ -183,12 +205,3 @@ def turret_dm_part_es(evt : Event;
     turret_dm_part__breechDm         = find_dm_part_id(turretObj, "breechDm", damage_model)
     turret_drive_dm_part__horDriveDm = find_dm_part_id(turretObj, "horDriveDm", damage_model)
     turret_drive_dm_part__verDriveDm = find_dm_part_id(turretObj, "verDriveDm", damage_model)
-
-[es(tag=gameClient, on_appear, REQUIRE=resolvedTurret)]
-def turret_can_zoom_init_es(evt : Event;
-                            turret__owner : EntityId;
-                            turret__id : int;
-                            var turret__canZoom : bool&)
-  query(turret__owner) <| $ [es] ([[shared_comp]] turret_control__turretInfo : Array)
-    let turretObj = get_ecs_object(turret_control__turretInfo, turret__id)
-    turret__canZoom = get_bool(turretObj, "canZoom") ?? true

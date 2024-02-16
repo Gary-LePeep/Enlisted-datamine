@@ -2,6 +2,11 @@ module render_events shared
 require ecs
 require DagorDriver3D
 require DagorMath
+require fx
+
+[cpp_event(broadcast)]
+struct ResetLowResEffects
+  fxQualityConfig : FxQuality
 
 [cpp_event(broadcast)]
 struct SetResolutionEvent
@@ -49,3 +54,8 @@ struct UpdateStageInfoBeforeRender
 [cpp_event(broadcast)]
 struct AfterDeviceReset
   fullReset : bool
+
+[cpp_event(broadcast)]
+struct OnRenderDecals
+  viewTm : float3x4
+  projTm : float4x4

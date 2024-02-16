@@ -11,12 +11,6 @@ struct CmdPlayNetSound
 struct CmdPlayNetSoundPos
   hash : uint
   pos : float3
-  param : float
-  time : float
-
-[event(unicast, routing=ROUTING_SERVER_TO_CLIENT)]
-struct CmdPlayNetSoundSimple
-  hash : uint
   time : float
 
 [event(unicast, routing=ROUTING_SERVER_TO_CLIENT)]

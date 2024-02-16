@@ -9,7 +9,14 @@ let {EventLevelLoaded} = require("gameevents")
 let {EventForceCapture, EventTeamWon} = require("dasevents")
 let {getMissionType} = require("%enlSqGlob/missionType.nut")
 
-let capzoneQuery = ecs.SqQuery("capzoneQuery", {comps_ro=["active", "transform", "capzone__capTeam"], comps_rq=["capzone"]})
+let capzoneQuery = ecs.SqQuery("capzoneQuery", {
+  comps_ro=[
+    ["active", ecs.TYPE_BOOL],
+    ["transform", ecs.TYPE_MATRIX],
+    ["capzone__capTeam", ecs.TYPE_INT],
+  ],
+  comps_rq=["capzone"]
+})
 
 let teamWon = random.rnd_int(1, 2)
 

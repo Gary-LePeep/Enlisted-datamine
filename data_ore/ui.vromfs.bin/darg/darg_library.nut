@@ -1,9 +1,8 @@
-#no-func-decl-sugar
-
-from "frp" import *
+from "%sqstd/frp.nut" import *
 from "daRg" import *
 
 let {tostring_r} = require("%sqstd/string.nut")
+let {min}  = require("math")
 
 /*
 //===== DARG specific methods=====
@@ -100,7 +99,7 @@ let function wrap(elems, params=wrapParams) {
   if (paddingLeft && !isFlowHor)
     flowElems.append(paddingLeft)
   local tail = elems
-  let function buildFlowElem(elems, gap, flowElemProto, dimensionLim) {  //warning disable: -ident-hides-ident
+  let function buildFlowElem(elems, gap, flowElemProto, dimensionLim) {  //warning disable: -ident-hides-ident -param-hides-param
     let children = []
     local curwidth=0.0
     local tailidx = 0
@@ -162,7 +161,7 @@ let function XmbNode(params={}) {
 
 let function XmbContainer(params={}) {
   return XmbNode({
-    canFocus = @() false
+    canFocus = false
   }.__merge(params))
 }
 

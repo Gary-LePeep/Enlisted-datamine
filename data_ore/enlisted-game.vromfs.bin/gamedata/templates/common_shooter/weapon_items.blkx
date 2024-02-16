@@ -7,10 +7,10 @@
   },
   "item_magazine": [
     {
-      "_extends": "item"
+      "_use": "item"
     },
     {
-      "_extends": "ammo_holder"
+      "_use": "ammo_holder"
     },
     {
       "item__iconYaw": 45.0
@@ -44,10 +44,10 @@
   ],
   "item_bullets": [
     {
-      "_extends": "item"
+      "_use": "item"
     },
     {
-      "_extends": "ammo_holder"
+      "_use": "ammo_holder"
     },
     {
       "item__iconYaw": 45.0
@@ -78,13 +78,13 @@
   ],
   "item_gun": [
     {
-      "_extends": "item"
+      "_use": "item"
     },
     {
-      "_extends": "gun_anim_vars"
+      "_use": "gun_anim_vars"
     },
     {
-      "item__iconYaw": 90.0
+      "item__iconYaw": -90.0
     },
     {
       "item__ui_priority": 2
@@ -127,10 +127,10 @@
   },
   "item_melee": [
     {
-      "_extends": "item"
+      "_use": "item"
     },
     {
-      "_extends": "gun_anim_vars"
+      "_use": "gun_anim_vars"
     },
     {
       "item__ui_priority": 1
@@ -163,10 +163,10 @@
   ],
   "item_grenade": [
     {
-      "_extends": "item"
+      "_use": "item"
     },
     {
-      "_extends": "weapon_slot_indexed"
+      "_use": "weapon_slot_indexed"
     },
     {
       "item__iconPitch": 60.0

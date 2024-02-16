@@ -1,0 +1,90 @@
+{
+  "sequencer": [
+    {
+      "name": "cinematic_ai_attack_target_beh"
+    },
+    {
+      "wait": {
+        "rangeParam": "step1_waitTime",
+        "resetable": true,
+        "range": [1.0,1.0]
+      }
+    },
+    {
+      "wait": {
+        "rangeParam": "step5_waitTime",
+        "resetable": true,
+        "range": [1.0,1.0]
+      }
+    },
+    {
+      "orderedSelector": {
+        "sequencer": {
+          "findNamedAIPoint": {
+            "pointNameParam": "step2_moveToPointName",
+            "posOutParam": "wishPosition"
+          },
+          "moveToPos": {
+            "posParam": "wishPosition",
+            "sprintTimerRange": [5.0,10.0],
+            "minDistToSprint": 5.0,
+            "distThreshold": 1.0,
+            "avoidAiObstacles": false,
+            "timeToStuck": 5.0,
+            "incLadders": true
+          },
+          "wait": {
+            "rangeParam": "step3_waitTime",
+            "resetable": true,
+            "range": [1.0,1.0]
+          }
+        },
+        "continue": []
+      }
+    },
+    {
+      "parallel": {
+        "wait": {
+          "rangeParam": "step4_attackTime",
+          "resetable": true,
+          "range": [2.0,2.0]
+        },
+        "success": {
+          "repeat": {
+            "findNamedAITarget": {
+              "targetNameParam": "step4_attackTargetName",
+              "targetEidOutParam": "shootEnemy"
+            },
+            "getRandomPointNearTarget": {
+              "targetUnitParam": "shootEnemy",
+              "posParam": "posNearTarget",
+              "useGenerationByY": false
+            },
+            "rotateToPoint": {
+              "posParam": "posNearTarget"
+            },
+            "shootAtUnit": {
+              "targetUnitParam": "shootEnemy",
+              "minStanceParam": "minStance",
+              "shootCycles": 3,
+              "tryToSaveCurrentStance": false,
+              "minStanceChance": 1.5,
+              "shootTime": [0.2,1.0],
+              "cooldownTime": [0.2,0.9],
+              "minAimTime": [0.1,0.4],
+              "maxStanceParam": "maxStance",
+              "alwaysAiming": true,
+              "chooseStance": false
+            }
+          }
+        }
+      }
+    },
+    {
+      "switchAIBehavior": {
+        "addTemplateParam": "step6_addTemplate",
+        "delTemplateParam": "step6_delTemplate"
+      }
+    }
+  ]
+}

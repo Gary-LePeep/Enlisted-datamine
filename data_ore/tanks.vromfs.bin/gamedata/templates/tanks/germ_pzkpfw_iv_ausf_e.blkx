@@ -1,19 +1,31 @@
 {
   "germ_pzkpfw_IV_ausf_E": {
-    "_extends": "germ_pzkpfw_IV_ausf_E_common",
-    "animchar__objTexReplace:object": {
-      "ger_camo_grey*": "ger_camo_winter_grey*"
-    }
+    "_use": "germ_pzkpfw_IV_ausf_E_common"
   },
   "germ_pzkpfw_IV_ausf_E_common": [
     {
-      "_extends": "base_pzkpfw_iv_ausf_e"
+      "_use": "base_pzkpfw_iv_ausf_e"
     },
     {
-      "_extends": "tank_panzer3_engine_sound"
+      "_use": "tank_panzer3_engine_sound"
     },
     {
-      "item__iconOffset": [0.0,0.3]
+      "item__iconOffset": [0.0,0.2]
+    },
+    {
+      "item__iconScale": 1.4
+    },
+    {
+      "commanderCockpitFpsCamMaxAngle": [40.0,5.0]
+    },
+    {
+      "gunner_cam_limit__useCockpitDir": true
+    },
+    {
+      "armorThicknessHull": [50.0,20.0,20.0]
+    },
+    {
+      "armorThicknessTurret": [30.0,20.0,20.0]
     },
     {
       "turrets__initAmmoDistribution:array": [
@@ -196,7 +208,7 @@
     }
   ],
   "germ_pzkpfw_IV_ausf_E_driver_cockpit": {
-    "_extends": "base_driver_cockpit_no_slits",
+    "_use": "base_driver_cockpit_no_slits",
     "animchar__res": "pzkpfw_iii_e_driver_char",
     "cockpit__offset": [-0.35,-0.2,0.01],
     "cockpit__visibleVehicleNodeNames:list<t>": [
@@ -239,11 +251,9 @@
     ]
   },
   "germ_pzkpfw_IV_ausf_E_gunner_cockpit": {
-    "vehicle_sight__blk": "content/tanks/gamedata/sight/germ_tzf5b.blk",
-    "_extends": "base_gunner_cockpit",
+    "_use": "base_gunner_cockpit",
     "animchar__res": "pzkpfw_iii_e_gunner_char",
     "cockpit__offset": [-0.8,0.0,0.0],
-    "cockpit__minZoom": -0.4,
     "cockpit__attachNodeNames:list<t>": [
       {
         "node": "bone_camera_gunner"
@@ -293,7 +303,7 @@
     ],
     "cockpit__slitForwardOffset:list<r>": [
       {
-        "slit": 0.27
+        "slit": 0.29
       },
       {
         "slit": 0.0
@@ -334,10 +344,47 @@
       {
         "slit": [1.0,0.4,0.5]
       }
-    ]
+    ],
+    "cockpit__slitZoom:array": [
+      {
+        "slit:list<r>": [
+          {
+            "zoom": 1.9
+          },
+          {
+            "zoom": 3.5
+          }
+        ]
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.0
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.0
+        }
+      }
+    ],
+    "cockpit__slitZoomTime:list<r>": [
+      {
+        "slit": 0.05
+      },
+      {
+        "slit": 0.0
+      },
+      {
+        "slit": 0.0
+      }
+    ],
+    "cockpit__slitTemplates:list<t>": {
+      "slit": "germ_tzf5b"
+    },
+    "cockpit__slitEids:list<eid>": []
   },
   "germ_pzkpfw_IV_ausf_E_commander_cockpit": {
-    "_extends": "base_commander_tower_cockit_no_slits",
+    "_use": "base_commander_tower_cockpit",
     "animchar__res": "pzkpfw_iii_e_commander_char",
     "cockpit__offset": [-0.415,0.5,-0.0],
     "cockpit__cockpitOffsetBySlit:list<p3>": [
@@ -399,6 +446,33 @@
         "slit": false
       }
     ],
+    "cockpit__slitZoom:array": [
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      }
+    ],
     "cockpit__slitNodeNames:list<t>": [
       {
         "slit": "cam_front"
@@ -418,7 +492,10 @@
     ]
   },
   "germ_pzkpfw_IV_ausf_E_tower_flag_premium": {
-    "_extends": "germ_pzkpfw_IV_ausf_E",
+    "_use": "germ_pzkpfw_IV_ausf_E",
+    "animchar__objTexReplace:object": {
+      "ger_camo_grey*": "ger_camo_winter_grey*"
+    },
     "turrets__initAmmoDistribution:array": [
       {
         "ammo:object": {
@@ -576,7 +653,10 @@
     ]
   },
   "germ_pzkpfw_IV_ausf_E_carrier_flag_premium": {
-    "_extends": "germ_pzkpfw_IV_ausf_E",
+    "_use": "germ_pzkpfw_IV_ausf_E",
+    "animchar__objTexReplace:object": {
+      "ger_camo_grey*": "ger_camo_winter_grey*"
+    },
     "attach_decorators__entities:list<eid>": [],
     "attach_decorators__templates:array": {
       "templates:object": {
@@ -592,7 +672,7 @@
     }
   },
   "germ_pzkpfw_IV_ausf_E_ghost_battlepass_premium": {
-    "_extends": "germ_pzkpfw_IV_ausf_E_common",
+    "_use": "germ_pzkpfw_IV_ausf_E_common",
     "animchar__objTexSet:object": {
       "pzkpfw_IV_ausf_E_body_c*:object": {
         "pzkpfw_IV_ausf_E_ghost_div_body_c*": "camo_skin_tex"

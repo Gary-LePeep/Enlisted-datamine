@@ -10,7 +10,7 @@ def bind_camera_to_vehicle(vehicle : EntityId;
                            var camera__target : EntityId&)
   ecs::query(vehicle) <| $ [es] (vehicleCameraType : int; vehicle_commander_cam__attachToVehicle : bool = false)
     let isCommanderCam = vehicleCameraType == int(VehicleCameraType VEHICLE_CAMERA_COMMANDER)
-    if !isCommanderCam || vehicle_commander_cam__attachToVehicle && !human_vehicle__canHoldWeapon
+    if (!isCommanderCam || vehicle_commander_cam__attachToVehicle) && !human_vehicle__canHoldWeapon
       camera__target = vehicle
 
 def set_camera_target(target : ecs::EntityId;
@@ -27,7 +27,7 @@ def setup_camera_as_active(cam_eid : EntityId)
   query(get_local_player_eid()) <| $ [es] (var activeCamEid : EntityId&)
     activeCamEid = cam_eid
 
-[es(track=vehicleCameraType, tag=gameClient)]
+[es(track=vehicleCameraType, tag=gameClient, on_event=CmdUpdateCameraByVehicleType)]
 def on_change_vehicle_camera_type_es(evt : Event;
                                      vehicleCameraType : int;
                                      vehicleDeathCameraTemplate : string;

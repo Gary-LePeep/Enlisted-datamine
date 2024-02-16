@@ -1,12 +1,15 @@
 module events_enlisted shared
 require ecs
-require EnlistedWalkerai
+require DngWalkerai
 require common_shooter.events_common_shooter
 require enlisted.game.es.medic_common
 require game.es.squad_order_common
 require game.es.binocular_common
-require EnlistedWeapon
+require DngWeapon
 require DaWeaponProps
+require DaWeapons
+require CollisionTraces
+require DngDm
 
 [cpp_event(broadcast)]
 struct ParallelUpdateFrameDelayed
@@ -27,10 +30,6 @@ struct CmdInitSkeletonAttach {}
 
 [event(broadcast)]
 struct EventOnChangeSpawnTeams {}
-
-[event(broadcast)]
-struct EventResolveSlotAttachDeps
-  attachTo : EntityId
 
 [event(unicast)]
 struct CmdFinishPlacePlaceableItem
@@ -160,6 +159,11 @@ struct OnScoringKillBySquadMember
   offender : EntityId
 
 [event(unicast)]
+struct OnScoringVehicleKillBySquadMember
+  victim : EntityId
+  offender : EntityId
+
+[event(unicast)]
 struct EventOnPlayerWipedOutInfantrySquad {}
 
 [event(broadcast)]
@@ -169,6 +173,28 @@ struct EventTeamWon
 [event(broadcast)]
 struct EventTeamLost
   team : int
+
+[event(unicast, routing=ROUTING_SERVER_TO_CLIENT)]
+struct EventMechStepInfo
+  limbIdx : int
+  pos : float3
+  detach : bool
+  isNextStep : bool
+
+[event(unicast, routing=ROUTING_SERVER_TO_CLIENT)]
+struct EventMechStepRelativeInfo
+  limbIdx : int
+  pos : float3
+
+[event(broadcast)]
+struct EventStepShakeCamera
+  position : float3
+  max_distance : float
+  wish_shake : float
+
+[event(unicast)]
+struct EventMechStepSound
+  pos : float3
 
 [event(broadcast, routing=ROUTING_SERVER_TO_CLIENT)]
 struct EventTeamLowScore
@@ -183,6 +209,10 @@ struct EventPlayerSquadFinishedCapturing {}
 
 [event(unicast)]
 struct EventOnBarbwireDamageAward {}
+
+[event(unicast)]
+struct EventAddPlayerStat
+  stat : string
 
 [event(unicast)]
 struct EventAddPlayerAwardWithStat
@@ -236,6 +266,13 @@ struct CmdSwitchSquad {}
 [event(unicast, routing=ROUTING_SERVER_TO_CLIENT)]
 struct CmdResupplyVehicle {}
 
+[event(unicast)]
+struct CmdResupplyPassengers {}
+
+[event(unicast, routing=ROUTING_SERVER_TO_CLIENT)]
+struct CmdResupplyPassengersFinished
+  vehicle : EntityId
+
 [event(unicast, routing=ROUTING_SERVER_TO_CLIENT)]
 struct CmdResetupVehicle
   setupOnWater : bool
@@ -251,12 +288,14 @@ struct CmdRequestRespawn
   squadId : int
   memberId : int
   spawnGroup : int
+  isParatroopers : bool
 
 [event(unicast, routing=ROUTING_CLIENT_CONTROLLED_ENTITY_TO_SERVER)]
 struct CmdCancelRequestRespawn
   squadId : int
   memberId : int
   spawnGroup : int
+  isParatroopers : bool
 
 [event(unicast)]
 struct RqPersonalContextCommand{}
@@ -308,6 +347,22 @@ struct EventPlayerSquadHelpedToDestroyPoint {}
 struct CmdVoteToKick
   voteYes : bool
   accused : EntityId
+
+[event(unicast)]
+struct CmdOpenSupplyMenu
+  boxEid : EntityId
+
+[event(unicast)]
+struct CmdCloseSupplyMenu
+  needApplyPreset : bool
+
+[event(unicast, routing=ROUTING_CLIENT_CONTROLLED_ENTITY_TO_SERVER)]
+struct RequestApplySupplyScheme
+  boxEid : EntityId
+  index : int
+
+[event(broadcast)]
+struct CmdShowAllWeaponsUi {}
 
 [event(unicast)]
 struct CmdOpenArtilleryMap {}
@@ -368,6 +423,27 @@ struct CmdSpawnSquad
   squadId : int
   memberId : int
   respawnGroupId : int
+  existedVehicleEid : EntityId
+
+[event(unicast, routing=ROUTING_CLIENT_CONTROLLED_ENTITY_TO_SERVER)]
+struct CmdCreateParatroopersSpawn
+  point : float2
+
+[event(unicast)]
+struct CmdParatroopersPointDeleted{}
+
+[event(unicast)]
+struct CmdPickParatroopersPoint
+  coordX : float
+  coordY : float
+
+[event(unicast, routing=ROUTING_CLIENT_CONTROLLED_ENTITY_TO_SERVER)]
+struct CmdTurnParatroopersCamera
+  paratroopersCameraOn : bool
+
+[event(unicast, routing=ROUTING_CLIENT_CONTROLLED_ENTITY_TO_SERVER)]
+struct CmdParatroopersSpawnConfirm
+  spawnPos : float3
 
 [event(broadcast)]
 struct EventFirstPlayerConnected
@@ -507,28 +583,19 @@ struct EventEditorEntityMoved {}
 struct EventBombCraterPartTerraformed
   partPos : float3
   partRadius : float
+  shouldDig : bool
 
 [event(broadcast)]
 struct EventBombCraterTerraformed
   pos : float3
   outerRadius : float
   availablePartsMask : uint64
+  availableDigPartsMask : uint64
   partsGridWidth : int
   mainPhysmatId : int
 
 [event(broadcast)]
 struct CmdUpdateBombCraterRiPoolFlags {}
-
-[event(broadcast)]
-struct CmdStartNarrator
-  phrase : string
-  replace : bool
-
-[event(broadcast, routing=ROUTING_SERVER_TO_CLIENT)]
-struct CmdTeamStartNarrator
-  team : int
-  phrase : string
-  replace : bool
 
 [event(unicast, routing=ROUTING_CLIENT_TO_SERVER)]
 struct CmdNextBuildingType {}
@@ -613,7 +680,7 @@ struct HumanUseItemRequest
   target : EntityId
 
 [event(unicast)]
-struct EventSoldierRecreateOnDie {}
+struct EventBeforeEntityRecreatedOnDeath {}
 
 [event(unicast)]
 struct RequestSwitchBinocular
@@ -626,6 +693,9 @@ struct CmdSwitchBinocular
 [event(unicast)]
 struct CmdSwitchBinocularCockpit
   enabled : bool
+
+[event(unicast, routing=ROUTING_CLIENT_CONTROLLED_ENTITY_TO_SERVER)]
+struct CmdToggleHatch {}
 
 [cpp_event(broadcast)]
 struct EventSquadMembersStats
@@ -673,6 +743,31 @@ struct OnShellHitEntityFx
   directHit : bool
   stopped : bool
   projectileEid : EntityId
+
+[cpp_event(broadcast)]
+struct ProjectileOnHitEntityWithHp
+  result : ProjectileHitResult
+  projectile_eid : EntityId
+  victim : EntityId
+  isect : IntersectedEntityData
+  launch_desc : LaunchDesc
+  vel : float3
+  dir : float3
+  waterLen : float
+  curTime : float
+  offender : EntityId
+  prev_projectile_dist : float
+  piercing_shift : float
+  allow_detonation : bool
+  gun_eid : EntityId
+  sceneHitRicochetStability : float
+  trace_ray_mat_id : int
+  check_if_should_apply_damage : bool
+
+[event(broadcast)]
+struct ProjectileOnIntersectEntityWithHp
+  victim : EntityId
+  offender : EntityId
 
 [event(broadcast)]
 struct CmdSetCinematicModeEnabled
@@ -849,12 +944,6 @@ struct CmdSetCameraStopLerpFactor
 [event(broadcast)]
 struct EventApplyDevMode {}
 
-[event(broadcast)]
-struct CmdShowNarratorMessage
-  event : string
-  text : string
-  myTeamScores : bool
-
 [event(unicast)]
 struct CmdUpdatePlaneEngineDamageFx
   engineIndex : int
@@ -865,3 +954,72 @@ struct CmdSwitchToFirstWeapWithAmmo {}
 [event(broadcast)]
 struct EventControlsMenuToggle
   isShown : bool
+
+[event(unicast)]
+struct CmdUpdateCameraByVehicleType {}
+
+[event(unicast)]
+struct CmdStartNextReloadState {}
+
+[event(broadcast)]
+struct CmdReplayRewind
+  time : int
+
+[event(broadcast)]
+struct CmdReplayRewindSaveState
+  state : ecs::Object const?
+
+[event(broadcast)]
+struct CmdReplayRewindLoadState
+  state : ecs::Object const?
+
+[event(broadcast)]
+struct CmdEditorInvalidateAI {}
+
+[event(broadcast)]            // require only for use parallel for in different attaches queue's
+struct SlotAttachUpdateEvent  // May be removed when "parallel for" will implemented in das ecs query
+  dt : float
+
+[event(unicast)]
+struct PrefabSaveEvent {}
+
+[event(broadcast)]
+struct PrefabSpawnEvent
+  name : string
+
+[event(broadcast)]
+struct PrefabCreateFromSelectedEvent
+  name : string
+  save : bool
+
+[event(broadcast)]
+struct PrefabShatterSelectedEvent {}
+
+[event(unicast)]
+struct AddSelectedToPrefabEvent {}
+
+[event(unicast)]
+struct EventOnWeapSlotItemPickup
+  itemEid : EntityId
+  slotId : int
+
+[event(unicast)]
+struct PrefabSelectParentEvent {}
+
+[cpp_event(unicast)]
+struct EditorToDeleteEntitiesEvent
+  linkedEntitiesToDelete : ecs::EidList
+
+[cpp_event(unicast)]
+struct EditorClonedEntity {}
+
+[event(unicast)]
+struct EventPolyAreaMadeCompact {}
+
+[event(broadcast)]
+struct CmdDebugRulerAddOrRemovePoint
+  pos : float3
+  findClosestPoint : bool
+
+[event(broadcast)]
+struct CmdDebugRulerClearPoints {}

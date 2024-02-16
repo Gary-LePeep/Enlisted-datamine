@@ -7,69 +7,77 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let scrollbar = require("%ui/components/scrollbar.nut")
 let {formatText} = require("%enlist/components/formatText.nut")
-let { curPatchnote, requestPatchnote, chosenPatchnote, haveUnseenVersions, chosenPatchnoteContent,
-chosenPatchnoteTitle, chosenPatchnoteLoaded, versions, patchnotesReceived, extNewsUrl
+let { curPatchnote, chosenPatchnoteContent, selectPatchnote,
+  chosenPatchnoteTitle, chosenPatchnoteLoaded, versions, patchnotesReceived, extNewsUrl
 } = require("changeLogState.nut")
 let spinner = require("%ui/components/spinner.nut")
+let { smallPadding, titleTxtColor, defTxtColor, transpBgColor, weakTxtColor,
+  accentColor, hoverSlotBgColor, darkTxtColor, fullTransparentBgColor, selectedPanelBgColor
+} = require("%enlSqGlob/ui/designConst.nut")
+let { isGamepad } = require("%ui/control/active_controls.nut")
+let { gameLanguage } = require("%enlSqGlob/clientState.nut")
+let { processHypenationsCN = @(v) v, processHypenationsJP = @(v) v } = require("dagor.localize")
 
-let gap = hdpx(10)
+let waitingSpinner = spinner()
 
 let scrollHandler = ScrollHandler()
 
-let function selectPatchnote(v) {
-  chosenPatchnote(v)
-  requestPatchnote(v)
-  scrollHandler.scrollToY(0) // necessary because of the obscure behavior of the vertical scroll position
+let function onTabClicked(v) {
+  if (curPatchnote.value != v) {
+    selectPatchnote(v)
+    scrollHandler.scrollToY(0)
+  }
 }
 
-let function patchnote(v) {
-  let stateFlags = Watched(0)
-  return @() {
+let function mkVersionTab(v) {
+  let isCurrent = Computed(@() curPatchnote.value == v)
+  let group = ElemGroup()
+  return watchElemState(@(sf) {
+    watch = isCurrent
+    rendObj = ROBJ_BOX
     size = flex()
-    maxWidth = hdpx(150)
-    behavior = [Behaviors.Button, Behaviors.TextArea]
-    onClick = @() selectPatchnote(v)
-    watch = [stateFlags, curPatchnote]
-    onElemState = @(sf) stateFlags(sf)
-    skipDirPadNav = false
-    rendObj = ROBJ_TEXTAREA
-    halign = ALIGN_CENTER
     valign = ALIGN_CENTER
-    color = stateFlags.value & S_HOVER
-    ? Color(200,200,200)
-    : curPatchnote.value == v
-      ? Color(100,100,200)
-      : Color(80,80,80)
-    text = v?.titleshort ?? v.tVersion
-  }
+    group
+    behavior = Behaviors.Button
+    fillColor = sf & S_HOVER ? hoverSlotBgColor
+      : isCurrent.value ? selectedPanelBgColor
+      : fullTransparentBgColor
+    borderWidth = isCurrent.value ? [0, 0, hdpx(4), 0] : 0
+    borderColor = accentColor
+    onClick = @() onTabClicked(v)
+    skipDirPadNav = false // TODO disable in future to support consistent behavior with top menu
+    maxWidth = hdpx(200)
+    children = {
+      rendObj = ROBJ_TEXTAREA
+      size = [flex(), SIZE_TO_CONTENT]
+      maxWidth = hdpx(200)
+      group
+      behavior = Behaviors.TextArea
+      halign = ALIGN_CENTER
+      color = sf & S_HOVER ? darkTxtColor
+        : isCurrent.value ? titleTxtColor
+        : defTxtColor
+      text = v?.titleshort ?? v.tVersion
+    }
+  })
 }
 
 let missedPatchnoteText = formatText([loc("NoUpdateInfo", "Oops... No information yet :(")])
 let isVersionsExists = Computed(@() versions.value.len() > 0)
-let notesgap = freeze({
-  rendObj = ROBJ_SOLID
-  color = Color(80,80,80)
-  size = [hdpx(1), flex()]
-  margin = [0, gap]
-})
 
 let patchnoteSelector = @() {
+  watch = [versions, patchnotesReceived, isVersionsExists, isGamepad]
   size = [flex(), fsh(6)]
   flow = FLOW_HORIZONTAL
-  gap = notesgap
+  halign = isGamepad.value ? ALIGN_CENTER : ALIGN_LEFT
   onAttach = function(){
     if (patchnotesReceived.value && curPatchnote.value!=null)
       selectPatchnote(curPatchnote.value)
   }
-  children = patchnotesReceived.value && isVersionsExists.value ? versions.value.map(patchnote) : missedPatchnoteText
-  watch = [versions, curPatchnote, patchnotesReceived, isVersionsExists]
+  children = patchnotesReceived.value && isVersionsExists.value
+    ? (clone versions.value).reverse().map(mkVersionTab)
+    : missedPatchnoteText
 }
-
-patchnotesReceived.subscribe(function(v){
-  if (!v || !haveUnseenVersions.value || curPatchnote.value==null)
-    return
-  selectPatchnote(curPatchnote.value)
-})
 
 let seeMoreUrl = {
   t="url"
@@ -80,12 +88,15 @@ let seeMoreUrl = {
 }
 
 let patchnoteLoading = freeze({
-  children = [formatText([{v = loc("Loading"), t = "h2", halign = ALIGN_CENTER}]), spinner]
   flow  = FLOW_VERTICAL
   halign = ALIGN_CENTER
   gap = hdpx(20)
   valign = ALIGN_CENTER size = [flex(), fsh(20)]
   padding = fsh(2)
+  children = [
+    formatText([{v = loc("Loading"), t = "h2", halign = ALIGN_CENTER}])
+    waitingSpinner
+  ]
 })
 
 let function currentPatchnote(){
@@ -94,25 +105,30 @@ let function currentPatchnote(){
     text = [text, seeMoreUrl]
   else
     text = (clone text).append(seeMoreUrl)
+  let lang = gameLanguage.tolower()
+  if ("chinese" in lang)
+    text = processHypenationsCN(text)
+  else if ("japanese" in lang)
+    text = processHypenationsJP(text)
   if (chosenPatchnoteTitle.value != "")
     text = [{v = chosenPatchnoteTitle.value, t="h1"}].extend(text)
   return {
     rendObj = ROBJ_SOLID
-    color = Color(10,10,10,10)
+    color = transpBgColor
     watch = [chosenPatchnoteLoaded, chosenPatchnoteContent, chosenPatchnoteTitle, curPatchnote]
     children = scrollbar.makeVertScroll({
       size = [flex(), SIZE_TO_CONTENT]
-      padding = gap
+      padding = smallPadding
       children = chosenPatchnoteLoaded.value
         ? [{
             rendObj = ROBJ_TEXT
             text = curPatchnote.value?.date.split("T")[0]
             hplace = ALIGN_RIGHT
-            color = Color(100,100,100)
+            color = weakTxtColor
           }].append(formatText(text))
         : patchnoteLoading
     }, { scrollHandler })
-    size = [sw(80), sh(75)]
+    size = [sw(55), sh(75)]
   }
 }
 

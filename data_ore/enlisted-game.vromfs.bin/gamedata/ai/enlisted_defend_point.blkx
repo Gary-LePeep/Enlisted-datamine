@@ -37,6 +37,9 @@
         "reaction": {
           "event": "onBulletNearby",
           "sequencer": {
+            "isReadyForAction": {
+              "checkFence": true
+            },
             "periodicTimer": {
               "timeParam": "onBulletNearbyTimer",
               "timePeriod": [2.0,4.0]
@@ -49,6 +52,9 @@
         "reaction": {
           "event": "onEnemyPlayerNear",
           "sequencer": {
+            "isReadyForAction": {
+              "checkFence": true
+            },
             "findDanger": {
               "paramName": "shootEnemy",
               "radiusParamName": "enemyDefendRadius",
@@ -361,6 +367,12 @@
         }
       },
       {
+        "setIntVar": {
+          "to": "coverAttack",
+          "value": 0
+        }
+      },
+      {
         "orderedSelector": [
           {
             "name": "attack"
@@ -375,6 +387,7 @@
             "sequencer": {
               "findDanger": {
                 "paramName": "shootEnemy",
+                "outSeeTimeParam": "shootEnemyTime",
                 "radiusParamName": "enemyDefendRadius",
                 "minDanger": 0.1,
                 "tag": "human"
@@ -403,9 +416,13 @@
                     "sequencer": {
                       "findDanger": {
                         "paramName": "shootEnemy",
+                        "outSeeTimeParam": "shootEnemyTime",
                         "radiusParamName": "enemyNearRadius",
                         "minDanger": 0.1,
                         "tag": "human"
+                      },
+                      "getTime": {
+                        "to": "enemyNearTime"
                       },
                       "subTree": {
                         "treeName": "sub.oneShootAttack"
@@ -416,6 +433,7 @@
                     "sequencer": {
                       "findDanger": {
                         "paramName": "shootEnemy",
+                        "outSeeTimeParam": "shootEnemyTime",
                         "radiusParamName": "enemyRadius",
                         "minDanger": 0.1,
                         "tag": "human"
@@ -428,18 +446,20 @@
                           "range": [0.5,1.0],
                           "resetable": true
                         },
-                        "sequencer": {
-                          "checkAtTime": {
-                            "timeParam": "rememberEnemyTime",
-                            "range": [0.0,10.0]
-                          },
-                          "checkTarget": {
-                            "targetUnitParam": "rememberEnemy"
-                          },
-                          "wanderLook": {
-                            "posParam": "rememberEnemyPos",
-                            "range": [0.2,0.1],
-                            "maxStanceParam": "coverStance"
+                        "success": {
+                          "sequencer": {
+                            "checkAtTime": {
+                              "timeParam": "rememberEnemyTime",
+                              "range": [0.0,10.0]
+                            },
+                            "checkTarget": {
+                              "targetUnitParam": "rememberEnemy"
+                            },
+                            "wanderLook": {
+                              "posParam": "rememberEnemyPos",
+                              "range": [0.2,0.1],
+                              "maxStanceParam": "coverStance"
+                            }
                           }
                         }
                       }
@@ -448,6 +468,16 @@
                 ]
               }
             ]
+          },
+          {
+            "failed": {
+              "sequencer": {
+                "decreaseDangerLevel": {
+                  "paramName": "dangerLevel",
+                  "decreaseCoef": 0.5
+                }
+              }
+            }
           }
         ]
       },

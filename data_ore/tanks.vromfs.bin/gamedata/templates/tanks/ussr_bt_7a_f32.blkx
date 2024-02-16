@@ -1,16 +1,28 @@
 {
   "ussr_bt_7a_f32_stalingrad_premium": {
-    "_extends": "ussr_bt_7a_f32_common"
+    "_use": "ussr_bt_7a_f32_common"
   },
   "ussr_bt_7a_f32_common": [
     {
-      "_extends": "base_bt_7a_f32"
+      "_use": "base_bt_7a_f32"
     },
     {
-      "_extends": "tank_t34_engine_sound"
+      "_use": "tank_t34_engine_sound"
     },
     {
-      "_extends": "tank_light_vehicle_tracks_sound"
+      "_use": "tank_light_vehicle_tracks_sound"
+    },
+    {
+      "commanderCockpitFpsCamMaxAngle": [40.0,5.0]
+    },
+    {
+      "gunner_cam_limit__useCockpitDir": true
+    },
+    {
+      "item__iconOffset": [0.0,-0.0]
+    },
+    {
+      "item__iconScale": 1.11
     },
     {
       "turrets__initAmmoDistribution:array": [
@@ -39,6 +51,35 @@
     },
     {
       "vehicle_seats__seats:shared:array": [
+        {
+          "seats:object": {
+            "name": "commander",
+            "attachNode": "loader",
+            "shouldHideOwner": true,
+            "locName": "vehicle_seats/commander",
+            "ignoreAttachNodeRotation": true,
+            "attachTm": [
+              [1.0,0.0,0.0],
+              [0.0,1.0,0.0],
+              [0.0,0.0,1.0],
+              [-0.2,-0.1,0.1]
+            ],
+            "hatchRotationAxis": [1.7,0.0,0.0],
+            "seatComponent": "isDriver",
+            "receiveDamageFromDMPart": "loader",
+            "cameraNodeName": "bone_turret",
+            "cockpitTemplate": "ussr_bt_7a_f32_commander_cockpit",
+            "hatchNodes:array": {
+              "node": "hatch_03"
+            },
+            "hatchTurretNames:array": {
+              "turret": "turret_03"
+            },
+            "loaderTurretNames:array": {
+              "turret": "turret_01"
+            }
+          }
+        },
         {
           "seats:object": {
             "name": "main_gunner",
@@ -88,41 +129,12 @@
             "cameraOffset": [0.15,-0.0,-0.0],
             "cockpitTemplate": "ussr_bt_7a_f32_driver_cockpit"
           }
-        },
-        {
-          "seats:object": {
-            "name": "commander",
-            "attachNode": "loader",
-            "shouldHideOwner": true,
-            "locName": "vehicle_seats/commander",
-            "ignoreAttachNodeRotation": true,
-            "attachTm": [
-              [1.0,0.0,0.0],
-              [0.0,1.0,0.0],
-              [0.0,0.0,1.0],
-              [-0.2,-0.1,0.1]
-            ],
-            "hatchRotationAxis": [1.7,0.0,0.0],
-            "seatComponent": "isDriver",
-            "receiveDamageFromDMPart": "loader",
-            "cameraNodeName": "bone_turret",
-            "cockpitTemplate": "ussr_bt_7a_f32_commander_cockpit",
-            "hatchNodes:array": {
-              "node": "hatch_03"
-            },
-            "hatchTurretNames:array": {
-              "turret": "turret_03"
-            },
-            "loaderTurretNames:array": {
-              "turret": "turret_01"
-            }
-          }
         }
       ]
     }
   ],
   "ussr_bt_7a_f32_driver_cockpit": {
-    "_extends": "base_driver_cockpit",
+    "_use": "base_driver_cockpit",
     "animchar__res": "bt_7_driver_char",
     "cockpit__offset": [-0.2,-0.3,0.08],
     "cockpit__visibleVehicleNodeNames:list<t>": [
@@ -144,8 +156,7 @@
     }
   },
   "ussr_bt_7a_f32_gunner_cockpit": {
-    "vehicle_sight__blk": "content/tanks/gamedata/sight/ussr_tod_6.blk",
-    "_extends": "base_gunner_cockpit",
+    "_use": "base_gunner_cockpit",
     "animchar__res": "bt_7_gunner_char",
     "cockpit__offset": [0.0,0.0,0.0],
     "cockpit__cockpitOffsetBySlit:list<p3>": [
@@ -153,7 +164,7 @@
         "item": [-0.500909,-0.019984,0.232179]
       },
       {
-        "item": [-0.260292,0.957064,0.494594]
+        "item": [-0.15,1.0,0.494594]
       },
       {
         "item": [0.0555613,0.48887,0.387912]
@@ -187,13 +198,13 @@
     ],
     "cockpit__slitForwardOffset:list<r>": [
       {
-        "slit": 0.17
+        "slit": 0.21
       },
       {
         "slit": 0.18
       },
       {
-        "slit": 0.0
+        "slit": 0.03
       }
     ],
     "cockpit__slitIsGun:list<b>": [
@@ -206,10 +217,74 @@
       {
         "slit": false
       }
-    ]
+    ],
+    "cockpit__periscopeLimits:list<p4>": [
+      {
+        "slit": [-0.0,0.0,0.0,0.0]
+      },
+      {
+        "slit": [-45.0,45.0,-8.0,25.0]
+      },
+      {
+        "slit": [-0.0,0.0,0.0,0.0]
+      }
+    ],
+    "cockpit__periscopeSpeed:list<p2>": [
+      {
+        "slit": [-1.0,-1.0]
+      },
+      {
+        "slit": [35.0,35.0]
+      },
+      {
+        "slit": [-1.0,-1.0]
+      }
+    ],
+    "cockpit__slitZoom:array": [
+      {
+        "slit:list<r>": [
+          {
+            "zoom": 1.9
+          },
+          {
+            "zoom": 3.5
+          }
+        ]
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      }
+    ],
+    "cockpit__slitZoomTime:list<r>": [
+      {
+        "slit": 0.05
+      },
+      {
+        "slit": 0.0
+      },
+      {
+        "slit": 0.0
+      }
+    ],
+    "cockpit__slitTemplates:list<t>": [
+      {
+        "slit": "ussr_tod_6"
+      },
+      {
+        "slit": "default_periscope"
+      }
+    ],
+    "cockpit__slitEids:list<eid>": []
   },
   "ussr_bt_7a_f32_commander_cockpit": {
-    "_extends": "base_commander_cockpit_no_slits",
+    "_use": "base_commander_cockpit_no_slits",
     "animchar__res": "t_26_1940_commander_char",
     "cockpit__offset": [-0.1,0.4,-0.3],
     "cockpit__cockpitOffsetBySlit:list<p3>": [
@@ -225,10 +300,10 @@
     },
     "cockpit__slitForwardOffset:list<r>": [
       {
-        "slit": 0.17
+        "slit": 0.16
       },
       {
-        "slit": 0.0
+        "slit": 0.08
       }
     ],
     "cockpit__slitIsGun:list<b>": [
@@ -246,7 +321,25 @@
       {
         "slit": "cam_right"
       }
-    ]
+    ],
+    "cockpit__periscopeLimits:list<p4>": {
+      "slit": [-45.0,45.0,-5.0,25.0]
+    },
+    "cockpit__periscopeSpeed:list<p2>": {
+      "slit": [35.0,35.0]
+    },
+    "cockpit__slitZoom:array": {
+      "slit:list<r>": {
+        "zoom": 1.44
+      }
+    },
+    "cockpit__slitZoomTime:list<r>": {
+      "slit": 0.0
+    },
+    "cockpit__slitTemplates:list<t>": {
+      "slit": "default_periscope"
+    },
+    "cockpit__slitEids:list<eid>": []
   },
   "bt_7a_f32_skins": {
     "_override": true,

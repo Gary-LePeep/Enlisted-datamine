@@ -1,10 +1,10 @@
 {
   "base_churchill_3": [
     {
-      "_extends": "base_tank"
+      "_use": "base_tank"
     },
     {
-      "_extends": "churchill_3_ammo_stowages"
+      "_use": "churchill_3_ammo_stowages"
     },
     {
       "killLogName": "uk_a_22b_mk_3_churchill_1942"
@@ -125,7 +125,11 @@
             "paramPitchAccel": "gun_01_pitch_accel",
             "wishYawParamName": "gun_01_aim:targetYaw",
             "wishPitchParamName": "gun_01_aim:targetPitch",
-            "gunRecoilParamName": "gun_01_recoil"
+            "gunRecoilParamName": "gun_01_recoil",
+            "hasStabilizerParamName": "gun_01_aim:hasStab",
+            "stabilizerPitchParamName": "gun_01_aim:stabPitch",
+            "stabilizerErrorParamName": "gun_01_aim:stabError",
+            "stabilizerPitchMultParamName": "gun_01_aim:stabPitchMult"
           }
         },
         {
@@ -176,12 +180,14 @@
     }
   ],
   "churchill_3_turret_01_57mm_6pdr_qqf_mk_5_l50": {
-    "_extends": "tankgun_57mm_6pdr_qqf_mk_5_l50",
+    "_use": "tankgun_57mm_6pdr_qqf_mk_5_l50",
     "gun__shootNodeName": "bone_gun_barrel",
     "turret__yawSpeed": 24.0,
     "turret__pitchSpeed": 10.0,
     "turret__aimNodeName": "bone_turret",
     "turret__limit": [-180.0,180.0,-12.0,20.0],
+    "turret__stabilizerPitchFrictionMult": 0.8,
+    "turret__stabilizerPitchSpeedLimitKph": 10.0,
     "turret__limitsTable:list<p4>": {
       "lim1": [-180.0,-135.0,0.0,20.0],
       "lim2": [-135.0,-45.0,-12.0,20.0],
@@ -191,6 +197,17 @@
       "lim6": [45.0,135.0,-12.0,20.0],
       "lim7": [135.0,180.0,0.0,20.0]
     },
+    "turret__stabilizerErrorByKphSpeedTable:list<p2>": [
+      {
+        "row": [5.0,0.0]
+      },
+      {
+        "row": [8.0,0.2]
+      },
+      {
+        "row": [10.0,0.4]
+      }
+    ],
     "gun__shellsAmmo:array": [
       {
         "ammo": 17
@@ -210,7 +227,7 @@
     ]
   },
   "churchill_3_turret_02_7_92mm_besa": {
-    "_extends": "tankgun_7_92mm_besa",
+    "_use": "tankgun_7_92mm_besa",
     "gun__shootNodeName": "bone_mg_gun_twin",
     "gun__shellsAmmo:array": [
       {
@@ -222,7 +239,7 @@
     ]
   },
   "churchill_3_turret_03_50mm_uk_smoke_mortar_launcher": {
-    "_extends": "tankgun_50mm_uk_smoke_mortar_launcher",
+    "_use": "tankgun_50mm_uk_smoke_mortar_launcher",
     "gun__shootNodeName": "emtr_mortar_flame_01",
     "gun__shellsAmmo:array": {
       "ammo": 30
@@ -230,13 +247,13 @@
   },
   "churchill_3_ammo_stowages": {
     "_tags": "server",
-    "_extends": "vehicle_ammo_stowages",
+    "_use": "vehicle_ammo_stowages",
     "ammo_stowage__stowageTemplates:shared:list<t>": {
       "stowage": "churchill_3_primary_ammo_stowage"
     }
   },
   "churchill_3_primary_ammo_stowage": {
-    "_extends": "ammo_stowage",
+    "_use": "ammo_stowage",
     "ammo_stowage__clusterTemplates:shared:list<t>": {
       "cluster": "churchill_3_primary_shells_ammo_cluster"
     },
@@ -245,7 +262,7 @@
     }
   },
   "churchill_3_primary_shells_ammo_cluster": {
-    "_extends": "ammo_cluster",
+    "_use": "ammo_cluster",
     "ammo_cluster__isShell": true,
     "ammo_cluster__slotNames:shared:list<t>": [
       {

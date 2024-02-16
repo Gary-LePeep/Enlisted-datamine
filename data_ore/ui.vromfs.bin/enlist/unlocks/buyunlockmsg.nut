@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { body_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { defTxtColor, activeTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
 let { purchaseMsgBox } = require("%enlist/currency/purchaseMsgBox.nut")
 let { doBuyUnlock, unlockPrices } = require("taskRewardsState.nut")
@@ -27,24 +27,15 @@ let mkRewardsCards = @(rewards) {
 }
 
 let mkRewardName = function(reward, otherArmy) {
-  let armyName = loc($"{reward.armyId ?? commonArmy.value}/full")
+  let armyName = loc($"{reward?.armyId ?? commonArmy.value}/full")
   return otherArmy
     ? $"{armyName}: {loc(reward.name)}"
     : loc(reward.name)
 }
 
 let function mkRewardsView(task) {
-  let children = []
-  let { name = "" } = task?.localization
-  if (name != "")
-    children.append({
-      rendObj = ROBJ_TEXT
-      text = name
-      color = defTxtColor
-    }.__update(sub_txt))
-
   let { lastRewardedStage, stages } = task
-  local { rewards = null } = stages?[lastRewardedStage]
+  let { rewards = null } = stages?[lastRewardedStage]
 
   if (rewards == null)
     return null
@@ -52,9 +43,9 @@ let function mkRewardsView(task) {
   return function() {
     let countAll = rewards.len()
     let possibleArmies = ["", curArmy.value, commonArmy.value]
-    rewards = prepareRewards(rewards, rewardsItemsMapping.value)
+    let viewRewards = prepareRewards(rewards, rewardsItemsMapping.value)
       .filter(@(r) r != null)
-    local rewardsForArmy = rewards
+    let rewardsForArmy = viewRewards
       .filter(@(r) possibleArmies.contains(r?.reward.armyId ?? "") )
 
     local otherArmy = false
@@ -62,7 +53,7 @@ let function mkRewardsView(task) {
     if (countForArmy == 0) {
       otherArmy = true
       countForArmy = 1
-      rewardsForArmy.append(rewards[0])
+      rewardsForArmy.append(viewRewards[0])
     }
 
     let otherArmiesTxt = countForArmy == countAll ? null : {
@@ -71,7 +62,16 @@ let function mkRewardsView(task) {
       rendObj = ROBJ_TEXT
       text = loc("unlocks/eventMoreRewards", { count = countAll - countForArmy })
       color = activeTxtColor
-    }.__update(body_txt)
+    }.__update(fontBody)
+
+    let children = []
+    let { name = "" } = task?.localization
+    if (name != "")
+      children.append({
+        rendObj = ROBJ_TEXT
+        text = name
+        color = defTxtColor
+      }.__update(fontSub))
 
     let cards = mkRewardsCards(rewardsForArmy)
     children.append(cards)
@@ -83,7 +83,7 @@ let function mkRewardsView(task) {
           rendObj = ROBJ_TEXT
           text = mkRewardName(mainReward, otherArmy)
           color = activeTxtColor
-        }.__update(body_txt))
+        }.__update(fontBody))
       children.append(otherArmiesTxt)
 
       if ("description" in mainReward)
@@ -94,13 +94,13 @@ let function mkRewardsView(task) {
           behavior = Behaviors.TextArea
           text = loc(mainReward.description)
           color = defTxtColor
-        }.__update(sub_txt))
+        }.__update(fontSub))
     } else {
       children.append(otherArmiesTxt)
     }
 
     return {
-      watch = [rewardsItemsMapping, curArmy]
+      watch = [rewardsItemsMapping, curArmy, commonArmy]
       size = [flex(), SIZE_TO_CONTENT]
       halign = ALIGN_CENTER
       flow = FLOW_VERTICAL

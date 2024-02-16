@@ -1,0 +1,290 @@
+{
+  "levelBin": "content/base/levels/campaigns_menu_diorama.bin",
+  "numBorderCellsXPos": 0,
+  "numBorderCellsXNeg": 0,
+  "numBorderCellsZPos": 0,
+  "numBorderCellsZNeg": 0,
+  "puddlesDist": 0,
+  "clipmap": {
+    "texelSize": 0.0078
+  },
+  "micro_details": [
+    {
+      "micro_detail": "microdetail_stone_a_tex_n*"
+    },
+    {
+      "micro_detail": "microdetail_stone_b_tex_n*"
+    },
+    {
+      "micro_detail": "microdetail_generic_granules_a_tex_n*"
+    },
+    {
+      "micro_detail": "microdetail_sand_a_tex_n*"
+    },
+    {
+      "micro_detail": "microdetail_sand_c_tex_n*"
+    },
+    {
+      "micro_detail": "microdetail_soil_plants_a_tex_n*"
+    },
+    {
+      "micro_detail": "microdetail_soil_a_tex_n*"
+    },
+    {
+      "micro_detail": "microdetail_mud_a_tex_n*"
+    },
+    {
+      "micro_detail": "microdetail_generic_granules_a_tex_n*"
+    },
+    {
+      "micro_detail": "microdetail_wood_a_tex_n*"
+    },
+    {
+      "micro_detail": "microdetail_moss_a_tex_n*"
+    },
+    {
+      "micro_detail": "microdetail_grass_a_tex_n*"
+    },
+    {
+      "micro_detail": "microdetail_forest_floor_a_tex_n*"
+    },
+    {
+      "micro_detail": "microdetail_snow_a_tex_n*"
+    },
+    {
+      "micro_detail": "microdetail_snow_a_tex_n*"
+    },
+    {
+      "micro_detail": "microdetail_snow_a_tex_n*"
+    },
+    {
+      "land_micro_details_uv_scale": 2.11
+    },
+    {
+      "microdetail_stone_a_tex_n*": {
+        "coloring": 0.7,
+        "porosity": 0.4
+      }
+    },
+    {
+      "microdetail_stone_b_tex_n*": {
+        "coloring": 0.7,
+        "porosity": 0.4
+      }
+    },
+    {
+      "microdetail_scan_gravel_a_tex_n*": {
+        "coloring": 0.7,
+        "porosity": 0.4
+      }
+    },
+    {
+      "microdetail_sand_a_tex_n*": {
+        "coloring": 0.9,
+        "porosity": 0.8
+      }
+    },
+    {
+      "microdetail_sand_c_tex_n*": {
+        "coloring": 0.9,
+        "porosity": 0.8
+      }
+    },
+    {
+      "microdetail_soil_plants_a_tex_n*": {
+        "coloring": 0.9,
+        "porosity": 0.8
+      }
+    },
+    {
+      "microdetail_soil_a_tex_n*": {
+        "coloring": 0.9,
+        "porosity": 0.9
+      }
+    },
+    {
+      "microdetail_mud_a_tex_n*": {
+        "coloring": 0.7,
+        "porosity": 0.8
+      }
+    },
+    {
+      "microdetail_wood_a_tex_n*": {
+        "coloring": 0.5,
+        "porosity": 0.4
+      }
+    },
+    {
+      "microdetail_moss_a_tex_n*": {
+        "coloring": 1.0,
+        "porosity": 0.6
+      }
+    },
+    {
+      "microdetail_grass_a_tex_n*": {
+        "coloring": 1.0,
+        "porosity": 0.5
+      }
+    },
+    {
+      "microdetail_forest_floor_a_tex_n*": {
+        "coloring": 0.7,
+        "porosity": 0.5
+      }
+    },
+    {
+      "microdetail_snow_a_tex_n*": {
+        "coloring": 0.1,
+        "porosity": 0.1
+      }
+    }
+  ],
+  "skies": {
+    "skyIsUnreachable": false
+  },
+  "volFog": {
+    "rootFogGraph": "content/common/shaders/fog_campaigns_menu_diorama_ny.json"
+  },
+  "gi": {
+    "temporalQuality": 1.0,
+    "volmapY": 16
+  },
+  "graphics": {
+    "IndoorProbes": true,
+    "spotShadowBias": [-6.1e-05,-0.01,0.03,0.01],
+    "dynamicShadowsDistance": 18.0,
+    "dynamicShadowsDistanceMultiplier_Low": 0.5,
+    "dynamicShadowsDistanceMultiplier_Medium": 1.0,
+    "dynamicShadowsResolution": 2048,
+    "dynamicShadowsResolutionMultiplier_Low": 1.0,
+    "dynamicShadowsResolutionMultiplier_Medium": 0.75,
+    "dynamicShadowsNumCascades": 2,
+    "dynamicShadowsCascadeDistributionPowerWeightOverride": 0.5,
+    "dynamicShadowsCascade0DistanceOverride": 0.0,
+    "dynamicShadow32bit": true
+  },
+  "grass": {
+    "grass_grid_size": 0.0938,
+    "grass_distance": 15.0,
+    "grassMaskResolution": 512,
+    "hor_size_mul": 1.0,
+    "grass_types": {
+      "generic_grass_low_b": {
+        "diffuse": "grass_generic_grass_tall_b_tex_d",
+        "normal": "grass_generic_grass_tall_b_tex_n",
+        "variations": 1,
+        "ht": 0.4,
+        "ht_rnd_add": 0.15,
+        "hor_size": 0.25,
+        "hor_size_rnd_add": 0.2,
+        "color_mask_r_from": "#595e455a",
+        "color_mask_r_to": "#837c535a",
+        "color_mask_g_from": "#4343435a",
+        "color_mask_g_to": "#8b855d5a",
+        "color_mask_b_from": "#585c385a",
+        "color_mask_b_to": "#6d5c4e5a",
+        "height_from_weight_mul": 0.3,
+        "height_from_weight_add": 0.7,
+        "density_from_weight_mul": 6.0,
+        "density_from_weight_add": 0.9,
+        "vertical_angle_add": 0.7,
+        "vertical_angle_mul": 0.1,
+        "height": 0.05
+      },
+      "generic_grass_tall_a": {
+        "diffuse": "grass_generic_grass_tall_a_tex_d",
+        "normal": "grass_generic_grass_tall_a_tex_n",
+        "variations": 1,
+        "ht": 0.4,
+        "ht_rnd_add": 0.7,
+        "hor_size": 0.5,
+        "hor_size_rnd_add": 0.15,
+        "color_mask_r_from": "#6683405a",
+        "color_mask_r_to": "#8270565a",
+        "color_mask_g_from": "#1f1f1f5a",
+        "color_mask_g_to": "#67665d5a",
+        "color_mask_b_from": "#56702e5a",
+        "color_mask_b_to": "#7b7a1d5a",
+        "height_from_weight_mul": 0.3,
+        "height_from_weight_add": 0.7,
+        "density_from_weight_mul": 6.0,
+        "density_from_weight_add": -0.5,
+        "vertical_angle_add": 0.1,
+        "vertical_angle_mul": 0.7
+      },
+      "generic_grass_dry_a": {
+        "diffuse": "grass_generic_grass_small_a_tex_d",
+        "normal": "grass_generic_grass_small_a_tex_n",
+        "variations": 1,
+        "height": 0.15,
+        "ht_rnd_add": 0.1,
+        "hor_size": 0.3,
+        "hor_size_rnd_add": 0.4,
+        "color_mask_r_from": "#4944385a",
+        "color_mask_r_to": "#4e422f5a",
+        "color_mask_g_from": "#0505055a",
+        "color_mask_g_to": "#ffffff5a",
+        "color_mask_b_from": "#4138385a",
+        "color_mask_b_to": "#4139355a",
+        "height_from_weight_mul": 0.5,
+        "height_from_weight_add": 0.5,
+        "density_from_weight_mul": 0.1,
+        "density_from_weight_add": 0.9,
+        "vertical_angle_add": 0.4,
+        "vertical_angle_mul": 0.4,
+        "size_lod_mul": 1.11
+      },
+      "bush_a": {
+        "diffuse": "grass_generic_bush_a_tex_d",
+        "normal": "grass_generic_bush_a_tex_n",
+        "variations": 1,
+        "height": 0.6,
+        "ht_rnd_add": 0.4,
+        "hor_size": 0.7,
+        "hor_size_rnd_add": 0.2,
+        "stiffness": 0.9,
+        "color_mask_r_from": "#1833015a",
+        "color_mask_r_to": "#3540055a",
+        "color_mask_g_from": "#0505055a",
+        "color_mask_g_to": "#fafafa5a",
+        "color_mask_b_from": "#2f0b085a",
+        "color_mask_b_to": "#2d26225a",
+        "height_from_weight_mul": 0.3,
+        "height_from_weight_add": 0.7,
+        "density_from_weight_mul": 0.2,
+        "density_from_weight_add": 0.0,
+        "vertical_angle_add": -0.2,
+        "vertical_angle_mul": 0.5
+      },
+      "nograss": {
+        "density_from_weight_mul": 0.0,
+        "density_from_weight_add": 0.0
+      }
+    },
+    "decals": {
+      "pacific": {
+        "id": 33,
+        "generic_grass_tall_a": 16.0,
+        "nograss": 2.0,
+        "bush_a": 11.0
+      }
+    }
+  },
+  "unitedVdata.rendInst": {
+    "IB": 10240,
+    "VB1": 28672,
+    "VB2": 0
+  },
+  "unitedVdata.dynModel": {
+    "IB": 151552,
+    "VB1": 65536,
+    "VB2": 65536,
+    "VB3": 65536,
+    "VB4": 65536,
+    "VB5": 65536,
+    "VB6": 65536,
+    "VB7": 65536,
+    "VB8": 65536,
+    "VB9": 0
+  }
+}

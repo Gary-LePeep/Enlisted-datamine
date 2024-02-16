@@ -7,15 +7,14 @@ let viewShopItemsScene = require("viewShopItemsScene.nut")
 let { allItemTemplates } = require("%enlist/soldiers/model/all_items_templates.nut")
 let { shopItemContentCtor, curArmyShopFolder, purchaseIsPossible, setCurArmyShopPath
 } = require("armyShopState.nut")
-let { shopItemLockedMsgBox, mkShopItemInfoBlock, mkMsgBoxView, mkProductView
-} = require("shopPkg.nut")
+let { mkShopMsgBoxView, mkCanUseShopItemInfo } = require("shopPackage.nut")
+let { shopItemLockedMsgBox, mkProductView } = require("shopPkg.nut")
 let checkLootRestriction = require("hasLootRestriction.nut")
+let { getCantBuyDataOnClick } = require("shopState.nut")
 let { curArmyData } = require("%enlist/soldiers/model/state.nut")
-let { CAMPAIGN_NONE, needFreemiumStatus } = require("%enlist/campaigns/campaignConfig.nut")
-let shopItemFreemiumMsgBox = require("%enlist/shop/shopItemFreemiumMsgBox.nut")
 
-let function shopItemAction(shopItem, curLevel) {
-  let { armyLevel = 0, campaignGroup = CAMPAIGN_NONE } = shopItem?.requirements
+
+let function shopItemAction(shopItem, isNotSuitable = false) {
   let { guid = "" } = curArmyData.value
   let { squads = [] } = shopItem
   let squad = squads.findvalue(@(s) s.armyId == guid) ?? squads?[0]
@@ -25,15 +24,15 @@ let function shopItemAction(shopItem, curLevel) {
   let hasItemContent = crateContent == null ? false
     : (crateContent.value?.content.items ?? {}).len() > 0
 
+  let lockData = getCantBuyDataOnClick(shopItem)
+
   if ((shopItem?.offerContainer ?? "") != "")
     setCurArmyShopPath((clone curArmyShopFolder.value.path).append(shopItem))
-  else if (campaignGroup != CAMPAIGN_NONE && needFreemiumStatus.value)
-    shopItemFreemiumMsgBox()
-  else if (armyLevel > curLevel)
-    shopItemLockedMsgBox(armyLevel)
+  else if (lockData != null)
+    shopItemLockedMsgBox(lockData)
   else if (purchaseIsPossible.value) {
-    let description = mkShopItemInfoBlock(crateContent)
-    let productView = mkMsgBoxView(shopItem, crateContent, countWatched)
+    let description = mkCanUseShopItemInfo(crateContent)
+    let productView = mkShopMsgBoxView(shopItem, crateContent, countWatched)
     if (squad != null && isBuyingWithGold)
       buySquadWindow({
         shopItem
@@ -49,6 +48,7 @@ let function shopItemAction(shopItem, curLevel) {
         description
         viewBtnCb = hasItemContent ? @() viewShopItemsScene(shopItem) : null
         countWatched
+        isNotSuitable
       })
       checkLootRestriction(buyItemAction,
         {

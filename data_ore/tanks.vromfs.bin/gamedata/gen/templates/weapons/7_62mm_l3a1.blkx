@@ -33,16 +33,16 @@
   },
   "tankgun_7_62mm_l3a1": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_tankgun_machinegun"
+      "_use": "base_tankgun_machinegun"
     },
     {
-      "_extends": "base_7_62mm_l3a1"
+      "_use": "base_7_62mm_l3a1"
     },
     {
-      "_extends": "gunsound_7_62mm_l3a1"
+      "_use": "gunsound_7_62mm_l3a1"
     },
     {
       "turret__triggerGroup": 2

@@ -2,16 +2,16 @@
   "PhysMats": {
     "__DefaultParams": {
       "iak": 1.0,
-      "damage_k": 1.0
+      "damage_k": 1.0,
+      "is_solid": false
     },
     "default": {
       "bf_class": "default",
       "color": "#ffa20064",
       "damage_k": 0.3,
       "deformable_width": 0.05,
-      "resistanceK": 0.0006,
-      "sound_step_material": "grass",
-      "sound_material": "dirt",
+      "tankTracksTexId": 0,
+      "resistanceK": 0.0,
       "bulletHole": {
         "type": "bullet_hole",
         "scale": 1.0
@@ -34,8 +34,6 @@
       "damage_k": 0.3,
       "deformable_width": 0.15,
       "resistanceK": 0.0006,
-      "sound_step_material": "grass",
-      "sound_material": "dirt",
       "billboardDecal": {
         "type": "soil_bullet_hole",
         "scale": 6.0
@@ -50,8 +48,6 @@
     "verLandMesh": {
       "color": "#ffa20064",
       "damage_k": 0.3,
-      "sound_step_material": "grass",
-      "sound_material": "dirt",
       "damageModel": {
         "ricochetAngleMult": 2.0,
         "ricochetAngle": 60.0,
@@ -61,8 +57,6 @@
     },
     "waterPuddle": {
       "color": "#0000ff0a",
-      "sound_step_material": "water",
-      "sound_material": "water",
       "damageModel": {
         "ricochetAngleMult": 1.0,
         "ricochetAngle": 60.0,
@@ -72,8 +66,6 @@
     },
     "water3d": {
       "color": "#ffa20064",
-      "sound_step_material": "water",
-      "sound_material": "water",
       "damageModel": {
         "ricochetAngleMult": 0.5,
         "ricochetAngle": 60.0,
@@ -83,8 +75,6 @@
     },
     "water": {
       "color": "#0000ffc8",
-      "sound_step_material": "water",
-      "sound_material": "water",
       "damageModel": {
         "ricochetAngleMult": 1.0,
         "ricochetAngle": 60.0,
@@ -96,8 +86,9 @@
       "bf_class": "concrete",
       "color": "#ffff00c8",
       "damage_k": 0.3,
-      "sound_step_material": "concrete",
-      "sound_material": "concrete",
+      "resistanceK": 0.0,
+      "is_solid": true,
+      "tankTracksTexId": 3,
       "vehicleSound": {
         "concrete": 1.0,
         "collDesc": "collConcrete"
@@ -117,12 +108,37 @@
         "ricochetCosineMult": 0.2
       }
     },
+    "brick_red": {
+      "bf_class": "concrete",
+      "color": "#ffff00c8",
+      "damage_k": 0.3,
+      "is_solid": true,
+      "vehicleSound": {
+        "concrete": 1.0,
+        "collDesc": "collConcrete"
+      },
+      "bulletHole": {
+        "type": "bullet_hole",
+        "scale": 0.7
+      },
+      "billboardDecal": {
+        "type": "brick_red_decal",
+        "scale": 4.0
+      },
+      "damageModel": {
+        "ricochetAngleMult": 0.95,
+        "ricochetAngle": 60.0,
+        "ricochetCosinePower": 2.0,
+        "ricochetCosineMult": 0.2
+      }
+    },
     "stone": {
       "bf_class": "stone",
       "color": "#ffff00c8",
+      "resistanceK": 0.0,
       "damage_k": 0.3,
-      "sound_step_material": "concrete",
-      "sound_material": "concrete",
+      "is_solid": true,
+      "tankTracksTexId": 3,
       "vehicleSound": {
         "concrete": 1.0
       },
@@ -140,8 +156,6 @@
     "buildings": {
       "color": "#ffff00c8",
       "damage_k": 0.3,
-      "sound_step_material": "concrete",
-      "sound_material": "concrete",
       "vehicleSound": {
         "concrete": 1.0
       },
@@ -153,8 +167,83 @@
     "wood": {
       "bf_class": "wood",
       "damage_k": 0.3,
-      "sound_step_material": "wood",
-      "sound_material": "wood",
+      "resistanceK": 0.0,
+      "vehicleSound": {
+        "concrete": 0.5,
+        "collDesc": "collWood"
+      },
+      "billboardDecal": {
+        "type": "wood_bullet_hole",
+        "scale": 4.0
+      },
+      "damageModel": {
+        "ricochetAngleMult": 1.5,
+        "ricochetAngle": 60.0,
+        "ricochetCosinePower": 2.0,
+        "ricochetCosineMult": 0.6,
+        "armorThickness": 0.1
+      }
+    },
+    "wood_snow": {
+      "bf_class": "wood",
+      "damage_k": 0.3,
+      "vehicleSound": {
+        "concrete": 0.5,
+        "collDesc": "collWood"
+      },
+      "billboardDecal": {
+        "type": "wood_bullet_hole",
+        "scale": 4.0
+      },
+      "damageModel": {
+        "ricochetAngleMult": 1.5,
+        "ricochetAngle": 60.0,
+        "ricochetCosinePower": 2.0,
+        "ricochetCosineMult": 0.6,
+        "armorThickness": 0.1
+      }
+    },
+    "wood_fall": {
+      "bf_class": "wood",
+      "damage_k": 0.3,
+      "vehicleSound": {
+        "concrete": 0.5,
+        "collDesc": "collWood"
+      },
+      "billboardDecal": {
+        "type": "wood_bullet_hole",
+        "scale": 4.0
+      },
+      "damageModel": {
+        "ricochetAngleMult": 1.5,
+        "ricochetAngle": 60.0,
+        "ricochetCosinePower": 2.0,
+        "ricochetCosineMult": 0.6,
+        "armorThickness": 0.1
+      }
+    },
+    "wood_dead": {
+      "bf_class": "wood",
+      "damage_k": 0.3,
+      "vehicleSound": {
+        "concrete": 0.5,
+        "collDesc": "collWood"
+      },
+      "billboardDecal": {
+        "type": "wood_bullet_hole",
+        "scale": 4.0
+      },
+      "damageModel": {
+        "ricochetAngleMult": 1.5,
+        "ricochetAngle": 60.0,
+        "ricochetCosinePower": 2.0,
+        "ricochetCosineMult": 0.6,
+        "armorThickness": 0.1
+      }
+    },
+    "wood_palm": {
+      "bf_class": "wood",
+      "damage_k": 0.3,
       "vehicleSound": {
         "concrete": 0.5,
         "collDesc": "collWood"
@@ -174,8 +263,82 @@
     "wood_solid": {
       "bf_class": "wood",
       "damage_k": 0.3,
-      "sound_step_material": "wood",
-      "sound_material": "wood",
+      "vehicleSound": {
+        "concrete": 0.5,
+        "collDesc": "collWood"
+      },
+      "billboardDecal": {
+        "type": "wood_bullet_hole",
+        "scale": 4.0
+      },
+      "damageModel": {
+        "ricochetAngleMult": 1.5,
+        "ricochetAngle": 60.0,
+        "ricochetCosinePower": 2.0,
+        "ricochetCosineMult": 0.6,
+        "armorThickness": 15.0
+      }
+    },
+    "wood_snow_solid": {
+      "bf_class": "wood",
+      "damage_k": 0.3,
+      "vehicleSound": {
+        "concrete": 0.5,
+        "collDesc": "collWood"
+      },
+      "billboardDecal": {
+        "type": "wood_bullet_hole",
+        "scale": 4.0
+      },
+      "damageModel": {
+        "ricochetAngleMult": 1.5,
+        "ricochetAngle": 60.0,
+        "ricochetCosinePower": 2.0,
+        "ricochetCosineMult": 0.6,
+        "armorThickness": 15.0
+      }
+    },
+    "wood_fall_solid": {
+      "bf_class": "wood",
+      "damage_k": 0.3,
+      "vehicleSound": {
+        "concrete": 0.5,
+        "collDesc": "collWood"
+      },
+      "billboardDecal": {
+        "type": "wood_bullet_hole",
+        "scale": 4.0
+      },
+      "damageModel": {
+        "ricochetAngleMult": 1.5,
+        "ricochetAngle": 60.0,
+        "ricochetCosinePower": 2.0,
+        "ricochetCosineMult": 0.6,
+        "armorThickness": 15.0
+      }
+    },
+    "wood_dead_solid": {
+      "bf_class": "wood",
+      "damage_k": 0.3,
+      "vehicleSound": {
+        "concrete": 0.5,
+        "collDesc": "collWood"
+      },
+      "billboardDecal": {
+        "type": "wood_bullet_hole",
+        "scale": 4.0
+      },
+      "damageModel": {
+        "ricochetAngleMult": 1.5,
+        "ricochetAngle": 60.0,
+        "ricochetCosinePower": 2.0,
+        "ricochetCosineMult": 0.6,
+        "armorThickness": 15.0
+      }
+    },
+    "wood_palm_solid": {
+      "bf_class": "wood",
+      "damage_k": 0.3,
       "vehicleSound": {
         "concrete": 0.5,
         "collDesc": "collWood"
@@ -195,8 +358,6 @@
     "wood_railway": {
       "bf_class": "wood",
       "damage_k": 0.3,
-      "sound_step_material": "wood",
-      "sound_material": "wood",
       "vehicleSound": {
         "concrete": 0.5,
         "collDesc": "collWood"
@@ -216,8 +377,6 @@
     "window_wood": {
       "bf_class": "window",
       "damage_k": 0.3,
-      "sound_step_material": "wood",
-      "sound_material": "wood",
       "physDestructible": {
         "climbingThrough": true,
         "impulseSpeed": 2.5
@@ -255,8 +414,8 @@
     "steel": {
       "bf_class": "steel",
       "color": "#0000ffc8",
-      "sound_step_material": "steel",
-      "sound_material": "metal",
+      "resistanceK": 0.0003,
+      "is_solid": true,
       "vehicleSound": {
         "concrete": 0.5,
         "collDesc": "collMetal"
@@ -269,18 +428,16 @@
       },
       "bulletHole": {
         "type": "bullet_hole",
-        "scale": 0.7
+        "scale": 1.0
       },
       "billboardDecal": {
         "type": "metal_bullet_hole",
-        "scale": 4.0
+        "scale": 2.0
       }
     },
     "metal": {
       "bf_class": "steel",
       "color": "#0000ffc8",
-      "sound_step_material": "steel",
-      "sound_material": "metal",
       "vehicleSound": {
         "concrete": 0.5,
         "collDesc": "collMetal"
@@ -293,18 +450,16 @@
       },
       "bulletHole": {
         "type": "bullet_hole",
-        "scale": 0.7
+        "scale": 1.0
       },
       "billboardDecal": {
         "type": "metal_bullet_hole",
-        "scale": 4.0
+        "scale": 2.0
       }
     },
     "train": {
       "bf_class": "steel",
       "color": "#0000ffc8",
-      "sound_step_material": "steel",
-      "sound_material": "metal",
       "vehicleSound": {
         "concrete": 0.5,
         "collDesc": "collMetal"
@@ -317,11 +472,11 @@
       },
       "bulletHole": {
         "type": "bullet_hole",
-        "scale": 0.7
+        "scale": 1.0
       },
       "billboardDecal": {
         "type": "metal_bullet_hole",
-        "scale": 4.0
+        "scale": 2.0
       }
     },
     "flesh": {
@@ -337,8 +492,6 @@
     "cactus": {
       "bf_class": "wood",
       "damage_k": 0.3,
-      "sound_step_material": "wood",
-      "sound_material": "wood",
       "vehicleSound": {
         "concrete": 0.5,
         "collDesc": "collWood"
@@ -359,8 +512,7 @@
       "bf_class": "soil",
       "deformable_width": 0.2,
       "resistanceK": 0.0008,
-      "sound_step_material": "grass",
-      "sound_material": "dirt",
+      "tankTracksTexId": 0,
       "billboardDecal": {
         "type": "soil_bullet_hole",
         "scale": 4.0
@@ -376,8 +528,7 @@
       "bf_class": "soil",
       "deformable_width": 0.2,
       "resistanceK": 0.0008,
-      "sound_step_material": "grass",
-      "sound_material": "dirt",
+      "tankTracksTexId": 0,
       "billboardDecal": {
         "type": "soil_bullet_hole",
         "scale": 4.0
@@ -393,8 +544,7 @@
       "bf_class": "leaves",
       "deformable_width": 0.1,
       "resistanceK": 0.0008,
-      "sound_step_material": "grass",
-      "sound_material": "dirt",
+      "tankTracksTexId": 0,
       "billboardDecal": {
         "type": "soil_bullet_hole",
         "scale": 4.0
@@ -409,9 +559,8 @@
     "mud": {
       "bf_class": "mud",
       "deformable_width": 0.2,
-      "resistanceK": 0.0008,
-      "sound_step_material": "mud",
-      "sound_material": "dirt",
+      "tankTracksTexId": 0,
+      "resistanceK": 0.001,
       "billboardDecal": {
         "type": "soil_bullet_hole",
         "scale": 4.0
@@ -427,8 +576,7 @@
       "bf_class": "dirt",
       "deformable_width": 0.3,
       "resistanceK": 0.001,
-      "sound_step_material": "grass",
-      "sound_material": "dirt",
+      "tankTracksTexId": 0,
       "billboardDecal": {
         "type": "soil_bullet_hole",
         "scale": 4.0
@@ -437,9 +585,8 @@
     "roadSoil": {
       "bf_class": "roadSoil",
       "deformable_width": 0.05,
-      "resistanceK": 0.0002,
-      "sound_step_material": "concrete",
-      "sound_material": "dirt",
+      "tankTracksTexId": 0,
+      "resistanceK": 0.0,
       "vehicleSound": {
         "concrete": 1.0
       },
@@ -451,9 +598,8 @@
     "roadmud": {
       "bf_class": "roadmud",
       "deformable_width": 0.05,
-      "resistanceK": 0.0008,
-      "sound_step_material": "mud",
-      "sound_material": "dirt",
+      "tankTracksTexId": 0,
+      "resistanceK": 0.0,
       "billboardDecal": {
         "type": "soil_bullet_hole",
         "scale": 4.0
@@ -468,8 +614,8 @@
     "sand": {
       "bf_class": "sand",
       "deformable_width": 0.2,
-      "sound_step_material": "sand",
-      "sound_material": "dirt",
+      "tankTracksTexId": 1,
+      "resistanceK": 0.0,
       "billboardDecal": {
         "type": "soil_bullet_hole",
         "scale": 4.0
@@ -478,8 +624,8 @@
     "moon_sand": {
       "bf_class": "moon_sand",
       "deformable_width": 0.2,
-      "sound_step_material": "sand",
-      "sound_material": "dirt",
+      "tankTracksTexId": 1,
+      "resistanceK": 0.0,
       "billboardDecal": {
         "type": "moon_sand_bullet_hole",
         "scale": 4.0
@@ -489,8 +635,7 @@
       "bf_class": "quarrySand",
       "deformable_width": 0.05,
       "resistanceK": 0.0002,
-      "sound_step_material": "sand",
-      "sound_material": "dirt",
+      "tankTracksTexId": 1,
       "vehicleSound": {
         "concrete": 1.0
       },
@@ -503,8 +648,7 @@
       "bf_class": "sand_slope",
       "deformable_width": 0.05,
       "resistanceK": 0.0002,
-      "sound_step_material": "sand",
-      "sound_material": "dirt",
+      "tankTracksTexId": 1,
       "vehicleSound": {
         "concrete": 1.0
       },
@@ -516,9 +660,8 @@
     "roadSand": {
       "bf_class": "roadSand",
       "deformable_width": 0.1,
-      "resistanceK": 0.0002,
-      "sound_step_material": "sand",
-      "sound_material": "dirt",
+      "tankTracksTexId": 1,
+      "resistanceK": 0.0,
       "vehicleSound": {
         "concrete": 1.0
       },
@@ -530,44 +673,42 @@
     "quickSand": {
       "bf_class": "sand",
       "deformable_width": 0.6,
-      "sound_step_material": "concrete",
-      "sound_material": "dirt",
+      "tankTracksTexId": 1,
       "vehicleSound": {
         "concrete": 1.0
       }
     },
     "snow": {
       "bf_class": "snow",
+      "tankTracksTexId": 2,
       "deformable_width": 0.3,
-      "sound_step_material": "snow",
-      "sound_material": "dirt"
+      "resistanceK": 0.001
     },
     "hardSnow": {
       "bf_class": "snow",
-      "deformable_width": 0.3,
-      "sound_step_material": "snow",
-      "sound_material": "dirt"
+      "tankTracksTexId": 2,
+      "deformable_width": 0.3
     },
     "ice": {
       "bf_class": "ice",
-      "sound_step_material": "ice",
-      "sound_material": "dirt",
+      "resistanceK": 0.0,
+      "is_solid": true,
+      "tankTracksTexId": 2,
       "billboardDecal": {
         "type": "metal_bullet_hole",
-        "scale": 4.0
+        "scale": 2.0
       }
     },
     "snowLower": {
       "bf_class": "snow",
-      "deformable_width": 0.2,
-      "sound_step_material": "snow",
-      "sound_material": "dirt"
+      "tankTracksTexId": 2,
+      "deformable_width": 0.2
     },
     "roadSnow": {
       "bf_class": "roadSnow",
+      "tankTracksTexId": 2,
       "deformable_width": 0.05,
-      "sound_step_material": "snow",
-      "sound_material": "dirt"
+      "resistanceK": 0.0
     },
     "lava": {
       "bf_class": "lava",
@@ -575,8 +716,6 @@
       "damage_k": 0.3,
       "deformable_width": 0.05,
       "resistanceK": 0.0006,
-      "sound_step_material": "grass",
-      "sound_material": "dirt",
       "bulletHole": {
         "type": "bullet_hole",
         "scale": 1.0
@@ -594,8 +733,9 @@
     },
     "rocks": {
       "bf_class": "rocks",
-      "sound_step_material": "concrete",
-      "sound_material": "concrete",
+      "resistanceK": 0.0,
+      "is_solid": true,
+      "tankTracksTexId": 3,
       "vehicleSound": {
         "concrete": 1.0
       },
@@ -616,8 +756,9 @@
     },
     "rocksSlippery": {
       "bf_class": "rocksSlippery",
-      "sound_step_material": "concrete",
-      "sound_material": "concrete",
+      "resistanceK": 0.0,
+      "is_solid": true,
+      "tankTracksTexId": 3,
       "vehicleSound": {
         "concrete": 1.0
       },
@@ -628,8 +769,9 @@
     },
     "gravel": {
       "bf_class": "gravel",
-      "sound_step_material": "concrete",
-      "sound_material": "concrete",
+      "resistanceK": 0.0,
+      "is_solid": true,
+      "tankTracksTexId": 3,
       "vehicleSound": {
         "concrete": 1.0
       },
@@ -651,16 +793,12 @@
     },
     "rubber": {
       "bf_class": "rubber",
-      "sound_step_material": "concrete",
-      "sound_material": "dirt",
       "vehicleSound": {
         "concrete": 1.0
       }
     },
     "ceramic": {
       "bf_class": "ceramic",
-      "sound_step_material": "concrete",
-      "sound_material": "concrete",
       "vehicleSound": {
         "concrete": 1.0
       },
@@ -671,14 +809,8 @@
     },
     "fabric": {
       "bf_class": "fabric",
-      "sound_step_material": "fabric",
-      "sound_material": "dirt",
       "vehicleSound": {
         "concrete": 1.0
-      },
-      "billboardDecal": {
-        "type": "wood_bullet_hole",
-        "scale": 5.0
       },
       "damageModel": {
         "armorThickness": 0.01
@@ -687,8 +819,6 @@
     "hay": {
       "bf_class": "wood",
       "damage_k": 0.3,
-      "sound_step_material": "highgrass",
-      "sound_material": "dirt",
       "vehicleSound": {
         "concrete": 0.5,
         "collDesc": "collWood"
@@ -707,7 +837,6 @@
     },
     "paper": {
       "bf_class": "paper",
-      "sound_step_material": "concrete",
       "vehicleSound": {
         "concrete": 1.0
       },
@@ -718,23 +847,73 @@
     },
     "plastic": {
       "bf_class": "plastic",
-      "sound_step_material": "concrete",
       "vehicleSound": {
         "concrete": 1.0
       }
     },
     "bushes": {
       "bf_class": "bushes",
-      "sound_step_material": "highgrass",
       "softCollision": {
         "physViscosity": 2.5
+      },
+      "damageModel": {
+        "armorThickness": 0.01
+      }
+    },
+    "bushes_fall": {
+      "bf_class": "bushes",
+      "softCollision": {
+        "physViscosity": 2.5
+      },
+      "damageModel": {
+        "armorThickness": 0.01
+      }
+    },
+    "bushes_snow": {
+      "bf_class": "bushes",
+      "softCollision": {
+        "physViscosity": 2.5
+      },
+      "damageModel": {
+        "armorThickness": 0.01
+      }
+    },
+    "bushes_dead": {
+      "bf_class": "bushes",
+      "softCollision": {
+        "physViscosity": 2.5
+      },
+      "damageModel": {
+        "armorThickness": 0.01
+      }
+    },
+    "bushes_palm": {
+      "bf_class": "bushes",
+      "softCollision": {
+        "physViscosity": 2.5
+      },
+      "damageModel": {
+        "armorThickness": 0.01
       }
     },
     "barbwire": {
       "bf_class": "barbwire",
-      "sound_step_material": "barbwire",
       "softCollision": {
         "physViscosity": 2.5
+      }
+    },
+    "tank_structural_steel": {
+      "bf_class": "steel",
+      "vehicleSound": {
+        "concrete": 0.5,
+        "collDesc": "collMetal"
+      }
+    },
+    "aluminum_armor": {
+      "bf_class": "steel",
+      "vehicleSound": {
+        "concrete": 0.5,
+        "collDesc": "collMetal"
       }
     },
     "walkRay": {
@@ -779,8 +958,6 @@
     "softWoodDoor": {
       "bf_class": "softWoodDoor",
       "damage_k": 0.3,
-      "sound_step_material": "wood",
-      "sound_material": "wood",
       "vehicleSound": {
         "concrete": 0.5
       },
@@ -802,8 +979,6 @@
     "softSteelDoor": {
       "bf_class": "softSteelDoor",
       "damage_k": 0.3,
-      "sound_step_material": "steel",
-      "sound_material": "metal",
       "vehicleSound": {
         "concrete": 0.5
       },
@@ -819,24 +994,21 @@
       },
       "bulletHole": {
         "type": "bullet_hole",
-        "scale": 0.7
+        "scale": 1.0
       },
       "billboardDecal": {
         "type": "metal_bullet_hole",
-        "scale": 4.0
+        "scale": 2.0
       }
     },
     "small_debris": {
-      "bf_class": "small_debris",
-      "sound_step_material": "concrete"
+      "bf_class": "small_debris"
     },
     "small_decor": {
-      "bf_class": "small_decor",
-      "sound_step_material": "concrete"
+      "bf_class": "small_decor"
     },
     "bullet_transparent": {
-      "bf_class": "bullet_transparent",
-      "sound_step_material": "concrete"
+      "bf_class": "bullet_transparent"
     },
     "gunRay": {
       "bf_class": "gunRay"
@@ -946,9 +1118,6 @@
       }
     },
     "bulletRay": {
-      "bushes": {
-        "en": false
-      },
       "barbwire": {
         "en": false
       },
@@ -989,79 +1158,79 @@
     "tankTrack": {
       "default": {
         "fk": 1.0,
-        "rollingFrictionK": 0.045
+        "rollingFrictionK": 0.055
       },
       "horLandMesh": {
         "fk": 1.0,
         "rollingFrictionK": 0.1
       },
       "concrete": {
-        "fk": 0.8,
+        "fk": 0.95,
         "rollingFrictionK": 0.05
       },
       "stone": {
-        "fk": 0.8,
+        "fk": 0.75,
         "rollingFrictionK": 0.05
       },
       "steel": {
-        "fk": 0.8,
-        "rollingFrictionK": 0.05
+        "fk": 0.6,
+        "rollingFrictionK": 0.02
       },
       "soil": {
         "fk": 1.0,
-        "rollingFrictionK": 0.12
+        "rollingFrictionK": 0.055
       },
       "leaves": {
         "fk": 1.0,
-        "rollingFrictionK": 0.12
+        "rollingFrictionK": 0.06
       },
       "dirt": {
-        "fk": 0.8,
-        "rollingFrictionK": 0.13
+        "fk": 0.85,
+        "rollingFrictionK": 0.08
       },
       "roadSoil": {
         "fk": 1.0,
-        "rollingFrictionK": 0.06
+        "rollingFrictionK": 0.055
       },
       "roadmud": {
         "fk": 0.9,
-        "rollingFrictionK": 0.08
+        "rollingFrictionK": 0.055
       },
       "sand": {
-        "fk": 0.8,
-        "rollingFrictionK": 0.08
+        "fk": 0.9,
+        "rollingFrictionK": 0.06
       },
       "moon_sand": {
         "fk": 0.9,
         "rollingFrictionK": 0.06
       },
       "sand_slope": {
-        "fk": 0.8,
-        "rollingFrictionK": 0.08
+        "fk": 0.9,
+        "rollingFrictionK": 0.06
       },
       "quarrySand": {
-        "fk": 0.8,
-        "rollingFrictionK": 0.08
+        "fk": 0.9,
+        "rollingFrictionK": 0.06
       },
       "roadSand": {
-        "fk": 0.5,
-        "rollingFrictionK": 0.04
+        "fk": 0.9,
+        "rollingFrictionK": 0.06
       },
       "snow": {
-        "fk": 0.8,
-        "rollingFrictionK": 0.09
+        "fk": 0.9,
+        "rollingFrictionK": 0.06
       },
       "mud": {
-        "fk": 0.8,
-        "rollingFrictionK": 0.11
+        "fk": 0.85,
+        "rollingFrictionK": 0.08
       },
       "ice": {
-        "fk": 0.3,
-        "rollingFrictionK": 0.2
+        "fk": 0.1,
+        "rollingFrictionK": 0.045
       },
       "roadSnow": {
-        "fk": 0.7,
-        "rollingFrictionK": 0.1
+        "fk": 0.9,
+        "rollingFrictionK": 0.06
       },
       "rocks": {
         "fk": 0.75,
@@ -1085,7 +1254,7 @@
       },
       "wood": {
         "fk": 0.8,
-        "rollingFrictionK": 0.0166
+        "rollingFrictionK": 0.02
       },
       "bushes": {
         "en": false
@@ -1094,83 +1263,79 @@
     "wheel": {
       "default": {
         "fk": 1.0,
-        "rollingFrictionK": 0.03
+        "rollingFrictionK": 0.045
       },
       "horLandMesh": {
         "fk": 1.0,
         "rollingFrictionK": 0.2
       },
       "concrete": {
-        "fk": 0.8,
-        "rollingFrictionK": 0.014
+        "fk": 0.95,
+        "rollingFrictionK": 0.0166
       },
       "stone": {
-        "fk": 0.8,
-        "rollingFrictionK": 0.014
-      },
-      "wood": {
-        "fk": 0.8,
-        "rollingFrictionK": 0.01
+        "fk": 0.7,
+        "rollingFrictionK": 0.07
       },
       "steel": {
-        "fk": 0.9,
-        "rollingFrictionK": 0.014
+        "fk": 0.6,
+        "rollingFrictionK": 0.02
       },
       "soil": {
         "fk": 1.0,
-        "rollingFrictionK": 0.08
+        "rollingFrictionK": 0.045
       },
       "leaves": {
         "fk": 1.0,
-        "rollingFrictionK": 0.1
+        "rollingFrictionK": 0.2
       },
       "dirt": {
         "fk": 0.8,
-        "rollingFrictionK": 0.4
+        "rollingFrictionK": 0.2
       },
       "roadSoil": {
         "fk": 1.0,
-        "rollingFrictionK": 0.014
+        "rollingFrictionK": 0.0166
       },
       "roadmud": {
-        "fk": 0.9,
-        "rollingFrictionK": 0.1
+        "fk": 0.95,
+        "rollingFrictionK": 0.0166
       },
       "sand": {
-        "fk": 0.8,
-        "rollingFrictionK": 0.12
+        "fk": 0.95,
+        "rollingFrictionK": 0.0166
       },
       "moon_sand": {
-        "fk": 0.9,
-        "rollingFrictionK": 0.01
+        "fk": 0.95,
+        "rollingFrictionK": 0.0166
       },
       "sand_slope": {
-        "fk": 0.8,
-        "rollingFrictionK": 0.12
+        "fk": 0.95,
+        "rollingFrictionK": 0.0166
       },
       "quarrySand": {
-        "fk": 0.8,
-        "rollingFrictionK": 0.12
+        "fk": 0.95,
+        "rollingFrictionK": 0.0166
       },
       "roadSand": {
         "fk": 1.0,
-        "rollingFrictionK": 0.014
+        "rollingFrictionK": 0.0166
       },
       "snow": {
-        "fk": 0.8,
-        "rollingFrictionK": 0.11
+        "fk": 0.9,
+        "rollingFrictionK": 0.02
       },
       "mud": {
         "fk": 0.8,
         "rollingFrictionK": 0.15
       },
       "ice": {
-        "fk": 0.35,
-        "rollingFrictionK": 0.25
+        "fk": 0.15,
+        "rollingFrictionK": 0.02
       },
       "roadSnow": {
-        "fk": 0.7,
-        "rollingFrictionK": 0.014
+        "fk": 0.95,
+        "rollingFrictionK": 0.0166
       },
       "rocks": {
         "fk": 0.7,
@@ -1181,8 +1346,8 @@
         "rollingFrictionK": 0.09
       },
       "gravel": {
-        "fk": 0.75,
-        "rollingFrictionK": 0.05
+        "fk": 0.7,
+        "rollingFrictionK": 0.014
       },
       "fabric": {
         "fk": 0.8,
@@ -1190,6 +1355,10 @@
       },
       "glass": {
         "fk": 0.6,
+        "rollingFrictionK": 0.02
+      },
+      "wood": {
+        "fk": 0.8,
         "rollingFrictionK": 0.02
       },
       "bushes": {

@@ -12,6 +12,9 @@
     "import": "tank_cockpit.blk"
   },
   {
+    "import": "tank_optic.blk"
+  },
+  {
     "import": "tank_gun_override.blk"
   },
   {
@@ -25,6 +28,9 @@
   },
   {
     "import": "jp_tanks.blk"
+  },
+  {
+    "import": "jp_cannon.blk"
   },
   {
     "import": "germ_tanks.blk"
@@ -63,8 +69,11 @@
     "import": "ww2_motorcycles.blk"
   },
   {
+    "import": "ww2_apc.blk"
+  },
+  {
     "tankgun_m1_76mm": {
-      "_extends": "tankgun",
+      "_use": "tankgun",
       "item__name": "76mm gun M1",
       "gun__locName": "76mm gun M1",
       "gun__sightsDistance": 0.05,
@@ -93,7 +102,7 @@
   },
   {
     "tankgun_7_92mm_ZB_VZ37_machinegun_m3a1_stuart": {
-      "_extends": "tankgun",
+      "_use": "tankgun",
       "item__name": "7.92mm ZB",
       "gun__locName": "7.92mm ZB",
       "gun__sightsDistance": 0.05,
@@ -283,6 +292,13 @@
       },
       {
         "turret_control__gunEids:list<eid>": []
+      },
+      {
+        "turret_control__isStabilizerEnabled:b": {
+          "value": true,
+          "_replicate": true,
+          "_track": true
+        }
       }
     ]
   },
@@ -325,7 +341,7 @@
   },
   {
     "tank_mods": {
-      "_extends": "tank_phys_mods",
+      "_use": "tank_phys_mods",
       "vehicle_mods__maxHorDriveMult:r": {
         "_tags": "server",
         "value": 1.0
@@ -482,7 +498,7 @@
   },
   {
     "base_tank_without_xray": {
-      "_extends": "base_tank_without_xray_common",
+      "_use": "base_tank_without_xray_common",
       "vehicle_seats__restrictToTeam": -1,
       "vehicle_seats__autoDetectRestrictToTeam": true,
       "vehicle_kill_assist__stat": "tankKillAssists",
@@ -499,7 +515,10 @@
   {
     "vehicle_maintenance": [
       {
-        "repairable__baseRepairTotalTime": 5.0
+        "dm_parts__considerAsAliveThreshold": 1.0
+      },
+      {
+        "repairable__baseRepairTotalTime": 3.0
       },
       {
         "repairable__baseRecoveryRatio": 0.3
@@ -531,8 +550,10 @@
           "_replicate": true,
           "repairable__repairTotalTime": -1.0,
           "repairable__repairTime": -1.0,
+          "repairable__repairPart": -1,
           "repairable__repairRequired": false,
-          "repairable__extinguishRequired": false
+          "repairable__extinguishRequired": false,
+          "repairable__repairTimeByPart:list<r>": []
         }
       }
     ]
@@ -540,34 +561,41 @@
   {
     "base_tank_without_xray_common": [
       {
-        "_extends": "vehicle"
+        "_use": "vehicle"
       },
       {
-        "_extends": "base_turret_controls"
+        "_use": "base_vehicle_common"
+      }
+    ]
+  },
+  {
+    "base_vehicle_common": [
+      {
+        "_use": "base_turret_controls"
       },
       {
-        "_extends": "turret_controls_hit_result_info"
+        "_use": "turret_controls_hit_result_info"
       },
       {
-        "_extends": "base_damage_model"
+        "_use": "base_damage_model"
       },
       {
-        "_extends": "base_damage_model_fx"
+        "_use": "base_damage_model_fx"
       },
       {
-        "_extends": "attached_fire_engine_damage"
+        "_use": "attached_fire_engine_damage"
       },
       {
-        "_extends": "vehicle_maintenance"
+        "_use": "vehicle_maintenance"
       },
       {
-        "_extends": "vehicle_engine_external_fire"
+        "_use": "vehicle_engine_external_fire"
       },
       {
-        "_extends": "vehicle_fatal_explosion_external_fire"
+        "_use": "vehicle_fatal_explosion_external_fire"
       },
       {
-        "_extends": "vehicle_fatal_fire_external_fire"
+        "_use": "vehicle_fatal_fire_external_fire"
       },
       {
         "canUseRespawnbaseType": "vehicle"
@@ -1195,34 +1223,16 @@
         "dm_phys_parts__tracksPartIds:list<i>": []
       },
       {
-        "dm_phys_parts__wheelsPartIds:list<i>": []
-      },
-      {
         "dm_phys_parts__ammoPartIds:list<i>": []
       },
       {
-        "dm_phys_parts__engine:array": {
+        "dm_parts__engine:list<t>": {
           "engine": "engine"
         }
       },
       {
-        "dm_phys_parts__transmission:array": {
+        "dm_parts__transmission:list<t>": {
           "transmission": "transmission"
-        }
-      },
-      {
-        "dm_phys_parts__tracks:array": [
-          {
-            "tracks": "track_l(_\\w+)?"
-          },
-          {
-            "tracks": "track_r(_\\w+)?"
-          }
-        ]
-      },
-      {
-        "dm_phys_parts__ammo:array": {
-          "ammo": "ammo_\\w+"
         }
       }
     ]
@@ -1270,34 +1280,40 @@
   {
     "base_tank_sound": [
       {
-        "_extends": "tank_vehicle_seat_sound"
+        "_use": "tank_vehicle_seat_sound"
       },
       {
-        "_extends": "tank_vehicle_suspension_sound"
+        "_use": "tank_vehicle_suspension_sound"
       },
       {
-        "_extends": "tank_vehicle_tracks_sound"
+        "_use": "tank_vehicle_tracks_sound"
       },
       {
-        "_extends": "turret_sound_with_group"
+        "_use": "turret_sound_with_group"
       },
       {
-        "_extends": "tank_camera_inside_snapshot"
+        "_use": "tank_inside_sound"
       },
       {
-        "_extends": "tank_vehicle_speech"
+        "_use": "tank_vehicle_speech"
       },
       {
-        "_extends": "tank_vehicle_engine_sound"
+        "_use": "tank_vehicle_engine_sound"
       },
       {
-        "_extends": "tank_vehicle_gear_sound"
+        "_use": "tank_vehicle_gear_sound"
       },
       {
-        "_extends": "tank_vehicle_collision_sound_setup"
+        "_use": "tank_vehicle_collision_sound_setup"
       },
       {
-        "_extends": "tank_vehicle_damage_sound_setup"
+        "_use": "tank_vehicle_damage_sound_setup"
+      },
+      {
+        "_group": {
+          "_tags": "sound",
+          "vehicle_sound_vars__noiseSpeedThreshold": 0.1
+        }
       }
     ]
   },
@@ -1926,30 +1942,189 @@
     }
   },
   {
+    "vehicle_view": {
+      "vehicleView:tag": [],
+      "_group": {
+        "_track": true,
+        "vehicle_view__gear": 0,
+        "vehicle_view__neutralGear": 0,
+        "vehicle_view__rpm": 0,
+        "vehicle_view__cruiseControl": 0,
+        "vehicle_view__speed": 0,
+        "vehicle_view__fuelPct": 0.0,
+        "vehicle_view__isHandBraking": false,
+        "vehicle_view__isAutomaticTransmission": true
+      }
+    }
+  },
+  {
+    "dm_parts_repair": {
+      "dm_parts_repair_names:list<t>": [
+        {
+          "part": "part:t="
+        },
+        {
+          "part": "drive_turret_h"
+        },
+        {
+          "part": "drive_turret_v"
+        },
+        {
+          "part": "drive_turret_v_01"
+        },
+        {
+          "part": "drive_turret_h_01"
+        },
+        {
+          "part": "drive_turret_v_02"
+        },
+        {
+          "part": "drive_turret_h_02"
+        },
+        {
+          "part": "drive_turret_v_03"
+        },
+        {
+          "part": "drive_turret_h_03"
+        },
+        {
+          "part": "cannon_breech"
+        },
+        {
+          "part": "cannon_breech_01"
+        },
+        {
+          "part": "cannon_breech_02"
+        },
+        {
+          "part": "cannon_breech_03"
+        },
+        {
+          "part": "cannon_breech_04"
+        },
+        {
+          "part": "engine"
+        },
+        {
+          "part": "transmission"
+        },
+        {
+          "part": "gun_barrel"
+        },
+        {
+          "part": "gun_barrel_01"
+        },
+        {
+          "part": "gun_barrel_02"
+        },
+        {
+          "part": "gun_barrel_03"
+        },
+        {
+          "part": "gun_barrel_04"
+        },
+        {
+          "part": "gun_barrel_05"
+        },
+        {
+          "part": "track_r"
+        },
+        {
+          "part": "track_l"
+        },
+        {
+          "part": "track_r_01"
+        },
+        {
+          "part": "track_l_01"
+        },
+        {
+          "part": "wheel_l_back"
+        },
+        {
+          "part": "wheel_l_front"
+        },
+        {
+          "part": "wheel_l_drive"
+        },
+        {
+          "part": "wheel_r_back"
+        },
+        {
+          "part": "wheel_r_front"
+        },
+        {
+          "part": "wheel_r_drive"
+        }
+      ],
+      "dm_parts__canRepair:list<b>": [],
+      "dm_parts__repairPartGroupIds:list<u8>": [],
+      "dm_parts__repairGroups:object": {
+        "1:list<t>": [
+          {
+            "part": "track_r"
+          },
+          {
+            "part": "track_r_01"
+          },
+          {
+            "part": "wheel_r_back"
+          },
+          {
+            "part": "wheel_r_front"
+          },
+          {
+            "part": "wheel_r_drive"
+          }
+        ],
+        "2:list<t>": [
+          {
+            "part": "track_l"
+          },
+          {
+            "part": "track_l_01"
+          },
+          {
+            "part": "wheel_l_back"
+          },
+          {
+            "part": "wheel_l_front"
+          },
+          {
+            "part": "wheel_l_drive"
+          }
+        ]
+      }
+    }
+  },
+  {
     "base_tank": [
       {
-        "_extends": "base_tank_without_xray"
+        "_use": "dm_parts_repair"
       },
       {
-        "_extends": "tank_camera_setup"
+        "_use": "base_tank_without_xray"
       },
       {
-        "_extends": "base_tank_seat_templates"
+        "_use": "tank_camera_setup"
       },
       {
-        "_extends": "base_phys_modifications"
+        "_use": "base_tank_seat_templates"
       },
       {
-        "_extends": "base_tank_sound"
+        "_use": "base_phys_modifications"
       },
       {
-        "_extends": "base_vehicle_attach_rules"
+        "_use": "base_tank_sound"
+      },
+      {
+        "_use": "base_vehicle_attach_rules"
+      },
+      {
+        "_use": "vehicle_view"
       },
       {
         "net__physId": -1
-      },
-      {
-        "netLodZones": [2500.0,22500.0,62500.0,6250000.0]
       },
       {
         "_tracked": "animchar__objTexReplace"
@@ -1965,6 +2140,9 @@
       },
       {
         "effectsCulling__cockpitRadius": 2.0
+      },
+      {
+        "humanAdditionalCollisionChecks:tag": []
       },
       {
         "phys_vars__skipVisibilityCheck:tag": []
@@ -1989,6 +2167,25 @@
           "visual_dmg_remap__collNodeIdToNodeIdMain:list<i>": [],
           "visual_dmg_remap__collNodeIdToNodeIdDmg:list<i>": [],
           "visual_dmg_remap__collNodeIdToNodeIdDstr:list<i>": []
+        }
+      },
+      {
+        "_group": {
+          "_tags": "input",
+          "vehicle__steerTips:list<t>": [
+            {
+              "tip": "Vehicle.Brake"
+            },
+            {
+              "tip": "Vehicle.Accel"
+            },
+            {
+              "tip": "Vehicle.Steer"
+            },
+            {
+              "tip": "Vehicle.Throttle"
+            }
+          ]
         }
       },
       {
@@ -2018,9 +2215,6 @@
         "animchar__objTexSet:object": []
       },
       {
-        "humanAdditionalCollisionChecks:tag": []
-      },
-      {
         "attach_decorators__templates:array": []
       },
       {
@@ -2029,12 +2223,42 @@
     ]
   },
   {
+    "halftrack_seats": {
+      "vehicle_seats__seatTemplates:shared:object": {
+        "default": "vehicle_seat_fire_ready",
+        "passenger": "vehicle_seat_fire_ready",
+        "driver": "vehicle_seat_driver",
+        "main_gunner": "vehicle_seat_main_gunner"
+      },
+      "_group": {
+        "_tags": "server",
+        "dependent_templates:ecs::TemplatesListToInstantiate": [],
+        "dependent_templates_list_shared:shared:list<t>": [
+          {
+            "template_name": "vehicle_seat_fire_ready"
+          },
+          {
+            "template_name": "vehicle_seat_driver"
+          },
+          {
+            "template_name": "vehicle_seat_main_gunner"
+          }
+        ]
+      },
+      "defaultCameraTypes:shared:object": {
+        "driver": "commander",
+        "main_gunner": "gunner",
+        "passenger": "passenger"
+      }
+    }
+  },
+  {
     "vehicle_seat_main_gunner": [
       {
-        "_extends": "base_vehicle_seat"
+        "_use": "base_vehicle_seat"
       },
       {
-        "_extends": "base_seats_hatch_nodes"
+        "_use": "base_seats_hatch_nodes"
       },
       {
         "seats_order__canPlaceManually": true
@@ -2050,10 +2274,10 @@
   {
     "vehicle_seat_extra_gunner": [
       {
-        "_extends": "base_vehicle_seat"
+        "_use": "base_vehicle_seat"
       },
       {
-        "_extends": "base_seats_hatch_nodes"
+        "_use": "base_seats_hatch_nodes"
       },
       {
         "seats_order__canPlaceManually": true
@@ -2074,7 +2298,7 @@
   },
   {
     "vehicle_seat_machinegunner": {
-      "_extends": "base_vehicle_seat"
+      "_use": "base_vehicle_seat"
     }
   },
   {
@@ -2105,10 +2329,10 @@
   {
     "vehicle_seat_commander": [
       {
-        "_extends": "base_vehicle_seat"
+        "_use": "base_vehicle_seat"
       },
       {
-        "_extends": "base_seats_hatch_nodes"
+        "_use": "base_seats_hatch_nodes"
       },
       {
         "seats_order__canPlaceManually": true
@@ -2127,10 +2351,10 @@
   {
     "vehicle_seat_loader": [
       {
-        "_extends": "base_vehicle_seat"
+        "_use": "base_vehicle_seat"
       },
       {
-        "_extends": "base_seats_hatch_nodes"
+        "_use": "base_seats_hatch_nodes"
       },
       {
         "seat_anim__upper": "drive_passenger"
@@ -2161,19 +2385,19 @@
   {
     "base_tankgun_cannon": [
       {
-        "_extends": "tank_gun_shell_change"
+        "_use": "tank_gun_shell_change"
       },
       {
-        "_extends": "turret_guidance_quality"
+        "_use": "turret_guidance_quality"
       },
       {
-        "_extends": "camera_shake_on_shooting"
+        "_use": "camera_shake_on_shooting"
       },
       {
-        "_extends": "tankgun_cannon_reload_sounds"
+        "_use": "tankgun_cannon_reload_sounds"
       },
       {
-        "_extends": "tankgun_cannon_overheat_sound"
+        "_use": "tankgun_cannon_overheat_sound"
       },
       {
         "gun__sightsDistance": 0.05
@@ -2248,6 +2472,13 @@
         "gun__timeBetweenShotsIsReload:tag": []
       },
       {
+        "gun__isReloading:b": {
+          "value": false,
+          "_tags": "server",
+          "_track": true
+        }
+      },
+      {
         "gun_sound__shotPath:shared:object": {
           "_tags": "sound",
           "path": "/weapon/cannon/75mm_m3"
@@ -2259,6 +2490,8 @@
     "base_machinegun": {
       "gun__sightsDistance": 0.05,
       "gun__automaticReload": false,
+      "gun__projectileTemplate": "bullet_projectile",
+      "gun__projectileDebugTemplate": "bullet_projectile+bullet_projectile_debug",
       "gun_spread__maxDeltaAngle": 0.12,
       "gun_deviation__omegaRange": [30.0,90.0],
       "gun_deviation__omegaDevInc": [0.07,0.5],
@@ -2283,16 +2516,16 @@
   {
     "base_tankgun_autocannon": [
       {
-        "_extends": "base_tankgun_machinegun"
+        "_use": "base_tankgun_machinegun"
       },
       {
-        "_extends": "turret_guidance_quality"
+        "_use": "turret_guidance_quality"
       },
       {
-        "_extends": "tank_gun_shell_change"
+        "_use": "tank_gun_shell_change"
       },
       {
-        "_extends": "camera_shake_on_shooting"
+        "_use": "camera_shake_on_shooting"
       },
       {
         "gun__cameraShakeTrauma": 0.15
@@ -2317,13 +2550,13 @@
   {
     "base_tankgun_machinegun": [
       {
-        "_extends": "reloadable_turret"
+        "_use": "reloadable_turret"
       },
       {
-        "_extends": "base_tankgun_machinegun_nooverheat"
+        "_use": "base_tankgun_machinegun_nooverheat"
       },
       {
-        "_extends": "tankgun_machinegun_overheat_sound"
+        "_use": "tankgun_machinegun_overheat_sound"
       },
       {
         "gun__reloadTime": 8.0
@@ -2335,17 +2568,17 @@
         "gun__overheatReduceOnOverheat": 0.083
       },
       {
-        "gun__overheatPerShot": 0.04
+        "gun__overheatPerShot": 0.03
       }
     ]
   },
   {
     "base_tankgun_machinegun_nooverheat": [
       {
-        "_extends": "base_machinegun"
+        "_use": "base_machinegun"
       },
       {
-        "_extends": "tankgun_machinegun_reload_sounds"
+        "_use": "tankgun_machinegun_reload_sounds"
       },
       {
         "gun__isOverheat": false
@@ -2376,17 +2609,17 @@
   },
   {
     "tank_grenade_projectile": {
-      "_extends": "rocket_projectile",
+      "_use": "rocket_projectile",
       "animchar__res": "grenade_A13_char"
     }
   },
   {
     "tank_smoke_grenade_projectile": [
       {
-        "_extends": "tank_grenade_projectile"
+        "_use": "tank_grenade_projectile"
       },
       {
-        "_extends": "smoke_grenade_projectile_sound"
+        "_use": "smoke_grenade_projectile_sound"
       },
       {
         "disableRIBulletHole:tag": []
@@ -2395,7 +2628,7 @@
   },
   {
     "base_tankgun_grenade_launcher": {
-      "_extends": "reloadable_turret",
+      "_use": "reloadable_turret",
       "animchar__res": "grenade_A13_char",
       "gun__maxAmmo": 1,
       "gun__reloadTime": 1.5,
@@ -2415,20 +2648,20 @@
   },
   {
     "base_tankgun_smoke_grenade_launcher": {
-      "_extends": "base_tankgun_grenade_launcher",
+      "_use": "base_tankgun_grenade_launcher",
       "gun__projectileTemplate": "tank_smoke_grenade_projectile"
     }
   },
   {
     "t17e2": [
       {
-        "_extends": "vehicle"
+        "_use": "vehicle"
       },
       {
-        "_extends": "vehicle_effects_4x4"
+        "_use": "vehicle_effects_4x4"
       },
       {
-        "_extends": "base_dm_parts"
+        "_use": "base_dm_parts"
       },
       {
         "animchar__res": "t17e2_char"
@@ -2523,7 +2756,7 @@
   },
   {
     "_componentFilters": {
-      "dm_state": "filter_possessed_and_spectated_vehicle",
+      "dm_state": "filter_possessed_spectated_maintenance_vehicle",
       "turret_aim_drives_mult": "filter_possessed_and_spectated_vehicle",
       "turret_guidance__reductionAtYawAngleDeg": "filter_possessed_spectated_attachables_and_vehicle",
       "turret_guidance__pitchMultWhenAimingYaw": "filter_possessed_spectated_attachables_and_vehicle",
@@ -2572,10 +2805,10 @@
   {
     "vehicle_engine_fire": [
       {
-        "_extends": "fire_source_no_fx"
+        "_use": "fire_source_no_fx"
       },
       {
-        "_extends": "smoke_occluders"
+        "_use": "smoke_occluders"
       },
       {
         "transform": [
@@ -2617,10 +2850,10 @@
   {
     "fatal_explosion_external_fire": [
       {
-        "_extends": "fire_source_no_fx"
+        "_use": "fire_source_no_fx"
       },
       {
-        "_extends": "smoke_occluders"
+        "_use": "smoke_occluders"
       },
       {
         "transform": [
@@ -2667,7 +2900,7 @@
   },
   {
     "fatal_fire_external_fire": {
-      "_extends": "fire_source_no_fx",
+      "_use": "fire_source_no_fx",
       "transform": [
         [1.0,0.0,0.0],
         [0.0,1.0,0.0],
@@ -2680,13 +2913,13 @@
   {
     "base_tank_rocket_gun": [
       {
-        "_extends": "tankgun"
+        "_use": "tankgun"
       },
       {
-        "_extends": "gunsound_base_rocket_launcher"
+        "_use": "gunsound_base_rocket_launcher"
       },
       {
-        "_extends": "hit_effect_group_bomb"
+        "_use": "hit_effect_group_bomb"
       },
       {
         "gun__isPayload": true
@@ -2770,16 +3003,16 @@
   {
     "base_tank_rocket_item": [
       {
-        "_extends": "replicating"
+        "_use": "replicating"
       },
       {
-        "_extends": "animchar"
+        "_use": "animchar"
       },
       {
-        "_extends": "animchar_act_on_demand"
+        "_use": "animchar_act_on_demand"
       },
       {
-        "_extends": "ecs_no_debug"
+        "_use": "ecs_no_debug"
       },
       {
         "animchar__res": "m8_rocket_char"
@@ -2804,6 +3037,782 @@
       },
       {
         "slot_attach:tag": []
+      }
+    ]
+  },
+  {
+    "base_tank_no_turret": [
+      {
+        "_use": "dm_parts_repair"
+      },
+      {
+        "_use": "base_tank_without_no_gun_xray"
+      },
+      {
+        "_use": "tank_camera_setup"
+      },
+      {
+        "_use": "base_tank_seat_templates"
+      },
+      {
+        "_use": "base_phys_modifications"
+      },
+      {
+        "_use": "base_tank_sound"
+      },
+      {
+        "_use": "base_vehicle_attach_rules"
+      },
+      {
+        "_use": "vehicle_view"
+      },
+      {
+        "net__physId": -1
+      },
+      {
+        "netLodZones": [2500.0,22500.0,62500.0,6250000.0]
+      },
+      {
+        "_tracked": "animchar__objTexReplace"
+      },
+      {
+        "_tracked": "dmg_animchar__renderable"
+      },
+      {
+        "vehicle__turretControlComponents": "tank_turret_control_components"
+      },
+      {
+        "dmg_animchar__renderable": false
+      },
+      {
+        "effectsCulling__cockpitRadius": 2.0
+      },
+      {
+        "phys_vars__skipVisibilityCheck:tag": []
+      },
+      {
+        "vehicle__isExplosionFatal:b": {
+          "_tags": "server",
+          "value": false
+        }
+      },
+      {
+        "dmg_animchar": {
+          "_tags": "render"
+        }
+      },
+      {
+        "_group": {
+          "_tags": "render",
+          "visual_dmg_remap__partIdToNodeIdMain:list<i>": [],
+          "visual_dmg_remap__partIdToNodeIdDmg:list<i>": [],
+          "visual_dmg_remap__partIdToNodeIdDstr:list<i>": [],
+          "visual_dmg_remap__collNodeIdToNodeIdMain:list<i>": [],
+          "visual_dmg_remap__collNodeIdToNodeIdDmg:list<i>": [],
+          "visual_dmg_remap__collNodeIdToNodeIdDstr:list<i>": []
+        }
+      },
+      {
+        "_group": {
+          "_tags": "render",
+          "burnt_tank_overlay_res": "burnt_tank_overlay",
+          "burnt_tank_overlay_var": "burnt_tank_camo",
+          "burnt_tank_overlay:SharedTexHolder": []
+        }
+      },
+      {
+        "_group": {
+          "_tags": "render",
+          "highlight_collision__color": [1.0,0.0,0.0,1.0],
+          "highlight_collision__nodes:list<i>": []
+        }
+      },
+      {
+        "cockpit_animchar_res_preload": {
+          "_tags": "gameClient"
+        }
+      },
+      {
+        "animchar__objTexReplace:object": []
+      },
+      {
+        "animchar__objTexSet:object": []
+      },
+      {
+        "humanAdditionalCollisionChecks:tag": []
+      },
+      {
+        "attach_decorators__templates:array": []
+      },
+      {
+        "attach_decorators__entities:list<eid>": []
+      }
+    ]
+  },
+  {
+    "base_tank_without_no_gun_xray": {
+      "_use": "base_tank_without_xray_gun_common",
+      "vehicle_seats__restrictToTeam": -1,
+      "vehicle_seats__autoDetectRestrictToTeam": true,
+      "vehicle_kill_assist__stat": "tankKillAssists",
+      "vehicle_kill_assist__crewStat": "tankKillAssistsAsCrew",
+      "vehicle_kill_assist__engineerStat": "builtGunTankKillAssists",
+      "vehicle_kill_assist__time": 20.0,
+      "vehicle_kill__award": "tankKill",
+      "vehicle_kill__stat": "tankKills",
+      "vehicle_kill__crewStat": "crewTankKillAssists",
+      "vehicle_kill__engineerStat": "builtGunTankKills",
+      "isTank:tag": []
+    }
+  },
+  {
+    "base_tank_without_xray_gun_common": [
+      {
+        "_use": "vehicle"
+      },
+      {
+        "_use": "base_damage_model"
+      },
+      {
+        "_use": "base_damage_model_fx"
+      },
+      {
+        "_use": "attached_fire_engine_damage"
+      },
+      {
+        "_use": "vehicle_maintenance"
+      },
+      {
+        "_use": "vehicle_engine_external_fire"
+      },
+      {
+        "_use": "vehicle_fatal_explosion_external_fire"
+      },
+      {
+        "_use": "vehicle_fatal_fire_external_fire"
+      },
+      {
+        "canUseRespawnbaseType": "vehicle"
+      },
+      {
+        "vehicle_seats_switch_time__totalSwitchTime": 3.0
+      },
+      {
+        "vehicle_seats__enterTime": 3.0
+      },
+      {
+        "vehicle_seats__exitTime": 4.0
+      },
+      {
+        "camera__magnification": 1.0
+      },
+      {
+        "camera__zoomPos": 0.0
+      },
+      {
+        "camera__isStabilized": false
+      },
+      {
+        "driverFpsCamMaxAngle": [20.0,0.0]
+      },
+      {
+        "passengerFpsCamMaxAngle": [20.0,0.0]
+      },
+      {
+        "gunnerFpsCamMaxAngle": [12.0,9.0]
+      },
+      {
+        "commanderFpsCamMaxAngle": [90.0,60.0]
+      },
+      {
+        "commanderCockpitFpsCamMaxAngle": [20.0,0.0]
+      },
+      {
+        "cockpit__cameraDir": [1.0,0.0,0.0]
+      },
+      {
+        "_tracked": "cockpit__eid"
+      },
+      {
+        "explosion_fx__effectName": "tank_explosion_template"
+      },
+      {
+        "explosion_fx__nodeName": "emtr_explosion_center"
+      },
+      {
+        "explosion_fx__nodeId": -1
+      },
+      {
+        "vehicle_seats__enumVarName": "tank"
+      },
+      {
+        "killLogName": "Tank"
+      },
+      {
+        "reportKill": true
+      },
+      {
+        "_replicated": "reportKill"
+      },
+      {
+        "_replicated": "killer"
+      },
+      {
+        "fire_damage__fireParamsPreset": "tank"
+      },
+      {
+        "fire_damage__timeToExplosion": 80.0
+      },
+      {
+        "explosionCover:tag": []
+      },
+      {
+        "killer:eid": []
+      },
+      {
+        "respawn_base:eid": []
+      },
+      {
+        "scorchable:tag": {
+          "_tags": "render"
+        }
+      },
+      {
+        "vehicle_tracks_visual_pos:p2": {
+          "_tags": "render"
+        }
+      },
+      {
+        "vehicle_tracks_visual_pos_delta:p2": {
+          "_tags": "render"
+        }
+      },
+      {
+        "additional_data:list<p4>": {
+          "_tags": "render"
+        }
+      },
+      {
+        "forced_lod_for_hmap_deform:i": {
+          "_tags": "render",
+          "value": 2
+        }
+      },
+      {
+        "_group": {
+          "_tags": "render",
+          "animchar_camera_target__node_offset": [0.0,0.0,0.0]
+        }
+      },
+      {
+        "_group": {
+          "_tags": "render",
+          "engine_fire_fx__eids:list<eid>": [],
+          "vehicle_fxs__effectsEids:list<eid>": []
+        }
+      },
+      {
+        "_group": {
+          "_tags": "render",
+          "bullet_holes__ignoreCollisionNodes:array": [],
+          "bullet_holes__movingCollisionNodes:array": [
+            {
+              "movingCollisionNodes": "turret_front"
+            },
+            {
+              "movingCollisionNodes": "turret_side"
+            }
+          ]
+        }
+      },
+      {
+        "animchar__objTexReplace:object": []
+      },
+      {
+        "cockpit__eid:eid": {
+          "_tags": "gameClient"
+        }
+      },
+      {
+        "wreckage": {
+          "_tags": "render"
+        }
+      },
+      {
+        "dmgNodeIdToGeomNodeId:list<i>": {
+          "_tags": "render"
+        }
+      },
+      {
+        "dstrNodeIdToGeomNodeId:list<i>": {
+          "_tags": "render"
+        }
+      },
+      {
+        "geomNodeIdRemapMain:list<i>": {
+          "_tags": "render"
+        }
+      },
+      {
+        "geomNodeIdRemapDmg:list<i>": {
+          "_tags": "render"
+        }
+      },
+      {
+        "geomNodeIdRemapDstr:list<i>": {
+          "_tags": "render"
+        }
+      },
+      {
+        "vehicle_seats_receive_damage_from_dm_part:list<i>": []
+      },
+      {
+        "vehicle_seats__applyPerks:tag": {
+          "_tags": "server"
+        }
+      },
+      {
+        "engine_fire_fx__fx:array": {
+          "fx:object": {
+            "dmParts:array": [
+              {
+                "dmParts": "engine"
+              },
+              {
+                "dmParts": "fuel_tank"
+              },
+              {
+                "dmParts": "fuel_tank_01"
+              },
+              {
+                "dmParts": "fuel_tank_02"
+              },
+              {
+                "dmParts": "fuel_tank_03"
+              },
+              {
+                "dmParts": "fuel_tank_04"
+              },
+              {
+                "dmParts": "fuel_tank_l_01"
+              },
+              {
+                "dmParts": "fuel_tank_l_02"
+              },
+              {
+                "dmParts": "fuel_tank_l_03"
+              },
+              {
+                "dmParts": "fuel_tank_l_04"
+              },
+              {
+                "dmParts": "fuel_tank_r_01"
+              },
+              {
+                "dmParts": "fuel_tank_r_02"
+              },
+              {
+                "dmParts": "fuel_tank_r_03"
+              },
+              {
+                "dmParts": "fuel_tank_r_04"
+              }
+            ],
+            "fx:array": [
+              {
+                "fx:object": {
+                  "name": "tank_engine_fire_template",
+                  "emitter": "emtr_fire_engine"
+                }
+              },
+              {
+                "fx:object": {
+                  "name": "tank_engine_fire_template",
+                  "emitter": "emtr_fire_engine_01"
+                }
+              },
+              {
+                "fx:object": {
+                  "name": "tank_engine_fire_template",
+                  "emitter": "emtr_fire_engine_02"
+                }
+              },
+              {
+                "fx:object": {
+                  "name": "tank_engine_smoke_template",
+                  "emitter": "emtr_fire_engine"
+                }
+              },
+              {
+                "fx:object": {
+                  "name": "tank_engine_smoke_template",
+                  "emitter": "emtr_fire_engine_01"
+                }
+              },
+              {
+                "fx:object": {
+                  "name": "tank_engine_smoke_template",
+                  "emitter": "emtr_fire_engine_02"
+                }
+              }
+            ]
+          }
+        }
+      },
+      {
+        "fatal_explosion_fx__fx:array": [
+          {
+            "fx:object": {
+              "dmParts:array": [],
+              "fx:array": [
+                {
+                  "fx:object": {
+                    "name": "tank_fire_big_template",
+                    "emitter": "emtr_fire_dmg"
+                  }
+                },
+                {
+                  "fx:object": {
+                    "name": "tank_fire_small_template",
+                    "emitter": "emtr_fire_small_dmg_01"
+                  }
+                },
+                {
+                  "fx:object": {
+                    "name": "tank_fire_small_template",
+                    "emitter": "emtr_fire_small_dmg_02"
+                  }
+                },
+                {
+                  "fx:object": {
+                    "name": "tank_fire_small_template",
+                    "emitter": "emtr_fire_small_dmg_03"
+                  }
+                },
+                {
+                  "fx:object": {
+                    "name": "tank_fire_small_template",
+                    "emitter": "emtr_fire_small_dmg_04"
+                  }
+                },
+                {
+                  "fx:object": {
+                    "name": "tank_fire_small_template",
+                    "emitter": "emtr_fire_small_dmg_05"
+                  }
+                },
+                {
+                  "fx:object": {
+                    "name": "tank_fire_small_template",
+                    "emitter": "emtr_fire_small_dmg_06"
+                  }
+                },
+                {
+                  "fx:object": {
+                    "name": "tank_fire_small_template",
+                    "emitter": "emtr_fire_small_dmg_07"
+                  }
+                },
+                {
+                  "fx:object": {
+                    "name": "tank_fire_small_template",
+                    "emitter": "emtr_fire_small_dmg_08"
+                  }
+                },
+                {
+                  "fx:object": {
+                    "name": "tank_fire_small_template",
+                    "emitter": "emtr_fire_small_dmg_09"
+                  }
+                },
+                {
+                  "fx:object": {
+                    "name": "tank_fire_small_template",
+                    "emitter": "emtr_fire_small_dmg_10"
+                  }
+                },
+                {
+                  "fx:object": {
+                    "name": "tank_fire_small_template",
+                    "emitter": "emtr_fire_small_dmg_11"
+                  }
+                },
+                {
+                  "fx:object": {
+                    "name": "tank_fire_small_template",
+                    "emitter": "emtr_fire_small_dmg_12"
+                  }
+                },
+                {
+                  "fx:object": {
+                    "name": "tank_fire_small_template",
+                    "emitter": "emtr_fire_small_dmg_13"
+                  }
+                },
+                {
+                  "fx:object": {
+                    "name": "tank_fire_small_template",
+                    "emitter": "emtr_fire_small_dmg_14"
+                  }
+                },
+                {
+                  "fx:object": {
+                    "name": "tank_fire_small_template",
+                    "emitter": "emtr_fire_small_dmg_15"
+                  }
+                },
+                {
+                  "fx:object": {
+                    "name": "tank_fire_small_template",
+                    "emitter": "emtr_fire_small_dmg_16"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "fx:object": {
+              "dmParts:array": [],
+              "fx:array": [
+                {
+                  "fx:object": {
+                    "name": "tank_smoke_small_template",
+                    "emitter": "emtr_fire_ammo"
+                  }
+                },
+                {
+                  "fx:object": {
+                    "name": "tank_smoke_small_template",
+                    "emitter": "emtr_fire_ammo_01"
+                  }
+                },
+                {
+                  "fx:object": {
+                    "name": "tank_smoke_small_template",
+                    "emitter": "emtr_fire_ammo_02"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "fatal_fire_fx__fx:array": {
+          "fx:object": {
+            "dmParts:array": [],
+            "fx:array": [
+              {
+                "fx:object": {
+                  "name": "tank_ammo_fire_template",
+                  "emitter": "emtr_fire_ammo"
+                }
+              },
+              {
+                "fx:object": {
+                  "name": "tank_ammo_fire_template",
+                  "emitter": "emtr_fire_ammo_01"
+                }
+              },
+              {
+                "fx:object": {
+                  "name": "tank_ammo_fire_template",
+                  "emitter": "emtr_fire_ammo_02"
+                }
+              },
+              {
+                "fx:object": {
+                  "name": "tank_ammo_fire_template",
+                  "emitter": "emtr_fire_ammo_03"
+                }
+              },
+              {
+                "fx:object": {
+                  "name": "tank_ammo_fire_template",
+                  "emitter": "emtr_fire_ammo_04"
+                }
+              },
+              {
+                "fx:object": {
+                  "name": "tank_ammo_fire_template",
+                  "emitter": "emtr_fire_ammo_05"
+                }
+              },
+              {
+                "fx:object": {
+                  "name": "tank_ammo_fire_template",
+                  "emitter": "emtr_fire_ammo_06"
+                }
+              },
+              {
+                "fx:object": {
+                  "name": "tank_ammo_fire_template",
+                  "emitter": "emtr_fire_ammo_07"
+                }
+              },
+              {
+                "fx:object": {
+                  "name": "tank_ammo_fire_template",
+                  "emitter": "emtr_fire_ammo_08"
+                }
+              },
+              {
+                "fx:object": {
+                  "name": "tank_ammo_fire_template",
+                  "emitter": "emtr_fire_ammo_09"
+                }
+              },
+              {
+                "fx:object": {
+                  "name": "tank_ammo_fire_template",
+                  "emitter": "emtr_fire_ammo_10"
+                }
+              }
+            ]
+          }
+        }
+      },
+      {
+        "destroyed_fx__fx:array": {
+          "fx:object": {
+            "dmParts:array": [],
+            "fx:array": [
+              {
+                "fx:object": {
+                  "name": "tank_smoke_destroyed_template",
+                  "emitter": "emtr_smoke_small_dmg_01"
+                }
+              },
+              {
+                "fx:object": {
+                  "name": "tank_smoke_destroyed_template",
+                  "emitter": "emtr_smoke_small_dmg_02"
+                }
+              },
+              {
+                "fx:object": {
+                  "name": "tank_smoke_destroyed_template",
+                  "emitter": "emtr_smoke_small_dmg_03"
+                }
+              },
+              {
+                "fx:object": {
+                  "name": "tank_smoke_destroyed_template",
+                  "emitter": "emtr_smoke_small_dmg_04"
+                }
+              },
+              {
+                "fx:object": {
+                  "name": "tank_smoke_destroyed_template",
+                  "emitter": "emtr_smoke_small_dmg_05"
+                }
+              },
+              {
+                "fx:object": {
+                  "name": "tank_smoke_destroyed_template",
+                  "emitter": "emtr_smoke_small_dmg_06"
+                }
+              },
+              {
+                "fx:object": {
+                  "name": "tank_smoke_destroyed_template",
+                  "emitter": "emtr_smoke_small_dmg_07"
+                }
+              },
+              {
+                "fx:object": {
+                  "name": "tank_smoke_destroyed_template",
+                  "emitter": "emtr_smoke_small_dmg_08"
+                }
+              },
+              {
+                "fx:object": {
+                  "name": "tank_smoke_destroyed_template",
+                  "emitter": "emtr_smoke_small_dmg_09"
+                }
+              },
+              {
+                "fx:object": {
+                  "name": "tank_smoke_destroyed_template",
+                  "emitter": "emtr_smoke_small_dmg_10"
+                }
+              },
+              {
+                "fx:object": {
+                  "name": "tank_smoke_destroyed_template",
+                  "emitter": "emtr_smoke_small_dmg_11"
+                }
+              },
+              {
+                "fx:object": {
+                  "name": "tank_smoke_destroyed_template",
+                  "emitter": "emtr_smoke_small_dmg_12"
+                }
+              },
+              {
+                "fx:object": {
+                  "name": "tank_smoke_destroyed_template",
+                  "emitter": "emtr_smoke_small_dmg_13"
+                }
+              },
+              {
+                "fx:object": {
+                  "name": "tank_smoke_destroyed_template",
+                  "emitter": "emtr_smoke_small_dmg_14"
+                }
+              },
+              {
+                "fx:object": {
+                  "name": "tank_smoke_destroyed_template",
+                  "emitter": "emtr_smoke_small_dmg_15"
+                }
+              },
+              {
+                "fx:object": {
+                  "name": "tank_smoke_destroyed_template",
+                  "emitter": "emtr_smoke_small_dmg_16"
+                }
+              },
+              {
+                "fx:object": {
+                  "name": "tank_smoke_destroyed_template",
+                  "emitter": "emtr_fire_ammo"
+                }
+              },
+              {
+                "fx:object": {
+                  "name": "tank_smoke_destroyed_template",
+                  "emitter": "emtr_fire_ammo_01"
+                }
+              },
+              {
+                "fx:object": {
+                  "name": "tank_smoke_destroyed_template",
+                  "emitter": "emtr_fire_ammo_02"
+                }
+              }
+            ]
+          }
+        }
+      },
+      {
+        "dm_phys_parts__enginePartIds:list<i>": []
+      },
+      {
+        "dm_phys_parts__transmissionPartIds:list<i>": []
+      },
+      {
+        "dm_phys_parts__tracksPartIds:list<i>": []
+      },
+      {
+        "dm_parts__engine:list<t>": {
+          "engine": "engine"
+        }
+      },
+      {
+        "dm_parts__transmission:list<t>": {
+          "transmission": "transmission"
+        }
       }
     ]
   }

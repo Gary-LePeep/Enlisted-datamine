@@ -16,18 +16,18 @@
   },
   "node_attached_itm": [
     {
-      "_extends": "node_attached_base"
+      "_use": "node_attached_base"
     },
     {
-      "_extends": "node_attached_tm_base"
+      "_use": "node_attached_tm_base"
     }
   ],
   "node_attached_pos": [
     {
-      "_extends": "node_attached_base"
+      "_use": "node_attached_base"
     },
     {
-      "_extends": "node_attached_pos_base"
+      "_use": "node_attached_pos_base"
     }
   ],
   "node_attached_edit": {

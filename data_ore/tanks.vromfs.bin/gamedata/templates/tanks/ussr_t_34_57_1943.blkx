@@ -1,13 +1,13 @@
 {
   "ussr_t_34_57_1943": [
     {
-      "_extends": "base_t_34_57_1943"
+      "_use": "base_t_34_57_1943"
     },
     {
-      "_extends": "tank_t34_engine_sound"
+      "_use": "tank_t34_engine_sound"
     },
     {
-      "_extends": "tank_t34_vehicle_tracks_sound"
+      "_use": "tank_t34_vehicle_tracks_sound"
     },
     {
       "vehicle_seats__seats:shared:array": [
@@ -107,7 +107,7 @@
     }
   ],
   "ussr_t_34_57_1943_driver_cockpit": {
-    "_extends": "base_driver_cockpit",
+    "_use": "base_driver_cockpit",
     "animchar__res": "kv_1_driver_char",
     "cockpit__offset": [0.0,-0.0,-0.0],
     "cockpit__visibleVehicleNodeNames:list<t>": [
@@ -127,9 +127,9 @@
   },
   "ussr_t_34_57_1943_gunner_cockpit": {
     "vehicle_sight__blk": "content/tanks/gamedata/sight/ussr_pt_1.blk",
-    "_extends": "base_gunner_cockpit",
+    "_use": "base_gunner_cockpit",
     "animchar__res": "t_26_1940_gunner_char",
-    "cockpit__minZoom": -0.27,
+    "cockpit__minForwardOffset": -0.27,
     "cockpit__offset": [-0.0,-0.0,-0.0],
     "cockpit__cockpitOffsetBySlit:list<p3>": [
       {
@@ -177,7 +177,7 @@
     ]
   },
   "ussr_t_34_57_1943_commander_cockpit": {
-    "_extends": "base_commander_cockpit_no_slits",
+    "_use": "base_commander_cockpit_no_slits",
     "animchar__res": "t_26_1940_commander_char",
     "cockpit__offset": [-0.16,0.46,-0.48],
     "cockpit__cockpitOffsetBySlit:list<p3>": {

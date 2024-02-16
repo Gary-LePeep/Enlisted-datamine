@@ -10,7 +10,7 @@ let { MINES_ORDER } = require("%ui/hud/huds/player_info/mineIcon.nut")
 
 let soldierFieldKeys = [
   "guid", "name", "surname", "callname", "sClass", "sKind", "tier", "level", "maxLevel",
-  "exp", "availPerks", "perksCount", "heroTpl"
+  "exp", "availPerks", "perksCount", "isHero", "country"
 ]
 
 let function getWeaponData(weapSlotIdx, soldier) {
@@ -95,10 +95,12 @@ let function collectSoldierData(soldier, armyId, squadId, country) {
   let guid = soldier?.guid.hash()
   let soldierTemplate = db.getTemplateByName(soldier.gametemplate)
   let overridedIdleAnims = soldierTemplate?.getCompValNullable("animation__overridedIdleAnims")
+  let overridedSlotsOrder = soldierTemplate?.getCompValNullable("animation__overridedSlotsOrder").getAll()
   let animation = getIdleAnimState({
     weapTemplates = soldier?["human_weap__weapTemplates"]
     itemTemplates
     overridedIdleAnims
+    overridedSlotsOrder
     seed = guid
   })
 
@@ -126,7 +128,7 @@ let soldiers = Computed(function() {
   let country = armyData.value.country
   foreach (squad in squadsList) {
     foreach (soldier in squad.squad)
-      res[soldier.guid] <- collectSoldierData(soldier, armyId, squad.squadId, country)
+      res[soldier.guid] <- collectSoldierData(soldier, armyId, squad.squadId, soldier?.country ?? country)
   }
   return res
 })

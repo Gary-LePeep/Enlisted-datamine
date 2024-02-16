@@ -1,10 +1,10 @@
 {
   "base_towed_at_type_1": [
     {
-      "_extends": "base_movable_anti_tank_cannon"
+      "_use": "base_movable_anti_tank_cannon"
     },
     {
-      "_extends": "towed_at_type_1_ammo_stowages"
+      "_use": "towed_at_type_1_ammo_stowages"
     },
     {
       "killLogName": "jp_at_gun_type_1"
@@ -102,7 +102,7 @@
     }
   ],
   "towed_at_type_1_turret_01_47mm_type1": {
-    "_extends": "tankgun_47mm_type1",
+    "_use": "tankgun_47mm_type1",
     "gun__shootNodeName": "bone_gun_barrel",
     "turret__yawSpeed": 35.0,
     "turret__pitchSpeed": 20.0,
@@ -142,7 +142,7 @@
   },
   "towed_at_type_1_ammo_stowages": {
     "_tags": "server",
-    "_extends": "vehicle_ammo_stowages",
+    "_use": "vehicle_ammo_stowages",
     "ammo_stowage__stowageTemplates:shared:list<t>": []
   },
   "towed_at_type_1_skins": {

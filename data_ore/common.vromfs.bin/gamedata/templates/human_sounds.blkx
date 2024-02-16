@@ -17,14 +17,24 @@
     "_group": {
       "_tags": "sound",
       "human_hit_sound__headshotSoundEnabled": true,
+      "human_hit_sound__shattersDelayFirstNextLast": [0.3,0.4,0.45],
       "human_hit_sound__paths:shared:object": []
     }
   },
   "base_human_steps_sound": {
+    "_use": "sound_landmesh_queries",
     "_group": {
       "_tags": "sound",
-      "human_steps_sound__tag": "",
+      "human_steps_sound__lastTimeOnGround": 0.0,
+      "human_steps_sound__smid": -1.0,
+      "human_steps_sound__waterDepth": 0.0,
+      "human_steps_sound__physStates": -1,
       "human_steps_sound__irqObjIdx": -1,
+      "human_steps_sound__traceStepOffsetLen": [1.0,2.0],
+      "human_steps_sound__friendVolume": 0.2,
+      "human_steps_sound__farawayThresholdSq": 900.0,
+      "human_steps_sound__fallSpeedCollThreshold": 10.0,
+      "human_steps_sound__tag": "",
       "human_steps_sound__path:shared:object": [],
       "human_steps_sound__descs:shared:object": [],
       "human_steps_sound__irqs:shared:array": [],
@@ -43,83 +53,93 @@
     }
   },
   "human_voice_effect_drinking": {
-    "_extends": "base_human_voice_effect"
+    "_use": "base_human_voice_effect"
   },
   "human_voice_effect_burning": {
-    "_extends": "base_human_voice_effect"
+    "_use": "base_human_voice_effect",
+    "humanVoiceEffectBurning:tag": {
+      "_tags": "sound"
+    }
   },
   "human_voice_effect_hold_breath": {
-    "_extends": "base_human_voice_effect"
+    "_use": "base_human_voice_effect"
   },
   "human_voice_effect_coughing": {
-    "_extends": "base_human_voice_effect",
+    "_use": "base_human_voice_effect",
     "_group": {
       "_tags": "sound",
       "human_voice_effect__endCoughingAt": 0.0,
       "human_voice_effect__coughingDuration": 3.0
     }
   },
-  "human_voice_effect_fallcry": {
-    "_extends": "base_human_voice_effect",
-    "human_voice_effect_fallcry__enabled": true,
-    "_tracked": "human_voice_effect_fallcry__enabled"
+  "human_voice_effect_fallcry": [
+    {
+      "_use": "base_human_voice_effect"
+    },
+    {
+      "_tracked": "human_voice_effect_fallcry__isFalling"
+    },
+    {
+      "_tracked": "human_voice_effect_fallcry__enabled"
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "human_voice_effect_fallcry__isFalling": false,
+        "human_voice_effect_fallcry__enabled": true,
+        "human_voice_effect_fallcry__threshold": 40.0
+      }
+    }
+  ],
+  "human_hit_cry_sound": {
+    "_use": "base_human_voice_effect",
+    "_group": {
+      "_tags": "sound",
+      "human_hit_cry_sound__nextTime": 0.0,
+      "human_hit_cry_sound__cooldown": 1.0
+    }
   },
-  "base_human_hit_cry_sound": {
-    "humanHitCrySound:tag": {
-      "_tags": "sound"
+  "human_fall_wind_sound": {
+    "_group": {
+      "_tags": "sound",
+      "human_fall_wind_sound__path": "player/effects/fall_wind",
+      "human_fall_wind_sound__startSpeed": 5.0,
+      "human_fall_wind_sound__event:SoundEvent": []
     }
   },
   "base_human_sound": [
     {
-      "_extends": "watched_by_player_sound"
+      "_use": "watched_by_player_sound"
     },
     {
-      "_extends": "sound_control"
+      "_use": "sound_control"
     },
     {
-      "_extends": "sound_event_group"
+      "_use": "sound_event_group"
     },
     {
-      "_extends": "sound_player_components"
+      "_use": "sound_player_components"
     },
     {
-      "_extends": "human_melee_sound"
+      "_use": "human_melee_sound"
     },
     {
-      "_extends": "base_human_melee_action_sound"
+      "_use": "base_human_melee_action_sound"
     },
     {
-      "_extends": "base_human_steps_sound"
+      "_use": "base_human_steps_sound"
     },
     {
-      "_extends": "base_human_hit_sound"
+      "_use": "base_human_hit_sound"
     },
     {
-      "_extends": "base_human_voice_sound"
+      "_use": "base_human_voice_sound"
     },
     {
-      "_extends": "human_fall_sound"
+      "_use": "human_death_sound"
     },
     {
-      "_extends": "human_death_sound"
-    },
-    {
-      "_extends": "base_human_hit_cry_sound"
-    },
-    {
-      "_extends": "human_voice_effect_drinking"
-    },
-    {
-      "_extends": "human_voice_effect_burning"
-    },
-    {
-      "_extends": "human_voice_effect_hold_breath"
-    },
-    {
-      "_extends": "human_voice_effect_coughing"
-    },
-    {
-      "_extends": "human_voice_effect_fallcry"
+      "_use": "human_hit_cry_sound"
     },
     {
       "_replicated": "human_sound_net_tags__equipmentList"
@@ -133,28 +153,28 @@
           "_tags": "sound"
         },
         {
-          "effect": "disable"
+          "id": "dead"
         },
         {
-          "effect": "downed"
+          "id": "downed"
         },
         {
-          "effect": "underwater"
+          "id": "underwater"
         },
         {
-          "effect": "holdBreath"
+          "id": "holdBreath"
         },
         {
-          "effect": "drink"
+          "id": "drink"
         },
         {
-          "effect": "burn"
+          "id": "burn"
         },
         {
-          "effect": "fallcry"
+          "id": "fallcry"
         },
         {
-          "effect": "cough"
+          "id": "cough"
         }
       ]
     },
@@ -166,8 +186,7 @@
     {
       "_group": {
         "_tags": "sound",
-        "sound_control__range": 100.0,
-        "sound_control__autoRange": false
+        "sound_control__range": 100.0
       }
     },
     {
@@ -202,35 +221,6 @@
       "loot_sound__time": 0.0
     }
   },
-  "human_steps_sound": {
-    "_group": {
-      "_tags": "sound",
-      "human_step_sound_queries__farawayThreshold": 15.0,
-      "human_step_sound_queries__interval": [0.1,0.5],
-      "human_step_sound_queries__enemyInterval": [0.5,1.0],
-      "human_step_sound_queries__lmeshDiff": 2.0,
-      "human_step_sound_queries__biomePhysMatId": -1,
-      "human_step_sound_queries__biomeOverridesWater": false,
-      "human_step_sound_queries__puddleDepth": 0.0,
-      "human_steps_sound__lastTimeOnGround": 0.0,
-      "human_steps_sound__traceStepOffsetLen": [1.0,2.0],
-      "human_steps_sound__friendVolume": 0.2,
-      "human_steps_sound__farawayThresholdSq": 900.0,
-      "human_steps_sound__matId": -1,
-      "human_steps_sound__waterDepth": 0.0,
-      "human_steps_sound__physStates": -1,
-      "human_step_sound_queries": [],
-      "human_step_sound_queries__biomeToMaterial:object": {
-        "mud:object": {
-          "physmat": "mud"
-        },
-        "snow:object": {
-          "physmat": "snow",
-          "overrideWater": true
-        }
-      }
-    }
-  },
   "human_breath_sound": {
     "_group": {
       "_tags": "sound",
@@ -247,21 +237,24 @@
       "human_breath_sound__baseBreathShortness": 0.0
     }
   },
-  "human_collision_sound": {
-    "_group": {
-      "_tags": "sound",
-      "human_collision_sound__spdDiffMinMax": [0.2,1.0],
-      "human_collision_sound__torsoContactVelocityMinMax": [0.05,2.0],
-      "human_collision_sound__force": 0.0,
-      "human_collision_sound__time": 0.0
-    }
+  "human_collision_hit_sound": {
+    "_use": "base_human_collision_hit_sound"
+  },
+  "human_collision_scrape_sound": {
+    "_use": "base_human_collision_scrape_sound"
   },
   "possessable_human_sound": [
     {
-      "_extends": "human_breath_sound"
+      "_use": "human_breath_sound"
     },
     {
-      "_extends": "human_collision_sound"
+      "_use": "human_collision_hit_sound"
+    },
+    {
+      "_use": "human_collision_scrape_sound"
+    },
+    {
+      "_use": "human_fall_wind_sound"
     },
     {
       "_group": {
@@ -272,16 +265,28 @@
   ],
   "human_sound": [
     {
-      "_extends": "base_human_sound"
+      "_use": "base_human_sound"
     },
     {
-      "_extends": "possessable_human_sound"
+      "_use": "possessable_human_sound"
     },
     {
-      "_extends": "human_steps_sound"
+      "_use": "human_loot_sound"
     },
     {
-      "_extends": "human_loot_sound"
+      "_use": "human_voice_effect_burning"
+    },
+    {
+      "_use": "human_voice_effect_coughing"
+    },
+    {
+      "_use": "human_voice_effect_drinking"
+    },
+    {
+      "_use": "human_voice_effect_hold_breath"
+    },
+    {
+      "_use": "human_voice_effect_fallcry"
     }
   ],
   "human_sound_paths": {
@@ -299,11 +304,11 @@
       "extinguish:object": {
         "path": "/vehicle/common/extinguish"
       },
+      "collision_fall:object": {
+        "path": "/walker/ww2_soldier/collision/fall"
+      },
       "collision:object": {
         "path": "/walker/ww2_soldier/collision/generic"
-      },
-      "collision_bushes:object": {
-        "path": "/walker/ww2_soldier/collision/bush"
       },
       "installWeapMod:object": {
         "hero": "ui/weapon_mods/install_common"
@@ -313,6 +318,9 @@
       },
       "burningPuttingOut:object": {
         "path": "/walker/ww2_soldier/items/fire_extinguish/activate"
+      },
+      "burning:object": {
+        "path": "env_effects/fire/fire_character"
       }
     },
     "sound_irqs:shared:object": {
@@ -373,6 +381,10 @@
       },
       "heroHitEnemyHead:object": {
         "hero": "ui/helmet_hit"
+      },
+      "shatter:object": {
+        "hero": "player/walker/ww2_soldier/hit/bullet_body",
+        "enemy": "enemy/walker/ww2_soldier/hit/bullet_body"
       }
     },
     "human_steps_sound__path:shared:object": {
@@ -563,17 +575,21 @@
       "inhale:object": {
         "name": "breath/inhale"
       },
-      "holdBreathStart:object": {
-        "name": "breath/aim_on"
+      "holdBreath:object": {
+        "start:object": {
+          "name": "breath/aim_on"
+        },
+        "end:object": {
+          "name": "breath/aim_off"
+        }
       },
-      "holdBreathEnd:object": {
-        "name": "breath/aim_off"
-      },
-      "underwaterStart:object": {
-        "name": "breath/in"
-      },
-      "underwaterEnd:object": {
-        "name": "breath/out"
+      "underwater:object": {
+        "start:object": {
+          "name": "breath/in"
+        },
+        "end:object": {
+          "name": "breath/out"
+        }
       },
       "hitCry:object": {
         "name": "hit"
@@ -691,14 +707,14 @@
     }
   },
   "human_speech": {
-    "_extends": "base_human_speech",
+    "_use": "base_human_speech",
     "human_speech__speeches:shared:array": [
       {
         "speech:object": {
           "id": "wounded",
           "name": "hit",
           "teamRange": 15.0,
-          "type": "team",
+          "rcptFilter": "posRangeTeam",
           "minMaxCooldown": [10.0,15.0]
         }
       },
@@ -707,7 +723,7 @@
           "id": "woundedHard",
           "name": "hit",
           "teamRange": 15.0,
-          "type": "team",
+          "rcptFilter": "posRangeTeam",
           "minMaxCooldown": [3.0,5.0]
         }
       },
@@ -739,7 +755,7 @@
           "id": "enemyKillFar",
           "name": "kill_far",
           "chance": 100,
-          "type": "target",
+          "rcptFilter": "target",
           "minMaxCooldown": [5.0,10.0]
         }
       },
@@ -748,7 +764,7 @@
           "id": "enemyKillAtPt",
           "name": "kill_at_point",
           "chance": 100,
-          "type": "target",
+          "rcptFilter": "target",
           "minMaxCooldown": [5.0,10.0]
         }
       },
@@ -757,7 +773,7 @@
           "id": "enemyKillMelee",
           "name": "kill_melee",
           "chance": 100,
-          "type": "target",
+          "rcptFilter": "target",
           "minMaxCooldown": [5.0,10.0]
         }
       },
@@ -766,7 +782,7 @@
           "id": "enemyKillSingleShot",
           "name": "kill_oneshot",
           "chance": 100,
-          "type": "target",
+          "rcptFilter": "target",
           "minMaxCooldown": [5.0,10.0]
         }
       },
@@ -775,7 +791,7 @@
           "id": "enemyHeadshot",
           "name": "headshot",
           "chance": 100,
-          "type": "target",
+          "rcptFilter": "target",
           "minMaxCooldown": [5.0,5.0]
         }
       },
@@ -784,7 +800,7 @@
           "id": "friendlyFireHit",
           "name": "friendly_fire",
           "chance": 100,
-          "type": "team",
+          "rcptFilter": "posRangeTeam",
           "minMaxCooldown": [5.0,5.0]
         }
       },
@@ -793,7 +809,7 @@
           "id": "reload",
           "name": "reloading",
           "teamRange": 15.0,
-          "type": "team",
+          "rcptFilter": "posRangeTeam",
           "chance": 80,
           "minMaxCooldown": [5.0,10.0],
           "skipAfterSpeech:array": {
@@ -809,7 +825,7 @@
           "id": "startCapture",
           "name": "capturing_ally",
           "teamRange": 15.0,
-          "type": "team",
+          "rcptFilter": "posRangeTeam",
           "minMaxCooldown": [10.0,10.0]
         }
       },
@@ -818,7 +834,7 @@
           "id": "enemyStartCapture",
           "name": "capturing_enemy",
           "teamRange": 15.0,
-          "type": "target",
+          "rcptFilter": "target",
           "minMaxCooldown": [10.0,10.0]
         }
       },
@@ -832,7 +848,7 @@
         "speech:object": {
           "id": "squadDefendOrder",
           "name": "squad_move",
-          "type": "squad",
+          "rcptFilter": "squad",
           "replace": true
         }
       },
@@ -840,7 +856,7 @@
         "speech:object": {
           "id": "squadRegroupOrder",
           "name": "squad_regroup",
-          "type": "squad",
+          "rcptFilter": "squad",
           "replace": true
         }
       },
@@ -848,7 +864,7 @@
         "speech:object": {
           "id": "squadFollowOrder",
           "name": "order_follow_me",
-          "type": "squad",
+          "rcptFilter": "squad",
           "teamRange": 45.0,
           "replace": true
         }
@@ -857,7 +873,7 @@
         "speech:object": {
           "id": "squadHealMeOrder",
           "name": "squad_revive_me",
-          "type": "squad",
+          "rcptFilter": "squad",
           "replace": true
         }
       },
@@ -865,7 +881,7 @@
         "speech:object": {
           "id": "squadBuildOrder",
           "name": "squad_build",
-          "type": "squad",
+          "rcptFilter": "squad",
           "replace": true
         }
       },
@@ -873,7 +889,7 @@
         "speech:object": {
           "id": "squadDestroyOrder",
           "name": "squad_destroy_build",
-          "type": "squad",
+          "rcptFilter": "squad",
           "replace": true
         }
       },
@@ -881,7 +897,7 @@
         "speech:object": {
           "id": "squadReviveMeOrder",
           "name": "squad_revive_me",
-          "type": "squad",
+          "rcptFilter": "squad",
           "replace": true
         }
       },
@@ -889,7 +905,7 @@
         "speech:object": {
           "id": "squadBringAmmoOrder",
           "name": "ask_ammo",
-          "type": "squad",
+          "rcptFilter": "squad",
           "replace": true
         }
       },
@@ -897,7 +913,7 @@
         "speech:object": {
           "id": "squadBringAmmoResponse",
           "name": "ammo_giving",
-          "type": "squad",
+          "rcptFilter": "squad",
           "replace": true
         }
       },
@@ -905,7 +921,7 @@
         "speech:object": {
           "id": "squadUseVehicle",
           "name": "squad_into_vehicle",
-          "type": "squad",
+          "rcptFilter": "squad",
           "replace": true
         }
       },
@@ -913,7 +929,7 @@
         "speech:object": {
           "id": "squadClosestFormationOrder",
           "name": "squad_formation_close",
-          "type": "squad",
+          "rcptFilter": "squad",
           "replace": true
         }
       },
@@ -921,7 +937,7 @@
         "speech:object": {
           "id": "squadStandardFormationOrder",
           "name": "squad_formation_mid",
-          "type": "squad",
+          "rcptFilter": "squad",
           "replace": true
         }
       },
@@ -929,7 +945,7 @@
         "speech:object": {
           "id": "squadWideFormationOrder",
           "name": "squad_formation_far",
-          "type": "squad",
+          "rcptFilter": "squad",
           "replace": true
         }
       },
@@ -937,7 +953,7 @@
         "speech:object": {
           "id": "squadBehaviourAggressiveOrder",
           "name": "squad_behavior_aggressive",
-          "type": "squad",
+          "rcptFilter": "squad",
           "replace": true
         }
       },
@@ -945,7 +961,7 @@
         "speech:object": {
           "id": "squadBehaviourPassiveOrder",
           "name": "squad_behavior_passive",
-          "type": "squad",
+          "rcptFilter": "squad",
           "replace": true
         }
       },
@@ -953,7 +969,7 @@
         "speech:object": {
           "id": "confirmResponse",
           "name": "order_accept",
-          "type": "squad",
+          "rcptFilter": "squad",
           "replace": true
         }
       },
@@ -961,7 +977,7 @@
         "speech:object": {
           "id": "rejectResponse",
           "name": "squad_order_canceled",
-          "type": "squad",
+          "rcptFilter": "squad",
           "replace": true
         }
       },
@@ -970,7 +986,7 @@
           "id": "grenadeAware",
           "name": "grenade_warning",
           "teamRange": 15.0,
-          "type": "team"
+          "rcptFilter": "posRangeTeam"
         }
       },
       {
@@ -978,14 +994,14 @@
           "id": "enemyAware",
           "name": "enemy_warning",
           "teamRange": 15.0,
-          "type": "team"
+          "rcptFilter": "posRangeTeam"
         }
       },
       {
         "speech:object": {
           "id": "grenadeSuicide",
           "name": "grenade_suicide",
-          "type": "target",
+          "rcptFilter": "target",
           "chance": 75
         }
       },
@@ -993,7 +1009,7 @@
         "speech:object": {
           "id": "grenadeThrow",
           "name": "grenade_throw",
-          "type": "target",
+          "rcptFilter": "target",
           "chance": 75
         }
       },
@@ -1001,7 +1017,7 @@
         "speech:object": {
           "id": "explosionThrow",
           "name": "explosion_throw",
-          "type": "target",
+          "rcptFilter": "target",
           "chance": 75
         }
       },
@@ -1009,7 +1025,7 @@
         "speech:object": {
           "id": "molotovThrow",
           "name": "molotov_throw",
-          "type": "target",
+          "rcptFilter": "target",
           "chance": 75
         }
       },
@@ -1017,7 +1033,7 @@
         "speech:object": {
           "id": "gunOverheat",
           "name": "mg_overheated",
-          "type": "target",
+          "rcptFilter": "target",
           "teamRange": 15.0,
           "minMaxCooldown": [20.0,20.0]
         }
@@ -1027,7 +1043,7 @@
           "id": "coverme",
           "name": "need_cover",
           "teamRange": 15.0,
-          "type": "team",
+          "rcptFilter": "posRangeTeam",
           "replace": true
         }
       },
@@ -1036,7 +1052,7 @@
           "id": "vehicleFire",
           "name": "tank_crew_fire_in_tank",
           "minMaxCooldown": [10.0,15.0],
-          "type": "target"
+          "rcptFilter": "target"
         }
       },
       {
@@ -1073,105 +1089,120 @@
         "speech:object": {
           "id": "vehiclePartDestroyed/turret",
           "name": "tank_crew_weapon_destroyed",
-          "type": "watched"
+          "rcptFilter": "target",
+          "treatAsWatched": true
         }
       },
       {
         "speech:object": {
           "id": "vehiclePartDestroyed/turretHorDrive",
           "name": "tank_crew_horizontal_aiming_drive_damaged",
-          "type": "watched"
+          "rcptFilter": "target",
+          "treatAsWatched": true
         }
       },
       {
         "speech:object": {
           "id": "vehiclePartDestroyed/turretVerDrive",
           "name": "tank_crew_vertical_aiming_drive_damaged",
-          "type": "watched"
+          "rcptFilter": "target",
+          "treatAsWatched": true
         }
       },
       {
         "speech:object": {
           "id": "vehiclePartDestroyed/engine",
           "name": "tank_crew_engine_destroyed",
-          "type": "watched"
+          "rcptFilter": "target",
+          "treatAsWatched": true
         }
       },
       {
         "speech:object": {
           "id": "vehiclePartDestroyed/leftTracks",
           "name": "tank_crew_left_track_off",
-          "type": "watched"
+          "rcptFilter": "target",
+          "treatAsWatched": true
         }
       },
       {
         "speech:object": {
           "id": "vehiclePartDestroyed/rightTracks",
           "name": "tank_crew_right_track_down",
-          "type": "watched"
+          "rcptFilter": "target",
+          "treatAsWatched": true
         }
       },
       {
         "speech:object": {
           "id": "vehiclePartDestroyed/tracks",
           "name": "tank_crew_track_down",
-          "type": "watched"
+          "rcptFilter": "target",
+          "treatAsWatched": true
         }
       },
       {
         "speech:object": {
           "id": "vehicleSwitchBulletType/HE",
-          "name": "tank_crew_load_HE",
-          "type": "watched"
+          "name": "tank_crew_load_he",
+          "rcptFilter": "target",
+          "treatAsWatched": true
         }
       },
       {
         "speech:object": {
           "id": "vehicleSwitchBulletType/AP",
-          "name": "tank_crew_load_AP",
-          "type": "watched"
+          "name": "tank_crew_load_ap",
+          "rcptFilter": "target",
+          "treatAsWatched": true
         }
       },
       {
         "speech:object": {
           "id": "vehicleSwitchBulletType/APCR",
-          "name": "tank_crew_load_APCR",
-          "type": "watched"
+          "name": "tank_crew_load_apcr",
+          "rcptFilter": "target",
+          "treatAsWatched": true
         }
       },
       {
         "speech:object": {
           "id": "vehicleSwitchBulletType/heat",
-          "name": "tank_crew_load_HEAT",
-          "type": "watched"
+          "name": "tank_crew_load_heat",
+          "rcptFilter": "target",
+          "treatAsWatched": true
         }
       },
       {
         "speech:object": {
           "id": "vehicleSwitchBulletType/smoke",
-          "name": "tank_crew_load_S",
-          "type": "watched"
+          "name": "tank_crew_load_s",
+          "rcptFilter": "target",
+          "treatAsWatched": true
         }
       },
       {
         "speech:object": {
           "id": "vehicleSwitchBulletType/frag",
-          "name": "tank_crew_load_Frag",
-          "type": "watched"
+          "name": "tank_crew_load_frag",
+          "rcptFilter": "target",
+          "treatAsWatched": true
         }
       },
       {
         "speech:object": {
           "id": "vehicleSwitchBulletType/shrapnel",
-          "name": "tank_crew_load_CANISTER",
-          "type": "watched"
+          "name": "tank_crew_load_canister",
+          "rcptFilter": "target",
+          "treatAsWatched": true
         }
       },
       {
         "speech:object": {
           "id": "vehicleSwitchBulletType/default",
           "name": "tank_crew_load",
-          "type": "watched"
+          "rcptFilter": "target",
+          "treatAsWatched": true
         }
       },
       {
@@ -1179,7 +1210,7 @@
           "id": "artStrikeOrder",
           "name": "art_command",
           "replace": true,
-          "type": "target"
+          "rcptFilter": "target"
         }
       },
       {
@@ -1188,14 +1219,14 @@
           "name": "art_shoot",
           "replace": true,
           "abandon": true,
-          "type": "target"
+          "rcptFilter": "target"
         }
       },
       {
         "speech:object": {
           "id": "hooray",
           "name": "hooray",
-          "type": "team",
+          "rcptFilter": "posRangeTeam",
           "replace": true
         }
       },
@@ -1203,7 +1234,7 @@
         "speech:object": {
           "id": "meleeCharge",
           "name": "melee_charge",
-          "type": "team",
+          "rcptFilter": "posRangeTeam",
           "replace": true
         }
       },
@@ -1211,7 +1242,7 @@
         "speech:object": {
           "id": "phosphorusThrow",
           "name": "phosphorus_throw",
-          "type": "team",
+          "rcptFilter": "posRangeTeam",
           "replace": true
         }
       },
@@ -1219,7 +1250,8 @@
         "speech:object": {
           "id": "qm_sorry",
           "name": "qm_sorry",
-          "type": "chat",
+          "rcptFilter": "team",
+          "hardcoreModeMaxDist": 50.0,
           "replace": true
         }
       },
@@ -1227,7 +1259,8 @@
         "speech:object": {
           "id": "qm_accept",
           "name": "qm_accept",
-          "type": "chat",
+          "rcptFilter": "team",
+          "hardcoreModeMaxDist": 50.0,
           "replace": true
         }
       },
@@ -1235,7 +1268,8 @@
         "speech:object": {
           "id": "qm_thanks",
           "name": "qm_thanks",
-          "type": "chat",
+          "rcptFilter": "team",
+          "hardcoreModeMaxDist": 50.0,
           "replace": true
         }
       },
@@ -1243,7 +1277,8 @@
         "speech:object": {
           "id": "qm_heal_me",
           "name": "qm_heal_me",
-          "type": "chat",
+          "rcptFilter": "team",
+          "hardcoreModeMaxDist": 50.0,
           "replace": true
         }
       },
@@ -1251,7 +1286,8 @@
         "speech:object": {
           "id": "qm_decline",
           "name": "qm_decline",
-          "type": "chat",
+          "rcptFilter": "team",
+          "hardcoreModeMaxDist": 50.0,
           "replace": true
         }
       },
@@ -1259,7 +1295,8 @@
         "speech:object": {
           "id": "qm_ask_ammo",
           "name": "qm_ask_ammo",
-          "type": "chat",
+          "rcptFilter": "team",
+          "hardcoreModeMaxDist": 50.0,
           "replace": true
         }
       },
@@ -1267,7 +1304,8 @@
         "speech:object": {
           "id": "qm_cover_me",
           "name": "qm_cover_me",
-          "type": "chat",
+          "rcptFilter": "team",
+          "hardcoreModeMaxDist": 50.0,
           "replace": true
         }
       },
@@ -1275,7 +1313,8 @@
         "speech:object": {
           "id": "qm_follow_me",
           "name": "qm_follow_me",
-          "type": "chat",
+          "rcptFilter": "team",
+          "hardcoreModeMaxDist": 50.0,
           "replace": true
         }
       },
@@ -1283,7 +1322,8 @@
         "speech:object": {
           "id": "qm_well_done",
           "name": "qm_well_done",
-          "type": "chat",
+          "rcptFilter": "team",
+          "hardcoreModeMaxDist": 50.0,
           "replace": true
         }
       },
@@ -1291,7 +1331,8 @@
         "speech:object": {
           "id": "qm_attack_point_a",
           "name": "qm_attack_point_a",
-          "type": "chat",
+          "rcptFilter": "team",
+          "hardcoreModeMaxDist": 50.0,
           "replace": true
         }
       },
@@ -1299,7 +1340,8 @@
         "speech:object": {
           "id": "qm_attack_point_b",
           "name": "qm_attack_point_b",
-          "type": "chat",
+          "rcptFilter": "team",
+          "hardcoreModeMaxDist": 50.0,
           "replace": true
         }
       },
@@ -1307,7 +1349,8 @@
         "speech:object": {
           "id": "qm_attack_point_c",
           "name": "qm_attack_point_c",
-          "type": "chat",
+          "rcptFilter": "team",
+          "hardcoreModeMaxDist": 50.0,
           "replace": true
         }
       },
@@ -1315,7 +1358,8 @@
         "speech:object": {
           "id": "qm_attack_point_d",
           "name": "qm_attack_point_d",
-          "type": "chat",
+          "rcptFilter": "team",
+          "hardcoreModeMaxDist": 50.0,
           "replace": true
         }
       },
@@ -1323,7 +1367,8 @@
         "speech:object": {
           "id": "qm_attack_point_e",
           "name": "qm_attack_point_e",
-          "type": "chat",
+          "rcptFilter": "team",
+          "hardcoreModeMaxDist": 50.0,
           "replace": true
         }
       },
@@ -1331,7 +1376,8 @@
         "speech:object": {
           "id": "qm_defend_point_a",
           "name": "qm_defend_point_a",
-          "type": "chat",
+          "rcptFilter": "team",
+          "hardcoreModeMaxDist": 50.0,
           "replace": true
         }
       },
@@ -1339,7 +1385,8 @@
         "speech:object": {
           "id": "qm_defend_point_b",
           "name": "qm_defend_point_b",
-          "type": "chat",
+          "rcptFilter": "team",
+          "hardcoreModeMaxDist": 50.0,
           "replace": true
         }
       },
@@ -1347,7 +1394,8 @@
         "speech:object": {
           "id": "qm_defend_point_c",
           "name": "qm_defend_point_c",
-          "type": "chat",
+          "rcptFilter": "team",
+          "hardcoreModeMaxDist": 50.0,
           "replace": true
         }
       },
@@ -1355,7 +1403,8 @@
         "speech:object": {
           "id": "qm_defend_point_d",
           "name": "qm_defend_point_d",
-          "type": "chat",
+          "rcptFilter": "team",
+          "hardcoreModeMaxDist": 50.0,
           "replace": true
         }
       },
@@ -1363,7 +1412,8 @@
         "speech:object": {
           "id": "qm_defend_point_e",
           "name": "qm_defend_point_e",
-          "type": "chat",
+          "rcptFilter": "team",
+          "hardcoreModeMaxDist": 50.0,
           "replace": true
         }
       },
@@ -1371,7 +1421,8 @@
         "speech:object": {
           "id": "qm_mark_enemy_vehicle",
           "name": "qm_mark_enemy_vehicle",
-          "type": "chat",
+          "rcptFilter": "team",
+          "hardcoreModeMaxDist": 50.0,
           "replace": true
         }
       },
@@ -1379,7 +1430,8 @@
         "speech:object": {
           "id": "qm_request_rally_point",
           "name": "qm_ask_rally_point",
-          "type": "chat",
+          "rcptFilter": "team",
+          "hardcoreModeMaxDist": 50.0,
           "replace": true
         }
       },
@@ -1387,34 +1439,55 @@
         "speech:object": {
           "id": "qm_request_ammo_box",
           "name": "qm_ask_ammo_box",
-          "type": "chat",
+          "rcptFilter": "team",
+          "hardcoreModeMaxDist": 50.0,
+          "replace": true
+        }
+      },
+      {
+        "speech:object": {
+          "id": "paratroopCry",
+          "name": "paratroop_jump",
+          "rcptFilter": "target",
+          "replace": true
+        }
+      },
+      {
+        "speech:object": {
+          "id": "paratroopReady",
+          "name": "paratroop_ready",
+          "rcptFilter": "target",
+          "replace": true
+        }
+      },
+      {
+        "speech:object": {
+          "id": "paratroopGo",
+          "name": "paratroop_go",
+          "rcptFilter": "target",
           "replace": true
         }
       }
     ]
   },
   "human_net_sound": {
-    "_extends": "net_sound_descs",
+    "_use": "net_sound_descs",
     "net_sound__descs:shared:object": {
       "uiMap_main:object": {
         "hero": "ui/set_point_notify_enl",
-        "enemy": "ui/set_point_notify_enl_enemy",
-        "toTeam": true
+        "enemy": "ui/set_point_notify_enl_enemy"
       },
       "uiMap_item:object": {
         "hero": "ui/mark_item",
-        "enemy": "ui/mark_item_3d",
-        "toTeam": true
+        "enemy": "ui/mark_item_3d"
       },
       "uiMap_enemy:object": {
         "hero": "ui/mark_enemy",
-        "enemy": "ui/mark_enemy_3d",
-        "toTeam": true
+        "enemy": "ui/mark_enemy_3d"
       },
       "uiMap_way_point:object": {
         "hero": "ui/set_point_notify_enl",
-        "enemy": "ui/set_point_notify_enl_enemy",
-        "toTeam": true
+        "enemy": "ui/set_point_notify_enl_enemy"
       },
       "pick_healing:object": {
         "hero": "player/walker/ww2_soldier/items/healing/pick",
@@ -1518,6 +1591,23 @@
       },
       "terraform:object": {
         "path": "impact/terraform"
+      }
+    }
+  },
+  "paratrooper_jump_sound": {
+    "_group": {
+      "_tags": "sound",
+      "paratrooper_jump_sound__path": "player/effects/parachute_jump"
+    }
+  },
+  "human_parachute_sound": {
+    "_use": "paratrooper_jump_sound",
+    "_group": {
+      "_tags": "sound",
+      "human_parachute_sound__openPath": "player/effects/parachute_open",
+      "human_parachute_sound__path": "player/effects/parachute_flight",
+      "human_parachute_sound__closePath:shared:object": {
+        "path": "/effects/parachute_landing"
       }
     }
   }

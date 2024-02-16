@@ -301,43 +301,119 @@
   },
   "a5m4": {
     "_override": true,
-    "_extends": "plane_increased_damage",
     "camera__lookAroundOffsetRange": [0.18,0.18],
-    "plane_carrier_assist__windForce": 15.0
+    "plane_carrier_assist__windForce": 15.0,
+    "canUseRespawnbaseSubtypes:list<t>": [
+      {
+        "subtype": "air"
+      },
+      {
+        "subtype": "land"
+      }
+    ]
   },
   "a6m2_mod11": {
     "_override": true,
-    "_extends": "plane_increased_damage",
-    "camera__lookAroundOffsetRange": [0.145,0.08]
+    "camera__lookAroundOffsetRange": [0.145,0.08],
+    "canUseRespawnbaseSubtypes:list<t>": [
+      {
+        "subtype": "air"
+      },
+      {
+        "subtype": "land"
+      }
+    ]
   },
   "a6m3": {
     "_override": true,
-    "_extends": "plane_increased_damage",
-    "camera__lookAroundOffsetRange": [0.145,0.08]
+    "camera__lookAroundOffsetRange": [0.145,0.08],
+    "canUseRespawnbaseSubtypes:list<t>": [
+      {
+        "subtype": "air"
+      },
+      {
+        "subtype": "land"
+      }
+    ]
+  },
+  "a6m3_premium": {
+    "_override": true,
+    "camera__lookAroundOffsetRange": [0.145,0.08],
+    "canUseRespawnbaseSubtypes:list<t>": [
+      {
+        "subtype": "air"
+      },
+      {
+        "subtype": "land"
+      }
+    ]
   },
   "a6m5": {
     "_override": true,
-    "_extends": "plane_increased_damage",
-    "camera__lookAroundOffsetRange": [0.145,0.08]
+    "camera__lookAroundOffsetRange": [0.145,0.08],
+    "canUseRespawnbaseSubtypes:list<t>": [
+      {
+        "subtype": "air"
+      },
+      {
+        "subtype": "land"
+      }
+    ]
   },
   "b5n2": {
     "_override": true,
-    "_extends": "plane_increased_damage",
-    "camera__lookAroundOffsetRange": [0.16,0.16]
+    "camera__lookAroundOffsetRange": [0.16,0.16],
+    "canUseRespawnbaseSubtypes:list<t>": [
+      {
+        "subtype": "air"
+      },
+      {
+        "subtype": "land"
+      }
+    ]
+  },
+  "d3a1": {
+    "_override": true,
+    "canUseRespawnbaseSubtypes:list<t>": [
+      {
+        "subtype": "air"
+      },
+      {
+        "subtype": "land"
+      }
+    ]
+  },
+  "d4y1": {
+    "_override": true,
+    "canUseRespawnbaseSubtypes:list<t>": [
+      {
+        "subtype": "air"
+      },
+      {
+        "subtype": "land"
+      }
+    ]
   },
   "ki_44_2": {
     "_override": true,
-    "_extends": "plane_increased_damage",
     "camera__lookAroundOffsetRange": [0.1,0.1]
   },
   "ki_61_1a_hei": {
     "_override": true,
-    "_extends": "plane_increased_damage",
-    "camera__lookAroundOffsetRange": [0.1,0.1]
+    "camera__lookAroundOffsetRange": [0.1,0.1],
+    "canUseRespawnbaseSubtypes:list<t>": {
+      "subtype": "air"
+    }
+  },
+  "ki_61": {
+    "_override": true,
+    "camera__lookAroundOffsetRange": [0.1,0.1],
+    "canUseRespawnbaseSubtypes:list<t>": {
+      "subtype": "air"
+    }
   },
   "soc_1": {
     "_override": true,
-    "_extends": "plane_increased_damage",
     "camera__lookAroundOffsetRange": [0.17,0.17],
     "vehicle_resupply__type": "water",
     "canUseRespawnbaseSubtypes:list<t>": [
@@ -351,28 +427,132 @@
   },
   "f4u_1d": {
     "_override": true,
-    "_extends": "plane_increased_damage",
-    "camera__lookAroundOffsetRange": [0.16,0.16]
+    "camera__lookAroundOffsetRange": [0.16,0.16],
+    "canUseRespawnbaseSubtypes:list<t>": [
+      {
+        "subtype": "air"
+      },
+      {
+        "subtype": "land"
+      }
+    ]
   },
   "f4u_1c": {
     "_override": true,
-    "_extends": "plane_increased_damage",
-    "camera__lookAroundOffsetRange": [0.16,0.16]
+    "camera__lookAroundOffsetRange": [0.16,0.16],
+    "canUseRespawnbaseSubtypes:list<t>": [
+      {
+        "subtype": "air"
+      },
+      {
+        "subtype": "land"
+      }
+    ]
   },
   "sb2c_1c": {
     "_override": true,
-    "_extends": "plane_increased_damage",
-    "camera__lookAroundOffsetRange": [0.18,0.18]
+    "camera__lookAroundOffsetRange": [0.18,0.18],
+    "canUseRespawnbaseSubtypes:list<t>": [
+      {
+        "subtype": "air"
+      },
+      {
+        "subtype": "land"
+      }
+    ]
+  },
+  "f2a3": {
+    "_override": true,
+    "canUseRespawnbaseSubtypes:list<t>": [
+      {
+        "subtype": "air"
+      },
+      {
+        "subtype": "land"
+      }
+    ]
+  },
+  "f4f_3": {
+    "_override": true,
+    "canUseRespawnbaseSubtypes:list<t>": [
+      {
+        "subtype": "air"
+      },
+      {
+        "subtype": "land"
+      }
+    ]
+  },
+  "f6f_5": {
+    "_override": true,
+    "canUseRespawnbaseSubtypes:list<t>": [
+      {
+        "subtype": "air"
+      },
+      {
+        "subtype": "land"
+      }
+    ]
+  },
+  "f6f_5_premium": {
+    "_override": true,
+    "canUseRespawnbaseSubtypes:list<t>": [
+      {
+        "subtype": "air"
+      },
+      {
+        "subtype": "land"
+      }
+    ]
+  },
+  "sbd_3": {
+    "_override": true,
+    "canUseRespawnbaseSubtypes:list<t>": [
+      {
+        "subtype": "air"
+      },
+      {
+        "subtype": "land"
+      }
+    ]
+  },
+  "tbd_1": {
+    "_override": true,
+    "canUseRespawnbaseSubtypes:list<t>": [
+      {
+        "subtype": "air"
+      },
+      {
+        "subtype": "land"
+      }
+    ]
+  },
+  "tbf_1c": {
+    "_override": true,
+    "canUseRespawnbaseSubtypes:list<t>": [
+      {
+        "subtype": "air"
+      },
+      {
+        "subtype": "land"
+      }
+    ]
   },
   "boomerang_mkii": {
     "_override": true,
-    "_extends": "plane_increased_damage",
     "camera__lookAroundOffsetRange": [0.24,0.24]
   },
   "firefly_mki": {
     "_override": true,
-    "_extends": "plane_increased_damage",
-    "camera__lookAroundOffsetRange": [0.18,0.18]
+    "camera__lookAroundOffsetRange": [0.18,0.18],
+    "canUseRespawnbaseSubtypes:list<t>": [
+      {
+        "subtype": "air"
+      },
+      {
+        "subtype": "land"
+      }
+    ]
   },
   "f2a3_driver_cockpit": {
     "_override": true,
@@ -387,7 +567,6 @@
   },
   "e13a1": {
     "_override": true,
-    "_extends": "plane_increased_damage",
     "vehicle_resupply__type": "water",
     "canUseRespawnbaseSubtypes:list<t>": [
       {
@@ -400,27 +579,14 @@
   },
   "sbd_3_pacific": {
     "_override": true,
-    "_extends": "plane_increased_damage",
-    "plane_carrier_assist__forwardForce": 6.0
-  },
-  "d3a1": {
-    "_override": true,
-    "_extends": "plane_increased_damage"
-  },
-  "d4y1": {
-    "_override": true,
-    "_extends": "plane_increased_damage"
-  },
-  "f2a3": {
-    "_override": true,
-    "_extends": "plane_increased_damage"
-  },
-  "p_400": {
-    "_override": true,
-    "_extends": "plane_increased_damage"
-  },
-  "seafire_mk3": {
-    "_override": true,
-    "_extends": "plane_increased_damage"
+    "plane_carrier_assist__forwardForce": 6.0,
+    "canUseRespawnbaseSubtypes:list<t>": [
+      {
+        "subtype": "air"
+      },
+      {
+        "subtype": "land"
+      }
+    ]
   }
 }

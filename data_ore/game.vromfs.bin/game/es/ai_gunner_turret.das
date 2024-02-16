@@ -4,7 +4,7 @@ require DagorMathUtils
 require math.base
 require BallisticsProps
 require PhysObj
-require EnlistedPhysObj
+require DngPhysObj
 require DaWeaponProps
 require turrets
 require common_shooter.es.forestall_common
@@ -12,9 +12,10 @@ require common_shooter.events_common_shooter
 require human_sounds_net.modules.human_sounds_net_events
 require game.utils.team
 require walkerai
-require EnlistedNet
+require DngNet
 require AnimV20
 require GeomNodeTree
+require DagorMath
 
 struct AiGunnerTarget
   pos : float3 = float3(0, 0, 0)
@@ -121,7 +122,9 @@ def ai_gunner_find_target(info : UpdateStageInfoAct;
         *animchar.originalNodeTree |> geomtree_getNodeTmScalar(turret__aimNodeId, tm)
         *animchar.nodeTree |> geomtree_getNodeWtmScalar(parNodeId, wt)
 
-        let turretItm = inverse(wt * tm)
+        var turretTm = wt * tm
+        orthonormalize(turretTm)
+        let turretItm = inverse(turretTm)
 
         let limit = turret_ai__limitAngles ?? turret__limit
 
@@ -189,7 +192,7 @@ def calc_distribution(t : float;
 
   return (val <= max && val >= mid) ? max : (val >= min && val <= mid) ? min : val
 
-[es(tag=server, REQUIRE=turret_control__hasAiGunners, after=vehicle_input_turret_es, before=turret_aim_pos_to_wish_dir_es)]
+[es(tag=server, REQUIRE=turret_control__hasAiGunners, after=vehicle_input_turret_es, before=apply_turret_aim_pos_to_remote_wish_dir_es)]
 def turret_ai_gunner_aim(evt : CmdTurretsUpdate;
                          transform : float3x4;
                          turret_control__gunEids : EidList;
@@ -257,7 +260,7 @@ def turret_ai_gunner_aim(evt : CmdTurretsUpdate;
         turret_ai__pauseTime = 0.
         turret_ai__attackTimer = 0.
 
-[es(tag=server, REQUIRE=turret_control__hasAiGunners, after=vehicle_input_turret_es, before=turret_aim_pos_to_wish_dir_es)]
+[es(tag=server, REQUIRE=turret_control__hasAiGunners, after=vehicle_input_turret_es, before=apply_turret_aim_pos_to_remote_wish_dir_es)]
 def ai_gunner_idle(evt : CmdTurretsUpdate;
                    net_phys__currentStatePosition : float3&;
                    turret_control__gunEids : EidList)
@@ -276,7 +279,7 @@ def ai_gunner_idle(evt : CmdTurretsUpdate;
       query(gun__owner) <| $ [es] (transform : float3x4)
         turret_aim__shootToPos = shootFromPos + transform[0] * aimDistance
 
-[es(tag=server, REQUIRE=(turret_control__hasAiGunners, turret_control__chaseTargets), after=vehicle_input_turret_es, before=turret_aim_pos_to_wish_dir_es)]
+[es(tag=server, REQUIRE=(turret_control__hasAiGunners, turret_control__chaseTargets), after=vehicle_input_turret_es, before=apply_turret_aim_pos_to_remote_wish_dir_es)]
 def ai_gunner_chase_target(evt : CmdTurretsUpdate;
                            transform : float3x4;
                            turret_control__gunEids : EidList;
@@ -307,7 +310,7 @@ def turret_ai_set_time_fuze(evt : CmdLaunchProjectile; transform : float3x4; net
       if target.active
         gun__fuzeDistance = distance(target.pos, evt.launchDesc.tm[3])
 
-[es(tag=server, REQUIRE=turret_control__hasAiGunners, after=turret_ai_gunner_aim, before=turret_aim_pos_to_wish_dir_es)]
+[es(tag=server, REQUIRE=turret_control__hasAiGunners, after=turret_ai_gunner_aim, before=apply_turret_aim_pos_to_remote_wish_dir_es)]
 def turret_ai_trigger_group(evt : CmdTurretsUpdate;
                             turret_control__gunEids : EidList)
   for aiGunEid in turret_control__gunEids

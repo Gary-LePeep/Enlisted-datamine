@@ -14,7 +14,7 @@
     "autodeleteEffectEntity:tag": []
   },
   "misc_soil_digging_effect": {
-    "_extends": "misc_effect_base",
+    "_use": "misc_effect_base",
     "_group": {
       "_tags": "render",
       "effect__name": "misc_soil_digging_cmps_fx"

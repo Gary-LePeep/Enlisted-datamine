@@ -1,0 +1,135 @@
+{
+  "base_12_7mm_m2_hb_user_machinegun_for_m15": {
+    "item__name": "guns/12_7mm_m2_hb_user_machinegun_for_m15",
+    "gun__blk": "gamedata/gen/weapons/12_7mm_m2_hb_user_machinegun_for_m15.blk",
+    "gun__shotFreq": 9.5833,
+    "gun__reloadTime": 8.0,
+    "gun__maxAmmo": 200,
+    "gun__locName": "12_7mm_m2_hb_user_machinegun_for_m15",
+    "gun__firingModes:array": {
+      "mode:object": {
+        "modeType": "automatic"
+      }
+    },
+    "gun__firingModeNames:array": {
+      "mode": "automatic"
+    },
+    "gun__ammoSetsInfo:shared:array": {
+      "defaultSet:array": [
+        {
+          "shell:object": {
+            "blk": "gamedata/gen/weapons/shells/12_7mm_m2_hb_user_machinegun_for_m15_defaultset_bullet_1.blk",
+            "type": "ap_i_t_ball_M20"
+          }
+        },
+        {
+          "shell:object": {
+            "blk": "gamedata/gen/weapons/shells/12_7mm_m2_hb_user_machinegun_for_m15_defaultset_bullet_2.blk",
+            "type": "i_ball_M1"
+          }
+        },
+        {
+          "shell:object": {
+            "blk": "gamedata/gen/weapons/shells/12_7mm_m2_hb_user_machinegun_for_m15_defaultset_bullet_3.blk",
+            "type": "ap_ball_M2"
+          }
+        },
+        {
+          "shell:object": {
+            "blk": "gamedata/gen/weapons/shells/12_7mm_m2_hb_user_machinegun_for_m15_defaultset_bullet_4.blk",
+            "type": "ap_i_t_ball_M20"
+          }
+        }
+      ],
+      "12mm_usa_M2HB_common:array": [
+        {
+          "shell:object": {
+            "blk": "gamedata/gen/weapons/shells/12_7mm_m2_hb_user_machinegun_for_m15_12mm_usa_m2hb_common_bullet_1.blk",
+            "type": "ap_i_t_ball_M20"
+          }
+        },
+        {
+          "shell:object": {
+            "blk": "gamedata/gen/weapons/shells/12_7mm_m2_hb_user_machinegun_for_m15_12mm_usa_m2hb_common_bullet_2.blk",
+            "type": "i_ball_M1"
+          }
+        },
+        {
+          "shell:object": {
+            "blk": "gamedata/gen/weapons/shells/12_7mm_m2_hb_user_machinegun_for_m15_12mm_usa_m2hb_common_bullet_3.blk",
+            "type": "ap_ball_M2"
+          }
+        },
+        {
+          "shell:object": {
+            "blk": "gamedata/gen/weapons/shells/12_7mm_m2_hb_user_machinegun_for_m15_12mm_usa_m2hb_common_bullet_4.blk",
+            "type": "ap_i_t_ball_M20"
+          }
+        }
+      ],
+      "12mm_usa_M2HB_API:array": [
+        {
+          "shell:object": {
+            "blk": "gamedata/gen/weapons/shells/12_7mm_m2_hb_user_machinegun_for_m15_12mm_usa_m2hb_api_bullet_1.blk",
+            "type": "ap_i_t_ball_M20"
+          }
+        },
+        {
+          "shell:object": {
+            "blk": "gamedata/gen/weapons/shells/12_7mm_m2_hb_user_machinegun_for_m15_12mm_usa_m2hb_api_bullet_2.blk",
+            "type": "ap_i_ball_M8"
+          }
+        },
+        {
+          "shell:object": {
+            "blk": "gamedata/gen/weapons/shells/12_7mm_m2_hb_user_machinegun_for_m15_12mm_usa_m2hb_api_bullet_3.blk",
+            "type": "ap_i_t_ball_M20"
+          }
+        }
+      ],
+      "12mm_usa_M2HB_AP:array": [
+        {
+          "shell:object": {
+            "blk": "gamedata/gen/weapons/shells/12_7mm_m2_hb_user_machinegun_for_m15_12mm_usa_m2hb_ap_bullet_1.blk",
+            "type": "ap_ball_M2"
+          }
+        },
+        {
+          "shell:object": {
+            "blk": "gamedata/gen/weapons/shells/12_7mm_m2_hb_user_machinegun_for_m15_12mm_usa_m2hb_ap_bullet_2.blk",
+            "type": "ap_ball_M2"
+          }
+        },
+        {
+          "shell:object": {
+            "blk": "gamedata/gen/weapons/shells/12_7mm_m2_hb_user_machinegun_for_m15_12mm_usa_m2hb_ap_bullet_3.blk",
+            "type": "ap_i_t_ball_M20"
+          }
+        }
+      ],
+      "12mm_usa_M2HB_APIT:array": {
+        "shell:object": {
+          "blk": "gamedata/gen/weapons/shells/12_7mm_m2_hb_user_machinegun_for_m15_12mm_usa_m2hb_apit.blk",
+          "type": "ap_i_t_ball_M20"
+        }
+      }
+    }
+  },
+  "tankgun_12_7mm_m2_hb_user_machinegun_for_m15": [
+    {
+      "_use": "tankgun"
+    },
+    {
+      "_use": "base_tankgun_autocannon"
+    },
+    {
+      "_use": "base_12_7mm_m2_hb_user_machinegun_for_m15"
+    },
+    {
+      "_use": "gunsound_12_7mm_m2_hb"
+    },
+    {
+      "turret__triggerGroup": 2
+    }
+  ]
+}

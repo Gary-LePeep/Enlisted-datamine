@@ -1,6 +1,10 @@
 {
   "ussr_valentine_I": {
-    "_extends": "base_valentine_i",
+    "_use": "base_valentine_i",
+    "commanderCockpitFpsCamMaxAngle": [40.0,5.0],
+    "gunner_cam_limit__useCockpitDir": true,
+    "item__iconOffset": [0.05,0.05],
+    "item__iconScale": 1.1,
     "vehicle_seats__seats:shared:array": [
       {
         "seats:object": {
@@ -86,7 +90,7 @@
     ]
   },
   "ussr_valentine_I_driver_cockpit": {
-    "_extends": "base_driver_cockpit_no_slits",
+    "_use": "base_driver_cockpit_no_slits",
     "animchar__res": "t_26_1940_driver_char",
     "cockpit__offset": [-0.11,0.0,-0.06],
     "cockpit__visibleVehicleNodeNames:list<t>": [
@@ -104,7 +108,7 @@
       }
     ],
     "cockpit__slitForwardOffset:list<r>": {
-      "slit": 0.0
+      "slit": 0.07
     },
     "cockpit__slitIsGun:list<b>": {
       "slit": false
@@ -114,17 +118,16 @@
     }
   },
   "ussr_valentine_I_gunner_cockpit": {
-    "vehicle_sight__blk": "content/tanks/gamedata/sight/uk_no_33_mkii_s.blk",
-    "_extends": "base_gunner_cockpit",
+    "_use": "base_gunner_cockpit",
     "animchar__res": "t_26_1940_gunner_char",
-    "cockpit__minZoom": -0.27,
+    "cockpit__minForwardOffset": -0.27,
     "cockpit__offset": [-0.0,-0.0,0.0],
     "cockpit__cockpitOffsetBySlit:list<p3>": [
       {
         "slit": [-0.4,-0.06,0.2]
       },
       {
-        "slit": [-0.15,0.55,0.47]
+        "slit": [0.0,0.7,0.47]
       }
     ],
     "cockpit__attachNodeNames:list<t>": [
@@ -184,7 +187,7 @@
     ],
     "cockpit__slitForwardOffset:list<r>": [
       {
-        "slit": 0.18
+        "slit": 0.22
       },
       {
         "slit": 0.2
@@ -197,30 +200,136 @@
       {
         "slit": false
       }
-    ]
+    ],
+    "cockpit__periscopeLimits:list<p4>": [
+      {
+        "slit": [-0.0,0.0,0.0,0.0]
+      },
+      {
+        "slit": [-35.0,35.0,-5.0,25.0]
+      }
+    ],
+    "cockpit__periscopeSpeed:list<p2>": [
+      {
+        "slit": [-1.0,-1.0]
+      },
+      {
+        "slit": [35.0,35.0]
+      }
+    ],
+    "cockpit__slitZoom:array": [
+      {
+        "slit:list<r>": [
+          {
+            "zoom": 1.9
+          },
+          {
+            "zoom": 3.5
+          }
+        ]
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      }
+    ],
+    "cockpit__slitZoomTime:list<r>": [
+      {
+        "slit": 0.05
+      },
+      {
+        "slit": 0.0
+      }
+    ],
+    "cockpit__slitTemplates:list<t>": [
+      {
+        "slit": "uk_no_33_mkii_s"
+      },
+      {
+        "slit": "default_periscope"
+      }
+    ],
+    "cockpit__slitEids:list<eid>": []
   },
   "ussr_valentine_I_commander_cockpit": {
-    "_extends": "base_commander_cockpit_no_slits",
+    "_use": "base_commander_cockpit_no_slits",
     "animchar__res": "t_26_1940_commander_char",
     "cockpit__offset": [-0.0,0.0,-0.0],
     "cockpit__cockpitOffsetBySlit:list<p3>": {
-      "slit": [-0.43,0.64,-0.4]
+      "slit": [-0.4,0.9,-0.392]
     },
-    "cockpit__visibleVehicleNodeNames:list<t>": {
-      "node": "gun_barrel"
-    },
+    "cockpit__visibleVehicleNodeNames:list<t>": [
+      {
+        "node": "gun_barrel"
+      },
+      {
+        "node": "@root"
+      },
+      {
+        "node": "bone_gun"
+      },
+      {
+        "node": "hatch_07"
+      },
+      {
+        "node": "hatch_08"
+      },
+      {
+        "node": "hatch_09"
+      },
+      {
+        "node": "hatch_10"
+      },
+      {
+        "node": "hatch_11"
+      },
+      {
+        "node": "hatch_12"
+      },
+      {
+        "node": "hatch_13"
+      },
+      {
+        "node": "bone_turret"
+      },
+      {
+        "node": "hatch_01"
+      },
+      {
+        "node": "hatch_02"
+      }
+    ],
     "cockpit__slitForwardOffset:list<r>": {
-      "slit": 0.15
+      "slit": 0.16
     },
     "cockpit__slitIsGun:list<b>": {
       "slit": true
     },
     "cockpit__slitNodeNames:list<t>": {
       "slit": "cam_front"
-    }
+    },
+    "cockpit__periscopeLimits:list<p4>": {
+      "slit": [-90.0,90.0,-10.0,25.0]
+    },
+    "cockpit__periscopeSpeed:list<p2>": {
+      "slit": [35.0,35.0]
+    },
+    "cockpit__slitZoom:array": {
+      "slit:list<r>": {
+        "zoom": 1.44
+      }
+    },
+    "cockpit__slitZoomTime:list<r>": {
+      "slit": 0.0
+    },
+    "cockpit__slitTemplates:list<t>": {
+      "slit": "default_periscope"
+    },
+    "cockpit__slitEids:list<eid>": []
   },
   "ussr_valentine_I_premium": {
-    "_extends": "ussr_valentine_I",
+    "_use": "ussr_valentine_I",
     "animchar__objTexReplace:object": {
       "uk_camo_very_dark_drab*": "ussr_camo_green*"
     }

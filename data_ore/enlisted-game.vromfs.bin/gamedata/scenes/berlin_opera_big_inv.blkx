@@ -78,7 +78,7 @@
       "team__briefing": "invasion/defenders_goals",
       "team__winSubtitle": "debriefing/won_defence_subtitle",
       "team__loseSubtitle": "debriefing/lost_defence_subtitle",
-      "team__winTitle": "debriefing/ger_won_defence",
+      "team__winTitle": "debriefing/axis_won_defence",
       "team__spawnBotArmy": "moscow_axis"
     }
   },
@@ -103,7 +103,7 @@
       "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 2,
-      "decal__thickness": 0.3,
+      "decal__thickness": 0.15,
       "decal__height": 0.3,
       "capzone__activateChoice:object": {
         "sector_2": 1.0
@@ -217,7 +217,7 @@
       "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 2,
-      "decal__thickness": 0.3,
+      "decal__thickness": 0.15,
       "decal__height": 0.3,
       "capzone__activateChoice:object": {
         "sector_3": 1.0
@@ -357,7 +357,7 @@
       "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 2,
-      "decal__thickness": 0.3,
+      "decal__thickness": 0.15,
       "decal__height": 0.3,
       "capzone__activateChoice:object": {
         "sector_4": 1.0
@@ -523,7 +523,7 @@
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 2,
       "sphere_zone__radius": 7.0,
-      "decal__thickness": 0.3,
+      "decal__thickness": 0.15,
       "capzone__activateChoice:object": {
         "sector_5": 1.0
       }
@@ -646,7 +646,7 @@
       "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 2,
-      "decal__thickness": 0.3,
+      "decal__thickness": 0.15,
       "decal__height": 2.0
     }
   },
@@ -1933,8 +1933,7 @@
         [0.987599,0.0,-0.157002],
         [-1903.01,702.031,1724.08]
       ],
-      "resupply_zone__team": 1,
-      "sphere_zone__radius": 500.0
+      "resupply_zone__team": 1
     }
   },
   {
@@ -1946,8 +1945,7 @@
         [0.987599,0.0,-0.157002],
         [1339.45,708.018,-537.455]
       ],
-      "resupply_zone__team": 2,
-      "sphere_zone__radius": 500.0
+      "resupply_zone__team": 2
     }
   },
   {

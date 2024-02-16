@@ -7,7 +7,7 @@ let checkbox = require("%ui/components/checkbox.nut")
 let spinner = require("%ui/components/spinner.nut")
 let { startswith } = require("string")
 let { showMsgbox } = require("%enlist/components/msgbox.nut")
-let { sub_txt, body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub, fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { txt, noteTextArea } = require("%enlSqGlob/ui/defcomps.nut")
 let { SaveVehicleDecals } = require("vehicle_decals")
 let { ceil } = require("%sqstd/math.nut")
@@ -53,7 +53,7 @@ let { getFirstLinkByType } = require("%enlSqGlob/ui/metalink.nut")
 let { isSquadRented } = require("%enlist/soldiers/model/squadInfoState.nut")
 let { squads } = require("%enlist/meta/profile.nut")
 let { showRentedSquadLimitsBox } = require("%enlist/soldiers/components/squadsComps.nut")
-let popupsState = require("%enlist/popup/popupsState.nut")
+let popupsState = require("%enlSqGlob/ui/popup/popupsState.nut")
 let { hasMassVehDecorPaste } = require("%enlist/featureFlags.nut")
 
 
@@ -75,11 +75,7 @@ let twoSideIdx = mkWatched(persist, "twoSideIdx", 0)
 const SLOTS_IN_ROW = 4
 
 let iconSpaceWidth = SLOTS_IN_ROW * slotSize[0] + (SLOTS_IN_ROW - 1) * bigPadding
-
-let purchSpinner = spinner({ height = hdpx(80) }).__update({
-  hplace = ALIGN_CENTER
-  vplace = ALIGN_CENTER
-})
+let waitingSpinner = spinner()
 
 let function mkCamouflage(cParams, gametemplate, camouflage, skinToBuy, currencies) {
   let id = skinToBuy?.id ?? camouflage?.id
@@ -108,7 +104,7 @@ let function mkCamouflage(cParams, gametemplate, camouflage, skinToBuy, currenci
             size = [flex(), SIZE_TO_CONTENT]
             margin = [0, smallPadding]
             color = accentTitleTxtColor
-          }.__update(sub_txt))
+          }.__update(fontSub))
         ]
       }
       mkDecorSlot(decorator, isSelected, false, function() {
@@ -192,7 +188,10 @@ let mkCustomize = kwarg(
                           text = loc("Yes"), isCurrent = true,
                           action = @() applyDecorator("", vehGuid, cType, "", slotIdx)
                         }
-                        { text = loc("Cancel"), isCancel = true }
+                        {
+                          text = loc("Cancel"), isCancel = true,
+                          customStyle = { hotkeys = [[$"^{JB.B} | Esc"]] }
+                        }
                       ]
                     })
                   }
@@ -219,16 +218,38 @@ let curAvailCamouflages = Computed(function() {
         || startswith(skinData.id, tplWithoutCountry))
 })
 
-let backBtn = Bordered(loc("BackBtn"),
-  @() selectVehParams.mutate(@(v) v.isCustomMode = false),
+let function clearNotPurchased() {
+  notPurchased.mutate(function(cust) { cust.clear() })
+}
+
+let function actionsOnClose() {
+  selectVehParams.mutate(@(v) v.isCustomMode = false)
+  clearNotPurchased()
+  selectedCamouflage(null)
+}
+
+let function close() {
+  if (notPurchased.value.len() > 0) {
+    showMsgbox({
+      text = loc("msg/leaveCustomizationConfirm")
+      buttons = [
+        { text = loc("Yes"),
+          action = actionsOnClose,
+          isCurrent = true }
+        { text = loc("Cancel"), isCancel = true, customStyle = { hotkeys = [[$"^{JB.B} | Esc"]] } }
+      ]
+    })
+    return
+  }
+  actionsOnClose()
+}
+
+let backBtn = Bordered(loc("BackBtn"), close,
   {
     margin = bigPadding
     hotkeys = [[ $"^{JB.B} | Esc", { description = loc("BackBtn") }]]
   })
 
-let function clearNotPurchased() {
-  notPurchased.mutate(function(cust) { cust.clear() })
-}
 
 let function removeNotPurchasedCamouflage() {
   if ("vehCamouflage" in notPurchased.value)
@@ -276,7 +297,7 @@ let mkBuyProduct = @(icon, header, name) {
           size = [flex(), SIZE_TO_CONTENT]
           margin = [0, smallPadding]
           color = accentTitleTxtColor
-        }.__update(sub_txt))
+        }.__update(fontSub))
       ]
     }
   ]
@@ -440,7 +461,7 @@ let emptyList = {
   padding = bigPadding
   halign = ALIGN_CENTER
   color = defBgColor
-  children = txt(loc("msg/listIsEmpty")).__update(sub_txt)
+  children = txt(loc("msg/listIsEmpty")).__update(fontSub)
 }
 
 let function mkGroupIcons(groupIconsList, vehGuid, curCustType,
@@ -523,7 +544,7 @@ let mkCustomizationList = @(curCustType, content, onlyOwned = null) {
           mkBlockHeader(loc($"{curCustType}ChooseHeader"))
           { size = flex() }
           onlyOwned == null ? null
-            : checkbox(onlyOwned, { text = loc("onlyAvailable") }.__update(sub_txt), {
+            : checkbox(onlyOwned, { text = loc("onlyAvailable") }.__update(fontSub), {
                 setValue = @(_) onlyOwned(!onlyOwned.value)
                 textOnTheLeft = true
               })
@@ -602,8 +623,8 @@ let mkDecoratorsList = @(curCustType, curSlotIdx, onlyOwned) function() {
             }, 0)
 
           let limit = cfgLimits?[groupName] ?? 0
-          let count = vehLimits.reduce(@(res, id, slot)
-            id == groupName && slot != curSlotIdx ? res + 1 : res, 0)
+          let count = vehLimits.reduce(@(acc, id, slot)
+            id == groupName && slot != curSlotIdx ? acc + 1 : acc, 0)
           return mkCustomizeList(groupName, hasOpened, onGroupClick,
             availCount, limit, count, groupIcons)
         })
@@ -723,7 +744,7 @@ let function purchaseBtnUi() {
               size = [hdpx(560), SIZE_TO_CONTENT]
               halign = ALIGN_CENTER
               color = accentTitleTxtColor
-            }.__update(body_txt))
+            }.__update(fontBody))
         }
       : currencyBtn({
           btnText = loc("btn/buy")
@@ -882,42 +903,40 @@ twoSideIdx.subscribe(function(v) {
     twoSideDecal(true, true)
 })
 
-let customizeScene = {
-  size = flex()
-  children = function() {
-    let mouseMoveCb = selectedDecorator.value != null
-      ? onDecalMouseMove
-      : null
-    let mouseWheelCb = selectedDecorator.value != null
-      ? onDecalMouseWheel
-      : null
-    let isDecoration = mouseMoveCb != null
-    return {
-      watch = [safeAreaBorders, selectedDecorator, isPurchasing]
-      size = flex()
-      padding = isDecoration ? null : safeAreaBorders.value
-      behavior = isDecoration
-        ? Behaviors.TrackMouse
-        : Behaviors.MenuCameraControl
-      onMouseMove = mouseMoveCb
-      onMouseWheel = mouseWheelCb
-      children = selectedDecorator.value == null
-        ? [
-            customizeSlotsUi
-            isPurchasing.value ? purchSpinner : null
-            customizeListUi
-          ]
-        : selectedDecorator.value.cType == "vehDecorator" ? mkUseDecorBlock(
-            applyUsingDecor,
-            stopUsingDecal,
-            safeAreaBorders.value
-          )
-        : mkUseDecalBlock(
-            applyUsingDecal,
-            stopUsingDecal,
-            safeAreaBorders.value
-          )
-    }
+let customizeScene = function() {
+  let mouseMoveCb = selectedDecorator.value != null
+    ? onDecalMouseMove
+    : null
+  let mouseWheelCb = selectedDecorator.value != null
+    ? onDecalMouseWheel
+    : null
+  let isDecoration = mouseMoveCb != null
+  return {
+    watch = [safeAreaBorders, selectedDecorator, isPurchasing]
+    size = flex()
+    padding = isDecoration ? null : safeAreaBorders.value
+    margin = [0, 0, smallOffset, 0]
+    behavior = isDecoration
+      ? Behaviors.TrackMouse
+      : Behaviors.MenuCameraControl
+    onMouseMove = mouseMoveCb
+    onMouseWheel = mouseWheelCb
+    children = selectedDecorator.value == null
+      ? [
+          customizeSlotsUi
+          isPurchasing.value ? waitingSpinner : null
+          customizeListUi
+        ]
+      : selectedDecorator.value.cType == "vehDecorator" ? mkUseDecorBlock(
+          applyUsingDecor,
+          stopUsingDecal,
+          safeAreaBorders.value
+        )
+      : mkUseDecalBlock(
+          applyUsingDecal,
+          stopUsingDecal,
+          safeAreaBorders.value
+        )
   }
 }
 
@@ -993,6 +1012,8 @@ let function onSaveVehicleDecals(decors_info) {
   }
 
   notPurchased.mutate(function(cust) {
+    if (cType==null)
+      return
     let decorators = clone (cust?[cType] ?? [])
     let idxToDelete = decorators.findindex(@(v) v.slotIdx == curSlotIdx)
     if (idxToDelete != null)
@@ -1051,11 +1072,6 @@ let function open() {
   sceneWithCameraAdd(customizeScene, "vehicles")
 }
 
-let function close() {
-  clearNotPurchased()
-  sceneWithCameraRemove(customizeScene)
-  selectedCamouflage(null)
-}
 
 if (selectVehParams.value?.isCustomMode ?? false)
   open()
@@ -1064,5 +1080,5 @@ selectVehParams.subscribe(function(v) {
   if (v?.isCustomMode ?? false)
     open()
   else
-    close()
+    sceneWithCameraRemove(customizeScene)
 })

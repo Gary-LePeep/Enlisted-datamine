@@ -1,0 +1,66 @@
+{
+  "bulletCount": 10,
+  "mass": 4.15,
+  "caliber": 0.075,
+  "speed": 930.0,
+  "maxDistance": 7000.0,
+  "normalizationPreset": "apcr",
+  "ricochetPreset": "apcr",
+  "groundRicochetPreset": "apcr",
+  "secondaryShattersPreset": "apcr",
+  "stabilityThreshold": 0.05,
+  "stabilityCaliberToArmorThreshold": 5.0,
+  "stabilityReductionAfterRicochet": 0.5,
+  "stabilityReductionAfterPenetration": 0.0,
+  "stucking": 0.7,
+  "stuckingAngle": 45.0,
+  "bulletType": "apcr_tank",
+  "slopeEffectPreset": "apcr",
+  "fresnel": [0.23,0.1,2.0],
+  "bulletName": "75mm_type_4_apcr",
+  "relativeVelHitShift": [300.0,1000.0],
+  "relativeVelArmorShift": [200.0,1000.0],
+  "waterRicochetEffect": "hit_59_80mm_water",
+  "groundRicochetEffect": "hit_59_80mm_dirt_ap",
+  "modelName": "tank_bullet_apcr",
+  "stabilityRicochetModifier": {
+    "mod1": [0.0,0.2],
+    "mod2": [20.0,0.45],
+    "mod3": [30.0,0.6],
+    "mod4": [50.0,1.0]
+  },
+  "hitpower": {
+    "HitPower0m": [1.0,300.0],
+    "HitPower1000m": [0.7,1000.0],
+    "HitPower1500m": [0.6,1500.0],
+    "HitPower2500m": [0.6,2500.0],
+    "HitPower10000m": [0.5,10000.0]
+  },
+  "armorpower": {
+    "ArmorPower0m": [177.0,10.0],
+    "ArmorPower100m": [175.0,100.0],
+    "ArmorPower250m": [164.0,250.0],
+    "ArmorPower500m": [151.0,500.0],
+    "ArmorPower750m": [139.0,750.0],
+    "ArmorPower1000m": [127.0,1000.0],
+    "ArmorPower1250m": [117.0,1250.0],
+    "ArmorPower1500m": [108.0,1500.0],
+    "ArmorPower2000m": [91.0,2000.0],
+    "ArmorPower2500m": [77.0,2500.0],
+    "ArmorPower3000m": [65.0,3000.0],
+    "ArmorPower7000m": [0.0,7000.0]
+  },
+  "visual": {
+    "range_percent_of_ammo": [100.0,0.0],
+    "traceFreq": 1,
+    "tracer": "76mmPink",
+    "trail": "black"
+  },
+  "kineticDamage": {
+    "damageType": "generic"
+  },
+  "tracer": {
+    "headColor": "#ffecf8c8",
+    "smokeColor": "#505050ba"
+  }
+}

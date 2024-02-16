@@ -22,7 +22,6 @@
   "ricochetEffect": "cannon_ricochet",
   "waterCollisionEffect": "120-203_he_water_splash",
   "waterFxScale": [0.7,0.8],
-  "explosionPatchRadius": 2.1,
   "secondaryShattersPreset": "ap",
   "visual": {
     "range_percent_of_ammo": [100.0,0.0],
@@ -266,15 +265,6 @@
         "mod2": [20.0,0.6],
         "mod3": [30.0,1.0]
       }
-    }
-  },
-  "hitFx": {
-    "fxScale": [0.8,1.0],
-    "defaultFx": "50_75_he_hit_ground",
-    "jetFx": "50_75_he_hit_ground",
-    "steel": {
-      "fx": "bullet_hit_armor_cumulative",
-      "fxScale": [1.4,1.6]
     }
   }
 }

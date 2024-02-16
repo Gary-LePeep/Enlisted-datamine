@@ -53,16 +53,16 @@
   },
   "tankgun_7_92mm_besa": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_tankgun_machinegun"
+      "_use": "base_tankgun_machinegun"
     },
     {
-      "_extends": "base_7_92mm_besa"
+      "_use": "base_7_92mm_besa"
     },
     {
-      "_extends": "gunsound_7_92mm_besa"
+      "_use": "gunsound_7_92mm_besa"
     },
     {
       "turret__triggerGroup": 2

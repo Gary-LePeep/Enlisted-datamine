@@ -4,8 +4,8 @@ let { itemTypeIcon } = require("%enlist/soldiers/components/itemTypesData.nut")
 let tooltipBox = require("%ui/style/tooltipBox.nut")
 let colorize = require("%ui/components/colorize.nut")
 let sClassesCfg = require("%enlist/soldiers/model/config/sClassesConfig.nut")
-let spinner = require("%ui/components/spinner.nut")({ opacity = 0.7 })
-let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let spinner = require("%ui/components/spinner.nut")
+let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { utf8ToLower } = require("%sqstd/string.nut")
 let { getRomanNumeral } = require("%sqstd/math.nut")
 let { allItemTemplates } = require("%enlist/soldiers/model/all_items_templates.nut")
@@ -21,6 +21,8 @@ let {
 } = require("%enlSqGlob/ui/soldiersUiComps.nut")
 let { isLootBoxProhibited } = require("%enlist/meta/metaConfigUpdater.nut")
 
+
+let waitingSpinner = spinner(hdpx(40), 0.7)
 
 let mkTextArea = @(text) {
   rendObj = ROBJ_TEXTAREA
@@ -66,7 +68,7 @@ let mkItemsListWithHeader = @(itemTpls, armyId, header = null) function() {
     minWidth = fsh(30)
     flow = FLOW_VERTICAL
     gap = bigPadding
-    children = (header == null ? [] : [mkTextArea(header)])
+    children = (header == null ? [] : [mkTextArea(header)]) // -unwanted-modification
       .append({
         flow = FLOW_VERTICAL
         children = itemTpls
@@ -184,7 +186,7 @@ let mkSClassRow = @(sClass, armyId) @() {
   children = [
     kindIcon(sClassesCfg.value?[sClass].kind ?? sClass, hdpx(22), 0)
     className(sClass)
-    classIcon(armyId, sClass, hdpx(22))
+    classIcon(armyId, sClass, hdpxi(22))
   ]
 }
 
@@ -230,14 +232,14 @@ let function makeCrateToolTip(crateContent, headerTxt = "", size = SIZE_TO_CONTE
   if (crateContent == null)
     return null
 
-  let header = headerTxt == "" ? null : mkTextArea(headerTxt).__update(body_txt)
+  let header = headerTxt == "" ? null : mkTextArea(headerTxt).__update(fontBody)
   return tooltipBox(function() {
     let { armyId = "", content = null } = crateContent.value
     return {
       watch = [crateContent, isLootBoxProhibited]
       gap = bigPadding
       flow = FLOW_VERTICAL
-      children = content == null ? spinner
+      children = content == null ? waitingSpinner
         : [
             header
             mkCrateItemsInfo(armyId, content, null, null, isLootBoxProhibited.value)

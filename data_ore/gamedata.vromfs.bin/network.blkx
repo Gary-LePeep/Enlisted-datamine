@@ -14,16 +14,11 @@
       "tag": "production",
       "shouldPatchVromsWithRemoteVersion": true
     },
-    "matching": [
-      {
-        "server": "mgate-venus-am-uk-01.enlisted.net:7853"
-      },
-      {
-        "server": "mgate-venus-am-uk-02.enlisted.net:7853"
-      }
-    ],
+    "matching": {
+      "server": "mgate-venus-am-uk-01.enlisted.net:7853"
+    },
     "eventLog": {
-      "host": "client-logs.warthunder.com",
+      "host": "client-logs.gaijin.net",
       "project": "cr"
     },
     "char": {
@@ -72,6 +67,7 @@
   },
   "mars": {
     "appPerm_1137": 28,
+    "appPerm_1138": 28,
     "environment": "production",
     "chanceOfFatalOnLogerrOnExit": 0,
     "disableVromsAutoUpdate": false,
@@ -92,7 +88,7 @@
       }
     ],
     "eventLog": {
-      "host": "client-logs.warthunder.com",
+      "host": "client-logs.gaijin.net",
       "project": "cr"
     },
     "char": {
@@ -141,6 +137,7 @@
   },
   "phobos": {
     "appPerm_1137": 61,
+    "appPerm_1138": 61,
     "environment": "staging",
     "chanceOfFatalOnLogerrOnExit": 0,
     "disableVromsAutoUpdate": false,
@@ -161,7 +158,7 @@
       }
     ],
     "eventLog": {
-      "host": "client-logs.warthunder.com",
+      "host": "client-logs.gaijin.net",
       "project": "cr"
     },
     "char": {
@@ -236,7 +233,7 @@
       }
     ],
     "eventLog": {
-      "host": "client-logs.warthunder.com",
+      "host": "client-logs.gaijin.net",
       "project": "cr"
     },
     "char": {
@@ -308,7 +305,7 @@
       "server": "mgate-sun-01.enlisted.net:7853"
     },
     "eventLog": {
-      "host": "client-logs.warthunder.com"
+      "host": "client-logs.gaijin.net"
     },
     "char": {
       "servers": {
@@ -350,6 +347,7 @@
     }
   },
   "stable": {
+    "appPerm_1131": 46,
     "environment": "staging",
     "chanceOfFatalOnLogerrOnExit": 0,
     "trustClientStreamingMode": true,
@@ -367,7 +365,7 @@
       "server": "match-stable-sv-lx-01.enlisted.net:7853"
     },
     "eventLog": {
-      "host": "client-logs.warthunder.com"
+      "host": "client-logs.gaijin.net"
     },
     "char": {
       "servers": {
@@ -404,7 +402,9 @@
     }
   },
   "enceladus": {
-    "disableVisualLog": false,
+    "appPerm_100501": 46,
+    "appPerm_100500": 61,
+    "disableVisualLog": true,
     "disableVromsAutoUpdate": false,
     "environment": "staging",
     "chanceOfFatalOnLogerrOnExit": 0,
@@ -422,7 +422,7 @@
       "server": "mgate-enceladus-01.enlisted.net:7853"
     },
     "eventLog": {
-      "host": "client-logs.warthunder.com",
+      "host": "client-logs.gaijin.net",
       "project": "cr"
     },
     "char": {
@@ -464,7 +464,105 @@
       "enabled": false
     }
   },
+  "callisto": {
+    "appPerm_1131": 46,
+    "environment": "staging",
+    "chanceOfFatalOnLogerrOnExit": 0,
+    "disableVromsAutoUpdate": false,
+    "alwaysReloadDataOnUpdate": true,
+    "marketplaceURL": "https://trade-dev.gaijin.net/",
+    "shopUrl": "https://store.gaijin.net/storefront.php?category=CuisineRoyale",
+    "shopGuidUrl": "https://store.gaijin.net/yuplay/show_item.php?guid={guid}",
+    "shopCategoryUrl": "https://store.gaijin.net/catalog.php?category={category}",
+    "psnFriendsUrl": "https://auth-psn-dev.gaijinent.com/psn_friends.php",
+    "contentUpdater": {
+      "shouldPatchVromsWithRemoteVersion": true,
+      "disableFastVersionCheck": true
+    },
+    "matching": [
+      {
+        "server": "mgate-callisto-01.enlisted.net:7853"
+      },
+      {
+        "server": "mgate-callisto-02.enlisted.net:7853"
+      }
+    ],
+    "eventLog": {
+      "host": "client-logs.gaijin.net"
+    },
+    "char": {
+      "servers": [
+        {
+          "url": "https://contacts-dev-01.gaijin.net:9443/json"
+        },
+        {
+          "url": "https://contacts-dev-02.gaijin.net:9443/json"
+        },
+        {
+          "url": "https://contacts-dev-03.gaijin.net:9443/json"
+        }
+      ]
+    },
+    "inventory": {
+      "servers": [
+        {
+          "url": "https://inventory-common-dev-01.gaijin.net:8443/char"
+        },
+        {
+          "url": "https://inventory-common-dev-02.gaijin.net:8443/char"
+        },
+        {
+          "url": "https://inventory-common-dev-03.gaijin.net:8443/char"
+        }
+      ]
+    },
+    "userstats": {
+      "servers": [
+        {
+          "url": "https://userstat-dev-01.gaijin.net:11443/char"
+        },
+        {
+          "url": "https://userstat-dev-02.gaijin.net:11443/char"
+        },
+        {
+          "url": "https://userstat-dev-03.gaijin.net:11443/char"
+        }
+      ]
+    },
+    "onlineStorage": {
+      "servers": [
+        {
+          "url": "https://cloud-dev-01.gaijin.net:13443/char"
+        },
+        {
+          "url": "https://cloud-dev-02.gaijin.net:13443/char"
+        },
+        {
+          "url": "https://cloud-dev-03.gaijin.net:13443/char"
+        }
+      ]
+    },
+    "profile_server": {
+      "servers": [
+        {
+          "url": "https://profile-dev-01.gaijin.net:10443/json-rpc"
+        },
+        {
+          "url": "https://profile-dev-02.gaijin.net:10443/json-rpc"
+        },
+        {
+          "url": "https://profile-dev-03.gaijin.net:10443/json-rpc"
+        }
+      ]
+    },
+    "message_queue": {
+      "port": 11300,
+      "host": "127.0.0.1"
+    }
+  },
   "naiad": {
+    "appPerm_100501": 46,
+    "appPerm_100500": 61,
     "disableVromsAutoUpdate": false,
     "environment": "staging",
     "chanceOfFatalOnLogerrOnExit": 0,
@@ -482,7 +580,7 @@
       "server": "match-naiad-sv-lx-01.enlisted.net:7853"
     },
     "eventLog": {
-      "host": "client-logs.warthunder.com",
+      "host": "client-logs.gaijin.net",
       "project": "cr"
     },
     "char": {
@@ -536,14 +634,14 @@
     },
     "matching": [
       {
-        "server": "mgate-jupiter-am-uk-02.enlisted.net:7853"
+        "server": "mgate-jupiter-01.enlisted.net:7853"
       },
       {
-        "server": "mgate-jupiter-am-uk-01.enlisted.net:7853"
+        "server": "mgate-jupiter-02.enlisted.net:7853"
       }
     ],
     "eventLog": {
-      "host": "client-logs.warthunder.com"
+      "host": "client-logs.gaijin.net"
     },
     "char": {
       "servers": [
@@ -602,6 +700,7 @@
     "shopUrl": "http://act.kongzhong.com/af/cjshow/",
     "shopCategoryUrl": "http://act.kongzhong.com/af/cjshow/",
     "shopGuidUrl": "http://act.kongzhong.com/af/cjshow/",
+    "promoUrl": "https://api.zhanhuo.com/unify/cjGamePop",
     "matching": {
       "server": "match-yueliang-gj-msk-01.gaijin.ops:7853"
     },
@@ -642,6 +741,7 @@
     "shopUrl": "http://act.kongzhong.com/af/cjshow/",
     "shopGuidUrl": "http://act.kongzhong.com/af/cjshow/",
     "shopCategoryUrl": "http://act.kongzhong.com/af/cjshow/",
+    "promoUrl": "https://api.zhanhuo.com/unify/cjGamePop",
     "matching": {
       "server": "match-taiyang.gaijin.asia:7853"
     },
@@ -688,6 +788,8 @@
     "premiumUrl": "https://cj.zhanhuo.com/eshop-test/account",
     "battlePassUrl": "https://cj.zhanhuo.com/eshop-test/battlepass",
     "squadCashUrl": "https://cj.zhanhuo.com/eshop-test/echogenic",
+    "promoUrl": "https://api.zhanhuo.com/unify/cjGamePop",
+    "replayPortalUrl": "https://act.zhanhuo.com/cj/replay",
     "matching": {
       "server": "allinone-jinxing.zhanhuo.com:7853"
     },
@@ -729,6 +831,8 @@
     "premiumUrl": "https://cj.zhanhuo.com/eshop-test/account",
     "battlePassUrl": "https://cj.zhanhuo.com/eshop-test/battlepass",
     "squadCashUrl": "https://cj.zhanhuo.com/eshop-test/echogenic",
+    "promoUrl": "https://api.zhanhuo.com/unify/cjGamePop",
+    "replayPortalUrl": "https://act.zhanhuo.com/cj/replay",
     "matching": {
       "server": "allinone-mingwangxing.zhanhuo.com:7853"
     },
@@ -770,6 +874,775 @@
     "premiumUrl": "https://cj.zhanhuo.com/eshop/account",
     "battlePassUrl": "https://cj.zhanhuo.com/eshop/battlepass",
     "squadCashUrl": "https://cj.zhanhuo.com/eshop/echogenic",
+    "promoUrl": "https://api.zhanhuo.com/unify/cjGamePop",
+    "replayPortalUrl": "https://act.zhanhuo.com/cj/replay",
+    "matching": [
+      {
+        "server": "mgate-muxing-01.zhanhuo.com:7853"
+      },
+      {
+        "server": "mgate-muxing-02.zhanhuo.com:7853"
+      },
+      {
+        "server": "mgate-muxing-03.zhanhuo.com:7853"
+      },
+      {
+        "server": "mgate-muxing-04.zhanhuo.com:7853"
+      },
+      {
+        "server": "mgate-muxing-05.zhanhuo.com:7853"
+      }
+    ],
+    "char": {
+      "servers": [
+        {
+          "url": "https://charlike-muxing-01.zhanhuo.com:7443/json"
+        },
+        {
+          "url": "https://charlike-muxing-02.zhanhuo.com:7443/json"
+        },
+        {
+          "url": "https://charlike-muxing-03.zhanhuo.com:7443/json"
+        },
+        {
+          "url": "https://charlike-muxing-04.zhanhuo.com:7443/json"
+        },
+        {
+          "url": "https://charlike-muxing-05.zhanhuo.com:7443/json"
+        }
+      ]
+    },
+    "userstats": {
+      "servers": [
+        {
+          "url": "https://charlike-muxing-01.zhanhuo.com:9443/char"
+        },
+        {
+          "url": "https://charlike-muxing-02.zhanhuo.com:9443/char"
+        },
+        {
+          "url": "https://charlike-muxing-03.zhanhuo.com:9443/char"
+        },
+        {
+          "url": "https://charlike-muxing-04.zhanhuo.com:9443/char"
+        },
+        {
+          "url": "https://charlike-muxing-05.zhanhuo.com:9443/char"
+        }
+      ]
+    },
+    "profile_server": {
+      "servers": [
+        {
+          "url": "https://profile-muxing-01.zhanhuo.com:8443/json-rpc"
+        },
+        {
+          "url": "https://profile-muxing-02.zhanhuo.com:8443/json-rpc"
+        },
+        {
+          "url": "https://profile-muxing-03.zhanhuo.com:8443/json-rpc"
+        },
+        {
+          "url": "https://profile-muxing-04.zhanhuo.com:8443/json-rpc"
+        }
+      ]
+    },
+    "onlineStorage": {
+      "servers": {
+        "url": "https://charlike-muxing-01.zhanhuo.com:7443/char"
+      }
+    },
+    "message_queue": {
+      "port": 11300,
+      "host": "127.0.0.1"
+    }
+  },
+  "douyu": {
+    "environment": "production",
+    "chanceOfFatalOnLogerrOnExit": 0,
+    "marketplaceURL": "",
+    "eventUrl": "https://cj.zhanhuo.com/acts?channelCode=DYU",
+    "storeUrl": "https://cj.zhanhuo.com/eshop?channelCode=DYU",
+    "shopUrl": "https://cj.zhanhuo.com/eshop?channelCode=DYU",
+    "shopGuidUrl": "https://cj.zhanhuo.com/eshop?channelCode=DYU",
+    "shopCategoryUrl": "https://cj.zhanhuo.com/eshop?channelCode=DYU",
+    "webLoginUrl": "https://act.zhanhuo.com/cj/obt_login/login_dyu/",
+    "premiumUrl": "https://cj.zhanhuo.com/eshop/account?channelCode=DYU",
+    "battlePassUrl": "https://cj.zhanhuo.com/eshop/battlepass?channelCode=DYU",
+    "squadCashUrl": "https://cj.zhanhuo.com/eshop/echogenic?channelCode=DYU",
+    "promoUrl": "https://api.zhanhuo.com/unify/cjGamePop?channelCode=DYU",
+    "replayPortalUrl": "https://act.zhanhuo.com/cj/replay?channelCode=DYU",
+    "matching": {
+      "server": "match-muxing.zhanhuo.com:7853"
+    },
+    "char": {
+      "servers": [
+        {
+          "url": "https://charlike-muxing-01.zhanhuo.com:7443/json"
+        },
+        {
+          "url": "https://charlike-muxing-02.zhanhuo.com:7443/json"
+        }
+      ]
+    },
+    "userstats": {
+      "servers": [
+        {
+          "url": "https://charlike-muxing-01.zhanhuo.com:9443/char"
+        },
+        {
+          "url": "https://charlike-muxing-02.zhanhuo.com:9443/char"
+        }
+      ]
+    },
+    "profile_server": {
+      "servers": [
+        {
+          "url": "https://profile-muxing-01.zhanhuo.com:8443/json-rpc"
+        },
+        {
+          "url": "https://profile-muxing-02.zhanhuo.com:8443/json-rpc"
+        },
+        {
+          "url": "https://profile-muxing-03.zhanhuo.com:8443/json-rpc"
+        }
+      ]
+    },
+    "onlineStorage": {
+      "servers": {
+        "url": "https://charlike-muxing-01.zhanhuo.com:7443/char"
+      }
+    },
+    "message_queue": {
+      "port": 11300,
+      "host": "127.0.0.1"
+    }
+  },
+  "lianxiang": {
+    "environment": "production",
+    "chanceOfFatalOnLogerrOnExit": 0,
+    "marketplaceURL": "",
+    "eventUrl": "https://cj.zhanhuo.com/acts",
+    "storeUrl": "https://cj.zhanhuo.com/eshop",
+    "shopUrl": "https://cj.zhanhuo.com/eshop",
+    "shopGuidUrl": "https://cj.zhanhuo.com/eshop",
+    "shopCategoryUrl": "https://cj.zhanhuo.com/eshop",
+    "webLoginUrl": "https://www.zhanhuo.com/transfer/?gamecode=101&adcode=8z4eb9xl",
+    "premiumUrl": "https://cj.zhanhuo.com/eshop/account",
+    "battlePassUrl": "https://cj.zhanhuo.com/eshop/battlepass",
+    "squadCashUrl": "https://cj.zhanhuo.com/eshop/echogenic",
+    "promoUrl": "https://api.zhanhuo.com/unify/cjGamePop",
+    "replayPortalUrl": "https://act.zhanhuo.com/cj/replay",
+    "matching": {
+      "server": "match-muxing.zhanhuo.com:7853"
+    },
+    "char": {
+      "servers": [
+        {
+          "url": "https://charlike-muxing-01.zhanhuo.com:7443/json"
+        },
+        {
+          "url": "https://charlike-muxing-02.zhanhuo.com:7443/json"
+        }
+      ]
+    },
+    "userstats": {
+      "servers": [
+        {
+          "url": "https://charlike-muxing-01.zhanhuo.com:9443/char"
+        },
+        {
+          "url": "https://charlike-muxing-02.zhanhuo.com:9443/char"
+        }
+      ]
+    },
+    "profile_server": {
+      "servers": [
+        {
+          "url": "https://profile-muxing-01.zhanhuo.com:8443/json-rpc"
+        },
+        {
+          "url": "https://profile-muxing-02.zhanhuo.com:8443/json-rpc"
+        },
+        {
+          "url": "https://profile-muxing-03.zhanhuo.com:8443/json-rpc"
+        }
+      ]
+    },
+    "onlineStorage": {
+      "servers": {
+        "url": "https://charlike-muxing-01.zhanhuo.com:7443/char"
+      }
+    },
+    "message_queue": {
+      "port": 11300,
+      "host": "127.0.0.1"
+    }
+  },
+  "huya": {
+    "environment": "production",
+    "chanceOfFatalOnLogerrOnExit": 0,
+    "marketplaceURL": "",
+    "eventUrl": "https://cj.zhanhuo.com/acts?channelCode=HYA",
+    "storeUrl": "https://cj.zhanhuo.com/eshop?channelCode=HYA",
+    "shopUrl": "https://cj.zhanhuo.com/eshop?channelCode=HYA",
+    "shopGuidUrl": "https://cj.zhanhuo.com/eshop?channelCode=HYA",
+    "shopCategoryUrl": "https://cj.zhanhuo.com/eshop?channelCode=HYA",
+    "webLoginUrl": "https://act.zhanhuo.com/cj/obt_login/login_hya/",
+    "premiumUrl": "https://cj.zhanhuo.com/eshop/account?channelCode=HYA",
+    "battlePassUrl": "https://cj.zhanhuo.com/eshop/battlepass?channelCode=HYA",
+    "squadCashUrl": "https://cj.zhanhuo.com/eshop/echogenic?channelCode=HYA",
+    "promoUrl": "https://api.zhanhuo.com/unify/cjGamePop?channelCode=HYA",
+    "replayPortalUrl": "https://act.zhanhuo.com/cj/replay?channelCode=HYA",
+    "matching": {
+      "server": "match-muxing.zhanhuo.com:7853"
+    },
+    "char": {
+      "servers": [
+        {
+          "url": "https://charlike-muxing-01.zhanhuo.com:7443/json"
+        },
+        {
+          "url": "https://charlike-muxing-02.zhanhuo.com:7443/json"
+        }
+      ]
+    },
+    "userstats": {
+      "servers": [
+        {
+          "url": "https://charlike-muxing-01.zhanhuo.com:9443/char"
+        },
+        {
+          "url": "https://charlike-muxing-02.zhanhuo.com:9443/char"
+        }
+      ]
+    },
+    "profile_server": {
+      "servers": [
+        {
+          "url": "https://profile-muxing-01.zhanhuo.com:8443/json-rpc"
+        },
+        {
+          "url": "https://profile-muxing-02.zhanhuo.com:8443/json-rpc"
+        },
+        {
+          "url": "https://profile-muxing-03.zhanhuo.com:8443/json-rpc"
+        }
+      ]
+    },
+    "onlineStorage": {
+      "servers": {
+        "url": "https://charlike-muxing-01.zhanhuo.com:7443/char"
+      }
+    },
+    "message_queue": {
+      "port": 11300,
+      "host": "127.0.0.1"
+    }
+  },
+  "360": {
+    "environment": "production",
+    "chanceOfFatalOnLogerrOnExit": 0,
+    "marketplaceURL": "",
+    "eventUrl": "https://cj.zhanhuo.com/acts",
+    "storeUrl": "https://cj.zhanhuo.com/eshop",
+    "shopUrl": "https://cj.zhanhuo.com/eshop",
+    "shopGuidUrl": "https://cj.zhanhuo.com/eshop",
+    "shopCategoryUrl": "https://cj.zhanhuo.com/eshop",
+    "webLoginUrl": "https://www.zhanhuo.com/transfer/?gamecode=101&adcode=bcck5xsa",
+    "premiumUrl": "https://cj.zhanhuo.com/eshop/account",
+    "battlePassUrl": "https://cj.zhanhuo.com/eshop/battlepass",
+    "squadCashUrl": "https://cj.zhanhuo.com/eshop/echogenic",
+    "promoUrl": "https://api.zhanhuo.com/unify/cjGamePop",
+    "replayPortalUrl": "https://act.zhanhuo.com/cj/replay",
+    "matching": {
+      "server": "match-muxing.zhanhuo.com:7853"
+    },
+    "char": {
+      "servers": [
+        {
+          "url": "https://charlike-muxing-01.zhanhuo.com:7443/json"
+        },
+        {
+          "url": "https://charlike-muxing-02.zhanhuo.com:7443/json"
+        }
+      ]
+    },
+    "userstats": {
+      "servers": [
+        {
+          "url": "https://charlike-muxing-01.zhanhuo.com:9443/char"
+        },
+        {
+          "url": "https://charlike-muxing-02.zhanhuo.com:9443/char"
+        }
+      ]
+    },
+    "profile_server": {
+      "servers": [
+        {
+          "url": "https://profile-muxing-01.zhanhuo.com:8443/json-rpc"
+        },
+        {
+          "url": "https://profile-muxing-02.zhanhuo.com:8443/json-rpc"
+        },
+        {
+          "url": "https://profile-muxing-03.zhanhuo.com:8443/json-rpc"
+        }
+      ]
+    },
+    "onlineStorage": {
+      "servers": {
+        "url": "https://charlike-muxing-01.zhanhuo.com:7443/char"
+      }
+    },
+    "message_queue": {
+      "port": 11300,
+      "host": "127.0.0.1"
+    }
+  },
+  "TXruanguan": {
+    "environment": "production",
+    "chanceOfFatalOnLogerrOnExit": 0,
+    "marketplaceURL": "",
+    "eventUrl": "https://cj.zhanhuo.com/acts",
+    "storeUrl": "https://cj.zhanhuo.com/eshop",
+    "shopUrl": "https://cj.zhanhuo.com/eshop",
+    "shopGuidUrl": "https://cj.zhanhuo.com/eshop",
+    "shopCategoryUrl": "https://cj.zhanhuo.com/eshop",
+    "webLoginUrl": "https://www.zhanhuo.com/transfer/?gamecode=101&adcode=b12vg366",
+    "premiumUrl": "https://cj.zhanhuo.com/eshop/account",
+    "battlePassUrl": "https://cj.zhanhuo.com/eshop/battlepass",
+    "squadCashUrl": "https://cj.zhanhuo.com/eshop/echogenic",
+    "promoUrl": "https://api.zhanhuo.com/unify/cjGamePop",
+    "replayPortalUrl": "https://act.zhanhuo.com/cj/replay",
+    "matching": {
+      "server": "match-muxing.zhanhuo.com:7853"
+    },
+    "char": {
+      "servers": [
+        {
+          "url": "https://charlike-muxing-01.zhanhuo.com:7443/json"
+        },
+        {
+          "url": "https://charlike-muxing-02.zhanhuo.com:7443/json"
+        }
+      ]
+    },
+    "userstats": {
+      "servers": [
+        {
+          "url": "https://charlike-muxing-01.zhanhuo.com:9443/char"
+        },
+        {
+          "url": "https://charlike-muxing-02.zhanhuo.com:9443/char"
+        }
+      ]
+    },
+    "profile_server": {
+      "servers": [
+        {
+          "url": "https://profile-muxing-01.zhanhuo.com:8443/json-rpc"
+        },
+        {
+          "url": "https://profile-muxing-02.zhanhuo.com:8443/json-rpc"
+        },
+        {
+          "url": "https://profile-muxing-03.zhanhuo.com:8443/json-rpc"
+        }
+      ]
+    },
+    "onlineStorage": {
+      "servers": {
+        "url": "https://charlike-muxing-01.zhanhuo.com:7443/char"
+      }
+    },
+    "message_queue": {
+      "port": 11300,
+      "host": "127.0.0.1"
+    }
+  },
+  "yilewan": {
+    "environment": "production",
+    "chanceOfFatalOnLogerrOnExit": 0,
+    "marketplaceURL": "",
+    "eventUrl": "https://cj.zhanhuo.com/acts?channelCode=LYD",
+    "storeUrl": "https://cj.zhanhuo.com/eshop?channelCode=LYD",
+    "shopUrl": "https://cj.zhanhuo.com/eshop?channelCode=LYD",
+    "shopGuidUrl": "https://cj.zhanhuo.com/eshop?channelCode=LYD",
+    "shopCategoryUrl": "https://cj.zhanhuo.com/eshop?channelCode=LYD",
+    "webLoginUrl": "https://act.zhanhuo.com/cj/obt_login/login_lyd/",
+    "premiumUrl": "https://cj.zhanhuo.com/eshop/account?channelCode=LYD",
+    "battlePassUrl": "https://cj.zhanhuo.com/eshop/battlepass?channelCode=LYD",
+    "squadCashUrl": "https://cj.zhanhuo.com/eshop/echogenic?channelCode=LYD",
+    "promoUrl": "https://api.zhanhuo.com/unify/cjGamePop?channelCode=LYD",
+    "replayPortalUrl": "https://act.zhanhuo.com/cj/replay?channelCode=LYD",
+    "matching": {
+      "server": "match-muxing.zhanhuo.com:7853"
+    },
+    "char": {
+      "servers": [
+        {
+          "url": "https://charlike-muxing-01.zhanhuo.com:7443/json"
+        },
+        {
+          "url": "https://charlike-muxing-02.zhanhuo.com:7443/json"
+        }
+      ]
+    },
+    "userstats": {
+      "servers": [
+        {
+          "url": "https://charlike-muxing-01.zhanhuo.com:9443/char"
+        },
+        {
+          "url": "https://charlike-muxing-02.zhanhuo.com:9443/char"
+        }
+      ]
+    },
+    "profile_server": {
+      "servers": [
+        {
+          "url": "https://profile-muxing-01.zhanhuo.com:8443/json-rpc"
+        },
+        {
+          "url": "https://profile-muxing-02.zhanhuo.com:8443/json-rpc"
+        },
+        {
+          "url": "https://profile-muxing-03.zhanhuo.com:8443/json-rpc"
+        }
+      ]
+    },
+    "onlineStorage": {
+      "servers": {
+        "url": "https://charlike-muxing-01.zhanhuo.com:7443/char"
+      }
+    },
+    "message_queue": {
+      "port": 11300,
+      "host": "127.0.0.1"
+    }
+  },
+  "shunwang": {
+    "environment": "production",
+    "chanceOfFatalOnLogerrOnExit": 0,
+    "marketplaceURL": "",
+    "eventUrl": "https://cj.zhanhuo.com/acts?channelCode=LYA",
+    "storeUrl": "https://cj.zhanhuo.com/eshop?channelCode=LYA",
+    "shopUrl": "https://cj.zhanhuo.com/eshop?channelCode=LYA",
+    "shopGuidUrl": "https://cj.zhanhuo.com/eshop?channelCode=LYA",
+    "shopCategoryUrl": "https://cj.zhanhuo.com/eshop?channelCode=LYA",
+    "webLoginUrl": "https://act.zhanhuo.com/cj/obt_login/login_lya/",
+    "premiumUrl": "https://cj.zhanhuo.com/eshop/account?channelCode=LYA",
+    "battlePassUrl": "https://cj.zhanhuo.com/eshop/battlepass?channelCode=LYA",
+    "squadCashUrl": "https://cj.zhanhuo.com/eshop/echogenic?channelCode=LYA",
+    "promoUrl": "https://api.zhanhuo.com/unify/cjGamePop?channelCode=LYA",
+    "replayPortalUrl": "https://act.zhanhuo.com/cj/replay?channelCode=LYA",
+    "matching": {
+      "server": "match-muxing.zhanhuo.com:7853"
+    },
+    "char": {
+      "servers": [
+        {
+          "url": "https://charlike-muxing-01.zhanhuo.com:7443/json"
+        },
+        {
+          "url": "https://charlike-muxing-02.zhanhuo.com:7443/json"
+        }
+      ]
+    },
+    "userstats": {
+      "servers": [
+        {
+          "url": "https://charlike-muxing-01.zhanhuo.com:9443/char"
+        },
+        {
+          "url": "https://charlike-muxing-02.zhanhuo.com:9443/char"
+        }
+      ]
+    },
+    "profile_server": {
+      "servers": [
+        {
+          "url": "https://profile-muxing-01.zhanhuo.com:8443/json-rpc"
+        },
+        {
+          "url": "https://profile-muxing-02.zhanhuo.com:8443/json-rpc"
+        },
+        {
+          "url": "https://profile-muxing-03.zhanhuo.com:8443/json-rpc"
+        }
+      ]
+    },
+    "onlineStorage": {
+      "servers": {
+        "url": "https://charlike-muxing-01.zhanhuo.com:7443/char"
+      }
+    },
+    "message_queue": {
+      "port": 11300,
+      "host": "127.0.0.1"
+    }
+  },
+  "feihuo": {
+    "environment": "production",
+    "chanceOfFatalOnLogerrOnExit": 0,
+    "marketplaceURL": "",
+    "eventUrl": "https://cj.zhanhuo.com/acts?channelCode=LYC",
+    "storeUrl": "https://cj.zhanhuo.com/eshop?channelCode=LYC",
+    "shopUrl": "https://cj.zhanhuo.com/eshop?channelCode=LYC",
+    "shopGuidUrl": "https://cj.zhanhuo.com/eshop?channelCode=LYC",
+    "shopCategoryUrl": "https://cj.zhanhuo.com/eshop?channelCode=LYC",
+    "webLoginUrl": "https://act.zhanhuo.com/cj/obt_login/login_lyc/",
+    "premiumUrl": "https://cj.zhanhuo.com/eshop/account?channelCode=LYC",
+    "battlePassUrl": "https://cj.zhanhuo.com/eshop/battlepass?channelCode=LYC",
+    "squadCashUrl": "https://cj.zhanhuo.com/eshop/echogenic?channelCode=LYC",
+    "promoUrl": "https://api.zhanhuo.com/unify/cjGamePop?channelCode=LYC",
+    "replayPortalUrl": "https://act.zhanhuo.com/cj/replay?channelCode=LYC",
+    "matching": {
+      "server": "match-muxing.zhanhuo.com:7853"
+    },
+    "char": {
+      "servers": [
+        {
+          "url": "https://charlike-muxing-01.zhanhuo.com:7443/json"
+        },
+        {
+          "url": "https://charlike-muxing-02.zhanhuo.com:7443/json"
+        }
+      ]
+    },
+    "userstats": {
+      "servers": [
+        {
+          "url": "https://charlike-muxing-01.zhanhuo.com:9443/char"
+        },
+        {
+          "url": "https://charlike-muxing-02.zhanhuo.com:9443/char"
+        }
+      ]
+    },
+    "profile_server": {
+      "servers": [
+        {
+          "url": "https://profile-muxing-01.zhanhuo.com:8443/json-rpc"
+        },
+        {
+          "url": "https://profile-muxing-02.zhanhuo.com:8443/json-rpc"
+        },
+        {
+          "url": "https://profile-muxing-03.zhanhuo.com:8443/json-rpc"
+        }
+      ]
+    },
+    "onlineStorage": {
+      "servers": {
+        "url": "https://charlike-muxing-01.zhanhuo.com:7443/char"
+      }
+    },
+    "message_queue": {
+      "port": 11300,
+      "host": "127.0.0.1"
+    }
+  },
+  "wyy": {
+    "environment": "production",
+    "chanceOfFatalOnLogerrOnExit": 0,
+    "marketplaceURL": "",
+    "eventUrl": "https://cj.zhanhuo.com/acts",
+    "storeUrl": "https://cj.zhanhuo.com/eshop",
+    "shopUrl": "https://cj.zhanhuo.com/eshop",
+    "shopGuidUrl": "https://cj.zhanhuo.com/eshop",
+    "shopCategoryUrl": "https://cj.zhanhuo.com/eshop",
+    "webLoginUrl": "https://www.zhanhuo.com/transfer/?gamecode=101&adcode=oay4zhsd",
+    "premiumUrl": "https://cj.zhanhuo.com/eshop/account",
+    "battlePassUrl": "https://cj.zhanhuo.com/eshop/battlepass",
+    "squadCashUrl": "https://cj.zhanhuo.com/eshop/echogenic",
+    "promoUrl": "https://api.zhanhuo.com/unify/cjGamePop",
+    "replayPortalUrl": "https://act.zhanhuo.com/cj/replay",
+    "matching": {
+      "server": "match-muxing.zhanhuo.com:7853"
+    },
+    "char": {
+      "servers": [
+        {
+          "url": "https://charlike-muxing-01.zhanhuo.com:7443/json"
+        },
+        {
+          "url": "https://charlike-muxing-02.zhanhuo.com:7443/json"
+        }
+      ]
+    },
+    "userstats": {
+      "servers": [
+        {
+          "url": "https://charlike-muxing-01.zhanhuo.com:9443/char"
+        },
+        {
+          "url": "https://charlike-muxing-02.zhanhuo.com:9443/char"
+        }
+      ]
+    },
+    "profile_server": {
+      "servers": [
+        {
+          "url": "https://profile-muxing-01.zhanhuo.com:8443/json-rpc"
+        },
+        {
+          "url": "https://profile-muxing-02.zhanhuo.com:8443/json-rpc"
+        },
+        {
+          "url": "https://profile-muxing-03.zhanhuo.com:8443/json-rpc"
+        }
+      ]
+    },
+    "onlineStorage": {
+      "servers": {
+        "url": "https://charlike-muxing-01.zhanhuo.com:7443/char"
+      }
+    },
+    "message_queue": {
+      "port": 11300,
+      "host": "127.0.0.1"
+    }
+  },
+  "TGB": {
+    "environment": "production",
+    "chanceOfFatalOnLogerrOnExit": 0,
+    "marketplaceURL": "",
+    "eventUrl": "https://cj.zhanhuo.com/acts",
+    "storeUrl": "https://cj.zhanhuo.com/eshop",
+    "shopUrl": "https://cj.zhanhuo.com/eshop",
+    "shopGuidUrl": "https://cj.zhanhuo.com/eshop",
+    "shopCategoryUrl": "https://cj.zhanhuo.com/eshop",
+    "webLoginUrl": "https://act.zhanhuo.com/cj/obt_login/login_tgb/index.html",
+    "premiumUrl": "https://cj.zhanhuo.com/eshop/account",
+    "battlePassUrl": "https://cj.zhanhuo.com/eshop/battlepass",
+    "squadCashUrl": "https://cj.zhanhuo.com/eshop/echogenic",
+    "promoUrl": "https://api.zhanhuo.com/unify/cjGamePop",
+    "replayPortalUrl": "https://act.zhanhuo.com/cj/replay",
+    "matching": {
+      "server": "match-muxing.zhanhuo.com:7853"
+    },
+    "char": {
+      "servers": [
+        {
+          "url": "https://charlike-muxing-01.zhanhuo.com:7443/json"
+        },
+        {
+          "url": "https://charlike-muxing-02.zhanhuo.com:7443/json"
+        }
+      ]
+    },
+    "userstats": {
+      "servers": [
+        {
+          "url": "https://charlike-muxing-01.zhanhuo.com:9443/char"
+        },
+        {
+          "url": "https://charlike-muxing-02.zhanhuo.com:9443/char"
+        }
+      ]
+    },
+    "profile_server": {
+      "servers": [
+        {
+          "url": "https://profile-muxing-01.zhanhuo.com:8443/json-rpc"
+        },
+        {
+          "url": "https://profile-muxing-02.zhanhuo.com:8443/json-rpc"
+        },
+        {
+          "url": "https://profile-muxing-03.zhanhuo.com:8443/json-rpc"
+        }
+      ]
+    },
+    "onlineStorage": {
+      "servers": {
+        "url": "https://charlike-muxing-01.zhanhuo.com:7443/char"
+      }
+    },
+    "message_queue": {
+      "port": 11300,
+      "host": "127.0.0.1"
+    }
+  },
+  "MaTi": {
+    "environment": "production",
+    "chanceOfFatalOnLogerrOnExit": 0,
+    "marketplaceURL": "",
+    "eventUrl": "https://cj.zhanhuo.com/acts",
+    "storeUrl": "https://cj.zhanhuo.com/eshop",
+    "shopUrl": "https://cj.zhanhuo.com/eshop",
+    "shopGuidUrl": "https://cj.zhanhuo.com/eshop",
+    "shopCategoryUrl": "https://cj.zhanhuo.com/eshop",
+    "webLoginUrl": "https://www.zhanhuo.com/transfer/?gamecode=101&adcode=9gxfzgez",
+    "premiumUrl": "https://cj.zhanhuo.com/eshop/account",
+    "battlePassUrl": "https://cj.zhanhuo.com/eshop/battlepass",
+    "squadCashUrl": "https://cj.zhanhuo.com/eshop/echogenic",
+    "promoUrl": "https://api.zhanhuo.com/unify/cjGamePop",
+    "replayPortalUrl": "https://act.zhanhuo.com/cj/replay",
+    "matching": {
+      "server": "match-muxing.zhanhuo.com:7853"
+    },
+    "char": {
+      "servers": [
+        {
+          "url": "https://charlike-muxing-01.zhanhuo.com:7443/json"
+        },
+        {
+          "url": "https://charlike-muxing-02.zhanhuo.com:7443/json"
+        }
+      ]
+    },
+    "userstats": {
+      "servers": [
+        {
+          "url": "https://charlike-muxing-01.zhanhuo.com:9443/char"
+        },
+        {
+          "url": "https://charlike-muxing-02.zhanhuo.com:9443/char"
+        }
+      ]
+    },
+    "profile_server": {
+      "servers": [
+        {
+          "url": "https://profile-muxing-01.zhanhuo.com:8443/json-rpc"
+        },
+        {
+          "url": "https://profile-muxing-02.zhanhuo.com:8443/json-rpc"
+        },
+        {
+          "url": "https://profile-muxing-03.zhanhuo.com:8443/json-rpc"
+        }
+      ]
+    },
+    "onlineStorage": {
+      "servers": {
+        "url": "https://charlike-muxing-01.zhanhuo.com:7443/char"
+      }
+    },
+    "message_queue": {
+      "port": 11300,
+      "host": "127.0.0.1"
+    }
+  },
+  "LX2": {
+    "environment": "production",
+    "chanceOfFatalOnLogerrOnExit": 0,
+    "marketplaceURL": "",
+    "eventUrl": "https://cj.zhanhuo.com/acts",
+    "storeUrl": "https://cj.zhanhuo.com/eshop",
+    "shopUrl": "https://cj.zhanhuo.com/eshop",
+    "shopGuidUrl": "https://cj.zhanhuo.com/eshop",
+    "shopCategoryUrl": "https://cj.zhanhuo.com/eshop",
+    "webLoginUrl": "https://www.zhanhuo.com/transfer/?gamecode=101&adcode=bs5g4xlj",
+    "premiumUrl": "https://cj.zhanhuo.com/eshop/account",
+    "battlePassUrl": "https://cj.zhanhuo.com/eshop/battlepass",
+    "squadCashUrl": "https://cj.zhanhuo.com/eshop/echogenic",
+    "promoUrl": "https://api.zhanhuo.com/unify/cjGamePop",
+    "replayPortalUrl": "https://act.zhanhuo.com/cj/replay",
     "matching": {
       "server": "match-muxing.zhanhuo.com:7853"
     },
@@ -835,7 +1708,7 @@
       "server": "match-ganymede-01.enlisted.net:7853"
     },
     "eventLog": {
-      "host": "client-logs.warthunder.com"
+      "host": "client-logs.gaijin.net"
     },
     "char": {
       "servers": [
@@ -905,10 +1778,10 @@
       "shouldPatchVromsWithRemoteVersion": true
     },
     "matching": {
-      "server": "match-oberon-lw-nl-01.enlisted.net:7853"
+      "server": "match-oberon-sv-nl-ams3-01.enlisted.net:7853"
     },
     "eventLog": {
-      "host": "client-logs.warthunder.com"
+      "host": "client-logs.gaijin.net"
     },
     "char": {
       "servers": [
@@ -980,7 +1853,7 @@
       "server": "mgate-venita-sv-nl-01.enlisted.net:7853"
     },
     "eventLog": {
-      "host": "client-logs.warthunder.com",
+      "host": "client-logs.gaijin.net",
       "project": "cr"
     },
     "char": {
@@ -1033,6 +1906,7 @@
     }
   },
   "neptune": {
+    "appPerm_1140": 28,
     "environment": "production",
     "chanceOfFatalOnLogerrOnExit": 32,
     "marketplaceURL": "https://trade.gaijin.net/",
@@ -1054,7 +1928,7 @@
       }
     ],
     "eventLog": {
-      "host": "client-logs.warthunder.com",
+      "host": "client-logs.gaijin.net",
       "project": "cr"
     },
     "char": {
@@ -1101,6 +1975,7 @@
     }
   },
   "andromeda": {
+    "appPerm_1140": 61,
     "environment": "staging",
     "chanceOfFatalOnLogerrOnExit": 32,
     "marketplaceURL": "https://trade-dev.gaijin.net/",
@@ -1117,7 +1992,7 @@
       "server": "match-andromeda-am-uk-01.enlisted.net:7853"
     },
     "eventLog": {
-      "host": "client-logs.warthunder.com",
+      "host": "client-logs.gaijin.net",
       "project": "cr"
     },
     "char": {
@@ -1169,6 +2044,7 @@
     }
   },
   "nereide": {
+    "appPerm_1140": 61,
     "environment": "staging",
     "chanceOfFatalOnLogerrOnExit": 32,
     "marketplaceURL": "https://trade-dev.gaijin.net/",
@@ -1184,7 +2060,7 @@
       "server": "mgate-nereide-01.enlisted.net:7853"
     },
     "eventLog": {
-      "host": "client-logs.warthunder.com",
+      "host": "client-logs.gaijin.net",
       "project": "cr"
     },
     "char": {
@@ -1242,6 +2118,7 @@
     "appPerm_1131": 26,
     "appPerm_1132": 26,
     "appPerm_1178": 26,
+    "appPerm_1227": 26,
     "environment": "test",
     "chanceOfFatalOnLogerrOnExit": 1,
     "alwaysReloadDataOnUpdate": true,
@@ -1291,6 +2168,79 @@
     "kaosRoyale": {
       "gssServer": "https://xaos-dev.crsed.net",
       "enabled": true
+    }
+  },
+  "internal": {
+    "appPerm_1131": 26,
+    "appPerm_1132": 26,
+    "appPerm_1178": 26,
+    "environment": "test",
+    "chanceOfFatalOnLogerrOnExit": 1,
+    "alwaysReloadDataOnUpdate": true,
+    "marketplaceURL": "http://market-test.gaijin.ops/marketPlaceExp/",
+    "shopUrl": "https://store.gaijin.net/storefront.php?category=CuisineRoyale",
+    "shopGuidUrl": "https://store.gaijin.net/yuplay/show_item.php?guid={guid}",
+    "shopCategoryUrl": "https://store.gaijin.net/catalog.php?category={category}",
+    "psnFriendsUrl": "https://auth-psn-dev.gaijinent.com/psn_friends.php",
+    "contentUpdater": {
+      "enabled": false
+    },
+    "matching": {
+      "server": "match-enlisted-gj-hu-01.gaijin.ops:7853"
+    },
+    "char": {
+      "servers": [
+        {
+          "url": "https://contact-proxy-internal.gaijin.net:443/json"
+        },
+        {
+          "url": "https://contact-proxy-internal.gaijin.net:8443/json"
+        }
+      ]
+    },
+    "inventory": {
+      "servers": [
+        {
+          "url": "https://inventory-proxy-internal.gaijin.net:443/char"
+        },
+        {
+          "url": "https://inventory-proxy-internal.gaijin.net:8443/char"
+        }
+      ]
+    },
+    "userstats": {
+      "servers": [
+        {
+          "url": "https://userstat-proxy-internal.gaijin.net:443/char"
+        },
+        {
+          "url": "https://userstat-proxy-internal.gaijin.net:8443/char"
+        }
+      ]
+    },
+    "profile_server": {
+      "servers": [
+        {
+          "url": "https://profile-proxy-internal.gaijin.net:443/json-rpc"
+        },
+        {
+          "url": "https://profile-proxy-internal.gaijin.net:8443/json-rpc"
+        }
+      ]
+    },
+    "onlineStorage": {
+      "servers": [
+        {
+          "url": "https://cloud-proxy-internal.gaijin.net:443/char"
+        },
+        {
+          "url": "https://cloud-proxy-internal.gaijin.net:8443/char"
+        }
+      ]
+    },
+    "message_queue": {
+      "port": 11300,
+      "host": "127.0.0.1"
     }
   }
 }

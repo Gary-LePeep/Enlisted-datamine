@@ -1,9 +1,14 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "math" import min
 
+let { Watched, Computed } = require("frp")
+let console_register_command = require("console").register_command
+let { console_print } = require("dagor.debug")
+let { memoize } = require("%sqstd/functools.nut")
+let { isEqual } = require("%sqstd/underscore.nut")
 let { strip } = require("string")
 let { userstatUnlocks, userstatDescList, userstatStats } = require("%enlSqGlob/userstats/userstat.nut")
 
-let isDebugPersonal = mkWatched(persist, "isDebugPersonal", false)
+let isDebugPersonal = Watched(false)
 const DAILY_TASK_KEY = "daily"
 
 let emptyProgress = {
@@ -94,7 +99,7 @@ let unlockProgress = Computed(function() {
   return allKeys.map(@(_, name) calcUnlockProgress(progressList?[name], unlockDataList?[name]))
 })
 
-let getUnlockProgress = @(unlockDesc) unlockProgress.value?[unlockDesc?.name] ?? (clone emptyProgress)
+let getUnlockProgress = @(unlockDesc, unlockProgressVal) unlockProgressVal?[unlockDesc?.name] ?? (clone emptyProgress)
 
 let mkRequirements = memoize(@(reqStr) reqStr.split("&").map(@(v) strip(v)).filter(@(v) v!=""))
 let isUnlockAvailable = @(unlockProgressV, unlock)

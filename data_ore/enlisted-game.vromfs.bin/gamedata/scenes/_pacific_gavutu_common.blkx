@@ -92,10 +92,12 @@
   {
     "entity": {
       "_template": "wind",
+      "dyn_wind__cumulus_alt_multiplier": 3.0,
+      "dyn_wind__strata_alt_multiplier": 2.0,
       "wind__strength": 6.0,
-      "wind__noiseStrength": 3.0,
-      "wind__noiseSpeed": 1.3,
-      "wind__noiseScale": 20.0
+      "wind__noiseStrength": 1.5,
+      "wind__noiseSpeed": 1.5,
+      "wind__noiseScale": 15.0
     }
   },
   {
@@ -150,6 +152,11 @@
   },
   {
     "entity": {
+      "_template": "bloom"
+    }
+  },
+  {
+    "entity": {
       "_template": "postfx_roundctrl"
     }
   },
@@ -163,21 +170,6 @@
     "entity": {
       "_template": "session_finalizer",
       "session_finalizer__timer": 10.0
-    }
-  },
-  {
-    "entity": {
-      "_template": "group_switch_timer",
-      "group_switch_timer__time": 0.0,
-      "group_switch_timer__activateGroup": "aircraft_spawn_on_carrier"
-    }
-  },
-  {
-    "entity": {
-      "_template": "group_switch_timer",
-      "group_switch_timer__time": 7200.0,
-      "group_switch_timer__deactivateGroup": "aircraft_spawn_on_carrier",
-      "group_switch_timer__activateGroup": "aircraft_spawn_in_air"
     }
   },
   {
@@ -228,12 +220,11 @@
     "entity": {
       "_template": "respAircraftOnCarrier",
       "respawnbaseType": "aircraft_fighter",
-      "groupName": "aircraft_spawn_on_carrier",
       "transform": [
         [-0.793466,0.0,0.608614],
         [0.0,1.0,0.0],
         [-0.608614,0.0,-0.793466],
-        [2849.81,14.4224,-2207.59]
+        [2836.87,14.4224,-2197.67]
       ],
       "team": 1,
       "maxVehicleOnSpawn": 1,
@@ -244,12 +235,11 @@
     "entity": {
       "_template": "respAircraftOnCarrier",
       "respawnbaseType": "aircraft_assault",
-      "groupName": "aircraft_spawn_on_carrier",
       "transform": [
         [-0.798301,0.0,0.60226],
         [0.0,1.0,0.0],
         [-0.602259,0.0,-0.798301],
-        [2856.94,14.7101,-2339.96]
+        [2841.36,14.7101,-2328.2]
       ],
       "team": 1,
       "maxVehicleOnSpawn": 1,
@@ -260,7 +250,6 @@
     "entity": {
       "_template": "respAircraftOnWater",
       "respawnbaseType": "aircraft_assault",
-      "groupName": "aircraft_spawn_on_carrier",
       "transform": [
         [-0.805542,0.0,0.592538],
         [0.0,1.0,0.0],
@@ -269,20 +258,18 @@
       ],
       "team": 1,
       "maxVehicleOnSpawn": 1,
-      "respTime": 120,
-      "sphere_zone__radius": 500.0
+      "respTime": 120
     }
   },
   {
     "entity": {
       "_template": "respAircraftOnCarrier",
       "respawnbaseType": "aircraft_fighter",
-      "groupName": "aircraft_spawn_on_carrier",
       "transform": [
         [0.94295,0.0,-0.332936],
         [0.0,1.0,0.0],
         [0.332936,-0.0,0.94295],
-        [-2927.94,15.391,884.447]
+        [-2905.37,15.391,876.476]
       ],
       "team": 2,
       "maxVehicleOnSpawn": 1,
@@ -293,12 +280,11 @@
     "entity": {
       "_template": "respAircraftOnCarrier",
       "respawnbaseType": "aircraft_assault",
-      "groupName": "aircraft_spawn_on_carrier",
       "transform": [
-        [0.936385,0.0,-0.350972],
+        [0.938525,0.0,-0.345209],
         [0.0,1.0,0.0],
-        [0.350973,-0.0,0.936385],
-        [-2938.13,16.1225,997.533]
+        [0.345209,-0.0,0.938525],
+        [-2915.69,16.1225,989.248]
       ],
       "team": 2,
       "maxVehicleOnSpawn": 1,
@@ -309,7 +295,6 @@
     "entity": {
       "_template": "respAircraftOnWater",
       "respawnbaseType": "aircraft_assault",
-      "groupName": "aircraft_spawn_on_carrier",
       "transform": [
         [0.934841,-0.0228478,-0.354331],
         [0.0146375,0.999559,-0.0258345],
@@ -318,20 +303,18 @@
       ],
       "team": 2,
       "maxVehicleOnSpawn": 1,
-      "respTime": 120,
-      "sphere_zone__radius": 500.0
+      "respTime": 120
     }
   },
   {
     "entity": {
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_fighter",
-      "groupName": "aircraft_spawn_in_air",
       "transform": [
         [-0.99923,0.0,0.0392074],
         [0.0,1.0,0.0],
         [-0.0392074,0.0,-0.999231],
-        [2328.4,842.869,-89.8318]
+        [3712.23,842.869,-402.215]
       ],
       "team": 1,
       "maxVehicleOnSpawn": 1,
@@ -342,28 +325,11 @@
     "entity": {
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_fighter",
-      "groupName": "aircraft_spawn_in_air",
       "transform": [
         [-0.99923,0.0,0.0392074],
         [0.0,1.0,0.0],
         [-0.0392074,0.0,-0.999231],
-        [2291.1,842.869,-285.719]
-      ],
-      "team": 1,
-      "maxVehicleOnSpawn": 1,
-      "respTime": 120
-    }
-  },
-  {
-    "entity": {
-      "_template": "respAircraftInAir",
-      "respawnbaseType": "aircraft_assault",
-      "groupName": "aircraft_spawn_in_air",
-      "transform": [
-        [-0.99923,0.0,0.0392074],
-        [0.0,1.0,0.0],
-        [-0.0392074,0.0,-0.999231],
-        [2328.4,642.869,-89.8318]
+        [3674.93,842.869,-598.102]
       ],
       "team": 1,
       "maxVehicleOnSpawn": 1,
@@ -374,12 +340,26 @@
     "entity": {
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_assault",
-      "groupName": "aircraft_spawn_in_air",
       "transform": [
         [-0.99923,0.0,0.0392074],
         [0.0,1.0,0.0],
         [-0.0392074,0.0,-0.999231],
-        [2258.97,642.869,-312.685]
+        [3712.23,642.869,-402.215]
+      ],
+      "team": 1,
+      "maxVehicleOnSpawn": 1,
+      "respTime": 120
+    }
+  },
+  {
+    "entity": {
+      "_template": "respAircraftInAir",
+      "respawnbaseType": "aircraft_assault",
+      "transform": [
+        [-0.99923,0.0,0.0392074],
+        [0.0,1.0,0.0],
+        [-0.0392074,0.0,-0.999231],
+        [3642.8,642.869,-625.068]
       ],
       "team": 1,
       "maxVehicleOnSpawn": 1,
@@ -390,44 +370,26 @@
     "entity": {
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_fighter",
-      "groupName": "aircraft_spawn_in_air",
       "transform": [
-        [0.998974,0.0,-0.0452783],
-        [0.0,1.0,0.0],
-        [0.0452784,-0.0,0.998974],
-        [-2008.9,1023.92,-147.33]
-      ],
-      "team": 2,
-      "maxVehicleOnSpawn": 1,
-      "respTime": 120
-    }
-  },
-  {
-    "entity": {
-      "_template": "respAircraftInAir",
-      "respawnbaseType": "aircraft_fighter",
-      "groupName": "aircraft_spawn_in_air",
-      "transform": [
-        [0.999958,0.0,-0.00937597],
-        [0.0,1.0,0.0],
-        [0.00937597,-0.0,0.999958],
-        [-2036.71,1023.92,91.3721]
-      ],
-      "team": 2,
-      "maxVehicleOnSpawn": 1,
-      "respTime": 120
-    }
-  },
-  {
-    "entity": {
-      "_template": "respAircraftInAir",
-      "respawnbaseType": "aircraft_assault",
-      "groupName": "aircraft_spawn_in_air",
-      "transform": [
-        [0.999913,0.0,0.0132278],
+        [1.0,0.0,0.000329163],
         [0.0,1.0,-0.0],
-        [-0.0132278,0.0,0.999913],
-        [-2013.28,823.92,134.336]
+        [-0.000329163,0.0,1.0],
+        [-3448.1,1023.92,-223.983]
+      ],
+      "team": 2,
+      "maxVehicleOnSpawn": 1,
+      "respTime": 120
+    }
+  },
+  {
+    "entity": {
+      "_template": "respAircraftInAir",
+      "respawnbaseType": "aircraft_fighter",
+      "transform": [
+        [0.999345,0.0,0.036239],
+        [0.0,1.0,-0.0],
+        [-0.036239,0.0,0.999345],
+        [-3486.77,1023.92,13.2027]
       ],
       "team": 2,
       "maxVehicleOnSpawn": 1,
@@ -438,12 +400,26 @@
     "entity": {
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_assault",
-      "groupName": "aircraft_spawn_in_air",
       "transform": [
-        [0.999939,0.0,-0.0110104],
-        [0.0,1.0,0.0],
-        [0.0110104,-0.0,0.999939],
-        [-2008.9,823.92,-147.33]
+        [0.998269,0.0,0.0588172],
+        [0.0,1.0,-0.0],
+        [-0.0588172,0.0,0.998269],
+        [-3465.32,823.92,57.1905]
+      ],
+      "team": 2,
+      "maxVehicleOnSpawn": 1,
+      "respTime": 120
+    }
+  },
+  {
+    "entity": {
+      "_template": "respAircraftInAir",
+      "respawnbaseType": "aircraft_assault",
+      "transform": [
+        [0.999401,0.0,0.0346054],
+        [0.0,1.0,-0.0],
+        [-0.0346054,0.0,0.999401],
+        [-3448.1,823.92,-223.983]
       ],
       "team": 2,
       "maxVehicleOnSpawn": 1,
@@ -457,7 +433,7 @@
         [0.473545,0.0,0.880768],
         [0.0,1.0,0.0],
         [-0.880768,0.0,0.473545],
-        [2417.99,649.743,-4726.38]
+        [887.879,523.517,-3905.14]
       ],
       "resupply_zone__team": 1
     }
@@ -469,7 +445,7 @@
         [-0.995385,0.0,0.0959728],
         [0.0,1.0,0.0],
         [-0.0959728,0.0,-0.995385],
-        [-3665.97,675.322,3070.82]
+        [-2536.52,555.804,2433.98]
       ],
       "resupply_zone__team": 2
     }
@@ -481,7 +457,7 @@
         [0.473545,0.0,0.880768],
         [0.0,1.0,0.0],
         [-0.880768,0.0,0.473545],
-        [759.666,649.743,-3614.37]
+        [886.467,523.497,-3904.91]
       ],
       "resupply_zone__team": 1
     }
@@ -493,7 +469,7 @@
         [-0.995385,0.0,0.0959728],
         [0.0,1.0,0.0],
         [-0.0959728,0.0,-0.995385],
-        [-2410.6,675.322,2135.3]
+        [-2537.51,555.804,2431.68]
       ],
       "resupply_zone__team": 2
     }
@@ -1066,7 +1042,7 @@
         [0.746832,0.0506146,0.663081],
         [0.661637,0.0437826,-0.748548],
         [-0.0669189,0.99776,-0.000790228],
-        [124.358,4.38066,-109.651]
+        [123.689,4.38066,-110.459]
       ]
     }
   },

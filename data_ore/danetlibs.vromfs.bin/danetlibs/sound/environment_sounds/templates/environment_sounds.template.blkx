@@ -1,10 +1,10 @@
 {
-  "reverb_sound": [
+  "base_reverb_sound": [
     {
-      "_extends": "sound_bank_preset_state"
+      "_use": "sound_banks_state"
     },
     {
-      "_extends": "replicating"
+      "_use": "replicating"
     },
     {
       "_singleton": true
@@ -12,16 +12,23 @@
     {
       "_group": {
         "_tags": "sound",
+        "reverb_sound__rayId": 0,
+        "reverb_sound__intensityValue": 0.0,
+        "reverb_sound__roomSizeValue": 0.0,
+        "reverb_sound__absorptionValue": 0.0,
+        "reverb_sound__absorptionRays": 0,
+        "reverb_sound__intensity_roomSize_absorption_weight": [0.0,0.0,0.0,0.0],
         "reverb_sound__path": "snapshots/reverb_indoor",
         "reverb_sound__intensityVar": "reverbIndoor",
-        "reverb_sound__intensityMax": 0.625,
         "reverb_sound__roomSizeVar": "roomSize",
+        "reverb_sound__absorptionVar": "absorption",
+        "reverb_sound__absorptionNormalize": true,
+        "reverb_sound__intensityMax": 0.625,
         "reverb_sound__roomSizeMax": 9.375,
-        "reverb_sound__rayLength": 10.0,
         "reverb_sound__fadeOutPower": 10.0,
-        "reverb_sound__rayId": 0,
-        "reverb_sound__intensityValues": [0.0,0.0,0.0],
-        "reverb_sound__roomSizeValues": [0.0,0.0,0.0],
+        "reverb_sound__rayLength": 10.0,
+        "reverb_sound__defAbsorption": 0.5,
+        "reverb_sound__PMIDToAbsorption:list<r>": [],
         "reverb_sound__event:SoundEvent": [],
         "reverb_sound__rays:list<p3>": [
           {
@@ -63,7 +70,8 @@
           {
             "ray": [-0.8791,0.4686,-0.0867]
           }
-        ]
+        ],
+        "reverb_sound__physmatAbsorption:array": []
       }
     }
   ],
@@ -77,10 +85,10 @@
   },
   "shore_sound": [
     {
-      "_extends": "sound_bank_preset_state"
+      "_use": "sound_banks_state"
     },
     {
-      "_extends": "replicating"
+      "_use": "replicating"
     },
     {
       "transform": [
@@ -93,7 +101,8 @@
     {
       "_group": {
         "_tags": "sound",
-        "shore_sound__path": "ambient/positioned/beach",
+        "shore_sound__path": "ambient/positioned/ocean",
+        "shore_sound__shoreDistanceToVar": [0.0,250.0,1.0,0.0],
         "shore_sound__event:SoundEvent": []
       }
     },
@@ -103,20 +112,18 @@
   ],
   "spline_sound": [
     {
-      "_extends": "sound_bank_preset_state"
+      "_use": "sound_banks_state"
     },
     {
-      "_extends": "global_sound_listener_position"
-    },
-    {
-      "_extends": "replicating"
+      "_use": "replicating"
     },
     {
       "_group": {
         "_tags": "sound",
         "spline_sound__pos": [0.0,0.0,0.0],
+        "spline_sound__eventPos": [0.0,0.0,0.0],
         "spline_sound__radius": 0.0,
-        "spline_sound__pointId": -1,
+        "spline_sound__pointId": 0,
         "spline_sound__range": 0.0,
         "spline_sound__isInside": false,
         "spline_sound__path": "",
@@ -129,38 +136,68 @@
     }
   ],
   "river_sound": {
-    "_extends": "spline_sound",
+    "_use": "spline_sound",
     "_group": {
       "_tags": "sound",
       "spline_sound__floorOnWater": true,
       "spline_sound__path": "ambient/positioned/river_mid"
     }
   },
+  "lake_mid_river_sound": {
+    "_use": "river_sound",
+    "_group": {
+      "_tags": "sound",
+      "spline_sound__path": "ambient/positioned/lake_mid"
+    }
+  },
   "ocean_sound": [
     {
-      "_extends": "sound_bank_preset_state"
+      "_use": "sound_banks_state"
     },
     {
-      "_extends": "replicating"
+      "_use": "replicating"
     },
     {
       "_group": {
         "_tags": "sound",
-        "ocean_sound__path": "ambient/positioned/beach",
+        "ocean_sound__range": 0.0,
+        "ocean_sound__path": "ambient/positioned/ocean",
+        "ocean_sound__shoreVar": "shore",
         "ocean_sound__waterLevel": 0.0,
+        "ocean_sound__shoreDistanceToVar": [0.0,250.0,1.0,0.0],
+        "ocean_sound__playSoundInside": false,
+        "ocean_sound_update__idx": -1,
+        "ocean_sound_update__firstSplinePointIdx": 0,
+        "ocean_sound_update__numIntersections": 0,
+        "ocean_sound_update__closestPtOnSpline": [0.0,0.0],
+        "ocean_sound_update__closestPtOnSplineInited": false,
+        "ocean_sound_update__closestPtOnShore": [0.0,0.0],
+        "ocean_sound_update__closestPtOnShoreInited": false,
+        "ocean_sound__closestShorePt": [0.0,0.0],
+        "ocean_sound__closestPtOnSpline": [0.0,0.0],
+        "ocean_sound__isInside": false,
         "ocean_sound__event:SoundEvent": []
       }
     },
     {
-      "ocean_sound__points:list<p4>": []
+      "ocean_sound__points:list<p3>": []
     }
   ],
+  "sea_sound": {
+    "_use": "ocean_sound",
+    "_group": {
+      "_tags": "sound",
+      "ocean_sound__playSoundInside": true,
+      "ocean_sound__path": "ambient/positioned/lake_mid",
+      "ocean_sound__shoreVar": ""
+    }
+  },
   "ambient_sound": [
     {
-      "_extends": "replicating"
+      "_use": "replicating"
     },
     {
-      "_extends": "sound_bank_preset_state"
+      "_use": "sound_banks_state"
     },
     {
       "_group": {
@@ -172,20 +209,27 @@
   ],
   "volume_ambient_sound": [
     {
-      "_extends": "game_object_sound"
+      "_use": "game_object_sound"
     },
     {
-      "_extends": "sound_bank_preset_state"
-    },
-    {
-      "_extends": "global_sound_listener_position"
+      "_use": "sound_banks_state"
     },
     {
       "_group": {
         "_tags": "sound",
+        "volume_ambient_sound__transform": [
+          [1.0,0.0,0.0],
+          [0.0,1.0,0.0],
+          [0.0,0.0,1.0],
+          [0.0,0.0,0.0]
+        ],
         "volume_ambient_sound__extent_maxRadiusSq": [0.0,0.0,0.0,0.0],
+        "volume_ambient_sound__closestDistSq": 0.0,
+        "volume_ambient_sound__volume": 0.0,
         "volume_ambient_sound__range": 0.0,
         "volume_ambient_sound__autoRange": true,
+        "volume_ambient_sound__fadeInOutSpeed": [1.0,1.0],
+        "volume_ambient_sound__reverb_intensity_roomSize_absorption_weight": [0.0,0.0,0.0,0.0],
         "volume_ambient_sound__event:SoundEvent": []
       }
     },
@@ -198,13 +242,10 @@
   ],
   "compound_ambient_sound": [
     {
-      "_extends": "game_object_compound_sound"
+      "_use": "game_object_compound_sound"
     },
     {
-      "_extends": "sound_bank_preset_state"
-    },
-    {
-      "_extends": "global_sound_listener_position"
+      "_use": "sound_banks_state"
     },
     {
       "_group": {
@@ -215,8 +256,11 @@
         "compound_ambient_sound__closestDistSq": 0.0,
         "compound_ambient_sound__closestPt": [0.0,0.0,0.0],
         "compound_ambient_sound__dist": [0.0,0.0],
+        "compound_ambient_sound__volume": 0.0,
         "compound_ambient_sound__range": 0.0,
         "compound_ambient_sound__autoRange": true,
+        "compound_ambient_sound__fadeInOutSpeed": [1.0,1.0],
+        "compound_ambient_sound__reverb_intensity_roomSize_absorption_weight": [0.0,0.0,0.0,0.0],
         "compound_ambient_sound__event:SoundEvent": [],
         "compound_ambient_sound__extents_maxRadiusSq:list<p4>": []
       }
@@ -228,8 +272,58 @@
       }
     }
   ],
+  "replicated_volume_ambient_sound": [
+    {
+      "_use": "volume_ambient_sound"
+    },
+    {
+      "_use": "replicating"
+    }
+  ],
+  "replicated_compound_ambient_sound": [
+    {
+      "_use": "compound_ambient_sound"
+    },
+    {
+      "_use": "replicating"
+    }
+  ],
+  "box_sound_shape": {
+    "_group": {
+      "_tags": "sound",
+      "sound_shape__type": "box",
+      "boxSoundShape:tag": []
+    }
+  },
+  "sphere_sound_shape": {
+    "_group": {
+      "_tags": "sound",
+      "sound_shape__type": "sphere",
+      "sphereSoundShape:tag": []
+    }
+  },
+  "capsule_sound_shape": {
+    "_group": {
+      "_tags": "sound",
+      "sound_shape__type": "capsule",
+      "capsuleSoundShape:tag": []
+    }
+  },
+  "sound_shape_debug": {
+    "_group": {
+      "_tags": "sound",
+      "soundShapeDebug:tag": []
+    }
+  },
+  "sound_field": {
+    "sound_field__offset": [0.0,0.0],
+    "sound_field__numCells": [0,0],
+    "sound_field__cellSize": 0.0,
+    "sound_field__cells:list<u32>": [],
+    "sound_field__tmsDebug:list<m>": []
+  },
   "biome_sound_query": {
-    "_extends": "replicating",
+    "_use": "replicating",
     "_singleton": true,
     "_group": {
       "_tags": "sound",
@@ -265,17 +359,17 @@
   },
   "global_sound_var_base": [
     {
-      "_extends": "replicating"
+      "_use": "replicating"
     },
     {
-      "_extends": "sound_bank_preset_state"
+      "_use": "sound_banks_state"
     },
     {
       "_singleton": true
     }
   ],
   "rain_global_sound_var": {
-    "_extends": "global_sound_var_base",
+    "_use": "global_sound_var_base",
     "_group": {
       "_tags": "sound",
       "rain_global_sound_var__nextTime": 0.0,
@@ -286,7 +380,7 @@
     }
   },
   "daytime_global_sound_var": {
-    "_extends": "global_sound_var_base",
+    "_use": "global_sound_var_base",
     "_group": {
       "_tags": "sound",
       "daytime_global_sound_var__nextTime": 0.0,
@@ -296,17 +390,18 @@
     }
   },
   "altitude_global_sound_var": {
-    "_extends": "global_sound_var_base",
+    "_use": "global_sound_var_base",
     "_group": {
       "_tags": "sound",
       "altitude_global_sound_var__nextTime": 0.0,
       "altitude_global_sound_var__name": "altitude",
       "altitude_global_sound_var__interval": 1.5,
+      "altitude_global_sound_var__altitudeToVar": [1.0,0.0],
       "altitude_global_sound_var__id:SoundVarId": []
     }
   },
   "region_global_sound_var": {
-    "_extends": "global_sound_var_base",
+    "_use": "global_sound_var_base",
     "_group": {
       "_tags": "sound",
       "region_global_sound_var__nextTime": 0.0,
@@ -316,7 +411,7 @@
     }
   },
   "birds_global_sound_var": {
-    "_extends": "global_sound_var_base",
+    "_use": "global_sound_var_base",
     "_group": {
       "_tags": "sound",
       "birds_global_sound_var__value": -1.0,
@@ -328,24 +423,24 @@
   },
   "global_sound_vars": [
     {
-      "_extends": "rain_global_sound_var"
+      "_use": "rain_global_sound_var"
     },
     {
-      "_extends": "daytime_global_sound_var"
+      "_use": "daytime_global_sound_var"
     },
     {
-      "_extends": "altitude_global_sound_var"
+      "_use": "altitude_global_sound_var"
     },
     {
-      "_extends": "region_global_sound_var"
+      "_use": "region_global_sound_var"
     }
   ],
   "base_menu_music": [
     {
-      "_extends": "sound_bank_preset_state"
+      "_use": "sound_banks_state"
     },
     {
-      "_extends": "replicating"
+      "_use": "replicating"
     },
     {
       "_tracked": "menu_music__theme"
@@ -363,5 +458,13 @@
         "menu_music__themes:object": []
       }
     }
-  ]
+  ],
+  "rendinst_tree_sounds": {
+    "_use": "replicating",
+    "_group": {
+      "_tags": "sound",
+      "rendinst_tree_sounds__fallingPath": "env_effects/object_crash/tree",
+      "rendinst_tree_sounds__falledPath": "env_effects/object_crash/tree_fall"
+    }
+  }
 }

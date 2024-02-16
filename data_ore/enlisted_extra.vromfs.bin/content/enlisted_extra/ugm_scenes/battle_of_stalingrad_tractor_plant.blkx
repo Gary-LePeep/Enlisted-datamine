@@ -111,11 +111,14 @@
   },
   {
     "entity": {
-      "_template": "postfx_roundctrl",
-      "post_fx:object": {
-        "bloom__threshold": 3.8,
-        "bloom__upSample": 0.15
-      }
+      "_template": "bloom",
+      "bloom__threshold": 3.8,
+      "bloom__upSample": 0.15
+    }
+  },
+  {
+    "entity": {
+      "_template": "postfx_roundctrl"
     }
   },
   {

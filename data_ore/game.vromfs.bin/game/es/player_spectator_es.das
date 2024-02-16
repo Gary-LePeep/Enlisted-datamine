@@ -11,7 +11,7 @@ require game.utils.net_utils
 require game.utils.team
 require GameTimers
 require matching
-require EnlistedNet
+require DngNet
 require player
 
 let DEF_SPECTATE_TIME : float = 5.f
@@ -23,7 +23,7 @@ def player_spectate_target_es(evt : EventSpectateTarget; eid : EntityId; connid 
   let playerTeam : int = team
   var specTarget : EntityId? = getRW_Eid(eid, "specTarget")
   assert(specTarget != null)
-  if reqSpecTarget == *specTarget
+  if reqSpecTarget == *specTarget || !evt.initial && *specTarget == INVALID_ENTITY_ID
     return
   var validReqSpecTarget : bool = !has_network() || ((clientNetFlags & int(ClientNetFlags CNF_DEVELOPER)) != 0)
   // Client's valid spec target might die while this request was in flight, try to find new one if this happened

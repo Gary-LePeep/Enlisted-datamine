@@ -71,25 +71,34 @@ let seenDecorators = Computed(function() {
   return res.__update({ unopened, unseen })
 })
 
+let cfgPortraits = Computed(@() decoratorsCfgByType.value?.portrait ?? {})
+let cfgNickFrames = Computed(@() decoratorsCfgByType.value?.nickFrame ?? {})
 let hasUnseenPortraits = Computed(function() {
-  let cfg = decoratorsCfgByType.value?.portrait ?? {}
-  return (seenDecorators.value?.unseen ?? {}).filter(@(d) d.guid in cfg).len() > 0
+  let cfgP = cfgPortraits.value
+  return (seenDecorators.value?.unseen ?? {}).findindex(@(d) d.guid in cfgP) != null
 })
 
 let hasUnseenNickFrames = Computed(function() {
-  let cfg = decoratorsCfgByType.value?.nickFrame ?? {}
-  return (seenDecorators.value?.unseen ?? {}).filter(@(d) d.guid in cfg).len() > 0
+  let cfgN = cfgNickFrames.value
+  return (seenDecorators.value?.unseen ?? {}).findindex(@(d) d.guid in cfgN)!=null
 })
 
-let unopenedPortraits = Computed(function() {
-  let cfg = decoratorsCfgByType.value?.portrait ?? {}
-  return (seenDecorators.value?.unopened ?? {}).filter(@(d) d.guid in cfg).keys()
+let _unopened = Computed(function() {
+  let cfgP = cfgPortraits.value
+  let cfgN = cfgNickFrames.value
+  let unopenedPortraits = []
+  let unopenedNickFrames = []
+  foreach (guid, data in (seenDecorators.value?.unopened ?? {})){
+    if (guid in cfgP)
+      unopenedPortraits.append(data)
+    if (guid in cfgN)
+      unopenedNickFrames.append(data)
+  }
+  return {unopenedPortraits, unopenedNickFrames}
 })
 
-let unopenedNickFrames = Computed(function() {
-  let cfg = decoratorsCfgByType.value?.nickFrame ?? {}
-  return (seenDecorators.value?.unopened ?? {}).filter(@(d) d.guid in cfg).keys()
-})
+let unopenedPortraits = Computed(@() _unopened.value["unopenedPortraits"])
+let unopenedNickFrames = Computed(@() _unopened.value["unopenedNickFrames"])
 
 let hasUnopenedDecorators = Computed(@()
   (seenDecorators.value?.unopened ?? {}).len() > 0)

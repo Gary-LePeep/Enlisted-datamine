@@ -9,6 +9,7 @@ require danetlibs.imgui_daeditor.daEditor.daEditor_common
 def entity_button(name : string; eid : EntityId)
   if imgui::Button("{name} ({eid})")
     if eid != INVALID_ENTITY_ID
+      entity_object_editor_updateObjectsList()
       editor_select_eid(eid, true)
 
   if IsItemHovered()

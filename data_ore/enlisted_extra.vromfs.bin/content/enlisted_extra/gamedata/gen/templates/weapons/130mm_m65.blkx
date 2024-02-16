@@ -16,13 +16,13 @@
   },
   "tankgun_130mm_m65": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_tankgun_cannon"
+      "_use": "base_tankgun_cannon"
     },
     {
-      "_extends": "base_130mm_m65"
+      "_use": "base_130mm_m65"
     },
     {
       "turret__triggerGroup": 0

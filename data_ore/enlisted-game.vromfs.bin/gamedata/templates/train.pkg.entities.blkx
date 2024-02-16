@@ -23,7 +23,7 @@
   },
   {
     "train_sound": {
-      "_extends": "train_sound_speed",
+      "_use": "train_sound_speed",
       "_group": {
         "_tags": "sound",
         "train_sound__range": 0.0,
@@ -59,7 +59,7 @@
   },
   {
     "train_destination_point": {
-      "_extends": "replicating",
+      "_use": "replicating",
       "transform": [
         [1.0,0.0,0.0],
         [0.0,1.0,0.0],
@@ -91,19 +91,19 @@
   {
     "base_train": [
       {
-        "_extends": "replicating"
+        "_use": "replicating"
       },
       {
-        "_extends": "base_net_phys"
+        "_use": "base_net_phys"
       },
       {
-        "_extends": "animchar"
+        "_use": "animchar"
       },
       {
-        "_extends": "simple_damage_model"
+        "_use": "simple_damage_model"
       },
       {
-        "_extends": "destroy_buildings_collision"
+        "_use": "destroy_buildings_collision"
       },
       {
         "animchar_render__enabled": true
@@ -138,6 +138,9 @@
         "damage_model__isExtendTraceModeAllowed": false
       },
       {
+        "collision_physMatId": -1
+      },
+      {
         "pair_collision__tag": "collidableToPhysObj"
       },
       {
@@ -147,7 +150,10 @@
         "collisionGridTraceable": true
       },
       {
-        "hitmarks_victim__showUserHits": false
+        "hitmarks_victim__group": "train"
+      },
+      {
+        "hitmarks_victim__groupId": -1
       },
       {
         "grid_obj": []
@@ -160,6 +166,9 @@
       },
       {
         "phys_obj_net_phys": []
+      },
+      {
+        "base_net_phys_ptr": []
       },
       {
         "pair_collision__gridHolders": []
@@ -205,7 +214,7 @@
   },
   {
     "train_abstroffwagen": {
-      "_extends": "base_train",
+      "_use": "base_train",
       "animchar__res": "abstroffwagen_char",
       "collres__res": "abstroffwagen_collision",
       "phys_obj_net_phys__blk": "content/enlisted/gamedata/units/wagens/train_abstroffwagen.blk",
@@ -214,7 +223,7 @@
   },
   {
     "train_abstroffwagen_b": {
-      "_extends": "base_train",
+      "_use": "base_train",
       "animchar__res": "abstroffwagen_b_char",
       "collres__res": "abstroffwagen_b_collision",
       "phys_obj_net_phys__blk": "content/enlisted/gamedata/units/wagens/train_abstroffwagen_b.blk",
@@ -223,7 +232,7 @@
   },
   {
     "train_artillerie_flak_wagen": {
-      "_extends": "base_train",
+      "_use": "base_train",
       "vehicleName": "artillerie_flak_wagen",
       "animchar__res": "artillerie_flak_wagen_char",
       "collres__res": "artillerie_flak_wagen_collision",
@@ -233,7 +242,7 @@
   },
   {
     "train_geschutz_wagen": {
-      "_extends": "base_train",
+      "_use": "base_train",
       "animchar__res": "geschutz_wagen_char",
       "collres__res": "geschutz_wagen_collision",
       "phys_obj_net_phys__blk": "content/enlisted/gamedata/units/wagens/train_geschutz_wagen.blk",
@@ -242,7 +251,7 @@
   },
   {
     "train_kommando_infanterie_wagen": {
-      "_extends": "base_train",
+      "_use": "base_train",
       "animchar__res": "kommando_infanterie_wagen_char",
       "collres__res": "kommando_infanterie_wagen_collision",
       "phys_obj_net_phys__blk": "content/enlisted/gamedata/units/wagens/train_kommando_infanterie_wagen.blk",
@@ -251,7 +260,7 @@
   },
   {
     "train_panzerjagerwagen": {
-      "_extends": "base_train",
+      "_use": "base_train",
       "animchar__res": "panzerjagerwagen_char",
       "collres__res": "panzerjagerwagen_collision",
       "phys_obj_net_phys__blk": "content/enlisted/gamedata/units/wagens/train_panzerjagerwagen.blk",
@@ -260,7 +269,7 @@
   },
   {
     "train_panzertragerwagen": {
-      "_extends": "base_train",
+      "_use": "base_train",
       "animchar__res": "panzertragerwagen_char",
       "collres__res": "panzertragerwagen_collision",
       "phys_obj_net_phys__blk": "content/enlisted/gamedata/units/wagens/train_panzertragerwagen.blk",
@@ -269,7 +278,7 @@
   },
   {
     "train_panzerzug_bp_44_lokomotiv": {
-      "_extends": "base_train",
+      "_use": "base_train",
       "animchar__res": "panzerzug_bp_44_lokomotiv_char",
       "collres__res": "panzerzug_bp_44_lokomotiv_collision",
       "phys_obj_net_phys__blk": "content/enlisted/gamedata/units/wagens/train_panzerzug_bp_44_lokomotiv.blk",
@@ -291,7 +300,7 @@
   },
   {
     "train_panzerzug_bp_44_lokomotiv_b": {
-      "_extends": "base_train",
+      "_use": "base_train",
       "animchar__res": "panzerzug_bp_44_lokomotiv_b_char",
       "collres__res": "panzerzug_bp_44_lokomotiv_b_collision",
       "phys_obj_net_phys__blk": "content/enlisted/gamedata/units/wagens/train_panzerzug_bp_44_lokomotiv_b.blk",
@@ -338,7 +347,7 @@
   },
   {
     "base_wagen": {
-      "_extends": "moveable_obstacle",
+      "_use": "moveable_obstacle",
       "train__wheels:list<t>": [
         {
           "node": "wheel_l_01"
@@ -356,6 +365,7 @@
       "train__wheelNodeIds:list<i>": [],
       "train__wheelRotations:list<r>": [],
       "train:tag": [],
+      "animchar__actOnCreate:tag": [],
       "building__simplifiedCollisionCheck:tag": []
     }
   },
@@ -378,13 +388,13 @@
   {
     "berlin_train_carts": [
       {
-        "_extends": "train_sound"
+        "_use": "train_sound"
       },
       {
-        "_extends": "train_escort_narrator"
+        "_use": "train_escort_narrator"
       },
       {
-        "_extends": "replicating"
+        "_use": "replicating"
       },
       {
         "transform": [
@@ -494,10 +504,10 @@
   {
     "moving_car_abstroffwagen": [
       {
-        "_extends": "train_abstroffwagen"
+        "_use": "train_abstroffwagen"
       },
       {
-        "_extends": "base_wagen"
+        "_use": "base_wagen"
       },
       {
         "train__teamOffense": 2
@@ -604,10 +614,10 @@
   {
     "moving_car_abstroffwagen_b": [
       {
-        "_extends": "train_abstroffwagen_b"
+        "_use": "train_abstroffwagen_b"
       },
       {
-        "_extends": "base_wagen"
+        "_use": "base_wagen"
       },
       {
         "train__teamOffense": 2
@@ -705,7 +715,7 @@
   },
   {
     "train_attachment": {
-      "_extends": "train_attachment_enter_limits",
+      "_use": "train_attachment_enter_limits",
       "train_attachment__node": "",
       "train_attachment__localTm": [
         [1.0,0.0,0.0],
@@ -733,10 +743,10 @@
   {
     "flak_wagen_flak38_gun_ul": [
       {
-        "_extends": "tankgun_flak38_flakvierling_20mm_kwk30_ul"
+        "_use": "tankgun_flak38_flakvierling_20mm_kwk30_ul"
       },
       {
-        "_extends": "train_flak_ammo"
+        "_use": "train_flak_ammo"
       },
       {
         "turret__limit": [-180.0,180.0,-5.0,87.0]
@@ -752,38 +762,39 @@
   {
     "flak_wagen_flak38_gun_ur": [
       {
-        "_extends": "tankgun_flak38_flakvierling_20mm_kwk30_ur"
+        "_use": "tankgun_flak38_flakvierling_20mm_kwk30_ur"
       },
       {
-        "_extends": "train_flak_ammo"
+        "_use": "train_flak_ammo"
       }
     ]
   },
   {
     "flak_wagen_flak38_gun_dl": [
       {
-        "_extends": "tankgun_flak38_flakvierling_20mm_kwk30_dl"
+        "_use": "tankgun_flak38_flakvierling_20mm_kwk30_dl"
       },
       {
-        "_extends": "train_flak_ammo"
+        "_use": "train_flak_ammo"
       }
     ]
   },
   {
     "flak_wagen_flak38_gun_dr": [
       {
-        "_extends": "tankgun_flak38_flakvierling_20mm_kwk30_dr"
+        "_use": "tankgun_flak38_flakvierling_20mm_kwk30_dr"
       },
       {
-        "_extends": "train_flak_ammo"
+        "_use": "train_flak_ammo"
       }
     ]
   },
   {
     "moving_car_artillerie_flak_wagen_flak38_cannon": {
-      "_extends": "cannon_germ_20mm_flak38_flakvierling_green_camo",
+      "_use": "cannon_germ_20mm_flak38_flakvierling_green_camo",
       "damage_model__blk": "content/enlisted/gamedata/units/cannons/train_germ_20mm_flak38_flakvierling.blk",
       "buildingRadius": 1.5,
+      "buildingCenterOffset": [0.0,0.0,0.0],
       "buildingCost": 8.0,
       "fortification_repair__costPercent": 0.5,
       "building_menu__text": "building_tool/aaa_cannon_flak38_flakvierling",
@@ -830,7 +841,7 @@
   },
   {
     "wagen_artillerie_turret": {
-      "_extends": "geschutz_wagen_artillerie_turret",
+      "_use": "geschutz_wagen_artillerie_turret",
       "vehicle_seats__autoDetectRestrictToTeam": false,
       "phys__kinematicBody:tag": [],
       "animchar__updatableOnSleepPhys:tag": [],
@@ -840,10 +851,10 @@
   {
     "moving_car_artillerie_flak_wagen": [
       {
-        "_extends": "train_artillerie_flak_wagen"
+        "_use": "train_artillerie_flak_wagen"
       },
       {
-        "_extends": "base_wagen"
+        "_use": "base_wagen"
       },
       {
         "train__teamOffense": 2
@@ -997,10 +1008,10 @@
   {
     "moving_car_geschutz_wagen": [
       {
-        "_extends": "train_geschutz_wagen"
+        "_use": "train_geschutz_wagen"
       },
       {
-        "_extends": "base_wagen"
+        "_use": "base_wagen"
       },
       {
         "train__teamOffense": 2
@@ -1148,10 +1159,10 @@
   {
     "moving_car_kommando_infanterie_wagen": [
       {
-        "_extends": "train_kommando_infanterie_wagen"
+        "_use": "train_kommando_infanterie_wagen"
       },
       {
-        "_extends": "base_wagen"
+        "_use": "base_wagen"
       },
       {
         "train__teamOffense": 2
@@ -1297,7 +1308,7 @@
   },
   {
     "moving_car_panzerjagerwagen_pzkpfw_IV_ausf_H_turret": {
-      "_extends": "pzkpfw_IV_ausf_H_turret",
+      "_use": "pzkpfw_IV_ausf_H_turret",
       "vehicle_seats__autoDetectRestrictToTeam": false,
       "phys__kinematicBody:tag": [],
       "animchar__updatableOnSleepPhys:tag": [],
@@ -1307,10 +1318,10 @@
   {
     "moving_car_panzerjagerwagen": [
       {
-        "_extends": "train_panzerjagerwagen"
+        "_use": "train_panzerjagerwagen"
       },
       {
-        "_extends": "base_wagen"
+        "_use": "base_wagen"
       },
       {
         "train__teamOffense": 2
@@ -1533,10 +1544,10 @@
   {
     "moving_car_panzertragerwagen": [
       {
-        "_extends": "train_panzertragerwagen"
+        "_use": "train_panzertragerwagen"
       },
       {
-        "_extends": "base_wagen"
+        "_use": "base_wagen"
       },
       {
         "train__teamOffense": 2
@@ -1592,10 +1603,10 @@
   {
     "moving_car_panzerzug_bp_44_lokomotiv": [
       {
-        "_extends": "train_panzerzug_bp_44_lokomotiv"
+        "_use": "train_panzerzug_bp_44_lokomotiv"
       },
       {
-        "_extends": "base_wagen"
+        "_use": "base_wagen"
       },
       {
         "train__teamOffense": 2
@@ -1691,10 +1702,10 @@
   {
     "moving_car_panzerzug_bp_44_lokomotiv_b": [
       {
-        "_extends": "train_panzerzug_bp_44_lokomotiv_b"
+        "_use": "train_panzerzug_bp_44_lokomotiv_b"
       },
       {
-        "_extends": "base_wagen"
+        "_use": "base_wagen"
       },
       {
         "train__teamOffense": 2

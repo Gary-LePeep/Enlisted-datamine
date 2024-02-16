@@ -1,9 +1,9 @@
 module aircraft_common shared
 require ecs
 require Plane
-require EnlistedPlane
+require DngPlane
 require dm
-require EnlistedDm
+require DngDm
 require game.es.events
 require game.es.vehicle.vehicle_events
 require math.base
@@ -34,6 +34,7 @@ def repair_plane(eid : EntityId;
 
 def teleport_plane(teleport_tm : float3x4;
                    collres : CollisionResource;
+                   setup_on_ground__setupMaxHeight : float;
                    var plane_net_phys : PlaneActor&)
   assume phys = plane_net_phys.phys
 
@@ -54,7 +55,7 @@ def teleport_plane(teleport_tm : float3x4;
 
   using(collres) <| $(var context : PlanePhysCollisionContext)
     let speed = float3()
-    if phys |> flight_model_setupOnGround(context, true, speed)
+    if phys |> flight_model_setupOnGround(context, true, speed, setup_on_ground__setupMaxHeight)
       var physTm : float3x4
       phys.currentState.location |> location_toTM(physTm)
       plane_net_phys |> plane_actor_teleportTo(physTm, true)

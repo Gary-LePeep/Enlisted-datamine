@@ -6773,6 +6773,7 @@
     "entity": {
       "_template": "briefing_invasion",
       "mission_name": "pacific_vertical_inv_counter",
+      "mission_outfit": "pacific",
       "loading_images:list<t>": [
         {
           "item": "ui/pacific_guadalcanal_inv_12.avif"
@@ -6815,7 +6816,7 @@
       "team__briefing": "invasion/defenders_goals",
       "team__winSubtitle": "debriefing/won_defence_subtitle",
       "team__loseSubtitle": "debriefing/lost_defence_subtitle",
-      "team__winTitle": "debriefing/usa_won_defence",
+      "team__winTitle": "debriefing/allies_won_defence",
       "team__spawnBotArmy": "pacific_allies"
     }
   },
@@ -6893,7 +6894,7 @@
       "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 1,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "decal__height": 1.5,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 13,
@@ -6926,7 +6927,7 @@
       "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 1,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "decal__height": 1.5,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 14,
@@ -6959,7 +6960,7 @@
       "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 1,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "decal__height": 1.8,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 11,
@@ -6992,7 +6993,7 @@
       "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 1,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "decal__height": 2.0,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 12,
@@ -7027,7 +7028,7 @@
       "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 1,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "decal__height": 0.9,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 8,
@@ -7061,7 +7062,7 @@
       "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 1,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "decal__height": 7.0,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 9,
@@ -7096,7 +7097,7 @@
       "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 1,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "decal__height": 0.0,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 5,
@@ -7197,7 +7198,7 @@
       "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 1,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "decal__height": 0.4,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 3
@@ -7227,7 +7228,7 @@
       "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 1,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "decal__height": 2.0,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 4,
@@ -8656,7 +8657,7 @@
         [-0.388624,0.0,-0.921396],
         [0.0,1.0,0.0],
         [0.921396,0.0,-0.388624],
-        [-359.625,2.01158,110.169]
+        [-360.787,2.01158,111.632]
       ],
       "groupName": "sector_4_b",
       "respawnBaseGroup": 2,
@@ -8846,7 +8847,7 @@
         [-0.440831,0.0,-0.897591],
         [0.0,1.0,0.0],
         [0.897591,0.0,-0.440831],
-        [-378.782,20.5897,-90.2103]
+        [-380.583,21.5435,-91.0261]
       ],
       "groupName": "sector_3_b",
       "respawnBaseGroup": 2,
@@ -9983,7 +9984,7 @@
         [-0.997492,0.0,-0.0707921],
         [0.0,1.0,0.0],
         [0.0707921,0.0,-0.997491],
-        [-320.175,5.33264,76.595]
+        [-320.776,5.33264,77.2341]
       ],
       "groupName": "sector_4_b",
       "respawnBaseGroup": 2,
@@ -10057,7 +10058,7 @@
         [-0.647206,0.0,-0.762317],
         [0.0,1.0,0.0],
         [0.762317,0.0,-0.647206],
-        [-369.514,22.6332,-104.08]
+        [-369.514,23.1929,-104.08]
       ],
       "groupName": "sector_3_b",
       "respawnBaseGroup": 2,

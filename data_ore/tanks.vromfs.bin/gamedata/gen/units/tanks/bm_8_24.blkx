@@ -2053,5 +2053,77 @@
         }
       }
     }
-  ]
+  ],
+  "MetaParts": {
+    "closed_fightning_compartment": [
+      {
+        "part": "driver"
+      },
+      {
+        "part": "loader"
+      },
+      {
+        "part": "gunner"
+      },
+      {
+        "part": "commander"
+      },
+      {
+        "part": "machine_gunner"
+      },
+      {
+        "part": "machine_gunner_01"
+      },
+      {
+        "part": "machine_gunner_02"
+      },
+      {
+        "part": "gunner_01"
+      },
+      {
+        "part": "gunner_02"
+      },
+      {
+        "part": "loader_01"
+      },
+      {
+        "part": "loader_02"
+      },
+      {
+        "part": "radio_station"
+      },
+      {
+        "part": "drive_turret_v"
+      },
+      {
+        "part": "drive_turret_v_01"
+      },
+      {
+        "part": "drive_turret_h_01"
+      },
+      {
+        "part": "drive_turret_v_02"
+      },
+      {
+        "part": "drive_turret_h_02"
+      },
+      {
+        "part": "transmission"
+      },
+      {
+        "effect": {
+          "conditionDamageType": "explosion",
+          "conditionDamage": 1.0,
+          "pressure": true
+        }
+      },
+      {
+        "effect": {
+          "conditionDamageType": "shatter",
+          "conditionDamage": 1.0,
+          "pressure": true
+        }
+      }
+    ]
+  }
 }

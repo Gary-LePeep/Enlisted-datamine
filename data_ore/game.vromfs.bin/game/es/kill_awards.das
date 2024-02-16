@@ -3,11 +3,12 @@ require ecs.common
 require app
 require common_shooter.events_common_shooter
 require enlisted.events_enlisted
-require EnlistedDm
+require DngDm
 require game.utils.team
 require math.base
 require strings
 require game.es.awards_common
+require game.es.kill_awards_common
 
 def update_sequential_kill_award(seq_kill_time : float; var last_kill_time : float&; var kills : int&; var awards : Array&)
   let time = get_sync_time()
@@ -57,9 +58,11 @@ def kill_award_es(evt : EventPlayerKilledEntity;
 
     let damageType = int(evt.deathDesc_damageTypeId)
     let nodeType = dm_parts__type != null ? get_string(*dm_parts__type, int(evt.deathDesc_collNodeId), "") : ""
-    find_query() <| $ [es(REQUIRE=awards__firstBlood)] (eid : EntityId)
-      sendEvent(evt.killerPlayerEid, [[EventAddPlayerAwardWithStat stat="first_blood"]])
-      destroyEntity(eid)
+    find_query() <| $ [es] (eid : EntityId; var awards__isFirstBloodSpilled : bool&)
+      if !awards__isFirstBloodSpilled
+        awards__isFirstBloodSpilled = true
+        sendEvent(evt.killerPlayerEid, [[EventAddPlayerAwardWithStat stat="first_blood"]])
+        destroyEntity(eid)
       return true
     if damageType == int(DamageType DM_PROJECTILE) && nodeType == "head"
       add_award(awards, "headshot")
@@ -76,12 +79,11 @@ def kill_award_es(evt : EventPlayerKilledEntity;
     if human_vehicle__isInHatch
       sendEvent(evt.killerPlayerEid, [[EventAddPlayerAwardWithStat stat="tank_commander_kills"]])
 
-    if damageType == int(DamageType DM_PROJECTILE)
-      query(killerEid) <| $ [es] (transform : float3x4; awards__longRangeDist : float = 100.)
-        if length_sq(transform[3] - victim_transform[3]) > square(awards__longRangeDist)
-          add_award(awards, "long_range_kill")
-
     let gunStatName = get_gun_stat_type_by_props_id(int(evt.deathDesc_gunPropsId))
+
+    if should_apply_long_range_kill_award(damageType, gunStatName, killerEid, victim_transform[3])
+      add_award(awards, "long_range_kill")
+
     if !empty(gunStatName)
       add_award(awards, gunStatName == "grenade" ? "grenade_kill" : "{gunStatName}_kills")
 

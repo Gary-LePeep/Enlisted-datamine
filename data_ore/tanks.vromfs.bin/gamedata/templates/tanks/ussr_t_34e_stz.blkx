@@ -1,16 +1,34 @@
 {
   "ussr_t_34e_stz": {
-    "_extends": "ussr_t_34e_stz_common"
+    "_use": "ussr_t_34e_stz_common"
   },
   "ussr_t_34e_stz_common": [
     {
-      "_extends": "base_t_34e_stz"
+      "_use": "base_t_34e_stz"
     },
     {
-      "_extends": "tank_t34_engine_sound"
+      "_use": "tank_t34_engine_sound"
     },
     {
-      "_extends": "tank_t34_vehicle_tracks_sound"
+      "_use": "tank_t34_vehicle_tracks_sound"
+    },
+    {
+      "commanderCockpitFpsCamMaxAngle": [40.0,5.0]
+    },
+    {
+      "gunner_cam_limit__useCockpitDir": true
+    },
+    {
+      "item__iconOffset": [0.08,0.05]
+    },
+    {
+      "item__iconScale": 1.13
+    },
+    {
+      "armorThicknessHull": [60.0,45.0,40.0]
+    },
+    {
+      "armorThicknessTurret": [45.0,45.0,45.0]
     },
     {
       "turrets__initAmmoDistribution:array": [
@@ -138,7 +156,7 @@
     }
   ],
   "ussr_t_34e_stz_driver_cockpit": {
-    "_extends": "base_driver_cockpit_no_slits",
+    "_use": "base_driver_cockpit_no_slits",
     "animchar__res": "bt_7_driver_char",
     "cockpit__offset": [0.0,0.0,0.0],
     "cockpit__visibleVehicleNodeNames:list<t>": [
@@ -172,17 +190,16 @@
     }
   },
   "ussr_t_34e_stz_gunner_cockpit": {
-    "vehicle_sight__blk": "content/tanks/gamedata/sight/ussr_pt_1.blk",
-    "_extends": "base_gunner_cockpit",
+    "_use": "base_gunner_cockpit",
     "animchar__res": "t_26_1940_gunner_char",
-    "cockpit__minZoom": -0.27,
+    "cockpit__minForwardOffset": -0.27,
     "cockpit__offset": [-0.0,0.0,0.0],
     "cockpit__cockpitOffsetBySlit:list<p3>": [
       {
-        "slit": [-0.424608,-0.0517544,0.197474]
+        "slit": [-0.27,-0.0517544,0.25]
       },
       {
-        "slit": [-0.0950936,0.794637,0.364164]
+        "slit": [-0.0,0.9,0.364164]
       },
       {
         "slit": [-0.0969167,0.430869,0.431702]
@@ -233,7 +250,7 @@
     ],
     "cockpit__slitForwardOffset:list<r>": [
       {
-        "slit": 0.19
+        "slit": 0.22
       },
       {
         "slit": 0.2
@@ -247,20 +264,84 @@
         "slit": true
       },
       {
-        "slit": false
+        "slit": true
       },
       {
         "slit": false
       }
-    ]
+    ],
+    "cockpit__periscopeLimits:list<p4>": [
+      {
+        "slit": [-0.0,0.0,0.0,0.0]
+      },
+      {
+        "slit": [-35.0,35.0,-5.0,25.0]
+      },
+      {
+        "slit": [-0.0,0.0,0.0,0.0]
+      }
+    ],
+    "cockpit__periscopeSpeed:list<p2>": [
+      {
+        "slit": [-1.0,-1.0]
+      },
+      {
+        "slit": [35.0,35.0]
+      },
+      {
+        "slit": [-1.0,-1.0]
+      }
+    ],
+    "cockpit__slitZoom:array": [
+      {
+        "slit:list<r>": [
+          {
+            "zoom": 1.9
+          },
+          {
+            "zoom": 3.5
+          }
+        ]
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      }
+    ],
+    "cockpit__slitZoomTime:list<r>": [
+      {
+        "slit": 0.05
+      },
+      {
+        "slit": 0.0
+      },
+      {
+        "slit": 0.0
+      }
+    ],
+    "cockpit__slitTemplates:list<t>": [
+      {
+        "slit": "ussr_tmfd_7"
+      },
+      {
+        "slit": "ussr_pt_1"
+      }
+    ],
+    "cockpit__slitEids:list<eid>": []
   },
   "ussr_t_34e_stz_commander_cockpit": {
-    "_extends": "base_commander_cockpit_no_slits",
+    "_use": "base_commander_cockpit_no_slits",
     "animchar__res": "t_26_1940_commander_char",
     "cockpit__offset": [-0.0,0.0,-0.0],
     "cockpit__cockpitOffsetBySlit:list<p3>": [
       {
-        "slit": [-0.211801,0.809005,-0.33953]
+        "slit": [-0.0,0.9,-0.33953]
       },
       {
         "slit": [-0.18963,0.454219,-0.41069]
@@ -276,7 +357,7 @@
     ],
     "cockpit__slitForwardOffset:list<r>": [
       {
-        "slit": 0.17
+        "slit": 0.16
       },
       {
         "slit": 0.05
@@ -297,10 +378,50 @@
       {
         "slit": "cam_right"
       }
-    ]
+    ],
+    "cockpit__periscopeLimits:list<p4>": [
+      {
+        "slit": [-45.0,45.0,-0.0,25.0]
+      },
+      {
+        "slit": [-0.0,0.0,0.0,0.0]
+      }
+    ],
+    "cockpit__periscopeSpeed:list<p2>": [
+      {
+        "slit": [35.0,35.0]
+      },
+      {
+        "slit": [-1.0,-1.0]
+      }
+    ],
+    "cockpit__slitZoom:array": [
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      }
+    ],
+    "cockpit__slitZoomTime:list<r>": [
+      {
+        "slit": 0.05
+      },
+      {
+        "slit": 0.0
+      }
+    ],
+    "cockpit__slitTemplates:list<t>": {
+      "slit": "default_periscope"
+    },
+    "cockpit__slitEids:list<eid>": []
   },
   "ussr_t_34e_stz_artem_battlepass_premium": {
-    "_extends": "ussr_t_34e_stz_common",
+    "_use": "ussr_t_34e_stz_common",
     "animchar__objTexSet:object": {
       "t_34_e_stz_1942_turret_c*:object": {
         "t_34_e_stz_1942_artem_turret_c*": "camo_skin_tex"

@@ -45,9 +45,9 @@ def plane_cut_part_debug_cmd_processor(args : array<string>;
 
   if length(inputs) >= 2 && inputs[0] == cmd
     query() <| $ [es(REQUIRE=heroVehicle)] (damage_model : DamageModel)
-      assume parts = damage_model.dmData.parts
-      for part in parts
-        let partName = damagePart_getName(part)
+      assume partProps = damage_model.dmData.partProps
+      for partProp in partProps
+        let partName = damagePart_getName(partProp)
         hints |> add_hint("{cmd} {partName}", 0, 1, "")
   return false
 

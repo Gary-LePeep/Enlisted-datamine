@@ -9,7 +9,7 @@ require DagorSystem
 require Dacoll
 require Ballistics
 require BallisticsProps
-require EnlistedDm
+require DngDm
 require enlisted.events_enlisted
 
 
@@ -29,7 +29,7 @@ def bomb_phys_created_es(evt : Event;
     return
 
   shell_get_props(int(launch_desc.shellId.shellId)) <| $(shellProps : ShellProps)
-    bomb_ballistics_props = shellProps
+    bomb_ballistics_props := shellProps
 
     let currTime = get_sync_time()
 
@@ -43,7 +43,7 @@ def bomb_phys_created_es(evt : Event;
                     currTime, 0.0, launch_desc.bombBayHeight, projectile__isUnderwater, true, 0.0)
     bomb_ballistics_prev = bomb_ballistics_curr
 
-    projectile_ballistics_props = bomb_ballistics_props.ballisticProps
+    projectile_ballistics_props := bomb_ballistics_props.ballisticProps
 
     let density = projectile__isUnderwater ? water_density() : atmosphere_density(launch_desc.tm[3].y)
     projectile_ballistics |> projectile_ballistics_setupWithKV(bomb_ballistics_props.ballisticProps,
@@ -84,6 +84,8 @@ def update_bomb_ballistics(bomb_ballistics_props : ShellProps;
       shellEnv.flow = float3()
       shellEnv.extForce = bomb__extForce
       shellEnv.extMoment = bomb__extMoment
+      shellEnv.extCxk = 0.0
+      shellEnv.extArm = 0.0
       shellEnv.fins = float2(0.0, 0.0)
       shellEnv.lostMass = bomb__lostMass
       shellEnv.dispersion = 0.0

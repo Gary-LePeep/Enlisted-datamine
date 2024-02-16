@@ -1,22 +1,18 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { h1_txt, h2_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontHeading1, fontHeading2 } = require("%enlSqGlob/ui/fontsStyle.nut")
 let msgbox = require("%enlist/components/msgbox.nut")
 let { curCampaign } = require("%enlist/meta/curCampaign.nut")
 let { gameProfile } = require("%enlist/soldiers/model/config/gameProfile.nut")
 let { defBgColor, hoverBgColor } = require("%enlSqGlob/ui/viewConst.nut")
 
-
 let disabledSectionsData = Computed(function() {
   let campaign = curCampaign.value
   let disabledList = gameProfile.value?.campaigns[campaign].disabledSections ?? []
-
-  let res = {}
-  foreach (section in disabledList)
-    res[section] <- true
-
-  return res
+  return disabledList.reduce(@(res, key) res.rawset(key, true), {})
 })
+
+let hasShopSection = Computed(@() !(disabledSectionsData.value?.LOGISTICS ?? false))
 
 let mkDisabledOptionMsgbox = @(locId = "menu/lockedByCampaignDesc")
   msgbox.show({ text = loc(locId) })
@@ -39,7 +35,7 @@ let mkDisabledSectionBlock = kwarg(@(headerLocId = null, descLocId = null) {
         : {
             text = loc(headerLocId)
             rendObj = ROBJ_TEXT
-          }.__update(h1_txt)
+          }.__update(fontHeading1)
       descLocId == null ? null
         : {
             rendObj = ROBJ_TEXTAREA
@@ -48,7 +44,7 @@ let mkDisabledSectionBlock = kwarg(@(headerLocId = null, descLocId = null) {
             halign = ALIGN_CENTER
             color = Color(200,200,200)
             text = loc(descLocId)
-          }.__update(h2_txt)
+          }.__update(fontHeading2)
     ]
     animations = [
       { prop = AnimProp.opacity, from = 0, to = 0, duration = 0.1, play = true,
@@ -68,4 +64,5 @@ return {
   disabledSectionsData
   mkDisabledSectionBlock
   mkDisabledOptionMsgbox
+  hasShopSection
 }

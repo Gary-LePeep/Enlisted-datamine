@@ -3,13 +3,13 @@ let { logerr } = require("dagor.debug")
 let { unique } = require("%sqstd/underscore.nut")
 let { settings } = require("%enlist/options/onlineSettings.nut")
 let { createEventRoomCfg, allModes, getValuesFromRule } = require("createEventRoomCfg.nut")
-let { unlockedCampaigns } = require("%enlist/meta/campaigns.nut")
 let { availableClusters, clusterLoc } = require("%enlist/clusterState.nut")
-let { gameProfile } = require("%enlist/soldiers/model/config/gameProfile.nut")
 let {
   isCrossplayOptionNeeded, crossnetworkPlay, CrossplayState, availableCrossplayOptions,
   CrossPlayStateWeight
 } = require("%enlSqGlob/crossnetwork_state.nut")
+let { campaignsByArmies } = require("%enlSqGlob/renameCommonArmies.nut")
+let { getArmyName } = require("%enlist/campaigns/armiesConfig.nut")
 
 const OPT_SWITCH = "switch"
 const OPT_MULTISELECT = "multiselect"
@@ -199,13 +199,20 @@ updateOptCrossplay(isCrossplayOptionNeeded.value)
 let optMode = mkOption(MODE_ID, "current_mode", loc)
 optMode.__update({ allValues = allModes, curValues = curModes })
 
-let optCampaigns = mkOption("public/campaigns", "options/campaigns",
-  @(c) loc(gameProfile.value?.campaigns[c]?.title ?? c))
-let campAllValuesBase = optCampaigns.allValues
-let campCurValuesBase = optCampaigns.curValues
-optCampaigns.__update({
-  allValues = Computed(@() filterByList(campAllValuesBase.value, unlockedCampaigns.value))
-  curValues = Computed(@() filterByList(campCurValuesBase.value, unlockedCampaigns.value))
+let optArmiesA = mkOption("public/armiesTeamA", "options/armiesA", @(armyId) getArmyName(armyId))
+let armiesAllValuesBaseA = optArmiesA.allValues
+let armiesCurValuesBaseA = optArmiesA.curValues
+optArmiesA.__update({
+  allValues = Computed(@() filterByList(armiesAllValuesBaseA.value, campaignsByArmies.keys()))
+  curValues = Computed(@() filterByList(armiesCurValuesBaseA.value, campaignsByArmies.keys()))
+})
+
+let optArmiesB = mkOption("public/armiesTeamB", "options/armiesB", @(armyId) getArmyName(armyId))
+let armiesAllValuesBaseB = optArmiesB.allValues
+let armiesCurValuesBaseB = optArmiesB.curValues
+optArmiesB.__update({
+  allValues = Computed(@() filterByList(armiesAllValuesBaseB.value, campaignsByArmies.keys()))
+  curValues = Computed(@() filterByList(armiesCurValuesBaseB.value, campaignsByArmies.keys()))
 })
 
 let optClusterId = "cluster"
@@ -266,9 +273,10 @@ return {
   optMode
   optDifficulty
   optCrossplay
-  optCampaigns
   optCluster
   optFullRooms
   optModRooms
   optPasswordRooms
+  optArmiesA
+  optArmiesB
 }

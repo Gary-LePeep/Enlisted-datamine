@@ -1,7 +1,7 @@
 {
   "import": "volokolamsk_placeable_objects.blk",
   "minimap_battle_of_moscow_volokolamsk_countryside_winter": {
-    "_extends": "minimap",
+    "_use": "minimap",
     "mapTex": "volokolamsk_countryside_winter_minimap*",
     "farMapTex": "volokolamsk_countryside_winter_far_minimap*",
     "left_top": [-2048.0,2048.0],
@@ -10,7 +10,7 @@
     "farRightBottom": [8192.0,-8192.0]
   },
   "minimap_battle_of_moscow_volokolamsk_countryside_autumn": {
-    "_extends": "minimap",
+    "_use": "minimap",
     "mapTex": "volokolamsk_countryside_autumn_minimap*",
     "farMapTex": "volokolamsk_countryside_autumn_far_minimap*",
     "left_top": [-2048.0,2048.0],

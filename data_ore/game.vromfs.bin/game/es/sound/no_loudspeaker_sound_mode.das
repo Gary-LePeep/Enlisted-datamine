@@ -5,7 +5,7 @@ def no_loudspeaker_sound_mode_appear(evt : Event)
   query() <| $ [es(REQUIRE=loudspeakerSound)] (var sound_control__enable : bool&)
     sound_control__enable = false
 
-[es(tag=sound, REQUIRE=noLoudspeakerSoundMode, on_event=(EventComponentsDisappear, EventEntityDestroyed))]
+[es(tag=sound, REQUIRE=noLoudspeakerSoundMode, on_disappear)]
 def no_loudspeaker_sound_mode_disappear(evt : Event)
   query() <| $ [es(REQUIRE=loudspeakerSound)] (var sound_control__enable : bool&)
     sound_control__enable = true

@@ -6,10 +6,10 @@ require common_shooter.events_common_shooter
 require common_shooter.es.human_weap_common
 require enlisted.events_enlisted
 require inventory
-require EnlistedNet
+require DngNet
 require DagorSystem
-require EnlistedHuman
-require EnlistedWeapon
+require DngHuman
+require DngWeapon
 require HumanPhys
 require WeapHelpers
 require Gun
@@ -32,7 +32,7 @@ def set_ammo_type(slot_id : int;
 
   if set_wish_ammo_item_type(human_weap__gunEids[slot_id], item_id)
     request_unload_ammo(owner_eid, slot_id)
-    sendEvent(owner_eid, [[CmdRequestReload atTime=get_sync_time(), gunEid=human_weap__gunEids[slot_id]]])
+    sendEvent(owner_eid, [[CmdRequestReload atTime=get_sync_time(), gunEid=human_weap__gunEids[slot_id], isQuick = false]])
 
 // Why update: because we need check state human_net_phys.phys.currentState.weapEquipState.curState
 // and change grenade when first animation is end(when grenade disappear)
@@ -243,14 +243,3 @@ def human_drop_grenade_es(evt : EventOnLootDrop;
 
   if !take_grenade_in_hand(eid, human_weap__gunEids, phys)
     switch_to_first_weap_with_ammo(human_weap__gunEids, phys)
-
-[es(track=human_weap__lockWeaponSwitch)]
-def human_lock_weap_switch_es(evt : Event;
-                              eid : ecs::EntityId;
-                              human_weap__gunEids : ecs::EidList;
-                              human_weap__lockWeaponSwitch : bool;
-                              var human_net_phys : HumanActor)
-  human_net_phys.phys.canSwitchWeapon = !human_weap__lockWeaponSwitch
-  if !human_net_phys.phys.canSwitchWeapon
-    let slot = determine_current_weapon_slot(get_sync_time(), human_net_phys)
-    forcibly_lock_weap_slot(eid, int(slot), human_weap__gunEids, human_net_phys)

@@ -1292,6 +1292,7 @@
     "entity": {
       "_template": "briefing_destruction",
       "mission_name": "pacific_gavutu_bomb",
+      "mission_outfit": "pacific",
       "loading_images:list<t>": [
         {
           "item": "ui/pacific_gavutu_inv_01.avif"
@@ -1334,7 +1335,7 @@
       "team__briefing": "destruction/defenders_goals",
       "team__winSubtitle": "debriefing/won_defence_destruction",
       "team__loseSubtitle": "debriefing/lost_defence_destruction",
-      "team__winTitle": "debriefing/britain_won_destruction_defence_title",
+      "team__winTitle": "debriefing/allies_won_destruction_defence_title",
       "team__spawnBotArmy": "pacific_allies"
     }
   },
@@ -1399,13 +1400,15 @@
       "capzone__capRewardPartCap": 1.8,
       "capzone__mustBeCapturedByTeam": 2,
       "groupName": "sector_1",
-      "capzone__timeToPlant": 15.0,
+      "capzone__timeToPlant": 20.0,
+      "capzone__timeToDefuse": 30.0,
+      "capzone__timeToExplosion": 40.0,
       "active": false,
       "ui_order": 1,
       "capzone__capReward": 300.0,
       "capzone__caption": "capzone/warehouse",
       "capzone__checkAllZonesInGroup": true,
-      "capzone__deactivateAfterTimeout": 0.0,
+      "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 1,
       "capzone__createdRespawnBaseGroup": 7,
@@ -1437,13 +1440,15 @@
       "capzone__capRewardPartCap": 1.8,
       "capzone__mustBeCapturedByTeam": 2,
       "groupName": "sector_1",
-      "capzone__timeToPlant": 15.0,
+      "capzone__timeToPlant": 20.0,
+      "capzone__timeToDefuse": 30.0,
+      "capzone__timeToExplosion": 40.0,
       "active": false,
       "ui_order": 1,
       "capzone__capReward": 300.0,
       "capzone__caption": "capzone/warehouse",
       "capzone__checkAllZonesInGroup": true,
-      "capzone__deactivateAfterTimeout": 0.0,
+      "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 1,
       "capzone__createdRespawnBaseGroup": 7,
@@ -1473,7 +1478,9 @@
         [202.835,3.41452,-367.518]
       ],
       "groupName": "sector_2",
-      "capzone__timeToPlant": 15.0,
+      "capzone__timeToPlant": 20.0,
+      "capzone__timeToDefuse": 30.0,
+      "capzone__timeToExplosion": 40.0,
       "capzone__capRewardPartCap": 1.8,
       "capzone__mustBeCapturedByTeam": 2,
       "capzone__caption": "capzone/barracks",
@@ -1482,7 +1489,7 @@
       "capzone__owningTeam": 1,
       "capzone__capReward": 500.0,
       "capzone__checkAllZonesInGroup": true,
-      "capzone__deactivateAfterTimeout": 0.0,
+      "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 1,
       "sphere_zone__radius": 25.0,
@@ -1519,7 +1526,13 @@
         "groupName": "sector_2"
       },
       {
-        "capzone__timeToPlant": 15.0
+        "capzone__timeToPlant": 20.0
+      },
+      {
+        "capzone__timeToDefuse": 30.0
+      },
+      {
+        "capzone__timeToExplosion": 40.0
       },
       {
         "capzone__capRewardPartCap": 1.8
@@ -1546,7 +1559,7 @@
         "capzone__checkAllZonesInGroup": true
       },
       {
-        "capzone__deactivateAfterTimeout": 0.0
+        "capzone__deactivateAfterTimeout": 25.0
       },
       {
         "capzone__spawnAtZoneTimeout": 25.0
@@ -1607,7 +1620,13 @@
         "groupName": "sector_3"
       },
       {
-        "capzone__timeToPlant": 15.0
+        "capzone__timeToPlant": 20.0
+      },
+      {
+        "capzone__timeToDefuse": 30.0
+      },
+      {
+        "capzone__timeToExplosion": 40.0
       },
       {
         "capzone__capRewardPartCap": 1.8
@@ -1634,7 +1653,7 @@
         "capzone__checkAllZonesInGroup": true
       },
       {
-        "capzone__deactivateAfterTimeout": 0.0
+        "capzone__deactivateAfterTimeout": 25.0
       },
       {
         "capzone__spawnAtZoneTimeout": 25.0

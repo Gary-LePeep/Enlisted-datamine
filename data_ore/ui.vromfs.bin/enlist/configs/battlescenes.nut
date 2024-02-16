@@ -14,6 +14,10 @@ let tutorialSceneByArmy = {
   stalingrad_allies = "content/enlisted/gamedata/scenes/tutorial/tutorial_training_ground_stalingrad_allies.blk"
   pacific_axis = "content/enlisted/gamedata/scenes/tutorial/tutorial_training_ground_pacific_axis.blk"
   pacific_allies = "content/enlisted/gamedata/scenes/tutorial/tutorial_training_ground_pacific_allies.blk"
+  ussr = "content/enlisted/gamedata/scenes/tutorial/tutorial_training_ground_moscow_allies.blk"
+  ger = "content/enlisted/gamedata/scenes/tutorial/tutorial_training_ground_berlin_axis.blk"
+  jap = "content/enlisted/gamedata/scenes/tutorial/tutorial_training_ground_pacific_axis.blk"
+  usa = "content/enlisted/gamedata/scenes/tutorial/tutorial_training_ground_normandy_allies.blk"
 }
 
 const defTutorialTank = "content/enlisted/gamedata/scenes/tutorial/_tutorial_training_ground_tank.blk"
@@ -33,18 +37,10 @@ let tutorialAircraftSceneByArmy = {
 
 const defPractice = "content/enlisted/gamedata/scenes/tutorial/_common_training_ground.blk"
 let practiceSceneByArmy = {
-  berlin_axis = "content/enlisted/gamedata/scenes/tutorial/common_training_ground_berlin_axis.blk"
-  berlin_allies = "content/enlisted/gamedata/scenes/tutorial/common_training_ground_berlin_allies.blk"
-  moscow_axis = "content/enlisted/gamedata/scenes/tutorial/common_training_ground_moscow_axis.blk"
-  moscow_allies = "content/enlisted/gamedata/scenes/tutorial/common_training_ground_moscow_allies.blk"
-  normandy_axis = "content/enlisted/gamedata/scenes/tutorial/common_training_ground_normandy_axis.blk"
-  normandy_allies = "content/enlisted/gamedata/scenes/tutorial/common_training_ground_normandy_allies.blk"
-  tunisia_axis = "content/enlisted/gamedata/scenes/tutorial/common_training_ground_tunisia_axis.blk"
-  tunisia_allies = "content/enlisted/gamedata/scenes/tutorial/common_training_ground_tunisia_allies.blk"
-  stalingrad_axis = "content/enlisted/gamedata/scenes/tutorial/common_training_ground_stalingrad_axis.blk"
-  stalingrad_allies = "content/enlisted/gamedata/scenes/tutorial/common_training_ground_stalingrad_allies.blk"
-  pacific_axis = "content/enlisted/gamedata/scenes/tutorial/common_training_ground_pacific_axis.blk"
-  pacific_allies = "content/enlisted/gamedata/scenes/tutorial/common_training_ground_pacific_allies.blk"
+  ussr = "content/enlisted/gamedata/scenes/tutorial/common_training_ground_ussr.blk"
+  ger = "content/enlisted/gamedata/scenes/tutorial/common_training_ground_germany.blk"
+  jap = "content/enlisted/gamedata/scenes/tutorial/common_training_ground_japan.blk"
+  usa = "content/enlisted/gamedata/scenes/tutorial/common_training_ground_usa.blk"
 }
 
 //local defTestDrive = "content/enlisted/gamedata/scenes/volokolamsk_city_assault_solo.blk"

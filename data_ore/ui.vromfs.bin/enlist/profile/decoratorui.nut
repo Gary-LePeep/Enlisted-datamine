@@ -3,9 +3,9 @@ from "%enlSqGlob/ui_library.nut" import *
 let { doesLocTextExist } = require("dagor.localize")
 let hoverHoldAction = require("%darg/helpers/hoverHoldAction.nut")
 let spinner = require("%ui/components/spinner.nut")
-let openUrl = require("%ui/components/openUrl.nut")
-let { currenciesList } = require("%enlist/currency/currencies.nut")
-let { sub_txt, body_txt, h2_txt, fontawesome } = require("%enlSqGlob/ui/fonts_style.nut")
+let { openUrl } = require("%ui/components/openUrl.nut")
+let { currenciesById } = require("%enlist/currency/currencies.nut")
+let { fontSub, fontBody, fontHeading2, fontawesome } = require("%enlSqGlob/ui/fontsStyle.nut")
 let fa = require("%ui/components/fontawesome.map.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
 let {addModalWindow, removeModalWindow} = require("%ui/components/modalWindows.nut")
@@ -23,12 +23,12 @@ let {
 } = require("decoratorState.nut")
 let {
   bigPadding, titleTxtColor, blurBgColor, bigOffset, tinyOffset, smallPadding,
-  defBgColor, bonusColor, smallOffset
+  defTxtColor, defBgColor, bonusColor, smallOffset
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { basePortrait } = require("%enlSqGlob/ui/decoratorsPresentation.nut")
 let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
 let {
-  mkFooterWithBackButton, borderColor, txtColor, PROFILE_WIDTH
+  mkFooterWithBackButton, borderColor, PROFILE_WIDTH
 } = require("profilePkg.nut")
 let { makeVertScroll, thinStyle } = require("%ui/components/scrollbar.nut")
 let { purchaseMsgBox } = require("%enlist/currency/purchaseMsgBox.nut")
@@ -42,12 +42,13 @@ let { is_pc } = require("%dngscripts/platform.nut")
 let { playerRank, hasRankUnseen } = require("%enlist/profile/rankState.nut")
 let isChineseVersion = require("%enlSqGlob/isChineseVersion.nut")
 let { smallUnseenNoBlink, smallUnseenBlink } = require("%ui/components/unseenComps.nut")
+let { showMsgbox } = require("%enlist/components/msgbox.nut")
 
 
 const PORTRAIT_WND_UID = "SelectPortraitWnd"
 const NICKFRAME_WND_UID = "SelectNickFrameWnd"
-const MAX_PORTRAIT_IN_ROW = 7
-const MAX_NICKS_IN_ROW = 3
+//const MAX_PORTRAIT_IN_ROW = 7
+//const MAX_NICKS_IN_ROW = 3
 const NICKFRAME_COLUMNS = 7
 const PORTRAIT_COLUMNS = 6
 
@@ -55,6 +56,7 @@ let CHANGE_NICK_URL = "https://store.gaijin.net/profile.php?view=change_nick"
 let portraitListWidth = (PORTRAIT_SIZE + bigPadding) * PORTRAIT_COLUMNS
 let nickFrameListWidth = (NICKFRAME_SIZE + bigPadding) * NICKFRAME_COLUMNS
 let hoverNickFrame = Watched("")
+let waitingSpinner = spinner().__update({ hplace = ALIGN_CENTER, vplace = ALIGN_CENTER })
 
 let mkCloseButtonCb = @(wndUid) @() removeModalWindow(wndUid)
 let mkIcon = @(text, color) txt({ text, color }).__merge(fontawesome)
@@ -71,9 +73,9 @@ let function mkPortraitCost(portraitCfg, override = {}) {
   let { currencyId = "", price = 0 } = buyData
   return currencyId == "" && price <= 0 ? null
     : function() {
-        let currency = currenciesList.value.findvalue(@(c) c.id == currencyId)
+        let currency = currenciesById.value?[currencyId]
         return {
-          watch = currenciesList
+          watch = currenciesById
           children = currency == null ? null
             : mkCurrency({
                 currency
@@ -108,7 +110,11 @@ let function onNickFrameClick(nickFrameCfg, isEnabled) {
       alwaysShowCancel = true
       srcComponent = "buy_decorator"
     })
+    return
   }
+
+  let locId = $"decorator/{nickFrameCfg.guid}/tip"
+  showMsgbox({ text = doesLocTextExist(locId) ? loc(locId) : loc("decorator/eventRewardTip") })
 }
 
 let function mkTooltip(decorator) {
@@ -137,17 +143,22 @@ let function nickFrameListUi() {
     gap = smallOffset
     margin = [0,0,bigOffset,0]
     onAttach = @() hoverNickFrame(chosen?.framedNickName(userName) ?? userName)
+    xmbNode = XmbContainer({
+      canFocus = false
+      scrollSpeed = 5.0
+      isViewport = true
+    })
     children = [
       txt({
         text = loc("selectNickFrameTitle")
         padding = [0, 0, tinyOffset, 0]
-      }).__update(h2_txt)
+      }).__update(fontHeading2)
       @() {
         watch = hoverNickFrame
         children = txt({
           text = hoverNickFrame.value
           padding = [0, 0, tinyOffset, 0]
-        }).__update(h2_txt)
+        }).__update(fontHeading2)
       }
       makeVertScroll({
         size = [flex(), SIZE_TO_CONTENT]
@@ -170,6 +181,7 @@ let function nickFrameListUi() {
                 let iconColor = isSelected ? bonusColor : borderColor(sf, isEnabled)
                 return {
                   behavior = Behaviors.Button
+                  xmbNode = XmbNode()
                   onClick = @() onNickFrameClick(nickFrameCfg, isEnabled)
                   onHover = function(on) {
                     hoverNickFrame((on ? nickFrameCfg : chosen)?.framedNickName(userName) ?? userName)
@@ -258,7 +270,11 @@ let function onPortraitClick(portraitCfg, isEnabled) {
       alwaysShowCancel = true
       srcComponent = "buy_decorator"
     })
+    return
   }
+
+  let locId = $"decorator/{portraitCfg.guid}/tip"
+  showMsgbox({ text = doesLocTextExist(locId) ? loc(locId) : loc("decorator/eventRewardTip") })
 }
 
 let timerStyle = {
@@ -278,11 +294,16 @@ let function portraitListUi() {
     flow = FLOW_VERTICAL
     gap = bigOffset
     margin = [0,0,bigOffset,0]
+    xmbNode = XmbContainer({
+      canFocus = false
+      scrollSpeed = 5.0
+      isViewport = true
+    })
     children = [
       txt({
         text = loc("selectPortraitTitle")
         padding = [0, 0, tinyOffset, 0]
-      }).__update(h2_txt)
+      }).__update(fontHeading2)
       makeVertScroll({
         size = [flex(), SIZE_TO_CONTENT]
         children = wrap(portraitList.map(function(portraitCfg) {
@@ -325,7 +346,7 @@ let function portraitListUi() {
             children = [
               mkPortraitFrame(children, onClick, onHover, iconCtor)
               curPurchase != guid ? null
-                : spinner().__update({ hplace = ALIGN_CENTER, vplace = ALIGN_CENTER })
+                : waitingSpinner
               !isUnseen ? null : smallUnseenNoBlink
             ]
           }
@@ -357,8 +378,8 @@ let mkChangeNickFrameBtn = @(hasUnseen, hasUnopened) watchElemState(@(sf) {
   children = [
     txt({
       text = loc("profile/changeNameDecorator")
-      color = txtColor(sf)
-    }).__update(sub_txt)
+      color = sf & S_HOVER ? titleTxtColor : defTxtColor
+    }).__update(fontSub)
     mkIcon(fa["pencil"], borderColor(sf))
     !hasUnseen ? null
       : {
@@ -416,7 +437,7 @@ let decoratorBlock = {
           txt({
             text = nickName
             color = titleTxtColor
-          }).__update(body_txt)
+          }).__update(fontBody)
           mkChangeNickFrameBtn(hasUnseen, hasUnopened)
           !is_pc || isChineseVersion ? null
             : Bordered(loc("profile/changeNick"), @() openUrl(CHANGE_NICK_URL),

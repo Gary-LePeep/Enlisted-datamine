@@ -5,7 +5,7 @@
     }
   },
   "team_narrator_tutorial_training": {
-    "_extends": "base_team_narrator",
+    "_use": "base_team_narrator",
     "team__narrator:object": {
       "_tags": "sound",
       "leftBattleArea:object": {
@@ -14,7 +14,7 @@
     }
   },
   "team_narrator_domination": {
-    "_extends": "base_team_narrator",
+    "_use": "base_team_narrator",
     "team__narrator:object": {
       "_tags": "sound",
       "briefing:object": {
@@ -156,7 +156,7 @@
     }
   },
   "team_narrator_gun_game": {
-    "_extends": "base_team_narrator",
+    "_use": "base_team_narrator",
     "team__narrator:object": {
       "_tags": "sound",
       "win:object": {
@@ -174,7 +174,7 @@
     }
   },
   "team_narrator_invasion_attack": {
-    "_extends": "base_team_narrator",
+    "_use": "base_team_narrator",
     "team__narrator:object": {
       "_tags": "sound",
       "briefing:object": {
@@ -228,7 +228,7 @@
     }
   },
   "team_narrator_invasion_defence": {
-    "_extends": "base_team_narrator",
+    "_use": "base_team_narrator",
     "team__narrator:object": {
       "_tags": "sound",
       "briefing:object": {
@@ -278,7 +278,7 @@
     }
   },
   "team_narrator_assault_attack": {
-    "_extends": "base_team_narrator",
+    "_use": "base_team_narrator",
     "team__narrator:object": {
       "_tags": "sound",
       "briefing:object": {
@@ -332,6 +332,24 @@
         "path": "vo/ui/enlisted/narrator/leave_area_warn",
         "cooldown": 2.0
       },
+      "bombPlanting:object": {
+        "ally": "vo/ui/enlisted/narrator/explosive_installing_ally",
+        "enemy": "vo/ui/enlisted/narrator/explosive_installing_enemy",
+        "cooldown": 5.0
+      },
+      "bombPlanted:object": {
+        "ally": "vo/ui/enlisted/narrator/explosive_installed_ally",
+        "enemy": "vo/ui/enlisted/narrator/explosive_installed_enemy"
+      },
+      "bombDefusing:object": {
+        "ally": "vo/ui/enlisted/narrator/explosive_deactivating_ally",
+        "enemy": "vo/ui/enlisted/narrator/explosive_deactivating_enemy",
+        "cooldown": 5.0
+      },
+      "bombDefused:object": {
+        "ally": "vo/ui/enlisted/narrator/explosive_deactivated_ally",
+        "enemy": "vo/ui/enlisted/narrator/explosive_deactivated_enemy"
+      },
       "bombersComing:object": {
         "enemy": "vo/ui/enlisted/narrator/enemy_bombers_coming",
         "cooldown": 2.0
@@ -343,7 +361,7 @@
     }
   },
   "team_narrator_assault_defence": {
-    "_extends": "base_team_narrator",
+    "_use": "base_team_narrator",
     "team__narrator:object": {
       "_tags": "sound",
       "briefing:object": {
@@ -397,6 +415,24 @@
         "path": "vo/ui/enlisted/narrator/leave_area_warn",
         "cooldown": 2.0
       },
+      "bombPlanting:object": {
+        "ally": "vo/ui/enlisted/narrator/explosive_installing_ally",
+        "enemy": "vo/ui/enlisted/narrator/explosive_installing_enemy",
+        "cooldown": 5.0
+      },
+      "bombPlanted:object": {
+        "ally": "vo/ui/enlisted/narrator/explosive_installed_ally",
+        "enemy": "vo/ui/enlisted/narrator/explosive_installed_enemy"
+      },
+      "bombDefusing:object": {
+        "ally": "vo/ui/enlisted/narrator/explosive_deactivating_ally",
+        "enemy": "vo/ui/enlisted/narrator/explosive_deactivating_enemy",
+        "cooldown": 5.0
+      },
+      "bombDefused:object": {
+        "ally": "vo/ui/enlisted/narrator/explosive_deactivated_ally",
+        "enemy": "vo/ui/enlisted/narrator/explosive_deactivated_enemy"
+      },
       "bombersComing:object": {
         "enemy": "vo/ui/enlisted/narrator/enemy_bombers_coming",
         "cooldown": 2.0
@@ -408,7 +444,7 @@
     }
   },
   "team_narrator_escort_attack": {
-    "_extends": "base_team_narrator",
+    "_use": "base_team_narrator",
     "team__narrator:object": {
       "_tags": "sound",
       "briefing:object": {
@@ -469,7 +505,7 @@
     }
   },
   "team_narrator_escort_defence": {
-    "_extends": "base_team_narrator",
+    "_use": "base_team_narrator",
     "team__narrator:object": {
       "_tags": "sound",
       "briefing:object": {
@@ -516,7 +552,7 @@
     }
   },
   "team_narrator_destruction_attack": {
-    "_extends": "base_team_narrator",
+    "_use": "base_team_narrator",
     "team__narrator:object": {
       "_tags": "sound",
       "briefing:object": {
@@ -576,7 +612,7 @@
     }
   },
   "team_narrator_destruction_defence": {
-    "_extends": "base_team_narrator",
+    "_use": "base_team_narrator",
     "team__narrator:object": {
       "_tags": "sound",
       "briefing:object": {
@@ -631,7 +667,7 @@
     }
   },
   "team_narrator_confrontation_attack": {
-    "_extends": "base_team_narrator",
+    "_use": "base_team_narrator",
     "team__narrator:object": {
       "_tags": "sound",
       "briefing:object": {

@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let JB = require("%ui/control/gui_buttons.nut")
-let { body_txt, h2_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody, fontHeading2, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { modPath, receivedModInfos, requestModManifest, deleteMod, hasBeenUpdated
 } = require("customMissionState.nut")
 let {
@@ -13,17 +13,16 @@ let { addModalWindow, removeModalWindow } = require("%ui/components/modalWindows
 let { makeVertScroll } = require("%ui/components/scrollbar.nut")
 let textInput = require("%ui/components/textInput.nut")
 let { Bordered, FAButton } = require("%ui/components/textButton.nut")
-let openUrl = require("%ui/components/openUrl.nut")
+let { openUrl } = require("%ui/components/openUrl.nut")
 let faComp = require("%ui/components/faComp.nut")
 let { mkLinearGradientImg } = require("%darg/helpers/mkGradientImg.nut")
 let { noteTextArea } = require("%enlSqGlob/ui/defcomps.nut")
-let modsDownloadInfo = require("modsDownloadInfo.ui.nut")
 let { get_clipboard_text } = require("dagor.clipboard")
 let { formatText } = require("%enlist/components/formatText.nut")
+let { MOD_LATEST_URL, MOD_BASE_URL } = require("%enlSqGlob/game_mods_constant.nut")
 
 const WND_UID = "CUSTOM_MISSION_WND"
 let sceneName = Watched("")
-let sandboxUrl = "https://enlisted-sandbox.gaijin.net/"
 let maxWndContentWidth = min(maxContentWidth, sw(100)) - localPadding * 2
 let isInputFocused = Watched(false)
 
@@ -73,7 +72,7 @@ let inputOptions = {
   margin = 0
   onFocus = @() isInputFocused(true)
   onBlur = @() isInputFocused(false)
-}.__update(body_txt)
+}.__update(fontBody)
 
 let urlInput = @(){
   watch = sceneName
@@ -111,7 +110,7 @@ let topBlock = @(){
   watch = sceneName
   valign = ALIGN_CENTER
   children = [
-    Bordered(loc("MissionsListOnWeb"), @() openUrl(sandboxUrl), btnStyle)
+    Bordered(loc("MissionsListOnWeb"), @() openUrl(MOD_BASE_URL), btnStyle)
     urlInputBlock
   ]
 }
@@ -151,7 +150,7 @@ let function mkOptions(modInfo, option, needPrefix = false){
   return ", ".join(info)
 }
 
-let getLinkToMod = @(modInfo) $"{sandboxUrl}post/{modInfo.id}"
+let getLinkToMod = @(modInfo) MOD_LATEST_URL.subst(modInfo.id)
 
 let modLinkButton = @(modInfo)
   formatText([{ t="url", url = getLinkToMod(modInfo), v = loc("mods/modOnSite")}])
@@ -161,7 +160,7 @@ let modInfoRows = @(modInfo) [
     text = modInfo.title
     color = titleTxtColor
     behavior = [Behaviors.Marquee, Behaviors.TextArea]
-  }.__update(h2_txt)
+  }.__update(fontHeading2)
   { //AUTHOR
     text = loc("options/authorsList", {
       count = modInfo.authors.len()
@@ -179,9 +178,6 @@ let modInfoRows = @(modInfo) [
   }
   {//BOT COUNT
     text = $"{loc("options/botCount")}: {mkOptions(modInfo, "public/botpop")}"
-  }
-  { //TEAM ARMIES
-    text = $"{loc("options/teamArmies")}: {mkOptions(modInfo, "public/teamArmies", true)}"
   }
   { //DESCRIPTION
     text = (modInfo?.description ?? "") == ""
@@ -203,7 +199,7 @@ let function currentModInfo(){
     gap = localGap
     children = modInfoRows(curModInfo).map(@(v) noteTextArea({
       color = defTxtColor
-    }).__update(sub_txt, v))
+    }).__update(fontSub, v))
     .append(modLinkButton(curModInfo))
   })
 }
@@ -248,10 +244,7 @@ let function openCustomMissionWnd() {
     hplace = ALIGN_CENTER
     vplace = ALIGN_CENTER
     size = [flex(), hdpx(900)]
-    children =  [
-      wndContent
-      modsDownloadInfo
-    ]
+    children = wndContent
     onClick = @() null
   })
 }

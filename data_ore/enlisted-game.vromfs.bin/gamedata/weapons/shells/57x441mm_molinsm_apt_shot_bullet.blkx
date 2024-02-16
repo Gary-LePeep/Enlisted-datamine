@@ -45,28 +45,7 @@
     "fresnel": [0.23,0.1,2.0]
   },
   {
-    "shellAnimation": "video/shells_animations/ap.ivf"
-  },
-  {
     "relativeVelArmorShift": [200.0,1000.0]
-  },
-  {
-    "selfDestructionFx": "explosion_air_selfexplosion_med"
-  },
-  {
-    "explosionEffect": "hit_59_80mm_metal_ap"
-  },
-  {
-    "groundCollisionEffect": "hit_59_80mm_dirt_ap"
-  },
-  {
-    "ricochetEffect": "hit_59_80mm_metal_ap"
-  },
-  {
-    "waterCollisionEffect": "hit_59_80mm_water"
-  },
-  {
-    "explosionPatchRadius": 1.8
   },
   {
     "stabilityRicochetModifier": [
@@ -108,26 +87,6 @@
       "traceFreq": 1,
       "tracer": "50mmRed",
       "trail": "black"
-    }
-  },
-  {
-    "hitFx": {
-      "steel": {
-        "fx": "hit_59_80mm_metal_ap",
-        "fxScale": [1.0,1.0]
-      },
-      "wood": {
-        "fx": "hit_59_80mm_wood_ap",
-        "fxScale": [1.0,1.0]
-      },
-      "glass": {
-        "fx": "hit_59_80mm_metal_ap",
-        "fxScale": [1.0,1.0]
-      },
-      "stone": {
-        "fx": "hit_59_80mm_stone_ap",
-        "fxScale": [1.0,1.0]
-      }
     }
   },
   {

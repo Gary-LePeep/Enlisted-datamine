@@ -14,36 +14,36 @@
   {
     "ussr_moon_soldier": [
       {
-        "_extends": "ussr_base_soldier"
+        "_use": "ussr_base_soldier"
       },
       {
-        "_extends": "base_moon_soldier"
+        "_use": "base_moon_soldier"
       }
     ]
   },
   {
     "ger_moon_soldier": [
       {
-        "_extends": "ger_base_soldier"
+        "_use": "ger_base_soldier"
       },
       {
-        "_extends": "base_moon_soldier"
+        "_use": "base_moon_soldier"
       }
     ]
   },
   {
     "usa_moon_soldier": [
       {
-        "_extends": "usa_base_soldier"
+        "_use": "usa_base_soldier"
       },
       {
-        "_extends": "base_moon_soldier"
+        "_use": "base_moon_soldier"
       }
     ]
   },
   {
     "base_moon_soldier": {
-      "_extends": "moon_base_soldier_sound",
+      "_use": "moon_base_soldier_sound",
       "human_net_phys__blk": "content/enlisted_extra/gamedata/units/walkers/moon_soldier.blk",
       "human_coll_damage__minDmgSpd": 100.0,
       "collision_damage__lethalSpeed": 100.0,

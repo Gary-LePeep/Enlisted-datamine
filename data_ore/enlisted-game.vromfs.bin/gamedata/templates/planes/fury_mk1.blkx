@@ -1,10 +1,10 @@
 {
   "fury_mk1": [
     {
-      "_extends": "fury_mk1_base"
+      "_use": "fury_mk1_base"
     },
     {
-      "_extends": "squad_controlled_plane"
+      "_use": "squad_controlled_plane"
     },
     {
       "item__name": "items/fury_mk1"
@@ -183,16 +183,16 @@
   },
   "planegun_fury_mk1_7_7mm_vikkerse_01": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_plane_machinegun"
+      "_use": "base_plane_machinegun"
     },
     {
-      "_extends": "base_fury_mk1_7_7mm_vikkerse"
+      "_use": "base_fury_mk1_7_7mm_vikkerse"
     },
     {
-      "_extends": "gunsound_7_7mm_vikkerse_aircraft"
+      "_use": "gunsound_7_7mm_vikkerse_aircraft"
     },
     {
       "gun__shootNodeName": "flare1"
@@ -203,16 +203,16 @@
   ],
   "planegun_fury_mk1_7_7mm_vikkerse_02": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_plane_machinegun"
+      "_use": "base_plane_machinegun"
     },
     {
-      "_extends": "base_fury_mk1_7_7mm_vikkerse"
+      "_use": "base_fury_mk1_7_7mm_vikkerse"
     },
     {
-      "_extends": "gunsound_7_7mm_vikkerse_aircraft"
+      "_use": "gunsound_7_7mm_vikkerse_aircraft"
     },
     {
       "gun__shootNodeName": "flare2"

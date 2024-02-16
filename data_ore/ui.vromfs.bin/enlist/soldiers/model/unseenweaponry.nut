@@ -1,15 +1,18 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { settings, onlineSettingUpdated } = require("%enlist/options/onlineSettings.nut")
-let { curArmiesList, itemsByArmies } = require("%enlist/meta/profile.nut")
-let { chosenSquadsByArmy, armoryByArmy, soldiersBySquad } = require("state.nut")
+let { curArmiesList, itemsByArmies, campItemsByLink } = require("%enlist/meta/profile.nut")
+let { chosenSquadsByArmy, armoryByArmy, soldiersBySquad, canChangeEquipmentInSlot } = require("state.nut")
 let { equipSchemesByArmy } = require("all_items_templates.nut")
 let { classSlotLocksByArmy } = require("%enlist/researches/researchesSummary.nut")
 let { debounce } = require("%sqstd/timers.nut")
+let { trimUpgradeSuffix } = require("%enlSqGlob/ui/itemsInfo.nut")
 
 const SEEN_ID = "seen/weaponry"
-let SLOTS = ["primary", "side"]
-let SLOTS_MAP = SLOTS.map(@(s) [s, true]).totable()
+let SLOTS = ["primary", "side", "secondary", "melee",
+  "backpack", "grenade", "mine", "flask_usable", "binoculars_usable",
+  "antitank", "flamethrower", "mortar"]
+let SLOTS_MAP = SLOTS.reduce(@(res, slotName) res.rawset(slotName, true), {})
 
 let seen = Computed(@() settings.value?[SEEN_ID]) //<armyId> = { <basetpl> = true }
 
@@ -26,7 +29,7 @@ let notEquippedTiers = Computed(function() {
     foreach (item in itemsList) {
       if (item.basetpl in byTpl)
         continue
-      let { basetpl, itemtype = "", tier = -1 } = item
+      let { basetpl, itemtype = "", tier = 0 } = item
       byTpl[basetpl] <- tier
       if (itemtype not in byItemType)
         byItemType[itemtype] <- {}
@@ -78,9 +81,10 @@ let unseenEquipSlotsTiers = Computed(@()
 
 let slotsLinkTiers = Computed(function() {
   let res = {}
+  let itemsList = itemsByArmies.value
   foreach (armyId in curArmiesList.value) {
     res[armyId] <- {}
-    foreach (item in itemsByArmies.value?[armyId] ?? {}) {
+    foreach (item in itemsList?[armyId] ?? {}) {
       if ("tier" not in item)
         continue
       foreach (linkTo, linkSlot in item.links)
@@ -94,6 +98,29 @@ let slotsLinkTiers = Computed(function() {
   }
   return res
 })
+
+let unseenUpgradesByWeapon = Computed(function() {
+  let res = {}
+  foreach (armyId, data in unseenTiers.value) {
+    res[armyId] <- {}
+    foreach (weaponTpl, _unseenTier in data.byTpl) {
+      let basicTpl = trimUpgradeSuffix(weaponTpl)
+      if (basicTpl not in res[armyId])
+        res[armyId][basicTpl] <- {}
+      res[armyId][basicTpl][weaponTpl] <- true
+    }
+  }
+  return res
+})
+
+function getSoldierFixedWeapon(soldierGuid) {
+  let weapon = {}
+  foreach (slotType, itemsList in campItemsByLink.value?[soldierGuid] ?? {}) {
+    if (itemsList?[0].isFixed)
+      weapon[slotType] <- true
+  }
+  return weapon
+}
 
 let function recalcUnseen() {
   let unseenArmies = {}
@@ -111,11 +138,18 @@ let function recalcUnseen() {
         if (unseenSlots == null)
           continue
 
+        let fixedWeapon = getSoldierFixedWeapon(soldier.guid)
+        let hasFixedWeapon = fixedWeapon.len() > 0
         let unseenSoldier = {}
-        foreach (slotId, tier in unseenSlots)
+        foreach (slotId, tier in unseenSlots) {
+          if (hasFixedWeapon && (slotId in fixedWeapon))
+            continue
+
           if (tier > (armyLinkTiers?[soldier.guid][slotId] ?? -1)
-              && !(classLocks?[soldier?.sClass] ?? []).contains(slotId))
+              && !(classLocks?[soldier?.sClass] ?? []).contains(slotId)
+              && canChangeEquipmentInSlot(soldier?.sClass, slotId))
             unseenSoldier[slotId] <- true
+        }
         if (unseenSoldier.len() == 0)
           continue
 
@@ -147,6 +181,23 @@ let function markWeaponrySeen(armyId, basetpl) {
     let saved = clone (set?[SEEN_ID] ?? {})
     let armySaved = clone (saved?[armyId] ?? {})
     armySaved[basetpl] <- true
+    saved[armyId] <- armySaved
+    set[SEEN_ID] <- saved
+  })
+}
+
+let function markWeaponryListSeen(armyId, basetpls) {
+  if (!onlineSettingUpdated.value)
+    return
+
+  let armySaved = clone settings.value?[SEEN_ID][armyId] ?? {}
+  let lastCount = armySaved.len()
+  basetpls.each(@(tpl) armySaved[tpl] <- true)
+  if (lastCount == armySaved.len())
+    return
+
+  settings.mutate(function(set) {
+    let saved = clone (set?[SEEN_ID] ?? {})
     saved[armyId] <- armySaved
     set[SEEN_ID] <- saved
   })
@@ -191,7 +242,9 @@ return {
   unseenArmiesWeaponry
   unseenSquadsWeaponry
   unseenSoldiersWeaponry
+  unseenUpgradesByWeapon
 
   markWeaponrySeen
+  markWeaponryListSeen
   markNotFreeWeaponryUnseen
 }

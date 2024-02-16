@@ -37,16 +37,16 @@
   },
   "tankgun_37mm_kwk38_t": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_tankgun_cannon"
+      "_use": "base_tankgun_cannon"
     },
     {
-      "_extends": "base_37mm_kwk38_t"
+      "_use": "base_37mm_kwk38_t"
     },
     {
-      "_extends": "gunsound_37mm_kwk38_t"
+      "_use": "gunsound_37mm_kwk38_t"
     },
     {
       "turret__triggerGroup": 0

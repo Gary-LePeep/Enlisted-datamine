@@ -10,7 +10,10 @@
   },
   "base_damage_model": [
     {
-      "_extends": "simple_damage_model"
+      "_use": "simple_damage_model"
+    },
+    {
+      "_use": "dm_parts_repair"
     },
     {
       "isExploded": false
@@ -32,6 +35,9 @@
     },
     {
       "_tracked": "fire_damage__isBurn"
+    },
+    {
+      "_tracked": "fire_damage__isFatal"
     },
     {
       "_replicated": "isExploded"
@@ -103,6 +109,13 @@
       "damage_model__fireDamageType": -1
     },
     {
+      "_group": {
+        "_tags": "render",
+        "highlight_collision__color": [1.0,0.0,0.0,1.0],
+        "highlight_collision__nodes:list<i>": []
+      }
+    },
+    {
       "dm_state:list<u16>": []
     },
     {
@@ -165,8 +178,10 @@
       "hitcamera:tag": []
     },
     {
-      "dm_events_client": {
-        "_tags": "gameClient"
+      "_group": {
+        "_tags": "gameClient",
+        "hitcamera__consequence": 0,
+        "dm_events_client": []
       }
     },
     {

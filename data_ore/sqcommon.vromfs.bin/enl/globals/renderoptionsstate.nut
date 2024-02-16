@@ -8,7 +8,9 @@ enum antiAliasingMode {
   TAA = 2,
   TSR = 3,
   DLSS = 4,
-  XESS = 6
+  XESS = 6,
+  FSR2 = 7,
+  SSAA = 8
 };
 
 let antiAliasingModeToString = {
@@ -18,6 +20,8 @@ let antiAliasingModeToString = {
   [antiAliasingMode.TSR]  = { optName = "option/tsr",  defLocString = "Temporal Super Resolution" },
   [antiAliasingMode.DLSS] = { optName = "option/dlss", defLocString = "NVIDIA DLSS" },
   [antiAliasingMode.XESS] = { optName = "option/xess", defLocString = "Intel XeSS" },
+  [antiAliasingMode.FSR2] = { optName = "option/fsr2", defLocString = "FSR2" },
+  [antiAliasingMode.SSAA] = { optName = "options/optSSAA", defLocString = "SSAA" },
 }
 
 let renderSettingsTbl = freeze({
@@ -81,10 +85,6 @@ let renderSettingsTbl = freeze({
     defVal = 1
     blkPath = "graphics/taaQuality"
   }
-  taaMipBias = {
-    defVal = -0.5
-    blkPath = "graphics/taa_mip_bias"
-  }
   temporalUpsamplingRatio = {
     defVal = 100.0
     blkPath = "video/temporalUpsamplingRatio"
@@ -141,9 +141,21 @@ let renderSettingsTbl = freeze({
     defVal = true
     blkPath = "graphics/HQProbeReflections"
   }
+  hqVolumetricClouds = {
+    defVal = false
+    blkPath = "graphics/HQVolumetricClouds"
+  }
+  hqVolfog= {
+    defVal = false
+    blkPath = "graphics/HQVolfog"
+  }
   ssss = {
     defVal = "low"
-    blkPath = "graphics/ssss"
+    blkPath = "graphics/ssssQuality"
+  }
+  sharpening = {
+    defVal = 0.0
+    blkPath = "graphics/sharpening"
   }
 }.map(function(options, name) {
   let gw = globalWatched(name,

@@ -5,10 +5,10 @@
   },
   "lagg_3_34_wreckage": [
     {
-      "_extends": "base_lagg_3_34"
+      "_use": "base_lagg_3_34"
     },
     {
-      "_extends": "plane_wreckage"
+      "_use": "plane_wreckage"
     },
     {
       "plane_wreckage__nodeName": ""
@@ -19,10 +19,10 @@
   ],
   "lagg_3_34_base": [
     {
-      "_extends": "plane_with_cockpit"
+      "_use": "plane_with_cockpit"
     },
     {
-      "_extends": "base_lagg_3_34"
+      "_use": "base_lagg_3_34"
     },
     {
       "collres__res": "lagg_3_34_collision"

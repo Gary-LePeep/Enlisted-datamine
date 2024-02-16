@@ -1,10 +1,10 @@
 {
   "base_zis_30": [
     {
-      "_extends": "base_tank"
+      "_use": "base_tank"
     },
     {
-      "_extends": "zis_30_ammo_stowages"
+      "_use": "zis_30_ammo_stowages"
     },
     {
       "killLogName": "ussr_zis_30"
@@ -159,7 +159,7 @@
     }
   ],
   "zis_30_turret_01_57mm_zis2": {
-    "_extends": "tankgun_57mm_zis2",
+    "_use": "tankgun_57mm_zis2",
     "gun__shootNodeName": "bone_gun_barrel",
     "turret__yawSpeed": 7.0,
     "turret__pitchSpeed": 4.0,
@@ -189,7 +189,7 @@
     ]
   },
   "zis_30_turret_02_7_62mm_dt": {
-    "_extends": "tankgun_7_62mm_dt",
+    "_use": "tankgun_7_62mm_dt",
     "gun__shootNodeName": "bone_mg_body_v",
     "turret__yawSpeed": 5.5,
     "turret__pitchSpeed": 4.0,
@@ -206,13 +206,13 @@
   },
   "zis_30_ammo_stowages": {
     "_tags": "server",
-    "_extends": "vehicle_ammo_stowages",
+    "_use": "vehicle_ammo_stowages",
     "ammo_stowage__stowageTemplates:shared:list<t>": {
       "stowage": "zis_30_ammo_stowage"
     }
   },
   "zis_30_ammo_stowage": {
-    "_extends": "ammo_stowage",
+    "_use": "ammo_stowage",
     "ammo_stowage__clusterTemplates:shared:list<t>": {
       "cluster": "zis_30_ammo_cluster"
     },
@@ -221,7 +221,7 @@
     }
   },
   "zis_30_ammo_cluster": {
-    "_extends": "ammo_cluster",
+    "_use": "ammo_cluster",
     "ammo_cluster__isShell": true,
     "ammo_cluster__slotNames:shared:list<t>": [
       {

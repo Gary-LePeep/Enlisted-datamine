@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let iconSize = hdpx(22)
+let iconSize = hdpxi(22)
 
 let itemTypesData = {
   boltaction_noscope = {
@@ -8,6 +8,10 @@ let itemTypesData = {
     isWeapon = true
   }
   rifle_grenade_launcher = {
+    svg = "rifle.svg"
+    isWeapon = true
+  }
+  rifle_at_grenade_launcher = {
     svg = "rifle.svg"
     isWeapon = true
   }
@@ -24,8 +28,8 @@ let itemTypesData = {
     svg = "assault_rifle.svg"
     isWeapon = true
   }
-  assault_rifle_stl = {
-    svg = "assault_rifle.svg"
+  assault_semi = {
+    svg = "semiauto_rifle.svg"
     isWeapon = true
   }
 
@@ -63,6 +67,10 @@ let itemTypesData = {
     svg = "launcher.svg"
     isWeapon = true
   }
+  flaregun = {
+    svg = "launcher.svg"
+    isWeapon = true
+  }
   infantry_launcher = {
     svg = "launcher.svg"
     isWeapon = true
@@ -78,6 +86,9 @@ let itemTypesData = {
 
   sideweapon = { svg = "item_pistol.svg" }
   melee = { svg = "melee.svg" }
+  axe = { svg = "item_axe.svg" }
+  sword = { svg = "item_sword.svg" }
+  shovel = { svg = "item_shovel.svg" }
 
   explosion_pack = { svg = "explosion_pack_icon.svg" }
   grenade = { svg = "item_grenade.svg" }
@@ -96,14 +107,17 @@ let itemTypesData = {
   repair_kit = { svg = "item_repair_kit.svg" }
   flask_usable = { svg = "flask_icon.svg" }
   binoculars_usable = { svg = "binoculars_icon.svg" }
+  small_backpack = { svg = "item_small_backpack.svg" }
   backpack = { svg = "item_backpack.svg" }
 
   vehicle = { svg = "tank_icon.svg" }
   tank = { svg = "tank_icon.svg" }
   bike = { svg = "bike_icon.svg" }
   aircraft = { svg = "aircraft_icon.svg" }
-  assault_aircraft = { svg = "aircraft_icon.svg" }
+  assault_aircraft = { svg = "assault_aircraft_icon.svg" }
   fighter_aircraft = { svg = "aircraft_icon.svg" }
+  mech = { svg = "mech_icon.svg" }
+  truck = { svg = "truck_icon.svg" }
 }
 
 let function itemTypeIcon(iType, iSubType = null, override = {}) {

@@ -2,7 +2,7 @@ options no_aot
 require ecs
 require ecs.verify_common
 require ecs.verify_macro
-require EnlistedShip
+require DngShip
 
 
 [req_template]
@@ -18,7 +18,6 @@ struct ShipEngineSoundUpdateVarsES
 struct ShipSoundUpdateVarsES
   sound_control__shouldPlay : bool
   ship_net_phys : ShipActor
-  vehicle_sound_vars__slip : float
   vehicle_sound_vars__speed : float
   vehicle_sound_vars__prevSoundShockSummary : float
   vehicle_sound_vars__deltaShock : float
@@ -28,5 +27,6 @@ struct ShipSoundUpdateVarsES
   vehicle_sound_vars__noiseDeltaShockThreshold : float
   vehicle_sound_vars__noiseSpeedThreshold : float
   ship_sound_vars__waterTimer : float
-  vehicle_sound_vars__water : float
+  vehicle_tracks_sound_vars__slip : float
+  vehicle_tracks_sound_vars__water : float
   transform : float3x4

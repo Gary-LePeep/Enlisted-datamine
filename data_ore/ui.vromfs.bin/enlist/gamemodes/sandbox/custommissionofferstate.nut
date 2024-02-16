@@ -1,8 +1,8 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { body_txt, h2_txt } = require("%enlSqGlob/ui/fonts_style.nut")
-let http = require("dagor.http")
-let json = require("json")
+let { fontBody, fontHeading2 } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { httpRequest } = require("dagor.http")
+let { parse_json } = require("json")
 let { showWithCloseButton } = require("%enlist/components/msgbox.nut")
 let { noteTextArea, txt } = require("%enlSqGlob/ui/defcomps.nut")
 let { requestModManifest } = require("customMissionState.nut")
@@ -12,46 +12,59 @@ let { isEventModesOpened, curTab } = require("%enlist/gameModes/eventModesState.
 let { logerr } = require("dagor.debug")
 let { titleTxtColor, accentTitleTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
 let colorize = require("%ui/components/colorize.nut")
-let openUrl = require("%ui/components/openUrl.nut")
+let { openUrl } = require("%ui/components/openUrl.nut")
 let { is_pc } = require("%dngscripts/platform.nut")
-
+let JB = require("%ui/control/gui_buttons.nut")
+let { MOD_BY_VERSION_URL, MOD_LATEST_URL } = require("%enlSqGlob/game_mods_constant.nut")
+let isChineseVersion = require("%enlSqGlob/isChineseVersion.nut")
 
 let featuredMods = Watched([])
 let featuredModsRoomsList = Watched([])
 let needOpenModsList = Watched(false)
-let urlData = "cdn_uris=true&clean_description=true&no_file=true&only_preview=true&charset=UTF-8&content-type=application/x-www-form-urlencoded"
-let isFeaturedAvailable = is_pc
+let urlData = {
+  cdn_uris=true
+  clean_description=true
+  no_file=true
+  only_preview=true
+  charset="UTF-8"
+}
+let isFeaturedAvailable = is_pc && !isChineseVersion
 let isFeaturedRequestNeeded = keepref(Computed(@() isFeaturedAvailable && isEventModesOpened.value
   && featuredMods.value.len() == 0))
 
 const FEATURED_MODS_TAB_ID = "featured_mod"
 const URL = "https://sandbox.enlisted.net/api/feed/get_featured/"
-const MOD_DOWNLOAD_URL = "https://sandbox.enlisted.net/post/{0}/manifest/{1}/"
-const MOD_URL = "https://sandbox.enlisted.net/post/{0}"
-
 
 let function getfeaturedModInfo(mod) {
-  let isInvalidData = mod.findvalue(@(v) v == null)
-  if (isInvalidData)
+  try{
+    let isInvalidData = mod.findvalue(@(v) v == null)
+    if (isInvalidData)
+      return null
+    let { description, preview, title, author, id, version } = mod
+    let imageToShow = preview.split("?")[0]
+    let modUrl = MOD_LATEST_URL.subst(id)
+    return {
+      description
+      imageToShow
+      title
+      authorsNick = author.nick
+      id
+      version
+      modUrl
+    }
+  }
+  catch(e){
+    log("incorrect featured mod")
+    log(e)
+    logerr("incorrect featured mod")
     return null
-  let { description, preview, title, author, id, version } = mod
-  let imageToShow = preview.split("?")[0]
-  let modUrl = MOD_URL.subst(id)
-  return {
-    description
-    imageToShow
-    title
-    authorsNick = author.nick
-    id
-    version
-    modUrl
   }
 }
 
 
 let function requestCb(response) {
   try {
-    let mods = (json.parse(response.body?.as_string())?.data.list ?? [])
+    let mods = (parse_json(response.body?.as_string())?.data.list ?? [])
       .map(@(v) getfeaturedModInfo(v))
     featuredMods(mods)
   }
@@ -61,11 +74,11 @@ let function requestCb(response) {
 }
 
 let function requestMods(data = urlData) {
-  http.request({
+  httpRequest({
     method = "POST"
     url = URL
     callback = @(response) requestCb(response)
-    data
+    data = data.__merge({content="gamemod"})
   })
 }
 
@@ -87,11 +100,11 @@ let function offersModMsgbox(mod) {
         text = loc("downloadMission")
         action = function() {
           isEditEventRoomOpened(true)
-          requestModManifest(MOD_DOWNLOAD_URL.subst(id, version))
+          requestModManifest(MOD_BY_VERSION_URL.subst(id, version))
           openCustomMissionWnd()
         }
       }
-      { text = loc("Cancel") }
+      { text = loc("Cancel"), customStyle = { hotkeys = [[$"^{JB.B} | Esc"]] } }
     ]
     if (curTab.value != FEATURED_MODS_TAB_ID && featuredModsRoomsList.value.len() > 0)
       res.insert(0, {
@@ -110,13 +123,13 @@ let function offersModMsgbox(mod) {
       gap = fsh(2)
       valign = ALIGN_CENTER
       children = [
-        txt({ text = loc("featured_mod")}).__update(h2_txt, { color = accentTitleTxtColor})
-        noteTextArea({ text = title }).__update(h2_txt, { color = titleTxtColor })
-        noteTextArea({ text = loc("mods/featuring") }).__update(body_txt)
+        txt({ text = loc("featured_mod")}).__update(fontHeading2, { color = accentTitleTxtColor})
+        noteTextArea({ text = title }).__update(fontHeading2, { color = titleTxtColor })
+        noteTextArea({ text = loc("mods/featuring") }).__update(fontBody)
         noteTextArea({ text = loc("mods/authorModDescription", { description = colorize(titleTxtColor, description) }) })
-          .__update(body_txt, { color = accentTitleTxtColor })
+          .__update(fontBody, { color = accentTitleTxtColor })
         noteTextArea({ text = loc("mods/author", { author = colorize(titleTxtColor, authorsNick) }) })
-          .__update(body_txt, { color = accentTitleTxtColor })
+          .__update(fontBody, { color = accentTitleTxtColor })
       ]
     }
     buttons

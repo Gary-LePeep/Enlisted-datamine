@@ -1,30 +1,68 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { logerr } = require("dagor.debug")
-let { mainSectionId } = require("%enlist/mainMenu/sectionsState.nut")
-
 let ticketGroups = {}
 
 let ticketGroupsSorted = [
   {
+    id = "EnlistedGold"
+    icon = "!ui/uiskin/currency/enlisted_gold.svg"
+    desc = "currency/gold_currency_desc"
+    name = "currency/code/EnlistedGold"
+    hasTutorial = false
+    isShownIfEmpty = true
+    isInteractive = true
+  }
+  {
+    id = "silver"
+    icon = "!ui/uiskin/currency/enlisted_silver.svg"
+    desc = "currency/silver_currency_desc"
+    name = "currency/silver_currency"
+    hasTutorial = false
+    isShownIfEmpty = true
+    isInteractive = true
+    shopSection = "silver"
+  }
+  {
+    id   = "temporarily_and_uniq"
+    icon = "!ui/uiskin/currency/uniq_order_cards.svg"
+    desc = "items/temporarily_and_uniq/desc"
+    name = "items/temporarily_and_uniq"
+    isShownIfEmpty = false
+    isInteractive = true
+    showInSection = ["SOLDIERS", "SHOP"]
+  }
+  {
     id   = "weapon"
-    icon = "!ui/uiskin/currency/weapon_order_cards.svg"
-    desc = "items/weapon_order_all/desc"
-    name = "items/weapon_order"
+    icon = "!ui/uiskin/currency/weapon_order_gold.svg"
+    desc = "items/weapon_order_gold/desc"
+    name = "items/weapon_order_gold"
     hasTutorial = true
     isShownIfEmpty = true
     isInteractive = true
     expandedInShop = true
+    showInSection = ["SHOP"]
   }
   {
     id   = "soldier"
-    icon = "!ui/uiskin/currency/soldier_order_cards.svg"
-    desc =  "items/soldier_order_all/desc"
-    name = "items/soldier_order"
+    icon = "!ui/uiskin/currency/soldier_order_gold.svg"
+    desc =  "items/soldier_order_gold/desc"
+    name = "items/soldier_order_gold"
     hasTutorial = true
     isShownIfEmpty = true
     isInteractive = true
     expandedInShop = true
+    showInSection = ["SHOP"]
+  }
+  {
+    id   = "vehicle"
+    icon = "!ui/uiskin/currency/vehicle_with_skin.svg"
+    desc = "items/vehicle_order_gold/desc"
+    name = "items/vehicle_order_gold"
+    hasTutorial = true
+    isShownIfEmpty = true
+    isInteractive = true
+    expandedInShop = true
+    showInSection = ["SHOP"]
   }
   {
     id   = "twitch"
@@ -67,23 +105,6 @@ let ticketGroupsSorted = [
     isShownIfEmpty = false
     isInteractive = false
   }
-  {
-    id   = "vehicle"
-    icon = "!ui/uiskin/currency/vehicle_with_skin.svg"
-    desc = "items/vehicle_with_skin_order_gold/desc"
-    name = "items/vehicle_with_skin_order_gold"
-    isShownIfEmpty = false
-    isInteractive = true
-  }
-  {
-    id   = "temporarily_and_uniq"
-    icon = "!ui/uiskin/currency/uniq_order_cards.svg"
-    desc = "items/temporarily_and_uniq/desc"
-    name = "items/temporarily_and_uniq"
-    isShownIfEmpty = false
-    isInteractive = true
-    showInSection = [mainSectionId, "SHOP"]
-  }
 ]
 
 ticketGroupsSorted.each(function(group, idx) {
@@ -99,18 +120,14 @@ let DEFAULT_CURRENCY = {
 }
 
 let currencyPresentation = freeze({
-  weapon_order = {
-    order = 0
-    color = Color(182,107,61)
-    group = ticketGroups.weapon
-    icon = "!ui/uiskin/currency/weapon_order.svg"
-    isAlwaysVisible = true
+  EnlistedGold = {
+    icon = "!ui/uiskin/currency/enlisted_gold.svg"
   }
-  weapon_order_silver = {
-    order = 1
-    group = ticketGroups.weapon
+  enlisted_silver = {
+    order = 0
+    group = ticketGroups.silver
     color = Color(117,123,129)
-    icon = "!ui/uiskin/currency/weapon_order_silver.svg"
+    icon = "!ui/uiskin/currency/enlisted_silver.svg"
     isAlwaysVisible = true
   }
   weapon_order_gold = {
@@ -120,25 +137,18 @@ let currencyPresentation = freeze({
     icon = "!ui/uiskin/currency/weapon_order_gold.svg"
     isAlwaysVisible = true
   }
-  soldier_order = {
-    order = 0
-    group = ticketGroups.soldier
-    color = Color(182,107,61)
-    icon = "!ui/uiskin/currency/soldier_order.svg"
-    isAlwaysVisible = true
-  }
-  soldier_order_silver = {
-    order = 1
-    group = ticketGroups.soldier
-    color = Color(117,123,129)
-    icon = "!ui/uiskin/currency/soldier_order_silver.svg"
-    isAlwaysVisible = true
-  }
   soldier_order_gold = {
     order = 2
     group = ticketGroups.soldier
     color = Color(188,150,78)
     icon = "!ui/uiskin/currency/soldier_order_gold.svg"
+    isAlwaysVisible = true
+  }
+  vehicle_with_skin_order_gold = {
+    order = 2
+    group = ticketGroups.vehicle
+    color = Color(188,150,78)
+    icon = "!ui/uiskin/currency/vehicle_with_skin.svg"
     isAlwaysVisible = true
   }
   twitch_drop_2021_obt_pistol_order = {
@@ -221,12 +231,6 @@ let currencyPresentation = freeze({
     color = Color(188,150,78)
     icon = "!ui/uiskin/currency/soldier_appearance.svg"
     hideIfZero = true
-  }
-  vehicle_with_skin_order_gold = {
-    order = 1
-    group = ticketGroups.temporarily_and_uniq
-    color = Color(188,150,78)
-    icon = "!ui/uiskin/currency/vehicle_with_skin.svg"
   }
   marathon_2021_summer_order = {
     order = 0
@@ -312,6 +316,55 @@ let currencyPresentation = freeze({
     icon  = "!ui/uiskin/currency/event_order.svg"
     hideIfZero = true
   }
+  victory_day_2023_event_order = {
+    order = 0
+    group = ticketGroups.temporarily_and_uniq
+    color = Color(180,180,180)
+    icon  = "!ui/uiskin/currency/event_order.svg"
+    hideIfZero = true
+  }
+  armedForces_day_2023_event_order = {
+    order = 0
+    group = ticketGroups.temporarily_and_uniq
+    color = Color(180,180,180)
+    icon  = "!ui/uiskin/currency/event_order.svg"
+    hideIfZero = true
+  }
+  stalingrad_2023_event_order = {
+    order = 0
+    group = ticketGroups.temporarily_and_uniq
+    color = Color(180,180,180)
+    icon  = "!ui/uiskin/currency/event_order.svg"
+    hideIfZero = true
+  }
+  armory2_event_order = {
+    order = 0
+    group = ticketGroups.temporarily_and_uniq
+    color = Color(180,180,180)
+    icon  = "!ui/uiskin/currency/event_order.svg"
+    hideIfZero = true
+  }
+  italyParatroopers_event_order = {
+    order = 0
+    group = ticketGroups.temporarily_and_uniq
+    color = Color(180,180,180)
+    icon  = "!ui/uiskin/currency/event_order.svg"
+    hideIfZero = true
+  }
+  armory3_event_order = {
+    order = 0
+    group = ticketGroups.temporarily_and_uniq
+    color = Color(180,180,180)
+    icon  = "!ui/uiskin/currency/event_order.svg"
+    hideIfZero = true
+  }
+  birthday2_event_order = {
+    order = 0
+    group = ticketGroups.temporarily_and_uniq
+    color = Color(180,180,180)
+    icon  = "!ui/uiskin/currency/event_order.svg"
+    hideIfZero = true
+  }
 
 })
 
@@ -319,7 +372,7 @@ let function getCurrencyPresentation(key) {
   if (key in currencyPresentation)
     return currencyPresentation[key]
 
-  logerr($"Unknown currency {key}")
+  log($"Unknown currency {key}")
   return DEFAULT_CURRENCY
 }
 

@@ -3,12 +3,13 @@ from "%enlSqGlob/ui_library.nut" import *
 let eventbus = require("eventbus")
 let { isInBattleState } = require("%enlSqGlob/inBattleState.nut")
 let { dailyTasks } = require("%enlist/unlocks/taskListState.nut")
+let { nestWatched } = require("%dngscripts/globalState.nut")
 
 
-let data = mkWatched(persist, "data", null)
-let show = mkWatched(persist, "show", false)
+let data = nestWatched("data", null)
+let show = nestWatched("show", false)
 
-let statsBeforeBattle = mkWatched(persist, "statsBeforeBattle", {})
+let statsBeforeBattle = nestWatched("statsBeforeBattle", {})
 
 eventbus.subscribe("debriefing.data", @(val) data(val))
 eventbus.subscribe("debriefing.show", @(val) show(val))

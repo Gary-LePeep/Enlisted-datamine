@@ -1,10 +1,10 @@
 {
   "base_pzkpfw_iii_ausf_n": [
     {
-      "_extends": "base_tank"
+      "_use": "base_tank"
     },
     {
-      "_extends": "pzkpfw_iii_ausf_n_ammo_stowages"
+      "_use": "pzkpfw_iii_ausf_n_ammo_stowages"
     },
     {
       "killLogName": "germ_pzkpfw_iii_ausf_n"
@@ -350,7 +350,7 @@
     }
   ],
   "pzkpfw_iii_ausf_n_turret_01_75mm_kwk37": {
-    "_extends": "tankgun_75mm_kwk37",
+    "_use": "tankgun_75mm_kwk37",
     "gun__shootNodeName": "bone_gun_barrel",
     "turret__yawSpeed": 14.0,
     "turret__pitchSpeed": 4.0,
@@ -382,7 +382,7 @@
     ]
   },
   "pzkpfw_iii_ausf_n_turret_02_7_92mm_mg34": {
-    "_extends": "tankgun_7_92mm_mg34",
+    "_use": "tankgun_7_92mm_mg34",
     "gun__shootNodeName": "bone_mg_gun_twin",
     "gun__shellsAmmo:array": [
       {
@@ -394,7 +394,7 @@
     ]
   },
   "pzkpfw_iii_ausf_n_turret_03_7_92mm_mg34": {
-    "_extends": "tankgun_7_92mm_mg34",
+    "_use": "tankgun_7_92mm_mg34",
     "gun__shootNodeName": "bone_mg_aa_barrel",
     "turret__yawSpeed": 90.0,
     "turret__pitchSpeed": 90.0,
@@ -410,42 +410,42 @@
     ]
   },
   "pzkpfw_iii_ausf_n_turret_04_91mm_germ_smoke_grenade_launcher": {
-    "_extends": "tankgun_91mm_germ_smoke_grenade_launcher",
+    "_use": "tankgun_91mm_germ_smoke_grenade_launcher",
     "gun__shootNodeName": "emtr_mortar_flame_01",
     "gun__shellsAmmo:array": {
       "ammo": 1
     }
   },
   "pzkpfw_iii_ausf_n_turret_05_91mm_germ_smoke_grenade_launcher": {
-    "_extends": "tankgun_91mm_germ_smoke_grenade_launcher",
+    "_use": "tankgun_91mm_germ_smoke_grenade_launcher",
     "gun__shootNodeName": "emtr_mortar_flame_02",
     "gun__shellsAmmo:array": {
       "ammo": 1
     }
   },
   "pzkpfw_iii_ausf_n_turret_06_91mm_germ_smoke_grenade_launcher": {
-    "_extends": "tankgun_91mm_germ_smoke_grenade_launcher",
+    "_use": "tankgun_91mm_germ_smoke_grenade_launcher",
     "gun__shootNodeName": "emtr_mortar_flame_03",
     "gun__shellsAmmo:array": {
       "ammo": 1
     }
   },
   "pzkpfw_iii_ausf_n_turret_07_91mm_germ_smoke_grenade_launcher": {
-    "_extends": "tankgun_91mm_germ_smoke_grenade_launcher",
+    "_use": "tankgun_91mm_germ_smoke_grenade_launcher",
     "gun__shootNodeName": "emtr_mortar_flame_04",
     "gun__shellsAmmo:array": {
       "ammo": 1
     }
   },
   "pzkpfw_iii_ausf_n_turret_08_91mm_germ_smoke_grenade_launcher": {
-    "_extends": "tankgun_91mm_germ_smoke_grenade_launcher",
+    "_use": "tankgun_91mm_germ_smoke_grenade_launcher",
     "gun__shootNodeName": "emtr_mortar_flame_05",
     "gun__shellsAmmo:array": {
       "ammo": 1
     }
   },
   "pzkpfw_iii_ausf_n_turret_09_91mm_germ_smoke_grenade_launcher": {
-    "_extends": "tankgun_91mm_germ_smoke_grenade_launcher",
+    "_use": "tankgun_91mm_germ_smoke_grenade_launcher",
     "gun__shootNodeName": "emtr_mortar_flame_06",
     "gun__shellsAmmo:array": {
       "ammo": 1
@@ -453,13 +453,13 @@
   },
   "pzkpfw_iii_ausf_n_ammo_stowages": {
     "_tags": "server",
-    "_extends": "vehicle_ammo_stowages",
+    "_use": "vehicle_ammo_stowages",
     "ammo_stowage__stowageTemplates:shared:list<t>": {
       "stowage": "pzkpfw_iii_ausf_n_ammo_stowage_1"
     }
   },
   "pzkpfw_iii_ausf_n_ammo_stowage_1": {
-    "_extends": "ammo_stowage",
+    "_use": "ammo_stowage",
     "ammo_stowage__clusterTemplates:shared:list<t>": {
       "cluster": "pzkpfw_iii_ausf_n_ammo_cluster_1_1"
     },
@@ -468,7 +468,7 @@
     }
   },
   "pzkpfw_iii_ausf_n_ammo_cluster_1_1": {
-    "_extends": "ammo_cluster",
+    "_use": "ammo_cluster",
     "ammo_cluster__isShell": true,
     "ammo_cluster__slotNames:shared:list<t>": [
       {

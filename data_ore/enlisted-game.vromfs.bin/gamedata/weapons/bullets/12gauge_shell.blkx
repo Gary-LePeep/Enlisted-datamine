@@ -5,7 +5,7 @@
   "speed": 200.0,
   "maxDistance": 2000.0,
   "bulletType": "ball",
-  "hitPowerMult": 2.25,
+  "hitPowerMult": 2.6,
   "effectiveDistance": 20.0,
   "relativeVelHitShift": [300.0,1000.0],
   "relativeVelArmorShift": [200.0,1000.0],
@@ -29,12 +29,6 @@
     "traceFreq": 1,
     "tracer": "7mmWhite",
     "trail": "smallTrail"
-  },
-  "hitFx": {
-    "fxScale": [0.5,0.7],
-    "defaultFx": "ground_splash",
-    "jetFx": "ground_splash_direct",
-    "preset": "bullet"
   },
   "tracer": {
     "ignitionTime": 0.002,

@@ -57,10 +57,10 @@
   },
   "tankgun_flak38_flakvierling_20mm_kwk30_ul": [
     {
-      "_extends": "tankgun_20mm_kwk30"
+      "_use": "tankgun_20mm_kwk30"
     },
     {
-      "_extends": "base_2_0cm_flakvierling_38_ul"
+      "_use": "base_2_0cm_flakvierling_38_ul"
     },
     {
       "gun__shootNodeName": "bone_gun_barrel_ul"
@@ -83,10 +83,10 @@
   ],
   "tankgun_flak38_flakvierling_20mm_kwk30_ur": [
     {
-      "_extends": "tankgun_20mm_kwk30"
+      "_use": "tankgun_20mm_kwk30"
     },
     {
-      "_extends": "base_2_0cm_flakvierling_38_ur"
+      "_use": "base_2_0cm_flakvierling_38_ur"
     },
     {
       "gun__shootNodeName": "bone_gun_barrel_ur"
@@ -94,10 +94,10 @@
   ],
   "tankgun_flak38_flakvierling_20mm_kwk30_dl": [
     {
-      "_extends": "tankgun_20mm_kwk30"
+      "_use": "tankgun_20mm_kwk30"
     },
     {
-      "_extends": "base_2_0cm_flakvierling_38_dl"
+      "_use": "base_2_0cm_flakvierling_38_dl"
     },
     {
       "gun__shootNodeName": "bone_gun_barrel_dl"
@@ -105,10 +105,10 @@
   ],
   "tankgun_flak38_flakvierling_20mm_kwk30_dr": [
     {
-      "_extends": "tankgun_20mm_kwk30"
+      "_use": "tankgun_20mm_kwk30"
     },
     {
-      "_extends": "base_2_0cm_flakvierling_38_dr"
+      "_use": "base_2_0cm_flakvierling_38_dr"
     },
     {
       "gun__shootNodeName": "bone_gun_barrel_dr"
@@ -116,7 +116,10 @@
   ],
   "cannon_germ_20mm_flak38_flakvierling_without_camo": [
     {
-      "_extends": "base_anti_aircraft_cannon"
+      "_use": "base_anti_aircraft_cannon"
+    },
+    {
+      "_use": "vehicle_display_marker_over_head"
     },
     {
       "killLogName": "germ_20mm_flak38_flakvierling"
@@ -398,7 +401,7 @@
           "fx:array": [
             {
               "fx:object": {
-                "name": "tank_smoke_big_template",
+                "name": "tank_smoke_medium_template",
                 "emitter": "guns"
               }
             },
@@ -410,7 +413,7 @@
             },
             {
               "fx:object": {
-                "name": "tank_fire_big_template",
+                "name": "tank_fire_medium_template",
                 "emitter": "guns"
               }
             },
@@ -452,29 +455,27 @@
     }
   ],
   "cannon_germ_20mm_flak38_flakvierling_green_camo": {
-    "_extends": "cannon_germ_20mm_flak38_flakvierling_without_camo",
+    "_use": "cannon_germ_20mm_flak38_flakvierling_without_camo",
     "animchar__objTexReplace:object": {
       "cannon_germ_20mm_flak38_flakvierling_camo*": "ger_camo_bronzegruen*"
     }
   },
   "cannon_germ_20mm_flak38_flakvierling": {
-    "_extends": "cannon_germ_20mm_flak38_flakvierling_without_camo",
+    "_use": "cannon_germ_20mm_flak38_flakvierling_without_camo",
     "animchar__objTexReplace:object": {
       "cannon_germ_20mm_flak38_flakvierling_camo*": "ger_camo_winter_grey*"
     }
   },
   "cannon_germ_20mm_flak38_flakvierling_desert": {
-    "_extends": "cannon_germ_20mm_flak38_flakvierling_without_camo"
+    "_use": "cannon_germ_20mm_flak38_flakvierling_without_camo"
   },
   "germ_20mm_flak38_flakvierling_gunner_cockpit": {
     "vehicle_sight__blk": "content/tanks/gamedata/sight/germ_zf_3x8_flak.blk",
-    "_extends": "base_gunner_cockpit",
+    "_use": "base_gunner_cockpit",
     "animchar__res": "t_26_1940_gunner_char",
-    "cockpit__offset": [0.0,0.0,0.0],
-    "cockpit__zoomTimeMul": 3.0,
-    "cockpit__minZoom": 0.0,
+    "cockpit__forwardOffsetDuration": 0.33,
     "cockpit__cockpitOffsetBySlit:list<p3>": {
-      "item": [-0.9,0.56,0.26]
+      "item": [-0.7,0.56,0.26]
     },
     "cockpit__attachNodeNames:list<t>": {
       "node": "bone_gun"
@@ -498,10 +499,20 @@
       "slit": "cam_front_right"
     },
     "cockpit__slitForwardOffset:list<r>": {
-      "slit": 0.19
+      "slit": 0.22
     },
     "cockpit__slitIsGun:list<b>": {
       "slit": true
+    },
+    "cockpit__slitZoom:array": {
+      "slit:list<r>": [
+        {
+          "zoom": 1.44
+        },
+        {
+          "zoom": 3.0
+        }
+      ]
     }
   }
 }

@@ -1,22 +1,28 @@
 {
   "jp_type_98_ta_se_pacific": {
-    "_extends": "jp_type_98_ta_se_common"
+    "_use": "jp_type_98_ta_se_common"
   },
   "jp_type_98_ta_se_common": [
     {
-      "_extends": "base_type_98_ta_se"
+      "_use": "base_type_98_ta_se"
     },
     {
-      "_extends": "tank_m10_engine_sound"
+      "_use": "tank_m10_engine_sound"
     },
     {
-      "_extends": "tank_light_vehicle_tracks_sound"
+      "_use": "tank_light_vehicle_tracks_sound"
     },
     {
-      "_extends": "forestall"
+      "_use": "forestall"
     },
     {
       "item__iconOffset": [0.0,0.0]
+    },
+    {
+      "item__iconScale": 1.1
+    },
+    {
+      "destroyIfNoCrewLeft": false
     },
     {
       "vehicle_seats__exitTime": 1.0
@@ -28,7 +34,22 @@
       "cockpit__zoomInFov": 2.0
     },
     {
+      "commanderCockpitFpsCamMaxAngle": [40.0,5.0]
+    },
+    {
+      "gunner_cam_limit__useCockpitDir": true
+    },
+    {
+      "armorThicknessHull": [16.0,12.0,10.0]
+    },
+    {
+      "armorThicknessTurret": [12.0,12.0,12.0]
+    },
+    {
       "vehicle_commander_cam__attachToVehicle": true
+    },
+    {
+      "vehicle_seats__effectors:array": []
     },
     {
       "_group": {
@@ -47,10 +68,10 @@
             "attachNode": "commander",
             "ignoreAttachNodeRotation": true,
             "attachTm": [
-              [1.0,0.0,0.0],
-              [0.0,1.0,0.0],
-              [0.0,0.0,1.0],
-              [-0.28,-0.25,0.0]
+              [0.966096,-0.15643,-0.205346],
+              [0.153012,0.987682,-0.032523],
+              [0.207904,-6.44228e-08,0.978131],
+              [-0.28,-0.25,0.04]
             ],
             "seatComponent": "isGunner",
             "nextSeat": "driver",
@@ -72,6 +93,12 @@
             },
             "turretNames:array": {
               "turretNames": "turret_01"
+            },
+            "effectors:object": {
+              "r.hand": "righthand_3",
+              "l.hand": "lefthand_3",
+              "r.foot": "pedal_rfoot_3",
+              "l.foot": "pedal_lfoot_3"
             }
           }
         },
@@ -86,14 +113,22 @@
               [1.0,0.0,0.0],
               [0.0,1.0,0.0],
               [0.0,0.0,1.0],
-              [-0.25,-0.25,0.0]
+              [-0.25,-0.42,0.0]
             ],
             "seatComponent": "isGunner",
             "nextSeat": "main_gunner",
-            "shouldHideOwner": true,
+            "shouldHideOwner": false,
             "receiveDamageFromDMPart": "driver",
             "cameraNodeName": "bone_camera_driver",
-            "cockpitTemplate": "jp_type_98_ta_se_driver_cockpit"
+            "cockpitTemplate": "jp_type_98_ta_se_driver_cockpit",
+            "seatAnimUpper": "drive_passenger",
+            "seatAnimLower": "drive_passenger",
+            "effectors:object": {
+              "r.hand": "righthand_1",
+              "l.hand": "lefthand_1",
+              "r.foot": "pedal_rfoot_1",
+              "l.foot": "pedal_lfoot_1"
+            }
           }
         },
         {
@@ -104,15 +139,20 @@
             "shouldHideOwner": false,
             "ignoreAttachNodeRotation": true,
             "attachTm": [
-              [1.0,0.0,0.0],
-              [0.0,1.0,0.0],
-              [0.0,0.0,1.0],
+              [0.945413,0.0174524,0.325499],
+              [0.00624701,0.997447,-0.0716251],
+              [-0.325909,0.0697467,0.942864],
               [-0.25,-0.3,-0.15]
             ],
             "seatComponent": "isDriver",
             "receiveDamageFromDMPart": "loader",
             "loaderTurretNames:array": {
               "turret": "turret_01"
+            },
+            "effectors:object": {
+              "r.hand": "righthand_2",
+              "r.foot": "pedal_rfoot_2",
+              "l.foot": "pedal_lfoot_2"
             }
           }
         }
@@ -120,8 +160,7 @@
     }
   ],
   "jp_type_98_ta_se_gunner_cockpit": {
-    "vehicle_sight__blk": "gamedata/sight/jp_ring.blk",
-    "_extends": "base_gunner_cockpit",
+    "_use": "base_gunner_cockpit",
     "animchar__res": "ba_11_gunner_char",
     "cockpit__offset": [-0.407955,0.260143,0.384339],
     "cockpit__visibleVehicleNodeNames:list<t>": [
@@ -150,10 +189,27 @@
     "cockpit__attachNodeNames:list<t>": {
       "node": "bone_gun"
     },
-    "cockpit__attachNodeIndices:list<i>": []
+    "cockpit__attachNodeIndices:list<i>": [],
+    "cockpit__slitZoom:array": {
+      "slit:list<r>": [
+        {
+          "zoom": 1.44
+        },
+        {
+          "zoom": 2.5
+        }
+      ]
+    },
+    "cockpit__slitZoomTime:list<r>": {
+      "slit": 0.05
+    },
+    "cockpit__slitTemplates:list<t>": {
+      "slit": "jp_ring"
+    },
+    "cockpit__slitEids:list<eid>": []
   },
   "jp_type_98_ta_se_driver_cockpit": {
-    "_extends": "base_driver_cockpit_no_slits",
+    "_use": "base_driver_cockpit_no_slits",
     "animchar__res": "bt_7_driver_char",
     "cockpit__offset": [0.116888,-0.362939,-0.00775526],
     "cockpit__visibleVehicleNodeNames:list<t>": [],

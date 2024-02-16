@@ -8,7 +8,7 @@ require net
 require math
 require math.base
 require BehNodes
-require EnlistedWalkerai
+require DngWalkerai
 require DagorDataBlock
 require HumanPhys
 require Dacoll
@@ -22,6 +22,7 @@ require Covers
 require RendInst
 require enlisted.events_enlisted
 require enlisted.game.es.fortifications_build_common
+require enlisted.game.es.ai.ai_covers_common
 
 let
   RESPAWN_POINT_RADIUS = 0.3
@@ -412,12 +413,13 @@ def is_point_valid_for_bot_to_build(build_what : int; build_pos : float3; build 
         return
 
     let requiredSpaceAboveObject = getTemplateComponent(*previewTmpl, "requiredSpaceAboveObject") ?? 0.0
+    let requiredSpaceAboveObjectOffset = getTemplateComponent(*previewTmpl, "requiredSpaceAboveObjectOffset") ?? 0.0
     if requiredSpaceAboveObject > 0.0
       let buildingBoxMin = get_Point3(getTemplateComponent(*previewTmpl, "buildingBoxMin")) ?? float3()
       let buildingBoxMax = get_Point3(getTemplateComponent(*previewTmpl, "buildingBoxMax")) ?? float3()
       let bBoxDiagonal = buildingBoxMax - buildingBoxMin
       let bBoxDiagonalXZLength = length(bBoxDiagonal.xz)
-      if !is_required_space_above_object_free(build_pos, bBoxDiagonalXZLength, requiredSpaceAboveObject)
+      if !is_required_space_above_object_free(build_pos, bBoxDiagonalXZLength, requiredSpaceAboveObject, requiredSpaceAboveObjectOffset)
         log_ai_building(aiBuilding__debugMsgs, 250, build_pos)
         return
 
@@ -491,36 +493,21 @@ def find_bot_build_positions(bot_eid : EntityId; var out_positions : array<float
     return
 
   query() <| $ [es] (var covers : CoversComponent&)
-    let coverSideThreshold = 0.1
-    let wallOffset = 0.5
-
     var box : bbox3f
     box.bmax.xyz = botPos + float3(max_dist, 2.5f, max_dist)
     box.bmin.xyz = botPos - float3(max_dist, 1.0f, max_dist)
 
     var subOptimal = true
+    let filterInfo = get_filter_covers_info()
     covers_box_cull(covers, box) <| $ [unused_argument(tm)] (id : int;
                                                              tm : mat44f#)
       assume cover     = covers.list[id]
       assume coverDesc = covers.coverDescs[id]
-
-      if coverDesc.numUsedSlots > 0
-        return
-
-      let heightDiff = abs(cover.groundLeft.y - cover.groundRight.y)
-      let groundLen = max(1.0, length_sq(cover.groundLeft - cover.groundRight))
-      if heightDiff / groundLen > coverSideThreshold
-        return
-
-      let minH = min(cover.groundLeft.y, cover.groundRight.y)
-      if minH > box.bmax.xyz.y
-        return
-      let maxH = max(cover.groundLeft.y + cover.hLeft, cover.groundRight.y + cover.hRight)
-      if maxH < box.bmin.xyz.y
+      if filter_cover(cover, coverDesc, box, 0, filterInfo)
         return
 
       let slotIdx = rnd_int(0, length(coverDesc.slots) - 1)
-      let coverPos = coverDesc.slots[slotIdx].pos - cover.dir * wallOffset
+      let coverPos = get_cover_slot_pos(cover, coverDesc, slotIdx)
 
       if min(cover.hLeft, cover.hRight) < best_height
         if subOptimal
@@ -537,7 +524,7 @@ def find_bot_build_positions(bot_eid : EntityId; var out_positions : array<float
 
 def dropdown_bot_build_position(var pos : float3&; over_ground : float)
   pos.y += 0.2
-  var height = 1.2
+  var height = 2.5
   if tracedown_normalized(pos, height, ETF_DEFAULT)
     pos.y -= height
     pos.y += over_ground

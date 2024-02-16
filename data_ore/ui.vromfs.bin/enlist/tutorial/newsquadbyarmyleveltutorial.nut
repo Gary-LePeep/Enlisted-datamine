@@ -1,64 +1,104 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let canDisplayOffers = require("%enlist/canDisplayOffers.nut")
-let { logerr } = require("dagor.debug")
-let logAT = require("%enlSqGlob/library_logs.nut").with_prefix("[ARMY_LEVEL_TUTOR] ")
-let { isGamepad } = require("%ui/control/active_controls.nut")
-let {
-  airSelectedBgColor, msgHighlightedTxtColor, bigPadding
-} = require("%enlSqGlob/ui/viewConst.nut")
-let colorize = require("%ui/components/colorize.nut")
 let JB = require("%ui/control/gui_buttons.nut")
-let { setTutorialConfig, finishTutorial, goToStep, isTutorialActive, nextStep, getTimeAfterStepStart
-} = require("%enlist/tutorial/tutorialWndState.nut")
-let { mkSizeTable, mkMessageCtorWithGamepadIcons, messageCtor, defMsgPadding
-} = require("%enlist/tutorial/tutorialWndDefStyle.nut")
-let { curArmyNextUnlockLevel, isArmyUnlocksStateVisible, readyToUnlockSquadId, unlockSquad,
-  hasCampaignSection, levelWidth, squadGap
-} = require("%enlist/soldiers/model/armyUnlocksState.nut")
-let { isCurCampaignProgressUnlocked } = require("%enlist/meta/curCampaign.nut")
-let { isUnlockSquadSceneVisible, closeUnlockSquadScene, unlockSquadViewData
-} = require("%enlist/soldiers/unlockSquadScene.nut")
-let { armies } = require("%enlist/meta/profile.nut")
-let { curArmy } = require("%enlist/soldiers/model/state.nut")
-let { openChooseSquadsWnd, closeChooseSquadsWnd, applyAndClose, chosenSquads, reserveSquads,
-  changeList, moveIndex, selectedSquadId, findLastIndexToTakeSquad
-} = require("%enlist/soldiers/model/chooseSquadsState.nut")
+let canDisplayOffers = require("%enlist/canDisplayOffers.nut")
+let getPayItemsData = require("%enlist/soldiers/model/getPayItemsData.nut")
+
+let { curArmy, curCampItems } = require("%enlist/soldiers/model/state.nut")
+let { isGamepad } = require("%ui/control/active_controls.nut")
+let { airSelectedBgColor } = require("%enlSqGlob/ui/viewConst.nut")
 let { mkHorizontalSlot } = require("%enlist/soldiers/chooseSquadsSlots.nut")
-let squadsPresentation = require("%enlSqGlob/ui/squadsPresentation.nut")
-let { jumpToArmyProgress } = require("%enlist/mainMenu/sectionsState.nut")
-let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
+let { jumpToArmyGrowth } = require("%enlist/mainMenu/sectionsState.nut")
 let { isInSquad } = require("%enlist/squad/squadManager.nut")
-let { seenArmyProgress } = require("%enlist/soldiers/model/unseenArmyProgress.nut")
+let { dbgShow } = require("%enlist/debriefing/debriefingDbgState.nut")
+let { show } = require("%enlist/debriefing/debriefingStateInMenu.nut")
+let { viewCurrencies } = require("%enlist/shop/armyShopState.nut")
+let { hasMsgBoxes } = require("%enlist/components/msgbox.nut")
+let { hasModalWindows } = require("%ui/components/modalWindows.nut")
+let { debounce } = require("%sqstd/timers.nut")
+
+let {
+  openChooseSquadsWnd, closeChooseSquadsWnd, applyAndClose, chosenSquads,
+  reserveSquads, changeList, moveIndex, selectedSquadId, findLastIndexToTakeSquad
+} = require("%enlist/soldiers/model/chooseSquadsState.nut")
+let {
+  isUnlockSquadSceneVisible, closeUnlockSquadScene, unlockSquadViewData
+} = require("%enlist/soldiers/unlockSquadScene.nut")
+let {
+  setTutorialConfig, finishTutorial, goToStep, isTutorialActive, nextStep
+} = require("%enlist/tutorial/tutorialWndState.nut")
+let {
+  mkSizeTable, mkMessageCtorWithGamepadIcons
+} = require("%enlist/tutorial/tutorialWndDefStyle.nut")
+let {
+  isGrowthVisible, curGrowthState, curGrowthConfig, growthConfig,
+  callGrowthPurchase, GrowthStatus
+} = require("%enlist/growth/growthState.nut")
 
 
-const LEVEL_TO_SHOW = 2
+const SILVER_ID = "enlisted_silver"
+const GROWTH_PROGRESS = "GROWTH"
 
-let needTutorial = Computed(function() {
-  let hasOtherArmyLevel = null != armies.value.findvalue(@(armyData, armyId) armyId != curArmy.value
-    && (armyData?.level ?? 0) >= LEVEL_TO_SHOW)
-  return !hasOtherArmyLevel
-    && curArmyNextUnlockLevel.value == LEVEL_TO_SHOW
-    && readyToUnlockSquadId.value != null
-    && !isInSquad.value
+
+let growthWithoutTutorial = Computed(function() {
+  let res = {}
+  foreach(armyCfg in growthConfig.value)
+    foreach(cfg in armyCfg)
+      if (cfg?.isAutoRewarded ?? false)
+        res[cfg.id] <- true
+  return res
 })
 
-let canShowTutorialFromMainMenu = Computed(@() canDisplayOffers.value
-  && hasCampaignSection.value
-  && isCurCampaignProgressUnlocked.value
-  && curArmy.value in seenArmyProgress.value?.unseen)
+let growthWithSquads = Computed(function() {
+  let res = {}
+  foreach (armyGrowth in growthConfig.value)
+    foreach (growth in armyGrowth) {
+      let { id, reward = null } = growth
+      let { squadId = "" } = reward
+      if (squadId != "")
+        res[id] <- squadId
+    }
+  return res
+})
 
-let showTutorial = keepref(Computed(@() needTutorial.value
-  && (isArmyUnlocksStateVisible.value || canShowTutorialFromMainMenu.value)))
+let curGrowthGuidToPurchase = Computed(function() {
+  let configs = curGrowthConfig.value
+  let squadLinks = growthWithSquads.value
+  let excluded = growthWithoutTutorial.value
+  let states = curGrowthState.value
+  if (states.findvalue(@(g) g.status == GrowthStatus.REWARDED
+      && g.guid in squadLinks
+      && g.guid not in excluded) != null)
+    return null
+
+  let silverHave = viewCurrencies.value?[SILVER_ID] ?? 0
+  return states.findindex(function(g) {
+    if (g.status != GrowthStatus.PURCHASABLE)
+      return false
+    let { rewardCost = 0, reward = null } = configs?[g.guid]
+    let { squadId = "" } = reward
+    return squadId != "" && rewardCost < silverHave
+  })
+})
+
+let needTutorial = Computed(@()
+  isInSquad.value || show.value || dbgShow.value ? false
+    : curGrowthGuidToPurchase.value != null)
+
+
+let canContinueGrowthTutorial = Computed(@() isGrowthVisible.value
+  && !hasMsgBoxes.value
+  && !hasModalWindows.value)
+
+let showTutorial = keepref(Computed(@()
+  needTutorial.value && (canContinueGrowthTutorial.value || canDisplayOffers.value)))
 
 let newReceivedSquadId = Watched(null)
 
 let function openSquadManage() {
-  logAT("Open squad manage called")
-  if (unlockSquadViewData.value == null) {
-    logerr("Not opened unlockSquadScene on try to open squad manage")
+  if (unlockSquadViewData.value == null)
     return
-  }
+
   let { armyId, squadCfg } = unlockSquadViewData.value
   closeUnlockSquadScene()
   closeChooseSquadsWnd() //only for debug from the middle of tutorial. In the full tutorial it do nothing
@@ -101,21 +141,33 @@ let mkDropSquadSlot = @(box, idx, squad) mkSizeTable(box, {
 let mkDropTarget = @(box, onDrop) watchElemState(@(sf) mkSizeTable(box, {
   behavior = Behaviors.DragAndDrop
   onDrop
-
   rendObj = ROBJ_BOX
-  fillColor = (sf & S_ACTIVE) != 0 ? airSelectedBgColor : 0
+  fillColor = sf & S_ACTIVE? airSelectedBgColor : 0
   borderWidth = hdpx(1)
 }))
 
-let function tryUnlockSquad() {
-  if (readyToUnlockSquadId.value == null) {
-    logerr($"Miss squad to unlock during tutorial.")
-    finishTutorial()
+
+let function tryGetReward() {
+  let growthGuid = curGrowthGuidToPurchase.value
+  if (growthGuid == null)
     return false
-  }
-  unlockSquad(readyToUnlockSquadId.value)
+
+  let growthCfg = curGrowthConfig.value?[growthGuid]
+  if (growthCfg == null)
+    return false
+
+  let { id, rewardCost = 0 } = growthCfg
+  if (rewardCost == 0)
+    return false
+
+  let buyInfo = getPayItemsData({ [SILVER_ID] = rewardCost }, curCampItems.value)
+  if (buyInfo == null)
+    return false
+
+  callGrowthPurchase(curArmy.value, id, buyInfo)
   return true
 }
+
 
 let function startTutorial() {
   let chosenSquadsKeys = Computed(@() chosenSquads.value.map(getSquadKey))
@@ -127,108 +179,73 @@ let function startTutorial() {
   let newSquadKey = Computed(@() newSquadIdx.value < 0 ? null : getSquadKey(chosenSquads.value?[newSquadIdx.value], newSquadIdx.value))
 
   setTutorialConfig({
-    id = "newSquadByArmyLevel"
-    onStepStatus = @(stepId, status) logAT($"{stepId}: {status} (isUnlockSquadSceneOpened ? {unlockSquadViewData.value != null})")
+    id = "newGrowthSquad"
+    onStepStatus = @(_stepId, _status) null
     steps = [
-      //*************************************************************
       //********************** Main menu window *********************
-      //*************************************************************
       {
-        id = "w0s1_check_campaign_rewards"
-        nextStepAfter = isArmyUnlocksStateVisible
-        text = loc("tutorial_open_rewards_window")
+        id = "w0s1_check_growth_squad_rewards"
+        nextStepAfter = isGrowthVisible
+        text = loc("tutorial_open_growth_window")
         objects = [{
-          keys = ["section_SQUADS", "section_unseen_SQUADS"]
+          keys = [GROWTH_PROGRESS]
           sizeIncAdd = hdpx(5)
-          onClick = jumpToArmyProgress
+          onClick = @() jumpToArmyGrowth(curGrowthGuidToPurchase.value)
           needArrow = true
           hotkey = $"^{JB.A}"
         }]
       }
       {
-        id = "w0s2_wait_rewards_opening"
-        nextStepAfter = isArmyUnlocksStateVisible
+        id = "w0s2_wait_growth_opening"
+        nextStepAfter = isGrowthVisible
         objects = []
       }
-
-
-      //*************************************************************
-      //******************** Army unlocks window ********************
-      //*************************************************************
+      //******************** Growth window ********************
       {
-        id = "w1s1_received_army_level"
-        text = loc("tutorial_meta_start",
-          { squadName  = colorize(msgHighlightedTxtColor,
-              loc(squadsPresentation?[curArmy.value][readyToUnlockSquadId.value].titleLocId ?? "???"))
-          })
+        id = "w1s1_completed_growth"
         nextKeyDelay = -1
-        textCtor = @(text, nextKeyAllowed, onNext) messageCtor(text, nextKeyAllowed, onNext,
-          { size = [sw(95) - safeAreaBorders.value[3] - levelWidth - bigPadding
-                      - squadGap - 2 * defMsgPadding[1], SIZE_TO_CONTENT] })
-        objects = [
-          { keys = ["squadReadyToUnlock" "squadReadyToUnlockButton"] }
-          {
-            keys = "squadReadyToUnlockButton"
-            ctor = @(box) mkSizeTable(box, {
-              behavior = Behaviors.Button
-              function onClick() {
-                if (tryUnlockSquad())
-                  goToStep("w1s3_wait_for_get_squad")
-                return true
-              }
-              hotkeys = [ ["^J:X", { description = { skip = true }, sound = "click"}] ]
-            })
-          }
-        ]
+        text = loc("tutorial_growth_reward")
+        objects = [{ keys = $"growth_{curGrowthGuidToPurchase.value}", needArrow = true }]
       }
       {
-        id = "w1s2_get_new_squad"
-        text = loc("tutorial_meta_get_new_squad")
+        id = "w1s2_completed_growth"
+        text = loc("tutorial_growth_buy_reward")
+        function onSkip() {
+          if (tryGetReward())
+            goToStep("w1s3_wait_for_get_squad")
+          return true
+        }
         objects = [{
-          keys = "squadReadyToUnlockButton"
-          onClick = @() !tryUnlockSquad()
-          hotkey = "^J:X"
+          keys = "growth_action_button"
           needArrow = true
+          ctor = @(box) mkSizeTable(box, {
+            behavior = Behaviors.Button
+            hotkeys = [ ["^J:X", { description = { skip = true }, sound = "click"}] ]
+            function onClick() {
+              if (tryGetReward())
+                goToStep("w1s3_wait_for_get_squad")
+              return true
+            }
+          })
         }]
       }
       {
         id = "w1s3_wait_for_get_squad"
         nextStepAfter = isUnlockSquadSceneVisible
         text = loc("xbox/waitingMessage")
-        function onSkip() {
-          finishTutorial()
-          return true
-        }
         objects = [{ keys = "squadReadyToUnlock", onClick = @() true }]
       }
-
-      //*******************************************************************
       //******************** new squad received window ********************
-      //*******************************************************************
-
       {
         id = "w2s1_new_squad_received_window"
-        objects = [
-          { keys = "unlockSquadScene",
-            function onClick() {
-              if (getTimeAfterStepStart() > 3.0) //wait for animation finish.
-                nextStep()
-              return true
-            }
-          },
-          {
-            keys = "SquadManageBtnInSquadPromo"
-            ctor = @(box) mkSizeTable(box, {
-              behavior = Behaviors.Button
-              function onClick() {
-                openSquadManage()
-                goToStep("w3s1_battle_squads_info")
-                return true
-              }
-              hotkeys = [ ["^J:X", { description = { skip = true }, sound = "click"}] ]
-            })
-          }
-        ]
+        objects = [{
+          keys = "unlockSquadScene"
+          ctor = @(box) mkSizeTable(box, {
+            behavior = Behaviors.Button
+            onClick = @() null
+          })
+        }]
+        beforeStart = @() gui_scene.setTimeout(2.5, nextStep)
       }
       {
         id = "w2s2_press_manage_squad_btn"
@@ -240,11 +257,7 @@ let function startTutorial() {
           needArrow = true
         }]
       }
-
-
-      //*************************************************************
       //******************** manage squad window ********************
-      //*************************************************************
       {
         id = "w3s1_battle_squads_info"
         text = loc("tutorial_meta_squad_menu_intro_01")
@@ -362,14 +375,13 @@ let function startTutorial() {
   })
 }
 
-//wait for switch scene animation
-let startTutorialDelayed = @()
-  gui_scene.resetTimeout(0.3, function() {
-    if (showTutorial.value && !isTutorialActive.value)
-      startTutorial()
-  })
 
-startTutorialDelayed()
+let startTutorialDelayed = debounce(function() {
+  if (showTutorial.value && !isTutorialActive.value)
+    startTutorial()
+}, 0.3)
+
 showTutorial.subscribe(@(v) v ? startTutorialDelayed() : null)
+startTutorialDelayed()
 
 console_register_command(startTutorial, "tutorial.startArmyLevel")

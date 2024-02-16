@@ -1,10 +1,10 @@
 {
   "builded_sg_gun": [
     {
-      "_extends": "m5a1_stuart_late_turret_02_7_62mm_m1919a4"
+      "_use": "m5a1_stuart_late_turret_02_7_62mm_m1919a4"
     },
     {
-      "_extends": "controlled_by_ai_gunner"
+      "_use": "controlled_by_ai_gunner"
     },
     {
       "turret_ai__minWindow": [-0.0,-0.0]
@@ -103,7 +103,7 @@
     }
   ],
   "builded_auto_turret_preview": {
-    "_extends": "base_animchar_builder_preview",
+    "_use": "base_animchar_builder_preview",
     "animchar__res": "sg_turret_rounded_char",
     "collres__res": "sg_turret_rounded_collision",
     "instantiateTemplate": "builded_auto_turret",
@@ -117,31 +117,31 @@
   },
   "builded_auto_turret": [
     {
-      "_extends": "replicating"
+      "_use": "replicating"
     },
     {
-      "_extends": "turret_sound_with_group"
+      "_use": "turret_sound_with_group"
     },
     {
-      "_extends": "base_net_phys"
+      "_use": "base_net_phys"
     },
     {
-      "_extends": "phys_sleepable"
+      "_use": "phys_sleepable"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "base_dm_parts"
+      "_use": "base_dm_parts"
     },
     {
-      "_extends": "base_hitpoints"
+      "_use": "base_hitpoints"
     },
     {
-      "_extends": "base_burning"
+      "_use": "base_burning"
     },
     {
-      "_extends": "base_turret_controls"
+      "_use": "base_turret_controls"
     },
     {
       "mine__activated": true
@@ -163,6 +163,9 @@
     },
     {
       "hitpoints__stoppingPower": 0.0
+    },
+    {
+      "collision_physMatId": -1
     },
     {
       "pair_collision__tag": "collidableToPhysObj"
@@ -266,6 +269,9 @@
     },
     {
       "phys_obj_net_phys": []
+    },
+    {
+      "base_net_phys_ptr": []
     },
     {
       "pair_collision__gridHolders": []
@@ -376,7 +382,7 @@
     }
   ],
   "builded_auto_turret_enemy_light": {
-    "_extends": "spot_light",
+    "_use": "spot_light",
     "light__brightness": 110.0,
     "light__max_radius": 14.0,
     "light__color": "#ff0000ff",

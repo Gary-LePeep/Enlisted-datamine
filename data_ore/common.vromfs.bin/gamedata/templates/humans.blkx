@@ -5,7 +5,7 @@
     "_tracked": "human_inventory__itemUseProgress"
   },
   "human_item_use": {
-    "_extends": "itemUseProgress",
+    "_use": "itemUseProgress",
     "human_inventory__savedUseProgress": -1.0,
     "human_inventory__usePausedUntilTime": -1.0,
     "_group": {
@@ -175,6 +175,16 @@
     "human_input__followVehicleRotationInFirstPerson:b": {
       "value": true,
       "_hide": true
+    }
+  },
+  "human_reload_input": {
+    "human_input__reload:i": {
+      "value": 0,
+      "_hide": true
+    },
+    "human_input__quickReload:i": {
+      "value": 0,
+      "_hide": true
     },
     "human_input__isNeedHctReloadReset:bool": {
       "value": false,
@@ -211,10 +221,6 @@
       "_hide": true
     },
     "human_input__holdCrouch:i": {
-      "value": 0,
-      "_hide": true
-    },
-    "human_input__reload:i": {
       "value": 0,
       "_hide": true
     },
@@ -335,24 +341,24 @@
   },
   "human_input_aim_assist": {
     "aim_assist__enabled": false,
-    "aim_assist__targetMaxDist": 60.0,
-    "aim_assist__targetMaxAngle": 15.0,
-    "aim_assist__targetConeWidth": 5.0,
+    "aim_assist__targetMaxDist": 85.0,
+    "aim_assist__targetMaxAngle": 12.0,
+    "aim_assist__targetConeWidth": 4.0,
     "aim_assist__targetAngleCos": 0.0,
     "aim_assist__targetDist": 0.0,
     "aim_assist__targetDir": [0.0,0.0,0.0],
     "aim_assist__onAimingStartEnabled": true,
-    "aim_assist__onAimingStartAngles": [0.0,12.0],
+    "aim_assist__onAimingStartAngles": [0.0,10.0],
     "aim_assist__onAimingStartProgress": 0.0,
-    "aim_assist__onAimingResetTime": 1.0,
+    "aim_assist__onAimingResetTime": 2.0,
     "aim_assist__slowdownEnabled": true,
-    "aim_assist__slowdownMaxAngle": 5.0,
-    "aim_assist__slowdownSensMult": 0.333,
+    "aim_assist__slowdownMaxAngle": 2.0,
+    "aim_assist__slowdownSensMult": 0.5,
     "aim_assist__rotationAimEnabled": true,
-    "aim_assist__rotationAimMaxAngle": 4.0,
+    "aim_assist__rotationAimMaxAngle": 2.0,
     "aim_assist__rotationTargetNodeId": -1,
     "aim_assist__rotationTargetNodeMaxAngle": 2.0,
-    "aim_assist__rotationVisc": 2.2,
+    "aim_assist__rotationVisc": 0.7,
     "aim_assist__targetEid:eid": [],
     "aim_assist__rotationTargetEid:eid": []
   },
@@ -373,31 +379,36 @@
     }
   },
   "human_capzone_capturing_sounds": {
+    "_tracked": "human__capzoneCapturingSoundEnabled",
     "_group": {
       "_tags": "sound",
       "human__capzoneCapturingSoundPath": "ui/point_capturing",
       "human__capzoneCapturedSoundPath": "ui/point_captured",
+      "human__capzoneCapturingSoundEnabled": true,
       "human__capzoneCapturingSoundEvent:SoundEvent": []
     }
   },
   "base_human_hero_components": [
     {
-      "_extends": "human_vehicle_input"
+      "_use": "human_vehicle_input"
     },
     {
-      "_extends": "human_common_input"
+      "_use": "human_common_input"
     },
     {
-      "_extends": "human_inventory_input"
+      "_use": "human_reload_input"
     },
     {
-      "_extends": "human_input_aim_assist"
+      "_use": "human_inventory_input"
     },
     {
-      "_extends": "human_push_object_input"
+      "_use": "human_input_aim_assist"
     },
     {
-      "_extends": "human_capzone_capturing_sounds"
+      "_use": "human_push_object_input"
+    },
+    {
+      "_use": "human_capzone_capturing_sounds"
     },
     {
       "_tracked": "input__enabled"
@@ -541,6 +552,24 @@
       }
     },
     {
+      "human_input__currentLookDirClamp:p2": {
+        "value": [90.0,90.0],
+        "_hide": true
+      }
+    },
+    {
+      "human_input__prevLookDirClamp:p2": {
+        "value": [90.0,90.0],
+        "_hide": true
+      }
+    },
+    {
+      "human_input__defaultLookDirClamp:p2": {
+        "value": [90.0,90.0],
+        "_hide": true
+      }
+    },
+    {
       "human_input__currentVertLookAngleLimit:p2": {
         "value": [-72.0,87.0],
         "_hide": true
@@ -602,6 +631,12 @@
     },
     {
       "human_input__use:i": {
+        "value": 0,
+        "_hide": true
+      }
+    },
+    {
+      "human_input__supplyMenu:i": {
         "value": 0,
         "_hide": true
       }
@@ -683,6 +718,22 @@
       }
     },
     {
+      "human_input__isGyroOnlyInAimOrZoom:b": {
+        "value": false,
+        "_hide": true,
+        "_track": true
+      }
+    },
+    {
+      "human_input__isGyroAimEnabled:b": {
+        "value": false,
+        "_hide": true
+      }
+    },
+    {
+      "hitcam__owner:tag": []
+    },
+    {
       "_group": {
         "_tags": "ui",
         "_track": true,
@@ -745,6 +796,26 @@
     },
     {
       "_replicated": "human_ladder__numSteps"
+    },
+    {
+      "_tracked": "human_ladder__attached"
+    },
+    {
+      "_skipInitialReplication": "human_on_ladder__animation"
+    },
+    {
+      "human_ladder__curLadderTm": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [0.0,0.0,0.0]
+      ]
+    },
+    {
+      "human_ladder__curNumSteps": 0
+    },
+    {
+      "human_on_ladder__animation:eid": []
     }
   ],
   "human_last_vehicle_tracker": {
@@ -764,6 +835,12 @@
     },
     {
       "_replicated": "enter_vehicle__timerEnabled"
+    },
+    {
+      "_replicated": "enter_vehicle__atTime"
+    },
+    {
+      "_replicated": "exit_vehicle__atTime"
     },
     {
       "exit_vehicle__atTime": -1.0
@@ -788,6 +865,13 @@
     },
     {
       "enter_vehicle__isInitDataSaved": false
+    },
+    {
+      "server_exit_vehicle__atTime:r": {
+        "value": -1.0,
+        "_replicate": true,
+        "_track": true
+      }
     },
     {
       "enter_vehicle__vehicleEid:eid": []
@@ -828,29 +912,13 @@
     }
   ],
   "visual_armor_hit": {
-    "visual_armor_hit__fxEffects:shared:array": [
-      {
-        "_tags": "render"
-      },
-      {
-        "fx:object": {
-          "armorAmount": 0.2,
-          "fxName": "sparks_armor_hit_big"
-        }
-      },
-      {
-        "fx:object": {
-          "armorAmount": 0.1,
-          "fxName": "sparks_armor_hit_medium"
-        }
-      },
-      {
-        "fx:object": {
-          "armorAmount": 0.0,
-          "fxName": "sparks_armor_hit_small"
-        }
+    "visual_armor_hit__fxEffects:shared:array": {
+      "_tags": "render",
+      "fx:object": {
+        "armorAmount": 0.0,
+        "fxName": "hit_ricochet_helmet_effect"
       }
-    ]
+    }
   },
   "client_hits": {
     "client_hits__shots": 0,
@@ -858,64 +926,61 @@
   },
   "base_human": [
     {
-      "_extends": "stamina_view"
+      "_use": "stamina_view"
     },
     {
-      "_extends": "hud_actions"
+      "_use": "hud_actions"
     },
     {
-      "_extends": "base_hitpoints"
+      "_use": "base_hitpoints"
     },
     {
-      "_extends": "animchar_turn_dir"
+      "_use": "animchar_turn_dir"
     },
     {
-      "_extends": "human_recoil_mults"
+      "_use": "human_recoil_mults"
     },
     {
-      "_extends": "human_anim_state_restrictions"
+      "_use": "human_anim_state_restrictions"
     },
     {
-      "_extends": "human_aim_tm_cache"
+      "_use": "human_aim_tm_cache"
     },
     {
-      "_extends": "human_last_vehicle_tracker"
+      "_use": "human_last_vehicle_tracker"
     },
     {
-      "_extends": "human_ladder_interaction"
+      "_use": "human_ladder_interaction"
     },
     {
-      "_extends": "human_locomotion"
+      "_use": "human_locomotion"
     },
     {
-      "_extends": "human_cam"
+      "_use": "human_cam"
     },
     {
-      "_extends": "base_human_net_phys"
+      "_use": "base_human_net_phys"
     },
     {
-      "_extends": "human_grid_obj"
+      "_use": "human_grid_obj"
     },
     {
-      "_extends": "base_human_anim"
+      "_use": "base_human_anim"
     },
     {
-      "_extends": "human_vehicle_anim"
+      "_use": "human_vehicle_anim"
     },
     {
-      "_extends": "client_hits"
+      "_use": "client_hits"
     },
     {
-      "_extends": "replicating"
+      "_use": "replicating"
     },
     {
       "_replicated": "isInVehicle"
     },
     {
       "_replicated": "isInVehicleHidden"
-    },
-    {
-      "_replicated": "human__visible"
     },
     {
       "_replicated": "killer"
@@ -957,12 +1022,6 @@
       "_replicated": "stunTimer"
     },
     {
-      "_replicated": "human_sec_anim__play"
-    },
-    {
-      "_replicated": "human_sec_anim__playStartedAt"
-    },
-    {
       "_replicated": "footprintType"
     },
     {
@@ -976,9 +1035,6 @@
     },
     {
       "_tracked": "human_weap__curGunSlot"
-    },
-    {
-      "_tracked": "human__visible"
     },
     {
       "_tracked": "killer"
@@ -1052,9 +1108,6 @@
     },
     {
       "maxVehicleVelocityCanReEnter": 1.0
-    },
-    {
-      "human__visible": true
     },
     {
       "vehicle__localSeatTm": [
@@ -1199,9 +1252,6 @@
       "aim_assist_target__nodeIdx": -1
     },
     {
-      "nonCreatableObj": true
-    },
-    {
       "isAlive": true
     },
     {
@@ -1238,10 +1288,10 @@
       "underground_teleporter__timeBetweenChecks": 0.5
     },
     {
-      "bodyCleanupTime": 60.0
+      "underground_teleporter__enabled": true
     },
     {
-      "human_sec_anim__postFix": ""
+      "bodyCleanupTime": 60.0
     },
     {
       "isTpsView": false
@@ -1289,33 +1339,6 @@
       "collres__centerNode": "Bip01 Pelvis"
     },
     {
-      "human_sec_anim__play": false
-    },
-    {
-      "human_sec_anim__setup": ""
-    },
-    {
-      "human_sec_anim__a2d": ""
-    },
-    {
-      "human_sec_anim__duration": 1.5
-    },
-    {
-      "human_sec_anim__reload": false
-    },
-    {
-      "human_sec_anim__playStartedAt": -1.0
-    },
-    {
-      "human_sec_anim__hideWeapon": false
-    },
-    {
-      "human_sec_anim__interruptsMovement": false
-    },
-    {
-      "human_sec_anim__hideMelee": false
-    },
-    {
       "reye_offset__fwd0Id": -1
     },
     {
@@ -1328,9 +1351,6 @@
       "gun_offset__alongId": -1
     },
     {
-      "ragdoll__applyParams": false
-    },
-    {
       "human__totalMaxStamina": 0.0
     },
     {
@@ -1340,10 +1360,30 @@
       "human_inventory__canUseMedkit": false
     },
     {
+      "_group": {
+        "_track": true,
+        "human__visible": true
+      }
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "death_cam__followTime": 2.3,
+        "death_cam__startedAt": -1.0,
+        "deatch_cam__viscosity": [0.4,4.5],
+        "death_cam__killer:eid": {
+          "_track": true
+        }
+      }
+    },
+    {
       "hitpoints__resetOffenderAfterHealThreshold:r": {
         "value": 9.0,
         "_tags": "server"
       }
+    },
+    {
+      "grid_obj__updateAlways:tag": []
     },
     {
       "human:tag": []
@@ -1366,7 +1406,7 @@
       }
     },
     {
-      "ragdoll": {
+      "animchar_attaches_bbox_precalculated": {
         "_tags": "render"
       }
     },
@@ -1391,24 +1431,29 @@
       "killer:eid": []
     },
     {
-      "_group": {
-        "_tags": "render",
-        "death_cam__followTime": 2.3,
-        "death_cam__startedAt": -1.0,
-        "deatch_cam__viscosity": [0.4,4.5],
-        "death_cam__killer:eid": {
-          "_track": true
-        }
-      }
-    },
-    {
       "lastRespawnBaseEid:eid": []
     },
     {
       "dmgzoneVulnerable:tag": []
     },
     {
-      "human_sec_anim": []
+      "dmgzone__voxelVictimNodes:list<t>": [
+        {
+          "node": "Bip01 Head"
+        },
+        {
+          "node": "Bip01 Spine"
+        },
+        {
+          "node": "Bip01 L Calf"
+        },
+        {
+          "node": "Bip01 R Calf"
+        }
+      ]
+    },
+    {
+      "dmgzone__voxelVictimNodeIds:list<i>": []
     }
   ],
   "human_limited_visibility": {
@@ -1437,7 +1482,7 @@
       "concussion__duration": 6.0
     },
     {
-      "concussion__intensity": 0.02
+      "concussion__visionIntensity": 0.02
     },
     {
       "_group": {
@@ -1470,7 +1515,7 @@
     "human_hit_tagging__mult": 1.0
   },
   "base_dm_parts": {
-    "_skipInitialReplication": "dm_parts__dmgMult,dm_parts__type,dm_parts__bulletTransparent,dm_parts__partsArmor",
+    "_skipInitialReplication": "dm_parts__dmgMult,dm_parts__type,dm_parts__bulletTransparent",
     "_replicated": "dm_parts__partsArmor",
     "dm_parts__dmgMult:list<r>": [],
     "dm_parts__type:list<t>": [],
@@ -1478,26 +1523,28 @@
     "dm_parts__partsArmor:list<r>": []
   },
   "human_swimsplash_fx": {
-    "swimsplash__maxDistanceFromCameraToUpdate": 30.0,
+    "swimsplash__maxDistanceFromCameraToUpdateSq": 900.0,
     "swimsplash__offset": [0.0,0.15,0.0],
     "swimsplash__scaleMul": 0.165,
     "swimsplash__minTimeBetweenSplashes": 0.033,
     "swimsplash__maxRenderingSpeed": 30.0,
-    "swimsplash__fx": "water_splash_swimming_a_fx",
-    "swimsplash": {
-      "_tags": "render"
-    }
+    "swimsplash__fxTemplate": "hit_water_splash_swimming_effect",
+    "swimsplash__nodeIds:list<i>": [],
+    "swimsplash__prevPositions:list<p3>": [],
+    "swimsplash__timeSinceLastSplashes:list<r>": []
   },
   "human_cam": {
     "human_cam__weaponOffset": [0.0,0.15,0.1],
-    "human_cam__standPos": [0.0,1.4,0.0],
-    "human_cam__crouchPos": [0.0,1.0,0.0],
-    "human_cam__crawlPos": [0.8,0.22,0.0],
+    "human_cam__standPos": [0.0,1.5,0.0],
+    "human_cam__crouchPos": [0.0,1.1,0.0],
+    "human_cam__crawlPos": [0.8,0.32,0.0],
     "human_cam__downedPos": [0.0,0.3,0.0],
     "human_cam__leftLeanOffs": [0.0,0.0,0.2],
     "human_cam__rightLeanOffs": [0.0,0.0,-0.2],
-    "human_cam__lookDownOffs": [0.0,-0.05,0.0],
-    "human_cam__lookUpOffs": [0.0,0.0,0.0],
+    "human_cam__lookDownOffs": [0.0,-0.1,0.0],
+    "human_cam__lookUpOffs": [0.0,0.1,0.0],
+    "human_cam__crawlLookDownOffs": [0.0,-0.4,0.0],
+    "human_cam__crawlLookUpOffs": [0.0,0.32,0.0],
     "human_cam__swimPos": [0.8,0.3,0.0],
     "human_cam__camNodeName": "reye",
     "human_cam__camNodeId": -1,
@@ -1570,6 +1617,9 @@
       "_tracked": "human_net_phys__isInAir"
     },
     {
+      "_tracked": "human_net_phys__isZooming"
+    },
+    {
       "_tracked": "human_net_phys__isHctAim"
     },
     {
@@ -1588,13 +1638,16 @@
       "_tracked": "human_net_phys__staminaBoostMult"
     },
     {
+      "_tracked": "human_net_phys__torsoContactMatId"
+    },
+    {
       "deform_bbox__bmin": [0.0,0.0,0.0]
     },
     {
       "deform_bbox__bmax": [0.0,0.0,0.0]
     },
     {
-      "human_net_phys__blk": "content/enlisted/gamedata/units/walkers/usa_soldier.blk"
+      "human_net_phys__blk": "content/enlisted/gamedata/units/walkers/base_human_phys.blk"
     },
     {
       "human_net_phys__isClimbing": false
@@ -1687,6 +1740,9 @@
       "human_net_phys__staminaBoostMult": 0.0
     },
     {
+      "human_net_phys__torsoContactMatId": -1
+    },
+    {
       "human_phys__crawlTransitionFrictionMult": 0.0
     },
     {
@@ -1762,6 +1818,9 @@
       "human_phys__crawlTransitionMoveSpeedMult": 0.0
     },
     {
+      "collision_physMatId": -1
+    },
+    {
       "pair_collision__tag": "collidableToHuman"
     },
     {
@@ -1775,6 +1834,9 @@
         "value": 0.0,
         "_hide": true
       }
+    },
+    {
+      "base_net_phys_ptr": []
     },
     {
       "pair_collision__gridHolders": []
@@ -1816,7 +1878,7 @@
   ],
   "humans_grid": {
     "editableObj": false,
-    "_extends": "replicating",
+    "_use": "replicating",
     "_singleton": true,
     "grid_holder__type": "humans",
     "grid_holder__typeHash": 0,
@@ -1902,7 +1964,7 @@
       "human_anim__toCrawlTransitionVarId": -1
     },
     {
-      "human_anim__fromCrawlTransitionVar": "laydown_transition_progress"
+      "human_anim__fromCrawlTransitionVar": "stand_transition_progress"
     },
     {
       "human_anim__fromCrawlTransitionAnim": "stand_transition"
@@ -1943,17 +2005,16 @@
       "_group": {
         "_tags": "gameClient",
         "human_head_dir__interpolationSpeed": 0.3,
-        "human_head_dir__addHeadRotation": [0.0,0.0,0.0]
+        "human_head_dir__addHeadRotation": [0.0,0.0,0.0],
+        "human_anim__pelvisMoveEnabledId": -1,
+        "human_anim__pelvisMoveOffsetId": -1,
+        "human_anim__pelvisMoveOffsetCourseId": -1,
+        "human_anim__pelvisMoveLeanCompensation": [0.03,0.1],
+        "human_anim__pelvisMoveGunPitchCompensation": [0.03,0.1]
       }
     },
     {
       "human_anim": []
-    },
-    {
-      "human_anim__isIdling:b": {
-        "value": false,
-        "_replicate": true
-      }
     },
     {
       "human_anim__sprintVariationCount:i": {
@@ -2003,14 +2064,17 @@
       ]
     }
   ],
-  "human_vehicle_anim": {
+  "human_simple_vehicle_anim": {
+    "human_vehicle_anim__maxStandHeight": 1.0,
     "human_vehicle_anim__upperId": -1,
-    "human_vehicle_anim__lowerId": -1,
+    "human_vehicle_anim__lowerId": -1
+  },
+  "human_vehicle_anim": {
+    "_use": "human_simple_vehicle_anim",
     "human_vehicle_anim__fireReadyUpperId": -1,
     "human_vehicle_anim__fireReadyLowerId": -1,
     "human_vehicle_anim__healUpperId": -1,
-    "human_vehicle_anim__healLowerId": -1,
-    "human_vehicle_anim__maxStandHeight": 1.0
+    "human_vehicle_anim__healLowerId": -1
   },
   "human_breath": [
     {
@@ -2031,6 +2095,21 @@
       }
     }
   ],
+  "human_bush_collision_effects": {
+    "_group": {
+      "_tags": "render",
+      "human_bush_collision__torsoContactVelocityMinMax": [0.05,1.5],
+      "human_bush_collision__updateInterval": 0.5,
+      "human_bush_collision__nextUpdateAt": 0.0,
+      "human_bush_collision__effects:shared:object": {
+        "bushes": "envir_collision_bush_green_effect",
+        "bushes_fall": "envir_collision_bush_fall_effect",
+        "bushes_palm": "envir_collision_bush_palm_effect",
+        "bushes_snow": "envir_collision_bush_snow_effect",
+        "bushes_dead": "envir_collision_bush_dead_effect"
+      }
+    }
+  },
   "human_vehicle_maintenance": [
     {
       "maintenance__hasTarget": false
@@ -2040,9 +2119,6 @@
     },
     {
       "extinguisher__effectiveDistance": 5.0
-    },
-    {
-      "maintenance__target:eid": []
     },
     {
       "repair__repairKit:eid": []
@@ -2074,8 +2150,10 @@
         "extinguisher__active": false,
         "repair__active": false,
         "repair__hasRepairKit": false,
+        "repair__repairKitWeapCreated": false,
         "extinguisher__hasExtinguisher": false,
-        "maintenance__canMaintainVehicle": false
+        "maintenance__canMaintainVehicle": false,
+        "maintenance__target:eid": []
       }
     }
   ],
@@ -2108,6 +2186,9 @@
       "_tracked": "human_vehicle__occupiedSeatEid"
     },
     {
+      "_tracked": "human_vehicle__isMobileSpawnDriverCloseToCapturePoint"
+    },
+    {
       "_replicated": "human_vehicle__isInHatch"
     },
     {
@@ -2117,6 +2198,9 @@
       "_replicated": "human_vehicle__occupiedSeatEid"
     },
     {
+      "human_vehicle__isMobileSpawnDriverCloseToCapturePoint": false
+    },
+    {
       "_group": {
         "_tags": "input",
         "human_vehicle__isShootingPassenger": false
@@ -2124,6 +2208,9 @@
     },
     {
       "human_vehicle__occupiedSeatEid:eid": []
+    },
+    {
+      "human_vehicle__lastKnownSeatEid:eid": []
     }
   ],
   "push_object_soldier": {
@@ -2134,60 +2221,79 @@
     "_tracked": "push_object__canPush",
     "push_object__target:eid": []
   },
+  "grenade_rethrow": {
+    "_tags": "gameClient",
+    "grenade_rethrow__isLocked": false,
+    "_tracked": "grenade_rethrow__grenadeEid",
+    "grenade_rethrow__grenadeEid:eid": []
+  },
+  "human_hold_breath": {
+    "human_hold_breath__isAvailable": false,
+    "_tracked": "human_hold_breath__isAvailable"
+  },
   "human": [
     {
-      "_extends": "base_human"
+      "_use": "base_human"
     },
     {
-      "_extends": "human_item_use"
+      "_use": "human_item_use"
     },
     {
-      "_extends": "human_reviver"
+      "_use": "human_reviver"
     },
     {
-      "_extends": "human_pickup_frustum"
+      "_use": "human_pickup_frustum"
     },
     {
-      "_extends": "capturer"
+      "_use": "capturer"
     },
     {
-      "_extends": "human_limited_visibility"
+      "_use": "human_limited_visibility"
     },
     {
-      "_extends": "human_hands_shake"
+      "_use": "human_hands_shake"
     },
     {
-      "_extends": "human_concussion"
+      "_use": "human_concussion"
     },
     {
-      "_extends": "human_hands_ik"
+      "_use": "human_hold_breath"
     },
     {
-      "_extends": "human_anim_ladder_nodes"
+      "_use": "human_hands_ik"
     },
     {
-      "_extends": "human_hit_tagging"
+      "_use": "human_anim_ladder_nodes"
     },
     {
-      "_extends": "human_swimsplash_fx"
+      "_use": "human_hit_tagging"
     },
     {
-      "_extends": "base_dm_parts"
+      "_use": "human_swimsplash_fx"
     },
     {
-      "_extends": "simple_damage_model"
+      "_use": "base_dm_parts"
     },
     {
-      "_extends": "human_vehicle_maintenance"
+      "_use": "simple_damage_model"
     },
     {
-      "_extends": "human_vehicle"
+      "_use": "human_vehicle_maintenance"
     },
     {
-      "_extends": "hit_footstep_group"
+      "_use": "human_vehicle"
     },
     {
-      "_extends": "push_object_soldier"
+      "_use": "hit_footstep_group"
+    },
+    {
+      "_use": "push_object_soldier"
+    },
+    {
+      "_use": "grenade_rethrow"
+    },
+    {
+      "_use": "node_collapser"
     },
     {
       "_replicated": "human_equipment__slots"
@@ -2484,18 +2590,6 @@
       "footstep__offset": [0.0,-0.15,0.0]
     },
     {
-      "footstep_fx__fx": "footstep_fx"
-    },
-    {
-      "footstep_fx__puddle_fx": "water_splash_a_fx"
-    },
-    {
-      "footstep_fx__biome_mud_fx": "footstep_mud_chunks_fx"
-    },
-    {
-      "footstep_fx__biome_snow_fx": "footstep_snow_chunks_fx"
-    },
-    {
       "blood_footprint_emitter__left_foot_node": "Bip01 L Foot"
     },
     {
@@ -2591,16 +2685,18 @@
       }
     },
     {
-      "animchar_node_collapser": {
-        "_tags": "render"
-      }
-    },
-    {
       "_group": {
         "_tags": "render",
         "animchar_node_collapser__nodes:object": {
           "Bip01 Head": "Bip01 Neck"
         }
+      }
+    },
+    {
+      "_group": {
+        "_tags": "gameClient",
+        "_track": true,
+        "human_attached_gun__isHideHuman": false
       }
     },
     {
@@ -2997,7 +3093,11 @@
     "concussion__endTime": "filter_possessed_squad_and_spectated_squad",
     "maintenance__canMaintainVehicle": "filter_possessed_and_spectated",
     "human_anim__jumpStartTime": "filter_not_possessed",
-    "human_phys__jumpEndTime": "filter_not_possessed"
+    "human_phys__jumpEndTime": "filter_not_possessed",
+    "enter_vehicle__atTime": "filter_spectated",
+    "exit_vehicle__atTime": "filter_spectated",
+    "maintenance__target": "filter_spectated",
+    "server_exit_vehicle__atTime": "filter_possessed"
   },
   "human_binocular": [
     {
@@ -3039,6 +3139,13 @@
       }
     },
     {
+      "_group": {
+        "_tags": "gameClient",
+        "_track": true,
+        "human_binocular__isHideHuman": false
+      }
+    },
+    {
       "human_binocular__eid:eid": []
     },
     {
@@ -3050,7 +3157,7 @@
   ],
   "base_human_weap": [
     {
-      "_extends": "human_binocular"
+      "_use": "human_binocular"
     },
     {
       "platformRecoilControlMult": 1.0
@@ -3102,6 +3209,12 @@
     },
     {
       "human_weap__prevGunAngles": [0.0,0.0]
+    },
+    {
+      "dm_parts__repairDistance": 1.75
+    },
+    {
+      "dm_parts__repairTraceDistance": 2.5
     },
     {
       "human_weap__gunAngleSpeed": [0.0,0.0]
@@ -3350,6 +3463,9 @@
       "_replicated": "human_weap__isDualMagReload"
     },
     {
+      "_replicated": "human_weap__isQuickReload"
+    },
+    {
       "_replicated": "human_weap__currentGunSlot"
     },
     {
@@ -3401,7 +3517,7 @@
       "beh_tree__enabled": false
     },
     {
-      "unit_indicator__ignorePlayers": false
+      "human_weap__isReloading": false
     },
     {
       "human_weap__isReloadRequested": false
@@ -3429,6 +3545,9 @@
     },
     {
       "human_weap__isDualMagReload": false
+    },
+    {
+      "human_weap__isQuickReload": false
     },
     {
       "human_weap__weapModActivateStartTime": -1.0
@@ -3597,6 +3716,12 @@
       "human_weap__infiniteAmmoHolders:b": {
         "_tags": "server",
         "value": false
+      }
+    },
+    {
+      "human_weap__lastTimeInfiniteAmmoEnabled:r": {
+        "_tags": "server",
+        "value": 0.0
       }
     },
     {

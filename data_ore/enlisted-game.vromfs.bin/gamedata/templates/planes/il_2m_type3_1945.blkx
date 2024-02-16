@@ -1,10 +1,10 @@
 {
   "il_2m_type3_1945": [
     {
-      "_extends": "il_2m_type3_1945_base"
+      "_use": "il_2m_type3_1945_base"
     },
     {
-      "_extends": "squad_controlled_plane"
+      "_use": "squad_controlled_plane"
     },
     {
       "item__name": "items/il_2m"
@@ -27,7 +27,7 @@
             "seatComponent": "isDriver",
             "receiveDamageFromDMPart": "pilot_dm",
             "cameraNodeName": "",
-            "cameraOffset": [-0.93,0.963,0.0],
+            "cameraOffset": [-1.05,0.963,0.0],
             "cockpitTemplate": "il_2m_type3_1945_driver_cockpit",
             "roomSpace": 0,
             "turretNames:array": [
@@ -68,7 +68,7 @@
                 "turret": "turret_12"
               }
             ],
-            "effectors:object": {
+            "cockpitEffectors:object": {
               "r.hand": "stick_rhand_1",
               "l.hand": "throttle_lhand_1",
               "r.foot": "pedal_rfoot_1",
@@ -680,13 +680,13 @@
   },
   "planegun_il_2m_type3_1945_fab_100_launcher_01": [
     {
-      "_extends": "fab_100_launcher"
+      "_use": "fab_100_launcher"
     },
     {
-      "_extends": "base_il_2m_type3_1945_fab_100_launcher"
+      "_use": "base_il_2m_type3_1945_fab_100_launcher"
     },
     {
-      "_extends": "gunsound_fab_100_launcher_aircraft"
+      "_use": "gunsound_fab_100_launcher_aircraft"
     },
     {
       "gun__shootNodeName": "bomb3"
@@ -700,13 +700,13 @@
   ],
   "planegun_il_2m_type3_1945_fab_100_launcher_02": [
     {
-      "_extends": "fab_100_launcher"
+      "_use": "fab_100_launcher"
     },
     {
-      "_extends": "base_il_2m_type3_1945_fab_100_launcher"
+      "_use": "base_il_2m_type3_1945_fab_100_launcher"
     },
     {
-      "_extends": "gunsound_fab_100_launcher_aircraft"
+      "_use": "gunsound_fab_100_launcher_aircraft"
     },
     {
       "gun__shootNodeName": "bomb4"
@@ -720,13 +720,13 @@
   ],
   "planegun_il_2m_type3_1945_fab_100_launcher_03": [
     {
-      "_extends": "fab_100_launcher"
+      "_use": "fab_100_launcher"
     },
     {
-      "_extends": "base_il_2m_type3_1945_fab_100_launcher"
+      "_use": "base_il_2m_type3_1945_fab_100_launcher"
     },
     {
-      "_extends": "gunsound_fab_100_launcher_aircraft"
+      "_use": "gunsound_fab_100_launcher_aircraft"
     },
     {
       "gun__shootNodeName": "bomb5"
@@ -740,13 +740,13 @@
   ],
   "planegun_il_2m_type3_1945_fab_100_launcher_04": [
     {
-      "_extends": "fab_100_launcher"
+      "_use": "fab_100_launcher"
     },
     {
-      "_extends": "base_il_2m_type3_1945_fab_100_launcher"
+      "_use": "base_il_2m_type3_1945_fab_100_launcher"
     },
     {
-      "_extends": "gunsound_fab_100_launcher_aircraft"
+      "_use": "gunsound_fab_100_launcher_aircraft"
     },
     {
       "gun__shootNodeName": "bomb6"
@@ -760,13 +760,13 @@
   ],
   "planegun_il_2m_type3_1945_rbs_132_launcher_01": [
     {
-      "_extends": "rbs_132_launcher"
+      "_use": "rbs_132_launcher"
     },
     {
-      "_extends": "base_il_2m_type3_1945_rbs_132_launcher"
+      "_use": "base_il_2m_type3_1945_rbs_132_launcher"
     },
     {
-      "_extends": "gunsound_rbs_132_launcher_aircraft"
+      "_use": "gunsound_rbs_132_launcher_aircraft"
     },
     {
       "gun__shootNodeName": "rocket9"
@@ -780,13 +780,13 @@
   ],
   "planegun_il_2m_type3_1945_rbs_132_launcher_02": [
     {
-      "_extends": "rbs_132_launcher"
+      "_use": "rbs_132_launcher"
     },
     {
-      "_extends": "base_il_2m_type3_1945_rbs_132_launcher"
+      "_use": "base_il_2m_type3_1945_rbs_132_launcher"
     },
     {
-      "_extends": "gunsound_rbs_132_launcher_aircraft"
+      "_use": "gunsound_rbs_132_launcher_aircraft"
     },
     {
       "gun__shootNodeName": "rocket12"
@@ -800,13 +800,13 @@
   ],
   "planegun_il_2m_type3_1945_rbs_132_launcher_03": [
     {
-      "_extends": "rbs_132_launcher"
+      "_use": "rbs_132_launcher"
     },
     {
-      "_extends": "base_il_2m_type3_1945_rbs_132_launcher"
+      "_use": "base_il_2m_type3_1945_rbs_132_launcher"
     },
     {
-      "_extends": "gunsound_rbs_132_launcher_aircraft"
+      "_use": "gunsound_rbs_132_launcher_aircraft"
     },
     {
       "gun__shootNodeName": "rocket10"
@@ -820,13 +820,13 @@
   ],
   "planegun_il_2m_type3_1945_rbs_132_launcher_04": [
     {
-      "_extends": "rbs_132_launcher"
+      "_use": "rbs_132_launcher"
     },
     {
-      "_extends": "base_il_2m_type3_1945_rbs_132_launcher"
+      "_use": "base_il_2m_type3_1945_rbs_132_launcher"
     },
     {
-      "_extends": "gunsound_rbs_132_launcher_aircraft"
+      "_use": "gunsound_rbs_132_launcher_aircraft"
     },
     {
       "gun__shootNodeName": "rocket11"
@@ -840,16 +840,16 @@
   ],
   "planegun_il_2m_type3_1945_7_62mm_shkas_01": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_plane_machinegun"
+      "_use": "base_plane_machinegun"
     },
     {
-      "_extends": "base_il_2m_type3_1945_7_62mm_shkas"
+      "_use": "base_il_2m_type3_1945_7_62mm_shkas"
     },
     {
-      "_extends": "gunsound_7_62mm_shkas_aircraft"
+      "_use": "gunsound_7_62mm_shkas_aircraft"
     },
     {
       "gun__shootNodeName": "flare1"
@@ -860,16 +860,16 @@
   ],
   "planegun_il_2m_type3_1945_7_62mm_shkas_02": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_plane_machinegun"
+      "_use": "base_plane_machinegun"
     },
     {
-      "_extends": "base_il_2m_type3_1945_7_62mm_shkas"
+      "_use": "base_il_2m_type3_1945_7_62mm_shkas"
     },
     {
-      "_extends": "gunsound_7_62mm_shkas_aircraft"
+      "_use": "gunsound_7_62mm_shkas_aircraft"
     },
     {
       "gun__shootNodeName": "flare2"
@@ -880,16 +880,16 @@
   ],
   "planegun_il_2m_type3_1945_23mm_vya_01": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_plane_machinegun"
+      "_use": "base_plane_machinegun"
     },
     {
-      "_extends": "base_il_2m_type3_1945_23mm_vya"
+      "_use": "base_il_2m_type3_1945_23mm_vya"
     },
     {
-      "_extends": "gunsound_23mm_vya_aircraft"
+      "_use": "gunsound_23mm_vya_aircraft"
     },
     {
       "gun__shootNodeName": "flare3"
@@ -900,16 +900,16 @@
   ],
   "planegun_il_2m_type3_1945_23mm_vya_02": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_plane_machinegun"
+      "_use": "base_plane_machinegun"
     },
     {
-      "_extends": "base_il_2m_type3_1945_23mm_vya"
+      "_use": "base_il_2m_type3_1945_23mm_vya"
     },
     {
-      "_extends": "gunsound_23mm_vya_aircraft"
+      "_use": "gunsound_23mm_vya_aircraft"
     },
     {
       "gun__shootNodeName": "flare4"
@@ -920,16 +920,16 @@
   ],
   "planegun_il_2m_type3_1945_12_7mm_ub_turret_01": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_plane_machinegun"
+      "_use": "base_plane_machinegun"
     },
     {
-      "_extends": "base_il_2m_type3_1945_12_7mm_ub_turret"
+      "_use": "base_il_2m_type3_1945_12_7mm_ub_turret"
     },
     {
-      "_extends": "gunsound_12_7mm_ub_turret_aircraft"
+      "_use": "gunsound_12_7mm_ub_turret_aircraft"
     },
     {
       "gun__shootNodeName": "flare5"
@@ -951,7 +951,7 @@
     }
   ],
   "il_2m_type3_1945_driver_cockpit": {
-    "_extends": "base_plane_cockpit",
+    "_use": "base_plane_cockpit",
     "cockpit__offset": [0.0,0.0,0.0],
     "cockpit__angles": [0.0,0.0,0.0],
     "cockpit__scale": [1.0,1.0,1.0],

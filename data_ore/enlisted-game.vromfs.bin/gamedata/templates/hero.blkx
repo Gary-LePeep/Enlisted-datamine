@@ -33,55 +33,55 @@
   },
   "human_hero_components": [
     {
-      "_extends": "base_human_hero_components"
+      "_use": "base_human_hero_components"
     },
     {
-      "_extends": "human_look_at_zone"
+      "_use": "human_look_at_zone"
     },
     {
-      "_extends": "human_context_command"
+      "_use": "human_context_command"
     },
     {
-      "_extends": "wallposter_input"
+      "_use": "wallposter_input"
     },
     {
-      "_extends": "shooter_input"
+      "_use": "shooter_input"
     },
     {
-      "_extends": "enlisted_human_squad_input"
+      "_use": "enlisted_human_squad_input"
     },
     {
-      "_extends": "enlisted_human_hooray_input"
+      "_use": "enlisted_human_hooray_input"
     },
     {
-      "_extends": "enlisted_human_building_input"
+      "_use": "enlisted_human_building_input"
     },
     {
-      "_extends": "enlisted_human_artillery_input"
+      "_use": "enlisted_human_artillery_input"
     },
     {
-      "_extends": "enlisted_human_dig_input"
+      "_use": "enlisted_human_dig_input"
     },
     {
-      "_extends": "enlisted_bomb_site_input"
+      "_use": "enlisted_bomb_site_input"
     },
     {
-      "_extends": "enlisted_fortification_mirror_preview_input"
+      "_use": "enlisted_fortification_mirror_preview_input"
     },
     {
-      "_extends": "mortar_input"
+      "_use": "mortar_input"
     },
     {
-      "_extends": "binocular_input"
+      "_use": "binocular_input"
     },
     {
-      "_extends": "personal_bot_order"
+      "_use": "personal_bot_order"
     },
     {
-      "_extends": "human_use_bomb_site"
+      "_use": "human_use_bomb_site"
     },
     {
-      "_extends": "offender_marks"
+      "_use": "offender_marks"
     },
     {
       "heal__continuousInput": true
@@ -97,7 +97,7 @@
     }
   ],
   "human_hero_components_local": {
-    "_extends": "human_hero_components"
+    "_use": "human_hero_components"
   },
   "human_hero_components_remote": [],
   "human_hero_squad_components": {
@@ -141,8 +141,36 @@
       "human_context_command__orderUseEntity:eid": []
     }
   ],
-  "human_look_at_zone": {
-    "_tracked": "human__lookAtZone",
-    "human__lookAtZone:eid": []
-  }
+  "human_look_at_zone": [
+    {
+      "_tracked": "human__lookAtZone"
+    },
+    {
+      "_tracked": "human__lookAtZoneQuickchat"
+    },
+    {
+      "_tracked": "human__lookAtZoneQuickchatCanBeAttacked"
+    },
+    {
+      "_tracked": "human__lookAtZoneQuickchatCanBeDefended"
+    },
+    {
+      "human__lookAtZoneTitle": ""
+    },
+    {
+      "human__lookAtZoneQuickchatTitle": ""
+    },
+    {
+      "human__lookAtZoneQuickchatCanBeAttacked": false
+    },
+    {
+      "human__lookAtZoneQuickchatCanBeDefended": false
+    },
+    {
+      "human__lookAtZone:eid": []
+    },
+    {
+      "human__lookAtZoneQuickchat:eid": []
+    }
+  ]
 }

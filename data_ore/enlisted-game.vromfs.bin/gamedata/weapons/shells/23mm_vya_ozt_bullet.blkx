@@ -15,7 +15,6 @@
   "stabilityReductionAfterPenetration": 0.15,
   "explosiveMass": 0.0156,
   "bulletType": "frag_i_t",
-  "shellAnimation": "video/shells_animations/he.ivf",
   "hitPowerMult": 1.0,
   "onHitChanceMultFire": 2.0,
   "effectiveDistance": 10000.0,
@@ -31,11 +30,6 @@
   "shutterAmount": 20,
   "shutterArmorPower": 6.0,
   "shutterHit": 3.5,
-  "selfDestructionFx": "explosion_air_selfexplosion_small",
-  "explosionEffect": "hit_19_27mm_metal_he",
-  "groundCollisionEffect": "hit_19_27mm_dirt_he",
-  "ricochetEffect": "hit_19_27mm_metal_ap",
-  "waterCollisionEffect": "hit_19_27mm_water",
   "stabilityRicochetModifier": [
     {
       "mod1": [0.0,0.05]
@@ -67,24 +61,6 @@
     "traceFreq": 1,
     "tracer": "20mmRed",
     "trail": "black"
-  },
-  "hitFx": {
-    "steel": {
-      "fx": "hit_19_27mm_metal_he",
-      "fxScale": [1.0,1.0]
-    },
-    "wood": {
-      "fx": "hit_19_27mm_wood_he",
-      "fxScale": [1.0,1.0]
-    },
-    "glass": {
-      "fx": "hit_19_27mm_metal_he",
-      "fxScale": [1.0,1.0]
-    },
-    "stone": {
-      "fx": "hit_19_27mm_stone_he",
-      "fxScale": [1.0,1.0]
-    }
   },
   "tracer": {
     "headColor": "#ff0f0fff",

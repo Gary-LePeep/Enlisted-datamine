@@ -1,10 +1,10 @@
 {
   "base_flak_36_sdkfz_6_2": [
     {
-      "_extends": "base_tank"
+      "_use": "base_tank"
     },
     {
-      "_extends": "flak_36_sdkfz_6_2_ammo_stowages"
+      "_use": "flak_36_sdkfz_6_2_ammo_stowages"
     },
     {
       "killLogName": "germ_sdkfz_6_2_flak36"
@@ -108,7 +108,7 @@
     }
   ],
   "flak_36_sdkfz_6_2_turret_01_37mm_flak36": {
-    "_extends": "tankgun_37mm_flak36",
+    "_use": "tankgun_37mm_flak36",
     "gun__shootNodeName": "bone_gun_barrel",
     "turret__yawSpeed": 35.0,
     "turret__pitchSpeed": 20.0,
@@ -136,30 +136,24 @@
   },
   "flak_36_sdkfz_6_2_ammo_stowages": {
     "_tags": "server",
-    "_extends": "vehicle_ammo_stowages",
+    "_use": "vehicle_ammo_stowages",
     "ammo_stowage__stowageTemplates:shared:list<t>": {
-      "stowage": "flak_36_sdkfz_6_2_ammo_stowage"
+      "stowage": "flak_36_sdkfz_6_2_ammo_stowage_1"
     }
   },
-  "flak_36_sdkfz_6_2_ammo_stowage": {
-    "_extends": "ammo_stowage",
+  "flak_36_sdkfz_6_2_ammo_stowage_1": {
+    "_use": "ammo_stowage",
     "ammo_stowage__clusterTemplates:shared:list<t>": {
-      "cluster": "flak_36_sdkfz_6_2_ammo_cluster"
+      "cluster": "flak_36_sdkfz_6_2_ammo_cluster_1_1"
     },
     "ammo_stowage__turretNames:shared:list<t>": {
       "gun": "turret_01"
     }
   },
-  "flak_36_sdkfz_6_2_ammo_cluster": {
-    "_extends": "ammo_cluster",
+  "flak_36_sdkfz_6_2_ammo_cluster_1_1": {
+    "_use": "ammo_cluster",
     "ammo_cluster__isShell": true,
     "ammo_cluster__slotNames:shared:list<t>": [
-      {
-        "part": "ammo_turret_01"
-      },
-      {
-        "part": "ammo_turret_02"
-      },
       {
         "part": "ammo_body_01"
       },
@@ -202,49 +196,43 @@
     ],
     "ammo_cluster__slotsMaxAmmo:list<i>": [
       {
-        "count": 22
+        "count": 26
       },
       {
-        "count": 22
+        "count": 26
       },
       {
-        "count": 22
+        "count": 26
       },
       {
-        "count": 21
+        "count": 26
       },
       {
-        "count": 21
+        "count": 26
       },
       {
-        "count": 21
+        "count": 26
       },
       {
-        "count": 21
+        "count": 26
       },
       {
-        "count": 21
+        "count": 26
       },
       {
-        "count": 21
+        "count": 26
       },
       {
-        "count": 21
+        "count": 26
       },
       {
-        "count": 21
+        "count": 26
       },
       {
-        "count": 21
+        "count": 26
       },
       {
-        "count": 21
-      },
-      {
-        "count": 21
-      },
-      {
-        "count": 21
+        "count": 6
       }
     ]
   },

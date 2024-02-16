@@ -1,0 +1,94 @@
+{
+  "base_p_40e_1_premium": {
+    "plane_phys_damage__blk": "gamedata/units/p_40e_1_premium.blk",
+    "animchar__res": "p_40e_char"
+  },
+  "p_40e_1_premium_wreckage": [
+    {
+      "_use": "base_p_40e_1_premium"
+    },
+    {
+      "_use": "plane_wreckage"
+    },
+    {
+      "plane_wreckage__nodeName": ""
+    },
+    {
+      "plane_wreckage__typeName": ""
+    }
+  ],
+  "p_40e_1_premium_base": [
+    {
+      "_use": "plane_with_cockpit"
+    },
+    {
+      "_use": "base_p_40e_1_premium"
+    },
+    {
+      "collres__res": "p_40e_collision"
+    },
+    {
+      "plane_net_phys__blk": "gamedata/units/p_40e_1_premium.blk"
+    },
+    {
+      "damage_model__blk": "gamedata/units/p_40e_1_premium.blk"
+    },
+    {
+      "plane_collision__blk": "gamedata/units/p_40e_1_premium.blk"
+    },
+    {
+      "plane_anim__blk": "gamedata/units/p_40e_1_premium.blk"
+    },
+    {
+      "plane_sight__blk": "gamedata/units/p_40e_1_premium.blk"
+    },
+    {
+      "plane_input__autopilotImpl": "No"
+    },
+    {
+      "canUseRespawnbaseType": "aircraft_fighter"
+    },
+    {
+      "is_seaplane": false
+    },
+    {
+      "plane_wreckage__template": "p_40e_1_premium_wreckage"
+    },
+    {
+      "killLogName": "p_40e"
+    },
+    {
+      "animchar__res": "p_40e_char"
+    },
+    {
+      "vehicle_seats_camera_nodes__defaultNode": ""
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "animchar_camera_target__node_name": "",
+        "animchar_camera_target__node_offset": [0.0,0.0,0.0]
+      }
+    },
+    {
+      "plane_hit_sound__canopyNodes:list<t>": {
+        "_tags": "sound",
+        "name": "cover2_dm"
+      }
+    },
+    {
+      "vehicle_seats_can_acquire_controls:list<i>": []
+    },
+    {
+      "vehicle_seats__canAcquireControls:shared:object": {
+        "driver:object": {
+          "movement": true,
+          "turrets": true
+        },
+        "main_gunner:object": {
+          "turrets": true
+        }
+      }
+    }
+  ]
+}

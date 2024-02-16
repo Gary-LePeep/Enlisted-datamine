@@ -3,7 +3,13 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let {needSpawnMenu, selectedRespawnGroupId, canUseRespawnbaseByType} = require("%ui/hud/state/respawnState.nut")
 let {localPlayerTeam} = require("%ui/hud/state/local_player.nut")
-let groupRespawnsGroupsQuery = ecs.SqQuery("groupRespawnGroupsQuery", {comps_ro=["selectedGroup", "team", "respawnIconType"]})
+let groupRespawnsGroupsQuery = ecs.SqQuery("groupRespawnGroupsQuery", {
+  comps_ro=[
+    ["selectedGroup", ecs.TYPE_INT],
+    ["team", ecs.TYPE_INT],
+    ["respawnIconType", ecs.TYPE_STRING],
+  ]
+})
 
 let function getRespawnGroups(forTeam, exludeEid = ecs.INVALID_ENTITY_ID) {
   let respawnGroups = {}

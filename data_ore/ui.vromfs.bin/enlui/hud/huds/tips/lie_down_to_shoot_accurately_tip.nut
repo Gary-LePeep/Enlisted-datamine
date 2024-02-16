@@ -1,10 +1,11 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
-let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let {tipCmp} = require("%ui/hud/huds/tips/tipComponent.nut")
 let { mkOnlineSaveData } = require("%enlSqGlob/mkOnlineSaveData.nut")
-let {curWeaponWeapType} = require("%ui/hud/state/hero_weapons.nut")
+let { curWeaponWeapType } = require("%ui/hud/state/hero_weapons.nut")
+let { inVehicle } = require("%ui/hud/state/vehicle_state.nut")
 
 let tipCountData = mkOnlineSaveData("ui/hud/lie_down_to_shoot", @() 0)
 let shownTipCount = tipCountData.watch
@@ -32,14 +33,15 @@ ecs.register_es("is_crawling_now",{
 
 let needShowTip = Computed(@() curWeaponWeapType.value == "submachine_gun"
                                 && !entityIsCrawling.value && shownTipCount.value < TIP_SHOW_COUNT
-                                && !hasShownCurGame.value)
+                                && !hasShownCurGame.value
+                                && !inVehicle.value)
 
 let function makeShowTipTrue() {
   if (!needShowTip.value)
     return
   showTip(true)
   tipCountData.setValue(shownTipCount.value + 1)
-  gui_scene.setTimeout(TIP_SHOW_TIME, @() hasShownCurGame(true))
+  gui_scene.resetTimeout(TIP_SHOW_TIME, @() hasShownCurGame(true))
 }
 
  needShowTip.subscribe(function(tip) {
@@ -58,7 +60,7 @@ let machineGunTip = tipCmp({
   inputId = "Human.Crawl"
   style = {onAttach = @() gui_scene.setTimeout(TIP_SHOW_TIME, @() showTip(false))
            onDetach = @() hasShownCurGame(true)}
-}.__update(body_txt))
+}.__update(fontBody))
 
 let lie_down_to_shoot_accurately_tip = @() {
   watch = showTip

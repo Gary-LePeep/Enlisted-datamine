@@ -1,10 +1,10 @@
 {
   "base_aa_gun_72k": [
     {
-      "_extends": "base_tank"
+      "_use": "base_tank"
     },
     {
-      "_extends": "aa_gun_72k_ammo_stowages"
+      "_use": "aa_gun_72k_ammo_stowages"
     },
     {
       "killLogName": "ussr_aa_gun_72k"
@@ -102,7 +102,7 @@
     }
   ],
   "aa_gun_72k_turret_01_25mm_72k": {
-    "_extends": "tankgun_25mm_72k",
+    "_use": "tankgun_25mm_72k",
     "gun__shootNodeName": "bone_gun_barrel",
     "turret__yawSpeed": 35.0,
     "turret__pitchSpeed": 20.0,
@@ -122,7 +122,7 @@
   },
   "aa_gun_72k_ammo_stowages": {
     "_tags": "server",
-    "_extends": "vehicle_ammo_stowages",
+    "_use": "vehicle_ammo_stowages",
     "ammo_stowage__stowageTemplates:shared:list<t>": []
   },
   "aa_gun_72k_skins": {

@@ -1,4 +1,5 @@
 from "frp" import Watched, Computed
+from "math" import max
 
 let { get_circuit } = require("app")
 let { yup_version, exe_version } = require("%dngscripts/appInfo.nut")

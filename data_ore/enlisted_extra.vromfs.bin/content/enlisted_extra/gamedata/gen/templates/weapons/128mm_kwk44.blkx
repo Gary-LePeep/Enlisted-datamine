@@ -44,16 +44,16 @@
   },
   "tankgun_128mm_kwk44": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_tankgun_cannon"
+      "_use": "base_tankgun_cannon"
     },
     {
-      "_extends": "base_128mm_kwk44"
+      "_use": "base_128mm_kwk44"
     },
     {
-      "_extends": "gunsound_128mm_pak44"
+      "_use": "gunsound_128mm_pak44"
     },
     {
       "turret__triggerGroup": 0

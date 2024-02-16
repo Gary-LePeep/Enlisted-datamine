@@ -10,20 +10,14 @@ let { getSoldierItem } = require("%enlist/soldiers/model/state.nut")
 let getPerksCount = @(perks) (perks?.slots ?? [])
   .reduce(@(res, slots) res + slots.filter(@(v) (v ?? "") != "").len(), 0)
 
-let function collectSoldierPhoto(soldier, soldiersOutfit, objInfoByGuidV, overrideOutfit = [], isLarge = false) {
+  // TODO remove overrideOutfit and isLarge that currently unused
+let function collectSoldierPhoto(soldier, soldiersOutfit, overrideOutfit = [], isLarge = false) {
   if (soldier?.photo != null)
     return soldier
 
-  let { guid = null } = soldier
-  let actualSoldier = objInfoByGuidV?[guid]
-  if (actualSoldier == null)
-    return soldier.__merge({
-      photo = null
-    })
-
-  let scheme = actualSoldier?.equipScheme ?? {}
+  let { guid = null, equipScheme = {}, gametemplate = null } = soldier
   let equipmentInfo = []
-  let equipment = mkEquipment(actualSoldier, scheme, soldiersOutfit, overrideOutfit)
+  let equipment = mkEquipment(soldier, equipScheme, soldiersOutfit, overrideOutfit)
   if (equipment != null) {
     foreach (slot, equip in equipment) {
       if (!equip || !equip.gametemplate)
@@ -35,51 +29,55 @@ let function collectSoldierPhoto(soldier, soldiersOutfit, objInfoByGuidV, overri
     }
   }
 
-  let weapTemplates = getWeapTemplates(guid, scheme)
-  let soldierTemplate = actualSoldier?.gametemplate
-    ? ecs.g_entity_mgr.getTemplateDB().getTemplateByName(actualSoldier.gametemplate)
+  let weapTemplates = getWeapTemplates(guid, equipScheme)
+  let soldierTemplate = gametemplate
+    ? ecs.g_entity_mgr.getTemplateDB().getTemplateByName(gametemplate)
     : null
   let overridedIdleAnims = soldierTemplate?.getCompValNullable("animation__overridedIdleAnims")
+  let overridedSlotsOrder = soldierTemplate?.getCompValNullable("animation__overridedSlotsOrder").getAll()
 
   let animation = getIdleAnimState({
     weapTemplates
-    itemTemplates = getItemAnimationBlacklist(actualSoldier, guid, scheme, soldiersOutfit)
+    itemTemplates = getItemAnimationBlacklist(soldier, guid, equipScheme, soldiersOutfit)
     overridedIdleAnims
-    seed = guid.hash()
+    overridedSlotsOrder
+    seed = guid?.hash() ?? 0
   })
 
   return soldier.__merge({
-    photo = mkSoldierPhotoName(actualSoldier?.gametemplate, equipmentInfo, animation, isLarge)
+    photo = mkSoldierPhotoName(gametemplate, equipmentInfo, animation, isLarge)
   })
 }
 
 let function collectSoldierDataImpl(
-  soldier, perksDataV, curCampSquadsV, armiesV, classesCfgV, campItemsV, objInfoByGuidV, soldiersOutfit,
-  soldiersPremiumItems
+  soldier, perksDataV, curCampSquadsV, armiesV, classesCfgV, campItemsV, soldiersOutfit,
+  soldiersPremiumItems, soldierSchemesV, maxTrainByClassV
 ) {
-  let guid = soldier?.guid
+  let { guid = null, sClass = null, basetpl = null, tier = 1 } = soldier
   if (guid == null)
     return soldier
 
   let armyId = getLinkedArmyName(soldier)
   let perks = perksDataV?[guid]
-  let { level = 1, maxLevel = 1, exp = 0 } = perks
+  let { exp = 0 } = perks
   let perksCount = getPerksCount(perks)
 
-  let { kind = soldier.sClass } = classesCfgV?[soldier.sClass] //kind by default is sClass to compatibility with 16.02.2021 pserver version
+  let { kind = sClass } = classesCfgV?[sClass] //kind by default is sClass to compatibility with 16.02.2021 pserver version
+  let { country = null } = (soldierSchemesV?[armyId] ?? {})
+    .findvalue(@(data) basetpl == data.gametemplate)
   return collectSoldierPhoto(soldier.__merge({
     primaryWeapon = getSoldierItem(guid, "primary", campItemsV)
       ?? getSoldierItem(guid, "secondary", campItemsV)
       ?? getSoldierItem(guid, "side", campItemsV)
-    country = armiesV?[armyId].country
-    level = min(level, maxLevel)
-    maxLevel
+    country = country ?? armiesV?[armyId].country
+    level = tier
+    maxLevel = max(tier, (maxTrainByClassV?[sClass] ?? 0) + 1)
     exp
     perksCount
     armyId
     squadId = curCampSquadsV?[getLinkedSquadGuid(soldier)].squadId
     sKind = kind
-  }), soldiersOutfit, objInfoByGuidV, soldiersPremiumItems)
+  }), soldiersOutfit, soldiersPremiumItems)
 }
 
 return {

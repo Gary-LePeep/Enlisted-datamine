@@ -14,9 +14,9 @@ require DagorInput
 require DagorDriver3D
 require TouchInput
 require HumanPhys
-require EnlistedHuman
-require EnlistedInputControls
-require EnlistedCamera
+require DngHuman
+require DngInputControls
+require DngCamera
 
 let DEFAULT_VERT_LOOK_ANGLE_LIMIT_DEG = float2(-72.0, 87.0)
 let DEFAULT_VERT_LOOK_ANGLE_LIMIT_RAD = deg_to_rad(DEFAULT_VERT_LOOK_ANGLE_LIMIT_DEG)
@@ -72,7 +72,6 @@ def update_walk_dir(var actor : HumanActor&;
                     strafe : double = 0.0lf)
   actor.phys.producedCT |> human_control_state_set_walk_dir(float2(move, -strafe))
 
-
 def update_movement(dt : float;
                     human_input__aim : int;
                     human_input__aimDelta : int;
@@ -82,6 +81,7 @@ def update_movement(dt : float;
                     human_input__perspWk : float;
                     human_input__forceLookMode : bool;
                     human_input__blockLookModeCounter : int;
+                    human_input__isGyroAimEnabled : bool;
                     aim_offset : float2&;
                     vehicle_input__aim : int const?;
                     isInVehicle : bool;
@@ -94,6 +94,8 @@ def update_movement(dt : float;
                     human_input__resetSprintMoveThreshold : float = DEFAULT_RESET_SPRINT_MOVE_THRESHOLD;
                     human_input__lookAngleTau : float = 0.;
                     human_vehicle__isShootingPassenger : bool;
+                    human_freefall__isFreefall : bool;
+                    human_freefall__inputLimits : float2;
                     var actor : HumanActor&;
                     var aim_angle : float2&;
                     var human_input__lookAngle : float2&)
@@ -126,7 +128,7 @@ def update_movement(dt : float;
 
     // Aim delta
     let asAimDelta = get_analog_stick_action_state(uint16(human_input__aimDelta))
-    if asAimDelta.bActive
+    if asAimDelta.bActive && human_input__isGyroAimEnabled
       ax += double(asAimDelta.x)
       ay += double(asAimDelta.y)
 
@@ -155,6 +157,9 @@ def update_movement(dt : float;
     if shouldResetLookAngle
       human_input__lookAngle.x = approach(prevLookAngle.x, 0., dt, human_input__lookAngleTau)
       human_input__lookAngle.y = approach(prevLookAngle.y, 0., dt, human_input__lookAngleTau)
+    if human_freefall__isFreefall
+      ax = clamp(ax, double(-human_freefall__inputLimits[0]), double(human_freefall__inputLimits[0]))
+      ay = clamp(ay, double(-human_freefall__inputLimits[1]), double(human_freefall__inputLimits[1]))
     update_look_dir(actor,
                     aim_angle,
                     aim_offset,
@@ -200,6 +205,7 @@ def apply_human_input_tm(human_input__perspWk : float;
 def fix_changed_hero_input(dt : float;
                            var human_input__hasValidState : bool&;
                            var human_net_phys : HumanActor&;
+                           var human_input__standState : int&;
                            var aim_angle : float2&;
                            var human_input__lookAngle : float2&;
                            human_input__lookAngleTau : float;
@@ -211,7 +217,10 @@ def fix_changed_hero_input(dt : float;
                            human_input__perspWk : float;
                            human_input__forceLookMode : bool;
                            human_input__blockLookModeCounter : int;
+                           human_input__isGyroAimEnabled : bool;
                            human_vehicle__isShootingPassenger : bool;
+                           human_freefall__isFreefall : bool;
+                           human_freefall__inputLimits : float2;
                            aim_offset : float2&;
                            vehicle_input__aim : int const?;
                            isInVehicle : bool;
@@ -227,16 +236,25 @@ def fix_changed_hero_input(dt : float;
   ct |> human_control_state_set_control_bit(HumanPhysControlType HCT_THROW_BACK, false)
   ct |> human_control_state_set_control_bit(HumanPhysControlType HCT_MELEE, false)
 
-  let isCrouch = phys.previousState.isCrouch
-  let isCrawl = phys.previousState.isCrawl
+  var prevStandState = 0
+  query(get_local_player_eid()) <| $ [es] (local_player_lastHumanInputStandState : int)
+    prevStandState = local_player_lastHumanInputStandState
+  let prevCrawl = prevStandState == int(HumanPhysControlType HCT_CRAWL)
+  let prevCrouch = prevStandState == int(HumanPhysControlType HCT_CROUCH)
+
+  let isCrouch = phys.previousState.isCrouch && (prevCrouch || prevCrawl)
+  let isCrawl = phys.previousState.isCrawl && prevCrawl
   ct |> human_control_state_set_control_bit(HumanPhysControlType HCT_CROUCH, isCrouch)
   ct |> human_control_state_set_control_bit(HumanPhysControlType HCT_CRAWL, isCrawl)
+
+  human_input__standState = isCrawl ? int(HumanPhysControlType HCT_CRAWL) : isCrouch ? int(HumanPhysControlType HCT_CROUCH) : 0
 
   update_movement(dt, human_input__aim, human_input__aimDelta,
                   human_input__look, human_input__move,
                   human_input__sprint, human_input__perspWk,
                   human_input__forceLookMode,
                   human_input__blockLookModeCounter,
+                  human_input__isGyroAimEnabled,
                   aim_offset, vehicle_input__aim, isInVehicle,
                   true, true, float2(0.5, 0.5),
                   DEFAULT_VERT_LOOK_ANGLE_LIMIT_RAD, 1.0,
@@ -244,6 +262,8 @@ def fix_changed_hero_input(dt : float;
                   human_input__lookAngleTau,
                   human_input__resetSprintMoveThreshold,
                   human_vehicle__isShootingPassenger,
+                  human_freefall__isFreefall,
+                  human_freefall__inputLimits,
                   human_net_phys, aim_angle,
                   human_input__lookAngle)
   human_input__hasValidState = true
@@ -315,15 +335,6 @@ def input_melee(cur_time : float;
     phys.producedCT |> human_control_state_set_control_bit(HumanPhysControlType HCT_MELEE, false)
 
 
-[es(tag=input, after=human_weap_post_phys_es)]
-def human_reset_reload_flag_es(evt : CmdPostPhysUpdate;
-                               var human_net_phys : HumanActor&;
-                               var human_input__isNeedHctReloadReset : bool&)
-  if human_input__isNeedHctReloadReset
-    human_net_phys.phys.producedCT |> human_control_state_set_control_bit(HumanPhysControlType HCT_RELOAD, false)
-    human_input__isNeedHctReloadReset = false
-
-
 [es(tag=input)]
 def human_input_es(info : UpdateStageUpdateInput;
                    eid : ecs::EntityId;
@@ -349,7 +360,8 @@ def human_input_es(info : UpdateStageUpdateInput;
                    human_input__forceLookMode : bool;
                    human_input__shoot : int = 0;
                    human_weap__currentGunEid : EntityId;
-                   human_input__lookDirClamp : float2 = float2(90.f, 90.f);
+                   human_input__currentLookDirClamp : float2;
+                   human_input__prevLookDirClamp : float2;
                    human_input__currentVertLookAngleLimit : float2;
                    human_input__prevVertLookAngleLimit : float2;
                    human_input__aimingSensMult : float = 1.0f;
@@ -365,9 +377,12 @@ def human_input_es(info : UpdateStageUpdateInput;
                    human_input__forceAim : bool = false;
                    human_input__blockLeaningCounter : int = 0;
                    human_input__blockLookModeCounter : int = 0;
+                   human_input__isGyroAimEnabled : bool = false;
                    human_vehicle__isShootingPassenger : bool = false;
                    human_melee_charge__targetFound : bool = false;
                    human_melee_charge__longPressTime : float = 0.2;
+                   human_freefall__isFreefall : bool = false;
+                   human_freefall__inputLimits : float2 = float2();
                    isTpsView : bool = false;
                    human_input__followVehicleRotationInFirstPerson : bool = true;
                    var human_melee_charge__forceEnabled : bool&;
@@ -422,6 +437,7 @@ def human_input_es(info : UpdateStageUpdateInput;
     fix_changed_hero_input(info.dt,
                            human_input__hasValidState,
                            human_net_phys,
+                           human_input__standState,
                            human_input__aimAngle, human_input__lookAngle,
                            human_input__lookAngleTau,
                            human_input__aim, human_input__aimDelta,
@@ -429,7 +445,10 @@ def human_input_es(info : UpdateStageUpdateInput;
                            human_input__sprint, human_input__perspWk,
                            human_input__forceLookMode,
                            human_input__blockLookModeCounter,
+                           human_input__isGyroAimEnabled,
                            human_vehicle__isShootingPassenger,
+                           human_freefall__isFreefall,
+                           human_freefall__inputLimits,
                            human_input__aimAngleOffset,
                            vehicleInputAim, isInVehicle,
                            human_input__resetSprintMovementThreshold,
@@ -470,19 +489,23 @@ def human_input_es(info : UpdateStageUpdateInput;
   let shouldUpdateLookDir = (is_action_active(uint16(human_input__aim)) ||
                             is_action_active(uint16(human_input__aimDelta)) ||
                             is_action_active(uint16(human_input__look)) ||
-                            human_input__currentVertLookAngleLimit != human_input__prevVertLookAngleLimit)
+                            human_input__currentVertLookAngleLimit != human_input__prevVertLookAngleLimit ||
+                            human_input__currentLookDirClamp != human_input__prevLookDirClamp)
   update_movement(info.dt, human_input__aim, human_input__aimDelta,
                   human_input__look, human_input__move,
                   human_input__sprint, human_input__perspWk,
                   human_input__forceLookMode,
                   human_input__blockLookModeCounter,
+                  human_input__isGyroAimEnabled,
                   human_input__aimAngleOffset, vehicleInputAim, isInVehicle,
-                  shouldUpdateLookDir, shouldUpdateWalkDir, human_input__lookDirClamp / 180.f,
+                  shouldUpdateLookDir, shouldUpdateWalkDir, human_input__currentLookDirClamp / 180.f,
                   deg_to_rad(human_input__currentVertLookAngleLimit), human_input__aimingSensMult,
                   human_input__resetSprintMovementThreshold,
                   human_input__resetSprintMoveThreshold,
                   human_input__lookAngleTau,
                   human_vehicle__isShootingPassenger,
+                  human_freefall__isFreefall,
+                  human_freefall__inputLimits,
                   human_net_phys, human_input__aimAngle,
                   human_input__lookAngle)
 
@@ -570,6 +593,9 @@ def human_input_es(info : UpdateStageUpdateInput;
 
   if phys.currentState |> human_phys_state_stoppedSprint()
     reset_digital_action_sticky_toggle(uint16(human_input__sprint))
+
+  query(get_local_player_eid()) <| $ [es] (var local_player_lastHumanInputStandState : int&)
+    local_player_lastHumanInputStandState = human_input__standState
 
 
 [es(tag=input, on_appear, on_event=EventOnEntityReset)]
@@ -672,3 +698,7 @@ def human_input_disable_aim_on_hero_change(evt : Event;
                                            var human_net_phys : HumanActor)
   if !possessedByPlr
     human_net_phys.phys.producedCT |> human_control_state_set_control_bit(HumanPhysControlType HCT_AIM, false)
+
+[es(tag=input, REQUIRE=human_input, track=human_weap__currentGunSlot, REQUIRE=human_weap__currentGunSlot)]
+def human_input_reset_charge_on_weapon_change_es(evt : Event; var human_melee_charge__activateAtTime : float&)
+  human_melee_charge__activateAtTime = 0.f

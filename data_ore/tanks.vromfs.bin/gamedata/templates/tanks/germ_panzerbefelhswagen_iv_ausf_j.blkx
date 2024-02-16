@@ -1,6 +1,6 @@
 {
   "germ_panzerbefelhswagen_IV_ausf_J": {
-    "_extends": "germ_panzerbefelhswagen_IV_ausf_J_common",
+    "_use": "germ_panzerbefelhswagen_IV_ausf_J_common",
     "disableDMParts:list<t>": [
       {
         "part": "ex_armor_turret_r_03"
@@ -30,10 +30,16 @@
   },
   "germ_panzerbefelhswagen_IV_ausf_J_common": [
     {
-      "_extends": "base_panzerbefelhswagen_iv_ausf_j"
+      "_use": "base_panzerbefelhswagen_iv_ausf_j"
     },
     {
-      "_extends": "tank_panzer3_engine_sound"
+      "_use": "tank_panzer3_engine_sound"
+    },
+    {
+      "item__iconOffset": [0.1,0.15]
+    },
+    {
+      "item__iconScale": 1.4
     },
     {
       "turrets__initAmmoDistribution:array": [
@@ -175,7 +181,7 @@
     }
   ],
   "germ_panzerbefelhswagen_IV_ausf_J_commander_cockpit": {
-    "_extends": "base_commander_tower_cockit_no_slits",
+    "_use": "base_commander_tower_cockpit",
     "animchar__res": "pzkpfw_iii_e_commander_char",
     "cockpit__offset": [-0.42,0.51,-0.0],
     "cockpit__cockpitOffsetBySlit:list<p3>": [
@@ -249,6 +255,33 @@
         "slit": false
       }
     ],
+    "cockpit__slitZoom:array": [
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      }
+    ],
     "cockpit__slitNodeNames:list<t>": [
       {
         "slit": "cam_front"
@@ -268,11 +301,9 @@
     ]
   },
   "germ_panzerbefelhswagen_IV_ausf_J_gunner_cockpit": {
-    "vehicle_sight__blk": "content/tanks/gamedata/sight/germ_tzf4.blk",
-    "_extends": "base_gunner_cockpit",
+    "_use": "base_gunner_cockpit",
     "animchar__res": "pzkpfw_iii_e_gunner_char",
     "cockpit__offset": [-0.9,0.03,0.12],
-    "cockpit__minZoom": -0.4,
     "cockpit__attachNodeNames:list<t>": {
       "node": "bone_camera_gunner"
     },
@@ -316,17 +347,34 @@
       }
     ],
     "cockpit__slitForwardOffset:list<r>": {
-      "slit": 0.27
+      "slit": 0.29
     },
     "cockpit__slitIsGun:list<b>": {
       "slit": true
     },
     "cockpit__slitNodeNames:list<t>": {
       "slit": "cam_front"
-    }
+    },
+    "cockpit__slitZoom:array": {
+      "slit:list<r>": [
+        {
+          "zoom": 1.9
+        },
+        {
+          "zoom": 3.5
+        }
+      ]
+    },
+    "cockpit__slitZoomTime:list<r>": {
+      "slit": 0.05
+    },
+    "cockpit__slitTemplates:list<t>": {
+      "slit": "germ_tzf4"
+    },
+    "cockpit__slitEids:list<eid>": []
   },
   "germ_panzerbefelhswagen_iv_ausf_j_premium": {
-    "_extends": "germ_panzerbefelhswagen_IV_ausf_J_common",
+    "_use": "germ_panzerbefelhswagen_IV_ausf_J_common",
     "item__name": "items/germ_pzkpfw_iv_ausf_j_armored",
     "item__iconOffset": [0.0,0.3],
     "animchar__objTexReplace:object": {
@@ -381,7 +429,7 @@
     ]
   },
   "germ_panzerbefelhswagen_iv_ausf_j_premium_turret_01_75mm_kwk40_l48": {
-    "_extends": "panzerbefelhswagen_iv_ausf_j_turret_01_75mm_kwk40_l48",
+    "_use": "panzerbefelhswagen_iv_ausf_j_turret_01_75mm_kwk40_l48",
     "turret__yawSpeed": 14.0,
     "turret__pitchSpeed": 4.0
   }

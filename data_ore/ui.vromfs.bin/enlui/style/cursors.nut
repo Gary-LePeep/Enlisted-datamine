@@ -280,27 +280,27 @@ cursors.moveResizeCursors <- {
 
 cursors.normalCursorPic <- normalCursorPic
 
+let function applyTooltip(comp, tooltipCtor) {
+  // do not attract dirpad to tooltip components by default
+  local { behavior = [], onHover = null, skipDirPadNav = true, eventPassThrough = true } = comp
+  behavior = typeof behavior != "array" ? [behavior] : behavior
+  if (!behavior.contains(Behaviors.Button))
+    behavior.append(Behaviors.Button)
+  let onHoverNew = function(on) {
+    setTooltip(on ? tooltipCtor() : null)
+    onHover?(on)
+  }
+  return (comp ?? {}).__merge({
+    behavior
+    skipDirPadNav
+    eventPassThrough
+    onHover = onHoverNew
+    inputPassive = true
+  })
+}
 cursors.withTooltip <- function(comp, tooltipCtor) {
   if (comp == null)
     return null
-  let function applyTooltip(comp, tooltipCtor) {
-    // do not attract dirpad to tooltip components by default
-    local { behavior = [], onHover = null, skipDirPadNav = true, eventPassThrough = true } = comp
-    behavior = typeof behavior != "array" ? [behavior] : behavior
-    if (!behavior.contains(Behaviors.Button))
-      behavior.append(Behaviors.Button)
-    let onHoverNew = function(on) {
-      setTooltip(on ? tooltipCtor() : null)
-      onHover?(on)
-    }
-    return (comp ?? {}).__merge({
-      behavior
-      skipDirPadNav
-      eventPassThrough
-      onHover = onHoverNew
-      inputPassive = true
-    })
-  }
   return typeof comp == "table"
     ? applyTooltip(comp, tooltipCtor)
     : @() applyTooltip(comp?(), tooltipCtor)

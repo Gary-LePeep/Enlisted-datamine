@@ -5,7 +5,7 @@ let {userstatsAdd} = require("%scripts/game/utils/userstats.nut")
 let {get_gun_stat_type_by_props_id, DM_MELEE, DM_PROJECTILE, DM_BACKSTAB} = require("dm")
 let getSoldierInfoFromCache = require("%scripts/game/es/soldier_info_cache.nut")
 let {
-  EventAnyEntityDied, EventPlayerSquadHelpedToDestroyPoint, EventAddPlayerAwardWithStat,
+  EventAnyEntityDied, EventPlayerSquadHelpedToDestroyPoint, EventAddPlayerAwardWithStat, EventAddPlayerStat,
   EventPlayerSquadFinishedCapturing, EventOnPlayerWipedOutInfantrySquad
 } = require("dasevents")
 
@@ -47,13 +47,15 @@ let function checkHeadshotKill(victimEid, victimInfo, damageType, collNodeId, us
 }
 
 let getVehicleQuery = ecs.SqQuery("getVehicleQuery", {comps_ro=[["human_anim__vehicleSelected", ecs.TYPE_EID]]})
-let getVehicleTypeQuery = ecs.SqQuery("getVehicleTypeQuery", {comps_ro=[["airplane", ecs.TYPE_TAG, null], ["isTank", ecs.TYPE_TAG, null]]})
+let getVehicleTypeQuery = ecs.SqQuery("getVehicleTypeQuery", {comps_ro=[["airplane", ecs.TYPE_TAG, null], ["isTank", ecs.TYPE_TAG, null], ["mobileRespawnTag", ecs.TYPE_TAG, null]]})
 
 let function checkKillsInVehicle(_victimEid, victimInfo, killerEid, userstats) {
   if ((victimInfo?.guid ?? "") != "") { // only human victims
     let vehicleEid = getVehicleQuery(killerEid, @(_, comp) comp["human_anim__vehicleSelected"]) ?? ecs.INVALID_ENTITY_ID
     getVehicleTypeQuery(vehicleEid, function(_, comp) {
-      if (comp.isTank != null)
+      if (comp.mobileRespawnTag != null)
+        userstatsAdd(userstats, null, "kills_using_apc", null)
+      else if (comp.isTank != null)
         userstatsAdd(userstats, null, "kills_using_tank", null)
       else if (comp.airplane != null)
         userstatsAdd(userstats, null, "kills_using_aircraft", null)
@@ -68,7 +70,9 @@ let function onKillWithSoldierKind(victimEid, victimInfo, killerEid, userstats) 
   if (solderKind == "")
     return
   getVehicleTypeQuery(victimEid, function(_, comp) {
-    if (comp.isTank)
+    if (comp.mobileRespawnTag)
+      userstatsAdd(userstats, null, $"apc_kills_by_{solderKind}_kind", null)
+    else if (comp.isTank)
       userstatsAdd(userstats, null, $"tank_kills_by_{solderKind}_kind", null)
     else if (comp.airplane)
       userstatsAdd(userstats, null, $"plane_kills_by_{solderKind}_kind", null)
@@ -82,7 +86,8 @@ let getVictimBuiltGunOffenderQuery = ecs.SqQuery("getVictimBuiltGunOffenderQuery
     ["death_desc__builtGunEid", ecs.TYPE_EID, ecs.INVALID_ENTITY_ID],
     ["last_offender__builtGunEid", ecs.TYPE_EID, ecs.INVALID_ENTITY_ID],
     ["airplane", ecs.TYPE_TAG, null],
-    ["isTank", ecs.TYPE_TAG, null]
+    ["isTank", ecs.TYPE_TAG, null],
+    ["mobileRespawnTag", ecs.TYPE_TAG, null],
   ]
 })
 let function checkKillsWithBuiltGun(victimEid, _killerEid, userstats) {
@@ -90,7 +95,9 @@ let function checkKillsWithBuiltGun(victimEid, _killerEid, userstats) {
     if (comp.death_desc__builtGunEid != ecs.INVALID_ENTITY_ID)
       userstatsAdd(userstats, null, "kills_by_engineer_buildings", null)
     else if (comp.last_offender__builtGunEid != ecs.INVALID_ENTITY_ID) {
-      if (comp.isTank)
+      if (comp.mobileRespawnTag)
+        userstatsAdd(userstats, null, "apc_kills_by_engineer_buildings", null)
+      else if (comp.isTank)
         userstatsAdd(userstats, null, "tank_kills_by_engineer_buildings", null)
       else if (comp.airplane)
         userstatsAdd(userstats, null, "plane_kills_by_engineer_buildings", null)
@@ -173,6 +180,7 @@ ecs.register_es("userstats_player_squad_wipeout_es",
 ecs.register_es("userstats_add_player_stat",
   {
     [EventAddPlayerAwardWithStat] = @(evt, _, comp) userstatsAdd(comp.userstats, null, evt.stat, null),
+    [EventAddPlayerStat] = @(evt, _, comp) userstatsAdd(comp.userstats, null, evt.stat, null),
   },
   {comps_rw=[["userstats", ecs.TYPE_OBJECT]]},
   {tags="server", before="send_userstats_es"})

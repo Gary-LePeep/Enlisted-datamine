@@ -1,10 +1,10 @@
 {
   "base_bm_8_24": [
     {
-      "_extends": "base_tank"
+      "_use": "base_tank"
     },
     {
-      "_extends": "bm_8_24_ammo_stowages"
+      "_use": "bm_8_24_ammo_stowages"
     },
     {
       "killLogName": "ussr_bm_8_24"
@@ -110,7 +110,7 @@
     }
   ],
   "base_bm_8_24_projectile": {
-    "_extends": "rocket_projectile",
+    "_use": "rocket_projectile",
     "animchar__res": "m_8_rocket_char",
     "shell__concussionMaxRadius:r": {
       "value": 4.0,
@@ -118,7 +118,7 @@
     }
   },
   "bm_8_24_rocket": {
-    "_extends": "base_tank_rocket_gun",
+    "_use": "base_tank_rocket_gun",
     "turret__yawSpeed": 15.0,
     "turret__pitchSpeed": 5.0,
     "turret__aimNodeName": "bone_turret",
@@ -148,18 +148,18 @@
     }
   },
   "bm_8_24_item": {
-    "_extends": "base_tank_rocket_item",
+    "_use": "base_tank_rocket_item",
     "animchar__res": "m_8_rocket_char"
   },
   "bm_8_24_ammo_stowages": {
     "_tags": "server",
-    "_extends": "vehicle_ammo_stowages",
+    "_use": "vehicle_ammo_stowages",
     "ammo_stowage__stowageTemplates:shared:list<t>": {
       "stowage": "bm_8_24_ammo_stowage_1"
     }
   },
   "bm_8_24_ammo_stowage_1": {
-    "_extends": "ammo_stowage",
+    "_use": "ammo_stowage",
     "ammo_stowage__clusterTemplates:shared:list<t>": {
       "cluster": "bm_8_24_ammo_cluster_1_1"
     },
@@ -168,7 +168,7 @@
     }
   },
   "bm_8_24_ammo_cluster_1_1": {
-    "_extends": "ammo_cluster",
+    "_use": "ammo_cluster",
     "ammo_cluster__isShell": true,
     "ammo_cluster__slotNames:shared:list<t>": {
       "part": "ammo_turret_02"

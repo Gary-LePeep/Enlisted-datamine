@@ -1,10 +1,10 @@
 {
   "cr_32_quater": [
     {
-      "_extends": "cr_32_quater_base"
+      "_use": "cr_32_quater_base"
     },
     {
-      "_extends": "squad_controlled_plane"
+      "_use": "squad_controlled_plane"
     },
     {
       "item__name": "items/cr_32_quater"
@@ -37,7 +37,7 @@
               "turret": "turret_02"
             }
           ],
-          "effectors:object": {
+          "cockpitEffectors:object": {
             "r.hand": "stick_rhand_1",
             "l.hand": "throttle_lhand_1",
             "r.foot": "pedal_rfoot_1",
@@ -183,16 +183,16 @@
   },
   "planegun_cr_32_quater_12_7mm_bredasafat127_01": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_plane_machinegun"
+      "_use": "base_plane_machinegun"
     },
     {
-      "_extends": "base_cr_32_quater_12_7mm_bredasafat127"
+      "_use": "base_cr_32_quater_12_7mm_bredasafat127"
     },
     {
-      "_extends": "gunsound_12_7mm_bredasafat127_aircraft"
+      "_use": "gunsound_12_7mm_bredasafat127_aircraft"
     },
     {
       "gun__shootNodeName": "flare1"
@@ -203,16 +203,16 @@
   ],
   "planegun_cr_32_quater_12_7mm_bredasafat127_02": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_plane_machinegun"
+      "_use": "base_plane_machinegun"
     },
     {
-      "_extends": "base_cr_32_quater_12_7mm_bredasafat127"
+      "_use": "base_cr_32_quater_12_7mm_bredasafat127"
     },
     {
-      "_extends": "gunsound_12_7mm_bredasafat127_aircraft"
+      "_use": "gunsound_12_7mm_bredasafat127_aircraft"
     },
     {
       "gun__shootNodeName": "flare2"
@@ -223,10 +223,10 @@
   ],
   "cr_32_quater_driver_cockpit": [
     {
-      "_extends": "base_plane_cockpit"
+      "_use": "base_plane_cockpit"
     },
     {
-      "_extends": "plane_telesight"
+      "_use": "plane_telesight"
     },
     {
       "cockpit__offset": [0.0,0.0,0.0]

@@ -1,0 +1,317 @@
+{
+  "ju_52": [
+    {
+      "_use": "ju_52_base"
+    },
+    {
+      "_use": "squad_controlled_plane"
+    },
+    {
+      "_use": "vehicle_seats_effectors"
+    },
+    {
+      "_use": "paratrooper_plane_camera"
+    },
+    {
+      "item__name": "items/ju_52"
+    },
+    {
+      "vehicle_seats__seats:shared:array": [
+        {
+          "seats:object": {
+            "name": "driver",
+            "locName": "vehicle_seats/pilot",
+            "seatOwnsEntityControl": true,
+            "attachNode": "pilot1",
+            "ignoreAttachNodeRotation": true,
+            "attachTm": [
+              [-0.00998108,-0.80888,0.587715],
+              [-0.0137265,0.587431,0.808256],
+              [-0.999827,0.0,-0.0169799],
+              [0.13,0.15,-0.01]
+            ],
+            "seatComponent": "isDriver",
+            "receiveDamageFromDMPart": "pilot_dm",
+            "cockpitTemplate": "ju_52_driver_cockpit",
+            "roomSpace": 0,
+            "cockpitEffectors:object": {
+              "r.hand": "stick_rhand_1",
+              "l.hand": "throttle_lhand_1",
+              "r.foot": "pedal_rfoot_1",
+              "l.foot": "pedal_lfoot_1"
+            }
+          }
+        },
+        {
+          "seats:object": {
+            "name": "passenger1",
+            "locName": "vehicle_seats/shooter",
+            "attachNode": "gunner9",
+            "ignoreAttachNodeRotation": true,
+            "attachTm": [
+              [-5.96035e-08,-0.292365,-0.956287],
+              [0.0,0.956303,-0.29237],
+              [0.999999,-1.49011e-08,-5.96046e-08],
+              [-0.46,0.04,0.12]
+            ],
+            "seatComponent": "isPassenger",
+            "canPlaceManually": false
+          }
+        },
+        {
+          "seats:object": {
+            "name": "passenger2",
+            "locName": "vehicle_seats/shooter",
+            "attachNode": "gunner10",
+            "ignoreAttachNodeRotation": true,
+            "attachTm": [
+              [-1.19207e-07,-0.292365,-0.956287],
+              [-1.48975e-08,0.956071,-0.2923],
+              [0.999999,-1.49011e-08,-1.19209e-07],
+              [0.0,0.04,0.12]
+            ],
+            "seatComponent": "isPassenger",
+            "canPlaceManually": false
+          }
+        },
+        {
+          "seats:object": {
+            "name": "passenger3",
+            "locName": "vehicle_seats/shooter",
+            "attachNode": "gunner8",
+            "ignoreAttachNodeRotation": true,
+            "attachTm": [
+              [-1.19207e-07,-0.292365,-0.956287],
+              [-1.48975e-08,0.956071,-0.2923],
+              [0.999999,-1.49011e-08,-1.19209e-07],
+              [0.0,0.04,0.12]
+            ],
+            "seatComponent": "isPassenger",
+            "canPlaceManually": false
+          }
+        },
+        {
+          "seats:object": {
+            "name": "passenger4",
+            "locName": "vehicle_seats/shooter",
+            "attachNode": "gunner11",
+            "ignoreAttachNodeRotation": true,
+            "attachTm": [
+              [-1.19207e-07,-0.292365,-0.956287],
+              [-1.48975e-08,0.956071,-0.2923],
+              [0.999999,-1.49011e-08,-1.19209e-07],
+              [0.0,0.04,0.12]
+            ],
+            "seatComponent": "isPassenger",
+            "canPlaceManually": false
+          }
+        },
+        {
+          "seats:object": {
+            "name": "passenger5",
+            "locName": "vehicle_seats/shooter",
+            "attachNode": "gunner4",
+            "ignoreAttachNodeRotation": true,
+            "attachTm": [
+              [-1.43041e-06,-0.275616,0.961197],
+              [-3.72313e-07,0.960705,0.275475],
+              [-0.999756,1.48975e-08,-1.48975e-06],
+              [0.42,0.03,-0.12]
+            ],
+            "seatComponent": "isPassenger",
+            "canPlaceManually": false
+          }
+        },
+        {
+          "seats:object": {
+            "name": "passenger6",
+            "locName": "vehicle_seats/shooter",
+            "attachNode": "gunner5",
+            "ignoreAttachNodeRotation": true,
+            "attachTm": [
+              [-1.43041e-06,-0.275616,0.961197],
+              [-3.72313e-07,0.960705,0.275475],
+              [-0.999756,1.48975e-08,-1.48975e-06],
+              [0.42,0.03,-0.12]
+            ],
+            "seatComponent": "isPassenger",
+            "canPlaceManually": false
+          }
+        }
+      ]
+    }
+  ],
+  "ju_52_driver_cockpit": {
+    "_use": "base_plane_cockpit",
+    "cockpit__offset": [0.0,0.0,0.0],
+    "cockpit__angles": [0.0,0.0,0.0],
+    "cockpit__scale": [1.0,1.0,1.0],
+    "animchar__res": "ju_52_3m_cockpit_char",
+    "plane_anim__blk": "gamedata/units/ju_52.blk",
+    "plane_sight__blk": "gamedata/units/ju_52.blk",
+    "move_cockpit_node__nodeName:list<t>": [
+      {
+        "node": "stick_rhand_1"
+      },
+      {
+        "node": "throttle_lhand_1"
+      }
+    ],
+    "move_cockpit_node__nodeId:list<i>": [
+      {
+        "nodeId": -1
+      },
+      {
+        "nodeId": -1
+      }
+    ],
+    "move_cockpit_node__offset:list<p3>": [
+      {
+        "item": [0.0145,-0.0405,0.07]
+      },
+      {
+        "item": [0.0415,0.0265,-0.05]
+      }
+    ],
+    "move_cockpit_node__rotation:list<p2>": [
+      {
+        "item": [145.1,30.4]
+      },
+      {
+        "item": [-159.0,19.3]
+      }
+    ]
+  },
+  "ju_52_paratroopers": {
+    "_use": "ju_52",
+    "disableVehicleResupply:tag": [],
+    "replay_camera__attachToHuman:tag": [],
+    "vehicle_seats__seats:shared:array": [
+      {
+        "seats:object": {
+          "name": "driver",
+          "locName": "vehicle_seats/paratrooper",
+          "seatOwnsEntityControl": true,
+          "attachNode": "pilot1",
+          "ignoreAttachNodeRotation": true,
+          "attachTm": [
+            [-0.00998108,-0.80888,0.587715],
+            [-0.0137265,0.587431,0.808256],
+            [-0.999827,0.0,-0.0169799],
+            [0.13,0.15,-0.01]
+          ],
+          "seatComponent": "isPassenger",
+          "receiveDamageFromDMPart": "pilot_dm",
+          "cameraNodeName": "",
+          "cameraOffset": [-3.571,0.398,0.53],
+          "roomSpace": 0,
+          "canPlaceManually": true,
+          "isHoldGunModeAllowed": false,
+          "cockpitTemplate": "ju_52_driver_cockpit",
+          "cockpitEffectors:object": {
+            "r.hand": "stick_rhand_1",
+            "l.hand": "throttle_lhand_1",
+            "r.foot": "pedal_rfoot_1",
+            "l.foot": "pedal_lfoot_1"
+          }
+        }
+      },
+      {
+        "seats:object": {
+          "name": "passenger1",
+          "locName": "vehicle_seats/paratrooper",
+          "attachNode": "gunner9",
+          "ignoreAttachNodeRotation": true,
+          "attachTm": [
+            [-6.74621e-08,-0.292365,-0.956287],
+            [-2.03837e-09,0.956303,-0.29237],
+            [0.999999,-2.28803e-08,-6.43484e-08],
+            [-0.44,0.05,0.03]
+          ],
+          "seatComponent": "isPassenger",
+          "canPlaceManually": false
+        }
+      },
+      {
+        "seats:object": {
+          "name": "passenger2",
+          "locName": "vehicle_seats/paratrooper",
+          "attachNode": "gunner10",
+          "ignoreAttachNodeRotation": true,
+          "attachTm": [
+            [-6.74621e-08,-0.292365,-0.956287],
+            [-2.03837e-09,0.956303,-0.29237],
+            [0.999999,-2.28803e-08,-6.43484e-08],
+            [-0.44,0.05,0.03]
+          ],
+          "seatComponent": "isPassenger",
+          "canPlaceManually": false
+        }
+      },
+      {
+        "seats:object": {
+          "name": "passenger3",
+          "locName": "vehicle_seats/paratrooper",
+          "attachNode": "gunner8",
+          "ignoreAttachNodeRotation": true,
+          "attachTm": [
+            [-6.74621e-08,-0.292365,-0.956287],
+            [-2.03837e-09,0.956303,-0.29237],
+            [0.999999,-2.28803e-08,-6.43484e-08],
+            [-0.44,0.05,0.03]
+          ],
+          "seatComponent": "isPassenger",
+          "canPlaceManually": false
+        }
+      },
+      {
+        "seats:object": {
+          "name": "passenger4",
+          "locName": "vehicle_seats/paratrooper",
+          "attachNode": "gunner5",
+          "ignoreAttachNodeRotation": true,
+          "attachTm": [
+            [-1.48957e-06,-0.275615,0.961196],
+            [-3.98746e-07,0.960704,0.275474],
+            [-0.999755,2.33424e-08,-1.54209e-06],
+            [0.42,0.05,-0.04]
+          ],
+          "seatComponent": "isPassenger",
+          "canPlaceManually": false
+        }
+      },
+      {
+        "seats:object": {
+          "name": "passenger5",
+          "locName": "vehicle_seats/paratrooper",
+          "attachNode": "gunner4",
+          "ignoreAttachNodeRotation": true,
+          "attachTm": [
+            [-1.48957e-06,-0.275615,0.961196],
+            [-3.98746e-07,0.960704,0.275474],
+            [-0.999755,2.33424e-08,-1.54209e-06],
+            [0.42,0.05,-0.04]
+          ],
+          "seatComponent": "isPassenger",
+          "canPlaceManually": false
+        }
+      },
+      {
+        "seats:object": {
+          "name": "passenger6",
+          "locName": "vehicle_seats/pilot",
+          "attachNode": "gunner3",
+          "ignoreAttachNodeRotation": true,
+          "attachTm": [
+            [0.997552,-0.0697554,-5.94012e-15],
+            [0.069756,0.99756,-4.15372e-16],
+            [5.95533e-15,-3.24151e-21,1.00011],
+            [-0.24,0.16,0.03]
+          ],
+          "seatComponent": "isDriver",
+          "canPlaceManually": false
+        }
+      }
+    ]
+  }
+}

@@ -1,9 +1,9 @@
 require ecs
 require HumanPhys
 require DagorMath
-require EnlistedHuman
+require DngHuman
 
-[es(tag=server, before=human_phys_es, after=after_entity_mods_apply_sync_point)]
+[es(tag=server, after=after_entity_mods_apply_sync_point)]
 def ai_inscrease_speed_by_leader_dist_es(info : UpdateStageInfoAct; squad__leader : EntityId; squad__ownerPlayer : EntityId; squad__allMembers : EidList)
   query(squad__ownerPlayer) <| $ [es(REQUIRE_NOT=playerIsBot)] ()
     query(squad__leader) <| $ [es] (transform aka leader_transform : float3x4)

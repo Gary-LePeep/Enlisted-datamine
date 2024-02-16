@@ -1,3 +1,5 @@
+from "math" import clamp
+
 let {get_setting_by_blk_path} = require("settings")
 let platform = require("%dngscripts/platform.nut")
 let {globalWatched} = require("%dngscripts/globalState.nut")

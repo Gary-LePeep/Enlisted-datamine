@@ -2,7 +2,7 @@ import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
 let {get_sync_time} = require("net")
-let {CmdStartNarrator} = require("dasevents")
+let {CmdTeamNarrator} = require("dasevents")
 
 let warningsList = mkWatched(persist, "warningsList", [])
 
@@ -62,7 +62,7 @@ let function warningShow(warningId) {
 
   let snd = wparams?.getSound()
   if (snd != null)
-    ecs.g_entity_mgr.broadcastEvent(CmdStartNarrator({phrase=snd, replace=false}))
+    ecs.g_entity_mgr.broadcastEvent(CmdTeamNarrator({phrase=snd, replace=false}))
 }
 
 let function warningHide(warningId) {

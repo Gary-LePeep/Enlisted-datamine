@@ -13,13 +13,14 @@ def on_capzone_captured(zone_eid : EntityId; cap_team : int)
     if (capzone__isSectorCaptured ||
         !capzone__checkAllZonesInGroup ||
          cap_team != capzone__mustBeCapturedByTeam ||
-        !all_capzones_in_group_captured_by_team(zone_eid, cap_team, groupName))
+        !all_capzones_in_group_captured_by_team(cap_team, groupName))
       return
 
     // Disable all capzones in group, to avoid sending event second time
-    query() <| $ [es] (groupName : string; capzone__mustBeCapturedByTeam : int; var capzone__isSectorCaptured : bool&)
+    query() <| $ [es] (groupName : string; capzone__mustBeCapturedByTeam : int; var active : bool&; var capzone__isSectorCaptured : bool&)
       if groupName == captured_groupName && capzone__mustBeCapturedByTeam == cap_team
         capzone__isSectorCaptured = true
+        active = false
 
     broadcastEvent([[EventSectorCaptured zone=zone_eid, team=cap_team]])
 

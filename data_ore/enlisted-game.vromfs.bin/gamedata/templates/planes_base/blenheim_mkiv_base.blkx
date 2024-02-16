@@ -5,10 +5,10 @@
   },
   "blenheim_mkiv_wreckage": [
     {
-      "_extends": "base_blenheim_mkiv"
+      "_use": "base_blenheim_mkiv"
     },
     {
-      "_extends": "plane_wreckage"
+      "_use": "plane_wreckage"
     },
     {
       "plane_wreckage__nodeName": ""
@@ -19,10 +19,10 @@
   ],
   "blenheim_mkiv_base": [
     {
-      "_extends": "plane_with_cockpit"
+      "_use": "plane_with_cockpit"
     },
     {
-      "_extends": "base_blenheim_mkiv"
+      "_use": "base_blenheim_mkiv"
     },
     {
       "collres__res": "blenheim_mk4_collision"

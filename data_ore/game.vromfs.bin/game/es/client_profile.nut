@@ -22,42 +22,31 @@ let { applyModsToArmies, applyPerks } = require("%scripts/game/utils/profile_ini
 
 
 let function validateArmies(armies, playerArmy) {
-  if (!armies) {
-    debug("validateArmies: armies is absent")
-    return false
-  }
+  if (!armies)
+    return "validateArmies: armies is absent"
 
-  if (armies.len() == 0) {
-    debug("validateArmies: armies is empty")
-    return false
-  }
+  if (armies.len() == 0)
+    return "validateArmies: armies is empty"
 
-  if (playerArmy == null) {
-    debug("validateArmies: not found army allowed for team")
-    return false
-  }
+  if (playerArmy == null)
+    return "validateArmies: not found army allowed for team"
 
   let army = armies?[playerArmy] ?? {}
   if (army.len() == 0) {
     let availableArmies = ", ".join(armies.keys())
-    debug($"validateArmies: army is absent in army {playerArmy}. Available armies: {availableArmies}")
-    return false
+    return $"validateArmies: army is absent in army {playerArmy}. Available armies: {availableArmies}"
   }
 
   let squads = army?.squads ?? []
-  if (squads.len() == 0) {
-    debug($"validateArmies: squads is absent in army {playerArmy}")
-    return false
-  }
+  if (squads.len() == 0)
+    return $"validateArmies: squads is absent in army {playerArmy}"
 
   foreach (idx, squad in squads) {
-    if (squad?.squad == null) {
-      debug($"validateArmies: squad is absent in {idx}")
-      return false
-    }
+    if (squad?.squad == null)
+      return $"validateArmies: squad is absent in {idx}"
   }
 
-  return true
+  return ""
 }
 
 let function unpackArmiesFromJwt(_userid, jwt) {
@@ -91,8 +80,9 @@ let function updateProfileImpl(evt, eid, comp, getArmiesCb) {
   let playerArmy = teamArmies.findvalue(@(a) a in armies)
   debug($"Received profile: team = {comp.team}; army = {playerArmy}; player = {eid};")
 
-  if (!validateArmies(armies, playerArmy)) {
-    logerr($"Corrupted profile or bad armies. See log for details.")
+  let validationError = validateArmies(armies, playerArmy)
+  if (validationError != "") {
+    logerr($"Corrupted profile or bad armies: {validationError} See log for details.")
     debug($"userid = {comp.userid}; playerArmy = {playerArmy};")
     debug($"Team allowed armies = ")
     debugTableData(teamArmies)
@@ -116,7 +106,7 @@ let function updateProfileImpl(evt, eid, comp, getArmiesCb) {
   comp.armiesReceivedTime = curTime
   comp.armiesReceivedTeam = comp.team
 
-  let army = comp.armies[playerArmy]
+  let army = armies[playerArmy] //warning disable: -potentially-nulled-index
   let squadsCount = army.squads.len()
   comp.squads__count = squadsCount
 
@@ -201,9 +191,9 @@ let is_tutorialQuery = ecs.SqQuery("is_tutorialQuery",  {comps_rq = ["isTutorial
 let getTutorialProfileQuery = ecs.SqQuery("getTutorialProfileQuery", {comps_ro=[["tutorial__profile", ecs.TYPE_STRING]]})
 ecs.register_es("client_profile_tutorial_es", {
   [CmdTutorialSquadsData] = function(evt, eid, comp) {
-    let isTutorial = (is_tutorialQuery.perform(@(eid, _comp) eid) ?? ecs.INVALID_ENTITY_ID) != ecs.INVALID_ENTITY_ID
+    let isTutorial = (is_tutorialQuery.perform(@(eid_, _comp) eid_) ?? ecs.INVALID_ENTITY_ID) != ecs.INVALID_ENTITY_ID
     if (isTutorial) {
-      let id = getTutorialProfileQuery.perform(@(_, comp) comp["tutorial__profile"]) ?? "def"
+      let id = getTutorialProfileQuery.perform(@(_, tutorComp) tutorComp["tutorial__profile"]) ?? "def"
       updateProfileImpl(evt, eid, comp, @() profiles?[id] ?? {})
     }
     else
@@ -214,7 +204,7 @@ ecs.register_es("client_profile_tutorial_es", {
 let getCustomProfileQuery = ecs.SqQuery("getCustomProfileQuery", {comps_ro=[["customProfile", ecs.TYPE_STRING]]})
 ecs.register_es("client_profile_jwt_es", {
   [CmdProfileJwtData] = function(evt, eid, comp) {
-    let customProfile = getCustomProfileQuery(@(_eid, comp) comp["customProfile"])
+    let customProfile = getCustomProfileQuery(@(_eid, profileComp) profileComp["customProfile"])
     let porfileCb = customProfile ? @() loadJson(customProfile) : @() unpackArmiesFromJwt(comp.userid, evt.data?.jwt)
     updateProfileImpl(evt, eid, comp, porfileCb)
   },

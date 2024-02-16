@@ -70,6 +70,7 @@ def ecs_scene_window()
     var lastUpdateDate = DagorTime::ref_time_ticks()
     var gcSteps = 0
     var fuzzySearch = true
+    var updateEntityList = true
 
   gcSteps += 1
   if gcSteps > 1000
@@ -80,6 +81,7 @@ def ecs_scene_window()
 
   *filter |> set() <| imgui_get_blk_val("ecs_scene", "filter", "")
   fuzzySearch = imgui_get_blk_val("ecs_scene", "fuzzySearchEnabled", fuzzySearch)
+  updateEntityList = imgui_get_blk_val("ecs_scene", "updateEntityList", updateEntityList)
 
   DasHelpMarker("Filter (\"incl,-excl\")\nt:typeName (t:EntityId, -t:EidList)\nc:componentName (c:animchar, -c:hero)")
   SameLine()
@@ -151,6 +153,8 @@ def ecs_scene_window()
         for i in range(filterStringLength - 1)
           shingles |> push(slice(filterString, i, i + 2))
 
+      if updateEntityList && !is_editor_activated()
+        entity_object_editor_updateObjectsList()
       entity_obj_editor_for_each_entity() <| $(ent)
         allEntities |> push(ent.eid)
 
@@ -273,10 +277,17 @@ def ecs_scene_window()
   imgui::EndChild()
 
   imgui::Text("Total: {length(prevData)}")
+  imgui::SameLine(imgui::GetWindowWidth() - 240.0)
+  imgui::Checkbox("Update List", safe_addr(updateEntityList))
+  if IsItemHovered()
+    BeginTooltip()
+    TextUnformatted("Auto update list when entities are created/removed.\nWhen daEditor is active this is handled by daEditor itself")
+    EndTooltip()
   imgui::SameLine(imgui::GetWindowWidth() - 120.0)
   imgui::Checkbox("Fuzzy Search", safe_addr(fuzzySearch))
 
   imgui_set_blk_val("ecs_scene", "fuzzySearchEnabled", fuzzySearch)
+  imgui_set_blk_val("ecs_scene", "updateEntityList", updateEntityList)
 
 
 [console_cmd(name="imgui.editor_ecs_scene")]

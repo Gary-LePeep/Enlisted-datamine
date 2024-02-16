@@ -1,0 +1,633 @@
+{
+  "bf_109g_6_premium": [
+    {
+      "_use": "bf_109g_6_base"
+    },
+    {
+      "_use": "squad_controlled_plane"
+    },
+    {
+      "item__name": "items/bf_109g_6"
+    },
+    {
+      "item__iconOffset": [0.15,0.0]
+    },
+    {
+      "vehicle_seats__seats:shared:array": {
+        "seats:object": {
+          "name": "driver",
+          "locName": "vehicle_seats/pilot",
+          "seatOwnsEntityControl": true,
+          "attachNode": "pilot1",
+          "ignoreAttachNodeRotation": true,
+          "attachTm": [
+            [1.0,0.0,0.0],
+            [0.0,1.0,0.0],
+            [0.0,0.0,1.0],
+            [-0.05,0.13,-0.14]
+          ],
+          "seatComponent": "isDriver",
+          "receiveDamageFromDMPart": "pilot_dm",
+          "cameraNodeName": "",
+          "cameraOffset": [-1.05,0.788,-0.033],
+          "cockpitTemplate": "bf_109g_6_premium_driver_cockpit",
+          "roomSpace": 0,
+          "turretNames:array": [
+            {
+              "turret": "turret_01"
+            },
+            {
+              "turret": "turret_02"
+            },
+            {
+              "turret": "turret_03"
+            },
+            {
+              "turret": "turret_04"
+            },
+            {
+              "turret": "turret_05"
+            },
+            {
+              "turret": "turret_06"
+            },
+            {
+              "turret": "turret_07"
+            }
+          ],
+          "cockpitEffectors:object": {
+            "r.hand": "stick_rhand_1",
+            "l.hand": "throttle_lhand_1",
+            "r.foot": "pedal_rfoot_1",
+            "l.foot": "pedal_lfoot_1"
+          }
+        }
+      }
+    },
+    {
+      "turret_control__emitterNodes:shared:array": [
+        {
+          "node": "bomb2"
+        },
+        {
+          "node": "bomb3"
+        },
+        {
+          "node": "bomb4"
+        },
+        {
+          "node": "bomb5"
+        },
+        {
+          "node": "flare1"
+        },
+        {
+          "node": "flare2"
+        },
+        {
+          "node": "flare3"
+        }
+      ]
+    },
+    {
+      "turret_control__animVars:shared:array": [
+        {
+          "vars:object": {
+            "curYawParamName": "weapon_01_yaw",
+            "curPitchParamName": "weapon_01_pitch"
+          }
+        },
+        {
+          "vars:object": {
+            "curYawParamName": "weapon_02_yaw",
+            "curPitchParamName": "weapon_02_pitch"
+          }
+        },
+        {
+          "vars:object": {
+            "curYawParamName": "weapon_03_yaw",
+            "curPitchParamName": "weapon_03_pitch"
+          }
+        },
+        {
+          "vars:object": {
+            "curYawParamName": "weapon_04_yaw",
+            "curPitchParamName": "weapon_04_pitch"
+          }
+        },
+        {
+          "vars:object": {
+            "curYawParamName": "weapon_05_yaw",
+            "curPitchParamName": "weapon_05_pitch"
+          }
+        },
+        {
+          "vars:object": {
+            "curYawParamName": "weapon_06_yaw",
+            "curPitchParamName": "weapon_06_pitch"
+          }
+        },
+        {
+          "vars:object": {
+            "curYawParamName": "weapon_07_yaw",
+            "curPitchParamName": "weapon_07_pitch"
+          }
+        }
+      ]
+    },
+    {
+      "turret_control__turretInfo:shared:array": [
+        {
+          "turretInfo:object": {
+            "turretName": "turret_01",
+            "turretGroup": "bomb_turrets",
+            "trigger": "bombs",
+            "gun": "planegun_bf_109g_6_premium_sc_50_launcher_01"
+          }
+        },
+        {
+          "turretInfo:object": {
+            "turretName": "turret_02",
+            "turretGroup": "bomb_turrets",
+            "trigger": "bombs",
+            "gun": "planegun_bf_109g_6_premium_sc_50_launcher_02"
+          }
+        },
+        {
+          "turretInfo:object": {
+            "turretName": "turret_03",
+            "turretGroup": "bomb_turrets",
+            "trigger": "bombs",
+            "gun": "planegun_bf_109g_6_premium_sc_50_launcher_03"
+          }
+        },
+        {
+          "turretInfo:object": {
+            "turretName": "turret_04",
+            "turretGroup": "bomb_turrets",
+            "trigger": "bombs",
+            "gun": "planegun_bf_109g_6_premium_sc_50_launcher_04"
+          }
+        },
+        {
+          "turretInfo:object": {
+            "turretName": "turret_05",
+            "turretGroup": "main_turrets",
+            "trigger": "machine_guns",
+            "gun": "planegun_bf_109g_6_premium_13mm_mg131_01"
+          }
+        },
+        {
+          "turretInfo:object": {
+            "turretName": "turret_06",
+            "turretGroup": "main_turrets",
+            "trigger": "machine_guns",
+            "gun": "planegun_bf_109g_6_premium_13mm_mg131_02"
+          }
+        },
+        {
+          "turretInfo:object": {
+            "turretName": "turret_07",
+            "turretGroup": "cannon_turrets",
+            "trigger": "cannons",
+            "gun": "planegun_bf_109g_6_premium_20mm_mg15120_01"
+          }
+        }
+      ]
+    },
+    {
+      "turret_gun_flash_fx__flashNodes:shared:array": [
+        {
+          "node": "bomb2"
+        },
+        {
+          "node": "bomb3"
+        },
+        {
+          "node": "bomb4"
+        },
+        {
+          "node": "bomb5"
+        },
+        {
+          "node": "flare1"
+        },
+        {
+          "node": "flare2"
+        },
+        {
+          "node": "flare3"
+        }
+      ]
+    },
+    {
+      "turret_gun_flash_fx__flashFx:shared:array": [
+        {
+          "fx": ""
+        },
+        {
+          "fx": ""
+        },
+        {
+          "fx": ""
+        },
+        {
+          "fx": ""
+        },
+        {
+          "fx": "muzzle_air_15mm"
+        },
+        {
+          "fx": "muzzle_air_15mm"
+        },
+        {
+          "fx": "muzzle_air_20mm"
+        }
+      ]
+    },
+    {
+      "turret_gun_flash_fx__flashFxScale:shared:array": [
+        {
+          "scale": 1.0
+        },
+        {
+          "scale": 1.0
+        },
+        {
+          "scale": 1.0
+        },
+        {
+          "scale": 1.0
+        },
+        {
+          "scale": 1.0
+        },
+        {
+          "scale": 1.0
+        },
+        {
+          "scale": 1.0
+        }
+      ]
+    },
+    {
+      "disableDMParts:list<t>": [
+        {
+          "part": "pylon_bomb1"
+        },
+        {
+          "part": "pylon_cannon_l"
+        },
+        {
+          "part": "pylon_cannon_r"
+        },
+        {
+          "part": "flare4"
+        },
+        {
+          "part": "flare5"
+        },
+        {
+          "part": "pylon_cannon_empty"
+        },
+        {
+          "part": "pylon_cannon_empty"
+        },
+        {
+          "part": "pylon_cannon_r6_l"
+        },
+        {
+          "part": "pylon_cannon_r6_r"
+        },
+        {
+          "part": "flare6"
+        },
+        {
+          "part": "flare7"
+        },
+        {
+          "part": "210mm_tube_l"
+        },
+        {
+          "part": "210mm_tube_r"
+        },
+        {
+          "part": "210mm_1"
+        },
+        {
+          "part": "210mm_2"
+        },
+        {
+          "part": "rocket_pylon1"
+        },
+        {
+          "part": "rocket_pylon2"
+        }
+      ]
+    }
+  ],
+  "base_bf_109g_6_premium_20mm_mg15120": {
+    "item__name": "guns/cannonmg15120",
+    "gun__blk": "gamedata/weapons/bf_109g_6/20mm_mg15120.blk",
+    "gun__shotFreq": 11.66,
+    "gun__locName": "cannonmg15120",
+    "gun__shootNodeName": "bone_mg_gun_twin",
+    "gun__maxAmmo": 200,
+    "gun__firingModes:array": {
+      "mode:object": {
+        "modeType": "automatic"
+      }
+    },
+    "gun__firingModeNames:array": {
+      "mode": "automatic"
+    },
+    "gun__shellsAmmo:array": {
+      "ammo": 200
+    },
+    "gun__ammoSetsInfo:shared:array": {
+      "default:array": [
+        {
+          "shell:object": {
+            "blk": "gamedata/weapons/shells/20x82mm_brgr_g_spur_bullet.blk",
+            "name": "spur",
+            "type": "i_t"
+          }
+        },
+        {
+          "shell:object": {
+            "blk": "gamedata/weapons/shells/20x82mm_brgr_g_spur_bullet.blk",
+            "name": "spur",
+            "type": "i_t"
+          }
+        },
+        {
+          "shell:object": {
+            "blk": "gamedata/weapons/shells/20x82mm_pzgr_bullet.blk",
+            "name": "pzgr",
+            "type": "aphe"
+          }
+        },
+        {
+          "shell:object": {
+            "blk": "gamedata/weapons/shells/20x82mm_mgesch_bullet.blk",
+            "name": "mgesch",
+            "type": "he_i_mine"
+          }
+        }
+      ]
+    }
+  },
+  "base_bf_109g_6_premium_13mm_mg131": {
+    "item__name": "guns/gunmg131",
+    "gun__blk": "gamedata/weapons/bf_109g_6/13mm_mg131.blk",
+    "gun__shotFreq": 15.0,
+    "gun__locName": "gunmg131",
+    "gun__shootNodeName": "bone_mg_gun_twin",
+    "gun__maxAmmo": 300,
+    "gun__firingModes:array": {
+      "mode:object": {
+        "modeType": "automatic"
+      }
+    },
+    "gun__firingModeNames:array": {
+      "mode": "automatic"
+    },
+    "gun__shellsAmmo:array": {
+      "ammo": 300
+    },
+    "gun__ammoSetsInfo:shared:array": {
+      "default:array": [
+        {
+          "shell:object": {
+            "blk": "gamedata/weapons/shells/13mm_mg_131_brgr_l_spur_bullet.blk",
+            "name": "spur",
+            "type": "i_t_ball"
+          }
+        },
+        {
+          "shell:object": {
+            "blk": "gamedata/weapons/shells/13mm_mg_131_pzgr_l_spur_bullet.blk",
+            "name": "spur",
+            "type": "ap_t_ball"
+          }
+        },
+        {
+          "shell:object": {
+            "blk": "gamedata/weapons/shells/13mm_mg_131_sprgr_l_spur_bullet.blk",
+            "name": "spur",
+            "type": "he_i_ball"
+          }
+        }
+      ]
+    }
+  },
+  "base_bf_109g_6_premium_sc_50_launcher": {
+    "item__name": "guns/de_sc50",
+    "gun__blk": "gamedata/weapons/bf_109g_6/sc_50_launcher.blk",
+    "gun__shotFreq": 10.0,
+    "gun__locName": "de_sc50",
+    "gun__shootNodeName": "bone_mg_gun_twin",
+    "gun__maxAmmo": 1,
+    "gun__firingModes:array": {
+      "mode:object": {
+        "modeType": "manual"
+      }
+    },
+    "gun__firingModeNames:array": {
+      "mode": "bolt_action"
+    },
+    "gun__shellsAmmo:array": {
+      "ammo": 1
+    },
+    "gun__ammoSetsInfo:shared:array": {
+      "default:array": {
+        "shell:object": {
+          "blk": "gamedata/weapons/shells/sc_50.blk",
+          "name": "sc_50",
+          "type": "he_frag_tank"
+        }
+      }
+    }
+  },
+  "planegun_bf_109g_6_premium_sc_50_launcher_01": [
+    {
+      "_use": "sc_50_launcher"
+    },
+    {
+      "_use": "base_bf_109g_6_premium_sc_50_launcher"
+    },
+    {
+      "_use": "gunsound_sc_50_launcher_aircraft"
+    },
+    {
+      "gun__shootNodeName": "bomb2"
+    },
+    {
+      "slot_attach__slotName": "bomb2"
+    },
+    {
+      "gun__maxAmmo": 1
+    }
+  ],
+  "planegun_bf_109g_6_premium_sc_50_launcher_02": [
+    {
+      "_use": "sc_50_launcher"
+    },
+    {
+      "_use": "base_bf_109g_6_premium_sc_50_launcher"
+    },
+    {
+      "_use": "gunsound_sc_50_launcher_aircraft"
+    },
+    {
+      "gun__shootNodeName": "bomb3"
+    },
+    {
+      "slot_attach__slotName": "bomb3"
+    },
+    {
+      "gun__maxAmmo": 1
+    }
+  ],
+  "planegun_bf_109g_6_premium_sc_50_launcher_03": [
+    {
+      "_use": "sc_50_launcher"
+    },
+    {
+      "_use": "base_bf_109g_6_premium_sc_50_launcher"
+    },
+    {
+      "_use": "gunsound_sc_50_launcher_aircraft"
+    },
+    {
+      "gun__shootNodeName": "bomb4"
+    },
+    {
+      "slot_attach__slotName": "bomb4"
+    },
+    {
+      "gun__maxAmmo": 1
+    }
+  ],
+  "planegun_bf_109g_6_premium_sc_50_launcher_04": [
+    {
+      "_use": "sc_50_launcher"
+    },
+    {
+      "_use": "base_bf_109g_6_premium_sc_50_launcher"
+    },
+    {
+      "_use": "gunsound_sc_50_launcher_aircraft"
+    },
+    {
+      "gun__shootNodeName": "bomb5"
+    },
+    {
+      "slot_attach__slotName": "bomb5"
+    },
+    {
+      "gun__maxAmmo": 1
+    }
+  ],
+  "planegun_bf_109g_6_premium_13mm_mg131_01": [
+    {
+      "_use": "tankgun"
+    },
+    {
+      "_use": "base_plane_machinegun"
+    },
+    {
+      "_use": "base_bf_109g_6_premium_13mm_mg131"
+    },
+    {
+      "_use": "gunsound_13mm_mg131_aircraft"
+    },
+    {
+      "gun__shootNodeName": "flare1"
+    },
+    {
+      "gun__maxAmmo": 300
+    }
+  ],
+  "planegun_bf_109g_6_premium_13mm_mg131_02": [
+    {
+      "_use": "tankgun"
+    },
+    {
+      "_use": "base_plane_machinegun"
+    },
+    {
+      "_use": "base_bf_109g_6_premium_13mm_mg131"
+    },
+    {
+      "_use": "gunsound_13mm_mg131_aircraft"
+    },
+    {
+      "gun__shootNodeName": "flare2"
+    },
+    {
+      "gun__maxAmmo": 300
+    }
+  ],
+  "planegun_bf_109g_6_premium_20mm_mg15120_01": [
+    {
+      "_use": "tankgun"
+    },
+    {
+      "_use": "base_plane_machinegun"
+    },
+    {
+      "_use": "base_bf_109g_6_premium_20mm_mg15120"
+    },
+    {
+      "_use": "gunsound_20mm_mg15120_aircraft"
+    },
+    {
+      "gun__shootNodeName": "flare3"
+    },
+    {
+      "gun__maxAmmo": 200
+    }
+  ],
+  "bf_109g_6_premium_driver_cockpit": {
+    "_use": "base_plane_cockpit",
+    "cockpit__offset": [0.0,0.0,0.0],
+    "cockpit__angles": [0.0,0.0,0.0],
+    "cockpit__scale": [1.0,1.0,1.0],
+    "animchar__res": "bf_109g_6_cockpit_char",
+    "plane_anim__blk": "gamedata/units/bf_109g_6.blk",
+    "plane_sight__blk": "gamedata/units/bf_109g_6.blk",
+    "move_cockpit_node__nodeName:list<t>": [
+      {
+        "node": "stick_rhand_1"
+      },
+      {
+        "node": "throttle_lhand_1"
+      }
+    ],
+    "move_cockpit_node__nodeId:list<i>": [
+      {
+        "nodeId": -1
+      },
+      {
+        "nodeId": -1
+      }
+    ],
+    "move_cockpit_node__offset:list<p3>": [
+      {
+        "offset": [0.0,0.03,0.0]
+      },
+      {
+        "offset": [0.0,-0.02,0.0]
+      }
+    ],
+    "move_cockpit_node__rotation:list<p2>": [
+      {
+        "rot": [15.0,25.0]
+      },
+      {
+        "rot": [-28.0,12.0]
+      }
+    ]
+  }
+}

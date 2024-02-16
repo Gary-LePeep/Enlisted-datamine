@@ -1,22 +1,22 @@
 {
   "civil_vehicle_templ": [
     {
-      "_extends": "vehicle"
+      "_use": "vehicle"
     },
     {
-      "_extends": "hit_track_fx_group"
+      "_use": "hit_track_fx_group"
     },
     {
-      "_extends": "base_damage_model"
+      "_use": "base_damage_model"
     },
     {
-      "_extends": "base_damage_model_fx"
+      "_use": "base_damage_model_fx"
     },
     {
-      "_extends": "vehicle_engine_external_fire"
+      "_use": "vehicle_engine_external_fire"
     },
     {
-      "_extends": "vehicle_fatal_explosion_external_fire"
+      "_use": "vehicle_fatal_explosion_external_fire"
     },
     {
       "zones_visitor__triggerTag": "vehicleTriggerable"
@@ -91,6 +91,127 @@
       "fire_damage__innerRadiusMult": 2.0
     },
     {
+      "dm_parts_repair_names:list<t>": [
+        {
+          "part": "part:t="
+        },
+        {
+          "part": "drive_turret_h"
+        },
+        {
+          "part": "drive_turret_v"
+        },
+        {
+          "part": "cannon_breech"
+        },
+        {
+          "part": "engine"
+        },
+        {
+          "part": "transmission"
+        },
+        {
+          "part": "gun_barrel"
+        },
+        {
+          "part": "gun_barrel_01"
+        },
+        {
+          "part": "gun_barrel_02"
+        },
+        {
+          "part": "gun_barrel_03"
+        },
+        {
+          "part": "gun_barrel_04"
+        },
+        {
+          "part": "gun_barrel_05"
+        },
+        {
+          "part": "track_r"
+        },
+        {
+          "part": "track_l"
+        },
+        {
+          "part": "track_r_01"
+        },
+        {
+          "part": "track_l_01"
+        },
+        {
+          "part": "wheel_l_back"
+        },
+        {
+          "part": "wheel_l_front"
+        },
+        {
+          "part": "wheel_l_drive"
+        },
+        {
+          "part": "wheel_r_back"
+        },
+        {
+          "part": "wheel_r_front"
+        },
+        {
+          "part": "wheel_r_drive"
+        },
+        {
+          "part": "wheel_r_01"
+        },
+        {
+          "part": "wheel_r_02"
+        },
+        {
+          "part": "wheel_r_03"
+        },
+        {
+          "part": "wheel_r_04"
+        },
+        {
+          "part": "wheel_r_05"
+        },
+        {
+          "part": "wheel_r_06"
+        },
+        {
+          "part": "wheel_r_07"
+        },
+        {
+          "part": "wheel_r_08"
+        },
+        {
+          "part": "wheel_l_01"
+        },
+        {
+          "part": "wheel_l_02"
+        },
+        {
+          "part": "wheel_l_03"
+        },
+        {
+          "part": "wheel_l_04"
+        },
+        {
+          "part": "wheel_l_05"
+        },
+        {
+          "part": "wheel_l_06"
+        },
+        {
+          "part": "wheel_l_07"
+        },
+        {
+          "part": "wheel_l_08"
+        }
+      ]
+    },
+    {
+      "dm_parts__repairGroups:object": []
+    },
+    {
       "collidableToHuman:tag": []
     },
     {
@@ -111,13 +232,43 @@
       }
     },
     {
+      "_group": {
+        "_tags": "input",
+        "vehicle__steerTips:list<t>": [
+          {
+            "tip": "Vehicle.Brake"
+          },
+          {
+            "tip": "Vehicle.HandBrake"
+          },
+          {
+            "tip": "Vehicle.Accel"
+          },
+          {
+            "tip": "Vehicle.Steer"
+          },
+          {
+            "tip": "Vehicle.Throttle"
+          },
+          {
+            "tip": "Vehicle.Horn"
+          }
+        ]
+      }
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "animchar_camera_target__node_name": "bone_camera_driver",
+        "engine_fire_fx__eids:list<eid>": [],
+        "vehicle_fxs__effectsEids:list<eid>": []
+      }
+    },
+    {
       "killer:eid": []
     },
     {
       "dm_state:list<u16>": []
-    },
-    {
-      "notConsiderPassengersDM:tag": []
     },
     {
       "fire_damage": []
@@ -127,14 +278,6 @@
     },
     {
       "fire_protection": []
-    },
-    {
-      "_group": {
-        "_tags": "render",
-        "animchar_camera_target__node_name": "bone_camera_driver",
-        "engine_fire_fx__eids:list<eid>": [],
-        "vehicle_fxs__effectsEids:list<eid>": []
-      }
     },
     {
       "fire_attach_excludes__nodeIds:list<i>": []
@@ -171,12 +314,12 @@
       "dm_phys_parts__tracksPartIds:list<i>": []
     },
     {
-      "dm_phys_parts__engine:array": {
+      "dm_parts__engine:list<t>": {
         "engine": "engine"
       }
     },
     {
-      "dm_phys_parts__transmission:array": {
+      "dm_parts__transmission:list<t>": {
         "transmission": "transmission"
       }
     },
@@ -217,7 +360,7 @@
             "fx:array": [
               {
                 "fx:object": {
-                  "name": "tank_fire_big_template",
+                  "name": "tank_fire_medium_template",
                   "emitter": "emtr_fire_engine"
                 }
               },
@@ -566,49 +709,33 @@
     }
   },
   "vehicle_anim_speedometer_mph": {
-    "_extends": "vehicle_anim_speedometer_kmh",
+    "_use": "vehicle_anim_speedometer_kmh",
     "_group": {
       "_tags": "render",
       "vehicle_anim__speedometerUnitsMult": 2.23
     }
   },
   "vehicle_seat_fire_ready": {
-    "_extends": "vehicle_seat_default",
+    "_use": "vehicle_seat_default",
     "seat_anim__fireReadyUpper": "fireready_passenger",
     "seat_anim__fireReadyLower": "fireready_passenger"
   },
   "civil_cars_steering_control_and_wheel_damage": [
     {
-      "_extends": "vehicle_steering_assist"
+      "_use": "vehicle_steering_assist"
     },
     {
-      "_extends": "vehicle_maintenance"
+      "_use": "vehicle_maintenance"
     },
     {
       "meta_parts_state": []
     },
     {
       "dm_phys_parts__wheelsPartIds:list<i>": []
-    },
-    {
-      "dm_phys_parts__wheels:array": [
-        {
-          "wheel": "wheel_r_01"
-        },
-        {
-          "wheel": "wheel_r_drive"
-        },
-        {
-          "wheel": "wheel_l_01"
-        },
-        {
-          "wheel": "wheel_l_drive"
-        }
-      ]
     }
   ],
   "base_civil_fire_ready_vehicle_no_wheel": {
-    "_extends": "civil_vehicle_templ",
+    "_use": "civil_vehicle_templ",
     "vehicle_seats__seatTemplates:shared:object": {
       "default": "vehicle_seat_fire_ready",
       "driver": "vehicle_seat_driver"
@@ -628,14 +755,14 @@
   },
   "base_civil_fire_ready_vehicle": [
     {
-      "_extends": "base_civil_fire_ready_vehicle_no_wheel"
+      "_use": "base_civil_fire_ready_vehicle_no_wheel"
     },
     {
-      "_extends": "civil_cars_steering_control_and_wheel_damage"
+      "_use": "civil_cars_steering_control_and_wheel_damage"
     }
   ],
   "base_civil_fire_ready_vehicle_tracked": {
-    "_extends": "base_civil_fire_ready_vehicle_no_wheel",
+    "_use": "base_civil_fire_ready_vehicle_no_wheel",
     "vehicle_tracks_visual_pos:p2": {
       "_tags": "render"
     },
@@ -648,54 +775,44 @@
     "forced_lod_for_hmap_deform:i": {
       "_tags": "render",
       "value": 2
-    },
-    "dm_phys_parts__tracksPartIds:list<i>": [],
-    "dm_phys_parts__wheelsPartIds:list<i>": [],
-    "dm_phys_parts__tracks:array": [
-      {
-        "tracks": "track_l(_\\w+)?"
-      },
-      {
-        "tracks": "track_r(_\\w+)?"
-      }
-    ]
+    }
   },
   "opel_olympia": [
     {
-      "_extends": "base_civil_fire_ready_vehicle"
+      "_use": "base_civil_fire_ready_vehicle"
     },
     {
-      "_extends": "four_seats_vehicle"
+      "_use": "four_seats_vehicle"
     },
     {
-      "_extends": "car_vehicle_brakes_sound"
+      "_use": "car_vehicle_brakes_sound"
     },
     {
-      "_extends": "car_vehicle_seat_sound"
+      "_use": "car_vehicle_seat_sound"
     },
     {
-      "_extends": "car_vehicle_suspension_sound"
+      "_use": "car_vehicle_suspension_sound"
     },
     {
-      "_extends": "car_vehicle_tracks_sound"
+      "_use": "car_vehicle_tracks_sound"
     },
     {
-      "_extends": "car_vehicle_engine_sound"
+      "_use": "car_vehicle_engine_sound"
     },
     {
-      "_extends": "car_vehicle_gear_sound"
+      "_use": "car_vehicle_gear_sound"
     },
     {
-      "_extends": "car_vehicle_horn_sound"
+      "_use": "car_vehicle_horn_sound"
     },
     {
-      "_extends": "vehicle_horn_note_D5"
+      "_use": "vehicle_horn_note_D5"
     },
     {
-      "_extends": "car_vehicle_inside_snapshot"
+      "_use": "car_inside_sound"
     },
     {
-      "_extends": "simple_damage_model"
+      "_use": "simple_damage_model"
     },
     {
       "vehicleType": "civil_car"
@@ -774,43 +891,40 @@
   ],
   "gaz_67": [
     {
-      "_extends": "base_civil_fire_ready_vehicle"
+      "_use": "base_civil_fire_ready_vehicle"
     },
     {
-      "_extends": "four_seats_vehicle"
+      "_use": "four_seats_vehicle"
     },
     {
-      "_extends": "car_vehicle_brakes_sound"
+      "_use": "car_vehicle_brakes_sound"
     },
     {
-      "_extends": "nodoor_vehicle_seat_sound"
+      "_use": "nodoor_vehicle_seat_sound"
     },
     {
-      "_extends": "car_vehicle_suspension_sound"
+      "_use": "car_vehicle_suspension_sound"
     },
     {
-      "_extends": "car_vehicle_tracks_sound"
+      "_use": "car_vehicle_tracks_sound"
     },
     {
-      "_extends": "car_vehicle_engine_sound"
+      "_use": "car_vehicle_engine_sound"
     },
     {
-      "_extends": "jeep_vehicle_gear_sound"
+      "_use": "jeep_vehicle_gear_sound"
     },
     {
-      "_extends": "car_vehicle_horn_sound"
+      "_use": "car_vehicle_horn_sound"
     },
     {
-      "_extends": "vehicle_horn_note_A5"
+      "_use": "vehicle_horn_note_A5"
     },
     {
-      "_extends": "car_vehicle_inside_snapshot"
+      "_use": "simple_damage_model"
     },
     {
-      "_extends": "simple_damage_model"
-    },
-    {
-      "_extends": "kick_passengers_on_flip"
+      "_use": "kick_passengers_on_flip"
     },
     {
       "vehicleType": "offroad_car"
@@ -897,43 +1011,40 @@
   ],
   "vw_kubelwagen": [
     {
-      "_extends": "base_civil_fire_ready_vehicle"
+      "_use": "base_civil_fire_ready_vehicle"
     },
     {
-      "_extends": "four_seats_vehicle"
+      "_use": "four_seats_vehicle"
     },
     {
-      "_extends": "car_vehicle_brakes_sound"
+      "_use": "car_vehicle_brakes_sound"
     },
     {
-      "_extends": "car_vehicle_seat_sound"
+      "_use": "car_vehicle_seat_sound"
     },
     {
-      "_extends": "car_vehicle_suspension_sound"
+      "_use": "car_vehicle_suspension_sound"
     },
     {
-      "_extends": "car_vehicle_tracks_sound"
+      "_use": "car_vehicle_tracks_sound"
     },
     {
-      "_extends": "car_vehicle_engine_sound"
+      "_use": "car_vehicle_engine_sound"
     },
     {
-      "_extends": "jeep_vehicle_gear_sound"
+      "_use": "jeep_vehicle_gear_sound"
     },
     {
-      "_extends": "car_vehicle_horn_sound"
+      "_use": "car_vehicle_horn_sound"
     },
     {
-      "_extends": "vehicle_horn_note_C5"
+      "_use": "vehicle_horn_note_C5"
     },
     {
-      "_extends": "car_vehicle_inside_snapshot"
+      "_use": "simple_damage_model"
     },
     {
-      "_extends": "simple_damage_model"
-    },
-    {
-      "_extends": "kick_passengers_on_flip"
+      "_use": "kick_passengers_on_flip"
     },
     {
       "vehicleType": "offroad_car"
@@ -1025,43 +1136,43 @@
   ],
   "opel_blitz_kfz_305": [
     {
-      "_extends": "base_civil_fire_ready_vehicle"
+      "_use": "base_civil_fire_ready_vehicle"
     },
     {
-      "_extends": "truck_ten_seats_vehicle"
+      "_use": "truck_ten_seats_vehicle"
     },
     {
-      "_extends": "truck_vehicle_brakes_sound"
+      "_use": "truck_vehicle_brakes_sound"
     },
     {
-      "_extends": "truck_vehicle_tracks_sound"
+      "_use": "truck_vehicle_tracks_sound"
     },
     {
-      "_extends": "car_vehicle_seat_sound"
+      "_use": "car_vehicle_seat_sound"
     },
     {
-      "_extends": "car_vehicle_suspension_sound"
+      "_use": "car_vehicle_suspension_sound"
     },
     {
-      "_extends": "car_vehicle_engine_sound"
+      "_use": "car_vehicle_engine_sound"
     },
     {
-      "_extends": "truck_vehicle_gear_sound"
+      "_use": "truck_vehicle_gear_sound"
     },
     {
-      "_extends": "car_vehicle_horn_sound"
+      "_use": "car_vehicle_horn_sound"
     },
     {
-      "_extends": "vehicle_horn_note_E4"
+      "_use": "vehicle_horn_note_E4"
     },
     {
-      "_extends": "car_vehicle_inside_snapshot"
+      "_use": "car_inside_sound_for_driver_passenger1"
     },
     {
-      "_extends": "simple_damage_model"
+      "_use": "simple_damage_model"
     },
     {
-      "_extends": "kick_passengers_on_flip"
+      "_use": "kick_passengers_on_flip"
     },
     {
       "vehicleType": "truck"
@@ -1178,40 +1289,40 @@
   ],
   "opel_blitz_omnibus": [
     {
-      "_extends": "base_civil_fire_ready_vehicle"
+      "_use": "base_civil_fire_ready_vehicle"
     },
     {
-      "_extends": "ten_seats_vehicle"
+      "_use": "ten_seats_vehicle"
     },
     {
-      "_extends": "truck_vehicle_brakes_sound"
+      "_use": "truck_vehicle_brakes_sound"
     },
     {
-      "_extends": "truck_vehicle_tracks_sound"
+      "_use": "truck_vehicle_tracks_sound"
     },
     {
-      "_extends": "car_vehicle_seat_sound"
+      "_use": "car_vehicle_seat_sound"
     },
     {
-      "_extends": "car_vehicle_suspension_sound"
+      "_use": "car_vehicle_suspension_sound"
     },
     {
-      "_extends": "car_vehicle_engine_sound"
+      "_use": "car_vehicle_engine_sound"
     },
     {
-      "_extends": "truck_vehicle_gear_sound"
+      "_use": "truck_vehicle_gear_sound"
     },
     {
-      "_extends": "car_vehicle_horn_sound"
+      "_use": "car_vehicle_horn_sound"
     },
     {
-      "_extends": "vehicle_horn_note_F4"
+      "_use": "vehicle_horn_note_F4"
     },
     {
-      "_extends": "car_vehicle_inside_snapshot"
+      "_use": "car_inside_sound"
     },
     {
-      "_extends": "simple_damage_model"
+      "_use": "simple_damage_model"
     },
     {
       "vehicleType": "bus"
@@ -1313,43 +1424,40 @@
   ],
   "willys_mb": [
     {
-      "_extends": "base_civil_fire_ready_vehicle"
+      "_use": "base_civil_fire_ready_vehicle"
     },
     {
-      "_extends": "four_seats_vehicle"
+      "_use": "four_seats_vehicle"
     },
     {
-      "_extends": "car_vehicle_brakes_sound"
+      "_use": "car_vehicle_brakes_sound"
     },
     {
-      "_extends": "nodoor_vehicle_seat_sound"
+      "_use": "nodoor_vehicle_seat_sound"
     },
     {
-      "_extends": "car_vehicle_suspension_sound"
+      "_use": "car_vehicle_suspension_sound"
     },
     {
-      "_extends": "car_vehicle_tracks_sound"
+      "_use": "car_vehicle_tracks_sound"
     },
     {
-      "_extends": "car_vehicle_engine_sound"
+      "_use": "car_vehicle_engine_sound"
     },
     {
-      "_extends": "jeep_vehicle_gear_sound"
+      "_use": "jeep_vehicle_gear_sound"
     },
     {
-      "_extends": "car_vehicle_horn_sound"
+      "_use": "car_vehicle_horn_sound"
     },
     {
-      "_extends": "vehicle_horn_note_B5"
+      "_use": "vehicle_horn_note_B5"
     },
     {
-      "_extends": "car_vehicle_inside_snapshot"
+      "_use": "simple_damage_model"
     },
     {
-      "_extends": "simple_damage_model"
-    },
-    {
-      "_extends": "kick_passengers_on_flip"
+      "_use": "kick_passengers_on_flip"
     },
     {
       "vehicleType": "offroad_car"
@@ -1442,43 +1550,40 @@
   ],
   "ford_gpa": [
     {
-      "_extends": "base_civil_fire_ready_vehicle"
+      "_use": "base_civil_fire_ready_vehicle"
     },
     {
-      "_extends": "four_seats_vehicle"
+      "_use": "four_seats_vehicle"
     },
     {
-      "_extends": "car_vehicle_brakes_sound"
+      "_use": "car_vehicle_brakes_sound"
     },
     {
-      "_extends": "nodoor_vehicle_seat_sound"
+      "_use": "nodoor_vehicle_seat_sound"
     },
     {
-      "_extends": "car_vehicle_suspension_sound"
+      "_use": "car_vehicle_suspension_sound"
     },
     {
-      "_extends": "car_vehicle_tracks_sound"
+      "_use": "car_vehicle_tracks_sound"
     },
     {
-      "_extends": "car_vehicle_engine_sound"
+      "_use": "car_vehicle_engine_sound"
     },
     {
-      "_extends": "simple_damage_model"
+      "_use": "simple_damage_model"
     },
     {
-      "_extends": "jeep_vehicle_gear_sound"
+      "_use": "jeep_vehicle_gear_sound"
     },
     {
-      "_extends": "car_vehicle_horn_sound"
+      "_use": "car_vehicle_horn_sound"
     },
     {
-      "_extends": "vehicle_horn_note_B5"
+      "_use": "vehicle_horn_note_B5"
     },
     {
-      "_extends": "car_vehicle_inside_snapshot"
-    },
-    {
-      "_extends": "kick_passengers_on_flip"
+      "_use": "kick_passengers_on_flip"
     },
     {
       "vehicleType": "offroad_car"
@@ -1568,40 +1673,40 @@
   ],
   "gaz_m1": [
     {
-      "_extends": "base_civil_fire_ready_vehicle"
+      "_use": "base_civil_fire_ready_vehicle"
     },
     {
-      "_extends": "four_seats_vehicle"
+      "_use": "four_seats_vehicle"
     },
     {
-      "_extends": "car_vehicle_brakes_sound"
+      "_use": "car_vehicle_brakes_sound"
     },
     {
-      "_extends": "car_vehicle_seat_sound"
+      "_use": "car_vehicle_seat_sound"
     },
     {
-      "_extends": "car_vehicle_suspension_sound"
+      "_use": "car_vehicle_suspension_sound"
     },
     {
-      "_extends": "car_vehicle_tracks_sound"
+      "_use": "car_vehicle_tracks_sound"
     },
     {
-      "_extends": "car_vehicle_engine_sound"
+      "_use": "car_vehicle_engine_sound"
     },
     {
-      "_extends": "jeep_vehicle_gear_sound"
+      "_use": "jeep_vehicle_gear_sound"
     },
     {
-      "_extends": "car_vehicle_horn_sound"
+      "_use": "car_vehicle_horn_sound"
     },
     {
-      "_extends": "vehicle_horn_note_G4"
+      "_use": "vehicle_horn_note_G4"
     },
     {
-      "_extends": "car_vehicle_inside_snapshot"
+      "_use": "car_inside_sound"
     },
     {
-      "_extends": "simple_damage_model"
+      "_use": "simple_damage_model"
     },
     {
       "vehicleType": "civil_car"
@@ -1712,40 +1817,40 @@
   ],
   "vw_beetle": [
     {
-      "_extends": "base_civil_fire_ready_vehicle"
+      "_use": "base_civil_fire_ready_vehicle"
     },
     {
-      "_extends": "four_seats_vehicle"
+      "_use": "four_seats_vehicle"
     },
     {
-      "_extends": "car_vehicle_brakes_sound"
+      "_use": "car_vehicle_brakes_sound"
     },
     {
-      "_extends": "car_vehicle_seat_sound"
+      "_use": "car_vehicle_seat_sound"
     },
     {
-      "_extends": "car_vehicle_suspension_sound"
+      "_use": "car_vehicle_suspension_sound"
     },
     {
-      "_extends": "car_vehicle_tracks_sound"
+      "_use": "car_vehicle_tracks_sound"
     },
     {
-      "_extends": "car_vehicle_engine_sound"
+      "_use": "car_vehicle_engine_sound"
     },
     {
-      "_extends": "car_vehicle_gear_sound"
+      "_use": "car_vehicle_gear_sound"
     },
     {
-      "_extends": "car_vehicle_horn_sound"
+      "_use": "car_vehicle_horn_sound"
     },
     {
-      "_extends": "vehicle_horn_note_E5"
+      "_use": "vehicle_horn_note_E5"
     },
     {
-      "_extends": "car_vehicle_inside_snapshot"
+      "_use": "car_inside_sound"
     },
     {
-      "_extends": "simple_damage_model"
+      "_use": "simple_damage_model"
     },
     {
       "vehicleType": "civil_car"
@@ -1834,43 +1939,43 @@
   ],
   "nissan_80": [
     {
-      "_extends": "base_civil_fire_ready_vehicle"
+      "_use": "base_civil_fire_ready_vehicle"
     },
     {
-      "_extends": "truck_ten_seats_vehicle"
+      "_use": "truck_ten_seats_vehicle"
     },
     {
-      "_extends": "truck_vehicle_brakes_sound"
+      "_use": "truck_vehicle_brakes_sound"
     },
     {
-      "_extends": "truck_vehicle_tracks_sound"
+      "_use": "truck_vehicle_tracks_sound"
     },
     {
-      "_extends": "car_vehicle_seat_sound"
+      "_use": "car_vehicle_seat_sound"
     },
     {
-      "_extends": "car_vehicle_suspension_sound"
+      "_use": "car_vehicle_suspension_sound"
     },
     {
-      "_extends": "car_vehicle_engine_sound"
+      "_use": "car_vehicle_engine_sound"
     },
     {
-      "_extends": "truck_vehicle_gear_sound"
+      "_use": "truck_vehicle_gear_sound"
     },
     {
-      "_extends": "car_vehicle_horn_sound"
+      "_use": "car_vehicle_horn_sound"
     },
     {
-      "_extends": "vehicle_horn_note_E4"
+      "_use": "vehicle_horn_note_E4"
     },
     {
-      "_extends": "car_vehicle_inside_snapshot"
+      "_use": "car_inside_sound_for_driver_passenger1"
     },
     {
-      "_extends": "simple_damage_model"
+      "_use": "simple_damage_model"
     },
     {
-      "_extends": "kick_passengers_on_flip"
+      "_use": "kick_passengers_on_flip"
     },
     {
       "vehicleType": "truck"
@@ -1963,40 +2068,37 @@
   ],
   "gmc_353_a": [
     {
-      "_extends": "base_civil_fire_ready_vehicle"
+      "_use": "base_civil_fire_ready_vehicle"
     },
     {
-      "_extends": "truck_vehicle_brakes_sound"
+      "_use": "truck_vehicle_brakes_sound"
     },
     {
-      "_extends": "truck_vehicle_tracks_sound"
+      "_use": "truck_vehicle_tracks_sound"
     },
     {
-      "_extends": "car_vehicle_seat_sound"
+      "_use": "car_vehicle_seat_sound"
     },
     {
-      "_extends": "car_vehicle_suspension_sound"
+      "_use": "car_vehicle_suspension_sound"
     },
     {
-      "_extends": "car_vehicle_engine_sound"
+      "_use": "car_vehicle_engine_sound"
     },
     {
-      "_extends": "truck_vehicle_gear_sound"
+      "_use": "truck_vehicle_gear_sound"
     },
     {
-      "_extends": "car_vehicle_horn_sound"
+      "_use": "car_vehicle_horn_sound"
     },
     {
-      "_extends": "vehicle_horn_note_E4"
+      "_use": "vehicle_horn_note_E4"
     },
     {
-      "_extends": "car_vehicle_inside_snapshot"
+      "_use": "simple_damage_model"
     },
     {
-      "_extends": "simple_damage_model"
-    },
-    {
-      "_extends": "kick_passengers_on_flip"
+      "_use": "kick_passengers_on_flip"
     },
     {
       "vehicleType": "truck"
@@ -2304,66 +2406,44 @@
     },
     {
       "dm_phys_parts__wheelsPartIds:list<i>": []
-    },
-    {
-      "dm_phys_parts__wheels:array": [
-        {
-          "wheel": "wheel_r_01"
-        },
-        {
-          "wheel": "wheel_r_02"
-        },
-        {
-          "wheel": "wheel_r_drive"
-        },
-        {
-          "wheel": "wheel_l_01"
-        },
-        {
-          "wheel": "wheel_l_02"
-        },
-        {
-          "wheel": "wheel_l_drive"
-        }
-      ]
     }
   ],
   "gmc_353_b": [
     {
-      "_extends": "base_civil_fire_ready_vehicle"
+      "_use": "base_civil_fire_ready_vehicle"
     },
     {
-      "_extends": "truck_vehicle_brakes_sound"
+      "_use": "truck_vehicle_brakes_sound"
     },
     {
-      "_extends": "truck_vehicle_tracks_sound"
+      "_use": "truck_vehicle_tracks_sound"
     },
     {
-      "_extends": "car_vehicle_seat_sound"
+      "_use": "car_vehicle_seat_sound"
     },
     {
-      "_extends": "car_vehicle_suspension_sound"
+      "_use": "car_vehicle_suspension_sound"
     },
     {
-      "_extends": "car_vehicle_engine_sound"
+      "_use": "car_vehicle_engine_sound"
     },
     {
-      "_extends": "truck_vehicle_gear_sound"
+      "_use": "truck_vehicle_gear_sound"
     },
     {
-      "_extends": "car_vehicle_horn_sound"
+      "_use": "car_vehicle_horn_sound"
     },
     {
-      "_extends": "vehicle_horn_note_E4"
+      "_use": "vehicle_horn_note_E4"
     },
     {
-      "_extends": "car_vehicle_inside_snapshot"
+      "_use": "car_inside_sound_for_driver_passenger1"
     },
     {
-      "_extends": "simple_damage_model"
+      "_use": "simple_damage_model"
     },
     {
-      "_extends": "kick_passengers_on_flip"
+      "_use": "kick_passengers_on_flip"
     },
     {
       "vehicleType": "truck"
@@ -2671,63 +2751,44 @@
     },
     {
       "dm_phys_parts__wheelsPartIds:list<i>": []
-    },
-    {
-      "dm_phys_parts__wheels:array": [
-        {
-          "wheel": "wheel_r_01"
-        },
-        {
-          "wheel": "wheel_r_02"
-        },
-        {
-          "wheel": "wheel_r_drive"
-        },
-        {
-          "wheel": "wheel_l_01"
-        },
-        {
-          "wheel": "wheel_l_02"
-        },
-        {
-          "wheel": "wheel_l_drive"
-        }
-      ]
     }
   ],
   "tractor_stz_5_common": [
     {
-      "_extends": "base_civil_fire_ready_vehicle_tracked"
+      "_use": "base_civil_fire_ready_vehicle_tracked"
     },
     {
-      "_extends": "tank_t34_engine_sound"
+      "_use": "tank_t34_engine_sound"
     },
     {
-      "_extends": "tank_vehicle_gear_sound"
+      "_use": "tank_vehicle_gear_sound"
     },
     {
-      "_extends": "tank_vehicle_collision_sound_setup"
+      "_use": "tank_vehicle_collision_sound_setup"
     },
     {
-      "_extends": "tank_vehicle_damage_sound_setup"
+      "_use": "tank_vehicle_damage_sound_setup"
     },
     {
-      "_extends": "tank_light_vehicle_tracks_sound"
+      "_use": "tank_light_vehicle_tracks_sound"
     },
     {
-      "_extends": "car_vehicle_horn_sound"
+      "_use": "car_vehicle_horn_sound"
     },
     {
-      "_extends": "vehicle_horn_note_E4"
+      "_use": "vehicle_horn_note_E4"
     },
     {
-      "_extends": "car_vehicle_inside_snapshot"
+      "_use": "car_inside_sound"
     },
     {
-      "_extends": "simple_damage_model"
+      "_use": "simple_damage_model"
     },
     {
-      "_extends": "kick_passengers_on_flip"
+      "_use": "kick_passengers_on_flip"
+    },
+    {
+      "_use": "vehicle_maintenance"
     },
     {
       "vehicleType": "truck"
@@ -2764,7 +2825,7 @@
     }
   ],
   "tractor_stz_5": {
-    "_extends": "tractor_stz_5_common",
+    "_use": "tractor_stz_5_common",
     "disableDMParts:list<t>": {
       "part": "driver"
     },
@@ -2930,7 +2991,7 @@
     ]
   },
   "tractor_stz_5_opened": {
-    "_extends": "tractor_stz_5_common",
+    "_use": "tractor_stz_5_common",
     "disableDMParts:list<t>": [
       {
         "part": "driver"

@@ -7,13 +7,20 @@
     "spawnPlayerImmediate:tag": [],
     "disableVehicleSpawnDelay:tag": []
   },
+  "tutorial_mission": {
+    "tutorial__stageFlag": 1,
+    "_singleton": false,
+    "spawnPlayerImmediate:tag": [],
+    "disableVehicleSpawnDelay:tag": []
+  },
   "practice_map": {
     "_singleton": true,
+    "mission_outfit": "",
     "isPractice:tag": [],
     "disableVehicleSpawnDelay:tag": []
   },
   "tutorial_target_grenade_c": {
-    "_extends": "tutorial_target_silhouette_c",
+    "_use": "tutorial_target_silhouette_c",
     "tutorial_target__grenade:tag": []
   },
   "base_tutorial_zone": [
@@ -54,7 +61,7 @@
     }
   ],
   "hidden_tutorial_zone": {
-    "_extends": "base_tutorial_zone",
+    "_use": "base_tutorial_zone",
     "tutorial_zone__hideWaypoint:tag": []
   },
   "tutorial_zone_visitor": {
@@ -63,7 +70,7 @@
     "tutorial_zone_visitor__zoneId:t": []
   },
   "tutorial_human": {
-    "_extends": "tutorial_zone_visitor",
+    "_use": "tutorial_zone_visitor",
     "tutorial_human__hasGrenade": true,
     "tutorial_human__infHpLimit": 10.0,
     "tutorialHuman:tag": []
@@ -75,46 +82,46 @@
   },
   "tutorial_target_silhouette_a": [
     {
-      "_extends": "rendinst"
+      "_use": "rendinst"
     },
     {
-      "_extends": "tutorial_target"
+      "_use": "tutorial_target"
     },
     {
-      "_extends": "target_silhouette_a"
+      "_use": "target_silhouette_a"
     }
   ],
   "tutorial_target_silhouette_b": [
     {
-      "_extends": "rendinst"
+      "_use": "rendinst"
     },
     {
-      "_extends": "tutorial_target"
+      "_use": "tutorial_target"
     },
     {
-      "_extends": "target_silhouette_b"
+      "_use": "target_silhouette_b"
     }
   ],
   "tutorial_target_silhouette_c": [
     {
-      "_extends": "rendinst"
+      "_use": "rendinst"
     },
     {
-      "_extends": "tutorial_target"
+      "_use": "tutorial_target"
     },
     {
-      "_extends": "target_silhouette_c"
+      "_use": "target_silhouette_c"
     }
   ],
   "tutorial_target_tank": [
     {
-      "_extends": "rendinst"
+      "_use": "rendinst"
     },
     {
-      "_extends": "tutorial_target"
+      "_use": "tutorial_target"
     },
     {
-      "_extends": "target_tank_a_mission"
+      "_use": "target_tank_a_mission"
     },
     {
       "isRendinstDestr:tag": {
@@ -131,30 +138,40 @@
     ],
     "tutorial__botSpawnBase:tag": []
   },
-  "tutorial_bot_anim_state": {
-    "_extends": "game_effect_base",
-    "game_effect__forceAnimState": "enlisted_idle_13_weapon",
-    "game_effect__forceAnimStateId": -1,
-    "notTakeDamageFromBattleArea:tag": [],
-    "tutorial_bot_anim_state:tag": []
-  },
+  "tutorial_bot_anim_state": [
+    {
+      "_use": "game_effect_base"
+    },
+    {
+      "_use": "disable_battle_area_damage"
+    },
+    {
+      "game_effect__forceAnimState": "enlisted_idle_13_weapon"
+    },
+    {
+      "game_effect__forceAnimStateId": -1
+    },
+    {
+      "tutorial_bot_anim_state:tag": []
+    }
+  ],
   "tutorial_ammunition_box_a": [
     {
-      "_extends": "ammunition_box_base"
+      "_use": "ammunition_box_base"
     },
     {
-      "_extends": "ammunition_box_grenade_resupply"
+      "_use": "ammunition_box_grenade_resupply"
     },
     {
-      "_extends": "undestroyable_building"
+      "_use": "undestroyable_building"
     }
   ],
   "tutorial_engineer_resource_box": [
     {
-      "_extends": "resource_box_base"
+      "_use": "resource_box_base"
     },
     {
-      "_extends": "undestroyable_building"
+      "_use": "undestroyable_building"
     }
   ],
   "tutorial_player_override": {
@@ -293,7 +310,7 @@
     "tutor_stage__playerZoneEnter": "waypoint_zone_fire_range_mg"
   },
   "inf_tutorial_shooting_target01_restore": {
-    "_extends": "tutorial_restore_memorize",
+    "_use": "tutorial_restore_memorize",
     "tutor_stage__next": "inf_tutorial_shooting_target01"
   },
   "inf_tutorial_shooting_target01": {
@@ -307,7 +324,7 @@
     "tutor_bq__sendOnBegin:tag": []
   },
   "inf_tutorial_fire_range_aim_restore": {
-    "_extends": "tutorial_restore_memorize",
+    "_use": "tutorial_restore_memorize",
     "tutor_stage__next": "inf_tutorial_fire_range_aim"
   },
   "inf_tutorial_fire_range_aim": {
@@ -321,7 +338,7 @@
     }
   },
   "inf_tutorial_grenade_restore": {
-    "_extends": "tutorial_restore_memorize",
+    "_use": "tutorial_restore_memorize",
     "tutor_stage__next": "inf_tutorial_grenade_first_start"
   },
   "inf_tutorial_grenade_first_start": {
@@ -417,7 +434,7 @@
     }
   },
   "inf_tutorial_shooting_hold_breath_restore": {
-    "_extends": "tutorial_restore_memorize",
+    "_use": "tutorial_restore_memorize",
     "tutor_stage__next": "inf_tutorial_shooting_hold_breath"
   },
   "inf_tutorial_shooting_hold_breath": {
@@ -436,7 +453,7 @@
     ]
   },
   "inf_tutorial_shooting_crouch_restore": {
-    "_extends": "tutorial_restore_memorize",
+    "_use": "tutorial_restore_memorize",
     "tutor_stage__next": "inf_tutorial_shooting_crouch"
   },
   "inf_tutorial_shooting_crouch": {
@@ -492,10 +509,10 @@
   },
   "tutorial_grenade_target": [
     {
-      "_extends": "tutorial_target_grenade_c"
+      "_use": "tutorial_target_grenade_c"
     },
     {
-      "_extends": "tutorial_memorize_entity"
+      "_use": "tutorial_memorize_entity"
     },
     {
       "_singleton": true

@@ -4206,6 +4206,11 @@
   },
   {
     "entity": {
+      "_template": "bloom"
+    }
+  },
+  {
+    "entity": {
       "_template": "postfx_roundctrl"
     }
   },
@@ -4276,6 +4281,7 @@
     "entity": {
       "_template": "briefing_invasion",
       "mission_name": "volokolamsk_voskhod_inv",
+      "mission_outfit": "moscow",
       "loading_images:list<t>": [
         {
           "item": "ui/volokolamsk_voskhod_inv_01.avif"
@@ -4350,7 +4356,7 @@
       "team__briefing": "invasion/attackers_goals",
       "team__winSubtitle": "debriefing/won_invasion_subtitle",
       "team__loseSubtitle": "debriefing/lost_invasion_subtitle",
-      "team__winTitle": "debriefing/ger_won_invasion",
+      "team__winTitle": "debriefing/axis_won_invasion",
       "team__spawnBotArmy": "moscow_axis"
     }
   },
@@ -4389,7 +4395,7 @@
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 1,
       "decal__height": 1.9,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "capzone__iconOffsetY": 2.0,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 3,
@@ -4425,7 +4431,7 @@
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 1,
       "decal__height": 1.9,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "capzone__iconOffsetY": 2.0,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 4,
@@ -4460,7 +4466,7 @@
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 1,
       "decal__height": 0.5,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 5,
       "capzone__activateChoice:object": {
@@ -4493,7 +4499,7 @@
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 1,
       "decal__height": 1.1,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 6,
       "capzone__activateChoice:object": {
@@ -4561,7 +4567,7 @@
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 1,
       "decal__height": 0.25,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "capzone__iconOffsetY": 3.0,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 8,
@@ -4597,7 +4603,7 @@
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 1,
       "decal__height": 0.9,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "capzone__iconOffsetY": 3.0,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 9,
@@ -4631,7 +4637,7 @@
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 1,
       "decal__height": 2.0,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 10
     }
@@ -4661,7 +4667,7 @@
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 1,
       "decal__height": 1.2,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 11
     }

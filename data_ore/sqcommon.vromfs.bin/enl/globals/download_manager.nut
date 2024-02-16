@@ -2,7 +2,7 @@ from "%sqstd/functools.nut" import *
 from "frp" import *
 let eventbus = require("eventbus")
 let Log = require("%sqstd/log.nut")
-let http = require("dagor.http")
+let { httpRequest, HTTP_ABORTED, HTTP_FAILED, HTTP_SUCCESS} = require("dagor.http")
 let { logerr } = require("dagor.debug")
 
 local log = Log()
@@ -10,16 +10,14 @@ local log = Log()
 log = log.with_prefix("[DOWNLOAD MANAGER] ")
 
 let statusText = {
-  [http.SUCCESS] = "SUCCESS",
-  [http.FAILED] = "FAILED",
-  [http.ABORTED] = "ABORTED",
+  [HTTP_SUCCESS] = "SUCCESS",
+  [HTTP_FAILED] = "FAILED",
+  [HTTP_ABORTED] = "ABORTED",
 }
 let EVENT_HTTP_DOWNLOAD = "EVENT_HTTP_DOWNLOAD"
 
 let HTTP_REQUESTED = persist("HTTP_REQUESTED", @() freeze({}))
 let HTTP_READY = persist("HTTP_READY", @() freeze({}))
-let HTTP_ABORTED = persist("HTTP_ABORTED", @() freeze({}))
-let HTTP_FAILED = persist("HTTP_FAILED", @() freeze({}))
 
 let downloadCache = persist("downloadCache", @() {})
 let downloadStatus = Watched(downloadCache.map(@(_) HTTP_READY))
@@ -47,7 +45,7 @@ let function setDownloadedFile(key, file){
 local function httpGetRequest(url, cache_key=null, callback=null){
   cache_key = cache_key ?? url
   log($"HTTP requested for' {cache_key}', url = {url}")
-  http.request({ url, method = "GET", respEventId = EVENT_HTTP_DOWNLOAD, context=cache_key, callback})
+  httpRequest({ url, method = "GET", respEventId = EVENT_HTTP_DOWNLOAD, context=cache_key, callback})
 }
 
 eventbus.subscribe(EVENT_HTTP_DOWNLOAD, tryCatch(function(response){
@@ -55,10 +53,10 @@ eventbus.subscribe(EVENT_HTTP_DOWNLOAD, tryCatch(function(response){
   let cache_key = response.context
   log($"HTTP response for {cache_key}")
   //send_counter("download files response", 1, { http_code, status })
-  if (status != http.SUCCESS) {
-    if (status == http.ABORTED)
+  if (status != HTTP_SUCCESS) {
+    if (status == HTTP_ABORTED)
       setDownloadStatus(cache_key, HTTP_ABORTED)
-    else if (status == http.FAILED)
+    else if (status == HTTP_FAILED)
       setDownloadStatus(cache_key, HTTP_FAILED)
     throw($"http status {statusText?[status]}")
   }

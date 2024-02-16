@@ -3,7 +3,7 @@ require app
 require ecs.common
 require game.es.events
 require game.utils.team
-require EnlistedWalkerai
+require DngWalkerai
 require DagorConsole
 require DagorDebug3D
 require DagorRandom
@@ -45,7 +45,7 @@ def bot_leader_nav_create_es(evt : Event;
     else
       removeSubTemplate(memberEid, "bot_leader_nav")
 
-[es(tag=server, on_event=(EventComponentsDisappear, EventEntityDestroyed))]
+[es(tag=server, on_disappear)]
 def bot_leader_nav_destroy_es(evt : Event; team__id : int)
   ecs::query() <| $ [es] (squad__ownerPlayer : ecs::EntityId;
                           squad__leader : ecs::EntityId)
@@ -71,7 +71,7 @@ def bot_leader_nav_created_es(evt : Event;
   // located at their transform.
   bot_leader_nav__posOffset = rnd_float(0.0f, bot_leader_nav__posOffsetMax)
 
-[es(tag=server, on_event=(EventComponentsDisappear, EventEntityDestroyed), REQUIRE=bot_leader_nav)]
+[es(tag=server, on_disappear, REQUIRE=bot_leader_nav)]
 def bot_leader_nav_destroyed_es(evt : Event;
                                 eid : EntityId;
                                 var walker_agent aka my_walker_agent : EntityAgent;

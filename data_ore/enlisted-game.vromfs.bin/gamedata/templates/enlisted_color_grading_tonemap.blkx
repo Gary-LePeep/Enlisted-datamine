@@ -1,10 +1,10 @@
 {
   "postfx_color_grading_tonemap_enlisted": [
     {
-      "_extends": "postfx_color_grading_tonemap"
+      "_use": "postfx_color_grading_tonemap"
     },
     {
-      "_extends": "replicating"
+      "_use": "replicating"
     },
     {
       "_singleton": true
@@ -51,7 +51,7 @@
     },
     {
       "tonemap:object": {
-        "tonemapContrast": 1.28,
+        "tonemapContrast": 1.1,
         "tonemapShoulder": 0.85,
         "tonemapMidIn": 0.06,
         "tonemapMidOut": 0.18,
@@ -78,7 +78,7 @@
     }
   ],
   "postfx_color_grading_tonemap_death_alive_enlisted": {
-    "_extends": "postfx_color_grading_tonemap_enlisted",
+    "_use": "postfx_color_grading_tonemap_enlisted",
     "_singleton": true,
     "color_grading__death:object": {
       "colorSaturation": [1.0,1.0,1.0,0.3],

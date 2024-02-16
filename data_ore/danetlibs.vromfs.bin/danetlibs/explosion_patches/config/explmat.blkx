@@ -1,0 +1,60 @@
+{
+  "explMats": {
+    "shader": "explosion_patch_color",
+    "needMaterialTex": false,
+    "steel": {
+      "default": {
+        "normalMap": "decal_bullethole_metal_a_tex_n*",
+        "colorMap": "decal_bullethole_metal_a_tex_d*",
+        "sizeScale": 12.0
+      },
+      "kinetic_penetration": {
+        "normalMap": "decal_bullethole_metal_pr_gen_tex_n*",
+        "colorMap": "decal_bullethole_metal_pr_gen_tex_d*",
+        "sizeScale": 6.5
+      },
+      "kinetic_non_penetration": {
+        "normalMap": "decal_bullethole_metal_st_gen_tex_n*",
+        "colorMap": "decal_bullethole_metal_st_gen_tex_d*",
+        "sizeScale": 6.5,
+        "stretchMax": 1.5
+      },
+      "kinetic_ricochet": {
+        "normalMap": "decal_bullethole_metal_st_gen_tex_n*",
+        "colorMap": "decal_bullethole_metal_st_gen_tex_d*",
+        "sizeScale": 6.5,
+        "stretchMax": 2.0
+      },
+      "explosive_penetration": {
+        "normalMap": "decal_bullethole_metal_pr_splash_tex_n*",
+        "colorMap": "decal_bullethole_metal_pr_splash_tex_d*",
+        "sizeScale": 5.0
+      },
+      "explosive_non_penetration": {
+        "normalMap": "decal_bullethole_metal_st_splash_tex_n*",
+        "colorMap": "decal_bullethole_metal_st_splash_tex_d*",
+        "sizeScale": 6.0
+      },
+      "kinetic_sabot_penetration": {
+        "normalMap": "decal_bullethole_metal_pr_sub_tex_n*",
+        "colorMap": "decal_bullethole_metal_pr_sub_tex_d*",
+        "sizeScale": 5.0
+      },
+      "kinetic_sabot_non_penetration": {
+        "normalMap": "decal_bullethole_metal_st_sub_tex_n*",
+        "colorMap": "decal_bullethole_metal_st_sub_tex_d*",
+        "sizeScale": 5.0
+      },
+      "heat_penetration": {
+        "normalMap": "decal_bullethole_metal_pr_jet_tex_n*",
+        "colorMap": "decal_bullethole_metal_pr_jet_tex_d*",
+        "sizeScale": 6.0
+      },
+      "heat_non_penetration": {
+        "normalMap": "decal_bullethole_metal_st_jet_tex_n*",
+        "colorMap": "decal_bullethole_metal_st_jet_tex_d*",
+        "sizeScale": 5.0
+      }
+    }
+  }
+}

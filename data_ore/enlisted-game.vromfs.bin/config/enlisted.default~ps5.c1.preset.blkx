@@ -227,6 +227,13 @@
     }
   },
   {
+    "Human.RotateBuilding": {
+      "dev": 3,
+      "btn": 14,
+      "type": 1
+    }
+  },
+  {
     "Human.WeapModToggle": {
       "dev": 3,
       "btn": 2,
@@ -328,7 +335,13 @@
     }
   },
   {
-    "Human.BuildingAction": {
+    "Human.SupplyMenu": {
+      "dev": 3,
+      "btn": 9
+    }
+  },
+  {
+    "Human.DestroyBuilding": {
       "dev": 3,
       "btn": 7,
       "type": 1,
@@ -402,6 +415,47 @@
     }
   },
   {
+    "Mech.Strafe": {
+      "dev": 3,
+      "axis": 0,
+      "inverse": true,
+      "dzone": 0.0,
+      "nonlin": 0.0,
+      "maxVal": 1.0,
+      "relIncScale": 0.0,
+      "mod": {
+        "dev": 3,
+        "btn": 12
+      }
+    }
+  },
+  {
+    "Mech.ShootSecondary": {
+      "dev": 1,
+      "btn": 19
+    }
+  },
+  {
+    "Mech.ShootSecondary": {
+      "dev": 3,
+      "btn": 15
+    }
+  },
+  {
+    "Mech.ShootFlamethrower": {
+      "dev": 3,
+      "btn": 6,
+      "stickyToggle": true
+    }
+  },
+  {
+    "Mech.ShootFlamethrower": {
+      "dev": 3,
+      "btn": 6,
+      "stickyToggle": true
+    }
+  },
+  {
     "Vehicle.Shoot": {
       "dev": 3,
       "btn": 17
@@ -465,11 +519,14 @@
   {
     "Vehicle.ShootGrenadeLauncher": {
       "dev": 3,
-      "btn": 7,
-      "mod": {
-        "dev": 3,
-        "btn": 6
-      }
+      "btn": 6
+    }
+  },
+  {
+    "Vehicle.Horn": {
+      "dev": 3,
+      "btn": 13,
+      "type": 1
     }
   },
   {
@@ -790,6 +847,14 @@
     }
   },
   {
+    "Human.RepairBuilding": {
+      "dev": 3,
+      "btn": 14,
+      "type": 1,
+      "stickyToggle": true
+    }
+  },
+  {
     "Human.LeaveVehicleAlone": {
       "dev": 3,
       "btn": 14,
@@ -806,7 +871,7 @@
     "Human.UseBinocular": {
       "dev": 3,
       "btn": 0,
-      "type": 5
+      "type": 1
     }
   },
   {
@@ -833,7 +898,7 @@
   {
     "HUD.BuildingToolMenu": {
       "dev": 3,
-      "btn": 2,
+      "btn": 16,
       "type": 1
     }
   },

@@ -1,14 +1,18 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { configs } = require("%enlist/meta/configs.nut")
-let { gameProfile } = require("%enlist/soldiers/model/config/gameProfile.nut")
-let { curCampaign } = require("%enlist/meta/curCampaign.nut")
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
+let { curCampaignConfig } = require("%enlist/meta/curCampaign.nut")
+let { allArmiesInfo } = require("%enlist/soldiers/model/config/gameProfile.nut")
+
+let curMaxLevel = Computed(@() curCampaignConfig.value?.maxLevel ?? 0)
 
 let armyLevelsData = Computed(function() {
-  let { maxLevel = 0 } = gameProfile.value?.campaigns[curCampaign.value]
+  let maxLevel = curMaxLevel.value
   let { army_levels_data = [] } = configs.value
-  return maxLevel > 0 ? army_levels_data.slice(0, maxLevel) : army_levels_data
+  return maxLevel > 0
+    ? army_levels_data.slice(0, maxLevel)
+    : army_levels_data
 })
 
 let armiesUnlocks = Computed(@() configs.value?.armies_unlocks ?? [])
@@ -58,11 +62,16 @@ armyLevelDiscount.subscribe(function(_) {
 console_register_command(@(val)
   curLevelDiscount(type(val) == "integer" ? val : 0), "meta.setArmyLevelDiscount")
 
+let getArmyName = @(armyId) loc($"country/{allArmiesInfo.value[armyId].country}")
+
 return {
   armyLevelsData
   armiesUnlocks
   armiesRewards
 
+  curMaxLevel
   curLevelDiscount = Computed(@() curLevelDiscount.value)
   hasLevelDiscount
+
+  getArmyName
 }

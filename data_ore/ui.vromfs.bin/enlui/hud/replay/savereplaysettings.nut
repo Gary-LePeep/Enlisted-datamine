@@ -4,13 +4,18 @@ let { mkOnlineSaveData } = require("%enlSqGlob/mkOnlineSaveData.nut")
 let { levelTimeOfDay, changeDayTime, changeCameraFov, cameraFov, isRain, isSnow,
   isCinematicModeActive, changeBloom, changeAbberation, changeFilmGrain, changeMotionBlur,
   changeVignette, motionBlur, bloomEffect, filmGrain, abberation, vigneteEffect, weatherPreset,
-  changeWeatherPreset, isDofCameraEnabled, isDofFocalActive, dofFocusDist, dofFocalLength, dofStop,
-  dofBokeCount, dofBokeSize, changeBoke, changeBokeSize, changeStop, changeFocalLength,
-  changeFocusDist, isLightning, lenseFlareIntensity, changeLenseFlareIntensity, changeRain,
-  changeSnow, changeLightning, enablePostBloom, changePostBloom } = require("%ui/hud/replay/replayCinematicState.nut")
+  changeWeatherPreset, isDofCameraEnabled, isDofFilmic, isDofFocalActive, dofFocusDist,
+  dofFocalLength, dofStop, dofBokeCount, dofBokeSize, changeBoke, changeBokeSize, changeStop,
+  changeFocalLength, changeFocusDist, isLightning, lenseFlareIntensity, changeLenseFlareIntensity,
+  changeRain,changeSnow, changeLightning, enablePostBloom, changePostBloom,
+  isHudSettingsEnable } = require("%ui/hud/replay/replayCinematicState.nut")
 let { get_local_unixtime } = require("dagor.time")
 let msgbox = require("%ui/components/msgbox.nut")
-
+let {
+  showSelfAwards, showTeammateName, showTeammateMarkers, showCrosshairHints,
+  showTips, showGameModeHints, showPlayerUI
+} = require("%ui/hud/state/hudOptionsState.nut")
+let { isReplay } = require("%ui/hud/state/replay_state.nut")
 
 let savedReplayPresets = mkOnlineSaveData("savedReplayPresets", @() {})
 let savedReplayPresetsStored = savedReplayPresets.watch
@@ -84,6 +89,10 @@ let replaySettings = {
     watch = isDofCameraEnabled
     action = @(v) isDofCameraEnabled(v)
   }
+  isDofFilmic = {
+    watch = isDofFilmic
+    action = @(v) isDofFilmic(v)
+  }
   isDofFocalActive = {
     watch = isDofFocalActive
     action = @(v) isDofFocalActive(v)
@@ -107,6 +116,38 @@ let replaySettings = {
   dofBokeSize = {
     watch = dofBokeSize
     action = changeBokeSize
+  }
+  showSelfAwards = {
+    watch = showSelfAwards
+    action = @(v) showSelfAwards(v)
+  }
+  showTeammateName = {
+    watch = showTeammateName
+    action = @(v) showTeammateName(v)
+  }
+  showTeammateMarkers = {
+    watch = showTeammateMarkers
+    action = @(v) showTeammateMarkers(v)
+  }
+  showCrosshairHints = {
+    watch = showCrosshairHints
+    action = @(v) showCrosshairHints(v)
+  }
+  showTips = {
+    watch = showTips
+    action = @(v) showTips(v)
+  }
+  showGameModeHints = {
+    watch = showGameModeHints
+    action = @(v) showGameModeHints(v)
+  }
+  showPlayerUI = {
+    watch = showPlayerUI
+    action = @(v) showPlayerUI(v)
+  }
+  isHudSettingsEnable = {
+    watch = isHudSettingsEnable
+    action = @(v) isHudSettingsEnable(v)
   }
 }
 
@@ -190,6 +231,21 @@ let function deletePreset(presetIdx) {
 }
 
 lastChoosenPreset.subscribe(@(v) loadPreset(v))
+
+let function resetHudSettings() {
+  showSelfAwards(true)
+  showTeammateName(true)
+  showTeammateMarkers(true)
+  showCrosshairHints(true)
+  showTips(true)
+  showGameModeHints(true)
+  showPlayerUI(true)
+}
+
+let needResetHudSettings = Computed(@() isHudSettingsEnable.value && isReplay.value)
+needResetHudSettings.subscribe(@(v) v ? resetHudSettings() : null)
+if (isReplay.value && !isHudSettingsEnable.value)
+  resetHudSettings()
 
 local defaultSettings = {}
 let function saveDefaultSettings() {

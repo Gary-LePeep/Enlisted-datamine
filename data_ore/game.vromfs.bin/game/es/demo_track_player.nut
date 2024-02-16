@@ -2,16 +2,17 @@ import "%dngscripts/ecs.nut" as ecs
 let camera = require_optional("camera")
 if (camera == null)
   return
-let { Point3, dir_to_quat } = require("dagor.math")
+let { Point3, Point4, dir_to_quat } = require("dagor.math")
 let { get_cur_cam_entity, set_scene_camera_entity } = camera
 let { get_sync_time } = require("net")
 let {CmdResetAttrFloatAnim, CmdAddAttrFloatAnim, CmdResetPosAnim, CmdAddPosAnim, CmdAddRotAnim, CmdResetRotAnim} = require("animevents")
 
 
-let function side_dir_to_quat(dir) {
+let function side_dir_to_quat_packed(dir) {
   let up = Point3(0, 1, 0)
   let side = up % dir
-  return dir_to_quat(side)
+  let dir_quat = dir_to_quat(side)
+  return Point4(dir_quat.x, dir_quat.y, dir_quat.z, dir_quat.w)
 }
 
 
@@ -79,9 +80,9 @@ let function start_camera_tracks() {
   if (curTrack?.to_pos)
     ecs.g_entity_mgr.sendEvent(camera_eid, CmdAddPosAnim(curTrack.to_pos, curTrack.duration, true))
   if (curTrack?.from_dir)
-    ecs.g_entity_mgr.sendEvent(camera_eid, CmdResetRotAnim(side_dir_to_quat(curTrack.from_dir), get_sync_time(), ANIM_SINGLE))
+    ecs.g_entity_mgr.sendEvent(camera_eid, CmdResetRotAnim(side_dir_to_quat_packed(curTrack.from_dir), get_sync_time(), ANIM_SINGLE))
   if (curTrack?.to_dir)
-    ecs.g_entity_mgr.sendEvent(camera_eid, CmdAddRotAnim(side_dir_to_quat(curTrack.to_dir), curTrack.duration, true))
+    ecs.g_entity_mgr.sendEvent(camera_eid, CmdAddRotAnim(side_dir_to_quat_packed(curTrack.to_dir), curTrack.duration, true))
 
   cb_timer = ecs.set_callback_timer(callee(), curTrack.duration, false)
 }
@@ -98,7 +99,10 @@ let function stop_camera_tracks() {
 }
 
 
-let screenFadeQuery = ecs.SqQuery("screenFadeQuery", {comps_rw = ["screen_fade", "anim_track_on"] })
+let screenFadeQuery = ecs.SqQuery("screenFadeQuery", {comps_rw = [
+  ["screen_fade", ecs.TYPE_FLOAT],
+  ["anim_track_on", ecs.TYPE_BOOL]
+] })
 let linearCamerasQuery = ecs.SqQuery("linearCamerasQuery", { comps_ro = [["linear_cam_anim", ecs.TYPE_BOOL]] })
 
 let function create_fade_entity(next_function) {

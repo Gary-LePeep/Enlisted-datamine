@@ -73,3 +73,11 @@ def animchar_skeleton_visibility_es(evt : Event; skeleton_attach__attachedTo : e
                                     var animchar_render__enabled : bool&; slot_attach__visible : bool)
   query(skeleton_attach__attachedTo) <| $ [es] (isInVehicleHidden : bool; human__visible : bool; isInVehicleHiddenLocal : bool)
     animchar_render__enabled = calc_human_visibility(isInVehicleHidden, isInVehicleHiddenLocal, human__visible) && slot_attach__visible
+
+
+[es(tag=gameClient, on_appear, track=(human_binocular__isHideHuman, human_attached_gun__isHideHuman))]
+def human_visibility_update(evt : Event;
+                            human_binocular__isHideHuman : bool;
+                            human_attached_gun__isHideHuman : bool;
+                            var human__visible : bool&)
+  human__visible = !human_attached_gun__isHideHuman && !human_binocular__isHideHuman

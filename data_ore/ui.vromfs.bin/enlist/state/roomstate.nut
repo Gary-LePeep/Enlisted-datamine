@@ -1,13 +1,13 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
-let {DC_CONNECTION_LOST, DC_CONNECTION_CLOSED, EventOnNetworkDestroyed, EventOnConnectedToServer, EventOnDisconnectedFromServer} = require("net")
+let { DC_CONNECTION_CLOSED, EventOnNetworkDestroyed, EventOnConnectedToServer, EventOnDisconnectedFromServer} = require("net")
 let { DBGLEVEL } = require("dagor.system")
 let { logerr } = require("dagor.debug")
 let { system = null } = require_optional("system")
 let { get_game_name, get_circuit } = require("app")
 let { encodeString } = require("base64")
-let json = require("%sqstd/json.nut")
+let { json_to_string } = require("%sqstd/json.nut")
 let { deep_clone } = require("%sqstd/underscore.nut")
 
 let userInfo = require("%enlSqGlob/userInfo.nut")
@@ -27,11 +27,14 @@ let {squadId} = require("%enlist/squad/squadState.nut")
 let eventbus = require("eventbus")
 let {MatchingRoomExtraParams} = require("dasevents")
 let { OK, error_string } = require("matching.errors")
-let { pushNotification, removeNotify, subscribeGroup
+let { pushNotification, removeNotify, subscribeGroup, InvitationsStyle, InvitationsTypes
 } = require("%enlist/mainScene/invitationsLogState.nut")
 let { showMsgbox } = require("%enlist/components/msgbox.nut")
 let { remap_others } = require("%enlSqGlob/remap_nick.nut")
 let { nestWatched } = require("%dngscripts/globalState.nut")
+let { requestModManifest } = require("%enlist/gameModes/sandbox/customMissionState.nut")
+let { getModStartInfo } = require("%enlSqGlob/modsDownloadManager.nut")
+let { MOD_BY_VERSION_URL } = require("%enlSqGlob/game_mods_constant.nut")
 
 const INVITE_ACTION_ID = "room_invite_action"
 let LobbyStatus = {
@@ -68,6 +71,7 @@ let lobbyLauncherState = Computed(@() room.value?.public.launcherState ?? "no_se
 let myInfoUpdateInProgress = Watched(false)
 let playersWaitingResponseFor = Watched({})
 let joinedRoomWithInvite = Watched(false)
+let isHostInGame = Watched(true)
 
 let canStartWithLocalDedicated = DBGLEVEL > 0 && system != null
   ? Computed(@() roomIsLobby.value && room.value?.public != null)
@@ -327,12 +331,12 @@ let function startSessionWithLocalDedicated(user_cb, loadTimeout = 30.0) {
     return
   }
 
-  let cmdText = "@start win32/{game}-ded-dev --listen -game:{game} -config:circuit:t={circuit} -config:scene:t={scene} -invite_data={inviteData} -noeac -nonetenc"
+  let cmdText = "@start win32/{game}-ded-dev --listen -game:{game} -config:circuit:t={circuit} -config:scene:t={scene} -invite_data={inviteData} -config:timers/noPlayersExitTimeoutSec:r=120 -noeac -nonetenc"
     .subst({
       game = get_game_name()
       circuit = get_circuit()
       scene
-      inviteData = encodeString(json.to_string({ mode_info = room.value.public }, false))
+      inviteData = encodeString(json_to_string({ mode_info = room.value.public }, false))
     })
   log("Start local dedicated: ", cmdText)
   system(cmdText)
@@ -374,6 +378,8 @@ let function connectToHost() {
     authKey = getRoomMember(userInfo.value?.userId)?.private?.auth_key
     modManifestUrl = room.value.public?.modManifestUrl ?? ""
     modHash = room.value.public?.modHash ?? ""
+    modId = room.value.public?.modId ?? ""
+    modVersion = room.value.public?.modVersion ?? 0
     baseModsFilesUrl = room.value.public?.baseModsFilesUrl ?? ""
   }
 
@@ -389,7 +395,13 @@ let function connectToHost() {
   })
   room.mutate(@(v) v.gameStarted <- true)
   lastRoomResult(null)
-  startGame(launchParams)
+  if (launchParams.modId != "") {
+    requestModManifest(MOD_BY_VERSION_URL.subst(launchParams.modId, launchParams.modVersion), function(manifest, contents) {
+      startGame(launchParams.__merge(getModStartInfo(manifest, contents)))
+    })
+  }
+  else if (isHostInGame.value)
+    startGame(launchParams)
 }
 
 let function onDisconnectedFromServer(evt, _eid, _comp) {
@@ -398,11 +410,10 @@ let function onDisconnectedFromServer(evt, _eid, _comp) {
   if (lastSessionStartData.value == null)
     return
 
-  local connLost = false
-  switch (evt?.last_client_dc ?? evt[0]) {
-    case DC_CONNECTION_LOST:
+  local connLost = true
+  switch (evt[0]) {
     case DC_CONNECTION_CLOSED:
-      connLost = true
+      connLost = false
   }
 
   let { sessionId, loginTime } = lastSessionStartData.value
@@ -604,8 +615,10 @@ let function onRoomInvite(reqctx) {
     reqctx
     roomId
     inviterUid = request.invite_data.senderId
-    styleId = "toBattle"
-    text = loc("room/invite", {playername = request.invite_data.senderName})
+    nType = InvitationsTypes.TO_SQUAD
+    styleId = InvitationsStyle.TO_BATTLE
+    playerName = request.invite_data.senderName
+    text = loc("room/invite", { playername = remap_others(request.invite_data.senderName) })
     actionsGroup = INVITE_ACTION_ID
     needPopup = true
   })
@@ -709,4 +722,5 @@ return {
   inviteToRoom
   playersWaitingResponseFor
   joinedRoomWithInvite
+  isHostInGame
 }

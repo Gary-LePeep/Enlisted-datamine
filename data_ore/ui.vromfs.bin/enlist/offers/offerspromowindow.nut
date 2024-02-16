@@ -1,6 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { h1_txt, body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontHeading1, fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { debounce } = require("%sqstd/timers.nut")
 let { sceneWithCameraAdd, sceneWithCameraRemove } = require("%enlist/sceneWithCamera.nut")
 let canDisplayOffers = require("%enlist/canDisplayOffers.nut")
 let colorize = require("%ui/components/colorize.nut")
@@ -14,7 +15,7 @@ let { strokeStyle, bigPadding, hoverBgColor, accentTitleTxtColor, titleTxtColor
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { mkFormatText } = require("%enlist/components/formatText.nut")
 let { utf8ToUpper } = require("%sqstd/string.nut")
-let { hasSpecialEvent, isRequestInProgress, eventsAvailable, isUnseen, markSeen
+let { isRequestInProgress, eventsData, eventsKeysSorted, isUnseen, markSeen
 } = require("offersState.nut")
 let spinner = require("%ui/components/spinner.nut")
 let { eventTasksUi } = require("%enlist/unlocks/tasksWidgetUi.nut")
@@ -31,6 +32,7 @@ let PROMO_GAP = fsh(2)
 let DESC_WIDTH = fsh(120) - PROMO_WIDTH
 let DESC_PADDING = hdpx(20)
 let IMAGE_WIDTH = DESC_WIDTH - DESC_PADDING * 2
+let waitingSpinner = spinner()
 
 let header_txt = { font = Fonts.trebuchet, fontSize = fsh(2.78) }
 let text_txt = { font = Fonts.trebuchet, fontSize = fsh(1.76) }
@@ -85,7 +87,7 @@ let formatText = mkFormatText({
 let scrollHandler = ScrollHandler()
 
 let curEventId = mkWatched(persist, "curEventId", null)
-let curEventData = Computed(@() eventsAvailable.value.findvalue(@(e) e.id == curEventId.value))
+let curEventData = Computed(@() eventsData.value?[curEventId.value])
 
 
 let closeBtnSmall = closeBtnBase({
@@ -99,19 +101,19 @@ let closeBtn = textButton(loc("mainmenu/btnClose"), @() curEventId(null),
   { hotkeys = [[$"^{JB.B}"]] })
 
 let function mkHeaderTimeLeft(time) {
-  let timeLeft = Computed(@() max(0, time - serverTime.value))
+  let timeLeft = Computed(@() secondsToHoursLoc(max(0, time - serverTime.value)))
   return @() {
     watch = timeLeft
     rendObj = ROBJ_TEXTAREA
     behavior = Behaviors.TextArea
     text = loc("offers/timeLeft", {
-      time = colorize(accentTitleTxtColor, secondsToHoursLoc(timeLeft.value))
+      time = colorize(accentTitleTxtColor, timeLeft.value)
     })
     vplace = ALIGN_BOTTOM
     margin = bigPadding
     fontFx = FFT_BLUR
     fontFxColor = 0x7F000000
-  }.__update(body_txt)
+  }.__update(fontBody)
 }
 
 let function offersWindowTitle() {
@@ -136,7 +138,7 @@ let function offersWindowTitle() {
         text = utf8ToUpper(title)
         padding = [fsh(2), fsh(3)]
         color = titleTxtColor
-      }.__update(h1_txt),
+      }.__update(fontHeading1),
       casualFlagStyle)
     ]
   }
@@ -152,8 +154,8 @@ let descriptionLoading = freeze({
     {
       rendObj = ROBJ_TEXT
       text = loc("Loading")
-    }.__update(h1_txt)
-    spinner
+    }.__update(fontHeading1)
+    waitingSpinner
   ]
 })
 
@@ -166,7 +168,7 @@ let descriptionCommon = {
     size = [fsh(60), SIZE_TO_CONTENT]
     behavior = Behaviors.TextArea
     text = loc("offers/commonDescription")
-  }.__update(body_txt)
+  }.__update(fontBody)
 }
 
 let function offersWindowDescription() {
@@ -303,16 +305,18 @@ if (curEventId.value != null)
 curEventId.subscribe(@(v) v != null ? open() : close())
 
 let needShowOfferWindow = Computed(@() canDisplayOffers.value
-  && hasSpecialEvent.value
+  && eventsKeysSorted.value.len() > 0
   && isUnseen.value)
 
-let openOfferWindowDelayed = @()
-  gui_scene.resetTimeout(0.3, function() {
-    if (needShowOfferWindow.value)
-      curEventId(eventsAvailable.value[0].id)
-  })
+let openOfferWindowDelayed = debounce(function() {
+  if (needShowOfferWindow.value)
+    curEventId(eventsKeysSorted.value[0])
+}, 0.4)
 
 needShowOfferWindow.subscribe(@(v) v ? openOfferWindowDelayed() : null)
 openOfferWindowDelayed()
 
-return @(id) curEventId(id)
+return function(id) {
+  if (canDisplayOffers.value)
+    curEventId(id)
+}

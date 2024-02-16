@@ -3,17 +3,7 @@ require ecs
 
 
 [event(unicast, routing=ROUTING_SERVER_TO_CLIENT)]
-struct CmdHumanWatchedSpeech
-  phraseIdx : int
-  time : float
-
-[event(unicast, routing=ROUTING_SERVER_TO_CLIENT)]
-struct CmdHumanQuickChatSpeech
-  phraseIdx : int
-  time : float
-
-[event(unicast, routing=ROUTING_SERVER_TO_CLIENT)]
-struct CmdHumanSpeech
+struct CmdNetHumanSpeech
   phraseIdx : int
   time : float
 

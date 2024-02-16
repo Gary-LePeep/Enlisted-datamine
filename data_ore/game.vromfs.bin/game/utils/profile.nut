@@ -1,11 +1,11 @@
 let rand = require("%sqstd/rand.nut")()
 let isDedicated = require_optional("dedicated") != null
-let {put_to_mq_raw=null, mq_gen_transactid=null} = require_optional("message_queue")
+let {put_to_mq_raw=@(_, __) null, mq_gen_transactid=@() null} = require_optional("message_queue")
 let {get_arg_value_by_name} = require("dagor.system")
 let profile_server = require_optional("profile_server")
 let stdlog = require("%enlSqGlob/library_logs.nut")
 let logPSC = stdlog.with_prefix("[profileServerClient]")
-let json = require("json")
+let { json_to_string } = require("json")
 let { get_app_id } = require("app")
 let {logerr} = require("dagor.debug")
 
@@ -45,7 +45,7 @@ let function checkAndLogError(id, action, result) {
       }
     }
     if (typeof err != "string")
-      err = $"(full answer dump) {json.to_string(result)}"
+      err = $"(full answer dump) {json_to_string(result)}"
     logerr($"[profileServerClient] request {id}: {action} returned error: {err}")
   } else {
     logPSC($"request {id}: {action} completed without error")

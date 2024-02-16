@@ -1,8 +1,8 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let JB = require("%ui/control/gui_buttons.nut")
-let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
-let spinner = require("%ui/components/spinner.nut")({ height = hdpx(80) })
+let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
+let spinner = require("%ui/components/spinner.nut")
 let { WindowTransparent } = require("%ui/style/colors.nut")
 let { titleTxtColor, commonBtnHeight } = require("%enlSqGlob/ui/viewConst.nut")
 let { noteTextArea, txt } = require("%enlSqGlob/ui/defcomps.nut")
@@ -14,6 +14,7 @@ let btnStyle = {
   size = [SIZE_TO_CONTENT, commonBtnHeight]
 }
 
+let waitingSpinner = spinner()
 let defaultSize = [hdpx(432), hdpx(324)]
 
 let queueTitle = noteTextArea({
@@ -21,7 +22,7 @@ let queueTitle = noteTextArea({
   text = loc("mods/Downloading")
   halign = ALIGN_CENTER
   color = titleTxtColor
-}).__update(body_txt)
+}).__update(fontBody)
 
 let queueContent = @(message) {
   rendObj = ROBJ_TEXTAREA
@@ -35,7 +36,7 @@ let queueContent = @(message) {
   children = txt({
       text = loc(message)
       color = titleTxtColor
-    }).__update(body_txt)
+    }).__update(fontBody)
 }
 
 let closeButton = Bordered(loc("Ok"),
@@ -75,7 +76,7 @@ let infoContainer = @(text) {
           size = flex()
           halign = ALIGN_CENTER
           valign = ALIGN_CENTER
-          children = spinner
+          children = waitingSpinner
         }
       ]
     : [

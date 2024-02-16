@@ -1,6 +1,12 @@
 {
   "ussr_matilda_III": {
-    "_extends": "base_matilda_iii",
+    "_use": "base_matilda_iii",
+    "commanderCockpitFpsCamMaxAngle": [40.0,5.0],
+    "gunner_cam_limit__useCockpitDir": true,
+    "item__iconOffset": [0.05,0.1],
+    "item__iconScale": 1.17,
+    "armorThicknessHull": [75.0,70.0,55.0],
+    "armorThicknessTurret": [75.0,75.0,75.0],
     "vehicle_seats__seats:shared:array": [
       {
         "seats:object": {
@@ -103,39 +109,41 @@
     ]
   },
   "ussr_matilda_III_driver_cockpit": {
-    "_extends": "base_driver_cockpit_no_slits",
-    "animchar__res": "t_26_1940_driver_char",
-    "cockpit__offset": [-0.2,0.2,0.14],
-    "cockpit__visibleVehicleNodeNames:list<t>": [
-      {
-        "node": "track_l"
-      },
-      {
-        "node": "track_r"
-      }
-    ],
+    "_use": "base_driver_cockpit",
+    "animchar__res": "ba_11_driver_char",
+    "cockpit__offset": [-0.4,-0.05,0.37],
+    "cockpit__visibleVehicleNodeNames:list<t>": {
+      "node": "gun_barrel"
+    },
     "cockpit__slitForwardOffset:list<r>": {
+      "slit": -0.05
+    },
+    "cockpit__periscopeLimits:list<p4>": {
+      "slit": [-45.0,45.0,-0.0,0.0]
+    },
+    "cockpit__periscopeSpeed:list<p2>": {
+      "slit": [35.0,35.0]
+    },
+    "cockpit__slitZoom:array": {
+      "slit:list<r>": {
+        "zoom": 1.44
+      }
+    },
+    "cockpit__slitZoomTime:list<r>": {
       "slit": 0.0
-    },
-    "cockpit__slitIsGun:list<b>": {
-      "slit": false
-    },
-    "cockpit__slitNodeNames:list<t>": {
-      "slit": "cam_front"
     }
   },
   "ussr_matilda_III_gunner_cockpit": {
-    "vehicle_sight__blk": "content/tanks/gamedata/sight/uk_no_33_mkii_s.blk",
-    "_extends": "base_gunner_cockpit",
+    "_use": "base_gunner_cockpit",
     "animchar__res": "t_26_1940_gunner_char",
-    "cockpit__minZoom": -0.27,
+    "cockpit__minForwardOffset": -0.27,
     "cockpit__offset": [-0.0,-0.0,0.0],
     "cockpit__cockpitOffsetBySlit:list<p3>": [
       {
         "slit": [0.000138297,3.71826e-05,0.175782]
       },
       {
-        "slit": [-0.05,0.85,0.48]
+        "slit": [0.2,1.1,0.48]
       }
     ],
     "cockpit__attachNodeNames:list<t>": [
@@ -165,7 +173,7 @@
     ],
     "cockpit__slitForwardOffset:list<r>": [
       {
-        "slit": 0.19
+        "slit": 0.22
       },
       {
         "slit": 0.2
@@ -178,14 +186,64 @@
       {
         "slit": false
       }
-    ]
+    ],
+    "cockpit__periscopeLimits:list<p4>": [
+      {
+        "slit": [-0.0,0.0,0.0,0.0]
+      },
+      {
+        "slit": [-45.0,45.0,-0.0,25.0]
+      }
+    ],
+    "cockpit__periscopeSpeed:list<p2>": [
+      {
+        "slit": [-1.0,-1.0]
+      },
+      {
+        "slit": [35.0,35.0]
+      }
+    ],
+    "cockpit__slitZoomTime:list<r>": [
+      {
+        "slit": 0.05
+      },
+      {
+        "slit": 0.0
+      }
+    ],
+    "cockpit__slitZoom:array": [
+      {
+        "slit:list<r>": [
+          {
+            "zoom": 1.9
+          },
+          {
+            "zoom": 3.5
+          }
+        ]
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      }
+    ],
+    "cockpit__slitTemplates:list<t>": [
+      {
+        "slit": "uk_no_33_mkii_s"
+      },
+      {
+        "slit": "default_periscope"
+      }
+    ],
+    "cockpit__slitEids:list<eid>": []
   },
   "ussr_matilda_III_commander_cockpit": {
-    "_extends": "base_commander_cockpit_no_slits",
+    "_use": "base_commander_cockpit_no_slits",
     "animchar__res": "t_26_1940_commander_char",
     "cockpit__offset": [-0.0,0.0,-0.0],
     "cockpit__cockpitOffsetBySlit:list<p3>": {
-      "slit": [-0.6,1.15,0.3]
+      "slit": [-0.8,1.3,0.3]
     },
     "cockpit__visibleVehicleNodeNames:list<t>": [
       {
@@ -193,6 +251,9 @@
       },
       {
         "node": "bone_gun"
+      },
+      {
+        "node": "bone_turret"
       }
     ],
     "cockpit__slitForwardOffset:list<r>": {
@@ -203,17 +264,35 @@
     },
     "cockpit__slitNodeNames:list<t>": {
       "slit": "cam_front"
-    }
+    },
+    "cockpit__periscopeLimits:list<p4>": {
+      "slit": [-90.0,90.0,-5.0,25.0]
+    },
+    "cockpit__periscopeSpeed:list<p2>": {
+      "slit": [35.0,35.0]
+    },
+    "cockpit__slitZoom:array": {
+      "slit:list<r>": {
+        "zoom": 1.44
+      }
+    },
+    "cockpit__slitZoomTime:list<r>": {
+      "slit": 0.0
+    },
+    "cockpit__slitTemplates:list<t>": {
+      "slit": "default_periscope"
+    },
+    "cockpit__slitEids:list<eid>": []
   },
   "ussr_matilda_III_premium": {
-    "_extends": "ussr_matilda_III",
+    "_use": "ussr_matilda_III",
     "item__name": "items/ussr_a_12_mk_2_matilda_2",
     "animchar__objTexReplace:object": {
       "uk_camo_very_dark_drab*": "ussr_camo_green*"
     }
   },
   "uk_matilda_III_tunis_premium": {
-    "_extends": "ussr_matilda_III",
+    "_use": "ussr_matilda_III",
     "item__name": "items/uk_a_12_mk_2_matilda_2",
     "animchar__objTexReplace:object": {
       "uk_camo_very_dark_drab*": "uk_camo_light_mud_slate_grey*"

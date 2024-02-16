@@ -2141,6 +2141,7 @@
     "entity": {
       "_template": "briefing_invasion",
       "mission_name": "tunisia_cave_inv",
+      "mission_outfit": "tunisia",
       "loading_images:list<t>": [
         {
           "item": "ui/tunisia_cave_inv_01.avif"
@@ -2189,6 +2190,11 @@
   },
   {
     "entity": {
+      "_template": "bloom"
+    }
+  },
+  {
+    "entity": {
       "_template": "postfx_roundctrl"
     }
   },
@@ -2211,7 +2217,7 @@
       "team__briefing": "invasion/attackers_goals",
       "team__winSubtitle": "debriefing/won_invasion_subtitle",
       "team__loseSubtitle": "debriefing/lost_invasion_subtitle",
-      "team__winTitle": "debriefing/britain_won_invasion_title",
+      "team__winTitle": "debriefing/allies_won_invasion",
       "team__spawnBotArmy": "tunisia_allies"
     }
   },
@@ -2510,7 +2516,7 @@
       "capzone__createRespawnBaseForTeam": 2,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 5,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "decal__height": 1.0,
       "capzone__activateChoice:object": {
         "sector_3": 1.0
@@ -2544,7 +2550,7 @@
       "capzone__createRespawnBaseForTeam": 2,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 6,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "decal__height": 2.0,
       "capzone__iconOffsetY": 7.0,
       "capzone__activateChoice:object": {
@@ -2615,7 +2621,7 @@
       "capzone__createRespawnBaseForTeam": 2,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 8,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "decal__height": 1.0,
       "capzone__iconOffsetY": 10.0,
       "capzone__activateChoice:object": {

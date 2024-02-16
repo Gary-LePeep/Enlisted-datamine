@@ -1,13 +1,12 @@
 {
   "sound_effect": [
     {
-      "_extends": "sound_control"
+      "_use": "sound_control"
     },
     {
       "_group": {
         "_tags": "sound",
-        "sound_control__range": 0.0,
-        "sound_control__autoRange": true
+        "sound_control__range": 0.0
       }
     },
     {
@@ -16,10 +15,33 @@
         "sound_effect__path": "",
         "sound_effect__localOffset": [0.0,0.0,0.0],
         "sound_effect__abandonOnReset": false,
+        "sound_effect__autoRange": true,
         "sound_effect__event:SoundEvent": []
       }
     }
   ],
+  "replicated_sound_effect": [
+    {
+      "_use": "sound_effect"
+    },
+    {
+      "_use": "replicating"
+    },
+    {
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [0.0,0.0,0.0]
+      ]
+    },
+    {
+      "replicated_sound_effect__path": ""
+    }
+  ],
+  "disable_sound_effect": {
+    "_use": "disable_sound_control"
+  },
   "moveable_sound_effect": {
     "movableSoundEffect:tag": {
       "_tags": "sound"
@@ -39,10 +61,10 @@
   },
   "sound_effect_2d": [
     {
-      "_extends": "sound_bank_preset_state"
+      "_use": "sound_banks_state"
     },
     {
-      "_extends": "replicating"
+      "_use": "replicating"
     },
     {
       "_group": {
@@ -106,7 +128,7 @@
     }
   },
   "sound_occlusion": {
-    "_extends": "replicating",
+    "_use": "replicating",
     "_singleton": true,
     "_group": {
       "_tags": "sound",
@@ -115,7 +137,7 @@
   },
   "sound_physmat": [
     {
-      "_extends": "replicating"
+      "_use": "replicating"
     },
     {
       "_singleton": true
@@ -141,6 +163,36 @@
     "game_effect_sound__enemy": "",
     "game_effect_sound__event:SoundEvent": {
       "_tags": "sound"
+    }
+  },
+  "sound_landmesh_queries": {
+    "_group": {
+      "_tags": "sound",
+      "sound_landmesh_queries__lastQueryTime": -1.0,
+      "sound_landmesh_queries__biomePhysMatId": -1,
+      "sound_landmesh_queries__biomeOverridesWater": false,
+      "sound_landmesh_queries__biomeQueryId": -1,
+      "sound_landmesh_queries__puddleDepth": 0.0,
+      "sound_landmesh_queries__puddleQueryId": -1,
+      "sound_landmesh_queries_vars__speedSq": 0.0,
+      "sound_landmesh_queries_vars__isOnGround": true,
+      "sound_landmesh_queries__farawayThreshold": 15.0,
+      "sound_landmesh_queries__zeroSpeedThreshold": 0.01,
+      "sound_landmesh_queries__heroSpeedToQueryInterval": [0.0,4.0,1.0,0.2],
+      "sound_landmesh_queries__enemySpeedToQueryInterval": [0.0,4.0,1.5,0.5],
+      "sound_landmesh_queries__heroEnemyInAirInterval": [0.1,0.5],
+      "sound_landmesh_queries__lmeshDiff": 2.0,
+      "sound_landmesh_queries__puddleQueryToDepth": [0.1,0.4,0.0,0.05],
+      "sound_landmesh_queries__biomeToMaterial:list<ip2>": [],
+      "sound_landmesh_queries__biomes:object": {
+        "mud:object": {
+          "physmat": "mud"
+        },
+        "snow:object": {
+          "physmat": "snow",
+          "overrideWater": true
+        }
+      }
     }
   }
 }

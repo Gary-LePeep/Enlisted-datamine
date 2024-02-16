@@ -6,6 +6,8 @@ require enlisted.events_enlisted
 require enlisted.game.es.context_command_common
 require enlisted.game.es.squad_behaviour_command_common
 require enlisted.game.es.terraform.terraform_common
+require common_shooter.es.hit_result_common
+require game.es.hangar_hitcam_common
 require app
 require ecs
 require DagorSystem
@@ -23,6 +25,7 @@ def private load_sound_events() : bool
   var ok = true
   ok = load_das("%danetlibs/sound/human_sounds/modules/human_sounds_events.das") && ok
   ok = load_das("%danetlibs/sound/human_sounds_net/modules/human_sounds_net_events.das") && ok
+  ok = load_das("%danetlibs/sound/team_narrator/modules/team_narrator_events.das") && ok
   return ok
 
 
@@ -35,8 +38,9 @@ def load
   if app::get_game_name() == "aot" || (get_DAGOR_DBGLEVEL() > 0 && find_index(get_command_line_arguments(), "--das-no-linter") == -1)
     ok = load_das("%danetlibs/dascript_base/linter.das") && ok
 
-  if !is_in_aot() && get_DAGOR_ADDRESS_SANITIZER() == 0 && ecs_has_tag("render") && typeinfo(builtin_module_exists network) && typeinfo(builtin_module_exists debugapi) && find_index(get_command_line_arguments(), "--das-no-debugger") == -1
-    ok = load_das("%danetlibs/dascript_base/debugger_debug.das") && ok
+  if (!is_in_aot() && get_DAGOR_DBGLEVEL() > 0 && get_DAGOR_ADDRESS_SANITIZER() == 0 && get_DAGOR_THREAD_SANITIZER() == 0
+      && ecs_has_tag("render") && !has_value(get_command_line_arguments(), "--das-no-debugger"))
+    ok = load_das_debugger("%danetlibs/dascript_base/debugger_debug.das") && ok
 
   ok = load_nut_binds() && ok
   ok = load_ui_events() && ok

@@ -49,23 +49,23 @@
         "shell:object": {
           "blk": "gamedata/gen/weapons/shells/37mm_flak36_37mm_ger_mgr_he.blk",
           "name": "37mm_mgr_18",
-          "type": "frag_i_t"
+          "type": "he_i_t"
         }
       }
     }
   },
   "tankgun_37mm_flak36": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_tankgun_autocannon"
+      "_use": "base_tankgun_autocannon"
     },
     {
-      "_extends": "base_37mm_flak36"
+      "_use": "base_37mm_flak36"
     },
     {
-      "_extends": "gunsound_37mm_flak36"
+      "_use": "gunsound_37mm_flak36"
     },
     {
       "turret__triggerGroup": 0

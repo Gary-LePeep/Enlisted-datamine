@@ -3,46 +3,76 @@ from "%enlSqGlob/ui_library.nut" import *
 let { mark_as_seen } = require("%enlist/meta/clientApi.nut")
 let { configs } = require("%enlist/meta/configs.nut")
 let { prepareItems, preferenceSort } = require("items_list_lib.nut")
-let { curCampItems, objInfoByGuid } = require("state.nut")
-let { profile, curCampSoldiers } = require("%enlist/meta/profile.nut")
+let { curArmy } = require("state.nut")
+let { itemsByArmies, soldiersByArmies, commonArmy } = require("%enlist/meta/profile.nut")
 let { collectSoldierData } = require("%enlist/soldiers/model/curSoldiersState.nut")
 let { hasModalWindows } = require("%ui/components/modalWindows.nut")
+let { gameProfile } = require("%enlist/soldiers/model/config/gameProfile.nut")
+let { sourceProfileData } = require("%enlist/meta/sourceServProfile.nut")
+
 
 let justPurchasedItems = mkWatched(persist, "justPurchasedItems", [])
 
+let newItems = Computed(function() {
+  let res = itemsByArmies.value.map(@(armyItems)
+    armyItems.filter(@(item) !(item?.wasSeen ?? true)))
+  return res
+})
+
+let newSoldiers = Computed(function() {
+  let res = soldiersByArmies.value.map(@(armySoldiers)
+    armySoldiers.filter(@(soldier) !(soldier?.wasSeen ?? true)))
+  return res
+})
+
 let newItemsToShow = Computed(function() {
-  if ("items_templates" not in configs.value)
+  let { campaignByArmyId = null } = gameProfile.value
+  if (campaignByArmyId == null || "items_templates" not in configs.value)
     return null
 
-  let itemsGuids = []
-  foreach (guid, item in curCampItems.value)
-    if (!(item?.wasSeen ?? true))
-      itemsGuids.append(guid)
+  let commonArmyId = commonArmy.value
+  let curArmyId = curArmy.value
 
-  let soldiersGuids = []
-  foreach (guid, soldier in curCampSoldiers.value)
-    if (!(soldier?.wasSeen ?? true))
-      soldiersGuids.append(guid)
+  let armyByGuid = {}
+  let itemsObjects = {}
+  foreach (armyId, armyItems in newItems.value) {
+    if (armyId != curArmyId && armyId != commonArmyId)
+      foreach (guid, _ in armyItems)
+        armyByGuid[guid] <- armyId
+    itemsObjects.__update(armyItems)
+  }
+  let joinedItems = prepareItems(itemsObjects.keys(), itemsObjects)
 
-  let unseenGuids = [].extend(itemsGuids).extend(soldiersGuids)
-  return unseenGuids.len() > 0
+  local soldiersObjects = {}
+  foreach (armyId, armySoldiers in newSoldiers.value) {
+    if (armyId != curArmyId && armyId != commonArmyId)
+      continue // FIXME temporary do not show soldiers from other companies because of data access limits
+    /*
+      foreach (guid, _ in armySoldiers)
+        armyByGuid[guid] <- armyId
+    */
+    soldiersObjects.__update(armySoldiers)
+  }
+  soldiersObjects = soldiersObjects.map(collectSoldierData)
+
+  let allItems = [].extend(
+    joinedItems.sort(preferenceSort),
+    soldiersObjects.values().sort(preferenceSort))
+  return allItems.len() > 0
     ? {
         header = loc("battleRewardTitle")
-        allItems = prepareItems(unseenGuids, objInfoByGuid.value)
-          .sort(preferenceSort)
-          .map(@(item) item?.itemtype == "soldier" ? collectSoldierData(item) : item)
-        itemsGuids
-        soldiersGuids
+        allItems
+        itemsGuids = itemsObjects.keys()
+        soldiersGuids = soldiersObjects.keys()
+        armyByGuid
       }
     : null
 })
 
 let function markSeenGuids(objs, guids) {
-  let res = clone objs
   foreach (guid in guids)
     if (guid in objs)
-      res[guid] <- objs[guid].__merge({ wasSeen = true })
-  return res
+      objs[guid].wasSeen <- true
 }
 
 let isMarkSeenInProgress = Watched(false) //to ignore duplicate changes
@@ -55,9 +85,14 @@ let function markNewItemsSeen() {
   mark_as_seen(itemsGuids, soldiersGuids, @(_) isMarkSeenInProgress(false))
 
   //no need to wait for server answer to close this window
-  profile.mutate(function(p) {
-    p.soldiers <- markSeenGuids(p?.soldiers, soldiersGuids)
-    p.items <- markSeenGuids(p?.items, itemsGuids)
+  sourceProfileData.mutate(function(profile) {
+    let updSoldiers = profile.soldiers
+    markSeenGuids(updSoldiers, soldiersGuids)
+    profile.soldiers = clone updSoldiers
+
+    let updItems = profile.items
+    markSeenGuids(updItems, itemsGuids)
+    profile.items = clone updItems
   })
 }
 

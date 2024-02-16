@@ -1,31 +1,30 @@
 {
   "mass": 0.33,
+  "caliber": 0.03,
   "explosiveType": "hta",
   "explosiveMass": 0.085,
-  "caliber": 0.03,
-  "speed": 525.0,
-  "maxDistance": 1600.0,
+  "speed": 500.0,
+  "Cx": 0.6938,
+  "maxDistance": 2500.0,
   "normalizationPreset": "heat",
   "hitPowerMult": 2.0,
   "ricochetPreset": "he",
   "onHitChanceMultFire": 4.0,
-  "stabilityThreshold": 0.05,
+  "secondaryShattersPreset": "ap",
   "effectiveDistance": 300.0,
-  "stabilityCaliberToArmorThreshold": 5.0,
+  "stabilityThreshold": 0.05,
   "relativeVelHitShift": [300.0,1000.0],
-  "stabilityReductionAfterPenetration": 0.15,
+  "stabilityReductionAfterRicochet": 0.5,
   "relativeVelArmorShift": [200.0,1000.0],
-  "explodeTreshold": 0.001,
+  "stabilityReductionAfterPenetration": 0.15,
+  "fuseOnWater": true,
   "bulletType": "he_i_mine",
-  "fuseDelayDist": 0.1,
+  "fuseOnWaterProbability": 1.0,
+  "explodeTreshold": 0.001,
   "slopeEffectPreset": "ap",
-  "explodeOnRendinst": true,
-  "selfDestructionFx": "explosion_air_selfexplosion_small",
-  "explosionEffect": "hit_28_38mm_metal_he",
-  "groundCollisionEffect": "hit_28_38mm_dirt_he",
-  "ricochetEffect": "hit_28_38mm_metal_ap",
-  "waterCollisionEffect": "hit_28_38mm_water",
-  "explosionPatchRadius": 1.0,
+  "ricochetTimeToLive": 0.085,
+  "fuseDelayDist": 0.1,
+  "fresnel": [0.23,0.1,2.0],
   "stabilityRicochetModifier": [
     {
       "mod1": [0.0,0.05]
@@ -59,24 +58,6 @@
     "range_percent_of_ammo": [100.0,0.0],
     "traceFreq": 1,
     "tracer": "noColor"
-  },
-  "hitFx": {
-    "steel": {
-      "fx": "hit_28_38mm_metal_he",
-      "fxScale": [1.0,1.0]
-    },
-    "wood": {
-      "fx": "hit_28_38mm_wood_he",
-      "fxScale": [1.0,1.0]
-    },
-    "glass": {
-      "fx": "hit_28_38mm_metal_he",
-      "fxScale": [1.0,1.0]
-    },
-    "stone": {
-      "fx": "hit_28_38mm_stone_he",
-      "fxScale": [1.0,1.0]
-    }
   },
   "tracer": {
     "headColor": "#00000000",

@@ -1,9 +1,8 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { shopItems } = require("%enlist/shop/shopItems.nut")
-let { curCampaign } = require("%enlist/meta/curCampaign.nut")
+let { curCampaign, curCampaignConfig } = require("%enlist/meta/curCampaign.nut")
 let { curArmy } = require("%enlist/soldiers/model/state.nut")
-let { gameProfile } = require("%enlist/soldiers/model/config/gameProfile.nut")
 let { purchasesCount } = require("%enlist/meta/profile.nut")
 let { get_shop_item, apply_freemium } = require("%enlist/meta/clientApi.nut")
 let { bonusesList } = require("%enlist/currency/bonuses.nut")
@@ -14,8 +13,8 @@ let { getConfig } = require("%enlSqGlob/ui/campaignPromoPresentation.nut")
 const CAMPAIGN_NONE = 0
 
 let showCampaignGroup = Watched(null)
-let campaignConfigGroup = Computed(@()
-  gameProfile.value?.campaigns[curCampaign.value].campaignGroup ?? CAMPAIGN_NONE)
+
+let campaignConfigGroup = Computed(@() curCampaignConfig.value?.campaignGroup ?? CAMPAIGN_NONE)
 
 let campPresentation = Computed(@() getConfig(showCampaignGroup.value ?? campaignConfigGroup.value))
 
@@ -33,25 +32,16 @@ let curShopCampaignItems = Computed(function() {
   return res
 })
 
-let isPurchaseableCampaign = Computed(@() curShopCampaignItems.value.len() > 0)
+// TODO should be cleaned up after meta 2.0 will be applied
+let isPurchaseableCampaign = Computed(@() false)
 
-let isCampaignBought = Computed(function() {
-  if (!isPurchaseableCampaign.value)
-    return false
+let isCampaignBought = Computed(@() curShopCampaignItems.value
+  .findindex(@(item) (purchasesCount.value?[item.guid].amount ?? 0) > 0) != null)
 
-  return curShopCampaignItems.value
-    .findindex(@(item) (purchasesCount.value?[item.guid].amount ?? 0) > 0) != null
-})
+let needFreemiumStatus = Computed(@() false)
 
-let needFreemiumStatus = Computed(@() isPurchaseableCampaign.value && !isCampaignBought.value)
-
-let curCampaignAccessItem = Computed(function() {
-  if (!isPurchaseableCampaign.value)
-    return null
-
-  return curShopCampaignItems.value.reduce(@(res, item)
-    (item?.isPrimaryBuy ?? false) > (res?.isPrimaryBuy ?? false) ? item : res)
-})
+let curCampaignAccessItem = Computed(@() curShopCampaignItems.value.reduce(@(res, item)
+  (item?.isPrimaryBuy ?? false) > (res?.isPrimaryBuy ?? false) ? item : res))
 
 let curUpgradeDiscount = Computed(@()
   armyEffects.value?[curArmy.value].freemiumUpgradeDiscount ?? 0.0)
@@ -90,6 +80,7 @@ let armyEffectsFields = {
   maxSquadsInBattle = 0,
   maxInfantrySquads = 0,
   maxVehicleSquads = 0,
+  maxTransportSquads = 0,
   maxBikeSquads = 0,
   upgradeSoldiers = 0
   upgradeVehicles = 0

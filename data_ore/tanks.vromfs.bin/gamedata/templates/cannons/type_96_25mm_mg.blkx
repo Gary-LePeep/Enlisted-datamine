@@ -1,6 +1,6 @@
 {
   "type_96_25mm_mg_go": {
-    "_extends": "base_ai_gunner_turret",
+    "_use": "base_ai_gunner_turret",
     "animchar__res": "type_96_25mm_mg_char",
     "collres__res": "type_96_25mm_mg_collision",
     "phys_obj_net_phys__blk": "content/enlisted/gamedata/units/cannons/type_96_25mm_mg.blk",
@@ -111,29 +111,29 @@
     ]
   },
   "type_96_25mm_mg_shield_go": {
-    "_extends": "type_96_25mm_mg_go",
+    "_use": "type_96_25mm_mg_go",
     "animchar__res": "type_96_25mm_mg_shield_char",
     "collres__res": "type_96_25mm_mg_shield_collision",
     "phys_obj_net_phys__blk": "content/enlisted/gamedata/units/cannons/type_96_25mm_mg_shield.blk"
   },
   "type_96_25mm_mg_turret_01": {
-    "_extends": "turret_ai_25mm_type96_main",
+    "_use": "turret_ai_25mm_type96_main",
     "gun__shootNodeName": "bone_gun_barrel_01"
   },
   "type_96_25mm_mg_turret_02": {
-    "_extends": "turret_ai_25mm_type96",
+    "_use": "turret_ai_25mm_type96",
     "gun__shootNodeName": "bone_gun_barrel_02"
   },
   "type_96_25mm_mg_turret_03": {
-    "_extends": "turret_ai_25mm_type96",
+    "_use": "turret_ai_25mm_type96",
     "gun__shootNodeName": "bone_gun_barrel_03"
   },
   "turret_ai_25mm_type96_main": [
     {
-      "_extends": "turret_ai_25mm_type96"
+      "_use": "turret_ai_25mm_type96"
     },
     {
-      "_extends": "controlled_by_ai_gunner"
+      "_use": "controlled_by_ai_gunner"
     },
     {
       "turret_ai__shootAngleCos": 0.984
@@ -177,16 +177,16 @@
   ],
   "turret_ai_25mm_type96": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_tankgun_autocannon"
+      "_use": "base_tankgun_autocannon"
     },
     {
-      "_extends": "base_25mm_type96"
+      "_use": "base_25mm_type96"
     },
     {
-      "_extends": "gunsound_25mm_72k"
+      "_use": "gunsound_25mm_72k"
     },
     {
       "turret__triggerGroup": 0

@@ -1,0 +1,133 @@
+[
+  {
+    "import": "apc/us_halftrack_m3_a1_apc.blk"
+  },
+  {
+    "import": "apc/jp_halftrack_type_1_ho_ha_apc.blk"
+  },
+  {
+    "import": "apc/uk_universal_carrier_apc.blk"
+  },
+  {
+    "import": "apc/germ_sdkfz_251_9_apc.blk"
+  },
+  {
+    "import": "apc/germ_sdkfz_251_1_apc.blk"
+  },
+  {
+    "import": "apc/jp_type_94_isuzu_apc.blk"
+  },
+  {
+    "import": "apc/ussr_gaz_aaa_apc.blk"
+  },
+  {
+    "import": "apc/us_studebaker_us6_u1_apc.blk"
+  },
+  {
+    "import": "apc/germ_sdkfz_7_2_apc.blk"
+  },
+  {
+    "apc_settings": [
+      {
+        "_use": "mobile_respawn"
+      },
+      {
+        "_use": "vehicle_marker_ui"
+      },
+      {
+        "_use": "hud_vehicle_marker"
+      },
+      {
+        "mobile_respawn__occupiedSeats": 0
+      },
+      {
+        "_tracked": "mobile_respawn__occupiedSeats"
+      },
+      {
+        "mobile_respawn__seatOffset": 6
+      },
+      {
+        "canUseRespawnbaseType": "APC"
+      },
+      {
+        "destroyIfNoCrewLeft": false
+      },
+      {
+        "fire_damage__timeToExplosion": 20.0
+      },
+      {
+        "item__iconYaw": 25.0
+      },
+      {
+        "item__iconPitch": -3.0
+      },
+      {
+        "item__iconRoll": 15.0
+      },
+      {
+        "vehicle_seats__exitTime": 1.0
+      },
+      {
+        "vehicle_seats__enterTime": 2.0
+      },
+      {
+        "driverFpsCamMaxAngle": [90.0,50.0]
+      },
+      {
+        "commanderFpsCamMaxAngle": [90.0,50.0]
+      },
+      {
+        "passengerFpsCamMaxAngle": [90.0,50.0]
+      },
+      {
+        "vehicle_kill_assist__stat": "apcKillAssists"
+      },
+      {
+        "vehicle_kill_assist__crewStat": "apcKillAssistsAsCrew"
+      },
+      {
+        "vehicle_kill_assist__engineerStat": "builtGunApcKillAssists"
+      },
+      {
+        "vehicle_kill_assist__time": 20.0
+      },
+      {
+        "vehicle_kill__award": "apcKill"
+      },
+      {
+        "vehicle_kill__stat": "apcKills"
+      },
+      {
+        "vehicle_kill__crewStat": "crewApcKillAssists"
+      },
+      {
+        "vehicle_kill__engineerStat": "builtGunApcKills"
+      },
+      {
+        "vehicle__mapIcon": "truck_icon"
+      },
+      {
+        "user_point__icon": "truck_icon"
+      },
+      {
+        "ownedBySquad:eid": []
+      },
+      {
+        "ownedByPlayer:eid": []
+      },
+      {
+        "vehicleOffenders:object": {
+          "_tags": "server"
+        }
+      },
+      {
+        "_group": {
+          "_tags": "server",
+          "friendly_fire__penaltyCooldown": 5.0,
+          "friendly_fire__damageThreshold": 10.0,
+          "friendly_fire__lastPenaltyTime:object": []
+        }
+      }
+    ]
+  }
+]

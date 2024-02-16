@@ -1,10 +1,10 @@
 require ecs
 require ecs.common
-require EnlistedWalkerai
+require DngWalkerai
 require DagorRandom
 require DagorDataBlock
 require BehNodes
-require EnlistedWeapon
+require DngWeapon
 require game.es.events
 require game.es.vehicle.vehicle_events
 require human_sounds_net.modules.human_sounds_net_events
@@ -73,7 +73,7 @@ def squad_formation_es(evt : RequestSquadFormation;
     reset_squad_behaviour(eid)
 
 def squad_behaviour_speech(squad_eid : ecs::EntityId; leader_eid : ecs::EntityId; squad_behaviour : int)
-  if squad_behaviour == int(SquadBehaviour ESB_AGRESSIVE)
+  if squad_behaviour == int(SquadBehaviour ESB_AGGRESSIVE)
     sendEvent(leader_eid, [[CmdRequestHumanSpeech phrase="squadBehaviourAggressiveOrder"]])
   elif squad_behaviour == int(SquadBehaviour ESB_PASSIVE)
     sendEvent(leader_eid, [[CmdRequestHumanSpeech phrase="squadBehaviourPassiveOrder"]])

@@ -6,9 +6,9 @@ let isDedicated = require_optional("dedicated") != null
 let { logerr } = require("dagor.debug")
 let {EventOnGameAppStarted} = require("gameevents")
 let Log = require("%sqstd/log.nut")
-let {file} = require("io")
-let {requestModFiles} = require("%enlSqGlob/game_mods.nut")
+let {MOD_BY_VERSION_URL} = require("%enlSqGlob/game_mods_constant.nut")
 let log = Log().with_prefix("[GAME LOAD] ")
+let {downloadMod, getModStartInfo} = require("%enlSqGlob/modsDownloadManager.nut")
 //local dlog = log.dlog
 
 let function on_gameapp_started() {
@@ -27,37 +27,22 @@ let function on_gameapp_started() {
       importScenes =  importScenes.len()>0 ? importScenes : null
     }
 
-    let modHash = inviteData?.mode_info.modHash ?? get_arg_value_by_name("modHash") ?? ""
     let modId = inviteData?.mode_info.modId ?? ""
-    let baseModsFilesUrl = inviteData?.mode_info.baseModsFilesUrl ?? get_arg_value_by_name("baseModsFilesUrl") ?? "https://enlisted-sandbox.gaijin.net"
+    let modVersion = inviteData?.mode_info.modVersion ?? "1"
 
-    if (modHash=="") {
-      let ugm_fname = get_arg_value_by_name("modFile") ?? ""
-      local blob
-      if (ugm_fname!="") {
-        let f = file(ugm_fname, "rb")
-        blob = f.readblob(f.len())
-        f.close()
-      }
-      log($"no mod found, starting with scene = {scene}, ugm_fname = {ugm_fname}, importScenes = {",".join(importScenes ?? [])}")
-      switch_scene(scene, importScenes, connect, blob, modId)
+    if (modId=="") {
+      log($"no mod found, starting with scene = {scene}, importScenes = {",".join(importScenes ?? [])}")
+      switch_scene(scene, importScenes, connect, null/*mod info*/)
     }
     else {
-      if (baseModsFilesUrl=="") {
-        logerr("modHash should be specified with baseModsFilesUrl")
+      let modUrl = MOD_BY_VERSION_URL.subst(modId, modVersion)
+      downloadMod(modUrl, function(manifest, contents) {
+        let modStartInfo = getModStartInfo(manifest, contents)
+        log("modStartInfo", modStartInfo)
+        switch_scene(modStartInfo.scene, importScenes, connect, {modId}.__update(modStartInfo))
+      }, function(error_msg, http_code) {
+        logerr($"Failed to download mode '{modUrl}' error = '{error_msg}', http: {http_code}")
         exit_game()
-      }
-
-      requestModFiles(modHash, baseModsFilesUrl, function(vroms){
-        log("vroms.ready", vroms?.len())
-        if ((vroms?.len() ?? 0) < 1)
-          throw($"no vroms loaded, switch_scene() call skipped: baseUrl={baseModsFilesUrl}, hashes={modHash}")
-        let blob = vroms[0]
-        log("BLOB TYPE:", type(blob), "blob len", blob?.len())
-        if (blob != null)
-          switch_scene("scene.blk", importScenes, connect, blob, modId)
-        else
-          throw("no data!")
       })
     }
   }

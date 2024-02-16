@@ -1,12 +1,18 @@
 {
   "uk_crusader_mk_3": {
-    "_extends": "uk_crusader_mk_3_common",
+    "_use": "uk_crusader_mk_3_common",
     "animchar__objTexReplace:object": {
       "uk_camo_very_dark_drab*": "uk_camo_earth_yellow*"
     }
   },
   "uk_crusader_mk_3_common": {
-    "_extends": "base_crusader_mk_3",
+    "_use": "base_crusader_mk_3",
+    "commanderCockpitFpsCamMaxAngle": [40.0,5.0],
+    "gunner_cam_limit__useCockpitDir": true,
+    "item__iconOffset": [0.0,-0.0],
+    "item__iconScale": 1.11,
+    "armorThicknessHull": [20.0,14.0,14.0],
+    "armorThicknessTurret": [30.0,28.0,28.0],
     "vehicle_seats__seats:shared:array": [
       {
         "seats:object": {
@@ -121,7 +127,7 @@
     ]
   },
   "uk_crusader_mk_3_driver_cockpit": {
-    "_extends": "base_driver_cockpit",
+    "_use": "base_driver_cockpit",
     "animchar__res": "ba_11_driver_char",
     "cockpit__offset": [-0.3,-0.3,0.2],
     "cockpit__visibleVehicleNodeNames:list<t>": [
@@ -143,8 +149,7 @@
     ]
   },
   "uk_crusader_mk_3_gunner_cockpit": {
-    "vehicle_sight__blk": "content/tanks/gamedata/sight/uk_no_33_mkii_s.blk",
-    "_extends": "base_gunner_cockpit",
+    "_use": "base_gunner_cockpit",
     "animchar__res": "ba_11_gunner_char",
     "cockpit__offset": [-0.8,-0.06,0.23],
     "cockpit__visibleVehicleNodeNames:list<t>": [
@@ -159,7 +164,7 @@
       "slit": "cam_front_right"
     },
     "cockpit__slitForwardOffset:list<r>": {
-      "slit": 0.18
+      "slit": 0.21
     },
     "cockpit__slitIsGun:list<b>": {
       "slit": true
@@ -167,27 +172,113 @@
     "cockpit__cockpit__attachNodeNames:list<t>": {
       "node": "bone_camera_gunner"
     },
-    "cockpit__cockpit__attachNodeIndices:list<i>": []
+    "cockpit__cockpit__attachNodeIndices:list<i>": [],
+    "cockpit__slitZoom:array": {
+      "slit:list<r>": [
+        {
+          "zoom": 1.9
+        },
+        {
+          "zoom": 3.5
+        }
+      ]
+    },
+    "cockpit__slitTemplates:list<t>": {
+      "slit": "uk_no_33_mkii_s"
+    },
+    "cockpit__slitEids:list<eid>": []
   },
   "uk_crusader_mk_3_commander_cockpit": {
-    "_extends": "base_commander_cockpit_no_slits",
+    "_use": "base_commander_cockpit_no_slits",
     "animchar__res": "t_26_1940_commander_char",
-    "cockpit__offset": [-0.02,0.57,0.344],
-    "cockpit__visibleVehicleNodeNames:list<t>": {
-      "node": "gun_barrel"
-    },
+    "cockpit__offset": [-1.2,0.9,-0.25],
+    "cockpit__minForwardOffset": -0.0,
+    "cockpit__visibleVehicleNodeNames:list<t>": [
+      {
+        "node": "gun_barrel"
+      },
+      {
+        "node": "bone_turret"
+      },
+      {
+        "node": "hatch_01"
+      },
+      {
+        "node": "hatch_02"
+      },
+      {
+        "node": "root"
+      },
+      {
+        "node": "hatch_06"
+      },
+      {
+        "node": "hatch_07"
+      },
+      {
+        "node": "hatch_08"
+      },
+      {
+        "node": "ex_decor_01"
+      },
+      {
+        "node": "ex_decor_02"
+      },
+      {
+        "node": "ex_decor_r_06"
+      },
+      {
+        "node": "ex_decor_l_06"
+      },
+      {
+        "node": "ex_decor_r_05"
+      },
+      {
+        "node": "ex_decor_l_05"
+      },
+      {
+        "node": "ex_decor_r_04"
+      },
+      {
+        "node": "ex_decor_l_04"
+      },
+      {
+        "node": "ex_decor_turret_r_01"
+      },
+      {
+        "node": "ex_decor_turret_l_01"
+      }
+    ],
     "cockpit__slitForwardOffset:list<r>": {
-      "slit": 0.16
+      "slit": 0.165
     },
     "cockpit__slitIsGun:list<b>": {
       "slit": true
     },
     "cockpit__slitNodeNames:list<t>": {
       "slit": "cam_front"
-    }
+    },
+    "cockpit__periscopeLimits:list<p4>": {
+      "slit": [-90.0,90.0,-5.0,25.0]
+    },
+    "cockpit__periscopeSpeed:list<p2>": {
+      "slit": [35.0,35.0]
+    },
+    "cockpit__slitZoom:array": {
+      "slit:list<r>": {
+        "zoom": 1.44
+      }
+    },
+    "cockpit__slitZoomTime:list<r>": {
+      "slit": 0.0
+    },
+    "cockpit__slitTemplates:list<t>": {
+      "slit": "default_periscope"
+    },
+    "cockpit__slitEids:list<eid>": []
   },
   "uk_crusader_mk_3_19_40_bovinton_twitch_drop_premium": {
-    "_extends": "uk_crusader_mk_3_common",
+    "_use": "uk_crusader_mk_3_common",
     "animchar__objTexSet:object": {
       "crusader_mk_2_body_c*:object": {
         "crusader_mk_2_bovinton_19_40_body_c*": "camo_skin_tex"
@@ -201,7 +292,7 @@
     }
   },
   "uk_crusader_mk_3_7ad_1st_rb_battlepass_premium": {
-    "_extends": "uk_crusader_mk_3_common",
+    "_use": "uk_crusader_mk_3_common",
     "animchar__objTexSet:object": {
       "crusader_mk_2_body_c*:object": {
         "crusader_mk_2_7ad_1st_rb_body_c*": "camo_skin_tex"

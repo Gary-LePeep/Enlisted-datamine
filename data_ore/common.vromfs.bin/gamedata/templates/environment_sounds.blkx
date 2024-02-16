@@ -1,0 +1,146 @@
+{
+  "sandstorm_sound": {
+    "_use": "sound_effect_2d",
+    "_group": {
+      "_tags": "sound",
+      "sound_effect_2d__path": "ambient/sandstorm"
+    }
+  },
+  "sound_effect_mill_outside": [
+    {
+      "_use": "sound_effect"
+    },
+    {
+      "_use": "replicating"
+    },
+    {
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [0.0,0.0,0.0]
+      ]
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "sound_effect__path": "env_effects/mill/mill_outside"
+      }
+    }
+  ],
+  "sound_effect_mill_inside": [
+    {
+      "_use": "sound_effect"
+    },
+    {
+      "_use": "replicating"
+    },
+    {
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [0.0,0.0,0.0]
+      ]
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "sound_effect__path": "env_effects/mill/mill_inside"
+      }
+    }
+  ],
+  "sound_effect_is_clock_a": [
+    {
+      "_use": "occluded_sound"
+    },
+    {
+      "_use": "destroyable_sound_effect"
+    },
+    {
+      "_use": "replicating"
+    },
+    {
+      "clock_chime__ringSound": "events/003/clock_bells"
+    },
+    {
+      "clock_chime__localOffset": [0.4,1.8,0.0]
+    },
+    {
+      "shreddableInDarkZone": true
+    },
+    {
+      "occludedSoundWithSoundControl:tag": []
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "sound_effect__path": "env_effects/clocks/clock_a",
+        "sound_effect__localOffset": [0.4,1.8,0.0]
+      }
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "occluded_sound__localOffset": [0.4,1.8,0.0]
+      }
+    },
+    {
+      "clock_chime__event:SoundEvent": {
+        "_tags": "sound"
+      }
+    }
+  ],
+  "geyser_sound": {
+    "_use": "sound_effect",
+    "geyser_sound__spawnRateThreshold": 0.5,
+    "_group": {
+      "_tags": "sound",
+      "sound_effect__path": "env_effects/geyser"
+    }
+  },
+  "lava_sound": {
+    "_use": "sound_effect",
+    "_group": {
+      "_tags": "sound",
+      "sound_effect__path": "env_effects/fire/lava"
+    }
+  },
+  "pipes_sound": {
+    "_use": "spline_sound",
+    "_group": {
+      "_tags": "sound",
+      "spline_sound__path": "ambient/positioned/water_pipe"
+    }
+  },
+  "cave_volume_ambient_sound": {
+    "_use": "volume_ambient_sound",
+    "_group": {
+      "_tags": "sound",
+      "volume_ambient_sound__fadeInOutSpeed": [0.25,0.5],
+      "volume_ambient_sound__reverb_intensity_roomSize_absorption_weight": [100.0,20.0,0.0,1.0]
+    }
+  },
+  "cave_compound_ambient_sound": {
+    "_use": "compound_ambient_sound",
+    "_group": {
+      "_tags": "sound",
+      "compound_ambient_sound__fadeInOutSpeed": [0.25,0.5],
+      "compound_ambient_sound__reverb_intensity_roomSize_absorption_weight": [100.0,20.0,0.0,1.0]
+    }
+  },
+  "ambient_sound_field": {
+    "_use": "sound_field",
+    "_group": {
+      "_tags": "sound",
+      "sound_field__vars:list<t>": [
+        {
+          "var": "biome_high_hills"
+        },
+        {
+          "var": "biome_city"
+        }
+      ]
+    }
+  }
+}

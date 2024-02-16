@@ -2,12 +2,12 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { friendsOnlineUids, myRequestsUids, requestsToMeUids
 } = require("%enlist/contacts/contactsWatchLists.nut")
-let { Contact, getContactNick } = require("%enlist/contacts/contact.nut")
+let { updateContact, getContactNick } = require("%enlist/contacts/contact.nut")
 let { isInBattleState } = require("%enlSqGlob/inBattleState.nut")
 let { save_settings, get_setting_by_blk_path, set_setting_by_blk_path } = require("settings")
 let userInfo = require("%enlSqGlob/userInfo.nut")
 let { isLoggedIn } = require("%enlSqGlob/login_state.nut")
-let { addPopup } = require("%enlist/popup/popupsState.nut")
+let { addPopup } = require("%enlSqGlob/ui/popup/popupsState.nut")
 
 const FRIEND_NOTIFICATION = "hasFriendOnlineNotification"
 let hasFriendOnlineNotification = Watched(get_setting_by_blk_path(FRIEND_NOTIFICATION) ?? true)
@@ -53,7 +53,7 @@ let function fillFriendsCache(friends) {
 
   toAdd.each(@(contact) userInfo?.value.userId == contact ? null : addPopup({
       id = $"{contact}_online_alert"
-      text = loc("contact/onlineNotif", { contact = getContactNick(Contact(contact).value) })
+      text = loc("contact/onlineNotif", { contact = getContactNick(updateContact(contact)) })
       needPopup = true
       styleName = "silence"
     }))

@@ -1,7 +1,7 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
-let {h2_txt} = require("%enlSqGlob/ui/fonts_style.nut")
+let {fontHeading2} = require("%enlSqGlob/ui/fontsStyle.nut")
 let { watchedHeroEid, watchedTeam } = require("%ui/hud/state/watched_hero.nut")
 let { getZoneWatch } = require("%ui/hud/state/capZones.nut")
 let capzoneProgress = require("capzoneProgress.nut")
@@ -20,7 +20,7 @@ let ZONE_BG_COLOR = Color(60, 60, 60, 60)
 let ZONE_LOCK_COLOR = Color(160, 160, 160, 160)
 let ZONE_LOCK_ENEMY_PRESENT_COLOR = Color(160, 160, 160, 160)
 
-let zoneLockIconSize = [hdpx(21), hdpx(21)]
+let zoneLockIconSize = array(2, hdpxi(21))
 
 let baseZoneAppearAnims = [
   { prop=AnimProp.scale, from=[2.5,2.5], to=[1,1], duration=0.4, play=true}
@@ -69,7 +69,7 @@ let mkZoneText = memoize(@(caption, animations){
     halign  = ALIGN_CENTER
     valign = ALIGN_BOTTOM
     animations
-  }.__update(h2_txt)
+  }.__update(fontHeading2)
 )
 
 
@@ -100,7 +100,7 @@ let function capzoneCtor(zoneWatch, params={}) {
       ? mkObjectiveProgress(zoneData, heroTeam, highlightedSize, !isReplay.value || !isReplayStopped.value)
       : null
     if (active && ownTeamIcon != null) {
-      zoneProgress.__update({
+      zoneProgress.__update({ // -access-potentially-nulled
         image = mkZoneIcon(ownTeamIcon, highlightedSize[0])
         color = ZONE_BG_COLOR
       })
@@ -109,7 +109,7 @@ let function capzoneCtor(zoneWatch, params={}) {
     let margin = params?.margin ?? (size[0] / 1.5).tointeger()
     let total = (params?.total ?? 0).tofloat()
     let idx = (params?.idx ?? 0).tofloat()
-    let gap_v = hdpx(70)
+    let gap_v = hdpx(60)
     let hlCenteredOffset = [((total - 1.0) * 0.5 - idx) * (size[0] + margin), size[1] + gap_v]
     let isEnemyOnLockedZone = locked && capzoneHasEnemies(presenceTeamCount)
 

@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let {body_txt} = require("%enlSqGlob/ui/fonts_style.nut")
+let {fontBody} = require("%enlSqGlob/ui/fontsStyle.nut")
 let {HIGHLIGHT_COLOR} = require("%ui/hud/style.nut")
 
 
@@ -18,14 +18,16 @@ let function optionLabel(opt, _group) {
       onElemState = @(sf) stateFlags.update(sf)
       clipChildren = true
       rendObj = ROBJ_TEXT //do not made this stext as it can eat all atlas
-
+      behavior = Behaviors.Marquee
+      delay = [3, 1]
+      speed = 50
       //stopMouse = true
       text
       color
       sound = {
         hover = "ui/menu_highlight_settings"
       }
-    }.__update(body_txt)
+    }.__update(fontBody)
   }
 }
 

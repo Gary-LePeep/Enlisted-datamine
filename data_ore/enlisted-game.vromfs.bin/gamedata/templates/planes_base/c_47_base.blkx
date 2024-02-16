@@ -1,0 +1,99 @@
+{
+  "base_c_47": {
+    "plane_phys_damage__blk": "gamedata/units/c_47.blk",
+    "animchar__res": "c_47a_char"
+  },
+  "c_47_wreckage": [
+    {
+      "_use": "base_c_47"
+    },
+    {
+      "_use": "plane_wreckage"
+    },
+    {
+      "plane_wreckage__nodeName": ""
+    },
+    {
+      "plane_wreckage__typeName": ""
+    }
+  ],
+  "c_47_base": [
+    {
+      "_use": "plane_with_cockpit"
+    },
+    {
+      "_use": "base_c_47"
+    },
+    {
+      "collres__res": "c_47a_collision"
+    },
+    {
+      "plane_net_phys__blk": "gamedata/units/c_47.blk"
+    },
+    {
+      "damage_model__blk": "gamedata/units/c_47.blk"
+    },
+    {
+      "plane_collision__blk": "gamedata/units/c_47.blk"
+    },
+    {
+      "plane_anim__blk": "gamedata/units/c_47.blk"
+    },
+    {
+      "plane_sight__blk": "gamedata/units/c_47.blk"
+    },
+    {
+      "plane_input__autopilotImpl": "No"
+    },
+    {
+      "canUseRespawnbaseType": "aircraft_assault"
+    },
+    {
+      "is_seaplane": false
+    },
+    {
+      "plane_wreckage__template": "c_47_wreckage"
+    },
+    {
+      "killLogName": "c_47"
+    },
+    {
+      "animchar__res": "c_47a_char"
+    },
+    {
+      "vehicle_seats_camera_nodes__defaultNode": ""
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "animchar_camera_target__node_name": "",
+        "animchar_camera_target__node_offset": [0.0,0.0,0.0]
+      }
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "plane_engine_sound__engine": "engine18"
+      }
+    },
+    {
+      "plane_hit_sound__canopyNodes:list<t>": {
+        "_tags": "sound",
+        "name": "fuse_dm"
+      }
+    },
+    {
+      "vehicle_seats_can_acquire_controls:list<i>": []
+    },
+    {
+      "vehicle_seats__canAcquireControls:shared:object": {
+        "driver:object": {
+          "turrets": true
+        },
+        "main_gunner:object": {
+          "turrets": true
+        }
+      }
+    }
+  ]
+}

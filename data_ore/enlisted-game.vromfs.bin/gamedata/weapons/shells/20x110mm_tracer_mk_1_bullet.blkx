@@ -2,27 +2,23 @@
   "mass": 0.132,
   "caliber": 0.02,
   "speed": 835.0,
-  "maxDistance": 2000.0,
+  "Cx": 0.44,
+  "maxDistance": 5000.0,
   "normalizationPreset": "default",
   "modelName": "tank_bullet_ap",
   "ricochetPreset": "default",
-  "secondaryShattersPreset": "ap",
+  "groundRicochetPreset": "default",
   "recoilMultiplier": 0.3,
+  "secondaryShattersPreset": "ap",
   "stabilityThreshold": 0.05,
-  "stabilityCaliberToArmorThreshold": 5.0,
   "hitPowerMult": 7.0,
-  "stabilityReductionAfterRicochet": 0.5,
+  "stabilityCaliberToArmorThreshold": 5.0,
   "onHitChanceMultFire": 3.0,
-  "bulletType": "t_shell",
+  "stabilityReductionAfterPenetration": 0.3,
   "effectiveDistance": 700.0,
-  "slopeEffectPreset": "ap",
+  "bulletType": "t_shell",
   "relativeVelHitShift": [300.0,1000.0],
   "relativeVelArmorShift": [200.0,1000.0],
-  "selfDestructionFx": "explosion_air_selfexplosion_small",
-  "explosionEffect": "hit_19_27mm_metal_ap",
-  "groundCollisionEffect": "hit_19_27mm_dirt_ap",
-  "ricochetEffect": "hit_19_27mm_metal_ap",
-  "waterCollisionEffect": "hit_19_27mm_water",
   "stabilityRicochetModifier": [
     {
       "mod1": [0.0,0.05]
@@ -55,8 +51,8 @@
   "visual": {
     "range_percent_of_ammo": [100.0,0.0],
     "traceFreq": 1,
-    "tracer": "20mmBrightRed",
-    "trail": "noTrail"
+    "tracer": "20mmRed",
+    "trail": "black"
   },
   "tracer": {
     "headColor": "#ff0f0fff",

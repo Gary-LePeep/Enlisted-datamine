@@ -5504,6 +5504,11 @@
   },
   {
     "entity": {
+      "_template": "bloom"
+    }
+  },
+  {
+    "entity": {
       "_template": "postfx_roundctrl",
       "post_fx:object": []
     }
@@ -5524,6 +5529,7 @@
     "entity": {
       "_template": "briefing_invasion",
       "mission_name": "stalingrad_univermag_inv_counter",
+      "mission_outfit": "stalingrad",
       "loading_images:list<t>": [
         {
           "item": "ui/stalingrad_inv_01.avif"
@@ -5592,8 +5598,8 @@
     "entity": {
       "_template": "team_stalingrad_axis+team_narrator_invasion_attack+respawn_creators_team",
       "team__memberCount": 0.0,
-      "team__scoreCap": 2400.0,
-      "team__score": 2400.0,
+      "team__scoreCap": 2000.0,
+      "team__score": 2000.0,
       "team__squadSpawnCost": 250,
       "team__firstSpawnCostMul": 0.0,
       "team__zeroScoreFailTimer": 60.0,
@@ -5601,7 +5607,7 @@
       "team__briefing": "invasion/attackers_goals",
       "team__winSubtitle": "debriefing/won_invasion_subtitle",
       "team__loseSubtitle": "debriefing/lost_invasion_subtitle",
-      "team__winTitle": "debriefing/ger_won_invasion",
+      "team__winTitle": "debriefing/axis_won_invasion",
       "team__spawnBotArmy": "stalingrad_axis"
     }
   },
@@ -5620,7 +5626,7 @@
       "capzone__onlyTeamCanCapture": 2,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_1_a",
-      "capzone__capTime": 40.0,
+      "capzone__capTime": 50.0,
       "capzone__capTeam": -1,
       "transform": [
         [38.4324,0.0,-1.20541],
@@ -5631,13 +5637,13 @@
       "active": false,
       "capzone__decapTime": 6000.0,
       "ui_order": 1,
-      "capzone__capReward": 500.0,
+      "capzone__capReward": 250.0,
       "capzone__icon": "AAA",
       "capzone__caption": "capzone/gorky_theater",
       "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 1,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "decal__height": 1.5,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 12,
@@ -5654,7 +5660,7 @@
       "capzone__onlyTeamCanCapture": 2,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_1_b",
-      "capzone__capTime": 40.0,
+      "capzone__capTime": 50.0,
       "capzone__capTeam": -1,
       "transform": [
         [18.4398,0.0,-0.578355],
@@ -5665,13 +5671,13 @@
       "active": false,
       "capzone__decapTime": 6000.0,
       "ui_order": 1,
-      "capzone__capReward": 500.0,
+      "capzone__capReward": 250.0,
       "capzone__icon": "AAA",
       "capzone__caption": "capzone/gorky_theater",
       "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 1,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "decal__height": 1.5,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 13,
@@ -5687,7 +5693,7 @@
       "capzone__onlyTeamCanCapture": 2,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_2_a",
-      "capzone__capTime": 50.0,
+      "capzone__capTime": 60.0,
       "capzone__capTeam": -1,
       "transform": [
         [1.0,0.0,0.0],
@@ -5698,7 +5704,7 @@
       "active": false,
       "capzone__decapTime": 6000.0,
       "ui_order": 2,
-      "capzone__capReward": 500.0,
+      "capzone__capReward": 250.0,
       "capzone__icon": "AAA",
       "capzone__caption": "capzone/executive_committee",
       "capzone__iconOffsetY": 3.0,
@@ -5721,7 +5727,7 @@
       "capzone__onlyTeamCanCapture": 2,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_2_b",
-      "capzone__capTime": 50.0,
+      "capzone__capTime": 40.0,
       "capzone__capTeam": -1,
       "transform": [
         [1.0,0.0,0.0],
@@ -5732,7 +5738,7 @@
       "active": false,
       "capzone__decapTime": 6000.0,
       "ui_order": 2,
-      "capzone__capReward": 500.0,
+      "capzone__capReward": 250.0,
       "capzone__icon": "AAA",
       "capzone__caption": "capzone/ruins",
       "capzone__iconOffsetY": 3.0,
@@ -5766,7 +5772,7 @@
       "active": false,
       "capzone__decapTime": 6000.0,
       "ui_order": 3,
-      "capzone__capReward": 500.0,
+      "capzone__capReward": 250.0,
       "capzone__icon": "AAA",
       "capzone__caption": "capzone/shop",
       "capzone__iconOffsetY": 3.0,
@@ -5789,7 +5795,7 @@
       "capzone__onlyTeamCanCapture": 2,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_3_b",
-      "capzone__capTime": 40.0,
+      "capzone__capTime": 30.0,
       "capzone__capTeam": -1,
       "transform": [
         [-10.0648,0.0,-63.7642],
@@ -5800,13 +5806,13 @@
       "active": false,
       "capzone__decapTime": 6000.0,
       "ui_order": 3,
-      "capzone__capReward": 500.0,
+      "capzone__capReward": 250.0,
       "capzone__icon": "AAA",
       "capzone__caption": "capzone/fallen_fighters_square",
       "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 1,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "decal__height": 2.7,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 8,
@@ -5823,7 +5829,7 @@
       "capzone__onlyTeamCanCapture": 2,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_3_c",
-      "capzone__capTime": 50.0,
+      "capzone__capTime": 60.0,
       "capzone__capTeam": -1,
       "transform": [
         [1.0,0.0,0.0],
@@ -5834,7 +5840,7 @@
       "active": false,
       "capzone__decapTime": 6000.0,
       "ui_order": 3,
-      "capzone__capReward": 500.0,
+      "capzone__capReward": 250.0,
       "capzone__icon": "AAA",
       "capzone__caption": "capzone/shop",
       "capzone__iconOffsetY": 3.0,
@@ -5867,7 +5873,7 @@
       "active": false,
       "capzone__decapTime": 6000.0,
       "ui_order": 4,
-      "capzone__capReward": 500.0,
+      "capzone__capReward": 250.0,
       "capzone__icon": "AAA",
       "capzone__caption": "capzone/univermag",
       "capzone__iconOffsetY": 3.0,
@@ -5900,13 +5906,13 @@
       "active": false,
       "capzone__decapTime": 6000.0,
       "ui_order": 4,
-      "capzone__capReward": 500.0,
+      "capzone__capReward": 250.0,
       "capzone__icon": "AAA",
       "capzone__caption": "capzone/apartment_house",
       "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 1,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "decal__height": 0.4,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 6,
@@ -5922,7 +5928,7 @@
       "capzone__onlyTeamCanCapture": 2,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_5_a",
-      "capzone__capTime": 50.0,
+      "capzone__capTime": 60.0,
       "capzone__capTeam": -1,
       "transform": [
         [22.6072,0.0,-24.003],
@@ -5939,7 +5945,7 @@
       "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 1,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "decal__height": 2.4,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 3
@@ -5952,7 +5958,7 @@
       "capzone__onlyTeamCanCapture": 2,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_5_b",
-      "capzone__capTime": 50.0,
+      "capzone__capTime": 40.0,
       "capzone__capTeam": -1,
       "transform": [
         [-14.4092,0.0,-14.0783],
@@ -5969,7 +5975,7 @@
       "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 1,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "decal__height": 2.0,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 4
@@ -8357,10 +8363,10 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_fighter",
       "transform": [
-        [-0.984755,0.0,-0.173945],
+        [-0.989452,0.0,-0.144859],
         [0.0,1.0,0.0],
-        [0.173945,0.0,-0.984755],
-        [2097.58,1000.0,13.9067]
+        [0.144859,0.0,-0.989452],
+        [3403.8,1000.0,409.369]
       ],
       "team": 1,
       "maxVehicleOnSpawn": 1,
@@ -8372,10 +8378,10 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_assault",
       "transform": [
-        [-0.984755,0.0,-0.173945],
+        [-0.989452,0.0,-0.144859],
         [0.0,1.0,0.0],
-        [0.173945,0.0,-0.984755],
-        [2069.51,800.0,178.454]
+        [0.144859,0.0,-0.989452],
+        [3380.59,800.0,574.672]
       ],
       "team": 1,
       "maxVehicleOnSpawn": 1,
@@ -8387,10 +8393,10 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_fighter",
       "transform": [
-        [-0.984755,0.0,-0.173945],
+        [-0.989452,0.0,-0.144859],
         [0.0,1.0,0.0],
-        [0.173945,0.0,-0.984755],
-        [2069.51,1000.0,178.454]
+        [0.144859,0.0,-0.989452],
+        [3380.59,1000.0,574.672]
       ],
       "team": 1,
       "maxVehicleOnSpawn": 1,
@@ -8402,10 +8408,10 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_assault",
       "transform": [
-        [-0.984755,0.0,-0.173945],
+        [-0.989452,0.0,-0.144859],
         [0.0,1.0,0.0],
-        [0.173945,0.0,-0.984755],
-        [2103.62,800.0,-12.6554]
+        [0.144859,0.0,-0.989452],
+        [3409.06,800.0,382.64]
       ],
       "team": 1,
       "maxVehicleOnSpawn": 1,
@@ -8419,7 +8425,7 @@
         [-0.968964,0.0,-0.247206],
         [0.0,1.0,0.0],
         [0.247206,0.0,-0.968964],
-        [1986.16,1000.0,1376.79]
+        [2241.14,669.567,1625.88]
       ],
       "resupply_zone__team": 1
     }
@@ -8429,10 +8435,10 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_fighter",
       "transform": [
-        [0.994928,0.0,-0.100588],
+        [0.996727,0.0,-0.0808351],
         [0.0,1.0,0.0],
-        [0.100588,0.0,0.994928],
-        [-2241.36,1000.0,212.183]
+        [0.0808351,-0.0,0.996727],
+        [-3673.99,1000.0,189.92]
       ],
       "team": 2,
       "maxVehicleOnSpawn": 1,
@@ -8444,10 +8450,10 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_assault",
       "transform": [
-        [0.994928,0.0,-0.100588],
+        [0.996727,0.0,-0.0808351],
         [0.0,1.0,0.0],
-        [0.100588,0.0,0.994928],
-        [-2241.36,800.0,212.183]
+        [0.0808351,-0.0,0.996727],
+        [-3673.99,800.0,189.92]
       ],
       "team": 2,
       "maxVehicleOnSpawn": 1,
@@ -8459,10 +8465,10 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_fighter",
       "transform": [
-        [0.994928,0.0,-0.100588],
+        [0.996727,0.0,-0.0808351],
         [0.0,1.0,0.0],
-        [0.100588,0.0,0.994928],
-        [-2219.27,1000.0,339.484]
+        [0.0808351,-0.0,0.996727],
+        [-3654.43,1000.0,317.634]
       ],
       "team": 2,
       "maxVehicleOnSpawn": 1,
@@ -8474,10 +8480,10 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_assault",
       "transform": [
-        [0.994928,0.0,-0.100588],
+        [0.996727,0.0,-0.0808351],
         [0.0,1.0,0.0],
-        [0.100588,0.0,0.994928],
-        [-2216.69,800.0,369.94]
+        [0.0808351,-0.0,0.996727],
+        [-3652.46,800.0,348.135]
       ],
       "team": 2,
       "maxVehicleOnSpawn": 1,
@@ -8491,7 +8497,7 @@
         [0.967396,0.0,-0.253265],
         [0.0,1.0,0.0],
         [0.253265,0.0,0.967396],
-        [-2470.25,1000.0,-857.823]
+        [-2871.28,592.181,-1131.74]
       ],
       "resupply_zone__team": 2
     }

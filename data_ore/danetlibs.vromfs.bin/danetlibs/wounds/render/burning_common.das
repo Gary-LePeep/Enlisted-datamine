@@ -2,7 +2,7 @@ module burning_common shared
 require ecs
 require DagorSystem
 require DagorShaders
-require MaterialRecreate
+require DagorMaterials
 require AnimV20
 
 def set_burning_params(attaches_list : EidList;

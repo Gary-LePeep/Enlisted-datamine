@@ -1,0 +1,194 @@
+{
+  "explMats": {
+    "shader": "explosion_patch_3tex",
+    "needMaterialTex": true,
+    "bricks_red": {
+      "default": {
+        "blackMaterialTex": true,
+        "sizeScale": 10.0,
+        "textures": {
+          "tex": "ddi_building_red_brick_a"
+        }
+      },
+      "explosive_penetration": {
+        "blackMaterialTex": true,
+        "sizeScale": 13.0,
+        "textures": {
+          "tex": "ddi_building_red_brick_b"
+        }
+      },
+      "explosive_non_penetration": {
+        "blackMaterialTex": true,
+        "sizeScale": 13.0,
+        "textures": {
+          "tex": "ddi_building_red_brick_b"
+        }
+      },
+      "heat_penetration": {
+        "blackMaterialTex": true,
+        "sizeScale": 13.0,
+        "textures": {
+          "tex": "ddi_building_red_brick_b"
+        }
+      },
+      "heat_non_penetration": {
+        "blackMaterialTex": true,
+        "sizeScale": 13.0,
+        "textures": {
+          "tex": "ddi_building_red_brick_b"
+        }
+      }
+    },
+    "stone": {
+      "default": {
+        "blackMaterialTex": true,
+        "sizeScale": 10.0,
+        "textures": [
+          {
+            "tex": "ddi_building_conrete_a"
+          },
+          {
+            "tex": "ddi_building_conrete_b"
+          }
+        ]
+      },
+      "explosive_penetration": {
+        "blackMaterialTex": true,
+        "sizeScale": 13.0,
+        "textures": {
+          "tex": "ddi_building_conrete_c"
+        }
+      },
+      "explosive_non_penetration": {
+        "blackMaterialTex": true,
+        "sizeScale": 13.0,
+        "textures": {
+          "tex": "ddi_building_conrete_c"
+        }
+      },
+      "heat_penetration": {
+        "blackMaterialTex": true,
+        "sizeScale": 13.0,
+        "textures": {
+          "tex": "ddi_building_conrete_c"
+        }
+      },
+      "heat_non_penetration": {
+        "blackMaterialTex": true,
+        "sizeScale": 13.0,
+        "textures": {
+          "tex": "ddi_building_conrete_c"
+        }
+      }
+    },
+    "wood": {
+      "default": {
+        "sizeScale": 10.0,
+        "textures": [
+          {
+            "tex": "ddi_building_wood_a"
+          },
+          {
+            "tex": "ddi_building_wood_b"
+          },
+          {
+            "tex": "ddi_building_wood_c"
+          }
+        ]
+      },
+      "explosive_penetration": {
+        "blackMaterialTex": true,
+        "sizeScale": 10.0,
+        "textures": {
+          "tex": "ddi_building_wood_d"
+        }
+      },
+      "explosive_non_penetration": {
+        "blackMaterialTex": true,
+        "sizeScale": 10.0,
+        "textures": {
+          "tex": "ddi_building_wood_d"
+        }
+      },
+      "heat_penetration": {
+        "blackMaterialTex": true,
+        "sizeScale": 10.0,
+        "textures": {
+          "tex": "ddi_building_wood_d"
+        }
+      },
+      "heat_non_penetration": {
+        "blackMaterialTex": true,
+        "sizeScale": 10.0,
+        "textures": {
+          "tex": "ddi_building_wood_d"
+        }
+      }
+    },
+    "steel": {
+      "default": {
+        "sizeScale": 10.0,
+        "textures": {
+          "tex": "ddi_vehicle_penetration_ap_steel_a"
+        }
+      },
+      "kinetic_penetration": {
+        "sizeScale": 5.0,
+        "textures": {
+          "tex": "ddi_vehicle_penetration_ap_steel_a"
+        }
+      },
+      "kinetic_non_penetration": {
+        "sizeScale": 5.0,
+        "stretchMax": 1.5,
+        "textures": {
+          "tex": "ddi_vehicle_nonpenetration_ap_steel_a"
+        }
+      },
+      "kinetic_ricochet": {
+        "sizeScale": 7.0,
+        "useHitDirectionForParallax": false,
+        "angleLimit": 10.0,
+        "textures": {
+          "tex": "ddi_vehicle_ricochet_steel_a"
+        }
+      },
+      "explosive_penetration": {
+        "sizeScale": 12.5,
+        "textures": {
+          "tex": "ddi_vehicle_penetration_he_steel_a"
+        }
+      },
+      "explosive_non_penetration": {
+        "sizeScale": 12.5,
+        "textures": {
+          "tex": "ddi_vehicle_nonpenetration_he_steel_a"
+        }
+      },
+      "kinetic_sabot_penetration": {
+        "sizeScale": 5.0,
+        "textures": {
+          "tex": "ddi_vehicle_penetration_apcr_steel_a"
+        }
+      },
+      "kinetic_sabot_non_penetration": {
+        "sizeScale": 5.0,
+        "textures": {
+          "tex": "ddi_vehicle_penetration_apcr_steel_a"
+        }
+      },
+      "heat_penetration": {
+        "sizeScale": 7.5,
+        "textures": {
+          "tex": "ddi_vehicle_penetration_heat_steel_a"
+        }
+      },
+      "heat_non_penetration": {
+        "sizeScale": 7.5,
+        "textures": {
+          "tex": "ddi_vehicle_penetration_heat_steel_a"
+        }
+      }
+    }
+  }
+}

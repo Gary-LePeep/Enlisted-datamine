@@ -7,8 +7,9 @@ let eventbus = require("eventbus")
 let { exitGameMsgBox } = require("%enlist/mainMsgBoxes.nut")
 let fontIconButton = require("%ui/components/fontIconButton.nut")
 let circuitConf = require("app").get_circuit_conf()
-let { browser_go, browser_reload_page, can_use_embeded_browser,
-  browser_go_back } = require("browser")
+let stub = @(...) null
+let { browser_reload_page=stub, can_use_embeded_browser=stub,
+  browser_go_back=stub } = require_optional("browser")
 
 let windowTitle = Watched(null)
 let canGoBack = Watched(false)
@@ -44,9 +45,6 @@ let buttonsBlock = {
   valign = ALIGN_CENTER
   gap = hdpx(15)
   children = [
-    fontIconButton("home", {
-      onClick = @() browser_go(WEB_LOGIN_URL)
-    })
     fontIconButton("arrow-left", {
       onClick = browser_go_back
       watch = canGoBack

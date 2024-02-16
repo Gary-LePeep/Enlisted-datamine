@@ -5,10 +5,11 @@
   "speed": 18.5,
   "speedPitch": 5.0,
   "maxDistance": 6.0,
-  "physMat": "walkRay",
+  "physMat": "grenadeRay",
   "useFutureContacts": true,
   "frictionGround": 2.0,
   "noSleepAtTheSlopeCos": 0.766,
+  "ccdClipVelocityMult": 0.0,
   "logCCD": false,
   "entityTemplate": "uk_mills_grenade",
   "entityPhysTemplate": "uk_mills_grenade_phys",
@@ -40,12 +41,7 @@
     "effectTemplName": "explosion_effect_small+disable_effect_sfx"
   },
   "explSound": {
-    "explSoundPath": "impact/grenade",
-    "shattersWizPath": "impact/wiz_fragment",
-    "shattersHitPath": "impact/fragment",
-    "shattersSampleRangeAroundListener": 20.0,
-    "shattersMinMaxRayLenMul": [0.5,4.0],
-    "shattersMinMaxCount": [0,4]
+    "explSoundPath": "impact/grenade"
   },
   "shellSound": {
     "activatePath": "/weapon/grenade/activate"

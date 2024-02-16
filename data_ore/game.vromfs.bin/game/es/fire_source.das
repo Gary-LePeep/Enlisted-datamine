@@ -103,3 +103,15 @@ def fire_source_effect(info : UpdateStageInfoAct;
   let zone_size = calc_fire_size(info.curTime, fire_source__startTime,
       fire_source__spreadTime, fire_source__fullForceTime, fire_source__fadeTime, dmgzone__maxRadius)
   effect__scale = max(fire_source__effectMinScale, zone_size * fire_source__effectScale)
+
+[es(tag=render, on_appear)]
+def burning_grass_init_es(evt : Event; transform : float3x4;
+                          var fire_source__ashEffectEid : EntityId&)
+  fire_source__ashEffectEid = createEntity("burning_grass_readback_info") <| $(init)
+    init |> set("transform", transform)
+
+[es(tag=render, on_disappear)]
+def burning_grass_destroy_es(evt : Event; fire_source__ashEffectEid : EntityId)
+  query(fire_source__ashEffectEid) <| $ [es] (ash_effect__timeToDestroyAfterFireWasDestroyed : float;
+                                              var gun_flash_fx__timeToDestroy : float&)
+    gun_flash_fx__timeToDestroy = ash_effect__timeToDestroyAfterFireWasDestroyed

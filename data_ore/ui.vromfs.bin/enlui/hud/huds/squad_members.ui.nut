@@ -1,11 +1,12 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { sub_txt, tiny_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { fabs } = require("math")
 let {
   watchedHeroSquadMembers, selectedBotForOrderEid, isPersonalContextCommandMode,
   watchedHeroSquadMembersGetWatched, watchedHeroSquadMembersOrderedSet
 } = require("%ui/hud/state/squad_members.nut")
+let { isSquadSoldiersMenuAvailable } = require("%ui/hud/state/squad_soldiers_menu_state.nut")
 let { controlledHeroEid } = require("%ui/hud/state/controlled_hero.nut")
 let { inVehicle } = require("%ui/hud/state/vehicle_state.nut")
 let { SUCCESS_TEXT_COLOR, DEFAULT_TEXT_COLOR } = require("%ui/hud/style.nut")
@@ -21,6 +22,7 @@ let cancelContextCommandHint = require("%ui/hud/huds/cancel_context_command_hint
 let { squadFormation } = require("%ui/hud/state/squad_formation.nut")
 let { squadBehaviour } = require("%ui/hud/state/squad_behaviour.nut")
 let { SquadBehaviour, SquadFormationSpread } = require("%enlSqGlob/dasenums.nut")
+let { showTips } = require("%ui/hud/state/hudOptionsState.nut")
 
 let sIconSize = hdpxi(15)
 let iconSize = hdpxi(40)
@@ -72,25 +74,29 @@ let splitOnce = memoize(function(name) {
     idx = name.indexof(" ", idx + 1)
   }
   return found == null
-    ? name
-    : $"{name.slice(0, found)}\n{name.slice(found + 1)}"
+    ? [name]
+    : [name.slice(0, found), name.slice(found + 1)]
 })
 
 let memberNameAnimations = freeze([
   { prop = AnimProp.translate, from = [-hdpx(100), 0], to = [0, 0], duration = 0.2, easing = OutCubic, play = true }
 ])
 
+let mkNamePart = @(text) {
+  rendObj = ROBJ_TEXT
+  text
+  color = SUCCESS_TEXT_COLOR
+  indent = gap
+  transform = {}
+  animations = memberNameAnimations
+}.__update(fontSub)
+
 let memberName = function(name) {
   let nameC = @() {
-     rendObj = ROBJ_TEXTAREA
-     behavior = Behaviors.TextArea
-     text = splitOnce(name.value)
-     color = SUCCESS_TEXT_COLOR
-     indent = gap
-     transform = {}
-     animations = memberNameAnimations
-     watch = name
-   }.__update(tiny_txt)
+    watch = name
+    flow = FLOW_VERTICAL
+    children = splitOnce(name.value).map(mkNamePart)
+  }
 
   return {
     size = [SIZE_TO_CONTENT, iconSize]
@@ -139,7 +145,7 @@ let killRow = @(eid, kills) {
 
           animations = [{ prop = AnimProp.color, from = SUCCESS_TEXT_COLOR, to = DEFAULT_TEXT_COLOR,
             duration = 5, easing = InOutCubic, trigger = $"member_kill_{eid}" }]
-        }.__update(tiny_txt)
+        }.__update(fontSub)
       ]
     }
   ]
@@ -260,14 +266,14 @@ let squadControlHints = @() {
   minHeight = hdpx(20)
   hplace = ALIGN_CENTER
   flow = FLOW_VERTICAL
-  watch = isPersonalContextCommandMode
+  watch = [isPersonalContextCommandMode, isSquadSoldiersMenuAvailable]
 
   children = [
     isPersonalContextCommandMode.value
       ? tipCmp({
           text = loc("squad_orders/switch_bot_for_order"),
           inputId = "Human.SwitchBotForOrders"
-        }.__update(sub_txt))
+        }.__update(fontSub))
       : null
 
     cancelContextCommandHint
@@ -280,11 +286,11 @@ let squadControlHints = @() {
         tipCmp({
           text = loc("controls/Human.SwitchContextCommandMode"),
           inputId = "Human.SwitchContextCommandMode"
-        }.__update(sub_txt))
-        tipCmp({
+        }.__update(fontSub))
+        isSquadSoldiersMenuAvailable.value ? tipCmp({
           text = loc("controls/HUD.SquadSoldiersMenu"),
           inputId = "HUD.SquadSoldiersMenu"
-        }.__update(sub_txt))
+        }.__update(fontSub)) : null
       ]
     }
   ]
@@ -298,11 +304,11 @@ let function members() {
   return {
     flow = FLOW_VERTICAL
     gap
-    watch = [doNotShowMembers, isSpectatorEnabled]
+    watch = [doNotShowMembers, isSpectatorEnabled, showTips]
     children = [
       squadStatus
       squadMembersList
-      isSpectatorEnabled.value ? null : squadControlHints
+      !showTips.value || isSpectatorEnabled.value ? null : squadControlHints
     ]
   }
 }

@@ -6,16 +6,7 @@ require DagorSystem
 require GeomNodeTree
 require AnimV20
 require enlisted.events_enlisted
-
-def get_node_no(node : uint16)
-  return int(node) & int(0xFF)
-
-def find_base_attach_parent(parent_eid : EntityId)
-  var parent = parent_eid
-  query(parent_eid) <| $ [es] (slot_attach__attachedTo : EntityId)
-    parent = find_base_attach_parent(slot_attach__attachedTo)
-  return parent
-
+require game.es.attach_common
 
 def skeleton_attach_with_remap_parent_impl(eid : EntityId;
                                            skeleton_attach__remapParentSlots : StringList;
@@ -35,7 +26,7 @@ def skeleton_attach_with_remap_parent_impl(eid : EntityId;
       if slot_attach__attachedTo != possibleParentEid
         slot_attach__attachedTo = possibleParentEid
         skeleton_attach__attachedTo = possibleParentEid
-        sendEvent(eid, [[CmdInitSkeletonAttach]])
+        sendEventImmediate(eid, [[CmdInitSkeletonAttach]])
       return
 
 
@@ -47,9 +38,9 @@ def remap_parent_reinit_impl(parent_attached_to : EntityId;
     for slotName in skeleton_attach__remapAffectSlots
       let affectSlot = human_equipment__slots[string(slotName)] ?as Object
       let affectEid = affectSlot?.item ?? INVALID_ENTITY_ID
-      query(affectEid) <| $ [es] (skeleton_attach__remapParentSlots : StringList;
-                                  var slot_attach__attachedTo aka child_slot_attach__attachedTo : EntityId&;
-                                  var skeleton_attach__attachedTo : EntityId&)
+      query(affectEid) <| $ [es(REQUIRE=skeletonAttachInited)] (skeleton_attach__remapParentSlots : StringList;
+                                                                var slot_attach__attachedTo aka child_slot_attach__attachedTo : EntityId&;
+                                                                var skeleton_attach__attachedTo : EntityId&)
         skeleton_attach_with_remap_parent_impl(affectEid,
                                                skeleton_attach__remapParentSlots,
                                                human_equipment__slots,
@@ -58,7 +49,7 @@ def remap_parent_reinit_impl(parent_attached_to : EntityId;
                                                invalid_parent_eid)
 
 
-[es(tag=server, REQUIRE=skeleton_attach__skeletonRemap, on_appear)]
+[es(tag=server, REQUIRE=skeletonAttachInited, on_appear)]
 def skeleton_attach_with_remap_parent_reinit(evt : Event;
                                              slot_attach__attachedTo : EntityId;
                                              skeleton_attach__remapAffectSlots : StringList)
@@ -68,7 +59,6 @@ def skeleton_attach_with_remap_parent_remap_impl(attaches_list : EidList;
                                                  var animchar : AnimcharBaseComponent&;
                                                  var skeleton_attach__skeletonRecalcBranch : UInt8List;
                                                  var skeleton_attach__skeletonRemap : UInt16List)
-  assume nodeTree = *animchar.nodeTree
   assume origNodeTree = *animchar.originalNodeTree
   for attachEid in attaches_list
     query(attachEid) <| $ [es] (skeleton_attach__skipParentsRemapNodes : StringList)
@@ -90,14 +80,23 @@ def skeleton_attach_with_remap_parent_remap_impl(attaches_list : EidList;
 def skeleton_attach_with_remap_parent_reinit_remap_track(evt : Event;
                                                          eid : EntityId;
                                                          attaches_list : EidList;
+                                                         skeleton_attach__attachedTo : EntityId;
                                                          var animchar : AnimcharBaseComponent&;
                                                          var skeleton_attach__skeletonRecalcBranch : UInt8List;
                                                          var skeleton_attach__skeletonRemap : UInt16List)
-  sendEventImmediate(eid, [[CmdInitSkeletonAttach]])
+  query(skeleton_attach__attachedTo) <| $ [es(REQUIRE=animchar)] ()
+    sendEventImmediate(eid, [[CmdInitSkeletonAttach]])
   skeleton_attach_with_remap_parent_remap_impl(attaches_list, animchar,
                                                skeleton_attach__skeletonRecalcBranch,
                                                skeleton_attach__skeletonRemap)
 
+
+[es(tag=gameClient, track=skeleton_attach__attachedTo, REQUIRE=(skeleton_attach__skeletonRemap, skeleton_attach__remapParentSlots))]
+def skeleton_attach_with_remap_parent_reinit_attach_track(evt : Event;
+                                                          eid : EntityId;
+                                                          skeleton_attach__attachedTo : EntityId)
+  query(skeleton_attach__attachedTo) <| $ [es(REQUIRE=animchar)] ()
+    sendEventImmediate(eid, [[CmdInitSkeletonAttach]])
 
 [es(tag=gameClient, on_appear, REQUIRE=skeleton_attach__skeletonRemap)]
 def skeleton_attach_with_remap_parent_reinit_remap_init(evt : Event;
@@ -109,7 +108,7 @@ def skeleton_attach_with_remap_parent_reinit_remap_init(evt : Event;
                                                skeleton_attach__skeletonRecalcBranch,
                                                skeleton_attach__skeletonRemap)
 
-[es(tag=server, on_disappear)]
+[es(tag=server, REQUIRE=skeletonAttachInited, on_disappear)]
 def skeleton_attach_with_remap_parent_disappear(evt : Event;
                                                 eid : EntityId;
                                                 slot_attach__attachedTo : EntityId;
@@ -117,7 +116,7 @@ def skeleton_attach_with_remap_parent_disappear(evt : Event;
   remap_parent_reinit_impl(slot_attach__attachedTo, skeleton_attach__remapAffectSlots, eid)
 
 
-[es(tag=server, on_appear, track=slot_attach__attachedTo)]
+[es(tag=server, on_appear, REQUIRE=skeletonAttachInited, track=slot_attach__attachedTo)]
 def skeleton_attach_with_remap_parent(evt : Event;
                                       eid : EntityId;
                                       skeleton_attach__remapParentSlots : StringList;

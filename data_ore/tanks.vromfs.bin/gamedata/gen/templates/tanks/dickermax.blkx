@@ -1,10 +1,10 @@
 {
   "base_dickermax": [
     {
-      "_extends": "base_tank"
+      "_use": "base_tank"
     },
     {
-      "_extends": "dickermax_ammo_stowages"
+      "_use": "dickermax_ammo_stowages"
     },
     {
       "killLogName": "germ_pzsfl_iva_dickermax"
@@ -108,7 +108,7 @@
     }
   ],
   "dickermax_turret_01_105mm_k18": {
-    "_extends": "tankgun_105mm_k18",
+    "_use": "tankgun_105mm_k18",
     "gun__shootNodeName": "bone_gun_barrel",
     "turret__yawSpeed": 12.0,
     "turret__pitchSpeed": 4.0,
@@ -128,13 +128,13 @@
   },
   "dickermax_ammo_stowages": {
     "_tags": "server",
-    "_extends": "vehicle_ammo_stowages",
+    "_use": "vehicle_ammo_stowages",
     "ammo_stowage__stowageTemplates:shared:list<t>": {
       "stowage": "dickermax_primary_ammo_stowage"
     }
   },
   "dickermax_primary_ammo_stowage": {
-    "_extends": "ammo_stowage",
+    "_use": "ammo_stowage",
     "ammo_stowage__clusterTemplates:shared:list<t>": [
       {
         "cluster": "dickermax_primary_shells_ammo_cluster"
@@ -148,7 +148,7 @@
     }
   },
   "dickermax_primary_shells_ammo_cluster": {
-    "_extends": "ammo_cluster",
+    "_use": "ammo_cluster",
     "ammo_cluster__isShell": true,
     "ammo_cluster__slotNames:shared:list<t>": [
       {
@@ -168,7 +168,7 @@
     ]
   },
   "dickermax_primary_charges_ammo_cluster": {
-    "_extends": "ammo_cluster",
+    "_use": "ammo_cluster",
     "ammo_cluster__isShell": false,
     "ammo_cluster__slotNames:shared:list<t>": [
       {

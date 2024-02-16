@@ -2,14 +2,14 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let auth = require("auth")
 let JB = require("%ui/control/gui_buttons.nut")
-let { body_txt, h2_txt} = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody, fontHeading2} = require("%enlSqGlob/ui/fontsStyle.nut")
 let defLoginCb = require("%enlist/login/login_cb.nut")
 let { startLogin } = require("%enlist/login/login_chain.nut")
 let { addModalWindow, removeModalWindow } = require("%ui/components/modalWindows.nut")
 let { commonBtnHeight, bigPadding, maxContentWidth } = require("%enlSqGlob/ui/viewConst.nut")
 let { Bordered } = require("%ui/components/textButton.nut")
 let textInput = require("%ui/components/textInput.nut")
-let spinner = require("%ui/components/spinner.nut")({height=hdpx(80)})
+let spinner = require("%ui/components/spinner.nut")
 let fontIconButton = require("%ui/components/fontIconButton.nut")
 let { exitGameMsgBox } = require("%enlist/mainMsgBoxes.nut")
 let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
@@ -21,6 +21,7 @@ const WE_GAME_ID = "auth_wegame"
 let isLoginInProgress = Watched(false)
 let additionalTxt = Watched("")
 let wndHeaderTxt = Watched("")
+let waitingSpinner = spinner()
 
 let function loginWithNick(){
   isLoginInProgress(true)
@@ -36,7 +37,7 @@ let inputOptions = {
   valignText = ALIGN_CENTER
   margin = 0
   onReturn = loginWithNick
-}.__update(body_txt)
+}.__update(fontBody)
 
 let wndHeader = {
   flow = FLOW_VERTICAL
@@ -48,7 +49,7 @@ let wndHeader = {
       watch = wndHeaderTxt
       rendObj = ROBJ_TEXT
       text = wndHeaderTxt.value
-    }.__update(h2_txt)
+    }.__update(fontHeading2)
     @(){
       watch = additionalTxt
       rendObj = ROBJ_TEXTAREA
@@ -57,7 +58,7 @@ let wndHeader = {
       maxWidth = maxContentWidth - hdpx(100)
       behavior = Behaviors.TextArea
       text = additionalTxt.value
-    }.__update(body_txt)
+    }.__update(fontBody)
   ]
 }
 
@@ -71,7 +72,7 @@ let inputBlock = @(){
   gap = hdpx(20)
   halign = ALIGN_CENTER
   valign = ALIGN_CENTER
-  children = isLoginInProgress.value ? spinner : [
+  children = isLoginInProgress.value ? waitingSpinner : [
     wndHeader
     {
       size = [hdpx(500), SIZE_TO_CONTENT]

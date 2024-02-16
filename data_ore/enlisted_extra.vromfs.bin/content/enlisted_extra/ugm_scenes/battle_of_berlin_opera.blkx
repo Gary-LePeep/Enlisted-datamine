@@ -36,6 +36,11 @@
   },
   {
     "entity": {
+      "_template": "bloom"
+    }
+  },
+  {
+    "entity": {
       "_template": "postfx_roundctrl",
       "post_fx:object": []
     }
@@ -362,19 +367,13 @@
   },
   {
     "entity": {
-      "_template": "effect_area_box",
-      "effect_area__frequency": 0.5,
-      "effect_area__pauseChance": 0.4,
-      "effect_area__pauseLengthMax": 2.0,
-      "effect_area__effectName": "background_flash_8s_fx",
-      "effect_area__isPaused": false,
+      "_template": "envir_background_flash_8s_effect",
       "transform": [
         [1.0,0.0,0.0],
         [0.0,1.0,0.0],
         [0.0,0.0,1.0],
         [-941.109,3.255,-280.225]
-      ],
-      "box_zone__scale": [600.0,400.0,600.0]
+      ]
     }
   },
   {

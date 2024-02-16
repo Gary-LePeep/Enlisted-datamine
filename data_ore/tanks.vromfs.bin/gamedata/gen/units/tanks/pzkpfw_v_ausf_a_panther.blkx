@@ -13,8 +13,6 @@
     },
     "tracks": {
       "animationMultiplier": 0.68,
-      "width": 0.66,
-      "height": 0.1,
       "tracksTensionK": [6.0,8.0,1.5],
       "trackMesh": "ger_kgs64_660_150_phys_track_line",
       "trackLen": 0.15,
@@ -23,7 +21,9 @@
       "trackCntPeriod": 2,
       "trackMaxSinking": 0.1,
       "trackMaxHeight": 1.35,
-      "trackStartOffset": 0.14
+      "trackStartOffset": 0.14,
+      "height": 0.1,
+      "width": 0.66
     },
     "collisionProps": {
       "cls_turret_01": "convex_hull",
@@ -33,11 +33,12 @@
       "cls_body_03": "convex_hull"
     },
     "engine": {
-      "horsePowers": 700.0,
-      "maxRPM": 3000.0,
+      "horsePowers": 600.0,
+      "maxRPM": 2500.0,
       "minRPM": 600.0
     },
     "mechanics": {
+      "steerType": "clutch_braking",
       "maxBrakeForce": 170000.0,
       "driveGearRadius": 0.4,
       "mainGearRatio": 13.4,
@@ -101,8 +102,12 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
+      "externalArmorForHitDecals": false,
       "armorClass": "RHA_tank",
       "hp": 10000.0,
       "armorThickness": 60.0
@@ -119,8 +124,12 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
+      "externalArmorForHitDecals": false,
       "armorClass": "RHA_tank",
       "hp": 10000.0,
       "armorThickness": 80.0
@@ -137,8 +146,12 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
+      "externalArmorForHitDecals": false,
       "armorClass": "RHA_tank",
       "hp": 10000.0,
       "armorThickness": 40.0
@@ -155,8 +168,12 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
+      "externalArmorForHitDecals": false,
       "armorClass": "RHA_tank",
       "hp": 10000.0,
       "armorThickness": 40.0
@@ -173,8 +190,12 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
+      "externalArmorForHitDecals": false,
       "armorClass": "RHA_tank",
       "hp": 10000.0,
       "armorThickness": 40.0
@@ -191,8 +212,12 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
+      "externalArmorForHitDecals": false,
       "armorClass": "RHA_tank",
       "hp": 10000.0,
       "armorThickness": 16.0
@@ -209,8 +234,12 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
+      "externalArmorForHitDecals": false,
       "armorClass": "RHA_tank",
       "hp": 10000.0,
       "armorThickness": 16.0
@@ -227,8 +256,12 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
+      "externalArmorForHitDecals": false,
       "armorClass": "RHA_tank",
       "hp": 10000.0,
       "armorThickness": 16.0
@@ -245,8 +278,11 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "armorClass": "RHA_tank",
       "hp": 10000.0,
       "armorThickness": 5.0
@@ -263,8 +299,11 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "armorClass": "RHA_tank",
       "hp": 10000.0,
       "armorThickness": 5.0
@@ -281,8 +320,12 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
+      "externalArmorForHitDecals": false,
       "armorClass": "RHA_tank",
       "hp": 10000.0,
       "armorThickness": 30.0
@@ -299,8 +342,11 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "armorClass": "RHA_tank",
       "hp": 400.0,
       "createSecondaryShatters": false,
@@ -319,8 +365,11 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "armorClass": "RHA_tank",
       "hp": 400.0,
       "createSecondaryShatters": false,
@@ -339,8 +388,11 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "armorClass": "RHA_tank",
       "hp": 400.0,
       "createSecondaryShatters": false,
@@ -359,8 +411,11 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "armorClass": "RHA_tank",
       "hp": 400.0,
       "createSecondaryShatters": false,
@@ -379,8 +434,11 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "armorClass": "RHA_tank",
       "hp": 400.0,
       "createSecondaryShatters": false,
@@ -399,8 +457,11 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "armorClass": "RHA_tank",
       "hp": 400.0,
       "createSecondaryShatters": false,
@@ -419,8 +480,11 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "armorClass": "RHA_tank",
       "hp": 400.0,
       "createSecondaryShatters": false,
@@ -439,8 +503,11 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "armorClass": "RHA_tank",
       "hp": 400.0,
       "createSecondaryShatters": false,
@@ -459,8 +526,11 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "armorClass": "RHA_tank",
       "hp": 400.0,
       "createSecondaryShatters": false,
@@ -479,8 +549,11 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "armorClass": "RHA_tank",
       "hp": 400.0,
       "createSecondaryShatters": false,
@@ -499,8 +572,11 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "armorClass": "RHA_tank",
       "hp": 400.0,
       "createSecondaryShatters": false,
@@ -519,8 +595,11 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "armorClass": "RHA_tank",
       "hp": 400.0,
       "createSecondaryShatters": false,
@@ -539,8 +618,11 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "armorClass": "tank_structural_steel",
       "hp": 1000.0,
       "armorThickness": 5.0,
@@ -558,8 +640,11 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "armorClass": "tank_structural_steel",
       "hp": 1000.0,
       "armorThickness": 5.0,
@@ -577,8 +662,11 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "armorClass": "tank_structural_steel",
       "hp": 1000.0,
       "armorThickness": 5.0,
@@ -596,8 +684,11 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "armorClass": "tank_structural_steel",
       "hp": 1000.0,
       "armorThickness": 5.0,
@@ -615,8 +706,11 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "armorClass": "tank_structural_steel",
       "hp": 1000.0,
       "armorThickness": 5.0,
@@ -634,8 +728,11 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "armorClass": "tank_structural_steel",
       "hp": 1000.0,
       "armorThickness": 5.0,
@@ -653,11 +750,14 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
-      "armorClass": "tank_structural_steel",
-      "hp": 1000.0,
-      "armorThickness": 5.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
+      "armorClass": "ship_wood",
+      "hp": 250.0,
+      "armorThickness": 4.0,
       "createSecondaryShatters": false
     },
     "ex_decor_l_05": {
@@ -672,8 +772,11 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "armorClass": "tank_structural_steel",
       "hp": 1000.0,
       "armorThickness": 5.0,
@@ -691,8 +794,11 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "armorClass": "tank_structural_steel",
       "hp": 1000.0,
       "armorThickness": 5.0,
@@ -710,8 +816,12 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
+      "externalArmorForHitDecals": false,
       "armorClass": "RHA_tank",
       "hp": 10000.0,
       "armorThickness": 16.0
@@ -728,8 +838,12 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
+      "externalArmorForHitDecals": false,
       "armorClass": "RHA_tank",
       "hp": 10000.0,
       "armorThickness": 45.0
@@ -746,8 +860,12 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
+      "externalArmorForHitDecals": false,
       "armorClass": "CHA_tank",
       "hp": 10000.0,
       "armorThickness": 100.0
@@ -764,8 +882,12 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
+      "externalArmorForHitDecals": false,
       "armorClass": "RHA_tank",
       "hp": 10000.0,
       "armorThickness": 45.0
@@ -782,8 +904,12 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
+      "externalArmorForHitDecals": false,
       "armorClass": "RHA_tank",
       "hp": 10000.0,
       "armorThickness": 30.0
@@ -800,8 +926,12 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
+      "externalArmorForHitDecals": false,
       "armorClass": "RHA_tank",
       "hp": 10000.0,
       "armorThickness": 16.0
@@ -818,8 +948,11 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "armorClass": "CHA_tank",
       "hp": 10000.0,
       "armorThickness": 110.0
@@ -836,11 +969,15 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "armorClass": "CHA_tank",
       "hp": 10000.0,
-      "armorThickness": 100.0
+      "armorThickness": 100.0,
+      "variableThickness": true
     },
     "gun_mask_04": {
       "hitTestType": "armor",
@@ -854,8 +991,11 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "armorClass": "CHA_tank",
       "hp": 10000.0,
       "armorThickness": 10.0
@@ -872,8 +1012,11 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": false,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "armorClass": "optics_tank",
       "hp": 50.0,
       "armorThickness": 10.0
@@ -890,8 +1033,11 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": false,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "armorClass": "optics_tank",
       "hp": 20.0,
       "armorThickness": 3.0
@@ -908,8 +1054,11 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": false,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "armorClass": "optics_tank",
       "hp": 20.0,
       "armorThickness": 3.0
@@ -926,8 +1075,11 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": false,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "armorClass": "optics_tank",
       "hp": 20.0,
       "armorThickness": 3.0
@@ -944,8 +1096,11 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": false,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "armorClass": "optics_tank",
       "hp": 20.0,
       "armorThickness": 3.0
@@ -962,8 +1117,11 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": false,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "armorClass": "optics_tank",
       "hp": 20.0,
       "armorThickness": 3.0
@@ -980,8 +1138,11 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": false,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "armorClass": "optics_tank",
       "hp": 20.0,
       "armorThickness": 3.0
@@ -998,8 +1159,11 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": false,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "armorClass": "optics_tank",
       "hp": 20.0,
       "armorThickness": 3.0
@@ -1016,8 +1180,11 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": false,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "armorClass": "optics_tank",
       "hp": 20.0,
       "armorThickness": 3.0
@@ -1034,8 +1201,11 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": false,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "armorClass": "optics_tank",
       "hp": 20.0,
       "armorThickness": 3.0
@@ -1052,8 +1222,11 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": false,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "armorClass": "optics_tank",
       "hp": 20.0,
       "armorThickness": 3.0
@@ -1070,8 +1243,11 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": false,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "armorClass": "optics_tank",
       "hp": 20.0,
       "armorThickness": 3.0
@@ -1088,8 +1264,11 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": false,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "vital": true,
       "armorClass": "tank_steel_wheels",
       "hp": 250.0,
@@ -1107,8 +1286,11 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": false,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "vital": true,
       "armorClass": "tank_steel_wheels",
       "hp": 250.0,
@@ -1126,8 +1308,11 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": false,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "vital": true,
       "armorClass": "tank_steel_wheels",
       "hp": 250.0,
@@ -1145,8 +1330,11 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": false,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "vital": true,
       "armorClass": "tank_steel_wheels",
       "hp": 250.0,
@@ -1164,8 +1352,11 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": false,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "vital": true,
       "armorClass": "tank_steel_wheels",
       "hp": 250.0,
@@ -1183,8 +1374,11 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": false,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "vital": true,
       "armorClass": "tank_steel_wheels",
       "hp": 250.0,
@@ -1202,8 +1396,11 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": false,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "vital": true,
       "armorClass": "tank_steel_wheels",
       "hp": 250.0,
@@ -1221,8 +1418,11 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": false,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "vital": true,
       "armorClass": "tank_steel_wheels",
       "hp": 250.0,
@@ -1240,8 +1440,11 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": false,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "vital": true,
       "armorClass": "tank_steel_wheels",
       "hp": 250.0,
@@ -1259,8 +1462,11 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": false,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "vital": true,
       "armorClass": "tank_steel_wheels",
       "hp": 250.0,
@@ -1278,8 +1484,11 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": false,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "vital": true,
       "armorClass": "tank_steel_wheels",
       "hp": 250.0,
@@ -1297,8 +1506,11 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": false,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "vital": true,
       "armorClass": "tank_steel_wheels",
       "hp": 250.0,
@@ -1316,8 +1528,11 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": false,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "vital": true,
       "armorClass": "tank_steel_wheels",
       "hp": 250.0,
@@ -1335,8 +1550,11 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": false,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "vital": true,
       "armorClass": "tank_steel_wheels",
       "hp": 250.0,
@@ -1354,8 +1572,11 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": false,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "vital": true,
       "armorClass": "tank_steel_wheels",
       "hp": 250.0,
@@ -1373,8 +1594,11 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": false,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "vital": true,
       "armorClass": "tank_steel_wheels",
       "hp": 250.0,
@@ -1392,8 +1616,11 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "vital": true,
       "armorClass": "tank_steel_wheels",
       "hp": 250.0,
@@ -1411,8 +1638,11 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "vital": true,
       "armorClass": "tank_steel_wheels",
       "hp": 250.0,
@@ -1430,8 +1660,11 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "vital": true,
       "armorClass": "tank_steel_wheels",
       "hp": 250.0,
@@ -1449,8 +1682,11 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "vital": true,
       "armorClass": "tank_steel_wheels",
       "hp": 250.0,
@@ -1468,8 +1704,11 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "vital": true,
       "armorClass": "tank_steel_wheels",
       "hp": 250.0,
@@ -1487,8 +1726,11 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "armorClass": "tank_traks",
       "hp": 200.0,
       "armorThickness": 20.0
@@ -1505,8 +1747,11 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "armorClass": "tank_traks",
       "hp": 200.0,
       "armorThickness": 20.0
@@ -1523,8 +1768,11 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "armorClass": "tank_traks",
       "hp": 200.0,
       "armorThickness": 20.0
@@ -1541,8 +1789,11 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "armorClass": "tank_traks",
       "hp": 200.0,
       "armorThickness": 20.0
@@ -1559,8 +1810,11 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "armorClass": "tank_traks",
       "hp": 200.0,
       "armorThickness": 20.0
@@ -1577,8 +1831,11 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "armorClass": "tank_traks",
       "hp": 200.0,
       "armorThickness": 20.0
@@ -1595,8 +1852,11 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "armorClass": "tank_traks",
       "hp": 200.0,
       "armorThickness": 20.0
@@ -1613,8 +1873,11 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "armorClass": "tank_traks",
       "hp": 200.0,
       "armorThickness": 20.0
@@ -1631,8 +1894,11 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "armorClass": "tank_traks",
       "hp": 200.0,
       "armorThickness": 20.0
@@ -1649,8 +1915,11 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "armorClass": "tank_traks",
       "hp": 200.0,
       "armorThickness": 20.0
@@ -1667,8 +1936,11 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "armorClass": "tank_traks",
       "hp": 200.0,
       "armorThickness": 20.0
@@ -1685,8 +1957,11 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "armorClass": "tank_traks",
       "hp": 200.0,
       "armorThickness": 20.0
@@ -1703,8 +1978,11 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "armorClass": "tank_traks",
       "hp": 200.0,
       "armorThickness": 20.0
@@ -1721,8 +1999,11 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "armorClass": "tank_traks",
       "hp": 200.0,
       "armorThickness": 20.0
@@ -1739,8 +2020,11 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "vital": true,
       "armorClass": "tank_barrel",
       "hp": 150.0,
@@ -1758,8 +2042,11 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "vital": true,
       "armorClass": "tank_barrel",
       "hp": 50.0,
@@ -1778,8 +2065,11 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "vital": true,
       "armorClass": "tank_barrel",
       "hp": 50.0,
@@ -1798,8 +2088,11 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "vital": true,
       "movement": true,
       "armorClass": "tank_traks",
@@ -1823,8 +2116,11 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "vital": true,
       "movement": true,
       "armorClass": "tank_traks",
@@ -1848,13 +2144,18 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 1.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 1.0,
+      "ldmInner": true,
       "vital": true,
       "movement": true,
       "armorClass": "steel_tankman",
       "hp": 40.0,
-      "genericDamageMult": 3.0
+      "genericDamageMult": 3.0,
+      "ignoreSolidDimension": true
     },
     "loader": {
       "hitTestType": "inner",
@@ -1868,12 +2169,17 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 1.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 1.0,
+      "ldmInner": true,
       "vital": true,
       "armorClass": "steel_tankman",
       "hp": 40.0,
-      "genericDamageMult": 3.0
+      "genericDamageMult": 3.0,
+      "ignoreSolidDimension": true
     },
     "gunner": {
       "hitTestType": "inner",
@@ -1887,12 +2193,17 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 1.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 1.0,
+      "ldmInner": true,
       "vital": true,
       "armorClass": "steel_tankman",
       "hp": 40.0,
-      "genericDamageMult": 3.0
+      "genericDamageMult": 3.0,
+      "ignoreSolidDimension": true
     },
     "commander": {
       "hitTestType": "inner",
@@ -1906,12 +2217,17 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 1.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 1.0,
+      "ldmInner": true,
       "vital": true,
       "armorClass": "steel_tankman",
       "hp": 40.0,
-      "genericDamageMult": 3.0
+      "genericDamageMult": 3.0,
+      "ignoreSolidDimension": true
     },
     "machine_gunner": {
       "hitTestType": "inner",
@@ -1925,12 +2241,17 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 1.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 1.0,
+      "ldmInner": true,
       "vital": true,
       "armorClass": "steel_tankman",
       "hp": 40.0,
-      "genericDamageMult": 3.0
+      "genericDamageMult": 3.0,
+      "ignoreSolidDimension": true
     },
     "drive_turret_v": {
       "hitTestType": "inner",
@@ -1944,9 +2265,13 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "vital": true,
+      "ldmInner": true,
       "armorClass": "tank_structural_steel",
       "hp": 150.0,
       "armorThrough": 15.0,
@@ -1964,9 +2289,13 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "vital": true,
+      "ldmInner": true,
       "armorClass": "tank_structural_steel",
       "hp": 150.0,
       "armorThrough": 15.0,
@@ -1984,9 +2313,13 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "vital": true,
+      "ldmInner": true,
       "armorClass": "tank_structural_steel",
       "hp": 50.0,
       "armorThrough": 5.0,
@@ -2004,9 +2337,13 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "vital": true,
+      "ldmInner": true,
       "armorClass": "tank_structural_steel",
       "hp": 50.0,
       "armorThrough": 5.0,
@@ -2024,8 +2361,11 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "armorClass": "tank_structural_steel",
       "hp": 50.0,
       "armorThrough": 3.0,
@@ -2043,9 +2383,13 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "vital": true,
+      "ldmInner": true,
       "armorClass": "tank_structural_steel",
       "hp": 150.0,
       "armorThickness": 150.0,
@@ -2065,11 +2409,15 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "vital": true,
       "movement": true,
       "fire": true,
+      "ldmInner": true,
       "armorClass": "armor_tank_engine",
       "hp": 100.0,
       "armorThickness": 50.0,
@@ -2087,11 +2435,15 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "vital": true,
       "movement": true,
       "fire": true,
+      "ldmInner": true,
       "armorClass": "armor_tank_engine",
       "hp": 100.0,
       "armorThickness": 50.0,
@@ -2109,9 +2461,13 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "vital": true,
+      "ldmInner": true,
       "armorClass": "tank_structural_steel",
       "hp": 300.0,
       "armorThickness": 2.0,
@@ -2130,9 +2486,13 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "vital": true,
+      "ldmInner": true,
       "armorClass": "tank_structural_steel",
       "hp": 300.0,
       "armorThickness": 2.0,
@@ -2151,9 +2511,13 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "vital": true,
+      "ldmInner": true,
       "armorClass": "tank_structural_steel",
       "hp": 300.0,
       "armorThickness": 2.0,
@@ -2172,9 +2536,13 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "vital": true,
+      "ldmInner": true,
       "armorClass": "tank_structural_steel",
       "hp": 300.0,
       "armorThickness": 2.0,
@@ -2193,9 +2561,13 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "vital": true,
+      "ldmInner": true,
       "armorClass": "tank_structural_steel",
       "hp": 300.0,
       "armorThickness": 2.0,
@@ -2214,9 +2586,13 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "vital": true,
+      "ldmInner": true,
       "armorClass": "tank_structural_steel",
       "hp": 300.0,
       "armorThickness": 2.0,
@@ -2235,9 +2611,13 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "vital": true,
+      "ldmInner": true,
       "armorClass": "tank_structural_steel",
       "hp": 300.0,
       "armorThickness": 2.0,
@@ -2256,9 +2636,13 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "vital": true,
+      "ldmInner": true,
       "armorClass": "tank_structural_steel",
       "hp": 300.0,
       "armorThickness": 2.0,
@@ -2277,9 +2661,13 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "vital": true,
+      "ldmInner": true,
       "armorClass": "tank_structural_steel",
       "hp": 300.0,
       "armorThickness": 2.0,
@@ -2298,9 +2686,13 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "vital": true,
+      "ldmInner": true,
       "armorClass": "tank_structural_steel",
       "hp": 300.0,
       "armorThickness": 2.0,
@@ -2319,9 +2711,13 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "vital": true,
+      "ldmInner": true,
       "armorClass": "tank_structural_steel",
       "hp": 300.0,
       "armorThickness": 2.0,
@@ -2340,9 +2736,13 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "vital": true,
+      "ldmInner": true,
       "armorClass": "tank_structural_steel",
       "hp": 300.0,
       "armorThickness": 2.0,
@@ -2361,9 +2761,13 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "vital": true,
+      "ldmInner": true,
       "armorClass": "tank_structural_steel",
       "hp": 300.0,
       "armorThickness": 2.0,
@@ -2382,9 +2786,13 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "vital": true,
+      "ldmInner": true,
       "armorClass": "tank_structural_steel",
       "hp": 300.0,
       "armorThickness": 2.0,
@@ -2403,9 +2811,13 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "vital": true,
+      "ldmInner": true,
       "armorClass": "tank_structural_steel",
       "hp": 300.0,
       "armorThickness": 2.0,
@@ -2424,9 +2836,13 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "vital": true,
+      "ldmInner": true,
       "armorClass": "tank_structural_steel",
       "hp": 300.0,
       "armorThickness": 2.0,
@@ -2445,9 +2861,13 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "vital": true,
+      "ldmInner": true,
       "armorClass": "tank_structural_steel",
       "hp": 300.0,
       "armorThickness": 2.0,
@@ -2466,9 +2886,13 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "vital": true,
+      "ldmInner": true,
       "armorClass": "tank_structural_steel",
       "hp": 300.0,
       "armorThickness": 2.0,
@@ -2487,9 +2911,13 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "vital": true,
+      "ldmInner": true,
       "armorClass": "tank_structural_steel",
       "hp": 300.0,
       "armorThickness": 2.0,
@@ -2508,9 +2936,13 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "vital": true,
+      "ldmInner": true,
       "armorClass": "tank_structural_steel",
       "hp": 300.0,
       "armorThickness": 2.0,
@@ -2529,9 +2961,13 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "vital": true,
+      "ldmInner": true,
       "armorClass": "tank_structural_steel",
       "hp": 300.0,
       "armorThickness": 2.0,
@@ -2550,9 +2986,13 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "vital": true,
+      "ldmInner": true,
       "armorClass": "tank_structural_steel",
       "hp": 300.0,
       "armorThickness": 2.0,
@@ -2571,9 +3011,13 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "vital": true,
+      "ldmInner": true,
       "armorClass": "tank_structural_steel",
       "hp": 300.0,
       "armorThickness": 2.0,
@@ -2592,9 +3036,13 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "vital": true,
+      "ldmInner": true,
       "armorClass": "tank_structural_steel",
       "hp": 300.0,
       "armorThickness": 2.0,
@@ -2613,9 +3061,13 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "vital": true,
+      "ldmInner": true,
       "armorClass": "tank_structural_steel",
       "hp": 300.0,
       "armorThickness": 2.0,
@@ -2634,9 +3086,13 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "vital": true,
+      "ldmInner": true,
       "armorClass": "tank_structural_steel",
       "hp": 300.0,
       "armorThickness": 2.0,
@@ -2655,9 +3111,13 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "vital": true,
+      "ldmInner": true,
       "armorClass": "tank_structural_steel",
       "hp": 300.0,
       "armorThickness": 2.0,
@@ -2676,9 +3136,13 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "vital": true,
+      "ldmInner": true,
       "armorClass": "tank_structural_steel",
       "hp": 300.0,
       "armorThickness": 2.0,
@@ -2697,9 +3161,13 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "vital": true,
+      "ldmInner": true,
       "armorClass": "tank_structural_steel",
       "hp": 300.0,
       "armorThickness": 2.0,
@@ -2718,9 +3186,13 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "vital": true,
+      "ldmInner": true,
       "armorClass": "tank_structural_steel",
       "hp": 300.0,
       "armorThickness": 2.0,
@@ -2739,9 +3211,13 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "vital": true,
+      "ldmInner": true,
       "armorClass": "tank_structural_steel",
       "hp": 300.0,
       "armorThickness": 2.0,
@@ -2760,9 +3236,13 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "vital": true,
+      "ldmInner": true,
       "armorClass": "tank_structural_steel",
       "hp": 300.0,
       "armorThickness": 2.0,
@@ -2781,9 +3261,13 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "vital": true,
+      "ldmInner": true,
       "armorClass": "tank_structural_steel",
       "hp": 300.0,
       "armorThickness": 2.0,
@@ -2802,9 +3286,13 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "vital": true,
+      "ldmInner": true,
       "armorClass": "tank_structural_steel",
       "hp": 300.0,
       "armorThickness": 2.0,
@@ -2823,9 +3311,13 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "vital": true,
+      "ldmInner": true,
       "armorClass": "tank_structural_steel",
       "hp": 300.0,
       "armorThickness": 2.0,
@@ -2844,9 +3336,13 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "vital": true,
+      "ldmInner": true,
       "armorClass": "tank_structural_steel",
       "hp": 300.0,
       "armorThickness": 2.0,
@@ -2865,9 +3361,13 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "vital": true,
+      "ldmInner": true,
       "armorClass": "tank_structural_steel",
       "hp": 300.0,
       "armorThickness": 2.0,
@@ -2886,9 +3386,13 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "vital": true,
+      "ldmInner": true,
       "armorClass": "tank_structural_steel",
       "hp": 300.0,
       "armorThickness": 2.0,
@@ -2907,9 +3411,13 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "vital": true,
+      "ldmInner": true,
       "armorClass": "tank_structural_steel",
       "hp": 300.0,
       "armorThickness": 2.0,
@@ -2928,10 +3436,14 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "vital": true,
       "fire": true,
+      "ldmInner": true,
       "armorClass": "tank_structural_steel",
       "hp": 250.0,
       "armorThickness": 2.0,
@@ -2951,10 +3463,14 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "vital": true,
       "fire": true,
+      "ldmInner": true,
       "armorClass": "tank_structural_steel",
       "hp": 250.0,
       "armorThickness": 2.0,
@@ -2974,10 +3490,14 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "vital": true,
       "fire": true,
+      "ldmInner": true,
       "armorClass": "tank_structural_steel",
       "hp": 250.0,
       "armorThickness": 2.0,
@@ -2997,10 +3517,14 @@
       "selfRepairDelay": 0.0,
       "selfRepairTime": -1.0,
       "ignoreDeadWithSplash": false,
+      "useForSeriousHit": true,
       "splashPenetrationToArmorThreshold": 0.33,
       "pressureDamageMult": 0.0,
+      "napalmDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
       "vital": true,
       "fire": true,
+      "ldmInner": true,
       "armorClass": "tank_structural_steel",
       "hp": 250.0,
       "armorThickness": 2.0,
@@ -3151,8 +3675,8 @@
         {
           "onHit": {
             "damageType": "cumulative",
-            "expl": 0.5,
-            "fire": 0.5,
+            "expl": 0.6,
+            "fire": 0.4,
             "damage": 200.0,
             "fHitCritical": true
           }
@@ -3196,8 +3720,8 @@
         {
           "onHit": {
             "damageType": "generic",
-            "expl": 0.05,
-            "fire": 0.1,
+            "expl": 0.075,
+            "fire": 0.075,
             "damage": 70.0,
             "fHitCritical": true
           }
@@ -3205,8 +3729,8 @@
         {
           "onHit": {
             "damageType": "generic",
-            "expl": 0.1,
-            "fire": 0.2,
+            "expl": 0.15,
+            "fire": 0.15,
             "damage": 200.0,
             "fHitCritical": true
           }
@@ -3214,8 +3738,8 @@
         {
           "onHit": {
             "damageType": "generic",
-            "expl": 0.1,
-            "fire": 0.4,
+            "expl": 0.25,
+            "fire": 0.25,
             "damage": 300.0,
             "fHitCritical": true
           }
@@ -3247,36 +3771,41 @@
         {
           "onHit": {
             "damageType": "fire",
-            "fire": 0.02,
+            "fire": 0.01,
+            "full_expl": 0.01,
             "expl": 0.01
           }
         },
         {
           "onKill": {
             "damageType": "cumulative",
-            "expl": 0.2,
-            "fire": 0.8
+            "expl": 0.4,
+            "full_expl": 0.1,
+            "fire": 0.5
           }
         },
         {
           "onKill": {
             "damageType": "explosion",
-            "expl": 0.2,
-            "fire": 0.8
+            "expl": 0.4,
+            "full_expl": 0.1,
+            "fire": 0.5
           }
         },
         {
           "onKill": {
             "damageType": "secondaryShatter",
-            "expl": 0.2,
-            "fire": 0.8
+            "expl": 0.4,
+            "full_expl": 0.1,
+            "fire": 0.5
           }
         },
         {
           "onKill": {
             "damageType": "generic",
-            "expl": 0.2,
-            "fire": 0.8
+            "expl": 0.5,
+            "full_expl": 0.1,
+            "fire": 0.4
           }
         }
       ]
@@ -3462,6 +3991,7 @@
         },
         {
           "onKill": {
+            "notDamageType": "overheat",
             "fire": 0.5,
             "nothing": 0.5,
             "fHitCritical": true
@@ -3559,6 +4089,765 @@
           "track_l": 1.0
         }
       }
+    },
+    {
+      "part": [
+        {
+          "name": "body_front"
+        },
+        {
+          "name": "body_side"
+        },
+        {
+          "name": "body_bottom"
+        },
+        {
+          "name": "superstructure_bottom"
+        },
+        {
+          "name": "superstructure_back"
+        },
+        {
+          "name": "superstructure_top"
+        },
+        {
+          "name": "superstructure_front"
+        },
+        {
+          "name": "superstructure_side"
+        },
+        {
+          "name": "ex_armor_body_l_01"
+        },
+        {
+          "name": "ex_armor_body_l_02"
+        },
+        {
+          "name": "ex_armor_body_l_03"
+        },
+        {
+          "name": "ex_armor_body_l_04"
+        },
+        {
+          "name": "ex_armor_body_l_05"
+        },
+        {
+          "name": "ex_armor_body_l_06"
+        },
+        {
+          "name": "ex_armor_body_l_07"
+        },
+        {
+          "name": "ex_armor_body_l_08"
+        },
+        {
+          "name": "ex_armor_body_l_09"
+        },
+        {
+          "name": "ex_armor_body_r_01"
+        },
+        {
+          "name": "ex_armor_body_r_02"
+        },
+        {
+          "name": "ex_armor_body_r_03"
+        },
+        {
+          "name": "ex_armor_body_r_04"
+        },
+        {
+          "name": "ex_armor_body_r_05"
+        },
+        {
+          "name": "ex_armor_body_r_06"
+        },
+        {
+          "name": "ex_armor_body_r_07"
+        },
+        {
+          "name": "ex_armor_body_r_08"
+        },
+        {
+          "name": "ex_armor_body_r_09"
+        },
+        {
+          "name": "ex_armor_body_r_10"
+        },
+        {
+          "name": "ex_armor_01"
+        },
+        {
+          "name": "ex_armor_02"
+        },
+        {
+          "name": "turret_front"
+        },
+        {
+          "name": "turret_side"
+        },
+        {
+          "name": "turret_top"
+        },
+        {
+          "name": "turret_01_back"
+        },
+        {
+          "name": "turret_02_side"
+        },
+        {
+          "name": "turret_02_back"
+        },
+        {
+          "name": "turret_03_side"
+        },
+        {
+          "name": "gun_mask_01"
+        },
+        {
+          "name": "gun_mask_04"
+        },
+        {
+          "onHit": {
+            "damageType": "explosion",
+            "damage": 0.0,
+            "action": {
+              "type": "fxEvent",
+              "probability": 0.05,
+              "fxEventName": "fire_after_hit_tiny"
+            }
+          }
+        },
+        {
+          "onHit": {
+            "damageType": "generic",
+            "damage": 0.0,
+            "action": {
+              "type": "fxEvent",
+              "probability": 0.05,
+              "fxEventName": "fire_after_hit_tiny"
+            }
+          }
+        },
+        {
+          "onHit": {
+            "damageType": "explosion",
+            "damage": 18.0,
+            "action": {
+              "type": "fxEvent",
+              "probability": 0.2,
+              "fxEventName": "fire_after_hit_small"
+            }
+          }
+        },
+        {
+          "onHit": {
+            "damageType": "generic",
+            "damage": 30.0,
+            "action": {
+              "type": "fxEvent",
+              "probability": 0.2,
+              "fxEventName": "fire_after_hit_small"
+            }
+          }
+        },
+        {
+          "onHit": {
+            "damageType": "explosion",
+            "damage": 30.0,
+            "action": {
+              "type": "fxEvent",
+              "probability": 0.4,
+              "fxEventName": "fire_after_hit_med"
+            }
+          }
+        },
+        {
+          "onHit": {
+            "damageType": "generic",
+            "damage": 50.0,
+            "action": {
+              "type": "fxEvent",
+              "probability": 0.4,
+              "fxEventName": "fire_after_hit_med"
+            }
+          }
+        },
+        {
+          "onHit": {
+            "damageType": "cumulative",
+            "damage": 80.0,
+            "action": {
+              "type": "fxEvent",
+              "probability": 0.4,
+              "fxEventName": "fire_after_hit_med"
+            }
+          }
+        },
+        {
+          "onHit": {
+            "damageType": "explosion",
+            "damage": 200.0,
+            "action": {
+              "type": "fxEvent",
+              "probability": 0.7,
+              "fxEventName": "fire_after_hit_big"
+            }
+          }
+        },
+        {
+          "onHit": {
+            "damageType": "generic",
+            "damage": 120.0,
+            "action": {
+              "type": "fxEvent",
+              "probability": 0.7,
+              "fxEventName": "fire_after_hit_big"
+            }
+          }
+        },
+        {
+          "onHit": {
+            "damageType": "cumulative",
+            "damage": 200.0,
+            "action": {
+              "type": "fxEvent",
+              "probability": 0.7,
+              "fxEventName": "fire_after_hit_big"
+            }
+          }
+        }
+      ]
     }
-  ]
+  ],
+  "MetaParts": {
+    "closed_fightning_compartment": [
+      {
+        "part": "driver"
+      },
+      {
+        "part": "loader"
+      },
+      {
+        "part": "gunner"
+      },
+      {
+        "part": "commander"
+      },
+      {
+        "part": "machine_gunner"
+      },
+      {
+        "part": "machine_gunner_01"
+      },
+      {
+        "part": "machine_gunner_02"
+      },
+      {
+        "part": "gunner_01"
+      },
+      {
+        "part": "gunner_02"
+      },
+      {
+        "part": "loader_01"
+      },
+      {
+        "part": "loader_02"
+      },
+      {
+        "part": "cannon_breech"
+      },
+      {
+        "part": "radio_station"
+      },
+      {
+        "part": "drive_turret_v"
+      },
+      {
+        "part": "drive_turret_h"
+      },
+      {
+        "part": "drive_turret_v_01"
+      },
+      {
+        "part": "drive_turret_h_01"
+      },
+      {
+        "part": "drive_turret_v_02"
+      },
+      {
+        "part": "drive_turret_h_02"
+      },
+      {
+        "part": "transmission"
+      },
+      {
+        "part": "ammo_turret"
+      },
+      {
+        "part": "ammo_turret_01"
+      },
+      {
+        "part": "ammo_turret_02"
+      },
+      {
+        "part": "ammo_turret_03"
+      },
+      {
+        "part": "ammo_turret_04"
+      },
+      {
+        "part": "ammo_turret_05"
+      },
+      {
+        "part": "ammo_turret_06"
+      },
+      {
+        "part": "ammo_turret_07"
+      },
+      {
+        "part": "ammo_turret_08"
+      },
+      {
+        "part": "ammo_turret_09"
+      },
+      {
+        "part": "ammo_turret_10"
+      },
+      {
+        "part": "ammo_turret_11"
+      },
+      {
+        "part": "ammo_turret_12"
+      },
+      {
+        "part": "ammo_turret_13"
+      },
+      {
+        "part": "ammo_turret_14"
+      },
+      {
+        "part": "ammo_turret_15"
+      },
+      {
+        "part": "ammo_turret_16"
+      },
+      {
+        "part": "ammo_turret_17"
+      },
+      {
+        "part": "ammo_turret_18"
+      },
+      {
+        "part": "ammo_turret_19"
+      },
+      {
+        "part": "ammo_turret_20"
+      },
+      {
+        "part": "ammo_turret_21"
+      },
+      {
+        "part": "ammo_turret_22"
+      },
+      {
+        "part": "ammo_turret_23"
+      },
+      {
+        "part": "ammo_turret_24"
+      },
+      {
+        "part": "ammo_turret_25"
+      },
+      {
+        "part": "ammo_turret_26"
+      },
+      {
+        "part": "ammo_turret_27"
+      },
+      {
+        "part": "ammo_turret_28"
+      },
+      {
+        "part": "ammo_turret_29"
+      },
+      {
+        "part": "ammo_turret_30"
+      },
+      {
+        "part": "ammo_turret_31"
+      },
+      {
+        "part": "ammo_turret_32"
+      },
+      {
+        "part": "ammo_turret_33"
+      },
+      {
+        "part": "ammo_turret_34"
+      },
+      {
+        "part": "ammo_turret_35"
+      },
+      {
+        "part": "ammo_turret_36"
+      },
+      {
+        "part": "ammo_turret_37"
+      },
+      {
+        "part": "ammo_turret_38"
+      },
+      {
+        "part": "ammo_turret_39"
+      },
+      {
+        "part": "ammo_turret_40"
+      },
+      {
+        "part": "ammo_turret_41"
+      },
+      {
+        "part": "ammo_turret_42"
+      },
+      {
+        "part": "ammo_turret_43"
+      },
+      {
+        "part": "ammo_turret_44"
+      },
+      {
+        "part": "ammo_turret_45"
+      },
+      {
+        "part": "ammo_turret_46"
+      },
+      {
+        "part": "ammo_turret_47"
+      },
+      {
+        "part": "ammo_turret_48"
+      },
+      {
+        "part": "ammo_turret_49"
+      },
+      {
+        "part": "ammo_turret_50"
+      },
+      {
+        "part": "ammo_turret_51"
+      },
+      {
+        "part": "ammo_turret_52"
+      },
+      {
+        "part": "ammo_turret_53"
+      },
+      {
+        "part": "ammo_turret_54"
+      },
+      {
+        "part": "ammo_turret_55"
+      },
+      {
+        "part": "ammo_body_01"
+      },
+      {
+        "part": "ammo_body_02"
+      },
+      {
+        "part": "ammo_body_03"
+      },
+      {
+        "part": "ammo_body_04"
+      },
+      {
+        "part": "ammo_body_05"
+      },
+      {
+        "part": "ammo_body_06"
+      },
+      {
+        "part": "ammo_body_07"
+      },
+      {
+        "part": "ammo_body_08"
+      },
+      {
+        "part": "ammo_body_09"
+      },
+      {
+        "part": "ammo_body_10"
+      },
+      {
+        "part": "ammo_body_11"
+      },
+      {
+        "part": "ammo_body_12"
+      },
+      {
+        "part": "ammo_body_13"
+      },
+      {
+        "part": "ammo_body_14"
+      },
+      {
+        "part": "ammo_body_15"
+      },
+      {
+        "part": "ammo_body_16"
+      },
+      {
+        "part": "ammo_body_17"
+      },
+      {
+        "part": "ammo_body_18"
+      },
+      {
+        "part": "ammo_body_19"
+      },
+      {
+        "part": "ammo_body_20"
+      },
+      {
+        "part": "ammo_body_21"
+      },
+      {
+        "part": "ammo_body_22"
+      },
+      {
+        "part": "ammo_body_23"
+      },
+      {
+        "part": "ammo_body_24"
+      },
+      {
+        "part": "ammo_body_25"
+      },
+      {
+        "part": "ammo_body_26"
+      },
+      {
+        "part": "ammo_body_27"
+      },
+      {
+        "part": "ammo_body_28"
+      },
+      {
+        "part": "ammo_body_29"
+      },
+      {
+        "part": "ammo_body_30"
+      },
+      {
+        "part": "ammo_body_31"
+      },
+      {
+        "part": "ammo_body_32"
+      },
+      {
+        "part": "ammo_body_33"
+      },
+      {
+        "part": "ammo_body_34"
+      },
+      {
+        "part": "ammo_body_35"
+      },
+      {
+        "part": "ammo_body_36"
+      },
+      {
+        "part": "ammo_body_37"
+      },
+      {
+        "part": "ammo_body_38"
+      },
+      {
+        "part": "ammo_body_39"
+      },
+      {
+        "part": "ammo_body_40"
+      },
+      {
+        "part": "ammo_body_41"
+      },
+      {
+        "part": "ammo_body_42"
+      },
+      {
+        "part": "ammo_body_43"
+      },
+      {
+        "part": "ammo_body_44"
+      },
+      {
+        "part": "ammo_body_45"
+      },
+      {
+        "part": "ammo_body_46"
+      },
+      {
+        "part": "ammo_body_47"
+      },
+      {
+        "part": "ammo_body_48"
+      },
+      {
+        "part": "ammo_body_49"
+      },
+      {
+        "part": "ammo_body_50"
+      },
+      {
+        "part": "ammo_body_51"
+      },
+      {
+        "part": "ammo_body_52"
+      },
+      {
+        "part": "ammo_body_53"
+      },
+      {
+        "part": "ammo_body_54"
+      },
+      {
+        "part": "ammo_body_55"
+      },
+      {
+        "part": "ammo_body_l_01"
+      },
+      {
+        "part": "ammo_body_l_02"
+      },
+      {
+        "part": "ammo_body_l_03"
+      },
+      {
+        "part": "ammo_body_l_04"
+      },
+      {
+        "part": "ammo_body_l_05"
+      },
+      {
+        "part": "ammo_body_l_06"
+      },
+      {
+        "part": "ammo_body_l_07"
+      },
+      {
+        "part": "ammo_body_l_08"
+      },
+      {
+        "part": "ammo_body_l_09"
+      },
+      {
+        "part": "ammo_body_l_10"
+      },
+      {
+        "part": "ammo_body_l_11"
+      },
+      {
+        "part": "ammo_body_l_12"
+      },
+      {
+        "part": "ammo_body_l_13"
+      },
+      {
+        "part": "ammo_body_l_14"
+      },
+      {
+        "part": "ammo_body_l_15"
+      },
+      {
+        "part": "ammo_body_l_16"
+      },
+      {
+        "part": "ammo_body_l_17"
+      },
+      {
+        "part": "ammo_body_l_18"
+      },
+      {
+        "part": "ammo_body_l_19"
+      },
+      {
+        "part": "ammo_body_l_20"
+      },
+      {
+        "part": "ammo_body_r_01"
+      },
+      {
+        "part": "ammo_body_r_02"
+      },
+      {
+        "part": "ammo_body_r_03"
+      },
+      {
+        "part": "ammo_body_r_04"
+      },
+      {
+        "part": "ammo_body_r_05"
+      },
+      {
+        "part": "ammo_body_r_06"
+      },
+      {
+        "part": "ammo_body_r_07"
+      },
+      {
+        "part": "ammo_body_r_08"
+      },
+      {
+        "part": "ammo_body_r_09"
+      },
+      {
+        "part": "ammo_body_r_10"
+      },
+      {
+        "part": "ammo_body_r_11"
+      },
+      {
+        "part": "ammo_body_r_12"
+      },
+      {
+        "part": "ammo_body_r_13"
+      },
+      {
+        "part": "ammo_body_r_14"
+      },
+      {
+        "part": "ammo_body_r_15"
+      },
+      {
+        "part": "ammo_body_r_16"
+      },
+      {
+        "part": "ammo_body_r_17"
+      },
+      {
+        "part": "ammo_body_r_18"
+      },
+      {
+        "part": "ammo_body_r_19"
+      },
+      {
+        "part": "ammo_body_r_20"
+      },
+      {
+        "effect": {
+          "conditionDamageType": "explosion",
+          "conditionDamage": 1.0,
+          "pressure": true
+        }
+      },
+      {
+        "effect": {
+          "conditionDamageType": "shatter",
+          "conditionDamage": 1.0,
+          "pressure": true
+        }
+      }
+    ]
+  }
 }

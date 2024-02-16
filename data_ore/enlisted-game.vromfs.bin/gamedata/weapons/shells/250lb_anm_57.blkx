@@ -1,8 +1,21 @@
 {
-  "mass": 119.45,
-  "mass_lbs": 250.0,
+  "normalizationPreset": "heat",
+  "ricochetPreset": "he",
+  "groundRicochetPreset": "he",
+  "secondaryShattersPreset": "ap",
+  "stabilityThreshold": 0.5,
+  "stabilityCaliberToArmorThreshold": 5.0,
+  "stabilityReductionAfterRicochet": 0.3,
+  "stabilityReductionAfterPenetration": 0.15,
+  "bulletType": "he_bomb",
+  "slopeEffectPreset": "ap",
+  "fresnel": [0.23,0.1,2.0],
+  "useEffectiveArmorThicknessForShatter": true,
+  "mass": 117.9,
+  "explodeOnRendinst": true,
+  "mass_lbs": 260.0,
   "explosiveType": "tnt",
-  "explosiveMass": 57.6,
+  "explosiveMass": 58.5,
   "bombType": "he_bomb",
   "bombName": "an_m57",
   "caliber": 0.274,
@@ -10,51 +23,102 @@
   "distFromCmToStab": 0.43,
   "dragCx": 0.0106,
   "sound": "weapon.bomb_mid",
-  "explosionPatchRadius": 5.0,
   "waterExplosionEffect": "bigesplashxplosion_fx",
+  "fallToUnitFx": "hit_81_105mm_metal_ap",
+  "explodeTreshold": 0.0,
+  "fallToWaterFx": "bomb_reflection",
+  "explodeHitPower": 200.0,
+  "fallFx": "hit_59_80mm_dirt_ap",
+  "explodeArmorPower": 75.0,
+  "shatterPatchRadius": 0.0,
+  "explodeRadius": [4.0,12.0],
+  "visualShattersWaterOffset": 1.2,
+  "visualShattersGroundOffset": 1.2,
+  "rendinstDamageRadius": 12.0,
   "hitPowerMult": 1.0,
   "nearHitPower": [1.0,50.0],
+  "shutterDamage": true,
   "midHitPower": [0.9,400.0],
+  "shutterDamageRadius": 45.0,
   "farHitPower": [0.1,1000.0],
+  "shutterAmount": 3000,
   "endHitPower": [0.01,1500.0],
-  "explodeTreshold": 0.0,
+  "shutterArmorPower": 12.0,
   "relativeVelHitShift": [300.0,1000.0],
-  "explodeHitPower": 200.0,
+  "shutterHit": 12.0,
   "nearArmorPower": [10.0,50.0],
-  "explodeArmorPower": 75.0,
+  "iconType": "bombs_small",
   "midArmorPower": [7.0,400.0],
-  "explodeRadius": [4.0,12.0],
   "farArmorPower": [0.2,700.0],
   "relativeVelArmorShift": [200.0,1000.0],
-  "rendinstDamageRadius": 20.0,
-  "shutterDamage": true,
-  "shutterDamageRadius": 45.0,
-  "shutterAmount": 3000,
-  "shutterArmorPower": 12.0,
-  "shutterHit": 12.0,
   "entityTemplate": "250lb_anm_57_bomb_projectile",
   "entityPhysTemplate": "",
+  "stabilityRicochetModifier": {
+    "mod1": [0.0,0.5],
+    "mod2": [15.0,0.7],
+    "mod3": [30.0,0.99]
+  },
   "pressureDamage": {
     "damageType": "pressure"
   },
   "DamageParts": {
     "body": {
-      "hp": 35.0,
+      "hp": 100.0,
       "armorClass": "tank_structural_steel",
-      "armorThickness": 5.0,
-      "explosionArmorQuality": 45.0,
-      "shatterArmorQuality": 45.0
+      "armorThickness": 15.0,
+      "explosionArmorQuality": 1.0,
+      "shatterArmorQuality": 1.0
     }
   },
-  "hitFx": {
-    "defaultFx": "generic_weapon_hit_ground",
-    "jetFx": "generic_weapon_hit_ground",
-    "water3d": {
-      "fx": "water_hit_big_cmps_fx",
-      "fxScale": [1.0,1.0]
-    }
+  "DamageEffects": {
+    "part": [
+      {
+        "name": "body"
+      },
+      {
+        "onHit": {
+          "damageType": "generic",
+          "expl": 0.2,
+          "break": 0.8,
+          "damage": 3.0,
+          "fHitCritical": true
+        }
+      },
+      {
+        "onHit": {
+          "damageType": "generic",
+          "expl": 0.5,
+          "break": 0.5,
+          "damage": 30.0,
+          "fHitCritical": true
+        }
+      },
+      {
+        "onHit": {
+          "damageType": "explosion",
+          "expl": 0.8,
+          "break": 0.2,
+          "damage": 50.0,
+          "fHitCritical": true
+        }
+      },
+      {
+        "onHit": {
+          "damageType": "cumulative",
+          "expl": 1.0,
+          "damage": 100.0,
+          "fHitCritical": true
+        }
+      },
+      {
+        "onKill": {
+          "expl": 1.0,
+          "fHitCritical": true
+        }
+      }
+    ]
   },
   "explFx": {
-    "effectTemplName": "explosion_100_250kg_dirt_effect"
+    "effectTemplName": "bomb_expl_100kg"
   }
 }

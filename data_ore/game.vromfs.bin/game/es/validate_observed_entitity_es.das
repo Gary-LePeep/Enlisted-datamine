@@ -6,7 +6,7 @@ require ecs
 */
 
 def validate_observed(valid_target : EntityId)
-  if !valid_target
+  if !valid_target || !valid_target |> has("watchedByPlr")
     return
 
   query() <| $ [es(REQUIRE=watchedByPlr)] (eid : EntityId)

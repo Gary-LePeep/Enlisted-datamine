@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { h0_txt, h1_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontTitle, fontHeading1 } = require("%enlSqGlob/ui/fontsStyle.nut")
 let {
   bigPadding, titleTxtColor, defTxtColor, activeTxtColor, smallPadding, maxContentWidth,
   blurBgFillColor, isWide
@@ -11,7 +11,17 @@ let { mkHeaderFlag, casualFlagStyle } = require("%enlSqGlob/ui/mkHeaderFlag.nut"
 let bottomBar = require("%enlist/mainMenu/bottomRightButtons.nut")
 
 let wndHeaderHeight = hdpx(150)
-let armyIconHeight = hdpx(36)
+let armyIconSize = hdpx(26)
+let teamsColors = [
+  {
+    defBgColor = 0xAA9D2618
+    hoverBgColor = 0xAA641C14
+  },
+  {
+    defBgColor = 0xAA285d93
+    hoverBgColor = 0xAA193C60
+  }
+]
 
 let function txtColor (sf){
   return sf & S_ACTIVE ? activeTxtColor
@@ -26,7 +36,7 @@ let windowTitle = @(title){
       padding = [localGap, bigPadding * 3]
       rendObj = ROBJ_TEXT
       text = title
-    }.__update(isWide ? h0_txt : h1_txt),
+    }.__update(isWide ? fontTitle : fontHeading1),
     {
       offset = hdpx(15)
     }.__update(casualFlagStyle)
@@ -75,7 +85,7 @@ let function armyButton(armyId, onArmySelect, isSelected) {
         size = SIZE_TO_CONTENT
         vplace = ALIGN_BOTTOM
         children = [
-          mkArmyIcon(armyId, armyIconHeight)
+          mkArmyIcon(armyId, armyIconSize)
         ]
       }
     ]
@@ -133,4 +143,6 @@ return {
   selectArmyBlock
   footer
   mkPanel
+  teamsColors
+  armyIconSize
 }

@@ -2,7 +2,7 @@ module net_utils shared
 
 require ecs
 require game.utils.team
-require EnlistedNet
+require DngNet
 require player
 
 def enum_connections_squad(squad_eid : EntityId) : array<IConnection?>
@@ -25,17 +25,16 @@ def enum_connections_range_team(pos : float3;
                                 search_range : float;
                                 team_id : int;
                                 filter_possessed : bool;
-                                except_possessed : EntityId;
-                                is_player_relative : bool) : array<IConnection?>
+                                except_possessed : EntityId) : array<IConnection?>
   var recipients : array<IConnection?>
   query() <| $ [es(REQUIRE=player)] (eid : EntityId; possessed : EntityId; connid : int; disconnected : bool)
     if (filter_possessed && possessed == except_possessed) || disconnected
       return
     if search_range > 0.f
-      if is_player_relative
-        let playerLat : LookingAt = player_get_looking_at(eid)
-        let playerPos : float3 const? = playerLat.pos
-        if playerPos == null || length_sq(pos - *playerPos) > (search_range * search_range)
+      let playerLat : LookingAt = player_get_looking_at(eid)
+      let playerPos : float3 const? = playerLat.pos
+      if playerPos != null
+        if length_sq(pos - *playerPos) > (search_range * search_range)
           return
       elif !doesEntityExist(possessed)
         return
@@ -48,21 +47,33 @@ def enum_connections_range_team(pos : float3;
     recipients |> push(connid |> get_client_connection())
   return <- recipients
 
+
 def private entity_pos_range_team_impl(target : EntityId; default_bcast_range : float; team_eid : EntityId;
-                                       filter_possessed : bool; except_possessed : EntityId; is_player_relative : bool) : array<IConnection?>
+                                       filter_possessed : bool; except_possessed : EntityId) : array<IConnection?>
   let targetTm : float3x4 = target |> get_TMatrix("transform") ?? float3x4()
   let team : int = get_int(team_eid, "team") ?? TEAM_UNASSIGNED
   let searchRange : float = target |> get_float("bcastRange") ?? default_bcast_range
-  return <- enum_connections_range_team(targetTm[3], searchRange, team, filter_possessed, except_possessed, is_player_relative);
+  return <- enum_connections_range_team(targetTm[3], searchRange, team, filter_possessed, except_possessed)
 
-def target_entity_pos_range(target : EntityId; default_bcast_range : float = 25.f; is_player_relative : bool = false) : array<IConnection?>
-  return <- entity_pos_range_team_impl(target, default_bcast_range, INVALID_ENTITY_ID, false, INVALID_ENTITY_ID, is_player_relative)
 
-def target_entity_pos_range_team(target : EntityId; default_bcast_range : float = 25.f; is_player_relative : bool = false) : array<IConnection?>
-  return <- entity_pos_range_team_impl(target, default_bcast_range, target, false, INVALID_ENTITY_ID, is_player_relative)
+def private entity_team_impl(target : EntityId; team_eid : EntityId;
+                             filter_possessed : bool; except_possessed : EntityId) : array<IConnection?>
+  let targetTm : float3x4 = target |> get_TMatrix("transform") ?? float3x4()
+  let team : int = get_int(team_eid, "team") ?? TEAM_UNASSIGNED
+  return <- enum_connections_range_team(targetTm[3], 0., team, filter_possessed, except_possessed)
 
-def target_entity_pos_range_except_hero(target : EntityId; default_bcast_range : float = 25.f; is_player_relative : bool = false) : array<IConnection?>
-  return <- entity_pos_range_team_impl(target, default_bcast_range, INVALID_ENTITY_ID, true, target, is_player_relative)
+
+def target_entity_pos_range(target : EntityId; default_bcast_range : float = 25.f) : array<IConnection?>
+  return <- entity_pos_range_team_impl(target, default_bcast_range, INVALID_ENTITY_ID, false, INVALID_ENTITY_ID)
+
+def target_entity_pos_range_team(target : EntityId; default_bcast_range : float = 25.f) : array<IConnection?>
+  return <- entity_pos_range_team_impl(target, default_bcast_range, target, false, INVALID_ENTITY_ID)
+
+def target_entity_pos_range_except_hero(target : EntityId; default_bcast_range : float = 25.f) : array<IConnection?>
+  return <- entity_pos_range_team_impl(target, default_bcast_range, INVALID_ENTITY_ID, true, target)
+
+def target_entity_team(target : EntityId) : array<IConnection?>
+  return <- entity_team_impl(target, target, false, INVALID_ENTITY_ID)
 
 def private get_controlled_by_connection(var out : array<IConnection?>&; eid : EntityId)
   query(eid) <| $ [es] (replication : NetObject)

@@ -1,36 +1,49 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { armies, curArmy } = require("state.nut")
+let { curArmyData, curArmy } = require("state.nut")
+let { getCantBuyData } = require("%enlist/shop/shopPkg.nut")
+let { curGrowthState, curGrowthConfig, curGrowthProgress, curGrowthTiers
+} = require("%enlist/growth/growthState.nut")
+let { allItemTemplates } = require("%enlist/soldiers/model/all_items_templates.nut")
+let { getShopItems, curArmyItemsPrefiltered } = require("%enlist/shop/armyShopState.nut")
+let { itemToShopItem } = require("%enlist/soldiers/model/cratesContent.nut")
 
-let function getDemandsFromPool(pool, key, value) {
-  let byKey = pool?[key] ?? {}
-  pool[key] <- byKey
-  let byValue = byKey?[value] ?? { [key] = value }
-  byKey[value] <- byValue
-  return byValue
+
+let growthDemand = {
+  lockTxt = loc("itemDemandsHeader/classLimit")
+}
+
+let shopDemand = {
+  lockTxt = loc("itemDemandsHeader/canObtainInShop_yes")
+  canObtainInShop = true
 }
 
 // Caveat: This method will only work correctly for items demands check of the currently selected army
 local function mkItemListDemands(items) {
   if (typeof items != "array")
     items = [items]
-  let demandsPool = {}
   return Computed(function() {
-    let armyId = curArmy.value
-    let armyLevel = armies.value?[armyId].level ?? 0
     return items.map(function(item) {
-      let { unlocklevel = 0 } = item
-      if (!(item?.isShopItem ?? false))
-        return { item }
-      if (unlocklevel > 0 && unlocklevel > armyLevel)
+      if (item?.isShopItem) {
+        let shopItems = getShopItems(item?.basetpl, curArmy.value, itemToShopItem.value,
+          allItemTemplates.value, curArmyItemsPrefiltered.value)
+        let shopItem = shopItems?[0]
+        let demands = getCantBuyData(curArmyData.value,
+          shopItem?.requirements,
+          curGrowthState.value,
+          curGrowthConfig.value,
+          curGrowthProgress.value,
+          curGrowthTiers.value,
+          allItemTemplates.value)
         return {
           item
-          demands = getDemandsFromPool(demandsPool, "levelLimit", unlocklevel)
+          demands = !demands ? shopDemand
+            : demands?.growthRequired ? growthDemand
+            : demands
         }
-      return {
-        item
-        demands = getDemandsFromPool(demandsPool, "canObtainInShop", unlocklevel >= 0)
       }
+
+      return { item }
     })
   })
 }

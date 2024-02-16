@@ -1,10 +1,10 @@
 {
   "pby_5a": [
     {
-      "_extends": "pby_5a_base"
+      "_use": "pby_5a_base"
     },
     {
-      "_extends": "squad_controlled_plane"
+      "_use": "squad_controlled_plane"
     },
     {
       "item__name": "items/pby_5a"
@@ -410,16 +410,16 @@
   },
   "planegun_pby_5a_7_62mm_browning30_turret_01": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_plane_machinegun"
+      "_use": "base_plane_machinegun"
     },
     {
-      "_extends": "base_pby_5a_7_62mm_browning30_turret"
+      "_use": "base_pby_5a_7_62mm_browning30_turret"
     },
     {
-      "_extends": "gunsound_7_62mm_browning30_turret_aircraft"
+      "_use": "gunsound_7_62mm_browning30_turret_aircraft"
     },
     {
       "gun__shootNodeName": "flare1"
@@ -442,16 +442,16 @@
   ],
   "planegun_pby_5a_12_7mm_browning50_turret_01": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_plane_machinegun"
+      "_use": "base_plane_machinegun"
     },
     {
-      "_extends": "base_pby_5a_12_7mm_browning50_turret"
+      "_use": "base_pby_5a_12_7mm_browning50_turret"
     },
     {
-      "_extends": "gunsound_12_7mm_browning50_turret_aircraft"
+      "_use": "gunsound_12_7mm_browning50_turret_aircraft"
     },
     {
       "gun__shootNodeName": "flare2"
@@ -474,16 +474,16 @@
   ],
   "planegun_pby_5a_12_7mm_browning50_turret_02": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_plane_machinegun"
+      "_use": "base_plane_machinegun"
     },
     {
-      "_extends": "base_pby_5a_12_7mm_browning50_turret"
+      "_use": "base_pby_5a_12_7mm_browning50_turret"
     },
     {
-      "_extends": "gunsound_12_7mm_browning50_turret_aircraft"
+      "_use": "gunsound_12_7mm_browning50_turret_aircraft"
     },
     {
       "gun__shootNodeName": "flare3"
@@ -506,16 +506,16 @@
   ],
   "planegun_pby_5a_7_62mm_browning30_turret_02": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_plane_machinegun"
+      "_use": "base_plane_machinegun"
     },
     {
-      "_extends": "base_pby_5a_7_62mm_browning30_turret"
+      "_use": "base_pby_5a_7_62mm_browning30_turret"
     },
     {
-      "_extends": "gunsound_7_62mm_browning30_turret_aircraft"
+      "_use": "gunsound_7_62mm_browning30_turret_aircraft"
     },
     {
       "gun__shootNodeName": "flare4"

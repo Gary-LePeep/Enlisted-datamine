@@ -17,7 +17,7 @@ struct MissionCenterInfo
 def private find_mission_center_point()
   var pointsCount = 0
   var info = [[MissionCenterInfo]]
-  query() <| $ [es(REQUIRE=respbase, REQUIRE_NOT=(aircraftRespbase, playerRespawnBase, customRespawnBase))] (transform : float3x4; team : int)
+  query() <| $ [es(REQUIRE=respbase, REQUIRE_NOT=(mobileRespawnTag, aircraftRespbase, playerRespawnBase, customRespawnBase))] (transform : float3x4; team : int)
     let teamIdx = team - 1
     if uint(teamIdx) >= MAX_TEAM_COUNT
       return

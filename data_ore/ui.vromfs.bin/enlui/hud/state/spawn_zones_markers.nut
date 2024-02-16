@@ -23,12 +23,16 @@ ecs.register_es("spawn_zones_markers",
                                   selectedGroup = comp.selectedGroup,
                                   forTeam = comp.team,
                                   isCustom,
+                                  isMobileSpawn = comp["mobileRespawnSelector"] != null,
                                   iconIndex = comp["respawn_icon__iconIndex"],
                                   additiveAngle = comp["respawn_icon__additiveAngle"],
                                   isActive = comp["respawn_icon__active"],
-                                  isPlayerSpawn = comp["respawn_icon__isPlayerSpawn"]
+                                  isPlayerSpawn = comp["respawn_icon__isPlayerSpawn"],
                                   activateAtTime = comp["respawn_icon__activateAtTime"],
-                                  enemyAtRespawn = comp["respawn_icon__isEnemyAtRespawn"]
+                                  enemyAtRespawn = comp["respawn_icon__isEnemyAtRespawn"],
+                                  playersCount = comp["respawn_icon__playersCount"],
+                                  isOccupied = comp["respawn_icon__isOccupied"],
+                                  additionalInfo = comp["respawn_icon__additionalInfo"]
                                 }
                               )
     }
@@ -39,9 +43,11 @@ ecs.register_es("spawn_zones_markers",
   },
   {
     comps_ro = [
+      ["mobileRespawnSelector", ecs.TYPE_TAG, null],
       ["respawnIconType", ecs.TYPE_STRING],
       ["selectedGroup", ecs.TYPE_INT],
-      ["team", ecs.TYPE_INT]
+      ["team", ecs.TYPE_INT],
+      ["respawn_icon__additionalInfo", ecs.TYPE_STRING, ""]
     ]
     comps_track = [
       ["respawn_icon__iconIndex", ecs.TYPE_INT],
@@ -50,7 +56,9 @@ ecs.register_es("spawn_zones_markers",
       ["respawn_icon__isHidden", ecs.TYPE_BOOL],
       ["respawn_icon__activateAtTime", ecs.TYPE_FLOAT],
       ["respawn_icon__isEnemyAtRespawn", ecs.TYPE_BOOL],
-      ["respawn_icon__isPlayerSpawn", ecs.TYPE_BOOL]
+      ["respawn_icon__isPlayerSpawn", ecs.TYPE_BOOL],
+      ["respawn_icon__playersCount", ecs.TYPE_INT],
+      ["respawn_icon__isOccupied", ecs.TYPE_BOOL]
     ]
   }
 )

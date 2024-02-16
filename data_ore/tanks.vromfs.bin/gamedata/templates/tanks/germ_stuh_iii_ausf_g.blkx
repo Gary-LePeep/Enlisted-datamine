@@ -1,13 +1,13 @@
 {
   "germ_stuh_III_ausf_G": {
-    "_extends": "germ_stuh_iii_ausf_g_common"
+    "_use": "germ_stuh_iii_ausf_g_common"
   },
   "germ_stuh_iii_ausf_g_common": [
     {
-      "_extends": "base_stuh_iii_ausf_g"
+      "_use": "base_stuh_iii_ausf_g"
     },
     {
-      "_extends": "tank_panzer3_engine_sound"
+      "_use": "tank_panzer3_engine_sound"
     },
     {
       "turrets__initAmmoDistribution:array": [

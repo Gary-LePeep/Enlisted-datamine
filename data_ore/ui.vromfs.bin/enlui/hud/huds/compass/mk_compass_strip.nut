@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let {body_txt} = require("%enlSqGlob/ui/fonts_style.nut")
+let {fontBody} = require("%enlSqGlob/ui/fontsStyle.nut")
 let {DEFAULT_TEXT_COLOR} = require("%ui/hud/style.nut")
 let userPoints = require("%ui/hud/huds/compass/compass_user_point.nut")
 
@@ -56,7 +56,7 @@ let function compassElem(text, angle, scale, lineHeight=hdpx(10)) {
         color = DEFAULT_TEXT_COLOR
         opacity = (scale + 1.0) * 0.5
         text
-      }.__update(body_txt, {fontSize = hdpx(22 * scale)})
+      }.__update(fontBody, {fontSize = hdpx(22 * scale)})
     )
 
   return res
@@ -68,7 +68,7 @@ let compassFovSettings = {
       }
 
 const bigCharScaleDef = 0.85
-const medCharScaleDef = 0.7
+//const medCharScaleDef = 0.7
 const smallCharScaleDef = 0.5
 const microCharScaleDef = 0.3
 
@@ -99,7 +99,7 @@ local mkCompassStrip = kwarg(function mkCompassStripImlp(size = defaultSize,
     for (local angle = 0; angle < 360; angle += minStep) {
       let isCardinal = angle % 45 == 0
       let isNumbered = angle % step == 0
-      let cardinalDir = angle % 45 == 0 ? angle / 45 : null
+      let cardinalDir = angle % 45 == 0 ? angle / 45 : 0
       dirChildren.append(isCardinal ? compassCardinalDir(cardinalDirections[cardinalDir], angle, globalScale) :
                          isNumbered ? compassNumberedDir(angle, globalScale) :
                                       compassNotchDir(angle, globalScale))

@@ -18,7 +18,7 @@
     "spline_gen_geometry__points:list<p3>": []
   },
   "spline_gen_template": {
-    "_extends": "replicating",
+    "_use": "replicating",
     "spline_gen_template__template_name": "",
     "spline_gen_template__slices": 0,
     "spline_gen_template__stripes": 0,
@@ -28,13 +28,13 @@
     "spline_gen_template__asset_lod": 0
   },
   "spline_gen_lods": {
-    "_extends": "replicating",
+    "_use": "replicating",
     "spline_gen_lods__lods_name": "",
     "spline_gen_lods__distances:list<r>": [],
     "spline_gen_lods__template_names:list<t>": []
   },
   "spline_gen_repository": {
-    "_extends": "replicating",
+    "_use": "replicating",
     "_singleton": true,
     "spline_gen_repository": {
       "_tags": "render"
@@ -42,10 +42,10 @@
   },
   "spline_gen_test": [
     {
-      "_extends": "replicating"
+      "_use": "replicating"
     },
     {
-      "_extends": "spline_gen_geometry"
+      "_use": "spline_gen_geometry"
     },
     {
       "transform": [

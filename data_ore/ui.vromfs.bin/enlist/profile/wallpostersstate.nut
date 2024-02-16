@@ -5,17 +5,14 @@ let { configs } = require("%enlist/meta/configs.nut")
 let { campaignsByArmy, wallposters } = require("%enlist/meta/profile.nut")
 let { getWPPresentation } = require("wallpostersPresentation.nut")
 let { add_wallposter } = require("%enlist/meta/clientApi.nut")
-let { unlockedCampaigns } = require("%enlist/meta/campaigns.nut")
+let { allArmiesInfo } = require("%enlist/soldiers/model/config/gameProfile.nut")
 
 
 let wpIdSelected = Watched(null)
 
 let wallpostersCfg = Computed(function() {
   let campaigns = campaignsByArmy.value
-  let unlocked = unlockedCampaigns.value
-  let last = unlocked.len()
-  let sortOrder = campaigns.map(@(camp, armyId) (unlocked.indexof(camp.id) ?? last) * 2
-    + (camp.armies.findindex(@(army) armyId == army.id) ?? camp.armies.len()))
+  let armies = allArmiesInfo.value
   let wpReceived = {}
   foreach (wp in wallposters.value)
     wpReceived[wp.tpl] <- true
@@ -25,8 +22,10 @@ let wallpostersCfg = Computed(function() {
     foreach (wallposterTpl, wallposter in wpData ?? {}) {
       let { isNotOwnedHidden = false } = wallposter
       let hasReceived = wallposterTpl in wpReceived
+      let armyInfo = armies?[armyId]
       res.append({
-        armyId
+        armyId = armyInfo ? armyId : null
+        armyLocId = armyInfo ? $"country/{armyInfo.country}" : armyId
         wallposterTpl
         isNotOwnedHidden
         hasReceived
@@ -35,8 +34,7 @@ let wallpostersCfg = Computed(function() {
         campaignTitle = campaigns?[armyId].title
       }.__update(getWPPresentation(wallposterTpl)))
     }
-  res.sort(@(a, b) ((sortOrder?[a.armyId] ?? (last * 2)) <=> (sortOrder?[b.armyId] ?? (last * 2)))
-    || (a.wallposterTpl <=> b.wallposterTpl))
+  res.sort(@(a, b) a.armyId <=> b.armyId || a.wallposterTpl <=> b.wallposterTpl)
   return res
 })
 

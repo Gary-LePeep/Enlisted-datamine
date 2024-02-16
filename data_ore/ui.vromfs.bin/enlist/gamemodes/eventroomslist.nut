@@ -3,15 +3,14 @@ from "eventRoomsListState.nut" import *
 
 let { format } = require("string")
 let { unixtime_to_local_timetbl } = require("dagor.time")
-let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { defTxtColor, rowBg, bigPadding, commonBtnHeight, titleTxtColor, activeTxtColor, isWide,
   accentTitleTxtColor
 } = require("%enlSqGlob/ui/viewConst.nut")
-let spinner = require("%ui/components/spinner.nut")({ height = hdpx(80) })
+let spinner = require("%ui/components/spinner.nut")
 let exclamation = require("%enlist/components/exclamation.nut")
 let { makeVertScroll } = require("%ui/components/scrollbar.nut")
-let { txt, smallCampaignIcon, lockIcon, iconPreparingBattle, iconInBattle, iconMod
-} = require("roomsPkg.nut")
+let { txt, lockIcon, iconPreparingBattle, iconInBattle, iconMod } = require("roomsPkg.nut")
 let getPlayersCountInRoomText = require("getPlayersCountInRoomText.nut")
 let { lockIconSize } = require("eventModeStyle.nut")
 let { joinSelEventRoom } = require("joinEventRoom.nut")
@@ -21,9 +20,13 @@ let { soundDefault } = require("%ui/components/textButton.nut")
 let { secondsToStringLoc } = require("%ui/helpers/time.nut")
 let { withTooltip } = require("%ui/style/cursors.nut")
 let { remap_others } = require("%enlSqGlob/remap_nick.nut")
+let { mkArmySimpleIcon } = require("%enlist/soldiers/components/armyPackage.nut")
+let { getArmyName } = require("%enlist/campaigns/armiesConfig.nut")
 
+let waitingSpinner = spinner()
 
 let rowHeight = hdpx(28)
+let armyIconHeight = hdpxi(20)
 const IN_BATTLE = "launched"
 let emptyRoomsInfo = @() {
   size = flex()
@@ -34,7 +37,7 @@ let emptyRoomsInfo = @() {
   children = [
     exclamation(roomsListError.value != null ? loc($"error/{roomsListError.value}")
       : loc("noRoomsFound"))
-    isRequestInProgress.value ? spinner : { size = [0, hdpx(80)] }
+    isRequestInProgress.value ? waitingSpinner : { size = [0, hdpx(80)] }
   ]
   animations = [{ prop = AnimProp.opacity, from = 0, to = 1, easing = InCubic, duration = 0.5, play = true }]
 }
@@ -45,24 +48,29 @@ let preparationIcon = withTooltip(iconPreparingBattle, @() loc("lobby/preparatio
 let modIcon = withTooltip(iconMod, @() loc("mods/roomDescription"))
 
 let creatorColumnWidth  = flex(0.8)
-let campaignColumnWidth = flex(0.5)
+let armiesColumnWidth = flex(0.5)
 let playersColumnWidth  = isWide ? flex(0.3) : flex(0.2)
 let gameModeColumnWidth = isWide ? flex(2)   : flex(0.9)
 let statusColumnWidth = flex(0.6)
 let batlleTimeWidth = hdpx(90)
 
 let columnsTable = {
-  campaigns = {
-    cell = @(r) {
-      size = [campaignColumnWidth, SIZE_TO_CONTENT]
-      flow = FLOW_HORIZONTAL
-      children = r?.campaigns.map(@(campaign)
-        withTooltip(smallCampaignIcon(campaign), @() loc(campaign)))
+  armies = {
+    cell = function(r) {
+      let { armiesTeamA = [], armiesTeamB = [] } = r
+      let armiesToShow = clone armiesTeamA
+      armiesTeamB.each(@(v) armiesToShow.contains(v) ? null : armiesToShow.append(v))
+      return {
+        size = [armiesColumnWidth, SIZE_TO_CONTENT]
+        flow = FLOW_HORIZONTAL
+        children = armiesToShow.map(@(armyId)
+          withTooltip(mkArmySimpleIcon(armyId, armyIconHeight), @() getArmyName(armyId)))
+      }
     }
-    label = loc("options/campaigns")
-    width = campaignColumnWidth
-    sortFunc = @(a, b) (b?.campaigns ?? []).len() <=> (a?.campaigns ?? []).len()
-      || (a?.campaign ?? "") <=> (b?.campaign ?? "")
+    label = loc("options/armies")
+    width = armiesColumnWidth
+    sortFunc = @(a, b) (b?.armies ?? []).len() <=> (a?.armies ?? []).len()
+      || (a?.army ?? "") <=> (b?.army ?? "")
   }
   creator = {
     cell = @(r) txt(remap_others(r?.creator ?? ""), creatorColumnWidth)
@@ -141,7 +149,7 @@ foreach (id, column in columnsTable) {
     curSorting({column, isReverse = false})
 }
 
-let columns = ["status", "creator", "mode", "campaigns", "players", "isMod", "isPrivate"]
+let columns = ["status", "creator", "mode", "armies", "players", "isMod", "isPrivate"]
 
 let mkRoomRow = @(room, idx, isSelected) watchElemState(@(sf) {
   size = [flex(), rowHeight]
@@ -176,12 +184,12 @@ let headerTxt = @(column) watchElemState(@(sf) {
       rendObj = ROBJ_TEXT
       color = cellHeaderColor(sf, column)
       text = column.label
-    }.__update(body_txt)
+    }.__update(fontBody)
     curSorting.value.column == column
       ? faComp(curSorting.value.isReverse? "caret-up" : "caret-down", {
           color = cellHeaderColor(sf, column)
           padding = [0, 0, 0, hdpx(5)]
-          fontSize = body_txt.fontSize
+          fontSize = fontBody.fontSize
           valign = ALIGN_CENTER
         })
       : null
@@ -189,14 +197,14 @@ let headerTxt = @(column) watchElemState(@(sf) {
 })
 
 
-let eventRoomsListHeaderRow = @(columns){
+let eventRoomsListHeaderRow = @(cols){
   size = [flex(), commonBtnHeight]
   flow = FLOW_HORIZONTAL
   valign = ALIGN_CENTER
   padding = bigPadding
   color = Color(0,0,0)
   gap = isWide ? 0 : bigPadding
-  children = columns.map(@(column) headerTxt(columnsTable[column]))
+  children = cols.map(@(column) headerTxt(columnsTable[column]))
 }
 
 let scrollHandler = ScrollHandler()

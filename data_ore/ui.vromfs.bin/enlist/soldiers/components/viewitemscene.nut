@@ -8,7 +8,7 @@ let { makeVertScroll } = require("%ui/components/scrollbar.nut")
 let { allItemTemplates } = require("%enlist/soldiers/model/all_items_templates.nut")
 let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
 let { curArmy } = require("%enlist/soldiers/model/state.nut")
-let { mkDetailsInfo } = require("%enlist/soldiers/components/itemDetailsComp.nut")
+let { mkViewItemDetails } = require("%enlist/soldiers/components/itemDetailsComp.nut")
 let {
   sceneWithCameraAdd, sceneWithCameraRemove
 } = require("%enlist/sceneWithCamera.nut")
@@ -16,8 +16,12 @@ let {
   bigPadding, smallPadding, blurBgColor, blurBgFillColor, unitSize
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { isGamepad } = require("%ui/control/active_controls.nut")
-let { curSelectedItem } = require("%enlist/showState.nut")
+let { curSelectedItem, changeCameraFov } = require("%enlist/showState.nut")
 let { mkClassCanUse } = require("%enlist/shop/shopPkg.nut")
+let { getItemOrigin } = require("%enlSqGlob/ui/itemsInfo.nut")
+
+const ADD_CAMERA_FOV_MIN = -10
+const ADD_CAMERA_FOV_MAX = 35
 
 let itemToShow = mkWatched(persist, "itemToShow", null)
 let selectedKey = Watched(null)
@@ -33,7 +37,7 @@ let mkItemContent = @(item) item == null ? null : @(){
   color = blurBgColor
   fillColor = blurBgFillColor
   xmbNode = XmbContainer({
-    canFocus = @() false
+    canFocus = false
     scrollSpeed = 5.0
     isViewport = true
   })
@@ -63,16 +67,19 @@ let backBtn = @() {
 }
 
 let function viewItemScene() {
-  let { itemtype, basetpl } = itemToShow.value
+  let { itemtype, basetpl, sign = 0 } = itemToShow.value
   return {
     watch = [safeAreaBorders, itemToShow, curArmy]
     size = [sw(100), sh(100)]
     flow = FLOW_VERTICAL
     padding = safeAreaBorders.value
-    behavior = Behaviors.MenuCameraControl
+    behavior = [Behaviors.MenuCameraControl, Behaviors.TrackMouse]
+    onMouseWheel = function(mouseEvent) {
+      changeCameraFov(mouseEvent.button * 5, ADD_CAMERA_FOV_MIN, ADD_CAMERA_FOV_MAX)
+    }
     children = [
       mkHeader({
-        textLocId = "campaign/promoSquadWeapon"
+        textLocId = getItemOrigin(itemToShow.value)
         closeButton = closeBtnBase({ onClick = @() itemToShow(null) })
       })
       {
@@ -94,16 +101,15 @@ let function viewItemScene() {
             flow = FLOW_VERTICAL
             gap = smallPadding
             children = [
-              mkClassCanUse(itemtype, curArmy.value, basetpl)
+              sign == 0 ? mkClassCanUse(itemtype, curArmy.value, basetpl) : null
               mkItemContent(itemToShow.value)
               backBtn
             ]
           }
           {
-            size = SIZE_TO_CONTENT
             hplace = ALIGN_RIGHT
             vplace = ALIGN_BOTTOM
-            children = mkDetailsInfo(itemToShow)
+            children = mkViewItemDetails(itemToShow.value, Watched(true), fsh(95))
           }
         ]
       }

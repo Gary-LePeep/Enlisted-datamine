@@ -2,9 +2,9 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { format } = require("string")
 let { unixtime_to_local_timetbl } = require("dagor.time")
-let { txt, textArea, smallCampaignIcon, lockIcon, iconInBattle, iconPreparingBattle } = require("roomsPkg.nut")
+let { txt, textArea, lockIcon, iconInBattle, iconPreparingBattle } = require("roomsPkg.nut")
 let getPlayersCountInRoomText = require("getPlayersCountInRoomText.nut")
-let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let {
   defTxtColor, titleTxtColor, smallPadding, bigPadding, accentTitleTxtColor
 } = require("%enlSqGlob/ui/viewConst.nut")
@@ -18,6 +18,8 @@ let {
 } = require("%enlSqGlob/crossnetwork_state.nut")
 let colorize = require("%ui/components/colorize.nut")
 let { remap_others } = require("%enlSqGlob/remap_nick.nut")
+let { allArmiesInfo } = require("%enlist/soldiers/model/config/gameProfile.nut")
+let { getArmyName } = require("%enlist/campaigns/armiesConfig.nut")
 
 
 let textAreaOffset = hdpx(10)
@@ -26,15 +28,15 @@ let headerTxtColor = 0xFF808080
 
 let defTxtStyle = {
   color = defTxtColor
-}.__update(sub_txt)
+}.__update(fontSub)
 
 let headerTxtStyle = {
   color = headerTxtColor
-}.__update(sub_txt)
+}.__update(fontSub)
 
 let accentTxtStyle = {
   color = accentTitleTxtColor
-}.__update(sub_txt)
+}.__update(fontSub)
 
 const SHOW_MISSIONS_WHEN_HIDDEN = 3
 const MAX_LENGTH_SHOW_ALL_MISSION = 5
@@ -52,7 +54,7 @@ let mkInfoTextRow = @(header, text) {
     flow = FLOW_HORIZONTAL
     valign = ALIGN_CENTER
     children = [
-      hTxt($"{header}:")
+      hTxt($"{header}")
       txt(text).__update({ halign = ALIGN_RIGHT })
     ]
   }
@@ -76,7 +78,7 @@ let mkRoomStatusRow = @(status) {
   minHeight = infoRowHeight
   valign = ALIGN_CENTER
   children = [
-    hTxt($"{loc("options/roomStatus")}:")
+    hTxt($"{loc("options/roomStatus")}")
     status == "launching" || status == "launched"
       ? statusRow(iconInBattle, loc("memberStatus/inBattle"))
       : statusRow(iconPreparingBattle, loc("lobby/preparationBattle"))
@@ -132,35 +134,30 @@ let function mkExpandedMissions(missions){
       flow = FLOW_VERTICAL
       padding = [bigPadding , 0]
       minHeight = infoRowHeight
-      children = [hTxt($"{loc("options/missions")}:")]
+      children = [hTxt($"{loc("options/missions")}")]
         .extend(missions.slice(0, sliceNumber).map(mkMissionText)
         .append(mkShowMoreButton(missions.len() - sliceNumber, toggleMissionsExpand)))
     }
   }
 }
 
-let mkCampaignListItem = @(campaign) {
+let mkArmyListItem = @(armyId) @() {
+  watch = allArmiesInfo
   size = [flex(), SIZE_TO_CONTENT]
-  flow = FLOW_HORIZONTAL
   halign = ALIGN_RIGHT
-  valign = ALIGN_CENTER
-  gap = hdpx(2)
-  children = [
-    smallCampaignIcon(campaign)
-    txt(loc($"{campaign}/full"), SIZE_TO_CONTENT)
-  ]
+  children = txt(getArmyName(armyId), SIZE_TO_CONTENT)
 }
 
-let mkCampaignList = @(campaigns) {
+let mkArmyList = @(armies) {
   size = [flex(), SIZE_TO_CONTENT]
   minHeight = infoRowHeight
   padding = [textAreaOffset, 0, 0, 0]
   children = [
-    hTxt(loc("options/armyOfCampaign"))
+    hTxt($"{loc("options/armies")}")
     {
       size = [flex(), SIZE_TO_CONTENT]
       flow = FLOW_VERTICAL
-      children = campaigns.map(mkCampaignListItem)
+      children = armies.map(mkArmyListItem)
     }
   ]
 }
@@ -173,7 +170,7 @@ let function mkRoomCreateTime(room) {
     flow = FLOW_HORIZONTAL
     valign = ALIGN_CENTER
     children = [
-      hTxt($"{loc("options/createTime")}:")
+      hTxt($"{loc("options/createTime")}")
       !room?.isPrivate ? null
         : lockIcon.__merge({
             halign = ALIGN_RIGHT
@@ -217,7 +214,10 @@ let mkModHeader = @(name, mode) {
 
 let function mkRoomInfo(room){
   let isMod = room?.scene == null
-  return @(){
+  let { armiesTeamA = [], armiesTeamB = [] } = room
+  let armies = clone armiesTeamA
+  armiesTeamB.each(@(v) armies.contains(v) ? null : armies.append(v))
+  return @() {
     watch = [crossnetworkPlay, isInRoom, isCrossplayOptionNeeded]
     size = [flex(), SIZE_TO_CONTENT]
     flow = FLOW_VERTICAL
@@ -229,8 +229,7 @@ let function mkRoomInfo(room){
       mkInfoTextRow(loc("rooms/Creator"), remap_others(room?.creator ?? ""))
       mkInfoTextRow(loc("current_mode"), loc(room?.mode ?? ""))
       mkInfoTextRow(loc("options/difficulty"), optLoc(room?.difficulty))
-      mkCampaignList(room?.campaigns ?? [])
-      mkInfoTextRow(loc("options/teamArmies"), optLoc(room?.teamArmies))
+      mkArmyList(armies)
       mkInfoTextRow(loc("rooms/PlayersInRoom"), getPlayersCountInRoomText(room))
       mkInfoTextRow(loc("options/botCount"), room?.botpop ?? 0)
       room?.crossplay != null && isCrossplayOptionNeeded.value && crossnetworkPlay.value != CrossplayState.OFF

@@ -1,7 +1,7 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
-let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let {tipCmp} = require("%ui/hud/huds/tips/tipComponent.nut")
 let contextCommandState = require("%ui/hud/state/contextCommandState.nut")
 let { ContextCommand } = require("%enlSqGlob/dasenums.nut")
@@ -43,7 +43,7 @@ return function () {
       break
     case ContextCommand.ECC_BUILD:
       let isPreview = ecs.obsolete_dbg_get_comp_val(orderUseEntity, "builder_preview") != null
-      text = engineersInSquad.value > 1
+      text = engineersInSquad.value > 1 || !isPreview
         ? loc(isPreview ? "squad_orders/build" : "squad_orders/dismantle")
         : null
       break
@@ -59,7 +59,7 @@ return function () {
     tip = tipCmp({
       text,
       inputId = "Human.ContextCommand",
-    }.__update(sub_txt))
+    }.__update(fontSub))
   }
 
   return {

@@ -1,10 +1,10 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { h2_txt, body_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontHeading2, fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let checkbox = require("%ui/components/checkbox.nut")
 let msgbox = require("%enlist/components/msgbox.nut")
 let { currenciesById, currenciesBalance } = require("%enlist/currency/currencies.nut")
-let { dontShowToday, setDontShowTodayByKey } = require("%enlist/options/dontShowAgain.nut")
+let { mkDontShowTodayComp, setDontShowToday } = require("%enlist/options/dontShowAgain.nut")
 let colorize = require("%ui/components/colorize.nut")
 let colors = require("%ui/style/colors.nut")
 let textButtonTextCtor = require("%ui/components/textButtonTextCtor.nut")
@@ -14,6 +14,7 @@ let { sendBigQueryUIEvent } = require("%enlist/bigQueryEvents.nut")
 let { smallPadding } = require("%enlSqGlob/ui/viewConst.nut")
 let { purchaseButtonStyle } = require("%enlSqGlob/ui//buttonsStyle.nut")
 let { mkCurrency } = require("currenciesComp.nut")
+let JB = require("%ui/control/gui_buttons.nut")
 
 
 let defGap = fsh(3)
@@ -26,7 +27,7 @@ let mkItemDescription = @(description) makeVertScroll({
     behavior = Behaviors.TextArea
     halign = ALIGN_CENTER
     text = description
-  }.__update(body_txt)
+  }.__update(fontBody)
   {
     size = [flex(), SIZE_TO_CONTENT]
     maxHeight = hdpx(300)
@@ -51,12 +52,12 @@ let function mkItemCostInfo(price, fullPrice, currencyId) {
       {
         rendObj = ROBJ_TEXT
         text = "{0} ".subst(loc("shop/willCostYou"))
-      }.__update(sub_txt)
+      }.__update(fontSub)
       mkCurrency({
         currency
         price
         fullPrice
-        iconSize = hdpx(20)
+        iconSize = hdpxi(20)
       })
     ]
   }
@@ -72,7 +73,7 @@ let function buyCurrencyText(currency, sf) {
       rendObj = ROBJ_TEXT
       color = colors.textColor(sf, false, colors.TextActive)
       text
-    }.__update(body_txt))
+    }.__update(fontBody))
   }
 }
 
@@ -86,7 +87,7 @@ let notEnoughMoneyInfo = @(price, currencyId) {
       text = loc("shop/notEnoughCurrency", {
         priceDiff = price - (currenciesBalance.value?[currencyId] ?? 0)
       })
-    }.__update(body_txt)
+    }.__update(fontBody)
     currencyImage(currenciesById.value?[currencyId])
   ]
 }
@@ -117,14 +118,14 @@ local function show(price, currencyId, purchase, fullPrice = null, title = "", p
 
   local dontShowCheckbox = null
   if (dontShowMeTodayId != null && !notEnoughMoney.value) {
-    let dontShowMeToday = Computed(@() dontShowToday.value?[dontShowMeTodayId] ?? false)
+    let dontShowMeToday = mkDontShowTodayComp(dontShowMeTodayId)
     if (dontShowMeToday.value) {
       purchase()
       bqBuyCurrency()
       return
     }
     dontShowCheckbox = checkbox(dontShowMeToday, loc("dontShowMeAgainToday"),
-      { setValue = @(v) setDontShowTodayByKey(dontShowMeTodayId, v) })
+      { setValue = @(v) setDontShowToday(dontShowMeTodayId, v) })
   }
 
   let buttons = Computed(function() {
@@ -136,10 +137,11 @@ local function show(price, currencyId, purchase, fullPrice = null, title = "", p
           bqBuyCurrency()
         }
         customStyle = {
-          hotkeys = [[ "^J:Y | Enter", { description = {skip = true}} ]]
+          hotkeys = [[ "^J:X | Enter", { description = {skip = true}} ]]
         }.__update(purchaseButtonStyle)
       }]
-      .extend(alwaysShowCancel ? [{ text = loc("Cancel") }] : [])
+      .extend(alwaysShowCancel ? [{ text = loc("Cancel"),
+        customStyle = { hotkeys = [[$"^{JB.B} | Esc"]] } }] : [])
       .extend(additionalButtons)
 
     let res = []
@@ -148,9 +150,10 @@ local function show(price, currencyId, purchase, fullPrice = null, title = "", p
         customStyle = {
           textCtor = function(textComp, params, handler, group, sf) {
             textComp = buyCurrencyText(currency, sf)
-            params = h2_txt
+            params = params.__merge(fontHeading2)
             return textButtonTextCtor(textComp, params, handler, group, sf)
           }
+          hotkeys = [[ "^J:Y | Enter" ]]
         },
         action = function() {
           purchaseCurrency()
@@ -159,13 +162,13 @@ local function show(price, currencyId, purchase, fullPrice = null, title = "", p
       })
     res.extend(additionalButtons)
     if (alwaysShowCancel || purchaseCurrency == null)
-      res.append({ text = loc("Cancel") })
+      res.append({ text = loc("Cancel"), customStyle = { hotkeys = [[$"^{JB.B} | Esc"]] } })
     return res
   })
 
   let params = {
     text = colorize(colors.MsgMarkedText, title)
-    fontStyle = body_txt
+    fontStyle = fontBody
     children = {
       size = [fsh(80), SIZE_TO_CONTENT]
       margin = [defGap, 0, 0, 0]
@@ -205,6 +208,9 @@ local function show(price, currencyId, purchase, fullPrice = null, title = "", p
 
 return {
   purchaseMsgBox = kwarg(show)
+  buyCurrencyText
+  currencyImage
+  mkItemCostInfo
   openShopByCurrencyId
   setOpenShopFunctions = @(list) openShopByCurrencyId.__update(list)
 }

@@ -1,10 +1,10 @@
 {
   "base_gaz_mm_72k": [
     {
-      "_extends": "base_tank"
+      "_use": "base_tank"
     },
     {
-      "_extends": "gaz_mm_72k_ammo_stowages"
+      "_use": "gaz_mm_72k_ammo_stowages"
     },
     {
       "killLogName": "ussr_gaz_mm_72k"
@@ -108,7 +108,7 @@
     }
   ],
   "gaz_mm_72k_turret_01_25mm_72k": {
-    "_extends": "tankgun_25mm_72k",
+    "_use": "tankgun_25mm_72k",
     "gun__shootNodeName": "bone_gun_barrel",
     "turret__yawSpeed": 35.0,
     "turret__pitchSpeed": 20.0,
@@ -133,13 +133,13 @@
   },
   "gaz_mm_72k_ammo_stowages": {
     "_tags": "server",
-    "_extends": "vehicle_ammo_stowages",
+    "_use": "vehicle_ammo_stowages",
     "ammo_stowage__stowageTemplates:shared:list<t>": {
       "stowage": "gaz_mm_72k_ammo_stowage"
     }
   },
   "gaz_mm_72k_ammo_stowage": {
-    "_extends": "ammo_stowage",
+    "_use": "ammo_stowage",
     "ammo_stowage__clusterTemplates:shared:list<t>": {
       "cluster": "gaz_mm_72k_ammo_cluster"
     },
@@ -148,7 +148,7 @@
     }
   },
   "gaz_mm_72k_ammo_cluster": {
-    "_extends": "ammo_cluster",
+    "_use": "ammo_cluster",
     "ammo_cluster__isShell": true,
     "ammo_cluster__slotNames:shared:list<t>": {
       "part": "ammo_turret_01"

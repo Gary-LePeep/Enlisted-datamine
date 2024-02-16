@@ -4,11 +4,11 @@ require ecs.safe
 require app
 require math
 require math.base
-require EnlistedNet
+require DngNet
 require game.utils.team
 require DagorSystem
 require walkerai
-require EnlistedWalkerai
+require DngWalkerai
 require DagorMath
 require Dacoll
 require game.es.player_events
@@ -19,6 +19,9 @@ require enlisted.events_enlisted
 require game.events_game
 require DagorRandom
 require game.utils.net_utils
+require game.es.respawn_base_common
+require game.es.artillery_aircraft_common
+require game.es.paratroopers_common
 require game.es.respawn_base_common
 
 def calc_enemy_score(leaderTeam; walker_agent)
@@ -95,9 +98,12 @@ def respawn_to_next_soldier(soldier_eid, player_eid, squad_member__squad : Entit
 
 [es(tag=server, on_appear)]
 def set_respawner_squad_on_spawn(evt : Event; eid, squad__ownerPlayer : EntityId)
-  query(squad__ownerPlayer) <| $ [es] (var respawner__squad : EntityId&; var respawner__isFirstSpawn : bool&)
+  query(squad__ownerPlayer) <| $ [es] (var respawner__squad : EntityId&;
+                                       var respawner__isFirstSpawn : bool&;
+                                       var respawner__paratroopersSquad : bool&)
     respawner__squad = eid
     respawner__isFirstSpawn = false
+    respawner__paratroopersSquad = false
 
 [es(tag=server, on_disappear)]
 def reset_respawner_squad_on_destroy(evt : Event; eid, squad__ownerPlayer : EntityId)
@@ -120,6 +126,13 @@ def respawner_init_mission_start_delay_on_first_connected_player(evt : EventFirs
                                                                  var respawner__canSpawnMinTime : float&)
   respawner__canSpawnMinTime = evt.time + respawner__missionStartDelay
 
+[es(tag=ui, track=respawn_point__respawnersQueue, REQUIRE_NOT=autoRespawnSelector)]
+def update_queue_size_es(evt : Event; respawn_point__respawnersQueue : EidList; var respawn_icon__playersCount : int&)
+  respawn_icon__playersCount = length(respawn_point__respawnersQueue)
+  query() <| $ [es(REQUIRE=localPlayer)] (eid : EntityId)
+    let index = respawn_point__respawnersQueue |> find_index(eid)
+    if index >= 0
+      respawn_icon__playersCount = index
 
 def set_respawner_wait_number(respawner : EntityId; wait_number : int)
   set(respawner, "respawner__canRespawnWaitNumber", wait_number)
@@ -206,6 +219,7 @@ def respawner_es(info : UpdateStageInfoAct;
                  var respawner__chosenRespawn : EntityId&;
                  var respawner__queuedAtPoint : EntityId&;
                  var respawner__queuedAtPointGroupId : int&;
+                 var respawner__mobileRespawnEid : EntityId&;
                  respawner__canRespawnWaitNumber : int;
                  respawner__respTime : float;
                  respawner__respBotTime : float;
@@ -221,9 +235,13 @@ def respawner_es(info : UpdateStageInfoAct;
                  respawner__allowBotForceRespawn : bool = true;
                  respawner__respawnGroupId : int = -1;
                  respawner__canSpawnMinTime : float = 0.0;
-                 respawner__squad : EntityId = INVALID_ENTITY_ID)
+                 respawner__squad : EntityId = INVALID_ENTITY_ID;
+                 respawner__paratroopersSquad : bool;
+                 respawner__paratroopersChooserOn : bool;
+                 respawner__isFirstSpawn : bool)
   if !respawner__enabled
     return
+
 
   var isHeroAlive = false
   query(possessed) <| $ [es] (isAlive : bool)
@@ -319,11 +337,27 @@ def respawner_es(info : UpdateStageInfoAct;
         return
       respawnForcedByQueue = true
 
+  if !respawner__mobileRespawnEid
+    respawner__mobileRespawnEid = try_reserve_mobile_respawn(team, eid, respawner__respawnGroupId)
+  if !!respawner__mobileRespawnEid
+    query(respawner__mobileRespawnEid) <| $ [es] (respawnBaseGroup : int; var mobile_respawn__reservedPlayerEid : EntityId&)
+      if respawnBaseGroup != respawner__respawnGroupId
+        respawner__mobileRespawnEid = INVALID_ENTITY_ID
+        if mobile_respawn__reservedPlayerEid == eid
+          mobile_respawn__reservedPlayerEid = INVALID_ENTITY_ID
+
   if respawner__respRequested || respawnForcedByQueue
+    if respawner__paratroopersChooserOn && !respawner__isFirstSpawn
+      respawner__canRespawnTime = respawner__respStartTime + squads__respawnPenaltyTime
     respawner__respEndTime = respawner__canRespawnTime
   else
     let allowForceRespawn = respToBot ? respawner__allowBotForceRespawn : respawner__allowForceRespawn
     respawner__respEndTime = allowForceRespawn ? respawner__respStartTime + forceRespTime : -1.f
+
+  if (respawner__paratroopersChooserOn && !respawner__isFirstSpawn) && !respawner__respRequested
+    respawner__respEndTime = respawner__respStartTime + squads__respawnPenaltyTime
+    respawner__canRespawnTime = respawner__respEndTime
+    return
 
   if respawner__respEndTime >= 0.f && info.curTime > respawner__respEndTime // force respawn
     if !!respawner__queuedAtPoint
@@ -350,13 +384,25 @@ def respawner_es(info : UpdateStageInfoAct;
         let memberId = respawner__respRequestedMemberId
         let respawnGroupId = respawner__respawnGroupId
         print("respawner[player: {eid}]: Respawned squad: squadId={squadId}, memberId={memberId}, respawnGroupId={respawnGroupId}")
-        sendEvent(eid, [[CmdSpawnSquad team=team, possessed=INVALID_ENTITY_ID, squadId=squadId, memberId=memberId, respawnGroupId=respawnGroupId]])
+        if respawner__paratroopersSquad
+          create_paratroopers_aircraft(eid, squadId, memberId)
+        else
+          sendEvent(eid, [[CmdSpawnSquad
+            team=team,
+            possessed=INVALID_ENTITY_ID,
+            squadId=squadId,
+            memberId=memberId,
+            respawnGroupId=respawnGroupId,
+            existedVehicleEid=respawner__mobileRespawnEid
+          ]])
+
     else
       logwarn("respawner_es player {eid} is disconnected")
     respawner__enabled = false
     respawner__respStartTime = -1.f
     respawner__respEndTime = -1.f
     respawner__canRespawnTime = -1.f
+
 
 def find_alive_squad_member_from_squad(squad_eid, exclude_eid : EntityId) : EntityId
   var aliveSquadMember = INVALID_ENTITY_ID
@@ -370,7 +416,9 @@ def find_alive_squad_member_from_squad(squad_eid, exclude_eid : EntityId) : Enti
 def reset_respawner_for_player(player_eid)
   query(player_eid) <| $ [es] (var respawner__enabled : bool&;
                                var respawner__respRequested : bool&;
-                               var respawner__respStartTime : float&)
+                               var respawner__respStartTime : float&;
+                               var respawner__paratroopersSquad : bool&)
+    respawner__paratroopersSquad = false
     respawner__enabled = true
     respawner__respRequested = false
     respawner__respStartTime = -1.0
@@ -400,19 +448,23 @@ def hardcore_spawn_on_player_immunity_es(evt : Event; var respbase__noSpawnImmun
 
 [es(tag=server)]
 def respawn_req_es(evt : CmdRequestRespawn;
-                   eid : EntityId;
+                   eid aka player_eid : EntityId;
+                   respawner__canRespawnWaitNumber : int;
                    var respawner__respawnGroupId : int&;
                    var respawner__respRequested : bool&;
                    var respawner__respRequestedSquadId : int&;
-                   var respawner__respRequestedMemberId : int&)
+                   var respawner__respRequestedMemberId : int&;
+                   var respawner__paratroopersSquad : bool&)
   let respRequestedSquadId = evt.squadId
   let respRequestedMemberId = evt.memberId
   let respawnGroupId = evt.spawnGroup
-  print("[HERO_RESPAWN] onRequestRespawn: {eid}; squadId: {respRequestedSquadId}; memberId: {respRequestedMemberId}; groupId: {respawnGroupId};")
-  respawner__respRequested = true
+  print("[HERO_RESPAWN] onRequestRespawn: {player_eid}; squadId: {respRequestedSquadId}; memberId: {respRequestedMemberId}; groupId: {respawnGroupId};")
+  if respawner__canRespawnWaitNumber <= 0
+    respawner__respRequested = true
   respawner__respRequestedSquadId = respRequestedSquadId
   respawner__respRequestedMemberId = respRequestedMemberId
   respawner__respawnGroupId = respawnGroupId
+  respawner__paratroopersSquad = evt.isParatroopers
 
 [es(tag=server)]
 def respawn_cancel_req_es(evt : CmdCancelRequestRespawn;
@@ -420,7 +472,8 @@ def respawn_cancel_req_es(evt : CmdCancelRequestRespawn;
                           var respawner__respawnGroupId : int&;
                           var respawner__respRequested : bool&;
                           var respawner__respRequestedSquadId : int&;
-                          var respawner__respRequestedMemberId : int&)
+                          var respawner__respRequestedMemberId : int&;
+                          var respawner__paratroopersSquad : bool&)
   let respRequestedSquadId = evt.squadId
   let respRequestedMemberId = evt.memberId
   let respawnGroupId = evt.spawnGroup
@@ -429,6 +482,7 @@ def respawn_cancel_req_es(evt : CmdCancelRequestRespawn;
   respawner__respRequestedSquadId = respRequestedSquadId
   respawner__respRequestedMemberId = respRequestedMemberId
   respawner__respawnGroupId = respawnGroupId
+  respawner__paratroopersSquad = evt.isParatroopers
 
 [es(tag=server, track=squad__isAlive, REQUIRE=squad__isAlive)]
 def respawner_select_random_squad(evt : Event; squad__ownerPlayer : EntityId)
@@ -439,3 +493,13 @@ def respawner_select_random_squad(evt : Event; squad__ownerPlayer : EntityId)
         readySquads |> push(squad)
 
     respawner__respRequestedSquadId = readySquads?[rnd_int(0, length(readySquads) - 1)] ?? 0
+
+[es(tag=server, after=spawn_squad_es)]
+def turn_off_first_spawn_on_late_connected_players(evt : CmdSpawnEntityForPlayer;
+                                                   respawner__lateConnectionThreshold : float;
+                                                   var isFirstSpawn : bool&;
+                                                   var respawner__isFirstSpawn : bool&;
+                                                   respawner__missionStartDelay : float)
+  if get_sync_time() > respawner__lateConnectionThreshold + respawner__missionStartDelay
+    isFirstSpawn = false
+    respawner__isFirstSpawn = false

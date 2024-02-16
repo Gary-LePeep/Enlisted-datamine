@@ -17,7 +17,7 @@ let function mkStackImage(imgData, override = {}) {
 
 let mkMedalCard = @(bgImage, stackImages, mSize = hdpx(MEDAL_SIZE)) {
   size = [mSize, mSize]
-  children = (bgImage == null ? [] : [mkImage(bgImage)])
+  children = (bgImage == null ? [] : [mkImage(bgImage)]) // -unwanted-modification
     .extend(stackImages.map(@(imgData) mkStackImage(imgData)))
 }
 
@@ -28,7 +28,7 @@ let function mkDisabledMedalCard(bgImage, stackImages, mSize = hdpx(MEDAL_SIZE))
   }
   return {
     size = [mSize, mSize]
-    children = (bgImage == null ? [] : [mkImage(bgImage, imgStyle)])
+    children = (bgImage == null ? [] : [mkImage(bgImage, imgStyle)]) // -unwanted-modification
       .extend(stackImages.map(@(imgData) mkStackImage(imgData, imgStyle)))
   }
 }

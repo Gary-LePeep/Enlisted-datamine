@@ -22,7 +22,6 @@
   "groundCollisionEffect": "hit_106_132mm_dirt_he",
   "ricochetEffect": "hit_106_132mm_metal_ap",
   "waterCollisionEffect": "hit_106_132mm_water_he",
-  "explosionPatchRadius": 3.5,
   "modelName": "tank_bullet_heat_fs",
   "secondaryShattersPreset": "ap",
   "pressureDamage": {
@@ -248,27 +247,6 @@
         "mod2": [15.0,0.7],
         "mod3": [30.0,0.99]
       }
-    }
-  },
-  "hitFx": {
-    "fxScale": [3.0,3.0],
-    "defaultFx": "event_foolmoon_explosion_plasma_cmps_fx",
-    "jetFx": "event_foolmoon_explosion_plasma_cmps_fx",
-    "steel": {
-      "fx": "event_foolmoon_explosion_plasma_cmps_fx",
-      "fxScale": [3.0,3.0]
-    },
-    "wood": {
-      "fx": "event_foolmoon_explosion_plasma_cmps_fx",
-      "fxScale": [3.0,3.0]
-    },
-    "glass": {
-      "fx": "event_foolmoon_explosion_plasma_cmps_fx",
-      "fxScale": [3.0,3.0]
-    },
-    "stone": {
-      "fx": "event_foolmoon_explosion_plasma_cmps_fx",
-      "fxScale": [3.0,3.0]
     }
   },
   "explSound": {

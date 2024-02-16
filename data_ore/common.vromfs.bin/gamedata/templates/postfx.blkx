@@ -18,27 +18,22 @@
     "damage_indicator__severePulsationFreq": [1.0,0.75,0.5,0.25],
     "damage_indicator__severeIntensities": [1.2,1.0,1.0,1.0],
     "damage_indicator__severeIntensitySaturations": [0.3,0.2,0.1,0.1],
-    "_extends": "replicating",
-    "post_fx:object": {
-      "bloom__on": true,
+    "_use": "replicating",
+    "post_fx:object": [],
+    "generic_post_fx:object": {
       "adaptation__on": true,
       "adaptation__autoExposureScale": 1.5,
       "adaptation__highPart": 0.0,
-      "bloom__threshold": 1.8,
-      "bloom__highQuality": true,
       "adaptation__maxExposure": 16.0,
       "adaptation__minExposure": 0.25,
       "adaptation__lowPart": 0.0,
       "adaptation__adaptDownSpeed": 4.0,
       "adaptation__adaptUpSpeed": 3.0,
-      "bloom__radius": 1.0,
+      "adaptation__brightnessPerceptionLinear": 0.9,
+      "adaptation__brightnessPerceptionPower": 0.9,
       "adaptation__fixedExposure": -1.0,
-      "bloom__upSample": 0.45,
       "damage_indicator__color": [1.0,0.3,0.3,0.0],
       "damage_indicator__size": 0.5,
-      "flash_blind__decay_factor": 0.2,
-      "flash_blind__decay_color": [0.9,0.95,1.0,1.0],
-      "flash_blind__desaturation_scale": 0.5,
       "smoke_blackout_effect__increaseDuration": 3.0,
       "smoke_blackout_effect__decreaseDuration": 2.0,
       "smoke_blackout_effect__maxIntensity": 1.3,
@@ -46,7 +41,7 @@
     }
   },
   "postfx_roundctrl": {
-    "_extends": "postfx",
+    "_use": "postfx",
     "postfx_round_ctrl__scaleOnWin": 1.15,
     "postfx_round_ctrl__scaleOnLose": 0.9,
     "postfx_round_ctrl__expScale": 1.1,
@@ -59,34 +54,70 @@
       "_tags": "render"
     }
   },
-  "depth_of_field": {
-    "_singleton": true,
-    "dof:DepthOfFieldPS": {
-      "_tags": "render"
+  "override_post_fx": [
+    {
+      "_tracked": "override_post_fx__enabled"
     },
-    "downsampled_dof_frame_fallback:UniqueTex": {
-      "_tags": "render"
+    {
+      "_tracked": "override_post_fx__priority"
     },
-    "is_dof:tag": [],
-    "_group": {
-      "_track": true,
-      "dof__on": false,
-      "dof__is_filmic": false,
-      "dof__focusDistance": -1.0,
-      "dof__fStop": 1.0,
-      "dof__sensorHeight_mm": 24.0,
-      "dof__focalLength_mm": -1.0,
-      "dof__nearDofStart": 0.01,
-      "dof__nearDofEnd": 0.35,
-      "dof__nearDofAmountPercent": 0.0,
-      "dof__farDofStart": 100.0,
-      "dof__farDofEnd": 1000000.0,
-      "dof__farDofAmountPercent": 0.0,
-      "dof__bokehShape_bladesCount": 6.0,
-      "dof__bokehShape_kernelSize": 8.0,
-      "dof__minCheckDistance": 0.3
+    {
+      "_tracked": "override_post_fx__params"
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "override_post_fx__enabled": false,
+        "override_post_fx__priority": -1,
+        "override_post_fx__params:object": []
+      }
     }
-  },
+  ],
+  "depth_of_field": [
+    {
+      "_singleton": true
+    },
+    {
+      "dof:DepthOfFieldPS": {
+        "_tags": "render"
+      }
+    },
+    {
+      "downsampled_dof_frame_fallback:UniqueTex": {
+        "_tags": "render"
+      }
+    },
+    {
+      "is_dof:tag": []
+    },
+    {
+      "_group": {
+        "_track": true,
+        "dof__on": false,
+        "dof__is_filmic": false,
+        "dof__focusDistance": -1.0,
+        "dof__fStop": 1.0,
+        "dof__sensorHeight_mm": 24.0,
+        "dof__focalLength_mm": -1.0,
+        "dof__nearDofStart": 0.01,
+        "dof__nearDofEnd": 0.35,
+        "dof__nearDofAmountPercent": 0.0,
+        "dof__farDofStart": 100.0,
+        "dof__farDofEnd": 1000000.0,
+        "dof__farDofAmountPercent": 0.0,
+        "dof__bokehShape_bladesCount": 6.0,
+        "dof__bokehShape_kernelSize": 8.0,
+        "dof__minCheckDistance": 0.3
+      }
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "dof__depth_for_transparency_node_handle:dabfg::NodeHandle": [],
+        "dof__downsample_depth_for_transparency_node_handle:dabfg::NodeHandle": []
+      }
+    }
+  ],
   "postfx_smoke_blackout": {
     "_singleton": true,
     "smoke_blackout_effect__timeStartVarId": -1,
@@ -95,6 +126,58 @@
     "smoke_blackout_effect__decreaseDurationVarId": -1,
     "smoke_blackout_effect__enabled": true,
     "_tracked": "smoke_blackout_effect__enabled",
+    "_tags": "render"
+  },
+  "bloom": [
+    {
+      "_use": "replicating"
+    },
+    {
+      "_singleton": true
+    },
+    {
+      "bloom__threshold": 5.8
+    },
+    {
+      "bloom__highQuality": true
+    },
+    {
+      "bloom__radius": 1.0
+    },
+    {
+      "bloom__upSample": 0.2
+    },
+    {
+      "bloom__enabled": true
+    },
+    {
+      "_tracked": "bloom__threshold"
+    },
+    {
+      "_tracked": "bloom__highQuality"
+    },
+    {
+      "_tracked": "bloom__radius"
+    },
+    {
+      "_tracked": "bloom__upSample"
+    },
+    {
+      "_tags": "render"
+    },
+    {
+      "bloom__downsample_node:resource_slot::NodeHandleWithSlotsAccess": []
+    },
+    {
+      "bloom__downsample_chain:dag::Vector<dabfg::NodeHandle>": []
+    },
+    {
+      "bloom__upsample_chain:dag::Vector<dabfg::NodeHandle>": []
+    }
+  ],
+  "force_bloom_hq": {
+    "_singleton": true,
+    "force_bloom_hq__previous_value": true,
     "_tags": "render"
   }
 }

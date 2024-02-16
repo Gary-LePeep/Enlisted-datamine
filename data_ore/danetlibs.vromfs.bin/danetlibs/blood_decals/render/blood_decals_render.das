@@ -5,9 +5,7 @@ require ProjectiveDecals
 require DagorMath
 require DagorShaders
 require DagorDriver3D
-
-[cpp_event(broadcast)]
-struct OnRenderDecals {}
+require DagorResPtr
 
 let FLOAT_SIZEOF = typeinfo(sizeof type<float>)
 
@@ -55,26 +53,24 @@ def blood_decals_init(evt : Event;
 def blood_decals_prepare_render(stg : UpdateStageInfoBeforeRender;
                                 var blood_decals_manager : RingBufferDecals;
                                 blood_decals_traces_result : ecs::FloatList;
-                                var blood_decals_traces_buf : UniqueBufHolder;
+                                blood_decals_traces_buf : UniqueBufHolder;
                                 blood_decals_traces_queue : ecs::IPoint2List;
                                 blood_decals_depth_shader : PostFxRenderer;
                                 blood_decals_depth_atlas : UniqueTexHolder)
 
 
-  *blood_decals_traces_buf.getBuf |> updateData(blood_decals_traces_result, uint(VBLOCK_DISCARD));
+  *getBuf(blood_decals_traces_buf) |> updateData(blood_decals_traces_result, uint(VBLOCK_DISCARD));
 
   if !blood_decals_traces_queue |> empty
 
     d3d_set_render_target(null, 0)
-    d3d_set_depth(blood_decals_depth_atlas.getTex2D, false)
-    //ScopeResetShaderBlocks shaderBlockScope;
-    blood_decals_depth_shader |> setStates()
-    for atlasPos in blood_decals_traces_queue
-
-      d3d_setview(atlasPos.x, atlasPos.y, DEPTH_TEX_SIZE, DEPTH_TEX_SIZE, 0f, 1f)
-      blood_decals_depth_shader |> render()
-
-    d3d_resource_barrier(blood_decals_depth_atlas.getTex2D, RB_RO_SRV | RB_STAGE_PIXEL, 0u, 0u)
+    d3d_set_depth(blood_decals_depth_atlas.getTex2D, DepthAccess RW)
+    exec_with_shader_blocks_scope_reset() <| $()
+      blood_decals_depth_shader |> setStates()
+      for atlasPos in blood_decals_traces_queue
+        d3d_setview(atlasPos.x, atlasPos.y, DEPTH_TEX_SIZE, DEPTH_TEX_SIZE, 0f, 1f)
+        blood_decals_depth_shader |> render()
+      d3d_resource_barrier(blood_decals_depth_atlas.getTex2D, RB_RO_SRV | RB_STAGE_PIXEL, 0u, 0u)
 
   blood_decals_manager |> prepareRender(stg.mainCullingFrustum)
 

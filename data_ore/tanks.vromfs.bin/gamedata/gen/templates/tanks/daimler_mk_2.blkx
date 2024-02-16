@@ -1,10 +1,10 @@
 {
   "base_daimler_mk_2": [
     {
-      "_extends": "base_tank"
+      "_use": "base_tank"
     },
     {
-      "_extends": "daimler_mk_2_ammo_stowages"
+      "_use": "daimler_mk_2_ammo_stowages"
     },
     {
       "killLogName": "uk_daimler_mk_2"
@@ -137,7 +137,11 @@
             "paramPitchAccel": "gun_01_pitch_accel",
             "wishYawParamName": "gun_01_aim:targetYaw",
             "wishPitchParamName": "gun_01_aim:targetPitch",
-            "gunRecoilParamName": "gun_01_recoil"
+            "gunRecoilParamName": "gun_01_recoil",
+            "hasStabilizerParamName": "gun_01_aim:hasStab",
+            "stabilizerPitchParamName": "gun_01_aim:stabPitch",
+            "stabilizerErrorParamName": "gun_01_aim:stabError",
+            "stabilizerPitchMultParamName": "gun_01_aim:stabPitchMult"
           }
         },
         {
@@ -203,12 +207,25 @@
     }
   ],
   "daimler_mk_2_turret_01_40mm_qf_2pdr": {
-    "_extends": "tankgun_40mm_qf_2pdr",
+    "_use": "tankgun_40mm_qf_2pdr",
     "gun__shootNodeName": "bone_gun_barrel",
     "turret__yawSpeed": 16.0,
     "turret__pitchSpeed": 15.0,
     "turret__aimNodeName": "bone_turret",
     "turret__limit": [-180.0,180.0,-12.0,25.0],
+    "turret__stabilizerPitchFrictionMult": 0.8,
+    "turret__stabilizerPitchSpeedLimitKph": 10.0,
+    "turret__stabilizerErrorByKphSpeedTable:list<p2>": [
+      {
+        "row": [5.0,0.0]
+      },
+      {
+        "row": [8.0,0.2]
+      },
+      {
+        "row": [10.0,0.4]
+      }
+    ],
     "gun__shellsAmmo:array": [
       {
         "ammo": 12
@@ -228,7 +245,7 @@
     ]
   },
   "daimler_mk_2_turret_02_7_92mm_besa": {
-    "_extends": "tankgun_7_92mm_besa",
+    "_use": "tankgun_7_92mm_besa",
     "gun__shootNodeName": "bone_mg_gun_twin_01",
     "gun__shellsAmmo:array": [
       {
@@ -240,14 +257,14 @@
     ]
   },
   "daimler_mk_2_turret_03_76mm_nato_smoke_grenade_launcher_single": {
-    "_extends": "tankgun_76mm_nato_smoke_grenade_launcher_single",
+    "_use": "tankgun_76mm_nato_smoke_grenade_launcher_single",
     "gun__shootNodeName": "emtr_mortar_flame_01",
     "gun__shellsAmmo:array": {
       "ammo": 1
     }
   },
   "daimler_mk_2_turret_04_76mm_nato_smoke_grenade_launcher_single": {
-    "_extends": "tankgun_76mm_nato_smoke_grenade_launcher_single",
+    "_use": "tankgun_76mm_nato_smoke_grenade_launcher_single",
     "gun__shootNodeName": "emtr_mortar_flame_02",
     "gun__shellsAmmo:array": {
       "ammo": 1
@@ -255,13 +272,13 @@
   },
   "daimler_mk_2_ammo_stowages": {
     "_tags": "server",
-    "_extends": "vehicle_ammo_stowages",
+    "_use": "vehicle_ammo_stowages",
     "ammo_stowage__stowageTemplates:shared:list<t>": {
       "stowage": "daimler_mk_2_primary_ammo_stowage"
     }
   },
   "daimler_mk_2_primary_ammo_stowage": {
-    "_extends": "ammo_stowage",
+    "_use": "ammo_stowage",
     "ammo_stowage__clusterTemplates:shared:list<t>": {
       "cluster": "daimler_mk_2_primary_shells_ammo_cluster"
     },
@@ -270,7 +287,7 @@
     }
   },
   "daimler_mk_2_primary_shells_ammo_cluster": {
-    "_extends": "ammo_cluster",
+    "_use": "ammo_cluster",
     "ammo_cluster__isShell": true,
     "ammo_cluster__slotNames:shared:list<t>": [
       {

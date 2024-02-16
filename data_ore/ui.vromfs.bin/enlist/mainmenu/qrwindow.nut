@@ -1,17 +1,18 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let JB = require("%ui/control/gui_buttons.nut")
-let { h2_txt, sub_txt, body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontHeading2, fontSub, fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let {ModalBgTint, TextDefault, WindowBlur} = require("%ui/style/colors.nut")
 let { bigGap } = require("%enlSqGlob/ui/viewConst.nut")
 let mkQrCode = require("%ui/components/mkQrCode.nut")
-let openUrl = require("%ui/components/openUrl.nut")
+let { openUrl, AuthenticationMode } = require("%ui/components/openUrl.nut")
 let {addModalWindow, removeModalWindow} = require("%ui/components/modalWindows.nut")
-let spinner = require("%ui/components/spinner.nut")({height=hdpx(80)})
+let spinner = require("%ui/components/spinner.nut")
 
 
 const WND_UID = "qr_window"
 const URL_REFRESH_SEC = 300 //short token life time is 5 min.
+let waitingSpinner = spinner()
 
 let function close(onCloseCb = null) {
   onCloseCb?()
@@ -22,15 +23,15 @@ let waitInfo = {
   flow = FLOW_VERTICAL
   halign = ALIGN_CENTER
   children = [
-    { rendObj = ROBJ_TEXT, text = loc("xbox/waitingMessage"), color = TextDefault }.__update(sub_txt)
-    spinner
+    { rendObj = ROBJ_TEXT, text = loc("xbox/waitingMessage"), color = TextDefault }.__update(fontSub)
+    waitingSpinner
   ]
 }
 
 let qrWindow = kwarg(function (url, header = "", desc = "", needShowRealUrl = true) {
   let realUrl = Watched(null)
   let function receiveRealUrl() {
-    openUrl(url, false, false, @(u) realUrl(u))
+    openUrl(url, AuthenticationMode.NOT_AUTHENTICATED, false, @(u) realUrl(u))
     gui_scene.setTimeout(URL_REFRESH_SEC, receiveRealUrl)
   }
 
@@ -50,15 +51,15 @@ let qrWindow = kwarg(function (url, header = "", desc = "", needShowRealUrl = tr
     onDetach = @() gui_scene.clearTimer(receiveRealUrl)
 
     children = [
-      { rendObj = ROBJ_TEXT, text = header }.__update(h2_txt)
+      { rendObj = ROBJ_TEXT, text = header }.__update(fontHeading2)
       desc == "" ? null : {
         rendObj = ROBJ_TEXTAREA,
         behavior = Behaviors.TextArea,
         halign = ALIGN_CENTER
         text = desc,
         maxWidth = hdpx(600)
-      }.__update(body_txt)
-      needShowRealUrl ? { rendObj = ROBJ_TEXT, text = url }.__update(sub_txt) : null
+      }.__update(fontBody)
+      needShowRealUrl ? { rendObj = ROBJ_TEXT, text = url }.__update(fontSub) : null
       realUrl.value ? mkQrCode({ data = realUrl.value }) : waitInfo
     ]
   }

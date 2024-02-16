@@ -5,10 +5,10 @@
   },
   "il_2_1941_wreckage": [
     {
-      "_extends": "base_il_2_1941"
+      "_use": "base_il_2_1941"
     },
     {
-      "_extends": "plane_wreckage"
+      "_use": "plane_wreckage"
     },
     {
       "plane_wreckage__nodeName": ""
@@ -19,10 +19,10 @@
   ],
   "il_2_1941_base": [
     {
-      "_extends": "plane_with_cockpit"
+      "_use": "plane_with_cockpit"
     },
     {
-      "_extends": "base_il_2_1941"
+      "_use": "base_il_2_1941"
     },
     {
       "collres__res": "il_2_1941_collision"

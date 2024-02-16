@@ -2,10 +2,10 @@
   "import": "#content/enlisted/gamedata/templates/e_ww2_common/ww2_items.blk",
   "blaster_ussr_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "blaster_ussr_gun"
+      "_use": "blaster_ussr_gun"
     },
     {
       "collres__res": "skt_40_collision"
@@ -13,10 +13,10 @@
   ],
   "blaster_germany_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "blaster_germany_gun"
+      "_use": "blaster_germany_gun"
     },
     {
       "collres__res": "gewehr_41_mauser_collision"
@@ -24,10 +24,10 @@
   ],
   "blaster_usa_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "blaster_usa_gun"
+      "_use": "blaster_usa_gun"
     },
     {
       "collres__res": "m1941_johnson_mg_collision"
@@ -35,10 +35,10 @@
   ],
   "blaster_pistol_ussr_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "blaster_pistol_ussr_gun"
+      "_use": "blaster_pistol_ussr_gun"
     },
     {
       "collres__res": "tt_33_collision"
@@ -46,10 +46,10 @@
   ],
   "blaster_pistol_germany_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "blaster_pistol_germany_gun"
+      "_use": "blaster_pistol_germany_gun"
     },
     {
       "collres__res": "mauser_c96_collision"
@@ -57,10 +57,10 @@
   ],
   "blaster_pistol_usa_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "blaster_pistol_usa_gun"
+      "_use": "blaster_pistol_usa_gun"
     },
     {
       "collres__res": "m1911_colt_collision"
@@ -68,10 +68,10 @@
   ],
   "blaster_auto_ussr_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "blaster_auto_ussr_gun"
+      "_use": "blaster_auto_ussr_gun"
     },
     {
       "collres__res": "dt_29_collision"
@@ -79,10 +79,10 @@
   ],
   "blaster_auto_germany_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "blaster_auto_germany_gun"
+      "_use": "blaster_auto_germany_gun"
     },
     {
       "collres__res": "mg_42_late_collision"
@@ -90,10 +90,10 @@
   ],
   "blaster_auto_usa_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "blaster_auto_usa_gun"
+      "_use": "blaster_auto_usa_gun"
     },
     {
       "collres__res": "browning_m1918_collision"
@@ -101,10 +101,10 @@
   ],
   "lightthrower_ussr_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "lightthrower_ussr_gun"
+      "_use": "lightthrower_ussr_gun"
     },
     {
       "collres__res": "ppsh_41_late_collision"
@@ -112,10 +112,10 @@
   ],
   "lightthrower_germany_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "lightthrower_germany_gun"
+      "_use": "lightthrower_germany_gun"
     },
     {
       "collres__res": "mp43_1_collision"
@@ -123,10 +123,10 @@
   ],
   "lightthrower_usa_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "lightthrower_usa_gun"
+      "_use": "lightthrower_usa_gun"
     },
     {
       "collres__res": "m1a1_thompson_collision"
@@ -134,10 +134,10 @@
   ],
   "railgun_ussr_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "railgun_ussr_gun"
+      "_use": "railgun_ussr_gun"
     },
     {
       "collres__res": "svt_40_collision"
@@ -145,10 +145,10 @@
   ],
   "railgun_germany_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "railgun_germany_gun"
+      "_use": "railgun_germany_gun"
     },
     {
       "collres__res": "gewehr_43_collision"
@@ -156,10 +156,10 @@
   ],
   "railgun_usa_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "railgun_usa_gun"
+      "_use": "railgun_usa_gun"
     },
     {
       "collres__res": "m1941_johnson_collision"
@@ -167,10 +167,10 @@
   ],
   "plasma_cannon_ussr_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "plasma_cannon_ussr_gun"
+      "_use": "plasma_cannon_ussr_gun"
     },
     {
       "collres__res": "neiman_minethrower_collision"
@@ -178,10 +178,10 @@
   ],
   "plasma_cannon_germany_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "plasma_cannon_germany_gun"
+      "_use": "plasma_cannon_germany_gun"
     },
     {
       "collres__res": "panzerfaust_100_collision"
@@ -189,10 +189,10 @@
   ],
   "plasma_cannon_usa_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "plasma_cannon_usa_gun"
+      "_use": "plasma_cannon_usa_gun"
     },
     {
       "collres__res": "winchester_model_1912_collision"
@@ -200,10 +200,10 @@
   ],
   "plasma_shell_item": [
     {
-      "_extends": "panzerfaust_60_shell_item"
+      "_use": "panzerfaust_60_shell_item"
     },
     {
-      "_extends": "plasma_shell"
+      "_use": "plasma_shell"
     },
     {
       "item__template": "plasma_shell_item"
@@ -228,108 +228,108 @@
     }
   ],
   "plasma_pack_item": {
-    "_extends": "explosion_pack_item",
+    "_use": "explosion_pack_item",
     "item__proto": "content/enlisted_extra/gamedata/weapons/grenades/plasma_pack.blk",
     "item__shell": "content/enlisted_extra/gamedata/weapons/grenades/plasma_pack.blk"
   },
   "attachable_wear_oxygen_backpack_april_2022_item": {
-    "_extends": "attachable_backpack",
+    "_use": "attachable_backpack",
     "item__uniqueName": "attachable_wear_oxygen_backpack_april_2022_item",
     "animchar__res": "oxygen_backpack_april_2022_char",
     "collres__res": "oxygen_backpack_april_2022_collision"
   },
   "attachable_wear_ussr_belt_april_2022_item": {
-    "_extends": "attachable_belt1",
+    "_use": "attachable_belt1",
     "item__uniqueName": "attachable_ussr_belt_april_2022_item",
     "animchar__res": "ussr_belt_april_2022_char",
     "collres__res": "ussr_belt_april_2022_collision"
   },
   "attachable_wear_ussr_gas_mask_april_2022_item": {
-    "_extends": "attachable_skined_helmet",
+    "_use": "attachable_skined_helmet",
     "item__uniqueName": "attachable_wear_ussr_gas_mask_april_2022_item",
     "animchar__res": "ussr_gas_mask_april_2022_char",
     "collres__res": "ussr_gas_mask_april_2022_collision"
   },
   "attachable_wear_ussr_gloves_april_2022_item": {
-    "_extends": "attachable_gloves",
+    "_use": "attachable_gloves",
     "item__uniqueName": "attachable_wear_ussr_gloves_april_2022_item",
     "animchar__res": "ussr_gloves_april_2022_char",
     "collres__res": "ussr_gloves_april_2022_collision"
   },
   "attachable_wear_ussr_coverall_april_2022_item": {
-    "_extends": "attachable_tunic",
+    "_use": "attachable_tunic",
     "item__uniqueName": "attachable_wear_ussr_coverall_april_2022_item",
     "animchar__res": "ussr_coverall_april_2022_char",
     "collres__res": "ussr_coverall_april_2022_collision"
   },
   "attachable_wear_ussr_pouches_april_2022_item": {
-    "_extends": "attachable_belt2",
+    "_use": "attachable_belt2",
     "item__uniqueName": "attachable_ussr_pouches_april_2022_item",
     "animchar__res": "ussr_pouches_april_2022_char",
     "collres__res": "ussr_pouches_april_2022_collision"
   },
   "attachable_wear_ger_belt_april_2022_item": {
-    "_extends": "attachable_belt1",
+    "_use": "attachable_belt1",
     "item__uniqueName": "attachable_wear_ger_belt_april_2022_item",
     "animchar__res": "ger_belt_april_2022_char",
     "collres__res": "ger_belt_april_2022_collision"
   },
   "attachable_wear_ger_gas_mask_april_2022_item": {
-    "_extends": "attachable_skined_helmet",
+    "_use": "attachable_skined_helmet",
     "item__uniqueName": "attachable_wear_ger_gas_mask_april_2022_item",
     "animchar__res": "ger_gas_mask_april_2022_char",
     "collres__res": "ger_gas_mask_april_2022_collision"
   },
   "attachable_wear_ger_gloves_april_2022_item": {
-    "_extends": "attachable_gloves",
+    "_use": "attachable_gloves",
     "item__uniqueName": "attachable_wear_ger_gloves_april_2022_item",
     "animchar__res": "ger_gloves_april_2022_char",
     "collres__res": "ger_gloves_april_2022_collision"
   },
   "attachable_wear_ger_overcoat_2022_item": {
-    "_extends": "attachable_tunic",
+    "_use": "attachable_tunic",
     "item__uniqueName": "attachable_wear_ger_overcoat_2022_item",
     "animchar__res": "ger_overcoat_2022_char",
     "collres__res": "ger_overcoat_2022_collision"
   },
   "attachable_wear_ger_pants_april_2022_item": {
-    "_extends": "attachable_pants",
+    "_use": "attachable_pants",
     "item__uniqueName": "attachable_wear_ger_pants_april_2022_item",
     "animchar__res": "ger_pants_april_2022_char",
     "collres__res": "ger_pants_april_2022_collision"
   },
   "attachable_wear_ger_parabelum_holster_april_2022_item": {
-    "_extends": "attachable_front_belt_l",
+    "_use": "attachable_front_belt_l",
     "item__uniqueName": "attachable_wear_ger_parabelum_holster_april_2022_item",
     "animchar__res": "ger_parabelum_holster_april_2022_char",
     "collres__res": "ger_parabelum_holster_april_2022_collision"
   },
   "attachable_wear_ger_sholder_belt_april_2022_item": {
-    "_extends": "attachable_belt2",
+    "_use": "attachable_belt2",
     "item__uniqueName": "attachable_wear_ger_sholder_belt_april_2022_item",
     "animchar__res": "ger_sholder_belt_april_2022_char",
     "collres__res": "ger_sholder_belt_april_2022_collision"
   },
   "attachable_usa_belt_april_2022_item": {
-    "_extends": "attachable_belt1",
+    "_use": "attachable_belt1",
     "item__uniqueName": "attachable_usa_belt_april_2022_item",
     "animchar__res": "usa_belt_april_2022_char",
     "collres__res": "usa_belt_april_2022_collision"
   },
   "attachable_wear_usa_gas_mask_april_2022_item": {
-    "_extends": "attachable_skined_helmet",
+    "_use": "attachable_skined_helmet",
     "item__uniqueName": "attachable_wear_usa_gas_mask_april_2022_item",
     "animchar__res": "usa_gas_mask_april_2022_char",
     "collres__res": "usa_gas_mask_april_2022_collision"
   },
   "attachable_wear_usa_gloves_april_2022_item": {
-    "_extends": "attachable_gloves",
+    "_use": "attachable_gloves",
     "item__uniqueName": "attachable_wear_usa_gloves_april_2022_item",
     "animchar__res": "usa_gloves_april_2022_char",
     "collres__res": "usa_gloves_april_2022_collision"
   },
   "attachable_wear_usa_coverall_april_2022_item": {
-    "_extends": "attachable_tunic",
+    "_use": "attachable_tunic",
     "item__uniqueName": "attachable_wear_usa_coverall_april_2022_item",
     "animchar__res": "usa_coverall_april_2022_char",
     "collres__res": "usa_coverall_april_2022_collision"

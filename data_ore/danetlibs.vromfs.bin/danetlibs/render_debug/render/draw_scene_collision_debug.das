@@ -11,25 +11,25 @@ def draw_collision_debug_common(phys : bool;
                                 max_coll_dist_sq : float;
                                 max_label_dist_sq : float)
   //view mode
-  var flags = int(DrawCollisionsFlags DRAW_COLLISIONS_OPACITY) | int(DrawCollisionsFlags DRAW_COLLISIONS_WIREFRAME)
+  var flags = int(DrawCollisionsFlags Opacity) | int(DrawCollisionsFlags Wireframe)
 
   //rendist or canopy
   if phys || trace
-    flags |= int(DrawCollisionsFlags DRAW_COLLISIONS_ALL)
+    flags |= int(DrawCollisionsFlags All)
 
   if canopy
-    flags |= int(DrawCollisionsFlags DRAW_COLLISIONS_REND_INST_CANOPY)
+    flags |= int(DrawCollisionsFlags RendInstCanopy)
 
   //node filter for rendists
   if trace && !phys
-    flags |= int(DrawCollisionsFlags DRAW_COLLISIONS_TRACE_ONLY)
+    flags |= int(DrawCollisionsFlags TraceOnly)
 
   if phys && !trace
-    flags |= int(DrawCollisionsFlags DRAW_COLLISIONS_PHYS_ONLY)
+    flags |= int(DrawCollisionsFlags PhysOnly)
 
   rendinst_drawDebugCollisions(flags, view_pos, true, max_coll_dist_sq, max_label_dist_sq)
 
-[es(tag=render, no_order, REQUIRE=collision_debug, on_event=RenderDebugWithJitter)]
+[es(tag=(dev, render), no_order, REQUIRE=collision_debug, on_event=RenderDebugWithJitter)]
 def draw_collision_debug(evt : Event;
                          collision_debug__collMaxDistSq : float;
                          collision_debug__labelMaxDistSq : float;

@@ -1,13 +1,23 @@
-#default:no-func-decl-sugar
-#default:no-class-decl-sugar
-#default:no-root-fallback
-#default:explicit-this
 #default:forbid-root-table
 
 from "%enlSqGlob/ui_library.nut" import *
 import "%dngscripts/ecs.nut" as ecs
 
+from "dashboard" import override_dashboard_show, SM_SHOW
+override_dashboard_show(SM_SHOW)
+
 ecs.clear_vm_entity_systems()
+
+require("%dngscripts/globalState.nut").setUniqueNestKey("Enlist")
+let {safeAreaAmount,safeAreaVerPadding, safeAreaHorPadding} = require("%enlSqGlob/safeArea.nut")
+let {editorActivness, uiInEditor} = require("%enlSqGlob/editorState.nut")
+let {editor, editorOverlay, editorModeLabel} = require("editor.nut")
+let {sandboxEditorEnabled, sandboxEditor} = require("sandbox_editor.nut")
+let {extraPropPanelCtors = null} = require("%daeditor/state.nut")
+if (extraPropPanelCtors!=null)
+  extraPropPanelCtors([require("%daeditor/extensions/extraIcon3DView.nut")])
+
+screenScaleUpdate(safeAreaAmount.value)
 
 require("%enlist/getAppIdsList.nut").setAppIdsList([1131, 1132, 1168, 1178])
 require("onScriptLoad.nut")
@@ -23,11 +33,10 @@ require("voiceChat/voiceStateHandlers.nut")
 require("%enlist/state/roomState.nut")
 require("debriefing/debriefing_dbg.nut")
 
+let { isInBattleState } = require("%enlSqGlob/inBattleState.nut")
+let {dbgSafeArea} = require("%ui/dbgSafeArea.nut")
 let friendlyErrorsBtn = require("friendly_logerr.ui.nut")
-let { isNewDesign } = require("%enlSqGlob/designState.nut")
-let { hotkeysButtonsBar } = isNewDesign.value
-  ? require("%ui/hotkeysPanelBar.nut")
-  : require("%ui/hotkeysPanel.nut")
+let { hotkeysButtonsBar } = require("%ui/hotkeysPanel.nut")
 let platform = require("%dngscripts/platform.nut")
 let cursors = require("%ui/style/cursors.nut")
 let {msgboxGeneration, getCurMsgbox} = require("components/msgbox.nut")
@@ -41,12 +50,12 @@ require("daRg.debug").requireFontSizeSlot(DBGLEVEL>0 && VAR_TRACE_ENABLED) //war
 let {popupBlock} = require("%enlist/popup/popupBlock.nut")
 let registerScriptProfiler = require("%sqstd/regScriptProfiler.nut")
 let {underUiLayer, aboveUiLayer} = require("%enlist/uiLayers.nut")
-let {safeAreaAmount,safeAreaVerPadding, safeAreaHorPadding} = require("%enlSqGlob/safeArea.nut")
 let { fadeBlackUi } = require("fadeToBlack.nut")
 let {getCurrentLoginUi, loginUiVersion} = require("login/currentLoginUi.nut")
 let version_info = require("components/versionInfo.nut")
 let {noServerStatus, saveDataStatus} = require("%enlist/mainMenu/info_icons.nut")
 let speakingList = require("%ui/speaking_list.nut")
+let modsDownloadInfo = require("%enlist/gameModes/sandbox/modsDownloadInfo.ui.nut")
 
 let {mkSettingsMenuUi, showSettingsMenu} = require("%ui/hud/menus/settings_menu.nut")
 let emailLinkButton = require("mkLinkButton.nut")
@@ -134,19 +143,38 @@ let function curScreen(){
       log($"Enlist UI started")
     }
     watch = [isLoggedIn, showControlsMenu, showSettingsMenu]
-    children = children
+    children
   }
 }
 
+let inBattleUiChildren = freeze([
+  speakingList
+  dbgSafeArea
+])
+
+let outOfBattleChildren = freeze([
+  globInput, fadeBlackUi, underUi, curScreen, version_info, aboveUi, modalWindowsComponent,
+  msgboxesUI, popupBlock, speakingList, logerrsUi, infoIcons, inspectorRoot, serviceInfo,
+  hotkeysButtonsBar, modsDownloadInfo
+])
+
+let showCursor = Computed(@() !isInBattleState.value)
+let showUi = Computed(@() !editorActivness.value || uiInEditor.value)
+
 return function Root() {
   return {
-    cursor = cursors.normal
-    watch = [ gui_scene.isActive ]
-    children = !gui_scene.isActive.value ? null : [
-      globInput, fadeBlackUi, underUi, curScreen, version_info, aboveUi, modalWindowsComponent,
-      msgboxesUI, popupBlock, speakingList, logerrsUi, infoIcons, inspectorRoot, serviceInfo,
-      hotkeysButtonsBar
-    ]
+    cursor = showCursor.value ? cursors.normal : null
+    watch = [ showCursor, gui_scene.isActive, isInBattleState, showUi, editorActivness, sandboxEditorEnabled ]
+    children = []
+      .extend((!gui_scene.isActive || !showUi.value)
+        ? []
+        : isInBattleState.value
+            ? inBattleUiChildren
+            : outOfBattleChildren
+      ).append(editorActivness.value ? editor : null,
+               editorActivness.value && !sandboxEditorEnabled.value ? editorOverlay : null,
+               editorActivness.value ? editorModeLabel : null,
+               sandboxEditorEnabled.value ? sandboxEditor : null)
   }
 }
 

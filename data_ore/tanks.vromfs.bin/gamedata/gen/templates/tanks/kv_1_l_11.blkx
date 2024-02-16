@@ -1,10 +1,10 @@
 {
   "base_kv_1_l_11": [
     {
-      "_extends": "base_tank"
+      "_use": "base_tank"
     },
     {
-      "_extends": "kv_1_l_11_ammo_stowages"
+      "_use": "kv_1_l_11_ammo_stowages"
     },
     {
       "killLogName": "ussr_kv_1_l_11"
@@ -146,7 +146,7 @@
     }
   ],
   "kv_1_l_11_turret_01_76mm_l11": {
-    "_extends": "tankgun_76mm_l11",
+    "_use": "tankgun_76mm_l11",
     "gun__shootNodeName": "bone_gun_barrel",
     "turret__yawSpeed": 12.0,
     "turret__pitchSpeed": 4.0,
@@ -174,7 +174,7 @@
     ]
   },
   "kv_1_l_11_turret_02_7_62mm_dt": {
-    "_extends": "tankgun_7_62mm_dt",
+    "_use": "tankgun_7_62mm_dt",
     "gun__shootNodeName": "bone_mg_gun_twin",
     "gun__shellsAmmo:array": [
       {
@@ -187,13 +187,13 @@
   },
   "kv_1_l_11_ammo_stowages": {
     "_tags": "server",
-    "_extends": "vehicle_ammo_stowages",
+    "_use": "vehicle_ammo_stowages",
     "ammo_stowage__stowageTemplates:shared:list<t>": {
       "stowage": "kv_1_l_11_ammo_stowage_1"
     }
   },
   "kv_1_l_11_ammo_stowage_1": {
-    "_extends": "ammo_stowage",
+    "_use": "ammo_stowage",
     "ammo_stowage__clusterTemplates:shared:list<t>": {
       "cluster": "kv_1_l_11_ammo_cluster_1_1"
     },
@@ -202,7 +202,7 @@
     }
   },
   "kv_1_l_11_ammo_cluster_1_1": {
-    "_extends": "ammo_cluster",
+    "_use": "ammo_cluster",
     "ammo_cluster__isShell": true,
     "ammo_cluster__slotNames:shared:list<t>": [
       {

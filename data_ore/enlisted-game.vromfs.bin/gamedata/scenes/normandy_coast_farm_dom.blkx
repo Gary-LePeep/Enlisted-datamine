@@ -308,7 +308,7 @@
   {
     "entity": {
       "_template": "water",
-      "water__strength": 0.27
+      "water__strength": 2.0
     }
   },
   {
@@ -334,25 +334,30 @@
       "_template": "shaderVars",
       "shader_vars__vars:object": {
         "hmap_displacement_up": 0.3,
-        "ocean1": "#44464600",
-        "ocean0": "#383b3e00",
+        "ocean1": "#8e894700",
+        "ocean0": "#4c3f0500",
         "ocean_density": 0.1,
         "land_selfillum_worldscale": 0.9,
-        "river1": "#44464600",
+        "river1": "#526e4000",
         "river0": "#383b3e00",
         "hmap_displacement_down": -0.15,
         "autodetect_land_selfillum_color": [0.53,0.0,0.0,0.16],
         "paint_details_tex": "normandy_wall_color_tex_palette*",
         "puddle_increase": 0.01,
         "land_selfillum_strength": 32.0,
-        "water_color_noise_size": 71.0,
-        "river_density": 3.0
+        "water_color_noise_size": 256.0,
+        "river_density": 0.3
       }
     }
   },
   {
     "entity": {
       "_template": "postfx_color_grading_tonemap_death_alive_enlisted"
+    }
+  },
+  {
+    "entity": {
+      "_template": "bloom"
     }
   },
   {
@@ -409,6 +414,7 @@
     "entity": {
       "_template": "briefing_domination",
       "mission_name": "normandy_coast_farm_dom",
+      "mission_outfit": "normandy",
       "loading_images:list<t>": [
         {
           "item": "ui/normandy_coast_farm_01.avif"
@@ -434,8 +440,8 @@
     "entity": {
       "_template": "team_usa+team_narrator_domination+respawn_creators_team",
       "team__id": 1,
-      "team__score": 2700.0,
-      "team__scoreCap": 2700.0,
+      "team__score": 2500.0,
+      "team__scoreCap": 2500.0,
       "score_bleed__domBleed": 4.0,
       "score_bleed__domBleedOn": false,
       "score_bleed__totalDomZoneCount": 3,
@@ -451,8 +457,8 @@
     "entity": {
       "_template": "team_germany+team_narrator_domination+respawn_creators_team",
       "team__id": 2,
-      "team__score": 1900.0,
-      "team__scoreCap": 1900.0,
+      "team__score": 2500.0,
+      "team__scoreCap": 2500.0,
       "score_bleed__domBleed": 4.0,
       "score_bleed__domBleedOn": false,
       "score_bleed__totalDomZoneCount": 3,
@@ -500,7 +506,7 @@
       "_template": "domination_sphere_capzone",
       "transform": [
         [1.0,0.0,0.0],
-        [0.0,1.0,0.0],
+        [0.0,0.379232,0.0],
         [0.0,0.0,1.0],
         [-139.929,20.5181,-126.788]
       ],
@@ -727,10 +733,10 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_fighter",
       "transform": [
-        [-0.975479,0.0,0.220091],
+        [-0.872923,0.0,-0.487857],
         [0.0,1.0,0.0],
-        [-0.220091,0.0,-0.975479],
-        [1926.64,1000.0,-201.798]
+        [0.487857,0.0,-0.872923],
+        [2822.95,1000.0,1667.32]
       ],
       "team": 1,
       "maxVehicleOnSpawn": 1,
@@ -742,10 +748,10 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_assault",
       "transform": [
-        [-0.975479,0.0,0.220091],
+        [-0.872923,0.0,-0.487857],
         [0.0,1.0,0.0],
-        [-0.220091,0.0,-0.975479],
-        [1926.64,800.0,-201.798]
+        [0.487857,0.0,-0.872923],
+        [2822.95,800.0,1667.32]
       ],
       "team": 1,
       "maxVehicleOnSpawn": 1,
@@ -757,10 +763,10 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_fighter",
       "transform": [
-        [-0.975479,0.0,0.220091],
+        [-0.872923,0.0,-0.487857],
         [0.0,1.0,0.0],
-        [-0.220091,0.0,-0.975479],
-        [1922.26,1000.0,-352.323]
+        [0.487857,0.0,-0.872923],
+        [2920.25,1000.0,1552.38]
       ],
       "team": 1,
       "maxVehicleOnSpawn": 1,
@@ -772,10 +778,10 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_assault",
       "transform": [
-        [-0.975479,0.0,0.220091],
+        [-0.872923,0.0,-0.487857],
         [0.0,1.0,0.0],
-        [-0.220091,0.0,-0.975479],
-        [1884.13,800.0,-375.609]
+        [0.487857,0.0,-0.872923],
+        [2907.43,800.0,1509.58]
       ],
       "team": 1,
       "maxVehicleOnSpawn": 1,
@@ -789,7 +795,7 @@
         [-0.999999,0.0,-0.000445871],
         [0.0,1.0,0.0],
         [0.000445871,0.0,-0.999999],
-        [1819.69,1000.0,-2183.4]
+        [2719.54,561.78,171.499]
       ],
       "resupply_zone__team": 1
     }
@@ -799,10 +805,10 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_fighter",
       "transform": [
-        [0.906698,0.0,-0.421782],
-        [0.0,1.0,0.0],
-        [0.421782,0.0,0.906698],
-        [-2406.24,1023.92,29.3383]
+        [0.422107,0.0,0.906547],
+        [0.0,1.0,-0.0],
+        [-0.906547,0.0,0.422107],
+        [-1701.96,1023.92,-3482.82]
       ],
       "team": 2,
       "maxVehicleOnSpawn": 1,
@@ -814,10 +820,10 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_assault",
       "transform": [
-        [0.906698,0.0,-0.421782],
-        [0.0,1.0,0.0],
-        [0.421782,0.0,0.906698],
-        [-2370.97,823.92,203.015]
+        [0.422107,0.0,0.906547],
+        [0.0,1.0,-0.0],
+        [-0.906547,0.0,0.422107],
+        [-1875.62,823.92,-3447.49]
       ],
       "team": 2,
       "maxVehicleOnSpawn": 1,
@@ -829,10 +835,10 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_fighter",
       "transform": [
-        [0.906698,0.0,-0.421782],
-        [0.0,1.0,0.0],
-        [0.421782,0.0,0.906698],
-        [-2367.72,1023.92,181.158]
+        [0.422107,0.0,0.906547],
+        [0.0,1.0,-0.0],
+        [-0.906547,0.0,0.422107],
+        [-1853.76,1023.92,-3444.24]
       ],
       "team": 2,
       "maxVehicleOnSpawn": 1,
@@ -844,10 +850,10 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_assault",
       "transform": [
-        [0.906698,0.0,-0.421782],
-        [0.0,1.0,0.0],
-        [0.421782,0.0,0.906698],
-        [-2406.24,823.92,29.3383]
+        [0.422107,0.0,0.906547],
+        [0.0,1.0,-0.0],
+        [-0.906547,0.0,0.422107],
+        [-1701.96,823.92,-3482.82]
       ],
       "team": 2,
       "maxVehicleOnSpawn": 1,
@@ -861,7 +867,7 @@
         [0.327869,0.0,-0.944724],
         [0.0,1.0,0.0],
         [0.944724,0.0,0.327869],
-        [-2778.11,1023.92,-1496.4]
+        [-2620.4,687.232,-1878.81]
       ],
       "resupply_zone__team": 2
     }

@@ -1,35 +1,35 @@
 {
+  "motion_matching_trajectory": {
+    "_tags": "render",
+    "mm_trajectory__historyLength": 0,
+    "mm_trajectory__lastHistoryIdx": -1,
+    "mm_trajectory__lastHistoryTime": 0.0,
+    "mm_trajectory__historyDt": 0.0,
+    "mm_trajectory__prevPosition": [0.0,0.0,0.0],
+    "mm_trajectory__prevRotation": [0.0,0.0,0.0,1.0],
+    "mm_trajectory__currPosition": [0.0,0.0,0.0],
+    "mm_trajectory__currRotation": [0.0,0.0,0.0,1.0],
+    "mm_trajectory__linearVelocity": [0.0,0.0,0.0],
+    "mm_trajectory__angularVelocity": [0.0,0.0,0.0],
+    "mm_trajectory__linearVelocityViscosity": 0.1,
+    "mm_trajectory__angularVelocityViscosity": 0.1,
+    "mm_trajectory__historyPositions:list<p3>": [],
+    "mm_trajectory__historyRotations:list<p4>": [],
+    "mm_trajectory__featurePositions:list<p3>": [],
+    "mm_trajectory__featureDirections:list<p3>": []
+  },
   "motion_matching_animchar_component": {
+    "_use": "motion_matching_trajectory",
     "_tags": "render",
     "motion_matching__enabled": false,
     "motion_matching__blendTimeToAnimtree": 0.45,
-    "motion_matching__blendProgressToAnimtree": 0.0,
-    "motion_matching__trajectoryInertionFactor": 0.75,
-    "motion_matching__linearVelocityViscosity": 0.1,
-    "motion_matching__angularVelocityViscosity": 0.1,
-    "motion_matching__linearVelocity": [0.0,0.0,0.0],
-    "motion_matching__angularVelocity": [0.0,0.0,0.0],
-    "motion_matching__linearVelocityAmortized": [0.0,0.0,0.0],
-    "motion_matching__angularVelocityAmortized": [0.0,0.0,0.0],
     "motion_matching__metricaTolerance": 0.0,
-    "motion_matching__idleVelocityBarrier": 0.01,
-    "motion_matching__prevTransform": [
-      [1.0,0.0,0.0],
-      [0.0,1.0,0.0],
-      [0.0,0.0,1.0],
-      [0.0,0.0,0.0]
-    ],
     "motion_matching__animationBlendTime": 0.45,
     "motion_matching__updateProgress": 0.0,
     "motion_matching__distanceFactor": 1.0,
     "motion_matching__trajectoryTolerance": 0.0,
     "motion_matching__presetIdx": -1,
-    "motion_matching__dataBaseTemplateName": "motion_matchign_animation_database",
-    "motion_matching__trajectoryTimes:list<r>": [],
-    "motion_matching__desiredPositions:list<p3>": [],
-    "motion_matching__desiredDirections:list<p3>": [],
-    "motion_matching__predictedPositions:list<p3>": [],
-    "motion_matching__predictedDirections:list<p3>": [],
+    "motion_matching__dataBaseTemplateName": "motion_matching_animation_database",
     "motion_matching__goalFeature:FrameFeatures": [],
     "motion_matching__goalNodesIdx:list<i>": [],
     "motion_matching__goalTags:list<t>": [],
@@ -39,93 +39,107 @@
     "motion_matching__controller:MotionMatchingController": [],
     "_group": {
       "_tags": "tools",
-      "motion_matching__historyIndex": [-1,0],
       "motion_matching__walkSpeed": 1.8,
-      "motion_matching__runSpeed": 3.7,
-      "motion_matching__clipProgress:list<r>": [],
-      "motion_matching__history:list<ip2>": []
+      "motion_matching__runSpeed": 3.7
     }
   },
-  "motion_matchign_animation_database": {
+  "motion_matching_foot_ik_locker": {
+    "_tags": "render",
+    "foot_ik_locker_inited": false,
+    "foot_ik_locker_enabled": true,
+    "foot_ik_locker_blendTime": 0.2,
+    "foot_ik_locker_maxReachScale": 0.99,
+    "foot_ik_locker_unlockByAnimRadius": 0.2,
+    "foot_ik_locker_unlockWhenUnreachableRadius": 0.05,
+    "foot_ik_locker_nodes:FootIKLockerNodes": [],
+    "foot_ik_locker_nodeNames:array": [
+      {
+        "leg:object": {
+          "toeNodeName": "Bip01 L Toe0",
+          "heelNodeName": "Bip01 L Foot",
+          "kneeNodeName": "Bip01 L Calf",
+          "hipNodeName": "Bip01 L Thigh"
+        }
+      },
+      {
+        "leg:object": {
+          "toeNodeName": "Bip01 R Toe0",
+          "heelNodeName": "Bip01 R Foot",
+          "kneeNodeName": "Bip01 R Calf",
+          "hipNodeName": "Bip01 R Thigh"
+        }
+      }
+    ]
+  },
+  "motion_matching_animation_database": {
     "_singleton": true,
     "_tags": "render",
-    "dataBaseName": "motion_matchign_animation_database",
     "main_database__loaded": false,
     "main_database__perFrameLimit": -1,
     "weightsPath": "%danetlibs/motion_matching/animation_data_base/main_data_base_weights.blk",
     "rootMotionPath": "%danetlibs/motion_matching/animation_data_base/main_data_base_root_motion.blk",
+    "main_database__nodeMasksPath": "%danetlibs/motion_matching/animation_data_base/main_data_base_node_masks.blk",
+    "_use": "motion_matching_foot_ik_locker",
     "main_database__root_node": "",
+    "main_database__root_motion_a2d_node": "",
     "data_bases_paths:list<t>": {
       "path": "%danetlibs/motion_matching/animation_data_base/swim_animations.blk"
     },
     "dataBase:AnimationDataBase": [],
-    "matchingResults:MatchingResults": [],
     "main_database__direction_nodes:list<t>": [],
     "main_database__direction_weights:list<r>": [],
     "main_database__center_of_mass_nodes:list<t>": [],
     "main_database__center_of_mass_params:list<p4>": [],
     "main_database__presetsTagsName:list<t>": [],
-    "main_database__masks:object": {
-      "full_body:object": {
-        "Bip01": 1.0,
-        "Bip01 Pelvis": 1.0,
-        "Bip01 Spine": 1.0,
-        "Bip01 Spine1": 1.0,
-        "Bip01 Neck": 1.0,
-        "Bip01 Head": 1.0,
-        "Bip01 L Clavicle": 1.0,
-        "Bip01 L UpperArm": 1.0,
-        "Bip01 L Forearm": 1.0,
-        "Bip01 L Hand": 1.0,
-        "Bip01 R Clavicle": 1.0,
-        "Bip01 R UpperArm": 1.0,
-        "Bip01 R Forearm": 1.0,
-        "Bip01 R Hand": 1.0,
-        "Bip01 L Thigh": 1.0,
-        "Bip01 L Calf": 1.0,
-        "Bip01 L Foot": 1.0,
-        "Bip01 L Toe0": 1.0,
-        "Bip01 R Thigh": 1.0,
-        "Bip01 R Calf": 1.0,
-        "Bip01 R Foot": 1.0,
-        "Bip01 R Toe0": 1.0
-      },
-      "no_hands:object": {
-        "Bip01": 1.0,
-        "Bip01 Pelvis": 1.0,
-        "Bip01 Spine": 1.0,
-        "Bip01 Spine1": 1.0,
-        "Bip01 Neck": 1.0,
-        "Bip01 Head": 1.0,
-        "Bip01 L Thigh": 1.0,
-        "Bip01 L Calf": 1.0,
-        "Bip01 L Foot": 1.0,
-        "Bip01 L Toe0": 1.0,
-        "Bip01 R Thigh": 1.0,
-        "Bip01 R Calf": 1.0,
-        "Bip01 R Foot": 1.0,
-        "Bip01 R Toe0": 1.0
-      }
+    "main_database__pbcWeightOverrides:object": {
+      "#body_dir_rotate_applier": 0.0
     }
   },
-  "motion_matchign_animation_database_extended": {
-    "_extends": "motion_matchign_animation_database",
+  "motion_matching_animation_database_extended": {
+    "_use": "motion_matching_animation_database",
     "_tags": "render",
-    "dataBaseName": "motion_matchign_animation_database_extended",
     "data_bases_paths:list<t>": [
       {
         "path": "%danetlibs/motion_matching/animation_data_base/legacy_locomotion.blk"
       },
       {
-        "path": "%danetlibs/motion_matching/animation_data_base/mocap_animations.blk"
-      },
-      {
-        "path": "%danetlibs/motion_matching/animation_data_base/swim_animations.blk"
+        "path": "%danetlibs/motion_matching/animation_data_base/demo_mocap_animations.blk"
       }
     ]
   },
-  "optional_motion_matching": {
-    "optionalRequestMotionMatching:tag": []
+  "soldier_mm_database": {
+    "_use": "motion_matching_animation_database",
+    "_singleton": true,
+    "_tags": "render",
+    "weightsPath": "%danetlibs/motion_matching/animation_data_base/soldier_mm_weights.blk",
+    "rootMotionPath": "%danetlibs/motion_matching/animation_data_base/soldier_mm_root_motion.blk",
+    "data_bases_paths:list<t>": {
+      "path": "%danetlibs/motion_matching/animation_data_base/soldier_sprint_animation_list.blk"
+    },
+    "main_database__pbcWeightOverrides:object": {
+      "#body_dir_rotate_applier": 0.0,
+      "#alignToNeckDir": 0.5
+    }
+  },
+  "soldier_mm_component": {
+    "_use": "motion_matching_animchar_component",
+    "_tags": "render",
+    "motion_matching__blendTimeToAnimtree": 0.3,
+    "motion_matching__dataBaseTemplateName": "soldier_mm_database",
+    "mm_trajectory__wishLinearVelocity": [0.0,0.0,0.0],
+    "motion_matching__afterSprintTime": 0.0
+  },
+  "soldier_optional_motion_matching_component": {
+    "_tags": "render,dev",
+    "motion_matching__optionalSubtemplate": "soldier_mm_component"
+  },
+  "motion_matching_optional_subtemplates_manager": {
+    "_singleton": true,
+    "_group": {
+      "_tags": "render,dev",
+      "_track": true,
+      "motion_matching__optionalSubtemplatesEnabled": true
+    }
   },
   "animation_test_scope": {
     "animation_test__startTime": 0.0,
@@ -143,50 +157,61 @@
   },
   "animation_test_target": {
     "test_target": [0.0,0.0,0.0],
-    "test_target_velocity": [0.0,0.0,0.0],
-    "test_target_center": [0.0,0.0,0.0]
+    "test_target_posOffset": [0.0,0.0,0.0],
+    "test_target_velocity": [0.0,0.0,2.0],
+    "test_target_origin": [0.0,0.0,0.0],
+    "test_target_mode": "default",
+    "test_target_time": 0.0,
+    "test_target_timeToReset": 0.0
   },
   "animation_tester": {
     "animation_tester__moveTarget": [0.0,0.0,0.0]
   },
+  "motion_matching_camera_target": {
+    "motion_matching__followWithFreeCamera": true,
+    "motion_matching__freeCameraOffset": [0.0,4.0,-4.0]
+  },
+  "motion_matching_debug_label": {
+    "motion_matching__debugLabel": ""
+  },
   "animation_self_tester": [
     {
-      "_extends": "motion_matching_animchar_component"
+      "_use": "motion_matching_animchar_component"
     },
     {
-      "_extends": "animation_tester"
+      "_use": "animation_tester"
     },
     {
-      "_extends": "animation_test_target"
+      "_use": "animation_test_target"
     },
     {
-      "motion_matching__debugLabel": ""
+      "_use": "motion_matching_debug_label"
     },
     {
       "_group": {
         "_tags": "render",
         "motion_matching__enabled": true,
-        "motion_matching__dataBaseTemplateName": "motion_matchign_animation_database_extended"
+        "motion_matching__dataBaseTemplateName": "motion_matching_animation_database_extended"
       }
     }
   ],
   "motion_matching_anim_tree_tester": {
-    "_extends": "animation_self_tester",
+    "_use": "animation_self_tester",
     "motion_matching__debugLabel": "anim tree",
     "motion_matching__animTreeTester:tag": []
   },
   "motion_matching_tester": {
-    "_extends": "animation_self_tester",
+    "_use": "animation_self_tester",
     "motion_matching__debugLabel": "motion matching",
     "motion_matching__MMTester:tag": []
   },
   "motion_matching_inertial_blend_tester": {
-    "_extends": "animation_self_tester",
+    "_use": "animation_self_tester",
     "motion_matching__debugLabel": "inertial blend",
     "motion_matching__inertialBlendTester:tag": []
   },
-  "animation_test_pair": {
-    "_extends": "animation_test_target",
+  "animation_test_pair_base": {
+    "_use": "motion_matching_camera_target",
     "transform": [
       [1.0,0.0,0.0],
       [0.0,1.0,0.0],
@@ -195,5 +220,30 @@
     ],
     "animationTestPair:tag": [],
     "tester_list:list<eid>": []
+  },
+  "animation_test_pair": [
+    {
+      "_use": "animation_test_pair_base"
+    },
+    {
+      "_use": "animation_test_target"
+    }
+  ],
+  "motion_matching_imgui_state": {
+    "_singleton": true,
+    "_tags": "render",
+    "mm_visualization_show_feature_nodes": false,
+    "mm_visualization_show_trajectory": false,
+    "mm_visualization_show_skeleton": false,
+    "mm_visualization_show_skeleton_original": false,
+    "mm_visualization_show_skeleton_node_labels": false,
+    "mm_visualization_show_foot_ik_locked_positions": false,
+    "mm_visualization_show_foot_ik_target_positions": false,
+    "mm_clips_historyIndex": [-1,0],
+    "mm_clips_animationPlaySpeed": 1.0,
+    "mm_clips_animationPlayMode": 0,
+    "mm_imguiAnimcharEid:eid": [],
+    "mm_clips_clipProgress:list<i>": [],
+    "mm_clips_history:list<ip2>": []
   }
 }

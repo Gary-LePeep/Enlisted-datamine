@@ -3,7 +3,7 @@
     "entity": {
       "_template": "ri_gpu_object",
       "ri_gpu_object__name": "evergreen_branches",
-      "ri_gpu_object__biom_indexes": [21.0,-1.0,-1.0,-1.0],
+      "ri_gpu_object__biom_indexes": [21.0,53.0,-1.0,-1.0],
       "ri_gpu_object__grid_size": 6,
       "ri_gpu_object__grid_tiling": 1,
       "ri_gpu_object__cell_size": 9.0,
@@ -12,6 +12,7 @@
       "ri_gpu_object__rotate_range": [0.0,960.0],
       "ri_gpu_object__sparse_weight": 4.0,
       "ri_gpu_object__seed": 53423,
+      "ri_gpu_object__slope_factor": [12.0,1.0],
       "ri_gpu_object__is_using_normal": true,
       "ri_gpu_object__multiple_objects:array": [
         {
@@ -38,8 +39,45 @@
   {
     "entity": {
       "_template": "ri_gpu_object",
+      "ri_gpu_object__name": "evergreen_burnt_branches",
+      "ri_gpu_object__biom_indexes": [55.0,-1.0,-1.0,-1.0],
+      "ri_gpu_object__grid_size": 6,
+      "ri_gpu_object__grid_tiling": 1,
+      "ri_gpu_object__cell_size": 9.0,
+      "ri_gpu_object__incline_delta": 0.0,
+      "ri_gpu_object__scale_range": [0.6,1.1],
+      "ri_gpu_object__rotate_range": [0.0,960.0],
+      "ri_gpu_object__sparse_weight": 4.0,
+      "ri_gpu_object__seed": 53423,
+      "ri_gpu_object__slope_factor": [12.0,1.0],
+      "ri_gpu_object__is_using_normal": true,
+      "ri_gpu_object__multiple_objects:array": [
+        {
+          "gpu_object:object": {
+            "name": "ground_plant_tropic_trash_palm_pile_a",
+            "weight": 2.0
+          }
+        },
+        {
+          "gpu_object:object": {
+            "name": "cocos_a",
+            "weight": 1.0
+          }
+        },
+        {
+          "gpu_object:object": {
+            "name": "cocos_d",
+            "weight": 1.0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "ri_gpu_object",
       "ri_gpu_object__name": "cocos_nucifera_coconut",
-      "ri_gpu_object__biom_indexes": [23.0,-1.0,-1.0,-1.0],
+      "ri_gpu_object__biom_indexes": [23.0,53.0,-1.0,-1.0],
       "ri_gpu_object__grid_size": 6,
       "ri_gpu_object__grid_tiling": 1,
       "ri_gpu_object__cell_size": 8.0,
@@ -152,7 +190,7 @@
     "entity": {
       "_template": "ri_gpu_object",
       "ri_gpu_object__name": "phyllanthus_urinaria",
-      "ri_gpu_object__biom_indexes": [18.0,-1.0,-1.0,-1.0],
+      "ri_gpu_object__biom_indexes": [18.0,58.0,-1.0,-1.0],
       "ri_gpu_object__grid_size": 8,
       "ri_gpu_object__grid_tiling": 8,
       "ri_gpu_object__cell_size": 8.0,
@@ -382,7 +420,6 @@
     "entity": {
       "_template": "ri_gpu_object",
       "ri_gpu_object__name": "rocks",
-      "ri_gpu_object__biom_indexes": [2.0,3.0,4.0,17.0],
       "ri_gpu_object__grid_size": 6,
       "ri_gpu_object__grid_tiling": 8,
       "ri_gpu_object__cell_size": 8.0,
@@ -391,22 +428,39 @@
       "ri_gpu_object__rotate_range": [0.0,960.0],
       "ri_gpu_object__seed": 47634,
       "ri_gpu_object__is_using_normal": true,
+      "ri_gpu_object__biome_params:array": [
+        {
+          "ri_gpu_object__biome_params": [2.0,1.0,0.0,0.0]
+        },
+        {
+          "ri_gpu_object__biome_params": [3.0,1.0,0.0,0.0]
+        },
+        {
+          "ri_gpu_object__biome_params": [4.0,1.0,0.0,0.0]
+        },
+        {
+          "ri_gpu_object__biome_params": [17.0,1.0,0.0,0.0]
+        },
+        {
+          "ri_gpu_object__biome_params": [58.0,1.0,0.0,0.0]
+        }
+      ],
       "ri_gpu_object__multiple_objects:array": [
         {
           "gpu_object:object": {
-            "name": "generic_stone_small_a",
+            "name": "earthen_eroded_stone_small_a",
             "weight": 1.0
           }
         },
         {
           "gpu_object:object": {
-            "name": "generic_stone_small_c",
+            "name": "earthen_eroded_stone_small_b",
             "weight": 1.0
           }
         },
         {
           "gpu_object:object": {
-            "name": "generic_stone_small_d",
+            "name": "earthen_eroded_stone_small_c",
             "weight": 1.0
           }
         }
@@ -417,9 +471,9 @@
     "entity": {
       "_template": "ri_gpu_object",
       "ri_gpu_object__name": "bamboo_green_leaves",
-      "ri_gpu_object__grid_size": 4,
-      "ri_gpu_object__grid_tiling": 16,
-      "ri_gpu_object__cell_size": 3.0,
+      "ri_gpu_object__grid_size": 12,
+      "ri_gpu_object__grid_tiling": 4,
+      "ri_gpu_object__cell_size": 2.0,
       "ri_gpu_object__scale_range": [0.75,1.25],
       "ri_gpu_object__rotate_range": [0.0,360.0],
       "ri_gpu_object__seed": 7716,
@@ -429,7 +483,7 @@
           "ri_gpu_object__biome_params": [28.0,1.0,0.0,0.0]
         },
         {
-          "ri_gpu_object__biome_params": [29.0,1.0,0.0,0.0]
+          "ri_gpu_object__biome_params": [54.0,1.0,0.0,0.0]
         }
       ],
       "ri_gpu_object__multiple_objects:array": [
@@ -452,9 +506,9 @@
     "entity": {
       "_template": "ri_gpu_object",
       "ri_gpu_object__name": "bamboo_yellow_leaves",
-      "ri_gpu_object__grid_size": 4,
-      "ri_gpu_object__grid_tiling": 16,
-      "ri_gpu_object__cell_size": 9.0,
+      "ri_gpu_object__grid_size": 6,
+      "ri_gpu_object__grid_tiling": 4,
+      "ri_gpu_object__cell_size": 4.0,
       "ri_gpu_object__scale_range": [0.75,1.25],
       "ri_gpu_object__rotate_range": [0.0,360.0],
       "ri_gpu_object__seed": 8716,
@@ -464,7 +518,7 @@
           "ri_gpu_object__biome_params": [28.0,1.0,0.0,0.0]
         },
         {
-          "ri_gpu_object__biome_params": [29.0,1.0,0.0,0.0]
+          "ri_gpu_object__biome_params": [54.0,1.0,0.0,0.0]
         }
       ],
       "ri_gpu_object__multiple_objects:array": [
@@ -487,9 +541,9 @@
     "entity": {
       "_template": "ri_gpu_object",
       "ri_gpu_object__name": "bamboo_branches",
-      "ri_gpu_object__grid_size": 4,
-      "ri_gpu_object__grid_tiling": 16,
-      "ri_gpu_object__cell_size": 9.0,
+      "ri_gpu_object__grid_size": 8,
+      "ri_gpu_object__grid_tiling": 8,
+      "ri_gpu_object__cell_size": 10.0,
       "ri_gpu_object__scale_range": [0.75,1.25],
       "ri_gpu_object__rotate_range": [0.0,360.0],
       "ri_gpu_object__seed": 9716,
@@ -499,7 +553,7 @@
           "ri_gpu_object__biome_params": [28.0,1.0,0.0,0.0]
         },
         {
-          "ri_gpu_object__biome_params": [29.0,1.0,0.0,0.0]
+          "ri_gpu_object__biome_params": [54.0,1.0,0.0,0.0]
         }
       ],
       "ri_gpu_object__multiple_objects:array": [

@@ -1,6 +1,6 @@
 {
   "glob_input": {
-    "_extends": "input_priority",
+    "_use": "input_priority",
     "input": {
       "_tags": "input"
     },
@@ -12,57 +12,49 @@
       "_track": true
     }
   },
-  "input_priority": [
-    {
-      "_tags": "input"
-    },
-    {
-      "_tracked": "input_priority__actionsAvailability"
-    },
-    {
-      "_tracked": "input_priority__conflictedActionsTable"
-    },
-    {
-      "input_priority__actionsOrder:list<t>": [
-        {
-          "action": "Human.BuildingAction"
-        },
-        {
-          "action": "Human.VehicleMaintenance"
-        },
-        {
-          "action": "Human.Use && Human.LeaveVehicleAlone"
-        },
-        {
-          "action": "Inventory.ForcedPickup"
-        },
-        {
-          "action": "Inventory.Pickup"
-        },
-        {
-          "action": "Human.Reload"
-        },
-        {
-          "action": "Human.PushObject"
-        },
-        {
-          "action": "Human.Melee"
-        }
-      ]
-    },
-    {
-      "input_priority__actionsHandles:list<i>": []
-    },
-    {
-      "input_priority__actionsPriorities:list<i>": []
-    },
-    {
-      "input_priority__actionsAvailability:list<b>": []
-    },
-    {
-      "input_priority__conflictedActionsTable:list<i>": []
-    }
-  ],
+  "input_priority": {
+    "_tags": "input",
+    "_tracked": "input_priority__conflictedActionsTable",
+    "input_priority__actionsOrder:list<t>": [
+      {
+        "action": "Human.ThrowBack"
+      },
+      {
+        "action": "Human.DestroyBuilding"
+      },
+      {
+        "action": "Mortar.SwitchShellType"
+      },
+      {
+        "action": "Human.RepairBuilding"
+      },
+      {
+        "action": "Human.VehicleMaintenance && Human.LeaveVehicleAlone && Human.Use"
+      },
+      {
+        "action": "Human.RotateBuilding"
+      },
+      {
+        "action": "Inventory.ForcedPickup"
+      },
+      {
+        "action": "Inventory.Pickup"
+      },
+      {
+        "action": "Human.Reload"
+      },
+      {
+        "action": "Human.PushObject"
+      },
+      {
+        "action": "Human.BipodToggle && Human.Melee"
+      }
+    ],
+    "input_priority__actionsHandles:list<i>": [],
+    "input_priority__actionsPriorities:list<i>": [],
+    "input_priority__actionsAvailability:list<b>": [],
+    "input_priority__conflictedActionsTable:list<i>": []
+  },
   "vehicle_input_horn": {
     "_tags": "input",
     "vehicle_input_horn": 0,
@@ -70,35 +62,40 @@
   },
   "walker_input": {
     "_tags": "input",
-    "_extends": "vehicle_input"
+    "_use": "vehicle_input",
+    "mech_input__strafe": 0,
+    "mech_input__shootFlameThrower": 0
   },
   "vehicle_input": {
-    "_extends": "vehicle_input_horn",
+    "_use": "vehicle_input_horn",
     "_tags": "input",
     "vehicle_input__steer": 0,
     "vehicle_input__throttle": 0,
     "vehicle_input__accel": 0,
     "vehicle_input__brake": 0,
     "vehicle_input__handBrake": 0,
-    "vehicle_input__horn": 0,
     "vehicle_input__nextGear": 0,
     "vehicle_input__prevGear": 0,
     "vehicle_input__neutralGear": 0,
     "vehicle_input__reverseGear": 0,
     "vehicle_input__automaticTransmission": 0,
     "vehicle_input__prevCockpitView": 0,
-    "vehicle_input__nextCockpitView": 0
+    "vehicle_input__nextCockpitView": 0,
+    "vehicle_input__zoom": 0,
+    "vehicle_input__zoomToggle": 0,
+    "vehicle_input__isZoom": false
   },
   "ship_input": {
-    "_extends": "vehicle_input_horn",
+    "_use": "vehicle_input_horn",
     "_tags": "input",
     "vehicle_input_action": "Ship.Horn",
-    "ship_input": {
-      "_tags": "input"
-    }
+    "ship_input__throttle": 0,
+    "ship_input__accel": 0,
+    "ship_input__brake": 0,
+    "ship_input__steer": 0
   },
   "base_rumble_events": {
-    "_extends": "replicating"
+    "_use": "replicating"
   },
   "human_input_rumble_enabled": {
     "ingame_rumble__fallDownMinSpeedSq": 20.0,
@@ -188,7 +185,7 @@
     }
   },
   "common_rumble_events": {
-    "_extends": "base_rumble_events",
+    "_use": "base_rumble_events",
     "rumbleEvents:object": {
       "_tags": "input",
       "pickupItem": "short_hb",
@@ -200,7 +197,7 @@
     }
   },
   "damage_rumble_events": {
-    "_extends": "base_rumble_events",
+    "_use": "base_rumble_events",
     "rumbleEvents:object": {
       "_tags": "input",
       "meleeDamage": "oneshot_weak_lb",
@@ -214,7 +211,7 @@
     }
   },
   "turret_rumble_events": {
-    "_extends": "base_rumble_events",
+    "_use": "base_rumble_events",
     "rumbleEvents:object": {
       "_tags": "input",
       "minImpulseTurretShot": "oneshot_weak_lb",
@@ -224,7 +221,7 @@
     }
   },
   "affect_rumble_events": {
-    "_extends": "base_rumble_events",
+    "_use": "base_rumble_events",
     "rumbleEvents:object": {
       "_tags": "input",
       "concussion": "oneshot_strong_lb"

@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let JB = require("%ui/control/gui_buttons.nut")
-let { h2_txt, body_txt, sub_txt, tiny_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontHeading2, fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { get_log_directory, DBGLEVEL } = require("dagor.system")
 let { is_pc } = require("%dngscripts/platform.nut")
 let { normal, setTooltip } = require("%ui/style/cursors.nut")
@@ -12,26 +12,23 @@ let closeBtnBase = require("%ui/components/closeBtn.nut")
 let { secondsToTimeSimpleString } = require("%ui/helpers/time.nut")
 let scrollbar = require("%ui/components/scrollbar.nut")
 let dtxt = require("%ui/components/text.nut").dtext
-let { sound_play } = require("sound")
+let { sound_play } = require("%dngscripts/sound_system.nut")
 let { utf8ToUpper } = require("%sqstd/string.nut")
 let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
-let { armiesUnlocks } = require("%enlist/campaigns/armiesConfig.nut")
 let { mkArmyIcon } = require("%enlist/soldiers/components/armyPackage.nut")
 let mkAward = require("components/mkAward.nut")
 let mkArmyProgress = require("components/mkArmyProgress.nut")
-let mkCampaignProgressLock = require("components/mkCampaignProgressLock.nut")
-let mkRewardsBlock = require("components/mkRewardsBlock.nut")
 let mkSquadProgress = require("components/mkSquadProgress.nut")
 let mkTasksProgress = require("components/mkTasksProgress.nut")
 let { mkSoldierExpTooltipText } = require("%enlist/debriefing/components/mkExpTooltipText.nut")
 let mkSoldierCard = require("mkDebriefingSoldierCard.nut")
 let mkBattleHeroesBlock = require("mkDebriefingBattleHeroes.nut")
 let mkScoresStatistics = require("%ui/hud/components/mkScoresStatistics.nut")
-let { jumpToArmyProgress } = require("%enlist/mainMenu/sectionsState.nut")
+let { setCurSection, mainSectionId, jumpToArmyGrowth } = require("%enlist/mainMenu/sectionsState.nut")
 let { gameProfile } = require("%enlist/soldiers/model/config/gameProfile.nut")
-let { selectArmy, objInfoByGuid } = require("%enlist/soldiers/model/state.nut")
+let { selectArmy, setCurSquadId } = require("%enlist/soldiers/model/state.nut")
 let { collectSoldierPhoto } = require("%enlist/soldiers/model/collectSoldierData.nut")
-let { setCurCampaign } = require("%enlist/meta/curCampaign.nut")
+let { setCurCampaign, curCampaignConfig } = require("%enlist/meta/curCampaign.nut")
 let squadsPresentation = require("%enlSqGlob/ui/squadsPresentation.nut")
 let { premiumImage } = require("%enlist/currency/premiumComp.nut")
 let { round_by_value } = require("%sqstd/math.nut")
@@ -45,7 +42,7 @@ let { BattleHeroesAward, awardPriority, isSoldierAward, isTopSquadAward
 } = require("%enlSqGlob/ui/battleHeroesAwards.nut")
 let { debounce } = require("%sqstd/timers.nut")
 let { mkRankImage, getRankConfig } = require("%enlSqGlob/ui/rankPresentation.nut")
-let { promoWidget } = require("%enlSqGlob/ui/mkPromoWidget.nut")
+let { promoWidget } = require("%enlist/components/mkPromoWidget.nut")
 let { showAnoProfile } = require("%enlist/profile/anoProfileState.nut")
 let { INVITE_TO_FRIENDS, INVITE_TO_PSN_FRIENDS, CANCEL_INVITE, APPROVE_INVITE, REJECT_INVITE,
   REMOVE_FROM_FRIENDS, ADD_TO_BLACKLIST, REMOVE_FROM_BLACKLIST, REMOVE_FROM_BLACKLIST_XBOX,
@@ -57,13 +54,16 @@ let userActions = [
   REMOVE_FROM_BLACKLIST_PSN, SHOW_USER_LIVE_PROFILE
 ]
 let { showUserProfile } = require("%enlist/featureFlags.nut")
-
+let { curSoldierIdx } = require("%enlist/soldiers/model/curSoldiersState.nut")
+let { isUnited } = require("%enlist/meta/campaigns.nut")
+let { panelBgColor } = require("%enlSqGlob/ui/designConst.nut")
 
 const ANIM_TRIGGER = "new_items_wnd_anim"
 const NEW_BLOCK_TRIGGER = "new_debr_block_appear"
 const OVERLAY_TRIGGER = "content_anim"
 const OVERLAY_TRIGGER_SKIP = "content_anim_skip"
 const SKIP_ANIM_POSTFIX = "_skip"
+const MOD_EXP_MODE = "mods"
 const FILL_BLOCK_DELAY = 0.3
 const AWARD_DELAY = 0.2
 
@@ -85,6 +85,7 @@ let maxAwardsRows = 3
 let awardsInRow = (leftBlockWidth / (awardIconSize + awardIconSpacing)).tointeger()
 
 local hasAnim = true
+local newLevelSoldier = null
 local skippedAnims = {}
 let canQuitByEsc = Watched(false)
 let usedSkipAnim = Watched(false)
@@ -112,28 +113,36 @@ let soldierStatsCfg = [
   { stat = "kills", locId = "debriefing/awards/kill", isVisible = @(_) true },
   { stat = "attackKills", locId = "debriefing/awards/attackKills", isVisible = @(_) true },
   { stat = "defenseKills", locId = "debriefing/awards/defenseKills", isVisible = @(_) true },
+  { stat = "longRangeKills", locId = "debriefing/awards/long_range_kill" },
   { stat = "tankKills", locId = "debriefing/awards/tankKill", isVisible = @(_) true },
-  { stat = "planeKills", locId = "debriefing/awards/planeKill", isVisible = @(_) true },
+  { stat = "apcKills", locId = "debriefing/awards/apcKill" },
+  { stats = ["planeKills", "aiPlaneKills"], locId = "debriefing/awards/planeKill", isVisible = @(_) true },
   { stat = "assists", locId = "debriefing/awards/assists", isVisible = @(_) true },
   { stat = "tankKillAssists", locId = "debriefing/awards/tankKillAssists" },
-  { stat = "planeKillAssists", locId = "debriefing/awards/planeKillAssists" },
+  { stat = "apcKillAssists", locId = "debriefing/awards/apcKillAssists" },
+  { stats = ["planeKillAssists", "aiPlaneKillAssists"], locId = "debriefing/awards/planeKillAssists" },
   { stat = "crewKillAssists", locId = "debriefing/awards/crewKillAssists", toString = @(v) round_by_value(v, 0.01), },
   { stat = "crewTankKillAssists", locId = "debriefing/awards/crewTankKillAssists", toString = @(v) round_by_value(v, 0.01),},
-  { stat = "crewPlaneKillAssists", locId = "debriefing/awards/crewPlaneKillAssists", toString = @(v) round_by_value(v, 0.01), },
+  { stat = "crewApcKillAssists", locId = "debriefing/awards/crewApcKillAssists", toString = @(v) round_by_value(v, 0.01),},
+  { stats = ["crewPlaneKillAssists", "crewAiPlaneKillAssists"], locId = "debriefing/awards/crewPlaneKillAssists", toString = @(v) round_by_value(v, 0.01), },
   { stat = "tankKillAssistsAsCrew", locId = "debriefing/awards/tankKillAssistsAsCrew", toString = @(v) round_by_value(v, 0.01), },
-  { stat = "planeKillAssistsAsCrew", locId = "debriefing/awards/planeKillAssistsAsCrew", toString = @(v) round_by_value(v, 0.01), },
+  { stat = "apcKillAssistsAsCrew", locId = "debriefing/awards/apcKillAssistsAsCrew", toString = @(v) round_by_value(v, 0.01), },
+  { stats = ["planeKillAssistsAsCrew", "aiPlaneKillAssistsAsCrew"], locId = "debriefing/awards/planeKillAssistsAsCrew", toString = @(v) round_by_value(v, 0.01), },
   { stat = "builtStructures", locId = "debriefing/awards/builtStructures" },
   { stat = "builtGunKills", locId = "debriefing/awards/builtGunKills" },
   { stat = "builtGunKillAssists", locId = "debriefing/awards/builtGunKillAssists" },
   { stat = "builtGunTankKills", locId = "debriefing/awards/builtGunTankKills" },
   { stat = "builtGunTankKillAssists", locId = "debriefing/awards/builtGunTankKillAssists" },
-  { stat = "builtGunPlaneKills", locId = "debriefing/awards/builtGunPlaneKills" },
-  { stat = "builtGunPlaneKillAssists", locId = "debriefing/awards/builtGunPlaneKillAssists" },
+  { stat = "builtGunApcKills", locId = "debriefing/awards/builtGunApcKills" },
+  { stat = "builtGunApcKillAssists", locId = "debriefing/awards/builtGunApcKillAssists" },
+  { stats = ["builtGunPlaneKills", "builtGunAiPlaneKills"], locId = "debriefing/awards/builtGunPlaneKills" },
+  { stats = ["builtGunPlaneKillAssists", "builtGunAiPlaneKillAssists"], locId = "debriefing/awards/builtGunPlaneKillAssists" },
   { stat = "builtBarbwireActivations", locId = "debriefing/awards/builtBarbwireActivations" },
   { stat = "builtCapzoneFortificationActivations", locId = "debriefing/awards/builtCapzoneFortificationActivations" },
   { stat = "builtAmmoBoxRefills", locId = "debriefing/awards/builtAmmoBoxRefills" },
   { stat = "builtMedBoxRefills", locId = "debriefing/awards/builtMedBoxRefills" },
   { stat = "builtRallyPointUses", locId = "debriefing/awards/builtRallyPointUses" },
+  { stat = "ownedMobileSpawnUses", locId = "debriefing/awards/ownedMobileSpawnUses" },
   { stat = "hostedOnSoldierSpawns", locId = "debriefing/awards/hostedOnSoldierSpawns" },
   { stat = "vehicleRepairs", locId = "debriefing/awards/vehicleRepairs" },
   { stat = "vehicleExtinguishes", locId = "debriefing/awards/vehicleExtinguishes" },
@@ -149,6 +158,8 @@ let soldierStatsCfg = [
   { stat = "friendlyKills", locId = "debriefing/awards/friendlyKills" },
   { stat = "friendlyTankHits", locId = "debriefing/awards/friendlyTankHits" },
   { stat = "friendlyTankKills", locId = "debriefing/awards/friendlyTankKills" },
+  { stat = "friendlyApcHits", locId = "debriefing/awards/friendlyApcHits" },
+  { stat = "friendlyApcKills", locId = "debriefing/awards/friendlyApcKills" },
   { stat = "friendlyPlaneHits", locId = "debriefing/awards/friendlyPlaneHits" },
   { stat = "friendlyPlaneKills", locId = "debriefing/awards/friendlyPlaneKills" },
   { stat = "awardScore", locId = "debriefing/score", isVisible = @(_) true },
@@ -184,7 +195,7 @@ let mkAnim = @(children, onVisibleCb = null, animDelay = DELAY) children == null
 let grayText = @(override) {
   rendObj = ROBJ_TEXT
   color = Color(184, 182, 181)
-}.__merge(body_txt, override)
+}.__merge(fontBody, override)
 
 let headerMarginTop = hdpx(30)
 
@@ -221,7 +232,7 @@ let function overGainRewardBlock() {
 let missionTitle = @(debriefing) debriefing?.missionName == null ? null : mkAnim({
   rendObj = ROBJ_TEXT
   text = debriefing.missionName
-}.__update(h2_txt, strokeStyle), null, MISSION_NAME_TEXT_DELAY)
+}.__update(fontHeading2, strokeStyle), null, MISSION_NAME_TEXT_DELAY)
 
 let sessionTimeCounter = @(debriefing) {
   margin = [headerMarginTop, 0, 0, 0]
@@ -234,7 +245,7 @@ let sessionTimeCounter = @(debriefing) {
     }), null, SESSION_TIME_TEXT_DELAY)
     mkAnim(grayText({
       text = secondsToTimeSimpleString((debriefing?.result.time ?? 0).tointeger())
-    }.__update(h2_txt)), null, SESSION_TIME_VALUE_DELAY)
+    }.__update(fontHeading2)), null, SESSION_TIME_VALUE_DELAY)
   ]
 }
 
@@ -266,7 +277,7 @@ let function battleExpBonus(debriefing) {
         {
           flow = FLOW_HORIZONTAL
           children = [
-            grayText({ text = bonusText(totalBonus - 1) }.__update(h2_txt))
+            grayText({ text = bonusText(totalBonus - 1) }.__update(fontHeading2))
             premiumImage(hdpx(35))
           ]
         }
@@ -281,7 +292,7 @@ let blockHeader = @(locId) {
   color = Color(0, 0, 0, 60)
   halign = ALIGN_CENTER
   padding = hdpx(5)
-  children = grayText({ text = utf8ToUpper(loc(locId)) }.__update(sub_txt))
+  children = grayText({ text = utf8ToUpper(loc(locId)) }.__update(fontSub))
 }
 
 let function continueAnimImpl(debriefing) {
@@ -333,8 +344,12 @@ let function skipAnim(debriefing) {
   continueAnim(debriefing)
 }
 
+let blockStyle = {
+  color = panelBgColor
+}
+
 local blockIdx = 0
-let function blockCtr(locId, blockContent, _debriefing, override = null) {
+let function blockCtr(locId, blockContent, _debriefing, override = blockStyle) {
   if (!blockContent)
     return null
 
@@ -342,13 +357,12 @@ let function blockCtr(locId, blockContent, _debriefing, override = null) {
   return {
     size = [flex(), SIZE_TO_CONTENT]
     rendObj = ROBJ_SOLID
-    color = locId ? Color(32, 32, 32, 200) : Color(0, 0, 0, 0)
     flow = FLOW_VERTICAL
     children = [
-      locId ? blockHeader(locId) : null
+      locId != null ? blockHeader(locId) : null
       {
         size = [flex(), SIZE_TO_CONTENT]
-        padding = locId ? [BLOCK_PADDING, 0, BLOCK_PADDING, 0] : 0
+        padding = locId != null ? [BLOCK_PADDING, 0, BLOCK_PADDING, 0] : 0
         halign = ALIGN_CENTER
         children = blockContent
       }
@@ -364,86 +378,21 @@ let function blockCtr(locId, blockContent, _debriefing, override = null) {
   }.__update(override ?? {})
 }
 
-let function hasNewArmyLevel(debriefing) {
-  let levelGrid = debriefing?.armyProgress.expToArmyLevel
-  if (levelGrid == null)
-    return false
-
-  let armyWasLevel = debriefing.armyWasLevel
-  let expToNextLevel = levelGrid?[armyWasLevel] ?? levelGrid.top()
-  return debriefing.armyWasExp + debriefing.armyExp >= expToNextLevel
+let function isFinishGrowth(debriefing) {
+  let { exp = 0, growthCfg = null } = debriefing.growthProgress
+  let { expRequired = 0 } = growthCfg
+  return exp + debriefing.armyExp >= expRequired
 }
 
-let function calcUnlockRewards(armyId, armyLevel, armyWasExp, armyExpNew) {
-  let levelUnlocks = armiesUnlocks.value
-    .filter(@(u) u?.armyId == armyId
-      && u?.level == armyLevel
-      && u?.unlockType == "item"
-      && (u?.isMultiple ? u.multipleUnlock.expEnd : (u?.exp ?? 0)) > armyWasExp)
-
-  let unlockRewards = []
-  foreach (unlock in levelUnlocks) {
-    if (unlock?.isMultiple) {
-      // periods is not correct naming, should be count (may be need to FIX it)
-      let periods = unlock.multipleUnlock.periods
-      let expBegin = unlock.multipleUnlock.expBegin
-      let expEnd = unlock.multipleUnlock.expEnd
-      let expStep = (expEnd - expBegin).tofloat() / (periods - 1)
-      let gained = armyWasExp >= expBegin
-        ? ((armyWasExp - expBegin) / expStep).tointeger() + 1 : 0
-
-      let experiences = []
-      for (local i = gained; i < periods; i++) {
-        let curExp = expBegin + (expEnd - expBegin) * i / (periods - 1)
-        experiences.append(curExp)
-        if (curExp > armyExpNew)
-          break
-      }
-
-      unlockRewards.extend(experiences
-        .map(@(exp) {
-          isNext = exp > armyExpNew
-          exp = exp
-          unlockId = unlock.unlockId
-          unlockCount = 1
-        }))
-    }
-    else
-      unlockRewards.append({
-        isNext = unlock.exp > armyExpNew
-        exp = unlock.exp
-        unlockId = unlock.unlockId
-        unlockCount = unlock.unlockCount
-      })
-  }
-
-  unlockRewards.sort(@(a, b) a.exp <=> b.exp)
-  let nextRewardIdx = unlockRewards.findindex(@(v) v.isNext)
-  return nextRewardIdx != null
-    ? unlockRewards.slice(0, nextRewardIdx + 1)
-    : unlockRewards
-}
 
 let function armyProgressBlock(debriefing) {
-  let { armyExp = 0, armyProgress = null, isArmyProgressLocked = false } = debriefing
-  if (isArmyProgressLocked) {
-    skippedAnims.army <- false
-    return {
-      size = [BODY_W * 0.8, SIZE_TO_CONTENT]
-      padding = bigPadding
-      children = mkCampaignProgressLock(debriefing.armyId, function() {
-        if (!(skippedAnims?.army ?? false))
-          continueAnim(debriefing)
-      })
-      transform = {}
-      animations = mkAppearAnimations(FILL_BLOCK_DELAY)
-    }
-  }
-  if (armyExp <= 0 || armyProgress == null)
-    return continueAnim(debriefing)
+  let {
+    armyId, armyExp = 0, growthProgress = null, globalData = null, expMode = "",
+    result = null, squads = {}, campaignId = "", armyExpDetailed = null, boosts = null
+  } = debriefing
 
-  let { armyId, armyWasLevel = 1, armyWasExp = 0, result = null, boosts = null } = debriefing
-  let armyExpNew = armyWasExp + armyExp
+  if (expMode == MOD_EXP_MODE)
+    return null
 
   skippedAnims.army <- false
   return {
@@ -451,21 +400,19 @@ let function armyProgressBlock(debriefing) {
     padding = bigPadding
     children = mkArmyProgress({
       armyId
-      armyWasLevel
-      armyWasExp
       armyAddExp = armyExp
-      progressCfg = armyProgress
-      unlockRewards = calcUnlockRewards(armyId, armyWasLevel, armyWasExp, armyExpNew)
-      armyExpDetailed = debriefing?.armyExpDetailed
-      squads = debriefing?.squads ?? {}
+      growthProgress
+      campaignId
       result
-      hasNewLevel = hasNewArmyLevel(debriefing)
+      squads
+      armyExpDetailed
+      boosts
+      giftsConfig = globalData?.globalGiftsCfg ?? []
+      curGifts = globalData?.globalGifts
       onFinish = function() {
         if (!(skippedAnims?.army ?? false))
           continueAnim(debriefing)
       }
-      gainRewardContent
-      boosts
     })
     transform = {}
     animations = mkAppearAnimations(FILL_BLOCK_DELAY)
@@ -487,7 +434,7 @@ let function rankBlock(debriefing) {
       {
         rendObj = ROBJ_TEXT
         text = loc(locId)
-      }.__update(h2_txt)
+      }.__update(fontHeading2)
       mkRankImage(playerRank)
     ]
     sound = { attach = "ui/debriefing/battle_result" }
@@ -495,7 +442,7 @@ let function rankBlock(debriefing) {
 }
 
 let function debriefingHeader(debriefing) {
-  let { result = null, armyId = null } = debriefing
+  let { result = null, armyId = null, expMode = "" } = debriefing
   let armyIcon = mkArmyIcon(armyId, hdpx(44))
   let armyProgress = armyProgressBlock(debriefing)
   return {
@@ -523,11 +470,15 @@ let function debriefingHeader(debriefing) {
                       size = SIZE_TO_CONTENT
                       rendObj = ROBJ_TEXT
                       text = utf8ToUpper(result?.title ?? "")
-                    }.__update(h2_txt, {fontSize = hdpx(46)}),
-                    @() sound_play("ui/debriefing/{0}".subst(result?.success
-                      ? "text_victory"
-                      : "text_defeat"
-                    )),
+                    }.__update(fontHeading2, {fontSize = hdpx(46)}),
+                    function() {
+                      sound_play("ui/debriefing/{0}".subst(result?.success
+                        ? "text_victory"
+                        : "text_defeat"
+                      ))
+                      if (expMode == MOD_EXP_MODE)
+                        continueAnim(debriefing)
+                    },
                     HEADER_TEXT_DELAY)
                   mkAnim(armyIcon, null, HEADER_ICON_DELAY)
                 ]
@@ -541,9 +492,10 @@ let function debriefingHeader(debriefing) {
         ]
       }
       result?.finishedEarly ? dtxt(loc("debriefing/finished_early/desc")) : null
-      blockCtr("debriefing/squad_unlocking", armyProgress, debriefing, {
+      blockCtr(null, armyProgress, debriefing, {
         key = "headerArmyProgress"
         size = [BODY_W, SIZE_TO_CONTENT]
+        color = panelBgColor
         onAttach = @() null
         animations = []
       })
@@ -553,10 +505,22 @@ let function debriefingHeader(debriefing) {
 
 let function switchContext(debriefing) {
   let campaign = gameProfile.value?.campaignByArmyId[debriefing.armyId]
-  if (campaign == null)
+  if (campaign == null) /* FIX ME: tutorial does not need debriefing at the end */
+    return
+  let isCurCampaignUnited = curCampaignConfig.value?.isUnited ?? false
+  if (isUnited() != isCurCampaignUnited)
     return
   setCurCampaign(campaign)
   selectArmy(debriefing.armyId)
+}
+
+
+let function openNewLevelSoldier() {
+  if (newLevelSoldier == null)
+    return
+  setCurSection(mainSectionId)
+  setCurSquadId(newLevelSoldier.squadId)
+  curSoldierIdx(newLevelSoldier.soldierIdx)
 }
 
 let function skipAnimOrClose(doClose, debriefing) {
@@ -568,8 +532,13 @@ let function skipAnimOrClose(doClose, debriefing) {
   doClose()
   hasAnimFinished = false
   switchContext(debriefing)
-  if (hasNewArmyLevel(debriefing))
-    jumpToArmyProgress()
+  if (isFinishGrowth(debriefing)) {
+    let { growthCfg = null } = debriefing.growthProgress
+    jumpToArmyGrowth(growthCfg?.id)
+  } else if (newLevelSoldier != null) {
+    openNewLevelSoldier()
+    newLevelSoldier = null
+  }
 }
 
 let mkCloseBtn = @(doClose, debriefing) closeBtnBase({
@@ -581,7 +550,6 @@ let btnCloseStyle = { margin = 0, size = [hdpx(450), hdpx(60)] }
 let mkSkipOrCloseBtn = @(doClose, debriefing) function() {
   let doStopAndClose = @() skipAnimOrClose(doClose, debriefing)
 
-  let hasNewLevel = hasNewArmyLevel(debriefing)
   let hotkeysStr = canQuitByEsc.value
     ? $"^{JB.B} | Space | Enter | Esc"
     : "^J:Y | Space | Enter"
@@ -591,9 +559,14 @@ let mkSkipOrCloseBtn = @(doClose, debriefing) function() {
       size = [SIZE_TO_CONTENT, commonBtnHeight]
       hotkeys = [[$"^{JB.B} | Esc | Space", {description = loc("Skip")}]]
     }))
-  else if (hasNewLevel)
-    btnClose = PrimaryFlat(loc("newArmyLevel"), doStopAndClose, btnCloseStyle.__merge({
-      hotkeys = [[hotkeysStr, {description = loc("newArmyLevel")}]],
+  else if (isFinishGrowth(debriefing))
+    btnClose = PrimaryFlat(loc("finishGrowth"), doStopAndClose, btnCloseStyle.__merge({
+      hotkeys = [[hotkeysStr, {description = loc("finishGrowth")}]],
+      size = [SIZE_TO_CONTENT, commonBtnHeight]
+    }))
+  else if (newLevelSoldier != null)
+    btnClose = PrimaryFlat(loc("soldiers/levelUp"), doStopAndClose, btnCloseStyle.__merge({
+      hotkeys = [[hotkeysStr, {description = loc("soldiers/levelUp")}]],
       size = [SIZE_TO_CONTENT, commonBtnHeight]
     }))
   else
@@ -672,48 +645,18 @@ let function tasksBlock(debriefing) {
 }
 
 let function heroesBlock(debriefing) {
-  let { heroes = [], armyExp = 0 } = debriefing
+  let { heroes = [], armyExp = 0, localPlayerGroupMembers = {} } = debriefing
   if (heroes.len() == 0)
     return null
 
   skippedAnims.heroes <- false
-  let content = mkBattleHeroesBlock(heroes, armyExp > 0).__update({
+  let content = mkBattleHeroesBlock(heroes, armyExp > 0, localPlayerGroupMembers).__update({
     animations = mkAppearAnimations(FILL_BLOCK_DELAY, function() {
       sound_play("ui/debriefing/battle_result")
       gui_scene.setTimeout(0.5, @() continueAnim(debriefing))
     })
   })
   return blockCtr("debriefing/heroes", content, debriefing)
-}
-
-let function rewardsBlock(debriefing) {
-  let {
-    armyExp = 0, globalData = null, armyId = "", campaignId = "", armyExpDetailed = {},
-    squads = [], result = {}
-  } = debriefing
-  let giftsConfig = globalData?.globalGiftsCfg ?? []
-  if (armyExp <= 0 || giftsConfig.len() == 0)
-    return null
-
-  skippedAnims.rewards <- false
-  return blockCtr("debriefing/progressGifts",
-    mkRewardsBlock({
-      mkAppearAnimations
-      giftsConfig
-      curGifts = globalData?.globalGifts
-      addExp = armyExp
-      armyId
-      campaignId
-      armyExpDetailed
-      squads
-      result
-      onFinish = function() {
-        if (!(skippedAnims?.rewards ?? false))
-          continueAnim(debriefing)
-      }
-      blockWidth = BODY_W
-    }),
-    debriefing)
 }
 
 let function awardsBlock(debriefing) {
@@ -752,7 +695,10 @@ let function awardsBlock(debriefing) {
 
 let function mkSoldierTooltipText(stats, result) {
   let textList = soldierStatsCfg.map(function(s) {
-    let value = stats?[s.stat] ?? s?.defaultValue ?? 0
+    local value = s?.defaultValue ?? 0
+    foreach (stat in s?.stats ?? [s.stat])
+      value += stats?[stat] ?? s?.defaultValue ?? 0
+
     return (s?.isVisible(value) ?? true)
       ? "".concat(loc(s.locId), colon, s.toString(value))
       : ""
@@ -768,6 +714,20 @@ let collectSoldierAwards = @(guid, awards)
 
 let collectSquadAwards = @(squadId, awards)
   awards.filter(@(award) (isSoldierAward(award.award) || isTopSquadAward(award.award)) && award.soldier.squadId == squadId)
+
+let function checkNewLevelSoldier(soldierStat, soldierData, soldierIdx) {
+  if (soldierStat == null || soldierData == null)
+    return
+
+  let { squadId, maxLevel = 1 } = soldierData
+  let wasLevel = min(soldierStat?.wasExp.level ?? 0, maxLevel)
+  let newLevel = min(soldierStat?.newExp.level ?? 0, maxLevel)
+  if (newLevel > wasLevel)
+    newLevelSoldier = {
+      squadId
+      soldierIdx
+    }
+}
 
 let function squadsAndSoldiersExpBlock(debriefing) {
   let {
@@ -797,6 +757,7 @@ let function squadsAndSoldiersExpBlock(debriefing) {
       squadAwards = [BattleHeroesAward.PLAYER_BATTLE_HERO].extend(squadAwards)
 
     let squadCard = mkSquadProgress({
+      squadId
       squad
       awards = squadAwards
       animDelay
@@ -811,12 +772,15 @@ let function squadsAndSoldiersExpBlock(debriefing) {
     children.append(squadCard.content)
 
     local soldierAnimDelay = 0
-    foreach (soldierStat in soldiers) {
+    foreach (soldierIdx, soldierStat in soldiers) {
       let soldierData = debriefing?.soldiers.items[soldierStat.soldierId]
       if (!soldierData)
         continue
       if (squads?[soldierData.squadId] != squad)
         continue
+
+      if (newLevelSoldier == null)
+        checkNewLevelSoldier(soldierStat, soldierData, soldierIdx)
 
       let soldierAwards = collectSoldierAwards(soldierData.guid, squadSoldiersAwards)
       if (battleHeroSoldier != null && battleHeroSoldier == soldierData.guid)
@@ -825,7 +789,7 @@ let function squadsAndSoldiersExpBlock(debriefing) {
       let soldierCard = mkSoldierCard({
         stat = soldierStat
         awards = soldierAwards
-        info = collectSoldierPhoto(soldierData, null, objInfoByGuid.value, [], false)
+        info = collectSoldierPhoto(soldierData, null)
         animDelay = animDelay + soldierAnimDelay
         mkAppearAnimations = mkAppearAnimations
       })
@@ -899,9 +863,10 @@ let function statisticBlock(debriefing) {
     missionType
     result
     mkContextMenuButton = @(_) userActions
+    scorePrices = debriefing?.scorePrices ?? {}
   }
 
-  return blockCtr(null, mkScoresStatistics(debriefing.players, params), debriefing)
+  return blockCtr(null, mkScoresStatistics(debriefing.players, params), debriefing, { color = 0 })
 }
 
 let windowContent = mkAnim({
@@ -931,7 +896,7 @@ let mkSessionIdText = @(debriefing) (debriefing?.sessionId ?? INVALID_SESSION_ID
   hplace = ALIGN_LEFT
   rendObj = ROBJ_TEXT
   color = Color(120,120,120, 50)
-}.__update(tiny_txt)
+}.__update(fontSub)
 
 let debriefingAutosavePath = "".concat(get_log_directory() ?? "", "debriefing_enlisted.json")
 let canDebugDebriefing = hasClientPermission("debug_debriefing")
@@ -959,7 +924,6 @@ let function initDebriefingAnim(debriefing) {
 
   windowBlocks.clear() //no need inc version here
   windowContentQueue = [
-    rewardsBlock
     heroesBlock
     awardsBlock
     tasksBlock

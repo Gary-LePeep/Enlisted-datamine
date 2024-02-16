@@ -51,6 +51,6 @@ def on_death_aircraft_crew_g_force_visual_remove(evt : Event; eid : EntityId; is
     return
   DagorShaders::set_color4(redout_blackout_colorVarId, 0.f, 0.f, 0.f, 0.f)
 
-[es(on_event=(EventComponentsDisappear, EventEntityDestroyed), tag=render, no_order, REQUIRE=hero)]
+[es(on_disappear, tag=render, no_order, REQUIRE=hero)]
 def stop_redout_blackout_effect_critical_es(evt : Event)
   DagorShaders::set_color4(redout_blackout_colorVarId, 0.f, 0.f, 0.f, 0.f)

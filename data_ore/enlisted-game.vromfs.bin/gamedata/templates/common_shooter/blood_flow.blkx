@@ -1,10 +1,10 @@
 {
   "blood_flow_entity_effect_template": [
     {
-      "_extends": "node_attached_itm"
+      "_use": "node_attached_itm"
     },
     {
-      "_extends": "effect_animation_activated"
+      "_use": "effect_animation_activated"
     },
     {
       "transform": [
@@ -43,7 +43,7 @@
     }
   ],
   "blood_flow_body_entity_effect_template": {
-    "_extends": "blood_flow_entity_effect_template",
+    "_use": "blood_flow_entity_effect_template",
     "_group": {
       "_tags": "render",
       "effect_animation__stages:array": {
@@ -141,7 +141,7 @@
     }
   },
   "blood_flow_limb_entity_effect_template": {
-    "_extends": "blood_flow_entity_effect_template",
+    "_use": "blood_flow_entity_effect_template",
     "_group": {
       "_tags": "render",
       "effect_animation__stages:array": {

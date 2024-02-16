@@ -1,16 +1,25 @@
 {
   "jp_type_1_chi_he_pacific_premium": {
-    "_extends": "jp_type_1_chi_he_common"
+    "_use": "jp_type_1_chi_he_common"
   },
   "jp_type_1_chi_he_common": [
     {
-      "_extends": "base_type_1_chi_he"
+      "_use": "base_type_1_chi_he"
     },
     {
-      "_extends": "tank_m10_engine_sound"
+      "_use": "tank_m10_engine_sound"
     },
     {
-      "item__iconOffset": [0.0,0.0]
+      "item__iconOffset": [0.0,0.15]
+    },
+    {
+      "item__iconScale": 1.28
+    },
+    {
+      "commanderCockpitFpsCamMaxAngle": [40.0,5.0]
+    },
+    {
+      "gunner_cam_limit__useCockpitDir": true
     },
     {
       "vehicle_seats__seats:shared:array": [
@@ -154,7 +163,7 @@
     }
   ],
   "jp_type_1_chi_he_driver_cockpit": {
-    "_extends": "base_driver_cockpit_no_slits",
+    "_use": "base_driver_cockpit_no_slits",
     "animchar__res": "bt_7_driver_char",
     "cockpit__offset": [0.0646394,-0.374342,0.00730274],
     "cockpit__visibleVehicleNodeNames:list<t>": {
@@ -171,8 +180,7 @@
     }
   },
   "jp_type_1_chi_he_gunner_cockpit": {
-    "vehicle_sight__blk": "gamedata/sight/jp_47mm_1_1.blk",
-    "_extends": "base_gunner_cockpit",
+    "_use": "base_gunner_cockpit",
     "animchar__res": "ba_11_gunner_char",
     "cockpit__offset": [-0.578069,-0.0561157,0.244711],
     "cockpit__visibleVehicleNodeNames:list<t>": {
@@ -182,7 +190,7 @@
       "slit": "cam_front_right"
     },
     "cockpit__slitForwardOffset:list<r>": {
-      "slit": 0.11
+      "slit": 0.17
     },
     "cockpit__slitIsGun:list<b>": {
       "slit": true
@@ -190,10 +198,27 @@
     "cockpit__attachNodeNames:list<t>": {
       "node": "bone_camera_gunner"
     },
-    "cockpit__attachNodeIndices:list<i>": []
+    "cockpit__attachNodeIndices:list<i>": [],
+    "cockpit__slitZoom:array": {
+      "slit:list<r>": [
+        {
+          "zoom": 3.5
+        },
+        {
+          "zoom": 4.0
+        }
+      ]
+    },
+    "cockpit__slitZoomTime:list<r>": {
+      "slit": 0.05
+    },
+    "cockpit__slitTemplates:list<t>": {
+      "slit": "jp_47mm_1_1"
+    },
+    "cockpit__slitEids:list<eid>": []
   },
   "jp_type_1_chi_he_commander_cockpit": {
-    "_extends": "base_commander_tower_cockit_no_slits",
+    "_use": "base_commander_tower_cockpit",
     "animchar__res": "pzkpfw_iii_b_commander_char",
     "cockpit__offset": [-0.0629028,0.368184,-0.281922],
     "cockpit__visibleVehicleNodeNames:list<t>": [
@@ -267,6 +292,38 @@
         "slit": false
       }
     ],
+    "cockpit__slitZoom:array": [
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      }
+    ],
     "cockpit__slitNodeNames:list<t>": [
       {
         "slit": "cam_front"
@@ -289,7 +346,7 @@
     ]
   },
   "jp_type_1_chi_he_machinegunner_cockpit": {
-    "_extends": "base_gunner_cockpit",
+    "_use": "base_gunner_cockpit",
     "animchar__res": "ba_11_machinegunner_char",
     "cockpit__offset": [-0.269704,-0.242768,-0.192939],
     "cockpit__visibleVehicleNodeNames:list<t>": {
@@ -299,7 +356,7 @@
       "slit": "cam_mg"
     },
     "cockpit__slitForwardOffset:list<r>": {
-      "slit": -0.13
+      "slit": -0.0
     },
     "cockpit__slitIsGun:list<b>": {
       "slit": true
@@ -307,6 +364,18 @@
     "cockpit__attachNodeNames:list<t>": {
       "node": "bone_mg_v_01"
     },
-    "cockpit__attachNodeIndices:list<i>": []
+    "cockpit__attachNodeIndices:list<i>": [],
+    "cockpit__slitZoom:array": {
+      "slit:list<r>": {
+        "zoom": 2.0
+      }
+    },
+    "cockpit__slitZoomTime:list<r>": {
+      "slit": 0.05
+    },
+    "cockpit__slitTemplates:list<t>": {
+      "slit": "cross"
+    },
+    "cockpit__slitEids:list<eid>": []
   }
 }

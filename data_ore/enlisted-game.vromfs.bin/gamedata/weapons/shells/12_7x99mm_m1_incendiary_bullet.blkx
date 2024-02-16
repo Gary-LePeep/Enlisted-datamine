@@ -7,10 +7,11 @@
   "modelName": "tank_bullet_ball",
   "normalizationPreset": "default",
   "ricochetPreset": "default",
+  "groundRicochetPreset": "default",
   "stabilityThreshold": 0.0,
   "stabilityCaliberToArmorThreshold": 5.0,
   "stabilityReductionAfterRicochet": 0.01,
-  "stabilityReductionAfterPenetration": 0.01,
+  "bulletType": "i_ball_M1",
   "slopeEffectPreset": "ap",
   "onHitChanceMultFire": 8.0,
   "effectiveDistance": 3000.0,
@@ -26,9 +27,6 @@
   "shutterHit": 2.5,
   "relativeVelArmorShift": [200.0,1000.0],
   "hitPowerMult": 4.0,
-  "groundCollisionEffect": "hit_12_18mm_dirt_he",
-  "ricochetEffect": "hit_12_18mm_metal_ap",
-  "waterCollisionEffect": "hit_12_18mm_water",
   "stabilityRicochetModifier": [
     {
       "mod1": [0.0,0.05]
@@ -62,24 +60,6 @@
     "ArmorPower1000m": [5.0,1200.0],
     "ArmorPower1450m": [0.1,1450.0],
     "ArmorPower1500m": [0.0,1500.0]
-  },
-  "hitFx": {
-    "steel": {
-      "fx": "hit_12_18mm_metal_he",
-      "fxScale": [1.0,1.0]
-    },
-    "wood": {
-      "fx": "hit_12_18mm_wood_he",
-      "fxScale": [1.0,1.0]
-    },
-    "glass": {
-      "fx": "hit_12_18mm_metal_he",
-      "fxScale": [1.0,1.0]
-    },
-    "stone": {
-      "fx": "hit_12_18mm_stone_he",
-      "fxScale": [1.0,1.0]
-    }
   },
   "tracer": {
     "headColor": "#00000000",

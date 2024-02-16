@@ -317,6 +317,11 @@
   },
   {
     "entity": {
+      "_template": "bloom"
+    }
+  },
+  {
+    "entity": {
       "_template": "postfx_roundctrl",
       "post_fx:object": []
     }
@@ -354,6 +359,7 @@
     "entity": {
       "_template": "briefing_domination",
       "mission_name": "berlin_chancellery_dom",
+      "mission_outfit": "berlin",
       "loading_images:list<t>": [
         {
           "item": "ui/berlin_chancellery_dom_01.avif"
@@ -740,32 +746,6 @@
   },
   {
     "entity": {
-      "_template": "respawn_camera",
-      "respawnCameraForTeam": 1,
-      "moveCameraToHeight": 200.0,
-      "transform": [
-        [1.0,0.0,0.0],
-        [0.0,1.0,0.0],
-        [0.0,0.0,1.0],
-        [818.298,200.946,-412.119]
-      ]
-    }
-  },
-  {
-    "entity": {
-      "_template": "respawn_camera",
-      "respawnCameraForTeam": 2,
-      "moveCameraToHeight": 200.0,
-      "transform": [
-        [1.0,0.0,0.0],
-        [0.0,1.0,0.0],
-        [0.0,0.0,1.0],
-        [-69.7014,197.967,-490.396]
-      ]
-    }
-  },
-  {
-    "entity": {
       "_template": "level",
       "level__blk": "content/enlisted/levels/battle_of_berlin.blk",
       "level__timeRange": [5.0,19.2],
@@ -817,7 +797,7 @@
   },
   {
     "entity": {
-      "_template": "benchmark_artillery_strike",
+      "_template": "artillery_strike_requester",
       "transform": [
         [1.0,0.0,0.0],
         [0.0,1.0,0.0],

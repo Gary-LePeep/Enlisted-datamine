@@ -7,14 +7,14 @@
     "_hide": true
   },
   "base_capsule_walker_hero_components": {
-    "_extends": "capsule_walker_input",
+    "_use": "capsule_walker_input",
     "hero:tag": []
   },
   "capsule_walker_hero_components": {
-    "_extends": "base_capsule_walker_hero_components"
+    "_use": "base_capsule_walker_hero_components"
   },
   "capsule_walker_hero_components_local": {
-    "_extends": "capsule_walker_hero_components"
+    "_use": "capsule_walker_hero_components"
   },
   "capsule_walker_hero_components_remote": []
 }

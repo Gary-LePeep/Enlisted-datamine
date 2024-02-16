@@ -2,9 +2,10 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let charClient = require("%enlSqGlob/charClient.nut")
 let { contactsLists, blockedUids, getCrossnetworkChatEnabled } = require("contactsWatchLists.nut")
-let { pushNotification, removeNotify, subscribeGroup, removeNotifyById
+let { pushNotification, removeNotify, subscribeGroup, removeNotifyById, InvitationsStyle,
+  InvitationsTypes
 } = require("%enlist/mainScene/invitationsLogState.nut")
-let { Contact, validateNickNames, getContactNick } = require("contact.nut")
+let { updateContact, validateNickNames, getContactNick } = require("contact.nut")
 let userInfo = require("%enlSqGlob/userInfo.nut")
 let { matchingCall } = require("%enlist/matchingClient.nut")
 let matching_api = require("matching.api")
@@ -35,7 +36,7 @@ let getContactsInviteId = @(uid) $"contacts_invite_{uid}"
 
 userInfo.subscribe(function(uInfo) {
   if (uInfo?.userIdStr)
-    Contact(uInfo.userIdStr, uInfo.name)
+    updateContact(uInfo.userIdStr, uInfo.name)
 })
 
 const GAME_GROUP_NAME = "Enlisted" //WTF?
@@ -79,15 +80,15 @@ subscribeGroup(REQUESTS_TO_ME_MAIL, {
   function onShow(notify) {
     removeNotify(notify)
     markRead(notify.mailId)
-    let contact = Contact(notify.fromUid)
-    let nick = getContactNick(contact.value)
-    if (!canInterractCrossPlatform(nick, getCrossnetworkChatEnabled(contact.value.uid))) {
+    let contact = updateContact(notify.fromUid)
+    let user = getContactNick(contact)
+    if (!canInterractCrossPlatform(user, getCrossnetworkChatEnabled(contact.uid))) {
       showCrossnetworkChatRestrictionMsgBox()
       return
     }
 
     msgbox.show({
-      text = loc("contact/mbox_add_to_friends", { user = getContactNick(contact.value) })
+      text = loc("contact/mbox_add_to_friends", { user })
       buttons = [
         { text = loc("Yes")
           action = @() execContactsCharAction(notify.fromUid, "contacts_approve_request")
@@ -130,17 +131,19 @@ let function onNotifyListChanged(body, mailId) {
 
   foreach (uidInt, data in perUidList) {
     let uid = uidInt.tostring()
-    let contact = Contact(uid)
+    let contact = updateContact(uid)
     if (data?[ADD_MODE].listName == "requestsToMe") {
       validateNickNames([contact],
         function() {
-          let nick = getContactNick(contact.value)
+          let nick = getContactNick(contact)
           if (canInterractCrossPlatform(nick, canCrossnetworkChatWithAll.value))
             pushNotification({
               id = getContactsInviteId(uid)
               mailId
               fromUid = uid
-              styleId = "primary"
+              playerName = nick
+              nType = InvitationsTypes.TO_FRIEND
+              styleId = InvitationsStyle.PRIMARY
               text = loc("contact/incomingInvitation", { user = nick })
               actionsGroup = REQUESTS_TO_ME_MAIL
             })
@@ -152,8 +155,10 @@ let function onNotifyListChanged(body, mailId) {
       validateNickNames([contact],
         @() pushNotification({
           mailId
-          text = loc("contact/removedYouFromFriends", { user = getContactNick(contact.value) })
+          text = loc("contact/removedYouFromFriends", { user = getContactNick(contact) })
           isRead = true
+          nType = InvitationsTypes.FRIEND_REMOVE
+          playerName = getContactNick(contact)
           actionsGroup = APPROVED_MAIL
         }))
   }
@@ -186,7 +191,7 @@ let function updateGroup(new_contacts, uids, groupName) {
 
     userId = userId.tostring()
     hasChanges = hasChanges || userId not in uids.value
-    Contact(userId, nick) //register contact name
+    updateContact(userId, nick) //register contact name
     newUids[userId] <- true
   }
 
@@ -249,7 +254,7 @@ let function searchContactsOnline(nick, callback = null) {
           }
           if (a == null)
             continue
-          Contact(uidStr, name) //register contact name
+          updateContact(uidStr, name) //register contact name
           resContacts[uidStr] <- true
         }
 
@@ -328,8 +333,6 @@ if (isContactsEnabled) {
 }
 
 return {
-  searchContactsOnline
-
   searchContactsResults
   isOnlineContactsSearchEnabled
   isContactsEnabled
@@ -340,6 +343,5 @@ return {
 
   execContactsCharAction
   isContactsVisible
-  contactBlockExtensionCtr = Watched({})
   getContactsInviteId
 }

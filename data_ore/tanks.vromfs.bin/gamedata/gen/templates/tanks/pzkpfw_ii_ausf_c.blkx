@@ -1,10 +1,10 @@
 {
   "base_pzkpfw_ii_ausf_c": [
     {
-      "_extends": "base_tank"
+      "_use": "base_tank"
     },
     {
-      "_extends": "pzkpfw_ii_ausf_c_ammo_stowages"
+      "_use": "pzkpfw_ii_ausf_c_ammo_stowages"
     },
     {
       "killLogName": "germ_pzkpfw_ii_ausf_c"
@@ -110,7 +110,11 @@
             "paramPitchAccel": "gun_01_pitch_accel",
             "wishYawParamName": "gun_01_aim:targetYaw",
             "wishPitchParamName": "gun_01_aim:targetPitch",
-            "gunRecoilParamName": "gun_01_recoil"
+            "gunRecoilParamName": "gun_01_recoil",
+            "hasStabilizerParamName": "gun_01_aim:hasStab",
+            "stabilizerPitchParamName": "gun_01_aim:stabPitch",
+            "stabilizerErrorParamName": "gun_01_aim:stabError",
+            "stabilizerPitchMultParamName": "gun_01_aim:stabPitchMult"
           }
         },
         {
@@ -146,12 +150,25 @@
     }
   ],
   "pzkpfw_ii_ausf_c_turret_01_20mm_kwk30": {
-    "_extends": "tankgun_20mm_kwk30",
+    "_use": "tankgun_20mm_kwk30",
     "gun__shootNodeName": "bone_gun_barrel",
     "turret__yawSpeed": 14.0,
     "turret__pitchSpeed": 15.0,
     "turret__aimNodeName": "bone_turret",
     "turret__limit": [-180.0,180.0,-9.5,20.0],
+    "turret__stabilizerPitchFrictionMult": 0.8,
+    "turret__stabilizerPitchSpeedLimitKph": 10.0,
+    "turret__stabilizerErrorByKphSpeedTable:list<p2>": [
+      {
+        "row": [5.0,0.0]
+      },
+      {
+        "row": [8.0,0.2]
+      },
+      {
+        "row": [10.0,0.4]
+      }
+    ],
     "gun__shellsAmmo:array": [
       {
         "ammo": 45
@@ -168,7 +185,7 @@
     ]
   },
   "pzkpfw_ii_ausf_c_turret_02_7_92mm_mg34": {
-    "_extends": "tankgun_7_92mm_mg34",
+    "_use": "tankgun_7_92mm_mg34",
     "gun__shootNodeName": "bone_mg_gun_twin",
     "gun__shellsAmmo:array": [
       {
@@ -181,13 +198,13 @@
   },
   "pzkpfw_ii_ausf_c_ammo_stowages": {
     "_tags": "server",
-    "_extends": "vehicle_ammo_stowages",
+    "_use": "vehicle_ammo_stowages",
     "ammo_stowage__stowageTemplates:shared:list<t>": {
       "stowage": "pzkpfw_ii_ausf_c_ammo_stowage_1"
     }
   },
   "pzkpfw_ii_ausf_c_ammo_stowage_1": {
-    "_extends": "ammo_stowage",
+    "_use": "ammo_stowage",
     "ammo_stowage__clusterTemplates:shared:list<t>": {
       "cluster": "pzkpfw_ii_ausf_c_ammo_cluster_1_1"
     },
@@ -196,7 +213,7 @@
     }
   },
   "pzkpfw_ii_ausf_c_ammo_cluster_1_1": {
-    "_extends": "ammo_cluster",
+    "_use": "ammo_cluster",
     "ammo_cluster__isShell": true,
     "ammo_cluster__slotNames:shared:list<t>": [
       {

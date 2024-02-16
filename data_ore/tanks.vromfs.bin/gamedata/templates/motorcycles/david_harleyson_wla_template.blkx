@@ -1,16 +1,16 @@
 {
   "david_harleyson_wla": [
     {
-      "_extends": "simple_damage_model"
+      "_use": "simple_damage_model"
     },
     {
-      "_extends": "vehicle_seats_effectors"
+      "_use": "vehicle_seats_effectors"
     },
     {
-      "_extends": "base_bike_right_sidecar"
+      "_use": "base_bike_right_sidecar"
     },
     {
-      "_extends": "vehicle_anim_speedometer_kmh"
+      "_use": "vehicle_anim_speedometer_kmh"
     },
     {
       "item__name": "items/david_harleyson_wla"
@@ -38,6 +38,12 @@
     },
     {
       "vehicle_seats__enumVarName": "harley_davidson_wla"
+    },
+    {
+      "item__iconOffset": [0.0,0.05]
+    },
+    {
+      "item__iconScale": 1.3
     },
     {
       "_group": {
@@ -173,7 +179,7 @@
     }
   ],
   "david_harleyson_wla_turret_7_62mm_m1919a4": {
-    "_extends": "bike_7_62mm_m1919a4",
+    "_use": "bike_7_62mm_m1919a4",
     "gun__shootNodeName": "bone_mg_aa_v",
     "turret__yawSpeed": 300.0,
     "turret__pitchSpeed": 100.0,

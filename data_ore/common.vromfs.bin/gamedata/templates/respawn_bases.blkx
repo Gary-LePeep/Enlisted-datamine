@@ -13,7 +13,7 @@
     }
   },
   "gun_game_respawn_base": {
-    "_extends": "respawnBase",
+    "_use": "respawnBase",
     "transform": [
       [1.0,0.0,0.0],
       [0.0,1.0,0.0],
@@ -102,6 +102,7 @@
     }
   },
   "respawnBase": {
+    "_use": "replicating",
     "transform": [
       [1.0,0.0,0.0],
       [0.0,1.0,0.0],
@@ -138,13 +139,15 @@
         "desc": "Filter subtypes of vehicle or squad that can use this respawn"
       }
     },
+    "respbaseCamTarget:tag": [],
+    "net__inInitialScope:tag": [],
     "respbase:tag": {
       "_tags": "server"
     },
     "respawnObject:tag": []
   },
   "respTeam1": {
-    "_extends": "respawnBase",
+    "_use": "respawnBase",
     "team": 1,
     "_info": {
       "desc": "Player squads with team_id=1 appear at this zone. Players cannot spawn in a mission if there is no active spawn point",
@@ -155,7 +158,7 @@
     }
   },
   "respTeam2": {
-    "_extends": "respawnBase",
+    "_use": "respawnBase",
     "team": 2,
     "_info": {
       "desc": "Player squads with team_id=2 appear at this zone. Players cannot spawn in a mission if there is no active spawn point",
@@ -192,10 +195,10 @@
   },
   "respVehicle": [
     {
-      "_extends": "respawnBase"
+      "_use": "respawnBase"
     },
     {
-      "_extends": "replicating"
+      "_use": "replicating"
     },
     {
       "respTime": 0
@@ -241,12 +244,32 @@
       }
     }
   ],
+  "respMech": {
+    "_use": "respMotorcycle",
+    "respbase__addTemplatesOnSpawn:list<t>": [
+      {
+        "_info": "vehicle_added_templates"
+      },
+      {
+        "add": "destroy_inactive_vehicle"
+      },
+      {
+        "add": "vehicle_spawn_validation"
+      },
+      {
+        "add": "destroyOnDamageWithoutCrew"
+      },
+      {
+        "add": "vehicle_spawn_restriction"
+      }
+    ]
+  },
   "respMotorcycle": [
     {
-      "_extends": "respawnBase"
+      "_use": "respawnBase"
     },
     {
-      "_extends": "replicating"
+      "_use": "replicating"
     },
     {
       "respTime": 0
@@ -286,6 +309,22 @@
       }
     }
   ],
+  "respAPC": {
+    "_use": "respMotorcycle",
+    "respawnbaseType": "APC",
+    "respApcTag:tag": [],
+    "maxVehicleOnSpawn:i": {
+      "value": 3,
+      "_info": "max_vehicle_on_spawn"
+    },
+    "_info": {
+      "desc": "Player APC squads appear at this zone. APC cannot spawn in a mission if there is no active spawn point",
+      "category": "respawns",
+      "extendBy": {
+        "template": "vehicle_resp_soft_ground_collision"
+      }
+    }
+  },
   "vehicle_resp_soft_ground_collision": {
     "respbase__addTemplatesOnSpawn:list<t>": [
       {
@@ -313,7 +352,7 @@
     }
   },
   "respAircraft": {
-    "_extends": "respVehicle",
+    "_use": "respVehicle",
     "respawnbaseType": "aircraft",
     "aircraftRespbase:tag": [],
     "_info": {
@@ -322,7 +361,7 @@
     }
   },
   "aircraft_repair_respawn": {
-    "_extends": "replicating",
+    "_use": "replicating",
     "sphere_zone__radius": 250.0,
     "team": -1,
     "respawnbaseSubtype": "land",
@@ -337,7 +376,7 @@
     }
   },
   "aircraft_carrier_take_off_assist": {
-    "_extends": "replicating",
+    "_use": "replicating",
     "sphere_zone__radius": 250.0,
     "aircraft_carrier__takeOffAssistZone:tag": []
   },
@@ -351,18 +390,32 @@
     "_tags": "server",
     "zone_assignAiTurretsTeam:tag": []
   },
+  "troopersSpawn": [
+    {
+      "_use": "respawnBase"
+    },
+    {
+      "_use": "respawnChooser"
+    },
+    {
+      "active": true
+    },
+    {
+      "respbase__validated": true
+    }
+  ],
   "respAircraftOnCarrier": [
     {
-      "_extends": "respAircraft"
+      "_use": "respAircraft"
     },
     {
-      "_extends": "aircraft_repair_respawn"
+      "_use": "aircraft_repair_respawn"
     },
     {
-      "_extends": "aircraft_carrier_take_off_assist"
+      "_use": "aircraft_carrier_take_off_assist"
     },
     {
-      "_extends": "carrierDefenseTurrets"
+      "_use": "carrierDefenseTurrets"
     },
     {
       "respawnbaseSubtype": "land"
@@ -383,6 +436,9 @@
       "respbase__startRelativeSpeed": 0.0
     },
     {
+      "respbase__priority": 1
+    },
+    {
       "respbase__addTemplatesOnSpawn:list<t>": [
         {
           "_info": "vehicle_added_templates"
@@ -395,6 +451,9 @@
         },
         {
           "add": "vehicle_spawn_restriction"
+        },
+        {
+          "add": "vehicle_spawn_validation_directed_carrier"
         }
       ]
     },
@@ -406,7 +465,7 @@
     }
   ],
   "respAircraftInAir": {
-    "_extends": "respAircraft",
+    "_use": "respAircraft",
     "respawnbaseSubtype": "air",
     "respbase__validated": true,
     "respbase__shouldValidateTm": false,
@@ -436,10 +495,10 @@
   },
   "respAircraftOnWater": [
     {
-      "_extends": "respAircraft"
+      "_use": "respAircraft"
     },
     {
-      "_extends": "aircraft_repair_respawn"
+      "_use": "aircraft_repair_respawn"
     },
     {
       "respawnbaseSubtype": "water"
@@ -458,6 +517,9 @@
     },
     {
       "respbase__startRelativeSpeed": 0.0
+    },
+    {
+      "respbase__priority": 1
     },
     {
       "landing_zone__isWater:tag": []
@@ -510,8 +572,14 @@
       }
     }
   },
+  "vehicle_spawn_validation_directed_carrier": {
+    "_use": "vehicle_spawn_validation",
+    "spawn_validation__spreadDir": [-10.0,0.0,0.0],
+    "spawn_validation__spreadDistance": 10.0,
+    "spawn_validation__isValidated": false
+  },
   "aircraft_spawn_validation": {
-    "_extends": "vehicle_spawn_validation",
+    "_use": "vehicle_spawn_validation",
     "spawn_validation__spreadDistance": 100.0,
     "spawn_validation__useNavmesh": false,
     "_info": {

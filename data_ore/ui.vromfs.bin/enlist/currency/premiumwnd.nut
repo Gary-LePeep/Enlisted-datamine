@@ -1,16 +1,16 @@
 from "%enlSqGlob/ui_library.nut" import *
 
+let spinner = require("%ui/components/spinner.nut")(hdpxi(90))
 let { abs, round } = require("math")
 let { addModalWindow, removeModalWindow } = require("%ui/components/modalWindows.nut")
-let closeBtnBase = require("%ui/components/closeBtn.nut")
 let buyShopItem = require("%enlist/shop/buyShopItem.nut")
 let mkCountdownTimer = require("%enlSqGlob/ui/mkCountdownTimer.nut")
 let { gameProfile } = require("%enlist/soldiers/model/config/gameProfile.nut")
 let { utf8ToUpper } = require("%sqstd/string.nut")
-let { giant_txt, h0_txt, h1_txt, h2_txt, body_txt, sub_txt
-} = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontGiant, fontTitle, fontHeading1, fontHeading2, fontBody, fontSub
+} = require("%enlSqGlob/ui/fontsStyle.nut")
 let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
-let { premiumProducts } = require("%enlist/shop/armyShopState.nut")
+let { premiumProducts, purchaseInProgress } = require("%enlist/shop/armyShopState.nut")
 let { sendBigQueryUIEvent } = require("%enlist/bigQueryEvents.nut")
 let { currenciesList } = require("%enlist/currency/currencies.nut")
 let { mkCurrency } = require("%enlist/currency/currenciesComp.nut")
@@ -19,15 +19,20 @@ let { txt, noteTextArea } = require("%enlSqGlob/ui/defcomps.nut")
 let { premiumActiveInfo, premiumImage } = require("premiumComp.nut")
 let { bigPadding, accentTitleTxtColor, commonBtnHeight, titleTxtColor,
   selectedTxtColor, activeTxtColor, smallPadding, bgPremiumColor,
-  basePremiumColor, discountBgColor
+  basePremiumColor
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { Purchase } = require("%ui/components/textButton.nut")
-let openUrl = require("%ui/components/openUrl.nut")
-let { mkHeaderFlag, primeFlagStyle } = require("%enlSqGlob/ui/mkHeaderFlag.nut")
+let { openUrl } = require("%ui/components/openUrl.nut")
+let { mkHeaderFlag, primeFlagStyle, mkCenterHeaderFlag } = require("%enlSqGlob/ui/mkHeaderFlag.nut")
 let colorize = require("%ui/components/colorize.nut")
 let { normal } = require("%ui/style/cursors.nut")
 let { premiumUrl = null } = require("app").get_circuit_conf()
 let { allActiveOffers } = require("%enlist/offers/offersState.nut")
+let { isGamepad } = require("%ui/control/active_controls.nut")
+let { wndHeader } = require("%enlist/navigation/commonWndParams.nut")
+let { transpBgColor, defItemBlur } = require("%enlSqGlob/ui/designConst.nut")
+let { SLOT_COUNT, SLOT_COUNT_MAX } = require("%enlist/preset/presetEquipCfg.nut")
+let { PREMIUM_SLOTS_COUNT } = require("%enlist/squadPresets/squadPresetsState.nut")
 
 
 const WND_UID = "premiumWindow"
@@ -39,7 +44,9 @@ let BONUSES_TEXT_DELAY = 2.0
 
 const DEFAULT_PREMIUM_DAYS = 30
 let curSelectedId = Watched(null)
+let curAnimatedId = Watched(null)
 let showAnimation = Watched(true)
+
 
 let defaultSelectedItem = keepref(Computed(@() premiumProducts.value.reduce(@(res, item)
     abs(res.premiumDays - DEFAULT_PREMIUM_DAYS) <= abs(item.premiumDays - DEFAULT_PREMIUM_DAYS)
@@ -53,7 +60,12 @@ let mkImage = @(path, customStyle = {}) {
   image = Picture(path)
 }.__update(customStyle)
 
-let close = @() removeModalWindow(WND_UID)
+let function close() {
+  if (curAnimatedId.value != null)
+    curAnimatedId(null)
+  else
+    removeModalWindow(WND_UID)
+}
 
 let mkPremiumDescAnim = @(delay) !showAnimation.value ? {} : {
   transform = {}
@@ -85,7 +97,7 @@ let mkPremiumValAnim = @(delay, c1, c2) [
 let premiumDesc = @(idx, unitVal, descText, unitDesc = null) {
   size = [flex(), SIZE_TO_CONTENT]
   flow = FLOW_VERTICAL
-  padding = fsh(2)
+  padding = [fsh(4), fsh(1)]
   children = [
     {
       flow = FLOW_HORIZONTAL
@@ -96,22 +108,18 @@ let premiumDesc = @(idx, unitVal, descText, unitDesc = null) {
           transform = {}
           animations = mkPremiumValAnim(BLINK_DELAY * idx + BONUSES_TEXT_DELAY,
             accentTitleTxtColor, activeTxtColor)
-        }.__update(giant_txt))
+        }).__update(fontGiant)
         unitDesc == null ? null
           : txt({
               text = unitDesc
               color = activeTxtColor
               padding = [0, bigPadding]
-            }.__update(h2_txt))
+            }).__update(fontHeading2)
       ]
     }
     {
       size = [flex(), SIZE_TO_CONTENT]
-      flow = FLOW_HORIZONTAL
-      children = [
-        { size = [hdpx(40), 0]}
-        noteTextArea(descText).__update({ color = activeTxtColor }, body_txt)
-      ]
+      children = noteTextArea(descText).__update({ color = activeTxtColor }, fontBody)
     }
   ]
 }.__update(mkPremiumDescAnim(ANIM_DELAY * idx))
@@ -122,6 +130,8 @@ let function premiumDescBlock() {
     premiumExpMul = 1, maxSquadsInBattle = 0, soldiersReserve = 0
   } = premiumBonuses
   let expBonus = 100 * (premiumExpMul - 1)
+  let equipSlots = SLOT_COUNT_MAX - SLOT_COUNT
+  let squadSlots = PREMIUM_SLOTS_COUNT
   return {
     watch = gameProfile
     size = [flex(), SIZE_TO_CONTENT]
@@ -137,11 +147,16 @@ let function premiumDescBlock() {
       premiumDesc(2, $"+{maxSquadsInBattle}", loc("premiumDescSquadUnits"))
       premiumDesc(3, $"+{soldiersReserve}", loc("premiumDescReserve"))
       premiumDesc(4, "+2", loc("premiumDecalSlots"))
+      premiumDesc(5, $"+{max(equipSlots, squadSlots)}",
+        loc("premiumPresetsSlots", { equipSlots, squadSlots }))
     ]
   }
 }
 
 let function onPurchase(shopItem, premItemView, offer = null) {
+  if (purchaseInProgress.value || curAnimatedId.value != null)
+    return
+
   buyShopItem({
     shopItem
     pOfferGuid = offer?.guid
@@ -150,20 +165,23 @@ let function onPurchase(shopItem, premItemView, offer = null) {
       halign = ALIGN_CENTER
       children = premItemView
     }
+    purchaseCb = @() curAnimatedId(shopItem.id)
   })
   sendBigQueryUIEvent("action_buy_premium", "premium_promo")
 }
 
 let saveValueBlock = @(selected, percents) {
   rendObj = selected ? ROBJ_SOLID : ROBJ_BOX
-  size = selected ? [hdpx(120), SIZE_TO_CONTENT] : SIZE_TO_CONTENT
+  size = [hdpx(120), SIZE_TO_CONTENT]
   color = selected ? accentTitleTxtColor : null
   halign = ALIGN_CENTER
   borderWidth = [0, 0, hdpx(2), 0]
   padding = [hdpx(5), 0]
   children = {
     rendObj = ROBJ_TEXTAREA
+    size = [flex(), SIZE_TO_CONTENT]
     behavior = Behaviors.TextArea
+    halign = ALIGN_CENTER
     text = loc("shop/youSave", {
       percents = colorize(selected ? selectedTxtColor :  accentTitleTxtColor, $"{percents}%")
     })
@@ -171,37 +189,51 @@ let saveValueBlock = @(selected, percents) {
   }
 }
 
-let discountBannerHeight = hdpx(60)
+let discountBannerHeight = hdpxi(16 + 2*smallPadding)
 
 let mkDiscountBanner = @(locId, endTime) {
-  size = [flex(), discountBannerHeight]
-  pos = [0, -hdpx(36)]
-  children = mkHeaderFlag({
-    size = flex()
-    flow = FLOW_VERTICAL
-    gap = smallPadding
-    valign = ALIGN_CENTER
-    padding = [0, fsh(5), 0, fsh(1)]
-    children = [
-      {
+  size = [flex(), 0]
+  pos = [0, discountBannerHeight]
+  valign = ALIGN_BOTTOM
+  halign = ALIGN_CENTER
+  gap = smallPadding
+  flow = FLOW_VERTICAL
+  children = [
+    mkCenterHeaderFlag({
+        size = [flex(), discountBannerHeight]
         rendObj = ROBJ_TEXT
+        valign = ALIGN_CENTER
+        halign = ALIGN_CENTER
         text = utf8ToUpper(loc(locId))
-        color = titleTxtColor
-      }.__update(sub_txt)
-      endTime == 0 ? null : mkCountdownTimer({ timestamp = endTime })
-    ]
-  }, primeFlagStyle.__merge({
-    size = flex()
-    offset = 0
-    flagColor = discountBgColor
-  }))
+        color = selectedTxtColor
+      }.__update(fontSub),
+      primeFlagStyle.__merge({
+        size = [pw(90), discountBannerHeight]
+        centerColor = accentTitleTxtColor
+        middle = 0.25
+      })
+    )
+    endTime == 0 ? null : {
+      rendObj = ROBJ_VECTOR_CANVAS
+      size = [pw(80), discountBannerHeight]
+      halign = ALIGN_CENTER
+      valign = ALIGN_CENTER
+      commands = [
+        [VECTOR_WIDTH, hdpx(1)],
+        [VECTOR_FILL_COLOR, accentTitleTxtColor],
+        [VECTOR_COLOR, Color(0,0,0,0)],
+        [VECTOR_POLY, 10,0, 90,0, 80,100, 20,100],
+      ]
+      children = mkCountdownTimer({ timestamp = endTime, color = selectedTxtColor })
+    }
+  ]
 }
 
 let mkPremItemView = @(selected, size, days, saveVal, sf = 0) {
   rendObj = ROBJ_BOX
   size
   borderWidth = hdpx(1)
-  borderColor = (selected || (sf & S_HOVER)) ? accentTitleTxtColor : basePremiumColor
+  borderColor = selected || (sf & S_HOVER) ? accentTitleTxtColor : basePremiumColor
   children = {
     flow = FLOW_VERTICAL
     hplace = ALIGN_CENTER
@@ -212,12 +244,12 @@ let mkPremItemView = @(selected, size, days, saveVal, sf = 0) {
         : saveValueBlock(selected, saveVal)
       txt({
         text = days
-        color = (selected || (sf & S_HOVER)) ? accentTitleTxtColor : activeTxtColor
-      }.__update(h0_txt))
+        color = selected || (sf & S_HOVER) ? accentTitleTxtColor : activeTxtColor
+      }).__update(fontTitle)
       txt({
         text = loc("premiumDays", { days })
         color = activeTxtColor
-      }.__update(h2_txt))
+      }).__update(fontHeading2)
     ]
   }
 }
@@ -259,11 +291,15 @@ let mkPremItem = kwarg(
       : discountInPercent > 0 ? mkDiscountBanner("shop/discountNotify", discountIntervalTs?[1] ?? 0)
       : null
 
-    return watchElemState(@(sf) {
+    return {
       flow = FLOW_VERTICAL
       children = [
-        {
+        watchElemState(@(sf) {
           behavior = Behaviors.Button
+          onHover = function(on) {
+            if (on && isGamepad.value)
+              curSelectedIdWatch(id)
+          }
           onClick = @() isSelected
             ? onPurchase(shopItem, mkPremItemView(true, cellSize, premiumDays, saveVal), offer)
             : curSelectedIdWatch(id)
@@ -285,7 +321,7 @@ let mkPremItem = kwarg(
                   ]
                 }
                 {
-                  size =[premSize, hdpx(68)]
+                  size = [premSize, hdpx(68)]
                   valign = ALIGN_CENTER
                   halign = ALIGN_CENTER
                   gap = {
@@ -298,21 +334,21 @@ let mkPremItem = kwarg(
                       currency
                       price
                       fullPrice
-                      txtStyle = { color = activeTxtColor }.__update(body_txt)
-                      discountStyle = { color = activeTxtColor }.__update(body_txt)
-                      dimStyle = { color = basePremiumColor}.__update(body_txt)
+                      txtStyle = { color = activeTxtColor }.__update(fontBody)
+                      discountStyle = { color = activeTxtColor }.__update(fontBody)
+                      dimStyle = { color = basePremiumColor}.__update(fontBody)
                     })
                   ]
                 }
               ]
             }
           ]
-        }
+        })
         !isSelected ? null :
           purchaseButton(@() onPurchase(shopItem,
             mkPremItemView(true, cellSize,  premiumDays, saveVal), offer))
       ]
-    }.__update(mkPremiumDescAnim(ANIM_DELAY * idx + 0.5)))
+    }.__update(mkPremiumDescAnim(ANIM_DELAY * idx + 0.5))
   })
 
 let offersByPremItem = Computed(function() {
@@ -328,10 +364,10 @@ let offersByPremItem = Computed(function() {
 
 let function premiumBuyBlockUi() {
   let res = {
-    watch = [premiumProducts, currenciesList, curSelectedId, offersByPremItem]
+    watch = [curAnimatedId, premiumProducts, currenciesList, curSelectedId, offersByPremItem]
   }
   let premiumShopItems = premiumProducts.value
-  if (premiumShopItems.len() == 0)
+  if (curAnimatedId.value != null || premiumShopItems.len() == 0)
     return res
 
   let maxDayPrice = premiumShopItems.reduce(function(maxPrice, val) {
@@ -367,6 +403,7 @@ let premiumInfo = {
   size = [flex(), SIZE_TO_CONTENT]
   flow = FLOW_HORIZONTAL
   padding = fsh(2)
+  margin = [0,0,fsh(18),0]
   children = [
     premiumImage(hdpx(80))
     {
@@ -377,11 +414,11 @@ let premiumInfo = {
         noteTextArea(loc("premiumDescBase"))
           .__update({
             color = activeTxtColor
-          }, body_txt)
+          }, fontBody)
         {
           size = flex()
           halign = ALIGN_RIGHT
-          children = premiumActiveInfo(h2_txt, accentTitleTxtColor)
+          children = premiumActiveInfo(fontHeading2, accentTitleTxtColor)
         }
       ]
     }
@@ -390,25 +427,20 @@ let premiumInfo = {
 
 let premiumBlockContent = @() {
   size = flex()
-  gap = fsh(9)
+  flow = FLOW_VERTICAL
+  gap = bigPadding
   children = [
     premiumInfo
-    {
-      pos = [0, sh(35)]
-      children = mkHeaderFlag(
-        {
-          padding = [fsh(2), fsh(3)]
-          rendObj = ROBJ_TEXT
-          text = utf8ToUpper(loc("premium/title"))
-        }.__update(h1_txt),
-        primeFlagStyle
-      )
-    }
+    mkHeaderFlag({
+      padding = [fsh(2), fsh(3)]
+      rendObj = ROBJ_TEXT
+      text = utf8ToUpper(loc("premium/title"))
+    }.__update(fontHeading1), primeFlagStyle)
     {
       size = [flex(), SIZE_TO_CONTENT]
       flow = FLOW_VERTICAL
       vplace = ALIGN_BOTTOM
-      gap = hdpx(30)
+      gap = bigPadding
       children = [
         premiumDescBlock
         premiumUrl != null ? premiumBuyBlockBtn : premiumBuyBlockUi
@@ -445,44 +477,103 @@ let function open() {
     stopMouse = true
     stopHover = true
     cursor = normal
-    children = @() {
-      size = flex()
-      maxHeight = fsh(100)
-      flow = FLOW_HORIZONTAL
-      watch = safeAreaBorders
-      padding = safeAreaBorders.value
-      children = [
-        {
-          size = flex()
-          children = {
-            size = [flex(), ph(75)]
-            maxWidth = hdpx(180)
-            hplace = ALIGN_RIGHT
-            children = mkImage("ui/gameImage/premium_decor_left.avif")
+    children = [
+      @() {
+        watch = safeAreaBorders
+        size = flex()
+        maxHeight = fsh(100)
+        padding = safeAreaBorders.value
+        children = [
+          {
+            size = flex()
+            flow = FLOW_HORIZONTAL
+            halign = ALIGN_CENTER
+            children = [
+              {
+                size = [flex(), ph(75)]
+                maxWidth = hdpx(180)
+                hplace = ALIGN_RIGHT
+                children = mkImage("ui/gameImage/premium_decor_left.avif")
+              }
+              {
+                size = [WND_WIDTH, flex()]
+                children = premiumInfoBlock
+              }
+              {
+                size = [flex(), ph(75)]
+                maxWidth = hdpx(180)
+                children = mkImage("ui/gameImage/premium_decor_right.avif")
+              }
+            ]
           }
-        }
-        {
-          size = [WND_WIDTH, flex()]
-          children = premiumInfoBlock
-        }
-        {
+          wndHeader(close)
+        ]
+      }
+      @() {
+        watch = purchaseInProgress
+        pos = [0, -hdpx(180)]
+        hplace = ALIGN_CENTER
+        vplace = ALIGN_CENTER
+        children = purchaseInProgress.value ? spinner : null
+      }
+      function() {
+        let res = { watch = [curAnimatedId, premiumProducts] }
+        let shopItemId = curAnimatedId.value
+        if (shopItemId == null)
+          return res
+
+        let shopItem = premiumProducts.value.findvalue(@(s) s.id == shopItemId)
+        if (shopItem == null)
+          return res
+
+        let days = shopItem?.premiumDays ?? 0
+        return res.__update({
           size = flex()
-          children = [
-            {
-              size = [flex(), ph(75)]
-              maxWidth = hdpx(180)
-              children = mkImage("ui/gameImage/premium_decor_right.avif")
-            }
-            closeBtnBase({
-              padding = fsh(1)
-              hplace = ALIGN_RIGHT
-              onClick = close
-            }).__update({ margin = fsh(1) })
-          ]
-        }
-      ]
-    }
+          halign = ALIGN_CENTER
+          valign = ALIGN_CENTER
+          rendObj = ROBJ_WORLD_BLUR_PANEL
+          fillColor = transpBgColor
+          color = defItemBlur
+          children = {
+            flow = FLOW_VERTICAL
+            halign = ALIGN_CENTER
+            valign = ALIGN_CENTER
+            padding = [0,0,hdpxi(100),0]
+            children = [
+              txt({ text = loc("youHaveReceived") }).__update(fontHeading2)
+              txt({ text = days, color = accentTitleTxtColor }).__update(fontTitle)
+              txt({ text = loc("premiumDays", { days }), color = activeTxtColor
+                }).__update(fontHeading2)
+              {
+                size = [hdpxi(140), hdpxi(140)]
+                margin = bigPadding
+                halign = ALIGN_CENTER
+                valign = ALIGN_CENTER
+                children = [
+                  mkImage("ui/gameImage/searchlight_earth_flare.avif", {
+                    size = [hdpxi(512), hdpxi(256)]
+                  })
+                  premiumImage(hdpxi(140))
+                ]
+              }
+            ]
+            transform = {}
+            animations = [
+              { prop = AnimProp.scale, from = [0.1, 0.1], to = [1, 1], duration = 0.7,
+                play = true, easing = OutCubic }
+              { prop = AnimProp.opacity, from = 0, to = 1, duration = 0.7,
+                play = true, easing = OutCubic }
+              { prop = AnimProp.scale, from = [1, 1], to = [2, 2], delay = 2.5, duration = 0.5,
+                play = true, easing = OutCubic }
+              { prop = AnimProp.opacity, from = 1, to = 0, delay = 2.5, duration = 0.5,
+                play = true, onFinish = @() curAnimatedId(null) }
+            ]
+          }
+        })
+      }
+    ]
     onClick = @() null
+    onDetach = @() curAnimatedId(null)
   })
 }
 

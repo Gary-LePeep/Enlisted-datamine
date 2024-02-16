@@ -1,0 +1,6092 @@
+{
+  "usa_normandy_prem_paratrooper_1" : [
+      {
+         "name" : "paratroopers_assault_high",
+         "tags": ["high"],
+         "soldiers" : [
+            {
+               "displayedKind" : "mgun",
+               "inventory" : [
+                  {
+                     "gametemplate" : "medkit_item"
+                  }
+               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "browning_m1918a1_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 10,
+                     "reserveAmmoTemplate" : "browning_m1918_magazine"
+                  }
+               ],
+               "human_weap__weapInitialComponents" : [
+                  {},
+                  {
+                     "gun__reloadTime" : -15.0,
+                     "gun__kineticDamageMult" : 10.0,
+                     "gun__shotFreq" : 10.0,
+                     "gun_spread__maxDeltaAngle" : -15.0
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "mgun",
+               "inventory" : [
+                  {
+                     "gametemplate" : "medkit_item"
+                  }
+               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "browning_m1918a1_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 10,
+                     "reserveAmmoTemplate" : "browning_m1918_magazine"
+                  }
+               ],
+               "human_weap__weapInitialComponents" : [
+                  {},
+                  {
+                     "gun__reloadTime" : -15.0,
+                     "gun__kineticDamageMult" : 10.0,
+                     "gun__shotFreq" : 10.0,
+                     "gun_spread__maxDeltaAngle" : -15.0
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "mgun",
+               "inventory" : [
+                  {
+                     "gametemplate" : "medkit_item"
+                  }
+               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "browning_m1918a1_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 10,
+                     "reserveAmmoTemplate" : "browning_m1918_magazine"
+                  }
+               ],
+               "human_weap__weapInitialComponents" : [
+                  {},
+                  {
+                     "gun__reloadTime" : -15.0,
+                     "gun__kineticDamageMult" : 10.0,
+                     "gun__shotFreq" : 10.0,
+                     "gun_spread__maxDeltaAngle" : -15.0
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "medkit_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "medkit_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "medkit_item"
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "name" : "paratroopers_antitank_high",
+         "tags": ["high"],
+         "soldiers" : [
+            {
+               "displayedKind" : "anti_tank",
+               "inventory" : [
+                  {
+                     "gametemplate" : "usa_antitank_mine"
+                  }
+               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "m1_bazooka_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 12,
+                     "reserveAmmoTemplate" : "m6a1_bazooka_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "anti_tank",
+               "inventory" : [
+                  {
+                     "gametemplate" : "usa_antitank_mine"
+                  }
+               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "m1_bazooka_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 12,
+                     "reserveAmmoTemplate" : "m6a1_bazooka_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "anti_tank",
+               "inventory" : [
+                  {
+                     "gametemplate" : "usa_antitank_mine"
+                  }
+               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "m1_bazooka_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 12,
+                     "reserveAmmoTemplate" : "m6a1_bazooka_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "usa_antitank_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "usa_antitank_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "usa_antitank_mine"
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "name" : "paratroopers_mortars_high",
+         "tags": ["high"],
+         "soldiers" : [
+            {
+               "displayedKind" : "mortarman",
+               "inventory" : [
+                  {
+                     "gametemplate" : "mk2_grenade_item"
+                  }
+               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "two_inch_mortar_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 20,
+                     "reserveAmmoTemplate" : "two_inch_he_shell_item",
+                     "additionalNumReserveAmmos" : [ 20 ],
+                     "additionalReserveAmmoTemplates" : [ "two_inch_smoke_shell_item" ]
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "engineer",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "usa_building_tool_gun"
+               },
+               "inventory" : [
+                  {
+                     "gametemplate" : "mk2_grenade_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "mortarman",
+               "inventory" : [
+                  {
+                     "gametemplate" : "mk2_grenade_item"
+                  }
+               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "two_inch_mortar_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 20,
+                     "reserveAmmoTemplate" : "two_inch_he_shell_item",
+                     "additionalNumReserveAmmos" : [ 20 ],
+                     "additionalReserveAmmoTemplates" : [ "two_inch_smoke_shell_item" ]
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "mk2_grenade_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "mk2_grenade_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "mk2_grenade_item"
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "name" : "paratroopers_scouts_high",
+         "tags": ["high"],
+         "soldiers" : [
+            {
+               "displayedKind" : "sniper",
+               "inventory" : [
+                  {
+                     "gametemplate" : "usa_antipersonnel_mine"
+                  }
+               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "m1903a1_springfield_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "gunSlots" : {
+                        "scope" : "unertl_8x_sight_item"
+                     },
+                     "numReserveAmmo" : 10,
+                     "reserveAmmoTemplate" : "m1903_springfield_magazine"
+                  }
+               ],
+               "human_weap__weapInitialComponents" : [
+                  {},
+                  {
+                     "gun__kineticDamageMult" : 15.0,
+                     "gun__shotFreq" : 15.0,
+                     "gun_spread__maxDeltaAngle" : -35.0
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "radioman",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "usa_antipersonnel_mine"
+                  }
+               ],
+               "equipment" : {
+                   "radio" : {
+                      "gametemplate" : "scr_300_gun",
+                      "slot" : "radio"
+                   }
+               }
+            },
+            {
+               "displayedKind" : "sniper",
+               "inventory" : [
+                  {
+                     "gametemplate" : "usa_antipersonnel_mine"
+                  }
+               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "m1903a1_springfield_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "gunSlots" : {
+                        "scope" : "unertl_8x_sight_item"
+                     },
+                     "numReserveAmmo" : 10,
+                     "reserveAmmoTemplate" : "m1903_springfield_magazine"
+                  }
+               ],
+               "human_weap__weapInitialComponents" : [
+                  {},
+                  {
+                     "gun__kineticDamageMult" : 15.0,
+                     "gun__shotFreq" : 15.0,
+                     "gun_spread__maxDeltaAngle" : -35.0
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "usa_antipersonnel_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "usa_antipersonnel_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "usa_antipersonnel_mine"
+                  }
+               ]
+            }
+         ]
+      }
+  ],
+  "ger_normandy_prem_paratrooper_1" : [
+      {
+         "name" : "paratroopers_assault_high",
+         "tags": ["high"],
+         "soldiers" : [
+            {
+               "displayedKind" : "mgun",
+               "inventory" : [
+                  {
+                     "gametemplate" : "germ_medkit_item"
+                  }
+               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "mg_42_handheld_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 4,
+                     "reserveAmmoTemplate" : "mg_42_handheld_magazine"
+                  }
+               ],
+               "human_weap__weapInitialComponents" : [
+                  {},
+                  {
+                     "gun__reloadTime" : -15.0,
+                     "gun__kineticDamageMult" : 10.0,
+                     "gun__shotFreq" : 10.0,
+                     "gun_spread__maxDeltaAngle" : -15.0
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "mgun",
+               "inventory" : [
+                  {
+                     "gametemplate" : "germ_medkit_item"
+                  }
+               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "mg_42_handheld_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 4,
+                     "reserveAmmoTemplate" : "mg_42_handheld_magazine"
+                  }
+               ],
+               "human_weap__weapInitialComponents" : [
+                  {},
+                  {
+                     "gun__reloadTime" : -15.0,
+                     "gun__kineticDamageMult" : 10.0,
+                     "gun__shotFreq" : 10.0,
+                     "gun_spread__maxDeltaAngle" : -15.0
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "mgun",
+               "inventory" : [
+                  {
+                     "gametemplate" : "germ_medkit_item"
+                  }
+               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "mg_42_handheld_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 4,
+                     "reserveAmmoTemplate" : "mg_42_handheld_magazine"
+                  }
+               ],
+               "human_weap__weapInitialComponents" : [
+                  {},
+                  {
+                     "gun__reloadTime" : -15.0,
+                     "gun__kineticDamageMult" : 10.0,
+                     "gun__shotFreq" : 10.0,
+                     "gun_spread__maxDeltaAngle" : -15.0
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "germ_medkit_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "germ_medkit_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "germ_medkit_item"
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "name" : "paratroopers_antitank_high",
+         "tags": ["high"],
+         "soldiers" : [
+            {
+               "displayedKind" : "anti_tank",
+               "inventory" : [
+                  {
+                     "gametemplate" : "ger_antitank_mine"
+                  }
+               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "panzerfaust_60_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 12,
+                     "reserveAmmoTemplate" : "panzerfaust_60_shell_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "anti_tank",
+               "inventory" : [
+                  {
+                     "gametemplate" : "ger_antitank_mine"
+                  }
+               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "panzerfaust_60_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "gunSlots" : {
+                        "scope" : "scope_m84_item"
+                     },
+                     "numReserveAmmo" : 12,
+                     "reserveAmmoTemplate" : "panzerfaust_60_shell_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "anti_tank",
+               "inventory" : [
+                  {
+                     "gametemplate" : "ger_antitank_mine"
+                  }
+               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "panzerfaust_60_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 12,
+                     "reserveAmmoTemplate" : "panzerfaust_60_shell_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "ger_antitank_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "ger_antitank_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "ger_antitank_mine"
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "name" : "paratroopers_mortars_high",
+         "tags": ["high"],
+         "soldiers" : [
+            {
+               "displayedKind" : "mortarman",
+               "inventory" : [
+                  {
+                     "gametemplate" : "m24_grenade_item"
+                  }
+               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "granatwerfer_36_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 20,
+                     "reserveAmmoTemplate" : "wrg_36_item",
+                     "additionalNumReserveAmmos" : [ 20 ],
+                     "additionalReserveAmmoTemplates" : [ "wrg_36_smoke_item" ]
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "engineer",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "ger_normandy_building_tool_gun"
+               },
+               "inventory" : [
+                  {
+                     "gametemplate" : "m24_grenade_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "mortarman",
+               "inventory" : [
+                  {
+                     "gametemplate" : "m24_grenade_item"
+                  }
+               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "granatwerfer_36_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 20,
+                     "reserveAmmoTemplate" : "wrg_36_item",
+                     "additionalNumReserveAmmos" : [ 20 ],
+                     "additionalReserveAmmoTemplates" : [ "wrg_36_smoke_item" ]
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "m24_grenade_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "m24_grenade_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "m24_grenade_item"
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "name" : "paratroopers_scouts_high",
+         "tags": ["high"],
+         "soldiers" : [
+            {
+               "displayedKind" : "sniper",
+               "inventory" : [
+                  {
+                     "gametemplate" : "ger_antipersonnel_mine"
+                  }
+               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "sniper_fg_42_model_2_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "gunSlots" : {
+                        "scope" : "scope_zf_4_fg_42"
+                     },
+                     "numReserveAmmo" : 6,
+                     "reserveAmmoTemplate" : "fg_42_magazine"
+                  }
+               ],
+               "human_weap__weapInitialComponents" : [
+                  {},
+                  {
+                     "gun_spread__maxDeltaAngle" : -30.0,
+                     "gun__shotFreq" : 10.0,
+                     "gun__recoilAmount" : -15.0,
+                     "gun__kineticDamageMult" : 20.0
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "radioman",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "ger_antipersonnel_mine"
+                  }
+               ],
+               "equipment" : {
+                   "radio" : {
+                      "gametemplate" : "feldfu_b_radio_gun",
+                      "slot" : "radio"
+                   }
+               }
+            },
+            {
+               "displayedKind" : "sniper",
+               "inventory" : [
+                  {
+                     "gametemplate" : "ger_antipersonnel_mine"
+                  }
+               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "sniper_fg_42_model_2_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "gunSlots" : {
+                        "scope" : "scope_zf_4_fg_42"
+                     },
+                     "numReserveAmmo" : 6,
+                     "reserveAmmoTemplate" : "fg_42_magazine"
+                  }
+               ],
+               "human_weap__weapInitialComponents" : [
+                  {},
+                  {
+                     "gun_spread__maxDeltaAngle" : -30.0,
+                     "gun__shotFreq" : 10.0,
+                     "gun__recoilAmount" : -15.0,
+                     "gun__kineticDamageMult" : 20.0
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "ger_antipersonnel_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "ger_antipersonnel_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "ger_antipersonnel_mine"
+                  }
+               ]
+            }
+         ]
+      }
+  ],
+  "usa_normandy_event_paratrooper_1" : [
+      {
+         "name" : "paratroopers_assault_smg_high",
+         "tags": ["high"],
+         "soldiers" : [
+            {
+               "displayedKind" : "assault",
+               "inventory" : [
+                  {
+                     "gametemplate" : "medkit_item"
+                  }
+               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "lanchester_32_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 10,
+                     "reserveAmmoTemplate" : "lanchester_magazine"
+                  }
+               ],
+               "human_weap__weapInitialComponents" : [
+                  {},
+                  {
+                     "gun__reloadTime" : -10.0,
+                     "gun__shotFreq" : 15.0,
+                     "gun__recoilAmount" : -10.0,
+                     "gun__kineticDamageMult" : 20.0,
+                     "gun_spread__maxDeltaAngle" : -15.0
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "assault",
+               "inventory" : [
+                  {
+                     "gametemplate" : "medkit_item"
+                  }
+               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "lanchester_32_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 10,
+                     "reserveAmmoTemplate" : "lanchester_magazine"
+                  }
+               ],
+               "human_weap__weapInitialComponents" : [
+                  {},
+                  {
+                     "gun__reloadTime" : -10.0,
+                     "gun__shotFreq" : 15.0,
+                     "gun__recoilAmount" : -10.0,
+                     "gun__kineticDamageMult" : 20.0,
+                     "gun_spread__maxDeltaAngle" : -15.0
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "assault",
+               "inventory" : [
+                  {
+                     "gametemplate" : "medkit_item"
+                  }
+               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "lanchester_32_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 10,
+                     "reserveAmmoTemplate" : "lanchester_magazine"
+                  }
+               ],
+               "human_weap__weapInitialComponents" : [
+                  {},
+                  {
+                     "gun__reloadTime" : -10.0,
+                     "gun__shotFreq" : 15.0,
+                     "gun__recoilAmount" : -10.0,
+                     "gun__kineticDamageMult" : 20.0,
+                     "gun_spread__maxDeltaAngle" : -15.0
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "medkit_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "medkit_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "medkit_item"
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "name" : "paratroopers_antitank_high",
+         "tags": ["high"],
+         "soldiers" : [
+            {
+               "displayedKind" : "anti_tank",
+               "inventory" : [
+                  {
+                     "gametemplate" : "usa_antitank_mine"
+                  }
+               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "m1_bazooka_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 12,
+                     "reserveAmmoTemplate" : "m6a1_bazooka_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "anti_tank",
+               "inventory" : [
+                  {
+                     "gametemplate" : "usa_antitank_mine"
+                  }
+               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "m1_bazooka_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 12,
+                     "reserveAmmoTemplate" : "m6a1_bazooka_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "anti_tank",
+               "inventory" : [
+                  {
+                     "gametemplate" : "usa_antitank_mine"
+                  }
+               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "m1_bazooka_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 12,
+                     "reserveAmmoTemplate" : "m6a1_bazooka_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "usa_antitank_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "usa_antitank_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "usa_antitank_mine"
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "name" : "paratroopers_mortars_high",
+         "tags": ["high"],
+         "soldiers" : [
+            {
+               "displayedKind" : "mortarman",
+               "inventory" : [
+                  {
+                     "gametemplate" : "mk2_grenade_item"
+                  }
+               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "two_inch_mortar_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 20,
+                     "reserveAmmoTemplate" : "two_inch_he_shell_item",
+                     "additionalNumReserveAmmos" : [ 20 ],
+                     "additionalReserveAmmoTemplates" : [ "two_inch_smoke_shell_item" ]
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "engineer",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "usa_building_tool_gun"
+               },
+               "inventory" : [
+                  {
+                     "gametemplate" : "mk2_grenade_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "mortarman",
+               "inventory" : [
+                  {
+                     "gametemplate" : "mk2_grenade_item"
+                  }
+               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "two_inch_mortar_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 20,
+                     "reserveAmmoTemplate" : "two_inch_he_shell_item",
+                     "additionalNumReserveAmmos" : [ 20 ],
+                     "additionalReserveAmmoTemplates" : [ "two_inch_smoke_shell_item" ]
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "mk2_grenade_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "mk2_grenade_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "mk2_grenade_item"
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "name" : "paratroopers_scouts_high",
+         "tags": ["high"],
+         "soldiers" : [
+            {
+               "displayedKind" : "sniper",
+               "inventory" : [
+                  {
+                     "gametemplate" : "usa_antipersonnel_mine"
+                  }
+               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "m1903a1_springfield_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "gunSlots" : {
+                        "scope" : "unertl_8x_sight_item"
+                     },
+                     "numReserveAmmo" : 10,
+                     "reserveAmmoTemplate" : "m1903_springfield_magazine"
+                  }
+               ],
+               "human_weap__weapInitialComponents" : [
+                  {},
+                  {
+                     "gun__kineticDamageMult" : 15.0,
+                     "gun__shotFreq" : 15.0,
+                     "gun_spread__maxDeltaAngle" : -35.0
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "radioman",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "usa_antipersonnel_mine"
+                  }
+               ],
+               "equipment" : {
+                   "radio" : {
+                      "gametemplate" : "scr_300_gun",
+                      "slot" : "radio"
+                   }
+               }
+            },
+            {
+               "displayedKind" : "sniper",
+               "inventory" : [
+                  {
+                     "gametemplate" : "usa_antipersonnel_mine"
+                  }
+               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "m1903a1_springfield_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "gunSlots" : {
+                        "scope" : "unertl_8x_sight_item"
+                     },
+                     "numReserveAmmo" : 10,
+                     "reserveAmmoTemplate" : "m1903_springfield_magazine"
+                  }
+               ],
+               "human_weap__weapInitialComponents" : [
+                  {},
+                  {
+                     "gun__kineticDamageMult" : 15.0,
+                     "gun__shotFreq" : 15.0,
+                     "gun_spread__maxDeltaAngle" : -35.0
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "usa_antipersonnel_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "usa_antipersonnel_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "usa_antipersonnel_mine"
+                  }
+               ]
+            }
+         ]
+      }
+  ],
+  "ger_normandy_event_paratrooper_1" : [
+      {
+         "name" : "paratroopers_assault_high",
+         "tags": ["high"],
+         "soldiers" : [
+            {
+               "displayedKind" : "mgun",
+               "inventory" : [
+                  {
+                     "gametemplate" : "germ_medkit_item"
+                  }
+               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "mg_34_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 4,
+                     "reserveAmmoTemplate" : "mg_42_handheld_magazine"
+                  }
+               ],
+               "human_weap__weapInitialComponents" : [
+                  {},
+                  {
+                     "gun__reloadTime" : -15.0,
+                     "gun__kineticDamageMult" : 10.0,
+                     "gun__shotFreq" : 10.0,
+                     "gun_spread__maxDeltaAngle" : -15.0
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "mgun",
+               "inventory" : [
+                  {
+                     "gametemplate" : "germ_medkit_item"
+                  }
+               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "mg_34_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 4,
+                     "reserveAmmoTemplate" : "mg_42_handheld_magazine"
+                  }
+               ],
+               "human_weap__weapInitialComponents" : [
+                  {},
+                  {
+                     "gun__reloadTime" : -15.0,
+                     "gun__kineticDamageMult" : 10.0,
+                     "gun__shotFreq" : 10.0,
+                     "gun_spread__maxDeltaAngle" : -15.0
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "mgun",
+               "inventory" : [
+                  {
+                     "gametemplate" : "germ_medkit_item"
+                  }
+               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "mg_34_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 4,
+                     "reserveAmmoTemplate" : "mg_42_handheld_magazine"
+                  }
+               ],
+               "human_weap__weapInitialComponents" : [
+                  {},
+                  {
+                     "gun__reloadTime" : -15.0,
+                     "gun__kineticDamageMult" : 10.0,
+                     "gun__shotFreq" : 10.0,
+                     "gun_spread__maxDeltaAngle" : -15.0
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "germ_medkit_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "germ_medkit_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "germ_medkit_item"
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "name" : "paratroopers_antitank_high",
+         "tags": ["high"],
+         "soldiers" : [
+            {
+               "displayedKind" : "anti_tank",
+               "inventory" : [
+                  {
+                     "gametemplate" : "ger_antitank_mine"
+                  }
+               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "panzerfaust_60_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 12,
+                     "reserveAmmoTemplate" : "panzerfaust_60_shell_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "anti_tank",
+               "inventory" : [
+                  {
+                     "gametemplate" : "ger_antitank_mine"
+                  }
+               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "panzerfaust_60_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "gunSlots" : {
+                        "scope" : "scope_m84_item"
+                     },
+                     "numReserveAmmo" : 12,
+                     "reserveAmmoTemplate" : "panzerfaust_60_shell_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "anti_tank",
+               "inventory" : [
+                  {
+                     "gametemplate" : "ger_antitank_mine"
+                  }
+               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "panzerfaust_60_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 12,
+                     "reserveAmmoTemplate" : "panzerfaust_60_shell_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "ger_antitank_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "ger_antitank_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "ger_antitank_mine"
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "name" : "paratroopers_mortars_high",
+         "tags": ["high"],
+         "soldiers" : [
+            {
+               "displayedKind" : "mortarman",
+               "inventory" : [
+                  {
+                     "gametemplate" : "m24_grenade_item"
+                  }
+               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "granatwerfer_36_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 20,
+                     "reserveAmmoTemplate" : "wrg_36_item",
+                     "additionalNumReserveAmmos" : [ 20 ],
+                     "additionalReserveAmmoTemplates" : [ "wrg_36_smoke_item" ]
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "engineer",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "ger_normandy_building_tool_gun"
+               },
+               "inventory" : [
+                  {
+                     "gametemplate" : "m24_grenade_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "mortarman",
+               "inventory" : [
+                  {
+                     "gametemplate" : "m24_grenade_item"
+                  }
+               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "granatwerfer_36_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 20,
+                     "reserveAmmoTemplate" : "wrg_36_item",
+                     "additionalNumReserveAmmos" : [ 20 ],
+                     "additionalReserveAmmoTemplates" : [ "wrg_36_smoke_item" ]
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "m24_grenade_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "m24_grenade_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "m24_grenade_item"
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "name" : "paratroopers_scouts_high",
+         "tags": ["high"],
+         "soldiers" : [
+            {
+               "displayedKind" : "sniper",
+               "inventory" : [
+                  {
+                     "gametemplate" : "ger_antipersonnel_mine"
+                  }
+               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "sniper_gewehr_43_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "gunSlots" : {
+                        "scope" : "scope_zf4_item"
+                     },
+                     "numReserveAmmo" : 10,
+                     "reserveAmmoTemplate" : "gewehr_43_magazine"
+                  }
+               ],
+               "human_weap__weapInitialComponents" : [
+                  {},
+                  {
+                     "gun__kineticDamageMult" : 15.0,
+                     "gun__shotFreq" : 15.0,
+                     "gun_spread__maxDeltaAngle" : -35.0
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "radioman",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "ger_antipersonnel_mine"
+                  }
+               ],
+               "equipment" : {
+                   "radio" : {
+                      "gametemplate" : "feldfu_b_radio_gun",
+                      "slot" : "radio"
+                   }
+               }
+            },
+            {
+               "displayedKind" : "sniper",
+               "inventory" : [
+                  {
+                     "gametemplate" : "ger_antipersonnel_mine"
+                  }
+               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "sniper_gewehr_43_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "gunSlots" : {
+                        "scope" : "scope_zf4_item"
+                     },
+                     "numReserveAmmo" : 10,
+                     "reserveAmmoTemplate" : "gewehr_43_magazine"
+                  }
+               ],
+               "human_weap__weapInitialComponents" : [
+                  {},
+                  {
+                     "gun__kineticDamageMult" : 15.0,
+                     "gun__shotFreq" : 15.0,
+                     "gun_spread__maxDeltaAngle" : -35.0
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "ger_antipersonnel_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "ger_antipersonnel_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "ger_antipersonnel_mine"
+                  }
+               ]
+            }
+         ]
+      }
+  ],  "allies_pacific_event_paratrooper_1" : [
+      {
+         "name" : "paratroopers_assault_high",
+         "tags": ["high"],
+         "soldiers" : [
+            {
+               "displayedKind" : "mgun",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "browning_m1919a6_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 4,
+                     "reserveAmmoTemplate" : "browning_m1919a6_magazine"
+                  }
+               ],
+               "human_weap__weapInitialComponents" : [
+                  {},
+                  {
+                     "gun__reloadTime" : -15.0,
+                     "gun__shotFreq" : 10.0,
+                     "gun_spread__maxDeltaAngle" : -15.0,
+                     "gun__kineticDamageMult" : 10.0
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "medkit_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "mgun",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "browning_m1919a6_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 4,
+                     "reserveAmmoTemplate" : "browning_m1919a6_magazine"
+                  }
+               ],
+               "human_weap__weapInitialComponents" : [
+                  {},
+                  {
+                     "gun__reloadTime" : -15.0,
+                     "gun__shotFreq" : 10.0,
+                     "gun_spread__maxDeltaAngle" : -15.0,
+                     "gun__kineticDamageMult" : 10.0
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "medkit_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "mgun",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "browning_m1919a6_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 4,
+                     "reserveAmmoTemplate" : "browning_m1919a6_magazine"
+                  }
+               ],
+               "human_weap__weapInitialComponents" : [
+                  {},
+                  {
+                     "gun__reloadTime" : -15.0,
+                     "gun__shotFreq" : 10.0,
+                     "gun_spread__maxDeltaAngle" : -15.0,
+                     "gun__kineticDamageMult" : 10.0
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "medkit_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "medkit_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "medkit_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "medkit_item"
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "name" : "paratroopers_antitank_high",
+         "tags": ["high"],
+         "soldiers" : [
+            {
+               "displayedKind" : "anti_tank",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "m9_bazooka_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 12,
+                     "reserveAmmoTemplate" : "m6a3_bazooka_item"
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "usa_antitank_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "anti_tank",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "m9_bazooka_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 12,
+                     "reserveAmmoTemplate" : "m6a3_bazooka_item"
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "usa_antitank_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "anti_tank",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "m9_bazooka_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 12,
+                     "reserveAmmoTemplate" : "m6a3_bazooka_item"
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "usa_antitank_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "usa_antitank_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "usa_antitank_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "usa_antitank_mine"
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "name" : "paratroopers_mortars_high",
+         "tags": ["high"],
+         "soldiers" : [
+            {
+               "displayedKind" : "mortarman",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "m2_mortar_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 20,
+                     "reserveAmmoTemplate" : "m49a2_item",
+                     "additionalNumReserveAmmos" : [ 20 ],
+                     "additionalReserveAmmoTemplates" : [ "m49a2_smoke_item" ]
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "mk2_grenade_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "engineer",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "usa_building_tool_gun"
+               },
+               "inventory" : [
+                  {
+                     "gametemplate" : "mk2_grenade_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "mortarman",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "m2_mortar_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 20,
+                     "reserveAmmoTemplate" : "m49a2_item",
+                     "additionalNumReserveAmmos" : [ 20 ],
+                     "additionalReserveAmmoTemplates" : [ "m49a2_smoke_item" ]
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "mk2_grenade_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "mk2_grenade_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "mk2_grenade_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "mk2_grenade_item"
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "name" : "paratroopers_scouts_high",
+         "tags": ["high"],
+         "soldiers" : [
+            {
+               "displayedKind" : "sniper",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "sniper_m1_garand_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "gunSlots" : {
+                        "scope" : "scope_m84"
+                     },
+                     "numReserveAmmo" : 12,
+                     "reserveAmmoTemplate" : "m1_garand_magazine"
+                  }
+               ],
+               "human_weap__weapInitialComponents" : [
+                  {},
+                  {
+                     "gun_spread__maxDeltaAngle" : -30.0,
+                     "gun__shotFreq" : 10.0,
+                     "gun__recoilAmount" : -15.0,
+                     "gun__kineticDamageMult" : 20.0
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "usa_antipersonnel_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "radioman",
+               "human_weap__weapTemplates" : { },
+               "equipment" : {
+                   "radio" : {
+                      "gametemplate" : "scr_300_gun",
+                      "slot" : "radio"
+                   }
+               },
+               "inventory" : [
+                  {
+                     "gametemplate" : "usa_antipersonnel_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "sniper",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "sniper_m1_garand_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "gunSlots" : {
+                        "scope" : "scope_m84"
+                     },
+                     "numReserveAmmo" : 12,
+                     "reserveAmmoTemplate" : "m1_garand_magazine"
+                  }
+               ],
+               "human_weap__weapInitialComponents" : [
+                  {},
+                  {
+                     "gun_spread__maxDeltaAngle" : -30.0,
+                     "gun__shotFreq" : 10.0,
+                     "gun__recoilAmount" : -15.0,
+                     "gun__kineticDamageMult" : 20.0
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "usa_antipersonnel_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "usa_antipersonnel_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "usa_antipersonnel_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "usa_antipersonnel_mine"
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "name" : "paratroopers_assault_low",
+         "tags": ["low"],
+         "soldiers" : [
+            {
+               "displayedKind" : "mgun",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "browning_m1918_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 10,
+                     "reserveAmmoTemplate" : "browning_m1918_magazine"
+                  }
+               ],
+               "human_weap__weapInitialComponents" : [
+                  {},
+                  {
+                     "gun__reloadTime" : -15.0,
+                     "gun__shotFreq" : 10.0,
+                     "gun_spread__maxDeltaAngle" : -15.0,
+                     "gun__kineticDamageMult" : 10.0
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "medkit_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "mgun",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "browning_m1918_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 10,
+                     "reserveAmmoTemplate" : "browning_m1918_magazine"
+                  }
+               ],
+               "human_weap__weapInitialComponents" : [
+                  {},
+                  {
+                     "gun__reloadTime" : -15.0,
+                     "gun__shotFreq" : 10.0,
+                     "gun_spread__maxDeltaAngle" : -15.0,
+                     "gun__kineticDamageMult" : 10.0
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "medkit_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "mgun",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "browning_m1918_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 10,
+                     "reserveAmmoTemplate" : "browning_m1918_magazine"
+                  }
+               ],
+               "human_weap__weapInitialComponents" : [
+                  {},
+                  {
+                     "gun__reloadTime" : -15.0,
+                     "gun__shotFreq" : 10.0,
+                     "gun_spread__maxDeltaAngle" : -15.0,
+                     "gun__kineticDamageMult" : 10.0
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "medkit_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "medkit_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "medkit_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "medkit_item"
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "name" : "paratroopers_antitank_low",
+         "tags": ["low"],
+         "soldiers" : [
+            {
+               "displayedKind" : "anti_tank",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "m1_bazooka_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 12,
+                     "reserveAmmoTemplate" : "m6a1_bazooka_item"
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "usa_antitank_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "anti_tank",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "m1_bazooka_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 12,
+                     "reserveAmmoTemplate" : "m6a1_bazooka_item"
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "usa_antitank_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "anti_tank",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "m1_bazooka_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 12,
+                     "reserveAmmoTemplate" : "m6a1_bazooka_item"
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "usa_antitank_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "usa_antitank_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "usa_antitank_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "usa_antitank_mine"
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "name" : "paratroopers_mortars_low",
+         "tags": ["low"],
+         "soldiers" : [
+            {
+               "displayedKind" : "mortarman",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "two_inch_mortar_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 20,
+                     "reserveAmmoTemplate" : "two_inch_he_shell_item",
+                     "additionalNumReserveAmmos" : [ 20 ],
+                     "additionalReserveAmmoTemplates" : [ "two_inch_smoke_shell_item" ]
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "mk2_grenade_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "engineer",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "usa_building_tool_gun"
+               },
+               "inventory" : [
+                  {
+                     "gametemplate" : "mk2_grenade_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "mortarman",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "two_inch_mortar_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 20,
+                     "reserveAmmoTemplate" : "two_inch_he_shell_item",
+                     "additionalNumReserveAmmos" : [ 20 ],
+                     "additionalReserveAmmoTemplates" : [ "two_inch_smoke_shell_item" ]
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "mk2_grenade_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "mk2_grenade_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "mk2_grenade_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "mk2_grenade_item"
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "name" : "paratroopers_scouts_low",
+         "tags": ["low"],
+         "soldiers" : [
+            {
+               "displayedKind" : "sniper",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "m1903a4_springfield_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 10,
+                     "reserveAmmoTemplate" : "m1903_springfield_magazine"
+                  }
+               ],
+               "human_weap__weapInitialComponents" : [
+                  {},
+                  {
+                     "gun_spread__maxDeltaAngle" : -35.0,
+                     "gun__shotFreq" : 15.0,
+                     "gun__kineticDamageMult" : 15.0
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "usa_antipersonnel_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "radioman",
+               "human_weap__weapTemplates" : { },
+               "equipment" : {
+                   "radio" : {
+                      "gametemplate" : "scr_300_gun",
+                      "slot" : "radio"
+                   }
+               },
+               "inventory" : [
+                  {
+                     "gametemplate" : "usa_antipersonnel_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "sniper",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "m1903a4_springfield_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 10,
+                     "reserveAmmoTemplate" : "m1903_springfield_magazine"
+                  }
+               ],
+               "human_weap__weapInitialComponents" : [
+                  {},
+                  {
+                     "gun_spread__maxDeltaAngle" : -35.0,
+                     "gun__shotFreq" : 15.0,
+                     "gun__kineticDamageMult" : 15.0
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "usa_antipersonnel_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "usa_antipersonnel_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "usa_antipersonnel_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "usa_antipersonnel_mine"
+                  }
+               ]
+            }
+         ]
+      }
+  ],
+  "axis_pacific_event_paratrooper_1" : [
+      {
+         "name" : "paratroopers_assault_smg_high",
+         "tags": ["high"],
+         "soldiers" : [
+            {
+               "displayedKind" : "assault",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "tokyo_arsenal_model_1927_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 6,
+                     "reserveAmmoTemplate" : "tokyo_arsenal_drum_magazine"
+                  }
+               ],
+               "human_weap__weapInitialComponents" : [
+                  {},
+                  {
+                     "gun__reloadTime" : -10.0,
+                     "gun__shotFreq" : 15.0,
+                     "gun__recoilAmount" : -10.0,
+                     "gun_spread__maxDeltaAngle" : -15.0,
+                     "gun__kineticDamageMult" : 20.0
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "jap_medkit_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "assault",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "tokyo_arsenal_model_1927_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 6,
+                     "reserveAmmoTemplate" : "tokyo_arsenal_drum_magazine"
+                  }
+               ],
+               "human_weap__weapInitialComponents" : [
+                  {},
+                  {
+                     "gun__reloadTime" : -10.0,
+                     "gun__shotFreq" : 15.0,
+                     "gun__recoilAmount" : -10.0,
+                     "gun_spread__maxDeltaAngle" : -15.0,
+                     "gun__kineticDamageMult" : 20.0
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "jap_medkit_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "assault",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "tokyo_arsenal_model_1927_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 6,
+                     "reserveAmmoTemplate" : "tokyo_arsenal_drum_magazine"
+                  }
+               ],
+               "human_weap__weapInitialComponents" : [
+                  {},
+                  {
+                     "gun__reloadTime" : -10.0,
+                     "gun__shotFreq" : 15.0,
+                     "gun__recoilAmount" : -10.0,
+                     "gun_spread__maxDeltaAngle" : -15.0,
+                     "gun__kineticDamageMult" : 20.0
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "jap_medkit_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "jap_medkit_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "jap_medkit_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "jap_medkit_item"
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "name" : "paratroopers_antitank_high",
+         "tags": ["high"],
+         "soldiers" : [
+            {
+               "displayedKind" : "anti_tank",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "type_4_70_at_rocket_launcher_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 12,
+                     "reserveAmmoTemplate" : "type_4_at_7cm_item"
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "jp_antitank_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "anti_tank",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "type_4_70_at_rocket_launcher_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 12,
+                     "reserveAmmoTemplate" : "type_4_at_7cm_item"
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "jp_antitank_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "anti_tank",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "type_4_70_at_rocket_launcher_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 12,
+                     "reserveAmmoTemplate" : "type_4_at_7cm_item"
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "jp_antitank_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "jp_antitank_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "jp_antitank_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "jp_antitank_mine"
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "name" : "paratroopers_mortars_high",
+         "tags": ["high"],
+         "soldiers" : [
+            {
+               "displayedKind" : "mortarman",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "type_89_mortar_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 20,
+                     "reserveAmmoTemplate" : "type_89_mortar_he_shell_item",
+                     "additionalNumReserveAmmos" : [ 20 ],
+                     "additionalReserveAmmoTemplates" : [ "type_89_mortar_smoke_shell_item" ]
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "type_97_grenade_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "engineer",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "jp_building_tool_gun"
+               },
+               "inventory" : [
+                  {
+                     "gametemplate" : "type_97_grenade_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "mortarman",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "type_89_mortar_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 20,
+                     "reserveAmmoTemplate" : "type_89_mortar_he_shell_item",
+                     "additionalNumReserveAmmos" : [ 20 ],
+                     "additionalReserveAmmoTemplates" : [ "type_89_mortar_smoke_shell_item" ]
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "type_97_grenade_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "type_97_grenade_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "type_97_grenade_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "type_97_grenade_item"
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "name" : "paratroopers_scouts_high",
+         "tags": ["high"],
+         "soldiers" : [
+            {
+               "displayedKind" : "sniper",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "arisaka_type_99_early_sniper_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "gunSlots" : {
+                        "scope" : "scope_arisaka_type_99"
+                     },
+                     "numReserveAmmo" : 10,
+                     "reserveAmmoTemplate" : "arisaka_7mm_magazine"
+                  }
+               ],
+               "human_weap__weapInitialComponents" : [
+                  {},
+                  {
+                     "gun_spread__maxDeltaAngle" : -35.0,
+                     "gun__shotFreq" : 15.0,
+                     "gun__kineticDamageMult" : 15.0
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "jp_antipersonnel_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "radioman",
+               "human_weap__weapTemplates" : { },
+               "equipment" : {
+                   "radio" : {
+                      "gametemplate" : "type_94_6_radio_gun",
+                      "slot" : "radio"
+                   }
+               },
+               "inventory" : [
+                  {
+                     "gametemplate" : "jp_antipersonnel_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "sniper",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "arisaka_type_99_early_sniper_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "gunSlots" : {
+                        "scope" : "scope_arisaka_type_99"
+                     },
+                     "numReserveAmmo" : 10,
+                     "reserveAmmoTemplate" : "arisaka_7mm_magazine"
+                  }
+               ],
+               "human_weap__weapInitialComponents" : [
+                  {},
+                  {
+                     "gun_spread__maxDeltaAngle" : -35.0,
+                     "gun__shotFreq" : 15.0,
+                     "gun__kineticDamageMult" : 15.0
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "jp_antipersonnel_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "jp_antipersonnel_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "jp_antipersonnel_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "jp_antipersonnel_mine"
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "name" : "paratroopers_assault_low",
+         "tags": ["low"],
+         "soldiers" : [
+            {
+               "displayedKind" : "mgun",
+               "inventory" : [
+                  {
+                     "gametemplate" : "jap_medkit_item"
+                  }
+               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "type_11_lmg_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 8,
+                     "reserveAmmoTemplate" : "type_11_lmg_magazine"
+                  }
+               ],
+               "human_weap__weapInitialComponents" : [
+                  {},
+                  {
+                     "gun__reloadTime" : -15.0,
+                     "gun__kineticDamageMult" : 10.0,
+                     "gun__shotFreq" : 10.0,
+                     "gun_spread__maxDeltaAngle" : -15.0
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "mgun",
+               "inventory" : [
+                  {
+                     "gametemplate" : "jap_medkit_item"
+                  }
+               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "type_11_lmg_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 8,
+                     "reserveAmmoTemplate" : "type_11_lmg_magazine"
+                  }
+               ],
+               "human_weap__weapInitialComponents" : [
+                  {},
+                  {
+                     "gun__reloadTime" : -15.0,
+                     "gun__kineticDamageMult" : 10.0,
+                     "gun__shotFreq" : 10.0,
+                     "gun_spread__maxDeltaAngle" : -15.0
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "mgun",
+               "inventory" : [
+                  {
+                     "gametemplate" : "jap_medkit_item"
+                  }
+               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "type_11_lmg_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 8,
+                     "reserveAmmoTemplate" : "type_11_lmg_magazine"
+                  }
+               ],
+               "human_weap__weapInitialComponents" : [
+                  {},
+                  {
+                     "gun__reloadTime" : -15.0,
+                     "gun__kineticDamageMult" : 10.0,
+                     "gun__shotFreq" : 10.0,
+                     "gun_spread__maxDeltaAngle" : -15.0
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "jap_medkit_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "jap_medkit_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "jap_medkit_item"
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "name" : "paratroopers_antitank_low",
+         "tags": ["low"],
+         "soldiers" : [
+            {
+               "displayedKind" : "anti_tank",
+               "inventory" : [
+                  {
+                     "gametemplate" : "jp_antitank_mine"
+                  }
+               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "type_5_45_at_rocket_launcher_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 12,
+                     "reserveAmmoTemplate" : "type_5_rocket_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "anti_tank",
+               "inventory" : [
+                  {
+                     "gametemplate" : "jp_antitank_mine"
+                  }
+               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "type_5_45_at_rocket_launcher_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 12,
+                     "reserveAmmoTemplate" : "type_5_rocket_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "anti_tank",
+               "inventory" : [
+                  {
+                     "gametemplate" : "jp_antitank_mine"
+                  }
+               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "type_5_45_at_rocket_launcher_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 12,
+                     "reserveAmmoTemplate" : "type_5_rocket_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "jp_antitank_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "jp_antitank_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "jp_antitank_mine"
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "name" : "paratroopers_mortars_low",
+         "tags": ["low"],
+         "soldiers" : [
+            {
+               "displayedKind" : "mortarman",
+               "inventory" : [
+                  {
+                     "gametemplate" : "type_97_grenade_item"
+                  }
+               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "type_89_mortar_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 20,
+                     "reserveAmmoTemplate" : "type_89_mortar_he_shell_item",
+                     "additionalNumReserveAmmos" : [ 20 ],
+                     "additionalReserveAmmoTemplates" : [ "type_89_mortar_smoke_shell_item" ]
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "engineer",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "jp_building_tool_gun"
+               },
+               "inventory" : [
+                  {
+                     "gametemplate" : "type_97_grenade_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "mortarman",
+               "inventory" : [
+                  {
+                     "gametemplate" : "type_97_grenade_item"
+                  }
+               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "type_89_mortar_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 20,
+                     "reserveAmmoTemplate" : "type_89_mortar_he_shell_item",
+                     "additionalNumReserveAmmos" : [ 20 ],
+                     "additionalReserveAmmoTemplates" : [ "type_89_mortar_smoke_shell_item" ]
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "type_97_grenade_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "type_97_grenade_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "type_97_grenade_item"
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "name" : "paratroopers_scouts_low",
+         "tags": ["low"],
+         "soldiers" : [
+            {
+               "displayedKind" : "sniper",
+               "inventory" : [
+                  {
+                     "gametemplate" : "jp_antipersonnel_mine"
+                  }
+               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "arisaka_type_99_early_sniper_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "gunSlots" : {
+                        "scope" : "scope_arisaka_type_99"
+                     },
+                     "numReserveAmmo" : 10,
+                     "reserveAmmoTemplate" : "arisaka_7mm_magazine"
+                  }
+               ],
+               "human_weap__weapInitialComponents" : [
+                  {},
+                  {
+                     "gun__kineticDamageMult" : 15.0,
+                     "gun__shotFreq" : 15.0,
+                     "gun_spread__maxDeltaAngle" : -35.0
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "radioman",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "jp_antipersonnel_mine"
+                  }
+               ],
+               "equipment" : {
+                   "radio" : {
+                      "gametemplate" : "type_94_6_radio_gun",
+                      "slot" : "radio"
+                   }
+               }
+            },
+            {
+               "displayedKind" : "sniper",
+               "inventory" : [
+                  {
+                     "gametemplate" : "jp_antipersonnel_mine"
+                  }
+               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "arisaka_type_99_early_sniper_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "gunSlots" : {
+                        "scope" : "scope_arisaka_type_99"
+                     },
+                     "numReserveAmmo" : 10,
+                     "reserveAmmoTemplate" : "arisaka_7mm_magazine"
+                  }
+               ],
+               "human_weap__weapInitialComponents" : [
+                  {},
+                  {
+                     "gun__kineticDamageMult" : 15.0,
+                     "gun__shotFreq" : 15.0,
+                     "gun_spread__maxDeltaAngle" : -35.0
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "jp_antipersonnel_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "jp_antipersonnel_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "jp_antipersonnel_mine"
+                  }
+               ]
+            }
+         ]
+      }
+  ],
+  "squad_uk_paratrooper_2_event_2" : [
+      {
+         "name" : "paratroopers_assault_low",
+         "tags": ["low"],
+         "soldiers" : [
+            {
+               "displayedKind" : "mgun",
+               "inventory" : [
+                  {
+                     "gametemplate" : "uk_medkit_item"
+                  }
+               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "bren_mk1_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 6,
+                     "reserveAmmoTemplate" : "bren_mk2_magazine"
+                  }
+               ],
+               "human_weap__weapInitialComponents" : [
+                  {},
+                  {
+                     "gun__reloadTime" : -15.0,
+                     "gun__kineticDamageMult" : 10.0,
+                     "gun__shotFreq" : 10.0,
+                     "gun_spread__maxDeltaAngle" : -15.0
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "mgun",
+               "inventory" : [
+                  {
+                     "gametemplate" : "uk_medkit_item"
+                  }
+               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "bren_mk1_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 6,
+                     "reserveAmmoTemplate" : "bren_mk2_magazine"
+                  }
+               ],
+               "human_weap__weapInitialComponents" : [
+                  {},
+                  {
+                     "gun__reloadTime" : -15.0,
+                     "gun__kineticDamageMult" : 10.0,
+                     "gun__shotFreq" : 10.0,
+                     "gun_spread__maxDeltaAngle" : -15.0
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "mgun",
+               "inventory" : [
+                  {
+                     "gametemplate" : "uk_medkit_item"
+                  }
+               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "bren_mk1_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 6,
+                     "reserveAmmoTemplate" : "bren_mk2_magazine"
+                  }
+               ],
+               "human_weap__weapInitialComponents" : [
+                  {},
+                  {
+                     "gun__reloadTime" : -15.0,
+                     "gun__kineticDamageMult" : 10.0,
+                     "gun__shotFreq" : 10.0,
+                     "gun_spread__maxDeltaAngle" : -15.0
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "uk_medkit_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "uk_medkit_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "uk_medkit_item"
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "name" : "paratroopers_antitank_low",
+         "tags": ["low"],
+         "soldiers" : [
+            {
+               "displayedKind" : "anti_tank",
+               "inventory" : [
+                  {
+                     "gametemplate" : "uk_antitank_mine"
+                  }
+               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "piat_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 12,
+                     "reserveAmmoTemplate" : "piat_shell_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "anti_tank",
+               "inventory" : [
+                  {
+                     "gametemplate" : "uk_antitank_mine"
+                  }
+               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "piat_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 12,
+                     "reserveAmmoTemplate" : "piat_shell_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "anti_tank",
+               "inventory" : [
+                  {
+                     "gametemplate" : "uk_antitank_mine"
+                  }
+               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "piat_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 12,
+                     "reserveAmmoTemplate" : "piat_shell_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "uk_antitank_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "uk_antitank_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "uk_antitank_mine"
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "name" : "paratroopers_mortars_low",
+         "tags": ["low"],
+         "soldiers" : [
+            {
+               "displayedKind" : "mortarman",
+               "inventory" : [
+                  {
+                     "gametemplate" : "uk_mills_grenade_item"
+                  }
+               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "two_inch_mortar_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 20,
+                     "reserveAmmoTemplate" : "two_inch_he_shell_item",
+                     "additionalNumReserveAmmos" : [ 20 ],
+                     "additionalReserveAmmoTemplates" : [ "two_inch_smoke_shell_item" ]
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "engineer",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "uk_building_tool_gun"
+               },
+               "inventory" : [
+                  {
+                     "gametemplate" : "uk_mills_grenade_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "mortarman",
+               "inventory" : [
+                  {
+                     "gametemplate" : "uk_mills_grenade_item"
+                  }
+               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "two_inch_mortar_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 20,
+                     "reserveAmmoTemplate" : "two_inch_he_shell_item",
+                     "additionalNumReserveAmmos" : [ 20 ],
+                     "additionalReserveAmmoTemplates" : [ "two_inch_smoke_shell_item" ]
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "uk_mills_grenade_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "uk_mills_grenade_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "uk_mills_grenade_item"
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "name" : "paratroopers_scouts_low",
+         "tags": ["low"],
+         "soldiers" : [
+            {
+               "displayedKind" : "sniper",
+               "inventory" : [
+                  {
+                     "gametemplate" : "uk_antipersonnel_mine"
+                  }
+               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "lee_enfield_no4_mk1_with_scope_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 6,
+                     "reserveAmmoTemplate" : "lee_enfield_no4_mk1_magazine"
+                  }
+               ],
+               "human_weap__weapInitialComponents" : [
+                  {},
+                  {
+                     "gun__kineticDamageMult" : 15.0,
+                     "gun__shotFreq" : 15.0,
+                     "gun_spread__maxDeltaAngle" : -35.0
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "radioman",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "uk_antipersonnel_mine"
+                  }
+               ],
+               "equipment" : {
+                   "radio" : {
+                      "gametemplate" : "scr_300_gun",
+                      "slot" : "radio"
+                   }
+               }
+            },
+            {
+               "displayedKind" : "sniper",
+               "inventory" : [
+                  {
+                     "gametemplate" : "uk_antipersonnel_mine"
+                  }
+               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "lee_enfield_no4_mk1_with_scope_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 6,
+                     "reserveAmmoTemplate" : "lee_enfield_no4_mk1_magazine"
+                  }
+               ],
+               "human_weap__weapInitialComponents" : [
+                  {},
+                  {
+                     "gun__kineticDamageMult" : 15.0,
+                     "gun__shotFreq" : 15.0,
+                     "gun_spread__maxDeltaAngle" : -35.0
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "uk_antipersonnel_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "uk_antipersonnel_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "uk_antipersonnel_mine"
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "name" : "paratroopers_assault_high",
+         "tags": ["high"],
+         "soldiers" : [
+            {
+               "displayedKind" : "mgun",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "m1941_johnson_mg_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 10,
+                     "reserveAmmoTemplate" : "m1941_johnson_mg_magazine"
+                  }
+               ],
+               "human_weap__weapInitialComponents" : [
+                  {},
+                  {
+                     "gun__reloadTime" : -15.0,
+                     "gun__shotFreq" : 10.0,
+                     "gun_spread__maxDeltaAngle" : -15.0,
+                     "gun__kineticDamageMult" : 10.0
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "uk_medkit_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "mgun",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "m1941_johnson_mg_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 10,
+                     "reserveAmmoTemplate" : "m1941_johnson_mg_magazine"
+                  }
+               ],
+               "human_weap__weapInitialComponents" : [
+                  {},
+                  {
+                     "gun__reloadTime" : -15.0,
+                     "gun__shotFreq" : 10.0,
+                     "gun_spread__maxDeltaAngle" : -15.0,
+                     "gun__kineticDamageMult" : 10.0
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "uk_medkit_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "mgun",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "m1941_johnson_mg_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 10,
+                     "reserveAmmoTemplate" : "m1941_johnson_mg_magazine"
+                  }
+               ],
+               "human_weap__weapInitialComponents" : [
+                  {},
+                  {
+                     "gun__reloadTime" : -15.0,
+                     "gun__shotFreq" : 10.0,
+                     "gun_spread__maxDeltaAngle" : -15.0,
+                     "gun__kineticDamageMult" : 10.0
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "uk_medkit_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "uk_medkit_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "uk_medkit_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "uk_medkit_item"
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "name" : "paratroopers_antitank_high",
+         "tags": ["high"],
+         "soldiers" : [
+            {
+               "displayedKind" : "anti_tank",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "m9_bazooka_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 12,
+                     "reserveAmmoTemplate" : "m6a3_bazooka_item"
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "uk_antitank_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "anti_tank",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "m9_bazooka_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 12,
+                     "reserveAmmoTemplate" : "m6a3_bazooka_item"
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "uk_antitank_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "anti_tank",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "m9_bazooka_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 12,
+                     "reserveAmmoTemplate" : "m6a3_bazooka_item"
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "uk_antitank_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "uk_antitank_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "uk_antitank_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "uk_antitank_mine"
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "name" : "paratroopers_mortars_high",
+         "tags": ["high"],
+         "soldiers" : [
+            {
+               "displayedKind" : "mortarman",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "m2_mortar_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 20,
+                     "reserveAmmoTemplate" : "m49a2_item",
+                     "additionalNumReserveAmmos" : [ 20 ],
+                     "additionalReserveAmmoTemplates" : [ "m49a2_smoke_item" ]
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "uk_mills_grenade_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "engineer",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "uk_building_tool_gun"
+               },
+               "inventory" : [
+                  {
+                     "gametemplate" : "uk_mills_grenade_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "mortarman",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "m2_mortar_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 20,
+                     "reserveAmmoTemplate" : "m49a2_item",
+                     "additionalNumReserveAmmos" : [ 20 ],
+                     "additionalReserveAmmoTemplates" : [ "m49a2_smoke_item" ]
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "uk_mills_grenade_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "uk_mills_grenade_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "uk_mills_grenade_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "uk_mills_grenade_item"
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "name" : "paratroopers_scouts_high",
+         "tags": ["high"],
+         "soldiers" : [
+            {
+               "displayedKind" : "sniper",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "m1c_garand_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "gunSlots" : {
+                        "scope" : "scope_m82"
+                     },
+                     "numReserveAmmo" : 12,
+                     "reserveAmmoTemplate" : "m1_garand_magazine"
+                  }
+               ],
+               "human_weap__weapInitialComponents" : [
+                  {},
+                  {
+                     "gun_spread__maxDeltaAngle" : -30.0,
+                     "gun__shotFreq" : 10.0,
+                     "gun__recoilAmount" : -15.0,
+                     "gun__kineticDamageMult" : 20.0
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "uk_antipersonnel_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "radioman",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "scr_300_gun"
+               },
+               "equipment" : {
+                   "radio" : {
+                      "gametemplate" : "scr_300_gun",
+                      "slot" : "radio"
+                   }
+               },
+               "inventory" : [
+                  {
+                     "gametemplate" : "uk_antipersonnel_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "sniper",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "m1c_garand_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "gunSlots" : {
+                        "scope" : "scope_m82"
+                     },
+                     "numReserveAmmo" : 12,
+                     "reserveAmmoTemplate" : "m1_garand_magazine"
+                  }
+               ],
+               "human_weap__weapInitialComponents" : [
+                  {},
+                  {
+                     "gun_spread__maxDeltaAngle" : -30.0,
+                     "gun__shotFreq" : 10.0,
+                     "gun__recoilAmount" : -15.0,
+                     "gun__kineticDamageMult" : 20.0
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "uk_antipersonnel_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "uk_antipersonnel_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "uk_antipersonnel_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "uk_antipersonnel_mine"
+                  }
+               ]
+            }
+         ]
+      }
+  ],
+  "squad_it_paratrooper_2_event_2" : [
+      {
+         "name" : "paratroopers_assault_high",
+         "tags": ["high"],
+         "soldiers" : [
+            {
+               "displayedKind" : "mgun",
+               "inventory" : [
+                  {
+                     "gametemplate" : "it_medkit_item"
+                  }
+               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "zb_26_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 10,
+                     "reserveAmmoTemplate" : "zb_26_magazine"
+                  }
+               ],
+               "human_weap__weapInitialComponents" : [
+                  {},
+                  {
+                     "gun__reloadTime" : -15.0,
+                     "gun__kineticDamageMult" : 10.0,
+                     "gun__shotFreq" : 10.0,
+                     "gun_spread__maxDeltaAngle" : -15.0
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "mgun",
+               "inventory" : [
+                  {
+                     "gametemplate" : "it_medkit_item"
+                  }
+               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "zb_26_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 10,
+                     "reserveAmmoTemplate" : "zb_26_magazine"
+                  }
+               ],
+               "human_weap__weapInitialComponents" : [
+                  {},
+                  {
+                     "gun__reloadTime" : -15.0,
+                     "gun__kineticDamageMult" : 10.0,
+                     "gun__shotFreq" : 10.0,
+                     "gun_spread__maxDeltaAngle" : -15.0
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "mgun",
+               "inventory" : [
+                  {
+                     "gametemplate" : "it_medkit_item"
+                  }
+               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "zb_26_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 10,
+                     "reserveAmmoTemplate" : "zb_26_magazine"
+                  }
+               ],
+               "human_weap__weapInitialComponents" : [
+                  {},
+                  {
+                     "gun__reloadTime" : -15.0,
+                     "gun__kineticDamageMult" : 10.0,
+                     "gun__shotFreq" : 10.0,
+                     "gun_spread__maxDeltaAngle" : -15.0
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "it_medkit_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "it_medkit_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "it_medkit_item"
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "name" : "paratroopers_antitank_high",
+         "tags": ["high"],
+         "soldiers" : [
+            {
+               "displayedKind" : "anti_tank",
+               "inventory" : [
+                  {
+                     "gametemplate" : "it_antitank_mine"
+                  }
+               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "grb_39_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 40,
+                     "reserveAmmoTemplate" : "gross_panzergranate_46_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "anti_tank",
+               "inventory" : [
+                  {
+                     "gametemplate" : "it_antitank_mine"
+                  }
+               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "grb_39_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 40,
+                     "reserveAmmoTemplate" : "gross_panzergranate_46_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "anti_tank",
+               "inventory" : [
+                  {
+                     "gametemplate" : "it_antitank_mine"
+                  }
+               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "grb_39_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 40,
+                     "reserveAmmoTemplate" : "gross_panzergranate_46_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "it_antitank_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "it_antitank_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "it_antitank_mine"
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "name" : "paratroopers_mortars_high",
+         "tags": ["high"],
+         "soldiers" : [
+            {
+               "displayedKind" : "mortarman",
+               "inventory" : [
+                  {
+                     "gametemplate" : "m24_grenade_item"
+                  }
+               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "granatwerfer_36_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 20,
+                     "reserveAmmoTemplate" : "wrg_36_item",
+                     "additionalNumReserveAmmos" : [ 20 ],
+                     "additionalReserveAmmoTemplates" : [ "wrg_36_smoke_item" ]
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "engineer",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "ger_building_tool_gun"
+               },
+               "inventory" : [
+                  {
+                     "gametemplate" : "m24_grenade_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "mortarman",
+               "inventory" : [
+                  {
+                     "gametemplate" : "m24_grenade_item"
+                  }
+               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "granatwerfer_36_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 20,
+                     "reserveAmmoTemplate" : "wrg_36_item",
+                     "additionalNumReserveAmmos" : [ 20 ],
+                     "additionalReserveAmmoTemplates" : [ "wrg_36_smoke_item" ]
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "m24_grenade_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "m24_grenade_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "m24_grenade_item"
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "name" : "paratroopers_scouts_high",
+         "tags": ["high"],
+         "soldiers" : [
+            {
+               "displayedKind" : "sniper",
+               "inventory" : [
+                  {
+                     "gametemplate" : "it_antipersonnel_mine"
+                  }
+               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "carcano_m91_with_scope_mount_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "gunSlots" : {
+                        "scope" : "scope_carcano_m91_item"
+                     },
+                     "numReserveAmmo" : 10,
+                     "reserveAmmoTemplate" : "carcano_m38_magazine"
+                  }
+               ],
+               "human_weap__weapInitialComponents" : [
+                  {},
+                  {
+                     "gun__kineticDamageMult" : 15.0,
+                     "gun__shotFreq" : 15.0,
+                     "gun_spread__maxDeltaAngle" : -35.0
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "radioman",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "it_antipersonnel_mine"
+                  }
+               ],
+               "equipment" : {
+                   "radio" : {
+                      "gametemplate" : "ita_rf1_radio_gun",
+                      "slot" : "radio"
+                   }
+               }
+            },
+            {
+               "displayedKind" : "sniper",
+               "inventory" : [
+                  {
+                     "gametemplate" : "it_antipersonnel_mine"
+                  }
+               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "carcano_m91_with_scope_mount_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "gunSlots" : {
+                        "scope" : "scope_carcano_m91_item"
+                     },
+                     "numReserveAmmo" : 10,
+                     "reserveAmmoTemplate" : "carcano_m38_magazine"
+                  }
+               ],
+               "human_weap__weapInitialComponents" : [
+                  {},
+                  {
+                     "gun__kineticDamageMult" : 15.0,
+                     "gun__shotFreq" : 15.0,
+                     "gun_spread__maxDeltaAngle" : -35.0
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "it_antipersonnel_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "it_antipersonnel_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "it_antipersonnel_mine"
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "name" : "paratroopers_flametroopers_high",
+         "tags": ["high"],
+         "soldiers" : [
+            {
+               "displayedKind" : "flametrooper",
+               "inventory" : [
+                  {
+                     "gametemplate" : "it_medkit_item"
+                  }
+               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "lanciafiamme_m41_dassalto_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "gunSlots": {},
+                     "numReserveAmmo": 1,
+                     "reserveAmmoTemplate": "lanciafiamme_m41_dassalto_fuel_tank_light"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "flametrooper",
+               "inventory" : [
+                  {
+                     "gametemplate" : "it_medkit_item"
+                  }
+               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "lanciafiamme_m41_dassalto_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "gunSlots": {},
+                     "numReserveAmmo": 1,
+                     "reserveAmmoTemplate": "lanciafiamme_m41_dassalto_fuel_tank_light"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "flametrooper",
+               "inventory" : [
+                  {
+                     "gametemplate" : "it_medkit_item"
+                  }
+               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "lanciafiamme_m41_dassalto_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "gunSlots": {},
+                     "numReserveAmmo": 1,
+                     "reserveAmmoTemplate": "lanciafiamme_m41_dassalto_fuel_tank_light"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "flametrooper",
+               "inventory" : [
+                  {
+                     "gametemplate" : "it_medkit_item"
+                  }
+               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "lanciafiamme_m41_dassalto_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "gunSlots": {},
+                     "numReserveAmmo": 1,
+                     "reserveAmmoTemplate": "lanciafiamme_m41_dassalto_fuel_tank_light"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "flametrooper",
+               "inventory" : [
+                  {
+                     "gametemplate" : "it_medkit_item"
+                  }
+               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "lanciafiamme_m41_dassalto_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "gunSlots": {},
+                     "numReserveAmmo": 1,
+                     "reserveAmmoTemplate": "lanciafiamme_m41_dassalto_fuel_tank_light"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "flametrooper",
+               "inventory" : [
+                  {
+                     "gametemplate" : "it_medkit_item"
+                  }
+               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "lanciafiamme_m41_dassalto_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "gunSlots": {},
+                     "numReserveAmmo": 1,
+                     "reserveAmmoTemplate": "lanciafiamme_m41_dassalto_fuel_tank_light"
+                  }
+               ]
+            }
+         ]
+      }
+  ],
+  "squad_ussr_paratrooper_2_event_1" : [
+      {
+         "name" : "paratroopers_assault_low",
+         "tags": ["low"],
+         "soldiers" : [
+            {
+               "displayedKind" : "mgun",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "madsen_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 8,
+                     "reserveAmmoTemplate" : "madsen_magazine"
+                  }
+               ],
+               "human_weap__weapInitialComponents" : [
+                  {},
+                  {
+                     "gun__reloadTime" : -15.0,
+                     "gun__shotFreq" : 10.0,
+                     "gun_spread__maxDeltaAngle" : -15.0,
+                     "gun__kineticDamageMult" : 10.0
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "ussr_medkit_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "mgun",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "madsen_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 8,
+                     "reserveAmmoTemplate" : "madsen_magazine"
+                  }
+               ],
+               "human_weap__weapInitialComponents" : [
+                  {},
+                  {
+                     "gun__reloadTime" : -15.0,
+                     "gun__shotFreq" : 10.0,
+                     "gun_spread__maxDeltaAngle" : -15.0,
+                     "gun__kineticDamageMult" : 10.0
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "ussr_medkit_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "mgun",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "madsen_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 8,
+                     "reserveAmmoTemplate" : "madsen_magazine"
+                  }
+               ],
+               "human_weap__weapInitialComponents" : [
+                  {},
+                  {
+                     "gun__reloadTime" : -15.0,
+                     "gun__shotFreq" : 10.0,
+                     "gun_spread__maxDeltaAngle" : -15.0,
+                     "gun__kineticDamageMult" : 10.0
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "ussr_medkit_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "ussr_medkit_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "ussr_medkit_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "ussr_medkit_item"
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "name" : "paratroopers_antitank_low",
+         "tags": ["low"],
+         "soldiers" : [
+            {
+               "displayedKind" : "anti_tank",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "ptrs_41_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 8,
+                     "reserveAmmoTemplate" : "ptrs_41_magazine"
+                  }
+               ],
+               "human_weap__weapInitialComponents" : [
+                  {},
+                  {
+                     "gun__recoilAmount" : -20.0,
+                     "gun__reloadTime" : -15.0,
+                     "gun__shotFreq" : 15.0,
+                     "gun_spread__maxDeltaAngle" : -15.0,
+                     "gun__kineticDamageMult" : 15.0
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "ussr_antitank_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "anti_tank",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "ptrs_41_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 8,
+                     "reserveAmmoTemplate" : "ptrs_41_magazine"
+                  }
+               ],
+               "human_weap__weapInitialComponents" : [
+                  {},
+                  {
+                     "gun__recoilAmount" : -20.0,
+                     "gun__reloadTime" : -15.0,
+                     "gun__shotFreq" : 15.0,
+                     "gun_spread__maxDeltaAngle" : -15.0,
+                     "gun__kineticDamageMult" : 15.0
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "ussr_antitank_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "anti_tank",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "ptrs_41_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 8,
+                     "reserveAmmoTemplate" : "ptrs_41_magazine"
+                  }
+               ],
+               "human_weap__weapInitialComponents" : [
+                  {},
+                  {
+                     "gun__recoilAmount" : -20.0,
+                     "gun__reloadTime" : -15.0,
+                     "gun__shotFreq" : 15.0,
+                     "gun_spread__maxDeltaAngle" : -15.0,
+                     "gun__kineticDamageMult" : 15.0
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "ussr_antitank_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "ussr_antitank_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "ussr_antitank_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "ussr_antitank_mine"
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "name" : "paratroopers_mortars_low",
+         "tags": ["low"],
+         "soldiers" : [
+            {
+               "displayedKind" : "mortarman",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "mortar_rm_40_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 20,
+                     "reserveAmmoTemplate" : "mine_o822_mp_item",
+                     "additionalNumReserveAmmos" : [ 20 ],
+                     "additionalReserveAmmoTemplates" : [ "mine_o822_mp_smoke_item" ]
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "f1_grenade_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "engineer",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "ussr_building_tool_gun"
+               },
+               "inventory" : [
+                  {
+                     "gametemplate" : "f1_grenade_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "mortarman",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "mortar_rm_40_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 20,
+                     "reserveAmmoTemplate" : "mine_o822_mp_item",
+                     "additionalNumReserveAmmos" : [ 20 ],
+                     "additionalReserveAmmoTemplates" : [ "mine_o822_mp_smoke_item" ]
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "f1_grenade_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "f1_grenade_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "f1_grenade_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "f1_grenade_item"
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "name" : "paratroopers_scouts_low",
+         "tags": ["low"],
+         "soldiers" : [
+            {
+               "displayedKind" : "sniper",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "sniper_svt_38_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "gunSlots" : {
+                        "scope" : "scope_svt_pu"
+                     },
+                     "numReserveAmmo" : 10,
+                     "reserveAmmoTemplate" : "svt_40_magazine"
+                  }
+               ],
+               "human_weap__weapInitialComponents" : [
+                  {},
+                  {
+                     "gun_spread__maxDeltaAngle" : -30.0,
+                     "gun__shotFreq" : 10.0,
+                     "gun__recoilAmount" : -15.0,
+                     "gun__kineticDamageMult" : 20.0
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "ussr_antipersonnel_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "radioman",
+               "human_weap__weapTemplates" : { },
+               "equipment" : {
+                   "radio" : {
+                      "gametemplate" : "ussr_p13_radio_gun",
+                      "slot" : "radio"
+                   }
+               },
+               "inventory" : [
+                  {
+                     "gametemplate" : "ussr_antipersonnel_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "sniper",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "sniper_svt_38_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "gunSlots" : {
+                        "scope" : "scope_svt_pu"
+                     },
+                     "numReserveAmmo" : 10,
+                     "reserveAmmoTemplate" : "svt_40_magazine"
+                  }
+               ],
+               "human_weap__weapInitialComponents" : [
+                  {},
+                  {
+                     "gun_spread__maxDeltaAngle" : -30.0,
+                     "gun__shotFreq" : 10.0,
+                     "gun__recoilAmount" : -15.0,
+                     "gun__kineticDamageMult" : 20.0
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "ussr_antipersonnel_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "ussr_antipersonnel_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "ussr_antipersonnel_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "ussr_antipersonnel_mine"
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "name" : "paratroopers_assault_high",
+         "tags": ["high"],
+         "soldiers" : [
+            {
+               "displayedKind" : "mgun",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "rd_44_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 4,
+                     "reserveAmmoTemplate" : "rd_44_magazine"
+                  }
+               ],
+               "human_weap__weapInitialComponents" : [
+                  {},
+                  {
+                     "gun__reloadTime" : -15.0,
+                     "gun__shotFreq" : 10.0,
+                     "gun_spread__maxDeltaAngle" : -15.0,
+                     "gun__kineticDamageMult" : 10.0
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "ussr_medkit_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "mgun",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "rd_44_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 4,
+                     "reserveAmmoTemplate" : "rd_44_magazine"
+                  }
+               ],
+               "human_weap__weapInitialComponents" : [
+                  {},
+                  {
+                     "gun__reloadTime" : -15.0,
+                     "gun__shotFreq" : 10.0,
+                     "gun_spread__maxDeltaAngle" : -15.0,
+                     "gun__kineticDamageMult" : 10.0
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "ussr_medkit_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "mgun",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "rd_44_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 4,
+                     "reserveAmmoTemplate" : "rd_44_magazine"
+                  }
+               ],
+               "human_weap__weapInitialComponents" : [
+                  {},
+                  {
+                     "gun__reloadTime" : -15.0,
+                     "gun__shotFreq" : 10.0,
+                     "gun_spread__maxDeltaAngle" : -15.0,
+                     "gun__kineticDamageMult" : 10.0
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "ussr_medkit_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "ussr_medkit_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "ussr_medkit_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "ussr_medkit_item"
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "name" : "paratroopers_antitank_high",
+         "tags": ["high"],
+         "soldiers" : [
+            {
+               "displayedKind" : "anti_tank",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "panzerfaust_60_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 12,
+                     "reserveAmmoTemplate" : "panzerfaust_60_shell_item"
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "ussr_antitank_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "anti_tank",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "panzerfaust_60_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 12,
+                     "reserveAmmoTemplate" : "panzerfaust_60_shell_item"
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "ussr_antitank_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "anti_tank",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "panzerfaust_60_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 12,
+                     "reserveAmmoTemplate" : "panzerfaust_60_shell_item"
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "ussr_antitank_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "ussr_antitank_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "ussr_antitank_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "ussr_antitank_mine"
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "name" : "paratroopers_mortars_high",
+         "tags": ["high"],
+         "soldiers" : [
+            {
+               "displayedKind" : "mortarman",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "mortar_rm_40_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 20,
+                     "reserveAmmoTemplate" : "mine_o822_mp_item",
+                     "additionalNumReserveAmmos" : [ 20 ],
+                     "additionalReserveAmmoTemplates" : [ "mine_o822_mp_smoke_item" ]
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "f1_grenade_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "engineer",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "ussr_building_tool_gun"
+               },
+               "inventory" : [
+                  {
+                     "gametemplate" : "f1_grenade_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "mortarman",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "mortar_rm_40_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 20,
+                     "reserveAmmoTemplate" : "mine_o822_mp_item",
+                     "additionalNumReserveAmmos" : [ 20 ],
+                     "additionalReserveAmmoTemplates" : [ "mine_o822_mp_smoke_item" ]
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "f1_grenade_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "f1_grenade_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "f1_grenade_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "f1_grenade_item"
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "name" : "paratroopers_scouts_high",
+         "tags": ["high"],
+         "soldiers" : [
+            {
+               "displayedKind" : "sniper",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "sniper_svt_40_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "gunSlots" : {
+                        "scope" : "scope_svt_pu"
+                     },
+                     "numReserveAmmo" : 10,
+                     "reserveAmmoTemplate" : "svt_40_magazine"
+                  }
+               ],
+               "human_weap__weapInitialComponents" : [
+                  {},
+                  {
+                     "gun_spread__maxDeltaAngle" : -30.0,
+                     "gun__shotFreq" : 10.0,
+                     "gun__recoilAmount" : -15.0,
+                     "gun__kineticDamageMult" : 20.0
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "ussr_antipersonnel_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "radioman",
+               "human_weap__weapTemplates" : { },
+               "equipment" : {
+                   "radio" : {
+                      "gametemplate" : "ussr_p13_radio_gun",
+                      "slot" : "radio"
+                   }
+               },
+               "inventory" : [
+                  {
+                     "gametemplate" : "ussr_antipersonnel_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "sniper",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "sniper_svt_40_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "gunSlots" : {
+                        "scope" : "scope_svt_pu"
+                     },
+                     "numReserveAmmo" : 10,
+                     "reserveAmmoTemplate" : "svt_40_magazine"
+                  }
+               ],
+               "human_weap__weapInitialComponents" : [
+                  {},
+                  {
+                     "gun_spread__maxDeltaAngle" : -30.0,
+                     "gun__shotFreq" : 10.0,
+                     "gun__recoilAmount" : -15.0,
+                     "gun__kineticDamageMult" : 20.0
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "ussr_antipersonnel_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "ussr_antipersonnel_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "ussr_antipersonnel_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "ussr_antipersonnel_mine"
+                  }
+               ]
+            }
+         ]
+      }
+  ],
+  "squad_ussr_paratrooper_2_premium_1" : [
+      {
+         "name" : "paratroopers_assault_low",
+         "tags": ["low"],
+         "soldiers" : [
+            {
+               "displayedKind" : "mgun",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "dp_27_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 4,
+                     "reserveAmmoTemplate" : "dp_27_magazine"
+                  }
+               ],
+               "human_weap__weapInitialComponents" : [
+                  {},
+                  {
+                     "gun__reloadTime" : -15.0,
+                     "gun__shotFreq" : 10.0,
+                     "gun_spread__maxDeltaAngle" : -15.0,
+                     "gun__kineticDamageMult" : 10.0
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "ussr_medkit_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "mgun",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "dp_27_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 4,
+                     "reserveAmmoTemplate" : "dp_27_magazine"
+                  }
+               ],
+               "human_weap__weapInitialComponents" : [
+                  {},
+                  {
+                     "gun__reloadTime" : -15.0,
+                     "gun__shotFreq" : 10.0,
+                     "gun_spread__maxDeltaAngle" : -15.0,
+                     "gun__kineticDamageMult" : 10.0
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "ussr_medkit_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "mgun",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "dp_27_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 4,
+                     "reserveAmmoTemplate" : "dp_27_magazine"
+                  }
+               ],
+               "human_weap__weapInitialComponents" : [
+                  {},
+                  {
+                     "gun__reloadTime" : -15.0,
+                     "gun__shotFreq" : 10.0,
+                     "gun_spread__maxDeltaAngle" : -15.0,
+                     "gun__kineticDamageMult" : 10.0
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "ussr_medkit_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "ussr_medkit_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "ussr_medkit_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "ussr_medkit_item"
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "name" : "paratroopers_antitank_low",
+         "tags": ["low"],
+         "soldiers" : [
+            {
+               "displayedKind" : "anti_tank",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "panzerfaust_60_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 12,
+                     "reserveAmmoTemplate" : "panzerfaust_60_shell_item"
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "ussr_antitank_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "anti_tank",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "panzerfaust_60_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 12,
+                     "reserveAmmoTemplate" : "panzerfaust_60_shell_item"
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "ussr_antitank_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "anti_tank",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "panzerfaust_60_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 12,
+                     "reserveAmmoTemplate" : "panzerfaust_60_shell_item"
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "ussr_antitank_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "ussr_antitank_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "ussr_antitank_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "ussr_antitank_mine"
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "name" : "paratroopers_mortars_low",
+         "tags": ["low"],
+         "soldiers" : [
+            {
+               "displayedKind" : "mortarman",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "mortar_rm_40_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 20,
+                     "reserveAmmoTemplate" : "mine_o822_mp_item",
+                     "additionalNumReserveAmmos" : [ 20 ],
+                     "additionalReserveAmmoTemplates" : [ "mine_o822_mp_smoke_item" ]
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "f1_grenade_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "engineer",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "ussr_building_tool_gun"
+               },
+               "inventory" : [
+                  {
+                     "gametemplate" : "f1_grenade_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "mortarman",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "mortar_rm_40_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 20,
+                     "reserveAmmoTemplate" : "mine_o822_mp_item",
+                     "additionalNumReserveAmmos" : [ 20 ],
+                     "additionalReserveAmmoTemplates" : [ "mine_o822_mp_smoke_item" ]
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "f1_grenade_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "f1_grenade_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "f1_grenade_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "f1_grenade_item"
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "name" : "paratroopers_scouts_low",
+         "tags": ["low"],
+         "soldiers" : [
+            {
+               "displayedKind" : "sniper",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "sniper_svt_38_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "gunSlots" : {
+                        "scope" : "scope_svt_pu"
+                     },
+                     "numReserveAmmo" : 10,
+                     "reserveAmmoTemplate" : "svt_40_magazine"
+                  }
+               ],
+               "human_weap__weapInitialComponents" : [
+                  {},
+                  {
+                     "gun_spread__maxDeltaAngle" : -30.0,
+                     "gun__shotFreq" : 10.0,
+                     "gun__recoilAmount" : -15.0,
+                     "gun__kineticDamageMult" : 20.0
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "ussr_antipersonnel_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "radioman",
+               "human_weap__weapTemplates" : { },
+               "equipment" : {
+                   "radio" : {
+                      "gametemplate" : "ussr_p13_radio_gun",
+                      "slot" : "radio"
+                   }
+               },
+               "inventory" : [
+                  {
+                     "gametemplate" : "ussr_antipersonnel_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "sniper",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "sniper_svt_38_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "gunSlots" : {
+                        "scope" : "scope_svt_pu"
+                     },
+                     "numReserveAmmo" : 10,
+                     "reserveAmmoTemplate" : "svt_40_magazine"
+                  }
+               ],
+               "human_weap__weapInitialComponents" : [
+                  {},
+                  {
+                     "gun_spread__maxDeltaAngle" : -30.0,
+                     "gun__shotFreq" : 10.0,
+                     "gun__recoilAmount" : -15.0,
+                     "gun__kineticDamageMult" : 20.0
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "ussr_antipersonnel_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "ussr_antipersonnel_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "ussr_antipersonnel_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "ussr_antipersonnel_mine"
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "name" : "paratroopers_assault_high",
+         "tags": ["high"],
+         "soldiers" : [
+            {
+               "displayedKind" : "mgun",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "dt_29_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 4,
+                     "reserveAmmoTemplate" : "dt_29_magazine"
+                  }
+               ],
+               "human_weap__weapInitialComponents" : [
+                  {},
+                  {
+                     "gun__reloadTime" : -15.0,
+                     "gun__shotFreq" : 10.0,
+                     "gun_spread__maxDeltaAngle" : -15.0,
+                     "gun__kineticDamageMult" : 10.0
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "ussr_medkit_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "mgun",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "dt_29_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 4,
+                     "reserveAmmoTemplate" : "dt_29_magazine"
+                  }
+               ],
+               "human_weap__weapInitialComponents" : [
+                  {},
+                  {
+                     "gun__reloadTime" : -15.0,
+                     "gun__shotFreq" : 10.0,
+                     "gun_spread__maxDeltaAngle" : -15.0,
+                     "gun__kineticDamageMult" : 10.0
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "ussr_medkit_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "mgun",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "dt_29_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 4,
+                     "reserveAmmoTemplate" : "dt_29_magazine"
+                  }
+               ],
+               "human_weap__weapInitialComponents" : [
+                  {},
+                  {
+                     "gun__reloadTime" : -15.0,
+                     "gun__shotFreq" : 10.0,
+                     "gun_spread__maxDeltaAngle" : -15.0,
+                     "gun__kineticDamageMult" : 10.0
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "ussr_medkit_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "ussr_medkit_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "ussr_medkit_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "ussr_medkit_item"
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "name" : "paratroopers_antitank_high",
+         "tags": ["high"],
+         "soldiers" : [
+            {
+               "displayedKind" : "anti_tank",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "panzerfaust_100_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 10,
+                     "reserveAmmoTemplate" : "panzerfaust_100_shell_item"
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "ussr_antitank_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "anti_tank",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "panzerfaust_100_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 10,
+                     "reserveAmmoTemplate" : "panzerfaust_100_shell_item"
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "ussr_antitank_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "anti_tank",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "panzerfaust_100_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 10,
+                     "reserveAmmoTemplate" : "panzerfaust_100_shell_item"
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "ussr_antitank_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "ussr_antitank_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "ussr_antitank_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "ussr_antitank_mine"
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "name" : "paratroopers_mortars_high",
+         "tags": ["high"],
+         "soldiers" : [
+            {
+               "displayedKind" : "mortarman",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "bm_41_mortar_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 20,
+                     "reserveAmmoTemplate" : "mine_o832_item",
+                     "additionalNumReserveAmmos" : [ 20 ],
+                     "additionalReserveAmmoTemplates" : [ "mine_o832_smoke_item" ]
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "f1_grenade_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "engineer",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "ussr_building_tool_gun"
+               },
+               "inventory" : [
+                  {
+                     "gametemplate" : "f1_grenade_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "mortarman",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "bm_41_mortar_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "numReserveAmmo" : 20,
+                     "reserveAmmoTemplate" : "mine_o832_item",
+                     "additionalNumReserveAmmos" : [ 20 ],
+                     "additionalReserveAmmoTemplates" : [ "mine_o832_smoke_item" ]
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "f1_grenade_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "f1_grenade_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "f1_grenade_item"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "f1_grenade_item"
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "name" : "paratroopers_scouts_high",
+         "tags": ["high"],
+         "soldiers" : [
+            {
+               "displayedKind" : "sniper",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "sniper_avs_36_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "gunSlots" : {
+                        "scope" : "scope_avs_36_pe"
+                     },
+                     "numReserveAmmo" : 8,
+                     "reserveAmmoTemplate" : "avs_36_magazine"
+                  }
+               ],
+               "human_weap__weapInitialComponents" : [
+                  {},
+                  {
+                     "gun_spread__maxDeltaAngle" : -30.0,
+                     "gun__shotFreq" : 10.0,
+                     "gun__recoilAmount" : -15.0,
+                     "gun__kineticDamageMult" : 20.0
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "ussr_antipersonnel_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "radioman",
+               "human_weap__weapTemplates" : { },
+               "equipment" : {
+                   "radio" : {
+                      "gametemplate" : "ussr_p13_radio_gun",
+                      "slot" : "radio"
+                   }
+               },
+               "inventory" : [
+                  {
+                     "gametemplate" : "ussr_antipersonnel_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "sniper",
+               "human_weap__weapTemplates" : {
+                  "secondary" : "sniper_avs_36_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "gunSlots" : {
+                        "scope" : "scope_avs_36_pe"
+                     },
+                     "numReserveAmmo" : 8,
+                     "reserveAmmoTemplate" : "avs_36_magazine"
+                  }
+               ],
+               "human_weap__weapInitialComponents" : [
+                  {},
+                  {
+                     "gun_spread__maxDeltaAngle" : -30.0,
+                     "gun__shotFreq" : 10.0,
+                     "gun__recoilAmount" : -15.0,
+                     "gun__kineticDamageMult" : 20.0
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "ussr_antipersonnel_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "ussr_antipersonnel_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "ussr_antipersonnel_mine"
+                  }
+               ]
+            },
+            {
+               "displayedKind" : "paratrooper",
+               "human_weap__weapTemplates" : { },
+               "inventory" : [
+                  {
+                     "gametemplate" : "ussr_antipersonnel_mine"
+                  }
+               ]
+            }
+         ]
+      }
+  ],
+  "default" : [
+      {
+         "name" : "paratroopers_default",
+         "soldiers" : [
+            {
+               "displayedKind" : "sniper",
+               "inventory" : [
+                  {
+                     "gametemplate" : "medkit_item"
+                  },
+                  {
+                     "gametemplate" : "anm8_smoke_grenade_item"
+                  }
+               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "sniper_m1_garand_gun"
+               },
+               "human_weap__weapInfo" : [
+                  {},
+                  {
+                     "gunSlots" : {
+                        "scope" : "scope_m84_item"
+                     },
+                     "numReserveAmmo" : 12,
+                     "reserveAmmoTemplate" : "m1_garand_magazine"
+                  }
+               ],
+               "human_weap__weapInitialComponents" : [
+                  {},
+                  {
+                     "gun__kineticDamageMult" : 20.0,
+                     "gun__recoilAmount" : -15.0,
+                     "gun__shotFreq" : 10.0,
+                     "gun_spread__maxDeltaAngle" : -30.0
+                  }
+               ]
+            }
+         ]
+      }
+  ]
+}

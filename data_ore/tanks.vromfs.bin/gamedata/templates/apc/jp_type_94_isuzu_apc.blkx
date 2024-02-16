@@ -1,0 +1,617 @@
+{
+  "jp_type_94_isuzu_apc": {
+    "_use": "jp_type_94_isuzu_apc_common",
+    "disableDMParts:list<t>": [
+      {
+        "part": "commander"
+      },
+      {
+        "part": "driver"
+      },
+      {
+        "part": "ex_decor_l_05"
+      },
+      {
+        "part": "ex_decor_r_07"
+      },
+      {
+        "part": "ex_decor_l_03"
+      }
+    ]
+  },
+  "jp_type_94_isuzu_apc_common": [
+    {
+      "_use": "base_tank_without_no_gun_xray"
+    },
+    {
+      "_use": "base_xray"
+    },
+    {
+      "_use": "vehicle_steering_assist"
+    },
+    {
+      "_use": "apc_engine_sound"
+    },
+    {
+      "_use": "apc_with_wheels_vehicle_tracks_sound"
+    },
+    {
+      "_use": "car_vehicle_suspension_sound"
+    },
+    {
+      "_use": "car_vehicle_brakes_sound"
+    },
+    {
+      "_use": "car_vehicle_seat_sound"
+    },
+    {
+      "_use": "car_vehicle_gear_sound"
+    },
+    {
+      "_use": "car_vehicle_horn_sound"
+    },
+    {
+      "_use": "forestall"
+    },
+    {
+      "_use": "vehicle_horn_note_D5"
+    },
+    {
+      "_use": "apc_settings"
+    },
+    {
+      "_use": "dm_parts_repair"
+    },
+    {
+      "_use": "vehicle_maintenance"
+    },
+    {
+      "_use": "halftrack_seats"
+    },
+    {
+      "killLogName": "type_94_isuzu_apc"
+    },
+    {
+      "vehicleType": "truck"
+    },
+    {
+      "vehicleName": "type_94_isuzu_apc"
+    },
+    {
+      "animchar__res": "type_94_isuzu_char"
+    },
+    {
+      "collres__res": "type_94_isuzu_collision"
+    },
+    {
+      "vehicle_net_phys__blk": "gamedata/gen/units/tanks/type_94_isuzu_apc.blk:VehiclePhys"
+    },
+    {
+      "damage_model__blk": "gamedata/gen/units/tanks/type_94_isuzu_apc.blk"
+    },
+    {
+      "particle_phys__blk": "gamedata/suspension/empty.blk"
+    },
+    {
+      "dmg_animchar__res": "type_94_isuzu_dmg_char"
+    },
+    {
+      "xray_resource__modelName": "type_94_isuzu"
+    },
+    {
+      "drowningHeight": 1.84
+    },
+    {
+      "item__name": "items/type_94_isuzu"
+    },
+    {
+      "vehicle_seats__exitTime": 1.0
+    },
+    {
+      "vehicle_seats__enterTime": 2.0
+    },
+    {
+      "item__iconOffset": [-0.0,-0.02]
+    },
+    {
+      "item__iconScale": 1.2
+    },
+    {
+      "commanderCockpitFpsCamMaxAngle": [40.0,5.0]
+    },
+    {
+      "gunner_cam_limit__useCockpitDir": true
+    },
+    {
+      "vehicle_commander_cam__attachToVehicle": true
+    },
+    {
+      "dm_parts_repair_names:list<t>": [
+        {
+          "part": "engine"
+        },
+        {
+          "part": "transmission"
+        },
+        {
+          "part": "wheel_l_back"
+        },
+        {
+          "part": "wheel_l_front"
+        },
+        {
+          "part": "wheel_l_drive"
+        },
+        {
+          "part": "wheel_r_back"
+        },
+        {
+          "part": "wheel_r_front"
+        },
+        {
+          "part": "wheel_r_drive"
+        },
+        {
+          "part": "wheel_r_01"
+        },
+        {
+          "part": "wheel_r_02"
+        },
+        {
+          "part": "wheel_r_03"
+        },
+        {
+          "part": "wheel_r_04"
+        },
+        {
+          "part": "wheel_r_05"
+        },
+        {
+          "part": "wheel_r_06"
+        },
+        {
+          "part": "wheel_r_07"
+        },
+        {
+          "part": "wheel_r_08"
+        },
+        {
+          "part": "wheel_l_01"
+        },
+        {
+          "part": "wheel_l_02"
+        },
+        {
+          "part": "wheel_l_03"
+        },
+        {
+          "part": "wheel_l_04"
+        },
+        {
+          "part": "wheel_l_05"
+        },
+        {
+          "part": "wheel_l_06"
+        },
+        {
+          "part": "wheel_l_07"
+        },
+        {
+          "part": "wheel_l_08"
+        }
+      ]
+    },
+    {
+      "dm_parts__repairGroups:object": []
+    },
+    {
+      "vehicle_seats__effectors:array": []
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "animchar_camera_target__node_name": "bone_camera_driver",
+        "animchar_camera_target__node_offset": [0.0,0.0,0.0]
+      }
+    },
+    {
+      "vehicle_seats__seatsProvideOrder:tag": []
+    },
+    {
+      "vehicle_seats__seats:shared:array": [
+        {
+          "seats:object": {
+            "name": "driver",
+            "locName": "vehicle_seats/driver",
+            "seatOwnsEntityControl": true,
+            "attachNode": "bone_camera_driver",
+            "ignoreAttachNodeRotation": true,
+            "attachTm": [
+              [0.921781,-0.229824,-0.0],
+              [0.229824,0.921781,0.0],
+              [0.0,-0.0,0.95],
+              [-0.88,-0.65,0.11]
+            ],
+            "seatComponent": "isDriver",
+            "nextSeat": "main_gunner",
+            "shouldHideOwner": false,
+            "receiveDamageFromDMPart": "driver",
+            "cameraNodeName": "bone_camera_driver",
+            "seatAnimUpper": "drive_passenger",
+            "seatAnimLower": "drive_passenger",
+            "cameraType": "commander",
+            "cameraOffset": [-0.6,0.12,-0.12],
+            "isHoldGunModeAllowed": false,
+            "canPlaceOnlyOwner": true,
+            "canPlaceManually": true,
+            "effectors:object": {
+              "r.hand": "righthand_1",
+              "l.hand": "lefthand_1",
+              "r.foot": "pedal_rfoot_1",
+              "l.foot": "pedal_lfoot_1"
+            }
+          }
+        },
+        {
+          "seats:object": {
+            "name": "passenger",
+            "attachNode": "root",
+            "locName": "vehicle_seats/shooter",
+            "ignoreAttachNodeRotation": true,
+            "attachTm": [
+              [-5.95035e-08,1.13494e-13,1.0],
+              [-1.01246e-20,1.0,-1.13241e-13],
+              [-1.0,0.0,-5.95205e-08],
+              [-0.2,1.32,-0.8]
+            ],
+            "seatComponent": "isPassenger",
+            "shouldHideOwner": false,
+            "cameraNodeName": "bone_camera_driver",
+            "canPlaceManually": true,
+            "seatEnum": "stool_seat"
+          }
+        },
+        {
+          "seats:object": {
+            "name": "passenger",
+            "attachNode": "root",
+            "locName": "vehicle_seats/shooter",
+            "ignoreAttachNodeRotation": true,
+            "attachTm": [
+              [-5.95263e-08,0.0,-1.0],
+              [0.0,1.0,0.0],
+              [1.0,0.0,-5.953e-08],
+              [-0.2,1.32,0.8]
+            ],
+            "seatComponent": "isPassenger",
+            "shouldHideOwner": false,
+            "cameraNodeName": "bone_camera_driver",
+            "canPlaceManually": true,
+            "seatEnum": "stool_seat"
+          }
+        },
+        {
+          "seats:object": {
+            "name": "passenger",
+            "attachNode": "root",
+            "locName": "vehicle_seats/shooter",
+            "ignoreAttachNodeRotation": true,
+            "attachTm": [
+              [-5.95035e-08,1.13494e-13,1.0],
+              [-1.01246e-20,1.0,-1.13241e-13],
+              [-1.0,0.0,-5.95205e-08],
+              [-0.7,1.32,-0.8]
+            ],
+            "seatComponent": "isPassenger",
+            "shouldHideOwner": false,
+            "cameraNodeName": "bone_camera_driver",
+            "canPlaceManually": true,
+            "seatEnum": "stool_seat"
+          }
+        },
+        {
+          "seats:object": {
+            "name": "passenger",
+            "attachNode": "root",
+            "locName": "vehicle_seats/shooter",
+            "ignoreAttachNodeRotation": true,
+            "attachTm": [
+              [-5.95263e-08,0.0,-1.0],
+              [0.0,1.0,0.0],
+              [1.0,0.0,-5.953e-08],
+              [-0.7,1.32,0.8]
+            ],
+            "seatComponent": "isPassenger",
+            "shouldHideOwner": false,
+            "cameraNodeName": "bone_camera_driver",
+            "canPlaceManually": true,
+            "seatEnum": "stool_seat"
+          }
+        },
+        {
+          "seats:object": {
+            "name": "passenger",
+            "attachNode": "root",
+            "locName": "vehicle_seats/shooter",
+            "ignoreAttachNodeRotation": true,
+            "attachTm": [
+              [-5.95035e-08,1.13494e-13,1.0],
+              [-1.01246e-20,1.0,-1.13241e-13],
+              [-1.0,0.0,-5.95205e-08],
+              [-1.2,1.32,-0.8]
+            ],
+            "seatComponent": "isPassenger",
+            "shouldHideOwner": false,
+            "cameraNodeName": "bone_camera_driver",
+            "canPlaceManually": true,
+            "seatEnum": "stool_seat"
+          }
+        },
+        {
+          "seats:object": [
+            {
+              "name": "passenger"
+            },
+            {
+              "locName": "vehicle_seats/shooter"
+            },
+            {
+              "seatOwnsEntityControl": false
+            },
+            {
+              "attachNode": "bone_camera_driver"
+            },
+            {
+              "entranceNode": "char_passenger_landing"
+            },
+            {
+              "attachTm": [
+                [0.968633,-0.207911,0.136131],
+                [0.205891,0.978169,0.0289359],
+                [-0.139172,-7.16428e-08,0.990271],
+                [-0.95,-0.67,0.78]
+              ]
+            },
+            {
+              "seatComponent": "isPassenger"
+            },
+            {
+              "nextSeat": "passenger2"
+            },
+            {
+              "seatEnum": "stool_seat"
+            },
+            {
+              "seatEnum": "left_seat"
+            },
+            {
+              "shouldHideOwner": false
+            },
+            {
+              "receiveDamageFromDMPart": "commander"
+            },
+            {
+              "seatAnimUpper": "drive_passenger"
+            },
+            {
+              "seatAnimLower": "drive_passenger"
+            },
+            {
+              "canPlaceManually": true
+            },
+            {
+              "effectors:object": {
+                "r.foot": "pedal_rfoot_2",
+                "l.foot": "pedal_lfoot_2"
+              }
+            }
+          ]
+        },
+        {
+          "seats:object": {
+            "name": "passenger",
+            "attachNode": "root",
+            "locName": "vehicle_seats/shooter",
+            "ignoreAttachNodeRotation": true,
+            "attachTm": [
+              [-5.95263e-08,0.0,-1.0],
+              [0.0,1.0,0.0],
+              [1.0,0.0,-5.953e-08],
+              [-1.2,1.32,0.8]
+            ],
+            "seatComponent": "isPassenger",
+            "shouldHideOwner": false,
+            "cameraNodeName": "bone_camera_driver",
+            "canPlaceManually": true,
+            "seatEnum": "stool_seat"
+          }
+        },
+        {
+          "seats:object": {
+            "name": "passenger",
+            "attachNode": "root",
+            "locName": "vehicle_seats/shooter",
+            "ignoreAttachNodeRotation": true,
+            "attachTm": [
+              [-5.95035e-08,1.13494e-13,1.0],
+              [-1.01246e-20,1.0,-1.13241e-13],
+              [-1.0,0.0,-5.95205e-08],
+              [-1.7,1.32,-0.8]
+            ],
+            "seatComponent": "isPassenger",
+            "shouldHideOwner": false,
+            "cameraNodeName": "bone_camera_driver",
+            "canPlaceManually": true,
+            "seatEnum": "stool_seat"
+          }
+        },
+        {
+          "seats:object": {
+            "name": "passenger",
+            "attachNode": "root",
+            "locName": "vehicle_seats/shooter",
+            "ignoreAttachNodeRotation": true,
+            "attachTm": [
+              [-5.95263e-08,0.0,-1.0],
+              [0.0,1.0,0.0],
+              [1.0,0.0,-5.953e-08],
+              [-1.7,1.32,0.8]
+            ],
+            "seatComponent": "isPassenger",
+            "shouldHideOwner": false,
+            "cameraNodeName": "bone_camera_driver",
+            "canPlaceManually": true,
+            "seatEnum": "stool_seat"
+          }
+        },
+        {
+          "seats:object": {
+            "name": "passenger",
+            "attachNode": "root",
+            "locName": "vehicle_seats/shooter",
+            "ignoreAttachNodeRotation": true,
+            "attachTm": [
+              [-5.95035e-08,1.13494e-13,1.0],
+              [-1.01246e-20,1.0,-1.13241e-13],
+              [-1.0,0.0,-5.95205e-08],
+              [-2.2,1.32,-0.8]
+            ],
+            "seatComponent": "isPassenger",
+            "shouldHideOwner": false,
+            "cameraNodeName": "bone_camera_driver",
+            "canPlaceManually": true,
+            "seatEnum": "stool_seat"
+          }
+        },
+        {
+          "seats:object": {
+            "name": "passenger",
+            "attachNode": "root",
+            "locName": "vehicle_seats/shooter",
+            "ignoreAttachNodeRotation": true,
+            "attachTm": [
+              [-5.95263e-08,0.0,-1.0],
+              [0.0,1.0,0.0],
+              [1.0,0.0,-5.953e-08],
+              [-2.2,1.32,0.8]
+            ],
+            "seatComponent": "isPassenger",
+            "shouldHideOwner": false,
+            "cameraNodeName": "bone_camera_driver",
+            "canPlaceManually": true,
+            "seatEnum": "stool_seat"
+          }
+        },
+        {
+          "seats:object": {
+            "name": "passenger",
+            "attachNode": "root",
+            "locName": "vehicle_seats/shooter",
+            "ignoreAttachNodeRotation": true,
+            "attachTm": [
+              [-5.95263e-08,0.0,-1.0],
+              [0.0,1.0,0.0],
+              [1.0,0.0,-5.953e-08],
+              [-1.7,1.32,0.8]
+            ],
+            "seatComponent": "isPassenger",
+            "shouldHideOwner": true,
+            "cameraNodeName": "bone_camera_driver",
+            "isHoldGunModeAllowed": false
+          }
+        },
+        {
+          "seats:object": {
+            "name": "passenger",
+            "attachNode": "root",
+            "locName": "vehicle_seats/shooter",
+            "ignoreAttachNodeRotation": true,
+            "attachTm": [
+              [-5.95035e-08,1.13494e-13,1.0],
+              [-1.01246e-20,1.0,-1.13241e-13],
+              [-1.0,0.0,-5.95205e-08],
+              [-2.2,1.32,-0.8]
+            ],
+            "seatComponent": "isPassenger",
+            "shouldHideOwner": true,
+            "cameraNodeName": "bone_camera_driver",
+            "isHoldGunModeAllowed": false
+          }
+        },
+        {
+          "seats:object": {
+            "name": "passenger",
+            "attachNode": "root",
+            "locName": "vehicle_seats/shooter",
+            "ignoreAttachNodeRotation": true,
+            "attachTm": [
+              [-5.95263e-08,0.0,-1.0],
+              [0.0,1.0,0.0],
+              [1.0,0.0,-5.953e-08],
+              [-2.2,1.32,0.8]
+            ],
+            "seatComponent": "isPassenger",
+            "shouldHideOwner": true,
+            "cameraNodeName": "bone_camera_driver",
+            "isHoldGunModeAllowed": false
+          }
+        }
+      ]
+    },
+    {
+      "dm_phys_parts__wheelsPartIds:list<i>": []
+    },
+    {
+      "disableDMParts:list<t>": [
+        {
+          "part": "ex_decor_l_05"
+        },
+        {
+          "part": "ex_decor_r_07"
+        },
+        {
+          "part": "ex_decor_l_03"
+        },
+        {
+          "part": "ex_decor_r_05"
+        }
+      ]
+    },
+    {
+      "attach_decorators__entities:list<eid>": []
+    },
+    {
+      "attach_decorators__templates:array": [
+        {
+          "templates:object": {
+            "relativeTm": [
+              [-0.000148613,-0.00146562,-0.257128],
+              [-0.58197,-9.62081e-05,0.000219092],
+              [-7.41791e-05,0.425815,-0.00242649],
+              [-1.42662,1.27,-0.7]
+            ],
+            "template": "wooden_plank_b_decor",
+            "nodeName": "root"
+          }
+        },
+        {
+          "templates:object": {
+            "relativeTm": [
+              [-0.00014863,-0.00146565,-0.257128],
+              [-0.58197,-9.61801e-05,0.000219092],
+              [-7.41764e-05,0.425814,-0.00242649],
+              [-1.42477,1.27,0.63]
+            ],
+            "template": "wooden_plank_b_decor",
+            "nodeName": "root"
+          }
+        }
+      ]
+    },
+    {
+      "animchar__objTexReplace:object": {
+        "jp_camo_olive*": "jp_camo_early_brown_yellow_lines*"
+      }
+    }
+  ]
+}

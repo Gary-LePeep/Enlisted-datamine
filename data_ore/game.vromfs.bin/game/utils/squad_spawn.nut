@@ -1,4 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
+from "math" import min
 
 let {kwarg, KWARG_NON_STRICT} = require("%sqstd/functools.nut")
 let debug = require("%enlSqGlob/library_logs.nut").with_prefix("[SPAWN]")
@@ -105,6 +106,7 @@ let function mkBaseComps(soldier) {
   comps["soldier__id"] <- soldier.id
   comps["soldier__sClass"] <- soldier?.sClass ?? ""
   comps["soldier__sKind"] <- soldier?.sKind ?? ""
+  comps["soldier__displayedKind"] <- soldier?.sKind ?? ""
   comps["soldier__sClassRare"] <- soldier?.sClassRare ?? 0
 
   return comps
@@ -171,11 +173,11 @@ let spawnSoldier = kwarg(function(soldier, comps, squadParams, shouldBePossessed
   local templateName = soldier?.gametemplate ?? "usa_base_soldier"
   let addTemplatesOnSpawn = squadParams?.addTemplatesOnSpawn
 
-  comps = comps.
-    __merge(mkBaseComps(soldier)).
-    __update(mkAmmoMapComps(soldier)).
-    __update(mkHPComps(soldier)).
-    __update(mkItemContainer(soldier))
+  comps = comps
+    .__merge(mkBaseComps(soldier))
+    .__update(mkAmmoMapComps(soldier))
+    .__update(mkHPComps(soldier))
+    .__update(mkItemContainer(soldier))
 
   if (addTemplatesOnSpawn != null)
     templateName = $"{templateName}+{addTemplatesOnSpawn}"
@@ -221,13 +223,15 @@ let function spawnSolidersInSquad(squad, spawnParams, squadParams, vehicleEid = 
   let leaderNo = squad.findindex(@(s) s?.id == leaderId) ?? leaderId
 
   let leaderParams =
-    commonParams.
-    __merge(spawnParams).
-    __merge({
+    commonParams
+    .__merge(spawnParams)
+    .__merge({
       ["transform"] = tm,
       ["squad_member__memberIdx"] = leaderNo,
       ["human_net_phys__isSimplifiedPhys"] = isBot,
     })
+
+  vehicleEid = vehicleEid || squadParams?.existedVehicleEid
 
   spawnSoldier({
     soldier             = squad[leaderNo]
@@ -249,9 +253,9 @@ let function spawnSolidersInSquad(squad, spawnParams, squadParams, vehicleEid = 
     aiTm.setcol(3, aiTm * Point3(-row, 0.0, col));
 
     let botParams =
-      commonParams.
-      __merge(spawnParams).
-      __merge({
+      commonParams
+      .__merge(spawnParams)
+      .__merge({
         ["transform"] = spawnTmIsValidated ? tm : validatePosition(aiTm, tm.getcol(3), spawnZoneExtents),
         ["squad_member__memberIdx"] = memberIdx,
         ["beh_tree__enabled"] = true,
@@ -282,8 +286,8 @@ local function spawnSquadEntity(squad, squadParams, mkSpawnParamsCb, cb) {
     return false
   }
 
-  squadParams = squadParams.
-    __merge({
+  squadParams = squadParams
+    .__merge({
       isBot             = ecs.obsolete_dbg_get_comp_val(playerEid, "playerIsBot", null) != null,
       leaderId          = memberId,
       playerEid         = playerEid,
@@ -293,15 +297,17 @@ local function spawnSquadEntity(squad, squadParams, mkSpawnParamsCb, cb) {
     ["squad__id"]             = [squadId, ecs.TYPE_INT],
     ["squad__ownerPlayer"]    = [playerEid, ecs.TYPE_EID],
     ["squad__respawnBaseEid"] = [spawnParams.baseEid, ecs.TYPE_EID],
-    ["squad__squadProfileId"] = [squadParams.squadProfileId, ecs.TYPE_STRING]
+    ["squad__squadProfileId"] = [squadParams.squadProfileId, ecs.TYPE_STRING],
+    ["squad__disableSquadRotation"] = [squadParams?.disableSquadRotation ?? false, ecs.TYPE_BOOL],
+    ["squad__revivePointsAfterDeath"] = [squadParams?.disableSquadRotation ? 100 : -1, ecs.TYPE_INT]
   },
   @(squadEid) cb(squad, spawnParams, squadParams.__merge({ squadEid = squadEid })))
 
   return true
 }
 
-let function spawnSquad(squad, team, playerEid, mkSpawnParamsCb, squadId = 0, memberId = 0, squadProfileId = "", addTemplatesOnSpawn = null) {
-  let squadParams = {team, playerEid, squadId, memberId, squadProfileId, addTemplatesOnSpawn}
+let function spawnSquad(squad, existedVehicleEid, team, playerEid, mkSpawnParamsCb, squadId = 0, memberId = 0, squadProfileId = "", addTemplatesOnSpawn = null) {
+  let squadParams = {existedVehicleEid, team, playerEid, squadId, memberId, squadProfileId, addTemplatesOnSpawn}
   return spawnSquadEntity(squad, squadParams, mkSpawnParamsCb, spawnSolidersInSquad)
 }
 
@@ -344,9 +350,9 @@ let function spawnVehicle(squad, spawnParams, squadParams) {
     }
   }
 
-  let vehicleComps = wrapComps(vehicleCompsRaw, excludeVehicleCompsFilter).
-    __update(mkVehicleComps(vehicleCompsRaw)).
-    __update({
+  let vehicleComps = wrapComps(vehicleCompsRaw, excludeVehicleCompsFilter)
+    .__update(mkVehicleComps(vehicleCompsRaw))
+    .__update({
       team                                       = team,
       ownedBySquad                               = ecs.EntityId(squadEid),
       ownedByPlayer                              = ecs.EntityId(playerEid),
@@ -370,8 +376,8 @@ let function spawnVehicle(squad, spawnParams, squadParams) {
 }
 
 let function spawnVehicleSquad(squad, team, playerEid, isBot, vehicle, mkSpawnParamsCb, vehicleComps = {}, squadId = 0, memberId = 0,
-                               squadProfileId = "", possessed = ecs.INVALID_ENTITY_ID) {
-  let squadParams = {team, playerEid, isBot, vehicle, vehicleComps, squadId, memberId, possessed, squadProfileId}
+                               squadProfileId = "", disableSquadRotation = false, possessed = ecs.INVALID_ENTITY_ID, existedVehicleEid=ecs.INVALID_ENTITY_ID) {
+  let squadParams = {team, existedVehicleEid, playerEid, isBot, vehicle, vehicleComps, squadId, memberId, possessed, squadProfileId, disableSquadRotation}
   return spawnSquadEntity(squad, squadParams, mkSpawnParamsCb, spawnVehicle)
 }
 

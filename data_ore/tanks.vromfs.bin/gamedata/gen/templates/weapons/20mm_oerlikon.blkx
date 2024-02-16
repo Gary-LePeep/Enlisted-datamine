@@ -72,19 +72,19 @@
   },
   "tankgun_20mm_oerlikon": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_tankgun_autocannon"
+      "_use": "base_tankgun_autocannon"
     },
     {
-      "_extends": "base_20mm_oerlikon"
+      "_use": "base_20mm_oerlikon"
     },
     {
-      "_extends": "gunsound_20mm_kwk30"
+      "_use": "gunsound_20mm_kwk30"
     },
     {
-      "_extends": "gunsound_20mm_oerlikon"
+      "_use": "gunsound_20mm_oerlikon"
     },
     {
       "turret__triggerGroup": 0

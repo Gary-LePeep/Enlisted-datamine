@@ -9,6 +9,7 @@ let { mkFrameIncrementObservable } = require("%ui/ec_to_watched.nut")
 let { vehicleTurrets, vehicleTurretsSetValue } = mkFrameIncrementObservable([], "vehicleTurrets")
 
 let { turretsReload, turretsReloadSetKeyVal, turretsReloadDeleteKey } = mkFrameIncrementObservable({}, "turretsReload")
+let { turretsReplenishment, turretsReplenishmentSetKeyVal, turretsReplenishmentDeleteKey } = mkFrameIncrementObservable({}, "turretsReplenishment")
 let { turretsAmmo, turretsAmmoSetValue, turretsAmmoModify } = mkFrameIncrementObservable({}, "turretsAmmo")
 let { mainTurretEid, mainTurretEidSetValue } = mkFrameIncrementObservable(ecs.INVALID_ENTITY_ID, "mainTurretEid")
 let { currentMainTurretEid, currentMainTurretEidSetValue } = mkFrameIncrementObservable(ecs.INVALID_ENTITY_ID, "currentMainTurretEid")
@@ -56,35 +57,38 @@ let function initTurretsState(comp, ignore_control_turret_eid = ecs.INVALID_ENTI
   let triggerMappings = get_trigger_mappings(triggerMappingComp)
   let turretInfo = comp["turret_control__turretInfo"]
 
-  foreach (gunIndex, gunEid in comp["turret_control__gunEids"]) turretQuery.perform(gunEid, function(v,gunComp) {
-    let gunPropsId = gunComp["gun__propsId"]
-    let gunTpl = getGunTmpl(gunPropsId)
+  foreach (gunIndex, gunEid in comp["turret_control__gunEids"]) {
     let trigger = turretInfo?[gunIndex]?.trigger
+    let gEid = gunEid
+    turretQuery.perform(gunEid, function(v,gunComp) {
+      let gunPropsId = gunComp["gun__propsId"]
+      let gunTpl = getGunTmpl(gunPropsId)
 
-    let turret = {
-      gunEid
-      gunPropsId
-      name = gunTpl?.getCompValNullable("item__name")
-      currentAmmoSetId = gunComp["currentBulletId"]
-      nextAmmoSetId = gunComp["nextBulletId"]
-      isReloadable = gunComp["gun__reloadable"]
-      icon = gunTpl?.getCompValNullable("gun__icon")
-      isControlled = gunComp["turretInput"] != null && gunEid != ignore_control_turret_eid
-      isLocalControlLocked = gunComp["turret_input__isLocalControlLocked"]
-      isBomb = trigger == "bombs"
-      isRocket = trigger == "rockets"
-      hotkey = triggerMappings?[trigger]
-      triggerGroup = gunComp["turret__triggerGroup"]
-      groupName = gunComp["turret__groupName"]
-      isWithSeveralShells = gunComp["nextBulletId"] != -1
-      ammoSet = getAmmoSets(v, gunComp)
-      showCrosshair = gunComp.turret__disableAim == null
-    }
-    let groupName = turret.groupName
-    if (turretsByGroup?[groupName] == null)
-      turretsByGroup[groupName] <- []
-    turretsByGroup[groupName].append(turret)
-  })
+      let turret = {
+        gunEid = gEid
+        gunPropsId
+        name = gunTpl?.getCompValNullable("item__name")
+        currentAmmoSetId = gunComp["currentBulletId"]
+        nextAmmoSetId = gunComp["nextBulletId"]
+        isReloadable = gunComp["gun__reloadable"]
+        icon = gunTpl?.getCompValNullable("gun__icon")
+        isControlled = gunComp["turretInput"] != null && gEid != ignore_control_turret_eid
+        isLocalControlLocked = gunComp["turret_input__isLocalControlLocked"]
+        isBomb = trigger == "bombs"
+        isRocket = trigger == "rockets"
+        hotkey = triggerMappings?[trigger]
+        triggerGroup = gunComp["turret__triggerGroup"]
+        groupName = gunComp["turret__groupName"]
+        isWithSeveralShells = gunComp["nextBulletId"] != -1
+        ammoSet = getAmmoSets(v, gunComp)
+        showCrosshair = gunComp.turret__disableAim == null
+      }
+      let groupName = turret.groupName
+      if (turretsByGroup?[groupName] == null)
+        turretsByGroup[groupName] <- []
+      turretsByGroup[groupName].append(turret)
+    })
+  }
 
   let turrets = []
   foreach (group, turretsInGroup in turretsByGroup)
@@ -173,7 +177,8 @@ ecs.register_es("track_controlled_turret_ui_es",
 ecs.register_es("turret_state_reload_progress_ui",
   { [["onInit", "onChange"]] = function(_, eid, comp) {
       turretsReloadSetKeyVal(eid, {
-        reloadTimeMult = comp.ui_turret_reload_progress__reloadTimeMult
+        perksReloadTimeMult = comp.turret__perksReloadMult
+        ammoStowageReloadTimeMult = comp.turret__ammoStowageReloadMult
         progressStopped = comp["ui_turret_reload_progress__progressStopped"]
         endTime = comp["ui_turret_reload_progress__finishTime"]
         totalTime = comp["ui_turret_reload_progress__finishTime"] - comp["ui_turret_reload_progress__startTime"]
@@ -185,7 +190,26 @@ ecs.register_es("turret_state_reload_progress_ui",
     ["ui_turret_reload_progress__startTime", ecs.TYPE_FLOAT],
     ["ui_turret_reload_progress__finishTime", ecs.TYPE_FLOAT],
     ["ui_turret_reload_progress__progressStopped", ecs.TYPE_FLOAT, -1],
-    ["ui_turret_reload_progress__reloadTimeMult", ecs.TYPE_FLOAT, 1.]
+    ["turret__perksReloadMult", ecs.TYPE_FLOAT, 1.],
+    ["turret__ammoStowageReloadMult", ecs.TYPE_FLOAT, 1.]
+  ],
+    comps_rq = ["isTurret", "turretInput"]
+  },
+  {tags="ui"}
+)
+
+ecs.register_es("turret_state_replenishment_progress_ui",
+  { [["onInit", "onChange"]] = function(_, eid, comp) {
+      turretsReplenishmentSetKeyVal(eid, {
+        endTime = comp.ui_turret_replenishment_progress__finishTime
+        totalTime = comp.ui_turret_replenishment_progress__finishTime - comp.ui_turret_replenishment_progress__startTime
+      })
+    },
+    onDestroy = @(_, eid, _comp) turretsReplenishmentDeleteKey(eid)
+  },
+  { comps_track = [
+    ["ui_turret_replenishment_progress__startTime", ecs.TYPE_FLOAT],
+    ["ui_turret_replenishment_progress__finishTime", ecs.TYPE_FLOAT]
   ],
     comps_rq = ["isTurret", "turretInput"]
   },
@@ -207,6 +231,7 @@ return {
   currentMainTurretEid
   currentMainTurretAmmo
   turretsReload
+  turretsReplenishment
   turretsAmmo
   mainTurretAmmo
 }

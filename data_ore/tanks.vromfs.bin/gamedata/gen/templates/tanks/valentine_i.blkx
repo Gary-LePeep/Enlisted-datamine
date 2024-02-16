@@ -1,10 +1,10 @@
 {
   "base_valentine_i": [
     {
-      "_extends": "base_tank"
+      "_use": "base_tank"
     },
     {
-      "_extends": "valentine_i_ammo_stowages"
+      "_use": "valentine_i_ammo_stowages"
     },
     {
       "killLogName": "uk_valentine_mk_1"
@@ -125,7 +125,11 @@
             "paramPitchAccel": "gun_01_pitch_accel",
             "wishYawParamName": "gun_01_aim:targetYaw",
             "wishPitchParamName": "gun_01_aim:targetPitch",
-            "gunRecoilParamName": "gun_01_recoil"
+            "gunRecoilParamName": "gun_01_recoil",
+            "hasStabilizerParamName": "gun_01_aim:hasStab",
+            "stabilizerPitchParamName": "gun_01_aim:stabPitch",
+            "stabilizerErrorParamName": "gun_01_aim:stabError",
+            "stabilizerPitchMultParamName": "gun_01_aim:stabPitchMult"
           }
         },
         {
@@ -176,17 +180,30 @@
     }
   ],
   "valentine_i_turret_01_40mm_qf_2pdr": {
-    "_extends": "tankgun_40mm_qf_2pdr",
+    "_use": "tankgun_40mm_qf_2pdr",
     "gun__shootNodeName": "bone_gun_barrel",
     "turret__yawSpeed": 16.0,
     "turret__pitchSpeed": 15.0,
     "turret__aimNodeName": "bone_turret",
     "turret__limit": [-180.0,180.0,-15.0,20.0],
+    "turret__stabilizerPitchFrictionMult": 0.8,
+    "turret__stabilizerPitchSpeedLimitKph": 10.0,
     "turret__limitsTable:list<p4>": {
       "lim1": [-180.0,-135.0,-6.0,20.0],
       "lim2": [-135.0,135.0,-15.0,20.0],
       "lim3": [135.0,180.0,-6.0,20.0]
     },
+    "turret__stabilizerErrorByKphSpeedTable:list<p2>": [
+      {
+        "row": [5.0,0.0]
+      },
+      {
+        "row": [8.0,0.2]
+      },
+      {
+        "row": [10.0,0.4]
+      }
+    ],
     "gun__shellsAmmo:array": [
       {
         "ammo": 13
@@ -206,7 +223,7 @@
     ]
   },
   "valentine_i_turret_02_7_92mm_besa": {
-    "_extends": "tankgun_7_92mm_besa",
+    "_use": "tankgun_7_92mm_besa",
     "gun__shootNodeName": "bone_mg_gun_twin",
     "gun__shellsAmmo:array": [
       {
@@ -218,7 +235,7 @@
     ]
   },
   "valentine_i_turret_03_50mm_uk_smoke_mortar_launcher": {
-    "_extends": "tankgun_50mm_uk_smoke_mortar_launcher",
+    "_use": "tankgun_50mm_uk_smoke_mortar_launcher",
     "gun__shootNodeName": "emtr_mortar_flame_01",
     "gun__shellsAmmo:array": {
       "ammo": 16
@@ -226,13 +243,13 @@
   },
   "valentine_i_ammo_stowages": {
     "_tags": "server",
-    "_extends": "vehicle_ammo_stowages",
+    "_use": "vehicle_ammo_stowages",
     "ammo_stowage__stowageTemplates:shared:list<t>": {
       "stowage": "valentine_i_ammo_stowage"
     }
   },
   "valentine_i_ammo_stowage": {
-    "_extends": "ammo_stowage",
+    "_use": "ammo_stowage",
     "ammo_stowage__clusterTemplates:shared:list<t>": {
       "cluster": "valentine_i_ammo_cluster"
     },
@@ -241,7 +258,7 @@
     }
   },
   "valentine_i_ammo_cluster": {
-    "_extends": "ammo_cluster",
+    "_use": "ammo_cluster",
     "ammo_cluster__isShell": true,
     "ammo_cluster__slotNames:shared:list<t>": [
       {

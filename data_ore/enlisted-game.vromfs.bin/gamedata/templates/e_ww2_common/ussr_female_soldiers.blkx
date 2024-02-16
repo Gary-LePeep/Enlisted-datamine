@@ -28,13 +28,13 @@
   },
   "ussr_female_base_soldier": [
     {
-      "_extends": "usa_soldier"
+      "_use": "usa_soldier"
     },
     {
-      "_extends": "enlisted_base_soldier"
+      "_use": "enlisted_base_soldier"
     },
     {
-      "_extends": "ussr_female_human_voice"
+      "_use": "ussr_female_human_voice"
     },
     {
       "animchar__res": "basic_female_char_char"
@@ -47,15 +47,26 @@
         "_tags": "render",
         "defaultPoses:list<t>": {
           "pose": "pilot_idle_female"
+        },
+        "unarmedPoses:list<t>": {
+          "pose": "pilot_idle_female"
         }
+      }
+    },
+    {
+      "animation__overridedSlotsOrder:list<t>": {
+        "slot": "tertiary"
       }
     }
   ],
   "ussr_female_medic_soldier": {
-    "_extends": "ussr_female_base_soldier",
+    "_use": "ussr_female_base_soldier",
     "animation__overridedIdleAnims:object": {
       "_tags": "render",
       "defaultPoses:list<t>": {
+        "pose": "enlisted_idle_22_weapon"
+      },
+      "unarmedPoses:list<t>": {
         "pose": "enlisted_idle_22_weapon"
       }
     }

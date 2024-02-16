@@ -7,7 +7,7 @@ require human_sounds.modules.human_sounds_events
 [console_cmd(name="human_speech.start")]
 def human_speech_debug_console_start(phrase : string)
   find_query() <| $ [es(REQUIRE=hero)] (eid : EntityId; human_speech__locale : string; human_speech__playerVoice : string; human_speech__enemyVoices : StringList)
-    sendEvent(eid, [[CmdHeroSpeech phrase=phrase]])
+    sendEvent(eid, [[CmdClientHumanSpeech phrase=phrase]])
     sound_debug("locale={human_speech__locale};  playerVoice={human_speech__playerVoice}; enemyVoices={human_speech__enemyVoices}")
     return true
 

@@ -41,10 +41,10 @@ ecs.register_es("hero_state_hud_state_ui_es", {
       customUsePrompt = comp.customUsePrompt
     }
 
-    vehicleQuery(comp.useActionEid, function(_, comp) {
-      newState.lookAtVehicle = comp.vehicle != null
-      newState.lookAtShip = comp.ship != null
-      newState.lookAtPushableObject = comp.push_object__energyScale > 0.0
+    vehicleQuery(comp.useActionEid, function(_, vehComp) {
+      newState.lookAtVehicle = vehComp.vehicle != null
+      newState.lookAtShip = vehComp.ship != null
+      newState.lookAtPushableObject = vehComp.push_object__energyScale > 0.0
     })
 
     stateSetValue(newState)

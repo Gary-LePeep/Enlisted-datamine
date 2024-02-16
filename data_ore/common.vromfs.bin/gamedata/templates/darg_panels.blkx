@@ -1,6 +1,6 @@
 {
   "darg_panel": {
-    "_extends": "animchar",
+    "_use": "animchar",
     "panel_index": -1,
     "transform": [
       [1.0,0.0,0.0],
@@ -11,17 +11,17 @@
     "dargPanel:tag": []
   },
   "darg_panel_plane": {
-    "_extends": "darg_panel",
+    "_use": "darg_panel",
     "animchar__res": "ui_plane_1x1_char",
     "target_texture": "darg_texture*"
   },
   "darg_panel_watch": {
-    "_extends": "darg_panel",
+    "_use": "darg_panel",
     "animchar__res": "ui_clock_a_char",
     "target_texture": "darg_texture*"
   },
   "darg_panel_left_hand": {
-    "_extends": "darg_panel",
+    "_use": "darg_panel",
     "animchar__res": "vr_lhand_char",
     "target_texture": "us_gloves_tex_d*"
   }

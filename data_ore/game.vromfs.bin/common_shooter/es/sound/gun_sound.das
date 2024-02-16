@@ -52,6 +52,13 @@ def abandon_shot_loop(var sound_event : SoundEvent&; turret__owner : EntityId)
     abandon(sound_event.handle)
 
 
+def get_smid_from_gun_owner(gun__owner : EntityId) : float
+  var smid = 0.
+  query(gun__owner) <| $ [es] (human_steps_sound__smid : float)
+    smid = human_steps_sound__smid
+  return smid
+
+
 def on_launch(tm : float3x4;
               firing_mode : uint;
               gun : Gun;
@@ -93,13 +100,18 @@ def on_launch(tm : float3x4;
       return
     if should_apply_watched_prefix(path)
       path = isWatched ? "player{path}" : "enemy{path}"
-    sound_player_common::play_name_path(name, path, launchPos)
+    var handle = sound_player_common::play_name_path(name, path, launchPos, false)
+    if isWatched
+      set_var_optional(handle, "mat", get_smid_from_gun_owner(gun__owner))
+    abandon(handle)
   else
     isLoop = sound_event.handle != invalid_sound_event_handle()
     if sound_event.handle == invalid_sound_event_handle()
       sound_event.handle = try_shot_loop(turret__owner, launchPos, shot_path, tags, isWatched)
     if sound_event.handle != invalid_sound_event_handle()
       set_pos(sound_event.handle, launchPos)
+      if isWatched
+        set_var_optional(sound_event.handle, "mat", get_smid_from_gun_owner(gun__owner))
 
   broadcastEvent([[EventOnWeaponSound pos=launchPos, isLoop=isLoop]])
   shot_loop_timeout = (time_between_shots * time_between_shots_mad.x + time_between_shots_mad.y)
@@ -122,8 +134,8 @@ def gun_sound_on_shot(evt : EventShot;
                       [[shared_comp]] gun_sound__shotPath : Object;
                       sound_tags : Object;
                       gun_sound__isEnabled : bool;
-                      sound_bank_preset_state__isValid : bool)
-  if gun_sound__isEnabled && sound_bank_preset_state__isValid
+                      sound_banks_state__isPresetLoaded : bool)
+  if gun_sound__isEnabled && sound_banks_state__isPresetLoaded
     on_launch(evt.launchDesc.tm,
               evt.launchDesc.firingMode,
               gun,
@@ -157,8 +169,8 @@ def gun_sound_on_net_shot(evt : CmdNetShot;
                           [[shared_comp]] gun_sound__shotPath : Object;
                           sound_tags : Object;
                           gun_sound__isEnabled : bool;
-                          sound_bank_preset_state__isValid : bool)
-  if gun_sound__isEnabled && sound_bank_preset_state__isValid
+                          sound_banks_state__isPresetLoaded : bool)
+  if gun_sound__isEnabled && sound_banks_state__isPresetLoaded
     on_launch(evt.tm,
               evt.firingMode,
               gun,
@@ -186,13 +198,13 @@ def gun_sound_update(info : ParallelUpdateFrameDelayed;
                      var gun_sound__numShotsInLoop : int&;
                      var gun_sound__event : SoundEvent&;
                      gun_sound__isEnabled : bool;
-                     sound_bank_preset_state__isValid : bool;
+                     sound_banks_state__isPresetLoaded : bool;
                      gun__overheat : float = 0.;
                      turret__owner = INVALID_ENTITY_ID)
 
   if gun_sound__event.handle != invalid_sound_event_handle()
     set_var_optional(gun_sound__event.handle, "heat", gun__overheat)
-    if !gun_sound__isEnabled || !sound_bank_preset_state__isValid || !is_shooting(gun_sound__shotLoopTimeout)
+    if !gun_sound__isEnabled || !sound_banks_state__isPresetLoaded || !is_shooting(gun_sound__shotLoopTimeout)
       abandon_shot_loop(gun_sound__event, turret__owner)
       //logerr("abandon gun_sound__event at {info.curTime} ---------------------------------")
 
@@ -210,22 +222,24 @@ def gun_sound_update(info : ParallelUpdateFrameDelayed;
 def gun_sound_on_irq(evt : CmdSoundGenIrq;
                      animchar_bbox : bbox3f;
                      gun_sound__isEnabled : bool;
-                     sound_bank_preset_state__isValid : bool;
+                     sound_banks_state__isPresetLoaded : bool;
                      gun__owner : EntityId;
                      sound_tags : Object;
                      [[shared_comp]] sound_irqs : Object;
                      sound_max_irq_dist = 40.)
-  if gun_sound__isEnabled && sound_bank_preset_state__isValid
+  if gun_sound__isEnabled && sound_banks_state__isPresetLoaded
     let isWatched = is_watched_gun_sound(gun__owner)
     if isWatched || should_play(get_gun_sound_pos(animchar_bbox), sound_max_irq_dist)
-      sound_player_common::play_path(evt.irq, sound_irqs, sound_tags, isWatched, get_gun_sound_pos(animchar_bbox))
+      query(gun__owner) <| $ [es] (var sound_event_group : SoundEventGroup&)
+        reject_sound(sound_event_group, sound_hash("gunIrq"), true)
+        sound_player_common::play_path(evt.irq, sound_irqs, sound_tags, isWatched, get_gun_sound_pos(animchar_bbox), sound_hash("gunIrq"), sound_event_group)
 
 
-[es(tag=sound, track=sound_bank_preset_state__isValid, REQUIRE=gunSound)]
+[es(tag=sound, track=sound_banks_state__isPresetLoaded, REQUIRE=gunSound)]
 def gun_sound_toggle(evt : Event;
-                     sound_bank_preset_state__isValid : bool;
+                     sound_banks_state__isPresetLoaded : bool;
                      var gun_sound__event : SoundEvent&)
-  if !sound_bank_preset_state__isValid
+  if !sound_banks_state__isPresetLoaded
     release_immediate(gun_sound__event.handle)
 
 

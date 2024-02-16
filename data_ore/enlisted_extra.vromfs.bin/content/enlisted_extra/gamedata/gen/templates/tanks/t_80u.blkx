@@ -1,6 +1,6 @@
 {
   "base_t_80u": {
-    "_extends": "base_tank",
+    "_use": "base_tank",
     "killLogName": "ussr_t_80u",
     "animchar__res": "t_80u_char",
     "collres__res": "t_80u_collision",
@@ -142,7 +142,7 @@
     ]
   },
   "t_80u_turret_01_125mm_2a46_m1_t_80u": {
-    "_extends": "tankgun_125mm_2a46_m1_t_80u",
+    "_use": "tankgun_125mm_2a46_m1_t_80u",
     "gun__shootNodeName": "bone_gun_barrel",
     "turret__yawSpeed": 24.0,
     "turret__pitchSpeed": 4.4,
@@ -178,14 +178,14 @@
     ]
   },
   "t_80u_turret_02_7_62mm_pkt": {
-    "_extends": "tankgun_7_62mm_pkt",
+    "_use": "tankgun_7_62mm_pkt",
     "gun__shootNodeName": "bone_mg_twin_01",
     "gun__shellsAmmo:array": {
       "ammo": 1250
     }
   },
   "t_80u_turret_03_12_7mm_nsv": {
-    "_extends": "tankgun_12_7mm_nsv",
+    "_use": "tankgun_12_7mm_nsv",
     "gun__shootNodeName": "bone_mg_aa_v_01",
     "turret__yawSpeed": 90.0,
     "turret__pitchSpeed": 90.0,

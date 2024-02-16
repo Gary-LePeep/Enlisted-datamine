@@ -6,7 +6,7 @@ require game.es.input.input_events
 require game.es.vehicle.vehicle_events
 require DagorInput
 require HumanPhys
-require EnlistedHuman
+require DngHuman
 require common_shooter.es.human_weap_common
 require game.es.vehicle.vehicle_seats_common
 require game.es.human.human_vehicle_common
@@ -109,9 +109,17 @@ def human_vehicle_maintenance_start_input_es(evt : EventDaInputActionTriggered;
                                              maintenance__target : EntityId;
                                              maintenance__hasTarget : bool;
                                              human_input__vehicleMaintenance : int;
-                                             input__enabled : bool)
+                                             input__enabled : bool;
+                                             dm_parts__repairDistance : float)
   if input__enabled && maintenance__hasTarget && int(evt.action) == human_input__vehicleMaintenance
-    sendEvent(eid, [[CmdStartMaintenance target=maintenance__target]])
+    var dmPartId = -1
+    query() <| $ [es] (armor_analyzer__partId : int;
+                       armor_analyzer__traceRes : float)
+      dmPartId = armor_analyzer__partId
+      if dmPartId >= 0 && armor_analyzer__traceRes > dm_parts__repairDistance
+        dmPartId = -1
+        sendEvent(eid, [[CmdHeroLogEvent event="repair_blocked_by_dist", text="repair_blocked_by_dist"]])
+    sendEvent(eid, [[CmdStartMaintenance target=maintenance__target, partId=dmPartId]])
 
 [es(tag=input)]
 def human_vehicle_maintenance_stop_input_es(evt : EventDaInputActionTerminated;
@@ -125,11 +133,11 @@ def human_vehicle_maintenance_stop_input_es(evt : EventDaInputActionTerminated;
 
 [es(tag=input)]
 def human_vehicle_toggle_hatch_input_es(evt : EventDaInputActionTriggered;
+                                        eid : EntityId;
                                         input__enabled : bool;
-                                        human_input__toggleHatch : int;
-                                        var human_input__standState : int&)
+                                        human_input__toggleHatch : int)
   if input__enabled  && int(evt.action) == human_input__toggleHatch
-    human_input__standState = human_input__standState == int(HumanPhysControlType HCT_CROUCH) ? 0 : int(HumanPhysControlType HCT_CROUCH)
+    send_net_event(eid, [[CmdToggleHatch]])
 
 [es(tag=input)]
 def human_vehicle_toggle_hold_gun_mode_input_es(evt : EventDaInputActionTriggered;
@@ -161,7 +169,7 @@ def human_vehicle_toggle_hold_gun_mode_input_es(evt : EventDaInputActionTriggere
       switch_to_first_weap_with_ammo(human_weap__gunEids, human_net_phys.phys)
 
     if human_binocular__mode
-      send_net_event(eid, [[CmdSwitchBinocular choosePrevGunSlot=BinocularChooseWeapSlotMode None]])
+      send_net_event(eid, [[CmdSwitchBinocular choosePrevGunSlot=BinocularChooseWeapSlotMode ChoosePrevGunSlot]])
 
     human_net_phys.phys.producedCT |> human_control_state_set_control_bit(HumanPhysControlType HCT_HOLD_GUN_MODE, isEnablingHoldGunMode)
   else

@@ -1,75 +1,66 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { mkSquadCard } = require("%enlSqGlob/ui/mkSquadCard.nut")
-let { mkDraggableSquadCard, emptySquadSlot
-} = require("%enlist/squadmanagement/mkSquadAdditionalCard.nut")
-let { bigPadding, colFullMin, DEF_APPEARANCE_TIME } = require("%enlSqGlob/ui/designConst.nut")
+let { mkSquadCard } = require("%enlSqGlob/ui/squadsUiComps.nut")
+let { smallPadding } = require("%enlSqGlob/ui/designConst.nut")
 let { makeHorizScroll, styling } = require("%ui/components/scrollbar.nut")
 
 
-let delayTime = @(allSquads) DEF_APPEARANCE_TIME / allSquads
-let defSquadCardCtor = @(squad, idx, squadLen) mkSquadCard({
-  idx
-  animDelay = idx * delayTime(squadLen)
-}.__update(squad), KWARG_NON_STRICT)
-let dragSquadCardCtor  = @(squad, idx, squadLen)
-  mkDraggableSquadCard({
-    idx
-    animDelay = idx * delayTime(squadLen)
-  }.__update(squad), KWARG_NON_STRICT)
-
-let mkSquadList = @(squads, isDraggable) {
-  flow = FLOW_HORIZONTAL
-  gap = bigPadding
-  children = squads.map(@(squad, idx) squad == null ? emptySquadSlot(idx)
-    : isDraggable ? dragSquadCardCtor(squad, idx, squads.len())
-    : defSquadCardCtor(squad, idx, squads.len()))
-}
-
 let scrollStyle = styling.__merge({ Bar = styling.Bar(false) })
 
+let function mkSquadList(children) {
+  return {
+    flow = FLOW_HORIZONTAL
+    gap = smallPadding
+    children
+  }
+}
 
-let mkCurSquadsList = kwarg(@(curSquadsList, curSquadId, setCurSquadId,
-  addedObj = null, isDraggable = false
+
+let mkCurSquadsList = kwarg(@(curSquadsList, curSquadId, setCurSquadId, preChild = null,
+  addedObj = null, onAttach = null, onDetach = null,
+  reserveIdx = Watched(0), maxSquadsLen = 0, maxWidth = SIZE_TO_CONTENT, squadCardSize = null
 ) function() {
-  let squadsList = (curSquadsList.value ?? []).map(function(squad) {
-    return squad == null ? null : squad.__merge({
+  let sqv = curSquadsList.value ?? []
+  let squadsList = sqv.map(function(squad, idx) {
+    return squad == null ? null : mkSquadCard(squad.__merge({
       onClick = @() setCurSquadId(squad.squadId)
       isSelected = Computed(@() curSquadId.value == squad.squadId)
-    })
+      isLocked = maxSquadsLen > 0 && idx >= maxSquadsLen
+      squadCardSize
+      idx
+    }), KWARG_NON_STRICT)
   })
-  let res = { watch = [curSquadsList, curSquadId] }
+  let res = {
+    watch = [curSquadsList, curSquadId, reserveIdx]
+    onAttach
+    onDetach
+  }
   if (squadsList.len() <= 0)
     return res
 
-  local children = []
-  let listComp = mkSquadList(squadsList, isDraggable)
-  children = [
-    makeHorizScroll(listComp,
-      {
-        size = SIZE_TO_CONTENT
-        maxWidth = colFullMin(17)
-        rootBase = class {
-          key = "squadList"
-          behavior = Behaviors.Pannable
-          wheelStep = 0.2
-        }
-        styling = scrollStyle
-      })
-    addedObj
-  ]
-
+  let listComp = mkSquadList(squadsList)
   return res.__update({
     size = [flex(), SIZE_TO_CONTENT]
-    gap = bigPadding
+    gap = smallPadding
     flow = FLOW_HORIZONTAL
     vplace = ALIGN_BOTTOM
-    xmbNode = XmbContainer({
-      canFocus = @() false
-      scrollSpeed = 10.0
-      isViewport = true
-    })
-    children
+    xmbNode = XmbContainer({ wrap = false })
+    children = [
+      preChild
+      {
+        children = makeHorizScroll(listComp, {
+          size = SIZE_TO_CONTENT
+          maxWidth
+          rootBase = {
+            key = "squadList"
+            behavior = Behaviors.Pannable
+            wheelStep = 0.2
+          }
+          styling = scrollStyle
+        })
+      }
+      addedObj
+    ]
   })
 })
 

@@ -2,7 +2,7 @@ require ecs
 require ecs.common
 require game.es.events
 require enlisted.game.es.enlisted_squad_common
-require EnlistedWalkerai
+require DngWalkerai
 require DagorConsole
 require DagorDataBlock
 require BehNodes
@@ -20,11 +20,11 @@ def squad_sight_avoid_create_es(evt : Event; eid : EntityId; squad__ownerPlayer 
   if enable
     addSubTemplate(eid, "squad_sight_avoid")
 
-[es(tag=server, on_event=(EventComponentsDisappear, EventEntityDestroyed), REQUIRE=squad__ownerPlayer)]
+[es(tag=server, on_disappear, REQUIRE=squad__ownerPlayer)]
 def squad_sight_avoid_destroy_es(evt : Event; eid : EntityId)
   removeSubTemplate(eid, "squad_sight_avoid")
 
-[es(tag=server, on_event=(EventComponentsDisappear, EventEntityDestroyed), REQUIRE=squad_sight_avoid)]
+[es(tag=server, on_disappear, REQUIRE=squad_sight_avoid)]
 def squad_sight_avoid_destroyed_es(evt : Event; eid : EntityId)
   ecs::query() <| $ [es] (var beh_tree : BehaviourTree&; squad_member__squad : EntityId)
     if squad_member__squad == eid

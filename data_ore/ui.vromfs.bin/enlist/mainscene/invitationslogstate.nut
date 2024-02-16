@@ -2,7 +2,7 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { logerr } = require("dagor.debug")
 let msgbox = require("%enlist/components/msgbox.nut")
-let { addPopup, removePopup } = require("%enlist/popup/popupsState.nut")
+let { addPopup, removePopup } = require("%enlSqGlob/ui/popup/popupsState.nut")
 let { nestWatched } = require("%dngscripts/globalState.nut")
 
 let isMailboxVisible  = nestWatched("isMailboxVisible", false)
@@ -12,6 +12,18 @@ let counter = persist("counter", @() { last = 0 })
 let hasUnread = Computed(@() unreadNum.value > 0)
 
 let getPopupId = @(notify) $"mailbox_{notify.id}"
+
+enum InvitationsStyle {
+  PRIMARY = "primary"
+  TO_BATTLE = "toBattle"
+}
+
+enum InvitationsTypes {
+  TO_FRIEND = "friendInvitation"
+  TO_SQUAD = "squadInvitation"
+  SQUAD_REMOVE = "squadRemove"
+  FRIEND_REMOVE = "friendRemove"
+}
 
 let subscriptions = {}
 let function subscribeGroup(actionsGroup, actions) {
@@ -117,4 +129,6 @@ return {
   subscribeGroup
   onNotifyRemove
   onNotifyShow
+  InvitationsStyle
+  InvitationsTypes
 }

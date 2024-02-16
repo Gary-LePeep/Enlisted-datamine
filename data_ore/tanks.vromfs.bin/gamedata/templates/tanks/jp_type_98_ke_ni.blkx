@@ -1,19 +1,28 @@
 {
   "jp_type_98_ke_ni_pacific": {
-    "_extends": "jp_type_98_ke_ni_common"
+    "_use": "jp_type_98_ke_ni_common"
   },
   "jp_type_98_ke_ni_common": [
     {
-      "_extends": "base_type_98_ke_ni"
+      "_use": "base_type_98_ke_ni"
     },
     {
-      "_extends": "tank_m10_engine_sound"
+      "_use": "tank_m10_engine_sound"
     },
     {
-      "_extends": "tank_light_vehicle_tracks_sound"
+      "_use": "tank_light_vehicle_tracks_sound"
     },
     {
-      "item__iconOffset": [0.0,0.0]
+      "item__iconOffset": [0.0,-0.1]
+    },
+    {
+      "item__iconScale": 0.95
+    },
+    {
+      "commanderCockpitFpsCamMaxAngle": [40.0,5.0]
+    },
+    {
+      "gunner_cam_limit__useCockpitDir": true
     },
     {
       "vehicle_seats__seats:shared:array": [
@@ -127,7 +136,7 @@
     }
   ],
   "jp_type_98_ke_ni_driver_cockpit": {
-    "_extends": "base_driver_cockpit_no_slits",
+    "_use": "base_driver_cockpit_no_slits",
     "animchar__res": "bt_7_driver_char",
     "cockpit__offset": [0.0171255,-0.403643,0.0111413],
     "cockpit__visibleVehicleNodeNames:list<t>": [
@@ -158,8 +167,7 @@
     }
   },
   "jp_type_98_ke_ni_gunner_cockpit": {
-    "vehicle_sight__blk": "gamedata/sight/jp_37mm_94.blk",
-    "_extends": "base_gunner_cockpit",
+    "_use": "base_gunner_cockpit",
     "animchar__res": "ba_11_gunner_char",
     "cockpit__offset": [-0.553624,-0.00353403,0.269308],
     "cockpit__visibleVehicleNodeNames:list<t>": {
@@ -169,7 +177,7 @@
       "slit": "cam_front_right"
     },
     "cockpit__slitForwardOffset:list<r>": {
-      "slit": 0.16
+      "slit": 0.21
     },
     "cockpit__slitIsGun:list<b>": {
       "slit": true
@@ -177,6 +185,23 @@
     "cockpit__attachNodeNames:list<t>": {
       "node": "bone_camera_gunner"
     },
-    "cockpit__attachNodeIndices:list<i>": []
+    "cockpit__attachNodeIndices:list<i>": [],
+    "cockpit__slitZoom:array": {
+      "slit:list<r>": [
+        {
+          "zoom": 1.9
+        },
+        {
+          "zoom": 3.5
+        }
+      ]
+    },
+    "cockpit__slitZoomTime:list<r>": {
+      "slit": 0.05
+    },
+    "cockpit__slitTemplates:list<t>": {
+      "slit": "jp_37mm_94"
+    },
+    "cockpit__slitEids:list<eid>": []
   }
 }

@@ -1,10 +1,10 @@
 {
   "base_panzerjager_iv_l_70": [
     {
-      "_extends": "base_tank"
+      "_use": "base_tank"
     },
     {
-      "_extends": "panzerjager_iv_l_70_ammo_stowages"
+      "_use": "panzerjager_iv_l_70_ammo_stowages"
     },
     {
       "killLogName": "germ_pz_iv_l70"
@@ -189,7 +189,7 @@
     }
   ],
   "panzerjager_iv_l_70_turret_01_75mm_pak42": {
-    "_extends": "tankgun_75mm_pak42",
+    "_use": "tankgun_75mm_pak42",
     "gun__shootNodeName": "bone_gun_barrel",
     "turret__yawSpeed": 8.0,
     "turret__pitchSpeed": 4.0,
@@ -208,7 +208,7 @@
     ]
   },
   "panzerjager_iv_l_70_turret_02_7_92mm_mg42": {
-    "_extends": "tankgun_7_92mm_mg42",
+    "_use": "tankgun_7_92mm_mg42",
     "gun__shootNodeName": "bone_mg_gun_h_twin",
     "turret__yawSpeed": 5.5,
     "turret__pitchSpeed": 4.0,
@@ -224,7 +224,7 @@
     ]
   },
   "panzerjager_iv_l_70_turret_03_91mm_germ_smoke_mortar_launcher": {
-    "_extends": "tankgun_91mm_germ_smoke_mortar_launcher",
+    "_use": "tankgun_91mm_germ_smoke_mortar_launcher",
     "gun__shootNodeName": "emtr_mortar_flame_01",
     "gun__shellsAmmo:array": {
       "ammo": 6
@@ -232,13 +232,13 @@
   },
   "panzerjager_iv_l_70_ammo_stowages": {
     "_tags": "server",
-    "_extends": "vehicle_ammo_stowages",
+    "_use": "vehicle_ammo_stowages",
     "ammo_stowage__stowageTemplates:shared:list<t>": {
       "stowage": "panzerjager_iv_l_70_primary_ammo_stowage"
     }
   },
   "panzerjager_iv_l_70_primary_ammo_stowage": {
-    "_extends": "ammo_stowage",
+    "_use": "ammo_stowage",
     "ammo_stowage__clusterTemplates:shared:list<t>": {
       "cluster": "panzerjager_iv_l_70_primary_shells_ammo_cluster"
     },
@@ -247,7 +247,7 @@
     }
   },
   "panzerjager_iv_l_70_primary_shells_ammo_cluster": {
-    "_extends": "ammo_cluster",
+    "_use": "ammo_cluster",
     "ammo_cluster__isShell": true,
     "ammo_cluster__slotNames:shared:list<t>": [
       {

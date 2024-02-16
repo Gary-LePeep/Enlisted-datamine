@@ -10,7 +10,7 @@ const DLSS_PERFORMANCE = 0
 const DLSS_BALANCED = 1
 const DLSS_QUALITY = 2
 const DLSS_ULTRA_PERFORMANCE = 3
-const DLSS_ULTRA_QUALITY = 4
+const DLSS_DLAA = 5
 
 // Values match with enum class DlssState in dag_drv3dConsts.h
 const NOT_IMPLEMENTED = 0
@@ -20,7 +20,7 @@ const NGX_INIT_ERROR_UNKNOWN = 3
 const NOT_SUPPORTED_OUTDATED_VGA_DRIVER = 4
 const NOT_SUPPORTED_INCOMPATIBLE_HARDWARE = 5
 const NOT_SUPPORTED_32BIT = 6
-const DISABLED = 7
+//const DISABLED = 7
 const SUPPORTED = 8
 const READY = 9
 
@@ -30,7 +30,7 @@ let dlssToString = {
   [DLSS_BALANCED] = "option/balanced",
   [DLSS_QUALITY]  = "option/quality",
   [DLSS_ULTRA_PERFORMANCE]  = "option/ultraperformance",
-  [DLSS_ULTRA_QUALITY]  = "option/ultraquality",
+  [DLSS_DLAA] = "option/dlaa",
 }
 
 let dlssSupportLocId = {
@@ -48,7 +48,7 @@ let dlssSupportLocId = {
 let curDlssSupportStateLocId = dlssSupportLocId?[get_dlss_state()]
 let dlssNotAllowLocId = Computed(@() curDlssSupportStateLocId)
 
-let dlssAllQualityModes = [DLSS_ULTRA_PERFORMANCE, DLSS_PERFORMANCE, DLSS_BALANCED, DLSS_QUALITY, DLSS_ULTRA_QUALITY]
+let dlssAllQualityModes = [DLSS_ULTRA_PERFORMANCE, DLSS_PERFORMANCE, DLSS_BALANCED, DLSS_QUALITY, DLSS_DLAA]
 
 let dlssAvailable = Computed(function() {
   let dlssState = get_dlss_state()

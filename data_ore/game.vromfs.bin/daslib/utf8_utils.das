@@ -1,9 +1,16 @@
 options indenting = 4
+options strict_smart_pointers = true
 
 module utf8_utils shared
 
-require strings
+require daslib/strings_boost
+require math
 
+def public utf16_to_utf32 ( high,low:uint )
+	if high >= 0xD800 && high <= 0xDBFF
+		return ((high - 0xD800) << 10u) + (low - 0xDC00) + 0x10000
+	else
+		return high
 
 def public utf8_encode(var dest_array: array<uint8> &; ch: uint)
     //! Converts a codepoint (UTF-32 symbol) to UTF-8 and appends it to the UTF-8 byte array
@@ -176,8 +183,40 @@ def public utf8_decode(source_utf8_string: string const): array<uint>
     return <- dest_utf32_string
 
 
-def public utf8_decode(var dest_utf32_string: array<uint> &; source_utf8_string: string const)
+def public utf8_decode(var dest_utf32_string: array<uint>; source_utf8_string: string const)
     //! Converts UTF-8 string to UTF-32 and appends it to the array of codepoints (UTF-32 string)
     peek_data(source_utf8_string) <| $(arr)
         dest_utf32_string |> utf8_decode(arr)
 
+def decode_unicode_escape ( str:string )
+    return build_string <| $ ( writer )
+        peek_data(str) <| $ ( p )
+            var i = 0
+            let llen = p |> length
+            var bang : array<uint8>
+            bang |> reserve(8)
+            var high_surrogate = 0u
+            while i < llen
+                if p[i]==0x5cu8
+                    var j = i + 1
+                    var jlen = min(llen, j+8)
+                    bang |> resize(0)
+                    while j<jlen && is_hex(int(p[j]))
+                        bang |> push(p[j])
+                        j ++
+                    if length(bang) == 4
+                        let utf32 = to_uint(string(bang), true)
+                        if utf32>=0xD800 && utf32<=0xDFFF
+                            if high_surrogate == 0u
+                                high_surrogate = utf32
+                            else
+                                let low_surrogate = utf32
+                                let pair = 0x10000 + ((high_surrogate - 0xD800) << 10u) + (low_surrogate - 0xDC00)
+                                high_surrogate = 0u
+                                writer |> write(string(utf8_encode(pair)))
+                        else
+                            writer |> write(string(utf8_encode(utf32)))
+                        i = j
+                        continue
+                writer |> write_char(int(p[i]))
+                i += 1

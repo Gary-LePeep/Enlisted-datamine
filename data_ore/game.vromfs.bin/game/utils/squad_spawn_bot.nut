@@ -35,8 +35,8 @@ let squadSpawn = kwarg(function(teamEid, team, template, transform, potentialPos
     ["beh_tree__blackboard__wishPositionSet"] = true,
   }
 
-  aiAttrs.
-    __update(mkComps(soldier))
+  aiAttrs
+    .__update(mkComps(soldier))
 
   ecs.g_entity_mgr.createEntity("+".concat(soldier.gametemplate, template), aiAttrs, onBotSpawned)
 })

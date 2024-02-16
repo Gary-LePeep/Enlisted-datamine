@@ -1,13 +1,16 @@
 {
-  "germ_pzkpfw_II_ausf_C": [
+  "germ_pzkpfw_II_ausf_C": {
+    "_use": "germ_pzkpfw_II_ausf_C_common"
+  },
+  "germ_pzkpfw_II_ausf_C_common": [
     {
-      "_extends": "base_pzkpfw_ii_ausf_c"
+      "_use": "base_pzkpfw_ii_ausf_c"
     },
     {
-      "_extends": "tank_panzer3_engine_sound"
+      "_use": "tank_panzer3_engine_sound"
     },
     {
-      "_extends": "tank_light_vehicle_tracks_sound"
+      "_use": "tank_light_vehicle_tracks_sound"
     },
     {
       "vehicle_net_phys__blk": "content/tanks/gamedata/units/tanks/pzkpfw_ii_ausf_c.blk:VehiclePhys"
@@ -19,9 +22,13 @@
       "item__iconOffset": [0.0,0.3]
     },
     {
-      "animchar__objTexReplace:object": {
-        "ger_camo_grey*": "ger_camo_winter_grey*"
-      }
+      "item__iconScale": 1.55
+    },
+    {
+      "commanderCockpitFpsCamMaxAngle": [40.0,5.0]
+    },
+    {
+      "gunner_cam_limit__useCockpitDir": true
     },
     {
       "vehicle_seats__seatsProvideOrder:tag": []
@@ -115,7 +122,7 @@
     }
   ],
   "germ_pzkpfw_II_ausf_C_driver_cockpit": {
-    "_extends": "base_driver_cockpit_no_slits",
+    "_use": "base_driver_cockpit_no_slits",
     "animchar__res": "pz_2c_driver_char",
     "cockpit__offset": [-1.0,-0.5,-0.2],
     "cockpit__visibleVehicleNodeNames:list<t>": [],
@@ -163,8 +170,7 @@
     ]
   },
   "germ_pzkpfw_II_ausf_C_gunner_cockpit": {
-    "vehicle_sight__blk": "content/tanks/gamedata/sight/germ_tzf4.blk",
-    "_extends": "base_gunner_cockpit",
+    "_use": "base_gunner_cockpit",
     "animchar__res": "pz_2c_commander_char",
     "cockpit__offset": [-0.0,-0.0,-0.0],
     "cockpit__attachNodeNames:list<t>": [
@@ -251,7 +257,7 @@
     ],
     "cockpit__slitForwardOffset:list<r>": [
       {
-        "slit": 0.27
+        "slit": 0.32
       },
       {
         "slit": 0.0
@@ -281,10 +287,47 @@
       {
         "slit": false
       }
-    ]
+    ],
+    "cockpit__slitZoom:array": [
+      {
+        "slit:list<r>": [
+          {
+            "zoom": 1.9
+          },
+          {
+            "zoom": 3.5
+          }
+        ]
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.0
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.0
+        }
+      }
+    ],
+    "cockpit__slitZoomTime:list<r>": [
+      {
+        "slit": 0.05
+      },
+      {
+        "slit": 0.0
+      },
+      {
+        "slit": 0.0
+      }
+    ],
+    "cockpit__slitTemplates:list<t>": {
+      "slit": "germ_tzf4"
+    },
+    "cockpit__slitEids:list<eid>": []
   },
   "germ_pzkpfw_II_ausf_C_commander_cockpit": {
-    "_extends": "base_commander_cockpit_no_slits",
+    "_use": "base_commander_cockpit_no_slits",
     "animchar__res": "pz_2c_commander_char",
     "cockpit__offset": [0.0,0.35,-0.0],
     "cockpit__slitForwardOffset:list<r>": [

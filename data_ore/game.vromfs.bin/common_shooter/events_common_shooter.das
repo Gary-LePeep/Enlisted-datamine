@@ -1,16 +1,21 @@
 module events_common_shooter shared
 require ecs
 require dm
-require EnlistedDm
+require DngDm
 require Gun
 require DaWeapons
 require DaWeaponProps
-require EnlistedNet
+require DngNet
 require BitStream
+require RendInst
 
 [event(unicast, routing=ROUTING_CLIENT_TO_SERVER)]
 struct CmdNextBulletIdRequest
   triggerGroup : int
+
+[event(unicast, routing=ROUTING_CLIENT_CONTROLLED_ENTITY_TO_SERVER)]
+struct CmdRequestStabilizer
+  enabled : bool
 
 [event(unicast)]
 struct EventOnSelectNextBulletId
@@ -60,23 +65,17 @@ struct EventOnEntityHit
   dmgMult : float
   armorMult : float
   armorPenetration : float
+  shatterCount : int
 
 [cpp_event(unicast)]
 struct EventOnGunCreated
   gunEid : ecs::EntityId
 
 [cpp_event(unicast)]
-struct EventOnProjectileHitClient
-  offender : ecs::EntityId
-  launchDesc : LaunchDesc
-  projHitInfo : ProjectileHitInfo
-  interp_delay_ticks : uint8
-  additional_interp_delay : float
-  victim_pos : float3
-  gunEid : ecs::EntityId
-  from : ConnectionId
-  sceneHitRicochetStability : float
-  traceRayMatId : int
+struct CmdOnHeroHit
+  damageType : int
+  hitDir : float3
+  collNodeId : int
 
 [cpp_event(unicast)]
 struct EventProjectileHitScene
@@ -95,15 +94,7 @@ struct EventProjectileHitScene
   sceneIntersectionsExceeded : bool
   collType : int
   vel : float3
-
-[cpp_event(unicast)]
-struct EventOnMeleeHitClient
-  offender : ecs::EntityId
-  damageDesc : DamageDesc
-  timeOfHit : float
-  interp_delay_ticks : uint8
-  additional_interp_delay : float
-  from : ConnectionId
+  riexHandle : riex_handle_t
 
 [event(unicast, routing=ROUTING_SERVER_TO_CLIENT)]
 struct EventEntityDowned
@@ -118,14 +109,6 @@ struct EventPlayerKilledEntity
   deathDesc_damageTypeId : uint16
   victimPlayerEid : EntityId
   killerPlayerEid : EntityId
-
-[event(unicast)]
-struct EventPlayerGotDamage
-  victimEid : EntityId
-  offenderEid : EntityId
-  damageDesc_deltaHp : float
-  victimPlayerEid : EntityId
-  offenderPlayerEid : EntityId
 
 [cpp_event(unicast)]
 struct EventOnPartDamaged
@@ -215,9 +198,16 @@ struct HumanWeapSetCurrentGun
 [event(unicast)]
 struct CmdReinitWeapons {}
 
+[event(unicast)]
+struct CmdReinitWeaponInSlot
+  slot : int
+
 [event(broadcast)]
 struct EventOnGunBlocksShoot
   reason : string
+
+[event(broadcast)]
+struct EventOnWindChange{}
 
 [event(unicast, routing=ROUTING_CLIENT_CONTROLLED_ENTITY_TO_SERVER)]
 struct HumanRequestModActivate
@@ -259,18 +249,19 @@ struct CmdShellExplode
 struct CmdShellExplosionFx {}
 
 [event(unicast)]
-struct EventWeapOnReload {}
+struct EventHumanStartedReload {}
 
-[cpp_event(unicast)]
+[event(unicast)]
 struct CmdUnloadAmmo
   unloadManually : bool
 
-[cpp_event(unicast)]
+[event(unicast)]
 struct CmdRequestReload
   atTime : float
   gunEid : ecs::EntityId
+  isQuick : bool
 
-[cpp_event(unicast, routing=ROUTING_CLIENT_CONTROLLED_ENTITY_TO_SERVER)]
+[event(unicast, routing=ROUTING_CLIENT_CONTROLLED_ENTITY_TO_SERVER)]
 struct HumanRequestUnloadAmmo
   slotId : int
 
@@ -405,11 +396,50 @@ struct HumanWeapRequestSwitchFiringMode
   slotId : uint8
   modeId : uint8
 
-[cpp_event(unicast)]
+[event(unicast)]
 struct CmdAutoequipGunMod
   slotId : int
 
-[cpp_event(unicast)]
+[event(unicast, routing=ROUTING_CLIENT_CONTROLLED_ENTITY_TO_SERVER)]
+struct HumanPickupWeapRequest
+  itemEid : EntityId
+  slotId : int
+
+[event(unicast, routing=ROUTING_CLIENT_CONTROLLED_ENTITY_TO_SERVER)]
+struct HumanDropWeapRequest
+  slotId : int
+
+[event(unicast, routing=ROUTING_CLIENT_CONTROLLED_ENTITY_TO_SERVER)]
+struct HumanSwapWeapRequest
+  fromSlotId : int
+  toSlotId : int
+
+[event(unicast, routing=ROUTING_CLIENT_CONTROLLED_ENTITY_TO_SERVER)]
+struct HumanInstallItemOnWeapRequest
+  itemEid : EntityId
+  slotId : int
+  slotName : string
+
+[event(unicast, routing=ROUTING_CLIENT_CONTROLLED_ENTITY_TO_SERVER)]
+struct HumanPickupAndInstallItemOnWeapRequest
+  itemEid : EntityId
+  slotId : int
+  slotName : string
+
+[event(unicast, routing=ROUTING_CLIENT_CONTROLLED_ENTITY_TO_SERVER)]
+struct HumanRemoveItemFromWeapRequest
+  slotId : int
+  slotName : string
+  toGround : bool
+
+[event(unicast, routing=ROUTING_CLIENT_CONTROLLED_ENTITY_TO_SERVER)]
+struct HumanSwapWeaponModsRequest
+  fromSlotId : int
+  fromWeapModSlot : string
+  toSlotId : int
+  toWeapModSlot : string
+
+[event(unicast)]
 struct CmdInventoryDropGun
   slotId : int
 
@@ -417,14 +447,14 @@ struct CmdInventoryDropGun
 struct HumanAttachToGunResponse
   gun_eid : EntityId
 
-[cpp_event(unicast)]
+[event(unicast, routing=ROUTING_SERVER_TO_CLIENT)]
 struct HumanDetachFromGunResponse {}
 
 [event(unicast)]
 struct HumanAttachToGunComplete
   gun_eid : EntityId
 
-[cpp_event(unicast)]
+[event(unicast)]
 struct HumanDetachFromGunComplete {}
 
 [event(unicast)]
@@ -447,3 +477,21 @@ struct CmdInitPolyCapzoneAreas {}
 struct CmdShellExplodeFx
   position : float3
   effectTemplate : string
+
+[cpp_event(unicast)]
+struct EventShotDry {}
+
+[cpp_event(unicast)]
+struct CmdGuidanceLockSwitch
+  on : bool
+
+[cpp_event(unicast)]
+struct EventOnPlayerLooted
+  itemType : string
+  region : string
+
+[cpp_event(unicast)]
+struct CmdSwapEquipSlots
+  item : EntityId
+  fromSlotName : string
+  toSlotName : string

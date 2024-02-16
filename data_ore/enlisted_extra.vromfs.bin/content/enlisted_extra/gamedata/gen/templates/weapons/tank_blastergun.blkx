@@ -36,16 +36,16 @@
   },
   "tank_blastergun": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_tankgun_machinegun"
+      "_use": "base_tankgun_machinegun"
     },
     {
-      "_extends": "base_tank_blastergun"
+      "_use": "base_tank_blastergun"
     },
     {
-      "_extends": "gunsound_tank_blastergun"
+      "_use": "gunsound_tank_blastergun"
     },
     {
       "turret__triggerGroup": 2

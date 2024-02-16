@@ -11,7 +11,7 @@
   },
   "gun_overheat": [
     {
-      "_extends": "gun_overheat_speech_enable"
+      "_use": "gun_overheat_speech_enable"
     },
     {
       "gun__isOverheat": false
@@ -39,7 +39,7 @@
     }
   ],
   "infinite_magazine": {
-    "_extends": "item_magazine",
+    "_use": "item_magazine",
     "ammo_holder__templateName": "infinite_magazine",
     "ammo_holder__ammoCount": 100000,
     "item__proto": "infinite_magazine",
@@ -48,10 +48,10 @@
   },
   "blaster_base": [
     {
-      "_extends": "gun_overheat"
+      "_use": "gun_overheat"
     },
     {
-      "_extends": "gun_overheat_visual"
+      "_use": "gun_overheat_visual"
     },
     {
       "gun__overheatReduce": 0.0
@@ -102,10 +102,10 @@
   ],
   "blaster_gun_base": [
     {
-      "_extends": "space_blaster_muzzle_preset"
+      "_use": "space_blaster_muzzle_preset"
     },
     {
-      "_extends": "riffle_gun_aim_sound"
+      "_use": "rifle_gun_aim_sound"
     },
     {
       "gun__recoilAmount": 0.0
@@ -173,7 +173,7 @@
     }
   ],
   "blaster_ussr": {
-    "_extends": "blaster_base",
+    "_use": "blaster_base",
     "animchar__res": "first_april_skt40_char",
     "item__name": "items/blaster_ussr",
     "item__template": "blaster_ussr_gun_item",
@@ -183,17 +183,17 @@
   },
   "blaster_ussr_gun": [
     {
-      "_extends": "skt_40_gun"
+      "_use": "skt_40_gun"
     },
     {
-      "_extends": "blaster_gun_base"
+      "_use": "blaster_gun_base"
     },
     {
-      "_extends": "blaster_ussr"
+      "_use": "blaster_ussr"
     }
   ],
   "blaster_germany": {
-    "_extends": "blaster_base",
+    "_use": "blaster_base",
     "animchar__res": "first_april_gewehr_char",
     "item__name": "items/blaster_germany",
     "item__template": "blaster_germany_gun_item",
@@ -203,17 +203,17 @@
   },
   "blaster_germany_gun": [
     {
-      "_extends": "gewehr_43_gun"
+      "_use": "gewehr_43_gun"
     },
     {
-      "_extends": "blaster_gun_base"
+      "_use": "blaster_gun_base"
     },
     {
-      "_extends": "blaster_germany"
+      "_use": "blaster_germany"
     }
   ],
   "blaster_usa": {
-    "_extends": "blaster_base",
+    "_use": "blaster_base",
     "animchar__res": "first_april_m1941_johnson_char",
     "item__name": "items/blaster_usa",
     "item__template": "blaster_usa_gun_item",
@@ -223,24 +223,24 @@
   },
   "blaster_usa_gun": [
     {
-      "_extends": "m1941_johnson_gun"
+      "_use": "m1941_johnson_gun"
     },
     {
-      "_extends": "blaster_gun_base"
+      "_use": "blaster_gun_base"
     },
     {
-      "_extends": "blaster_usa"
+      "_use": "blaster_usa"
     }
   ],
   "blaster_pistol_base": [
     {
-      "_extends": "gun_overheat"
+      "_use": "gun_overheat"
     },
     {
-      "_extends": "gun_overheat_visual"
+      "_use": "gun_overheat_visual"
     },
     {
-      "_extends": "riffle_gun_aim_sound"
+      "_use": "rifle_gun_aim_sound"
     },
     {
       "gun__overheatReduce": 0.05
@@ -318,7 +318,7 @@
     }
   ],
   "blaster_pistol_ussr": {
-    "_extends": "blaster_pistol_base",
+    "_use": "blaster_pistol_base",
     "animchar__res": "first_april_tt_33_char",
     "item__name": "items/blaster_pistol_ussr",
     "item__template": "blaster_pistol_ussr_gun_item",
@@ -328,17 +328,17 @@
   },
   "blaster_pistol_ussr_gun": [
     {
-      "_extends": "tt_33_gun"
+      "_use": "tt_33_gun"
     },
     {
-      "_extends": "blaster_gun_base"
+      "_use": "blaster_gun_base"
     },
     {
-      "_extends": "blaster_pistol_ussr"
+      "_use": "blaster_pistol_ussr"
     }
   ],
   "blaster_pistol_germany": {
-    "_extends": "blaster_pistol_base",
+    "_use": "blaster_pistol_base",
     "animchar__res": "first_april_mauser_c96_char",
     "item__name": "items/blaster_pistol_germany",
     "item__template": "blaster_pistol_germany_gun_item",
@@ -348,17 +348,17 @@
   },
   "blaster_pistol_germany_gun": [
     {
-      "_extends": "mauser_c96_gun"
+      "_use": "mauser_c96_gun"
     },
     {
-      "_extends": "blaster_gun_base"
+      "_use": "blaster_gun_base"
     },
     {
-      "_extends": "blaster_pistol_germany"
+      "_use": "blaster_pistol_germany"
     }
   ],
   "blaster_pistol_usa": {
-    "_extends": "blaster_pistol_base",
+    "_use": "blaster_pistol_base",
     "animchar__res": "first_april_m_1911_colt_a1_char",
     "item__name": "items/blaster_pistol_usa",
     "item__template": "blaster_pistol_usa_gun_item",
@@ -368,24 +368,24 @@
   },
   "blaster_pistol_usa_gun": [
     {
-      "_extends": "m1911_colt_gun"
+      "_use": "m1911_colt_gun"
     },
     {
-      "_extends": "blaster_gun_base"
+      "_use": "blaster_gun_base"
     },
     {
-      "_extends": "blaster_pistol_usa"
+      "_use": "blaster_pistol_usa"
     }
   ],
   "blaster_auto_base": [
     {
-      "_extends": "gun_delayed_shot_sound"
+      "_use": "gun_delayed_shot_sound"
     },
     {
-      "_extends": "gun_overheat"
+      "_use": "gun_overheat"
     },
     {
-      "_extends": "gun_overheat_visual"
+      "_use": "gun_overheat_visual"
     },
     {
       "gun__overheatReduce": 0.02
@@ -438,7 +438,7 @@
     }
   ],
   "blaster_auto_ussr": {
-    "_extends": "blaster_auto_base",
+    "_use": "blaster_auto_base",
     "animchar__res": "first_april_dt_29_char",
     "item__name": "items/blaster_auto_ussr",
     "item__template": "blaster_auto_ussr_gun_item",
@@ -448,17 +448,17 @@
   },
   "blaster_auto_ussr_gun": [
     {
-      "_extends": "dt_29_gun"
+      "_use": "dt_29_gun"
     },
     {
-      "_extends": "blaster_gun_base"
+      "_use": "blaster_gun_base"
     },
     {
-      "_extends": "blaster_auto_ussr"
+      "_use": "blaster_auto_ussr"
     }
   ],
   "blaster_auto_germany": {
-    "_extends": "blaster_auto_base",
+    "_use": "blaster_auto_base",
     "animchar__res": "first_april_mg_42_char",
     "item__name": "items/blaster_auto_germany",
     "item__template": "blaster_auto_germany_gun_item",
@@ -468,17 +468,17 @@
   },
   "blaster_auto_germany_gun": [
     {
-      "_extends": "mg_42_handheld_gun"
+      "_use": "mg_42_handheld_gun"
     },
     {
-      "_extends": "blaster_gun_base"
+      "_use": "blaster_gun_base"
     },
     {
-      "_extends": "blaster_auto_germany"
+      "_use": "blaster_auto_germany"
     }
   ],
   "blaster_auto_usa": {
-    "_extends": "blaster_auto_base",
+    "_use": "blaster_auto_base",
     "animchar__res": "first_april_browning_m_1918_char",
     "item__name": "items/blaster_auto_usa",
     "item__template": "blaster_auto_usa_gun_item",
@@ -488,21 +488,21 @@
   },
   "blaster_auto_usa_gun": [
     {
-      "_extends": "browning_m1918_gun"
+      "_use": "browning_m1918_gun"
     },
     {
-      "_extends": "blaster_gun_base"
+      "_use": "blaster_gun_base"
     },
     {
-      "_extends": "blaster_auto_usa"
+      "_use": "blaster_auto_usa"
     }
   ],
   "lightthrower_base": [
     {
-      "_extends": "gun_overheat"
+      "_use": "gun_overheat"
     },
     {
-      "_extends": "gun_overheat_visual"
+      "_use": "gun_overheat_visual"
     },
     {
       "gun__overheatReduce": 0.2
@@ -518,7 +518,7 @@
     }
   ],
   "lightthrower_gun_base": {
-    "_extends": "antivehicle_gun_aim_sound",
+    "_use": "antivehicle_gun_aim_sound",
     "flamethrower__flameStreamRadius": 0.01,
     "flamethrower__flameCloudRadius": 0.02,
     "flamethrower__streamDamagePerSecond": 50.0,
@@ -572,7 +572,7 @@
     }
   },
   "lightthrower_ussr": {
-    "_extends": "lightthrower_base",
+    "_use": "lightthrower_base",
     "animchar__res": "first_april_ppsh_char",
     "item__name": "items/lightthrower_ussr",
     "item__template": "lightthrower_ussr_gun_item",
@@ -582,17 +582,17 @@
   },
   "lightthrower_ussr_gun": [
     {
-      "_extends": "m1_flamethrower_gun"
+      "_use": "m1_flamethrower_gun"
     },
     {
-      "_extends": "lightthrower_gun_base"
+      "_use": "lightthrower_gun_base"
     },
     {
-      "_extends": "lightthrower_ussr"
+      "_use": "lightthrower_ussr"
     }
   ],
   "lightthrower_germany": {
-    "_extends": "lightthrower_base",
+    "_use": "lightthrower_base",
     "animchar__res": "first_april_mp_34_char",
     "item__name": "items/lightthrower_germany",
     "item__template": "lightthrower_germany_gun_item",
@@ -602,17 +602,17 @@
   },
   "lightthrower_germany_gun": [
     {
-      "_extends": "m1_flamethrower_gun"
+      "_use": "m1_flamethrower_gun"
     },
     {
-      "_extends": "lightthrower_gun_base"
+      "_use": "lightthrower_gun_base"
     },
     {
-      "_extends": "lightthrower_germany"
+      "_use": "lightthrower_germany"
     }
   ],
   "lightthrower_usa": {
-    "_extends": "lightthrower_base",
+    "_use": "lightthrower_base",
     "animchar__res": "first_april_thompson_m1928_char",
     "item__name": "items/lightthrower_usa",
     "item__template": "lightthrower_usa_gun_item",
@@ -622,21 +622,21 @@
   },
   "lightthrower_usa_gun": [
     {
-      "_extends": "m1_flamethrower_gun"
+      "_use": "m1_flamethrower_gun"
     },
     {
-      "_extends": "lightthrower_gun_base"
+      "_use": "lightthrower_gun_base"
     },
     {
-      "_extends": "lightthrower_usa"
+      "_use": "lightthrower_usa"
     }
   ],
   "railgun_base": [
     {
-      "_extends": "gun_overheat"
+      "_use": "gun_overheat"
     },
     {
-      "_extends": "gun_overheat_visual"
+      "_use": "gun_overheat_visual"
     },
     {
       "gun__overheatReduce": 0.2
@@ -674,13 +674,13 @@
   ],
   "railgun_gun_base": [
     {
-      "_extends": "gun_delayed_shot_sound"
+      "_use": "gun_delayed_shot_sound"
     },
     {
-      "_extends": "space_sniper_muzzle_preset"
+      "_use": "space_sniper_muzzle_preset"
     },
     {
-      "_extends": "riffle_gun_aim_sound"
+      "_use": "rifle_gun_aim_sound"
     },
     {
       "gun_delayed_shot__holdTriggerDelay": 1.0
@@ -790,7 +790,7 @@
     }
   ],
   "railgun_ussr": {
-    "_extends": "railgun_base",
+    "_use": "railgun_base",
     "animchar__res": "first_april_dt_29_char",
     "item__name": "items/railgun_ussr",
     "item__template": "railgun_ussr_gun_item",
@@ -800,17 +800,17 @@
   },
   "railgun_ussr_gun": [
     {
-      "_extends": "dt_29_gun"
+      "_use": "dt_29_gun"
     },
     {
-      "_extends": "railgun_gun_base"
+      "_use": "railgun_gun_base"
     },
     {
-      "_extends": "railgun_ussr"
+      "_use": "railgun_ussr"
     }
   ],
   "railgun_germany": {
-    "_extends": "railgun_base",
+    "_use": "railgun_base",
     "animchar__res": "first_april_mg_42_char",
     "item__name": "items/railgun_germany",
     "item__template": "railgun_germany_gun_item",
@@ -820,17 +820,17 @@
   },
   "railgun_germany_gun": [
     {
-      "_extends": "mg_42_handheld_gun"
+      "_use": "mg_42_handheld_gun"
     },
     {
-      "_extends": "railgun_gun_base"
+      "_use": "railgun_gun_base"
     },
     {
-      "_extends": "railgun_germany"
+      "_use": "railgun_germany"
     }
   ],
   "railgun_usa": {
-    "_extends": "railgun_base",
+    "_use": "railgun_base",
     "animchar__res": "first_april_browning_m_1918_char",
     "item__name": "items/railgun_usa",
     "item__template": "railgun_usa_gun_item",
@@ -840,13 +840,13 @@
   },
   "railgun_usa_gun": [
     {
-      "_extends": "browning_m1918_gun"
+      "_use": "browning_m1918_gun"
     },
     {
-      "_extends": "railgun_gun_base"
+      "_use": "railgun_gun_base"
     },
     {
-      "_extends": "railgun_usa"
+      "_use": "railgun_usa"
     }
   ],
   "plasma_shell": {
@@ -855,22 +855,22 @@
   },
   "plasma_shell_phys": [
     {
-      "_extends": "projectile_phys"
+      "_use": "projectile_phys"
     },
     {
-      "_extends": "plasma_shell"
+      "_use": "plasma_shell"
     },
     {
-      "_extends": "rocket_shell"
+      "_use": "rocket_shell"
     },
     {
-      "_extends": "base_dm_parts"
+      "_use": "base_dm_parts"
     },
     {
-      "_extends": "base_hitpoints"
+      "_use": "base_hitpoints"
     },
     {
-      "_extends": "event_foolmoon_plasma"
+      "_use": "event_foolmoon_plasma"
     },
     {
       "phys_obj_net_phys__blk": "content/enlisted_extra/gamedata/weapons/shells/plasma_shell.blk"
@@ -943,23 +943,19 @@
         "volumeBox_1:object": {
           "dmgMult": 1.0,
           "armor": 0.0
-        },
-        "volumeBox_002:object": {
-          "dmgMult": 1.0,
-          "armor": 0.0
         }
       }
     }
   ],
   "plasma_cannon_base": [
     {
-      "_extends": "gun_overheat"
+      "_use": "gun_overheat"
     },
     {
-      "_extends": "gun_overheat_visual"
+      "_use": "gun_overheat_visual"
     },
     {
-      "_extends": "riffle_gun_aim_sound"
+      "_use": "rifle_gun_aim_sound"
     },
     {
       "gun__overheatReduce": 0.0
@@ -1034,13 +1030,13 @@
   },
   "plasma_cannon_ussr_gun": [
     {
-      "_extends": "neiman_minethrower_gun"
+      "_use": "neiman_minethrower_gun"
     },
     {
-      "_extends": "plasma_cannon_base"
+      "_use": "plasma_cannon_base"
     },
     {
-      "_extends": "plasma_cannon_ussr"
+      "_use": "plasma_cannon_ussr"
     }
   ],
   "plasma_cannon_germany": {
@@ -1054,13 +1050,25 @@
   },
   "plasma_cannon_germany_gun": [
     {
-      "_extends": "grb_39_gun"
+      "_use": "grb_39_gun"
     },
     {
-      "_extends": "plasma_cannon_base"
+      "_use": "plasma_cannon_base"
     },
     {
-      "_extends": "plasma_cannon_germany"
+      "_use": "plasma_cannon_germany"
+    },
+    {
+      "weapon_frontsight_node__nodeName": "frontsight_aim"
+    },
+    {
+      "sightPresets:array": {
+        "preset:object": {
+          "distance": 0.0,
+          "frontsightNode": "frontsight_aim",
+          "loc": "sight/0m"
+        }
+      }
     }
   ],
   "plasma_cannon_usa": {
@@ -1073,17 +1081,17 @@
   },
   "plasma_cannon_usa_gun": [
     {
-      "_extends": "neiman_minethrower_gun"
+      "_use": "neiman_minethrower_gun"
     },
     {
-      "_extends": "plasma_cannon_base"
+      "_use": "plasma_cannon_base"
     },
     {
-      "_extends": "plasma_cannon_usa"
+      "_use": "plasma_cannon_usa"
     }
   ],
   "ussr_moon_building_tool_gun": {
-    "_extends": "building_tool_gun",
+    "_use": "building_tool_gun",
     "item__weapTemplate": "ussr_moon_building_tool_gun",
     "item__template": "ussr_building_tools_item",
     "previewTemplate:list<t>": [
@@ -1111,10 +1119,10 @@
   },
   "ussr_moon_building_tools_item": [
     {
-      "_extends": "item_melee"
+      "_use": "item_melee"
     },
     {
-      "_extends": "ussr_moon_building_tool_gun"
+      "_use": "ussr_moon_building_tool_gun"
     },
     {
       "collres__res": "construction_hammer_collision"
@@ -1124,7 +1132,7 @@
     }
   ],
   "plasma_grenade_thrower": {
-    "_extends": "grenade_thrower",
+    "_use": "grenade_thrower",
     "gun__shells:array": {
       "shells": "content/enlisted_extra/gamedata/weapons/grenades/plasma_pack.blk"
     }

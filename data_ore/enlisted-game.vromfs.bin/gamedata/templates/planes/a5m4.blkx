@@ -1,10 +1,10 @@
 {
   "a5m4": [
     {
-      "_extends": "a5m4_base"
+      "_use": "a5m4_base"
     },
     {
-      "_extends": "squad_controlled_plane"
+      "_use": "squad_controlled_plane"
     },
     {
       "item__name": "items/a5m4"
@@ -35,9 +35,15 @@
             },
             {
               "turret": "turret_02"
+            },
+            {
+              "turret": "turret_03"
+            },
+            {
+              "turret": "turret_04"
             }
           ],
-          "effectors:object": {
+          "cockpitEffectors:object": {
             "r.hand": "stick_rhand_1",
             "l.hand": "throttle_lhand_1",
             "r.foot": "pedal_rfoot_1",
@@ -48,6 +54,12 @@
     },
     {
       "turret_control__emitterNodes:shared:array": [
+        {
+          "node": "bomb1"
+        },
+        {
+          "node": "bomb2"
+        },
         {
           "node": "flare1"
         },
@@ -69,6 +81,18 @@
             "curYawParamName": "weapon_02_yaw",
             "curPitchParamName": "weapon_02_pitch"
           }
+        },
+        {
+          "vars:object": {
+            "curYawParamName": "weapon_03_yaw",
+            "curPitchParamName": "weapon_03_pitch"
+          }
+        },
+        {
+          "vars:object": {
+            "curYawParamName": "weapon_04_yaw",
+            "curPitchParamName": "weapon_04_pitch"
+          }
         }
       ]
     },
@@ -77,6 +101,22 @@
         {
           "turretInfo:object": {
             "turretName": "turret_01",
+            "turretGroup": "bomb_turrets",
+            "trigger": "bombs",
+            "gun": "planegun_a5m4_navy_type_97mod_6_60kg_launcher_01"
+          }
+        },
+        {
+          "turretInfo:object": {
+            "turretName": "turret_02",
+            "turretGroup": "bomb_turrets",
+            "trigger": "bombs",
+            "gun": "planegun_a5m4_navy_type_97mod_6_60kg_launcher_02"
+          }
+        },
+        {
+          "turretInfo:object": {
+            "turretName": "turret_03",
             "turretGroup": "main_turrets",
             "trigger": "machine_guns",
             "gun": "planegun_a5m4_7_7mm_type89_01"
@@ -84,7 +124,7 @@
         },
         {
           "turretInfo:object": {
-            "turretName": "turret_02",
+            "turretName": "turret_04",
             "turretGroup": "main_turrets",
             "trigger": "machine_guns",
             "gun": "planegun_a5m4_7_7mm_type89_02"
@@ -95,6 +135,12 @@
     {
       "turret_gun_flash_fx__flashNodes:shared:array": [
         {
+          "node": "bomb1"
+        },
+        {
+          "node": "bomb2"
+        },
+        {
           "node": "flare1"
         },
         {
@@ -104,6 +150,12 @@
     },
     {
       "turret_gun_flash_fx__flashFx:shared:array": [
+        {
+          "fx": ""
+        },
+        {
+          "fx": ""
+        },
         {
           "fx": "muzzle_air_8mm"
         },
@@ -119,15 +171,54 @@
         },
         {
           "scale": 1.0
+        },
+        {
+          "scale": 1.0
+        },
+        {
+          "scale": 1.0
         }
       ]
     },
     {
-      "disableDMParts:list<t>": {
-        "part": "drop_fueltank"
-      }
+      "disableDMParts:list<t>": [
+        {
+          "part": "drop_fueltank"
+        },
+        {
+          "part": "tank5_dm"
+        }
+      ]
     }
   ],
+  "base_a5m4_navy_type_97mod_6_60kg_launcher": {
+    "item__name": "guns/jp_navy_type97mod6_60kg",
+    "gun__blk": "gamedata/weapons/a5m4/navy_type_97mod_6_60kg_launcher.blk",
+    "gun__shotFreq": 10.0,
+    "gun__locName": "jp_navy_type97mod6_60kg",
+    "gun__shootNodeName": "bone_mg_gun_twin",
+    "gun__maxAmmo": 1,
+    "gun__firingModes:array": {
+      "mode:object": {
+        "modeType": "manual"
+      }
+    },
+    "gun__firingModeNames:array": {
+      "mode": "bolt_action"
+    },
+    "gun__shellsAmmo:array": {
+      "ammo": 1
+    },
+    "gun__ammoSetsInfo:shared:array": {
+      "default:array": {
+        "shell:object": {
+          "blk": "gamedata/weapons/shells/navy_type_97mod_6_60kg.blk",
+          "name": "navy_type_97mod_6_60kg",
+          "type": "he_frag_tank"
+        }
+      }
+    }
+  },
   "base_a5m4_7_7mm_type89": {
     "item__name": "guns/guntype89",
     "gun__blk": "gamedata/weapons/a5m4/7_7mm_type89.blk",
@@ -157,23 +248,16 @@
         },
         {
           "shell:object": {
-            "blk": "gamedata/weapons/shells/7_7x58srmm_he_bullet.blk",
-            "name": "he",
-            "type": "he_i_ball"
-          }
-        },
-        {
-          "shell:object": {
-            "blk": "gamedata/weapons/shells/7_7x58srmm_ball_bullet.blk",
-            "name": "ball",
-            "type": "ball"
-          }
-        },
-        {
-          "shell:object": {
             "blk": "gamedata/weapons/shells/7_7x58srmm_ap_bullet.blk",
             "name": "ap",
             "type": "ap_ball"
+          }
+        },
+        {
+          "shell:object": {
+            "blk": "gamedata/weapons/shells/7_7x58srmm_he_bullet.blk",
+            "name": "he",
+            "type": "he_i_ball"
           }
         },
         {
@@ -193,18 +277,58 @@
       ]
     }
   },
+  "planegun_a5m4_navy_type_97mod_6_60kg_launcher_01": [
+    {
+      "_use": "navy_type_97mod_6_60kg_launcher"
+    },
+    {
+      "_use": "base_a5m4_navy_type_97mod_6_60kg_launcher"
+    },
+    {
+      "_use": "gunsound_navy_type_97mod_6_60kg_launcher_aircraft"
+    },
+    {
+      "gun__shootNodeName": "bomb1"
+    },
+    {
+      "slot_attach__slotName": "bomb1"
+    },
+    {
+      "gun__maxAmmo": 1
+    }
+  ],
+  "planegun_a5m4_navy_type_97mod_6_60kg_launcher_02": [
+    {
+      "_use": "navy_type_97mod_6_60kg_launcher"
+    },
+    {
+      "_use": "base_a5m4_navy_type_97mod_6_60kg_launcher"
+    },
+    {
+      "_use": "gunsound_navy_type_97mod_6_60kg_launcher_aircraft"
+    },
+    {
+      "gun__shootNodeName": "bomb2"
+    },
+    {
+      "slot_attach__slotName": "bomb2"
+    },
+    {
+      "gun__maxAmmo": 1
+    }
+  ],
   "planegun_a5m4_7_7mm_type89_01": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_plane_machinegun"
+      "_use": "base_plane_machinegun"
     },
     {
-      "_extends": "base_a5m4_7_7mm_type89"
+      "_use": "base_a5m4_7_7mm_type89"
     },
     {
-      "_extends": "gunsound_7_7mm_type89_aircraft"
+      "_use": "gunsound_7_7mm_type89_aircraft"
     },
     {
       "gun__shootNodeName": "flare1"
@@ -215,16 +339,16 @@
   ],
   "planegun_a5m4_7_7mm_type89_02": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_plane_machinegun"
+      "_use": "base_plane_machinegun"
     },
     {
-      "_extends": "base_a5m4_7_7mm_type89"
+      "_use": "base_a5m4_7_7mm_type89"
     },
     {
-      "_extends": "gunsound_7_7mm_type89_aircraft"
+      "_use": "gunsound_7_7mm_type89_aircraft"
     },
     {
       "gun__shootNodeName": "flare2"
@@ -235,10 +359,10 @@
   ],
   "a5m4_driver_cockpit": [
     {
-      "_extends": "base_plane_cockpit"
+      "_use": "base_plane_cockpit"
     },
     {
-      "_extends": "plane_telesight"
+      "_use": "plane_telesight"
     },
     {
       "cockpit__offset": [0.0,0.0,0.0]

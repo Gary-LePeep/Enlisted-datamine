@@ -1,5 +1,6 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/library_logs.nut" import *
+from "math" import max
 
 let dedicated = require_optional("dedicated")
 if (dedicated == null)
@@ -68,21 +69,29 @@ let playerStatQuery = ecs.SqQuery("playerStatQuery", {
     ["scoring_player__kills", ecs.TYPE_INT, 0],
     ["scoring_player__killsByPlayer", ecs.TYPE_INT, 0],
     ["scoring_player__tankKills", ecs.TYPE_INT, 0],
+    ["scoring_player__apcKills", ecs.TYPE_INT, 0],
     ["scoring_player__planeKills", ecs.TYPE_INT, 0],
+    ["scoring_player__aiPlaneKills", ecs.TYPE_INT, 0],
     ["scoring_player__battleTime", ecs.TYPE_FLOAT, 0.0],
     ["scoring_player__soldierDeaths", ecs.TYPE_INT, 0],
     ["scoring_player__squadDeaths", ecs.TYPE_INT, 0],
     ["scoring_player__assists", ecs.TYPE_INT, 0],
     ["scoring_player__attackKills", ecs.TYPE_INT, 0],
     ["scoring_player__defenseKills", ecs.TYPE_INT, 0],
+    ["scoring_player__longRangeKills", ecs.TYPE_INT, 0],
     ["scoring_player__builtAmmoBoxRefills", ecs.TYPE_INT, 0],
     ["scoring_player__builtRallyPointUses", ecs.TYPE_INT, 0],
+    ["scoring_player__ownedMobileSpawnUses", ecs.TYPE_INT, 0],
     ["scoring_player__builtGunKills", ecs.TYPE_INT, 0],
     ["scoring_player__builtGunKillAssists", ecs.TYPE_INT, 0],
     ["scoring_player__builtGunTankKills", ecs.TYPE_INT, 0],
     ["scoring_player__builtGunTankKillAssists", ecs.TYPE_INT, 0],
+    ["scoring_player__builtGunApcKills", ecs.TYPE_INT, 0],
+    ["scoring_player__builtGunApcKillAssists", ecs.TYPE_INT, 0],
     ["scoring_player__builtGunPlaneKills", ecs.TYPE_INT, 0],
+    ["scoring_player__builtGunAiPlaneKills", ecs.TYPE_INT, 0],
     ["scoring_player__builtGunPlaneKillAssists", ecs.TYPE_INT, 0],
+    ["scoring_player__builtGunAiPlaneKillAssists", ecs.TYPE_INT, 0],
     ["scoring_player__builtBarbwireActivations", ecs.TYPE_INT, 0],
     ["scoring_player__builtCapzoneFortificationActivations", ecs.TYPE_INT, 0],
     ["scoring_player__enemyBuiltFortificationDestructions", ecs.TYPE_INT, 0],

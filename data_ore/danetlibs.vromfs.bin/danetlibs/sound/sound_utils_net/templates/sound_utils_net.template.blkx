@@ -3,7 +3,7 @@
     "net_sound__descs:shared:object": []
   },
   "any_source_net_sound_descs": {
-    "_extends": "net_sound_descs",
+    "_use": "net_sound_descs",
     "anySourceNetSounds:tag": []
   },
   "game_object_compound_sound_generator": {
@@ -21,6 +21,24 @@
       "game_object_spline_sound_generator__pointRadiusMul": 1.0,
       "game_object_spline_sound_generator__entityEid:eid": [],
       "game_object_spline_sound_generator__gameObjects:list<t>": []
+    }
+  },
+  "game_object_ocean_sound_generator": {
+    "_group": {
+      "_tags": "server",
+      "game_object_ocean_sound_generator__entityTemplate": "",
+      "game_object_ocean_sound_generator__entityEid:eid": [],
+      "game_object_ocean_sound_generator__gameObjects:list<t>": []
+    }
+  },
+  "game_object_sound_field_generator": {
+    "_singleton": true,
+    "_group": {
+      "_tags": "server",
+      "game_object_sound_field_generator__cellSize": 16.0,
+      "game_object_sound_field_generator__entityTemplate": "",
+      "game_object_sound_field_generator__entityEid:eid": [],
+      "game_object_sound_field_generator__biomeTypes:array": []
     }
   }
 }

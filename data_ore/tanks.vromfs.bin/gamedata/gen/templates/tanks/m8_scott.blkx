@@ -1,10 +1,10 @@
 {
   "base_m8_scott": [
     {
-      "_extends": "base_tank"
+      "_use": "base_tank"
     },
     {
-      "_extends": "m8_scott_ammo_stowages"
+      "_use": "m8_scott_ammo_stowages"
     },
     {
       "killLogName": "us_m8_scott"
@@ -159,7 +159,7 @@
     }
   ],
   "m8_scott_turret_01_75mm_m2_howitzer": {
-    "_extends": "tankgun_75mm_m2_howitzer",
+    "_use": "tankgun_75mm_m2_howitzer",
     "gun__shootNodeName": "bone_gun_barrel",
     "turret__yawSpeed": 6.0,
     "turret__pitchSpeed": 4.0,
@@ -186,7 +186,7 @@
     ]
   },
   "m8_scott_turret_02_12_7mm_m2_hb": {
-    "_extends": "tankgun_12_7mm_m2_hb",
+    "_use": "tankgun_12_7mm_m2_hb",
     "gun__shootNodeName": "bone_mg_aa_v_01",
     "turret__yawSpeed": 90.0,
     "turret__pitchSpeed": 90.0,
@@ -212,13 +212,13 @@
   },
   "m8_scott_ammo_stowages": {
     "_tags": "server",
-    "_extends": "vehicle_ammo_stowages",
+    "_use": "vehicle_ammo_stowages",
     "ammo_stowage__stowageTemplates:shared:list<t>": {
       "stowage": "m8_scott_ammo_stowage_1"
     }
   },
   "m8_scott_ammo_stowage_1": {
-    "_extends": "ammo_stowage",
+    "_use": "ammo_stowage",
     "ammo_stowage__clusterTemplates:shared:list<t>": {
       "cluster": "m8_scott_ammo_cluster_1_1"
     },
@@ -227,7 +227,7 @@
     }
   },
   "m8_scott_ammo_cluster_1_1": {
-    "_extends": "ammo_cluster",
+    "_use": "ammo_cluster",
     "ammo_cluster__isShell": true,
     "ammo_cluster__slotNames:shared:list<t>": [
       {

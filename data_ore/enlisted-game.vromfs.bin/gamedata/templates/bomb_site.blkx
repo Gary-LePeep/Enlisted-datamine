@@ -9,7 +9,7 @@
     ]
   },
   "bomb_site_charge": {
-    "_extends": "projectile_with_shell",
+    "_use": "projectile_with_shell",
     "animchar__res": "tnt_explosive_char",
     "shell__expl_node": "weaponRoot",
     "item__name": "items/bomb_site_charge",
@@ -17,7 +17,7 @@
   },
   "bomb_site_base": [
     {
-      "_extends": "replicating"
+      "_use": "replicating"
     },
     {
       "transform": [
@@ -228,7 +228,7 @@
     }
   ],
   "bomb_site_boxes_animchar": {
-    "_extends": "animchar",
+    "_use": "animchar",
     "animchar__res": "ammunition_supply_a_char",
     "collres__res": "ammunition_supply_a_dynmodel_collision",
     "collres": []
@@ -241,7 +241,7 @@
     }
   },
   "bomb_site_sound_effect": {
-    "_extends": "sound_effect",
+    "_use": "sound_effect",
     "_group": {
       "_tags": "sound",
       "sound_effect__path": "env_effects/bomb_site_idle"
@@ -249,10 +249,10 @@
   },
   "bomb_site_fuel_warehouse_ri": [
     {
-      "_extends": "rendinst"
+      "_use": "rendinst"
     },
     {
-      "_extends": "replicating"
+      "_use": "replicating"
     },
     {
       "ri_extra__name": "fuel_warehouse_a"
@@ -260,10 +260,10 @@
   ],
   "bomb_site_radar_hardware_animchar_01": [
     {
-      "_extends": "rendinst"
+      "_use": "rendinst"
     },
     {
-      "_extends": "replicating"
+      "_use": "replicating"
     },
     {
       "ri_extra__name": "radar_hardware_01"
@@ -276,10 +276,10 @@
   ],
   "bomb_site_radar_hardware_animchar_02": [
     {
-      "_extends": "rendinst"
+      "_use": "rendinst"
     },
     {
-      "_extends": "replicating"
+      "_use": "replicating"
     },
     {
       "ri_extra__name": "radar_hardware_02"
@@ -292,10 +292,10 @@
   ],
   "bomb_site_radar_hardware_animchar_03": [
     {
-      "_extends": "rendinst"
+      "_use": "rendinst"
     },
     {
-      "_extends": "replicating"
+      "_use": "replicating"
     },
     {
       "ri_extra__name": "radar_hardware_03"
@@ -308,10 +308,10 @@
   ],
   "bomb_site_radar_hardware_animchar_04": [
     {
-      "_extends": "rendinst"
+      "_use": "rendinst"
     },
     {
-      "_extends": "replicating"
+      "_use": "replicating"
     },
     {
       "ri_extra__name": "radar_hardware_04"
@@ -324,10 +324,10 @@
   ],
   "bomb_site_radar_hardware_animchar_05": [
     {
-      "_extends": "rendinst"
+      "_use": "rendinst"
     },
     {
-      "_extends": "replicating"
+      "_use": "replicating"
     },
     {
       "ri_extra__name": "radar_hardware_05"
@@ -340,10 +340,10 @@
   ],
   "bomb_site_radar_hardware_animchar_01_without_antenna": [
     {
-      "_extends": "rendinst"
+      "_use": "rendinst"
     },
     {
-      "_extends": "replicating"
+      "_use": "replicating"
     },
     {
       "ri_extra__name": "radar_hardware_01_without_antenna"
@@ -356,10 +356,10 @@
   ],
   "bomb_site_radar_hardware_animchar_02_without_antenna": [
     {
-      "_extends": "rendinst"
+      "_use": "rendinst"
     },
     {
-      "_extends": "replicating"
+      "_use": "replicating"
     },
     {
       "ri_extra__name": "radar_hardware_02_without_antenna"
@@ -372,10 +372,10 @@
   ],
   "bomb_site_radar_hardware_animchar_03_without_antenna": [
     {
-      "_extends": "rendinst"
+      "_use": "rendinst"
     },
     {
-      "_extends": "replicating"
+      "_use": "replicating"
     },
     {
       "ri_extra__name": "radar_hardware_03_without_antenna"
@@ -388,10 +388,10 @@
   ],
   "bomb_site_radar_hardware_animchar_04_without_antenna": [
     {
-      "_extends": "rendinst"
+      "_use": "rendinst"
     },
     {
-      "_extends": "replicating"
+      "_use": "replicating"
     },
     {
       "ri_extra__name": "radar_hardware_04_without_antenna"
@@ -404,10 +404,10 @@
   ],
   "bomb_site_radar_hardware_animchar_05_without_antenna": [
     {
-      "_extends": "rendinst"
+      "_use": "rendinst"
     },
     {
-      "_extends": "replicating"
+      "_use": "replicating"
     },
     {
       "ri_extra__name": "radar_hardware_05_without_antenna"
@@ -420,10 +420,10 @@
   ],
   "bomb_site_safe_animchar": [
     {
-      "_extends": "rendinst"
+      "_use": "rendinst"
     },
     {
-      "_extends": "replicating"
+      "_use": "replicating"
     },
     {
       "ri_extra__name": "safe_target_a"
@@ -436,13 +436,13 @@
   ],
   "bomb_site": [
     {
-      "_extends": "bomb_site_base"
+      "_use": "bomb_site_base"
     },
     {
-      "_extends": "bomb_site_tick_sound"
+      "_use": "bomb_site_tick_sound"
     },
     {
-      "_extends": "bomb_site_sound_effect"
+      "_use": "bomb_site_sound_effect"
     },
     {
       "active": true

@@ -1,17 +1,12 @@
 from "%enlSqGlob/ui_library.nut" import *
 import "%dngscripts/ecs.nut" as ecs
 let { Point2 } = require("dagor.math")
-let {
-  viewVehicle, selectVehParams, CAN_USE
-} = require("%enlist/vehicles/vehiclesListState.nut")
-let {
-  getVehicleData, applyUpgrades
-} = require("%enlist/soldiers/model/collectWeaponData.nut")
+let { viewVehicle, selectVehParams, CAN_USE } = require("%enlist/vehicles/vehiclesListState.nut")
+let { getVehicleData, applyUpgrades } = require("%enlist/soldiers/model/collectWeaponData.nut")
 let upgrades = require("%enlist/soldiers/model/config/upgradesConfig.nut")
-let { mkUpgradeWatch, mkSpecsWatch } = require("%enlist/vehicles/physSpecs.nut")
-let {
-  getArmorClassLocName, getArmorPartDesc
-} = require("%enlist/vehicles/dmViewerArmor.nut")
+let { specsCache, getItemUpgrade, getItemSpec, requireItemSpec
+} = require("%enlist/vehicles/physSpecs.nut")
+let { getArmorClassLocName, getArmorPartDesc } = require("%enlist/vehicles/dmViewerArmor.nut")
 let { getXrayPartDesc } = require("%enlist/vehicles/dmViewerXray.nut")
 let { isInQueue } = require("%enlist/state/queueState.nut")
 let { isInBattleState } = require("%enlSqGlob/inBattleState.nut")
@@ -26,6 +21,9 @@ let { blur } = require("%enlist/soldiers/components/itemDetailsPkg.nut")
 let { viewVehCustSchemes } = require("%enlist/vehicles/customizeState.nut")
 let faComp = require("%ui/components/faComp.nut")
 let { mkHotkey } = require("%ui/components/uiHotkeysHint.nut")
+let { hasHitCamera } = require("%enlist/featureFlags.nut")
+
+let dmViewerAvailable = { tank = true, truck = true }
 
 enum MODE {
   VIEW_NONE = 0
@@ -41,6 +39,19 @@ let mods = [
 
 let curViewModeIdx = Watched(0)
 
+let hitcamButtonUi = @() {
+  watch = hasHitCamera
+  size = [flex(), SIZE_TO_CONTENT]
+  children = !hasHitCamera.value ? null
+    : Flat(loc("HITCAM"),
+        @() selectVehParams.mutate(@(v) v.isHitcamMode = true),
+        {
+          size = [flex(), SIZE_TO_CONTENT]
+          margin = [0,0,bigPadding,0]
+        }
+      )
+}
+
 let function mkCustomizeButton(curVehicle) {
   let { guid = "" } = curVehicle
   let { flags = 0 } = curVehicle?.status
@@ -48,9 +59,9 @@ let function mkCustomizeButton(curVehicle) {
     : Flat(loc("customizeVehicle"),
         @() selectVehParams.mutate(@(v) v.isCustomMode = true),
         {
-          hotkeys = [[ "^J:X" ]]
+          hotkeys = [[ "^J:Start" ]]
           padding = [0, sh(9)]
-          margin = 0
+          margin = [0,0,bigPadding,0]
         })
 }
 
@@ -68,7 +79,7 @@ let armorParams = Watched({
   viewingAngle = 0.0
 })
 
-let canUseDmViewer = @(vehicle) vehicle?.itemsubtype == "tank"
+let canUseDmViewer = @(vehicle) vehicle?.itemsubtype in dmViewerAvailable
 
 let isDmViewerEnabled = Computed(@() dmViewerMode.value != MODE.VIEW_NONE && dmViewerTarget.value != ecs.INVALID_ENTITY_ID)
 
@@ -82,15 +93,19 @@ let dmBlkPath = Computed(function() {
 let vehicleUpgradedData = Computed(function() {
   if (viewVehicle.value == null || dmViewerMode.value == MODE.VIEW_NONE)
     return null
+
   let { upgradesId = null, upgradeIdx = 0, gametemplate = null } = viewVehicle.value
   let itemData = gametemplate != null ? getVehicleData(gametemplate) : null
   if (itemData == null)
     return null
-  let upgradesCurWatch = mkUpgradeWatch(upgrades, upgradesId, upgradeIdx)
-  let specsWatch = mkSpecsWatch(upgradesCurWatch, viewVehicle.value)
-  itemData.__update(specsWatch.value)
-  return applyUpgrades(itemData, upgradesCurWatch.value)
+
+  let upgradesCurWatch = getItemUpgrade(upgrades.value, upgradesId, upgradeIdx)
+  let specs = getItemSpec(specsCache.value, viewVehicle.value)
+  itemData.__update(specs)
+  return applyUpgrades(itemData, upgradesCurWatch)
 })
+
+viewVehicle.subscribe(requireItemSpec)
 
 let cacheArmorClass = {}
 let cacheXrayDesc = {}
@@ -172,7 +187,7 @@ ecs.register_es("armor_analyzer", {
 )
 
 let setDmViewerTargetQuery = ecs.SqQuery("setDmViewerTargetQuery",
-  { comps_rw = [ "armor_analyzer__target" ]})
+  { comps_rw = [ ["armor_analyzer__target", ecs.TYPE_EID] ]})
 
 let function setDmViewerTarget(targetEid) {
   setDmViewerTargetQuery.perform(function(_eid, comp) {
@@ -181,7 +196,7 @@ let function setDmViewerTarget(targetEid) {
 }
 
 let setDmViewerModeQuery = ecs.SqQuery("setDmViewerModeQuery",
-  { comps_rw = [ "armor_analyzer__mode" ] })
+  { comps_rw = [ ["armor_analyzer__mode", ecs.TYPE_INT] ] })
 
 let function setDmViewerMode(mode) {
   setDmViewerModeQuery.perform(function(_eid, comp) {
@@ -190,7 +205,7 @@ let function setDmViewerMode(mode) {
 }
 
 let setDmViewerScreenPosQuery = ecs.SqQuery("setDmViewerScreenPosQuery",
-  { comps_rw = [ "armor_analyzer__screenPos" ] })
+  { comps_rw = [ ["armor_analyzer__screenPos", ecs.TYPE_POINT2] ] })
 
 let function onDmViewerMouseMove(mouseEvent) {
   setDmViewerScreenPosQuery.perform(function(_eid, comp) {
@@ -256,13 +271,14 @@ let dmViewerPanelUi = @() canUseDmViewer(viewVehicle.value) ? {
         padding = bigPadding
         flow = FLOW_VERTICAL
         halign = ALIGN_CENTER
-        gap = bigPadding
         children = [
           viewVehCustSchemes.value != null
             ? mkCustomizeButton(viewVehicle.value)
             : null
+          hitcamButtonUi
           {
             flow = FLOW_HORIZONTAL
+            margin = [0,0,bigPadding,0]
             valign = ALIGN_CENTER
             children = [
               mkHotkey("^J:LB", @() changeViewMods(-1))

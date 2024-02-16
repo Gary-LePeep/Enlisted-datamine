@@ -1,13 +1,13 @@
 {
   "impact_grenade_base": {
-    "_extends": "grenade_base"
+    "_use": "grenade_base"
   },
   "impact_grenade_shell_base": [
     {
-      "_extends": "projectile"
+      "_use": "projectile"
     },
     {
-      "_extends": "impact_grenade_base"
+      "_use": "impact_grenade_base"
     },
     {
       "animchar__actOnDemand:tag": []
@@ -15,16 +15,16 @@
   ],
   "impact_grenade_phys_base": [
     {
-      "_extends": "impact_grenade_base"
+      "_use": "impact_grenade_base"
     },
     {
-      "_extends": "projectile_phys"
+      "_use": "projectile_phys"
     },
     {
-      "_extends": "impact_shell"
+      "_use": "impact_shell"
     },
     {
-      "_extends": "hud_grenade_marker"
+      "_use": "hud_grenade_marker"
     },
     {
       "shell_explosion_fx__infoTemplate": "hit_effect_group_grenade_explosion"
@@ -55,13 +55,16 @@
         "value": -1,
         "_tags": "server"
       }
+    },
+    {
+      "shouldCreateShellCrater:tag": []
     }
   ],
   "impact_grenade": {
-    "_extends": "impact_grenade_shell_base"
+    "_use": "impact_grenade_shell_base"
   },
   "impact_grenade_item_base": {
-    "_extends": "item_grenade",
+    "_use": "item_grenade",
     "item__locDetails": "",
     "item__grenadeType": "impact"
   },
@@ -72,18 +75,18 @@
   },
   "no_69_impact_grenade": [
     {
-      "_extends": "impact_grenade"
+      "_use": "impact_grenade"
     },
     {
-      "_extends": "no_69_impact_grenade_base"
+      "_use": "no_69_impact_grenade_base"
     }
   ],
   "no_69_impact_grenade_phys": [
     {
-      "_extends": "impact_grenade_phys_base"
+      "_use": "impact_grenade_phys_base"
     },
     {
-      "_extends": "no_69_impact_grenade_base"
+      "_use": "no_69_impact_grenade_base"
     },
     {
       "phys_obj_net_phys__blk": "content/enlisted/gamedata/weapons/grenades/no_69_impact_grenade.blk"
@@ -91,10 +94,10 @@
   ],
   "no_69_impact_grenade_item": [
     {
-      "_extends": "impact_grenade_item_base"
+      "_use": "impact_grenade_item_base"
     },
     {
-      "_extends": "no_69_impact_grenade_base"
+      "_use": "no_69_impact_grenade_base"
     },
     {
       "item__weight": 0.383
@@ -119,18 +122,18 @@
   },
   "srcm_mod_35_impact_grenade": [
     {
-      "_extends": "impact_grenade"
+      "_use": "impact_grenade"
     },
     {
-      "_extends": "srcm_mod_35_impact_grenade_base"
+      "_use": "srcm_mod_35_impact_grenade_base"
     }
   ],
   "srcm_mod_35_impact_grenade_phys": [
     {
-      "_extends": "impact_grenade_phys_base"
+      "_use": "impact_grenade_phys_base"
     },
     {
-      "_extends": "srcm_mod_35_impact_grenade_base"
+      "_use": "srcm_mod_35_impact_grenade_base"
     },
     {
       "phys_obj_net_phys__blk": "content/enlisted/gamedata/weapons/grenades/srcm_mod_35_impact_grenade.blk"
@@ -138,10 +141,10 @@
   ],
   "srcm_mod_35_impact_grenade_item": [
     {
-      "_extends": "impact_grenade_item_base"
+      "_use": "impact_grenade_item_base"
     },
     {
-      "_extends": "srcm_mod_35_impact_grenade_base"
+      "_use": "srcm_mod_35_impact_grenade_base"
     },
     {
       "item__weight": 0.24
@@ -157,12 +160,16 @@
     },
     {
       "item__proto": "content/enlisted/gamedata/weapons/grenades/srcm_mod_35_impact_grenade.blk"
+    },
+    {
+      "menu_item__rotationOffset": [0.0,-0.02,0.0]
     }
   ],
   "handgranate_238_impact_grenade_item": {
-    "_extends": "srcm_mod_35_impact_grenade_item",
+    "_use": "srcm_mod_35_impact_grenade_item",
     "item__name": "items/handgranate_238_impact_grenade",
     "item__template": "handgranate_238_impact_grenade_item",
-    "item__userstats__pickupName": "pickup_handgranate_238_impact_grenade"
+    "item__userstats__pickupName": "pickup_handgranate_238_impact_grenade",
+    "menu_item__rotationOffset": [0.0,-0.02,0.0]
   }
 }

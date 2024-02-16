@@ -1,5 +1,5 @@
 from "%enlSqGlob/ui_library.nut" import *
-let { body_txt, h2_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody, fontHeading2 } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { controlHudHint, mkHasBinding } = require("%ui/components/controlHudHint.nut")
 let { addModalWindow, removeModalWindow } = require("%ui/components/modalWindows.nut")
 let { Flat } = require("%ui/components/textButton.nut")
@@ -11,6 +11,7 @@ let {
 let { getTutorial } = require("squadTextTutorialPresentation.nut")
 let faComp = require("%ui/components/faComp.nut")
 let mkDotPaginator = require("%enlist/components/mkDotPaginator.nut")
+let JB = require("%ui/control/gui_buttons.nut")
 
 const WND_UID = "SQUAD_TEXT_TUTORIAL"
 
@@ -49,7 +50,7 @@ let topBlock = @(squadType){
   children = {
     rendObj = ROBJ_TEXT
     text = loc($"{squadType}_available_header")
-  }.__update(h2_txt)
+  }.__update(fontHeading2)
 }
 
 let tutorialPaginator = mkDotPaginator({
@@ -87,7 +88,7 @@ let centralBlock = @(neededTutorial, totalPagesCount) function() {
                 controlHudHint({
                   id = v ?? ""
                   text_params = {
-                    fontSize = body_txt.fontSize
+                    fontSize = fontBody.fontSize
                   }
                 })
               )
@@ -98,7 +99,7 @@ let centralBlock = @(neededTutorial, totalPagesCount) function() {
               size = [flex(), SIZE_TO_CONTENT]
               text = loc(value?.text ?? "")
               color = defTxtColor
-            }.__update(body_txt)
+            }.__update(fontBody)
           ]
         }
       ]
@@ -106,10 +107,11 @@ let centralBlock = @(neededTutorial, totalPagesCount) function() {
   }
 }
 
-let okBtn = Flat(loc("Ok"), close, {
+let okBtn = Flat(loc("Close"), close, {
     hplace = ALIGN_RIGHT
     vplace = ALIGN_BOTTOM
     margin = 0
+    hotkeys = [[$"^{JB.B}"]]
 })
 
 let function prevPageArrow() {

@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { defTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
 let { UserNameColor } = require("%ui/style/colors.nut")
 let {
@@ -15,6 +15,7 @@ let spinner = require("%ui/components/spinner.nut")
 const MAX_LB_ROWS = 10
 let rowHeight = hdpx(25)
 let fullHeight = (MAX_LB_ROWS + 3) * rowHeight
+let waitingSpinner = spinner()
 
 let styleByCategory = {
   [RANK] = { halign = ALIGN_LEFT },
@@ -30,7 +31,7 @@ let mkLbCell = @(category, rowData) {
   halign = ALIGN_RIGHT
   text = category.getText(rowData)
 }.__update(
-  sub_txt,
+  fontSub,
   styleByCategory?[category] ?? {},
   rowData?.self ? { color = UserNameColor } : {})
 
@@ -52,7 +53,7 @@ let lbHeaderRow = @(categories) {
       rendObj = ROBJ_TEXT
       text = loc(category.locId)
       color = defTxtColor
-    }.__update(sub_txt)
+    }.__update(fontSub)
   })
 }
 
@@ -68,7 +69,7 @@ let function shortEventLb() {
   local children = null
   local valign = ALIGN_CENTER
   if (curLbData.value == null)
-    children = spinner
+    children = waitingSpinner
   else if (curLbData.value.len() == 0)
     children = exclamation(
       loc(curLbErrName.value != null ? $"error/{curLbErrName.value}" : "leaderboard/noLbData"))

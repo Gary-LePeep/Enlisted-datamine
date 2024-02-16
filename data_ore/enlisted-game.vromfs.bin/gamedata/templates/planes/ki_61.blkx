@@ -1,0 +1,523 @@
+{
+  "ki_61": [
+    {
+      "_use": "ki_61_base"
+    },
+    {
+      "_use": "squad_controlled_plane"
+    },
+    {
+      "item__name": "items/ki_61_2_early"
+    },
+    {
+      "vehicle_seats__seats:shared:array": {
+        "seats:object": {
+          "name": "driver",
+          "locName": "vehicle_seats/pilot",
+          "seatOwnsEntityControl": true,
+          "attachNode": "pilot1",
+          "ignoreAttachNodeRotation": true,
+          "attachTm": [
+            [1.0,0.0,0.0],
+            [0.0,1.0,0.0],
+            [0.0,0.0,1.0],
+            [0.0,0.0,-0.15]
+          ],
+          "seatComponent": "isDriver",
+          "receiveDamageFromDMPart": "pilot_dm",
+          "cameraNodeName": "",
+          "cameraOffset": [-1.1,0.835,0.0],
+          "cockpitTemplate": "ki_61_driver_cockpit",
+          "roomSpace": 0,
+          "turretNames:array": [
+            {
+              "turret": "turret_01"
+            },
+            {
+              "turret": "turret_02"
+            },
+            {
+              "turret": "turret_03"
+            },
+            {
+              "turret": "turret_04"
+            },
+            {
+              "turret": "turret_05"
+            },
+            {
+              "turret": "turret_06"
+            }
+          ],
+          "cockpitEffectors:object": {
+            "r.hand": "stick_rhand_1",
+            "l.hand": "throttle_lhand_1",
+            "r.foot": "pedal_rfoot_1",
+            "l.foot": "pedal_lfoot_1"
+          }
+        }
+      }
+    },
+    {
+      "turret_control__emitterNodes:shared:array": [
+        {
+          "node": "bomb1"
+        },
+        {
+          "node": "bomb2"
+        },
+        {
+          "node": "flare1"
+        },
+        {
+          "node": "flare2"
+        },
+        {
+          "node": "flare3"
+        },
+        {
+          "node": "flare4"
+        }
+      ]
+    },
+    {
+      "turret_control__animVars:shared:array": [
+        {
+          "vars:object": {
+            "curYawParamName": "weapon_01_yaw",
+            "curPitchParamName": "weapon_01_pitch"
+          }
+        },
+        {
+          "vars:object": {
+            "curYawParamName": "weapon_02_yaw",
+            "curPitchParamName": "weapon_02_pitch"
+          }
+        },
+        {
+          "vars:object": {
+            "curYawParamName": "weapon_03_yaw",
+            "curPitchParamName": "weapon_03_pitch"
+          }
+        },
+        {
+          "vars:object": {
+            "curYawParamName": "weapon_04_yaw",
+            "curPitchParamName": "weapon_04_pitch"
+          }
+        },
+        {
+          "vars:object": {
+            "curYawParamName": "weapon_05_yaw",
+            "curPitchParamName": "weapon_05_pitch"
+          }
+        },
+        {
+          "vars:object": {
+            "curYawParamName": "weapon_06_yaw",
+            "curPitchParamName": "weapon_06_pitch"
+          }
+        }
+      ]
+    },
+    {
+      "turret_control__turretInfo:shared:array": [
+        {
+          "turretInfo:object": {
+            "turretName": "turret_01",
+            "turretGroup": "bomb_turrets",
+            "trigger": "bombs",
+            "gun": "planegun_ki_61_type_94mod_10_launcher_01"
+          }
+        },
+        {
+          "turretInfo:object": {
+            "turretName": "turret_02",
+            "turretGroup": "bomb_turrets",
+            "trigger": "bombs",
+            "gun": "planegun_ki_61_type_94mod_10_launcher_02"
+          }
+        },
+        {
+          "turretInfo:object": {
+            "turretName": "turret_03",
+            "turretGroup": "cannon_turrets",
+            "trigger": "cannons",
+            "gun": "planegun_ki_61_20mm_ho5_01"
+          }
+        },
+        {
+          "turretInfo:object": {
+            "turretName": "turret_04",
+            "turretGroup": "cannon_turrets",
+            "trigger": "cannons",
+            "gun": "planegun_ki_61_20mm_ho5_02"
+          }
+        },
+        {
+          "turretInfo:object": {
+            "turretName": "turret_05",
+            "turretGroup": "main_turrets",
+            "trigger": "machine_guns",
+            "gun": "planegun_ki_61_12_7mm_ho103_01"
+          }
+        },
+        {
+          "turretInfo:object": {
+            "turretName": "turret_06",
+            "turretGroup": "main_turrets",
+            "trigger": "machine_guns",
+            "gun": "planegun_ki_61_12_7mm_ho103_02"
+          }
+        }
+      ]
+    },
+    {
+      "turret_gun_flash_fx__flashNodes:shared:array": [
+        {
+          "node": "bomb1"
+        },
+        {
+          "node": "bomb2"
+        },
+        {
+          "node": "flare1"
+        },
+        {
+          "node": "flare2"
+        },
+        {
+          "node": "flare3"
+        },
+        {
+          "node": "flare4"
+        }
+      ]
+    },
+    {
+      "turret_gun_flash_fx__flashFx:shared:array": [
+        {
+          "fx": ""
+        },
+        {
+          "fx": ""
+        },
+        {
+          "fx": "muzzle_air_20mm"
+        },
+        {
+          "fx": "muzzle_air_20mm"
+        },
+        {
+          "fx": "muzzle_air_15mm"
+        },
+        {
+          "fx": "muzzle_air_15mm"
+        }
+      ]
+    },
+    {
+      "turret_gun_flash_fx__flashFxScale:shared:array": [
+        {
+          "scale": 1.0
+        },
+        {
+          "scale": 1.0
+        },
+        {
+          "scale": 1.0
+        },
+        {
+          "scale": 1.0
+        },
+        {
+          "scale": 1.0
+        },
+        {
+          "scale": 1.0
+        }
+      ]
+    },
+    {
+      "disableDMParts:list<t>": [
+        {
+          "part": "bomb_pylon_250kg_l"
+        },
+        {
+          "part": "bomb_pylon_250kg_r"
+        }
+      ]
+    }
+  ],
+  "base_ki_61_20mm_ho5": {
+    "item__name": "guns/cannonho5",
+    "gun__blk": "gamedata/weapons/ki_61/20mm_ho5.blk",
+    "gun__shotFreq": 15.8,
+    "gun__locName": "cannonho5",
+    "gun__shootNodeName": "bone_mg_gun_twin",
+    "gun__maxAmmo": 200,
+    "gun__firingModes:array": {
+      "mode:object": {
+        "modeType": "automatic"
+      }
+    },
+    "gun__firingModeNames:array": {
+      "mode": "automatic"
+    },
+    "gun__shellsAmmo:array": {
+      "ammo": 200
+    },
+    "gun__ammoSetsInfo:shared:array": {
+      "default:array": [
+        {
+          "shell:object": {
+            "blk": "gamedata/weapons/shells/20x94mm_ho_5_hei_bullet.blk",
+            "name": "hei",
+            "type": "he_frag_i"
+          }
+        },
+        {
+          "shell:object": {
+            "blk": "gamedata/weapons/shells/20x94mm_ho_5_ball_bullet.blk",
+            "name": "ball",
+            "type": "ball_shell"
+          }
+        },
+        {
+          "shell:object": {
+            "blk": "gamedata/weapons/shells/20x94mm_ho_5_apt_bullet.blk",
+            "name": "apt",
+            "type": "ap_t"
+          }
+        }
+      ]
+    }
+  },
+  "base_ki_61_type_94mod_10_launcher": {
+    "item__name": "guns/jp_type94mod10",
+    "gun__blk": "gamedata/weapons/ki_61/type_94mod_10_launcher.blk",
+    "gun__shotFreq": 10.0,
+    "gun__locName": "jp_type94mod10",
+    "gun__shootNodeName": "bone_mg_gun_twin",
+    "gun__maxAmmo": 1,
+    "gun__firingModes:array": {
+      "mode:object": {
+        "modeType": "manual"
+      }
+    },
+    "gun__firingModeNames:array": {
+      "mode": "bolt_action"
+    },
+    "gun__shellsAmmo:array": {
+      "ammo": 1
+    },
+    "gun__ammoSetsInfo:shared:array": {
+      "default:array": {
+        "shell:object": {
+          "blk": "gamedata/weapons/shells/type_94mod_10.blk",
+          "name": "type_94mod_10",
+          "type": "he_frag_tank"
+        }
+      }
+    }
+  },
+  "base_ki_61_12_7mm_ho103": {
+    "item__name": "guns/gunho103",
+    "gun__blk": "gamedata/weapons/ki_61/12_7mm_ho103.blk",
+    "gun__shotFreq": 15.0,
+    "gun__locName": "gunho103",
+    "gun__shootNodeName": "bone_mg_gun_twin",
+    "gun__maxAmmo": 250,
+    "gun__firingModes:array": {
+      "mode:object": {
+        "modeType": "automatic"
+      }
+    },
+    "gun__firingModeNames:array": {
+      "mode": "automatic"
+    },
+    "gun__shellsAmmo:array": {
+      "ammo": 250
+    },
+    "gun__ammoSetsInfo:shared:array": {
+      "default:array": [
+        {
+          "shell:object": {
+            "blk": "gamedata/weapons/shells/12_7x81mm_ho103_apt_bullet.blk",
+            "name": "apt",
+            "type": "ap_t_ball"
+          }
+        },
+        {
+          "shell:object": {
+            "blk": "gamedata/weapons/shells/12_7x81mm_ho103_ap_bullet.blk",
+            "name": "ap",
+            "type": "ap_ball"
+          }
+        },
+        {
+          "shell:object": {
+            "blk": "gamedata/weapons/shells/12_7x81mm_ho103_he_bullet.blk",
+            "name": "he",
+            "type": "he_frag_ball"
+          }
+        }
+      ]
+    }
+  },
+  "planegun_ki_61_type_94mod_10_launcher_01": [
+    {
+      "_use": "type_94mod_10_launcher"
+    },
+    {
+      "_use": "base_ki_61_type_94mod_10_launcher"
+    },
+    {
+      "_use": "gunsound_type_94mod_10_launcher_aircraft"
+    },
+    {
+      "gun__shootNodeName": "bomb1"
+    },
+    {
+      "slot_attach__slotName": "bomb1"
+    },
+    {
+      "gun__maxAmmo": 1
+    }
+  ],
+  "planegun_ki_61_type_94mod_10_launcher_02": [
+    {
+      "_use": "type_94mod_10_launcher"
+    },
+    {
+      "_use": "base_ki_61_type_94mod_10_launcher"
+    },
+    {
+      "_use": "gunsound_type_94mod_10_launcher_aircraft"
+    },
+    {
+      "gun__shootNodeName": "bomb2"
+    },
+    {
+      "slot_attach__slotName": "bomb2"
+    },
+    {
+      "gun__maxAmmo": 1
+    }
+  ],
+  "planegun_ki_61_20mm_ho5_01": [
+    {
+      "_use": "tankgun"
+    },
+    {
+      "_use": "base_plane_machinegun"
+    },
+    {
+      "_use": "base_ki_61_20mm_ho5"
+    },
+    {
+      "gun__shootNodeName": "flare1"
+    },
+    {
+      "gun__maxAmmo": 200
+    }
+  ],
+  "planegun_ki_61_20mm_ho5_02": [
+    {
+      "_use": "tankgun"
+    },
+    {
+      "_use": "base_plane_machinegun"
+    },
+    {
+      "_use": "base_ki_61_20mm_ho5"
+    },
+    {
+      "gun__shootNodeName": "flare2"
+    },
+    {
+      "gun__maxAmmo": 200
+    }
+  ],
+  "planegun_ki_61_12_7mm_ho103_01": [
+    {
+      "_use": "tankgun"
+    },
+    {
+      "_use": "base_plane_machinegun"
+    },
+    {
+      "_use": "base_ki_61_12_7mm_ho103"
+    },
+    {
+      "_use": "gunsound_12_7mm_ho103_aircraft"
+    },
+    {
+      "gun__shootNodeName": "flare3"
+    },
+    {
+      "gun__maxAmmo": 250
+    }
+  ],
+  "planegun_ki_61_12_7mm_ho103_02": [
+    {
+      "_use": "tankgun"
+    },
+    {
+      "_use": "base_plane_machinegun"
+    },
+    {
+      "_use": "base_ki_61_12_7mm_ho103"
+    },
+    {
+      "_use": "gunsound_12_7mm_ho103_aircraft"
+    },
+    {
+      "gun__shootNodeName": "flare4"
+    },
+    {
+      "gun__maxAmmo": 250
+    }
+  ],
+  "ki_61_driver_cockpit": {
+    "_use": "base_plane_cockpit",
+    "cockpit__offset": [0.0,0.0,0.0],
+    "cockpit__angles": [0.0,0.0,0.0],
+    "cockpit__scale": [1.0,1.0,1.0],
+    "animchar__res": "ki_61_2_early_cockpit_char",
+    "plane_anim__blk": "gamedata/units/ki_61.blk",
+    "plane_sight__blk": "gamedata/units/ki_61.blk",
+    "move_cockpit_node__nodeName:list<t>": [
+      {
+        "node": "stick_rhand_1"
+      },
+      {
+        "node": "throttle_lhand_1"
+      }
+    ],
+    "move_cockpit_node__nodeId:list<i>": [
+      {
+        "nodeId": -1
+      },
+      {
+        "nodeId": -1
+      }
+    ],
+    "move_cockpit_node__offset:list<p3>": [
+      {
+        "item": [0.003,-0.001,-0.002]
+      },
+      {
+        "item": [0.0185,-0.025,-0.0305]
+      }
+    ],
+    "move_cockpit_node__rotation:list<p2>": [
+      {
+        "item": [-0.9,-1.3]
+      },
+      {
+        "item": [-25.3,-12.6]
+      }
+    ]
+  }
+}

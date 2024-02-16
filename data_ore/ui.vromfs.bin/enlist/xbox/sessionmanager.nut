@@ -13,7 +13,8 @@ let function update_current_activity(callback = null) {
   let currentMembers = isInSquad.value ? squadLen.value : 1
   let sessionId = isInSquad.value ? squadId.value.tostring() : (userInfo.value?.userIdStr ?? "")
   // Don't set activity if user is not a squad(or fake squad) leader or when game mode is for one player
-  let shouldSetActivity = (isSquadLeader.value || !isInSquad.value) && (currentGameMode.value.maxGroupSize > 1)
+  let shouldSetActivity = (isSquadLeader.value || !isInSquad.value)
+    && ((currentGameMode.value?.maxGroupSize ?? 1) > 1)
   if (shouldSetActivity) {
     mpa.set_activity(sessionId, mpa.JoinRestriction.InviteOnly, maxMembers, currentMembers, sessionId, function(success) {
       logX($"Activity updated: {success}")
@@ -40,7 +41,7 @@ let function invite(uid, callback) {
 
 
 let function join(session_id, invitation_id, on_success) {
-  logX($"join to session {session_id} recieved from {invitation_id}")
+  logX($"join to session {session_id} received from {invitation_id}")
   update_current_activity(function(success) {
     if (success)
       on_success?()

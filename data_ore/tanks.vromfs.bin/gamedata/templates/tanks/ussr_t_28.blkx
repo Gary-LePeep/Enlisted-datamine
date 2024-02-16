@@ -1,21 +1,25 @@
 {
   "ussr_t_28": {
-    "_extends": "ussr_t_28_common",
-    "animchar__objTexReplace:object": {
-      "ussr_camo_green*": "ussr_camo_winter_white_full*"
-    }
+    "_use": "ussr_t_28_common"
   },
   "ussr_t_28_common": [
     {
-      "_extends": "base_t_28"
+      "_use": "base_t_28"
     },
     {
-      "_extends": "tank_t34_engine_sound"
+      "_use": "tank_t34_engine_sound"
     },
     {
-      "bullet_holes__movingCollisionNodes:array": {
-        "_tags": "render"
-      }
+      "commanderCockpitFpsCamMaxAngle": [40.0,5.0]
+    },
+    {
+      "gunner_cam_limit__useCockpitDir": true
+    },
+    {
+      "item__iconOffset": [0.0,-0.07]
+    },
+    {
+      "item__iconScale": 1.1
     },
     {
       "vehicle_seats__seats:shared:array": [
@@ -170,7 +174,7 @@
     }
   ],
   "ussr_t_28_driver_cockpit": {
-    "_extends": "base_driver_cockpit_no_slits",
+    "_use": "base_driver_cockpit_no_slits",
     "animchar__res": "bt_7_driver_char",
     "cockpit__offset": [-0.1,-0.4,-0.1],
     "cockpit__visibleVehicleNodeNames:list<t>": [
@@ -185,10 +189,37 @@
       },
       {
         "node": "gun_barrel"
+      },
+      {
+        "node": "hatch_08"
+      },
+      {
+        "node": "ex_armor_01"
+      },
+      {
+        "node": "body_alpha"
+      },
+      {
+        "node": "ex_decor_r_09"
+      },
+      {
+        "node": "ex_decor_r_11"
+      },
+      {
+        "node": "ex_armor_l_01"
+      },
+      {
+        "node": "ex_armor_l_02"
+      },
+      {
+        "node": "ex_decor_l_02"
+      },
+      {
+        "node": "ex_decor_r_02"
       }
     ],
     "cockpit__slitForwardOffset:list<r>": {
-      "slit": 0.0
+      "slit": 0.1
     },
     "cockpit__slitIsGun:list<b>": {
       "slit": false
@@ -198,17 +229,15 @@
     }
   },
   "ussr_t_28_gunner_cockpit": {
-    "vehicle_sight__blk": "content/tanks/gamedata/sight/ussr_pt_1.blk",
-    "_extends": "base_gunner_cockpit",
+    "_use": "base_gunner_cockpit",
     "animchar__res": "t_26_1940_gunner_char",
-    "cockpit__minZoom": -0.27,
     "cockpit__offset": [-0.35,-0.01,0.22],
     "cockpit__cockpitOffsetBySlit:list<p3>": [
       {
         "slit": [0.0,0.0,0.0]
       },
       {
-        "slit": [0.8,1.0,0.3]
+        "slit": [0.8,1.2,0.3]
       },
       {
         "slit": [0.5,0.5,0.4]
@@ -237,6 +266,30 @@
         "node": "@root"
       },
       {
+        "node": "hatch_08"
+      },
+      {
+        "node": "ex_armor_01"
+      },
+      {
+        "node": "ex_decor_r_09"
+      },
+      {
+        "node": "ex_decor_r_11"
+      },
+      {
+        "node": "ex_armor_l_01"
+      },
+      {
+        "node": "ex_armor_l_02"
+      },
+      {
+        "node": "ex_decor_l_02"
+      },
+      {
+        "node": "ex_decor_r_02"
+      },
+      {
         "node": "gun_barrel"
       }
     ],
@@ -253,13 +306,13 @@
     ],
     "cockpit__slitForwardOffset:list<r>": [
       {
-        "slit": 0.2
+        "slit": 0.22
       },
       {
         "slit": 0.2
       },
       {
-        "slit": 0.0
+        "slit": 0.02
       }
     ],
     "cockpit__slitIsGun:list<b>": [
@@ -267,20 +320,84 @@
         "slit": true
       },
       {
-        "slit": false
+        "slit": true
       },
       {
         "slit": false
       }
-    ]
+    ],
+    "cockpit__periscopeLimits:list<p4>": [
+      {
+        "slit": [-0.0,0.0,0.0,0.0]
+      },
+      {
+        "slit": [-35.0,35.0,-5.0,25.0]
+      },
+      {
+        "slit": [-0.0,0.0,0.0,0.0]
+      }
+    ],
+    "cockpit__periscopeSpeed:list<p2>": [
+      {
+        "slit": [-1.0,-1.0]
+      },
+      {
+        "slit": [35.0,35.0]
+      },
+      {
+        "slit": [-1.0,-1.0]
+      }
+    ],
+    "cockpit__slitZoom:array": [
+      {
+        "slit:list<r>": [
+          {
+            "zoom": 1.9
+          },
+          {
+            "zoom": 3.5
+          }
+        ]
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.0
+        }
+      }
+    ],
+    "cockpit__slitZoomTime:list<r>": [
+      {
+        "slit": 0.05
+      },
+      {
+        "slit": 0.0
+      },
+      {
+        "slit": 0.0
+      }
+    ],
+    "cockpit__slitTemplates:list<t>": [
+      {
+        "slit": "ussr_top_1"
+      },
+      {
+        "slit": "ussr_pt_1"
+      }
+    ],
+    "cockpit__slitEids:list<eid>": []
   },
   "ussr_t_28_commander_cockpit": {
-    "_extends": "base_commander_cockpit_no_slits",
+    "_use": "base_commander_cockpit_no_slits",
     "animchar__res": "t_26_1940_commander_char",
     "cockpit__offset": [-0.0,0.0,-0.0],
     "cockpit__cockpitOffsetBySlit:list<p3>": [
       {
-        "slit": [-0.04,0.93,-0.425]
+        "slit": [0.2,1.2,-0.425]
       },
       {
         "slit": [0.06,0.479,-0.6]
@@ -292,14 +409,44 @@
       },
       {
         "node": "bone_gun_01"
+      },
+      {
+        "node": "@root"
+      },
+      {
+        "node": "hatch_08"
+      },
+      {
+        "node": "ex_armor_01"
+      },
+      {
+        "node": "body_alpha"
+      },
+      {
+        "node": "ex_decor_r_09"
+      },
+      {
+        "node": "ex_decor_r_11"
+      },
+      {
+        "node": "ex_armor_l_01"
+      },
+      {
+        "node": "ex_armor_l_02"
+      },
+      {
+        "node": "ex_decor_l_02"
+      },
+      {
+        "node": "ex_decor_r_02"
       }
     ],
     "cockpit__slitForwardOffset:list<r>": [
       {
-        "slit": 0.15
+        "slit": 0.16
       },
       {
-        "slit": 0.0
+        "slit": 0.05
       }
     ],
     "cockpit__slitIsGun:list<b>": [
@@ -317,10 +464,50 @@
       {
         "slit": "cam_right"
       }
-    ]
+    ],
+    "cockpit__periscopeLimits:list<p4>": [
+      {
+        "slit": [-90.0,90.0,-5.0,25.0]
+      },
+      {
+        "slit": [-0.0,0.0,0.0,0.0]
+      }
+    ],
+    "cockpit__periscopeSpeed:list<p2>": [
+      {
+        "slit": [35.0,35.0]
+      },
+      {
+        "slit": [-1.0,-1.0]
+      }
+    ],
+    "cockpit__slitZoom:array": [
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.0
+        }
+      }
+    ],
+    "cockpit__slitZoomTime:list<r>": [
+      {
+        "slit": 0.0
+      },
+      {
+        "slit": 0.0
+      }
+    ],
+    "cockpit__slitTemplates:list<t>": {
+      "slit": "ussr_pt_1"
+    },
+    "cockpit__slitEids:list<eid>": []
   },
   "ussr_t_28_n2_premium": {
-    "_extends": "ussr_t_28_common",
+    "_use": "ussr_t_28_common",
     "animchar__objTexSet:object": {
       "t_28_body_c*:object": {
         "t_28_skin_body_c*": "camo_skin_tex"
@@ -382,13 +569,5 @@
         }
       }
     ]
-  },
-  "t_28_turret_02_7_62mm_dt": {
-    "_override": true,
-    "turret__limit": [-155.0,33.0,-5.0,28.0]
-  },
-  "t_28_turret_03_7_62mm_dt": {
-    "_override": true,
-    "turret__limit": [-5.0,145.0,-5.0,28.0]
   }
 }

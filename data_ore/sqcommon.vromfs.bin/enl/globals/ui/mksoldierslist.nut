@@ -3,25 +3,15 @@ from "%enlSqGlob/ui_library.nut" import *
 let cursors = require("%ui/style/cursors.nut")
 let { makeVertScroll, thinStyle } = require("%ui/components/scrollbar.nut")
 let STATUS = require("%enlSqGlob/readyStatus.nut")
-let { slotBaseSize, smallPadding, bigPadding, blurBgColor, blurBgFillColor
-} = require("%enlSqGlob/ui/viewConst.nut")
+let { slotBaseSize, smallPadding, bigPadding } = require("%enlSqGlob/ui/viewConst.nut")
 let { note } = require("%enlSqGlob/ui/defcomps.nut")
 let mkSoldierCard = require("%enlSqGlob/ui/mkSoldierCard.nut")
-
-let blockWithHeader = @(header, content, size) {
-  flow = FLOW_VERTICAL
-  gap = smallPadding
-  size = size
-  children = [
-    header ? note(header) : null
-    content
-  ]
-}
+let mkVehicleSeats = require("%enlSqGlob/squad_vehicle_seats.nut")
 
 let mkSoldierSlot = kwarg(function(soldier, idx, curSoldierIdxWatch,
   canDeselect = true, addCardChild = null, isFreemiumMode = false, thresholdColor = 0,
   soldiersReadyWatch = Watched(null), defSoldierGuidWatch = Watched(null),
-  seatsOrderWatch = Watched([]), expToLevelWatch = Watched([])
+  seatsOrder = [], expToLevelWatch = Watched([])
 ) {
   let isSelectedWatch = Computed(function() {
     if (curSoldierIdxWatch.value == idx)
@@ -37,12 +27,11 @@ let mkSoldierSlot = kwarg(function(soldier, idx, curSoldierIdxWatch,
     let hasWeaponWarning = (soldierStatus & STATUS.NOT_READY_BY_EQUIP) != 0
     let isFaded = soldierStatus != STATUS.READY
     let outOfVehicSize = (soldierStatus & STATUS.OUT_OF_VEHICLE) != 0
-    let seatInfo = seatsOrderWatch.value?[idx]
+    let seatInfo = seatsOrder?[idx]
 
     let chContent = {
       xmbNode = XmbNode()
       vplace = ALIGN_CENTER
-      padding = [smallPadding, 0]
       children = mkSoldierCard({
         soldierInfo = soldier
         expToLevel = expToLevelWatch.value
@@ -61,7 +50,7 @@ let mkSoldierSlot = kwarg(function(soldier, idx, curSoldierIdxWatch,
     }
 
     return {
-      watch = [soldiersReadyWatch, isSelectedWatch, seatsOrderWatch, expToLevelWatch]
+      watch = [soldiersReadyWatch, isSelectedWatch, expToLevelWatch]
       group = group
       key = $"slot{soldier?.guid}{idx}"
       flow = FLOW_VERTICAL
@@ -75,6 +64,11 @@ let mkSoldierSlot = kwarg(function(soldier, idx, curSoldierIdxWatch,
           curSoldierIdxWatch(canDeselect && idx == curSoldierIdxWatch.value ? null : idx)
         }
       }
+      sound = {
+        hover = "ui/enlist/button_highlight"
+        click = "ui/enlist/button_click"
+        active = "ui/enlist/button_action"
+      }
       children = [
         seatInfo ? note(loc(seatInfo.locName)) : null
         chContent
@@ -85,26 +79,31 @@ let mkSoldierSlot = kwarg(function(soldier, idx, curSoldierIdxWatch,
 
 let function mkSoldiersBlock(params) {
   let {
-    soldiersListWatch, curSoldierIdxWatch, seatsOrderWatch = Watched([]), addCardChild = null
+    soldiersListWatch, curSoldierIdxWatch, vehicleInfo = Watched(null), addCardChild = null
   } = params
   return function() {
-    let unitsInVehicle = seatsOrderWatch.value.len()
+    let seatsOrder = mkVehicleSeats(vehicleInfo.value)
+    let unitsInVehicle = seatsOrder.len()
     let soldiers = soldiersListWatch.value
     let children = soldiers.slice(0, unitsInVehicle).map(@(soldier, idx)
-      mkSoldierSlot(params.__merge({ soldier, idx, addCardChild }), KWARG_NON_STRICT))
+      mkSoldierSlot(params.__merge({ soldier, idx, addCardChild, seatsOrder }), KWARG_NON_STRICT))
 
     if (unitsInVehicle < soldiers.len()) {
-      children.append(note(loc("menu/soldier")))
       children.extend(soldiers.slice(unitsInVehicle).map(@(soldier, idx)
-        mkSoldierSlot(params.__merge({ soldier, idx = idx + unitsInVehicle, addCardChild }),
-          KWARG_NON_STRICT)))
+        mkSoldierSlot(params.__merge({
+          soldier
+          idx = idx + unitsInVehicle
+          addCardChild
+          seatsOrder }),
+        KWARG_NON_STRICT)))
     }
 
     return {
-      watch = [soldiersListWatch, curSoldierIdxWatch, seatsOrderWatch]
+      watch = [soldiersListWatch, curSoldierIdxWatch, vehicleInfo]
       size = [slotBaseSize[0], SIZE_TO_CONTENT]
       flow = FLOW_VERTICAL
       behavior = Behaviors.Button
+      gap = bigPadding
       onClick = function() {
         if (params?.canDeselect ?? false)
           curSoldierIdxWatch(null)
@@ -114,36 +113,42 @@ let function mkSoldiersBlock(params) {
   }
 }
 
-let function mkVehicleBlock(hasVehicleWatch, curVehicleUi) {
-  return function() {
-    let res = { watch = hasVehicleWatch }
-    if (!hasVehicleWatch.value)
-      return res
+let mkVehicleBlock = @(hasVehicleWatch, curVehicleUi) function() {
+  let res = { watch = hasVehicleWatch }
+  if (!hasVehicleWatch.value)
+    return res
 
-    return res.__update({
+  return res.__update({
+    size = [flex(), SIZE_TO_CONTENT]
+    margin = [0, 0, bigPadding, 0]
+    children = {
+      flow = FLOW_VERTICAL
+      gap = smallPadding
       size = [flex(), SIZE_TO_CONTENT]
-      margin = [0, 0, bigPadding, 0]
-      children = blockWithHeader(loc("menu/vehicle"), curVehicleUi, [flex(), SIZE_TO_CONTENT])
-    })
-  }
+      children = curVehicleUi
+    }
+  })
 }
 
-let soldiersListStyle = {
-  rendObj = ROBJ_WORLD_BLUR_PANEL
-  color = blurBgColor
-  fillColor = blurBgFillColor
-  padding = bigPadding
+let mkMainSoldiersBlock = @(params) {
+  size = [slotBaseSize[0], flex()]
   flow = FLOW_VERTICAL
-}
-
-let mkMainSoldiersBlock = @(params) soldiersListStyle.__merge({
-  size = [SIZE_TO_CONTENT, flex()]
+  gap = bigPadding
   children = [
     params?.headerBlock
-    "hasVehicleWatch" in params ? mkVehicleBlock(params.hasVehicleWatch, params.curVehicleUi) : null
-    makeVertScroll(mkSoldiersBlock(params), { size = [SIZE_TO_CONTENT, flex()], styling = thinStyle })
+    {
+      size = flex()
+      flow = FLOW_VERTICAL
+      children = [
+        "hasVehicleWatch" not in params ? null
+          : mkVehicleBlock(params.hasVehicleWatch, params.curVehicleUi)
+        makeVertScroll(mkSoldiersBlock(params), {
+          size = [SIZE_TO_CONTENT, flex()], styling = thinStyle
+        })
+      ]
+    }
     params?.bottomObj
   ]
-})
+}
 
 return mkMainSoldiersBlock

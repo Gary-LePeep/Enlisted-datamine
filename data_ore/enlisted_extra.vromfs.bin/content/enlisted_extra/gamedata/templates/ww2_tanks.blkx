@@ -6,6 +6,12 @@
     "import": "#content/enlisted_extra/gamedata/gen/templates/gen_ww2_tankguns_common.blk"
   },
   {
+    "import": "tanks/ussr_t_80u.blk"
+  },
+  {
+    "import": "tanks/us_m1a1_hc_abrams.blk"
+  },
+  {
     "import": "tanks/gm_e_99.blk"
   },
   {
@@ -13,5 +19,46 @@
   },
   {
     "import": "tanks/usmp_hamster.blk"
+  },
+  {
+    "import": "aprilfools_2023/ger_mbm_trixter.blk"
+  },
+  {
+    "import": "aprilfools_2023/us_lbm_bulldog.blk"
+  },
+  {
+    "import": "aprilfools_2023/ussr_mbm_victor.blk"
+  },
+  {
+    "t_80_gunner_optic": {
+      "_use": "base_vehicle_sight",
+      "vehicle_sight__blk": "content/enlisted_extra/gamedata/sight/t_80_gunner_optic.blk",
+      "vehicle_sight__useGunDir": true,
+      "vehicle_sight__slitZoomTime": 0.0,
+      "vehicle_sight__slitZoom:list<r>": [
+        {
+          "zoom": 2.7
+        },
+        {
+          "zoom": 12.0
+        }
+      ]
+    }
+  },
+  {
+    "m1a1_gunner_optic": {
+      "_use": "base_vehicle_sight",
+      "vehicle_sight__blk": "content/enlisted_extra/gamedata/sight/m1a1_gunner_optic.blk",
+      "vehicle_sight__useGunDir": true,
+      "vehicle_sight__slitZoomTime": 0.0,
+      "vehicle_sight__slitZoom:list<r>": [
+        {
+          "zoom": 3.0
+        },
+        {
+          "zoom": 10.0
+        }
+      ]
+    }
   }
 ]

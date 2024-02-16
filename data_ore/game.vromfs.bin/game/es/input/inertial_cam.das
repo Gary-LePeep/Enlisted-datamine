@@ -2,19 +2,22 @@ require ecs
 require math
 require math.base
 require Plane
-require EnlistedPlane
-require EnlistedCamera
+require DngPlane
+require DngCamera
 require DagorMath
 require DagorMathUtils
 require DagorSystem
+require GamePhys
 require game.utils.hero
 require enlisted.events_enlisted
+require common_shooter.es.weapon.turret_common
 
 let
   LOCAL_ACCEL_IMMEDIATE = 0.1f
   LOCAL_W_FACTOR = -2.0f
   IMMEDIATE_VISCOSITY = 0.15f
   IMMEDIATE_TO_POS_VISC = 0.15f
+  MAX_PITCH = HALF_PI - 0.05
 
 [es(tag=input, on_appear, on_event=EventOnSeatOwnersChanged, REQUIRE=plane_input)]
 def plane_inertial_cam_update_head_pos(evt : Event;
@@ -27,16 +30,14 @@ def plane_inertial_cam_update_head_pos(evt : Event;
       if eid == seat__ownerEid
         plane_inertial_cam__headPos = seat__cameraPos
 
-def apply_cam_angles(vec : float3; angles : float2)
+def apply_cam_angles(vec : float3; angles : float2; transform : float3x4)
   var res = vec
-  query(get_cur_cam_entity()) <| $ [es] (transform : float3x4)
-    var rotTm : float3x4
-    let up = transform[1]
-    make_tm(up, angles.x, rotTm)
-    res = rotTm * vec
-    let side = transform[0]
-    make_tm(side, angles.y, rotTm)
-    res = rotTm * vec
+  let itm = inverse(transform)
+  let localAngles = dir_to_angles(rotate(itm, res))
+  var anglesAfter = localAngles + angles
+  anglesAfter.y = clamp(anglesAfter.y, -MAX_PITCH, MAX_PITCH)
+  let localDir = angles_to_dir(anglesAfter)
+  res = rotate(transform, localDir)
   return res
 
 [es(tag=input, before=before_camera_sync, REQUIRE=plane_input)]
@@ -55,12 +56,15 @@ def plane_inertial_cam_update(info : ParallelUpdateFrameDelayed;
                               plane_inertial_cam__headAccelScale : float3;
                               plane_inertial_cam__headMoveLimits : float3;
                               plane_inertial_cam__headMoveCustomLimits : float4;
+                              plane_inertial_cam__headRollLimit : float;
+                              plane_inertial_cam__flightSense : float;
                               var plane_inertial_cam__headAccelPos : float3&;
                               var plane_inertial_cam__headAccelPos2 : float3&;
                               var plane_inertial_cam__headImmAccelPos2 : float3&;
                               var plane_inertial_cam__headAccelRot : float3&;
                               var plane_inertial_cam__lastAccel : float3&;
                               var plane_inertial_cam__headShakePos : float3&;
+                              var camera__headRoll : float&;
                               var camera__look_at : DPoint3&;
                               var camera__lookDir : float3&)
   let zoom = camera__zoomPos
@@ -92,7 +96,8 @@ def plane_inertial_cam_update(info : ParallelUpdateFrameDelayed;
   var immediateRotPos = float3(
     plane_inertial_cam__headAccelRotScale.x * float(plane_net_phys.phys.currentState.omega.y) * physMult,
     (-plane_inertial_cam__headAccelRotScale.y * float(plane_net_phys.phys.currentState.omega.z) - plane_inertial_cam__headAccelRotGravScale.x * curAccel.x) * physMult,
-    (plane_inertial_cam__headAccelRotScale.z * float(plane_net_phys.phys.currentState.omega.x) - plane_inertial_cam__headAccelRotGravScale.y * curAccel.z) * physMult)
+    (plane_inertial_cam__headAccelRotScale.z * float(plane_net_phys.phys.currentState.omega.x) - plane_inertial_cam__headAccelRotGravScale.y * curAccel.z)
+    * plane_inertial_cam__flightSense)
   if abs(immediateRotPos.x) > plane_inertial_cam__headAccelRotLimits.x
     immediateRotPos.x = sign(immediateRotPos.x) * min(pow(abs(immediateRotPos.x) / plane_inertial_cam__headAccelRotLimits.x, 0.3f), 2.f) * plane_inertial_cam__headAccelRotLimits.x
   if abs(immediateRotPos.y) > plane_inertial_cam__headAccelRotLimits.y
@@ -100,6 +105,11 @@ def plane_inertial_cam_update(info : ParallelUpdateFrameDelayed;
   if abs(immediateRotPos.z) > plane_inertial_cam__headAccelRotLimits.z
     immediateRotPos.z = sign(immediateRotPos.z) * min(pow(abs(immediateRotPos.z) / plane_inertial_cam__headAccelRotLimits.z, 0.3f), 2.f) * plane_inertial_cam__headAccelRotLimits.z
   plane_inertial_cam__headAccelRot = approach(plane_inertial_cam__headAccelRot, immediateRotPos, info.dt, plane_inertial_cam__immediateToRotVisc)
+
+  let planeForward =  quat_get_forward(plane_net_phys.phys.visualLocation.O.quat)
+  let headRollMult = clamp(dot(planeForward, camera__lookDir), 0.0f, 1.0f)
+  let rollLimit = deg_to_rad(plane_inertial_cam__headRollLimit)
+  camera__headRoll = clamp(plane_inertial_cam__headAccelRot.z * headRollMult, -rollLimit, rollLimit)
 
   plane_inertial_cam__headShakePos += plane_inertial_cam__headAccelPos
 
@@ -126,7 +136,7 @@ def plane_inertial_cam_update(info : ParallelUpdateFrameDelayed;
   //logerr("headPos={plane_inertial_cam__headPos}, headAcc={plane_inertial_cam__headAccelRot.xy}, headMove={headMovePos}")
 
   if (info.dt > 0.f)
-    camera__lookDir = apply_cam_angles(camera__lookDir, plane_inertial_cam__headAccelRot.xy)
+    camera__lookDir = apply_cam_angles(camera__lookDir, plane_inertial_cam__headAccelRot.xy, transform)
   let pos = transform[3] + headMovePos
   camera__look_at.x = double(pos.x)
   camera__look_at.y = double(pos.y)
@@ -140,4 +150,18 @@ def plane_inertial_cam_update_aim_pos(info : ParallelUpdateFrameDelayed;
                                       var turretAimPos : float3&)
   if isTurretAimPosValid
     let dir = turretAimPos - transform[3]
-    turretAimPos = transform[3] + apply_cam_angles(dir, -plane_inertial_cam__headAccelRot.xy)
+    turretAimPos = transform[3] + apply_cam_angles(dir, -plane_inertial_cam__headAccelRot.xy, transform) * AIM_DISTANCE
+
+[es(tag=render, after=shooter_cam_rotate_es, before=shooter_cam_tau_move_scalar_es)]
+def plane_fps_head_roll(info : UpdateStageInfoAct;
+                        camera__target : EntityId;
+                        camera__active : bool;
+                        isTpsView : bool = false;
+                        var transform aka camera_transform : float3x4)
+  if !camera__active || isTpsView
+    return
+  query(camera__target) <| $ [es] (camera__headRoll : float)
+    var rotTm : float3x4
+    make_tm(camera_transform[2], camera__headRoll, rotTm)
+
+    camera_transform = rotTm * camera_transform

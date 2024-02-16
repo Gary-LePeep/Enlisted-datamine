@@ -2,13 +2,14 @@ options indenting = 4
 options no_unused_block_arguments = false
 options no_unused_function_arguments = false
 options no_aot = true
+options strict_smart_pointers = true
 
 module contracts shared private
 
 require ast
 require daslib/ast_boost
 
-def public isYetAnotherVectorTemplate ( var td:TypeDeclPtr )
+def public isYetAnotherVectorTemplate ( td:TypeDeclPtr )
     //! returns true if the given type declaration is a das::vector template bound on C++ side
     return td.isHandle && td.annotation!=null && td.annotation.is_any_vector
 
@@ -16,7 +17,7 @@ class IsAnyType : AstFunctionAnnotation
     def override appendToMangledName ( func:FunctionPtr; decl:AnnotationDeclaration; var mangledName:das_string ) : void
         mangledName := "{class_info(self).name}:{describe(decl)}"
     def override apply ( var func:FunctionPtr; var group:ModuleGroup; args:AnnotationArgumentList; var errors : das_string ) : bool
-        if args.length != 1
+        if args |> length != 1
             errors := "expecting at least one argument"
             return false
         for argv in args                    // note: N^2
@@ -72,6 +73,19 @@ class IsAnyEnumMacro : IsAnyType
                         return false
         return true
 
+[contract(name="expect_any_bitfield")]
+class IsAnyBitfieldMacro : IsAnyType
+    //! [expect_any_bitfield(argname)] contract, which only accepts bitfields
+    def override isCompatible ( var func:FunctionPtr; var types:VectorTypeDeclPtr; decl:AnnotationDeclaration; var errors:das_string ) : bool
+        for fna,typ in func.arguments,types // note: N^2
+            for argv in decl.arguments
+                if fna.name==argv.name
+                    if length(typ.dim)!=0 || typ.baseType!=Type tBitfield
+                        errors := "argument {argv.name} is not a bitfield"
+                        return false
+        return true
+
+
 [contract(name="expect_any_vector_type")]
 class IsAnyVectorType : IsAnyType
     //! [expect_any_vector_type(argname)] contract, which only accepts vector types, i.e. int2, float3, range, etc
@@ -111,7 +125,7 @@ class IsAnyNumericMacro : IsAnyType
 [contract(name="expect_any_workhorse")]
 class IsAnyWorkhorse : IsAnyType
     //! [expect_any_workhorse(argname)] contract, which only accepts workhorse types (int, float, etc)
-    //! Workhorse types are: bool,int*,uint*,float*,double,range and urange,string,enumeration,and non-smart pointers
+    //! Workhorse types are: bool,int*,uint*,float*,double,range and urange, range64 and urange64, string,enumeration,and non-smart pointers
     def override isCompatible ( var func:FunctionPtr; var types:VectorTypeDeclPtr; decl:AnnotationDeclaration; var errors:das_string ) : bool
         for fna,typ in func.arguments,types // note: N^2
             for argv in decl.arguments
@@ -169,6 +183,18 @@ class IsAnyFunctionNonPtrMacro : IsAnyType
                         return false
         return true
 
+[contract(name="expect_any_lambda")]
+class IsAnyLambdaMacro : IsAnyType
+    //! [expect_any_lambda(argname)] contract, which only accepts lambdas
+    def override isCompatible ( var func:FunctionPtr; var types:VectorTypeDeclPtr; decl:AnnotationDeclaration; var errors:das_string ) : bool
+        for fna,typ in func.arguments,types // note: N^2
+            for argv in decl.arguments
+                if fna.name==argv.name
+                    if typ.baseType!=Type tLambda
+                        errors := "argument {argv.name} is not a lambda, it is {describe(typ)}"
+                        return false
+        return true
+
 [contract(name="expect_ref")]
 class IsRefMacro : IsAnyType
     //! [expect_ref(argname)] contract, which only accepts references
@@ -190,6 +216,18 @@ class IsPointer : IsAnyType
                 if fna.name==argv.name
                     if typ.baseType!=Type tPointer
                         errors := "argument {argv.name} is not a pointer, it is {describe(typ)}"
+                        return false
+        return true
+
+[contract(name="expect_class")]
+class IsClass : IsAnyType
+    //! [expect_class(argname)] contract, which only accepts class instances
+    def override isCompatible ( var func:FunctionPtr; var types:VectorTypeDeclPtr; decl:AnnotationDeclaration; var errors:das_string ) : bool
+        for fna,typ in func.arguments,types // note: N^2
+            for argv in decl.arguments
+                if fna.name==argv.name
+                    if typ.baseType!=Type tPointer || typ.firstType.baseType != Type tStructure || !typ.firstType.structType.flags.isClass
+                        errors := "argument {argv.name} is not a class pointer, it is {describe(typ)}"
                         return false
         return true
 

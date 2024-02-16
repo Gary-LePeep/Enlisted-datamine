@@ -10,6 +10,7 @@ let perkList = Computed(function() {
 
   foreach (id, p in list) {
     let perk = clone p
+    perk.perkId <- id
     perk.locId <- perk?.locId ?? id
     res[id] <- perk
   }

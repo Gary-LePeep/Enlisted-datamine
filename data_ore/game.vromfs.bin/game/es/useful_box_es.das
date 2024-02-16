@@ -1,5 +1,5 @@
 require ecs
-require EnlistedNet
+require DngNet
 require game.es.action_common
 require game.es.events
 require game.events_game
@@ -43,7 +43,7 @@ def useful_box_use_finish_es(evt : CmdUseUsefulBox;
   useful_box__useCount -= useful_box__requiredUseCount
   useful_box__requiredUseCount = 0
   useful_box__successUse = false
-  send_net_event(evt.requesterEid, [[CmdUsefulBoxCompleteUse]])
+  send_net_event(evt.requesterEid, [[CmdUsefulBoxCompleteUse box=eid]])
   sendEvent(eid, [[EventOnUsefulBoxSuccessfulUse requester=evt.requesterEid]])
 
 [es(tag=gameClient, track=useful_box__useCount)]
@@ -59,3 +59,10 @@ def apply_amimvars_for_empty_box_es(evt : Event; eid : ecs::EntityId; useful_box
 [es(tag=gameClient, on_event=CmdUsefulBoxCompleteUse, REQUIRE=human)]
 def useful_box_play_complete_animation_es(evt : Event; eid : EntityId)
   run_action(eid, "pickup")
+
+[es(tag=server, track=useful_box__useCount, REQUIRE=useful_box__destroyEmpty)]
+def destroy_useful_box_on_no_uses_left(evt : Event;
+                                       eid : EntityId;
+                                       useful_box__useCount : int)
+  if useful_box__useCount <= 0
+    destroyEntity(eid)

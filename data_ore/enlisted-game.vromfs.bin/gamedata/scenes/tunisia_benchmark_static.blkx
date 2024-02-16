@@ -291,6 +291,7 @@
     "entity": {
       "_template": "briefing_domination",
       "mission_name": "tunisia_city_dom",
+      "mission_outfit": "tunisia",
       "loading_images:list<t>": [
         {
           "item": "ui/tunisia_city_inv_01.avif"
@@ -330,6 +331,11 @@
   {
     "entity": {
       "_template": "postfx_color_grading_tonemap_death_alive_enlisted"
+    }
+  },
+  {
+    "entity": {
+      "_template": "bloom"
     }
   },
   {
@@ -385,30 +391,6 @@
   },
   {
     "entity": {
-      "_template": "respawn_camera",
-      "transform": [
-        [-0.589458,-0.00837025,-0.807756],
-        [0.0396363,0.998442,-0.0392704],
-        [0.806826,-0.0551647,-0.588208],
-        [-487.341,310.587,-161.336]
-      ],
-      "respawnCameraForTeam": 1
-    }
-  },
-  {
-    "entity": {
-      "_template": "respawn_camera",
-      "transform": [
-        [0.561444,-0.026988,0.827075],
-        [-0.00911225,0.999206,0.0387908],
-        [-0.827464,-0.029315,0.560753],
-        [652.186,300.412,438.886]
-      ],
-      "respawnCameraForTeam": 2
-    }
-  },
-  {
-    "entity": {
       "_template": "domination_box_capzone",
       "transform": [
         [64.818,0.0,43.0022],
@@ -431,8 +413,7 @@
         [0.991403,0.0,-0.130834],
         [-2192.91,784.228,1748.94]
       ],
-      "resupply_zone__team": 2,
-      "sphere_zone__radius": 500.0
+      "resupply_zone__team": 2
     }
   },
   {
@@ -504,8 +485,7 @@
         [-0.467523,0.0,0.883982],
         [2424.95,880.905,-643.482]
       ],
-      "resupply_zone__team": 1,
-      "sphere_zone__radius": 500.0
+      "resupply_zone__team": 1
     }
   },
   {
@@ -820,7 +800,7 @@
   },
   {
     "entity": {
-      "_template": "benchmark_artillery_strike",
+      "_template": "artillery_strike_requester",
       "transform": [
         [0.419478,0.0,0.907766],
         [0.0,1.0,0.0],

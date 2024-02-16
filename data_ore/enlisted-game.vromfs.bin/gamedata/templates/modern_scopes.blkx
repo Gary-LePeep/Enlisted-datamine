@@ -1,6 +1,6 @@
 {
   "scope_pulsar_n870_item": {
-    "_extends": "item_scope",
+    "_use": "item_scope",
     "animchar__res": "scope_pulsar_n870_char",
     "collres__res": "scope_pulsar_n870_collision",
     "item__template": "scope_pulsar_n870_item",
@@ -16,7 +16,7 @@
     "gunAttachable:tag": []
   },
   "scope_pulsar_n870": {
-    "_extends": "scope_gunmod",
+    "_use": "scope_gunmod",
     "animchar__res": "scope_pulsar_n870_char",
     "item__template": "scope_pulsar_n870_item",
     "item__proto": "scope_pulsar_n870",

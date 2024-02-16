@@ -1,10 +1,10 @@
 {
   "g4m1": [
     {
-      "_extends": "g4m1_base"
+      "_use": "g4m1_base"
     },
     {
-      "_extends": "squad_controlled_plane"
+      "_use": "squad_controlled_plane"
     },
     {
       "item__name": "items/g4m1"
@@ -218,6 +218,8 @@
             "paramYawSpeed": "turret1_yaw_speed",
             "paramMaxYawAngle": "turret1_max_yaw_angle",
             "aimActiveParamName": "gun1_aim_active",
+            "curWorldPitchParamName": "gun1_world_pitch",
+            "curWorldYawParamName": "turret1_world_yaw",
             "paramPitchSpeedMul": "gun1_pitch_mul",
             "paramYawAccel": "turret1_yaw_accel",
             "paramPitchAccel": "gun1_pitch_accel",
@@ -237,6 +239,8 @@
             "paramYawSpeed": "turret2_yaw_speed",
             "paramMaxYawAngle": "turret2_max_yaw_angle",
             "aimActiveParamName": "gun2_aim_active",
+            "curWorldPitchParamName": "gun2_world_pitch",
+            "curWorldYawParamName": "turret2_world_yaw",
             "paramPitchSpeedMul": "gun2_pitch_mul",
             "paramYawAccel": "turret2_yaw_accel",
             "paramPitchAccel": "gun2_pitch_accel",
@@ -256,6 +260,8 @@
             "paramYawSpeed": "turret3_yaw_speed",
             "paramMaxYawAngle": "turret3_max_yaw_angle",
             "aimActiveParamName": "gun3_aim_active",
+            "curWorldPitchParamName": "gun3_world_pitch",
+            "curWorldYawParamName": "turret3_world_yaw",
             "paramPitchSpeedMul": "gun3_pitch_mul",
             "paramYawAccel": "turret3_yaw_accel",
             "paramPitchAccel": "gun3_pitch_accel",
@@ -275,6 +281,8 @@
             "paramYawSpeed": "turret4_yaw_speed",
             "paramMaxYawAngle": "turret4_max_yaw_angle",
             "aimActiveParamName": "gun4_aim_active",
+            "curWorldPitchParamName": "gun4_world_pitch",
+            "curWorldYawParamName": "turret4_world_yaw",
             "paramPitchSpeedMul": "gun4_pitch_mul",
             "paramYawAccel": "turret4_yaw_accel",
             "paramPitchAccel": "gun4_pitch_accel",
@@ -294,6 +302,8 @@
             "paramYawSpeed": "turret5_yaw_speed",
             "paramMaxYawAngle": "turret5_max_yaw_angle",
             "aimActiveParamName": "gun5_aim_active",
+            "curWorldPitchParamName": "gun5_world_pitch",
+            "curWorldYawParamName": "turret5_world_yaw",
             "paramPitchSpeedMul": "gun5_pitch_mul",
             "paramYawAccel": "turret5_yaw_accel",
             "paramPitchAccel": "gun5_pitch_accel",
@@ -616,13 +626,13 @@
   },
   "planegun_g4m1_navy_type_97mod_6_60kg_launcher_01": [
     {
-      "_extends": "navy_type_97mod_6_60kg_launcher"
+      "_use": "navy_type_97mod_6_60kg_launcher"
     },
     {
-      "_extends": "base_g4m1_navy_type_97mod_6_60kg_launcher"
+      "_use": "base_g4m1_navy_type_97mod_6_60kg_launcher"
     },
     {
-      "_extends": "gunsound_navy_type_97mod_6_60kg_launcher_aircraft"
+      "_use": "gunsound_navy_type_97mod_6_60kg_launcher_aircraft"
     },
     {
       "gun__shootNodeName": "bomb2"
@@ -636,13 +646,13 @@
   ],
   "planegun_g4m1_navy_type_97mod_6_60kg_launcher_02": [
     {
-      "_extends": "navy_type_97mod_6_60kg_launcher"
+      "_use": "navy_type_97mod_6_60kg_launcher"
     },
     {
-      "_extends": "base_g4m1_navy_type_97mod_6_60kg_launcher"
+      "_use": "base_g4m1_navy_type_97mod_6_60kg_launcher"
     },
     {
-      "_extends": "gunsound_navy_type_97mod_6_60kg_launcher_aircraft"
+      "_use": "gunsound_navy_type_97mod_6_60kg_launcher_aircraft"
     },
     {
       "gun__shootNodeName": "bomb3"
@@ -656,13 +666,13 @@
   ],
   "planegun_g4m1_navy_type_97mod_6_60kg_launcher_03": [
     {
-      "_extends": "navy_type_97mod_6_60kg_launcher"
+      "_use": "navy_type_97mod_6_60kg_launcher"
     },
     {
-      "_extends": "base_g4m1_navy_type_97mod_6_60kg_launcher"
+      "_use": "base_g4m1_navy_type_97mod_6_60kg_launcher"
     },
     {
-      "_extends": "gunsound_navy_type_97mod_6_60kg_launcher_aircraft"
+      "_use": "gunsound_navy_type_97mod_6_60kg_launcher_aircraft"
     },
     {
       "gun__shootNodeName": "bomb4"
@@ -676,13 +686,13 @@
   ],
   "planegun_g4m1_navy_type_97mod_6_60kg_launcher_04": [
     {
-      "_extends": "navy_type_97mod_6_60kg_launcher"
+      "_use": "navy_type_97mod_6_60kg_launcher"
     },
     {
-      "_extends": "base_g4m1_navy_type_97mod_6_60kg_launcher"
+      "_use": "base_g4m1_navy_type_97mod_6_60kg_launcher"
     },
     {
-      "_extends": "gunsound_navy_type_97mod_6_60kg_launcher_aircraft"
+      "_use": "gunsound_navy_type_97mod_6_60kg_launcher_aircraft"
     },
     {
       "gun__shootNodeName": "bomb5"
@@ -696,16 +706,16 @@
   ],
   "planegun_g4m1_7_7mm_type92_turret_01": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_plane_machinegun"
+      "_use": "base_plane_machinegun"
     },
     {
-      "_extends": "base_g4m1_7_7mm_type92_turret"
+      "_use": "base_g4m1_7_7mm_type92_turret"
     },
     {
-      "_extends": "gunsound_7_7mm_type92_turret_aircraft"
+      "_use": "gunsound_7_7mm_type92_turret_aircraft"
     },
     {
       "gun__shootNodeName": "flare1"
@@ -728,16 +738,16 @@
   ],
   "planegun_g4m1_7_7mm_type92_turret_02": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_plane_machinegun"
+      "_use": "base_plane_machinegun"
     },
     {
-      "_extends": "base_g4m1_7_7mm_type92_turret"
+      "_use": "base_g4m1_7_7mm_type92_turret"
     },
     {
-      "_extends": "gunsound_7_7mm_type92_turret_aircraft"
+      "_use": "gunsound_7_7mm_type92_turret_aircraft"
     },
     {
       "gun__shootNodeName": "flare2"
@@ -760,13 +770,13 @@
   ],
   "planegun_g4m1_20mm_type99_turret_01": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_plane_machinegun"
+      "_use": "base_plane_machinegun"
     },
     {
-      "_extends": "base_g4m1_20mm_type99_turret"
+      "_use": "base_g4m1_20mm_type99_turret"
     },
     {
       "gun__shootNodeName": "flare3"
@@ -789,16 +799,16 @@
   ],
   "planegun_g4m1_7_7mm_type92_turret_03": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_plane_machinegun"
+      "_use": "base_plane_machinegun"
     },
     {
-      "_extends": "base_g4m1_7_7mm_type92_turret"
+      "_use": "base_g4m1_7_7mm_type92_turret"
     },
     {
-      "_extends": "gunsound_7_7mm_type92_turret_aircraft"
+      "_use": "gunsound_7_7mm_type92_turret_aircraft"
     },
     {
       "gun__shootNodeName": "flare4"
@@ -821,16 +831,16 @@
   ],
   "planegun_g4m1_7_7mm_type92_turret_04": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_plane_machinegun"
+      "_use": "base_plane_machinegun"
     },
     {
-      "_extends": "base_g4m1_7_7mm_type92_turret"
+      "_use": "base_g4m1_7_7mm_type92_turret"
     },
     {
-      "_extends": "gunsound_7_7mm_type92_turret_aircraft"
+      "_use": "gunsound_7_7mm_type92_turret_aircraft"
     },
     {
       "gun__shootNodeName": "flare5"
@@ -852,7 +862,7 @@
     }
   ],
   "g4m1_driver_cockpit": {
-    "_extends": "base_plane_cockpit",
+    "_use": "base_plane_cockpit",
     "cockpit__offset": [0.0,0.0,0.0],
     "cockpit__angles": [0.0,0.0,0.0],
     "cockpit__scale": [1.0,1.0,1.0],

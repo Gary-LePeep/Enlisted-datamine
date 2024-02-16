@@ -15,11 +15,11 @@ let {DEFAULT_TEXT_COLOR} = require("%ui/hud/style.nut")
 let cursors = require("%ui/style/cursors.nut")
 let {isAlive, isDowned} = require("%ui/hud/state/health_state.nut")
 let {isRadioMode} = require("%ui/hud/state/enlisted_hero_state.nut")
-let { sound_play } = require("sound")
+let { sound_play } = require("%dngscripts/sound_system.nut")
 let {get_controlled_hero} = require("%dngscripts/common_queries.nut")
 let {safeAreaAmount} = require("%enlSqGlob/safeArea.nut")
 let {hintTextFunc, mouseNavTips, mkTips, navGamepadHints} = require("mapComps.nut")
-let {CmdHeroSpeech, RequestCloseArtilleryMap, EventArtilleryMapPosSelected, CmdOpenArtilleryMap, CmdCloseArtilleryMap} = require("dasevents")
+let {CmdClientHumanSpeech, RequestCloseArtilleryMap, EventArtilleryMapPosSelected, CmdOpenArtilleryMap, CmdCloseArtilleryMap} = require("dasevents")
 let {aircraftRequestTargetBiases, mkAircraftRequestPreview} = require("aircraft_request_preview.ui.nut")
 let {isArtRequest} = require("art_request_preview.nut")
 let {EventMinimapZoomed} = require("bhvMinimap")
@@ -234,7 +234,7 @@ let function command(event, state) {
 showArtilleryMap.subscribe(function(show) {
   if (show) {
     sound_play("ui/radio_artillery")
-    ecs.g_entity_mgr.sendEvent(get_controlled_hero(), CmdHeroSpeech({phrase="artStrikeOrder"}))
+    ecs.g_entity_mgr.sendEvent(get_controlled_hero(), CmdClientHumanSpeech({phrase="artStrikeOrder"}))
   }
 })
 

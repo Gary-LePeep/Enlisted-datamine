@@ -6,16 +6,24 @@ let { INVALID_ITEM_ID } = require("humaninv")
 let { CmdTrackHeroWeapons } = require("gameevents")
 let { grenadesEids } = require("inventory_grenades_es.nut")
 let { mkFrameIncrementObservable } = require("%ui/ec_to_watched.nut")
+let { CmdShowAllWeaponsUi } = require("dasevents")
+let { frameUpdateCounter } = require("%ui/scene_update.nut")
 
-const EES_EQUIPED = 0
-const EES_HOLSTERING = 1
-const EES_EQUIPING = 2
-const EES_DOWN = 3
+//const EES_EQUIPED = 0
+//const EES_HOLSTERING = 1
+//const EES_EQUIPING = 2
+//const EES_DOWN = 3
 
 let weaponSlotsRaw = array(EWS_NUM).reduce(@(res, _, idx) res.rawset(idx, mkFrameIncrementObservable(null)), {})
 let weaponSlots = weaponSlotsRaw.map(@(v) v.state)
 let weaponSlotsStatic = array(EWS_NUM).reduce(@(res, _, idx) res.rawset(idx, null), {})
-let { weaponSlotsGen, weaponSlotsGenSetValue } = mkFrameIncrementObservable(0, "weaponSlotsGen")
+let weaponSlotsGen = Watched(frameUpdateCounter.get())
+let setWeaponSlotsGen = @(...) weaponSlotsGen.set(frameUpdateCounter.get())
+
+foreach (obs in weaponSlots){
+  obs.subscribe(setWeaponSlotsGen)
+}
+
 let { heroModsByWeaponSlotRaw, heroModsByWeaponSlotRawModify } = mkFrameIncrementObservable(array(EWS_NUM), "heroModsByWeaponSlotRaw")
 
 let heroModsByWeaponSlot = Computed(function(){
@@ -56,6 +64,14 @@ ecs.register_es("hero_throw_mode_es",
     comps_rq = ["watchedByPlr"]
     comps_track = [["human_weap__throwMode", ecs.TYPE_BOOL]]
   }
+)
+
+let showAllWeaponsTrigger = Watched(0)
+ecs.register_es("hero_show_all_weapons",
+  {
+    [CmdShowAllWeaponsUi] = @(...) showAllWeaponsTrigger.trigger()
+  },
+  {},{ tags="ui" }
 )
 
 let canStartMeleeCharge = Watched(false)
@@ -149,7 +165,6 @@ ecs.register_es("hero_ui_weapons_es",
       }
       weaponSlotsStatic[idx] <- staticDesc
       weaponSlotsRaw[idx].setValue(desc)
-      weaponSlotsGenSetValue(weaponSlotsGen.value+1)
     }
     onDestroy = function(eid, comp) {
       let idx = comp["slot_attach__weaponSlotIdx"]
@@ -167,7 +182,6 @@ ecs.register_es("hero_ui_weapons_es",
       }
       weaponSlotsStatic[idx] <- null
       weaponSlotsRaw[idx].setValue(null)
-      weaponSlotsGenSetValue(weaponSlotsGen.value + 1)
     }
   },
   {
@@ -306,5 +320,6 @@ return {
   canStartMeleeCharge
   EWS_NUM
   isThrowMode
+  showAllWeaponsTrigger
 }
 

@@ -16,13 +16,20 @@
     "aimRulerDebug:tag": [],
     "phys_map_tex:UniqueTexHolder": []
   },
+  "distance_meter_debug": {
+    "_tags": "gameClient",
+    "distance_meter__referenceTravelSpeed": 0.0,
+    "distance_meter__navmeshMode": false,
+    "distance_meter__selectedPointIdx": -1,
+    "distance_meter__traceFrom": [0.0,0.0,0.0],
+    "distance_meter__traceTo": [0.0,0.0,0.0],
+    "distance_meter__points:list<p3>": [],
+    "distanceMeterDebug:tag": []
+  },
   "camera_aim_debug": {
     "_tags": "gameClient",
     "_singleton": true,
     "cameraAimDebug:tag": []
-  },
-  "gun_ammo_load_debug": {
-    "gun__loadAmmo": true
   },
   "debug_light_probe_gbuffer_sphere": {
     "size": 0.5,
@@ -96,9 +103,6 @@
   },
   "deformables_debug": {
     "deformablesDebug:tag": []
-  },
-  "debug_dyn_collision": {
-    "drawCollisionResource:tag": []
   },
   "collision_debug": {
     "collision_debug__collMaxDistSq": 0.0,

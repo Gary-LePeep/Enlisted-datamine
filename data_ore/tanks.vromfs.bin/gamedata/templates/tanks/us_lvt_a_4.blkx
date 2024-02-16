@@ -1,16 +1,19 @@
 {
   "us_lvt_a_4_pacific_premium": {
-    "_extends": "us_lvt_a_4_common"
+    "_use": "us_lvt_a_4_common"
   },
   "us_lvt_a_4_common": [
     {
-      "_extends": "base_lvt_a_4"
+      "_use": "base_lvt_a_4"
     },
     {
-      "_extends": "tank_light_vehicle_tracks_sound"
+      "_use": "tank_light_vehicle_tracks_sound"
     },
     {
-      "item__iconScale": 0.8
+      "item__iconOffset": [0.0,0.2]
+    },
+    {
+      "item__iconScale": 1.3
     },
     {
       "bullet_holes__ignoreCollisionNodes:array": {
@@ -188,7 +191,7 @@
     }
   ],
   "us_lvt_a_4_driver_cockpit": {
-    "_extends": "base_driver_cockpit",
+    "_use": "base_driver_cockpit",
     "animchar__res": "ba_11_driver_char",
     "cockpit__offset": [-0.14218,-0.526802,0.242729],
     "cockpit__slitForwardOffset:list<r>": {
@@ -200,7 +203,7 @@
   },
   "us_lvt_a_4_gunner_cockpit": {
     "vehicle_sight__blk": "content/tanks/gamedata/sight/us_m56.blk",
-    "_extends": "base_gunner_cockpit",
+    "_use": "base_gunner_cockpit",
     "animchar__res": "ba_11_gunner_char",
     "cockpit__offset": [-0.694326,-0.0118397,0.25237],
     "cockpit__visibleVehicleNodeNames:list<t>": {

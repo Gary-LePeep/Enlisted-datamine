@@ -1,4 +1,4 @@
-from "ui_library.nut" import *
+from "%enlSqGlob/ui_library.nut" import *
 
 let { is_xbox, is_sony } = require("%dngscripts/platform.nut")
 let {INVALID_USER_ID} = require("matching.errors")

@@ -7,7 +7,7 @@
   },
   {
     "minimap_battle_of_stalingrad": {
-      "_extends": "minimap",
+      "_use": "minimap",
       "mapTex": "battle_of_stalingrad_2x2_minimap*",
       "farMapTex": "battle_of_stalingrad_16x16_minimap*",
       "left_top": [-512.0,576.0],
@@ -19,7 +19,7 @@
   },
   {
     "minimap_stalingrad_tractor_plant": {
-      "_extends": "minimap",
+      "_use": "minimap",
       "mapTex": "stalingrad_tractor_plant_2x2_minimap*",
       "farMapTex": "stalingrad_tractor_plant_16x16_far_minimap*",
       "left_top": [-1024.0,1024.0],

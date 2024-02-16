@@ -1,8 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { logerr } = require("dagor.debug")
-let JB = require("%ui/control/gui_buttons.nut")
 let armyData = require("%ui/hud/state/armyData.nut")
 let soldiersData = require("%ui/hud/state/soldiersData.nut")
 let { localPlayerSquadMembers } = require("%ui/hud/state/squad_members.nut")
@@ -11,12 +10,14 @@ let respawnSelection = require("%ui/hud/state/respawnSelection.nut")
 let { squadBlock, headerBlock, panel, respawnTimer, forceSpawnButton
 } = require("%ui/hud/respawn_parts.nut")
 let { localPlayerEid } = require("%ui/hud/state/local_player.nut")
-let { mkKeyboardHint } = require("%enlSqGlob/ui/squadsUiComps.nut")
-let { isGamepad } = require("%ui/control/active_controls.nut")
 let mkSoldierCard = require("%enlSqGlob/ui/mkSoldierCard.nut")
 let { mkAiActionIcon, mkGrenadeIcon, mkMineIcon, mkMemberHealsBlock,
   mkMemberFlaskBlock } = require("%ui/hud/components/squad_member.nut")
 let { sendNetEvent, RequestNextRespawnEntity } = require("dasevents")
+let { smallPadding, bigPadding } = require("%enlSqGlob/ui/viewConst.nut")
+let { transpBgColor, defItemBlur, defTxtColor, darkTxtColor
+} = require("%enlSqGlob/ui/designConst.nut")
+
 
 let forceRespawn = @() respRequested(true)
 
@@ -35,7 +36,9 @@ let spawnSquadLocId = Computed(function() {
 
   let squad = squadsList.findvalue(
     @(sq) sq.squad.findindex(@(soldier) soldier.guid == guid) != null)
-  return squad?.locId
+
+  let { squadId = null } = squad
+  return squadId != null ? $"squad/{squadId}" : "unknown"
 })
 
 let function currentSquadButtons(membersList, activeTeammateEid, infoByGuid, expToLevel) {
@@ -51,6 +54,7 @@ let function currentSquadButtons(membersList, activeTeammateEid, infoByGuid, exp
 
     let group = ElemGroup()
     let function button(sf) {
+      let color = sf & S_HOVER ? darkTxtColor : defTxtColor
       return {
         behavior = (member.isAlive && member.canBeLeader) ? Behaviors.Button : null
         group = group
@@ -62,16 +66,18 @@ let function currentSquadButtons(membersList, activeTeammateEid, infoByGuid, exp
           isSelected = isCurrent
           isDead = !member.isAlive
           isFaded = !member.canBeLeader
-          addChild = @(_s, _isSelected) {
+          displayedKind = member?.displayedKind
+          addChild = @(...) {
             hplace = ALIGN_BOTTOM
             vplace = ALIGN_BOTTOM
             flow = FLOW_HORIZONTAL
             gap = hdpx(2)
+            padding = smallPadding
             children = [
-              mkMemberHealsBlock(member, sIconSize)
-              mkMemberFlaskBlock(member, sIconSize)
-              mkGrenadeIcon(member, sIconSize) ?? mkMineIcon(member, sIconSize)
-              mkAiActionIcon(member, sIconSize)
+              mkMemberHealsBlock(member, sIconSize, color)
+              mkMemberFlaskBlock(member, sIconSize, color)
+              mkGrenadeIcon(member, sIconSize, color) ?? mkMineIcon(member, sIconSize, color)
+              mkAiActionIcon(member, sIconSize, color)
             ]
           }
         })
@@ -102,7 +108,7 @@ let function currentSquadButtons(membersList, activeTeammateEid, infoByGuid, exp
 
 let memberSpawnList = @() {
   watch = [localPlayerSquadMembers, respawnSelection, soldiersData, armyData]
-  size = [flex(), SIZE_TO_CONTENT]
+  size = SIZE_TO_CONTENT
   minHeight = fsh(40)
   halign = ALIGN_CENTER
   gap = fsh(1)
@@ -150,30 +156,37 @@ let squadInfoBlock = @() {
   children = squadBlock(loc(spawnSquadLocId.value ?? "unknown"))
 }
 
-let memberRespawn = @() panel(
-  [
+let memberRespawn = @() panel({
+  flow = FLOW_VERTICAL
+  gap = smallPadding
+  children = [
     headerBlock("\n".concat(loc("Controlled soldier died."), loc("Select another squadmate to control")))
-    squadInfoBlock
-    memberSpawnList
-    forceSpawnButton({ size = [flex(), fsh(8)] })
-    @() {
-      watch = isGamepad
-      children = isGamepad.value
-        ? null
-        : mkKeyboardHint("Space", loc("respawn/spawn_current_soldier"))
+    {
+      flow = FLOW_VERTICAL
+      gap = smallPadding
+      padding = bigPadding
+      rendObj = ROBJ_WORLD_BLUR
+      fillColor = transpBgColor
+      color = defItemBlur
+      children = [
+        squadInfoBlock
+        memberSpawnList
+        forceSpawnButton({ size = [flex(), fsh(8)] })
+        respawnTimer(loc("respawn/respawn_in_bot"), fontSub)
+      ]
     }
-    respawnTimer(loc("respawn/respawn_in_bot"), sub_txt)
-  ],
-  {
-    hotkeys = [
-      ["^Right | J:D.Right", @() changeRespawn(-1)],
-      ["^Left | J:D.Left",  @() changeRespawn(1)],
-      [$"^Enter| {JB.A}", @() forceRespawn()]
-    ].extend(array(10).map(@(_, n)
-      [$"^{n}", @() selectAndForceRespawn((10 + n - 1) % 10)]
-    ))
-  }
-)
+  ]
+}, {
+  size = SIZE_TO_CONTENT
+  rendObj = null
+  hotkeys = [
+    ["^Right | J:D.Right", @() changeRespawn(-1)],
+    ["^Left | J:D.Left",  @() changeRespawn(1)],
+    [$"^Enter| J:Y", @() forceRespawn()]
+  ].extend(array(10).map(@(_, n)
+    [$"^{n}", @() selectAndForceRespawn((10 + n - 1) % 10)]
+  ))
+})
 
 return memberRespawn
 

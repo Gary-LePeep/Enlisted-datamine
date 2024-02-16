@@ -59,10 +59,10 @@ let itemWeights = {
   // heavy
   launcher = 54, grenade_launcher = 53, infantry_launcher = 52, antitank_rifle = 51,
   // assault
-  mgun = 46, assault_rifle = 45, assault_rifle_stl = 44, semiauto = 43, carbine_tanker = 42, submgun = 41,
+  mgun = 46, assault_rifle = 45, semiauto = 44, carbine_tanker = 43, assault_semi = 42, submgun = 41,
   carbine_pistol = 40,
   // rifle and shotgun
-  rifle_grenade_launcher = 37, shotgun = 36, boltaction_noscope = 34,
+  rifle_grenade_launcher = 38, rifle_at_grenade_launcher = 37, shotgun = 36, boltaction_noscope = 34,
   carbine = 33, semiauto_sniper = 32, boltaction = 31,
   // pistol
   sideweapon = 29, flaregun = 28,
@@ -77,7 +77,7 @@ let itemWeights = {
   ticket = 2
 }
 
-local function prepareItems(items, objByGuid = {}) {
+local function prepareItems(items, objByGuid = {}, needMergeByTpl = true) {
   items = items
     .map(function(item) {
       if (typeof item == "string")
@@ -88,6 +88,9 @@ local function prepareItems(items, objByGuid = {}) {
     })
     .filter(@(v) v != null)
     .sort(@(a, b) (a?.basetpl ?? "") <=> (b?.basetpl ?? ""))
+
+  if (!needMergeByTpl)
+    return items
 
   let res = []
   foreach (item in items) {
@@ -149,20 +152,6 @@ let function findItemByGuid(items, guid) {
   return null
 }
 
-let function putToStackTop(items, topItem) {
-  let guid = topItem?.guid
-  if (guid == null)
-    return
-  let item = findItemByGuid(items, guid)
-  if (!("guids" in item) || item?.guid == guid)
-    return
-
-  item.guid <- guid
-  if ("links" in topItem)
-    item.links <- topItem.links
-  item.guids.sort(@(a, b) (b == guid) <=> (a == guid))
-}
-
 return {
   itemWeights
   prepareItems
@@ -171,5 +160,4 @@ return {
   itemsSort
   preferenceSort
   findItemByGuid
-  putToStackTop
 }

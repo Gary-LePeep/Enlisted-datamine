@@ -344,6 +344,11 @@
   },
   {
     "entity": {
+      "_template": "bloom"
+    }
+  },
+  {
+    "entity": {
       "_template": "postfx_roundctrl"
     }
   },
@@ -363,6 +368,7 @@
     "entity": {
       "_template": "briefing_destruction",
       "mission_name": "volokolamsk_city_bomb",
+      "mission_outfit": "moscow",
       "loading_images:list<t>": [
         {
           "item": "ui/volokolamsk_city_01.avif"
@@ -389,7 +395,7 @@
       "team__briefing": "destruction/attackers_goals",
       "team__winSubtitle": "debriefing/won_invasion_destruction",
       "team__loseSubtitle": "debriefing/lost_invasion_destruction",
-      "team__winTitle": "debriefing/germany_won_destruction_attack_title",
+      "team__winTitle": "debriefing/axis_won_destruction_attack_title",
       "team__spawnBotArmy": "moscow_axis"
     }
   },
@@ -477,7 +483,7 @@
       "capzone__timeToDefuse": 15.0,
       "capzone__timeToExplosion": 35.0,
       "capzone__checkAllZonesInGroup": true,
-      "capzone__deactivateAfterTimeout": 0.0,
+      "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 1,
       "capzone__createdRespawnBaseGroup": 3,
@@ -515,7 +521,7 @@
       "capzone__timeToDefuse": 15.0,
       "capzone__timeToExplosion": 35.0,
       "capzone__checkAllZonesInGroup": true,
-      "capzone__deactivateAfterTimeout": 0.0,
+      "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 1,
       "capzone__createdRespawnBaseGroup": 4,
@@ -553,7 +559,7 @@
       "capzone__timeToDefuse": 15.0,
       "capzone__timeToExplosion": 35.0,
       "capzone__checkAllZonesInGroup": true,
-      "capzone__deactivateAfterTimeout": 0.0,
+      "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 1,
       "capzone__createdRespawnBaseGroup": 5,
@@ -591,7 +597,7 @@
       "capzone__timeToDefuse": 15.0,
       "capzone__timeToExplosion": 35.0,
       "capzone__checkAllZonesInGroup": true,
-      "capzone__deactivateAfterTimeout": 0.0,
+      "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 1,
       "capzone__createdRespawnBaseGroup": 6,
@@ -626,7 +632,7 @@
       "capzone__timeToDefuse": 15.0,
       "capzone__timeToExplosion": 35.0,
       "capzone__checkAllZonesInGroup": true,
-      "capzone__deactivateAfterTimeout": 0.0,
+      "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 1,
       "capzone__createdRespawnBaseGroup": 7,

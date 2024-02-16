@@ -1,4 +1,6 @@
 import "%dngscripts/ecs.nut" as ecs
+from "math" import max
+
 let {trackPlayerStart = null} = require("demo_track_player.nut")
 if (trackPlayerStart==null)
   return

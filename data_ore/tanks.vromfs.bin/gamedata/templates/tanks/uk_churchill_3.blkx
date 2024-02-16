@@ -1,9 +1,9 @@
 {
   "uk_churchill_3": {
-    "_extends": "uk_churchill_3_common"
+    "_use": "uk_churchill_3_common"
   },
   "uk_churchill_3_tunisia": {
-    "_extends": "uk_churchill_3_common",
+    "_use": "uk_churchill_3_common",
     "turrets__initAmmoDistribution:array": [
       {
         "ammo:object": {
@@ -20,14 +20,17 @@
     ]
   },
   "uk_churchill_3_normandy_premium": {
-    "_extends": "uk_churchill_3_common",
+    "_use": "uk_churchill_3_common",
     "animchar__objTexReplace:object": {
       "uk_camo_earth_yellow*": "uk_camo_middle_deep_bronze_greens*"
     }
   },
   "uk_churchill_3_common": {
-    "_extends": "base_churchill_3",
-    "item__iconOffset": [0.0,0.4],
+    "_use": "base_churchill_3",
+    "commanderCockpitFpsCamMaxAngle": [40.0,5.0],
+    "gunner_cam_limit__useCockpitDir": true,
+    "item__iconOffset": [0.0,0.33],
+    "item__iconScale": 1.47,
     "turrets__initAmmoDistribution:array": [
       {
         "ammo:object": {
@@ -186,7 +189,7 @@
     ]
   },
   "uk_churchill_3_driver_cockpit": {
-    "_extends": "base_driver_cockpit",
+    "_use": "base_driver_cockpit",
     "animchar__res": "kv_1_driver_char",
     "cockpit__offset": [-0.0247973,-0.294759,0.237072],
     "cockpit__visibleVehicleNodeNames:list<t>": [
@@ -214,30 +217,106 @@
     }
   },
   "uk_churchill_3_gunner_cockpit": {
-    "vehicle_sight__blk": "content/tanks/gamedata/sight/uk_no_33_mkii_s.blk",
-    "_extends": "base_gunner_cockpit",
+    "_use": "base_gunner_cockpit",
     "animchar__res": "t_26_1940_gunner_char",
-    "cockpit__minZoom": -0.27,
-    "cockpit__offset": [-0.566273,-0.0507082,0.199528],
-    "cockpit__attachNodeNames:list<t>": {
-      "node": "bone_camera_gunner"
-    },
+    "cockpit__offset": [0.0,0.0,0.0],
+    "cockpit__cockpitOffsetBySlit:list<p3>": [
+      {
+        "slit": [-0.566273,-0.0507082,0.199528]
+      },
+      {
+        "slit": [0.4,0.9,0.55]
+      }
+    ],
+    "cockpit__attachNodeNames:list<t>": [
+      {
+        "node": "bone_camera_gunner"
+      },
+      {
+        "node": "bone_turret"
+      }
+    ],
     "cockpit__attachNodeIndices:list<i>": [],
     "cockpit__visibleVehicleNodeNames:list<t>": {
       "node": "gun_barrel"
     },
-    "cockpit__slitNodeNames:list<t>": {
-      "slit": "cam_front_right"
-    },
-    "cockpit__slitForwardOffset:list<r>": {
-      "slit": 0.18
-    },
-    "cockpit__slitIsGun:list<b>": {
-      "slit": true
-    }
+    "cockpit__slitNodeNames:list<t>": [
+      {
+        "slit": "cam_front_right"
+      },
+      {
+        "slit": "cam_front"
+      }
+    ],
+    "cockpit__slitForwardOffset:list<r>": [
+      {
+        "slit": 0.22
+      },
+      {
+        "slit": 0.2
+      }
+    ],
+    "cockpit__slitIsGun:list<b>": [
+      {
+        "slit": true
+      },
+      {
+        "slit": false
+      }
+    ],
+    "cockpit__periscopeLimits:list<p4>": [
+      {
+        "slit": [-0.0,0.0,0.0,0.0]
+      },
+      {
+        "slit": [-45.0,45.0,-5.0,25.0]
+      }
+    ],
+    "cockpit__periscopeSpeed:list<p2>": [
+      {
+        "slit": [-1.0,-1.0]
+      },
+      {
+        "slit": [35.0,35.0]
+      }
+    ],
+    "cockpit__slitZoomTime:list<r>": [
+      {
+        "slit": 0.05
+      },
+      {
+        "slit": 0.0
+      }
+    ],
+    "cockpit__slitZoom:array": [
+      {
+        "slit:list<r>": [
+          {
+            "zoom": 1.9
+          },
+          {
+            "zoom": 3.5
+          }
+        ]
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      }
+    ],
+    "cockpit__slitTemplates:list<t>": [
+      {
+        "slit": "uk_no_33_mkii_s"
+      },
+      {
+        "slit": "default_periscope"
+      }
+    ],
+    "cockpit__slitEids:list<eid>": []
   },
   "uk_churchill_3_commander_cockpit": {
-    "_extends": "base_commander_cockpit_no_slits",
+    "_use": "base_commander_cockpit_no_slits",
     "animchar__res": "t_26_1940_commander_char",
     "cockpit__offset": [-0.475718,0.974832,0.450081],
     "cockpit__cockpitOffsetBySlit:list<p3>": {
@@ -249,6 +328,9 @@
       },
       {
         "node": "bone_gun"
+      },
+      {
+        "node": "bone_turret"
       }
     ],
     "cockpit__slitForwardOffset:list<r>": {
@@ -259,6 +341,24 @@
     },
     "cockpit__slitNodeNames:list<t>": {
       "slit": "cam_front"
-    }
+    },
+    "cockpit__periscopeLimits:list<p4>": {
+      "slit": [-0.0,0.0,-5.0,25.0]
+    },
+    "cockpit__periscopeSpeed:list<p2>": {
+      "slit": [0.0,35.0]
+    },
+    "cockpit__slitZoom:array": {
+      "slit:list<r>": {
+        "zoom": 1.44
+      }
+    },
+    "cockpit__slitZoomTime:list<r>": {
+      "slit": 0.0
+    },
+    "cockpit__slitTemplates:list<t>": {
+      "slit": "default_periscope"
+    },
+    "cockpit__slitEids:list<eid>": []
   }
 }

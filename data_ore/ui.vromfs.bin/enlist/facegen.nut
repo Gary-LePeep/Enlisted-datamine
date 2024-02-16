@@ -7,8 +7,13 @@ let {
   genFacesOverrides, ASIAN, AFRICAN, EUROPEAN
 } = require("%enlist/faceGen/animTree_gen_faces.nut")
 
-let headsCompsQuery = ecs.SqQuery("headsCompsQuery",
-  { comps_ro = ["animcharParams", "collres__res", "item__uniqueName"] })
+let headsCompsQuery = ecs.SqQuery("headsCompsQuery", {
+  comps_ro = [
+    ["animcharParams", ecs.TYPE_OBJECT],
+    ["collres__res", ecs.TYPE_STRING],
+    ["item__uniqueName", ecs.TYPE_STRING]
+  ]
+})
 
 let function faceGen(faceConfig = null) {
   let rand = Rand()
@@ -67,10 +72,10 @@ let function faceGen(faceConfig = null) {
 }
 
 let function safeFaceToJson(data) {
-  let json = require("json")
+  let { json_to_string } = require("json")
   let io = require("io")
   let file = io.file("EUFaces.json", "wt+")
-  file.writestring(json.to_string(data, true))
+  file.writestring(json_to_string(data, true))
   file.close()
   log("Saved to EUFaces.json")
 }

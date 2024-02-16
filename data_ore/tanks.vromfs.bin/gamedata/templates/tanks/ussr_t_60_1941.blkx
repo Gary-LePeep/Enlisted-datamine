@@ -1,25 +1,28 @@
 {
   "ussr_t_60_1941": {
-    "_extends": "ussr_t_60_1941_common",
-    "animchar__objTexReplace:object": {
-      "ussr_camo_green*": "ussr_camo_winter*"
-    }
+    "_use": "ussr_t_60_1941_common"
   },
   "ussr_t_60_1941_common": [
     {
-      "_extends": "base_t_60_1941"
+      "_use": "base_t_60_1941"
     },
     {
-      "_extends": "tank_t34_engine_sound"
+      "_use": "tank_t34_engine_sound"
     },
     {
-      "_extends": "tank_su76_vehicle_tracks_sound"
+      "_use": "tank_su76_vehicle_tracks_sound"
     },
     {
       "vehicle_net_phys__blk": "content/tanks/gamedata/units/tanks/t_60_1941.blk:VehiclePhys"
     },
     {
       "damage_model__blk": "content/tanks/gamedata/units/tanks/t_60_1941.blk"
+    },
+    {
+      "item__iconOffset": [0.0,-0.05]
+    },
+    {
+      "item__iconScale": 1.11
     },
     {
       "vehicle_seats__seats:shared:array": [
@@ -86,19 +89,17 @@
     }
   ],
   "ussr_t_60_1941_driver_cockpit": {
-    "_extends": "base_driver_cockpit",
+    "_use": "base_driver_cockpit",
     "animchar__res": "bt_7_driver_char",
     "cockpit__offset": [-0.0,-0.37,0.01],
     "cockpit__visibleVehicleNodeNames:list<t>": [],
     "cockpit__slitForwardOffset:list<r>": {
-      "slit": 0.06
+      "slit": 0.09
     }
   },
   "ussr_t_60_1941_gunner_cockpit": {
-    "_extends": "base_gunner_cockpit",
-    "vehicle_sight__blk": "content/tanks/gamedata/sight/ussr_pt_1.blk",
+    "_use": "base_gunner_cockpit",
     "animchar__res": "t_26_1940_gunner_char",
-    "cockpit__minZoom": -0.27,
     "cockpit__offset": [-0.35,-0.01,0.22],
     "cockpit__cockpitOffsetBySlit:list<p3>": [
       {
@@ -135,10 +136,10 @@
     ],
     "cockpit__slitForwardOffset:list<r>": [
       {
-        "slit": 0.2
+        "slit": 0.22
       },
       {
-        "slit": 0.0
+        "slit": 0.02
       }
     ],
     "cockpit__slitIsGun:list<b>": [
@@ -148,10 +149,55 @@
       {
         "slit": false
       }
-    ]
+    ],
+    "cockpit__periscopeLimits:list<p4>": [
+      {
+        "slit": [-0.0,0.0,0.0,0.0]
+      },
+      {
+        "slit": [-0.0,0.0,0.0,0.0]
+      }
+    ],
+    "cockpit__periscopeSpeed:list<p2>": [
+      {
+        "slit": [-1.0,-1.0]
+      },
+      {
+        "slit": [-1.0,-1.0]
+      }
+    ],
+    "cockpit__slitZoom:array": [
+      {
+        "slit:list<r>": [
+          {
+            "zoom": 1.9
+          },
+          {
+            "zoom": 3.5
+          }
+        ]
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.0
+        }
+      }
+    ],
+    "cockpit__slitZoomTime:list<r>": [
+      {
+        "slit": 0.05
+      },
+      {
+        "slit": 0.0
+      }
+    ],
+    "cockpit__slitTemplates:list<t>": {
+      "slit": "ussr_tmfp_1"
+    },
+    "cockpit__slitEids:list<eid>": []
   },
   "ussr_t_60_1941_228_battlepass_premium": {
-    "_extends": "ussr_t_60_1941_common",
+    "_use": "ussr_t_60_1941_common",
     "animchar__objTexReplace:object": {
       "ussr_camo_green*": "ussr_camo_brown_lines*"
     },

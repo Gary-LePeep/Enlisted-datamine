@@ -1,6 +1,6 @@
 {
   "event_foolmoon_blaster_muzzle_effect": {
-    "_extends": "base_gun_flash_fx",
+    "_use": "base_gun_flash_fx",
     "transform": [
       [1.0,0.0,0.0],
       [0.0,1.0,0.0],
@@ -19,7 +19,7 @@
     }
   },
   "event_foolmoon_sniper_muzzle": {
-    "_extends": "base_gun_flash_fx",
+    "_use": "base_gun_flash_fx",
     "transform": [
       [1.0,0.0,0.0],
       [0.0,1.0,0.0],
@@ -38,7 +38,7 @@
     }
   },
   "event_foolmoon_sniper_muzzle_red": {
-    "_extends": "base_gun_flash_fx",
+    "_use": "base_gun_flash_fx",
     "transform": [
       [1.0,0.0,0.0],
       [0.0,1.0,0.0],
@@ -68,13 +68,13 @@
     "_group": {
       "_tags": "render",
       "effect__name": "event_foolmoon_sniper_charge_cmps_fx",
-      "gun_flash_fx__nodeId": -1,
+      "gun_fx__nodeId": -1,
       "effect": [],
-      "gun_flash_fx__gunEid:eid": []
+      "gun_fx__gunEid:eid": []
     }
   },
   "event_foolmoon_sniper_charge_red": {
-    "_extends": "base_gun_flash_fx",
+    "_use": "base_gun_flash_fx",
     "transform": [
       [1.0,0.0,0.0],
       [0.0,1.0,0.0],
@@ -149,10 +149,10 @@
   },
   "event_foolmoon_explosion_plasma": [
     {
-      "_extends": "explosion_effect_small"
+      "_use": "explosion_effect_small"
     },
     {
-      "_extends": "disable_effect_sfx"
+      "_use": "disable_effect_sfx"
     },
     {
       "effect__scale": 2.0
@@ -166,10 +166,10 @@
   ],
   "event_foolmoon_explosion_plasma_hit": [
     {
-      "_extends": "explosion_effect_large"
+      "_use": "explosion_effect_large"
     },
     {
-      "_extends": "disable_effect_sfx"
+      "_use": "disable_effect_sfx"
     },
     {
       "effect__scale": 3.0
@@ -192,6 +192,23 @@
       "_tags": "render",
       "effect__name": "event_foolmoon_explosion_body_cmps_fx",
       "effect": []
+    }
+  },
+  "event_mech_muzzle_blue_effect": {
+    "transform": [
+      [1.0,0.0,0.0],
+      [0.0,1.0,0.0],
+      [0.0,0.0,1.0],
+      [0.0,0.0,0.0]
+    ],
+    "node_attached__destroyWithParent:tag": [],
+    "effect": {
+      "_tags": "render"
+    },
+    "_group": {
+      "_tags": "render",
+      "effect__name": "event_mech_muzzle_blue_cmps_fx",
+      "effect__distance_scale": 1.0
     }
   }
 }

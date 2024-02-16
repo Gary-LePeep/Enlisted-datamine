@@ -1,13 +1,109 @@
 {
-  "ussr_is_2_1944": [
+  "ussr_is_2_1944_berlin": {
+    "_use": "ussr_is_2_1944_common",
+    "disableDMParts:list<t>": [
+      {
+        "part": "ex_decor_30"
+      },
+      {
+        "part": "ex_decor_31"
+      },
+      {
+        "part": "ex_decor_32"
+      },
+      {
+        "part": "ex_decor_33"
+      },
+      {
+        "part": "ex_decor_34"
+      },
+      {
+        "part": "ex_decor_35"
+      },
+      {
+        "part": "ex_decor_36"
+      },
+      {
+        "part": "ex_decor_37"
+      },
+      {
+        "part": "ex_decor_38"
+      },
+      {
+        "part": "ex_decor_39"
+      },
+      {
+        "part": "ex_decor_turret_30"
+      },
+      {
+        "part": "ex_decor_turret_31"
+      },
+      {
+        "part": "ex_decor_turret_32"
+      },
+      {
+        "part": "ex_decor_turret_33"
+      },
+      {
+        "part": "antenna_01"
+      },
+      {
+        "part": "ex_armor_01"
+      },
+      {
+        "part": "ex_armor_02"
+      },
+      {
+        "part": "ex_armor_03"
+      },
+      {
+        "part": "ex_armor_04"
+      },
+      {
+        "part": "ex_armor_06"
+      }
+    ]
+  },
+  "is_2_1944_turret_01_122mm_d25t": {
+    "_override": true,
+    "gun__ammoSetsInfo:shared:array": {
+      "defaultSet:array": {
+        "shell:object": {
+          "blk": "gamedata/gen/weapons/shells/122mm_d25t_122mm_ussr_aphe.blk",
+          "name": "122mm_br_471b",
+          "type": "aphebc_tank"
+        }
+      },
+      "122mm_ussr_HE:array": {
+        "shell:object": {
+          "blk": "gamedata/gen/weapons/shells/122mm_d25t_122mm_ussr_he.blk",
+          "name": "122mm_of_471",
+          "type": "he_frag_tank"
+        }
+      }
+    }
+  },
+  "ussr_is_2_1944_common": [
     {
-      "_extends": "base_is_2_1944"
+      "_use": "base_is_2_1944"
     },
     {
-      "_extends": "tank_t34_engine_sound"
+      "_use": "tank_t34_engine_sound"
     },
     {
-      "_extends": "tank_heavy_vehicle_tracks_sound"
+      "_use": "tank_heavy_vehicle_tracks_sound"
+    },
+    {
+      "commanderCockpitFpsCamMaxAngle": [40.0,5.0]
+    },
+    {
+      "gunner_cam_limit__useCockpitDir": true
+    },
+    {
+      "item__iconOffset": [0.07,0.1]
+    },
+    {
+      "item__iconScale": 1.13
     },
     {
       "vehicle_seats__seats:shared:array": [
@@ -28,7 +124,8 @@
             "nextSeat": "main_gunner",
             "shouldHideOwner": true,
             "receiveDamageFromDMPart": "driver",
-            "cameraNodeName": "bone_camera_driver"
+            "cameraNodeName": "bone_camera_driver",
+            "cockpitTemplate": "ussr_is_2_1944_driver_cockpit"
           }
         },
         {
@@ -48,15 +145,13 @@
             "shouldHideOwner": true,
             "receiveDamageFromDMPart": "gunner",
             "cameraNodeName": "bone_camera_gunner",
+            "cockpitTemplate": "ussr_is_2_1944_gunner_cockpit",
             "turretNames:array": [
               {
                 "turret": "turret_01"
               },
               {
                 "turret": "turret_02"
-              },
-              {
-                "turret": "turret_03"
               }
             ]
           }
@@ -65,26 +160,32 @@
           "seats:object": {
             "name": "commander",
             "locName": "vehicle_seats/commander",
-            "attachNode": "commander",
+            "attachNode": "bone_mg_aa_h_01",
             "shouldHideOwner": true,
+            "hatchRotationAxis": [1.7,0.0,0.0],
             "maxPosWithOpenHatch": 0.7,
             "ignoreAttachNodeRotation": true,
             "attachTm": [
               [1.0,0.0,0.0],
               [0.0,1.0,0.0],
               [0.0,0.0,1.0],
-              [0.1,0.0,0.15]
+              [-0.15,-0.65,0.1]
             ],
             "seatComponent": "isDriver",
             "receiveDamageFromDMPart": "commander",
+            "cockpitTemplate": "ussr_is_2_1944_commander_cockpit",
+            "cameraNodeName": "bone_turret",
             "hatchNodes:array": [
               {
-                "node": "hatch_03"
+                "node": "hatch_01"
               },
               {
                 "node": "hatch_02"
               }
-            ]
+            ],
+            "hatchTurretNames:array": {
+              "turret": "turret_03"
+            }
           }
         },
         {
@@ -108,52 +209,330 @@
           }
         }
       ]
-    },
-    {
-      "disableDMParts:list<t>": [
-        {
-          "part": "ex_armor_turret_r_01"
-        },
-        {
-          "part": "ex_armor_turret_r_02"
-        },
-        {
-          "part": "ex_armor_turret_r_03"
-        },
-        {
-          "part": "ex_armor_turret_l_01"
-        },
-        {
-          "part": "ex_armor_turret_l_02"
-        },
-        {
-          "part": "ex_armor_turret_l_03"
-        },
-        {
-          "part": "ex_armor_01"
-        },
-        {
-          "part": "ex_armor_02"
-        },
-        {
-          "part": "ex_armor_03"
-        },
-        {
-          "part": "ex_armor_04"
-        },
-        {
-          "part": "ex_armor_05"
-        },
-        {
-          "part": "ex_armor_06"
-        },
-        {
-          "part": "ex_armor_07"
-        },
-        {
-          "part": "ex_armor_08"
-        }
-      ]
     }
-  ]
+  ],
+  "ussr_is_2_1944_driver_cockpit": {
+    "_use": "base_driver_cockpit",
+    "animchar__res": "kv_1_driver_char",
+    "cockpit__offset": [0.0,0.0,0.0],
+    "cockpit__cockpitOffsetBySlit:list<p3>": {
+      "item": [-0.192792,-0.0259184,-1.49218e-05]
+    },
+    "cockpit__visibleVehicleNodeNames:list<t>": [
+      {
+        "node": "track_l"
+      },
+      {
+        "node": "track_r"
+      },
+      {
+        "node": "ex_decor_l_01"
+      },
+      {
+        "node": "ex_decor_r_01"
+      },
+      {
+        "node": "gun_barrel"
+      }
+    ],
+    "cockpit__slitForwardOffset:list<r>": {
+      "slit": 0.09
+    }
+  },
+  "ussr_is_2_1944_gunner_cockpit": {
+    "_use": "base_gunner_cockpit",
+    "animchar__res": "t_26_1940_gunner_char",
+    "cockpit__minForwardOffset": -0.27,
+    "cockpit__offset": [-0.0,-0.0,-0.0],
+    "cockpit__cockpitOffsetBySlit:list<p3>": [
+      {
+        "item": [0.00491715,-0.0407845,0.682348]
+      },
+      {
+        "item": [0.45,1.1,0.535]
+      }
+    ],
+    "cockpit__attachNodeNames:list<t>": [
+      {
+        "node": "bone_gun"
+      },
+      {
+        "node": "bone_turret"
+      }
+    ],
+    "cockpit__attachNodeIndices:list<i>": [],
+    "cockpit__visibleVehicleNodeNames:list<t>": {
+      "node": "gun_barrel"
+    },
+    "cockpit__slitNodeNames:list<t>": [
+      {
+        "slit": "cam_front_right"
+      },
+      {
+        "slit": "cam_front"
+      }
+    ],
+    "cockpit__slitForwardOffset:list<r>": [
+      {
+        "slit": 0.19
+      },
+      {
+        "slit": 0.19
+      }
+    ],
+    "cockpit__slitIsGun:list<b>": [
+      {
+        "slit": true
+      },
+      {
+        "slit": false
+      }
+    ],
+    "cockpit__periscopeLimits:list<p4>": [
+      {
+        "slit": [-0.0,0.0,0.0,0.0]
+      },
+      {
+        "slit": [-55.0,55.0,-0.0,25.0]
+      }
+    ],
+    "cockpit__periscopeSpeed:list<p2>": [
+      {
+        "slit": [-1.0,-1.0]
+      },
+      {
+        "slit": [35.0,35.0]
+      }
+    ],
+    "cockpit__slitZoom:array": [
+      {
+        "slit:list<r>": [
+          {
+            "zoom": 3.5
+          },
+          {
+            "zoom": 4.0
+          }
+        ]
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      }
+    ],
+    "cockpit__slitZoomTime:list<r>": [
+      {
+        "slit": 0.05
+      },
+      {
+        "slit": 0.0
+      }
+    ],
+    "cockpit__slitTemplates:list<t>": [
+      {
+        "slit": "ussr_tsh_17"
+      },
+      {
+        "slit": "default_periscope"
+      }
+    ],
+    "cockpit__slitEids:list<eid>": []
+  },
+  "ussr_is_2_1944_commander_cockpit": {
+    "_use": "base_commander_tower_cockpit",
+    "animchar__res": "pzkpfw_iii_b_commander_char",
+    "cockpit__offset": [-0.495364,0.8,0.494493],
+    "cockpit__visibleVehicleNodeNames:list<t>": [
+      {
+        "node": "gun_mask"
+      },
+      {
+        "node": "gun_barrel"
+      },
+      {
+        "part": "ex_armor_turret_l_01"
+      },
+      {
+        "part": "ex_armor_turret_l_02"
+      },
+      {
+        "part": "ex_armor_turret_l_03"
+      },
+      {
+        "part": "ex_armor_turret_r_01"
+      },
+      {
+        "part": "ex_armor_turret_r_02"
+      },
+      {
+        "part": "ex_armor_turret_r_03"
+      }
+    ],
+    "cockpit__cockpitOffsetBySlit:list<p3>": [
+      {
+        "item": [0.0,0.0,0.0]
+      },
+      {
+        "item": [0.0,0.0,0.0]
+      },
+      {
+        "item": [0.0,0.0,0.0]
+      },
+      {
+        "item": [0.0,0.0,0.0]
+      },
+      {
+        "item": [0.0,0.0,0.0]
+      },
+      {
+        "item": [0.0,0.0,0.0]
+      }
+    ],
+    "cockpit__slitForwardOffset:list<r>": [
+      {
+        "slit": -0.09
+      },
+      {
+        "slit": -0.09
+      },
+      {
+        "slit": -0.09
+      },
+      {
+        "slit": -0.09
+      },
+      {
+        "slit": -0.09
+      },
+      {
+        "slit": -0.09
+      }
+    ],
+    "cockpit__slitIsGun:list<b>": [
+      {
+        "slit": true
+      },
+      {
+        "slit": false
+      },
+      {
+        "slit": false
+      },
+      {
+        "slit": false
+      },
+      {
+        "slit": false
+      },
+      {
+        "slit": false
+      }
+    ],
+    "cockpit__slitZoom:array": [
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      }
+    ],
+    "cockpit__slitNodeNames:list<t>": [
+      {
+        "slit": "cam_front"
+      },
+      {
+        "slit": "cam_front_left"
+      },
+      {
+        "slit": "cam_rear_left"
+      },
+      {
+        "slit": "cam_rear"
+      },
+      {
+        "slit": "cam_rear_right"
+      },
+      {
+        "slit": "cam_front_right"
+      }
+    ]
+  },
+  "is_2_1944_skins": {
+    "_override": true,
+    "skin__objTexReplace:array": [
+      {
+        "skin:object": {
+          "id": "is_2_1944_winter",
+          "objTexReplace:object": {
+            "ussr_camo_green*": "ussr_camo_winter*"
+          }
+        }
+      },
+      {
+        "skin:object": {
+          "id": "is_2_1944_forest",
+          "objTexReplace:object": {
+            "ussr_camo_green*": "ussr_camo_forest_01*"
+          }
+        }
+      },
+      {
+        "skin:object": {
+          "id": "is_2_1944_ussr_camo_brown_lines",
+          "objTexReplace:object": {
+            "ussr_camo_green*": "ussr_camo_brown_lines*"
+          }
+        }
+      },
+      {
+        "skin:object": {
+          "id": "is_2_1944_ussr_camo_green_ltbrown_lines",
+          "objTexReplace:object": {
+            "ussr_camo_green*": "ussr_camo_green_ltbrown_lines*"
+          }
+        }
+      },
+      {
+        "skin:object": {
+          "id": "is_2_1944_ussr_camo_desert_yellow_brown",
+          "objTexReplace:object": {
+            "ussr_camo_green*": "ussr_camo_desert_yellow_brown*"
+          }
+        }
+      },
+      {
+        "skin:object": {
+          "id": "is_2_1944_ussr_camo_winter_lines",
+          "objTexReplace:object": {
+            "ussr_camo_green*": "ussr_camo_winter_lines*"
+          }
+        }
+      }
+    ]
+  }
 }

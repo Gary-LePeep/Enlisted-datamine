@@ -37,7 +37,7 @@
         "shell:object": {
           "blk": "gamedata/gen/weapons/shells/76mm_17pdr_qf_76mm_britain_17pdr_apds.blk",
           "name": "76mm_shot_sv_mk1_apds",
-          "type": "apds_tank"
+          "type": "apds_early_tank"
         }
       },
       "76mm_britain_Smoke:array": {
@@ -51,16 +51,16 @@
   },
   "tankgun_76mm_17pdr_qf": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_tankgun_cannon"
+      "_use": "base_tankgun_cannon"
     },
     {
-      "_extends": "base_76mm_17pdr_qf"
+      "_use": "base_76mm_17pdr_qf"
     },
     {
-      "_extends": "gunsound_76mm_17pdr_qf"
+      "_use": "gunsound_76mm_17pdr_qf"
     },
     {
       "turret__triggerGroup": 0

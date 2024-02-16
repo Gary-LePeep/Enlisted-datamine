@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
-let { sub_txt, tiny_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { secondsToHoursLoc } = require("%ui/helpers/time.nut")
 let {
   smallPadding, accentTitleTxtColor, defTxtColor
@@ -9,17 +9,20 @@ let {
 
 
 let timerIcon = "ui/skin#/battlepass/boost_time.svg"
-let defTimerSize = hdpxi(18)
-let smallTimerSize = hdpxi(12)
+let defTimerSize = hdpxi(13)
+let mkClockIcon = @(color) {
+  rendObj = ROBJ_IMAGE
+  size = [defTimerSize, defTimerSize]
+  image = Picture($"{timerIcon}:{defTimerSize}:{defTimerSize}:K")
+  color
+}
 
 let function mkTimer(timestamp, prefixLocId = "", expiredLocId = "timeExpired",
-  color = accentTitleTxtColor, prefixColor = defTxtColor, override = {}, isSmall = false
+  color = accentTitleTxtColor, prefixColor = defTxtColor, override = {}
 ) {
   let prefixTxt = loc(prefixLocId)
   let expiredTxt = loc(expiredLocId)
   let expireSec = Computed(@() max(timestamp - serverTime.value, 0))
-  let txtStyle = isSmall ? tiny_txt : sub_txt
-  let timerSize = isSmall ? smallTimerSize : defTimerSize
 
   return function() {
     let expireSecVal = expireSec.value
@@ -36,19 +39,13 @@ let function mkTimer(timestamp, prefixLocId = "", expiredLocId = "timeExpired",
               rendObj = ROBJ_TEXT
               text = prefixTxt
               color = prefixColor
-            }.__update(txtStyle)
-        hasExpired ? null
-          : {
-              rendObj = ROBJ_IMAGE
-              size = [timerSize, timerSize]
-              image = Picture($"{timerIcon}:{timerSize}:{timerSize}:K")
-              color
-            }
+            }.__update(fontSub)
+        hasExpired ? null : mkClockIcon(color)
         {
           rendObj = ROBJ_TEXT
           text = hasExpired ? expiredTxt : secondsToHoursLoc(expireSecVal)
           color
-        }.__update(txtStyle)
+        }.__update(fontSub)
       ]
     }.__update(override)
   }

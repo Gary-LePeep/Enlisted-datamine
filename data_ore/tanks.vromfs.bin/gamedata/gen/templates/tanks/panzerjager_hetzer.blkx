@@ -1,10 +1,10 @@
 {
   "base_panzerjager_hetzer": [
     {
-      "_extends": "base_tank"
+      "_use": "base_tank"
     },
     {
-      "_extends": "panzerjager_hetzer_ammo_stowages"
+      "_use": "panzerjager_hetzer_ammo_stowages"
     },
     {
       "killLogName": "germ_jgdpz_38t"
@@ -139,7 +139,7 @@
         {
           "turretInfo:object": {
             "turretName": "turret_01",
-            "gun": "panzerjager_hetzer_turret_01_75mm_pak39_l48+turret_with_several_types_of_shells+main_turret",
+            "gun": "panzerjager_hetzer_turret_01_75mm_pak39_l48_hetzer+turret_with_several_types_of_shells+main_turret",
             "barrelDm": "gun_barrel",
             "breechDm": "cannon_breech",
             "verDriveDm": "drive_turret_v",
@@ -158,8 +158,8 @@
       ]
     }
   ],
-  "panzerjager_hetzer_turret_01_75mm_pak39_l48": {
-    "_extends": "tankgun_75mm_pak39_l48",
+  "panzerjager_hetzer_turret_01_75mm_pak39_l48_hetzer": {
+    "_use": "tankgun_75mm_pak39_l48_hetzer",
     "gun__shootNodeName": "bone_gun_barrel",
     "turret__yawSpeed": 8.0,
     "turret__pitchSpeed": 4.0,
@@ -187,7 +187,7 @@
     ]
   },
   "panzerjager_hetzer_turret_02_7_92mm_mg34": {
-    "_extends": "tankgun_7_92mm_mg34",
+    "_use": "tankgun_7_92mm_mg34",
     "gun__shootNodeName": "bone_mg_aa_v_01",
     "turret__yawSpeed": 30.0,
     "turret__pitchSpeed": 20.0,
@@ -204,43 +204,43 @@
   },
   "panzerjager_hetzer_ammo_stowages": {
     "_tags": "server",
-    "_extends": "vehicle_ammo_stowages",
+    "_use": "vehicle_ammo_stowages",
     "ammo_stowage__stowageTemplates:shared:list<t>": {
-      "stowage": "panzerjager_hetzer_ammo_stowage"
+      "stowage": "panzerjager_hetzer_ammo_stowage_1"
     }
   },
-  "panzerjager_hetzer_ammo_stowage": {
-    "_extends": "ammo_stowage",
+  "panzerjager_hetzer_ammo_stowage_1": {
+    "_use": "ammo_stowage",
     "ammo_stowage__clusterTemplates:shared:list<t>": {
-      "cluster": "panzerjager_hetzer_ammo_cluster"
+      "cluster": "panzerjager_hetzer_ammo_cluster_1_1"
     },
     "ammo_stowage__turretNames:shared:list<t>": {
       "gun": "turret_01"
     }
   },
-  "panzerjager_hetzer_ammo_cluster": {
-    "_extends": "ammo_cluster",
+  "panzerjager_hetzer_ammo_cluster_1_1": {
+    "_use": "ammo_cluster",
     "ammo_cluster__isShell": true,
     "ammo_cluster__slotNames:shared:list<t>": [
-      {
-        "part": "ammo_body"
-      },
       {
         "part": "ammo_body_l_01"
       },
       {
         "part": "ammo_body_r_01"
+      },
+      {
+        "part": "ammo_body"
       }
     ],
     "ammo_cluster__slotsMaxAmmo:list<i>": [
       {
-        "count": 14
-      },
-      {
-        "count": 14
+        "count": 13
       },
       {
         "count": 13
+      },
+      {
+        "count": 15
       }
     ]
   },

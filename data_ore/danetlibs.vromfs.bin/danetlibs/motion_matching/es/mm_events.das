@@ -1,7 +1,7 @@
 module mm_events shared
 require ecs
 
-//may be moved this event in daNetGameLibs. Not enlisted only
+//to be moved to daNetGameLibs
 [cpp_event(broadcast)]
 struct ParallelUpdateFrameDelayed
   curTime : float

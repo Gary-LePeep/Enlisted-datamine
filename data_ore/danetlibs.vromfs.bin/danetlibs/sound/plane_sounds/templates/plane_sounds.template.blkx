@@ -15,7 +15,7 @@
     }
   },
   "plane_damage_sound": {
-    "_extends": "vehicle_damage_sound",
+    "_use": "vehicle_damage_sound",
     "vehicle_damage_sound__paths:shared:object": {
       "_tags": "sound",
       "destroy:object": {
@@ -56,49 +56,42 @@
       "plane_hit_sound__canopyNodeIds:list<i>": []
     }
   },
-  "plane_camera_inside_snapshot": {
-    "_extends": "base_camera_inside_snapshot",
-    "_group": {
-      "_tags": "sound",
-      "camera_inside_snapshot_anyCameraType": true
-    }
-  },
   "plane_sound": [
     {
-      "_extends": "watched_vehicle_sound"
+      "_use": "watched_vehicle_sound"
     },
     {
-      "_extends": "sound_control"
+      "_use": "sound_control"
     },
     {
-      "_extends": "sound_event_group"
+      "_use": "sound_event_group"
     },
     {
-      "_extends": "sound_player_components"
+      "_use": "sound_player_components"
     },
     {
-      "_extends": "plane_camera_inside_snapshot"
+      "_use": "plane_inside_sound"
     },
     {
-      "_extends": "vehicle_sound_vars"
+      "_use": "vehicle_sound_vars"
     },
     {
-      "_extends": "vehicle_sound_update_speed"
+      "_use": "vehicle_sound_update_speed"
     },
     {
-      "_extends": "base_vehicle_collision_sound"
+      "_use": "vehicle_collision_sound"
     },
     {
-      "_extends": "tank_vehicle_collision_sound_setup"
+      "_use": "tank_vehicle_collision_sound_setup"
     },
     {
-      "_extends": "plane_hit_sound"
+      "_use": "plane_hit_sound"
     },
     {
-      "_extends": "plane_damage_sound"
+      "_use": "plane_damage_sound"
     },
     {
-      "_extends": "plane_watertracks_sound"
+      "_use": "plane_watertracks_sound"
     },
     {
       "_group": {
@@ -109,8 +102,7 @@
     {
       "_group": {
         "_tags": "sound",
-        "sound_control__range": 450.0,
-        "sound_control__autoRange": false
+        "sound_control__range": 450.0
       }
     },
     {

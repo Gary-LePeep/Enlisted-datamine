@@ -16,7 +16,7 @@
   },
   {
     "minimap_tunisia_tataouine": {
-      "_extends": "minimap",
+      "_use": "minimap",
       "mapTex": "tunisia_4x4_minimap*",
       "farMapTex": "tunisia_16x16_minimap*",
       "left_top": [-2048.0,2048.0],
@@ -28,7 +28,7 @@
   },
   {
     "tunisia_4x4_river_sound": {
-      "_extends": "river_sound",
+      "_use": "river_sound",
       "spline_sound__points:list<p4>": [
         {
           "pt": [1732.0,0.0,-508.0,10.0]

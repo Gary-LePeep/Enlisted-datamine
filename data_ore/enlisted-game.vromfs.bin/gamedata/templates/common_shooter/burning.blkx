@@ -158,7 +158,7 @@
       "_tracked": "effect__colorMult"
     },
     {
-      "_extends": "effect_animation_activated"
+      "_use": "effect_animation_activated"
     },
     {
       "effect": {
@@ -212,10 +212,10 @@
   ],
   "burning_entity_effect_template": [
     {
-      "_extends": "node_attached_itm"
+      "_use": "node_attached_itm"
     },
     {
-      "_extends": "standalone_burning_effect"
+      "_use": "standalone_burning_effect"
     },
     {
       "node_attached__destroyWithParent:tag": []

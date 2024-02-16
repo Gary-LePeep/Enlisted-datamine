@@ -15,12 +15,19 @@ let {
 let { vehDecorators, campItemsByLink } = require("%enlist/meta/profile.nut")
 let { selectedCampaign } = require("%enlist/meta/curCampaign.nut")
 let { getVehSkins } = require("%enlSqGlob/vehDecorUtils.nut")
+let { itemTypesInSlots } = require("%enlist/soldiers/model/all_items_templates.nut")
+let { soldiersSquad } = require("%enlist/soldiers/model/chooseSoldiersState.nut")
 
 
 let curHoveredItem = mkWatched(persist, "curHoveredItem")
 let curHoveredSoldier = mkWatched(persist,"curHoveredSoldier")
 let curSelectedItem = mkWatched(persist,"curSelectedItem")
 let cameraScenes = mkWatched(persist, "cameraScenes", [])
+
+let cameraFovDelta = Watched(0)
+let function changeCameraFov(delta, minDelta = 0, maxDelta = 0) {
+  cameraFovDelta(clamp(cameraFovDelta.value - delta, minDelta, maxDelta))
+}
 
 let isVehicleSceneVisible = Computed(function() {
   let { armyId = null, squadId = null } = selectVehParams.value
@@ -44,7 +51,24 @@ let itemInArmoryAttachments = Computed(function(){
   return res
 })
 
-let currentNewItem = Computed(@() curSelectedItem.value?.itemtype == "soldier" ? null : curSelectedItem.value?.gametemplate)
+let typeWithNormalCameraAngle = {
+  medbox = true
+  building_tool = true
+}
+
+let needWeaponCameraAngle = Computed(function() {
+  let { itemtype = null } = viewItem.value ?? curSelectedItem.value
+  return itemtype in (itemTypesInSlots.value?.mainWeapon ?? {})
+    && itemtype not in typeWithNormalCameraAngle
+})
+
+let currentNewItem = Computed(function() {
+  let { itemtype = "" } = curSelectedItem.value
+  return itemtype == "soldier" || itemtype == "vehicle"
+    ? null
+    : curSelectedItem.value?.gametemplate
+})
+
 let currentNewItemAttachments = Computed(function(){
   let equipScheme = curSelectedItem.value?.equipScheme
   let res = []
@@ -89,25 +113,31 @@ let vehDataInVehiclesScene = Computed(function() {
 
 let function getAircraftInfo(template) {
   if (template == null)
-    return { isAircraft = false isFloating = false }
+    return { isAircraft = false, isFloating = false, isBike = false }
+
   let templ = ecs.g_entity_mgr.getTemplateDB().getTemplateByName(template)
   return {
     isAircraft = templ?.getCompValNullable("airplane") != null
     isFloating = templ?.getCompValNullable("floating_aircraft") != null
+    isBike = templ?.getCompValNullable("bike") != null
   }
 }
 
 let squadCampaignVehicleFilter = Computed(function() {
-  let { isAircraft, isFloating } = getAircraftInfo(vehTplInVehiclesScene.value)
+  let { isAircraft, isFloating, isBike } = getAircraftInfo(vehTplInVehiclesScene.value)
   // plane scene is the same for all campaigns and differs only for floating/non floating planes for now
-  return !isAircraft ? selectedCampaign.value : isFloating ? "plane_floating" : "plane"
+  return isBike ? "bike"
+    : isFloating ? "plane_floating"
+    : isAircraft ? "plane"
+    : selectedCampaign.value
 })
 
 let sceneCameraSquadFilter = Computed(function() {
-  let sceneName = $"squad_{squadCampaignVehicleFilter.value}"
+  let prefix = soldiersSquad.value == null ? "main_menu" : "squad"
+  let sceneName = $"{prefix}_{squadCampaignVehicleFilter.value}"
   // to support old spawns with no difference betwee campaigns
   // we can remove system below and cameraScenes watched after old menu is no longer used
-  return cameraScenes.value.contains(sceneName) ? sceneName : "squad"
+  return cameraScenes.value.contains(sceneName) ? sceneName : prefix
 })
 
 ecs.register_es("add_scene_camera_es", {
@@ -115,7 +145,9 @@ ecs.register_es("add_scene_camera_es", {
       cameraScenes.mutate(@(val) val.append(comp.scene))
     }
     onDestroy = function(_eid, comp) {
-      cameraScenes.mutate(@(val) val.remove(cameraScenes.value.indexof(comp.scene)))
+      let idx = cameraScenes.value.indexof(comp.scene)
+      if (idx != null)
+        cameraScenes.mutate(@(val) val.remove(idx))
     }
   }, { comps_ro = [["scene", ecs.TYPE_STRING]] }
 )
@@ -128,7 +160,9 @@ let scene = Computed(function() {
       : aircraftInfo.isFloating ? "aircrafts_floating"
       : "aircrafts"
   }
-  return (curCameraValue == "soldiers" && !curSoldierGuid.value) || selectedSquadSoldiers.value ? sceneCameraSquadFilter.value
+  let reqViewSquad = (curCameraValue == "soldiers" || curCameraValue == "soldiers_quarters")
+    && !curSoldierGuid.value
+  return reqViewSquad || selectedSquadSoldiers.value ? sceneCameraSquadFilter.value
     : isCustomizationWndOpened.value ? "soldier_customization"
     : curCameraValue == "new_items" && currentNewSoldierGuid.value ? "soldier_in_middle"
     : curCameraValue
@@ -144,9 +178,12 @@ return {
   vehDataInVehiclesScene
   itemInArmory
   itemInArmoryAttachments
+  needWeaponCameraAngle
   soldierInSoldiers
   scene
   squadCampaignVehicleFilter
   vehicleInVehiclesScene
   isVehicleSceneVisible
+  cameraFovDelta
+  changeCameraFov
 }

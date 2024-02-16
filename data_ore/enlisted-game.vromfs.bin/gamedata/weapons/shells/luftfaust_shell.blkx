@@ -1,0 +1,63 @@
+{
+  "mass": 0.22,
+  "cartridgeMass": 0.092,
+  "momentOfInertia": [0.04,0.008,0.04],
+  "caliber": 0.02,
+  "speed": 310.0,
+  "physMat": "bulletRay",
+  "useFutureContacts": true,
+  "logCCD": false,
+  "explodeRadius": [1.5,1.5],
+  "explodeHitPower": 18.0,
+  "entityTemplate": "luftfaust_shell_phys",
+  "entityPhysTemplate": "luftfaust_shell_phys",
+  "bullets": 1,
+  "normalizationPreset": "heat",
+  "ricochetPreset": "he",
+  "slopeEffectPreset": "ap",
+  "secondaryShattersPreset": "he",
+  "cumulativeSecondaryShattersPreset": "he",
+  "fresnel": [0.23,0.1,2.0],
+  "stabilityThreshold": 0.4,
+  "stabilityCaliberToArmorThreshold": 10.0,
+  "stabilityReductionAfterRicochet": 0.45,
+  "stabilityReductionAfterPenetration": 1.0,
+  "explodeOnRendinst": true,
+  "collisionResource": {
+    "props": {
+      "volumeBox_01": "box"
+    }
+  },
+  "ccdSpheres": {
+    "ccd": [0.0,0.0,0.0,0.044]
+  },
+  "splashDamage": {
+    "radius": [0.1,0.4],
+    "penetration": [3.0,0.0],
+    "damage": 40.0,
+    "dmgOffset": [0.0,0.05,0.0]
+  },
+  "visual": {
+    "template": "luftfaust_b_magazine_item+item_in_world"
+  },
+  "hitpower": {
+    "HitPower10m": [1.0,50.0],
+    "HitPower1000m": [0.7,1000.0],
+    "HitPower1500m": [0.5,1500.0],
+    "HitPower2000m": [0.1,2000.0]
+  },
+  "armorpower": {
+    "ArmorPower0m": [4.0,10.0],
+    "ArmorPower100m": [3.0,100.0],
+    "ArmorPower500m": [2.0,500.0],
+    "ArmorPower1000m": [1.0,1000.0]
+  },
+  "explSound": {
+    "explSoundPath": "impact/grenade"
+  },
+  "stabilityRicochetModifier": {
+    "mod1": [0.0,0.5],
+    "mod2": [20.0,0.6],
+    "mod3": [30.0,1.0]
+  }
+}

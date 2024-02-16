@@ -1,10 +1,14 @@
 {
   "us_m4_sherman_calliope_normandy_premium": {
-    "_extends": "us_m4_sherman_calliope_common"
+    "_use": "us_m4_sherman_calliope_common"
   },
   "us_m4_sherman_calliope_common": {
-    "_extends": "base_m4_sherman_calliope",
+    "_use": "base_m4_sherman_calliope",
+    "commanderCockpitFpsCamMaxAngle": [40.0,5.0],
+    "gunner_cam_limit__useCockpitDir": true,
     "item__iconOffset": [0.0,0.15],
+    "armorThicknessHull": [50.0,38.0,38.0],
+    "armorThicknessTurret": [76.0,50.0,50.0],
     "turrets__initAmmoDistribution:array": [
       {
         "ammo:object": {
@@ -23,29 +27,6 @@
           "slot": 4,
           "count": 7
         }
-      }
-    ],
-    "bullet_holes__ignoreCollisionNodes:array": {
-      "_tags": "render"
-    },
-    "bullet_holes__movingCollisionNodes:array": [
-      {
-        "_tags": "render"
-      },
-      {
-        "movingCollisionNodes": "cls_turret_01"
-      },
-      {
-        "movingCollisionNodes": "turret_front"
-      },
-      {
-        "movingCollisionNodes": "turret_side"
-      },
-      {
-        "movingCollisionNodes": "gun_mask"
-      },
-      {
-        "movingCollisionNodes": "gun_mask_01"
       }
     ],
     "vehicle_seats__seats:shared:array": [
@@ -205,14 +186,15 @@
     }
   },
   "us_m4_sherman_calliope_commander_cockpit": {
-    "_extends": "base_commander_cockpit_no_slits",
+    "_use": "base_commander_cockpit_no_slits",
     "animchar__res": "t_26_1940_commander_char",
-    "cockpit__offset": [-0.1,0.8,-0.54],
+    "cockpit__offset": [0.0,0.0,0.0],
+    "cockpit__minForwardOffset": -0.02,
     "cockpit__cockpitOffsetBySlit:list<p3>": {
-      "slit": [0.0,0.0,0.0]
+      "slit": [-0.6,1.1,-0.54]
     },
     "cockpit__slitForwardOffset:list<r>": {
-      "slit": 0.15
+      "slit": 0.16
     },
     "cockpit__slitIsGun:list<b>": {
       "slit": true
@@ -220,38 +202,162 @@
     "cockpit__slitNodeNames:list<t>": {
       "slit": "cam_front"
     },
-    "cockpit__visibleVehicleNodeNames:list<t>": {
-      "node": "gun_barrel"
-    }
+    "cockpit__visibleVehicleNodeNames:list<t>": [
+      {
+        "node": "gun_barrel"
+      },
+      {
+        "node": "bone_turret"
+      },
+      {
+        "node": "gun_barrel_02"
+      },
+      {
+        "node": "gun_barrel_mount"
+      },
+      {
+        "node": "bone_gun_01"
+      },
+      {
+        "node": "rocket_launcher_rack"
+      },
+      {
+        "node": "rocket_spring_l"
+      },
+      {
+        "node": "rocket_spring_r"
+      },
+      {
+        "node": "rocket_launcher_cable"
+      },
+      {
+        "node": "antenna"
+      }
+    ],
+    "cockpit__periscopeLimits:list<p4>": {
+      "slit": [-90.0,90.0,-5.0,10.0]
+    },
+    "cockpit__periscopeSpeed:list<p2>": {
+      "slit": [35.0,35.0]
+    },
+    "cockpit__slitZoom:array": {
+      "slit:list<r>": {
+        "zoom": 1.44
+      }
+    },
+    "cockpit__slitZoomTime:list<r>": {
+      "slit": 0.0
+    },
+    "cockpit__slitTemplates:list<t>": {
+      "slit": "default_periscope"
+    },
+    "cockpit__slitEids:list<eid>": []
   },
   "us_m4_sherman_calliope_gunner_cockpit": {
-    "vehicle_sight__blk": "content/tanks/gamedata/sight/us_m55_calliope.blk",
-    "_extends": "base_gunner_cockpit",
+    "_use": "base_gunner_cockpit",
     "animchar__res": "ba_11_gunner_char",
-    "cockpit__offset": [-0.8,-0.07,0.23],
+    "cockpit__offset": [0.0,0.0,0.0],
+    "cockpit__cockpitOffsetBySlit:list<p3>": [
+      {
+        "slit": [-0.8,-0.07,0.23]
+      },
+      {
+        "slit": [0.1,0.7,-0.47]
+      }
+    ],
     "cockpit__visibleVehicleNodeNames:list<t>": {
       "node": "gun_barrel"
     },
-    "cockpit__slitNodeNames:list<t>": {
-      "slit": "cam_front_right"
-    },
-    "cockpit__slitForwardOffset:list<r>": {
-      "slit": 0.2
-    },
-    "cockpit__slitIsGun:list<b>": {
-      "slit": true
-    },
-    "cockpit__cockpit__attachNodeNames:list<t>": {
-      "node": "bone_camera_gunner"
-    },
-    "cockpit__cockpit__attachNodeIndices:list<i>": []
+    "cockpit__slitNodeNames:list<t>": [
+      {
+        "slit": "cam_front_right"
+      },
+      {
+        "slit": "cam_front"
+      }
+    ],
+    "cockpit__slitForwardOffset:list<r>": [
+      {
+        "slit": 0.21
+      },
+      {
+        "slit": 0.165
+      }
+    ],
+    "cockpit__slitIsGun:list<b>": [
+      {
+        "slit": true
+      },
+      {
+        "slit": true
+      }
+    ],
+    "cockpit__attachNodeNames:list<t>": [
+      {
+        "node": "bone_camera_gunner"
+      },
+      {
+        "node": "bone_turret"
+      }
+    ],
+    "cockpit__attachNodeIndices:list<i>": [],
+    "cockpit__periscopeLimits:list<p4>": [
+      {
+        "slit": [-0.0,0.0,0.0,0.0]
+      },
+      {
+        "slit": [-0.0,0.0,-8.0,25.0]
+      }
+    ],
+    "cockpit__periscopeSpeed:list<p2>": [
+      {
+        "slit": [-1.0,-1.0]
+      },
+      {
+        "slit": [35.0,35.0]
+      }
+    ],
+    "cockpit__slitZoom:array": [
+      {
+        "slit:list<r>": [
+          {
+            "zoom": 1.9
+          },
+          {
+            "zoom": 3.5
+          }
+        ]
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      }
+    ],
+    "cockpit__slitZoomTime:list<r>": [
+      {
+        "slit": 0.05
+      },
+      {
+        "slit": 0.0
+      }
+    ],
+    "cockpit__slitTemplates:list<t>": [
+      {
+        "slit": "us_m55_calliope"
+      },
+      {
+        "slit": "default_periscope"
+      }
+    ],
+    "cockpit__slitEids:list<eid>": []
   },
   "us_m4_sherman_calliope_driver_cockpit": {
-    "_extends": "base_driver_cockpit_no_slits",
-    "animchar__res": "t_26_1940_driver_char",
-    "cockpit__offset": [-0.825775,0.500496,-0.442082],
+    "_use": "base_driver_cockpit_no_slits",
+    "animchar__res": "ba_11_driver_char",
+    "cockpit__offset": [-1.1,0.1,-0.2],
     "cockpit__slitForwardOffset:list<r>": {
-      "slit": 0.08
+      "slit": -0.05
     },
     "cockpit__slitAngles:list<r>": {
       "slit": 0.0
@@ -265,6 +371,20 @@
     },
     "cockpit__visibleVehicleNodeNames:list<t>": {
       "node": "gun_barrel"
+    },
+    "cockpit__periscopeLimits:list<p4>": {
+      "slit": [-45.0,45.0,-0.0,0.0]
+    },
+    "cockpit__periscopeSpeed:list<p2>": {
+      "slit": [35.0,35.0]
+    },
+    "cockpit__slitZoom:array": {
+      "slit:list<r>": {
+        "zoom": 1.44
+      }
+    },
+    "cockpit__slitZoomTime:list<r>": {
+      "slit": 0.0
     }
   }
 }

@@ -1,6 +1,6 @@
 {
   "hit_effect_base": {
-    "_extends": "ecs_no_debug",
+    "_use": "ecs_no_debug",
     "transform": [
       [1.0,0.0,0.0],
       [0.0,1.0,0.0],
@@ -18,63 +18,134 @@
     "staticEffect:tag": []
   },
   "hit_basic_glass_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
     "_group": {
       "_tags": "render",
       "effect__name": "hit_basic_glass_cmps_fx"
     }
   },
-  "hit_basic_vegitables_effect": {
-    "_extends": "hit_effect_base",
-    "_group": {
-      "_tags": "render",
-      "effect__name": "hit_basic_vegitables_cmps_fx"
-    }
-  },
   "hit_basic_cloth_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
     "_group": {
       "_tags": "render",
       "effect__name": "hit_basic_cloth_cmps_fx"
     }
   },
+  "hit_basic_hay_effect": {
+    "_use": "hit_effect_base",
+    "_group": {
+      "_tags": "render",
+      "effect__name": "hit_basic_hay_cmps_fx"
+    }
+  },
+  "hit_basic_vegitables_effect": {
+    "_use": "hit_effect_base",
+    "_group": {
+      "_tags": "render",
+      "effect__name": "hit_basic_bush_green_cmps_fx"
+    }
+  },
+  "hit_basic_bush_green_effect": {
+    "_use": "hit_effect_base",
+    "_group": {
+      "_tags": "render",
+      "effect__lowestFxQuality": 1,
+      "usePaintColor": true,
+      "paintFromLevelRiColors": true,
+      "effect__riPoolUsedForColoring": -1,
+      "effect__name": "hit_basic_bush_green_cmps_fx"
+    }
+  },
+  "hit_basic_bush_fall_effect": {
+    "_use": "hit_effect_base",
+    "_group": {
+      "_tags": "render",
+      "effect__lowestFxQuality": 1,
+      "usePaintColor": true,
+      "paintFromLevelRiColors": true,
+      "effect__riPoolUsedForColoring": -1,
+      "effect__name": "hit_basic_bush_fall_cmps_fx"
+    }
+  },
+  "hit_basic_bush_dead_effect": {
+    "_use": "hit_effect_base",
+    "_group": {
+      "_tags": "render",
+      "effect__lowestFxQuality": 1,
+      "effect__name": "hit_basic_bush_dead_cmps_fx"
+    }
+  },
+  "hit_basic_bush_snow_effect": {
+    "_use": "hit_effect_base",
+    "_group": {
+      "_tags": "render",
+      "effect__lowestFxQuality": 1,
+      "effect__name": "hit_basic_bush_snow_cmps_fx"
+    }
+  },
+  "hit_basic_bush_palm_effect": {
+    "_use": "hit_effect_base",
+    "_group": {
+      "_tags": "render",
+      "effect__lowestFxQuality": 1,
+      "usePaintColor": true,
+      "paintFromLevelRiColors": true,
+      "effect__riPoolUsedForColoring": -1,
+      "effect__name": "hit_basic_bush_palm_cmps_fx"
+    }
+  },
+  "hit_basic_cactus_effect": {
+    "_use": "hit_effect_base",
+    "_group": {
+      "_tags": "render",
+      "effect__lowestFxQuality": 1,
+      "effect__name": "hit_basic_cactus_cmps_fx"
+    }
+  },
   "hit_ricochet_big_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
     "_group": {
       "_tags": "render",
       "effect__name": "hit_ricochet_big_cmps_fx"
     }
   },
   "hit_ricochet_med_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
     "_group": {
       "_tags": "render",
       "effect__name": "hit_ricochet_medium_cmps_fx"
     }
   },
   "hit_ricochet_small_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
     "_group": {
       "_tags": "render",
       "effect__name": "hit_ricochet_small_cmps_fx"
     }
   },
   "hit_ricochet_tiny_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
     "_group": {
       "_tags": "render",
       "effect__name": "hit_ricochet_tiny_cmps_fx"
     }
   },
+  "hit_ricochet_helmet_effect": {
+    "_use": "hit_effect_base",
+    "_group": {
+      "_tags": "render",
+      "effect__name": "hit_ricochet_helmet_cmps_fx"
+    }
+  },
   "hit_6_8mm_ap_metal_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
     "_group": {
       "_tags": "render",
       "effect__name": "hit_6_8mm_ap_metal_cmps_fx"
     }
   },
   "hit_6_8mm_ap_sand_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
     "paint_from_biome": true,
     "_group": {
       "_tags": "render",
@@ -82,7 +153,7 @@
     }
   },
   "hit_6_8mm_ap_mud_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
     "paint_from_biome": true,
     "_group": {
       "_tags": "render",
@@ -90,35 +161,35 @@
     }
   },
   "hit_6_8mm_ap_snow_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
     "_group": {
       "_tags": "render",
       "effect__name": "hit_6_8mm_ap_snow_cmps_fx"
     }
   },
   "hit_6_8mm_ap_stone_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
     "_group": {
       "_tags": "render",
       "effect__name": "hit_6_8mm_ap_stone_cmps_fx"
     }
   },
   "hit_6_8mm_ap_wood_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
     "_group": {
       "_tags": "render",
       "effect__name": "hit_6_8mm_ap_wood_cmps_fx"
     }
   },
   "hit_8_12mm_ap_metal_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
     "_group": {
       "_tags": "render",
       "effect__name": "hit_8_12mm_ap_metal_cmps_fx"
     }
   },
   "hit_8_12mm_ap_sand_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
     "paint_from_biome": true,
     "_group": {
       "_tags": "render",
@@ -126,7 +197,7 @@
     }
   },
   "hit_8_12mm_ap_mud_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
     "paint_from_biome": true,
     "_group": {
       "_tags": "render",
@@ -134,35 +205,35 @@
     }
   },
   "hit_8_12mm_ap_snow_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
     "_group": {
       "_tags": "render",
       "effect__name": "hit_8_12mm_ap_snow_cmps_fx"
     }
   },
   "hit_8_12mm_ap_stone_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
     "_group": {
       "_tags": "render",
       "effect__name": "hit_8_12mm_ap_stone_cmps_fx"
     }
   },
   "hit_8_12mm_ap_wood_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
     "_group": {
       "_tags": "render",
       "effect__name": "hit_8_12mm_ap_wood_cmps_fx"
     }
   },
   "hit_12_14mm_ap_metal_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
     "_group": {
       "_tags": "render",
       "effect__name": "hit_12_14mm_ap_metal_cmps_fx"
     }
   },
   "hit_12_14mm_ap_sand_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
     "paint_from_biome": true,
     "_group": {
       "_tags": "render",
@@ -170,7 +241,7 @@
     }
   },
   "hit_12_14mm_ap_mud_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
     "paint_from_biome": true,
     "_group": {
       "_tags": "render",
@@ -178,35 +249,35 @@
     }
   },
   "hit_12_14mm_ap_snow_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
     "_group": {
       "_tags": "render",
       "effect__name": "hit_12_14mm_ap_snow_cmps_fx"
     }
   },
   "hit_12_14mm_ap_stone_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
     "_group": {
       "_tags": "render",
       "effect__name": "hit_12_14mm_ap_stone_cmps_fx"
     }
   },
   "hit_12_14mm_ap_wood_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
     "_group": {
       "_tags": "render",
       "effect__name": "hit_12_14mm_ap_wood_cmps_fx"
     }
   },
   "hit_14_20mm_ap_metal_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
     "_group": {
       "_tags": "render",
       "effect__name": "hit_14_20mm_ap_metal_cmps_fx"
     }
   },
   "hit_14_20mm_ap_sand_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
     "paint_from_biome": true,
     "_group": {
       "_tags": "render",
@@ -214,7 +285,7 @@
     }
   },
   "hit_14_20mm_ap_mud_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
     "paint_from_biome": true,
     "_group": {
       "_tags": "render",
@@ -222,35 +293,35 @@
     }
   },
   "hit_14_20mm_ap_snow_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
     "_group": {
       "_tags": "render",
       "effect__name": "hit_14_20mm_ap_snow_cmps_fx"
     }
   },
   "hit_14_20mm_ap_stone_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
     "_group": {
       "_tags": "render",
       "effect__name": "hit_14_20mm_ap_stone_cmps_fx"
     }
   },
   "hit_14_20mm_ap_wood_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
     "_group": {
       "_tags": "render",
       "effect__name": "hit_14_20mm_ap_wood_cmps_fx"
     }
   },
   "hit_20_60mm_rapid_metal_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
     "_group": {
       "_tags": "render",
       "effect__name": "hit_20_60mm_rapid_metal_cmps_fx"
     }
   },
   "hit_20_60mm_rapid_sand_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
     "paint_from_biome": true,
     "_group": {
       "_tags": "render",
@@ -258,308 +329,588 @@
     }
   },
   "hit_20_60mm_rapid_snow_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
     "_group": {
       "_tags": "render",
       "effect__name": "hit_20_60mm_rapid_snow_cmps_fx"
     }
   },
   "hit_20_60mm_rapid_wood_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
     "_group": {
       "_tags": "render",
       "effect__name": "hit_20_60mm_rapid_wood_cmps_fx"
     }
   },
   "hit_20_60mm_rapid_stone_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
     "_group": {
       "_tags": "render",
       "effect__name": "hit_20_60mm_rapid_stone_cmps_fx"
     }
   },
   "hit_20mm_ap_metal_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
+    "wind_emitter__radius": 1.0,
+    "wind_emitter__duration": 2.0,
+    "wind_emitter__strength": 1.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 3,
+    "wind_emitter__phaseAttack": true,
+    "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
       "effect__name": "hit_20_60mm_ap_metal_cmps_fx"
     }
   },
   "hit_20mm_ap_sand_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
+    "wind_emitter__radius": 1.0,
+    "wind_emitter__duration": 2.0,
+    "wind_emitter__strength": 1.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 3,
+    "wind_emitter__phaseAttack": true,
+    "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
       "effect__name": "hit_20_60mm_ap_sand_cmps_fx"
     }
   },
   "hit_20mm_ap_snow_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
+    "wind_emitter__radius": 1.0,
+    "wind_emitter__duration": 2.0,
+    "wind_emitter__strength": 1.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 3,
+    "wind_emitter__phaseAttack": true,
+    "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
       "effect__name": "hit_20_60mm_ap_snow_cmps_fx"
     }
   },
   "hit_20mm_ap_stone_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
+    "wind_emitter__radius": 1.0,
+    "wind_emitter__duration": 2.0,
+    "wind_emitter__strength": 1.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 3,
+    "wind_emitter__phaseAttack": true,
+    "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
       "effect__name": "hit_20_60mm_ap_stone_cmps_fx"
     }
   },
   "hit_20mm_ap_wood_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
+    "wind_emitter__radius": 1.0,
+    "wind_emitter__duration": 2.0,
+    "wind_emitter__strength": 1.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 3,
+    "wind_emitter__phaseAttack": true,
+    "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
       "effect__name": "hit_20_60mm_ap_wood_cmps_fx"
     }
   },
   "hit_20mm_he_metal_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
+    "wind_emitter__radius": 1.0,
+    "wind_emitter__duration": 2.0,
+    "wind_emitter__strength": 1.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 3,
+    "wind_emitter__phaseAttack": true,
+    "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
       "effect__name": "hit_20_60mm_he_metal_cmps_fx"
     }
   },
   "hit_20mm_he_sand_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
+    "wind_emitter__radius": 1.0,
+    "wind_emitter__duration": 2.0,
+    "wind_emitter__strength": 1.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 3,
+    "wind_emitter__phaseAttack": true,
+    "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
       "effect__name": "hit_20_60mm_he_sand_cmps_fx"
     }
   },
   "hit_20mm_he_snow_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
+    "wind_emitter__radius": 1.0,
+    "wind_emitter__duration": 2.0,
+    "wind_emitter__strength": 1.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 3,
+    "wind_emitter__phaseAttack": true,
+    "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
       "effect__name": "hit_20_60mm_he_snow_cmps_fx"
     }
   },
   "hit_20mm_he_stone_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
+    "wind_emitter__radius": 1.0,
+    "wind_emitter__duration": 2.0,
+    "wind_emitter__strength": 1.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 3,
+    "wind_emitter__phaseAttack": true,
+    "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
       "effect__name": "hit_20_60mm_he_stone_cmps_fx"
     }
   },
   "hit_20mm_he_wood_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
+    "wind_emitter__radius": 1.0,
+    "wind_emitter__duration": 2.0,
+    "wind_emitter__strength": 1.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 3,
+    "wind_emitter__phaseAttack": true,
+    "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
       "effect__name": "hit_20_60mm_he_wood_cmps_fx"
     }
   },
   "hit_20_60mm_ap_metal_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
+    "wind_emitter__radius": 1.0,
+    "wind_emitter__duration": 2.0,
+    "wind_emitter__strength": 1.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 3,
+    "wind_emitter__phaseAttack": true,
+    "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
       "effect__name": "hit_20_60mm_ap_metal_cmps_fx"
     }
   },
   "hit_20_60mm_ap_sand_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
+    "wind_emitter__radius": 1.0,
+    "wind_emitter__duration": 2.0,
+    "wind_emitter__strength": 1.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 3,
+    "wind_emitter__phaseAttack": true,
+    "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
       "effect__name": "hit_20_60mm_ap_sand_cmps_fx"
     }
   },
   "hit_20_60mm_ap_snow_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
+    "wind_emitter__radius": 1.0,
+    "wind_emitter__duration": 2.0,
+    "wind_emitter__strength": 1.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 3,
+    "wind_emitter__phaseAttack": true,
+    "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
       "effect__name": "hit_20_60mm_ap_snow_cmps_fx"
     }
   },
   "hit_20_60mm_ap_stone_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
+    "wind_emitter__radius": 1.0,
+    "wind_emitter__duration": 2.0,
+    "wind_emitter__strength": 1.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 3,
+    "wind_emitter__phaseAttack": true,
+    "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
       "effect__name": "hit_20_60mm_ap_stone_cmps_fx"
     }
   },
   "hit_20_60mm_ap_wood_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
+    "wind_emitter__radius": 1.0,
+    "wind_emitter__duration": 2.0,
+    "wind_emitter__strength": 1.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 3,
+    "wind_emitter__phaseAttack": true,
+    "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
       "effect__name": "hit_20_60mm_ap_wood_cmps_fx"
     }
   },
   "hit_20_60mm_he_metal_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
+    "wind_emitter__radius": 1.0,
+    "wind_emitter__duration": 2.0,
+    "wind_emitter__strength": 1.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 3,
+    "wind_emitter__phaseAttack": true,
+    "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
       "effect__name": "hit_20_60mm_he_metal_cmps_fx"
     }
   },
   "hit_20_60mm_he_sand_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
+    "wind_emitter__radius": 1.0,
+    "wind_emitter__duration": 2.0,
+    "wind_emitter__strength": 1.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 3,
+    "wind_emitter__phaseAttack": true,
+    "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
       "effect__name": "hit_20_60mm_he_sand_cmps_fx"
     }
   },
   "hit_20_60mm_he_snow_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
+    "wind_emitter__radius": 1.0,
+    "wind_emitter__duration": 2.0,
+    "wind_emitter__strength": 1.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 3,
+    "wind_emitter__phaseAttack": true,
+    "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
       "effect__name": "hit_20_60mm_he_snow_cmps_fx"
     }
   },
   "hit_20_60mm_he_stone_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
+    "wind_emitter__radius": 1.0,
+    "wind_emitter__duration": 2.0,
+    "wind_emitter__strength": 1.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 3,
+    "wind_emitter__phaseAttack": true,
+    "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
       "effect__name": "hit_20_60mm_he_stone_cmps_fx"
     }
   },
   "hit_20_60mm_he_wood_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
+    "wind_emitter__radius": 1.0,
+    "wind_emitter__duration": 2.0,
+    "wind_emitter__strength": 1.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 3,
+    "wind_emitter__phaseAttack": true,
+    "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
       "effect__name": "hit_20_60mm_he_wood_cmps_fx"
     }
   },
   "hit_60_100mm_ap_metal_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
+    "wind_emitter__radius": 2.0,
+    "wind_emitter__duration": 3.0,
+    "wind_emitter__strength": 2.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 5,
+    "wind_emitter__phaseAttack": true,
+    "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
       "effect__name": "hit_60_100mm_ap_metal_cmps_fx"
     }
   },
   "hit_60_100mm_ap_sand_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
+    "wind_emitter__radius": 2.0,
+    "wind_emitter__duration": 3.0,
+    "wind_emitter__strength": 2.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 5,
+    "wind_emitter__phaseAttack": true,
+    "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
       "effect__name": "hit_60_100mm_ap_sand_cmps_fx"
     }
   },
   "hit_60_100mm_ap_snow_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
+    "wind_emitter__radius": 2.0,
+    "wind_emitter__duration": 3.0,
+    "wind_emitter__strength": 2.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 5,
+    "wind_emitter__phaseAttack": true,
+    "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
       "effect__name": "hit_60_100mm_ap_snow_cmps_fx"
     }
   },
   "hit_60_100mm_ap_stone_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
+    "wind_emitter__radius": 2.0,
+    "wind_emitter__duration": 3.0,
+    "wind_emitter__strength": 2.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 5,
+    "wind_emitter__phaseAttack": true,
+    "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
       "effect__name": "hit_60_100mm_ap_stone_cmps_fx"
     }
   },
   "hit_60_100mm_ap_wood_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
+    "wind_emitter__radius": 2.0,
+    "wind_emitter__duration": 3.0,
+    "wind_emitter__strength": 2.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 5,
+    "wind_emitter__phaseAttack": true,
+    "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
       "effect__name": "hit_60_100mm_ap_wood_cmps_fx"
     }
   },
   "hit_60_100mm_he_metal_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
+    "wind_emitter__radius": 2.0,
+    "wind_emitter__duration": 3.0,
+    "wind_emitter__strength": 2.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 5,
+    "wind_emitter__phaseAttack": true,
+    "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
       "effect__name": "hit_60_100mm_he_metal_cmps_fx"
     }
   },
   "hit_60_100mm_he_sand_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
+    "wind_emitter__radius": 2.0,
+    "wind_emitter__duration": 3.0,
+    "wind_emitter__strength": 2.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 5,
+    "wind_emitter__phaseAttack": true,
+    "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
       "effect__name": "hit_60_100mm_he_sand_cmps_fx"
     }
   },
   "hit_60_100mm_he_snow_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
+    "wind_emitter__radius": 2.0,
+    "wind_emitter__duration": 3.0,
+    "wind_emitter__strength": 2.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 5,
+    "wind_emitter__phaseAttack": true,
+    "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
       "effect__name": "hit_60_100mm_he_snow_cmps_fx"
     }
   },
   "hit_60_100mm_he_stone_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
+    "wind_emitter__radius": 2.0,
+    "wind_emitter__duration": 3.0,
+    "wind_emitter__strength": 2.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 5,
+    "wind_emitter__phaseAttack": true,
+    "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
       "effect__name": "hit_60_100mm_he_stone_cmps_fx"
     }
   },
   "hit_60_100mm_he_wood_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
+    "wind_emitter__radius": 2.0,
+    "wind_emitter__duration": 3.0,
+    "wind_emitter__strength": 2.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 5,
+    "wind_emitter__phaseAttack": true,
+    "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
       "effect__name": "hit_60_100mm_he_wood_cmps_fx"
     }
   },
   "hit_100_150mm_ap_metal_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
+    "wind_emitter__radius": 2.0,
+    "wind_emitter__duration": 3.0,
+    "wind_emitter__strength": 3.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 5,
+    "wind_emitter__phaseAttack": true,
+    "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
       "effect__name": "hit_100_150mm_ap_metal_cmps_fx"
     }
   },
   "hit_100_150mm_ap_sand_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
+    "wind_emitter__radius": 2.0,
+    "wind_emitter__duration": 3.0,
+    "wind_emitter__strength": 3.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 5,
+    "wind_emitter__phaseAttack": true,
+    "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
       "effect__name": "hit_100_150mm_ap_sand_cmps_fx"
     }
   },
   "hit_100_150mm_ap_snow_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
+    "wind_emitter__radius": 2.0,
+    "wind_emitter__duration": 3.0,
+    "wind_emitter__strength": 3.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 5,
+    "wind_emitter__phaseAttack": true,
+    "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
       "effect__name": "hit_100_150mm_ap_snow_cmps_fx"
     }
   },
   "hit_100_150mm_ap_stone_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
+    "wind_emitter__radius": 2.0,
+    "wind_emitter__duration": 3.0,
+    "wind_emitter__strength": 3.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 5,
+    "wind_emitter__phaseAttack": true,
+    "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
       "effect__name": "hit_100_150mm_ap_stone_cmps_fx"
     }
   },
   "hit_100_150mm_ap_wood_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
+    "wind_emitter__radius": 2.0,
+    "wind_emitter__duration": 3.0,
+    "wind_emitter__strength": 3.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 5,
+    "wind_emitter__phaseAttack": true,
+    "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
       "effect__name": "hit_100_150mm_ap_wood_cmps_fx"
     }
   },
   "hit_100_150mm_he_metal_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
+    "wind_emitter__radius": 2.0,
+    "wind_emitter__duration": 3.0,
+    "wind_emitter__strength": 3.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 5,
+    "wind_emitter__phaseAttack": true,
+    "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
       "effect__name": "hit_100_150mm_he_metal_cmps_fx"
     }
   },
   "hit_100_150mm_he_sand_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
+    "wind_emitter__radius": 2.0,
+    "wind_emitter__duration": 3.0,
+    "wind_emitter__strength": 3.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 5,
+    "wind_emitter__phaseAttack": true,
+    "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
       "effect__name": "hit_100_150mm_he_sand_cmps_fx"
     }
   },
   "hit_100_150mm_he_snow_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
+    "wind_emitter__radius": 2.0,
+    "wind_emitter__duration": 3.0,
+    "wind_emitter__strength": 3.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 5,
+    "wind_emitter__phaseAttack": true,
+    "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
       "effect__name": "hit_100_150mm_he_snow_cmps_fx"
     }
   },
   "hit_100_150mm_he_stone_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
+    "wind_emitter__radius": 2.0,
+    "wind_emitter__duration": 3.0,
+    "wind_emitter__strength": 3.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 5,
+    "wind_emitter__phaseAttack": true,
+    "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
       "effect__name": "hit_100_150mm_he_stone_cmps_fx"
     }
   },
   "hit_100_150mm_he_wood_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
+    "wind_emitter__radius": 2.0,
+    "wind_emitter__duration": 3.0,
+    "wind_emitter__strength": 3.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 5,
+    "wind_emitter__phaseAttack": true,
+    "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
       "effect__name": "hit_100_150mm_he_wood_cmps_fx"
     }
   },
   "hit_footstep_dirt_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
     "paint_from_biome": true,
     "_group": {
       "_tags": "render",
@@ -567,7 +918,7 @@
     }
   },
   "hit_footstep_mud_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
     "paint_from_biome": true,
     "_group": {
       "_tags": "render",
@@ -575,7 +926,7 @@
     }
   },
   "hit_footstep_sand_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
     "paint_from_biome": true,
     "_group": {
       "_tags": "render",
@@ -583,7 +934,7 @@
     }
   },
   "hit_footstep_snow_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
     "paint_from_biome": false,
     "_group": {
       "_tags": "render",
@@ -591,7 +942,7 @@
     }
   },
   "hit_footstep_stone_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
     "paint_from_biome": false,
     "_group": {
       "_tags": "render",
@@ -599,15 +950,55 @@
     }
   },
   "hit_footstep_puddle_splash_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
+    "paint_from_biome": true,
+    "_group": {
+      "_tags": "render",
+      "effect__name": "hit_footstep_puddle_cmps_fx"
+    }
+  },
+  "hit_footstep_big_dirt_effect": {
+    "_use": "hit_effect_base",
+    "paint_from_biome": true,
+    "_group": {
+      "_tags": "render",
+      "effect__name": "hit_footstep_big_dirt_cmps_fx"
+    }
+  },
+  "hit_footstep_big_mud_effect": {
+    "_use": "hit_effect_base",
+    "paint_from_biome": true,
+    "_group": {
+      "_tags": "render",
+      "effect__name": "hit_footstep_big_mud_cmps_fx"
+    }
+  },
+  "hit_footstep_big_sand_effect": {
+    "_use": "hit_effect_base",
+    "paint_from_biome": true,
+    "_group": {
+      "_tags": "render",
+      "effect__name": "hit_footstep_big_sand_cmps_fx"
+    }
+  },
+  "hit_footstep_big_snow_effect": {
+    "_use": "hit_effect_base",
     "paint_from_biome": false,
     "_group": {
       "_tags": "render",
-      "effect__name": "hit_footstep_p_splash_fx"
+      "effect__name": "hit_footstep_big_snow_cmps_fx"
+    }
+  },
+  "hit_footstep_big_stone_effect": {
+    "_use": "hit_effect_base",
+    "paint_from_biome": false,
+    "_group": {
+      "_tags": "render",
+      "effect__name": "hit_footstep_big_stone_cmps_fx"
     }
   },
   "hit_blood_entry_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
     "effect__colorMult": "#ffffffff",
     "entity_binded_effect__collNodeId": -1,
     "entity_binded_effect__localEmitter": [
@@ -625,7 +1016,7 @@
     }
   },
   "hit_blood_entry_effect_longer": {
-    "_extends": "hit_blood_entry_effect",
+    "_use": "hit_blood_entry_effect",
     "_group": {
       "_tags": "render",
       "effect__name": "hit_blood_entry_cmps_fx",
@@ -633,14 +1024,14 @@
     }
   },
   "hit_blood_exit_effect": {
-    "_extends": "hit_blood_entry_effect",
+    "_use": "hit_blood_entry_effect",
     "_group": {
       "_tags": "render",
       "effect__name": "hit_blood_exit_cmps_fx"
     }
   },
   "hit_blood_exit_effect_longer": {
-    "_extends": "hit_blood_entry_effect",
+    "_use": "hit_blood_entry_effect",
     "_group": {
       "_tags": "render",
       "effect__name": "hit_blood_exit_cmps_fx",
@@ -648,21 +1039,21 @@
     }
   },
   "hit_blood_flow_heavy_effect": {
-    "_extends": "hit_blood_entry_effect",
+    "_use": "hit_blood_entry_effect",
     "_group": {
       "_tags": "render",
       "effect__name": "hit_blood_flow_heavy_cmps_fx"
     }
   },
   "hit_blood_flow_light_effect": {
-    "_extends": "hit_blood_entry_effect",
+    "_use": "hit_blood_entry_effect",
     "_group": {
       "_tags": "render",
       "effect__name": "hit_blood_flow_light_cmps_fx"
     }
   },
   "hit_blood_flow_light_effect_longer": {
-    "_extends": "hit_blood_entry_effect",
+    "_use": "hit_blood_entry_effect",
     "_group": {
       "_tags": "render",
       "effect__name": "hit_blood_flow_light_cmps_fx",
@@ -670,19 +1061,26 @@
     }
   },
   "hit_blood_ground_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
     "_group": {
       "_tags": "render",
       "effect__name": "hit_blood_ground_cmps_fx"
     }
   },
   "hit_footstep_group": {
-    "human_footstep_fx__default": "hit_footstep_sand_effect",
+    "human_footstep_fx__default": "hit_footstep_dirt_effect",
+    "human_footstep_fx__puddle": "hit_footstep_puddle_splash_effect",
     "human_footsteps_fx__info:object": {
       "dirt:object": {
         "fx": "hit_footstep_dirt_effect"
       },
       "mud:object": {
+        "fx": "hit_footstep_mud_effect"
+      },
+      "soil:object": {
+        "fx": "hit_footstep_mud_effect"
+      },
+      "roadmud:object": {
         "fx": "hit_footstep_mud_effect"
       },
       "sand:object": {
@@ -693,18 +1091,21 @@
       },
       "stone:object": {
         "fx": "hit_footstep_stone_effect"
+      },
+      "concrete:object": {
+        "fx": "hit_footstep_stone_effect"
       }
     }
   },
   "hit_melee_metal_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
     "_group": {
       "_tags": "render",
       "effect__name": "hit_melee_metal_cmps_fx"
     }
   },
   "hit_melee_sand_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
     "paint_from_biome": true,
     "_group": {
       "_tags": "render",
@@ -712,7 +1113,7 @@
     }
   },
   "hit_melee_mud_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
     "paint_from_biome": true,
     "_group": {
       "_tags": "render",
@@ -720,28 +1121,28 @@
     }
   },
   "hit_melee_snow_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
     "_group": {
       "_tags": "render",
       "effect__name": "hit_melee_snow_cmps_fx"
     }
   },
   "hit_melee_stone_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
     "_group": {
       "_tags": "render",
       "effect__name": "hit_melee_stone_cmps_fx"
     }
   },
   "hit_melee_wood_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
     "_group": {
       "_tags": "render",
       "effect__name": "hit_melee_wood_cmps_fx"
     }
   },
   "hit_human_blood_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
     "effect__colorMult": "#ffffffff",
     "entity_binded_effect__collNodeId": -1,
     "entity_binded_effect__localEmitter": [
@@ -754,42 +1155,42 @@
     "autodeleteEffectEntity:tag": [],
     "_group": {
       "_tags": "render",
-      "effect__name": "flesh_splash"
+      "effect__name": "hit_blood_entry_cmps_fx"
     }
   },
   "hit_human_blood_kill_effect": {
-    "_extends": "hit_human_blood_effect",
+    "_use": "hit_human_blood_effect",
     "_group": {
       "_tags": "render",
-      "effect__name": "flesh_splash_kill"
+      "effect__name": "hit_blood_entry_cmps_fx"
     }
   },
   "hit_human_blood_side_effect": {
-    "_extends": "hit_human_blood_effect",
+    "_use": "hit_human_blood_effect",
     "_group": {
       "_tags": "render",
-      "effect__name": "flesh_splash_side"
+      "effect__name": "hit_blood_flow_light_cmps_fx"
     }
   },
   "hit_human_blood_exit_effect": {
-    "_extends": "hit_human_blood_effect",
+    "_use": "hit_human_blood_effect",
     "_group": {
       "_tags": "render",
-      "effect__name": "flesh_splash_exit"
+      "effect__name": "hit_blood_exit_cmps_fx"
     }
   },
   "hit_human_blood_kill_side_effect": {
-    "_extends": "hit_human_blood_effect",
+    "_use": "hit_human_blood_effect",
     "_group": {
       "_tags": "render",
-      "effect__name": "flesh_splash_kill_side"
+      "effect__name": "hit_blood_flow_light_cmps_fx"
     }
   },
   "hit_human_blood_kill_exit_effect": {
-    "_extends": "hit_human_blood_effect",
+    "_use": "hit_human_blood_effect",
     "_group": {
       "_tags": "render",
-      "effect__name": "flesh_splash_kill_exit"
+      "effect__name": "hit_blood_exit_cmps_fx"
     }
   },
   "hit_water_ripple_effect": {
@@ -805,16 +1206,16 @@
   },
   "hit_water_bullet_effect": [
     {
-      "_extends": "hit_effect_base"
+      "_use": "hit_effect_base"
     },
     {
-      "_extends": "hit_water_ripple_effect"
+      "_use": "hit_water_ripple_effect"
     },
     {
-      "water_ripple__mass": 10.0
+      "water_ripple__mass": 3.0
     },
     {
-      "water_ripple__radius": 0.1
+      "water_ripple__radius": 0.05
     },
     {
       "_group": {
@@ -825,10 +1226,10 @@
   ],
   "hit_water_tiny_effect": [
     {
-      "_extends": "hit_effect_base"
+      "_use": "hit_effect_base"
     },
     {
-      "_extends": "hit_water_ripple_effect"
+      "_use": "hit_water_ripple_effect"
     },
     {
       "water_ripple__mass": 1.5
@@ -845,10 +1246,10 @@
   ],
   "hit_water_small_effect": [
     {
-      "_extends": "hit_effect_base"
+      "_use": "hit_effect_base"
     },
     {
-      "_extends": "hit_water_ripple_effect"
+      "_use": "hit_water_ripple_effect"
     },
     {
       "water_ripple__mass": 1.5
@@ -865,10 +1266,10 @@
   ],
   "hit_water_medium_effect": [
     {
-      "_extends": "hit_effect_base"
+      "_use": "hit_effect_base"
     },
     {
-      "_extends": "hit_water_ripple_effect"
+      "_use": "hit_water_ripple_effect"
     },
     {
       "water_ripple__mass": 3.0
@@ -885,10 +1286,10 @@
   ],
   "hit_water_medium_big_effect": [
     {
-      "_extends": "hit_effect_base"
+      "_use": "hit_effect_base"
     },
     {
-      "_extends": "hit_water_ripple_effect"
+      "_use": "hit_water_ripple_effect"
     },
     {
       "water_ripple__mass": 4.5
@@ -905,10 +1306,10 @@
   ],
   "hit_water_big_effect": [
     {
-      "_extends": "hit_effect_base"
+      "_use": "hit_effect_base"
     },
     {
-      "_extends": "hit_water_ripple_effect"
+      "_use": "hit_water_ripple_effect"
     },
     {
       "water_ripple__mass": 4.5
@@ -925,10 +1326,10 @@
   ],
   "hit_water_massive_effect": [
     {
-      "_extends": "hit_effect_base"
+      "_use": "hit_effect_base"
     },
     {
-      "_extends": "hit_water_ripple_effect"
+      "_use": "hit_water_ripple_effect"
     },
     {
       "water_ripple__mass": 10.0
@@ -943,32 +1344,161 @@
       }
     }
   ],
+  "hit_water_splash_swimming_effect": [
+    {
+      "_use": "hit_effect_base"
+    },
+    {
+      "_use": "hit_water_ripple_effect"
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "water_hit_swimming_cmps_fx",
+        "gun_flash_fx__timeToDestroy": 0.0
+      }
+    }
+  ],
   "hit_artillery_dirt_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
+    "wind_emitter__radius": 2.0,
+    "wind_emitter__duration": 3.0,
+    "wind_emitter__strength": 3.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 5,
+    "wind_emitter__phaseAttack": true,
+    "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
       "effect__name": "hit_artillery_dirt_cmps_fx"
     }
   },
   "hit_artillery_snow_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
+    "wind_emitter__radius": 2.0,
+    "wind_emitter__duration": 3.0,
+    "wind_emitter__strength": 3.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 5,
+    "wind_emitter__phaseAttack": true,
+    "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
       "effect__name": "hit_artillery_snow_cmps_fx"
     }
   },
   "hit_artillery_sand_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
+    "wind_emitter__radius": 2.0,
+    "wind_emitter__duration": 3.0,
+    "wind_emitter__strength": 3.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 5,
+    "wind_emitter__phaseAttack": true,
+    "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
       "effect__name": "hit_artillery_sand_cmps_fx"
     }
   },
   "hit_artillery_stone_effect": {
-    "_extends": "hit_effect_base",
+    "_use": "hit_effect_base",
+    "wind_emitter__radius": 2.0,
+    "wind_emitter__duration": 3.0,
+    "wind_emitter__strength": 3.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 5,
+    "wind_emitter__phaseAttack": true,
+    "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
       "effect__name": "hit_artillery_stone_cmps_fx"
+    }
+  },
+  "hit_ground_wave_big_dirt_effect": {
+    "_use": "hit_effect_base",
+    "_group": {
+      "_tags": "render",
+      "effect__name": "hit_ground_wave_big_dirt_cmps_fx"
+    }
+  },
+  "hit_ground_wave_big_sand_effect": {
+    "_use": "hit_effect_base",
+    "paint_from_biome": true,
+    "_group": {
+      "_tags": "render",
+      "effect__name": "hit_ground_wave_big_sand_cmps_fx"
+    }
+  },
+  "hit_ground_wave_big_snow_effect": {
+    "_use": "hit_effect_base",
+    "paint_from_biome": false,
+    "_group": {
+      "_tags": "render",
+      "effect__name": "hit_ground_wave_big_snow_cmps_fx"
+    }
+  },
+  "hit_ground_wave_big_stone_effect": {
+    "_use": "hit_effect_base",
+    "paint_from_biome": false,
+    "_group": {
+      "_tags": "render",
+      "effect__name": "hit_ground_wave_big_stone_cmps_fx"
+    }
+  },
+  "hit_ground_wave_big_grass_effect": {
+    "_use": "hit_effect_base",
+    "paint_from_biome": true,
+    "_group": {
+      "_tags": "render",
+      "effect__name": "hit_ground_wave_big_grass_cmps_fx"
+    }
+  },
+  "hit_ground_wave_big_leaves_effect": {
+    "_use": "hit_effect_base",
+    "paint_from_biome": true,
+    "_group": {
+      "_tags": "render",
+      "effect__name": "hit_ground_wave_big_leaves_cmps_fx"
+    }
+  },
+  "hit_ground_wave_medium_dirt_effect": {
+    "_use": "hit_effect_base",
+    "paint_from_biome": true,
+    "_group": {
+      "_tags": "render",
+      "effect__name": "hit_ground_wave_med_dirt_cmps_fx"
+    }
+  },
+  "hit_ground_wave_medium_sand_effect": {
+    "_use": "hit_effect_base",
+    "paint_from_biome": true,
+    "_group": {
+      "_tags": "render",
+      "effect__name": "hit_ground_wave_med_sand_cmps_fx"
+    }
+  },
+  "hit_ground_wave_medium_snow_effect": {
+    "_use": "hit_effect_base",
+    "paint_from_biome": false,
+    "_group": {
+      "_tags": "render",
+      "effect__name": "hit_ground_wave_med_snow_cmps_fx"
+    }
+  },
+  "hit_ground_wave_medium_stone_effect": {
+    "_use": "hit_effect_base",
+    "paint_from_biome": false,
+    "_group": {
+      "_tags": "render",
+      "effect__name": "hit_ground_wave_med_stone_cmps_fx"
+    }
+  },
+  "hit_ground_wave_dust_surface_effect": {
+    "_use": "hit_effect_base",
+    "_group": {
+      "_tags": "render",
+      "effect__name": "hit_ground_wave_dust_surface_cmps_fx"
     }
   }
 }

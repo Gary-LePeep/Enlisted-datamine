@@ -1,31 +1,32 @@
 {
   "mass": 0.33,
-  "explosiveType": "hta",
-  "explosiveMass": 0.085,
+  "explosiveType": "hta_petn",
+  "explosiveMass": 0.072,
   "caliber": 0.03,
-  "speed": 525.0,
-  "maxDistance": 1600.0,
+  "speed": 860.0,
+  "Cx": 0.4503,
+  "maxDistance": 2600.0,
   "normalizationPreset": "heat",
-  "hitPowerMult": 2.0,
+  "recoilMultiplier": 0.4,
   "ricochetPreset": "he",
+  "groundRicochetPreset": "he",
+  "hitPowerMult": 2.0,
+  "secondaryShattersPreset": "ap",
   "onHitChanceMultFire": 4.0,
-  "stabilityThreshold": 0.05,
-  "effectiveDistance": 300.0,
   "stabilityCaliberToArmorThreshold": 5.0,
+  "effectiveDistance": 300.0,
+  "stabilityReductionAfterRicochet": 0.5,
   "relativeVelHitShift": [300.0,1000.0],
-  "stabilityReductionAfterPenetration": 0.15,
+  "bulletType": "he_i_t_mine",
   "relativeVelArmorShift": [200.0,1000.0],
-  "explodeTreshold": 0.001,
-  "bulletType": "he_i_mine",
-  "fuseDelayDist": 0.1,
   "slopeEffectPreset": "ap",
+  "fuseOnWater": true,
+  "fresnel": [0.23,0.1,2.0],
+  "fuseOnWaterProbability": 1.0,
+  "explodeTreshold": 0.001,
   "explodeOnRendinst": true,
-  "selfDestructionFx": "explosion_air_selfexplosion_small",
-  "explosionEffect": "hit_28_38mm_metal_he",
-  "groundCollisionEffect": "hit_28_38mm_dirt_he",
-  "ricochetEffect": "hit_28_38mm_metal_ap",
-  "waterCollisionEffect": "hit_28_38mm_water",
-  "explosionPatchRadius": 1.0,
+  "ricochetTimeToLive": 0.085,
+  "fuseDelayDist": 0.1,
   "stabilityRicochetModifier": [
     {
       "mod1": [0.0,0.05]
@@ -58,28 +59,11 @@
   "visual": {
     "range_percent_of_ammo": [100.0,0.0],
     "traceFreq": 1,
-    "tracer": "noColor"
-  },
-  "hitFx": {
-    "steel": {
-      "fx": "hit_28_38mm_metal_he",
-      "fxScale": [1.0,1.0]
-    },
-    "wood": {
-      "fx": "hit_28_38mm_wood_he",
-      "fxScale": [1.0,1.0]
-    },
-    "glass": {
-      "fx": "hit_28_38mm_metal_he",
-      "fxScale": [1.0,1.0]
-    },
-    "stone": {
-      "fx": "hit_28_38mm_stone_he",
-      "fxScale": [1.0,1.0]
-    }
+    "tracer": "30mmRed",
+    "trail": "black"
   },
   "tracer": {
-    "headColor": "#00000000",
-    "smokeColor": "#00000000"
+    "headColor": "#ff0f0fff",
+    "smokeColor": "#505050ba"
   }
 }

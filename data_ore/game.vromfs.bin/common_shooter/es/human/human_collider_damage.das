@@ -1,8 +1,13 @@
 require ecs
 require game.es.events
 require game.events_game
+require enlisted.events_enlisted
 require DagorMath
-require EnlistedHuman
+require DngHuman
+require HumanPhys
+require Grid
+require Dacoll
+
 
 [es(tag=server)]
 def human_collider_damage(evt : CmdPostPhysUpdate;
@@ -16,8 +21,9 @@ def human_collider_damage(evt : CmdPostPhysUpdate;
                           human_coll_damage__hpCoeff : float;
                           human_coll_damage__minFallDmgVal : float;
                           human_coll_damage__minHpLevel : float;
+                          disable_collision : bool = false;
                           entity_mods__lessFallDmgMult : float = 1.f)
-  if !evt.isForReal
+  if !evt.isForReal || disable_collision
     return
 
   let minDmgSpdSquare = human_coll_damage__minDmgSpd * human_coll_damage__minDmgSpd

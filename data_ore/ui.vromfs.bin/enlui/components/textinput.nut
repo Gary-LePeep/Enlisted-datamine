@@ -3,7 +3,7 @@ from "string" import split_by_chars
 
 let colors = require("%ui/style/colors.nut")
 let { isStringInteger, isStringFloat, isStringLatin } = require("%sqstd/string.nut")
-let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { setTooltip } = require("%ui/style/cursors.nut")
 let tooltipBox = require("%ui/style/tooltipBox.nut")
 let { defTxtColor, activeTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
@@ -65,7 +65,7 @@ let function isStringLikelyEmail(str, _verbose=true) {
     return false //quotes only at the begining
   if (quotes==null && locpart.indexof("@")!=null)
     return false //no @ without quotes
-  if (dompart.indexof(".")==null || dompart.indexof(".")>dompart.len()-3) // warning disable: -func-can-return-null
+  if (dompart.indexof(".")==null || dompart.indexof(".")>dompart.len()-3) // warning disable: -func-can-return-null -potentially-nulled-ops
     return false  //too short first level domain or no periods
   return true
 }
@@ -75,14 +75,14 @@ let function defaultFrame(inputObj, group, sf) {
     rendObj = ROBJ_FRAME
     borderWidth = [hdpx(1), hdpx(1), 0, hdpx(1)]
     size = [flex(), SIZE_TO_CONTENT]
-    color = (sf & S_KB_FOCUS) ? Color(180, 180, 180) : Color(120, 120, 120)
+    color = sf & S_KB_FOCUS ? Color(180, 180, 180) : Color(120, 120, 120)
     group = group
 
     children = {
       rendObj = ROBJ_FRAME
       borderWidth = [0, 0, hdpx(1), 0]
       size = [flex(), SIZE_TO_CONTENT]
-      color = (sf & S_KB_FOCUS) ? Color(250, 250, 250) : Color(180, 180, 180)
+      color = sf & S_KB_FOCUS ? Color(250, 250, 250) : Color(180, 180, 180)
       group = group
 
       children = inputObj
@@ -133,6 +133,7 @@ let function textInput(text_state, options={}, frameCtor=defaultFrame) {
     size = [flex(), fontH(100)], textmargin = [sh(1), sh(0.5)], valignText = ALIGN_BOTTOM,
     margin = [sh(1), 0], padding = 0, borderRadius = hdpx(3), valign = ALIGN_CENTER,
     xmbNode = null, imeOpenJoyBtn = null, charMaskTypes = null,
+    placeholderTextMargin = [0, sh(0.5)],
 
     //handlers
     onBlur = null, onReturn = null,
@@ -208,7 +209,7 @@ let function textInput(text_state, options={}, frameCtor=defaultFrame) {
           behavior = Behaviors.TextArea
           color = defTxtColor
           text = hint
-        }.__update(sub_txt))
+        }.__update(fontSub))
       : null)
   }
 
@@ -221,7 +222,8 @@ let function textInput(text_state, options={}, frameCtor=defaultFrame) {
       fontSize
       color = rcolors.placeHolderColor
       animations = [failAnim(text_state)]
-      margin = [0, sh(0.5)]
+      margin = placeholderTextMargin
+      valignText
     }
     placeholderObj = placeholder instanceof Watched
       ? @() phBase.__update({ watch = placeholder, text = placeholder.value })
@@ -282,7 +284,6 @@ let function textInput(text_state, options={}, frameCtor=defaultFrame) {
     fillColor = rcolors.backGroundColor
     borderWidth = 0
     borderRadius
-    clipChildren = true
     size = [flex(), SIZE_TO_CONTENT]
     group
     animations = [failAnim(text_state)]
@@ -353,9 +354,7 @@ let textInputColors = {
 
 
 let makeTextInput = @(text_state, options, frameCtor)
-  textInput(text_state,
-    options.__merge({ colors = textInputColors }),
-    frameCtor)
+  textInput(text_state, { colors = textInputColors }.__update(options), frameCtor)
 
 
 let export = class{

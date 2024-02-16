@@ -117,12 +117,6 @@
     "import": "*.pkg.entities.blk"
   },
   {
-    "import": "#content/dev/gamedata/templates/*.pkg.entities.blk"
-  },
-  {
-    "import": "#content/enlisted_pkg_dev/gamedata/templates/*.blk"
-  },
-  {
     "import": "e_normandy.pkg.entities.blk"
   },
   {
@@ -174,6 +168,9 @@
     "import": "enlisted_ai.blk"
   },
   {
+    "import": "enlisted_cinematic.blk"
+  },
+  {
     "import": "resupply.blk"
   },
   {
@@ -204,14 +201,23 @@
     "import": "%danetlibs/ground_holes/templates/ground_holes.template.blk"
   },
   {
+    "import": "%danetlibs/node_collapser/templates/node_collapser.template.blk"
+  },
+  {
+    "import_optional": "#content/dev/gamedata/templates/*.pkg.entities.blk"
+  },
+  {
+    "import_optional": "#content/enlisted_pkg_dev/gamedata/templates/*.blk"
+  },
+  {
     "terraform": {
-      "_extends": "replicating",
+      "_use": "replicating",
       "terraform": []
     }
   },
   {
     "terraforming": {
-      "_extends": "replicating",
+      "_use": "replicating",
       "elevs:array": [],
       "egras:array": [],
       "_group": {
@@ -224,7 +230,7 @@
   },
   {
     "rendinsts_removes": {
-      "_extends": "replicating",
+      "_use": "replicating",
       "rirmv:array": [],
       "riunb:array": [],
       "_group": {
@@ -242,13 +248,34 @@
         "battle_area__requireUpdate": true
       },
       {
+        "battle_area__projectionOn": false
+      },
+      {
+        "battle_area__projectionOnDist": 1.0
+      },
+      {
+        "_tracked": "battle_area__requireUpdate"
+      },
+      {
+        "_tracked": "battle_area__projectionOn"
+      },
+      {
         "_tracked": "battle_area__activeBattleAreasPolygon"
       },
       {
         "_tracked": "battle_area__nextBattleAreasPolygon"
       },
       {
+        "_tracked": "battle_area__activeBattleAreasScreenProjections"
+      },
+      {
+        "battle_area__showActiveArea": true
+      },
+      {
         "battle_area__activeBattleAreasPolygon:list<p2>": []
+      },
+      {
+        "battle_area__activeBattleAreasScreenProjections:list<r>": []
       },
       {
         "battle_area__nextBattleAreasPolygon:list<p2>": []
@@ -267,7 +294,7 @@
   {
     "digging_config": [
       {
-        "_extends": "replicating"
+        "_use": "replicating"
       },
       {
         "digging_config__diggingRadiusLimits": [0.5,1.5]
@@ -283,7 +310,7 @@
       },
       {
         "_group": {
-          "tags": "server",
+          "_tags": "server",
           "digging_config__traceHeight": 0.5,
           "digging_config__queryRIHalfHeight": 1.25
         }
@@ -344,7 +371,7 @@
   },
   {
     "grass_erasers": {
-      "_extends": "replicating",
+      "_use": "replicating",
       "grass_erasers__spots:list<p4>": []
     }
   },
@@ -371,10 +398,10 @@
         "_override": true
       },
       {
-        "_extends": "vehicle_autodetect_team"
+        "_use": "vehicle_autodetect_team"
       },
       {
-        "_extends": "vehicle_marker_ui"
+        "_use": "vehicle_marker_ui"
       },
       {
         "team": -1
@@ -527,7 +554,7 @@
   },
   {
     "railroad": {
-      "_extends": "replicating",
+      "_use": "replicating",
       "railroad__gameObjectType": "track_rails_point",
       "railroad:tag": [],
       "railroad__points:list<p3>": {
@@ -562,30 +589,51 @@
   {
     "knife_dig": [
       {
-        "_extends": "knife"
+        "_use": "knife"
       },
       {
-        "_extends": "base_dig_tool"
+        "_use": "base_dig_tool"
       }
     ]
   },
   {
-    "resupply_vehicle": {
-      "_extends": "net_sound_descs",
-      "resupplyAtTime": -1.0,
-      "resupplyStarted": false,
-      "vehicle_resupply__type": "air",
-      "net_sound__descs:shared:object": {
-        "resupplyStart:object": {
-          "path": "aircraft/effects/resupply_start",
-          "toPlayer": true
-        },
-        "resupplyEnd:object": {
-          "path": "aircraft/effects/resupply_end",
-          "toPlayer": true
+    "resupply_vehicle": [
+      {
+        "resupplyAtTime": -1.0
+      },
+      {
+        "resupplyStarted": false
+      },
+      {
+        "vehicle_resupply__type": "air"
+      },
+      {
+        "_tracked": "resupplyStarted"
+      },
+      {
+        "_replicated": "resupplyStarted"
+      },
+      {
+        "_group": {
+          "_tags": "server",
+          "resupplyPassengersAtTime": -1.0,
+          "resupplyPassengersStarted": false
+        }
+      },
+      {
+        "_group": {
+          "_tags": "sound",
+          "resupply_passengers_sound__path": "player/walker/ww2_soldier/items/ammo/pick"
+        }
+      },
+      {
+        "_group": {
+          "_tags": "sound",
+          "resupply_vehicle_sound__resupplyStartedPath": "aircraft/effects/resupply_start",
+          "resupply_vehicle_sound__resupplyPath": "aircraft/effects/resupply_end"
         }
       }
-    }
+    ]
   },
   {
     "enlisted_vehicle_seats_restrictions": {
@@ -604,7 +652,7 @@
   {
     "base_damage_model": {
       "_override": true,
-      "_extends": "enlisted_vehicle_burn_sitters"
+      "_use": "enlisted_vehicle_burn_sitters"
     }
   },
   {
@@ -626,16 +674,32 @@
         "_override": true
       },
       {
-        "_extends": "resupply_vehicle"
+        "_use": "resupply_vehicle"
       },
       {
-        "_extends": "enlisted_vehicle_seats_restrictions"
+        "_use": "enlisted_vehicle_seats_restrictions"
       },
       {
-        "_extends": "vehicle_decals"
+        "_use": "vehicle_decals"
       },
       {
-        "hitmarks__showUserHits": true
+        "hitmarks__groups:list<t>": [
+          {
+            "group": "vehicle"
+          },
+          {
+            "group": "plane"
+          },
+          {
+            "group": "infantry"
+          },
+          {
+            "group": "ship"
+          }
+        ]
+      },
+      {
+        "hitmarks__groupsIds:list<i>": []
       },
       {
         "turret_control__hasAiGunners:tag": []
@@ -791,8 +855,19 @@
         "xray_resource": {
           "_tags": "render"
         }
+      },
+      {
+        "xray_resource__animRemap:list<u32>": {
+          "_tags": "render"
+        }
       }
     ]
+  },
+  {
+    "xray_request": {
+      "_tags": "server",
+      "xray_request__targetEid:eid": []
+    }
   },
   {
     "vehicle_marker_ui": {
@@ -808,31 +883,52 @@
   {
     "base_tank": [
       {
+        "item__iconOffset": [0.0,-0.2]
+      },
+      {
+        "item__iconScale": 1.15
+      },
+      {
+        "item__iconYaw": 25.0
+      },
+      {
+        "item__iconPitch": -3.0
+      },
+      {
+        "item__iconRoll": 15.0
+      },
+      {
+        "item__lightZenith": 180.0
+      },
+      {
+        "item__lightAzimuth": 140.0
+      },
+      {
         "_override": true
       },
       {
-        "_extends": "base_xray"
+        "_use": "base_xray"
       },
       {
-        "_extends": "resupply_vehicle"
+        "_use": "resupply_vehicle"
       },
       {
-        "_extends": "tank_mods"
+        "_use": "tank_mods"
       },
       {
-        "_extends": "enlisted_vehicle_seats_restrictions"
+        "_use": "enlisted_vehicle_seats_restrictions"
       },
       {
-        "_extends": "tank_ammo_distribution_default"
+        "_use": "tank_ammo_distribution_default"
       },
       {
-        "_extends": "killer_outline"
+        "_use": "killer_outline"
       },
       {
-        "_extends": "vehicle_decals"
+        "_use": "vehicle_decals"
       },
       {
-        "_extends": "vehicle_marker_ui"
+        "_use": "vehicle_marker_ui"
       },
       {
         "vehicle__mapIcon": "map_icon_tank"
@@ -842,6 +938,28 @@
       },
       {
         "destroyIfNoCrewLeft": true
+      },
+      {
+        "separate_coll_objs:list<t>": [
+          {
+            "node": "cls_turret"
+          },
+          {
+            "node": "cls_turret_01"
+          },
+          {
+            "node": "cls_turret_02"
+          },
+          {
+            "node": "cls_turret_03"
+          },
+          {
+            "node": "cls_turret_04"
+          },
+          {
+            "node": "cls_turret_05"
+          }
+        ]
       },
       {
         "animchar_render__nodeVisibleStgFilters:list<u8>": {
@@ -882,10 +1000,10 @@
         "_override": true
       },
       {
-        "_extends": "vehicle_autodetect_team"
+        "_use": "vehicle_autodetect_team"
       },
       {
-        "_extends": "vehicle_marker_ui"
+        "_use": "vehicle_marker_ui"
       },
       {
         "vehicle__mapIcon": "map_icon_boat"
@@ -918,7 +1036,7 @@
   },
   {
     "kick_passengers_on_flip": {
-      "_extends": "vehicle_flippable",
+      "_use": "vehicle_flippable",
       "kickPassengersOnFlip:tag": []
     }
   },
@@ -928,16 +1046,16 @@
         "_override": true
       },
       {
-        "_extends": "bike_mods"
+        "_use": "bike_mods"
       },
       {
-        "_extends": "vehicle_flippable"
+        "_use": "vehicle_flippable"
       },
       {
-        "_extends": "kick_passengers_on_flip"
+        "_use": "kick_passengers_on_flip"
       },
       {
-        "_extends": "vehicle_marker_ui"
+        "_use": "vehicle_marker_ui"
       },
       {
         "vehicle__mapIcon": "map_icon_bike"
@@ -956,16 +1074,16 @@
         "_override": true
       },
       {
-        "_extends": "hud_vehicle_marker"
+        "_use": "hud_vehicle_marker"
       },
       {
-        "_extends": "vehicle_enter_accessibility"
+        "_use": "vehicle_enter_accessibility"
       },
       {
-        "_extends": "hit_track_fx_group"
+        "_use": "hit_track_fx_group"
       },
       {
-        "_extends": "vehicle_effects_common"
+        "_use": "vehicle_effects_common"
       },
       {
         "last_offender__builtGunEid:eid": {
@@ -995,7 +1113,7 @@
   },
   {
     "perf_stat": {
-      "_extends": "replicating",
+      "_use": "replicating",
       "_group": {
         "_tags": "gameClient",
         "perf_stat__draw": false,
@@ -1022,25 +1140,18 @@
         "xray_context__visible": false,
         "xray_context__pos": [0.0,0.0],
         "xray_context__size": [420.0,230.0],
-        "xray_context__dmPanelVisible": false
+        "xray_context__dmPanelVisible": false,
+        "xray_context__isPictureInPicture": true
       }
     }
   },
   {
     "menu_camera": [
       {
-        "_extends": "static_cam"
+        "_use": "static_cam"
       },
       {
-        "_extends": "animated_camera"
-      },
-      {
-        "menuTransform": [
-          [1.0,0.0,0.0],
-          [0.0,1.0,0.0],
-          [0.0,0.0,1.0],
-          [0.0,0.0,0.0]
-        ]
+        "_use": "animated_camera"
       },
       {
         "camera__active": true
@@ -1173,10 +1284,10 @@
   {
     "camera_scenic_place_dof": [
       {
-        "_extends": "camera_scenic_place"
+        "_use": "camera_scenic_place"
       },
       {
-        "_extends": "dof_settings"
+        "_use": "dof_settings"
       }
     ]
   },
@@ -1194,7 +1305,7 @@
   },
   {
     "menu_soldier": {
-      "_extends": "menu_transform",
+      "_use": "menu_transform",
       "_track": true,
       "_singleton": true,
       "menu_char_to_control:eid": []
@@ -1202,7 +1313,7 @@
   },
   {
     "menu_inspected_vehicle_pos": {
-      "_extends": "menu_transform",
+      "_use": "menu_transform",
       "_track": true,
       "_singleton": true,
       "menu_vehicle_to_control:eid": []
@@ -1210,7 +1321,7 @@
   },
   {
     "menu_aircraft": {
-      "_extends": "menu_transform",
+      "_use": "menu_transform",
       "_track": true,
       "_singleton": true,
       "menu_aircraft_to_control:eid": []
@@ -1218,7 +1329,7 @@
   },
   {
     "menu_aircraft_floating": {
-      "_extends": "menu_transform",
+      "_use": "menu_transform",
       "_track": true,
       "_singleton": true,
       "menu_aircraft_floating_to_control:eid": []
@@ -1226,7 +1337,7 @@
   },
   {
     "menu_weapon": {
-      "_extends": "menu_transform",
+      "_use": "menu_transform",
       "_track": true,
       "_singleton": true,
       "menu_weapon_to_control:eid": [],
@@ -1235,7 +1346,7 @@
   },
   {
     "menu_inv_items": {
-      "_extends": "menu_transform",
+      "_use": "menu_transform",
       "_track": true,
       "_singleton": true,
       "menu_inv_items_to_control:eid": []
@@ -1243,7 +1354,7 @@
   },
   {
     "menu_new_items": {
-      "_extends": "menu_transform",
+      "_use": "menu_transform",
       "_track": true,
       "_singleton": true,
       "menu_new_items_to_control:eid": [],
@@ -1251,8 +1362,17 @@
     }
   },
   {
+    "menu_shop_items": {
+      "_use": "menu_transform",
+      "_track": true,
+      "_singleton": true,
+      "menu_shop_items_to_control:eid": [],
+      "item_attaches:list<eid>": []
+    }
+  },
+  {
     "menu_battle_pass": {
-      "_extends": "menu_transform",
+      "_use": "menu_transform",
       "_track": true,
       "_singleton": true,
       "menu_battle_pass_to_control:eid": []
@@ -1278,6 +1398,7 @@
         [0.0,0.0,0.0]
       ],
       "menuPosFilter": "",
+      "isSiting": false,
       "menu_soldier_respawnbase:tag": []
     }
   },
@@ -1324,11 +1445,15 @@
       "animchar_attaches_bbox": {
         "_tags": "render"
       },
+      "animchar_attaches_bbox_precalculated": {
+        "_tags": "render"
+      },
       "background_menu_soldier:tag": []
     }
   },
   {
     "background_menu_vehicle": {
+      "setup_on_ground__setupMaxHeight": 2.5,
       "background_menu_vehicle:tag": []
     }
   },
@@ -1339,6 +1464,7 @@
   },
   {
     "menu_vehicle": {
+      "hitpoints__invulnerabiltyTime": 0.0,
       "menuVehicle:tag": []
     }
   },
@@ -1505,12 +1631,12 @@
     ]
   },
   {
-    "benchmark_artillery_strike": [
+    "artillery_strike_requester": [
       {
-        "_extends": "replicating"
+        "_use": "replicating"
       },
       {
-        "_extends": "artillery_owner"
+        "_use": "artillery_owner"
       },
       {
         "artillery__baseSpawnDelay": 0.0
@@ -1542,7 +1668,42 @@
         "artilleryStrikeTemplate": "artillery_he"
       },
       {
-        "benchmarkArtilleryStrike:tag": []
+        "artilleryStrikeRequester:tag": []
+      }
+    ]
+  },
+  {
+    "aircraft_bombers_requester": [
+      {
+        "_use": "replicating"
+      },
+      {
+        "_use": "artillery_owner"
+      },
+      {
+        "transform": [
+          [1.0,0.0,0.0],
+          [0.0,1.0,0.0],
+          [0.0,0.0,1.0],
+          [0.0,0.0,0.0]
+        ]
+      },
+      {
+        "team": 1
+      },
+      {
+        "aircraft_bombers_requester__firstRequestDelay": 0.0
+      },
+      {
+        "aircraft_bombers_requester__requestPeriod": 120.0
+      },
+      {
+        "aircraft_bombers_requester__timeToRequest": 0.0
+      },
+      {
+        "artillery__templates:list<t>": {
+          "template": "stalingrad_ger_team_aircraft_request"
+        }
       }
     ]
   },
@@ -1559,20 +1720,20 @@
   {
     "enlisted_map_user_point_enemy": [
       {
-        "_extends": "map_user_point_enemy"
+        "_use": "map_user_point_enemy"
       },
       {
-        "_extends": "enlisted_marker_enemy"
+        "_use": "enlisted_marker_enemy"
       }
     ]
   },
   {
     "map_user_point_enemy_vehicle": [
       {
-        "_extends": "map_user_point"
+        "_use": "map_user_point"
       },
       {
-        "_extends": "enlisted_marker_enemy"
+        "_use": "enlisted_marker_enemy"
       },
       {
         "pointGroup": 2
@@ -1607,7 +1768,7 @@
   },
   {
     "map_user_point_enemy_point_on_vehicle": {
-      "_extends": "enlisted_map_user_point_enemy",
+      "_use": "enlisted_map_user_point_enemy",
       "userPointVehicleOffset": [0.0,0.0,0.0],
       "userPointVehicleTargetEid:eid": []
     }
@@ -1615,10 +1776,10 @@
   {
     "map_user_point_enemy_building": [
       {
-        "_extends": "map_user_point"
+        "_use": "map_user_point"
       },
       {
-        "_extends": "enlisted_marker_enemy"
+        "_use": "enlisted_marker_enemy"
       },
       {
         "pointGroup": 3
@@ -1645,7 +1806,7 @@
   {
     "respawn_point_selector": [
       {
-        "_extends": "replicating"
+        "_use": "replicating"
       },
       {
         "transform": [
@@ -1665,15 +1826,21 @@
         "team": -1
       },
       {
+        "net__inInitialScope:tag": []
+      },
+      {
         "_group": {
           "_track": true,
           "_replicate": true,
           "respawn_icon__active": true,
+          "respawn_icon__isOccupied": false,
           "respawn_icon__activateAtTime": -1.0,
           "respawn_icon__isEnemyAtRespawn": false,
           "respawn_icon__position": [0.0,0.0,0.0],
           "respawn_icon__isHidden": false,
-          "respawn_icon__isPlayerSpawn": false
+          "respawn_icon__isPlayerSpawn": false,
+          "respawn_icon__additionalInfo": "",
+          "respawn_point__respawnersQueue:list<eid>": []
         }
       },
       {
@@ -1688,9 +1855,15 @@
           "_tags": "server",
           "respawn_point__lastRespawnTime": 0.0,
           "respawn_point__cachedPathsPos": [0.0,0.0,0.0],
-          "respawn_point__respawnersQueue:list<eid>": [],
           "respawn_point__respawnersTimeouts:list<r>": [],
           "respawn_point__cachedPaths:list<p4>": []
+        }
+      },
+      {
+        "respawn_icon__playersCount:i": {
+          "value": 0,
+          "_track": true,
+          "_tags": "ui"
         }
       },
       {
@@ -1699,13 +1872,27 @@
     ]
   },
   {
+    "paratroopers_respawn_point_selector": {
+      "_use": "respawn_point_selector",
+      "paratroopersIcon:tag": []
+    }
+  },
+  {
+    "mobile_respawn_point_selector": {
+      "_use": "respawn_point_selector",
+      "_replicated": "mobile_respawn_point_selector__mobileRespawnEid",
+      "mobileRespawnSelector:tag": [],
+      "mobile_respawn_point_selector__mobileRespawnEid:eid": []
+    }
+  },
+  {
     "auto_respawn_point_selector": {
       "autoRespawnSelector:tag": []
     }
   },
   {
     "enemy_attack_marker": {
-      "_extends": "replicating",
+      "_use": "replicating",
       "_singleton": true,
       "transform": [
         [1.0,0.0,0.0],
@@ -1718,6 +1905,25 @@
         "enemy_attack_marker__offset": -100.0
       },
       "enemy_attack_marker:tag": []
+    }
+  },
+  {
+    "custom_marker": {
+      "_use": "replicating",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [0.0,0.0,0.0]
+      ],
+      "_group": {
+        "_track": true,
+        "custom_marker__active": false,
+        "custom_marker__showForTeam": -1,
+        "custom_marker__icon": "!ui/skin#enemy_attack_arrow.svg",
+        "custom_marker__iconSize": [35.0,35.0],
+        "custom_marker__iconColor": "#a7374cff"
+      }
     }
   },
   {
@@ -1823,6 +2029,7 @@
         "ampulomet_kills": true,
         "aircraft_kills": true,
         "tank_kills": true,
+        "apc_kills": true,
         "mortar_kills": true,
         "artillery_kills": true,
         "flamethrower_kills": true,
@@ -1856,7 +2063,9 @@
         "battle_score": true,
         "kills_while_attacking_point": true,
         "kills_while_defending_point": true,
+        "long_range_kills": true,
         "kills_using_tank": true,
+        "kills_using_apc": true,
         "kills_using_aircraft": true,
         "fortification_destoyed": true,
         "fortification_built": true,
@@ -1886,6 +2095,7 @@
         "battle_group_battle_time": true,
         "battle_group_sum_score_per_minute": true,
         "engineer_rally_point_usage": true,
+        "owned_mobile_spawn_usage": true,
         "engineer_ammo_box_usage": true,
         "first_blood": true,
         "tank_commander_kills": true,
@@ -1903,6 +2113,8 @@
         "kills_by_engineer_kind": true,
         "kills_by_biker_kind": true,
         "kills_by_medic_kind": true,
+        "kills_by_paratrooper_kind": true,
+        "kills_by_apc_driver_kind": true,
         "tank_kills_by_rifle_kind": true,
         "tank_kills_by_mgun_kind": true,
         "tank_kills_by_assault_kind": true,
@@ -1917,6 +2129,8 @@
         "tank_kills_by_engineer_kind": true,
         "tank_kills_by_biker_kind": true,
         "tank_kills_by_medic_kind": true,
+        "tank_kills_by_paratrooper_kind": true,
+        "tank_kills_by_apc_driver_kind": true,
         "plane_kills_by_rifle_kind": true,
         "plane_kills_by_mgun_kind": true,
         "plane_kills_by_assault_kind": true,
@@ -1931,9 +2145,28 @@
         "plane_kills_by_engineer_kind": true,
         "plane_kills_by_biker_kind": true,
         "plane_kills_by_medic_kind": true,
+        "plane_kills_by_paratrooper_kind": true,
+        "plane_kills_by_apc_driver_kind": true,
+        "apc_kills_by_rifle_kind": true,
+        "apc_kills_by_mgun_kind": true,
+        "apc_kills_by_assault_kind": true,
+        "apc_kills_by_sniper_kind": true,
+        "apc_kills_by_anti_tank_kind": true,
+        "apc_kills_by_tanker_kind": true,
+        "apc_kills_by_radioman_kind": true,
+        "apc_kills_by_mortarman_kind": true,
+        "apc_kills_by_pilot_fighter_kind": true,
+        "apc_kills_by_pilot_assaulter_kind": true,
+        "apc_kills_by_flametrooper_kind": true,
+        "apc_kills_by_engineer_kind": true,
+        "apc_kills_by_biker_kind": true,
+        "apc_kills_by_medic_kind": true,
+        "apc_kills_by_paratrooper_kind": true,
+        "apc_kills_by_apc_driver_kind": true,
         "kills_by_engineer_buildings": true,
         "tank_kills_by_engineer_buildings": true,
         "plane_kills_by_engineer_buildings": true,
+        "apc_kills_by_engineer_buildings": true,
         "game_with_developers": true
       }
     }
@@ -1954,7 +2187,7 @@
         "_override": true
       },
       {
-        "_extends": "squad_wipeout_tracker"
+        "_use": "squad_wipeout_tracker"
       },
       {
         "squad__membersCrawlCheckDelta": 0.3
@@ -2084,6 +2317,421 @@
     ]
   },
   {
+    "paraptroopers_respawner": {
+      "_use": "replicating",
+      "respawner__paratroopersSquad": false,
+      "respawner__paratroopersChooserOn": false,
+      "respawner__paratroopersPointCoords": [0.0,0.0,0.0],
+      "respawner__paratroopersPointPickHeightMult": 5.0,
+      "respawner__paratroopersAircraftStartPointOffset": 1000.0,
+      "respawner__paratroopersAircraftEndPointOffset": 4500.0,
+      "respawner__paratroopersAircraftHeight": 450.0,
+      "respawner__paratroopersAircraftSpawnDist": 30.0,
+      "respawner__paratroopersAircraftHeightOffset": 10.0,
+      "respawner__paratroopersAircraftHeightToDistanceOffsetMult": 2.0,
+      "respawner__paratroopersAircraftTemplate": "plane_spawn_in_air+ai_aircraft+client_ai_aircraft+paratroopers_aircraft+requested_aircraft",
+      "_replicated": "respawner__paratroopersSupplySlotsInfo",
+      "_tracked": "respawner__paratroopersSupplySlotsInfo",
+      "respawner__paratroopersAircraftAngels:shared:list<r>": [
+        {
+          "angle": -0.52
+        },
+        {
+          "angle": 0.0
+        },
+        {
+          "angle": 0.52
+        }
+      ],
+      "paratroopersIconEid:eid": [],
+      "respawner__paratroopersSupplySlotsInfo:array": [],
+      "respawner__paratroopersAircraftAndCrewTemplates:shared:object": {
+        "morocco": "c_47_paratroopers+ai_aircraft_crew_usa",
+        "britain": "c_47_paratroopers+ai_aircraft_crew_usa",
+        "ussr": "li_2_1938_paratroopers+ai_aircraft_crew_sov",
+        "usa": "c_47_paratroopers+ai_aircraft_crew_usa",
+        "germany": "ju_52_paratroopers+ai_aircraft_crew_ger",
+        "italy": "ju_52_paratroopers+ai_aircraft_crew_ger",
+        "japan": "l2d_paratroopers+ai_aircraft_crew_jap"
+      }
+    }
+  },
+  {
+    "client_ai_aircraft": {
+      "client_ai_aircraft__delayedExit": -1.0,
+      "clientAiAircraft:tag": []
+    }
+  },
+  {
+    "paratroopers_supply_schemes": {
+      "_tags": "server",
+      "_singleton": true,
+      "paratroopers__supplySchemesJson": "%enlSqGlob/data/paratroopers_schemes.json",
+      "paratroopers__supplySchemesNoBotsJson": "%enlSqGlob/data/paratroopers_schemes_no_bots.json",
+      "paratroopers__supplySchemes:object": []
+    }
+  },
+  {
+    "paratroopers_aircraft_inside_sound": [
+      {
+        "_use": "car_inside_sound"
+      },
+      {
+        "_use": "vehicle_inside_sound_3d"
+      },
+      {
+        "_group": {
+          "_tags": "sound",
+          "vehicle_inside_sound__path": "aircraft/engines/engine_airborne"
+        }
+      }
+    ]
+  },
+  {
+    "paratroopers_aircraft_sound": [
+      {
+        "_use": "paratroopers_aircraft_inside_sound"
+      },
+      {
+        "_group": {
+          "_tags": "server",
+          "paratroopers_aircraft_net_speech__narratorEnabled": true,
+          "paratroopers_aircraft_net_speech__narratorGetReadyAt": 0.0,
+          "paratroopers_aircraft_net_speech__narratorDistToKickParatroopersSq": 0.0,
+          "paratroopers_aircraft_net_speech__narratorGetReadyDelay": 2.0,
+          "paratroopers_aircraft_net_speech__narratorDistToKickParatroopersOffset": 175.0,
+          "paratroopers_aircraft_net_speech__narratorFlyToKickTimerOffset": 3.5
+        }
+      },
+      {
+        "_group": {
+          "_tags": "sound",
+          "paratroopers_aircraft_siren__distToStartSq": 0.0,
+          "paratroopers_aircraft_siren__path": "player/effects/parachute_siren",
+          "paratroopers_aircraft_siren__distToStartOffset": 75.0,
+          "paratroopers_aircraft_siren__event:SoundEvent": []
+        }
+      }
+    ]
+  },
+  {
+    "supply_box_parachute_canopy_item_sound": {
+      "_group": {
+        "_tags": "sound",
+        "parachute_item_deploy_sound__deployedPath": "",
+        "parachute_item_deploy_sound__undeployedPath": "enemy/effects/parachute_box_landing"
+      }
+    }
+  },
+  {
+    "supply_box_parachute": {
+      "parachute__template": "parachute_canopy_item+supply_box_parachute_canopy_item_sound",
+      "parachute__autoDeployHeight": 280.0,
+      "parachute__deleteAtTime": -1.0,
+      "parachute__deleteAfterTime": 1.0,
+      "human_parachute__eid:eid": []
+    }
+  },
+  {
+    "paratroopers_supply_box_in_air": [
+      {
+        "_use": "animchar"
+      },
+      {
+        "_use": "horizontal_air_resistance"
+      },
+      {
+        "_use": "paratroopers_supply_box"
+      },
+      {
+        "_use": "parachute_wind"
+      },
+      {
+        "human_parachute_wind__deadZone": 9.0
+      },
+      {
+        "horizontal_air_resistance__accel": 10.0
+      },
+      {
+        "animchar__res": "airdrop_of_supply_landed_char"
+      },
+      {
+        "collision_physMatId": -1
+      },
+      {
+        "pair_collision__tag": "collidableToHuman"
+      },
+      {
+        "collres__res": "airdrop_of_supply_landed_collision"
+      },
+      {
+        "net__physId": -1
+      },
+      {
+        "phys_obj_net_phys__blk": "content/enlisted/gamedata/gameobjs/paratroopers_supply_box_phys.blk"
+      },
+      {
+        "_group": {
+          "_tags": "server",
+          "supply_box__deployedTemplate": "paratroopers_supply_box_deployed",
+          "supply_box__landingTimer": -1.0,
+          "supply_box__landingTime": 1.0,
+          "supply_box__collisionDamageMinVelocity": 1.0,
+          "supply_box__collisionDamageLethalVelocity": 3.0,
+          "supply_box__hasLanded:b": {
+            "value": false,
+            "_track": true
+          }
+        }
+      },
+      {
+        "anim_phys": []
+      },
+      {
+        "phys_vars": []
+      },
+      {
+        "pair_collision__gridHolders": []
+      },
+      {
+        "pair_collision__gridNames:list<t>": [
+          {
+            "h": "humans"
+          },
+          {
+            "h": "vehicles"
+          }
+        ]
+      },
+      {
+        "collidableToHuman:tag": []
+      },
+      {
+        "collres": []
+      },
+      {
+        "phys_obj_net_phys": []
+      },
+      {
+        "base_net_phys_ptr": []
+      }
+    ]
+  },
+  {
+    "paratroopers_supply_box_deployed": [
+      {
+        "_use": "paratroopers_supply_box"
+      },
+      {
+        "_use": "rendinst"
+      },
+      {
+        "ri_extra__name": "airdrop_of_supply_landed_rendinst"
+      },
+      {
+        "isRendinstDestr:tag": {
+          "_tags": "render"
+        }
+      }
+    ]
+  },
+  {
+    "paratroopers_supply_box": [
+      {
+        "_use": "replicating"
+      },
+      {
+        "_use": "supply_box_parachute"
+      },
+      {
+        "building_destroy__lastDamageAtTime": -1.0
+      },
+      {
+        "building_destroy__timeToResetDestructionTimer": 15.0
+      },
+      {
+        "building_destroy__distanceVerifyThreshold": 1.5
+      },
+      {
+        "building_destroy__maxTimeToDestroy": 9.0
+      },
+      {
+        "building_menu__text": "building_tool/paratroopers_supply_box"
+      },
+      {
+        "actionTimerColor": [255.0,0.0,0.0]
+      },
+      {
+        "transform": [
+          [1.0,0.0,0.0],
+          [0.0,1.0,0.0],
+          [0.0,0.0,1.0],
+          [0.0,0.0,0.0]
+        ]
+      },
+      {
+        "_tracked": "attaches_list"
+      },
+      {
+        "buildingRadius": 1.5
+      },
+      {
+        "buildingCenterOffset": [0.0,0.0,0.0]
+      },
+      {
+        "object__useDist": 3.0
+      },
+      {
+        "supply_box__maxUseDistSq": 16.0
+      },
+      {
+        "supply_box__useSound": "player/walker/ww2_soldier/items/healing/pick"
+      },
+      {
+        "supply_box__initVel": [0.0,0.0,0.0]
+      },
+      {
+        "building__canDismantle:tag": []
+      },
+      {
+        "building_destroy__operator:eid": []
+      },
+      {
+        "building_destroy__timeToDestroy:r": {
+          "value": 0.0,
+          "_replicate": true
+        }
+      },
+      {
+        "attaches_list:list<eid>": []
+      },
+      {
+        "supply_box__squad:eid": []
+      },
+      {
+        "supply_box__isActive:b": {
+          "value": true,
+          "_replicate": true
+        }
+      },
+      {
+        "_group": {
+          "_tags": "ui",
+          "hud_icon__image": "paratrooper_box",
+          "hud_icon__offsetY": 0.6,
+          "hud_icon__maxDistance": 100.0,
+          "hud_icon__opacityRangeX": [0.5,0.8],
+          "hud_icon__opacityRangeY": [0.5,0.8],
+          "hud_icon__opacityCenterMinMult": 1.0,
+          "map_icon__image": "paratrooper_box",
+          "hud_icon__visibleToSquad:eid": [],
+          "hud_icon__isActive:b": {
+            "value": true,
+            "_track": true
+          },
+          "map_icon__visibleToSquad:eid": [],
+          "map_icon__isActive:b": {
+            "value": true,
+            "_track": true
+          }
+        }
+      },
+      {
+        "_group": {
+          "_tags": "server",
+          "supply_box__template_deps:ecs::TemplatesListToInstantiate": [],
+          "supply_box__template_deps_list:list<t>": []
+        }
+      }
+    ]
+  },
+  {
+    "periodic_random_effects": {
+      "periodic_random_effects__nextSpawnTime": -1.0,
+      "periodic_random_effects__spawnPeriod": [0.5,0.8],
+      "periodic_random_effects__spawnOffsetsX": [4.0,14.0],
+      "periodic_random_effects__spawnOffsetsY": [6.0,9.0],
+      "periodic_random_effects__spawnOffsetsZ": [9.0,14.0],
+      "periodic_random_effects__templates:shared:list<t>": [
+        {
+          "template_name": "explosion_midair_tiny_effect+explosion_midair_tiny_effect_sound"
+        },
+        {
+          "template_name": "explosion_grenades_air_effect+explosion_midair_tiny_effect_sound"
+        },
+        {
+          "template_name": "explosion_packet_air_effect+explosion_midair_tiny_effect_sound"
+        }
+      ]
+    }
+  },
+  {
+    "paratroopers_aircraft": [
+      {
+        "_use": "replicating"
+      },
+      {
+        "_use": "paratroopers_aircraft_sound"
+      },
+      {
+        "paratroopers_aircraft__parachuteTemplate": "parachute_canopy_item"
+      },
+      {
+        "paratroopers_aircraft__kickTimePeriod": 0.3
+      },
+      {
+        "paratroopers_aircraft__kickTimer": -1.0
+      },
+      {
+        "paratroopers_aircraft__kicked": false
+      },
+      {
+        "paratroopers_aircraft__flyToKickTimer": -1.0
+      },
+      {
+        "paratroopers_aircraft__exitVertVelocity": -2.0
+      },
+      {
+        "paratroopers_aircraft__squadId": -1
+      },
+      {
+        "paratroopers_aircraft__memberId": -1
+      },
+      {
+        "customExitPos": [2.1,-2.3,0.0]
+      },
+      {
+        "_replicated": "paratroopers_aircraft__kicked"
+      },
+      {
+        "paratroopers_aircraft__respawnerEid:eid": []
+      },
+      {
+        "hideForestall:tag": []
+      },
+      {
+        "paratroopersAircraft:tag": []
+      },
+      {
+        "_group": {
+          "_tags": "server",
+          "paratroopers_aircraft__supplyBoxTemplate": "paratroopers_supply_box_in_air",
+          "paratroopers_aircraft__supplyBoxSpawnOffset": [-2.0,-2.0,0.0],
+          "paratroopers_aircraft__wasSupplyBoxSpawned": false,
+          "paratroopers_aircraft__kickSupplyBoxAtTime": -1.0,
+          "paratroopers_aircraft__kickSupplyBoxDelay": 0.0,
+          "paratroopers_aircraft__supplyBoxSquad:eid": []
+        }
+      },
+      {
+        "_group": {
+          "_tags": "ui",
+          "hud_aircraft_marker__visibilityHeight": 10000.0
+        }
+      }
+    ]
+  },
+  {
     "respawner": [
       {
         "respawner__enabled": false
@@ -2155,10 +2803,22 @@
         "respawner__missionStartDelay": 30.0
       },
       {
+        "respawner__lateConnectionThreshold": 30.0
+      },
+      {
+        "respawner__spawnScore": 0
+      },
+      {
         "respawner__isFirstSpawn": true
       },
       {
-        "_extends": "replicating"
+        "respawner__isRespawnCameraCreated": false
+      },
+      {
+        "_use": "replicating"
+      },
+      {
+        "_use": "paraptroopers_respawner"
       },
       {
         "_replicated": "respawner__enabled"
@@ -2194,6 +2854,12 @@
         "_replicated": "respawner__isFirstSpawn"
       },
       {
+        "_replicated": "respawner__spawnScore"
+      },
+      {
+        "_replicated": "respawner__scorePricePerSquad"
+      },
+      {
         "_tracked": "respawner__enabled"
       },
       {
@@ -2221,6 +2887,18 @@
         "_tracked": "respawner__isFirstSpawn"
       },
       {
+        "_tracked": "respawner__spawnScore"
+      },
+      {
+        "_tracked": "respawner__scorePricePerSquad"
+      },
+      {
+        "respawner__scorePricePerSquad:list<i>": []
+      },
+      {
+        "respawner__mobileRespawnEid:eid": []
+      },
+      {
         "respawner__chosenRespawn:eid": []
       },
       {
@@ -2236,7 +2914,9 @@
           "_tags": "server",
           "_track": true,
           "respawner__firstSpawnThresholdBySquad:list<i>": [],
-          "respawner__lastSpawnTimeBySquad:list<i>": []
+          "respawner__lastSpawnTimeBySquad:list<i>": [],
+          "respawner__scorePricePerSquadPerSpawn:object": [],
+          "respawner__spawnCountPerSquad:list<i>": []
         }
       },
       {
@@ -2291,64 +2971,64 @@
   {
     "enlisted_player": [
       {
-        "_extends": "player"
+        "_use": "player"
       },
       {
-        "_extends": "enlisted_player_user_point_list"
+        "_use": "enlisted_player_user_point_list"
       },
       {
-        "_extends": "artillery_owner"
+        "_use": "artillery_owner"
       },
       {
-        "_extends": "soldier_stats"
+        "_use": "soldier_stats"
       },
       {
-        "_extends": "enlisted_userstat_filter"
+        "_use": "enlisted_userstat_filter"
       },
       {
-        "_extends": "capzone_fortification_award"
+        "_use": "capzone_fortification_award"
       },
       {
-        "_extends": "sequential_kills_awards"
+        "_use": "sequential_kills_awards"
       },
       {
-        "_extends": "built_structures_count_engineer_awards"
+        "_use": "built_structures_count_engineer_awards"
       },
       {
-        "_extends": "ammo_box_limit_engineer_awards"
+        "_use": "ammo_box_limit_engineer_awards"
       },
       {
-        "_extends": "med_box_limit_awards"
+        "_use": "med_box_limit_awards"
       },
       {
-        "_extends": "heal_limit_awards"
+        "_use": "heal_limit_awards"
       },
       {
-        "_extends": "revive_awards"
+        "_use": "revive_awards"
       },
       {
-        "_extends": "userstats_weapon_killstreak"
+        "_use": "userstats_weapon_killstreak"
       },
       {
-        "_extends": "friendly_fire_kick"
+        "_use": "friendly_fire_kick"
       },
       {
-        "_extends": "friendly_fire_same_player_kill"
+        "_use": "friendly_fire_same_player_kill"
       },
       {
-        "_extends": "friendly_fire_forgivable"
+        "_use": "friendly_fire_forgivable"
       },
       {
-        "_extends": "respawner"
+        "_use": "respawner"
       },
       {
-        "_extends": "squad_members_ui"
+        "_use": "squad_members_ui"
       },
       {
-        "_extends": "gun_game_mode_player_components"
+        "_use": "gun_game_mode_player_components"
       },
       {
-        "_extends": "newbie_damage"
+        "_use": "newbie_damage"
       },
       {
         "_replicated": "userModsClientData"
@@ -2382,6 +3062,9 @@
       },
       {
         "_replicated": "awards"
+      },
+      {
+        "_replicated": "isFirstSpawn"
       },
       {
         "_replicated": "vote_to_kick__kicked"
@@ -2468,7 +3151,11 @@
         "player__roomOwner": false
       },
       {
-        "soldier_revive_points__points:array": []
+        "_group": {
+          "_tags": "server",
+          "exit_vehicle_cache__atTime": -1.0,
+          "exit_vehicle_cache__vehicle:eid": []
+        }
       },
       {
         "_group": {
@@ -2504,18 +3191,26 @@
           "_replicate": true,
           "scoring_player__killsByPlayer": 0,
           "scoring_player__tankKills": 0,
+          "scoring_player__apcKills": 0,
           "scoring_player__planeKills": 0,
+          "scoring_player__aiPlaneKills": 0,
           "scoring_player__captures": 0.0,
           "scoring_player__soldierDeaths": 0,
           "scoring_player__squadDeaths": 0,
           "scoring_player__assists": 0,
           "scoring_player__tankKillAssists": 0,
+          "scoring_player__apcKillAssists": 0,
           "scoring_player__planeKillAssists": 0,
+          "scoring_player__aiPlaneKillAssists": 0,
           "scoring_player__tankKillAssistsAsCrew": 0.0,
+          "scoring_player__apcKillAssistsAsCrew": 0.0,
           "scoring_player__planeKillAssistsAsCrew": 0.0,
+          "scoring_player__aiPlaneKillAssistsAsCrew": 0.0,
           "scoring_player__crewKillAssists": 0.0,
           "scoring_player__crewTankKillAssists": 0.0,
+          "scoring_player__crewApcKillAssists": 0.0,
           "scoring_player__crewPlaneKillAssists": 0.0,
+          "scoring_player__crewAiPlaneKillAssists": 0.0,
           "scoring_player__attackKills": 0,
           "scoring_player__defenseKills": 0,
           "scoring_player__builtStructures": 0,
@@ -2523,13 +3218,18 @@
           "scoring_player__builtGunKillAssists": 0,
           "scoring_player__builtGunTankKills": 0,
           "scoring_player__builtGunTankKillAssists": 0,
+          "scoring_player__builtGunApcKills": 0,
+          "scoring_player__builtGunApcKillAssists": 0,
           "scoring_player__builtGunPlaneKills": 0,
+          "scoring_player__builtGunAiPlaneKills": 0,
           "scoring_player__builtGunPlaneKillAssists": 0,
+          "scoring_player__builtGunAiPlaneKillAssists": 0,
           "scoring_player__builtBarbwireActivations": 0,
           "scoring_player__builtCapzoneFortificationActivations": 0,
           "scoring_player__builtAmmoBoxRefills": 0,
           "scoring_player__builtMedBoxRefills": 0,
           "scoring_player__builtRallyPointUses": 0,
+          "scoring_player__ownedMobileSpawnUses": 0,
           "scoring_player__hostedOnSoldierSpawns": 0,
           "scoring_player__vehicleRepairs": 0,
           "scoring_player__vehicleExtinguishes": 0,
@@ -2543,6 +3243,10 @@
           "scoring_player__meleeKills": 0,
           "scoring_player__explosiveKills": 0,
           "scoring_player__longRangeKills": 0,
+          "scoring_player__bestOneSoldierLifeInfantryKills": 0,
+          "scoring_player__bestOneSoldierLifeVehicleKills": 0,
+          "scoring_player__bestOneSodierLifeParatrooperKills": 0,
+          "scoring_player__contributionToVictory": 0.0,
           "scoring_player__gunGameLevelup": 0,
           "scoring_player__battleTimeLastStartedAt": -1.0,
           "scoring_player__isGameFinished": false,
@@ -2555,6 +3259,8 @@
           "scoring_player__friendlyKillsSamePlayer5AndMoreAdd": 0,
           "scoring_player__friendlyTankHits": 0,
           "scoring_player__friendlyTankKills": 0,
+          "scoring_player__friendlyApcHits": 0,
+          "scoring_player__friendlyApcKills": 0,
           "scoring_player__friendlyPlaneHits": 0,
           "scoring_player__friendlyPlaneKills": 0,
           "scoring_player__friendlyFirePenalty": 0
@@ -2566,6 +3272,7 @@
           "scoring_player__bestPossessedInfantryKillstreak": 0,
           "scoring_player__isBattleHero": false,
           "scoring_player__minScoreForXpMultipliers": 500,
+          "respawner__spawnScoreGainMultBySquad:list<r>": [],
           "scoring_player__isEnoughScoreForXpMultipliers:b": {
             "_track": true,
             "value": false
@@ -2642,6 +3349,15 @@
         }
       },
       {
+        "soldier_revive_points__points:array": []
+      },
+      {
+        "squads__affordabilityList:list<b>": {
+          "_tags": "ui",
+          "_track": true
+        }
+      },
+      {
         "squads__count:i": {
           "_tags": "server",
           "value": 0
@@ -2712,10 +3428,10 @@
   {
     "enlisted_bot_player": [
       {
-        "_extends": "enlisted_player"
+        "_use": "enlisted_player"
       },
       {
-        "_extends": "bot_player"
+        "_use": "bot_player"
       },
       {
         "respawner__allowForceRespawn": true
@@ -2739,7 +3455,7 @@
           "botPlayer__throwAntiTankGrenadeDelay": [10.0,15.0],
           "botPlayer__throwAntiTankGrenadeDist": [11.0,21.0],
           "botPlayer__customSpawnMinDistanceAround": 0.3,
-          "botPlayer__customSpawnsBetterDistance": 20.0,
+          "botPlayer__customSpawnsBetterDistance": 35.0,
           "botPlayer__customSpawnSearchAroundDistance": 15.0,
           "botPlayer__customSpawnSightCheckHeight": 1.6,
           "botPlayer__customSpawnSightCheckDistance": 10.0,
@@ -2763,6 +3479,7 @@
   {
     "menu_item": {
       "menu_item__boundingBoxCenter": [0.0,0.0,0.0],
+      "menu_item__cameraCenterOffsetProportion": 1.0,
       "animchar__turnDir": true,
       "menuItemObject:tag": []
     }
@@ -2783,7 +3500,7 @@
   {
     "respawnChooser": {
       "team": -1,
-      "_extends": "replicating",
+      "_use": "replicating",
       "active": true,
       "respawnBaseGroup": 1,
       "_replicate": true,
@@ -2804,29 +3521,29 @@
   {
     "respawnBaseWithGroupOnCapturePoint": [
       {
-        "_extends": "respawnBase"
+        "_use": "respawnBase"
       },
       {
-        "_extends": "respawnChooser"
+        "_use": "respawnChooser"
       },
       {
-        "_extends": "forceRespawnPriority"
+        "_use": "forceRespawnPriority"
       },
       {
-        "_extends": "temporary_respawn_base"
+        "_use": "temporary_respawn_base"
       }
     ]
   },
   {
     "respawnBaseOnCapturePoint": [
       {
-        "_extends": "respawnBase"
+        "_use": "respawnBase"
       },
       {
-        "_extends": "respawnChooser"
+        "_use": "respawnChooser"
       },
       {
-        "_extends": "forceRespawnPriority"
+        "_use": "forceRespawnPriority"
       },
       {
         "disableEnemyRadius": 20.0
@@ -2857,10 +3574,10 @@
   {
     "buildedRespawnBase": [
       {
-        "_extends": "respawnBase"
+        "_use": "respawnBase"
       },
       {
-        "_extends": "respawnChooser"
+        "_use": "respawnChooser"
       },
       {
         "respawnsBeforeDestroy": 20
@@ -2944,7 +3661,7 @@
   },
   {
     "player_respawn_base": {
-      "_extends": "buildedRespawnBase",
+      "_use": "buildedRespawnBase",
       "disableEnemyRadius": 20.0,
       "respawnsBeforeDestroy": 1000,
       "respawnCooldown": 5.0,
@@ -2993,7 +3710,7 @@
   {
     "volfog_sand_storm_affect": {
       "volfog": "enlisted_sand_storm_fog_full_graph.json",
-      "_extends": "replicating",
+      "_use": "replicating",
       "_replicated": "volfog_snow__maxIntensity",
       "volfog_snow__intensity": 0.03,
       "volfog_snow__intensitySpeed": 0.01,
@@ -3011,7 +3728,7 @@
   {
     "volfog_snow_affect": {
       "volfog": "enlisted_snow_fog_full_graph.json",
-      "_extends": "replicating",
+      "_use": "replicating",
       "_replicated": "volfog_snow__maxIntensity",
       "volfog_snow__intensity": 1.0,
       "volfog_snow__intensitySpeed": 0.1,
@@ -3069,6 +3786,8 @@
         "armor_analyzer__mode": 0,
         "armor_analyzer__screenPos": [0.0,0.0],
         "armor_analyzer__partName": "",
+        "armor_analyzer__partId": -1,
+        "armor_analyzer__traceRes": -1.0,
         "armor_analyzer__thickness": 0.0,
         "armor_analyzer__angle": 0.0,
         "armor_analyzer__normalAngle": 0.0,
@@ -3110,7 +3829,7 @@
   },
   {
     "custom_profile": {
-      "_extends": "replicating",
+      "_use": "replicating",
       "customProfile": ""
     }
   },
@@ -3128,10 +3847,10 @@
   {
     "parachute_canopy_item": [
       {
-        "_extends": "attachable_parachute_canopy"
+        "_use": "attachable_parachute_canopy"
       },
       {
-        "_extends": "parachute"
+        "_use": "parachute"
       },
       {
         "animchar__updatable": true
@@ -3162,6 +3881,11 @@
     }
   },
   {
+    "disable_battle_area_damage": {
+      "notTakeDamageFromBattleArea:tag": []
+    }
+  },
+  {
     "stats_count_as_kill": {
       "statsCountAsKill:tag": []
     }
@@ -3174,19 +3898,31 @@
   {
     "ai_aircraft_crew_soldier_base": [
       {
+        "_use": "dummy_enlisted_base_soldier"
+      },
+      {
+        "_use": "soldier_human_equipment"
+      },
+      {
+        "_use": "human_simple_vehicle_anim"
+      },
+      {
+        "_use": "disable_update"
+      },
+      {
+        "_use": "ger_summer_2"
+      },
+      {
+        "_use": "disable_battle_area_damage"
+      },
+      {
         "killLogName": ""
       },
       {
-        "_extends": "stats_count_as_kill"
-      },
-      {
-        "_extends": "disable_update"
+        "animchar__appliedAnimSpeed": 0.0
       },
       {
         "aiAircraftCrewSoldier:tag": []
-      },
-      {
-        "notTakeDamageFromBattleArea:tag": []
       },
       {
         "human_equipment__initialEquip:object": {
@@ -3195,67 +3931,56 @@
           "attachable_wear_gloves_01_us_summer_item": "gloves",
           "attachable_wear_pants_01_ger_summer_item": "pants"
         }
-      }
-    ]
-  },
-  {
-    "ai_aircraft_crew_soldier_ussr_base": [
-      {
-        "killLogName": ""
       },
       {
-        "_extends": "stats_count_as_kill"
+        "animchar__animState:object": {
+          "upper": -1,
+          "lower": -1
+        }
       },
       {
-        "_extends": "disable_update"
+        "animchar__animStateDirty:b": {
+          "value": true,
+          "_hide": true
+        }
       },
       {
-        "aiAircraftCrewSoldier:tag": []
-      },
-      {
-        "notTakeDamageFromBattleArea:tag": []
-      },
-      {
-        "human_equipment__initialEquip:object": {
-          "attachable_wear_head_01_ussr_summer_item": "face",
-          "attachable_wear_tunic_05_pilot_ussr_summer_item": "tunic",
-          "attachable_wear_gloves_01_us_summer_item": "gloves",
-          "attachable_wear_pants_03_ussr_summer_item": "pants",
-          "attachable_wear_lp1_parachute_pilot_ussr_item": "backpack",
-          "attachable_wear_belt_1_07_ussr_summer_item": "belt_1",
-          "attachable_wear_belt_2_01_ussr_summer_item": "belt_2",
-          "attachable_wear_nagan_03_ussr_summer_item": "front_belt_r"
+        "_group": {
+          "_tags": "server",
+          "human_weap__template_deps:ecs::TemplatesListToInstantiate": [],
+          "human_weap__template_deps_list:list<t>": {
+            "tmpl": "attachable_wear_head_01_us_summer_item"
+          }
         }
       }
     ]
   },
   {
-    "ai_aircraft_crew_soldier_usa_base": [
-      {
-        "killLogName": ""
-      },
-      {
-        "_extends": "stats_count_as_kill"
-      },
-      {
-        "_extends": "disable_update"
-      },
-      {
-        "aiAircraftCrewSoldier:tag": []
-      },
-      {
-        "notTakeDamageFromBattleArea:tag": []
-      },
-      {
-        "human_equipment__initialEquip:object": {
-          "attachable_wear_head_male_05_us_item": "face",
-          "attachable_wear_pilot_a2_jacket_bomb_item": "tunic",
-          "attachable_wear_gloves_01_us_summer_item": "gloves",
-          "attachable_wear_pants_m43_tankers_jacket_item": "pants",
-          "attachable_wear_parachute_tanker_jacket_item": "backpack"
-        }
+    "ai_aircraft_crew_soldier_ussr_base": {
+      "_use": "ai_aircraft_crew_soldier_base",
+      "human_equipment__initialEquip:object": {
+        "attachable_wear_head_01_ussr_summer_item": "face",
+        "attachable_wear_tunic_05_pilot_ussr_summer_item": "tunic",
+        "attachable_wear_gloves_01_us_summer_item": "gloves",
+        "attachable_wear_pants_03_ussr_summer_item": "pants",
+        "attachable_wear_lp1_parachute_pilot_ussr_item": "backpack",
+        "attachable_wear_belt_1_07_ussr_summer_item": "belt_1",
+        "attachable_wear_belt_2_01_ussr_summer_item": "belt_2",
+        "attachable_wear_nagan_03_ussr_summer_item": "front_belt_r"
       }
-    ]
+    }
+  },
+  {
+    "ai_aircraft_crew_soldier_usa_base": {
+      "_use": "ai_aircraft_crew_soldier_base",
+      "human_equipment__initialEquip:object": {
+        "attachable_wear_head_male_05_us_item": "face",
+        "attachable_wear_pilot_a2_jacket_bomb_item": "tunic",
+        "attachable_wear_gloves_01_us_summer_item": "gloves",
+        "attachable_wear_pants_m43_tankers_jacket_item": "pants",
+        "attachable_wear_parachute_tanker_jacket_item": "backpack"
+      }
+    }
   },
   {
     "ai_aircraft_crew_ger": {
@@ -3324,7 +4049,7 @@
     }
   },
   {
-    "base_equipable_gun": {
+    "equipable_gun": {
       "_override": true,
       "_group": {
         "item__ownedByTeam": -1,
@@ -3339,7 +4064,7 @@
   {
     "force_dome_resources": [
       {
-        "_extends": "replicating"
+        "_use": "replicating"
       },
       {
         "_singleton": true
@@ -3369,7 +4094,7 @@
   },
   {
     "force_dome": {
-      "_extends": "replicating",
+      "_use": "replicating",
       "force_dome__position": [0.0,0.0,0.0],
       "force_dome__radius": 1.0,
       "transform": [
@@ -3384,7 +4109,7 @@
   },
   {
     "force_dome_sound": {
-      "_extends": "replicating",
+      "_use": "replicating",
       "_singleton": true,
       "_group": {
         "_tags": "sound",
@@ -3398,7 +4123,7 @@
   },
   {
     "gravity_zone": {
-      "_extends": "replicating",
+      "_use": "replicating",
       "transform": [
         [1.0,0.0,0.0],
         [0.0,1.0,0.0],
@@ -3415,9 +4140,93 @@
     }
   },
   {
+    "prefab_save_on_finish_create": {
+      "prefab__createdCount": 0
+    }
+  },
+  {
+    "prefab": {
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [0.0,0.0,0.0]
+      ],
+      "_group": {
+        "_tags": "server",
+        "prev_transform": [
+          [1.0,0.0,0.0],
+          [0.0,1.0,0.0],
+          [0.0,0.0,1.0],
+          [0.0,0.0,0.0]
+        ],
+        "prefab__name": "",
+        "prefab__id": -1
+      }
+    }
+  },
+  {
+    "prefab_object": {
+      "_group": {
+        "_tags": "server",
+        "prefab__parentId": -1,
+        "prefab__localTm": [
+          [1.0,0.0,0.0],
+          [0.0,1.0,0.0],
+          [0.0,0.0,1.0],
+          [0.0,0.0,0.0]
+        ]
+      }
+    }
+  },
+  {
+    "scene_ladder": {
+      "_use": "replicating",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [0.0,0.0,0.0]
+      ],
+      "ladder__height:r": {
+        "value": 3.0,
+        "_info": {
+          "desc": "Ladder height"
+        }
+      },
+      "ladder__width:r": {
+        "value": 1.0,
+        "_info": {
+          "desc": "Ladder width"
+        }
+      },
+      "ladder__thickness:r": {
+        "value": 0.15,
+        "_info": {
+          "desc": "Ladder thickness"
+        }
+      },
+      "ladder__sceneIndex:u32": {
+        "value": -1,
+        "_hide": true
+      },
+      "ladder__numSteps:u16": {
+        "value": 10,
+        "_info": {
+          "desc": "Num of ladder steps"
+        }
+      },
+      "_group": {
+        "_tags": "server",
+        "ladder__updateGameObjectTimerSec": 0.0,
+        "ladder__updateGameObjectTimeSec": 1.0
+      }
+    }
+  },
+  {
     "scenery_remover": [
       {
-        "_extends": "replicating"
+        "_use": "replicating"
       },
       {
         "_tracked": "scenery_remove__apply"
@@ -3519,10 +4328,10 @@
   {
     "gun_game_mode_logic": [
       {
-        "_extends": "replicating"
+        "_use": "replicating"
       },
       {
-        "_extends": "disableTeamkillWeaponDrops"
+        "_use": "disableTeamkillWeaponDrops"
       },
       {
         "gunGameModeLogic:tag": []
@@ -3759,16 +4568,15 @@
   {
     "gun_game_mode_sounds": [
       {
-        "_extends": "replicating"
+        "_use": "replicating"
       },
       {
-        "_extends": "any_source_net_sound_descs"
+        "_use": "any_source_net_sound_descs"
       },
       {
         "net_sound__descs:shared:object": {
           "gunGameNextLevel:object": {
-            "path": "ui/academy_training_popup",
-            "toPlayer": true
+            "path": "ui/academy_training_popup"
           }
         }
       }
@@ -3786,78 +4594,152 @@
       "_group": {
         "_track": true,
         "settings_override__useCustomSettings": false,
-        "settings_override__graphicsSettings:object": []
+        "settings_override__graphicsSettings:object": [],
+        "settings_override__graphicsSettings_pc:object": [],
+        "settings_override__graphicsSettings_xboxone:object": [],
+        "settings_override__graphicsSettings_scarlett:object": [],
+        "settings_override__graphicsSettings_ps4:object": [],
+        "settings_override__graphicsSettings_ps5:object": [],
+        "settings_override__graphicsSettings_nswitch:object": [],
+        "settings_override__graphicsSettings_android:object": [],
+        "settings_override__graphicsSettings_ios:object": []
       }
     }
   },
   {
-    "cinematic_mode_manager": {
-      "_extends": "settings_override_manager",
-      "cinematic_mode_tag:tag": [],
+    "motion_blur_manager": {
       "_group": {
         "_tags": "render",
-        "cinematic_mode__manager:CinematicMode": []
+        "motion_blur:MotionBlur": []
       }
     }
   },
   {
-    "cinematic_mode_settings": {
-      "_extends": "settings_override_settings",
-      "cinematic_mode__lenseCoveringTex": "lense_dust",
-      "cinematic_mode__lenseRadialTex": "",
-      "settings_override__graphicsSettings:object": {
-        "video/antiAliasingMode": 2,
-        "video/fsr": "off",
-        "video/staticResolutionScale": 100.0
-      },
+    "motion_blur_settings": {
+      "motion_blur__mode": 2,
       "_group": {
         "_track": true,
-        "cinematic_mode__fps": 60,
-        "cinematic_mode__fname": "",
-        "cinematic_mode__audioDataFName": "",
-        "cinematic_mode__bitrate": 30000000,
-        "cinematic_mode__subPixels": 2,
-        "cinematic_mode__superPixels": 2,
-        "cinematic_mode__vignetteStrength": 0.0,
-        "cinematic_mode__chromaticAberration": [0.01,0.007,1.0],
-        "cinematic_mode__filmGrain": [0.0,1.0,1.0],
-        "cinematic_mode__bloomThreshold": 1.0,
-        "cinematic_mode__lenseFlareIntensity": 0.0,
-        "cinematic_mode__lenseDust": false,
-        "cinematic_mode__recording": false,
-        "cinematic_mode__audio_recording": false,
-        "cinematic_mode__loadAudio": false,
-        "cinematic_mode__saveAudio": false,
-        "cinematic_mode__hasRain": false,
-        "cinematic_mode__hasSnow": false,
-        "cinematic_mode__hasLightning": false,
-        "cinematic_mode__weatherPreset": "",
-        "cinematic_mode__rain": false,
-        "cinematic_mode__snow": false,
-        "cinematic_mode__lightning": false,
-        "cinematic_mode__dayTime": 12.0,
-        "cinematic_mode__mb_scale": 0.0,
-        "cinematic_mode__mb_velocityMultiplier": 0.005,
-        "cinematic_mode__mb_maxVelocity": 0.1,
-        "cinematic_mode__mb_alphaMulOnApply": 0.125,
-        "cinematic_mode__mb_overscanMul": 0.01,
-        "cinematic_mode__mb_forwardBlur": 0.0,
-        "cinematic_mode__colorGradingSelected": "",
-        "cinematic_mode__enablePostBloom": true
-      },
-      "cinematic_mode__weatherPresetList:list<t>": [],
-      "cinematic_mode__colorGradingOptions:shared:list<t>": {
-        "item": "postfx_color_grading_tonemap_death_alive_enlisted"
+        "motion_blur__scale": 1.0,
+        "motion_blur__velocityMultiplier": 0.005,
+        "motion_blur__maxVelocity": 0.1,
+        "motion_blur__alphaMulOnApply": 0.125,
+        "motion_blur__overscanMul": 0.01,
+        "motion_blur__forwardBlur": 0.0
       }
     }
+  },
+  {
+    "motion_blur": [
+      {
+        "_use": "motion_blur_settings"
+      },
+      {
+        "_use": "motion_blur_manager"
+      },
+      {
+        "_singleton": true
+      }
+    ]
+  },
+  {
+    "cinematic_mode_manager": [
+      {
+        "_use": "settings_override_manager"
+      },
+      {
+        "_use": "motion_blur_manager"
+      },
+      {
+        "cinematic_mode_tag:tag": []
+      },
+      {
+        "_group": {
+          "_tags": "render",
+          "cinematic_mode__manager:CinematicMode": []
+        }
+      }
+    ]
+  },
+  {
+    "cinematic_mode_settings": [
+      {
+        "_use": "settings_override_settings"
+      },
+      {
+        "_use": "motion_blur_settings"
+      },
+      {
+        "motion_blur__scale": 0.0
+      },
+      {
+        "cinematic_mode__saved_bloom_threshold": 0.8
+      },
+      {
+        "cinematic_mode__default_bloom_threshold": 1.0
+      },
+      {
+        "cinematic_mode__lenseCoveringTex": "lense_dust"
+      },
+      {
+        "cinematic_mode__lenseRadialTex": ""
+      },
+      {
+        "settings_override__graphicsSettings:object": {
+          "video/antiAliasingMode": 2,
+          "video/fsr": "off",
+          "video/ssaa": false,
+          "video/staticResolutionScale": 100.0
+        }
+      },
+      {
+        "_group": {
+          "_track": true,
+          "_tags": "render",
+          "cinematic_mode__fps": 60,
+          "cinematic_mode__fname": "",
+          "cinematic_mode__audioDataFName": "",
+          "cinematic_mode__bitrate": 30000000,
+          "cinematic_mode__subPixels": 2,
+          "cinematic_mode__superPixels": 2,
+          "cinematic_mode__vignetteStrength": 0.0,
+          "cinematic_mode__chromaticAberration": [0.01,0.007,1.0],
+          "cinematic_mode__filmGrain": [0.0,1.0,1.0],
+          "cinematic_mode__lenseFlareIntensity": 0.0,
+          "cinematic_mode__lenseDust": false,
+          "cinematic_mode__recording": false,
+          "cinematic_mode__audio_recording": false,
+          "cinematic_mode__loadAudio": false,
+          "cinematic_mode__saveAudio": false,
+          "bloom__threshold": 1.0,
+          "cinematic_mode__hasRain": false,
+          "cinematic_mode__hasSnow": false,
+          "cinematic_mode__hasLightning": false,
+          "cinematic_mode__weatherPreset": "",
+          "cinematic_mode__rain": false,
+          "cinematic_mode__snow": false,
+          "cinematic_mode__lightning": false,
+          "cinematic_mode__dayTime": 12.0,
+          "cinematic_mode__colorGradingSelected": "",
+          "cinematic_mode__enablePostBloom": true
+        }
+      },
+      {
+        "cinematic_mode__weatherPresetList:list<t>": []
+      },
+      {
+        "cinematic_mode__colorGradingOptions:shared:list<t>": {
+          "item": "postfx_color_grading_tonemap_death_alive_enlisted"
+        }
+      }
+    ]
   },
   {
     "cinematic_mode": [
       {
-        "_extends": "cinematic_mode_settings"
+        "_use": "cinematic_mode_settings"
       },
       {
-        "_extends": "cinematic_mode_manager"
+        "_use": "cinematic_mode_manager"
       },
       {
         "_singleton": true
@@ -3868,5 +4750,232 @@
     "pushable_object": {
       "push_object__energyScale": 200.0
     }
+  },
+  {
+    "battle_perfstat": {
+      "_group": {
+        "_tags": "gameClient",
+        "battle_perfstat__rendering": false,
+        "battle_perfstat__peakMemoryKb": 0,
+        "battle_perfstat__refTime": 0,
+        "battle_perfstat__displayResolution": [0,0],
+        "battle_perfstat__renderingResolution": [0,0],
+        "battle_perfstat__vsyncRefreshRate": 0.0,
+        "battle_perfstat__segment_0_5": 0.0,
+        "battle_perfstat__segment_5_15": 0.0,
+        "battle_perfstat__segment_15_25": 0.0,
+        "battle_perfstat__segment_25_30": 0.0,
+        "battle_perfstat__segment_30_45": 0.0,
+        "battle_perfstat__segment_45_60": 0.0,
+        "battle_perfstat__segment_60_75": 0.0,
+        "battle_perfstat__segment_75_85": 0.0,
+        "battle_perfstat__segment_85_100": 0.0,
+        "battle_perfstat__segment_100_120": 0.0,
+        "battle_perfstat__segment_120_144": 0.0,
+        "battle_perfstat__segment_144_165": 0.0,
+        "battle_perfstat__segment_165_180": 0.0,
+        "battle_perfstat__segment_180_200": 0.0,
+        "battle_perfstat__segment_200_240": 0.0,
+        "battle_perfstat__segment_240_280": 0.0,
+        "battle_perfstat__segment_280_360": 0.0,
+        "battle_perfstat__segment_360_400": 0.0,
+        "battle_perfstat__segment_400_500": 0.0,
+        "battle_perfstat__segment_500_600": 0.0,
+        "battle_perfstat__segment_600_800": 0.0,
+        "battle_perfstat__segment_800_1000": 0.0,
+        "battle_perfstat__segment_1000_plus": 0.0
+      }
+    }
+  },
+  {
+    "muzzle_flash_manager": {
+      "_tags": "render",
+      "_singleton": true,
+      "muzzle_flash_manager__effect_pos": [0.0,0.0,0.0],
+      "muzzle_flash_manager__effect_lifetime": 0.0,
+      "muzzle_flash_manager__effect_color": [0.0,0.0,0.0],
+      "muzzle_flash_manager__effect_stength": 0.0,
+      "muzzle_flash_manager__effect_size": 0.0,
+      "muzzle_flash_manager__fadeout": 0.67,
+      "muzzle_flash_manager__base_effect_color": [1.0,0.5,0.2],
+      "muzzle_flash_manager__base_effect_lifetime": 0.05,
+      "muzzle_flash_manager__base_effect_size": 0.33,
+      "muzzle_flash_manager__base_effect_stength": 0.5,
+      "muzzle_flash_manager__effect_offset": 0.1
+    }
+  },
+  {
+    "game_options": [
+      {
+        "_use": "replicating"
+      },
+      {
+        "_singleton": true
+      },
+      {
+        "_tracked": "game_option__friendlyFire"
+      },
+      {
+        "_group": {
+          "_tags": "server",
+          "game_option__friendlyFire": false,
+          "game_option__friendlyFireKick": true
+        }
+      },
+      {
+        "_group": {
+          "_replicate": true,
+          "game_option__allowSwitchChatMode": false
+        }
+      }
+    ]
+  },
+  {
+    "asset_manager": {
+      "_tags": "render",
+      "_use": "base_asset_manager"
+    }
+  },
+  {
+    "poly_area": {
+      "_tags": "server",
+      "_tracked": "poly_area__points",
+      "poly_area__points:list<p3>": [],
+      "_group": {
+        "_tags": "dev",
+        "poly_area__pointMovers:list<eid>": []
+      }
+    }
+  },
+  {
+    "poly_area_point_mover": {
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [0.0,0.0,0.0]
+      ],
+      "poly_area_point_mover__index": -1,
+      "poly_area_point_mover__areaEid:eid": [],
+      "poly_area_point_mover:tag": []
+    }
+  },
+  {
+    "voxel_grid": {
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [0.0,0.0,0.0]
+      ],
+      "voxel_grid__resolution": 10,
+      "voxel_grid__step": 0.3,
+      "voxel_grid__voxels:list<b>": [],
+      "voxel_grid__checkConnectivity:tag": []
+    }
+  },
+  {
+    "voxel_grid_init_manager": {
+      "voxel_grid_init__trianglesPerUpdate": 100,
+      "voxel_grid_init__currentRi": 0,
+      "voxel_grid_init__currentTriangle": 0,
+      "voxel_grid_init__currentNode": 0,
+      "voxel_grid_init__riExtras:list<u64>": [],
+      "voxel_grid_init__inProgress:tag": []
+    }
+  },
+  {
+    "animated_attaches_update_disabler": {
+      "animchar_attaches__disableAnimDistance": 0.0
+    }
+  },
+  {
+    "mobile_respawn": [
+      {
+        "_use": "respawnChooser"
+      },
+      {
+        "_use": "respawnBase"
+      },
+      {
+        "mobile_respawn__seatOffset": -1
+      },
+      {
+        "mobile_respawn__nextSpawnTimer": -1.0
+      },
+      {
+        "mobile_respawn__minDistanceToCapturePoint": 50.0
+      },
+      {
+        "mobile_respawn__spawnCooldown": 15.0
+      },
+      {
+        "mobile_respawn__capturePointsCheckTime": -1.0
+      },
+      {
+        "_replicated": "mobile_respawn__nextSpawnTimer"
+      },
+      {
+        "_replicated": "mobile_respawn__reservedPlayerEid"
+      },
+      {
+        "_replicated": "mobile_respawn__respawnIconEid"
+      },
+      {
+        "mobile_respawn__capturePointsCheckInterval": 1.0
+      },
+      {
+        "mobile_respawn__lastDriverGuid": ""
+      },
+      {
+        "mobile_respawn__reservedPlayerEid:eid": []
+      },
+      {
+        "mobile_respawn__respawnIconEid:eid": []
+      },
+      {
+        "mobileRespawnTag:tag": []
+      },
+      {
+        "vehicle__onlyOwnerSquadCanUse:tag": []
+      },
+      {
+        "respbase__noSpawnImmunity:b": {
+          "value": true,
+          "_tags": "server"
+        }
+      }
+    ]
+  },
+  {
+    "scripted_plane_spawner": {
+      "team": 1,
+      "scripted_plane_spawner__flyFrom": [0.0,0.0,0.0],
+      "scripted_plane_spawner__flyTo": [0.0,0.0,0.0],
+      "scripted_plane_spawner__firstSpawnDelay": 10.0,
+      "scripted_plane_spawner__spawnPeriod": 10.0,
+      "scripted_plane_spawner__timeToSpawn": 0.0,
+      "scripted_plane_spawner__planeSpeed": 300.0,
+      "scripted_plane_spawner__planeTemplate": "a_20g+scripted_plane"
+    }
+  },
+  {
+    "scripted_plane": [
+      {
+        "_use": "ai_aircraft"
+      },
+      {
+        "_use": "ai_aircraft_crew_ger"
+      },
+      {
+        "_use": "plane_spawn_in_air"
+      },
+      {
+        "scripted_plane__nearEndPosRadiusSq": 144.0
+      },
+      {
+        "destroyCrewOnDisappear:tag": []
+      }
+    ]
   }
 ]

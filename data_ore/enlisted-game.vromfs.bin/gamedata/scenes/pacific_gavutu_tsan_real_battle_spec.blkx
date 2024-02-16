@@ -4486,6 +4486,7 @@
     "entity": {
       "_template": "briefing_invasion",
       "mission_name": "pacific_gavutu_conf",
+      "mission_outfit": "pacific",
       "loading_images:list<t>": [
         {
           "item": "ui/pacific_gavutu_inv_01.avif"
@@ -4622,7 +4623,24 @@
   },
   {
     "entity": {
+      "_template": "bloom"
+    }
+  },
+  {
+    "entity": {
       "_template": "postfx_roundctrl"
+    }
+  },
+  {
+    "entity": {
+      "_template": "session_timer",
+      "session_timer__time_left": 600.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "custom_profile",
+      "customProfile": "%enlSqGlob/data/bots_profile_normal.json"
     }
   },
   {
@@ -4635,21 +4653,6 @@
     "entity": {
       "_template": "session_finalizer",
       "session_finalizer__timer": 10.0
-    }
-  },
-  {
-    "entity": {
-      "_template": "group_switch_timer",
-      "group_switch_timer__time": 0.0,
-      "group_switch_timer__activateGroup": "aircraft_spawn_on_carrier"
-    }
-  },
-  {
-    "entity": {
-      "_template": "group_switch_timer",
-      "group_switch_timer__time": 7200.0,
-      "group_switch_timer__deactivateGroup": "aircraft_spawn_on_carrier",
-      "group_switch_timer__activateGroup": "aircraft_spawn_in_air"
     }
   },
   {
@@ -4700,7 +4703,6 @@
     "entity": {
       "_template": "respAircraftOnCarrier",
       "respawnbaseType": "aircraft_fighter",
-      "groupName": "aircraft_spawn_on_carrier",
       "transform": [
         [-0.793466,0.0,0.608614],
         [0.0,1.0,0.0],
@@ -4716,7 +4718,6 @@
     "entity": {
       "_template": "respAircraftOnCarrier",
       "respawnbaseType": "aircraft_assault",
-      "groupName": "aircraft_spawn_on_carrier",
       "transform": [
         [-0.798301,0.0,0.60226],
         [0.0,1.0,0.0],
@@ -4732,7 +4733,6 @@
     "entity": {
       "_template": "respAircraftOnWater",
       "respawnbaseType": "aircraft_assault",
-      "groupName": "aircraft_spawn_on_carrier",
       "transform": [
         [-0.805542,0.0,0.592538],
         [0.0,1.0,0.0],
@@ -4741,15 +4741,13 @@
       ],
       "team": 1,
       "maxVehicleOnSpawn": 1,
-      "respTime": 120,
-      "sphere_zone__radius": 500.0
+      "respTime": 120
     }
   },
   {
     "entity": {
       "_template": "respAircraftOnCarrier",
       "respawnbaseType": "aircraft_fighter",
-      "groupName": "aircraft_spawn_on_carrier",
       "transform": [
         [0.94295,0.0,-0.332936],
         [0.0,1.0,0.0],
@@ -4765,7 +4763,6 @@
     "entity": {
       "_template": "respAircraftOnCarrier",
       "respawnbaseType": "aircraft_assault",
-      "groupName": "aircraft_spawn_on_carrier",
       "transform": [
         [0.936385,0.0,-0.350972],
         [0.0,1.0,0.0],
@@ -4781,7 +4778,6 @@
     "entity": {
       "_template": "respAircraftOnWater",
       "respawnbaseType": "aircraft_assault",
-      "groupName": "aircraft_spawn_on_carrier",
       "transform": [
         [0.934841,-0.0228478,-0.354331],
         [0.0146375,0.999559,-0.0258345],
@@ -4790,15 +4786,13 @@
       ],
       "team": 2,
       "maxVehicleOnSpawn": 1,
-      "respTime": 120,
-      "sphere_zone__radius": 500.0
+      "respTime": 120
     }
   },
   {
     "entity": {
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_fighter",
-      "groupName": "aircraft_spawn_in_air",
       "transform": [
         [-0.99923,0.0,0.0392074],
         [0.0,1.0,0.0],
@@ -4814,7 +4808,6 @@
     "entity": {
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_fighter",
-      "groupName": "aircraft_spawn_in_air",
       "transform": [
         [-0.99923,0.0,0.0392074],
         [0.0,1.0,0.0],
@@ -4830,7 +4823,6 @@
     "entity": {
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_assault",
-      "groupName": "aircraft_spawn_in_air",
       "transform": [
         [-0.99923,0.0,0.0392074],
         [0.0,1.0,0.0],
@@ -4846,7 +4838,6 @@
     "entity": {
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_assault",
-      "groupName": "aircraft_spawn_in_air",
       "transform": [
         [-0.99923,0.0,0.0392074],
         [0.0,1.0,0.0],
@@ -4862,7 +4853,6 @@
     "entity": {
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_fighter",
-      "groupName": "aircraft_spawn_in_air",
       "transform": [
         [0.998974,0.0,-0.0452783],
         [0.0,1.0,0.0],
@@ -4878,7 +4868,6 @@
     "entity": {
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_fighter",
-      "groupName": "aircraft_spawn_in_air",
       "transform": [
         [0.999958,0.0,-0.00937597],
         [0.0,1.0,0.0],
@@ -4894,7 +4883,6 @@
     "entity": {
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_assault",
-      "groupName": "aircraft_spawn_in_air",
       "transform": [
         [0.999913,0.0,0.0132278],
         [0.0,1.0,-0.0],
@@ -4910,7 +4898,6 @@
     "entity": {
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_assault",
-      "groupName": "aircraft_spawn_in_air",
       "transform": [
         [0.999939,0.0,-0.0110104],
         [0.0,1.0,0.0],
@@ -5622,7 +5609,7 @@
       "team__briefing": "confrontation/attackers_goals",
       "team__winSubtitle": "debriefing/won_invasion_subtitle",
       "team__loseSubtitle": "debriefing/lost_invasion_subtitle",
-      "team__winTitle": "debriefing/usa_won_invasion",
+      "team__winTitle": "debriefing/allies_won_invasion",
       "team__spawnBotArmy": "pacific_allies"
     }
   },
@@ -5719,7 +5706,7 @@
       "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 2,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "decal__height": 0.3,
       "capzone__iconOffsetY": 1.0,
       "capzone__activateChoice:object": {

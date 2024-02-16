@@ -1,7 +1,7 @@
 {
   "briefing": [
     {
-      "_extends": "replicating"
+      "_use": "replicating"
     },
     {
       "_singleton": true
@@ -27,65 +27,66 @@
         "_replicate": true,
         "mission_name": "",
         "mission_type": "",
+        "mission_outfit": "",
         "loading_images:list<t>": []
       }
     }
   ],
   "briefing_common": {
-    "_extends": "briefing",
+    "_use": "briefing",
     "common_header": ""
   },
   "briefing_invasion": {
-    "_extends": "briefing",
+    "_use": "briefing",
     "mission_type": "invasion",
     "_group": {
       "common": "invasion/common_goals"
     }
   },
   "briefing_confrontation": {
-    "_extends": "briefing",
+    "_use": "briefing",
     "mission_type": "confrontation",
     "_group": {
       "common": "invasion/common_goals"
     }
   },
   "briefing_destruction": {
-    "_extends": "briefing",
+    "_use": "briefing",
     "mission_type": "destruction",
     "_group": {
       "common": "assault/common_goals"
     }
   },
   "briefing_assault": {
-    "_extends": "briefing",
+    "_use": "briefing",
     "mission_type": "assault",
     "_group": {
       "common": "assault/common_goals"
     }
   },
   "briefing_domination": {
-    "_extends": "briefing",
+    "_use": "briefing",
     "mission_type": "domination",
     "_group": {
       "common": "domination/common_goals"
     }
   },
   "briefing_escort": {
-    "_extends": "briefing",
+    "_use": "briefing",
     "mission_type": "escort",
     "_group": {
       "common": "invasion/common_goals"
     }
   },
   "briefing_gun_game": {
-    "_extends": "briefing",
+    "_use": "briefing",
     "mission_type": "gun_game",
     "_group": {
       "common": "gun_game/hints"
     }
   },
   "briefing_tutorial": {
-    "_extends": "briefing",
+    "_use": "briefing",
     "briefing": true,
     "common": "",
     "header": "briefing/header",

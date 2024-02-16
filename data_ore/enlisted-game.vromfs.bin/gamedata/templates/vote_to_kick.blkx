@@ -1,13 +1,13 @@
 {
   "vote_to_kick": {
-    "_extends": "replicating",
+    "_use": "replicating",
     "vote_to_kick__kickVotingTemplate": "kick_voting",
     "vote_to_kick__time": 20.0,
     "_singleton": true
   },
   "kick_voting": [
     {
-      "_extends": "replicating"
+      "_use": "replicating"
     },
     {
       "kick_voting__timer": 0.0
@@ -23,6 +23,12 @@
     },
     {
       "_replicated": "kick_voting__voteNo"
+    },
+    {
+      "kick_voting__teammateKillerVoteThreshold": 0.25
+    },
+    {
+      "kick_voting__defaultVoteThreshold": 0.33
     },
     {
       "kick_voting__accused:eid": []

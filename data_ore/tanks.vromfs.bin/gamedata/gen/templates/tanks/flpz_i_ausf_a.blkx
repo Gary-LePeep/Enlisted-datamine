@@ -1,10 +1,10 @@
 {
   "base_flpz_i_ausf_a": [
     {
-      "_extends": "base_tank"
+      "_use": "base_tank"
     },
     {
-      "_extends": "flpz_i_ausf_a_ammo_stowages"
+      "_use": "flpz_i_ausf_a_ammo_stowages"
     },
     {
       "killLogName": "germ_flakpanzer_i_ausf_a"
@@ -108,7 +108,7 @@
     }
   ],
   "flpz_i_ausf_a_turret_01_20mm_flak38": {
-    "_extends": "tankgun_20mm_flak38",
+    "_use": "tankgun_20mm_flak38",
     "gun__shootNodeName": "bone_gun_barrel",
     "turret__yawSpeed": 35.0,
     "turret__pitchSpeed": 20.0,
@@ -131,22 +131,22 @@
   },
   "flpz_i_ausf_a_ammo_stowages": {
     "_tags": "server",
-    "_extends": "vehicle_ammo_stowages",
+    "_use": "vehicle_ammo_stowages",
     "ammo_stowage__stowageTemplates:shared:list<t>": {
-      "stowage": "flpz_i_ausf_a_ammo_stowage"
+      "stowage": "flpz_i_ausf_a_ammo_stowage_1"
     }
   },
-  "flpz_i_ausf_a_ammo_stowage": {
-    "_extends": "ammo_stowage",
+  "flpz_i_ausf_a_ammo_stowage_1": {
+    "_use": "ammo_stowage",
     "ammo_stowage__clusterTemplates:shared:list<t>": {
-      "cluster": "flpz_i_ausf_a_ammo_cluster"
+      "cluster": "flpz_i_ausf_a_ammo_cluster_1_1"
     },
     "ammo_stowage__turretNames:shared:list<t>": {
       "gun": "turret_01"
     }
   },
-  "flpz_i_ausf_a_ammo_cluster": {
-    "_extends": "ammo_cluster",
+  "flpz_i_ausf_a_ammo_cluster_1_1": {
+    "_use": "ammo_cluster",
     "ammo_cluster__isShell": true,
     "ammo_cluster__slotNames:shared:list<t>": {
       "part": "ammo_turret"

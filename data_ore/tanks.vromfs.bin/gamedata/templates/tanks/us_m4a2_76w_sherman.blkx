@@ -1,11 +1,14 @@
 {
   "us_m4a2_76w_sherman": {
-    "_extends": "us_m4a2_76w_sherman_common"
+    "_use": "us_m4a2_76w_sherman_common"
   },
   "us_m4a2_76w_sherman_common": {
-    "_extends": "base_m4a2_76w_sherman",
+    "_use": "base_m4a2_76w_sherman",
+    "commanderCockpitFpsCamMaxAngle": [40.0,5.0],
+    "gunner_cam_limit__useCockpitDir": true,
     "gunnerFpsCamMaxAngle": [6.0,6.0],
-    "item__iconOffset": [0.0,0.2],
+    "item__iconOffset": [0.07,0.15],
+    "item__iconScale": 1.3,
     "turrets__initAmmoDistribution:array": [
       {
         "ammo:object": {
@@ -24,29 +27,6 @@
           "slot": 4,
           "count": 7
         }
-      }
-    ],
-    "bullet_holes__ignoreCollisionNodes:array": {
-      "_tags": "render"
-    },
-    "bullet_holes__movingCollisionNodes:array": [
-      {
-        "_tags": "render"
-      },
-      {
-        "movingCollisionNodes": "cls_turret_01"
-      },
-      {
-        "movingCollisionNodes": "turret_front"
-      },
-      {
-        "movingCollisionNodes": "turret_side"
-      },
-      {
-        "movingCollisionNodes": "gun_mask"
-      },
-      {
-        "movingCollisionNodes": "gun_mask_01"
       }
     ],
     "vehicle_seats__seats:shared:array": [
@@ -198,12 +178,12 @@
     }
   },
   "us_m4a2_76w_sherman_commander_cockpit": {
-    "_extends": "base_commander_cockpit_no_slits",
+    "_use": "base_commander_cockpit_no_slits",
     "animchar__res": "t_26_1940_commander_char",
-    "cockpit__minZoom": -0.05,
+    "cockpit__minForwardOffset": -0.05,
     "cockpit__offset": [-0.0,0.0,-0.0],
     "cockpit__cockpitOffsetBySlit:list<p3>": {
-      "slit": [-0.65,1.05,-0.45]
+      "slit": [-0.55,1.2,-0.45]
     },
     "cockpit__slitForwardOffset:list<r>": {
       "slit": 0.15
@@ -223,14 +203,38 @@
       },
       {
         "node": "ex_decor_03"
+      },
+      {
+        "node": "bone_turret"
+      },
+      {
+        "node": "hatch_01"
       }
-    ]
+    ],
+    "cockpit__periscopeLimits:list<p4>": {
+      "slit": [-90.0,90.0,-5.0,25.0]
+    },
+    "cockpit__periscopeSpeed:list<p2>": {
+      "slit": [35.0,35.0]
+    },
+    "cockpit__slitZoom:array": {
+      "slit:list<r>": {
+        "zoom": 1.44
+      }
+    },
+    "cockpit__slitZoomTime:list<r>": {
+      "slit": 0.0
+    },
+    "cockpit__slitTemplates:list<t>": {
+      "slit": "default_periscope"
+    },
+    "cockpit__slitEids:list<eid>": []
   },
   "us_m4a2_76w_sherman_driver_cockpit": {
-    "_extends": "base_driver_cockpit",
+    "_use": "base_driver_cockpit",
     "animchar__res": "ba_11_driver_char",
     "cockpit__offset": [-0.3,-0.26,0.23],
-    "cockpit__minZoom": -0.0,
+    "cockpit__minForwardOffset": -0.0,
     "cockpit__visibleVehicleNodeNames:list<t>": [
       {
         "node": "gun_barrel"
@@ -240,12 +244,25 @@
       }
     ],
     "cockpit__slitForwardOffset:list<r>": {
+      "slit": -0.05
+    },
+    "cockpit__periscopeLimits:list<p4>": {
+      "slit": [-45.0,45.0,-0.0,0.0]
+    },
+    "cockpit__periscopeSpeed:list<p2>": {
+      "slit": [35.0,35.0]
+    },
+    "cockpit__slitZoom:array": {
+      "slit:list<r>": {
+        "zoom": 1.44
+      }
+    },
+    "cockpit__slitZoomTime:list<r>": {
       "slit": 0.0
     }
   },
   "us_m4a2_76w_sherman_gunner_cockpit": {
-    "vehicle_sight__blk": "content/tanks/gamedata/sight/us_m71d.blk",
-    "_extends": "base_gunner_cockpit",
+    "_use": "base_gunner_cockpit",
     "animchar__res": "ba_11_gunner_char",
     "cockpit__offset": [-0.75,-0.064,0.236],
     "cockpit__visibleVehicleNodeNames:list<t>": [
@@ -260,7 +277,7 @@
       "slit": "cam_front_right"
     },
     "cockpit__slitForwardOffset:list<r>": {
-      "slit": 0.1
+      "slit": 0.2
     },
     "cockpit__slitIsGun:list<b>": {
       "slit": true
@@ -268,10 +285,22 @@
     "cockpit__cockpit__attachNodeNames:list<t>": {
       "node": "bone_camera_gunner"
     },
-    "cockpit__cockpit__attachNodeIndices:list<i>": []
+    "cockpit__cockpit__attachNodeIndices:list<i>": [],
+    "cockpit__slitZoom:array": {
+      "slit:list<r>": {
+        "zoom": 5.0
+      }
+    },
+    "cockpit__slitZoomTime:list<r>": {
+      "slit": 0.05
+    },
+    "cockpit__slitTemplates:list<t>": {
+      "slit": "us_m71d"
+    },
+    "cockpit__slitEids:list<eid>": []
   },
   "ussr_m4a2_76w_sherman_premium": {
-    "_extends": "us_m4a2_76w_sherman",
+    "_use": "us_m4a2_76w_sherman_common",
     "animchar__objTexReplace:object": {
       "us_camo_olive*": "ussr_camo_green*"
     }

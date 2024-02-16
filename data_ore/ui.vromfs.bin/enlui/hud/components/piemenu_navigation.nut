@@ -1,15 +1,13 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
-let {
-  radius, pieMenuLayer, showPieMenu
-} = require("%ui/hud/state/pie_menu_state.nut")
+let { pieMenuLayer, showPieMenu } = require("%ui/hud/state/pie_menu_state.nut")
 let { canUseWallposter } = require("%ui/hud/state/wallposters_use_state.nut")
 let { mkHotkey } = require("%ui/components/uiHotkeysHint.nut")
 let { CmdWallposterPreview } = require("dasevents")
 let { wallPostersMaxCount, wallPostersCurCount, wallPosters } = require("%ui/hud/state/wallposter.nut")
 let { localPlayerEid } = require("%ui/hud/state/local_player.nut")
-let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { TextActive } = require("%ui/style/colors.nut")
 let { isGamepad } = require("%ui/control/active_controls.nut")
 
@@ -50,7 +48,7 @@ let wallposterNavigationHint = [
     watch = wallposterNavText
     text = wallposterNavText.value
     color = TextActive
-  }.__update(body_txt)
+  }.__update(fontBody)
 ]
 
 
@@ -63,7 +61,7 @@ let quickchatNavigationHint = [
     watch = pieMenuLayer
     text = pieMenuLayer.value == 2 ? loc("piemenu/squad_commands") : loc("piemenu/quick_chat")
     color = TextActive
-  }.__update(body_txt)
+  }.__update(fontBody)
 ]
 
 
@@ -81,24 +79,13 @@ let mkPieMenuNavigationTip = @(action, children, isInactive = Watched(false)) wa
 })
 
 
-let pieMenuNavigation = {
-  rendObj = ROBJ_WORLD_BLUR
-  watch = radius
-  size = [radius.value * 2, SIZE_TO_CONTENT]
-  pos = [0, radius.value + hdpx(15)]
-  flow = FLOW_HORIZONTAL
-  gap = hdpx(30)
+let pieMenuNavigation = @(){
+  pos = [0, hdpx(100)]
+  flow = FLOW_VERTICAL
+  halign = ALIGN_CENTER
   children = [
-    {
-      size = [pw(50), SIZE_TO_CONTENT]
-      halign = ALIGN_RIGHT
-      children = mkPieMenuNavigationTip(wallposterNavClick, wallposterNavigationHint, noWallposterAvailable)
-    }
-    {
-      size = [pw(50), SIZE_TO_CONTENT]
-      halign = ALIGN_LEFT
-      children = mkPieMenuNavigationTip(quickchatNavClick, quickchatNavigationHint)
-    }
+    mkPieMenuNavigationTip(wallposterNavClick, wallposterNavigationHint, noWallposterAvailable)
+    mkPieMenuNavigationTip(quickchatNavClick, quickchatNavigationHint)
   ]
 }
 

@@ -1,7 +1,7 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
-let { HIT_RES_NORMAL, HIT_RES_DOWNED, HIT_RES_KILLED } = require("dm")
+let { HitResult } = require("%enlSqGlob/dasenums.nut")
 let { localizeSoldierName } = require("%enlSqGlob/ui/itemsInfo.nut")
 let { AI_ACTION_ATTACK } = require("ai")
 let { GRENADES_ORDER } = require("%ui/hud/huds/player_info/grenadeIcon.nut")
@@ -20,7 +20,7 @@ let function getHitTrigger(id) {
     return trigger
 
   trigger = {
-    [HIT_RES_NORMAL] = {}, [HIT_RES_DOWNED] = {}, [HIT_RES_KILLED] = {},
+    [HitResult.HIT_RES_NORMAL] = {}, [HitResult.HIT_RES_DOWNED] = {}, [HitResult.HIT_RES_KILLED] = {},
     [HEAL_RES_COMMON] = {}, [HEAL_RES_REVIVE] = {}, [ATTACK_RES] = {}
   }
   hitTriggers[id] <- trigger
@@ -62,11 +62,11 @@ let function startMemberAnimations(curState, oldState) {
   if (oldState==null)
     return
   if (oldState.isAlive && !isAlive)
-    anim_start(curState.hitTriggers[HIT_RES_KILLED])
+    anim_start(curState.hitTriggers[HitResult.HIT_RES_KILLED])
   else if (!oldState.isDowned && isDowned)
-    anim_start(curState.hitTriggers[HIT_RES_DOWNED])
+    anim_start(curState.hitTriggers[HitResult.HIT_RES_DOWNED])
   else if (oldState.hp > hp)
-    anim_start(curState.hitTriggers[HIT_RES_NORMAL])
+    anim_start(curState.hitTriggers[HitResult.HIT_RES_NORMAL])
   else if (oldState.hp < hp)
     anim_start(curState.hitTriggers[HEAL_RES_COMMON])
   else if (oldState.isDowned && !isDowned)
@@ -85,7 +85,7 @@ let function getState(data) {
     currentAiAction = data.currentAiAction
     eid = data.eid
     guid = data.guid
-    name = data.callname != "" ? data.callname : $"{loc(name)} {loc(surname)}"
+    name = data.callname != "" ? data.callname : $"{name} {surname}"
     isAlive = data.isAlive
     hp = data.hp.tofloat()
     maxHp = data.maxHp.tofloat()
@@ -96,6 +96,7 @@ let function getState(data) {
     hasFlask = data.hasFlask
     targetReviveCount = data.targetReviveCount
     sKind = data.sKind
+    displayedKind = data.displayedKind
     sClassRare = data.sClassRare
     canBeLeader = data.canBeLeader
     isPersonalOrder = data.isPersonalOrder

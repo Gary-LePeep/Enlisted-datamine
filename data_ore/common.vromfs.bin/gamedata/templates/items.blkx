@@ -24,13 +24,10 @@
   },
   "base_item": [
     {
-      "_extends": "item_with_owner"
+      "_use": "item_with_owner"
     },
     {
-      "_extends": "replicating"
-    },
-    {
-      "item__id": 0
+      "_use": "replicating"
     },
     {
       "item__iconYaw": 45.0
@@ -72,13 +69,16 @@
       "hide_counter": 0
     },
     {
-      "_replicated": "item__id"
-    },
-    {
       "_replicated": "item__isOnGround"
     },
     {
       "shreddableInDarkZone": true
+    },
+    {
+      "item__id:i": {
+        "value": 0,
+        "_hide": true
+      }
     },
     {
       "customProps:object": []
@@ -87,6 +87,18 @@
       "net__notInInitialScope:tag": []
     }
   ],
+  "attach_vis_entity_cb": {
+    "attach_vis_entity_cb__toSlotName": "",
+    "attach_vis_entity_cb__toEid:eid": []
+  },
+  "drop_item_cb": {
+    "drop_item_cb__lootCleanupTime": 0.0,
+    "drop_item_cb__modTemplates:list<t>": []
+  },
+  "item_mod_creation_cb": {
+    "item_mod_creation_cb__lootCleanupTime": 0.0,
+    "item_mod_creation_cb__isLast": false
+  },
   "visibility_traceable_item": {
     "item__visible": false,
     "_tracked": "item__visible",
@@ -103,10 +115,10 @@
   },
   "nonreplicated_tm_item_in_world": [
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "visibility_traceable_item_cache"
+      "_use": "visibility_traceable_item_cache"
     },
     {
       "transform": [
@@ -158,10 +170,10 @@
   ],
   "item_in_world": [
     {
-      "_extends": "nonreplicated_tm_item_in_world"
+      "_use": "nonreplicated_tm_item_in_world"
     },
     {
-      "_extends": "disable_update"
+      "_use": "disable_update"
     },
     {
       "transform": [
@@ -199,16 +211,16 @@
   },
   "equipable_item": [
     {
-      "_extends": "ecs_no_debug"
+      "_use": "ecs_no_debug"
     },
     {
-      "_extends": "base_item"
+      "_use": "base_item"
     },
     {
-      "_extends": "default_item_ui_info"
+      "_use": "default_item_ui_info"
     },
     {
-      "_extends": "replicating"
+      "_use": "replicating"
     },
     {
       "slot_attach__slotId": -1
@@ -243,20 +255,20 @@
     "item__healTargetAnimEnumValue": -1
   },
   "hidden_equipped_item": {
-    "_extends": "slot_attachable",
+    "_use": "slot_attachable",
     "slot_attach__visible": false,
     "_tracked": "slot_attach__visible",
     "animchar_render__enabled": false
   },
   "item_with_animchar_updatable": {
-    "_extends": "base_item"
+    "_use": "base_item"
   },
   "item": [
     {
-      "_extends": "ecs_no_debug"
+      "_use": "ecs_no_debug"
     },
     {
-      "_extends": "item_with_animchar_updatable"
+      "_use": "item_with_animchar_updatable"
     },
     {
       "animchar__actOnDemand:tag": []
@@ -273,36 +285,36 @@
     "map_marker__image": "!ui/skin#map_mole.svg"
   },
   "scope_highlight": {
-    "_extends": "base_map_highlight",
+    "_use": "base_map_highlight",
     "map_highlight__type": "scope",
     "map_highlight__template": "scope_map_icon"
   },
   "item_scope": [
     {
-      "_extends": "item"
+      "_use": "item"
     },
     {
-      "_extends": "scope_highlight"
+      "_use": "scope_highlight"
     },
     {
-      "item__iconYaw": 90.0
+      "item__iconYaw": -90.0
     },
     {
       "item__lootType": "scope"
     }
   ],
   "item_perk": {
-    "_extends": "equipable_item",
+    "_use": "equipable_item",
     "item__lootType": "mod"
   },
   "item_bag": {
-    "_extends": "equipable_item",
+    "_use": "equipable_item",
     "item__lootType": "bag",
     "item__pickupScore": -1.0,
     "_replicated": "item__pickupScore"
   },
   "item_armor": {
-    "_extends": "equipable_item",
+    "_use": "equipable_item",
     "item__lootType": "armor",
     "item__lootSoundType": "armor",
     "item__iconPitch": 25.0,
@@ -313,10 +325,10 @@
   },
   "helmet_item": [
     {
-      "_extends": "item"
+      "_use": "item"
     },
     {
-      "_extends": "equipable_item"
+      "_use": "equipable_item"
     },
     {
       "animchar_hider__camThreshold": 0.3
@@ -365,10 +377,10 @@
   ],
   "loot_box_item": [
     {
-      "_extends": "item_with_animchar_updatable"
+      "_use": "item_with_animchar_updatable"
     },
     {
-      "_extends": "replicating"
+      "_use": "replicating"
     },
     {
       "item__proto": "content/common/gamedata/items/loot_box.blk"
@@ -413,13 +425,13 @@
   },
   "base_local_invis_item": [
     {
-      "_extends": "item_with_owner"
+      "_use": "item_with_owner"
     },
     {
-      "_extends": "slot_attachable_no_slotname"
+      "_use": "slot_attachable_no_slotname"
     },
     {
-      "_extends": "burnable_vis_item"
+      "_use": "burnable_vis_item"
     },
     {
       "slot_attach__visible": true
@@ -444,38 +456,41 @@
   ],
   "base_local_vis_item": [
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "base_local_invis_item"
+      "_use": "base_local_invis_item"
     }
   ],
   "base_vis_item": [
     {
-      "_extends": "base_local_vis_item"
+      "_use": "base_local_vis_item"
     },
     {
-      "_extends": "replicating"
+      "_use": "replicating"
     },
     {
       "net__notInInitialScope:tag": []
     }
   ],
   "base_vis_item_with_fast_phys": {
-    "_extends": "base_vis_item",
+    "_use": "base_vis_item",
     "animchar_fast_phys": {
       "_tags": "gameClient"
     }
   },
   "base_vis_item_with_animchar_effect": {
-    "_extends": "base_vis_item",
+    "_use": "base_vis_item",
     "animchar_effect": {
       "_tags": "render"
     }
   },
   "base_collres_vis_item": {
-    "_extends": "base_vis_item",
+    "_use": "base_vis_item",
     "collres": []
+  },
+  "skeleton_attach_inited": {
+    "skeletonAttachInited:tag": []
   },
   "base_skeleton_attach": {
     "skeleton_attach__skeletonRemap:list<u16>": [],
@@ -500,13 +515,13 @@
   ],
   "attachable_wear_without_collres_animchar": [
     {
-      "_extends": "ecs_no_debug"
+      "_use": "ecs_no_debug"
     },
     {
-      "_extends": "skeleton_attached"
+      "_use": "skeleton_attached"
     },
     {
-      "_extends": "disable_update"
+      "_use": "disable_update"
     },
     {
       "item__recreateInEquipment": ""
@@ -523,14 +538,14 @@
   ],
   "attachable_wear": [
     {
-      "_extends": "attachable_wear_without_collres_animchar"
+      "_use": "attachable_wear_without_collres_animchar"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     }
   ],
   "hair_item": {
-    "_extends": "item",
+    "_use": "item",
     "slot_attach__visible": true,
     "animchar_render__enabled": true
   },
@@ -541,7 +556,7 @@
   },
   "vr_one_hand": {
     "hand_num": 0,
-    "_extends": "animchar",
+    "_use": "animchar",
     "animchar__res": "vr_l_hand_char",
     "animchar_render__enabled": true,
     "transform": [

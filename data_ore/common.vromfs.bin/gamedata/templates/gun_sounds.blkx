@@ -1,41 +1,56 @@
 {
+  "gun_shot_dry_sound": {
+    "_group": {
+      "_tags": "sound",
+      "gun_shot_dry_sound__nextTime": 0.0,
+      "gun_shot_dry_sound__path": "player/weapon/_common/shot_dry_pistol",
+      "gun_shot_dry_sound__cooldown": 0.1
+    }
+  },
   "pistol_gun_shot_dry_sound": {
+    "_use": "gun_shot_dry_sound",
     "_group": {
       "_tags": "sound",
       "gun_shot_dry_sound__path": "player/weapon/_common/shot_dry_pistol"
     }
   },
   "mgun_gun_shot_dry_sound": {
+    "_use": "gun_shot_dry_sound",
     "_group": {
       "_tags": "sound",
       "gun_shot_dry_sound__path": "player/weapon/_common/shot_dry_pistol"
     }
   },
   "launcher_gun_shot_dry_sound": {
+    "_use": "gun_shot_dry_sound",
     "_group": {
       "_tags": "sound",
       "gun_shot_dry_sound__path": "player/weapon/_common/shot_dry_pistol"
     }
   },
   "rifle_gun_shot_dry_sound": {
+    "_use": "gun_shot_dry_sound",
     "_group": {
       "_tags": "sound",
       "gun_shot_dry_sound__path": "player/weapon/_common/shot_dry_rifle"
     }
   },
   "shotgun_gun_shot_dry_sound": {
+    "_use": "gun_shot_dry_sound",
     "_group": {
       "_tags": "sound",
       "gun_shot_dry_sound__path": "player/weapon/_common/shot_dry_rifle"
     }
   },
   "flamethrower_gun_shot_dry_sound": {
+    "_use": "gun_shot_dry_sound",
     "_group": {
       "_tags": "sound",
       "gun_shot_dry_sound__path": "player/weapon/_common/shot_dry_flamethrower"
     }
   },
   "turret_gun_shot_dry_sound": {
+    "_use": "gun_shot_dry_sound",
     "_group": {
       "_tags": "sound",
       "gun_shot_dry_sound__path": "player/weapon/_common/shot_dry_small_cannon"
@@ -65,14 +80,14 @@
     }
   },
   "machinegun_gun_overheat_sound": {
-    "_extends": "base_gun_overheat_sound",
+    "_use": "base_gun_overheat_sound",
     "_group": {
       "_tags": "sound",
       "gun_overheat_sound__path": "player/vehicle/tank/common/mgun_overheat"
     }
   },
   "cannon_gun_overheat_sound": {
-    "_extends": "base_gun_overheat_sound",
+    "_use": "base_gun_overheat_sound",
     "_group": {
       "_tags": "sound",
       "gun_overheat_sound__path": "player/vehicle/tank/common/cannon_overheat"
@@ -81,48 +96,61 @@
   "machinegun_gun_reload_sounds": {
     "_group": {
       "_tags": "sound",
-      "gun_reload_sound__duration": 0.3,
-      "gun_reload_sound__path": "player/vehicle/tank/common/reload_mgun_start",
+      "gun_reload_sound__progressPath": "player/vehicle/tank/common/reload_mgun_start",
       "gun_reload_sound__readyPath": "player/vehicle/tank/common/reload_mgun_end",
+      "gun_reload_sound__readyTimeOffset": 0.3,
       "gun_reload_sound__event:SoundEvent": []
     }
   },
   "cannon_gun_reload_sounds": {
     "_group": {
       "_tags": "sound",
-      "gun_reload_sound__duration": 0.5,
-      "gun_reload_sound__path": "player/vehicle/tank/common/reload_cannon_start",
+      "gun_reload_sound__progressPath": "player/vehicle/tank/common/reload_cannon_start",
       "gun_reload_sound__readyPath": "player/vehicle/tank/common/reload_cannon_end",
+      "gun_reload_sound__readyTimeOffset": 0.5,
       "gun_reload_sound__event:SoundEvent": []
     }
   },
-  "tankgun_cannon_reload_sounds": {
-    "_extends": "cannon_gun_reload_sounds"
+  "gun_ready_to_shoot_sound": {
+    "_group": {
+      "_tags": "sound",
+      "gun_ready_to_shoot_sound__duration": 0.3,
+      "gun_ready_to_shoot_sound__minTimeBetweenShots": 2.0,
+      "gun_ready_to_shoot_sound__path": "player/vehicle/tank/common/reload_cannon_end"
+    }
   },
+  "tankgun_cannon_reload_sounds": [
+    {
+      "_use": "cannon_gun_reload_sounds"
+    },
+    {
+      "_use": "gun_ready_to_shoot_sound"
+    }
+  ],
   "tankgun_cannon_overheat_sound": {
-    "_extends": "cannon_gun_overheat_sound"
+    "_use": "cannon_gun_overheat_sound"
   },
   "tankgun_machinegun_reload_sounds": {
-    "_extends": "machinegun_gun_reload_sounds"
+    "_use": "machinegun_gun_reload_sounds"
   },
   "tankgun_machinegun_overheat_sound": {
-    "_extends": "machinegun_gun_overheat_sound"
+    "_use": "machinegun_gun_overheat_sound"
   },
   "gun_sound": [
     {
-      "_extends": "sound_bank_preset_state"
+      "_use": "sound_banks_state"
     },
     {
-      "_extends": "sound_irqs"
+      "_use": "sound_irqs"
     },
     {
-      "_extends": "sound_tags"
+      "_use": "sound_tags"
     },
     {
-      "_extends": "pistol_gun_shot_dry_sound"
+      "_use": "pistol_gun_shot_dry_sound"
     },
     {
-      "_extends": "pistol_gun_aim_sound"
+      "_use": "pistol_gun_aim_sound"
     },
     {
       "_group": {
@@ -149,17 +177,17 @@
     }
   ],
   "gun_sound_with_animchar": {
-    "_extends": "gun_sound",
+    "_use": "gun_sound",
     "animchar_sound:AnimcharSound": {
       "_tags": "sound"
     }
   },
   "turret_gun_sound": [
     {
-      "_extends": "gun_sound"
+      "_use": "gun_sound"
     },
     {
-      "_extends": "turret_gun_shot_dry_sound"
+      "_use": "turret_gun_shot_dry_sound"
     }
   ],
   "base_gun_aim_sound": {
@@ -170,7 +198,7 @@
     }
   },
   "antivehicle_gun_aim_sound": {
-    "_extends": "base_gun_aim_sound",
+    "_use": "base_gun_aim_sound",
     "_group": {
       "_tags": "sound",
       "gun_aim_sound__onPath:shared:object": {
@@ -182,7 +210,7 @@
     }
   },
   "mgun_gun_aim_sound": {
-    "_extends": "base_gun_aim_sound",
+    "_use": "base_gun_aim_sound",
     "_group": {
       "_tags": "sound",
       "gun_aim_sound__onPath:shared:object": {
@@ -194,7 +222,7 @@
     }
   },
   "pistol_gun_aim_sound": {
-    "_extends": "base_gun_aim_sound",
+    "_use": "base_gun_aim_sound",
     "_group": {
       "_tags": "sound",
       "gun_aim_sound__onPath:shared:object": {
@@ -205,8 +233,8 @@
       }
     }
   },
-  "riffle_gun_aim_sound": {
-    "_extends": "base_gun_aim_sound",
+  "rifle_gun_aim_sound": {
+    "_use": "base_gun_aim_sound",
     "_group": {
       "_tags": "sound",
       "gun_aim_sound__onPath:shared:object": {

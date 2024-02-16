@@ -1,20 +1,22 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let baseScrollbar = require("%ui/components/base_scrollbar.nut")
-let {Interactive, Active, HoverItemBg} = require("%ui/style/colors.nut")
+let { Interactive, Active, HoverItemBg, FullTransparent, ScrollBgColor
+} = require("%ui/style/colors.nut")
+let { mkColoredGradientY } = require("%enlSqGlob/ui/gradients.nut")
 
 let styling = freeze({
-  Knob = class {
+  Knob = {
     rendObj = ROBJ_SOLID
-    colorCalc = @(sf) (sf & S_ACTIVE) ? Active
-                    : ((sf & S_HOVER) ? HoverItemBg
-                                      : Interactive)
+    colorCalc = @(sf) sf & S_ACTIVE ? Active
+      : sf & S_HOVER ? HoverItemBg
+      : Interactive
     sound = { active = "ui/enlist/combobox_action" }
   }
 
   Bar = function(has_scroll) {
     if (has_scroll) {
-      return class {
+      return {
         rendObj = ROBJ_SOLID
         color = Color(40, 40, 40, 160)
         _width = fsh(1)
@@ -23,7 +25,7 @@ let styling = freeze({
         skipDirPadNav = true
       }
     } else {
-      return class {
+      return {
         rendObj = null
         _width = sh(0)
         _height = sh(0)
@@ -32,33 +34,33 @@ let styling = freeze({
     }
   }
 
-  ContentRoot = class {
+  ContentRoot = {
     size = flex()
     skipDirPadNav = true
   }
 })
 
 let thinStyle = freeze({
-  Knob = class {
+  Knob = {
     rendObj = ROBJ_SOLID
     colorCalc = @(_sf) Color(0, 0, 0, 0)
     hoverChild = @(sf){
       size = [hdpx(2), flex()]
       rendObj = ROBJ_SOLID
       hplace = ALIGN_RIGHT
-      color = (sf & S_ACTIVE)  ? Color(255, 255, 255)
-              : (sf & S_HOVER) ? Color(110, 120, 140, 80)
+      color = sf & S_ACTIVE  ? Color(255, 255, 255)
+              : sf & S_HOVER ? Color(110, 120, 140, 80)
               : Color(110, 120, 140, 160)
     }
   }
   Bar = function(has_scroll) {
     if (!has_scroll)
-      return class {
+      return {
         _width = 0
         _height = 0
         skipDirPadNav = true
       }
-    return class {
+    return {
       rendObj = ROBJ_SOLID
       color = Color(0, 0, 0, 60)
       _width = hdpx(4)
@@ -67,7 +69,7 @@ let thinStyle = freeze({
     }
   }
 
-  ContentRoot = class {
+  ContentRoot = {
     size = flex()
     skipDirPadNav = true
   }
@@ -91,6 +93,62 @@ let function makeVertScroll(content, options={}) {
   return baseScrollbar.makeVertScroll(content, options)
 }
 
+let topGradient = mkColoredGradientY({ colorTop = ScrollBgColor, colorBottom = FullTransparent})
+let bottomGradient = mkColoredGradientY({ colorTop = FullTransparent, colorBottom = ScrollBgColor })
+
+let function makeGradientVertScroll(content, options = {}) {
+  let hasBottomScroll = Watched(false)
+  let hasTopScroll = Watched(true)
+  let scrollHandler = ScrollHandler()
+
+  let function updateScroll(elem) {
+    hasTopScroll(elem.getScrollOffsY() > 0)
+    let overflow = elem.getContentHeight() - elem.getHeight()
+    hasBottomScroll(overflow > elem.getScrollOffsY())
+  }
+
+  scrollHandler.subscribe(function(_) {
+    let { elem = null } = scrollHandler
+    if (elem == null)
+      return
+    updateScroll(elem)
+  })
+
+  let { gradientSize, size = [SIZE_TO_CONTENT, flex()] } = options
+  let topScroll = freeze({
+    rendObj = ROBJ_IMAGE
+    size = [flex(), gradientSize]
+    image = topGradient
+  })
+
+  let bottomScroll = freeze({
+    rendObj = ROBJ_IMAGE
+    size = [flex(), gradientSize]
+    image = bottomGradient
+  })
+
+  let opt = options.__merge({ scrollHandler })
+
+  return @() {
+    size
+    children = [
+      makeVertScroll(content, opt)
+      @() {
+        watch = hasTopScroll
+        size = [flex(), gradientSize]
+        children = hasTopScroll.value ? topScroll : null
+        vplace = ALIGN_TOP
+      }
+      @() {
+        watch = hasBottomScroll
+        size = [flex(), gradientSize]
+        children = hasBottomScroll.value ? bottomScroll : null
+        vplace = ALIGN_BOTTOM
+      }
+    ]
+  }
+}
+
 
 return {
   scrollbar
@@ -98,4 +156,5 @@ return {
   makeVertScroll
   styling
   thinStyle
+  makeGradientVertScroll
 }

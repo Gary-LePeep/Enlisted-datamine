@@ -38,7 +38,7 @@
     }
   },
   "sample_trajectory": {
-    "_extends": "arc_trajectory"
+    "_use": "arc_trajectory"
   },
   "hud_human_marker": {
     "_group": {
@@ -56,7 +56,7 @@
   },
   "map_user_point": [
     {
-      "_extends": "replicating"
+      "_use": "replicating"
     },
     {
       "_replicated": "transform"
@@ -121,7 +121,7 @@
     }
   ],
   "map_user_point_main": {
-    "_extends": "map_user_point",
+    "_use": "map_user_point",
     "pointGroup": 0,
     "_group": {
       "hud_marker__type": "main_user_point",
@@ -129,11 +129,11 @@
     }
   },
   "map_user_point_way_point": {
-    "_extends": "map_user_point_main",
+    "_use": "map_user_point_main",
     "timer__delta": 100.0
   },
   "map_user_point_enemy": {
-    "_extends": "map_user_point",
+    "_use": "map_user_point",
     "pointGroup": 1,
     "countPoint": 3,
     "timer__delta": 20.0,
@@ -161,7 +161,7 @@
     "clustered_light_tag:tag": []
   },
   "minimap": {
-    "_extends": "replicating",
+    "_use": "replicating",
     "mapTex": "",
     "left_top": [-512.0,512.0],
     "right_bottom": [512.0,-512.0],

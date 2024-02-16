@@ -38,6 +38,9 @@ def create_vehicle_seats(evt : Event;
     using() <| $(var init : ComponentsInitializer)
       set(init, "seat__id", seatNo)
       set(init, "seat__vehicleEid", eid)
+
+      set(init, "seats_order__canPlaceOnlyOwner", seat?.canPlaceOnlyOwner ?? false)
+
       if has(*seat, "canPlaceManually")
         set(init, "seats_order__canPlaceManually", get_bool(seat, "canPlaceManually") ?? false)
 
@@ -57,3 +60,10 @@ def vehicle_seat_is_hold_gun_mode_allowed_on_appear(evt : Event;
                               var seat__isHoldGunModeAllowed : bool&)
       let seat = vehicle_seats__seats?[seat__id] ?as Object
       seat__isHoldGunModeAllowed = seat?.isHoldGunModeAllowed ?? true
+
+
+[es(tag=server, on_disappear, REQUIRE=destroyCrewOnDisappear, before=vehicle_seats_kick_from_destroyed)]
+def vehicle_seats_destroy_crew_on_vehicle_disappear(evt : Event; vehicle_seats__seatEids : EidList)
+  for seatEid in vehicle_seats__seatEids
+    query(seatEid) <| $ [es] (seat__ownerEid : EntityId)
+      destroyEntity(seat__ownerEid)

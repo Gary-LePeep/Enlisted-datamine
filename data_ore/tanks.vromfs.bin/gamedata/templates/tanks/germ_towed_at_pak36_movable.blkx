@@ -1,19 +1,19 @@
 {
   "germ_towed_at_pak36_movable": {
-    "_extends": "germ_towed_at_pak36_movable_common"
+    "_use": "germ_towed_at_pak36_movable_common"
   },
   "germ_towed_at_pak36_movable_common": [
     {
-      "_extends": "base_towed_at_pak36"
+      "_use": "base_towed_at_pak36"
     },
     {
-      "_extends": "tank_vehicle_suspension_sound"
+      "_use": "tank_vehicle_suspension_sound"
     },
     {
-      "_extends": "movable_cannon_vehicle_tracks_sound"
+      "_use": "movable_cannon_vehicle_tracks_sound"
     },
     {
-      "_extends": "vehicle_seats_effectors"
+      "_use": "vehicle_seats_effectors"
     },
     {
       "vehicle_seats_camera_nodes__defaultNode": "bone_camera_gunner"
@@ -39,34 +39,6 @@
           "part": "loader"
         }
       ]
-    },
-    {
-      "dm_phys_parts__wheels:array": [
-        {
-          "wheel": "wheel_l_01"
-        },
-        {
-          "wheel": "wheel_l_01"
-        },
-        {
-          "wheel": "wheel_r_01"
-        },
-        {
-          "wheel": "wheel_r_01"
-        }
-      ]
-    },
-    {
-      "dm_phys_parts__engine:array": []
-    },
-    {
-      "dm_phys_parts__transmission:array": []
-    },
-    {
-      "dm_phys_parts__tracks:array": []
-    },
-    {
-      "dm_phys_parts__ammo:array": []
     },
     {
       "_group": {
@@ -231,16 +203,13 @@
     }
   ],
   "enlist_tankgun_towed_at_pak36_movable": {
-    "_extends": "towed_at_pak36_turret_01_37mm_kwk36",
+    "_use": "towed_at_pak36_turret_01_37mm_kwk36",
     "turret__limit": [-20.0,20.0,-2.0,20.0]
   },
   "germ_towed_at_pak36_gunner_cockpit": {
     "vehicle_sight__blk": "content/tanks/gamedata/sight/germ_tzf4.blk",
-    "_extends": "base_gunner_cockpit",
+    "_use": "base_gunner_cockpit",
     "animchar__res": "t_26_1940_gunner_char",
-    "cockpit__zoomTimeMul": 1.3,
-    "cockpit__cameraTimeMul": 1.5,
-    "cockpit__minZoom": -0.0,
     "cockpit__offset": [0.0,0.0,0.0],
     "cockpit__cockpitOffsetBySlit:list<p3>": {
       "item": [-1.04062,0.00889541,0.563183]
@@ -256,10 +225,20 @@
       "slit": "cam_front_right"
     },
     "cockpit__slitForwardOffset:list<r>": {
-      "slit": 0.19
+      "slit": 0.21
     },
     "cockpit__slitIsGun:list<b>": {
       "slit": true
+    },
+    "cockpit__slitZoom:array": {
+      "slit:list<r>": [
+        {
+          "zoom": 1.9
+        },
+        {
+          "zoom": 3.5
+        }
+      ]
     }
   }
 }

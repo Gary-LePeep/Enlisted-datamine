@@ -11,11 +11,11 @@ require DagorRandom
 require game.events_game
 require enlisted.events_enlisted
 require ecs.safe
-require EnlistedHuman
+require DngHuman
 require Grid
 require DagorMath
 require game.es.awards_common
-require EnlistedNet
+require DngNet
 
 [es(tag=server, on_appear, REQUIRE=possessed,
     on_event=EventApplyDevMode, after=(apply_dev_mode, apply_dev_mode_client_only))]
@@ -269,7 +269,7 @@ def gun_game_mode_score(evt : EventAnyEntityDied;
         if gun_game__announceLevelReach |> has_value(gun_game__leaderLevel)
           broadcast_level_reach(gun_game__leaderPlayerEid, gun_game__leaderLevel)
 
-      play_net_sound_from_any_source(offenderEid, "gunGameNextLevel")
+      play_net_sound_from_any_source_to_target(offenderEid, "gunGameNextLevel")
 
       find_query() <| $ [es] (team__id : int;
                               var team__gunGameLevel : int&)

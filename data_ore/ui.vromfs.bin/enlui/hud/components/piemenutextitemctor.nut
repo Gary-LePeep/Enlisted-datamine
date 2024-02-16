@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { fontawesome } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontawesome } = require("%enlSqGlob/ui/fontsStyle.nut")
 let fa = require("%ui/components/fontawesome.map.nut")
 
 let curTextColor = Color(250,250,200,200)
@@ -19,17 +19,17 @@ let mkDisableIcon = @(isBlocked) {
   fontSize = hdpx(20)
 }
 
-local function pieMenuTextItemCtor(text, available = Watched(true), isBlocked = Watched(false)) {
+let pieMenuTextItemCtor = @(text, available = Watched(true), isBlocked = Watched(false)) function(curIdx, idx) {
   if (!(text instanceof Watched))
     text = Watched(text)
-  return @(curIdx, idx)
-    watchElemState(@(sf) {
-      watch = [text, available, isBlocked]
+  let isActive = Computed(@() curIdx.value == idx)
+  return watchElemState(@(sf) {
+      watch = [text, available, isBlocked, isActive]
       rendObj = ROBJ_TEXTAREA
       behavior = Behaviors.TextArea
       text = text.value
       color = !available.value ? disabledTextColor
-        : (sf & S_HOVER) || curIdx.value == idx ? curTextColor
+        : (sf & S_HOVER) || isActive.value ? curTextColor
         : defTextColor
       hplace = ALIGN_CENTER
       vplace = ALIGN_CENTER

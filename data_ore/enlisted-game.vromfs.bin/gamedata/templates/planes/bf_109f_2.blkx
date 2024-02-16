@@ -1,10 +1,10 @@
 {
   "bf_109f_2": [
     {
-      "_extends": "bf_109f_2_base"
+      "_use": "bf_109f_2_base"
     },
     {
-      "_extends": "squad_controlled_plane"
+      "_use": "squad_controlled_plane"
     },
     {
       "item__name": "items/bf_109f_2"
@@ -54,7 +54,7 @@
               "turret": "turret_07"
             }
           ],
-          "effectors:object": {
+          "cockpitEffectors:object": {
             "r.hand": "stick_rhand_1",
             "l.hand": "throttle_lhand_1",
             "r.foot": "pedal_rfoot_1",
@@ -375,13 +375,13 @@
   },
   "planegun_bf_109f_2_sc_50_launcher_01": [
     {
-      "_extends": "sc_50_launcher"
+      "_use": "sc_50_launcher"
     },
     {
-      "_extends": "base_bf_109f_2_sc_50_launcher"
+      "_use": "base_bf_109f_2_sc_50_launcher"
     },
     {
-      "_extends": "gunsound_sc_50_launcher_aircraft"
+      "_use": "gunsound_sc_50_launcher_aircraft"
     },
     {
       "gun__shootNodeName": "bomb2"
@@ -395,13 +395,13 @@
   ],
   "planegun_bf_109f_2_sc_50_launcher_02": [
     {
-      "_extends": "sc_50_launcher"
+      "_use": "sc_50_launcher"
     },
     {
-      "_extends": "base_bf_109f_2_sc_50_launcher"
+      "_use": "base_bf_109f_2_sc_50_launcher"
     },
     {
-      "_extends": "gunsound_sc_50_launcher_aircraft"
+      "_use": "gunsound_sc_50_launcher_aircraft"
     },
     {
       "gun__shootNodeName": "bomb3"
@@ -415,13 +415,13 @@
   ],
   "planegun_bf_109f_2_sc_50_launcher_03": [
     {
-      "_extends": "sc_50_launcher"
+      "_use": "sc_50_launcher"
     },
     {
-      "_extends": "base_bf_109f_2_sc_50_launcher"
+      "_use": "base_bf_109f_2_sc_50_launcher"
     },
     {
-      "_extends": "gunsound_sc_50_launcher_aircraft"
+      "_use": "gunsound_sc_50_launcher_aircraft"
     },
     {
       "gun__shootNodeName": "bomb4"
@@ -435,13 +435,13 @@
   ],
   "planegun_bf_109f_2_sc_50_launcher_04": [
     {
-      "_extends": "sc_50_launcher"
+      "_use": "sc_50_launcher"
     },
     {
-      "_extends": "base_bf_109f_2_sc_50_launcher"
+      "_use": "base_bf_109f_2_sc_50_launcher"
     },
     {
-      "_extends": "gunsound_sc_50_launcher_aircraft"
+      "_use": "gunsound_sc_50_launcher_aircraft"
     },
     {
       "gun__shootNodeName": "bomb5"
@@ -455,16 +455,16 @@
   ],
   "planegun_bf_109f_2_7_92mm_mg17_01": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_plane_machinegun"
+      "_use": "base_plane_machinegun"
     },
     {
-      "_extends": "base_bf_109f_2_7_92mm_mg17"
+      "_use": "base_bf_109f_2_7_92mm_mg17"
     },
     {
-      "_extends": "gunsound_7_92mm_mg17_aircraft"
+      "_use": "gunsound_7_92mm_mg17_aircraft"
     },
     {
       "gun__shootNodeName": "flare1"
@@ -475,16 +475,16 @@
   ],
   "planegun_bf_109f_2_7_92mm_mg17_02": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_plane_machinegun"
+      "_use": "base_plane_machinegun"
     },
     {
-      "_extends": "base_bf_109f_2_7_92mm_mg17"
+      "_use": "base_bf_109f_2_7_92mm_mg17"
     },
     {
-      "_extends": "gunsound_7_92mm_mg17_aircraft"
+      "_use": "gunsound_7_92mm_mg17_aircraft"
     },
     {
       "gun__shootNodeName": "flare2"
@@ -495,16 +495,16 @@
   ],
   "planegun_bf_109f_2_15mm_mg15115_01": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_plane_machinegun"
+      "_use": "base_plane_machinegun"
     },
     {
-      "_extends": "base_bf_109f_2_15mm_mg15115"
+      "_use": "base_bf_109f_2_15mm_mg15115"
     },
     {
-      "_extends": "gunsound_15mm_mg15115_aircraft"
+      "_use": "gunsound_15mm_mg15115_aircraft"
     },
     {
       "gun__shootNodeName": "flare3"
@@ -514,7 +514,7 @@
     }
   ],
   "bf_109f_2_driver_cockpit": {
-    "_extends": "base_plane_cockpit",
+    "_use": "base_plane_cockpit",
     "animchar__res": "bf_109f_2_cockpit_char",
     "plane_anim__blk": "content/enlisted/gamedata/units/bf_109f_2.blk",
     "plane_sight__blk": "content/enlisted/gamedata/units/bf_109f_2.blk",

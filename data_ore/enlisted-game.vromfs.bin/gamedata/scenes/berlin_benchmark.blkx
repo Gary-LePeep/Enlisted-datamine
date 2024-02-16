@@ -60,6 +60,11 @@
   },
   {
     "entity": {
+      "_template": "bloom"
+    }
+  },
+  {
+    "entity": {
       "_template": "postfx_roundctrl",
       "post_fx:object": []
     }
@@ -121,6 +126,7 @@
     "entity": {
       "_template": "briefing_domination",
       "mission_name": "berlin_wilhelm_dom",
+      "mission_outfit": "berlin",
       "loading_images:list<t>": [
         {
           "item": "ui/berlin_wilhelm_01.avif"
@@ -189,7 +195,7 @@
       "capzone__title": "B",
       "capzone__caption": "capzone/artillery_emplacement",
       "decal__height": 0.3,
-      "decal__thickness": 0.3
+      "decal__thickness": 0.15
     }
   },
   {
@@ -419,8 +425,7 @@
         [0.987599,0.0,-0.157002],
         [1498.53,1263.7,2290.51]
       ],
-      "resupply_zone__team": 1,
-      "sphere_zone__radius": 500.0
+      "resupply_zone__team": 1
     }
   },
   {
@@ -432,8 +437,7 @@
         [0.987599,0.0,-0.157002],
         [31.6071,1289.56,-2581.0]
       ],
-      "resupply_zone__team": 2,
-      "sphere_zone__radius": 500.0
+      "resupply_zone__team": 2
     }
   },
   {

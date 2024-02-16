@@ -1,24 +1,24 @@
 {
   "muzzle_ground_8mm": {
-    "_extends": "turret_gun_flash_effect_base",
+    "_use": "turret_gun_flash_effect_base",
     "_group": {
       "_tags": "render",
-      "effect__name": "fire_muzzle_6_8mm_cmps_fx",
+      "effect__name": "fire_muzzle_rapid_cmps_fx",
       "effect__distance_scale": 1.0,
-      "gun_flash_fx__scaleMultiplier": 0.3
+      "gun_flash_fx__scaleMultiplier": 1.5
     }
   },
   "muzzle_ground_15mm": {
-    "_extends": "turret_gun_flash_effect_base",
+    "_use": "turret_gun_flash_effect_base",
     "_group": {
       "_tags": "render",
-      "effect__name": "fire_muzzle_8_14mm_rapid_cmps_fx",
+      "effect__name": "fire_muzzle_high_caliber_rapid_cmps_fx",
       "effect__distance_scale": 1.0,
-      "gun_flash_fx__scaleMultiplier": 0.7
+      "gun_flash_fx__scaleMultiplier": 1.2
     }
   },
   "muzzle_ground_20mm": {
-    "_extends": "turret_gun_flash_effect_base",
+    "_use": "turret_gun_flash_effect_base",
     "_group": {
       "_tags": "render",
       "effect__name": "fire_muzzle_14_20mm_rapid_cmps_fx",
@@ -26,8 +26,17 @@
       "gun_flash_fx__scaleMultiplier": 0.85
     }
   },
+  "muzzle_ground_40mm_event": {
+    "_use": "turret_gun_flash_effect_base",
+    "_group": {
+      "_tags": "render",
+      "effect__name": "fire_muzzle_20_60mm_cmps_fx",
+      "effect__distance_scale": 1.0,
+      "gun_flash_fx__scaleMultiplier": 0.45
+    }
+  },
   "muzzle_ground_40mm_slow": {
-    "_extends": "turret_gun_flash_effect_base",
+    "_use": "turret_gun_flash_effect_base",
     "_group": {
       "_tags": "render",
       "effect__name": "fire_muzzle_20_60mm_cmps_fx",
@@ -35,7 +44,14 @@
     }
   },
   "muzzle_ground_60mm": {
-    "_extends": "turret_gun_flash_effect_base",
+    "_use": "turret_gun_flash_effect_base",
+    "wind_emitter__radius": 3.0,
+    "wind_emitter__duration": 3.0,
+    "wind_emitter__strength": 3.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 5,
+    "wind_emitter__phaseAttack": true,
+    "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
       "effect__name": "fire_muzzle_60_100mm_cmps_fx",
@@ -43,7 +59,14 @@
     }
   },
   "muzzle_ground_60mm_brake": {
-    "_extends": "turret_gun_flash_effect_base",
+    "_use": "turret_gun_flash_effect_base",
+    "wind_emitter__radius": 3.0,
+    "wind_emitter__duration": 3.0,
+    "wind_emitter__strength": 3.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 5,
+    "wind_emitter__phaseAttack": true,
+    "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
       "effect__name": "fire_muzzle_60_100mm_cmps_fx",
@@ -51,7 +74,14 @@
     }
   },
   "muzzle_ground_80mm": {
-    "_extends": "turret_gun_flash_effect_base",
+    "_use": "turret_gun_flash_effect_base",
+    "wind_emitter__radius": 3.0,
+    "wind_emitter__duration": 3.0,
+    "wind_emitter__strength": 3.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 5,
+    "wind_emitter__phaseAttack": true,
+    "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
       "effect__name": "fire_muzzle_60_100mm_cmps_fx",
@@ -60,7 +90,14 @@
     }
   },
   "muzzle_ground_80mm_brake": {
-    "_extends": "turret_gun_flash_effect_base",
+    "_use": "turret_gun_flash_effect_base",
+    "wind_emitter__radius": 4.0,
+    "wind_emitter__duration": 3.0,
+    "wind_emitter__strength": 4.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 5,
+    "wind_emitter__phaseAttack": true,
+    "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
       "effect__name": "fire_muzzle_60_100mm_cmps_fx",
@@ -69,7 +106,14 @@
     }
   },
   "muzzle_ground_100mm": {
-    "_extends": "turret_gun_flash_effect_base",
+    "_use": "turret_gun_flash_effect_base",
+    "wind_emitter__radius": 4.0,
+    "wind_emitter__duration": 3.0,
+    "wind_emitter__strength": 4.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 5,
+    "wind_emitter__phaseAttack": true,
+    "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
       "effect__name": "fire_muzzle_100_150mm_cmps_fx",
@@ -77,7 +121,14 @@
     }
   },
   "muzzle_ground_100mm_brake": {
-    "_extends": "turret_gun_flash_effect_base",
+    "_use": "turret_gun_flash_effect_base",
+    "wind_emitter__radius": 4.0,
+    "wind_emitter__duration": 3.0,
+    "wind_emitter__strength": 4.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 5,
+    "wind_emitter__phaseAttack": true,
+    "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
       "effect__name": "fire_muzzle_100_150mm_cmps_fx",
@@ -85,7 +136,14 @@
     }
   },
   "muzzle_ground_100mm_recoilless": {
-    "_extends": "turret_gun_flash_effect_base",
+    "_use": "turret_gun_flash_effect_base",
+    "wind_emitter__radius": 4.0,
+    "wind_emitter__duration": 3.5,
+    "wind_emitter__strength": 5.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 5,
+    "wind_emitter__phaseAttack": true,
+    "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
       "effect__name": "fire_muzzle_100_150mm_cmps_fx",
@@ -93,7 +151,14 @@
     }
   },
   "muzzle_ground_125mm": {
-    "_extends": "turret_gun_flash_effect_base",
+    "_use": "turret_gun_flash_effect_base",
+    "wind_emitter__radius": 4.0,
+    "wind_emitter__duration": 3.5,
+    "wind_emitter__strength": 5.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 5,
+    "wind_emitter__phaseAttack": true,
+    "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
       "effect__name": "fire_muzzle_100_150mm_cmps_fx",
@@ -102,7 +167,14 @@
     }
   },
   "muzzle_ground_125mm_brake": {
-    "_extends": "turret_gun_flash_effect_base",
+    "_use": "turret_gun_flash_effect_base",
+    "wind_emitter__radius": 4.0,
+    "wind_emitter__duration": 3.5,
+    "wind_emitter__strength": 4.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 5,
+    "wind_emitter__phaseAttack": true,
+    "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
       "effect__name": "fire_muzzle_100_150mm_cmps_fx",
@@ -111,7 +183,14 @@
     }
   },
   "muzzle_ground_150mm": {
-    "_extends": "turret_gun_flash_effect_base",
+    "_use": "turret_gun_flash_effect_base",
+    "wind_emitter__radius": 4.0,
+    "wind_emitter__duration": 3.5,
+    "wind_emitter__strength": 4.0,
+    "wind_emitter__phaseSin": true,
+    "wind_emitter__numWaves": 5,
+    "wind_emitter__phaseAttack": true,
+    "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
       "effect__name": "fire_muzzle_100_150mm_cmps_fx",
@@ -120,16 +199,16 @@
     }
   },
   "muzzle_air_8mm": {
-    "_extends": "muzzle_ground_8mm"
+    "_use": "muzzle_ground_8mm"
   },
   "muzzle_air_15mm": {
-    "_extends": "muzzle_ground_15mm"
+    "_use": "muzzle_ground_15mm"
   },
   "muzzle_air_20mm": {
-    "_extends": "muzzle_ground_20mm"
+    "_use": "muzzle_ground_20mm"
   },
   "muzzle_air_30mm": {
-    "_extends": "turret_gun_flash_effect_base",
+    "_use": "turret_gun_flash_effect_base",
     "_group": {
       "_tags": "render",
       "effect__name": "fire_muzzle_14_20mm_rapid_cmps_fx",
@@ -138,7 +217,7 @@
     }
   },
   "muzzle_air_50mm": {
-    "_extends": "turret_gun_flash_effect_base",
+    "_use": "turret_gun_flash_effect_base",
     "_group": {
       "_tags": "render",
       "effect__name": "fire_muzzle_14_20mm_rapid_cmps_fx",

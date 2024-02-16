@@ -17,8 +17,8 @@ let function getSoldierParamsByTemplate(template, isLarge) {
   let offset = sTpl?.getCompValNullable("human_icon__offset") ?? Point2(0.0, -0.47)
   let res = {
     animchar = sTpl?.getCompValNullable("animchar__res")
-    width = hdpx(sTpl?.getCompValNullable(isLarge ? "human_icon__widthLarge" : "human_icon__width") ?? 128)
-    height = hdpx(sTpl?.getCompValNullable(isLarge ? "human_icon__heightLarge" : "human_icon__height") ?? 190)
+    width = hdpxi(sTpl?.getCompValNullable(isLarge ? "human_icon__widthLarge" : "human_icon__width") ?? 128)
+    height = hdpxi(sTpl?.getCompValNullable(isLarge ? "human_icon__heightLarge" : "human_icon__height") ?? 190)
     offsetX = offset.x
     offsetY = offset.y
     scale = sTpl?.getCompValNullable("human_icon__scale") ?? 2.2
@@ -121,26 +121,13 @@ let function mkSoldierPhoto(photoName, size, inner = null, style = {}) {
     }.__update(style)
 
   return {
-    children = [
-      {
-        size
-        rendObj = ROBJ_IMAGE
-        image = Picture("ui/soldiers/soldier_bg.avif")
-      }.__update(style)
-      {
+    children = {
         size
         rendObj = ROBJ_IMAGE
         image = Picture(photoName)
         clipChildren = true
         children = inner
       }.__update(style)
-      {
-        size = flex()
-        rendObj = ROBJ_FRAME
-        color = Color(85, 85, 85, 255)
-        borderWidth = hdpx(1)
-      }.__update(style)
-    ]
   }
 }
 

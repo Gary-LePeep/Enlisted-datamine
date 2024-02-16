@@ -1,10 +1,10 @@
 {
   "sm_79_1941": [
     {
-      "_extends": "sm_79_1941_base"
+      "_use": "sm_79_1941_base"
     },
     {
-      "_extends": "squad_controlled_plane"
+      "_use": "squad_controlled_plane"
     },
     {
       "item__name": "items/sm_79_1941_italy"
@@ -646,13 +646,13 @@
   },
   "planegun_sm_79_1941_50kg_t_vert_launcher_01": [
     {
-      "_extends": "50kg_t_vert_launcher"
+      "_use": "50kg_t_vert_launcher"
     },
     {
-      "_extends": "base_sm_79_1941_50kg_t_vert_launcher"
+      "_use": "base_sm_79_1941_50kg_t_vert_launcher"
     },
     {
-      "_extends": "gunsound_50kg_t_vert_launcher_aircraft"
+      "_use": "gunsound_50kg_t_vert_launcher_aircraft"
     },
     {
       "gun__shootNodeName": "bomb50_1"
@@ -666,13 +666,13 @@
   ],
   "planegun_sm_79_1941_50kg_t_vert_launcher_02": [
     {
-      "_extends": "50kg_t_vert_launcher"
+      "_use": "50kg_t_vert_launcher"
     },
     {
-      "_extends": "base_sm_79_1941_50kg_t_vert_launcher"
+      "_use": "base_sm_79_1941_50kg_t_vert_launcher"
     },
     {
-      "_extends": "gunsound_50kg_t_vert_launcher_aircraft"
+      "_use": "gunsound_50kg_t_vert_launcher_aircraft"
     },
     {
       "gun__shootNodeName": "bomb50_2"
@@ -686,13 +686,13 @@
   ],
   "planegun_sm_79_1941_50kg_t_vert_launcher_03": [
     {
-      "_extends": "50kg_t_vert_launcher"
+      "_use": "50kg_t_vert_launcher"
     },
     {
-      "_extends": "base_sm_79_1941_50kg_t_vert_launcher"
+      "_use": "base_sm_79_1941_50kg_t_vert_launcher"
     },
     {
-      "_extends": "gunsound_50kg_t_vert_launcher_aircraft"
+      "_use": "gunsound_50kg_t_vert_launcher_aircraft"
     },
     {
       "gun__shootNodeName": "bomb50_3"
@@ -706,13 +706,13 @@
   ],
   "planegun_sm_79_1941_50kg_t_vert_launcher_04": [
     {
-      "_extends": "50kg_t_vert_launcher"
+      "_use": "50kg_t_vert_launcher"
     },
     {
-      "_extends": "base_sm_79_1941_50kg_t_vert_launcher"
+      "_use": "base_sm_79_1941_50kg_t_vert_launcher"
     },
     {
-      "_extends": "gunsound_50kg_t_vert_launcher_aircraft"
+      "_use": "gunsound_50kg_t_vert_launcher_aircraft"
     },
     {
       "gun__shootNodeName": "bomb50_4"
@@ -726,16 +726,16 @@
   ],
   "planegun_sm_79_1941_12_7mm_bredasafat127_01": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_plane_machinegun"
+      "_use": "base_plane_machinegun"
     },
     {
-      "_extends": "base_sm_79_1941_12_7mm_bredasafat127"
+      "_use": "base_sm_79_1941_12_7mm_bredasafat127"
     },
     {
-      "_extends": "gunsound_12_7mm_bredasafat127_aircraft"
+      "_use": "gunsound_12_7mm_bredasafat127_aircraft"
     },
     {
       "gun__shootNodeName": "flare5"
@@ -746,16 +746,16 @@
   ],
   "planegun_sm_79_1941_12_7mm_bredasafat127_turret_01": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_plane_machinegun"
+      "_use": "base_plane_machinegun"
     },
     {
-      "_extends": "base_sm_79_1941_12_7mm_bredasafat127_turret"
+      "_use": "base_sm_79_1941_12_7mm_bredasafat127_turret"
     },
     {
-      "_extends": "gunsound_12_7mm_bredasafat127_turret_aircraft"
+      "_use": "gunsound_12_7mm_bredasafat127_turret_aircraft"
     },
     {
       "gun__shootNodeName": "flare1"
@@ -778,16 +778,16 @@
   ],
   "planegun_sm_79_1941_7_7mm_lewis_turret_01": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_plane_machinegun"
+      "_use": "base_plane_machinegun"
     },
     {
-      "_extends": "base_sm_79_1941_7_7mm_lewis_turret"
+      "_use": "base_sm_79_1941_7_7mm_lewis_turret"
     },
     {
-      "_extends": "gunsound_7_7mm_lewis_turret_aircraft"
+      "_use": "gunsound_7_7mm_lewis_turret_aircraft"
     },
     {
       "gun__shootNodeName": "flare3"
@@ -810,16 +810,16 @@
   ],
   "planegun_sm_79_1941_7_7mm_lewis_turret_02": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_plane_machinegun"
+      "_use": "base_plane_machinegun"
     },
     {
-      "_extends": "base_sm_79_1941_7_7mm_lewis_turret"
+      "_use": "base_sm_79_1941_7_7mm_lewis_turret"
     },
     {
-      "_extends": "gunsound_7_7mm_lewis_turret_aircraft"
+      "_use": "gunsound_7_7mm_lewis_turret_aircraft"
     },
     {
       "gun__shootNodeName": "flare4"
@@ -842,16 +842,16 @@
   ],
   "planegun_sm_79_1941_12_7mm_bredasafat127_turret_02": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_plane_machinegun"
+      "_use": "base_plane_machinegun"
     },
     {
-      "_extends": "base_sm_79_1941_12_7mm_bredasafat127_turret"
+      "_use": "base_sm_79_1941_12_7mm_bredasafat127_turret"
     },
     {
-      "_extends": "gunsound_12_7mm_bredasafat127_turret_aircraft"
+      "_use": "gunsound_12_7mm_bredasafat127_turret_aircraft"
     },
     {
       "gun__shootNodeName": "flare2"

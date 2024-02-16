@@ -16,19 +16,36 @@
   },
   "tankgun_91mm_germ_smoke_grenade_launcher": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_tankgun_smoke_grenade_launcher"
+      "_use": "base_tankgun_smoke_grenade_launcher"
     },
     {
-      "_extends": "base_91mm_germ_smoke_grenade_launcher"
+      "_use": "91mm_germ_smoke_grenade_launcher_grenade"
     },
     {
-      "_extends": "gunsound_91mm_germ_smoke_grenade_launcher"
+      "_use": "base_91mm_germ_smoke_grenade_launcher"
+    },
+    {
+      "_use": "gunsound_91mm_germ_smoke_grenade_launcher"
+    },
+    {
+      "gun__projectileTemplate": "91mm_germ_smoke_grenade_launcher_projectile"
     },
     {
       "turret__triggerGroup": 3
+    }
+  ],
+  "91mm_germ_smoke_grenade_launcher_grenade": {
+    "animchar__res": "nbks_39b_char"
+  },
+  "91mm_germ_smoke_grenade_launcher_projectile": [
+    {
+      "_use": "tank_smoke_grenade_projectile"
+    },
+    {
+      "_use": "91mm_germ_smoke_grenade_launcher_grenade"
     }
   ]
 }

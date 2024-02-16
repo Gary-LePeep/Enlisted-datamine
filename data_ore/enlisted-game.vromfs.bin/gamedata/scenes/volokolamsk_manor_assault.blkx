@@ -997,6 +997,7 @@
     "entity": {
       "_template": "briefing_assault",
       "mission_name": "volokolamsk_manor_assault",
+      "mission_outfit": "moscow",
       "loading_images:list<t>": [
         {
           "item": "ui/volokolamsk_manor_01.avif"
@@ -1059,6 +1060,11 @@
         "water_color_noise_size": 71.0,
         "river_density": 0.3
       }
+    }
+  },
+  {
+    "entity": {
+      "_template": "bloom"
     }
   },
   {
@@ -1155,7 +1161,7 @@
       "team__briefing": "assault/attackers_goals",
       "team__winSubtitle": "debriefing/won_invasion_subtitle",
       "team__loseSubtitle": "debriefing/lost_invasion_subtitle",
-      "team__winTitle": "debriefing/ger_won_invasion",
+      "team__winTitle": "debriefing/axis_won_invasion",
       "team__spawnBotArmy": "moscow_axis"
     }
   },
@@ -1174,7 +1180,7 @@
       "capzone__mustBeCapturedByTeam": 2,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_1",
-      "capzone__capTime": 25.0,
+      "capzone__capTime": 15.0,
       "capzone__capTeam": 1,
       "capzone__progress": 1.0,
       "transform": [
@@ -1184,7 +1190,7 @@
         [-422.567,10.7672,547.919]
       ],
       "active": false,
-      "capzone__decapTime": 20.0,
+      "capzone__decapTime": 15.0,
       "capzone__autoDecap": false,
       "capzone__autoCap": false,
       "ui_order": 1,
@@ -1192,10 +1198,10 @@
       "capzone__title": "A",
       "capzone__caption": "capzone/field_headquarters",
       "capzone__checkAllZonesInGroup": true,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "decal__height": 0.7,
-      "capzone__deactivateAfterTimeout": 0.0,
-      "capzone__spawnAtZoneTimeout": 35.0,
+      "capzone__deactivateAfterTimeout": 25.0,
+      "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 1,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 3,
@@ -1211,7 +1217,7 @@
       "capzone__mustBeCapturedByTeam": 2,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_1",
-      "capzone__capTime": 25.0,
+      "capzone__capTime": 15.0,
       "capzone__capTeam": 1,
       "capzone__progress": 1.0,
       "transform": [
@@ -1221,7 +1227,7 @@
         [-445.323,8.50834,644.823]
       ],
       "active": false,
-      "capzone__decapTime": 20.0,
+      "capzone__decapTime": 15.0,
       "capzone__autoDecap": false,
       "capzone__autoCap": false,
       "ui_order": 2,
@@ -1229,10 +1235,10 @@
       "capzone__title": "B",
       "capzone__caption": "capzone/stable",
       "capzone__checkAllZonesInGroup": true,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "decal__height": 0.2,
-      "capzone__deactivateAfterTimeout": 0.0,
-      "capzone__spawnAtZoneTimeout": 35.0,
+      "capzone__deactivateAfterTimeout": 25.0,
+      "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 1,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 4,
@@ -1248,7 +1254,7 @@
       "capzone__mustBeCapturedByTeam": 2,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_2",
-      "capzone__capTime": 25.0,
+      "capzone__capTime": 15.0,
       "capzone__capTeam": 1,
       "capzone__progress": 1.0,
       "transform": [
@@ -1258,7 +1264,7 @@
         [-563.839,9.44829,511.938]
       ],
       "active": false,
-      "capzone__decapTime": 20.0,
+      "capzone__decapTime": 15.0,
       "capzone__autoDecap": false,
       "capzone__autoCap": false,
       "ui_order": 3,
@@ -1267,9 +1273,9 @@
       "capzone__caption": "capzone/north_wing",
       "capzone__checkAllZonesInGroup": true,
       "decal__height": 0.3,
-      "decal__thickness": 0.4,
-      "capzone__deactivateAfterTimeout": 0.0,
-      "capzone__spawnAtZoneTimeout": 35.0,
+      "decal__thickness": 0.15,
+      "capzone__deactivateAfterTimeout": 25.0,
+      "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 1,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 5,
@@ -1285,7 +1291,7 @@
       "capzone__mustBeCapturedByTeam": 2,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_2",
-      "capzone__capTime": 25.0,
+      "capzone__capTime": 15.0,
       "capzone__capTeam": 1,
       "capzone__progress": 1.0,
       "transform": [
@@ -1295,7 +1301,7 @@
         [-563.879,9.6313,660.942]
       ],
       "active": false,
-      "capzone__decapTime": 20.0,
+      "capzone__decapTime": 15.0,
       "capzone__autoDecap": false,
       "capzone__autoCap": false,
       "ui_order": 4,
@@ -1304,9 +1310,9 @@
       "capzone__caption": "capzone/south_wing",
       "capzone__checkAllZonesInGroup": true,
       "decal__height": 0.3,
-      "decal__thickness": 0.4,
-      "capzone__deactivateAfterTimeout": 0.0,
-      "capzone__spawnAtZoneTimeout": 35.0,
+      "decal__thickness": 0.15,
+      "capzone__deactivateAfterTimeout": 25.0,
+      "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 1,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 6,
@@ -1322,7 +1328,7 @@
       "capzone__mustBeCapturedByTeam": 2,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_3",
-      "capzone__capTime": 30.0,
+      "capzone__capTime": 25.0,
       "capzone__capTeam": 1,
       "capzone__progress": 1.0,
       "transform": [
@@ -1332,7 +1338,7 @@
         [-612.883,9.38184,586.413]
       ],
       "active": false,
-      "capzone__decapTime": 20.0,
+      "capzone__decapTime": 25.0,
       "capzone__autoDecap": false,
       "capzone__autoCap": false,
       "ui_order": 5,
@@ -1341,9 +1347,9 @@
       "capzone__caption": "capzone/central_hall",
       "capzone__checkAllZonesInGroup": true,
       "decal__height": 0.1,
-      "decal__thickness": 0.4,
-      "capzone__deactivateAfterTimeout": 0.0,
-      "capzone__spawnAtZoneTimeout": 35.0,
+      "decal__thickness": 0.15,
+      "capzone__deactivateAfterTimeout": 25.0,
+      "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 1,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 7
@@ -1445,7 +1451,7 @@
         [-0.918455,0.0,-0.395526],
         [0.0,1.0,0.0],
         [0.395526,0.0,-0.918455],
-        [1425.34,1000.0,1388.43]
+        [2748.95,1000.0,2017.81]
       ],
       "team": 2,
       "maxVehicleOnSpawn": 1,
@@ -1460,7 +1466,7 @@
         [-0.906596,0.0,-0.421999],
         [0.0,1.0,0.0],
         [0.421999,0.0,-0.906596],
-        [1360.22,800.0,1542.12]
+        [2683.83,800.0,2171.5]
       ],
       "team": 2,
       "maxVehicleOnSpawn": 1,
@@ -1475,7 +1481,7 @@
         [-0.910927,0.0,-0.412568],
         [0.0,1.0,0.0],
         [0.412568,0.0,-0.910927],
-        [1360.22,1000.0,1542.12]
+        [2683.83,1000.0,2171.5]
       ],
       "team": 2,
       "maxVehicleOnSpawn": 1,
@@ -1490,7 +1496,7 @@
         [-0.906584,0.0,-0.422026],
         [0.0,1.0,0.0],
         [0.422026,0.0,-0.906584],
-        [1437.33,800.0,1363.96]
+        [2760.94,800.0,1993.34]
       ],
       "team": 2,
       "maxVehicleOnSpawn": 1,
@@ -1504,7 +1510,7 @@
         [-0.157002,0.0,-0.987599],
         [0.0,1.0,0.0],
         [0.987599,0.0,-0.157002],
-        [1058.78,1000.0,2785.86]
+        [1143.36,705.24,2975.6]
       ],
       "resupply_zone__team": 2
     }
@@ -1514,10 +1520,10 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_fighter",
       "transform": [
-        [0.835531,0.0,0.549441],
-        [0.0,1.0,0.0],
-        [-0.549441,0.0,0.835531],
-        [-2297.94,1000.0,-699.234]
+        [0.771344,0.0,0.636416],
+        [0.0,1.0,-0.0],
+        [-0.636416,0.0,0.771344],
+        [-3271.08,1000.0,-1652.42]
       ],
       "team": 1,
       "maxVehicleOnSpawn": 1,
@@ -1529,10 +1535,10 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_assault",
       "transform": [
-        [0.830488,0.0,0.557036],
-        [0.0,1.0,0.0],
-        [-0.557036,0.0,0.830488],
-        [-2297.94,800.0,-699.234]
+        [0.797694,0.0,0.603062],
+        [0.0,1.0,-0.0],
+        [-0.603063,0.0,0.797694],
+        [-3271.08,800.0,-1652.42]
       ],
       "team": 1,
       "maxVehicleOnSpawn": 1,
@@ -1544,10 +1550,10 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_fighter",
       "transform": [
-        [0.837085,0.0,0.547072],
-        [0.0,1.0,0.0],
-        [-0.547072,0.0,0.837085],
-        [-2385.81,1000.0,-604.514]
+        [0.804843,0.0,0.593487],
+        [0.0,1.0,-0.0],
+        [-0.593487,0.0,0.804843],
+        [-3364.16,1000.0,-1562.81]
       ],
       "team": 1,
       "maxVehicleOnSpawn": 1,
@@ -1559,10 +1565,10 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_assault",
       "transform": [
-        [0.835266,0.0,0.549846],
-        [0.0,1.0,0.0],
-        [-0.549846,0.0,0.835266],
-        [-2408.48,800.0,-584.004]
+        [0.80287,0.0,0.596154],
+        [0.0,1.0,-0.0],
+        [-0.596154,0.0,0.80287],
+        [-3387.95,800.0,-1543.61]
       ],
       "team": 1,
       "maxVehicleOnSpawn": 1,
@@ -1576,7 +1582,7 @@
         [0.119539,0.0,0.992829],
         [0.0,1.0,0.0],
         [-0.992829,0.0,0.119539],
-        [711.375,1000.0,-1840.26]
+        [-1638.98,693.603,-2110.2]
       ],
       "resupply_zone__team": 1
     }

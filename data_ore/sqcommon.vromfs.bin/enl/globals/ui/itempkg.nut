@@ -1,22 +1,27 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { sub_txt, tiny_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub, fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let faComp = require("%ui/components/faComp.nut")
 let {
-  msgHighlightedTxtColor, smallPadding, hoverTxtColor
+  msgHighlightedTxtColor, smallPadding, hoverTxtColor, vehicleListCardSize, listCtors
 } = require("%enlSqGlob/ui/viewConst.nut")
+let { txtColor } = listCtors
+let { defTxtColor } = require("%enlSqGlob/ui/designConst.nut")
 let {
   statusIconChosen, statusIconDisabled, statusIconLocked
 } =  require("%enlSqGlob/ui/style/statusIcon.nut")
 let { soldierClasses } = require("%enlSqGlob/ui/soldierClasses.nut")
 let { mkItemTier } = require("%enlSqGlob/ui/itemTier.nut")
+let { getItemName, getItemDesc } = require("%enlSqGlob/ui/itemsInfo.nut")
+let tooltipCtor = require("%ui/style/tooltipCtor.nut")
+let { mkBattleRating } = require("%enlSqGlob/ui/battleRatingPkg.nut")
 
-let iconSize = hdpx(11)
+let iconSize = hdpx(15)
 let badgeSize = hdpx(40)
 
 let mkStatusIcon = @(icon, color) faComp(icon, {
   margin = smallPadding
-  fontSize = hdpx(15)
+  fontSize = iconSize
   color
 })
 
@@ -35,13 +40,11 @@ let mkBackBlock = @(children) {
   children = children
 }
 
-let iconLocked = mkBackBlock( faComp("lock", {
-  size = [flex(), SIZE_TO_CONTENT]
-  halign = ALIGN_CENTER
+let iconLocked = faComp("lock", {
+  size = array(2, hdpx(19))
   fontSize = iconSize
-  color = hoverTxtColor
-  pos = [hdpx(1), hdpx(1)]
-}))
+  color = statusIconLocked
+})
 
 let mkIconWarning = @(size) faComp("warning", {
   vplace = ALIGN_CENTER
@@ -57,20 +60,20 @@ let mkLevelBlock = @(level) mkBackBlock({
   halign = ALIGN_CENTER
   text = level
   color = hoverTxtColor
-}.__update(tiny_txt))
+}.__update(fontSub))
 
 let statusIconCtor = @(demands) demands?.classLimit != null ? iconBlocked
   : demands == null ? null
   : demands?.canObtainInShop ? null
   : iconLocked
 
-let mkHintText = @(text) {
+let mkHintText = @(text, params = fontSub) {
   rendObj = ROBJ_TEXTAREA
   size = [flex(), SIZE_TO_CONTENT]
   behavior = Behaviors.TextArea
   text = text
   color = msgHighlightedTxtColor
-}.__update(sub_txt)
+}.__update(params)
 
 let mkStatusHint = @(demands) demands == null ? null
   : demands?.classLimit != null ? mkHintText(loc("itemClassResearch", {
@@ -81,15 +84,55 @@ let mkStatusHint = @(demands) demands == null ? null
     }))
   : mkHintText(loc(demands?.canObtainInShop ? "itemObtainInShop" : "itemOutOfStock"))
 
+let function mkVehicleHint(vehicle) {
+  let desc = getItemDesc(vehicle)
+  let { growthTier = 0 } = vehicle
+  return tooltipCtor({
+    flow = FLOW_VERTICAL
+    minWidth = hdpx(350)
+    maxWidth = hdpx(500)
+    gap = smallPadding
+    children = [
+      {
+        size = [flex(), SIZE_TO_CONTENT]
+        flow = FLOW_HORIZONTAL
+        children = [
+          mkHintText(getItemName(vehicle), { color = defTxtColor }.__update(fontBody))
+          mkItemTier(vehicle)
+        ]
+      }
+      desc == "" ? null : mkHintText(desc, { color = defTxtColor })
+      mkBattleRating(growthTier)
+    ]
+  })
+}
+
+let statusBadgeWarning = mkIconWarning(badgeSize)
+
+let mkNoVehicle = @(sf, color = null) {
+  size = [flex(), vehicleListCardSize[1] - smallPadding * 2]
+  children = [
+    {
+      rendObj = ROBJ_TEXT
+      hplace = ALIGN_CENTER
+      text = loc("menu/vehicle/none")
+      color = color ?? txtColor(sf)
+    }.__update(fontSub)
+    statusBadgeWarning
+  ]
+}
+
 return {
   statusIconLocked = iconLocked
   statusIconChosen = iconChosen
   statusIconBlocked = iconBlocked
   statusIconCtor = statusIconCtor
   statusIconWarning = mkIconWarning(iconSize)
-  statusBadgeWarning = mkIconWarning(badgeSize)
+  statusBadgeWarning
   statusLevel = mkLevelBlock
   statusTier = mkItemTier
   hintText = mkHintText
   statusHintText = mkStatusHint
+  mkVehicleHint
+  mkNoVehicle
 }

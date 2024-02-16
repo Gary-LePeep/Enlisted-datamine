@@ -13,7 +13,7 @@
       "_tracked": "white_balance"
     },
     {
-      "_extends": "replicating"
+      "_use": "replicating"
     },
     {
       "color_grading:object": {
@@ -125,7 +125,7 @@
     }
   },
   "postfx_color_grading_tonemap_death_alive": {
-    "_extends": "postfx_color_grading_tonemap",
+    "_use": "postfx_color_grading_tonemap",
     "_singleton": true,
     "color_grading__death:object": {
       "colorSaturation": [1.0,1.0,1.0,0.3],
@@ -174,10 +174,10 @@
   },
   "lut": [
     {
-      "_extends": "postfx_color_grading_tonemap_death_alive"
+      "_use": "postfx_color_grading_tonemap_death_alive"
     },
     {
-      "_extends": "replicating"
+      "_use": "replicating"
     },
     {
       "_singleton": true

@@ -1,4 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
+from "math" import min
 
 let { rnd_int } = require("dagor.random")
 let { INVALID_USER_ID } = require("matching.errors")

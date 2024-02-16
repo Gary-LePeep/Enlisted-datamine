@@ -12,13 +12,14 @@
   {
     "entity": {
       "_template": "custom_profile",
-      "customProfile": "enlisted/game/data/modern_squads_profile.json"
+      "customProfile": "%enlSqGlob/data/modern_squads_profile.json"
     }
   },
   {
     "entity": {
       "_template": "briefing_domination",
-      "mission_name": "tunisia_gorge_dom"
+      "mission_name": "tunisia_gorge_dom",
+      "mission_outfit": "tunisia"
     }
   },
   {
@@ -54,6 +55,11 @@
   {
     "entity": {
       "_template": "postfx_color_grading_tonemap_death_alive_enlisted"
+    }
+  },
+  {
+    "entity": {
+      "_template": "bloom"
     }
   },
   {

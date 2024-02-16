@@ -1,40 +1,81 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
-let { setCurSection, mainSectionId, jumpToArmyProgress
-} = require("%enlist/mainMenu/sectionsState.nut")
+let { jumpToArmyProgress } = require("%enlist/mainMenu/sectionsState.nut")
 let { soldiersBySquad, squadsByArmy, chosenSquadsByArmy, vehicleBySquad, limitsByArmy,
   armyLimitsDefault, curArmy, lockedSquadsByArmy
 } = require("state.nut")
-let { set_squad_order } = require("%enlist/meta/clientApi.nut")
+let { set_squad_order, sell_squad } = require("%enlist/meta/clientApi.nut")
 let { squadsCfgById } = require("%enlist/soldiers/model/config/squadsConfig.nut")
 let { soldiersStatuses } = require("readySoldiers.nut")
 let { READY } = require("%enlSqGlob/readyStatus.nut")
 let { allSquadsLevels } = require("%enlist/researches/researchesState.nut")
 let { markSeenSquads } = require("unseenSquads.nut")
 let msgbox = require("%enlist/components/msgbox.nut")
-let { allArmyUnlocks } = require("armyUnlocksState.nut")
-let { trimUpgradeSuffix } = require("%enlSqGlob/ui/itemsInfo.nut")
+let { trimUpgradeSuffix, getItemName } = require("%enlSqGlob/ui/itemsInfo.nut")
 let { curCampaign } = require("%enlist/meta/curCampaign.nut")
-let { addPopup } = require("%enlist/popup/popupsState.nut")
+let { addPopup } = require("%enlSqGlob/ui/popup/popupsState.nut")
 let { sendBigQueryUIEvent } = require("%enlist/bigQueryEvents.nut")
 let armiesPresentation = require("%enlSqGlob/ui/armiesPresentation.nut")
 let squadsPresentation = require("%enlSqGlob/ui/squadsPresentation.nut")
-let { curCampaignAccessItem } = require("%enlist/campaigns/campaignConfig.nut")
-
+let JB = require("%ui/control/gui_buttons.nut")
+let { growthSquadsByArmy, curGrowthConfig } = require("%enlist/growth/growthState.nut")
+let { allItemTemplates } = require("%enlist/soldiers/model/all_items_templates.nut")
+let { needNewItemsWindow } = require("newItemsToShow.nut")
 
 
 let justGainSquadId = Watched(null)
 let selectedSquadId = Watched(null)
+let previewSquads = Watched(null)
 let squadsArmy = mkWatched(persist, "squadsArmy")
 let curChoosenSquads = Computed(@() chosenSquadsByArmy.value?[squadsArmy.value] ?? [])
 let curUnlockedSquads = Computed(@() squadsByArmy.value?[squadsArmy.value] ?? [])
 
 let chosenSquads = mkWatched(persist, "chosen", [])
 let reserveSquads = mkWatched(persist, "reserve", [])
+let displaySquads = Computed(@() previewSquads.value ?? clone chosenSquads.value)
+
 let unlockedSquads = Computed(@() (clone chosenSquads.value).extend(reserveSquads.value))
 let slotsCount = Computed(@() chosenSquads.value.len())
 let focusedSquads = mkWatched(persist, "focused", {})
+
+
+let sellableSquadsCfg = Computed(function() {
+  let res = {}
+  foreach (armyId, armySquadsCfg in squadsCfgById.value) {
+    res[armyId] <- {}
+    foreach (squadId, squadCfg in armySquadsCfg) {
+      let { battleExpBonus = 0, silverSellCost = 0 } = squadCfg
+      if (battleExpBonus == 0 && silverSellCost > 0)
+        res[armyId][squadId] <- silverSellCost
+    }
+  }
+  return res
+})
+
+
+let sellableSquads = Computed(function() {
+  let res = {}
+  let unlocked = unlockedSquads.value.filter(@(s) s != null)
+  if (unlocked.len() == 0)
+    return res
+
+  let armyId = curArmy.value
+  let sellableCfg = sellableSquadsCfg.value?[armyId] ?? {}
+  let growthSquads = growthSquadsByArmy.value?[armyId] ?? {}
+
+  foreach (squad in unlocked) {
+    let { squadId } = squad
+    if (squadId in growthSquads)
+      continue
+
+    let silverSellCost = sellableCfg?[squadId] ?? 0
+    if (silverSellCost > 0)
+      res[squadId] <- silverSellCost
+  }
+
+  return res
+})
 
 focusedSquads.subscribe(@(focused) reserveSquads.mutate(@(v) v
   .reduce(@(list, sq) sq.squadId in focused
@@ -54,38 +95,53 @@ curCampaign.subscribe(function(_) {
   })
 })
 
+
+let function getGrowthData(growthId, isPremium, growthCfgs, templates) {
+  if (growthId == null)
+    return null
+
+  let { col = 0, reward = null } = growthCfgs?[growthId]
+  let { itemTemplate = null } = reward
+
+  let res = { growthId, col }
+  if (itemTemplate == null)
+    return res
+
+  let item = templates?[itemTemplate]
+  if (item != null) {
+    let lock = isPremium ? "growth/reqToBuyGrowth" : "growth/reqToResearchGrowth"
+    res.lockTxt <- loc(lock, { reqText = getItemName(item) })
+  }
+  return res
+}
+
 let curArmyLockedSquadsData = Computed(function() {
   let armyId = curArmy.value
-  let unlocks = allArmyUnlocks.value ?? []
+  let growthCfgs = curGrowthConfig.value
+  let growthLinks = growthSquadsByArmy.value?[armyId] ?? {}
+  let templates = allItemTemplates.value?[armyId] ?? {}
   let armyPremIcon = armiesPresentation?[armyId].premIcon
-  let campaignSquads = curCampaignAccessItem.value?.squads ?? []
-  let squads = (lockedSquadsByArmy.value?[armyId] ?? [])
+
+  let squadsRes = (lockedSquadsByArmy.value?[armyId] ?? [])
     .map(function(squad) {
       let { squadId } = squad
       let { battleExpBonus = 0 } = squadsCfgById.value?[armyId][squadId]
       let isPremium = battleExpBonus > 0
+      let growthData = getGrowthData(growthLinks?[squadId], isPremium, growthCfgs, templates)
       local { premIcon = null } = squadsPresentation?[armyId][squadId]
       if (isPremium)
         premIcon = premIcon ?? armyPremIcon
-      let isInCampaign = campaignSquads.findvalue(@(sq) sq.id == squadId) != null
-      let unlock = unlocks.findvalue(function(u) {
-        if (u?.unlockId == squadId)
-          return true
-        let { squads = [] } = u
-        return squads.findvalue(@(squadInUnlock) squadInUnlock?.id == squadId)
-      })
-      return {
-        squad = squad.__merge({premIcon})
+
+      return squad.__merge({
+        premIcon
         isPremium
-        isInCampaign
-        shopItem = unlock
-      }
+        growthData
+      })
     })
-    .filter(@(s) s?.shopItem != null || s.isInCampaign)
-    .sort(@(a, b) ( (b.isInCampaign <=> a.isInCampaign)
-      || (b.isPremium <=> a.isPremium)
-      ||  (a?.shopItem?.level ?? 0) <=> (b?.shopItem?.level ?? 0)))
-  return squads
+    .filter(@(s) s.growthData != null)
+    .sort(@(a, b) b.isPremium <=> a.isPremium)
+
+  return squadsRes
 })
 
 let squadsArmyLimits = Computed(@() limitsByArmy.value?[squadsArmy.value] ?? armyLimitsDefault)
@@ -166,39 +222,59 @@ let function moveIndex(list, idxFrom, idxTo) {
   return res
 }
 
-let function getCantTakeReason(squad, squadsList, idxTo) {
-  let { expireTime = 0, vehicleType = "" } = squad
-  if (expireTime > 0 && expireTime < serverTime.value)
-    return loc("msg/cantTakeExpiredSquad")
+let squadPlaceReasonData = {
+  limit = {
+    type = "limit"
+    getErrorText = @() loc("msg/cantTakeExpiredSquad")
+  }
+  squadTypeZero = @(squadType) {
+    type = $"{squadType}Zero"
+    squadType
+    getErrorText = @() loc($"msg/{squadType}IsZero")
+  }
+  squadTypeFull = @(squadType, maxSquads) {
+    type = $"{squadType}Full"
+    squadType
+    getErrorText = @() loc($"msg/{squadType}Full", { maxSquads })
+  }
+}
 
-  let typeKey = vehicleType == "bike" ? "maxBikeSquads"
-    : vehicleType != "" ? "maxVehicleSquads"
-    : "maxInfantrySquads"
-  let maxType = squadsArmyLimits.value[typeKey]
+let getSquadTypeLimitId = @(vehicleType) vehicleType == "bike" ? "maxBikeSquads"
+  : vehicleType == "truck" ? "maxTransportSquads"
+  : vehicleType != "" ? "maxVehicleSquads"
+  : "maxInfantrySquads"
+
+let function isSquadExpired(squad) {
+  let { expireTime = 0 } = squad
+  return expireTime > 0 && expireTime < serverTime.value
+}
+
+let function getCantTakeSquadReasonData(squad, squadsList, idxTo) {
+  if (isSquadExpired(squad))
+    return squadPlaceReasonData.limit()
+
+  let typeId = getSquadTypeLimitId(squad?.vehicleType ?? "")
+  let maxType = squadsArmyLimits.value[typeId]
   if (maxType <= 0)
-    return { text = loc($"msg/{typeKey}IsZero") }
+    return squadPlaceReasonData.squadTypeZero(typeId)
 
   local curCount = 0
   foreach (idx, s in squadsList) {
     if (s == null || idx == idxTo)
       continue
-    let squadVehicleType = s?.vehicleType ?? ""
-    if (vehicleType == "bike") {
-      if (squadVehicleType == "bike")
-        ++curCount
-    } else if (vehicleType != "") {
-      if (squadVehicleType != "" && squadVehicleType != "bike")
-        ++curCount
-    } else {
-      if (squadVehicleType == "")
-        ++curCount
-    }
-  }
-  if (curCount < maxType)
-    return null
 
-  return loc($"msg/{typeKey}Full", { maxSquads = maxType })
+    let squadTypeId = getSquadTypeLimitId(s?.vehicleType ?? "")
+    if (typeId == squadTypeId)
+      ++curCount
+  }
+  if (curCount >= maxType)
+    return squadPlaceReasonData.squadTypeFull(typeId, maxType)
+
+  return null
 }
+
+let getCantTakeReason = @(squad, squadsList, idxTo)
+  getCantTakeSquadReasonData(squad, squadsList, idxTo)?.getErrorText()
 
 let function sendSquadActionToBQ(eventType, squadGuid, squadId) {
   sendBigQueryUIEvent("squad_management", null, {
@@ -312,6 +388,9 @@ let selectedSquad = Computed(@()
   curUnlockedSquads.value.findvalue(@(squad) squad.squadId == selectedSquadId.value))
 
 let selectedSquadSoldiers = Computed(function() {
+  if (needNewItemsWindow.value)
+    return null
+
   let squadGuid = selectedSquad.value?.guid
   if (squadGuid == null)
     return null
@@ -330,8 +409,11 @@ let function applyAndCloseImpl() {
   let ids = unlockedSquads.value.filter(@(s) s != null).map(@(s) s.squadId)
   markSeenSquads(armyId, ids)
   set_squad_order(armyId, guids)
-  setCurSection(mainSectionId)
   close()
+}
+
+let function sellSquad(armyId, squadGuid, silverCost) {
+  sell_squad(armyId, squadGuid, silverCost)
 }
 
 let function applyAndClose() {
@@ -343,7 +425,7 @@ let function applyAndClose() {
       text = loc("msg/notFullSquadsAtApply")
       buttons = [
         { text = loc("Ok"), action = applyAndCloseImpl, isCurrent = true }
-        { text = loc("Cancel"), isCancel = true }
+        { text = loc("Cancel"), isCancel = true, customStyle = { hotkeys = [[$"^{JB.B} | Esc"]] } }
       ]
     })
 }
@@ -361,6 +443,12 @@ let function unfocusSquad(squadId) {
 let function closeAndOpenCampaign() {
   jumpToArmyProgress()
   close()
+}
+
+let function getUnlockedSquadsBySquadIds(squadIdsList) {
+  return squadIdsList
+    .map(@(squadId) unlockedSquads.value.findvalue(@(squad) squad?.squadId == squadId))
+    .filter(@(squad) squad != null)
 }
 
 console_register_command(function(squadId) {
@@ -384,9 +472,12 @@ return {
   squadsArmyLimits
   maxSquadsInBattle
   unlockedSquads
+  sellableSquads
   curArmyLockedSquadsData
   chosenSquads
   reserveSquads
+  previewSquads
+  displaySquads
   slotsCount
   changeSquadOrderByUnlockedIdx
   moveIndex
@@ -402,4 +493,8 @@ return {
   selectedSquadSoldiers
   selSquadVehicleGameTpl
   sendSquadActionToBQ
+  getUnlockedSquadsBySquadIds
+  isSquadExpired
+  getCantTakeSquadReasonData
+  sellSquad
 }

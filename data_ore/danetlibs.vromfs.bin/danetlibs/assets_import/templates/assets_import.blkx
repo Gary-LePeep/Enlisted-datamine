@@ -1,5 +1,5 @@
 {
-  "asset_manager": {
+  "base_asset_manager": {
     "_tags": "render",
     "_singleton": true,
     "asset__applicationBlkPath": "%danetlibs/assets_import/application.blk",
@@ -18,7 +18,7 @@
     }
   },
   "composit_child_rendinst": {
-    "_extends": "rendinst",
+    "_use": "rendinst",
     "ignoredEditable:tag": {
       "_tags": "render"
     }
@@ -42,10 +42,10 @@
   },
   "custom_animchar": [
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "replicating"
+      "_use": "replicating"
     },
     {
       "animchar__res": ""

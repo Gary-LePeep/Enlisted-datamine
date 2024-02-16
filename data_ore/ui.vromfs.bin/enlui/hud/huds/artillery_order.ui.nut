@@ -1,7 +1,7 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
-let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { HUD_TIPS_FAIL_TEXT_COLOR } = require("%ui/hud/style.nut")
 let { playerEvents } = require("%ui/hud/state/eventlog.nut")
 let { secondsToStringLoc } = require("%ui/helpers/time.nut")
@@ -33,14 +33,14 @@ let function artilleryOrder() {
         ? loc("artillery/cooldown", { timeLeft = secondsToStringLoc(artilleryAvailableTimeLeft.value) })
       : loc("squad_orders/artillery_strike"))
     inputId = hasArtilleryBinding.value ? artilleryHotkey : "HUD.CommandsMenu"
-  }.__update(sub_txt))
+  }.__update(fontSub))
   return {
     watch = hasArtilleryBinding
     children = hint
   }
 }
 
-let artilleryIconHgt = calc_comp_size(artilleryOrder)[1]
+let artilleryIconHgt = calc_comp_size(artilleryOrder)[1].tointeger()
 let artilleryIcon = Picture("ui/skin#artillery_strike.svg:{0}:{0}:K".subst(artilleryIconHgt))
 let artilleryIconComp = @() { watch = artilleryIsReady }
   .__update(!artilleryIsReady.value ? {}

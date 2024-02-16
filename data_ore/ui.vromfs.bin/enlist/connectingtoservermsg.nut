@@ -1,11 +1,12 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { h2_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontHeading2 } = require("%enlSqGlob/ui/fontsStyle.nut")
 let navState = require("navState.nut")
 let {room, roomIsLobby, leaveRoom} = require("state/roomState.nut")
 
 let textButton = require("%ui/components/textButton.nut")
 let progressText = require("components/progressText.nut")
+let {sound_play} = require("%dngscripts/sound_system.nut")
 
 const TIME_TO_ALLOW_CANCEL = 7.0
 
@@ -28,7 +29,7 @@ let cancelGameLaunchBtn = textButton(loc("mainmenu/btnCancel"),
   @() leaveRoom(function(...){}),
   {
     halign = ALIGN_CENTER
-    textParams = h2_txt
+    textParams = fontHeading2
     style = { BgNormal = Color(0,0,0,250)}
   }
 )
@@ -52,7 +53,11 @@ let function gameLaunchingMsg() {
   }
 }
 
-let open = @() navState.addScene(gameLaunchingMsg)
+let function open() {
+  navState.addScene(gameLaunchingMsg)
+  sound_play("ui/match_found")
+}
+
 if (isNeedMsg.value)
   open()
 

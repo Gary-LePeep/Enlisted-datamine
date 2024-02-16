@@ -1,22 +1,21 @@
 from "%enlSqGlob/ui_library.nut" import *
-let http = require("dagor.http")
+let { HTTP_SUCCESS, HTTP_ABORTED, HTTP_FAILED, httpRequest } = require("dagor.http")
 let eventbus = require("eventbus")
 let {scan_folder, file_exists} = require("dagor.fs")
 let {file} = require("io")
 let { send_counter } = require("statsd")
+let { MOD_FILE_URL } = require("%enlSqGlob/game_mods_constant.nut")
 
 const USER_MODS_FOLDER = "userGameMods"
 const MODS_EXT =".vromfs.bin"
 const RECEIVE_FILE_MOD = "RECEIVE_FILE_MOD"
-const BASE_URL = "https://enlisted-sandbox.gaijin.net/file/"
 
 const FILE_REQUESTED = 0
 const FILE_ERROR = 1
-const FILE_TIMEOUT = 2
 let statusText = {
-  [http.SUCCESS] = "SUCCESS",
-  [http.FAILED] = "FAILED",
-  [http.ABORTED] = "ABORTED",
+  [HTTP_SUCCESS] = "SUCCESS",
+  [HTTP_FAILED] = "FAILED",
+  [HTTP_ABORTED] = "ABORTED",
 }
 
 let function checkModFileByHash(hash){
@@ -56,7 +55,7 @@ eventbus.subscribe(RECEIVE_FILE_MOD, function(response){
   }
 
   let { status, http_code } = response
-  if (status != http.SUCCESS) {
+  if (status != HTTP_SUCCESS) {
     log(ERROR_MSG, "request status =", status, statusText?[status])
     setHashError(hash)
     return
@@ -99,11 +98,11 @@ let function requestFilesByHashes(hashes){
     }
     if (checkModFileByHash(hash))
       receivedFiles(receivedFiles.value.__merge({ [hash] = true }))
-    let url = $"{BASE_URL}{hash}"
+    let url = MOD_FILE_URL.subst(hash)
     if (requestedFiles.value ?[hash] == FILE_REQUESTED)
       continue
     requestedFiles.mutate(@(v) v[hash]<-FILE_REQUESTED)
-    http.request({
+    httpRequest({
       method = "GET"
       url
       respEventId = RECEIVE_FILE_MOD
@@ -120,7 +119,6 @@ return {
   receivedFiles
   requestedFiles
   requestFilesByHashes
-  BASE_URL
   statusText
   isStrHash
 }

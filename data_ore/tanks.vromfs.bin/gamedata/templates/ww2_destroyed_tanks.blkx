@@ -1,13 +1,13 @@
 {
   "destroyed_tank": [
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "phys_sleepable"
+      "_use": "phys_sleepable"
     },
     {
-      "_extends": "replicating"
+      "_use": "replicating"
     },
     {
       "net__physId": -1
@@ -33,6 +33,9 @@
       "grid_obj__fixedTmScale": -1.0
     },
     {
+      "collision_physMatId": -1
+    },
+    {
       "pair_collision__tag": "collidableToPhysObj"
     },
     {
@@ -46,6 +49,9 @@
     },
     {
       "phys_obj_net_phys": []
+    },
+    {
+      "base_net_phys_ptr": []
     },
     {
       "pair_collision__gridHolders": []
@@ -89,61 +95,61 @@
     }
   ],
   "pzkpfw_vi_ausf_e_tiger_a_destroyed": {
-    "_extends": "destroyed_tank",
+    "_use": "destroyed_tank",
     "animchar__res": "pzkpfw_vi_ausf_e_tiger_a_destroyed_char",
     "collres__res": "pzkpfw_vi_ausf_e_tiger_a_destroyed_collision",
     "phys_obj_net_phys__blk": "content/tanks/gamedata/units/debris/pzkpfw_vi_ausf_e_tiger_a.blk"
   },
   "pzkpfw_VI_ausf_B_tiger_destroyed": {
-    "_extends": "destroyed_tank",
+    "_use": "destroyed_tank",
     "animchar__res": "pzkpfw_VI_ausf_B_tiger_destroyed_char",
     "collres__res": "pzkpfw_VI_ausf_B_tiger_destroyed_collision",
     "phys_obj_net_phys__blk": "content/tanks/gamedata/units/debris/pzkpfw_vi_ausf_b_tiger.blk"
   },
   "stug_40_ausf_g_a_destroyed": {
-    "_extends": "destroyed_tank",
+    "_use": "destroyed_tank",
     "animchar__res": "stug_40_ausf_g_a_destroyed_char",
     "collres__res": "stug_40_ausf_g_a_destroyed_collision",
     "phys_obj_net_phys__blk": "content/tanks/gamedata/units/debris/stug_40_ausf_g_a.blk"
   },
   "is_2_1944_a_destroyed": {
-    "_extends": "destroyed_tank",
+    "_use": "destroyed_tank",
     "animchar__res": "is_2_1944_a_destroyed_char",
     "collres__res": "is_2_1944_a_destroyed_collision",
     "phys_obj_net_phys__blk": "content/tanks/gamedata/units/debris/is_2_1944_a.blk"
   },
   "t_34_85_zis_53_a_destroyed": {
-    "_extends": "destroyed_tank",
+    "_use": "destroyed_tank",
     "animchar__res": "t_34_85_zis_53_a_destroyed_char",
     "collres__res": "t_34_85_zis_53_a_destroyed_collision",
     "phys_obj_net_phys__blk": "content/tanks/gamedata/units/debris/t_34_85_e_a.blk"
   },
   "t_34_85_e_a_destroyed": {
-    "_extends": "destroyed_tank",
+    "_use": "destroyed_tank",
     "animchar__res": "t_34_85_e_a_destroyed_char",
     "collres__res": "t_34_85_e_a_destroyed_collision",
     "phys_obj_net_phys__blk": "content/tanks/gamedata/units/debris/t_34_85_e_a.blk"
   },
   "pzkpfw_v_ausf_g_panther_a_destroyed": {
-    "_extends": "destroyed_tank",
+    "_use": "destroyed_tank",
     "animchar__res": "pzkpfw_V_ausf_g_panther_a_destroyed_char",
     "collres__res": "pzkpfw_V_ausf_g_panther_a_destroyed_collision",
     "phys_obj_net_phys__blk": "content/tanks/gamedata/units/debris/pzkpfw_v_ausf_g_panther_a.blk"
   },
   "m4a2_sherman_1944_destroyed": {
-    "_extends": "destroyed_tank",
+    "_use": "destroyed_tank",
     "animchar__res": "m4a2_sherman_1944_destroyed_char",
     "collres__res": "m4a2_sherman_1944_destroyed_collision",
     "phys_obj_net_phys__blk": "content/tanks/gamedata/units/debris/m4a2_sherman_1944.blk"
   },
   "m4a2_sherman_1944_body_destroyed": {
-    "_extends": "destroyed_tank",
+    "_use": "destroyed_tank",
     "animchar__res": "m4a2_sherman_1944_body_destroyed_char",
     "collres__res": "m4a2_sherman_1944_body_destroyed_collision",
     "phys_obj_net_phys__blk": "content/tanks/gamedata/units/debris/m4a2_sherman_1944_body.blk"
   },
   "m4a2_sherman_1944_turret_destroyed": {
-    "_extends": "destroyed_tank",
+    "_use": "destroyed_tank",
     "animchar__res": "m4a2_sherman_1944_turret_destroyed_char",
     "collres__res": "m4a2_sherman_1944_turret_destroyed_collision",
     "phys_obj_net_phys__blk": "content/tanks/gamedata/units/debris/m4a2_sherman_1944_turret.blk"

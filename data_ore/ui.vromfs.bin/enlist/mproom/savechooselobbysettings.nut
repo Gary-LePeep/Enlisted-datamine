@@ -5,14 +5,16 @@ let JB = require("%ui/control/gui_buttons.nut")
 let tooltipBox = require("%ui/style/tooltipBox.nut")
 let getMissionInfo = require("%enlist/gameModes/getMissionInfo.nut")
 let textButton = require("%ui/components/textButton.nut")
-let { sub_txt, body_txt, h0_txt } = require("%enlSqGlob/ui/fonts_style.nut")
-let { settings } = require("%enlist/options/onlineSettings.nut")
+let { fontSub, fontBody, fontTitle } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { settings, onlineSettingUpdated } = require("%enlist/options/onlineSettings.nut")
 let { setTooltip } = require("%ui/style/cursors.nut")
 let { addModalWindow, removeModalWindow } = require("%ui/components/modalWindows.nut")
 let { tinyOffset, smallOffset, smallPadding, defInsideBgColor,
   activeBgColor, idleBgColor, defBgColor, defTxtColor, titleTxtColor
 } = require("%enlSqGlob/ui/viewConst.nut")
-
+let { mkArmySimpleIcon } = require("%enlist/soldiers/components/armyPackage.nut")
+let { show } = require("%ui/components/msgbox.nut")
+let { isEventModesOpened } = require("%enlist/gameModes/eventModesState.nut")
 
 const MAX_MISSIONS = 6
 
@@ -22,11 +24,11 @@ let baseOptions = [
   optDifficulty
   optMaxPlayers
   optBotCount
-  optTeamArmies
   optVoteToKick
   optCluster
   optCrossplay
-  optCampaigns
+  optArmiesA
+  optArmiesB
   optMissions
 ]
 
@@ -38,6 +40,20 @@ let slotSize = [hdpx(140), hdpx(140)]
 let slotColor = @(sf) sf & S_HOVER ? activeBgColor : idleBgColor
 
 let lobbyPresets = Computed(@() settings.value?[PRESETS_ID])
+let function removePresets() {
+  if (PRESETS_ID in settings.value)
+    settings.mutate(@(v) delete v[PRESETS_ID])
+  show({ text = loc("lobby/presetsRenew") })
+}
+
+isEventModesOpened.subscribe(function(opened) {
+  if (!opened || !onlineSettingUpdated.value)
+    return
+  let needToRenewPresets = (settings.value?[PRESETS_ID] ?? [])
+    .findvalue(@(preset) optArmiesA.id not in preset) != null
+  if (needToRenewPresets)
+    removePresets()
+})
 
 let separator = { size = [flex(), tinyOffset] }
 
@@ -45,14 +61,14 @@ let mkParamName = @(txt) {
   rendObj = ROBJ_TEXT
   color = defTxtColor
   text = txt
-}.__update(sub_txt)
+}.__update(fontSub)
 
 let mkParamVal = @(txt) {
   rendObj = ROBJ_TEXT
   hplace = ALIGN_RIGHT
   color = titleTxtColor
   text = txt
-}.__update(sub_txt)
+}.__update(fontSub)
 
 let mkParamList = @(list, bottomTxt = null) {
   rendObj = ROBJ_TEXTAREA
@@ -99,16 +115,25 @@ let function mkBaseOptRow(opt, preset) {
       }
 }
 
-let function mkCampaignList(list) {
-  let { cfg } = optCampaigns
+let function mkArmiesList(opt, preset) {
+  let { id, cfg } = opt
+  let val = clone preset?[id]
+  let armiesToShow = val.sort(@(a, b) a <=> b)
   return @() {
     watch = cfg
     size = [flex(), SIZE_TO_CONTENT]
+    flow = FLOW_HORIZONTAL
+    gap = { size = flex() }
+    valign = ALIGN_CENTER
     children = [
       mkParamName(loc(cfg.value.locId))
-      list.len() == 0
+      armiesToShow.len() == 0
         ? mkParamVal(loc("option/all"))
-        : mkParamList("\n".join(list.map(@(c) loc($"{c}/full"))))
+        : {
+            flow = FLOW_HORIZONTAL
+            gap = smallPadding
+            children = armiesToShow.map(@(c) mkArmySimpleIcon(c, fontSub.fontSize))
+          }
     ]
   }
 }
@@ -142,19 +167,18 @@ let function mkMissionList(list) {
 let mkPresetInfo = @(preset, bottomTxt) {
   size = [hdpx(550), SIZE_TO_CONTENT]
   flow = FLOW_VERTICAL
-  children = (preset == null ? []
+  children = (preset == null ? [] // -unwanted-modification
     : [
-        mkParamName(loc("lobbyPresetHeader")).__update(body_txt)
+        mkParamName(loc("lobbyPresetHeader")).__update(fontBody)
         separator
         mkBaseOptRow(optMode, preset)
         mkBaseOptRow(optDifficulty, preset)
         mkBaseOptRow(optMaxPlayers, preset)
         mkBaseOptRow(optBotCount, preset)
-        mkBaseOptRow(optTeamArmies, preset)
         mkBaseOptRow(optCluster, preset)
         separator
-        mkCampaignList(preset?[optCampaigns.id] ?? [])
-        separator
+        mkArmiesList(optArmiesA, preset)
+        mkArmiesList(optArmiesB, preset)
         mkMissionList(preset?[optMissions.id] ?? [])
         separator
         separator
@@ -164,7 +188,7 @@ let mkPresetInfo = @(preset, bottomTxt) {
           behavior = Behaviors.TextArea
           color = titleTxtColor
           text = bottomTxt
-        }.__update(body_txt))
+        }.__update(fontBody))
 }
 
 let function mkPresetSlot(curPresets, idx, onClick, bottomTxt) {
@@ -185,7 +209,7 @@ let function mkPresetSlot(curPresets, idx, onClick, bottomTxt) {
       rendObj = ROBJ_TEXT
       text = preset == null ? loc("presetEmpty") : (idx + 1).tostring()
       color = slotColor(sf)
-    }.__update(preset == null ? sub_txt : h0_txt)
+    }.__update(preset == null ? fontSub : fontTitle)
   })
 }
 
@@ -209,7 +233,7 @@ let closeButton = textButton(loc("Cancel"), @() removeModalWindow(WND_UID), {
 let openSaveWindow = @() addModalWindow({
   children = [
     mkParamVal(loc("header/saveLobbyPreset"))
-      .__update(body_txt, { hplace = ALIGN_CENTER })
+      .__update(fontBody, { hplace = ALIGN_CENTER })
     function() {
       let curPresets = lobbyPresets.value
       let curSlotsCount = (curPresets ?? []).len()
@@ -233,7 +257,7 @@ let openSaveWindow = @() addModalWindow({
 let openChooseWindow = @() addModalWindow({
   children = [
     mkParamVal(loc("header/chooseLobbyPreset"))
-      .__update(body_txt, { hplace = ALIGN_CENTER })
+      .__update(fontBody, { hplace = ALIGN_CENTER })
     function() {
       let curPresets = lobbyPresets.value
       let curSlotsCount = (curPresets ?? []).len()

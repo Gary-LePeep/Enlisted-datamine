@@ -1,6 +1,6 @@
 {
   "base_t54e1": {
-    "_extends": "base_tank",
+    "_use": "base_tank",
     "killLogName": "us_t54e1",
     "animchar__res": "t54e1_char",
     "collres__res": "t54e1_collision",
@@ -99,7 +99,7 @@
     ]
   },
   "usmp_hamster_plasmagun": {
-    "_extends": "tank_plasmagun",
+    "_use": "tank_plasmagun",
     "gun__shootNodeName": "emtr_gun_flame",
     "turret__yawSpeed": 18.0,
     "turret__pitchSpeed": 4.0,
@@ -112,7 +112,7 @@
     }
   },
   "usmp_hamster_blastergun": {
-    "_extends": "tank_blastergun",
+    "_use": "tank_blastergun",
     "gun__shootNodeName": "bone_mg_gun_twin_01"
   }
 }

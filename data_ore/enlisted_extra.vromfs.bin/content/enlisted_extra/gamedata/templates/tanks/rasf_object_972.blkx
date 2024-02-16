@@ -1,10 +1,10 @@
 {
   "rasf_object_972": [
     {
-      "_extends": "ussr_object_279_common"
+      "_use": "ussr_object_279_common"
     },
     {
-      "_extends": "moon_event_fx"
+      "_use": "moon_event_fx"
     },
     {
       "item__name": "items/rasf_object_972"
@@ -20,40 +20,19 @@
   ],
   "ussr_object_279_common": [
     {
-      "_extends": "base_object_279"
+      "_use": "base_object_279"
     },
     {
-      "_extends": "tank_t34_engine_sound"
+      "_use": "tank_t34_engine_sound"
     },
     {
-      "_extends": "tank_heavy_vehicle_tracks_sound"
+      "_use": "tank_heavy_vehicle_tracks_sound"
     },
     {
-      "bullet_holes__ignoreCollisionNodes:array": {
-        "_tags": "render"
-      }
+      "commanderCockpitFpsCamMaxAngle": [40.0,5.0]
     },
     {
-      "bullet_holes__movingCollisionNodes:array": [
-        {
-          "_tags": "render"
-        },
-        {
-          "movingCollisionNodes": "cls_turret_01"
-        },
-        {
-          "movingCollisionNodes": "turret_front"
-        },
-        {
-          "movingCollisionNodes": "turret_side"
-        },
-        {
-          "movingCollisionNodes": "gun_mask"
-        },
-        {
-          "movingCollisionNodes": "gun_mask_01"
-        }
-      ]
+      "gunner_cam_limit__useCockpitDir": true
     },
     {
       "vehicle_seats__seats:shared:array": [
@@ -186,12 +165,12 @@
     }
   ],
   "us_object_279_commander_cockpit": {
-    "_extends": "base_commander_cockpit_no_slits",
+    "_use": "base_commander_cockpit_no_slits",
     "animchar__res": "t_26_1940_commander_char",
-    "cockpit__minZoom": -0.05,
+    "cockpit__minForwardOffset": -0.05,
     "cockpit__offset": [-0.0,0.0,-0.0],
     "cockpit__cockpitOffsetBySlit:list<p3>": {
-      "item": [0.474384,1.01976,0.562009]
+      "item": [0.75,1.25,0.562009]
     },
     "cockpit__slitForwardOffset:list<r>": {
       "slit": 0.17
@@ -209,13 +188,31 @@
       {
         "node": "@root"
       }
-    ]
+    ],
+    "cockpit__periscopeLimits:list<p4>": {
+      "slit": [-45.0,45.0,-5.0,25.0]
+    },
+    "cockpit__periscopeSpeed:list<p2>": {
+      "slit": [35.0,35.0]
+    },
+    "cockpit__slitZoom:array": {
+      "slit:list<r>": {
+        "zoom": 1.44
+      }
+    },
+    "cockpit__slitZoomTime:list<r>": {
+      "slit": 0.0
+    },
+    "cockpit__slitTemplates:list<t>": {
+      "slit": "default_periscope"
+    },
+    "cockpit__slitEids:list<eid>": []
   },
   "us_object_279_driver_cockpit": {
-    "_extends": "base_driver_cockpit",
+    "_use": "base_driver_cockpit",
     "animchar__res": "ba_11_driver_char",
     "cockpit__offset": [-0.3,-0.26,0.23],
-    "cockpit__minZoom": -0.0,
+    "cockpit__minForwardOffset": -0.0,
     "cockpit__visibleVehicleNodeNames:list<t>": {
       "node": "gun_barrel"
     },
@@ -224,7 +221,7 @@
     }
   },
   "us_object_279_gunner_cockpit": {
-    "_extends": "base_gunner_cockpit",
+    "_use": "base_gunner_cockpit",
     "animchar__res": "pz_2c_commander_char",
     "cockpit__offset": [-2.17225,0.512522,-0.0906195],
     "cockpit__visibleVehicleNodeNames:list<t>": [
@@ -239,7 +236,7 @@
       "slit": "cam_front"
     },
     "cockpit__slitForwardOffset:list<r>": {
-      "slit": 0.3
+      "slit": 0.27
     },
     "cockpit__slitIsGun:list<b>": {
       "slit": true
@@ -247,6 +244,18 @@
     "cockpit__attachNodeNames:list<t>": {
       "node": "gun_barrel"
     },
-    "cockpit__attachNodeIndices:list<i>": []
+    "cockpit__slitZoomTime:list<r>": {
+      "slit": 0.05
+    },
+    "cockpit__slitZoom:array": {
+      "slit:list<r>": {
+        "zoom": 4.0
+      }
+    },
+    "cockpit__attachNodeIndices:list<i>": [],
+    "cockpit__slitTemplates:list<t>": {
+      "slit": "ussr_tsh_17"
+    },
+    "cockpit__slitEids:list<eid>": []
   }
 }

@@ -47,6 +47,11 @@
   },
   {
     "entity": {
+      "_template": "bloom"
+    }
+  },
+  {
+    "entity": {
       "_template": "postfx_roundctrl"
     }
   },
@@ -66,6 +71,7 @@
     "entity": {
       "_template": "briefing_invasion",
       "mission_name": "volokolamsk_lake_inv",
+      "mission_outfit": "moscow",
       "loading_images:list<t>": [
         {
           "item": "ui/volokolamsk_lake_01.avif"
@@ -91,7 +97,7 @@
       "team__briefing": "invasion/defenders_goals",
       "team__winSubtitle": "debriefing/won_defence_subtitle",
       "team__loseSubtitle": "debriefing/lost_defence_subtitle",
-      "team__winTitle": "debriefing/ger_won_defence",
+      "team__winTitle": "debriefing/axis_won_defence",
       "team__spawnBotArmy": "moscow_axis"
     }
   },
@@ -911,7 +917,7 @@
         [0.0,0.0,1.0],
         [0.0,0.0,0.0]
       ],
-      "groupName": "sector_4",
+      "groupName": "sector_4_a",
       "active": false,
       "battle_area__team": 1,
       "battleAreaId": "area4_2"
@@ -1052,7 +1058,7 @@
         [0.0,0.0,1.0],
         [0.0,0.0,0.0]
       ],
-      "groupName": "sector_4",
+      "groupName": "sector_4_a",
       "active": false,
       "battle_area__team": 2,
       "battleAreaId": "area4_1"
@@ -1889,10 +1895,10 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_fighter",
       "transform": [
-        [0.607986,0.0,0.793948],
-        [0.0,1.0,0.0],
-        [-0.793948,0.0,0.607986],
-        [-2562.51,1000.0,-2757.19]
+        [0.599668,0.0,0.800249],
+        [0.0,1.0,-0.0],
+        [-0.800249,0.0,0.599668],
+        [-3324.02,1000.0,-3851.24]
       ],
       "team": 1,
       "maxVehicleOnSpawn": 1,
@@ -1904,10 +1910,10 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_assault",
       "transform": [
-        [0.607986,0.0,0.793948],
-        [0.0,1.0,0.0],
-        [-0.793948,0.0,0.607986],
-        [-2452.71,800.0,-2863.66]
+        [0.568544,0.0,0.822653],
+        [0.0,1.0,-0.0],
+        [-0.822653,0.0,0.568544],
+        [-3209.16,800.0,-3952.23]
       ],
       "team": 1,
       "maxVehicleOnSpawn": 1,
@@ -1919,10 +1925,10 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_fighter",
       "transform": [
-        [0.607986,0.0,0.793948],
-        [0.0,1.0,0.0],
-        [-0.793948,0.0,0.607986],
-        [-2452.71,1000.0,-2863.66]
+        [0.568544,0.0,0.822653],
+        [0.0,1.0,-0.0],
+        [-0.822653,0.0,0.568544],
+        [-3209.16,1000.0,-3952.23]
       ],
       "team": 1,
       "maxVehicleOnSpawn": 1,
@@ -1934,10 +1940,10 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_assault",
       "transform": [
-        [0.607986,0.0,0.793948],
-        [0.0,1.0,0.0],
-        [-0.793948,0.0,0.607986],
-        [-2569.81,800.0,-2722.96]
+        [0.607446,0.0,0.794361],
+        [0.0,1.0,-0.0],
+        [-0.794361,0.0,0.607446],
+        [-3332.98,800.0,-3817.41]
       ],
       "team": 1,
       "maxVehicleOnSpawn": 1,
@@ -1951,9 +1957,9 @@
         [-0.847798,0.0,0.53032],
         [0.0,1.0,0.0],
         [-0.53032,0.0,-0.847798],
-        [2064.3,1000.0,-2154.72]
+        [-1182.96,745.956,-3918.42]
       ],
-      "resupply_zone__team": 2
+      "resupply_zone__team": 1
     }
   },
   {
@@ -1961,10 +1967,10 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_fighter",
       "transform": [
-        [-0.592983,0.0,-0.805215],
+        [-0.601648,0.0,-0.798762],
         [0.0,1.0,0.0],
-        [0.805215,0.0,-0.592983],
-        [-129.324,1000.0,326.164]
+        [0.798762,0.0,-0.601648],
+        [992.471,1000.0,1829.84]
       ],
       "team": 2,
       "maxVehicleOnSpawn": 1,
@@ -1976,10 +1982,10 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_assault",
       "transform": [
-        [-0.592983,0.0,-0.805215],
+        [-0.624991,0.0,-0.780632],
         [0.0,1.0,0.0],
-        [0.805215,0.0,-0.592983],
-        [-113.863,800.0,279.763]
+        [0.780632,0.0,-0.624991],
+        [1008.82,800.0,1783.74]
       ],
       "team": 2,
       "maxVehicleOnSpawn": 1,
@@ -1991,10 +1997,10 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_fighter",
       "transform": [
-        [-0.592983,0.0,-0.805215],
+        [-0.577459,0.0,-0.816419],
         [0.0,1.0,0.0],
-        [0.805215,0.0,-0.592983],
-        [-262.148,1000.0,395.59]
+        [0.816419,0.0,-0.577459],
+        [858.342,1000.0,1896.71]
       ],
       "team": 2,
       "maxVehicleOnSpawn": 1,
@@ -2006,10 +2012,10 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_assault",
       "transform": [
-        [-0.592983,0.0,-0.805215],
+        [-0.577459,0.0,-0.816419],
         [0.0,1.0,0.0],
-        [0.805215,0.0,-0.592983],
-        [-262.148,800.0,395.59]
+        [0.816419,0.0,-0.577459],
+        [858.342,800.0,1896.71]
       ],
       "team": 2,
       "maxVehicleOnSpawn": 1,
@@ -2023,9 +2029,9 @@
         [0.861811,0.0,-0.507229],
         [0.0,1.0,0.0],
         [0.507229,0.0,0.861811],
-        [-4401.02,1000.0,28.3997]
+        [-959.094,702.252,1892.67]
       ],
-      "resupply_zone__team": 1
+      "resupply_zone__team": 2
     }
   },
   {
@@ -2062,7 +2068,7 @@
       "capzone__createRespawnBaseForTeam": 2,
       "sphere_zone__radius": 18.0,
       "decal__height": 0.5,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 3,
       "capzone__activateChoice:object": {
@@ -2096,7 +2102,7 @@
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 2,
       "decal__height": 1.0,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 4,
       "capzone__iconOffsetY": 2.5,
@@ -2114,7 +2120,7 @@
         [0.0,0.0,1.0],
         [-1187.49,0.146756,-1013.18]
       ],
-      "capzone__capRewardPartCap": 1.5,
+      "capzone__capRewardPartCap": 1.375,
       "capzone__onlyTeamCanCapture": 1,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_3",
@@ -2131,12 +2137,12 @@
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 2,
       "decal__height": 0.3,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 5,
       "capzone__iconOffsetY": 2.0,
       "capzone__activateChoice:object": {
-        "sector_4": 1.0,
+        "sector_4_a": 1.0,
         "sector_4_b": 1.0
       }
     }
@@ -2150,10 +2156,10 @@
         [0.0,0.0,0.938432],
         [-1091.14,1.37103,-949.732]
       ],
-      "capzone__capRewardPartCap": 1.75,
+      "capzone__capRewardPartCap": 1.5,
       "capzone__onlyTeamCanCapture": 1,
       "capzone__curTeamCapturingZone": -1,
-      "groupName": "sector_4",
+      "groupName": "sector_4_a",
       "capzone__capTime": 35.0,
       "capzone__capTeam": -1,
       "active": false,
@@ -2167,7 +2173,7 @@
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 2,
       "decal__height": 0.5,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 6,
       "capzone__iconOffsetY": 2.5,
@@ -2185,7 +2191,7 @@
         [-0.00144047,0.0308855,0.999522],
         [-1169.76,0.804218,-896.756]
       ],
-      "capzone__capRewardPartCap": 1.75,
+      "capzone__capRewardPartCap": 1.5,
       "capzone__onlyTeamCanCapture": 1,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_4_b",
@@ -2202,7 +2208,7 @@
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 2,
       "decal__height": 0.6,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 7,
       "capzone__iconOffsetY": 2.5,
@@ -2237,7 +2243,7 @@
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 2,
       "decal__height": 1.5,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 8,
       "capzone__iconOffsetY": 3.0
@@ -2605,7 +2611,7 @@
         [-0.224516,0.0,0.97447],
         [-1185.35,1.5241,-1028.16]
       ],
-      "groupName": "sector_4",
+      "groupName": "sector_4_a",
       "respawnBaseGroup": 1,
       "active": false
     }
@@ -2619,7 +2625,7 @@
         [-0.321732,0.0,0.946831],
         [-1195.06,2.31473,-1001.19]
       ],
-      "groupName": "sector_4",
+      "groupName": "sector_4_a",
       "respawnBaseGroup": 1,
       "active": false
     }
@@ -2634,7 +2640,7 @@
         [-1194.71,1.4707,-1129.7]
       ],
       "respTime": 150,
-      "groupName": "sector_4",
+      "groupName": "sector_4_a",
       "team": 1,
       "maxVehicleOnSpawn": 2,
       "respawnBaseGroup": 1,
@@ -2650,7 +2656,7 @@
         [0.499477,0.0,0.866326],
         [-1072.93,5.19377,-834.609]
       ],
-      "groupName": "sector_4",
+      "groupName": "sector_4_a",
       "respawnBaseGroup": 1,
       "active": false
     }
@@ -2664,7 +2670,7 @@
         [0.204196,0.0,0.97893],
         [-1121.05,3.45367,-835.806]
       ],
-      "groupName": "sector_4",
+      "groupName": "sector_4_a",
       "respawnBaseGroup": 1,
       "active": false
     }
@@ -2678,7 +2684,7 @@
         [0.70239,0.0,-0.711792],
         [-1105.31,3.69289,-808.024]
       ],
-      "groupName": "sector_4",
+      "groupName": "sector_4_a",
       "respawnBaseGroup": 1,
       "active": false
     }
@@ -2693,7 +2699,7 @@
         [-1155.52,3.77514,-746.674]
       ],
       "respTime": 150,
-      "groupName": "sector_4",
+      "groupName": "sector_4_a",
       "team": 2,
       "maxVehicleOnSpawn": 2,
       "respawnBaseGroup": 1,
@@ -3084,7 +3090,7 @@
         [0.712638,0.0,-0.701532],
         [-1073.35,3.05294,-962.815]
       ],
-      "groupName": "sector_4",
+      "groupName": "sector_4_a",
       "respawnBaseGroup": 6,
       "active": false
     }
@@ -3098,7 +3104,7 @@
         [0.852699,0.0,-0.522402],
         [-1093.29,3.11,-944.054]
       ],
-      "groupName": "sector_4",
+      "groupName": "sector_4_a",
       "respawnBaseGroup": 6,
       "active": false
     }
@@ -3287,7 +3293,7 @@
         [-1194.71,1.4707,-1129.7]
       ],
       "team": 1,
-      "groupName": "sector_4"
+      "groupName": "sector_4_a"
     }
   },
   {
@@ -3301,7 +3307,7 @@
         [-1155.52,3.77514,-746.674]
       ],
       "team": 2,
-      "groupName": "sector_4"
+      "groupName": "sector_4_a"
     }
   },
   {
@@ -3454,7 +3460,7 @@
         [-1194.71,1.4707,-1129.7]
       ],
       "resupply_zone__team": 1,
-      "groupName": "sector_4",
+      "groupName": "sector_4_a",
       "active": false
     }
   },
@@ -3468,7 +3474,7 @@
         [-1155.52,3.77514,-746.674]
       ],
       "resupply_zone__team": 2,
-      "groupName": "sector_4",
+      "groupName": "sector_4_a",
       "active": false
     }
   },

@@ -7,8 +7,8 @@ require Ballistics
 require BallisticsProps
 require DagorMath
 require DagorSystem
-require EnlistedDm
-require EnlistedWeapon
+require DngDm
+require DngWeapon
 require AnimV20
 require GeomNodeTree
 require GamePhys
@@ -25,10 +25,10 @@ def projectile_init_created_es(evt : Event;
     logerr("Removed bad projectile entity {eid} created not by gun of template {getEntityTemplateName(eid)}")
     destroyEntity(eid)
     return
-  if (length_sq(launch_desc.tm[3]) < 1e10)
+  if (length_sq(launch_desc.tm[3]) < 1e10 && length_sq(launch_desc.vel) < 1e10)
     projectile__prevPos = launch_desc.tm[3]
   else
-    logerr("invalid data in projectile info {eid} {getEntityTemplateName(eid)} {launch_desc.tm[3]}")
+    logerr("invalid data in projectile info {eid} {getEntityTemplateName(eid)} {launch_desc}")
     destroyEntity(eid)
 
 
@@ -45,7 +45,7 @@ def projectile_phys_created_es(evt : Event;
     return
 
   projectile_get_props(int(launch_desc.shellId.shellId)) <| $(bulletProps : ProjectileProps)
-    projectile_ballistics_props = bulletProps
+    projectile_ballistics_props := bulletProps
 
   projectile__maxLifeTime = projectile__maxLifeTime <= 0. ? safediv(projectile_ballistics_props.maxDistance, length(launch_desc.vel)) : projectile__maxLifeTime
 
@@ -180,6 +180,13 @@ def update_projectile_es(info : ParallelUpdateFrameDelayed;
                                               normal = float3(),
                                               alternative_offender = INVALID_ENTITY_ID]])
     projectile__exploded = true
+
+
+[es(tag=render, no_order)]
+def projectile_effect_velocity_update(info : UpdateStageInfoAct;
+                                      projectile_ballistics : ProjectileBallistics;
+                                      var effect__velocity : float3&)
+  effect__velocity = projectile_ballistics.state.vel
 
 
 [es(on_appear)]

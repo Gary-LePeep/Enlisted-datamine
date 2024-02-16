@@ -3,6 +3,8 @@
 from "%darg/ui_imports.nut" import *
 from "base64" import encodeString
 
+let math = require("math")
+
 const BLEND_MODE_PREMULTIPLIED = "PREMULTIPLIED"
 const BLEND_MODE_NONPREMULTIPLIED = "NONPREMULTIPLIED"
 const BLEND_MODE_ADDITIVE = "ADDITIVE"
@@ -28,7 +30,7 @@ let function mkGradPointStyle(point, idx, points){
     colorStr = $"stop-color:rgb({r}, {g}, {b});"
   }
   let opacityStr = (opacity!=null) ? $"stop-opacity:{opacity};" : ""
-  assert(colorStr != "" || opacityStr != "", "point in gradient should have color and/or opacity! got '{point}'")
+  assert(colorStr != "" || opacityStr != "", $"point in gradient should have color and/or opacity! got '{point}'")
   return $"<stop offset='{offset}%' style='{opacityStr}{colorStr}'/>"
 }
 
@@ -53,11 +55,12 @@ let function mkLinearGradSvgTxtImpl(points, width, height, x1=0, y1=0, x2=null, 
   return $"{header}\n    {body}\n{footer}"
 }
 
-let mkLinearGradientImg = kwarg(function(points, width, height, x1=0, y1=0, x2=null, y2=0, spreadMethod=GRADSPREAD.PAD, transform=null, blendMode=BLEND_MODE_PREMULTIPLIED) {
+let mkLinearGradientImg = kwarg(function(points, width, height, x1=0, y1=0, x2=null, y2=0, spreadMethod=GRADSPREAD.PAD, transform=null, blendMode=BLEND_MODE_PREMULTIPLIED, immediate=false) {
   let svg = mkLinearGradSvgTxtImpl(points, width, height, x1,y1,x2,y2, spreadMethod, transform)
   let text = encodeString(svg)
   let prefix = blendModesPrefix?[blendMode] ?? ""
-  return Picture($"{prefix}b64://{text}.svg:{width}:{height}?Ac")
+  let pic = immediate ? PictureImmediate : Picture
+  return pic($"{prefix}b64://{text}.svg:{width}:{height}?Ac")
 })
 
 let function mkRadialGradSvgTxtImpl(points, width, height, cx=null, cy=null, r=null, fx=null, fy=null, spreadMethod=GRADSPREAD.PAD, transform=null){
@@ -70,7 +73,7 @@ let function mkRadialGradSvgTxtImpl(points, width, height, cx=null, cy=null, r=n
     fx != null ? $"fx='{fx}'" : "",
     fy != null ? $"fy='{fy}'" : ""
   ])
-  r = r==null ? min(width, height) * 0.5 : r
+  r = r==null ? math.min(width, height) * 0.5 : r
   let center = " ".join([
     cx!=null ? $"cx='{cx}'" : "",
     cy!=null ? $"cy='{cy}'" : "",

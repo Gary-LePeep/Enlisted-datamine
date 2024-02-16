@@ -6,6 +6,7 @@
       [0.0,0.0,1.0],
       [0.0,0.0,0.0]
     ],
+    "paint_color": [1.0,1.0,1.0,0.5],
     "_group": {
       "_tags": "render",
       "effect": []
@@ -15,10 +16,10 @@
   },
   "envir_destr_buildings_big_effect": [
     {
-      "_extends": "destruction_effect_base"
+      "_use": "destruction_effect_base"
     },
     {
-      "_extends": "on_appear_sound"
+      "_use": "on_appear_sound"
     },
     {
       "_group": {
@@ -35,10 +36,10 @@
   ],
   "envir_destr_buildings_med_effect": [
     {
-      "_extends": "destruction_effect_base"
+      "_use": "destruction_effect_base"
     },
     {
-      "_extends": "on_appear_sound"
+      "_use": "on_appear_sound"
     },
     {
       "_group": {
@@ -55,10 +56,10 @@
   ],
   "envir_destr_buildings_small_effect": [
     {
-      "_extends": "destruction_effect_base"
+      "_use": "destruction_effect_base"
     },
     {
-      "_extends": "on_appear_sound"
+      "_use": "on_appear_sound"
     },
     {
       "_group": {
@@ -74,120 +75,184 @@
     }
   ],
   "envir_destr_basic_big_effect": {
-    "_extends": "destruction_effect_base",
+    "_use": "destruction_effect_base",
     "_group": {
       "_tags": "render",
       "effect__name": "envir_destr_basic_big_cmps_fx"
     }
   },
   "envir_destr_basic_med_effect": {
-    "_extends": "destruction_effect_base",
+    "_use": "destruction_effect_base",
     "_group": {
       "_tags": "render",
       "effect__name": "envir_destr_basic_med_cmps_fx"
     }
   },
   "envir_destr_basic_small_effect": {
-    "_extends": "destruction_effect_base",
+    "_use": "destruction_effect_base",
     "_group": {
       "_tags": "render",
       "effect__name": "envir_destr_basic_small_cmps_fx"
     }
   },
   "envir_destr_bush_fall_effect": {
-    "_extends": "destruction_effect_base",
+    "_use": "destruction_effect_base",
     "_group": {
       "_tags": "render",
+      "effect__lowestFxQuality": 1,
+      "usePaintColor": true,
+      "paintFromLevelRiColors": true,
+      "effect__riPoolUsedForColoring": -1,
       "effect__name": "envir_destr_bush_fall_cmps_fx"
     }
   },
   "envir_destr_bush_green_effect": {
-    "_extends": "destruction_effect_base",
+    "_use": "destruction_effect_base",
     "_group": {
       "_tags": "render",
+      "effect__lowestFxQuality": 1,
+      "usePaintColor": true,
+      "paintFromLevelRiColors": true,
+      "effect__riPoolUsedForColoring": -1,
       "effect__name": "envir_destr_bush_green_cmps_fx"
     }
   },
-  "envir_destr_bush_snow_effect": {
-    "_extends": "destruction_effect_base",
+  "envir_destr_bush_palm_effect": {
+    "_use": "destruction_effect_base",
     "_group": {
       "_tags": "render",
+      "effect__lowestFxQuality": 1,
+      "usePaintColor": true,
+      "paintFromLevelRiColors": true,
+      "effect__riPoolUsedForColoring": -1,
+      "effect__name": "envir_destr_bush_palm_cmps_fx"
+    }
+  },
+  "envir_destr_bush_snow_effect": {
+    "_use": "destruction_effect_base",
+    "_group": {
+      "_tags": "render",
+      "effect__lowestFxQuality": 1,
       "effect__name": "envir_destr_bush_snow_cmps_fx"
     }
   },
   "envir_destr_bush_dead_effect": {
-    "_extends": "destruction_effect_base",
+    "_use": "destruction_effect_base",
     "_group": {
       "_tags": "render",
+      "effect__lowestFxQuality": 1,
       "effect__name": "envir_destr_bush_dead_cmps_fx"
     }
   },
   "envir_destr_tree_fall_big_effect": {
-    "_extends": "destruction_effect_base",
+    "_use": "destruction_effect_base",
     "_group": {
       "_tags": "render",
+      "effect__lowestFxQuality": 1,
+      "usePaintColor": true,
+      "paintFromLevelRiColors": true,
+      "effect__riPoolUsedForColoring": -1,
       "effect__name": "envir_destr_tree_fall_big_cmps_fx"
     }
   },
   "envir_destr_tree_fall_med_effect": {
-    "_extends": "destruction_effect_base",
+    "_use": "destruction_effect_base",
     "_group": {
       "_tags": "render",
+      "effect__lowestFxQuality": 1,
+      "usePaintColor": true,
+      "paintFromLevelRiColors": true,
+      "effect__riPoolUsedForColoring": -1,
       "effect__name": "envir_destr_tree_fall_med_cmps_fx"
     }
   },
   "envir_destr_tree_green_big_effect": {
-    "_extends": "destruction_effect_base",
+    "_use": "destruction_effect_base",
     "_group": {
       "_tags": "render",
+      "effect__lowestFxQuality": 1,
+      "usePaintColor": true,
+      "paintFromLevelRiColors": true,
+      "effect__riPoolUsedForColoring": -1,
       "effect__name": "envir_destr_tree_green_big_cmps_fx"
     }
   },
   "envir_destr_tree_green_med_effect": {
-    "_extends": "destruction_effect_base",
+    "_use": "destruction_effect_base",
     "_group": {
       "_tags": "render",
+      "effect__lowestFxQuality": 1,
+      "usePaintColor": true,
+      "paintFromLevelRiColors": true,
+      "effect__riPoolUsedForColoring": -1,
       "effect__name": "envir_destr_tree_green_med_cmps_fx"
     }
   },
-  "envir_destr_tree_snow_big_effect": {
-    "_extends": "destruction_effect_base",
+  "envir_destr_tree_palm_big_effect": {
+    "_use": "destruction_effect_base",
     "_group": {
       "_tags": "render",
+      "effect__lowestFxQuality": 1,
+      "usePaintColor": true,
+      "paintFromLevelRiColors": true,
+      "effect__riPoolUsedForColoring": -1,
+      "effect__name": "envir_destr_tree_palm_big_cmps_fx"
+    }
+  },
+  "envir_destr_tree_palm_med_effect": {
+    "_use": "destruction_effect_base",
+    "_group": {
+      "_tags": "render",
+      "effect__lowestFxQuality": 1,
+      "usePaintColor": true,
+      "paintFromLevelRiColors": true,
+      "effect__riPoolUsedForColoring": -1,
+      "effect__name": "envir_destr_tree_palm_med_cmps_fx"
+    }
+  },
+  "envir_destr_tree_snow_big_effect": {
+    "_use": "destruction_effect_base",
+    "_group": {
+      "_tags": "render",
+      "effect__lowestFxQuality": 1,
       "effect__name": "envir_destr_tree_snow_big_cmps_fx"
     }
   },
   "envir_destr_tree_snow_med_effect": {
-    "_extends": "destruction_effect_base",
+    "_use": "destruction_effect_base",
     "_group": {
       "_tags": "render",
+      "effect__lowestFxQuality": 1,
       "effect__name": "envir_destr_tree_snow_med_cmps_fx"
     }
   },
   "envir_destr_tree_dead_big_effect": {
-    "_extends": "destruction_effect_base",
+    "_use": "destruction_effect_base",
     "_group": {
       "_tags": "render",
+      "effect__lowestFxQuality": 1,
       "effect__name": "envir_destr_tree_dead_big_cmps_fx"
     }
   },
   "envir_destr_tree_dead_med_effect": {
-    "_extends": "destruction_effect_base",
+    "_use": "destruction_effect_base",
     "_group": {
       "_tags": "render",
+      "effect__lowestFxQuality": 1,
       "effect__name": "envir_destr_tree_dead_med_cmps_fx"
     }
   },
   "envir_destr_cactus_effect": [
     {
-      "_extends": "destruction_effect_base"
+      "_use": "destruction_effect_base"
     },
     {
-      "_extends": "on_appear_sound"
+      "_use": "on_appear_sound"
     },
     {
       "_group": {
         "_tags": "render",
+        "effect__lowestFxQuality": 1,
         "effect__name": "envir_destr_cactus_cmps_fx"
       }
     },
@@ -198,12 +263,61 @@
       }
     }
   ],
+  "envir_collision_bush_dead_effect": {
+    "_use": "destruction_effect_base",
+    "_group": {
+      "_tags": "render",
+      "effect__lowestFxQuality": 1,
+      "effect__name": "envir_destr_colloision_bush_dead_cmps_fx"
+    }
+  },
+  "envir_collision_bush_fall_effect": {
+    "_use": "destruction_effect_base",
+    "_group": {
+      "_tags": "render",
+      "effect__lowestFxQuality": 1,
+      "usePaintColor": true,
+      "paintFromLevelRiColors": true,
+      "effect__riPoolUsedForColoring": -1,
+      "effect__name": "envir_destr_colloision_bush_fall_cmps_fx"
+    }
+  },
+  "envir_collision_bush_green_effect": {
+    "_use": "destruction_effect_base",
+    "_group": {
+      "_tags": "render",
+      "effect__lowestFxQuality": 1,
+      "usePaintColor": true,
+      "paintFromLevelRiColors": true,
+      "effect__riPoolUsedForColoring": -1,
+      "effect__name": "envir_destr_colloision_bush_green_cmps_fx"
+    }
+  },
+  "envir_collision_bush_palm_effect": {
+    "_use": "destruction_effect_base",
+    "_group": {
+      "_tags": "render",
+      "effect__lowestFxQuality": 1,
+      "usePaintColor": true,
+      "paintFromLevelRiColors": true,
+      "effect__riPoolUsedForColoring": -1,
+      "effect__name": "envir_destr_colloision_bush_palm_cmps_fx"
+    }
+  },
+  "envir_collision_bush_snow_effect": {
+    "_use": "destruction_effect_base",
+    "_group": {
+      "_tags": "render",
+      "effect__lowestFxQuality": 1,
+      "effect__name": "envir_destr_colloision_bush_snow_cmps_fx"
+    }
+  },
   "envir_destr_ceramic_big_effect": [
     {
-      "_extends": "destruction_effect_base"
+      "_use": "destruction_effect_base"
     },
     {
-      "_extends": "on_appear_sound"
+      "_use": "on_appear_sound"
     },
     {
       "_group": {
@@ -220,10 +334,10 @@
   ],
   "envir_destr_ceramic_med_effect": [
     {
-      "_extends": "destruction_effect_base"
+      "_use": "destruction_effect_base"
     },
     {
-      "_extends": "on_appear_sound"
+      "_use": "on_appear_sound"
     },
     {
       "_group": {
@@ -240,10 +354,10 @@
   ],
   "envir_destr_ceramic_small_effect": [
     {
-      "_extends": "destruction_effect_base"
+      "_use": "destruction_effect_base"
     },
     {
-      "_extends": "on_appear_sound"
+      "_use": "on_appear_sound"
     },
     {
       "_group": {
@@ -260,10 +374,10 @@
   ],
   "envir_destr_clay_big_effect": [
     {
-      "_extends": "destruction_effect_base"
+      "_use": "destruction_effect_base"
     },
     {
-      "_extends": "on_appear_sound"
+      "_use": "on_appear_sound"
     },
     {
       "_group": {
@@ -280,10 +394,10 @@
   ],
   "envir_destr_clay_med_effect": [
     {
-      "_extends": "destruction_effect_base"
+      "_use": "destruction_effect_base"
     },
     {
-      "_extends": "on_appear_sound"
+      "_use": "on_appear_sound"
     },
     {
       "_group": {
@@ -300,10 +414,10 @@
   ],
   "envir_destr_clay_small_effect": [
     {
-      "_extends": "destruction_effect_base"
+      "_use": "destruction_effect_base"
     },
     {
-      "_extends": "on_appear_sound"
+      "_use": "on_appear_sound"
     },
     {
       "_group": {
@@ -320,10 +434,10 @@
   ],
   "envir_destr_concrete_big_effect": [
     {
-      "_extends": "destruction_effect_base"
+      "_use": "destruction_effect_base"
     },
     {
-      "_extends": "on_appear_sound"
+      "_use": "on_appear_sound"
     },
     {
       "_group": {
@@ -340,10 +454,10 @@
   ],
   "envir_destr_concrete_med_effect": [
     {
-      "_extends": "destruction_effect_base"
+      "_use": "destruction_effect_base"
     },
     {
-      "_extends": "on_appear_sound"
+      "_use": "on_appear_sound"
     },
     {
       "_group": {
@@ -360,10 +474,10 @@
   ],
   "envir_destr_concrete_small_effect": [
     {
-      "_extends": "destruction_effect_base"
+      "_use": "destruction_effect_base"
     },
     {
-      "_extends": "on_appear_sound"
+      "_use": "on_appear_sound"
     },
     {
       "_group": {
@@ -380,10 +494,10 @@
   ],
   "envir_destr_glass_effect": [
     {
-      "_extends": "destruction_effect_base"
+      "_use": "destruction_effect_base"
     },
     {
-      "_extends": "on_appear_sound"
+      "_use": "on_appear_sound"
     },
     {
       "_group": {
@@ -401,10 +515,10 @@
   ],
   "envir_destr_hay_effect": [
     {
-      "_extends": "destruction_effect_base"
+      "_use": "destruction_effect_base"
     },
     {
-      "_extends": "on_appear_sound"
+      "_use": "on_appear_sound"
     },
     {
       "_group": {
@@ -420,7 +534,7 @@
     }
   ],
   "envir_destr_paper_med_effect": {
-    "_extends": "destruction_effect_base",
+    "_use": "destruction_effect_base",
     "_group": {
       "_tags": "render",
       "effect__name": "envir_destr_paper_med_cmps_fx"
@@ -428,10 +542,10 @@
   },
   "envir_destr_sandbags_effect": [
     {
-      "_extends": "destruction_effect_base"
+      "_use": "destruction_effect_base"
     },
     {
-      "_extends": "on_appear_sound"
+      "_use": "on_appear_sound"
     },
     {
       "_group": {
@@ -448,10 +562,10 @@
   ],
   "envir_destr_metal_big_effect": [
     {
-      "_extends": "destruction_effect_base"
+      "_use": "destruction_effect_base"
     },
     {
-      "_extends": "on_appear_sound"
+      "_use": "on_appear_sound"
     },
     {
       "_group": {
@@ -468,10 +582,10 @@
   ],
   "envir_destr_metal_med_effect": [
     {
-      "_extends": "destruction_effect_base"
+      "_use": "destruction_effect_base"
     },
     {
-      "_extends": "on_appear_sound"
+      "_use": "on_appear_sound"
     },
     {
       "_group": {
@@ -488,10 +602,10 @@
   ],
   "envir_destr_metal_small_effect": [
     {
-      "_extends": "destruction_effect_base"
+      "_use": "destruction_effect_base"
     },
     {
-      "_extends": "on_appear_sound"
+      "_use": "on_appear_sound"
     },
     {
       "_group": {
@@ -508,10 +622,10 @@
   ],
   "envir_destr_wood_big_effect": [
     {
-      "_extends": "destruction_effect_base"
+      "_use": "destruction_effect_base"
     },
     {
-      "_extends": "on_appear_sound"
+      "_use": "on_appear_sound"
     },
     {
       "_group": {
@@ -528,10 +642,10 @@
   ],
   "envir_destr_wood_med_effect": [
     {
-      "_extends": "destruction_effect_base"
+      "_use": "destruction_effect_base"
     },
     {
-      "_extends": "on_appear_sound"
+      "_use": "on_appear_sound"
     },
     {
       "_group": {
@@ -548,10 +662,10 @@
   ],
   "envir_destr_wood_small_effect": [
     {
-      "_extends": "destruction_effect_base"
+      "_use": "destruction_effect_base"
     },
     {
-      "_extends": "on_appear_sound"
+      "_use": "on_appear_sound"
     },
     {
       "_group": {
@@ -568,10 +682,10 @@
   ],
   "envir_destr_wood_door_big_effect": [
     {
-      "_extends": "destruction_effect_base"
+      "_use": "destruction_effect_base"
     },
     {
-      "_extends": "on_appear_sound"
+      "_use": "on_appear_sound"
     },
     {
       "_group": {
@@ -588,10 +702,10 @@
   ],
   "envir_destr_wood_door_med_effect": [
     {
-      "_extends": "destruction_effect_base"
+      "_use": "destruction_effect_base"
     },
     {
-      "_extends": "on_appear_sound"
+      "_use": "on_appear_sound"
     },
     {
       "_group": {
@@ -608,10 +722,10 @@
   ],
   "envir_destr_wood_window_med_effect": [
     {
-      "_extends": "destruction_effect_base"
+      "_use": "destruction_effect_base"
     },
     {
-      "_extends": "on_appear_sound"
+      "_use": "on_appear_sound"
     },
     {
       "_group": {
@@ -628,10 +742,10 @@
   ],
   "envir_destr_wood_window_small_effect": [
     {
-      "_extends": "destruction_effect_base"
+      "_use": "destruction_effect_base"
     },
     {
-      "_extends": "on_appear_sound"
+      "_use": "on_appear_sound"
     },
     {
       "_group": {
@@ -647,6 +761,6 @@
     }
   ],
   "envir_destr_wood_no_glass_window_small_effect": {
-    "_extends": "envir_destr_wood_small_effect"
+    "_use": "envir_destr_wood_small_effect"
   }
 }

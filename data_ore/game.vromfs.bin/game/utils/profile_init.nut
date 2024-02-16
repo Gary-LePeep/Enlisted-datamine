@@ -10,8 +10,18 @@ let {
 
 let mkCalcAdd = @(key)
   @(comp, value, template) comp[key] <- (comp?[key] ?? (template?.getCompValNullable(key) ?? 1.0)) + value
-let mkCalcAddInt = @(key)
-  @(comp, value, template) comp[key] <- ((comp?[key] ?? (template?.getCompValNullable(key) ?? 1.0)) + value).tointeger()
+let mkCalcAddToInvMult = @(key) function(comp, value, template){
+  let def = (template?.getCompValNullable(key) ?? 1.0)
+  let currentVal = (comp?[key] ?? def)
+  if (currentVal != 0) {
+    let mult = (def / currentVal) + value
+    if (mult != 0)
+      comp[key] <- def / mult
+  }
+}
+
+let mkCalcAddPercentInt = @(key)
+  @(comp, value, template) comp[key] <- ((comp?[key] ?? (template?.getCompValNullable(key) ?? 1.0)) * (1.0 + value)).tointeger()
 let mkCalcAddPercent = @(key)
   @(comp, value, template) comp[key] <- (comp?[key] ?? (template?.getCompValNullable(key) ?? 1.0)) * (1.0 + value)
 let mkCalcSubPercent = @(key)
@@ -49,8 +59,8 @@ let perksFactory = {
   climb_speed                                 = { ctor = mkCalcAdd,       compName = "entity_mods__climbingSpeedMult", compType = ecs.TYPE_FLOAT }
   less_recoil                                 = { ctor = mkCalcSubstract, compName = "entity_mods__verticalRecoilOffsMult", compType = ecs.TYPE_FLOAT }
   more_predictable_recoil                     = { ctor = mkCalcSubstract, compName = "entity_mods__horizontalRecoilOffsMult", compType = ecs.TYPE_FLOAT }
-  longer_hold_breath_cd                       = { ctor = mkCalcAdd,       compName = "entity_mods__longerHoldBreathMult", compType = ecs.TYPE_FLOAT }
-  less_hold_breath_cd                         = { ctor = mkCalcAdd,       compName = "entity_mods__oftenHoldBreathMult", compType = ecs.TYPE_FLOAT }
+  longer_hold_breath_cd                       = { ctor = mkCalcAddToInvMult, compName = "entity_mods__holdBreathDrainMult", compType = ecs.TYPE_FLOAT }
+  less_hold_breath_cd                         = { ctor = mkCalcAdd,       compName = "entity_mods__breathRestoreMult", compType = ecs.TYPE_FLOAT }
   faster_change_pose_speed                    = { ctor = mkCalcAdd,       compName = "entity_mods__fasterChangePoseMult", compType = ecs.TYPE_FLOAT }
   crawl_crouch_speed                          = { ctor = mkCalcAdd,       compName = "entity_mods__crawlCrouchSpeedMult", compType = ecs.TYPE_FLOAT }
   faster_decreasing_of_maximum_shot_spread    = { ctor = mkCalcSubstract, compName = "entity_mods__rotationShotSpreadDecrMult", compType = ecs.TYPE_FLOAT }
@@ -68,7 +78,7 @@ let perksFactory = {
   extinguish_time                             = { ctor = mkCalcSubstract, compName = "entity_mods__vehicleExtinguishTimeMult", compType = ecs.TYPE_FLOAT }
   repair_speed                                = { ctor = mkCalcSubstract, compName = "entity_mods__vehicleRepairTimeMult", compType = ecs.TYPE_FLOAT }
   repair_quality                              = { ctor = mkCalcAdd,       compName = "entity_mods__vehicleRepairRecoveryRatioAdd", compType = ecs.TYPE_FLOAT }
-  repairkit_economy_usage                     = { ctor = mkCalcAddInt,    compName = "entity_mods__vehicleRepairUsagesPerKit", compType = ecs.TYPE_INT }
+  repairkit_economy_usage                     = { ctor = mkCalcAddPercentInt,   compName = "entity_mods__vehicleRepairUsagesPerKit", compType = ecs.TYPE_INT }
   faster_reload_tankgun                       = { ctor = mkCalcSubstract, compName = "entity_mods__vehicleReloadMult", compType = ecs.TYPE_FLOAT }
   reload_reaction                             = { ctor = mkCalcSetTrue,   compName = "entity_mods__canChangeShellDuringVehicleGunReload", compType = ecs.TYPE_BOOL }
   brakingTauMult                              = { ctor = mkCalcSubstract,       compName = "driver_skills__brakingTauMult", compType = ecs.TYPE_FLOAT }
@@ -310,26 +320,31 @@ let vehicleModFactory = {
   disable_dm_part                             = mkCalcInsert("disableDMParts")
 }
 
-let function convertGunMods(armies) {
+let function convertGunMods(db, soldier) {
+  let weapons = soldier?.human_weap__weapInfo ?? {}
+  foreach (weapon in weapons) {
+    let gunSlots = weapon?.gunSlots
+    if (gunSlots == null)
+      continue
+
+    weapon.gunMods <- {}
+    foreach (slotid, slotTemplateId in gunSlots) {
+      let slotTemplate = db.getTemplateByName(slotTemplateId)
+      if (!slotTemplate)
+        continue
+      weapon.gunMods[slotid] <- slotTemplate.getCompVal("gunAttachable__slotTag")
+    }
+
+    delete weapon.gunSlots
+  }
+}
+
+let function armyConvertGunMods(armies) {
   let db = ecs.g_entity_mgr.getTemplateDB()
   foreach (army in armies) {
     foreach (squad in army?.squads ?? []) {
       foreach (soldier in squad?.squad ?? []) {
-        foreach (weapon in (soldier?["human_weap__weapInfo"] ?? {})){
-          let gunSlots = weapon?.gunSlots
-          if (gunSlots == null)
-            continue
-
-          weapon.gunMods <- {}
-          foreach (slotid, slotTemplateId in gunSlots) {
-            let slotTemplate = db.getTemplateByName(slotTemplateId)
-            if (!slotTemplate)
-              continue
-            weapon.gunMods[slotid] <- slotTemplate.getCompVal("gunAttachable__slotTag")
-          }
-
-          delete weapon.gunSlots
-        }
+        convertGunMods(db, soldier)
       }
     }
   }
@@ -356,15 +371,19 @@ let function applyUpgradesToComponents(gunTemplate, upgrades) {
   return result
 }
 
-let function applyGunUpgrades(armies) {
+let function applyGunUpgrades(soldier) {
+  let weapTemplates = soldier.human_weap__weapTemplates
+  foreach (slotNo, upgrades in (soldier?.human_weap__weapInitialComponents ?? [])) {
+    let gunComps = applyUpgradesToComponents(weapTemplates?[weaponSlotsKeys?[slotNo]], upgrades)
+    soldier.human_weap__weapInitialComponents[slotNo].__update(gunComps)
+  }
+}
+
+let function armyApplyGunUpgrades(armies) {
   foreach (army in armies) {
     foreach (squad in army?.squads ?? []) {
       foreach (soldier in squad?.squad ?? []) {
-        let weapTemplates = soldier["human_weap__weapTemplates"]
-        foreach (slotNo, upgrades in (soldier?["human_weap__weapInitialComponents"] ?? [])) {
-          let gunComps = applyUpgradesToComponents(weapTemplates?[weaponSlotsKeys?[slotNo]], upgrades)
-          soldier["human_weap__weapInitialComponents"][slotNo].__update(gunComps)
-        }
+        applyGunUpgrades(soldier)
       }
     }
   }
@@ -500,8 +519,8 @@ let applyGameMode = @(armies) gameModeModifiersQuery.perform(function (_, game_m
 
 let function applyModsToArmies(armies) {
   applyGameMode(armies)
-  convertGunMods(armies)
-  applyGunUpgrades(armies)
+  armyConvertGunMods(armies)
+  armyApplyGunUpgrades(armies)
   applyVehicleMods(armies)
   return armies
 }
@@ -509,4 +528,6 @@ let function applyModsToArmies(armies) {
 return {
   applyModsToArmies
   applyPerks
+  convertGunMods
+  applyGunUpgrades
 }

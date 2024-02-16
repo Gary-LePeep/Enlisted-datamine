@@ -3,14 +3,15 @@ require app
 require game.utils.team
 require common_shooter.events_common_shooter
 require enlisted.events_enlisted
-require EnlistedDm
+require DngDm
 require CollRes
 require RendInst
 require math.base
 
 def find_nearby_barbwire(human_collres : CollisionResource; human_tm : float3x4; victim_team : int)
   var res = INVALID_ENTITY_ID
-  let humanBoundingSphere = human_collres.boundingSphere
+  let humanBoundingSphereC = human_collres.boundingSphereCenter
+  let humanBoundingSphereR = human_collres.boundingSphereRad
 
   find_query() <| $ [es(REQUIRE=barbwire)] (eid : EntityId;
                                             buildByPlayer : EntityId;
@@ -23,8 +24,8 @@ def find_nearby_barbwire(human_collres : CollisionResource; human_tm : float3x4;
       return false
     let barbwireCollres = get_rigen_extra_coll_res(get_rigen_extra_res_idx(ri_extra__name))
     if barbwireCollres != null
-      let distSq = length_sq(human_tm * humanBoundingSphere.c - transform * barbwireCollres.boundingSphere.c)
-      let contactDistSq = square(humanBoundingSphere.r + barbwireCollres.boundingSphere.r)
+      let distSq = length_sq(human_tm * humanBoundingSphereC - transform * barbwireCollres.boundingSphereCenter)
+      let contactDistSq = square(humanBoundingSphereR + barbwireCollres.boundingSphereRad)
       if distSq < contactDistSq
         res = eid
         return true

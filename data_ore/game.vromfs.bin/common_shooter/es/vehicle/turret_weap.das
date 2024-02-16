@@ -2,14 +2,16 @@ require turrets
 require ecs
 require ecs.common
 require math.base
+require math.interpolation
 require vehicle
-require EnlistedWeapon
+require DngWeapon
 require PhysVars
 require game.utils.hero
 require game.es.vehicle.vehicle_seats_common
 require game.es.events
 require common_shooter.events_common_shooter
 require dm
+require Gun
 require DagorMath
 require DagorMathUtils
 require AnimV20
@@ -17,6 +19,9 @@ require GeomNodeTree
 require common_shooter.es.vehicle.vehicle_turret_common
 require enlisted.events_enlisted
 require AnimatedPhys
+
+let
+  MPS_TO_KPH = 3.6 // meters per second -> kilometers per hour
 
 [es(on_event=CmdTurretsUpdate, after=turret_weap_apply_client_controls_es)]
 def turret_weap_reset_shoot(evt : Event;
@@ -67,13 +72,22 @@ def update_turret_aim_drives_mult(evt : Event;
 [es(on_event=CmdTurretsUpdate, REQUIRE_NOT=deadEntity)]
 def turret_set_angles_es(evt : Event;
                          turret_control__gunEids : EidList;
+                         turret_control__isStabilizerEnabled : bool = true;
+                         net_phys__currentStateVelocity : float3;
                          var phys_vars : PhysVars)
+  let speedKph = length(net_phys__currentStateVelocity) * MPS_TO_KPH
   for turretEid in turret_control__gunEids
     query(turretEid) <| $ [es(REQUIRE=resolvedTurret)] (turret__owner : EntityId;
                                                         turret__wishYawVarId : int;
                                                         turret__wishPitchVarId : int;
+                                                        turret__stabilizerYawActiveVarId : int;
+                                                        turret__stabilizerPitchActiveVarId : int;
+                                                        turret__stabilizerErrorVarId : int;
                                                         turret__aimNodeId : int;
+                                                        turret__stabilizerError : float = 0.0;
                                                         turret__limitsTable : Point4List const? = null;
+                                                        turret__stabilizerYawSpeedLimitKph : float = -1.;
+                                                        turret__stabilizerPitchSpeedLimitKph : float = -1.;
                                                         turret_state : TurretState)
       if turret__wishYawVarId >= 0 && turret__wishPitchVarId >= 0
         var wishAngles = turret_state.wishAngles
@@ -115,6 +129,16 @@ def turret_set_angles_es(evt : Event;
 
         setVar(phys_vars, turret__wishYawVarId, rad_to_deg(wishAngles.x))
         setVar(phys_vars, turret__wishPitchVarId, rad_to_deg(wishAngles.y))
+
+        let isStabEnabled = turret_control__isStabilizerEnabled
+        if turret__stabilizerYawActiveVarId >= 0
+          let isStabAllowedBySpeed = turret__stabilizerYawSpeedLimitKph < 0. || speedKph < turret__stabilizerYawSpeedLimitKph
+          setVar(phys_vars, turret__stabilizerYawActiveVarId, isStabEnabled && isStabAllowedBySpeed ? 1.0 : 0.0)
+        if turret__stabilizerPitchActiveVarId >= 0
+          let isStabAllowedBySpeed = turret__stabilizerPitchSpeedLimitKph < 0. || speedKph < turret__stabilizerPitchSpeedLimitKph
+          setVar(phys_vars, turret__stabilizerPitchActiveVarId, isStabEnabled && isStabAllowedBySpeed ? 1.0 : 0.0)
+        if turret__stabilizerErrorVarId >= 0
+          setVar(phys_vars, turret__stabilizerErrorVarId, turret__stabilizerError)
 
 def turret_get_angles(transform : float3x4;
                       turret_control__gunEids : EidList;
@@ -162,6 +186,17 @@ def turret_get_angles_client_es(evt : Event;
   anim_phys_update(anim_phys, animchar, phys_vars) // To get the most actual vars
   turret_get_angles(transform, turret_control__gunEids, net_phys__timeStep, phys_vars)
 
+[es(on_appear, REQUIRE=heroVehicle, before=turret_update_on_hero_enter_es)]
+def turret_get_angles_on_hero_enter_es(evt : Event;
+                                       transform : float3x4;
+                                       turret_control__gunEids : EidList;
+                                       net_phys__timeStep : float;
+                                       var animchar : AnimcharBaseComponent;
+                                       var anim_phys : AnimatedPhys;
+                                       var phys_vars : PhysVars)
+  anim_phys_update(anim_phys, animchar, phys_vars) // To get the most actual vars
+  turret_get_angles(transform, turret_control__gunEids, net_phys__timeStep, phys_vars)
+
 def send_turrets_update_event(eid, tick, dt)
   sendEventImmediate(eid, [[CmdTurretsUpdate tick=tick, dt=dt]])
 
@@ -186,6 +221,28 @@ def turret_gun_init_max_ammo(evt : Event; var gun__maxAmmo : int&; gun__shellsAm
   gun__maxAmmo = 0
   for shellsAmmo in gun__shellsAmmo
     gun__maxAmmo += get_int(shellsAmmo) ?? 0
+
+[es(on_appear, after=(turret_gun_init_total_ammo_es, turret_gun_es), before=turret_bullet_id_es, REQUIRE=isTurret)]
+def turret_gun_init_with_empty_ammo(evt : Event;
+                                    gun__ammo_by_shell : IntList;
+                                    gun__maxAmmo : int;
+                                    var gun : Gun&;
+                                    var currentBulletId : int&;
+                                    var nextBulletId : int&;
+                                    var lastBulletId : int&;
+                                    var gun__totalAmmo : int&;
+                                    var gun__ammo : int&)
+  if gun__ammo > 0
+    return
+  for i, ammo in iter_range(gun__ammo_by_shell), gun__ammo_by_shell
+    if ammo >= 1
+      currentBulletId = i
+      nextBulletId = currentBulletId
+      lastBulletId = currentBulletId
+      gun__ammo = min(ammo, gun__maxAmmo)
+      gun__totalAmmo = ammo - gun__ammo
+      gun.curState.loaded = true
+      break
 
 [es(tag=server, on_appear, after=turret_gun_es, before=turret_gun_ammo_by_shell_es, REQUIRE=isTurret)]
 def turret_gun_init_total_ammo_es(evt : Event;
@@ -234,3 +291,22 @@ def turret_on_change_current_shell_reloadable_es(evt : Event;
     gun__ammo = 0
     gun__totalAmmo = gun__ammo_by_shell[currentBulletId]
   lastBulletId = currentBulletId
+
+[es(tag=server)]
+def vehicle_stabilizer_request(evt : CmdRequestStabilizer;
+                               human_anim__vehicleSelected : EntityId)
+  query(human_anim__vehicleSelected) <| $ [es] (var turret_control__isStabilizerEnabled : bool&)
+    turret_control__isStabilizerEnabled = evt.enabled
+
+[es]
+def vehicle_stabilizer_error(evt : CmdPostPhysUpdate; turret_control__gunEids : EidList; net_phys__currentStateVelocity : float3)
+  let speedKph = length(net_phys__currentStateVelocity) * MPS_TO_KPH
+  for gun in turret_control__gunEids
+    query(gun) <| $ [es] (turret__stabilizerErrorByKphSpeedTable : Point2List;
+                          turret__stabilizerErrorViscosity : float = 0.1;
+                          var turret__stabilizerError : float&)
+      turret__stabilizerError = approach(
+        turret__stabilizerError,
+        interpolate_by_point_list(turret__stabilizerErrorByKphSpeedTable, speedKph),
+        evt.dt,
+        turret__stabilizerErrorViscosity)

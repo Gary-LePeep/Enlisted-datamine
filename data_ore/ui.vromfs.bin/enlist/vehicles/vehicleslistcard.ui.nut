@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let {
   defBgColor, hoverTxtColor, defTxtColor, activeBgColor, hoverBgColor, blockedBgColor,
   vehicleListCardSize, smallPadding, listCtors
@@ -10,9 +10,9 @@ let { iconByGameTemplate, getItemName } = require("%enlSqGlob/ui/itemsInfo.nut")
 let { autoscrollText } = require("%enlSqGlob/ui/defcomps.nut")
 let { blinkUnseenIcon, noBlinkUnseenIcon } = require("%ui/components/unseenSignal.nut")
 let {
-  viewVehicle, selectedVehicle, curSquad, curSquadArmy, LOCKED, CANT_USE
+  viewVehicle, curSquad, curSquadArmy, LOCKED, CANT_USE
 } = require("vehiclesListState.nut")
-let { statusIconChosen, statusIconLocked } = require("%enlSqGlob/ui/itemPkg.nut")
+let { statusIconLocked, mkNoVehicle, mkVehicleHint } = require("%enlSqGlob/ui/itemPkg.nut")
 let {
   unseenSquadsVehicle, markVehicleSeen
 } = require("%enlist/vehicles/unseenVehicles.nut")
@@ -21,6 +21,9 @@ let { mkSpecialItemIcon } = require("%enlSqGlob/ui/mkSpecialItemIcon.nut")
 let { vehDecorators } = require("%enlist/meta/profile.nut")
 let { getVehSkins } = require("%enlSqGlob/vehDecorUtils.nut")
 let { detailsStatusTier } = require("%enlist/soldiers/components/itemDetailsComp.nut")
+let { setTooltip } = require("%ui/style/cursors.nut")
+let { mkBattleRatingShort } = require("%enlSqGlob/ui/battleRatingPkg.nut")
+
 
 let DISABLED_ITEM = { tint = Color(40, 40, 40, 160), picSaturate = 0.0 }
 let seenTanksList = Watched({})
@@ -84,7 +87,7 @@ let amountText = @(count, sf, isSelected) {
     rendObj = ROBJ_TEXT
     color = txtColor(sf, isSelected)
     text = loc("common/amountShort", { count })
-  }.__update(sub_txt)
+  }.__update(fontSub)
 }
 
 let itemCountRarity = @(item, sf, isSelected) {
@@ -98,49 +101,57 @@ let itemCountRarity = @(item, sf, isSelected) {
   ]
 }
 
+
 let function card(item, onClick = @(_item) null, onDoubleClick = @(_item) null) {
-  let isAllowed = (item.status.flags & CANT_USE) == 0
+  let isAllowed = item != null && !((item?.status.flags ?? 0) & CANT_USE)
   let { isShowDebugOnly = false } = item
-  let onHover = hoverHoldAction("unseenSoldierItem", item.basetpl,
-    function(tpl) {
-      if (unseenSquadsVehicle.value?[curSquad.value?.guid][tpl] && curSquadArmy.value)
-        markVehicleSeen(curSquadArmy.value, tpl)
-    })
+  let isSelected = Computed(function() {
+    let { guid = null, basetpl = null } = viewVehicle.value
+    return item?.guid == guid && item?.basetpl == basetpl
+  })
 
   return watchElemState(function(sf) {
-    let textColor = (sf & S_HOVER) || item == viewVehicle.value
-      ? hoverTxtColor
-      : defTxtColor
-    let isSelected = item == viewVehicle.value
-    let decorators = vehDecorators.value ?? {}
-    return {
-      watch = [viewVehicle, selectedVehicle, vehDecorators]
+    let isSelectedVal = isSelected.value
+    let textColor = (sf & S_HOVER) || isSelectedVal ? hoverTxtColor : defTxtColor
+    let res = {
+      watch = [isSelected, vehDecorators]
       behavior = Behaviors.Button
       rendObj = ROBJ_SOLID
-      onClick = @() onClick(item)
-      onDoubleClick = @() onDoubleClick(item)
-      onHover
-      onAttach = @() setVehiclesSeen(item)
       sound = {
         hover = "ui/enlist/button_highlight"
         click = "ui/enlist/button_click"
       }
-
-      color = isSelected ? activeBgColor
-        : (sf & S_HOVER) ? hoverBgColor
+      color = isSelectedVal ? activeBgColor
+        : sf & S_HOVER ? hoverBgColor
         : isShowDebugOnly ? 0xFF003366
         : isAllowed ? defBgColor
         : blockedBgColor
       size = vehicleListCardSize
       padding = smallPadding
+    }
+    if (item == null)
+      return res.__update({ children = mkNoVehicle(sf, textColor) })
+
+    let decorators = vehDecorators.value ?? {}
+    return res.__update({
+      onClick = @() onClick(item)
+      onDoubleClick = @() onDoubleClick(item)
+      function onHover(on) {
+        setTooltip(on && item != null ? mkVehicleHint(item) : null)
+        hoverHoldAction("unseenSoldierItem", item.basetpl,
+          function(tpl) {
+            if (unseenSquadsVehicle.value?[curSquad.value?.guid][tpl] && curSquadArmy.value)
+              markVehicleSeen(curSquadArmy.value, tpl)
+          }
+        )
+      }
+      onAttach = @() setVehiclesSeen(item)
       children = [
         mkVehicleImage(item, decorators)
         {
           children = [
             mkUnseenSign(item)
-            item == selectedVehicle.value
-              ? statusIconChosen
-              : itemStatusIcon(item)
+            itemStatusIcon(item)
           ]
         }
         {
@@ -154,9 +165,14 @@ let function card(item, onClick = @(_item) null, onDoubleClick = @(_item) null) 
             mkVehicleName(item, textColor)
           ]
         }
-        itemCountRarity(item, sf, isSelected)
+        itemCountRarity(item, sf, isSelectedVal)
+        {
+          vplace = ALIGN_BOTTOM
+          hplace = ALIGN_RIGHT
+          children = mkBattleRatingShort(item?.growthTier ?? 1)
+        }
       ]
-    }
+    })
   })
 }
 

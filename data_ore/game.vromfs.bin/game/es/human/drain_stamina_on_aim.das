@@ -1,6 +1,6 @@
 require ecs
 require app
-require EnlistedHuman
+require DngHuman
 require game.es.events
 require enlisted.events_enlisted
 
@@ -90,7 +90,7 @@ def aim_stamina_save_start_time_client(evt : Event;
   if human_net_phys__isAiming
     human_weap__aimStartTime = get_sync_time()
 
-[es(tag=server, after=(before_net_phys_sync, entity_restore_stamina_mult_applier_es), before=human_phys_es)]
+[es(tag=server, after=(before_net_phys_sync, entity_restore_stamina_mult_applier_es), before=update_phys_es)]
 def drain_stamina_on_aim(evt : ParallelUpdateFrameDelayed;
                          human_weap__drainStaminaOnAim : float;
                          human_weap__drainStaminaDelay : float = 0.f;
@@ -103,7 +103,7 @@ def drain_stamina_on_aim(evt : ParallelUpdateFrameDelayed;
     human_net_phys |> drain_stamina(human_weap__drainStaminaOnAim * evt.dt)
     human_net_phys.phys.currentState.restoreStaminaMult = 0.0
 
-[es(tag=netClient, REQUIRE=hero, after=(before_net_phys_sync, entity_restore_stamina_mult_applier_es), before=human_phys_es)]
+[es(tag=netClient, REQUIRE=hero, after=(before_net_phys_sync, entity_restore_stamina_mult_applier_es), before=update_phys_es)]
 def drain_stamina_on_aim_client(evt : ParallelUpdateFrameDelayed;
                                 human_weap__drainStaminaOnAim : float;
                                 human_weap__drainStaminaDelay : float = 0.f;

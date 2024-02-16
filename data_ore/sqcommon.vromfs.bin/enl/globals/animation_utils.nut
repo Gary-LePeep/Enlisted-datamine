@@ -1,10 +1,9 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let remapWeaponToAnimState = require("menu_poses_for_weapons.nut")
+let { weaponToAnimState, weaponToSittingAnimState } = require("menu_poses_for_weapons.nut")
 let { rnd } = require("dagor.random")
 let { split_by_chars } = require("string")
 
-const SITTING_ORDER = 7
 
 let function getWeapTemplate(template){
   assert(type(template)=="string")
@@ -12,8 +11,8 @@ let function getWeapTemplate(template){
 }
 
 let SLOTS_ORDER = ["primary", "secondary", "tertiary"]
-let firstAvailableWeapon = @(tmpls)
-  tmpls?[SLOTS_ORDER.findvalue(@(key) (tmpls?[key] ?? "") != "")] ?? ""
+let firstAvailableWeapon = @(tmpls, slot_order)
+  tmpls?[slot_order.findvalue(@(key) (tmpls?[key] ?? "") != "")] ?? ""
 
 let function getAnimationBlacklist(itemTemplates) {
   let animationBlacklist = {}
@@ -28,19 +27,33 @@ let function getAnimationBlacklist(itemTemplates) {
   return animationBlacklist
 }
 
-local function getIdleAnimState(weapTemplates, itemTemplates = null, overridedIdleAnims = null, seed = null, order = null) {
+local function getIdleAnimState(weapTemplates, itemTemplates = null, overridedIdleAnims = null, overridedSlotsOrder = null, seed = null, isSiting = false) {
   seed = seed ?? rnd()
   if (seed < 0)
     seed = -seed
 
-  local idle = overridedIdleAnims?.defaultPoses ?? remapWeaponToAnimState.defaultPoses
-  let weaponTemplate = getWeapTemplate(firstAvailableWeapon(weapTemplates))
-  if (weaponTemplate == "")
-    idle = overridedIdleAnims?.unarmedPoses.getAll() ?? remapWeaponToAnimState?.unarmedPoses ?? idle
-  else if (order == null || order < SITTING_ORDER)
-    idle = overridedIdleAnims?[weaponTemplate].getAll() ?? remapWeaponToAnimState?[weaponTemplate] ?? idle
+  local idle = overridedIdleAnims?.defaultPoses ?? weaponToAnimState.defaultPoses
+  let weaponTemplate = getWeapTemplate(firstAvailableWeapon(weapTemplates, overridedSlotsOrder ?? SLOTS_ORDER))
+  if (!isSiting)
+    if (weaponTemplate == "")
+      idle = overridedIdleAnims?.unarmedPoses.getAll()
+        ?? weaponToAnimState?.unarmedPoses
+        ?? idle
+    else
+      idle = overridedIdleAnims?[weaponTemplate].getAll()
+        ?? weaponToAnimState?[weaponTemplate]
+        ?? idle
   else
-    idle = overridedIdleAnims?.sittingPoses.getAll() ?? remapWeaponToAnimState?.sittingPoses ?? idle
+    if (weaponTemplate == "")
+      idle = overridedIdleAnims?.unarmedPoses.getAll()
+        ?? weaponToSittingAnimState?.unarmedPoses
+        ?? weaponToSittingAnimState?.defaultPoses
+        ?? idle
+    else
+      idle = overridedIdleAnims?.sittingPoses.getAll()
+        ?? weaponToSittingAnimState?[weaponTemplate]
+        ?? weaponToSittingAnimState?.defaultPoses
+        ?? idle
 
   if (itemTemplates != null) {
     idle = clone idle
@@ -50,7 +63,7 @@ local function getIdleAnimState(weapTemplates, itemTemplates = null, overridedId
         idle.remove(i)
   }
 
-  return idle.len() > 0 ? idle[seed % idle.len()] : remapWeaponToAnimState.defaultPoses.top()
+  return idle.len() > 0 ? idle[seed % idle.len()] : weaponToAnimState.defaultPoses.top()
 }
 
 return {

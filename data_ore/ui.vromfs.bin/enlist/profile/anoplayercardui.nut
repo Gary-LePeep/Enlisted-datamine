@@ -3,7 +3,7 @@ let anoDecoratorUi = require("anoDecoratorUi.nut")
 let { visibleCampaigns } = require("%enlist/meta/campaigns.nut")
 let { smallOffset } = require("%enlSqGlob/ui/viewConst.nut")
 let { anoProfileData } = require("anoProfileState.nut")
-let { mkCampaignsListUi, mkPlayerStatistics } = require("profilePkg.nut")
+let { mkMapsListUi, mkPlayerStatistics } = require("profilePkg.nut")
 
 return @() {
   size = flex()
@@ -16,8 +16,8 @@ return @() {
       flow = FLOW_HORIZONTAL
       gap = smallOffset
       children = [
-        mkCampaignsListUi(visibleCampaigns)
-        mkPlayerStatistics(anoProfileData, false)
+        mkMapsListUi(visibleCampaigns)
+        mkPlayerStatistics(anoProfileData)
       ]
     }
   ]

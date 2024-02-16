@@ -7,7 +7,7 @@ require AnimV20
 require GeomNodeTree
 require dm
 require DmFire
-require EnlistedDm
+require DngDm
 require fx
 require DagorSystem
 require game.es.vehicle.vehicle_events
@@ -43,8 +43,6 @@ def vehicle_fx_on_appear(vehicle_eid : EntityId;
           let id = find_part_id_by_name(damage_model, name)
           if id >= 0
             push(dmPartIds, id)
-          else
-            logwarn("Part '{name}' not found!")
       set(init, "vehicle_fx__dmPartId", dmPartIds)
 
       var fxTemplateNames : array<string>
@@ -59,8 +57,6 @@ def vehicle_fx_on_appear(vehicle_eid : EntityId;
           if nodeId >= 0
             push(fxTemplateNames, fxTemplateName)
             push(nodeIds, nodeId)
-          else
-            logwarn("{vehicle_eid} <{getEntityTemplateName(vehicle_eid)}> FX emitter node '{fxEmitterName}' is not found!")
 
       set(init, "vehicle_fx_node__fxTemplateName", fxTemplateNames)
       set(init, "vehicle_fx_node__nodeId", nodeIds)
@@ -186,7 +182,7 @@ def start_fx(vehicle_eid : EntityId;
       var emitterTm = IDENT_TM
       emitterTm[3] = nodeTm[3]
 
-      let eid = createEntity(string(fxTemplateName)) <| $(var init)
+      createEntity(string(fxTemplateName)) <| $(var init)
         set(init, "transform", emitterTm)
         set(init, "vehicle_effect__type", int(effect_type))
         set(init, "vehicle_effect__vehicleFxId", vehicle_fx_id)

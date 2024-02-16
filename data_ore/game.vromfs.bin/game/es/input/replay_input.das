@@ -4,7 +4,7 @@ require game.es.input.input_events
 require game.es.input.input_common
 require DagorSystem
 require game.events_game
-require EnlistedCamera
+require DngCamera
 require enlisted.events_enlisted
 require danetlibs.renderer.includes.render_events
 
@@ -67,7 +67,7 @@ def camera_replay_input_appear(evt : Event;
   initActions(replay_input__next, replay_input__prev,
     replay_input__pause, replay_input__speedUp, replay_input__speedDown, replay_input__toggleCamera)
 
-[es(tag=(playingReplay, input), on_event=(EventComponentsDisappear, EventEntityDestroyed))]
+[es(tag=(playingReplay, input), on_disappear)]
 def camera_replay_input_disappear(evt : Event;
                                   var replay_input__next : int&;
                                   var replay_input__prev : int&;

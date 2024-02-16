@@ -1,6 +1,6 @@
 {
   "it_m41_75_18": {
-    "_extends": "base_m41_75_18",
+    "_use": "base_m41_75_18",
     "turrets__initAmmoDistribution:array": [
       {
         "ammo:object": {
@@ -97,7 +97,7 @@
     ]
   },
   "uk_m41_75_18_driver_cockpit": {
-    "_extends": "base_driver_cockpit",
+    "_use": "base_driver_cockpit",
     "animchar__res": "kv_1_driver_char",
     "cockpit__offset": [-0.2,-0.0,-0.0],
     "cockpit__visibleVehicleNodeNames:list<t>": [
@@ -117,9 +117,9 @@
   },
   "uk_m41_75_18_gunner_cockpit": {
     "vehicle_sight__blk": "content/tanks/gamedata/sight/it_se_75_18.blk",
-    "_extends": "base_gunner_cockpit",
+    "_use": "base_gunner_cockpit",
     "animchar__res": "t_26_1940_gunner_char",
-    "cockpit__minZoom": -0.27,
+    "cockpit__minForwardOffset": -0.27,
     "cockpit__offset": [-0.0,-0.0,-0.0],
     "cockpit__cockpitOffsetBySlit:list<p3>": [
       {
@@ -167,7 +167,7 @@
     ]
   },
   "uk_m41_75_18_commander_cockpit": {
-    "_extends": "base_commander_cockpit_no_slits",
+    "_use": "base_commander_cockpit_no_slits",
     "animchar__res": "t_26_1940_commander_char",
     "cockpit__offset": [-0.0,0.0,0.0],
     "cockpit__cockpitOffsetBySlit:list<p3>": {

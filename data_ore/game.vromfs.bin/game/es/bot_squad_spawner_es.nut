@@ -1,5 +1,6 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/library_logs.nut" import *
+
 let { logerr } = require("dagor.debug")
 let {TEAM_UNASSIGNED} = require("team")
 let { loadJson } = require("%sqstd/json.nut")
@@ -52,9 +53,11 @@ let havePlayersQuery = ecs.SqQuery("havePlayersQuery", {
 })
 let botPlayerQuery = ecs.SqQuery("botPlayerQuery", {comps_ro=[["team", ecs.TYPE_INT]], comps_rq=["countAsAlive", "player", "playerIsBot"]})
 
+let doHavePlayers = @() havePlayersQuery.perform( @(_eid, comp) comp.possessed ? true : null) // null to continue query
+
 let function onTimer(_evt, _eid, comp) {
   if (comp.numBotSquadsSpawned < 1) { // if we haven't spawned bots yet
-    let havePlayers = havePlayersQuery.perform( function(_eid, comp) { if (comp.possessed) return true })
+    let havePlayers = doHavePlayers()
     let allowSpawnBeforePlayer = comp["bot_spawner__allowSpawnBeforePlayer"]
     if (!havePlayers && !allowSpawnBeforePlayer) // check if we have any players, otherwise - do not try to spawn bots
       return
@@ -63,18 +66,18 @@ let function onTimer(_evt, _eid, comp) {
 
   let playersByTeam = {}
 
-  availableTeamsQuery(function(eid, comp) {
-    playersByTeam[comp["team__id"]] <- { eid = eid, botsCount = 0, totalCount = 0 }
+  availableTeamsQuery(function(eid, teamComp) {
+    playersByTeam[teamComp["team__id"]] <- { eid = eid, botsCount = 0, totalCount = 0 }
   })
 
-  botPlayerQuery(function(_eid, comp) {
-    if (playersByTeam?[comp.team] != null)
-      playersByTeam[comp.team].botsCount++
+  botPlayerQuery(function(_eid, botComp) {
+    if (playersByTeam?[botComp.team] != null)
+      playersByTeam[botComp.team].botsCount++
   })
 
-  playerQuery(function(_eid, comp) {
-    if (playersByTeam?[comp.team] != null && (!comp.disconnected || comp.disconnectedAtTime <= 0 || get_sync_time() - comp.disconnectedAtTime <= 60.0))
-      playersByTeam[comp.team].totalCount++
+  playerQuery(function(_eid, plrComp) {
+    if (playersByTeam?[plrComp.team] != null && (!plrComp.disconnected || plrComp.disconnectedAtTime <= 0 || get_sync_time() - plrComp.disconnectedAtTime <= 60.0))
+      playersByTeam[plrComp.team].totalCount++
   })
 
   local addPlayerToTeam = TEAM_UNASSIGNED
@@ -101,8 +104,13 @@ let function onTimer(_evt, _eid, comp) {
 
   let teamEid = get_team_eid(team)
   let teamArmies = ecs.obsolete_dbg_get_comp_val(teamEid, "team__armies")?.getAll() ?? []
+  let teamSpawnBotArmy = ecs.obsolete_dbg_get_comp_val(teamEid, "team__spawnBotArmy")
   let armies = customProfile.armies ?? botsProfile.armies
-  let armyId = teamArmies.findvalue(@(a) a in armies)
+  local armyId = [teamSpawnBotArmy].findvalue(@(a) a in armies)
+  if (armyId == null) {
+    log($"[BOT_SPAWNER] Could not find army team__spawnBotArmy={teamSpawnBotArmy} in the profile. Falling back to team__armies.")
+    armyId = teamArmies.findvalue(@(a) a in armies)
+  }
   if (armyId == null) {
     logerr($"[BOT_SPAWNER] Unable to spawn bots because of not found army in botArmies. team armies: {", ".join(teamArmies)}")
     return

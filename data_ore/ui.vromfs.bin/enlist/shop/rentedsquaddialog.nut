@@ -28,7 +28,7 @@ let function checkReqMsgbox(rentedSquadData = null) {
       ]
     })
   else
-    clickShopItem(shopItem, armyLevel)
+    clickShopItem(shopItem)
 }
 
 buyRentedSquad.subscribe(checkReqMsgbox)

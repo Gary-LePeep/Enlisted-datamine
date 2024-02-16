@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { h2_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontHeading2 } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { BRIGHT_TEXT_COLOR, TEAM0_TEXT_COLOR, TEAM1_TEXT_COLOR } = require("%ui/hud/style.nut")
 let { isGamepad } = require("%ui/control/active_controls.nut")
 let { controlHint } = require("%ui/components/templateControls.nut")
@@ -19,8 +19,8 @@ let defTextAnims = [
 let mkBigControlIcon = @(text, params = {})
   (text ?? "") == "" ? null : makeSvgImgFromText(text, {height=hdpx(36)}.__update(params))
 
-let hasHotkey = @(key, isGamepad)
-  is_action_binding_set(get_action_handle(key, 0xFFFF), isGamepad ? 1 : 0)
+let hasHotkey = @(key, isGamepadV)
+  is_action_binding_set(get_action_handle(key, 0xFFFF), isGamepadV ? 1 : 0)
 let gkImg = function(h) {
   if (typeof h == "array")
     h = h.findvalue(@(key) hasHotkey(key, isGamepad.value))
@@ -47,11 +47,11 @@ let function makeDefText(item) {
     fontFxOffsY = hdpx(0.9)
     text
     color
-  }.__update(h2_txt)
+  }.__update(fontHeading2)
   local hintComponent = hintText
 
   local { hotkey = null } = item
-  let hgt = calc_str_box("A", h2_txt)[1].tointeger()
+  let hgt = calc_str_box("A", fontHeading2)[1].tointeger()
   if (hotkey != null) {
     hintComponent = function() {
       let watch = [isGamepad, generation]

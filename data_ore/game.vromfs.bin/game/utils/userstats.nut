@@ -1,7 +1,8 @@
 from "%enlSqGlob/library_logs.nut" import *
+from "math" import min
 
 let {format} = require("string")
-let {put_to_mq=null, mq_gen_transactid=null, put_to_mq_raw=null} = require_optional("message_queue")
+let {put_to_mq=@(_, __) null, mq_gen_transactid=@() null, put_to_mq_raw=@(_, __) null} = require_optional("message_queue")
 let {get_arg_value_by_name} = require("dagor.system")
 let {get_time_msec} = require("dagor.time")
 let {setTimeout=null} = require_optional("dagor.workcycle")
@@ -53,7 +54,8 @@ let function putToQueue(userid, appid, sessionId, stats){
       },
       body = stats
     })
-  } else {
+  }
+  else {
     put_to_mq(tubeName, {userid, appid, stats})
   }
 }

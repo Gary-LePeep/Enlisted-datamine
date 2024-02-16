@@ -1,0 +1,55 @@
+{
+  "cinematic_ai_point": {
+    "transform": [
+      [1.0,0.0,0.0],
+      [0.0,1.0,0.0],
+      [0.0,0.0,1.0],
+      [0.0,0.0,0.0]
+    ],
+    "ai_point__name": ""
+  },
+  "cinematic_ai_target": {
+    "transform": [
+      [1.0,0.0,0.0],
+      [0.0,1.0,0.0],
+      [0.0,0.0,1.0],
+      [0.0,0.0,0.0]
+    ],
+    "ai_target__name": "",
+    "ai_target": {
+      "_tags": "server"
+    }
+  },
+  "cinematic_ai_attack_target": {
+    "_use": "squad_member_ai",
+    "beh_tree__node": "cinematic_ai_attack_target_beh",
+    "beh_tree__enabled": true,
+    "beh_tree__blackboard__step1_waitTime": [0.0,0.0],
+    "beh_tree__blackboard__step2_moveToPointName": "",
+    "beh_tree__blackboard__step3_waitTime": [1.0,1.0],
+    "beh_tree__blackboard__step4_attackTargetName": "",
+    "beh_tree__blackboard__step4_attackTime": [5.0,5.0],
+    "beh_tree__blackboard__step5_waitTime": [2.0,2.0],
+    "beh_tree__blackboard__step6_addTemplate": "",
+    "beh_tree__blackboard__step6_delTemplate": "cinematic_ai_attack_target"
+  },
+  "cinematic_soldier_01": [
+    {
+      "_use": "usa_base_soldier"
+    },
+    {
+      "_use": "usa_light_assault_preset"
+    },
+    {
+      "human_equipment__initialEquip:object": {
+        "attachable_wear_head_01_us_summer_item": "face",
+        "attachable_wear_tunic_01_us_summer_item": "tunic",
+        "attachable_wear_gloves_01_us_summer_item": "gloves",
+        "attachable_wear_pants_01_us_summer_item": "pants",
+        "attachable_wear_belt_m36_01_us_summer_item": "belt_1",
+        "attachable_wear_tornister_backpack_m39_nodes_item": "backpack",
+        "attachable_wear_pot_with_nodes_item": "pot"
+      }
+    }
+  ]
+}

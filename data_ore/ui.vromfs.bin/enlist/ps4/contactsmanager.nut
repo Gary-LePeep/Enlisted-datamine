@@ -1,5 +1,4 @@
 from "%enlSqGlob/ui_library.nut" import *
-import "%dngscripts/ecs.nut" as ecs
 
 let { get_setting_by_blk_path } = require("settings")
 let auth_friends = require("%enlist/ps4/auth_friends.nut")
@@ -8,14 +7,15 @@ let { psn_friendsUpdate, psn_blocked_users, psn_blocked_usersUpdate
 } = require("%enlist/ps4/psn_state.nut")
 let { isLoggedIn } = require("%enlSqGlob/login_state.nut")
 let { updatePresences, presences } = require("%enlist/contacts/contactPresence.nut")
-let { Contact, isValidContactNick } = require("%enlist/contacts/contact.nut")
+let { updateContact, isValidContactNick } = require("%enlist/contacts/contact.nut")
 let eventbus = require("eventbus")
 let voiceApi = require("voiceApi")
 let profile = require("%enlist/ps4/profile.nut")
 let { searchContactByExternalId } = require("%enlist/contacts/externalIdsManager.nut")
 let { psnApprovedUids, psnBlockedUids } = require("%enlist/contacts/contactsWatchLists.nut")
 let { console2uid, updateUids } = require("%enlist/contacts/consoleUidsRemap.nut")
-let { EventLevelLoaded } = require("gameevents")
+let { isInBattleState } = require("%enlSqGlob/inBattleState.nut")
+
 
 let logpsn = require("%enlSqGlob/library_logs.nut").with_prefix("[PSN CONTACTS] ")
 
@@ -37,7 +37,7 @@ let function psnConstructFriendsList(psn_friends, contacts) {
         continue
       }
 
-      Contact(currentUid, $"{friend.nick}@psn")
+      updateContact(currentUid, $"{friend.nick}@psn")
       result.append(currentUid)
       updPresences[currentUid] <- { online = friend.online }
       psn2uid[friend.accountId] <- currentUid
@@ -50,7 +50,7 @@ let function psnConstructFriendsList(psn_friends, contacts) {
   psn_friendsUpdate(result)
   psnApprovedUids(uidsList)
 
-  eventbus.send("PSNAuthContactsRecieved", null)
+  eventbus.send("PSNAuthContactsReceived", null)
 }
 
 let function psnConstructBlocksList(profile_blocked, psn_contacts, callback) {
@@ -94,7 +94,7 @@ let function onGetBlockedUsers(users) {
   let contactsList = []
   foreach (user in users) {
     let u = user
-    let c = Contact(u.userId)
+    let c = updateContact(u.userId)
     if (!isValidContactNick(c)) {
       contactsList.append(c)
       unknownPsnUids.append(u.accountId)
@@ -121,7 +121,7 @@ let function onGetBlockedUsers(users) {
     foreach (uidStr, _ in res)
       bl[uidStr] <- true
 
-    psnBlockedUids(bl)
+    psnBlockedUids.update(bl)
   })
 }
 
@@ -154,26 +154,25 @@ let function request_psn_contacts() {
   })
 }
 
-ecs.register_es("playstation_update_friend_list", {
-  [EventLevelLoaded] = function(_evt, _eid, comp) {
-    if (comp.menu_level == null) // mean user in battle
-      eventbus.unsubscribe("ps4.presence_update", onPresenceUpdate)
-    else if (isLoggedIn.value) {
-      request_psn_contacts()
-      eventbus.subscribe("ps4.presence_update", onPresenceUpdate)
-    }
+let function eventSubscribeOutOfBattle(v) {
+  if (v) {
+    eventbus.subscribe("ps4.presence_update", onPresenceUpdate)
+    request_psn_contacts()
   }
-},
-{
-  comps_ro = [["menu_level", ecs.TYPE_TAG, null]],
-  comps_rq = ["level__blk"]
-})
+  else {
+    eventbus.unsubscribe("ps4.presence_update", onPresenceUpdate)
+    pswa.unsubscribe_from_push_events()
+  }
+}
+let needRequestContacts = keepref(Computed(@() !isInBattleState.value && isLoggedIn.value))
+eventSubscribeOutOfBattle(needRequestContacts.value)
+needRequestContacts.subscribe(eventSubscribeOutOfBattle)
 
 let function initHandlers() {
-  request_psn_contacts()
   eventbus.subscribe("ps4.presence_update", onPresenceUpdate)
   eventbus.subscribe("ps4.friends_list_update", onFriendsUpdate)
   eventbus.subscribe("ps4.blocklist_update", onBlocklistUpdate)
+  request_psn_contacts()
 }
 
 let function disposeHandlers() {

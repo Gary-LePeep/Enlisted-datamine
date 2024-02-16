@@ -19,14 +19,14 @@ let matchingQueuesRaw = nestWatched("matchingQueuesRaw", [])
 let function processQueues(val) {
   let curGame = matchingGameName
   local queues = val.filter(@(q) (q.game == curGame || curGame==null) && isPlatformRelevant(q?.allowedPlatforms ?? []))
-  if (queues.len()==0)
+  if (queues.len() == 0)
     queues = val
   queues = queues.map(@(queue) {
     id = queue.queueId
     locId = queue?.locId
     uiOrder = queue?.extraParams.uiOrder ?? 1000
-    uiGroup = queue?.extraParams.uiGroup ?? "z"
-    extraParams = clone (queue?.extraParams ?? {})
+    uiGroup = queue?.extraParams.uiGroup
+    extraParams = clone queue?.extraParams ?? {}
     maxGroupSize = queue?.maxGroupSize ?? queue?.groupSize ?? 1
     minGroupSize = queue?.minGroupSize ?? 1
     allowFillGroup = queue?.allowFillGroup ?? true

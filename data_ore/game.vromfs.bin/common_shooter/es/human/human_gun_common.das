@@ -1,19 +1,22 @@
 module human_gun_common shared
 require ecs
 require ecs.extra_set
-require EnlistedNet
+require DngNet
 require common_shooter.events_common_shooter
 require Gun
 require DaWeaponProps
 
-def human_gun_update_reload(gun : Gun;
-                            gun_eid : EntityId;
-                            gun__manuallyUnloaded : bool;
-                            shoot : bool;
-                            is_for_real : bool;
-                            gun_ammo : int;
-                            gun_owner : EntityId;
-                            at_time : float)
+def try_reload_empty_gun(gun : Gun;
+                         gun_eid : EntityId;
+                         gun__manuallyUnloaded : bool;
+                         shoot : bool;
+                         is_for_real : bool;
+                         gun_ammo : int;
+                         gun_owner : EntityId;
+                         at_time : float)
+  if get_bool(gun_eid, "gun_reload__isReloading") ?? false
+    return
+
   if is_server() && is_for_real && gun_ammo == 0
     let reloadOnShoot = get_bool(gun_owner, "human_weap__reloadOnShoot") ?? true
     let reloadOnEmptyMag = get_bool(gun_owner, "human_weap__reloadOnEmptyMag") ?? true
@@ -26,7 +29,7 @@ def human_gun_update_reload(gun : Gun;
       shouldReload ||= !shoot
 
     if shouldReload
-      sendEventImmediate(gun_owner, [[CmdRequestReload atTime=at_time, gunEid=gun_eid]])
+      sendEventImmediate(gun_owner, [[CmdRequestReload atTime=at_time, gunEid=gun_eid, isQuick=false]])
 
 def create_shell_entity(templ_name : string; in_tm : float3x4; start_vel : float3;
                         owner_eid : EntityId; shell_id : ShellPropIds |#; gun_props_id : int;

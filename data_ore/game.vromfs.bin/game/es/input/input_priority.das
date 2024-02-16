@@ -3,6 +3,7 @@ require ecs.safe
 require ecs.common
 require game.es.input.input_events
 require game.es.input.input_common
+require game.es.cannon_resupply_common
 require game.es.human_use_action_common
 require game.es.events
 require game.utils.hero
@@ -19,7 +20,28 @@ struct ActionDesc
   index : int
 
 
-def init(input_priority__actionsOrder : StringList;
+def get_action_event_type(action : int)
+  let binding = get_digital_action_binding(uint16(action), INPUT_COLUMN)
+  return (binding != null
+          ? int(digital_action_binding_get_eventType(*binding))
+          : -1)
+
+
+def retain_only_actions_on_same_event_type(var conflictedActionDescs : array<ActionDesc>)
+  let conflictedActionDescsLen = length(conflictedActionDescs)
+  if conflictedActionDescsLen < 2
+    return
+
+  let mainEventType = get_action_event_type(conflictedActionDescs[0].handle)
+  for i in range(0, conflictedActionDescsLen)
+    let revI = conflictedActionDescsLen - i - 1
+    let curEventType = get_action_event_type(conflictedActionDescs[revI].handle)
+    if curEventType != mainEventType
+      erase(conflictedActionDescs, revI)
+
+
+def init(eid : EntityId;
+         input_priority__actionsOrder : StringList;
          var input_priority__actionsHandles : IntList&;
          var input_priority__actionsPriorities : IntList&;
          var input_priority__actionsAvailability : BoolList&;
@@ -55,6 +77,8 @@ def init(input_priority__actionsOrder : StringList;
       if actionHandle == actionHandleToProcess || check_bindings_conflicts_one(uint16(actionHandle), INPUT_COLUMN, uint16(actionHandleToProcess), INPUT_COLUMN)
         push(conflictedActionDescs, [[ActionDesc handle=actionHandleToProcess, index=actionIndexToProcess]])
 
+    retain_only_actions_on_same_event_type(conflictedActionDescs)
+
     for conflictedActionDesc in conflictedActionDescs
       erase(actionsToProcess, conflictedActionDesc.handle)
 
@@ -62,7 +86,7 @@ def init(input_priority__actionsOrder : StringList;
       sort(conflictedActionDescs) <| $(lhs, rhs : ActionDesc)
         let lhsPrior = input_priority__actionsPriorities[lhs.index]
         let rhsPrior = input_priority__actionsPriorities[rhs.index]
-        return lhsPrior < rhsPrior
+        return lhsPrior != rhsPrior ? lhsPrior < rhsPrior : lhs.index < rhs.index
 
       var confictedActionsIndices : array<int>
       for actionDesc in conflictedActionDescs
@@ -76,8 +100,11 @@ def init(input_priority__actionsOrder : StringList;
     for action in actions
       push(input_priority__conflictedActionsTable, action)
 
+  sendEvent(eid, [[EventInputPriorityActionsAvailabilityChanged]])
 
-def reset(var input_priority__actionsHandles : IntList&;
+
+def reset(eid : EntityId;
+          var input_priority__actionsHandles : IntList&;
           var input_priority__actionsPriorities : IntList&;
           var input_priority__actionsAvailability : BoolList&;
           var input_priority__conflictedActionsTable : IntList&)
@@ -89,9 +116,12 @@ def reset(var input_priority__actionsHandles : IntList&;
   clear(input_priority__actionsAvailability)
   clear(input_priority__conflictedActionsTable)
 
+  sendEvent(eid, [[EventInputPriorityActionsAvailabilityChanged]])
+
 
 [es(tag=input, on_appear, track=glob_input__inputMode, on_event=EventControlsMenuToggle)]
 def input_priority_on_appear(evt : Event;
+                             eid : EntityId;
                              glob_input__inputMode : int;
                              input_priority__actionsOrder : StringList;
                              var input_priority__actionsHandles : IntList&;
@@ -99,13 +129,15 @@ def input_priority_on_appear(evt : Event;
                              var input_priority__actionsAvailability : BoolList&;
                              var input_priority__conflictedActionsTable : IntList&)
   if glob_input__inputMode == int(InputMode MODE_GAMEPAD)
-    init(input_priority__actionsOrder,
+    init(eid,
+         input_priority__actionsOrder,
          input_priority__actionsHandles,
          input_priority__actionsPriorities,
          input_priority__actionsAvailability,
          input_priority__conflictedActionsTable)
   else
-    reset(input_priority__actionsHandles,
+    reset(eid,
+          input_priority__actionsHandles,
           input_priority__actionsPriorities,
           input_priority__actionsAvailability,
           input_priority__conflictedActionsTable)
@@ -113,25 +145,28 @@ def input_priority_on_appear(evt : Event;
 
 [es(tag=input)]
 def input_priority_on_init(evt : EventDaInputInit;
+                           eid : EntityId;
                            input_priority__actionsOrder : StringList;
                            var input_priority__actionsHandles : IntList&;
                            var input_priority__actionsPriorities : IntList&;
                            var input_priority__actionsAvailability : BoolList&;
                            var input_priority__conflictedActionsTable : IntList&)
   if evt.init && is_gamepad_input()
-    init(input_priority__actionsOrder,
+    init(eid,
+         input_priority__actionsOrder,
          input_priority__actionsHandles,
          input_priority__actionsPriorities,
          input_priority__actionsAvailability,
          input_priority__conflictedActionsTable)
   else
-    reset(input_priority__actionsHandles,
+    reset(eid,
+          input_priority__actionsHandles,
           input_priority__actionsPriorities,
           input_priority__actionsAvailability,
           input_priority__conflictedActionsTable)
 
 
-[es(tag=input, track=(input_priority__conflictedActionsTable, input_priority__actionsAvailability))]
+[es(tag=input, on_event=EventInputPriorityActionsAvailabilityChanged, track=(input_priority__conflictedActionsTable))]
 def input_priority_update_enabled_actions(evt : Event;
                                           input_priority__actionsHandles : IntList;
                                           input_priority__actionsPriorities : IntList;
@@ -140,32 +175,39 @@ def input_priority_update_enabled_actions(evt : Event;
   if empty(input_priority__conflictedActionsTable)
     return
 
-  let rows = input_priority__conflictedActionsTable[0]
-  var i = 1
-  for _row in range(0, rows)
-    let cols = input_priority__conflictedActionsTable[i]
-    i++
-
-    var isEnabledActionFound = false
-    var prevActionPriority = -1
-    for _col in range(0, cols)
-      let actionIndex = input_priority__conflictedActionsTable[i]
+  global_cls_drv_update_cs_lock() <| $()
+    let rows = input_priority__conflictedActionsTable[0]
+    var i = 1
+    for _row in range(0, rows)
+      let cols = input_priority__conflictedActionsTable[i]
       i++
 
-      let actionHandle = input_priority__actionsHandles[actionIndex]
-      let actionPriority = input_priority__actionsPriorities[actionIndex]
-      let isAvailable = input_priority__actionsAvailability[actionIndex]
-      let isActionPairedWithPrevAction = prevActionPriority > -1 && actionPriority == prevActionPriority
-      let isEnabled = isAvailable && (!isEnabledActionFound || isActionPairedWithPrevAction)
-      set_action_enabled(uint16(actionHandle), isEnabled)
-      if isAvailable
-        isEnabledActionFound = true
+      var isEnabledActionPriority = -1
+      var prevActionPriority = -1
+      for col in range(0, cols)
+        let actionIndex = input_priority__conflictedActionsTable[i]
+        i++
 
-      prevActionPriority = actionPriority
+        let nextActionIndex = col + 1 < cols ? input_priority__conflictedActionsTable[i] : -1
+        let nextActionPriority = input_priority__actionsPriorities?[nextActionIndex] ?? -1
+
+        let actionHandle = input_priority__actionsHandles[actionIndex]
+        let actionPriority = input_priority__actionsPriorities[actionIndex]
+        let isAvailable = input_priority__actionsAvailability[actionIndex]
+        let isActionPairedWithPrevAction = prevActionPriority > -1 && actionPriority == prevActionPriority
+        let isActionPairedWithNextAction = nextActionPriority > -1 && actionPriority == nextActionPriority
+        let isEnabled = isAvailable && (isEnabledActionPriority < 0 || isActionPairedWithPrevAction && actionPriority == isEnabledActionPriority)
+        set_action_enabled(uint16(actionHandle), isEnabled)
+        set_action_mask_immediate(uint16(actionHandle), isEnabled && isActionPairedWithNextAction)
+        if isAvailable
+          isEnabledActionPriority = actionPriority
+
+        prevActionPriority = actionPriority
 
 
 [es(tag=input)]
 def input_priority_update(info : UpdateStageUpdateInput;
+                          eid : EntityId;
                           glob_input__inputMode : int;
                           input_priority__actionsHandles : IntList;
                           var input_priority__actionsAvailability : BoolList&)
@@ -174,14 +216,20 @@ def input_priority_update(info : UpdateStageUpdateInput;
 
   query() <| $ [es(REQUIRE=hero)] (human_input__use : int;
                                    human_input__exitVehicleAlone : int;
+                                   human_input__quickReload : int;
                                    human_input__reload : int;
                                    human_input__vehicleMaintenance : int;
                                    human_input__pushObject : int;
                                    human_input__melee : int;
+                                   human_input__bipodToggle : int;
                                    human_input__buildingAction : int;
                                    human_inventory_input__pickup : int;
                                    human_inventory_input__forcedPickup : int;
                                    human_context_command__aCancelContextCommand : int;
+                                   human_input__throwBack : int;
+                                   mortar_input__switchShellType : int;
+                                   human_input__fortificationMirrorPreview : int;
+                                   human_input__repairBuilding : int;
                                    human_use_object__selectedObject : EntityId;
                                    human_use_object__selectedBuilding : EntityId;
                                    human_weap__currentGunEid : EntityId;
@@ -191,17 +239,28 @@ def input_priority_update(info : UpdateStageUpdateInput;
                                    squad_member__squad : EntityId;
                                    maintenance__isExtinguishAvailable : bool;
                                    maintenance__isRepairAvailable : bool;
-                                   isInVehicle : bool)
+                                   isInVehicle : bool;
+                                   bipod__placeable : bool;
+                                   human_weap__throwMode : bool;
+                                   grenade_rethrow__grenadeEid : EntityId;
+                                   human_weap__mortarMode : bool;
+                                   stockOfBuilderCapabilities : float)
     let isHumanUseEnabled = !!human_use_object__selectedObject && !human_vehicle__isHoldingGunPassenger
     let isHumanExitVehicleAloneEnabled = isHumanUseEnabled && isInVehicle
-    let isHumanMaintenanceEnabled = maintenance__isExtinguishAvailable || maintenance__isRepairAvailable || !!human_use_object__selectedBuilding
     let isHumanPushObjectEnabled = push_object__canPush
-    let isHumanBuildingActionEnabled = !!human_use_object__selectedBuilding
-    let isInventoryPickup = useActionAvailable == int(HumanAction ACTION_PICK_UP)
-    let isInventoryForcedPickup = useActionAvailable == int(HumanAction ACTION_SWITCH_WEAPONS)
+    let isInventoryPickup = useActionAvailable == int(HumanAction ACTION_PICK_UP) || useActionAvailable == int(HumanAction ACTION_SWITCH_WEAPONS)
+    let isHumanBipodToggle = bipod__placeable
+    let isHumanThrowBack = !!grenade_rethrow__grenadeEid || human_weap__throwMode
+    let isMortarSwitchShellType = human_weap__mortarMode
+    let isHumanMaintenanceEnabled = maintenance__isExtinguishAvailable || maintenance__isRepairAvailable
+
+    var isHumanBuildingActionEnabled = false
+    query(human_use_object__selectedBuilding) <| $ [es(REQUIRE=building__canDismantle, REQUIRE_NOT=undestroyableBuilding)] ()
+      isHumanBuildingActionEnabled = true
 
     var isHumanReloadEnabled = false
     var isHumanMeleeEnabled = false
+    var isHumanRepairBuilding = false
     query(human_weap__currentGunEid) <| $ [es] (gun__ammo : int = 0;
                                                 gun__maxAmmo : int = 0;
                                                 gun__totalAmmo : int = 0;
@@ -210,15 +269,35 @@ def input_priority_update(info : UpdateStageUpdateInput;
       isHumanReloadEnabled = gun__ammo < gun__maxAmmo && gun__totalAmmo > 0 || buildingTool != null
       isHumanMeleeEnabled = (disableMelee == null)
 
+      if buildingTool != null
+        query(human_use_object__selectedBuilding) <| $ [es] (fortification_repair__costPercent : float;
+                                                             additiveBuildNeedRepair : bool = true;
+                                                             buildingCost : float const?;
+                                                             turret_control__gunEids : EidList const?)
+          isHumanRepairBuilding = additiveBuildNeedRepair
+          if turret_control__gunEids != null && buildingCost != null
+            let shellInfo = get_turrets_shell_info(*turret_control__gunEids)
+            let repairCost = calculate_resupply_cost(shellInfo, *buildingCost, fortification_repair__costPercent)
+            isHumanRepairBuilding &&= shellInfo.current < shellInfo.max && repairCost <= stockOfBuilderCapabilities
+
+    var isHumanRotateBuilding = false
+    query() <| $ [es(REQUIRE=builder_preview, REQUIRE_NOT=(builder_server_preview, builder_additive_preview))] (semi_transparent__visible : bool)
+      isHumanRotateBuilding = semi_transparent__visible
+
     var isHumanCancelContextCommandEnabled = false
     query(squad_member__squad) <| $ [es] (squad__orderType : int = 0; squad__hasPersonalOrder : bool = false)
       isHumanCancelContextCommandEnabled = squad__orderType > 0 || squad__hasPersonalOrder
 
+    var isActionsAvailablityChanged = false
     for actionHandle, isActionAvailable in input_priority__actionsHandles, input_priority__actionsAvailability
+      let prevIsActionAvailable = isActionAvailable
+
       if actionHandle == human_input__use
         isActionAvailable = isHumanUseEnabled
       elif actionHandle == human_input__exitVehicleAlone
         isActionAvailable = isHumanExitVehicleAloneEnabled
+      elif actionHandle == human_input__quickReload
+        isActionAvailable = isHumanReloadEnabled
       elif actionHandle == human_input__reload
         isActionAvailable = isHumanReloadEnabled
       elif actionHandle == human_input__vehicleMaintenance
@@ -232,6 +311,22 @@ def input_priority_update(info : UpdateStageUpdateInput;
       elif actionHandle == human_inventory_input__pickup
         isActionAvailable = isInventoryPickup
       elif actionHandle == human_inventory_input__forcedPickup
-        isActionAvailable = isInventoryForcedPickup
+        isActionAvailable = isInventoryPickup
+      elif actionHandle == human_input__bipodToggle
+        isActionAvailable = isHumanBipodToggle
       elif actionHandle == human_context_command__aCancelContextCommand
         isActionAvailable = isHumanCancelContextCommandEnabled
+      elif actionHandle == human_input__throwBack
+        isActionAvailable = isHumanThrowBack
+      elif actionHandle == mortar_input__switchShellType
+        isActionAvailable = isMortarSwitchShellType
+      elif actionHandle == human_input__fortificationMirrorPreview
+        isActionAvailable = isHumanRotateBuilding
+      elif actionHandle == human_input__repairBuilding
+        isActionAvailable = isHumanRepairBuilding
+
+      if isActionAvailable != prevIsActionAvailable
+        isActionsAvailablityChanged = true
+
+    if isActionsAvailablityChanged
+      sendEvent(eid, [[EventInputPriorityActionsAvailabilityChanged]])

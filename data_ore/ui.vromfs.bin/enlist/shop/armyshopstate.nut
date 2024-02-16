@@ -7,18 +7,18 @@ let { mkOnlinePersistentFlag, mkOnlinePersistentWatched
 let {
   seenShopItems, excludeShopItemSeen, getSeenStatus, SeenMarks
 } = require("unseenShopItems.nut")
-let openUrl = require("%ui/components/openUrl.nut")
-let { configs } = require("%enlist/meta/configs.nut")
+let { openUrl } = require("%ui/components/openUrl.nut")
 let { getShopUrl, getUrlByGuid } = require("%enlist/shop/shopUrls.nut")
 let userInfo = require("%enlSqGlob/userInfo.nut")
 let { curSection, setCurSection } = require("%enlist/mainMenu/sectionsState.nut")
-let {hasClientPermission} = require("%enlSqGlob/client_user_rights.nut")
+let { hasClientPermission } = require("%enlSqGlob/client_user_rights.nut")
 let { marketIds } = require("%enlist/shop/goodsAndPurchases_pc.nut")
 let { curArmyData, curArmy, curCampItemsCount, armySquadsById, armyItemCountByTpl, curCampaign
 } = require("%enlist/soldiers/model/state.nut")
 let { allItemTemplates } = require("%enlist/soldiers/model/all_items_templates.nut")
 let { hasCurArmyReserve } = require("%enlist/soldiers/model/reserve.nut")
-let { buy_shop_items, buy_shop_offer, barter_shop_items, check_purchases
+let { buy_shop_items, buy_shop_offer, barter_shop_items, check_purchases,
+  buy_shop_items_list, barter_shop_items_multiple
 } = require("%enlist/meta/clientApi.nut")
 let { purchasesCount, curArmiesList } = require("%enlist/meta/profile.nut")
 let { hasPremium } = require("%enlist/currency/premium.nut")
@@ -29,41 +29,54 @@ let { needNewItemsWindow } = require("%enlist/soldiers/model/newItemsToShow.nut"
 let {
   removeCrateContent, requestedCratesContent, itemToShopItem, getShopListForItem
 } = require("%enlist/soldiers/model/cratesContent.nut")
-let { disabledSectionsData } = require("%enlist/mainMenu/disabledSections.nut")
+let { hasShopSection } = require("%enlist/mainMenu/disabledSections.nut")
 let { currencyPresentation } = require("currencyPresentation.nut")
 let checkPurchases = require("%enlist/shop/checkPurchases.nut")
 let isChineseVersion = require("%enlSqGlob/isChineseVersion.nut")
 let { shopItemsBase, shopItems, shopDiscountGen
 } = require("shopItems.nut")
-let { needFreemiumStatus } = require("%enlist/campaigns/campaignConfig.nut")
+let { CAMPAIGN_NONE, isCampaignBought } = require("%enlist/campaigns/campaignConfig.nut")
 let qrWindow = require("%enlist/mainMenu/qrWindow.nut")
 let { isPlayerRecommendedEmailRegistration } = require("%enlist/profile/profileCountry.nut")
 let { gameLanguage } = require("%enlSqGlob/clientState.nut")
 let { PSNAllowShowQRCodeStore } = require("%enlist/featureFlags.nut")
+let { getLinkedArmyName } = require("%enlSqGlob/ui/metalink.nut")
+let { curSoldierInfo } = require("%enlist/soldiers/model/curSoldiersState.nut")
+let { classSlotLocksByArmy } = require("%enlist/researches/researchesSummary.nut")
+let { curGrowthState, curGrowthProgress, GrowthStatus } = require("%enlist/growth/growthState.nut")
 
 const SHOP_SECTION = "SHOP"
-let hasShopSection = Computed(@() !(disabledSectionsData.value?.LOGISTICS ?? false))
 
 let shopOrdersUsed = mkOnlinePersistentFlag("hasShopOrdersUsed")
 let hasShopOrdersUsed = shopOrdersUsed.flag
 let shopOrdersUsedActivate = shopOrdersUsed.activate
 
+
+let needGoodManage = Watched(false)
+let goodManageData = Watched(null)
+
 let isDebugShowPermission = hasClientPermission("debug_shop_show")
 
-let marketIdList = keepref(Computed(@() shopItemsBase.value.values()
-  .reduce(function(res, item) {
-    if ((item?.pcLinkGuid ?? "") != "")
-      res.append({ guid = item.pcLinkGuid })
-    return res
-  }, [] )))
+let marketIdPurchasable = keepref(Computed(function() {
+  let res = {}
+  foreach (item in shopItemsBase.value) {
+    let { purchaseGuid = "", itemCost = {}, storeId = "", devStoreId = "" } = item
+    // do not request external items info for consoles
+    if (purchaseGuid != "" && itemCost.len() == 0 && storeId == "" && devStoreId == "") {
+      res[purchaseGuid] <- true
+      foreach (guid in (item?.aliasGuids ?? []))
+        res[guid] <- true
+    }
+  }
+  return res.keys()
+}))
 
-marketIds(marketIdList.value)
-marketIdList.subscribe(@(v) marketIds(v))
+marketIds(marketIdPurchasable.value)
+marketIdPurchasable.subscribe(@(v) marketIds(v))
 
 let shopGroupItemsChain = mkWatched(persist, "shopGroupItemsChain", [])
 curArmy.subscribe(@(_) shopGroupItemsChain([]))
 
-let shopConfig = Computed(@() configs.value?.shop_config ?? {})
 let purchaseInProgress = Watched(null)
 let shopItemToShow = Watched(null)
 let shopItemsToHighlight = Watched(null)
@@ -179,21 +192,29 @@ let getMinRequiredArmyLevel = @(goods) goods.reduce(function(res, sItem) {
     : min(level, res)
 }, 0)
 
+let function isShopItemAvailable(shopItem, squads, purchases, permissions, notFreemium) {
+  let { isHiddenOnChinese = false, requirements = {} } = shopItem
+  let { campaignGroup = CAMPAIGN_NONE } = requirements
+  return !(isChineseVersion && isHiddenOnChinese)
+    && isAvailableBySquads(shopItem, squads)
+    && isAvailableByLimit(shopItem, purchases)
+    && isAvailableByPermission(shopItem, permissions)
+    && (notFreemium || campaignGroup == CAMPAIGN_NONE)
+}
+
 let curArmyItemsPrefiltered = Computed(function() {
   let armyId = curArmyData.value?.guid
   let itemCount = armyItemCountByTpl.value ?? {}
   let itemsByTime = shownByTimestamp.value
   let squadsById = armySquadsById.value
   let purchases = purchasesCount.value
+  let notFreemium = isCampaignBought.value
   let debugPermission = isDebugShowPermission.value
   return shopItems.value.filter(function(item, id) {
-    let { armies = [], isHidden = false, isHiddenOnChinese = false } = item
+    let { armies = [], isHidden = false } = item
     return (armies.contains(armyId) || armies.len() == 0)
       && (!isHidden || isTemporaryVisible(id, item, itemCount, itemsByTime))
-      && !(isChineseVersion && isHiddenOnChinese)
-      && isAvailableBySquads(item, squadsById)
-      && isAvailableByLimit(item, purchases)
-      && isAvailableByPermission(item, debugPermission)
+      && isShopItemAvailable(item, squadsById, purchases, debugPermission, notFreemium)
   })
 })
 
@@ -206,7 +227,7 @@ let curArmyShopInfo = Computed(function() {
     shopItems.value.filter(@(i) i?.armies.findvalue(@(a) armies.contains(a))))
   let hasTemporary = goods.findindex(@(i, id)
     isTemporaryVisible(id, i, itemCount, itemsByTime)) != null
-  goods = goods.values().sort(@(a, b) (b?.inLineProirity ?? 0) <=> (a?.inLineProirity ?? 0))
+  goods = goods.values()
   return { unlockLevel, goods, hasTemporary }
 })
 
@@ -243,10 +264,7 @@ let function trimTree(node, curFolder){
     return null
 
   if (res.len() == 1 && node?.id != curFolder?.id)
-    return res[0].__merge({
-      offerLine = node?.offerLine ?? 0
-      inLineProirity = node?.inLineProirity ?? 0
-    })
+    return res[0]
 
   node.childItems = res
   return node
@@ -306,19 +324,6 @@ let curArmyShopFolder = Computed(function(){
   return { path = chain.slice(0, depth), items = flatFolder(tree.childItems) }
 })
 
-let curArmyShopLines = Computed(function() {
-  local linesCount = 0
-  let curItems = curArmyShopFolder.value.items
-  foreach (item in curItems)
-    linesCount = max(linesCount, (item?.offerLine ?? 0) + 1)
-
-  let res = array(linesCount).map(@(_) [])
-  foreach (item in curItems)
-    res[item?.offerLine ?? 0].append(item)
-
-  return res
-})
-
 
 let function getAllChildItems(folderItem, withFolders = false){
   let res = []
@@ -373,34 +378,6 @@ let viewArmyCurrency = Computed(function() {
     || !(allItemTemplates.value?[armyId][tpl].isZeroHidden ?? true))
 })
 
-let lastShopCurrencies = mkWatched(persist, "lastCurrencyCount", {})
-
-let function updateLastCurrencies(campaignId, curValues, forceUpdate = false) {
-  if (campaignId == null)
-    return
-  local isUpdated = false
-  let allLastCur = lastShopCurrencies.value
-  let campCur = allLastCur?[campaignId] ?? {}
-  foreach (curTpl, curCount in curValues)
-    if (curTpl not in campCur || forceUpdate) {
-      isUpdated = true
-      campCur[curTpl] <- curCount
-    }
-  if (isUpdated) {
-    allLastCur[campaignId] <- campCur
-    lastShopCurrencies(allLastCur)
-  }
-}
-
-viewArmyCurrency.subscribe(@(curValues) updateLastCurrencies(curCampaign.value, curValues))
-updateLastCurrencies(curCampaign.value, viewArmyCurrency.value)
-
-let hasUnseenCurrencies = Computed(function() {
-  let curList = lastShopCurrencies.value?[curCampaign.value] ?? {}
-  return curList.findvalue(@(count, tpl) count < (viewArmyCurrency.value?[tpl] ?? 0)) != null
-})
-
-let seenCurrencies = @() updateLastCurrencies(curCampaign.value, viewArmyCurrency.value, true)
 
 let function getBuyRequirementError(shopItem) {
   let requirements = shopItem?.requirements
@@ -413,12 +390,9 @@ let function getBuyRequirementError(shopItem) {
 }
 
 let curAvailableShopItems = Computed(function() {
-  let needFreemium = needFreemiumStatus.value
   let { level = 0 } = curArmyData.value
   return curArmyShopItems.value.filter(@(item) (item?.offerContainer ?? "") == ""
-    && item?.itemCost
     && (item?.requirements.armyLevel ?? 0) <= level
-    && (!item?.requirements.campaignGroup || !needFreemium)
   )
 })
 
@@ -442,10 +416,25 @@ let function getUnseenGuids(tree, res, seen, avail) {
   return res
 }
 
+let getGrStatus = @(growths, growthId) growths?[growthId].status ?? GrowthStatus.UNAVAILABLE
+
+let function getCantBuyDataBool(req, growths, grTiers) {
+  let { growthId = "", growthTierId = "" } = req
+  if (growthId != "" && getGrStatus(growths, growthId) != GrowthStatus.REWARDED)
+    return true
+  if (growthTierId != "" && getGrStatus(grTiers, growthTierId) >= GrowthStatus.COMPLETED)
+    return true
+  return false
+}
+
 let curUnseenAvailShopGuids = Computed(function() {
   let avail = {}
-  foreach (item in curAvailableShopItems.value)
-    avail[item.guid] <- true
+  foreach (item in curAvailableShopItems.value) {
+    let isLocked = getCantBuyDataBool(item.requirements, curGrowthState.value, curGrowthProgress.value)
+    if ((item?.featuredWeight ?? 0) == 0 && !isLocked) {
+      avail[item.guid] <- true
+    }
+  }
   let seen = seenShopItems.value.seen?[curArmy.value] ?? {}
   let fullTree = curFullTree.value
 
@@ -454,15 +443,16 @@ let curUnseenAvailShopGuids = Computed(function() {
 
 curAvailableShopItems.subscribe(function(items) {
   let armyId = curArmy.value
-  let seen = seenShopItems.value.seen?[armyId] ?? {}
-  if (seen.len() == 0)
-    return
 
-  let excludeList = seen
-    .filter(@(_, guid) items.findindex(@(i) i.guid == guid) == null)
-    .keys()
-  if (excludeList.len() != 0)
-    gui_scene.resetTimeout(0.1, @() excludeShopItemSeen(armyId, excludeList))
+  let seen = seenShopItems.value.seen?[armyId] ?? {}
+  if (seen.len() != 0) {
+    let excludeList = seen
+      .filter(@(_, guid) items.findindex(@(i) i.guid == guid) == null)
+      .keys()
+
+    if (excludeList.len() != 0)
+      gui_scene.resetTimeout(0.1, @() excludeShopItemSeen(armyId, excludeList))
+  }
 })
 
 let premiumProducts = Computed(@()
@@ -477,18 +467,31 @@ let premiumProducts = Computed(@()
   .sort(@(a, b) (a?.premiumDays ?? 0) <=> (b?.premiumDays ?? 0))
 )
 
-let function barterShopItem(shopItem, payData, count = 1) {
+let function barterShopItem(shopItem, payData, cb = null, count = 1) {
   if (purchaseInProgress.value != null)
     return
 
   purchaseInProgress(shopItem)
   shopItemToShow(shopItem)
-  barter_shop_items(curArmy.value, shopItem.guid, payData, count, function(_) {
+  barter_shop_items(curArmy.value, shopItem.guid, payData, count, function(res) {
     purchaseInProgress(null)
     removeCrateContent(shopItem?.crates ?? [])
     shopOrdersUsedActivate()
-    seenCurrencies()
+    cb?(res?.error == null)
   })
+}
+
+let function barterShopItemList(shopItemsList, itemData, payData, cb) {
+  if (purchaseInProgress.value != null)
+    return
+
+  purchaseInProgress(shopItemsList.top())
+
+  barter_shop_items_multiple(curArmy.value, itemData, payData, function(res) {
+    purchaseInProgress(null)
+    cb?(res?.error == null)
+  })
+
 }
 
 let function buyShopItem(shopItem, currencyId, price, cb = null, count = 1) {
@@ -515,6 +518,18 @@ let function buyShopOffer(shopItem, currencyId, price, cb = null, pOfferGuid = n
   buy_shop_offer(curArmy.value, shopItem.guid, currencyId, price, pOfferGuid, function(res) {
     purchaseInProgress(null)
     removeCrateContent(shopItem?.crates ?? [])
+    cb?(res?.error == null)
+  })
+}
+
+let function buyShopItemList(shopItemsList, itemData, payData, cb) {
+  if (purchaseInProgress.value != null)
+    return
+
+  purchaseInProgress(shopItemsList.top())
+
+  buy_shop_items_list(curArmy.value, itemData, payData, function(res) {
+    purchaseInProgress(null)
     cb?(res?.error == null)
   })
 }
@@ -596,33 +611,28 @@ let function shopItemContentCtor(shopItem) {
   return Computed(function() {
     let crate = shopItem.crates.findvalue(@(c) c.armyId == curArmy.value) ?? shopItem.crates[0]
     let { armyId, id } = crate
-    return {
-      id
-      armyId
-      content = requestedCratesContent.value?[armyId][id]
-    }
+    let content = requestedCratesContent.value?[armyId][id]
+    if (content)
+      return { id, armyId, content }
+    return null
   })
 }
 
-let function shopItemContentArrayCtor(shopItem) {
-  if ((shopItem?.crates.len() ?? 0) == 0)
-    return null
-  return Computed(function() {
+let function shopItemContentArrayCtor(shopItemW) {
+  return Computed(function(){
     let res = []
-    foreach (crate in shopItem.crates) {
+    foreach (crate in shopItemW.value?.crates ?? []) {
       let { armyId, id } = crate
-      res.append({
-        id
-        armyId
-        content = requestedCratesContent.value?[armyId][id]
-      })
+      let content = requestedCratesContent.value?[armyId][id]
+      if (content)
+        res.append({ id, armyId, content })
     }
     return res
   })
 }
 
-let isShopVisible = mkOnlinePersistentWatched("isShopVisible", Computed(@()
-  curArmyShopLines.value.len() > 0 && curArmyData.value.level >= curArmyShopInfo.value.unlockLevel))
+let isShopVisible = mkOnlinePersistentWatched("isShopVisible",
+  Computed(@() (curArmyData.value?.level ?? 0) >= curArmyShopInfo.value.unlockLevel))
 
 local function getShopItemPath(shopItem, allShopItems){
   let path = []
@@ -635,13 +645,15 @@ local function getShopItemPath(shopItem, allShopItems){
   return path
 }
 
-let function getShopItemsCmp(tpl) {
-  return Computed(function(){
-    let shopItemIds = getShopListForItem(tpl, curArmy.value, itemToShopItem.value, allItemTemplates.value)
-    return (shopItemIds.len() < 1) ? []
-      : shopItemIds.map(@(shopItemId) curArmyItemsPrefiltered.value?[shopItemId])
-  })
-}
+let getShopItems = @(tpl, armyId, itemToShopItemV, allItemTemplatesV, curArmyItemsPrefilteredV)
+  getShopListForItem(tpl, armyId, itemToShopItemV, allItemTemplatesV)
+    .map(@(shopItemId) curArmyItemsPrefilteredV?[shopItemId])
+
+let getShopItemsList = @(tpl) getShopItems(tpl, curArmy.value,
+  itemToShopItem.value, allItemTemplates.value, curArmyItemsPrefiltered.value)
+
+let getShopItemsCmp = @(tpl) Computed(@() getShopItems(tpl, curArmy.value,
+  itemToShopItem.value, allItemTemplates.value, curArmyItemsPrefiltered.value))
 
 local function openAndHighlightItems(targetShopItems, allShopItems){
   local longestPathIdx = -1
@@ -690,15 +702,58 @@ let notOpenedShopItems = Computed(function() {
   return notOpenedGuids
 })
 
+
+let isItemsShopOpened = mkWatched(persist, "isItemsShopOpened", false)
+let itemsToPresent = Watched({})
+
+let function addToPresentList(itemsList) {
+  itemsToPresent.mutate(function(presentData) {
+    foreach (item in itemsList) {
+      let armyId = getLinkedArmyName(item)
+      if (armyId not in presentData)
+        presentData[armyId] <- {}
+
+      let { basetpl, count = 1 } = item
+      presentData[armyId][basetpl] <- (presentData[armyId]?[basetpl] ?? 0) + count
+    }
+  })
+}
+
+
+let curSuitableItemTypes = Computed(function() {
+  let armyId = curArmyData.value?.guid
+  let { sClass = null, equipScheme = {} } = curSoldierInfo.value
+  let lockedSlots = classSlotLocksByArmy.value?[armyId][sClass] ?? []
+  let res = {}
+  foreach (slotId, scheme in equipScheme)
+    if (lockedSlots.indexof(slotId) == null)
+      foreach (itemType in scheme.itemTypes)
+        res[itemType] <- true
+
+  return res
+})
+
+
+let curSuitableShopItems = Computed(function() {
+  let armyId = curArmyData.value?.guid
+  let itemTypes = curSuitableItemTypes.value
+  let res = {}
+  let templates = allItemTemplates.value?[armyId] ?? {}
+  foreach (tpl, shopGuids in itemToShopItem.value?[armyId] ?? {})
+    if (itemTypes?[templates?[tpl].itemtype] ?? false)
+      foreach (shopGuid in shopGuids)
+        res[shopGuid] <- true
+
+  return res
+})
+
 return {
   SHOP_SECTION
   hasShopSection
-  shopConfig
   curArmyShopInfo
   curArmyShowcase
   curArmyShopItems
   curArmyItemsPrefiltered
-  curArmyShopLines
   realCurrencies
   viewCurrencies
   viewArmyCurrency
@@ -712,14 +767,17 @@ return {
   buyItemByGuid
   buyItemByStoreId
   buyCurrency
+  buyShopItemList
+  barterShopItemList
   getBuyRequirementError
   isAvailableByLimit
   curUnseenAvailShopGuids
   premiumProducts
-  hasUnseenCurrencies
   shopItemContentCtor
   shopItemContentArrayCtor
   isShopVisible
+  getShopItems
+  getShopItemsList
   getShopItemsCmp
   openAndHighlightItems
   curArmyShopFolder
@@ -728,7 +786,15 @@ return {
   getAllChildItems
   hasGoldValue
   findSquadShopItem
-  curAvailableShopItems
   notOpenedShopItems
   requestedCratesContent
+  isItemsShopOpened
+  itemsToPresent
+  addToPresentList
+  curSuitableItemTypes
+  curSuitableShopItems
+  needGoodManage
+  goodManageData
+  curAvailableShopItems
+  isShopItemAvailable
 }

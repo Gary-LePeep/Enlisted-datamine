@@ -65,16 +65,16 @@
   },
   "tankgun_100mm_d10s": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_tankgun_cannon"
+      "_use": "base_tankgun_cannon"
     },
     {
-      "_extends": "base_100mm_d10s"
+      "_use": "base_100mm_d10s"
     },
     {
-      "_extends": "gunsound_100mm_d10s"
+      "_use": "gunsound_100mm_d10s"
     },
     {
       "turret__triggerGroup": 0

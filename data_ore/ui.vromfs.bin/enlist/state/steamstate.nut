@@ -3,7 +3,7 @@ from "%enlSqGlob/ui_library.nut" import *
 let userInfo = require("%enlSqGlob/userInfo.nut")
 let steam = require("steam")
 let auth = require("auth")
-let openUrl = require("%ui/components/openUrl.nut")
+let { openUrl } = require("%ui/components/openUrl.nut")
 let eventbus = require("eventbus")
 let { get_circuit_conf } = require("app")
 
@@ -15,6 +15,8 @@ let goToSteamUrl = function(res) {
   let token = res?.token ?? ""
   if (token == "")
     log("Steam Email Registration: empty token")
+  else if (steamBindUrl == null)
+    log("No Steam bind url for current circuit")
   else
     openUrl(steamBindUrl.subst({ token = token, langAbbreviation = loc("langAbbreviation") }))
   isOpenLinkUrlInProgress(false)

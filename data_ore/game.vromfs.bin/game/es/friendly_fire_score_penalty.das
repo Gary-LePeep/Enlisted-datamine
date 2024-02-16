@@ -12,7 +12,7 @@ require enlisted.game.es.enlisted_squad_common
 require game.es.events
 require game.events_game
 require common_shooter.events_common_shooter
-require EnlistedDm
+require DngDm
 
 def is_offender_player_in_vehicle(player_eid : EntityId; vehicle_seats__seatEids : EidList)
   var found = false
@@ -164,9 +164,13 @@ def apply_team_kill_penalty_human(evt : OnTeamKill;
 def apply_team_kill_penalty_plane(evt : OnTeamKill; killLogName : string = ""; ownedBySquad : EntityId = INVALID_ENTITY_ID)
   add_soldier_stat(get_offender_from_cache(evt.offender), "friendlyPlaneKills", get_squad_owner_player(ownedBySquad), killLogName, evt.gunPropsId)
 
-[es(tag=server, REQUIRE=isTank)]
+[es(tag=server, REQUIRE=isTank, REQUIRE_NOT=mobileRespawnTag)]
 def apply_team_kill_penalty_tank(evt : OnTeamKill; killLogName : string = ""; ownedBySquad : EntityId = INVALID_ENTITY_ID)
   add_soldier_stat(get_offender_from_cache(evt.offender), "friendlyTankKills", get_squad_owner_player(ownedBySquad), killLogName, evt.gunPropsId)
+
+[es(tag=server, REQUIRE=mobileRespawnTag)]
+def apply_team_kill_penalty_apc(evt : OnTeamKill; killLogName : string = ""; ownedBySquad : EntityId = INVALID_ENTITY_ID)
+  add_soldier_stat(get_offender_from_cache(evt.offender), "friendlyApcKills", get_squad_owner_player(ownedBySquad), killLogName, evt.gunPropsId)
 
 [es(tag=server, REQUIRE=human)]
 def apply_friendly_fire_penalty_on_human_hit(evt : OnFriendlyFire; guid : string = ""; squad_member__playerEid : EntityId = INVALID_ENTITY_ID)
@@ -176,9 +180,13 @@ def apply_friendly_fire_penalty_on_human_hit(evt : OnFriendlyFire; guid : string
 def apply_friendly_fire_penalty_on_plane_damage(evt : OnFriendlyFire; killLogName : string = ""; ownedBySquad : EntityId = INVALID_ENTITY_ID)
   add_soldier_stat(get_offender_from_cache(evt.offender), "friendlyPlaneHits", get_squad_owner_player(ownedBySquad), killLogName, evt.gunPropsId)
 
-[es(tag=server, REQUIRE=isTank)]
+[es(tag=server, REQUIRE=isTank, REQUIRE_NOT=mobileRespawnTag)]
 def apply_friendly_fire_penalty_on_tank_damage(evt : OnFriendlyFire; killLogName : string = ""; ownedBySquad : EntityId = INVALID_ENTITY_ID)
   add_soldier_stat(get_offender_from_cache(evt.offender), "friendlyTankHits", get_squad_owner_player(ownedBySquad), killLogName, evt.gunPropsId)
+
+[es(tag=server, REQUIRE=mobileRespawnTag)]
+def apply_friendly_fire_penalty_on_apc_damage(evt : OnFriendlyFire; killLogName : string = ""; ownedBySquad : EntityId = INVALID_ENTITY_ID)
+  add_soldier_stat(get_offender_from_cache(evt.offender), "friendlyApcHits", get_squad_owner_player(ownedBySquad), killLogName, evt.gunPropsId)
 
 [es(tag=server, track=scoring_player__friendlyFirePenalty)]
 def log_current_friendly_fire_penalty(evt : Event; eid : EntityId; squads__spawnCount : int; name : string; scoring_player__friendlyFirePenalty : int)

@@ -36,7 +36,7 @@ let function setSquadFormation(formation) {
   heroSquadEidQuery(controlledHeroEid.value, function(_, comp) {
     let squadEid = comp.squad_member__squad
     applyNewFormation(squadEid, formation)
-    squadProfileIdQuery(squadEid, @(_, comp) saveSquadFormation(comp.squad__squadProfileId, formation))
+    squadProfileIdQuery(squadEid, @(_, prflComp) saveSquadFormation(prflComp.squad__squadProfileId, formation))
   })
 }
 

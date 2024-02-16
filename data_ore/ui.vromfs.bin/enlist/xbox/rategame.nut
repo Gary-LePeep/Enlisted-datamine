@@ -67,7 +67,7 @@ let function checkRate(_) {
 
 onlineSettings.onlineSettingUpdated.subscribe(function(val) {
   if (val)
-    logRG(onlineSettings.settings.value?[ASKED_ID] ?? false
+    logRG((onlineSettings.settings.value?[ASKED_ID] ?? false)
       ? "is already asked"
       : "not asked yet")
 })

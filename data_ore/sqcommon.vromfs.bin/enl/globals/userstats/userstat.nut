@@ -14,7 +14,7 @@ let { debounce } = require("%sqstd/timers.nut")
 let userInfo = require("%enlSqGlob/userInfo.nut")
 let { get_time_msec } = require("dagor.time")
 let {error_response_converter} = require("%enlSqGlob/netErrorConverter.nut")
-let {globalWatched} = require("%dngscripts/globalState.nut")
+let { globalWatched, nestWatched } = require("%dngscripts/globalState.nut")
 let eventbus = require("eventbus")
 let matchingNotifications = require("%enlSqGlob/notifications/matchingNotifications.nut")
 let { get_app_id } = require("app")
@@ -39,7 +39,7 @@ let adminUserStats  = CharClientEvent({name     = "userStats.admin",
 
 const STATS_REQUEST_TIMEOUT = 45000
 const STATS_UPDATE_INTERVAL = 300000 //unlocks progress update interval
-const MAX_DELAY_FOR_MASSIVE_REQUEST_SEC = 60 //random delay up to this value when all player want the same config simultaneously.
+const MAX_DELAY_FOR_MASSIVE_REQUEST_SEC = 300 //random delay up to this value when all player want the same config simultaneously.
 
 let chardToken = keepref(Computed(@() userInfo.value?.token))
 let userId = keepref(Computed(@() userInfo.value?.userId))
@@ -97,6 +97,8 @@ let function makeUpdatable(persistName, request, watches, defValue) {
       logUs(result)
       return
     }
+
+    logUs($"Updated {persistName}")
     lastSuccessTime(get_time_msec())
     dataUpdate(result?.response ?? defValue)
 
@@ -166,11 +168,7 @@ let descListUpdatable = makeUpdatable("GetUserStatDescList",
   [appId, chardToken],
   {})
 
-let statsFilter = mkWatched(persist, "statsFilter", {
-  //tables = [ "global" ]
-  modes = [ "solo", "duo", "group" ]
-  //stats  = [ "winRating", "killRating", "battles" ]
-})
+let statsFilter = nestWatched("statsFilter", { modes = [] })
 
 let unlocksFilter = mkWatched(persist, "unlocksFilter", {})
 
@@ -253,6 +251,7 @@ statsUpdatable.data.subscribe(function(stats) {
 let lastMassiveRequestQueued = mkWatched(persist, "lastMassiveRequestQueued", 0)
 if (lastMassiveRequestQueued.value > lastMassiveRequestTime.value)
   massiveRefresh(lastMassiveRequestQueued.value) //if reload script while wait for the debounce
+
 let function queueMassiveUpdate() {
   logUs("Queue massive update")
   lastMassiveRequestQueued(nextMassiveUpdateTime.value)
@@ -262,8 +261,7 @@ let function queueMassiveUpdate() {
 let function startMassiveUpdateTimer() {
   if (nextMassiveUpdateTime.value <= lastMassiveRequestTime.value)
     return
-  gui_scene.clearTimer(queueMassiveUpdate)
-  gui_scene.setTimeout(nextMassiveUpdateTime.value - time.value, queueMassiveUpdate)
+  gui_scene.resetTimeout(nextMassiveUpdateTime.value - time.value, queueMassiveUpdate)
 }
 startMassiveUpdateTimer()
 nextMassiveUpdateTime.subscribe(@(_) startMassiveUpdateTimer())
@@ -318,7 +316,7 @@ let function receiveRewards(unlockName, stage, context = null) {
 }
 
 handlers["GrantRewards"] <- function(result, context) {
-  let { unlockName  = null } = context
+  let { unlockName = null } = context
   if (unlockName in unlockRewardsInProgress.value)
     unlockRewardsInProgress.mutate(@(v) delete v[unlockName])
   logUs("GrantRewards result:", result)
@@ -328,6 +326,59 @@ handlers["GrantRewards"] <- function(result, context) {
   statsUpdatable.forceRefresh()
 }
 
+let function receiveRewardsAllUp(unlocksToRewards, context = null) {
+  let idsTbl = {}
+  let data = []
+  foreach (task in unlocksToRewards) {
+    let { name, upToStage = -1 } = task
+    if (name not in unlockRewardsInProgress.value) {
+      data.append({ unlock = name, up_to_stage = upToStage })
+      idsTbl[name] <- true
+    }
+  }
+  if (data.len() == 0)
+    return
+  let idsTblKeys = idsTbl.keys()
+  logUs($"receiveRewardsAllUp: {", ".join(idsTblKeys)}")
+  unlockRewardsInProgress.mutate(@(u) u.__update(idsTbl))
+  clientUserStats.request("BatchGrantRewards",
+    {data = {unlocksToReward = data}},
+    (context ?? {}).__merge({ unlocksKeys = idsTblKeys }))
+}
+
+let function receiveRewardsAll(unlocksToRewards, context = null) {
+  let idsTbl = {}
+  let data = []
+  foreach (task in unlocksToRewards) {
+    let { name, stage } = task
+    if (name not in unlockRewardsInProgress.value) {
+      data.append({ unlock = name, stage })
+      idsTbl[name] <- true
+    }
+  }
+  if (data.len() == 0)
+    return
+  let idsTblKeys = idsTbl.keys()
+  logUs($"receiveRewardsAll: {", ".join(idsTblKeys)}")
+  unlockRewardsInProgress.mutate(@(u) u.__update(idsTbl))
+  clientUserStats.request("BatchGrantRewards",
+    {data = {unlocksToReward = data}},
+    (context ?? {}).__merge({ unlocksKeys = idsTblKeys }))
+}
+
+handlers["BatchGrantRewards"] <- function(result, context) {
+  let { unlocksKeys = [] } = context
+  unlockRewardsInProgress.mutate(function(u) {
+    foreach (key in unlocksKeys)
+      if (key in u)
+        delete u[key]
+  })
+  logUs("BatchGrantRewards result:", result)
+  if ("error" in result)
+    return
+  unlocksUpdatable.forceRefresh()
+  statsUpdatable.forceRefresh()
+}
 
 let function resetPersonalUnlockProgress(unlockName, context = null) {
   adminUserStats.request("AdmResetPersonalUnlockProgress", {
@@ -620,6 +671,8 @@ return {
   setLastSeenUnlocks = setLastSeen
   getUserstatsSum = getStatsSum
   receiveUnlockRewards = receiveRewards
+  receiveUnlockRewardsAll = receiveRewardsAll
+  receiveUnlockRewardsAllUp = receiveRewardsAllUp
   setUserstat = clnSetStat
   sendPsPlusStatusToUserstatServer = sendPsPlus
   selectUnlockRewards = selectUnlockRewards

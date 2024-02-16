@@ -1,5 +1,5 @@
 from "%sqstd/functools.nut" import *
-//from "frp" import Watched
+//from "%sqstd/frp.nut" import Watched
 let Log = require("%sqstd/log.nut")
 //local json = require("json")
 //local http = require("dagor.http")
@@ -11,13 +11,13 @@ log = log.with_prefix("[GAME LOAD] ")
 let {startswith} = require("string")
 
 //local statusText = {
-//  [http.SUCCESS] = "SUCCESS",
-//  [http.FAILED] = "FAILED",
-//  [http.ABORTED] = "ABORTED",
+//  [HTTP_SUCCESS] = "SUCCESS",
+//  [HTTP_FAILED] = "FAILED",
+//  [HTTP_ABORTED] = "ABORTED",
 //}
 
 //local function httpGet(url, callback){
-//  http.request({ url, method = "GET", callback})
+//  httpRequest({ url, method = "GET", callback})
 //}
 
 

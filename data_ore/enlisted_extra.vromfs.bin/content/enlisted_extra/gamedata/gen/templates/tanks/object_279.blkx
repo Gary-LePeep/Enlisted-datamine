@@ -1,6 +1,6 @@
 {
   "base_object_279": {
-    "_extends": "base_tank",
+    "_use": "base_tank",
     "killLogName": "ussr_object_279",
     "animchar__res": "object_279_char",
     "collres__res": "object_279_collision",
@@ -99,11 +99,11 @@
     ]
   },
   "rasf_object_972_blastergun": {
-    "_extends": "tank_blastergun",
+    "_use": "tank_blastergun",
     "gun__shootNodeName": "bone_mg_gun_twin"
   },
   "rasf_object_972_plasmagun": {
-    "_extends": "tank_plasmagun",
+    "_use": "tank_plasmagun",
     "gun__shootNodeName": "emtr_gun_flame",
     "turret__yawSpeed": 18.0,
     "turret__pitchSpeed": 4.5,

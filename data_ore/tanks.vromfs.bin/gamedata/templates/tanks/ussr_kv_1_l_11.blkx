@@ -1,22 +1,40 @@
 {
   "ussr_kv_1_L_11_stalingrad": {
-    "_extends": "ussr_kv_1_L_11_common"
+    "_use": "ussr_kv_1_L_11_common"
   },
   "ussr_kv_1_L_11": {
-    "_extends": "ussr_kv_1_L_11_common",
+    "_use": "ussr_kv_1_L_11_common",
     "animchar__objTexReplace:object": {
       "ussr_camo_green*": "ussr_camo_winter_white_full*"
     }
   },
   "ussr_kv_1_L_11_common": [
     {
-      "_extends": "base_kv_1_l_11"
+      "_use": "base_kv_1_l_11"
     },
     {
-      "_extends": "tank_t34_engine_sound"
+      "_use": "tank_t34_engine_sound"
     },
     {
-      "_extends": "tank_heavy_vehicle_tracks_sound"
+      "_use": "tank_heavy_vehicle_tracks_sound"
+    },
+    {
+      "commanderCockpitFpsCamMaxAngle": [40.0,5.0]
+    },
+    {
+      "gunner_cam_limit__useCockpitDir": true
+    },
+    {
+      "item__iconOffset": [0.0,-0.0]
+    },
+    {
+      "item__iconScale": 1.11
+    },
+    {
+      "armorThicknessHull": [75.0,75.0,70.0]
+    },
+    {
+      "armorThicknessTurret": [75.0,75.0,75.0]
     },
     {
       "vehicle_seats__seats:shared:array": [
@@ -56,7 +74,7 @@
             "seatComponent": "isGunner",
             "nextSeat": "driver",
             "shouldHideOwner": true,
-            "receiveDamageFromDMPart": "commander",
+            "receiveDamageFromDMPart": "gunner",
             "cameraNodeName": "bone_camera_gunner",
             "cockpitTemplate": "ussr_kv_1_L_11_gunner_cockpit",
             "cameraOffset": [0.15,-0.0,-0.0],
@@ -96,7 +114,7 @@
         {
           "seats:object": {
             "locName": "vehicle_seats/loader",
-            "attachNode": "loader",
+            "attachNode": "commander",
             "ignoreAttachNodeRotation": true,
             "attachTm": [
               [1.0,0.0,0.0],
@@ -106,7 +124,7 @@
             ],
             "seatComponent": "isPassenger",
             "shouldHideOwner": true,
-            "receiveDamageFromDMPart": "loader",
+            "receiveDamageFromDMPart": "commander",
             "cameraNodeName": "bone_camera_driver",
             "loaderTurretNames:array": {
               "turret": "turret_01"
@@ -134,10 +152,10 @@
   ],
   "ussr_kv_1_L_11_cockpit": [
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "animchar_act_on_demand"
+      "_use": "animchar_act_on_demand"
     },
     {
       "animchar_render__enabled": true
@@ -170,7 +188,7 @@
     }
   ],
   "ussr_kv_1_L_11_driver_cockpit": {
-    "_extends": "base_driver_cockpit",
+    "_use": "base_driver_cockpit",
     "animchar__res": "kv_1_driver_char",
     "cockpit__offset": [-0.0903157,-0.196607,0.118515],
     "cockpit__visibleVehicleNodeNames:list<t>": [
@@ -192,12 +210,12 @@
     }
   },
   "ussr_kv_1_L_11_commander_cockpit": {
-    "_extends": "base_commander_cockpit_no_slits",
+    "_use": "base_commander_cockpit_no_slits",
     "animchar__res": "t_26_1940_commander_char",
     "cockpit__offset": [-0.0,0.0,0.0],
     "cockpit__cockpitOffsetBySlit:list<p3>": [
       {
-        "slit": [-0.0819642,0.893508,-0.418043]
+        "slit": [0.1,1.0,-0.418043]
       },
       {
         "slit": [-0.172518,0.43175,-0.530115]
@@ -234,14 +252,53 @@
       {
         "slit": "cam_right"
       }
-    ]
+    ],
+    "cockpit__periscopeLimits:list<p4>": [
+      {
+        "slit": [-45.0,45.0,-8.0,25.0]
+      },
+      {
+        "slit": [-0.0,0.0,0.0,0.0]
+      }
+    ],
+    "cockpit__periscopeSpeed:list<p2>": [
+      {
+        "slit": [35.0,35.0]
+      },
+      {
+        "slit": [-1.0,-1.0]
+      }
+    ],
+    "cockpit__slitZoom:array": [
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      }
+    ],
+    "cockpit__slitZoomTime:list<r>": [
+      {
+        "slit": 0.05
+      },
+      {
+        "slit": 0.0
+      }
+    ],
+    "cockpit__slitTemplates:list<t>": {
+      "slit": "ussr_pt_1"
+    },
+    "cockpit__slitEids:list<eid>": []
   },
   "ussr_kv_1_L_11_gunner_cockpit": {
-    "vehicle_sight__blk": "content/tanks/gamedata/sight/ussr_tod_6.blk",
-    "_extends": "base_gunner_cockpit",
-    "animchar__res": "kv_1_gunner_char",
-    "cockpit__minZoom": -0.27,
-    "cockpit__offset": [-0.159611,-0.0103727,-0.00561043],
+    "_use": "base_gunner_cockpit",
+    "animchar__res": "t_26_1940_gunner_char",
+    "cockpit__minForwardOffset": -0.27,
+    "cockpit__offset": [0.0,0.0,0.0],
     "cockpit__attachNodeNames:list<t>": [
       {
         "node": "bone_camera_gunner"
@@ -250,9 +307,14 @@
         "node": "bone_turret"
       }
     ],
-    "cockpit__slitCameraOffsets:list<p3>": {
-      "slit": [0.0,0.0,0.0]
-    },
+    "cockpit__cockpitOffsetBySlit:list<p3>": [
+      {
+        "slit": [-0.5,-0.07,0.2]
+      },
+      {
+        "slit": [0.2,1.0,0.45]
+      }
+    ],
     "cockpit__attachNodeIndices:list<i>": [],
     "cockpit__visibleVehicleNodeNames:list<t>": [
       {
@@ -262,18 +324,83 @@
         "node": "@root"
       }
     ],
-    "cockpit__slitNodeNames:list<t>": {
-      "slit": "cam_front"
-    },
-    "cockpit__slitForwardOffset:list<r>": {
-      "slit": 0.05
-    },
-    "cockpit__slitIsGun:list<b>": {
-      "slit": true
-    }
+    "cockpit__slitNodeNames:list<t>": [
+      {
+        "slit": "cam_front_right"
+      },
+      {
+        "slit": "cam_front"
+      }
+    ],
+    "cockpit__slitForwardOffset:list<r>": [
+      {
+        "slit": 0.22
+      },
+      {
+        "slit": 0.19
+      }
+    ],
+    "cockpit__slitIsGun:list<b>": [
+      {
+        "slit": true
+      },
+      {
+        "slit": true
+      }
+    ],
+    "cockpit__periscopeLimits:list<p4>": [
+      {
+        "slit": [-0.0,0.0,0.0,0.0]
+      },
+      {
+        "slit": [-45.0,45.0,-8.0,25.0]
+      }
+    ],
+    "cockpit__periscopeSpeed:list<p2>": [
+      {
+        "slit": [-1.0,-1.0]
+      },
+      {
+        "slit": [35.0,35.0]
+      }
+    ],
+    "cockpit__slitZoom:array": [
+      {
+        "slit:list<r>": [
+          {
+            "zoom": 1.9
+          },
+          {
+            "zoom": 3.5
+          }
+        ]
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      }
+    ],
+    "cockpit__slitZoomTime:list<r>": [
+      {
+        "slit": 0.05
+      },
+      {
+        "slit": 0.0
+      }
+    ],
+    "cockpit__slitTemplates:list<t>": [
+      {
+        "slit": "ussr_tod_6"
+      },
+      {
+        "slit": "ussr_pt_1"
+      }
+    ],
+    "cockpit__slitEids:list<eid>": []
   },
   "ussr_kv_1_L_11_stalingrad_bey_fashistov_battlepass_premium": {
-    "_extends": "ussr_kv_1_L_11_common",
+    "_use": "ussr_kv_1_L_11_common",
     "animchar__objTexReplace:object": {
       "ussr_camo_green*": "ussr_camo_forest_01*"
     },

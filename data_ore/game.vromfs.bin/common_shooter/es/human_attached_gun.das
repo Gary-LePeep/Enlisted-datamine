@@ -2,7 +2,7 @@ require app
 require ecs
 require math
 require math.base
-require EnlistedNet
+require DngNet
 require game.es.events
 require game.events_game
 require game.utils.team
@@ -11,9 +11,9 @@ require common_shooter.events_common_shooter
 require common_shooter.es.human_attached_gun_common
 require danetlibs.native_dasevents.main.native_events
 require Gun
-require EnlistedHuman
-require EnlistedWeapon
-require EnlistedActor
+require DngHuman
+require DngWeapon
+require DngActor
 require HumanPhys
 require DagorMath
 require GamePhys
@@ -336,14 +336,26 @@ def detach_human_from_gun(gunEid : EntityId)
       detach_from_gun(eid, human_attached_gun__attachedGunEid)
 
 
+[es(REQUIRE=stationary_gun, on_event=CmdTeleportEntity)]
+def mounted_gun_moved_es(evt : Event;
+                         transform : float3x4;
+                         animchar__updatable : bool;
+                         var animchar : AnimcharBaseComponent;
+                         var animchar_node_wtm : AnimcharNodesMat44;
+                         var animchar_render__root_pos : vec4f&)
+  if !animchar__updatable
+    animchar_set_tm(animchar, transform, true)
+    animchar_act(animchar, 0.f, false)
+    animchar_copy_nodes(animchar, animchar_node_wtm, animchar_render__root_pos)
+
 [es(REQUIRE=stationary_gun, on_disappear)]
 def mouted_gun_destroyed_es(evt : Event;
                             eid : EntityId)
   detach_human_from_gun(eid)
 
 
-[es(REQUIRE=stationary_gun)]
-def mouted_gun_died_es(evt : EventEntityDied;
+[es(REQUIRE=(stationary_gun, deadEntity), on_appear)]
+def mouted_gun_died_es(evt : Event;
                        eid : EntityId;
                        transform : float3x4;
                        var ragdoll : PhysRagdoll?;
@@ -352,19 +364,18 @@ def mouted_gun_died_es(evt : EventEntityDied;
                        var animchar : AnimcharBaseComponent;
                        var ragdoll__active : bool&)
   detach_human_from_gun(eid)
+  ragdoll__active = true //for correct start on JIP
 
-  ragdoll__active = true
-  if ragdoll != null && distance_sq(transform[3], get_hidden_pos()) > 1.0
-    animchar__updatable = true
+  if ragdoll == null ||  distance_sq(transform[3], get_hidden_pos()) < 1.0
+    return
 
-    let interactLayer = PhysLayer EPL_CHARACTER
-    let interactMask = PhysLayer EPL_ALL & (~(PhysLayer EPL_KINEMATIC | PhysLayer EPL_CHARACTER))
-    *ragdoll |> ragdoll_startRagdoll(int(interactLayer),
-                                     int(interactMask))
-    let vel = float3(0.0, 0.0, 0.0)
-    *ragdoll |> ragdoll_setOverrideVel(vel)
-    ragdoll__applyParams = true
-    sendEvent(eid, [[CmdApplyRagdollParameters  cur_time=get_sync_time()]])
+  animchar__updatable = true
 
-    animchar |> animchar_setPostController(*ragdoll)
-    animchar |> animchar_act(0.0, true)
+  let interactLayer = PhysLayer EPL_CHARACTER
+  let interactMask = PhysLayer EPL_ALL & (~(PhysLayer EPL_KINEMATIC | PhysLayer EPL_CHARACTER))
+  let vel = float3(0.0, 0.0, 0.0)
+  *ragdoll |> ragdoll_setOverrideVel(vel)
+  *ragdoll |> ragdoll_startRagdoll(int(interactLayer), int(interactMask), animchar.nodeTree)
+  ragdoll__applyParams = true
+  sendEvent(eid, [[CmdApplyRagdollParameters  cur_time=get_sync_time()]])
+  animchar |> animchar_setPostController(*ragdoll)

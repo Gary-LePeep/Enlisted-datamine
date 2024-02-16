@@ -5,7 +5,7 @@ require enlisted.game.es.enlisted_squad_common
 require enlisted.game.es.bomb_site_common
 require game.es.vehicle.vehicle_seats_common
 require BehNodes
-require EnlistedBehTree
+require DngBehTree
 require CollRes
 require DagorMath
 require math.base
@@ -120,7 +120,7 @@ def apply_train_behaviour(agentEid : EntityId)
         beh_tree__refs__behaviour := beh_tree__data__orderReq
         beh_tree__refs__orderType := beh_tree__data__runToTrain
 
-        EnlistedBehTree::load_beh_tree_from_ecs(agentEid)
+        DngBehTree::load_beh_tree_from_ecs(agentEid)
 
         if beh_tree__latencyLoadBlackBoard != null
           *beh_tree__latencyLoadBlackBoard |> set("enterPosition", trainData.enterPoint)
@@ -151,7 +151,7 @@ def apply_train_behaviour(agentEid : EntityId)
 
       beh_tree__refs__behaviour := beh_tree__data__useTrain
 
-      EnlistedBehTree::load_beh_tree_from_ecs(agentEid)
+      DngBehTree::load_beh_tree_from_ecs(agentEid)
 
       if beh_tree__latencyLoadBlackBoard != null
         *beh_tree__latencyLoadBlackBoard |> set("enterPosition", trainData.enterPoint)
@@ -195,7 +195,7 @@ def apply_train_out_behaviour(agentEid : EntityId)
 
       beh_tree__refs__behaviour := beh_tree__data__outTrain
 
-      EnlistedBehTree::load_beh_tree_from_ecs(agentEid)
+      DngBehTree::load_beh_tree_from_ecs(agentEid)
 
       if beh_tree__latencyLoadBlackBoard != null
         *beh_tree__latencyLoadBlackBoard |> set("enterPosition", trainData.enterPoint)
@@ -317,23 +317,23 @@ def reset_nav_points_on_agent_died(evt : Event;
 def set_agent_train_behavior(evt : Event;
                              beh_tree__data__passiveStayReactionTrain : string;
                              beh_tree__data__passiveMoveReactionTrain : string;
-                             beh_tree__data__agressiveStayReactionTrain : string;
-                             beh_tree__data__agressiveMoveReactionTrain : string;
+                             beh_tree__data__aggressiveStayReactionTrain : string;
+                             beh_tree__data__aggressiveMoveReactionTrain : string;
                              beh_tree__data__updateRegroupPosTrain : string;
                              var beh_tree__refs__passiveStayReaction : das_string&;
                              var beh_tree__refs__passiveMoveReaction : das_string&;
-                             var beh_tree__refs__agressiveStayReaction : das_string&;
-                             var beh_tree__refs__agressiveMoveReaction : das_string&;
+                             var beh_tree__refs__aggressiveStayReaction : das_string&;
+                             var beh_tree__refs__aggressiveMoveReaction : das_string&;
                              var beh_tree__refs__updateRegroupPos : das_string&)
   query() <| $ [es(REQUIRE=aiTrainBehaviour)] ()
     beh_tree__refs__passiveStayReaction := beh_tree__data__passiveStayReactionTrain
     beh_tree__refs__passiveMoveReaction := beh_tree__data__passiveMoveReactionTrain
-    beh_tree__refs__agressiveStayReaction := beh_tree__data__agressiveStayReactionTrain
-    beh_tree__refs__agressiveMoveReaction := beh_tree__data__agressiveMoveReactionTrain
+    beh_tree__refs__aggressiveStayReaction := beh_tree__data__aggressiveStayReactionTrain
+    beh_tree__refs__aggressiveMoveReaction := beh_tree__data__aggressiveMoveReactionTrain
     beh_tree__refs__updateRegroupPos := beh_tree__data__updateRegroupPosTrain
 
 [es(on_event=EventLevelLoaded)]
 def create_ai_train_beh_on_level_loaded(evt : Event)
-  let shouldCreateAiTrainEntity = find_query() <| $ [es] (walker_agent__aiTrainBehaviourEntity : string)
+  find_query() <| $ [es] (walker_agent__aiTrainBehaviourEntity : string)
     createEntity(walker_agent__aiTrainBehaviourEntity)
     return true

@@ -1,10 +1,10 @@
 {
   "hs_123a_1_no_bomb": [
     {
-      "_extends": "hs_123a_1_base"
+      "_use": "hs_123a_1_base"
     },
     {
-      "_extends": "squad_controlled_plane"
+      "_use": "squad_controlled_plane"
     },
     {
       "item__name": "items/hs_123a_1"
@@ -41,7 +41,13 @@
             {
               "turret": "turret_02"
             }
-          ]
+          ],
+          "cockpitEffectors:object": {
+            "r.hand": "stick_rhand_1",
+            "l.hand": "throttle_lhand_1",
+            "r.foot": "pedal_rfoot_1",
+            "l.foot": "pedal_lfoot_1"
+          }
         }
       }
     },

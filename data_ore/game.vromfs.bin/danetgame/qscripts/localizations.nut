@@ -1,4 +1,5 @@
 let { logerr } = require("dagor.debug")
+let { getstackinfos } = require("debug")
 let { DBGLEVEL } = require("dagor.system")
 let dagorLocalize = require("dagor.localize")
 let nativeLoc = dagorLocalize.loc
@@ -9,15 +10,16 @@ let console = require("console")
 let unlocalizedStrings = persist("unlocalizedStrings", @() {})
 let defLocalizedStrings = persist("defLocalizedStrings", @() {})
 
-let function locWithCheck(locId, defaultLoc=null, params = null){
+let function locWithCheck(locId, ...) {
   if (locId==null)
     return null
-  foreach(v in [defaultLoc, params]) {
+
+  local defaultLoc
+  foreach (v in vargv) {
     if (type(v) == "string")
       defaultLoc = v
-    else if (type(v) == "table")
-      params = v
-   }
+  }
+
   if (!doesLocTextExist(locId)){
     let {src=null, line=null} = getstackinfos(4)
     if (defaultLoc!=null && locId not in defLocalizedStrings)
@@ -25,17 +27,22 @@ let function locWithCheck(locId, defaultLoc=null, params = null){
     else if (locId not in unlocalizedStrings)
       unlocalizedStrings[locId] <- $"{src}:{line}"
   }
-  return nativeLoc(locId, defaultLoc, params)
+  return nativeLoc.acall([null, locId].extend(vargv))
 }
-let function hashLocFunc(locId, defLoc, params){
-  if (type(defLoc)=="table")
-    defLoc = defLoc.reduce(@(a,val, key) "_".concat(a, key, val), "")
-  if (type(params)=="table")
-    params = params.reduce(@(a,val, key) "_".concat(a, key, val), "")
-  defLoc = defLoc ?? ""
-  params = params ?? ""
-  return $"{locId}{defLoc}{params}"
+
+let function hashLocFunc(locId, ...) {
+  let keys = ["", ""]
+
+  foreach (idx, v in vargv) {
+    if (type(v)=="table")
+      keys[idx] = v.reduce(@(a,val, key) "_".concat(a, key, val), "")
+    else
+      keys[idx] = v ?? ""
+  }
+
+  return $"{locId}{keys[0]}{keys[1]}"
 }
+
 let persistLocCache = persist("persistLocCache", @(){})
 let memoizedLoc = memoize(locWithCheck, hashLocFunc, persistLocCache)
 let checkedLoc = @(locId, defLoc=null, params=null) memoizedLoc(locId, defLoc, params)

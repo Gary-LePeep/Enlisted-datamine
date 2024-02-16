@@ -96,8 +96,7 @@ let function artillery_action() {
 
 let canRequestArtillery = Computed(@() !isDowned.value
   && artilleryIsReady.value
-  && !inVehicle.value
-  && (isHeroRadioman.value || available.value))
+  && (isHeroRadioman.value || hasActive.value))
 
 let cantRequestArtilleryText = Computed(function(){
   if (!wasArtilleryAvailableForSquad.value)
@@ -135,7 +134,7 @@ let cmdArtillery = addTextCtor({
 let healCount = Computed(@() (localPlayerSquadMembers.value ?? [])
   .reduce(@(res, m) m.eid != controlledHeroEid.value && m.isAlive ? res + m.targetHealCount : res, 0))
 let reviveCount = Computed(@() (localPlayerSquadMembers.value ?? [])
-  .reduce(@(res, m) m.eid != controlledHeroEid.value && m.isAlive ? res + m.targetReviveCount : res, 0))
+  .reduce(@(acc, m) m.eid != controlledHeroEid.value && m.isAlive ? acc + m.targetReviveCount : acc, 0))
 let canRequestHeal = Computed(@() available.value
   && isAlive.value
   && !isAttachedToGun.value

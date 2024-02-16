@@ -1,9 +1,16 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { allResearchStatus, CAN_RESEARCH, RESEARCHED } = require("researchesState.nut")
+let {
+  hasResearchesSection, allResearchStatus, armiesResearches, viewArmy,
+  CAN_RESEARCH, RESEARCHED
+} = require("researchesState.nut")
+let { isCurCampaignProgressUnlocked } = require("%enlist/meta/curCampaign.nut")
+let { curArmyData } = require("%enlist/soldiers/model/state.nut")
 let { settings } = require("%enlist/options/onlineSettings.nut")
 
+
 const SEEN_ID = "seen/researches"
+let seenSettings = Computed(@() settings.value?[SEEN_ID] ?? {})
 
 enum SeenMarks {
   NOT_SEEN = 0
@@ -18,7 +25,7 @@ let getSeenStatus = @(val) val == true || val == SeenMarks.SEEN ? SeenMarks.SEEN
 let seenResearches = Computed(function() {
   let seen = {}
   let opened = {}
-  foreach(armyId, armySeen in settings.value?[SEEN_ID] ?? {})
+  foreach(armyId, armySeen in seenSettings.value)
     foreach(key, seenData in armySeen) {
       if (getSeenStatus(seenData) != SeenMarks.NOT_SEEN) {
         if (armyId not in opened)
@@ -31,13 +38,18 @@ let seenResearches = Computed(function() {
         seen[armyId][key] <- true
       }
     }
-  let allResearches = allResearchStatus.value
-  let unseen = allResearches
-    .map(@(armyResearches, armyId) armyResearches
-      .filter(@(status, id) status == CAN_RESEARCH && !(seen?[armyId][id] ?? false)))
-  let unopened = allResearches
-    .map(@(armyResearches, armyId) armyResearches
-      .filter(@(status, id) status == CAN_RESEARCH && !(opened?[armyId][id] ?? false)))
+  let unseen = {}
+  let unopened = {}
+  foreach (armyId, armyResearches in allResearchStatus.value){
+    foreach (id, status in armyResearches) {
+      if (status != CAN_RESEARCH)
+        continue
+      if (!(seen?[armyId][id] ?? false))
+        unseen[id] <- status
+      if (!(opened?[armyId][id] ?? false))
+        unopened[id] <- status
+    }
+  }
 
   return { seen, opened, unseen, unopened }
 })
@@ -48,7 +60,7 @@ let function markSeen(armyId, researchesList, isOpened = false) {
     return
 
   let mark = isOpened ? SeenMarks.OPENED : SeenMarks.SEEN
-  let saved = settings.value?[SEEN_ID] ?? {}
+  let saved = seenSettings.value
   let armySaved = saved?[armyId] ?? {}
   //clear all researched from seen in profile
   let armyNewData = armySaved.filter(@(_, id)
@@ -63,15 +75,52 @@ let function markSeen(armyId, researchesList, isOpened = false) {
 }
 
 let function resetSeen() {
-  let reseted = (settings.value?[SEEN_ID] ?? []).len()
+  let reseted = seenSettings.value.len()
   if (reseted > 0)
     settings.mutate(@(s) delete s[SEEN_ID])
   return reseted
 }
+
+
+let curUnseenResearches = Computed(function() {
+  if (!hasResearchesSection.value || !isCurCampaignProgressUnlocked.value)
+    return null
+
+  let armyId = curArmyData.value?.guid
+  if (armyId == null)
+    return null
+
+  return {
+    hasUnseen = (seenResearches.value?.unseen[armyId].len() ?? 0) > 0
+    hasUnopened = (seenResearches.value?.unopened[armyId].len() ?? 0) > 0
+  }
+})
+
+
+let mkCurUnseenResearchesBySquads = @() Computed(function() {
+  let unseen = seenResearches.value?.unseen[viewArmy.value]
+  let res = {}
+  foreach(r in armiesResearches.value?[viewArmy.value].researches ?? {})
+    if (r.research_id in unseen) {
+      let { squad_id = "" } = r
+      if (squad_id != "") {
+        res[squad_id] <- true
+      } else {
+        foreach (squadId in r.squadIdList)
+          res[squadId] <- true
+      }
+    }
+
+
+  return res
+})
+
 
 console_register_command(@() console_print("Reseted armies count = {0}".subst(resetSeen())), "meta.resetSeenResearches")
 
 return {
   markSeen
   seenResearches
+  curUnseenResearches
+  mkCurUnseenResearchesBySquads
 }

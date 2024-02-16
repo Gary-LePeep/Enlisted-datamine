@@ -98,16 +98,18 @@
     "entity": {
       "_template": "water",
       "shore__amplitude_to_length": 800.0,
-      "shore__hmap_size": 4096.0,
+      "shore__hmap_size": 1024.0,
       "shore__parallelism_to_wind": 0.5,
       "shore__rivers_width": 30.0,
-      "shore__texture_size": 4096,
-      "shore__wave_gspeed": 0.6,
+      "shore__texture_size": 2048,
+      "shore__wave_gspeed": 0.4,
       "shore__width_k": 0.6,
       "waterTrail__useObstacle": true,
       "water__level": 0.0,
-      "water__strength": 1.0,
+      "water__strength": 2.0,
       "water__wind_dir": 270.0,
+      "water__smallWaterAIWalkHeight": 0.5,
+      "water__deepWaterAIAreaCost": 2.0,
       "water__flowmap": true,
       "water__flowmap_tex": "pacific_guadalcanal_water_det_flowmap",
       "water__flowmap_area": [-2048.0,2048.0,2048.0,-2048.0]
@@ -143,6 +145,11 @@
   {
     "entity": {
       "_template": "postfx_color_grading_tonemap_death_alive_enlisted"
+    }
+  },
+  {
+    "entity": {
+      "_template": "bloom"
     }
   },
   {

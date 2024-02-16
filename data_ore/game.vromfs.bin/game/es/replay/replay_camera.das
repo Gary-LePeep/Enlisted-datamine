@@ -1,4 +1,5 @@
 require ecs
+require ecs.safe
 require app
 require game.es.events
 require game.events_game
@@ -6,14 +7,14 @@ require game.utils.hero
 require DagorConsole
 require DagorMath
 require DagorSystem
-require EnlistedHuman
+require DngHuman
 require Dacoll
 require math
 require math.base
 require game.utils.team
 require player
 require enlisted.events_enlisted
-require EnlistedCamera
+require DngCamera
 require game.es.player_common
 
 [es(tag=playingReplay, REQUIRE=(deadEntity, watchedByPlr), before=enlisted_next_replay_target_es)]
@@ -53,16 +54,34 @@ def replay_human_death_cam_timer_es(evt : UpdateStageInfoAct;
 def on_watched_player_destroyes_es(evt : Event)
   sendEvent(get_cur_cam_entity(), [[NextReplayTarget delta=1]])
 
+
+def private get_saved_possessed_entity()
+  var possessedEntity = INVALID_ENTITY_ID
+  query() <| $ [es] (replay__savedState : Object)
+    let playerEid = EntityId(uint(replay__savedState.playerEid ?? int(uint(INVALID_ENTITY_ID))))
+    query(playerEid) <| $ [es(REQUIRE=player)] (possessed : EntityId)
+      query(possessed) <| $ [es(REQUIRE_NOT=deadEntity)] ()
+        possessedEntity = playerEid
+  return possessedEntity
+
+
 [es(tag=playingReplay, no_order, REQUIRE=replayCamera)]
 def catch_human_view(evt : UpdateStageInfoAct;
                      camera__target : EntityId;
                      camera__active : bool)
-  if camera__active && camera__target == INVALID_ENTITY_ID
-    find_query() <| $ [es(REQUIRE_NOT=playerIsBot)] (eid : EntityId; disconnected : bool; possessed : EntityId)
-      if disconnected || possessed == INVALID_ENTITY_ID || has(possessed, "deadEntity")
-        return false
-      sendEvent(eid, [[SetReplayTarget]])
-      return true
+  if !camera__active || camera__target != INVALID_ENTITY_ID
+    return
+
+  let possessedEntity = get_saved_possessed_entity()
+  if !!possessedEntity
+    sendEvent(possessedEntity, [[SetReplayTarget]])
+    return
+
+  find_query() <| $ [es(REQUIRE_NOT=playerIsBot)] (eid : EntityId; disconnected : bool; possessed : EntityId)
+    if disconnected || possessed == INVALID_ENTITY_ID || has(possessed, "deadEntity")
+      return false
+    sendEvent(eid, [[SetReplayTarget]])
+    return true
 
 
 def private replay_change_camera(camera_eid : EntityId; var tm : float3x4&; var cur_camera__target : EntityId&)

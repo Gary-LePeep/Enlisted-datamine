@@ -1,10 +1,10 @@
 require ecs
-require EnlistedNet
+require DngNet
 require app
 require math
 require math.base
 require game.utils.hero
-require EnlistedWalkerai
+require DngWalkerai
 require game.es.events
 require common_shooter.events_common_shooter
 require enlisted.events_enlisted
@@ -12,10 +12,10 @@ require DagorMathUtils
 require DaWeaponProps
 require DaWeapons
 require Gun
-require EnlistedWeapon
-require EnlistedHuman
+require DngWeapon
+require DngHuman
 require HumanPhys
-require EnlistedPhys
+require DngPhys
 require GamePhys
 require PhysVars
 require game.es.device_state_common
@@ -97,13 +97,12 @@ def reload(owner_eid : ecs::EntityId;
            gun_eid : ecs::EntityId;
            at_time : float;
            dt : float)
-  sendEvent(owner_eid, [[CmdRequestReload atTime=at_time - dt, gunEid= gun_eid]])
+  sendEvent(owner_eid, [[CmdRequestReload atTime=at_time - dt, gunEid=gun_eid, isQuick=false]])
 
 [es]
 def mortar_phys(evt : CmdWeapPhysUpdate;
                 eid : ecs::EntityId;
                 gun__curShellId : ShellPropIds;
-                mortar__targetPos : float3;
                 device_animation__startAt : float;
                 device_anim__state : int;
                 gun__ammo : int;
@@ -116,7 +115,6 @@ def mortar_phys(evt : CmdWeapPhysUpdate;
     reload(evt.owner, eid, evt.atTime, evt.dt)
 
   var gctrl = evt.gctrl
-  let isShootPressed = gctrl.shoot
 
   gctrl.shoot = mortar__fireFlag
   let isInMortarMode = get_bool(evt.owner, "human_weap__mortarMode") ?? false
@@ -126,9 +124,6 @@ def mortar_phys(evt : CmdWeapPhysUpdate;
   mortar__fireFlag = false
   mortar__targetAcquiredFlag = false
 
-  if isShootPressed && isInMortarMode
-    send_net_event(evt.owner, [[EventMortarTargetSelected targetPos=mortar__targetPos]])
-
   if updateGun
     if shouldStartAnimation
       start_fire_animation(device_animation__fireAt, device_animation__startAt)
@@ -136,6 +131,15 @@ def mortar_phys(evt : CmdWeapPhysUpdate;
     gctrl.shoot = false
 
   sendEventImmediate(eid, [[CmdGunUpdate atTime=evt.atTime, isForReal=evt.isForReal, seed=phys_time_to_seed(evt.atTime), gctrl=gctrl, gloc=evt.gloc]])
+
+[es(tag=gameClient, before=mortar_phys)]
+def mortar_send_event_target_selected(evt : CmdWeapPhysUpdate;
+                                      mortar__targetPos : float3)
+  if !evt.isForReal
+    return
+  let isInMortarMode = get_bool(evt.owner, "human_weap__mortarMode") ?? false
+  if evt.gctrl.shoot && isInMortarMode
+    send_net_event(evt.owner, [[EventMortarTargetSelected targetPos=mortar__targetPos]])
 
 [es]
 def mortar_on_device_shoot(evt : EventOnDeviceShoot; var mortar__fireFlag : bool&)

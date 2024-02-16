@@ -35,8 +35,7 @@ let selectedBuildingQuery = ecs.SqQuery("selectedBuildingQuery", {
     ["fortification_repair__text", ecs.TYPE_STRING, "hud/resupply_cannon"],
     ["isAlive", ecs.TYPE_BOOL, true],
     ["undestroyableBuilding", ecs.TYPE_TAG, null],
-    ["builder_preview", ecs.TYPE_TAG, null],
-    ["building_destroy__timeToDestroy", ecs.TYPE_FLOAT, null],
+    ["building__canDismantle", ecs.TYPE_TAG, null],
     ["fortification__canRepairDead", ecs.TYPE_TAG, null],
     ["additiveBuildNeedRepair", ecs.TYPE_BOOL, true],
     ["buildByPlayer", ecs.TYPE_EID, ecs.INVALID_ENTITY_ID],
@@ -84,14 +83,14 @@ ecs.register_es("ui_building_selected_object_es",
       local canBeDestroyed = false
       local fortificationRepairText = "hud/resupply_cannon"
       local canRepairDead = false
-      selectedBuildingQuery(selectedObject, function(_eid, comp) {
-        name = comp["building_menu__text"]
-        allowRepair = comp["additiveBuildNeedRepair"] && (comp["fortification_repair__costPercent"] != null)
-        alive = comp["isAlive"]
-        canRepairDead = comp["fortification__canRepairDead"] != null
-        fortificationRepairText = comp["fortification_repair__text"]
-        canBeDestroyed = (comp["builder_preview"] != null || comp["building_destroy__timeToDestroy"] != null) && comp["undestroyableBuilding"] == null
-        && (comp.buildByPlayer == localPlayerEid.value || comp.builder_info__team != localPlayerTeam.value || comp.undestroyableyByTeammates == null)
+      selectedBuildingQuery(selectedObject, function(_eid, objComp) {
+        name = objComp["building_menu__text"]
+        allowRepair = objComp["additiveBuildNeedRepair"] && (objComp["fortification_repair__costPercent"] != null)
+        alive = objComp["isAlive"]
+        canRepairDead = objComp["fortification__canRepairDead"] != null
+        fortificationRepairText = objComp["fortification_repair__text"]
+        canBeDestroyed = objComp.building__canDismantle != null && objComp.undestroyableBuilding == null
+        && (objComp.buildByPlayer == localPlayerEid.value || objComp.builder_info__team != localPlayerTeam.value || objComp.undestroyableyByTeammates == null)
       })
       selectedBuildingName(name)
       selectedDestroyableObjectName(canBeDestroyed ? name : null)
@@ -172,9 +171,9 @@ ecs.register_es("building_tool_equipped_es",
       if (buildingToolInCurrentGun){
         local templates = []
         local limits = []
-        buildingGunQuery(currentGunEid, function(_, comp) {
-          templates = comp["previewTemplate"].getAll()
-          limits = comp["buildingLimits"].getAll()
+        buildingGunQuery(currentGunEid, function(_, bgComp) {
+          templates = bgComp["previewTemplate"].getAll()
+          limits = bgComp["buildingLimits"].getAll()
         })
         buildingTemplates(templates)
         updateBuildingsPriceRequirements(templates)

@@ -1,22 +1,45 @@
 {
   "jp_type_2_ka_mi_pacific": {
-    "_extends": "jp_type_2_ka_mi_common"
+    "_use": "jp_type_2_ka_mi_common"
+  },
+  "jp_type_2_ka_mi_1st_yokosuka_battlepass_premium": {
+    "_use": "jp_type_2_ka_mi_common",
+    "animchar__objTexReplace:object": {
+      "jp_camo_warship_grey*": "jp_camo_lt_grey*"
+    },
+    "animchar__objTexSet:object": {
+      "type_2_ka_mi_body_c*:object": {
+        "type_2_ka_mi_1st_yokosuka_body_c*": "camo_skin_tex"
+      },
+      "type_2_ka_mi_turret_c*:object": {
+        "type_2_ka_mi_1st_yokosuka_turret_c*": "camo_skin_tex"
+      }
+    }
   },
   "jp_type_2_ka_mi_common": [
     {
-      "_extends": "base_type_2_ka_mi"
+      "_use": "base_type_2_ka_mi"
     },
     {
-      "_extends": "tank_m10_engine_sound"
+      "_use": "tank_m10_engine_sound"
     },
     {
-      "_extends": "tank_light_vehicle_tracks_sound"
+      "_use": "tank_light_vehicle_tracks_sound"
     },
     {
-      "_extends": "floatable_vehicle"
+      "_use": "floatable_vehicle"
     },
     {
-      "item__iconOffset": [0.0,0.0]
+      "item__iconOffset": [-0.05,0.2]
+    },
+    {
+      "item__iconScale": 1.35
+    },
+    {
+      "commanderCockpitFpsCamMaxAngle": [40.0,5.0]
+    },
+    {
+      "gunner_cam_limit__useCockpitDir": true
     },
     {
       "vehicle_seats__seats:shared:array": [
@@ -152,7 +175,7 @@
     }
   ],
   "jp_type_2_ka_mi_driver_cockpit": {
-    "_extends": "base_driver_cockpit_no_slits",
+    "_use": "base_driver_cockpit_no_slits",
     "animchar__res": "bt_7_driver_char",
     "cockpit__offset": [0.0201053,-0.376897,0.0100816],
     "cockpit__visibleVehicleNodeNames:list<t>": {
@@ -169,8 +192,7 @@
     }
   },
   "jp_type_2_ka_mi_gunner_cockpit": {
-    "vehicle_sight__blk": "gamedata/sight/jp_37mm_94.blk",
-    "_extends": "base_gunner_cockpit",
+    "_use": "base_gunner_cockpit",
     "animchar__res": "ba_11_gunner_char",
     "cockpit__offset": [-0.692973,-0.0731122,0.904242],
     "cockpit__visibleVehicleNodeNames:list<t>": {
@@ -180,7 +202,7 @@
       "slit": "cam_front_right"
     },
     "cockpit__slitForwardOffset:list<r>": {
-      "slit": 0.18
+      "slit": 0.21
     },
     "cockpit__slitIsGun:list<b>": {
       "slit": true
@@ -188,30 +210,52 @@
     "cockpit__attachNodeNames:list<t>": {
       "node": "bone_gun"
     },
-    "cockpit__attachNodeIndices:list<i>": []
+    "cockpit__attachNodeIndices:list<i>": [],
+    "cockpit__slitZoom:array": {
+      "slit:list<r>": [
+        {
+          "zoom": 1.9
+        },
+        {
+          "zoom": 3.5
+        }
+      ]
+    },
+    "cockpit__slitZoomTime:list<r>": {
+      "slit": 0.05
+    },
+    "cockpit__slitTemplates:list<t>": {
+      "slit": "jp_37mm_94"
+    },
+    "cockpit__slitEids:list<eid>": []
   },
   "jp_type_2_ka_mi_commander_cockpit": {
-    "_extends": "base_commander_cockpit_no_slits",
+    "_use": "base_commander_cockpit_no_slits",
     "animchar__res": "t_26_1940_commander_char",
     "cockpit__offset": [-0.0,0.0,0.0],
     "cockpit__cockpitOffsetBySlit:list<p3>": {
-      "item": [0.135655,0.231271,-0.24808]
+      "item": [0.3,0.231271,-0.24808]
     },
     "cockpit__visibleVehicleNodeNames:list<t>": {
       "node": "gun_barrel"
     },
     "cockpit__slitForwardOffset:list<r>": {
-      "slit": 0.14
+      "slit": 0.16
     },
     "cockpit__slitIsGun:list<b>": {
       "slit": true
     },
     "cockpit__slitNodeNames:list<t>": {
       "slit": "cam_front"
+    },
+    "cockpit__slitZoom:array": {
+      "slit:list<r>": {
+        "zoom": 1.44
+      }
     }
   },
   "jp_type_2_ka_mi_machinegunner_cockpit": {
-    "_extends": "base_gunner_cockpit",
+    "_use": "base_gunner_cockpit",
     "animchar__res": "ba_11_machinegunner_char",
     "cockpit__offset": [-0.280113,-0.260001,-0.199194],
     "cockpit__visibleVehicleNodeNames:list<t>": {
@@ -221,7 +265,7 @@
       "slit": "cam_mg"
     },
     "cockpit__slitForwardOffset:list<r>": {
-      "slit": -0.06
+      "slit": -0.0
     },
     "cockpit__slitIsGun:list<b>": {
       "slit": true
@@ -229,6 +273,18 @@
     "cockpit__attachNodeNames:list<t>": {
       "node": "bone_mg_v_01"
     },
-    "cockpit__attachNodeIndices:list<i>": []
+    "cockpit__attachNodeIndices:list<i>": [],
+    "cockpit__slitZoom:array": {
+      "slit:list<r>": {
+        "zoom": 2.0
+      }
+    },
+    "cockpit__slitZoomTime:list<r>": {
+      "slit": 0.05
+    },
+    "cockpit__slitTemplates:list<t>": {
+      "slit": "cross"
+    },
+    "cockpit__slitEids:list<eid>": []
   }
 }

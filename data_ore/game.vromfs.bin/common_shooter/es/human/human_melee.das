@@ -3,23 +3,23 @@ require app
 require math.base
 require game.utils.hero
 require game.es.events
-require EnlistedNet
+require DngNet
 require enlisted.events_enlisted
 require common_shooter.events_common_shooter
 require common_shooter.es.concussion_common
 require common_shooter.es.human_weap_common
 require PhysVars
 require HumanPhys
-require EnlistedHuman
-require EnlistedHumanAnim
-require EnlistedNetPhys
-require EnlistedWeapon
+require DngHuman
+require DngHumanAnim
+require DngNetPhys
+require DngWeapon
 require DagorSystem
 require DagorMath
 require DagorRandom
 require DaWeaponProps
 require DaWeapons
-require EnlistedDm
+require DngDm
 require NetPropsRegistry
 require game.es.action_common
 require AnimV20
@@ -164,10 +164,12 @@ def charge_melee_weapon_phys_es(evt : CmdWeapPhysUpdate;
     let isSprintState = (int(currentState.states) & int(StateFlag ST_SPRINT)) != 0
     let isSprinting = isSprintContol && (isSprintState || (wasCharging && isRunSpeed)) && isValidState
     let isStartBlocked = !isValidState || human_melee_charge__isOnCooldown || currentState.stamina < human_melee_charge__minStaminaLevelToStart
+    let shouldStopCharge = !isSprinting || currentState.stamina <= 0.
+
     human_melee_charge__canStart = isSprinting && !isStartBlocked && !human_melee_charge__isActive
     human_melee_charge__isActive = isChargeInputTriggered && (wasCharging || !isStartBlocked)
 
-    if currentState.stamina <= 0.
+    if shouldStopCharge
       human_melee_charge__isActive = false
 
     human_melee_charge__isChargeOrAttack ||= human_melee_charge__isActive
@@ -239,7 +241,7 @@ def melee_charge_stamina_drain(human_melee_charge__isActive : bool;
     human_stamina_regen_affect__mult *= human_melee_charge__staminaRegenMult
     human_net_phys.phys.currentState.staminaSprintDrainMult *= human_melee_charge__staminaDrainMult
 
-[es(tag=netClient, REQUIRE=(meleeChargeWeapon, watchedPlayerItem), after=after_entity_mods_apply_sync_point, before=human_phys_es)]
+[es(tag=netClient, REQUIRE=(meleeChargeWeapon, watchedPlayerItem), after=after_entity_mods_apply_sync_point, before=update_phys_es)]
 def melee_charge_human_phys_update_local(info : ParallelUpdateFrameDelayed; eid aka weapon_eid : EntityId; gun__owner : EntityId)
   query(gun__owner) <| $ [es] (human_weap__currentGunEid : EntityId;
                                human_melee_charge__isActive : bool;
@@ -254,7 +256,7 @@ def melee_charge_human_phys_update_local(info : ParallelUpdateFrameDelayed; eid 
       melee_charge_stamina_drain(human_melee_charge__isActive, human_melee_charge__staminaDrainMult, human_melee_charge__staminaRegenMult, human_stamina_regen_affect__mult, human_net_phys)
       melee_charge_speed(human_melee_charge__isActive, human_melee_charge__isChargeOrAttack, human_melee_charge__chargeSpeedMult, human_melee_charge__chargeStrikeSpeedMult, human_net_phys)
 
-[es(tag=server, REQUIRE=meleeChargeWeapon, after=after_entity_mods_apply_sync_point, before=human_phys_es)]
+[es(tag=server, REQUIRE=meleeChargeWeapon, after=after_entity_mods_apply_sync_point, before=update_phys_es)]
 def melee_charge_human_phys_update_server(info : ParallelUpdateFrameDelayed; eid aka weapon_eid : EntityId; gun__owner : EntityId)
   query(gun__owner) <| $ [es] (human_weap__currentGunEid : EntityId;
                                human_melee_charge__isActive : bool;
@@ -278,7 +280,7 @@ def melee_charge_cooldown(time : float;
   if human_melee_charge__isOnCooldown
     human_net_phys.phys.currentState.restoreStaminaMult = 0.0
 
-[es(tag=netClient, REQUIRE=hero, after=after_entity_mods_apply_sync_point, before=human_phys_es)]
+[es(tag=netClient, REQUIRE=hero, after=after_entity_mods_apply_sync_point, before=update_phys_es)]
 def melee_charge_cooldown_local(info : ParallelUpdateFrameDelayed;
                                 human_melee_charge__chargeEndTime : float;
                                 human_melee_charge__cooldown : float;
@@ -286,7 +288,7 @@ def melee_charge_cooldown_local(info : ParallelUpdateFrameDelayed;
                                 var human_melee_charge__isOnCooldown : bool&)
   melee_charge_cooldown(info.curTime, human_melee_charge__chargeEndTime, human_melee_charge__cooldown, human_net_phys, human_melee_charge__isOnCooldown)
 
-[es(tag=server, after=after_entity_mods_apply_sync_point, before=human_phys_es)]
+[es(tag=server, after=after_entity_mods_apply_sync_point, before=update_phys_es)]
 def melee_charge_cooldown_server(info : ParallelUpdateFrameDelayed;
                                  human_melee_charge__chargeEndTime : float;
                                  human_melee_charge__cooldown : float;

@@ -1,14 +1,14 @@
 {
   "gunsound_base_mgun": [
     {
-      "_extends": "tankgun_machinegun_overheat_sound"
+      "_use": "tankgun_machinegun_overheat_sound"
     },
     {
-      "_extends": "tankgun_machinegun_reload_sounds"
+      "_use": "tankgun_machinegun_reload_sounds"
     }
   ],
   "gunsound_7_62mm_dt": {
-    "_extends": "gunsound_base_mgun",
+    "_use": "gunsound_base_mgun",
     "_group": {
       "_tags": "sound",
       "gun_sound__startLoopWithNOneshots": 3
@@ -19,10 +19,10 @@
     }
   },
   "gunsound_7_62mm_maxim": {
-    "_extends": "gunsound_7_62mm_dt"
+    "_use": "gunsound_7_62mm_dt"
   },
   "gunsound_7_62mm_m1919a4": {
-    "_extends": "gunsound_base_mgun",
+    "_use": "gunsound_base_mgun",
     "_group": {
       "_tags": "sound",
       "gun_sound__startLoopWithNOneshots": 3
@@ -33,7 +33,7 @@
     }
   },
   "gunsound_7_62mm_l3a1": {
-    "_extends": "gunsound_base_mgun",
+    "_use": "gunsound_base_mgun",
     "_group": {
       "_tags": "sound",
       "gun_sound__startLoopWithNOneshots": 3
@@ -44,7 +44,7 @@
     }
   },
   "gunsound_7_7mm_type_97": {
-    "_extends": "gunsound_base_mgun",
+    "_use": "gunsound_base_mgun",
     "_group": {
       "_tags": "sound",
       "gun_sound__startLoopWithNOneshots": 3
@@ -55,13 +55,13 @@
     }
   },
   "gunsound_7_92mm_besa": {
-    "_extends": "gunsound_12_7mm_m2_hb"
+    "_use": "gunsound_7_62mm_m1919a4"
   },
   "gunsound_7_7mm_vikkers": {
-    "_extends": "gunsound_12_7mm_m2_hb"
+    "_use": "gunsound_7_62mm_m1919a4"
   },
   "gunsound_7_92mm_mg34": {
-    "_extends": "gunsound_base_mgun",
+    "_use": "gunsound_base_mgun",
     "_group": {
       "_tags": "sound",
       "gun_sound__startLoopWithNOneshots": 3
@@ -72,10 +72,10 @@
     }
   },
   "gunsound_7_92mm_zb_vz37": {
-    "_extends": "gunsound_7_92mm_mg34"
+    "_use": "gunsound_7_92mm_mg34"
   },
   "gunsound_7_92mm_mg42": {
-    "_extends": "gunsound_base_mgun",
+    "_use": "gunsound_base_mgun",
     "_group": {
       "_tags": "sound",
       "gun_sound__startLoopWithNOneshots": 3
@@ -86,10 +86,18 @@
     }
   },
   "gunsound_8mm_breda_mod38": {
-    "_extends": "gunsound_7_92mm_mg34"
+    "_use": "gunsound_base_mgun",
+    "_group": {
+      "_tags": "sound",
+      "gun_sound__forceOneshot": true
+    },
+    "gun_sound__shotPath:shared:object": {
+      "_tags": "sound",
+      "path": "/weapon/mgun_mounted/8mm_breda_mod38"
+    }
   },
   "gunsound_12_7mm_dshk": {
-    "_extends": "gunsound_base_mgun",
+    "_use": "gunsound_base_mgun",
     "_group": {
       "_tags": "sound",
       "gun_sound__startLoopWithNOneshots": 3
@@ -100,10 +108,10 @@
     }
   },
   "gunsound_12_7mm_dshk_gaz": {
-    "_extends": "gunsound_12_7mm_dshk"
+    "_use": "gunsound_12_7mm_dshk"
   },
   "gunsound_12_7mm_m2_hb": {
-    "_extends": "gunsound_base_mgun",
+    "_use": "gunsound_base_mgun",
     "_group": {
       "_tags": "sound",
       "gun_sound__startLoopWithNOneshots": 3
@@ -114,17 +122,20 @@
     }
   },
   "gunsound_20mm_tnsh": {
-    "_extends": "gunsound_base_cannon",
+    "_use": "gunsound_base_cannon",
     "gun_sound__shotPath:shared:object": {
       "_tags": "sound",
       "path": "/weapon/cannon/20mm_tnsh"
     }
   },
   "gunsound_20mm_oerlikon": {
-    "_extends": "gunsound_20mm_tnsh"
+    "_use": "gunsound_20mm_tnsh"
+  },
+  "gunsound_20mm_polsten": {
+    "_use": "gunsound_25mm_72k"
   },
   "gunsound_20mm_breda_m35": {
-    "_extends": "gunsound_base_cannon",
+    "_use": "gunsound_base_cannon",
     "_group": {
       "_tags": "sound",
       "gun_sound__forceOneshot": true,
@@ -136,21 +147,21 @@
     }
   },
   "gunsound_20mm_breda_m35_l6": {
-    "_extends": "gunsound_20mm_breda_m35"
+    "_use": "gunsound_20mm_breda_m35"
   },
   "gunsound_20mm_type98": {
-    "_extends": "gunsound_20mm_kwk30"
+    "_use": "gunsound_20mm_kwk30"
   },
   "gunsound_base_cannon": [
     {
-      "_extends": "tankgun_cannon_overheat_sound"
+      "_use": "tankgun_cannon_overheat_sound"
     },
     {
-      "_extends": "tankgun_cannon_reload_sounds"
+      "_use": "tankgun_cannon_reload_sounds"
     }
   ],
   "gunsound_20mm_breda_20_65_m35": {
-    "_extends": "gunsound_base_cannon",
+    "_use": "gunsound_base_cannon",
     "_group": {
       "_tags": "sound",
       "gun_sound__forceOneshot": true,
@@ -162,7 +173,7 @@
     }
   },
   "gunsound_20mm_kwk30": {
-    "_extends": "gunsound_base_cannon",
+    "_use": "gunsound_base_cannon",
     "_group": {
       "_tags": "sound",
       "gun_sound__forceOneshot": true,
@@ -174,10 +185,10 @@
     }
   },
   "gunsound_20mm_flak38": {
-    "_extends": "gunsound_20mm_kwk30"
+    "_use": "gunsound_20mm_kwk30"
   },
   "gunsound_25mm_72k": {
-    "_extends": "gunsound_base_cannon",
+    "_use": "gunsound_base_cannon",
     "_group": {
       "_tags": "sound",
       "gun_sound__forceOneshot": true,
@@ -189,16 +200,16 @@
     }
   },
   "gunsound_37mm_m5_early": {
-    "_extends": "gunsound_45mm_20k"
+    "_use": "gunsound_45mm_20k"
   },
   "gunsound_37mm_m5_user_cannon_for_m3_lee": {
-    "_extends": "gunsound_45mm_20k"
+    "_use": "gunsound_45mm_20k"
   },
   "gunsound_37mm_m6": {
-    "_extends": "gunsound_45mm_20k"
+    "_use": "gunsound_45mm_20k"
   },
   "gunsound_37mm_kwk36": {
-    "_extends": "gunsound_base_cannon",
+    "_use": "gunsound_base_cannon",
     "_group": {
       "_tags": "sound",
       "gun_sound__forceOneshot": true,
@@ -210,25 +221,25 @@
     }
   },
   "gunsound_37mm_kwk38_t": {
-    "_extends": "gunsound_37mm_kwk36"
+    "_use": "gunsound_37mm_kwk36"
   },
   "gunsound_37mm_pak": {
-    "_extends": "gunsound_37mm_kwk36"
+    "_use": "gunsound_37mm_kwk36"
   },
   "gunsound_37mm_flak36": {
-    "_extends": "gunsound_37mm_kwk36"
+    "_use": "gunsound_37mm_kwk36"
   },
   "gunsound_37mm_type_94": {
-    "_extends": "gunsound_37mm_kwk36"
+    "_use": "gunsound_37mm_kwk36"
   },
   "gunsound_37mm_type1": {
-    "_extends": "gunsound_37mm_kwk36"
+    "_use": "gunsound_37mm_kwk36"
   },
   "gunsound_37mm_type100": {
-    "_extends": "gunsound_37mm_kwk36"
+    "_use": "gunsound_37mm_kwk36"
   },
   "gunsound_40mm_lva_kan_m36": {
-    "_extends": "gunsound_base_cannon",
+    "_use": "gunsound_base_cannon",
     "_group": {
       "_tags": "sound",
       "gun_sound__forceOneshot": true,
@@ -240,10 +251,10 @@
     }
   },
   "gunsound_40mm_qf_2pdr": {
-    "_extends": "gunsound_45mm_20k"
+    "_use": "gunsound_45mm_20k"
   },
   "gunsound_45mm_20k": {
-    "_extends": "gunsound_base_cannon",
+    "_use": "gunsound_base_cannon",
     "_group": {
       "_tags": "sound",
       "gun_sound__forceOneshot": true,
@@ -255,13 +266,13 @@
     }
   },
   "gunsound_47mm_ansaldo_47_32_m35": {
-    "_extends": "gunsound_45mm_20k"
+    "_use": "gunsound_45mm_20k"
   },
   "gunsound_47mm_type1": {
-    "_extends": "gunsound_50mm_kwk38"
+    "_use": "gunsound_50mm_kwk38"
   },
   "gunsound_50mm_kwk38": {
-    "_extends": "gunsound_base_cannon",
+    "_use": "gunsound_base_cannon",
     "_group": {
       "_tags": "sound",
       "gun_sound__forceOneshot": true,
@@ -273,7 +284,7 @@
     }
   },
   "gunsound_50mm_kwk39": {
-    "_extends": "gunsound_base_cannon",
+    "_use": "gunsound_base_cannon",
     "_group": {
       "_tags": "sound",
       "gun_sound__forceOneshot": true,
@@ -285,34 +296,34 @@
     }
   },
   "gunsound_50mm_kwk39_1": {
-    "_extends": "gunsound_50mm_kwk39"
+    "_use": "gunsound_50mm_kwk39"
   },
   "gunsound_50mm_pak38": {
-    "_extends": "gunsound_50mm_kwk38"
+    "_use": "gunsound_50mm_kwk38"
   },
   "gunsound_57mm_zis2": {
-    "_extends": "gunsound_45mm_20k"
+    "_use": "gunsound_45mm_20k"
   },
   "gunsound_57mm_zis4m": {
-    "_extends": "gunsound_45mm_20k"
+    "_use": "gunsound_45mm_20k"
   },
   "gunsound_57mm_6pdr_qqf_mk_3_l43": {
-    "_extends": "gunsound_45mm_20k"
+    "_use": "gunsound_45mm_20k"
   },
   "gunsound_57mm_6pdr_qqf_mk_5_l50": {
-    "_extends": "gunsound_45mm_20k"
+    "_use": "gunsound_45mm_20k"
   },
   "gunsound_57mm_type97": {
-    "_extends": "gunsound_50mm_kwk39"
+    "_use": "gunsound_50mm_kwk39"
   },
   "gunsound_75mm_m2": {
-    "_extends": "gunsound_75mm_m3"
+    "_use": "gunsound_75mm_m3"
   },
   "gunsound_75mm_m2_howitzer": {
-    "_extends": "gunsound_75mm_m3"
+    "_use": "gunsound_75mm_m3"
   },
   "gunsound_75mm_m3": {
-    "_extends": "gunsound_base_cannon",
+    "_use": "gunsound_base_cannon",
     "_group": {
       "_tags": "sound",
       "gun_sound__forceOneshot": true,
@@ -324,16 +335,16 @@
     }
   },
   "gunsound_75mm_m6": {
-    "_extends": "gunsound_75mm_m3"
+    "_use": "gunsound_75mm_m3"
   },
   "gunsound_75mm_m1897a4": {
-    "_extends": "gunsound_75mm_m3"
+    "_use": "gunsound_75mm_m3"
   },
   "gunsound_75mm_qqf_mkv": {
-    "_extends": "gunsound_75mm_m3"
+    "_use": "gunsound_75mm_m3"
   },
   "gunsound_75mm_kwk37": {
-    "_extends": "gunsound_base_cannon",
+    "_use": "gunsound_base_cannon",
     "_group": {
       "_tags": "sound",
       "gun_sound__forceOneshot": true,
@@ -345,10 +356,10 @@
     }
   },
   "gunsound_75mm_kwk40_l43": {
-    "_extends": "gunsound_75mm_kwk40_l48"
+    "_use": "gunsound_75mm_kwk40_l48"
   },
   "gunsound_75mm_kwk40_l48": {
-    "_extends": "gunsound_base_cannon",
+    "_use": "gunsound_base_cannon",
     "_group": {
       "_tags": "sound",
       "gun_sound__forceOneshot": true,
@@ -360,28 +371,28 @@
     }
   },
   "gunsound_75mm_kwk42": {
-    "_extends": "gunsound_75mm_kwk40_l48"
+    "_use": "gunsound_75mm_kwk40_l48"
   },
   "gunsound_75mm_kwk44": {
-    "_extends": "gunsound_75mm_kwk40_l48"
+    "_use": "gunsound_75mm_kwk40_l48"
   },
   "gunsound_75mm_pak39_l48": {
-    "_extends": "gunsound_76mm_pak36_r"
+    "_use": "gunsound_75mm_kwk40_l48"
   },
   "gunsound_75mm_pak40_3_l46": {
-    "_extends": "gunsound_76mm_pak36_r"
+    "_use": "gunsound_76mm_pak36_r"
   },
   "gunsound_75mm_pak42": {
-    "_extends": "gunsound_76mm_pak36_r"
+    "_use": "gunsound_76mm_pak36_r"
   },
   "gunsound_75mm_ansaldo_75_18_m34": {
-    "_extends": "gunsound_75mm_kwk37"
+    "_use": "gunsound_75mm_kwk37"
   },
   "gunsound_75mm_ansaldo_75_32_m37": {
-    "_extends": "gunsound_75mm_kwk37"
+    "_use": "gunsound_75mm_kwk37"
   },
   "gunsound_75mm_stuk37": {
-    "_extends": "gunsound_base_cannon",
+    "_use": "gunsound_base_cannon",
     "_group": {
       "_tags": "sound",
       "gun_sound__forceOneshot": true,
@@ -393,19 +404,19 @@
     }
   },
   "gunsound_75mm_stuk40_l43": {
-    "_extends": "gunsound_76mm_pak36_r"
+    "_use": "gunsound_76mm_pak36_r"
   },
   "gunsound_75mm_stuk40_l48": {
-    "_extends": "gunsound_76mm_pak36_r"
+    "_use": "gunsound_76mm_pak36_r"
   },
   "gunsound_75mm_type3": {
-    "_extends": "gunsound_76mm_pak36_r"
+    "_use": "gunsound_76mm_pak36_r"
   },
   "gunsound_75mm_type99": {
-    "_extends": "gunsound_76mm_pak36_r"
+    "_use": "gunsound_76mm_pak36_r"
   },
   "gunsound_76mm_f34": {
-    "_extends": "gunsound_base_cannon",
+    "_use": "gunsound_base_cannon",
     "_group": {
       "_tags": "sound",
       "gun_sound__forceOneshot": true,
@@ -417,16 +428,16 @@
     }
   },
   "gunsound_76mm_f32": {
-    "_extends": "gunsound_76mm_f34"
+    "_use": "gunsound_76mm_f34"
   },
   "gunsound_76mm_zis3": {
-    "_extends": "gunsound_76mm_f34"
+    "_use": "gunsound_76mm_f34"
   },
   "gunsound_76mm_l10": {
-    "_extends": "gunsound_76mm_l11"
+    "_use": "gunsound_76mm_l11"
   },
   "gunsound_76mm_l11": {
-    "_extends": "gunsound_base_cannon",
+    "_use": "gunsound_base_cannon",
     "_group": {
       "_tags": "sound",
       "gun_sound__forceOneshot": true,
@@ -438,19 +449,19 @@
     }
   },
   "gunsound_76mm_m1": {
-    "_extends": "gunsound_75mm_m3"
+    "_use": "gunsound_75mm_m3"
   },
   "gunsound_76mm_m1_no_mb": {
-    "_extends": "gunsound_75mm_m3"
+    "_use": "gunsound_75mm_m3"
   },
   "gunsound_76mm_m7_for_m10": {
-    "_extends": "gunsound_75mm_m3"
+    "_use": "gunsound_75mm_m3"
   },
   "gunsound_76mm_17pdr_qf": {
-    "_extends": "gunsound_75mm_m3"
+    "_use": "gunsound_75mm_m3"
   },
   "gunsound_76mm_pak36_r": {
-    "_extends": "gunsound_base_cannon",
+    "_use": "gunsound_base_cannon",
     "_group": {
       "_tags": "sound",
       "gun_sound__forceOneshot": true,
@@ -462,46 +473,46 @@
     }
   },
   "gunsound_85mm_d5s": {
-    "_extends": "gunsound_76mm_l11"
+    "_use": "gunsound_76mm_l11"
   },
   "gunsound_85mm_d5t": {
-    "_extends": "gunsound_76mm_l11"
+    "_use": "gunsound_76mm_l11"
   },
   "gunsound_85mm_zis_s_53": {
-    "_extends": "gunsound_76mm_l11"
+    "_use": "gunsound_76mm_l11"
   },
   "gunsound_88mm_kwk36": {
-    "_extends": "gunsound_76mm_pak36_r"
+    "_use": "gunsound_76mm_pak36_r"
   },
   "gunsound_88mm_kwk43": {
-    "_extends": "gunsound_76mm_pak36_r"
+    "_use": "gunsound_76mm_pak36_r"
   },
   "gunsound_88mm_pak43": {
-    "_extends": "gunsound_76mm_pak36_r"
+    "_use": "gunsound_76mm_pak36_r"
   },
   "gunsound_100mm_d10s": {
-    "_extends": "gunsound_76mm_l11"
+    "_use": "gunsound_76mm_l11"
   },
   "gunsound_105mm_k18": {
-    "_extends": "gunsound_76mm_pak36_r"
+    "_use": "gunsound_76mm_pak36_r"
   },
   "gunsound_105mm_m4": {
-    "_extends": "gunsound_152mm_ml20s"
+    "_use": "gunsound_152mm_ml20s"
   },
   "gunsound_105mm_stuh42": {
-    "_extends": "gunsound_150mm_sig_33"
+    "_use": "gunsound_150mm_sig_33"
   },
   "gunsound_120mm_navy_short_gun": {
-    "_extends": "gunsound_150mm_sig_33"
+    "_use": "gunsound_150mm_sig_33"
   },
   "gunsound_122mm_d25t": {
-    "_extends": "gunsound_152mm_m10t"
+    "_use": "gunsound_152mm_m10t"
   },
   "gunsound_128mm_pak44": {
-    "_extends": "gunsound_150mm_sig_33"
+    "_use": "gunsound_150mm_sig_33"
   },
   "gunsound_150mm_sig_33": {
-    "_extends": "gunsound_base_cannon",
+    "_use": "gunsound_base_cannon",
     "_group": {
       "_tags": "sound",
       "gun_sound__forceOneshot": true,
@@ -513,7 +524,7 @@
     }
   },
   "gunsound_152mm_m10t": {
-    "_extends": "gunsound_base_cannon",
+    "_use": "gunsound_base_cannon",
     "_group": {
       "_tags": "sound",
       "gun_sound__forceOneshot": true,
@@ -525,7 +536,7 @@
     }
   },
   "gunsound_152mm_ml20s": {
-    "_extends": "gunsound_152mm_m10t"
+    "_use": "gunsound_152mm_m10t"
   },
   "gunsound_base_rocket_launcher": {
     "_group": {
@@ -539,11 +550,11 @@
     }
   },
   "gunsound_82mm_m8_rocket_launcher": {
-    "_extends": "gunsound_base_rocket_launcher"
+    "_use": "gunsound_base_rocket_launcher"
   },
   "gunsound_base_flamethrower": [],
   "gunsound_flamethrower": {
-    "_extends": "gunsound_base_flamethrower",
+    "_use": "gunsound_base_flamethrower",
     "_group": {
       "_tags": "sound",
       "gun_sound__startLoopWithNOneshots": 0
@@ -565,21 +576,21 @@
     }
   },
   "gunsound_50mm_uk_smoke_mortar_launcher": {
-    "_extends": "gunsound_base_grenade_launcher"
+    "_use": "gunsound_base_grenade_launcher"
   },
   "gunsound_66mm_germ_smoke_candle_launcher": {
-    "_extends": "gunsound_base_grenade_launcher"
+    "_use": "gunsound_base_grenade_launcher"
   },
   "gunsound_76mm_nato_smoke_grenade_launcher_single": {
-    "_extends": "gunsound_base_grenade_launcher"
+    "_use": "gunsound_base_grenade_launcher"
   },
   "gunsound_91mm_germ_smoke_grenade_launcher": {
-    "_extends": "gunsound_base_grenade_launcher"
+    "_use": "gunsound_base_grenade_launcher"
   },
   "gunsound_91mm_germ_smoke_mortar_launcher": {
-    "_extends": "gunsound_base_grenade_launcher"
+    "_use": "gunsound_base_grenade_launcher"
   },
   "gunsound_66mm_uk_smoke_grenade_launcher": {
-    "_extends": "gunsound_base_grenade_launcher"
+    "_use": "gunsound_base_grenade_launcher"
   }
 }

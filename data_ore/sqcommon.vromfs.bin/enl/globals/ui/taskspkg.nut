@@ -1,32 +1,32 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { fontSmall } = require("%enlSqGlob/ui/fontsStyle.nut")
-let { defTxtColor, titleTxtColor, smallPadding, midPadding, bigPadding, accentColor, colPart,
-  defHorGradientImg
-} = require("%enlSqGlob/ui/designConst.nut")
+let { fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { PrimaryFlat } = require("%ui/components/textButton.nut")
+let { commonBtnHeight, taskProgressColor, activeTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
+let { defTxtColor, titleTxtColor, smallPadding, midPadding, bigPadding, accentColor,
+  darkTxtColor, miniPadding } = require("%enlSqGlob/ui/designConst.nut")
 let { getDescription } = require("unlocksText.nut")
 let { utf8ToUpper } = require("%sqstd/string.nut")
 let { mkCountdownTimerPerSec } = require("%ui/helpers/timers.nut")
 let { secondsToStringLoc } = require("%ui/helpers/time.nut")
 let faComp = require("%ui/components/faComp.nut")
-let mkSpinner = require("%ui/components/mkSpinner.nut")(colPart(0.4))
+let spinner = require("%ui/components/spinner.nut")
 let { getStageByIndex } = require("%enlSqGlob/unlocks_utils.nut")
 let { progressBar } = require("%enlSqGlob/ui/defComponents.nut")
 
+let defTxtStyle = { color = defTxtColor }.__update(fontSub)
+let hoveredTxtStyle = { color = darkTxtColor }.__update(fontSub)
+let titleTxtStyle = { color = titleTxtColor }.__update(fontSub)
+let taskProgressTxtStyle = { color = accentColor }.__update(fontSub)
 
-let defTxtStyle = { color = defTxtColor }.__update(fontSmall)
-let hoveredTxtStyle = { color = titleTxtColor }.__update(fontSmall)
-let titleTxtStyle = { color = titleTxtColor }.__update(fontSmall)
-let taskProgressTxtStyle = { color = accentColor }.__update(fontSmall)
 
-
-let starSize = colPart(0.35)
-let rerollIconSize = colPart(0.3)
-let taskMinHeight = colPart(0.91)
-let statusWidth = colPart(0.4)
-let taskSlotPadding = [smallPadding, 0, smallPadding, bigPadding]
+let waitingSpinner = spinner(hdpx(24))
+let starSize = hdpxi(22)
+let taskMinHeight = hdpx(56)
+let statusWidth = hdpx(24)
+let taskSlotPadding = [miniPadding, midPadding]
 let taskDescPadding = [midPadding, smallPadding, bigPadding,
-  colPart(0.39) + statusWidth + midPadding * 2]
+  hdpx(24) + statusWidth + midPadding * 2]
 
 
 let blinkAnimation = {
@@ -44,31 +44,35 @@ let rewardAnimBg = {
 }.__update(blinkAnimation)
 
 
-let taskLabelSize = [colPart(0.14), colPart(0.3)]
-let mkTaskLabel = @(labelName) {
+let taskLabelSize = [hdpxi(8), hdpxi(18)]
+let mkTaskLabel = @(labelName) labelName == null ? null : {
   size = taskLabelSize
   rendObj = ROBJ_IMAGE
+  hplace = ALIGN_RIGHT
   image = Picture($"ui/skin#tasks/{labelName}.svg:{taskLabelSize[0]}:{taskLabelSize[1]}:K")
   vplace = ALIGN_TOP
 }
 
 
 let isDailyTask = @(task) task.table == "daily"
+let isRankUnlock = @(task) (task?.meta.rank_unlock ?? 0) > 0
+  && (task?.stages[0].updStats[0].value ?? 0) == 0
 let isWeeklyTask = @(task) task?.meta.weekly_unlock ?? false
 let isAchievementTask = @(task) task?.meta.achievement ?? false
-let isEventTask = @(task) task?.meta.event_unlock ?? false
+let isEventTask = @(task) task?.meta.event_unlock ?? (task?.meta.event_group != null) // backward compatibility
 let getUnlockLimit = @(task) task?.meta.unlock_limit ?? 0
 let getProgressDiv = @(task) task?.meta.descProgressDiv.tointeger() ?? 0
 
 
-let mkFaIcon = @(name, color = 0xFFFFFF, fontSize = fontSmall.fontSize)
+let mkFaIcon = @(name, color = 0xFFFFFF, fontSize = fontSub.fontSize)
   faComp(name, {fontSize, color})
-let completedUnlockIcon = mkFaIcon("check", titleTxtColor)
-let canceledUnlockIcon = mkFaIcon("times", titleTxtColor)
+let completedUnlockIcon = mkFaIcon("check", taskProgressColor)
+let canceledUnlockIcon = mkFaIcon("times", darkTxtColor)
 let rerollUnlockIcon = {
   rendObj = ROBJ_IMAGE
-  size = [rerollIconSize, rerollIconSize]
-  image = Picture("ui/skin#tasks/rerool_icon.svg:{0}:{0}:K".subst(rerollIconSize))
+  size = [starSize, starSize]
+  image = Picture("ui/skin#tasks/rerool_icon.svg:{0}:{0}:K".subst(starSize))
+  color = darkTxtColor
 }
 
 let mkTaskTextArea = @(text, sf, style = {}) {
@@ -79,12 +83,11 @@ let mkTaskTextArea = @(text, sf, style = {}) {
   key = text
 }.__update(sf & S_HOVER ? hoveredTxtStyle : defTxtStyle, style)
 
-
-let statusBlock = @(unlockDesc, hasWaitIcon = Watched(false), canReroll = false)
+let statusIcon = @(unlockDesc, hasWaitIcon = Watched(false), canReroll = false)
   function() {
     local statusObj
     if (hasWaitIcon.value)
-      statusObj = mkSpinner
+      statusObj = waitingSpinner
     else if (!isEventTask(unlockDesc)) {
       let { isCompleted = false, isFinished = false, isCanceled = false } = unlockDesc
       let hasCompletedMark = isFinished || isCompleted
@@ -97,35 +100,29 @@ let statusBlock = @(unlockDesc, hasWaitIcon = Watched(false), canReroll = false)
     let res = { watch = hasWaitIcon }
     return statusObj == null ? res
       : res.__update({
-          pos = [-statusWidth / 2, 0]
-          size = [statusWidth, statusWidth]
-          vplace = ALIGN_CENTER
-          children = [
-            {
-              rendObj = ROBJ_MASK
-              size = [statusWidth / 2, statusWidth]
-              image = Picture("ui/uiskin/tasks/task_status_mask.avif")
-              children = [
-                {
-                  rendObj = ROBJ_IMAGE
-                  size = flex()
-                  image = defHorGradientImg
-                }
-              ]
-            }
-            {
-              size = flex()
-              valign = ALIGN_CENTER
-              halign = ALIGN_CENTER
-              children = statusObj
-            }
-          ]
-          animations = [{
-            prop = AnimProp.opacity, from = 0, to = 1, duration = 0.5, play = true
-          }]
+          children = statusObj
         })
   }
 
+
+let function statusBlock(unlockDesc) {
+  let { isCompleted = false, isFinished = false, isCanceled = false } = unlockDesc
+  let statusObj = isCanceled ? canceledUnlockIcon
+    : isFinished || isCompleted ? completedUnlockIcon
+    : null
+
+  return {
+    pos = [-statusWidth, 0]
+    size = [statusWidth, statusWidth]
+    vplace = ALIGN_CENTER
+    valign = ALIGN_CENTER
+    halign = ALIGN_CENTER
+    children = statusObj
+    animations = [{
+      prop = AnimProp.opacity, from = 0, to = 1, duration = 0.5, play = true
+    }]
+  }
+}
 
 
 let taskHeader = @(unlockDesc, progress, canTakeReward = true, sf = 0, textStyle = {})
@@ -135,10 +132,9 @@ let taskHeader = @(unlockDesc, progress, canTakeReward = true, sf = 0, textStyle
     if (isDailyTask(unlockDesc) && isCompleted) {
       let locId = isCompleted && !canTakeReward ? "finishedTaskText" : "completeTaskText"
       return mkTaskTextArea(utf8ToUpper(loc(locId)), sf,
-      { animations = hasReward && canTakeReward ? blinkAnimation : {}}.__update(
-        hasReward && canTakeReward ? titleTxtStyle : defTxtStyle))
+        { animations = hasReward && canTakeReward ? blinkAnimation.animations : []}.__update(
+          sf & S_HOVER ? hoveredTxtStyle : hasReward && canTakeReward ? titleTxtStyle : defTxtStyle))
     }
-
     local { required, current } = progress
     let descProgressDiv = getProgressDiv(unlockDesc)
     if (descProgressDiv > 0 && required != null && current != null) {
@@ -156,6 +152,7 @@ let taskHeader = @(unlockDesc, progress, canTakeReward = true, sf = 0, textStyle
       let curStage = min(lastRewardedStage + 1, stages.len())
       addTexts.append($"{loc("stageText")} {curStage}/{stages.len()}")
     }
+
 
     let unlockLimit = getUnlockLimit(unlockDesc)
     local { stage = 0 } = progress
@@ -193,15 +190,51 @@ let taskDescription = @(description, sf = 0, style = {})
   : mkTaskTextArea(description, sf, style)
 
 
-let mkEmblemImg = @(img, iSize, hasAnim = false) {
+let btnSize = [hdpx(230), commonBtnHeight]
+let mkGetTaskRewardBtn = @(task, cb, inProgressWatch) @() {
+  watch = inProgressWatch
+  size = [SIZE_TO_CONTENT, btnSize[1]]
+  minWidth = btnSize[0]
+  valign = ALIGN_CENTER
+  halign = ALIGN_CENTER
+  children = (inProgressWatch.value?[task.name] ?? false)
+    ? waitingSpinner
+    : PrimaryFlat(loc("bp/getNextReward"), @() cb(task), {
+        key = "btnReceiveReward"
+        size = [SIZE_TO_CONTENT, btnSize[1]]
+        minWidth = btnSize[0]
+        margin = 0
+      })
+}
+
+
+let mkEmblemImg = @(img, iSize, hasAnim = false, sf = 0, seasonIndex=null, bpColors=null) function() {
+  let colorIdx = (seasonIndex != null && bpColors!=null) ? (seasonIndex.value % bpColors.len()) : null
+  return {
+    watch = seasonIndex
+    size = [iSize, iSize]
+    children = [
+      {
+        rendObj = ROBJ_IMAGE
+        size = [iSize, iSize]
+        color = sf & S_HOVER ? darkTxtColor : bpColors?[colorIdx]
+        image = Picture("{0}.svg:{1}:{1}:K".subst(img, iSize))
+      }
+      hasAnim ? rewardAnimBg : null
+    ]
+  }
+}
+
+let mkEmblemImgReward = @(img, iSize, color) {
   size = [iSize, iSize]
   children = [
     {
       rendObj = ROBJ_IMAGE
       size = [iSize, iSize]
-      image = Picture("ui/skin#tasks/{0}.svg:{1}:{1}:K".subst(img, iSize))
+      color
+      image = Picture("{0}.svg:{1}:{1}:K".subst(img, iSize))
     }
-    hasAnim ? rewardAnimBg : null
+    rewardAnimBg
   ]
 }
 
@@ -223,23 +256,36 @@ let function mkEmblemQty(unlockDesc) {
 
 
 let function getTaskEmblemImg(unlockDesc, isCompleted) {
-  let img = isDailyTask(unlockDesc) ? "star"
-    : isWeeklyTask(unlockDesc) ? "star"
-    : isAchievementTask(unlockDesc) ? "medal"
-    : isEventTask(unlockDesc) ? "medal"
-    : ""
-  return img == "" ? "" : "{0}_{1}".subst(img, isCompleted ? "filled" : "empty")
+  if (isRankUnlock(unlockDesc))
+    return isCompleted
+      ?  "ui/skin#tasks/goblet_filled"
+      :  "ui/skin#tasks/goblet_empty"
+  if (isDailyTask(unlockDesc) || isWeeklyTask(unlockDesc))
+    return isCompleted
+      ? "ui/skin#star_level_filled"
+      : "ui/skin#star_level_empty"
+  if (isAchievementTask(unlockDesc) || isEventTask(unlockDesc))
+    return isCompleted
+      ? "ui/skin#tasks/medal_filled"
+      : "ui/skin#tasks/medal_empty"
+  return ""
 }
 
+let function mkTaskEmblem(unlockDesc, progress, canTakeReward = true, hasWaitIcon = Watched(false),
+  canReroll = false, sf = 0, seasonIndex=null, bpColors=null) {
 
-let function mkTaskEmblem(unlockDesc, progress, canTakeReward = true) {
-  let { lastRewardedStage = 0, stages = [] } = unlockDesc
-  let { hasReward=false, current, required } = progress
+  let { lastRewardedStage = 0, stages = [], periodic = false } = unlockDesc
+  let { hasReward = false, current, required } = progress
   let emblemImg = getTaskEmblemImg(unlockDesc, current >= required)
   let passedProgress = lastRewardedStage <= 0 ? 0
     : stages?[lastRewardedStage - 1].progress ?? 0
   let curStageCurrent = current - passedProgress
   let curStageRequired = required - passedProgress
+  let progBarValue = hasReward ? 1
+    : !periodic && curStageRequired > 0 ? curStageCurrent.tofloat() / curStageRequired
+    : 0
+  let sIcon = statusIcon(unlockDesc, hasWaitIcon, canReroll)
+
   return emblemImg == "" ? null
     : {
         size = [starSize + smallPadding, SIZE_TO_CONTENT]
@@ -250,19 +296,35 @@ let function mkTaskEmblem(unlockDesc, progress, canTakeReward = true) {
         children = [
           {
             children = [
-              mkEmblemImg(emblemImg, starSize, unlockDesc.hasReward && canTakeReward)
+              sf & S_HOVER ? sIcon
+                : mkEmblemImg(emblemImg, starSize, unlockDesc.hasReward && canTakeReward, sf, seasonIndex, bpColors)
               mkEmblemQty(unlockDesc)
             ]
           }
-          progressBar(hasReward ? 1
-            : curStageRequired > 0 ? curStageCurrent.tofloat() / curStageRequired
-            : 0, {
-              size = [flex(), colPart(0.07)]
-              bgColor = 0x55555555
+          function() {
+            let colorIdx = seasonIndex!=null && bpColors!=null ? (seasonIndex.value % bpColors.len()) : null
+            let progressColor = bpColors?[colorIdx] ?? taskProgressColor
+            return {
+              size = flex()
+              watch = seasonIndex
+              children = progressBar(progBarValue, {
+                size = [flex(), hdpx(4)]
+                progressColor
+              }
+            )
             }
-          )
+          }
         ]
       }
+}
+
+let function mkAchievementTitle(tasksList, locId) {
+  let finished = tasksList.reduce(@(s, u) u.isCompleted ? s + 1 : s, 0)
+  return {
+    rendObj = ROBJ_TEXT
+    text = "{0} {1}".subst(loc(locId), $"{finished}/{tasksList.len()}")
+    color = activeTxtColor
+  }.__update(fontBody)
 }
 
 return {
@@ -270,10 +332,17 @@ return {
   rewardAnimBg
   taskLabelSize
   taskHeader
-  statusBlock
   taskDescription
   taskDescPadding
   taskMinHeight
+  mkEmblemImg
+  mkEmblemImgReward
   taskSlotPadding
   mkTaskEmblem
+  mkAchievementTitle
+  statusBlock
+  mkGetTaskRewardBtn
+  getTaskEmblemImg
+  completedUnlockIcon
+  mkTaskTextArea
 }

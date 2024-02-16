@@ -14,27 +14,37 @@ let defIconColor = @(sf) sf & S_ACTIVE ? TextActive
 let function fontIconButton(icon, params = null) {
   let stateFlags = params?.stateFlags ?? Watched(0)
   let gamepadHotkey = getGamepadHotkeys(params?.hotkeys, true)
-  let { skipDirPadNav = (gamepadHotkey ?? "") != "" } = params
-  let img = (gamepadHotkey == "") ? null : gamepadImgByKey.mkImageCompByDargKey(gamepadHotkey)
+  let { skipDirPadNav = gamepadHotkey != "" } = params
+  let gamepadImg = (gamepadHotkey == "") ? null : gamepadImgByKey.mkImageCompByDargKey(gamepadHotkey)
   local { watch = [] } = params
-  watch = (typeof watch == "array" ? clone watch : [watch]).append(stateFlags, isGamepad)
+  watch = (typeof watch == "array" ? clone watch : [watch])
+  watch.append(stateFlags, isGamepad)
+
+  let p = (params ?? {}).__merge({ watch, skipDirPadNav })
+  local iconParams = {
+    fontSize = hdpx(20)
+    color = null
+  }
+  if (params?.iconParams)
+    iconParams.__update(params.iconParams)
+
   return function() {
     let sfVal = stateFlags.value
-    let gamepadImg = isGamepad.value && img!=null
-    let p = (params ?? {}).__merge({ watch, skipDirPadNav })
     if (p?.byStateFlags)
       p.__update(p.byStateFlags(sfVal))
+
+    local children = gamepadImg
+    if (!isGamepad.value || gamepadImg == null) {
+      iconParams.color = params?.iconColor(sfVal) ?? defIconColor(sfVal)
+      children = faComp(icon, iconParams)
+    }
+
     return {
       halign = ALIGN_CENTER
       valign = ALIGN_CENTER
-
       behavior = Behaviors.Button
       onElemState = @(sf) stateFlags.update(sf & ~S_TOP_HOVER)
-      children = gamepadImg ? img : faComp(icon, {
-        fontSize = hdpx(20)
-        color = params?.iconColor(sfVal) ?? defIconColor(sfVal)
-      }.__update(params?.iconParams ?? {}))
-
+      children
       sound = buttonSound
     }.__merge(p)
   }

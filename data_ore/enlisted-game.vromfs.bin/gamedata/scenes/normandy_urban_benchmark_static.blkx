@@ -706,6 +706,11 @@
   },
   {
     "entity": {
+      "_template": "bloom"
+    }
+  },
+  {
+    "entity": {
       "_template": "postfx_roundctrl",
       "post_fx:object": []
     }
@@ -732,32 +737,9 @@
   },
   {
     "entity": {
-      "_template": "respawn_camera",
-      "respawnCameraForTeam": 1,
-      "transform": [
-        [1.0,0.0,0.0],
-        [0.0,1.0,0.0],
-        [0.0,0.0,1.0],
-        [433.398,295.965,-327.981]
-      ]
-    }
-  },
-  {
-    "entity": {
-      "_template": "respawn_camera",
-      "respawnCameraForTeam": 2,
-      "transform": [
-        [1.0,0.0,0.0],
-        [0.0,1.0,0.0],
-        [0.0,0.0,1.0],
-        [-94.993,294.853,97.3003]
-      ]
-    }
-  },
-  {
-    "entity": {
       "_template": "briefing_invasion",
       "mission_name": "normandy_omer_inv",
+      "mission_outfit": "normandy",
       "loading_images:list<t>": [
         {
           "item": "ui/normandy_urban_omer_01.avif"
@@ -960,7 +942,7 @@
       ],
       "capzone__title": "B",
       "sphere_zone__radius": 18.0,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "decal__height": 0.4,
       "ui_order": 2
     }
@@ -1125,7 +1107,7 @@
   },
   {
     "entity": {
-      "_template": "benchmark_artillery_strike",
+      "_template": "artillery_strike_requester",
       "transform": [
         [-0.0388287,-0.00684447,0.999222],
         [-0.00164649,0.999976,0.00678565],

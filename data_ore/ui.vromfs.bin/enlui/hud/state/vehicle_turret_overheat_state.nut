@@ -42,7 +42,7 @@ let function trackSelectedVehicleComponents(_eid, comp) {
   let vehicleEid = comp["human_anim__vehicleSelected"]
   let turretEids = ecs.obsolete_dbg_get_comp_val(vehicleEid, "turret_control__gunEids")?.getAll() ?? []
   foreach (turretEid in turretEids)
-    if (turretQuery.perform(turretEid, function(_eid, comp) { overheat.update(comp["gun__overheat"]); return true; }))
+    if (turretQuery.perform(turretEid, function(_eid, turretComp) { overheat.update(turretComp["gun__overheat"]); return true; }))
       break
 }
 

@@ -1,19 +1,19 @@
 {
   "wbm_r75": [
     {
-      "_extends": "simple_damage_model"
+      "_use": "simple_damage_model"
     },
     {
-      "_extends": "vehicle_anim_steering_deflection"
+      "_use": "vehicle_anim_steering_deflection"
     },
     {
-      "_extends": "vehicle_seats_effectors"
+      "_use": "vehicle_seats_effectors"
     },
     {
-      "_extends": "base_bike_right_sidecar"
+      "_use": "base_bike_right_sidecar"
     },
     {
-      "_extends": "vehicle_anim_speedometer_kmh"
+      "_use": "vehicle_anim_speedometer_kmh"
     },
     {
       "item__name": "items/wbm_r75"
@@ -41,6 +41,12 @@
     },
     {
       "vehicle_seats__enumVarName": "bmw_r75"
+    },
+    {
+      "item__iconOffset": [0.0,0.05]
+    },
+    {
+      "item__iconScale": 1.3
     },
     {
       "_group": {
@@ -176,7 +182,7 @@
     }
   ],
   "wbm_r75_7_92mm_mg34": {
-    "_extends": "bike_7_92mm_mg34",
+    "_use": "bike_7_92mm_mg34",
     "gun__shootNodeName": "bone_mg_aa_v",
     "turret__yawSpeed": 300.0,
     "turret__pitchSpeed": 100.0,

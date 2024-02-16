@@ -1,6 +1,6 @@
 {
   "us_towed_at_m1_movable": {
-    "_extends": "us_towed_at_m1_movable_common",
+    "_use": "us_towed_at_m1_movable_common",
     "turret_control__turretInfo:shared:array": {
       "turretInfo:object": {
         "turretName": "turret_01",
@@ -16,7 +16,7 @@
     }
   },
   "uk_towed_6pdr_qqf_mk_3_movable": {
-    "_extends": "us_towed_at_m1_movable_common",
+    "_use": "us_towed_at_m1_movable_common",
     "turret_control__turretInfo:shared:array": {
       "turretInfo:object": {
         "turretName": "turret_01",
@@ -33,16 +33,16 @@
   },
   "us_towed_at_m1_movable_common": [
     {
-      "_extends": "base_towed_at_m1"
+      "_use": "base_towed_at_m1"
     },
     {
-      "_extends": "tank_vehicle_suspension_sound"
+      "_use": "tank_vehicle_suspension_sound"
     },
     {
-      "_extends": "movable_cannon_vehicle_tracks_sound"
+      "_use": "movable_cannon_vehicle_tracks_sound"
     },
     {
-      "_extends": "vehicle_seats_effectors"
+      "_use": "vehicle_seats_effectors"
     },
     {
       "vehicle_seats_camera_nodes__defaultNode": "bone_camera_gunner"
@@ -68,34 +68,6 @@
           "part": "loader"
         }
       ]
-    },
-    {
-      "dm_phys_parts__wheels:array": [
-        {
-          "wheel": "wheel_l_01"
-        },
-        {
-          "wheel": "wheel_l_01"
-        },
-        {
-          "wheel": "wheel_r_01"
-        },
-        {
-          "wheel": "wheel_r_01"
-        }
-      ]
-    },
-    {
-      "dm_phys_parts__engine:array": []
-    },
-    {
-      "dm_phys_parts__transmission:array": []
-    },
-    {
-      "dm_phys_parts__tracks:array": []
-    },
-    {
-      "dm_phys_parts__ammo:array": []
     },
     {
       "_group": {
@@ -263,21 +235,18 @@
     }
   ],
   "enlist_tankgun_towed_at_m1_movable": {
-    "_extends": "enlist_tankgun_towed_6pdr_qqf_mk_3_movable",
+    "_use": "enlist_tankgun_towed_6pdr_qqf_mk_3_movable",
     "item__name": "guns/57mm_m1_at_gun"
   },
   "enlist_tankgun_towed_6pdr_qqf_mk_3_movable": {
-    "_extends": "enlist_tankgun_towed_at_m1_57mm_6pdr_qqf_mk_3_l43",
+    "_use": "enlist_tankgun_towed_at_m1_57mm_6pdr_qqf_mk_3_l43",
     "turret__limit": [-20.0,20.0,-2.0,20.0],
     "gun__recoilAmount": 0.03
   },
   "us_towed_at_m1_gunner_cockpit": {
     "vehicle_sight__blk": "content/tanks/gamedata/sight/us_m70f_towed.blk",
-    "_extends": "base_gunner_cockpit",
+    "_use": "base_gunner_cockpit",
     "animchar__res": "t_26_1940_gunner_char",
-    "cockpit__zoomTimeMul": 1.3,
-    "cockpit__cameraTimeMul": 1.5,
-    "cockpit__minZoom": -0.0,
     "cockpit__offset": [0.0,0.0,0.0],
     "cockpit__cockpitOffsetBySlit:list<p3>": {
       "item": [-1.03681,0.0633638,0.475453]
@@ -293,21 +262,31 @@
       "slit": "cam_front_right"
     },
     "cockpit__slitForwardOffset:list<r>": {
-      "slit": 0.19
+      "slit": 0.21
     },
     "cockpit__slitIsGun:list<b>": {
       "slit": true
+    },
+    "cockpit__slitZoom:array": {
+      "slit:list<r>": [
+        {
+          "zoom": 1.9
+        },
+        {
+          "zoom": 3.5
+        }
+      ]
     }
   },
   "enlist_tankgun_towed_at_m1_57mm_6pdr_qqf_mk_3_l43": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_tankgun_cannon"
+      "_use": "base_tankgun_cannon"
     },
     {
-      "_extends": "enlist_towed_at_m1_57mm_6pdr_qqf_mk_3_l43"
+      "_use": "enlist_towed_at_m1_57mm_6pdr_qqf_mk_3_l43"
     },
     {
       "turret__triggerGroup": 0
@@ -320,7 +299,7 @@
     }
   ],
   "enlist_towed_at_m1_57mm_6pdr_qqf_mk_3_l43": {
-    "_extends": "base_57mm_6pdr_qqf_mk_3_l43",
+    "_use": "base_57mm_6pdr_qqf_mk_3_l43",
     "gun__shellsAmmo:array": [
       {
         "ammo": 10

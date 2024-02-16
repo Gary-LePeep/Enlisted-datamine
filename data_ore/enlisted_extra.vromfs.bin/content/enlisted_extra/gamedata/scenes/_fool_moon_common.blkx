@@ -147,19 +147,7 @@
     "entity": {
       "_template": "globe_entity",
       "globe__posOffset": [72233.0,-25000.0,-20000.0],
-      "globe__sunSize": 0.01
-    }
-  },
-  {
-    "entity": {
-      "_template": "skies_settings",
-      "sky_atmosphere__atmosphere_scale": 12.0,
-      "sky_atmosphere__multiple_scattering_factor": 3.0,
-      "sky_atmosphere__average_ground_albedo": 0.2,
-      "sky_atmosphere__ozone_scale": [0.1,0.1],
-      "sky_atmosphere__rayleigh_scale": [0.1,0.1],
-      "sky_atmosphere__mie_scale": [0.2,0.2],
-      "sky_atmosphere__planet_scale": 1.5
+      "globe__sunSize": 6.26
     }
   },
   {
@@ -353,13 +341,18 @@
   },
   {
     "entity": {
+      "_template": "bloom"
+    }
+  },
+  {
+    "entity": {
       "_template": "postfx_roundctrl"
     }
   },
   {
     "entity": {
       "_template": "door_mult_ent_generator",
-      "ri_extra_gen__blk": "content/e_aprilfools_2022/gamedata/moon_doors.blk"
+      "ri_extra_gen__blk": "content/enlisted_extra/gamedata/moon_doors.blk"
     }
   },
   {
@@ -950,7 +943,7 @@
       "level__blk": "content/enlisted/levels/battle_of_moon.blk",
       "level__timeRange": [5.0,19.2],
       "level__weatherChoice:object": {
-        "weather_clear_b": 1.0
+        "weather_moon": 1.0
       },
       "level__timeVec:array": {
         "level__timeVec": 12.0
@@ -965,6 +958,15 @@
       "projectors_manager__atmosphereMoveSpeed": 0.0,
       "projectors_manager__noiseScale": 30.0,
       "projectors_manager__noiseStrength": 1.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "settings_override_manager+settings_override_settings",
+      "settings_override__useCustomSettings": true,
+      "settings_override__graphicsSettings:object": {
+        "graphics/cloudsQuality": "default"
+      }
     }
   }
 ]

@@ -8,8 +8,8 @@ let { toIntegerSafe, isStringFloat } = require("%sqstd/string.nut")
 let { Point3, Point4, TMatrix } = require("dagor.math")
 
 const VERSION = 0
-const ZERO_CHAR_CODE = 48
-const POINT_CHAR_CODE = 46
+//const ZERO_CHAR_CODE = 48
+//const POINT_CHAR_CODE = 46
 
 let function cutOffRightZeros(str) {
   let dotIdx = str.indexof(".")

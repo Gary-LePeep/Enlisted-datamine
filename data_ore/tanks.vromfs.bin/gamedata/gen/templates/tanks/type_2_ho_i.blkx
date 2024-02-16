@@ -1,10 +1,10 @@
 {
   "base_type_2_ho_i": [
     {
-      "_extends": "base_tank"
+      "_use": "base_tank"
     },
     {
-      "_extends": "type_2_ho_i_ammo_stowages"
+      "_use": "type_2_ho_i_ammo_stowages"
     },
     {
       "killLogName": "jp_type_2_ho_i"
@@ -197,7 +197,7 @@
     }
   ],
   "type_2_ho_i_turret_01_75mm_type99": {
-    "_extends": "tankgun_75mm_type99",
+    "_use": "tankgun_75mm_type99",
     "gun__shootNodeName": "bone_gun_barrel",
     "turret__yawSpeed": 14.0,
     "turret__pitchSpeed": 4.0,
@@ -224,10 +224,10 @@
     ]
   },
   "type_2_ho_i_turret_02_7_7mm_type_97": {
-    "_extends": "tankgun_7_7mm_type_97",
+    "_use": "tankgun_7_7mm_type_97",
     "gun__shootNodeName": "bone_mg_v_01",
-    "turret__yawSpeed": 35.0,
-    "turret__pitchSpeed": 35.0,
+    "turret__yawSpeed": 20.0,
+    "turret__pitchSpeed": 20.0,
     "turret__aimNodeName": "bone_mg_h_01",
     "turret__limit": [-14.0,14.0,-8.0,8.0],
     "gun__shellsAmmo:array": {
@@ -235,7 +235,7 @@
     }
   },
   "type_2_ho_i_turret_03_7_7mm_type_97": {
-    "_extends": "tankgun_7_7mm_type_97",
+    "_use": "tankgun_7_7mm_type_97",
     "gun__shootNodeName": "bone_mg_aa_v_01",
     "turret__yawSpeed": 90.0,
     "turret__pitchSpeed": 90.0,
@@ -247,22 +247,22 @@
   },
   "type_2_ho_i_ammo_stowages": {
     "_tags": "server",
-    "_extends": "vehicle_ammo_stowages",
+    "_use": "vehicle_ammo_stowages",
     "ammo_stowage__stowageTemplates:shared:list<t>": {
-      "stowage": "type_2_ho_i_primary_ammo_stowage"
+      "stowage": "type_2_ho_i_ammo_stowage_1"
     }
   },
-  "type_2_ho_i_primary_ammo_stowage": {
-    "_extends": "ammo_stowage",
+  "type_2_ho_i_ammo_stowage_1": {
+    "_use": "ammo_stowage",
     "ammo_stowage__clusterTemplates:shared:list<t>": {
-      "cluster": "type_2_ho_i_primary_shells_ammo_cluster"
+      "cluster": "type_2_ho_i_ammo_cluster_1_1"
     },
     "ammo_stowage__turretNames:shared:list<t>": {
       "gun": "turret_01"
     }
   },
-  "type_2_ho_i_primary_shells_ammo_cluster": {
-    "_extends": "ammo_cluster",
+  "type_2_ho_i_ammo_cluster_1_1": {
+    "_use": "ammo_cluster",
     "ammo_cluster__isShell": true,
     "ammo_cluster__slotNames:shared:list<t>": [
       {

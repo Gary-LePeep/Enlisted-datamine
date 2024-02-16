@@ -1,10 +1,10 @@
 {
   "base_m41_75_32": [
     {
-      "_extends": "base_tank"
+      "_use": "base_tank"
     },
     {
-      "_extends": "m41_75_32_ammo_stowages"
+      "_use": "m41_75_32_ammo_stowages"
     },
     {
       "killLogName": "it_semovente_m41_75_32"
@@ -108,7 +108,7 @@
     }
   ],
   "m41_75_32_turret_01_75mm_ansaldo_75_32_m37": {
-    "_extends": "tankgun_75mm_ansaldo_75_32_m37",
+    "_use": "tankgun_75mm_ansaldo_75_32_m37",
     "gun__shootNodeName": "bone_gun_barrel",
     "turret__yawSpeed": 14.0,
     "turret__pitchSpeed": 4.0,
@@ -131,13 +131,13 @@
   },
   "m41_75_32_ammo_stowages": {
     "_tags": "server",
-    "_extends": "vehicle_ammo_stowages",
+    "_use": "vehicle_ammo_stowages",
     "ammo_stowage__stowageTemplates:shared:list<t>": {
       "stowage": "m41_75_32_ammo_stowage_1"
     }
   },
   "m41_75_32_ammo_stowage_1": {
-    "_extends": "ammo_stowage",
+    "_use": "ammo_stowage",
     "ammo_stowage__clusterTemplates:shared:list<t>": {
       "cluster": "m41_75_32_ammo_cluster_1_1"
     },
@@ -146,7 +146,7 @@
     }
   },
   "m41_75_32_ammo_cluster_1_1": {
-    "_extends": "ammo_cluster",
+    "_use": "ammo_cluster",
     "ammo_cluster__isShell": true,
     "ammo_cluster__slotNames:shared:list<t>": [
       {

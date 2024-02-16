@@ -1,10 +1,10 @@
 {
   "base_ab_41": [
     {
-      "_extends": "base_tank"
+      "_use": "base_tank"
     },
     {
-      "_extends": "ab_41_ammo_stowages"
+      "_use": "ab_41_ammo_stowages"
     },
     {
       "killLogName": "it_ab_41"
@@ -146,7 +146,7 @@
     }
   ],
   "ab_41_turret_01_20mm_breda_m35_l6": {
-    "_extends": "tankgun_20mm_breda_m35_l6",
+    "_use": "tankgun_20mm_breda_m35_l6",
     "gun__shootNodeName": "bone_gun_barrel",
     "turret__yawSpeed": 24.0,
     "turret__pitchSpeed": 15.0,
@@ -172,7 +172,7 @@
     ]
   },
   "ab_41_turret_02_8mm_breda_mod38": {
-    "_extends": "tankgun_8mm_breda_mod38",
+    "_use": "tankgun_8mm_breda_mod38",
     "gun__shootNodeName": "bone_mg_gun_twin",
     "gun__shellsAmmo:array": {
       "ammo": 1992
@@ -180,13 +180,13 @@
   },
   "ab_41_ammo_stowages": {
     "_tags": "server",
-    "_extends": "vehicle_ammo_stowages",
+    "_use": "vehicle_ammo_stowages",
     "ammo_stowage__stowageTemplates:shared:list<t>": {
       "stowage": "ab_41_ammo_stowage_1"
     }
   },
   "ab_41_ammo_stowage_1": {
-    "_extends": "ammo_stowage",
+    "_use": "ammo_stowage",
     "ammo_stowage__clusterTemplates:shared:list<t>": {
       "cluster": "ab_41_ammo_cluster_1_1"
     },
@@ -195,7 +195,7 @@
     }
   },
   "ab_41_ammo_cluster_1_1": {
-    "_extends": "ammo_cluster",
+    "_use": "ammo_cluster",
     "ammo_cluster__isShell": true,
     "ammo_cluster__slotNames:shared:list<t>": [
       {

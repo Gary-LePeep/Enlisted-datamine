@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let hoverHoldAction = require("%darg/helpers/hoverHoldAction.nut")
-let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { makeVertScroll } = require("%ui/components/scrollbar.nut")
 let { receiveTaskRewards } = require("taskListState.nut")
 let { weeklyTasks, saveFinishedWeeklyTasks, triggerBPStarsAnim
@@ -15,27 +15,29 @@ let { smallPadding, smallOffset, tinyOffset, defBgColor, defTxtColor,
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { taskMinHeight, taskSlotPadding, mkTaskEmblem, taskHeader, taskDescription,
   taskDescPadding, mkGetTaskRewardBtn, statusBlock
-} = require("%enlSqGlob/ui/taskPkg.nut")
+} = require("%enlSqGlob/ui/tasksPkg.nut")
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
 let { secondsToStringLoc } = require("%ui/helpers/time.nut")
 let { smallUnseenNoBlink } = require("%ui/components/unseenComps.nut")
-
+let { bpColors } = require("%enlist/battlepass/battlePassPkg.nut")
+let { seasonIndex } = require("%enlist/battlepass/bpState.nut")
+let { hoverSlotBgColor } = require("%enlSqGlob/ui/designConst.nut")
 
 let finishedOpacity = 0.5
 let finishedBgColor = mul_color(defBgColor, 1.0 / finishedOpacity)
 
 let mkTaskContent = @(task, sf) function() {
-  let progress = getUnlockProgress(task)
+  let progress = getUnlockProgress(task, unlockProgress.value)
   let { isFinished = false, activity = null } = task
   let { active = false } = activity
   return {
-    watch = [unlockProgress]
+    watch = unlockProgress
     size = [flex(), SIZE_TO_CONTENT]
     flow = FLOW_HORIZONTAL
     gap = tinyOffset
     valign = ALIGN_CENTER
     children = [
-      mkTaskEmblem(task, progress)
+      mkTaskEmblem(task, progress, true, Watched(false), false, 0, seasonIndex, bpColors)
       {
         size = [flex(), SIZE_TO_CONTENT]
         flow = FLOW_VERTICAL
@@ -74,7 +76,7 @@ let function mkTaskExpireTimer(expireTime) {
             rendObj = ROBJ_TEXT
             text = loc("unlock/expireHeader")
             color = activeTxtColor
-          }.__update(sub_txt)
+          }.__update(fontSub)
           {
             flow = FLOW_HORIZONTAL
             gap = bigPadding
@@ -85,7 +87,7 @@ let function mkTaskExpireTimer(expireTime) {
                 rendObj = ROBJ_TEXT
                 text = expireText.value
                 color = taskProgressColor
-              }.__update(sub_txt)
+              }.__update(fontSub)
             ]
           }
         ]
@@ -115,7 +117,7 @@ let function mkWeeklyTaskSlot(task, isUnseen) {
         gap = smallPadding
         padding = taskSlotPadding
         valign = ALIGN_CENTER
-        color = isFinished ? finishedBgColor : defBgColor
+        color = sf & S_HOVER ? hoverSlotBgColor : isFinished ? finishedBgColor : defBgColor
         xmbNode = XmbNode()
         behavior = Behaviors.Button
         onHover = function(on) {
@@ -142,6 +144,7 @@ return {
   padding = [fsh(2),0,0,0]
   onAttach = saveFinishedWeeklyTasks
   onDetach = function() {
+    markUnlockSeen((seenUnlocks.value?.unseenWeeklyTasks ?? {}).keys())
     triggerBPStarsAnim()
     markUnlocksOpened((seenUnlocks.value?.unopenedWeeklyTasks ?? {}).keys())
   }
@@ -154,9 +157,10 @@ return {
       size = [flex(), SIZE_TO_CONTENT]
       minHeight = ph(100)
       xmbNode = XmbContainer({
-        canFocus = @() false
+        canFocus = false
         scrollSpeed = 5
         isViewport = true
+        wrap = false
       })
       flow = FLOW_VERTICAL
       gap = smallPadding

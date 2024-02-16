@@ -981,6 +981,7 @@
     "entity": {
       "_template": "briefing_domination",
       "mission_name": "pacific_gavutu_dom",
+      "mission_outfit": "pacific",
       "loading_images:list<t>": [
         {
           "item": "ui/pacific_gavutu_inv_01.avif"
@@ -1020,8 +1021,8 @@
     "entity": {
       "_template": "team_pacific_axis+team_narrator_domination+respawn_creators_team",
       "team__id": 2,
-      "team__score": 2500.0,
-      "team__scoreCap": 2500.0,
+      "team__score": 2700.0,
+      "team__scoreCap": 2700.0,
       "score_bleed__domBleed": 4.0,
       "score_bleed__domBleedOn": false,
       "score_bleed__totalDomZoneCount": 3,
@@ -1126,7 +1127,7 @@
         [0.614366,0.0,0.604158],
         [72.3868,1.14435,-304.454]
       ],
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "decal__height": 0.1,
       "sphere_zone__radius": 30.0,
       "capzone__iconOffsetY": 4.0,

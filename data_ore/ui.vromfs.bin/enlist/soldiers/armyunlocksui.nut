@@ -1,9 +1,8 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let fontIconButton = require("%ui/components/fontIconButton.nut")
 let { PrimaryFlat, Purchase } = require("%ui/components/textButton.nut")
-let campaignTitle = require("%enlist/campaigns/campaign_title_small.ui.nut")
 let { openUnlockSquadScene } = require("unlockSquadScene.nut")
 let cratesPresentation = require("%enlSqGlob/ui/cratesPresentation.nut")
 let { mkItemPromo, freemiumPromoLink } = require("components/itemRewardPromo.nut")
@@ -17,13 +16,12 @@ let { get_army_level_reward } = require("%enlist/meta/clientApi.nut")
 let { debounce } = require("%sqstd/timers.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
 let { makeHorizScroll } = require("%ui/components/scrollbar.nut")
-let armySelectUi = require("army_select.ui.nut")
 let { mkBackWithImage, mkUnlockInfo, mkSquadBodyBottomSmall
 } = require("mkSquadPromo.nut")
 let { ModalBgTint, borderColor } = require("%ui/style/colors.nut")
-let { promoWidget } = require("%enlSqGlob/ui/mkPromoWidget.nut")
+let { promoWidget } = require("%enlist/components/mkPromoWidget.nut")
 let { squadsCfgById } = require("%enlist/soldiers/model/config/squadsConfig.nut")
-let { shadowStyle, bigGap, bigPadding, defBgColor, darkBgColor, accentColor,
+let { shadowStyle, bigGap, defBgColor, darkBgColor, accentColor,
   commonBtnHeight, smallPadding
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { curArmyData, armySquadsById, curUnlockedSquads } = require("model/state.nut")
@@ -38,7 +36,7 @@ let { shopItems } = require("%enlist/shop/shopItems.nut")
 let { lockedProgressCampaigns } = require("%enlist/meta/campaigns.nut")
 let { curCampaign } = require("%enlist/meta/curCampaign.nut")
 let { mkUnlockCampaignBlock } = require("lockCampaignPkg.nut")
-let spinner = require("%ui/components/spinner.nut")({ height = hdpx(58) })
+let spinner = require("%ui/components/spinner.nut")
 let { progressBarHeight, completedProgressLine, acquiredProgressLine,
   progressContainerCtor, gradientProgressLine, imageProgressCtor
 } = require("%enlist/components/mkProgressBar.nut")
@@ -48,22 +46,24 @@ let { weapInfoBtn, btnSizeSmall, progressBarWidth, rewardToScroll,
 let { glareAnimation } = require("%enlSqGlob/ui/glareAnimation.nut")
 let mkBuyArmyLevel = require("mkBuyArmyLevel.nut")
 let { mkSquadIcon } = require("%enlSqGlob/ui/squadsUiComps.nut")
-let { CAMPAIGN_NONE, needFreemiumStatus, isPurchaseableCampaign, isCampaignBought,
+let { CAMPAIGN_NONE, needFreemiumStatus, isCampaignBought,
   disableArmyExp, campPresentation } = require("%enlist/campaigns/campaignConfig.nut")
 let { mkDiscountWidget } = require("%enlist/shop/currencyComp.nut")
 let { isSquadRented } = require("%enlist/soldiers/model/squadInfoState.nut")
+let { bigPadding, contentOffset } = require("%enlSqGlob/ui/designConst.nut")
 
 
 let tblScrollHandler = ScrollHandler()
 
 let showSubLevels = Watched(false)
 let squadMediumIconSize = [hdpx(85), hdpx(105)]
+let waitingSpinner = spinner(hdpx(28))
 
 let localGap = bigPadding * 2
 
 let cardProgressBar = progressContainerCtor(
-  $"!ui/uiskin/campaign/Campaign_progress_bar_mask.svg:{progressBarWidth}:{progressBarHeight}:K",
-  $"!ui/uiskin/campaign/Campaign_progress_bar_border.svg:{progressBarWidth}:{progressBarHeight}:K",
+  $"ui/uiskin/campaign/Campaign_progress_bar_mask.svg",
+  $"ui/uiskin/campaign/Campaign_progress_bar_border.svg",
   [progressBarWidth, progressBarHeight]
 )
 
@@ -89,7 +89,7 @@ let mkUnlockCardButton = @(unlockInfo) function() {
     children.append(mkUnlockInfo(unlockText))
   else if (!hasReceived
       && unlockCb != null
-      && (!isFreemium || (isPurchaseableCampaign.value && isCampaignBought.value))) {
+      && (!isFreemium || !needFreemiumStatus.value)) {
     let buttonCtor = isShowcase ? Purchase : PrimaryFlat
     children.append(buttonCtor(unlockText ?? unlockLocTxt,
       unlockCb,
@@ -105,7 +105,7 @@ let mkUnlockCardButton = @(unlockInfo) function() {
     children.insert(0, freemiumPromoLink)
 
   return {
-    watch = [isPurchaseableCampaign, isCampaignBought, needFreemiumStatus]
+    watch = [needFreemiumStatus, needFreemiumStatus]
     vplace = ALIGN_BOTTOM
     minWidth = btnSizeSmall[0]
     hplace = ALIGN_RIGHT
@@ -137,7 +137,7 @@ let mkSquadSmallCard = kwarg(function(squadCfg, armyId, unlockInfo, squad = null
     gap = smallPadding
     vplace = ALIGN_BOTTOM
     children = progressWatch.value && progressWatch.value == squadData.id
-      ? spinner
+      ? waitingSpinner
       : [
           summary
           mkUnlockCardButton(unlockInfo)
@@ -196,7 +196,7 @@ let emptyLevelUnlock = {
     text = loc("willBeAvailableSoon")
     hplace = ALIGN_CENTER
     vplace = ALIGN_CENTER
-  }.__update(body_txt)))
+  }.__update(fontBody)))
 }
 
 let mkSquadBlockByUnlock = @(unlock, armyData) function() {
@@ -235,11 +235,12 @@ let mkSquadBlockByUnlock = @(unlock, armyData) function() {
   return {
     watch = [squadsCfgById, armySquadsById, curArmyNextUnlockLevel, curArmyLevel,
       curBuyLevelData, disableArmyExp, needFreemiumStatus]
+    behavior = Behaviors.Button
+    xmbNode = XmbNode()
     children = squadCfg == null ? null
-      : mkLevelFrame(
-          mkSquadSmallCard({ squad, armyId, unlockInfo, squadCfg,
-            progressWatch = squadUnlockInProgress })
-        )
+      : mkLevelFrame(mkSquadSmallCard({
+          squad, armyId, unlockInfo, squadCfg, progressWatch = squadUnlockInProgress
+        }))
   }
 }
 
@@ -364,12 +365,12 @@ let progressTxt = @(leftTxt = "", rightTxt = ""){
     {
       rendObj = ROBJ_TEXT
       text = leftTxt
-    }.__update(body_txt, shadowStyle)
+    }.__update(fontBody, shadowStyle)
     {
       rendObj = ROBJ_TEXT
       hplace = ALIGN_RIGHT
       text = rightTxt
-    }.__update(body_txt, shadowStyle)
+    }.__update(fontBody, shadowStyle)
   ]
 }
 
@@ -379,8 +380,10 @@ let function freemiumProgressBar(
 ) {
   if (nextUnlockLvl == level && expCur == expToReceive && hasNotReceivedReward && hasFreemium)
     return completedProgressLine(1, glareAnimation(2), color, darkColor)
-  if (nextUnlockLvl > level && expCur >= expToReceive)
-    return acquiredProgressLine(1, [], color, color)
+  if (nextUnlockLvl > level && expCur >= expToReceive){
+    let animColor = color
+    return acquiredProgressLine(1, [], color, animColor)
+  }
 
   progress = expToReceive > 0
     ? 1.0 - (expToReceive - expCur) / expToReceive.tofloat()
@@ -405,6 +408,7 @@ let function progressBarVariation(nextUnlockLvl, level, expCur, expToReceive,
 
 let levelsUnlocks = function() {
   let { color = null, darkColor = null } = campPresentation.value
+
   let army = curArmyData.value
   local hasNotReceivedReward = false
   let children = allArmyUnlocks.value.map(function(unlock) {
@@ -412,16 +416,19 @@ let levelsUnlocks = function() {
     let { unlockType, level = 0, campaignGroup = CAMPAIGN_NONE } = unlock
     let isFreemium = campaignGroup != CAMPAIGN_NONE
 
-    if (unlockType == uType.SQUAD) {
+    if (isFreemium && !isCampaignBought.value)
+      return null
+
+    if (army != null && unlockType == uType.SQUAD) {
       unlockObj = mkSquadBlockByUnlock(unlock, army)
       hasNotReceivedReward = curUnlockedSquads.value.findvalue(@(value)
         value.squadId == unlock.unlockId) == null
     }
-    else if (unlockType == uType.ITEM) {
+    if (army != null && unlockType == uType.ITEM) {
       unlockObj = mkLevelRewardCard(unlock, army)
       hasNotReceivedReward = unlock.unlockGuid not in receivedUnlocks.value
     }
-    else if (unlockType == uType.SHOP)
+    if (unlockType == uType.SHOP)
       unlockObj = mkShowcaseItem(unlock.guid, unlock.uid)
 
     local expToReceive = 0
@@ -460,6 +467,7 @@ let levelsUnlocks = function() {
       ]
     }
   })
+  .filter(@(v) v != null)
 
   return {
     watch = [
@@ -468,7 +476,7 @@ let levelsUnlocks = function() {
     ]
     flow = FLOW_HORIZONTAL
     gap = squadGap
-    children = children
+    children
   }
 }
 
@@ -487,7 +495,7 @@ let noArmyUnlocks = freeze({
     vplace = ALIGN_CENTER
     hplace = ALIGN_CENTER
     text = loc("willBeAvailableSoon")
-  }.__update(body_txt)
+  }.__update(fontBody)
 })
 
 let isBtnArrowLeftVisible = Watched(false)
@@ -561,96 +569,84 @@ let function scrollByArrow(dir) {
   updateArrowButtons(elem)
 }
 
-let monetizationBlock = @(isVisible) !isVisible ? null
-  : promoWidget("army_unlocks")
 
-let unlocksProgressBlock = @(isVisible) !isVisible ? noArmyUnlocks
-  : @(){
-      watch = [curArmyNextUnlockLevel, curArmyLevel, needFreemiumStatus]
-      valign = ALIGN_CENTER
-      size = flex()
-      children = [
-        makeHorizScroll({
-          xmbNode = XmbContainer({
-            canFocus = @() false
-            scrollSpeed = 10.0
-            isViewport = true
-          })
-          children = unlocksBlock
-          onAttach = function(){
-            if (idxToForceScroll.value == null){
-              let lvlToScroll = needFreemiumStatus.value
-                ? curArmyLevel.value + 1
-                : curArmyNextUnlockLevel.value
-              scrollToCampaignLvl(lvlToScroll)
-            }
-            updateProgressScrollPos()
-          }
-        }, {
-          size = [flex(), SIZE_TO_CONTENT]
-          scrollHandler = tblScrollHandler
-          rootBase = class {
-            behavior = Behaviors.Pannable
-            wheelStep = 1
-          }
-        })
-        @() {
-          watch = isBtnArrowLeftVisible
-          size = [SIZE_TO_CONTENT, flex()]
-          children = isBtnArrowLeftVisible.value
-            ? fontIconButton("angle-left", scrollArrowBtnStyle.__merge({
-                onClick = @() scrollByArrow(-1)
-              }))
-            : null
-        }
-        @() {
-          watch = isBtnArrowRightVisible
-          size = [SIZE_TO_CONTENT, flex()]
-          hplace = ALIGN_RIGHT
-          children = isBtnArrowRightVisible.value
-            ? fontIconButton("angle-right", scrollArrowBtnStyle.__merge({
-                onClick = @() scrollByArrow(1)
-              }))
-            : null
-        }
-      ]
-    }
-
-let function topBlock(){
+let function topBlock() {
   let unlockList = lockedProgressCampaigns.value?[curCampaign.value]
   return {
-    watch = [curCampaign, lockedProgressCampaigns, hasArmyUnlocks]
-    size = [flex(), SIZE_TO_CONTENT]
-    children = unlockList == null
-      ? monetizationBlock(hasArmyUnlocks.value != null)
-      : mkUnlockCampaignBlock(unlockList)
+    watch = [curCampaign, lockedProgressCampaigns]
+    size = flex()
+    pos = unlockList == null ? [0, -hdpx(40)] : null
+    halign = ALIGN_RIGHT
+    children = unlockList == null ? null : mkUnlockCampaignBlock(unlockList)
   }
+}
+
+let unlocksProgressBlock = @() {
+  watch = [curArmyNextUnlockLevel, curArmyLevel, needFreemiumStatus]
+  valign = ALIGN_CENTER
+  size = flex()
+  children = [
+    makeHorizScroll({
+      xmbNode = XmbContainer({
+        canFocus = false
+        scrollSpeed = 10.0
+        isViewport = true
+      })
+      children = unlocksBlock
+      onAttach = function(){
+        if (idxToForceScroll.value == null){
+          let lvlToScroll = needFreemiumStatus.value
+            ? curArmyLevel.value + 1
+            : curArmyNextUnlockLevel.value
+          scrollToCampaignLvl(lvlToScroll)
+        }
+        updateProgressScrollPos()
+      }
+    }, {
+      size = [flex(), SIZE_TO_CONTENT]
+      scrollHandler = tblScrollHandler
+      rootBase = {
+        behavior = Behaviors.Pannable
+        wheelStep = 1
+      }
+    })
+    @() {
+      watch = isBtnArrowLeftVisible
+      size = [SIZE_TO_CONTENT, flex()]
+      children = isBtnArrowLeftVisible.value
+        ? fontIconButton("angle-left", scrollArrowBtnStyle.__merge({
+            onClick = @() scrollByArrow(-1)
+          }))
+        : null
+    }
+    @() {
+      watch = isBtnArrowRightVisible
+      size = [SIZE_TO_CONTENT, flex()]
+      hplace = ALIGN_RIGHT
+      children = isBtnArrowRightVisible.value
+        ? fontIconButton("angle-right", scrollArrowBtnStyle.__merge({
+            onClick = @() scrollByArrow(1)
+          }))
+        : null
+    }
+    topBlock
+  ]
 }
 
 let campaignBlock = @() {
   watch = hasArmyUnlocks
   size = flex()
   flow = FLOW_VERTICAL
+  margin = [contentOffset,0,0,0]
   gap = bigPadding
-  children = [
-    {
-      size = [flex(), SIZE_TO_CONTENT]
-      flow = FLOW_HORIZONTAL
-      gap = bigPadding
-      children = [
-        armySelectUi
-        topBlock
-        campaignTitle
-      ]
-    }
-    unlocksProgressBlock(hasArmyUnlocks.value != null)
-  ]
+  children = hasArmyUnlocks.value == null ? noArmyUnlocks
+    : [promoWidget("army_unlocks"), unlocksProgressBlock]
 }
 
 return @() {
   watch = hasCampaignSection
   size = flex()
-  onAttach = @() isArmyUnlocksStateVisible(true)
+  onAttach = @() gui_scene.resetTimeout(0.5, @() isArmyUnlocksStateVisible(true))
   onDetach = @() isArmyUnlocksStateVisible(false)
   halign = ALIGN_RIGHT
   children = hasCampaignSection.value

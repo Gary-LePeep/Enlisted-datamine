@@ -1,10 +1,10 @@
 {
   "me_410a_1_u2": [
     {
-      "_extends": "me_410a_1_u2_base"
+      "_use": "me_410a_1_u2_base"
     },
     {
-      "_extends": "squad_controlled_plane"
+      "_use": "squad_controlled_plane"
     },
     {
       "item__name": "items/me_410a_1_u2"
@@ -22,12 +22,12 @@
               [1.0,0.0,0.0],
               [0.0,1.0,0.0],
               [0.0,0.0,1.0],
-              [-0.15,0.05,-0.15]
+              [-0.12,0.095,-0.14]
             ],
             "seatComponent": "isDriver",
             "receiveDamageFromDMPart": "pilot_dm",
             "cameraNodeName": "",
-            "cameraOffset": [0.975,0.734,-0.038],
+            "cameraOffset": [0.995,0.734,-0.038],
             "cockpitTemplate": "me_410a_1_u2_driver_cockpit",
             "roomSpace": 0,
             "turretNames:array": [
@@ -62,7 +62,7 @@
                 "turret": "turret_10"
               }
             ],
-            "effectors:object": {
+            "cockpitEffectors:object": {
               "r.hand": "stick_rhand_1",
               "l.hand": "throttle_lhand_1",
               "r.foot": "pedal_rfoot_1",
@@ -642,7 +642,7 @@
     "gun__shotFreq": 11.66,
     "gun__locName": "cannonmg15120",
     "gun__shootNodeName": "bone_mg_gun_twin",
-    "gun__maxAmmo": 350,
+    "gun__maxAmmo": 300,
     "gun__firingModes:array": {
       "mode:object": {
         "modeType": "automatic"
@@ -652,7 +652,7 @@
       "mode": "automatic"
     },
     "gun__shellsAmmo:array": {
-      "ammo": 350
+      "ammo": 300
     },
     "gun__ammoSetsInfo:shared:array": {
       "default:array": [
@@ -689,13 +689,13 @@
   },
   "planegun_me_410a_1_u2_br_20_launcher_01": [
     {
-      "_extends": "br_20_launcher"
+      "_use": "br_20_launcher"
     },
     {
-      "_extends": "base_me_410a_1_u2_br_20_launcher"
+      "_use": "base_me_410a_1_u2_br_20_launcher"
     },
     {
-      "_extends": "gunsound_br_20_launcher_aircraft"
+      "_use": "gunsound_br_20_launcher_aircraft"
     },
     {
       "gun__shootNodeName": "210_mm_1"
@@ -709,13 +709,13 @@
   ],
   "planegun_me_410a_1_u2_br_20_launcher_02": [
     {
-      "_extends": "br_20_launcher"
+      "_use": "br_20_launcher"
     },
     {
-      "_extends": "base_me_410a_1_u2_br_20_launcher"
+      "_use": "base_me_410a_1_u2_br_20_launcher"
     },
     {
-      "_extends": "gunsound_br_20_launcher_aircraft"
+      "_use": "gunsound_br_20_launcher_aircraft"
     },
     {
       "gun__shootNodeName": "210_mm_2"
@@ -729,13 +729,13 @@
   ],
   "planegun_me_410a_1_u2_br_20_launcher_03": [
     {
-      "_extends": "br_20_launcher"
+      "_use": "br_20_launcher"
     },
     {
-      "_extends": "base_me_410a_1_u2_br_20_launcher"
+      "_use": "base_me_410a_1_u2_br_20_launcher"
     },
     {
-      "_extends": "gunsound_br_20_launcher_aircraft"
+      "_use": "gunsound_br_20_launcher_aircraft"
     },
     {
       "gun__shootNodeName": "210_mm_3"
@@ -749,13 +749,13 @@
   ],
   "planegun_me_410a_1_u2_br_20_launcher_04": [
     {
-      "_extends": "br_20_launcher"
+      "_use": "br_20_launcher"
     },
     {
-      "_extends": "base_me_410a_1_u2_br_20_launcher"
+      "_use": "base_me_410a_1_u2_br_20_launcher"
     },
     {
-      "_extends": "gunsound_br_20_launcher_aircraft"
+      "_use": "gunsound_br_20_launcher_aircraft"
     },
     {
       "gun__shootNodeName": "210_mm_4"
@@ -769,16 +769,16 @@
   ],
   "planegun_me_410a_1_u2_7_92mm_mg17_01": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_plane_machinegun"
+      "_use": "base_plane_machinegun"
     },
     {
-      "_extends": "base_me_410a_1_u2_7_92mm_mg17"
+      "_use": "base_me_410a_1_u2_7_92mm_mg17"
     },
     {
-      "_extends": "gunsound_7_92mm_mg17_aircraft"
+      "_use": "gunsound_7_92mm_mg17_aircraft"
     },
     {
       "gun__shootNodeName": "flare1"
@@ -789,16 +789,16 @@
   ],
   "planegun_me_410a_1_u2_7_92mm_mg17_02": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_plane_machinegun"
+      "_use": "base_plane_machinegun"
     },
     {
-      "_extends": "base_me_410a_1_u2_7_92mm_mg17"
+      "_use": "base_me_410a_1_u2_7_92mm_mg17"
     },
     {
-      "_extends": "gunsound_7_92mm_mg17_aircraft"
+      "_use": "gunsound_7_92mm_mg17_aircraft"
     },
     {
       "gun__shootNodeName": "flare2"
@@ -809,96 +809,96 @@
   ],
   "planegun_me_410a_1_u2_20mm_mg15120_01": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_plane_machinegun"
+      "_use": "base_plane_machinegun"
     },
     {
-      "_extends": "base_me_410a_1_u2_20mm_mg15120"
+      "_use": "base_me_410a_1_u2_20mm_mg15120"
     },
     {
-      "_extends": "gunsound_20mm_mg15120_aircraft"
+      "_use": "gunsound_20mm_mg15120_aircraft"
     },
     {
       "gun__shootNodeName": "flare3"
     },
     {
-      "gun__maxAmmo": 350
+      "gun__maxAmmo": 300
     }
   ],
   "planegun_me_410a_1_u2_20mm_mg15120_02": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_plane_machinegun"
+      "_use": "base_plane_machinegun"
     },
     {
-      "_extends": "base_me_410a_1_u2_20mm_mg15120"
+      "_use": "base_me_410a_1_u2_20mm_mg15120"
     },
     {
-      "_extends": "gunsound_20mm_mg15120_aircraft"
+      "_use": "gunsound_20mm_mg15120_aircraft"
     },
     {
       "gun__shootNodeName": "flare4"
     },
     {
-      "gun__maxAmmo": 350
+      "gun__maxAmmo": 300
     }
   ],
   "planegun_me_410a_1_u2_20mm_mg15120_03": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_plane_machinegun"
+      "_use": "base_plane_machinegun"
     },
     {
-      "_extends": "base_me_410a_1_u2_20mm_mg15120"
+      "_use": "base_me_410a_1_u2_20mm_mg15120"
     },
     {
-      "_extends": "gunsound_20mm_mg15120_aircraft"
+      "_use": "gunsound_20mm_mg15120_aircraft"
     },
     {
       "gun__shootNodeName": "flare7"
     },
     {
-      "gun__maxAmmo": 250
+      "gun__maxAmmo": 300
     }
   ],
   "planegun_me_410a_1_u2_20mm_mg15120_04": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_plane_machinegun"
+      "_use": "base_plane_machinegun"
     },
     {
-      "_extends": "base_me_410a_1_u2_20mm_mg15120"
+      "_use": "base_me_410a_1_u2_20mm_mg15120"
     },
     {
-      "_extends": "gunsound_20mm_mg15120_aircraft"
+      "_use": "gunsound_20mm_mg15120_aircraft"
     },
     {
       "gun__shootNodeName": "flare8"
     },
     {
-      "gun__maxAmmo": 250
+      "gun__maxAmmo": 300
     }
   ],
   "planegun_me_410a_1_u2_13mm_mg131_turret_01": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_plane_machinegun"
+      "_use": "base_plane_machinegun"
     },
     {
-      "_extends": "base_me_410a_1_u2_13mm_mg131_turret"
+      "_use": "base_me_410a_1_u2_13mm_mg131_turret"
     },
     {
-      "_extends": "gunsound_13mm_mg131_turret_aircraft"
+      "_use": "gunsound_13mm_mg131_turret_aircraft"
     },
     {
       "gun__shootNodeName": "flare5"
@@ -921,16 +921,16 @@
   ],
   "planegun_me_410a_1_u2_13mm_mg131_turret_02": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_plane_machinegun"
+      "_use": "base_plane_machinegun"
     },
     {
-      "_extends": "base_me_410a_1_u2_13mm_mg131_turret"
+      "_use": "base_me_410a_1_u2_13mm_mg131_turret"
     },
     {
-      "_extends": "gunsound_13mm_mg131_turret_aircraft"
+      "_use": "gunsound_13mm_mg131_turret_aircraft"
     },
     {
       "gun__shootNodeName": "flare6"
@@ -952,7 +952,7 @@
     }
   ],
   "me_410a_1_u2_driver_cockpit": {
-    "_extends": "base_plane_cockpit",
+    "_use": "base_plane_cockpit",
     "cockpit__offset": [0.0,0.0,0.0],
     "cockpit__angles": [0.0,0.0,0.0],
     "cockpit__scale": [1.0,1.0,1.0],

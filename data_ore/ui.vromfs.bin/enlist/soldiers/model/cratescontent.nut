@@ -3,10 +3,9 @@ from "%enlSqGlob/ui_library.nut" import *
 let armyEffects = require("armyEffects.nut")
 let { curArmy } = require("%enlist/soldiers/model/state.nut")
 let { get_crates_content } = require("%enlist/meta/clientApi.nut")
-let { metaGen } = require("%enlist/meta/metaConfigUpdater.nut")
 let { configs } = require("%enlist/meta/configs.nut")
-let { trimUpgradeSuffix, templateLevel } = require("%enlSqGlob/ui/itemsInfo.nut")
-let { shopItems } = require("%enlist/shop/shopItems.nut")
+let { templateLevel } = require("%enlSqGlob/ui/itemsInfo.nut")
+
 
 let requestedCratesContent = Watched({})
 let requested = {}
@@ -45,17 +44,6 @@ armyEffects.subscribe(function(effects) {
   if (armyId != null && curCrates.len() > 0)
     requestCratesContent(armyId, curCrates.keys())
 })
-metaGen.subscribe(@(_) requestedCratesContent({}))
-
-let function getCrateContentComp(armyId, crateId) {
-  requestCratesContent(armyId, [crateId])
-  let res = Computed(@() requestedCratesContent.value?[armyId][crateId])
-  res.subscribe(function(r) {
-    if (r == null)
-      requestCratesContent(armyId, [crateId])
-  })
-  return res
-}
 
 
 let function removeCrateContent(cratesData) {
@@ -83,38 +71,7 @@ let function getShopItemsIds(items) {
   return itemsInfo
 }
 
-let itemToShopItem = Computed(function(){
-  let res = {}
-  let allCrates = configs.value?.all_crates
-  shopItems.value.each(function(shopItem, shopItemId){
-    let crates = shopItem?.crates ?? []
-    crates.each(function(crate){
-      let {armyId, id} = crate
-      local itemsInCrate = allCrates[armyId][id]
-      if (armyId not in res)
-        res[armyId] <- {}
-
-      local allKeys = {}
-      foreach(item in itemsInCrate){
-        allKeys[trimUpgradeSuffix(item)] <- true
-      }
-
-      itemsInCrate.each(function(item){
-        if (item not in res[armyId])
-          res[armyId][item] <- {}
-        res[armyId][item][shopItemId] <- allKeys.len()
-      })
-    })
-  })
-
-  res.each(function(armyItems, armyId){
-    armyItems.each(function(item, itemId){
-      res[armyId][itemId] = item.keys().sort(@(a, b) item[a] <=> item[b])
-    })
-  })
-
-  return res
-})
+let itemToShopItem = Computed(@() configs.value?.item_to_shop_item ?? {})
 
 
 let function getShopListForItem(tpl, armyId, itemsToShopItems, allItemTemplates){
@@ -136,7 +93,6 @@ let function getShopListForItem(tpl, armyId, itemsToShopItems, allItemTemplates)
 }
 
 return {
-  getCrateContentComp
   getShopListForItem
   removeCrateContent
   requestCratesContent

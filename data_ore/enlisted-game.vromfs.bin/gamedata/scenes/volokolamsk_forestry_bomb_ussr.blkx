@@ -15,6 +15,11 @@
     }
   },
   {
+    "import": {
+      "scene": "content/enlisted/gamedata/scenes/_volokolamsk_autumn_common.blk"
+    }
+  },
+  {
     "entity": {
       "_template": "battle_area_polygon_point",
       "transform": [
@@ -874,61 +879,15 @@
   },
   {
     "entity": {
-      "_template": "wind"
-    }
-  },
-  {
-    "entity": {
-      "_template": "postfx_color_grading_tonemap_death_alive_enlisted"
-    }
-  },
-  {
-    "entity": {
-      "_template": "shaderVars",
-      "shader_vars__vars:object": {
-        "hmap_displacement_up": 0.3,
-        "ocean1": "#8e894700",
-        "ocean0": "#4c3f0500",
-        "ocean_density": 0.1,
-        "land_selfillum_worldscale": 0.9,
-        "river1": "#8e894700",
-        "river0": "#4c3f0500",
-        "hmap_displacement_down": -0.15,
-        "puddle_flat_hmap_reduce": 0.03,
-        "autodetect_land_selfillum_color": [0.53,0.0,0.0,0.16],
-        "paint_details_tex": "volokolamsk_building_colors_tex_palette*",
-        "land_selfillum_strength": 32.0,
-        "water_color_noise_size": 71.0,
-        "river_density": 0.3
-      }
-    }
-  },
-  {
-    "entity": {
-      "_template": "postfx_roundctrl"
-    }
-  },
-  {
-    "entity": {
-      "_template": "door_mult_ent_generator",
-      "ri_extra_gen__blk": "content/enlisted/gamedata/volokolamsk_doors.blk"
-    }
-  },
-  {
-    "entity": {
       "_template": "session_finalizer",
       "session_finalizer__timer": 10.0
     }
   },
   {
     "entity": {
-      "_template": "minimap_battle_of_moscow_volokolamsk_countryside_autumn"
-    }
-  },
-  {
-    "entity": {
       "_template": "briefing_destruction",
       "mission_name": "volokolamsk_forestry_bomb",
+      "mission_outfit": "moscow",
       "loading_images:list<t>": [
         {
           "item": "ui/volokolamsk_forestery_01.avif"
@@ -956,7 +915,6 @@
       "team__winSubtitle": "debriefing/won_invasion_destruction",
       "team__loseSubtitle": "debriefing/lost_invasion_destruction",
       "team__winTitle": "debriefing/ussr_won_destruction_attack_title",
-      "team__allowRebalance": false,
       "team__spawnBotArmy": "moscow_allies"
     }
   },
@@ -972,8 +930,7 @@
       "team__briefing": "destruction/defenders_goals",
       "team__winSubtitle": "debriefing/won_defence_destruction",
       "team__loseSubtitle": "debriefing/lost_defence_destruction",
-      "team__winTitle": "debriefing/germany_won_destruction_defence_title",
-      "team__allowRebalance": false,
+      "team__winTitle": "debriefing/axis_won_destruction_defence_title",
       "team__spawnBotArmy": "moscow_axis"
     }
   },
@@ -1043,14 +1000,14 @@
       "capzone__capReward": 500.0,
       "capzone__caption": "capzone/lumber_plant",
       "capzone__checkAllZonesInGroup": true,
-      "capzone__deactivateAfterTimeout": 0.0,
+      "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 2,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 3,
       "capzone__plantingTeam": 1,
-      "capzone__timeToPlant": 25.0,
-      "capzone__timeToDefuse": 15.0,
+      "capzone__timeToPlant": 20.0,
+      "capzone__timeToDefuse": 30.0,
       "capzone__timeToExplosion": 40.0,
       "capzone__bombTemplate": "bomb_site+bomb_site_radar_hardware_animchar_03",
       "capzone__bombTransformLocalPos": [
@@ -1081,14 +1038,14 @@
       "capzone__capReward": 500.0,
       "capzone__caption": "capzone/garage",
       "capzone__checkAllZonesInGroup": true,
-      "capzone__deactivateAfterTimeout": 0.0,
+      "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 2,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 3,
       "capzone__plantingTeam": 1,
-      "capzone__timeToPlant": 25.0,
-      "capzone__timeToDefuse": 15.0,
+      "capzone__timeToPlant": 20.0,
+      "capzone__timeToDefuse": 30.0,
       "capzone__timeToExplosion": 40.0,
       "capzone__bombTemplate": "bomb_site+bomb_site_radar_hardware_animchar_03",
       "capzone__bombTransformLocalPos": [
@@ -1119,15 +1076,15 @@
       "ui_order": 3,
       "capzone__capReward": 500.0,
       "capzone__checkAllZonesInGroup": true,
-      "capzone__deactivateAfterTimeout": 0.0,
+      "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 2,
       "sphere_zone__radius": 15.0,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 4,
       "capzone__plantingTeam": 1,
-      "capzone__timeToPlant": 25.0,
-      "capzone__timeToDefuse": 15.0,
+      "capzone__timeToPlant": 20.0,
+      "capzone__timeToDefuse": 30.0,
       "capzone__timeToExplosion": 40.0,
       "capzone__bombTemplate": "bomb_site+bomb_site_radar_hardware_animchar_03",
       "capzone__bombTransformLocalPos": [
@@ -1158,15 +1115,15 @@
       "ui_order": 4,
       "capzone__capReward": 500.0,
       "capzone__checkAllZonesInGroup": true,
-      "capzone__deactivateAfterTimeout": 0.0,
+      "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 2,
       "sphere_zone__radius": 15.0,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 4,
       "capzone__plantingTeam": 1,
-      "capzone__timeToPlant": 25.0,
-      "capzone__timeToDefuse": 15.0,
+      "capzone__timeToPlant": 20.0,
+      "capzone__timeToDefuse": 30.0,
       "capzone__timeToExplosion": 40.0,
       "capzone__bombTemplate": "bomb_site+bomb_site_radar_hardware_animchar_03",
       "capzone__bombTransformLocalPos": [
@@ -1197,15 +1154,15 @@
       "ui_order": 5,
       "capzone__capReward": 500.0,
       "capzone__checkAllZonesInGroup": true,
-      "capzone__deactivateAfterTimeout": 0.0,
+      "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 2,
       "sphere_zone__radius": 15.0,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 5,
       "capzone__plantingTeam": 1,
-      "capzone__timeToPlant": 25.0,
-      "capzone__timeToDefuse": 15.0,
+      "capzone__timeToPlant": 20.0,
+      "capzone__timeToDefuse": 30.0,
       "capzone__timeToExplosion": 40.0,
       "capzone__bombTemplate": "bomb_site+bomb_site_radar_hardware_animchar_03",
       "capzone__bombTransformLocalPos": [
@@ -1233,15 +1190,15 @@
       "ui_order": 6,
       "capzone__capReward": 500.0,
       "capzone__checkAllZonesInGroup": true,
-      "capzone__deactivateAfterTimeout": 0.0,
+      "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 2,
       "sphere_zone__radius": 14.5,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 5,
       "capzone__plantingTeam": 1,
-      "capzone__timeToPlant": 25.0,
-      "capzone__timeToDefuse": 15.0,
+      "capzone__timeToPlant": 20.0,
+      "capzone__timeToDefuse": 30.0,
       "capzone__timeToExplosion": 40.0,
       "capzone__bombTemplate": "bomb_site+bomb_site_radar_hardware_animchar_03",
       "capzone__bombTransformLocalPos": [
@@ -1745,10 +1702,10 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_fighter",
       "transform": [
-        [0.0260471,0.0,-0.999661],
+        [-0.0626711,0.0,-0.998034],
         [0.0,1.0,0.0],
-        [0.999661,0.0,0.0260471],
-        [-624.161,1000.0,2748.41]
+        [0.998034,0.0,-0.0626711],
+        [-708.816,1000.0,3592.31]
       ],
       "team": 1,
       "maxVehicleOnSpawn": 1,
@@ -1760,10 +1717,10 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_assault",
       "transform": [
-        [0.0260471,0.0,-0.999661],
+        [0.0200113,0.0,-0.9998],
         [0.0,1.0,0.0],
-        [0.999661,0.0,0.0260471],
-        [-791.056,800.0,2745.04]
+        [0.9998,-0.0,0.0200113],
+        [-872.914,800.0,3561.7]
       ],
       "team": 1,
       "maxVehicleOnSpawn": 1,
@@ -1775,10 +1732,10 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_fighter",
       "transform": [
-        [0.0260471,0.0,-0.999661],
+        [-0.00760742,0.0,-0.999971],
         [0.0,1.0,0.0],
-        [0.999661,0.0,0.0260471],
-        [-791.056,1000.0,2745.04]
+        [0.999971,0.0,-0.00760742],
+        [-872.914,1000.0,3561.7]
       ],
       "team": 1,
       "maxVehicleOnSpawn": 1,
@@ -1790,10 +1747,10 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_assault",
       "transform": [
-        [0.0260471,0.0,-0.999661],
+        [-0.0711963,0.0,-0.997462],
         [0.0,1.0,0.0],
-        [0.999661,0.0,0.0260471],
-        [-596.995,800.0,2750.45]
+        [0.997462,0.0,-0.0711963],
+        [-682.349,800.0,3598.77]
       ],
       "team": 1,
       "maxVehicleOnSpawn": 1,
@@ -1807,7 +1764,7 @@
         [-0.157002,0.0,-0.987599],
         [0.0,1.0,0.0],
         [0.987599,0.0,-0.157002],
-        [-2099.59,1000.0,3130.97]
+        [-2051.0,707.089,2674.81]
       ],
       "resupply_zone__team": 1
     }
@@ -1817,10 +1774,10 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_fighter",
       "transform": [
-        [-0.217759,0.0,0.976002],
+        [-0.524493,0.0,0.851414],
         [0.0,1.0,0.0],
-        [-0.976002,0.0,-0.217759],
-        [941.199,1000.0,-1638.53]
+        [-0.851414,0.0,-0.524493],
+        [915.46,1000.0,-2992.41]
       ],
       "team": 2,
       "maxVehicleOnSpawn": 1,
@@ -1832,10 +1789,10 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_assault",
       "transform": [
-        [-0.217759,0.0,0.976002],
+        [-0.523379,0.0,0.852099],
         [0.0,1.0,0.0],
-        [-0.976002,0.0,-0.217759],
-        [941.199,800.0,-1638.53]
+        [-0.852099,0.0,-0.523379],
+        [915.46,800.0,-2992.41]
       ],
       "team": 2,
       "maxVehicleOnSpawn": 1,
@@ -1847,10 +1804,10 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_fighter",
       "transform": [
-        [-0.217759,0.0,0.976002],
+        [-0.497487,0.0,0.86747],
         [0.0,1.0,0.0],
-        [-0.976002,0.0,-0.217759],
-        [813.414,1000.0,-1657.64]
+        [-0.86747,0.0,-0.497487],
+        [787.675,1000.0,-3011.52]
       ],
       "team": 2,
       "maxVehicleOnSpawn": 1,
@@ -1862,10 +1819,10 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_assault",
       "transform": [
-        [-0.217759,0.0,0.976002],
+        [-0.487383,0.0,0.873187],
         [0.0,1.0,0.0],
-        [-0.976002,0.0,-0.217759],
-        [783.694,800.0,-1664.78]
+        [-0.873187,0.0,-0.487383],
+        [757.955,800.0,-3018.66]
       ],
       "team": 2,
       "maxVehicleOnSpawn": 1,
@@ -1879,32 +1836,9 @@
         [0.119539,0.0,0.992829],
         [0.0,1.0,0.0],
         [-0.992829,0.0,0.119539],
-        [2254.74,1000.0,-1979.19]
+        [1563.57,731.983,-1439.35]
       ],
       "resupply_zone__team": 2
-    }
-  },
-  {
-    "entity": {
-      "_template": "volokolamsk_level",
-      "level__blk": "content/enlisted/levels/battle_of_moscow_volokolamsk_countryside_autumn.blk"
-    }
-  },
-  {
-    "entity": {
-      "_template": "clouds_hole_target",
-      "transform": [
-        [1.0,0.0,0.0],
-        [0.0,1.0,0.0],
-        [0.0,0.0,1.0],
-        [0.0,0.0,0.0]
-      ]
-    }
-  },
-  {
-    "entity": {
-      "_template": "water",
-      "water__strength": 1.3
     }
   },
   {

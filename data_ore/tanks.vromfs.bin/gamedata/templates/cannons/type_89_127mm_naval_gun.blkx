@@ -1,6 +1,6 @@
 {
   "type_89_127mm_naval_gun_go": {
-    "_extends": "base_ai_gunner_turret",
+    "_use": "base_ai_gunner_turret",
     "animchar__res": "type_89_127mm_naval_gun_char",
     "collres__res": "type_89_127mm_naval_gun_collision",
     "phys_obj_net_phys__blk": "content/enlisted/gamedata/units/cannons/type_89_127mm_naval_gun.blk",
@@ -84,25 +84,25 @@
     ]
   },
   "type_89_127mm_naval_gun_shield_go": {
-    "_extends": "type_89_127mm_naval_gun_go",
+    "_use": "type_89_127mm_naval_gun_go",
     "animchar__res": "type_89_127mm_naval_gun_shield_char",
     "collres__res": "type_89_127mm_naval_gun_shield_collision",
     "phys_obj_net_phys__blk": "content/enlisted/gamedata/units/cannons/type_89_127mm_naval_gun_shield.blk"
   },
   "type_89_127mm_naval_gun_turret_01": {
-    "_extends": "turret_ai_127mm_type89_main",
+    "_use": "turret_ai_127mm_type89_main",
     "gun__shootNodeName": "bone_gun_barrel_01"
   },
   "type_89_127mm_naval_gun_turret_02": {
-    "_extends": "turret_ai_127mm_type89",
+    "_use": "turret_ai_127mm_type89",
     "gun__shootNodeName": "bone_gun_barrel_02"
   },
   "turret_ai_127mm_type89_main": [
     {
-      "_extends": "turret_ai_127mm_type89"
+      "_use": "turret_ai_127mm_type89"
     },
     {
-      "_extends": "controlled_by_ai_gunner"
+      "_use": "controlled_by_ai_gunner"
     },
     {
       "turret_ai__shootAngleCos": 0.984
@@ -146,16 +146,16 @@
   ],
   "turret_ai_127mm_type89": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_tankgun_cannon"
+      "_use": "base_tankgun_cannon"
     },
     {
-      "_extends": "base_127mm_type89"
+      "_use": "base_127mm_type89"
     },
     {
-      "_extends": "gunsound_128mm_pak44"
+      "_use": "gunsound_128mm_pak44"
     },
     {
       "turret__triggerGroup": 0

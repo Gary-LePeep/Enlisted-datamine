@@ -98,21 +98,24 @@
       "plane_input__shoot": 0,
       "plane_input__shootCannons": 0,
       "plane_input__shootAdditionalGuns": 0,
-      "plane_input": {
-        "_tags": "input"
+      "_tracked": "plane_input__shoot",
+      "_group": {
+        "_tags": "input",
+        "vehicle_input__isZoom": false,
+        "plane_input": []
       }
     }
   },
   {
     "plane_hero_components": [
       {
-        "_extends": "base_vehicle_hero_components"
+        "_use": "base_vehicle_hero_components"
       },
       {
-        "_extends": "forestall"
+        "_use": "forestall"
       },
       {
-        "_extends": "plane_input"
+        "_use": "plane_input"
       },
       {
         "plane_input__speed": 4.0
@@ -123,11 +126,37 @@
     ]
   },
   {
-    "plane_control_components": {
-      "vehicle_input_axes:list<r>": {
-        "_tags": "input"
+    "plane_control_components": [
+      {
+        "plane_input__autoDisableMouseAim": false
+      },
+      {
+        "plane_input__mouseAimEnabled": true
+      },
+      {
+        "plane_input__simpleJoyEnabled": false
+      },
+      {
+        "plane_input__aileronsAxis": 0.0
+      },
+      {
+        "plane_input__elevatorAxis": 0.0
+      },
+      {
+        "_tracked": "plane_input__mouseAimEnabled"
+      },
+      {
+        "_tracked": "plane_input__simpleJoyEnabled"
+      },
+      {
+        "vehicle_input_axes:list<r>": {
+          "_tags": "input"
+        }
+      },
+      {
+        "hasVehicleControl:tag": []
       }
-    }
+    ]
   },
   {
     "plane_cutting": [
@@ -258,60 +287,55 @@
   },
   {
     "plane_wheel_effects": {
-      "plane_wheel_fx": {
-        "_tags": "render"
-      },
-      "_group": {
-        "_tags": "render",
-        "plane_wheel_fx__wheelDustPhysmatFxType": "dust",
-        "plane_wheel_fx__wheelFrictionPhysmatFxType": "friction",
-        "plane_wheel_fx__velMult": 0.7,
-        "plane_wheel_fx__spawnRate": [10.0,30.0,0.0,1.0],
-        "plane_wheel_fx__wheelAngularAccelMin": 30.0,
-        "plane_wheel_fx__emitters:list<t>": [
-          {
-            "node": "wheel_l"
-          },
-          {
-            "node": "wheel_1l"
-          },
-          {
-            "node": "wheel_r"
-          },
-          {
-            "node": "wheel_1r"
-          },
-          {
-            "node": "wheel_c"
-          },
-          {
-            "node": "wheel_2c"
-          },
-          {
-            "node": "wheel_3c"
-          }
-        ]
-      }
+      "_tags": "render",
+      "plane_wheel_fx__wheelAngularAccelMin": 30.0,
+      "plane_wheel_fx__wheelDustFxTemplate": "plane_ground_dust_effect",
+      "plane_wheel_fx__wheelFrictionFxTemplate": "plane_ground_dust_friction_effect",
+      "plane_wheel_fx__nodeIds:list<i>": [],
+      "plane_wheel_fx__dustFxEids:list<eid>": [],
+      "plane_wheel_fx__frictionFxEids:list<eid>": [],
+      "plane_wheel_fx__emitters:list<t>": [
+        {
+          "node": "wheel_l"
+        },
+        {
+          "node": "wheel_1l"
+        },
+        {
+          "node": "wheel_r"
+        },
+        {
+          "node": "wheel_1r"
+        },
+        {
+          "node": "wheel_c"
+        },
+        {
+          "node": "wheel_2c"
+        },
+        {
+          "node": "wheel_3c"
+        }
+      ]
     }
   },
   {
     "plane_propeller_effects": {
-      "propeller_fx__effects": {
-        "_tags": "render"
-      },
       "_group": {
         "_tags": "render",
-        "propeller_fx__propellerFxTypeId": -1,
-        "propeller_fx__helicopterRotorFxTypeId": -1,
-        "propeller_fx__propellerFxType": "propeller",
-        "propeller_fx__helicopterRotorFxType": "rotor",
+        "propeller_fx__ground_type": "plane_ground_dust_effect",
+        "propeller_fx__water_type": "plane_water_effect",
+        "propeller_fx__updateAtTime": 0.0,
+        "propeller_fx__updateInterval": 0.2,
         "propeller_fx__groundDustAlt": 50.0,
         "propeller_fx__groundDustForce": [150.0,2500.0],
         "propeller_fx__groundDustSpeed": [30.0,100.0],
         "propeller_fx__groundDustSpeedFromRotor": [5.0,8.0],
         "propeller_fx__waterSplashAlt": 40.0,
         "propeller_fx__waterSplashForce": [250.0,4000.0],
-        "propeller_fx__waterSplashSpeed": [30.0,100.0]
+        "propeller_fx__waterSplashSpeed": [30.0,100.0],
+        "propeller_fx__effectsEids:list<eid>": [],
+        "propeller_fx__matId:list<i>": []
       }
     }
   },
@@ -370,14 +394,14 @@
   },
   {
     "contrail_effects": {
-      "contrail_fx": {
-        "_tags": "render"
-      },
       "_group": {
         "_tags": "render",
-        "contrail_fx__fxType": "contrail",
+        "contrail_fx__fxTemplate": "trail_plane_exhaust_contrail_effect",
         "contrail_fx__maxContrailTemperature": -20.0,
         "contrail_fx__minThrottle": 0.05,
+        "contrail_fx__engineIndices:list<i>": [],
+        "contrail_fx__nodeIds:list<i>": [],
+        "contrail_fx__fxEids:list<eid>": [],
         "contrail_fx__emitters:array": [
           {
             "emitters:object": {
@@ -616,13 +640,13 @@
   {
     "plane_damage_effects": [
       {
-        "_extends": "plane_landcrash_fx"
+        "_use": "plane_landcrash_fx"
       },
       {
-        "_extends": "plane_engine_damage_fx"
+        "_use": "plane_engine_damage_fx"
       },
       {
-        "_extends": "plane_tank_damage_fx"
+        "_use": "plane_tank_damage_fx"
       }
     ]
   },
@@ -722,7 +746,7 @@
   {
     "squad_controlled_plane": [
       {
-        "_extends": "replicating"
+        "_use": "replicating"
       },
       {
         "isAlive": true
@@ -789,7 +813,7 @@
   },
   {
     "aircraft_carrier_landing_zone": {
-      "_extends": "replicating",
+      "_use": "replicating",
       "transform": [
         [1.0,0.0,0.0],
         [0.0,1.0,0.0],
@@ -845,94 +869,108 @@
   {
     "plane_base": [
       {
-        "_extends": "replicating"
+        "_use": "replicating"
       },
       {
-        "_extends": "animchar"
+        "_use": "animchar"
       },
       {
-        "_extends": "base_vehicle"
+        "_use": "base_vehicle"
       },
       {
-        "_extends": "plane_vehicle_seats"
+        "_use": "plane_vehicle_seats"
       },
       {
-        "_extends": "base_damage_model"
+        "_use": "base_damage_model"
       },
       {
-        "_extends": "plane_cutting"
+        "_use": "plane_cutting"
       },
       {
-        "_extends": "plane_wheel_effects"
+        "_use": "plane_wheel_effects"
       },
       {
-        "_extends": "plane_propeller_effects"
+        "_use": "plane_propeller_effects"
       },
       {
-        "_extends": "plane_piston_engine_effects"
+        "_use": "plane_piston_engine_effects"
       },
       {
-        "_extends": "contrail_effects"
+        "_use": "contrail_effects"
       },
       {
-        "_extends": "plane_damage_effects"
+        "_use": "plane_damage_effects"
       },
       {
-        "_extends": "plane_minimal_view"
+        "_use": "plane_minimal_view"
       },
       {
-        "_extends": "plane_view_engine"
+        "_use": "plane_view_engine"
       },
       {
-        "_extends": "capturer"
+        "_use": "capturer"
       },
       {
-        "_extends": "plane_inertial_cam"
+        "_use": "plane_inertial_cam"
       },
       {
-        "_extends": "vehicle_enter_accessibility"
+        "_use": "vehicle_enter_accessibility"
       },
       {
-        "_extends": "plane_carrier_assist"
+        "_use": "plane_carrier_assist"
       },
       {
-        "_extends": "plane_landing"
+        "_use": "plane_landing"
       },
       {
-        "_extends": "plane_landing_repair"
+        "_use": "plane_landing_repair"
       },
       {
-        "_extends": "plane_landing_hook"
+        "_use": "plane_landing_hook"
+      },
+      {
+        "_use": "plane_increased_damage"
       },
       {
         "battle_area__timeToDamageType": "aircraft"
       },
       {
-        "plane_input__autoDisableMouseAim": false
-      },
-      {
-        "plane_input__mouseAimEnabled": true
-      },
-      {
-        "plane_input__simpleJoyEnabled": false
-      },
-      {
-        "plane_input__aileronsAxis": 0.0
-      },
-      {
-        "plane_input__elevatorAxis": 0.0
-      },
-      {
         "plane_input__autopilotImpl": "No"
       },
       {
-        "_tracked": "plane_input__mouseAimEnabled"
+        "vehicle_seats__exitTime": 1.0
       },
       {
-        "_tracked": "plane_input__simpleJoyEnabled"
+        "vehicle_seats__enterTime": 2.0
       },
       {
-        "_tracked": "transform"
+        "vehicle_seats__restrictToTeam": -1
+      },
+      {
+        "zones_visitor__triggerTag": "planeTriggerable"
+      },
+      {
+        "hitmarks_victim__group": "plane"
+      },
+      {
+        "transform": [
+          [1.0,0.0,0.0],
+          [0.0,1.0,0.0],
+          [0.0,0.0,1.0],
+          [0.0,0.0,0.0]
+        ]
+      },
+      {
+        "needsBlood": false
+      },
+      {
+        "material": "steel"
+      },
+      {
+        "flight_angles": [0.0,0.0]
+      },
+      {
+        "flight_angles_enabled": false
       },
       {
         "_tracked": "flight_angles_enabled"
@@ -969,41 +1007,6 @@
       },
       {
         "_tracked": "fuelTanksFire"
-      },
-      {
-        "vehicle_seats__exitTime": 1.0
-      },
-      {
-        "vehicle_seats__enterTime": 2.0
-      },
-      {
-        "vehicle_seats__restrictToTeam": -1
-      },
-      {
-        "zones_visitor__triggerTag": "planeTriggerable"
-      },
-      {
-        "hitmarks__showUserHits": false
-      },
-      {
-        "transform": [
-          [1.0,0.0,0.0],
-          [0.0,1.0,0.0],
-          [0.0,0.0,1.0],
-          [0.0,0.0,0.0]
-        ]
-      },
-      {
-        "needsBlood": false
-      },
-      {
-        "material": "steel"
-      },
-      {
-        "flight_angles": [0.0,0.0]
-      },
-      {
-        "flight_angles_enabled": false
       },
       {
         "stick_pusher_enabled": false
@@ -1120,10 +1123,13 @@
         "camera__isStabilized": false
       },
       {
-        "camName": "plane_tps_cam"
+        "camera__headRoll": 0.0
       },
       {
-        "disableTurretCam": true
+        "vehicle_free_look__zoomIn": 2.0
+      },
+      {
+        "camName": "plane_tps_cam"
       },
       {
         "vehicleCameraType": 0
@@ -1258,9 +1264,21 @@
         "plane_cutting__finsFrontCuttingPlane": [0.0,0.0,0.0,-1.0]
       },
       {
+        "setup_on_ground__setupMaxHeight": 2000.0
+      },
+      {
         "vehicle__redeployOutsideBattleArea:tag": {
           "_tags": "server"
         }
+      },
+      {
+        "hitmarks__groups:list<t>": []
+      },
+      {
+        "hitmarks__groupsIds:list<i>": []
+      },
+      {
+        "grid_obj__updateAlways:tag": []
       },
       {
         "grid_obj": []
@@ -1302,7 +1320,7 @@
           "_tags": "server",
           "aircraft_state_engine__damagedTreshold": 0.8,
           "aircraft_state_engine__destroyedTreshold": 0.3,
-          "aircraft__isCapableOfTakeOff:b": {
+          "aircraft__isCapableOfTakeOffAndFly:b": {
             "value": true,
             "_track": true
           }
@@ -1320,10 +1338,20 @@
         }
       },
       {
+        "_group": {
+          "_tags": "gameClient",
+          "plane__currFlapsPosIndex": 0,
+          "plane__flapsIndices:list<i>": []
+        }
+      },
+      {
         "plane_anim": []
       },
       {
         "plane_net_phys": []
+      },
+      {
+        "base_net_phys_ptr": []
       },
       {
         "pair_collision__gridHolders": []
@@ -1527,10 +1555,10 @@
   {
     "plane_wreckage": [
       {
-        "_extends": "animchar"
+        "_use": "animchar"
       },
       {
-        "_extends": "plane_cutting"
+        "_use": "plane_cutting"
       },
       {
         "transform": [
@@ -1615,10 +1643,12 @@
         "plane_inertial_cam__headAccelRotScale": [0.25,0.25,0.25],
         "plane_inertial_cam__headAccelRotGravScale": [0.025,0.045],
         "plane_inertial_cam__headAccelRotLimits": [0.3,0.3,0.77],
-        "plane_inertial_cam__immediateToRotVisc": 0.1,
+        "plane_inertial_cam__immediateToRotVisc": 1.0,
         "plane_inertial_cam__headAccelScale": [0.02,0.02,0.1],
         "plane_inertial_cam__headMoveLimits": [0.12,0.1,0.12],
         "plane_inertial_cam__headMoveCustomLimits": [-1.0,1.0,-1.0,1.0],
+        "plane_inertial_cam__headRollLimit": 45.0,
+        "plane_inertial_cam__flightSense": 0.0,
         "plane_inertial_cam__headPos": [0.0,0.0,0.0],
         "plane_inertial_cam__headAccelPos": [0.0,0.0,0.0],
         "plane_inertial_cam__headAccelPos2": [0.0,0.0,0.0],
@@ -1664,6 +1694,24 @@
   {
     "ai_aircraft": [
       {
+        "vehicle_kill_assist__stat": "aiPlaneKillAssists"
+      },
+      {
+        "vehicle_kill_assist__crewStat": "aiPlaneKillAssistsAsCrew"
+      },
+      {
+        "vehicle_kill_assist__engineerStat": "builtGunAiPlaneKillAssists"
+      },
+      {
+        "vehicle_kill__stat": "aiPlaneKills"
+      },
+      {
+        "vehicle_kill__crewStat": "crewAiPlaneKillAssists"
+      },
+      {
+        "vehicle_kill__engineerStat": "builtGunAiPlaneKills"
+      },
+      {
         "forestall_target__maxDist:r": {
           "value": 2000.0,
           "_tags": "gameClient"
@@ -1671,13 +1719,13 @@
       },
       {
         "_group": {
-          "_tags": "server",
           "ai_aircraft__state": 0,
           "ai_aircraft__endPos": [0.0,0.0,0.0],
           "ai_aircraft__flyPos": [0.0,0.0,0.0],
           "ai_aircraft__targetPos": [0.0,0.0,0.0],
           "ai_aircraft__shootOffset": [0.0,0.0,0.0],
           "ai_aircraft__minDistToHide": 1000.0,
+          "ai_aircraft__distToKickParatroopers": 400.0,
           "ai_aircraft__wishSpeed": 75.0,
           "ai_aircraft__shoot_angles": [0.5,0.7],
           "ai_aircraft__prevShootLength": -1.0,
@@ -1704,6 +1752,7 @@
       {
         "_group": {
           "_tags": "ui",
+          "hud_aircraft_marker__visibilityHeight": 10.0,
           "hud_aircraft_marker__clampToBorder": true,
           "hud_aircraft_marker__isVisible": false,
           "hud_aircraft_marker__isIdentified": true,
@@ -1722,7 +1771,9 @@
   },
   {
     "requested_aircraft": {
+      "_use": "periodic_random_effects",
       "requested_aircraft:tag": [],
+      "destroyCrewOnDisappear:tag": [],
       "_group": {
         "_tags": "server",
         "requested_aircraft__aircraftRequesterEid:eid": []

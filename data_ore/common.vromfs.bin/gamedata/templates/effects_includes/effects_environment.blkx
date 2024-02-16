@@ -1,18 +1,29 @@
 {
-  "environment_effect_base": {
-    "_extends": "replicating",
-    "transform": [
-      [1.0,0.0,0.0],
-      [0.0,1.0,0.0],
-      [0.0,0.0,1.0],
-      [0.0,0.0,0.0]
-    ],
-    "_group": {
-      "_tags": "render",
-      "effect": []
+  "environment_effect_base": [
+    {
+      "_use": "replicating"
     },
-    "staticEffect:tag": []
-  },
+    {
+      "_use": "ecs_no_debug"
+    },
+    {
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [0.0,0.0,0.0]
+      ]
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect": []
+      }
+    },
+    {
+      "staticEffect:tag": []
+    }
+  ],
   "range_pauseable_effect": {
     "effect__emit_range_limit": 0.0,
     "_group": {
@@ -21,22 +32,422 @@
       "effect__emit_range_gap": 0.1
     }
   },
-  "damage_fire_base": {
-    "sphere_zone__radius": 1.0,
-    "dmgzone__teamToDamage": -1,
-    "dmgzone__damageInVehicle": false,
-    "dmgzone__damage": 0.0,
-    "dmgzone__fireAffect": 30.0,
-    "dmgzone__lastUpdate": -1.0,
-    "dm__damageType": "fire",
-    "dm__damageTypeId": -1
+  "environment_sound_effect_base": {
+    "_use": "sound_effect",
+    "_group": {
+      "_tags": "sound",
+      "sound_effect__abandonOnReset": true
+    }
   },
-  "envir_smoke_tiny_effect": [
+  "oneshot_environment_sound_effect_base": {
+    "_use": "environment_sound_effect_base"
+  },
+  "envir_oil_effect": [
     {
-      "_extends": "environment_effect_base"
+      "_use": "environment_effect_base"
     },
     {
-      "_extends": "range_pauseable_effect"
+      "_use": "range_pauseable_effect"
+    },
+    {
+      "effect__emit_range_limit": 100.0
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "misc_oil_cmps_fx"
+      }
+    }
+  ],
+  "envir_misc_flies_gray_effect": [
+    {
+      "_use": "environment_effect_base"
+    },
+    {
+      "_use": "range_pauseable_effect"
+    },
+    {
+      "effect__emit_range_limit": 15.0
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "envir_misc_flies_gray_cmps_fx"
+      }
+    }
+  ],
+  "envir_waterfall_medium_effect": [
+    {
+      "_use": "environment_effect_base"
+    },
+    {
+      "_use": "range_pauseable_effect"
+    },
+    {
+      "effect__emit_range_limit": 180.0
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "water_waterfall_medium_cmps_fx"
+      }
+    }
+  ],
+  "envir_waterfall_medium_splash_effect": [
+    {
+      "_use": "environment_effect_base"
+    },
+    {
+      "_use": "range_pauseable_effect"
+    },
+    {
+      "effect__emit_range_limit": 100.0
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "water_waterfall_medium_splash_cmps_fx"
+      }
+    }
+  ],
+  "envir_waterfall_medium_cloud_effect": [
+    {
+      "_use": "environment_effect_base"
+    },
+    {
+      "_use": "range_pauseable_effect"
+    },
+    {
+      "effect__emit_range_limit": 100.0
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "water_waterfall_medium_cloud_cmps_fx"
+      }
+    }
+  ],
+  "envir_water_flow_stream_big_effect": [
+    {
+      "_use": "environment_effect_base"
+    },
+    {
+      "_use": "range_pauseable_effect"
+    },
+    {
+      "effect__emit_range_limit": 180.0
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "water_flow_stream_big_cmps_fx"
+      }
+    }
+  ],
+  "envir_water_flow_splash_big_effect": [
+    {
+      "_use": "environment_effect_base"
+    },
+    {
+      "_use": "range_pauseable_effect"
+    },
+    {
+      "effect__emit_range_limit": 180.0
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "water_flow_splash_big_cmps_fx"
+      }
+    }
+  ],
+  "envir_water_flow_stream_medium_effect": [
+    {
+      "_use": "environment_effect_base"
+    },
+    {
+      "_use": "range_pauseable_effect"
+    },
+    {
+      "effect__emit_range_limit": 150.0
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "water_flow_stream_medium_cmps_fx"
+      }
+    }
+  ],
+  "envir_water_flow_splash_medium_effect": [
+    {
+      "_use": "environment_effect_base"
+    },
+    {
+      "_use": "range_pauseable_effect"
+    },
+    {
+      "effect__emit_range_limit": 150.0
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "water_flow_splash_medium_cmps_fx"
+      }
+    }
+  ],
+  "envir_water_flow_stream_small_effect": [
+    {
+      "_use": "environment_effect_base"
+    },
+    {
+      "_use": "range_pauseable_effect"
+    },
+    {
+      "effect__emit_range_limit": 80.0
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "water_flow_stream_small_cmps_fx"
+      }
+    }
+  ],
+  "envir_water_flow_splash_small_effect": [
+    {
+      "_use": "environment_effect_base"
+    },
+    {
+      "_use": "range_pauseable_effect"
+    },
+    {
+      "effect__emit_range_limit": 80.0
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "water_flow_splash_small_cmps_fx"
+      }
+    }
+  ],
+  "envir_water_flow_stream_small_thin_effect": [
+    {
+      "_use": "environment_effect_base"
+    },
+    {
+      "_use": "range_pauseable_effect"
+    },
+    {
+      "effect__emit_range_limit": 50.0
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "water_flow_stream_small_thin_cmps_fx"
+      }
+    }
+  ],
+  "envir_water_flow_splash_small_thin_effect": [
+    {
+      "_use": "environment_effect_base"
+    },
+    {
+      "_use": "range_pauseable_effect"
+    },
+    {
+      "effect__emit_range_limit": 50.0
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "water_flow_splash_small_thin_cmps_fx"
+      }
+    }
+  ],
+  "envir_water_flow_stream_small_thin_2_effect": [
+    {
+      "_use": "environment_effect_base"
+    },
+    {
+      "_use": "range_pauseable_effect"
+    },
+    {
+      "effect__emit_range_limit": 20.0
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "water_flow_stream_small_thin_2_cmps_fx"
+      }
+    }
+  ],
+  "envir_water_bubbles_big_effect": [
+    {
+      "_use": "environment_effect_base"
+    },
+    {
+      "_use": "range_pauseable_effect"
+    },
+    {
+      "effect__emit_range_limit": 20.0
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "water_bubbles_big_cmps_fx"
+      }
+    }
+  ],
+  "envir_water_bubbles_medium_effect": [
+    {
+      "_use": "environment_effect_base"
+    },
+    {
+      "_use": "range_pauseable_effect"
+    },
+    {
+      "effect__emit_range_limit": 15.0
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "water_bubbles_med_cmps_fx"
+      }
+    }
+  ],
+  "envir_water_bubbles_small_effect": [
+    {
+      "_use": "environment_effect_base"
+    },
+    {
+      "_use": "range_pauseable_effect"
+    },
+    {
+      "effect__emit_range_limit": 10.0
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "water_bubbles_small_cmps_fx"
+      }
+    }
+  ],
+  "envir_steam_stream_effect": [
+    {
+      "_use": "environment_effect_base"
+    },
+    {
+      "_use": "range_pauseable_effect"
+    },
+    {
+      "_use": "environment_sound_effect_base"
+    },
+    {
+      "effect__emit_range_limit": 120.0
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "envir_smoke_static_steam_stream_cmps_fx"
+      }
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "sound_effect__path": "env_effects/steam/steam_stream"
+      }
+    }
+  ],
+  "envir_steam_small_effect": [
+    {
+      "_use": "environment_effect_base"
+    },
+    {
+      "_use": "range_pauseable_effect"
+    },
+    {
+      "effect__emit_range_limit": 120.0
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "envir_smoke_static_steam_small_cmps_fx"
+      }
+    }
+  ],
+  "envir_steam_medium_effect": [
+    {
+      "_use": "environment_effect_base"
+    },
+    {
+      "_use": "range_pauseable_effect"
+    },
+    {
+      "effect__emit_range_limit": 400.0
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "envir_smoke_static_steam_medium_cmps_fx"
+      }
+    }
+  ],
+  "envir_steam_big_effect": [
+    {
+      "_use": "environment_effect_base"
+    },
+    {
+      "_use": "range_pauseable_effect"
+    },
+    {
+      "effect__emit_range_limit": 1500.0
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "envir_smoke_static_steam_big_cmps_fx"
+      }
+    }
+  ],
+  "envir_steam_tube_big_damage_effect": [
+    {
+      "_use": "environment_effect_base"
+    },
+    {
+      "_use": "range_pauseable_effect"
+    },
+    {
+      "effect__emit_range_limit": 1500.0
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "envir_smoke_static_tube_big_damage_cmps_fx"
+      }
+    }
+  ],
+  "envir_steam_radial_effect": [
+    {
+      "_use": "environment_effect_base"
+    },
+    {
+      "_use": "range_pauseable_effect"
+    },
+    {
+      "effect__emit_range_limit": 120.0
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "envir_smoke_static_steam_radial_cmps_fx"
+      }
+    }
+  ],
+  "envir_smoke_tiny_effect": [
+    {
+      "_use": "environment_effect_base"
+    },
+    {
+      "_use": "range_pauseable_effect"
     },
     {
       "effect__emit_range_limit": 120.0
@@ -50,10 +461,10 @@
   ],
   "envir_smoke_small_effect": [
     {
-      "_extends": "environment_effect_base"
+      "_use": "environment_effect_base"
     },
     {
-      "_extends": "range_pauseable_effect"
+      "_use": "range_pauseable_effect"
     },
     {
       "effect__emit_range_limit": 200.0
@@ -67,10 +478,10 @@
   ],
   "envir_smoke_medium_effect": [
     {
-      "_extends": "environment_effect_base"
+      "_use": "environment_effect_base"
     },
     {
-      "_extends": "range_pauseable_effect"
+      "_use": "range_pauseable_effect"
     },
     {
       "effect__emit_range_limit": 800.0
@@ -84,10 +495,10 @@
   ],
   "envir_smoke_big_effect": [
     {
-      "_extends": "environment_effect_base"
+      "_use": "environment_effect_base"
     },
     {
-      "_extends": "range_pauseable_effect"
+      "_use": "range_pauseable_effect"
     },
     {
       "effect__emit_range_limit": 1500.0
@@ -99,36 +510,53 @@
       }
     }
   ],
+  "envir_smoke_dark_medium_effect": [
+    {
+      "_use": "environment_effect_base"
+    },
+    {
+      "_use": "range_pauseable_effect"
+    },
+    {
+      "effect__emit_range_limit": 800.0
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "envir_smoke_static_dark_medium_cmps_fx"
+      }
+    }
+  ],
   "envir_smoke_bg_medium_effect": {
-    "_extends": "environment_effect_base",
+    "_use": "environment_effect_base",
     "_group": {
       "_tags": "render",
       "effect__name": "envir_smoke_bg_medium_cmps_fx"
     }
   },
   "envir_smoke_bg_big_effect": {
-    "_extends": "environment_effect_base",
+    "_use": "environment_effect_base",
     "_group": {
       "_tags": "render",
       "effect__name": "envir_smoke_bg_big_cmps_fx"
     }
   },
   "envir_smoke_bg_massive_effect": {
-    "_extends": "environment_effect_base",
+    "_use": "environment_effect_base",
     "_group": {
       "_tags": "render",
       "effect__name": "envir_smoke_bg_massive_cmps_fx"
     }
   },
   "envir_smoke_bg_thick_effect": {
-    "_extends": "environment_effect_base",
+    "_use": "environment_effect_base",
     "_group": {
       "_tags": "render",
       "effect__name": "envir_smoke_bg_thick_cmps_fx"
     }
   },
   "envir_smoke_bg_thin_effect": {
-    "_extends": "environment_effect_base",
+    "_use": "environment_effect_base",
     "_group": {
       "_tags": "render",
       "effect__name": "envir_smoke_bg_thin_cmps_fx"
@@ -136,13 +564,13 @@
   },
   "envir_misc_burned_ground_dist_5m_effect": [
     {
-      "_extends": "environment_effect_base"
+      "_use": "environment_effect_base"
     },
     {
-      "_extends": "sound_effect"
+      "_use": "environment_sound_effect_base"
     },
     {
-      "_extends": "range_pauseable_effect"
+      "_use": "range_pauseable_effect"
     },
     {
       "effect__emit_range_limit": 120.0
@@ -156,20 +584,19 @@
     {
       "_group": {
         "_tags": "sound",
-        "sound_effect__path": "env_effects/fire/dirt_fire_crackle",
-        "sound_effect__abandonOnReset": true
+        "sound_effect__path": "env_effects/fire/dirt_fire_crackle"
       }
     }
   ],
   "envir_misc_burned_ground_dist_15m_effect": [
     {
-      "_extends": "environment_effect_base"
+      "_use": "environment_effect_base"
     },
     {
-      "_extends": "sound_effect"
+      "_use": "environment_sound_effect_base"
     },
     {
-      "_extends": "range_pauseable_effect"
+      "_use": "range_pauseable_effect"
     },
     {
       "effect__emit_range_limit": 120.0
@@ -183,20 +610,19 @@
     {
       "_group": {
         "_tags": "sound",
-        "sound_effect__path": "env_effects/fire/dirt_fire_crackle",
-        "sound_effect__abandonOnReset": true
+        "sound_effect__path": "env_effects/fire/dirt_fire_crackle"
       }
     }
   ],
   "envir_misc_burned_ground_dist_30m_effect": [
     {
-      "_extends": "environment_effect_base"
+      "_use": "environment_effect_base"
     },
     {
-      "_extends": "sound_effect"
+      "_use": "environment_sound_effect_base"
     },
     {
-      "_extends": "range_pauseable_effect"
+      "_use": "range_pauseable_effect"
     },
     {
       "effect__emit_range_limit": 120.0
@@ -210,20 +636,19 @@
     {
       "_group": {
         "_tags": "sound",
-        "sound_effect__path": "env_effects/fire/dirt_fire_crackle",
-        "sound_effect__abandonOnReset": true
+        "sound_effect__path": "env_effects/fire/dirt_fire_crackle"
       }
     }
   ],
   "envir_misc_burned_ground_fire_5m_effect": [
     {
-      "_extends": "environment_effect_base"
+      "_use": "environment_effect_base"
     },
     {
-      "_extends": "sound_effect"
+      "_use": "environment_sound_effect_base"
     },
     {
-      "_extends": "range_pauseable_effect"
+      "_use": "range_pauseable_effect"
     },
     {
       "effect__emit_range_limit": 120.0
@@ -237,20 +662,45 @@
     {
       "_group": {
         "_tags": "sound",
-        "sound_effect__path": "env_effects/fire/fire_small",
-        "sound_effect__abandonOnReset": true
+        "sound_effect__path": "env_effects/fire/fire_small"
+      }
+    }
+  ],
+  "envir_misc_burned_ground_fire_5m_low_effect": [
+    {
+      "_use": "environment_effect_base"
+    },
+    {
+      "_use": "environment_sound_effect_base"
+    },
+    {
+      "_use": "range_pauseable_effect"
+    },
+    {
+      "effect__emit_range_limit": 120.0
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "envir_misc_burned_ground_fire_5m_low_cmps_fx"
+      }
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "sound_effect__path": "env_effects/fire/fire_small"
       }
     }
   ],
   "envir_misc_burned_ground_fire_15m_effect": [
     {
-      "_extends": "environment_effect_base"
+      "_use": "environment_effect_base"
     },
     {
-      "_extends": "sound_effect"
+      "_use": "environment_sound_effect_base"
     },
     {
-      "_extends": "range_pauseable_effect"
+      "_use": "range_pauseable_effect"
     },
     {
       "effect__emit_range_limit": 120.0
@@ -264,17 +714,16 @@
     {
       "_group": {
         "_tags": "sound",
-        "sound_effect__path": "env_effects/fire/fire_small",
-        "sound_effect__abandonOnReset": true
+        "sound_effect__path": "env_effects/fire/fire_small"
       }
     }
   ],
   "envir_misc_burned_ground_smoke_single_effect": [
     {
-      "_extends": "environment_effect_base"
+      "_use": "environment_effect_base"
     },
     {
-      "_extends": "range_pauseable_effect"
+      "_use": "range_pauseable_effect"
     },
     {
       "effect__emit_range_limit": 120.0
@@ -288,10 +737,10 @@
   ],
   "envir_misc_burned_ground_smoke_15m_effect": [
     {
-      "_extends": "environment_effect_base"
+      "_use": "environment_effect_base"
     },
     {
-      "_extends": "range_pauseable_effect"
+      "_use": "range_pauseable_effect"
     },
     {
       "effect__emit_range_limit": 120.0
@@ -304,18 +753,35 @@
     }
   ],
   "envir_smoke_checkpoint_effect": {
-    "_extends": "environment_effect_base",
+    "_use": "environment_effect_base",
     "_group": {
       "_tags": "render",
       "effect__name": "envir_smoke_checkpoint_cmps_fx"
     }
   },
-  "envir_sparks_ground_3m_effect": [
+  "envir_sparks_ground_1m_effect": [
     {
-      "_extends": "environment_effect_base"
+      "_use": "environment_effect_base"
     },
     {
-      "_extends": "range_pauseable_effect"
+      "_use": "range_pauseable_effect"
+    },
+    {
+      "effect__emit_range_limit": 90.0
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "envir_sparks_ground_1m_cmps_fx"
+      }
+    }
+  ],
+  "envir_sparks_ground_3m_effect": [
+    {
+      "_use": "environment_effect_base"
+    },
+    {
+      "_use": "range_pauseable_effect"
     },
     {
       "effect__emit_range_limit": 90.0
@@ -329,10 +795,10 @@
   ],
   "envir_sparks_ground_5m_effect": [
     {
-      "_extends": "environment_effect_base"
+      "_use": "environment_effect_base"
     },
     {
-      "_extends": "range_pauseable_effect"
+      "_use": "range_pauseable_effect"
     },
     {
       "effect__emit_range_limit": 95.0
@@ -346,10 +812,10 @@
   ],
   "envir_sparks_ground_10m_effect": [
     {
-      "_extends": "environment_effect_base"
+      "_use": "environment_effect_base"
     },
     {
-      "_extends": "range_pauseable_effect"
+      "_use": "range_pauseable_effect"
     },
     {
       "effect__emit_range_limit": 100.0
@@ -363,10 +829,10 @@
   ],
   "envir_sparks_burst_big_effect": [
     {
-      "_extends": "environment_effect_base"
+      "_use": "environment_effect_base"
     },
     {
-      "_extends": "range_pauseable_effect"
+      "_use": "range_pauseable_effect"
     },
     {
       "effect__emit_range_limit": 80.0
@@ -380,10 +846,10 @@
   ],
   "envir_sparks_burst_line_effect": [
     {
-      "_extends": "environment_effect_base"
+      "_use": "environment_effect_base"
     },
     {
-      "_extends": "range_pauseable_effect"
+      "_use": "range_pauseable_effect"
     },
     {
       "effect__emit_range_limit": 80.0
@@ -397,13 +863,16 @@
   ],
   "envir_sparks_burst_small_effect": [
     {
-      "_extends": "environment_effect_base"
+      "_use": "environment_effect_base"
     },
     {
-      "_extends": "range_pauseable_effect"
+      "_use": "range_pauseable_effect"
     },
     {
       "effect__emit_range_limit": 80.0
+    },
+    {
+      "destroyable_with_rendinst:tag": []
     },
     {
       "_group": {
@@ -412,18 +881,85 @@
       }
     }
   ],
+  "envir_sparks_burst_tiny_smoke_effect": [
+    {
+      "_use": "environment_effect_base"
+    },
+    {
+      "_use": "oneshot_environment_sound_effect_base"
+    },
+    {
+      "destroyable_with_rendinst:tag": []
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "envir_sparks_burst_tiny_smoke_cmps_fx"
+      }
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "sound_effect__path": "env_effects/electric_sparks"
+      }
+    },
+    {
+      "autodeleteEffectEntity:tag": []
+    }
+  ],
+  "envir_sparks_burst_tiny_smoke_lamp_effect": [
+    {
+      "_use": "ecs_no_debug"
+    },
+    {
+      "_use": "oneshot_environment_sound_effect_base"
+    },
+    {
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [0.0,0.0,0.0]
+      ]
+    },
+    {
+      "destroyable_with_rendinst:tag": []
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "envir_sparks_burst_tiny_smoke_cmps_fx",
+        "effect": []
+      }
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "sound_effect__path": "env_effects/electric_sparks"
+      }
+    },
+    {
+      "autodeleteEffectEntity:tag": []
+    },
+    {
+      "staticEffect:tag": []
+    }
+  ],
   "envir_sparks_small_continious_effect": [
     {
-      "_extends": "environment_effect_base"
+      "_use": "environment_effect_base"
     },
     {
-      "_extends": "sound_effect"
+      "_use": "environment_sound_effect_base"
     },
     {
-      "_extends": "range_pauseable_effect"
+      "_use": "range_pauseable_effect"
     },
     {
       "effect__emit_range_limit": 80.0
+    },
+    {
+      "destroyable_with_rendinst:tag": []
     },
     {
       "_group": {
@@ -434,23 +970,54 @@
     {
       "_group": {
         "_tags": "sound",
-        "sound_effect__path": "env_effects/electric_continious_sparks",
-        "sound_effect__abandonOnReset": true
+        "sound_effect__path": "env_effects/electric_continious_sparks"
+      }
+    }
+  ],
+  "envir_sparks_small_continious_no_light_effect": [
+    {
+      "_use": "environment_effect_base"
+    },
+    {
+      "_use": "environment_sound_effect_base"
+    },
+    {
+      "_use": "range_pauseable_effect"
+    },
+    {
+      "effect__emit_range_limit": 80.0
+    },
+    {
+      "destroyable_with_rendinst:tag": []
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "envir_sparks_small_continious_no_light_cmps_fx"
+      }
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "sound_effect__path": "env_effects/electric_continious_sparks"
       }
     }
   ],
   "envir_sparks_small_continious_column_effect": [
     {
-      "_extends": "environment_effect_base"
+      "_use": "environment_effect_base"
     },
     {
-      "_extends": "sound_effect"
+      "_use": "environment_sound_effect_base"
     },
     {
-      "_extends": "range_pauseable_effect"
+      "_use": "range_pauseable_effect"
     },
     {
       "effect__emit_range_limit": 80.0
+    },
+    {
+      "destroyable_with_rendinst:tag": []
     },
     {
       "_group": {
@@ -461,17 +1028,45 @@
     {
       "_group": {
         "_tags": "sound",
-        "sound_effect__path": "env_effects/electric_continious_sparks",
-        "sound_effect__abandonOnReset": true
+        "sound_effect__path": "env_effects/electric_continious_sparks"
+      }
+    }
+  ],
+  "envir_sparks_small_continious_column_no_light_effect": [
+    {
+      "_use": "environment_effect_base"
+    },
+    {
+      "_use": "environment_sound_effect_base"
+    },
+    {
+      "_use": "range_pauseable_effect"
+    },
+    {
+      "effect__emit_range_limit": 80.0
+    },
+    {
+      "destroyable_with_rendinst:tag": []
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "envir_sparks_small_continious_column_no_light_cmps_fx"
+      }
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "sound_effect__path": "env_effects/electric_continious_sparks"
       }
     }
   ],
   "envir_misc_floating_ashes_single_effect": [
     {
-      "_extends": "environment_effect_base"
+      "_use": "environment_effect_base"
     },
     {
-      "_extends": "range_pauseable_effect"
+      "_use": "range_pauseable_effect"
     },
     {
       "effect__emit_range_limit": 50.0
@@ -483,12 +1078,31 @@
       }
     }
   ],
-  "envir_misc_floating_ashes_effect": [
+  "envir_misc_floating_ashes_2m_up_effect": [
     {
-      "_extends": "environment_effect_base"
+      "_use": "environment_effect_base"
     },
     {
-      "_extends": "range_pauseable_effect"
+      "_use": "range_pauseable_effect"
+    },
+    {
+      "effect__emit_range_limit": 50.0
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "envir_misc_floating_ashes_2m_up_cmps_fx",
+        "ash_effect__timeToDestroyAfterFireWasDestroyed": 5.0,
+        "gun_flash_fx__timeToDestroy": 100000.0
+      }
+    }
+  ],
+  "envir_misc_floating_ashes_effect": [
+    {
+      "_use": "environment_effect_base"
+    },
+    {
+      "_use": "range_pauseable_effect"
     },
     {
       "effect__emit_range_limit": 50.0
@@ -502,10 +1116,10 @@
   ],
   "envir_misc_floating_leaves_5m_effect": [
     {
-      "_extends": "environment_effect_base"
+      "_use": "environment_effect_base"
     },
     {
-      "_extends": "range_pauseable_effect"
+      "_use": "range_pauseable_effect"
     },
     {
       "effect__emit_range_limit": 50.0
@@ -519,10 +1133,10 @@
   ],
   "envir_misc_floating_leaves_15m_effect": [
     {
-      "_extends": "environment_effect_base"
+      "_use": "environment_effect_base"
     },
     {
-      "_extends": "range_pauseable_effect"
+      "_use": "range_pauseable_effect"
     },
     {
       "effect__emit_range_limit": 50.0
@@ -536,10 +1150,10 @@
   ],
   "envir_misc_floating_autumn_leaves_15m_effect": [
     {
-      "_extends": "environment_effect_base"
+      "_use": "environment_effect_base"
     },
     {
-      "_extends": "range_pauseable_effect"
+      "_use": "range_pauseable_effect"
     },
     {
       "effect__emit_range_limit": 50.0
@@ -553,10 +1167,10 @@
   ],
   "envir_misc_floating_leaves_30m_effect": [
     {
-      "_extends": "environment_effect_base"
+      "_use": "environment_effect_base"
     },
     {
-      "_extends": "range_pauseable_effect"
+      "_use": "range_pauseable_effect"
     },
     {
       "effect__emit_range_limit": 50.0
@@ -570,10 +1184,10 @@
   ],
   "envir_misc_floating_papers_2m_effect": [
     {
-      "_extends": "environment_effect_base"
+      "_use": "environment_effect_base"
     },
     {
-      "_extends": "range_pauseable_effect"
+      "_use": "range_pauseable_effect"
     },
     {
       "effect__emit_range_limit": 65.0
@@ -587,10 +1201,10 @@
   ],
   "envir_misc_floating_papers_5m_effect": [
     {
-      "_extends": "environment_effect_base"
+      "_use": "environment_effect_base"
     },
     {
-      "_extends": "range_pauseable_effect"
+      "_use": "range_pauseable_effect"
     },
     {
       "effect__emit_range_limit": 70.0
@@ -604,10 +1218,10 @@
   ],
   "envir_misc_floating_papers_15m_effect": [
     {
-      "_extends": "environment_effect_base"
+      "_use": "environment_effect_base"
     },
     {
-      "_extends": "range_pauseable_effect"
+      "_use": "range_pauseable_effect"
     },
     {
       "effect__emit_range_limit": 70.0
@@ -621,10 +1235,10 @@
   ],
   "envir_misc_floating_papers_30m_effect": [
     {
-      "_extends": "environment_effect_base"
+      "_use": "environment_effect_base"
     },
     {
-      "_extends": "range_pauseable_effect"
+      "_use": "range_pauseable_effect"
     },
     {
       "effect__emit_range_limit": 80.0
@@ -637,21 +1251,21 @@
     }
   ],
   "envir_fire_background_effect": {
-    "_extends": "environment_effect_base",
+    "_use": "environment_effect_base",
     "_group": {
       "_tags": "render",
       "effect__name": "envir_fire_background_cmps_fx"
     }
   },
   "envir_fire_background_medium_effect": {
-    "_extends": "environment_effect_base",
+    "_use": "environment_effect_base",
     "_group": {
       "_tags": "render",
       "effect__name": "envir_fire_background_medium_cmps_fx"
     }
   },
   "envir_fire_background_small_effect": {
-    "_extends": "environment_effect_base",
+    "_use": "environment_effect_base",
     "_group": {
       "_tags": "render",
       "effect__name": "envir_fire_background_small_cmps_fx"
@@ -659,10 +1273,10 @@
   },
   "envir_dust_floating_effect": [
     {
-      "_extends": "environment_effect_base"
+      "_use": "environment_effect_base"
     },
     {
-      "_extends": "range_pauseable_effect"
+      "_use": "range_pauseable_effect"
     },
     {
       "effect__emit_range_limit": 40.0
@@ -676,10 +1290,10 @@
   ],
   "envir_dust_ground_distortion_15m_effect": [
     {
-      "_extends": "environment_effect_base"
+      "_use": "environment_effect_base"
     },
     {
-      "_extends": "range_pauseable_effect"
+      "_use": "range_pauseable_effect"
     },
     {
       "effect__emit_range_limit": 60.0
@@ -693,10 +1307,10 @@
   ],
   "envir_dust_ground_dust_15m_effect": [
     {
-      "_extends": "environment_effect_base"
+      "_use": "environment_effect_base"
     },
     {
-      "_extends": "range_pauseable_effect"
+      "_use": "range_pauseable_effect"
     },
     {
       "effect__emit_range_limit": 60.0
@@ -710,10 +1324,10 @@
   ],
   "envir_dust_ground_sand_15m_effect": [
     {
-      "_extends": "environment_effect_base"
+      "_use": "environment_effect_base"
     },
     {
-      "_extends": "range_pauseable_effect"
+      "_use": "range_pauseable_effect"
     },
     {
       "effect__emit_range_limit": 60.0
@@ -727,10 +1341,10 @@
   ],
   "envir_dust_ground_snow_15m_effect": [
     {
-      "_extends": "environment_effect_base"
+      "_use": "environment_effect_base"
     },
     {
-      "_extends": "range_pauseable_effect"
+      "_use": "range_pauseable_effect"
     },
     {
       "effect__emit_range_limit": 60.0
@@ -743,31 +1357,99 @@
     }
   ],
   "envir_dust_swirling_sand_effect": {
-    "_extends": "environment_effect_base",
+    "_use": "environment_effect_base",
     "_group": {
       "_tags": "render",
       "effect__name": "envir_dust_swirling_sand_cmps_fx"
     }
   },
   "envir_dust_swirling_snow_effect": {
-    "_extends": "environment_effect_base",
+    "_use": "environment_effect_base",
     "_group": {
       "_tags": "render",
       "effect__name": "envir_dust_swirling_snow_cmps_fx"
     }
   },
+  "envir_dust_ground_snow_storm_15m_effect": [
+    {
+      "_use": "environment_effect_base"
+    },
+    {
+      "_use": "range_pauseable_effect"
+    },
+    {
+      "effect__emit_range_limit": 90.0
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "envir_dust_ground_snow_storm_15m_cmps_fx"
+      }
+    }
+  ],
+  "envir_dust_ground_snow_drift_15m_effect": [
+    {
+      "_use": "environment_effect_base"
+    },
+    {
+      "_use": "range_pauseable_effect"
+    },
+    {
+      "effect__emit_range_limit": 90.0
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "envir_dust_ground_snow_drift_15m_cmps_fx"
+      }
+    }
+  ],
+  "envir_dust_ground_snow_fall_effect": [
+    {
+      "_use": "environment_effect_base"
+    },
+    {
+      "_use": "range_pauseable_effect"
+    },
+    {
+      "effect__emit_range_limit": 90.0
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "envir_dust_ground_snow_fall_cmps_fx"
+      }
+    }
+  ],
+  "envir_dust_ground_snow_fall_trees_effect": [
+    {
+      "_use": "environment_effect_base"
+    },
+    {
+      "_use": "range_pauseable_effect"
+    },
+    {
+      "effect__emit_range_limit": 90.0
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "envir_dust_ground_snow_fall_trees_cmps_fx"
+      }
+    }
+  ],
   "fire_spot_1m_effect": [
     {
-      "_extends": "environment_effect_base"
+      "_use": "environment_effect_base"
     },
     {
-      "_extends": "sound_effect"
+      "_use": "environment_sound_effect_base"
     },
     {
-      "_extends": "damage_fire_base"
+      "_use": "damage_fire_base"
     },
     {
-      "_extends": "range_pauseable_effect"
+      "_use": "range_pauseable_effect"
     },
     {
       "sphere_zone__radius": 0.5
@@ -784,23 +1466,22 @@
     {
       "_group": {
         "_tags": "sound",
-        "sound_effect__path": "env_effects/fire/fire_mid",
-        "sound_effect__abandonOnReset": true
+        "sound_effect__path": "env_effects/fire/fire_mid"
       }
     }
   ],
   "fire_spot_1m_nosmoke_effect": [
     {
-      "_extends": "environment_effect_base"
+      "_use": "environment_effect_base"
     },
     {
-      "_extends": "sound_effect"
+      "_use": "environment_sound_effect_base"
     },
     {
-      "_extends": "damage_fire_base"
+      "_use": "damage_fire_base"
     },
     {
-      "_extends": "range_pauseable_effect"
+      "_use": "range_pauseable_effect"
     },
     {
       "sphere_zone__radius": 0.5
@@ -817,23 +1498,22 @@
     {
       "_group": {
         "_tags": "sound",
-        "sound_effect__path": "env_effects/fire/fire_mid",
-        "sound_effect__abandonOnReset": true
+        "sound_effect__path": "env_effects/fire/fire_mid"
       }
     }
   ],
   "fire_spot_2m_effect": [
     {
-      "_extends": "environment_effect_base"
+      "_use": "environment_effect_base"
     },
     {
-      "_extends": "sound_effect"
+      "_use": "environment_sound_effect_base"
     },
     {
-      "_extends": "damage_fire_base"
+      "_use": "damage_fire_base"
     },
     {
-      "_extends": "range_pauseable_effect"
+      "_use": "range_pauseable_effect"
     },
     {
       "sphere_zone__radius": 0.9
@@ -850,23 +1530,22 @@
     {
       "_group": {
         "_tags": "sound",
-        "sound_effect__path": "env_effects/fire/fire_mid",
-        "sound_effect__abandonOnReset": true
+        "sound_effect__path": "env_effects/fire/fire_mid"
       }
     }
   ],
   "fire_spot_2m_nosmoke_effect": [
     {
-      "_extends": "environment_effect_base"
+      "_use": "environment_effect_base"
     },
     {
-      "_extends": "sound_effect"
+      "_use": "environment_sound_effect_base"
     },
     {
-      "_extends": "damage_fire_base"
+      "_use": "damage_fire_base"
     },
     {
-      "_extends": "range_pauseable_effect"
+      "_use": "range_pauseable_effect"
     },
     {
       "sphere_zone__radius": 0.9
@@ -883,23 +1562,54 @@
     {
       "_group": {
         "_tags": "sound",
-        "sound_effect__path": "env_effects/fire/fire_mid",
-        "sound_effect__abandonOnReset": true
+        "sound_effect__path": "env_effects/fire/fire_mid"
+      }
+    }
+  ],
+  "fire_spot_5m_effect": [
+    {
+      "_use": "environment_effect_base"
+    },
+    {
+      "_use": "environment_sound_effect_base"
+    },
+    {
+      "_use": "damage_fire_base"
+    },
+    {
+      "_use": "range_pauseable_effect"
+    },
+    {
+      "sphere_zone__radius": 2.2
+    },
+    {
+      "effect__emit_range_limit": 400.0
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "fire_spot_5m_cmps_fx"
+      }
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "sound_effect__path": "env_effects/fire/fire_mid"
       }
     }
   ],
   "fire_spot_5m_nosmoke_effect": [
     {
-      "_extends": "environment_effect_base"
+      "_use": "environment_effect_base"
     },
     {
-      "_extends": "sound_effect"
+      "_use": "environment_sound_effect_base"
     },
     {
-      "_extends": "damage_fire_base"
+      "_use": "damage_fire_base"
     },
     {
-      "_extends": "range_pauseable_effect"
+      "_use": "range_pauseable_effect"
     },
     {
       "sphere_zone__radius": 2.2
@@ -916,20 +1626,69 @@
     {
       "_group": {
         "_tags": "sound",
-        "sound_effect__path": "env_effects/fire/fire_mid",
-        "sound_effect__abandonOnReset": true
+        "sound_effect__path": "env_effects/fire/fire_mid"
+      }
+    }
+  ],
+  "fire_spot_5m_big_effect": [
+    {
+      "_use": "environment_effect_base"
+    },
+    {
+      "_use": "environment_sound_effect_base"
+    },
+    {
+      "_use": "damage_fire_base"
+    },
+    {
+      "_use": "fire_source"
+    },
+    {
+      "_use": "range_pauseable_effect"
+    },
+    {
+      "fire_source__spreadTime": 0.5
+    },
+    {
+      "fire_source__fullForceTime": 15.0
+    },
+    {
+      "fire_source__maxFullForceTime": 4.0
+    },
+    {
+      "fire_source__fadeTime": 15.0
+    },
+    {
+      "dmgzone__maxRadius": 3.2
+    },
+    {
+      "effect__emit_range_limit": 400.0
+    },
+    {
+      "dmgzone__igniteEntitiesInitially:tag": []
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "fire_spot_5m_big_cmps_fx"
+      }
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "sound_effect__path": "env_effects/fire/fire_mid"
       }
     }
   ],
   "fire_spot_5m_small_effect": [
     {
-      "_extends": "environment_effect_base"
+      "_use": "environment_effect_base"
     },
     {
-      "_extends": "sound_effect"
+      "_use": "environment_sound_effect_base"
     },
     {
-      "_extends": "range_pauseable_effect"
+      "_use": "range_pauseable_effect"
     },
     {
       "effect__emit_range_limit": 120.0
@@ -943,20 +1702,19 @@
     {
       "_group": {
         "_tags": "sound",
-        "sound_effect__path": "env_effects/fire/fire_mid",
-        "sound_effect__abandonOnReset": true
+        "sound_effect__path": "env_effects/fire/fire_mid"
       }
     }
   ],
   "fire_spot_vertical_effect": [
     {
-      "_extends": "environment_effect_base"
+      "_use": "environment_effect_base"
     },
     {
-      "_extends": "sound_effect"
+      "_use": "environment_sound_effect_base"
     },
     {
-      "_extends": "range_pauseable_effect"
+      "_use": "range_pauseable_effect"
     },
     {
       "effect__emit_range_limit": 120.0
@@ -970,20 +1728,19 @@
     {
       "_group": {
         "_tags": "sound",
-        "sound_effect__path": "env_effects/fire/fire_mid",
-        "sound_effect__abandonOnReset": true
+        "sound_effect__path": "env_effects/fire/fire_mid"
       }
     }
   ],
   "fire_chimney_effect": [
     {
-      "_extends": "environment_effect_base"
+      "_use": "environment_effect_base"
     },
     {
-      "_extends": "sound_effect"
+      "_use": "environment_sound_effect_base"
     },
     {
-      "_extends": "range_pauseable_effect"
+      "_use": "range_pauseable_effect"
     },
     {
       "effect__emit_range_limit": 70.0
@@ -997,20 +1754,161 @@
     {
       "_group": {
         "_tags": "sound",
-        "sound_effect__path": "env_effects/fire/fire_small",
-        "sound_effect__abandonOnReset": true
+        "sound_effect__path": "env_effects/fire/fire_small"
+      }
+    }
+  ],
+  "fire_torch_effect": [
+    {
+      "_use": "environment_effect_base"
+    },
+    {
+      "_use": "environment_sound_effect_base"
+    },
+    {
+      "_use": "range_pauseable_effect"
+    },
+    {
+      "effect__emit_range_limit": 70.0
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "fire_spot_torch_cmps_fx"
+      }
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "sound_effect__path": "env_effects/fire/fire_small"
+      }
+    }
+  ],
+  "fire_vegetation_tree_leaves_effect": [
+    {
+      "_use": "environment_effect_base"
+    },
+    {
+      "_use": "environment_sound_effect_base"
+    },
+    {
+      "_use": "range_pauseable_effect"
+    },
+    {
+      "effect__emit_range_limit": 150.0
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "fire_vegetation_tree_leaves_cmps_fx"
+      }
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "sound_effect__path": "env_effects/fire/fire_mid"
+      }
+    }
+  ],
+  "fire_vegetation_tree_trunk_effect": [
+    {
+      "_use": "environment_effect_base"
+    },
+    {
+      "_use": "environment_sound_effect_base"
+    },
+    {
+      "_use": "range_pauseable_effect"
+    },
+    {
+      "effect__emit_range_limit": 150.0
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "fire_vegetation_tree_trunk_cmps_fx"
+      }
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "sound_effect__path": "env_effects/fire/fire_mid"
+      }
+    }
+  ],
+  "fire_vegetation_bush_medium_effect": [
+    {
+      "_use": "environment_effect_base"
+    },
+    {
+      "_use": "environment_sound_effect_base"
+    },
+    {
+      "_use": "damage_fire_base"
+    },
+    {
+      "_use": "range_pauseable_effect"
+    },
+    {
+      "sphere_zone__radius": 0.9
+    },
+    {
+      "effect__emit_range_limit": 120.0
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "fire_vegetation_bush_medium_cmps_fx"
+      }
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "sound_effect__path": "env_effects/fire/fire_mid"
+      }
+    }
+  ],
+  "fire_vegetation_bush_small_effect": [
+    {
+      "_use": "environment_effect_base"
+    },
+    {
+      "_use": "environment_sound_effect_base"
+    },
+    {
+      "_use": "damage_fire_base"
+    },
+    {
+      "_use": "range_pauseable_effect"
+    },
+    {
+      "sphere_zone__radius": 0.5
+    },
+    {
+      "effect__emit_range_limit": 120.0
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "fire_vegetation_bush_small_cmps_fx"
+      }
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "sound_effect__path": "env_effects/fire/fire_mid"
       }
     }
   ],
   "fire_bonfire_small_effect": [
     {
-      "_extends": "environment_effect_base"
+      "_use": "environment_effect_base"
     },
     {
-      "_extends": "sound_effect"
+      "_use": "environment_sound_effect_base"
     },
     {
-      "_extends": "damage_fire_base"
+      "_use": "damage_fire_base"
     },
     {
       "sphere_zone__radius": 0.6
@@ -1024,20 +1922,19 @@
     {
       "_group": {
         "_tags": "sound",
-        "sound_effect__path": "env_effects/fire/fire_mid",
-        "sound_effect__abandonOnReset": true
+        "sound_effect__path": "env_effects/fire/fire_mid"
       }
     }
   ],
   "fire_bonfire_medium_effect": [
     {
-      "_extends": "environment_effect_base"
+      "_use": "environment_effect_base"
     },
     {
-      "_extends": "sound_effect"
+      "_use": "environment_sound_effect_base"
     },
     {
-      "_extends": "damage_fire_base"
+      "_use": "damage_fire_base"
     },
     {
       "_group": {
@@ -1048,20 +1945,19 @@
     {
       "_group": {
         "_tags": "sound",
-        "sound_effect__path": "env_effects/fire/fire_mid",
-        "sound_effect__abandonOnReset": true
+        "sound_effect__path": "env_effects/fire/fire_mid"
       }
     }
   ],
   "fire_bonfire_big_effect": [
     {
-      "_extends": "environment_effect_base"
+      "_use": "environment_effect_base"
     },
     {
-      "_extends": "sound_effect"
+      "_use": "environment_sound_effect_base"
     },
     {
-      "_extends": "damage_fire_base"
+      "_use": "damage_fire_base"
     },
     {
       "sphere_zone__radius": 1.7
@@ -1075,20 +1971,19 @@
     {
       "_group": {
         "_tags": "sound",
-        "sound_effect__path": "env_effects/fire/fire_mid",
-        "sound_effect__abandonOnReset": true
+        "sound_effect__path": "env_effects/fire/fire_mid"
       }
     }
   ],
   "fire_bonfire_huge_effect": [
     {
-      "_extends": "environment_effect_base"
+      "_use": "environment_effect_base"
     },
     {
-      "_extends": "sound_effect"
+      "_use": "environment_sound_effect_base"
     },
     {
-      "_extends": "damage_fire_base"
+      "_use": "damage_fire_base"
     },
     {
       "sphere_zone__radius": 2.7
@@ -1102,26 +1997,25 @@
     {
       "_group": {
         "_tags": "sound",
-        "sound_effect__path": "env_effects/fire/fire_mid",
-        "sound_effect__abandonOnReset": true
+        "sound_effect__path": "env_effects/fire/fire_mid"
       }
     }
   ],
   "fire_window_small_effect": [
     {
-      "_extends": "environment_effect_base"
+      "_use": "environment_effect_base"
     },
     {
-      "_extends": "sound_effect"
+      "_use": "environment_sound_effect_base"
     },
     {
-      "_extends": "damage_fire_base"
+      "_use": "damage_fire_base"
     },
     {
-      "_extends": "range_pauseable_effect"
+      "_use": "range_pauseable_effect"
     },
     {
-      "sphere_zone__radius": 0.4
+      "sphere_zone__radius": 0.8
     },
     {
       "effect__emit_range_limit": 100.0
@@ -1135,26 +2029,25 @@
     {
       "_group": {
         "_tags": "sound",
-        "sound_effect__path": "env_effects/fire/fire_mid",
-        "sound_effect__abandonOnReset": true
+        "sound_effect__path": "env_effects/fire/fire_mid"
       }
     }
   ],
   "fire_window_medium_effect": [
     {
-      "_extends": "environment_effect_base"
+      "_use": "environment_effect_base"
     },
     {
-      "_extends": "sound_effect"
+      "_use": "environment_sound_effect_base"
     },
     {
-      "_extends": "damage_fire_base"
+      "_use": "damage_fire_base"
     },
     {
-      "_extends": "range_pauseable_effect"
+      "_use": "range_pauseable_effect"
     },
     {
-      "sphere_zone__radius": 0.8
+      "sphere_zone__radius": 1.0
     },
     {
       "effect__emit_range_limit": 130.0
@@ -1168,26 +2061,25 @@
     {
       "_group": {
         "_tags": "sound",
-        "sound_effect__path": "env_effects/fire/fire_mid",
-        "sound_effect__abandonOnReset": true
+        "sound_effect__path": "env_effects/fire/fire_mid"
       }
     }
   ],
   "fire_window_big_effect": [
     {
-      "_extends": "environment_effect_base"
+      "_use": "environment_effect_base"
     },
     {
-      "_extends": "sound_effect"
+      "_use": "environment_sound_effect_base"
     },
     {
-      "_extends": "damage_fire_base"
+      "_use": "damage_fire_base"
     },
     {
-      "_extends": "range_pauseable_effect"
+      "_use": "range_pauseable_effect"
     },
     {
-      "sphere_zone__radius": 1.1
+      "sphere_zone__radius": 1.2
     },
     {
       "effect__emit_range_limit": 160.0
@@ -1201,27 +2093,26 @@
     {
       "_group": {
         "_tags": "sound",
-        "sound_effect__path": "env_effects/fire/fire_mid",
-        "sound_effect__abandonOnReset": true
+        "sound_effect__path": "env_effects/fire/fire_mid"
       }
     }
   ],
   "envir_background_flash_5s_effect": {
-    "_extends": "environment_effect_base",
+    "_use": "environment_effect_base",
     "_group": {
       "_tags": "render",
       "effect__name": "envir_misc_background_flash_5s_cmps_fx"
     }
   },
   "envir_background_flash_8s_effect": {
-    "_extends": "environment_effect_base",
+    "_use": "environment_effect_base",
     "_group": {
       "_tags": "render",
       "effect__name": "envir_misc_background_flash_8s_cmps_fx"
     }
   },
   "envir_background_flash_11s_effect": {
-    "_extends": "environment_effect_base",
+    "_use": "environment_effect_base",
     "_group": {
       "_tags": "render",
       "effect__name": "envir_misc_background_flash_11s_cmps_fx"
@@ -1229,10 +2120,10 @@
   },
   "fire_bonfire_effect": [
     {
-      "_extends": "environment_effect_base"
+      "_use": "environment_effect_base"
     },
     {
-      "_extends": "sound_effect"
+      "_use": "environment_sound_effect_base"
     },
     {
       "_group": {
@@ -1243,8 +2134,7 @@
     {
       "_group": {
         "_tags": "sound",
-        "sound_effect__path": "env_effects/fire/fire_mid",
-        "sound_effect__abandonOnReset": true
+        "sound_effect__path": "env_effects/fire/fire_mid"
       }
     }
   ]

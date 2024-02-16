@@ -1,14 +1,14 @@
 require ecs
 require game.es.events
 require app
-require EnlistedHuman
+require DngHuman
 require HumanPhys
 require DagorMath
-require EnlistedDm
+require DngDm
 require common_shooter.events_common_shooter
 require enlisted.events_enlisted
 
-[es(before=human_phys_es, after=(human_in_spawn_speed_es, after_entity_mods_apply_sync_point))]
+[es(before=update_phys_es, after=(human_in_spawn_speed_es, after_entity_mods_apply_sync_point))]
 def human_hit_tagging_applier_es(info : ParallelUpdateFrameDelayed;
                                  var human_net_phys : HumanActor;
                                  human_hit_tagging__tagStart : float;

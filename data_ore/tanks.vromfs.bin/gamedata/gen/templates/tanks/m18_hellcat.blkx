@@ -1,10 +1,10 @@
 {
   "base_m18_hellcat": [
     {
-      "_extends": "base_tank"
+      "_use": "base_tank"
     },
     {
-      "_extends": "m18_hellcat_ammo_stowages"
+      "_use": "m18_hellcat_ammo_stowages"
     },
     {
       "killLogName": "us_m18_hellcat"
@@ -139,7 +139,7 @@
         {
           "turretInfo:object": {
             "turretName": "turret_01",
-            "gun": "m18_hellcat_turret_01_76mm_m1+turret_with_several_types_of_shells+main_turret",
+            "gun": "m18_hellcat_turret_01_76mm_m1_open_turret+turret_with_several_types_of_shells+main_turret",
             "barrelDm": "gun_barrel",
             "breechDm": "cannon_breech",
             "verDriveDm": "drive_turret_v",
@@ -158,8 +158,8 @@
       ]
     }
   ],
-  "m18_hellcat_turret_01_76mm_m1": {
-    "_extends": "tankgun_76mm_m1",
+  "m18_hellcat_turret_01_76mm_m1_open_turret": {
+    "_use": "tankgun_76mm_m1_open_turret",
     "gun__shootNodeName": "bone_gun_barrel",
     "turret__yawSpeed": 24.0,
     "turret__pitchSpeed": 4.0,
@@ -189,7 +189,7 @@
     ]
   },
   "m18_hellcat_turret_02_12_7mm_m2_hb": {
-    "_extends": "tankgun_12_7mm_m2_hb",
+    "_use": "tankgun_12_7mm_m2_hb",
     "gun__shootNodeName": "bone_mg_aa_v_01",
     "turret__yawSpeed": 90.0,
     "turret__pitchSpeed": 90.0,
@@ -215,13 +215,13 @@
   },
   "m18_hellcat_ammo_stowages": {
     "_tags": "server",
-    "_extends": "vehicle_ammo_stowages",
+    "_use": "vehicle_ammo_stowages",
     "ammo_stowage__stowageTemplates:shared:list<t>": {
       "stowage": "m18_hellcat_ammo_stowage_1"
     }
   },
   "m18_hellcat_ammo_stowage_1": {
-    "_extends": "ammo_stowage",
+    "_use": "ammo_stowage",
     "ammo_stowage__clusterTemplates:shared:list<t>": {
       "cluster": "m18_hellcat_ammo_cluster_1_1"
     },
@@ -230,7 +230,7 @@
     }
   },
   "m18_hellcat_ammo_cluster_1_1": {
-    "_extends": "ammo_cluster",
+    "_use": "ammo_cluster",
     "ammo_cluster__isShell": true,
     "ammo_cluster__slotNames:shared:list<t>": [
       {

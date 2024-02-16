@@ -8,10 +8,10 @@
     "entity": {
       "_template": "menu_camera",
       "transform": [
-        [0.17715,0.0,0.984184],
-        [3.06845e-06,1.0,-5.52308e-07],
-        [-0.984184,3.11776e-06,0.17715],
-        [-14.9102,10.0449,-71.8244]
+        [0.852823,0.0,0.5222],
+        [-0.0418459,0.996784,0.0683399],
+        [-0.520521,-0.0801337,0.85008],
+        [-36.5125,10.353,-53.0728]
       ],
       "menu_cam__offset": [-1.0,1.2,-6.2],
       "menu_cam__offset_smooth_internal": [-1.0,1.2,-5.4]
@@ -63,12 +63,41 @@
     "entity": {
       "_template": "camera_scenic_place_dof",
       "scene": "armory",
-      "fov": 90.0,
+      "fov": 60.0,
       "transform": [
         [0.10212,0.0,0.994772],
         [-0.0219319,0.999757,0.00225146],
         [-0.99453,-0.0220472,0.102095],
-        [-3.76095,3.62939,94.62]
+        [51.3841,20.7483,49.2312]
+      ],
+      "menu_cam__limitYaw": [-180.0,180.0],
+      "menu_cam__limitPitch": [-80.0,80.0],
+      "menu_cam__shouldRotateTarget": true,
+      "dof__on": true,
+      "dof__is_filmic": false,
+      "dof__fStop": 18.0,
+      "dof__focusDistance": 0.85,
+      "dof__farDofAmountPercent": 0.0027,
+      "dof__farDofEnd": 20.0,
+      "dof__farDofStart": 2.0,
+      "dof__nearDofAmountPercent": 0.02,
+      "dof__nearDofEnd": 0.5,
+      "dof__nearDofStart": 0.01,
+      "dof__minCheckDistance": 0.05,
+      "dof__bokehShape_bladesCount": 5.2,
+      "dof__bokehShape_kernelSize": 6.8
+    }
+  },
+  {
+    "entity": {
+      "_template": "camera_scenic_place_dof",
+      "scene": "items_inventory",
+      "fov": 60.0,
+      "transform": [
+        [-0.0560272,0.0,0.998429],
+        [0.00857311,0.999963,0.000481083],
+        [-0.998392,0.0085866,-0.0560251],
+        [51.9924,20.663,49.7443]
       ],
       "menu_cam__limitYaw": [-180.0,180.0],
       "menu_cam__limitPitch": [-80.0,80.0],
@@ -97,7 +126,7 @@
         [-0.0560272,0.0,0.998429],
         [0.00857311,0.999963,0.000481083],
         [-0.998392,0.0085866,-0.0560251],
-        [-4.0589,3.62321,94.8539]
+        [51.0862,20.7421,49.4651]
       ],
       "menu_cam__limitYaw": [-180.0,180.0],
       "menu_cam__limitPitch": [-30.0,30.0],
@@ -117,7 +146,7 @@
         [-0.71417,0.0763896,-0.695791],
         [-0.672431,-0.350963,0.651661],
         [-0.194416,0.933268,0.302014],
-        [-4.84479,3.61,95.09]
+        [50.3003,20.7289,49.7012]
       ]
     }
   },
@@ -128,7 +157,7 @@
         [-0.71417,0.0763896,-0.695791],
         [-0.672431,-0.350963,0.651661],
         [-0.194416,0.933268,0.302014],
-        [-4.84479,3.61,95.09]
+        [50.3003,20.7289,49.7012]
       ]
     }
   },
@@ -136,12 +165,12 @@
     "entity": {
       "_template": "camera_scenic_place_dof",
       "scene": "new_items",
-      "fov": 90.0,
+      "fov": 60.0,
       "transform": [
         [-0.0560272,0.0,0.998429],
         [0.00857311,0.999963,0.000481083],
         [-0.998392,0.0085866,-0.0560251],
-        [-3.6589,3.42321,94.95]
+        [52.2151,20.6526,49.6118]
       ],
       "menu_cam__limitYaw": [-180.0,180.0],
       "menu_cam__limitPitch": [-30.0,30.0],
@@ -165,8 +194,33 @@
         [-0.71417,0.0763896,-0.695791],
         [-0.672431,-0.350963,0.651661],
         [-0.194416,0.933268,0.302014],
-        [-4.84479,3.54919,94.883]
+        [50.3003,20.6681,49.4942]
       ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "camera_scenic_place_dof",
+      "scene": "soldiers_quarters",
+      "fov": 45.0,
+      "transform": [
+        [0.852822,0.0,0.522201],
+        [-0.0418459,0.996784,0.0683399],
+        [-0.520521,-0.0801337,0.85008],
+        [-36.4143,10.4806,-53.867]
+      ],
+      "menu_cam__offset": [0.0,0.99,-4.5],
+      "menu_cam__offsetMult": [1.0,1.0,1.0],
+      "menu_cam__limitYaw": [-180.0,180.0],
+      "menu_cam__limitPitch": [0.0,0.0],
+      "menu_cam__shouldRotateTarget": false,
+      "dof__on": true,
+      "dof__farDofAmountPercent": 0.1,
+      "dof__farDofStart": 7.0,
+      "dof__farDofEnd": 300.0,
+      "dof__nearDofAmountPercent": 0.0,
+      "dof__bokehShape_kernelSize": 2.8,
+      "dof__bokehShape_bladesCount": 9.0
     }
   },
   {
@@ -452,7 +506,7 @@
         [-0.71417,0.0763896,-0.695791],
         [-0.672431,-0.350963,0.651661],
         [-0.194416,0.933268,0.302014],
-        [-4.84479,3.61,95.09]
+        [50.3003,20.7289,49.7012]
       ],
       "priority_order": 0
     }
@@ -464,7 +518,7 @@
         [-0.71417,0.0763896,-0.695791],
         [-0.672431,-0.350963,0.651661],
         [-0.194416,0.933268,0.302014],
-        [-4.84479,3.61,95.09]
+        [50.3003,20.7289,49.7012]
       ],
       "priority_order": 1
     }
@@ -476,7 +530,7 @@
         [-0.71417,0.0763896,-0.695791],
         [-0.672431,-0.350963,0.651661],
         [-0.194416,0.933268,0.302014],
-        [-4.84479,3.61,95.09]
+        [50.3003,20.7289,49.7012]
       ],
       "priority_order": 2
     }
@@ -488,7 +542,7 @@
         [-0.71417,0.0763896,-0.695791],
         [-0.672431,-0.350963,0.651661],
         [-0.194416,0.933268,0.302014],
-        [-4.84479,3.61,95.09]
+        [50.3003,20.7289,49.7012]
       ],
       "priority_order": 3
     }
@@ -500,7 +554,7 @@
         [-0.71417,0.0763896,-0.695791],
         [-0.672431,-0.350963,0.651661],
         [-0.194416,0.933268,0.302014],
-        [-4.84479,3.61,95.09]
+        [50.3003,20.7289,49.7012]
       ],
       "priority_order": 4
     }
@@ -512,7 +566,7 @@
         [-0.71417,0.0763896,-0.695791],
         [-0.672431,-0.350963,0.651661],
         [-0.194416,0.933268,0.302014],
-        [-4.84479,3.61,95.09]
+        [50.3003,20.7289,49.7012]
       ],
       "priority_order": 5
     }
@@ -524,7 +578,7 @@
         [-0.71417,0.0763896,-0.695791],
         [-0.672431,-0.350963,0.651661],
         [-0.194416,0.933268,0.302014],
-        [-4.84479,3.61,95.09]
+        [50.3003,20.7289,49.7012]
       ],
       "priority_order": 6
     }
@@ -536,7 +590,7 @@
         [-0.71417,0.0763896,-0.695791],
         [-0.672431,-0.350963,0.651661],
         [-0.194416,0.933268,0.302014],
-        [-4.84479,3.61,95.09]
+        [50.3003,20.7289,49.7012]
       ],
       "priority_order": 7
     }
@@ -548,7 +602,7 @@
         [-0.71417,0.0763896,-0.695791],
         [-0.672431,-0.350963,0.651661],
         [-0.194416,0.933268,0.302014],
-        [-4.84479,3.61,95.09]
+        [50.3003,20.7289,49.7012]
       ],
       "priority_order": 8
     }
@@ -575,11 +629,6 @@
         [-18.5497,9.0457,-71.1862]
       ],
       "priority_order": 1
-    }
-  },
-  {
-    "entity": {
-      "_template": "armor_analyzer"
     }
   },
   {
@@ -736,45 +785,41 @@
       "post_fx:object": {
         "adaptation__autoExposureScale": 0.5,
         "adaptation__minExposure": 0.3,
-        "bloom__on": false,
         "adaptation__maxExposure": 0.3
       }
     }
   },
   {
     "entity": {
-      "_template": "base_effect",
+      "_template": "envir_sparks_ground_1m_effect",
       "transform": [
-        [-0.534782,0.52413,1.15706],
-        [1.25443,0.0205062,0.570492],
-        [0.199743,1.2745,-0.485019],
-        [-39.4776,8.9727,-49.7866]
-      ],
-      "effect__name": "ground_sparkles_menu"
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [-35.6814,8.9727,-51.0396]
+      ]
     }
   },
   {
     "entity": {
-      "_template": "base_effect",
+      "_template": "envir_sparks_ground_1m_effect",
       "transform": [
-        [0.124809,0.473806,-1.28819],
-        [-1.34721,0.289726,-0.0239608],
-        [0.262563,1.26137,0.489391],
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
         [18.5051,20.8799,48.7653]
-      ],
-      "effect__name": "ground_sparkles_menu"
+      ]
     }
   },
   {
     "entity": {
-      "_template": "base_effect",
+      "_template": "envir_sparks_ground_1m_effect",
       "transform": [
-        [-0.182215,0.726293,1.15706],
-        [1.08038,-0.637811,0.570492],
-        [0.836103,0.982435,-0.485019],
-        [-39.9248,9.11,-51.5332]
-      ],
-      "effect__name": "ground_sparkles_menu"
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [-40.8371,9.11,-50.8494]
+      ]
     }
   },
   {
@@ -816,11 +861,11 @@
       ],
       "spot_light__inner_attenuation": 0.1,
       "light__max_radius": 1.2,
-      "light__brightness": 8.9,
+      "light__brightness": 10.0,
       "light__color": "#ffb4b4ff",
       "spot_light__dynamic_obj_shadows": true,
       "spot_light__shadows": true,
-      "spot_light__contact_shadows": false
+      "spot_light__contact_shadows": true
     }
   },
   {
@@ -874,7 +919,8 @@
       "light__brightness": 3.7,
       "light__color": "#ffc8c8ff",
       "spot_light__dynamic_obj_shadows": true,
-      "spot_light__shadows": true
+      "spot_light__shadows": true,
+      "spot_light__contact_shadows": false
     }
   },
   {
@@ -891,7 +937,8 @@
       "spot_light__inner_attenuation": 0.1,
       "light__max_radius": 5.0,
       "light__brightness": 5.5,
-      "light__color": "#ffc8c8ff"
+      "light__color": "#ffc8c8ff",
+      "spot_light__contact_shadows": false
     }
   },
   {
@@ -1038,7 +1085,7 @@
       "light__color": "#ffb4b4ff",
       "spot_light__dynamic_obj_shadows": true,
       "spot_light__shadows": true,
-      "spot_light__contact_shadows": false
+      "spot_light__contact_shadows": true
     }
   },
   {
@@ -1071,11 +1118,12 @@
       ],
       "spot_light__inner_attenuation": 0.5,
       "light__max_radius": 4.0,
-      "light__brightness": 11.5,
+      "light__brightness": 10.5,
       "light__color": "#ffc8c8ff",
       "spot_light__dynamic_obj_shadows": true,
       "spot_light__shadows": true,
-      "spot_light__dynamic_light": false
+      "spot_light__dynamic_light": false,
+      "spot_light__contact_shadows": true
     }
   },
   {
@@ -1470,6 +1518,74 @@
       "light__color": "#ffe6c8ff",
       "spot_light__inner_attenuation": 0.6,
       "light__affect_volumes": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "light_bunker_ceiling",
+      "transform": [
+        [-0.139502,-0.0249036,1.15579],
+        [-1.15597,0.0179727,-0.139137],
+        [-0.014864,-1.16405,-0.026878],
+        [50.3502,22.0188,49.4675]
+      ],
+      "light__max_radius": 7.0,
+      "spot_light__shadows": true,
+      "spot_light__dynamic_obj_shadows": true,
+      "spot_light__shadow_shrink": 1,
+      "light__color": "#ffe6c8ff",
+      "light__brightness": 26.0,
+      "spot_light__inner_attenuation": 0.1,
+      "spot_light__contact_shadows": true
+    }
+  },
+  {
+    "entity": {
+      "_template": "light_bunker_ceiling",
+      "transform": [
+        [-0.147435,1.15478,0.0260977],
+        [-0.991722,-0.140041,0.593991],
+        [0.592201,0.0529813,1.00122],
+        [49.6161,20.5951,47.7657]
+      ],
+      "light__max_radius": 3.0,
+      "spot_light__shadows": true,
+      "spot_light__dynamic_obj_shadows": true,
+      "spot_light__shadow_shrink": 1,
+      "light__color": "#ffe6c8ff",
+      "light__brightness": 2.0,
+      "spot_light__inner_attenuation": 0.1,
+      "spot_light__contact_shadows": true
+    }
+  },
+  {
+    "entity": {
+      "_template": "light_bunker_ceiling",
+      "transform": [
+        [0.265765,2.0732,-0.0403389],
+        [1.80612,-0.251419,-1.02236],
+        [-1.01873,0.0951187,-1.82309],
+        [50.8954,20.5951,51.2691]
+      ],
+      "light__max_radius": 3.0,
+      "spot_light__shadows": true,
+      "spot_light__dynamic_obj_shadows": true,
+      "spot_light__shadow_shrink": 1,
+      "light__color": "#ffffffff",
+      "light__brightness": 2.0,
+      "spot_light__inner_attenuation": 0.1,
+      "spot_light__contact_shadows": true
+    }
+  },
+  {
+    "entity": {
+      "_template": "envir_sparks_ground_1m_effect",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [-18.3691,8.97271,-73.9949]
+      ]
     }
   }
 ]

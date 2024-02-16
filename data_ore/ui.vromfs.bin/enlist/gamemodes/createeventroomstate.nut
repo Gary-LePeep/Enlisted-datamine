@@ -7,8 +7,7 @@ let { settings } = require("%enlist/options/onlineSettings.nut")
 let { availableClusters, clusterLoc, oneOfSelectedClusters } = require("%enlist/clusterState.nut")
 let { createEventRoomCfg, allModes, getValuesFromRule
 } = require("createEventRoomCfg.nut")
-let { unlockedCampaigns } = require("%enlist/meta/campaigns.nut")
-let { gameProfile } = require("%enlist/soldiers/model/config/gameProfile.nut")
+let { allArmiesInfo, gameProfile } = require("%enlist/soldiers/model/config/gameProfile.nut")
 let { createRoom, changeAttributesRoom, room, isInRoom, roomPasswordToJoin
 } = require("%enlist/state/roomState.nut")
 let { getValInTblPath, setValInTblPath } = require("%sqstd/table.nut")
@@ -17,16 +16,20 @@ let { isCrossplayOptionNeeded, crossnetworkPlay, availableCrossplayOptions, Cros
 } = require("%enlSqGlob/crossnetwork_state.nut")
 let saveCrossnetworkPlayValue = require("%enlist/options/crossnetwork_save.nut")
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
-let { receivedModInfos, modPath, getModPathToStart } = require("sandbox/customMissionState.nut")
+let { receivedModInfos, modPath, fetchLocalModById } = require("sandbox/customMissionState.nut")
+let { getModStartInfo } = require("%enlSqGlob/modsDownloadManager.nut")
 let { set_matching_invite_data } = require("app")
 let gameLauncher = require("%enlist/gameLauncher.nut")
 let userInfo = require("%enlSqGlob/userInfo.nut")
 let { hasPremium } = require("%enlist/currency/premium.nut")
+let { renameCommonArmies } = require("%enlSqGlob/renameCommonArmies.nut")
+let { getCampaignTitle } = require("%enlSqGlob/ui/itemsInfo.nut")
 
 let consoleAliases = ["sony", "xbox"]
 let allAliases = ["pc", "sony", "xbox", "mobile"]
-let selectedCampaignsFilters = Watched([])
+let selectedArmiesFilters = Watched([])
 let currentPassword = Watched("")
+
 
 const OPT_EDITBOX = "editbox"
 const OPT_LIST = "list"
@@ -234,10 +237,9 @@ let optIsPrivate = mkOption("public/isPrivate", "options/private")
 let optDifficulty = mkOption("public/difficulty", "options/difficulty", optionLoc)
 let optMaxPlayers = mkOption("public/maxPlayers", "options/maxPlayers")
 let optBotCount = mkOption("public/botpop", "options/botCount")
-let optTeamArmies = mkOption("public/teamArmies", "options/teamArmies", optionLoc)
-
-let teamArmies = optTeamArmies.curValue
 let optVoteToKick = mkOption("public/voteToKick", "options/voteToKick", getBoolText)
+let optTeamArmies = mkOption("public/teamArmies", "options/teamArmies", optionLoc)
+let teamArmies = optTeamArmies.curValue
 
 let optModeId = "mode"
 let optMode = {
@@ -267,6 +269,27 @@ let optPassword = {
   placeholder = loc("create_pass")
 }
 
+let optCampId = "public/campaigns"
+let optCampStatic = { locId = "options/campaigns" }
+let campCfg = Computed(function() {
+  let res = optionsConfig.value.optionsInfo?[optCampId]
+  let modInfo = receivedModInfos.value?[modPath.value]
+  let modHash = modInfo?.content[0].hash // no needed for mods
+  if (res == null || modHash != null)
+    return null
+  return res.__merge(optCampStatic, { values = res.values })
+})
+
+let choosedCampaign = Computed(@() optionsConfig.value.curValues?[optCampId])
+
+let optCampaigns = {
+  id = optCampId
+  cfg = campCfg
+  curValue = choosedCampaign
+  setValue = mkSave(optCampId)
+  valToString = @(c) getCampaignTitle(c)
+}
+
 let optClusterId = "public/cluster"
 let optCluster = {
   id = optClusterId
@@ -279,27 +302,38 @@ let optCluster = {
   valToString = clusterLoc
 }
 
-let optCampId = "public/campaigns"
-let optCampStatic = { locId = "options/campaigns" }
-let campCfg = Computed(function() {
-  let res = optionsConfig.value.optionsInfo?[optCampId]
+let optArmyIdA = "public/armiesTeamA"
+let armiesACfg = Computed(function() {
+  let res = optionsConfig.value.optionsInfo?[optArmyIdA]
   if (res == null)
     return res
-  let unlocked = unlockedCampaigns.value
-  return res.__merge(optCampStatic, { values = res.values.filter(@(c) unlocked.contains(c)) })
+  return res.__merge({ locId = "options/armiesA" })
 })
+let armiesA = Computed(@() optionsConfig.value.curValues?[optArmyIdA])
+let optArmiesA = {
+  id = optArmyIdA
+  cfg = armiesACfg
+  curValue = armiesA
+  setValue = mkSave(optArmyIdA)
+  toggleValue = mkToggleValue(optArmyIdA, armiesACfg, armiesA)
+  valToString = @(a) loc($"country/{allArmiesInfo.value[a].country}")
+}
 
-let campaigns = Computed(function() {
-  let unlocked = unlockedCampaigns.value
-  return optionsConfig.value.curValues?[optCampId].filter(@(c) unlocked.contains(c))
+let optArmyIdB = "public/armiesTeamB"
+let armiesBCfg = Computed(function() {
+  let res = optionsConfig.value.optionsInfo?[optArmyIdB]
+  if (res == null)
+    return res
+  return res.__merge({ locId = "options/armiesB" })
 })
-let optCampaigns = {
-  id = optCampId
-  cfg = campCfg
-  curValue = campaigns
-  setValue = mkSave(optCampId)
-  toggleValue = mkToggleValue(optCampId, campCfg, campaigns)
-  valToString = @(c) loc(gameProfile.value?.campaigns[c]?.title ?? c)
+let armiesB = Computed(@() optionsConfig.value.curValues?[optArmyIdB])
+let optArmiesB = {
+  id = optArmyIdB
+  cfg = armiesBCfg
+  curValue = armiesB
+  setValue = mkSave(optArmyIdB)
+  toggleValue = mkToggleValue(optArmyIdB, armiesBCfg, armiesB)
+  valToString = @(a) loc($"country/{allArmiesInfo.value[a].country}")
 }
 
 let optMissionsId = "public/scenes"
@@ -321,39 +355,8 @@ let optMissions = {
 
 
 let mCurValueBase = optMissions.curValue
-let mCfgBase = optMissions.cfg
-let mCfg = Computed(function(prev) {
-  let cfg = mCfgBase.value
-  if (cfg == null)
-    return cfg
-
-  let isHistorical = teamArmies.value == "historical"
-  let campaignsV = selectedCampaignsFilters.value.len() > 0
-    ? selectedCampaignsFilters.value
-    : unlockedCampaigns.value ?? []
-
-  let isAnyCampaign = campaignsV.len() == 0
-  if (!isHistorical && isAnyCampaign)
-    return cfg
-
-  let values = cfg.values
-    .map(function(blk) {
-      let info = getMissionInfo(blk)
-      info.blk <- blk
-      return info
-    })
-    .filter(@(m) m.campaign == ""
-      ? !isHistorical
-      : (isAnyCampaign || campaignsV.contains(m.campaign)))
-    .sort(@(a, b) a.type <=> b.type
-      || a.id <=> b.id)
-    .map(@(c) c.blk)
-
-  return isEqual(values, prev?.values ?? []) ? prev : cfg.__merge({ values })
-})
-
 let missions = Computed(function(prev) {
-  let { values = [], optType = null } = mCfg.value
+  let { values = [], optType = null } = optMissions.cfg
   if (optType != OPT_MULTISELECT)
     return mCurValueBase.value
 
@@ -363,7 +366,7 @@ let missions = Computed(function(prev) {
 
 optMissions.__update({
   curValue = missions
-  cfg = mCfg
+  cfg = optMissions.cfg
 })
 
 let cpId = "public/crossplay"
@@ -379,7 +382,7 @@ let function updateOptCrossplay(val) {
     let cpCfg = Computed(function() {
       let { optType = null, values = null } = cpCfgBase.value
       if (optType != OPT_LIST
-          || availableCrossplayOptions.value.findvalue(@(v) !values.contains(v)) != null)
+          || availableCrossplayOptions.value.findvalue(@(v) !values?.contains(v)) != null)
         return null //crossplay option has incorrect format
       return cpCfgBase.value.__merge({ values = availableCrossplayOptions.value })
     })
@@ -425,6 +428,25 @@ let function isModsNull() {
   return mods.len() == 0
 }
 
+let function mkTeamArmies(camps, tArmies) {
+  let isHistorical = tArmies == "historical"
+  let campaignsConfigs = gameProfile.value.campaigns
+  let armiesTeamA = {}
+  let armiesTeamB = {}
+
+  camps.each(function(camp) {
+    let { armies } = campaignsConfigs[camp]
+    let armyA = renameCommonArmies[armies[0].id]
+    let armyB = renameCommonArmies[armies[1].id]
+    armiesTeamA[armyA] <- true
+    armiesTeamB[armyB] <- true
+  })
+  if (isHistorical)
+    return [armiesTeamA.keys(), armiesTeamB.keys()]
+  armiesTeamA.__update(armiesTeamB)
+  return [armiesTeamA.keys(), armiesTeamA.keys()]
+}
+
 let function createEventRoom() {
   if (isEditInProgress.value)
     return
@@ -446,11 +468,13 @@ let function createEventRoom() {
     optDifficulty
     optMaxPlayers
     optBotCount
-    optTeamArmies
     optVoteToKick
     optCrossplay
     optCluster
     optMissions
+    optArmiesA
+    optArmiesB
+    optTeamArmies
     optCampaigns
     optPassword
   ])
@@ -460,26 +484,37 @@ let function createEventRoom() {
           ? opt.cfg.value.values
           : opt.curValue.value)
 
-  roomParams.public.creatorId <- userInfo.value.userIdStr
+  let publicOptions = roomParams.public
+  publicOptions.creatorId <- userInfo.value.userIdStr
   let modInfo = receivedModInfos.value?[modPath.value]
   let modHash = modInfo?.content[0].hash // Only one file support now(blk with scene)
   let modId = modInfo?.id
-  let modName = modInfo?.title
-  let modDescription = modInfo?.description
-  let modVersion = modInfo?.version
-
-  if (isAnyModEnabled() && modHash != null)
-    roomParams.public.__update({ modId, modHash, modName, modDescription, modVersion })
-
+  if (isAnyModEnabled() && modHash != null) {
+    let modName = modInfo?.title
+    let modDescription = modInfo?.description
+    let modVersion = modInfo?.version
+    let modAuthor = modInfo?.authors[0]
+    let modCampaigns = modInfo?.room_params.rules[optCampId].anyOf
+    let tArmies = teamArmies.value
+    let armies = mkTeamArmies(modCampaigns, tArmies)
+    let armiesTeamA = armies[0]
+    let armiesTeamB = armies[1]
+    publicOptions.__update({ modId, modHash, modName, modDescription, modVersion, modAuthor,
+      armiesTeamA, armiesTeamB })
+  }
   let crossPlatform = getCrossPlatformsList()
   if (crossPlatform.len() > 0)
-    roomParams.public.crossPlatform <- crossPlatform
+    publicOptions.crossPlatform <- crossPlatform
 
   isEditInProgress(true)
   if (modPath.value != "" && optMaxPlayers.curValue.value <= 1) {
-    set_matching_invite_data({ mode_info = roomParams.public })
-    gameLauncher.startGame({ scene = getModPathToStart(), modId = modId })
-    isEditInProgress(false)
+    fetchLocalModById(modId, function(manifest, contents) {
+      set_matching_invite_data({ mode_info = publicOptions })
+      gameLauncher.startGame({ modId }.__merge(getModStartInfo(manifest, contents)))
+      isEditInProgress(false)
+    }, function() {
+      isEditInProgress(false)
+    })
     return
   }
 
@@ -518,11 +553,13 @@ let function updateAttributesEventRoom() {
     optDifficulty
     optMaxPlayers
     optBotCount
-    optTeamArmies
     optVoteToKick
     optCrossplay
     optCluster
     optMissions
+    optArmiesA
+    optArmiesB
+    optTeamArmies
     optCampaigns
     optPassword
   ])
@@ -565,11 +602,12 @@ return {
   optDifficulty
   optMaxPlayers
   optBotCount
-  optTeamArmies
   optVoteToKick
   optCrossplay
   optMissions
   optCluster
+  optArmiesA
+  optArmiesB
   optCampaigns
   optPassword
 
@@ -577,6 +615,6 @@ return {
   isEditInProgress
   isEditEventRoomOpened
   editEventRoom
-  selectedCampaignsFilters
+  selectedArmiesFilters
   currentPassword
 }

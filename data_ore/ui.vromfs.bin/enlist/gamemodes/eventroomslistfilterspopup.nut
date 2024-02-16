@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 from "eventRoomsListFilter.nut" import *
-let { sub_txt, body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub, fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { bigPadding, smallPadding, defTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
 let { localGap } = require("eventModeStyle.nut")
 let modalPopupWnd = require("%ui/components/modalPopupWnd.nut")
@@ -12,6 +12,7 @@ let WND_UID = "eventFiltersPopup"
 let isRoomFilterOpened = Watched(false)
 let columnWidth = hdpx(440)
 let rowHeight = hdpx(38)
+let circleSize = [hdpxi(18), hdpxi(18)]
 let locOn = loc($"option/on")
 let locOff = loc($"option/off")
 
@@ -36,7 +37,7 @@ let roomsCheckboxBlock = [
 
 let columns = [
   [ optMode, optDifficulty ].extend(roomsCheckboxBlock),
-  [ optCampaigns ],
+  [ optArmiesA, optArmiesB ],
   [ optCluster, optCrossplay ]
 ]
 
@@ -46,7 +47,7 @@ let bTxt = @(text) {
   rendObj = ROBJ_TEXT
   color = defTxtColor
   text
-}.__update(body_txt)
+}.__update(fontBody)
 
 let mkBlock = @(headerText, children) {
   size = [flex(), SIZE_TO_CONTENT]
@@ -59,7 +60,7 @@ let mkBlock = @(headerText, children) {
       rendObj = ROBJ_TEXT
       color = 0xFF808080
       text = headerText
-    }.__update(sub_txt)
+    }.__update(fontSub)
     children
   ]
 }
@@ -73,9 +74,14 @@ let mkCheckIcon = @(watched) @() {
   children = watched.value ? faComp("check", {valign = ALIGN_CENTER}) : null
 }
 
+
+let checkCircleIconOn = Picture($"!ui/skin#on_radiobutton.svg:{circleSize[0]}:{circleSize[1]}:K")
+let checkCircleIconOff = Picture($"!ui/skin#off_radiobutton.svg:{circleSize[0]}:{circleSize[1]}:K")
+
 let mkCheckCircleIcon = @(v) {
+  size = circleSize
   rendObj = ROBJ_IMAGE
-  image = Picture($"ui/skin#{v ? "on" : "off"}_radiobutton.svg")
+  image = v ? checkCircleIconOn : checkCircleIconOff
 }
 
 let mkCircleCheck = @(watched) @() {
@@ -199,8 +205,18 @@ let openEventFiltersPopup = @(event)
     onDetach = @() isRoomFilterOpened(false)
   })
 
+let closeEventFiltersPopup = @() modalPopupWnd.remove(WND_UID)
+
+let function toggleEventFiltersPopup(event) {
+  if (isRoomFilterOpened.value)
+    closeEventFiltersPopup()
+  else
+    openEventFiltersPopup(event)
+}
+
 return {
   openEventFiltersPopup
-  closeEventFiltersPopup = @() modalPopupWnd.remove(WND_UID)
+  closeEventFiltersPopup
+  toggleEventFiltersPopup
   isRoomFilterOpened
 }

@@ -1,21 +1,25 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let {mkOnlineSaveData} = require("%enlSqGlob/mkOnlineSaveData.nut")
+let { mkOnlineSaveData } = require("%enlSqGlob/mkOnlineSaveData.nut")
 let { squadLeaderState, isInSquad, isSquadLeader } = require("%enlist/squad/squadState.nut")
 let { unlockedCampaigns, visibleCampaigns, lockedProgressCampaigns } = require("campaigns.nut")
+let { gameProfile } = require("%enlist/soldiers/model/config/gameProfile.nut")
+let { nestWatched } = require("%dngscripts/globalState.nut")
+let { getCampaignTitle } = require("%enlSqGlob/ui/itemsInfo.nut")
 
-let curCampaignStorage = mkOnlineSaveData("curCampaign")
+const COMMON_CAMPAIGN = "common"
+
+let curCampaignStorage = mkOnlineSaveData(COMMON_CAMPAIGN)
 let setCurCampaign = curCampaignStorage.setValue
 let curCampaignStored = curCampaignStorage.watch
-let roomCampaign = mkWatched(persist, "roomCampaign", null)
-let campaignOverride = mkWatched(persist, "campaignOverride", []) //squad leader campaign still will be more important
+let roomCampaign = nestWatched("roomCampaign", null)
+let campaignOverride = nestWatched("campaignOverride", []) //squad leader campaign still will be more important
 let topCampaignOverride = Computed(@() campaignOverride.value?[campaignOverride.value.len() - 1].campaign)
 
 let selectedCampaign = Computed(function() {
   let campaign = roomCampaign.value ?? topCampaignOverride.value ?? curCampaignStored.value
-  let visibCampaigns = visibleCampaigns.value
-  let availCampaigns = unlockedCampaigns.value
-  return visibCampaigns.contains(campaign) && availCampaigns.contains(campaign) ? campaign : null
+  return visibleCampaigns.value.contains(campaign)
+    && unlockedCampaigns.value.contains(campaign) ? campaign : null
 })
 
 let curCampaign = Computed(@()
@@ -25,7 +29,10 @@ let curCampaign = Computed(@()
     ? null
     : squadLeaderState.value?.curCampaign)
   ?? selectedCampaign.value
-  ?? unlockedCampaigns.value?[0])
+  ?? visibleCampaigns.value?[0])
+
+let curCampaignConfig = Computed(@() gameProfile.value?.campaigns[curCampaign.value])
+let curCampaignLocId = Computed(@() getCampaignTitle(curCampaign.value))
 
 let function addCurCampaignOverride(id, campaign) {
   let cfg = campaignOverride.value.findvalue(@(c) c.id == id)
@@ -47,8 +54,11 @@ return {
   setCurCampaign
   setRoomCampaign = @(campaign) roomCampaign(campaign)
   curCampaign
+  curCampaignConfig
+  curCampaignLocId
   canChangeCampaign = Computed(@() !isInSquad.value || isSquadLeader.value)
   isCurCampaignProgressUnlocked = Computed(@() curCampaign.value not in lockedProgressCampaigns.value)
   addCurCampaignOverride
   removeCurCampaignOverride
+  COMMON_CAMPAIGN
 }

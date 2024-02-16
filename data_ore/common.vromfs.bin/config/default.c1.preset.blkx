@@ -178,6 +178,11 @@
     "btn": 14,
     "type": 1
   },
+  "Human.RotateBuilding": {
+    "dev": 3,
+    "btn": 14,
+    "type": 1
+  },
   "Human.WeapModToggle": {
     "dev": 3,
     "btn": 2,
@@ -254,7 +259,11 @@
     "dev": 3,
     "btn": 6
   },
-  "Human.BuildingAction": {
+  "Human.SupplyMenu": {
+    "dev": 3,
+    "btn": 9
+  },
+  "Human.DestroyBuilding": {
     "dev": 3,
     "btn": 7,
     "type": 1,
@@ -310,6 +319,28 @@
     "nonlin": 0.0,
     "maxVal": 1.0
   },
+  "Mech.Strafe": {
+    "dev": 3,
+    "axis": 0,
+    "inverse": true,
+    "dzone": 0.0,
+    "nonlin": 0.0,
+    "maxVal": 1.0,
+    "relIncScale": 0.0,
+    "mod": {
+      "dev": 3,
+      "btn": 12
+    }
+  },
+  "Mech.ShootSecondary": {
+    "dev": 1,
+    "btn": 19
+  },
+  "Mech.ShootFlamethrower": {
+    "dev": 3,
+    "btn": 6,
+    "stickyToggle": true
+  },
   "Vehicle.Shoot": {
     "dev": 3,
     "btn": 17
@@ -358,11 +389,12 @@
   },
   "Vehicle.ShootGrenadeLauncher": {
     "dev": 3,
-    "btn": 7,
-    "mod": {
-      "dev": 3,
-      "btn": 6
-    }
+    "btn": 6
+  },
+  "Vehicle.Horn": {
+    "dev": 3,
+    "btn": 13,
+    "type": 1
   },
   "Ship.Steer": {
     "dev": 3,

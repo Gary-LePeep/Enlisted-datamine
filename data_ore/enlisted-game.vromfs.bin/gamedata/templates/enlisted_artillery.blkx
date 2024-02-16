@@ -1,6 +1,6 @@
 {
   "artillery_ai_dmgzone": {
-    "_extends": "awared_danger",
+    "_use": "awared_danger",
     "dmgzone__dangerWarning": true,
     "dmgzone__damage": 0.0,
     "dmgzone__fireAffect": 0.0,
@@ -18,10 +18,10 @@
   },
   "artillery_he": [
     {
-      "_extends": "artillery"
+      "_use": "artillery"
     },
     {
-      "_extends": "artillery_ai_dmgzone"
+      "_use": "artillery_ai_dmgzone"
     },
     {
       "artillery__name": "artillery_he"
@@ -32,10 +32,10 @@
   ],
   "aircraft_request_target_mark": [
     {
-      "_extends": "replicating"
+      "_use": "replicating"
     },
     {
-      "_extends": "artillery_ai_dmgzone"
+      "_use": "artillery_ai_dmgzone"
     },
     {
       "artillery__targetPos": [0.0,0.0,0.0]
@@ -62,13 +62,13 @@
   },
   "aircraft_request": [
     {
-      "_extends": "aircraft_artillery_narrator"
+      "_use": "aircraft_artillery_narrator"
     },
     {
-      "_extends": "aircraft_artillery_siren"
+      "_use": "aircraft_artillery_siren"
     },
     {
-      "_extends": "replicating"
+      "_use": "replicating"
     },
     {
       "artillery_zone__radius": 50.0
@@ -114,7 +114,16 @@
         "aircraft_request__aircraftSpawnHeight": 600.0,
         "aircraft_request__aircraftSpawnDistance": 7500.0,
         "aircraft_request__aircraftTemplate": "ai_he_111_h16+plane_spawn_in_air+requested_aircraft",
+        "aircraft_request__spawnDelayedTemplate": "aircraft_request_spawn_delayed",
+        "aircraft_request__spawnerTemplate": "aircraft_request_spawner",
+        "aircraft_request__originTm": [
+          [1.0,0.0,0.0],
+          [0.0,1.0,0.0],
+          [0.0,0.0,1.0],
+          [0.0,0.0,0.0]
+        ],
         "aircraft_request__aircraftTargetMarkTemplate": "aircraft_request_target_mark",
+        "aircraft_request__spawners:list<eid>": [],
         "aircraft_request__targetMarks:list<eid>": [],
         "aircraft_request__spawnedAircrafts:list<eid>": []
       }
@@ -142,8 +151,17 @@
       "aircraft_request:tag": []
     }
   ],
+  "aircraft_request_spawn_delayed": {
+    "aircraft_request__aircraftSpawnDelaySec": 1.0,
+    "aircraft_request__aircraftNextSpawnSec": 0.0,
+    "aircraft_request__aircraftLeader:eid": []
+  },
+  "aircraft_request_spawner": {
+    "team": 0,
+    "aircraft_request_spawner__bias": [0.0,0.0,0.0]
+  },
   "moscow_ger_team_aircraft_request": {
-    "_extends": "aircraft_request",
+    "_use": "aircraft_request",
     "_group": {
       "_tags": "server",
       "aircraft_request__aircraftAfterBombingHeight": 400.0,
@@ -153,7 +171,7 @@
     }
   },
   "moscow_ussr_team_aircraft_request": {
-    "_extends": "aircraft_request",
+    "_use": "aircraft_request",
     "_group": {
       "_tags": "server",
       "aircraft_request__aircraftAfterBombingHeight": 450.0,
@@ -163,7 +181,7 @@
     }
   },
   "normandy_usa_team_aircraft_request": {
-    "_extends": "aircraft_request",
+    "_use": "aircraft_request",
     "_group": {
       "_tags": "server",
       "aircraft_request__aircraftAfterBombingHeight": 400.0,
@@ -173,7 +191,7 @@
     }
   },
   "normandy_ger_team_aircraft_request": {
-    "_extends": "aircraft_request",
+    "_use": "aircraft_request",
     "_group": {
       "_tags": "server",
       "aircraft_request__aircraftAfterBombingHeight": 450.0,
@@ -183,7 +201,7 @@
     }
   },
   "berlin_ussr_team_aircraft_request": {
-    "_extends": "aircraft_request",
+    "_use": "aircraft_request",
     "_group": {
       "_tags": "server",
       "aircraft_request__aircraftAfterBombingHeight": 400.0,
@@ -193,7 +211,7 @@
     }
   },
   "berlin_ger_team_aircraft_request": {
-    "_extends": "aircraft_request",
+    "_use": "aircraft_request",
     "_group": {
       "_tags": "server",
       "aircraft_request__aircraftAfterBombingHeight": 450.0,
@@ -203,7 +221,7 @@
     }
   },
   "tunisia_usa_team_aircraft_request": {
-    "_extends": "aircraft_request",
+    "_use": "aircraft_request",
     "_group": {
       "_tags": "server",
       "aircraft_request__aircraftAfterBombingHeight": 800.0,
@@ -213,7 +231,7 @@
     }
   },
   "tunisia_ger_team_aircraft_request": {
-    "_extends": "aircraft_request",
+    "_use": "aircraft_request",
     "_group": {
       "_tags": "server",
       "aircraft_request__aircraftAfterBombingHeight": 850.0,
@@ -223,7 +241,7 @@
     }
   },
   "stalingrad_ussr_team_aircraft_request": {
-    "_extends": "aircraft_request",
+    "_use": "aircraft_request",
     "_group": {
       "_tags": "server",
       "aircraft_request__aircraftAfterBombingHeight": 450.0,
@@ -233,7 +251,7 @@
     }
   },
   "stalingrad_ger_team_aircraft_request": {
-    "_extends": "aircraft_request",
+    "_use": "aircraft_request",
     "_group": {
       "_tags": "server",
       "aircraft_request__aircraftAfterBombingHeight": 400.0,
@@ -243,7 +261,7 @@
     }
   },
   "pacific_usa_team_aircraft_request": {
-    "_extends": "aircraft_request",
+    "_use": "aircraft_request",
     "_group": {
       "_tags": "server",
       "aircraft_request__aircraftAfterBombingHeight": 900.0,
@@ -253,7 +271,7 @@
     }
   },
   "pacific_japan_team_aircraft_request": {
-    "_extends": "aircraft_request",
+    "_use": "aircraft_request",
     "_group": {
       "_tags": "server",
       "aircraft_request__aircraftAfterBombingHeight": 950.0,
@@ -263,7 +281,7 @@
     }
   },
   "artillery_smoke": {
-    "_extends": "artillery",
+    "_use": "artillery",
     "artillery_zone__showOnMinimap": false,
     "artillery__name": "artillery_smoke",
     "artillery__adjustmentsShotsCount": 0,
@@ -279,7 +297,7 @@
     "artillery__maxLineLength": 100.0
   },
   "artillery_fireworks": {
-    "_extends": "replicating",
+    "_use": "replicating",
     "fireworks__effectTemplate": "fireworks_shell_effect",
     "fireworks__effectOffset": [0.0,50.0,0.0],
     "artillery__targetPos": [0.0,0.0,0.0],
@@ -293,14 +311,14 @@
   },
   "smoke_artillery_projectile": [
     {
-      "_extends": "bullet_projectile"
+      "_use": "bullet_projectile"
     },
     {
-      "_extends": "smoke_artillery_projectile_sound"
+      "_use": "smoke_artillery_projectile_sound"
     }
   ],
   "smoke_artillery_gun": {
-    "_extends": "artillery_gun",
+    "_use": "artillery_gun",
     "gun__projectileTemplate": "smoke_artillery_projectile+disable_ricochet",
     "gun__ammoSetsInfo:shared:array": {
       "SMOKE:array": {

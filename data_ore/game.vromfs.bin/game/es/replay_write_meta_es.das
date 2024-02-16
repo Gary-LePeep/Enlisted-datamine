@@ -2,11 +2,12 @@ require ecs
 require app
 require net
 require strings
-require EnlistedNet
+require DngNet
 require CurrentCircuit
 require rapidjson
 require game.events_game
 require enlisted.events_enlisted
+require matching // INVALID_USER_ID
 
 [es(tag=recordingReplay, on_appear, REQUIRE=human)]
 def set_first_respawn_time_es(evt : Event)
@@ -15,6 +16,10 @@ def set_first_respawn_time_es(evt : Event)
     if !replay__isFirstHumanSpawned
       replay__isFirstHumanSpawned = true
       replay__firstHumanSpawnTime = get_sync_time()
+
+[es(tag=recordingReplay)]
+def replay_save_keyframe_es(evt : EventKeyFrameSaved; var replay__keyFrameTimes : IntList&)
+  push(replay__keyFrameTimes, evt.time)
 
 [es(tag=recordingReplay, on_event=EventLevelLoaded)]
 def replay_recording_create_meta(evt : Event)
@@ -30,19 +35,25 @@ def replay_is_game_finished_es(evt : Event; var replay__isFinished : bool&)
 def replay_write_meta_es(var evt : EventOnWriteReplayMetaInfo&)
   assume obj = evt.replayMeta
   SetObject(obj) <| $(var item : JsonValue)
-    query() <| $ [es] (mission_name : string; mission_type : string)
+    query() <| $ [es] (mission_name : string; mission_type : string; mission_outfit : string)
       item |> AddMember("mission_name", mission_name, obj)
       item |> AddMember("mission_type", mission_type, obj)
+      item |> AddMember("mission_outfit", mission_outfit, obj)
 
     query() <| $ [es] (mission__startTime : int64;
                        replay__firstHumanSpawnTime : float;
                        replay__isFinished : bool;
-                       replay__startAt : float)
+                       replay__startAt : float;
+                       replay__keyFrameTimes : IntList)
       item |> AddMember("start_timestamp", mission__startTime, obj)
       item |> AddMember("first_human_spawn_time", replay__firstHumanSpawnTime, obj)
       item |> AddMember("total_play_time", get_sync_time(), obj)
       item |> AddMember("replay__startAt", replay__startAt, obj)
       item |> AddMember("replay__isFinished", replay__isFinished, obj)
+      using(JsonType kArrayType) <| $(var keyFrames : JsonValue)
+        for time in replay__keyFrameTimes
+          keyFrames |> PushBack(time, obj)
+        item |> AddMember("keyFrames", keyFrames, obj)
     item |> AddMember("end_timestamp", int64(get_clock()), obj)
     item |> AddMember("session_id", get_session_id(), obj)
 
@@ -57,8 +68,11 @@ def replay_write_meta_es(var evt : EventOnWriteReplayMetaInfo&)
       if digestGroup != ""
         item |> AddMember("digestGroup", digestGroup, obj)
 
-      if mode_info |> json_get_or("modId", "") != ""
+      let modId = mode_info |> json_get_or("modId", "")
+      if modId != ""
         item |> AddMember("digestGroup", "mods-lobby", obj)
+        item |> AddMember("modId", modId, obj)
+        item |> AddMember("modVersion", json_get_or(mode_info, "modVersion", 1), obj)
 
       let modName = mode_info |> json_get_or("modName", "")
       if modName != ""
@@ -76,8 +90,8 @@ def replay_write_meta_es(var evt : EventOnWriteReplayMetaInfo&)
           player |> AddMember("team", team, obj)
           // replace white spaces for hide bot player names from output
           player |> AddMember("name", replace(name, " ", ""), obj)
-          if playerIsBot == null // do not send bot userid to meta
-            player |> AddMember("userid", userid, obj)
+          if playerIsBot == null && userid != INVALID_USER_ID // do not send bot userid to meta
+            player |> AddMember("userid", int64(userid), obj) // convert to signed for backend
           players |> PushBack(player, obj)
       item |> AddMember("players", players, obj)
 

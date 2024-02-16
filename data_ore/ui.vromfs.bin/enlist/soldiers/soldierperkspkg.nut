@@ -1,14 +1,13 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { body_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { ceil } = require("math")
 let { getRomanNumeral } = require("%sqstd/math.nut")
 let msgbox = require("%enlist/components/msgbox.nut")
-let { sound_play } = require("sound")
+let { sound_play } = require("%dngscripts/sound_system.nut")
 let { smallPadding, bigPadding, perkIconSize, defTxtColor, titleTxtColor,
   soldierWndWidth, commonBtnHeight
 } = require("%enlSqGlob/ui/viewConst.nut")
-let perksList = require("%enlist/meta/perks/perksList.nut")
 let { perksData, getTierAvailableData,
   getNoAvailPerksText, showPerksChoice, buySoldierLevel, useSoldierLevelupOrders, dropPerk
 } = require("model/soldierPerks.nut")
@@ -18,11 +17,9 @@ let getPayItemsData = require("model/getPayItemsData.nut")
 let confirmBarterMsgBox = require("%enlist/shop/confirmBarterMsgBox.nut")
 let { perkLevelsGrid, getNextLevelData, getOrdersToNextLevel
 } = require("%enlist/meta/perks/perksExp.nut")
-let { openAvailablePerks } = require("availablePerksWnd.nut")
-let { curArmy, curCampItems, curCampItemsCount } = require("model/state.nut")
+let { curCampItems, curCampItemsCount } = require("model/state.nut")
 let { perkCardBg, perkCard, tierTitle, mkPerksPointsBlock
 } = require("components/perksPackage.nut")
-let textButton = require("%ui/components/textButton.nut")
 let { noBlinkUnseenIcon } = require("%ui/components/unseenSignal.nut")
 let { purchaseMsgBox } = require("%enlist/currency/purchaseMsgBox.nut")
 let { enlistedGold } = require("%enlist/currency/currenciesList.nut")
@@ -30,7 +27,7 @@ let { mkCurrency } = require("%enlist/currency/currenciesComp.nut")
 let { mkItemCurrency } = require("%enlist/shop/currencyComp.nut")
 let { soldierTrainingInProgress, trainSoldier
 } = require("%enlist/soldiers/model/trainState.nut")
-let spinner = require("%ui/components/spinner.nut")({ height = hdpx(40) })
+let spinner = require("%ui/components/spinner.nut")
 let { TRAINING_ORDER, trainingPrices, getTrainingPrice, maxTrainByClass
 } = require("%enlist/soldiers/model/config/soldierTrainingConfig.nut")
 let { mkCurrencyButton } = require("%enlist/soldiers/components/currencyButton.nut")
@@ -38,8 +35,11 @@ let { focusResearch, findResearchTrainClass, hasResearchSquad
 } = require("%enlist/researches/researchesFocus.nut")
 let { soldierClasses } = require("%enlSqGlob/ui/soldierClasses.nut")
 let { curUpgradeDiscount, disablePerkReroll } = require("%enlist/campaigns/campaignConfig.nut")
+let JB = require("%ui/control/gui_buttons.nut")
+let { Notifiers, markNotifierSeen } = require("%enlist/tutorial/notifierTutorial.nut")
 
 local slotNumber = 0
+let waitingSpinner = spinner(hdpx(20))
 
 let choosePerkIcon = noBlinkUnseenIcon()
   .__update({ hplace = ALIGN_CENTER, vplace = ALIGN_CENTER })
@@ -48,7 +48,7 @@ let mkText = @(txt) {
   rendObj = ROBJ_TEXT
   color = defTxtColor
   text = txt
-}.__update(sub_txt)
+}.__update(fontSub)
 
 let mkTextArea = @(txt) {
   rendObj = ROBJ_TEXTAREA
@@ -56,7 +56,7 @@ let mkTextArea = @(txt) {
   size = [flex(), SIZE_TO_CONTENT]
   color = defTxtColor
   text = txt
-}.__update(sub_txt)
+}.__update(fontSub)
 
 let choosePerkRow  = @(slotIdx, icon, locId, onClick = null) perkCardBg(slotIdx, onClick, {
   size = [flex(), SIZE_TO_CONTENT]
@@ -93,7 +93,7 @@ let useSoldierLevelOrdersMsg = @(perks, tier, ordersToNextLevel, barterData, onS
     productView = mkTextArea(loc("buy/soldierLevelConfirmOrder")).__update({
       halign = ALIGN_CENTER
       color = titleTxtColor
-    }.__update(body_txt)),
+    }.__update(fontBody)),
     currenciesAmount = mkItemCurrency({
       currencyTpl = ordersToNextLevel.orderTpl
       count = curCampItemsCount.value?[ordersToNextLevel.orderTpl] ?? 0
@@ -130,7 +130,7 @@ let function buySoldierLevelMsg(perks, cb, ordersToNextLevel) {
           halign = ALIGN_CENTER
           padding = bigPadding
           children = [
-            mkText(loc("notEnoughOrders")).__update(body_txt)
+            mkText(loc("notEnoughOrders")).__update(fontBody)
             mkItemCurrency({
               currencyTpl = ordersToNextLevel.orderTpl,
               count = ordersToNextLevel.ordersRequire
@@ -190,7 +190,7 @@ let function onBuyLevel(perks, tier = null, onSlotClick = null) {
     if (onSlotClick == null || (res?.error ?? "").len() > 0)
       return
 
-    let chooseIdx = tier.slots.findindex(@(perkId) (perkId ?? "") == "")
+    let chooseIdx = tier?.slots.findindex(@(perkId) (perkId ?? "") == "")
     if (chooseIdx != null)
       onSlotClick(chooseIdx)
   }, ordersToNextLevel)
@@ -299,17 +299,11 @@ let tierUi = @(armyId, tierIdx, tier, perks, onSlotClick) {
   ]
 }
 
-let mkPerksListBtn = @(sGuid) @() {
-  watch = [curArmy, perksList, perksData]
-  hplace = ALIGN_RIGHT
-  children = textButton.SmallFlat(loc("possible_perks_list"),
-    @() openAvailablePerks(perksList.value, curArmy.value, perksData.value?[sGuid]),
-    { margin = 0, padding = [bigPadding, 2 * bigPadding] })
-  }
-
 let function onPerksChoice(soldierGuid, perks, tierIdx, slotIdx) {
-  if ((perks?.tiers[tierIdx].slots[slotIdx] ?? "") == "")
+  if ((perks?.tiers[tierIdx].slots[slotIdx] ?? "") == "") {
+    markNotifierSeen(Notifiers.PERK)
     return showPerksChoice(soldierGuid, tierIdx, slotIdx)
+  }
 
   let isDrop = perks.availPerks == 0
   msgbox.showMessageWithContent({
@@ -324,7 +318,7 @@ let function onPerksChoice(soldierGuid, perks, tierIdx, slotIdx) {
         mkTextArea(loc(isDrop ? "msg/dropPerk" : "msg/useRetrainingPoint")).__update({
           halign = ALIGN_CENTER
           color = titleTxtColor
-        }.__update(body_txt))
+        }.__update(fontBody))
       ]
     }
     buttons = [
@@ -336,6 +330,7 @@ let function onPerksChoice(soldierGuid, perks, tierIdx, slotIdx) {
       { text = loc("Cancel")
         isCurrent = isDrop
         isCancel = true
+        customStyle = { hotkeys = [[$"^{JB.B} | Esc"]] }
       }
     ]
   })
@@ -355,7 +350,7 @@ let function showNotEnoughOrdersMsg() {
   msgbox.show({ text = loc("soldier/noOrdersToTrain") })
 }
 
-let function showTrainResearchMsg(soldier) {
+let function showTrainResearchMsg(soldier, cb = null) {
   let { sClass = "unknown" } = soldier
   let armyId = getLinkedArmyName(soldier)
   let research = findResearchTrainClass(soldier)
@@ -368,8 +363,17 @@ let function showTrainResearchMsg(soldier) {
     msgbox.show({
       text = loc("msg/needResearchToTrainHigher")
       buttons = [
-        { text = loc("Ok"), isCurrent = true }
-        { text = loc("GoToResearch"), action = @() focusResearch(research) }
+        { text = loc("GoToResearch")
+          action = function() {
+            cb?()
+            focusResearch(research)
+          }
+          customStyle = { hotkeys = [[ "^J:Y | Enter" ]] }
+        }
+        { text = loc("Cancel")
+          isCurrent = true
+          customStyle = { hotkeys = [[ $"^{JB.B} | Esc" ]]}
+        }
       ]
     })
 }
@@ -392,7 +396,7 @@ let function mkSoldierTrainBtn(soldier, perks) {
 
     let children = []
     if (!isAvailable)
-      children.append(spinner)
+      children.append(waitingSpinner)
 
     let { stepsLeft = 0 } = perks
     let freemiumDiscount = 1.0 - curUpgradeDiscount.value
@@ -462,9 +466,9 @@ let perksUi = @(soldier, canManage) function() {
     margin = [bigPadding, 0]
     gap = bigPadding
     children = [
-      mkPerksList(guid, armyId, perks, canManage)
-      canExpandPerks ? morePerksHint : null
-      hasMaxRank ? null : mkSoldierTrainBtn(soldier.value, perks)
+      mkPerksList(guid, armyId, perks, canManage),
+      canExpandPerks ? morePerksHint : null,
+      (hasMaxRank || soldier == null) ? null : mkSoldierTrainBtn(soldier.value, perks),
       hasMaxRank ? soldierMaxRank : mkSoldierSteps(perks)
     ]
   }
@@ -491,7 +495,7 @@ let mkRetrainingPoints = @(soldierGuid) function() {
                 mkText(availPerks).__update({
                   key = availPerks
                   color = titleTxtColor
-                }.__update(body_txt))
+                }.__update(fontBody))
               ]
             }
           ]
@@ -503,15 +507,18 @@ let mkPerksPoints = @(soldierGuid) {
   size = [flex(), SIZE_TO_CONTENT]
   flow = FLOW_HORIZONTAL
   gap = bigPadding
-  margin = [0, 0, smallPadding, 0]
   valign = ALIGN_CENTER
+  vplace = ALIGN_CENTER
   halign = ALIGN_CENTER
   children = mkPerksPointsBlock(soldierGuid)
 }
 
 return {
   mkPerksPoints
-  mkPerksListBtn
   mkRetrainingPoints
   perksUi
+  onPerksChoice
+  onBuyLevel
+  showNotEnoughOrdersMsg
+  showTrainResearchMsg
 }

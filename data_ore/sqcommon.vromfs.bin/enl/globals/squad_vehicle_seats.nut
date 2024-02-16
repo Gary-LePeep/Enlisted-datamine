@@ -12,8 +12,8 @@ let function getSeatsOrder() {
   return seatsOrder
 }
 
-let mkVehicleSeats = @(vehicleWatch) Computed(function() {
-  let { gametemplate = null } = vehicleWatch.value
+let function mkVehicleSeats(vehicle) {
+  let { gametemplate = null } = vehicle
   if (!gametemplate)
     return []
 
@@ -39,6 +39,6 @@ let mkVehicleSeats = @(vehicleWatch) Computed(function() {
     seat.locName <- seat?.locName ?? (seat?.name ? $"vehicle_seats/{seat.name}" : "unknown")
     return seat
   })
-})
+}
 
 return mkVehicleSeats

@@ -222,49 +222,49 @@
         "_tracked": "engineer__isMenuOpen"
       },
       {
-        "_extends": "shooter_human"
+        "_use": "shooter_human"
       },
       {
-        "_extends": "human_breath"
+        "_use": "human_breath"
       },
       {
-        "_extends": "human_sound"
+        "_use": "human_bush_collision_effects"
       },
       {
-        "_extends": "human_sound_paths"
+        "_use": "human_sound"
       },
       {
-        "_extends": "human_net_sound"
+        "_use": "human_sound_paths"
       },
       {
-        "_extends": "human_speech"
+        "_use": "human_net_sound"
       },
       {
-        "_extends": "russian_human_voice"
+        "_use": "human_speech"
       },
       {
-        "_extends": "human_hooray_speech"
+        "_use": "russian_human_voice"
       },
       {
-        "_extends": "squad_member_ai"
+        "_use": "human_hooray_speech"
       },
       {
-        "_extends": "enlisted_human_marker"
+        "_use": "squad_member_ai"
       },
       {
-        "_extends": "human_hide_slots_in_scope"
+        "_use": "enlisted_human_marker"
       },
       {
-        "_extends": "base_human_actions"
+        "_use": "human_hide_slots_in_scope"
+      },
+      {
+        "_use": "base_human_actions"
       },
       {
         "animchar__res": "ussr_summer_5_char"
       },
       {
         "collres__res": "ussr_summer_5_collision"
-      },
-      {
-        "human_net_phys__blk": "content/enlisted/gamedata/units/walkers/sov_soldier.blk"
       },
       {
         "beh_tree__blackboard__enemyRadius": 90.0
@@ -277,9 +277,6 @@
       },
       {
         "entity_danger__debug": false
-      },
-      {
-        "unit_indicator__ignorePlayers": false
       },
       {
         "animchar_fast_phys__res": "ussr_summer_5_fastphys"
@@ -345,273 +342,273 @@
   {
     "ussr_summer_soldier_1": [
       {
-        "_extends": "sov_soldier"
+        "_use": "sov_soldier"
       },
       {
-        "_extends": "ussr_summer_1"
+        "_use": "ussr_summer_1"
       }
     ]
   },
   {
     "ussr_summer_soldier_2": [
       {
-        "_extends": "sov_soldier"
+        "_use": "sov_soldier"
       },
       {
-        "_extends": "ussr_summer_2"
+        "_use": "ussr_summer_2"
       }
     ]
   },
   {
     "ussr_summer_soldier_3": [
       {
-        "_extends": "sov_soldier"
+        "_use": "sov_soldier"
       },
       {
-        "_extends": "ussr_summer_3"
+        "_use": "ussr_summer_3"
       }
     ]
   },
   {
     "ussr_summer_soldier_4": [
       {
-        "_extends": "sov_soldier"
+        "_use": "sov_soldier"
       },
       {
-        "_extends": "ussr_summer_4"
+        "_use": "ussr_summer_4"
       }
     ]
   },
   {
     "ussr_summer_soldier_5": [
       {
-        "_extends": "sov_soldier"
+        "_use": "sov_soldier"
       },
       {
-        "_extends": "ussr_summer_5"
+        "_use": "ussr_summer_5"
       }
     ]
   },
   {
     "ussr_summer_soldier_6": [
       {
-        "_extends": "sov_soldier"
+        "_use": "sov_soldier"
       },
       {
-        "_extends": "ussr_summer_6"
+        "_use": "ussr_summer_6"
       }
     ]
   },
   {
     "ussr_summer_soldier_7": [
       {
-        "_extends": "sov_soldier"
+        "_use": "sov_soldier"
       },
       {
-        "_extends": "ussr_summer_7"
+        "_use": "ussr_summer_7"
       }
     ]
   },
   {
     "ussr_summer_soldier_8": [
       {
-        "_extends": "sov_soldier"
+        "_use": "sov_soldier"
       },
       {
-        "_extends": "ussr_summer_8"
+        "_use": "ussr_summer_8"
       }
     ]
   },
   {
     "ussr_winter_soldier_1": [
       {
-        "_extends": "sov_soldier"
+        "_use": "sov_soldier"
       },
       {
-        "_extends": "ussr_winter_1"
+        "_use": "ussr_winter_1"
       }
     ]
   },
   {
     "ussr_winter_soldier_2": [
       {
-        "_extends": "sov_soldier"
+        "_use": "sov_soldier"
       },
       {
-        "_extends": "ussr_winter_2"
+        "_use": "ussr_winter_2"
       }
     ]
   },
   {
     "ussr_winter_soldier_3": [
       {
-        "_extends": "sov_soldier"
+        "_use": "sov_soldier"
       },
       {
-        "_extends": "ussr_winter_3"
+        "_use": "ussr_winter_3"
       }
     ]
   },
   {
     "ussr_winter_soldier_4": [
       {
-        "_extends": "sov_soldier"
+        "_use": "sov_soldier"
       },
       {
-        "_extends": "ussr_winter_4"
+        "_use": "ussr_winter_4"
       }
     ]
   },
   {
     "ussr_winter_soldier_5": [
       {
-        "_extends": "sov_soldier"
+        "_use": "sov_soldier"
       },
       {
-        "_extends": "ussr_winter_5"
+        "_use": "ussr_winter_5"
       }
     ]
   },
   {
     "ussr_winter_soldier_6": [
       {
-        "_extends": "sov_soldier"
+        "_use": "sov_soldier"
       },
       {
-        "_extends": "ussr_winter_6"
+        "_use": "ussr_winter_6"
       }
     ]
   },
   {
     "ussr_winter_soldier_7": [
       {
-        "_extends": "sov_soldier"
+        "_use": "sov_soldier"
       },
       {
-        "_extends": "ussr_winter_7"
+        "_use": "ussr_winter_7"
       }
     ]
   },
   {
     "ussr_winter_soldier_8": [
       {
-        "_extends": "sov_soldier"
+        "_use": "sov_soldier"
       },
       {
-        "_extends": "ussr_winter_8"
+        "_use": "ussr_winter_8"
       }
     ]
   },
   {
     "ussr_winter_soldier_9": [
       {
-        "_extends": "sov_soldier"
+        "_use": "sov_soldier"
       },
       {
-        "_extends": "ussr_winter_9"
+        "_use": "ussr_winter_9"
       }
     ]
   },
   {
     "ussr_winter_soldier_10": [
       {
-        "_extends": "sov_soldier"
+        "_use": "sov_soldier"
       },
       {
-        "_extends": "ussr_winter_10"
+        "_use": "ussr_winter_10"
       }
     ]
   },
   {
     "ussr_winter_soldier_11": [
       {
-        "_extends": "sov_soldier"
+        "_use": "sov_soldier"
       },
       {
-        "_extends": "ussr_winter_11"
+        "_use": "ussr_winter_11"
       }
     ]
   },
   {
     "ussr_winter_soldier_12": [
       {
-        "_extends": "sov_soldier"
+        "_use": "sov_soldier"
       },
       {
-        "_extends": "ussr_winter_12"
+        "_use": "ussr_winter_12"
       }
     ]
   },
   {
     "sov_soldier_winter": {
-      "_extends": "sov_soldier",
+      "_use": "sov_soldier",
       "animchar__res": "ussr_summer_5_char",
       "collres__res": "ussr_summer_5_collision"
     }
   },
   {
     "sov_winter_npc_soldier": {
-      "_extends": "sov_soldier_winter",
+      "_use": "sov_soldier_winter",
       "beh_tree__enabled": true
     }
   },
   {
     "ussr_npc_winter_soldier_9": {
-      "_extends": "ussr_winter_soldier_9",
+      "_use": "ussr_winter_soldier_9",
       "beh_tree__enabled": true
     }
   },
   {
     "ussr_npc_winter_soldier_10": {
-      "_extends": "ussr_winter_soldier_10",
+      "_use": "ussr_winter_soldier_10",
       "beh_tree__enabled": true
     }
   },
   {
     "ussr_npc_winter_soldier_12": {
-      "_extends": "ussr_winter_soldier_12",
+      "_use": "ussr_winter_soldier_12",
       "beh_tree__enabled": true
     }
   },
   {
     "ussr_npc_summer_soldier_1": {
-      "_extends": "ussr_summer_soldier_1",
+      "_use": "ussr_summer_soldier_1",
       "beh_tree__enabled": true
     }
   },
   {
     "ussr_npc_summer_soldier_2": {
-      "_extends": "ussr_summer_soldier_2",
+      "_use": "ussr_summer_soldier_2",
       "beh_tree__enabled": true
     }
   },
   {
     "ussr_npc_summer_soldier_3": {
-      "_extends": "ussr_summer_soldier_3",
+      "_use": "ussr_summer_soldier_3",
       "beh_tree__enabled": true
     }
   },
   {
     "ussr_npc_summer_soldier_4": {
-      "_extends": "ussr_summer_soldier_4",
+      "_use": "ussr_summer_soldier_4",
       "beh_tree__enabled": true
     }
   },
   {
     "ussr_npc_summer_soldier_5": {
-      "_extends": "ussr_summer_soldier_5",
+      "_use": "ussr_summer_soldier_5",
       "beh_tree__enabled": true
     }
   },
   {
     "ussr_npc_summer_soldier_6": {
-      "_extends": "ussr_summer_soldier_6",
+      "_use": "ussr_summer_soldier_6",
       "beh_tree__enabled": true
     }
   },
   {
     "sov_winter_defender": {
-      "_extends": "sov_winter_npc_soldier",
+      "_use": "sov_winter_npc_soldier",
       "beh_tree__node": "defender",
       "beh_tree__blackboard__wishPosition": [0.0,0.0,0.0],
       "beh_tree__blackboard__wishPositionSet": false,
@@ -621,20 +618,20 @@
   {
     "ussr_base_soldier": [
       {
-        "_extends": "sov_soldier"
+        "_use": "sov_soldier"
       },
       {
-        "_extends": "enlisted_base_soldier"
+        "_use": "enlisted_base_soldier"
       }
     ]
   },
   {
     "ai_aircraft_crew_ussr_soldier": [
       {
-        "_extends": "ussr_base_soldier"
+        "_use": "ai_aircraft_crew_soldier_ussr_base"
       },
       {
-        "_extends": "ai_aircraft_crew_soldier_ussr_base"
+        "_use": "ussr_summer_5"
       }
     ]
   }

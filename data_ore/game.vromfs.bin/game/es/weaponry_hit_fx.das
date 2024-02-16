@@ -4,8 +4,9 @@ require ecs.extra_set
 require PhysMat
 require DagorSystem
 require common_shooter.es.weapon.weaponry_fx_common
+require game.es.render.fx_common
 require strings
-require EnlistedDm
+require DngDm
 
 def get_fx_name(field_name : string; info_for_material : Object)
   let fxName = info_for_material[field_name] ?as string
@@ -16,58 +17,26 @@ def get_fx_name(field_name : string; info_for_material : Object)
   else
     return string(*fxName)
 
-def parse_fx_info_for_material(pmid : int;
-                               info_for_material : Object;
-                               var fxs, penetrationFxs, ricochetFxs : array<string>)
-  fxs[pmid] := get_fx_name("fx", info_for_material)
-  penetrationFxs[pmid] := get_fx_name("penetrationFx", info_for_material)
-  ricochetFxs[pmid] := get_fx_name("ricochetFx", info_for_material)
-
-def parse_effect_group(pmid_count : int; material_groups : Object; var effect_group : Object&)
+def parse_effect_group(var effect_group : Object&)
   let infoForMats = effect_group.info ?as Object
   if infoForMats == null
     return
 
   var fxs, penetrationFxs, ricochetFxs : array<string>
-
+  let pmid_count = physMatCount()
   resize(fxs, pmid_count)
   resize(penetrationFxs, pmid_count)
   resize(ricochetFxs, pmid_count)
 
-  let groupPrefix = "group__"
-  let groupPrefixLen = length(groupPrefix)
-  var pmidSet : array<bool>
-  resize(pmidSet, pmid_count)
-
-  for elem in *infoForMats
-    let obj = elem.value as Object
+  for_each_physmat_data(*infoForMats, /*group_prefix*/"group__") <| $(pmid : int; data : ChildComponent)
+    let obj = data as Object
     if obj == null
-      logerr("parse_fx_info_for_materials: wrong value type for material {elem.key} in fx_info; should be 'object'")
-      continue
+      logerr("parse_effect_group: wrong value type for material {get_material_name(get_material(pmid))}; should be 'object'")
+      return
+    fxs[pmid] := get_fx_name("fx", *obj)
+    penetrationFxs[pmid] := get_fx_name("penetrationFx", *obj)
+    ricochetFxs[pmid] := get_fx_name("ricochetFx", *obj)
 
-    if starts_with(elem.key, groupPrefix) //if key starts with groupPrefix, we're dealing with a material group
-      let matGroupName = slice(elem.key, groupPrefixLen)
-      let matGroup = get_ecs_StringList(material_groups[matGroupName])
-      if matGroup == null
-        logerr("parse_fx_info_for_materials: failed to find material group '{matGroupName}'")
-        continue
-      for matName in *matGroup
-        let pmid = get_material_id(string(matName))
-        if pmid <= 0
-          continue
-        //If effects were already set for this pmid, then we don't change them
-        if pmidSet[pmid]
-          continue
-        parse_fx_info_for_material(pmid, *obj, fxs, penetrationFxs, ricochetFxs)
-        pmidSet[pmid] = true
-    else                                  //if key does not start with groupPrefix, we're dealing with a single material
-      let pmid = get_material_id(elem.key)
-      if pmid <= 0
-        continue
-      //Set the effects for this pmid (or change them, if they were already set as part of material group)
-      //In other words, settings for a single material have higher priority than settings for material groups
-      parse_fx_info_for_material(pmid, *obj, fxs, penetrationFxs, ricochetFxs)
-      pmidSet[pmid] = true
   effect_group |> set("fxs", fxs)
   effect_group |> set("penetrationFxs", penetrationFxs)
   effect_group |> set("ricochetFxs", ricochetFxs)
@@ -220,14 +189,11 @@ def gun_hit_fx_expl_init_es(evt : Event;
 
 [es(on_appear)]
 def global_hit_fx_init_es(evt : Event;
-                          global_hit_fx__materialGroups : Object;
                           global_hit_fx__bulletTypeGroups : Object;
                           var global_hit_fx__bulletTypeGroupNameToIdMap : Object&;
                           var global_hit_fx__bulletTypeIdToGroupIdMap : IntList&;
                           var global_hit_fx__effectGroups : Array&;
                           var global_hit_fx__effectPresets : Array&)
-  let pmidCount = physMatCount()
-
   for _i in range(getBulletTypePropCount(get_damage_model_params()))
     push(global_hit_fx__bulletTypeIdToGroupIdMap, -1)
 
@@ -255,7 +221,7 @@ def global_hit_fx_init_es(evt : Event;
     if effectGroup == null
       logerr("global_hit_fx_init_es: all elements in global_hit_fx__effectGroups should be 'object'")
       continue
-    parse_effect_group(pmidCount, global_hit_fx__materialGroups, *effectGroup)
+    parse_effect_group(*effectGroup)
 
   for elem in global_hit_fx__effectPresets
     var effectPreset = elem as Object

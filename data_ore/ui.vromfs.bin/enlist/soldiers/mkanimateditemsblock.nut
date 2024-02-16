@@ -1,25 +1,25 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { h2_txt, body_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontHeading2, fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { squadsCfgById } = require("%enlist/soldiers/model/config/squadsConfig.nut")
-let {bigPadding, unitSize, slotBaseSize, listCtors, smallPadding } = require("%enlSqGlob/ui/viewConst.nut")
-let { bgColor, txtColor } = listCtors
+let {
+  unitSize, slotBaseSize, listCtors, warningColor, hoverBgColor
+} = require("%enlSqGlob/ui/viewConst.nut")
+let { smallPadding, midPadding, largePadding, bigPadding, defSlotBgColor, hoverSlotBgColor
+} = require("%enlSqGlob/ui/designConst.nut")
+let { txtColor } = listCtors
 let {gray} = require("%ui/components/std.nut")
 let dtxt = require("%ui/components/text.nut").dtext
 let { mkItem } = require("%enlist/soldiers/components/itemComp.nut")
 let mkSoldierCard = require("%enlSqGlob/ui/mkSoldierCard.nut")
 let { calc_golden_ratio_columns } = require("%sqstd/math.nut")
-let { mkXpBooster, mkBoosterInfo, mkBoosterLimits, boosterWidthToHeight
-} = require("%enlist/components/mkXpBooster.nut")
-let { rewardBgSizePx } = require("%enlist/items/itemsPresentation.nut")
+let { mkXpBooster, mkBoosterInfo, mkBoosterLimits } = require("%enlist/components/mkXpBooster.nut")
 let { needFreemiumStatus } = require("%enlist/campaigns/campaignConfig.nut")
 let { perkLevelsGrid } = require("%enlist/meta/perks/perksExp.nut")
 
 
-let itemSizeShort = [3.4 * unitSize, 1.8 * unitSize]
-let itemSizeLong = [6.0 * unitSize, 1.8 * unitSize]
-let boosterHeight = (rewardBgSizePx[1] * 0.7).tointeger()
-let itemSizeBooster = [(boosterWidthToHeight * boosterHeight).tointeger(), boosterHeight]
+let itemSizeShort = [3.4 * unitSize, 2.5 * unitSize]
+let itemSizeLong = [8.0 * unitSize, 2.5 * unitSize]
 let itemSizeByTypeMap = {
   soldier = slotBaseSize
   sideweapon = itemSizeShort
@@ -29,8 +29,15 @@ let itemSizeByTypeMap = {
   repair_kit = itemSizeShort
   medkits = itemSizeShort
   melee = itemSizeShort
-  booster = itemSizeBooster
+  booster = itemSizeShort
 }
+
+let extraHeightByTypeMap = {
+  ticket = bigPadding * 2
+  vehicle = largePadding
+  currency = bigPadding * 2
+}
+let getExtraHeight = @(itemType) extraHeightByTypeMap?[itemType] ?? 0
 
 local animDelay = 0
 local trigger = ""
@@ -45,7 +52,7 @@ let SKIP_ANIM_POSTFIX = "_skip"
 
 let dropTitle = @(titleText) {
   size = SIZE_TO_CONTENT
-  margin = [bigPadding, 0]
+  margin = [midPadding, 0]
   transform = {}
   animations = [
     { prop = AnimProp.opacity,   from = 0, to = 1, duration = 0.8, play = true, easing = InOutCubic}
@@ -55,7 +62,7 @@ let dropTitle = @(titleText) {
   ]
   children = dtxt(titleText, {
     size = SIZE_TO_CONTENT
-  }.__update(h2_txt))
+  }.__update(fontHeading2))
 }
 
 let function blockTitle(blockId, params) {
@@ -65,7 +72,7 @@ let function blockTitle(blockId, params) {
     transform = {}
     animations = params.hasAnim ? [
       { prop = AnimProp.opacity, from = 0, to = 0, duration = animDelay,
-        play = true, easing = InOutCubic, trigger = trigger + SKIP_ANIM_POSTFIX }
+        play = true, easing = InOutCubic, trigger = $"{trigger}{SKIP_ANIM_POSTFIX}" }
       { prop = AnimProp.opacity,   delay = animDelay, from = 0, to = 1, duration = 0.8,
         play = true, easing = InOutCubic, trigger = trigger }
       { prop = AnimProp.scale,     delay = animDelay, from = [1.5, 2], to = [1, 1], duration = 0.8,
@@ -78,7 +85,7 @@ let function blockTitle(blockId, params) {
       size = SIZE_TO_CONTENT
       hplace = ALIGN_LEFT
       color = gray
-    }.__update(body_txt))
+    }.__update(fontBody))
   }
 }
 
@@ -98,7 +105,6 @@ let mkItemByTypeMap = {
         soldierInfo = soldierInfo
         squadInfo = squadsCfgById.value?[soldierInfo?.armyId ?? ""][soldierInfo?.squadId ?? ""]
         expToLevel = perkLevelsGrid.value?.expToLevel
-        size = itemSizeLong
         group = group
         sf = stateFlags.value
         isDisarmed = p?.isDisarmed
@@ -110,33 +116,38 @@ let mkItemByTypeMap = {
   booster = function(p) {
     let { item, onClickCb } = p
     let stateFlags = Watched(0)
+    let { count = 1, expMul = 0 } = item
+    let boosterContainer = {
+      size = [ph(90), ph(105)]
+      hplace = ALIGN_CENTER
+      vplace = ALIGN_CENTER
+    }
     return function() {
       let sf = stateFlags.value
-      let textColor = txtColor(sf, false)
-      let { count = 1 } = item
+      let textColor = txtColor(sf)
       return {
         watch = stateFlags
         rendObj = ROBJ_SOLID
-        size = itemSizeBooster
+        size = flex()
         behavior = Behaviors.Button
         onElemState = @(s) stateFlags(s)
         onClick = onClickCb
-        color = bgColor(sf, false)
+        color = sf & S_HOVER ? hoverSlotBgColor : defSlotBgColor
         children = [
-          mkXpBooster(item)
+          mkXpBooster(boosterContainer, expMul < 0)
           {
             size = flex()
             padding = smallPadding
             children = [
-              mkBoosterInfo(item, sub_txt.__merge({ color = textColor }))
-              mkBoosterLimits(item, sub_txt.__merge({ color = textColor }))
+              mkBoosterInfo(item, fontSub.__merge({ color = textColor }))
+              mkBoosterLimits(item, fontSub.__merge({ color = textColor }))
               count <= 1 ? null
                : {
                     rendObj = ROBJ_TEXT
                     hplace = ALIGN_RIGHT
                     text = loc("common/amountShort", item)
                     color = textColor
-                  }.__update(sub_txt)
+                  }.__update(fontSub)
             ]
           }
         ]
@@ -145,68 +156,103 @@ let mkItemByTypeMap = {
   }
 }
 
-let function mkItemExt(item, params) {
+let alertIconSize = hdpxi(16)
+
+let alertIconObject = {
+  padding = smallPadding
+  margin = smallPadding
+  rendObj = ROBJ_SOLID
+  color = warningColor
+  children = {
+    size = [alertIconSize, alertIconSize]
+    rendObj = ROBJ_IMAGE
+    image = Picture("!ui/uiskin/campaign/change_campaing.svg:{0}:{0}:K".subst(alertIconSize))
+  }
+}
+
+
+let selectedLine = {
+  size = [flex(), hdpx(2)]
+  vplace = ALIGN_BOTTOM
+  rendObj = ROBJ_SOLID
+  color = hoverBgColor
+}
+
+let function mkItemExt(item, selectedTpl, params) {
+  let { hasAnim, onVisibleCb, armyByGuid, isDisarmed, onItemClick, pauseTooltip } = params
+
+  let extraHeight = getExtraHeight(item?.itemtype)
+
   let ctor = mkItemByTypeMap?[item?.itemtype]
-  let ctorAddParams = ctor == null ? {}
-    : { isDisarmed = params?.isDisarmed }
+  let size = getItemSize(item?.itemtype)
+  let itemSize = [size[0], size[1] - extraHeight]
+  let itemObject = (ctor ?? mkItem)({
+    item
+    onClickCb = onItemClick != null ? @(...) onItemClick(item) : null
+    itemSize
+    canDrag = false
+    isInteractive = onItemClick != null
+    pauseTooltip = pauseTooltip ?? Watched(false)
+  }.__update(ctor == null ? {} : { isDisarmed }))
+  let campObject = item.guid in armyByGuid ? alertIconObject : null
+
   animDelay += ITEM_DELAY
   return {
-    transform = {}
     key = item?.guid ?? item
-    animations = params.hasAnim ? [
+    size
+    children = [
+      itemObject
+      campObject
+      item?.basetpl == selectedTpl ? selectedLine : null
+    ]
+    transform = {}
+    animations = hasAnim ? [
       { prop = AnimProp.opacity,                      from = 0, to = 0, duration = animDelay,
-        play = true, easing = InOutCubic, trigger = trigger + SKIP_ANIM_POSTFIX }
+        play = true, easing = InOutCubic, trigger = $"{trigger}{SKIP_ANIM_POSTFIX}"}
       { prop = AnimProp.opacity,   delay = animDelay, from = 0, to = 1, duration = 0.4,
-        play = true, easing = InOutCubic, trigger = trigger, onFinish = params.onVisibleCb}
+        play = true, easing = InOutCubic, trigger = trigger, onFinish = onVisibleCb}
       { prop = AnimProp.scale,     delay = animDelay, from = [1.5, 2], to = [1, 1], duration = 0.5,
         play = true, easing = InOutCubic, trigger = trigger }
       { prop = AnimProp.translate, delay = animDelay, from = [sh(40), -sh(20)], to = [0, 0], duration = 0.5,
         play = true, easing = OutCubic, trigger = trigger }
     ] : []
-
-    children = (ctor ?? mkItem)({
-      item = item
-      onClickCb = params?.onItemClick ? @(...) params.onItemClick(item) : null
-      itemSize = getItemSize(item?.itemtype)
-      canDrag = false
-      isInteractive = params?.onItemClick ? true : false
-      pauseTooltip = params?.pauseTooltip ?? Watched(false)
-    }.__update(ctorAddParams))
   }
 }
 
-let function blockContent(items, columnsAmount, params) {
+let function blockContent(items, selectedTpl, columnsAmount, params) {
   let itemSize = getItemSize(items?[0].itemtype)
-  let containerWidth = columnsAmount * itemSize[0] + (columnsAmount - 1) * bigPadding
+  let containerWidth = columnsAmount * itemSize[0] + (columnsAmount - 1) * midPadding
   return {
     flow = FLOW_HORIZONTAL
-    children = wrap (items.map(@(item) mkItemExt(item, params)), {
+    children = wrap(items.map(@(item) mkItemExt(item, selectedTpl, params)), {
       width = containerWidth
-      hGap = bigPadding
-      vGap = bigPadding
+      hGap = midPadding
+      vGap = midPadding
       hplace = ALIGN_CENTER
       halign = ALIGN_CENTER
     })
   }
 }
 
-let function itemsBlock(items, blockId, params) {
+let function itemsBlock(items, blockId, selectedTpl, params) {
   if (!items.len())
     return null
 
+  let { hasItemTypeTitle, width } = params
+  let viewBlockId = hasItemTypeTitle ? blockId : null
+
   let itemSize = getItemSize(items?[0].itemtype)
-  let columnsAmount = params.width != null
-    ? ((params.width - (params.width / itemSize[0] - 1).tointeger() * bigPadding) / itemSize[0]).tointeger()
+  let columnsAmount = width != null
+    ? ((width - (width / itemSize[0] - 1).tointeger() * midPadding) / itemSize[0]).tointeger()
     : max(minColumns, calc_golden_ratio_columns(items.len(), itemSize[0] / itemSize[1]))
 
   return {
     size = [flex(), SIZE_TO_CONTENT]
     flow = FLOW_VERTICAL
     halign = ALIGN_CENTER
-    gap = bigPadding
-
-    children = (blockId ? [blockTitle(blockId, params)] : [])
-      .append(blockContent(items, columnsAmount, params))
+    gap = midPadding
+    children = (viewBlockId ? [blockTitle(viewBlockId, params)] : []) // -unwanted-modification
+      .append(blockContent(items, selectedTpl, columnsAmount, params))
   }
 }
 
@@ -219,7 +265,7 @@ let function appearAnim(comp, hasAnim) {
 
     animations = hasAnim ? [
       { prop = AnimProp.opacity,                    from = 0, to = 0, duration = animDelay,
-        play = true, trigger = trigger + SKIP_ANIM_POSTFIX }
+        play = true, trigger = $"{trigger}{SKIP_ANIM_POSTFIX}" }
       { prop = AnimProp.opacity, delay = animDelay, from = 0, to = 1, duration = 0.8,
         play = true, easing = InOutCubic, trigger = trigger }
     ] : []
@@ -236,20 +282,28 @@ let ITEMS_REWARDS_PARAMS = {
   onVisibleCb = null
   width = null
   onItemClick = null
+  armyByGuid = {}
+  isDisarmed = false
+  pauseTooltip = null
 }
 
-local function mkAnimatedItemsBlock(itemBlocks, params = ITEMS_REWARDS_PARAMS) {
+let function mkAnimatedItemsBlock(itemBlocks, selectedTpl, params = ITEMS_REWARDS_PARAMS) {
   params = ITEMS_REWARDS_PARAMS.__merge(params)
-  animDelay = params.baseAnimDelay
-  trigger = params.animTrigger
+
+  let {
+    baseAnimDelay, animTrigger, hasAnim, titleText, addChildren
+  } = params
+
+  animDelay = baseAnimDelay
+  trigger = animTrigger
   let underline = {
     rendObj = ROBJ_FRAME
     size = [pw(80), 1]
-    margin = bigPadding
+    margin = midPadding
     borderWidth = [0, 0, 1, 0]
     color = Color(100, 100, 100, 50)
     transform = {}
-    animations = params.hasAnim ? [
+    animations = hasAnim ? [
       { prop = AnimProp.scale, from = [0, 1], to = [0, 1], duration = 0.2,
         play = true, easing = InOutCubic, trigger = trigger }
       { prop = AnimProp.scale, delay = 0.2 from = [0, 1], to = [1, 1], duration = 1,
@@ -260,9 +314,9 @@ local function mkAnimatedItemsBlock(itemBlocks, params = ITEMS_REWARDS_PARAMS) {
   let blocks = itemBlocks.keys()
 
   let children = []
-  if (params.titleText.len())
+  if (titleText.len())
     children.append(
-      dropTitle(params.titleText)
+      dropTitle(titleText)
       underline
     )
   else
@@ -270,14 +324,16 @@ local function mkAnimatedItemsBlock(itemBlocks, params = ITEMS_REWARDS_PARAMS) {
 
   children.append({
     flow = FLOW_VERTICAL
-    gap = bigPadding
-    children = blocks.map(@(blockId) itemsBlock(itemBlocks[blockId], params.hasItemTypeTitle ? blockId : null, params))
+    gap = midPadding
+    children = blocks.map(@(blockId)
+      itemsBlock(itemBlocks[blockId], blockId, selectedTpl, params)
+    )
   })
 
-  children.extend(params.addChildren.map(@(comp) appearAnim(comp, params.hasAnim)))
+  children.extend(addChildren.map(@(comp) appearAnim(comp, hasAnim)))
 
   return {
-    totalTime = params.hasAnim ? animDelay : 0
+    totalTime = hasAnim ? animDelay : 0
     component = {
       size = [flex(), SIZE_TO_CONTENT]
       flow = FLOW_VERTICAL

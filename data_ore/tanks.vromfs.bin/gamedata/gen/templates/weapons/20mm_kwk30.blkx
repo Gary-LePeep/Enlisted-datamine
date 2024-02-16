@@ -4,7 +4,7 @@
     "gun__blk": "gamedata/gen/weapons/20mm_kwk30.blk",
     "gun__shotFreq": 4.66,
     "gun__reloadTime": 6.0,
-    "gun__maxAmmo": 20,
+    "gun__maxAmmo": 10,
     "gun__locName": "20mm_kwk30",
     "gun__firingModes:array": {
       "mode:object": {
@@ -19,14 +19,12 @@
         {
           "shell:object": {
             "blk": "gamedata/gen/weapons/shells/20mm_kwk30_defaultset_bullet_1.blk",
-            "name": "20mm_pzgr",
             "type": "ap_i_t"
           }
         },
         {
           "shell:object": {
             "blk": "gamedata/gen/weapons/shells/20mm_kwk30_defaultset_bullet_2.blk",
-            "name": "20mm_sprgr",
             "type": "he_frag_i_t"
           }
         }
@@ -34,21 +32,18 @@
       "20mm_ger_kwk30_HE:array": {
         "shell:object": {
           "blk": "gamedata/gen/weapons/shells/20mm_kwk30_20mm_ger_kwk30_he.blk",
-          "name": "20mm_sprgr",
           "type": "he_frag_i_t"
         }
       },
       "20mm_ger_kwk30_AP:array": {
         "shell:object": {
           "blk": "gamedata/gen/weapons/shells/20mm_kwk30_20mm_ger_kwk30_ap.blk",
-          "name": "20mm_pzgr",
           "type": "ap_i_t"
         }
       },
       "20mm_ger_kwk30_APCR:array": {
         "shell:object": {
           "blk": "gamedata/gen/weapons/shells/20mm_kwk30_20mm_ger_kwk30_apcr.blk",
-          "name": "20mm_pzgr_40",
           "type": "apcr_t"
         }
       }
@@ -56,16 +51,16 @@
   },
   "tankgun_20mm_kwk30": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_tankgun_autocannon"
+      "_use": "base_tankgun_autocannon"
     },
     {
-      "_extends": "base_20mm_kwk30"
+      "_use": "base_20mm_kwk30"
     },
     {
-      "_extends": "gunsound_20mm_kwk30"
+      "_use": "gunsound_20mm_kwk30"
     },
     {
       "turret__triggerGroup": 0

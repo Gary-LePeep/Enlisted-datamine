@@ -308,6 +308,11 @@
   },
   {
     "entity": {
+      "_template": "bloom"
+    }
+  },
+  {
+    "entity": {
       "_template": "postfx_roundctrl",
       "post_fx:object": []
     }
@@ -357,6 +362,7 @@
     "entity": {
       "_template": "briefing_assault",
       "mission_name": "normandy_omer_assault",
+      "mission_outfit": "normandy",
       "loading_images:list<t>": [
         {
           "item": "ui/normandy_urban_omer_01.avif"
@@ -391,7 +397,7 @@
       "team__briefing": "assault/attackers_goals",
       "team__winSubtitle": "debriefing/won_invasion_subtitle",
       "team__loseSubtitle": "debriefing/lost_invasion_subtitle",
-      "team__winTitle": "debriefing/usa_won_invasion",
+      "team__winTitle": "debriefing/allies_won_invasion",
       "team__spawnBotArmy": "normandy_allies"
     }
   },
@@ -407,7 +413,7 @@
       "team__briefing": "assault/defenders_goals",
       "team__winSubtitle": "debriefing/won_defence_subtitle",
       "team__loseSubtitle": "debriefing/lost_defence_subtitle",
-      "team__winTitle": "debriefing/ger_won_defence",
+      "team__winTitle": "debriefing/axis_won_defence",
       "team__spawnBotArmy": "normandy_axis"
     }
   },
@@ -1979,14 +1985,14 @@
         [123.934,6.51879,-94.9645]
       ],
       "active": false,
-      "capzone__decapTime": 15.0,
+      "capzone__decapTime": 30.0,
       "ui_order": 1,
       "capzone__capReward": 250.0,
       "capzone__title": "A",
       "capzone__caption": "capzone/house",
       "capzone__checkAllZonesInGroup": true,
       "decal__height": 0.6,
-      "capzone__deactivateAfterTimeout": 0.0,
+      "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 2,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
@@ -2013,14 +2019,14 @@
         [197.103,6.31703,-14.0403]
       ],
       "active": false,
-      "capzone__decapTime": 15.0,
+      "capzone__decapTime": 30.0,
       "ui_order": 2,
       "capzone__capReward": 250.0,
       "capzone__title": "B",
       "capzone__caption": "capzone/warehouse",
       "capzone__checkAllZonesInGroup": true,
       "decal__height": 0.6,
-      "capzone__deactivateAfterTimeout": 0.0,
+      "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 2,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
@@ -2047,14 +2053,14 @@
         [79.267,4.55583,23.3608]
       ],
       "active": false,
-      "capzone__decapTime": 15.0,
+      "capzone__decapTime": 30.0,
       "ui_order": 3,
       "capzone__capReward": 250.0,
       "capzone__title": "C",
       "capzone__caption": "capzone/cafe",
       "capzone__checkAllZonesInGroup": true,
       "decal__height": 0.5,
-      "capzone__deactivateAfterTimeout": 0.0,
+      "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 2,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
@@ -2081,14 +2087,14 @@
         [107.458,4.53453,104.07]
       ],
       "active": false,
-      "capzone__decapTime": 15.0,
+      "capzone__decapTime": 30.0,
       "ui_order": 4,
       "capzone__capReward": 250.0,
       "capzone__title": "D",
       "capzone__caption": "capzone/apartments",
       "capzone__checkAllZonesInGroup": true,
       "decal__height": 0.5,
-      "capzone__deactivateAfterTimeout": 0.0,
+      "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 2,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
@@ -2115,14 +2121,14 @@
         [-29.3516,4.08472,179.88]
       ],
       "active": false,
-      "capzone__decapTime": 15.0,
+      "capzone__decapTime": 30.0,
       "ui_order": 5,
       "capzone__capReward": 250.0,
       "capzone__title": "E",
       "capzone__caption": "capzone/station_restaurant",
       "capzone__checkAllZonesInGroup": true,
       "decal__height": 1.1,
-      "capzone__deactivateAfterTimeout": 0.0,
+      "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 2,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",

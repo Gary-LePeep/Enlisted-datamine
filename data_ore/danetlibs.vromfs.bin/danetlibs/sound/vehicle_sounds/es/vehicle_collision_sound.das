@@ -3,7 +3,7 @@ require DagorMath
 require math.base
 require soundEvent
 require soundSystem
-require soundProps
+require vehicleSoundProps
 require sound_utils.modules.sound_player_common
 require sound_utils_net.modules.sound_utils_net_events
 require sound_utils.modules.sound_utils_events
@@ -68,7 +68,7 @@ def vehicle_collision_sound_on_collision(evt : EventOnCollision;
       vehicle_collision_sound__entityCollMatId = get_material_id(material)
 
 
-[es(tag=sound, after=(vehicle_sound_update_vars, ship_sound_update_vars, helicopter_sound_update_vars))]
+[es(tag=sound)]
 def vehicle_collision_sound(info : ParallelUpdateFrameDelayed;
                             sound_control__shouldPlay : bool;
                             vehicle_collision_sound__collRange : float2;

@@ -1,83 +1,86 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { h2_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontHeading2, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
 let { makeVertScroll, thinStyle } = require("%ui/components/scrollbar.nut")
-let {
-  boosterItems, allBoosters
-} = require("%enlist/soldiers/model/boosters.nut")
-let {
-  disabledTxtColor, smallPadding, smallOffset, blurBgFillColor, accentColor, darkBgColor
-} = require("%enlSqGlob/ui/viewConst.nut")
-let {
-  mkXpBooster, boosterWidthToHeight, mkBoosterExpireInfo
-} = require("%enlist/components/mkXpBooster.nut")
-let { rewardBgSizePx } = require("%enlist/items/itemsPresentation.nut")
-
-let bImgHeight = rewardBgSizePx[1]
-let bImgSize = [(boosterWidthToHeight * bImgHeight).tointeger(), bImgHeight]
+let { boosterItems, allBoosters } = require("%enlist/soldiers/model/boosters.nut")
+let { disabledTxtColor, smallPadding, smallOffset, blurBgFillColor,
+  accentColor, blockedTxtColor, darkBgColor } = require("%enlSqGlob/ui/viewConst.nut")
+let { mkXpBooster, mkBoosterExpireInfo } = require("%enlist/components/mkXpBooster.nut")
+let { abs } = require("math")
 
 let emptyBoostersText = txt({
   text = loc("profile/boostersIsEmpty")
   hplace = ALIGN_CENTER
   color = disabledTxtColor
-}).__update(h2_txt)
+}).__update(fontHeading2)
 
 let function mkBooster(boosterBase) {
-  let { campaignLimit } = boosterBase
+  let { campaignLimit, expMul = 0 } = boosterBase
   let limitText = campaignLimit.len() == 0 ? loc("allCampaigns")
     : ", ".join(campaignLimit.map(@(c) loc(c.title)))
+  let typeText = expMul > 0 ? $"booster/expBonusTitle"
+    : "booster/expPenaltyTitle"
+  let isPenalty = expMul < 0
+  let valueText = isPenalty ? "booster/expPenaltyVal" : "booster/expBonusVal"
   return {
-    rendObj = ROBJ_SOLID
-    xmbNode = XmbNode()
+    xmbNode = XmbNode({
+      canFocus = true
+      wrap = false
+      isGridLine=true
+      scrollToEdge = [false, true]
+    })
     behavior = Behaviors.Button
     size = [hdpx(400), hdpx(170)]
     margin = [0, 0, 0, hdpx(110)]
-    flow = FLOW_VERTICAL
-    color = blurBgFillColor
     children = [
       {
-        rendObj = ROBJ_SOLID
         size = flex()
-        color = darkBgColor
-        padding = [0, 0, hdpx(5), hdpx(110)]
-        children = mkBoosterExpireInfo(boosterBase,
-          true,
-          {
-            margin = [0, smallOffset]
-            flow = FLOW_HORIZONTAL
-          }
-        )
-      }
-      {
+        flow = FLOW_VERTICAL
         children = [
           {
-            size = bImgSize
-            pos = [-hdpx(90), -hdpx(40)]
-            children = mkXpBooster(boosterBase, {size = [hdpx(170),hdpx(200)]})
+            rendObj = ROBJ_SOLID
+            size = [flex(), SIZE_TO_CONTENT]
+            color = darkBgColor
+            padding = [hdpx(5), 0, hdpx(5), hdpx(110)]
+            children = mkBoosterExpireInfo(boosterBase,
+              true,
+              {
+                margin = [0, smallOffset]
+                flow = FLOW_HORIZONTAL
+              }
+            )
           }
           {
+            rendObj = ROBJ_SOLID
+            size = [flex(), SIZE_TO_CONTENT]
+            color = blurBgFillColor
             flow = FLOW_VERTICAL
             padding = [0, 0, 0, hdpx(110)]
             children = [
               txt({
                 text = limitText
                 margin = [hdpx(7), 0]
-              }).__update(sub_txt)
-              txt(loc($"booster/expBonus/{boosterBase.bType}")).__update(sub_txt)
+              }).__update(fontSub)
+              txt(loc(typeText)).__update(fontSub)
               txt({
-                text = loc("booster/expBonus", {exp = (boosterBase.expMul * 100).tostring()})
-                color = accentColor
+                text = loc(valueText, {exp = abs(boosterBase.expMul * 100).tostring()})
+                color = boosterBase.expMul > 0 ? accentColor : blockedTxtColor
                 margin = [hdpx(14), 0]
-              }).__update(h2_txt)
+              }).__update(fontHeading2)
               txt({
                 padding = [0, 0, hdpx(20), 0]
-                text = loc($"booster/type/{boosterBase.bType}")
-              }).__update(sub_txt)
+                text = loc("booster/allTypes")
+              }).__update(fontSub)
             ]
           }
         ]
       }
+      mkXpBooster({
+        size = [hdpx(170), hdpx(200)]
+        pos = [-hdpx(90), 0]
+        margin = 0
+      }, isPenalty)
     ]
   }
 }
@@ -93,11 +96,6 @@ let boostersListUi = function() {
   let scrollBoostersList = makeVertScroll({
       size = [flex(), SIZE_TO_CONTENT]
       padding = [hdpx(40), 0]
-      xmbNode = XmbContainer({
-        canFocus = @() false
-        scrollSpeed = 5
-        isViewport = true
-      })
       halign = ALIGN_CENTER
       flow = FLOW_VERTICAL
       children = boostersList
@@ -106,6 +104,12 @@ let boostersListUi = function() {
   )
 
   return {
+    xmbNode = XmbContainer({
+      canFocus = false
+      isGridLine=true
+      scrollSpeed = [0, 2.0]
+      scrollToEdge = [false, true]
+    })
     rendObj = ROBJ_BOX
     watch = [boosterItems, allBoosters]
     size = flex()

@@ -2,17 +2,19 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let JB = require("%ui/control/gui_buttons.nut")
 let { Bordered } = require("%ui/components/textButton.nut")
-let {
-  defTxtColor, selectedTxtColor, defInsideBgColor, activeBgColor,
-  blurBgFillColor, titleTxtColor, disabledTxtColor,
-  bigPadding, smallPadding, smallOffset, activeTxtColor, rowBg
+let { activeBgColor, blurBgFillColor, disabledTxtColor, bigPadding, smallPadding,
+  smallOffset, activeTxtColor, rowBg
 } = require("%enlSqGlob/ui/viewConst.nut")
-let { sub_txt, body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub, fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { armies } = require("%enlist/soldiers/model/state.nut")
 let { gameProfile } = require("%enlist/soldiers/model/config/gameProfile.nut")
 let { playerStatsList, killsList } = require("profileState.nut")
 let { mkArmyIcon } = require("%enlist/soldiers/components/armyPackage.nut")
+let { darkTxtColor, defTxtColor, hoverSlotBgColor } = require("%enlSqGlob/ui/designConst.nut")
+let { getCampaignTitle } = require("%enlSqGlob/ui/itemsInfo.nut")
 
+
+const COMMON_CAMPAIGN = "common"
 
 let PROFILE_WIDTH = fsh(100)
 
@@ -28,17 +30,17 @@ let armyIconSize = hdpxi(28)
 
 let selectedCampaign = Watched(null)
 
-let txtColor = @(sf, isSelected = false) isSelected ? selectedTxtColor
-    : sf & S_HOVER ? titleTxtColor
-    : defTxtColor
+let txtColor = @(sf, isSelected = false) isSelected
+  ? Color(255,255,255)
+  : sf & S_HOVER ? darkTxtColor : defTxtColor
 
-let bgColor = @(sf, isSelected = false) isSelected ? activeBgColor
-  : sf & S_HOVER ? defInsideBgColor
-  : blurBgFillColor
+let bgColor = @(sf, isSelected = false) isSelected
+  ? Color(160,160,160)
+  : sf & S_HOVER ? hoverSlotBgColor : blurBgFillColor
 
-let borderColor = @(sf, isSelected = false) isSelected ? activeBgColor
-  : sf & S_HOVER ? activeBgColor
-  : disabledTxtColor
+let borderColor = @(sf, isSelected = false) isSelected
+  ? activeBgColor
+  : sf & S_HOVER ? activeBgColor : disabledTxtColor
 
 let mkFooterWithButtons = @(buttonsList, params = DEFAULT_FOOTER_PARAMS) {
   children = buttonsList
@@ -56,12 +58,18 @@ let mkText = @(text, customStyle = {}) {
   rendObj = ROBJ_TEXT
   color = activeTxtColor
   text
-}.__update(sub_txt, customStyle)
+}.__update(fontSub, customStyle)
 
 let campaignSlotStyle = {
-  rendObj = ROBJ_SOLID
+  rendObj = ROBJ_BOX
   size = [flex(), hdpx(50)]
   behavior = Behaviors.Button
+  sound = {
+    hover = "ui/enlist/button_highlight"
+    click = "ui/enlist/button_click"
+    active = "ui/enlist/button_action"
+  }
+  borderColor = Color(255,255,255)
 }
 
 let statValueStyle = {
@@ -70,52 +78,72 @@ let statValueStyle = {
 }
 
 let statNameStyle = {
-  size = [pw(60), SIZE_TO_CONTENT]
+  size = [pw(55), SIZE_TO_CONTENT]
 }
 
-let mkCampaignInfoBtn = @(campaign, isSelected)
-  watchElemState(@(sf) {
-    onClick = isSelected ? null : @() selectedCampaign(campaign.id)
-    padding = [0, smallOffset]
-    valign = ALIGN_CENTER
-    color = bgColor(sf, isSelected)
-    children = mkText(loc(campaign.title), body_txt.__merge({
-      color = txtColor(sf, isSelected)
-    }))
-  }.__update(campaignSlotStyle))
-
-let mkAllCampaignBtn = @(selCampaignWatch)
-  watchElemState(function(sf) {
-    let isSelected = selCampaignWatch.value == null
+let function mkCampaignInfoBtn(campaign) {
+  let isSelected = Computed(@() selectedCampaign.value == campaign?.id)
+  return watchElemState(function(sf) {
+    let isSelectedVal = isSelected.value
     return {
-      onClick = @() selCampaignWatch(null)
+      watch = isSelected
+      onClick = isSelectedVal ? null : @() selectedCampaign(campaign.id)
       padding = [0, smallOffset]
       valign = ALIGN_CENTER
-      color = bgColor(sf, isSelected)
-      children = mkText(loc("menu/campaigns"), body_txt.__merge({
-        color = txtColor(sf, isSelected)
+      fillColor = bgColor(sf, isSelectedVal)
+      borderWidth = isSelectedVal ? [0, 0, hdpx(4), 0] : 0
+      children = mkText(getCampaignTitle(campaign.id), fontBody.__merge({
+        color = txtColor(sf, isSelectedVal)
       }))
     }.__update(campaignSlotStyle)
   })
+}
 
-let mkCampaignsListUi = @(campListWatch) function() {
-  let campList = campListWatch.value
+let function mkAllCampaignBtn() {
+  let isSelected = Computed(@() selectedCampaign.value == null)
+  return watchElemState(function(sf) {
+    let isSelectedVal = isSelected.value
+    return {
+      watch = isSelected
+      onClick = @() selectedCampaign(null)
+      padding = [0, smallOffset]
+      valign = ALIGN_CENTER
+      fillColor = bgColor(sf, isSelectedVal)
+      borderWidth = isSelectedVal ? [0, 0, hdpx(4), 0] : 0
+      children = mkText(loc("menu/campaigns"), fontBody.__merge({
+        color = txtColor(sf, isSelectedVal)
+      }))
+    }.__update(campaignSlotStyle)
+  })
+}
+
+let mkMapsListUi = @(campListWatch) function() {
   let campCfg = gameProfile.value?.campaigns
-
+  local campList = []
+  local campCommon = null
+  foreach(comp in campListWatch.value)
+    if (comp != COMMON_CAMPAIGN)
+      campList.append(comp)
+    else
+      campCommon = comp
+  let campaignCfgCommon = campCfg?[campCommon]
   return {
-    watch = [campListWatch, armies, gameProfile, selectedCampaign]
-    size = [pw(35), flex()]
+    watch = [campListWatch, gameProfile]
+    size = [pw(28), flex()]
     flow = FLOW_VERTICAL
     gap = bigPadding
     padding = [headerHeight,0,0,0]
-    children = [mkAllCampaignBtn(selectedCampaign)]
+    children = [
+      mkAllCampaignBtn()
+      campaignCfgCommon ? mkCampaignInfoBtn(campaignCfgCommon) : null
+      campList.len() == 0 ? null
+        : mkText(loc("oldCampaigns"), {margin = [bigPadding, 0, 0, 0]})
+    ]
       .extend(campList.map(function(campaignId) {
         let campaignCfg = campCfg?[campaignId]
         if (campaignCfg == null)
           return null
-
-        let isSelected = selectedCampaign.value == campaignCfg.id
-        return mkCampaignInfoBtn(campaignCfg, isSelected)
+        return mkCampaignInfoBtn(campaignCfg)
       }))
   }
 }
@@ -135,31 +163,25 @@ let mkStats = @(baseStats) {
   })
 }
 
-let mkStatsHeader = @(armiesList, showLevel) @() {
+let mkStatsHeader = @(armiesList) @() {
   watch = armies
   size = [flex(), headerHeight]
   flow = FLOW_HORIZONTAL
   padding = [0, smallOffset]
   valign = ALIGN_CENTER
-  children = [ mkText(loc("debriefing/tab/statistic"), body_txt.__merge(statNameStyle)) ]
+  children = [ mkText(loc("debriefing/tab/statistic"), fontBody.__merge(statNameStyle))
+  ]
     .extend(armiesList
       .filter(@(armyId) armyId != MAIN_GAME_STAT)
       .map(@(armyId) {
         size = [flex(), SIZE_TO_CONTENT]
-        flow = FLOW_HORIZONTAL
-        gap = smallPadding
-        padding = smallPadding
-        halign = ALIGN_RIGHT
         valign = ALIGN_CENTER
-        children = [
-          !showLevel ? null
-            : mkText(loc("level/short", { level = armies.value?[armyId].level ?? 0 }))
-          mkArmyIcon(armyId, armyIconSize, { margin = 0 })
-        ]
+        halign = ALIGN_RIGHT
+        children = mkArmyIcon(armyId, armyIconSize, { margin = 0} )
       }))
 }
 
-let function mkPlayerStatistics(statsWatch, showLevel = true) {
+let function mkPlayerStatistics(statsWatch) {
   let playerCardStats = Computed(function() {
     let campaignsCfg = gameProfile.value?.campaigns
     let selCampaign = selectedCampaign.value
@@ -172,7 +194,7 @@ let function mkPlayerStatistics(statsWatch, showLevel = true) {
     let globalStats = statsWatch.value?.stats["global"] ?? {}
     let stats = armiesList.map(@(armyId) globalStats?[armyId] ?? {})
     let res = {
-      campaignTitle = selCampaignCfg?.title
+      campaignTitle = getCampaignTitle(selCampaign)
       armiesList
       baseStats = playerStatsList.map(@(statData) {
         statId = statData.statId
@@ -196,7 +218,7 @@ let function mkPlayerStatistics(statsWatch, showLevel = true) {
       size = flex()
       flow = FLOW_VERTICAL
       children = [
-        mkStatsHeader(armiesList, showLevel)
+        mkStatsHeader(armiesList)
         mkStats(baseStats)
         { size = [0, smallOffset] }
         mkStats(killsData)
@@ -212,7 +234,7 @@ return {
   bgColor
   borderColor
   mkPlayerStatistics
-  mkCampaignsListUi
+  mkMapsListUi
 
   PROFILE_WIDTH
 }

@@ -39,7 +39,7 @@
     "climbVertBrakeMaxTime": 1.0
   },
   {
-    "climbOnPos": [0.55,2.6,0.0]
+    "climbOnPos": [0.4,2.6,0.0]
   },
   {
     "climbOnRad": 0.15
@@ -73,6 +73,9 @@
   },
   {
     "climbThroughPosOffset": [0.0,0.25,0.0]
+  },
+  {
+    "climbLadderHeight": 0.8
   },
   {
     "additionalClimbPositions": 2
@@ -138,6 +141,12 @@
     "crawlLegsOffset": -0.49
   },
   {
+    "maxObstacleDownReach": 0.41
+  },
+  {
+    "maxStepOverHeight": 0.25
+  },
+  {
     "aimingMoveSpeed": 1.0
   },
   {
@@ -163,15 +172,6 @@
   },
   {
     "maxWalkSpeedLimitRestoreSpeed": 4.0
-  },
-  {
-    "holdBreathDrain": 0.33
-  },
-  {
-    "restoreBreath": 0.2
-  },
-  {
-    "holdBreathStartLevel": 1.0
   },
   {
     "leanDegrees": 45.0
@@ -325,13 +325,15 @@
       "sprintSpeed": 5.0,
       "rotateAngles": [-90.0,90.0],
       "rotateSpeed": 180.0,
+      "ccdPos": [0.0,1.05,0.0],
+      "collisionCenterPos": [0.0,1.1,0.0],
       "collisionLinks": {
         "paramMult": 0.0,
-        "offset": [0.0,0.45,0.0],
+        "offset": [0.0,1.0,0.0],
         "haveCollision": false,
         "body": {
           "paramMult": 0.0,
-          "offset": [0.0,0.3,0.0],
+          "offset": [0.0,0.05,0.0],
           "haveCollision": true
         }
       }

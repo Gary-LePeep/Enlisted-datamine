@@ -1,7 +1,7 @@
 require ecs
-require EnlistedNet
+require DngNet
 require game.utils.net_utils
-require common_shooter.dm_events
+require danetlibs.dm.dm_events
 require vehicle_sounds_net.modules.vehicle_sounds_net_events
 
 [es(tag=server, REQUIRE=airplane)]

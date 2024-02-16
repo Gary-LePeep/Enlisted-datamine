@@ -48,8 +48,7 @@ let function update_input_types(new_val){
 }
 
 forcedControlsType.subscribe(function(val) {
-  if (val)
-    update_input_types(val)
+  update_input_types(val)
 })
 
 eventbus.subscribe(EV_INPUT_USED, function(msg) {

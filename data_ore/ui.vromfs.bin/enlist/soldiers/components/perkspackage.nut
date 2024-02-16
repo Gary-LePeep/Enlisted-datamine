@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { doesLocTextExist } = require("dagor.localize")
 let { setTooltip } = require("%ui/style/cursors.nut")
 let tooltipBox = require("%ui/style/tooltipBox.nut")
@@ -16,12 +16,13 @@ let {
 let { getItemName } = require("%enlSqGlob/ui/itemsInfo.nut")
 let { perksStatsCfg, classesConfig, fallBackImage } = require("%enlist/meta/perks/perksStats.nut")
 let perksList = require("%enlist/meta/perks/perksList.nut")
-let perksPoints = require("%enlist/meta/perks/perksPoints.nut")
 let colorize = require("%ui/components/colorize.nut")
-let { perksData, getPerkPointsInfo } = require("%enlist/soldiers/model/soldierPerks.nut")
+let { perksData } = require("%enlist/soldiers/model/soldierPerks.nut")
+let { getPerkPointsInfo } = require("%enlist/meta/perks/perkTreePkg.nut")
+let { pPointsBaseParams, pPointsList } = require("%enlist/meta/perks/perksPoints.nut")
 
-const MIN_ROLL_PERKS = 10
-const NEXT_ROLL_PERKS = 5
+//const MIN_ROLL_PERKS = 10
+//const NEXT_ROLL_PERKS = 5
 
 let COST_ICON_PAIR_WIDTH = hdpx(50)
 let BG_DARKEN = Color(0, 0, 0, 255)
@@ -32,7 +33,7 @@ let PERK_UNAVAILABLE_COLOR = Color(120, 120, 120, 255)
 let mkText = @(txt) {
   rendObj = ROBJ_TEXT
   text = txt
-}.__update(sub_txt)
+}.__update(fontSub)
 
 let flexTextArea = @(params) {
   size = [flex(), SIZE_TO_CONTENT]
@@ -41,14 +42,14 @@ let flexTextArea = @(params) {
   color = defTxtColor
   vplace = ALIGN_CENTER
   halign = ALIGN_LEFT
-}.__update(sub_txt, params)
+}.__update(fontSub, params)
 
 
-let perkPointIcon = @(pPointCfg, pPointSize = hdpxi(32)) {
+let perkPointIcon = @(icon, color = defTxtColor, pPointSize = hdpxi(32)) {
   rendObj = ROBJ_IMAGE
   size = [pPointSize, pPointSize]
-  image = Picture("{0}:{1}:{1}:K".subst(pPointCfg.icon, pPointSize))
-  color = pPointCfg.color
+  image = Picture("{0}:{1}:{1}:K".subst(icon, pPointSize))
+  color
 }
 
 let perkPointCostText = @(pPointCfg, cost) {
@@ -89,16 +90,17 @@ local function usedPerkPoints(pPointCfg, pPointId, usedValue, totalValue, change
     totalValue = usedValue
     leftValue = 0
   }
+
+  let { icon, color } = pPointCfg
   return {
     halign = ALIGN_RIGHT
-    size = [SIZE_TO_CONTENT, hdpx(20)]
     key = $"{pPointId}-{totalValue}-{changedValue}"
     children = [
       {
         flow = FLOW_HORIZONTAL
         valign = ALIGN_CENTER
         children = [
-          perkPointIcon(pPointCfg).__update({
+          perkPointIcon(icon, color).__update({
             transform = {}
             animations = changedValue > 0 ? iconAnimations : null
           })
@@ -138,21 +140,21 @@ let function mkPerkCostChildren(perk, isUnavailable = false, showFreePerks = fal
     return null
 
   let pPointType = perkCost.keys()[0]
-  let pPointsValue = perkCost?[pPointType]
-  if (pPointsValue == null || (pPointsValue == 0 && !showFreePerks))
+  let pPointsValue = (perkCost?[pPointType] ?? 0) * (perk?.available ?? 1)
+  if (pPointsValue == 0 || !showFreePerks)
     return null
 
-  local pPointCfg = perksPoints.pPointsBaseParams[pPointType] ?? {}
+  local pPointCfg = pPointsBaseParams[pPointType] ?? {}
   if (isUnavailable)
     pPointCfg = pPointCfg.__merge({color = PERK_UNAVAILABLE_COLOR})
-
+  let { icon, color } = pPointCfg
   return {
     flow = FLOW_HORIZONTAL
     size = [flex(), SIZE_TO_CONTENT]
     halign = ALIGN_LEFT
     valign = ALIGN_CENTER
     children = [
-      perkPointIcon(pPointCfg)
+      perkPointIcon(icon, color)
       pPointsValue == 0 ? null : perkPointCostText(pPointCfg, pPointsValue)
     ]
   }
@@ -219,8 +221,9 @@ let getPerkItemsText = @(armyId, items)
   items.len() == 0 ? ""
     : $" {loc("perks/itemsInfo", { items = ", ".join(getPerkItems(armyId, items)) })}"
 
-let mkPerkDesc = @(perksStatsTable, armyId, perk) "{0}{1}".subst(", "
-  .join(getStatDescList(perksStatsTable, perk)), getPerkItemsText(armyId, perk?.items ?? []))
+let mkPerkDesc = @(perksStatsTable, armyId, perk, separator = ", ") "{0}{1}"
+  .subst(separator.join(getStatDescList(perksStatsTable, perk)),
+    getPerkItemsText(armyId, perk?.items ?? []))
 
 let defIconCtor = @(iconSettings) perkIcon(iconSettings.perk, iconSettings.iconSize,
                                               iconSettings?.color)
@@ -249,7 +252,7 @@ let perkUi = @(armyId, perkId, customStyle = {}, params = {}) function() {
     halign = customStyle?.halign ?? ALIGN_LEFT
   }.__update(customStyle?.font!=null && customStyle?.fontSize!=null
     ? {font=customStyle.font, fontSize=customStyle.fontSize}
-    : (customStyle?.fontStyle ?? sub_txt))
+    : (customStyle?.fontStyle ?? fontSub))
   let statType = isUnavailable ? perk?.cost.keys()[0] : ""
   let iconSettings = {perk, iconSize, isUnavailable, statType, customStyle}
   return {
@@ -333,7 +336,7 @@ let tierTitle = @(tier) tier?.locId
       behavior = Behaviors.TextArea
       color = titleTxtColor
       text = loc(tier.locId)
-    }.__update(sub_txt)
+    }.__update(fontSub)
   : null
 
 let perkPointsInfoTooltip = {
@@ -364,11 +367,11 @@ let function mkPerksPointsBlock(soldierGuid) {
       return res
 
     let children = []
-    foreach (pPointId in perksPoints.pPointsList) {
+    foreach (pPointId in pPointsList) {
       let pointsAmount = perkPointsInfo.total?[pPointId] ?? 0
       if (pointsAmount <= 0)
         continue
-      let pPointCfg = perksPoints.pPointsBaseParams?[pPointId]
+      let pPointCfg = pPointsBaseParams?[pPointId]
       if (pPointCfg == null)
         continue
 
@@ -391,6 +394,53 @@ let function mkPerksPointsBlock(soldierGuid) {
   }
 }
 
+let function statsRange(statsTable, stat, isLocked) {
+  let { icon, color } = pPointsBaseParams[stat]
+  let { minVal, maxVal } = statsTable[stat]
+  return {
+    flow = FLOW_HORIZONTAL
+    halign = ALIGN_CENTER
+    valign = ALIGN_CENTER
+    children = [
+      perkPointIcon(icon, isLocked ? defTxtColor : color)
+      {
+        rendObj = ROBJ_TEXT
+        color = defTxtColor
+        text = minVal == maxVal ? maxVal : $"{minVal}-{maxVal}"
+      }
+    ]
+  }
+}
+
+
+let function mkStatList(content, sClassesCfg, isLocked = false) {
+  let { soldierClasses, soldierTierMax, soldierTierMin, soldierRareMax,
+    soldierRareMin, soldierHasMaxStats } = content
+  let { pointsByTiers = [], perkPointsModifications = []
+    } = sClassesCfg?[soldierClasses[0]] ?? {}
+
+  local stats = {}
+  let statsMax = pointsByTiers[min(soldierTierMax, pointsByTiers.len() - 1)]
+  let maxRareModifications = min(soldierRareMax, perkPointsModifications.len() - 1)
+  foreach (statId in pPointsList) {
+    let maxVal = statsMax[statId].max
+      + (perkPointsModifications[maxRareModifications]?[statId] ?? 0)
+    stats[statId] <- {
+      maxVal
+      minVal = soldierHasMaxStats ? maxVal
+        : pointsByTiers[soldierTierMin][statId].min +
+          (perkPointsModifications[max(soldierRareMin, 0)]?[statId] ?? 0)
+    }
+  }
+  return {
+    flow = FLOW_HORIZONTAL
+    halign = ALIGN_LEFT
+    size = [SIZE_TO_CONTENT, hdpx(32)]
+    gap = bigPadding
+    children = pPointsList.map(@(x) statsRange(stats, x, isLocked))
+  }
+}
+
 return {
   mkText
   perkIcon
@@ -409,4 +459,5 @@ return {
   thumbIconSize
   perkUi
   priceIconCtor
+  mkStatList
 }

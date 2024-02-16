@@ -3,16 +3,19 @@ from "%enlSqGlob/ui_library.nut" import *
 let colors = require("%ui/style/colors.nut")
 let {buttonSound} = require("%ui/style/sounds.nut")
 let math = require("math")
-let {sound_play} = require("sound")
+let {sound_play} = require("%dngscripts/sound_system.nut")
 
-let calcFrameColor = @(sf) (sf & S_KB_FOCUS) ? colors.TextActive
-                           : (sf & S_HOVER)    ? colors.TextHover
-                                               : colors.comboboxBorderColor
+
+let sliderHeight = fsh(1)
+
+let calcFrameColor = @(sf) sf & S_KB_FOCUS ? colors.TextActive
+  : sf & S_HOVER ? colors.TextHover
+  : colors.comboboxBorderColor
 
 let opaque = Color(0,0,0,255)
-let calcKnobColor =  @(sf) (sf & S_KB_FOCUS) ? (colors.TextActive | opaque)
-                           : (sf & S_HOVER)    ? (colors.TextHover | opaque)
-                                               : (colors.TextDefault | opaque)
+let calcKnobColor =  @(sf) sf & S_KB_FOCUS ? (colors.TextActive | opaque)
+  : sf & S_HOVER ? (colors.TextHover | opaque)
+  : (colors.TextDefault | opaque)
 
 let scales = {}
 scales.linear <- {
@@ -27,37 +30,35 @@ scales.logarithmicWithZero <- {
   to = @(value, minv, maxv) scales.logarithmic.to(value.tofloat(), minv, maxv)
   from = @(factor, minv, maxv) factor == 0 ? 0 : scales.logarithmic.from(factor, minv, maxv)
 }
+
 let sliderLeftLoc = loc("slider/reduce", "Reduce value")
 let sliderRightLoc = loc("slider/increase", "Increase value")
 
-let function slider(orient, var, options={}) {
+let function slider(orient, var, options = {}) {
+  let {
+    gainObject = null, group = ElemGroup(), scaling = scales.linear,
+    step = null, ignoreWheel = true, xmbNode = null, setValue = @(v) var(v)
+  } = options
+
   let minval = options?.min ?? 0
   let maxval = options?.max ?? 1
-  let group = options?.group ?? ElemGroup()
-  let rangeval = maxval-minval
-  let scaling = options?.scaling ?? scales.linear
-  let step = options?.step
-  let unit = options?.unit && options?.scaling!=scales.linear
-    ? options?.unit
-    : step ? step/rangeval : 0.01
+  let rangeval = maxval - minval
+  let unit = options?.unit && options?.scaling != scales.linear ? options?.unit
+    : step ? step / rangeval
+    : 0.01
   let pageScroll = options?.pageScroll ?? step ?? 0.05
-  let ignoreWheel = options?.ignoreWheel ?? true
-
   let knobStateFlags = Watched(0)
   let sliderStateFlags = Watched(0)
 
-  let function knob() {
-    return {
-      rendObj = ROBJ_SOLID
-      size  = [fsh(1), fsh(2)]
-      group = group
-      color = calcKnobColor(knobStateFlags.value)
-      watch = knobStateFlags
-      onElemState = @(sf) knobStateFlags.update(sf)
-    }
+  let knob = @() {
+    rendObj = ROBJ_SOLID
+    size  = [fsh(1), fsh(2)]
+    group = group
+    color = calcKnobColor(knobStateFlags.value)
+    watch = knobStateFlags
+    onElemState = @(sf) knobStateFlags.update(sf)
   }
 
-  let setValue = options?.setValue ?? @(v) var(v)
   let function onChange(factor){
     let value = scaling.from(factor, minval, maxval)
     let oldValue = var.value
@@ -88,45 +89,41 @@ let function slider(orient, var, options={}) {
       sound = buttonSound
       watch = [var, sliderStateFlags]
       orientation = orient
-
       min = 0
       max = 1
       unit
       pageScroll
       ignoreWheel
-
       fValue = factor
       knob
-
       onChange = onChange
       onElemState = @(sf) sliderStateFlags.update(sf)
-
       valign = ALIGN_CENTER
       flow = FLOW_HORIZONTAL
-
-      xmbNode = options?.xmbNode
-
+      xmbNode
       children = [
         {
           group = group
           rendObj = ROBJ_SOLID
           color = (sliderStateFlags.value & S_HOVER) ? colors.TextHighlight : colors.TextDefault
-          size = [flex(factor), fsh(1)]
-
-          children = {
-            rendObj = ROBJ_FRAME
-            color = calcFrameColor(sliderStateFlags.value)
-            borderWidth = [hdpx(1),0,hdpx(1),hdpx(1)]
-            size = flex()
-          }
+          size = [flex(factor), sliderHeight]
+          children = [
+            gainObject
+            {
+              rendObj = ROBJ_FRAME
+              color = calcFrameColor(sliderStateFlags.value)
+              borderWidth = [hdpx(1),0,hdpx(1),hdpx(1)]
+              size = flex()
+            }
+          ]
         }
         knob
         {
           group = group
           rendObj = ROBJ_SOLID
           color = colors.ControlBgOpaque
-          size = [flex(1.0 - factor), fsh(1)]
-
+          size = [flex(1.0 - factor), sliderHeight]
+          halign = ALIGN_RIGHT
           children = {
             rendObj = ROBJ_FRAME
             color = calcFrameColor(sliderStateFlags.value)
@@ -142,6 +139,6 @@ let function slider(orient, var, options={}) {
 
 
 return {
-  Horiz = @(var, options={}) slider(O_HORIZONTAL, var, options)
+  Horiz = @(var, options = {}) slider(O_HORIZONTAL, var, options)
   scales
 }

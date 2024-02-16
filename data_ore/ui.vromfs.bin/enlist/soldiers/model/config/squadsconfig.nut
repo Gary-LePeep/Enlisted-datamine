@@ -12,6 +12,24 @@ let ordered = Computed(@() (serverConfigs.value?.squads_config ?? {})
   )
 )
 
+let allSquadTypes = Computed(function() {
+  let res = []
+  let squadTypeTracker = {}
+  let squadsConfig = serverConfigs.value?.squads_config ?? {}
+  foreach(army in squadsConfig)
+    foreach(squad in army) {
+      let { squadType } = squad
+      if (squadType not in squadTypeTracker) {
+        res.append({
+          squadType
+          nameText = loc($"squadType/{squadType}")
+        })
+        squadTypeTracker[squadType] <- true
+      }
+    }
+  return res.sort(@(a, b) a.nameText <=> b.nameText)
+})
+
 let byId = Computed(@() ordered.value.map(function(list) {
   let res = {}
   foreach (squad in list)
@@ -22,4 +40,5 @@ let byId = Computed(@() ordered.value.map(function(list) {
 return {
   squadsCfgOrdered = ordered
   squadsCfgById = byId
+  allSquadTypes
 }

@@ -3,10 +3,10 @@ require app
 require math.base
 require game.events_game
 require strings
-require EnlistedHumanAnim
-require EnlistedHuman
-require EnlistedActor
-require EnlistedNet
+require DngHumanAnim
+require DngHuman
+require DngActor
+require DngNet
 require PhysVars
 require PhysDecl
 require HumanPhys
@@ -85,6 +85,9 @@ def start_ragdoll(var ragdoll : PhysRagdoll;
                   curTime : float)
   animchar |> animchar_resetPostController()
 
+  let boxScale = float3(0.5f)
+  let box = BBox3(unitTm[3] - boxScale, unitTm[3] + boxScale)
+  update_ri_cache_in_volume_to_phys_world(box)
   // Go through wtm/tms setuping proper collision
   // There was a hand-made extrapolation of current position by velocity, position and dt before.
   // Yes, fixing the jump in position creates more visually pleasing animations.
@@ -105,6 +108,7 @@ def stop_ragdoll(var ragdoll : PhysRagdoll;
 
 [es(tag=render, before=ragdoll_start_es)]
 def human_anim_ragdoll_start_es(info : ParallelUpdateFrameDelayed;
+                                var animchar : AnimcharBaseComponent;
                                 var ragdoll : PhysRagdoll;
                                 ragdoll__applyParams : bool;
                                 human_net_phys__locationPos : DPoint3;
@@ -118,9 +122,10 @@ def human_anim_ragdoll_start_es(info : ParallelUpdateFrameDelayed;
   if (human_anim__dynamicRagdollClipoutTimeout > 0.0f)
     let toPos = pos + human_anim__dynamicRagdollClipoutOffset
     ragdoll |> ragdoll_setDynamicClipout(toPos, human_anim__dynamicRagdollClipoutTimeout)
-  ragdoll |> ragdoll_startRagdoll(int(PhysLayer EPL_CHARACTER),
-                                  int(PhysLayer EPL_ALL & (~(PhysLayer EPL_KINEMATIC | PhysLayer EPL_CHARACTER))))
   ragdoll |> ragdoll_setOverrideVel(vel)
+  ragdoll |> ragdoll_startRagdoll(int(PhysLayer EPL_CHARACTER),
+                                  int(PhysLayer EPL_ALL & (~(PhysLayer EPL_KINEMATIC | PhysLayer EPL_CHARACTER))),
+                                  animchar.nodeTree)
 
 
 [es(tag=render, before=human_anim_ragdoll_start_es)]

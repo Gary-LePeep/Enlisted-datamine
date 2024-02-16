@@ -1,6 +1,6 @@
 {
   "us_m8_greyhound_pacific_premium": {
-    "_extends": "us_m8_greyhound_common",
+    "_use": "us_m8_greyhound_common",
     "animchar__objTexReplace:object": {
       "us_camo_olive*": "us_camo_dark_green_light_olive*"
     },
@@ -106,16 +106,152 @@
   },
   "us_m8_greyhound_common": [
     {
-      "_extends": "base_m8_greyhound"
+      "_use": "base_m8_greyhound"
     },
     {
-      "_extends": "vehicle_steering_assist"
+      "_use": "vehicle_steering_assist"
     },
     {
-      "_extends": "tank_with_wheels_vehicle_tracks_sound"
+      "_use": "tank_with_wheels_vehicle_tracks_sound"
     },
     {
-      "item__iconOffset": [0.0,0.2]
+      "commanderCockpitFpsCamMaxAngle": [40.0,5.0]
+    },
+    {
+      "gunner_cam_limit__useCockpitDir": true
+    },
+    {
+      "item__iconOffset": [0.0,0.15]
+    },
+    {
+      "item__iconScale": 1.3
+    },
+    {
+      "destroyIfNoCrewLeft": false
+    },
+    {
+      "dm_parts_repair_names:list<t>": [
+        {
+          "part": "part:t="
+        },
+        {
+          "part": "drive_turret_h"
+        },
+        {
+          "part": "drive_turret_v"
+        },
+        {
+          "part": "cannon_breech"
+        },
+        {
+          "part": "engine"
+        },
+        {
+          "part": "transmission"
+        },
+        {
+          "part": "gun_barrel"
+        },
+        {
+          "part": "gun_barrel_01"
+        },
+        {
+          "part": "gun_barrel_02"
+        },
+        {
+          "part": "gun_barrel_03"
+        },
+        {
+          "part": "gun_barrel_04"
+        },
+        {
+          "part": "gun_barrel_05"
+        },
+        {
+          "part": "track_r"
+        },
+        {
+          "part": "track_l"
+        },
+        {
+          "part": "track_r_01"
+        },
+        {
+          "part": "track_l_01"
+        },
+        {
+          "part": "wheel_l_back"
+        },
+        {
+          "part": "wheel_l_front"
+        },
+        {
+          "part": "wheel_l_drive"
+        },
+        {
+          "part": "wheel_r_back"
+        },
+        {
+          "part": "wheel_r_front"
+        },
+        {
+          "part": "wheel_r_drive"
+        },
+        {
+          "part": "wheel_r_01"
+        },
+        {
+          "part": "wheel_r_02"
+        },
+        {
+          "part": "wheel_r_03"
+        },
+        {
+          "part": "wheel_r_04"
+        },
+        {
+          "part": "wheel_r_05"
+        },
+        {
+          "part": "wheel_r_06"
+        },
+        {
+          "part": "wheel_r_07"
+        },
+        {
+          "part": "wheel_r_08"
+        },
+        {
+          "part": "wheel_l_01"
+        },
+        {
+          "part": "wheel_l_02"
+        },
+        {
+          "part": "wheel_l_03"
+        },
+        {
+          "part": "wheel_l_04"
+        },
+        {
+          "part": "wheel_l_05"
+        },
+        {
+          "part": "wheel_l_06"
+        },
+        {
+          "part": "wheel_l_07"
+        },
+        {
+          "part": "wheel_l_08"
+        }
+      ]
+    },
+    {
+      "dm_parts__repairGroups:object": []
+    },
+    {
+      "vehicle_seats__effectors:array": []
     },
     {
       "vehicle_seats__seats:shared:array": [
@@ -127,17 +263,25 @@
             "attachNode": "driver",
             "ignoreAttachNodeRotation": true,
             "attachTm": [
-              [1.0,0.0,0.0],
-              [0.0,1.0,0.0],
-              [0.0,0.0,1.0],
-              [-0.25,-0.25,0.0]
+              [0.984815,0.173648,0.0],
+              [-0.17365,0.984828,0.0],
+              [0.0,0.0,1.00002],
+              [-0.29,-0.41,0.0]
             ],
             "seatComponent": "isDriver",
             "nextSeat": "main_gunner",
-            "shouldHideOwner": true,
+            "shouldHideOwner": false,
             "receiveDamageFromDMPart": "driver",
             "cameraNodeName": "bone_camera_driver",
-            "cockpitTemplate": "us_m8_greyhound_driver_cockpit"
+            "cockpitTemplate": "us_m8_greyhound_driver_cockpit",
+            "seatAnimUpper": "drive_passenger",
+            "seatAnimLower": "drive_passenger",
+            "effectors:object": {
+              "r.hand": "righthand_1",
+              "l.hand": "lefthand_1",
+              "r.foot": "pedal_rfoot_1",
+              "l.foot": "pedal_lfoot_1"
+            }
           }
         },
         {
@@ -147,10 +291,10 @@
             "attachNode": "gunner",
             "ignoreAttachNodeRotation": true,
             "attachTm": [
-              [1.0,0.0,0.0],
-              [0.0,1.0,0.0],
-              [0.0,0.0,1.0],
-              [-0.25,-0.25,0.04]
+              [0.640938,-0.341981,-0.687214],
+              [0.414578,0.907693,-0.0650384],
+              [0.646019,-0.243217,0.72355],
+              [-0.25,-0.1,0.15]
             ],
             "seatComponent": "isGunner",
             "nextSeat": "driver",
@@ -171,6 +315,12 @@
             ],
             "hatchNodes:array": {
               "node": "emtr_fire_ammo_03"
+            },
+            "effectors:object": {
+              "r.hand": "righthand_4",
+              "l.hand": "lefthand_4",
+              "r.foot": "pedal_rfoot_4",
+              "l.foot": "pedal_lfoot_4"
             }
           }
         },
@@ -199,10 +349,10 @@
             },
             {
               "attachTm": [
-                [1.0,0.0,0.0],
-                [0.0,1.0,0.0],
-                [0.0,0.0,1.0],
-                [-0.25,-0.25,-0.05]
+                [0.732265,-0.387793,0.559779],
+                [0.405089,0.908927,0.0997595],
+                [-0.547447,0.153699,0.822611],
+                [-0.25,-0.1,-0.15]
               ]
             },
             {
@@ -243,6 +393,14 @@
               "hatchTurretNames:array": {
                 "turret": "turret_03"
               }
+            },
+            {
+              "effectors:object": {
+                "r.hand": "righthand_3",
+                "l.hand": "lefthand_3",
+                "r.foot": "pedal_rfoot_3",
+                "l.foot": "pedal_lfoot_3"
+              }
             }
           ]
         },
@@ -252,65 +410,29 @@
             "locName": "vehicle_seats/radioman",
             "ignoreAttachNodeRotation": true,
             "attachTm": [
-              [1.0,0.0,0.0],
-              [0.0,1.0,0.0],
-              [0.0,0.0,1.0],
-              [-0.25,-0.5,0.0]
+              [0.984815,0.173648,0.0],
+              [-0.17365,0.984828,0.0],
+              [0.0,0.0,1.00002],
+              [-0.29,-0.41,0.0]
             ],
             "seatComponent": "isPassenger",
-            "shouldHideOwner": true,
+            "shouldHideOwner": false,
             "receiveDamageFromDMPart": "machine_gunner",
-            "cameraNodeName": "bone_camera_driver"
+            "cameraNodeName": "bone_camera_driver",
+            "seatAnimUpper": "drive_passenger",
+            "seatAnimLower": "drive_passenger",
+            "effectors:object": {
+              "r.hand": "righthand_2",
+              "l.hand": "lefthand_2",
+              "r.foot": "pedal_rfoot_2",
+              "l.foot": "pedal_lfoot_2"
+            }
           }
         }
       ]
     },
     {
-      "dm_phys_parts__enginePartIds:list<i>": []
-    },
-    {
-      "dm_phys_parts__transmissionPartIds:list<i>": []
-    },
-    {
-      "dm_phys_parts__tracksPartIds:list<i>": []
-    },
-    {
       "dm_phys_parts__wheelsPartIds:list<i>": []
-    },
-    {
-      "dm_phys_parts__engine:array": {
-        "engine": "engine"
-      }
-    },
-    {
-      "dm_phys_parts__transmission:array": {
-        "transmission": "transmission"
-      }
-    },
-    {
-      "dm_phys_parts__tracks:array": []
-    },
-    {
-      "dm_phys_parts__wheels:array": [
-        {
-          "wheel": "wheel_r_01"
-        },
-        {
-          "wheel": "wheel_r_02"
-        },
-        {
-          "wheel": "wheel_r_03"
-        },
-        {
-          "wheel": "wheel_l_01"
-        },
-        {
-          "wheel": "wheel_l_02"
-        },
-        {
-          "wheel": "wheel_l_03"
-        }
-      ]
     },
     {
       "turrets__initAmmoDistribution:array": [
@@ -330,7 +452,7 @@
     }
   ],
   "us_m8_greyhound_driver_cockpit": {
-    "_extends": "base_driver_cockpit",
+    "_use": "base_driver_cockpit",
     "animchar__res": "kv_1_driver_char",
     "cockpit__offset": [-0.167129,-0.00112972,0.115395],
     "cockpit__visibleVehicleNodeNames:list<t>": {
@@ -341,10 +463,8 @@
     }
   },
   "us_m8_greyhound_gunner_cockpit": {
-    "vehicle_sight__blk": "content/tanks/gamedata/sight/us_m70d.blk",
-    "_extends": "base_gunner_cockpit",
+    "_use": "base_gunner_cockpit",
     "animchar__res": "t_26_1940_gunner_char",
-    "cockpit__minZoom": -0.27,
     "cockpit__offset": [-0.4,-0.05,0.2],
     "cockpit__attachNodeNames:list<t>": {
       "node": "bone_camera_gunner"
@@ -374,21 +494,38 @@
       "slit": "cam_front_right"
     },
     "cockpit__slitForwardOffset:list<r>": {
-      "slit": 0.18
+      "slit": 0.22
     },
     "cockpit__slitIsGun:list<b>": {
       "slit": true
-    }
+    },
+    "cockpit__slitZoom:array": {
+      "slit:list<r>": [
+        {
+          "zoom": 1.9
+        },
+        {
+          "zoom": 3.5
+        }
+      ]
+    },
+    "cockpit__slitZoomTime:list<r>": {
+      "slit": 0.05
+    },
+    "cockpit__slitTemplates:list<t>": {
+      "slit": "us_m70d"
+    },
+    "cockpit__slitEids:list<eid>": []
   },
   "us_m8_greyhound_commander_cockpit": {
-    "_extends": "base_commander_cockpit_no_slits",
+    "_use": "base_commander_cockpit_no_slits",
     "animchar__res": "t_26_1940_commander_char",
     "cockpit__offset": [-0.0,0.0,0.0],
     "cockpit__cockpitOffsetBySlit:list<p3>": {
       "item": [-0.211148,0.338931,-0.273436]
     },
     "cockpit__slitForwardOffset:list<r>": {
-      "slit": 0.16
+      "slit": 0.17
     },
     "cockpit__slitIsGun:list<b>": {
       "slit": true
@@ -421,6 +558,24 @@
       {
         "node": "ex_armor_l_05"
       }
-    ]
+    ],
+    "cockpit__periscopeLimits:list<p4>": {
+      "slit": [-45.0,45.0,-0.0,0.0]
+    },
+    "cockpit__periscopeSpeed:list<p2>": {
+      "slit": [35.0,35.0]
+    },
+    "cockpit__slitZoom:array": {
+      "slit:list<r>": {
+        "zoom": 1.44
+      }
+    },
+    "cockpit__slitZoomTime:list<r>": {
+      "slit": 0.0
+    },
+    "cockpit__slitTemplates:list<t>": {
+      "slit": "default_periscope"
+    },
+    "cockpit__slitEids:list<eid>": []
   }
 }

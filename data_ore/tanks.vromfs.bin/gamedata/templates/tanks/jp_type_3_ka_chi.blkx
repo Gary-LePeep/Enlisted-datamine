@@ -1,10 +1,10 @@
 {
   "jp_type_3_ka_chi_pacific_premium": {
-    "_extends": "jp_type_3_ka_chi_common",
+    "_use": "jp_type_3_ka_chi_common",
     "skin__template": "type_3_ka_chi_pacific_premium_skins"
   },
   "jp_type_3_ka_chi_without_swiming_parts": {
-    "_extends": "jp_type_3_ka_chi_common",
+    "_use": "jp_type_3_ka_chi_common",
     "disableDMParts:list<t>": [
       {
         "part": "ex_decor_01"
@@ -22,22 +22,31 @@
   },
   "jp_type_3_ka_chi_common": [
     {
-      "_extends": "base_type_3_ka_chi"
+      "_use": "base_type_3_ka_chi"
     },
     {
-      "_extends": "tank_m10_engine_sound"
+      "_use": "tank_m10_engine_sound"
     },
     {
-      "_extends": "tank_light_vehicle_tracks_sound"
+      "_use": "tank_light_vehicle_tracks_sound"
     },
     {
-      "_extends": "floatable_vehicle"
+      "_use": "floatable_vehicle"
     },
     {
       "item__iconOffset": [0.0,0.0]
     },
     {
+      "item__iconScale": 1.05
+    },
+    {
       "floatable_vehicle__floatingVolumesOffset": [0.0,-0.2,0.0]
+    },
+    {
+      "commanderCockpitFpsCamMaxAngle": [40.0,5.0]
+    },
+    {
+      "gunner_cam_limit__useCockpitDir": true
     },
     {
       "vehicle_seats__seats:shared:array": [
@@ -198,7 +207,7 @@
     }
   ],
   "jp_type_3_ka_chi_driver_cockpit": {
-    "_extends": "base_driver_cockpit_no_slits",
+    "_use": "base_driver_cockpit_no_slits",
     "animchar__res": "bt_7_driver_char",
     "cockpit__offset": [0.0946133,-0.360127,0.0155563],
     "cockpit__visibleVehicleNodeNames:list<t>": [
@@ -220,10 +229,9 @@
     }
   },
   "jp_type_3_ka_chi_gunner_cockpit": {
-    "vehicle_sight__blk": "gamedata/sight/jp_47mm_1_1.blk",
-    "_extends": "base_gunner_cockpit",
+    "_use": "base_gunner_cockpit",
     "animchar__res": "ba_11_gunner_char",
-    "cockpit__offset": [-0.645543,-0.0759905,0.217313],
+    "cockpit__offset": [-0.3,-0.0759905,0.217313],
     "cockpit__visibleVehicleNodeNames:list<t>": [
       {
         "node": "bone_gun"
@@ -248,7 +256,7 @@
       "slit": "cam_front_right"
     },
     "cockpit__slitForwardOffset:list<r>": {
-      "slit": 0.17
+      "slit": 0.21
     },
     "cockpit__slitIsGun:list<b>": {
       "slit": true
@@ -256,10 +264,27 @@
     "cockpit__attachNodeNames:list<t>": {
       "node": "bone_camera_gunner"
     },
-    "cockpit__attachNodeIndices:list<i>": []
+    "cockpit__attachNodeIndices:list<i>": [],
+    "cockpit__slitZoom:array": {
+      "slit:list<r>": [
+        {
+          "zoom": 1.9
+        },
+        {
+          "zoom": 3.5
+        }
+      ]
+    },
+    "cockpit__slitZoomTime:list<r>": {
+      "slit": 0.05
+    },
+    "cockpit__slitTemplates:list<t>": {
+      "slit": "jp_47mm_1_1"
+    },
+    "cockpit__slitEids:list<eid>": []
   },
   "jp_type_3_ka_chi_commander_cockpit": {
-    "_extends": "base_commander_tower_cockit_no_slits",
+    "_use": "base_commander_tower_cockpit",
     "animchar__res": "pzkpfw_iii_b_commander_char",
     "cockpit__offset": [-0.0502109,0.803083,-0.0690147],
     "cockpit__visibleVehicleNodeNames:list<t>": [
@@ -342,6 +367,38 @@
         "slit": false
       }
     ],
+    "cockpit__slitZoom:array": [
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      }
+    ],
     "cockpit__slitNodeNames:list<t>": [
       {
         "slit": "cam_front"
@@ -364,7 +421,7 @@
     ]
   },
   "jp_type_3_ka_chi_machinegunner_cockpit": {
-    "_extends": "base_gunner_cockpit",
+    "_use": "base_gunner_cockpit",
     "animchar__res": "ba_11_machinegunner_char",
     "cockpit__offset": [-0.297881,-0.277016,-0.204487],
     "cockpit__visibleVehicleNodeNames:list<t>": {
@@ -374,7 +431,7 @@
       "slit": "cam_mg"
     },
     "cockpit__slitForwardOffset:list<r>": {
-      "slit": -0.05
+      "slit": -0.0
     },
     "cockpit__slitIsGun:list<b>": {
       "slit": true
@@ -382,7 +439,19 @@
     "cockpit__attachNodeNames:list<t>": {
       "node": "bone_mg_v_01"
     },
-    "cockpit__attachNodeIndices:list<i>": []
+    "cockpit__attachNodeIndices:list<i>": [],
+    "cockpit__slitZoom:array": {
+      "slit:list<r>": {
+        "zoom": 2.0
+      }
+    },
+    "cockpit__slitZoomTime:list<r>": {
+      "slit": 0.05
+    },
+    "cockpit__slitTemplates:list<t>": {
+      "slit": "cross"
+    },
+    "cockpit__slitEids:list<eid>": []
   },
   "type_3_ka_chi_pacific_premium_skins": {
     "skin__objTexReplace:array": [

@@ -1,12 +1,17 @@
 {
   "it_m14_41": {
-    "_extends": "it_m14_41_common",
+    "_use": "it_m14_41_common",
     "animchar__objTexReplace:object": {
       "it_camo_olive_green*": "it_camo_desert_yellow*"
     }
   },
   "it_m14_41_common": {
-    "_extends": "base_m14_41",
+    "_use": "base_m14_41",
+    "commanderCockpitFpsCamMaxAngle": [40.0,5.0],
+    "gunner_cam_limit__useCockpitDir": true,
+    "item__iconOffset": [0.0,-0.0],
+    "armorThicknessHull": [30.0,25.0,25.0],
+    "armorThicknessTurret": [45.0,25.0,25.0],
     "vehicle_seats__seats:shared:array": [
       {
         "seats:object": {
@@ -144,7 +149,7 @@
     ]
   },
   "it_m14_41_driver_cockpit": {
-    "_extends": "base_driver_cockpit",
+    "_use": "base_driver_cockpit",
     "animchar__res": "kv_1_driver_char",
     "cockpit__offset": [-0.1,-0.25,-0.03],
     "cockpit__visibleVehicleNodeNames:list<t>": [
@@ -160,13 +165,14 @@
       {
         "node": "ex_decor_r_01"
       }
-    ]
+    ],
+    "cockpit__slitForwardOffset:list<r>": {
+      "slit": 0.1
+    }
   },
   "it_m14_41_gunner_cockpit": {
-    "vehicle_sight__blk": "content/tanks/gamedata/sight/it_se_75_18.blk",
-    "_extends": "base_gunner_cockpit",
+    "_use": "base_gunner_cockpit",
     "animchar__res": "t_26_1940_gunner_char",
-    "cockpit__minZoom": -0.27,
     "cockpit__offset": [-0.0,-0.0,-0.0],
     "cockpit__cockpitOffsetBySlit:list<p3>": [
       {
@@ -184,9 +190,7 @@
         "node": "bone_turret_01"
       }
     ],
-    "cockpit__visibleVehicleNodeNames:list<t>": {
-      "node": "gun_barrel"
-    },
+    "cockpit__visibleVehicleNodeNames:list<t>": [],
     "cockpit__slitNodeNames:list<t>": [
       {
         "slit": "cam_front_right"
@@ -197,7 +201,7 @@
     ],
     "cockpit__slitForwardOffset:list<r>": [
       {
-        "slit": 0.18
+        "slit": 0.22
       },
       {
         "slit": 0.2
@@ -210,15 +214,65 @@
       {
         "slit": false
       }
-    ]
+    ],
+    "cockpit__periscopeLimits:list<p4>": [
+      {
+        "slit": [-0.0,0.0,0.0,0.0]
+      },
+      {
+        "slit": [-45.0,45.0,-5.0,25.0]
+      }
+    ],
+    "cockpit__periscopeSpeed:list<p2>": [
+      {
+        "slit": [-1.0,-1.0]
+      },
+      {
+        "slit": [35.0,35.0]
+      }
+    ],
+    "cockpit__slitZoomTime:list<r>": [
+      {
+        "slit": 0.05
+      },
+      {
+        "slit": 0.0
+      }
+    ],
+    "cockpit__slitZoom:array": [
+      {
+        "slit:list<r>": [
+          {
+            "zoom": 1.9
+          },
+          {
+            "zoom": 3.5
+          }
+        ]
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      }
+    ],
+    "cockpit__slitTemplates:list<t>": [
+      {
+        "slit": "it_se_75_18"
+      },
+      {
+        "slit": "default_periscope"
+      }
+    ],
+    "cockpit__slitEids:list<eid>": []
   },
   "it_m14_41_commander_cockpit": {
-    "_extends": "base_commander_cockpit_no_slits",
+    "_use": "base_commander_cockpit_no_slits",
     "animchar__res": "t_26_1940_commander_char",
-    "cockpit__minZoom": -0.05,
+    "cockpit__minForwardOffset": -0.0,
     "cockpit__offset": [-0.0,0.0,-0.0],
     "cockpit__cockpitOffsetBySlit:list<p3>": {
-      "slit": [-0.5,0.66,-0.45]
+      "slit": [-0.7,0.75,-0.45]
     },
     "cockpit__slitForwardOffset:list<r>": {
       "slit": 0.16
@@ -235,7 +289,40 @@
       },
       {
         "node": "bone_gun_01"
+      },
+      {
+        "node": "bone_turret_01"
+      },
+      {
+        "node": "hatch_01"
+      },
+      {
+        "node": "hatch_02"
+      },
+      {
+        "node": "mg_aa"
+      },
+      {
+        "node": "mg_aa_mount_h"
       }
-    ]
+    ],
+    "cockpit__periscopeLimits:list<p4>": {
+      "slit": [-35.0,90.0,-4.0,25.0]
+    },
+    "cockpit__periscopeSpeed:list<p2>": {
+      "slit": [35.0,35.0]
+    },
+    "cockpit__slitZoom:array": {
+      "slit:list<r>": {
+        "zoom": 1.44
+      }
+    },
+    "cockpit__slitZoomTime:list<r>": {
+      "slit": 0.0
+    },
+    "cockpit__slitTemplates:list<t>": {
+      "slit": "default_periscope"
+    },
+    "cockpit__slitEids:list<eid>": []
   }
 }

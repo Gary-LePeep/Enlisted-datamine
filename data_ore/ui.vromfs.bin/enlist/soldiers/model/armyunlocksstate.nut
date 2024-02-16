@@ -6,12 +6,11 @@ let { receivedUnlocks } = require("%enlist/meta/profile.nut")
 let { disabledSectionsData } = require("%enlist/mainMenu/disabledSections.nut")
 let { armies, curCampSquads, curArmy, curArmyData, curUnlockedSquads, squadsByArmy
 } = require("state.nut")
-let { armyLevelsData, armiesUnlocks, hasLevelDiscount, curLevelDiscount
+let { armyLevelsData, armiesUnlocks, hasLevelDiscount, curLevelDiscount, curMaxLevel
 } = require("%enlist/campaigns/armiesConfig.nut")
 let { curArmyShowcase } = require("%enlist/shop/armyShopState.nut")
 let { shopItems } = require("%enlist/shop/shopItems.nut")
-let { CAMPAIGN_NONE, isPurchaseableCampaign, isCampaignBought, needFreemiumStatus
-} = require("%enlist/campaigns/campaignConfig.nut")
+let { CAMPAIGN_NONE, isCampaignBought } = require("%enlist/campaigns/campaignConfig.nut")
 let { isSquadRented } = require("%enlist/soldiers/model/squadInfoState.nut")
 
 
@@ -78,27 +77,6 @@ let curArmyLevelsSize = Computed(@()
 let curArmyShowcasesSize = Computed(@()
   curArmyLevels.value.len() ? curArmyLevels.value.top().showcase.posTo : 0.0)
 
-let function getLevelDataByExp(exp, expGrid) {
-  let res = {
-    level = 1
-    expToLevelRest = 0
-    expToLevelTotal = 0
-    exp = 0
-  }
-  local expTotal = 0
-  foreach (lvl, levelData in expGrid) {
-    expTotal += levelData.exp
-    if (exp < expTotal) {
-      res.expToLevelRest = expTotal - exp
-      res.expToLevelTotal = levelData.exp
-      res.exp = levelData.exp - expTotal + exp
-      break
-    }
-    res.level = max(res.level, lvl + 1)
-  }
-  return res
-}
-
 let curArmyExp = Computed(@() curArmyData.value?.exp ?? 0)
 let curArmyLevel = Computed(@() curArmyData.value?.level ?? 0)
 let curBuyLevelData = Computed(function() {
@@ -158,7 +136,7 @@ let curArmyNextUnlockLevel = Computed(function() {
     rewardUnlocks[unlock.level] <- unlock
 
   let maxLevel = max(findMax(squadUnlocks.keys()), findMax(rewardUnlocks.keys()))
-  let haveFreemium = isPurchaseableCampaign.value && isCampaignBought.value
+  let haveFreemium = isCampaignBought.value
   local nextLevel = 0
   for (local lvl = 1; lvl <= maxLevel; lvl++) {
     nextLevel = lvl
@@ -190,60 +168,14 @@ let curArmyRewardsUnlocks = Computed(@()
         && (u.multipleUnlock.expEnd ?? 0) > (u.multipleUnlock.expBegin ?? 0)
     })))
 
-let function getUnlockProgress(armyExp, unlockExp, expGrid) {
-  local progress = 0
-  if (armyExp >= unlockExp)
-    progress = 100
-  else {
-    let lvlData = getLevelDataByExp(armyExp, expGrid)
-    let cutExp = armyExp - lvlData.exp
-    progress = 100 * lvlData.exp / (unlockExp - cutExp)
-  }
-  return {
-    progress = min(progress, 100)
-    isReached = armyExp >= unlockExp
-  }
-}
-
-let researchSquads = Computed(function() {
-  let allSquads = curCampSquads.value
-  let lockedSquads = {}
-  foreach (squad in allSquads) {
-    let armyId = getLinkedArmyName(squad) ?? ""
-    if (squad.locked)
-      lockedSquads[armyId] <- (lockedSquads?[armyId] ?? {})
-        .__update({ [squad.squadId] = squad.guid })
-  }
-
-  let expGrid = armyLevelsData.value
-  let res = {}
-  foreach (army in armies.value) {
-    let armyId = army.guid
-    let lockedByArmy = lockedSquads?[armyId] ?? {}
-    let armyResearchSquads = curArmySquadsUnlocks.value
-      .filter(@(u) u.unlockId in lockedByArmy)
-
-    if (armyResearchSquads.len() > 0) {
-      let u = armyResearchSquads[0]
-      let squadGuid = lockedByArmy?[u.unlockId]
-      let squad = allSquads?[squadGuid]
-      if (squad != null)
-        res[armyId] <- squad
-          .__merge(getUnlockProgress(army.exp, u.exp, expGrid))
-    }
-  }
-
-  return res
-})
-
 let reachedArmyUnlocks = Computed(function() {
-  let needFreemium = needFreemiumStatus.value
+  let haveFreemium = isCampaignBought.value
   let received = receivedUnlocks.value
   let lvls = armies.value.map(@(a) a.level)
   let exps = armies.value.map(@(a) a.exp)
-  let squads = squadsByArmy.value.map(function(squads) {
+  let squads = squadsByArmy.value.map(function(squads_) {
     let res = {}
-    foreach (s in squads)
+    foreach (s in squads_)
       res[s.squadId] <- true
     return res
   })
@@ -251,7 +183,7 @@ let reachedArmyUnlocks = Computed(function() {
   let res = {}
   foreach(u in armiesUnlocks.value) {
     let { campaignGroup = CAMPAIGN_NONE } = u
-    if (campaignGroup != CAMPAIGN_NONE && needFreemium)
+    if (campaignGroup != CAMPAIGN_NONE && !haveFreemium)
       continue
 
     if (u.unlockType == "level_reward" && u.unlockGuid in received)
@@ -310,23 +242,27 @@ let allArmyUnlocks = Computed(function() {
     .extend(curArmyLevelRewardsUnlocks.value.map(@(v) v.__merge({
       unlockType = uType.ITEM,
       uid = $"item_{v.unlockId}_{v.level}" })))
-    .filter(@(u) "level" in u)
+    .filter(@(u) u.level <= curMaxLevel.value)
+
+  let topLevel = allUnlocks.reduce(@(res, u) max(res, u.level), 0)
+  let emptyCount = armyLevelsData.value.len() - topLevel
+  for (local i = 0; i < emptyCount;)
+    allUnlocks.append({
+      level = (++i) + topLevel
+      unlockType = uType.EMPTY
+    })
 
   let curArmyLvl = curArmyData.value?.level ?? 0
-  if (curArmyLvl > 1){
+  if (curArmyLvl > 1) {
     foreach (level, guidsList in curArmyShowcase.value)
-      foreach (guid in guidsList)
-        if (guid in shopItems.value)
-          allUnlocks.append(shopItems.value[guid].__merge({
-            level, unlockType = uType.SHOP, uid = guid }))
+      if (level <= curMaxLevel.value)
+        foreach (guid in guidsList)
+          if (guid in shopItems.value)
+            allUnlocks.append(shopItems.value[guid].__merge({
+              level, unlockType = uType.SHOP, uid = guid }))
   }
 
   allUnlocks.sort(@(a, b) a.level <=> b.level || a.unlockType <=> b.unlockType)
-
-  let emptyCount = armyLevelsData.value.len() - (allUnlocks?[allUnlocks.len() - 1].level ?? 0)
-  if (emptyCount > 0)
-    allUnlocks.resize(allUnlocks.len() + emptyCount, { unlockType = uType.EMPTY })
-
   return allUnlocks
 })
 
@@ -352,7 +288,6 @@ return {
   curArmyNextUnlockLevel
   curUnlockedSquadId
   squadUnlockInProgress
-  researchSquads
   reachedArmyUnlocks
   viewSquadId
   receivedUnlocks

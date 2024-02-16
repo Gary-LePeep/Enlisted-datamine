@@ -3,19 +3,21 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { Point3 } = require("dagor.math")
 let { objInfoByGuid, getSoldierItem, getSoldierItemSlots,
-  getModSlots, curSquadSoldiersInfo
+  getModSlots, curSquadSoldiersInfo, armySquadsById
 } = require("%enlist/soldiers/model/state.nut")
 let { getIdleAnimState } = require("%enlSqGlob/animation_utils.nut")
 let weaponSlots = require("%enlSqGlob/weapon_slots.nut")
 let weaponSlotNames = require("%enlSqGlob/weapon_slot_names.nut")
 let curGenFaces = require("%enlist/faceGen/gen_faces.nut")
-let { getLinkedArmyName } = require("%enlSqGlob/ui/metalink.nut")
+let { getLinkedArmyName, isLinkedTo, getLinkedSquadGuid } = require("%enlSqGlob/ui/metalink.nut")
 let { allItemTemplates, findItemTemplate
 } = require("%enlist/soldiers/model/all_items_templates.nut")
-let { campItemsByLink, curCampSoldiers } = require("%enlist/meta/profile.nut")
+let { campItemsByLink, squads } = require("%enlist/meta/profile.nut")
 let { soldierOverrides, isSoldierDisarmed, isSoldierSlotsSwap, getSoldierIdle,
   getSoldierHeadTemplate, getSoldierFace, faceGenOverrides, getSoldierFaceGen
 } = require("soldier_overrides.nut")
+let { getSquadCampainOutfit, isObjAvailableForCampaign
+} = require("%enlist/soldiers/model/config/outfitConfig.nut")
 
 let DB = ecs.g_entity_mgr.getTemplateDB()
 
@@ -79,12 +81,13 @@ let function reinitEquipment(eid, equipment) {
   let filteredEquipment = {}
   foreach (slotId, slot in cur_human_equipment) {
     if (slot.item != null && slot.item != ecs.INVALID_ENTITY_ID) {
-      let templateArray = ecs.g_entity_mgr.getEntityTemplateName(slot.item)?.split("+") ?? []
-      let oldTemplateBase = templateArray?[0]
+      let templateArray = ecs.g_entity_mgr.getEntityFutureTemplateName(slot.item)?.split("+") ?? []
+      let oldTemplateBase = templateArray?[0] ?? slot.template
       if (oldTemplateBase && oldTemplateBase == equipment?[slotId].template)
         continue
-      else
-        ecs.g_entity_mgr.destroyEntity(slot.item)
+      ecs.g_entity_mgr.destroyEntity(slot.item)
+      slot.item = ecs.EntityId(ecs.INVALID_ENTITY_ID)
+      slot.template = ""
     }
     filteredEquipment[slotId] <- equipment?[slotId]
   }
@@ -98,8 +101,10 @@ let function reinitEquipment(eid, equipment) {
     }
     if (slot == "face")
       initFacegenParams(eq, animcharDisabledParams, comps)
-    if (eq.template!="")
+    if (eq.template!=""){
       cur_human_equipment[slot].item = ecs.g_entity_mgr.createEntity(eq.template, comps)
+      cur_human_equipment[slot].template = eq.template
+    }
   }
   ecs.obsolete_dbg_set_comp_val(eid, "human_equipment__slots", cur_human_equipment)
 }
@@ -124,6 +129,7 @@ let function setEquipment(eid, equipment) {
         if (slot == "face")
           initFacegenParams(eq, animcharDisabledParams, comps)
         sl[slot].item = ecs.g_entity_mgr.createEntity(eq.template, comps)
+        sl[slot].template = eq.template
         updateEquipmentSlots = true
       }
     }
@@ -186,6 +192,7 @@ let function getItemAnimationBlacklist(soldier, soldierGuid, scheme, soldiersLoo
 
 let function getWeapTemplates(soldierGuid, scheme) {
   let weapTemplates = {primary="", secondary="", tertiary="", special=""}
+  let slotOrder = ["primary", "secondary", "tertiary", "special"]
   foreach (slotType, slot in scheme) {
     if (weapTemplates?[slot?.ingameWeaponSlot] != "")
       continue
@@ -193,11 +200,19 @@ let function getWeapTemplates(soldierGuid, scheme) {
     if ("gametemplate" not in weapon)
       continue
 
-    local tpl = weapon.gametemplate
-    if (slot.ingameWeaponSlot == "primary")
-      tpl = "+".concat(tpl, "menu_gun")
-    weapTemplates[slot.ingameWeaponSlot] = tpl
+    weapTemplates[slot.ingameWeaponSlot] = weapon.gametemplate
   }
+
+  foreach(slot in slotOrder) {
+    let template = weapTemplates?[slot] ?? ""
+    if (template == "")
+      continue
+
+    let newTemplate = "+".concat(template, "menu_gun")
+    weapTemplates[slot] = newTemplate
+    break
+  }
+
   return weapTemplates
 }
 
@@ -214,12 +229,15 @@ let function mkEquipment(soldier, scheme, soldiersLook, premiumItems, customizat
     return {}
 
   let { guid } = soldier
+  let soldiersDefaultLook = soldiersLook?[guid]
+  if (soldiersDefaultLook == null)
+    return {}
+
   let armyId = getLinkedArmyName(soldier ?? {})
   let faceOverride = getSoldierFace(guid)
 
   // basic soldier look
   local slotTmpls = {}
-  let soldiersDefaultLook = soldiersLook?[guid] ?? {}
   foreach (slotType, templ in soldiersDefaultLook.items) {
     let itemTemplate = findItemTemplate(allItemTemplates, armyId, templ)
     if (itemTemplate != null)
@@ -227,6 +245,8 @@ let function mkEquipment(soldier, scheme, soldiersLook, premiumItems, customizat
   }
 
   // apply items except inventory and weapon
+  // also save the list of slots that are overwritten
+  let overrideSlotsList = []
   let itemSlots = getSoldierItemSlots(guid, campItemsByLink.value)
   foreach (itemSlot in itemSlots) {
     let { slotType } = itemSlot
@@ -236,29 +256,48 @@ let function mkEquipment(soldier, scheme, soldiersLook, premiumItems, customizat
     if (slot == null || (slot?.ingameWeaponSlot in WEAP_SLOT_TYPES))
       continue
     let itemTemplate = findItemTemplate(allItemTemplates, armyId, itemSlot.item.basetpl)
-    if (itemTemplate != null)
+    if (itemTemplate != null) {
       slotTmpls[slotType] <- itemTemplate
+      let equipSlot = itemTemplate?.slot
+      if (equipSlot != null && equipSlot != slotType && equipSlot in slotTmpls)
+        overrideSlotsList.append(equipSlot)
+    }
   }
 
+  let squadGuid = getLinkedSquadGuid(soldier)
+  let { squadId = "" } = squads.value?[squadGuid]
+  let campaignOutfit = getSquadCampainOutfit(armyId, squadId, armySquadsById.value)
   // premium outfit
   foreach (item in premiumItems?[armyId] ?? []) {
-    let slotType = item?.links[guid]
-    if (slotType == null)
+    if (!isLinkedTo(item, guid) || !isObjAvailableForCampaign(item, campaignOutfit))
       continue
+
+    let slotType = item.links[guid]
     let itemTemplate = findItemTemplate(allItemTemplates, armyId, item.basetpl)
     if (itemTemplate != null)
       slotTmpls[slotType] <- itemTemplate
   }
   foreach (slotType, templ in customizationOvr ?? {}) {
+    if (templ == "") {
+      slotTmpls[slotType] <- null
+      continue
+    }
     let itemTemplate = findItemTemplate(allItemTemplates, armyId, templ)
     if (itemTemplate != null)
       slotTmpls[slotType] <- itemTemplate
   }
 
   // apply templates to soldier outfit
+  foreach (removeSlot in overrideSlotsList)
+    delete slotTmpls[removeSlot]
+
   local equipment = {}
   foreach (slotType, itemTemplate in slotTmpls) {
     let itemSlot = itemTemplate?.slot ?? slotType
+    if (itemTemplate == null) {
+      equipment[itemSlot] <- null
+      continue
+    }
     let { gametemplate } = itemTemplate
     let template = getTemplate(gametemplate)
     let data = { gametemplate, template }
@@ -295,7 +334,7 @@ let function mkEquipment(soldier, scheme, soldiersLook, premiumItems, customizat
 
 let function createSoldier(
   guid, transform, soldiersLook, premiumItems = {}, callback = null, extraTemplates = [],
-  isDisarmed = false, order = null, customizationOvr = null, reInitEid = ecs.INVALID_ENTITY_ID
+  isDisarmed = false, isSiting = false, customizationOvr = null, reInitEid = ecs.INVALID_ENTITY_ID
 ) {
   let soldier = objInfoByGuid.value?[guid]
   if (soldier == null)
@@ -321,7 +360,7 @@ let function createSoldier(
 
   let soldierItems = getSoldierItemSlots(guid, campItemsByLink.value)
   let weapTemplates = getWeapTemplates(guid, scheme)
-  let equipment = mkEquipment(curCampSoldiers.value?[guid], scheme, soldiersLook,
+  let equipment = mkEquipment(soldier, scheme, soldiersLook,
     premiumItems, customizationOvr)
 
   let weapInfo = []
@@ -359,14 +398,16 @@ let function createSoldier(
 
   let soldierTemplate = DB.getTemplateByName(gametemplate)
   let overridedIdleAnims = soldierTemplate?.getCompValNullable("animation__overridedIdleAnims")
-  let itemTemplates = getItemAnimationBlacklist(curCampSoldiers.value?[guid], guid, scheme, soldiersLook)
+  let overridedSlotsOrder = soldierTemplate?.getCompValNullable("animation__overridedSlotsOrder").getAll()
+  let itemTemplates = getItemAnimationBlacklist(soldier, guid, scheme, soldiersLook)
   let guid_hash = guid.hash()
   let animation = getSoldierIdle(guid) ?? getIdleAnimState({
     weapTemplates
     itemTemplates
     overridedIdleAnims
+    overridedSlotsOrder
     seed = guid_hash
-    order
+    isSiting
   })
   let bodyHeight = soldier?.bodyScale.height ?? 1.0
   let bodyWidth = soldier?.bodyScale.width ?? 1.0
@@ -379,13 +420,12 @@ let function createSoldier(
     local canBeRecreated = false
     initSoldierQuery.perform(reInitEid, function(_eid, comp){
       if (animcharRes != comp.animchar__res){
-        ecs.g_entity_mgr.destroyEntity(reInitEid)
         return
       }
       canBeRecreated = true
       comp.guid = guid
       comp.guid_hash = guid_hash
-      comp.human_weap__weapInfo = [weapInfo, ecs.TYPE_ARRAY]
+      comp.human_weap__weapInfo = weapInfo
       comp.animchar__scale = bodyHeight
       comp.animchar__depScale = Point3(bodyWidth, bodyHeight, bodyWidth)
       comp.animchar__transformScale = Point3(bodyWidth, 1.0, bodyWidth)
@@ -395,6 +435,9 @@ let function createSoldier(
       callback?(reInitEid)
       reinitEquipment(reInitEid, equipment)
       return reInitEid
+    }
+    else {
+      ecs.g_entity_mgr.destroyEntity(reInitEid)
     }
   }
   return ecs.g_entity_mgr.createEntity(result_template, {

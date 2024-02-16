@@ -5,7 +5,7 @@ require game.es.input.input_events
 require game.es.input.input_common
 require DagorInput
 require HumanPhys
-require EnlistedHuman
+require DngHuman
 require game.es.action_common
 
 
@@ -14,14 +14,12 @@ def init(var human_input__jump : int&;
          var human_input__crouch : int&;
          var human_input__holdCrouch : int&;
          var human_input__melee : int&;
-         var human_input__reload : int&;
          var human_input__recover : int&)
   human_input__jump = int(get_action_handle("Human.Jump", TYPEGRP_DIGITAL))
   human_input__crawl = int(get_action_handle("Human.Crawl", TYPEGRP_DIGITAL))
   human_input__crouch = int(get_action_handle("Human.Crouch", TYPEGRP_DIGITAL))
   human_input__holdCrouch = int(get_action_handle("Human.HoldCrouch", TYPEGRP_DIGITAL))
   human_input__melee = int(get_action_handle("Human.Melee", TYPEGRP_DIGITAL))
-  human_input__reload = int(get_action_handle("Human.Reload", TYPEGRP_DIGITAL))
   human_input__recover = int(get_action_handle("Human.Recover", TYPEGRP_DIGITAL))
 
 
@@ -30,14 +28,12 @@ def reset(var human_input__jump : int&;
           var human_input__crouch : int&;
           var human_input__holdCrouch : int&;
           var human_input__melee : int&;
-          var human_input__reload : int&;
           var human_input__recover : int&)
   human_input__jump = int(BAD_ACTION_HANDLE)
   human_input__crawl = int(BAD_ACTION_HANDLE)
   human_input__crouch = int(BAD_ACTION_HANDLE)
   human_input__holdCrouch = int(BAD_ACTION_HANDLE)
   human_input__melee = int(BAD_ACTION_HANDLE)
-  human_input__reload = int(BAD_ACTION_HANDLE)
   human_input__recover = int(BAD_ACTION_HANDLE)
 
 [es(tag=input, on_appear)]
@@ -47,10 +43,9 @@ def human_common_appear_es(evt : Event;
                            var human_input__crouch : int&;
                            var human_input__holdCrouch : int&;
                            var human_input__melee : int&;
-                           var human_input__reload : int&;
                            var human_input__recover : int&)
   init(human_input__jump, human_input__crawl, human_input__crouch, human_input__holdCrouch,
-       human_input__melee, human_input__reload, human_input__recover)
+       human_input__melee, human_input__recover)
 
 [es(tag=input)]
 def human_common_input_es(evt : EventDaInputInit;
@@ -59,15 +54,14 @@ def human_common_input_es(evt : EventDaInputInit;
                           var human_input__crouch : int&;
                           var human_input__holdCrouch : int&;
                           var human_input__melee : int&;
-                          var human_input__reload : int&;
                           var human_input__recover : int&;
                           var human_input__standState : int&)
   if evt.init
     init(human_input__jump, human_input__crawl, human_input__crouch, human_input__holdCrouch,
-         human_input__melee, human_input__reload, human_input__recover)
+         human_input__melee, human_input__recover)
   else
     reset(human_input__jump, human_input__crawl, human_input__crouch, human_input__holdCrouch,
-          human_input__melee, human_input__reload, human_input__recover)
+          human_input__melee, human_input__recover)
     human_input__standState = 0
 
 [es(tag=input)]
@@ -94,7 +88,6 @@ def human_common_input_action_triggered_es(evt : EventDaInputActionTriggered;
                                            human_input__holdCrouch : int;
                                            human_input__melee : int;
                                            var human_input__meleeInputStartTime : float&;
-                                           human_input__reload : int;
                                            human_input__recover : int;
                                            input__enabled : bool;
                                            var human_net_phys : HumanActor&;
@@ -129,8 +122,6 @@ def human_common_input_action_triggered_es(evt : EventDaInputActionTriggered;
   elif action == human_input__holdCrouch
     if !isInVehicle && !bipod__enabled
       human_input__standState = int(HumanPhysControlType HCT_CROUCH)
-  elif action == human_input__reload
-    ct |> human_control_state_set_control_bit(HumanPhysControlType HCT_RELOAD, true)
   elif action == human_input__recover
     if !burning__isBurning && check_action_precondition(eid, "recover")
       run_action(eid, "recover")
@@ -145,15 +136,13 @@ def human_common_input_action_terminated_es(evt : EventDaInputActionTerminated;
                                             human_input__holdCrouch : int;
                                             input__enabled : bool;
                                             human_input__melee : int;
-                                            human_input__reload : int;
                                             var human_input__wishMelee : bool&;
                                             var human_input__standState : int&;
                                             var human_input__meleeInputStartTime : float&;
                                             human_weap__currentGunEid : EntityId = INVALID_ENTITY_ID;
                                             human_input__shoot : int = -1;
                                             isInVehicle : bool = false;
-                                            bipod__enabled : bool = false;
-                                            var human_input__isNeedHctReloadReset : bool&)
+                                            bipod__enabled : bool = false)
   let action = int(evt.action)
   if !input__enabled
     return
@@ -163,5 +152,3 @@ def human_common_input_action_terminated_es(evt : EventDaInputActionTerminated;
   elif action == human_input__melee || (action == human_input__shoot && get_bool(human_weap__currentGunEid, "gun__melee") ?? false)
     human_input__wishMelee = human_input__meleeInputStartTime > 0.0
     human_input__meleeInputStartTime = -1.0
-  elif action == human_input__reload
-    human_input__isNeedHctReloadReset = true

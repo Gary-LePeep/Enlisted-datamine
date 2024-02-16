@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 import "%dngscripts/ecs.nut" as ecs
 
-let { body_txt, sub_txt, fontawesome } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody, fontSub, fontawesome } = require("%enlSqGlob/ui/fontsStyle.nut")
 let fa = require("%ui/components/fontawesome.map.nut")
 let { INVALID_USER_ID, INVALID_SESSION_ID } = require("matching.errors")
 let { remap_others } = require("%enlSqGlob/remap_nick.nut")
@@ -12,16 +12,18 @@ let { setTooltip, withTooltip } = require("%ui/style/cursors.nut")
 let style = require("%ui/hud/style.nut")
 let mkBattleHeroAwardIcon = require("%enlSqGlob/ui/battleHeroAwardIcon.nut")
 let mkAwardsTooltip = require("%ui/hud/components/mkAwardsTooltip.nut")
+let tooltipBox = require("%ui/style/tooltipBox.nut")
+let {dtext} = require("%ui/components/text.nut")
 let complain = require("%ui/complaints/complainWnd.nut")
 let forgive = require("%ui/requestForgiveFriendlyFire.nut")
 let { frameNick } = require("%enlSqGlob/ui/decoratorsPresentation.nut")
-let { mkRankIcon, getRankConfig, rankIconSize
-} = require("%enlSqGlob/ui/rankPresentation.nut")
+let { mkRankIcon, getRankConfig, rankIconSize } = require("%enlSqGlob/ui/rankPresentation.nut")
 let { SetReplayTarget } = require("dasevents")
 let armiesPresentation = require("%enlSqGlob/ui/armiesPresentation.nut")
 let { getObjectName } = require("%enlSqGlob/ui/itemsInfo.nut")
 let { kindIcon, classTooltip } = require("%enlSqGlob/ui/soldiersUiComps.nut")
 
+let colon = loc("ui/colon")
 let LINE_H = hdpxi(40)
 let NUM_COL_WIDTH = hdpx(45)
 let SCORE_COL_WIDTH = hdpx(65)
@@ -68,16 +70,15 @@ let function playerColor(playerData, sf = 0) {
   )
 }
 
-let rowText = @(txt, w, playerData, sf = 0) {
-  size = [w, LINE_H]
+let rowText = @(text, width, playerData, sf = 0, override = {}) {
+  size = [width, LINE_H]
   halign = ALIGN_CENTER
   valign = ALIGN_CENTER
   children = {
-      vplace = ALIGN_CENTER
       rendObj = ROBJ_TEXT
-      text = txt
+      text
       color = playerColor(playerData, sf)
-    }.__update(sub_txt)
+    }.__update(fontSub, override)
 }
 
 let mkHeaderIcon = memoize(function(image) {
@@ -98,9 +99,9 @@ let deserterIcon = @(playerData, sf) {
   padding = [hdpx(2), 0]
 }
 
-let getFramedNick = @(player)
-  frameNick( //TEMP FIX: Recieve already corrent name from server
-    remap_others(player.name),
+let getFramedNick = @(player, isGroupmate)
+  frameNick( //TEMP FIX: Receive already corrent name from server
+    remap_others(player.name, !isGroupmate),
     player?.decorators__nickFrame
   )
 
@@ -123,7 +124,7 @@ let mkMemberIcon = @(txt, playerData, sf = 0) {
       padding = [0,0,hdpx(1),hdpx(1)]
       text = txt
       color = Color(0,0,0)
-    }.__update(sub_txt)
+    }.__update(fontSub)
   ]
 }
 
@@ -165,7 +166,7 @@ let function mkArmiesIcons(armies) {
 let function mkPlayerRank(playerData, isInteractive) {
   let { player_info__military_rank = 0 } = playerData?.player
   return player_info__military_rank <= 0 ? null
-    : mkRankIcon(player_info__military_rank, rankIconSize, {
+    : mkRankIcon(player_info__military_rank, {
         hplace = ALIGN_RIGHT
         vplace = ALIGN_CENTER
         margin = [0, bigGap]
@@ -193,11 +194,12 @@ let function mkPlayerClass(playerData, isInteractive, sf) {
   )
 }
 
-let function mkPlayerBattleIcon(playerData, isInteractive, sf) {
+let function mkPlayerBattleIcon(playerData, isInteractive, sf, params) {
   if (playerData?.haveSessionResult)
     return mkPlayerRank(playerData, isInteractive)
 
-  if (!playerData.isAlly)
+  let { isReplay = false } = params
+  if ((!playerData.isAlly || playerData.isDeserter || playerData.disconnected) && !isReplay)
     return null
 
   return mkPlayerClass(playerData, isInteractive, sf)
@@ -283,7 +285,7 @@ let function openContextMenu(event, playerData, localPlayerEid, params) {
       action = @() complain(
         playerData.sessionId,
         playerUid,
-        getFramedNick(playerData.player)
+        getFramedNick(playerData.player, playerData.isGroupmate)
       )
     })
 
@@ -293,12 +295,18 @@ let function openContextMenu(event, playerData, localPlayerEid, params) {
 let countAssistActions = @(data)
   ( (data?["scoring_player__assists"] ?? 0)
   + (data?["scoring_player__tankKillAssists"] ?? 0)
+  + (data?["scoring_player__apcKillAssists"] ?? 0)
   + (data?["scoring_player__planeKillAssists"] ?? 0)
+  + (data?["scoring_player__aiPlaneKillAssists"] ?? 0)
   + (data?["scoring_player__tankKillAssistsAsCrew"] ?? 0)
+  + (data?["scoring_player__apcKillAssistsAsCrew"] ?? 0)
   + (data?["scoring_player__planeKillAssistsAsCrew"] ?? 0)
+  + (data?["scoring_player__aiPlaneKillAssistsAsCrew"] ?? 0)
   + (data?["scoring_player__crewKillAssists"] ?? 0)
   + (data?["scoring_player__crewTankKillAssists"] ?? 0)
+  + (data?["scoring_player__crewApcKillAssists"] ?? 0)
   + (data?["scoring_player__crewPlaneKillAssists"] ?? 0)
+  + (data?["scoring_player__crewAiPlaneKillAssists"] ?? 0)
   + (data?["scoring_player__hostedOnSoldierSpawns"] ?? 0)
   + (data?["scoring_player__reviveAssists"] ?? 0)
   + (data?["scoring_player__healAssists"] ?? 0)
@@ -309,35 +317,45 @@ let countAssistActions = @(data)
   + (data?["scoring_player__enemyBuiltFortificationDestructions"] ?? 0)
   + (data?["scoring_player__enemyBuiltGunDestructions"] ?? 0)
   + (data?["scoring_player__enemyBuiltUtilityDestructions"] ?? 0)
-  + (data?["scoring_player__landings"] ?? 0) )
+  + (data?["scoring_player__landings"] ?? 0)
+  + (data?["scoring_player__longRangeKills"] ?? 0) )
+
+let ENGINEER_STATS = [
+ { id = "builtRallyPointUses" }
+ { id = "builtStructures" }
+ { id = "builtGunKills" }
+ { id = "builtGunKillAssists" }
+ { id = "builtGunTankKills" }
+ { id = "builtGunTankKillAssists" }
+ { id = "builtGunApcKills" }
+ { id = "builtGunApcKillAssists" }
+ { id = "builtGunPlaneKills" }
+ { id = "builtGunAiPlaneKills" }
+ { id = "builtGunPlaneKillAssists" }
+ { id = "builtGunAiPlaneKillAssists" }
+ { id = "builtBarbwireActivations" }
+ { id = "builtCapzoneFortificationActivations" }
+ { id = "builtAmmoBoxRefills" }
+].apply(@(stat) {id = stat.id, scoringPlayerId = $"scoring_player__{stat.id}"})
 
 let countEngineerActions = @(data)
-  ( (data?["scoring_player__builtRallyPointUses"] ?? 0)
-  + (data?["scoring_player__builtStructures"] ?? 0)
-  + (data?["scoring_player__builtGunKills"] ?? 0)
-  + (data?["scoring_player__builtGunKillAssists"] ?? 0)
-  + (data?["scoring_player__builtGunTankKills"] ?? 0)
-  + (data?["scoring_player__builtGunTankKillAssists"] ?? 0)
-  + (data?["scoring_player__builtGunPlaneKills"] ?? 0)
-  + (data?["scoring_player__builtGunPlaneKillAssists"] ?? 0)
-  + (data?["scoring_player__builtBarbwireActivations"] ?? 0)
-  + (data?["scoring_player__builtCapzoneFortificationActivations"] ?? 0)
-  + (data?["scoring_player__builtAmmoBoxRefills"] ?? 0) )
+  ENGINEER_STATS.reduce(@(sum, stat) sum + (data?[stat.scoringPlayerId] ?? 0), 0)
 
 let countCapzoneKills = @(data)
   ( (data?["scoring_player__attackKills"] ?? 0)
   + (data?["scoring_player__defenseKills"] ?? 0) )
 
-let mkPlayerName = @(playerData, stateFlags) {
-  children = [
-    rowText(
-      getFramedNick(playerData.player),
-      SIZE_TO_CONTENT,
-      playerData,
-      stateFlags
-    ).__update({ padding = [0, smallPadding], halign = ALIGN_LEFT })
-  ]
-}
+let mkPlayerName = @(playerData, sf) rowText(
+  getFramedNick(playerData.player, playerData.isGroupmate),
+  flex(),
+  playerData,
+  sf,
+  {
+    size = [flex(), SIZE_TO_CONTENT]
+    hplace = ALIGN_LEFT
+    padding = [0, smallPadding]
+    behavior = sf & S_HOVER ? Behaviors.Marquee : null
+  })
 
 let function selectDisplayedAward(isBattleHero, awards) {
   if (isBattleHero)
@@ -362,6 +380,15 @@ let function mkBattleHeroAwardWidget(player, isAlly) {
     @() mkAwardsTooltip(awards, tooltipBattleHeroAwardIconSize))
 }
 
+let function mkTotalScoreTooltip(title, stats, data, prices) {
+  if (prices.len() == 0)
+    return null
+  let score = stats.reduce(@(sum, stat) sum + (data?[stat.scoringPlayerId] ?? 0) * (prices?[stat.id] ?? 0), 0)
+  return tooltipBox(
+    dtext($"{title}{colon}{score}", {padding = [0, hdpx(10)]}.__update(fontBody))
+  )
+}
+
 let COLUMN_PLAYER_NUM = {
   width = NUM_COL_WIDTH
   mkHeader = @(_) null
@@ -384,7 +411,7 @@ let COLUMN_PLAYER_NAME = {
       rendObj = ROBJ_TEXT
       margin = [0, bigGap, 0, bigGap]
       text = p.teamText
-    }.__update(body_txt)
+    }.__update(fontBody)
     p.addChild
   ]
   headerOverride = { flow = FLOW_HORIZONTAL, halign = ALIGN_LEFT }
@@ -412,7 +439,7 @@ let COLUMN_PLAYER_NAME = {
           ? mkMemberIcon((playerData.player.memberIndex + 1).tostring(), playerData, sf)
               .__update({ padding = [0, bigGap] })
           : null
-        mkPlayerBattleIcon(playerData, isInteractive, sf)
+        mkPlayerBattleIcon(playerData, isInteractive, sf, params)
       ]
     }
   })
@@ -428,7 +455,9 @@ let COLUMN_VEHICLE_KILLS = {
   headerIcon = "ui/skin#kills_technics_icon.svg"
   locId = "scoring/killsVehicles"
   mkContent = @(playerData, _params, _idx) rowText((playerData.player?["scoring_player__tankKills"] ?? 0)
-    + (playerData.player?["scoring_player__planeKills"] ?? 0), flex(), playerData)
+    + (playerData.player?["scoring_player__apcKills"] ?? 0)
+    + (playerData.player?["scoring_player__planeKills"] ?? 0)
+    + (playerData.player?["scoring_player__aiPlaneKills"] ?? 0), flex(), playerData)
 }
 let COLUMN_ASSISTS = {
   width = NUM_COL_WIDTH
@@ -440,7 +469,9 @@ let COLUMN_ASSISTS = {
 let COLUMN_ENGINEER = {
   width = NUM_COL_WIDTH
   headerIcon = "ui/skin#engineer.svg"
-  mkContent = @(playerData, _params, _idx) rowText(countEngineerActions(playerData.player), flex(), playerData)
+  mkContent = @(playerData, params, _idx)
+    withTooltip(rowText(countEngineerActions(playerData.player), flex(), playerData),
+      @() mkTotalScoreTooltip(loc("scoring/engineerActionTooltip"), ENGINEER_STATS, playerData.player, params?.scorePrices ?? {}))
   locId = "scoring/engineerActions"
 }
 let COLUMN_KILLS_IN_CAPZONE = {

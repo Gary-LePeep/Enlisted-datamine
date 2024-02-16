@@ -56,16 +56,16 @@
   },
   "tankgun_20mm_type98": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_tankgun_autocannon"
+      "_use": "base_tankgun_autocannon"
     },
     {
-      "_extends": "base_20mm_type98"
+      "_use": "base_20mm_type98"
     },
     {
-      "_extends": "gunsound_20mm_type98"
+      "_use": "gunsound_20mm_type98"
     },
     {
       "turret__triggerGroup": 0

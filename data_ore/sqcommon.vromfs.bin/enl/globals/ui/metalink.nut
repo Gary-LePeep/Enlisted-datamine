@@ -51,6 +51,8 @@ let function getLinkedObjectsValues(where, linked) {
 let isObjectLinkedToAny = @(obj, linkedList)
   linkedList.findvalue(@(linked) obj.links?[linked] != null) != null
 
+let isObjectHaveLinkTypeToAny = @(obj, typesList)
+  (obj.links ?? {}).findvalue(@(t) t in typesList) != null
 
 let function getObjectsByLink(where, linked, link_type) {
   let res = []
@@ -92,12 +94,11 @@ let function getObjectsTableByLinkType(where, link_type) {
   return res
 }
 
-let getLinksByType = @(obj, link_type)
-  obj.links.filter(@(v) v == link_type).keys()
+
 let getFirstLinkByType = @(obj, link_type)
   obj.links.findindex(@(v) v == link_type)
 
-let getItemIndex = @(v) (getLinksByType(v, "index")?[0].tointeger()) ?? -1
+let getItemIndex = @(obj) (getFirstLinkByType(obj, "index")?.tointeger()) ?? -1
 
 let function changeIndex(obj, newIndex) {
   delLinkByType(obj, "index")
@@ -143,12 +144,12 @@ return {
   getObjectsByLink
   getObjectsByLinkType
   getObjectsTableByLinkType
-  getLinksByType
   getFirstLinkByType
   getItemIndex
   changeIndex
   getObjectsByLinkSorted
   isObjLinkedToAnyOfObjects
+  isObjectHaveLinkTypeToAny
   getFirstLinkedObjectGuid
   getLinkedSlotData
   isLinkedTo

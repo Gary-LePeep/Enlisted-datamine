@@ -5,10 +5,7 @@ require DagorSystem
 require DagorMath
 require GeomNodeTree
 require enlisted.events_enlisted
-
-
-def get_node_no(node : uint16)
-  return int(node) & int(0xFF)
+require game.es.attach_common
 
 [es(tag=server, on_appear, on_disappear, track=slot_attach__attachedTo)]
 def skeleton_attach_do_attach_es(evt : Event;
@@ -41,8 +38,10 @@ def remove_skeleton_attach(eid : EntityId;
 def skeleton_attach_clear_attach_es(evt : Event;
                                     eid : EntityId;
                                     skeleton_attach__attached : bool;
+                                    var animchar__usePrecalculatedData : bool&;
                                     var animchar : AnimcharBaseComponent&)
   if !skeleton_attach__attached
+    animchar__usePrecalculatedData = false
     remove_skeleton_attach(eid, animchar)
 
 
@@ -50,8 +49,10 @@ def skeleton_attach_clear_attach_es(evt : Event;
 def skeleton_attach_destroy_attach_es(evt : Event;
                                       eid : EntityId;
                                       skeleton_attach__attached : bool;
+                                      var animchar__usePrecalculatedData : bool&;
                                       var animchar : AnimcharBaseComponent&)
   if skeleton_attach__attached
+    animchar__usePrecalculatedData = false
     remove_skeleton_attach(eid, animchar)
 
 
@@ -80,7 +81,7 @@ def skeleton_attach_remap_impl(attach_animchar : AnimcharBaseComponent;
           assert(i <= 255)
           push(out_skeleton_remap, uint16(nodeIdx << 8 | i))
         else
-          push(out_skeleton_recalc_branch, uint8(i))
+          push(nodesWithoutRemap, uint16(i))
 
       for nodeNo in nodesWithoutRemap
         let parNodeId = geomtree_getParentNodeIdx(*attach_animchar.nodeTree, int(nodeNo))
@@ -121,3 +122,20 @@ def skeleton_attach_remap_es(evt : Event;
         addSubTemplate(eid, "base_skeleton_attach") <| $(var init)
           set(init, "skeleton_attach__skeletonRemap", outSkeletonRemap)
           set(init, "skeleton_attach__skeletonRecalcBranch", outSkeletonRecalcBranch)
+
+[es(tag=server, after=animchar__updater_es, before=after_animchar_update_sync, on_event=UpdateAnimcharEvent, REQUIRE=animchar, REQUIRE_NOT=skeletonAttachInited)]
+def skeleton_attach_server_init_es(evt : Event;
+                                   eid : EntityId;
+                                   skeleton_attach__attached : bool;
+                                   skeleton_attach__attachedTo : EntityId)
+  if !skeleton_attach__attached
+    return
+  query(skeleton_attach__attachedTo) <| $ [es(REQUIRE=animchar)] ()
+    addSubTemplate(eid, "skeleton_attach_inited")
+
+[es(tag=server, on_appear, on_disappear, track=skeleton_attach__attached, REQUIRE=skeletonAttachInited)]
+def skeleton_attach_clear_server_es(evt : Event;
+                                    eid : EntityId;
+                                    skeleton_attach__attached : bool)
+  if !skeleton_attach__attached
+    removeSubTemplate(eid, "skeleton_attach_inited")

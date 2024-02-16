@@ -7,7 +7,7 @@ require game.es.events
 require dm
 require AnimV20
 require CollRes
-require EnlistedPlane
+require DngPlane
 require Plane
 require strings
 require DagorSystem
@@ -113,7 +113,13 @@ def plane_damage_cutting(evt : EventCutPart;
     plane_cutting__largePartsCut[int(WreckageType WRECKAGE_WING_L)] = true
     plane_cutting__leftWingCutState = cutState
 
-    assume leftWingCuttingPos = plane_cutting__wingLeftCuttingPos[plane_cutting__leftWingCutState - 1]
+    var cutId = plane_cutting__leftWingCutState - 1
+    for i in range(int(FlightModelCutState FMCS_NONE), cutState)
+      assume cuttingPos = plane_cutting__wingLeftCuttingPos[i]
+      if (cuttingPos.x > 0.0 && cuttingPos.y > 0.0)
+        cutId = i
+
+    assume leftWingCuttingPos = plane_cutting__wingLeftCuttingPos[cutId]
     plane_cutting__cuttingPlanes[wreckageNo].w = lerp(leftWingCuttingPos.x, leftWingCuttingPos.y, 0.5)
   elif cutPartId == int(WreckageCutPartId WRECK_PART_PART_WING_R) || cutPartId == int(WreckageCutPartId WRECK_PART_PART_WING1_R) || cutPartId == int(WreckageCutPartId WRECK_PART_PART_WING2_R)
     let cutState = int(FlightModelCutState FMCS_ALL_CUT) - cutPartId + int(WreckageCutPartId WRECK_PART_PART_WING_R)
@@ -125,7 +131,13 @@ def plane_damage_cutting(evt : EventCutPart;
     plane_cutting__largePartsCut[int(WreckageType WRECKAGE_WING_R)] = true
     plane_cutting__rightWingCutState = cutState
 
-    assume rightWingCuttingPos = plane_cutting__wingRightCuttingPos[plane_cutting__rightWingCutState - 1]
+    var cutId = plane_cutting__rightWingCutState - 1
+    for i in range(int(FlightModelCutState FMCS_NONE), cutState)
+      assume cuttingPos = plane_cutting__wingRightCuttingPos[i]
+      if (cuttingPos.x > 0.0 && cuttingPos.y > 0.0)
+        cutId = i
+
+    assume rightWingCuttingPos = plane_cutting__wingRightCuttingPos[cutId]
     plane_cutting__cuttingPlanes[wreckageNo].w = lerp(rightWingCuttingPos.x, rightWingCuttingPos.y, 0.5)
   elif cutPartId == int(WreckageCutPartId WRECK_PART_PART_TAIL)
     wreckageNo = int(WreckageType WRECKAGE_TAIL)
@@ -426,8 +438,8 @@ def init_plane_cutting(evt : Event;
   plane_cutting__wingLeftCuttingPos |> clear()
   plane_cutting__wingRightCuttingPos |> clear()
   for _i in each_enum(FlightModelCutState FMCS_NONE)
-    plane_cutting__wingLeftCuttingPos |> emplace(float2())
-    plane_cutting__wingRightCuttingPos |> emplace(float2())
+    plane_cutting__wingLeftCuttingPos |> emplace(float2(-1, -1))
+    plane_cutting__wingRightCuttingPos |> emplace(float2(-1, -1))
 
   let partsSize = typeinfo(enum_length type<WreckageCutPartId>)
   if partsSize != length(WRECKAGE_CUT_PART_NAMES)

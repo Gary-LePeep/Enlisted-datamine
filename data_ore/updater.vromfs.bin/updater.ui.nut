@@ -1,5 +1,5 @@
 from "daRg" import *
-from "frp" import *
+from "frp" import Watched
 
 let eventbus = require("eventbus")
 

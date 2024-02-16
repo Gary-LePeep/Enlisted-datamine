@@ -1,12 +1,12 @@
 {
   "germ_pzkpfw_iv_ausf_g": {
-    "_extends": "germ_pzkpfw_iv_ausf_g_common",
+    "_use": "germ_pzkpfw_iv_ausf_g_common",
     "animchar__objTexReplace:object": {
       "ger_camo_dunkelgelb*": "ger_camo_grey*"
     }
   },
   "germ_pzkpfw_iv_ausf_g_tunisia_premium": {
-    "_extends": "germ_pzkpfw_iv_ausf_g_common",
+    "_use": "germ_pzkpfw_iv_ausf_g_common",
     "disableDMParts:list<t>": [
       {
         "part": "track_r_01"
@@ -253,7 +253,7 @@
     ]
   },
   "pzkpfw_iv_ausf_g_turret_01_75mm_kwk40_l43_custom": {
-    "_extends": "pzkpfw_iv_ausf_g_turret_01_75mm_kwk40_l43",
+    "_use": "pzkpfw_iv_ausf_g_turret_01_75mm_kwk40_l43",
     "turret__limit": [-180.0,180.0,-10.0,20.0],
     "turret__limitsTable:list<p4>": [
       {
@@ -272,10 +272,22 @@
   },
   "germ_pzkpfw_iv_ausf_g_common": [
     {
-      "_extends": "base_pzkpfw_iv_ausf_g"
+      "_use": "base_pzkpfw_iv_ausf_g"
     },
     {
-      "_extends": "tank_panzer3_engine_sound"
+      "_use": "tank_panzer3_engine_sound"
+    },
+    {
+      "item__iconOffset": [0.05,0.15]
+    },
+    {
+      "item__iconScale": 1.5
+    },
+    {
+      "armorThicknessHull": [80.0,30.0,20.0]
+    },
+    {
+      "armorThicknessTurret": [50.0,30.0,30.0]
     },
     {
       "turrets__initAmmoDistribution:array": [
@@ -429,7 +441,7 @@
     }
   ],
   "germ_pzkpfw_iv_ausf_g_driver_cockpit": {
-    "_extends": "base_driver_cockpit_no_slits",
+    "_use": "base_driver_cockpit_no_slits",
     "animchar__res": "pzkpfw_iii_e_driver_char",
     "cockpit__offset": [-0.35,-0.2,0.01],
     "cockpit__visibleVehicleNodeNames:list<t>": [
@@ -472,11 +484,9 @@
     ]
   },
   "germ_pzkpfw_iv_ausf_g_gunner_cockpit": {
-    "vehicle_sight__blk": "content/tanks/gamedata/sight/germ_tzf5f.blk",
-    "_extends": "base_gunner_cockpit",
+    "_use": "base_gunner_cockpit",
     "animchar__res": "pzkpfw_iii_e_gunner_char",
     "cockpit__offset": [0.0,0.0,0.0],
-    "cockpit__minZoom": -0.4,
     "cockpit__attachNodeNames:list<t>": [
       {
         "node": "bone_camera_gunner"
@@ -556,7 +566,7 @@
     ],
     "cockpit__slitForwardOffset:list<r>": [
       {
-        "slit": 0.27
+        "slit": 0.29
       },
       {
         "slit": 0.0
@@ -597,10 +607,47 @@
       {
         "slit": [0.1,0.32,0.56]
       }
-    ]
+    ],
+    "cockpit__slitZoom:array": [
+      {
+        "slit:list<r>": [
+          {
+            "zoom": 1.9
+          },
+          {
+            "zoom": 3.5
+          }
+        ]
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.0
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.0
+        }
+      }
+    ],
+    "cockpit__slitZoomTime:list<r>": [
+      {
+        "slit": 0.05
+      },
+      {
+        "slit": 0.0
+      },
+      {
+        "slit": 0.0
+      }
+    ],
+    "cockpit__slitTemplates:list<t>": {
+      "slit": "germ_tzf5f"
+    },
+    "cockpit__slitEids:list<eid>": []
   },
   "germ_pzkpfw_iv_ausf_g_commander_cockpit": {
-    "_extends": "base_commander_tower_cockit_no_slits",
+    "_use": "base_commander_tower_cockpit",
     "animchar__res": "pzkpfw_iii_e_commander_char",
     "cockpit__offset": [-0.4,0.6,-0.0],
     "cockpit__cockpitOffsetBySlit:list<p3>": [
@@ -660,6 +707,33 @@
       },
       {
         "slit": false
+      }
+    ],
+    "cockpit__slitZoom:array": [
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
       }
     ],
     "cockpit__slitNodeNames:list<t>": [

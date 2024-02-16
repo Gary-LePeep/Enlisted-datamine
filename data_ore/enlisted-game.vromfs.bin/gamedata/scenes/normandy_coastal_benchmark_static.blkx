@@ -341,6 +341,11 @@
   },
   {
     "entity": {
+      "_template": "bloom"
+    }
+  },
+  {
+    "entity": {
       "_template": "postfx_roundctrl"
     }
   },
@@ -351,36 +356,9 @@
   },
   {
     "entity": {
-      "_template": "respawn_camera",
-      "respawnCameraForTeam": 1,
-      "moveCameraToHeight": 180.0,
-      "respawnSelectorDistanceMult": 1.5,
-      "transform": [
-        [1.0,0.0,0.0],
-        [0.0,1.0,0.0],
-        [0.0,0.0,1.0],
-        [225.06,182.743,408.722]
-      ]
-    }
-  },
-  {
-    "entity": {
-      "_template": "respawn_camera",
-      "respawnCameraForTeam": 2,
-      "moveCameraToHeight": 180.0,
-      "respawnSelectorDistanceMult": 1.5,
-      "transform": [
-        [1.0,0.0,0.0],
-        [0.0,1.0,0.0],
-        [0.0,0.0,1.0],
-        [272.655,188.278,-250.301]
-      ]
-    }
-  },
-  {
-    "entity": {
       "_template": "briefing_domination",
       "mission_name": "normandy_coast_ruins_dom",
+      "mission_outfit": "normandy",
       "loading_images:list<t>": [
         {
           "item": "ui/normandy_coast_ruins_01.avif"
@@ -1130,7 +1108,7 @@
   },
   {
     "entity": {
-      "_template": "benchmark_artillery_strike",
+      "_template": "artillery_strike_requester",
       "transform": [
         [0.0764814,0.0854253,-0.993404],
         [-0.00655746,0.996345,0.0851732],

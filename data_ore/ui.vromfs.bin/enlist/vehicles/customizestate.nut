@@ -264,6 +264,11 @@ let viewVehDecorData = keepref(Computed(function() {
   if (vehicleGuid == "" || targetEid == ecs.INVALID_ENTITY_ID)
     return null
 
+  let decorVehicleGametemplate = vehicleInVehiclesScene.value?.gametemplate ?? ""
+  let currentTargetVehicleTemplate = ecs.g_entity_mgr.getEntityTemplateName(targetEid)
+  if (currentTargetVehicleTemplate != null && decorVehicleGametemplate != "" && !(currentTargetVehicleTemplate?.contains(decorVehicleGametemplate) ?? false))
+    return null
+
   let hasPrem = hasPremium.value
   let { slotsNum = 0, premSlotsNum = 0 } = viewVehCustSchemes.value?.vehDecorator ?? {}
   let availableSlots = hasPrem ? slotsNum + premSlotsNum : slotsNum

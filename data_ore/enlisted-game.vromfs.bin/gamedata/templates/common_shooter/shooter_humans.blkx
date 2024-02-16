@@ -1,6 +1,6 @@
 {
   "base_throw_trajectory": {
-    "_extends": "arc_trajectory",
+    "_use": "arc_trajectory",
     "trajectory__enabled:b": {
       "value": false,
       "_hide": true
@@ -86,7 +86,7 @@
     }
   },
   "human_cover_updater": {
-    "_extends": "base_cover_updater",
+    "_use": "base_cover_updater",
     "_group": {
       "_tags": "server",
       "cover_updater__heldCovers:list<ip2>": []
@@ -220,7 +220,7 @@
     }
   ],
   "base_human_ai": {
-    "_extends": "human_cover_updater",
+    "_use": "human_cover_updater",
     "_replicated": "ai_target__invisibleTimeTo",
     "ai_target__invisibleTimeTo": 0.0,
     "ai_target__bulletInvisibleDist": 40.0,
@@ -236,10 +236,10 @@
   },
   "human_weap": [
     {
-      "_extends": "base_human_weap"
+      "_use": "base_human_weap"
     },
     {
-      "_extends": "human_backstab"
+      "_use": "human_backstab"
     },
     {
       "trajectory__startNodeName": "Bip01 Spine1"
@@ -260,7 +260,8 @@
     }
   },
   "parachute_deployed": {
-    "parachuteDeployed:tag": []
+    "parachuteDeployed:tag": [],
+    "ignoreResetSquadMateBehavior:tag": []
   },
   "has_parachute": {
     "hasParachute:tag": [],
@@ -273,16 +274,25 @@
       "human_parachute__canDeployManually": true
     },
     {
-      "human_parachute__canDeploy": false
+      "human_parachute__lookDirClamp": [50.0,50.0]
     },
     {
-      "human_parachute__isDeployed": false
+      "_use": "human_parachute_sound"
+    },
+    {
+      "_tracked": "human_parachute_anim__lastDeployState"
     },
     {
       "_tracked": "human_parachute__canDeploy"
     },
     {
       "_tracked": "human_parachute__isDeployed"
+    },
+    {
+      "human_parachute__canDeploy": false
+    },
+    {
+      "human_parachute__isDeployed": false
     },
     {
       "_replicated": "human_parachute__canDeploy"
@@ -293,7 +303,7 @@
     {
       "_group": {
         "_tags": "server",
-        "human_parachute__aiDeployHeight": 300.0,
+        "human_parachute__aiDeployHeight": 350.0,
         "human_parachute__playerDeployHeight": 0.0,
         "human_parachute__autoDeployHeight": 0.0,
         "human_parachute__minDeployHeight": 50.0,
@@ -305,8 +315,6 @@
     {
       "_group": {
         "_tags": "gameClient",
-        "human_parachute_anim__openingSoundTemplate": "human_parachute_affect_open",
-        "human_parachute_anim__closingSoundTemplate": "human_parachute_affect_land",
         "human_parachute_anim__openedState": "parachute_cycle_anim",
         "human_parachute_anim__openedStateId": -1,
         "human_parachute_anim__closingState": "parachute_landing_anim",
@@ -371,7 +379,14 @@
       }
     }
   ],
+  "human_vehicle_exit_animator_states": {
+    "human_vehicle__exitAnim": "parachute_jump_anim",
+    "human_vehicle__exitAnimId": -1
+  },
   "human_freefall": [
+    {
+      "_use": "horizontal_air_resistance"
+    },
     {
       "human_freefall__isFreefall": false
     },
@@ -383,6 +398,9 @@
     },
     {
       "human_freefall__vertLookAngleLimit": [-72.0,25.0]
+    },
+    {
+      "human_freefall__inputLimits": [0.02,0.02]
     },
     {
       "human_freefall__criticalAirSpeed": 30.0
@@ -411,31 +429,31 @@
   ],
   "shooter_human": [
     {
-      "_extends": "base_human_ai"
+      "_use": "base_human_ai"
     },
     {
-      "_extends": "human_weap"
+      "_use": "human_weap"
     },
     {
-      "_extends": "human"
+      "_use": "human"
     },
     {
-      "_extends": "visual_armor_hit"
+      "_use": "visual_armor_hit"
     },
     {
-      "_extends": "killer_outline"
+      "_use": "killer_outline"
     },
     {
-      "_extends": "human_weap_bipod"
+      "_use": "human_weap_bipod"
     },
     {
-      "_extends": "base_throw_trajectory"
+      "_use": "base_throw_trajectory"
     },
     {
-      "_extends": "battle_areas_visitor"
+      "_use": "battle_areas_visitor"
     },
     {
-      "_extends": "base_burning"
+      "_use": "base_burning"
     },
     {
       "battle_area__timeToDamageType": "human"
@@ -451,6 +469,12 @@
     },
     {
       "_replicated": "requestAmmoAllowTime"
+    },
+    {
+      "hitmarks_victim__group": "infantry"
+    },
+    {
+      "hitmarks_victim__groupId": -1
     },
     {
       "_group": {
@@ -481,6 +505,17 @@
     {
       "_group": {
         "_tags": "server",
+        "squad_member__vehicleKills": 0,
+        "squad_member__vehicleKillsAsCrew": 0,
+        "squad_member__killsAsCrew": 0,
+        "paratrooper_award__wasInDamagedSquadPlane": false,
+        "paratrooper_award__isActive": false,
+        "paratrooper_award__kills": 0
+      }
+    },
+    {
+      "_group": {
+        "_tags": "server",
         "_track": true,
         "squad_member__responseTimer": 0.0,
         "squad_member__response": ""
@@ -497,10 +532,10 @@
   ],
   "shooter_input": [
     {
-      "_extends": "human_weapon_input"
+      "_use": "human_weapon_input"
     },
     {
-      "_extends": "human_grenade_input"
+      "_use": "human_grenade_input"
     }
   ],
   "_replicatedComponentClientModifyBlacklist": {

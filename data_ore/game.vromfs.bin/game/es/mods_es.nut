@@ -4,7 +4,7 @@ let isDedicated = require_optional("dedicated") != null
 if (!isDedicated)
   return
 
-let http = require("dagor.http")
+let { httpRequest } = require("dagor.http")
 let logGM = require("%enlSqGlob/library_logs.nut").with_prefix("[CustomGameMod] ")
 let { EventTeamRoundResult } = require("dasevents")
 let { get_arg_value_by_name } = require("dagor.system")
@@ -28,7 +28,7 @@ ecs.register_es("mods_send_postback_es",
         return
       }
 
-      http.request({
+      httpRequest({
         method = "POST"
         url = apiUrl
         data = $"apiKey={apiKey}&id={modId}"

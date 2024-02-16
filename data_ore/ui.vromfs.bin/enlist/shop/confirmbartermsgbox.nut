@@ -1,10 +1,11 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { body_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let msgbox = require("%enlist/components/msgbox.nut")
 let colorize = require("%ui/components/colorize.nut")
 let { MsgMarkedText } = require("%ui/style/colors.nut")
 let { primaryFlatButtonStyle } = require("%enlSqGlob/ui/buttonsStyle.nut")
+let JB = require("%ui/control/gui_buttons.nut")
 
 let defGap = fsh(3)
 
@@ -15,7 +16,7 @@ let function show(
   let params = {
     topPanel = currenciesAmount
     text = colorize(MsgMarkedText, title)
-    fontStyle = body_txt
+    fontStyle = fontBody
     children = {
       size = [fsh(80), SIZE_TO_CONTENT]
       margin = defGap
@@ -31,7 +32,7 @@ let function show(
             {
               rendObj = ROBJ_TEXT
               text = "{0} ".subst(loc("shop/willCostYou"))
-            }.__update(sub_txt)
+            }.__update(fontSub)
             priceView
           ]
         }
@@ -44,7 +45,7 @@ let function show(
         hotkeys = [[ "^J:Y | Enter | Space", { description = {skip = true}} ]]
       }.__merge(primaryFlatButtonStyle)
     }]
-    .append({ text = loc("Cancel") })
+    .append({ text = loc("Cancel"), customStyle = { hotkeys = [[$"^{JB.B} | Esc"]] } })
     .extend(additionalButtons)
   }
   msgbox.showWithCloseButton(params)

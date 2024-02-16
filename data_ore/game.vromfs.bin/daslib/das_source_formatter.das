@@ -1,6 +1,7 @@
 options indenting = 4
 options no_unused_block_arguments = false
 options no_unused_function_arguments = false
+options strict_smart_pointers = true
 
 module das_source_formatter shared private
 
@@ -21,7 +22,7 @@ let dont_need_space_around <- [[auto "("; ")"; "["; "]"; "\{"; "\}";
     "."; ";"; ","; "`"; "::"; "++"; "--"; "?."; "?["; "@@"; "!"; "~"; "#"; "->"
     ]]
 
-let type_after_keyword <- [[auto "generator"; "cast"; "upcast"; "smart_ptr";
+let type_after_keyword <- [[auto "generator"; "cast"; "upcast"; "smart_ptr"; "match_type";
     "type"; "reinterpret"; "variant"; "variant_index"; "function"
     ]]
 

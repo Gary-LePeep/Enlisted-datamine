@@ -32,6 +32,9 @@
       "free_cam__moveSpeedDefault": 5.0
     },
     {
+      "free_cam__bank": 0.0
+    },
+    {
       "_tracked": "free_cam__angSpdScale"
     },
     {
@@ -65,12 +68,15 @@
         },
         "free_cam_input__speedReset:u16": {
           "value": -1
+        },
+        "free_cam_input__bank:u16": {
+          "value": -1
         }
       }
     }
   ],
   "base_free_cam": {
-    "_extends": "free_cam_input",
+    "_use": "free_cam_input",
     "editableObj": false,
     "camera__active": false,
     "camera__input_enabled": true,
@@ -101,17 +107,17 @@
     }
   },
   "free_cam": {
-    "_extends": "base_free_cam",
+    "_use": "base_free_cam",
     "free_cam__angSpdScale": [0.001,0.001]
   },
   "inertial_free_cam": {
-    "_extends": "base_free_cam",
+    "_use": "base_free_cam",
     "free_cam__angSpdScale": [0.001,0.001],
     "free_cam__move_inertia": 0.999,
     "free_cam__stop_inertia": 0.999
   },
   "fast_free_cam": {
-    "_extends": "base_free_cam",
+    "_use": "base_free_cam",
     "free_cam__angSpdScale": [0.001,0.001],
     "free_cam__moveSpeedDefault": 50.0
   },
@@ -130,7 +136,7 @@
       [0.0,0.0,1.0],
       [0.0,0.0,0.0]
     ],
-    "_extends": "replicating",
+    "_use": "replicating",
     "camera__active:b": {
       "value": false,
       "_info": "cam_active"
@@ -147,7 +153,7 @@
     }
   },
   "airplane_free_cam": {
-    "_extends": "base_free_cam",
+    "_use": "base_free_cam",
     "zfar": 40000.0,
     "free_cam__angSpdScale": [0.001,0.001],
     "free_cam__moveSpeedDefault": 150.0

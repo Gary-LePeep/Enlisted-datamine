@@ -192,33 +192,13 @@ let unseenAvailableUpgradesByArmy = Computed(function() {
 let curUnseenAvailableUpgrades = Computed(@()
   unseenAvailableUpgradesByArmy.value?[curArmy.value] ?? {})
 
-let curUnseenUpgradesBySoldier = Computed(function() {
-  let res = {}
-  foreach (availUpgrade in curUnseenAvailableUpgrades.value) {
-    let { soldier = null } = availUpgrade
-    if (soldier != null)
-      res[soldier] <- (res?[soldier] ?? 0) + 1
-  }
-  return res
-})
-
-let curUnseenUpgradesBySquad = Computed(function() {
-  let res = {}
-  foreach (availUpgrade in curUnseenAvailableUpgrades.value) {
-    let { squad = null } = availUpgrade
-    if (squad != null)
-      res[squad] <- (res?[squad] ?? 0) + 1
-  }
-  return res
-})
-
 let unseenUpgradesByArmy = Computed(function() {
   let res = {}
   foreach (armyId, armyUpgradesData in unseenAvailableUpgradesByArmy.value) {
     res[armyId] <- {}
     foreach (upgradeData in armyUpgradesData) {
       let { soldier = null } = upgradeData
-      if (soldier not in res[armyId])
+      if (soldier not in res[armyId] && soldier!=null)
         res[armyId][soldier] <- true
     }
   }
@@ -245,7 +225,5 @@ return {
   markSeenUpgrades
   markUnseenUpgrades
   curUnseenAvailableUpgrades
-  curUnseenUpgradesBySoldier
-  curUnseenUpgradesBySquad
   unseenUpgradesByArmy
 }

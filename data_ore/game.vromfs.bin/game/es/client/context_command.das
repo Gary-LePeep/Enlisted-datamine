@@ -1,11 +1,11 @@
 require ecs
 require game.utils.team
-require EnlistedWalkerai
+require DngWalkerai
 require GridCollision
 require RendInst
 require Dacoll
 require HumanPhys
-require EnlistedWeapon
+require DngWeapon
 require DaWeaponProps
 require danetlibs.native_dasevents.main.native_events
 require enlisted.events_enlisted
@@ -15,10 +15,10 @@ require game.es.battle_area_common
 require zones
 require CollRes
 require game.es.squad_order_common
-require EnlistedNet
+require DngNet
 require matching
 require math.base
-require EnlistedCamera
+require DngCamera
 require DagorMathUtils
 require DagorMath
 
@@ -115,7 +115,11 @@ def human_context_command_defend_point(act : ParallelUpdateFrameDelayed;
     ecs::query(human_weap__traceIntersectedEid) <| $ [es(REQUIRE=vehicle_seats__seats)] (isAlive : bool;
                                                                                          vehicle_seats__restrictToGroup : int64 = int64(INVALID_GROUP_ID);
                                                                                          vehicle_seats__restrictToTeam : int = TEAM_UNASSIGNED;
+                                                                                         ownedBySquad : EntityId;
+                                                                                         mobileRespawnTag : Tag const?;
                                                                                          vehicle__isPlayerCanEnter : bool = true)
+      if mobileRespawnTag != null && !!ownedBySquad && ownedBySquad != squad_member__squad
+        return
       if !isAlive || !vehicle__isPlayerCanEnter
         return
       let playerGroup = get_int64(squad_member__playerEid, "origGroupId") ?? int64(INVALID_GROUP_ID)

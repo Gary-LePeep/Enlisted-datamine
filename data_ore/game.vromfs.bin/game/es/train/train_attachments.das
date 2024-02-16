@@ -1,6 +1,6 @@
 require ecs
 require strings
-require EnlistedPhysObj
+require DngPhysObj
 require game.es.events
 require game.events_game
 require DagorMath
@@ -62,7 +62,7 @@ def train_attachment_update_pos_server(evt : CmdPostPhysUpdate;
     attachState.location.P = DPoint3(updatedTm[3])
     attachState.location.O |> orient_setYP0(updatedTm[0])
 
-[es(tag=netClient, after=(phys_obj_phys_es, move_secondary_cart_client_es))]
+[es(tag=gameClient, after=(update_phys_es, move_secondary_cart_client_es))]
 def train_attachment_update_pos(info : ParallelUpdateFrameDelayed;
                                 train_attachment__parentEid : EntityId;
                                 train_attachment__localTm : float3x4;

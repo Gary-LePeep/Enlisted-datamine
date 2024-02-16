@@ -83,9 +83,9 @@ return {
                         "gametemplate" : "hair_01_us_summer_item",
                         "slot" : "hair"
                      },
-                     "head" : {
+                     "skined_helmet" : {
                         "gametemplate" : "helmet_05_ussr_summer_item",
-                        "slot" : "head"
+                        "slot" : "skined_helmet"
                      },
                      "pants" : {
                         "gametemplate" : "attachable_wear_pants_01_2_windings_ussr_winter_item",

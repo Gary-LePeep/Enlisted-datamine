@@ -13,7 +13,7 @@ def vehicle_engine_sound_reset(evt : Event;
   vehicle_engine_sound__isInited = false
 
 
-[es(tag=sound, on_event=ParallelUpdateFrameDelayed, after=(vehicle_engine_sound_update_vars, vehicle_sound_update_vars, ship_engine_sound_update_vars, ship_sound_update_vars))]
+[es(tag=sound, on_event=ParallelUpdateFrameDelayed)]
 def vehicle_engine_sound(evt : Event;
                          sound_control__shouldPlay : bool;
                          vehicle_sound_vars__speed : float;

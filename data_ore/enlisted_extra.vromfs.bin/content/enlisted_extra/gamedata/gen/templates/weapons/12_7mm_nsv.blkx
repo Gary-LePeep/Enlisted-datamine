@@ -49,13 +49,13 @@
   },
   "tankgun_12_7mm_nsv": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_tankgun_machinegun"
+      "_use": "base_tankgun_machinegun"
     },
     {
-      "_extends": "base_12_7mm_nsv"
+      "_use": "base_12_7mm_nsv"
     },
     {
       "turret__triggerGroup": 2

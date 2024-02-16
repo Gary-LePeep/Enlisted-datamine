@@ -1,22 +1,22 @@
 {
   "ussr_towed_at_53k_movable": {
-    "_extends": "ussr_towed_at_53k_movable_common",
+    "_use": "ussr_towed_at_53k_movable_common",
     "animchar__objTexReplace:object": {
       "ussr_camo_green*": "ussr_camo_winter_white_full*"
     }
   },
   "ussr_towed_at_53k_movable_common": [
     {
-      "_extends": "base_towed_at_53k"
+      "_use": "base_towed_at_53k"
     },
     {
-      "_extends": "tank_vehicle_suspension_sound"
+      "_use": "tank_vehicle_suspension_sound"
     },
     {
-      "_extends": "movable_cannon_vehicle_tracks_sound"
+      "_use": "movable_cannon_vehicle_tracks_sound"
     },
     {
-      "_extends": "vehicle_seats_effectors"
+      "_use": "vehicle_seats_effectors"
     },
     {
       "vehicle_seats_camera_nodes__defaultNode": "bone_camera_gunner"
@@ -42,34 +42,6 @@
           "part": "loader"
         }
       ]
-    },
-    {
-      "dm_phys_parts__wheels:array": [
-        {
-          "wheel": "wheel_l_01"
-        },
-        {
-          "wheel": "wheel_l_02"
-        },
-        {
-          "wheel": "wheel_r_01"
-        },
-        {
-          "wheel": "wheel_r_02"
-        }
-      ]
-    },
-    {
-      "dm_phys_parts__engine:array": []
-    },
-    {
-      "dm_phys_parts__transmission:array": []
-    },
-    {
-      "dm_phys_parts__tracks:array": []
-    },
-    {
-      "dm_phys_parts__ammo:array": []
     },
     {
       "_group": {
@@ -234,17 +206,14 @@
     }
   ],
   "enlist_tankgun_towed_at_53k_movable": {
-    "_extends": "enlist_tankgun_towed_at_53k_45mm_20k",
+    "_use": "enlist_tankgun_towed_at_53k_45mm_20k",
     "turret__limit": [-20.0,20.0,-2.0,20.0],
     "gun__recoilAmount": 0.085
   },
   "ussr_towed_at_53k_gunner_cockpit": {
     "vehicle_sight__blk": "content/tanks/gamedata/sight/ussr_top_1.blk",
-    "_extends": "base_gunner_cockpit",
+    "_use": "base_gunner_cockpit",
     "animchar__res": "t_26_1940_gunner_char",
-    "cockpit__zoomTimeMul": 1.3,
-    "cockpit__cameraTimeMul": 1.5,
-    "cockpit__minZoom": 0.0,
     "cockpit__offset": [0.0,0.0,0.0],
     "cockpit__cockpitOffsetBySlit:list<p3>": {
       "item": [-1.24394,0.221728,0.418901]
@@ -260,21 +229,31 @@
       "slit": "cam_front_right"
     },
     "cockpit__slitForwardOffset:list<r>": {
-      "slit": 0.19
+      "slit": 0.21
     },
     "cockpit__slitIsGun:list<b>": {
       "slit": true
+    },
+    "cockpit__slitZoom:array": {
+      "slit:list<r>": [
+        {
+          "zoom": 1.9
+        },
+        {
+          "zoom": 3.5
+        }
+      ]
     }
   },
   "enlist_tankgun_towed_at_53k_45mm_20k": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_tankgun_cannon"
+      "_use": "base_tankgun_cannon"
     },
     {
-      "_extends": "enlist_towed_at_53k_45mm_20k"
+      "_use": "enlist_towed_at_53k_45mm_20k"
     },
     {
       "item__name": "guns/45mm_53k"
@@ -290,7 +269,7 @@
     }
   ],
   "enlist_towed_at_53k_45mm_20k": {
-    "_extends": "base_45mm_20k",
+    "_use": "base_45mm_20k",
     "item__name": "guns/45mm_53k",
     "gun__blk": "gamedata/gen/weapons/45mm_53k.blk",
     "gun__locName": "45mm_53k",

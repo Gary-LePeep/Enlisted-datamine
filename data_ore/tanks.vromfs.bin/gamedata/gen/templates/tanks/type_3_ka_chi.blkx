@@ -1,10 +1,10 @@
 {
   "base_type_3_ka_chi": [
     {
-      "_extends": "base_tank"
+      "_use": "base_tank"
     },
     {
-      "_extends": "type_3_ka_chi_ammo_stowages"
+      "_use": "type_3_ka_chi_ammo_stowages"
     },
     {
       "killLogName": "jp_type_3_ka_chi"
@@ -89,7 +89,11 @@
           "paramPitchAccel": "gun_01_pitch_accel",
           "wishYawParamName": "gun_01_aim:targetYaw",
           "wishPitchParamName": "gun_01_aim:targetPitch",
-          "gunRecoilParamName": "gun_01_recoil"
+          "gunRecoilParamName": "gun_01_recoil",
+          "hasStabilizerParamName": "gun_01_aim:hasStab",
+          "stabilizerPitchParamName": "gun_01_aim:stabPitch",
+          "stabilizerErrorParamName": "gun_01_aim:stabError",
+          "stabilizerPitchMultParamName": "gun_01_aim:stabPitchMult"
         }
       }
     },
@@ -108,12 +112,14 @@
     }
   ],
   "type_3_ka_chi_turret_01_47mm_type1": {
-    "_extends": "tankgun_47mm_type1",
+    "_use": "tankgun_47mm_type1",
     "gun__shootNodeName": "bone_gun_barrel",
     "turret__yawSpeed": 15.0,
     "turret__pitchSpeed": 10.0,
     "turret__aimNodeName": "bone_turret",
     "turret__limit": [-180.0,180.0,-10.0,24.0],
+    "turret__stabilizerPitchFrictionMult": 0.8,
+    "turret__stabilizerPitchSpeedLimitKph": 10.0,
     "turret__limitsTable:list<p4>": {
       "lim1": [-180.0,-170.0,23.0,24.0],
       "lim2": [-170.0,-150.0,-5.0,24.0],
@@ -122,6 +128,17 @@
       "lim5": [150.0,170.0,-5.0,24.0],
       "lim6": [170.0,180.0,23.0,24.0]
     },
+    "turret__stabilizerErrorByKphSpeedTable:list<p2>": [
+      {
+        "row": [5.0,0.0]
+      },
+      {
+        "row": [8.0,0.2]
+      },
+      {
+        "row": [10.0,0.4]
+      }
+    ],
     "gun__shellsAmmo:array": [
       {
         "ammo": 40
@@ -135,7 +152,7 @@
     ]
   },
   "type_3_ka_chi_turret_02_7_7mm_type_97": {
-    "_extends": "tankgun_7_7mm_type_97",
+    "_use": "tankgun_7_7mm_type_97",
     "gun__shootNodeName": "bone_mg_h_01",
     "turret__yawSpeed": 35.0,
     "turret__pitchSpeed": 35.0,
@@ -147,13 +164,13 @@
   },
   "type_3_ka_chi_ammo_stowages": {
     "_tags": "server",
-    "_extends": "vehicle_ammo_stowages",
+    "_use": "vehicle_ammo_stowages",
     "ammo_stowage__stowageTemplates:shared:list<t>": {
       "stowage": "type_3_ka_chi_ammo_stowage_1"
     }
   },
   "type_3_ka_chi_ammo_stowage_1": {
-    "_extends": "ammo_stowage",
+    "_use": "ammo_stowage",
     "ammo_stowage__clusterTemplates:shared:list<t>": {
       "cluster": "type_3_ka_chi_ammo_cluster_1_1"
     },
@@ -162,7 +179,7 @@
     }
   },
   "type_3_ka_chi_ammo_cluster_1_1": {
-    "_extends": "ammo_cluster",
+    "_use": "ammo_cluster",
     "ammo_cluster__isShell": true,
     "ammo_cluster__slotNames:shared:list<t>": [
       {

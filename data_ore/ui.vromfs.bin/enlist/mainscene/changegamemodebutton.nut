@@ -1,8 +1,8 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { fontMedium } = require("%enlSqGlob/ui/fontsStyle.nut")
-let { accentColor, defTxtColor, midPadding, defVertGradientImg, hoverVertGradientImg,
-  titleTxtColor, colPart, disabledTxtColor
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { accentColor, defTxtColor, midPadding, transpPanelBgColor, disabledTxtColor, darkTxtColor,
+  defItemBlur, startBtnWidth, titleTxtColor, hoverSlotBgColor, highlightLineTop
 } = require("%enlSqGlob/ui/designConst.nut")
 let { blinkUnseen, unblinkUnseen } = require("%ui/components/unseenComponents.nut")
 let crossplayIcon = require("%enlist/components/crossplayIcon.nut")
@@ -14,12 +14,9 @@ let { isInSquad, isSquadLeader, squadLeaderState } = require("%enlist/squad/squa
 let { crossnetworkPlay, needShowCrossnetworkPlayIcon, CrossplayState
 } = require("%enlSqGlob/crossnetwork_state.nut")
 let { utf8ToUpper } = require("%sqstd/string.nut")
-let colorize = require("%ui/components/colorize.nut")
 let { mkHotkey } = require("%ui/components/uiHotkeysHint.nut")
-
-
-let defTxtStyle = { color = titleTxtColor }.__update(fontMedium)
-let disabledTxtStyle = { color = disabledTxtColor }.__update(fontMedium)
+let { serversToShow } = require("%enlist/gameModes/gameModesWnd/serverClusterUi.nut")
+let { isGamepad } = require("%ui/control/active_controls.nut")
 
 
 let squadLeaderGameModeId = Computed(@() squadLeaderState.value?.gameModeId)
@@ -37,16 +34,18 @@ let canShowCrossplayIcon = Computed(@() needShowCrossnetworkPlayIcon
 )
 
 
-let gameModeCrossplayIcon = @() {
-  watch = canShowCrossplayIcon
-  hplace = ALIGN_RIGHT
-  children = canShowCrossplayIcon.value ? crossplayIcon({ iconColor = defTxtColor }) : null
+let gameModeCrossplayIcon = function() {
+  return {
+    watch = canShowCrossplayIcon
+    hplace = ALIGN_RIGHT
+    children = canShowCrossplayIcon.value ? crossplayIcon({ iconColor = defTxtColor }) : null
+  }
 }
 
 
 let gameModeUnseenIcon = @() {
   watch = [hasUnseenGameMode, hasUnopenedGameMode]
-  hplace = ALIGN_LEFT
+  hplace = ALIGN_RIGHT
   vplace = ALIGN_TOP
   children = !hasUnseenGameMode.value ? null
     : hasUnopenedGameMode.value ? blinkUnseen
@@ -54,31 +53,72 @@ let gameModeUnseenIcon = @() {
 }
 
 
+let group = ElemGroup()
+let serversComp = serversToShow(group, openChangeGameModeWnd)
+let mkTxtColor = @(sf, disabled) disabled
+  ? disabledTxtColor
+  : sf & S_ACTIVE
+    ? titleTxtColor
+    : sf & S_HOVER ? darkTxtColor : defTxtColor
+
+let changeModeHotkey = mkHotkey("^J:X", openChangeGameModeWnd)
+let changeModeHotkeyHovered = mkHotkey("^J:A", openChangeGameModeWnd)
+
 let changeGameModeBtn = watchElemState(function(sf) {
   let gameMode = utf8ToUpper(selectedGameMode.value?.title ?? "")
-  let btnText = loc("changeGameMode/Mode", { gameMode = colorize(accentColor, gameMode) })
   let { isVersionCompatible = true } = selectedGameMode.value
   return {
-    watch = [selectedGameMode, canChangeQueueParams]
-    rendObj = ROBJ_IMAGE
-    image = sf & S_HOVER ? hoverVertGradientImg : defVertGradientImg
-    size = [flex(), colPart(0.806)]
-    valign = ALIGN_CENTER
+    watch = [canChangeQueueParams, selectedGameMode, isGamepad]
+    rendObj = ROBJ_WORLD_BLUR
+    size = [startBtnWidth, SIZE_TO_CONTENT]
+    color = defItemBlur
+    fillColor = sf & S_HOVER
+      ? hoverSlotBgColor
+      : sf & S_ACTIVE
+        ? accentColor
+        : transpPanelBgColor
+    group
     behavior = Behaviors.Button
     onClick = openChangeGameModeWnd
-    hotkeys = canChangeQueueParams.value ? [[ "^J:X" ]] : null
-    padding = [0, midPadding]
-    children =  [
-      mkHotkey("^J:X | G", openChangeGameModeWnd)
+    sound = {
+      hover = "ui/enlist/button_highlight"
+      click = "ui/enlist/button_click"
+      active = "ui/enlist/button_action"
+    }
+    key = canChangeQueueParams.value
+    hotkeys = canChangeQueueParams.value ? [[ "^J:X | G" ]] : null
+    children = [
+      highlightLineTop
       {
-        rendObj = ROBJ_TEXTAREA
-        behavior = Behaviors.TextArea
+        valign = ALIGN_CENTER
+        padding = [0, midPadding]
+        margin = [midPadding, 0]
         size = [flex(), SIZE_TO_CONTENT]
-        halign = ALIGN_CENTER
-        text = btnText
-      }.__update(isVersionCompatible ? defTxtStyle : disabledTxtStyle)
-      gameModeCrossplayIcon
-      gameModeUnseenIcon
+        flow = FLOW_HORIZONTAL
+        children = [
+          !(isGamepad.value && canChangeQueueParams.value) ? null
+            : sf & S_HOVER ? changeModeHotkeyHovered
+            : changeModeHotkey
+          {
+            size = [flex(), SIZE_TO_CONTENT]
+            flow = FLOW_VERTICAL
+            children = [
+              {
+                rendObj = ROBJ_TEXTAREA
+                size = [flex(), SIZE_TO_CONTENT]
+                behavior = Behaviors.TextArea
+                hplace = ALIGN_CENTER
+                halign = ALIGN_CENTER
+                text = loc("changeGameMode/Mode", { gameMode })
+                color = mkTxtColor(sf, !isVersionCompatible)
+              }.__update(fontSub)
+              serversComp
+            ]
+          }
+          gameModeCrossplayIcon
+          gameModeUnseenIcon
+        ]
+      }
     ]
   }
 })

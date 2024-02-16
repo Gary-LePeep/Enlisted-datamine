@@ -1,10 +1,10 @@
 {
   "base_aa_gun_oerlikon": [
     {
-      "_extends": "base_tank"
+      "_use": "base_tank"
     },
     {
-      "_extends": "aa_gun_oerlikon_ammo_stowages"
+      "_use": "aa_gun_oerlikon_ammo_stowages"
     },
     {
       "killLogName": "usa_aa_gun_oerlikon"
@@ -101,7 +101,7 @@
     }
   ],
   "aa_gun_oerlikon_turret_01_20mm_oerlikon": {
-    "_extends": "tankgun_20mm_oerlikon",
+    "_use": "tankgun_20mm_oerlikon",
     "gun__shootNodeName": "bone_gun_barrel",
     "turret__yawSpeed": 15.0,
     "turret__pitchSpeed": 25.0,
@@ -121,7 +121,7 @@
   },
   "aa_gun_oerlikon_ammo_stowages": {
     "_tags": "server",
-    "_extends": "vehicle_ammo_stowages",
+    "_use": "vehicle_ammo_stowages",
     "ammo_stowage__stowageTemplates:shared:list<t>": []
   },
   "aa_gun_oerlikon_skins": {

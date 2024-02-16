@@ -1,6 +1,6 @@
 {
   "uk_sherman_ic_firefly": {
-    "_extends": "uk_sherman_ic_firefly_common",
+    "_use": "uk_sherman_ic_firefly_common",
     "disableDMParts:list<t>": [
       {
         "part": "ex_armor_body_l_01"
@@ -53,8 +53,13 @@
     ]
   },
   "uk_sherman_ic_firefly_common": {
-    "_extends": "base_sherman_ic_firefly",
-    "item__iconOffset": [0.0,0.2],
+    "_use": "base_sherman_ic_firefly",
+    "commanderCockpitFpsCamMaxAngle": [40.0,5.0],
+    "gunner_cam_limit__useCockpitDir": true,
+    "item__iconOffset": [0.0,0.23],
+    "item__iconScale": 1.33,
+    "armorThicknessHull": [51.0,38.0,38.0],
+    "armorThicknessTurret": [76.0,51.0,51.0],
     "turrets__initAmmoDistribution:array": [
       {
         "ammo:object": {
@@ -73,29 +78,6 @@
           "slot": 5,
           "count": 7
         }
-      }
-    ],
-    "bullet_holes__ignoreCollisionNodes:array": {
-      "_tags": "render"
-    },
-    "bullet_holes__movingCollisionNodes:array": [
-      {
-        "_tags": "render"
-      },
-      {
-        "movingCollisionNodes": "cls_turret_01"
-      },
-      {
-        "movingCollisionNodes": "turret_front"
-      },
-      {
-        "movingCollisionNodes": "turret_side"
-      },
-      {
-        "movingCollisionNodes": "gun_mask"
-      },
-      {
-        "movingCollisionNodes": "gun_mask_01"
       }
     ],
     "vehicle_seats__seats:shared:array": [
@@ -231,14 +213,14 @@
     ]
   },
   "uk_sherman_ic_firefly_commander_cockpit": {
-    "_extends": "base_commander_cockpit_no_slits",
+    "_use": "base_commander_cockpit_no_slits",
     "animchar__res": "t_26_1940_commander_char",
-    "cockpit__offset": [-0.1,0.8,-0.54],
+    "cockpit__offset": [0.0,0.0,0.0],
     "cockpit__cockpitOffsetBySlit:list<p3>": {
-      "slit": [0.0,0.0,0.0]
+      "slit": [-0.8,1.0,-0.65]
     },
     "cockpit__slitForwardOffset:list<r>": {
-      "slit": 0.15
+      "slit": 0.16
     },
     "cockpit__slitIsGun:list<b>": {
       "slit": true
@@ -252,40 +234,168 @@
       },
       {
         "node": "bone_gun"
+      },
+      {
+        "node": "bone_turret"
+      },
+      {
+        "node": "hatch_01"
+      },
+      {
+        "node": "hatch_02"
+      },
+      {
+        "node": "hatch_03"
       }
-    ]
+    ],
+    "cockpit__periscopeLimits:list<p4>": {
+      "slit": [-50.0,90.0,-0.0,25.0]
+    },
+    "cockpit__periscopeSpeed:list<p2>": {
+      "slit": [35.0,35.0]
+    },
+    "cockpit__slitZoom:array": {
+      "slit:list<r>": {
+        "zoom": 1.44
+      }
+    },
+    "cockpit__slitZoomTime:list<r>": {
+      "slit": 0.0
+    },
+    "cockpit__slitTemplates:list<t>": {
+      "slit": "default_periscope"
+    },
+    "cockpit__slitEids:list<eid>": []
   },
   "uk_sherman_ic_firefly_gunner_cockpit": {
-    "vehicle_sight__blk": "content/tanks/gamedata/sight/uk_no_33_mkii_s.blk",
-    "_extends": "base_gunner_cockpit",
+    "_use": "base_gunner_cockpit",
     "animchar__res": "ba_11_gunner_char",
-    "cockpit__offset": [-0.8,-0.07,0.23],
+    "cockpit__offset": [-0.0,-0.0,0.0],
+    "cockpit__cockpitOffsetBySlit:list<p3>": [
+      {
+        "slit": [-0.8,-0.07,0.23]
+      },
+      {
+        "slit": [-0.0,0.8,-0.38]
+      }
+    ],
     "cockpit__visibleVehicleNodeNames:list<t>": {
       "node": "gun_barrel"
     },
-    "cockpit__slitNodeNames:list<t>": {
-      "slit": "cam_front_right"
-    },
-    "cockpit__slitForwardOffset:list<r>": {
-      "slit": 0.2
-    },
-    "cockpit__slitIsGun:list<b>": {
-      "slit": true
-    },
-    "cockpit__cockpit__attachNodeNames:list<t>": {
-      "node": "bone_camera_gunner"
-    }
+    "cockpit__slitNodeNames:list<t>": [
+      {
+        "slit": "cam_front_right"
+      },
+      {
+        "slit": "cam_front"
+      }
+    ],
+    "cockpit__slitForwardOffset:list<r>": [
+      {
+        "slit": 0.19
+      },
+      {
+        "slit": 0.165
+      }
+    ],
+    "cockpit__slitIsGun:list<b>": [
+      {
+        "slit": true
+      },
+      {
+        "slit": true
+      }
+    ],
+    "cockpit__attachNodeNames:list<t>": [
+      {
+        "node": "bone_camera_gunner"
+      },
+      {
+        "node": "bone_turret"
+      }
+    ],
+    "cockpit__attachNodeIndices:list<i>": [],
+    "cockpit__periscopeLimits:list<p4>": [
+      {
+        "slit": [-0.0,0.0,0.0,0.0]
+      },
+      {
+        "slit": [-0.0,0.0,-8.0,25.0]
+      }
+    ],
+    "cockpit__periscopeSpeed:list<p2>": [
+      {
+        "slit": [-1.0,-1.0]
+      },
+      {
+        "slit": [35.0,35.0]
+      }
+    ],
+    "cockpit__slitZoom:array": [
+      {
+        "slit:list<r>": [
+          {
+            "zoom": 3.0
+          },
+          {
+            "zoom": 6.0
+          }
+        ]
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      }
+    ],
+    "cockpit__slitZoomTime:list<r>": [
+      {
+        "slit": 0.05
+      },
+      {
+        "slit": 0.0
+      }
+    ],
+    "cockpit__slitTemplates:list<t>": [
+      {
+        "slit": "uk_no_33_mkii_s"
+      },
+      {
+        "slit": "default_periscope"
+      }
+    ],
+    "cockpit__slitEids:list<eid>": []
   },
   "uk_sherman_ic_firefly_driver_cockpit": {
-    "_extends": "base_driver_cockpit",
+    "_use": "base_driver_cockpit",
     "animchar__res": "ba_11_driver_char",
-    "cockpit__offset": [-0.4,-0.25,0.18],
+    "cockpit__offset": [0.0,0.0,0.0],
+    "cockpit__cockpitOffsetBySlit:list<p3>": {
+      "slit": [-0.4,-0.25,0.18]
+    },
     "cockpit__slitForwardOffset:list<r>": {
+      "slit": -0.05
+    },
+    "cockpit__visibleVehicleNodeNames:list<t>": {
+      "node": "gun_barrel"
+    },
+    "cockpit__periscopeLimits:list<p4>": {
+      "slit": [-45.0,45.0,-0.0,0.0]
+    },
+    "cockpit__periscopeSpeed:list<p2>": {
+      "slit": [35.0,35.0]
+    },
+    "cockpit__slitZoom:array": {
+      "slit:list<r>": {
+        "zoom": 1.44
+      }
+    },
+    "cockpit__slitZoomTime:list<r>": {
       "slit": 0.0
     }
   },
   "uk_sherman_ic_firefly_vanguard_premium": {
-    "_extends": "uk_sherman_ic_firefly_common",
+    "_use": "uk_sherman_ic_firefly_common",
     "animchar__objTexReplace:object": {
       "uk_camo_very_dark_drab*": "uk_camo_light_stone_dark_green*"
     }

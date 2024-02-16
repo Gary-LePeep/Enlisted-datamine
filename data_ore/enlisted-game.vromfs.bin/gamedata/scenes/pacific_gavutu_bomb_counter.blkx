@@ -1291,7 +1291,8 @@
   {
     "entity": {
       "_template": "briefing_destruction",
-      "mission_name": "pacific_gavutu_bomb",
+      "mission_name": "pacific_gavutu_bomb_counter",
+      "mission_outfit": "pacific",
       "loading_images:list<t>": [
         {
           "item": "ui/pacific_gavutu_inv_01.avif"
@@ -1330,7 +1331,7 @@
       "team__briefing": "destruction/attackers_goals",
       "team__winSubtitle": "debriefing/won_invasion_destruction",
       "team__loseSubtitle": "debriefing/lost_invasion_destruction",
-      "team__winTitle": "debriefing/britain_won_destruction_attack_title",
+      "team__winTitle": "debriefing/allies_won_destruction_attack_title",
       "team__spawnBotArmy": "pacific_allies"
     }
   },
@@ -1428,7 +1429,7 @@
         "capzone__checkAllZonesInGroup": true
       },
       {
-        "capzone__deactivateAfterTimeout": 0.0
+        "capzone__deactivateAfterTimeout": 25.0
       },
       {
         "capzone__spawnAtZoneTimeout": 25.0
@@ -1452,10 +1453,10 @@
         "capzone__plantingTeam": 1
       },
       {
-        "capzone__timeToPlant": 25.0
+        "capzone__timeToPlant": 20.0
       },
       {
-        "capzone__timeToDefuse": 20.0
+        "capzone__timeToDefuse": 30.0
       },
       {
         "capzone__timeToExplosion": 40.0
@@ -1499,7 +1500,7 @@
       "capzone__owningTeam": 2,
       "capzone__capReward": 250.0,
       "capzone__checkAllZonesInGroup": true,
-      "capzone__deactivateAfterTimeout": 0.0,
+      "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 2,
       "sphere_zone__radius": 25.0,
@@ -1507,7 +1508,7 @@
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__plantingTeam": 1,
       "capzone__timeToPlant": 20.0,
-      "capzone__timeToDefuse": 20.0,
+      "capzone__timeToDefuse": 30.0,
       "capzone__timeToExplosion": 40.0,
       "capzone__bombTemplate": "bomb_site+bomb_site_radar_hardware_animchar_03_without_antenna",
       "capzone__bombTransformLocalPos": [
@@ -1563,7 +1564,7 @@
         "capzone__checkAllZonesInGroup": true
       },
       {
-        "capzone__deactivateAfterTimeout": 0.0
+        "capzone__deactivateAfterTimeout": 25.0
       },
       {
         "capzone__spawnAtZoneTimeout": 25.0
@@ -1590,7 +1591,7 @@
         "capzone__timeToPlant": 20.0
       },
       {
-        "capzone__timeToDefuse": 20.0
+        "capzone__timeToDefuse": 30.0
       },
       {
         "capzone__timeToExplosion": 40.0
@@ -1634,15 +1635,15 @@
       "capzone__capReward": 250.0,
       "capzone__caption": "capzone/warehouse",
       "capzone__checkAllZonesInGroup": true,
-      "capzone__deactivateAfterTimeout": 0.0,
+      "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 2,
       "capzone__createdRespawnBaseGroup": 7,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__plantingTeam": 1,
       "capzone__timeToPlant": 20.0,
-      "capzone__timeToDefuse": 15.0,
-      "capzone__timeToExplosion": 35.0,
+      "capzone__timeToDefuse": 30.0,
+      "capzone__timeToExplosion": 40.0,
       "capzone__bombTemplate": "bomb_site+bomb_site_radar_hardware_animchar_01_without_antenna",
       "capzone__bombTransformLocalPos": [
         [0.639618,0.0,0.829609],
@@ -1672,15 +1673,15 @@
       "capzone__capReward": 250.0,
       "capzone__caption": "capzone/warehouse",
       "capzone__checkAllZonesInGroup": true,
-      "capzone__deactivateAfterTimeout": 0.0,
+      "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 2,
       "capzone__createdRespawnBaseGroup": 7,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__plantingTeam": 1,
       "capzone__timeToPlant": 20.0,
-      "capzone__timeToDefuse": 15.0,
-      "capzone__timeToExplosion": 35.0,
+      "capzone__timeToDefuse": 30.0,
+      "capzone__timeToExplosion": 40.0,
       "capzone__bombTemplate": "bomb_site+bomb_site_radar_hardware_animchar_02_without_antenna",
       "capzone__bombTransformLocalPos": [
         [0.239519,0.0,0.902387],
@@ -2003,7 +2004,7 @@
         [381.454,1.63879,-349.84]
       ],
       "groupName": "sector_1",
-      "team": 1,
+      "team": 2,
       "respawnBaseGroup": 3
     }
   },
@@ -2017,7 +2018,7 @@
         [397.806,1.38077,-328.713]
       ],
       "groupName": "sector_1",
-      "team": 1,
+      "team": 2,
       "respawnBaseGroup": 3
     }
   },
@@ -2031,7 +2032,7 @@
         [269.021,2.39746,-267.933]
       ],
       "groupName": "sector_2",
-      "team": 1,
+      "team": 2,
       "respawnBaseGroup": 5
     }
   },
@@ -2045,7 +2046,7 @@
         [247.343,2.00901,-274.098]
       ],
       "groupName": "sector_2",
-      "team": 1,
+      "team": 2,
       "respawnBaseGroup": 5,
       "active": false
     }
@@ -2060,7 +2061,7 @@
         [199.636,4.20214,-366.666]
       ],
       "groupName": "sector_2",
-      "team": 1,
+      "team": 2,
       "respawnBaseGroup": 5,
       "active": false
     }
@@ -2075,7 +2076,7 @@
         [194.657,3.76054,-394.336]
       ],
       "groupName": "sector_2",
-      "team": 1,
+      "team": 2,
       "respawnBaseGroup": 5,
       "active": false
     }
@@ -2090,7 +2091,7 @@
         [57.3818,3.74898,-311.74]
       ],
       "groupName": "sector_3",
-      "team": 1,
+      "team": 2,
       "respawnBaseGroup": 7,
       "active": false
     }
@@ -2105,7 +2106,7 @@
         [81.1069,3.35297,-291.361]
       ],
       "groupName": "sector_3",
-      "team": 1,
+      "team": 2,
       "respawnBaseGroup": 7,
       "active": false
     }
@@ -2385,7 +2386,7 @@
         [153.527,4.79397,-182.196]
       ],
       "groupName": "sector_3",
-      "team": 1,
+      "team": 2,
       "respawnBaseGroup": 7,
       "active": false
     }
@@ -2400,7 +2401,7 @@
         [150.846,4.91403,-165.53]
       ],
       "groupName": "sector_3",
-      "team": 1,
+      "team": 2,
       "respawnBaseGroup": 7,
       "active": false
     }

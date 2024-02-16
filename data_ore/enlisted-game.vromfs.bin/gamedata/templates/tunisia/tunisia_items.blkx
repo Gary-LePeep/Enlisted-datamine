@@ -1,17 +1,17 @@
 {
   "carcano_m38_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "carcano_m38_gun"
+      "_use": "carcano_m38_gun"
     },
     {
       "collres__res": "carcano_m38_collision"
     }
   ],
   "carcano_m38_magazine": {
-    "_extends": "item_magazine",
+    "_use": "item_magazine",
     "animchar__res": "carcano_m38_ammo_char",
     "item__template": "carcano_m38_magazine",
     "item__proto": "carcano_m38_magazine",
@@ -25,17 +25,17 @@
   },
   "carcano_m38_7_35_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "carcano_m38_7_35"
+      "_use": "carcano_m38_7_35"
     },
     {
       "collres__res": "carcano_m38_7_35_collision"
     }
   ],
   "carcano_m38_7_35_magazine": {
-    "_extends": "item_magazine",
+    "_use": "item_magazine",
     "animchar__res": "carcano_m38_7_35_ammo_char",
     "item__template": "carcano_m38_7_35_magazine",
     "item__proto": "carcano_m38_7_35_magazine",
@@ -49,17 +49,17 @@
   },
   "carcano_m38_7_35_with_scope_mount_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "carcano_m38_7_35_with_scope_mount"
+      "_use": "carcano_m38_7_35_with_scope_mount"
     },
     {
       "collres__res": "carcano_m38_7_35_collision"
     }
   ],
   "scope_carcano_m38_item": {
-    "_extends": "item_scope",
+    "_use": "item_scope",
     "animchar__res": "scope_zf_41_char",
     "collres__res": "scope_zf_41_collision",
     "item__template": "scope_carcano_m38_item",
@@ -75,7 +75,7 @@
     "gunAttachable:tag": []
   },
   "scope_carcano_m91_item": {
-    "_extends": "item_scope",
+    "_use": "item_scope",
     "animchar__res": "scope_carcano_m91_char",
     "collres__res": "scope_carcano_m91_collision",
     "item__template": "scope_carcano_m91_item",
@@ -92,10 +92,21 @@
   },
   "carcano_m41_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "carcano_m41"
+      "_use": "carcano_m41"
+    },
+    {
+      "collres__res": "carcano_m41_collision"
+    }
+  ],
+  "carcano_m41_default_gun_item": [
+    {
+      "_use": "item_gun"
+    },
+    {
+      "_use": "carcano_m41_default"
     },
     {
       "collres__res": "carcano_m41_collision"
@@ -103,10 +114,10 @@
   ],
   "carcano_m91_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "carcano_m91"
+      "_use": "carcano_m91"
     },
     {
       "collres__res": "carcano_m91_collision"
@@ -114,10 +125,10 @@
   ],
   "carcano_m91_with_scope_mount_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "carcano_m91_with_scope_mount"
+      "_use": "carcano_m91_with_scope_mount"
     },
     {
       "collres__res": "carcano_m91_collision"
@@ -125,17 +136,17 @@
   ],
   "carcano_moschetto_91_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "carcano_moschetto_91"
+      "_use": "carcano_moschetto_91"
     },
     {
       "collres__res": "carcano_moschetto_91_collision"
     }
   ],
   "carcano_m91_bayonet_item": {
-    "_extends": "item_scope",
+    "_use": "item_scope",
     "animchar__res": "carcano_m91_bayonet_char",
     "collres__res": "carcano_m91_bayonet_collision",
     "item__template": "carcano_m91_bayonet_item",
@@ -151,7 +162,7 @@
     "gunAttachable__isBayonet:tag": []
   },
   "carcano_m38_bayonet_item": {
-    "_extends": "item_scope",
+    "_use": "item_scope",
     "animchar__res": "carcano_m38_bayonet_char",
     "collres__res": "carcano_m38_bayonet_collision",
     "item__template": "carcano_m38_bayonet_item",
@@ -168,17 +179,17 @@
   },
   "smle_mk3_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "smle_mk3"
+      "_use": "smle_mk3"
     },
     {
       "collres__res": "smle_mk_3_collision"
     }
   ],
   "smle_mk3_bayonet_item": {
-    "_extends": "item_scope",
+    "_use": "item_scope",
     "animchar__res": "smle_mk3_bayonet_char",
     "collres__res": "smle_mk3_bayonet_collision",
     "item__template": "smle_mk3_bayonet_item",
@@ -195,21 +206,21 @@
   },
   "armaguerra_mod_39_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "armaguerra_mod_39"
+      "_use": "armaguerra_mod_39"
     },
     {
-      "collres__res": "scotti_model_x_collision"
+      "collres__res": "armaguerra_mod_39_collision"
     }
   ],
   "beretta_m31_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "beretta_m31"
+      "_use": "beretta_m31"
     },
     {
       "collres__res": "beretta_m31_collision"
@@ -217,17 +228,17 @@
   ],
   "pavesi_m42_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "pavesi_m42"
+      "_use": "pavesi_m42"
     },
     {
       "collres__res": "pavesi_prototype_1942_collision"
     }
   ],
   "pavesi_m42_magazine": {
-    "_extends": "item_magazine",
+    "_use": "item_magazine",
     "animchar__res": "carcano_m38_7_35_ammo_char",
     "item__template": "pavesi_m42_magazine",
     "item__proto": "pavesi_m42_magazine",
@@ -241,17 +252,17 @@
   },
   "pavesi_prototype_svt_copy_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "pavesi_prototype_svt_copy"
+      "_use": "pavesi_prototype_svt_copy"
     },
     {
       "collres__res": "pavesi_prototype_svt_copy_collision"
     }
   ],
   "pavesi_prototype_svt_copy_magazine": {
-    "_extends": "item_magazine",
+    "_use": "item_magazine",
     "animchar__res": "carcano_m38_7_35_ammo_char",
     "item__template": "pavesi_prototype_svt_copy_magazine",
     "item__proto": "pavesi_prototype_svt_copy_magazine",
@@ -265,21 +276,69 @@
   },
   "scotti_model_x_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "scotti_model_x"
+      "_use": "scotti_model_x"
     },
     {
       "collres__res": "scotti_model_x_collision"
     }
   ],
-  "beretta_m1918_30_gun_item": [
+  "breda_m1935_pg_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "beretta_m1918_30"
+      "_use": "breda_m1935_pg"
+    },
+    {
+      "collres__res": "breda_m1935_pg_collision"
+    }
+  ],
+  "breda_m1935_pg_magazine": {
+    "_use": "item_magazine",
+    "animchar__res": "stg_44_ammo_char",
+    "item__template": "breda_m1935_pg_magazine",
+    "item__proto": "breda_m1935_pg_magazine",
+    "item__locDetails": "",
+    "ammo_holder__templateName": "breda_m1935_pg_magazine",
+    "ammo_holder__ammoCount": 20,
+    "item__weight": 0.5,
+    "item__volume": 0.35,
+    "item__name": "items/breda_m1935_pg_magazine",
+    "collres__res": "stg_44_ammo_collision"
+  },
+  "breda_m1935_pg_carcano_gun_item": [
+    {
+      "_use": "item_gun"
+    },
+    {
+      "_use": "breda_m1935_pg_carcano"
+    },
+    {
+      "collres__res": "breda_m1935_pg_carcano_collision"
+    }
+  ],
+  "breda_m1935_pg_carcano_magazine": {
+    "_use": "item_magazine",
+    "animchar__res": "stg_44_ammo_char",
+    "item__template": "breda_m1935_pg_carcano_magazine",
+    "item__proto": "breda_m1935_pg_carcano_magazine",
+    "item__locDetails": "",
+    "ammo_holder__templateName": "breda_m1935_pg_carcano_magazine",
+    "ammo_holder__ammoCount": 20,
+    "item__weight": 0.5,
+    "item__volume": 0.35,
+    "item__name": "items/breda_m1935_pg_carcano_magazine",
+    "collres__res": "stg_44_ammo_collision"
+  },
+  "beretta_m1918_30_gun_item": [
+    {
+      "_use": "item_gun"
+    },
+    {
+      "_use": "beretta_m1918_30"
     },
     {
       "collres__res": "beretta_m1918_30_collision"
@@ -287,10 +346,10 @@
   ],
   "sw_light_rifle_mk_1_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "sw_light_rifle_mk_1"
+      "_use": "sw_light_rifle_mk_1"
     },
     {
       "collres__res": "sw_1940_mk_1_collision"
@@ -298,17 +357,17 @@
   ],
   "sw_light_rifle_mk_2_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "sw_light_rifle_mk_2"
+      "_use": "sw_light_rifle_mk_2"
     },
     {
       "collres__res": "sw_1940_mk_2_collision"
     }
   ],
   "sw_light_rifle_magazine": {
-    "_extends": "item_magazine",
+    "_use": "item_magazine",
     "animchar__res": "mp_28_20_round_ammo_char",
     "item__template": "sw_light_rifle_magazine",
     "item__proto": "sw_light_rifle_magazine",
@@ -322,10 +381,10 @@
   },
   "turner_automatic_rifle_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "turner_automatic_rifle"
+      "_use": "turner_automatic_rifle"
     },
     {
       "collres__res": "turner_semiauto_smle_conversion_collision"
@@ -333,10 +392,10 @@
   ],
   "beretta_m38_42_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "beretta_m38_42"
+      "_use": "beretta_m38_42"
     },
     {
       "collres__res": "beretta_m38_42_collision"
@@ -344,10 +403,10 @@
   ],
   "beretta_m1_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "beretta_m1"
+      "_use": "beretta_m1"
     },
     {
       "collres__res": "beretta_m1_collision"
@@ -355,17 +414,17 @@
   ],
   "ovp_1918_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "ovp_1918"
+      "_use": "ovp_1918"
     },
     {
       "collres__res": "ovp_1918_collision"
     }
   ],
   "ovp_1918_magazine": {
-    "_extends": "item_magazine",
+    "_use": "item_magazine",
     "animchar__res": "mp_28_20_round_ammo_char",
     "item__template": "ovp_1918_magazine",
     "item__proto": "ovp_1918_magazine",
@@ -379,32 +438,59 @@
   },
   "tz_45_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "tz_45"
+      "_use": "tz_45"
     },
     {
       "collres__res": "tz_45_collision"
     }
   ],
-  "thompson_m1921_28_box_gun_item": [
+  "og_43_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "thompson_m1921_28_box"
+      "_use": "og_43"
+    },
+    {
+      "collres__res": "og_43_collision"
+    }
+  ],
+  "og_43_magazine": {
+    "_use": "item_magazine",
+    "animchar__res": "beretta_m38_ammo_char",
+    "item__template": "og_43_magazine",
+    "item__proto": "og_43_magazine",
+    "item__locDetails": "",
+    "ammo_holder__templateName": "og_43_magazine",
+    "ammo_holder__ammoCount": 20,
+    "item__weight": 0.5,
+    "item__volume": 0.35,
+    "item__name": "items/og_43_magazine",
+    "collres__res": "beretta_m38_ammo_collision"
+  },
+  "thompson_m1921_28_box_gun_item": [
+    {
+      "_use": "item_gun"
+    },
+    {
+      "_use": "thompson_m1921_28_box"
     },
     {
       "collres__res": "thompson_m1921_28_box_collision"
+    },
+    {
+      "menu_item__rotationOffset": [0.0,0.08,0.0]
     }
   ],
   "sten_mk3_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "sten_mk3"
+      "_use": "sten_mk3"
     },
     {
       "collres__res": "sten_mk3_collision"
@@ -412,17 +498,17 @@
   ],
   "owen_mk1_42_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "owen_mk1_42"
+      "_use": "owen_mk1_42"
     },
     {
       "collres__res": "owen_mk1_42_collision"
     }
   ],
   "owen_magazine": {
-    "_extends": "item_magazine",
+    "_use": "item_magazine",
     "animchar__res": "m1928a1_thompson_ammo_char",
     "item__template": "owen_magazine",
     "item__proto": "owen_magazine",
@@ -436,17 +522,17 @@
   },
   "beretta_m1923_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "beretta_m1923"
+      "_use": "beretta_m1923"
     },
     {
       "collres__res": "beretta_m1923_collision"
     }
   ],
   "beretta_m1923_magazine": {
-    "_extends": "item_magazine",
+    "_use": "item_magazine",
     "animchar__res": "walther_pp_ammo_char",
     "item__template": "beretta_m1923_magazine",
     "item__proto": "beretta_m1923_magazine",
@@ -460,10 +546,10 @@
   },
   "beretta_m1934_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "beretta_m1934"
+      "_use": "beretta_m1934"
     },
     {
       "collres__res": "beretta_m1934_collision"
@@ -471,17 +557,17 @@
   ],
   "beretta_m1934_gold_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "beretta_m1934_gold"
+      "_use": "beretta_m1934_gold"
     },
     {
       "collres__res": "beretta_m1934_collision"
     }
   ],
   "beretta_m1934_magazine": {
-    "_extends": "item_magazine",
+    "_use": "item_magazine",
     "animchar__res": "walther_pp_ammo_char",
     "item__template": "beretta_m1934_magazine",
     "item__proto": "beretta_m1934_magazine",
@@ -495,10 +581,10 @@
   },
   "webley_mk6_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "webley_mk6"
+      "_use": "webley_mk6"
     },
     {
       "collres__res": "webley_mk6_collision"
@@ -506,17 +592,17 @@
   ],
   "webley_mk6_nickel_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "webley_mk6_nickel"
+      "_use": "webley_mk6_nickel"
     },
     {
       "collres__res": "webley_mk6_collision"
     }
   ],
   "webley_mk6_magazine": {
-    "_extends": "item_magazine",
+    "_use": "item_magazine",
     "animchar__res": "colt_walker_ammo_char",
     "item__template": "webley_mk6_magazine",
     "item__proto": "webley_mk6_magazine",
@@ -530,17 +616,17 @@
   },
   "enfield_no2_mk1_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "enfield_no2_mk1"
+      "_use": "enfield_no2_mk1"
     },
     {
       "collres__res": "enfield_no2_collision"
     }
   ],
   "enfield_no2_mk1_magazine": {
-    "_extends": "item_magazine",
+    "_use": "item_magazine",
     "animchar__res": "colt_walker_ammo_char",
     "item__template": "enfield_no2_mk1_magazine",
     "item__proto": "enfield_no2_mk1_magazine",
@@ -554,21 +640,24 @@
   },
   "bren_mk1_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "bren_mk1"
+      "_use": "bren_mk1"
     },
     {
       "collres__res": "bren_lmg_mk_1_collision"
+    },
+    {
+      "menu_item__rotationOffset": [0.0,-0.05,-0.07]
     }
   ],
   "besal_lmg_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "besal_lmg"
+      "_use": "besal_lmg"
     },
     {
       "collres__res": "besal_lmg_collision"
@@ -576,17 +665,17 @@
   ],
   "charlton_automatic_rifle_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "charlton_automatic_rifle"
+      "_use": "charlton_automatic_rifle"
     },
     {
       "collres__res": "charlton_automatic_rifle_collision"
     }
   ],
   "charlton_automatic_rifle_magazine": {
-    "_extends": "item_magazine",
+    "_use": "item_magazine",
     "animchar__res": "bren_lmg_mk_2_ammo_char",
     "item__template": "charlton_automatic_rifle_magazine",
     "item__proto": "charlton_automatic_rifle_magazine",
@@ -600,17 +689,17 @@
   },
   "solothurn_s_18_100_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "solothurn_s_18_100"
+      "_use": "solothurn_s_18_100"
     },
     {
       "collres__res": "ptrs_41_collision"
     }
   ],
   "solothurn_s_18_100_magazine": {
-    "_extends": "item_magazine",
+    "_use": "item_magazine",
     "animchar__res": "ptrs_41_ammo_char",
     "item__template": "solothurn_s_18_100_magazine",
     "item__proto": "solothurn_s_18_100_magazine",
@@ -624,17 +713,17 @@
   },
   "atr_boys_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "atr_boys"
+      "_use": "atr_boys"
     },
     {
       "collres__res": "atr_boys_collision"
     }
   ],
   "atr_boys_magazine": {
-    "_extends": "item_bullets",
+    "_use": "item_bullets",
     "animchar__res": "wz_35_ammo_char",
     "item__template": "atr_boys_magazine",
     "item__proto": "atr_boys_magazine",
@@ -648,17 +737,17 @@
   },
   "vickers_berthier_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "vickers_berthier"
+      "_use": "vickers_berthier"
     },
     {
       "collres__res": "mg_vickers_berthier_collision"
     }
   ],
   "vickers_berthier_magazine": {
-    "_extends": "item_magazine",
+    "_use": "item_magazine",
     "animchar__res": "bren_lmg_mk_2_ammo_char",
     "item__template": "vickers_berthier_magazine",
     "item__proto": "vickers_berthier_magazine",
@@ -672,17 +761,17 @@
   },
   "smle_mk3_grenade_launcher_gun_item": [
     {
-      "_extends": "item_gun"
+      "_use": "item_gun"
     },
     {
-      "_extends": "smle_mk3_grenade_launcher"
+      "_use": "smle_mk3_grenade_launcher"
     },
     {
       "collres__res": "smle_mk3_grenade_launcher_collision"
     }
   ],
   "smle_2_5_inch_grenade_launcher_cup_item": {
-    "_extends": "item_scope",
+    "_use": "item_scope",
     "animchar__res": "smle_2_5_inch_grenade_launcher_cup_char",
     "collres__res": "smle_2_5_inch_grenade_launcher_cup_collision",
     "item__template": "smle_2_5_inch_grenade_launcher_cup_item",
@@ -699,10 +788,10 @@
   },
   "smle_2_5_inch_rifle_grenade_item": [
     {
-      "_extends": "item_grenade"
+      "_use": "item_grenade"
     },
     {
-      "_extends": "smle_2_5_inch_rifle_grenade_shell"
+      "_use": "smle_2_5_inch_rifle_grenade_shell"
     },
     {
       "item__template": "smle_2_5_inch_rifle_grenade_item"

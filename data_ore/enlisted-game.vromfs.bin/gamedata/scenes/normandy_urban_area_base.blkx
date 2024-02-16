@@ -209,6 +209,11 @@
   },
   {
     "entity": {
+      "_template": "bloom"
+    }
+  },
+  {
+    "entity": {
       "_template": "postfx_roundctrl"
     }
   },
@@ -261,6 +266,7 @@
     "entity": {
       "_template": "briefing_domination",
       "mission_name": "normandy_coast_city_dom",
+      "mission_outfit": "normandy",
       "loading_images:list<t>": [
         {
           "item": "ui/normandy_coast_city_01.avif"

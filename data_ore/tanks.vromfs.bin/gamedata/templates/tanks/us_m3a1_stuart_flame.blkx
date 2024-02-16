@@ -1,10 +1,14 @@
 {
   "us_m3a1_stuart_flame_pacific": {
-    "_extends": "us_m3a1_stuart_flame_common"
+    "_use": "us_m3a1_stuart_flame_common"
   },
   "us_m3a1_stuart_flame_common": {
-    "_extends": "base_m3a1_stuart_flame",
+    "_use": "base_m3a1_stuart_flame",
     "item__iconOffset": [0.0,0.0],
+    "commanderCockpitFpsCamMaxAngle": [40.0,5.0],
+    "gunner_cam_limit__useCockpitDir": true,
+    "armorThicknessHull": [38.1,25.4,25.4],
+    "armorThicknessTurret": [38.0,32.0,32.0],
     "vehicle_seats__seats:shared:array": [
       {
         "seats:object": {
@@ -113,7 +117,7 @@
     ]
   },
   "us_m3a1_stuart_flame_driver_cockpit": {
-    "_extends": "base_driver_cockpit_no_slits",
+    "_use": "base_driver_cockpit_no_slits",
     "animchar__res": "bt_7_driver_char",
     "cockpit__offset": [-0.976464,-0.230745,-0.476936],
     "cockpit__visibleVehicleNodeNames:list<t>": [
@@ -143,7 +147,7 @@
       }
     ],
     "cockpit__slitForwardOffset:list<r>": {
-      "slit": 0.01
+      "slit": 0.1
     },
     "cockpit__slitIsGun:list<b>": {
       "slit": false
@@ -157,8 +161,7 @@
     "cockpit__attachNodeIndices:list<i>": []
   },
   "us_m3a1_stuart_flame_gunner_cockpit": {
-    "vehicle_sight__blk": "content/tanks/gamedata/sight/us_m70d.blk",
-    "_extends": "base_gunner_cockpit",
+    "_use": "base_gunner_cockpit",
     "animchar__res": "ba_11_gunner_char",
     "cockpit__offset": [0.0,0.0,0.0],
     "cockpit__attachNodeNames:list<t>": [
@@ -200,10 +203,10 @@
     ],
     "cockpit__slitForwardOffset:list<r>": [
       {
-        "slit": 0.2
+        "slit": 0.21
       },
       {
-        "slit": 0.15
+        "slit": 0.16
       },
       {
         "slit": 0.0
@@ -214,20 +217,84 @@
         "slit": true
       },
       {
-        "slit": false
+        "slit": true
       },
       {
         "slit": false
       }
+    ],
+    "cockpit__slitZoom:array": [
+      {
+        "slit:list<r>": [
+          {
+            "zoom": 1.9
+          },
+          {
+            "zoom": 3.5
+          }
+        ]
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      }
+    ],
+    "cockpit__slitZoomTime:list<r>": [
+      {
+        "slit": 0.05
+      },
+      {
+        "slit": 0.0
+      },
+      {
+        "slit": 0.0
+      }
+    ],
+    "cockpit__slitTemplates:list<t>": [
+      {
+        "slit": "us_m70d"
+      },
+      {
+        "slit": "default_periscope"
+      }
+    ],
+    "cockpit__slitEids:list<eid>": [],
+    "cockpit__periscopeLimits:list<p4>": [
+      {
+        "slit": [-0.0,0.0,0.0,0.0]
+      },
+      {
+        "slit": [-0.0,0.0,-8.0,25.0]
+      },
+      {
+        "slit": [-0.0,0.0,0.0,0.0]
+      }
+    ],
+    "cockpit__periscopeSpeed:list<p2>": [
+      {
+        "slit": [-1.0,-1.0]
+      },
+      {
+        "slit": [35.0,35.0]
+      },
+      {
+        "slit": [-1.0,-1.0]
+      }
     ]
   },
   "us_m3a1_stuart_flame_commander_cockpit": {
-    "_extends": "base_commander_cockpit_no_slits",
+    "_use": "base_commander_cockpit_no_slits",
     "animchar__res": "t_26_1940_commander_char",
     "cockpit__offset": [-0.0,0.0,-0.0],
     "cockpit__cockpitOffsetBySlit:list<p3>": [
       {
-        "item": [-0.282226,0.811918,-0.341195]
+        "item": [-0.0,0.9,-0.341195]
       },
       {
         "item": [-0.0988984,0.463066,-0.367904]
@@ -238,7 +305,7 @@
     },
     "cockpit__slitForwardOffset:list<r>": [
       {
-        "slit": 0.17
+        "slit": 0.16
       },
       {
         "slit": 0.0
@@ -259,10 +326,42 @@
       {
         "slit": "cam_right"
       }
-    ]
+    ],
+    "cockpit__periscopeLimits:list<p4>": [
+      {
+        "slit": [-45.0,45.0,-8.0,25.0]
+      },
+      {
+        "slit": [-0.0,0.0,0.0,0.0]
+      }
+    ],
+    "cockpit__periscopeSpeed:list<p2>": [
+      {
+        "slit": [35.0,35.0]
+      },
+      {
+        "slit": [-1.0,-1.0]
+      }
+    ],
+    "cockpit__slitZoom:array": [
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      },
+      {
+        "slit:list<r>": {
+          "zoom": 1.44
+        }
+      }
+    ],
+    "cockpit__slitTemplates:list<t>": {
+      "slit": "default_periscope"
+    },
+    "cockpit__slitEids:list<eid>": []
   },
   "us_m3a1_stuart_flame_machinegunner_cockpit": {
-    "_extends": "base_driver_cockpit_no_slits",
+    "_use": "base_driver_cockpit_no_slits",
     "animchar__res": "bt_7_driver_char",
     "cockpit__offset": [-0.98704,-0.235679,-1.18357],
     "cockpit__visibleVehicleNodeNames:list<t>": [
@@ -292,7 +391,7 @@
       }
     ],
     "cockpit__slitForwardOffset:list<r>": {
-      "slit": -0.04
+      "slit": 0.05
     },
     "cockpit__slitIsGun:list<b>": {
       "slit": true
@@ -303,7 +402,17 @@
     "cockpit__attachNodeNames:list<t>": {
       "node": "emtr_lantern_l_01"
     },
-    "cockpit__attachNodeIndices:list<i>": []
+    "cockpit__attachNodeIndices:list<i>": [],
+    "cockpit__slitZoom:array": {
+      "slit:list<r>": {
+        "zoom": 2.0
+      }
+    },
+    "cockpit__slitZoomTime:list<r>": {
+      "slit": 0.05
+    },
+    "cockpit__slitTemplates:list<t>": [],
+    "cockpit__slitEids:list<eid>": []
   },
   "m1_flamethrower_shorted": {
     "_override": true,

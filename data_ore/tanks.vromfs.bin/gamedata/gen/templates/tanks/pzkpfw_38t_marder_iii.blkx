@@ -1,10 +1,10 @@
 {
   "base_pzkpfw_38t_marder_iii": [
     {
-      "_extends": "base_tank"
+      "_use": "base_tank"
     },
     {
-      "_extends": "pzkpfw_38t_marder_iii_ammo_stowages"
+      "_use": "pzkpfw_38t_marder_iii_ammo_stowages"
     },
     {
       "killLogName": "germ_pzkpfw_38t_marder_iii"
@@ -297,7 +297,7 @@
     }
   ],
   "pzkpfw_38t_marder_iii_turret_01_76mm_pak36_r": {
-    "_extends": "tankgun_76mm_pak36_r",
+    "_use": "tankgun_76mm_pak36_r",
     "gun__shootNodeName": "bone_gun_barrel",
     "turret__yawSpeed": 12.0,
     "turret__pitchSpeed": 4.0,
@@ -319,7 +319,7 @@
     ]
   },
   "pzkpfw_38t_marder_iii_turret_02_7_92mm_zb_vz37": {
-    "_extends": "tankgun_7_92mm_zb_vz37",
+    "_use": "tankgun_7_92mm_zb_vz37",
     "gun__shootNodeName": "bone_mg_body_h_01",
     "turret__yawSpeed": 5.5,
     "turret__pitchSpeed": 4.0,
@@ -335,35 +335,35 @@
     ]
   },
   "pzkpfw_38t_marder_iii_turret_03_66mm_germ_smoke_candle_launcher": {
-    "_extends": "tankgun_66mm_germ_smoke_candle_launcher",
+    "_use": "tankgun_66mm_germ_smoke_candle_launcher",
     "gun__shootNodeName": "emtr_mortar_flame_01",
     "gun__shellsAmmo:array": {
       "ammo": 1
     }
   },
   "pzkpfw_38t_marder_iii_turret_04_66mm_germ_smoke_candle_launcher": {
-    "_extends": "tankgun_66mm_germ_smoke_candle_launcher",
+    "_use": "tankgun_66mm_germ_smoke_candle_launcher",
     "gun__shootNodeName": "emtr_mortar_flame_02",
     "gun__shellsAmmo:array": {
       "ammo": 1
     }
   },
   "pzkpfw_38t_marder_iii_turret_05_66mm_germ_smoke_candle_launcher": {
-    "_extends": "tankgun_66mm_germ_smoke_candle_launcher",
+    "_use": "tankgun_66mm_germ_smoke_candle_launcher",
     "gun__shootNodeName": "emtr_mortar_flame_03",
     "gun__shellsAmmo:array": {
       "ammo": 1
     }
   },
   "pzkpfw_38t_marder_iii_turret_06_66mm_germ_smoke_candle_launcher": {
-    "_extends": "tankgun_66mm_germ_smoke_candle_launcher",
+    "_use": "tankgun_66mm_germ_smoke_candle_launcher",
     "gun__shootNodeName": "emtr_mortar_flame_04",
     "gun__shellsAmmo:array": {
       "ammo": 1
     }
   },
   "pzkpfw_38t_marder_iii_turret_07_66mm_germ_smoke_candle_launcher": {
-    "_extends": "tankgun_66mm_germ_smoke_candle_launcher",
+    "_use": "tankgun_66mm_germ_smoke_candle_launcher",
     "gun__shootNodeName": "emtr_mortar_flame_05",
     "gun__shellsAmmo:array": {
       "ammo": 1
@@ -371,13 +371,13 @@
   },
   "pzkpfw_38t_marder_iii_ammo_stowages": {
     "_tags": "server",
-    "_extends": "vehicle_ammo_stowages",
+    "_use": "vehicle_ammo_stowages",
     "ammo_stowage__stowageTemplates:shared:list<t>": {
       "stowage": "pzkpfw_38t_marder_iii_primary_ammo_stowage"
     }
   },
   "pzkpfw_38t_marder_iii_primary_ammo_stowage": {
-    "_extends": "ammo_stowage",
+    "_use": "ammo_stowage",
     "ammo_stowage__clusterTemplates:shared:list<t>": {
       "cluster": "pzkpfw_38t_marder_iii_primary_shells_ammo_cluster"
     },
@@ -386,7 +386,7 @@
     }
   },
   "pzkpfw_38t_marder_iii_primary_shells_ammo_cluster": {
-    "_extends": "ammo_cluster",
+    "_use": "ammo_cluster",
     "ammo_cluster__isShell": true,
     "ammo_cluster__slotNames:shared:list<t>": [
       {

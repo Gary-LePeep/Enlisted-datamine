@@ -1,7 +1,7 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
-let { h2_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontHeading2, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { smallPadding, activeBgColor } = require("%enlSqGlob/ui/viewConst.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
 let { remap_nick } = require("%enlSqGlob/remap_nick.nut")
@@ -15,8 +15,7 @@ let { partition } = require("%sqstd/underscore.nut")
 let mkAwardsTooltip = require("%ui/hud/components/mkAwardsTooltip.nut")
 let { getIdleAnimState } = require("%enlSqGlob/animation_utils.nut")
 let { mkSoldierPhotoName, mkSoldierPhoto } = require("%enlSqGlob/ui/soldierPhoto.nut")
-let { mkRankIcon, rankIconSize, getRankConfig
-} = require("%enlSqGlob/ui/rankPresentation.nut")
+let { mkRankIcon, getRankConfig } = require("%enlSqGlob/ui/rankPresentation.nut")
 let { mkPortraitIcon } = require("%enlist/profile/decoratorPkg.nut")
 let userInfo = require("%enlSqGlob/userInfo.nut")
 
@@ -25,10 +24,10 @@ let awardMultTxtColor = Color(252, 186, 3, 255)
 let battleHeroNameColor = Color(120,120,120, 50)
 let localBattleHeroNameColor = Color(252, 186, 3, 255)
 
-let PORTRAIT_SIZE = hdpx(140)
+let PORTRAIT_SIZE = hdpxi(140)
 let maxNameBlockWidth = hdpx(184)
-let awardIconSize = [hdpx(70), hdpx(70)]
-let photoSize = [hdpx(92), hdpx(136)]
+let awardIconSize = [hdpxi(70), hdpxi(70)]
+let photoSize = [hdpxi(92), hdpxi(136)]
 
 let notActiveStyle = {
   tint = Color(40, 40, 40, 120)
@@ -42,7 +41,7 @@ let mkBattleHeroPlayerNameText = @(playerName, isLocalPlayer) {
   clipChildren = true
   color = isLocalPlayer ? localBattleHeroNameColor : battleHeroNameColor
   text = playerName
-}.__update(h2_txt)
+}.__update(fontHeading2)
 
 let function mkBattleHeroAwards(awards, isActive) {
   local sortedAwards = [].extend(awards).sort(@(a,b) awardPriority[b] <=> awardPriority[a])
@@ -75,7 +74,7 @@ let function rankBlock(playerRank) {
     image = Picture(imageBack)
     margin = hdpx(1)
     size = [hdpx(28), hdpx(28)]
-    children = mkRankIcon(playerRank, rankIconSize, {
+    children = mkRankIcon(playerRank, {
       vplace = ALIGN_CENTER
       hplace = ALIGN_CENTER
     })
@@ -110,10 +109,12 @@ let function mkBattleHeroPhoto(soldier, isActive, playerRank) {
   }
   let soldierTemplate = db.getTemplateByName(gametemplate)
   let overridedIdleAnims = soldierTemplate?.getCompValNullable("animation__overridedIdleAnims")
+  let overridedSlotsOrder = soldierTemplate?.getCompValNullable("animation__overridedSlotsOrder").getAll()
   let animation = getIdleAnimState({
     weapTemplates
     itemTemplates
     overridedIdleAnims
+    overridedSlotsOrder
     seed = guid.hash()
   })
   let photo = mkSoldierPhotoName(gametemplate, equipmentInfo, animation, true)
@@ -127,27 +128,29 @@ let mkSoldierName = @(soldier, isLocalPlayer) isLocalPlayer && (soldier?.callnam
       maxWidth = SIZE_TO_CONTENT
       size = [PORTRAIT_SIZE, SIZE_TO_CONTENT]
       behavior = Behaviors.Marquee
-    }.__update(sub_txt)
+    }.__update(fontSub)
   : {
       rendObj = ROBJ_TEXTAREA
       behavior = Behaviors.TextArea
       text = soldierNameSlicer(soldier, isLocalPlayer)
-    }.__update(sub_txt)
+    }.__update(fontSub)
 
 let mkBattleHeroArmyMult = @(mult) txt({text=$"x{mult}", color=awardMultTxtColor})
 
-let mkHeroes = @(heroes, isExpReceived) {
+let mkHeroes = @(heroes, isExpReceived, localPlayerGroupMembers) {
   flow = FLOW_HORIZONTAL
   size = SIZE_TO_CONTENT
   gap = hdpx(18)
   children = heroes.map(function(hero) {
     let {
-      isFinished = true, awards = [], playerName = "", nickFrame = "",
+      isFinished = true, awards = [], playerName = "", nickFrame = "", playerEid = null,
       portrait = "", isLocalPlayer = false, soldier = null, expMult = 1.0, playerRank = 0
     } = hero
-    let playerNameTxt = frameNick(isLocalPlayer? userInfo.value?.nameorig : remap_nick(playerName), nickFrame)
+    let name = isLocalPlayer
+      ? userInfo.value?.nameorig
+      : remap_nick(playerName, (playerEid ?? 0).tostring() not in localPlayerGroupMembers)
     let heroesObjects = [
-      mkBattleHeroPlayerNameText(playerNameTxt, isLocalPlayer)
+      mkBattleHeroPlayerNameText(frameNick(name, nickFrame), isLocalPlayer)
       portrait == ""
         ? mkBattleHeroPhoto(soldier, isFinished, playerRank)
         : mkBattleHeroPortrait(portrait, playerRank)

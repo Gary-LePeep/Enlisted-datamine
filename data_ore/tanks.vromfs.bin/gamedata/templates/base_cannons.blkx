@@ -1,8 +1,10 @@
 {
   "base_cannon": {
-    "_extends": "base_cannon_no_phys",
+    "_use": "base_cannon_no_phys",
+    "collision_physMatId": -1,
     "pair_collision__tag": "collidableToPhysObj",
     "phys_obj_net_phys": [],
+    "base_net_phys_ptr": [],
     "pair_collision__gridHolders": [],
     "pair_collision__gridNames:list<t>": [
       {
@@ -21,49 +23,49 @@
   },
   "base_cannon_no_phys": [
     {
-      "_extends": "replicating"
+      "_use": "replicating"
     },
     {
-      "_extends": "phys_sleepable"
+      "_use": "phys_sleepable"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "base_vehicle"
+      "_use": "base_vehicle"
     },
     {
-      "_extends": "base_turret_controls"
+      "_use": "base_turret_controls"
     },
     {
-      "_extends": "base_vehicle_seats"
+      "_use": "base_vehicle_seats"
     },
     {
-      "_extends": "base_tank_seat_templates"
+      "_use": "base_tank_seat_templates"
     },
     {
-      "_extends": "base_damage_model"
+      "_use": "base_damage_model"
     },
     {
-      "_extends": "base_damage_model_fx"
+      "_use": "base_damage_model_fx"
     },
     {
-      "_extends": "turret_manual_sound_with_group"
+      "_use": "turret_manual_sound_with_group"
     },
     {
-      "_extends": "watched_vehicle_sound"
+      "_use": "watched_vehicle_sound"
     },
     {
-      "_extends": "vehicle_fatal_explosion_external_fire"
+      "_use": "vehicle_fatal_explosion_external_fire"
     },
     {
-      "_extends": "vehicle_underwater"
+      "_use": "vehicle_underwater"
     },
     {
-      "_extends": "vehicle_marker_ui"
+      "_use": "vehicle_marker_ui"
     },
     {
-      "_extends": "vehicle_autodetect_team"
+      "_use": "vehicle_autodetect_team"
     },
     {
       "drowningHeight": 0.5
@@ -78,21 +80,6 @@
         [0.0,0.0,1.0],
         [0.0,0.0,0.0]
       ]
-    },
-    {
-      "_tracked": "transform"
-    },
-    {
-      "_tracked": "isAlive"
-    },
-    {
-      "_tracked": "vehicle__localControls"
-    },
-    {
-      "_tracked": "vehicleCameraType"
-    },
-    {
-      "_tracked": "isTpsView"
     },
     {
       "squad": -1
@@ -129,9 +116,6 @@
     },
     {
       "vehicle__turretControlComponents": "cannon_turret_control_components"
-    },
-    {
-      "hitmarks__showUserHits": true
     },
     {
       "camera__lookDir": [1.0,0.0,0.0]
@@ -203,6 +187,18 @@
       "_replicated": "isAlive"
     },
     {
+      "_tracked": "isAlive"
+    },
+    {
+      "_tracked": "vehicle__localControls"
+    },
+    {
+      "_tracked": "vehicleCameraType"
+    },
+    {
+      "_tracked": "isTpsView"
+    },
+    {
       "grid_obj__gridType": "vehicles"
     },
     {
@@ -217,6 +213,9 @@
       "vehicle_seats__applyPerks:tag": {
         "_tags": "server"
       }
+    },
+    {
+      "grid_obj__updateAlways:tag": []
     },
     {
       "grid_obj": []
@@ -319,18 +318,13 @@
       }
     },
     {
-      "bullet_decals": {
-        "_tags": "render"
-      }
-    },
-    {
       "fatal_explosion_fx__fx:array": {
         "fx:object": {
           "dmParts:array": [],
           "fx:array": [
             {
               "fx:object": {
-                "name": "tank_smoke_big_template",
+                "name": "tank_smoke_medium_template",
                 "emitter": "emtr_explosion_center"
               }
             },
@@ -342,7 +336,7 @@
             },
             {
               "fx:object": {
-                "name": "tank_fire_big_template",
+                "name": "tank_fire_medium_template",
                 "emitter": "emtr_explosion_center"
               }
             },
@@ -384,14 +378,14 @@
     }
   ],
   "movable_cannon_seat_default_sit": {
-    "_extends": "base_vehicle_seat",
+    "_use": "base_vehicle_seat",
     "seats_order__canPlaceManually": false,
     "seat_anim__upper": "gunner_upper_hands",
     "seat_anim__lower": "lower_stand",
     "seat_anim__maxStandHeight": 0.0
   },
   "movable_cannon_seat_marching": {
-    "_extends": "base_vehicle_seat",
+    "_use": "base_vehicle_seat",
     "seat_anim__upper": "gunner_upper_push",
     "seat_anim__lower": "lower_stand",
     "seat_anim__lowerMove": "lower_walk",
@@ -401,15 +395,15 @@
     "seat_anim__maxStandHeight": 0.0
   },
   "movable_cannon_seat_gunner": {
-    "_extends": "movable_cannon_seat_default_sit",
+    "_use": "movable_cannon_seat_default_sit",
     "seats_order__canPlaceManually": true
   },
   "movable_cannon_seat_loader": {
-    "_extends": "movable_cannon_seat_default_sit",
+    "_use": "movable_cannon_seat_default_sit",
     "seat_perks__vehicleReloadMult": 1.0
   },
   "movable_cannon_seat_driver": {
-    "_extends": "movable_cannon_seat_marching",
+    "_use": "movable_cannon_seat_marching",
     "seats_order__canPlaceManually": true
   },
   "movable_cannon_seat_templates": {
@@ -444,25 +438,28 @@
   },
   "base_movable_cannon": [
     {
-      "_extends": "base_cannon_no_phys"
+      "_use": "base_cannon_no_phys"
     },
     {
-      "_extends": "vehicle_display_marker_over_head"
+      "_use": "vehicle_display_marker_over_head"
     },
     {
-      "_extends": "movable_cannon_seat_templates"
+      "_use": "movable_cannon_seat_templates"
     },
     {
-      "_extends": "vehicle_sound"
+      "_use": "vehicle_sound"
     },
     {
-      "_extends": "nodoor_vehicle_seat_sound"
+      "_use": "nodoor_vehicle_seat_sound"
     },
     {
       "cockpit__cameraDir": [1.0,0.0,0.0]
     },
     {
       "_tracked": "cockpit__eid"
+    },
+    {
+      "collision_physMatId": -1
     },
     {
       "vehicle_seats__restrictToGroup": 0
@@ -497,6 +494,9 @@
     },
     {
       "vehicle_net_phys": []
+    },
+    {
+      "base_net_phys_ptr": []
     },
     {
       "pair_collision__gridHolders": []
@@ -542,11 +542,12 @@
     }
   ],
   "anti_tank_cannon_common": {
-    "_extends": "turret_controls_hit_result_info",
-    "vehicle__mapIcon": "map_icon_cannon_at"
+    "_use": "turret_controls_hit_result_info",
+    "vehicle__mapIcon": "map_icon_cannon_at",
+    "vehicle_free_look__zoomIn": 1.0
   },
   "anti_aircraft_cannon_common": {
-    "_extends": "forestall",
+    "_use": "forestall",
     "vehicle__mapIcon": "map_icon_cannon_aa",
     "vehicle_look__lockAllTurrentControll": true,
     "turretHitAlwaysEffective:tag": {
@@ -559,52 +560,55 @@
   },
   "base_anti_tank_cannon": [
     {
-      "_extends": "base_cannon"
+      "_use": "base_cannon"
     },
     {
-      "_extends": "anti_tank_cannon_common"
+      "_use": "anti_tank_cannon_common"
     }
   ],
   "base_anti_aircraft_cannon": [
     {
-      "_extends": "base_cannon"
+      "_use": "base_cannon"
     },
     {
-      "_extends": "anti_aircraft_cannon_common"
+      "_use": "anti_aircraft_cannon_common"
     }
   ],
   "base_movable_anti_tank_cannon": [
     {
-      "_extends": "base_movable_cannon"
+      "_use": "base_movable_cannon"
     },
     {
-      "_extends": "anti_tank_cannon_common"
+      "_use": "anti_tank_cannon_common"
     }
   ],
   "base_ai_gunner_turret": [
     {
-      "_extends": "replicating"
+      "_use": "replicating"
     },
     {
-      "_extends": "turret_sound_with_group"
+      "_use": "turret_sound_with_group"
     },
     {
-      "_extends": "base_net_phys"
+      "_use": "base_net_phys"
     },
     {
-      "_extends": "phys_sleepable"
+      "_use": "phys_sleepable"
     },
     {
-      "_extends": "animchar"
+      "_use": "animchar"
     },
     {
-      "_extends": "base_dm_parts"
+      "_use": "base_dm_parts"
     },
     {
-      "_extends": "base_turret_controls"
+      "_use": "base_turret_controls"
     },
     {
       "hitpoints__hp": 100.0
+    },
+    {
+      "collision_physMatId": -1
     },
     {
       "pair_collision__tag": "collidableToPhysObj"
@@ -679,6 +683,9 @@
     },
     {
       "phys_obj_net_phys": []
+    },
+    {
+      "base_net_phys_ptr": []
     },
     {
       "pair_collision__gridHolders": []

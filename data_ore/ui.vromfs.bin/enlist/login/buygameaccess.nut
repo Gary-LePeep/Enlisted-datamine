@@ -4,7 +4,7 @@ let { is_pc } = require("%dngscripts/platform.nut")
 
 local buyAccess = null
 if (is_pc) {
-  let openUrl = require("%ui/components/openUrl.nut")
+  let { openUrl } = require("%ui/components/openUrl.nut")
   buyAccess = @() openUrl("https://enlisted.net/#!/cbt/shop")
 }
 else

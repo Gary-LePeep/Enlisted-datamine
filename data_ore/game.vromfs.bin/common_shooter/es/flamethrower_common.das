@@ -2,8 +2,8 @@ module flamethrower_common shared
 
 require ecs
 require app
-require EnlistedNet
-require EnlistedDm
+require DngNet
+require DngDm
 require math.base
 require game.es.events
 require game.es.riextra_damage_common
@@ -118,12 +118,13 @@ def reignite_old_attached_fires_if_exist(bind_to_eid : EntityId; pos : float3; m
     return ++nerbyFireCount >= max_fires_to_reignite
   return nerbyFireCount > 0
 
-def create_fire_impl(pos : float3; fire_template : string; offender : EntityId; gun_props_id : int)
+def create_fire_impl(pos : float3; norm : float3; fire_template : string; offender : EntityId; gun_props_id : int)
   var posTm = IDENT_TM
   posTm[3] = pos
 
   return createEntity(fire_template) <| $(var init : ComponentsInitializer)
     set(init, "transform", posTm)
+    set(init, "fire_effect__norm", norm)
     set(init, "dmgzone__offender", offender)
     set(init, "dmgzone__gunPropsId", gun_props_id)
 
@@ -158,7 +159,7 @@ def attach_fire(pos : float3;
   if !get_node_local_pos(bind_to_eid, nodeId, localPos)
     return INVALID_ENTITY_ID
 
-  let createdFireEid = create_fire_impl(pos, fire_template, offender, gun_props_id)
+  let createdFireEid = create_fire_impl(pos, float3(0., 1., 0.), fire_template, offender, gun_props_id)
   attach_to_node_pos(createdFireEid, bind_to_eid, nodeId, localPos)
   return createdFireEid
 
@@ -175,12 +176,12 @@ def deal_damage_or_attach_fire(pos : float3;
     return INVALID_ENTITY_ID
   return attach_fire(pos, eid, node_id, fire_template, damage.offender, damage.gunPropsId, min_distance_between_sq, add_fire_time, max_fires_to_reignite, cast_result)
 
-def create_fire(pos : float3; fire_template : string; offender : EntityId; gun_props_id : int; min_distance_between_sq : float; add_fire_time : float; max_fires_to_reignite : int; cast_result : FireCastResult)
+def create_fire(pos : float3; norm : float3; fire_template : string; offender : EntityId; gun_props_id : int; min_distance_between_sq : float; add_fire_time : float; max_fires_to_reignite : int; cast_result : FireCastResult)
   if !cast_result.attachedToEid && is_too_close_to_created_fire(pos, cast_result, min_distance_between_sq)
     return INVALID_ENTITY_ID
   if reignite_old_fires_if_exist(pos, min_distance_between_sq, add_fire_time, max_fires_to_reignite)
     return INVALID_ENTITY_ID
-  return create_fire_impl(pos, fire_template, offender, gun_props_id)
+  return create_fire_impl(pos, norm, fire_template, offender, gun_props_id)
 
 def apply_fire_cloud_damage(from, dir : float3; len, radius : float; damage : FlameDamage)
   for_each_entity_in_grid(ecs_hash("humans"), from, dir, len, radius, GridEntCheck BOUNDING) <| $(victimEid : EntityId)
@@ -211,37 +212,30 @@ def burn_grid_objects(start : float3;
         res.attachedToEid = it.eid
         res.norm = it.norm
         break
-  if !res.isHit
-    var t = hit_dist
-    var pmid = -1
-    var norm : float3
-    var riDesc = RendInstDesc()
-    if traceray_normalized(start, hit_dir, t, pmid, norm, ETF_RI, riDesc, -1) && riDesc.isValid
-      res.isHit = true
-      res.pos = start + hit_dir * t
-      res.norm = norm
-      broadcast_net_event([[CmdSpawnCharredArea pos=res.pos, normal=norm]])
-      deal_fire_damage_ri(riDesc.riExtraHandle, res.pos, damage, true)
   return res
 
 def burn_static_objects(start : float3;
                         hit_dir : float3;
                         hit_dist : float;
                         fire_template : string;
-                        owner : EntityId;
-                        gun_props_id : int;
+                        damage : FlameDamage;
                         min_between_fire_dist_sq : float;
                         add_fire_time : float;
                         max_fires_to_reignite : int;
                         cast_result : FireCastResult;
                         additional_check_length : float = 0.0) : FireCastResult
   var norm : float3
+  var pmid = -1
+  var riDesc = RendInstDesc()
   var dist = hit_dist + additional_check_length
-  let isRayHit = traceray_normalized(start, hit_dir, dist, norm, ETF_ALL)
+  let isRayHit = traceray_normalized(start, hit_dir, dist, pmid, norm, ETF_ALL, riDesc, -1)
   if isRayHit
     let hitPos = start + hit_dir * dist
-    broadcast_net_event([[CmdSpawnCharredArea pos=hitPos, normal=norm]])
-    let isFireCreated = !!create_fire(hitPos, fire_template, owner, gun_props_id, min_between_fire_dist_sq, add_fire_time, max_fires_to_reignite, cast_result)
+    if riDesc.isValid
+      deal_fire_damage_ri(riDesc.riExtraHandle, hitPos, damage, true)
+    let isFireCreated = !!create_fire(hitPos, norm, fire_template, damage.offender, damage.gunPropsId, min_between_fire_dist_sq, add_fire_time, max_fires_to_reignite, cast_result)
+    if isFireCreated
+      broadcast_net_event([[CmdSpawnCharredArea pos=hitPos, normal=norm]])
     return [[FireCastResult isHit=true, isFireCreated=isFireCreated, pos=hitPos, norm=norm]]
   return FireCastResult()
 
@@ -266,7 +260,7 @@ def cast_droplets(hit_pos : float3;
   let start = hit_pos + hit_norm * spread.normalOffset
 
   if !burn_grid_objects(start, dir, spread.maxLength, fire_template, damage, min_between_fire_dist_sq, add_fire_time, max_fires_to_reignite, cast_result).isHit
-    burn_static_objects(start, dir, spread.maxLength, fire_template, damage.offender, damage.gunPropsId, min_between_fire_dist_sq, add_fire_time, max_fires_to_reignite, cast_result)
+    burn_static_objects(start, dir, spread.maxLength, fire_template, damage, min_between_fire_dist_sq, add_fire_time, max_fires_to_reignite, cast_result)
 
 struct FlameTraceResult
   hit : bool
@@ -274,7 +268,7 @@ struct FlameTraceResult
   norm : float3
   len : float
 
-def private do_sphere_trace(start, dir : float3; trace_len, radius : float; num_traces : int)
+def private do_sphere_trace(start, dir : float3; trace_len, radius : float; num_traces : int; rayMatId : int)
   var res : FlameTraceResult
   var transform : float3x4
   identity(transform)
@@ -291,7 +285,9 @@ def private do_sphere_trace(start, dir : float3; trace_len, radius : float; num_
     let from = start + rotate(transform, float3(0., cos(TWOPI * invNumCasts * float(i)), sin(TWOPI * invNumCasts * float(i)))) * radius
     var norm : float3
     var outT = trace_len
-    if traceray_normalized(from, dir, outT, norm)
+    var pmid : int
+    var riDesc = RendInstDesc()
+    if traceray_normalized(from, dir, outT, pmid, norm, ETF_DEFAULT, riDesc, rayMatId)
       if outT < minT
         minT = outT
         res.pos = from + dir * outT
@@ -301,16 +297,17 @@ def private do_sphere_trace(start, dir : float3; trace_len, radius : float; num_
 
   return res
 
-def private do_trace(start, dir : float3; trace_len, radius, min_radius_sphere_cast : float; sphere_cast_num_traces : int)
+def private do_trace(start, dir : float3; trace_len, radius, min_radius_sphere_cast : float; sphere_cast_num_traces : int; rayMatId : int)
   var res : FlameTraceResult
   res.len = trace_len
   res.pos = start + dir * trace_len
-
-  if traceray_normalized(start, dir, res.len, res.norm)
+  var pmid : int
+  var riDesc = RendInstDesc()
+  if traceray_normalized(start, dir, res.len, pmid, res.norm, ETF_DEFAULT, riDesc, rayMatId)
     res.pos = start + dir * res.len
     res.hit = true
   if radius >= min_radius_sphere_cast
-    let sphereResult = do_sphere_trace(start, dir, res.len, radius, sphere_cast_num_traces)
+    let sphereResult = do_sphere_trace(start, dir, res.len, radius, sphere_cast_num_traces, rayMatId)
     if sphereResult.hit
       return sphereResult
   return res
@@ -335,7 +332,8 @@ def shoot_fire(dt : float;
                var flamethrower__hitAnything : bool?;
                excludeDamageEid = INVALID_ENTITY_ID;
                flamethrower__minRadiusForSphereCast : float = 0.011;
-               flamethrower__numTracesSphereCast : int = 5)
+               flamethrower__numTracesSphereCast : int = 5;
+               gun__projectileRayMatId : int = -1)
   flamethrower__flameCurrentLength = clamp(flamethrower__flameCurrentLength + flamethrower__flameSpeed * dt, 0.0, flamethrower__maxFlameLength)
   if flamethrower__hitAnything != null
     *flamethrower__hitAnything = false
@@ -348,7 +346,7 @@ def shoot_fire(dt : float;
     let fireCloudStart = start + gunDir * flamethrower__cloudStartOffset
     apply_fire_cloud_damage(fireCloudStart, gunDir, max(0.0, flamethrower__flameCurrentLength - cloud_radius), cloud_radius, damage)
 
-  let out = do_trace(start, gunDir, flamethrower__flameCurrentLength, radius, flamethrower__minRadiusForSphereCast, flamethrower__numTracesSphereCast)
+  let out = do_trace(start, gunDir, flamethrower__flameCurrentLength, radius, flamethrower__minRadiusForSphereCast, flamethrower__numTracesSphereCast, gun__projectileRayMatId)
 
   flamethrower__flameCurrentLength = out.len
 
@@ -365,7 +363,7 @@ def shoot_fire(dt : float;
   if fire_template == ""
     return
   if !castResult.isHit
-    let newCastResult = burn_static_objects(start, hitDir, hitDist, fire_template, damage.offender, damage.gunPropsId, minBetweenFireDistSq, addFireTime, flamethrower__maxFiresToReignite, castResult, additional_check_length)
+    let newCastResult = burn_static_objects(start, hitDir, hitDist, fire_template, damage, minBetweenFireDistSq, addFireTime, flamethrower__maxFiresToReignite, castResult, additional_check_length)
     castResult = newCastResult
   if castResult.isHit && !has(castResult.attachedToEid, "burning__absorbsFlameStream")
     cast_droplets(castResult.pos, castResult.norm, gunDir, fire_template, damage, minBetweenFireDistSq, droplets_spread, addFireTime, flamethrower__maxFiresToReignite, castResult)

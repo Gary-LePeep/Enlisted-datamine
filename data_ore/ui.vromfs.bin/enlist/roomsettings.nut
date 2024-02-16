@@ -29,7 +29,7 @@ if (scenesBlk!=null) {
 }
 
 let useAddonVromSrc = get_setting_by_blk_path("debug/useAddonVromSrc") ?? false
-let lscenes = flatten(scenesFolders.map(@(v) scan_folder({root=v, vromfs = !useAddonVromSrc, realfs = useAddonVromSrc, recursive = true, files_suffix="*.blk"})
+let lscenes = flatten(scenesFolders.map(@(root) scan_folder({root, vromfs = !useAddonVromSrc, realfs = useAddonVromSrc, recursive = true, files_suffix="*.blk"})
  .map(function(v){
     if (!v.contains("/scenes/") || v.contains("app_start.blk"))
       throw null

@@ -6,8 +6,8 @@ let { getItemName, trimUpgradeSuffix } = require("%enlSqGlob/ui/itemsInfo.nut")
 
 let function getClassByContext(effect, context) {
   let { armyId, squadId, squadsCfg } = context
-  let { squadType = "" } = squadsCfg?[armyId][squadId]
-  return squadType in soldierClasses ? squadType : effect.findindex(@(_) true)
+  let { newClass = "" } = squadsCfg?[armyId][squadId]
+  return newClass in soldierClasses ? newClass : effect.findindex(@(_) true)
 }
 
 let firstValue = @(tbl, def = null) (tbl ?? {}).findvalue(@(_) true) ?? def
@@ -57,6 +57,16 @@ let function appendArtilleryTypeUnlocks(effect, _context) {
     name = $"research/artillery_type_unlock_{id}"
     description = $"research/artillery_type_unlock_{id}_desc"
     icon_id = $"artillery_type_unlock_{id}_icon"
+    iconOverride = { scale = 0.8, pos = [0.4, 0.5] }
+  }
+}
+
+let function appendParatrooperBox(effect, _context) {
+  let id = firstValue(effect, {}).findindex(@(_) true) ?? "0"
+  return {
+    name = $"research/paratrooper_box{id}"
+    description = $"research/paratrooper_box{id}_desc"
+    icon_id = $"paratrooper_box_icon"
     iconOverride = { scale = 0.8, pos = [0.4, 0.5] }
   }
 }
@@ -115,7 +125,7 @@ let function appendWeaponUpgrades(effect, context) {
     tier
   }
 
-  if (itemsubtype == "tank" || itemsubtype == "bike")
+  if (itemsubtype == "tank" || itemsubtype == "bike" || itemsubtype == "truck")
     return {
       name = "research/upgrade_vehicle"
       description = "research/upgrade_vehicle_desc"
@@ -309,6 +319,7 @@ let RESEARCH_DATA_APPENDERS = {
   building_unlock = appendBuildingUnlocks
   artillery_cooldown_mul = appendArtilleryCooldownMul
   artillery_type_unlock = appendArtilleryTypeUnlocks
+  paratrooper_box = appendParatrooperBox
   squad_class_limit = appendSquadClassLimit
   class_training = appendMaxTrainingLevel
   weapon_upgrades = appendWeaponUpgrades

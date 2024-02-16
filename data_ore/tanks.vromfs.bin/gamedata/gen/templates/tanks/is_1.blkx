@@ -1,10 +1,10 @@
 {
   "base_is_1": [
     {
-      "_extends": "base_tank"
+      "_use": "base_tank"
     },
     {
-      "_extends": "is_1_ammo_stowages"
+      "_use": "is_1_ammo_stowages"
     },
     {
       "killLogName": "ussr_is_1"
@@ -146,7 +146,7 @@
     }
   ],
   "is_1_turret_01_85mm_d5t": {
-    "_extends": "tankgun_85mm_d5t",
+    "_use": "tankgun_85mm_d5t",
     "gun__shootNodeName": "bone_gun_barrel",
     "turret__yawSpeed": 14.0,
     "turret__pitchSpeed": 5.0,
@@ -182,7 +182,7 @@
     ]
   },
   "is_1_turret_02_7_62mm_dt": {
-    "_extends": "tankgun_7_62mm_dt",
+    "_use": "tankgun_7_62mm_dt",
     "gun__shootNodeName": "bone_mg_gun_twin",
     "gun__shellsAmmo:array": [
       {
@@ -195,13 +195,13 @@
   },
   "is_1_ammo_stowages": {
     "_tags": "server",
-    "_extends": "vehicle_ammo_stowages",
+    "_use": "vehicle_ammo_stowages",
     "ammo_stowage__stowageTemplates:shared:list<t>": {
       "stowage": "is_1_ammo_stowage_1"
     }
   },
   "is_1_ammo_stowage_1": {
-    "_extends": "ammo_stowage",
+    "_use": "ammo_stowage",
     "ammo_stowage__clusterTemplates:shared:list<t>": {
       "cluster": "is_1_ammo_cluster_1_1"
     },
@@ -210,7 +210,7 @@
     }
   },
   "is_1_ammo_cluster_1_1": {
-    "_extends": "ammo_cluster",
+    "_use": "ammo_cluster",
     "ammo_cluster__isShell": true,
     "ammo_cluster__slotNames:shared:list<t>": [
       {

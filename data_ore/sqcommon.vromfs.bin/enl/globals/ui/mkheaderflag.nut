@@ -1,9 +1,9 @@
 from "%enlSqGlob/ui_library.nut" import *
-
+let { mkTwoSidesGradientX } = require("%enlSqGlob/ui/gradients.nut")
 
 let FLAG_PARAMS = {
   size = SIZE_TO_CONTENT
-  flagImage = "!ui/gameImage/base_header_bar.svg"
+  flagImage = "!ui/gameImage/base_header_bar.svg"//TODO: remake with gradient
   offset = hdpx(30)
   tail = 0
   flagColor = Color(255,50,6)
@@ -74,10 +74,22 @@ local function mkHeaderFlag(content, p = FLAG_PARAMS) {
 
 let mkRightHeaderFlag = @(content, params) mkHeaderFlag(content, params.__merge({ rotate = 180 }))
 
+let function mkCenterHeaderFlag(children, p = FLAG_PARAMS) {
+  let { sideColor = 0x00000000, centerColor = 0x00FFFFFF, width = 12,
+    middle = 0.5, isAlphaPremultiplied = true } = p
+  return {
+    size = p.size
+    rendObj = ROBJ_9RECT
+    image = mkTwoSidesGradientX({sideColor, centerColor, width, middle, isAlphaPremultiplied})
+    children
+  }
+}
+
 return {
   mkHeaderFlag
   casualFlagStyle
   primeFlagStyle
   disableFlagStyle
   mkRightHeaderFlag
+  mkCenterHeaderFlag
 }

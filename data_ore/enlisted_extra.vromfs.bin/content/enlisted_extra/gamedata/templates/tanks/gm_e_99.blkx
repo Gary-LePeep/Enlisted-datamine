@@ -1,10 +1,10 @@
 {
   "gm_e_99": [
     {
-      "_extends": "germ_e100"
+      "_use": "germ_e100"
     },
     {
-      "_extends": "moon_event_fx"
+      "_use": "moon_event_fx"
     },
     {
       "item__name": "items/gm_e_99"
@@ -20,40 +20,19 @@
   ],
   "germ_e100": [
     {
-      "_extends": "base_e100"
+      "_use": "base_e100"
     },
     {
-      "_extends": "tank_panzer3_engine_sound"
+      "_use": "tank_panzer3_engine_sound"
     },
     {
-      "_extends": "tank_maus_vehicle_tracks_sound"
+      "_use": "tank_maus_vehicle_tracks_sound"
     },
     {
-      "bullet_holes__ignoreCollisionNodes:array": {
-        "_tags": "render"
-      }
+      "commanderCockpitFpsCamMaxAngle": [40.0,5.0]
     },
     {
-      "bullet_holes__movingCollisionNodes:array": [
-        {
-          "_tags": "render"
-        },
-        {
-          "movingCollisionNodes": "cls_turret_01"
-        },
-        {
-          "movingCollisionNodes": "turret_front"
-        },
-        {
-          "movingCollisionNodes": "turret_side"
-        },
-        {
-          "movingCollisionNodes": "gun_mask"
-        },
-        {
-          "movingCollisionNodes": "gun_mask_01"
-        }
-      ]
+      "gunner_cam_limit__useCockpitDir": true
     },
     {
       "vehicle_seats__seats:shared:array": [
@@ -134,7 +113,7 @@
                 [1.0,0.0,0.0],
                 [0.0,1.0,0.0],
                 [0.0,0.0,1.0],
-                [-0.15,-0.55,0.2]
+                [-0.15,-0.1,0.2]
               ]
             },
             {
@@ -206,12 +185,12 @@
     }
   ],
   "us_e100_commander_cockpit": {
-    "_extends": "base_commander_cockpit_no_slits",
+    "_use": "base_commander_cockpit_no_slits",
     "animchar__res": "t_26_1940_commander_char",
-    "cockpit__minZoom": -0.05,
+    "cockpit__minForwardOffset": -0.05,
     "cockpit__offset": [-0.0,0.0,-0.0],
     "cockpit__cockpitOffsetBySlit:list<p3>": {
-      "item": [-0.0150563,1.54909,-0.564469]
+      "slit": [-0.0150563,1.54909,-0.564469]
     },
     "cockpit__slitForwardOffset:list<r>": {
       "slit": 0.17
@@ -235,13 +214,31 @@
       {
         "node": "bone_turret"
       }
-    ]
+    ],
+    "cockpit__periscopeLimits:list<p4>": {
+      "slit": [-45.0,45.0,-5.0,25.0]
+    },
+    "cockpit__periscopeSpeed:list<p2>": {
+      "slit": [35.0,35.0]
+    },
+    "cockpit__slitZoom:array": {
+      "slit:list<r>": {
+        "zoom": 1.44
+      }
+    },
+    "cockpit__slitZoomTime:list<r>": {
+      "slit": 0.0
+    },
+    "cockpit__slitTemplates:list<t>": {
+      "slit": "default_periscope"
+    },
+    "cockpit__slitEids:list<eid>": []
   },
   "us_e100_driver_cockpit": {
-    "_extends": "base_driver_cockpit",
+    "_use": "base_driver_cockpit",
     "animchar__res": "ba_11_driver_char",
     "cockpit__offset": [-0.3,-0.26,0.23],
-    "cockpit__minZoom": -0.0,
+    "cockpit__minForwardOffset": -0.0,
     "cockpit__visibleVehicleNodeNames:list<t>": [
       {
         "node": "gun_barrel_01"
@@ -255,9 +252,18 @@
     }
   },
   "us_e100_gunner_cockpit": {
-    "_extends": "base_gunner_cockpit",
-    "animchar__res": "pz_2c_commander_char",
+    "vehicle_sight__blk": "content/tanks/gamedata/sight/germ_tzf_9b.blk",
+    "_use": "base_gunner_cockpit",
+    "animchar__res": "t_26_1940_gunner_char",
+    "cockpit__minForwardOffset": -0.27,
     "cockpit__offset": [-1.00369,0.404835,-0.687622],
+    "cockpit__cockpitOffsetBySlit:list<p3>": {
+      "cockpit__offset": [-0.0,0.0,-0.0]
+    },
+    "cockpit__attachNodeNames:list<t>": {
+      "node": "gun_barrel_01"
+    },
+    "cockpit__attachNodeIndices:list<i>": [],
     "cockpit__visibleVehicleNodeNames:list<t>": [
       {
         "node": "gun_barrel_01"
@@ -270,17 +276,30 @@
       }
     ],
     "cockpit__slitNodeNames:list<t>": {
-      "slit": "cam_front"
+      "slit": "cam_front_right"
     },
     "cockpit__slitForwardOffset:list<r>": {
-      "slit": 0.3
+      "slit": 0.21
     },
     "cockpit__slitIsGun:list<b>": {
       "slit": true
     },
-    "cockpit__attachNodeNames:list<t>": {
-      "node": "gun_barrel_01"
+    "cockpit__slitZoom:array": {
+      "slit:list<r>": [
+        {
+          "zoom": 2.5
+        },
+        {
+          "zoom": 5.0
+        }
+      ]
     },
-    "cockpit__attachNodeIndices:list<i>": []
+    "cockpit__slitZoomTime:list<r>": {
+      "slit": 0.05
+    },
+    "cockpit__slitTemplates:list<t>": {
+      "slit": "germ_tzf_9b"
+    },
+    "cockpit__slitEids:list<eid>": []
   }
 }

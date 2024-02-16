@@ -1,10 +1,11 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { doesSceneExist, scenesListGeneration } = require("%enlist/navState.nut")
-let { isNewDesign } = require("%enlSqGlob/designState.nut")
+let { sound_play } = require("%dngscripts/sound_system.nut")
+let { reqGrowthId, setCurGrowthTier } = require("%enlist/growth/growthState.nut")
 
 
-let mainSectionId = isNewDesign.value ? "MAINMENU" : "SOLDIERS"
+let mainSectionId = "SOLDIERS"
 
 let isArmyProgressOpened = mkWatched(persist, "isArmyProgressOpened", false)
 let isResearchesOpened = mkWatched(persist, "isResearchesOpened", false)
@@ -36,9 +37,9 @@ let function setSectionsSorted(sections){
   }
   sectionsSorted.clear()
   sectionsSorted.extend(sections)
-  sectionsGeneration(sectionsGeneration.value+1)
-  if (sectionsSorted?.len() && !(sectionsSorted ?? []).findvalue(@(s) s?.id == curSection.value))
+  if (!sectionsSorted.findvalue(@(s) s?.id == curSection.value))
     curSection(sectionsSorted?[0].id)
+  sectionsGeneration(sectionsGeneration.value + 1)
 }
 
 let function setCurSection(id) {
@@ -48,33 +49,45 @@ let function setCurSection(id) {
   curSection(id)
 }
 
-
+const CAMPAIGN_PROGRESS = "CAMPAIGN"
 let function jumpToArmyProgress() {
-  if (isNewDesign.value)
-    isArmyProgressOpened(true)
-  else
-    setCurSection("SQUADS")
+  setCurSection(CAMPAIGN_PROGRESS)
+}
+
+let function jumpToArmyGrowth(growthId = null) {
+  reqGrowthId(growthId)
+  setCurSection("GROWTH")
+}
+
+let function jumpToArmyGrowthTier(growthTier) {
+  setCurGrowthTier(growthTier)
+  setCurSection("GROWTH")
 }
 
 let function jumpToResearches() {
-  if (isNewDesign.value)
-    isResearchesOpened(true)
-  else
-    setCurSection("RESEARCHES")
+  setCurSection("RESEARCHES")
 }
 
 
-let hasArmyProgressOpened = Computed(@() isNewDesign.value
-  ? isArmyProgressOpened.value
-  : curSection.value == "SQUADS"
-)
+let hasArmyProgressOpened = Computed(@() curSection.value == CAMPAIGN_PROGRESS)
 
-let hasResearchesOpened = Computed(@() isNewDesign.value
-  ? isResearchesOpened.value
-  : curSection.value == "RESEARCHES"
-)
+let hasResearchesOpened = Computed(@() curSection.value == "RESEARCHES")
 
 let hasMainSectionOpened = Computed(@() curSection.value == mainSectionId)
+
+let function trySwitchSection(sectionId) {
+  let { onExitCb = @() true } = sectionsSorted.findvalue(@(s) s?.id == curSection.value)
+  if (onExitCb()) {
+    setCurSection(sectionId)
+    sound_play("ui/enlist/button_click")
+  }
+}
+
+let function tryBackSection(sectionId) {
+  let { onBackCb = @() true } = sectionsSorted.findvalue(@(s) s?.id == curSection.value)
+  if (onBackCb())
+    trySwitchSection(sectionId)
+}
 
 return {
   curSection = Computed(@() curSection.value)
@@ -90,9 +103,13 @@ return {
   isResearchesOpened
 
   jumpToArmyProgress
+  jumpToArmyGrowth
+  jumpToArmyGrowthTier
   jumpToResearches
 
   hasMainSectionOpened
   hasArmyProgressOpened
   hasResearchesOpened
+  trySwitchSection
+  tryBackSection
 }

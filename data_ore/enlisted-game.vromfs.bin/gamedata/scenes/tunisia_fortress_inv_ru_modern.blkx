@@ -12,13 +12,13 @@
   {
     "entity": {
       "_template": "custom_profile",
-      "customProfile": "enlisted/game/data/modern_squads_profile.json"
+      "customProfile": "%enlSqGlob/data/modern_squads_profile.json"
     }
   },
   {
     "entity": {
       "_template": "custom_bot_profile",
-      "customBotProfile": "enlisted/game/data/modern_squads_bots_profile.json"
+      "customBotProfile": "%enlSqGlob/data/modern_squads_bots_profile.json"
     }
   },
   {
@@ -63,6 +63,11 @@
   {
     "entity": {
       "_template": "postfx_color_grading_tonemap_death_alive_enlisted"
+    }
+  },
+  {
+    "entity": {
+      "_template": "bloom"
     }
   },
   {
@@ -2175,7 +2180,7 @@
       "capzone__createRespawnBaseForTeam": 2,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 3,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "decal__height": 0.5,
       "capzone__activateChoice:object": {
         "sector_2": 1.0
@@ -2208,7 +2213,7 @@
       "capzone__createRespawnBaseForTeam": 2,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 4,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "decal__height": 0.3,
       "capzone__activateChoice:object": {
         "sector_3": 1.0
@@ -2244,7 +2249,7 @@
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 5,
       "capzone__iconOffsetY": 3.0,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "capzone__activateChoice:object": {
         "sector_4": 1.0,
         "sector_4_b": 1.0
@@ -2277,7 +2282,7 @@
       "capzone__createRespawnBaseForTeam": 2,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 6,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "decal__height": 1.0,
       "capzone__activateChoice:object": {
         "sector_5": 1.0
@@ -2310,7 +2315,7 @@
       "capzone__createRespawnBaseForTeam": 2,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 7,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "decal__height": 2.5,
       "capzone__activateChoice:object": {
         "sector_5": 1.0
@@ -2343,7 +2348,7 @@
       "capzone__createRespawnBaseForTeam": 2,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 8,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "decal__height": 2.5
     }
   },

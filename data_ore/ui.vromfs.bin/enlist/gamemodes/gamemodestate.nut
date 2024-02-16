@@ -8,9 +8,7 @@ let {
   curUnfinishedBattleTutorial, curBattleTutorial, curBattleTutorialTank, curBattleTutorialEngineer,
   curBattleTutorialAircraft, curPractice} = require("%enlist/tutorial/battleTutorial.nut")
 let localSettings = require("%enlist/options/localSettings.nut")("quickMatch/")
-let {
-  curCampaign, curArmy, maxCampaignLevel
-} = require("%enlist/soldiers/model/state.nut")
+let { curCampaign, curArmy } = require("%enlist/soldiers/model/state.nut")
 let { isInSquad } = require("%enlist/squad/squadState.nut")
 let { purchasesExt } = require("%enlist/meta/profile.nut")
 let armiesPresentation = require("%enlSqGlob/ui/armiesPresentation.nut")
@@ -18,11 +16,11 @@ let { seenGamemodes } = require("seenGameModes.nut")
 let { gameLanguage } = require("%enlSqGlob/clientState.nut")
 let { maxVersionStr } = require("%enlSqGlob/client_version.nut")
 let { check_version } = require("%sqstd/version_compare.nut")
-let { startsWith } = require("%sqstd/string.nut")
 
 let selGameModeIdByCampaign = mkWatched(persist, "curGameMode", {})
 let savedGameModeIdByCampaign = localSettings({}, "curGameMode")
 
+const INFANTRY_TUTORIAL_ID = "tutorial"
 const TANK_TUTORIAL_ID = "tutorial_tank"
 const ENGINEER_TUTORIAL_ID = "tutorial_engineer"
 const AIRCRAFT_TUTORIAL_ID = "tutorial_aircraft"
@@ -43,60 +41,59 @@ let defTutorialEngineerImage = "ui/game_mode_tutorial_engineer.avif"
 let defTutorialAircraftImage = "ui/game_mode_tutorial_aircraft.avif"
 let defPracticeImage = "ui/game_mode_moscow_practice.avif"
 
-let gameModeDefaults = {
+let mkGameModeDefaults = @() {
   id = null
+  isTutorial = false
   isAvailable = false
+  isEnabled = false
   isLocal = false
   minGroupSize = 1
   maxGroupSize = 1
-  queue = null
-  queueId = null
+  queues = []
   isLocked = false
   lockLevel = 0
-
-  locId = null
-  descLocId = null
+  title = null
+  description = null
   image = null
   fbImage = null
   scenes = []
-  uiOrder = 10000
-  needShowCrossplayIcon = false
+  uiOrder = 0
+  needShowCrossplayIcon = true
   reqVersion = null
   isVersionCompatible = true
+  isEventQueue = false
+  isNewbies = false
+  isAvailableForNoobs = false
+  showWhenInactive = false
+  isPreviewImage = false
+  leaderboardTables = []
+  customProfile = null
+  campaignsToShow = []
 }
 
 let onlineGameModes = Computed(function() {
-  let curLevel = maxCampaignLevel.value
+  let maxVersionValue = maxVersionStr.value
   let res = []
   let used = {}
   foreach (queueIdx, queue in matchingQueues.value) {
+    let { extraParams = {} } = queue
     if ((!(queue?.enabled ?? true) || (queue?.disabled ?? false))
-      && !(queue?.extraParams.showWhenInactive ?? false))
+      && !(extraParams?.showWhenInactive ?? false))
         continue
-    let gameMode = gameModeDefaults.__merge(queue)
-      .__update(queue?.extraParams ?? {})
-    let id = gameMode.id ?? gameMode.queueId ?? $"#{queueIdx}"
+
+    let id = queue?.id ?? queue?.queueId ?? $"#{queueIdx}"
     if (id in used) {
-      logerr($"Not unique gameModeId, {id}")
+      logerr($"Not unique queue mode '{id}'")
       continue
     }
 
-    let maxVersionValue = maxVersionStr.value
-    let isVersionCompatible = queue?.extraParams.reqVersion == null
-      || check_version(queue.extraParams.reqVersion, maxVersionValue)
-    if (!isVersionCompatible && queue?.extraParams.hideOnIncompatableVersion)
+    let { reqVersion = null, hideOnIncompatableVersion = false } = extraParams
+    let isVersionCompatible = reqVersion == null || check_version(reqVersion, maxVersionValue)
+    if (!isVersionCompatible && hideOnIncompatableVersion)
       continue
 
     used[id] <- true
-    gameMode.id = id
-    gameMode.queue = queue
-    gameMode.locId = gameMode.locId ?? id
-    gameMode.image = gameMode?.imageUrl ?? gameMode.image
-    gameMode.needShowCrossplayIcon = true
-    gameMode.isLocked = (gameMode?.queue.extraParams.minCampaignLevel ?? 0) > curLevel
-    gameMode.lockLevel = gameMode?.queue.extraParams.minCampaignLevel ?? 0
-    gameMode.isVersionCompatible = isVersionCompatible
-    res.append(gameMode)
+    res.append(queue)
   }
   res.sort(@(a, b) a.uiOrder <=> b.uiOrder)
   return res
@@ -110,7 +107,8 @@ let offlineGameModes = Computed(function() {
   return [
     {
       isLocal = true
-      id = "tutorial"
+      isTutorial = true
+      id = INFANTRY_TUTORIAL_ID
       locId = "TUTORIAL"
       descLocId = "tutorial_desc"
       uiOrder = 0
@@ -119,6 +117,7 @@ let offlineGameModes = Computed(function() {
     },
     {
       isLocal = true
+      isTutorial = true
       id = TANK_TUTORIAL_ID
       locId = "TUTORIAL_TANK"
       descLocId = "tutorial_tank_desc"
@@ -128,6 +127,7 @@ let offlineGameModes = Computed(function() {
     },
     {
       isLocal = true
+      isTutorial = true
       id = ENGINEER_TUTORIAL_ID
       locId = "TUTORIAL_ENGINEER"
       descLocId = "tutorial_engineer_desc"
@@ -137,6 +137,7 @@ let offlineGameModes = Computed(function() {
     },
     {
       isLocal = true
+      isTutorial = true
       id = AIRCRAFT_TUTORIAL_ID
       locId = "TUTORIAL_AIRCRAFT"
       descLocId = "tutorial_aircraft_desc"
@@ -153,70 +154,127 @@ let offlineGameModes = Computed(function() {
       image = armiesPresentation?[armyId].practiceImage ?? defPracticeImage
       scenes = [curPractice.value]
     }
-  ].map(@(v) gameModeDefaults.__merge(v))
+  ]
 })
 
 let allGameModes = Computed(function() {
+  let campId = curCampaign.value
   let isAllowLocal = !isInSquad.value
-  let gameModes = [].extend(offlineGameModes.value, onlineGameModes.value)
+  let uiModes = {}
+  let res = []
+  foreach (queue in [].extend(offlineGameModes.value, onlineGameModes.value)) {
+    let { extraParams = {} } = queue
+    let { uiGameModeId = null, minCampaignLevel = 0, isEventQueue = false, campaigns = [],
+      newbies = false, availableForNoobs = false, showWhenInactive = false, isPreviewImage = false,
+      leaderboardTables = [], customProfile = null, campaignsToShow = []
+    } = extraParams
 
-  foreach (gMode in gameModes) {
-    gMode.isAvailable = !gMode.isLocal || isAllowLocal
+    if (campaigns.len() > 0 && !campaigns.contains(campId))
+      continue
 
-    local modeTitle = loc(gMode?.locId, "")
+    local gMode
+    if (uiGameModeId == null) {
+      gMode = mkGameModeDefaults()
+      res.append(gMode)
+    }
+    else {
+      gMode = uiModes?[uiGameModeId]
+      if (gMode == null) {
+        gMode = mkGameModeDefaults()
+        uiModes[uiGameModeId] <- gMode
+        res.append(gMode)
+      }
+    }
+    gMode.queues.append(queue)
+
+    gMode.id = gMode.id ?? queue?.id
+    let { maxGroupSize = 1 } = queue
+    if (gMode.maxGroupSize == 1)
+      gMode.maxGroupSize = maxGroupSize
+    else if (gMode.maxGroupSize != maxGroupSize)
+      logerr($"Queues in gamemode {gMode.id} has different max group size")
+
+    gMode.needShowCrossplayIcon = gMode.maxGroupSize > 1
+    gMode.isTutorial = gMode.isTutorial || !!queue?.isTutorial
+    gMode.isAvailable = gMode.isAvailable || !queue?.isLocal || isAllowLocal
+    gMode.isLocal = gMode.isLocal || !!queue?.isLocal
+    gMode.lockLevel = gMode.lockLevel == 0 ? minCampaignLevel
+      : min(gMode.lockLevel, minCampaignLevel)
+    gMode.image = gMode.image ?? queue?.image
+    gMode.uiOrder = max(gMode.uiOrder, queue?.uiOrder ?? 0)
+    gMode.reqVersion = gMode.reqVersion ?? queue?.reqVersion
+    gMode.isVersionCompatible = gMode.isVersionCompatible && (queue?.isVersionCompatible ?? true)
+    gMode.isEventQueue = gMode.isEventQueue || isEventQueue
+    gMode.isNewbies = gMode.isNewbies || newbies
+    gMode.isAvailableForNoobs = gMode.isAvailableForNoobs || availableForNoobs
+    gMode.scenes = gMode.scenes.len() > 0 ? gMode.scenes : (queue?.scenes ?? [])
+    gMode.showWhenInactive = gMode.showWhenInactive || showWhenInactive
+    gMode.isPreviewImage = gMode.isPreviewImage || isPreviewImage
+    gMode.leaderboardTables.extend(leaderboardTables)
+    gMode.customProfile = gMode.customProfile ?? customProfile
+    gMode.campaignsToShow.extend(campaignsToShow)
+
+    local modeTitle = loc(queue?.locId, "")
     if (modeTitle == "") {
-      let locTable = gMode?.queue.extraParams.locTable ?? {}
+      let { locTable = {} } = extraParams
       modeTitle = locTable?[gameLanguage] ?? locTable?["English"] ?? ""
     }
-    gMode.title <- modeTitle
+    gMode.title = gMode.title ?? modeTitle
 
-    let { descLocId = null } = gMode
+    let descLocId = queue?.descLocId ?? extraParams?.descLocId
+    local modeDescription
     if (descLocId != null && doesLocTextExist(descLocId))
-      gMode.description <- loc(descLocId)
+      modeDescription = loc(descLocId)
     else {
-      let locTable = gMode?.queue.extraParams.descLocTable ?? {}
-      gMode.description <- locTable?[gameLanguage] ?? locTable?["English"] ?? modeTitle
+      let { descLocTable = {} } = extraParams
+      modeDescription = descLocTable?[gameLanguage] ?? descLocTable?["English"] ?? modeTitle
     }
+    gMode.description = gMode.description ?? modeDescription
   }
-  return gameModes
+  return res
 })
 
-let isEventGm = @(gm) gm.queue?.extraParams.isEventQueue ?? false
-
-let isQueueFitToCampaign = @(queue, campaign)
-  (queue?.extraParams.campaigns ?? []).indexof(campaign) != null
+let isNewbieFit = @(gameMode, newbie, allow = false) gameMode.isLocal
+  || gameMode.isNewbies == newbie
+  || (allow && gameMode.isAvailableForNoobs && newbie)
 
 let mainGameModes = Computed(function() {
-  let campaign = curCampaign.value
-  let res = allGameModes.value.filter(@(gm) !isEventGm(gm)
-    && (gm.queue == null || isQueueFitToCampaign(gm.queue, campaign)))
-
   let isNewbieV = isNewbie.value
-  let newbieRes = res.filter(@(gm) gm.queue == null || (gm.queue?.extraParams.newbies ?? false) == isNewbieV)
-  return newbieRes.findvalue(@(gm) gm.queue != null)
-    ? newbieRes //apply newbie gamemodes only if there exist online modes
-    : res
+  let res = allGameModes.value.filter(@(gm) !gm.isEventQueue)
+  let newbieRes = res.filter(@(gm) isNewbieFit(gm, isNewbieV))
+  return newbieRes
+    .findvalue(@(gm) gm.queues.findvalue(@(qu) qu?.enabled && qu?.queueId) != null) != null
+      ? newbieRes //apply newbie gamemodes only if there exist online modes
+      : res
 })
 
-let tutorialModes = Computed(@() mainGameModes.value
-  .filter(@(mode) startsWith(mode.id,"tutorial")))
-let mainModes = Computed(@() mainGameModes.value
-  .filter(@(mode) !startsWith(mode.id,"tutorial")))
+let splittedModes = Computed(function() {
+  let tutorialModes = []
+  let mainModes = []
+  foreach (mode in mainGameModes.value)
+    if (mode.isTutorial)
+      tutorialModes.append(mode)
+    else
+      mainModes.append(mode)
+  return { tutorialModes, mainModes }
+})
+
+let tutorialModes = Computed(@() splittedModes.value.tutorialModes)
+
+let mainModes = Computed(@() splittedModes.value.mainModes)
 
 let eventGameModes = Computed(function() {
   let isNewbieV = isNewbie.value
   let boughtGuids = purchasesExt.value
-  return allGameModes.value.filter(function(gm) {
-    if (!isEventGm(gm))
-      return false
-    let { requirePurchase = null } = gm?.extraParams
-    if ((requirePurchase ?? "") != "")
-      return requirePurchase in boughtGuids
-    return (gm.queue == null
-      || (gm.queue?.extraParams.newbies ?? false) == isNewbieV
-      || ((gm.queue?.extraParams.availableForNoobs ?? false) && isNewbieV)
-    )
-  })
+  return allGameModes.value
+    .filter(function(gm) {
+      if (!gm.isEventQueue || !isNewbieFit(gm, isNewbieV, true))
+        return false
+      let { requirePurchase = "" } = gm?.extraParams
+      if (requirePurchase != "")
+        return requirePurchase in boughtGuids
+      return true
+    })
 })
 
 let allGameModesById = Computed(function() {
@@ -259,9 +317,7 @@ let function setGameMode(id) {
 console_register_command(@() savedGameModeIdByCampaign.mutate({}), "meta.resetSavedGamemodes")
 
 return {
-  allGameModes
   allGameModesById
-  mainGameModes
   eventGameModes
   currentGameModeId
   currentGameMode

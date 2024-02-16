@@ -3,6 +3,7 @@ require game.es.events
 require game.es.vehicle.vehicle_seats_common
 require game.utils.team
 require matching
+require game.es.vehicle.vehicle_events
 
 [es(tag=gameClient)]
 def vehicle_seats_client_enter_exit_request(evt : HumanUseObjectRequest;
@@ -20,7 +21,7 @@ def vehicle_seats_client_enter_exit_request(evt : HumanUseObjectRequest;
                                                           vehicle__isPlayerCanEnter : bool = true;
                                                           vehicle_seats__restrictToTeam : int = TEAM_UNASSIGNED)
     let playerGroup = get_int64(squad_member__playerEid, "origGroupId") ?? int64(INVALID_GROUP_ID)
-    if !can_use_vehicle(team, vehicle_seats__restrictToTeam, playerGroup, vehicle_seats__restrictToGroup)
+    if !can_use_vehicle(team, vehicle_seats__restrictToTeam, playerGroup, vehicle_seats__restrictToGroup, eid, requester)
       return
 
     if find_seat_with_owner(requester, vehicle_seats__seatEids) >= 0
@@ -28,3 +29,7 @@ def vehicle_seats_client_enter_exit_request(evt : HumanUseObjectRequest;
         start_exit_vehicle_timer(requester, vehicle_seats__exitTime)
     elif vehicle__isPlayerCanEnter && human_vehicle__can_take_seat && find_highest_free_seat(possessedByPlr, vehicle_seats__seatEids) >= 0
       start_enter_vehicle_timer(requester, eid, vehicle_seats__enterTime)
+
+[es(tag=gameClient)]
+def paratroopers_exit_start_client(evt : CmdStartParatroopersExit; eid : EntityId)
+  sendEvent(eid, [[HumanUseObjectRequest objectEid=evt.aircraftEid]])

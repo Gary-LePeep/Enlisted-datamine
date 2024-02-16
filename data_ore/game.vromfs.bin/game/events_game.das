@@ -79,6 +79,7 @@ struct CmdShowHint
 [event(unicast, routing=ROUTING_CLIENT_CONTROLLED_ENTITY_TO_SERVER)]
 struct EventSpectateTarget
   target_eid : EntityId
+  initial : bool
 
 [cpp_event(unicast)]
 struct EventAnimIrq
@@ -104,13 +105,6 @@ struct CmdRendinstDamage
   pos : float3
   impulse : float3
   time : float
-
-[event(unicast)]
-struct CmdRendinstBulletHole
-  handle : riex_handle_t
-  pos : float3
-  norm : float3
-  pmid : int
 
 [event(unicast, routing=ROUTING_CLIENT_CONTROLLED_ENTITY_TO_SERVER)]
 struct RequestRendinstDamage
@@ -280,3 +274,26 @@ struct AFKShowWarning {}
 
 [event(broadcast)]
 struct ReplaySetOperatorCamera {}
+
+[event(unicast)]
+struct CmdSetCameraTarget
+  target : EntityId
+
+[event(unicast, routing=ROUTING_CLIENT_CONTROLLED_ENTITY_TO_SERVER)]
+struct RequestCamSwitch
+  isTpsView : bool
+
+[event(unicast)]
+struct CmdVoxelGridRebuild{}
+
+[cpp_event(unicast)]
+struct CmdResetRotAnim
+  firstKey : float4
+  firstKeyTime : float
+  animType : int
+
+[cpp_event(unicast)]
+struct CmdAddRotAnim
+  firstKey : float4
+  firstKeyTime : float
+  useAdditionalTime : bool

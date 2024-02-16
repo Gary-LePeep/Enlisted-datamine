@@ -1,0 +1,194 @@
+{
+  "mass": 10000.0,
+  "momentOfInertia": [0.6,0.3,0.6],
+  "centerOfMass": [0.0,0.0,0.0],
+  "physMat": "walkRay",
+  "useFutureContacts": true,
+  "logCCD": false,
+  "addToWorld": true,
+  "shouldTraceGround": true,
+  "boundingRadius": 0.1,
+  "collisionResource": {
+    "props": {
+      "turret_bottom": "convex_hull",
+      "cannon_breech": "convex_hull"
+    }
+  },
+  "ccdSpheres": {
+    "ccd": [0.0,0.4,0.0,0.15]
+  },
+  "DamageParts": {
+    "formatVersion": 2,
+    "turret_bottom": {
+      "vital": false,
+      "hitTestType": "armor",
+      "malfunctionDamage": 0.7,
+      "stopChanceOnDeadPart": 1.0,
+      "castOnKillAfterTankPartDead": true,
+      "fireProtectionHp": -1.0,
+      "externalArmor": true,
+      "minRelHpSelfRepair": 0.5,
+      "maxRelHpSelfRepair": 0.5,
+      "selfRepairDelay": 0.0,
+      "selfRepairTime": -1.0,
+      "ignoreDeadWithSplash": false,
+      "armorClass": "RHA_tank",
+      "hp": 10000.0,
+      "armorThickness": 25.0,
+      "restrainDamage": 0.0
+    },
+    "gun_mask_01": {
+      "vital": false,
+      "hitTestType": "armor",
+      "malfunctionDamage": 0.7,
+      "stopChanceOnDeadPart": 1.0,
+      "castOnKillAfterTankPartDead": true,
+      "fireProtectionHp": -1.0,
+      "externalArmor": true,
+      "minRelHpSelfRepair": 0.5,
+      "maxRelHpSelfRepair": 0.5,
+      "selfRepairDelay": 0.0,
+      "selfRepairTime": -1.0,
+      "ignoreDeadWithSplash": false,
+      "armorClass": "RHA_tank",
+      "hp": 10000.0,
+      "armorThickness": 10.0,
+      "restrainDamage": 0.0
+    },
+    "drive_turret_v": {
+      "hitTestType": "inner",
+      "malfunctionDamage": 0.7,
+      "stopChanceOnDeadPart": 1.0,
+      "castOnKillAfterTankPartDead": false,
+      "fireProtectionHp": 5.0,
+      "externalArmor": false,
+      "minRelHpSelfRepair": 0.5,
+      "maxRelHpSelfRepair": 0.5,
+      "selfRepairDelay": 0.0,
+      "selfRepairTime": -1.0,
+      "ignoreDeadWithSplash": false,
+      "splashPenetrationToArmorThreshold": 0.33,
+      "pressureDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
+      "vital": true,
+      "armorClass": "tank_structural_steel",
+      "hp": 150.0,
+      "armorThickness": 30.0,
+      "armorThrough": 15.0,
+      "hidableInViewer": false
+    },
+    "drive_turret_h": {
+      "hitTestType": "inner",
+      "malfunctionDamage": 0.7,
+      "stopChanceOnDeadPart": 1.0,
+      "castOnKillAfterTankPartDead": false,
+      "fireProtectionHp": 5.0,
+      "externalArmor": false,
+      "minRelHpSelfRepair": 0.5,
+      "maxRelHpSelfRepair": 0.5,
+      "selfRepairDelay": 0.0,
+      "selfRepairTime": -1.0,
+      "ignoreDeadWithSplash": false,
+      "splashPenetrationToArmorThreshold": 0.33,
+      "pressureDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
+      "vital": true,
+      "armorClass": "tank_structural_steel",
+      "hp": 150.0,
+      "armorThickness": 30.0,
+      "armorThrough": 15.0,
+      "hidableInViewer": false
+    },
+    "optic_gun": {
+      "hitTestType": "armor",
+      "malfunctionDamage": 0.7,
+      "stopChanceOnDeadPart": 1.0,
+      "castOnKillAfterTankPartDead": false,
+      "fireProtectionHp": -1.0,
+      "externalArmor": false,
+      "minRelHpSelfRepair": 0.5,
+      "maxRelHpSelfRepair": 0.5,
+      "selfRepairDelay": 0.0,
+      "selfRepairTime": -1.0,
+      "ignoreDeadWithSplash": false,
+      "splashPenetrationToArmorThreshold": 0.33,
+      "pressureDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
+      "armorClass": "optics_tank",
+      "hp": 50.0,
+      "armorThickness": 10.0
+    },
+    "cannon_breech": {
+      "hitTestType": "inner",
+      "malfunctionDamage": 0.7,
+      "stopChanceOnDeadPart": 1.0,
+      "castOnKillAfterTankPartDead": false,
+      "fireProtectionHp": 5.0,
+      "externalArmor": false,
+      "minRelHpSelfRepair": 0.5,
+      "maxRelHpSelfRepair": 0.5,
+      "selfRepairDelay": 0.0,
+      "selfRepairTime": -1.0,
+      "ignoreDeadWithSplash": false,
+      "splashPenetrationToArmorThreshold": 0.33,
+      "pressureDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
+      "vital": true,
+      "armorClass": "tank_structural_steel",
+      "hp": 150.0,
+      "armorThickness": 150.0,
+      "hidableInViewer": false,
+      "restrainDamage": 0.5,
+      "armorThrough": 150.0
+    },
+    "gun_barrel": {
+      "hitTestType": "armor",
+      "malfunctionDamage": 0.7,
+      "stopChanceOnDeadPart": 1.0,
+      "castOnKillAfterTankPartDead": false,
+      "fireProtectionHp": -1.0,
+      "externalArmor": false,
+      "minRelHpSelfRepair": 0.5,
+      "maxRelHpSelfRepair": 0.5,
+      "selfRepairDelay": 0.0,
+      "selfRepairTime": -1.0,
+      "ignoreDeadWithSplash": false,
+      "splashPenetrationToArmorThreshold": 0.33,
+      "pressureDamageMult": 0.0,
+      "sonicDamageMult": 0.0,
+      "vital": true,
+      "armorClass": "tank_barrel",
+      "hp": 120.0,
+      "armorThickness": 20.0
+    }
+  },
+  "MetaParts": {
+    "armor_body": [
+      {
+        "hp": 100.0
+      },
+      {
+        "part": "turret_bottom"
+      },
+      {
+        "part": "gun_mask_01"
+      },
+      {
+        "part": "drive_turret_h"
+      },
+      {
+        "part": "drive_turret_v"
+      },
+      {
+        "part": "cannon_breech"
+      },
+      {
+        "effect": {
+          "conditionDead": true,
+          "killEffect": "expl",
+          "kill": true
+        }
+      }
+    ]
+  }
+}

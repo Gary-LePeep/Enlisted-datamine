@@ -1,7 +1,7 @@
 require ecs
 require game.utils.team
-require enlisted.events_enlisted
-require EnlistedNet
+require team_narrator_net.modules.team_narrator_net_events
+require DngNet
 
 [es(tag=server, on_event=ParallelUpdateFrameDelayed, no_order)]
 def train_escort_net_narrator(evt : Event;
@@ -42,16 +42,16 @@ def train_escort_narrator_on_team_presence(evt : Event;
   let hasDefense = defense != -1
 
   if hasOffence && wasDefense && !hasDefense
-    broadcast_net_event([[CmdTeamStartNarrator team=offense, phrase="trainCaptured", replace=false]])
+    broadcast_net_event([[CmdNetTeamNarrator team=offense, phrase="trainCaptured", replace=false]])
     //logerr("trainCaptured offense team={offense}")
   elif hasDefense && wasOffence && !hasOffence
-    broadcast_net_event([[CmdTeamStartNarrator team=defense, phrase="trainCaptured", replace=false]])
+    broadcast_net_event([[CmdNetTeamNarrator team=defense, phrase="trainCaptured", replace=false]])
     //logerr("trainCaptured defense team={defense}")
   elif hasOffence && !wasOffence
-    broadcast_net_event([[CmdTeamStartNarrator team=offense, phrase="trainCapturing", replace=false]])
+    broadcast_net_event([[CmdNetTeamNarrator team=offense, phrase="trainCapturing", replace=false]])
     //logerr("trainCapturing offense team={offense}")
   elif hasDefense && !wasDefense
-    broadcast_net_event([[CmdTeamStartNarrator team=defense, phrase="trainCapturing", replace=false]])
+    broadcast_net_event([[CmdNetTeamNarrator team=defense, phrase="trainCapturing", replace=false]])
     //logerr("trainCapturing defense team={defense}")
 
   train_escort_narrator__prevTeamOffensePresence = offense

@@ -1,12 +1,12 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let eventbus = require("eventbus")
-let http = require("dagor.http")
-let json = require("json")
+let { httpRequest, HTTP_SUCCESS } = require("dagor.http")
+let { parse_json } = require("json")
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
 let { get_circuit } = require("app")
 let { isLoggedIn } = require("%enlSqGlob/login_state.nut")
-let { getPlatformId, getLanguageId } = require("%enlist/httpPkg.nut")
+let { getPlatformId, getLanguageId } = require("%enlSqGlob/httpPkg.nut")
 let { settings } = require("%enlist/options/onlineSettings.nut")
 let { specialEvents } = require("%enlist/unlocks/eventsTaskState.nut")
 let { send_counter } = require("statsd")
@@ -15,7 +15,7 @@ let { curArmyData } = require("%enlist/soldiers/model/state.nut")
 let { priorityDiscounts, shopItems } = require("%enlist/shop/shopItems.nut")
 let { configs } = require("%enlist/meta/configs.nut")
 let { isOffersVisible } = require("%enlist/featureFlags.nut")
-let { update_offers } = require("%enlist/meta/clientApi.nut")
+let { update_offers, reset_offers } = require("%enlist/meta/clientApi.nut")
 
 
 const URL = "https://enlisted.net/{language}/events/event/{id}/?platform={platform}&circuit={circuit}&target=game" //warning disable: -forgot-subst
@@ -95,22 +95,18 @@ let function recalcActiveOffers(_ = null) {
   let list = armyId == null ? []
     : allOffers.value
         .map(function(offer) {
-          let { shopItemGuid } = offer
+          let { shopItemGuid, scheme = null } = offer
           let shopItem = sItems?[shopItemGuid]
           if (shopItem == null)
-            return null
-
-          let { armies = [] } = shopItem
-          if (armies.len() > 0 && !armies.contains(armyId))
             return null
 
           return {
             endTime = offer.intervalTs[1]
             widgetTxt = loc(shopItem?.nameLocId ?? "")
-            widgetImg = offer.scheme?.baseWidgetImg
-            windowImg = offer.scheme?.basePromoImg
-            descLocId = offer.scheme?.baseDescLocId
-            lifeTime  = offer.scheme.lifeTime
+            widgetImg = scheme?.baseWidgetImg
+            windowImg = scheme?.basePromoImg
+            descLocId = scheme?.baseDescLocId
+            lifeTime  = scheme?.lifeTime ?? 0
             guid = offer.guid
             shopItemGuid
             discountInPercent = offer.discountInPercent
@@ -230,15 +226,21 @@ let function recalcAvailableEvents(_ = null) {
 eventsData.subscribe(recalcAvailableEvents)
 recalcAvailableEvents()
 
-let eventsAvailable = Computed(@() eventsData.value
+let eventsKeysSorted = Computed(@() eventsData.value
   .values()
   .filter(@(evt) evt.published && evt.id in availableEventTime.value)
-  .sort(@(a, b) b.start <=> a.start || a.end <=> b.end || a.id <=> b.id))
+  .sort(@(a, b) b.start <=> a.start || a.end <=> b.end || a.id <=> b.id)
+  .map(@(evt) evt.id))
 
 let function processEventDesc(response) {
   let id = descRequestedId.value
+  if (id == null) {
+    log("current offers request id is null")
+    return
+  }
+
   let { status = -1, http_code = 0, body = null } = response
-  if (status != http.SUCCESS || http_code < 200 || 300 <= http_code) {
+  if (status != HTTP_SUCCESS || http_code < 200 || 300 <= http_code) {
     send_counter("offer_receive_error", 1, { http_code })
     log($"current offers request error: {status}, {http_code}")
     descRequestedId(null)
@@ -248,7 +250,7 @@ let function processEventDesc(response) {
 
   local result
   try {
-    result = json.parse(body?.as_string())?.result
+    result = parse_json(body?.as_string())?.result
   } catch(e) {
   }
 
@@ -282,7 +284,7 @@ let function requestOffersData(eventId) {
   else
     request.callback <- processEventDesc
   descRequestedId(eventId)
-  http.request(request)
+  httpRequest(request)
 }
 
 if (UseEventBus)
@@ -306,6 +308,7 @@ isLoggedIn.subscribe(function(logged) {
 })
 
 console_register_command(updateOffers, "meta.updateOffers")
+console_register_command(@() reset_offers(console_print), "meta.resetOffers")
 
 console_register_command(@()
   settings.mutate(@(set) SEEN_ID in set ? delete set[SEEN_ID] : null), "meta.resetSeenOffersPromo")
@@ -313,8 +316,8 @@ console_register_command(@()
 return {
   isSpecOffersOpened
   isRequestInProgress = Computed(@() descRequestedId.value != null)
-  hasSpecialEvent = Computed(@() eventsAvailable.value.len() > 0)
-  eventsAvailable
+  eventsData
+  eventsKeysSorted
 
   isUnseen
   markSeen

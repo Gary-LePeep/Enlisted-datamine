@@ -1,6 +1,6 @@
 {
   "germ_stug_iii_ausf_f_16_stalingrad_battlepas_premium": {
-    "_extends": "germ_stug_iii_ausf_f_common",
+    "_use": "germ_stug_iii_ausf_f_common",
     "animchar__objTexReplace:object": {
       "ger_camo_grey*": "ger_camo_dark_grey*"
     },
@@ -19,13 +19,10 @@
     ]
   },
   "germ_stug_iii_ausf_f_stalingrad": {
-    "_extends": "germ_stug_iii_ausf_f"
+    "_use": "germ_stug_iii_ausf_f"
   },
   "germ_stug_iii_ausf_f": {
-    "_extends": "germ_stug_iii_ausf_f_common",
-    "animchar__objTexReplace:object": {
-      "ger_camo_grey*": "ger_camo_winter_grey*"
-    },
+    "_use": "germ_stug_iii_ausf_f_common",
     "disableDMParts:list<t>": [
       {
         "part": "track_r_01"
@@ -37,10 +34,28 @@
   },
   "germ_stug_iii_ausf_f_common": [
     {
-      "_extends": "base_stug_iii_ausf_f"
+      "_use": "base_stug_iii_ausf_f"
     },
     {
-      "_extends": "tank_panzer3_engine_sound"
+      "_use": "tank_panzer3_engine_sound"
+    },
+    {
+      "item__iconOffset": [0.05,0.25]
+    },
+    {
+      "item__iconScale": 1.45
+    },
+    {
+      "commanderCockpitFpsCamMaxAngle": [40.0,5.0]
+    },
+    {
+      "gunner_cam_limit__useCockpitDir": true
+    },
+    {
+      "armorThicknessHull": [50.0,30.0,30.0]
+    },
+    {
+      "armorThicknessTurret": [50.0,30.0,30.0]
     },
     {
       "turrets__initAmmoDistribution:array": [
@@ -167,9 +182,9 @@
     }
   ],
   "germ_stug_iii_ausf_f_commander_cockpit": {
-    "_extends": "base_commander_cockpit_no_slits",
+    "_use": "base_commander_cockpit_no_slits",
     "animchar__res": "t_26_1940_commander_char",
-    "cockpit__offset": [-0.468794,2.21173,0.501026],
+    "cockpit__offset": [-0.468794,2.27,0.501026],
     "cockpit__slitForwardOffset:list<r>": {
       "slit": 0.16
     },
@@ -188,25 +203,50 @@
       },
       {
         "node": "@root"
+      },
+      {
+        "node": "bone_turret"
+      },
+      {
+        "node": "hatch_05"
+      },
+      {
+        "node": "hatch_06"
       }
     ],
     "cockpit__attachNodeNames:list<t>": {
       "node": "root"
     },
-    "cockpit__attachNodeIndices:list<i>": []
+    "cockpit__attachNodeIndices:list<i>": [],
+    "cockpit__periscopeLimits:list<p4>": {
+      "slit": [-90.0,90.0,-8.0,25.0]
+    },
+    "cockpit__periscopeSpeed:list<p2>": {
+      "slit": [35.0,35.0]
+    },
+    "cockpit__slitZoom:array": {
+      "slit:list<r>": {
+        "zoom": 1.44
+      }
+    },
+    "cockpit__slitZoomTime:list<r>": {
+      "slit": 0.0
+    },
+    "cockpit__slitTemplates:list<t>": {
+      "slit": "default_periscope"
+    },
+    "cockpit__slitEids:list<eid>": []
   },
   "germ_stug_iii_ausf_f_gunner_cockpit": {
-    "vehicle_sight__blk": "content/tanks/gamedata/sight/germ_sfl_zf_1a.blk",
-    "_extends": "base_gunner_cockpit",
+    "_use": "base_gunner_cockpit",
     "animchar__res": "pzkpfw_iii_e_gunner_char",
     "cockpit__offset": [-1.08907,0.579675,0.641577],
-    "cockpit__minZoom": -0.4,
     "cockpit__attachNodeNames:list<t>": {
       "node": "bone_gun"
     },
     "cockpit__attachNodeIndices:list<i>": [],
     "cockpit__slitForwardOffset:list<r>": {
-      "slit": 0.16
+      "slit": 0.17
     },
     "cockpit__slitIsGun:list<b>": {
       "slit": true
@@ -224,10 +264,22 @@
       {
         "node": "bone_gun"
       }
-    ]
+    ],
+    "cockpit__slitZoom:array": {
+      "slit:list<r>": {
+        "zoom": 5.0
+      }
+    },
+    "cockpit__slitZoomTime:list<r>": {
+      "slit": 0.05
+    },
+    "cockpit__slitTemplates:list<t>": {
+      "slit": "germ_sfl_zf_1a"
+    },
+    "cockpit__slitEids:list<eid>": []
   },
   "germ_stug_iii_ausf_f_driver_cockpit": {
-    "_extends": "base_driver_cockpit_no_slits",
+    "_use": "base_driver_cockpit_no_slits",
     "animchar__res": "pzkpfw_iii_e_driver_char",
     "cockpit__offset": [0.0,0.0,0.0],
     "cockpit__cockpitOffsetBySlit:list<p3>": [

@@ -172,49 +172,49 @@
         "_tracked": "engineer__isMenuOpen"
       },
       {
-        "_extends": "shooter_human"
+        "_use": "shooter_human"
       },
       {
-        "_extends": "human_breath"
+        "_use": "human_breath"
       },
       {
-        "_extends": "human_sound"
+        "_use": "human_bush_collision_effects"
       },
       {
-        "_extends": "human_sound_paths"
+        "_use": "human_sound"
       },
       {
-        "_extends": "human_net_sound"
+        "_use": "human_sound_paths"
       },
       {
-        "_extends": "human_speech"
+        "_use": "human_net_sound"
       },
       {
-        "_extends": "german_human_voice"
+        "_use": "human_speech"
       },
       {
-        "_extends": "human_hooray_speech"
+        "_use": "german_human_voice"
       },
       {
-        "_extends": "squad_member_ai"
+        "_use": "human_hooray_speech"
       },
       {
-        "_extends": "enlisted_human_marker"
+        "_use": "squad_member_ai"
       },
       {
-        "_extends": "human_hide_slots_in_scope"
+        "_use": "enlisted_human_marker"
       },
       {
-        "_extends": "base_human_actions"
+        "_use": "human_hide_slots_in_scope"
+      },
+      {
+        "_use": "base_human_actions"
       },
       {
         "animchar__res": "ger_summer_2_char"
       },
       {
         "collres__res": "ger_summer_2_collision"
-      },
-      {
-        "human_net_phys__blk": "content/enlisted/gamedata/units/walkers/ger_soldier.blk"
       },
       {
         "beh_tree__enabled": false
@@ -224,9 +224,6 @@
       },
       {
         "beh_tree__blackboard__enemyRadius": 90.0
-      },
-      {
-        "unit_indicator__ignorePlayers": false
       },
       {
         "team": 2
@@ -293,224 +290,224 @@
   {
     "ger_br_soldier": [
       {
-        "_extends": "ger_soldier"
+        "_use": "ger_soldier"
       },
       {
-        "_extends": "ger_br"
+        "_use": "ger_br"
       }
     ]
   },
   {
     "ger_summer_soldier_1": [
       {
-        "_extends": "ger_soldier"
+        "_use": "ger_soldier"
       },
       {
-        "_extends": "ger_summer_1"
+        "_use": "ger_summer_1"
       }
     ]
   },
   {
     "ger_summer_soldier_2": [
       {
-        "_extends": "ger_soldier"
+        "_use": "ger_soldier"
       },
       {
-        "_extends": "ger_summer_2"
+        "_use": "ger_summer_2"
       }
     ]
   },
   {
     "ger_summer_soldier_3": [
       {
-        "_extends": "ger_soldier"
+        "_use": "ger_soldier"
       },
       {
-        "_extends": "ger_summer_3"
+        "_use": "ger_summer_3"
       }
     ]
   },
   {
     "ger_summer_soldier_4": [
       {
-        "_extends": "ger_soldier"
+        "_use": "ger_soldier"
       },
       {
-        "_extends": "ger_summer_4"
+        "_use": "ger_summer_4"
       }
     ]
   },
   {
     "ger_summer_soldier_5": [
       {
-        "_extends": "ger_soldier"
+        "_use": "ger_soldier"
       },
       {
-        "_extends": "ger_summer_5"
+        "_use": "ger_summer_5"
       }
     ]
   },
   {
     "ger_summer_soldier_6": [
       {
-        "_extends": "ger_soldier"
+        "_use": "ger_soldier"
       },
       {
-        "_extends": "ger_summer_6"
+        "_use": "ger_summer_6"
       }
     ]
   },
   {
     "ger_summer_soldier_7": [
       {
-        "_extends": "ger_soldier"
+        "_use": "ger_soldier"
       },
       {
-        "_extends": "ger_summer_7"
+        "_use": "ger_summer_7"
       }
     ]
   },
   {
     "ger_winter_soldier_1": [
       {
-        "_extends": "ger_soldier"
+        "_use": "ger_soldier"
       },
       {
-        "_extends": "ger_winter_1"
+        "_use": "ger_winter_1"
       }
     ]
   },
   {
     "ger_winter_soldier_2": [
       {
-        "_extends": "ger_soldier"
+        "_use": "ger_soldier"
       },
       {
-        "_extends": "ger_winter_2"
+        "_use": "ger_winter_2"
       }
     ]
   },
   {
     "ger_winter_soldier_3": [
       {
-        "_extends": "ger_soldier"
+        "_use": "ger_soldier"
       },
       {
-        "_extends": "ger_winter_3"
+        "_use": "ger_winter_3"
       }
     ]
   },
   {
     "ger_winter_soldier_4": [
       {
-        "_extends": "ger_soldier"
+        "_use": "ger_soldier"
       },
       {
-        "_extends": "ger_winter_4"
+        "_use": "ger_winter_4"
       }
     ]
   },
   {
     "ger_tropical_soldier_1": [
       {
-        "_extends": "ger_soldier"
+        "_use": "ger_soldier"
       },
       {
-        "_extends": "ger_tropical_1"
+        "_use": "ger_tropical_1"
       }
     ]
   },
   {
     "ger_tropical_soldier_2": [
       {
-        "_extends": "ger_soldier"
+        "_use": "ger_soldier"
       },
       {
-        "_extends": "ger_tropical_2"
+        "_use": "ger_tropical_2"
       }
     ]
   },
   {
     "ger_tropical_soldier_3": [
       {
-        "_extends": "ger_soldier"
+        "_use": "ger_soldier"
       },
       {
-        "_extends": "ger_tropical_3"
+        "_use": "ger_tropical_3"
       }
     ]
   },
   {
     "ger_npc_summer_soldier_1": {
-      "_extends": "ger_summer_soldier_1",
+      "_use": "ger_summer_soldier_1",
       "beh_tree__enabled": true
     }
   },
   {
     "ger_npc_summer_soldier_2": {
-      "_extends": "ger_summer_soldier_2",
+      "_use": "ger_summer_soldier_2",
       "beh_tree__enabled": true
     }
   },
   {
     "ger_npc_summer_soldier_3": {
-      "_extends": "ger_summer_soldier_3",
+      "_use": "ger_summer_soldier_3",
       "beh_tree__enabled": true
     }
   },
   {
     "ger_npc_summer_soldier_4": {
-      "_extends": "ger_summer_soldier_4",
+      "_use": "ger_summer_soldier_4",
       "beh_tree__enabled": true
     }
   },
   {
     "ger_npc_summer_soldier_5": {
-      "_extends": "ger_summer_soldier_5",
+      "_use": "ger_summer_soldier_5",
       "beh_tree__enabled": true
     }
   },
   {
     "ger_npc_summer_soldier_6": {
-      "_extends": "ger_summer_soldier_6",
+      "_use": "ger_summer_soldier_6",
       "beh_tree__enabled": true
     }
   },
   {
     "ger_npc_summer_soldier_7": {
-      "_extends": "ger_summer_soldier_7",
+      "_use": "ger_summer_soldier_7",
       "beh_tree__enabled": true
     }
   },
   {
     "ger_npc_winter_soldier_1": {
-      "_extends": "ger_winter_soldier_1",
+      "_use": "ger_winter_soldier_1",
       "beh_tree__enabled": true
     }
   },
   {
     "ger_npc_winter_soldier_4": {
-      "_extends": "ger_winter_soldier_4",
+      "_use": "ger_winter_soldier_4",
       "beh_tree__enabled": true
     }
   },
   {
     "ger_soldier_winter": {
-      "_extends": "ger_soldier",
+      "_use": "ger_soldier",
       "animchar__res": "ger_winter_1_char",
       "collres__res": "ger_winter_1_collision"
     }
   },
   {
     "ger_winter_npc_soldier": {
-      "_extends": "ger_soldier_winter",
+      "_use": "ger_soldier_winter",
       "beh_tree__enabled": true,
       "team": 2
     }
   },
   {
     "ger_winter_attacker": {
-      "_extends": "ger_winter_npc_soldier",
+      "_use": "ger_winter_npc_soldier",
       "beh_tree__node": "runner",
       "team": 2,
       "beh_tree__blackboard__wishPosition": [0.0,0.0,0.0],
@@ -520,20 +517,20 @@
   {
     "ger_base_soldier": [
       {
-        "_extends": "ger_soldier"
+        "_use": "ger_soldier"
       },
       {
-        "_extends": "enlisted_base_soldier"
+        "_use": "enlisted_base_soldier"
       }
     ]
   },
   {
     "ai_aircraft_crew_ger_soldier": [
       {
-        "_extends": "ger_base_soldier"
+        "_use": "ai_aircraft_crew_soldier_base"
       },
       {
-        "_extends": "ai_aircraft_crew_soldier_base"
+        "_use": "ger_summer_2"
       }
     ]
   }

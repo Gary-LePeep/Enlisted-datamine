@@ -6,7 +6,7 @@ let DataBlock = require("DataBlock")
 let colorize = require("%ui/components/colorize.nut")
 let { doesLocTextExist } = require("dagor.localize")
 let { activeTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
-let { floatToStringRounded, isStringInteger, utf8ToLower } = require("%sqstd/string.nut")
+let { floatToStringRounded, utf8ToLower } = require("%sqstd/string.nut")
 
 let rePartNameEnding = regexp2(@"(_l|_r)?(_\d+)?$")
 
@@ -26,14 +26,8 @@ let function getBlk(path) {
   return blk
 }
 
-let function getPartIdx(partName) {
-  let s = partName.split("_").pop()
-  return isStringInteger(s) ? s.tointeger() : 0
-}
-
 let getWeaponByPartName = @(vehicleArmament, partName) vehicleArmament.findvalue(
-  @(gun) (gun?.name ?? "") == partName,
-  vehicleArmament?[getPartIdx(partName)])
+  @(gun) (gun?.name ?? "") == partName)
 
 let function getCrewMemberLocName(vehicle, partName) {
   let template = ecs.g_entity_mgr.getTemplateDB().getTemplateByName(vehicle.gametemplate)
@@ -234,7 +228,7 @@ let function getWeaponDesc(weapon, status) {
     }
     if (reloadTime != 0) {
       let reloadTimeTxt = floatToStringRounded(reloadTime, reloadTime < 10 ? 0.1 : 1)
-      desc.append("".concat(loc("itemDetails/gun__reloadTime"), loc("ui/colon"),
+      desc.append("".concat(loc("itemDetails/reloadTime"), loc("ui/colon"),
         loc("vehicleDetails/seconds", { val = reloadTimeTxt })))
     }
     desc.extend(getWeaponDriveTurretDesc(weapon, true, true))

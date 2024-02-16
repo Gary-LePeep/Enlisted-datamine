@@ -6,15 +6,15 @@ require common_shooter.es.weapon.turret_common
 require enlisted.events_enlisted
 require vehicle
 require turrets
-require EnlistedNet
+require DngNet
 require math.base
 require math.shooter_phys_common
 require game.es.events
 require debug.logerr_once
 require DagorMathUtils
-require EnlistedWeapon
-require EnlistedActor
-require EnlistedPhys
+require DngWeapon
+require DngActor
+require DngPhys
 require Dacoll
 require DaWeapons
 require GridCollision
@@ -25,7 +25,7 @@ require DagorMath
 require Gun
 require BitStream
 require game.utils.hero
-require EnlistedWeapon
+require DngWeapon
 require BallisticsProps
 require DaWeaponProps
 
@@ -56,7 +56,6 @@ def vehicle_input_turret_es(evt : CmdTurretsUpdate;
 
 [es(after=vehicle_input_turret_es, before=turret_direction_control_es)]
 def apply_turret_aim_pos_to_remote_wish_dir_es(evt : CmdTurretsUpdate;
-                                               animchar : AnimcharBaseComponent;
                                                turret_control__gunEids : EidList;
                                                net_phys__role : int;
                                                vehicle__localControls : VehicleControlsState const?)
@@ -65,15 +64,17 @@ def apply_turret_aim_pos_to_remote_wish_dir_es(evt : CmdTurretsUpdate;
   let isCanControlTurrets = (vehicle__localControls != null && vehicle__localControls.canControlTurrets)
   if isValidNetRole || isCanControlTurrets
     for gunEid in turret_control__gunEids
-      query(gunEid) <| $ [es(REQUIRE=resolvedTurret)] (turret__emitterNodeId : int;
+      query(gunEid) <| $ [es(REQUIRE=resolvedTurret)] (turret__emitterOwner : EntityId;
+                                                       turret__emitterNodeId : int;
                                                        turret_aim__shootToPos : float3&;
                                                        var turret_state : TurretState)
-        if turret__emitterNodeId < 0
+        if turret__emitterOwner == INVALID_ENTITY_ID || turret__emitterNodeId < 0
           return
 
-        let nwp = *animchar.nodeTree |> geomtree_getNodeWpos(turret__emitterNodeId)
-        let gunDir = normalize(turret_aim__shootToPos - nwp)
-        turret_state.remote |> remote_state_setWishDirection(gunDir)
+        query(turret__emitterOwner) <| $ [es] (animchar : AnimcharBaseComponent)
+          let nwp = *animchar.nodeTree |> geomtree_getNodeWpos(turret__emitterNodeId)
+          let gunDir = normalize(turret_aim__shootToPos - nwp)
+          turret_state.remote |> remote_state_setWishDirection(gunDir)
 
 
 [es(tag=server)]
@@ -484,6 +485,21 @@ def turret_weap_updater_es(evt : CmdTurretsUpdate;
             else
               return // Ignore 0 or NaN dir
         turret_weap_update(gunEid, float(vehicleTick) * dt)
+
+
+//We need this system so that prevState wasn't empty upon entering
+[es(on_appear, REQUIRE=heroVehicle)]
+def turret_update_on_hero_enter_es(evt : Event;
+                                   turret_control__gunEids : EidList;
+                                   animchar : AnimcharBaseComponent;
+                                   net_phys__currentStateVelocity : float3;
+                                   isAlive : bool = true)
+  turret_shoot_tm_save(animchar, isAlive, turret_control__gunEids, net_phys__currentStateVelocity)
+  let curTime = get_sync_time()
+  for gunEid in turret_control__gunEids
+    query(gunEid) <| $ [es(REQUIRE=resolvedTurret)] (var gun : Gun&)
+      turret_weap_update(gunEid, curTime)
+      gun.prevState = gun.curState
 
 
 [es(tag=gameClient, after=after_collision_sync, REQUIRE=vehicleWithWatched)]

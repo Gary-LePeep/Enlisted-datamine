@@ -168,11 +168,11 @@ def capture_zone(zone_eid : EntityId;
 
   let reCap = capzone__owningTeam == capzone__capTeam
   capzone__owningTeam = capzone__capTeam
-  if capzone__deactivateAfterTimeout > 0.
-    if !reCap
+  if !reCap || capzone__checkAllZonesInGroup
+    if capzone__deactivateAfterTimeout > 0.
       broadcast_net_event([[EventZoneIsAboutToBeCaptured zone=zone_eid, team=capzone__capTeam]])
-  elif !reCap || capzone__checkAllZonesInGroup
-    broadcast_net_event([[EventZoneCaptured zone=zone_eid, team=capzone__capTeam]])
+    else
+      broadcast_net_event([[EventZoneCaptured zone=zone_eid, team=capzone__capTeam]])
 
   if !reCap
     sendEvent(zone_eid, [[EventAwardZoneCapturers]])

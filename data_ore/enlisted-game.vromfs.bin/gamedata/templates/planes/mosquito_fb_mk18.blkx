@@ -1,10 +1,10 @@
 {
   "mosquito_fb_mk18": [
     {
-      "_extends": "mosquito_fb_mk18_base"
+      "_use": "mosquito_fb_mk18_base"
     },
     {
-      "_extends": "squad_controlled_plane"
+      "_use": "squad_controlled_plane"
     },
     {
       "item__name": "items/mosquito_fb_mk18"
@@ -45,7 +45,7 @@
               "turret": "turret_05"
             }
           ],
-          "effectors:object": {
+          "cockpitEffectors:object": {
             "r.hand": "stick_rhand_1",
             "l.hand": "throttle_lhand_1",
             "r.foot": "pedal_rfoot_1",
@@ -297,16 +297,16 @@
   },
   "planegun_mosquito_fb_mk18_57mm_molinsclassm_01": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_plane_machinegun"
+      "_use": "base_plane_machinegun"
     },
     {
-      "_extends": "base_mosquito_fb_mk18_57mm_molinsclassm"
+      "_use": "base_mosquito_fb_mk18_57mm_molinsclassm"
     },
     {
-      "_extends": "gunsound_57mm_molinsclassm_aircraft"
+      "_use": "gunsound_57mm_molinsclassm_aircraft"
     },
     {
       "gun__shootNodeName": "flare1"
@@ -317,16 +317,16 @@
   ],
   "planegun_mosquito_fb_mk18_7_7mm_browning303_raf_01": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_plane_machinegun"
+      "_use": "base_plane_machinegun"
     },
     {
-      "_extends": "base_mosquito_fb_mk18_7_7mm_browning303_raf"
+      "_use": "base_mosquito_fb_mk18_7_7mm_browning303_raf"
     },
     {
-      "_extends": "gunsound_7_7mm_browning303_raf_aircraft"
+      "_use": "gunsound_7_7mm_browning303_raf_aircraft"
     },
     {
       "gun__shootNodeName": "flare5"
@@ -337,16 +337,16 @@
   ],
   "planegun_mosquito_fb_mk18_7_7mm_browning303_raf_02": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_plane_machinegun"
+      "_use": "base_plane_machinegun"
     },
     {
-      "_extends": "base_mosquito_fb_mk18_7_7mm_browning303_raf"
+      "_use": "base_mosquito_fb_mk18_7_7mm_browning303_raf"
     },
     {
-      "_extends": "gunsound_7_7mm_browning303_raf_aircraft"
+      "_use": "gunsound_7_7mm_browning303_raf_aircraft"
     },
     {
       "gun__shootNodeName": "flare6"
@@ -357,16 +357,16 @@
   ],
   "planegun_mosquito_fb_mk18_7_7mm_browning303_raf_03": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_plane_machinegun"
+      "_use": "base_plane_machinegun"
     },
     {
-      "_extends": "base_mosquito_fb_mk18_7_7mm_browning303_raf"
+      "_use": "base_mosquito_fb_mk18_7_7mm_browning303_raf"
     },
     {
-      "_extends": "gunsound_7_7mm_browning303_raf_aircraft"
+      "_use": "gunsound_7_7mm_browning303_raf_aircraft"
     },
     {
       "gun__shootNodeName": "flare7"
@@ -377,16 +377,16 @@
   ],
   "planegun_mosquito_fb_mk18_7_7mm_browning303_raf_04": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_plane_machinegun"
+      "_use": "base_plane_machinegun"
     },
     {
-      "_extends": "base_mosquito_fb_mk18_7_7mm_browning303_raf"
+      "_use": "base_mosquito_fb_mk18_7_7mm_browning303_raf"
     },
     {
-      "_extends": "gunsound_7_7mm_browning303_raf_aircraft"
+      "_use": "gunsound_7_7mm_browning303_raf_aircraft"
     },
     {
       "gun__shootNodeName": "flare8"

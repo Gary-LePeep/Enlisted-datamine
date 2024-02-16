@@ -1,6 +1,6 @@
 {
   "noBotsMode": {
-    "_extends": "replicating",
+    "_use": "replicating",
     "_singleton": true,
     "noBotsMode:tag": []
   },
@@ -22,7 +22,7 @@
     }
   },
   "no_loudspeaker_sound_mode": {
-    "_extends": "replicating",
+    "_use": "replicating",
     "_singleton": true,
     "noLoudspeakerSoundMode:tag": {
       "_tags": "sound"

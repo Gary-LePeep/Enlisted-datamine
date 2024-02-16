@@ -1,6 +1,6 @@
 {
   "base_ht_130": {
-    "_extends": "base_tank",
+    "_use": "base_tank",
     "killLogName": "ussr_ht_130",
     "animchar__res": "xt_130_char",
     "collres__res": "xt_130_collision",
@@ -102,22 +102,22 @@
   },
   "ht_130_turret_01_ato_41": [
     {
-      "_extends": "turret_base"
+      "_use": "turret_base"
     },
     {
-      "_extends": "tank_gun_shell_change"
+      "_use": "tank_gun_shell_change"
     },
     {
-      "_extends": "flamethrower_base"
+      "_use": "flamethrower_base"
     },
     {
-      "_extends": "flamethrower_gun_shot_dry_sound"
+      "_use": "flamethrower_gun_shot_dry_sound"
     },
     {
-      "_extends": "base_tankgun_machinegun_nooverheat"
+      "_use": "base_tankgun_machinegun_nooverheat"
     },
     {
-      "_extends": "gunsound_flamethrower"
+      "_use": "gunsound_flamethrower"
     },
     {
       "gun__overheatReduce": 0.0
@@ -150,7 +150,7 @@
       "gun__locName": "ato_41_flamethrower"
     },
     {
-      "gun__shootNodeName": "bone_gun_barrel"
+      "gun__shootNodeName": "emtr_gun_flame"
     },
     {
       "turret__yawSpeed": 16.0
@@ -316,7 +316,7 @@
     }
   ],
   "ht_130_turret_02_7_62mm_dt": {
-    "_extends": "tankgun_7_62mm_dt",
+    "_use": "tankgun_7_62mm_dt",
     "gun__shootNodeName": "bone_mg_gun_twin",
     "gun__shellsAmmo:array": [
       {

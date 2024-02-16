@@ -1,6 +1,6 @@
 {
   "base_panzerjager_tiger": {
-    "_extends": "base_tank",
+    "_use": "base_tank",
     "killLogName": "germ_panzerjager_tiger",
     "animchar__res": "panzerjager_tiger_char",
     "collres__res": "panzerjager_tiger_collision",
@@ -101,7 +101,7 @@
     ]
   },
   "panzerjager_tiger_turret_01_128mm_PaK44": {
-    "_extends": "tankgun_128mm_pak44",
+    "_use": "tankgun_128mm_pak44",
     "gun__shootNodeName": "bone_gun_barrel",
     "turret__yawSpeed": 5.0,
     "turret__pitchSpeed": 3.0,
@@ -118,7 +118,7 @@
     ]
   },
   "panzerjager_tiger_turret_02_7_92mm_mg34": {
-    "_extends": "tankgun_7_92mm_mg34",
+    "_use": "tankgun_7_92mm_mg34",
     "gun__shootNodeName": "bone_mg_body_h_01",
     "turret__yawSpeed": 5.5,
     "turret__pitchSpeed": 4.0,

@@ -1,4 +1,5 @@
 require ecs
+require player
 require DagorInput
 require DagorMathUtils
 require game.es.player_common
@@ -16,6 +17,8 @@ def spectator_appear_es(evt : Event; eid : EntityId; var spectator__target : Ent
 [es(REQUIRE=spectator, on_disappear)]
 def spectator_disappear_es(evt : Event; spectator__target : EntityId)
   if spectator__target != INVALID_ENTITY_ID && doesEntityExist(spectator__target)
+    query(get_local_player_eid()) <| $ [es] (var specTarget : EntityId&)
+      specTarget = INVALID_ENTITY_ID
     removeSubTemplate(spectator__target, "observed_local")
 
 [es(tag=input, REQUIRE=fov)]

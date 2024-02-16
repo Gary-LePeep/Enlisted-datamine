@@ -1,9 +1,10 @@
 from "%enlSqGlob/ui_library.nut" import *
-let { sub_txt, body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
-let { defTxtColor, bigPadding, unitSize, warningColor, smallOffset, listCtors, blurBgColor,
+let { fontSub, fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { defTxtColor, bigPadding, unitSize, warningColor, smallOffset, blurBgColor,
   commonBtnHeight, rarityColors
 } = require("%enlSqGlob/ui/viewConst.nut")
-let { bgColor, txtColor } = listCtors
+let { hoverSlotBgColor, panelBgColor, accentColor, selectedPanelBgColor
+} = require("%enlSqGlob/ui/designConst.nut")
 let { WindowBd } = require("%ui/style/colors.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
 let faComp = require("%ui/components/faComp.nut")
@@ -14,21 +15,23 @@ let { setTooltip, normalTooltipTop } = require("%ui/style/cursors.nut")
 let { allItemTemplates } = require("%enlist/soldiers/model/all_items_templates.nut")
 let { curCampItems, curCampItemsCount } = require("%enlist/soldiers/model/state.nut")
 let mkItemWithMods = require("%enlist/soldiers/mkItemWithMods.nut")
-let { mkArmyIcon } = require("%enlist/soldiers/components/armyPackage.nut")
+let { mkArmyIcon, mkArmySimpleIcon } = require("%enlist/soldiers/components/armyPackage.nut")
 let { mkItemCurrency } = require("%enlist/shop/currencyComp.nut")
 let getPayItemsData = require("%enlist/soldiers/model/getPayItemsData.nut")
 let { mkGuidsCountTbl } = require("%enlist/items/itemModify.nut")
 let { mkCounter } = require("%enlist/shop/mkCounter.nut")
-let spinner = require("%ui/components/spinner.nut")({ height = hdpx(70) })
+let spinner = require("%ui/components/spinner.nut")
 let JB = require("%ui/control/gui_buttons.nut")
 
 const WND_UID = "item_transfer_msg"
 let costHeight = hdpx(60)
+let colorGray = Color(30, 44, 52)
 
 let transferStatus = Watched(null)
 let close = @() removeModalWindow(WND_UID)
+let waitingSpinner = spinner(hdpx(35))
 
-let textArea = @(text, style = body_txt) {
+let textArea = @(text, style = fontBody) {
   size = [hdpx(800), SIZE_TO_CONTENT]
   rendObj = ROBJ_TEXTAREA
   behavior = Behaviors.TextArea
@@ -77,35 +80,46 @@ let armySlotWidth = fsh(25)
 let function mkArmy(variant, isSelected, onClick = null) {
   let { armyId, isTransferAllowed, armyName, campaignName } = variant
   return watchElemState(function(sf) {
-    let tColor = txtColor(sf, isSelected.value)
+    let color = sf & S_HOVER ? colorGray : hoverSlotBgColor
+    let bgColor = sf & S_HOVER ? hoverSlotBgColor
+      : isSelected.value ? selectedPanelBgColor
+      : panelBgColor
+    let icon = isSelected.value
+      ? mkArmyIcon(armyId, armyIconSize, {margin = 0})
+      : mkArmySimpleIcon(armyId, armyIconSize, {
+          color
+          margin = 0
+        })
     return {
       watch = isSelected
-      rendObj = ROBJ_SOLID
+      rendObj = ROBJ_BOX
       size = [armySlotWidth, SIZE_TO_CONTENT]
       flow = FLOW_HORIZONTAL
       padding = bigPadding
       gap = bigPadding
       valign = ALIGN_CENTER
-      color = bgColor(sf, isSelected.value)
+      fillColor = bgColor
+      borderWidth = isSelected.value ? [0, 0, hdpx(2), 0] : 0
+      borderColor = accentColor
       behavior = Behaviors.Button
       onClick
       children = [
-        mkArmyIcon(armyId, armyIconSize, { margin = 0 })
+        icon
         {
           size = [flex(), SIZE_TO_CONTENT]
           children = [
             {
               flow = FLOW_VERTICAL
               children = [
-                txt({ text = armyName, color = tColor }.__update(sub_txt))
-                txt({ text = campaignName, color = tColor }.__update(sub_txt))
+                txt({ text = armyName, color }.__update(fontSub))
+                txt({ text = campaignName, color }.__update(fontSub))
               ]
             }
             isTransferAllowed ? null
               : mkFaComp("lock").__update({
                   size = SIZE_TO_CONTENT
                   hplace = ALIGN_RIGHT
-                  color = tColor
+                  color
                   fontSize = hdpx(18)
                 })
           ]
@@ -113,14 +127,6 @@ let function mkArmy(variant, isSelected, onClick = null) {
       ]
     }
   })
-}
-
-let horLinesBorder = {
-  rendObj = ROBJ_BOX
-  padding = [hdpx(1), 0]
-  borderWidth = [hdpx(1), 0]
-  fillColor = 0
-  borderColor = defTxtColor
 }
 
 let mkTierChangeInfo = @(item, selVariant) function() {
@@ -151,16 +157,16 @@ let mkTierChangeInfo = @(item, selVariant) function() {
   })
 }
 
-let mkTransferArmies = @(variants, selectIdx) horLinesBorder.__merge({
+let mkTransferArmies = @(variants, selectIdx) {
   flow = FLOW_HORIZONTAL
   children = wrap(variants.map(@(variant, idx) mkArmy(variant, Computed(@() idx == selectIdx.value), @() selectIdx(idx))),
     { width = armySlotWidth * min(variants.len(), 3) })
-})
+}
 
-let mkCurArmy = @(selVariant) @() horLinesBorder.__merge({
+let mkCurArmy = @(selVariant) @() {
   watch = selVariant
   children = selVariant.value != null ? mkArmy(selVariant.value, Watched(true)) : null
-})
+}
 
 let costNotEnough = @(currencyTpl, count) {
   flow = FLOW_HORIZONTAL
@@ -171,7 +177,7 @@ let costNotEnough = @(currencyTpl, count) {
       text = loc("needMoreOrders")
       hplace = ALIGN_CENTER
       color = warningColor
-    }.__update(sub_txt))
+    }.__update(fontSub))
     mkItemCurrency({ currencyTpl, count })
   ]
 }
@@ -185,7 +191,7 @@ let costAvailable = @(currencyTpl, count) {
       text = loc("shop/willCostYou")
       hplace = ALIGN_CENTER
       color = defTxtColor
-    }.__update(sub_txt))
+    }.__update(fontSub))
     mkItemCurrency({ currencyTpl, count })
   ]
 }
@@ -201,7 +207,7 @@ let mkTransferCost = @(selVariant, missOrders, costCfg) @() {
         text = selVariant.value.transferError
         color = warningColor
         hplace = ALIGN_CENTER
-      }.__update(sub_txt))
+      }.__update(fontSub))
     : missOrders.value > 0 ? costNotEnough(costCfg.value.orderTpl, missOrders.value)
     : costAvailable(costCfg.value.orderTpl, costCfg.value.orderRequire)
 }
@@ -211,7 +217,7 @@ let exitHotkeys = { hotkeys = [[$"^{JB.B} | Esc", { description = { skip = true 
 let mkButtons = @(item, countWatched, selVariant, costCfg, missOrders) function() {
   local children = []
   if (transferStatus.value?.isInProgress)
-    children = spinner
+    children = waitingSpinner
   else if (transferStatus.value != null)
     children = Flat(loc("Ok"), close, exitHotkeys)
   else {
@@ -266,25 +272,19 @@ let function mkTransferContent(item, moveVariants, requiredOrders) {
     halign = ALIGN_CENTER
     gap = smallOffset
     children = [
-      {
-        size = [flex(), SIZE_TO_CONTENT]
-        halign = ALIGN_CENTER
+      textArea(loc("transferReqArmyLevel/desc"), fontSub)
+      @() {
+        watch = [curCampItemsCount, costCfg]
+        flow = FLOW_HORIZONTAL
+        gap = bigPadding
+        hplace = ALIGN_CENTER
+        valign = ALIGN_CENTER
         children = [
-          textArea(loc("transferReqArmyLevel/desc"), sub_txt)
-          @() {
-            watch = [curCampItemsCount, costCfg]
-            flow = FLOW_HORIZONTAL
-            gap = bigPadding
-            hplace = ALIGN_RIGHT
-            valign = ALIGN_CENTER
-            children = [
-              txt(loc("shop/youHave"))
-              mkItemCurrency({
-                currencyTpl = costCfg.value.orderTpl
-                count = curCampItemsCount.value?[costCfg.value.orderTpl] ?? 0
-              })
-            ]
-          }
+          txt(loc("shop/youHave"))
+          mkItemCurrency({
+            currencyTpl = costCfg.value.orderTpl
+            count = curCampItemsCount.value?[costCfg.value.orderTpl] ?? 0
+          })
         ]
       }
       {

@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { to_string } = require("json")
+let { json_to_string } = require("json")
 let { file } = require("io")
 let { dir_exists } = require("dagor.fs")
 let { gen_default_profile, gen_tutorial_profiles } = require("%enlist/meta/clientApi.nut")
@@ -10,7 +10,6 @@ let function prepareProfileData(profile) {
   let deleteSoldierKeys = [
     "bodyScale", // used in menu only
     "perkPoints", // used in menu only
-    "perksCount", // used in menu only
     "heroTpl", // used in menu only
     "appearance__rndSeed", // if appearance__rndSeed is not set, a random one will be used. we don't need persistent looks for non player profiles
   ]
@@ -42,7 +41,7 @@ let function saveProfileImpl(profile, fileName, folderName = "sq_globals", prett
   let output = file(filePath, "wt+")
   if (fileName.endswith(".nut"))
     output.writestring("return ");
-  output.writestring(to_string(profile, pretty))
+  output.writestring(json_to_string(profile, pretty))
   output.close()
   console_print($"Saved to {filePath}")
 }
@@ -62,11 +61,12 @@ let function saveProfilePack(profiles, to_file) {
     saveProfileImpl(profiles, to_file)
 }
 
+let defUnitedArmies = ["usa", "ussr", "ger", "jap"]
 
-let defCampaigns = ["moscow", "berlin", "normandy", "tunisia", "stalingrad", "pacific"]
-local defProfileArmies = []
-foreach (campaign in defCampaigns)
-  defProfileArmies = defProfileArmies.append($"{campaign}_allies", $"{campaign}_axis")
+let defLegacyArmies = ["moscow", "berlin", "normandy", "tunisia", "stalingrad", "pacific"]
+  .reduce(@(res, campId) res.append($"{campId}_allies", $"{campId}_axis"), [])
+
+let getArmyList = @(isUnitedCampaign) isUnitedCampaign ? defUnitedArmies : defLegacyArmies
 
 local consoleProgressId = 0
 let function startProgress(title) {
@@ -75,9 +75,10 @@ let function startProgress(title) {
 }
 let stopProgress = @(id) console_command($"console.progress_indicator {id}")
 
-console_register_command(function(isPretty = true) {
+console_register_command(function(isUnitedCampaign, isPretty) {
   let prgId = startProgress("meta.genDefaultProfile")
-  gen_default_profile("default", defProfileArmies, function(res) {
+  let isUnited = !!isUnitedCampaign
+  gen_default_profile("default", getArmyList(isUnited), isUnited, function(res) {
     stopProgress(prgId)
     let { defaultProfile = null } = res
     if (defaultProfile == null)
@@ -89,9 +90,10 @@ console_register_command(function(isPretty = true) {
   })
 }, "meta.genDefaultProfile")
 
-console_register_command(function(isPretty = true) {
+console_register_command(function(isUnitedCampaign, isPretty) {
   let prgId = startProgress("meta.genDevProfile")
-  gen_default_profile("dev", defProfileArmies, function(res) {
+  let isUnited = !!isUnitedCampaign
+  gen_default_profile("dev", getArmyList(isUnited), isUnited, function(res) {
     stopProgress(prgId)
     let { defaultProfile = null } = res
     if (defaultProfile == null)
@@ -103,9 +105,10 @@ console_register_command(function(isPretty = true) {
   })
 }, "meta.genDevProfile")
 
-console_register_command(function(isPretty = true) {
+console_register_command(function(isUnitedCampaign, isPretty) {
   let prgId = startProgress("meta.genBotsProfile")
-  gen_default_profile("bots", defProfileArmies, function(res) {
+  let isUnited = !!isUnitedCampaign
+  gen_default_profile("bots", getArmyList(isUnited), isUnited, function(res) {
     stopProgress(prgId)
     saveOneProfile(res?.defaultProfile, "bots_profile.nut", !!isPretty)
   })

@@ -2,7 +2,7 @@ require ecs
 require ecs.common
 require math.base
 require zones
-require EnlistedNet
+require DngNet
 require common_shooter.events_common_shooter
 require common_shooter.es.grenade_thrower_common
 require common_shooter.es.human_weap_common
@@ -16,10 +16,10 @@ require DagorMath
 require DagorSystem
 require DaWeaponProps
 require Dacoll
-require EnlistedWeapon
-require EnlistedHuman
+require DngWeapon
+require DngHuman
 require game.events_game
-require EnlistedDm
+require DngDm
 
 
 def explode_local_shell(shell_id : EntityId;
@@ -47,7 +47,6 @@ def shell_created_es(evt : Event;
 
 
 def clear_projectile_entity_impl(eid : EntityId;
-                                 gun_eid : EntityId;
                                  human_weap__gunEids : EidList;
                                  var human_weap__throwMode : bool?;
                                  var grenade_thrower__projectileEntity : EntityId&;
@@ -59,8 +58,7 @@ def clear_projectile_entity_impl(eid : EntityId;
     grenade_thrower.throwProgress = 0.0
     query(eid) <| $ [es] (var human_net_phys : HumanActor)
       if human_weap__throwMode != null
-        clear_throw_mode(eid, gun_eid, human_weap__gunEids,
-                         *human_weap__throwMode, human_net_phys.phys)
+        clear_throw_mode(eid, human_weap__gunEids, *human_weap__throwMode, human_net_phys.phys)
 
 
 def clear_projectile_entity(eid : EntityId;
@@ -72,9 +70,8 @@ def clear_projectile_entity(eid : EntityId;
       query(human_weap__gunEids[i]) <| $ [es] (var grenade_thrower__projectileEntity : EntityId&;
                                                var grenade_thrower : GrenadeThrower)
         if (grenade_thrower__projectileEntity == proj_eid)
-          clear_projectile_entity_impl(eid, human_weap__gunEids[i], human_weap__gunEids,
-                                       human_weap__throwMode, grenade_thrower__projectileEntity,
-                                       grenade_thrower)
+          clear_projectile_entity_impl(eid, human_weap__gunEids, human_weap__throwMode,
+                                       grenade_thrower__projectileEntity, grenade_thrower)
 
 
 [es(tag=server)]

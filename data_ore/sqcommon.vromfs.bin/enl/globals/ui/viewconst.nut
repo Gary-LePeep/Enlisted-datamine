@@ -20,13 +20,13 @@ let bigPadding = hdpx(8)
 let tinyOffset = hdpx(12)
 let smallOffset = hdpx(24)
 let bigOffset = hdpx(48)
-let unitSize = hdpx(45) //unit, 1920x1080 - 45x24)
+let unitSize = hdpxi(45) //unit, 1920x1080 - 45x24)
 let researchListTabBorder = hdpx(4)
 
-let multySquadPanelSize = [(unitSize * 2.4).tointeger(), (unitSize * 2.4).tointeger()]
+let multySquadPanelSize = [(unitSize * 3.2).tointeger(), (unitSize * 2.2).tointeger()]
 let squadSlotHorSize = [hdpxi(660), hdpxi(72)]
 
-let soldierWndWidth = unitSize * 11
+let soldierWndWidth = unitSize * 10
 let squadPanelWidth = unitSize * 6
 let fadedTxtColor = Color(130,130,130,150)
 
@@ -47,7 +47,6 @@ let shadowStyle = {
 }
 
 let maxContentWidth = min(hdpx(1920), sw(100))
-
 return {
   isWide
   maxContentWidth
@@ -102,12 +101,9 @@ return {
   blinkingSignalsGreenNormal = Color(61, 182, 19)
   blinkingSignalsGreenDark = Color(32, 125, 0)
 
-  translucentBgColor = Color(0,0,0,75)
-  soldierExpBgColor = Color(0, 0, 0, 100)
-  soldierExpColor = Color(239, 219, 100)
   soldierLvlColor = Color(200, 180, 0, 150)
   soldierGainLvlColor = Color(255, 255, 150)
-  soldierLockedLvlColor = Color(90, 90, 90)
+  soldierLockedLvlColor = Color(179, 189, 193)
 
   spawnReadyColor = Color(50, 150, 50)
   spawnNotReadyColor = Color(180, 70, 70)
@@ -154,7 +150,7 @@ return {
 
   discountBgColor = Color(0, 120, 0)
 
-  slotBaseSize = [(6 * unitSize).tointeger(), (1.5 * unitSize).tointeger()]
+  slotBaseSize = [(7 * unitSize).tointeger(), (1.5 * unitSize).tointeger()]
   slotMediumSize = [(4 * unitSize).tointeger(), (1.5 * unitSize).tointeger()]
 
   commonBtnHeight
@@ -163,17 +159,17 @@ return {
   shadowStyle
 
   listCtors = {
-    nameColor = @(flags, selected = false)
-      selected || (flags & S_HOVER) ? selectedTxtColor : titleTxtColor
+    nameColor = @(flags, _selected = false)
+      flags & S_HOVER ? selectedTxtColor : titleTxtColor
 
-    weaponColor = @(flags, selected = false)
-      selected || (flags & S_HOVER) ? selectedTxtColor : weaponTxtColor
+    weaponColor = @(flags, _selected = false)
+      flags & S_HOVER ? selectedTxtColor : weaponTxtColor
 
     txtColor = @(flags, selected = false)
-      selected || (flags & S_HOVER) || (flags & S_ACTIVE) ? selectedTxtColor : defTxtColor
+      (flags & S_HOVER) || (flags & S_ACTIVE) || selected ? selectedTxtColor : defTxtColor
 
-    txtDisabledColor = @(flags, selected = false)
-      selected || (flags & S_HOVER) ? selectedTxtColor : disabledTxtColor
+    txtDisabledColor = @(flags, _selected = false)
+      flags & S_HOVER ? selectedTxtColor : disabledTxtColor
 
     bgColor = @(flags, selected = false, idx = 0) selected ? activeBgColor
       : flags & S_HOVER ? hoverBgColor
@@ -182,55 +178,33 @@ return {
   }
 
   rowBg = @(sf, idx, isSelected = false) isSelected ? Color(70, 70, 70, 25)
-    : (sf & S_HOVER) ? Color(10,10,10,25)
+    : sf & S_HOVER ? Color(10,10,10,25)
     : (idx % 2) ? Color(35, 35, 35, 25)
     : Color(25, 25, 25, 25)
-
-  listBtnAirStyle = function(isSelected, _idx) {
-    let res = {
-      margin = 0
-      textMargin = bigPadding
-      borderWidth = 0
-      borderRadius = 0
-      rendObj = ROBJ_BOX
-      style = {
-        BgNormal  = airBgColor
-        BgHover   = airHoverBgColor
-        BgActive  = airHoverBgColor
-        BgFocused = airHoverBgColor
-      }
-    }
-    if (isSelected)
-      return res.__update({
-        fillColor = airSelectedBgColor
-        textParams = { color = selectedTxtColor }
-      })
-    return res
-  }
 
   scrollbarParams = {
     size = [SIZE_TO_CONTENT, flex()]
     skipDirPadNav = true
-    barStyle = @(_has_scroll) class {
+    barStyle = @(_has_scroll) {
       _width = fsh(1)
       _height = fsh(1)
       skipDirPadNav = true
     }
-    knobStyle = class {
+    knobStyle = {
       skipDirPadNav = true
       hoverChild = @(sf) {
         rendObj = ROBJ_BOX
         size = [hdpx(8), flex()]
         borderWidth = [0, hdpx(1), 0, hdpx(1)]
         borderColor = Color(0, 0, 0, 0)
-        fillColor = (sf & S_ACTIVE) ? Color(255,255,255)
-          : (sf & S_HOVER) ? Color(110, 120, 140, 80)
+        fillColor = sf & S_ACTIVE ? Color(255,255,255)
+          : sf & S_HOVER ? Color(110, 120, 140, 80)
           : Color(110, 120, 140, 160)
       }
     }
   }
 
-  armyIconHeight = hdpx(50)
+  armyIconSize = hdpx(50)
   researchItemSize = isWide ? [hdpx(110), hdpx(130)] : [hdpx(83), hdpx(100)]
   researchListTabWidth = hdpx(440)
   researchListTabBorder

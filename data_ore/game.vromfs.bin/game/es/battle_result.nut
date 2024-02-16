@@ -18,6 +18,7 @@ let sendBqBattleResult = require("%scripts/game/utils/bq_send_Battle_result.nut"
 let getSoldierStats = require("%scripts/game/utils/getSoldierStats.nut")
 let calcBattleHeroes = require("%scripts/game/utils/calcBattleHeroes.nut")
 let calcBattleHeroAwards = require("%scripts/game/utils/calcBattleHeroesAwards.nut")
+let { scoreSquads, scoreAlone } = require("%enlSqGlob/expScoringValues.nut")
 let { scorePlayerInfoComps, scoringPlayerSoldiersStatsComps, scoringPlayerPlayerOnlyStatsComps,
   playerStatisticsFromComps } = require("%enlSqGlob/scoreTableStatistics.nut")
 let calcScoringPlayerScore = require("%scripts/game/utils/calcPlayerScore.nut")
@@ -60,7 +61,11 @@ let playerInfoQuery = ecs.SqQuery("playerInfoQuery",
 let scorePlayerInfoQuery = ecs.SqQuery("scorePlayerInfoQuery", {
   comps_ro = [
     ["scoring_player__battleTime", ecs.TYPE_FLOAT],
-    ["scoring_player__battleTimeLastStartedAt", ecs.TYPE_FLOAT]
+    ["scoring_player__battleTimeLastStartedAt", ecs.TYPE_FLOAT],
+    ["scoring_player__bestOneSoldierLifeInfantryKills", ecs.TYPE_INT, 0],
+    ["scoring_player__bestOneSoldierLifeVehicleKills", ecs.TYPE_INT, 0],
+    ["scoring_player__bestOneSodierLifeParatrooperKills", ecs.TYPE_INT, 0],
+    ["scoring_player__contributionToVictory", ecs.TYPE_FLOAT, 0]
   ].extend(scorePlayerInfoComps, scoringPlayerPlayerOnlyStatsComps)
 })
 let playerAwardsQuery = ecs.SqQuery("playerAwardsQuery", { comps_ro = [["awards", ecs.TYPE_ARRAY]] })
@@ -192,7 +197,7 @@ let function markLocalHero(heroes, eid) {
   return res
 }
 
-let function sendPlayerBattleResult(playerEid, squadStats, playerData, playerBattleResult, scoringPlayers, teamHeroes = {}, playerAwards = [], needSendToBq = false) {
+let function sendPlayerBattleResult(playerEid, squadStats, playerData, playerBattleResult, scoringPlayers, scorePrices, teamHeroes = {}, playerAwards = [], needSendToBq = false) {
   let { armyId, armyData } = getPlayerArmyInfo(playerEid)
   if (armyId == "" || armyData.len() == 0)
     // ignore bots and other data that cannot be applied to statistics
@@ -218,6 +223,7 @@ let function sendPlayerBattleResult(playerEid, squadStats, playerData, playerBat
     isBattleHero
     battleHeroSoldier = playerBattleHero?.soldier.guid
     isArmyProgressLocked = armyData?.isArmyProgressLocked ?? false
+    scorePrices
   }
 
   let wasPlayerRank = getRank(userid)
@@ -340,6 +346,7 @@ let function onRoundResult(evt, _eid, _comp) {
 
   let isNoBots = isNoBotsMode()
 
+  let scorePrices = isNoBots ? scoreAlone : scoreSquads
   local playersStats = getSoldierStats(isNoBots)
   let scoringPlayers = getScoringPlayers(playersStats, isNoBots, get_sync_time())
   playersStats = playersStats.map(@(soldiers, eid)
@@ -388,7 +395,6 @@ let function onRoundResult(evt, _eid, _comp) {
     hero.expMult <- isBattleHeroMultApplied(hero.isFinished, realPlayerCount, realPlayerWithEnoughScoreCount) ? getArmyExpBattleHeroMult(hero.awards, hero) : 1.0
     hero.soldier.__update(getBattleHeroSoldierInfo(hero.soldier, getArmyData(hero.playerEid)))
     hero.playerRank <- getRank(hero.playerEid)
-    delete hero.playerEid
   }))
   let battleEndTime = get_sync_time()
   foreach (playerEid, playerData in playersStats) {
@@ -401,16 +407,17 @@ let function onRoundResult(evt, _eid, _comp) {
     local playerBattleResult = disconnectInfo?[playerEid] ?? getPlayerBattleState(result, battleEndTime, realEnemyPlayersCount, realPlayerCount, realPlayerWithEnoughScoreCount, wishAnyTeam)
     playerBattleResult = playerBattleResult.__merge({boostersApplied= playerEid in boosterSentToProfile})
     local squadStat = squadStatQuery.perform(playerEid, @(_, comp) comp.squadStats)
-    sendPlayerBattleResult(playerEid, squadStat, playerData.soldiers, playerBattleResult, scoringPlayers, teamHeroes, playerAwards, true/*needSendToBq*/)
+    sendPlayerBattleResult(playerEid, squadStat, playerData.soldiers, playerBattleResult, scoringPlayers, scorePrices, teamHeroes, playerAwards, true/*needSendToBq*/)
   }
 }
 
 let function onGetBattleResult(_evt, eid, comp) {
   let isNoBots = isNoBotsMode()
+  let scorePrices = isNoBots ? scoreAlone : scoreSquads
   let playersStats = getSoldierStats(isNoBots)
   let currentTime = get_sync_time()
   let scoringPlayers = getScoringPlayers(playersStats, isNoBots, currentTime)
-  scoringPlayers.map(@(v, eid) {eid, battleTime = v.battleTime, score = v.score}).values()
+  scoringPlayers.map(@(v, entity) {eid=entity, battleTime = v.battleTime, score = v.score}).values()
     .sort(playersScoreTableOrder)
     .each(function(player, index) { scoringPlayers[player.eid].scoreIndex <- index })
   let playerData = playersStats[eid]
@@ -424,7 +431,7 @@ let function onGetBattleResult(_evt, eid, comp) {
     player.isDeserter <- playerEid == eid ? isDeserter : (disconnectInfo?[playerEid].isDeserter ?? false) )
   disconnectInfo[eid] <- playerBattleState
   playerBattleState = playerBattleState.__merge({boostersApplied = eid in boosterSentToProfile})
-  sendPlayerBattleResult(eid, comp.squadStats, playerData, playerBattleState, scoringPlayers)
+  sendPlayerBattleResult(eid, comp.squadStats, playerData, playerBattleState, scoringPlayers, scorePrices)
 }
 
 let function onDisconnectChange(_evt, eid, comp) {

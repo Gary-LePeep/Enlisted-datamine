@@ -1,10 +1,13 @@
 {
   "uk_a13_mk_2_1939": {
-    "_extends": "uk_a13_mk_2_1939_common"
+    "_use": "uk_a13_mk_2_1939_common"
   },
   "uk_a13_mk_2_1939_common": {
-    "_extends": "base_a13_mk_2_1939",
-    "item__iconOffset": [0.0,0.2],
+    "_use": "base_a13_mk_2_1939",
+    "item__iconOffset": [0.0,0.15],
+    "item__iconScale": 1.35,
+    "armorThicknessHull": [30.0,14.0,14.0],
+    "armorThicknessTurret": [14.0,14.0,14.0],
     "vehicle_seats__seats:shared:array": [
       {
         "seats:object": {
@@ -105,7 +108,7 @@
     ]
   },
   "uk_a13_mk_2_1939_driver_cockpit": {
-    "_extends": "base_driver_cockpit",
+    "_use": "base_driver_cockpit",
     "animchar__res": "kv_1_driver_char",
     "cockpit__offset": [-0.1,-0.0,-0.0],
     "cockpit__visibleVehicleNodeNames:list<t>": [
@@ -127,10 +130,8 @@
     }
   },
   "uk_a13_mk_2_1939_gunner_cockpit": {
-    "vehicle_sight__blk": "content/tanks/gamedata/sight/uk_no_33_mkii_s.blk",
-    "_extends": "base_gunner_cockpit",
+    "_use": "base_gunner_cockpit",
     "animchar__res": "t_26_1940_gunner_char",
-    "cockpit__minZoom": -0.2,
     "cockpit__offset": [-0.6,-0.063,-0.092],
     "cockpit__attachNodeNames:list<t>": {
       "node": "bone_camera_gunner"
@@ -143,14 +144,36 @@
       "slit": "cam_front_right"
     },
     "cockpit__slitForwardOffset:list<r>": {
-      "slit": 0.2
+      "slit": 0.22
     },
     "cockpit__slitIsGun:list<b>": {
       "slit": true
-    }
+    },
+    "cockpit__slitZoom:array": {
+      "slit:list<r>": [
+        {
+          "zoom": 1.9
+        },
+        {
+          "zoom": 3.5
+        }
+      ]
+    },
+    "cockpit__slitZoomTime:list<r>": [
+      {
+        "slit": 0.05
+      },
+      {
+        "slit": 0.0
+      }
+    ],
+    "cockpit__slitTemplates:list<t>": {
+      "slit": "uk_no_33_mkii_s"
+    },
+    "cockpit__slitEids:list<eid>": []
   },
   "uk_a13_mk_2_1939_commander_cockpit": {
-    "_extends": "base_commander_cockpit_no_slits",
+    "_use": "base_commander_cockpit_no_slits",
     "animchar__res": "t_26_1940_commander_char",
     "cockpit__offset": [-0.5,0.8,0.25],
     "cockpit__visibleVehicleNodeNames:list<t>": [
@@ -162,17 +185,25 @@
       }
     ],
     "cockpit__slitForwardOffset:list<r>": {
-      "slit": 0.15
+      "slit": 0.165
     },
     "cockpit__slitIsGun:list<b>": {
       "slit": true
     },
     "cockpit__slitNodeNames:list<t>": {
       "slit": "cam_front"
+    },
+    "cockpit__slitZoom:array": {
+      "slit:list<r>": {
+        "zoom": 1.44
+      }
+    },
+    "cockpit__slitZoomTime:list<r>": {
+      "slit": 0.0
     }
   },
   "uk_a13_mk_2_1939_premium": {
-    "_extends": "uk_a13_mk_2_1939_common",
+    "_use": "uk_a13_mk_2_1939_common",
     "animchar__objTexReplace:object": {
       "uk_camo_very_dark_drab*": "uk_camo_light_stone_light_grey_slate_grey*"
     }

@@ -1,10 +1,10 @@
 {
   "base_m4a3_105_sherman": [
     {
-      "_extends": "base_tank"
+      "_use": "base_tank"
     },
     {
-      "_extends": "m4a3_105_sherman_ammo_stowages"
+      "_use": "m4a3_105_sherman_ammo_stowages"
     },
     {
       "killLogName": "us_m4a3_105_sherman"
@@ -215,7 +215,7 @@
     }
   ],
   "m4a3_105_sherman_turret_01_105mm_m4": {
-    "_extends": "tankgun_105mm_m4",
+    "_use": "tankgun_105mm_m4",
     "gun__shootNodeName": "bone_gun_barrel",
     "turret__yawSpeed": 6.0,
     "turret__pitchSpeed": 4.0,
@@ -241,14 +241,14 @@
     ]
   },
   "m4a3_105_sherman_turret_02_7_62mm_m1919a4": {
-    "_extends": "tankgun_7_62mm_m1919a4",
+    "_use": "tankgun_7_62mm_m1919a4",
     "gun__shootNodeName": "bone_mg_gun_twin",
     "gun__shellsAmmo:array": {
       "ammo": 3000
     }
   },
   "m4a3_105_sherman_turret_03_12_7mm_m2_hb": {
-    "_extends": "tankgun_12_7mm_m2_hb",
+    "_use": "tankgun_12_7mm_m2_hb",
     "gun__shootNodeName": "bone_mg_aa_v_01",
     "turret__yawSpeed": 90.0,
     "turret__pitchSpeed": 90.0,
@@ -273,7 +273,7 @@
     ]
   },
   "m4a3_105_sherman_turret_04_50mm_uk_smoke_mortar_launcher": {
-    "_extends": "tankgun_50mm_uk_smoke_mortar_launcher",
+    "_use": "tankgun_50mm_uk_smoke_mortar_launcher",
     "gun__shootNodeName": "emtr_mortar_flame_01",
     "gun__shellsAmmo:array": {
       "ammo": 12
@@ -281,13 +281,13 @@
   },
   "m4a3_105_sherman_ammo_stowages": {
     "_tags": "server",
-    "_extends": "vehicle_ammo_stowages",
+    "_use": "vehicle_ammo_stowages",
     "ammo_stowage__stowageTemplates:shared:list<t>": {
       "stowage": "m4a3_105_sherman_ammo_stowage_1"
     }
   },
   "m4a3_105_sherman_ammo_stowage_1": {
-    "_extends": "ammo_stowage",
+    "_use": "ammo_stowage",
     "ammo_stowage__clusterTemplates:shared:list<t>": {
       "cluster": "m4a3_105_sherman_ammo_cluster_1_1"
     },
@@ -296,7 +296,7 @@
     }
   },
   "m4a3_105_sherman_ammo_cluster_1_1": {
-    "_extends": "ammo_cluster",
+    "_use": "ammo_cluster",
     "ammo_cluster__isShell": true,
     "ammo_cluster__slotNames:shared:list<t>": [
       {

@@ -7,10 +7,10 @@
     }
   },
   "standart_door_sounds": {
-    "_extends": "base_door_sound"
+    "_use": "base_door_sound"
   },
   "metal_gate_door_sounds": {
-    "_extends": "base_door_sound",
+    "_use": "base_door_sound",
     "_group": {
       "_tags": "sound",
       "door_sound__openPath": "env_effects/doors/metal_gate_01/open",
@@ -18,10 +18,10 @@
     }
   },
   "metal_door_sounds": {
-    "_extends": "metal_gate_door_sounds"
+    "_use": "metal_gate_door_sounds"
   },
   "gate_door_sounds": {
-    "_extends": "base_door_sound",
+    "_use": "base_door_sound",
     "_group": {
       "_tags": "sound",
       "door_sound__openPath": "env_effects/doors/gate/open",
@@ -29,7 +29,7 @@
     }
   },
   "normandy_decor_gate_door_sounds": {
-    "_extends": "base_door_sound",
+    "_use": "base_door_sound",
     "_group": {
       "_tags": "sound",
       "door_sound__openPath": "env_effects/doors/normandy_decor_gate/open",
@@ -37,7 +37,7 @@
     }
   },
   "bunker_door_sounds": {
-    "_extends": "base_door_sound",
+    "_use": "base_door_sound",
     "_group": {
       "_tags": "sound",
       "door_sound__openPath": "env_effects/doors/bunker/open",
@@ -45,7 +45,7 @@
     }
   },
   "hatch_door_sounds": {
-    "_extends": "base_door_sound",
+    "_use": "base_door_sound",
     "_group": {
       "_tags": "sound",
       "door_sound__openPath": "env_effects/doors/hatch/open",
@@ -53,7 +53,7 @@
     }
   },
   "standart_window_sounds": {
-    "_extends": "base_door_sound",
+    "_use": "base_door_sound",
     "_group": {
       "_tags": "sound",
       "door_sound__openPath": "env_effects/doors/window/open",

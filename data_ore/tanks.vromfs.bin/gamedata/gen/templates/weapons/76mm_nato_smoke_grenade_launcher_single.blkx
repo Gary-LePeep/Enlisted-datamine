@@ -17,16 +17,16 @@
   },
   "tankgun_76mm_nato_smoke_grenade_launcher_single": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_tankgun_smoke_grenade_launcher"
+      "_use": "base_tankgun_smoke_grenade_launcher"
     },
     {
-      "_extends": "base_76mm_nato_smoke_grenade_launcher_single"
+      "_use": "base_76mm_nato_smoke_grenade_launcher_single"
     },
     {
-      "_extends": "gunsound_76mm_nato_smoke_grenade_launcher_single"
+      "_use": "gunsound_76mm_nato_smoke_grenade_launcher_single"
     },
     {
       "turret__triggerGroup": 3

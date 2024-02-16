@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { logerr } = require("dagor.debug")
 let { defTxtColor, titleTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
 let { MsgMarkedText } = require("%ui/style/colors.nut")
@@ -16,6 +16,7 @@ let mkTextRow = require("%darg/helpers/mkTextRow.nut")
 let { mkItemCurrency } = require("%enlist/shop/currencyComp.nut")
 let { primaryButtonStyle } = require("%ui/components/textButton.nut")
 let { disableChangeResearch } = require("%enlist/campaigns/campaignConfig.nut")
+let JB = require("%ui/control/gui_buttons.nut")
 
 let textarea = @(text, color) {
   size = [flex(), SIZE_TO_CONTENT]
@@ -24,13 +25,13 @@ let textarea = @(text, color) {
   halign = ALIGN_CENTER
   color
   text
-}.__update(body_txt)
+}.__update(fontBody)
 
 let mkText = @(text) {
   rendObj = ROBJ_TEXT
   text
   color = defTxtColor
-}.__update(body_txt)
+}.__update(fontBody)
 
 let balanceText = @() {
     watch = [changeResearchBalance, changeResearchGoldCost, disableChangeResearch]
@@ -98,7 +99,8 @@ let function changeResearchMsgbox(newResearch) {
     if (changeResearchBalance.value > 0 || isCurrencyAvailable)
       res.append({ text = loc("research/applyChangeResearch"), customStyle = primaryButtonStyle,
         action = @() doChangeResearch(curResearch.research_id, research_id) })
-    res.append({ text = loc("Cancel"), isCancel = true })
+    res.append({ text = loc("Cancel"), isCancel = true,
+      customStyle = { hotkeys = [[$"^{JB.B} | Esc"]] } })
     return res
   })
 

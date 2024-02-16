@@ -15,21 +15,21 @@
   },
   "uk_base_soldier": [
     {
-      "_extends": "usa_soldier"
+      "_use": "usa_soldier"
     },
     {
-      "_extends": "enlisted_base_soldier"
+      "_use": "enlisted_base_soldier"
     },
     {
-      "_extends": "uk_human_voice"
+      "_use": "uk_human_voice"
     }
   ],
   "ai_aircraft_crew_uk_soldier": [
     {
-      "_extends": "uk_base_soldier"
+      "_use": "uk_base_soldier"
     },
     {
-      "_extends": "ai_aircraft_crew_soldier_base"
+      "_use": "ai_aircraft_crew_soldier_base"
     }
   ]
 }

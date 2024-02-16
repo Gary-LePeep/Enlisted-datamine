@@ -1,80 +1,45 @@
-from "%darg/ui_imports.nut" import *
-let { colPart } = require("%enlSqGlob/ui/designConst.nut")
+from "%enlSqGlob/ui_library.nut" import *
 
-let fontXXSmall = freeze({
-  font = Fonts.trebuchet
-  fontSize = colPart(0.193) // 12px
+let fontTactical = freeze({
+  font = Fonts.tactical
+  fontSize = hdpxi(21)
 })
 
-let fontXSmall = freeze({
+let fontSub = freeze({
   font = Fonts.trebuchet
-  fontSize = colPart(0.225) // 14px
+  fontSize = hdpxi(16)
 })
 
-let fontSmall = freeze({
+let fontBody = freeze({
   font = Fonts.trebuchet
-  fontSize = colPart(0.258) // 16px
+  fontSize = hdpxi(22)
 })
 
-let fontMedium = freeze({
+let fontHeading2 = freeze({
   font = Fonts.trebuchet
-  fontSize = colPart(0.29) // 18px
+  fontSize = hdpxi(26)
 })
 
-let fontLarge = freeze({
+let fontHeading1 = freeze({
   font = Fonts.trebuchet
-  fontSize = colPart(0.354) // 22px
+  fontSize = hdpxi(34)
 })
 
-let fontXLarge = freeze({
+let fontTitle = freeze({
   font = Fonts.trebuchet
-  fontSize = colPart(0.42) // 26px
-})
-
-let fontXXLarge = freeze({
-  font = Fonts.trebuchet
-  fontSize = colPart(0.564) // 35px
+  fontSize = hdpxi(48)
 })
 
 let fontGiant = freeze({
   font = Fonts.trebuchet
-  fontSize = colPart(0.806) // 50px
+  fontSize = hdpxi(62)
 })
 
-let fontLargeBold = freeze({
-  font = Fonts.trebuchet_bold
-  fontSize = fontLarge.fontSize
-})
 
-let fontXLargeBold = freeze({
-  font = Fonts.trebuchet_bold
-  fontSize = fontXLarge.fontSize
-})
-
-let fontXXLargeBold = freeze({
-  font = Fonts.trebuchet_bold
-  fontSize = fontXXLarge.fontSize
-})
-
-let fontGiantBold = freeze({
-  font = Fonts.trebuchet_bold
-  fontSize = fontGiant.fontSize
-})
-
-let fontFontawesome = freeze({
+let fontawesome = freeze({
   font = Fonts.fontawesome
-  fontSize = colPart(0.338)
+  fontSize = hdpxi(21)
 })
-
-
-let fontTactical = freeze({
-  font = Fonts.tactical
-  fontSize = fontLarge.fontSize
-})
-
 
 return {
-  fontXXSmall, fontXSmall, fontSmall, fontMedium, fontLarge, fontXLarge,
-  fontXXLarge, fontGiant, fontLargeBold, fontXLargeBold, fontXXLargeBold,
-  fontGiantBold, fontTactical, fontFontawesome
-}
+  fontGiant, fontTitle, fontHeading1, fontHeading2, fontBody, fontSub, fontawesome, fontTactical}

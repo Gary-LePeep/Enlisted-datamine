@@ -26,6 +26,7 @@ let open_parachute_tip       = require("huds/tips/open_parachute_tip.nut")
 let mark_enemy_tip           = require("huds/tips/mark_enemy_tip.nut")
 let mortar_aiming_tip        = require("%ui/hud/huds/tips/mortar_aiming_tip.nut")
 let mortar_switch_shell_tip  = require("%ui/hud/huds/tips/mortar_switch_shell_type_tip.nut")
+let is_mobile_respawn_close_to_capzone_tip = require("%ui/hud/huds/tips/mobile_respawn_close_to_capzone_tip.nut")
 let {isAlive} = require("%ui/hud/state/health_state.nut")
 let { canShowGameHudInReplay } = require("%ui/hud/replay/replayState.nut")
 
@@ -42,7 +43,7 @@ let fullTips = [
       hold_breath_tip, downed_grenade_usage_tip,
       switch_soldier_tip, medkit_tip, aim_stamina_tip, low_stamina_use_flask_tip,
       place_bipod_tip, prevent_reloading_tip,
-      mortar_aiming_tip, mortar_switch_shell_tip, open_parachute_tip
+      mortar_aiming_tip, mortar_switch_shell_tip, open_parachute_tip, is_mobile_respawn_close_to_capzone_tip
     ]
   }
   { children = medkit_usage }

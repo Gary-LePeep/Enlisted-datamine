@@ -1,16 +1,20 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let colorize = require("%ui/components/colorize.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let JB = require("%ui/control/gui_buttons.nut")
 let cursors = require("%ui/style/cursors.nut")
 let { textarea } = require("%ui/components/textarea.nut")
 let mkTeamIcon = require("%ui/hud/components/teamIcon.nut")
-let textButton = require("%ui/components/textButton.nut")
+let { Accented } = require("%ui/components/txtButton.nut")
+let { Transp } = require("%ui/components/textButton.nut")
 let { timeToRespawn, timeToCanRespawn, respEndTime, canRespawnTime, canRespawnWaitNumber,
-  respRequested } = require("%ui/hud/state/respawnState.nut")
+  respRequested, paratroopersPointSelectorOn } = require("%ui/hud/state/respawnState.nut")
 let armyData = require("%ui/hud/state/armyData.nut")
 let armiesPresentation = require("%enlSqGlob/ui/armiesPresentation.nut")
 let { localPlayerTeamIcon } = require("%ui/hud/state/teams.nut")
+let { midPadding, attentionTxtColor, defItemBlur, transpBgColor
+} = require("%enlSqGlob/ui/designConst.nut")
 
 
 let playerArmyIcon = Computed(function() {
@@ -22,7 +26,8 @@ let playerArmyIcon = Computed(function() {
   return localPlayerTeamIcon.value
 })
 
-let teamIcon = mkTeamIcon(playerArmyIcon)
+let iconSize = hdpxi(32)
+let teamIcon = mkTeamIcon(playerArmyIcon, iconSize)
 
 let wndPadding = fsh(1)
 
@@ -48,7 +53,6 @@ let panel = @(content, menuOverride = {}) {
     gap = wndPadding
     flow = FLOW_VERTICAL
     halign = ALIGN_CENTER
-
     children = content
     transform = {}
     animations = respAnims
@@ -56,28 +60,29 @@ let panel = @(content, menuOverride = {}) {
 }
 
 let headerBlock = @(text) {
-  size=[flex(), SIZE_TO_CONTENT]
+  size = [flex(), SIZE_TO_CONTENT]
   flow = FLOW_HORIZONTAL
   gap = wndPadding
+  padding = midPadding
   valign = ALIGN_CENTER
+  rendObj = ROBJ_WORLD_BLUR
+  fillColor = transpBgColor
+  color = defItemBlur
   children = [
     teamIcon
-    textarea(text
-      {
-        size = [flex(), SIZE_TO_CONTENT]
-      }.__update(sub_txt))
+    textarea(text, { size = [flex(), SIZE_TO_CONTENT] }.__update(fontSub))
   ]
 }
 
-let squadBlock = @(squadName) textarea("{0} {1}".subst(loc("Squad"), squadName),
+let squadBlock = @(squadName) textarea(squadName,
   {
     size = [flex(), SIZE_TO_CONTENT]
     padding = wndPadding
     halign = ALIGN_CENTER
-  }.__update(sub_txt))
+  }.__update(fontSub))
 
 let respawnTimer = @(text, params = {}) @() textarea(
-  timeToRespawn.value ? $"{text}{timeToRespawn.value}" : null,
+  timeToRespawn.value ? $"{text}{colorize(attentionTxtColor, timeToRespawn.value)}" : null,
   {
     watch = timeToRespawn
     size = [flex(), SIZE_TO_CONTENT]
@@ -88,15 +93,26 @@ let requestRespawn = @() respRequested(true)
 let cancelRequestRespawn = @() respRequested(false)
 let forceSpawnStateFlags = Watched(0)
 
-let spawnButton = @(timeLeft) textButton(
-  "{0}{1}".subst(loc("Go!"), timeLeft ? " ({0})".subst(timeLeft) : ""),
-  requestRespawn,
-  { hotkeys = [["^J:Y | Space | Enter | @Human.Use"]], margin = 0, stateFlags = forceSpawnStateFlags, key = "forceSpawnButton" })
 
-let cancelSpawnButton = @(timeLeft) textButton.Transp(
-  "{0}{1}".subst(loc("pressToCancel"), timeLeft ? " ({0})".subst(timeLeft) : ""),
-  cancelRequestRespawn,
-  { hotkeys = [[$"^{JB.B} | Esc | @Human.Use"]], margin = 0, stateFlags = forceSpawnStateFlags, key = "cancelSpawnButton" })
+let mtTxtWithTime = @(locId, tLeft) "{0}{1}".subst(loc(locId), tLeft ? $" ({tLeft})" : "")
+
+let spawnButton = @(tLeft) Accented(mtTxtWithTime("Go!", tLeft),
+  requestRespawn, {
+    hotkeys = [["^J:Y | Space | Enter | @Human.Use"]]
+    margin = 0
+    minWidth = fsh(25)
+    stateFlags = forceSpawnStateFlags
+    key = "forceSpawnButton"
+  })
+
+let cancelSpawnButton = @(tLeft) Transp(mtTxtWithTime("pressToCancel", tLeft),
+  cancelRequestRespawn, {
+    hotkeys = [[$"^{JB.B} | Esc | @Human.Use"]]
+    margin = 0
+    textMargin = fsh(1)
+    stateFlags = forceSpawnStateFlags
+    key = "cancelSpawnButton"
+  })
 
 let forceSpawnButton = @(override = {}) @() {
   watch = [timeToCanRespawn, respEndTime, canRespawnTime, canRespawnWaitNumber, respRequested]
@@ -105,7 +121,7 @@ let forceSpawnButton = @(override = {}) @() {
   valign = ALIGN_CENTER
   children = canRespawnWaitNumber.value > 0 ? null
     : respRequested.value ? cancelSpawnButton(timeToCanRespawn.value)
-    : respEndTime.value > 0 && respEndTime.value - canRespawnTime.value <= 1 ? null
+    : (respEndTime.value > 0 && respEndTime.value - canRespawnTime.value <= 1) && !paratroopersPointSelectorOn.value ? null
     : spawnButton(timeToCanRespawn.value)
 }.__update(override)
 

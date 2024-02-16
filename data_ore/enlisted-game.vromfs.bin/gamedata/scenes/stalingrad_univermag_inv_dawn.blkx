@@ -1,5 +1,15 @@
 [
   {
+    "import": [
+      {
+        "scene": "content/enlisted/gamedata/scenes/_stalingrad_sounds.blk"
+      },
+      {
+        "scene": "content/enlisted/gamedata/scenes/_stalingrad_city_biome_fx.blk"
+      }
+    ]
+  },
+  {
     "entity": {
       "_template": "battle_area_polygon_point",
       "transform": [
@@ -5504,6 +5514,11 @@
   },
   {
     "entity": {
+      "_template": "bloom"
+    }
+  },
+  {
+    "entity": {
       "_template": "postfx_roundctrl",
       "post_fx:object": []
     }
@@ -5524,6 +5539,7 @@
     "entity": {
       "_template": "briefing_invasion",
       "mission_name": "stalingrad_univermag_inv",
+      "mission_outfit": "stalingrad",
       "loading_images:list<t>": [
         {
           "item": "ui/stalingrad_inv_01.avif"
@@ -5584,7 +5600,7 @@
       "team__briefing": "invasion/defenders_goals",
       "team__winSubtitle": "debriefing/won_defence_subtitle",
       "team__loseSubtitle": "debriefing/lost_defence_subtitle",
-      "team__winTitle": "debriefing/ger_won_defence",
+      "team__winTitle": "debriefing/axis_won_defence",
       "team__spawnBotArmy": "stalingrad_axis"
     }
   },
@@ -5637,7 +5653,7 @@
       "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 2,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "decal__height": 0.3,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 3,
@@ -5671,7 +5687,7 @@
       "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 2,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "decal__height": 2.0,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 4,
@@ -5739,7 +5755,7 @@
       "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 2,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "decal__height": 0.4,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 6,
@@ -5794,9 +5810,9 @@
       "capzone__capTeam": -1,
       "transform": [
         [-10.0648,0.0,-63.7642],
-        [0.0,6.8964,0.0],
+        [0.0,7.31018,0.0],
         [48.0597,0.0,-7.58579],
-        [-123.057,7.46217,-92.1479]
+        [-123.057,6.80561,-92.1479]
       ],
       "active": false,
       "capzone__decapTime": 6000.0,
@@ -5807,8 +5823,8 @@
       "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 2,
-      "decal__thickness": 0.4,
-      "decal__height": 1.5,
+      "decal__thickness": 0.15,
+      "decal__height": 2.7,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 8,
       "capzone__activateChoice:object": {
@@ -5940,7 +5956,7 @@
       "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 2,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "decal__height": 1.8,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 12
@@ -5970,7 +5986,7 @@
       "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 2,
-      "decal__thickness": 0.4,
+      "decal__thickness": 0.15,
       "decal__height": 1.5,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 13
@@ -6530,10 +6546,10 @@
     "entity": {
       "_template": "respawnChooser+respVehicle",
       "transform": [
-        [-0.394289,0.0,-0.918986],
+        [-0.0442435,0.0,-0.99902],
         [0.0,1.0,0.0],
-        [0.918986,0.0,-0.394289],
-        [-65.0895,6.12495,-5.03615]
+        [0.99902,0.0,-0.0442435],
+        [-71.4024,6.12495,-3.37224]
       ],
       "team": 2,
       "respawnBaseGroup": 1,
@@ -8213,7 +8229,7 @@
         [-0.584712,0.0,-0.811241],
         [0.0,1.0,0.0],
         [0.811242,0.0,-0.584712],
-        [-64.1061,6.38347,-3.09548]
+        [-68.9352,6.38347,-4.25856]
       ],
       "team": 1,
       "respawnBaseGroup": 2,
@@ -8335,10 +8351,10 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_fighter",
       "transform": [
-        [-0.984755,0.0,-0.173945],
+        [-0.989452,0.0,-0.144859],
         [0.0,1.0,0.0],
-        [0.173945,0.0,-0.984755],
-        [2097.58,1000.0,13.9067]
+        [0.144859,0.0,-0.989452],
+        [3403.8,1000.0,409.369]
       ],
       "team": 1,
       "maxVehicleOnSpawn": 1,
@@ -8350,10 +8366,10 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_assault",
       "transform": [
-        [-0.984755,0.0,-0.173945],
+        [-0.989452,0.0,-0.144859],
         [0.0,1.0,0.0],
-        [0.173945,0.0,-0.984755],
-        [2069.51,800.0,178.454]
+        [0.144859,0.0,-0.989452],
+        [3380.59,800.0,574.672]
       ],
       "team": 1,
       "maxVehicleOnSpawn": 1,
@@ -8365,10 +8381,10 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_fighter",
       "transform": [
-        [-0.984755,0.0,-0.173945],
+        [-0.989452,0.0,-0.144859],
         [0.0,1.0,0.0],
-        [0.173945,0.0,-0.984755],
-        [2069.51,1000.0,178.454]
+        [0.144859,0.0,-0.989452],
+        [3380.59,1000.0,574.672]
       ],
       "team": 1,
       "maxVehicleOnSpawn": 1,
@@ -8380,10 +8396,10 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_assault",
       "transform": [
-        [-0.984755,0.0,-0.173945],
+        [-0.989452,0.0,-0.144859],
         [0.0,1.0,0.0],
-        [0.173945,0.0,-0.984755],
-        [2103.62,800.0,-12.6554]
+        [0.144859,0.0,-0.989452],
+        [3409.06,800.0,382.64]
       ],
       "team": 1,
       "maxVehicleOnSpawn": 1,
@@ -8397,7 +8413,7 @@
         [-0.968964,0.0,-0.247206],
         [0.0,1.0,0.0],
         [0.247206,0.0,-0.968964],
-        [2073.08,1000.0,1060.01]
+        [2241.14,669.567,1625.88]
       ],
       "resupply_zone__team": 1
     }
@@ -8407,10 +8423,10 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_fighter",
       "transform": [
-        [0.990242,0.0,-0.139356],
+        [0.996727,0.0,-0.0808351],
         [0.0,1.0,0.0],
-        [0.139356,0.0,0.990242],
-        [-2524.81,1000.0,189.793]
+        [0.0808351,-0.0,0.996727],
+        [-3673.99,1000.0,189.92]
       ],
       "team": 2,
       "maxVehicleOnSpawn": 1,
@@ -8422,10 +8438,10 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_assault",
       "transform": [
-        [0.990242,0.0,-0.139356],
+        [0.996727,0.0,-0.0808351],
         [0.0,1.0,0.0],
-        [0.139356,0.0,0.990242],
-        [-2524.81,800.0,189.793]
+        [0.0808351,-0.0,0.996727],
+        [-3673.99,800.0,189.92]
       ],
       "team": 2,
       "maxVehicleOnSpawn": 1,
@@ -8437,10 +8453,10 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_fighter",
       "transform": [
-        [0.990242,0.0,-0.139356],
+        [0.996727,0.0,-0.0808351],
         [0.0,1.0,0.0],
-        [0.139356,0.0,0.990242],
-        [-2497.77,1000.0,316.135]
+        [0.0808351,-0.0,0.996727],
+        [-3654.43,1000.0,317.634]
       ],
       "team": 2,
       "maxVehicleOnSpawn": 1,
@@ -8452,10 +8468,10 @@
       "_template": "respAircraftInAir",
       "respawnbaseType": "aircraft_assault",
       "transform": [
-        [0.990242,0.0,-0.139356],
+        [0.996727,0.0,-0.0808351],
         [0.0,1.0,0.0],
-        [0.139356,0.0,0.990242],
-        [-2494.0,800.0,346.467]
+        [0.0808351,-0.0,0.996727],
+        [-3652.46,800.0,348.135]
       ],
       "team": 2,
       "maxVehicleOnSpawn": 1,
@@ -8469,22 +8485,15 @@
         [0.967396,0.0,-0.253265],
         [0.0,1.0,0.0],
         [0.253265,0.0,0.967396],
-        [-2616.72,1000.0,-168.558]
+        [-2871.28,592.181,-1131.74]
       ],
       "resupply_zone__team": 2
     }
   },
   {
     "entity": {
-      "_template": "level",
-      "level__blk": "content/enlisted/levels/battle_of_stalingrad.blk",
-      "level__timeRange": [15.48,16.49],
-      "level__weatherChoice:object": {
-        "weather_cloudy_sunset_b": 1.0
-      },
-      "level__timeVec:array": {
-        "level__timeVec": 6.1
-      }
+      "_template": "stalingrad_level",
+      "level__blk": "content/enlisted/levels/battle_of_stalingrad.blk"
     }
   },
   {
@@ -8908,7 +8917,7 @@
         [-0.394289,0.0,-0.918986],
         [0.0,1.0,0.0],
         [0.918986,0.0,-0.394289],
-        [-65.0895,6.12495,-5.03615]
+        [-69.5884,6.12495,-2.16655]
       ],
       "resupply_zone__team": 2,
       "groupName": "sector_1_a",
@@ -9160,7 +9169,7 @@
         [-0.584712,0.0,-0.811241],
         [0.0,1.0,0.0],
         [0.811242,0.0,-0.584712],
-        [-64.1061,6.38347,-3.09548]
+        [-67.3959,6.38347,-4.16918]
       ],
       "resupply_zone__team": 1,
       "groupName": "sector_5_b",
@@ -9185,10 +9194,10 @@
     "entity": {
       "_template": "respawnChooser+respMotorcycle",
       "transform": [
-        [-0.394289,0.0,-0.918986],
+        [-0.163928,0.0,-0.986472],
         [0.0,1.0,0.0],
-        [0.918986,0.0,-0.394289],
-        [-65.0895,6.12495,-5.03615]
+        [0.986472,0.0,-0.163928],
+        [-71.3158,6.12495,-3.30229]
       ],
       "team": 2,
       "groupName": "sector_1_a",
@@ -9440,7 +9449,7 @@
         [-0.584712,0.0,-0.811241],
         [0.0,1.0,0.0],
         [0.811242,0.0,-0.584712],
-        [-64.1061,6.38347,-3.09548]
+        [-68.8083,6.38347,-4.12008]
       ],
       "team": 1,
       "groupName": "sector_5_b",
@@ -9493,15 +9502,5 @@
         [-416.978,5.08358,-39.9115]
       ]
     }
-  },
-  {
-    "import": [
-      {
-        "scene": "content/enlisted/gamedata/scenes/_stalingrad_sounds.blk"
-      },
-      {
-        "scene": "content/enlisted/gamedata/scenes/_stalingrad_city_biome_fx.blk"
-      }
-    ]
   }
 ]

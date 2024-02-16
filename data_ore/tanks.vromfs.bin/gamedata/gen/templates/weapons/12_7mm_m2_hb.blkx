@@ -2,7 +2,7 @@
   "base_12_7mm_m2_hb": {
     "item__name": "guns/12_7mm_m2_hb",
     "gun__blk": "gamedata/gen/weapons/12_7mm_m2_hb.blk",
-    "gun__shotFreq": 9.6,
+    "gun__shotFreq": 9.5833,
     "gun__reloadTime": 8.0,
     "gun__maxAmmo": 200,
     "gun__locName": "12_7mm_m2_hb",
@@ -19,29 +19,25 @@
         {
           "shell:object": {
             "blk": "gamedata/gen/weapons/shells/12_7mm_m2_hb_defaultset_bullet_1.blk",
-            "name": "ap_i_t_ball_M20",
             "type": "ap_i_t_ball_M20"
           }
         },
         {
           "shell:object": {
             "blk": "gamedata/gen/weapons/shells/12_7mm_m2_hb_defaultset_bullet_2.blk",
-            "name": "i_ball_M1",
             "type": "i_ball_M1"
           }
         },
         {
           "shell:object": {
-            "blk": "gamedata/gen/weapons/shells/12_7mm_m2_hb_defaultset_bullet_2.blk",
-            "name": "i_ball_M1",
-            "type": "i_ball_M1"
+            "blk": "gamedata/gen/weapons/shells/12_7mm_m2_hb_defaultset_bullet_3.blk",
+            "type": "ap_ball_M2"
           }
         },
         {
           "shell:object": {
-            "blk": "gamedata/gen/weapons/shells/12_7mm_m2_hb_defaultset_bullet_2.blk",
-            "name": "i_ball_M1",
-            "type": "i_ball_M1"
+            "blk": "gamedata/gen/weapons/shells/12_7mm_m2_hb_defaultset_bullet_4.blk",
+            "type": "ap_i_t_ball_M20"
           }
         }
       ],
@@ -49,28 +45,24 @@
         {
           "shell:object": {
             "blk": "gamedata/gen/weapons/shells/12_7mm_m2_hb_12mm_usa_m2hb_common_bullet_1.blk",
-            "name": "ap_i_t_ball_M20",
             "type": "ap_i_t_ball_M20"
           }
         },
         {
           "shell:object": {
             "blk": "gamedata/gen/weapons/shells/12_7mm_m2_hb_12mm_usa_m2hb_common_bullet_2.blk",
-            "name": "i_ball_M1",
             "type": "i_ball_M1"
           }
         },
         {
           "shell:object": {
             "blk": "gamedata/gen/weapons/shells/12_7mm_m2_hb_12mm_usa_m2hb_common_bullet_3.blk",
-            "name": "ap_ball_M2",
             "type": "ap_ball_M2"
           }
         },
         {
           "shell:object": {
             "blk": "gamedata/gen/weapons/shells/12_7mm_m2_hb_12mm_usa_m2hb_common_bullet_4.blk",
-            "name": "ap_i_t_ball_M20",
             "type": "ap_i_t_ball_M20"
           }
         }
@@ -79,21 +71,18 @@
         {
           "shell:object": {
             "blk": "gamedata/gen/weapons/shells/12_7mm_m2_hb_12mm_usa_m2hb_api_bullet_1.blk",
-            "name": "ap_i_t_ball_M20",
             "type": "ap_i_t_ball_M20"
           }
         },
         {
           "shell:object": {
             "blk": "gamedata/gen/weapons/shells/12_7mm_m2_hb_12mm_usa_m2hb_api_bullet_2.blk",
-            "name": "ap_i_ball_M8",
             "type": "ap_i_ball_M8"
           }
         },
         {
           "shell:object": {
             "blk": "gamedata/gen/weapons/shells/12_7mm_m2_hb_12mm_usa_m2hb_api_bullet_3.blk",
-            "name": "ap_i_t_ball_M20",
             "type": "ap_i_t_ball_M20"
           }
         }
@@ -102,21 +91,18 @@
         {
           "shell:object": {
             "blk": "gamedata/gen/weapons/shells/12_7mm_m2_hb_12mm_usa_m2hb_ap_bullet_1.blk",
-            "name": "ap_ball_M2",
             "type": "ap_ball_M2"
           }
         },
         {
           "shell:object": {
             "blk": "gamedata/gen/weapons/shells/12_7mm_m2_hb_12mm_usa_m2hb_ap_bullet_2.blk",
-            "name": "ap_ball_M2",
             "type": "ap_ball_M2"
           }
         },
         {
           "shell:object": {
             "blk": "gamedata/gen/weapons/shells/12_7mm_m2_hb_12mm_usa_m2hb_ap_bullet_3.blk",
-            "name": "ap_i_t_ball_M20",
             "type": "ap_i_t_ball_M20"
           }
         }
@@ -124,7 +110,6 @@
       "12mm_usa_M2HB_APIT:array": {
         "shell:object": {
           "blk": "gamedata/gen/weapons/shells/12_7mm_m2_hb_12mm_usa_m2hb_apit.blk",
-          "name": "ap_i_t_ball_M20",
           "type": "ap_i_t_ball_M20"
         }
       }
@@ -132,16 +117,16 @@
   },
   "tankgun_12_7mm_m2_hb": [
     {
-      "_extends": "tankgun"
+      "_use": "tankgun"
     },
     {
-      "_extends": "base_tankgun_machinegun"
+      "_use": "base_tankgun_machinegun"
     },
     {
-      "_extends": "base_12_7mm_m2_hb"
+      "_use": "base_12_7mm_m2_hb"
     },
     {
-      "_extends": "gunsound_12_7mm_m2_hb"
+      "_use": "gunsound_12_7mm_m2_hb"
     },
     {
       "turret__triggerGroup": 2

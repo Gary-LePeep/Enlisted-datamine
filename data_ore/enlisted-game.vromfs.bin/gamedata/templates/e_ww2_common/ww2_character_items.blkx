@@ -1,10 +1,10 @@
 {
   "attachable_pants": [
     {
-      "_extends": "attachable_wear"
+      "_use": "attachable_wear"
     },
     {
-      "_extends": "attachable_wear_broken_bones"
+      "_use": "attachable_wear_broken_bones"
     },
     {
       "footprintType": 1
@@ -27,10 +27,10 @@
   ],
   "attachable_boots": [
     {
-      "_extends": "attachable_wear"
+      "_use": "attachable_wear"
     },
     {
-      "_extends": "attachable_wear_broken_bones"
+      "_use": "attachable_wear_broken_bones"
     },
     {
       "footprintType": 1
@@ -53,10 +53,10 @@
   ],
   "attachable_tunic": [
     {
-      "_extends": "attachable_wear"
+      "_use": "attachable_wear"
     },
     {
-      "_extends": "attachable_wear_broken_bones"
+      "_use": "attachable_wear_broken_bones"
     },
     {
       "torn_wounds__name_list:list<t>": [
@@ -76,10 +76,10 @@
   ],
   "base_attachable_gibs": [
     {
-      "_extends": "base_local_vis_item"
+      "_use": "base_local_vis_item"
     },
     {
-      "_extends": "disable_update"
+      "_use": "disable_update"
     },
     {
       "transform": [
@@ -107,10 +107,10 @@
   ],
   "attachable_gloves": [
     {
-      "_extends": "attachable_wear"
+      "_use": "attachable_wear"
     },
     {
-      "_extends": "attachable_wear_broken_bones"
+      "_use": "attachable_wear_broken_bones"
     },
     {
       "item__equipToSlots:array": {
@@ -125,10 +125,10 @@
   ],
   "attachable_hair": [
     {
-      "_extends": "item"
+      "_use": "item"
     },
     {
-      "_extends": "slot_attachable"
+      "_use": "slot_attachable"
     },
     {
       "animchar_hider__camThreshold": 0.3
@@ -144,10 +144,16 @@
   ],
   "attachable_head_base": [
     {
-      "_extends": "attachable_wear_without_collres_animchar"
+      "_use": "attachable_wear_without_collres_animchar"
     },
     {
-      "_extends": "attachable_wear_broken_bones"
+      "_use": "attachable_wear_broken_bones"
+    },
+    {
+      "_use": "node_collapser"
+    },
+    {
+      "_tracked": "attaches_list"
     },
     {
       "animchar__updatable": true
@@ -157,6 +163,22 @@
     },
     {
       "randomAnimStart": true
+    },
+    {
+      "attaches_list:list<eid>": []
+    },
+    {
+      "skeleton_attach__remapAffectSlots:list<t>": [
+        {
+          "slot": "head"
+        },
+        {
+          "slot": "skined_helmet"
+        },
+        {
+          "slot": "helmet"
+        }
+      ]
     },
     {
       "animchar_attaches__animated:tag": []
@@ -170,11 +192,6 @@
     {
       "item__equipToSlots:array": {
         "slot": "face"
-      }
-    },
-    {
-      "animchar_node_collapser": {
-        "_tags": "render"
       }
     },
     {
@@ -281,10 +298,10 @@
   ],
   "attachable_head": [
     {
-      "_extends": "attachable_head_base"
+      "_use": "attachable_head_base"
     },
     {
-      "_extends": "base_collres_vis_item"
+      "_use": "base_collres_vis_item"
     },
     {
       "phys_vars": []
@@ -485,19 +502,22 @@
     }
   },
   "attachable_shovel": {
-    "_extends": "attachable_wear",
+    "_use": "attachable_wear",
     "item__equipToSlots:array": {
       "slot": "shovel"
     }
   },
   "attachable_ammo_case": {
-    "_extends": "attachable_wear",
+    "_use": "attachable_wear",
     "item__equipToSlots:array": {
       "slot": "ammo_case"
+    },
+    "hideFlags:array": {
+      "hideFlag": "ammo_case"
     }
   },
   "attachable_pot": {
-    "_extends": "attachable_wear",
+    "_use": "attachable_wear",
     "item__equipToSlots:array": {
       "slot": "pot"
     },
@@ -506,7 +526,7 @@
     }
   },
   "attachable_roll": {
-    "_extends": "attachable_wear",
+    "_use": "attachable_wear",
     "item__equipToSlots:array": {
       "slot": "roll"
     },
@@ -515,7 +535,7 @@
     }
   },
   "attachable_belt1": {
-    "_extends": "attachable_wear",
+    "_use": "attachable_wear",
     "item__equipToSlots:array": {
       "slot": "belt_1"
     },
@@ -524,13 +544,13 @@
     }
   },
   "attachable_belt2": {
-    "_extends": "attachable_wear",
+    "_use": "attachable_wear",
     "item__equipToSlots:array": {
       "slot": "belt_2"
     }
   },
   "attachable_front_belt_l": {
-    "_extends": "attachable_wear",
+    "_use": "attachable_wear",
     "item__equipToSlots:array": {
       "slot": "front_belt_l"
     },
@@ -539,7 +559,7 @@
     }
   },
   "attachable_front_belt_r": {
-    "_extends": "attachable_wear",
+    "_use": "attachable_wear",
     "item__equipToSlots:array": {
       "slot": "front_belt_r"
     },
@@ -548,7 +568,7 @@
     }
   },
   "attachable_side_belt_r": {
-    "_extends": "attachable_wear",
+    "_use": "attachable_wear",
     "item__equipToSlots:array": {
       "slot": "side_belt_r"
     },
@@ -557,7 +577,7 @@
     }
   },
   "attachable_side_belt_l": {
-    "_extends": "attachable_wear",
+    "_use": "attachable_wear",
     "item__equipToSlots:array": {
       "slot": "side_belt_l"
     },
@@ -566,7 +586,7 @@
     }
   },
   "attachable_front_rear_belt_l": {
-    "_extends": "attachable_wear",
+    "_use": "attachable_wear",
     "item__equipToSlots:array": {
       "slot": "rear_belt_l"
     },
@@ -575,7 +595,7 @@
     }
   },
   "attachable_rear_belt_r": {
-    "_extends": "attachable_wear",
+    "_use": "attachable_wear",
     "item__equipToSlots:array": {
       "slot": "rear_belt_r"
     },
@@ -584,13 +604,13 @@
     }
   },
   "attachable_bag": {
-    "_extends": "attachable_wear",
+    "_use": "attachable_wear",
     "item__equipToSlots:array": {
       "slot": "bag"
     }
   },
   "attachable_chest": {
-    "_extends": "attachable_wear",
+    "_use": "attachable_wear",
     "item__equipToSlots:array": {
       "slot": "chest"
     },
@@ -599,17 +619,17 @@
     }
   },
   "attachable_binoculars": {
-    "_extends": "attachable_chest",
+    "_use": "attachable_chest",
     "attachableBinoculars:tag": []
   },
   "attachable_bag_l": {
-    "_extends": "attachable_wear",
+    "_use": "attachable_wear",
     "item__equipToSlots:array": {
       "slot": "bag_l"
     }
   },
   "attachable_flask_r": {
-    "_extends": "attachable_wear",
+    "_use": "attachable_wear",
     "item__equipToSlots:array": {
       "slot": "flask_r"
     },
@@ -618,21 +638,29 @@
     }
   },
   "attachable_backpack": {
-    "_extends": "attachable_wear",
+    "_use": "attachable_wear",
+    "item__iconYaw": 120.0,
     "menu_item__rotationOffset": [-0.15,0.1,0.0],
     "attachable_backpack__capacity": 0,
     "item__equipToSlots:array": {
       "slot": "backpack"
+    },
+    "hideFlags:array": {
+      "hideFlag": "backpack"
     }
   },
+  "attachable_parachute": {
+    "_use": "attachable_backpack",
+    "item__scale": 0.8
+  },
   "attachable_parachute_canopy": {
-    "_extends": "attachable_wear",
+    "_use": "attachable_wear",
     "item__equipToSlots:array": {
       "slot": "parachute_canopy"
     }
   },
   "attachable_face_equipment": {
-    "_extends": "attachable_wear",
+    "_use": "attachable_wear",
     "animchar_hider__camThreshold": 0.3,
     "item__equipToSlots:array": {
       "slot": "face_equipment"
@@ -642,7 +670,7 @@
     }
   },
   "attachable_gasmask": {
-    "_extends": "attachable_wear",
+    "_use": "attachable_wear",
     "item__equipToSlots:array": {
       "slot": "gasmask"
     },
@@ -651,8 +679,9 @@
     }
   },
   "attachable_skined_helmet": {
-    "_extends": "attachable_wear",
+    "_use": "attachable_wear",
     "animchar_hider__camThreshold": 0.3,
+    "_tracked": "attaches_list",
     "hides:array": {
       "hides": "hair"
     },
@@ -661,30 +690,32 @@
     },
     "hideFlags:array": {
       "hideFlag": "helmet"
+    },
+    "attaches_list:list<eid>": [],
+    "skeleton_attach__remapAffectSlots:list<t>": {
+      "slot": "helmet_deco"
     }
   },
-  "attachable_helmet_deco": [
-    {
-      "_extends": "item"
+  "attachable_helmet_deco": {
+    "_use": "attachable_wear",
+    "animchar_hider__camThreshold": 0.3,
+    "slot_attach__slotName": "head_armor",
+    "item__equipToSlots:array": {
+      "slot": "helmet_deco"
     },
-    {
-      "_extends": "slot_attachable"
+    "hideFlags:array": {
+      "hideFlag": "helmet_deco"
     },
-    {
-      "animchar_hider__camThreshold": 0.3
-    },
-    {
-      "slot_attach__slotName": "head_armor"
-    },
-    {
-      "item__equipToSlots:array": {
-        "slot": "helmet_deco"
+    "skeleton_attach__remapParentSlots:list<t>": [
+      {
+        "slot": "skined_helmet"
+      },
+      {
+        "slot": "head"
+      },
+      {
+        "slot": "helmet"
       }
-    },
-    {
-      "hideFlags:array": {
-        "hideFlag": "helmet_deco"
-      }
-    }
-  ]
+    ]
+  }
 }

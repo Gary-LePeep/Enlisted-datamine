@@ -7,21 +7,21 @@
   },
   "it_base_soldier": [
     {
-      "_extends": "ger_soldier"
+      "_use": "ger_soldier"
     },
     {
-      "_extends": "enlisted_base_soldier"
+      "_use": "enlisted_base_soldier"
     },
     {
-      "_extends": "it_human_voice"
+      "_use": "it_human_voice"
     }
   ],
   "ai_aircraft_crew_it_soldier": [
     {
-      "_extends": "it_base_soldier"
+      "_use": "ai_aircraft_crew_soldier_base"
     },
     {
-      "_extends": "ai_aircraft_crew_soldier_base"
+      "_use": "ger_summer_2"
     }
   ]
 }

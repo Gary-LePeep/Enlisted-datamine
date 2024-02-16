@@ -307,6 +307,11 @@
   },
   {
     "entity": {
+      "_template": "bloom"
+    }
+  },
+  {
+    "entity": {
       "_template": "postfx_roundctrl"
     }
   },
@@ -326,6 +331,7 @@
     "entity": {
       "_template": "briefing_gun_game",
       "mission_name": "normandy_farm_gun_game",
+      "mission_outfit": "normandy",
       "loading_images:list<t>": {
         "item": "ui/normandy_coast_farm_02.avif"
       }

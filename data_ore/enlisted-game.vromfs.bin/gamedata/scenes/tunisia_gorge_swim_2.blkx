@@ -569,6 +569,7 @@
     "entity": {
       "_template": "briefing_domination",
       "mission_name": "tunisia_gorge_inv",
+      "mission_outfit": "tunisia",
       "loading_images:list<t>": [
         {
           "item": "ui/tunisia_gorge_inv_01.avif"
@@ -620,6 +621,11 @@
   {
     "entity": {
       "_template": "postfx_color_grading_tonemap_death_alive_enlisted"
+    }
+  },
+  {
+    "entity": {
+      "_template": "bloom"
     }
   },
   {

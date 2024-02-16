@@ -2,12 +2,20 @@
   "projectile_sound": {
     "_group": {
       "_tags": "sound",
-      "projectile_sound__hit": "autoSelect",
-      "projectile_sound__explode": "autoSelect"
+      "projectile_sound__shellCaliberThreshold": 0.025,
+      "projectile_sound__ricoThreshold": 0.0,
+      "projectile_sound__paths:shared:object": {
+        "hitBullet": "impact/bullet",
+        "hitShell": "impact/shell",
+        "explodeBullet": "impact/bullet",
+        "explodeShell": "impact/shell",
+        "ricoBullet": "impact/rico_bullet",
+        "ricoShell": "enemy/vehicle/tank/impacts/rico_mid"
+      }
     }
   },
   "projectile_sound_physmat": {
-    "_extends": "sound_physmat",
+    "_use": "sound_physmat",
     "_group": {
       "_tags": "sound",
       "sound_physmat__soundMaterials:list<t>": [
@@ -40,6 +48,7 @@
         "waterPuddle": "water",
         "wood": "wood",
         "wood_railway": "wood",
+        "wood_solid": "wood",
         "window_wood": "wood",
         "cactus": "wood",
         "softWoodDoor": "wood",
@@ -51,8 +60,48 @@
     },
     "projectileSoundPhysmat:tag": []
   },
+  "wiz_sound_settings": {
+    "_group": {
+      "_tags": "sound",
+      "wiz_sound_settings__caliberToDist": [0.005,0.1,2.0,20.0],
+      "wiz_sound_settings__dirThresholds": [0.75,0.25],
+      "wiz_sound_settings__shellCaliberThreshold": 0.02,
+      "wiz_sound_settings__largeCaliberThreshold": 0.012,
+      "wiz_sound_settings__supersonicThreshold": 340.0,
+      "wiz_sound_settings__shellPath": "impact/wiz_shell",
+      "wiz_sound_settings__largeCaliberPath": "impact/wiz_large_caliber",
+      "wiz_sound_settings__supersonicBulletPath": "impact/wiz_supersonic_bullet",
+      "wiz_sound_settings__subsonicBulletPath": "impact/wiz_subsonic_bullet"
+    }
+  },
+  "shell_shatter_sound_settings": {
+    "_group": {
+      "_tags": "sound",
+      "shell_shatter_sound__maxRadiusMul": 1.0,
+      "shell_shatter_sound__countToSoundCount": [1.0,128.0,1.0,4.0],
+      "shell_shatter_sound__chance": 75,
+      "shell_shatter_sound__nextTime": 0.0,
+      "shell_shatter_sound__cooldown": 4.0,
+      "shell_shatter_sound__radiusAroundListener": 8.0,
+      "shell_shatter_sound__traceStart": 0.5,
+      "shell_shatter_sound__hitSoundDistStart": 2.0,
+      "shell_shatter_sound__wizPath": "impact/wiz_fragment",
+      "shell_shatter_sound__hitPath": "impact/fragment"
+    }
+  },
+  "projectile_sound_settings": [
+    {
+      "_use": "projectile_sound_physmat"
+    },
+    {
+      "_use": "wiz_sound_settings"
+    },
+    {
+      "_use": "shell_shatter_sound_settings"
+    }
+  ],
   "human_melee_action_sound_physmat": {
-    "_extends": "sound_physmat",
+    "_use": "sound_physmat",
     "_group": {
       "_tags": "sound",
       "sound_physmat__soundMaterials:list<t>": [
@@ -88,6 +137,7 @@
         "waterPuddle": "water",
         "wood": "wood",
         "wood_railway": "wood",
+        "wood_solid": "wood",
         "window_wood": "wood",
         "cactus": "wood",
         "softWoodDoor": "wood",
@@ -99,5 +149,12 @@
       }
     },
     "humanMeleeActionSoundPhysmat:tag": []
+  },
+  "flash_grenade_explosion_sound": {
+    "_use": "on_appear_sound",
+    "_group": {
+      "_tags": "sound",
+      "on_appear_sound__path": "impact/grenade_flash"
+    }
   }
 }

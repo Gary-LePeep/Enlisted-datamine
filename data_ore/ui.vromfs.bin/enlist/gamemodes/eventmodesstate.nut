@@ -12,12 +12,11 @@ let { userstatStats, MAX_DELAY_FOR_MASSIVE_REQUEST_SEC
 } = require("%enlSqGlob/userstats/userstat.nut")
 let { allModes, isRoomCfgActual, actualizeRoomCfg } = require("createEventRoomCfg.nut")
 let { hasCustomGames, showEventsWidget } = require("%enlist/featureFlags.nut")
-let { curArmy, curArmiesList} = require("%enlist/soldiers/model/state.nut")
+let { curArmy } = require("%enlist/soldiers/model/state.nut")
 let { loadJson } = require("%sqstd/json.nut")
 let squadsPresentation = require("%enlSqGlob/ui/squadsPresentation.nut")
 let mkCurSquadsList = require("%enlSqGlob/ui/mkSquadsList.nut")
 let isNewbie = require("%enlist/unlocks/isNewbie.nut")
-let { curCampaign } = require("%enlist/meta/curCampaign.nut")
 let armiesPresentation = require("%enlSqGlob/ui/armiesPresentation.nut")
 let { nestWatched } = require("%dngscripts/globalState.nut")
 
@@ -31,47 +30,44 @@ let curEventSquadId = nestWatched("curEventSquadId")
 let eventCurArmyIdx = nestWatched("eventCurArmyIdx", 0)
 let eventsArmiesList = nestWatched("eventsArmiesList", [])
 let hasUniqueArmies = nestWatched("hasUniqueArmies", false)
+let { campaignsByArmies } = require("%enlSqGlob/renameCommonArmies.nut")
 
 let curTab = Watched(null)
-curArmy.subscribe(@(_v) eventCurArmyIdx(curArmiesList.value.indexof(curArmy.value)))
 
 let hasBaseEvent = Computed(@() showEventsWidget.value
   && (hasCustomRooms.value || eventGameModes.value.len() > 0))
 
-let inactiveEventsToShow = Computed (@() eventGameModes.value.filter(@(gm)
-  (gm?.showWhenInactive ?? false) && !gm.enabled))
+let inactiveEventsToShow = Computed (@()
+  eventGameModes.value.filter(@(gm) gm.showWhenInactive && !gm.isEnabled))
 
-let activeEvents = Computed (@() eventGameModes.value.filter(@(gm) gm.enabled))
+let activeEvents = Computed (@() eventGameModes.value.filter(@(gm) gm.isEnabled))
 
 let allEventsToShow = Computed (@() [].extend(activeEvents.value, inactiveEventsToShow.value))
 
 let promotedEvent = Computed(@()
-  allEventsToShow.value.findvalue(@(gm) gm?.queue.extraParams.isPreviewImage ?? false)
+  allEventsToShow.value.findvalue(@(gm) gm.isPreviewImage)
     ?? allEventsToShow.value?[0])
 
 let selEvent = Computed(@()
   eventGameModes.value.findvalue(@(gm) gm.id == selEventIdByPlayer.value)
     ?? eventGameModes.value?[0])
 
-let selLbMode = Computed(@() selEvent.value?.queue.extraParams.leaderboardTables[0])
-let eventCustomProfilePath = Computed(@() selEvent.value?.queue.extraParams.customProfile)
+let selLbMode = Computed(@() selEvent.value?.leaderboardTables[0])
+let eventCustomProfilePath = Computed(@() selEvent.value?.customProfile)
 
 let eventCustomProfile = Computed(@() eventCustomProfilePath.value != null
-  ? loadJson($"%{eventCustomProfilePath.value}")
+  ? loadJson(eventCustomProfilePath.value)
   : null)
 
-let eventCampaigns = Computed(@() selEvent.value?.campaigns ?? [])
 
-let hasChoosedCampaign = Watched(false)
-
-let isCurCampaignAvailable = Computed(@() eventCampaigns.value.contains(curCampaign.value))
-
-let eventCustomSquads = Computed(function(){
+let eventCustomSquads = Computed(function() {
   if (eventCustomProfile.value == null)
     return null
   local armyId = curArmy.value
-  if (eventCustomProfile.value?[armyId] == null)
-    armyId = eventCustomProfile.value.keys()[eventCurArmyIdx.value]
+  if (eventCustomProfile.value?[armyId] == null) {
+    let armies = eventCustomProfile.value.keys()
+    armyId = armies?[eventCurArmyIdx.value] ?? armies?[0]
+  }
 
   let squads = eventCustomProfile.value?[armyId].squads ?? []
   if (squads.len() == 0)
@@ -99,16 +95,16 @@ let eventCustomSquads = Computed(function(){
 )
 
 let function updateEvent() {
-  let armyList = curArmiesList.value
-  if (eventCustomProfile.value != null){
+  let armyList = selEvent.value.queues[0].extraParams?.armies ?? campaignsByArmies.keys()
+  if (eventCustomProfile.value != null) {
     let squads = eventCustomSquads.value
     let uniqueArmyList = eventCustomProfile.value.keys()
-    let armiesOfCurCampaign = []
+    let armiesCustomProfile = []
     foreach (armyId in armyList)
       if (uniqueArmyList.contains(armyId))
-        armiesOfCurCampaign.append(armyId)
-    hasUniqueArmies(armiesOfCurCampaign.len() <= 1)
-    eventsArmiesList(hasUniqueArmies.value ? uniqueArmyList : armiesOfCurCampaign)
+        armiesCustomProfile.append(armyId)
+    hasUniqueArmies(armiesCustomProfile.len() <= 1)
+    eventsArmiesList(hasUniqueArmies.value ? uniqueArmyList : armiesCustomProfile)
     curEventSquadId(squads[0].squadId)
   }
   else {
@@ -117,12 +113,12 @@ let function updateEvent() {
   }
 }
 
-let function checkUpdateEvent(_){
-  if (isEventModesOpened.value)
+let function checkUpdateEvent(_) {
+  if (isEventModesOpened.value && !isCustomRoomsMode.value)
     updateEvent()
 }
 
-foreach (v in [selEvent, curCampaign, isEventModesOpened])
+foreach (v in [selEvent, isEventModesOpened])
   v.subscribe(checkUpdateEvent)
 
 isEventModesOpened.subscribe(@(v) v ? null : eventsArmiesList([]))
@@ -206,6 +202,8 @@ let requestNewSchedule = debounce(function() {
   timeUntilStart()
 }, 0, MAX_DELAY_FOR_MASSIVE_REQUEST_SEC)
 
+hasBaseEvent.subscribe(@(_) timeUntilStart())
+
 matching_api.listen_notify("enlmm.notify_schedule_list_changed")
 eventbus.subscribe("enlmm.notify_schedule_list_changed", @(_) requestNewSchedule())
 
@@ -231,11 +229,7 @@ return {
   eventsArmiesList
   eventCurArmyIdx
   hasBaseEvent
-  eventCampaigns
-  hasChoosedCampaign
-  isCurCampaignAvailable
   eventCustomProfile
   curTab
   eventStartTime
-  timeUntilStart
 }

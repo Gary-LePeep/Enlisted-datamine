@@ -1,16 +1,13 @@
 {
   "nodes_name": [
     {
-      "node": "Bip01 L Hand"
-    },
-    {
-      "node": "Bip01 R Hand"
-    },
-    {
       "node": "Bip01 L Foot"
     },
     {
       "node": "Bip01 R Foot"
+    },
+    {
+      "node": "Bip01 Pelvis"
     }
   ],
   "prediction_times": [
@@ -32,116 +29,54 @@
       "animationBlendTime": 0.2
     },
     {
-      "trajectoryInertionFactor": 0.8
-    },
-    {
       "linearVelocityViscosity": 0.07
-    },
-    {
-      "angularVelocityViscosity": 0.02
-    },
-    {
-      "node": {
-        "position_weight": 0.368,
-        "velocity_weight": 0.221
-      }
-    },
-    {
-      "node": {
-        "position_weight": 0.368,
-        "velocity_weight": 0.221
-      }
-    },
-    {
-      "node": {
-        "position_weight": 6.765,
-        "velocity_weight": 3.456
-      }
-    },
-    {
-      "node": {
-        "position_weight": 6.765,
-        "velocity_weight": 3.456
-      }
-    },
-    {
-      "point": {
-        "position_weight": 5.221,
-        "velocity_weight": 5.221,
-        "rotation_weight": 5.221
-      }
-    },
-    {
-      "point": {
-        "position_weight": 5.221,
-        "velocity_weight": 5.221,
-        "rotation_weight": 5.221
-      }
-    },
-    {
-      "point": {
-        "position_weight": 5.221,
-        "velocity_weight": 5.221,
-        "rotation_weight": 5.221
-      }
-    }
-  ],
-  "swim": [
-    {
-      "optionalTagWeight": 8.0
-    },
-    {
-      "animationBlendTime": 0.45
-    },
-    {
-      "trajectoryInertionFactor": 0.75
-    },
-    {
-      "linearVelocityViscosity": 0.1
     },
     {
       "angularVelocityViscosity": 0.1
     },
     {
+      "metricaToleranceMin": 0.3
+    },
+    {
+      "metricaToleranceMax": 5.0
+    },
+    {
+      "metricaToleranceDecayTime": 0.7
+    },
+    {
       "node": {
-        "position_weight": 1.559,
-        "velocity_weight": 1.065
+        "position_weight": 0.75,
+        "velocity_weight": 1.0
       }
     },
     {
       "node": {
-        "position_weight": 1.559,
-        "velocity_weight": 0.941
+        "position_weight": 0.75,
+        "velocity_weight": 1.0
       }
     },
     {
       "node": {
-        "position_weight": 1.559,
-        "velocity_weight": 0.91
-      }
-    },
-    {
-      "node": {
-        "position_weight": 1.497,
-        "velocity_weight": 0.941
+        "position_weight": 0.01,
+        "velocity_weight": 1.0
       }
     },
     {
       "point": {
-        "position_weight": 7.948,
-        "velocity_weight": 7.639
+        "position_weight": 1.0,
+        "velocity_weight": 1.5
       }
     },
     {
       "point": {
-        "position_weight": 7.145,
-        "velocity_weight": 6.94
+        "position_weight": 1.0,
+        "velocity_weight": 1.5
       }
     },
     {
       "point": {
-        "position_weight": 6.219,
-        "velocity_weight": 6.885
+        "position_weight": 1.0,
+        "velocity_weight": 1.5
       }
     }
   ]

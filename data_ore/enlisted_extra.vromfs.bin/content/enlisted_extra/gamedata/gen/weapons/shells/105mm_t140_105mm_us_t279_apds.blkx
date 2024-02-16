@@ -19,7 +19,6 @@
   "groundCollisionEffect": "hit_106_132mm_dirt_ap",
   "ricochetEffect": "hit_106_132mm_metal_ap",
   "waterCollisionEffect": "hit_106_132mm_water_ap",
-  "explosionPatchRadius": 2.8,
   "modelName": "tank_bullet_apdc",
   "secondaryShattersPreset": "apds",
   "tracePattern": {
@@ -220,27 +219,6 @@
       "breakingArmorThickness": [30.0,150.0],
       "breakingArmorThicknessEffective": true,
       "breakingDistance": 0.1
-    }
-  },
-  "hitFx": {
-    "fxScale": [1.0,1.0],
-    "defaultFx": "hit_106_132mm_dirt_ap",
-    "jetFx": "hit_106_132mm_dirt_ap",
-    "steel": {
-      "fx": "hit_106_132mm_metal_ap",
-      "fxScale": [1.0,1.0]
-    },
-    "wood": {
-      "fx": "hit_106_132mm_wood_ap",
-      "fxScale": [1.0,1.0]
-    },
-    "glass": {
-      "fx": "hit_106_132mm_metal_ap",
-      "fxScale": [1.0,1.0]
-    },
-    "stone": {
-      "fx": "hit_106_132mm_stone_ap",
-      "fxScale": [1.0,1.0]
     }
   },
   "tracer": {

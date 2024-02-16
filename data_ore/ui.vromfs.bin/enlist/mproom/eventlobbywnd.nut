@@ -2,42 +2,35 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { addContextMenu } = require("%ui/components/contextMenu.nut")
 let { showMsgbox, showMessageWithContent } = require("%enlist/components/msgbox.nut")
-let { body_txt, h2_txt} = require("%enlSqGlob/ui/fonts_style.nut")
+let { fontBody, fontHeading2} = require("%enlSqGlob/ui/fontsStyle.nut")
 let {
   roomMembers, room, startSession, connectToHost, canOperateRoom, leaveRoom,
   lobbyStatus, LobbyStatus, isLocalDedicated, canStartWithLocalDedicated, roomTeamArmies,
-  cancelSessionStart, myInfoUpdateInProgress
+  cancelSessionStart, myInfoUpdateInProgress, isHostInGame
 } = require("enlRoomState.nut")
-let { startBtnWidth } = require("%enlist/startBtn.nut")
 let JB = require("%ui/control/gui_buttons.nut")
 let mkActiveBoostersMark = require("%enlist/mainMenu/mkActiveBoostersMark.nut")
-let {
-  bigPadding, maxContentWidth, accentColor, defTxtColor, commonBtnHeight, rowBg, isWide
-} = require("%enlSqGlob/ui/viewConst.nut")
+let { accentColor, rowBg, isWide } = require("%enlSqGlob/ui/viewConst.nut")
+let { bigPadding, maxContentWidth, defTxtColor, commonBtnHeight, smallPadding, brightAccentColor,
+  darkTxtColor, midPadding, startBtnWidth
+} = require("%enlSqGlob/ui/designConst.nut")
 let { BtnActionBgDisabled, BtnActionTextNormal }  = require("%ui/style/colors.nut")
-let { smallCampaignIcon } = require("%enlist/gameModes/roomsPkg.nut")
 let { isEditEventRoomOpened } = require("%enlist/gameModes/createEventRoomState.nut")
-let {
-  verticalGap, localPadding, localGap, armieChooseBlockWidth
+let { verticalGap, localPadding, localGap, armieChooseBlockWidth
 } = require("%enlist/gameModes/eventModeStyle.nut")
-let { gameProfile } = require("%enlist/soldiers/model/config/gameProfile.nut")
 let {
-  myCampaign, setMyArmy, curTeam, setMyTeam, canChangeTeam, isReady, setReady,
-  hasBalanceCheckedByEntrance, myArmy
+  setMyArmy, curTeam, setMyTeam, canChangeTeam, isReady, setReady, hasBalanceCheckedByEntrance
 } = require("myRoomMemberParams.nut")
-let squads_list = require("%enlist/soldiers/squads_list.ui.nut")
+let { mkSquadsList } = require("%enlist/soldiers/squads_list.ui.nut")
 let { mkMenuScene } = require("%enlist/mainMenu/mkMenuScene.nut")
-let { selectArmyBlock, footer, mkPanel } = require("%enlist/gameModes/eventModesPkg.nut")
+let { footer, mkPanel, teamsColors, armyIconSize } = require("%enlist/gameModes/eventModesPkg.nut")
 let { mkEventRoomInfo } = require("%enlist/gameModes/eventRoomInfo.nut")
 let membersSpeaking = require("%ui/hud/state/voice_chat.nut")
-let { mkArmySimpleIcon } = require("%enlist/soldiers/components/armyPackage.nut")
-let armiesPresentation = require("%enlSqGlob/ui/armiesPresentation.nut")
+let { mkArmySimpleIcon, mkArmyIcon } = require("%enlist/soldiers/components/armyPackage.nut")
 let faComp = require("%ui/components/faComp.nut")
 let { makeVertScroll, thinStyle } = require("%ui/components/scrollbar.nut")
-let textButton = require("%ui/components/textButton.nut")
-let { Bordered } = textButton
+let { Bordered } = require("%ui/components/txtButton.nut")
 let checkbox = require("%ui/components/checkbox.nut")
-let lobbyCampaignBlock = require("lobbyCampaignBlock.nut")
 let memberStatuses = require("roomMemberStatuses.nut")
 let { setTooltip } = require("%ui/style/cursors.nut")
 let mkPlayerTooltip = require("mkPlayerTooltip.nut")
@@ -51,14 +44,23 @@ let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
 let { memberName, mkStatusImg } = require("components/memberComps.nut")
 let { getPenaltyExpiredTime } = require("%enlSqGlob/client_user_rights.nut")
 let { secondsToHoursLoc } = require("%ui/helpers/time.nut")
-let { curArmy } = require("%enlist/soldiers/model/state.nut")
-let { requestModManifest, MOD_DOWNLOAD_URL, receivedModInfos
+let { requestModManifest, receivedModInfos
 } = require("%enlist/gameModes/sandbox/customMissionState.nut")
-let modsDownloadInfo = require("%enlist/gameModes/sandbox/modsDownloadInfo.ui.nut")
+let { MOD_BY_VERSION_URL } = require("%enlSqGlob/game_mods_constant.nut")
 let { is_console } = require("%dngscripts/platform.nut")
+let { mkArmyBtn } = require("%enlist/soldiers/army_select.ui.nut")
 
-let startBtnSize = [hdpx(400), hdpx(80)]
-let spinnerSize = hdpx(60)
+let startBtnSize = [startBtnWidth, hdpx(80)]
+let spinnerSize = hdpx(30)
+let waitingSpinner = spinner(spinnerSize)
+let teamBlockHeaderHeight = hdpxi(48)
+let rowHeight = hdpx(28)
+let playersListHeaderHeight = verticalGap
+let cellGap = isWide ? localGap : hdpx(5)
+let startBtnStyle = {
+  defBgColor = brightAccentColor
+  defTxtColor = darkTxtColor
+}
 
 let needModDownloadButton = Computed(function() {
   if (is_console || canOperateRoom.value)
@@ -70,17 +72,17 @@ let needModDownloadButton = Computed(function() {
 })
 
 
-let teamBlockWidth = Computed(function(){
+let teamBlockWidth = Computed(function() {
   let centralBlockWidth = maxContentWidth - safeAreaBorders.value[1] * 2 - localPadding * 2
     - armieChooseBlockWidth - startBtnSize[0]
   return  (centralBlockWidth - localPadding) / 2
 })
 
-let isDisbalanced = Computed(function(){
+let isDisbalanced = Computed(function() {
   let roomData = room.value
-  let playersTeam0 = roomMembers.value.filter(@(player) player?.public.team == 0
+  let playersTeamA = roomMembers.value.filter(@(player) player?.public.team == 0
     && player?.public.status == "IN_LOBBY_READY") ?? []
-  let playersTeam1 = roomMembers.value.filter(@(player) player?.public.team == 1
+  let playersTeamB = roomMembers.value.filter(@(player) player?.public.team == 1
     && player?.public.status == "IN_LOBBY_READY") ?? []
   let playersOfCurTeam = roomMembers.value
     .filter(@(player) player?.public.team == curTeam.value) ?? []
@@ -88,11 +90,11 @@ let isDisbalanced = Computed(function(){
     .filter(@(player) player?.public.team == (1 - curTeam.value)) ?? []
   let maxDisbalance = roomData?.public.maxDisbalance ?? 0
   let disbalanceOfReadyPlayers = maxDisbalance != 0
-    && abs(playersTeam0.len() - playersTeam1.len()) >= maxDisbalance
+    && abs(playersTeamA.len() - playersTeamB.len()) >= maxDisbalance
   return disbalanceOfReadyPlayers && playersOfCurTeam.len() > playersOfEnemyTeam.len()
 })
 
-let mkStatus = @(text){
+let mkStatus = @(text) {
   rendObj = ROBJ_TEXTAREA
   size = [flex(), SIZE_TO_CONTENT]
   halign = ALIGN_CENTER
@@ -100,19 +102,20 @@ let mkStatus = @(text){
   color = accentColor
   behavior = Behaviors.TextArea
   text
-}.__update(body_txt)
+}.__update(fontBody)
 
-let mkStatusWithSpinner = @(text){
+let mkStatusWithSpinner = @(text) {
   flow = FLOW_HORIZONTAL
   hplace = ALIGN_CENTER
   valign = ALIGN_CENTER
+  gap = bigPadding
   children = [
-    spinner({ height = spinnerSize })
+    waitingSpinner
     {
       rendObj = ROBJ_TEXT
       color = accentColor
       text
-    }.__update(body_txt)
+    }.__update(fontBody)
   ]
 }
 
@@ -122,7 +125,7 @@ let mkStatusDisbalance = @(public)
 let mkStatusPlayers = @(public)
   mkStatus(loc("multiplayer/playersTeamLessThanMin", {minSize = public?.playersToStart ?? 0}))
 
-let mkStatusWaiting = @(public) function(){
+let mkStatusWaiting = @(public) function() {
   let countDownTimer = (public?.sessionLaunchTime ?? 0) -  serverTime.value
   return {
     watch = serverTime
@@ -144,83 +147,63 @@ let statusCtor = {
   waiting_before_launch = @(public) mkStatusWaiting(public)
 }.map(@(status) typeof status == "function" ? status : @(_) mkStatus(loc(status)))
 
-
-let myArmiesList = Computed(@() (gameProfile.value?.campaigns[myCampaign.value].armies ?? []).map(@(a) a.id))
-
-let teamBlockHeaderHeight = hdpxi(68)
-let rowHeight = hdpx(28)
-let teamsColors = [Color(157, 38, 38), Color(40, 93, 147)]
-let armyIconSize = hdpx(20)
-let armyIconHeaderSize = hdpxi(40)
-let playersListHeaderHeight = verticalGap
-let cellGap = isWide ? localGap : hdpx(5)
-const WND_UID = "CHOOSE_CAMPAIGN_BLOCK"
-
 let isMirrored = @(team) team == 1
 
-let joinBtn = @(sf, team){
-  size = [hdpx(150), commonBtnHeight]
+let joinBtn = @(sf, team) {
+  size = SIZE_TO_CONTENT
   rendObj = ROBJ_BOX
   hplace = isMirrored(team) ? ALIGN_LEFT : ALIGN_RIGHT
   valign = ALIGN_CENTER
   borderWidth = sf & S_HOVER ? hdpx(1) : 0
   halign = ALIGN_CENTER
+  padding = midPadding
   children = {
     rendObj = ROBJ_TEXT
     text = loc("Join")
   }
 }
 
-let function armmyIconsBlock(shoudBeMirrowed, armies = []){
-  let armyIcons = armies.map(@(armyId) (armiesPresentation?[armyId].icon ?? armyId))
-  let iconsToShow = []
-  armyIcons.each(@(val) iconsToShow.contains(val) ? null : iconsToShow.append(val) )
+let function armyIconsBlock(shoudBeMirrowed, armies = []) {
+  let armyIcons = armies.map(@(armyId) mkArmyIcon(armyId, armyIconSize, { margin = 0 }))
   return {
     valign = ALIGN_CENTER
     flow = FLOW_HORIZONTAL
     hplace = shoudBeMirrowed ? ALIGN_RIGHT : ALIGN_LEFT
-    gap = -hdpx(15)
-    children = iconsToShow.map(@(val){
-      rendObj = ROBJ_IMAGE
-      size = [armyIconHeaderSize, armyIconHeaderSize]
-      image = Picture($"!ui/skin#{val}:{armyIconHeaderSize}:{armyIconHeaderSize}:K")
-    })
+    gap = smallPadding
+    children = shoudBeMirrowed ? armyIcons.reverse() : armyIcons
   }
 }
 
-let teamBlockHeader = @(sf, team) function(){
+let teamBlockHeader = @(sf, team) function() {
   let children = [
-    armmyIconsBlock(isMirrored(team), roomTeamArmies.value?[team] ?? [])
-    team == curTeam.value || !canChangeTeam.value ? {size = flex()} : joinBtn(sf, team)
+    armyIconsBlock(isMirrored(team), roomTeamArmies.value?[team] ?? [])
+    team == curTeam.value || !canChangeTeam.value ? { size = flex() } : joinBtn(sf, team)
   ]
   return {
     watch = [roomTeamArmies, curTeam, canChangeTeam]
     size = [flex(), teamBlockHeaderHeight]
     gap = localGap
     valign = ALIGN_CENTER
+    padding = bigPadding
     children = isMirrored(team) ? children : children.reverse()
   }
 }
 
-let function mkTeamBlockHeader(team){
-  let function joinTeam(){
+let function mkTeamBlockHeader(team) {
+  let function joinTeam() {
     if (!canChangeTeam.value)
       return
 
     setMyTeam(team)
   }
-  return watchElemState(@(sf){
-    rendObj = ROBJ_IMAGE
+  return watchElemState(@(sf) {
+    rendObj = ROBJ_SOLID
     behavior = Behaviors.Button
     onClick = @() joinTeam()
-    size = [flex(), teamBlockHeaderHeight]
-    image = Picture(isMirrored(team)
-      ? $"!ui/gameImage/base_header_bar.svg:{hdpxi(150)}:{4}:K?Ac"
-      : $"!ui/gameImage/base_header_bar_left.svg:{hdpxi(150)}:{4}:K?Ac"
-      )
-    padding = bigPadding
+    size = [flex(), SIZE_TO_CONTENT]
+    padding = [smallPadding, bigPadding]
     valign = ALIGN_CENTER
-    color = teamsColors[team]
+    color = teamsColors[team].defBgColor
     children = teamBlockHeader(sf, team)
   })
 }
@@ -255,10 +238,7 @@ let columns = [
     halign = ALIGN_RIGHT
   }
   {
-    content = @(player) "army" in player.public ? mkArmySimpleIcon(player.public.army, armyIconSize, { margin = 0 }) : null
-  }
-  {
-    content = @(player) "campaign" in player.public ? smallCampaignIcon(player.public.campaign) : null
+    content = @(player) "armies" in player.public ? mkArmySimpleIcon(player.public.army, armyIconSize, { margin = 0 }) : null
   }
   {
     content = @(player) mkMemberStatus(player.public?.status, player.name)
@@ -304,7 +284,7 @@ let function playersListRow(player, idx, team) {
 }
 
 
-let mkTeamBlockPlayersList = @(team) function(){
+let mkTeamBlockPlayersList = @(team) function() {
   let scrollAlign = isMirrored(team) ? ALIGN_LEFT : ALIGN_RIGHT
   let width = teamBlockWidth.value
   return {
@@ -328,49 +308,52 @@ let mkTeamBlockPlayersList = @(team) function(){
   }
 }
 
-let teamBlock = @(team){
-  size = flex()
-  flow = FLOW_VERTICAL
-  behavior = Behaviors.Button
-  halign = ALIGN_CENTER
-  children = [
-    mkTeamBlockHeader(team)
-    mkTeamBlockPlayersList(team)
-  ]
+let armiesChooseBlock = @() {
+  watch = [roomTeamArmies, curTeam]
+  flow = FLOW_HORIZONTAL
+  children = roomTeamArmies.value?[curTeam.value].map(@(v) mkArmyBtn(v, setMyArmy))
 }
 
-let teamChooseBlockUi = @(){
-  watch = roomTeamArmies
+let playersBlockHeader = @(teams) {
+  size = [flex(), SIZE_TO_CONTENT]
+  flow = FLOW_HORIZONTAL
+  gap = bigPadding
+  valign = ALIGN_CENTER
+  children = teams.map(@(_, team) mkTeamBlockHeader(team))
+    .insert(1, armiesChooseBlock)
+}
+
+let playersBlock = @(teams) {
   size = flex()
   flow = FLOW_HORIZONTAL
-  halign = ALIGN_CENTER
   gap = localPadding
-  valign = ALIGN_CENTER
-  children = roomTeamArmies.value.map(@(_, team) teamBlock(team))
+  children = teams.map(@(_, team) mkTeamBlockPlayersList(team))
 }
 
-let leftBlock = @() {
-  watch = [myArmiesList, canChangeTeam, curArmy]
-  size = [armieChooseBlockWidth, flex()]
-  flow = FLOW_VERTICAL
-  halign = ALIGN_CENTER
-  gap = bigPadding
-  children = [
-    canChangeTeam.value ? selectArmyBlock(myArmiesList.value, myArmy.value, setMyArmy) : null
-    squads_list
-  ]
+
+let leftBlock = function() {
+  let squads_list = mkSquadsList()
+  return {
+    size = [SIZE_TO_CONTENT, flex()]
+    halign = ALIGN_CENTER
+    children = squads_list
+  }
 }
 
-let centralBlock = {
+let centralBlock = @() {
+  watch = roomTeamArmies
   size = flex()
   flow = FLOW_VERTICAL
   halign = ALIGN_CENTER
   padding = [0, localPadding]
   gap = localGap
-  children = teamChooseBlockUi
+  children = [
+    playersBlockHeader(roomTeamArmies.value)
+    playersBlock(roomTeamArmies.value)
+  ]
 }
 
-let mkStatusBlock = @(roomData, status) @(){
+let mkStatusBlock = @(roomData, status) @() {
   watch = isDisbalanced
   size = [flex(), SIZE_TO_CONTENT]
   children = isDisbalanced.value
@@ -383,7 +366,7 @@ let battleButtonParams = {
   halign = ALIGN_CENTER
   margin = 0
   borderWidth = hdpx(0)
-  textParams = { rendObj=ROBJ_TEXT }.__update(h2_txt)
+  textParams = { rendObj=ROBJ_TEXT }.__update(fontHeading2)
   style = { BgNormal = accentColor }
   hotkeys = [["^J:Y", { description = { skip = true }}]]
 }
@@ -401,7 +384,7 @@ let getInactiveBattleButtonParams = @(isClickable)
     style = mkDisabledStyle(isClickable)
   })
 
-let infoSpinner = spinner({ height = spinnerSize, opacity = 0.5, color = 0xFF000000 }).__update({
+let infoSpinner = spinner(spinnerSize, 0.5,0xFF000000 ).__update({
   transform = {}
   animations = [{ prop = AnimProp.opacity, from = 0, to = 1, duration = 0.5, play = true, easing = InCubic }]
 })
@@ -413,7 +396,7 @@ let infoUpdateSpinner = @() {
 }
 
 let mkButtonWithActiveBoostersMark = @(button) {
-  size = [startBtnWidth, SIZE_TO_CONTENT]
+  size = [flex(), SIZE_TO_CONTENT]
   children = [
     button
     button == null ? null : mkActiveBoostersMark({ hplace = ALIGN_RIGHT, pos = [hdpx(20), bigPadding] })
@@ -422,7 +405,7 @@ let mkButtonWithActiveBoostersMark = @(button) {
 }
 
 let function showPenaltyWarn(expTime) {
-  let timeText = Computed(function(){
+  let timeText = Computed(function() {
     let time = expTime - serverTime.value
     if (time <= 0)
       return loc("loneFighterNoPenalty")
@@ -437,40 +420,47 @@ let function showPenaltyWarn(expTime) {
       behavior = Behaviors.TextArea
       halign = ALIGN_CENTER
       text = timeText.value
-    }.__update(body_txt)
+    }.__update(fontBody)
     buttons = [{ text = loc("Ok"), isCancel = true }]
   })
 }
 
-let mkBattleButton = function(text, onClick){
+let mkBattleButton = function(text, onClick, params = {}) {
   local action = onClick
   let penaltyExpTime = getPenaltyExpiredTime("USERSTATS", "USERSTATS", "LONE_FIGHTERS") ?? 0
-  if (room.value?.public.mode == "LONE_FIGHTERS" && penaltyExpTime.value != 0){
+  if (room.value?.public.mode == "LONE_FIGHTERS" && penaltyExpTime.value != 0) {
     action = @() showPenaltyWarn(penaltyExpTime.value)
   }
-  return mkButtonWithActiveBoostersMark(textButton(text, action, battleButtonParams))
+  return mkButtonWithActiveBoostersMark(Bordered(text, action, battleButtonParams.__merge(params)))
 }
 let mkInactiveBattleButton = @(text, onClick)
   mkButtonWithActiveBoostersMark(
-    textButton(text, onClick, getInactiveBattleButtonParams(onClick != null)))
+    Bordered(text, onClick, getInactiveBattleButtonParams(onClick != null)))
 
 let localDedicCheckbox = checkbox(isLocalDedicated,
   {
     text = loc("Start local dedicated")
     color = defTxtColor
-  }.__update(body_txt))
+  }.__update(fontBody))
 
 
-let readyButton = mkBattleButton(loc("contact/Ready"), function(){
+let readyButton = mkBattleButton(loc("contact/Ready"), function() {
   let penaltyExpTime = getPenaltyExpiredTime("USERSTATS", "USERSTATS", "LONE_FIGHTERS") ?? 0
-  if (room.value?.public.mode == "LONE_FIGHTERS" && penaltyExpTime.value != 0){
+  if (room.value?.public.mode == "LONE_FIGHTERS" && penaltyExpTime.value != 0) {
     showPenaltyWarn(penaltyExpTime.value)
     return
   }
   setReady(true)
-})
+}, { style = startBtnStyle })
 
-let notReadyButton = mkInactiveBattleButton(loc("contact/notReady"), @() setReady(false))
+let waitingMsgbox = @() showMsgbox({
+    text = loc("msg/waitingInProgress")
+    buttons = [{ text = loc("Close"), isCancel = true,
+      customStyle = { hotkeys = [[$"^{JB.B} | Esc"]] } }]
+  })
+
+let notReadyButton = @(isWaitLauch) mkInactiveBattleButton(loc("contact/notReady"),
+  @() isWaitLauch ? waitingMsgbox() : setReady(false))
 let disbalanceButton = mkInactiveBattleButton(loc("lobby/disbalance"), null)
 
 let function leaveRoomConfirm() {
@@ -478,12 +468,12 @@ let function leaveRoomConfirm() {
     text = loc("msg/leaveRoomConfirm")
     buttons = [
       { text = loc("Yes"),
-        action = function(){
+        action = function() {
           hasBalanceCheckedByEntrance(false)
           leaveRoom()
         },
         isCurrent = true }
-      { text = loc("Cancel"), isCancel = true }
+      { text = loc("Cancel"), isCancel = true, customStyle = { hotkeys = [[$"^{JB.B} | Esc"]] } }
     ]
   })
 }
@@ -500,10 +490,8 @@ let function notEnoughPlayersMsg(public) {
 let backButton = {
   size = [flex(), commonBtnHeight]
   children = Bordered(loc("BackBtn"), leaveRoomConfirm, {
-    margin = 0,
-    size = [flex(), commonBtnHeight]
-    hotkeys = [[$"^{JB.B} | Esc",
-      { action = leaveRoomConfirm , description = { skip = true } }]]
+    size = flex()
+    hotkeys = [[$"^{JB.B} | Esc", { action = leaveRoomConfirm , description = { skip = true } }]]
   })
 }
 
@@ -511,7 +499,7 @@ let backButton = {
 let function startSessionWithMsg() {
   let hasAllReady = roomMembers.value.findvalue(@(m) !(m?.public.isReady ?? false)) == null
   let penaltyExpTime = getPenaltyExpiredTime("USERSTATS", "USERSTATS", "LONE_FIGHTERS") ?? 0
-  if (room.value?.public.mode == "LONE_FIGHTERS" && penaltyExpTime.value != 0){
+  if (room.value?.public.mode == "LONE_FIGHTERS" && penaltyExpTime.value != 0) {
     showPenaltyWarn(penaltyExpTime.value)
     return
   }
@@ -522,25 +510,30 @@ let function startSessionWithMsg() {
       text = loc("msg/notAllPlayersReady")
       buttons = [
         { text = loc("Yes"), action = startSession, isCurrent = true }
-        { text = loc("Cancel"), isCancel = true }
+        { text = loc("Cancel"), isCancel = true, customStyle = { hotkeys = [[$"^{JB.B} | Esc"]] } }
       ]
     })
 }
 
-let mkStartButton = @(status, canOperate, roomData) function() {
+let mkStartButton = @(status, canOperate, roomData, isWaitLauch) function() {
   local children = null
-  let readyBtn = isReady.value ? notReadyButton : readyButton
+  let readyBtn = isReady.value ? notReadyButton(isWaitLauch) : readyButton
   if (status == LobbyStatus.ReadyToStart || status == LobbyStatus.TeamsDisbalanced)
     children = canOperate
         ? [
             canStartWithLocalDedicated.value ? localDedicCheckbox : null
-            mkBattleButton(loc("lobby/startGameBtn"), startSessionWithMsg)
+            mkBattleButton(loc("lobby/startGameBtn"), startSessionWithMsg, {
+              style = startBtnStyle
+            })
           ]
       : isDisbalanced.value
         ? disbalanceButton
       : readyBtn
   else if (status == LobbyStatus.GameInProgressNoLaunched)
-    children = mkBattleButton(loc("lobby/playBtn"), connectToHost)
+    children = mkBattleButton(loc("lobby/playBtn"), function() {
+      isHostInGame(true)
+      connectToHost()
+    })
   else if (status == LobbyStatus.NotEnoughPlayers)
     children = canOperate ? mkInactiveBattleButton(loc("not_enough_players"),
       @() notEnoughPlayersMsg(roomData?.public))
@@ -571,7 +564,6 @@ let mkStartButton = @(status, canOperate, roomData) function() {
 let changeAttributesRoomBtn = {
   size = [flex(), commonBtnHeight]
   children = Bordered(loc("changeAttributesRoom"), @() isEditEventRoomOpened(true), {
-    margin = 0,
     size = flex()
     hotkeys = [["^J:X", {  description = { skip = true } }]]
   })
@@ -580,7 +572,6 @@ let changeAttributesRoomBtn = {
 let cancelButton = {
   size = [flex(), commonBtnHeight]
   children = Bordered(loc("Cancel"), @() cancelSessionStart(), {
-    margin = 0,
     size = flex()
     hotkeys = [[$"^{JB.B} | Esc",
       { action = cancelSessionStart , description = { skip = true } }]]
@@ -613,7 +604,6 @@ let function rightBlock() {
     flow = FLOW_VERTICAL
     gap = verticalGap
     children = [
-      lobbyCampaignBlock
       mkPanel({
         size = flex()
         children = mkEventRoomInfo(roomData.public.__merge({
@@ -625,13 +615,13 @@ let function rightBlock() {
         gap = bigPadding
         children = [
           mkStatusBlock(roomData, status)
-          mkStartButton(status, canOperate, roomData)
+          mkStartButton(status, canOperate, roomData, isWaitLauch)
           needModDownloadButton.value
             ? Bordered(loc("mods/downloadFromLobby"), function() {
                 let { modId, modVersion } = room.value.public
-                let urlToDownload = MOD_DOWNLOAD_URL.subst(modId, modVersion)
+                let urlToDownload = MOD_BY_VERSION_URL.subst(modId, modVersion)
                 requestModManifest(urlToDownload)
-              }, { size = [flex(), commonBtnHeight], margin = 0})
+              }, { size = flex() })
             : null
           canChangeRoom ? changeAttributesRoomBtn : null
           hasCancelBtn ? cancelButton
@@ -668,10 +658,7 @@ let function createdRoomWnd() {
     halign = ALIGN_CENTER
     rendObj = ROBJ_WORLD_BLUR_PANEL
     fillcolor = Color(250,250,150,255)
-    children = [
-      lobbyWindow
-      modsDownloadInfo
-    ]
+    children = lobbyWindow
   }
 }
 

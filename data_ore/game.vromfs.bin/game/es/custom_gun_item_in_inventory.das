@@ -1,8 +1,8 @@
 require ecs
-require EnlistedNet
+require DngNet
 require game.es.events
 require ecs.common
-require EnlistedHuman
+require DngHuman
 require HumanPhys
 require common_shooter.events_common_shooter
 require common_shooter.es.human_weap_common
@@ -45,6 +45,14 @@ def custom_inventory_slot_init(evt : Event;
       send_net_event(eid, [[CmdNextSpecialGun]])
     else
       human_weap__gunEids[int(HUWeaponSlots EWS_SPECIAL)] = inventoryGunsItemsEids[currentInventoryGunIdx]
+
+[es(tag=server, REQUIRE=specialWeapItem, track=gun__owner)]
+def set_special_weapon_to_inventory_on_owner_appear(evt : Event;
+                                                    eid : EntityId;
+                                                    gun__owner : EntityId)
+  query(gun__owner) <| $ [es] (var human_weap__gunEids : EidList)
+    if human_weap__gunEids[int(HUWeaponSlots EWS_SPECIAL)] == INVALID_ENTITY_ID
+      human_weap__gunEids[int(HUWeaponSlots EWS_SPECIAL)] = eid
 
 [es(tag=gameClient, track=inventoryGunsItemsEids)]
 def custom_inventory_slot_empty_es(evt : Event;
@@ -128,8 +136,13 @@ def next_weapon_item_request_es(evt : Event;
                                 inventoryGunsItemsEids : ecs::EidList)
   if length(inventoryGunsItemsEids) > 0
     let forcedGunIdx = find_index(inventoryGunsItemsEids, forcedNextInventoryGunEid)
+    if currentInventoryGunIdx > -1
+      query(inventoryGunsItemsEids[currentInventoryGunIdx]) <| $ [es] (var slot_attach__weaponSlotIdx : int&)
+        slot_attach__weaponSlotIdx = -1
     if forcedGunIdx > -1
       currentInventoryGunIdx = forcedGunIdx
     else
       currentInventoryGunIdx = (currentInventoryGunIdx + 1) % length(inventoryGunsItemsEids)
+    query(inventoryGunsItemsEids[currentInventoryGunIdx]) <| $ [es] (var slot_attach__weaponSlotIdx : int&)
+      slot_attach__weaponSlotIdx = int(HUWeaponSlots EWS_SPECIAL)
     forcedNextInventoryGunEid = INVALID_ENTITY_ID

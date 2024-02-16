@@ -1828,5 +1828,65 @@
         }
       }
     }
-  ]
+  ],
+  "MetaParts": {
+    "closed_fightning_compartment": [
+      {
+        "part": "driver"
+      },
+      {
+        "part": "loader"
+      },
+      {
+        "part": "gunner"
+      },
+      {
+        "part": "cannon_breech"
+      },
+      {
+        "part": "radio_station"
+      },
+      {
+        "part": "drive_turret_v"
+      },
+      {
+        "part": "drive_turret_h"
+      },
+      {
+        "part": "drive_turret_v_01"
+      },
+      {
+        "part": "drive_turret_h_01"
+      },
+      {
+        "part": "drive_turret_v_02"
+      },
+      {
+        "part": "drive_turret_h_02"
+      },
+      {
+        "part": "ammo_body_01"
+      },
+      {
+        "part": "fuel_tank_01"
+      },
+      {
+        "part": "fuel_tank_02"
+      },
+      {
+        "effect": {
+          "conditionDamageType": "explosion",
+          "conditionDamage": 1.0,
+          "pressure": true
+        }
+      },
+      {
+        "effect": {
+          "conditionDamageType": "shatter",
+          "conditionDamage": 1.0,
+          "pressure": true
+        }
+      }
+    ]
+  }
 }

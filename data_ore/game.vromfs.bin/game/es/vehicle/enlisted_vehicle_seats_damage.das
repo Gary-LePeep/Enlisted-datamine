@@ -9,7 +9,7 @@ require enlisted.game.es.offender_cache_common
 require game.utils.team
 require app
 require dm
-require EnlistedDm
+require DngDm
 require vehicle
 require BallisticsProps
 require DagorSystem
@@ -46,8 +46,7 @@ def check_damaged_vehicle_without_crew(evt : EventOnPartDamaged;
   projectile_get_props(shellId) <| $(ballisticsProps : ProjectileProps)
     let isLargeCaliber = ballisticsProps.caliber > destroy_without_crew__minCaliberToDestroyOnDamage
     let isExplosion = damage_model__explosionDamageType >= 0 && evt.damageTypeId == damage_model__explosionDamageType
-    assume parts = damage_model.dmData.parts
-    let isInnerPart = uint(evt.partId) < uint(length(parts)) && (parts[evt.partId] |> damagePart_getProps).isInner
+    let isInnerPart = is_part_inner(damage_model.dmData, evt.partId)
 
     if isInnerPart && (isLargeCaliber || isExplosion)
       vehicle__isDestroyedWithoutCrew = true

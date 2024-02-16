@@ -973,6 +973,11 @@
   },
   {
     "entity": {
+      "_template": "bloom"
+    }
+  },
+  {
+    "entity": {
       "_template": "postfx_roundctrl",
       "post_fx:object": []
     }
@@ -993,6 +998,7 @@
     "entity": {
       "_template": "briefing_domination",
       "mission_name": "stalingrad_station_dom",
+      "mission_outfit": "stalingrad",
       "loading_images:list<t>": [
         {
           "item": "ui/stalingrad_inv_02.avif"
@@ -1019,30 +1025,6 @@
         [0.0,1.0,0.0],
         [0.837116,0.0,0.547025],
         [-57.6449,8.27187,-24.7872]
-      ]
-    }
-  },
-  {
-    "entity": {
-      "_template": "respawn_camera",
-      "respawnCameraForTeam": 2,
-      "transform": [
-        [1.0,0.0,0.0],
-        [0.0,1.0,0.0],
-        [0.0,0.0,1.0],
-        [-91.2959,304.864,179.005]
-      ]
-    }
-  },
-  {
-    "entity": {
-      "_template": "respawn_camera",
-      "respawnCameraForTeam": 1,
-      "transform": [
-        [1.0,0.0,0.0],
-        [0.0,1.0,0.0],
-        [0.0,0.0,1.0],
-        [208.496,304.578,-490.037]
       ]
     }
   },
@@ -2056,7 +2038,7 @@
   },
   {
     "entity": {
-      "_template": "benchmark_artillery_strike",
+      "_template": "artillery_strike_requester",
       "transform": [
         [-0.948395,0.0017321,0.317088],
         [0.00149407,0.999998,-0.00099382],

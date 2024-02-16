@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let {receivedFiles, requestedFiles, requestFilesByHashes} = require("modFiles.nut")
-let {sub_txt} = require("%enlSqGlob/ui/fonts_style.nut")
+let {fontSub} = require("%enlSqGlob/ui/fontsStyle.nut")
 let {showCreateRoom} = require("mpRoom/showCreateRoom.nut")
 let roomsListState = require("roomsListState.nut")
 let roomState = require("state/roomState.nut")
@@ -20,6 +20,7 @@ let {squadId} = require("%enlist/squad/squadState.nut")
 let { gameLanguage } = require("%enlSqGlob/clientState.nut")
 let { soundActive } = textButton
 let { remap_others } = require("%enlSqGlob/remap_nick.nut")
+let JB = require("%ui/control/gui_buttons.nut")
 
 let selectedRoom = Watched(null)
 let { strip } = require("string")
@@ -50,8 +51,8 @@ let function mkFindSomeMatch(cb) {
       msgbox.show({
         text = loc("Cannot find existing game. Create one?")
         buttons = [
-          { text = loc("Yes"), action = @() showCreateRoom.update(true) }
-          { text = loc("No")}
+          { text = loc("Yes"), action = @() showCreateRoom.update(true), isCurrent = true }
+          { text = loc("No"), customStyle = { hotkeys = [[$"^{JB.B} | Esc"]] }}
         ]
       })
     }
@@ -148,7 +149,7 @@ let function doJoin() {
       children = passwordInput
       buttons = [
         { text = loc("Proceed"), action = function() {tryToJoin(roomInfo, joinCb, roomPassword.value)} }
-        { text = loc("Cancel") }
+        { text = loc("Cancel"), customStyle = { hotkeys = [[$"^{JB.B} | Esc"]] } }
       ]
     })
   }
@@ -163,7 +164,7 @@ let function itemText(text, options={}) {
     text
     margin = fsh(1)
     size = ("pw" in options) ? [flex(options.pw), SIZE_TO_CONTENT] : SIZE_TO_CONTENT
-  }.__update(sub_txt)
+  }.__update(fontSub)
 }
 
 
@@ -181,7 +182,7 @@ let function listItem(roomInfo) {
     if (selectedRoom.value && (roomInfo.roomId == selectedRoom.value.roomId))
       color = SelectedItemBg
     else
-      color = (stateFlags.value & S_HOVER) ? HoverItemBg : Color(0,0,0,0)
+      color = stateFlags.value & S_HOVER ? HoverItemBg : Color(0,0,0,0)
 
     let modTitle = roomInfo?.modTitles?[gameLanguage]
       ?? roomInfo?.modTitles.title ?? roomInfo?.mod ?? ""
@@ -275,7 +276,7 @@ let function roomsListComp() {
 
     children = scrollbar.makeVertScroll(listContent, {
       scrollHandler = scrollHandler
-      rootBase = class {
+      rootBase = {
         size = flex()
         margin = [2, 0]
       }
@@ -302,7 +303,7 @@ let function roomFilter() {
           {
             placeholder=loc("search by name")
             onEscape = @() nameFilter("")
-          }.__update(sub_txt))
+          }.__update(fontSub))
       }
     ]
   }

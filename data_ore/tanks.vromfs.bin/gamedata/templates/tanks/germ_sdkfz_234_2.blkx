@@ -1,34 +1,152 @@
 {
   "germ_sdkfz_234_2": {
-    "_extends": "germ_sdkfz_234_2_common"
+    "_use": "germ_sdkfz_234_2_common"
   },
   "germ_sdkfz_234_2_common": [
     {
-      "_extends": "base_sdkfz_234_2"
+      "_use": "base_sdkfz_234_2"
     },
     {
-      "_extends": "vehicle_steering_assist"
+      "_use": "vehicle_steering_assist"
     },
     {
-      "_extends": "tank_panzer3_engine_sound"
+      "_use": "tank_panzer3_engine_sound"
     },
     {
-      "_extends": "tank_with_wheels_vehicle_tracks_sound"
+      "_use": "tank_with_wheels_vehicle_tracks_sound"
     },
     {
-      "item__iconOffset": [0.0,0.3]
+      "commanderCockpitFpsCamMaxAngle": [40.0,5.0]
     },
     {
-      "animchar__objTexReplace:object": {
-        "ger_camo_dunkelgelb*": "ger_camo_dunkelgelb_green*"
-      }
+      "gunner_cam_limit__useCockpitDir": true
     },
     {
-      "_group": {
-        "_tags": "render",
-        "bullet_holes__ignoreCollisionNodes:array": [],
-        "bullet_holes__movingCollisionNodes:array": []
-      }
+      "item__iconOffset": [0.05,0.3]
+    },
+    {
+      "item__iconScale": 1.45
+    },
+    {
+      "dm_parts_repair_names:list<t>": [
+        {
+          "part": "part:t="
+        },
+        {
+          "part": "drive_turret_h"
+        },
+        {
+          "part": "drive_turret_v"
+        },
+        {
+          "part": "cannon_breech"
+        },
+        {
+          "part": "engine"
+        },
+        {
+          "part": "transmission"
+        },
+        {
+          "part": "gun_barrel"
+        },
+        {
+          "part": "gun_barrel_01"
+        },
+        {
+          "part": "gun_barrel_02"
+        },
+        {
+          "part": "gun_barrel_03"
+        },
+        {
+          "part": "gun_barrel_04"
+        },
+        {
+          "part": "gun_barrel_05"
+        },
+        {
+          "part": "track_r"
+        },
+        {
+          "part": "track_l"
+        },
+        {
+          "part": "track_r_01"
+        },
+        {
+          "part": "track_l_01"
+        },
+        {
+          "part": "wheel_l_back"
+        },
+        {
+          "part": "wheel_l_front"
+        },
+        {
+          "part": "wheel_l_drive"
+        },
+        {
+          "part": "wheel_r_back"
+        },
+        {
+          "part": "wheel_r_front"
+        },
+        {
+          "part": "wheel_r_drive"
+        },
+        {
+          "part": "wheel_r_01"
+        },
+        {
+          "part": "wheel_r_02"
+        },
+        {
+          "part": "wheel_r_03"
+        },
+        {
+          "part": "wheel_r_04"
+        },
+        {
+          "part": "wheel_r_05"
+        },
+        {
+          "part": "wheel_r_06"
+        },
+        {
+          "part": "wheel_r_07"
+        },
+        {
+          "part": "wheel_r_08"
+        },
+        {
+          "part": "wheel_l_01"
+        },
+        {
+          "part": "wheel_l_02"
+        },
+        {
+          "part": "wheel_l_03"
+        },
+        {
+          "part": "wheel_l_04"
+        },
+        {
+          "part": "wheel_l_05"
+        },
+        {
+          "part": "wheel_l_06"
+        },
+        {
+          "part": "wheel_l_07"
+        },
+        {
+          "part": "wheel_l_08"
+        }
+      ]
+    },
+    {
+      "dm_parts__repairGroups:object": []
     },
     {
       "vehicle_seats__seats:shared:array": [
@@ -128,67 +246,14 @@
       ]
     },
     {
-      "dm_phys_parts__enginePartIds:list<i>": []
-    },
-    {
-      "dm_phys_parts__transmissionPartIds:list<i>": []
-    },
-    {
-      "dm_phys_parts__tracksPartIds:list<i>": []
-    },
-    {
       "dm_phys_parts__wheelsPartIds:list<i>": []
-    },
-    {
-      "dm_phys_parts__engine:array": {
-        "engine": "engine"
-      }
-    },
-    {
-      "dm_phys_parts__transmission:array": {
-        "transmission": "transmission"
-      }
-    },
-    {
-      "dm_phys_parts__tracks:array": []
-    },
-    {
-      "dm_phys_parts__wheels:array": [
-        {
-          "wheel": "wheel_r_01"
-        },
-        {
-          "wheel": "wheel_r_02"
-        },
-        {
-          "wheel": "wheel_r_03"
-        },
-        {
-          "wheel": "wheel_r_04"
-        },
-        {
-          "wheel": "wheel_l_01"
-        },
-        {
-          "wheel": "wheel_l_02"
-        },
-        {
-          "wheel": "wheel_l_03"
-        },
-        {
-          "wheel": "wheel_l_04"
-        }
-      ]
     }
   ],
   "germ_sdkfz_234_2_driver_cockpit": {
-    "_extends": "base_driver_cockpit_no_slits",
+    "_use": "base_driver_cockpit_no_slits",
     "animchar__res": "pz_2c_driver_char",
     "cockpit__offset": [-0.9,-0.25,-0.2],
     "cockpit__visibleVehicleNodeNames:list<t>": [
-      {
-        "node": "@root"
-      },
       {
         "node": "hatch_10"
       },
@@ -255,11 +320,9 @@
     }
   },
   "germ_sdkfz_234_2_gunner_cockpit": {
-    "vehicle_sight__blk": "content/tanks/gamedata/sight/germ_tzf4.blk",
-    "_extends": "base_gunner_cockpit",
+    "_use": "base_gunner_cockpit",
     "animchar__res": "pz_2c_commander_char",
     "cockpit__offset": [-0.0,-0.0,-0.0],
-    "cockpit__minZoom": -0.27,
     "cockpit__attachNodeNames:list<t>": {
       "node": "bone_camera_gunner"
     },
@@ -333,19 +396,37 @@
       }
     ],
     "cockpit__slitForwardOffset:list<r>": {
-      "slit": 0.3
+      "slit": 0.32
     },
     "cockpit__slitNodeNames:list<t>": {
       "slit": "cam_front"
     },
     "cockpit__slitIsGun:list<b>": {
       "slit": true
-    }
+    },
+    "cockpit__slitZoom:array": {
+      "slit:list<r>": [
+        {
+          "zoom": 1.9
+        },
+        {
+          "zoom": 3.5
+        }
+      ]
+    },
+    "cockpit__slitZoomTime:list<r>": {
+      "slit": 0.05
+    },
+    "cockpit__slitTemplates:list<t>": {
+      "slit": "germ_tzf4"
+    },
+    "cockpit__slitEids:list<eid>": []
   },
   "germ_sdkfz_234_2_commander_cockpit": {
-    "_extends": "base_commander_cockpit_no_slits",
+    "_use": "base_commander_cockpit_no_slits",
     "animchar__res": "pz_2c_commander_char",
-    "cockpit__offset": [-0.41,0.67,-0.345],
+    "cockpit__offset": [-0.35,0.8,-0.345],
+    "cockpit__minForwardOffset": -0.0,
     "cockpit__visibleVehicleNodeNames:list<t>": [
       {
         "node": "@root"
@@ -406,6 +487,21 @@
       },
       {
         "node": "antenna_02"
+      },
+      {
+        "node": "bone_turret"
+      },
+      {
+        "node": "ex_decor_r_01"
+      },
+      {
+        "node": "ex_decor_l_01"
+      },
+      {
+        "node": "hatch_01"
+      },
+      {
+        "node": "hatch_02"
       }
     ],
     "cockpit__slitForwardOffset:list<r>": {
@@ -416,10 +512,28 @@
     },
     "cockpit__slitNodeNames:list<t>": {
       "slit": "cam_front"
-    }
+    },
+    "cockpit__periscopeLimits:list<p4>": {
+      "slit": [-35.0,35.0,-5.0,25.0]
+    },
+    "cockpit__periscopeSpeed:list<p2>": {
+      "slit": [35.0,35.0]
+    },
+    "cockpit__slitZoom:array": {
+      "slit:list<r>": {
+        "zoom": 1.44
+      }
+    },
+    "cockpit__slitZoomTime:list<r>": {
+      "slit": 0.0
+    },
+    "cockpit__slitTemplates:list<t>": {
+      "slit": "default_periscope"
+    },
+    "cockpit__slitEids:list<eid>": []
   },
   "germ_sdkfz_234_2_red_eighteen_skin_td": {
-    "_extends": "germ_sdkfz_234_2_common",
+    "_use": "germ_sdkfz_234_2_common",
     "item__name": "items/germ_sdkfz_234_2_red_eighteen_td",
     "animchar__objTexReplace:object": {
       "ger_camo_dunkelgelb*": "ger_camo_dunkelgelb_green_braun_lines*"
@@ -434,7 +548,7 @@
     }
   },
   "germ_sdkfz_234_2_415th_battlepass_premium": {
-    "_extends": "germ_sdkfz_234_2_common",
+    "_use": "germ_sdkfz_234_2_common",
     "animchar__objTexSet:object": {
       "sdkfz_234_2_body_c*:object": {
         "sdkfz_234_2_415th_body_c*": "camo_skin_tex"

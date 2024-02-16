@@ -1,10 +1,10 @@
 {
   "base_halftrack_m3_75mm_gmc": [
     {
-      "_extends": "base_tank"
+      "_use": "base_tank"
     },
     {
-      "_extends": "halftrack_m3_75mm_gmc_ammo_stowages"
+      "_use": "halftrack_m3_75mm_gmc_ammo_stowages"
     },
     {
       "killLogName": "us_halftrack_m3_75mm_gmc"
@@ -108,7 +108,7 @@
     }
   ],
   "halftrack_m3_75mm_gmc_turret_01_75mm_m1897a4": {
-    "_extends": "tankgun_75mm_m1897a4",
+    "_use": "tankgun_75mm_m1897a4",
     "gun__shootNodeName": "bone_gun_barrel",
     "turret__yawSpeed": 6.0,
     "turret__pitchSpeed": 4.0,
@@ -131,13 +131,13 @@
   },
   "halftrack_m3_75mm_gmc_ammo_stowages": {
     "_tags": "server",
-    "_extends": "vehicle_ammo_stowages",
+    "_use": "vehicle_ammo_stowages",
     "ammo_stowage__stowageTemplates:shared:list<t>": {
       "stowage": "halftrack_m3_75mm_gmc_ammo_stowage"
     }
   },
   "halftrack_m3_75mm_gmc_ammo_stowage": {
-    "_extends": "ammo_stowage",
+    "_use": "ammo_stowage",
     "ammo_stowage__clusterTemplates:shared:list<t>": {
       "cluster": "halftrack_m3_75mm_gmc_ammo_cluster"
     },
@@ -146,7 +146,7 @@
     }
   },
   "halftrack_m3_75mm_gmc_ammo_cluster": {
-    "_extends": "ammo_cluster",
+    "_use": "ammo_cluster",
     "ammo_cluster__isShell": true,
     "ammo_cluster__slotNames:shared:list<t>": [
       {

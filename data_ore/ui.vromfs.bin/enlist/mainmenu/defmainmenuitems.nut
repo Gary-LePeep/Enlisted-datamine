@@ -4,11 +4,9 @@ let platform = require("%dngscripts/platform.nut")
 let { showControlsMenu } = require("%ui/hud/menus/controls_setup.nut")
 let { showSettingsMenu } = require("%ui/hud/menus/settings_menu.nut")
 let {exitGameMsgBox, logoutMsgBox} = require("%enlist/mainMsgBoxes.nut")
-let openUrl = require("%ui/components/openUrl.nut")
-let { gaijinSupportUrl, bugReportUrl } = require("%enlSqGlob/supportUrls.nut")
+let { openUrl } = require("%ui/components/openUrl.nut")
+let { gaijinSupportUrl, bugReportUrl, legalsUrl } = require("%enlSqGlob/supportUrls.nut")
 let { get_setting_by_blk_path } = require("settings")
-let { isNewDesign, setDesign } = require("%enlSqGlob/designState.nut")
-let msgbox = require("%enlist/components/msgbox.nut")
 let qrWindow = require("qrWindow.nut")
 
 let SEPARATOR = {}
@@ -53,28 +51,18 @@ let btnSupport = gaijinSupportUrl == "" ? null : {
     : qrWindow({url = gaijinSupportUrl, header = loc("support")})
 }
 
+let btnLegals = legalsUrl == "" ? null : {
+  id = "Legals"
+  name = loc("Legals")
+  cb = @() allowUrl
+    ? openUrl(legalsUrl, false, platform.is_mobile )
+    : qrWindow({ url = legalsUrl, header = loc("Legals") })
+}
+
 let btnBugReport = (bugReportUrl == "" || !platform.is_pc) ? null : {
   id = "reportProblem"
   name = loc("gamemenu/btnReportProblem")
   cb = @() openUrl(bugReportUrl)
-}
-
-let btnToggleDesign = {
-  id = "ToggleDesign"
-  name = isNewDesign.value ? loc("gamemenu/btnLegacyDesign") : loc("gamemenu/btnNewDesign")
-  cb = function() {
-    if (isNewDesign.value)
-      setDesign(false)
-    else {
-      msgbox.show({
-        text = loc("gamemenu/hintNewDesign")
-        buttons = [
-          { text = loc("Cancel"), isCurrent = true }
-          { text = loc("Ok"), action = @() setDesign(true) }
-        ]
-      })
-    }
-  }
 }
 
 return {
@@ -86,6 +74,6 @@ return {
   btnCBR
   btnSupport
   btnBugReport
-  btnToggleDesign
+  btnLegals
   SEPARATOR
 }
