@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 
 let { fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
@@ -63,7 +63,7 @@ let headerTxt = @(text) txt(text, {
 let closeWnd = @() modalPopupWnd.remove(CONTACTLIST_MODAL_UID)
 
 
-let function resetSearch() {
+function resetSearch() {
   display(APPROVED_TAB)
   searchPlayer("")
   searchContactsResults({})
@@ -104,12 +104,12 @@ let header = @() {
   ]
 }
 
-let function searchCallback() {
+function searchCallback() {
   if (searchPlayer.value.len() > 0)
     display(SEARCH_RESULT_TAB)
 }
 
-let function doSearch(nick) {
+function doSearch(nick) {
   if (nick.len() == 0)
     resetSearch()
   else
@@ -131,7 +131,7 @@ let exitSearchButton = fontIconButton("close", {
   margin = [0, fsh(0.5)]
 })
 
-let function clearOrExitWnd() {
+function clearOrExitWnd() {
   if (searchPlayer.value == "")
     closeWnd()
   else
@@ -288,7 +288,7 @@ let modesList = [
   { option =BLACKLIST_TAB, comp = myBlacklist}
 ]
 
-let function modeSwitcher() {
+function modeSwitcher() {
   return isContactsManagementEnabled ?
     {
       size = [flex(), fsh(5)]
@@ -396,7 +396,7 @@ let btnContactsNav = @() {
 
 
 let popupBg = { rendObj = ROBJ_WORLD_BLUR_PANEL, fillColor = fullTransparentBgColor }
-let function show(){
+function show(){
   if (!isContactsEnabled)
     return
   let bottomOffset = safeAreaBorders.value[2] + bigPadding

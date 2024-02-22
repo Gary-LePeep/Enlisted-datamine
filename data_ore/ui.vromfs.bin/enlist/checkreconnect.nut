@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {checkMultiplayerPermissions} = require("permissions/permissions.nut")
 let { matchingCall } = require("matchingClient.nut")
@@ -9,9 +9,9 @@ let msgbox = require("%enlist/components/msgbox.nut")
 let {nestWatched} = require("%dngscripts/globalState.nut")
 let isReconnectChecking = nestWatched("isReconnectChecking", false)
 let {get_app_id} = require("app")
-let loginState = require("%enlSqGlob/login_state.nut")
+let loginState = require("%enlSqGlob/ui/login_state.nut")
 
-let function checkReconnect() {
+function checkReconnect() {
   if (isInBattleState.value || !allowReconnect.value || isReconnectChecking.value)
     return
   if (!checkMultiplayerPermissions()) {

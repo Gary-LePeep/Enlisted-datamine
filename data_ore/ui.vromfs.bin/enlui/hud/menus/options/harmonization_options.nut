@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { set_setting_by_blk_path } = require("settings")
 let { harmonizationRequired, harmonizationState, harmonizationStateUpdate } = require("%enlSqGlob/harmonizationState.nut")
@@ -6,7 +6,7 @@ let { optionCheckBox, optionCtor } = require("%ui/hud/menus/options/options_lib.
 
 let optionHarmonizationCtor = @(actionCb) function (opt, group, xmbNode) {
   let optSetValue = opt.setValue
-  let function setValue(val) {
+  function setValue(val) {
     optSetValue(val)
     actionCb(val)
   }
@@ -14,7 +14,7 @@ let optionHarmonizationCtor = @(actionCb) function (opt, group, xmbNode) {
   return optionCheckBox(opt, group, xmbNode)
 }
 
-let function mkOption(title, field, watch, actionCb) {
+function mkOption(title, field, watch, actionCb) {
   let blkPath = $"{field}"
   let setValue = @(v) set_setting_by_blk_path(blkPath, v)
   return optionCtor({

@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 import "%dngscripts/ecs.nut" as ecs
 
 let colorize = require("%ui/components/colorize.nut")
@@ -117,7 +117,7 @@ let hasBelongByCountry = @(countryBelong, countryId)
 let hasBelongByType = @(vehTypeBelong, vehType)
   vehTypeBelong.len() == 0 || (vehTypeBelong?[vehType] ?? false)
 
-let function getDecorBelongText(belongId) {
+function getDecorBelongText(belongId) {
   let belongCfg = vehDecorBelongCfg.value?[belongId] ?? {}
   let armyBelong = (belongCfg?.byArmy ?? {}).keys()
   let countryBelong = (belongCfg?.byCountry ?? {}).keys()
@@ -209,21 +209,21 @@ let viewVehDecorators = Computed(function() {
 let curCamouflageId = Computed(@()
   selectedCamouflage.value?.id ?? viewVehCamouflage.value?.id)
 
-let function startUsingDecor(slot, cfg) {
+function startUsingDecor(slot, cfg) {
   setDecalSlot(slot)
   setDecorInfo(cfg.guid, cfg.cType)
   selectedDecorator(cfg)
 }
 
-let function mirrorDecal(isMirrored) {
+function mirrorDecal(isMirrored) {
   setDecalMirrored(isMirrored)
 }
 
-let function twoSideDecal(isTwoSided, isMirrored) {
+function twoSideDecal(isTwoSided, isMirrored) {
   setDecalTwoSide(isTwoSided, isMirrored)
 }
 
-let function buyApplyDecorators(decorators, vehGuid, cost, cb = null) {
+function buyApplyDecorators(decorators, vehGuid, cost, cb = null) {
   if (isPurchasing.value)
     return
 
@@ -234,7 +234,7 @@ let function buyApplyDecorators(decorators, vehGuid, cost, cb = null) {
   })
 }
 
-let function applyDecorator(guid, vehGuid, cType, details, slot, cb = null) {
+function applyDecorator(guid, vehGuid, cType, details, slot, cb = null) {
   if (isPurchasing.value)
     return
 
@@ -245,7 +245,7 @@ let function applyDecorator(guid, vehGuid, cType, details, slot, cb = null) {
   })
 }
 
-let function buyDecorator(cType, id, cost, cb = null) {
+function buyDecorator(cType, id, cost, cb = null) {
   if (isPurchasing.value)
     return
 
@@ -351,13 +351,13 @@ let viewVehCustLimits = Computed(function() {
   return res
 })
 
-let function updateViewVehDecals(_ = null) {
+function updateViewVehDecals(_ = null) {
   let decals = viewVehDecalData.value
   if (decals != null)
     applyDecalsToVehicle(decals)
 }
 
-let function updateViewVehDecor(_ = null) {
+function updateViewVehDecor(_ = null) {
   let decors = viewVehDecorData.value
   if (decors != null)
     applyDecorToVehicle(decors)
@@ -370,7 +370,7 @@ notPurchased.subscribe(function(_ = null) {
   updateViewVehDecor()
 })
 
-let function stopUsingDecal() {
+function stopUsingDecal() {
   selectedDecorator(null)
   setDecalSlot(-1)
   setDecorInfo("", "")

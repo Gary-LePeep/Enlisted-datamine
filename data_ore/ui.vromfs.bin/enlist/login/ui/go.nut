@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontHeading2, fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let background = require("%enlist/login/ui/background.nut")
@@ -20,7 +20,7 @@ let regInfo = require("reginfo.nut")
 let supportLink = require("%enlist/login/ui/supportLink.nut")
 let system = require("dagor.system")
 
-let {isLoggedIn} = require("%enlSqGlob/login_state.nut")
+let {isLoggedIn} = require("%enlSqGlob/ui/login_state.nut")
 let {startLogin, currentStage} = require("%enlist/login/login_chain.nut")
 let loginDarkStripe = require("%enlist/login/ui/loginDarkStripe.nut")
 let { loginBlockOverride, infoBlock } = require("%enlist/login/ui/loginUiParams.nut")
@@ -65,7 +65,7 @@ formStateAutoLogin.subscribe(function(v) {
   set_setting_by_blk_path(autologinBlkPath, v)
   save_settings()
 })
-let function availableFields() {
+function availableFields() {
   return [
     formStateLogin,
     formStatePassword,
@@ -77,7 +77,7 @@ let function availableFields() {
 }
 
 
-let function tabFocusTraverse(delta) {
+function tabFocusTraverse(delta) {
   let tabOrder = availableFields()
   let curIdx = formStateFocusedFieldIdx.value
   if (curIdx==null)
@@ -102,7 +102,7 @@ persistActions[AFTER_ERROR_PROCESSED_ID] <- function(processState) {
   }
 }
 formStateLogin.subscribe(@(_) need2Step(false))
-let function doPasswordLogin() {
+function doPasswordLogin() {
   if (currentStage.value!=null) {
     log($"Ignore start login due current loginStage is {currentStage.value}")
     return
@@ -135,7 +135,7 @@ let function doPasswordLogin() {
   }
 }
 
-let function onMessageBoxChange(_) {
+function onMessageBoxChange(_) {
   if (!getCurMsgbox() && focusedFieldIdxBeforeExitMsg!=-1) {
     let fields = availableFields()
     if (focusedFieldIdxBeforeExitMsg in fields)
@@ -144,13 +144,13 @@ let function onMessageBoxChange(_) {
   }
 }
 
-let function showExitMsgBox(){
+function showExitMsgBox(){
   focusedFieldIdxBeforeExitMsg = formStateFocusedFieldIdx.value
   set_kb_focus(null)
   exitGameMsgBox()
 }
 
-let function makeFormItemHandlers(field, debugKey=null, idx=null) {
+function makeFormItemHandlers(field, debugKey=null, idx=null) {
   return {
     onFocus = @() formStateFocusedFieldIdx.update(idx)
     onBlur = @() formStateFocusedFieldIdx.update(null)
@@ -169,13 +169,13 @@ let function makeFormItemHandlers(field, debugKey=null, idx=null) {
 }
 
 
-let function formText(field, options={}, idx=null) {
+function formText(field, options={}, idx=null) {
   return textInput.Underlined(field, options.__merge(makeFormItemHandlers(field, options?.title, idx)))
 }
 
 let capslockText = {rendObj = ROBJ_TEXT text=loc("capsLock") color = Color(50,200,255)}
 let capsDummy = {rendObj = ROBJ_TEXT text=null}
-let function capsLock() {
+function capsLock() {
   let children = (gui_scene.keyboardLocks.value & KBD_BIT_CAPS_LOCK) ? capslockText : capsDummy
   return {
     watch = gui_scene.keyboardLocks
@@ -186,7 +186,7 @@ let function capsLock() {
 }
 
 let keyboardLangColor = Color(100,100,100)
-let function keyboardLang(){
+function keyboardLang(){
   local text = gui_scene.keyboardLayout.value
   if (type(text)=="string")
     text = text.slice(0,5)
@@ -198,7 +198,7 @@ let function keyboardLang(){
   }
 }
 
-let function formPwd(field, options={}, idx=null) {
+function formPwd(field, options={}, idx=null) {
   return {
     size = [flex(), SIZE_TO_CONTENT]
     flow = FLOW_VERTICAL
@@ -238,7 +238,7 @@ let loginBtn = @(){
 let hotkeysRootChild = {hotkeys = [["^Tab", @() tabFocusTraverse(1)], ["^L.Shift Tab | R.Shift Tab", @() tabFocusTraverse(-1)],
   ["^Esc", @() showExitMsgBox()]]}
 
-let function loginOptions() {
+function loginOptions() {
   let res = [
     {t = formText, w = formStateLogin, p = {placeholder=loc("login (e-mail)"), inputType="mail", title="login", showPlaceHolderOnFocus=true}.__update(fontBody)},
     {t = formPwd, w = formStatePassword, p = {placeholder=loc("password"), password="\u2022", title="password", showPlaceHolderOnFocus=true}.__update(fontBody)},
@@ -251,7 +251,7 @@ let function loginOptions() {
   return res
 }
 
-let function createLoginForm() {
+function createLoginForm() {
   return [
     @() {
       watch = [formStateSaveLogin, need2Step]
@@ -280,7 +280,7 @@ let coincidenceBlock = {
   text = loc("coincidence")
 }
 
-let function loginRoot() {
+function loginRoot() {
   let children = (currentStage.value || isLoggedIn.value)
     ? [progressText(loc("loggingInProcess"))]
     : createLoginForm()

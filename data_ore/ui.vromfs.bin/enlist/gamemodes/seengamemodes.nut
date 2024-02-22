@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { settings, onlineSettingUpdated } = require("%enlist/options/onlineSettings.nut")
 
@@ -29,7 +29,7 @@ let seenGamemodes = Computed(function() {
   return { seen, opened }
 })
 
-let function markSeenGamemode(gamemodeId) {
+function markSeenGamemode(gamemodeId) {
   if (getSeenStatus(settings.value?[SEEN_ID][gamemodeId]) != SeenMarks.SEEN)
     settings.mutate(function(set) {
       let saved = clone (set?[SEEN_ID] ?? {})
@@ -38,7 +38,7 @@ let function markSeenGamemode(gamemodeId) {
     })
 }
 
-let function markOpenedGamemodes(gamemodeIds) {
+function markOpenedGamemodes(gamemodeIds) {
   if (gamemodeIds.len() > 0)
     settings.mutate(function(set) {
       let saved = clone (set?[SEEN_ID] ?? {})
@@ -48,7 +48,7 @@ let function markOpenedGamemodes(gamemodeIds) {
     })
 }
 
-console_register_command(@() settings.mutate(@(s) delete s[SEEN_ID]), "meta.resetSeenGamemodes")
+console_register_command(@() settings.mutate(@(s) s.$rawdelete(SEEN_ID)), "meta.resetSeenGamemodes")
 
 return {
   seenGamemodes

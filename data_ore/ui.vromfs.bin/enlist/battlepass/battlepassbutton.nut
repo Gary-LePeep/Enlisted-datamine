@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontHeading2 } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { smallPadding, bigPadding, defTxtColor, startBtnWidth, transpPanelBgColor, defItemBlur,
@@ -68,7 +68,7 @@ let mkStar = @(idx, isFilled = false, hasRewardAnim = false, hasAppearAnim = fal
 }
 
 
-let function rewardProgress() {
+function rewardProgress() {
   let hasRewardVal = hasReward.value
   let { required, current, interval } = currentProgress.value
   let starFactor = (interval / BP_INTERVAL_STARS).tointeger()
@@ -106,7 +106,7 @@ let titleBpBlock = @(sf) {
 }
 
 
-let function rewardBpBlock() {
+function rewardBpBlock() {
   let item = nextUnlock.value
   let { reward = null } = getOneReward(item?.rewards ?? {}, itemsMapping.value)
   let cardIcon = mkRewardIcon(reward, rewardIconWidth)

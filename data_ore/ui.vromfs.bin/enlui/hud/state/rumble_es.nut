@@ -1,12 +1,12 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { isInBattleRumbleEnabled } = require("controls_online_storage.nut")
 
 let comps = {comps_rq = ["human_input"]}
 let findHumanInput = ecs.SqQuery("findHumanInput", comps)
 
-let function setRumbleEnabled(eid, enabled){
+function setRumbleEnabled(eid, enabled){
   if (enabled)
     ecs.recreateEntityWithTemplates({eid, addTemplates = [{template="human_input_rumble_enabled", comps = ["human_input__rumbleEnabled"]}]})
   else

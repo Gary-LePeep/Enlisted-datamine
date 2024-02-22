@@ -6,7 +6,7 @@ let setMinimalistHudQuery = ecs.SqQuery("setMinimalistHudQuery", {
   comps_rw = [["minimalistHud", ecs.TYPE_BOOL]]
 })
 
-let function setOrCreate(isMinimalistHud) {
+function setOrCreate(isMinimalistHud) {
   local found = false
   setMinimalistHudQuery.perform(function(_eid, comp) {
     found = true

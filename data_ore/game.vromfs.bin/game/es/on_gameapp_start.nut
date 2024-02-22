@@ -11,7 +11,7 @@ let log = Log().with_prefix("[GAME LOAD] ")
 let {downloadMod, getModStartInfo} = require("%enlSqGlob/modsDownloadManager.nut")
 //local dlog = log.dlog
 
-let function on_gameapp_started() {
+function on_gameapp_started() {
   let settings = dgs_get_settings()
   local connect = isDedicated ? [] : get_all_arg_values_by_name("connect")
   connect = connect.len()>0 ? connect : null

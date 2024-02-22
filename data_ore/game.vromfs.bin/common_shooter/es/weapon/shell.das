@@ -6,7 +6,7 @@ require DngNet
 require common_shooter.events_common_shooter
 require common_shooter.es.grenade_thrower_common
 require common_shooter.es.human_weap_common
-require common_shooter.es.weapon.shell_fx_common
+require danetlibs.weaponry_hit_fx.main.shell_fx_common
 require enlisted.events_enlisted
 require game.es.events
 require game.es.smoke_occluders_common

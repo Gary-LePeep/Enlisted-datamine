@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let Rand = require("%sqstd/rand.nut")
 let curGenFaces = require("%enlist/faceGen/gen_faces.nut")
@@ -15,7 +15,7 @@ let headsCompsQuery = ecs.SqQuery("headsCompsQuery", {
   ]
 })
 
-let function faceGen(faceConfig = null) {
+function faceGen(faceConfig = null) {
   let rand = Rand()
   let { race = EUROPEAN } = faceConfig
   let face = {}
@@ -71,7 +71,7 @@ let function faceGen(faceConfig = null) {
   return face
 }
 
-let function safeFaceToJson(data) {
+function safeFaceToJson(data) {
   let { json_to_string } = require("json")
   let io = require("io")
   let file = io.file("EUFaces.json", "wt+")

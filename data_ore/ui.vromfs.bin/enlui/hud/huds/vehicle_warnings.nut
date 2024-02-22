@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {tipCmp} = require("%ui/hud/huds/tips/tipComponent.nut")
 let {DEFAULT_TEXT_COLOR, FAIL_TEXT_COLOR} = require("%ui/hud/style.nut")
@@ -28,7 +28,7 @@ let showVehicleWarnings = Computed(@() inVehicle.value && isVehicleAlive.value &
 let watch = [ showVehicleWarnings, vehiclePartDamaged, isHighSpeedWarningEnabled, isFlapsCritical, isOverloadCritical, isTutorial ]
   .extend(vehicleCantMoveWarnings.map(@(w) w.state), vehicleTurretDriveWarnings.map(@(w) w.state))
 
-let function mkTip(warnings, msgKey, msgDefVal) {
+function mkTip(warnings, msgKey, msgDefVal) {
   let reasons = warnings.filter(@(w) w.state.value).map(@(w) w.text())
   let text = reasons.len() > 0 ? loc(msgKey, msgDefVal, {reason = implode(reasons, ", ")}) : null
   return tipCmp({

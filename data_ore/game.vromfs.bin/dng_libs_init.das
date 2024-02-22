@@ -34,8 +34,13 @@ require danetlibs.light_flicker.light_flicker_init
 require danetlibs.node_collapser.node_collapser_init
 require danetlibs.flash_blind.flash_blind_init
 require danetlibs.swarm.swarm_init
+require danetlibs.dm.dm_init
 require danetlibs.weapons.weapons_init
+require danetlibs.package_aircraft.package_aircraft_init
 require danetlibs.explosion_patches.explosion_patches_init
+require danetlibs.heat_sources.heat_sources_init
+require danetlibs.weaponry_hit_fx.weaponry_hit_fx_init
+require danetlibs.puddles_manager.puddles_manager_init
 
 def load_dng_libs() : bool
   var ok = true
@@ -70,8 +75,13 @@ def load_dng_libs() : bool
   ok = load_node_collapser("%danetlibs/node_collapser") && ok
   ok = load_flash_blind("%danetlibs/flash_blind") && ok
   ok = load_swarm("%danetlibs/swarm") && ok
+  ok = load_dm("%danetlibs/dm") && ok
   ok = load_weapons("%danetlibs/weapons") && ok
+  ok = load_package_aircraft("%danetlibs/package_aircraft") && ok
   ok = load_explosion_patches("%danetlibs/explosion_patches") && ok
+  ok = load_heat_sources("%danetlibs/heat_sources") && ok
+  ok = load_weaponry_hit_fx("%danetlibs/weaponry_hit_fx") && ok
+  ok = load_puddles_manager("%danetlibs/puddles_manager") && ok
 
   return ok
 

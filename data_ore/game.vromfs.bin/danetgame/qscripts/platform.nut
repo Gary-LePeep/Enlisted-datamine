@@ -2,7 +2,8 @@ let platform = require("%sqstd/platform.nut")
 let ps4 = require_optional("ps4")
 let {dgs_get_settings, DBGLEVEL} = require("dagor.system")
 
-local {aliases, SCE_REGION, platformId, consoleRevision} = platform
+let {SCE_REGION, platformId, consoleRevision} = platform
+local {aliases} = platform
 
 let isPlatformRelevant = @(platforms)
   platforms.len() == 0 || platforms.findvalue(@(p) aliases?[p] ?? (p == platformId)) != null

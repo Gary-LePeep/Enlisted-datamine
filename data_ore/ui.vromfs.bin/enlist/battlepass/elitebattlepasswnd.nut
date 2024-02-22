@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let JB = require("%ui/control/gui_buttons.nut")
 let closeBtnBase = require("%ui/components/closeBtn.nut")
@@ -65,7 +65,7 @@ hasEliteBattlePass.subscribe(function(v) {
 
 let closeButton = closeBtnBase({ onClick = @() isOpened(false) })
 
-let function getUniqRewards(unlock) {
+function getUniqRewards(unlock) {
   let items = {}
   let currency = {}
   foreach (stage in unlock?.stages ?? []){
@@ -150,7 +150,7 @@ let cardBlock = @(txt, val) @(){
   ]
 }
 
-let function cardsBlock(){
+function cardsBlock(){
   let separateLine = {
     rendObj = ROBJ_SOLID
     size = [hdpx(1), flex()]
@@ -175,7 +175,7 @@ let mkDescription = @(text, params = {}, txtSize = fontBody){
   text
 }.__update(txtSize, params)
 
-let function buyEliteBattlePass() {
+function buyEliteBattlePass() {
   if (!canBuyBattlePass.value)
     return
   buyShopItem({ shopItem = elitePassItem.value })
@@ -256,13 +256,13 @@ let eliteBattlePassWnd = @(){
   ]
 }
 
-let function open() {
+function open() {
   sceneWithCameraAdd(eliteBattlePassWnd, "battle_pass")
   curSelectedItem(null)
   curItem(null)
 }
 
-let function close() {
+function close() {
   sceneWithCameraRemove(eliteBattlePassWnd)
   curSelectedItem(null)
   curItem(null)

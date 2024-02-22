@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let JB = require("%ui/control/gui_buttons.nut")
 let { fontBody, fontGiant } = require("%enlSqGlob/ui/fontsStyle.nut")
@@ -39,12 +39,12 @@ let open = kwarg(
     viewData({ squad, armyId, unlockInfo, squadCfg, isNewSquad })
   })
 
-let function close() {
+function close() {
   curUnlockedSquadId(null)
   viewData(null)
 }
 
-let function closeAndKeepLevel() {
+function closeAndKeepLevel() {
   scrollToCampaignLvl(curArmyNextUnlockLevel.value)
   close()
 }
@@ -79,7 +79,7 @@ let newSquadReceivedText = {
     @() sound_play("ui/squad_unlock_text_2"))
 }.__update(fontGiant, strokeStyle)
 
-let function onManage() {
+function onManage() {
   if (viewData.value == null)
     return
   let { armyId, squadCfg } = viewData.value
@@ -100,7 +100,7 @@ let mkTestDriveButton = @(armyId, squadId) @() {
       })
 }
 
-let function mkNewSquadButtons(squadId) {
+function mkNewSquadButtons(squadId) {
   let isFirstSquad = Computed(@() curArmySquadsUnlocks.value?[0].unlockId == squadId)
   return @() {
     watch = isFirstSquad
@@ -134,7 +134,7 @@ let function mkNewSquadButtons(squadId) {
   }
 }
 
-let function unlockSquadWnd() {
+function unlockSquadWnd() {
   if (viewData.value == null)
     return null
 

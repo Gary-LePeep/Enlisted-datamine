@@ -1,5 +1,7 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/library_logs.nut" import *
+let { eventbus_send } = require("eventbus")
+let { get_setting_by_blk_path } = require("settings")
 let {trackPlayerStart = null} = require("demo_track_player.nut")
 if (trackPlayerStart==null)
   return
@@ -10,9 +12,10 @@ let {get_time_msec} = require("dagor.time")
 let io = require("io")
 let { startswith, split_by_chars, format } = require("string")
 let platform = require("%dngscripts/platform.nut")
-let { exit_game, get_dir } = require("app")
+let { exit_game, get_dir, switch_to_menu_scene } = require("app")
 let { get_avg_cpu_only_cycle_time_usec, reset_summed_cpu_only_cycle_time } = require("dagor.perf")
 
+let disableMenu = get_setting_by_blk_path("disableMenu") ?? false
 
 let benchmarkParamsQuery = ecs.SqQuery("benchmarkParamsQuery", {comps_rw=[["benchmark_runs", ecs.TYPE_INT], ["benchmark_name", ecs.TYPE_STRING]]})
 
@@ -52,7 +55,9 @@ let benchStatsComps = [
 
 let benchStatsQuery = ecs.SqQuery("benchStatsQuery", {comps_rw=benchStatsComps, comps_ro=[["benchmark_name",ecs.TYPE_STRING, "benchmark_runs"]]})
 
-let function saveAndResetStats(){
+local lastBenchmarkResult = null
+
+function saveAndResetStats(){
 
   benchStatsQuery.perform(function(_eid, comps){
 
@@ -101,12 +106,16 @@ let function saveAndResetStats(){
       let minFPS = slowestRangeAvgTime > 0.0 ? 1.0 / slowestRangeAvgTime : 0.0
 
       prevMsec = prevMsec > firstMsec ? prevMsec : firstMsec+1
+      let avg_fps = 1000.0 * frames / (prevMsec - firstMsec)
+      let slow_frames_pct = 100.0 * slowFrames / frames
+      let very_slow_frames_pct = 100.0 * verySlowFrames / frames
+      let timeTakenMs = prevMsec - firstMsec
       let res = "\n".concat(
-        $"avg_fps={1000.0 * frames / (prevMsec - firstMsec)}",
+        $"avg_fps={avg_fps}",
         $"min_fps={minFPS}",
         $"score={frames}",
-        $"slow_frames_pct={100.0 * slowFrames / frames}",
-        $"very_slow_frames_pct={100.0 * verySlowFrames / frames}",
+        $"slow_frames_pct={slow_frames_pct}",
+        $"very_slow_frames_pct={very_slow_frames_pct}",
 
         $"max_memory_used_in_kb={maxMemoryUsedKb}",
         format("avg_memory_used_in_kb=%.2f",avgMemoryUsedKb),
@@ -119,12 +128,32 @@ let function saveAndResetStats(){
 
         format("avg_cpu_only_cycle_fps=%.2f",avgCpuOnlyCycleFps),
 
-        $"RawStats: frames={frames}, slowFrames={slowFrames}, verySlowFrames={verySlowFrames}, timeTakenMs={prevMsec - firstMsec}, timeStartedMs={firstMsec}, timeEndMs={prevMsec}",
+        $"RawStats: frames={frames}, slowFrames={slowFrames}, verySlowFrames={verySlowFrames}, timeTakenMs={timeTakenMs}, timeStartedMs={firstMsec}, timeEndMs={prevMsec}",
         "\n"
       )
       log($"Benchmark stats:\n{res}")
       f.writestring(res)
       f.close()
+
+      lastBenchmarkResult = {
+        avg_fps
+        minFPS
+        score = frames
+        slow_frames_pct
+        very_slow_frames_pct
+        maxMemoryUsedKb
+        avgMemoryUsedKb
+        maxDeviceVRamUsedKb
+        avgDeviceVRamUsedKb
+        maxSharedVRamUsedKb
+        avgSharedVRamUsedKb
+        avgCpuOnlyCycleFps
+        slowFrames
+        verySlowFrames
+        timeTakenMs
+        timeStartedMs = firstMsec
+        timeEndMs = prevMsec
+      }
     }
     reset_summed_cpu_only_cycle_time();
     foreach (compName, _ in comps){
@@ -145,8 +174,15 @@ let function saveAndResetStats(){
       }
       else
         comps[compName] = 0
-    if (comps.currentRun > comps.benchmark_runs)
-      exit_game()
+    }
+
+    if (comps.currentRun > comps.benchmark_runs) {
+      if (disableMenu)
+        exit_game()
+      else {
+        eventbus_send("benchmark.result", lastBenchmarkResult)
+        switch_to_menu_scene()
+      }
     }
   })
 }
@@ -155,7 +191,7 @@ let activeBenchmarkQuery = ecs.SqQuery("activateBenchmarkQuery", {comps_rw=[["be
 let activateBenchmark = @() activeBenchmarkQuery.perform(@(_, comp) comp.benchmark_active=true)
 
 ecs.register_es("benchmark_activate_es",
-  { [EventLevelLoaded] = function(_eid, comp) {
+  { [EventLevelLoaded] = function(eid, comp) {
       saveAndResetStats()
       setRuns()
       setName()
@@ -166,7 +202,7 @@ ecs.register_es("benchmark_activate_es",
       tracks.append(saveAndResetStats) //this is bad. better to send event that track was finished and do all on it
       ecs.set_callback_timer(function() {
         activateBenchmark()
-        trackPlayerStart(tracks, 0.1, 0.15)
+        trackPlayerStart(eid, tracks, 0.1, 0.15)
       }, 1.0, false)
     }
   },

@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { getFirstLinkByType, getFirstLinkedObjectGuid, getLinkedSquadGuid
 } = require("%enlSqGlob/ui/metalink.nut")
@@ -58,7 +58,7 @@ let canUnequip = Computed(function() {
 })
 
 
-let function unequip(slotType, slotId, ownerGuid, cb = null) {
+function unequip(slotType, slotId, ownerGuid, cb = null) {
   let owner = objInfoByGuid.value?[ownerGuid]
   let sList = soldiers.value
   let soldier = sList?[ownerGuid] ?? sList?[getFirstLinkedObjectGuid(owner, sList)]
@@ -91,12 +91,12 @@ let function unequip(slotType, slotId, ownerGuid, cb = null) {
   equipItem(null, slotType, slotId, ownerGuid, cb)
 }
 
-let function unequipBySlot(slotData, cb = null) {
+function unequipBySlot(slotData, cb = null) {
   let { slotType, slotId, ownerGuid } = slotData
   unequip(slotType, slotId, ownerGuid, cb)
 }
 
-let function unequipItem(data, cb = null) {
+function unequipItem(data, cb = null) {
   let { item = null, slotType = null, slotId = null, soldierGuid = null } = data
   if (item == null || slotType == null || item?.guid == null)
     return

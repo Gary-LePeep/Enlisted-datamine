@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontHeading2 } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { gameProfile } = require("%enlist/soldiers/model/config/gameProfile.nut")
@@ -8,7 +8,7 @@ let { sendBigQueryUIEvent } = require("%enlist/bigQueryEvents.nut")
 let premiumWnd = require("%enlist/currency/premiumWnd.nut")
 let { premiumImage } = require("%enlist/currency/premiumComp.nut")
 
-let function activatePremiumText(sf) {
+function activatePremiumText(sf) {
   let bonus = gameProfile.value?.premiumBonuses.soldiersReserve ?? 0
   return {
     flow = FLOW_HORIZONTAL

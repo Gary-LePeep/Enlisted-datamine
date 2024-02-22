@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let platform = require("%dngscripts/platform.nut")
 let {is_dx12} = require("videomode")
@@ -35,6 +35,7 @@ let {
   ,optHQVolumetricClouds
   ,optHQVolfog
   ,optSSSS
+  ,optRendinstTesselation
   } = require("%ui/hud/menus/options/render_options.nut")
 
 /*
@@ -79,6 +80,7 @@ let mapOptionsByPreset = {
   [optHQVolumetricClouds]        = [false,         false,     false,    false,     false,       false], // disabled everywhere by default, way too expensive
   [optHQVolfog]                  = [false,         false,     false,    false,     false,       false], // disabled everywhere by default, way too expensive
   [optSSSS]                      = ["off",         "off",     "off",    "low",    "high",     "high"],
+  [optRendinstTesselation]       = [false,         false,     false,    false,     false,       false], // disabled everywhere by default, way too expensive
 }
 
 let optGraphicsQualityPreset = optionCtor({
@@ -120,7 +122,7 @@ foreach (o, q in mapOptionsByPreset){
   })
 }
 
-let function getOptionsByPreset(gp) {
+function getOptionsByPreset(gp) {
   if (gp == CUSTOM || !optGraphicsQualityPreset.isAvailable())
     return null
   let idx = presetsRequired.indexof(gp)
@@ -143,7 +145,7 @@ let function getOptionsByPreset(gp) {
   return {presetOptsVals, changedOptsVals}
 }
 
-let function setOptionsByOptVals(changedOptsVals){
+function setOptionsByOptVals(changedOptsVals){
   foreach (i in changedOptsVals) {
     let {opt, val} = i
     if ("setValue" in opt)

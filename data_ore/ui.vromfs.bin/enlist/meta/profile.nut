@@ -1,7 +1,7 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let servProfile = require("servProfile.nut")
-let { items, soldiers, squads } = servProfile
+let { items, soldiers, squads, soldiersOutfit } = servProfile
 let { getLinkedArmyName } = require("%enlSqGlob/ui/metalink.nut")
 let { gameProfile } = require("%enlist/soldiers/model/config/gameProfile.nut")
 let { curCampaignConfig } = require("%enlist/meta/curCampaign.nut")
@@ -24,6 +24,9 @@ let verify = @(list) list.filter(@(obj) obj?.hasVerified ?? true)
 
 let itemsByArmies = Computed(@()
   applyTemplatesByArmies(divideByArmies(items.value), allItemTemplates.value))
+
+let outfitsByArmies = Computed(@()
+  applyTemplatesByArmies(divideByArmies(soldiersOutfit.value), allItemTemplates.value))
 
 let soldiersByArmies = Computed(@()
   applyTemplatesByArmies(divideByArmies(verify(soldiers.value)), allItemTemplates.value))
@@ -50,7 +53,7 @@ let campaignsByArmy = Computed(function() {
   return res
 })
 
-let function mergeArmiesObjs(objsByArmies, armiesList) {
+function mergeArmiesObjs(objsByArmies, armiesList) {
   let res = {}
   foreach (armyId in armiesList)
     res.__update(objsByArmies?[armyId] ?? {})
@@ -62,7 +65,7 @@ let curCampSoldiers = Computed(@() mergeArmiesObjs(soldiersByArmies.value, curAr
 let curCampSquads = Computed(@() mergeArmiesObjs(squadsByArmies.value, curArmiesList.value))
 
 let linkIgnore = { army = true, index = true }
-let function remapByLink(objList) {
+function remapByLink(objList) {
   let res = {}
   foreach (obj in objList)
     foreach (to, linkType in obj.links)
@@ -84,6 +87,7 @@ return servProfile.__merge({
   curArmiesListExt
   commonArmy
   itemsByArmies
+  outfitsByArmies
   soldiersByArmies
   squadsByArmies
   curCampItems

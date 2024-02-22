@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 
 let {sound_play} = require("%dngscripts/sound_system.nut")
@@ -9,7 +9,7 @@ const MAX_EVENTS_DEFAULT = 10
 let equalIgnore = { ttl = true, key = true, num = true }
 let countNotIgnoreKeys = @(event) event.keys().reduce(@(res, key) equalIgnore?[key] ? res + 1 : res, 0)
 
-let function isEventSame(event1, event2) {
+function isEventSame(event1, event2) {
   if (countNotIgnoreKeys(event1) != countNotIgnoreKeys(event2))
     return false
   foreach (key, value in event1)
@@ -18,7 +18,7 @@ let function isEventSame(event1, event2) {
   return true
 }
 
-let function speedUpRemoveSame(eventList, event, maxTime) {
+function speedUpRemoveSame(eventList, event, maxTime) {
   for (local i = eventList.len() - 1; i >= 0; i--) {
     let eventToRemove = eventList[i]
     if (isEventSame(eventToRemove, event)) {
@@ -28,7 +28,7 @@ let function speedUpRemoveSame(eventList, event, maxTime) {
   }
 }
 
-let function playEventSound(event){
+function playEventSound(event){
   if ("sound" in event)
     sound_play(event?.sound ?? "", event?.volume ?? 1)
 }

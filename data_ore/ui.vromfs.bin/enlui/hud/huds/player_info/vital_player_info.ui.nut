@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let health = require("health.ui.nut")
 let breath = require("breath.ui.nut")

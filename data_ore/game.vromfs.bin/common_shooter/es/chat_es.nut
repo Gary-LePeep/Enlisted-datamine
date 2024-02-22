@@ -26,7 +26,7 @@ if (isDedicated)
 
 let getPlayerPossessedQuery = ecs.SqQuery("getPlayerPossessedQuery", { comps_ro=[["possessed", ecs.TYPE_EID]] })
 
-let function find_connids_to_send(team_filter=null){
+function find_connids_to_send(team_filter=null){
   let connids = []
   if (team_filter==null) {
     notfiltered_byteam_query.perform(function(_eid, comp){
@@ -57,7 +57,7 @@ const SERVERCMD_PREFIX = "/servercmd"
 const AUTOREPLACE_HERO = ":hero:"
 const AUTOREPLACE_PLAYER = ":player:"
 
-let function sendMessage(evtData){
+function sendMessage(evtData){
   let net = has_network()
   let senderEid = net ? find_human_player_by_connid(evtData?.fromconnid ?? INVALID_CONNECTION_ID) : find_local_player()
   let senderTeam = ecs.obsolete_dbg_get_comp_val(senderEid, "team", TEAM_UNASSIGNED)

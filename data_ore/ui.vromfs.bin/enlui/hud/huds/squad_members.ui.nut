@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { fabs } = require("math")
@@ -31,7 +31,7 @@ let smallGap = hdpx(2)
 
 
 local wasKills = {}
-let function updateKillsAnim() {
+function updateKillsAnim() {
   let kills = {}
   foreach (m in watchedHeroSquadMembers.value) {
     kills[m.eid] <- m.kills
@@ -49,7 +49,7 @@ let blurBack = freeze({
   color = Color(220, 220, 220, 220)
 })
 
-let function statusIcon(member, isSelf) {
+function statusIcon(member, isSelf) {
   return {
     size = [iconSize, iconSize]
     children = [
@@ -297,7 +297,7 @@ let squadControlHints = @() {
 }
 let doNotShowMembers = Computed(@() watchedHeroSquadMembers.value.len() <= 1 || canChangeRespawnParams.value || inVehicle.value)
 
-let function members() {
+function members() {
   if (doNotShowMembers.value)
     return {watch = doNotShowMembers}
 

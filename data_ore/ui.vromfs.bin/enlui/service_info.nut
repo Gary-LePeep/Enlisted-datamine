@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {DBGLEVEL} = require("dagor.system")
 let sessionId = require("%ui/hud/huds/session_id.ui.nut")
@@ -11,7 +11,7 @@ let showFps = mkWatched(persist, "showFps", false)
 
 let showService = Computed(@() !(isReplay.value && !canShowGameHudInReplay.value)
   && (platform.is_pc || DBGLEVEL>0 || showFps.value))
-let function serviceInfo() {
+function serviceInfo() {
   let children = showService.value ? [fpsBar, latencyBar] : []
   if (platform.is_pc || platform.is_xbox)
     children.append(sessionId)

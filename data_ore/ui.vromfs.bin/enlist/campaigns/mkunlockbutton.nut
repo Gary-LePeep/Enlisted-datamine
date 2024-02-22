@@ -1,10 +1,10 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { PrimaryFlat } = require("%ui/components/textButton.nut")
 let { shopItems } = require("%enlist/shop/shopItems.nut")
 let buyShopItem = require("%enlist/shop/buyShopItem.nut")
 
-let function mkUnlockBtn(lock, override = {}) {
+function mkUnlockBtn(lock, override = {}) {
   let { reqPurchase = null } = lock
   if (reqPurchase == null)
     return null

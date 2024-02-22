@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { remap_nick } = require("%enlSqGlob/remap_nick.nut")
 let {controlledHeroEid} = require("%ui/hud/state/controlled_hero.nut")

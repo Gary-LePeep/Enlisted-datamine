@@ -8,7 +8,7 @@ let { EventLevelLoaded } = require("gameevents")
 let { isNoBotsMode } = require("%enlSqGlob/missionType.nut")
 let { get_matching_mode_info = @() {extraParams = {}} } = require_optional("dedicated")
 
-let function filterPresets(tag, presets) {
+function filterPresets(tag, presets) {
   if (tag == null || tag == "")
     return
   for(local i = presets.len() - 1; i >= 0; i--) {

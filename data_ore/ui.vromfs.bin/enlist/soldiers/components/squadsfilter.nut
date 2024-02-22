@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { Transp } = require("%ui/components/textButton.nut")
 let modalPopupWnd = require("%ui/components/modalPopupWnd.nut")
@@ -23,14 +23,14 @@ let iconColor = @(sf, isSelected = false, isDisabled = false) isDisabled ? 0xFF6
 let fillColor = @(sf, isSelected = false, isDisabled = false) isDisabled ? defSlotBgColor
   : isSelected || (sf & S_HOVER) ? hoverSlotBgColor : defSlotBgColor
 
-let function getCountSquadTypes(squadsList) {
+function getCountSquadTypes(squadsList) {
   let squadTypes = {}
   foreach(squad in squadsList)
     squadTypes[squad.squadType] <- (squadTypes?[squad.squadType] ?? 0) + 1
   return squadTypes
 }
 
-let function updateSquadTypes(res, squadsList, defValue = null) {
+function updateSquadTypes(res, squadsList, defValue = null) {
   foreach(squad in squadsList)
     if (squad.squadType not in res)
       res[squad.squadType] <- defValue
@@ -72,7 +72,7 @@ let styleSelector = {
   padding = [0, midPadding]
 }
 
-let function mkSquadSelector(watchFilter, squadTypeInfo, squadsCount) {
+function mkSquadSelector(watchFilter, squadTypeInfo, squadsCount) {
   let squadType = squadTypeInfo.squadType
   let nameLocText = squadTypeInfo.nameText
   let isSelected = Computed(@() squadType in watchFilter.value)
@@ -114,7 +114,7 @@ let function mkSquadSelector(watchFilter, squadTypeInfo, squadsCount) {
   })
 }
 
-let function mkSelectorShowAll(watchFilter) {
+function mkSelectorShowAll(watchFilter) {
   let isEmptyFilter = Computed(@() watchFilter.value.len() == 0)
   return watchElemState(function(sf) {
     let color = textColor(sf, isEmptyFilter.value)

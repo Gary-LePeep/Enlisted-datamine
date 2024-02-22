@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontHeading1, fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { debounce } = require("%sqstd/timers.nut")
@@ -100,7 +100,7 @@ let closeBtnSmall = closeBtnBase({
 let closeBtn = textButton(loc("mainmenu/btnClose"), @() curEventId(null),
   { hotkeys = [[$"^{JB.B}"]] })
 
-let function mkHeaderTimeLeft(time) {
+function mkHeaderTimeLeft(time) {
   let timeLeft = Computed(@() secondsToHoursLoc(max(0, time - serverTime.value)))
   return @() {
     watch = timeLeft
@@ -116,7 +116,7 @@ let function mkHeaderTimeLeft(time) {
   }.__update(fontBody)
 }
 
-let function offersWindowTitle() {
+function offersWindowTitle() {
   let { title = "", heading = null, end = 0 } = curEventData.value
   let headingBackImage = !heading ? null : {
     size = flex()
@@ -171,7 +171,7 @@ let descriptionCommon = {
   }.__update(fontBody)
 }
 
-let function offersWindowDescription() {
+function offersWindowDescription() {
   local { description = null } = curEventData.value
   if (description)
     description = formatText(description)
@@ -188,7 +188,7 @@ let function offersWindowDescription() {
   }
 }
 
-let function offersButtons() {
+function offersButtons() {
   let children = []
   let { campaign_unlock_button = null } = curEventData.value?.tags
   if (campaign_unlock_button != null) {
@@ -223,7 +223,7 @@ let curArmyOfferSquads = Computed(function() {
   return res.len() == 0 ? null : res
 })
 
-let function mkPromoSquads(offerSquads) {
+function mkPromoSquads(offerSquads) {
   let children = []
   foreach (squadId in offerSquads)
     children.append(mkSquadBuyPromo(squadId, {
@@ -251,7 +251,7 @@ let offersBlock = {
   ]
 }
 
-let function promoBlock() {
+function promoBlock() {
   let offerSquads = curArmyOfferSquads.value
   let hasOfferSquads = offerSquads != null
   return {
@@ -288,13 +288,13 @@ let offersWindow = @() {
   ]
 }
 
-let function open() {
+function open() {
   sceneWithCameraAdd(offersWindow, "researches")
 }
 
 console_register_command(@(id) curEventId(id), "ui.offersPromoWindow")
 
-let function close() {
+function close() {
   markSeen()
   sceneWithCameraRemove(offersWindow)
 }

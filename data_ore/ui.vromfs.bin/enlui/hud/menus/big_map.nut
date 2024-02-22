@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 from "minimap" import MinimapState
 
 let { fontHeading1 } = require("%enlSqGlob/ui/fontsStyle.nut")
@@ -17,10 +17,9 @@ let {tipCmp} = require("%ui/hud/huds/tips/tipComponent.nut")
 let {DEFAULT_TEXT_COLOR} = require("%ui/hud/style.nut")
 let JB = require("%ui/control/gui_buttons.nut")
 let { command } = require("%ui/hud/send_minimap_mark.nut")
-let {safeAreaAmount} = require("%enlSqGlob/safeArea.nut")
+let {safeAreaAmount} = require("%enlSqGlob/ui/safeArea.nut")
 let {mouseNavTips, placePointsTipGamepad, navGamepadHints, placePointsTipMouse} = require("mapComps.nut")
 let {isAlive} = require("%ui/hud/state/health_state.nut")
-let cursors = require("%ui/style/cursors.nut")
 let { battleUnlocks, statsInGame, getTasksWithProgress } = require("%ui/hud/state/tasksInBattle.nut")
 let { unlockProgress } = require("%enlSqGlob/userstats/unlocksState.nut")
 let { missionName, missionType } = require("%enlSqGlob/missionParams.nut")
@@ -28,8 +27,9 @@ let { isReplay } = require("%ui/hud/state/replay_state.nut")
 let { attentionTxtColor } = require("%enlSqGlob/ui/designConst.nut")
 
 let isMapAutonomousInReplay = Watched(true)
-let isMapInteractive = Computed(@() hudIsInteractive.value
-  && (!isReplay.value || !isMapAutonomousInReplay.value))
+
+let isMapInteractive = Computed(@() hudIsInteractive.get()
+  && (!isReplay.get() || !isMapAutonomousInReplay.get()))
 
 let screen_aspect_ratio = sw(100)/sh(100)
 local mapSizeForTasks = [fsh(70), fsh(70)]
@@ -144,7 +144,7 @@ let mkInteractiveTips = @(interactiveTips, notInteractiveTips) @() {
   children = isMapInteractive.value ? interactiveTips : notInteractiveTips
 }
 
-let function interactiveFrame() {
+function interactiveFrame() {
   let res = { watch = isMapInteractive }
   if (!isMapInteractive.value)
     return res
@@ -180,7 +180,7 @@ let closeMapDesc = {
   inputPassive = true
 }
 
-let function mkMapLayer(ctorWatch, paramsWatch, map_size) {
+function mkMapLayer(ctorWatch, paramsWatch, map_size) {
   return @() {
     watch = [paramsWatch, ctorWatch?.watch]
     size = map_size
@@ -199,11 +199,11 @@ let interactiveTips = mkInteractiveTips(
   mkPlacePointsTip(mapSize, null),
   modeHotkeyTip)
 
-let function onClickMap(e){
+function onClickMap(e){
   if (e.button==1 || (isGamepad.value && e.button==0))
     command(e, minimapState)
 }
-let function onDoubleClickMap(e) {
+function onDoubleClickMap(e) {
   command(e, minimapState)
 }
 
@@ -313,18 +313,15 @@ let mapContent = @() {
 }
 
 
-let function bigMap() {
-  let needCursor = isMapInteractive.value
+function bigMap() {
   return {
     rendObj = ROBJ_SOLID
     color = Color(0,0,0,140)
-    watch = isMapInteractive
     key = "big_map"
     hplace = ALIGN_CENTER
     vplace = ALIGN_CENTER
     pos = [0, hdpx(30)]
     padding = [mapPadding, 0]
-    cursor = needCursor ? cursors.normal : null
     flow = FLOW_VERTICAL
     sound = {
       attach = "ui/map_on"

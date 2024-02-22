@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {fontBody} = require("%enlSqGlob/ui/fontsStyle.nut")
 let {isDowned, isAlive} = require("%ui/hud/state/health_state.nut")
@@ -41,7 +41,7 @@ let tip = {
     }.__update(fontBody)
   ]
 }
-let function mkTip(){//try to avoid subscribe on timechange - to safe performance and clear profiler
+function mkTip(){//try to avoid subscribe on timechange - to safe performance and clear profiler
   let needTip = Computed(@()
       (downedEndTime.value > curTime.value) && ((medkitEndTime.value < curTime.value) || (medkitStartTime.value + overlapTipWithHeal > curTime.value)))
   return @(){

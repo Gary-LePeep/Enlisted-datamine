@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { format } = require("string")
 let { unixtime_to_local_timetbl } = require("dagor.time")
@@ -120,7 +120,7 @@ let toggleMissionsExpand = @() isMissionsExpanded(!isMissionsExpanded.value)
 
 selRoomId.subscribe(@(_) isMissionsExpanded(false))
 
-let function mkExpandedMissions(missions){
+function mkExpandedMissions(missions){
   if (missions.len() <= 0)
     return null
   let isOverflow = missions.len() >= MAX_LENGTH_SHOW_ALL_MISSION
@@ -162,7 +162,7 @@ let mkArmyList = @(armies) {
   ]
 }
 
-let function mkRoomCreateTime(room) {
+function mkRoomCreateTime(room) {
   let tm = unixtime_to_local_timetbl(room?.cTime ?? 0)
   return {
     size = [flex(), SIZE_TO_CONTENT]
@@ -212,7 +212,7 @@ let mkModHeader = @(name, mode) {
   ]
 }
 
-let function mkRoomInfo(room){
+function mkRoomInfo(room){
   let isMod = room?.scene == null
   let { armiesTeamA = [], armiesTeamB = [] } = room
   let armies = clone armiesTeamA

@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontHeading1 } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { switch_to_menu_scene } = require("app")
@@ -25,14 +25,14 @@ let animations = [
 
 let requestExitToLobby = Watched(false).subscribe(@(v) v ? switch_to_menu_scene() : null)
 
-let function closeAction() {
+function closeAction() {
   requestExitToLobby(true)
 }
 
-let function mkShortDebriefing(debriefing){
+function mkShortDebriefing(debriefing){
   let result = debriefing?.result
   let isVictory = result?.success
-  let function info(){
+  function info(){
     let title = textarea( " ".concat((result?.title ?? ""), result?.who ?? ""),
       textFx.__merge({
         size = [sh(100), SIZE_TO_CONTENT]
@@ -78,8 +78,8 @@ let function mkShortDebriefing(debriefing){
   }
 }
 
-let function mkDebriefing(debriefingData) {
-  let function debriefing() {
+function mkDebriefing(debriefingData) {
+  function debriefing() {
     let debriefingV = debriefingData.value
     let children = mkShortDebriefing(debriefingV)
 

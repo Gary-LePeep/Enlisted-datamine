@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
 let tooltipBox = require("%ui/style/tooltipBox.nut")
@@ -69,7 +69,7 @@ let mkPremSquadXpImage = @(size, override = {}) {
 
 let tooltipIconSize = hdpxi(20)
 
-let function getSquadExpDetailed(info) {
+function getSquadExpDetailed(info) {
   let {
     baseExp = 0,
     resultMult = 1.0,
@@ -203,12 +203,12 @@ let premExpCfg = @(squad, details, armyId) {
   armyId = armyId
 }
 
-let function getSquadPremiumExpDetailed(squad, details, armyId) {
+function getSquadPremiumExpDetailed(squad, details, armyId) {
   let hasPremiumBonuses = (squad?.premAccountExpBonus ?? 0) + (squad?.premSquadExpBonus ?? 0) > 0
   return hasPremiumBonuses ? getSquadExpDetailed(premExpCfg(squad, details, armyId)) : null
 }
 
-let function getPremiumTooltipHeader(hasPremiumAccount, hasPremiumSquad) {
+function getPremiumTooltipHeader(hasPremiumAccount, hasPremiumSquad) {
   if (hasPremiumAccount && hasPremiumSquad)
     return loc("debriefing/armyExpPremiumTooltipHeader")
   if (hasPremiumAccount)

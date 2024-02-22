@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 
 let scenesList = []
@@ -9,7 +9,7 @@ let getTopScene = @() scenesList.len() > 0 ? scenesList.top() : null
 
 let doesSceneExist = @(...) scenesList.len() > 0
 
-let function addScene(componentOrScene) {
+function addScene(componentOrScene) {
   let idx = scenesList.indexof(componentOrScene)
   if (idx != null)
     scenesList.remove(idx)
@@ -17,7 +17,7 @@ let function addScene(componentOrScene) {
   scenesListGeneration(scenesListGeneration.value + 1)
 }
 
-let function removeScene(componentOrScene) {
+function removeScene(componentOrScene) {
   let idx = scenesList.indexof(componentOrScene)
   if (idx == null)
     return null

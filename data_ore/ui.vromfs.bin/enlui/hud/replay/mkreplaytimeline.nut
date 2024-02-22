@@ -1,18 +1,18 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { accentColor, titleTxtColor, defBdColor, commonBorderRadius
 } = require("%enlSqGlob/ui/designConst.nut")
 let cursors = require("%ui/style/cursors.nut")
 let { secondsToString } = require("%ui/helpers/time.nut")
 
-let function mkTimeLine(var, options={}) {
+function mkTimeLine(var, options={}) {
   let minval = options?.min ?? 0
   let maxval = options?.max ?? 1
   let group = ElemGroup()
 
 
   let setValue = options?.setValue ?? @(v) var(v)
-  let function onChange(factor){
+  function onChange(factor){
     let value = factor.tofloat() * (maxval - minval) + minval
     if (!(options?.canChangeVal ?? true))
       return

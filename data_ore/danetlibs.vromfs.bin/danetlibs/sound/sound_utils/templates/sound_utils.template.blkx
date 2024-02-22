@@ -46,19 +46,32 @@
   },
   "sound_control": {
     "_use": "sound_banks_state",
-    "_tracked": "sound_control__shouldPlay",
+    "_tracked": "sound_control__soundEnabled",
     "_group": {
       "_tags": "sound",
       "sound_control__range": 22.0,
       "sound_control__inRange": false,
-      "sound_control__shouldPlay": false,
-      "sound_control__enable": true
+      "sound_control__soundEnabled": false,
+      "sound_control__allowSound": true,
+      "sound_control__subtemplate": ""
+    }
+  },
+  "sound_control_init_range": {
+    "_group": {
+      "_tags": "sound",
+      "sound_control__initRange": ""
     }
   },
   "disable_sound_control": {
     "_group": {
       "_tags": "sound",
       "disableSoundControl:tag": []
+    }
+  },
+  "sound_enabled": {
+    "_group": {
+      "_tags": "sound",
+      "soundEnabled:tag": []
     }
   },
   "sound_control_disable_timer": {

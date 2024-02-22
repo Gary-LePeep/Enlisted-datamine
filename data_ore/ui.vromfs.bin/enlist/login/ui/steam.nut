@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontHeading2, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let background = require("background.nut")
@@ -8,7 +8,7 @@ let regInfo = require("reginfo.nut")
 let supportLink = require("supportLink.nut")
 
 let {startLogin, currentStage} = require("%enlist/login/login_chain.nut")
-let { linkSteamAccount } = require("%enlSqGlob/login_state.nut")
+let { linkSteamAccount } = require("%enlSqGlob/ui/login_state.nut")
 
 let isFirstOpen = mkWatched(persist, "isFirstOpen", true)
 
@@ -16,12 +16,12 @@ let fontIconButton = require("%ui/components/fontIconButton.nut")
 let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
 let {exitGameMsgBox} = require("%enlist/mainMsgBoxes.nut")
 
-let function createSteamAccount() {
+function createSteamAccount() {
   if (!linkSteamAccount.value) //when linkSteamAccount, opens other ui, but we can still receive button onClick from the previous
     startLogin({onlyKnown = false})
 }
 
-let function onOpen() {
+function onOpen() {
   if (!isFirstOpen.value)
     return
   isFirstOpen(false)
@@ -31,7 +31,7 @@ let function onOpen() {
 let steamLoginBtn = textButton(loc("steam/loginWithoutGaijinNet"), createSteamAccount,
   fontSub)
 
-let function createLoginForm() {
+function createLoginForm() {
   return [
     {
       vplace = ALIGN_BOTTOM
@@ -57,7 +57,7 @@ let centralContainer = @(children = null, watch = null, size = null) {
   children = children
 }
 
-let function loginRoot() {
+function loginRoot() {
   onOpen()
   let size = [fsh(40), fsh(40)]
   let watch = [currentStage]

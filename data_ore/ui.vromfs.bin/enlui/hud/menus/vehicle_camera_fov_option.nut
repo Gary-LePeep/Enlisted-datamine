@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let mkCameraFovOption = require("%ui/hud/menus/options/camera_fov_option_common.nut")
 

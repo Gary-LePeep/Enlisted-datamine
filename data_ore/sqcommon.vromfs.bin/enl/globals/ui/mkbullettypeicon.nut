@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let colors = {
   BulletDefault          = Color(50, 72, 74)
@@ -6,10 +6,10 @@ let colors = {
   MainAmmoColor          = Color(180, 180, 180)
   MainAmmoColorCurrent   = Color(240, 240, 240)
 }
-let function bulletOriginalColor(isEqupped) {
+function bulletOriginalColor(isEqupped) {
   return isEqupped ? colors.MainAmmoColorCurrent : colors.MainAmmoColor
 }
-let function bulletDefaultColor(isEqupped) {
+function bulletDefaultColor(isEqupped) {
   return isEqupped ? colors.BulletDefaultCurrent : colors.BulletDefault
 }
 
@@ -36,6 +36,11 @@ let BULLET_TYPE = { //todo: use bullet icon from template
   }
   APC_SOLID = {
     prefix = "apc_solid_"
+    icon = "tank/cannon_ammo_AP.svg"
+    color = bulletOriginalColor
+  }
+  APBC_USA = {
+    prefix = "apbc_usa_"
     icon = "tank/cannon_ammo_AP.svg"
     color = bulletOriginalColor
   }
@@ -101,7 +106,7 @@ let BULLET_TYPE = { //todo: use bullet icon from template
   }
 }
 
-let function getBulletType(weapon) {
+function getBulletType(weapon) {
   if (weapon?.icon != null)
     return {
       icon = weapon?.icon

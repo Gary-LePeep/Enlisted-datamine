@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { saveJson } = require("%sqstd/json.nut")
 let userInfo = require("%enlSqGlob/userInfo.nut")
@@ -51,7 +51,7 @@ let curArmy = Computed(function() {
   return armyId
 })
 
-let function selectArmy(army) {
+function selectArmy(army) {
   let campaign = gameProfile.value?.campaignByArmyId[army]
   if (campaign && curArmies.value?[campaign] != army)
     setCurArmies(curArmies.value.__merge({ [campaign] = army }))
@@ -74,8 +74,8 @@ let limitsByArmy = Computed(function() {
   let premiumBonuses = gameProfile.value?.premiumBonuses
   let effects = armyEffects.value
 
-  foreach (armyId in curArmiesList.value)
-    res[armyId] <- armyLimitsDefault.map(function(val, key) {
+  foreach (armyId in curArmiesList.value) {
+    let limits = armyLimitsDefault.map(function(val, key) {
       local keyValue = (armiesInfo?[armyId][key] ?? val)
         + (effects?[armyId][key] ?? 0)
 
@@ -83,6 +83,9 @@ let limitsByArmy = Computed(function() {
         keyValue += premiumBonuses?[key] ?? 0
       return keyValue
     })
+    limits.squadTypeLimits <- armiesInfo?[armyId].squadTypeLimits ?? {}
+    res[armyId] <- limits
+  }
 
   return res
 })
@@ -101,7 +104,7 @@ let getItemOwnerGuid = @(item) (item?.links ?? {})
   .keys()
   .findvalue(@(guid) guid in curCampSoldiers.value || guid in curCampItems.value)
 
-let function getItemOwnerSoldier(itemGuid) {
+function getItemOwnerSoldier(itemGuid) {
   foreach (guid, _ in curCampItems.value?[itemGuid].links ?? {})
     if (guid in curCampSoldiers.value)
       return curCampSoldiers.value[guid]
@@ -116,7 +119,7 @@ let getSquadConfig = @(squadId, armyId = null)
   squadsCfgById.value?[armyId ?? curArmy.value][squadId]
 
 // config is profile server side; presentation is client side
-let function mixSquadData(config, presentation) {
+function mixSquadData(config, presentation) {
   let titleLocId = presentation?.titleLocId ?? "squad/defaultTitle"
   return {
     size = config?.size ?? 1 //base squad size
@@ -246,10 +249,10 @@ let chosenSquadsByArmy = Computed(function() {
 let curChoosenSquads = Computed(@() chosenSquadsByArmy.value?[curArmy.value] ?? [])
 
 let curForcedSquadId = Watched(null)
-let function setCurForcedSquadId(squadId) {
+function setCurForcedSquadId(squadId) {
   curForcedSquadId(squadId)
 }
-let function clearCurForcedSquadId() {
+function clearCurForcedSquadId() {
   curForcedSquadId(null)
 }
 
@@ -268,13 +271,13 @@ let curSquadId = Computed(function() {
   return squadId
 })
 
-let function setCurSquadId(squadId) {
+function setCurSquadId(squadId) {
   let armyId = curArmy.value
   if (armyId && squadId != playerSelectedSquads.value?[armyId])
     setPlayerSelectedSquads(playerSelectedSquads.value.__merge({ [armyId] = squadId }))
 }
 
-let function getModSlots(item /*full item info recived via objInfoByGuid*/) {
+function getModSlots(item /*full item info recived via objInfoByGuid*/) {
   let res = []
   foreach (slotType, scheme in item?.equipScheme ?? {})
     if ((scheme?.listSize ?? 0) <= 0) //do not support modes list as item mods yet.
@@ -356,18 +359,18 @@ let getEquippedItemGuid = @(itemsByLink, soldierGuid, slotType, slotId)
 let getSoldierByGuid = @(guid)
   curCampSoldiers.value?[guid]
 
-let function addArmyExp(armyId, exp, cb = null) {
+function addArmyExp(armyId, exp, cb = null) {
   add_army_exp(armyId, exp, cb)
 }
 
-let function resetProfile(isUnited) {
+function resetProfile(isUnited) {
   reset_profile(isUnited, function(res) {
     debugTableData(res)
     check_purchases()
   })
 }
 
-let function dumpProfile() {
+function dumpProfile() {
   let { userId = -1 } = userInfo.value
   if (userId < 0)
     return
@@ -377,7 +380,7 @@ let function dumpProfile() {
   console_print($"Current user profile saved to {path}")
 }
 
-let function getSoldierItemSlots(guid, itemsByLink) {
+function getSoldierItemSlots(guid, itemsByLink) {
   //todo: here better same format with campItemsByLink
   let res = []
   foreach (slotType, itemsList in itemsByLink?[guid] ?? {})
@@ -388,7 +391,7 @@ let function getSoldierItemSlots(guid, itemsByLink) {
 
 let getSoldierItem = @(guid, slot, campItems) campItems?[guid][slot][0]
 
-let function getDemandingSlots(ownerGuid, slotType, objInfo, itemsByLink) {
+function getDemandingSlots(ownerGuid, slotType, objInfo, itemsByLink) {
   let { equipScheme = {} } = objInfo
   let equipGroup = equipScheme?[slotType].atLeastOne ?? ""
   return equipGroup != ""
@@ -398,7 +401,7 @@ let function getDemandingSlots(ownerGuid, slotType, objInfo, itemsByLink) {
     : {}
 }
 
-let function getDemandingSlotsInfo(ownerGuid, slotType) {
+function getDemandingSlotsInfo(ownerGuid, slotType) {
   let equipGroup = objInfoByGuid.value?[ownerGuid].equipScheme[slotType].atLeastOne ?? ""
   return equipGroup != "" ? loc($"equipDemand/{equipGroup}") : ""
 }
@@ -407,7 +410,7 @@ let unequippableSlots = {
   paratrooper = ["secondary"]
 }
 
-let function canChangeEquipmentInSlot(soldierClass, weaponSlot) {
+function canChangeEquipmentInSlot(soldierClass, weaponSlot) {
   let { isPremium = false, kind = "unknown" } = getClassCfg(soldierClass)
   return (!isPremium || weaponSlot != weaponSlotsKeys[EWS_PRIMARY])
     && !unequippableSlots?[kind].contains(weaponSlot)
@@ -419,13 +422,13 @@ console_register_command(function() {
   setCurArmies(null)
 }, "meta.resetCurCampaign")
 
-console_register_command(@(crateId) drop_items(curArmy.value, crateId), "meta.dropCrate")
+console_register_command(@(crateId) drop_items(crateId), "meta.dropCrate")
 console_register_command(@() update_profile(), "meta.updateProfile")
 console_register_command(@() soldiers_regenerate_view(), "meta.soldiersRegenerateView")
 console_register_command(function() {
   let tmpArmies = clone curArmies.value
   if (curCampaign.value in tmpArmies)
-    delete tmpArmies[curCampaign.value]
+    tmpArmies.$rawdelete(curCampaign.value)
   setCurArmies(tmpArmies)
 }, "meta.selectArmyScene")
 console_register_command(@(exp) addArmyExp(curArmy.value, exp), "meta.addCurArmyExp")

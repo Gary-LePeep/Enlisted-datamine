@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let buySquadWindow = require("buySquadWindow.nut")
 let buyShopItem = require("buyShopItem.nut")
@@ -15,7 +15,7 @@ let { shopItemLockedMsgBox, mkProductView } = require("shopPkg.nut")
 let { mkShopMsgBoxView, mkCanUseShopItemInfo } = require("shopPackage.nut")
 
 
-let function shopItemClick(shopItem) {
+function shopItemClick(shopItem) {
   let lockData = getCantBuyDataOnClick(shopItem)
   if (lockData != null)
     return shopItemLockedMsgBox(lockData)

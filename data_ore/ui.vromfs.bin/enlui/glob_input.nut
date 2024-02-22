@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {take_screenshot_nogui, take_screenshot} = require("screencap")
 let voiceHotkeys = require("%enlSqGlob/voiceControl.nut")

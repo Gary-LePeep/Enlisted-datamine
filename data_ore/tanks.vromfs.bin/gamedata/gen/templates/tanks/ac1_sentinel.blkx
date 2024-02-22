@@ -238,17 +238,34 @@
       "ammo": 4250
     }
   },
-  "ac1_sentinel_turret_03_7_7mm_vikkers": {
-    "_use": "tankgun_7_7mm_vikkers",
-    "gun__shootNodeName": "bone_mg_v",
-    "turret__yawSpeed": 90.0,
-    "turret__pitchSpeed": 90.0,
-    "turret__aimNodeName": "bone_mg_h",
-    "turret__limit": [-10.0,10.0,-10.0,10.0],
-    "gun__shellsAmmo:array": {
-      "ammo": 2500
+  "ac1_sentinel_turret_03_7_7mm_vikkers": [
+    {
+      "_use": "tankgun_7_7mm_vikkers"
+    },
+    {
+      "_use": "gun_smoke_none"
+    },
+    {
+      "gun__shootNodeName": "bone_mg_v"
+    },
+    {
+      "turret__yawSpeed": 90.0
+    },
+    {
+      "turret__pitchSpeed": 90.0
+    },
+    {
+      "turret__aimNodeName": "bone_mg_h"
+    },
+    {
+      "turret__limit": [-10.0,10.0,-10.0,10.0]
+    },
+    {
+      "gun__shellsAmmo:array": {
+        "ammo": 2500
+      }
     }
-  },
+  ],
   "ac1_sentinel_ammo_stowages": {
     "_tags": "server",
     "_use": "vehicle_ammo_stowages",

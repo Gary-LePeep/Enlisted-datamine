@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 let fontFxFactor = min(hdpx(48), 64)
 let fontSize = hdpx(21)
 let fontFxColor = Color(0, 0, 0, 60)

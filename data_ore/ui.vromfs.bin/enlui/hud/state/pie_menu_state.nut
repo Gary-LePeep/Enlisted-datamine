@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 // currently main pie menu has three "layers" 0 - posters, 1 - default; bot commands, 3 - quick chat
 // we can switch between them using shortcuts without menu closing

@@ -1292,33 +1292,20 @@
       }
     }
   ],
-  "attachable_wear_tunic_01_ger_splinter_item": {
-    "_use": "attachable_tunic",
-    "item__uniqueName": "attachable_wear_tunic_01_ger_splinter_item",
-    "animchar__res": "tunic_01_ger_splinter_char",
-    "collres__res": "tunic_01_ger_splinter_collision",
-    "animchar_fast_phys__res": "tunic_01_ger_splinter_fastphys",
-    "_tracked": "attaches_list",
-    "animchar__objTexReplace:object": {
-      "ger_tunic_3_tex_d*": "ger_tunic_m43_splinter_tex_d*",
-      "ger_tunic_3_tex_n*": "ger_tunic_m43_splinter_tex_n*"
+  "attachable_wear_tunic_01_ger_splinter_item": [
+    {
+      "_use": "attachable_tunic"
     },
-    "animchar_fast_phys": {
-      "_tags": "gameClient"
+    {
+      "_use": "attachable_wear_tunic_01_ger_summer_item"
     },
-    "attaches_list:list<eid>": [],
-    "skeleton_attach__remapAffectSlots:list<t>": [
-      {
-        "slot": "front_belt_l"
-      },
-      {
-        "slot": "front_belt_r"
-      },
-      {
-        "slot": "bag_l"
+    {
+      "animchar__objTexReplace:object": {
+        "ger_tunic_3_tex_d*": "ger_tunic_m43_splinter_tex_d*",
+        "ger_tunic_3_tex_n*": "ger_tunic_m43_splinter_tex_n*"
       }
-    ]
-  },
+    }
+  ],
   "attachable_wear_tunic_feldgendarmerie_item": [
     {
       "_use": "attachable_tunic"
@@ -2305,6 +2292,56 @@
       }
     }
   ],
+  "attachable_wear_ger_fake_us_tanker_overall_item": {
+    "_use": "attachable_tunic",
+    "item__uniqueName": "attachable_wear_ger_fake_us_tanker_overall_item",
+    "animchar__res": "ger_fake_us_tanker_overall_char",
+    "collres__res": "ger_fake_us_tanker_overall_collision",
+    "_tracked": "attaches_list",
+    "attaches_list:list<eid>": [],
+    "skeleton_attach__remapAffectSlots:list<t>": [
+      {
+        "slot": "front_belt_r"
+      },
+      {
+        "slot": "front_belt_l"
+      },
+      {
+        "slot": "side_belt_r"
+      },
+      {
+        "slot": "backpack"
+      }
+    ]
+  },
+  "attachable_wear_ger_fake_us_tanker_overall_green_item": [
+    {
+      "_use": "attachable_tunic"
+    },
+    {
+      "_use": "attachable_wear_ger_fake_us_tanker_overall_item"
+    },
+    {
+      "animchar__objTexReplace:object": {
+        "us_tankers_overall_gray_tex_d*": "us_tankers_overall_green_tex_d*",
+        "us_tankers_belt_gray_tex_d*": "us_tankers_belt_green_tex_d*"
+      }
+    }
+  ],
+  "attachable_wear_ger_fake_us_tanker_overall_brown_item": [
+    {
+      "_use": "attachable_tunic"
+    },
+    {
+      "_use": "attachable_wear_ger_fake_us_tanker_overall_item"
+    },
+    {
+      "animchar__objTexReplace:object": {
+        "us_tankers_overall_gray_tex_d*": "us_tankers_overall_brown_tex_d*",
+        "us_tankers_belt_gray_tex_d*": "us_tankers_belt_brown_tex_d*"
+      }
+    }
+  ],
   "attachable_wear_planetree_summer_tunic_01_ger_summer_item": [
     {
       "_use": "attachable_tunic"
@@ -2440,6 +2477,76 @@
       "_tags": "gameClient"
     }
   },
+  "attachable_wear_knochensack_m43_olive_item": [
+    {
+      "_use": "attachable_tunic"
+    },
+    {
+      "_use": "attachable_wear_knochensack_m43_item"
+    },
+    {
+      "animchar__objTexReplace:object": {
+        "knochensack_m43_jump_smocktex_d*": "knochensack_m43_jump_smock_olive_tex_d*",
+        "knochensack_m43_jump_smocktex_n*": "knochensack_m43_jump_smock_olive_tex_n*"
+      }
+    }
+  ],
+  "attachable_wear_knochensack_m43_splinter_item": [
+    {
+      "_use": "attachable_tunic"
+    },
+    {
+      "_use": "attachable_wear_knochensack_m43_item"
+    },
+    {
+      "animchar__objTexReplace:object": {
+        "knochensack_m43_jump_smocktex_d*": "knochensack_m43_jump_smock_splinter_tex_d*",
+        "knochensack_m43_jump_smocktex_n*": "knochensack_m43_jump_smock_splinter_tex_n*"
+      }
+    }
+  ],
+  "attachable_wear_knochensack_m43_splinter_b_item": [
+    {
+      "_use": "attachable_tunic"
+    },
+    {
+      "_use": "attachable_wear_knochensack_m43_item"
+    },
+    {
+      "animchar__objTexReplace:object": {
+        "knochensack_m43_jump_smocktex_d*": "knochensack_m43_jump_smock_splinter_b_tex_d*",
+        "knochensack_m43_jump_smocktex_n*": "knochensack_m43_jump_smock_splinter_tex_n*"
+      }
+    }
+  ],
+  "attachable_wear_knochensack_m43_sumpftarn_item": [
+    {
+      "_use": "attachable_tunic"
+    },
+    {
+      "_use": "attachable_wear_knochensack_m43_item"
+    },
+    {
+      "animchar__objTexReplace:object": {
+        "knochensack_m43_jump_smocktex_d*": "knochensack_m43_jump_smock_sumpftarn_tex_d*",
+        "knochensack_m43_jump_smocktex_n*": "knochensack_m43_jump_smock_sumpftarn_tex_n*"
+      }
+    }
+  ],
+  "attachable_wear_knochensack_m43_sumpftarn_g_item": [
+    {
+      "_use": "attachable_tunic"
+    },
+    {
+      "_use": "attachable_wear_knochensack_m43_item"
+    },
+    {
+      "animchar__objTexReplace:object": {
+        "knochensack_m43_jump_smocktex_d*": "knochensack_m43_jump_smock_sumpftarn_g_tex_d*",
+        "knochensack_m43_jump_smocktex_n*": "knochensack_m43_jump_smock_sumpftarn_tex_n*"
+      }
+    }
+  ],
   "attachable_wear_knochensack_m40_w_fliegerbluse_item": {
     "_use": "attachable_tunic",
     "item__uniqueName": "attachable_wear_knochensack_m40_w_fliegerbluse_item",
@@ -2792,22 +2899,96 @@
       }
     }
   ],
-  "attachable_wear_knochensack_m40_w_parachute_item": {
-    "_use": "attachable_tunic",
-    "item__uniqueName": "attachable_wear_knochensack_m40_w_parachute_item",
-    "animchar__res": "knochensack_m40_w_parachute_char",
-    "collres__res": "knochensack_m40_w_parachute_collision",
-    "item__replaceOnParachuteOpen": "attachable_wear_knochensack_m40_sumpftarn_tunic_item",
-    "item__replaceOnSpawnOnGround": "attachable_wear_knochensack_m40_sumpftarn_tunic_item"
-  },
-  "attachable_wear_knochensack_m40_w_fliegerbluse_parachute_item": {
-    "_use": "attachable_tunic",
-    "item__uniqueName": "attachable_wear_knochensack_m40_w_fliegerbluse_parachute_item",
-    "animchar__res": "knochensack_m40_w_fliegerbluse_parachute_char",
-    "collres__res": "knochensack_m40_w_fliegerbluse_parachute_collision",
-    "item__replaceOnParachuteOpen": "attachable_wear_knochensack_m40_sumpftarn_w_fliegerbluse_item",
-    "item__replaceOnSpawnOnGround": "attachable_wear_knochensack_m40_sumpftarn_w_fliegerbluse_item"
-  },
+  "attachable_wear_knochensack_m40_w_parachute_item": [
+    {
+      "_use": "attachable_tunic"
+    },
+    {
+      "_use": "cloth_wind"
+    },
+    {
+      "item__uniqueName": "attachable_wear_knochensack_m40_w_parachute_item"
+    },
+    {
+      "animchar__res": "knochensack_m40_w_parachute_char"
+    },
+    {
+      "collres__res": "knochensack_m40_w_parachute_collision"
+    },
+    {
+      "item__replaceOnParachuteOpen": "attachable_wear_knochensack_m40_sumpftarn_tunic_item"
+    },
+    {
+      "item__replaceOnSpawnOnGround": "attachable_wear_knochensack_m40_sumpftarn_tunic_item"
+    },
+    {
+      "_tracked": "attaches_list"
+    },
+    {
+      "attaches_list:list<eid>": []
+    },
+    {
+      "skeleton_attach__remapAffectSlots:list<t>": [
+        {
+          "slot": "front_belt_l"
+        },
+        {
+          "slot": "front_belt_r"
+        },
+        {
+          "slot": "bag_l"
+        },
+        {
+          "slot": "backpack"
+        }
+      ]
+    }
+  ],
+  "attachable_wear_knochensack_m40_w_fliegerbluse_parachute_item": [
+    {
+      "_use": "attachable_tunic"
+    },
+    {
+      "_use": "cloth_wind"
+    },
+    {
+      "item__uniqueName": "attachable_wear_knochensack_m40_w_fliegerbluse_parachute_item"
+    },
+    {
+      "animchar__res": "knochensack_m40_w_fliegerbluse_parachute_char"
+    },
+    {
+      "collres__res": "knochensack_m40_w_fliegerbluse_parachute_collision"
+    },
+    {
+      "item__replaceOnParachuteOpen": "attachable_wear_knochensack_m40_sumpftarn_w_fliegerbluse_item"
+    },
+    {
+      "item__replaceOnSpawnOnGround": "attachable_wear_knochensack_m40_sumpftarn_w_fliegerbluse_item"
+    },
+    {
+      "_tracked": "attaches_list"
+    },
+    {
+      "attaches_list:list<eid>": []
+    },
+    {
+      "skeleton_attach__remapAffectSlots:list<t>": [
+        {
+          "slot": "front_belt_l"
+        },
+        {
+          "slot": "front_belt_r"
+        },
+        {
+          "slot": "bag_l"
+        },
+        {
+          "slot": "backpack"
+        }
+      ]
+    }
+  ],
   "attachable_wear_knochensack_m40_sumpftarn_gr_w_fliegerbluse_item": [
     {
       "_use": "attachable_tunic"
@@ -2916,6 +3097,7 @@
     "collres__res": "medkit_collision",
     "item__uniqueName": "attachable_wear_m35_helmet_w_face_cover_01_ger_summer_item",
     "animchar_fast_phys__res": "m35_helmet_w_face_cover_01_ger_summer_fastphys",
+    "animchar_hider__camThreshold": 1.7,
     "animchar_fast_phys": {
       "_tags": "gameClient"
     },
@@ -3247,7 +3429,10 @@
     "animchar__res": "helmet_01_ger_summer_char",
     "collres__res": "medkit_collision",
     "item__uniqueName": "helmet_01_ger_summer_item",
-    "item__armorAmount": 0.1
+    "item__armorAmount": 0.1,
+    "skeleton_attach__remapParentSlots:list<t>": {
+      "slot": "face"
+    }
   },
   "helmet_01_ger_summer_dark_item": [
     {
@@ -3510,7 +3695,7 @@
   },
   "ger_officer_cap_khaki_07_summer_item": [
     {
-      "_use": "attachable_skined_helmet"
+      "_use": "helmet_item"
     },
     {
       "_use": "helmet_07_ger_summer_item"
@@ -4230,37 +4415,25 @@
     "_use": "attachable_helmet_deco",
     "animchar__res": "helmet_band_01_ger_char",
     "collres__res": "medkit_collision",
-    "item__uniqueName": "helmet_band_01_ger_item",
-    "skeleton_attach__remapParentSlots:list<t>": {
-      "slot": "face"
-    }
+    "item__uniqueName": "helmet_band_01_ger_item"
   },
   "helmet_band_02_item": {
     "_use": "attachable_helmet_deco",
     "animchar__res": "helmet_band_02_ger_char",
     "collres__res": "medkit_collision",
-    "item__uniqueName": "helmet_band_02_ger_item",
-    "skeleton_attach__remapParentSlots:list<t>": {
-      "slot": "face"
-    }
+    "item__uniqueName": "helmet_band_02_ger_item"
   },
   "helmet_band_02_grid_item": {
     "_use": "attachable_helmet_deco",
     "animchar__res": "helmet_band_02_grid_ger_char",
     "collres__res": "medkit_collision",
-    "item__uniqueName": "helmet_band_02_grid_ger_item",
-    "skeleton_attach__remapParentSlots:list<t>": {
-      "slot": "face"
-    }
+    "item__uniqueName": "helmet_band_02_grid_ger_item"
   },
   "helmet_grid_01_item": {
     "_use": "attachable_helmet_deco",
     "animchar__res": "helmet_grid_01_ger_char",
     "collres__res": "medkit_collision",
-    "item__uniqueName": "helmet_grid_01_ger_item",
-    "skeleton_attach__remapParentSlots:list<t>": {
-      "slot": "face"
-    }
+    "item__uniqueName": "helmet_grid_01_ger_item"
   },
   "gasmask_m38_01_ger_summer_item": [
     {
@@ -4279,12 +4452,30 @@
       "item__uniqueName": "gasmask_m38_01_ger_summer_item"
     },
     {
+      "disabledFaceGenParams:shared:array": [
+        {
+          "param": "forehead_pos_y"
+        },
+        {
+          "param": "forehead_hor_scale"
+        },
+        {
+          "param": "forehead_scale"
+        }
+      ]
+    },
+    {
       "_group": {
         "_tags": "render",
         "animchar_node_collapser__nodes:object": {
           "Bip01 Neck": "",
           "Bip01 Head": ""
         }
+      }
+    },
+    {
+      "skeleton_attach__remapParentSlots:list<t>": {
+        "slot": "face"
       }
     }
   ],
@@ -4305,12 +4496,30 @@
       "item__uniqueName": "ger_elite_mask_anorak_m42_item"
     },
     {
+      "disabledFaceGenParams:shared:array": [
+        {
+          "param": "forehead_pos_y"
+        },
+        {
+          "param": "forehead_hor_scale"
+        },
+        {
+          "param": "forehead_scale"
+        }
+      ]
+    },
+    {
       "_group": {
         "_tags": "render",
         "animchar_node_collapser__nodes:object": {
           "Bip01 Neck": "",
           "Bip01 Head": ""
         }
+      }
+    },
+    {
+      "skeleton_attach__remapParentSlots:list<t>": {
+        "slot": "face"
       }
     }
   ],
@@ -5988,19 +6197,14 @@
     "animchar__res": "pouch_mauser_r_ger_01_tropic_char",
     "collres__res": "pouch_mauser_r_ger_01_tropic_collision"
   },
-  "attachable_wear_bag_01_ger_summer_item": {
-    "_use": "attachable_bag_l",
-    "item__uniqueName": "attachable_wear_bag_01_ger_summer_item",
-    "animchar__res": "bag_01_ger_summer_char",
-    "collres__res": "bag_01_ger_summer_collision",
-    "menu_item__rotationOffset": [-0.16,-0.08,-0.05],
-    "item__iconYaw": -150.0,
-    "animchar_fast_phys__res": "bag_01_ger_summer_fastphys",
-    "attachable_backpack__capacity": 1,
-    "animchar_fast_phys": {
-      "_tags": "gameClient"
+  "attachable_wear_bag_01_ger_summer_item": [
+    {
+      "_use": "attachable_bag_l"
+    },
+    {
+      "_use": "attachable_wear_bag_item"
     }
-  },
+  ],
   "attachable_wear_bag_01_ger_tropic_item": {
     "_use": "attachable_bag_l",
     "item__uniqueName": "attachable_wear_bag_01_ger_tropic_item",
@@ -6362,24 +6566,80 @@
       "collres__res": "pouch_05_ger_summer_collision"
     }
   ],
-  "attachable_wear_parabellum_07_ger_summer_item": {
-    "_use": "attachable_front_belt_l",
-    "item__uniqueName": "attachable_wear_parabellum_07_ger_summer_item",
-    "animchar__res": "parabellum_07_ger_summer_char",
-    "collres__res": "parabellum_07_ger_summer_collision"
+  "attachable_wear_parabellum_07_ger_summer_item": [
+    {
+      "_use": "attachable_front_belt_l"
+    },
+    {
+      "_use": "attachable_wear_parabellum_holster_belt_fl_item"
+    }
+  ],
+  "attachable_wear_parabellum_holster_belt_rs_item": {
+    "_use": "attachable_side_belt_r",
+    "item__uniqueName": "attachable_wear_parabellum_holster_belt_rs_item",
+    "animchar__res": "parabellum_holster_belt_rs_char",
+    "collres__res": "parabellum_holster_belt_rs_collision",
+    "skeleton_attach__remapParentSlots:list<t>": [
+      {
+        "slot": "belt_1"
+      },
+      {
+        "slot": "belt_2"
+      },
+      {
+        "slot": "tunic"
+      }
+    ],
+    "skeleton_attach__skipParentsRemapNodes:list<t>": [
+      {
+        "node": "d_belt_side_right_a"
+      },
+      {
+        "node": "d_belt_side_right_b"
+      }
+    ]
   },
-  "attachable_wear_parabellum_02_ger_winter_item": {
+  "attachable_wear_parabellum_holster_belt_fl_item": {
     "_use": "attachable_front_belt_l",
-    "item__uniqueName": "attachable_wear_parabellum_02_ger_winter_item",
-    "animchar__res": "parabellum_02_ger_winter_char",
-    "collres__res": "parabellum_02_ger_winter_collision"
+    "item__uniqueName": "attachable_wear_parabellum_holster_belt_fl_item",
+    "animchar__res": "parabellum_holster_belt_fl_char",
+    "collres__res": "parabellum_holster_belt_fl_collision",
+    "skeleton_attach__remapParentSlots:list<t>": [
+      {
+        "slot": "belt_1"
+      },
+      {
+        "slot": "belt_2"
+      },
+      {
+        "slot": "tunic"
+      }
+    ],
+    "skeleton_attach__skipParentsRemapNodes:list<t>": [
+      {
+        "node": "d_belt_front_left_a"
+      },
+      {
+        "node": "d_belt_front_left_b"
+      }
+    ]
   },
-  "attachable_wear_parabelum_holster_l_knochensack_m40_item": {
-    "_use": "attachable_front_belt_l",
-    "item__uniqueName": "attachable_wear_parabelum_holster_l_knochensack_m40_item",
-    "animchar__res": "parabelum_holster_l_knochensack_m40_char",
-    "collres__res": "parabelum_holster_l_knochensack_m40_collision"
-  },
+  "attachable_wear_parabellum_02_ger_winter_item": [
+    {
+      "_use": "attachable_front_belt_l"
+    },
+    {
+      "_use": "attachable_wear_parabellum_holster_belt_fl_item"
+    }
+  ],
+  "attachable_wear_parabelum_holster_l_knochensack_m40_item": [
+    {
+      "_use": "attachable_front_belt_l"
+    },
+    {
+      "_use": "attachable_wear_parabellum_holster_belt_fl_item"
+    }
+  ],
   "attachable_wear_belt_1_02_ger_winter_item": {
     "_use": "attachable_belt1",
     "item__uniqueName": "attachable_wear_belt_1_02_ger_winter_item",

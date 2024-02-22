@@ -943,23 +943,45 @@
       }
     }
   ],
-  "attachable_wear_ita_paratrooper_smock_w_parachute_item": {
-    "_use": "attachable_tunic",
-    "item__uniqueName": "attachable_wear_ita_paratrooper_smock_w_parachute_item",
-    "animchar__res": "ita_paratrooper_smock_w_parachute_char",
-    "collres__res": "ita_paratrooper_smock_w_parachute_collision",
-    "item__replaceOnSpawnOnGround": "attachable_wear_ita_paratrooper_smock_item",
-    "_tracked": "attaches_list",
-    "attaches_list:list<eid>": [],
-    "skeleton_attach__remapAffectSlots:list<t>": [
-      {
-        "slot": "front_belt_r"
-      },
-      {
-        "slot": "front_belt_l"
-      }
-    ]
-  },
+  "attachable_wear_ita_paratrooper_smock_w_parachute_item": [
+    {
+      "_use": "attachable_tunic"
+    },
+    {
+      "_use": "cloth_wind"
+    },
+    {
+      "item__uniqueName": "attachable_wear_ita_paratrooper_smock_w_parachute_item"
+    },
+    {
+      "animchar__res": "ita_paratrooper_smock_w_parachute_char"
+    },
+    {
+      "collres__res": "ita_paratrooper_smock_w_parachute_collision"
+    },
+    {
+      "item__replaceOnParachuteOpen": "attachable_wear_ita_paratrooper_smock_item"
+    },
+    {
+      "item__replaceOnSpawnOnGround": "attachable_wear_ita_paratrooper_smock_item"
+    },
+    {
+      "_tracked": "attaches_list"
+    },
+    {
+      "attaches_list:list<eid>": []
+    },
+    {
+      "skeleton_attach__remapAffectSlots:list<t>": [
+        {
+          "slot": "front_belt_r"
+        },
+        {
+          "slot": "front_belt_l"
+        }
+      ]
+    }
+  ],
   "attachable_wear_ita_paratrooper_smock_brown_w_parachute_item": [
     {
       "_use": "attachable_tunic"
@@ -1418,16 +1440,44 @@
       "slot": "face"
     }
   },
-  "attachable_wear_m35_flask_grigio_verde_item": {
-    "_use": "attachable_flask_r",
-    "item__uniqueName": "attachable_wear_m35_flask_grigio_verde_item",
-    "animchar__res": "m35_flask_grigio_verde_char",
-    "collres__res": "m35_flask_grigio_verde_collision",
-    "animchar_fast_phys__res": "m35_flask_grigio_verde_fastphys",
-    "animchar_fast_phys": {
-      "_tags": "gameClient"
-    }
+  "m35_flask_grigio_verde_animation_blacklist": {
+    "animationBlacklistForMenu:list<t>": [
+      {
+        "anim": "enlisted_idle_105_weapon"
+      },
+      {
+        "anim": "enlisted_idle_106_weapon"
+      },
+      {
+        "anim": "enlisted_idle_107_weapon"
+      }
+    ]
   },
+  "attachable_wear_m35_flask_grigio_verde_item": [
+    {
+      "_use": "attachable_flask_r"
+    },
+    {
+      "_use": "m35_flask_grigio_verde_animation_blacklist"
+    },
+    {
+      "item__uniqueName": "attachable_wear_m35_flask_grigio_verde_item"
+    },
+    {
+      "animchar__res": "m35_flask_grigio_verde_char"
+    },
+    {
+      "collres__res": "m35_flask_grigio_verde_collision"
+    },
+    {
+      "animchar_fast_phys__res": "m35_flask_grigio_verde_fastphys"
+    },
+    {
+      "animchar_fast_phys": {
+        "_tags": "gameClient"
+      }
+    }
+  ],
   "attachable_wear_m35_flask_samurai_vest_01_tropical_item": {
     "_use": "attachable_flask_r",
     "item__uniqueName": "attachable_wear_m35_flask_samurai_vest_01_tropical_item",
@@ -1530,9 +1580,11 @@
   },
   "attachable_wear_ita_salvator_d39_parachute_nobug_item": {
     "_use": "attachable_parachute",
-    "item__uniqueName": "attachable_wear_ita_salvator_d39_parachute_item",
+    "item__uniqueName": "attachable_wear_ita_salvator_d39_parachute_nobug_item",
     "animchar__res": "ita_salvator_d39_parachute_nobug_char",
-    "collres__res": "ita_salvator_d39_parachute_nobug_collision"
+    "collres__res": "ita_salvator_d39_parachute_nobug_collision",
+    "item__replaceOnSpawnOnGround": "",
+    "item__unequipAfterParachuteLanding:tag": []
   },
   "attachable_wear_belt_01_ita_tanker_coverall_item": {
     "_use": "attachable_belt1",

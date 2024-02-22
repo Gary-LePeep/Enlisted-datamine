@@ -66,35 +66,51 @@
       },
       {
         "orderedSelector": {
-          "orderedSelector": {
-            "subTree": {
-              "name": "",
-              "treeName": "sub.enemyMelee"
-            },
-            "sequencer": {
-              "findDanger": {
-                "paramName": "shootEnemy",
-                "outSeeTimeParam": "shootEnemyTime",
-                "radiusParamName": "enemyNearRadius",
-                "minDanger": 0.1,
-                "tag": "human"
-              },
-              "getTime": {
-                "to": "enemyNearTime"
-              },
-              "subTree": {
-                "treeName": "sub.oneShootAttack"
+          "orderedSelector": [
+            {
+              "sequencer": {
+                "subTree": {
+                  "name": "",
+                  "treeName": "sub.enemyMelee"
+                },
+                "setIntVar": {
+                  "to": "mortarAttack",
+                  "value": -1
+                }
               }
             },
-            "failed": {
+            {
               "sequencer": {
-                "decreaseDangerLevel": {
-                  "paramName": "dangerLevel",
-                  "decreaseCoef": 0.5
+                "findDanger": {
+                  "paramName": "shootEnemy",
+                  "outSeeTimeParam": "shootEnemyTime",
+                  "radiusParamName": "enemyNearRadius",
+                  "minDanger": 0.1,
+                  "tag": "human"
+                },
+                "getTime": {
+                  "to": "enemyNearTime"
+                },
+                "setIntVar": {
+                  "to": "mortarAttack",
+                  "value": -1
+                },
+                "subTree": {
+                  "treeName": "sub.oneShootAttack"
+                }
+              }
+            },
+            {
+              "failed": {
+                "sequencer": {
+                  "decreaseDangerLevel": {
+                    "paramName": "dangerLevel",
+                    "decreaseCoef": 0.5
+                  }
                 }
               }
             }
-          },
+          ],
           "subTree": {
             "name": "",
             "refId": "orderType"
@@ -123,6 +139,7 @@
             "canHoldWeaponInVehicle": [],
             "findDanger": {
               "paramName": "shootEnemy",
+              "outSeeTimeParam": "shootEnemyTime",
               "radiusParamName": "enemyRadius",
               "minDanger": 0.5,
               "tag": "human"
@@ -150,6 +167,7 @@
                 "not": {
                   "findDanger": {
                     "paramName": "shootEnemy",
+                    "outSeeTimeParam": "shootEnemyTime",
                     "radiusParamName": "enemyRadius",
                     "minDanger": 0.5,
                     "tag": "human"
@@ -188,6 +206,7 @@
               "sequencer": {
                 "findDanger": {
                   "paramName": "shootEnemy",
+                  "outSeeTimeParam": "shootEnemyTime",
                   "radiusParamName": "enemyNearRadius",
                   "minDanger": 0.1,
                   "tag": "human"
@@ -305,6 +324,7 @@
               "sequencer": {
                 "findDanger": {
                   "paramName": "shootEnemy",
+                  "outSeeTimeParam": "shootEnemyTime",
                   "radiusParamName": "enemyNearRadius",
                   "minDanger": 0.1,
                   "tag": "human"
@@ -419,6 +439,7 @@
             "sequencer": {
               "findDanger": {
                 "paramName": "shootEnemy",
+                "outSeeTimeParam": "shootEnemyTime",
                 "radiusParamName": "enemyNearRadius",
                 "minDanger": 0.1,
                 "tag": "human"
@@ -568,6 +589,7 @@
             "sequencer": {
               "findDanger": {
                 "paramName": "shootEnemy",
+                "outSeeTimeParam": "shootEnemyTime",
                 "radiusParamName": "enemyNearRadius",
                 "minDanger": 0.1,
                 "tag": "human"
@@ -800,6 +822,7 @@
             "sequencer": {
               "findDanger": {
                 "paramName": "shootEnemy",
+                "outSeeTimeParam": "shootEnemyTime",
                 "radiusParamName": "enemyNearRadius",
                 "minDanger": 0.1,
                 "tag": "human"
@@ -902,6 +925,7 @@
             "sequencer": {
               "findDanger": {
                 "paramName": "shootEnemy",
+                "outSeeTimeParam": "shootEnemyTime",
                 "radiusParamName": "enemyNearRadius",
                 "minDanger": 0.1,
                 "tag": "human"
@@ -1020,6 +1044,181 @@
     }
   },
   {
+    "orderedSelector": [
+      {
+        "name": "sub.mortarAttackReq"
+      },
+      {
+        "isVarsIntEqual": {
+          "lhs": "mortarAttack",
+          "rhs_value": 2
+        }
+      },
+      {
+        "isVarsIntEqual": {
+          "lhs": "mortarAttack",
+          "rhs_value": -1
+        }
+      },
+      {
+        "sequencer": [
+          {
+            "reaction": {
+              "event": "onEnemyPlayerNear",
+              "sequencer": {
+                "findDanger": {
+                  "paramName": "shootEnemy",
+                  "outSeeTimeParam": "shootEnemyTime",
+                  "radiusParamName": "enemyNearRadius",
+                  "minDanger": 0.1,
+                  "tag": "human"
+                },
+                "setIntVar": {
+                  "to": "mortarAttack",
+                  "value": -1
+                },
+                "recalculateTree": []
+              }
+            }
+          },
+          {
+            "reaction": {
+              "event": "regularCheck",
+              "sequencer": {
+                "isVarsIntEqual": {
+                  "lhs": "mortarAttack",
+                  "rhs_value": 1
+                },
+                "repeat": [
+                  {
+                    "count": 1
+                  },
+                  {
+                    "subTree": {
+                      "name": "",
+                      "treeName": "sub.chooseMaxStance"
+                    }
+                  },
+                  {
+                    "subTree": {
+                      "name": "",
+                      "treeName": "sub.deactivateWeapMod"
+                    }
+                  },
+                  {
+                    "subTree": {
+                      "name": "",
+                      "treeName": "sub.checkDowned"
+                    }
+                  },
+                  {
+                    "subTree": {
+                      "name": "",
+                      "treeName": "sub.checkBurning"
+                    }
+                  },
+                  {
+                    "subTree": {
+                      "name": "",
+                      "treeName": "sub.swimUpCheck"
+                    }
+                  },
+                  {
+                    "subTree": {
+                      "name": "",
+                      "treeName": "sub.tryToOpenDoors"
+                    }
+                  },
+                  {
+                    "subTree": {
+                      "name": "",
+                      "treeName": "sub.findDangerZone"
+                    }
+                  },
+                  {
+                    "subTree": {
+                      "name": "",
+                      "treeName": "sub.findDangerGrenade"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "findWeaponSlotWithTag": {
+              "tag": "mortar",
+              "toParam": "mortarSlot",
+              "minAmmo": 1
+            }
+          },
+          {
+            "changeWeapon": {
+              "param": "mortarSlot"
+            }
+          },
+          {
+            "wait": {
+              "range": [1.0,1.0],
+              "resetable": true
+            }
+          },
+          {
+            "setCurrentAiAction": {
+              "state": "move"
+            }
+          },
+          {
+            "setCurrentAiAction": {
+              "state": "attack"
+            }
+          },
+          {
+            "copyPoint3Var": {
+              "from": "mortarAttackFromPos",
+              "to": "wishPosition"
+            }
+          },
+          {
+            "subTree": {
+              "treeName": "sub.tryMoveToWishPosition"
+            }
+          },
+          {
+            "canShootAtPointWithMortar": {
+              "gunSlotParam": "mortarSlot",
+              "posParam": "mortarAttackToPos",
+              "traceRatio": 1.0
+            }
+          },
+          {
+            "rotateToPoint": {
+              "posParam": "mortarAttackToPos"
+            }
+          },
+          {
+            "shootAtPointWithMortar": {
+              "posParam": "mortarAttackToPos",
+              "numShotsParam": "mortarAttackShots"
+            }
+          },
+          {
+            "setIntVar": {
+              "to": "mortarAttack",
+              "value": 2
+            }
+          }
+        ]
+      },
+      {
+        "setIntVar": {
+          "to": "mortarAttack",
+          "value": -1
+        }
+      }
+    ]
+  },
+  {
     "orderedSelector": {
       "name": "sub.useVehicleReq",
       "sequencer": [
@@ -1029,6 +1228,7 @@
             "sequencer": {
               "findDanger": {
                 "paramName": "shootEnemy",
+                "outSeeTimeParam": "shootEnemyTime",
                 "radiusParamName": "enemyNearRadius",
                 "minDanger": 0.1,
                 "tag": "human"
@@ -1183,6 +1383,7 @@
                 "sequencer": {
                   "findDanger": {
                     "paramName": "shootEnemy",
+                    "outSeeTimeParam": "shootEnemyTime",
                     "radiusParamName": "enemyNearRadius",
                     "minDanger": 0.1,
                     "tag": "human"

@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 //USED ONLY IN CUISINE ROYALE AND ENLISTED
 
@@ -11,7 +11,7 @@ let zeroPos = Point3(0,0,0)
 let deftran = {
   pivot = [0.5, 0.5]
 }
-let function makeZone(zone, minimap_state, map_size) {
+function makeZone(zone, minimap_state, map_size) {
   let worldPos = zone?["pos"] ?? zeroPos
   let radius = zone?["radius"] ?? 0.0
   let ellipseCmd = [VECTOR_ELLIPSE, 50, 50, 50, 50]

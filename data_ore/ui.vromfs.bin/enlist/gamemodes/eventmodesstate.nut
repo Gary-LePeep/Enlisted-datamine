@@ -1,10 +1,10 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { matchingCall } = require("%enlist/matchingClient.nut")
 let { get_app_id } = require("app")
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
-let eventbus = require("eventbus")
-let matching_api = require("matching.api")
+let { eventbus_subscribe } = require("eventbus")
+let { matching_listen_notify } = require("matching.api")
 let { debounce } = require("%sqstd/timers.nut")
 
 let { eventGameModes } = require("gameModeState.nut")
@@ -94,7 +94,7 @@ let eventCustomSquads = Computed(function() {
   }
 )
 
-let function updateEvent() {
+function updateEvent() {
   let armyList = selEvent.value.queues[0].extraParams?.armies ?? campaignsByArmies.keys()
   if (eventCustomProfile.value != null) {
     let squads = eventCustomSquads.value
@@ -113,7 +113,7 @@ let function updateEvent() {
   }
 }
 
-let function checkUpdateEvent(_) {
+function checkUpdateEvent(_) {
   if (isEventModesOpened.value && !isCustomRoomsMode.value)
     updateEvent()
 }
@@ -137,19 +137,19 @@ let selEventEndTime = Computed(function() {
 let needActualizeCfg = keepref(Computed(@() !isRoomCfgActual.value && isEventModesOpened.value))
 needActualizeCfg.subscribe(function(v) { if (v) actualizeRoomCfg() })
 
-let function openCustomGameMode() {
+function openCustomGameMode() {
   customRoomsModeSaved(true)
   isEventModesOpened(true)
 }
 
-let function openEventsGameMode() {
+function openEventsGameMode() {
   customRoomsModeSaved(false)
   isEventModesOpened(true)
 }
 
 let eventStartTime = Watched({})
 
-let function nearestTime(mmEvent, mmAction, timeTable) {
+function nearestTime(mmEvent, mmAction, timeTable) {
   if (mmEvent.action == mmAction && (mmEvent.queue_id not in timeTable
       || mmEvent.time < timeTable[mmEvent.queue_id]) )
     timeTable[mmEvent.queue_id] <- mmEvent.time
@@ -157,7 +157,7 @@ let function nearestTime(mmEvent, mmAction, timeTable) {
 
 local isMMScheduleProcessed = false
 
-let function timeUntilStart() {
+function timeUntilStart() {
 
   if (isMMScheduleProcessed)
     return
@@ -204,8 +204,8 @@ let requestNewSchedule = debounce(function() {
 
 hasBaseEvent.subscribe(@(_) timeUntilStart())
 
-matching_api.listen_notify("enlmm.notify_schedule_list_changed")
-eventbus.subscribe("enlmm.notify_schedule_list_changed", @(_) requestNewSchedule())
+matching_listen_notify("enlmm.notify_schedule_list_changed")
+eventbus_subscribe("enlmm.notify_schedule_list_changed", @(_) requestNewSchedule())
 
 return {
   eventGameModes

@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { curCampSquads, soldiersBySquad, squadsByArmy, objInfoByGuid, curArmy } = require("state.nut")
 let { defSoldierGuid, collectSoldierData } = require("%enlist/soldiers/model/curSoldiersState.nut")
@@ -68,7 +68,7 @@ let squadKindResearches = Computed(function() {
   return researchesBySKind.map(@(list) getClosestResearch(armyId, list, statuses))
 })
 
-let function calcSoldiersStatuses(squadParams, chosen, reserve, invalidEquip, kindResearches) {
+function calcSoldiersStatuses(squadParams, chosen, reserve, invalidEquip, kindResearches) {
   let maxClasses = squadParams?.maxClasses ?? {}
   let leftClasses = clone maxClasses
 
@@ -109,7 +109,7 @@ let soldiersStatuses = Computed(@() calcSoldiersStatuses(soldiersSquadParams.val
   squadSoldiers.value, reserveSoldiers.value, invalidEquipSoldiers.value, squadKindResearches.value))
 
 
-let function updateSoldiersList(sort = false) {
+function updateSoldiersList(sort = false) {
   if (curSquadSoldiers.value.len() == 0 && curReserveSoldiers.value.len() == 0) {
     squadSoldiers.mutate(@(v) v.clear())
     reserveSoldiers.mutate(@(v) v.clear())
@@ -131,8 +131,8 @@ let function updateSoldiersList(sort = false) {
     needSort = true
   }
   else {
-    chosen.each(function(s) { if (s != null) delete byGuid[s.guid] })
-    reserve.each(@(s) delete byGuid[s.guid])
+    chosen.each(function(s) { if (s != null) byGuid.$rawdelete(s.guid) })
+    reserve.each(@(s) byGuid.$rawdelete(s.guid))
     foreach (soldier in curSquadSoldiers.value)
       if (soldier.guid in byGuid)
         reserve.append(soldier)
@@ -174,7 +174,7 @@ let updateSoldiersListAndSortDebounced = debounce(@() updateSoldiersList(true), 
 foreach (v in [curSquadSoldiers, curReserveSoldiers, maxSoldiersInBattle, objInfoByGuid])
   v.subscribe(@(_) updateSoldiersListDebounced())
 
-let function moveIndex(list, idxFrom, idxTo) {
+function moveIndex(list, idxFrom, idxTo) {
   let res = clone list
   let val = res.remove(idxFrom)
   res.insert(idxTo, val)
@@ -183,7 +183,7 @@ let function moveIndex(list, idxFrom, idxTo) {
 
 let getSClassName = @(sClass) loc(soldierClasses?[sClass].locId ?? "unknown")
 
-let function getCantTakeReason(soldier, soldiersList, idxTo) {
+function getCantTakeReason(soldier, soldiersList, idxTo) {
   let { sKind } = soldier
   let reqResearch = squadKindResearches.value?[sKind]
   let maxClass = soldiersSquadParams.value?.maxClasses[sKind] ?? 0
@@ -211,7 +211,7 @@ let function getCantTakeReason(soldier, soldiersList, idxTo) {
   }
 }
 
-let function getCanTakeSlots(soldier, soldiersList) {
+function getCanTakeSlots(soldier, soldiersList) {
   let { sKind } = soldier
   let maxClass = soldiersSquadParams.value?.maxClasses[sKind] ?? 0
   if (maxClass <= 0)
@@ -223,7 +223,7 @@ let function getCanTakeSlots(soldier, soldiersList) {
   return soldiersList.map(@(s) s?.sKind == sKind)
 }
 
-let function isTransferAvailable(soldier, isFromReserve = false) {
+function isTransferAvailable(soldier, isFromReserve = false) {
   if (soldier == null)
     return true
   let { sClass } = soldier
@@ -237,7 +237,7 @@ let function isTransferAvailable(soldier, isFromReserve = false) {
   return true
 }
 
-let function sendSoldierActionToBQ(eventType, soldier, squadGuid = "") {
+function sendSoldierActionToBQ(eventType, soldier, squadGuid = "") {
   let { guid, level, sClass } = soldier
   sendBigQueryUIEvent("soldier_management", null, {
     eventType
@@ -249,7 +249,7 @@ let function sendSoldierActionToBQ(eventType, soldier, squadGuid = "") {
   })
 }
 
-let function changeSoldierOrderByIdx(idxFrom, idxTo) {
+function changeSoldierOrderByIdx(idxFrom, idxTo) {
   if (isChangesBlocked.value) {
     showBlockedChangesMessage()
     return
@@ -324,7 +324,7 @@ let function changeSoldierOrderByIdx(idxFrom, idxTo) {
   })
 }
 
-let function moveCurSoldier(direction) {
+function moveCurSoldier(direction) {
   let guid = selectedSoldierGuid.value
   if (guid == null)
     return
@@ -340,7 +340,7 @@ let function moveCurSoldier(direction) {
   }
 }
 
-let function soldierToReserveByIdx(idx) {
+function soldierToReserveByIdx(idx) {
   if (isChangesBlocked.value) {
     showBlockedChangesMessage()
     return
@@ -356,7 +356,7 @@ let function soldierToReserveByIdx(idx) {
   squadSoldiers.mutate(@(v) v[idx] = null)
 }
 
-let function curSoldierToReserve() {
+function curSoldierToReserve() {
   let guid = selectedSoldierGuid.value
   if (guid == null)
     return
@@ -365,7 +365,7 @@ let function curSoldierToReserve() {
   soldierToReserveByIdx(idx)
 }
 
-let function soldierToSquadByIdx(idx) {
+function soldierToSquadByIdx(idx) {
   if (isChangesBlocked.value) {
     showBlockedChangesMessage()
     return
@@ -404,7 +404,7 @@ let function soldierToSquadByIdx(idx) {
   })
 }
 
-let function curSoldierToSquad() {
+function curSoldierToSquad() {
   if (isChangesBlocked.value) {
     showBlockedChangesMessage()
     return
@@ -424,7 +424,7 @@ let close = function() {
   markSoldierSeen(curArmy.value, unseenSoldiers.value.keys())
 }
 
-let function applySoldierManageImpl(cb) {
+function applySoldierManageImpl(cb) {
   let minCount = soldiersSquad.value?.size ?? 1
   squadSoldiers(squadSoldiers.value.filter(@(s) s != null))
   for(local i = squadSoldiers.value.len() - 1; i >= 0; i--) {
@@ -490,7 +490,7 @@ let function applySoldierManageImpl(cb) {
   cb()
 }
 
-let function checkSquadStatus() {
+function checkSquadStatus() {
   let selCount = squadSoldiers.value.filter(@(s) s != null).len()
   let readyCount = squadSoldiers.value
     .filter(@(s) s != null && soldiersStatuses.value?[s.guid] == READY)
@@ -503,7 +503,7 @@ let function checkSquadStatus() {
     : null
 }
 
-let function applySoldierManage(cb = @() null) {
+function applySoldierManage(cb = @() null) {
   let msg = checkSquadStatus()
   if (msg == null)
     applySoldierManageImpl(cb)
@@ -518,7 +518,7 @@ let function applySoldierManage(cb = @() null) {
 }
 
 let isDismissInProgress = Watched(false)
-let function dismissSoldiers(armyId, guidsList) {
+function dismissSoldiers(armyId, guidsList) {
   if (isDismissInProgress.value)
     return
 

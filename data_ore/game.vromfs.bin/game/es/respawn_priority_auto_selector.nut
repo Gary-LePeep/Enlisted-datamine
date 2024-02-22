@@ -47,7 +47,7 @@ let forceRespawnGroupsQuery = ecs.SqQuery("forceRespawnGroupsQuery", {
 
 const MIN_NUM_OF_POINTS = 2 // minimum number of points from which select random spawn
 
-let function acceptRandomRespawnGroup(respawns, team) {
+function acceptRandomRespawnGroup(respawns, team) {
   local lastEid = ecs.INVALID_ENTITY_ID
   local prevEid = ecs.INVALID_ENTITY_ID
   teamAutoSpawnQuery.perform(function(_eid, comps) {
@@ -106,7 +106,7 @@ let function acceptRandomRespawnGroup(respawns, team) {
   return selectedGroup
 }
 
-let function findNearestRespawnGroup(target, groups) {
+function findNearestRespawnGroup(target, groups) {
   local minDistance = FLT_MAX
   local nearestIdx = null
   foreach (idx, group in groups) {
@@ -119,7 +119,7 @@ let function findNearestRespawnGroup(target, groups) {
   return [nearestIdx, minDistance]
 }
 
-let function findNearestRespawnGroups(capzones, respawnGroups, customRespawnGroups, team) {
+function findNearestRespawnGroups(capzones, respawnGroups, customRespawnGroups, team) {
   let resultRespawnGroups = {}
   foreach (capzone in capzones) {
     let zonePos = capzone.zonePos
@@ -143,7 +143,7 @@ let function findNearestRespawnGroups(capzones, respawnGroups, customRespawnGrou
   return resultRespawnGroups
 }
 
-let function findNearestCapZone(target, capzones) {
+function findNearestCapZone(target, capzones) {
   local minDistance = FLT_MAX
   local zoneEid = ecs.INVALID_ENTITY_ID
   foreach (capzone in capzones) {
@@ -157,7 +157,7 @@ let function findNearestCapZone(target, capzones) {
   return [zoneEid, minDistance]
 }
 
-let function sortRespawnGroupsByDistance(capzones, respawnGroups, customRespawnGroups) {
+function sortRespawnGroupsByDistance(capzones, respawnGroups, customRespawnGroups) {
   let respawnGroupsByDistance = []
   foreach (respawnGroup in respawnGroups){
     let nearest = findNearestCapZone(respawnGroup.point, capzones)
@@ -171,7 +171,7 @@ let function sortRespawnGroupsByDistance(capzones, respawnGroups, customRespawnG
   return respawnGroupsByDistance
 }
 
-let function getAdditionalForSpawnTab(spawnTab, capzones, respawnGroups, customRespawnGroups){
+function getAdditionalForSpawnTab(spawnTab, capzones, respawnGroups, customRespawnGroups){
   let additionalTab = {}
   let allSpawnsByDistance = sortRespawnGroupsByDistance(capzones, respawnGroups, customRespawnGroups)
   local needAddCount = MIN_NUM_OF_POINTS - spawnTab.len()
@@ -186,7 +186,7 @@ let function getAdditionalForSpawnTab(spawnTab, capzones, respawnGroups, customR
   return additionalTab
 }
 
-let function getRespawnGroups(canUseRespawnbaseType, forTeam) {
+function getRespawnGroups(canUseRespawnbaseType, forTeam) {
   let respawnGroups = {}
   groupRespawnGroupsQuery(function(eid, comps) {
     if (comps.respawnIconType == canUseRespawnbaseType && comps.team == forTeam)
@@ -195,7 +195,7 @@ let function getRespawnGroups(canUseRespawnbaseType, forTeam) {
   return respawnGroups
 }
 
-let function getCustomRespawnGroups(canUseRespawnbaseType, forTeam) {
+function getCustomRespawnGroups(canUseRespawnbaseType, forTeam) {
   let respawnGroups = {}
   groupCustomRespawnGroupsQuery(function(eid, comps) {
     if (comps.respawn_icon__active && comps.respawnIconType == canUseRespawnbaseType && comps.team == forTeam && comps.respawn_point__respawnersQueue.len() == 0)
@@ -204,7 +204,7 @@ let function getCustomRespawnGroups(canUseRespawnbaseType, forTeam) {
   return respawnGroups
 }
 
-let function getTargetCapzones(_team) {
+function getTargetCapzones(_team) {
   let capzones = []
   capzoneQuery.perform(function(eid, comps) {
     if (comps.active)
@@ -213,7 +213,7 @@ let function getTargetCapzones(_team) {
   return capzones
 }
 
-let function findForceRespawnBaseGroup(team, respawnType) {
+function findForceRespawnBaseGroup(team, respawnType) {
   local respawnGroup = -1
   forceRespawnGroupsQuery.perform(function(_eid, comps) {
     if (comps.active && comps.team == team && respawnType == comps.respawnbaseType)
@@ -222,7 +222,7 @@ let function findForceRespawnBaseGroup(team, respawnType) {
   return respawnGroup
 }
 
-let function getRespawnGroup(canUseRespawnbaseType, team, for_bot) {
+function getRespawnGroup(canUseRespawnbaseType, team, for_bot) {
   let forceRespawnGroup = findForceRespawnBaseGroup(team, canUseRespawnbaseType)
   if (forceRespawnGroup >= 0)
     return forceRespawnGroup

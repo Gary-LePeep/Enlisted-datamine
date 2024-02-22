@@ -184,6 +184,16 @@ def count_vehicles_of_type(count_team : int; respawnbase_type : string)
       nowVehiclesOnSpawn++
   return nowVehiclesOnSpawn
 
+def count_pending_vehicles_of_type(count_team : int; respawnbase_type : string)
+  var res = 0
+  find_query() <| $ [es] (team__id : int; team__spawnPending : Object)
+    if count_team == team__id
+      let pendingArray = team__spawnPending[respawnbase_type] ?as Array
+      res = pendingArray != null ? length(*pendingArray) : 0
+      return true
+    return false
+  return res
+
 def is_vehicle_spawn_allowed_by_limit(limit_team : int; respawnbase_type : string)
   let bases <- find_all_respawn_bases_for_team_with_type(limit_team, respawnbase_type, [[array<string>]])
   if length(bases) == 0
@@ -191,16 +201,18 @@ def is_vehicle_spawn_allowed_by_limit(limit_team : int; respawnbase_type : strin
   let limit = get_int(bases[0].eid, "maxVehicleOnSpawn") ?? -1
   if limit < 0
     return true
-  var numOfVehicles = 0
-  find_query() <| $ [es] (team__id : int; team__spawnPending : Object)
-    if limit_team == team__id
-      let pendingArray = team__spawnPending[respawnbase_type] ?as Array
-      let pending = pendingArray != null ? length(*pendingArray) : 0
-      let existing = count_vehicles_of_type(limit_team, respawnbase_type)
-      numOfVehicles = pending + existing
-      return true
+  let existingCount = count_vehicles_of_type(limit_team, respawnbase_type)
+  let pendingCount = count_pending_vehicles_of_type(limit_team, respawnbase_type)
+  return existingCount + pendingCount < limit
+
+def is_bot_vehicle_spawn_allowed_by_limit(limit_team : int; respawnbase_type : string)
+  let bases <- find_all_respawn_bases_for_team_with_type(limit_team, respawnbase_type, [[array<string>]])
+  if length(bases) == 0
     return false
-  return numOfVehicles < limit
+  let limit = 1
+  let existingCount = count_vehicles_of_type(limit_team, respawnbase_type)
+  let pendingCount = count_pending_vehicles_of_type(limit_team, respawnbase_type)
+  return existingCount + pendingCount < limit
 
 struct RespawnBaseType
   canUseRespawnbaseType : string

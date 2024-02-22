@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 local basePortrait = {
   name = ""
@@ -282,11 +282,17 @@ local portraits = {
   portrait_preorder_apc_driver = {
     icon = "ui/portraits/event/portrait_preorder_apc_driver.avif"
   }
+  usentry_bonus_portrait = {
+    icon = "ui/portraits/event/usentry_bonus_portrait.avif"
+  }
   battlepass_12_portrait = {
     icon = "ui/portraits/event/battlepass_12_portrait.avif"
   }
   lunarNewyear24_bonus_portrait = {
     icon = "ui/portraits/event/lunarNewyear24_bonus_portrait.avif"
+  }
+  portrait_preorder_iron_fury = {
+    icon = "ui/portraits/event/portrait_preorder_iron_fury.avif"
   }
 
 
@@ -482,7 +488,10 @@ local nickFrames = {
   nickFrame_bday_3 = @(n) $"┖{n}┖"
   nickFrame_preorder_apc_driver = @(n) $"┗{n}┗"
   nickFrame_new_year24_event = @(n) $"┘{n}┙"
+  kongzhong_nickFrame_15 = @(n) $"┚{n}┛"
+  kongzhong_nickFrame_16 = @(n) $"├{n}┝"
   nickFrame_lunarNewyear24_event = @(n) $"┦{n}┧"
+  nickFrame_preorder_iron_fury = @(n) $"┤{n}┥"
 }
 
 local decoratorsPresentation = {

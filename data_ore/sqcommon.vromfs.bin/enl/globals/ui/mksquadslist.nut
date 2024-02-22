@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { mkSquadCard } = require("%enlSqGlob/ui/squadsUiComps.nut")
 let { bigPadding } = require("%enlSqGlob/ui/viewConst.nut")
@@ -17,7 +17,7 @@ let mkSquadsList = kwarg(@(
   createHandlers = null, topElement = null, hasOffset = true
 ) function() {
   let squadsList = curSquadsList.value ?? []
-  let function defCreateHandlers(squads){
+  function defCreateHandlers(squads){
     squads.each(@(squad)
       squad.__update({
         onClick = @() setCurSquadId(squad.squadId)

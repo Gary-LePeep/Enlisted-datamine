@@ -102,19 +102,41 @@
       }
     }
   ],
-  "builded_auto_turret_preview": {
-    "_use": "base_animchar_builder_preview",
-    "animchar__res": "sg_turret_rounded_char",
-    "collres__res": "sg_turret_rounded_collision",
-    "instantiateTemplate": "builded_auto_turret",
-    "buildingDistance": 2.0,
-    "building_builder__maxTimeToBuild": 3.0,
-    "buildingCost": 1.0,
-    "preview_phys__blk": "content/enlisted/gamedata/units/cannons/sg_turret.blk",
-    "avaliableAngles": [-10.0,10.0],
-    "buildingSoundTag": "cannon",
-    "savePreviewTeam": true
-  },
+  "builded_auto_turret_preview": [
+    {
+      "_use": "base_animchar_builder_preview"
+    },
+    {
+      "_use": "cannon_building_sound"
+    },
+    {
+      "animchar__res": "sg_turret_rounded_char"
+    },
+    {
+      "collres__res": "sg_turret_rounded_collision"
+    },
+    {
+      "instantiateTemplate": "builded_auto_turret"
+    },
+    {
+      "buildingDistance": 2.0
+    },
+    {
+      "building_builder__maxTimeToBuild": 3.0
+    },
+    {
+      "buildingCost": 1.0
+    },
+    {
+      "preview_phys__blk": "content/enlisted/gamedata/units/cannons/sg_turret.blk"
+    },
+    {
+      "avaliableAngles": [-10.0,10.0]
+    },
+    {
+      "savePreviewTeam": true
+    }
+  ],
   "builded_auto_turret": [
     {
       "_use": "replicating"

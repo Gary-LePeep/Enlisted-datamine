@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {stamina, staminaAnimTrigger, scaleStamina} = require("%ui/hud/state/stamina_es.nut")
 let {flaskAffectApplied} = require("%ui/hud/state/flask.nut")
@@ -17,7 +17,7 @@ let showStamina = Computed(@() stamina.value != null
   && stamina.value >= 0
   && (stamina.value < 100 || flaskAffectApplied.value))
 
-let function staminaComp() {
+function staminaComp() {
   local ratio = 0
   local children = null
 

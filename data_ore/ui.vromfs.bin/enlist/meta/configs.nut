@@ -1,10 +1,10 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { saveJson, loadJson } = require("%sqstd/json.nut")
 let userInfo = require("%enlSqGlob/userInfo.nut")
 let {nestWatched} = require("%dngscripts/globalState.nut")
-let { disableNetwork } = require("%enlSqGlob/login_state.nut")
-let eventbus = require("eventbus")
+let { disableNetwork } = require("%enlSqGlob/ui/login_state.nut")
+let { eventbus_subscribe, eventbus_send } = require("eventbus")
 let serverConfigs = nestWatched("serverConfig", {})
 let { set_huge_alloc_threshold } = require("dagor.memtrace")
 
@@ -16,14 +16,14 @@ if (disableNetwork) {
   set_huge_alloc_threshold(prevSize)
 }
 
-let function updateAllConfigs(newValue) {
+function updateAllConfigs(newValue) {
   let { configs = null } = newValue
   if (configs && !disableNetwork)
     serverConfigs(configs)
 }
 serverConfigs.whiteListMutatorClosure(updateAllConfigs)
 
-let function dumpConfig(name=null) {
+function dumpConfig(name=null) {
   let { userId = -1 } = userInfo.value
   if (userId < 0 || name==null)
     return
@@ -35,8 +35,8 @@ let function dumpConfig(name=null) {
 
 const EVENT_SAVE_DISABLE_NETWORK_DATA = "meta.saveDisableNetworkData"
 
-console_register_command(@() eventbus.send(EVENT_SAVE_DISABLE_NETWORK_DATA, null), EVENT_SAVE_DISABLE_NETWORK_DATA)
-eventbus.subscribe(EVENT_SAVE_DISABLE_NETWORK_DATA, @(_) dumpConfig(DISABLE_NETWORK_CONFIG))
+console_register_command(@() eventbus_send(EVENT_SAVE_DISABLE_NETWORK_DATA, null), EVENT_SAVE_DISABLE_NETWORK_DATA)
+eventbus_subscribe(EVENT_SAVE_DISABLE_NETWORK_DATA, @(_) dumpConfig(DISABLE_NETWORK_CONFIG))
 
 console_register_command(dumpConfig, "meta.dumpConfig")
 

@@ -4,7 +4,7 @@ require soundSystem
 require Dacoll
 
 
-[es(tag=sound, no_order, on_event=ParallelUpdateFrameDelayed)]
+[es(tag=sound, on_event=ParallelUpdateFrameDelayed, after=sound_begin_update_es, before=sound_end_update_es)]
 def underwater_sound(evt : Event;
                      underwater_sound__path : string;
                      var underwater_sound__event : SoundEvent&;

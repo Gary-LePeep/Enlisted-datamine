@@ -25,9 +25,10 @@ def update_impl(info : ParallelUpdateFrameDelayed;
                 volume_ambient_sound__reverb_intensity_roomSize_absorption_weight : float4)
 
   volume_ambient_sound__closestDistSq = distance_sq(listener, clamped_pos)
-  let isValidHandle = volume_ambient_sound__event.handle != invalid_sound_event_handle()
+  let isValidHandle = volume_ambient_sound__event.enabled
   let inRange = (isValidHandle ? (volume_ambient_sound__closestDistSq < square(volume_ambient_sound__range)) :
                                  (volume_ambient_sound__closestDistSq < square(volume_ambient_sound__range * 0.9)))
+  volume_ambient_sound__event.enabled = inRange
 
   if inRange
     if !is_playing(volume_ambient_sound__event.handle)
@@ -35,12 +36,18 @@ def update_impl(info : ParallelUpdateFrameDelayed;
       volume_ambient_sound__event.handle = play(game_object_sound__name, game_object_sound__path, listener)
       set_volume(volume_ambient_sound__event.handle, volume_ambient_sound__volume)
     set_var(volume_ambient_sound__event.handle, "dist", sqrt(volume_ambient_sound__closestDistSq))
+
     if volume_ambient_sound__closestDistSq > 0.
+      // when outside: update pos once after totalVolumes reached
       set_pos(volume_ambient_sound__event.handle, clamped_pos)
+    else
+      // when inside: place event to listener each frame
+      set_pos(volume_ambient_sound__event.handle, get_listener_pos())
+
     if volume_ambient_sound__volume < 1.
       volume_ambient_sound__volume = min(volume_ambient_sound__volume + volume_ambient_sound__fadeInOutSpeed.x * info.dt, 1.)
       set_volume(volume_ambient_sound__event.handle, volume_ambient_sound__volume)
-  elif isValidHandle
+  elif volume_ambient_sound__event.handle != invalid_sound_event_handle()
     volume_ambient_sound__volume -= volume_ambient_sound__fadeInOutSpeed.y * info.dt
     if volume_ambient_sound__volume > 0.
       set_volume(volume_ambient_sound__event.handle, volume_ambient_sound__volume)
@@ -57,7 +64,7 @@ def update_impl(info : ParallelUpdateFrameDelayed;
       return true
 
 
-[es(tag=sound, REQUIRE=boxSoundShape, after=reverb_sound_update)]
+[es(tag=sound, REQUIRE=boxSoundShape, after=(reverb_sound_update, sound_begin_update_es), before=sound_end_update_es)]
 def box_volume_ambient_sound_update(info : ParallelUpdateFrameDelayed;
                                     sound_banks_state__isPresetLoaded : bool;
                                     volume_ambient_sound__extent_maxRadiusSq : float4;
@@ -88,7 +95,7 @@ def box_volume_ambient_sound_update(info : ParallelUpdateFrameDelayed;
                 volume_ambient_sound__reverb_intensity_roomSize_absorption_weight)
 
 
-[es(tag=sound, REQUIRE=sphereSoundShape, after=reverb_sound_update)]
+[es(tag=sound, REQUIRE=sphereSoundShape, after=(reverb_sound_update, sound_begin_update_es), before=sound_end_update_es)]
 def sphere_volume_ambient_sound_update(info : ParallelUpdateFrameDelayed;
                                        sound_banks_state__isPresetLoaded : bool;
                                        volume_ambient_sound__extent_maxRadiusSq : float4;
@@ -119,7 +126,7 @@ def sphere_volume_ambient_sound_update(info : ParallelUpdateFrameDelayed;
                 volume_ambient_sound__reverb_intensity_roomSize_absorption_weight)
 
 
-[es(tag=sound, REQUIRE=capsuleSoundShape, after=reverb_sound_update)]
+[es(tag=sound, REQUIRE=capsuleSoundShape, after=(reverb_sound_update, sound_begin_update_es), before=sound_end_update_es)]
 def capsule_volume_ambient_sound_update(info : ParallelUpdateFrameDelayed;
                                         sound_banks_state__isPresetLoaded : bool;
                                         volume_ambient_sound__extent_maxRadiusSq : float4;
@@ -148,16 +155,6 @@ def capsule_volume_ambient_sound_update(info : ParallelUpdateFrameDelayed;
                 volume_ambient_sound__volume,
                 volume_ambient_sound__fadeInOutSpeed,
                 volume_ambient_sound__reverb_intensity_roomSize_absorption_weight)
-
-
-// NOT ParallelUpdateFrameDelayed because should accurate bring event to camera(important)
-// (AFTER camera tm update && fmod listener setup) and (BEFORE fmod::update)
-[es(tag=sound, after=sound_listener_update_es)]
-def volume_ambient_sound_update_event_pos(info : UpdateStageInfoAct;
-                                          volume_ambient_sound__closestDistSq : float;
-                                          volume_ambient_sound__event : SoundEvent)
-  if volume_ambient_sound__closestDistSq == 0.f && volume_ambient_sound__event.handle != invalid_sound_event_handle()
-    set_pos(volume_ambient_sound__event.handle, get_listener_pos())
 
 
 [es(tag=sound, on_appear)]

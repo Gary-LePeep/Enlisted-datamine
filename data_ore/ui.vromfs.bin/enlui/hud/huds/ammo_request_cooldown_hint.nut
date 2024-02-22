@@ -1,11 +1,11 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { tipCmp } = require("%ui/hud/huds/tips/tipComponent.nut")
 let { DEFAULT_TEXT_COLOR } = require("%ui/hud/style.nut")
 let { useActionAvailable } = require("%ui/hud/state/actions_state.nut")
 let { requestAmmoTimeout } = require("%ui/hud/state/requestAmmoState.nut")
 let { secondsToString } = require("%ui/helpers/time.nut")
-let { ACTION_REQUEST_AMMO } = require("hud_actions")
+let { ACTION_REQUEST_AMMO } = require("%ui/hud/human_actions.nut")
 
 let actions = {
   [ACTION_REQUEST_AMMO] = { hintText = @(time) loc("hud/ammo_requst_cooldown", "Ammo requst cooldown: {time} left", {time = time}) },

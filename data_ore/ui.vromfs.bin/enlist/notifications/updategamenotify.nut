@@ -1,10 +1,10 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { exit_game } = require("app")
 let { unlockedCampaigns, lockedCampaigns } = require("%enlist/meta/campaigns.nut")
 let debriefingShow = require("%enlist/debriefing/debriefingStateInMenu.nut").show
 let { showMsgbox, removeMsgboxByUid } = require("%enlist/components/msgbox.nut")
-let { logOut } = require("%enlSqGlob/login_state.nut")
+let { logOut } = require("%enlSqGlob/ui/login_state.nut")
 let { is_pc } = require("%dngscripts/platform.nut")
 let userInfo = require("%enlSqGlob/userInfo.nut")
 

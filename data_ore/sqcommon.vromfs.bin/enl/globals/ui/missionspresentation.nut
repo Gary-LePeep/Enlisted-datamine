@@ -27,7 +27,7 @@ enum MissionArmy {
   AXIS = 2
 }
 
-let function mkMission(cfg, id) {
+function mkMission(cfg, id) {
   let desc = {
     id
     locId = $"lobbies/{id}"
@@ -942,6 +942,18 @@ let missions = {
     army = MissionArmy.AXIS
   }
 
+  berlin_chancellery_inv_counter = {
+    image = "ui/berlin_chancellery_dom_03.avif"
+    locId = "lobbies/berlin_chancellery_inv_counter"
+    army = MissionArmy.ALLIES
+  }
+
+  berlin_chancellery_inv_counter_axis = {
+    image = "ui/berlin_chancellery_dom_03.avif"
+    locId = "lobbies/berlin_chancellery_inv_counter_axis"
+    army = MissionArmy.AXIS
+  }
+
   berlin_garden_assault = {
     image = "ui/berlin_garden_inv_02.avif"
     locId = "lobbies/berlin_garden_assault"
@@ -1094,6 +1106,18 @@ let missions = {
   berlin_river_inv_axis = {
     image = "ui/berlin_river_crossing_01.avif"
     locId = "lobbies/berlin_river_inv_axis"
+	army = MissionArmy.AXIS
+  }
+
+  berlin_river_inv_counter = {
+    image = "ui/berlin_river_crossing_03.avif"
+    locId = "lobbies/berlin_river_inv_counter"
+	army = MissionArmy.ALLIES
+  }
+
+  berlin_river_inv_counter_axis = {
+    image = "ui/berlin_river_crossing_03.avif"
+    locId = "lobbies/berlin_river_inv_counter_axis"
 	army = MissionArmy.AXIS
   }
 
@@ -1932,6 +1956,18 @@ let missions = {
     army = MissionArmy.AXIS
   }
 
+  pacific_new_georgia_coast_inv_counter = {
+    image = "ui/pacific_new_georgia_munda_point_01.avif"
+    locId = "lobbies/pacific_new_georgia_coast_inv_counter"
+    army = MissionArmy.ALLIES
+  }
+
+  pacific_new_georgia_coast_inv_counter_axis = {
+    image = "ui/pacific_new_georgia_munda_point_01.avif"
+    locId = "lobbies/pacific_new_georgia_coast_inv_counter_axis"
+    army = MissionArmy.AXIS
+  }
+
   pacific_new_georgia_caves_inv = {
     image = "ui/pacific_new_georgia_cave_a_01.avif"
     locId = "lobbies/pacific_new_georgia_caves_inv"
@@ -1941,6 +1977,18 @@ let missions = {
   pacific_new_georgia_caves_inv_axis = {
     image = "ui/pacific_new_georgia_cave_a_01.avif"
     locId = "lobbies/pacific_new_georgia_caves_inv_axis"
+    army = MissionArmy.AXIS
+  }
+
+  pacific_new_georgia_caves_inv_counter = {
+    image = "ui/pacific_new_georgia_cave_a_02.avif"
+    locId = "lobbies/pacific_new_georgia_caves_inv_counter"
+    army = MissionArmy.ALLIES
+  }
+
+  pacific_new_georgia_caves_inv_counter_axis = {
+    image = "ui/pacific_new_georgia_cave_a_02.avif"
+    locId = "lobbies/pacific_new_georgia_caves_inv_counter_axis"
     army = MissionArmy.AXIS
   }
 
@@ -1992,7 +2040,7 @@ let getImagesFromMissions = @() missions.values()
   ?? mkMission({}, id)
 
 
-let function mkMissionTypes() {
+function mkMissionTypes() {
   let missionTypes = {}
   foreach (mission in missions)
     missionTypes[mission.type] <- true

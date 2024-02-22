@@ -1369,8 +1369,8 @@
     "entity": {
       "_template": "team_germany+team_narrator_invasion_attack+respawn_creators_team",
       "team__memberCount": 0.0,
-      "team__scoreCap": 1800.0,
-      "team__score": 1800.0,
+      "team__scoreCap": 2000.0,
+      "team__score": 2000.0,
       "team__squadSpawnCost": 250,
       "team__firstSpawnCostMul": 0.0,
       "team__zeroScoreFailTimer": 60.0,
@@ -1468,7 +1468,7 @@
       "capzone__onlyTeamCanCapture": 2,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_1_b",
-      "capzone__capTime": 50.0,
+      "capzone__capTime": 40.0,
       "capzone__capTeam": -1,
       "transform": [
         [1.0,0.0,0.0],
@@ -1634,7 +1634,7 @@
         "groupName": "sector_2_b"
       },
       {
-        "capzone__capTime": 60.0
+        "capzone__capTime": 50.0
       },
       {
         "capzone__capTeam": -1
@@ -1703,7 +1703,7 @@
       "capzone__onlyTeamCanCapture": 2,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_3",
-      "capzone__capTime": 60.0,
+      "capzone__capTime": 50.0,
       "capzone__capTeam": -1,
       "transform": [
         [-0.395295,0.0,17.156],
@@ -1737,7 +1737,7 @@
       "capzone__onlyTeamCanCapture": 2,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_4",
-      "capzone__capTime": 60.0,
+      "capzone__capTime": 50.0,
       "capzone__capTeam": -1,
       "transform": [
         [1.0,0.0,0.0],
@@ -1816,7 +1816,7 @@
       "capzone__onlyTeamCanCapture": 2,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_4_b",
-      "capzone__capTime": 60.0,
+      "capzone__capTime": 50.0,
       "capzone__capTeam": -1,
       "capzone__icon": "AAA",
       "transform": [
@@ -1850,7 +1850,7 @@
       "capzone__onlyTeamCanCapture": 2,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_5",
-      "capzone__capTime": 60.0,
+      "capzone__capTime": 50.0,
       "capzone__capTeam": -1,
       "transform": [
         [1.0,0.0,0.0],
@@ -1969,7 +1969,7 @@
       "capzone__onlyTeamCanCapture": 2,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_5_c",
-      "capzone__capTime": 60.0,
+      "capzone__capTime": 50.0,
       "capzone__capTeam": -1,
       "transform": [
         [0.83863,0.0,0.0],
@@ -2496,7 +2496,7 @@
         [0.020175,0.0,-0.999795],
         [0.0,1.0,0.0],
         [0.999795,0.0,0.020175],
-        [-24.1343,17.4241,113.168]
+        [-24.2909,17.4241,110.96]
       ],
       "groupName": "sector_3",
       "team": 1,
@@ -2937,7 +2937,7 @@
         [-0.191902,0.0,-0.981414],
         [0.0,1.0,0.0],
         [0.981414,0.0,-0.191902],
-        [47.6057,43.5827,-70.6242]
+        [47.6128,43.5827,-72.1323]
       ],
       "active": false,
       "groupName": "sector_1",
@@ -3366,7 +3366,7 @@
         [0.447413,0.0,-0.894328],
         [0.0,1.0,0.0],
         [0.894328,-0.0,0.447413],
-        [-99.7375,57.5712,-31.1954]
+        [-103.859,57.5712,-31.7449]
       ],
       "active": false,
       "groupName": "sector_1_b",
@@ -3703,7 +3703,7 @@
         [0.140731,0.0,0.990048],
         [0.0,1.0,0.0],
         [-0.990048,0.0,0.140731],
-        [-6.50176,26.3383,-14.7809]
+        [-6.48313,26.3383,-12.6174]
       ],
       "active": false,
       "groupName": "sector_5_c",
@@ -3735,7 +3735,7 @@
         [-0.654508,0.0,0.756053],
         [0.0,1.0,0.0],
         [-0.756053,0.0,-0.654508],
-        [17.8352,19.7579,44.3946]
+        [12.9749,19.7579,45.701]
       ],
       "team": 2,
       "groupName": "sector_5"
@@ -3763,7 +3763,7 @@
         [0.553093,0.0,0.833119],
         [0.0,1.0,-0.0],
         [-0.833119,0.0,0.553093],
-        [25.2142,56.0995,-130.302]
+        [21.2521,57.035,-136.72]
       ],
       "team": 2,
       "groupName": "sector_4"
@@ -3788,10 +3788,10 @@
       "_template": "respawnChooser+respMotorcycle",
       "active": false,
       "transform": [
-        [-0.0299921,0.0,0.999549],
-        [0.0,1.0,0.0],
-        [-0.999549,0.0,-0.0299921],
-        [13.204,60.0769,-151.098]
+        [0.644936,0.0,0.764235],
+        [0.0,1.0,-0.0],
+        [-0.764235,0.0,0.644936],
+        [3.87084,61.5484,-146.689]
       ],
       "team": 2,
       "groupName": "sector_4_b"
@@ -3805,7 +3805,7 @@
         [0.020175,0.0,-0.999795],
         [0.0,1.0,0.0],
         [0.999795,0.0,0.020175],
-        [-24.3893,17.4241,112.943]
+        [-22.2357,17.4241,116.323]
       ],
       "team": 1,
       "groupName": "sector_3"
@@ -3816,10 +3816,10 @@
       "_template": "respawnChooser+respMotorcycle",
       "active": false,
       "transform": [
-        [0.547098,0.0,0.837067],
+        [0.233149,0.0,0.97244],
         [0.0,1.0,-0.0],
-        [-0.837067,0.0,0.547098],
-        [32.3099,69.0501,-215.321]
+        [-0.97244,0.0,0.233149],
+        [38.1602,69.0501,-216.212]
       ],
       "team": 2,
       "groupName": "sector_3"
@@ -3833,7 +3833,7 @@
         [0.71485,0.0,-0.699276],
         [0.0,1.0,0.0],
         [0.699276,-0.0,0.71485],
-        [-5.99066,19.9713,69.0288]
+        [-12.3856,19.9713,74.4209]
       ],
       "team": 1,
       "groupName": "sector_2"
@@ -3844,10 +3844,10 @@
       "_template": "respawnChooser+respMotorcycle",
       "active": false,
       "transform": [
-        [0.0806568,0.0,0.996741],
-        [0.0,1.0,0.0],
-        [-0.996741,0.0,0.0806568],
-        [13.6621,67.6525,-244.727]
+        [0.448637,0.0,0.893713],
+        [0.0,1.0,-0.0],
+        [-0.893713,0.0,0.448637],
+        [8.0258,67.6525,-242.681]
       ],
       "team": 2,
       "groupName": "sector_2"
@@ -3861,7 +3861,7 @@
         [0.71485,0.0,-0.699276],
         [0.0,1.0,0.0],
         [0.699276,-0.0,0.71485],
-        [-5.99066,19.9587,69.0288]
+        [-12.4213,19.9587,74.2964]
       ],
       "team": 1,
       "groupName": "sector_2_b"
@@ -3872,10 +3872,10 @@
       "_template": "respawnChooser+respMotorcycle",
       "active": false,
       "transform": [
-        [0.0806568,0.0,0.996741],
-        [0.0,1.0,0.0],
-        [-0.996741,0.0,0.0806568],
-        [13.6621,67.6525,-244.727]
+        [0.169298,0.0,0.985564],
+        [0.0,1.0,-0.0],
+        [-0.985564,0.0,0.169298],
+        [8.0758,67.6525,-242.577]
       ],
       "team": 2,
       "groupName": "sector_2_b"
@@ -3900,10 +3900,10 @@
       "_template": "respawnChooser+respMotorcycle",
       "active": false,
       "transform": [
-        [-0.191902,0.0,-0.981414],
+        [0.795545,0.0,-0.605894],
         [0.0,1.0,0.0],
-        [0.981414,0.0,-0.191902],
-        [47.6057,43.5827,-70.6242]
+        [0.605894,-0.0,0.795545],
+        [39.143,43.5827,-68.0356]
       ],
       "team": 1,
       "groupName": "sector_1"
@@ -3917,7 +3917,7 @@
         [0.447413,0.0,-0.894328],
         [0.0,1.0,0.0],
         [0.894328,-0.0,0.447413],
-        [-99.5938,57.5712,-31.181]
+        [-104.963,57.5712,-21.3812]
       ],
       "team": 1,
       "groupName": "sector_1_b"
@@ -3959,7 +3959,7 @@
         [0.0662133,0.0,0.997806],
         [0.0,1.0,0.0],
         [-0.997806,0.0,0.0662133],
-        [-6.34857,26.2395,-12.2328]
+        [-7.32896,26.2395,-18.241]
       ],
       "team": 2,
       "groupName": "sector_5_b"
@@ -3987,7 +3987,7 @@
         [0.140731,0.0,0.990048],
         [0.0,1.0,0.0],
         [-0.990048,0.0,0.140731],
-        [-6.50176,26.3383,-14.7809]
+        [-7.37052,26.3383,-18.231]
       ],
       "team": 2,
       "groupName": "sector_5_c"

@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { defTxtColor, titleTxtColor, smallPadding, inventoryItemDetailsWidth, midPadding, totalBlack,
@@ -113,7 +113,7 @@ let mkRow = @(children) {
   children = children
 }
 
-let function mkTypeIcon(itemtype, itemsubtype) {
+function mkTypeIcon(itemtype, itemsubtype) {
   if (itemtype == null)
     return null
 
@@ -133,7 +133,7 @@ let function mkTypeIcon(itemtype, itemsubtype) {
       }
 }
 
-let function mkItemHeader(item, isFull) {
+function mkItemHeader(item, isFull) {
   let isVehicle = item?.itemtype == "vehicle"
   let specialIcon = mkSpecialItemIcon(item, hdpxi(27))
   let titleWidth = inventoryItemDetailsWidth * (isFull ? 1 : 0.92) - ((specialIcon != null)
@@ -179,7 +179,7 @@ let function mkItemHeader(item, isFull) {
   }
 }
 
-let function mkDetailsInfo(item, isFull = true, maxHeight = SIZE_TO_CONTENT) {
+function mkDetailsInfo(item, isFull = true, maxHeight = SIZE_TO_CONTENT) {
   let isVehicle = item?.itemtype == "vehicle"
   return makeVertScroll({
     rendObj = ROBJ_WORLD_BLUR_PANEL
@@ -228,7 +228,7 @@ let mkViewItemWatchDetails = @(viewItemWatch, isFullMode = Watched(true)) functi
   })
 }
 
-let function mkViewItemDetails (item, isFullMode = Watched(true), maxHeight = SIZE_TO_CONTENT) {
+function mkViewItemDetails (item, isFullMode = Watched(true), maxHeight = SIZE_TO_CONTENT) {
   let tpl = item?.basetpl
   if (lastTpl != tpl) {
     lastTpl = tpl

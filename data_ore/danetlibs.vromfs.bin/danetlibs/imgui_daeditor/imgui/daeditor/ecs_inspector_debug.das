@@ -1,6 +1,5 @@
 options no_aot
 options persistent_heap
-options gc
 
 require ecs
 require strings
@@ -61,12 +60,6 @@ def ecs_inspector()
     var undoStack : array<array<EntityId>>
     var redoStack : array<array<EntityId>>
     var current_eid : array<EntityId>
-    var gcSteps = 0
-
-  gcSteps += 1
-  if gcSteps > 1000
-    unsafe(heap_collect())
-    gcSteps = 0
 
   var new_eid : array<EntityId>
   query <| $ [es(REQUIRE=daeditor__selected)] (eid : EntityId)
@@ -125,6 +118,53 @@ def ecs_inspector()
     inspect_item(0, *filter, unsafe(reinterpret< array<EntityId># > new_eid), newSelection)
   else
     imgui::Text("Select any entity")
+    draw_quick_select_menu()
+
+
+def draw_quick_select_menu()
+  if imgui::Button("Select hero")
+    query() <| $ [es(REQUIRE=hero)] (eid : EntityId)
+      editor_open()
+      editor_select_eid(eid)
+      editor_open(false)
+  if imgui::Button("Select local player")
+    query() <| $ [es(REQUIRE=hero)] (possessedByPlr : EntityId)
+      query(possessedByPlr) <| $ [es] (eid : EntityId)
+        editor_open()
+        editor_select_eid(eid)
+        editor_open(false)
+  if imgui::Button("Select active camera")
+    query() <| $ [es] (eid : EntityId; camera__active : bool)
+      if camera__active
+        editor_open()
+        editor_select_eid(eid)
+        editor_open(false)
+  if imgui::Button("Select nearest friend")
+    query() <| $ [es(REQUIRE=hero)] (eid aka hero_eid : EntityId; team aka my_team : int; transform aka my_transform : float3x4)
+      var bestDstSq = FLT_MAX
+      var bestEid = INVALID_ENTITY_ID
+      query() <| $ [es] (eid aka their_eid : EntityId; team aka their_team : int; transform aka their_transform : float3x4)
+        if my_team == their_team && hero_eid != their_eid
+          let dstSq = distance_sq(my_transform[3], their_transform[3])
+          if dstSq < bestDstSq
+            bestDstSq = dstSq
+            bestEid = eid
+      editor_open()
+      editor_select_eid(bestEid)
+      entity_object_editor_zoomAndCenter()
+  if imgui::Button("Select nearest enemy")
+    query() <| $ [es(REQUIRE=hero)] (team aka my_team : int; transform aka my_transform : float3x4)
+      var bestDstSq = FLT_MAX
+      var bestEid = INVALID_ENTITY_ID
+      query() <| $ [es] (eid : EntityId; team aka their_team : int; transform aka their_transform : float3x4)
+        if my_team != their_team
+          let dstSq = distance_sq(my_transform[3], their_transform[3])
+          if dstSq < bestDstSq
+            bestDstSq = dstSq
+            bestEid = eid
+      editor_open()
+      editor_select_eid(bestEid)
+      entity_object_editor_zoomAndCenter()
 
 
 def aux_ecs_inspector(idx : int; var filter : ImGuiTextFilter)

@@ -1,10 +1,9 @@
-from "%enlSqGlob/ui_library.nut" import *
-let { FAButton } = require("%ui/components/txtButton.nut")
+from "%enlSqGlob/ui/ui_library.nut" import *
+let { FAButton, Bordered } = require("%ui/components/txtButton.nut")
 let { fontHeading2 } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { smallPadding } = require("%enlSqGlob/ui/viewConst.nut")
 let { isGamepad } = require("%ui/control/active_controls.nut")
 let { mkHotkey } = require("%ui/components/uiHotkeysHint.nut")
-
 
 let changeButtonStyle = {
   size = [hdpxi(48), hdpxi(48)]
@@ -18,7 +17,7 @@ let tb = @(key, action) @() {
   children = mkHotkey(key, action)
 }
 
-let function mkCounter(maxCount, countWatched, step = 1) {
+function mkCounter(maxCount, countWatched, step = 1, showBtnAllItems = false) {
   let decCount = @() countWatched.value > step ? countWatched(countWatched.value - step) : null
   let incCount = @()
     countWatched.value + step <= maxCount ? countWatched(countWatched.value + step) : null
@@ -41,6 +40,8 @@ let function mkCounter(maxCount, countWatched, step = 1) {
       }.__update(fontHeading2)
       FAButton("plus", incCount, changeButtonStyle)
       tb("^J:RB",  incCount)
+      !showBtnAllItems ? null
+        : Bordered(loc("btn/upgrade/allItems"), @() countWatched(maxCount))
     ]
   }
 }

@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let JB = require("%ui/control/gui_buttons.nut")
 let { fontHeading2, fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
@@ -7,7 +7,7 @@ let bigGap = hdpx(10)
 let { clearBorderSymbols } = require("%sqstd/string.nut")
 let { addModalWindow, removeModalWindow } = require("%ui/components/modalWindows.nut")
 let msgbox = require("%ui/components/msgbox.nut")
-let eventbus = require("eventbus")
+let { eventbus_send } = require("eventbus")
 let { INVALID_USER_ID } = require("matching.errors")
 
 let closeBtn = require("%ui/components/closeBtn.nut")
@@ -24,7 +24,7 @@ let defaultType = complainTypes[0]
 let wndWidth = hdpx(500)
 let lastOpenParams = persist("lastOpenParams", @() {})
 
-let function close() {
+function close() {
   removeModalWindow(WND_UID)
   lastOpenParams.clear()
 }
@@ -73,7 +73,7 @@ let mkSubmitButton = @(cantSubmitReason, trySubmit) @() {
   ]
 }
 
-let function complainWnd(sessionId, userId, name) {
+function complainWnd(sessionId, userId, name) {
   let curType = Watched(defaultType)
   let complainText = Watched("")
   let cantSubmitReason = Computed(@() clearBorderSymbols(complainText.value).len() < MIN_COMPLAIN_SYMBOLS
@@ -89,7 +89,7 @@ let function complainWnd(sessionId, userId, name) {
     }
 
     if (userId != INVALID_USER_ID)
-      eventbus.send("penitentiary.complain", {
+      eventbus_send("penitentiary.complain", {
           userId = userId
           sessionId = sessionId
           complainType = curType.value
@@ -137,7 +137,7 @@ let function complainWnd(sessionId, userId, name) {
   }
 }
 
-let function open(sessionId, userId, name) {
+function open(sessionId, userId, name) {
   lastOpenParams.sessionId <- sessionId
   lastOpenParams.userId <- userId
   lastOpenParams.name <- name

@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {localPlayerEid, localPlayerTeam} = require("%ui/hud/state/local_player.nut")
 let {CmdSetMarkEnemy} = require("dasevents")
@@ -18,12 +18,12 @@ localPlayerEid.subscribe(function(v) {
   }
 })
 
-let function setEnemyHint(_event){
+function setEnemyHint(_event){
   ecs.g_entity_mgr.sendEvent(localPlayerEid.value, CmdSetMarkEnemy())
 }
 let teamEnemyHint = { eventHandlers = {["HUD.SetMark"] = setEnemyHint}}
 
-let function localTeamEnemyHint(){
+function localTeamEnemyHint(){
   return {
     watch = [showTeamEnemyHint]
     children = showTeamEnemyHint.value ? teamEnemyHint : null

@@ -13,6 +13,7 @@ require DagorMath
 require BallisticsProps
 require shellSoundProps
 require strings
+require PhysMat
 
 
 [es(tag=sound, REQUIRE=msg_sink)]
@@ -58,7 +59,7 @@ def shell_shatters_sound(evt : EventOnShellExploded)
         shell_shatter_sound__nextTime = curTime + shell_shatter_sound__cooldown
 
         while --soundCount >= 0
-          if rnd_int(0, 99) < shell_shatter_sound__chance
+          if shell_shatter_sound__chance > rnd_int(0, 99)
 
             let ptNearListener = listener + float3(rnd_float(-radiusAround, radiusAround), rnd_float(-radiusAround, radiusAround), rnd_float(-radiusAround, radiusAround))
             let traceDir = normalize(ptNearListener - evt.explPos)
@@ -70,12 +71,16 @@ def shell_shatters_sound(evt : EventOnShellExploded)
             var norm : float3
             var pmid = -1
             var riDesc = RendInstDesc()
-            var dist = traceDist
+            var t = traceDist
 
-            if traceray_normalized(traceFrom, traceDir, dist, pmid, norm, ETF_LMESH | ETF_HEIGHTMAP | ETF_FRT | ETF_RI | ETF_STRUCTURES, riDesc, -1)
-              hitPos = traceFrom + traceDir * dist
+            if traceray_normalized(traceFrom, traceDir, t, pmid, norm, ETF_LMESH | ETF_HEIGHTMAP | ETF_FRT | ETF_RI | ETF_STRUCTURES, riDesc, -1)
+              hitPos = traceFrom + traceDir * t
+              if traceray_water_at_time(traceFrom, hitPos, curTime, t)
+                hitPos = traceFrom + traceDir * t
+                pmid = get_material_id("water3d")
+
               // hit sound
-              if dist > shell_shatter_sound__hitSoundDistStart && !empty(hitPath)
+              if t > shell_shatter_sound__hitSoundDistStart && !empty(hitPath)
                 var soundHandle = soundEvent::play(hitPath, hitPos)
                 set_var(soundHandle, "cal", projectileProps.caliber)
                 set_var(soundHandle, "mat", get_projectile_sound_material_id(pmid))

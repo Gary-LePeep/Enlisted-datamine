@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let squadsPresentation = require("%enlSqGlob/ui/squadsPresentation.nut")
 let serverConfigs = require("%enlist/meta/configs.nut").configs

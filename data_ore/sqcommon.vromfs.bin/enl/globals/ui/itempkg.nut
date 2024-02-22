@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontSub, fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let faComp = require("%ui/components/faComp.nut")
@@ -84,7 +84,7 @@ let mkStatusHint = @(demands) demands == null ? null
     }))
   : mkHintText(loc(demands?.canObtainInShop ? "itemObtainInShop" : "itemOutOfStock"))
 
-let function mkVehicleHint(vehicle) {
+function mkVehicleHint(vehicle) {
   let desc = getItemDesc(vehicle)
   let { growthTier = 0 } = vehicle
   return tooltipCtor({

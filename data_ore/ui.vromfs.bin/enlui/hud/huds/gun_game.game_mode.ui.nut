@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { TEAM0_COLOR_FG, TEAM1_COLOR_FG, DEFAULT_TEXT_COLOR } = require("%ui/hud/style.nut")
 let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
@@ -85,7 +85,7 @@ let mkLevelsPoint = @(level) function() {
 
 
 
-let function mkLevelsAndProgressBlock() {
+function mkLevelsAndProgressBlock() {
   let children = [mkLevelsPoint(0)]
 
   for (local i = 1; i < gunGameLevelCount.value; i++) {

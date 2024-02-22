@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let {
@@ -34,7 +34,7 @@ let itemStatusIcon = @(vehicle) vehicle.status.flags & LOCKED ? statusIconLocked
 let blinkIconUnseen = blinkUnseenIcon()
 let noBlinkIconUnseen = noBlinkUnseenIcon()
 
-let function mkUnseenSign(vehicle) {
+function mkUnseenSign(vehicle) {
   let vehicleTpl = vehicle?.basetpl
   let hasUnseenSign = Computed(@()
     unseenSquadsVehicle.value?[curSquad.value?.guid][vehicleTpl] ?? false)
@@ -56,7 +56,7 @@ let mkVehicleName = @(vehicle, color) autoscrollText({
 })
 
 
-let function mkVehicleImage(vehicleInfo, decor) {
+function mkVehicleImage(vehicleInfo, decor) {
   let override = {
     width = vehicleListCardSize[0] - smallPadding * 2
     height = vehicleListCardSize[1] - smallPadding * 2
@@ -102,7 +102,7 @@ let itemCountRarity = @(item, sf, isSelected) {
 }
 
 
-let function card(item, onClick = @(_item) null, onDoubleClick = @(_item) null) {
+function card(item, onClick = @(_item) null, onDoubleClick = @(_item) null) {
   let isAllowed = item != null && !((item?.status.flags ?? 0) & CANT_USE)
   let { isShowDebugOnly = false } = item
   let isSelected = Computed(function() {

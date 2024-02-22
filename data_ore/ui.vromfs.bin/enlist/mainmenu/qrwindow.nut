@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let JB = require("%ui/control/gui_buttons.nut")
 let { fontHeading2, fontSub, fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
@@ -14,7 +14,7 @@ const WND_UID = "qr_window"
 const URL_REFRESH_SEC = 300 //short token life time is 5 min.
 let waitingSpinner = spinner()
 
-let function close(onCloseCb = null) {
+function close(onCloseCb = null) {
   onCloseCb?()
   removeModalWindow(WND_UID)
 }
@@ -30,7 +30,7 @@ let waitInfo = {
 
 let qrWindow = kwarg(function (url, header = "", desc = "", needShowRealUrl = true) {
   let realUrl = Watched(null)
-  let function receiveRealUrl() {
+  function receiveRealUrl() {
     openUrl(url, AuthenticationMode.NOT_AUTHENTICATED, false, @(u) realUrl(u))
     gui_scene.setTimeout(URL_REFRESH_SEC, receiveRealUrl)
   }

@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { configs } = require("%enlist/meta/configs.nut")
 let { growthState, growthProgress } = require("%enlist/meta/servProfile.nut")
@@ -96,19 +96,18 @@ let curSquads = Computed(function() {
 })
 let curTemplates = Computed(@() allItemTemplates.value?[curArmy.value] ?? {})
 
-let function getGrowthBySquadId(armyId, squadId) {
+function getGrowthBySquadId(armyId, squadId) {
   let configByArmy = growthConfig.value?[armyId] ?? {}
   return configByArmy.findvalue(@(g) g.reward?.squadId == squadId)
 }
 
-let function getGrowthToFocus(armyId, researchData) {
-  let { squad_id = "", squadIdList = {}} = researchData
-  let squadsToCheck = squad_id != "" ? { [squad_id] = true } : squadIdList
+function getGrowthToFocus(armyId, researchData) {
+  let { squadIdList = {} } = researchData
   let configByArmy = growthConfig.value?[armyId] ?? {}
-  return configByArmy.findvalue(@(g) g.reward?.squadId in squadsToCheck)
+  return configByArmy.findvalue(@(g) g.reward?.squadId in squadIdList)
 }
 
-let function getSortedGrowthsByResearch(army, research) {
+function getSortedGrowthsByResearch(army, research) {
   let { squadIdList = {} } = research
   let sortedGrowths = squadIdList.keys()
     .map(@(squadId) getGrowthBySquadId(army, squadId))

@@ -68,28 +68,44 @@
         }
       },
       {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.reactionCheckAntiTankWeaponAttack"
+        }
+      },
+      {
         "sequencer": {
           "name": "regroup",
-          "orderedSelector": {
-            "orderedSelector": [
-              {
-                "subTree": {
-                  "name": "",
-                  "refId": "checkCoverRef"
-                }
-              },
-              {
-                "subTree": {
-                  "name": "",
-                  "refId": "findCoverRef"
-                }
+          "orderedSelector": [
+            {
+              "subTree": {
+                "name": "",
+                "treeName": "sub.regroupToPitReset"
               }
-            ],
-            "subTree": {
-              "name": "",
-              "treeName": "sub.regroupCheck"
+            },
+            {
+              "subTree": {
+                "name": "",
+                "treeName": "sub.regroupCheck"
+              }
+            },
+            {
+              "orderedSelector": [
+                {
+                  "subTree": {
+                    "name": "",
+                    "refId": "checkCoverRef"
+                  }
+                },
+                {
+                  "subTree": {
+                    "name": "",
+                    "refId": "findCoverRef"
+                  }
+                }
+              ]
             }
-          }
+          ]
         }
       }
     ]
@@ -164,26 +180,36 @@
       {
         "sequencer": {
           "name": "regroup",
-          "orderedSelector": {
-            "orderedSelector": [
-              {
-                "subTree": {
-                  "name": "",
-                  "refId": "checkCoverRef"
-                }
-              },
-              {
-                "subTree": {
-                  "name": "",
-                  "refId": "findCoverRef"
-                }
+          "orderedSelector": [
+            {
+              "subTree": {
+                "name": "",
+                "treeName": "sub.regroupToPitReset"
               }
-            ],
-            "subTree": {
-              "name": "",
-              "treeName": "sub.regroupCheck"
+            },
+            {
+              "subTree": {
+                "name": "",
+                "treeName": "sub.regroupCheck"
+              }
+            },
+            {
+              "orderedSelector": [
+                {
+                  "subTree": {
+                    "name": "",
+                    "refId": "checkCoverRef"
+                  }
+                },
+                {
+                  "subTree": {
+                    "name": "",
+                    "refId": "findCoverRef"
+                  }
+                }
+              ]
             }
-          }
+          ]
         }
       }
     ]
@@ -263,28 +289,44 @@
         }
       },
       {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.reactionCheckAntiTankWeaponAttack"
+        }
+      },
+      {
         "sequencer": {
           "name": "regroup",
-          "orderedSelector": {
-            "orderedSelector": [
-              {
-                "subTree": {
-                  "name": "",
-                  "refId": "checkCoverRef"
-                }
-              },
-              {
-                "subTree": {
-                  "name": "",
-                  "treeName": "sub.stayFindCover"
-                }
+          "orderedSelector": [
+            {
+              "subTree": {
+                "name": "",
+                "treeName": "sub.regroupToPitReset"
               }
-            ],
-            "subTree": {
-              "name": "",
-              "treeName": "sub.stayRegroupCheck"
+            },
+            {
+              "subTree": {
+                "name": "",
+                "treeName": "sub.stayRegroupCheck"
+              }
+            },
+            {
+              "orderedSelector": [
+                {
+                  "subTree": {
+                    "name": "",
+                    "refId": "checkCoverRef"
+                  }
+                },
+                {
+                  "subTree": {
+                    "name": "",
+                    "treeName": "sub.stayFindCover"
+                  }
+                }
+              ]
             }
-          }
+          ]
         }
       }
     ]
@@ -308,26 +350,36 @@
       {
         "sequencer": {
           "name": "regroup",
-          "orderedSelector": {
-            "orderedSelector": [
-              {
-                "subTree": {
-                  "name": "",
-                  "refId": "checkCoverRef"
-                }
-              },
-              {
-                "subTree": {
-                  "name": "",
-                  "treeName": "sub.stayFindCover"
-                }
+          "orderedSelector": [
+            {
+              "subTree": {
+                "name": "",
+                "treeName": "sub.regroupToPitReset"
               }
-            ],
-            "subTree": {
-              "name": "",
-              "treeName": "sub.stayRegroupCheck"
+            },
+            {
+              "subTree": {
+                "name": "",
+                "treeName": "sub.stayRegroupCheck"
+              }
+            },
+            {
+              "orderedSelector": [
+                {
+                  "subTree": {
+                    "name": "",
+                    "refId": "checkCoverRef"
+                  }
+                },
+                {
+                  "subTree": {
+                    "name": "",
+                    "treeName": "sub.stayFindCover"
+                  }
+                }
+              ]
             }
-          }
+          ]
         }
       },
       {
@@ -486,6 +538,12 @@
             }
           },
           {
+            "subTree": {
+              "name": "",
+              "treeName": "sub.tryAntiTankWeaponAttack"
+            }
+          },
+          {
             "sequencer": [
               {
                 "isAgentPlayerBot": []
@@ -502,6 +560,7 @@
               {
                 "findDanger": {
                   "paramName": "shootEnemy",
+                  "outSeeTimeParam": "shootEnemyTime",
                   "radiusParamName": "enemyVehicleRadius",
                   "minDanger": 0.0,
                   "tag": "vehicle"
@@ -819,6 +878,7 @@
             },
             "findDanger": {
               "paramName": "shootEnemy",
+              "outSeeTimeParam": "shootEnemyTime",
               "radiusParamName": "enemyNearRadius",
               "minDanger": 0.1,
               "tag": "human"
@@ -829,7 +889,7 @@
             },
             "decreaseDangerLevel": {
               "paramName": "dangerLevel",
-              "decreaseCoef": 0.9
+              "decreaseCoef": 0.75
             },
             "decideOnAttackTarget": {
               "targetParam": "shootEnemy",
@@ -937,6 +997,7 @@
           "sequencer": {
             "findDanger": {
               "paramName": "shootEnemy",
+              "outSeeTimeParam": "shootEnemyTime",
               "radiusParamName": "enemyNearRadius",
               "minDanger": 0.1,
               "tag": "human"

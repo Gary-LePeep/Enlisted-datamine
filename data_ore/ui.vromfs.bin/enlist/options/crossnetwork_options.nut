@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let saveCrossnetworkPlayValue = require("crossnetwork_save.nut")
 let saveCrossnetworkChatValue = require("crossnetwork_chat_save.nut")
@@ -35,7 +35,7 @@ let settingsCrossnetworkChat = Computed(function() {
   return val
 })
 
-let function setValBySettings(val) {
+function setValBySettings(val) {
   if (!onlineSettingUpdated.value)
     return
   savedCrossnetworkStateUpdate(val)
@@ -46,7 +46,7 @@ setValBySettings(settingsCrossnetworkPlay.value)
 onlineSettingUpdated.subscribe(@(val) val ? setValBySettings(settingsCrossnetworkPlay.value) : null)
 
 
-let function setValChatBySettings(val) {
+function setValChatBySettings(val) {
   if (!onlineSettingUpdated.value)
     return
   savedCrossnetworkChatStateUpdate(val)
@@ -73,7 +73,7 @@ let mkOptionCrossplayOption = @() {
   isAvailableWatched = isCrossplayOptionNeeded
 }
 
-let function mkOptionCrosschatOption() {
+function mkOptionCrosschatOption() {
   let { watch, setValue } = getOnlineSaveData(savedCrossnetworkChatId,
     @() get_setting_by_blk_path(savedCrossnetworkChatId) ?? true)
   return optionCtor({

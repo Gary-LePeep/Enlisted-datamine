@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { mkHorScrollMask } = require("%enlSqGlob/ui/gradients.nut")
 
@@ -27,7 +27,7 @@ let maskOverride = {
 }
 
 
-let function mkGlare(glareParams = GLARE_PARAMS) {
+function mkGlare(glareParams = GLARE_PARAMS) {
   glareParams = GLARE_PARAMS.__update(glareParams)
 
   let {

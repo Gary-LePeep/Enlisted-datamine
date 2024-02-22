@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {tutorialZoneMarkers} = require("%ui/hud/tutorial/huds/tutorial_zone_minimap.nut")
 

@@ -9,14 +9,9 @@
   "useFutureContacts": true,
   "logCCD": false,
   "frictionGround": 2.0,
+  "ccdClipVelocityMult": 0.0,
   "entityTemplate": "no_69_impact_grenade",
   "entityPhysTemplate": "no_69_impact_grenade_phys",
-  "ccdClipVelocityMult": 0.0,
-  "collisionResource": {
-    "props": {
-      "volumeBox": "box"
-    }
-  },
   "ccdSpheres": [
     {
       "ccd": [0.0,0.05,0.0,0.015]
@@ -41,10 +36,13 @@
     "fxScale": [0.8,0.9],
     "effectTemplName": "explosion_effect_small+disable_effect_sfx"
   },
-  "explSound": {
-    "explSoundPath": "impact/grenade"
-  },
   "shellSound": {
+    "explosionPath": "impact/grenade",
     "activatePath": "/weapon/grenade/activate"
+  },
+  "collisionResource": {
+    "props": {
+      "volumeBox": "box"
+    }
   }
 }

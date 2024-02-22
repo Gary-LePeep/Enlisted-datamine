@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { mkOnlineSaveData } = require("%enlSqGlob/mkOnlineSaveData.nut")
 let { squadLeaderState, isInSquad, isSquadLeader } = require("%enlist/squad/squadState.nut")
@@ -34,7 +34,7 @@ let curCampaign = Computed(@()
 let curCampaignConfig = Computed(@() gameProfile.value?.campaigns[curCampaign.value])
 let curCampaignLocId = Computed(@() getCampaignTitle(curCampaign.value))
 
-let function addCurCampaignOverride(id, campaign) {
+function addCurCampaignOverride(id, campaign) {
   let cfg = campaignOverride.value.findvalue(@(c) c.id == id)
   if (cfg == null)
     campaignOverride.mutate(@(o) o.append({ id, campaign }))
@@ -42,7 +42,7 @@ let function addCurCampaignOverride(id, campaign) {
     campaignOverride.mutate(function(_) { cfg.campaign = campaign })
 }
 
-let function removeCurCampaignOverride(id) {
+function removeCurCampaignOverride(id) {
   let idx = campaignOverride.value.findindex(@(c) c.id == id)
   if (idx != null)
     campaignOverride.mutate(@(o) o.remove(idx))

@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 let { platformAlias } = require("%dngscripts/platform.nut")
 let { logerr } = require("dagor.debug")
 let matching_errors = require("matching.errors")
@@ -40,7 +40,7 @@ const PASSWORD_MAX_LENGTH = 16
 
 const SAVE_ID = "eventRoomParams"
 let saved = Computed(@() settings.value?[SAVE_ID])
-let function save(key, value) {
+function save(key, value) {
   if (saved.value?[key] != value)
     settings.mutate(@(s) s[SAVE_ID] <- (s?[SAVE_ID] ?? {}).__merge({ [key] = value }))
 }
@@ -80,7 +80,7 @@ let isEditEventRoomOpened = mkWatched(persist, "isEditEventRoomOpened", false)
 let isEditInProgress = Watched(false)
 room.subscribe(function(v) { if (v != null) isEditEventRoomOpened(false) })
 
-let function getValuesByRule(rule, curValues) {
+function getValuesByRule(rule, curValues) {
   let { override = [] } = rule
   local { values, isMultival } = getValuesFromRule(rule)
   foreach (ovr in override) {
@@ -102,7 +102,7 @@ let function getValuesByRule(rule, curValues) {
   return { values, isMultival }
 }
 
-let function parseMatchingError(loc_base, response) {
+function parseMatchingError(loc_base, response) {
   if (response.error != matching_errors.SERVER_ERROR_GENERIC)
     return loc(loc_base, { responce_error = matching_errors.error_string(response.error)}) // 'responce' is a typo. 'response' is a correct spelling for this word
 
@@ -211,7 +211,7 @@ let mkToggleValue = @(id, cfg, curValue) function toggleValue(value, isChecked) 
   save(id, res)
 }
 
-let function mkOption(id, locId, valToString = @(v) v, typeToString = @(v) v) {
+function mkOption(id, locId, valToString = @(v) v, typeToString = @(v) v) {
   let staticInfo = { locId }
   let cfg = Computed(@() optionsConfig.value.optionsInfo?[id].__merge(staticInfo))
   let curValue = Computed(@() optionsConfig.value.curValues?[id])
@@ -375,7 +375,7 @@ let optCrossplay = mkOption(cpId, cpLocId, @(v) loc($"option/crossplay/{v}"))
 let cpCfgBase = optCrossplay.cfg
 optCrossplay.__update({ isEditAllowed = false })
 
-let function updateOptCrossplay(val) {
+function updateOptCrossplay(val) {
   if (!val)
     optCrossplay.__update({ cfg = Watched(null) })
   else {
@@ -397,7 +397,7 @@ let function updateOptCrossplay(val) {
 isCrossplayOptionNeeded.subscribe(updateOptCrossplay)
 updateOptCrossplay(isCrossplayOptionNeeded.value)
 
-let function getCrossPlatformsList() {
+function getCrossPlatformsList() {
   let all = optionsConfig.value.optionsInfo?["public/crossPlatform"].values
   if (all == null)
     return []
@@ -412,7 +412,7 @@ let function getCrossPlatformsList() {
 }
 
 
-let function isScenesNull() {
+function isScenesNull() {
   local scenes = missions.value ?? []
   if (scenes.len() == 0) {
     scenes = optMissions.cfg.value?.values ?? []
@@ -423,12 +423,12 @@ let function isScenesNull() {
   return false
 }
 
-let function isModsNull() {
+function isModsNull() {
   let mods = receivedModInfos.value ?? []
   return mods.len() == 0
 }
 
-let function mkTeamArmies(camps, tArmies) {
+function mkTeamArmies(camps, tArmies) {
   let isHistorical = tArmies == "historical"
   let campaignsConfigs = gameProfile.value.campaigns
   let armiesTeamA = {}
@@ -447,7 +447,7 @@ let function mkTeamArmies(camps, tArmies) {
   return [armiesTeamA.keys(), armiesTeamA.keys()]
 }
 
-let function createEventRoom() {
+function createEventRoom() {
   if (isEditInProgress.value)
     return
 
@@ -532,7 +532,7 @@ let function createEventRoom() {
     })
 }
 
-let function updateAttributesEventRoom() {
+function updateAttributesEventRoom() {
   if (isEditInProgress.value)
     return
 

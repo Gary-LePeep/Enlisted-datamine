@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { sectionsSorted, curSection, trySwitchSection, tryBackSection, sectionsGeneration
 } = require("sectionsState.nut")
@@ -25,7 +25,7 @@ let sectionsHotkeys = @() {
   children = isFirstSection.value ? null : goToFirstSection
 }
 
-let function changeTab(delta, isLooped = false) {
+function changeTab(delta, isLooped = false) {
   let filtered = sectionsSorted.filter(@(val) val?.selectable ?? true)
   let next_idx = (filtered.findindex(@(val) val.id == curSection.value) ?? 0) + delta
   let total = filtered.len()

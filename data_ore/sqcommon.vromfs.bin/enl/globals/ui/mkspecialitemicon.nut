@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { getLinkedArmyName } = require("%enlSqGlob/ui/metalink.nut")
 let armiesPresentation = require("%enlSqGlob/ui/armiesPresentation.nut")
@@ -12,7 +12,7 @@ let defIconSize  = hdpxi(22)
 let defIconPath  = "!ui/icons/bp_weapon_icon.svg"
 let defIconStyle = { margin = hdpx(5) }
 
-let function mkIcon(icon, iconSize = defIconSize, override = {}) {
+function mkIcon(icon, iconSize = defIconSize, override = {}) {
   if (icon == null)
     return null
   let size = iconSize
@@ -26,7 +26,7 @@ let function mkIcon(icon, iconSize = defIconSize, override = {}) {
 }
 
 
-let function mkSpecialItemIcon(item, size = defIconSize, override = {}) {
+function mkSpecialItemIcon(item, size = defIconSize, override = {}) {
   let armyId = item?.links ? getLinkedArmyName(item) : item?.armyId
   let { sign = 0 } = item
   let style = defIconStyle.__update(override)

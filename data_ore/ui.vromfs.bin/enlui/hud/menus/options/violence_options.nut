@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {get_setting_by_blk_path, set_setting_by_blk_path} = require("settings")
 let {violenceState, violenceStateUpdate, forcedViolenceState} = require("%enlSqGlob/violenceState.nut")
@@ -8,7 +8,7 @@ let { ps4RegionName, SCE_REGION } = require("%dngscripts/platform.nut")
 
 let optionViolenceCtor = @(actionCb) function (opt, group, xmbNode) {
   let optSetValue = opt.setValue
-  let function setValue(val) {
+  function setValue(val) {
     optSetValue(val)
     actionCb(val)
   }
@@ -16,7 +16,7 @@ let optionViolenceCtor = @(actionCb) function (opt, group, xmbNode) {
   return optionCheckBox(opt, group, xmbNode)
 }
 
-let function mkOption(title, field, actionCb) {
+function mkOption(title, field, actionCb) {
   let blkPath = $"gameplay/{field}"
   let { watch, setValue } = getOnlineSaveData(blkPath,
     @() get_setting_by_blk_path(blkPath) ?? true)

@@ -36,7 +36,7 @@ let packStats = isPackSupportOnCircuit && bulkSend &&
                   (get_arg_value_by_name("userstat_pack_send") ?? 1).tointeger() > 0
 print($"userstats packs send:{packStats}")
 
-let function putToQueue(userid, appid, sessionId, stats){
+function putToQueue(userid, appid, sessionId, stats){
   if (sessionId != null && sessionId != 0)
     stats["$sessionId"] <- format("%X", sessionId)
 
@@ -60,7 +60,7 @@ let function putToQueue(userid, appid, sessionId, stats){
   }
 }
 
-let function sendCacheData(userid){
+function sendCacheData(userid){
   let userStats = cachedStats?[userid]
   if (userStats){
     if (packStats){
@@ -80,17 +80,17 @@ let function sendCacheData(userid){
   }
 }
 
-let function flushStats(userid){
+function flushStats(userid){
   sendCacheData(userid)
   if (userid in cachedStats)
-    delete cachedStats[userid]
+    cachedStats.$rawdelete(userid)
 }
 
-let function get_next_send_time(){
+function get_next_send_time(){
   return get_time_msec() + flushTime
 }
 
-let function hasDuplicateCommands(storedStats, newStats){
+function hasDuplicateCommands(storedStats, newStats){
   foreach (statName, statVal in newStats){
     if (typeof statVal == "table" && (statName in storedStats)){
       return true
@@ -99,7 +99,7 @@ let function hasDuplicateCommands(storedStats, newStats){
   return false
 }
 
-let function addStatsPack(mode, packs){
+function addStatsPack(mode, packs){
   let newPack = {}
   newPack["$mode"] <- mode
 
@@ -108,7 +108,7 @@ let function addStatsPack(mode, packs){
   return newPack
 }
 
-let function putToCache(userid, appId, stats, mode, sessionId) {
+function putToCache(userid, appId, stats, mode, sessionId) {
   local userStats = cachedStats?[userid]
   if (!userStats){
     userStats = {packs = [], sessionId = sessionId, time = get_next_send_time(),
@@ -146,7 +146,7 @@ let function putToCache(userid, appId, stats, mode, sessionId) {
 
 local isSendScheduled = false
 
-let function scheduleSend(time, cb){
+function scheduleSend(time, cb){
   if (!isSendScheduled){
     isSendScheduled = true
     setTimeout(
@@ -159,7 +159,7 @@ let function scheduleSend(time, cb){
   }
 }
 
-let function sendAll(){
+function sendAll(){
   let curTime = get_time_msec()
   local nextTime = flushTime
   let sent = []
@@ -175,18 +175,18 @@ let function sendAll(){
   }
 
   foreach (userid in sent)
-    delete cachedStats[userid]
+    cachedStats.$rawdelete(userid)
 
   if (cachedStats.len() > 0){
     scheduleSend(nextTime, sendAll)
   }
 }
 
-let function onAddStat(){
+function onAddStat(){
   scheduleSend(flushTime, sendAll)
 }
 
-let function sendToUserstats(userid, appid, stats, mode, sessionId = null) {
+function sendToUserstats(userid, appid, stats, mode, sessionId = null) {
   if (put_to_mq==null || mode == "" || !mode)
     return
 
@@ -201,7 +201,7 @@ let function sendToUserstats(userid, appid, stats, mode, sessionId = null) {
   onAddStat()
 }
 
-let function addUserstat(playerstats, playerstats_mode, name, params) {
+function addUserstat(playerstats, playerstats_mode, name, params) {
   if (name in playerstats.getAll())
     playerstats[name] = playerstats[name] + 1
   else

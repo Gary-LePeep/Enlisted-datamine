@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {btnTranspTextColor, TextActive} = require("%ui/style/colors.nut")
 let { currenciesBalance, currenciesSorted } = require("%enlist/currency/currencies.nut")
@@ -8,7 +8,7 @@ let { mkCurrency, mkCurrencyTooltip } = require("currenciesComp.nut")
 let { setTooltip } = require("%ui/style/cursors.nut")
 let { is_pc } = require("%dngscripts/platform.nut")
 
-let function currencyBalance(currency) {
+function currencyBalance(currency) {
   let stateFlags = Watched(0)
   return @() {
     watch = [currenciesBalance, stateFlags]
@@ -28,7 +28,7 @@ let function currencyBalance(currency) {
   }
 }
 
-let function currenciesWidget() {
+function currenciesWidget() {
   let visibleCurrencies = currenciesSorted.value.filter(@(currency) currency?.visible.value ?? true)
   return {
     key = "currenciesWidget"

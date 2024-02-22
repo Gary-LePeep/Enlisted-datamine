@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { controlledHeroEid } = require("%ui/hud/state/controlled_hero.nut")
@@ -30,7 +30,7 @@ let switchSquadSoldierTip = tipAlternate(tipDefaults.__merge({
   ]
 }, fontSub))
 
-let function switch_soldier_tip(){
+function switch_soldier_tip(){
   let res = { watch = needSwitchSoldierTip }
   if (!needSwitchSoldierTip.value)
     return res

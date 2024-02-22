@@ -187,11 +187,9 @@
       "rotateAngles": [-90.0,90.0],
       "rotateSpeed": 180.0,
       "collisionLinks": {
-        "paramMult": 0.0,
         "offset": [0.0,0.5,0.0],
         "haveCollision": false,
         "body": {
-          "paramMult": 0.0,
           "offset": [0.0,1.0,0.0],
           "haveCollision": true
         }
@@ -205,11 +203,9 @@
       "rotateAngles": [-80.0,80.0],
       "rotateSpeed": 180.0,
       "collisionLinks": {
-        "paramMult": 0.0,
         "offset": [0.0,0.5,0.0],
         "haveCollision": false,
         "body": {
-          "paramMult": 0.0,
           "offset": [0.0,0.6,0.0],
           "haveCollision": true
         }
@@ -226,11 +222,9 @@
       "collisionCenterPos": [0.275,0.0,0.0],
       "ccdPos": [0.275,0.2,0.0],
       "collisionLinks": {
-        "paramMult": 0.0,
         "offset": [-0.2,0.2,0.0],
         "haveCollision": false,
         "body": {
-          "paramMult": 0.0,
           "offset": [1.1,0.0,0.0],
           "haveCollision": true
         }
@@ -244,11 +238,9 @@
       "runSpeed": 1.0,
       "sprintSpeed": 2.0,
       "collisionLinks": {
-        "paramMult": 0.0,
         "offset": [-0.1,-0.5,0.0],
         "haveCollision": false,
         "body": {
-          "paramMult": 0.0,
           "offset": [0.0,0.7,0.0],
           "oriParamMult": 0.4,
           "haveCollision": true
@@ -263,11 +255,9 @@
       "runSpeed": 1.5,
       "sprintSpeed": 2.5,
       "collisionLinks": {
-        "paramMult": 0.0,
         "offset": [-0.1,-0.5,0.0],
         "haveCollision": false,
         "body": {
-          "paramMult": 0.0,
           "offset": [0.0,0.7,0.0],
           "oriParamMult": 0.4,
           "haveCollision": true
@@ -284,11 +274,9 @@
       "collisionCenterPos": [0.3,0.0,0.0],
       "ccdPos": [0.2,0.4,0.0],
       "collisionLinks": {
-        "paramMult": 0.0,
         "offset": [-0.2,0.5,0.0],
         "haveCollision": false,
         "body": {
-          "paramMult": 0.0,
           "offset": [1.0,0.0,0.0],
           "capsuleRadiusScale": 1.1,
           "haveCollision": true
@@ -304,12 +292,10 @@
       "rotateAngles": [-90.0,90.0],
       "rotateSpeed": 180.0,
       "collisionLinks": {
-        "paramMult": 0.0,
-        "offset": [0.0,0.45,0.0],
+        "offset": [0.17,0.45,0.0],
         "haveCollision": false,
         "body": {
-          "paramMult": 0.0,
-          "offset": [0.0,0.3,0.0],
+          "offset": [0.0,0.25,0.0],
           "haveCollision": true
         }
       }
@@ -325,12 +311,10 @@
       "ccdPos": [0.0,1.05,0.0],
       "collisionCenterPos": [0.0,1.1,0.0],
       "collisionLinks": {
-        "paramMult": 0.0,
-        "offset": [0.0,1.0,0.0],
+        "offset": [0.2,1.0,0.0],
         "haveCollision": false,
         "body": {
-          "paramMult": 0.0,
-          "offset": [0.0,0.05,0.0],
+          "offset": [0.0,0.1,0.0],
           "haveCollision": true
         }
       }
@@ -345,11 +329,9 @@
       "rotateSpeed": 180.0,
       "ccdPos": [0.0,1.1,0.0],
       "collisionLinks": {
-        "paramMult": 0.0,
         "offset": [0.0,1.1,0.0],
         "haveCollision": false,
         "body": {
-          "paramMult": 0.0,
           "offset": [0.0,0.1,0.0],
           "haveCollision": true
         }
@@ -408,6 +390,9 @@
           "offsFromNode": [0.263045,0.207796,0.0622835]
         },
         {
+          "offsCheckRightNode": [0.0,0.075,0.0]
+        },
+        {
           "breathShake": {
             "standing": 0.2,
             "crouch": 0.1,
@@ -445,6 +430,7 @@
         "crawlBreathShakeMagnitude": 0.025,
         "gunLen": 0.4,
         "offsFromNode": [0.234087,0.176786,0.0615204],
+        "offsCheckRightNode": [0.0,0.075,0.0],
         "breathShake": {
           "standing": 0.1,
           "crouch": 0.075,

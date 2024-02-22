@@ -1,10 +1,10 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let showFuel = Watched(false)
 let showFuelIfLessPct = Watched(10.0)
 
-let function checkFuelLevel(_evt, _eid, comp) {
+function checkFuelLevel(_evt, _eid, comp) {
   let fuelPct = comp["plane_view__fuel_pct"]
   let isLeaking = comp["plane_view__fuel_leak"]
   showFuel(isLeaking || fuelPct < showFuelIfLessPct.value)

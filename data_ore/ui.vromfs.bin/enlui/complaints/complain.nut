@@ -1,6 +1,6 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
-let eventbus = require("eventbus")
+let { eventbus_subscribe } = require("eventbus")
 let {char_request=null} = require("%enlSqGlob/charClient.nut")
 
 let complainTypeToId = {
@@ -32,4 +32,4 @@ let submitComplain = kwarg(function(userId, sessionId, complainType, message) {
   )
 })
 
-eventbus.subscribe("penitentiary.complain", @(data) submitComplain(data))
+eventbus_subscribe("penitentiary.complain", @(data) submitComplain(data))

@@ -315,6 +315,7 @@ return freeze({
     axis_stalingrad_pilot_fighter_3 = genSquadGer("axis_stalingrad_pilot_fighter_3")
 
 //prems
+    squad_ger_tanker_3_premium_6 = genSquadGer("squad_ger_tanker_3_premium_6")
     squad_ger_apc_driver_2_premium_1 = genSquadGer("squad_ger_apc_driver_2_premium_1")
     squad_ger_apc_driver_2_event_1 = genSquadGer("squad_ger_apc_driver_2_event_1", {premIcon = ICON_EVENT})
     squad_it_paratrooper_2_event_2 = genSquadGer("squad_it_paratrooper_2_event_2", {premIcon = ICON_EVENT})
@@ -494,6 +495,7 @@ return freeze({
     allies_pacific_tank_3 = genSquadUsa("allies_pacific_tank_3")
 
 //prems
+    squad_uk_tanker_3_premium_6 = genSquadUsa("squad_uk_tanker_3_premium_6")
     squad_usa_apc_driver_2_premium_2 = genSquadUsa("squad_usa_apc_driver_2_premium_2")
     squad_uk_apc_driver_2_event_1 = genSquadUsa("squad_uk_apc_driver_2_event_1", {premIcon = ICON_EVENT})
     squad_aus_tanker_2_premium_2 = genSquadUsa("squad_aus_tanker_2_premium_2")

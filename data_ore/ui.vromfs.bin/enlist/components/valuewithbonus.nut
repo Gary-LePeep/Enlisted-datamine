@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { defTxtColor, titleTxtColor, bonusColor } = require("%enlSqGlob/ui/viewConst.nut")
 let { note } = require("%enlSqGlob/ui/defcomps.nut")
@@ -6,7 +6,7 @@ let { premiumImage } = require("%enlist/currency/premiumComp.nut")
 
 let trim = @(str) "".join((str ?? "").tostring().split())
 
-let function strikeThrough(child) {
+function strikeThrough(child) {
   return {
     rendObj = ROBJ_VECTOR_CANVAS
     commands = [
@@ -20,7 +20,7 @@ let function strikeThrough(child) {
   }
 }
 
-let function mkValueWithBonus(commonValue, bonusValue, style = {}) {
+function mkValueWithBonus(commonValue, bonusValue, style = {}) {
   let commonWatch = commonValue instanceof Watched ? commonValue : Computed(@() commonValue)
   let bonusWatch = bonusValue instanceof Watched ? bonusValue : Computed(@() bonusValue)
   let watches = [commonWatch, bonusWatch]

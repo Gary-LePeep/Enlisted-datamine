@@ -1,5 +1,3 @@
-from "%enlSqGlob/ui_library.nut" import *
-
 return {
   OUT_OF_VEHICLE      = 0x01
   TOO_MUCH_CLASS      = 0x02

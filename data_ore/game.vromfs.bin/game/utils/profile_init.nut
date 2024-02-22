@@ -140,7 +140,7 @@ let entityModsQuery = ecs.SqQuery("entityModsQuery", {
 
 let weaponTemplateQuery = ecs.SqQuery("weaponTemplateQuery", { comps_ro = [["item__weapTemplate", ecs.TYPE_STRING]] })
 
-let function applyPerksBasedOnWeapons(eid, comp, allAvailablePerks) {
+function applyPerksBasedOnWeapons(eid, comp, allAvailablePerks) {
   local selectedGunTemplate = null
   weaponTemplateQuery(comp["human_weap__currentGunEid"], @(_, queryComp) selectedGunTemplate = queryComp["item__weapTemplate"])
 
@@ -207,7 +207,7 @@ ecs.register_es("human_apply_dynamic_perks_on_weapon_init_es", {
 }, { comps_track = [["gun__owner", ecs.TYPE_EID]] }, {tags="server"})
 
 
-let function foreachPerkStat(perkStats, callback) {
+function foreachPerkStat(perkStats, callback) {
   foreach (stat in perkStats) {
     if (stat.statKey in perksFactory) {
       if (perksFactory[stat.statKey] != null)
@@ -218,18 +218,18 @@ let function foreachPerkStat(perkStats, callback) {
   }
 }
 
-let function applyStaticPerks(perks, soldier, soldierTemplate) {
+function applyStaticPerks(perks, soldier, soldierTemplate) {
   perks.each(@(perk)
     foreachPerkStat(perk?.stats ?? [],
       @(key, value) mkPerkCtor(key)(soldier, value, soldierTemplate)))
 }
 
-let function getStatValue(soldier, stat, template) {
+function getStatValue(soldier, stat, template) {
   let {compName} = perksFactory[stat]
   return soldier?[compName] ?? (template?.getCompValNullable(compName) ?? 1.0)
 }
 
-let function applyDynamicPerks(perks, soldier, soldierTemplate) {
+function applyDynamicPerks(perks, soldier, soldierTemplate) {
   let availablePerks = {}
   let dynamicStats = {}
   foreach (perk in perks) {
@@ -252,7 +252,7 @@ let function applyDynamicPerks(perks, soldier, soldierTemplate) {
   return availablePerks
 }
 
-let function addPerkPointBonuses(perkPoints, soldier, soldierTemplate) {
+function addPerkPointBonuses(perkPoints, soldier, soldierTemplate) {
   foreach (perkPoint, value in perkPoints) {
     let perksFromPoints = perksPointFactory?[perkPoint] ?? []
     foreach (perkConfig in perksFromPoints) {
@@ -267,13 +267,13 @@ let function addPerkPointBonuses(perkPoints, soldier, soldierTemplate) {
   }
 }
 
-let function addClassBasedPerks(soldier, soldierTemplate) {
+function addClassBasedPerks(soldier, soldierTemplate) {
   let sClass = soldier?.sClass
   foreachPerkStat(perksClassFactory?[sClass] ?? [],
     @(key, value) mkPerkCtor(key)(soldier, value, soldierTemplate))
 }
 
-let function applyPerks(armies) {
+function applyPerks(armies) {
   let allAvailablePerks = {}
   let db = ecs.g_entity_mgr.getTemplateDB()
   foreach (army in armies) {
@@ -293,7 +293,7 @@ let function applyPerks(armies) {
         allAvailablePerks.__update(availablePerks)
 
         if (soldier?.perks != null)
-          delete soldier.perks
+          soldier.$rawdelete("perks")
       }
     }
   }
@@ -320,7 +320,7 @@ let vehicleModFactory = {
   disable_dm_part                             = mkCalcInsert("disableDMParts")
 }
 
-let function convertGunMods(db, soldier) {
+function convertGunMods(db, soldier) {
   let weapons = soldier?.human_weap__weapInfo ?? {}
   foreach (weapon in weapons) {
     let gunSlots = weapon?.gunSlots
@@ -335,11 +335,11 @@ let function convertGunMods(db, soldier) {
       weapon.gunMods[slotid] <- slotTemplate.getCompVal("gunAttachable__slotTag")
     }
 
-    delete weapon.gunSlots
+    weapon.$rawdelete("gunSlots")
   }
 }
 
-let function armyConvertGunMods(armies) {
+function armyConvertGunMods(armies) {
   let db = ecs.g_entity_mgr.getTemplateDB()
   foreach (army in armies) {
     foreach (squad in army?.squads ?? []) {
@@ -350,7 +350,7 @@ let function armyConvertGunMods(armies) {
   }
 }
 
-let function applyUpgradesToComponents(gunTemplate, upgrades) {
+function applyUpgradesToComponents(gunTemplate, upgrades) {
   if (gunTemplate == null || gunTemplate == "")
     return {}
   let db = ecs.g_entity_mgr.getTemplateDB()
@@ -371,7 +371,7 @@ let function applyUpgradesToComponents(gunTemplate, upgrades) {
   return result
 }
 
-let function applyGunUpgrades(soldier) {
+function applyGunUpgrades(soldier) {
   let weapTemplates = soldier.human_weap__weapTemplates
   foreach (slotNo, upgrades in (soldier?.human_weap__weapInitialComponents ?? [])) {
     let gunComps = applyUpgradesToComponents(weapTemplates?[weaponSlotsKeys?[slotNo]], upgrades)
@@ -379,7 +379,7 @@ let function applyGunUpgrades(soldier) {
   }
 }
 
-let function armyApplyGunUpgrades(armies) {
+function armyApplyGunUpgrades(armies) {
   foreach (army in armies) {
     foreach (squad in army?.squads ?? []) {
       foreach (soldier in squad?.squad ?? []) {
@@ -392,7 +392,7 @@ let function armyApplyGunUpgrades(armies) {
 let blkAppend = @(key, param)
   @(comp, value, template) comp[key] <- $"{comp?[key] ?? (template?.getCompValNullable(key)?.getAll() ?? "")}{param}:r={value};"
 
-let function applyModsToVehicleComponents(comps, vehicleTemplate, vehicleMods) {
+function applyModsToVehicleComponents(comps, vehicleTemplate, vehicleMods) {
   foreach (mod in vehicleMods) {
     let {statKey, statValue} = mod
     let modCtor = vehicleModFactory?[statKey] ?? blkAppend("physModificationsBlk", statKey)
@@ -400,7 +400,7 @@ let function applyModsToVehicleComponents(comps, vehicleTemplate, vehicleMods) {
   }
 }
 
-let function applyTurregUpgradesToComponents(gunTemplate, upgrades) {
+function applyTurregUpgradesToComponents(gunTemplate, upgrades) {
   if (gunTemplate == null || gunTemplate == "")
     return {}
   let db = ecs.g_entity_mgr.getTemplateDB()
@@ -418,7 +418,7 @@ let function applyTurregUpgradesToComponents(gunTemplate, upgrades) {
   return result
 }
 
-let function applyTurretModsToVehicleComponents(comps, _vehicleTemplateName, vehicleTemplate, turretMods) {
+function applyTurretModsToVehicleComponents(comps, _vehicleTemplateName, vehicleTemplate, turretMods) {
   let turretInfo = vehicleTemplate?.getCompValNullable("turret_control__turretInfo") ?? []
   let defaultInitComps = vehicleTemplate?.getCompValNullable("turretsInitialComponents")?.getAll() ?? []
   let turretsInitialComponents = array(turretInfo.len()).map(@(_,i) comps?.turretsInitialComponents?[i] ?? defaultInitComps?[i] ?? {})
@@ -433,7 +433,7 @@ let function applyTurretModsToVehicleComponents(comps, _vehicleTemplateName, veh
   comps["turretsInitialComponents"] <- turretsInitialComponents
 }
 
-let function applyVehicleMods(armies) {
+function applyVehicleMods(armies) {
   let db = ecs.g_entity_mgr.getTemplateDB()
   foreach (army in armies) {
     foreach (squad in army?.squads ?? []) {
@@ -449,7 +449,7 @@ let function applyVehicleMods(armies) {
       if (vehicle?.mods != null) {
         applyModsToVehicleComponents(vehicle.comps, vehicleTemplate, vehicle.mods)
         applyTurretModsToVehicleComponents(vehicle.comps, gametemplate, vehicleTemplate, vehicle.mods)
-        delete vehicle.mods
+        vehicle.$rawdelete("mods")
       }
 
       if ("skin" in vehicle) {
@@ -463,7 +463,7 @@ let function applyVehicleMods(armies) {
           if (animchar__objTexSet != null)
             vehicle.comps["animchar__objTexSet"] <- animchar__objTexSet
         }
-        delete vehicle.skin
+        vehicle.$rawdelete("skin")
       }
 
       if ("decals" in vehicle) {
@@ -474,7 +474,7 @@ let function applyVehicleMods(armies) {
             decalCompArray.append(decalToCompObject(decalData))
         }
         vehicle.comps["animcharDecalsData"] <- decalCompArray
-        delete vehicle.decals
+        vehicle.$rawdelete("decals")
       }
 
       if ("decors" in vehicle) {
@@ -488,13 +488,13 @@ let function applyVehicleMods(armies) {
             })))
         }
         vehicle.comps["attach_decorators__templates"] <- decorCompArray
-        delete vehicle.decors
+        vehicle.$rawdelete("decors")
       }
     }
   }
 }
 
-let function applyGameModeSoldierModifier(soldier, soldier_modifier) {
+function applyGameModeSoldierModifier(soldier, soldier_modifier) {
   soldier_modifier.each(function(v,k) {
     if (k not in soldier)
       soldier[k] <- v
@@ -517,7 +517,7 @@ let applyGameMode = @(armies) gameModeModifiersQuery.perform(function (_, game_m
         applyGameModeSoldierModifier(soldier, gameModeSoldierModifier)
 })
 
-let function applyModsToArmies(armies) {
+function applyModsToArmies(armies) {
   applyGameMode(armies)
   armyConvertGunMods(armies)
   armyApplyGunUpgrades(armies)

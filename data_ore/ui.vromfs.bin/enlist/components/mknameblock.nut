@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let perksList = require("%enlist/meta/perks/perksList.nut")
 let { fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
@@ -20,8 +20,10 @@ let { perkLevelsGrid } = require("%enlist/meta/perks/perksExp.nut")
 let { getClassCfg } = require("%enlSqGlob/ui/soldierClasses.nut")
 let { getSoldierBR } = require("%enlist/soldiers/armySquadTier.nut")
 let { mkBattleRating } = require("%enlSqGlob/ui/battleRatingPkg.nut")
-let { getPerkPointsInfo } = require("%enlist/meta/perks/perkTreePkg.nut")
 let { pPointsList, pPointsBaseParams } = require("%enlist/meta/perks/perksPoints.nut")
+let sClassesCfg = require("%enlist/soldiers/model/config/sClassesConfig.nut")
+let { possibleStatsForSoldier, maxedStatIcon
+} = require("%enlist/soldiers/components/perksPackage.nut")
 
 
 let hdrAnimations = [
@@ -123,8 +125,10 @@ let mkSoldierNameSmall = @(soldier)
 
 let iconSize = hdpxi(26)
 let medalSize = hdpxi(24)
+let maxedStatComp = maxedStatIcon(defTxtColor)
+  .__update({ vplace = ALIGN_TOP, pos = [0, hdpxi(4)]})
 
-let function mkNameBlock(soldier) {
+function mkNameBlock(soldier) {
   let soldierWatch = mkSoldiersData(soldier)
   let perksWatch = Computed(@() clone perksData.value?[soldier.value?.guid])
   let classBonusWatch = Computed(function() {
@@ -134,22 +138,33 @@ let function mkNameBlock(soldier) {
     return armyEffects.value?[getLinkedArmyName(soldierV)].class_xp_boost[soldierV.sClass] ?? 0
   })
   return function() {
-    let {armyId = null, sClass = null, sKind = null, sClassRare = 0} = soldierWatch.value
+    let {
+      armyId = null, sClass = null, sKind = null, sClassRare = 0, hasMaxStats = false
+    } = soldierWatch.value
     let medal = mkSoldierMedalIcon(soldierWatch.value, medalSize)
     let isPremium = getClassCfg(sClass)?.isPremium ?? false
     let classTooltipCb = @() classTooltip(armyId, sClass, sKind,
       mkBattleRating(getSoldierBR(soldierWatch.value.guid)))
 
-    let function perkPointsUi() {
-      let { total } = getPerkPointsInfo(perksList.value, perksWatch.value)
+    function perkPointsUi() {
+      let { points, sTier } = perksWatch.value
+      local maxedStats = {}
+      if (!hasMaxStats) {
+        let possibleStats = possibleStatsForSoldier(sClass, sTier, hasMaxStats, sClassesCfg.value)
+        foreach(statId, value in points) {
+          if (value == (possibleStats?[statId].maxVal ?? 0))
+            maxedStats[statId] <- true
+        }
+      }
       return {
-        watch = [perksList, perksWatch]
+        watch = [perksList, perksWatch, sClassesCfg]
         flow = FLOW_HORIZONTAL
         gap = smallPadding
         margin = [0,0,0,bigPadding]
         children = pPointsList.map(function(statId) {
           let { icon } = pPointsBaseParams[statId]
-          let totalPoints = total?[statId] ?? 0
+          let totalPoints = points?[statId] ?? 0
+
           return {
             flow = FLOW_HORIZONTAL
             valign = ALIGN_CENTER
@@ -159,6 +174,7 @@ let function mkNameBlock(soldier) {
                 color = defTxtColor
                 text = totalPoints
               }.__update(fontSub)
+              hasMaxStats || (statId in maxedStats) ? maxedStatComp : null
               {
                 rendObj = ROBJ_IMAGE
                 size = [iconSize, iconSize]

@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { MY_SQUAD_TEXT_COLOR } = require("%ui/hud/style.nut")
 let { SquadMateOrder } = require("%enlSqGlob/dasenums.nut")

@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {planeControlModeState} = require("%enlSqGlob/planeControlModeState.nut")
 
@@ -13,7 +13,7 @@ let comps = {
 
 let findPlaneInputQuery = ecs.SqQuery("findPlaneInputQuery", comps)
 
-let function setControlMode(_, comp) {
+function setControlMode(_, comp) {
   if (planeControlModeState.value == null)
     return
   comp["plane_input__simpleJoyEnabled"] = false

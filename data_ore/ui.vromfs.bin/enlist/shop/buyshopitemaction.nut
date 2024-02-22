@@ -5,7 +5,7 @@ let canBuyItem = @(shopItem) (shopItem?.devStoreId ?? "") != ""
   || (shopItem?.storeId ?? "") != ""
   || (shopItem?.purchaseGuid ?? "") != ""
 
-let function buyItemAction(shopItem) {
+function buyItemAction(shopItem) {
   //In case, when pack in release and dev store is distinguishable
   if (!isProductionCircuit.value) {
     let { devStoreId = "" } = shopItem

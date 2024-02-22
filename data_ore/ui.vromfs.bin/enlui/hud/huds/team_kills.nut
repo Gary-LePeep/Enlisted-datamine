@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {showFriendlyFireWarning} = require("%ui/hud/state/friendly_fire_warnings_state.nut")
 let {textarea} = require("%ui/components/textarea.nut")

@@ -1,9 +1,9 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let ps4 = require("ps4")
 let {unlockProgress, unlocksSorted, getUnlockProgress} = require("%enlSqGlob/userstats/unlocksState.nut")
 
-let function updatePS4Achievements(_) {
+function updatePS4Achievements(_) {
   if (unlockProgress.value.len() == 0)
     return
 

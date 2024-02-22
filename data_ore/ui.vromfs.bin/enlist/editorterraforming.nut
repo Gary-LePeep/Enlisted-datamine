@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 import "%dngscripts/ecs.nut" as ecs
 
 let {showPointAction, namePointAction, setPointActionMode, updatePointActionPreview, resetPointActionMode, editorUnpause} = require("%daeditor/state.nut")
@@ -10,7 +10,7 @@ const POINTACTION_MODE_CLEAR_ELEVATIONS     = "UnTerraforming mode"
 const POINTACTION_MODE_ERASE_GRASS          = "Erase Grass mode"
 const POINTACTION_MODE_DELETE_GRASS_ERASERS = "UnErase Grass mode"
 
-let function isTerraformingMode(mode) {
+function isTerraformingMode(mode) {
   return showPointAction.value && namePointAction.value == mode
 }
 
@@ -19,7 +19,7 @@ let isTerraforming = Computed(@() showPointAction.value && (namePointAction.valu
                                                          || namePointAction.value == POINTACTION_MODE_ERASE_GRASS
                                                          || namePointAction.value == POINTACTION_MODE_DELETE_GRASS_ERASERS))
 
-let function getTerraformingModeInfo(mode) {
+function getTerraformingModeInfo(mode) {
   if (mode == "EV") return "Elevate/lower"
   if (mode == "CE") return "Clear elevations"
   if (mode == "GE") return "Add grass erasers"
@@ -47,7 +47,7 @@ let terraformParams = {
   preview    = ""
 }
 
-let function saveTerraforming() {
+function saveTerraforming() {
   let terraforming_eid = entity_editor?.get_instance().makeSingletonEntity("terraforming")
   if (terraforming_eid && terraforming_eid != ecs.INVALID_ENTITY_ID) {
     entity_editor?.save_component(terraforming_eid, "elevs")
@@ -55,7 +55,7 @@ let function saveTerraforming() {
   }
 }
 
-let function onTerraformingAction(action) {
+function onTerraformingAction(action) {
   if (action.op == "action" && action.pos != null) {
     if (isTerraformingMode(POINTACTION_MODE_TERRAFORMING)) {
       local rad = terraformParams.radius.value
@@ -109,7 +109,7 @@ let function onTerraformingAction(action) {
   }
 }
 
-let function beginTerraforming(modeName, pointActionMode, toggle=false) {
+function beginTerraforming(modeName, pointActionMode, toggle=false) {
   if (!showPointAction.value || (!toggle && namePointAction.value != pointActionMode)) {
     saveTerraforming()
     setPointActionMode("point_action", pointActionMode, onTerraformingAction)

@@ -13,17 +13,17 @@ def light_flicker_sound(evt : Event;
   if light_flicker_sound__enabled != enabled
     light_flicker_sound__enabled = enabled
     for lightEid in light_flicker__lightEids
-      query(lightEid) <| $ [es(REQUIRE_NOT=disableSoundControl)] (var sound_control__enable : bool&;
+      query(lightEid) <| $ [es(REQUIRE_NOT=disableSoundControl)] (var sound_control__allowSound : bool&;
                                                                   light_flicker_updater_sound__onPath : string;
                                                                   light_flicker_updater_sound__offPath : string;
                                                                   transform : float3x4)
-        sound_control__enable = enabled
+        sound_control__allowSound = enabled
         if light_flicker_sound__inited
           oneshot(enabled ? light_flicker_updater_sound__onPath : light_flicker_updater_sound__offPath, transform[3])
   light_flicker_sound__inited = true
 
 
-[es(tag=sound, on_event=ParallelUpdateFrameDelayed)]
+[es(tag=sound, on_event=ParallelUpdateFrameDelayed, after=sound_begin_update_es, before=sound_end_update_es)]
 def light_flicker_sound_update(evt : Event;
                                light_flicker_sound__enabled : bool;
                                light_flicker__brightness : float;
@@ -35,12 +35,12 @@ def light_flicker_sound_update(evt : Event;
           set_var(light_flicker_updater_sound__event.handle, "brightness", light_flicker__brightness)
 
 
-[es(tag=sound, track=sound_control__shouldPlay)]
+[es(tag=sound, track=sound_control__soundEnabled)]
 def light_flicker_updater_sound_track(evt : Event;
-                                      sound_control__shouldPlay : bool;
+                                      sound_control__soundEnabled : bool;
                                       light_flicker_updater_sound__path : string;
                                       var light_flicker_updater_sound__event : SoundEvent&;
                                       transform : float3x4)
   abandon(light_flicker_updater_sound__event.handle)
-  if sound_control__shouldPlay
+  if sound_control__soundEnabled
     light_flicker_updater_sound__event |> play(light_flicker_updater_sound__path, transform[3])

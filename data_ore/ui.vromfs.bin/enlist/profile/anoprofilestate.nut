@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { requestAnoPlayerStats } = require("%enlSqGlob/userstats/userstat.nut")
 let makeBotData = require("botStatsGen.nut")
@@ -6,14 +6,14 @@ let makeBotData = require("botStatsGen.nut")
 let isAnoProfileOpened = mkWatched(persist, "isProfileOpened", false)
 let anoProfileData = mkWatched(persist, "anoProfileData", false)
 
-let function fetchAnotherProfile(userid){
+function fetchAnotherProfile(userid){
   requestAnoPlayerStats(userid, function(result) {
     anoProfileData.mutate(@(v) v.__update({ stats = result?.response.stats, isFinal = true }))
     isAnoProfileOpened(true)
   })
 }
 
-let function showAnoProfile(profile){
+function showAnoProfile(profile){
   if (profile.player.userid != -1) {
     anoProfileData(profile)
     fetchAnotherProfile(profile?.player.userid)

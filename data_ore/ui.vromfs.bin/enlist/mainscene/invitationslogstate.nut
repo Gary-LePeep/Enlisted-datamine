@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { logerr } = require("dagor.debug")
 let msgbox = require("%enlist/components/msgbox.nut")
@@ -26,7 +26,7 @@ enum InvitationsTypes {
 }
 
 let subscriptions = {}
-let function subscribeGroup(actionsGroup, actions) {
+function subscribeGroup(actionsGroup, actions) {
   if (actionsGroup in subscriptions || actionsGroup == "") {
     logerr($"Mailbox already has subscriptions on actionsGroup {actionsGroup}")
     return
@@ -34,7 +34,7 @@ let function subscribeGroup(actionsGroup, actions) {
   subscriptions[actionsGroup] <- actions
 }
 
-let function removeNotifyById(id) {
+function removeNotifyById(id) {
   let idx = inbox.value.findindex(@(n) n.id == id)
   if (idx != null) {
     removePopup(getPopupId(inbox.value[idx]))
@@ -42,21 +42,21 @@ let function removeNotifyById(id) {
   }
 }
 
-let function removeNotify(notify) {
+function removeNotify(notify) {
   removePopup(getPopupId(notify))
   let idx = inbox.value.indexof(notify)
   if (idx != null)
     inbox.mutate(@(value) value.remove(idx))
 }
 
-let function onNotifyShow(notify) {
+function onNotifyShow(notify) {
   if (!inbox.value.contains(notify))
     return
   let onShow = subscriptions?[notify.actionsGroup].onShow ?? removeNotify
   onShow(notify)
 }
 
-let function onNotifyRemove(notify) {
+function onNotifyRemove(notify) {
   if (!inbox.value.contains(notify))
     return
 
@@ -65,7 +65,7 @@ let function onNotifyRemove(notify) {
   removeNotify(notify)
 }
 
-let function clearAll() {
+function clearAll() {
   let list = clone inbox.value
   foreach (notify in list) {
     let onRemove = subscriptions?[notify.actionsGroup].onRemove
@@ -85,7 +85,7 @@ let NOTIFICATION_PARAMS = {
   needPopup = false
   styleId = ""
 }
-local function pushNotification(notify = NOTIFICATION_PARAMS) {
+function pushNotification(notify = NOTIFICATION_PARAMS) {
   notify = NOTIFICATION_PARAMS.__merge(notify)
 
   if (notify.id != null)
@@ -98,7 +98,7 @@ local function pushNotification(notify = NOTIFICATION_PARAMS) {
     showPopup(notify)
 }
 
-let function markReadAll() {
+function markReadAll() {
   if (hasUnread.value)
     inbox.mutate(@(v) v.each(@(notify) notify.isRead = true))
 }

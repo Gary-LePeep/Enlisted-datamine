@@ -86,7 +86,7 @@ def rocket_motor_trail_on_update(info : UpdateStageInfoAct;
                               : approach(rocket_motor_trail__fxScale, 1.0, flightTime - rocket_motor_props.fireDelay, rocket_motor_trail__burnTime))
 
   var tm : float3x4
-  make_tm(quat(transform), tm)
+  make_tm(DagorMath::quat(transform), tm)
   tm[3] = transform[3]
 
   update_effect(tm, rocket_motor_trail__fxScale, bomb_ballistics_curr.velocity, rocket_motor_trail__fireFxEid)

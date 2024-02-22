@@ -1,5 +1,3 @@
-from "%enlSqGlob/ui_library.nut" import *
-
 let { platformId } = require("%dngscripts/platform.nut")
 let { gameLanguage } = require("%enlSqGlob/clientState.nut")
 

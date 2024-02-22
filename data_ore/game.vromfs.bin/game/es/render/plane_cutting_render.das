@@ -8,7 +8,7 @@ let
   NO_CUT_2 = -NO_CUT
 
 
-[es(tag=gameClient, before=additional_data_for_plane_cutting_es)]
+[es(tag=gameClient, before=additional_data_for_plane_cutting_es, after=animchar_before_render_es)]
 def plane_damage_part_cut_es(info : UpdateStageInfoBeforeRender;
                              plane_cutting__cuttingPlanes : Point4List;
                              plane_cutting__finsFrontCuttingPlane : float4;
@@ -54,7 +54,7 @@ def plane_damage_part_cut_es(info : UpdateStageInfoBeforeRender;
   plane_cutting__planes[10] = !tailCut && (leftStabCut || rightStabCut || vStabCut) ? plane_cutting__finsFrontCuttingPlane : NO_CUT_2
 
 
-[es(before=additional_data_for_plane_cutting_es)]
+[es(before=additional_data_for_plane_cutting_es, after=animchar_before_render_es)]
 def plane_damage_part_wreckage_es(info : UpdateStageInfoBeforeRender;
                                   plane_wreckage__owner : EntityId;
                                   plane_wreckage__typeId : int;

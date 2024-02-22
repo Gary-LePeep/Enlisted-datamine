@@ -1,8 +1,8 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { gen_perks_points_statistics } = require("%enlist/meta/clientApi.nut")
 
-let function remoteGenPerksPointsStatistics(tier, count, genId) {
+function remoteGenPerksPointsStatistics(tier, count, genId) {
   gen_perks_points_statistics(tier, count, genId, function(stats) {
     log_for_user("Generated perks points for" count "soldiers (of `" tier "tier)")
     foreach (statId, statVal in stats.detail)

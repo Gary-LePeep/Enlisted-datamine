@@ -56,8 +56,15 @@
   "oneshot_net_sound": {
     "_group": {
       "_tags": "server",
-      "oneshot_net_sound__onCreate": "",
-      "oneshot_net_sound__onDestroy": ""
+      "oneshot_net_sound__onAppear": "",
+      "oneshot_net_sound__onDisappear": ""
+    }
+  },
+  "oneshot_scene_net_sound": {
+    "_use": "oneshot_net_sound",
+    "_group": {
+      "_tags": "server",
+      "sceneSoundSource:tag": []
     }
   },
   "turret_sound": {

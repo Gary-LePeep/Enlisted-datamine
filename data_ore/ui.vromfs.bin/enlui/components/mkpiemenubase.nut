@@ -7,7 +7,7 @@ from "math" import PI, sin, cos
     View
       back as robj blur mask (need procuderal images)
 */
-let function place_by_circle(params) {
+function place_by_circle(params) {
   let objs = params?.objects ?? []
   let radius = params?.radius ?? hdpx(100)
   let offset = params?.offset ?? (3.0/4)
@@ -32,7 +32,7 @@ let selectedBorderColor = Color(85, 85, 85, 100)
 let selectedBgColor = Color(0, 0, 0, 120)
 let sectorWidth = 1.0/2
 
-let function mDefCtor(text) {
+function mDefCtor(text) {
   return function (curIdx, idx) {
     return watchElemState(function(sf) {
       return {
@@ -52,7 +52,7 @@ let defParams = {
 }
 
 
-let function makeDefaultBack(radius, size) {
+function makeDefaultBack(radius, size) {
   return {
     rendObj = ROBJ_VECTOR_CANVAS
     color = selectedBgColor
@@ -70,7 +70,7 @@ let function makeDefaultBack(radius, size) {
   }
 }
 
-let function makeDefaultSector(size, radius, sangle) {
+function makeDefaultSector(size, radius, sangle) {
   return {
     rendObj = ROBJ_VECTOR_CANVAS
     color = selectedBgColor
@@ -89,7 +89,7 @@ let function makeDefaultSector(size, radius, sangle) {
 }
 
 
-let function mkPieMenu(params=defParams){
+function mkPieMenu(params=defParams){
   let radius = params?.radius ?? hdpx(250)
   let objs = params?.objs ?? []
   let objsnum = objs.len()
@@ -107,7 +107,7 @@ let function mkPieMenu(params=defParams){
   })
   let sector = params?.sectorCtor?() ?? makeDefaultSector(size, radius, sangle)
 
-  let function angle() {
+  function angle() {
     return {
       rendObj = ROBJ_VECTOR_CANVAS
       color = Color(0,0,0,180)
@@ -139,7 +139,7 @@ let function mkPieMenu(params=defParams){
     ]
   }
 
-  let function activeSector() {
+  function activeSector() {
     return {
       watch = [curIdx]
       size
@@ -154,7 +154,7 @@ let function mkPieMenu(params=defParams){
     }
   }
 
-  let function pieMenu() {
+  function pieMenu() {
     return {
       size
       watch = curHoveredIdx
@@ -176,7 +176,7 @@ let function mkPieMenu(params=defParams){
 }
 
 
-let function mkPieMenuActivator(params = defParams){
+function mkPieMenuActivator(params = defParams){
   params = defParams.__merge(params)
   local hotkeys = params?.hotkeys
   let showPieMenu = params?.showPieMenu ?? Watched(hotkeys==null)

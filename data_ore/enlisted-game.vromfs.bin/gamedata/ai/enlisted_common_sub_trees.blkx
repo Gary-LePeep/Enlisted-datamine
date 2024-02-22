@@ -370,6 +370,118 @@
     }
   },
   {
+    "sequencer": [
+      {
+        "name": "sub.regroupToPit"
+      },
+      {
+        "setIntVar": {
+          "to": "regroupToPit",
+          "value": 0
+        }
+      },
+      {
+        "setIntVar": {
+          "to": "regroupToPit",
+          "value": 1
+        }
+      },
+      {
+        "not": {
+          "isLeader": []
+        }
+      },
+      {
+        "not": {
+          "isAgentPlayerBot": []
+        }
+      },
+      {
+        "getRegroupPos": {
+          "posParam": "regroupPosition"
+        }
+      },
+      {
+        "isPosInPit": {
+          "posParam": "regroupPosition"
+        }
+      },
+      {
+        "copyPoint3Var": {
+          "from": "regroupPosition",
+          "to": "wishPosition"
+        }
+      },
+      {
+        "copyPoint3Var": {
+          "from": "regroupPosition",
+          "to": "coverPos"
+        }
+      }
+    ]
+  },
+  {
+    "sequencer": [
+      {
+        "name": "sub.regroupToPitAroundLeader"
+      },
+      {
+        "setIntVar": {
+          "to": "regroupToPit",
+          "value": 0
+        }
+      },
+      {
+        "setIntVar": {
+          "to": "regroupToPit",
+          "value": 2
+        }
+      },
+      {
+        "not": {
+          "isLeader": []
+        }
+      },
+      {
+        "not": {
+          "isAgentPlayerBot": []
+        }
+      },
+      {
+        "getRegroupPos": {
+          "posParam": "regroupPosition"
+        }
+      },
+      {
+        "isPosInPit": {
+          "posParam": "regroupPosition"
+        }
+      },
+      {
+        "copyPoint3Var": {
+          "from": "regroupPosition",
+          "to": "wishPosition"
+        }
+      },
+      {
+        "copyPoint3Var": {
+          "from": "regroupPosition",
+          "to": "coverPos"
+        }
+      }
+    ]
+  },
+  {
+    "sequencer": {
+      "name": "sub.regroupToPitReset",
+      "setIntVar": {
+        "to": "regroupToPit",
+        "value": 0
+      },
+      "break": []
+    }
+  },
+  {
     "sequencer": {
       "name": "sub.regroupCheck",
       "getRegroupPos": {
@@ -434,6 +546,7 @@
       },
       "findDanger": {
         "paramName": "shootEnemy",
+        "outSeeTimeParam": "shootEnemyTime",
         "radiusParamName": "enemyRadius",
         "minDanger": 0.1,
         "tag": "human"
@@ -444,7 +557,7 @@
       },
       "decreaseDangerLevel": {
         "paramName": "dangerLevel",
-        "decreaseCoef": 0.9
+        "decreaseCoef": 0.75
       },
       "decideOnAttackTarget": {
         "targetParam": "shootEnemy",
@@ -469,6 +582,7 @@
       },
       "findDanger": {
         "paramName": "shootEnemy",
+        "outSeeTimeParam": "shootEnemyTime",
         "radiusParamName": "enemyRadius",
         "minDanger": 0.1,
         "tag": "human"
@@ -1003,7 +1117,7 @@
       },
       "moveToTarget": {
         "targetUnitParam": "meleeEnemy",
-        "stopDist": 0.75,
+        "stopDist": 1.5,
         "aimToTarget": true,
         "maxStanceParam": "maxStance",
         "timeLimit": 3.0
@@ -1011,7 +1125,9 @@
       "meleeAttack": {
         "targetUnitParam": "meleeEnemy",
         "timeToAttack": 1.0,
-        "attackDist": 1.5
+        "attackDist": 1.5,
+        "attackDistMove": 1.0,
+        "attackDistDowned": 0.85
       },
       "wait": {
         "range": [0.5,1.0],
@@ -1102,6 +1218,7 @@
               "sequencer": {
                 "findDanger": {
                   "paramName": "shootEnemy",
+                  "outSeeTimeParam": "shootEnemyTime",
                   "radiusParamName": "enemyNearRadius",
                   "minDanger": 0.5,
                   "tag": "human"
@@ -1330,7 +1447,7 @@
                         },
                         "moveToTarget": {
                           "targetUnitParam": "shootEnemy",
-                          "stopDist": 0.75,
+                          "stopDist": 1.5,
                           "aimToTarget": true,
                           "maxStanceParam": "maxStance",
                           "timeLimit": 3.0
@@ -1338,7 +1455,9 @@
                         "meleeAttack": {
                           "targetUnitParam": "shootEnemy",
                           "timeToAttack": 3.0,
-                          "attackDist": 1.5
+                          "attackDist": 1.5,
+                          "attackDistMove": 1.0,
+                          "attackDistDowned": 0.85
                         }
                       }
                     },
@@ -1547,6 +1666,7 @@
                 "sequencer": {
                   "findDanger": {
                     "paramName": "shootEnemy",
+                    "outSeeTimeParam": "shootEnemyTime",
                     "radiusParamName": "enemyNearRadius",
                     "minDanger": 0.5,
                     "tag": "human"
@@ -1631,6 +1751,7 @@
       "name": "sub.stayTraceableDangerCheck",
       "findDanger": {
         "paramName": "shootEnemy",
+        "outSeeTimeParam": "shootEnemyTime",
         "radiusParamName": "enemyRadius",
         "minDanger": 0.1,
         "tag": "human"
@@ -1643,6 +1764,7 @@
       "name": "sub.stayFindDangerCheck",
       "findDanger": {
         "paramName": "shootEnemy",
+        "outSeeTimeParam": "shootEnemyTime",
         "radiusParamName": "enemyRadius",
         "minDanger": 0.1,
         "tag": "human"
@@ -1702,6 +1824,7 @@
             "sequencer": {
               "findDanger": {
                 "paramName": "shootEnemy",
+                "outSeeTimeParam": "shootEnemyTime",
                 "radiusParamName": "enemyNearRadius",
                 "minDanger": 0.1,
                 "tag": "human"
@@ -1748,6 +1871,7 @@
           "not": {
             "findDanger": {
               "paramName": "shootEnemy",
+              "outSeeTimeParam": "shootEnemyTime",
               "radiusParamName": "enemyNearRadius",
               "minDanger": 0.5,
               "tag": "human"
@@ -1937,6 +2061,7 @@
                 },
                 "findDanger": {
                   "paramName": "shootEnemy",
+                  "outSeeTimeParam": "shootEnemyTime",
                   "radiusParamName": "enemyNearRadius",
                   "minDanger": 0.1,
                   "tag": "human"
@@ -2256,59 +2381,28 @@
       },
       "orderedSelector": [
         {
-          "sequencer": [
-            {
-              "orderedSelector": {
-                "isOnNavmesh": [],
-                "subTree": {
-                  "name": "",
-                  "treeName": "sub.returnToNavmesh"
+          "sequencer": {
+            "orderedSelector": {
+              "isOnNavmesh": [],
+              "not": {
+                "isVarsIntEqual": {
+                  "lhs": "regroupToPit",
+                  "rhs_value": 0
                 }
+              },
+              "subTree": {
+                "name": "",
+                "treeName": "sub.returnToNavmesh"
               }
             },
-            {
-              "orderedSelector": [
-                {
-                  "moveToPos": {
-                    "posParam": "wishPosition",
-                    "sprintTimerRange": [10.0,20.0],
-                    "minDistToSprint": 1.5,
-                    "lookVisc": 0.1,
-                    "tryClimbing": true,
-                    "maxStanceParam": "maxStance",
-                    "stuckDirParam": "stuckDir",
-                    "incLadders": true,
-                    "timeToStuck": 0.9,
-                    "incObstacles": true,
-                    "avoidAiObstacles": false,
-                    "distThreshold": 1.0
-                  }
-                },
-                {
-                  "moveToPos": {
-                    "posParam": "wishPosition",
-                    "sprintTimerRange": [10.0,20.0],
-                    "minDistToSprint": 1.5,
-                    "lookVisc": 0.1,
-                    "tryClimbing": true,
-                    "maxStanceParam": "maxStance",
-                    "stuckDirParam": "stuckDir",
-                    "incLadders": true,
-                    "timeToStuck": 0.9,
-                    "incObstacles": false,
-                    "avoidAiObstacles": false,
-                    "distThreshold": 0.35
-                  }
-                }
-              ]
+            "subTree": {
+              "treeName": "sub.tryMoveToWishPosition"
             },
-            {
-              "setIntVar": {
-                "to": "resetAIPointsGenerator",
-                "value": 1
-              }
+            "setIntVar": {
+              "to": "resetAIPointsGenerator",
+              "value": 1
             }
-          ]
+          }
         },
         {
           "sequencer": {
@@ -2340,38 +2434,9 @@
                 }
               }
             },
-            "orderedSelector": [
-              {
-                "moveToPos": {
-                  "posParam": "wishPosition",
-                  "sprintTimerRange": [10.0,20.0],
-                  "minDistToSprint": 1.5,
-                  "lookVisc": 0.1,
-                  "tryClimbing": true,
-                  "maxStanceParam": "maxStance",
-                  "stuckDirParam": "stuckDir",
-                  "timeToStuck": 1.5,
-                  "incObstacles": true,
-                  "avoidAiObstacles": false,
-                  "distThreshold": 1.0
-                }
-              },
-              {
-                "moveToPos": {
-                  "posParam": "wishPosition",
-                  "sprintTimerRange": [10.0,20.0],
-                  "minDistToSprint": 1.5,
-                  "lookVisc": 0.1,
-                  "tryClimbing": true,
-                  "maxStanceParam": "maxStance",
-                  "stuckDirParam": "stuckDir",
-                  "timeToStuck": 1.5,
-                  "incObstacles": false,
-                  "avoidAiObstacles": false,
-                  "distThreshold": 0.35
-                }
-              }
-            ],
+            "subTree": {
+              "treeName": "sub.tryMoveHarderToWishPosition"
+            },
             "setIntVar": {
               "to": "resetAIPointsGenerator",
               "value": 1
@@ -2416,6 +2481,14 @@
         },
         {
           "isUnderwater": []
+        },
+        {
+          "not": {
+            "isVarsIntEqual": {
+              "lhs": "regroupToPit",
+              "rhs_value": 0
+            }
+          }
         },
         {
           "ifThenElse": [
@@ -2569,24 +2642,36 @@
         ]
       },
       {
-        "orderedSelector": {
-          "findPotentialEnemyPos": {
-            "posParam": "potentialEnemyPos",
-            "minNoiseLevel": 3.0
-          },
-          "sequencer": {
-            "periodicTimer": {
-              "timeParam": "standInCoverFindDangerAttrationPosTimer",
-              "timePeriod": [4.0,6.0]
-            },
-            "findDangerAttractionPos": {
-              "posParam": "potentialEnemyPos",
-              "radius": 0.0,
-              "minNoiseLevel": 3.0
+        "orderedSelector": [
+          {
+            "sequencer": {
+              "findPotentialEnemyPos": {
+                "posParam": "potentialEnemyPos",
+                "minNoiseLevel": 3.0
+              },
+              "setIntVar": {
+                "to": "potentialPosType",
+                "value": 1
+              }
             }
           },
-          "continue": []
-        }
+          {
+            "sequencer": {
+              "periodicTimer": {
+                "timeParam": "standInCoverFindDangerAttrationPosTimer",
+                "timePeriod": [4.0,6.0]
+              },
+              "findDangerAttractionPos": {
+                "posParam": "potentialEnemyPos",
+                "radius": 0.0,
+                "minNoiseLevel": 3.0
+              }
+            }
+          },
+          {
+            "continue": []
+          }
+        ]
       },
       {
         "orderedSelector": {
@@ -2647,23 +2732,40 @@
               "fixLookDirPos": {
                 "posParam": "potentialEnemyPos"
               },
-              "parallel": {
-                "wait": {
-                  "range": [5.0,15.0],
-                  "resetable": true
+              "parallel": [
+                {
+                  "wait": {
+                    "range": [5.0,15.0],
+                    "resetable": true
+                  }
                 },
-                "wanderLook": {
-                  "posParam": "potentialEnemyPos",
-                  "range": [0.2,0.1],
-                  "maxStanceParam": "coverStance"
+                {
+                  "wanderLook": {
+                    "posParam": "potentialEnemyPos",
+                    "range": [0.2,0.1],
+                    "maxStanceParam": "coverStance"
+                  }
                 },
-                "subTree": {
-                  "treeName": "sub.cycleCheckAllowedPos"
+                {
+                  "subTree": {
+                    "treeName": "sub.cycleCheckAllowedPos"
+                  }
+                },
+                {
+                  "subTree": {
+                    "treeName": "sub.cycleUpdateAttractionPos"
+                  }
                 }
-              }
+              ]
             }
           }
         ]
+      },
+      {
+        "setIntVar": {
+          "to": "potentialPosType",
+          "value": 0
+        }
       }
     ]
   },
@@ -2730,27 +2832,58 @@
         }
       },
       {
-        "orderedSelector": {
-          "findPotentialEnemyPos": {
-            "posParam": "potentialEnemyPos",
-            "minNoiseLevel": 3.0
-          },
-          "sequencer": {
-            "periodicTimer": {
-              "timeParam": "standFindDangerAttrationPosTimer",
-              "timePeriod": [4.0,6.0]
-            },
-            "findDangerAttractionPos": {
-              "posParam": "potentialEnemyPos",
-              "radius": 0.0,
-              "minNoiseLevel": 3.0
-            }
-          },
-          "continue": []
+        "setIntVar": {
+          "to": "potentialPosType",
+          "value": 0
         }
       },
       {
         "orderedSelector": [
+          {
+            "sequencer": {
+              "findPotentialEnemyPos": {
+                "posParam": "potentialEnemyPos",
+                "minNoiseLevel": 3.0
+              },
+              "setIntVar": {
+                "to": "potentialPosType",
+                "value": 1
+              }
+            }
+          },
+          {
+            "sequencer": {
+              "periodicTimer": {
+                "timeParam": "standFindDangerAttrationPosTimer",
+                "timePeriod": [4.0,6.0]
+              },
+              "findDangerAttractionPos": {
+                "posParam": "potentialEnemyPos",
+                "radius": 0.0,
+                "minNoiseLevel": 3.0
+              }
+            }
+          },
+          {
+            "continue": []
+          }
+        ]
+      },
+      {
+        "orderedSelector": [
+          {
+            "sequencer": {
+              "not": {
+                "isVarsIntEqual": {
+                  "lhs": "regroupToPit",
+                  "rhs_value": 0
+                }
+              },
+              "changeStance": {
+                "stanceName": "crouch"
+              }
+            }
+          },
           {
             "sequencer": {
               "ignoreChance": {
@@ -2847,20 +2980,31 @@
               "fixLookDirPos": {
                 "posParam": "potentialEnemyPos"
               },
-              "parallel": {
-                "wait": {
-                  "range": [5.0,15.0],
-                  "resetable": true
+              "parallel": [
+                {
+                  "wait": {
+                    "range": [5.0,15.0],
+                    "resetable": true
+                  }
                 },
-                "wanderLook": {
-                  "posParam": "potentialEnemyPos",
-                  "range": [0.2,0.1],
-                  "maxStanceParam": "maxStance"
+                {
+                  "wanderLook": {
+                    "posParam": "potentialEnemyPos",
+                    "range": [0.2,0.1],
+                    "maxStanceParam": "maxStance"
+                  }
                 },
-                "subTree": {
-                  "treeName": "sub.cycleCheckAllowedPos"
+                {
+                  "subTree": {
+                    "treeName": "sub.cycleCheckAllowedPos"
+                  }
+                },
+                {
+                  "subTree": {
+                    "treeName": "sub.cycleUpdateAttractionPos"
+                  }
                 }
-              }
+              ]
             }
           }
         ]
@@ -2884,23 +3028,62 @@
     ]
   },
   {
-    "sequencer": [
-      {
-        "name": "sub.moveToCover"
-      },
-      {
+    "sequencer": {
+      "name": "sub.moveToCover",
+      "orderedSelector": {
         "subTree": {
           "name": "",
-          "treeName": "sub.tryToSaveOrFindCover"
-        }
+          "treeName": "sub.regroupToPitReset"
+        },
+        "sequencer": [
+          {
+            "subTree": {
+              "name": "",
+              "refId": "checkCoverRef"
+            }
+          },
+          {
+            "subTree": {
+              "name": "",
+              "refId": "findCoverRef"
+            }
+          }
+        ]
       },
-      {
-        "subTree": {
-          "name": "",
-          "treeName": "sub.moveToPosition"
-        }
+      "subTree": {
+        "name": "",
+        "treeName": "sub.moveToPosition"
       }
-    ]
+    }
+  },
+  {
+    "sequencer": {
+      "name": "sub.moveToCoverOrPit",
+      "orderedSelector": {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.regroupToPitAroundLeader"
+        },
+        "sequencer": [
+          {
+            "subTree": {
+              "name": "",
+              "refId": "checkCoverRef"
+            }
+          },
+          {
+            "subTree": {
+              "name": "",
+              "refId": "findCoverRef"
+            }
+          }
+        ]
+      },
+      "subTree": {
+        "name": "",
+        "treeName": "sub.moveToPosition"
+      }
+    }
   },
   {
     "sequencer": [
@@ -2935,6 +3118,12 @@
         "isLeader": []
       },
       {
+        "wait": {
+          "range": [1.0,1.0],
+          "resetable": false
+        }
+      },
+      {
         "success": {
           "setSquadFormation": {
             "formation": "standard"
@@ -2943,23 +3132,94 @@
       },
       {
         "orderedSelector": {
+          "isUnderwater": [],
+          "not": {
+            "isMortarsSquad": []
+          },
           "sequencer": {
-            "findDanger": {
-              "paramName": "testEnemy",
-              "radiusParamName": "enemyNearRadius",
-              "minDanger": -1.0,
-              "tag": "human"
-            },
             "periodicTimer": {
               "timeParam": "onChangeLeaderFollowPos",
-              "timePeriod": [10.0,12.5]
-            }
-          },
-          "periodicTimer": {
-            "timeParam": "onChangeLeaderFollowPos",
-            "timePeriod": [30.0,40.0]
+              "timePeriod": [20.0,30.0]
+            },
+            "orderedSelector": {
+              "sequencer": {
+                "subTree": {
+                  "treeName": "sub.tryMortarSquadAttack"
+                },
+                "ignoreChance": {
+                  "chance": 0.5
+                }
+              },
+              "orderedSelector": [
+                {
+                  "sequencer": {
+                    "isVarsIntEqual": {
+                      "lhs": "mortarAtPosition",
+                      "rhs_value": 1
+                    },
+                    "ignoreChance": {
+                      "chance": 0.6
+                    },
+                    "setIntVar": {
+                      "to": "mortarAtPosition",
+                      "value": 0
+                    },
+                    "findPointNearCapzone": {
+                      "posParam": "regroupPosition"
+                    }
+                  }
+                },
+                {
+                  "sequencer": {
+                    "ignoreChance": {
+                      "chance": 0.7
+                    },
+                    "findPointInCapzone": {
+                      "posParam": "regroupPosition",
+                      "closestPoint": true
+                    },
+                    "resetNearCapzone": []
+                  }
+                },
+                {
+                  "sequencer": {
+                    "findPointNearCapzone": {
+                      "posParam": "regroupPosition",
+                      "closestPoint": true
+                    }
+                  }
+                }
+              ]
+            },
+            "break": []
           }
         }
+      },
+      {
+        "orderedSelector": [
+          {
+            "sequencer": {
+              "findDanger": {
+                "paramName": "testEnemy",
+                "radiusParamName": "enemyNearRadius",
+                "minDanger": -1.0,
+                "tag": "human"
+              },
+              "periodicTimer": {
+                "timeParam": "onChangeLeaderFollowPos",
+                "timePeriod": [10.0,12.5]
+              }
+            }
+          },
+          {
+            "sequencer": {
+              "periodicTimer": {
+                "timeParam": "onChangeLeaderFollowPos",
+                "timePeriod": [30.0,40.0]
+              }
+            }
+          }
+        ]
       },
       {
         "orderedSelector": {
@@ -3745,7 +4005,7 @@
                 "shootCycles": 3,
                 "minStance": 2,
                 "maxStanceParam": "maxStance",
-                "maxTime": [2.0,3.0],
+                "time": [1.5,2.0],
                 "cooldownTime": [0.0,0.1],
                 "minAimTime": [0.2,0.3],
                 "chooseStance": false
@@ -3767,7 +4027,7 @@
                 "shootCycles": 6,
                 "minStance": 2,
                 "maxStanceParam": "maxStance",
-                "maxTime": [2.0,3.0],
+                "time": [1.5,2.0],
                 "cooldownTime": [0.3,0.5],
                 "minAimTime": [0.2,0.3],
                 "chooseStance": false
@@ -3789,7 +4049,7 @@
                 "shootCycles": 5,
                 "minStance": 2,
                 "maxStanceParam": "maxStance",
-                "maxTime": [2.0,3.0],
+                "time": [1.5,2.0],
                 "cooldownTime": [0.3,0.5],
                 "minAimTime": [0.2,0.3],
                 "chooseStance": false
@@ -4097,7 +4357,7 @@
                 "shootCycles": 4,
                 "minStance": 2,
                 "maxStanceParam": "maxStance",
-                "maxTime": [2.0,3.0],
+                "time": [1.5,2.0],
                 "cooldownTime": [0.0,0.1],
                 "minAimTime": [0.2,0.3],
                 "chooseStance": false
@@ -4119,7 +4379,7 @@
                 "shootCycles": 5,
                 "minStance": 2,
                 "maxStanceParam": "maxStance",
-                "maxTime": [3.0,4.0],
+                "time": [2.0,3.0],
                 "cooldownTime": [0.3,0.5],
                 "minAimTime": [0.2,0.3],
                 "chooseStance": false
@@ -4141,7 +4401,7 @@
                 "shootCycles": 6,
                 "minStance": 2,
                 "maxStanceParam": "maxStance",
-                "maxTime": [2.0,3.0],
+                "time": [1.5,2.0],
                 "cooldownTime": [0.3,0.5],
                 "minAimTime": [0.2,0.3],
                 "chooseStance": false
@@ -4345,6 +4605,512 @@
     ]
   },
   {
+    "sequencer": {
+      "name": "sub.tryMortarSquadAttack",
+      "wait": {
+        "range": [2.0,3.0],
+        "resetable": true
+      },
+      "setIntVar": {
+        "to": "mortarAtPosition",
+        "value": 0
+      },
+      "planMortarAttack": {
+        "posOutParam": "regroupPosition"
+      },
+      "copyPoint3Var": {
+        "from": "regroupPosition",
+        "to": "wishPosition"
+      },
+      "sequencer": [
+        {
+          "reaction": {
+            "event": "regularCheck",
+            "repeat": [
+              {
+                "count": 1
+              },
+              {
+                "subTree": {
+                  "name": "",
+                  "treeName": "sub.chooseMaxStance"
+                }
+              },
+              {
+                "subTree": {
+                  "name": "",
+                  "treeName": "sub.deactivateWeapMod"
+                }
+              },
+              {
+                "subTree": {
+                  "name": "",
+                  "treeName": "sub.checkDowned"
+                }
+              },
+              {
+                "subTree": {
+                  "name": "",
+                  "treeName": "sub.checkBurning"
+                }
+              },
+              {
+                "subTree": {
+                  "name": "",
+                  "treeName": "sub.swimUpCheck"
+                }
+              },
+              {
+                "subTree": {
+                  "name": "",
+                  "treeName": "sub.tryToOpenDoors"
+                }
+              },
+              {
+                "subTree": {
+                  "name": "",
+                  "treeName": "sub.findDangerGrenade"
+                }
+              },
+              {
+                "subTree": {
+                  "name": "",
+                  "treeName": "sub.findDangerZone"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "parallel": {
+            "subTree": {
+              "treeName": "sub.tryMoveToWishPosition"
+            },
+            "cycle": {
+              "updateMortarAttackTimeout": []
+            }
+          }
+        },
+        {
+          "wait": {
+            "range": [2.0,3.0],
+            "resetable": true
+          }
+        },
+        {
+          "wait": {
+            "range": [10.0,15.0],
+            "resetable": true
+          }
+        },
+        {
+          "setIntVar": {
+            "to": "mortarAtPosition",
+            "value": 1
+          }
+        },
+        {
+          "performMortarAttack": {
+            "posParam": "regroupPosition",
+            "inRadius": 10.0,
+            "waitTimeout": 15.0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "sequencer": {
+      "name": "sub.checkAntiTankWeapons",
+      "setIntVar": {
+        "to": "hasAntiTankWeapons",
+        "value": -1
+      },
+      "repeat": [
+        {
+          "count": 1
+        },
+        {
+          "sequencer": {
+            "findWeaponSlotWithSpecAIType": {
+              "specAIWeapTypeName": "ROCKET_LAUNCHERS",
+              "toParam": "weaponSlot"
+            },
+            "setIntVar": {
+              "to": "hasAntiTankWeapons",
+              "value": 1
+            }
+          }
+        },
+        {
+          "sequencer": {
+            "findWeaponSlotWithSpecAIType": {
+              "specAIWeapTypeName": "ANTI_TANK_RIFLES",
+              "toParam": "weaponSlot"
+            },
+            "setIntVar": {
+              "to": "hasAntiTankWeapons",
+              "value": 1
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "sequencer": {
+      "name": "sub.checkAntiTankWeaponAttack",
+      "orderedSelector": {
+        "not": {
+          "isVarsIntEqual": {
+            "lhs": "hasAntiTankWeapons",
+            "rhs_value": 0
+          }
+        },
+        "subTree": {
+          "name": "",
+          "treeName": "sub.checkAntiTankWeapons"
+        }
+      },
+      "isVarsIntEqual": {
+        "lhs": "hasAntiTankWeapons",
+        "rhs_value": 1
+      },
+      "isReadyForAction": {
+        "checkFence": true
+      },
+      "periodicTimer": {
+        "timeParam": "onCheckShootWithAntiTankGuns",
+        "timePeriod": [7.0,15.0]
+      }
+    }
+  },
+  {
+    "sequencer": {
+      "name": "sub.reactionCheckAntiTankWeaponAttack",
+      "subTree": {
+        "name": "",
+        "treeName": "sub.checkAntiTankWeaponAttack"
+      },
+      "setIntVar": {
+        "to": "tryAntiTankWeaponAttack",
+        "value": 1
+      },
+      "recalculateTree": []
+    }
+  },
+  {
+    "sequencer": [
+      {
+        "name": "sub.antiTankAttackShoot"
+      },
+      {
+        "reaction": {
+          "event": "onEnemyPlayerNear",
+          "continue": []
+        }
+      },
+      {
+        "reaction": {
+          "event": "onTraceableDanger",
+          "continue": []
+        }
+      },
+      {
+        "reaction": {
+          "event": "onBulletNearby",
+          "continue": []
+        }
+      },
+      {
+        "reaction": {
+          "event": "regularCheck",
+          "repeat": [
+            {
+              "count": 1
+            },
+            {
+              "subTree": {
+                "name": "",
+                "treeName": "sub.checkDowned"
+              }
+            },
+            {
+              "subTree": {
+                "name": "",
+                "treeName": "sub.checkBurning"
+              }
+            },
+            {
+              "subTree": {
+                "name": "",
+                "treeName": "sub.findDangerGrenade"
+              }
+            },
+            {
+              "subTree": {
+                "name": "",
+                "treeName": "sub.findDangerZone"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "checkReloadWeapon": {
+          "waitReloadFinish": true
+        }
+      },
+      {
+        "initPeriodicTimer": {
+          "timeParam": "onCheckShootWithAntiTankGuns",
+          "timePeriod": [10.0,20.0]
+        }
+      },
+      {
+        "success": {
+          "shootAtUnit": {
+            "targetUnitParam": "shootVehicle",
+            "targetLocalPosParam": "shootAtLocalPos",
+            "shootCycles": 0,
+            "minStanceParam": "maxStance",
+            "maxStanceParam": "maxStance",
+            "chooseStance": false,
+            "accuracyRescale": [0.8,0.9],
+            "time": [4.0,5.0],
+            "cooldownTime": [0.3,0.5],
+            "minAimTime": [1.5,2.1]
+          }
+        }
+      }
+    ]
+  },
+  {
+    "sequencer": [
+      {
+        "name": "sub.tryAntiTankWeaponAttack"
+      },
+      {
+        "orderedSelector": {
+          "sequencer": {
+            "isVarsIntEqual": {
+              "lhs": "tryAntiTankWeaponAttack",
+              "rhs_value": 1
+            },
+            "wait": {
+              "range": [1.0,1.0],
+              "resetable": true
+            }
+          },
+          "subTree": {
+            "name": "",
+            "treeName": "sub.checkAntiTankWeaponAttack"
+          }
+        }
+      },
+      {
+        "orderedSelector": [
+          {
+            "sequencer": [
+              {
+                "isAgentPlayerBot": []
+              },
+              {
+                "findWeaponSlotWithSpecAIType": {
+                  "specAIWeapTypeName": "ROCKET_LAUNCHERS",
+                  "toParam": "weaponSlot",
+                  "minAmmo": 1
+                }
+              },
+              {
+                "changeStance": {
+                  "stanceName": "crouch"
+                }
+              },
+              {
+                "changeStance": {
+                  "stanceName": "stand"
+                }
+              },
+              {
+                "changeStance": {
+                  "stanceName": "crouch"
+                }
+              },
+              {
+                "findPiercableEnemyVehicle": {
+                  "outTargetEidParam": "shootVehicle",
+                  "outLocalPosParam": "shootAtLocalPos",
+                  "weaponSlotParam": "weaponSlot",
+                  "shootStance": 2,
+                  "wideTraceRadius": 0.5,
+                  "wideTraceOffsetUp": 0.2,
+                  "wideTraceDistance": 10.0
+                }
+              },
+              {
+                "setPosFromEntity": {
+                  "to": "shootVehiclePos",
+                  "from": "shootVehicle"
+                }
+              },
+              {
+                "rotateToPoint": {
+                  "posParam": "shootVehiclePos",
+                  "aimSpeedCoef": 0.5
+                }
+              },
+              {
+                "wait": {
+                  "range": [1.0,2.0],
+                  "resetable": true
+                }
+              },
+              {
+                "wait": {
+                  "range": [1.0,2.0],
+                  "resetable": true
+                }
+              },
+              {
+                "wait": {
+                  "range": [2.0,3.0],
+                  "resetable": true
+                }
+              },
+              {
+                "changeWeapon": {
+                  "param": "weaponSlot"
+                }
+              },
+              {
+                "setIntVar": {
+                  "to": "maxStance",
+                  "value": 2
+                }
+              },
+              {
+                "subTree": {
+                  "name": "",
+                  "treeName": "sub.antiTankAttackShoot"
+                }
+              },
+              {
+                "chooseBestWeapon": []
+              }
+            ]
+          },
+          {
+            "sequencer": [
+              {
+                "isAgentPlayerBot": []
+              },
+              {
+                "findWeaponSlotWithSpecAIType": {
+                  "specAIWeapTypeName": "ANTI_TANK_RIFLES",
+                  "toParam": "weaponSlot",
+                  "minAmmo": 1
+                }
+              },
+              {
+                "findPiercableEnemyVehicle": {
+                  "outTargetEidParam": "shootVehicle",
+                  "outLocalPosParam": "shootAtLocalPos",
+                  "weaponSlotParam": "weaponSlot",
+                  "outShootStanceParam": "toStance",
+                  "shootStances": [1,0,1],
+                  "wideTraceRadius": 0.1,
+                  "wideTraceOffsetUp": 0.1,
+                  "wideTraceDistance": 10.0
+                }
+              },
+              {
+                "setPosFromEntity": {
+                  "to": "shootVehiclePos",
+                  "from": "shootVehicle",
+                  "projectToNavmesh": false
+                }
+              },
+              {
+                "rotateToPoint": {
+                  "posParam": "shootVehiclePos",
+                  "aimSpeedCoef": 0.25
+                }
+              },
+              {
+                "rotateToPoint": {
+                  "posParam": "shootVehiclePos",
+                  "aimSpeedCoef": 0.25,
+                  "pitchRange": [-1.0,1.0]
+                }
+              },
+              {
+                "wait": {
+                  "range": [1.0,2.0],
+                  "resetable": true
+                }
+              },
+              {
+                "wait": {
+                  "range": [0.5,1.0],
+                  "resetable": true
+                }
+              },
+              {
+                "wait": {
+                  "range": [1.5,2.0],
+                  "resetable": true
+                }
+              },
+              {
+                "orderedSelector": {
+                  "sequencer": {
+                    "isVarsIntEqual": {
+                      "lhs": "toStance",
+                      "rhs_value": 1
+                    },
+                    "changeStance": {
+                      "stanceName": "crouch"
+                    }
+                  },
+                  "changeStance": {
+                    "stanceName": "crawl"
+                  }
+                }
+              },
+              {
+                "changeWeapon": {
+                  "param": "weaponSlot"
+                }
+              },
+              {
+                "copyIntVar": {
+                  "to": "maxStance",
+                  "from": "toStance"
+                }
+              },
+              {
+                "subTree": {
+                  "name": "",
+                  "treeName": "sub.antiTankAttackShoot"
+                }
+              },
+              {
+                "chooseBestWeapon": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "setIntVar": {
+          "to": "tryAntiTankWeaponAttack",
+          "value": 0
+        }
+      }
+    ]
+  },
+  {
     "orderedSelector": {
       "name": "sub.tryToOpenDoors",
       "findObstaclesAlongsidePath": []
@@ -4353,18 +5119,121 @@
   {
     "orderedSelector": [
       {
-        "name": "sub.tryToSaveOrFindCover"
+        "name": "sub.tryMoveToWishPosition"
       },
       {
-        "subTree": {
-          "name": "",
-          "refId": "checkCoverRef"
+        "sequencer": {
+          "isVarsIntEqual": {
+            "lhs": "regroupToPit",
+            "rhs_value": 1
+          },
+          "moveToPos": {
+            "posParam": "wishPosition",
+            "sprintTimerRange": [10.0,20.0],
+            "minDistToSprint": 1.5,
+            "lookVisc": 0.1,
+            "tryClimbing": true,
+            "maxStanceParam": "maxStance",
+            "stuckDirParam": "stuckDir",
+            "incLadders": true,
+            "timeToStuck": 0.9,
+            "incObstacles": true,
+            "avoidAiObstacles": false,
+            "distThreshold": 0.1
+          }
         }
       },
       {
-        "subTree": {
-          "name": "",
-          "refId": "findCoverRef"
+        "sequencer": {
+          "isVarsIntEqual": {
+            "lhs": "regroupToPit",
+            "rhs_value": 2
+          },
+          "moveToPos": {
+            "posParam": "wishPosition",
+            "sprintTimerRange": [10.0,20.0],
+            "minDistToSprint": 1.5,
+            "lookVisc": 0.1,
+            "tryClimbing": true,
+            "maxStanceParam": "maxStance",
+            "stuckDirParam": "stuckDir",
+            "incLadders": true,
+            "timeToStuck": 0.9,
+            "incObstacles": true,
+            "avoidAiObstacles": false,
+            "distThreshold": 2.0
+          }
+        }
+      },
+      {
+        "moveToPos": {
+          "posParam": "wishPosition",
+          "sprintTimerRange": [10.0,20.0],
+          "minDistToSprint": 1.5,
+          "lookVisc": 0.1,
+          "tryClimbing": true,
+          "maxStanceParam": "maxStance",
+          "stuckDirParam": "stuckDir",
+          "incLadders": true,
+          "timeToStuck": 0.9,
+          "incObstacles": true,
+          "avoidAiObstacles": false,
+          "distThreshold": 1.0
+        }
+      },
+      {
+        "moveToPos": {
+          "posParam": "wishPosition",
+          "sprintTimerRange": [10.0,20.0],
+          "minDistToSprint": 1.5,
+          "lookVisc": 0.1,
+          "tryClimbing": true,
+          "maxStanceParam": "maxStance",
+          "stuckDirParam": "stuckDir",
+          "incLadders": true,
+          "timeToStuck": 0.9,
+          "incObstacles": false,
+          "avoidAiObstacles": false,
+          "distThreshold": 0.35
+        }
+      }
+    ]
+  },
+  {
+    "orderedSelector": [
+      {
+        "name": "sub.tryMoveHarderToWishPosition"
+      },
+      {
+        "moveToPos": {
+          "posParam": "wishPosition",
+          "sprintTimerRange": [10.0,20.0],
+          "minDistToSprint": 1.5,
+          "lookVisc": 0.1,
+          "tryClimbing": true,
+          "maxStanceParam": "maxStance",
+          "stuckDirParam": "stuckDir",
+          "incLadders": true,
+          "timeToStuck": 1.5,
+          "incObstacles": true,
+          "avoidAiObstacles": false,
+          "distThreshold": 1.0
+        }
+      },
+      {
+        "moveToPos": {
+          "posParam": "wishPosition",
+          "sprintTimerRange": [10.0,20.0],
+          "minDistToSprint": 1.5,
+          "lookVisc": 0.1,
+          "tryClimbing": true,
+          "maxStanceParam": "maxStance",
+          "stuckDirParam": "stuckDir",
+          "incLadders": true,
+          "timeToStuck": 1.5,
+          "incObstacles": false,
+          "avoidAiObstacles": false,
+          "distThreshold": 0.35
         }
       }
     ]
@@ -4683,6 +5552,12 @@
               }
             }
           ]
+        }
+      },
+      {
+        "isVarsIntEqual": {
+          "lhs": "regroupToPit",
+          "rhs_value": 0
         }
       },
       {
@@ -5055,6 +5930,32 @@
           }
         }
       ]
+    }
+  },
+  {
+    "cycle": {
+      "name": "sub.cycleUpdateAttractionPos",
+      "orderedSelector": {
+        "isVarsIntEqual": {
+          "lhs": "potentialPosType",
+          "rhs_value": 1
+        },
+        "sequencer": {
+          "periodicTimer": {
+            "timeParam": "standFindDangerAttrationPosTimer",
+            "timePeriod": [4.0,6.0]
+          },
+          "findDangerAttractionPos": {
+            "posParam": "potentialEnemyPos",
+            "radius": 0.0,
+            "minNoiseLevel": 3.0
+          },
+          "fixLookDirPos": {
+            "posParam": "potentialEnemyPos"
+          }
+        },
+        "continue": []
+      }
     }
   }
 ]

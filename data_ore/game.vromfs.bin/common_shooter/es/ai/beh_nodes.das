@@ -212,3 +212,22 @@ class SetTransformPosFromEntityNode : BehNodeAdapter
       owner.blackBoard |> set(posParam, transform[3])
       result = EBehResult ER_SUCCESS
     return result
+
+
+[beh_node(name="randIntVarRange")]
+class RandIntVarRange : BehNodeAdapter
+  from : int = -1
+  to : int = -1
+
+  def override loadFromBlk(var data : DataBlock) : void
+    from = owner.blackBoard |> get_or_create(datablock_getStr(data, "from", ""), int2())
+    to = owner.blackBoard |> get_or_create(datablock_getStr(data, "to", ""), 0)
+
+  def override update(dt : float) : EBehResult
+    let inRange = owner.blackBoard |> datablock_getIPoint2(from)
+    let minValue = min(inRange.x, inRange.y)
+    let maxValue = max(inRange.x, inRange.y)
+    // NOTE: Don't use rnd_int(), because of bad distribution for small integers
+    let outValue = clamp(int(rnd_float(float(minValue), float(maxValue) + 1.0)), inRange.x, inRange.y)
+    owner.blackBoard |> set(to, outValue)
+    return EBehResult ER_SUCCESS

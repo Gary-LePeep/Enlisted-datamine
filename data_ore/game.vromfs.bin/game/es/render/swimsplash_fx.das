@@ -32,26 +32,27 @@ def update_trace(curr_pos : float3;
                  var speed : float&)
   time_since_last_splash += dt
 
+  if time_since_last_splash < min_t
+    return false
+
   let deltaPos = curr_pos - prev_pos
 
   var prevHeight = 0.0
   var currHeight = 0.0
   var doSwimSplash = (dt > 1e-5 &&
                       abs(deltaPos.y) > 1e-5 &&
-                      time_since_last_splash > min_t &&
                       traceht_water(prev_pos, prevHeight) &&
                       traceht_water(curr_pos, currHeight))
 
+  prevHeight = prev_pos.y - prevHeight
+  currHeight = curr_pos.y - currHeight
+  doSwimSplash = doSwimSplash && sign(prevHeight) != sign(currHeight)
+
   if doSwimSplash
-    prevHeight = prev_pos.y - prevHeight
-    currHeight = curr_pos.y - currHeight
-    doSwimSplash = sign(prevHeight) != sign(currHeight)
+    speed = length(deltaPos) / time_since_last_splash
+    intersect = curr_pos - float3(0.0, currHeight, 0.0)
 
-    if doSwimSplash
-      speed = length(deltaPos) / dt
-      intersect = curr_pos - float3(0.0, currHeight, 0.0)
-      time_since_last_splash = 0.0
-
+  time_since_last_splash = 0.0
   prev_pos = curr_pos
 
   return doSwimSplash

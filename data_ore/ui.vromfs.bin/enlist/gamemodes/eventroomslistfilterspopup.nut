@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 from "eventRoomsListFilter.nut" import *
 let { fontSub, fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { bigPadding, smallPadding, defTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
@@ -101,7 +101,7 @@ let mkCircleCheck = @(watched) @() {
   ]
 }
 
-let function mkCheckbox(opt) {
+function mkCheckbox(opt) {
   let { locId, curValue, setValue } = opt
   return mkOptionRow(
     loc(locId),
@@ -156,7 +156,7 @@ let mkSelectMultiple = @(opt) mkSelectOption(opt.__merge({
   }
 }))
 
-let function mkOptsList(opt) {
+function mkOptsList(opt) {
   return mkBlock(
     loc(opt?.locId),
     {
@@ -166,7 +166,7 @@ let function mkOptsList(opt) {
   )
 }
 
-let function mkRow(option) {
+function mkRow(option) {
   let { optType = null } = option
   if (optType == null)
     return null
@@ -207,7 +207,7 @@ let openEventFiltersPopup = @(event)
 
 let closeEventFiltersPopup = @() modalPopupWnd.remove(WND_UID)
 
-let function toggleEventFiltersPopup(event) {
+function toggleEventFiltersPopup(event) {
   if (isRoomFilterOpened.value)
     closeEventFiltersPopup()
   else

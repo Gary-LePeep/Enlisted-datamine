@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let cursors = require("%ui/style/cursors.nut")
@@ -32,7 +32,7 @@ let squadStatsCfg = [
   { stat = "awardScore", locId = "debriefing/score"},
 ].map(@(s) { toString = @(v) v.tostring() }.__update(s))
 
-let function mkSquadTooltipText(squad, result) {
+function mkSquadTooltipText(squad, result) {
   let textList = squadStatsCfg.map(@(s)
     "".concat(loc(s.locId), colon, s.toString(squad?[s.stat] ?? s?.defaultValue ?? 0)))
   let expText = mkSquadExpTooltipText(squad, result)
@@ -63,7 +63,7 @@ let mkProgressAnim = @(animDelay) [
     duration = UNLOCK_ADD_EXP_TIME, easing = OutCubic, delay = animDelay, trigger }
 ]
 
-let function mkProgress(wasLevel, wasExp, addExp, toLevelExp, squad, result, awards, mkAppearAnimations, animDelay) {
+function mkProgress(wasLevel, wasExp, addExp, toLevelExp, squad, result, awards, mkAppearAnimations, animDelay) {
   let isNewLevel = wasExp + addExp >= toLevelExp
   let isMaxLevel = toLevelExp == 0
   return {
@@ -145,7 +145,7 @@ let SQUAD_CARD_PARAMS = {
   onFinishCb = null
 }
 
-local function mkSquadProgress(p = SQUAD_CARD_PARAMS) {
+function mkSquadProgress(p = SQUAD_CARD_PARAMS) {
   p = SQUAD_CARD_PARAMS.__merge(p)
 
   let res = { content = null, duration = 0 }

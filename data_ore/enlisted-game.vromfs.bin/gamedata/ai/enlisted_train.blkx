@@ -10,6 +10,7 @@
           "sequencer": {
             "findDanger": {
               "paramName": "shootEnemy",
+              "outSeeTimeParam": "shootEnemyTime",
               "radiusParamName": "enemyNearRadius",
               "minDanger": 0.1,
               "tag": "human"
@@ -188,6 +189,7 @@
               "sequencer": {
                 "findDanger": {
                   "paramName": "shootEnemy",
+                  "outSeeTimeParam": "shootEnemyTime",
                   "radiusParamName": "enemyNearRadius",
                   "minDanger": 0.5,
                   "tag": "human"
@@ -289,6 +291,7 @@
               {
                 "findDanger": {
                   "paramName": "shootEnemy",
+                  "outSeeTimeParam": "shootEnemyTime",
                   "radiusParamName": "enemyNearRadius",
                   "minDanger": 0.1,
                   "tag": "human"
@@ -297,6 +300,7 @@
               {
                 "findDanger": {
                   "paramName": "shootEnemy",
+                  "outSeeTimeParam": "shootEnemyTime",
                   "radiusParamName": "enemyRadius",
                   "minDanger": 0.1,
                   "tag": "human"
@@ -356,26 +360,38 @@
             }
           },
           {
-            "orderedSelector": {
-              "sequencer": {
-                "findTrainDangerPoint": {
-                  "posParam": "dangerPosition"
-                },
-                "updateTrainLocalPoint": {
-                  "localPosParam": "dangerPosition",
-                  "worldPosParam": "potentialEnemyPos"
+            "orderedSelector": [
+              {
+                "sequencer": {
+                  "findTrainDangerPoint": {
+                    "posParam": "dangerPosition"
+                  },
+                  "updateTrainLocalPoint": {
+                    "localPosParam": "dangerPosition",
+                    "worldPosParam": "potentialEnemyPos"
+                  }
                 }
               },
-              "findPotentialEnemyPos": {
-                "posParam": "potentialEnemyPos",
-                "minNoiseLevel": 0.1
+              {
+                "sequencer": {
+                  "findPotentialEnemyPos": {
+                    "posParam": "potentialEnemyPos",
+                    "minNoiseLevel": 0.1
+                  },
+                  "setIntVar": {
+                    "to": "potentialPosType",
+                    "value": 1
+                  }
+                }
               },
-              "findDangerAttractionPos": {
-                "posParam": "potentialEnemyPos",
-                "radius": 0.0,
-                "minNoiseLevel": 0.1
+              {
+                "findDangerAttractionPos": {
+                  "posParam": "potentialEnemyPos",
+                  "radius": 0.0,
+                  "minNoiseLevel": 0.1
+                }
               }
-            }
+            ]
           },
           {
             "ifThenElse": [
@@ -490,6 +506,12 @@
                 "range": [0.2,0.1],
                 "maxStanceParam": "trainStance"
               }
+            }
+          },
+          {
+            "setIntVar": {
+              "to": "potentialPosType",
+              "value": 0
             }
           },
           {

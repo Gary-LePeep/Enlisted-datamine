@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {localPlayerTeam} = require("%ui/hud/state/local_player.nut")
 let { frameNick } = require("%enlSqGlob/ui/decoratorsPresentation.nut")
@@ -21,7 +21,7 @@ let {
   tank_markers_DestroyEid
 } = mkWatchedSetAndStorage("tank_markers_")
 
-let function trackComps(eid, comp) {
+function trackComps(eid, comp) {
   if (!comp.isAlive || comp.team != localPlayerTeam.value) {
     vehicle_markers_DestroyEid(eid)
     tank_markers_DestroyEid(eid)

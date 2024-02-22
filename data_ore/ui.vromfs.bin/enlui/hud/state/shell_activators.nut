@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {isFriendlyFireMode} = require("%enlSqGlob/missionType.nut")
 let { watchedHeroEid, watchedTeam } = require("%ui/hud/state/watched_hero.nut")

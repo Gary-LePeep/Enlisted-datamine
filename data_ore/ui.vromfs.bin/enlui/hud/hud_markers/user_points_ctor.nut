@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { user_points_by_type } = require("%ui/hud/state/user_points.nut")
 let { makeArrow } = require("%ui/hud/hud_markers/components/hud_markers_components.nut")

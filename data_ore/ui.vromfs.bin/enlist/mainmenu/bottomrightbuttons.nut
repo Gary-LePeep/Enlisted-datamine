@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { Inactive } = require("%ui/style/colors.nut")
 let { bigGap, gap } = require("%enlSqGlob/ui/viewConst.nut")
@@ -31,7 +31,7 @@ let buttonsBlock = freeze({
   children = buttons
 })
 
-let function bottomBar() {
+function bottomBar() {
   let res = { watch = [hasMainSectionOpened, enabledSquad] }
   let children = []
   if (hasMainSectionOpened.value) {

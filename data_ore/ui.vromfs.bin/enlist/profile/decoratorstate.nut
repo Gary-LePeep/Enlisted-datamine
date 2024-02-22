@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
 let { configs } = require("%enlist/meta/configs.nut")
@@ -8,7 +8,7 @@ let {
 } = require("%enlSqGlob/ui/decoratorsPresentation.nut")
 let {
   add_decorator, add_all_decorators, choose_decorator,
-  buy_decorator, remove_decorator
+  buy_decorator, remove_type_decorator
 } = require("%enlist/meta/clientApi.nut")
 
 
@@ -29,7 +29,7 @@ let nextExpireTime = Computed(function() {
   return time
 })
 
-let function recalcActiveDecorators() {
+function recalcActiveDecorators() {
   let time = serverTime.value
   let res = decorators.value.filter(@(d) d.expireTime == 0 || (d.expireTime - time) > 0)
   ownDecorators(freeze(res))
@@ -112,11 +112,11 @@ let nickFramesCfgAvailable = Computed(function() {
 let chosenPortrait = Computed(@() availPortraits.value.findvalue(@(v) v.hasChosen))
 let chosenNickFrame = Computed(@() availNickFrames.value.findvalue(@(v) v.hasChosen))
 
-let function chooseDecorator(cType, guid) {
+function chooseDecorator(cType, guid) {
   choose_decorator(cType, guid)
 }
 
-let function buyDecorator(guid, cost) {
+function buyDecorator(guid, cost) {
   if (decoratorInPurchase.value != null)
     return
 
@@ -128,7 +128,7 @@ let function buyDecorator(guid, cost) {
 
 console_register_command(@(guid) add_decorator(guid), "meta.addDecorator")
 console_register_command(@() add_all_decorators(), "meta.addAllDecorators")
-console_register_command(@(guid) remove_decorator(guid), "meta.removeDecorator")
+console_register_command(@(cType) remove_type_decorator(cType), "meta.removeTypeDecorator")
 
 return {
   decoratorsCfgByType

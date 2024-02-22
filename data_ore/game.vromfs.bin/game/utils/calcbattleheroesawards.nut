@@ -99,7 +99,7 @@ let statAwardConfig = {
   },
 }
 
-let function groupBy(data, field) {
+function groupBy(data, field) {
   let res = {}
   foreach (v in data) {
     let key = v?[field]
@@ -113,7 +113,7 @@ let getSquads = @(data) data.reduce(@(res, player) res.extend(
   player.squads.map(@(squad) {playerEid = player.eid, playerScore = player.score, team = player.team, squad, averageTime = squad.averageTime, score = squad.score})
 ), [])
 
-let function getTopScoreSoldierOfPlayer(player) {
+function getTopScoreSoldierOfPlayer(player) {
   let topSoldier = getTopScoreSoldier(player.squads.map(@(squad) getTopScoreSoldier(squad.soldiers)))
   return {
     soldier = topSoldier
@@ -144,7 +144,7 @@ let getPlayerForAward = @(players, award, awardConfig, noBotsMode)
     .filter(@(player) player.stat >= getRequiredValueForReward(award))
   )?.player
 
-let function getSoldierOfPlayerForAward(player, awardConfig, noBotsMode) {
+function getSoldierOfPlayerForAward(player, awardConfig, noBotsMode) {
   let topSoldier = getTopStatSoldier(player.squads.map(@(squad)
     getTopStatSoldier(squad.soldiers.map(@(soldier)
       { stat = awardConfig.soldierStat(soldier, noBotsMode), soldier }))))
@@ -156,7 +156,7 @@ let function getSoldierOfPlayerForAward(player, awardConfig, noBotsMode) {
   }
 }
 
-let function getRequiredScoreForReward(award = null) {
+function getRequiredScoreForReward(award = null) {
   let requiredScore = requiredScoreTable?[award] ?? requiredSoldierKindScoreTable
   local missionType = getMissionType()
   if (missionType not in requiredScore) {
@@ -171,7 +171,7 @@ let compareSoldiersOfSameKind = @(a,b)
   || a.playerScore <=> b.playerScore
   || a.soldier.time <=> b.soldier.time
 
-let function getTopSoldierPerKind(detailedPlayersScore) {
+function getTopSoldierPerKind(detailedPlayersScore) {
   let res = {}
   foreach (player in detailedPlayersScore)
     foreach (squad in player.squads)
@@ -186,7 +186,7 @@ let function getTopSoldierPerKind(detailedPlayersScore) {
 let getPlayerStatSum = @(player, stats)
   stats.map(@(stat) player.stats?[stat] ?? 0.0).reduce(@(a,b) a + b, 0) ?? 0
 
-let function getTacticianAward(players, awards, noBotsMode) {
+function getTacticianAward(players, awards, noBotsMode) {
   let award = BattleHeroesAward.TACTICIAN
   let { statsA, requiredA, statsB, requiredB, statsA2, requiredA2 } = tacticianStats
   let awardCompetitors = players
@@ -224,7 +224,7 @@ let function getTacticianAward(players, awards, noBotsMode) {
   }, noBotsMode).__merge({award})
 }
 
-let function getUniversalAwards(players, awards) {
+function getUniversalAwards(players, awards) {
   let awardedPlayers = awards.reduce(function(res, award) {
     res[award.playerEid] <- true
     return res
@@ -246,7 +246,7 @@ let function getUniversalAwards(players, awards) {
   }).values().filter(@(a) a != null)
 }
 
-let function getPlayerSquadCommandInfo(player, requiredSquadScore) {
+function getPlayerSquadCommandInfo(player, requiredSquadScore) {
   let squads = player.squads
     .filter(@(squad) squad.score > requiredSquadScore)
     .sort(@(a, b) b.score <=> a.score)
@@ -256,7 +256,7 @@ let function getPlayerSquadCommandInfo(player, requiredSquadScore) {
   return { player, stat, numSquads }
 }
 
-let function getSquadCommandAwards(players, awards) {
+function getSquadCommandAwards(players, awards) {
   let bigAwards = awards.filter(@(a) isBigAward(a.award))
   let bigAwardsByTeam = groupBy(bigAwards, "team")
   let requiredSquadScore = getRequiredScoreForReward(BattleHeroesAward.SQUAD_COMMAND)
@@ -284,12 +284,11 @@ let function getSquadCommandAwards(players, awards) {
   }).values().filter(@(a) a != null)
 }
 
-let function sanitize(award) {
-  if (award?.soldier.stats != null)
-    delete award.soldier.stats
+function sanitize(award) {
+  award?.soldier.$rawdelete("stats")
 }
 
-let function calcBattleHeroAwards(detailedPlayersScore) {
+function calcBattleHeroAwards(detailedPlayersScore) {
   let requiredTopScore = getRequiredScoreForReward(BattleHeroesAward.TOP_PLACE)
   let requiredVehicleSquadScore = getRequiredScoreForReward(BattleHeroesAward.TOP_VEHICLE_SQUAD)
   let requiredInfantrySquadScore = getRequiredScoreForReward(BattleHeroesAward.TOP_INFANTRY_SQUAD)

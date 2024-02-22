@@ -1,9 +1,9 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 
 let combobox = require("combobox.nut")
 
-let function optionCombo(opt, _group, xmbNode) {
+function optionCombo(opt, _group, xmbNode) {
   local ItemWrapper = class{
     item = null
     constructor(item_)   { this.item = item_ }

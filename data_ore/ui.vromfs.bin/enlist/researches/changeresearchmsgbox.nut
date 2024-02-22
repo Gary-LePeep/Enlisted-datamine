@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { logerr } = require("dagor.debug")
@@ -66,7 +66,7 @@ let balanceText = @() {
           })
       })
 
-let function doChangeResearch(researchFrom, researchTo) {
+function doChangeResearch(researchFrom, researchTo) {
   if (changeResearchBalance.value > 0) {
     changeResearch(researchFrom, researchTo)
     return
@@ -82,7 +82,7 @@ let function doChangeResearch(researchFrom, researchTo) {
   })
 }
 
-let function changeResearchMsgbox(newResearch) {
+function changeResearchMsgbox(newResearch) {
   let { multiresearchGroup = 0, research_id, name = "", params = {} } = newResearch
   let curResearch = tableStructure.value.researches.findvalue(
     @(r) r?.multiresearchGroup == multiresearchGroup

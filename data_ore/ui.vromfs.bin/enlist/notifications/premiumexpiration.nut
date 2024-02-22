@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let canDisplayOffers = require("%enlist/canDisplayOffers.nut")
 let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
@@ -34,7 +34,7 @@ let needToShowWarn = keepref(Computed(@() !isNewbie.value && needToWarn.value &&
 let needToCheckTime = keepref(Computed(@() premium.value.len() > 0 && onlineSettingUpdated.value))
 
 
-let function showExpiringWarn() {
+function showExpiringWarn() {
   let timeText = Computed(function(){
     let timeTillExpiration = premiumActiveTime.value
     if (timeTillExpiration <= 0)
@@ -69,7 +69,7 @@ let function showExpiringWarn() {
 }
 
 
-let function showExpiredWarn() {
+function showExpiredWarn() {
   showMsgbox({
     text = loc("premium/premiumSuggest")
     buttons = [
@@ -94,7 +94,7 @@ let function showExpiredWarn() {
 
 local setNextWarnTime
 
-let function updateTime(delay) {
+function updateTime(delay) {
   gui_scene.resetTimeout(delay, setNextWarnTime)
   setNextTimeToWarn(serverTime.value + delay)
 }
@@ -135,7 +135,7 @@ setNextWarnTime = function() {
   }
 }
 
-let function showWarning() {
+function showWarning() {
   if (premiumActiveTime.value > 0)
     showExpiringWarn()
   else

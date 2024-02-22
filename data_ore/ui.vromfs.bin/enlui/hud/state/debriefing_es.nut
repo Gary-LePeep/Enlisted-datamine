@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {get_sync_time} = require("net")
 let {debriefingShow, debriefingData} = require("debriefingStateInBattle.nut")
@@ -54,7 +54,7 @@ let langsByStatus = {
 
 */
 
-let function setResult(comp, status) {
+function setResult(comp, status) {
   let debriefing = {
     sessionId = get_session_id()
     psnMatchId = getPsnMatchId() ?? ""
@@ -82,7 +82,7 @@ let function setResult(comp, status) {
   }
 }
 
-let function onTeamRoundResult(evt, _eid, comp) {
+function onTeamRoundResult(evt, _eid, comp) {
   if (localPlayerTeam.value != comp["team__id"] || debriefingShow.value)
     return
   let status = evt.isWon == (evt.team == comp["team__id"])
@@ -91,7 +91,7 @@ let function onTeamRoundResult(evt, _eid, comp) {
   setResult(comp, status)
 }
 
-let function onGetBattleResult(_evt, _eid, playerComp) {
+function onGetBattleResult(_evt, _eid, playerComp) {
   if (debriefingShow.value || isReplay.value)
     return
   let status = playerComp["scoring_player__isGameFinished"] ? STATUS.FINISHED_EARLY : STATUS.DESERTER

@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { dgs_get_settings } = require("dagor.system")
 let { file } = require("io")
@@ -10,7 +10,7 @@ let { Bordered } = require("%ui/components/textButton.nut")
 let { defInsideBgColor, commonBtnHeight, titleTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
 let { noteTextArea } = require("%enlSqGlob/ui/defcomps.nut")
 let { httpRequest, HTTP_SUCCESS } = require("dagor.http")
-let eventbus = require("eventbus")
+let { eventbus_subscribe, eventbus_subscribe_onehit } = require("eventbus")
 let spinner = require("%ui/components/spinner.nut")
 let logHG = require("%enlSqGlob/library_logs.nut").with_prefix("[CustomHangar] ")
 
@@ -101,7 +101,7 @@ let openDownloadModal = @() addModalWindow({
   onClick = @() null
 })
 
-eventbus.subscribe("hangar.install", function(params) {
+eventbus_subscribe("hangar.install", function(params) {
   logHG($"Install request, download in progress = {isDownloadInProgress.value} params:", params)
   if (isDownloadInProgress.value)
     return
@@ -111,7 +111,7 @@ eventbus.subscribe("hangar.install", function(params) {
     return
 
   isDownloadInProgress(true)
-  eventbus.subscribe_onehit(EVENT_RECEIVE_HANGAR_MOD, function(response) {
+  eventbus_subscribe_onehit(EVENT_RECEIVE_HANGAR_MOD, function(response) {
     logHG("received headers:", response?.headers)
     isDownloadInProgress(false)
 

@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { seasonIndex, premiumUnlock } = require("%enlist/unlocks/taskRewardsState.nut")
 let { purchaseInProgress } = require("%enlist/shop/armyShopState.nut")

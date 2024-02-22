@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { blurBgColor, blurBgFillColor, accentColor } = require("%enlSqGlob/ui/viewConst.nut")
 let textButton = require("%ui/components/textButton.nut")

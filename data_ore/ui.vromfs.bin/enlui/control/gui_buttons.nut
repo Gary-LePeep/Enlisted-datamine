@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let swapAB = gui_scene.circleButtonAsAction
 gui_scene.config.setClickButtons([swapAB ? "J:B" : "J:A", "Enter"])

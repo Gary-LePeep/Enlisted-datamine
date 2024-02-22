@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {tipCmp} = require("%ui/hud/huds/tips/tipComponent.nut")
 let style = require("%ui/hud/style.nut")

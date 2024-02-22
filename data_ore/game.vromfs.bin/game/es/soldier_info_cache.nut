@@ -4,7 +4,7 @@ let { EventLevelLoaded } = require("gameevents")
 
 let getSoldierCacheQuery = ecs.SqQuery("getSoldierCacheQuery", { comps_rw = [["soldierInfoCache", ecs.TYPE_OBJECT]] })
 
-let function save_to_cache(soldier_eid, player, guid) {
+function save_to_cache(soldier_eid, player, guid) {
   getSoldierCacheQuery(function(_, comp) {
     let key = soldier_eid.tostring()
     if (key in comp.soldierInfoCache)

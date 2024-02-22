@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 from "string" import split_by_chars
 
 let colors = require("%ui/style/colors.nut")
@@ -27,7 +27,7 @@ let CHAR_MASK_TYPES = {
   }
 }
 
-let function getCharMaskTypes(reqTypes) {
+function getCharMaskTypes(reqTypes) {
   if (typeof reqTypes != "string")
     return []
 
@@ -42,7 +42,7 @@ let function getCharMaskTypes(reqTypes) {
   return types
 }
 
-let function isStringLikelyEmail(str, _verbose=true) {
+function isStringLikelyEmail(str, _verbose=true) {
 // this check is not rfc fully compatible. We check that @ exist and correctly used, and that let and domain parts exist and they are correct length.
 // Domain part also have at least one period and main domain at least 2 symbols
 // also come correct emails on google are against RFC, for example a.a.a@gmail.com.
@@ -70,7 +70,7 @@ let function isStringLikelyEmail(str, _verbose=true) {
   return true
 }
 
-let function defaultFrame(inputObj, group, sf) {
+function defaultFrame(inputObj, group, sf) {
   return {
     rendObj = ROBJ_FRAME
     borderWidth = [hdpx(1), hdpx(1), 0, hdpx(1)]
@@ -90,7 +90,7 @@ let function defaultFrame(inputObj, group, sf) {
   }
 }
 
-let function isValidStrByType(str, inputType) {
+function isValidStrByType(str, inputType) {
   if (str=="")
     return true
   if (inputType=="mail")
@@ -124,7 +124,7 @@ let failAnim = @(trigger) {
 
 let interactiveValidTypes = ["num","lat","integer","float"]
 
-let function textInput(text_state, options={}, frameCtor=defaultFrame) {
+function textInput(text_state, options={}, frameCtor=defaultFrame) {
   let group = ElemGroup()
   let {
     setValue = @(v) text_state(v), inputType = null,
@@ -153,36 +153,36 @@ let function textInput(text_state, options={}, frameCtor=defaultFrame) {
 
   let stateFlags = Watched(0)
 
-  let function isValidChangeExt(new_val) {
+  function isValidChangeExt(new_val) {
     return isValidChange?(new_val)
       || interactiveValidTypes.indexof(inputType) == null
       || isValidStrByType(new_val, inputType)
   }
 
-  let function isValidResultExt(new_val) {
+  function isValidResultExt(new_val) {
     return isValidResult?(new_val)
       || isValidStrByType(new_val, inputType)
   }
 
-  let function onBlurExt() {
+  function onBlurExt() {
     if (!isValidResultExt(text_state.value))
       anim_start(text_state)
     onBlur?()
   }
 
-  let function onReturnExt() {
+  function onReturnExt() {
     if (!isValidResultExt(text_state.value))
       anim_start(text_state)
     onReturn?()
   }
 
-  let function onEscapeExt() {
+  function onEscapeExt() {
     if (!isValidResultExt(text_state.value))
       anim_start(text_state)
     onEscape()
   }
 
-  let function onChangeExt(new_val) {
+  function onChangeExt(new_val) {
     onChange?(new_val)
     if (!isValidChangeExt(new_val))
       anim_start(text_state)
@@ -190,11 +190,11 @@ let function textInput(text_state, options={}, frameCtor=defaultFrame) {
       setValue(new_val)
   }
 
-  let function onWrongInput() {
+  function onWrongInput() {
     anim_start(text_state)
   }
 
-  let function onHoverExt(on) {
+  function onHoverExt(on) {
     if (onHover) {
       onHover(on)
       return
@@ -295,7 +295,7 @@ let function textInput(text_state, options={}, frameCtor=defaultFrame) {
 
 
 
-let function makeFrame(inputObj, group, sf) {
+function makeFrame(inputObj, group, sf) {
   let isHover = sf & S_HOVER
   let isKbdFocus = sf & S_KB_FOCUS
   return {
@@ -324,7 +324,7 @@ let function makeFrame(inputObj, group, sf) {
 }
 
 
-let function makeUnderline(inputObj, group, sf) {
+function makeUnderline(inputObj, group, sf) {
   let isHover = sf & S_HOVER
   let isKbdFocus = sf & S_KB_FOCUS
   return {
@@ -341,7 +341,7 @@ let function makeUnderline(inputObj, group, sf) {
 }
 
 
-let function noFrame(inputObj, _group, _sf) {
+function noFrame(inputObj, _group, _sf) {
   return inputObj
 }
 

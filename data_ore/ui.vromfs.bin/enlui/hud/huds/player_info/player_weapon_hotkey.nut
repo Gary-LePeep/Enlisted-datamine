@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {fontSub} = require("%enlSqGlob/ui/fontsStyle.nut")
 let { textListFromAction, buildElems } = require("%ui/control/formatInputBinding.nut")
@@ -8,7 +8,7 @@ let { DEFAULT_TEXT_COLOR } = require("%ui/hud/style.nut")
 
 let disabledColor = Color(128,128,128,128)
 
-local function isHotkeysEmpty(textList){
+function isHotkeysEmpty(textList){
   textList = textList ?? [""]
   if (textList.len()==1 && textList?[0] == "")
     return true
@@ -16,7 +16,7 @@ local function isHotkeysEmpty(textList){
 }
 
 const eventTypeToText = false
-let function makeControlTip(hotkey, active) {
+function makeControlTip(hotkey, active) {
   return function() {
     let textFunc = @(text) {
       rendObj = ROBJ_TEXT,
@@ -60,7 +60,7 @@ foreach (key in weaponKeys) {
   weaponHotkeysInactive[key] <- makeControlTip(key, false)
 }
 
-let function getWeaponHotkeyWidget(key, active) {
+function getWeaponHotkeyWidget(key, active) {
   return (active ? weaponHotkeysActive : weaponHotkeysInactive)[key]
 }
 

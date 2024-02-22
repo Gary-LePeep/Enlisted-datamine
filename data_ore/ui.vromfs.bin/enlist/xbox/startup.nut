@@ -1,6 +1,6 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
-let eventbus = require("eventbus")
+let { eventbus_subscribe, eventbus_send } = require("eventbus")
 let logX = require("%enlSqGlob/library_logs.nut").with_prefix("[STARTUP] ")
 let {login, logout, subscribe_to_logout} = require("%xboxLib/loginState.nut")
 
@@ -11,7 +11,7 @@ let userInfo = require("%enlSqGlob/userInfo.nut")
 
 let {switch_to_menu_scene} = require("app")
 let { isInBattleState } = require("%enlSqGlob/inBattleState.nut")
-let {logOut, isLoggedIn} = require("%enlSqGlob/login_state.nut")
+let {logOut, isLoggedIn} = require("%enlSqGlob/ui/login_state.nut")
 let {currentStage, doAfterLoginOnce, startLogin, interrupt} = require("%enlist/login/login_chain.nut")
 
 let { isInSquad, leaveSquadSilent, acceptSquadInvite, requestJoinSquad
@@ -34,7 +34,7 @@ isLoggedIn.subscribe(function(v) {
 })
 
 
-let function try_leave_squad(cb = null) {
+function try_leave_squad(cb = null) {
   logX($"try_leave_squad, isInSquad.value {isInSquad.value}")
   if (isInSquad.value) {
     leaveSquadSilent(cb)
@@ -44,7 +44,7 @@ let function try_leave_squad(cb = null) {
 }
 
 
-let function join_internal(squadId) {
+function join_internal(squadId) {
   logX($"Trying to join squad {squadId}")
   if (squadId in requestsToMeUids.value) {
     logX("Invitation was found, accepting")
@@ -57,7 +57,7 @@ let function join_internal(squadId) {
 }
 
 
-let function complete_activation() {
+function complete_activation() {
   let squadId = get_activation_data()
 
   if (needLogin.value) {
@@ -72,7 +72,7 @@ let function complete_activation() {
 }
 
 
-let function activation_handler() {
+function activation_handler() {
   if (currentStage.value) {
     logX("Skipping activation due to active login process")
     return
@@ -85,7 +85,7 @@ let function activation_handler() {
     logOut()
 
   if (isInBattleState.value) {
-    eventbus.send("ipc.onInviteAccepted", null)
+    eventbus_send("ipc.onInviteAccepted", null)
   } else {
     complete_activation()
   }
@@ -94,7 +94,7 @@ let function activation_handler() {
 
 register_activation_callback(activation_handler)
 
-eventbus.subscribe("ipc.onBattleExitAccept",  function(_) {
+eventbus_subscribe("ipc.onBattleExitAccept",  function(_) {
   defer(switch_to_menu_scene)
   complete_activation()
 })

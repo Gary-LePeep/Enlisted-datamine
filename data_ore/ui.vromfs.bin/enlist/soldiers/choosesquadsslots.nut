@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let faComp = require("%ui/components/faComp.nut")
@@ -68,13 +68,13 @@ let mkMoveDirComputed = @(idx, fixedSlots) Computed(function() {
       : 0
 })
 
-let function squadDragAnim(moveDir, idx, stateFlags, content, chContent, needMoveCursor = false) {
-  let function onAttach(elem) {
+function squadDragAnim(moveDir, idx, stateFlags, content, chContent, needMoveCursor = false) {
+  function onAttach(elem) {
     if (isGamepad.value && needMoveCursor)
       move_mouse_cursor(elem, false)
   }
 
-  let function onElemState(sf) {
+  function onElemState(sf) {
     stateFlags(sf)
     if (!curDropData.value || curDropData.value.squadIdx == idx)
       return
@@ -172,7 +172,7 @@ let mkHorizontalSlot = kwarg(function (guid, squadId, idx, onClick, manageLocId,
   let stateFlagsUnfiltered = stateFlags ?? Watched(0)
   stateFlags = Computed(@() stateFlagsUnfiltered.value & ~S_TOP_HOVER)
 
-  let function onDrop(data) {
+  function onDrop(data) {
     onDropCb?(data?.squadIdx, idx)
   }
 
@@ -189,7 +189,7 @@ let mkHorizontalSlot = kwarg(function (guid, squadId, idx, onClick, manageLocId,
     { prop=AnimProp.translate, from=[0, -squadSlotHorSize[1]], to=[0, 0], duration=0.2, trigger = $"squadMoveBottom{idx}", easing=OutCubic }
   ]
 
-  let function onAttach() {
+  function onAttach() {
     if (firstSlotToAnim != null || secondSlotToAnim != null) {
       anim_start($"squadMoveTop{min(firstSlotToAnim, secondSlotToAnim)}")
       anim_start($"squadMoveBottom{max(firstSlotToAnim, secondSlotToAnim)}")

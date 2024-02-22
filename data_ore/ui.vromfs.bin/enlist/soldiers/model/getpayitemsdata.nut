@@ -1,6 +1,6 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
-let function getPayItemsData(costData, campItems, count = 1) {
+function getPayItemsData(costData, campItems, count = 1) {
   if (costData == null || costData.len() == 0)
     return null
   let allAvailableItems = campItems.filter(@(item) (item.basetpl in costData))

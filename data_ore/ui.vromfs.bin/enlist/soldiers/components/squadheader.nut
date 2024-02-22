@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let faComp = require("%ui/components/faComp.nut")
@@ -116,7 +116,7 @@ let squadSizeUi = @(battleAmount, maxSquadSize) function() {
   })
 }
 
-let function squadHeader(curSquad, curSquadParams, soldiersList, vehicleCapacity, soldiersStatuses) {
+function squadHeader(curSquad, curSquadParams, soldiersList, vehicleCapacity, soldiersStatuses) {
   let maxSquadSize = mkMaxSquadSizeComp(curSquadParams, vehicleCapacity)
   let battleAmount = Computed(@()
     soldiersList.value.reduce(@(res, s) soldiersStatuses.value?[s.guid] == READY ? res + 1 : res, 0))

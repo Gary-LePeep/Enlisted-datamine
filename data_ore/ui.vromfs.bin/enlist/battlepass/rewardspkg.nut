@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { defTxtColor, activeTxtColor, titleTxtColor, smallPadding, accentColor, mkTimerIcon,
@@ -16,7 +16,7 @@ let timerSize = hdpxi(13)
 let accentTxtStyle = { color = accentColor }.__update(fontSub)
 let rewardIconWidth = hdpxi(42)
 
-let function prepareRewards(rewards, itemsMappingVal) {
+function prepareRewards(rewards, itemsMappingVal) {
   let list = []
   foreach (key, count in rewards)
     if (count.tointeger() > 0) {
@@ -31,7 +31,7 @@ let function prepareRewards(rewards, itemsMappingVal) {
 // find most valuable reward that have presentation data
 let getOneReward = @(rewards, itemsMappingVal) prepareRewards(rewards, itemsMappingVal)?[0]
 
-let function mkRewardIcon(reward, size = hdpx(30), override = {}) {
+function mkRewardIcon(reward, size = hdpx(30), override = {}) {
   let { icon = null } = reward
   if (icon == null)
     return null
@@ -44,7 +44,7 @@ let function mkRewardIcon(reward, size = hdpx(30), override = {}) {
   }.__update(override)
 }
 
-let function mkRewardImages(reward, sizeBg = defCardSize, override = {}, hasStageCompleted = false) {
+function mkRewardImages(reward, sizeBg = defCardSize, override = {}, hasStageCompleted = false) {
   let { cardImage = null, cardImageParams = @(_) {}, bgImage = null, cardImageOpen = null,
     mkImage = null } = reward
   if (cardImage == null && mkImage == null)
@@ -69,7 +69,7 @@ let function mkRewardImages(reward, sizeBg = defCardSize, override = {}, hasStag
   }.__update(override)
 }
 
-let function mkRewardText(reward, pxSize,  override = {}){
+function mkRewardText(reward, pxSize,  override = {}){
   let { cardText = null} = reward
   if (cardText == null)
     return null
@@ -103,7 +103,7 @@ let mkSeasonTime = @(timeLeft, override = {}) {
   ]
 }
 
-let function mkRewardTooltip(presentation) {
+function mkRewardTooltip(presentation) {
   let children = []
   if ("name" in presentation)
     children.append({
@@ -123,7 +123,7 @@ let function mkRewardTooltip(presentation) {
   return children.len() == 0 ? null : tooltipBox({ flow = FLOW_VERTICAL, children })
 }
 
-let function mkRewardBlock(rewardData, isFinished = false) {
+function mkRewardBlock(rewardData, isFinished = false) {
   let { reward = null, count = 1 } = rewardData
   return {
     children = [

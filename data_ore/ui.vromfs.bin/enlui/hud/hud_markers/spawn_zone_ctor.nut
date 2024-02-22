@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontTitle, fontHeading1 } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { respawnsInBot, canUseRespawnbaseByType, needSpawnMenu, selectedRespawnGroupId, isFirstSpawn, respRequested, paratroopersPointSelectorOn } = require("%ui/hud/state/respawnState.nut")
@@ -25,8 +25,8 @@ let playerSpawnSize = mkIconSquareSize(hdpxi(64))
 let selectedPlayerSpawnSize = mkIconSquareSize(hdpxi(86))
 let counterSpawnSize =mkIconSquareSize(hdpxi(32))
 let counterMobileSpawnSize = mkIconSquareSize(hdpxi(46))
-let mobileSpawnIconSize = [hdpxi(140), hdpxi(60)]
-let selectedMobileSpawnIconSize = [hdpxi(160), hdpxi(70)]
+let mobileSpawnIconSize = [hdpxi(115), hdpxi(50)]
+let selectedMobileSpawnIconSize = [hdpxi(135), hdpxi(60)]
 
 
 let spawn_point = Picture($"!ui/skin#spawn_point.svg:{spawnIconSize[0]}:{spawnIconSize[1]}:K")
@@ -93,7 +93,7 @@ let spawnPointsTypesInfo = {
   human = mkSpawnPointInfo()
 }
 
-let function paratroopers_icon_click(event){
+function paratroopers_icon_click(event){
   if (event.button == 1)
     delete_paratroopers_icon()
 }
@@ -103,7 +103,7 @@ let function paratroopers_icon_click(event){
 let defTransform = {}
 let defPos = [0, -fsh(1)]
 
-let function mkQueueCounter(spawnIconInfo, isSelected, isActive, playersCount, isMobileSpawn) {
+function mkQueueCounter(spawnIconInfo, isSelected, isActive, playersCount, isMobileSpawn) {
   let res = playersCount > 0 ? {
     pos = [0, -spawnIconInfo.size(isSelected)[1]*0.7]
     flow = FLOW_HORIZONTAL

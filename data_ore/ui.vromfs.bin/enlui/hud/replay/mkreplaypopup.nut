@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { popupsGen, getPopups } = require("%enlSqGlob/ui/popup/popupsState.nut")
 let { replayBgColor } = require("%ui/hud/replay/replayConst.nut")

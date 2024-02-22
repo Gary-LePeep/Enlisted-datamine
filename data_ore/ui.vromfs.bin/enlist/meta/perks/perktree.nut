@@ -1,7 +1,7 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { unitSize, blockedTxtColor, isWide } = require("%enlSqGlob/ui/viewConst.nut")
-let { defTxtColor, attentionTxtColor, titleTxtColor, darkPanelBgColor, darkTxtColor,
+let { defTxtColor, attentionTxtColor, titleTxtColor, panelBgColor, darkPanelBgColor, darkTxtColor,
   smallPadding, midPadding, largePadding, bigPadding, sidePadding
 } = require("%enlSqGlob/ui/designConst.nut")
 let { getColorTbl, NodeElements, darkColor, lightColor, treeBgColor } = require("treeDesign.nut")
@@ -54,8 +54,10 @@ let currenciesWidgetUi = require("%enlist/currency/currenciesWidgetUi.nut")
 let { currenciesBalance } = require("%enlist/currency/currencies.nut")
 let { mkImageCompByDargKey } = require("%ui/components/gamepadImgByKey.nut")
 let mkVehicleSeats = require("%enlSqGlob/squad_vehicle_seats.nut")
+let modalPopupWnd = require("%ui/components/modalPopupWnd.nut")
 
 const WND_UID = "perkTree"
+const POPUP_UID = "perkList"
 let close = @() removeModalWindow(WND_UID)
 
 let defTxtStyle     = { color = defTxtColor       }.__update(fontSub)
@@ -331,7 +333,9 @@ let mkBuyLevelBtn = @(soldier, soldierPerksCfg) function() {
     perkLevelsGrid.value, currenciesBalance.value)
   return {
     watch = [perkLevelsGrid, currenciesBalance, armyItemCountByTpl]
-    children = Bordered(buyLevelData.priceTextCtor, buyLevelData.action, btnParams)
+    children = buyLevelData
+      ? Bordered(buyLevelData.priceTextCtor, buyLevelData.action, btnParams)
+      : null
   }
 }
 
@@ -582,29 +586,36 @@ let discardShortcutHint = {
   text = loc("perks/CtrlClick")
 }.__update(defTxtStyle)
 
-let mkPerkTooltip = @(perksStatsCfgVal, perkCfg, takenPoints, pointsPossible) @() {
-  rendObj = ROBJ_BOX
-  flow = FLOW_VERTICAL
-  minWidth = (unitSize * 7).tointeger()
-  fillColor = tooltipBodyColor
-  borderWidth = hdpxi(1)
-  borderColor = treeBgColor
-  children = [
-    takenPoints < pointsPossible ? nextLevelHint : null
-    mkDescription(perksStatsCfgVal, perkCfg, min(1 + takenPoints, pointsPossible), pointsPossible)
-      .__update(tooltipStyle)
-    @() {
-      watch = isGamepad
-      flow = FLOW_VERTICAL
-      padding = [midPadding, largePadding]
-      children = [
-        takenPoints >= pointsPossible ? null
-          : isGamepad.value ? shortcutHintConsole
-          : shortcutHint,
-        (takenPoints > 0 && !isGamepad.value) ? discardShortcutHint : null,
-      ]
-    }
-  ]
+let mkPerkTooltip = @(perksStatsCfgVal, perkCfg, takenPoints,
+    pointsPossible, isListView = false) function() {
+  let showPoints = isListView ? takenPoints : 1 + takenPoints
+  let hint = mkDescription(perksStatsCfgVal, perkCfg,
+      min(showPoints, pointsPossible), pointsPossible).__update(tooltipStyle)
+  return {
+    rendObj = ROBJ_BOX
+    flow = FLOW_VERTICAL
+    minWidth = (unitSize * 7).tointeger()
+    fillColor = tooltipBodyColor
+    borderWidth = hdpxi(1)
+    borderColor = treeBgColor
+    children = isListView
+      ? hint
+      : [
+          takenPoints < pointsPossible ? nextLevelHint : null
+          hint
+          @() {
+            watch = isGamepad
+            flow = FLOW_VERTICAL
+            padding = [midPadding, largePadding]
+            children = [
+              takenPoints >= pointsPossible ? null
+                : isGamepad.value ? shortcutHintConsole
+                : shortcutHint,
+              (takenPoints > 0 && !isGamepad.value) ? discardShortcutHint : null,
+            ]
+          }
+        ]
+  }
 }
 
 const PERKS_PER_ROW = 3
@@ -1121,7 +1132,6 @@ let mkSelectedPerk = @(soldierWatch) function() {
             children = [
               {
                 rendObj = ROBJ_BOX
-                size = SIZE_TO_CONTENT
                 valign = ALIGN_TOP
                 borderColor = color
                 borderWidth = hdpxi(3)
@@ -1241,11 +1251,7 @@ let resetPerksBtn = function(soldier, soldierPerksCfg, perksListVal,
   return Bordered(priceText("perks/resetBtn",  { count = totalCost, currencyTpl = PERK_CHANGE_CURRENCY}), action)
 }
 
-let hasFreeRerolls = function(soldier, perksCfg) {
-  let { isPremium = false } = getClassCfg(soldier.sClass)
-  let rerolls = perksCfg?.rerolls ?? 0
-  return isPremium && rerolls > 0
-}
+let hasFreeRerolls = @(perksCfg) (perksCfg?.rerolls ?? 0) > 0
 
 let mkFreeRerollBtn = function(guid) {
   let buttons = [
@@ -1347,7 +1353,7 @@ let mkSoldierInfo = function(soldierWatch, soldierPerksCfg) {
               halign = ALIGN_CENTER
               vplace = ALIGN_BOTTOM
               margin = [bigPadding, 0, 0, 0]
-              children = hasFreeRerolls(soldierWatch.value, soldierPerksCfg.value)
+              children = hasFreeRerolls(soldierPerksCfg.value)
                 ? freeRerollBtn(soldierWatch.value, soldierPerksCfg.value)
                 : resetPerksBtn(soldierWatch.value, soldierPerksCfg.value, perksList.value,
                     armyItemCountByTpl.value, perkCancelCost.value)
@@ -1436,7 +1442,7 @@ let treeCmp = @(soldierWatch) function() {
             size = [flex(), SIZE_TO_CONTENT]
             valign = ALIGN_TOP
             padding = [largePadding, 0, sidePadding, 0]
-            children = hasFreeRerolls(soldierWatch.value, soldierPerksCfg.value)
+            children = hasFreeRerolls(soldierPerksCfg.value)
               ? freeRerollBtn(soldierWatch.value, soldierPerksCfg.value, { halign = ALIGN_LEFT })
               : resetPerksBtn(soldierWatch.value, soldierPerksCfg.value, perksList.value,
                   armyItemCountByTpl.value, perkCancelCost.value)
@@ -1502,6 +1508,75 @@ let openPerkTree = function(soldierWatch) {
   })
 }
 
+let perkListPopup = @(soldierWatch) function() {
+  let perksCfg = soldierPerks.value?[soldierWatch.value?.guid] ?? {}
+  let perksByStat = {}
+  foreach(perkId, takenPoints in perksCfg.perks) {
+    let perkData = perksList.value?[perkId]
+    let { icon, color } = iconForPerk(perkData)
+    let stat = statForPerk(perkData)
+    if (stat not in perksByStat)
+      perksByStat[stat] <- []
+    let pointsPossible = perkData?.available ?? 1
+    let tooltip = mkPerkTooltip(perksStatsCfg.value, perkData, takenPoints, pointsPossible, true)
+    perksByStat[stat].append(withTooltip({
+      rendObj = ROBJ_BOX
+      valign = ALIGN_TOP
+      borderColor = color
+      borderWidth = hdpxi(2)
+      borderRadius = hdpx(3)
+      fillColor = darkColor
+      padding = midPadding
+      children = perkPointIcon(icon, color, (unitSize * 0.8).tointeger())
+    }, tooltip))
+  }
+
+  let content = []
+
+  foreach(statName, perkComponents in perksByStat) {
+    let { color } = pPointsBaseParams[statName]
+    content.append({
+      rendObj = ROBJ_TEXT
+      text = loc($"perks/{statName}_title")
+      color
+      padding = [midPadding, 0]
+    }.__update(titleTxtStyle))
+    content.append({
+      flow = FLOW_HORIZONTAL
+      gap = midPadding
+      children = perkComponents
+    })
+  }
+
+  return {
+    watch = [soldierWatch, soldierPerks, perksStatsCfg, perksList]
+    rendObj = ROBJ_BOX
+    flow = FLOW_VERTICAL
+    fillColor = panelBgColor
+    gap = midPadding
+    padding = MEDIUM_GAP
+    children = content
+  }
+}
+
+function openPerkList(event, soldierWatch) {
+  let pos = [event.targetRect.r + COLUMN_GAP, event.targetRect.t]
+  modalPopupWnd.add(pos, {
+    uid = POPUP_UID
+    popupHalign = ALIGN_LEFT
+    popupValign = ALIGN_BOTTOM
+    popupFlow = FLOW_VERTICAL
+    rendObj = ROBJ_BOX
+    fillColor = darkPanelBgColor
+    padding = smallPadding
+    valign = ALIGN_TOP
+    stopMouse = true
+    stopHover = true
+    children = perkListPopup(soldierWatch)
+    hotkeys = [[$"^{JB.B} | Esc", { action = @() modalPopupWnd.remove(POPUP_UID) }]]
+  })
+}
+
 console_register_command(function(perkId) {
   if (curSoldierInfo.value == null) {
     log("Select a soldier")
@@ -1516,4 +1591,5 @@ console_register_command(function() {
 
 return {
   openPerkTree
+  openPerkList
 }

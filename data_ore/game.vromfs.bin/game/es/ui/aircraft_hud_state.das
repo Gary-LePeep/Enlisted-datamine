@@ -51,7 +51,7 @@ def aircraft_hud_engine_state(info : ParallelUpdateFrameDelayed;
   if propulsion != null
     let numEngines = (*propulsion).numEngines
     for i, view in range(numEngines), planeViewEngine
-      (*propulsion) |> propulsion_get_engine(i) <| $(engine)
+      (*propulsion) |> propulsion_getEngine(i) <| $(engine)
 
         view.plane_view_engine__isWaterLeaking = int(engine.waterLeak) > 0
         view.plane_view_engine__isOilLeaking = int(engine.oilLeak) > 0

@@ -52,11 +52,14 @@ def human_gun_lookat_camera_es(info : UpdateStageInfoAct;
     var wishAimPosition = lerp(physPreviousStateAimPosition, physCurrentStateAimPosition, interpK)
 
     query(weap__sightEid) <| $ [es] (animchar : AnimcharBaseComponent;
+                                     weapon__aimNodeOffset : float = 0.0;
                                      weapon_frontsight_node__nodeIdx : int const?;
                                      weapon_rearsight_node__nodeIdx : int const?)
       let wofsF = *animchar.nodeTree |> geomtree_getWtmOfs()
       let wofs = DPoint3(wofsF)
-      var aimPos = *animchar.nodeTree |> geomtree_getNodeWposRel(entity_cam_nodes__aimNodeIdx)
+      var aimTm : float3x4
+      *animchar.nodeTree |> geomtree_getNodeWtmRelScalar(entity_cam_nodes__aimNodeIdx, aimTm)
+      var aimPos = aimTm[3] + aimTm[0] * weapon__aimNodeOffset
       var aimOffset = float2(0.0, 0.0)
 
       if weapon_frontsight_node__nodeIdx != null && weapon_rearsight_node__nodeIdx != null

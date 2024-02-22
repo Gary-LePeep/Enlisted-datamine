@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { TEAM_UNASSIGNED } = require("team")
 let { INVALID_GROUP_ID } = require("matching.errors")
@@ -21,7 +21,7 @@ let groupmateQuery = ecs.SqQuery("groupmateQuery", {comps_ro = [["groupId", ecs.
 
 localPlayerSpecTarget.subscribe(@(eid) logObs($"spectated: {eid}"))
 
-let function addGroupmate(eid, comp) {
+function addGroupmate(eid, comp) {
   if (localPlayerGroupId.value != INVALID_GROUP_ID && comp["groupId"] == localPlayerGroupId.value) {
     if (eid in localPlayerGroupMembers.value)
       return
@@ -29,7 +29,7 @@ let function addGroupmate(eid, comp) {
   }
 }
 
-let function resetData() {
+function resetData() {
   localPlayerEid(ecs.INVALID_ENTITY_ID)
   localPlayerTeam(TEAM_UNASSIGNED)
   localPlayerUserId(get_user_id())
@@ -38,7 +38,7 @@ let function resetData() {
   localPlayerGroupMembers({})
 }
 
-let function trackComponents(eid, comp) {
+function trackComponents(eid, comp) {
   if (comp.is_local) {
     if (localPlayerEid.value != eid)
       logObs($"[local_player_es] localPlayerEid = {eid}")
@@ -56,7 +56,7 @@ let function trackComponents(eid, comp) {
   }
 }
 
-let function onDestroy(eid, _comp) {
+function onDestroy(eid, _comp) {
   if (localPlayerEid.value == eid)
     resetData()
 }
@@ -83,7 +83,7 @@ ecs.register_es("local_player_group_es",
     [["onInit"]] = addGroupmate
     onDestroy = function (eid, _comp) {
       if (eid in localPlayerGroupMembers.value)
-        localPlayerGroupMembers.mutate(@(v) delete v[eid])
+        localPlayerGroupMembers.mutate(@(v) v.$rawdelete(eid))
     }
   },
   {comps_ro = [["groupId", ecs.TYPE_INT64]]}

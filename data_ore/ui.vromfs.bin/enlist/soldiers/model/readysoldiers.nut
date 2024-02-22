@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { debounce } = require("%sqstd/timers.nut")
 let {
@@ -15,7 +15,7 @@ let { curCampSoldiers } = require("%enlist/meta/profile.nut")
 
 let invalidEquipSoldiers = mkWatched(persist, "invalidEquipSoldiers")
 
-let function updateInvalidSoldiers() {
+function updateInvalidSoldiers() {
   let equippedItems = {}
   foreach (item in curCampItems.value) {
     let sd = getLinkedSlotData(item)

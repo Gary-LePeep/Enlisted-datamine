@@ -58,26 +58,36 @@
       {
         "sequencer": {
           "name": "regroup",
-          "orderedSelector": {
-            "orderedSelector": [
-              {
-                "subTree": {
-                  "name": "",
-                  "refId": "checkCoverRef"
-                }
-              },
-              {
-                "subTree": {
-                  "name": "",
-                  "refId": "findCoverRef"
-                }
+          "orderedSelector": [
+            {
+              "subTree": {
+                "name": "",
+                "treeName": "sub.regroupToPitAroundLeader"
               }
-            ],
-            "subTree": {
-              "name": "",
-              "treeName": "sub.regroupCheck"
+            },
+            {
+              "subTree": {
+                "name": "",
+                "treeName": "sub.regroupCheck"
+              }
+            },
+            {
+              "orderedSelector": [
+                {
+                  "subTree": {
+                    "name": "",
+                    "refId": "checkCoverRef"
+                  }
+                },
+                {
+                  "subTree": {
+                    "name": "",
+                    "refId": "findCoverRef"
+                  }
+                }
+              ]
             }
-          }
+          ]
         }
       }
     ]
@@ -146,26 +156,36 @@
       {
         "sequencer": {
           "name": "regroup",
-          "orderedSelector": {
-            "orderedSelector": [
-              {
-                "subTree": {
-                  "name": "",
-                  "refId": "checkCoverRef"
-                }
-              },
-              {
-                "subTree": {
-                  "name": "",
-                  "refId": "findCoverRef"
-                }
+          "orderedSelector": [
+            {
+              "subTree": {
+                "name": "",
+                "treeName": "sub.regroupToPitReset"
               }
-            ],
-            "subTree": {
-              "name": "",
-              "treeName": "sub.regroupCheck"
+            },
+            {
+              "subTree": {
+                "name": "",
+                "treeName": "sub.regroupCheck"
+              }
+            },
+            {
+              "orderedSelector": [
+                {
+                  "subTree": {
+                    "name": "",
+                    "refId": "checkCoverRef"
+                  }
+                },
+                {
+                  "subTree": {
+                    "name": "",
+                    "refId": "findCoverRef"
+                  }
+                }
+              ]
             }
-          }
+          ]
         }
       }
     ]
@@ -241,26 +261,36 @@
       {
         "sequencer": {
           "name": "regroup",
-          "orderedSelector": {
-            "orderedSelector": [
-              {
-                "subTree": {
-                  "name": "",
-                  "refId": "checkCoverRef"
-                }
-              },
-              {
-                "subTree": {
-                  "name": "",
-                  "treeName": "sub.stayFindCover"
-                }
+          "orderedSelector": [
+            {
+              "subTree": {
+                "name": "",
+                "treeName": "sub.regroupToPitAroundLeader"
               }
-            ],
-            "subTree": {
-              "name": "",
-              "treeName": "sub.stayRegroupCheck"
+            },
+            {
+              "subTree": {
+                "name": "",
+                "treeName": "sub.stayRegroupCheck"
+              }
+            },
+            {
+              "orderedSelector": [
+                {
+                  "subTree": {
+                    "name": "",
+                    "refId": "checkCoverRef"
+                  }
+                },
+                {
+                  "subTree": {
+                    "name": "",
+                    "treeName": "sub.stayFindCover"
+                  }
+                }
+              ]
             }
-          }
+          ]
         }
       }
     ]
@@ -284,26 +314,36 @@
       {
         "sequencer": {
           "name": "regroup",
-          "orderedSelector": {
-            "orderedSelector": [
-              {
-                "subTree": {
-                  "name": "",
-                  "refId": "checkCoverRef"
-                }
-              },
-              {
-                "subTree": {
-                  "name": "",
-                  "treeName": "sub.stayFindCover"
-                }
+          "orderedSelector": [
+            {
+              "subTree": {
+                "name": "",
+                "treeName": "sub.regroupToPitReset"
               }
-            ],
-            "subTree": {
-              "name": "",
-              "treeName": "sub.stayRegroupCheck"
+            },
+            {
+              "subTree": {
+                "name": "",
+                "treeName": "sub.stayRegroupCheck"
+              }
+            },
+            {
+              "orderedSelector": [
+                {
+                  "subTree": {
+                    "name": "",
+                    "refId": "checkCoverRef"
+                  }
+                },
+                {
+                  "subTree": {
+                    "name": "",
+                    "treeName": "sub.stayFindCover"
+                  }
+                }
+              ]
             }
-          }
+          ]
         }
       },
       {
@@ -659,6 +699,7 @@
             },
             "findDanger": {
               "paramName": "shootEnemy",
+              "outSeeTimeParam": "shootEnemyTime",
               "radiusParamName": "enemyNearRadius",
               "minDanger": 0.1,
               "tag": "human"
@@ -679,7 +720,7 @@
       {
         "subTree": {
           "name": "",
-          "treeName": "sub.moveToCover"
+          "treeName": "sub.moveToCoverOrPit"
         }
       },
       {
@@ -709,6 +750,7 @@
           "sequencer": {
             "findDanger": {
               "paramName": "shootEnemy",
+              "outSeeTimeParam": "shootEnemyTime",
               "radiusParamName": "enemyNearRadius",
               "minDanger": 0.1,
               "tag": "human"

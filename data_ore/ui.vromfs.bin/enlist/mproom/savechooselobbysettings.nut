@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 from "%enlist/gameModes/createEventRoomState.nut" import *
 
 let JB = require("%ui/control/gui_buttons.nut")
@@ -40,9 +40,8 @@ let slotSize = [hdpx(140), hdpx(140)]
 let slotColor = @(sf) sf & S_HOVER ? activeBgColor : idleBgColor
 
 let lobbyPresets = Computed(@() settings.value?[PRESETS_ID])
-let function removePresets() {
-  if (PRESETS_ID in settings.value)
-    settings.mutate(@(v) delete v[PRESETS_ID])
+function removePresets() {
+  settings.mutate(@(s) s.$rawdelete(PRESETS_ID))
   show({ text = loc("lobby/presetsRenew") })
 }
 
@@ -79,7 +78,7 @@ let mkParamList = @(list, bottomTxt = null) {
   text = bottomTxt == null ? list : "{0}\n{1}".subst(list, bottomTxt)
 }
 
-let function savePreset(idx) {
+function savePreset(idx) {
   let res = {}
   foreach (opt in baseOptions)
     res[opt.id] <- opt.curValue.value
@@ -91,7 +90,7 @@ let function savePreset(idx) {
   removeModalWindow(WND_UID)
 }
 
-let function choosePreset(idx) {
+function choosePreset(idx) {
   let preset = lobbyPresets.value?[idx.tostring()] ?? {}
   foreach (opt in baseOptions) {
     let { id } = opt
@@ -101,7 +100,7 @@ let function choosePreset(idx) {
   removeModalWindow(WND_UID)
 }
 
-let function mkBaseOptRow(opt, preset) {
+function mkBaseOptRow(opt, preset) {
   let { id, cfg, valToString } = opt
   let val = preset?[id]
   return val == null ? null
@@ -115,7 +114,7 @@ let function mkBaseOptRow(opt, preset) {
       }
 }
 
-let function mkArmiesList(opt, preset) {
+function mkArmiesList(opt, preset) {
   let { id, cfg } = opt
   let val = clone preset?[id]
   let armiesToShow = val.sort(@(a, b) a <=> b)
@@ -146,7 +145,7 @@ let mkMissionText = function(m) {
     : loc("missionNameWithType", { mName, mType = loc(mTypeLocId) })
 }
 
-let function mkMissionList(list) {
+function mkMissionList(list) {
   let { cfg } = optMissions
   let visList = list.len() <= MAX_MISSIONS ? list
     : list.slice(0, MAX_MISSIONS)
@@ -191,7 +190,7 @@ let mkPresetInfo = @(preset, bottomTxt) {
         }.__update(fontBody))
 }
 
-let function mkPresetSlot(curPresets, idx, onClick, bottomTxt) {
+function mkPresetSlot(curPresets, idx, onClick, bottomTxt) {
   let slotId = idx.tostring()
   let preset = curPresets?[slotId]
   return watchElemState(@(sf) {
@@ -279,7 +278,7 @@ let openChooseWindow = @() addModalWindow({
 }.__update(windowParams))
 
 console_register_command(@() settings
-  .mutate(@(s) delete s[PRESETS_ID]), "meta.resetLobbyPresets")
+  .mutate(@(s) s.$rawdelete(PRESETS_ID)), "meta.resetLobbyPresets")
 
 return {
   openSaveWindow

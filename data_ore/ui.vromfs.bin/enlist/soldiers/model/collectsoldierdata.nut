@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 import "%dngscripts/ecs.nut" as ecs
 
 let { getLinkedArmyName, getLinkedSquadGuid } = require("%enlSqGlob/ui/metalink.nut")
@@ -7,11 +7,8 @@ let { getWeapTemplates, mkEquipment, getItemAnimationBlacklist } = require("%enl
 let { getIdleAnimState } = require("%enlSqGlob/animation_utils.nut")
 let { getSoldierItem } = require("%enlist/soldiers/model/state.nut")
 
-let getPerksCount = @(perks) (perks?.slots ?? [])
-  .reduce(@(res, slots) res + slots.filter(@(v) (v ?? "") != "").len(), 0)
-
   // TODO remove overrideOutfit and isLarge that currently unused
-let function collectSoldierPhoto(soldier, soldiersOutfit, overrideOutfit = [], isLarge = false) {
+function collectSoldierPhoto(soldier, soldiersOutfit, overrideOutfit = [], isLarge = false) {
   if (soldier?.photo != null)
     return soldier
 
@@ -49,7 +46,7 @@ let function collectSoldierPhoto(soldier, soldiersOutfit, overrideOutfit = [], i
   })
 }
 
-let function collectSoldierDataImpl(
+function collectSoldierDataImpl(
   soldier, perksDataV, curCampSquadsV, armiesV, classesCfgV, campItemsV, soldiersOutfit,
   soldiersPremiumItems, soldierSchemesV, maxTrainByClassV
 ) {
@@ -60,7 +57,6 @@ let function collectSoldierDataImpl(
   let armyId = getLinkedArmyName(soldier)
   let perks = perksDataV?[guid]
   let { exp = 0 } = perks
-  let perksCount = getPerksCount(perks)
 
   let { kind = sClass } = classesCfgV?[sClass] //kind by default is sClass to compatibility with 16.02.2021 pserver version
   let { country = null } = (soldierSchemesV?[armyId] ?? {})
@@ -73,7 +69,6 @@ let function collectSoldierDataImpl(
     level = tier
     maxLevel = max(tier, (maxTrainByClassV?[sClass] ?? 0) + 1)
     exp
-    perksCount
     armyId
     squadId = curCampSquadsV?[getLinkedSquadGuid(soldier)].squadId
     sKind = kind

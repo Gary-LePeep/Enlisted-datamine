@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let debug = require("%enlSqGlob/library_logs.nut").with_prefix("[CPTC] ")
 let contentUpdater = require_optional("contentUpdater")
@@ -22,7 +22,7 @@ let {
 } = contentUpdater
 
 let {isInBattleState} = require("%enlSqGlob/inBattleState.nut")
-let {isLoggedIn} = require("%enlSqGlob/login_state.nut")
+let {isLoggedIn} = require("%enlSqGlob/ui/login_state.nut")
 let { nestWatched } = require("%dngscripts/globalState.nut")
 
 let isGetVersionInProgress = nestWatched("isGetVersionInProgress", false)
@@ -31,7 +31,7 @@ let remoteVromsVersion = nestWatched("remoteVromsVersion")
 let remoteVromsVersionNumber = nestWatched("remoteVromsVersionNumber")
 let downloadedVersion = nestWatched("downloadedVersion", Version(get_updated_game_version()).tostring())
 
-let eventbus = require("eventbus")
+let { eventbus_subscribe } = require("eventbus")
 
 let {get_circuit_conf} = require("app")
 let {get_setting_by_blk_path} = require("settings")
@@ -54,12 +54,12 @@ let updaterEvents = {
 
 const ContentUpdaterEventId = "contentUpdater.event"
 
-eventbus.subscribe(ContentUpdaterEventId, function (evt) {
+eventbus_subscribe(ContentUpdaterEventId, function (evt) {
   let {eventType} = evt
   updaterEvents?[eventType](evt)
 })
 
-eventbus.subscribe("auth.get_remote_version_async", function(resp) {
+eventbus_subscribe("auth.get_remote_version_async", function(resp) {
   if (isInBattleState.value)
     return
 
@@ -80,7 +80,7 @@ eventbus.subscribe("auth.get_remote_version_async", function(resp) {
   start_updater(ContentUpdaterEventId)
 })
 
-let function update() {
+function update() {
   if (!isLoggedIn.value || isGetVersionInProgress.value || is_updater_running() || isInBattleState.value)
     return
 

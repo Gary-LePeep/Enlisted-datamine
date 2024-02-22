@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { mkCountdownTimerPerSec } = require("%ui/helpers/timers.nut")
 let { localPlayerTeam } = require("%ui/hud/state/local_player.nut")
@@ -13,7 +13,7 @@ let wasArtilleryAvailableForSquad = Watched(false)
 let isHeroRadioman = Watched(false)
 let artilleryAvailableShellTypes = Watched([])
 
-let function track(_eid, comp) {
+function track(_eid, comp) {
   if (!comp.is_local)
     return
   artilleryIsAvailable(comp["artillery__available"])
@@ -42,7 +42,7 @@ ecs.register_es("artillery_ui", {
   comps_rq=["player"]
 })
 
-let function updateTeamAircraftRequestTimer(_evt, _eid, comp) {
+function updateTeamAircraftRequestTimer(_evt, _eid, comp) {
   if (get_local_player_team() == comp["team__id"])
     aircraftRequestAvailableAtTime(comp["team__aircraftRequestAvailableAtTime"])
 }

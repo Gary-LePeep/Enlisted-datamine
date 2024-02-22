@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let displayOutsideBattleAreaWarning = require("%ui/hud/state/battle_area_warnings.nut")
 let { fontHeading2 } = require("%enlSqGlob/ui/fontsStyle.nut")

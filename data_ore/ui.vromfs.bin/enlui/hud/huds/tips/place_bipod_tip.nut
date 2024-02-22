@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {isBipodPlaceable, isBipodEnabled} = require("%ui/hud/state/bipod_state.nut")
 let {tipCmp} = require("tipComponent.nut")

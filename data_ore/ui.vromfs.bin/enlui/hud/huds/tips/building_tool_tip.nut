@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { isBuildingToolMenuAvailable, selectedBuildingName, selectedDestroyableObjectName, isBuildingAlive,
   buildingRepairText, buildingPreviewId, buildingAllowRecreates, canInteractWithDeadBuilding,
@@ -13,7 +13,7 @@ let { DEFAULT_TEXT_COLOR, FAIL_TEXT_COLOR } = require("%ui/hud/style.nut")
 let {fortificationPreviewCanBeRotated} = require("%ui/hud/state/fortification_preview_can_be_rotated.nut")
 let { usefulBoxHintFull, usefulBoxHintEmpty, isUsefulBoxEmpty } = require("%ui/hud/state/useful_box_state.nut")
 
-let function notAbleBuildStructures() {
+function notAbleBuildStructures() {
   let res = { watch = [selectedBuildingName, buildingPreviewId, buildingAllowRecreates, availableBuildings, isBuildingToolMenuAvailable] }
   if (!isBuildingToolMenuAvailable.value || selectedBuildingName.value != null)
     return res
@@ -32,7 +32,7 @@ let function notAbleBuildStructures() {
   })
 }
 
-let function buildStructure() {
+function buildStructure() {
   let res = { watch = [isBuildingToolMenuAvailable, showBuildingToolMenu, fortificationPreviewCanBeRotated] }
   if (!isBuildingToolMenuAvailable.value || showBuildingToolMenu.value)
     return res
@@ -62,7 +62,7 @@ let function buildStructure() {
   })
 }
 
-let function destroyStructure() {
+function destroyStructure() {
   let res = { watch = [selectedDestroyableObjectName, inVehicle, isAlive, isDowned, isMortarMode, isRadioMode] }
   if (!selectedDestroyableObjectName.value || inVehicle.value || !isAlive.value || isDowned.value || isMortarMode.value || isRadioMode.value)
     return res
@@ -75,7 +75,7 @@ let function destroyStructure() {
   })
 }
 
-let function resupplyCannonStructure() {
+function resupplyCannonStructure() {
   let res = { watch = [selectedBuildingName, inVehicle, isBuildingAlive, buildingRepairText, canInteractWithDeadBuilding,
     isAlive, isDowned, isMortarMode, isRadioMode, isBuildingToolMenuAvailable, selectedBuildingAllowRepair] }
 
@@ -92,7 +92,7 @@ let function resupplyCannonStructure() {
   })
 }
 
-let function useUsefulBox() {
+function useUsefulBox() {
   let res = { watch = [usefulBoxHintFull, usefulBoxHintEmpty, isUsefulBoxEmpty] }
   let text = isUsefulBoxEmpty.value ? usefulBoxHintEmpty : usefulBoxHintFull
 

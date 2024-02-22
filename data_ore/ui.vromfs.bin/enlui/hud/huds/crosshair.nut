@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {mkCountdownTimer} = require("%ui/helpers/timers.nut")
 let circleProgressImage = Picture("ui/skin#scanner_range.avif")
@@ -68,7 +68,7 @@ crosshairs.t_post <- @() {
 }
 
 
-let function hitMarkBlock() {
+function hitMarkBlock() {
   return {
     halign = ALIGN_CENTER
     valign = ALIGN_CENTER
@@ -83,7 +83,7 @@ let forbidBlock = {
   children = forbid
 }
 
-let function reloadBlock(){
+function reloadBlock(){
   return {
     watch = reloadProgress
   }.__update(reloadProgress.value <= 0 ? {} : {
@@ -98,7 +98,7 @@ let function reloadBlock(){
   })
 }
 
-let function overheatBlock() {
+function overheatBlock() {
   return {
     watch = overheat
     opacity = min(1.0, overheat.value*2.0)
@@ -115,7 +115,7 @@ let function overheatBlock() {
 let w = sw(0.2*100)
 let h = sh(0.2*100)
 
-let function mkCrosshair(childrenCtor, watch, size=[2*w, 2*h]){
+function mkCrosshair(childrenCtor, watch, size=[2*w, 2*h]){
   return @() {
     watch
     size

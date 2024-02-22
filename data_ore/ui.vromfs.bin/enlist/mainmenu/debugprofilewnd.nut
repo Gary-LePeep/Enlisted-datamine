@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { openDebugWnd } = require("%enlist/components/debugWnd.nut")
 let servProfile = require("%enlist/meta/servProfile.nut")

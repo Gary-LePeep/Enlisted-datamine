@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let upgrades = require("%enlist/soldiers/model/config/upgradesConfig.nut")
 let { mkItemUpgradeData } = require("%enlist/soldiers/model/mkItemModifyData.nut")

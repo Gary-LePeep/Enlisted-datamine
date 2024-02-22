@@ -30,12 +30,10 @@ def relative_path(file : string) : string
 class BreakpointsHookAgent : DapiDebugAgent
 
   queue : table<string; bool>
-  processedFiles : int = 0
 
   def override onBreakpointsReset(file : string; breakpointsNum : int) : void
     if file |> ends_with(".das")
       queue[clone_string(file)] = breakpointsNum > 0
-      processedFiles += 1
 
   def override onTick()
     for file, addDebugger in keys(queue), values(queue)
@@ -46,10 +44,6 @@ class BreakpointsHookAgent : DapiDebugAgent
       else
         logerr("dap: unable to reload '{unixPath}'. See log for more information")
     queue |> clear()
-
-    if processedFiles >= 10
-      unsafe(heap_collect())
-      processedFiles = 0
 
 
 [export, unused_argument(ctx)]

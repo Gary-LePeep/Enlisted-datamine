@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontHeading2, fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let msgbox = require("%enlist/components/msgbox.nut")
@@ -44,7 +44,7 @@ let mkCurrencyTooltip = @(currencyTpl) mkCurrencyTooltipContainer(
   loc($"items/{currencyTpl}/desc", "")
 )
 
-let function mkCurrencyImage(icon, sizeArr = [hdpx(30), hdpx(30)]) {
+function mkCurrencyImage(icon, sizeArr = [hdpx(30), hdpx(30)]) {
   let svgSize = [sizeArr[0].tointeger(), sizeArr[1].tointeger()]
   return{
     rendObj = ROBJ_IMAGE
@@ -69,19 +69,21 @@ let iconTextRow = @(icon, text, sizeArr = [hdpx(10), hdpx(10)], textStyle = {}){
   ]
 }
 
-let function cardsInRow(cards){
+function cardsInRow(cards){
   return {
     gap = hdpx(20)
     flow = FLOW_HORIZONTAL
     valign = ALIGN_CENTER
     children =
       cards.map(@(value)
-        iconTextRow(value.icon, splitThousands(value.amount, loc("amount/separator")),
+        iconTextRow(value.icon, type(value.amount) == "integer" || type(value.amount) == "float"
+            ? splitThousands(value.amount, loc("amount/separator"))
+            : loc("currency/notAvailable"),
           [hdpx(20),hdpx(25)]))
   }
 }
 
-let function mkCurrencyCardsTooltip(cardType, cards = [], expandOrders = false) {
+function mkCurrencyCardsTooltip(cardType, cards = [], expandOrders = false) {
   let descText = loc(ticketGroups[cardType].desc) ?? ""
   return tooltipBox({
     flow = FLOW_VERTICAL
@@ -119,7 +121,7 @@ let mkCurrencyCommon = @(sf, summ){
   text = abbreviateAmount(summ)
 }.__update(fontBody)
 
-let function mkCurrencyOverall(cardType, cardsTable = {}, onClick = null,
+function mkCurrencyOverall(cardType, cardsTable = {}, onClick = null,
                                   keySuffix = "", isShop = false) {
 
   let stateFlag = Watched(0)
@@ -174,7 +176,7 @@ let function mkCurrencyOverall(cardType, cardsTable = {}, onClick = null,
   }
 }
 
-let function mkItemCurrency(currencyTpl, count, keySuffix = "", textStyle = {},
+function mkItemCurrency(currencyTpl, count, keySuffix = "", textStyle = {},
   iconSize = [hdpx(25),hdpx(25)]
 ) {
   let currentCurrency = getCurrencyPresentation(currencyTpl)
@@ -259,7 +261,7 @@ let mkLogisticsPromoMsgbox = @(currencies, buttons = []) msgbox.showMessageWithC
   buttons
 })
 
-let function mkDiscountWidget(discountInPercent, override = {}) {
+function mkDiscountWidget(discountInPercent, override = {}) {
   if (discountInPercent <= 0)
     return null
 

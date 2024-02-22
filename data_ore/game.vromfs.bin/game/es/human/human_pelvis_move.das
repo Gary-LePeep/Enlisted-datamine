@@ -80,7 +80,7 @@ def human_pelvis_move_compensation(info : ParallelUpdateFrameDelayed;
   let forward = float3(1.0, 0.0, 0.0)
   let up = float3(0.0, 1.0, 0.0)
   // signed angle between two vectors in degrees
-  let offsetCourse = rad_to_deg(safe_atan2(dot(cross(horizontalOffset, forward), up), dot(forward, horizontalOffset)))
+  let offsetCourse = rad_to_deg(atan2(dot(cross(horizontalOffset, forward), up), dot(forward, horizontalOffset)))
 
   if is_nan(offsetCourse) || !is_finite(offsetCourse)
     debug("gunDir {gunDir}, gunPitchOffset {gunPitchOffset}, lean {lean}, leanOffset {leanOffset}, standHeight {standHeight}")

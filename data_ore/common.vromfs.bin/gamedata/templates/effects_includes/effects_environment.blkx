@@ -1429,13 +1429,16 @@
       "_use": "range_pauseable_effect"
     },
     {
-      "effect__emit_range_limit": 90.0
+      "effect__emit_range_limit": 40.0
     },
     {
       "_group": {
         "_tags": "render",
         "effect__name": "envir_dust_ground_snow_fall_trees_cmps_fx"
       }
+    },
+    {
+      "destroyable_with_rendinst:tag": []
     }
   ],
   "fire_spot_1m_effect": [
@@ -1743,7 +1746,13 @@
       "_use": "range_pauseable_effect"
     },
     {
+      "_use": "damage_fire_base"
+    },
+    {
       "effect__emit_range_limit": 70.0
+    },
+    {
+      "sphere_zone__radius": 0.5
     },
     {
       "_group": {
@@ -2097,6 +2106,13 @@
       }
     }
   ],
+  "fire_chimney_effect_no_light": {
+    "_use": "fire_chimney_effect",
+    "_group": {
+      "_tags": "render",
+      "effect__name": "fire_spot_chimney_cmps_fx"
+    }
+  },
   "envir_background_flash_5s_effect": {
     "_use": "environment_effect_base",
     "_group": {

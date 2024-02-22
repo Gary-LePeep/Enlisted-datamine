@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let spinner = require("%ui/components/spinner.nut")
@@ -30,7 +30,7 @@ let { manageBlinkingObject } = require("%enlSqGlob/ui/blinkingIcon.nut")
 //const MAX_SLOT_TYPES_IN_ROW = 3
 let waitingSpinner = spinner(hdpx(25))
 
-let function openEquipMenu(p /*onClick params from mkItem*/) {
+function openEquipMenu(p /*onClick params from mkItem*/) {
   openSelectItem({
     armyId = curArmy.value
     ownerGuid = p?.soldierGuid
@@ -42,7 +42,7 @@ let function openEquipMenu(p /*onClick params from mkItem*/) {
 let mkItem = @(params) mkItemWithMods(params)
   .__merge({ size = [flex(), params.itemSize[1]] })
 
-let function collectSlots(slotType, totalSlots, slotsItems, soldierGuid) {
+function collectSlots(slotType, totalSlots, slotsItems, soldierGuid) {
   let soldierData = objInfoByGuid.value?[soldierGuid]
   local isAvailable = true
   if (soldierData && slotType) {
@@ -141,7 +141,7 @@ let mkParatrooperSlot = @(slotSize, headerText) {
 }
 
 
-let function mkSlot(rowIdx, slotData, guid) {
+function mkSlot(rowIdx, slotData, guid) {
   let { slotSize, slotCtor = null, scheme = null } = slotData
   let key = $"slot_{guid}_{rowIdx}"
 
@@ -156,7 +156,7 @@ let function mkSlot(rowIdx, slotData, guid) {
 }
 
 
-let function mkSlotsList(slotData, soldier, canManage, slotsCount, slotsItems,
+function mkSlotsList(slotData, soldier, canManage, slotsCount, slotsItems,
   maxSlotIndex, slotCtor, objectsByGuid
 ) {
   let { slotType, slotSize, slotImg, hasName = false, headerLocId = "" } = slotData

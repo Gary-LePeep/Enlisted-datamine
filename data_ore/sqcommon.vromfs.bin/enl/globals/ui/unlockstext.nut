@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {secondsToHoursLoc} = require("%ui/helpers/time.nut")
 
@@ -19,7 +19,7 @@ let customLocParams = {
 }
 
 
-local function getProgressLoc(unlockDesc, progress) {
+function getProgressLoc(unlockDesc, progress) {
   local { required = null, current = null } = progress
   let { name, periodic = false } = unlockDesc
   let locKey = locKeyByName?[name] ?? name

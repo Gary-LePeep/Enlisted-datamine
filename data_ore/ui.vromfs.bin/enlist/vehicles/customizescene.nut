@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 import "%dngscripts/ecs.nut" as ecs
 
 let JB = require("%ui/control/gui_buttons.nut")
@@ -77,7 +77,7 @@ const SLOTS_IN_ROW = 4
 let iconSpaceWidth = SLOTS_IN_ROW * slotSize[0] + (SLOTS_IN_ROW - 1) * bigPadding
 let waitingSpinner = spinner()
 
-let function mkCamouflage(cParams, gametemplate, camouflage, skinToBuy, currencies) {
+function mkCamouflage(cParams, gametemplate, camouflage, skinToBuy, currencies) {
   let id = skinToBuy?.id ?? camouflage?.id
   let { curCustType = "", curSlotIdx = -1 } = cParams
   let isSelected = curCustType == "vehCamouflage" && curSlotIdx == 0
@@ -218,17 +218,17 @@ let curAvailCamouflages = Computed(function() {
         || startswith(skinData.id, tplWithoutCountry))
 })
 
-let function clearNotPurchased() {
+function clearNotPurchased() {
   notPurchased.mutate(function(cust) { cust.clear() })
 }
 
-let function actionsOnClose() {
+function actionsOnClose() {
   selectVehParams.mutate(@(v) v.isCustomMode = false)
   clearNotPurchased()
   selectedCamouflage(null)
 }
 
-let function close() {
+function close() {
   if (notPurchased.value.len() > 0) {
     showMsgbox({
       text = loc("msg/leaveCustomizationConfirm")
@@ -251,12 +251,12 @@ let backBtn = Bordered(loc("BackBtn"), close,
   })
 
 
-let function removeNotPurchasedCamouflage() {
+function removeNotPurchasedCamouflage() {
   if ("vehCamouflage" in notPurchased.value)
-    notPurchased.mutate(function(cust) { delete cust.vehCamouflage })
+    notPurchased.mutate(function(cust) { cust.$rawdelete("vehCamouflage") })
 }
 
-let function addNotPurchasedCamouflage(id, buyData) {
+function addNotPurchasedCamouflage(id, buyData) {
   notPurchased.mutate(function(cust) {
     cust.vehCamouflage <- { id, buyData, details = "", cType = "vehCamouflage", slotIdx = 0 }
   })
@@ -351,7 +351,7 @@ let massBuyProductViewUi = function() {
   }, hasWrap ? {} : buyProductParams)
 }
 
-let function mkPurchaceBtn(notPurchasedVal) {
+function mkPurchaceBtn(notPurchasedVal) {
   let { vehCamouflage = null, vehDecorator = [], vehDecal = [] } = notPurchasedVal
   let vehCamouflageList = vehCamouflage == null ? [] : [vehCamouflage]
   let decoratorsList = [].extend(vehCamouflageList, vehDecorator, vehDecal)
@@ -390,7 +390,7 @@ let function mkPurchaceBtn(notPurchasedVal) {
       })
 }
 
-let function customizeSlotsUi() {
+function customizeSlotsUi() {
   let decorCfgByType = curDecorCfgByType.value
   let { gametemplate = null } = viewVehicle.value
   let { vehDecal = null, vehDecorator = null } = viewVehCustSchemes.value
@@ -464,7 +464,7 @@ let emptyList = {
   children = txt(loc("msg/listIsEmpty")).__update(fontSub)
 }
 
-let function mkGroupIcons(groupIconsList, vehGuid, curCustType,
+function mkGroupIcons(groupIconsList, vehGuid, curCustType,
   curSlotIdx, currencies, ownDecorators, isOnlyOwned
 ) {
   let children = []
@@ -632,14 +632,14 @@ let mkDecoratorsList = @(curCustType, curSlotIdx, onlyOwned) function() {
   return res.__update(mkCustomizationList(curCustType, content, onlyOwned))
 }
 
-let function applyCamouflageImpl(guid, vehGuid, cType, slot) {
+function applyCamouflageImpl(guid, vehGuid, cType, slot) {
   applyDecorator(guid, vehGuid, cType, "", slot, function(res) {
     if (res?.error == null)
       selectedCamouflage(null)
   })
 }
 
-let function chooseSkin(skinData, vehGuid, ownCamouflages = {}) {
+function chooseSkin(skinData, vehGuid, ownCamouflages = {}) {
   if (skinData == null) {
     removeNotPurchasedCamouflage()
     applyCamouflageImpl("", vehGuid, "vehCamouflage", 0)
@@ -714,7 +714,7 @@ let camouflageListUi = function() {
   return res.__update(mkCustomizationList("vehCamouflage", skinsBlock))
 }
 
-let function purchaseBtnUi() {
+function purchaseBtnUi() {
   let res = {
     watch = [viewVehicle, selectedCamouflage, hasMassVehDecorPaste]
   }
@@ -777,7 +777,7 @@ let function purchaseBtnUi() {
 }
 
 let filterOnlyOwned = Watched(false)
-let function customizeListUi() {
+function customizeListUi() {
   let { curCustType = "", curSlotIdx = -1 } = customizationParams.value
   return {
     watch = customizationParams
@@ -794,7 +794,7 @@ let function customizeListUi() {
   }
 }
 
-let function isVehicleOwnedByRentedSquad(vehicle) {
+function isVehicleOwnedByRentedSquad(vehicle) {
   let squadGuid = getFirstLinkByType(vehicle, "curVehicle")
   return squadGuid != null && isSquadRented(squads.value?[squadGuid])
 }
@@ -940,7 +940,7 @@ let customizeScene = function() {
   }
 }
 
-let function openPurchaseDecoratorBox(decoratorCfg, applyCb) {
+function openPurchaseDecoratorBox(decoratorCfg, applyCb) {
   let { guid, buyData, cType } = decoratorCfg
   let { price, currencyId } = buyData
   if (price == null || currencyId == "")
@@ -971,7 +971,7 @@ let function openPurchaseDecoratorBox(decoratorCfg, applyCb) {
   })
 }
 
-let function onSaveVehicleDecals(decors_info) {
+function onSaveVehicleDecals(decors_info) {
   let vehGuid = viewVehicle.value?.guid
   let decoratorCfg = selectedDecorator.value
   let { guid = null, cType = null, buyData = null, subType = null } = decoratorCfg
@@ -1064,7 +1064,7 @@ ecs.register_es("decor_save_es", {
   ],
 }, {tags = "server"})
 
-let function open() {
+function open() {
   clearNotPurchased()
   closeDmViewerMode()
   customizationParams(null)

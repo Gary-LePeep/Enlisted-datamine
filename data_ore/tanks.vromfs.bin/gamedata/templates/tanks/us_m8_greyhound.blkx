@@ -112,7 +112,7 @@
       "_use": "vehicle_steering_assist"
     },
     {
-      "_use": "tank_with_wheels_vehicle_tracks_sound"
+      "_use": "us_m8_greyhound_common_vehicle_sound"
     },
     {
       "commanderCockpitFpsCamMaxAngle": [40.0,5.0]
@@ -449,6 +449,17 @@
           }
         }
       ]
+    },
+    {
+      "heat_source__turretInfo:shared:array": {
+        "_tags": "render",
+        "turretInfo:object": {
+          "turretName": "turret_02",
+          "offset": [0.15,-0.23,0.105],
+          "scale": [0.3,0.07,0.07],
+          "radMult": 0.15
+        }
+      }
     }
   ],
   "us_m8_greyhound_driver_cockpit": {

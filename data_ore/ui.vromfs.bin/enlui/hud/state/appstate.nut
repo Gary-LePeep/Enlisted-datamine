@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 //this is very good candidate to refactor - copy&paste is obvious
 let {levelLoaded, levelLoadedUpdate, levelIsLoading, levelIsLoadingUpdate, currentLevelBlkUpdate} = require("%enlSqGlob/levelState.nut")

@@ -1,9 +1,9 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { resupply_zones_GetWatched, heroActiveResupplyZonesEids } = require("%ui/hud/state/resupplyZones.nut")
 let {DEFAULT_TEXT_COLOR} = require("%ui/hud/style.nut")
-let {safeAreaVerPadding, safeAreaHorPadding} = require("%enlSqGlob/safeArea.nut")
+let {safeAreaVerPadding, safeAreaHorPadding} = require("%enlSqGlob/ui/safeArea.nut")
 let { logerr } = require("dagor.debug")
 let { showSquadSpawn } = require("%ui/hud/state/respawnState.nut")
 
@@ -69,7 +69,7 @@ let mkZoneIcon = memoize(function(icon) {
 })
 let zTransitions = [{ prop=AnimProp.translate, duration=0.2 }]
 
-let function resupplyZoneCtor(zoneWatch) {
+function resupplyZoneCtor(zoneWatch) {
   let {icon, eid} = zoneWatch.value
 
   let zoneIcon = mkZoneIcon(icon)
@@ -184,7 +184,7 @@ let mkZonePointer = memoize(function(eid) {
   }
 })
 
-let function resupplyPointers() {
+function resupplyPointers() {
   let children = heroActiveResupplyZonesEids.value.keys().map(mkZonePointer)
 
   return {

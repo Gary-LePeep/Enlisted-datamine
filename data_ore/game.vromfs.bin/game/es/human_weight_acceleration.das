@@ -59,7 +59,7 @@ def human_weight_influence_server_es(info : ParallelUpdateFrameDelayed;
                                   human_weight_influence__maxWeight, human_weight_influence__maxWeightAccelerationMult,
                                   human_weight_influence__maxWeightJumpMult, human_weight_influence__maxWeightSpeedMult,
                                   human_weight_influence__staminaDrainMult, entity_mods__weightRunSpeedMult)
-[es(tag=gameClient, REQUIRE=watchedByPlr, after=after_entity_mods_apply_sync_point)]
+[es(tag=netClient, REQUIRE=watchedByPlr, after=after_entity_mods_apply_sync_point)]
 def human_weight_influence_client_es(info : ParallelUpdateFrameDelayed;
                                      var human_net_phys : HumanActor;
                                      human_inventory__currentWeight : float;

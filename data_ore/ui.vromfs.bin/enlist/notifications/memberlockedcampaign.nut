@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { isMsgboxInList, showMsgbox } = require("%enlist/components/msgbox.nut")
 let { isSquadLeader, allMembersState } = require("%enlist/squad/squadState.nut")
@@ -27,7 +27,7 @@ let needWarningUserId = keepref(Computed(function() {
   return userId
 }))
 
-let function showWarningMsgbox(userId) {
+function showWarningMsgbox(userId) {
   if (userId == null || isMsgboxInList(MSG_UID))
     return
 

@@ -1,11 +1,11 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let achievements = require("%xboxLib/impl/achievements.nut")
 let {unlockProgress, unlocksSorted, getUnlockProgress} = require("%enlSqGlob/userstats/unlocksState.nut")
 let logX = require("%enlSqGlob/library_logs.nut").with_prefix("[XBOX_ACHIEVEMENTS] ")
 
 
-let function update_xbox_achievements(_) {
+function update_xbox_achievements(_) {
   logX("update_xbox_achievements")
 
   if (unlockProgress.value.len() == 0) {

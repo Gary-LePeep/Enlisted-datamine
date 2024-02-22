@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { curCamera } = require("%enlist/sceneWithCamera.nut")
 let { curSoldierGuid } = require("%enlist/soldiers/model/curSoldiersState.nut")
@@ -25,7 +25,7 @@ let curSelectedItem = mkWatched(persist,"curSelectedItem")
 let cameraScenes = mkWatched(persist, "cameraScenes", [])
 
 let cameraFovDelta = Watched(0)
-let function changeCameraFov(delta, minDelta = 0, maxDelta = 0) {
+function changeCameraFov(delta, minDelta = 0, maxDelta = 0) {
   cameraFovDelta(clamp(cameraFovDelta.value - delta, minDelta, maxDelta))
 }
 
@@ -111,7 +111,7 @@ let vehDataInVehiclesScene = Computed(function() {
   return res
 })
 
-let function getAircraftInfo(template) {
+function getAircraftInfo(template) {
   if (template == null)
     return { isAircraft = false, isFloating = false, isBike = false }
 

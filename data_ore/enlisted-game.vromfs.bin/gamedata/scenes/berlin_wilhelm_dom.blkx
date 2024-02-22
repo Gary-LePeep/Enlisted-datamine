@@ -165,6 +165,14 @@
   },
   {
     "entity": {
+      "_template": "spawn_switcher",
+      "swapProbability": 0.5,
+      "team1": 2,
+      "team2": 1
+    }
+  },
+  {
+    "entity": {
       "_template": "team_ussr_berlin+team_narrator_domination+respawn_creators_team",
       "team__id": 1,
       "team__score": 2500.0,
@@ -195,14 +203,6 @@
       "team__numZonesCaptured": 0,
       "team__deathPenalty": 2.0,
       "team__spawnBotArmy": "moscow_axis"
-    }
-  },
-  {
-    "entity": {
-      "_template": "spawn_switcher",
-      "swapProbability": 0.5,
-      "team1": 2,
-      "team2": 1
     }
   },
   {

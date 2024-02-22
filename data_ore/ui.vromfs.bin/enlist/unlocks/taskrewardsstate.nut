@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { strip } = require("string")
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
@@ -75,7 +75,7 @@ let unlockPrices = Computed(function() {
 
 let mkRequirements = memoize(@(reqStr) reqStr.split("&").map(@(v) strip(v)).filter(@(v) v!=""))
 
-let function doReceiveRewards(unlockName) {
+function doReceiveRewards(unlockName) {
   if (unlockName == null || unlockName in rewardsInProgress.value)
     return
   let progressData = servProgress.value?[unlockName]
@@ -104,13 +104,13 @@ userstatExecutors["EN.receiveRewards"] <- function(_result, context) {
     return "Error: No 'unlockName' in context"
 
   log($"receiveRewards {unlockName}", rewardsInProgress.value)
-  rewardsInProgress.mutate(@(v) delete v[unlockName])
-  return $"delete rewardsInProgress['{unlockName}']"
+  rewardsInProgress.mutate(@(v) v.$rawdelete(unlockName))
+  return $"del rewardsInProgress['{unlockName}']"
 }
 
 let getUnlockPrice = @(unlockName) unlockPrices.value?[unlockName] ?? mkPrice()
 
-let function doBuyUnlock(unlockName, cb = null) {
+function doBuyUnlock(unlockName, cb = null) {
   if (!unlockName || unlockName in purchaseInProgress.value) {
     log($"buyUnlock ignore {unlockName} because already in progress")
     return
@@ -125,7 +125,7 @@ let function doBuyUnlock(unlockName, cb = null) {
     purchaseInProgress.mutate(@(v) v[unlockName] <- stage)
     buyUnlock(unlockName, stage, price.currency, price.price, function(res) {
       log($"buyUnlock {unlockName} at {purchaseInProgress.value?[unlockName]} results:", res)
-      purchaseInProgress.mutate(@(v) delete v[unlockName])
+      purchaseInProgress.mutate(@(v) v.$rawdelete(unlockName))
       cb?(res)
     })
   }

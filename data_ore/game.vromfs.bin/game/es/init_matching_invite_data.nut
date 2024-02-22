@@ -16,7 +16,7 @@ let modifyTeamQuery = ecs.SqQuery("modifyTeamQuery",
     comps_ro = [["team__id", ecs.TYPE_INT]]
   })
 
-let function initMatchingData() {
+function initMatchingData() {
   logImd("Init matching data")
 
   let modeInfo = get_matching_invite_data()?.mode_info

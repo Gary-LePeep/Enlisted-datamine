@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontHeading2, fontBody, fontawesome } = require("%enlSqGlob/ui/fontsStyle.nut")
 let fa = require("%ui/components/fontawesome.map.nut")
@@ -128,7 +128,7 @@ let teamScores = {
   ]
 }
 
-let function capZonesBlock() {
+function capZonesBlock() {
   let groups = visibleZoneGroups.value
   let total = groups.reduce(@(res, g) res + g.len(), 0)
     + max(groups.len() - 1, 0) * GAP_RATIO
@@ -221,7 +221,7 @@ let mkEscortProgress = @(offset, lineLength) function(){
   }
 }
 
-let function mkEscortZoneLine(offset, lineLength, color, progress) {
+function mkEscortZoneLine(offset, lineLength, color, progress) {
   let size = [lineLength - escortPointSize[0], escortLineHeight]
   return @() {
     watch = progress.watch
@@ -270,7 +270,7 @@ let trainPathCapzones = Computed(function() {
   return res
 })
 
-let function escortBlock() {
+function escortBlock() {
   let colorStart = isMyTeamAttacking.value ? style.TEAM0_COLOR_FG : style.TEAM1_COLOR_FG
   let colorEnd = isMyTeamAttacking.value ? style.TEAM1_COLOR_FG : style.TEAM0_COLOR_FG
   let escortPoints = [mkEscortStartPoint(colorStart)]
@@ -343,7 +343,7 @@ let attackerScoreWatch = Computed(function() {
   return score == null ? null : (1000.0 * score + 0.5).tointeger()
 })
 
-let function attackingTeamPoints() {
+function attackingTeamPoints() {
   let color = isMyTeamAttacking.value ? style.TEAM0_COLOR_FG : style.TEAM1_COLOR_FG
   return {
     watch = [isMyTeamAttacking, attackerScoreWatch]

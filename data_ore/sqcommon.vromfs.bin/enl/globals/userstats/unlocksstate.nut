@@ -2,7 +2,7 @@ from "math" import min
 
 let { Watched, Computed } = require("frp")
 let console_register_command = require("console").register_command
-let { console_print } = require("dagor.debug")
+let { console_print } = require("%enlSqGlob/library_logs.nut")
 let { memoize } = require("%sqstd/functools.nut")
 let { isEqual } = require("%sqstd/underscore.nut")
 let { strip } = require("string")
@@ -68,7 +68,7 @@ let unlocksSorted = Computed( function() {
   return res
 })
 
-let function calcUnlockProgress(progressData, unlockDesc) {
+function calcUnlockProgress(progressData, unlockDesc) {
   let res = clone emptyProgress
   let stage = progressData?.stage ?? 0
   res.stage = stage
@@ -108,7 +108,7 @@ let isUnlockAvailable = @(unlockProgressV, unlock)
 
 console_register_command(function() {
     isDebugPersonal(!isDebugPersonal.value)
-    console_print("Debug Personal tasks:", isDebugPersonal.value)
+    console_print($"Debug Personal tasks: {isDebugPersonal.value}")
   },
   "unlocks.debugPersonalUnlocks")
 

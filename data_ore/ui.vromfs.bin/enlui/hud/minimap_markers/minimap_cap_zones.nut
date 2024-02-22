@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { minimapVisibleCurrentCapZonesEids, getZoneWatch } = require("%ui/hud/state/capZones.nut")
 let { localPlayerTeam } = require("%ui/hud/state/local_player.nut")
@@ -14,7 +14,7 @@ let unseenIcon =  blinkUnseenIcon(0.7).__update({
 let defIcon = {rendObj = ROBJ_IMAGE image=Picture("!ui/skin#waypoint.svg:{0}:{1}:K".subst(iconSz[0],iconSz[1])) size = iconSz transform={}}
 let capzoneSettings = {canHighlight=false, size=[fsh(2),fsh(2)], useBlurBack=false}
 
-let function mkContract(zone, capz) {
+function mkContract(zone, capz) {
   let {attackTeam, alwaysHide=false} = zone
   if (localPlayerTeam.value != attackTeam)
     return null

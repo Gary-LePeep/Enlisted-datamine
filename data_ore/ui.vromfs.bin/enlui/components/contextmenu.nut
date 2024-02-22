@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { debounce } = require("%sqstd/timers.nut")
@@ -52,7 +52,7 @@ let listItem = @(text, action) watchElemState(@(sf) {
   ]
 })
 
-let function mkMenu(width, actions) {
+function mkMenu(width, actions) {
   let visibleActions = actions.filter(@(a) a?.isVisible.value ?? true)
   let autoHide = debounce(@() modalPopupWnd.remove(CONTEXT_UID), 0.01)
   return function() {
@@ -78,7 +78,7 @@ let function mkMenu(width, actions) {
   }
 }
 
-let function addContextMenu(x, y, width, actions) {
+function addContextMenu(x, y, width, actions) {
   if (actions.findvalue(@(a) a?.isVisible.value ?? true) == null)
     return null //no need to open empty menu
 

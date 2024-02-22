@@ -1,9 +1,8 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
 
 local seatsOrder = null
 
-let function getSeatsOrder() {
+function getSeatsOrder() {
   if (seatsOrder)
     return seatsOrder
 
@@ -12,7 +11,7 @@ let function getSeatsOrder() {
   return seatsOrder
 }
 
-let function mkVehicleSeats(vehicle) {
+function mkVehicleSeats(vehicle) {
   let { gametemplate = null } = vehicle
   if (!gametemplate)
     return []

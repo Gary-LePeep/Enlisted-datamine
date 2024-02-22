@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let Point3 = require("dagor.math").Point3
 
@@ -7,13 +7,13 @@ let forestallMarkActive = Watched(false)
 let forestallMarkPos = Watched(Point3(0, 0, 0))
 let forestallMarkOpacity = Watched(1.0)
 
-let function updateForestallPos(_eid, comp) {
+function updateForestallPos(_eid, comp) {
   forestallMarkActive.update(comp["target_lock__selectedEntity"] != ecs.INVALID_ENTITY_ID)
   forestallMarkPos.update(comp["forestallPos"])
   forestallMarkOpacity.update(comp["forestallOpacity"])
 }
 
-let function hideForestallMark() {
+function hideForestallMark() {
   forestallMarkActive.update(false)
 }
 

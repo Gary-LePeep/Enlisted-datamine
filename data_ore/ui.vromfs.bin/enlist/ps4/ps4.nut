@@ -1,6 +1,6 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
-let loginState = require("%enlSqGlob/login_state.nut")
+let loginState = require("%enlSqGlob/ui/login_state.nut")
 let {psn_invitation_dataUpdate, psn_invitation_data, psn_game_intentUpdate, psn_was_logged_out, psn_was_logged_outUpdate } = require("%enlist/ps4/psn_state.nut")
 let ps4 = require("ps4")
 let session = require("%enlist/ps4/session.nut")
@@ -10,7 +10,7 @@ let userInfo = require("%enlSqGlob/userInfo.nut")
 let loginChain = require("%enlist/login/login_chain.nut")
 let { isInBattleState } = require("%enlSqGlob/inBattleState.nut")
 let msgbox = require("%enlist/components/msgbox.nut")
-let eventbus = require("eventbus")
+let { eventbus_subscribe, eventbus_send } = require("eventbus")
 let {leaveQueue} = require("%enlist/quickMatchQueue.nut")
 let roomState = require("%enlist/state/roomState.nut")
 let {switch_to_menu_scene} = require("app")
@@ -23,7 +23,7 @@ let { open_player_profile = @(...) null, PlayerAction = null
 
 let JOIN_SESSION_ID = "join_session_after_ps4_login"
 
-let function join_session(data) {
+function join_session(data) {
   let { session_id, invitation_id } = data
   session.join(session_id, invitation_id, function(squadId) {
     logP($"Trying to join squad {squadId}")
@@ -41,12 +41,12 @@ let persistActions = persist("persistActions",@() {})
 persistActions[JOIN_SESSION_ID] <- join_session
 
 
-let function onSessionInvitation(data) {
+function onSessionInvitation(data) {
   logP($"got invitation to {data?.session_id}: uinfo {userInfo?.value}, lstage {loginChain?.currentStage.value}")
   if (userInfo.value != null) {
     if (isInBattleState.value) {
       psn_invitation_dataUpdate(data)
-      eventbus.send("ipc.onInviteAccepted", null)
+      eventbus_send("ipc.onInviteAccepted", null)
     } else {
       join_session(data)
     }
@@ -58,7 +58,7 @@ let function onSessionInvitation(data) {
   }
 }
 
-let function onGameIntent(data) {
+function onGameIntent(data) {
   logP($"got game intent {data?.action}, session {data?.sessionId}, activity {data?.activityId}")
   if (data.sessionId != "") {
     onSessionInvitation({session_id = data.sessionId, invitation_id = null})
@@ -69,7 +69,7 @@ let function onGameIntent(data) {
     loginChain.startLogin({})
 }
 
-let function onResume() {
+function onResume() {
   if (loginChain.currentStage.value != null) {
     loginChain.interrupt()
     return
@@ -77,19 +77,19 @@ let function onResume() {
   loginState.logOut()
 }
 
-let function do_logout() {
+function do_logout() {
   loginState.logOut()
   msgbox.show({ text = loc("yn1/disconnection/psn", { game = loc("title/name") }) })
 }
 
 
-eventbus.subscribe("psn.logged_in", function(result) {
+eventbus_subscribe("psn.logged_in", function(result) {
   if (!result)
     do_logout()
 })
 
 
-let function process_logout(skip_checks) {
+function process_logout(skip_checks) {
   if (!skip_checks) {
     if (psn_was_logged_out.value) {
       psn_was_logged_outUpdate(false)
@@ -100,7 +100,7 @@ let function process_logout(skip_checks) {
   }
 }
 
-let function onPsnLogout() {
+function onPsnLogout() {
   if (loginChain.currentStage.value != null) {
     psn_was_logged_outUpdate(true)
     return
@@ -116,7 +116,7 @@ loginState.isLoggedIn.subscribe(function(v) {
   }
 })
 
-let function on_ps4_callback(data) {
+function on_ps4_callback(data) {
   if (!data?.type) {
     logP("Invalid data received:", data)
     return
@@ -131,7 +131,7 @@ let function on_ps4_callback(data) {
   }
 }
 
-eventbus.subscribe("ps4.event", on_ps4_callback)
+eventbus_subscribe("ps4.event", on_ps4_callback)
 
 loginState.isLoggedIn.subscribe(function(v) {
   if (v)
@@ -140,7 +140,7 @@ loginState.isLoggedIn.subscribe(function(v) {
     leaveQueue()
 })
 
-eventbus.subscribe("ipc.onBattleExitAccept", function(_) {
+eventbus_subscribe("ipc.onBattleExitAccept", function(_) {
   defer(switch_to_menu_scene)
   leaveSquadSilent(function(...) {
     if (psn_invitation_data.value != null) {
@@ -150,19 +150,19 @@ eventbus.subscribe("ipc.onBattleExitAccept", function(_) {
   })
 })
 
-eventbus.subscribe("matching.logged_out", function(_notify) {
+eventbus_subscribe("matching.logged_out", function(_notify) {
   leaveQueue()
   roomState.leaveRoom(function(...){})
 })
 
-eventbus.subscribe("showPsnUserInfo", @(msg) open_player_profile(
+eventbus_subscribe("showPsnUserInfo", @(msg) open_player_profile(
   (uid2console.value?[msg.userId.tostring()] ?? "-1").tointeger(),
   PlayerAction?.DISPLAY,
   "",
   {}
 ))
 
-eventbus.subscribe("PSNAuthContactsReceived", function(_) {
+eventbus_subscribe("PSNAuthContactsReceived", function(_) {
   if (psn_invitation_data.value) {
     join_session(psn_invitation_data.value)
     psn_invitation_dataUpdate(null)

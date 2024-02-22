@@ -1,11 +1,11 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { mkOnlineSaveData } = require("%enlSqGlob/mkOnlineSaveData.nut")
 let { onlineSettingUpdated } = require("onlineSettings.nut")
 let { watch, setValue } = mkOnlineSaveData("onlinePersistentFlags", @() {})
 
-let function mkOnlinePersistentWatched(id, flag) {
-  let function save(val) {
+function mkOnlinePersistentWatched(id, flag) {
+  function save(val) {
     if (onlineSettingUpdated.value && val)
       setValue(watch.value.__merge({ [id] = true }))
   }

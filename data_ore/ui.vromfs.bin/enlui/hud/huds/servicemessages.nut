@@ -1,9 +1,9 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { get_time_msec } = require("dagor.time")
 let { serviceNotificationsList } = require("%enlSqGlob/serviceNotificationsList.nut")
 let isAnyMenuVisible = require("%ui/hud/state/isAnyMenuVisible.nut")
-let mkServiceNotification = require("%enlSqGlob/notifications/mkServiceNotification.nut")
+let mkServiceNotification = require("%enlSqGlob/ui/notifications/mkServiceNotification.nut")
 
 const SHOW_TIME_MSEC = 30000
 
@@ -18,14 +18,14 @@ let messagesToShow = Computed(@() serviceNotificationsList.value
     return leftTime > 0
   }))
 
-let function addInfoOnce(showInfoV, notify) {
+function addInfoOnce(showInfoV, notify) {
   let uid = getUid(notify)
   if (uid not in showInfoV)
     showInfoV[uid] <- { leftTime = SHOW_TIME_MSEC, hideTime = null }
   return showInfoV[uid]
 }
 
-let function updateLeftTime() {
+function updateLeftTime() {
   let list = serviceNotificationsList.value
   if (list.len() == 0)
     return

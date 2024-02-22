@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 
 let {isOpenSteamLinkUrlInProgress, isSteamLinked, openSteamLinkUrl} = require("%enlist/state/steamState.nut")
@@ -13,7 +13,7 @@ let spinner = faComp("spinner", {
   transform = {}
   animations = [{ prop=AnimProp.rotate, from = 0, to = 360, duration = 1, play = true, loop = true, easing=Discrete8 }]
 })
-let function steamLinkBtn() {
+function steamLinkBtn() {
   let res = { watch = [isSteamLinked, isOpenSteamLinkUrlInProgress] }
   if (isSteamLinked.value)
     return res

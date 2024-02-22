@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { configs } = require("%enlist/meta/configs.nut")
 let { rent_squad } = require("%enlist/meta/clientApi.nut")
@@ -11,7 +11,7 @@ let rentSquadsConfig = Computed(function() {
 })
 
 
-let function rentSquad(armyId, squadId, rentTime, price) {
+function rentSquad(armyId, squadId, rentTime, price) {
   rent_squad(armyId, squadId, rentTime, price)
 }
 

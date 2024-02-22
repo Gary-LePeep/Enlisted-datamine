@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { tipCmp } = require("tipComponent.nut")
 
@@ -7,7 +7,7 @@ let isMortarMode = Watched(false)
 let mortarDistance = Watched(0.0)
 local mortarEid = ecs.INVALID_ENTITY_ID
 
-let function trackMortarMode(_eid, comp) {
+function trackMortarMode(_eid, comp) {
   let isActive = comp["human_weap__mortarMode"]
   isMortarMode(isActive)
   mortarEid = (isActive ? comp["human_weap__currentGunEid"] : null) ?? ecs.INVALID_ENTITY_ID
@@ -29,7 +29,7 @@ ecs.register_es("mortar_aiming_mode_es",
     comps_rq = ["watchedByPlr"]
   })
 
-let function trackMortarDistance(eid, comp) {
+function trackMortarDistance(eid, comp) {
   if (eid != mortarEid)
     return
   let distance = comp["mortar__targetDistance"]
@@ -50,7 +50,7 @@ let mkAimDistance = @(distance) tipCmp({
   inputId = "Human.Aim"
 })
 
-let function mortar() {
+function mortar() {
   let res = { watch = [isMortarMode, mortarDistance] }
   if (!isMortarMode.value)
     return res

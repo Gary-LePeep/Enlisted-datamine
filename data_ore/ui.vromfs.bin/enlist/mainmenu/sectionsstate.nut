@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { doesSceneExist, scenesListGeneration } = require("%enlist/navState.nut")
 let { sound_play } = require("%dngscripts/sound_system.nut")
@@ -24,7 +24,7 @@ let curSectionDetails = Computed(function() {
   return {camera=section.camera }
 })
 
-let function setSectionsSorted(sections){
+function setSectionsSorted(sections){
   let found = {}
   foreach (k, v in sections) {
     if (v?.id==null)
@@ -42,7 +42,7 @@ let function setSectionsSorted(sections){
   sectionsGeneration(sectionsGeneration.value + 1)
 }
 
-let function setCurSection(id) {
+function setCurSection(id) {
   let section = sectionsSorted.findvalue(@(s) s?.id == id)
   if (section == null)
     return
@@ -50,21 +50,21 @@ let function setCurSection(id) {
 }
 
 const CAMPAIGN_PROGRESS = "CAMPAIGN"
-let function jumpToArmyProgress() {
+function jumpToArmyProgress() {
   setCurSection(CAMPAIGN_PROGRESS)
 }
 
-let function jumpToArmyGrowth(growthId = null) {
+function jumpToArmyGrowth(growthId = null) {
   reqGrowthId(growthId)
   setCurSection("GROWTH")
 }
 
-let function jumpToArmyGrowthTier(growthTier) {
+function jumpToArmyGrowthTier(growthTier) {
   setCurGrowthTier(growthTier)
   setCurSection("GROWTH")
 }
 
-let function jumpToResearches() {
+function jumpToResearches() {
   setCurSection("RESEARCHES")
 }
 
@@ -75,7 +75,7 @@ let hasResearchesOpened = Computed(@() curSection.value == "RESEARCHES")
 
 let hasMainSectionOpened = Computed(@() curSection.value == mainSectionId)
 
-let function trySwitchSection(sectionId) {
+function trySwitchSection(sectionId) {
   let { onExitCb = @() true } = sectionsSorted.findvalue(@(s) s?.id == curSection.value)
   if (onExitCb()) {
     setCurSection(sectionId)
@@ -83,7 +83,7 @@ let function trySwitchSection(sectionId) {
   }
 }
 
-let function tryBackSection(sectionId) {
+function tryBackSection(sectionId) {
   let { onBackCb = @() true } = sectionsSorted.findvalue(@(s) s?.id == curSection.value)
   if (onBackCb())
     trySwitchSection(sectionId)

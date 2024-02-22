@@ -1,13 +1,13 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {fontBody} = require("%enlSqGlob/ui/fontsStyle.nut")
 let {ControlBgOpaque, BtnTextHover, BtnTextActive, BtnTextHilite, BtnTextNormal, BtnBgNormal, BtnBgHover, BtnBgActive} = require("%ui/style/colors.nut")
 let { makeHorizScroll } = require("%ui/components/scrollbar.nut")
-let { safeAreaHorPadding } = require("%enlSqGlob/safeArea.nut")
+let { safeAreaHorPadding } = require("%enlSqGlob/ui/safeArea.nut")
 
 let saSize = Computed(@() sw(100)-2*safeAreaHorPadding.value)
 
-let function tabCtor(tab, is_current, handler) {
+function tabCtor(tab, is_current, handler) {
   let grp = ElemGroup()
   let stateFlags = Watched(0)
 
@@ -62,7 +62,7 @@ let function tabCtor(tab, is_current, handler) {
 }
 
 
-let function tabsHolder(_params, children) {
+function tabsHolder(_params, children) {
   let width = min(sw(90), saSize.value)
   return makeHorizScroll({
     rendObj = ROBJ_BOX

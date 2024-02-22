@@ -1337,7 +1337,7 @@
     "entity": {
       "_template": "briefing_invasion",
       "mission_name": "normandy_forest_inv_counter",
-      "mission_outfit": "normandy",
+      "mission_outfit": "ardennes",
       "loading_images:list<t>": [
         {
           "item": "ui/normandy_hills_inv_03.avif"
@@ -1365,7 +1365,7 @@
       "team__winSubtitle": "debriefing/won_invasion_subtitle",
       "team__loseSubtitle": "debriefing/lost_invasion_subtitle",
       "team__winTitle": "debriefing/allies_won_invasion",
-      "team__spawnBotArmy": "normandy_allies"
+      "team__spawnBotArmy": "ardennes_allies"
     }
   },
   {
@@ -1381,7 +1381,7 @@
       "team__winSubtitle": "debriefing/won_defence_subtitle",
       "team__loseSubtitle": "debriefing/lost_defence_subtitle",
       "team__winTitle": "debriefing/axis_won_defence",
-      "team__spawnBotArmy": "normandy_axis"
+      "team__spawnBotArmy": "ardennes_axis"
     }
   },
   {
@@ -1456,8 +1456,8 @@
       "capzone__createdRespawnBaseGroup": 8,
       "capzone__areaId": "caparea_4_a",
       "capzone__activateChoice:object": {
-        "sector_3_b": 1.0,
-        "sector_3_a": 1.0
+        "sector_3_a": 1.0,
+        "sector_3_b": 1.0
       },
       "poly_area__points:list<p3>": [
         {
@@ -1763,7 +1763,7 @@
       "capzone__onlyTeamCanCapture": 1,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_4_b",
-      "capzone__capTime": 50.0,
+      "capzone__capTime": 40.0,
       "capzone__capTeam": -1,
       "transform": [
         [1.0,0.0,0.0],
@@ -1828,7 +1828,7 @@
       "capzone__onlyTeamCanCapture": 1,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_5_a",
-      "capzone__capTime": 60.0,
+      "capzone__capTime": 40.0,
       "capzone__capTeam": -1,
       "transform": [
         [1.70889,0.0,-0.174651],
@@ -2236,7 +2236,7 @@
         [-0.931525,0.00154834,0.363674],
         [0.00219271,0.999997,0.00135899],
         [-0.363671,0.00206336,-0.931526],
-        [498.252,36.0323,106.326]
+        [497.752,36.0323,105.497]
       ],
       "groupName": "sector_4_a",
       "respawnBaseGroup": 1,
@@ -2250,7 +2250,7 @@
         [-0.932654,-0.00075839,0.360774],
         [0.000182242,0.999997,0.00257324],
         [-0.360775,0.00246569,-0.932651],
-        [497.513,35.987,103.318]
+        [497.013,35.987,102.489]
       ],
       "groupName": "sector_4_a",
       "respawnBaseGroup": 1,
@@ -2338,7 +2338,7 @@
         [0.999203,0.00211126,0.0398541],
         [-0.0020505,0.999997,-0.00156533],
         [-0.0398573,0.00148237,0.999205],
-        [194.044,23.7013,167.208]
+        [189.267,25.044,167.801]
       ],
       "groupName": "sector_4_a",
       "respawnBaseGroup": 2,
@@ -2352,7 +2352,7 @@
         [0.996021,0.00211126,0.089091],
         [-0.0019708,0.999997,-0.00166457],
         [-0.0890942,0.00148237,0.996022],
-        [194.068,23.419,170.527]
+        [190.475,25.1566,171.474]
       ],
       "groupName": "sector_4_a",
       "respawnBaseGroup": 2,
@@ -3052,7 +3052,7 @@
         [-0.999211,0.0,0.0397138],
         [0.0,1.0,0.0],
         [-0.0397138,0.0,-0.999211],
-        [532.987,34.4737,92.3471]
+        [533.04,34.4737,91.0475]
       ],
       "groupName": "sector_5_a",
       "respawnBaseGroup": 3,
@@ -3133,10 +3133,10 @@
     "entity": {
       "_template": "respawnBaseWithGroupOnCapturePoint",
       "transform": [
-        [-0.737987,0.0,-0.674815],
+        [-0.664728,0.0,-0.747086],
         [0.0,1.0,0.0],
-        [0.674815,0.0,-0.737987],
-        [206.053,26.8045,40.945]
+        [0.747086,0.0,-0.664728],
+        [204.742,26.8045,42.1536]
       ],
       "groupName": "sector_3_a",
       "respawnBaseGroup": 6,
@@ -3150,7 +3150,7 @@
         [0.999965,0.0,0.00837776],
         [0.0,1.0,-0.0],
         [-0.00837776,0.0,0.999965],
-        [193.912,30.6361,157.238]
+        [193.912,27.0794,157.238]
       ],
       "groupName": "sector_3_b",
       "respawnBaseGroup": 7,
@@ -3164,7 +3164,7 @@
         [0.942933,0.0,-0.332983],
         [0.0,1.0,0.0],
         [0.332983,-0.0,0.942933],
-        [193.111,30.6361,154.57]
+        [193.111,27.0794,154.57]
       ],
       "groupName": "sector_3_b",
       "respawnBaseGroup": 7,
@@ -3276,7 +3276,7 @@
         [-0.99699,0.00154834,0.0775088],
         [0.00170361,0.999997,0.00193714],
         [-0.0775055,0.00206336,-0.99699],
-        [497.813,36.0057,103.768]
+        [497.313,36.0057,102.939]
       ],
       "groupName": "sector_4_b",
       "respawnBaseGroup": 1,
@@ -3290,7 +3290,7 @@
         [-0.99925,0.00154834,0.0387212],
         [0.00162707,0.999997,0.00200186],
         [-0.038718,0.00206336,-0.999249],
-        [497.735,35.9514,107.007]
+        [497.235,35.9514,106.178]
       ],
       "groupName": "sector_4_b",
       "respawnBaseGroup": 1,
@@ -3329,10 +3329,10 @@
     "entity": {
       "_template": "respawnChooser+respTeam1",
       "transform": [
-        [0.886503,0.00211126,-0.462718],
-        [-0.00255756,0.999997,-0.000337206],
-        [0.462717,0.00148237,0.886506],
-        [176.009,23.8326,179.179]
+        [0.898648,0.00211126,0.438665],
+        [-0.00124702,0.999997,-0.00225827],
+        [-0.438669,0.00148236,0.898649],
+        [183.413,25.524,169.831]
       ],
       "groupName": "sector_4_b",
       "respawnBaseGroup": 2,
@@ -3346,7 +3346,7 @@
         [0.95543,0.00211126,-0.295209],
         [-0.00245477,0.999997,-0.00079304],
         [0.295207,0.00148237,0.955434],
-        [178.211,22.5302,182.424]
+        [183.942,25.5118,171.871]
       ],
       "groupName": "sector_4_b",
       "respawnBaseGroup": 2,

@@ -12,7 +12,7 @@ const LOCAL_PERM = "local."
 let permissions = {}
 
 
-let function hasDedicatedPermission(userid, permission){
+function hasDedicatedPermission(userid, permission){
   if (isInternalCircuit.value)
     return true
 

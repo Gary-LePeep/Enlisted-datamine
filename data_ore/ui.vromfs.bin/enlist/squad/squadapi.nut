@@ -1,8 +1,8 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { matchingCall } = require("%enlist/matchingClient.nut")
 
-let function reportError(resp, _silent=false) {
+function reportError(resp, _silent=false) {
   if (resp.error == 0)
     return false
   log(resp)

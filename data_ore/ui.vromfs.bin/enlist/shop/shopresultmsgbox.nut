@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let msgbox = require("%enlist/components/msgbox.nut")
 let { lastReceivedServerTime } = require("%enlSqGlob/userstats/serverTimeUpdate.nut")
@@ -11,7 +11,7 @@ let { activeTxtColor, gap, bigPadding, accentTitleTxtColor
 let { shopItems } = require("%enlist/shop/shopItems.nut")
 let { mkShopItemView } = require("shopPkg.nut")
 let { borderColor } = require("%ui/style/colors.nut")
-let { isLoggedIn } = require("%enlSqGlob/login_state.nut")
+let { isLoggedIn } = require("%enlSqGlob/ui/login_state.nut")
 
 
 const SEEN_ID = "seen/purchasesExt"
@@ -48,7 +48,7 @@ let unseenPurchasesExt = keepref(Computed(function() {
       && p.nameText != "")
 }))
 
-let function markSeen(purchases) {
+function markSeen(purchases) {
   settings.mutate(function(set) {
     let saved = (clone (set?[SEEN_ID] ?? {}))
       .__update( purchases.map(@(v) v.amount) )
@@ -56,11 +56,11 @@ let function markSeen(purchases) {
   })
 }
 
-let function resetSeen() {
-  settings.mutate(@(v) delete v[SEEN_ID])
+function resetSeen() {
+  settings.mutate(@(v) v.$rawdelete(SEEN_ID))
 }
 
-let function mkShopItemSingleResult(purchase) {
+function mkShopItemSingleResult(purchase) {
   let { amount, shopItem } = purchase
   return {
     flow = FLOW_HORIZONTAL
@@ -112,7 +112,7 @@ let mkPurchasesView = @(purchases) {
     : mkShopItemMultiResult(purchases)
 }
 
-let function checkReqPurchasesMsgbox(purchases) {
+function checkReqPurchasesMsgbox(purchases) {
   if (purchases.len() == 0)
     return
 

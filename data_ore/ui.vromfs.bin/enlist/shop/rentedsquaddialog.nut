@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let clickShopItem = require("%enlist/shop/clickShopItem.nut")
 let { findSquadShopItem } = require("%enlist/shop/armyShopState.nut")
@@ -7,7 +7,7 @@ let { armies } = require("%enlist/soldiers/model/state.nut")
 let { buyRentedSquad } = require("%enlist/soldiers/model/squadInfoState.nut")
 
 
-let function checkReqMsgbox(rentedSquadData = null) {
+function checkReqMsgbox(rentedSquadData = null) {
   let { armyId = null, squadId = null, hasMsgBox = false } = rentedSquadData
   if (armyId == null || squadId == null)
     return

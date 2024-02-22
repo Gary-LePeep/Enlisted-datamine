@@ -18,63 +18,47 @@ require GeomNodeTree
 require AnimV20
 require enlisted.events_enlisted
 
+[es(tag=gameClient, after=human_anim_ragdoll_es, before=ragdoll_start_es, on_event=ParallelUpdateFrameDelayed)]
+def clean_extra_projectile_impulse(evt : Event;
+                                   projectile_impulse : ProjectileImpulse;
+                                   ragdoll__applyParams : bool;
+                                   var projectile_impulse__impulseSaveDeltaTime : float&;
+                                   projectile_impulse__maxCount = 5)
+  if !ragdoll__applyParams
+    return
+  let curTime = get_sync_time()
+  projectile_impulse_get_data(projectile_impulse) <| $(pairs)
+    let impulsesCount = length(pairs)
+    if impulsesCount > projectile_impulse__maxCount
+      let impulseTime = pairs[impulsesCount - projectile_impulse__maxCount].time
+      if impulseTime > curTime - projectile_impulse__impulseSaveDeltaTime
+        projectile_impulse__impulseSaveDeltaTime = impulseTime - curTime
 
-def clipout_nodes(var tree : GeomNodeTree;
-                  var tm : float3x4;
-                  var wtm : float3x4;
-                  node : int;
-                  parent_wtm : float3x4;
-                  prefix : string;
-                  prefix_len : int;
-                  trace_handles : TraceMeshFaces)
-  let childCount = tree |> geomtree_getChildCount(node)
-  for i in range(childCount)
-    let childNode = tree |> geomtree_getChildNodeIdx(node, uint(i))
-    let nodeName = tree |> geomtree_getNodeName(childNode)
-    if !starts_with(nodeName, prefix, uint(prefix_len))
-      continue
-    var childTm : float3x4
-    tree |> geomtree_getNodeTmScalar(childNode, childTm)
-    var childWtm = wtm * childTm
-    var norm : float3
-    var matId : int
+[es(on_appear)]
+def init_ragdolls_wake_up_node_ind(evt : Event;
+                                   eid : EntityId;
+                                   animchar : AnimcharBaseComponent;
+                                   var ragdoll__wakeUpNodeId : int&;
+                                   ragdoll__wakeUpNode : string)
+  let wakeUpNodeInd = geomtree_findNodeIndex(*animchar.nodeTree, ragdoll__wakeUpNode)
+  if wakeUpNodeInd < 0
+    logerr("Node {ragdoll__wakeUpNode} was not found in node tree of [{eid}] {getEntityTemplateName(eid)}. Use default ragdoll__wakeUpNodeId = {ragdoll__wakeUpNodeId}")
+  else
+    ragdoll__wakeUpNodeId = wakeUpNodeInd
 
-    using() <| $(var desc : RendInstDesc#)
-      let toChild = childWtm[3] - wtm[3]
-      let toChildLen = length(toChild)
-      if toChildLen > 1e-6
-        let toChildDir = toChild / toChildLen
-        var t = toChildLen
-        if traceray_normalized(wtm[3], toChildDir, t, matId, norm, ETF_DEFAULT, desc, -1, trace_handles)
-          // Rerotate parent tm to fix it out of collision
-          let axis = normalize(cross(norm, toChildDir))
-          let localAxis = rotate(inverse(wtm), axis)
-          let ang = acos(t / toChildLen)
-          var rotTm : float3x4
-          make_tm(localAxis, ang, rotTm)
-          tm = tm * rotTm
-          wtm = parent_wtm * tm
-          childWtm = wtm * childTm
-          tree |> geomtree_setNodeTmScalar(node, tm)
-          tree |> geomtree_setNodeWtmRelScalar(node, wtm)
-      let initialLen = 0.1
-      for j in range(6)
-        let dir = childWtm[j / 2] * ((j & 1) != 0 ? 1.0 : -1.0)
-        var t = initialLen
-        if traceray_normalized(childWtm[3], dir, t, matId, norm, ETF_DEFAULT, desc, -1, trace_handles)
-          // Rerotate parent tm to fix it out of collision
-          let axis = normalize(cross(norm, dir))
-          let localAxis = rotate(inverse(wtm), axis)
-          let ang = acos(t / initialLen)
-          var rotTm : float3x4
-          make_tm(localAxis, ang, rotTm)
-          tm = tm * rotTm
-          wtm = parent_wtm * tm
-          childWtm = wtm * childTm
-          tree |> geomtree_setNodeTmScalar(node, tm)
-          tree |> geomtree_setNodeWtmRelScalar(node, wtm)
-    tree |> geomtree_setNodeWtmRelScalar(childNode, childWtm)
-    clipout_nodes(tree, childTm, childWtm, childNode, wtm, prefix, prefix_len, trace_handles)
+[es(tag=render)]
+def wake_up_ragdoll_on_ri_destroy(evt : EventRendinstDestroyedClient;
+                                  animchar : AnimcharBaseComponent;
+                                  var ragdoll : PhysRagdoll;
+                                  ragdoll__wakeUpNodeId : int&;
+                                  var animchar__updatable : bool&)
+  let rootPos = geomtree_getNodeWpos(*animchar.nodeTree, ragdoll__wakeUpNodeId)
+  if !animchar__updatable && (evt.riGlobBBox & rootPos)
+    animchar__updatable = true
+    if ! ragdoll |> ragdoll_wakeUp()
+      ragdoll |> ragdoll_startRagdoll(int(PhysLayer EPL_CHARACTER),
+                                      int(PhysLayer EPL_ALL & (~(PhysLayer EPL_KINEMATIC | PhysLayer EPL_CHARACTER))),
+                                      animchar.nodeTree)
 
 def start_ragdoll(var ragdoll : PhysRagdoll;
                   var ragdoll__applyParams : bool&;

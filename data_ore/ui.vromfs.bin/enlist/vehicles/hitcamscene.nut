@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 import "%dngscripts/ecs.nut" as ecs
 
 let { iconByGameTemplate } = require("%enlSqGlob/ui/itemsInfo.nut")
@@ -36,17 +36,17 @@ let hangarHitcamShotResult = Watched(HitcamResult.EMPTY)
 let setXrayModeQuery = ecs.SqQuery("setXrayModeQuery",
   { comps_rw = [ ["xray_context__isPictureInPicture", ecs.TYPE_BOOL] ]})
 
-let function resetVehicle() {
+function resetVehicle() {
   selectVehParams.mutate(@(v) v.recreateVersionNo <- (v?.recreateVersionNo ?? 0) + 1)
 }
 
-let function actionsOnClose() {
+function actionsOnClose() {
   resetVehicle()
   selectVehParams.mutate(@(v) v.isHitcamMode = false)
   setXrayModeQuery(@(_, comp) comp.xray_context__isPictureInPicture = true)
 }
 
-let function close() {
+function close() {
   actionsOnClose()
 }
 
@@ -66,20 +66,17 @@ let colorEffective = Color(30, 255, 30)
 let colorPossibleEffective = Color(230, 230, 20)
 let colorMiss = Color(150, 150, 140)
 
-let function getCrosshairColor(hitResult) {
-  switch(hitResult) {
-    case HitcamResult.EFFECTIVE:
-      return colorEffective
-    case HitcamResult.POSSIBLE_EFFECTIVE:
-      return colorPossibleEffective
-    case HitcamResult.NOT_PENETRATE:
-    case HitcamResult.RICOCHET:
-      return colorNotPenetrated
-    case HitcamResult.INEFFECTIVE:
-      return colorIneffective
-    case HitcamResult.EMPTY:
-      return colorMiss
-  }
+function getCrosshairColor(hitResult) {
+  if (hitResult == HitcamResult.EFFECTIVE)
+    return colorEffective
+  else if ( hitResult == HitcamResult.POSSIBLE_EFFECTIVE)
+    return colorPossibleEffective
+  else if ( hitResult == HitcamResult.NOT_PENETRATE || hitResult == HitcamResult.RICOCHET)
+    return colorNotPenetrated
+  else if ( hitResult == HitcamResult.INEFFECTIVE)
+    return colorIneffective
+  else if ( hitResult == HitcamResult.EMPTY)
+    return colorMiss
   return colorMiss
 }
 
@@ -112,7 +109,7 @@ let slotBgColor = @(sf, isSelected)
 let comboBoxStyle = { style = { fillColor = defSlotBgColor } }
 let ammoImgSize = [hdpxi(60), hdpxi(60)]
 
-let function mkAmmo(ammo, gunName, gunTemplateId, weaponId, ammoIndex) {
+function mkAmmo(ammo, gunName, gunTemplateId, weaponId, ammoIndex) {
   let { aType, slot } = ammo
   let isSelected = Computed(@() gunTemplateId == weaponId.value && slot == ammoIndex.value)
   return watchElemState(@(sf) {
@@ -163,7 +160,7 @@ let hitcamScene = function() {
     hitcamArmyId, hitcamVehicleId, weaponId, ammoIndex, shotDistance
   } = mkHitcamData()
 
-  let function analyzeShot(event) {
+  function analyzeShot(event) {
     let target = getCurrentVehicleQuery(@(_, comp) comp.menu_vehicle_to_control) ?? ecs.INVALID_ENTITY_ID
     if (target == ecs.INVALID_ENTITY_ID)
       return
@@ -175,7 +172,7 @@ let hitcamScene = function() {
     hangarHitcamShotResult(result)
   }
 
-  let function makeShot(event) {
+  function makeShot(event) {
     if ((weaponId.value ?? "") != "")
       ecs.g_entity_mgr.broadcastEvent(CmdShootGunScreenSpace({
         gunTemplate = $"{weaponId.value}+xray_activator"

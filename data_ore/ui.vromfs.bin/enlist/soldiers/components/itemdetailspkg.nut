@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { doesLocTextExist } = require("dagor.localize")
@@ -64,7 +64,7 @@ let mkTextRow = @(header, value) {
 
 let vertFrame = { rendObj = ROBJ_SOLID, size = [hdpx(1), flex()], color = defBdColor }
 
-let function armamentRowTitle(gun) {
+function armamentRowTitle(gun) {
   let gunCount = gun.count <= 1 || gun.count == gun.gun__maxAmmo
     ? ""
     : loc("common/amountShort", { count = gun.count })
@@ -85,7 +85,7 @@ let getValueColor = @(val, baseVal, isPositive = true)
     : val > baseVal == isPositive ? GOOD_COLOR //-compared-with-bool
     : BAD_COLOR
 
-let function armamentRowCtor(val, _itemData, setup, _itemBase) {
+function armamentRowCtor(val, _itemData, setup, _itemBase) {
   let reducedGuns = getArmaments(val)
   let hasArmament = reducedGuns != null
   return {
@@ -135,7 +135,7 @@ let flexGap = {
 
 let halfGap = { size = flex(0.5) }
 
-let function armorRowCtor(tbl, _itemData, setup, _itemBase) {
+function armorRowCtor(tbl, _itemData, setup, _itemBase) {
   let { mult = 1, measure = "", precision = 1 } = setup
   let measureLoc = measure != "" ? loc($"itemDetails/{measure}") : null
   let tblHeader = loc($"itemDetails/{setup.key}", {
@@ -238,7 +238,7 @@ let VEHICLE_DETAILS_CONSTRUCTORS = {
   }
 }
 
-local function mkRange(val, range, key) {
+function mkRange(val, range, key) {
   val = clamp(val, range[0], range[1])
   local progressWidth = val == 0 ? 0 : RANGE_SIZE[0] * val / range[1]
   return {
@@ -259,7 +259,7 @@ local function mkRange(val, range, key) {
   }
 }
 
-let function mkFullLine (key, valText, measure, val, range, animKey) {
+function mkFullLine (key, valText, measure, val, range, animKey) {
   let headerTitle = loc($"itemDetails/{key}", measure == "" ? {} : {
     measure = loc($"itemDetails/{measure}")
   })
@@ -281,7 +281,7 @@ let function mkFullLine (key, valText, measure, val, range, animKey) {
   }
 }
 
-local function mkDetailsLine(val, setup, itemBase, animKey) {
+function mkDetailsLine(val, setup, itemBase, animKey) {
   local {
     key, mult = 1, measure = "", altLimit = 0.0, altMeasure = "",
     precision = 1, isPositive = true, range = null
@@ -308,7 +308,7 @@ local function mkDetailsLine(val, setup, itemBase, animKey) {
   return mkFullLine(key, valText, measure, topVal, range, animKey)
 }
 
-let function mkDetailsTable(tbl, setup, baseVal = 1.0) {
+function mkDetailsTable(tbl, setup, baseVal = 1.0) {
   let { key, mult = 1, measure = "", altMeasure = "", precision = 1 } = setup
   if (mult == 0 || baseVal == 0)
     return null
@@ -365,7 +365,7 @@ let function mkDetailsTable(tbl, setup, baseVal = 1.0) {
   }
 }
 
-let function mkDetails(detailsList, constructors, item) {
+function mkDetails(detailsList, constructors, item) {
   let { upgradesId = null, upgradeIdx = 0, gametemplate = null, itemtype = null } = item
   if (gametemplate == null)
     return null
@@ -458,7 +458,7 @@ let UPGRADES_LIST = [
 ]
   .map(@(u) { locId = $"itemDetails/upgrade/{u.key}" }.__update(u))
 
-local function prepareValue(val, setup) {
+function prepareValue(val, setup) {
   if (val == null)
     return null
   let { mult = 1, precision = 1 } = setup
@@ -466,7 +466,7 @@ local function prepareValue(val, setup) {
   return fabs(val) < precision ? null : val
 }
 
-local function formatValue(val, setup, showValue) {
+function formatValue(val, setup, showValue) {
   val = prepareValue(val, setup)
   if (val == null)
     return null
@@ -486,7 +486,7 @@ local function formatValue(val, setup, showValue) {
 let countUpgradeStats = @(upgrade)
   UPGRADES_LIST.reduce(@(sum, setup) prepareValue(upgrade?[setup.key], setup) != null ? sum + 1 : sum, 0)
 
-let function mkUpgradeStatsList(upgrade, limit = 0) {
+function mkUpgradeStatsList(upgrade, limit = 0) {
   let list = []
   for (local order = 0, count = 0;
     order < UPGRADES_LIST.len() && (limit <= 0 || count <= limit);
@@ -550,7 +550,7 @@ let mkUpgradeStatsTooltip = @(header, list) {
   }
 }
 
-let function mkUpgradeGroup(groupId, level, idx, upgrade, isFull) {
+function mkUpgradeGroup(groupId, level, idx, upgrade, isFull) {
   if ((upgrade?.len() ?? 0) == 0)
     return null
   let list = mkUpgradeStatsList(upgrade, MAX_STATS_COUNT)
@@ -600,7 +600,7 @@ let calcBonus = @(prevWd, curWd, key)
   !(key in curWd) || (prevWd?[key] ?? 0) == 0 ? 0
     : curWd[key].tofloat() / prevWd[key] - 1.0
 
-let function prepareUpgrades(curUpgrades, prevUpgrades, itemData) {
+function prepareUpgrades(curUpgrades, prevUpgrades, itemData) {
   let res = clone (curUpgrades ?? {})
   foreach (key, value in prevUpgrades)
     res[key] <- (res?[key] ?? 0) - value
@@ -619,7 +619,7 @@ let function prepareUpgrades(curUpgrades, prevUpgrades, itemData) {
   return res
 }
 
-let function mkUpgrades(item, isFull = true) {
+function mkUpgrades(item, isFull = true) {
   let { upgradesId = null, upgradeIdx = 0, gametemplate = null, tier = 0 } = item
   if (upgradesId == null || gametemplate == null)
     return null
@@ -668,7 +668,7 @@ let function mkUpgrades(item, isFull = true) {
   }
 }
 
-let function diffUpgrades(item, nextIdx = null) {
+function diffUpgrades(item, nextIdx = null) {
   let { upgradesId = null, upgradeIdx = 0, gametemplate = null } = item
   if (upgradesId == null || gametemplate == null)
     return null
@@ -678,7 +678,7 @@ let function diffUpgrades(item, nextIdx = null) {
   return mkUpgradeStatsList(curUpgrades)
 }
 
-let function mkItemDescription(item) {
+function mkItemDescription(item) {
   let text = getItemDesc(item)
   return text == "" ? null : {
     size = [flex(), SIZE_TO_CONTENT]

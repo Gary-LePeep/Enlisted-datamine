@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontSub, fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let userInfo = require("%enlSqGlob/userInfo.nut")

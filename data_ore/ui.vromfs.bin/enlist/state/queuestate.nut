@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { isInSquad, isSquadLeader, squadSharedData } = require("%enlist/squad/squadState.nut")
 let squadClusters = squadSharedData.clusters
@@ -32,7 +32,7 @@ let canChangeQueueParams = Computed(@() !isInQueue.value && (!isInSquad.value ||
 
 let availableSquadMaxMembers = Computed(@() matchingQueues.value.reduce(@(res, gt) max(res, (gt?.maxGroupSize ?? 1)), 1))
 
-let function recalcSquadClusters(_) {
+function recalcSquadClusters(_) {
   if (!isSquadLeader.value)
     return
   squadClusters(clone selectedClusters.value)

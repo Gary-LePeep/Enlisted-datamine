@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
@@ -33,7 +33,7 @@ const ADD_CAMERA_FOV_MAX = 45
 let showNotAvailable = Watched(false)
 selectVehParams.subscribe(@(_) showNotAvailable(false))
 
-let function createSquadHandlers(squads) {
+function createSquadHandlers(squads) {
   squads.each(@(squad)
     squad.__update({
       onClick = @() setCurSquadId(squad.squadId)
@@ -46,7 +46,7 @@ let notAvailableHeader = mkToggleHeader(showNotAvailable, loc("header/notAvailab
 
 let sortByStatus = @(a, b) (b != LOCKED) <=> (a != LOCKED) || a <=> b
 
-let function mkStatusHeader(status) {
+function mkStatusHeader(status) {
   let { statusTextShort = null, statusText = null, isHiddenInGroup = false } = status
   let text = isHiddenInGroup ? null : (statusTextShort ?? statusText)
   return text == null ? null
@@ -61,7 +61,7 @@ let function mkStatusHeader(status) {
       }.__update(fontSub)
 }
 
-let function groupByStatus(itemsList) {
+function groupByStatus(itemsList) {
   let groupedItems = {}
   foreach (item in itemsList) {
     let { statusText = "" } = item.status
@@ -82,7 +82,7 @@ let function groupByStatus(itemsList) {
   return children
 }
 
-let function vehiclesList() {
+function vehiclesList() {
   let available = []
   let unavailable = []
   foreach (vehicle in vehicles.value) {
@@ -141,7 +141,7 @@ let vehiclesBlock = {
   ]
 }
 
-let function mkSquadName(squadId, armyId) {
+function mkSquadName(squadId, armyId) {
   let squadConfig = getSquadConfig(squadId, armyId)
   return squadConfig != null
     ? txt(loc(squadConfig?.titleLocId ?? ""))
@@ -226,7 +226,7 @@ let selectVehicleScene = @() {
 
 viewVehicle.subscribe(@(_v) changeCameraFov(0))
 
-let function open() {
+function open() {
   viewVehicle(selectedVehicle.value)
   sceneWithCameraAdd(selectVehicleScene, "vehicles")
   loadBRForAllSquads(squadsWithVehicles.value ?? [])

@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 from "%darg/laconic.nut" import *
 
 let cursors = require("%daeditor/components/cursors.nut")
@@ -14,7 +14,7 @@ let {
 } = require_optional("settings")
 
 let backupSaveEnabled = Watched(true)
-const SETTING_EDITOR_BACKUPSAVE_ENABLED = "daEditor4/sandboxBackupSaveEnabled"
+const SETTING_EDITOR_BACKUPSAVE_ENABLED = "daEditor/sandboxBackupSaveEnabled"
 backupSaveEnabled(get_setting_by_blk_path?(SETTING_EDITOR_BACKUPSAVE_ENABLED) ?? true)
 backupSaveEnabled.subscribe(function(v) {
   set_setting_by_blk_path?(SETTING_EDITOR_BACKUPSAVE_ENABLED, v)
@@ -23,7 +23,7 @@ backupSaveEnabled.subscribe(function(v) {
 let backupSaveEnabledOption = Watched(backupSaveEnabled.value)
 
 let squadsPresentation = require("%enlSqGlob/ui/squadsPresentation.nut")
-let function getAllSquads() {
+function getAllSquads() {
   local squads = [""]
   foreach (group in squadsPresentation)
     foreach (name,_val in group)
@@ -32,7 +32,7 @@ let function getAllSquads() {
   return squads.sort()
 }
 
-const SETTING_EDITOR_PLAYCONFIG = "daEditor4/sandboxPlayConfig_"
+const SETTING_EDITOR_PLAYCONFIG = "daEditor/sandboxPlayConfig_"
 
 let playOptions = {
   difficulty = ["", "standard", "hardcore"]
@@ -55,7 +55,7 @@ foreach (opt,_ in playOptions) {
 let editConfig = Watched({})
 local editConfigModalWindows = null
 
-let function setupOption(opt) {
+function setupOption(opt) {
   let options = playOptions?[opt]
   if ((options?.len()??0)<=0)
     return
@@ -94,7 +94,7 @@ let mkSelectLine = kwarg(function(selected, textCtor = null, onSelect=null, onDC
   }
 })
 
-let function openSelectSquadList(squad, onSelect) {
+function openSelectSquadList(squad, onSelect) {
   let key = {}
   let close = @() editConfigModalWindows.removeModalWindow(key)
   let selectedSquad = Watched(squad)
@@ -125,7 +125,7 @@ let function openSelectSquadList(squad, onSelect) {
 
 let gap = @(size) { size = [size, size] }
 
-let function openPlayConfigDialogInternal(modalWindows) {
+function openPlayConfigDialogInternal(modalWindows) {
   let key = "play_config_dialog"
   let close = @() modalWindows.removeModalWindow(key)
   let apply = function() {
@@ -206,7 +206,7 @@ let function openPlayConfigDialogInternal(modalWindows) {
   })
 }
 
-let function openPlayConfigDialog(modalWindows) {
+function openPlayConfigDialog(modalWindows) {
   editConfigModalWindows = modalWindows
 
   editConfig(clone playConfig)

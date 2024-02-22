@@ -426,10 +426,10 @@ def turret_weap_apply_client_controls_es(evt : CmdTurretsUpdate;
     let tick = net_phys__lastAppliedControlsForTick - net__controlsTickDelta
 
     for gunEid in turret_control__gunEids
-      query(gunEid) <| $ [es(REQUIRE=resolvedTurret)] (turret_controls_history : TurretControlsHistory;
-                                                       var turret_aim__atTick : int&;
-                                                       var turret_aim__shootAngles : float2&;
-                                                       var turret_aim__shootFlag : bool&)
+      query(gunEid) <| $ [es(REQUIRE=resolvedTurret, REQUIRE_NOT=controlledByAiGunner)] (turret_controls_history : TurretControlsHistory;
+                                                                                         var turret_aim__atTick : int&;
+                                                                                         var turret_aim__shootAngles : float2&;
+                                                                                         var turret_aim__shootFlag : bool&)
         let historyState = turret_controls_history |> turret_controls_history_findState(tick)
         if historyState == null
           return
@@ -462,9 +462,9 @@ def turret_weap_updater_es(evt : CmdTurretsUpdate;
     for gunEid in turret_control__gunEids
       query(gunEid) <| $ [es(REQUIRE=resolvedTurret)] (turret_aim__shootFlag : bool;
                                                        turret_controls_history : TurretControlsHistory const?;
+                                                       controlledByAiGunner : Tag const?;
                                                        var turret_state : TurretState)
-
-        if turret_controls_history != null && turret_aim__shootFlag
+        if turret_controls_history != null && turret_aim__shootFlag && controlledByAiGunner == null
           let historyState = *turret_controls_history |> turret_controls_history_findState(serverTick)
           if historyState != null
             if (length_sq(turret_state.shoot.pos - historyState.shootPos) < square(0.2) &&

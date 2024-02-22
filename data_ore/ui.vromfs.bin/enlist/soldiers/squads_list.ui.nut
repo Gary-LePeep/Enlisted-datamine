@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let mkCurSquadsList = require("%enlSqGlob/ui/mkSquadsList.nut")
@@ -46,7 +46,7 @@ let managementIcon = @(sf, sizeArr = [hdpxi(40), hdpxi(20)]) {
   color = txtColor(sf)
 }
 
-let function mkSlotAlertsComponent(squad){
+function mkSlotAlertsComponent(squad){
   return @() {
     flow = FLOW_HORIZONTAL
     hplace = ALIGN_RIGHT
@@ -68,7 +68,7 @@ let unseenSquadsIcon = @() {
 }
 
 
-let function mkSquadManagementBtn(restSquadsCount = null, size = null,
+function mkSquadManagementBtn(restSquadsCount = null, size = null,
   margin = null, flow = FLOW_HORIZONTAL
 ){
   let squadManageButtonStateFlags = Watched(0)
@@ -120,7 +120,7 @@ let function mkSquadManagementBtn(restSquadsCount = null, size = null,
   return squadManageButton
 }
 
-let function mkSquadsList() {
+function mkSquadsList() {
   let restSquadsCount = Computed(@()
     max(curUnlockedSquads.value.len() - curChoosenSquads.value.len(), 0))
 

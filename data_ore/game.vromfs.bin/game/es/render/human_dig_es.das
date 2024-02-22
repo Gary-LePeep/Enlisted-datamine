@@ -13,6 +13,7 @@ require ClipmapDecals
 require DagorRandom
 require PhysMat
 require game.es.human_dig_common
+require danetlibs.puddles_manager.render.puddles_manager_events
 
 
 [es(tag=netClient, on_event=EventLevelLoaded, after=human_dig_decals_init)]
@@ -97,4 +98,4 @@ def human_dig_decal_create_on_digging(evt : CmdApplyDigAction;
 
 [es(tag=render)]
 def human_dig_remove_puddles_on_digging(evt : CmdApplyDigAction; digging_config__removePuddlesRadiusScale : float)
-  remove_puddles_in_crater(evt.pos, evt.radius * digging_config__removePuddlesRadiusScale)
+  broadcastEventImmediate([[RemovePuddlesInRadius position=evt.pos, radius=evt.radius * digging_config__removePuddlesRadiusScale]])

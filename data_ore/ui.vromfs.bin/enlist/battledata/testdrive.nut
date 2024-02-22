@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { gen_testdrive_squad_profile_jwt } = require("%enlist/meta/clientApi.nut")
 let { mkJwtArmiesCbNoRetries, saveJwtResultToJson, setNextBattleData
@@ -8,7 +8,7 @@ let { startGame } = require("%enlist/gameLauncher.nut")
 
 let isTestDriveProfileInProgress = Watched(false)
 
-let function startSquadTestDrive(armyId, squadId, shopItemGuid = "") {
+function startSquadTestDrive(armyId, squadId, shopItemGuid = "") {
   if (isTestDriveProfileInProgress.value)
     return
   isTestDriveProfileInProgress(true)

@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {fontBody} = require("%enlSqGlob/ui/fontsStyle.nut")
 let { get_setting_by_blk_path } = require("settings")
@@ -8,14 +8,11 @@ let mkSliderWithText = require("%ui/components/optionTextSlider.nut")
 let optionCheckBox = require("%ui/components/optionCheckBox.nut")
 let optionCombo = require("%ui/components/optionCombo.nut")
 let optionSlider = require("%ui/components/optionSlider.nut")
-//let optionButton = require("%ui/components/optionButton.nut")
-//let optionHSelect = require("%ui/components/optionHSelect.nut")
-//let optionTextArea = require("%ui/components/optionTextArea.nut")
 let optionSpinner = require("%ui/components/optionSpinner.nut")
 
 let getOnlineSaveData = memoize(@(saveId, defValueFunc, validateFunc = @(v) v) mkOnlineSaveData(saveId, defValueFunc, validateFunc), 1)
 
-let function defCmp(a, b) {
+function defCmp(a, b) {
   if (typeof a != "float")
     return a == b
   let absSum = fabs(a) + fabs(b)
@@ -24,7 +21,7 @@ let function defCmp(a, b) {
 
 let loc_opt = @(s) loc($"option/{s}")
 
-let function optionPercentTextSliderCtor(opt, group, xmbNode) {
+function optionPercentTextSliderCtor(opt, group, xmbNode) {
   return mkSliderWithText(opt, group, xmbNode, @(v) "{0}%".subst(v * (opt?.mult ?? 1)))
 }
 
@@ -48,7 +45,7 @@ let mkDisableableCtor = @(disableWatch, enabledCtor, disabledCtor = optionDisabl
     }
   }
 
-let function optionCtor(opt){
+function optionCtor(opt){
   if (opt?.originalVal == null)
     opt.originalVal <- (type(opt?.blkPath)==type("")
       ? get_setting_by_blk_path(opt.blkPath)
@@ -68,7 +65,7 @@ let function optionCtor(opt){
   return freeze(opt)
 }
 
-let function isOption(opt){
+function isOption(opt){
   if ("isSeparator" in opt)
     return true
   if ("name" not in opt || "var" not in opt || "widgetCtor" not in opt)

@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { defTxtColor, titleTxtColor, accentColor, miniPadding, smallPadding, midPadding, bigPadding,
@@ -108,7 +108,7 @@ let userNickname = @(contact, override) {
 }.__update(override)
 
 
-let function statusIcon(isPlayerOnline) {
+function statusIcon(isPlayerOnline) {
   let iconToShow = isPlayerOnline == null ? playerStatusesIcons.unknown
     : isPlayerOnline ? playerStatusesIcons.online
     : playerStatusesIcons.offline
@@ -177,7 +177,7 @@ let contactActionButton = @(action, userId) FAButton(action.icon, @() action.act
   })
 
 
-let function onContactClick(event, contact, contextMenuActions) {
+function onContactClick(event, contact, contextMenuActions) {
   if (event.button >= 0 && event.button <= 2)
     contactContextMenu.open(contact, event, contextMenuActions)
 }

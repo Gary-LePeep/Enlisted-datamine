@@ -1,27 +1,27 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
-let function addLink(obj, link, link_type) {
+function addLink(obj, link, link_type) {
   obj.links[link] <- link_type
 }
 
-let function delLink(obj, link) {
-  delete obj.links[link]
+function delLink(obj, link) {
+  obj.links.$rawdelete(link)
 }
 
-let function delLinkByType(obj, link_type) {
+function delLinkByType(obj, link_type) {
   let keysToDelete = []
   foreach (k, v in obj.links)
     if (v == link_type)
       keysToDelete.append(k)
 
   foreach (key in keysToDelete)
-    delete obj.links[key]
+    obj.links.$rawdelete(key)
 }
 
 let hasLinkByType = @(obj, link_type)
   obj.links.findindex(@(v) v == link_type) != null
 
-let function getLinkedObjects(where, linked) {
+function getLinkedObjects(where, linked) {
   let res = []
   foreach (k,v in where) {
     let linkType = v.links?[linked]
@@ -38,7 +38,7 @@ let function getLinkedObjects(where, linked) {
 }
 
 
-let function getLinkedObjectsValues(where, linked) {
+function getLinkedObjectsValues(where, linked) {
   let res = []
   foreach (v in where)
     if (v.links?[linked])
@@ -54,7 +54,7 @@ let isObjectLinkedToAny = @(obj, linkedList)
 let isObjectHaveLinkTypeToAny = @(obj, typesList)
   (obj.links ?? {}).findvalue(@(t) t in typesList) != null
 
-let function getObjectsByLink(where, linked, link_type) {
+function getObjectsByLink(where, linked, link_type) {
   let res = []
   foreach (v in where)
     if (v.links?[linked] == link_type)
@@ -64,7 +64,7 @@ let function getObjectsByLink(where, linked, link_type) {
 }
 
 
-let function getObjectsByLinkType(where, link_type) {
+function getObjectsByLinkType(where, link_type) {
   let res = []
   foreach (k,v in where) {
     foreach (linkType in v) {
@@ -81,7 +81,7 @@ let function getObjectsByLinkType(where, link_type) {
   return res
 }
 
-let function getObjectsTableByLinkType(where, link_type) {
+function getObjectsTableByLinkType(where, link_type) {
   let res = {}
   foreach (v in where)
     foreach (to,linkType in v.links)
@@ -100,7 +100,7 @@ let getFirstLinkByType = @(obj, link_type)
 
 let getItemIndex = @(obj) (getFirstLinkByType(obj, "index")?.tointeger()) ?? -1
 
-let function changeIndex(obj, newIndex) {
+function changeIndex(obj, newIndex) {
   delLinkByType(obj, "index")
   if (newIndex >= 0)
     addLink(obj, newIndex.tostring(), "index")
@@ -110,21 +110,21 @@ let getObjectsByLinkSorted = @(objects, squadGuid, linkType)
   getObjectsByLink(objects, squadGuid, linkType)
     .sort(@(a,b) getItemIndex(a) <=> getItemIndex(b))
 
-let function isObjLinkedToAnyOfObjects(obj, objects) {
+function isObjLinkedToAnyOfObjects(obj, objects) {
   foreach (k, _ in obj?.links ?? {})
     if (k in objects)
       return true
   return false
 }
 
-let function getFirstLinkedObjectGuid(obj, objects) {
+function getFirstLinkedObjectGuid(obj, objects) {
   foreach (k, _ in obj?.links ?? {})
     if (k in objects)
       return k
   return ""
 }
 
-let function getLinkedSlotData(obj) {
+function getLinkedSlotData(obj) {
   foreach (linkVal, linkType in obj.links)
     if (linkType != "index" && linkType != "army")
       return { linkTgt = linkVal, linkSlot = linkType }

@@ -1,12 +1,12 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {globalWatched} = require("%dngscripts/globalState.nut")
-let matching_api = require("matching.api")
-let eventbus = require("eventbus")
+let {matching_listen_notify} = require("matching.api")
+let { eventbus_subscribe } = require("eventbus")
 
 let chatLogs = {}
 
-let function getChatLog(chatId) {
+function getChatLog(chatId) {
   if (!(chatId in chatLogs)) {
     let key = $"chat_{chatId}"
     let w = globalWatched(key, @() [])
@@ -15,13 +15,13 @@ let function getChatLog(chatId) {
   return chatLogs[chatId]
 }
 
-let function clearChatState(chatId) {
+function clearChatState(chatId) {
   if (chatId in chatLogs) {
     chatLogs[chatId].update([])
     // chatLogs is a 'cache' for globalWatched
     // we can't remove keys from that cache unless they are not removable
     // in globalWatched
-    // delete chatLogs[chatId]
+    // chatLogs.$rawdelete(chatId)
   }
 }
 
@@ -38,10 +38,10 @@ let chat_handlers = {
   }
 }
 
-let function subscribeHandlers() {
+function subscribeHandlers() {
   foreach (k, v in chat_handlers) {
-    matching_api.listen_notify(k)
-    eventbus.subscribe(k, v)
+    matching_listen_notify(k)
+    eventbus_subscribe(k, v)
   }
 }
 

@@ -31,8 +31,8 @@ def ai_target_noise_level(act : UpdateStageInfoAct; human_net_phys : HumanActor;
   ai_target__noiseLevel = ai_target__standNoiseLevel
   if human_anim__vehicleSelected != INVALID_ENTITY_ID
     ai_target__noiseLevel = ai_target__vehicleNoiseLevel
-    query(human_anim__vehicleSelected) <| $ [es] (net_phys__currentStateVelocity : float3; vehicle_horn_sound__endTime : float)
-      if vehicle_horn_sound__endTime > act.curTime
+    query(human_anim__vehicleSelected) <| $ [es] (net_phys__currentStateVelocity : float3; vehicle_horn__endTime : float)
+      if vehicle_horn__endTime > act.curTime
         ai_target__noiseLevel = ai_target__movingVehicleHornNoiseLevel
       elif length_sq(net_phys__currentStateVelocity) > ai_target__vehicleSpeedThreshold
         ai_target__noiseLevel = ai_target__movingVehicleNoiseLevel

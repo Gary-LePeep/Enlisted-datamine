@@ -45,9 +45,6 @@
     "import": "#content/common/gamedata/templates/humans.blk"
   },
   {
-    "import": "%danetlibs/spline_geometry/templates/spline_gen_geometry.blk"
-  },
-  {
     "import": "%danetlibs/blood_decals/templates/blood_decals.template.blk"
   },
   {
@@ -76,6 +73,9 @@
   },
   {
     "import": "narrator_settings.blk"
+  },
+  {
+    "import": "autolean_settings.blk"
   },
   {
     "import": "vote_to_kick.blk"
@@ -881,6 +881,236 @@
     }
   },
   {
+    "ai_vehicle_tank_bullet_type_efficiency": {
+      "_tags": "server",
+      "ai_vehicle_tank__bullet_type_efficiency:shared:array": [
+        {
+          "bullet_types:object": {
+            "default": 0.5,
+            "ball": 0.5,
+            "t_ball": 0.5,
+            "i_ball": 0.5,
+            "ap_ball": 0.5,
+            "ap_t_ball": 0.5,
+            "ball_shell": 0.5,
+            "t_shell": 0.5,
+            "ap_i_ball": 0.5,
+            "ap_i_t_ball": 0.5,
+            "apcr_i_ball": 0.5,
+            "apcr_i_ball_bs41": 0.5,
+            "he_ball": 1.0,
+            "he_i_ball": 1.0,
+            "i_t_ball": 0.5,
+            "i_ball_M1": 0.5,
+            "t_ball_M1": 0.5,
+            "ap_ball_M2": 0.5,
+            "ball_M2": 0.5,
+            "ap_i_t_ball_M20": 0.5,
+            "i_ball_M23": 0.5,
+            "ap_i_ball_M8": 0.5,
+            "sapi": 0.5,
+            "ap": 0.5,
+            "cannon_ball": 0.5,
+            "aphe": 0.75,
+            "ap_i_t": 0.5,
+            "apcr_t": 0.5,
+            "apcr": 0.5,
+            "ap_t": 0.5,
+            "apc_t": 0.5,
+            "he_i": 1.0,
+            "he_frag_i_t": 1.0,
+            "he_i_t": 1.0,
+            "he_i_mine": 1.0,
+            "he_at": 1.0,
+            "he_at_grenade": 1.0,
+            "he_i_t_mine": 1.0,
+            "he_i_t_n_mine": 1.0,
+            "he_frag": 1.0,
+            "he_frag_t": 1.0,
+            "he_vt": 1.0,
+            "he_frag_i": 1.0,
+            "ac_shell_tank": 0.5,
+            "apcr_tank": 0.5,
+            "apds_autocannon": 0.5,
+            "apds_tank": 0.5,
+            "apds_early_tank": 0.5,
+            "apds_l15_tank": 0.5,
+            "apds_fs_tank": 0.5,
+            "apds_fs_full_body_steel_tank": 0.5,
+            "apds_fs_tungsten_small_core_tank": 0.5,
+            "apds_fs_tungsten_l10_l15_tank": 0.5,
+            "apds_fs_long_tank": 0.5,
+            "apbc_tank": 0.5,
+            "apc_tank": 0.5,
+            "aphe_tank": 0.75,
+            "aphebc_tank": 0.75,
+            "apcbc_tank": 0.5,
+            "ap_tank": 0.5,
+            "ap_large_caliber_tank": 0.5,
+            "apc_solid_medium_caliber_tank": 0.5,
+            "apcbc_solid_medium_caliber_tank": 0.5,
+            "heat_tank": 0.75,
+            "sap_tank": 0.5,
+            "sapbc_tank": 0.5,
+            "heat_grenade_tank": 1.0,
+            "heat_fs_tank": 1.0,
+            "atgm_tank": 0.5,
+            "he_frag_tank": 1.0,
+            "he_frag_i_tank": 1.0,
+            "frag_i": 1.0,
+            "frag_i_t": 1.0,
+            "i_t": 0.5,
+            "ap_i": 0.5,
+            "apbc_usa_tank": 0.5,
+            "i": 0.5,
+            "he_i_t_ball": 1.0,
+            "he_frag_radio_fuse": 1.0,
+            "he_frag_dist_fuse": 1.0,
+            "he_frag_base_fuse_tank": 1.0,
+            "he_grenade_tank": 1.0,
+            "smoke_tank": 0.1,
+            "smoke_grenade_tank": 0.1,
+            "he_frag_fs_tank": 1.0,
+            "rocket_tank": 0.5,
+            "rocket_ap_tank": 0.5,
+            "hesh_tank": 1.0,
+            "hesh_tank_rr": 1.0,
+            "shrapnel_tank": 0.75,
+            "football_kick": 0.1
+          }
+        },
+        {
+          "bullet_types:object": {
+            "default": 1.0,
+            "ball": 1.0,
+            "t_ball": 1.0,
+            "i_ball": 1.0,
+            "ap_ball": 1.0,
+            "ap_t_ball": 1.0,
+            "ball_shell": 1.0,
+            "t_shell": 1.0,
+            "ap_i_ball": 1.0,
+            "ap_i_t_ball": 1.0,
+            "apcr_i_ball": 1.0,
+            "apcr_i_ball_bs41": 1.0,
+            "he_ball": 0.5,
+            "he_i_ball": 0.5,
+            "i_t_ball": 1.0,
+            "i_ball_M1": 1.0,
+            "t_ball_M1": 1.0,
+            "ap_ball_M2": 1.0,
+            "ball_M2": 1.0,
+            "ap_i_t_ball_M20": 1.0,
+            "i_ball_M23": 1.0,
+            "ap_i_ball_M8": 1.0,
+            "sapi": 1.0,
+            "ap": 1.0,
+            "cannon_ball": 1.0,
+            "aphe": 0.75,
+            "ap_i_t": 1.0,
+            "apcr_t": 1.0,
+            "apcr": 1.0,
+            "ap_t": 1.0,
+            "apc_t": 1.0,
+            "he_i": 0.5,
+            "he_frag_i_t": 0.5,
+            "he_i_t": 0.5,
+            "he_i_mine": 0.5,
+            "he_at": 0.5,
+            "he_at_grenade": 0.5,
+            "he_i_t_mine": 0.5,
+            "he_i_t_n_mine": 0.5,
+            "he_frag": 0.5,
+            "he_frag_t": 0.5,
+            "he_vt": 0.5,
+            "he_frag_i": 0.5,
+            "ac_shell_tank": 1.0,
+            "apcr_tank": 1.0,
+            "apds_autocannon": 1.0,
+            "apds_tank": 1.0,
+            "apds_early_tank": 1.0,
+            "apds_l15_tank": 1.0,
+            "apds_fs_tank": 1.0,
+            "apds_fs_full_body_steel_tank": 1.0,
+            "apds_fs_tungsten_small_core_tank": 1.0,
+            "apds_fs_tungsten_l10_l15_tank": 1.0,
+            "apds_fs_long_tank": 1.0,
+            "apbc_tank": 1.0,
+            "apc_tank": 1.0,
+            "aphe_tank": 0.75,
+            "aphebc_tank": 0.75,
+            "apcbc_tank": 1.0,
+            "ap_tank": 1.0,
+            "ap_large_caliber_tank": 1.0,
+            "apc_solid_medium_caliber_tank": 1.0,
+            "apcbc_solid_medium_caliber_tank": 1.0,
+            "heat_tank": 0.75,
+            "sap_tank": 1.0,
+            "sapbc_tank": 1.0,
+            "heat_grenade_tank": 0.5,
+            "heat_fs_tank": 0.5,
+            "atgm_tank": 1.0,
+            "he_frag_tank": 0.5,
+            "he_frag_i_tank": 0.5,
+            "frag_i": 0.5,
+            "frag_i_t": 0.5,
+            "i_t": 1.0,
+            "ap_i": 1.0,
+            "apbc_usa_tank": 1.0,
+            "i": 1.0,
+            "he_i_t_ball": 0.5,
+            "he_frag_radio_fuse": 0.5,
+            "he_frag_dist_fuse": 0.5,
+            "he_frag_base_fuse_tank": 0.5,
+            "he_grenade_tank": 0.5,
+            "smoke_tank": 0.1,
+            "smoke_grenade_tank": 0.1,
+            "he_frag_fs_tank": 0.5,
+            "rocket_tank": 1.0,
+            "rocket_ap_tank": 1.0,
+            "hesh_tank": 0.5,
+            "hesh_tank_rr": 0.5,
+            "shrapnel_tank": 0.75,
+            "football_kick": 0.1
+          }
+        }
+      ]
+    }
+  },
+  {
+    "ai_vehicle_tank": {
+      "_tags": "server",
+      "_use": "ai_vehicle_tank_bullet_type_efficiency",
+      "ai_vehicle_tank__nextPosition": [0.0,0.0,0.0],
+      "ai_vehicle_tank__maxThrottle": 1.0,
+      "ai_vehicle_tank__steeringSmoothness": 3.0,
+      "ai_vehicle_tank__steeringDeadZone": 0.523,
+      "ai_vehicle_tank__stepSize": 3.0,
+      "ai_vehicle_tank__maxStepSize": 5.0,
+      "ai_vehicle_tank__nextPositionReachedThreshold": 3.0,
+      "ai_vehicle_tank__nextPositionReachedWaitTime": 8.0,
+      "ai_vehicle_tank__tryToGetUnstuckWaitTime": 4.0,
+      "ai_vehicle_tank__nextPositionTooFarThreshold": 10.0,
+      "ai_vehicle_tank__plannedPathLengthForSlowingDown": 3,
+      "ai_vehicle_tank__curCapzonePosIdx": -1,
+      "ai_vehicle_tank__motionState": 0,
+      "ai_vehicle_tank__destination": [0.0,0.0,0.0],
+      "ai_vehicle_tank__motionStateTimeoutAt": 0.0,
+      "ai_vehicle_tank__nextPositionRecordedMinDistance": 0.0,
+      "ai_vehicle_tank__nextPositionRecordedMinDistanceStep": 0.2,
+      "ai_vehicle_tank__updateInterval": 0.1,
+      "ai_vehicle_tank__nextUpdateAt": 0.0,
+      "ai_vehicle_tank__pathFindingDelay": 0.3,
+      "ai_vehicle_tank__pathFindingTryCountPerFrame": 5,
+      "ai_vehicle_tank__allowPathFindingAtTime": 0.0,
+      "ai_vehicle_tank__targetScoreThresholdForStanding": 0.1,
+      "ai_vehicle_tank:tag": [],
+      "turret_control__hasTankAiGunners:tag": [],
+      "ai_vehicle_tank__curCapzone:eid": [],
+      "ai_vehicle_tank__plannedPath:list<p3>": []
+    }
+  },
+  {
     "base_tank": [
       {
         "item__iconOffset": [0.0,-0.2]
@@ -975,6 +1205,13 @@
         }
       },
       {
+        "_group": {
+          "_tags": "server",
+          "ai_target__scoreMult": 0.01,
+          "ai_target__type": 1
+        }
+      },
+      {
         "isSimpleTurretCrosshair:b": {
           "_tags": "gameClient",
           "value": true
@@ -991,6 +1228,9 @@
           "_tags": "server",
           "value": false
         }
+      },
+      {
+        "targetForTankAiGunner:tag": []
       }
     ]
   },
@@ -2323,9 +2563,9 @@
       "respawner__paratroopersChooserOn": false,
       "respawner__paratroopersPointCoords": [0.0,0.0,0.0],
       "respawner__paratroopersPointPickHeightMult": 5.0,
-      "respawner__paratroopersAircraftStartPointOffset": 1000.0,
+      "respawner__paratroopersAircraftStartPointOffset": 1500.0,
       "respawner__paratroopersAircraftEndPointOffset": 4500.0,
-      "respawner__paratroopersAircraftHeight": 450.0,
+      "respawner__paratroopersAircraftHeight": 550.0,
       "respawner__paratroopersAircraftSpawnDist": 30.0,
       "respawner__paratroopersAircraftHeightOffset": 10.0,
       "respawner__paratroopersAircraftHeightToDistanceOffsetMult": 2.0,
@@ -2372,20 +2612,13 @@
     }
   },
   {
-    "paratroopers_aircraft_inside_sound": [
-      {
-        "_use": "car_inside_sound"
-      },
-      {
-        "_use": "vehicle_inside_sound_3d"
-      },
-      {
-        "_group": {
-          "_tags": "sound",
-          "vehicle_inside_sound__path": "aircraft/engines/engine_airborne"
-        }
+    "paratroopers_aircraft_inside_sound": {
+      "_use": "vehicle_inside_3d_sound",
+      "_group": {
+        "_tags": "sound",
+        "vehicle_inside_sound__path": "aircraft/engines/engine_airborne"
       }
-    ]
+    }
   },
   {
     "paratroopers_aircraft_sound": [
@@ -2527,6 +2760,14 @@
       },
       {
         "ri_extra__name": "airdrop_of_supply_landed_rendinst"
+      },
+      {
+        "supply_box__tm": [
+          [1.0,0.0,0.0],
+          [0.0,1.0,0.0],
+          [0.0,0.0,1.0],
+          [0.0,0.0,0.0]
+        ]
       },
       {
         "isRendinstDestr:tag": {
@@ -3426,9 +3667,67 @@
     ]
   },
   {
+    "enlisted_bot_player_grenades": {
+      "_group": {
+        "_tags": "server",
+        "botPlayer__nextAllowedThrowGrenadeTime": 0.0,
+        "botPlayer__saveGrenadesForEnemyTanksDistance": 100.0,
+        "botPlayer__saveGrenadesForEnemyTanksChance": 0.95,
+        "botPlayer__throwGrenadeDelay": [7.0,12.0],
+        "botPlayer__throwGrenadeDist": [11.0,21.0],
+        "botPlayer__nextAllowedThrowAntiTankGrenadeTime": 0.0,
+        "botPlayer__throwAntiTankGrenadeCounter": 2,
+        "botPlayer__throwAntiTankGrenadeCounterReset": [2,3],
+        "botPlayer__throwAntiTankGrenadeDelay": [10.0,15.0],
+        "botPlayer__throwAntiTankGrenadeDist": [11.0,21.0]
+      }
+    }
+  },
+  {
+    "enlisted_bot_player_custom_respawns": {
+      "_group": {
+        "_tags": "server",
+        "botPlayer__customSpawnMinDistanceAround": 0.3,
+        "botPlayer__customSpawnsBetterDistance": 35.0,
+        "botPlayer__customSpawnSearchAroundDistance": 15.0,
+        "botPlayer__customSpawnSightCheckHeight": 1.6,
+        "botPlayer__customSpawnSightCheckDistance": 10.0,
+        "botPlayer__customSpawnSightMaxDistance": 100.0
+      }
+    }
+  },
+  {
+    "enlisted_bot_player_mortars": {
+      "_group": {
+        "_tags": "server",
+        "botPlayer__mortarAttackMaxAttackers": [1,1],
+        "botPlayer__mortarAttackNumShots": [3,3],
+        "botPlayer__nextMortarAttackTime": 0.0,
+        "botPlayer__timeBetweenMortarAttacks": [50.0,60.0],
+        "botPlayer__timeBetweenPlanningMortarAttacks": [5.0,10.0],
+        "botPlayer__mortarSoldiers:list<eid>": [],
+        "botPlayer__mortarMaxDists:list<r>": [],
+        "botPlayer__mortarAttackZones:list<eid>": [],
+        "botPlayer__mortarAttackTargets:list<eid>": [],
+        "botPlayer__mortarAttackPoints:list<p3>": [],
+        "botPlayer__mortarAttackValues:list<r>": [],
+        "botPlayer__mortarAttackedPos:list<p3>": []
+      }
+    }
+  },
+  {
     "enlisted_bot_player": [
       {
         "_use": "enlisted_player"
+      },
+      {
+        "_use": "enlisted_bot_player_grenades"
+      },
+      {
+        "_use": "enlisted_bot_player_custom_respawns"
+      },
+      {
+        "_use": "enlisted_bot_player_mortars"
       },
       {
         "_use": "bot_player"
@@ -3444,22 +3743,6 @@
       {
         "_group": {
           "_tags": "server",
-          "botPlayer__nextAllowedThrowGrenadeTime": 0.0,
-          "botPlayer__saveGrenadesForEnemyTanksDistance": 100.0,
-          "botPlayer__saveGrenadesForEnemyTanksChance": 0.95,
-          "botPlayer__throwGrenadeDelay": [7.0,12.0],
-          "botPlayer__throwGrenadeDist": [11.0,21.0],
-          "botPlayer__nextAllowedThrowAntiTankGrenadeTime": 0.0,
-          "botPlayer__throwAntiTankGrenadeCounter": 2,
-          "botPlayer__throwAntiTankGrenadeCounterReset": [2,3],
-          "botPlayer__throwAntiTankGrenadeDelay": [10.0,15.0],
-          "botPlayer__throwAntiTankGrenadeDist": [11.0,21.0],
-          "botPlayer__customSpawnMinDistanceAround": 0.3,
-          "botPlayer__customSpawnsBetterDistance": 35.0,
-          "botPlayer__customSpawnSearchAroundDistance": 15.0,
-          "botPlayer__customSpawnSightCheckHeight": 1.6,
-          "botPlayer__customSpawnSightCheckDistance": 10.0,
-          "botPlayer__customSpawnSightMaxDistance": 100.0,
           "botPlayerDebug:tag": []
         }
       },
@@ -4062,66 +4345,6 @@
     }
   },
   {
-    "force_dome_resources": [
-      {
-        "_use": "replicating"
-      },
-      {
-        "_singleton": true
-      },
-      {
-        "_group": {
-          "_tags": "render",
-          "force_dome__texture_res": "force_field_hexagon_tex_n",
-          "force_dome__texture_var": "forcedome_diffuse_texture",
-          "force_dome_resources:ForceDomeResources": [],
-          "force_dome__texture:SharedTexHolder": []
-        }
-      },
-      {
-        "_group": {
-          "_track": true,
-          "force_dome__texture_scale": 0.1,
-          "force_dome__color": [0.0,0.5,1.0,0.2],
-          "force_dome__brightness": 1.0,
-          "force_dome__edge_thinness": 30.0,
-          "force_dome__edge_intensity": 200.0,
-          "force_dome__hit_effect_name": "",
-          "force_dome__hit_effect_scale": 1.0
-        }
-      }
-    ]
-  },
-  {
-    "force_dome": {
-      "_use": "replicating",
-      "force_dome__position": [0.0,0.0,0.0],
-      "force_dome__radius": 1.0,
-      "transform": [
-        [1.0,0.0,0.0],
-        [0.0,1.0,0.0],
-        [0.0,0.0,1.0],
-        [0.0,0.0,0.0]
-      ],
-      "collres__res": "hemisphere_dome_collision",
-      "collres": []
-    }
-  },
-  {
-    "force_dome_sound": {
-      "_use": "replicating",
-      "_singleton": true,
-      "_group": {
-        "_tags": "sound",
-        "force_dome_sound__path": "events/moonbase/player/effects/energy_field",
-        "force_dome_sound__enterPath": "events/moonbase/player/effects/energy_filed_enter",
-        "force_dome_sound__hearingRange": 45.0,
-        "force_dome_sound__isInside": false,
-        "force_dome_sound__event:SoundEvent": []
-      }
-    }
-  },
-  {
     "gravity_zone": {
       "_use": "replicating",
       "transform": [
@@ -4710,7 +4933,6 @@
           "cinematic_mode__audio_recording": false,
           "cinematic_mode__loadAudio": false,
           "cinematic_mode__saveAudio": false,
-          "bloom__threshold": 1.0,
           "cinematic_mode__hasRain": false,
           "cinematic_mode__hasSnow": false,
           "cinematic_mode__hasLightning": false,
@@ -4721,6 +4943,13 @@
           "cinematic_mode__dayTime": 12.0,
           "cinematic_mode__colorGradingSelected": "",
           "cinematic_mode__enablePostBloom": true
+        }
+      },
+      {
+        "_group": {
+          "_track": true,
+          "_tags": "render",
+          "bloom__threshold": 1.0
         }
       },
       {
@@ -4904,7 +5133,7 @@
         "mobile_respawn__nextSpawnTimer": -1.0
       },
       {
-        "mobile_respawn__minDistanceToCapturePoint": 50.0
+        "mobile_respawn__minDistanceToCapturePoint": 30.0
       },
       {
         "mobile_respawn__spawnCooldown": 15.0

@@ -14,19 +14,21 @@ let {INVALID_USER_ID} = require("matching.errors")
 let {CmdSpawnSquad, EventTeamMemberJoined} = require("dasevents")
 let {get_team_eid} = require("%dngscripts/common_queries.nut")
 let { applyModsToArmies } = require("%scripts/game/utils/profile_init.nut")
+let logBS = require("%enlSqGlob/library_logs.nut").with_prefix("[BOT_SPAWNER] ")
 
 let botsProfile = persist("bots_profile", @() {armies = require("%enlSqGlob/data/bots_profile.nut")})
 let customProfile = persist("custom_bots_profile", @() {armies = null})
 
-let function onInit(_evt, spawn_eid, comp) {
+function onInit(_evt, spawn_eid, comp) {
   botsProfile.armies = applyModsToArmies(botsProfile.armies)
+  logBS($"Default bots profile armies: {botsProfile?.armies.keys()}")
   ecs.clear_timer({eid=spawn_eid, id="bot_squad_spawner"})
   ecs.set_timer({eid=spawn_eid, id="bot_squad_spawner", interval=comp.spawnPeriod, repeat=true})
 }
 
 local usedNames = {}
 
-local function genName(seed) {
+function genName(seed) {
   let allow_cache = true
   local name
   do {
@@ -55,7 +57,9 @@ let botPlayerQuery = ecs.SqQuery("botPlayerQuery", {comps_ro=[["team", ecs.TYPE_
 
 let doHavePlayers = @() havePlayersQuery.perform( @(_eid, comp) comp.possessed ? true : null) // null to continue query
 
-let function onTimer(_evt, _eid, comp) {
+let isSquadAllowedForBotSpawn = @(squad) squad.vehicleType == ""
+
+function onTimer(_evt, _eid, comp) {
   if (comp.numBotSquadsSpawned < 1) { // if we haven't spawned bots yet
     let havePlayers = doHavePlayers()
     let allowSpawnBeforePlayer = comp["bot_spawner__allowSpawnBeforePlayer"]
@@ -106,9 +110,10 @@ let function onTimer(_evt, _eid, comp) {
   let teamArmies = ecs.obsolete_dbg_get_comp_val(teamEid, "team__armies")?.getAll() ?? []
   let teamSpawnBotArmy = ecs.obsolete_dbg_get_comp_val(teamEid, "team__spawnBotArmy")
   let armies = customProfile.armies ?? botsProfile.armies
+  logBS($"Use custom profile: {customProfile.armies != null}")
   local armyId = [teamSpawnBotArmy].findvalue(@(a) a in armies)
   if (armyId == null) {
-    log($"[BOT_SPAWNER] Could not find army team__spawnBotArmy={teamSpawnBotArmy} in the profile. Falling back to team__armies.")
+    logBS($"Could not find army team__spawnBotArmy={teamSpawnBotArmy} in the profile. Falling back to team__armies.")
     armyId = teamArmies.findvalue(@(a) a in armies)
   }
   if (armyId == null) {
@@ -117,7 +122,12 @@ let function onTimer(_evt, _eid, comp) {
   }
   let army = armies[armyId]
   let squadsCount = army.squads.len()
-  log($"[BOT_SPAWNER] Spawn bot for team {team} army {armyId}. (team armies = [{", ".join(teamArmies)}], squadsCount = {squadsCount})")
+  let allowedSquadIds = []
+  for (local squadId = 0; squadId < squadsCount; ++squadId) {
+    if (isSquadAllowedForBotSpawn(army.squads[squadId]))
+      allowedSquadIds.append(squadId)
+  }
+  logBS($"Spawn bot for team {team} army {armyId}. (team armies = [{", ".join(teamArmies)}], squadsCount = {squadsCount})")
 
   // create player
   let playerComps = {
@@ -139,7 +149,7 @@ let function onTimer(_evt, _eid, comp) {
       function(plr_eid) {
         ecs.obsolete_dbg_set_comp_val(plr_eid, "name", genName(plr_eid + time.sec + time.min * 60))
         ecs.g_entity_mgr.broadcastEvent(EventTeamMemberJoined({eid=plr_eid, team=team}));
-        let squadId = rand.rint(0, squadsCount-1)
+        let squadId = allowedSquadIds[rand.rint(0, allowedSquadIds.len()-1)]
         ecs.g_entity_mgr.sendEvent(plr_eid,
           CmdSpawnSquad({
             team
@@ -174,7 +184,12 @@ ecs.register_es(
 ecs.register_es(
   "bots_custom_profile_init",
   {
-    onInit = @(_eid, comp) customProfile.armies <- applyModsToArmies(loadJson(comp["customBotProfile"]))
+    onInit = function(_eid, comp) {
+      let path = comp["customBotProfile"]
+      let profile = loadJson(path)
+      logBS($"Loaded bots profile: {path}, armies: {profile?.keys()}")
+      customProfile.armies <- applyModsToArmies(profile)
+    }
   },
   { comps_ro = [["customBotProfile", ecs.TYPE_STRING]] },
   {tags="server"}

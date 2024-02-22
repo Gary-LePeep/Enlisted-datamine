@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { defTxtColor, bigPadding, blurBgColor, blurBgFillColor, bigGap
@@ -51,7 +51,7 @@ let mkLockByCampaignProgress = @(content, rootOverride = {}) function() {
   }.__update(rootOverride)
 }
 
-let function unlockCampaignPromo(override = {}) {
+function unlockCampaignPromo(override = {}) {
   let sItem = Computed(function() {
     let unlockList = lockedProgressCampaigns.value?[curCampaign.value]
     return shopItems.value?[unlockList?.findvalue(@(id) id in shopItems.value)]

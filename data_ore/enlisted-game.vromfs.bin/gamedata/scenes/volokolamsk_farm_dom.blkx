@@ -90,6 +90,14 @@
   },
   {
     "entity": {
+      "_template": "spawn_switcher",
+      "swapProbability": 0.5,
+      "team1": 2,
+      "team2": 1
+    }
+  },
+  {
+    "entity": {
       "_template": "team_ussr+team_narrator_domination+respawn_creators_team",
       "team__id": 1,
       "team__score": 2500.0,
@@ -522,14 +530,6 @@
         [-0.944618,-0.232386,-0.23172],
         [-265.717,20.2781,-1561.35]
       ]
-    }
-  },
-  {
-    "entity": {
-      "_template": "spawn_switcher",
-      "swapProbability": 0.5,
-      "team1": 2,
-      "team2": 1
     }
   },
   {

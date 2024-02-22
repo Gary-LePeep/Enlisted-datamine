@@ -541,6 +541,12 @@
       "ragdoll__deactivationFactor": 0.16
     },
     {
+      "ragdoll__wakeUpNodeId": 0
+    },
+    {
+      "ragdoll__wakeUpNode": "Bip01 Spine"
+    },
+    {
       "human_broken_bones__tearOffImpulse": 7.5
     },
     {
@@ -692,10 +698,12 @@
     },
     {
       "_group": {
-        "projectile_impulse__cinematicArtistrySpeedMult": 0.25,
-        "projectile_impulse__cinematicArtistryMultDead": 0.0,
-        "projectile_impulse__maxVelocity": 10.0,
-        "projectile_impulse__maxOmega": 4.0,
+        "projectile_impulse__cinematicArtistryMult": 10.0,
+        "projectile_impulse__cinematicArtistrySpeedMult": 0.05,
+        "projectile_impulse__maxSingleImpulse": 100.0,
+        "projectile_impulse__cinematicArtistryMultDead": 7.0,
+        "projectile_impulse__maxVelocity": 7.5,
+        "projectile_impulse__maxOmega": -1.0,
         "_tags": "gameClient"
       }
     },
@@ -770,6 +778,9 @@
             "hubs": "apply body_dir rotate+IK"
           },
           {
+            "hubs": "apply body_dir rotate+IK+pelvis_offset"
+          },
+          {
             "hubs": "root"
           }
         ],
@@ -809,6 +820,12 @@
           },
           {
             "nodes": "feet_ctrl"
+          },
+          {
+            "nodes": "feet_ctrl_always"
+          },
+          {
+            "nodes": "feet_ctrl_crawl"
           },
           {
             "nodes": "full_body_ik"
@@ -1185,6 +1202,12 @@
       "ragdoll__deactivationFactor": 0.16
     },
     {
+      "ragdoll__wakeUpNodeId": 0
+    },
+    {
+      "ragdoll__wakeUpNode": "Bip01 Spine"
+    },
+    {
       "human_inventory__capacity": 4.0
     },
     {
@@ -1264,10 +1287,12 @@
     },
     {
       "_group": {
-        "projectile_impulse__cinematicArtistrySpeedMult": 0.25,
-        "projectile_impulse__cinematicArtistryMultDead": 0.0,
-        "projectile_impulse__maxVelocity": 10.0,
-        "projectile_impulse__maxOmega": 4.0,
+        "projectile_impulse__cinematicArtistryMult": 10.0,
+        "projectile_impulse__cinematicArtistrySpeedMult": 0.05,
+        "projectile_impulse__maxSingleImpulse": 100.0,
+        "projectile_impulse__cinematicArtistryMultDead": 7.0,
+        "projectile_impulse__maxVelocity": 7.5,
+        "projectile_impulse__maxOmega": -1.0,
         "_tags": "gameClient"
       }
     },
@@ -1416,6 +1441,7 @@
   "ragdoll_common": {
     "ragdoll__active": false,
     "ragdoll__applyParams": false,
+    "projectile_impulse__impulseSaveDeltaTime": 0.5,
     "ragdoll": {
       "_tags": "render"
     }

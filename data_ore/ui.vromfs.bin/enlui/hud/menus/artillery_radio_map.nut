@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 from "minimap" import MinimapState
 
 let {Point2,Point3} = require("dagor.math")
@@ -17,7 +17,7 @@ let {isAlive, isDowned} = require("%ui/hud/state/health_state.nut")
 let {isRadioMode} = require("%ui/hud/state/enlisted_hero_state.nut")
 let { sound_play } = require("%dngscripts/sound_system.nut")
 let {get_controlled_hero} = require("%dngscripts/common_queries.nut")
-let {safeAreaAmount} = require("%enlSqGlob/safeArea.nut")
+let {safeAreaAmount} = require("%enlSqGlob/ui/safeArea.nut")
 let {hintTextFunc, mouseNavTips, mkTips, navGamepadHints} = require("mapComps.nut")
 let {CmdClientHumanSpeech, RequestCloseArtilleryMap, EventArtilleryMapPosSelected, CmdOpenArtilleryMap, CmdCloseArtilleryMap} = require("dasevents")
 let {aircraftRequestTargetBiases, mkAircraftRequestPreview} = require("aircraft_request_preview.ui.nut")
@@ -51,7 +51,7 @@ let isAircraftRequestActive = Computed(@() aircraftRequestAvailableTimeLeft.valu
 
 currentShellTypeIndex.subscribe(@(...) selectedStartWorldPos(null))
 
-let function getAllowedLineEndPos(worldPos1, worldPos2, maxLineLength) {
+function getAllowedLineEndPos(worldPos1, worldPos2, maxLineLength) {
   local dir = Point2(worldPos2.x, worldPos2.z) - Point2(worldPos1.x, worldPos1.z)
   let lineLengthSq = dir.lengthSq()
   local res = worldPos2
@@ -62,7 +62,7 @@ let function getAllowedLineEndPos(worldPos1, worldPos2, maxLineLength) {
   return res
 }
 
-let function onSelect(selectedPos) {
+function onSelect(selectedPos) {
   if (selectedStartWorldPos.value || !currentShellType.value?.isLine) {
     let pos = selectedStartWorldPos.value ?? selectedPos
     let posEnd = getAllowedLineEndPos(pos, selectedPos, currentMaxLineLength.value)
@@ -107,7 +107,7 @@ let mapRootAnims = [
   { prop=AnimProp.opacity, from=1, to=0, duration=0.25, playFadeOut=true, easing=OutCubic }
 ]
 
-let function mouseTips() {
+function mouseTips() {
   let children = [
     mkTips(["LMB"], tipLmb)
     mouseNavTips
@@ -188,7 +188,7 @@ let mkStartPoint = {
 let mkArtilleryStartPos = @() { watch = selectedStartWorldPos }
   .__merge(selectedStartWorldPos.value ? mkStartPoint : {})
 
-let function mkMapLayer(ctorDesc, paramsWatch) {
+function mkMapLayer(ctorDesc, paramsWatch) {
   return @() {
     watch = [paramsWatch, ctorDesc.watch]
     size = flex()
@@ -212,7 +212,7 @@ let markersParams = Computed(@() {
   showHero = true
 })
 
-let function getWorldPos(event, state) {
+function getWorldPos(event, state) {
   let rect = event.targetRect
   let elemW = rect.r - rect.l
   let elemH = rect.b - rect.t
@@ -221,7 +221,7 @@ let function getWorldPos(event, state) {
   return state.mapToWorld(relY, relX)
 }
 
-let function command(event, state) {
+function command(event, state) {
   if (event.button == 1) {
     if (selectedStartWorldPos.value)
       selectedStartWorldPos(null)
@@ -309,7 +309,7 @@ let mapBlock = @(){
   ]
 }
 
-let function artilleryMap() {
+function artilleryMap() {
   return {
     hplace = ALIGN_CENTER
     vplace = ALIGN_CENTER

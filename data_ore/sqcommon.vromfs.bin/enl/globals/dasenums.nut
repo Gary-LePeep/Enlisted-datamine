@@ -63,8 +63,9 @@ enum SquadMateOrder {  // squad_order_common::SquadMateOrder
   ESMO_USE_VEHICLE = 7
   ESMO_DEFUSE_BOMB = 8
   ESMO_PLANT_BOMB = 9
+  ESMO_MORTAR_ATTACK = 10
 }
-let SquadMateOrder_COUNT = 10
+let SquadMateOrder_COUNT = 11
 
 enum SquadOrder {  // squad_order_common::SquadOrder
   ESO_FOLLOW_ME = 0

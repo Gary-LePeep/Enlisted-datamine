@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { purchaseUserLogs, UserLogType } = require("userLogState.nut")
 let { mkUserLogHeader, mkRowText, rowStyle, userLogStyle, userLogRowStyle
@@ -16,7 +16,7 @@ let { accentColor, smallPadding, defTxtColor, hoverSlotBgColor, panelBgColor, se
 let selectedIdx = Watched(0)
 
 
-let function mkReceivedItem(row, allTpl) {
+function mkReceivedItem(row, allTpl) {
   let { armyId, baseTpl, count } = row
   let template = allTpl?[armyId][baseTpl]
   if (template == null)
@@ -31,7 +31,7 @@ let function mkReceivedItem(row, allTpl) {
   }.__update(rowStyle)
 }
 
-let function mkReceivedSoldier(row, _allTpl = null) {
+function mkReceivedSoldier(row, _allTpl = null) {
   let { name, surname, sClass } = row
   let { locId } = getClassCfg(sClass)
   return {
@@ -42,7 +42,7 @@ let function mkReceivedSoldier(row, _allTpl = null) {
   }.__update(rowStyle)
 }
 
-let function mkReceivedPremium(row, _allTpl = null) {
+function mkReceivedPremium(row, _allTpl = null) {
   let { count } = row
   return {
     children = [
@@ -53,7 +53,7 @@ let function mkReceivedPremium(row, _allTpl = null) {
   }.__update(rowStyle, { gap = smallPadding })
 }
 
-let function mkReceivedWallposter(row, _allTpl = null) {
+function mkReceivedWallposter(row, _allTpl = null) {
   let { wallposterId, armyId } = row
   return {
     children = [
@@ -76,7 +76,7 @@ let mkPurchaseLogRows = @(uLogRows, allTpl) {
   children = uLogRows.map(@(row) purchaseRowView?[row?.logType](row, allTpl))
 }.__update(userLogRowStyle)
 
-let function mkPurchaseLog(uLog, shopItem, allTpl, isSelected, sf) {
+function mkPurchaseLog(uLog, shopItem, allTpl, isSelected, sf) {
   let { nameLocId = "Undefined" } = shopItem
   let shortItemTitle = utf8ToUpper(loc(nameLocId).split("\r\n")?[0] ?? "")
   return {
@@ -89,7 +89,7 @@ let function mkPurchaseLog(uLog, shopItem, allTpl, isSelected, sf) {
     ]
   }.__update(userLogStyle)
 }
-let function mkLog(uLog, idx, sItems, allTpl) {
+function mkLog(uLog, idx, sItems, allTpl) {
   let shopItem = sItems?[uLog.shopItemId]
   if (shopItem == null)
     return null

@@ -9,7 +9,7 @@ let { json_to_string } = require("json")
 let { get_app_id } = require("app")
 let {logerr} = require("dagor.debug")
 
-let function error_response_converter(cb, result) {
+function error_response_converter(cb, result) {
   if ("error" in result) {
     cb(result)
     return
@@ -33,7 +33,7 @@ if (isDedicated)
 
 let isEnabled = @() put_to_mq_raw != null && isDedicated
 
-let function checkAndLogError(id, action, result) {
+function checkAndLogError(id, action, result) {
   if ("error" in result) {
     local err = result.error
     if (typeof err == "table") {
@@ -53,7 +53,7 @@ let function checkAndLogError(id, action, result) {
 }
 
 
-local function sendJob(action, appid, userid, data, id = null) {
+function sendJob(action, appid, userid, data, id = null) {
   if (!isEnabled() || appid < 0) {
     logerr($"Refusing to send job {action} to profile")
     return

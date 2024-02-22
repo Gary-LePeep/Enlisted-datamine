@@ -25,169 +25,186 @@
       "uk_camo_earth_yellow*": "uk_camo_middle_deep_bronze_greens*"
     }
   },
-  "uk_churchill_3_common": {
-    "_use": "base_churchill_3",
-    "commanderCockpitFpsCamMaxAngle": [40.0,5.0],
-    "gunner_cam_limit__useCockpitDir": true,
-    "item__iconOffset": [0.0,0.33],
-    "item__iconScale": 1.47,
-    "turrets__initAmmoDistribution:array": [
-      {
-        "ammo:object": {
-          "slot": 0,
-          "fill": true
+  "uk_churchill_3_common": [
+    {
+      "_use": "base_churchill_3"
+    },
+    {
+      "_use": "uk_churchill_3_common_vehicle_sound"
+    },
+    {
+      "commanderCockpitFpsCamMaxAngle": [40.0,5.0]
+    },
+    {
+      "gunner_cam_limit__useCockpitDir": true
+    },
+    {
+      "item__iconOffset": [0.0,0.33]
+    },
+    {
+      "item__iconScale": 1.47
+    },
+    {
+      "turrets__initAmmoDistribution:array": [
+        {
+          "ammo:object": {
+            "slot": 0,
+            "fill": true
+          }
+        },
+        {
+          "ammo:object": {
+            "slot": 4,
+            "fill": true
+          }
         }
-      },
-      {
-        "ammo:object": {
-          "slot": 4,
-          "fill": true
-        }
-      }
-    ],
-    "vehicle_seats__seats:shared:array": [
-      {
-        "seats:object": {
-          "name": "driver",
-          "locName": "vehicle_seats/driver",
-          "seatOwnsEntityControl": true,
-          "attachNode": "driver",
-          "ignoreAttachNodeRotation": true,
-          "attachTm": [
-            [1.0,0.0,0.0],
-            [0.0,1.0,0.0],
-            [0.0,0.0,1.0],
-            [-0.25,-0.25,0.0]
-          ],
-          "seatComponent": "isDriver",
-          "nextSeat": "main_gunner",
-          "shouldHideOwner": true,
-          "receiveDamageFromDMPart": "driver",
-          "cameraNodeName": "bone_camera_driver",
-          "cockpitTemplate": "uk_churchill_3_driver_cockpit"
-        }
-      },
-      {
-        "seats:object": {
-          "name": "main_gunner",
-          "locName": "vehicle_seats/gunner",
-          "attachNode": "gunner",
-          "ignoreAttachNodeRotation": true,
-          "attachTm": [
-            [1.0,0.0,0.0],
-            [0.0,1.0,0.0],
-            [0.0,0.0,1.0],
-            [-0.25,-0.5,0.0]
-          ],
-          "seatComponent": "isGunner",
-          "nextSeat": "driver",
-          "shouldHideOwner": true,
-          "receiveDamageFromDMPart": "gunner",
-          "cameraNodeName": "bone_camera_gunner",
-          "cockpitTemplate": "uk_churchill_3_gunner_cockpit",
-          "turretNames:array": [
-            {
-              "turret": "turret_01"
-            },
-            {
-              "turret": "turret_02"
-            }
-          ]
-        }
-      },
-      {
-        "seats:object": [
-          {
-            "name": "commander"
-          },
-          {
-            "locName": "vehicle_seats/commander"
-          },
-          {
-            "locName": "vehicle_seats/commander"
-          },
-          {
-            "attachNode": "commander"
-          },
-          {
-            "shouldHideOwner": true
-          },
-          {
-            "hatchRotationAxis": [1.8,0.0,0.0]
-          },
-          {
-            "ignoreAttachNodeRotation": true
-          },
-          {
+      ]
+    },
+    {
+      "vehicle_seats__seats:shared:array": [
+        {
+          "seats:object": {
+            "name": "driver",
+            "locName": "vehicle_seats/driver",
+            "seatOwnsEntityControl": true,
+            "attachNode": "driver",
+            "ignoreAttachNodeRotation": true,
             "attachTm": [
               [1.0,0.0,0.0],
               [0.0,1.0,0.0],
               [0.0,0.0,1.0],
-              [-0.217627,-0.1258555,0.407329]
-            ]
-          },
-          {
-            "seatComponent": "isDriver"
-          },
-          {
-            "receiveDamageFromDMPart": "commander"
-          },
-          {
-            "cameraNodeName": "bone_turret"
-          },
-          {
-            "cockpitTemplate": "uk_churchill_3_commander_cockpit"
-          },
-          {
-            "hatchNodes:array": [
+              [-0.25,-0.25,0.0]
+            ],
+            "seatComponent": "isDriver",
+            "nextSeat": "main_gunner",
+            "shouldHideOwner": true,
+            "receiveDamageFromDMPart": "driver",
+            "cameraNodeName": "bone_camera_driver",
+            "cockpitTemplate": "uk_churchill_3_driver_cockpit"
+          }
+        },
+        {
+          "seats:object": {
+            "name": "main_gunner",
+            "locName": "vehicle_seats/gunner",
+            "attachNode": "gunner",
+            "ignoreAttachNodeRotation": true,
+            "attachTm": [
+              [1.0,0.0,0.0],
+              [0.0,1.0,0.0],
+              [0.0,0.0,1.0],
+              [-0.25,-0.5,0.0]
+            ],
+            "seatComponent": "isGunner",
+            "nextSeat": "driver",
+            "shouldHideOwner": true,
+            "receiveDamageFromDMPart": "gunner",
+            "cameraNodeName": "bone_camera_gunner",
+            "cockpitTemplate": "uk_churchill_3_gunner_cockpit",
+            "turretNames:array": [
               {
-                "node": "hatch_01"
+                "turret": "turret_01"
               },
               {
-                "node": "hatch_02"
+                "turret": "turret_02"
               }
             ]
           }
-        ]
-      },
-      {
-        "seats:object": {
-          "locName": "vehicle_seats/loader",
-          "attachNode": "loader",
-          "ignoreAttachNodeRotation": true,
-          "attachTm": [
-            [1.0,0.0,0.0],
-            [0.0,1.0,0.0],
-            [0.0,0.0,1.0],
-            [-0.25,-0.5,0.0]
-          ],
-          "seatComponent": "isPassenger",
-          "shouldHideOwner": true,
-          "receiveDamageFromDMPart": "loader",
-          "cameraNodeName": "bone_camera_driver",
-          "loaderTurretNames:array": {
-            "turret": "turret_01"
+        },
+        {
+          "seats:object": [
+            {
+              "name": "commander"
+            },
+            {
+              "locName": "vehicle_seats/commander"
+            },
+            {
+              "locName": "vehicle_seats/commander"
+            },
+            {
+              "attachNode": "commander"
+            },
+            {
+              "shouldHideOwner": true
+            },
+            {
+              "hatchRotationAxis": [1.8,0.0,0.0]
+            },
+            {
+              "ignoreAttachNodeRotation": true
+            },
+            {
+              "attachTm": [
+                [1.0,0.0,0.0],
+                [0.0,1.0,0.0],
+                [0.0,0.0,1.0],
+                [-0.217627,-0.1258555,0.407329]
+              ]
+            },
+            {
+              "seatComponent": "isDriver"
+            },
+            {
+              "receiveDamageFromDMPart": "commander"
+            },
+            {
+              "cameraNodeName": "bone_turret"
+            },
+            {
+              "cockpitTemplate": "uk_churchill_3_commander_cockpit"
+            },
+            {
+              "hatchNodes:array": [
+                {
+                  "node": "hatch_01"
+                },
+                {
+                  "node": "hatch_02"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "seats:object": {
+            "locName": "vehicle_seats/loader",
+            "attachNode": "loader",
+            "ignoreAttachNodeRotation": true,
+            "attachTm": [
+              [1.0,0.0,0.0],
+              [0.0,1.0,0.0],
+              [0.0,0.0,1.0],
+              [-0.25,-0.5,0.0]
+            ],
+            "seatComponent": "isPassenger",
+            "shouldHideOwner": true,
+            "receiveDamageFromDMPart": "loader",
+            "cameraNodeName": "bone_camera_driver",
+            "loaderTurretNames:array": {
+              "turret": "turret_01"
+            }
+          }
+        },
+        {
+          "seats:object": {
+            "locName": "vehicle_seats/radioman",
+            "attachNode": "machine_gunner",
+            "ignoreAttachNodeRotation": true,
+            "attachTm": [
+              [1.0,0.0,0.0],
+              [0.0,1.0,0.0],
+              [0.0,0.0,1.0],
+              [-0.25,-0.5,0.0]
+            ],
+            "seatComponent": "isPassenger",
+            "shouldHideOwner": true,
+            "receiveDamageFromDMPart": "machine_gunner"
           }
         }
-      },
-      {
-        "seats:object": {
-          "locName": "vehicle_seats/radioman",
-          "attachNode": "machine_gunner",
-          "ignoreAttachNodeRotation": true,
-          "attachTm": [
-            [1.0,0.0,0.0],
-            [0.0,1.0,0.0],
-            [0.0,0.0,1.0],
-            [-0.25,-0.5,0.0]
-          ],
-          "seatComponent": "isPassenger",
-          "shouldHideOwner": true,
-          "receiveDamageFromDMPart": "machine_gunner"
-        }
-      }
-    ]
-  },
+      ]
+    }
+  ],
   "uk_churchill_3_driver_cockpit": {
     "_use": "base_driver_cockpit",
     "animchar__res": "kv_1_driver_char",

@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { mkOnlineSaveData } = require("%enlSqGlob/mkOnlineSaveData.nut")
 let { hasPremium } = require("%enlist/currency/premium.nut")
@@ -106,7 +106,7 @@ let selectedEquipList = function(presetList, slot) {
 
     slotsItems.each(function(item) {
       if (item.slotType in presetSlots && presetSlots[item.slotType] == 0)
-        delete presetSlots[item.slotType]
+        presetSlots.$rawdelete(item.slotType)
     })
 
     let notFoundTbl = {}
@@ -193,7 +193,7 @@ let renamePreset = function(presetTbl, presetList, slot) {
     updateStorage(presetTbl, soldier.armyId, soldier.sKind, slot, { name })
 }
 
-let function deleteSlot(presetTbl, armyId, sKind, slot) {
+function deleteSlot(presetTbl, armyId, sKind, slot) {
   let presets = clone presetTbl
   let armyStorage = clone presets[armyId]
   presets[armyId] = armyStorage
@@ -214,7 +214,7 @@ let deletePreset = function(presetTbl, presetList, slot) {
   }
 }
 
-let function movePresetsToUnited() {
+function movePresetsToUnited() {
   let campaigns = campaignsByArmy.value
 
   let presets = {}
@@ -279,7 +279,7 @@ console_register_command(function() {
   let presets = clone equipmentPresetWatch.value
   foreach (armyId in renameCommonArmies) {
     if (armyId in presets) {
-      delete presets[armyId]
+      presets.$rawdelete(armyId)
       console_print("Preset deleted: ", armyId)
     }
   }

@@ -1,5 +1,3 @@
-from "%enlSqGlob/ui_library.nut" import *
-
 /*
 Usage:
 
@@ -33,13 +31,13 @@ Script reload can occur between request and handler.
 
 let {get_app_id} = require("app")
 let {debug}      = require("dagor.debug")
-let eventbus     = require("eventbus")
+let { eventbus_subscribe }     = require("eventbus")
 let userInfo     = require("%enlSqGlob/userInfo.nut")
 let utils        = require("charClientUtils.nut")
 //#strict
 
 
-let function CharClientEvent(settings) {
+function CharClientEvent(settings) {
 
   let name         = settings?.name
   let event        = settings?.event ?? $"charclient.{name}"
@@ -55,7 +53,7 @@ let function CharClientEvent(settings) {
   assert(executors == null || typeof executors == "table")
 
 
-  local function request(handler, params = {}, context = null) {
+  function request(handler, params = {}, context = null) {
     let func = $"{name}.{handler} request"
     assert(handler in handlers, @()$"{func}: Unknown handler '{handler}'")
     debug($"{func} {utils.shortValue(params)}{utils.shortValue(context)}")
@@ -82,7 +80,7 @@ let function CharClientEvent(settings) {
   }
 
 
-  let function call(table, key, result, context, label, msg) {
+  function call(table, key, result, context, label, msg) {
     let callback = table?[key]
     assert(typeof callback == "function", @()$"{label} call({key}): type={typeof callback}")
 
@@ -100,13 +98,13 @@ let function CharClientEvent(settings) {
   }
 
 
-  local function process(result) {
+  function process(result) {
     // This function has already corrupted 'this', but we don't need to restore it,
     // we just don't use 'this', we use free variables.
     assert("$action" in result, @()$"{name} process: No '$action' in result")
-    let action  = delete result["$action"]
-    let context = ("$context" in result) ? delete result["$context"] : null
-    let extra   = ("$extra" in context) ? delete context["$extra"] : null
+    let action  = result.$rawdelete("$action")
+    let context = result?.$rawdelete("$context")
+    let extra   = context?.$rawdelete("$extra")
     let handler = (extra == null) ? action : $"{action}:{extra}"
     let label   = $"{name}.{handler}"
     assert(handler in handlers, @()$"{label} process: No handler '{handler}'")
@@ -145,12 +143,12 @@ let function CharClientEvent(settings) {
   }
 
 
-  let function requestEventBus(params, context) {
+  function requestEventBus(params, context) {
     client.requestEventBus(params, event, context)
   }
 
 
-  let function requestLegacy(params, context) {
+  function requestLegacy(params, context) {
     client.request(params, function(result) {
       result["$action"] <- params.action
       if (context != null)
@@ -160,7 +158,7 @@ let function CharClientEvent(settings) {
   }
 
 
-  let function init() {
+  function init() {
     // compatibility: 'requestEventBus' submitted at 24 feb 2021
     if (mode == "eventbus" && "requestEventBus" not in client)
       mode = "legacy"
@@ -168,7 +166,7 @@ let function CharClientEvent(settings) {
     debug($"CharClientEvent({name}): {mode}")
     if (mode == "eventbus") {
       doRequest = requestEventBus
-      eventbus.subscribe(event, @(data) process(clone data))
+      eventbus_subscribe(event, @(data) process(clone data))
     }
     else if (mode == "legacy") {
       doRequest = requestLegacy

@@ -60,7 +60,7 @@ def tracer_launcher_es(info : ecs::UpdateStageInfoAct;
   let colorTtl = float4(tracer_launcher__bullet_color.x, tracer_launcher__bullet_color.y,
                         tracer_launcher__bullet_color.z, tracer_launcher__bullet_ttl)
   let smoke = float4(0, 0, 0, 0)
-  let id = create_smoke_tracer(pos, dir, tracer_launcher__bullet_size, Color4(smoke), Color4(colorTtl), 0.0001)
+  let id = create_smoke_tracer(pos, dir, tracer_launcher__bullet_size, Color4(smoke), Color4(colorTtl), 0.0001, Color3(colorTtl.xyz), 0.0)
   if id < 0
     return
   createEntity("background_tracer") <| $(var init : ComponentsInitializer)

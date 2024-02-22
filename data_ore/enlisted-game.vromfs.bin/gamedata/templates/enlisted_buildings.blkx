@@ -10,39 +10,90 @@
     "activeCapzoneFortification:tag": [],
     "capzone_fortification__capzoneEid:eid": []
   },
-  "fury_builder_preview": {
-    "_use": "base_animchar_builder_preview",
-    "animchar__res": "fury_mk1_char",
-    "instantiateTemplate": "fury_mk1",
-    "buildingDistance": 20.0,
-    "additionalHeight": 1.0,
-    "avaliableAngles": [-5.0,5.0]
+  "fortification_building_sound": {
+    "buildingSoundTag": "fortification"
   },
+  "cannon_building_sound": {
+    "buildingSoundTag": "cannon"
+  },
+  "fury_builder_preview": [
+    {
+      "_use": "base_animchar_builder_preview"
+    },
+    {
+      "_use": "cannon_building_sound"
+    },
+    {
+      "animchar__res": "fury_mk1_char"
+    },
+    {
+      "instantiateTemplate": "fury_mk1"
+    },
+    {
+      "buildingDistance": 20.0
+    },
+    {
+      "additionalHeight": 1.0
+    },
+    {
+      "avaliableAngles": [-5.0,5.0]
+    }
+  ],
   "cannon_ussr_25mm_72k_preview": {
     "_use": "cannon_ussr_25mm_72k_preview_common",
     "instantiateTemplate": "builded_cannon_ussr_25mm_72k"
   },
-  "cannon_ussr_25mm_72k_preview_common": {
-    "_use": "base_animchar_builder_preview",
-    "animchar__res": "towed_at_72k_char",
-    "collres__res": "towed_at_72k_collision",
-    "preview_phys__blk": "content/enlisted/gamedata/units/cannons/ussr_25mm_72k.blk",
-    "avaliableAngles": [-10.0,10.0],
-    "buildingSoundTag": "cannon",
-    "building_builder__maxTimeToBuild": 16.0,
-    "buildingCost": 6.0,
-    "building__requireUnlockId": 1,
-    "building_menu__text": "building_tool/aaa_cannon_72k",
-    "building_menu__image": "building_aaa",
-    "phys_vars": [],
-    "anim_phys": [],
-    "previewAnimVarParams:list<t>": {
-      "param": "aim_01_active"
+  "cannon_ussr_25mm_72k_preview_common": [
+    {
+      "_use": "base_animchar_builder_preview"
     },
-    "previewAnimVarParamsValue:list<r>": {
-      "value": 0.0
+    {
+      "_use": "cannon_building_sound"
+    },
+    {
+      "animchar__res": "towed_at_72k_char"
+    },
+    {
+      "collres__res": "towed_at_72k_collision"
+    },
+    {
+      "preview_phys__blk": "content/enlisted/gamedata/units/cannons/ussr_25mm_72k.blk"
+    },
+    {
+      "avaliableAngles": [-10.0,10.0]
+    },
+    {
+      "building_builder__maxTimeToBuild": 16.0
+    },
+    {
+      "buildingCost": 6.0
+    },
+    {
+      "building__requireUnlockId": 1
+    },
+    {
+      "building_menu__text": "building_tool/aaa_cannon_72k"
+    },
+    {
+      "building_menu__image": "building_aaa"
+    },
+    {
+      "phys_vars": []
+    },
+    {
+      "anim_phys": []
+    },
+    {
+      "previewAnimVarParams:list<t>": {
+        "param": "aim_01_active"
+      }
+    },
+    {
+      "previewAnimVarParamsValue:list<r>": {
+        "value": 0.0
+      }
     }
-  },
+  ],
   "builded_cannon_ussr_25mm_72k": [
     {
       "_use": "builded_cannon_ussr_25mm_72k_common"
@@ -68,27 +119,57 @@
     "_use": "cannon_jp_20mm_type98_preview_common",
     "instantiateTemplate": "builded_cannon_jp_20mm_type98"
   },
-  "cannon_jp_20mm_type98_preview_common": {
-    "_use": "base_animchar_builder_preview",
-    "animchar__res": "towed_at_20mm_type_98_char",
-    "collres__res": "towed_at_20mm_type_98_collision",
-    "preview_phys__blk": "content/enlisted/gamedata/units/cannons/jp_20mm_type98.blk",
-    "avaliableAngles": [-10.0,10.0],
-    "buildingSoundTag": "cannon",
-    "building_builder__maxTimeToBuild": 16.0,
-    "buildingCost": 6.0,
-    "building__requireUnlockId": 1,
-    "building_menu__text": "building_tool/aaa_cannon_type98",
-    "building_menu__image": "building_aaa",
-    "phys_vars": [],
-    "anim_phys": [],
-    "previewAnimVarParams:list<t>": {
-      "param": "aim_01_active"
+  "cannon_jp_20mm_type98_preview_common": [
+    {
+      "_use": "base_animchar_builder_preview"
     },
-    "previewAnimVarParamsValue:list<r>": {
-      "value": 0.0
+    {
+      "_use": "cannon_building_sound"
+    },
+    {
+      "animchar__res": "towed_at_20mm_type_98_char"
+    },
+    {
+      "collres__res": "towed_at_20mm_type_98_collision"
+    },
+    {
+      "preview_phys__blk": "content/enlisted/gamedata/units/cannons/jp_20mm_type98.blk"
+    },
+    {
+      "avaliableAngles": [-10.0,10.0]
+    },
+    {
+      "building_builder__maxTimeToBuild": 16.0
+    },
+    {
+      "buildingCost": 6.0
+    },
+    {
+      "building__requireUnlockId": 1
+    },
+    {
+      "building_menu__text": "building_tool/aaa_cannon_type98"
+    },
+    {
+      "building_menu__image": "building_aaa"
+    },
+    {
+      "phys_vars": []
+    },
+    {
+      "anim_phys": []
+    },
+    {
+      "previewAnimVarParams:list<t>": {
+        "param": "aim_01_active"
+      }
+    },
+    {
+      "previewAnimVarParamsValue:list<r>": {
+        "value": 0.0
+      }
     }
-  },
+  ],
   "builded_cannon_jp_20mm_type98": [
     {
       "_use": "builded_cannon_jp_20mm_type98_common"
@@ -114,27 +195,57 @@
     "_use": "cannon_us_20mm_polsten_preview_common",
     "instantiateTemplate": "builded_cannon_us_20mm_polsten"
   },
-  "cannon_us_20mm_polsten_preview_common": {
-    "_use": "base_animchar_builder_preview",
-    "animchar__res": "towed_polsten_char",
-    "collres__res": "towed_polsten_collision",
-    "preview_phys__blk": "content/enlisted/gamedata/units/cannons/germ_polsten.blk",
-    "avaliableAngles": [-10.0,10.0],
-    "buildingSoundTag": "cannon",
-    "building_builder__maxTimeToBuild": 16.0,
-    "buildingCost": 6.0,
-    "building__requireUnlockId": 1,
-    "building_menu__text": "building_tool/aaa_cannon_polsten",
-    "building_menu__image": "building_aaa",
-    "phys_vars": [],
-    "anim_phys": [],
-    "previewAnimVarParams:list<t>": {
-      "param": "aim_01_active"
+  "cannon_us_20mm_polsten_preview_common": [
+    {
+      "_use": "base_animchar_builder_preview"
     },
-    "previewAnimVarParamsValue:list<r>": {
-      "value": 0.0
+    {
+      "_use": "cannon_building_sound"
+    },
+    {
+      "animchar__res": "towed_polsten_char"
+    },
+    {
+      "collres__res": "towed_polsten_collision"
+    },
+    {
+      "preview_phys__blk": "content/enlisted/gamedata/units/cannons/germ_polsten.blk"
+    },
+    {
+      "avaliableAngles": [-10.0,10.0]
+    },
+    {
+      "building_builder__maxTimeToBuild": 16.0
+    },
+    {
+      "buildingCost": 6.0
+    },
+    {
+      "building__requireUnlockId": 1
+    },
+    {
+      "building_menu__text": "building_tool/aaa_cannon_polsten"
+    },
+    {
+      "building_menu__image": "building_aaa"
+    },
+    {
+      "phys_vars": []
+    },
+    {
+      "anim_phys": []
+    },
+    {
+      "previewAnimVarParams:list<t>": {
+        "param": "aim_01_active"
+      }
+    },
+    {
+      "previewAnimVarParamsValue:list<r>": {
+        "value": 0.0
+      }
     }
-  },
+  ],
   "builded_cannon_us_20mm_polsten": [
     {
       "_use": "builded_cannon_us_20mm_polsten_common"
@@ -168,27 +279,57 @@
     "_use": "cannon_germ_20mm_flak38_flakvierling_preview_common",
     "instantiateTemplate": "builded_cannon_germ_20mm_flak38_flakvierling_desert"
   },
-  "cannon_germ_20mm_flak38_flakvierling_preview_common": {
-    "_use": "base_animchar_builder_preview",
-    "animchar__res": "cannon_germ_20mm_flak38_flakvierling_char",
-    "collres__res": "cannon_germ_20mm_flak38_flakvierling_collision",
-    "preview_phys__blk": "content/enlisted/gamedata/units/cannons/germ_20mm_flak38_flakvierling.blk",
-    "avaliableAngles": [-10.0,10.0],
-    "buildingSoundTag": "cannon",
-    "building_builder__maxTimeToBuild": 16.0,
-    "buildingCost": 6.0,
-    "building__requireUnlockId": 1,
-    "building_menu__text": "building_tool/aaa_cannon_flak38_flakvierling",
-    "building_menu__image": "building_aaa",
-    "phys_vars": [],
-    "anim_phys": [],
-    "previewAnimVarParams:list<t>": {
-      "param": "aim_01_active"
+  "cannon_germ_20mm_flak38_flakvierling_preview_common": [
+    {
+      "_use": "base_animchar_builder_preview"
     },
-    "previewAnimVarParamsValue:list<r>": {
-      "value": 0.0
+    {
+      "_use": "cannon_building_sound"
+    },
+    {
+      "animchar__res": "cannon_germ_20mm_flak38_flakvierling_char"
+    },
+    {
+      "collres__res": "cannon_germ_20mm_flak38_flakvierling_collision"
+    },
+    {
+      "preview_phys__blk": "content/enlisted/gamedata/units/cannons/germ_20mm_flak38_flakvierling.blk"
+    },
+    {
+      "avaliableAngles": [-10.0,10.0]
+    },
+    {
+      "building_builder__maxTimeToBuild": 16.0
+    },
+    {
+      "buildingCost": 6.0
+    },
+    {
+      "building__requireUnlockId": 1
+    },
+    {
+      "building_menu__text": "building_tool/aaa_cannon_flak38_flakvierling"
+    },
+    {
+      "building_menu__image": "building_aaa"
+    },
+    {
+      "phys_vars": []
+    },
+    {
+      "anim_phys": []
+    },
+    {
+      "previewAnimVarParams:list<t>": {
+        "param": "aim_01_active"
+      }
+    },
+    {
+      "previewAnimVarParamsValue:list<r>": {
+        "value": 0.0
+      }
     }
-  },
+  ],
   "builded_cannon_germ_20mm_flak38_flakvierling": [
     {
       "_use": "builded_cannon_germ_20mm_flak38_flakvierling_common"
@@ -238,27 +379,57 @@
     "_use": "cannon_germ_20mm_flak38_preview_common",
     "instantiateTemplate": "builded_cannon_germ_20mm_flak38_desert"
   },
-  "cannon_germ_20mm_flak38_preview_common": {
-    "_use": "base_animchar_builder_preview",
-    "animchar__res": "towed_at_flak_38_char",
-    "collres__res": "towed_at_flak_38_collision",
-    "preview_phys__blk": "content/enlisted/gamedata/units/cannons/germ_20mm_flak38.blk",
-    "avaliableAngles": [-10.0,10.0],
-    "buildingSoundTag": "cannon",
-    "building_builder__maxTimeToBuild": 16.0,
-    "buildingCost": 6.0,
-    "building__requireUnlockId": 1,
-    "building_menu__text": "building_tool/aaa_cannon_flak38",
-    "building_menu__image": "building_aaa",
-    "phys_vars": [],
-    "anim_phys": [],
-    "previewAnimVarParams:list<t>": {
-      "param": "aim_01_active"
+  "cannon_germ_20mm_flak38_preview_common": [
+    {
+      "_use": "base_animchar_builder_preview"
     },
-    "previewAnimVarParamsValue:list<r>": {
-      "value": 0.0
+    {
+      "_use": "cannon_building_sound"
+    },
+    {
+      "animchar__res": "towed_at_flak_38_char"
+    },
+    {
+      "collres__res": "towed_at_flak_38_collision"
+    },
+    {
+      "preview_phys__blk": "content/enlisted/gamedata/units/cannons/germ_20mm_flak38.blk"
+    },
+    {
+      "avaliableAngles": [-10.0,10.0]
+    },
+    {
+      "building_builder__maxTimeToBuild": 16.0
+    },
+    {
+      "buildingCost": 6.0
+    },
+    {
+      "building__requireUnlockId": 1
+    },
+    {
+      "building_menu__text": "building_tool/aaa_cannon_flak38"
+    },
+    {
+      "building_menu__image": "building_aaa"
+    },
+    {
+      "phys_vars": []
+    },
+    {
+      "anim_phys": []
+    },
+    {
+      "previewAnimVarParams:list<t>": {
+        "param": "aim_01_active"
+      }
+    },
+    {
+      "previewAnimVarParamsValue:list<r>": {
+        "value": 0.0
+      }
     }
-  },
+  ],
   "builded_cannon_germ_20mm_flak38": [
     {
       "_use": "builded_cannon_germ_20mm_flak38_common"
@@ -315,35 +486,97 @@
     "_use": "cannon_germ_towed_at_pak38_preview_common",
     "instantiateTemplate": "builded_germ_towed_at_pak38"
   },
-  "cannon_germ_towed_at_pak38_no_camo_preview": {
-    "_use": "cannon_germ_towed_at_pak38_preview_common",
-    "instantiateTemplate": "builded_germ_towed_at_pak38_no_camo"
-  },
-  "cannon_germ_towed_at_pak38_desert_preview": {
-    "_use": "cannon_germ_towed_at_pak38_preview_common",
-    "instantiateTemplate": "builded_germ_towed_at_pak38_desert"
-  },
-  "cannon_germ_towed_at_pak38_preview_common": {
-    "_use": "base_animchar_builder_preview",
-    "animchar__res": "towed_at_pak38_char",
-    "collres__res": "towed_at_pak38_collision",
-    "preview_phys__blk": "content/tanks/gamedata/gen/units/tanks/towed_at_pak38_preview.blk",
-    "avaliableAngles": [-10.0,10.0],
-    "buildingSoundTag": "cannon",
-    "building_builder__maxTimeToBuild": 20.0,
-    "buildingCost": 8.0,
-    "building__requireUnlockId": 2,
-    "building_menu__text": "building_tool/at_cannon_pak38",
-    "building_menu__image": "building_at",
-    "phys_vars": [],
-    "anim_phys": [],
-    "previewAnimVarParams:list<t>": {
-      "param": "aim_01_active"
+  "cannon_germ_towed_at_pak38_no_camo_preview": [
+    {
+      "_use": "cannon_germ_towed_at_pak38_preview_common"
     },
-    "previewAnimVarParamsValue:list<r>": {
-      "value": 0.0
+    {
+      "_use": "semi_transparent_field_of_view"
+    },
+    {
+      "instantiateTemplate": "builded_germ_towed_at_pak38_no_camo"
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "semi_transparent_field_of_view__radius": 7.5,
+        "semi_transparent_field_of_view__verticalAngle": 3.0,
+        "semi_transparent_field_of_view__heightOfFOV": 0.2,
+        "builded_stationary_entity_name": "enlist_tankgun_towed_at_pak38_movable"
+      }
     }
-  },
+  ],
+  "cannon_germ_towed_at_pak38_desert_preview": [
+    {
+      "_use": "cannon_germ_towed_at_pak38_preview_common"
+    },
+    {
+      "_use": "semi_transparent_field_of_view"
+    },
+    {
+      "instantiateTemplate": "builded_germ_towed_at_pak38_desert"
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "semi_transparent_field_of_view__radius": 7.5,
+        "semi_transparent_field_of_view__verticalAngle": 3.0,
+        "semi_transparent_field_of_view__heightOfFOV": 0.2,
+        "builded_stationary_entity_name": "enlist_tankgun_towed_at_pak38_movable"
+      }
+    }
+  ],
+  "cannon_germ_towed_at_pak38_preview_common": [
+    {
+      "_use": "base_animchar_builder_preview"
+    },
+    {
+      "_use": "cannon_building_sound"
+    },
+    {
+      "animchar__res": "towed_at_pak38_char"
+    },
+    {
+      "collres__res": "towed_at_pak38_collision"
+    },
+    {
+      "preview_phys__blk": "content/tanks/gamedata/gen/units/tanks/towed_at_pak38_preview.blk"
+    },
+    {
+      "avaliableAngles": [-10.0,10.0]
+    },
+    {
+      "building_builder__maxTimeToBuild": 20.0
+    },
+    {
+      "buildingCost": 8.0
+    },
+    {
+      "building__requireUnlockId": 2
+    },
+    {
+      "building_menu__text": "building_tool/at_cannon_pak38"
+    },
+    {
+      "building_menu__image": "building_at"
+    },
+    {
+      "phys_vars": []
+    },
+    {
+      "anim_phys": []
+    },
+    {
+      "previewAnimVarParams:list<t>": {
+        "param": "aim_01_active"
+      }
+    },
+    {
+      "previewAnimVarParamsValue:list<r>": {
+        "value": 0.0
+      }
+    }
+  ],
   "builded_germ_towed_at_pak38_common": {
     "_use": "base_building",
     "building_destroy__maxTimeToDestroy": 20.0,
@@ -389,35 +622,97 @@
       "_use": "builded_germ_towed_at_pak38_common"
     }
   ],
-  "cannon_towed_at_pak40_preview_common": {
-    "_use": "base_animchar_builder_preview",
-    "animchar__res": "towed_at_pak40_char",
-    "collres__res": "towed_at_pak40_collision",
-    "preview_phys__blk": "content/tanks/gamedata/gen/units/tanks/towed_at_pak40_preview.blk",
-    "avaliableAngles": [-10.0,10.0],
-    "buildingSoundTag": "cannon",
-    "building_builder__maxTimeToBuild": 20.0,
-    "buildingCost": 8.0,
-    "building__requireUnlockId": 2,
-    "building_menu__text": "building_tool/at_cannon_pak40",
-    "building_menu__image": "building_at",
-    "phys_vars": [],
-    "anim_phys": [],
-    "previewAnimVarParams:list<t>": {
-      "param": "aim_01_active"
+  "cannon_towed_at_pak40_preview_common": [
+    {
+      "_use": "base_animchar_builder_preview"
     },
-    "previewAnimVarParamsValue:list<r>": {
-      "value": 0.0
+    {
+      "_use": "cannon_building_sound"
+    },
+    {
+      "animchar__res": "towed_at_pak40_char"
+    },
+    {
+      "collres__res": "towed_at_pak40_collision"
+    },
+    {
+      "preview_phys__blk": "content/tanks/gamedata/gen/units/tanks/towed_at_pak40_preview.blk"
+    },
+    {
+      "avaliableAngles": [-10.0,10.0]
+    },
+    {
+      "building_builder__maxTimeToBuild": 20.0
+    },
+    {
+      "buildingCost": 8.0
+    },
+    {
+      "building__requireUnlockId": 2
+    },
+    {
+      "building_menu__text": "building_tool/at_cannon_pak40"
+    },
+    {
+      "building_menu__image": "building_at"
+    },
+    {
+      "phys_vars": []
+    },
+    {
+      "anim_phys": []
+    },
+    {
+      "previewAnimVarParams:list<t>": {
+        "param": "aim_01_active"
+      }
+    },
+    {
+      "previewAnimVarParamsValue:list<r>": {
+        "value": 0.0
+      }
     }
-  },
-  "cannon_germ_towed_at_pak40_preview": {
-    "_use": "cannon_towed_at_pak40_preview_common",
-    "instantiateTemplate": "builded_germ_towed_at_pak40"
-  },
-  "cannon_ussr_towed_at_pak40_preview": {
-    "_use": "cannon_towed_at_pak40_preview_common",
-    "instantiateTemplate": "builded_ussr_towed_at_pak40"
-  },
+  ],
+  "cannon_germ_towed_at_pak40_preview": [
+    {
+      "_use": "cannon_towed_at_pak40_preview_common"
+    },
+    {
+      "_use": "semi_transparent_field_of_view"
+    },
+    {
+      "instantiateTemplate": "builded_germ_towed_at_pak40"
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "semi_transparent_field_of_view__radius": 7.5,
+        "semi_transparent_field_of_view__verticalAngle": 3.0,
+        "semi_transparent_field_of_view__heightOfFOV": 0.2,
+        "builded_stationary_entity_name": "enlist_tankgun_towed_at_pak40_movable"
+      }
+    }
+  ],
+  "cannon_ussr_towed_at_pak40_preview": [
+    {
+      "_use": "cannon_towed_at_pak40_preview_common"
+    },
+    {
+      "_use": "semi_transparent_field_of_view"
+    },
+    {
+      "instantiateTemplate": "builded_ussr_towed_at_pak40"
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "semi_transparent_field_of_view__radius": 7.5,
+        "semi_transparent_field_of_view__verticalAngle": 3.0,
+        "semi_transparent_field_of_view__heightOfFOV": 0.2,
+        "builded_stationary_entity_name": "enlist_tankgun_towed_at_pak40_movable"
+      }
+    }
+  ],
   "builded_towed_at_pak40_common": {
     "_use": "base_building",
     "building_destroy__maxTimeToDestroy": 20.0,
@@ -447,32 +742,92 @@
       "_use": "ussr_towed_at_pak40_movable"
     }
   ],
-  "cannon_uk_towed_at_6pdr_preview": {
-    "_use": "cannon_us_towed_at_m1_preview",
-    "instantiateTemplate": "builded_uk_towed_at_6pdr"
-  },
-  "cannon_us_towed_at_m1_preview": {
-    "_use": "base_animchar_builder_preview",
-    "animchar__res": "towed_at_6pdr_char",
-    "collres__res": "towed_at_6pdr_collision",
-    "preview_phys__blk": "content/tanks/gamedata/gen/units/tanks/towed_at_m1_preview.blk",
-    "instantiateTemplate": "builded_us_towed_at_m1",
-    "avaliableAngles": [-10.0,10.0],
-    "buildingSoundTag": "cannon",
-    "building_builder__maxTimeToBuild": 20.0,
-    "buildingCost": 8.0,
-    "building__requireUnlockId": 2,
-    "building_menu__text": "building_tool/at_cannon_m1",
-    "building_menu__image": "building_at",
-    "phys_vars": [],
-    "anim_phys": [],
-    "previewAnimVarParams:list<t>": {
-      "param": "aim_01_active"
+  "cannon_uk_towed_at_6pdr_preview": [
+    {
+      "_use": "cannon_us_towed_at_m1_preview"
     },
-    "previewAnimVarParamsValue:list<r>": {
-      "value": 0.0
+    {
+      "_use": "semi_transparent_field_of_view"
+    },
+    {
+      "instantiateTemplate": "builded_uk_towed_at_6pdr"
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "semi_transparent_field_of_view__radius": 7.5,
+        "semi_transparent_field_of_view__verticalAngle": 3.0,
+        "semi_transparent_field_of_view__heightOfFOV": 0.2,
+        "builded_stationary_entity_name": "enlist_tankgun_towed_6pdr_qqf_mk_3_movable"
+      }
     }
-  },
+  ],
+  "cannon_us_towed_at_m1_preview": [
+    {
+      "_use": "base_animchar_builder_preview"
+    },
+    {
+      "_use": "semi_transparent_field_of_view"
+    },
+    {
+      "_use": "cannon_building_sound"
+    },
+    {
+      "animchar__res": "towed_at_6pdr_char"
+    },
+    {
+      "collres__res": "towed_at_6pdr_collision"
+    },
+    {
+      "preview_phys__blk": "content/tanks/gamedata/gen/units/tanks/towed_at_m1_preview.blk"
+    },
+    {
+      "instantiateTemplate": "builded_us_towed_at_m1"
+    },
+    {
+      "avaliableAngles": [-10.0,10.0]
+    },
+    {
+      "building_builder__maxTimeToBuild": 20.0
+    },
+    {
+      "buildingCost": 8.0
+    },
+    {
+      "building__requireUnlockId": 2
+    },
+    {
+      "building_menu__text": "building_tool/at_cannon_m1"
+    },
+    {
+      "building_menu__image": "building_at"
+    },
+    {
+      "phys_vars": []
+    },
+    {
+      "anim_phys": []
+    },
+    {
+      "previewAnimVarParams:list<t>": {
+        "param": "aim_01_active"
+      }
+    },
+    {
+      "previewAnimVarParamsValue:list<r>": {
+        "value": 0.0
+      }
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "semi_transparent_field_of_view__radius": 7.5,
+        "semi_transparent_field_of_view__verticalAngle": 3.0,
+        "semi_transparent_field_of_view__heightOfFOV": 0.2,
+        "builded_stationary_entity_name": "enlist_tankgun_towed_6pdr_qqf_mk_3_movable"
+      }
+    }
+  ],
   "builded_towed_m1_common": {
     "_use": "base_building",
     "building_destroy__maxTimeToDestroy": 20.0,
@@ -502,55 +857,149 @@
       "_use": "us_towed_at_m1_movable"
     }
   ],
-  "cannon_ussr_towed_at_53k_movable_preview": {
-    "_use": "cannon_ussr_towed_at_53k_preview",
-    "preview_phys__blk": "content/tanks/gamedata/gen/units/tanks/towed_at_53k_preview.blk",
-    "instantiateTemplate": "builded_ussr_towed_at_53k_movable"
-  },
-  "cannon_ussr_towed_at_53k_preview": {
-    "_use": "base_animchar_builder_preview",
-    "animchar__res": "towed_at_53k_char",
-    "collres__res": "towed_at_53k_collision",
-    "preview_phys__blk": "content/tanks/gamedata/gen/units/tanks/towed_at_53k_preview.blk",
-    "instantiateTemplate": "builded_ussr_towed_at_53k",
-    "avaliableAngles": [-10.0,10.0],
-    "buildingSoundTag": "cannon",
-    "building_builder__maxTimeToBuild": 20.0,
-    "buildingCost": 8.0,
-    "building__requireUnlockId": 2,
-    "building_menu__text": "building_tool/at_cannon_53k",
-    "building_menu__image": "building_at",
-    "phys_vars": [],
-    "anim_phys": [],
-    "previewAnimVarParams:list<t>": {
-      "param": "aim_01_active"
+  "cannon_ussr_towed_at_53k_movable_preview": [
+    {
+      "_use": "cannon_ussr_towed_at_53k_preview"
     },
-    "previewAnimVarParamsValue:list<r>": {
-      "value": 0.0
-    }
-  },
-  "cannon_jp_towed_at_type_1_preview": {
-    "_use": "base_animchar_builder_preview",
-    "animchar__res": "towed_at_47mm_type_1_char",
-    "collres__res": "towed_at_47mm_type_1_collision",
-    "preview_phys__blk": "content/tanks/gamedata/gen/units/tanks/towed_at_type_1_preview.blk",
-    "instantiateTemplate": "builded_jp_towed_at_type_1_movable",
-    "avaliableAngles": [-10.0,10.0],
-    "buildingSoundTag": "cannon",
-    "building_builder__maxTimeToBuild": 20.0,
-    "buildingCost": 8.0,
-    "building__requireUnlockId": 2,
-    "building_menu__text": "building_tool/at_cannon_type_1",
-    "building_menu__image": "building_at",
-    "phys_vars": [],
-    "anim_phys": [],
-    "previewAnimVarParams:list<t>": {
-      "param": "aim_01_active"
+    {
+      "_use": "semi_transparent_field_of_view"
     },
-    "previewAnimVarParamsValue:list<r>": {
-      "value": 0.0
+    {
+      "preview_phys__blk": "content/tanks/gamedata/gen/units/tanks/towed_at_53k_preview.blk"
+    },
+    {
+      "instantiateTemplate": "builded_ussr_towed_at_53k_movable"
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "semi_transparent_field_of_view__radius": 7.5,
+        "semi_transparent_field_of_view__verticalAngle": 3.0,
+        "semi_transparent_field_of_view__heightOfFOV": 0.2,
+        "builded_stationary_entity_name": "enlist_tankgun_towed_at_53k_movable"
+      }
     }
-  },
+  ],
+  "cannon_ussr_towed_at_53k_preview": [
+    {
+      "_use": "base_animchar_builder_preview"
+    },
+    {
+      "_use": "cannon_building_sound"
+    },
+    {
+      "animchar__res": "towed_at_53k_char"
+    },
+    {
+      "collres__res": "towed_at_53k_collision"
+    },
+    {
+      "preview_phys__blk": "content/tanks/gamedata/gen/units/tanks/towed_at_53k_preview.blk"
+    },
+    {
+      "instantiateTemplate": "builded_ussr_towed_at_53k"
+    },
+    {
+      "avaliableAngles": [-10.0,10.0]
+    },
+    {
+      "building_builder__maxTimeToBuild": 20.0
+    },
+    {
+      "buildingCost": 8.0
+    },
+    {
+      "building__requireUnlockId": 2
+    },
+    {
+      "building_menu__text": "building_tool/at_cannon_53k"
+    },
+    {
+      "building_menu__image": "building_at"
+    },
+    {
+      "phys_vars": []
+    },
+    {
+      "anim_phys": []
+    },
+    {
+      "previewAnimVarParams:list<t>": {
+        "param": "aim_01_active"
+      }
+    },
+    {
+      "previewAnimVarParamsValue:list<r>": {
+        "value": 0.0
+      }
+    }
+  ],
+  "cannon_jp_towed_at_type_1_preview": [
+    {
+      "_use": "base_animchar_builder_preview"
+    },
+    {
+      "_use": "semi_transparent_field_of_view"
+    },
+    {
+      "_use": "cannon_building_sound"
+    },
+    {
+      "animchar__res": "towed_at_47mm_type_1_char"
+    },
+    {
+      "collres__res": "towed_at_47mm_type_1_collision"
+    },
+    {
+      "preview_phys__blk": "content/tanks/gamedata/gen/units/tanks/towed_at_type_1_preview.blk"
+    },
+    {
+      "instantiateTemplate": "builded_jp_towed_at_type_1_movable"
+    },
+    {
+      "avaliableAngles": [-10.0,10.0]
+    },
+    {
+      "building_builder__maxTimeToBuild": 20.0
+    },
+    {
+      "buildingCost": 8.0
+    },
+    {
+      "building__requireUnlockId": 2
+    },
+    {
+      "building_menu__text": "building_tool/at_cannon_type_1"
+    },
+    {
+      "building_menu__image": "building_at"
+    },
+    {
+      "phys_vars": []
+    },
+    {
+      "anim_phys": []
+    },
+    {
+      "previewAnimVarParams:list<t>": {
+        "param": "aim_01_active"
+      }
+    },
+    {
+      "previewAnimVarParamsValue:list<r>": {
+        "value": 0.0
+      }
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "semi_transparent_field_of_view__radius": 7.5,
+        "semi_transparent_field_of_view__verticalAngle": 3.0,
+        "semi_transparent_field_of_view__heightOfFOV": 0.2,
+        "builded_stationary_entity_name": "enlist_tankgun_towed_at_type_1_movable"
+      }
+    }
+  ],
   "builded_jp_towed_at_type_1_movable": [
     {
       "_use": "jp_towed_at_type_1_movable"
@@ -746,6 +1195,9 @@
       "_use": "stationary_mg42_building_attachable"
     },
     {
+      "_use": "cannon_building_sound"
+    },
+    {
       "animchar__res": "mg42_char"
     },
     {
@@ -753,9 +1205,6 @@
     },
     {
       "avaliableAngles": [-5.0,5.0]
-    },
-    {
-      "buildingSoundTag": "cannon"
     }
   ],
   "stationary_maxim_no_shield_building_additive_preview": [
@@ -764,6 +1213,12 @@
     },
     {
       "_use": "stationary_mg42_building_attachable"
+    },
+    {
+      "_use": "semi_transparent_field_of_view"
+    },
+    {
+      "_use": "cannon_building_sound"
     },
     {
       "additiveUp": [0.0,1.0,0.0]
@@ -803,32 +1258,63 @@
       "previewAnimVarParamsValue:list<r>": {
         "value": 1.0
       }
-    }
-  ],
-  "sandbags_wall_maxim_no_shield_preview": {
-    "_use": "base_rendinst_builder_preview",
-    "instantiateTemplate": "sandbags_wall_maxim_no_shield",
-    "ri_preview__name": "sandbags_wall_medium_rounded_c_mission_object",
-    "avaliableAngles": [-15.0,15.0],
-    "buildingSoundTag": "fortification",
-    "building_builder__maxTimeToBuild": 15.0,
-    "buildingCost": 10.0,
-    "building__requireUnlockId": 3,
-    "building_menu__text": "building_tool/sandbags_with_mg42",
-    "building_menu__image": "building_mg_nest",
-    "additiveBuildings:array": {
-      "item:object": {
-        "template": "stationary_maxim_no_shield_building_additive_preview",
-        "tm": [
-          [0.0,0.0,1.0],
-          [0.0,1.0,0.0],
-          [-1.0,0.0,0.0],
-          [0.25,0.96,-0.24]
-        ],
-        "additiveUp": [0.0,1.0,0.0]
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "semi_transparent_field_of_view__radius": 7.5,
+        "semi_transparent_field_of_view__verticalAngle": 3.0,
+        "semi_transparent_field_of_view__heightOfFOV": -0.8,
+        "builded_stationary_entity_name": "builded_stationary_maxim_no_shield_with_autodetach"
       }
     }
-  },
+  ],
+  "sandbags_wall_maxim_no_shield_preview": [
+    {
+      "_use": "base_rendinst_builder_preview"
+    },
+    {
+      "_use": "fortification_building_sound"
+    },
+    {
+      "instantiateTemplate": "sandbags_wall_maxim_no_shield"
+    },
+    {
+      "ri_preview__name": "sandbags_wall_medium_rounded_c_mission_object"
+    },
+    {
+      "avaliableAngles": [-15.0,15.0]
+    },
+    {
+      "building_builder__maxTimeToBuild": 15.0
+    },
+    {
+      "buildingCost": 10.0
+    },
+    {
+      "building__requireUnlockId": 3
+    },
+    {
+      "building_menu__text": "building_tool/sandbags_with_mg42"
+    },
+    {
+      "building_menu__image": "building_mg_nest"
+    },
+    {
+      "additiveBuildings:array": {
+        "item:object": {
+          "template": "stationary_maxim_no_shield_building_additive_preview",
+          "tm": [
+            [0.0,0.0,1.0],
+            [0.0,1.0,0.0],
+            [-1.0,0.0,0.0],
+            [0.25,0.96,-0.24]
+          ],
+          "additiveUp": [0.0,1.0,0.0]
+        }
+      }
+    }
+  ],
   "sandbags_wall_maxim_no_shield": [
     {
       "_use": "base_ri_building"
@@ -920,6 +1406,12 @@
       "_use": "stationary_mg42_building_attachable"
     },
     {
+      "_use": "semi_transparent_field_of_view"
+    },
+    {
+      "_use": "cannon_building_sound"
+    },
+    {
       "additiveUp": [0.0,1.0,0.0]
     },
     {
@@ -957,32 +1449,63 @@
       "previewAnimVarParamsValue:list<r>": {
         "value": 1.0
       }
-    }
-  ],
-  "sandbags_wall_mg_34_preview": {
-    "_use": "base_rendinst_builder_preview",
-    "instantiateTemplate": "sandbags_wall_mg_34",
-    "ri_preview__name": "sandbags_wall_medium_rounded_b_mission_object",
-    "avaliableAngles": [-15.0,15.0],
-    "buildingSoundTag": "fortification",
-    "building_builder__maxTimeToBuild": 15.0,
-    "buildingCost": 10.0,
-    "building__requireUnlockId": 3,
-    "building_menu__text": "building_tool/sandbags_with_mg42",
-    "building_menu__image": "building_mg_nest",
-    "additiveBuildings:array": {
-      "item:object": {
-        "template": "stationary_mg_34_building_additive_preview",
-        "tm": [
-          [0.0,0.0,1.0],
-          [0.0,1.0,0.0],
-          [-1.0,0.0,0.0],
-          [-0.08,1.28,0.0]
-        ],
-        "additiveUp": [0.0,1.0,0.0]
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "semi_transparent_field_of_view__radius": 7.5,
+        "semi_transparent_field_of_view__verticalAngle": 3.0,
+        "semi_transparent_field_of_view__heightOfFOV": -1.0,
+        "builded_stationary_entity_name": "builded_stationary_mg_34_with_autodetach"
       }
     }
-  },
+  ],
+  "sandbags_wall_mg_34_preview": [
+    {
+      "_use": "base_rendinst_builder_preview"
+    },
+    {
+      "_use": "fortification_building_sound"
+    },
+    {
+      "instantiateTemplate": "sandbags_wall_mg_34"
+    },
+    {
+      "ri_preview__name": "sandbags_wall_medium_rounded_b_mission_object"
+    },
+    {
+      "avaliableAngles": [-15.0,15.0]
+    },
+    {
+      "building_builder__maxTimeToBuild": 15.0
+    },
+    {
+      "buildingCost": 10.0
+    },
+    {
+      "building__requireUnlockId": 3
+    },
+    {
+      "building_menu__text": "building_tool/sandbags_with_mg42"
+    },
+    {
+      "building_menu__image": "building_mg_nest"
+    },
+    {
+      "additiveBuildings:array": {
+        "item:object": {
+          "template": "stationary_mg_34_building_additive_preview",
+          "tm": [
+            [0.0,0.0,1.0],
+            [0.0,1.0,0.0],
+            [-1.0,0.0,0.0],
+            [-0.08,1.28,0.0]
+          ],
+          "additiveUp": [0.0,1.0,0.0]
+        }
+      }
+    }
+  ],
   "sandbags_wall_mg_34": [
     {
       "_use": "base_ri_building"
@@ -1074,6 +1597,12 @@
       "_use": "stationary_mg42_building_attachable"
     },
     {
+      "_use": "semi_transparent_field_of_view"
+    },
+    {
+      "_use": "cannon_building_sound"
+    },
+    {
       "additiveUp": [0.0,1.0,0.0]
     },
     {
@@ -1111,32 +1640,63 @@
       "previewAnimVarParamsValue:list<r>": {
         "value": 1.0
       }
-    }
-  ],
-  "sandbags_wall_browning_m1919a4_preview": {
-    "_use": "base_rendinst_builder_preview",
-    "instantiateTemplate": "sandbags_wall_browning_m1919a4",
-    "ri_preview__name": "sandbags_wall_medium_rounded_d_mission_object",
-    "avaliableAngles": [-15.0,15.0],
-    "buildingSoundTag": "fortification",
-    "building_builder__maxTimeToBuild": 15.0,
-    "buildingCost": 10.0,
-    "building__requireUnlockId": 3,
-    "building_menu__text": "building_tool/sandbags_with_mg42",
-    "building_menu__image": "building_mg_nest",
-    "additiveBuildings:array": {
-      "item:object": {
-        "template": "stationary_browning_m1919a4_building_additive_preview",
-        "tm": [
-          [0.0,0.0,1.0],
-          [0.0,1.0,0.0],
-          [-1.0,0.0,0.0],
-          [0.15,0.92,-0.24]
-        ],
-        "additiveUp": [0.0,1.0,0.0]
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "semi_transparent_field_of_view__radius": 7.5,
+        "semi_transparent_field_of_view__verticalAngle": 3.0,
+        "semi_transparent_field_of_view__heightOfFOV": -0.7,
+        "builded_stationary_entity_name": "builded_stationary_browning_m1919a4_with_autodetach"
       }
     }
-  },
+  ],
+  "sandbags_wall_browning_m1919a4_preview": [
+    {
+      "_use": "base_rendinst_builder_preview"
+    },
+    {
+      "_use": "fortification_building_sound"
+    },
+    {
+      "instantiateTemplate": "sandbags_wall_browning_m1919a4"
+    },
+    {
+      "ri_preview__name": "sandbags_wall_medium_rounded_d_mission_object"
+    },
+    {
+      "avaliableAngles": [-15.0,15.0]
+    },
+    {
+      "building_builder__maxTimeToBuild": 15.0
+    },
+    {
+      "buildingCost": 10.0
+    },
+    {
+      "building__requireUnlockId": 3
+    },
+    {
+      "building_menu__text": "building_tool/sandbags_with_mg42"
+    },
+    {
+      "building_menu__image": "building_mg_nest"
+    },
+    {
+      "additiveBuildings:array": {
+        "item:object": {
+          "template": "stationary_browning_m1919a4_building_additive_preview",
+          "tm": [
+            [0.0,0.0,1.0],
+            [0.0,1.0,0.0],
+            [-1.0,0.0,0.0],
+            [0.15,0.92,-0.24]
+          ],
+          "additiveUp": [0.0,1.0,0.0]
+        }
+      }
+    }
+  ],
   "sandbags_wall_browning_m1919a4": [
     {
       "_use": "base_ri_building"
@@ -1228,6 +1788,12 @@
       "_use": "stationary_hmg_building_attachable"
     },
     {
+      "_use": "semi_transparent_field_of_view"
+    },
+    {
+      "_use": "cannon_building_sound"
+    },
+    {
       "additiveUp": [0.0,1.0,0.0]
     },
     {
@@ -1265,32 +1831,63 @@
       "previewAnimVarParamsValue:list<r>": {
         "value": 1.0
       }
-    }
-  ],
-  "sandbags_wall_browning_m2_preview": {
-    "_use": "base_rendinst_builder_preview",
-    "instantiateTemplate": "sandbags_wall_browning_m2",
-    "ri_preview__name": "sandbags_wall_medium_rounded_f_mission_object",
-    "avaliableAngles": [-15.0,15.0],
-    "buildingSoundTag": "fortification",
-    "building_builder__maxTimeToBuild": 24.0,
-    "buildingCost": 12.0,
-    "building__requireUnlockId": 5,
-    "building_menu__text": "building_tool/sandbags_with_hmg",
-    "building_menu__image": "building_machine_gun",
-    "additiveBuildings:array": {
-      "item:object": {
-        "template": "stationary_browning_m2_building_additive_preview",
-        "tm": [
-          [0.0,0.0,1.0],
-          [0.0,1.0,0.0],
-          [-1.0,0.0,0.0],
-          [0.15,0.9,-0.24]
-        ],
-        "additiveUp": [0.0,1.0,0.0]
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "semi_transparent_field_of_view__radius": 7.5,
+        "semi_transparent_field_of_view__verticalAngle": 3.0,
+        "semi_transparent_field_of_view__heightOfFOV": -0.7,
+        "builded_stationary_entity_name": "builded_stationary_browning_m2_with_autodetach"
       }
     }
-  },
+  ],
+  "sandbags_wall_browning_m2_preview": [
+    {
+      "_use": "base_rendinst_builder_preview"
+    },
+    {
+      "_use": "fortification_building_sound"
+    },
+    {
+      "instantiateTemplate": "sandbags_wall_browning_m2"
+    },
+    {
+      "ri_preview__name": "sandbags_wall_medium_rounded_f_mission_object"
+    },
+    {
+      "avaliableAngles": [-15.0,15.0]
+    },
+    {
+      "building_builder__maxTimeToBuild": 24.0
+    },
+    {
+      "buildingCost": 12.0
+    },
+    {
+      "building__requireUnlockId": 5
+    },
+    {
+      "building_menu__text": "building_tool/sandbags_with_hmg"
+    },
+    {
+      "building_menu__image": "building_machine_gun"
+    },
+    {
+      "additiveBuildings:array": {
+        "item:object": {
+          "template": "stationary_browning_m2_building_additive_preview",
+          "tm": [
+            [0.0,0.0,1.0],
+            [0.0,1.0,0.0],
+            [-1.0,0.0,0.0],
+            [0.15,0.9,-0.24]
+          ],
+          "additiveUp": [0.0,1.0,0.0]
+        }
+      }
+    }
+  ],
   "sandbags_wall_browning_m2": [
     {
       "_use": "base_ri_building"
@@ -1382,6 +1979,12 @@
       "_use": "stationary_hmg_building_attachable"
     },
     {
+      "_use": "semi_transparent_field_of_view"
+    },
+    {
+      "_use": "cannon_building_sound"
+    },
+    {
       "additiveUp": [0.0,1.0,0.0]
     },
     {
@@ -1448,32 +2051,63 @@
           "point": [0.5,0.55,0.65]
         }
       ]
-    }
-  ],
-  "sandbags_wall_mg_131_preview": {
-    "_use": "base_rendinst_builder_preview",
-    "instantiateTemplate": "sandbags_wall_mg_131",
-    "ri_preview__name": "sandbags_wall_medium_rounded_i_mission_object",
-    "avaliableAngles": [-15.0,15.0],
-    "buildingSoundTag": "fortification",
-    "building_builder__maxTimeToBuild": 24.0,
-    "buildingCost": 12.0,
-    "building__requireUnlockId": 5,
-    "building_menu__text": "building_tool/sandbags_with_hmg",
-    "building_menu__image": "building_machine_gun",
-    "additiveBuildings:array": {
-      "item:object": {
-        "template": "stationary_mg_131_building_additive_preview",
-        "tm": [
-          [0.0,0.0,1.0],
-          [0.0,1.0,0.0],
-          [-1.0,0.0,0.0],
-          [-0.25,0.66,-0.26]
-        ],
-        "additiveUp": [0.0,1.0,0.0]
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "semi_transparent_field_of_view__radius": 7.5,
+        "semi_transparent_field_of_view__verticalAngle": 3.0,
+        "semi_transparent_field_of_view__heightOfFOV": -0.6,
+        "builded_stationary_entity_name": "builded_stationary_mg_131_with_autodetach"
       }
     }
-  },
+  ],
+  "sandbags_wall_mg_131_preview": [
+    {
+      "_use": "base_rendinst_builder_preview"
+    },
+    {
+      "_use": "fortification_building_sound"
+    },
+    {
+      "instantiateTemplate": "sandbags_wall_mg_131"
+    },
+    {
+      "ri_preview__name": "sandbags_wall_medium_rounded_i_mission_object"
+    },
+    {
+      "avaliableAngles": [-15.0,15.0]
+    },
+    {
+      "building_builder__maxTimeToBuild": 24.0
+    },
+    {
+      "buildingCost": 12.0
+    },
+    {
+      "building__requireUnlockId": 5
+    },
+    {
+      "building_menu__text": "building_tool/sandbags_with_hmg"
+    },
+    {
+      "building_menu__image": "building_machine_gun"
+    },
+    {
+      "additiveBuildings:array": {
+        "item:object": {
+          "template": "stationary_mg_131_building_additive_preview",
+          "tm": [
+            [0.0,0.0,1.0],
+            [0.0,1.0,0.0],
+            [-1.0,0.0,0.0],
+            [-0.25,0.66,-0.26]
+          ],
+          "additiveUp": [0.0,1.0,0.0]
+        }
+      }
+    }
+  ],
   "sandbags_wall_mg_131": [
     {
       "_use": "base_ri_building"
@@ -1565,6 +2199,12 @@
       "_use": "stationary_mg42_building_attachable"
     },
     {
+      "_use": "semi_transparent_field_of_view"
+    },
+    {
+      "_use": "cannon_building_sound"
+    },
+    {
       "additiveUp": [0.0,1.0,0.0]
     },
     {
@@ -1602,32 +2242,63 @@
       "previewAnimVarParamsValue:list<r>": {
         "value": 1.0
       }
-    }
-  ],
-  "sandbags_wall_type_92_hmg_preview": {
-    "_use": "base_rendinst_builder_preview",
-    "instantiateTemplate": "sandbags_wall_type_92_hmg",
-    "ri_preview__name": "sandbags_wall_medium_rounded_d_mission_object",
-    "avaliableAngles": [-15.0,15.0],
-    "buildingSoundTag": "fortification",
-    "building_builder__maxTimeToBuild": 15.0,
-    "buildingCost": 10.0,
-    "building__requireUnlockId": 3,
-    "building_menu__text": "building_tool/sandbags_with_mg42",
-    "building_menu__image": "building_mg_nest",
-    "additiveBuildings:array": {
-      "item:object": {
-        "template": "stationary_type_92_hmg_building_additive_preview",
-        "tm": [
-          [0.0,0.0,1.0],
-          [0.0,1.0,0.0],
-          [-1.0,0.0,0.0],
-          [0.35,0.92,-0.24]
-        ],
-        "additiveUp": [0.0,1.0,0.0]
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "semi_transparent_field_of_view__radius": 7.5,
+        "semi_transparent_field_of_view__verticalAngle": 3.0,
+        "semi_transparent_field_of_view__heightOfFOV": -0.8,
+        "builded_stationary_entity_name": "builded_stationary_type_92_hmg_with_autodetach"
       }
     }
-  },
+  ],
+  "sandbags_wall_type_92_hmg_preview": [
+    {
+      "_use": "base_rendinst_builder_preview"
+    },
+    {
+      "_use": "fortification_building_sound"
+    },
+    {
+      "instantiateTemplate": "sandbags_wall_type_92_hmg"
+    },
+    {
+      "ri_preview__name": "sandbags_wall_medium_rounded_d_mission_object"
+    },
+    {
+      "avaliableAngles": [-15.0,15.0]
+    },
+    {
+      "building_builder__maxTimeToBuild": 15.0
+    },
+    {
+      "buildingCost": 10.0
+    },
+    {
+      "building__requireUnlockId": 3
+    },
+    {
+      "building_menu__text": "building_tool/sandbags_with_mg42"
+    },
+    {
+      "building_menu__image": "building_mg_nest"
+    },
+    {
+      "additiveBuildings:array": {
+        "item:object": {
+          "template": "stationary_type_92_hmg_building_additive_preview",
+          "tm": [
+            [0.0,0.0,1.0],
+            [0.0,1.0,0.0],
+            [-1.0,0.0,0.0],
+            [0.35,0.92,-0.24]
+          ],
+          "additiveUp": [0.0,1.0,0.0]
+        }
+      }
+    }
+  ],
   "sandbags_wall_type_92_hmg": [
     {
       "_use": "base_ri_building"
@@ -1719,6 +2390,12 @@
       "_use": "stationary_hmg_hign_tripod_building_attachable"
     },
     {
+      "_use": "semi_transparent_field_of_view"
+    },
+    {
+      "_use": "cannon_building_sound"
+    },
+    {
       "additiveUp": [0.0,1.0,0.0]
     },
     {
@@ -1756,32 +2433,63 @@
       "previewAnimVarParamsValue:list<r>": {
         "value": 1.0
       }
-    }
-  ],
-  "sandbags_wall_type_93_hmg_preview": {
-    "_use": "base_rendinst_builder_preview",
-    "instantiateTemplate": "sandbags_wall_type_93_hmg",
-    "ri_preview__name": "sandbags_wall_medium_rounded_g_mission_object",
-    "avaliableAngles": [-15.0,15.0],
-    "buildingSoundTag": "fortification",
-    "building_builder__maxTimeToBuild": 24.0,
-    "buildingCost": 12.0,
-    "building__requireUnlockId": 5,
-    "building_menu__text": "building_tool/sandbags_with_hmg",
-    "building_menu__image": "building_machine_gun",
-    "additiveBuildings:array": {
-      "item:object": {
-        "template": "stationary_type_93_hmg_building_additive_preview",
-        "tm": [
-          [0.0,0.0,1.0],
-          [0.0,1.0,0.0],
-          [-1.0,0.0,0.0],
-          [-0.85,0.0,0.0]
-        ],
-        "additiveUp": [0.0,1.0,0.0]
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "semi_transparent_field_of_view__radius": 7.5,
+        "semi_transparent_field_of_view__verticalAngle": 3.0,
+        "semi_transparent_field_of_view__heightOfFOV": 0.3,
+        "builded_stationary_entity_name": "builded_stationary_type_93_hmg_with_autodetach"
       }
     }
-  },
+  ],
+  "sandbags_wall_type_93_hmg_preview": [
+    {
+      "_use": "base_rendinst_builder_preview"
+    },
+    {
+      "_use": "fortification_building_sound"
+    },
+    {
+      "instantiateTemplate": "sandbags_wall_type_93_hmg"
+    },
+    {
+      "ri_preview__name": "sandbags_wall_medium_rounded_g_mission_object"
+    },
+    {
+      "avaliableAngles": [-15.0,15.0]
+    },
+    {
+      "building_builder__maxTimeToBuild": 24.0
+    },
+    {
+      "buildingCost": 12.0
+    },
+    {
+      "building__requireUnlockId": 5
+    },
+    {
+      "building_menu__text": "building_tool/sandbags_with_hmg"
+    },
+    {
+      "building_menu__image": "building_machine_gun"
+    },
+    {
+      "additiveBuildings:array": {
+        "item:object": {
+          "template": "stationary_type_93_hmg_building_additive_preview",
+          "tm": [
+            [0.0,0.0,1.0],
+            [0.0,1.0,0.0],
+            [-1.0,0.0,0.0],
+            [-0.85,0.0,0.0]
+          ],
+          "additiveUp": [0.0,1.0,0.0]
+        }
+      }
+    }
+  ],
   "sandbags_wall_type_93_hmg": [
     {
       "_use": "base_ri_building"
@@ -1873,6 +2581,12 @@
       "_use": "stationary_hmg_hign_tripod_building_attachable"
     },
     {
+      "_use": "semi_transparent_field_of_view"
+    },
+    {
+      "_use": "cannon_building_sound"
+    },
+    {
       "gun_autodetach__nodeName": "mount_vertical_base"
     },
     {
@@ -1913,32 +2627,63 @@
       "previewAnimVarParamsValue:list<r>": {
         "value": 1.0
       }
-    }
-  ],
-  "sandbags_wall_dshk_1942_preview": {
-    "_use": "base_rendinst_builder_preview",
-    "instantiateTemplate": "sandbags_wall_dshk_1942",
-    "ri_preview__name": "sandbags_wall_medium_rounded_h_mission_object",
-    "avaliableAngles": [-15.0,15.0],
-    "buildingSoundTag": "fortification",
-    "building_builder__maxTimeToBuild": 24.0,
-    "buildingCost": 12.0,
-    "building__requireUnlockId": 5,
-    "building_menu__text": "building_tool/sandbags_with_hmg",
-    "building_menu__image": "building_machine_gun",
-    "additiveBuildings:array": {
-      "item:object": {
-        "template": "stationary_dshk_1942_building_additive_preview",
-        "tm": [
-          [0.0,0.0,1.0],
-          [0.0,1.0,0.0],
-          [-1.0,0.0,0.0],
-          [-0.85,0.0,0.0]
-        ],
-        "additiveUp": [0.0,1.0,0.0]
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "semi_transparent_field_of_view__radius": 7.5,
+        "semi_transparent_field_of_view__verticalAngle": 3.0,
+        "semi_transparent_field_of_view__heightOfFOV": 0.3,
+        "builded_stationary_entity_name": "builded_stationary_dshk_1942_with_autodetach"
       }
     }
-  },
+  ],
+  "sandbags_wall_dshk_1942_preview": [
+    {
+      "_use": "base_rendinst_builder_preview"
+    },
+    {
+      "_use": "fortification_building_sound"
+    },
+    {
+      "instantiateTemplate": "sandbags_wall_dshk_1942"
+    },
+    {
+      "ri_preview__name": "sandbags_wall_medium_rounded_h_mission_object"
+    },
+    {
+      "avaliableAngles": [-15.0,15.0]
+    },
+    {
+      "building_builder__maxTimeToBuild": 24.0
+    },
+    {
+      "buildingCost": 12.0
+    },
+    {
+      "building__requireUnlockId": 5
+    },
+    {
+      "building_menu__text": "building_tool/sandbags_with_hmg"
+    },
+    {
+      "building_menu__image": "building_machine_gun"
+    },
+    {
+      "additiveBuildings:array": {
+        "item:object": {
+          "template": "stationary_dshk_1942_building_additive_preview",
+          "tm": [
+            [0.0,0.0,1.0],
+            [0.0,1.0,0.0],
+            [-1.0,0.0,0.0],
+            [-0.85,0.0,0.0]
+          ],
+          "additiveUp": [0.0,1.0,0.0]
+        }
+      }
+    }
+  ],
   "sandbags_wall_dshk_1942": [
     {
       "_use": "base_ri_building"
@@ -2035,30 +2780,52 @@
       }
     }
   ],
-  "sandbags_wall_mg_preview": {
-    "_use": "base_rendinst_builder_preview",
-    "instantiateTemplate": "sandbags_wall_mg",
-    "ri_preview__name": "sandbags_wall_medium_rounded_a_mission_object",
-    "avaliableAngles": [-15.0,15.0],
-    "buildingSoundTag": "fortification",
-    "building_builder__maxTimeToBuild": 15.0,
-    "buildingCost": 10.0,
-    "building__requireUnlockId": 3,
-    "building_menu__text": "building_tool/sandbags_with_mg42",
-    "building_menu__image": "building_mg_nest",
-    "additiveBuildings:array": {
-      "item:object": {
-        "template": "stationary_mg42_building_additive_preview",
-        "tm": [
-          [-1.62921e-07,0.0,1.0],
-          [0.0119619,0.999928,1.94885e-09],
-          [-0.999928,0.0119619,-1.62909e-07],
-          [-0.210993,1.01037,-0.72921]
-        ],
-        "additiveUp": [0.0,1.0,0.0]
+  "sandbags_wall_mg_preview": [
+    {
+      "_use": "base_rendinst_builder_preview"
+    },
+    {
+      "_use": "fortification_building_sound"
+    },
+    {
+      "instantiateTemplate": "sandbags_wall_mg"
+    },
+    {
+      "ri_preview__name": "sandbags_wall_medium_rounded_a_mission_object"
+    },
+    {
+      "avaliableAngles": [-15.0,15.0]
+    },
+    {
+      "building_builder__maxTimeToBuild": 15.0
+    },
+    {
+      "buildingCost": 10.0
+    },
+    {
+      "building__requireUnlockId": 3
+    },
+    {
+      "building_menu__text": "building_tool/sandbags_with_mg42"
+    },
+    {
+      "building_menu__image": "building_mg_nest"
+    },
+    {
+      "additiveBuildings:array": {
+        "item:object": {
+          "template": "stationary_mg42_building_additive_preview",
+          "tm": [
+            [-1.62921e-07,0.0,1.0],
+            [0.0119619,0.999928,1.94885e-09],
+            [-0.999928,0.0119619,-1.62909e-07],
+            [-0.210993,1.01037,-0.72921]
+          ],
+          "additiveUp": [0.0,1.0,0.0]
+        }
       }
     }
-  },
+  ],
   "additive_building_can_repair": {
     "additiveBuildNeedRepair": false,
     "_tracked": "additiveBuildNeedRepair",
@@ -2117,6 +2884,12 @@
       "_use": "stationary_mg42_building_attachable"
     },
     {
+      "_use": "semi_transparent_field_of_view"
+    },
+    {
+      "_use": "cannon_building_sound"
+    },
+    {
       "additiveUp": [0.0,1.0,0.0]
     },
     {
@@ -2154,14 +2927,31 @@
       "previewAnimVarParamsValue:list<r>": {
         "value": 1.0
       }
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "semi_transparent_field_of_view__radius": 7.5,
+        "semi_transparent_field_of_view__verticalAngle": 3.0,
+        "semi_transparent_field_of_view__heightOfFOV": -0.8,
+        "builded_stationary_entity_name": "builded_stationary_mg42_with_autodetach"
+      }
     }
   ],
-  "sandbags_wall_1_preview": {
-    "_use": "base_rendinst_builder_preview",
-    "instantiateTemplate": "sandbags_wall_1",
-    "ri_preview__name": "sandbags_wall_high_rounded_a",
-    "buildingSoundTag": "fortification"
-  },
+  "sandbags_wall_1_preview": [
+    {
+      "_use": "base_rendinst_builder_preview"
+    },
+    {
+      "_use": "fortification_building_sound"
+    },
+    {
+      "instantiateTemplate": "sandbags_wall_1"
+    },
+    {
+      "ri_preview__name": "sandbags_wall_high_rounded_a"
+    }
+  ],
   "sandbags_wall_1": {
     "_use": "base_ri_building",
     "ri_extra__name": "sandbags_wall_high_rounded_a",
@@ -2170,16 +2960,32 @@
       "value": "enemyBuiltFortificationDestructions"
     }
   },
-  "sandbags_wall_2_preview": {
-    "_use": "base_rendinst_builder_preview",
-    "instantiateTemplate": "sandbags_wall_2",
-    "ri_preview__name": "sandbags_wall_medium_rounded_a_mission_object",
-    "savePreviewTeam": true,
-    "buildingSoundTag": "fortification",
-    "building_builder__maxTimeToBuild": 6.0,
-    "building_menu__text": "building_tool/sandbags",
-    "building_menu__image": "building_wall"
-  },
+  "sandbags_wall_2_preview": [
+    {
+      "_use": "base_rendinst_builder_preview"
+    },
+    {
+      "_use": "fortification_building_sound"
+    },
+    {
+      "instantiateTemplate": "sandbags_wall_2"
+    },
+    {
+      "ri_preview__name": "sandbags_wall_medium_rounded_a_mission_object"
+    },
+    {
+      "savePreviewTeam": true
+    },
+    {
+      "building_builder__maxTimeToBuild": 6.0
+    },
+    {
+      "building_menu__text": "building_tool/sandbags"
+    },
+    {
+      "building_menu__image": "building_wall"
+    }
+  ],
   "capzone_fortification": {
     "capzoneFortification:tag": [],
     "_group": {
@@ -2228,12 +3034,20 @@
       }
     }
   ],
-  "sandbags_wall_3_preview": {
-    "_use": "base_rendinst_builder_preview",
-    "instantiateTemplate": "sandbags_wall_3",
-    "ri_preview__name": "sandbags_wall_medium_l3000_a",
-    "buildingSoundTag": "fortification"
-  },
+  "sandbags_wall_3_preview": [
+    {
+      "_use": "base_rendinst_builder_preview"
+    },
+    {
+      "_use": "fortification_building_sound"
+    },
+    {
+      "instantiateTemplate": "sandbags_wall_3"
+    },
+    {
+      "ri_preview__name": "sandbags_wall_medium_l3000_a"
+    }
+  ],
   "sandbags_wall_3": {
     "_use": "base_ri_building",
     "ri_extra__name": "sandbags_wall_medium_l3000_a",
@@ -2242,12 +3056,20 @@
       "value": "enemyBuiltFortificationDestructions"
     }
   },
-  "sandbags_wall_4_preview": {
-    "_use": "base_rendinst_builder_preview",
-    "instantiateTemplate": "sandbags_wall_4",
-    "ri_preview__name": "sandbags_wall_medium_l2000_a",
-    "buildingSoundTag": "fortification"
-  },
+  "sandbags_wall_4_preview": [
+    {
+      "_use": "base_rendinst_builder_preview"
+    },
+    {
+      "_use": "fortification_building_sound"
+    },
+    {
+      "instantiateTemplate": "sandbags_wall_4"
+    },
+    {
+      "ri_preview__name": "sandbags_wall_medium_l2000_a"
+    }
+  ],
   "sandbags_wall_4": {
     "_use": "base_ri_building",
     "ri_extra__name": "sandbags_wall_medium_l2000_a",
@@ -2256,12 +3078,20 @@
       "value": "enemyBuiltFortificationDestructions"
     }
   },
-  "sandbags_wall_5_preview": {
-    "_use": "base_rendinst_builder_preview",
-    "instantiateTemplate": "sandbags_wall_5",
-    "ri_preview__name": "sandbags_wall_high_rounded_hole_a",
-    "buildingSoundTag": "fortification"
-  },
+  "sandbags_wall_5_preview": [
+    {
+      "_use": "base_rendinst_builder_preview"
+    },
+    {
+      "_use": "fortification_building_sound"
+    },
+    {
+      "instantiateTemplate": "sandbags_wall_5"
+    },
+    {
+      "ri_preview__name": "sandbags_wall_high_rounded_hole_a"
+    }
+  ],
   "sandbags_wall_5": {
     "_use": "base_ri_building",
     "ri_extra__name": "sandbags_wall_high_rounded_hole_a",
@@ -2270,12 +3100,20 @@
       "value": "enemyBuiltFortificationDestructions"
     }
   },
-  "sandbags_wall_6_preview": {
-    "_use": "base_rendinst_builder_preview",
-    "instantiateTemplate": "sandbags_wall_6",
-    "ri_preview__name": "sandbags_wall_high_l4000_window_b",
-    "buildingSoundTag": "fortification"
-  },
+  "sandbags_wall_6_preview": [
+    {
+      "_use": "base_rendinst_builder_preview"
+    },
+    {
+      "_use": "fortification_building_sound"
+    },
+    {
+      "instantiateTemplate": "sandbags_wall_6"
+    },
+    {
+      "ri_preview__name": "sandbags_wall_high_l4000_window_b"
+    }
+  ],
   "sandbags_wall_6": {
     "_use": "base_ri_building",
     "ri_extra__name": "sandbags_wall_high_l4000_window_b",
@@ -2284,12 +3122,20 @@
       "value": "enemyBuiltFortificationDestructions"
     }
   },
-  "sandbags_wall_7_preview": {
-    "_use": "base_rendinst_builder_preview",
-    "instantiateTemplate": "sandbags_wall_7",
-    "ri_preview__name": "sandbags_wall_high_l4000_window_a",
-    "buildingSoundTag": "fortification"
-  },
+  "sandbags_wall_7_preview": [
+    {
+      "_use": "base_rendinst_builder_preview"
+    },
+    {
+      "_use": "fortification_building_sound"
+    },
+    {
+      "instantiateTemplate": "sandbags_wall_7"
+    },
+    {
+      "ri_preview__name": "sandbags_wall_high_l4000_window_a"
+    }
+  ],
   "sandbags_wall_7": {
     "_use": "base_ri_building",
     "ri_extra__name": "sandbags_wall_high_l4000_window_a",
@@ -2298,12 +3144,20 @@
       "value": "enemyBuiltFortificationDestructions"
     }
   },
-  "sandbags_wall_8_preview": {
-    "_use": "base_rendinst_builder_preview",
-    "instantiateTemplate": "sandbags_wall_8",
-    "ri_preview__name": "sandbags_wall_high_l2000_a",
-    "buildingSoundTag": "fortification"
-  },
+  "sandbags_wall_8_preview": [
+    {
+      "_use": "base_rendinst_builder_preview"
+    },
+    {
+      "_use": "fortification_building_sound"
+    },
+    {
+      "instantiateTemplate": "sandbags_wall_8"
+    },
+    {
+      "ri_preview__name": "sandbags_wall_high_l2000_a"
+    }
+  ],
   "sandbags_wall_8": {
     "_use": "base_ri_building",
     "ri_extra__name": "sandbags_wall_high_l2000_a",
@@ -2312,12 +3166,20 @@
       "value": "enemyBuiltFortificationDestructions"
     }
   },
-  "sandbags_wall_9_preview": {
-    "_use": "base_rendinst_builder_preview",
-    "instantiateTemplate": "sandbags_wall_9",
-    "ri_preview__name": "sandbags_wall_high_l2000_side_l",
-    "buildingSoundTag": "fortification"
-  },
+  "sandbags_wall_9_preview": [
+    {
+      "_use": "base_rendinst_builder_preview"
+    },
+    {
+      "_use": "fortification_building_sound"
+    },
+    {
+      "instantiateTemplate": "sandbags_wall_9"
+    },
+    {
+      "ri_preview__name": "sandbags_wall_high_l2000_side_l"
+    }
+  ],
   "sandbags_wall_9": {
     "_use": "base_ri_building",
     "ri_extra__name": "sandbags_wall_high_l2000_side_l",
@@ -2326,12 +3188,20 @@
       "value": "enemyBuiltFortificationDestructions"
     }
   },
-  "sandbags_wall_10_preview": {
-    "_use": "base_rendinst_builder_preview",
-    "instantiateTemplate": "sandbags_wall_10",
-    "ri_preview__name": "sandbags_wall_high_l2000_side_r",
-    "buildingSoundTag": "fortification"
-  },
+  "sandbags_wall_10_preview": [
+    {
+      "_use": "base_rendinst_builder_preview"
+    },
+    {
+      "_use": "fortification_building_sound"
+    },
+    {
+      "instantiateTemplate": "sandbags_wall_10"
+    },
+    {
+      "ri_preview__name": "sandbags_wall_high_l2000_side_r"
+    }
+  ],
   "sandbags_wall_10": {
     "_use": "base_ri_building",
     "ri_extra__name": "sandbags_wall_high_l2000_side_r",
@@ -2340,17 +3210,35 @@
       "value": "enemyBuiltFortificationDestructions"
     }
   },
-  "czech_hedgehog_a_preview": {
-    "_use": "base_rendinst_builder_preview",
-    "instantiateTemplate": "czech_hedgehog_a",
-    "ri_preview__name": "obstacle_czech_hedgehog_a",
-    "buildingSoundTag": "fortification",
-    "preview_phys__blk": "content/enlisted/gamedata/gameobjs/czech_hedgehog_preview_phys.blk",
-    "building_builder__maxTimeToBuild": 12.0,
-    "buildingCost": 2.0,
-    "building_menu__text": "building_tool/hedgehog",
-    "building_menu__image": "building_hedgehog"
-  },
+  "czech_hedgehog_a_preview": [
+    {
+      "_use": "base_rendinst_builder_preview"
+    },
+    {
+      "_use": "cannon_building_sound"
+    },
+    {
+      "instantiateTemplate": "czech_hedgehog_a"
+    },
+    {
+      "ri_preview__name": "obstacle_czech_hedgehog_a"
+    },
+    {
+      "preview_phys__blk": "content/enlisted/gamedata/gameobjs/czech_hedgehog_preview_phys.blk"
+    },
+    {
+      "building_builder__maxTimeToBuild": 12.0
+    },
+    {
+      "buildingCost": 2.0
+    },
+    {
+      "building_menu__text": "building_tool/hedgehog"
+    },
+    {
+      "building_menu__image": "building_hedgehog"
+    }
+  ],
   "czech_hedgehog_a": {
     "_use": "base_ri_building",
     "ri_extra__name": "obstacle_czech_hedgehog_a",
@@ -2362,18 +3250,38 @@
       "value": "enemyBuiltFortificationDestructions"
     }
   },
-  "barbedwire_engineer_a_preview": {
-    "_use": "base_rendinst_builder_preview",
-    "instantiateTemplate": "barbedwire_engineer_a",
-    "ri_preview__name": "barbedwire_engineer_a",
-    "buildingSoundTag": "fortification",
-    "buildingDistance": 3.0,
-    "additionalHeight": -0.15,
-    "additionalYawRotation": 90.0,
-    "building_builder__maxTimeToBuild": 5.0,
-    "building_menu__text": "building_tool/barbed_wire",
-    "building_menu__image": "building_wire_fence"
-  },
+  "barbedwire_engineer_a_preview": [
+    {
+      "_use": "base_rendinst_builder_preview"
+    },
+    {
+      "_use": "fortification_building_sound"
+    },
+    {
+      "instantiateTemplate": "barbedwire_engineer_a"
+    },
+    {
+      "ri_preview__name": "barbedwire_engineer_a"
+    },
+    {
+      "buildingDistance": 3.0
+    },
+    {
+      "additionalHeight": -0.15
+    },
+    {
+      "additionalYawRotation": 90.0
+    },
+    {
+      "building_builder__maxTimeToBuild": 5.0
+    },
+    {
+      "building_menu__text": "building_tool/barbed_wire"
+    },
+    {
+      "building_menu__image": "building_wire_fence"
+    }
+  ],
   "barbedwire_engineer_a": {
     "_use": "base_ri_building",
     "ri_extra__name": "barbedwire_engineer_a",
@@ -2390,30 +3298,74 @@
       "obstacle__paddingSide": 0.68
     }
   },
-  "base_rallypoint_preview": {
-    "_use": "base_rendinst_builder_preview",
-    "instantiateTemplate": "ger_rallypoint",
-    "preview_phys__blk": "content/enlisted/gamedata/gameobjs/ger_rallypoint_phys.blk",
-    "ri_preview__name": "ger_rallypoint",
-    "buildingDistance": 2.5,
-    "savePreviewTeam": true,
-    "buildingSoundTag": "fortification",
-    "avaliableAngles": [-15.0,15.0],
-    "building_builder__minDistanceToMissionRespawns": 30.0,
-    "building_builder__minDistanceToCapturePoints": 20.0,
-    "building_builder__maxUnderwaterDistance": 0.5,
-    "building_builder__maxTimeToBuild": 25.0,
-    "buildingCost": 5.0,
-    "requiredSpaceAboveObject": 2.4,
-    "requiredSpaceAboveObjectOffset": 0.35,
-    "building_menu__text": "building_tool/rallypoint",
-    "building_menu__image": "custom_spawn_point",
-    "respawnObject:tag": [],
-    "undestroyableyByTeammates:tag": [],
-    "destroySimilarBuilding:tag": [],
-    "showForwardDirectionArrow:tag": [],
-    "shredInDeactivatingBattleArea:tag": []
-  },
+  "base_rallypoint_preview": [
+    {
+      "_use": "base_rendinst_builder_preview"
+    },
+    {
+      "_use": "fortification_building_sound"
+    },
+    {
+      "instantiateTemplate": "ger_rallypoint"
+    },
+    {
+      "preview_phys__blk": "content/enlisted/gamedata/gameobjs/ger_rallypoint_phys.blk"
+    },
+    {
+      "ri_preview__name": "ger_rallypoint"
+    },
+    {
+      "buildingDistance": 2.5
+    },
+    {
+      "savePreviewTeam": true
+    },
+    {
+      "avaliableAngles": [-15.0,15.0]
+    },
+    {
+      "building_builder__minDistanceToMissionRespawns": 30.0
+    },
+    {
+      "building_builder__minDistanceToCapturePoints": 20.0
+    },
+    {
+      "building_builder__maxUnderwaterDistance": 0.5
+    },
+    {
+      "building_builder__maxTimeToBuild": 25.0
+    },
+    {
+      "buildingCost": 5.0
+    },
+    {
+      "requiredSpaceAboveObject": 2.4
+    },
+    {
+      "requiredSpaceAboveObjectOffset": 0.35
+    },
+    {
+      "building_menu__text": "building_tool/rallypoint"
+    },
+    {
+      "building_menu__image": "custom_spawn_point"
+    },
+    {
+      "respawnObject:tag": []
+    },
+    {
+      "undestroyableyByTeammates:tag": []
+    },
+    {
+      "destroySimilarBuilding:tag": []
+    },
+    {
+      "showForwardDirectionArrow:tag": []
+    },
+    {
+      "shredInDeactivatingBattleArea:tag": []
+    }
+  ],
   "rally_point_respawn_base": {
     "_use": "buildedRespawnBase",
     "disableCapturePointsRadius": 20.0,
@@ -2549,6 +3501,9 @@
       "_use": "ammunition_box_building_base"
     },
     {
+      "_use": "fortification_building_sound"
+    },
+    {
       "instantiateTemplate": "ammunition_box_a"
     },
     {
@@ -2559,9 +3514,6 @@
     },
     {
       "collres__res": "ammunition_supply_a_dynmodel_collision"
-    },
-    {
-      "buildingSoundTag": "fortification"
     },
     {
       "savePreviewTeam": true
@@ -2844,10 +3796,10 @@
     }
   },
   "mine_activator_sound": {
-    "_use": "oneshot_net_sound",
+    "_use": "oneshot_scene_net_sound",
     "_group": {
       "_tags": "server",
-      "oneshot_net_sound__onCreate": "mineActivate"
+      "oneshot_net_sound__onAppear": "mineActivate"
     }
   },
   "antipersonnel_mine_activator": [
@@ -2896,18 +3848,38 @@
     "vehicleTriggerable:tag": [],
     "humanTriggerable:tag": []
   },
-  "antipersonnel_mine_preview": {
-    "_use": "base_rendinst_builder_preview",
-    "instantiateTemplate": "antipersonnel_mine",
-    "ri_preview__name": "temporary_antitank_mine",
-    "buildingSoundTag": "fortification",
-    "buildingDistance": 3.0,
-    "savePreviewTeam": true,
-    "building_builder__maxTimeToBuild": 1.0,
-    "buildingCost": 0.0,
-    "building_menu__text": "building_tool/antipersonnel_mine",
-    "building_menu__image": "killlog/kill_explosion"
-  },
+  "antipersonnel_mine_preview": [
+    {
+      "_use": "base_rendinst_builder_preview"
+    },
+    {
+      "_use": "cannon_building_sound"
+    },
+    {
+      "instantiateTemplate": "antipersonnel_mine"
+    },
+    {
+      "ri_preview__name": "temporary_antitank_mine"
+    },
+    {
+      "buildingDistance": 3.0
+    },
+    {
+      "savePreviewTeam": true
+    },
+    {
+      "building_builder__maxTimeToBuild": 1.0
+    },
+    {
+      "buildingCost": 0.0
+    },
+    {
+      "building_menu__text": "building_tool/antipersonnel_mine"
+    },
+    {
+      "building_menu__image": "killlog/kill_explosion"
+    }
+  ],
   "antitank_mine_activator": {
     "_use": "mine_activator_sound",
     "on_create__spawnActivatedShellBlk": "content/enlisted/gamedata/weapons/antitank_mine.blk",
@@ -2938,18 +3910,38 @@
     "engeneer_mine:tag": [],
     "vehicleTriggerable:tag": []
   },
-  "antitank_mine_preview": {
-    "_use": "base_rendinst_builder_preview",
-    "instantiateTemplate": "antitank_mine",
-    "ri_preview__name": "temporary_antitank_mine",
-    "buildingSoundTag": "fortification",
-    "buildingDistance": 3.0,
-    "savePreviewTeam": true,
-    "building_builder__maxTimeToBuild": 1.0,
-    "buildingCost": 0.0,
-    "building_menu__text": "building_tool/antitank_mine",
-    "building_menu__image": "killlog/kill_explosion"
-  },
+  "antitank_mine_preview": [
+    {
+      "_use": "base_rendinst_builder_preview"
+    },
+    {
+      "_use": "cannon_building_sound"
+    },
+    {
+      "instantiateTemplate": "antitank_mine"
+    },
+    {
+      "ri_preview__name": "temporary_antitank_mine"
+    },
+    {
+      "buildingDistance": 3.0
+    },
+    {
+      "savePreviewTeam": true
+    },
+    {
+      "building_builder__maxTimeToBuild": 1.0
+    },
+    {
+      "buildingCost": 0.0
+    },
+    {
+      "building_menu__text": "building_tool/antitank_mine"
+    },
+    {
+      "building_menu__image": "killlog/kill_explosion"
+    }
+  ],
   "building_restricted_zone": {
     "buildingRestrictedZone:tag": []
   },
@@ -2988,22 +3980,50 @@
       "building_menu__image": "building_christmas_tree"
     }
   ],
-  "christmas_tree_preview": {
-    "_use": "base_rendinst_builder_preview",
-    "instantiateTemplate": "christmas_tree",
-    "ri_preview__name": "tree_spruce_christmas_c",
-    "buildingSoundTag": "fortification",
-    "buildingDistance": 2.5,
-    "requiredSpaceAboveObject": 2.6,
-    "requiredSpaceAboveObjectOffset": 0.35,
-    "building_builder__maxUnderwaterDistance": 0.1,
-    "buildingCost": 3.0,
-    "building_builder__maxTimeToBuild": 3.0,
-    "building_destroy__maxTimeToDestroy": 3.0,
-    "building_menu__text": "building_tool/christmas_tree",
-    "building_menu__image": "building_christmas_tree",
-    "destroySimilarBuilding:tag": []
-  },
+  "christmas_tree_preview": [
+    {
+      "_use": "base_rendinst_builder_preview"
+    },
+    {
+      "_use": "fortification_building_sound"
+    },
+    {
+      "instantiateTemplate": "christmas_tree"
+    },
+    {
+      "ri_preview__name": "tree_spruce_christmas_c"
+    },
+    {
+      "buildingDistance": 2.5
+    },
+    {
+      "requiredSpaceAboveObject": 2.6
+    },
+    {
+      "requiredSpaceAboveObjectOffset": 0.35
+    },
+    {
+      "building_builder__maxUnderwaterDistance": 0.1
+    },
+    {
+      "buildingCost": 3.0
+    },
+    {
+      "building_builder__maxTimeToBuild": 3.0
+    },
+    {
+      "building_destroy__maxTimeToDestroy": 3.0
+    },
+    {
+      "building_menu__text": "building_tool/christmas_tree"
+    },
+    {
+      "building_menu__image": "building_christmas_tree"
+    },
+    {
+      "destroySimilarBuilding:tag": []
+    }
+  ],
   "sandbags_wall_mg_preview_dev": {
     "_use": "sandbags_wall_mg_preview",
     "building_builder__maxTimeToBuild": 2.0,

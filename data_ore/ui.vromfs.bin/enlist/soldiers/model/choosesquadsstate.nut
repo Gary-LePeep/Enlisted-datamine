@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
 let { jumpToArmyProgress } = require("%enlist/mainMenu/sectionsState.nut")
@@ -6,7 +6,7 @@ let { soldiersBySquad, squadsByArmy, chosenSquadsByArmy, vehicleBySquad, limitsB
   armyLimitsDefault, curArmy, lockedSquadsByArmy
 } = require("state.nut")
 let { set_squad_order, sell_squad } = require("%enlist/meta/clientApi.nut")
-let { squadsCfgById } = require("%enlist/soldiers/model/config/squadsConfig.nut")
+let { squadsCfgById, allSquadTypes } = require("%enlist/soldiers/model/config/squadsConfig.nut")
 let { soldiersStatuses } = require("readySoldiers.nut")
 let { READY } = require("%enlSqGlob/readyStatus.nut")
 let { allSquadsLevels } = require("%enlist/researches/researchesState.nut")
@@ -96,7 +96,7 @@ curCampaign.subscribe(function(_) {
 })
 
 
-let function getGrowthData(growthId, isPremium, growthCfgs, templates) {
+function getGrowthData(growthId, isPremium, growthCfgs, templates) {
   if (growthId == null)
     return null
 
@@ -165,7 +165,7 @@ let preparedSquads = Computed(function() {
   return visOrdered.map(@(squad) prepareSquad(squad, squadsCfgById.value?[squadsArmy.value][squad.squadId], allSquadsLevels.value))
 })
 
-let function updateSquadsList(_ = null) {
+function updateSquadsList(_ = null) {
   let all = preparedSquads.value
   if (all.len() == 0) {
     chosenSquads.mutate(@(v) v.clear())
@@ -193,8 +193,8 @@ let function updateSquadsList(_ = null) {
   }
   else {
     let left = clone byId
-    chosen.each(function(s) { if (s != null) delete left[s.squadId] })
-    reserve.each(function(s) { if (s.squadId in left) delete left[s.squadId] })
+    chosen.each(function(s) { if (s != null) left.$rawdelete(s.squadId) })
+    reserve.each(function(s) { if (s.squadId in left) left.$rawdelete(s.squadId) })
     foreach (squad in all)
       if (squad.squadId in left)
         reserve.append(squad)
@@ -215,12 +215,14 @@ preparedSquads.subscribe(function(uSquads) {
   selectedSquadId(uSquads?[0].squadId)
 })
 
-let function moveIndex(list, idxFrom, idxTo) {
+function moveIndex(list, idxFrom, idxTo) {
   let res = clone list
   let val = res.remove(idxFrom)
   res.insert(idxTo, val)
   return res
 }
+
+let getSquadType = @(squadType) allSquadTypes.value.findvalue(@(s) s.squadType == squadType)
 
 let squadPlaceReasonData = {
   limit = {
@@ -237,6 +239,14 @@ let squadPlaceReasonData = {
     squadType
     getErrorText = @() loc($"msg/{squadType}Full", { maxSquads })
   }
+  squadTypeLimit = @(squadType, count) {
+    type = $"{squadType}Limit"
+    squadType
+    getErrorText = @() loc($"msg/SquadTypeLimit", {
+      squad = getSquadType(squadType)?.nameText ?? ""
+      count
+    })
+  }
 }
 
 let getSquadTypeLimitId = @(vehicleType) vehicleType == "bike" ? "maxBikeSquads"
@@ -244,19 +254,18 @@ let getSquadTypeLimitId = @(vehicleType) vehicleType == "bike" ? "maxBikeSquads"
   : vehicleType != "" ? "maxVehicleSquads"
   : "maxInfantrySquads"
 
-let function isSquadExpired(squad) {
+function isSquadExpired(squad) {
   let { expireTime = 0 } = squad
   return expireTime > 0 && expireTime < serverTime.value
 }
 
-let function getCantTakeSquadReasonData(squad, squadsList, idxTo) {
+function getCantTakeSquadReasonData(squad, squadsList, idxTo) {
   if (isSquadExpired(squad))
     return squadPlaceReasonData.limit()
 
-  let typeId = getSquadTypeLimitId(squad?.vehicleType ?? "")
+  let { vehicleType = "", squadType } = squad
+  let typeId = getSquadTypeLimitId(vehicleType)
   let maxType = squadsArmyLimits.value[typeId]
-  if (maxType <= 0)
-    return squadPlaceReasonData.squadTypeZero(typeId)
 
   local curCount = 0
   foreach (idx, s in squadsList) {
@@ -270,13 +279,28 @@ let function getCantTakeSquadReasonData(squad, squadsList, idxTo) {
   if (curCount >= maxType)
     return squadPlaceReasonData.squadTypeFull(typeId, maxType)
 
+  local typeLimits = squadsArmyLimits.value?.squadTypeLimits[squadType] ?? 0
+  if (typeLimits > 0 && squad.battleExpBonus <= 0.0) {
+    local curType = 0
+    foreach (idx, s in squadsList) {
+      if (s == null || idx == idxTo)
+        continue
+
+      if (s.battleExpBonus <= 0.0 && squadType == s.squadType) {
+        ++curType
+        if (curType > typeLimits)
+          return squadPlaceReasonData.squadTypeLimit(squadType, typeLimits)
+      }
+    }
+  }
+
   return null
 }
 
 let getCantTakeReason = @(squad, squadsList, idxTo)
   getCantTakeSquadReasonData(squad, squadsList, idxTo)?.getErrorText()
 
-let function sendSquadActionToBQ(eventType, squadGuid, squadId) {
+function sendSquadActionToBQ(eventType, squadGuid, squadId) {
   sendBigQueryUIEvent("squad_management", null, {
     eventType
     squadGuid
@@ -285,7 +309,7 @@ let function sendSquadActionToBQ(eventType, squadGuid, squadId) {
   })
 }
 
-local function changeSquadOrderByUnlockedIdx(idxFrom, idxTo) {
+function changeSquadOrderByUnlockedIdx(idxFrom, idxTo) {
   let watchFrom = idxFrom < maxSquadsInBattle.value ? chosenSquads : reserveSquads
   if (idxFrom >= maxSquadsInBattle.value)
     idxFrom -= maxSquadsInBattle.value
@@ -336,7 +360,7 @@ local function changeSquadOrderByUnlockedIdx(idxFrom, idxTo) {
   })
 }
 
-let function changeList() {
+function changeList() {
   let squadId = selectedSquadId.value
   if (squadId == null)
     return
@@ -372,7 +396,7 @@ let function changeList() {
   reserveSquads.mutate(@(v) v.remove(idx))
 }
 
-let function findLastIndexToTakeSquad(squad) {
+function findLastIndexToTakeSquad(squad) {
   let res = chosenSquads.value.findindex(@(s) s == null)
   if (res != null && getCantTakeReason(squad, chosenSquads.value, res) == null)
     return res
@@ -403,7 +427,7 @@ let selectedSquadSoldiers = Computed(function() {
 let selSquadVehicleGameTpl = Computed(@()
   trimUpgradeSuffix(vehicleBySquad.value?[selectedSquad.value?.guid].gametemplate))
 
-let function applyAndCloseImpl() {
+function applyAndCloseImpl() {
   let armyId = squadsArmy.value
   let guids = unlockedSquads.value.filter(@(s) s != null).map(@(s) s.guid)
   let ids = unlockedSquads.value.filter(@(s) s != null).map(@(s) s.squadId)
@@ -412,11 +436,11 @@ let function applyAndCloseImpl() {
   close()
 }
 
-let function sellSquad(armyId, squadGuid, silverCost) {
+function sellSquad(armyId, squadGuid, silverCost) {
   sell_squad(armyId, squadGuid, silverCost)
 }
 
-let function applyAndClose() {
+function applyAndClose() {
   let selCount = chosenSquads.value.filter(@(s) s != null).len()
   if (selCount >= curChoosenSquads.value.len())
     applyAndCloseImpl()
@@ -430,22 +454,22 @@ let function applyAndClose() {
     })
 }
 
-let function focusSquad(squadId) {
+function focusSquad(squadId) {
   if (squadId not in focusedSquads.value)
     focusedSquads.mutate(@(v) v.__merge({ [squadId] = true }))
 }
 
-let function unfocusSquad(squadId) {
+function unfocusSquad(squadId) {
   if (squadId in focusedSquads.value)
-    focusedSquads.mutate(@(v) delete v[squadId])
+    focusedSquads.mutate(@(v) v.$rawdelete(squadId))
 }
 
-let function closeAndOpenCampaign() {
+function closeAndOpenCampaign() {
   jumpToArmyProgress()
   close()
 }
 
-let function getUnlockedSquadsBySquadIds(squadIdsList) {
+function getUnlockedSquadsBySquadIds(squadIdsList) {
   return squadIdsList
     .map(@(squadId) unlockedSquads.value.findvalue(@(squad) squad?.squadId == squadId))
     .filter(@(squad) squad != null)

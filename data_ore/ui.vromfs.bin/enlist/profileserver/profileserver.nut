@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let profile_server = require("profile_server")
 let { error_response_converter } = require("%enlSqGlob/netErrorConverter.nut")
@@ -8,7 +8,7 @@ let logPSC = stdlog.with_prefix("[profileServerClient]")
 let { json_to_string } = require("json")
 let userInfo = require("%enlSqGlob/userInfo.nut")
 
-let function checkAndLogError(id, action, cb, result) {
+function checkAndLogError(id, action, cb, result) {
   if ("error" in result) {
     local err = result.error
     if (typeof err == "table") {
@@ -29,7 +29,7 @@ let function checkAndLogError(id, action, cb, result) {
 }
 
 
-local function doRequest(action, params, args, id, cb, token = null) {
+function doRequest(action, params, args, id, cb, token = null) {
   token = token ?? userInfo.value?.token
   if (!token) {
     logPSC($"Skip action {action}, no token")
@@ -50,7 +50,7 @@ local function doRequest(action, params, args, id, cb, token = null) {
   let request = args.__merge({
     headers = {
       token = token
-      appid = appId.value
+      appid = appId
     }
     action = actionEx
     data = reqData

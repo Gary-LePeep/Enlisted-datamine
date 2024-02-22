@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontBody, fontawesome } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
@@ -75,7 +75,7 @@ let headerRow = {
   }.__update(defTxtStyle))
 }
 
-let function mkReplay(record, idx) {
+function mkReplay(record, idx) {
   let replayInfo = record.recordInfo
   if (!replayInfo)
     return null
@@ -128,7 +128,7 @@ let emptyReplayBlock = {
   halign = ALIGN_CENTER
 }.__update(defTxtStyle)
 
-let function mkReplayList() {
+function mkReplayList() {
   let sliceFrom = curPage.value * displayPerPage
   let sliceTo = (curPage.value * displayPerPage) + displayPerPage
   let recordsToShow = records.value
@@ -218,6 +218,7 @@ let mkReplayControl = {
             }) : null
             textButton(loc("replay/replaysOnSite"), @() openUrl(replayPortalUrl), {
               margin = 0
+              hotkeys = [["^J:RS.Tilted"]]
             })
           ]
         }

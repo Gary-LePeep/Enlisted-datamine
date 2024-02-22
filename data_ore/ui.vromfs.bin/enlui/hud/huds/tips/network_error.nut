@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {fontHeading2} = require("%enlSqGlob/ui/fontsStyle.nut")
 let {connectivity} = require("%ui/hud/state/network.nut")
@@ -31,7 +31,7 @@ let msgDisrupted = freeze({
   ]
 }.__update(fontHeading2))
 
-let function root() {
+function root() {
   return {
     key = "network-state"
     size = flex()

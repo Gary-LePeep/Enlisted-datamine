@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { configs } = require("%enlist/meta/configs.nut")
 let { equipSchemesByArmy } = require("%enlist/soldiers/model/all_items_templates.nut")
@@ -6,7 +6,7 @@ let { trimUpgradeSuffix } = require("%enlSqGlob/ui/itemsInfo.nut")
 
 let equipSchemesByClass = Computed(@() configs.value?.equip_classes ?? {})
 
-local function getEquipClasses(armyId, basetpl, itemType) {
+function getEquipClasses(armyId, basetpl, itemType) {
   basetpl = trimUpgradeSuffix(basetpl)
   let classList = {}
   let classSchemes = equipSchemesByClass.value?[armyId] ?? {}

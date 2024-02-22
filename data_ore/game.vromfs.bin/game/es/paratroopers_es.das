@@ -71,22 +71,22 @@ def finalize_paratroopers_creation(evt : FinalizeSoldierCreation;
                                    var human_parachute_wind__paratroopers : bool&;
                                    var human_parachute_wind__landingPoint : float2&;
                                    var human_parachute_redeploy__altitude : float&)
-  query(human_anim__vehicleSelected) <| $ [es] (paratroopers_aircraft__parachuteTemplate : string)
-    human_parachute_redeploy__altitude = 0.
-    horizontal_air_resistance__isOn = true
-    parachute_create_for_eid(eid, paratroopers_aircraft__parachuteTemplate)
-    human_parachute_wind__paratroopers = true
-    query(squad_member__playerEid) <| $ [es] (respawner__paratroopersPointCoords : float3)
-      human_parachute_wind__landingPoint = respawner__paratroopersPointCoords.xz
-    human_parachute_wind__deadZone = 10.
-    let squadLeader = get_Eid(squad_member__squad, "squad__leader") ?? INVALID_ENTITY_ID
-    if squadLeader != eid
-      squad_member__canBeLeader = false
-      send_net_event(eid, [[RequestPersonalSquadMateOrder
-        orderType=int(SquadMateOrder ESMO_USE_VEHICLE),
-        orderPosition=transform[3],
-        orderUseEntity = human_anim__vehicleSelected
-      ]])
+  if !has(human_anim__vehicleSelected, "paratroopersAircraft")
+    return
+  human_parachute_redeploy__altitude = 0.
+  horizontal_air_resistance__isOn = true
+  human_parachute_wind__paratroopers = true
+  query(squad_member__playerEid) <| $ [es] (respawner__paratroopersPointCoords : float3)
+    human_parachute_wind__landingPoint = respawner__paratroopersPointCoords.xz
+  human_parachute_wind__deadZone = 10.
+  let squadLeader = get_Eid(squad_member__squad, "squad__leader") ?? INVALID_ENTITY_ID
+  if squadLeader != eid
+    squad_member__canBeLeader = false
+    send_net_event(eid, [[RequestPersonalSquadMateOrder
+      orderType=int(SquadMateOrder ESMO_USE_VEHICLE),
+      orderPosition=transform[3],
+      orderUseEntity = human_anim__vehicleSelected
+    ]])
 
 [es(track=possessedByPlr, on_appear, REQUIRE_NOT=human_vehicle__exitAnimator)]
 def add_custom_exit_subtemplate_on_possessed_paratrooper(evt : Event;

@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { sourceProfileData, profileStructure } = require("sourceServProfile.nut")
 let rand = require("%sqstd/rand.nut")()
@@ -18,9 +18,9 @@ let lastRequests = mkWatched(persist, "lastRequests", [])
 
 let diffTime = @(time) get_time_msec() - time
 
-let function handleMessages(msg, idStr) {
+function handleMessages(msg, idStr) {
   let result = clone msg?.result
-  let cb = idStr in requestData.callbacks ? delete requestData.callbacks[idStr] : null
+  let cb = requestData.callbacks?.$rawdelete(idStr)
   local reqTime = 0
   local method
 
@@ -55,16 +55,16 @@ let function handleMessages(msg, idStr) {
   if (result?.configs != null) {
     let curTime = get_time_msec()
     updateAllConfigs(result)
-    delete result.configs
+    result.$rawdelete("configs")
     logApi($"Config update takes {diffTime(curTime)} ms")
   }
 
   if (result?.full ?? false) {
     let curTime = get_time_msec()
-    delete result.full
+    result.$rawdelete("full")
     if ("removed" in result) {
       logerr($"Not empty removed field on full profile update on '{method}'")
-      delete result.removed
+      result.$rawdelete("removed")
     }
 
     foreach (key, _ in result)
@@ -106,7 +106,7 @@ let function handleMessages(msg, idStr) {
               ++removed
               foreach (fieldId in result.removed[profileId])
                 if (fieldId in curVal)
-                  delete curVal[fieldId]
+                  curVal.$rawdelete(fieldId)
             }
             profile[profileId] = clone curVal
           }
@@ -127,7 +127,7 @@ let function handleMessages(msg, idStr) {
 
 let cleanKeys = ["method", "params", "token"]
 
-let function requestImpl(data, cb = null) {
+function requestImpl(data, cb = null) {
   let idStr = (++requestData.id).tostring()
   if (cb)
     requestData.callbacks[idStr] <- cb
@@ -140,12 +140,12 @@ let function requestImpl(data, cb = null) {
 
   let { method, params = null, token = null } = data
   let args = clone data
-  cleanKeys.each(@(key) key in args ? delete args[key] : null)
+  cleanKeys.each(@(key) args?.$rawdelete(key))
   doRequest(method, params, args, idStr, handleMessages, token)
 }
 
 local request = requestImpl
-let function updateDebugDelay() {
+function updateDebugDelay() {
   request = (debugDelay.value <= 0) ? requestImpl
     : @(data, cb = null) gui_scene.setTimeout(debugDelay.value, @() requestImpl(data, cb))
 }
@@ -254,14 +254,14 @@ return {
     params = { soldier1, slot1, index1 = index1 ?? -1, soldier2, slot2, index2 = index2 ?? -1 }
   }, cb)
 
-  drop_items = @(armyId, crateId) request({
+  drop_items = @(crateId) request({
     method = "drop_items"
-    params = { armyId, crateId }
+    params = { crateId }
   })
 
-  get_crates_content = @(armyId, crates, cb) request({
-    method = "get_crates_content"
-    params = { armyId, crates }
+  get_current_crates = @(crates, cb) request({
+    method = "get_current_crates"
+    params = { crates }
   }, cb)
 
   add_squad = @(squadId) request({
@@ -323,11 +323,6 @@ return {
     params = { guid, exp, cost }
   }, cb)
 
-  buy_soldier_max_level = @(guid, cost, cb = null) request({
-    method = "buy_soldier_max_level"
-    params = { guid, cost }
-  }, cb)
-
   unlock_squad = @(armyId, squadId, cb) request({
     method = "unlock_squad"
     params = { armyId, squadId }
@@ -381,16 +376,6 @@ return {
     params = { shopId }
   }, cb)
 
-  transfer_item = @(itemGuid, armyId) request({
-    method = "transfer_item"
-    params = { itemGuid, armyId }
-  })
-
-  use_transfer_item_order_count = @(itemGuidsTbl, armyId, orders, cb = null) request({
-    method = "use_transfer_item_order_count"
-    params = { itemData = itemGuidsTbl, armyId, orders }
-  }, cb)
-
   reset_profile = @(isUnited, cb) request({
     method = "reset_profile"
     params = { isUnited }
@@ -428,26 +413,6 @@ return {
     method = "add_perk_points"
     params = { guid, count }
   }, cb)
-
-  get_perks_choice = @(soldierGuid, tierIdx, slotIdx, cb) request({
-    method = "get_perks_choice"
-    params = { soldierGuid, tierIdx, slotIdx }
-  }, cb)
-
-  choose_perk = @(soldierGuid, tierIdx, slotIdx, perkId, cb) request({
-    method = "choose_perk"
-    params = { soldierGuid, tierIdx, slotIdx, perkId }
-  }, cb)
-
-  change_perk_choice = @(soldierGuid, tierIdx, slotIdx, cost, cb) request({
-    method = "change_perk_choice"
-    params = { soldierGuid, tierIdx, slotIdx, cost }
-  }, cb)
-
-  drop_perk = @(soldierGuid, tierIdx, slotIdx) request({
-    method = "drop_perk"
-    params = { soldierGuid, tierIdx, slotIdx }
-  })
 
   add_perk = @(soldierGuid, perkId, cb) request({
     method = "add_perk"
@@ -525,9 +490,9 @@ return {
     method = "get_info_for_matching_jwt"
   }, cb)
 
-  mark_as_seen = @(itemsGuids, soldiersGuids = [], cb = null) request({
-    method = "mark_as_seen"
-    params =  { itemsGuids, soldiersGuids }
+  mark_seen_objects = @(objectsGuids = [], cb = null) request({
+    method = "mark_seen_objects"
+    params = { objectsGuids }
   }, cb)
 
   reward_single_player_mission = @(missionId, armyId, squads, soldiers) request({
@@ -599,9 +564,9 @@ return {
     method = "add_all_decorators"
   })
 
-  remove_decorator = @(guid) request({
-    method = "remove_decorator"
-    params = { guid }
+  remove_type_decorator = @(cType) request({
+    method = "remove_type_decorator"
+    params = { cType }
   })
 
   add_veh_decorators = @(cType, id) request({
@@ -718,6 +683,11 @@ return {
     method = "usermail_reset_reward"
     params = {}
   }, cb)
+
+  rate_mission = @(missionId, rate) request({
+    method = "rate_mission"
+    params = { missionId, rate }
+  })
 
   growth_select = @(armyId, growthId) request({
     method = "growth_select"

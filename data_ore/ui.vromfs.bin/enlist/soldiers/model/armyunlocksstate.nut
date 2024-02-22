@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { getLinkedArmyName } = require("%enlSqGlob/ui/metalink.nut")
 let { unlock_squad, buy_army_exp } = require("%enlist/meta/clientApi.nut")
@@ -114,7 +114,7 @@ let curArmySquadsUnlocks = Computed(@() curArmyUnlocks.value
 let curArmyLevelRewardsUnlocks = Computed(@() curArmyUnlocks.value
   .filter(@(u) u.unlockType == "level_reward"))
 
-let function getSquadByUnlock(allSquads, unlock) {
+function getSquadByUnlock(allSquads, unlock) {
   let unlockSquad = allSquads
     .findvalue(@(squad) squad.squadId == unlock.unlockId &&
       (getLinkedArmyName(squad) ?? "") == unlock.armyId)
@@ -204,7 +204,7 @@ let reachedArmyUnlocks = Computed(function() {
   return res
 })
 
-let function unlockSquad(squadId) {
+function unlockSquad(squadId) {
   if (squadId in curUnlockedSquadsIds.value || squadUnlockInProgress.value != null)
     return
 
@@ -217,7 +217,7 @@ let function unlockSquad(squadId) {
   })
 }
 
-let function buyArmyLevel(cb = null) {
+function buyArmyLevel(cb = null) {
   if (isBuyLevelInProgress.value)
     return
   let { needExp = 0, cost = 0 } = curBuyLevelData.value
@@ -266,7 +266,7 @@ let allArmyUnlocks = Computed(function() {
   return allUnlocks
 })
 
-let function scrollToCampaignLvl(level){
+function scrollToCampaignLvl(level){
   let indexToScroll = allArmyUnlocks.value.findindex(@(reward) reward?.level == level)
   idxToForceScroll(indexToScroll)
 }

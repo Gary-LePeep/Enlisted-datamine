@@ -1,12 +1,11 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {fontHeading2, fontBody, fontawesome} = require("%enlSqGlob/ui/fontsStyle.nut")
 let {round_by_value} = require("%sqstd/math.nut")
 let {DEFAULT_TEXT_COLOR, CONTROL_BG_COLOR, HIGHLIGHT_COLOR} = require("%ui/hud/style.nut")
-let cursors = require("%ui/style/cursors.nut")
 let JB = require("%ui/control/gui_buttons.nut")
-let {safeAreaHorPadding} = require("%enlSqGlob/safeArea.nut")
+let {safeAreaHorPadding} = require("%enlSqGlob/ui/safeArea.nut")
 let msgbox = require("%ui/components/msgbox.nut")
 let textButton = require("%ui/components/textButton.nut")
 let scrollbar = require("%ui/components/scrollbar.nut")
@@ -27,6 +26,7 @@ let { BTN_pressed, BTN_pressed_long, BTN_pressed2, BTN_pressed3,
           BTN_released, BTN_released_long, BTN_released_short } = dainput
 let select = require("%ui/components/select.nut")
 let locByPlatform = require("%enlSqGlob/locByPlatform.nut")
+let { setTooltip } = require("%ui/style/cursors.nut")
 
 let game_name = require("app").get_game_name()
 
@@ -62,20 +62,19 @@ let {
 } = require("controls_state.nut")
 let { voiceChatEnabled } = require("%enlSqGlob/voiceChatGlobalState.nut")
 let { EventControlsMenuToggle } = require("dasevents")
-let { isLoggedIn } = require("%enlSqGlob/login_state.nut")
-
+let { isLoggedIn } = require("%enlSqGlob/ui/login_state.nut")
 
 let MenuRowBgOdd   = Color(20, 20, 20, 20)
 let MenuRowBgEven  = Color(0, 0, 0, 20)
 let MenuRowBgHover = Color(40, 40, 40, 40)
 
-let function menuRowColor (sf, isOdd) {
+function menuRowColor (sf, isOdd) {
   return sf & S_HOVER ? MenuRowBgHover
     : isOdd ? MenuRowBgOdd
     : MenuRowBgEven
 }
 
-let function resetC0BindingsForOnlyGamepadsPlatforms(defaultPreset) {
+function resetC0BindingsForOnlyGamepadsPlatforms(defaultPreset) {
   if (controlsSettingOnlyForGamePad.value) {
     let origBlk = DataBlock()
     dainput.save_user_config(origBlk, true)
@@ -130,15 +129,12 @@ let showControlsMenu = mkWatched(persist, "showControlsMenu", false)
 
 showControlsMenu.subscribe(@(isShown) ecs.g_entity_mgr.broadcastEvent(EventControlsMenuToggle({isShown})))
 
-let function isGamepadColumn(col) {
-  return col == 1
-}
+let isGamepadColumn = @(col) col == 1
+let locActionName = @(name) name != null ? loc("/".concat("controls", name), name) : null
+let locActionDesc = @(name) name != null ? loc("/".concat("controls", name, "desc"), "") : ""
 
-let function locActionName(name){
-  return name!= null ? loc("/".concat("controls", name), name) : null
-}
 
-let function doesDeviceMatchColumn(dev_id, col) {
+function doesDeviceMatchColumn(dev_id, col) {
   if (dev_id==dainput.DEV_kbd || dev_id==dainput.DEV_pointing)
     return !isGamepadColumn(col)
   if (dev_id==dainput.DEV_gamepad || dev_id==dainput.DEV_joy)
@@ -171,7 +167,7 @@ local tabsList = []
 let isActionDisabledToCustomize = memoize(
   @(action_handler) getActionTags(action_handler).indexof("disabled") != null)
 
-let function makeTabsList() {
+function makeTabsList() {
   tabsList = [ {id="Options" text=loc("controls/tab/Control")} ]
   let isVoiceChatAvailable = is_pc && voiceChatEnabled.value
   let isReplayAvailable = is_pc
@@ -212,13 +208,15 @@ let selectedBindingCell = mkWatched(persist, "selectedBindingCell")
 let selectedAxisCell = mkWatched(persist, "selectedAxisCell")
 
 isGamepad.subscribe(function(isGp) {
+  gui_scene.setXmbFocus(null)
   if (!isGp)
     return
+
   selectedBindingCell(null)
   selectedAxisCell(null)
 })
 
-let function isEscape(blk) {
+function isEscape(blk) {
   return blk.getInt("dev", dainput.DEV_none) == dainput.DEV_kbd
       && blk.getInt("btn", 0) == 1
 }
@@ -232,7 +230,7 @@ let pageAnim =  [
   { prop=AnimProp.opacity, from=1, to=0, duration=0.2, playFadeOut=true, easing=InOutCubic}
 ]
 
-let function startRecording(cell_data) {
+function startRecording(cell_data) {
   if (cell_data.singleBtn || cell_data.tag == "modifiers")
     dainput.start_recording_bindings_for_single_button()
   else
@@ -240,16 +238,16 @@ let function startRecording(cell_data) {
   actionRecording(cell_data)
 }
 
-let function makeBgToggle(initial=true) {
+function makeBgToggle(initial=true) {
   local showBg = !initial
-  let function toggleBg() {
+  function toggleBg() {
     showBg = !showBg
     return showBg
   }
   return toggleBg
 }
 
-let function set_single_button_analogue_binding(ah, col, actionProp, blk) {
+function set_single_button_analogue_binding(ah, col, actionProp, blk) {
   let stickBinding = dainput.get_analog_stick_action_binding(ah, col)
   let axisBinding = dainput.get_analog_axis_action_binding(ah, col)
   let binding = stickBinding ?? axisBinding
@@ -273,7 +271,7 @@ let function set_single_button_analogue_binding(ah, col, actionProp, blk) {
   }
 }
 
-let function loadOriginalBindingParametersTo(blk, ah, col) {
+function loadOriginalBindingParametersTo(blk, ah, col) {
   let origBlk = DataBlock()
   dainput.get_action_binding(ah, col, origBlk)
 
@@ -286,7 +284,7 @@ let function loadOriginalBindingParametersTo(blk, ah, col) {
     blk.setReal("sensScale", origBlk.getReal("sensScale", 1.0))
 }
 
-let function loadPreviousBindingParametersTo(blk, ah, col) {
+function loadPreviousBindingParametersTo(blk, ah, col) {
   let prevBinding = dainput.get_digital_action_binding(ah, col)
 
   let actionType = dainput.get_action_type(ah)
@@ -295,7 +293,7 @@ let function loadPreviousBindingParametersTo(blk, ah, col) {
     blk.setBool("stickyToggle", prevBinding.stickyToggle)
 }
 
-let function checkRecordingFinished() {
+function checkRecordingFinished() {
   if (dainput.is_recording_complete()) {
     let cellData = actionRecording.value
     actionRecording(null)
@@ -321,7 +319,7 @@ let function checkRecordingFinished() {
           checkConflictsBlk = blk
         }
 
-        let function applyBinding() {
+        function applyBinding() {
           if (cellData.singleBtn) {
             set_single_button_analogue_binding(ah, col, cellData.actionProp, blk)
           }
@@ -372,7 +370,7 @@ let function checkRecordingFinished() {
 }
 
 
-let function cancelRecording() {
+function cancelRecording() {
   gui_scene.clearTimer(checkRecordingFinished)
   actionRecording(null)
 
@@ -384,7 +382,7 @@ let function cancelRecording() {
 
 let mediumText = @(text, params={}) dtext(text, {color = DEFAULT_TEXT_COLOR,}.__update(fontBody, params))
 
-let function recordingWindow() {
+function recordingWindow() {
   //local text = loc("controls/recording", "Press a button (or move mouse / joystick axis) to bind action to")
   local text
   let cellData = actionRecording.value
@@ -435,13 +433,13 @@ let function recordingWindow() {
   }
 }
 
-let function saveChanges() {
+function saveChanges() {
   control.save_config()
   haveChanges(false)
 }
 
-let function applyPreset(text, target=null) {
-  let function doReset() {
+function applyPreset(text, target=null) {
+  function doReset() {
     if (target)
       dainput.reset_user_config_to_preset(target.preset, false)
     else
@@ -462,17 +460,17 @@ let function applyPreset(text, target=null) {
   })
 }
 
-let function resetToDefault() {
+function resetToDefault() {
   let text = loc("controls/resetToDefaultsConfirmation")
   applyPreset(text)
 }
 
-let function changePreset(target) {
+function changePreset(target) {
   let text = loc("controls/changeControlsPresetConfirmation")
   applyPreset(text, target)
 }
 
-let function clearBinding(cellData){
+function clearBinding(cellData){
   haveChanges(true)
   if (cellData.singleBtn) {
     set_single_button_analogue_binding(cellData.ah, cellData.column, cellData.actionProp, DataBlock())
@@ -487,7 +485,7 @@ let function clearBinding(cellData){
   }
 }
 
-let function discardChanges() {
+function discardChanges() {
   if (!haveChanges.value)
     return
   control.restore_saved_config()
@@ -495,7 +493,7 @@ let function discardChanges() {
   haveChanges(false)
 }
 
-let function actionButtons() {
+function actionButtons() {
   local children = null
   let cellData = selectedBindingCell.value
 
@@ -538,7 +536,7 @@ let function actionButtons() {
   }
 }
 
-let function collectBindableColumns() {
+function collectBindableColumns() {
   let nColumns = dainput.get_actions_binding_columns()
   let colRange = []
   for (local i=0; i<nColumns; ++i) {
@@ -548,7 +546,7 @@ let function collectBindableColumns() {
   return colRange
 }
 
-let function getNotBoundActions() {
+function getNotBoundActions() {
   let importantTabs = importantGroups.value
 
   let colRange = collectBindableColumns()
@@ -576,48 +574,44 @@ let function getNotBoundActions() {
       continue
 
     local someBound = false
-    switch (dainput.get_action_type(ah) & dainput.TYPEGRP__MASK) {
-      case dainput.TYPEGRP_DIGITAL: {
-        let bindings = colRange.map(@(col, _) dainput.get_digital_action_binding(ah, col))
-        foreach (val in bindings)
-          if (isValidDevice(val.devId) || val.devId == dainput.DEV_nullstub) {
-            someBound = true
-            break
-          }
-        break
-      }
-      case dainput.TYPEGRP_AXIS: {
-        let axisBinding = colRange.map(@(col, _) dainput.get_analog_axis_action_binding(ah, col))
-        foreach (val in axisBinding) {
-          if (val.devId == dainput.DEV_pointing || val.devId == dainput.DEV_joy || val.devId == dainput.DEV_gamepad || val.devId == dainput.DEV_nullstub) {
-            // using device axis
-            someBound = true
-            break
-          }
-
-          // using 2 digital buttons
-          if (isValidDevice(val.minBtn.devId) && isValidDevice(val.maxBtn.devId)) {
-            someBound = true
-            break
-          }
-
+    let ahFlag = dainput.get_action_type(ah) & dainput.TYPEGRP__MASK
+    if (ahFlag ==  dainput.TYPEGRP_DIGITAL) {
+      let bindings = colRange.map(@(col, _) dainput.get_digital_action_binding(ah, col))
+      foreach (val in bindings)
+        if (isValidDevice(val.devId) || val.devId == dainput.DEV_nullstub) {
+          someBound = true
+          break
         }
-        break
-      }
-      case dainput.TYPEGRP_STICK: {
-        let stickBinding = colRange.map(@(col, _) dainput.get_analog_stick_action_binding(ah, col))
-        foreach (val in stickBinding) {
-          if (val.devId == dainput.DEV_pointing || val.devId == dainput.DEV_joy || val.devId == dainput.DEV_gamepad || val.devId == dainput.DEV_nullstub) {
-            someBound = true
-            break
-          }
-          if (isValidDevice(val.maxXBtn.devId) && isValidDevice(val.minXBtn.devId)
-            && isValidDevice(val.maxYBtn.devId) && isValidDevice(val.minYBtn.devId)) {
-            someBound = true
-            break
-          }
+    }
+    if (ahFlag == dainput.TYPEGRP_AXIS) {
+      let axisBinding = colRange.map(@(col, _) dainput.get_analog_axis_action_binding(ah, col))
+      foreach (val in axisBinding) {
+        if (val.devId == dainput.DEV_pointing || val.devId == dainput.DEV_joy || val.devId == dainput.DEV_gamepad || val.devId == dainput.DEV_nullstub) {
+          // using device axis
+          someBound = true
+          break
         }
-        break
+
+        // using 2 digital buttons
+        if (isValidDevice(val.minBtn.devId) && isValidDevice(val.maxBtn.devId)) {
+          someBound = true
+          break
+        }
+
+      }
+    }
+    if (ahFlag == dainput.TYPEGRP_STICK) {
+      let stickBinding = colRange.map(@(col, _) dainput.get_analog_stick_action_binding(ah, col))
+      foreach (val in stickBinding) {
+        if (val.devId == dainput.DEV_pointing || val.devId == dainput.DEV_joy || val.devId == dainput.DEV_gamepad || val.devId == dainput.DEV_nullstub) {
+          someBound = true
+          break
+        }
+        if (isValidDevice(val.maxXBtn.devId) && isValidDevice(val.minXBtn.devId)
+          && isValidDevice(val.maxYBtn.devId) && isValidDevice(val.minYBtn.devId)) {
+          someBound = true
+          break
+        }
       }
     }
 
@@ -645,7 +639,7 @@ let function getNotBoundActions() {
   return "".join(ret)
 }
 
-let function onDiscardChanges() {
+function onDiscardChanges() {
   msgbox.show({
     text = loc("settings/onCancelChangingConfirmation")
     buttons = [
@@ -660,8 +654,8 @@ let applyHotkeys = { hotkeys = [[$"^{JB.B} | J:Start | Esc", { description={skip
 
 let onClose = @() showControlsMenu(false)
 
-let function mkWindowButtons(width) {
-  let function onApply() {
+function mkWindowButtons(width) {
+  function onApply() {
     let notBoundActions = is_pc ? getNotBoundActions() : null
     if (notBoundActions == null) {
       saveChanges()
@@ -705,7 +699,7 @@ let function mkWindowButtons(width) {
 }
 
 
-let function bindingTextFunc(text) {
+function bindingTextFunc(text) {
   return {
     text
     color = DEFAULT_TEXT_COLOR
@@ -715,32 +709,33 @@ let function bindingTextFunc(text) {
 }
 
 
-let function mkActionRowLabel(name, group=null){
-  return {
-    rendObj = ROBJ_TEXT
-    behavior = Behaviors.Marquee
-    delay = [3, 1]
-    speed = 50
-    color = DEFAULT_TEXT_COLOR
-    text = locActionName(name)
-    margin = [0, fsh(1), 0, 0]
-    size = [flex(1.5), SIZE_TO_CONTENT]
-    halign = ALIGN_RIGHT
-    group
-  }.__update(fontBody)
-}
+let mkActionRowLabel = @(name, group = null, xmbNode = null) {
+  rendObj = ROBJ_TEXT
+  behavior = Behaviors.Marquee
+  delay = [3, 1]
+  speed = 50
+  color = DEFAULT_TEXT_COLOR
+  text = locActionName(name)
+  margin = [0, fsh(1), 0, 0]
+  size = [flex(1.5), SIZE_TO_CONTENT]
+  halign = ALIGN_RIGHT
+  group
+  xmbNode
+}.__update(fontBody)
 
-let function mkActionRowCells(label, columns){
+
+function mkActionRowCells(label, columns){
   let children = [label].extend(columns)
   if (columns.len() < 2)
     children.append({size=[flex(0.75), 0]})
   return children
 }
 
-let function makeActionRow(_ah, name, columns, xmbNode, showBgGen) {
+function makeActionRow(_ah, name, columns, xmbNode, showBgGen) {
   let group = ElemGroup()
   let isOdd = showBgGen()
-  let label = mkActionRowLabel(name, group)
+  let label = mkActionRowLabel(name, group, xmbNode)
+  let tooltipDesc = locActionDesc(name)
   let children = mkActionRowCells(label, columns)
   return watchElemState(@(sf) {
     xmbNode
@@ -754,19 +749,20 @@ let function makeActionRow(_ah, name, columns, xmbNode, showBgGen) {
     rendObj = ROBJ_SOLID
     color = menuRowColor(sf, isOdd)
     group
+    onHover = tooltipDesc != "" ? @(on) setTooltip(on ? tooltipDesc : null) : null
   })
 }
 
 
 let bindingColumnCellSize = [flex(1), fontH(240)]
 
-let function isCellSelected(cell_data, selection) {
+function isCellSelected(cell_data, selection) {
   let selected = selection.value
   return (selected!=null) && selected.column==cell_data.column && selected.ah==cell_data.ah
     && selected.actionProp==cell_data.actionProp && selected.tag==cell_data.tag
 }
 
-let function showDisabledMsgBox(){
+function showDisabledMsgBox(){
   return msgbox.show({
     text = loc("controls/bindingDisabled")
     buttons = [
@@ -776,7 +772,7 @@ let function showDisabledMsgBox(){
 }
 
 
-let function bindedComp(elemList, group=null){
+function bindedComp(elemList, group=null){
   return {
      group = group ?? ElemGroup()
      behavior = Behaviors.Marquee
@@ -790,7 +786,7 @@ let function bindedComp(elemList, group=null){
 }
 
 
-let function bindingCell(ah, column, action_prop, list, tag, selection, name=null, xmbNode=null) {
+function bindingCell(ah, column, action_prop, list, tag, selection, name=null, xmbNode=null) {
   let singleBtn = action_prop!=null
   let cellData = {
     ah=ah, column=column, actionProp=action_prop, singleBtn=singleBtn, tag=tag, name=name
@@ -851,7 +847,7 @@ let function bindingCell(ah, column, action_prop, list, tag, selection, name=nul
 }
 
 let colorTextHdr = Color(120,120,120)
-let function bindingColHeader(typ){
+function bindingColHeader(typ){
   return {
     size = bindingColumnCellSize
     rendObj = ROBJ_TEXT
@@ -863,7 +859,7 @@ let function bindingColHeader(typ){
 }
 
 
-let function mkBindingsHeader(colRange){
+function mkBindingsHeader(colRange){
   let cols = colRange.map(@(v) bindingColHeader(isGamepadColumn(v)
                                                   ? loc("controls/type/pc/gamepad")
                                                   : loc("controls/type/pc/keyboard")))
@@ -878,7 +874,7 @@ let function mkBindingsHeader(colRange){
   }
 }
 
-let function bindingsPage(section_name) {
+function bindingsPage(section_name) {
   let scrollHandler = ScrollHandler()
   let filteredActions = getActionsList().filter(@(ah) getActionTags(ah).indexof(section_name) != null)
   let xmbRootNode = XmbContainer({ wrap = false })
@@ -894,22 +890,17 @@ let function bindingsPage(section_name) {
     foreach (ah in filteredActions) {
       let actionName = dainput.get_action_name(ah)
       let actionType = dainput.get_action_type(ah)
-
-      switch (actionType & dainput.TYPEGRP__MASK) {
-        case dainput.TYPEGRP_DIGITAL: {
-          let bindings = colRange.map(@(col) dainput.get_digital_action_binding(ah, col))
-          let colTexts = bindings.map(buildDigitalBindingText)
-          let colComps = colTexts.map(@(col_text, idx) bindingCell(ah, colRange[idx], null, col_text, null, selectedBindingCell, actionName, XmbNode()))
-          actionRows.append(makeActionRow(ah, actionName, colComps, XmbNode({isGridLine=true}), toggleBg))
-          break
-        }
-        case dainput.TYPEGRP_AXIS:
-        case dainput.TYPEGRP_STICK: {
-          let colTexts = colRange.map(@(col, _) textListFromAction(actionName, col))
-          let colComps = colTexts.map(@(col_text, idx) bindingCell(ah, colRange[idx], null, col_text, null, selectedBindingCell, actionName, XmbNode()))
-          actionRows.append(makeActionRow(ah, actionName, colComps, XmbNode({isGridLine=true}), toggleBg))
-          break
-        }
+      let ahFlag = actionType & dainput.TYPEGRP__MASK
+      if (ahFlag == dainput.TYPEGRP_DIGITAL) {
+        let bindings = colRange.map(@(col) dainput.get_digital_action_binding(ah, col))
+        let colTexts = bindings.map(buildDigitalBindingText)
+        let colComps = colTexts.map(@(col_text, idx) bindingCell(ah, colRange[idx], null, col_text, null, selectedBindingCell, actionName, XmbNode()))
+        actionRows.append(makeActionRow(ah, actionName, colComps, XmbNode({isGridLine=true}), toggleBg))
+      }
+      if (ahFlag == dainput.TYPEGRP_AXIS || ahFlag == dainput.TYPEGRP_STICK) {
+        let colTexts = colRange.map(@(col, _) textListFromAction(actionName, col))
+        let colComps = colTexts.map(@(col_text, idx) bindingCell(ah, colRange[idx], null, col_text, null, selectedBindingCell, actionName, XmbNode()))
+        actionRows.append(makeActionRow(ah, actionName, colComps, XmbNode({isGridLine=true}), toggleBg))
       }
     }
 
@@ -933,7 +924,7 @@ let function bindingsPage(section_name) {
   }
 }
 
-let function optionRowContainer(children, isOdd, params) {
+function optionRowContainer(children, isOdd, params) {
   return watchElemState(@(sf) params.__merge({
     size = [flex(), SIZE_TO_CONTENT]
     flow = FLOW_HORIZONTAL
@@ -948,7 +939,7 @@ let function optionRowContainer(children, isOdd, params) {
   }))
 }
 
-let function optionRow(labelText, comp, isOdd) {
+function optionRow(labelText, comp, isOdd) {
   let label = {
     rendObj = ROBJ_TEXT
     color = DEFAULT_TEXT_COLOR
@@ -979,7 +970,7 @@ let invertFields = {
   [-1] = "invAxis",
 }
 
-local function invertCheckbox(action_names, column, axis) {
+function invertCheckbox(action_names, column, axis) {
   if (type(action_names) != "array")
     action_names = [action_names]
 
@@ -999,7 +990,7 @@ local function invertCheckbox(action_names, column, axis) {
 
   let val = Watched((valAnd == valOr) ? valAnd : null)
 
-  let function setValue(new_val) {
+  function setValue(new_val) {
     val(new_val)
     foreach (b in bindings)
       b[invertFields[axis]] = new_val
@@ -1010,7 +1001,7 @@ local function invertCheckbox(action_names, column, axis) {
 }
 let mkRounded = @(val) round_by_value(val, 0.01)
 
-local function axisSetupSlider(action_names, column, prop, params) {
+function axisSetupSlider(action_names, column, prop, params) {
   let group = ElemGroup()
   if (type(action_names) != "array")
     action_names = [action_names]
@@ -1047,19 +1038,19 @@ let sensRanges = [
   {min = 0.05, max = 5.0, step = 0.05} // mouse/kbd aux
 ]
 
-let function sensitivitySlider(action_names, column) {
+function sensitivitySlider(action_names, column) {
   let params = sensRanges[column].__merge({
 //    scaling = slider.scales.logarithmic
   })
   return axisSetupSlider(action_names, column, "sensScale", params)
 }
 
-let function haveSensMulSlider(prop) {
+function haveSensMulSlider(prop) {
   let sensScale = control.get_sens_scale()
   return sensScale[prop] >= 0.0
 }
 
-let function sensMulSlider(prop) {
+function sensMulSlider(prop) {
   let sensScale = control.get_sens_scale()
   let var = Watched(sensScale[prop])
   let opt = {
@@ -1077,7 +1068,7 @@ let function sensMulSlider(prop) {
 }
 
 
-let function smoothMulSlider(action_name) {
+function smoothMulSlider(action_name) {
   let act = get_action_handle(action_name, 0xFFFF)
   if (act == 0xFFFF)
     return null
@@ -1096,7 +1087,7 @@ let function smoothMulSlider(action_name) {
 }
 
 
-let function showDeadZone(val){
+function showDeadZone(val){
   return "{0}%".subst(round_by_value(val*100, 0.5))
 }
 
@@ -1105,7 +1096,7 @@ let showRelScale = @(val) "{0}%".subst(round_by_value(val*10, 0.5))
 const minDZ = 0.0
 const maxDZ = 0.4
 const stepDZ = 0.01
-let function deadZoneScaleSlider(val, setVal){
+function deadZoneScaleSlider(val, setVal){
   let opt = { var = val, min = minDZ, max = maxDZ, step=stepDZ, scaling = slider.scales.linear,
     setValue = function(param){
       setVal(param)
@@ -1115,10 +1106,10 @@ let function deadZoneScaleSlider(val, setVal){
   return mkSliderWithText(opt, null, XmbNode(), showDeadZone)
 }
 let isUserConfigCustomized = Watched(false)
-let function checkUserConfigCustomized(){
+function checkUserConfigCustomized(){
   isUserConfigCustomized(dainput.is_user_config_customized())
 }
-let function updateAll(...) { updateCurrentPreset(); checkUserConfigCustomized()}
+function updateAll(...) { updateCurrentPreset(); checkUserConfigCustomized()}
 generation.subscribe(updateAll)
 haveChanges.subscribe(updateAll)
 let showPresetsSelect = Computed(@() availablePresets.value.len()>0)
@@ -1140,7 +1131,7 @@ let currentControls = @(){
                 : null)
             : null
 }
-let function pollSettings() {
+function pollSettings() {
   if (isUserConfigCustomized.value)
     return
   updateAll()
@@ -1152,7 +1143,7 @@ let controlsTypesMap = {
   [ControlsTypes.GAMEPAD] = loc("controls/type/pc/gamepad")
 }
 
-let function options() {
+function options() {
   let onlyGamePad = controlsSettingOnlyForGamePad.value
   let toggleBg = makeBgToggle()
   let showGamepadOpts = wasGamepad.value
@@ -1224,7 +1215,7 @@ let function options() {
 }
 
 
-let function sectionHeader(text) {
+function sectionHeader(text) {
   return optionRowContainer({
     rendObj = ROBJ_TEXT
     text
@@ -1236,7 +1227,7 @@ let function sectionHeader(text) {
 }
 
 
-let function axisSetupWindow() {
+function axisSetupWindow() {
   let cellData = configuredAxis.value
   let stickBinding = dainput.get_analog_stick_action_binding(cellData.ah, cellData.column)
   let axisBinding = dainput.get_analog_axis_action_binding(cellData.ah, cellData.column)
@@ -1253,7 +1244,7 @@ let function axisSetupWindow() {
     margin = fsh(2)
   }.__update(fontHeading2)
 
-  let function buttons() {
+  function buttons() {
     let children = []
     if (selectedAxisCell.value)
       children.append(
@@ -1444,7 +1435,7 @@ let function axisSetupWindow() {
 }
 
 
-let function actionTypeSelect(_cell_data, watched, value) {
+function actionTypeSelect(_cell_data, watched, value) {
   return watchElemState(function(sf) {
     return {
       behavior = Behaviors.Button
@@ -1478,7 +1469,7 @@ let selectEventTypeHdr = {
   halign = ALIGN_RIGHT
 }.__update(fontBody)
 
-let function buttonSetupWindow() {
+function buttonSetupWindow() {
   let cellData = configuredButton.value
   let binding = dainput.get_digital_action_binding(cellData.ah, cellData.column)
   let eventTypeValue = Watched(binding.eventType)
@@ -1605,7 +1596,7 @@ let function buttonSetupWindow() {
 
 let saSize = Computed(@() sw(100)-2*safeAreaHorPadding.value)
 
-let function controlsSetup() {
+function controlsSetup() {
   let width = min(sw(90), saSize.value)
   let menu = {
     transform = {}
@@ -1632,7 +1623,6 @@ let function controlsSetup() {
   let root = {
     key = "controls"
     size = [sw(100), sh(100)]
-    cursor = cursors.normal
     halign = ALIGN_CENTER
     valign = ALIGN_CENTER
     watch = [

@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let armyData = require("%ui/hud/state/armyData.nut")
 let weaponSlots = require("%enlSqGlob/weapon_slots.nut")
@@ -10,10 +10,10 @@ let { MINES_ORDER } = require("%ui/hud/huds/player_info/mineIcon.nut")
 
 let soldierFieldKeys = [
   "guid", "name", "surname", "callname", "sClass", "sKind", "tier", "level", "maxLevel",
-  "exp", "availPerks", "perksCount", "isHero", "country"
+  "exp", "availPerks", "isHero", "country"
 ]
 
-let function getWeaponData(weapSlotIdx, soldier) {
+function getWeaponData(weapSlotIdx, soldier) {
   let weapTemplate = soldier?["human_weap__weapTemplates"][weaponSlots.weaponSlotsKeys[weapSlotIdx]]
   let weapInfo = soldier?["human_weap__weapInfo"][weapSlotIdx]
 
@@ -41,7 +41,7 @@ let function getWeaponData(weapSlotIdx, soldier) {
   }
 }
 
-let function collectSoldierData(soldier, armyId, squadId, country) {
+function collectSoldierData(soldier, armyId, squadId, country) {
   let res = {}
   foreach (key in soldierFieldKeys)
     if (key in soldier)

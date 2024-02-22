@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { isPlatformRelevant } = require("%dngscripts/platform.nut")
 let { configs } = require("%enlist/meta/configs.nut")
@@ -92,7 +92,7 @@ let campaignsInfo = Computed(function() {
   return { unlocked, locked, lockedProgress }
 })
 
-let function isUnited() {
+function isUnited() {
   return renameCommonArmies.findvalue(function(_, armyId) {
     let { exp = 0, level = 0 } = armies.value?[armyId]
     return exp != 0 || level != 0

@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { campItemsByLink } = require("%enlist/meta/profile.nut")
 let { curArmy, curArmiesList, soldiersBySquad, chosenSquadsByArmy,
@@ -130,7 +130,7 @@ function updateOtherArmies() {
 }
 
 // Perform a full update and export the data for teammates
-let function updateBROnMatchStart() {
+function updateBROnMatchStart() {
   updateCurrentArmyInfo(curArmy.value)
   updateOtherArmies()
   allArmiesTiers({

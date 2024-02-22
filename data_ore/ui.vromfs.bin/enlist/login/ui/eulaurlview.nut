@@ -1,9 +1,9 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let {showEula} = require("%enlist/eula/eula.nut")
 let urlText = require("%enlist/components/urlText.nut")
-let {verPadding, horPadding} = require("%enlSqGlob/safeArea.nut")
+let {verPadding, horPadding} = require("%enlSqGlob/ui/safeArea.nut")
 
 let eulaUrlView = {
     zOrder = 1

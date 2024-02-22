@@ -2,7 +2,7 @@ import "%dngscripts/ecs.nut" as ecs
 let {userstatsAdd} = require("%scripts/game/utils/userstats.nut")
 let {EventOnPlayerLooted} = require("lootevents")
 
-let function onPlayerLooted(evt, _eid, comp) {
+function onPlayerLooted(evt, _eid, comp) {
   let evt_type = evt[0]
   let evt_region = evt[1]
   let awardParams = {

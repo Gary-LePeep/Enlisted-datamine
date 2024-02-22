@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontBody} = require("%enlSqGlob/ui/fontsStyle.nut")
 let { startswith } = require("string")
@@ -11,13 +11,13 @@ let getNavState = @(...) navState.value
 let navStateGen = Watched(0)
 let colors = require("%ui/style/colors.nut")
 let JB = require("%ui/control/gui_buttons.nut")
-let {verPadding, horPadding} = require("%enlSqGlob/safeArea.nut")
+let {verPadding, horPadding} = require("%enlSqGlob/ui/safeArea.nut")
 let {getHotkeysComps, hotkeysPanelCompsGen} = require("hotkeysPanelStateComps.nut")
 let {cursorPresent, cursorOverStickScroll, config, cursorOverClickable} = gui_scene
 
 let panel_ver_padding = hdpxi(6)
 
-let function mktext(text){
+function mktext(text){
   return {
     rendObj = ROBJ_TEXT
     text
@@ -35,7 +35,7 @@ gui_scene.setHotkeysNavHandler(function(state) {
 let padding = hdpx(5)
 let height = calc_str_box(mktext("H"))[1]*1.1
 
-let function mkNavBtn(params = {hotkey=null, gamepad=true}){
+function mkNavBtn(params = {hotkey=null, gamepad=true}){
   let description = params?.hotkey?.description
   let skip = description?.skip
   if (skip)
@@ -58,13 +58,13 @@ let function mkNavBtn(params = {hotkey=null, gamepad=true}){
   }
 }
 
-let function combine_func(a, b){
+function combine_func(a, b){
   return (a.action==b.action)
 }
 
 let isActivateKey = @(key) JB.A == key.btnName
 
-let function combine_hotkeys(data, filter_func){
+function combine_hotkeys(data, filter_func){
   let hotkeys = []
   local isActivateForced = false
   foreach (k in data) {
@@ -91,7 +91,7 @@ let function combine_hotkeys(data, filter_func){
   return { hotkeys, needShowHotkeys = isActivateForced || hotkeys.len() > 0 }
 }
 
-let function getJoyAHintText(data, filter_func) {
+function getJoyAHintText(data, filter_func) {
   local hotkeyAText = defaultJoyAHint
   foreach (k in data)
     if (filter_func(k) && isActivateKey(k)) {
@@ -104,14 +104,14 @@ let function getJoyAHintText(data, filter_func) {
 }
 
 
-let function _filter(hotkey, devid){
+function _filter(hotkey, devid){
   let descrExist = "description" in hotkey
   return devid.indexof(hotkey.devId) != null && (!descrExist || hotkey.description != null)
 }
 
 let showKbdHotkeys = false
 
-let function makeFilterFunc(is_gamepad) {
+function makeFilterFunc(is_gamepad) {
   return is_gamepad
     ? @(hotkey) _filter(hotkey, [DEVID_JOYSTICK])
     : @(hotkey) showKbdHotkeys && _filter(hotkey, [DEVID_KEYBOARD, DEVID_MOUSE])
@@ -133,7 +133,7 @@ let svgImg = memoize(function(image){
   })
 })
 
-let function manualHint(images, text=""){
+function manualHint(images, text=""){
   return {
     flow = FLOW_HORIZONTAL
     valign = ALIGN_CENTER
@@ -143,21 +143,21 @@ let function manualHint(images, text=""){
   }
 }
 
-let function gamepadcursornav_images(cType) {
+function gamepadcursornav_images(cType) {
   if (cType == controlsTypes.ds4gamepad)
     return ["ds4/lstick_4" "ds4/dpad"]
 
   return ["x1/lstick_4" "x1/dpad"]
 }
 
-let function gamepadcursorclick_image(imagesMap) {
+function gamepadcursorclick_image(imagesMap) {
   let clickButtons = config.getClickButtons()
   return clickButtons
     .filter(@(btn) startswith(btn, "J:"))
     .map(@(btn) imagesMap?[btn])
 }
 
-let function gamepadCursor() {
+function gamepadCursor() {
   let clickHint = manualHint(gamepadcursorclick_image(gamepadImgByKey.keysImagesMap.value), joyAHint.value)
   let clickHintStub = {size = [calc_comp_size(clickHint)[0], 0], key = {}}
   let scrollHint = manualHint([gamepadImgByKey.keysImagesMap.value?["J:R.Thumb.hv"]], loc("ui/cursor.scroll"))
@@ -180,7 +180,7 @@ let function gamepadCursor() {
 
 let show_tips = Computed(@() cursorPresent.value && isGamepad.value && combine_hotkeys(getNavState(navStateGen.value), makeFilterFunc(isGamepad.value)).needShowHotkeys)
 
-let function tipsC(){
+function tipsC(){
   let filtered_hotkeys = combine_hotkeys(getNavState(), makeFilterFunc(isGamepad.value)).hotkeys
   let tips = (cursorPresent.value && isGamepad.value) ? [ gamepadCursor] : []
   tips.extend(filtered_hotkeys.map(@(hotkey) mkNavBtn({hotkey=hotkey, gamepad=isGamepad.value})))//.append({size=flex()})
@@ -198,7 +198,7 @@ let function tipsC(){
 let hotkeysBarHeight = Computed(@() height + panel_ver_padding + max(panel_ver_padding , verPadding.value))
 
 
-let function hotkeysButtonsBar() {
+function hotkeysButtonsBar() {
   let res = { watch = [hotkeysBarHeight, show_tips, horPadding] }
   return !show_tips.value ? res : res.__update({
     size = [SIZE_TO_CONTENT, hotkeysBarHeight.value]

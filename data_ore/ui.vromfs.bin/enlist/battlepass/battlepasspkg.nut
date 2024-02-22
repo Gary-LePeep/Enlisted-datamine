@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { titleTxtColor } = require("%enlSqGlob/ui/designConst.nut")
@@ -12,7 +12,7 @@ let bpBgPath = "!ui/uiskin/battlepass/bp_seasons/bp_bg_{0}.avif"
 
 let bpColors =  freeze([0xFFD04B2C, 0xFF31DDED, 0xFFC5EA2D, 0xFFF57E32])
 
-let function staticSeasonBPIcon(seasonBPIndex, size) {
+function staticSeasonBPIcon(seasonBPIndex, size) {
   let fallbackImage = $"!ui/uiskin/battlepass/bp_logo.svg:{size}:{size}:K"
   let bpImagePath = (seasonBPIndex ?? 0) > 0 ? imagePath.subst(seasonBPIndex, size) : fallbackImage
   return {

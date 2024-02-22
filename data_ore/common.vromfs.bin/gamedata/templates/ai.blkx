@@ -230,6 +230,9 @@
       "beh_tree__data__attackReq": "sub.attackReq"
     },
     {
+      "beh_tree__data__mortarAttackReq": "sub.mortarAttackReq"
+    },
+    {
       "beh_tree__data__useVehicleReq": "sub.useVehicleReq"
     },
     {
@@ -338,6 +341,16 @@
     },
     {
       "beh_tree__resetBlackBoard:tag": []
+    },
+    {
+      "beh_tree__runEidList:list<eid>": {
+        "_tags": "server"
+      }
+    },
+    {
+      "beh_tree__runPosList:list<p3>": {
+        "_tags": "server"
+      }
     },
     {
       "agent__checkCoversList:list<i>": {

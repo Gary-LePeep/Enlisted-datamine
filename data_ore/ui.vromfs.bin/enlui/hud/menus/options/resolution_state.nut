@@ -1,11 +1,11 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { get_video_modes } = require("videomode")
 let { monitorValue } = require("monitor_state.nut")
 let { get_primary_screen_info } = require("dagor.system")
 let platform = require("%dngscripts/platform.nut")
 
-let function getResolutions(monitor) {
+function getResolutions(monitor) {
   let res = get_video_modes(monitor)
 
   // Fixing the truncated list when working via Remote Desktop.

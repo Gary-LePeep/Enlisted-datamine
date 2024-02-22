@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { pPointsBaseParams } = require("%enlist/meta/perks/perksPoints.nut")
 let colorize = require("%ui/components/colorize.nut")
@@ -103,7 +103,7 @@ let treeIdForSoldier = function(perkTreeCfg, perkTreesSpecial, soldier) {
 let treeForSoldier = @(perkTreeCfg, perkTreesSpecial, soldier)
   perkTreeCfg[treeIdForSoldier(perkTreeCfg, perkTreesSpecial, soldier)]
 
-let function getPerkPointsInfo(perkListVal, soldierPerks, exclude = {}) {
+function getPerkPointsInfo(perkListVal, soldierPerks, exclude = {}) {
   let res = {
     used = {}
     total = { speed = 0, vitality = 0, weapon = 0 }
@@ -128,7 +128,7 @@ let function getPerkPointsInfo(perkListVal, soldierPerks, exclude = {}) {
   return res
 }
 
-let function canDiscardPerk(perkListVal, soldierPerks, perkData) {
+function canDiscardPerk(perkListVal, soldierPerks, perkData) {
   if (perkData.tier > 1)
     return true
 

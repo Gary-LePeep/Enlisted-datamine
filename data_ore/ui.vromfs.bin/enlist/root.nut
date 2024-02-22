@@ -1,15 +1,12 @@
 #default:forbid-root-table
 
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 import "%dngscripts/ecs.nut" as ecs
-
-from "dashboard" import override_dashboard_show, SM_SHOW
-override_dashboard_show(SM_SHOW)
 
 ecs.clear_vm_entity_systems()
 
 require("%dngscripts/globalState.nut").setUniqueNestKey("Enlist")
-let {safeAreaAmount,safeAreaVerPadding, safeAreaHorPadding} = require("%enlSqGlob/safeArea.nut")
+let {safeAreaAmount,safeAreaVerPadding, safeAreaHorPadding} = require("%enlSqGlob/ui/safeArea.nut")
 let {editorActivness, uiInEditor} = require("%enlSqGlob/editorState.nut")
 let {editor, editorOverlay, editorModeLabel} = require("editor.nut")
 let {sandboxEditorEnabled, sandboxEditor} = require("sandbox_editor.nut")
@@ -41,7 +38,7 @@ let platform = require("%dngscripts/platform.nut")
 let cursors = require("%ui/style/cursors.nut")
 let {msgboxGeneration, getCurMsgbox} = require("components/msgbox.nut")
 let {modalWindowsComponent} = require("%ui/components/modalWindows.nut")
-let {isLoggedIn} = require("%enlSqGlob/login_state.nut")
+let {isLoggedIn} = require("%enlSqGlob/ui/login_state.nut")
 let mainScreen = require("mainScreen.nut")
 let {inspectorRoot} = require("%darg/helpers/inspector.nut")
 let globInput = require("%ui/glob_input.nut")
@@ -127,7 +124,7 @@ let loginScreen = @(){
   size = flex()
 }
 
-let function curScreen(){
+function curScreen(){
   local children
   if (showSettingsMenu.value)
     children = settingsMenuUi
@@ -164,9 +161,9 @@ let showUi = Computed(@() !editorActivness.value || uiInEditor.value)
 return function Root() {
   return {
     cursor = showCursor.value ? cursors.normal : null
-    watch = [ showCursor, gui_scene.isActive, isInBattleState, showUi, editorActivness, sandboxEditorEnabled ]
+    watch = [ showCursor, isInBattleState, showUi, editorActivness, sandboxEditorEnabled ]
     children = []
-      .extend((!gui_scene.isActive || !showUi.value)
+      .extend(!showUi.value
         ? []
         : isInBattleState.value
             ? inBattleUiChildren

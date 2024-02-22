@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { forcedMinimalHud } = require("%ui/hud/state/hudGameModes.nut")
 let {selfHealMedkits} = require("%ui/hud/state/total_medkits.nut")
@@ -22,7 +22,7 @@ needDisplayHealTip.subscribe(function(need) {
 })
 
 let trigger = {}
-let function mkTip(loc_text) {
+function mkTip(loc_text) {
   return tipCmp({
     inputId = "Inventory.UseMedkit"
     text = loc(loc_text)
@@ -41,7 +41,7 @@ let function mkTip(loc_text) {
 
 let medkitTip = mkTip("tips/need_medkit")
 let revivePerkTip = mkTip("tips/need_revive_perk")
-let function htip(){
+function htip(){
   return {
     size = SIZE_TO_CONTENT
     watch = [showedMedTipAtTime, uiTime, needDisplayHealTip, forcedMinimalHud]

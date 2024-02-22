@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let charClient = require("%enlSqGlob/charClient.nut")
 let { contactsLists, blockedUids, getCrossnetworkChatEnabled } = require("contactsWatchLists.nut")
@@ -8,8 +8,8 @@ let { pushNotification, removeNotify, subscribeGroup, removeNotifyById, Invitati
 let { updateContact, validateNickNames, getContactNick } = require("contact.nut")
 let userInfo = require("%enlSqGlob/userInfo.nut")
 let { matchingCall } = require("%enlist/matchingClient.nut")
-let matching_api = require("matching.api")
-let eventbus = require("eventbus")
+let {matching_listen_notify} = require("matching.api")
+let { eventbus_subscribe } = require("eventbus")
 let msgbox = require("%enlist/components/msgbox.nut")
 let platform = require("%dngscripts/platform.nut")
 let {blocklistUpdate} = require("%enlSqGlob/blocklist.nut")
@@ -46,7 +46,7 @@ let searchContactsResults = Watched({})
 // forward declarations
 local fetchContacts = null
 
-let function execContactsCharAction(userId, charAction) {
+function execContactsCharAction(userId, charAction) {
   if (userId == INVALID_USER_ID) {
     logC($"trying to do {charAction} with invalid contact")
     return
@@ -104,13 +104,13 @@ subscribeGroup(REQUESTS_TO_ME_MAIL, {
   onRemove = @(notify) markRead(notify.mailId)
 })
 
-let function onNotifyListChanged(body, mailId) {
+function onNotifyListChanged(body, mailId) {
   let changed = body?.changed
   if (type(changed) != "table")
     return
 
   let perUidList = {}
-  let function handleList(changedListObj, mode, listName) {
+  function handleList(changedListObj, mode, listName) {
     if (mode not in changedListObj)
       return
     foreach (uid in changedListObj[mode]) {
@@ -164,7 +164,7 @@ let function onNotifyListChanged(body, mailId) {
   }
 }
 
-let function updatePresencesByList(new_presences) {
+function updatePresencesByList(new_presences) {
   logC("Update presences by list: new presences:", new_presences)
   let curPresences = presences.value
   let updPresences = {}
@@ -176,7 +176,7 @@ let function updatePresencesByList(new_presences) {
   updatePresences(updPresences)
 }
 
-let function updateGroup(new_contacts, uids, groupName) {
+function updateGroup(new_contacts, uids, groupName) {
   let members = new_contacts?[groupName] ?? []
   local hasChanges = false
   let newUids = {}
@@ -199,12 +199,12 @@ let function updateGroup(new_contacts, uids, groupName) {
     uids(newUids)
 }
 
-let function updateAllLists(new_contacts) {
+function updateAllLists(new_contacts) {
   foreach (name, uids in contactsLists)
     updateGroup(new_contacts, uids, buildFullListName(name))
 }
 
-let function onUpdateContactsCb(result) {
+function onUpdateContactsCb(result) {
   if ("groups" in result) {
     updateAllLists(result.groups)
   }
@@ -221,7 +221,7 @@ fetchContacts = function (postFetchCb=null) {
   })
 }
 
-let function searchContactsOnline(nick, callback = null) {
+function searchContactsOnline(nick, callback = null) {
   let request = {
     nick = nick
     maxCount = 100
@@ -265,14 +265,14 @@ let function searchContactsOnline(nick, callback = null) {
   )
 }
 
-matching_api.listen_notify("mpresence.notify_presence_update")
-matching_api.listen_notify("postbox.notify_mail")
+matching_listen_notify("mpresence.notify_presence_update")
+matching_listen_notify("postbox.notify_mail")
 
-eventbus.subscribe("mpresence.notify_presence_update", onUpdateContactsCb)
-eventbus.subscribe("postbox.notify_mail",
+eventbus_subscribe("mpresence.notify_presence_update", onUpdateContactsCb)
+eventbus_subscribe("postbox.notify_mail",
   function(mail_obj) {
     if (mail_obj.mail?.subj == "notify_contacts_update") {
-      let function handleMail() {
+      function handleMail() {
         console_print(mail_obj.mail.body)
         onNotifyListChanged(mail_obj.mail.body, mail_obj.mail_id)
       }
@@ -281,7 +281,7 @@ eventbus.subscribe("postbox.notify_mail",
   })
 
 if (platform.is_sony)
-  eventbus.subscribe("playerProfileDialogClosed", @(res) res?.result.wasCanceled ? null : fetchContacts())
+  eventbus_subscribe("playerProfileDialogClosed", @(res) res?.result.wasCanceled ? null : fetchContacts())
 
 blockedUids.subscribe(function(b) {
   let byUid = {}
@@ -303,7 +303,7 @@ if (isContactsEnabled) {
     updatePresencesByList(f)
     updateAllLists({ ["#Enlisted#approved"] = f })
   })
-  let function genFake(count) {
+  function genFake(count) {
     let fake = array(count)
       .map(@(_, i) {
         nick = $"stranger{i}",
@@ -316,7 +316,7 @@ if (isContactsEnabled) {
   }
   console_register_command(genFake, "contacts.generate_fake")
 
-  let function changeFakePresence(count) {
+  function changeFakePresence(count) {
     if (fakeList.value.len() == 0) {
       logC("No fake contacts yet. Generate them first")
       return

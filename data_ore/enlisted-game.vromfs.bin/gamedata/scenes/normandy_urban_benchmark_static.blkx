@@ -757,11 +757,11 @@
     "entity": {
       "_template": "team_usa+team_narrator_domination+respawn_creators_team",
       "team__id": 1,
-      "team__score": 2500.0,
-      "team__scoreCap": 2500.0,
-      "score_bleed__domBleed": 4.0,
+      "team__score": 2800.0,
+      "team__scoreCap": 2800.0,
+      "score_bleed__domBleed": 0.0,
       "score_bleed__domBleedOn": false,
-      "score_bleed__totalDomZoneCount": 3,
+      "score_bleed__totalDomZoneCount": 5,
       "score_bleed__totalDomBleedMul": 2.0,
       "score_bleed__totalDomBleedOn": false,
       "team__briefing": "domination/common_goals",
@@ -774,11 +774,11 @@
     "entity": {
       "_template": "team_germany+team_narrator_domination+respawn_creators_team",
       "team__id": 2,
-      "team__score": 2500.0,
-      "team__scoreCap": 2500.0,
-      "score_bleed__domBleed": 4.0,
+      "team__score": 2800.0,
+      "team__scoreCap": 2800.0,
+      "score_bleed__domBleed": 0.0,
       "score_bleed__domBleedOn": false,
-      "score_bleed__totalDomZoneCount": 3,
+      "score_bleed__totalDomZoneCount": 5,
       "score_bleed__totalDomBleedMul": 2.0,
       "score_bleed__totalDomBleedOn": false,
       "team__briefing": "domination/common_goals",
@@ -938,13 +938,13 @@
         [1.0,0.0,0.0],
         [0.0,1.2,0.0],
         [0.0,0.0,1.0],
-        [-139.179,1.65707,151.41]
+        [-139.179,1.12,151.41]
       ],
-      "capzone__title": "B",
+      "capzone__title": "A",
       "sphere_zone__radius": 18.0,
       "decal__thickness": 0.15,
       "decal__height": 0.4,
-      "ui_order": 2
+      "active": true
     }
   },
   {
@@ -956,9 +956,7 @@
         [0.53651,0.0260384,0.843492],
         [-3.09355,3.06346,157.711]
       ],
-      "groupName": "sector_5",
-      "respawnBaseGroup": 2,
-      "active": true
+      "respawnBaseGroup": 2
     }
   },
   {
@@ -970,9 +968,7 @@
         [0.570427,0.0265312,0.820919],
         [4.86371,3.0348,165.091]
       ],
-      "groupName": "sector_5",
-      "respawnBaseGroup": 2,
-      "active": true
+      "respawnBaseGroup": 2
     }
   },
   {
@@ -984,9 +980,7 @@
         [0.900503,0.0197919,0.434399],
         [-12.7219,2.65243,73.1273]
       ],
-      "groupName": "sector_5",
-      "respawnBaseGroup": 1,
-      "active": true
+      "respawnBaseGroup": 1
     }
   },
   {
@@ -999,10 +993,8 @@
         [44.4598,2.6573,119.048]
       ],
       "respTime": 150,
-      "groupName": "sector_5",
       "team": 1,
-      "maxVehicleOnSpawn": 2,
-      "active": true
+      "maxVehicleOnSpawn": 2
     }
   },
   {
@@ -1015,8 +1007,7 @@
         [-230.367,5.60865,70.5361]
       ],
       "groupName": "sector_5",
-      "respawnBaseGroup": 1,
-      "active": true
+      "respawnBaseGroup": 1
     }
   },
   {
@@ -1029,8 +1020,7 @@
         [-234.331,5.69949,72.798]
       ],
       "groupName": "sector_5",
-      "respawnBaseGroup": 1,
-      "active": true
+      "respawnBaseGroup": 1
     }
   },
   {
@@ -1043,8 +1033,7 @@
         [-188.605,2.79336,31.7383]
       ],
       "groupName": "sector_5",
-      "respawnBaseGroup": 2,
-      "active": true
+      "respawnBaseGroup": 2
     }
   },
   {
@@ -1057,8 +1046,7 @@
         [-174.954,2.79336,28.3263]
       ],
       "groupName": "sector_5",
-      "respawnBaseGroup": 2,
-      "active": true
+      "respawnBaseGroup": 2
     }
   },
   {
@@ -1073,8 +1061,7 @@
       "respTime": 150,
       "groupName": "sector_5",
       "team": 2,
-      "maxVehicleOnSpawn": 2,
-      "active": true
+      "maxVehicleOnSpawn": 2
     }
   },
   {
@@ -1087,8 +1074,7 @@
         [-20.6894,3.02976,70.8379]
       ],
       "groupName": "sector_5",
-      "respawnBaseGroup": 1,
-      "active": true
+      "respawnBaseGroup": 1
     }
   },
   {
@@ -1101,8 +1087,7 @@
         [-30.7613,2.99964,67.1057]
       ],
       "groupName": "sector_5",
-      "respawnBaseGroup": 1,
-      "active": true
+      "respawnBaseGroup": 1
     }
   },
   {
@@ -1151,292 +1136,6 @@
   {
     "entity": {
       "_template": "ui_disabled"
-    }
-  },
-  {
-    "entity": {
-      "_template": "american_assault_boat_m1",
-      "transform": [
-        [-0.0388287,-0.00684447,0.999222],
-        [-0.00164649,0.999976,0.00678565],
-        [-0.999245,-0.00138173,-0.038839],
-        [237.687,0.102321,-172.778]
-      ]
-    }
-  },
-  {
-    "entity": {
-      "_template": "american_assault_boat_m1",
-      "transform": [
-        [-0.672422,-0.00681609,0.740137],
-        [-0.00561405,0.999976,0.00410858],
-        [-0.740147,-0.00139246,-0.672444],
-        [264.312,0.102314,-158.271]
-      ]
-    }
-  },
-  {
-    "entity": {
-      "_template": "american_assault_boat_m1",
-      "transform": [
-        [-0.484299,-0.00681557,0.874876],
-        [-0.00451642,0.999976,0.00529001],
-        [-0.874891,-0.00138936,-0.484318],
-        [195.189,0.102314,-83.1567]
-      ]
-    }
-  },
-  {
-    "entity": {
-      "_template": "american_assault_boat_m1",
-      "transform": [
-        [-0.555584,-0.0068147,0.831433],
-        [-0.00491612,0.999976,0.00491107],
-        [-0.831446,-0.00135891,-0.555604],
-        [184.762,0.102314,-93.255]
-      ]
-    }
-  },
-  {
-    "entity": {
-      "_template": "american_assault_boat_m1",
-      "transform": [
-        [-0.291467,-0.00681557,0.956557],
-        [-0.00331562,0.999976,0.00611465],
-        [-0.956575,-0.00138936,-0.291482],
-        [168.709,0.102314,-41.298]
-      ]
-    }
-  },
-  {
-    "entity": {
-      "_template": "american_assault_boat_m1",
-      "transform": [
-        [-0.410068,-0.00681743,0.91203],
-        [-0.00403694,0.999976,0.00565974],
-        [-0.912046,-0.00136093,-0.410085],
-        [148.881,0.102314,-32.6881]
-      ]
-    }
-  },
-  {
-    "entity": {
-      "_template": "american_assault_boat_m1",
-      "transform": [
-        [0.355313,-0.00681438,-0.934723],
-        [0.00368716,0.999976,-0.0058885],
-        [0.93474,-0.00135421,0.35533],
-        [126.069,0.102314,27.7606]
-      ]
-    }
-  },
-  {
-    "entity": {
-      "_template": "american_assault_boat_m1",
-      "transform": [
-        [-0.269524,-0.0068162,0.962969],
-        [-0.00315249,0.999976,0.0061958],
-        [-0.962988,-0.00136583,-0.269539],
-        [102.567,0.102314,37.3295]
-      ]
-    }
-  },
-  {
-    "entity": {
-      "_template": "american_assault_boat_m1",
-      "transform": [
-        [-0.362208,-0.00681557,0.932073],
-        [-0.00376375,0.999976,0.00584948],
-        [-0.93209,-0.00138936,-0.362225],
-        [99.0754,0.102314,71.8854]
-      ]
-    }
-  },
-  {
-    "entity": {
-      "_template": "american_assault_boat_m1",
-      "transform": [
-        [0.356011,-0.00681557,-0.934457],
-        [0.00372483,0.999976,-0.00587434],
-        [0.934474,-0.00138936,0.356028],
-        [68.3247,0.102314,104.301]
-      ]
-    }
-  },
-  {
-    "entity": {
-      "_template": "american_assault_boat_m1",
-      "transform": [
-        [-0.266024,-0.00681757,0.963942],
-        [-0.00318097,0.999976,0.00619456],
-        [-0.963961,-0.00141837,-0.266039],
-        [73.6581,0.102308,131.368]
-      ]
-    }
-  },
-  {
-    "entity": {
-      "_template": "american_assault_boat_m1",
-      "transform": [
-        [-0.695819,-0.00681333,0.718185],
-        [-0.00573026,0.999976,0.00393484],
-        [-0.718194,-0.00137745,-0.695841],
-        [4.15271,0.102314,208.712]
-      ]
-    }
-  },
-  {
-    "entity": {
-      "_template": "american_assault_boat_m1",
-      "transform": [
-        [0.947176,-0.00681557,0.32064],
-        [0.00601019,0.999976,0.00350142],
-        [-0.320656,-0.00138936,0.947195],
-        [-164.232,0.102314,180.589]
-      ]
-    }
-  },
-  {
-    "entity": {
-      "_template": "american_assault_boat_m1",
-      "transform": [
-        [0.996071,-0.00681557,-0.0883017],
-        [0.00691163,0.999976,0.000782126],
-        [0.0882942,-0.00138936,0.996094],
-        [-203.492,0.102314,161.227]
-      ]
-    }
-  },
-  {
-    "entity": {
-      "_template": "vw_kubelwagen",
-      "transform": [
-        [0.486895,-0.0145397,-0.87334],
-        [-0.0580941,0.997108,-0.0489882],
-        [0.871526,0.074588,0.484642],
-        [208.389,1.64383,16.3618]
-      ]
-    }
-  },
-  {
-    "entity": {
-      "_template": "opel_blitz_kfz_305",
-      "transform": [
-        [0.785615,-0.0106087,-0.618624],
-        [0.0118392,0.999928,-0.00211248],
-        [0.618602,-0.00566443,0.785684],
-        [-12.8002,1.54815,195.15]
-      ]
-    }
-  },
-  {
-    "entity": {
-      "_template": "opel_blitz_kfz_305",
-      "transform": [
-        [0.981248,-0.0102572,-0.192475],
-        [0.0100303,0.999947,-0.00215321],
-        [0.192487,0.000182261,0.9813],
-        [-122.444,1.54984,83.4706]
-      ]
-    }
-  },
-  {
-    "entity": {
-      "_template": "vw_kubelwagen",
-      "transform": [
-        [0.988324,-0.00150607,-0.15236],
-        [0.00138898,0.999999,-0.000874935],
-        [0.152361,0.000653095,0.988325],
-        [-178.041,1.57892,96.2369]
-      ]
-    }
-  },
-  {
-    "entity": {
-      "_template": "vw_kubelwagen",
-      "transform": [
-        [0.966804,-0.00331103,-0.255499],
-        [0.00261447,0.999992,-0.00306584],
-        [0.255507,0.00229607,0.966804],
-        [-150.556,1.574,91.5938]
-      ]
-    }
-  },
-  {
-    "entity": {
-      "_template": "vw_kubelwagen",
-      "transform": [
-        [0.954318,-0.00224693,-0.298785],
-        [0.00136645,0.999994,-0.00315575],
-        [0.29879,0.00260332,0.954315],
-        [-183.059,1.57809,50.1665]
-      ]
-    }
-  },
-  {
-    "entity": {
-      "_template": "pzkpfw_vi_ausf_e_tiger_a_destroyed",
-      "transform": [
-        [0.912837,-0.0161161,0.408006],
-        [0.0196818,0.999796,-0.00454281],
-        [-0.407849,0.0121771,0.912968],
-        [-60.5094,1.69931,77.3718]
-      ]
-    }
-  },
-  {
-    "entity": {
-      "_template": "m4a2_sherman_1944_destroyed",
-      "transform": [
-        [0.309445,0.00154056,0.950916],
-        [-0.00717385,0.999974,0.000714456],
-        [-0.95089,-0.00704281,0.309448],
-        [-109.204,1.62967,32.3506]
-      ]
-    }
-  },
-  {
-    "entity": {
-      "_template": "vw_kubelwagen",
-      "transform": [
-        [-0.605145,-0.0021305,0.796112],
-        [-0.00763682,0.999966,-0.00312891],
-        [-0.796078,-0.00797321,-0.605141],
-        [265.19,1.57941,-91.1028]
-      ]
-    }
-  },
-  {
-    "entity": {
-      "_template": "bf_109g_14_a_destroyed",
-      "transform": [
-        [0.99988,-0.0155159,0.0],
-        [0.0154549,0.995944,-0.0886364],
-        [0.00137528,0.0886257,0.996064],
-        [-146.119,11.4279,-566.423]
-      ]
-    }
-  },
-  {
-    "entity": {
-      "_template": "opel_blitz_kfz_305",
-      "transform": [
-        [-0.787754,-0.0227229,0.61557],
-        [-0.0694161,0.996228,-0.0520584],
-        [-0.612066,-0.0837397,-0.786361],
-        [249.387,1.48258,-123.762]
-      ]
-    }
-  },
-  {
-    "entity": {
-      "_template": "m4a2_sherman_1944_destroyed",
-      "transform": [
-        [-0.798797,-0.0103026,-0.601512],
-        [-0.0103026,0.999941,-0.00344517],
-        [0.601512,0.00344517,-0.798856],
-        [-98.9429,1.70923,194.678]
-      ]
     }
   }
 ]

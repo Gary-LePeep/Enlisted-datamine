@@ -12,65 +12,61 @@ require math.base
 require strings
 
 
-[es(tag=(sound, render, dev), no_order, REQUIRE=soundDebugDrawTemplate)]
-def sound_debug_draw_template(act : UpdateStageInfoRenderDebug;
+[es(no_order, tag=sound, on_event=EventSoundDrawDebug, REQUIRE=soundDebugDrawTemplate)]
+def sound_debug_draw_template(evt : Event;
                               eid : EntityId;
                               transform : float3x4)
   add_debug_text_mark(transform[3], "{eid}={getEntityTemplateName(eid)}", -1, 0., E3DCOLOR(0xFFFFFFFF))
 
 
-[es(tag=(sound, render, dev), no_order)]
-def sound_debug_draw(act : UpdateStageInfoRenderDebug;
+[es(no_order, tag=sound, on_event=EventSoundDrawDebug, REQUIRE=msg_sink)]
+def sound_debug_draw_visual_labels(evt : Event)
+  query_visual_labels() <| $(labels : array<VisualLabel>#)
+    for it in labels
+      add_debug_text_mark(it.pos, "radius={it.radius} name={it.name}", -1, 0., E3DCOLOR(0xFFFF00FF))
+
+
+[es(no_order, tag=sound, on_event=EventSoundDrawDebug)]
+def sound_debug_draw(evt : Event;
                      is_watched_sound : bool = false;
-                     sound_tags : Object;
+                     sound_tags : Object const?;
+                     sound_event_group : SoundEventGroup const?;
                      human_voice_effect__activeEffects : Object const?;
                      [[shared_comp]] human_voice_effect__allOrderedEffects : StringList const?;
                      transform : float3x4)
-  if get_enable_debug_draw()
-    var text = ""
+  var text = ""
 
-    if human_voice_effect__allOrderedEffects != null && human_voice_effect__activeEffects != null
+  if human_voice_effect__allOrderedEffects != null && human_voice_effect__activeEffects != null
 
-      var numEffects = 0
+    var numEffects = 0
+    for id in *human_voice_effect__allOrderedEffects
+      if (*human_voice_effect__activeEffects)[string(id)] ?? false
+        if numEffects == 0
+          text += "voice effects: [{id}"
+        else
+          text += ", {id}"
+        ++numEffects
+    if numEffects > 0
+      text += "] "
+
+    for itFx in *human_voice_effect__activeEffects
+      var exist = false
       for id in *human_voice_effect__allOrderedEffects
-        if (*human_voice_effect__activeEffects)[string(id)] ?? false
-          if numEffects == 0
-            text += "voice effects: [{id}"
-          else
-            text += ", {id}"
-          ++numEffects
-      if numEffects > 0
-        text += "] "
+        exist ||= itFx.key == id
+      if !exist
+        text += "-'{itFx.key}' is MISSING in human_voice_effect__allOrderedEffects-"
 
-      for itFx in *human_voice_effect__activeEffects
-        var exist = false
-        for id in *human_voice_effect__allOrderedEffects
-          exist ||= itFx.key == id
-        if !exist
-          text += "-'{itFx.key}' is MISSING in human_voice_effect__allOrderedEffects-"
+  if sound_tags != null && (is_watched_sound || length(*sound_tags) > 0)
+    text += "sound tags:{*sound_tags} "
 
-    if is_watched_sound || length(sound_tags) > 0
-      text += "sound tags:{sound_tags} "
-    if !empty(text)
-      let color = is_watched_sound ? E3DCOLOR(0xFF0000FF) : E3DCOLOR(0xFF000000)
-      let pos = transform[3] + float3(0., 0.5, 0.)
-      add_debug_text_mark(pos, text, -1, 0., color)
+  if sound_event_group != null && (is_watched_sound || get_num_sounds(*sound_event_group) > 0)
+    text += "sound group:{get_num_sounds(*sound_event_group)} "
 
-    query_visual_labels() <| $(labels : array<VisualLabel>#)
-      for it in labels
-        add_debug_text_mark(it.pos, "radius={it.radius} name={it.name}", -1, 0., E3DCOLOR(0xFFFF00FF))
+  if !empty(text)
+    let color = is_watched_sound ? E3DCOLOR(0xFF0000FF) : E3DCOLOR(0xFF000000)
+    let pos = transform[3] + float3(0., 0.5, 0.)
+    add_debug_text_mark(pos, text, -1, 0., color)
 
-
-[es(tag=(sound, render, dev), REQUIRE_NOT=sound_tags, no_order)]
-def sound_debug_draw_watched(act : UpdateStageInfoRenderDebug;
-                             is_watched_sound : bool;
-                             transform : float3x4)
-  if get_enable_debug_draw()
-    if is_watched_sound
-      let pos = transform[3] + float3(0., 0.5, 0.)
-      let color = is_watched_sound ? E3DCOLOR(0xFF0000FF) : E3DCOLOR(0xFF000000)
-      let text = "watched sound"
-      add_debug_text_mark(pos, text, -1, 0., color)
 
 
 [console_cmd(name="sndsys.preset_enable")]

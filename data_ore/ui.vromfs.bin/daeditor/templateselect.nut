@@ -8,12 +8,12 @@ let textButton = require("components/textButton.nut")
 let closeButton = require("components/closeButton.nut")
 let nameFilter = require("components/nameFilter.nut")
 let combobox = require("%daeditor/components/combobox.nut")
-let scrollbar = require("%daeditor/components/scrollbar.nut")
+let {makeVertScroll} = require("%daeditor/components/scrollbar.nut")
 let {mkTemplateTooltip} = require("components/templateHelp.nut")
 
 let entity_editor = require("entity_editor")
-let daEditor4 = require("daEditor4")
-let {DE4_MODE_SELECT} = daEditor4
+let daEditor = require("daEditorEmbedded")
+let {DE4_MODE_SELECT} = daEditor
 
 let selectedItem = Watched(null)
 let filterText = Watched("")
@@ -23,19 +23,19 @@ let scrollHandler = ScrollHandler()
 
 addEntityCreatedCallback(@(_eid) set_kb_focus(null))
 
-let function scrollByName(text) {
+function scrollByName(text) {
   scrollHandler.scrollToChildren(function(desc) {
     return ("tpl_name" in desc) && desc.tpl_name.indexof(text)!=null
   }, 2, false, true)
 }
 
-let function scrollBySelection() {
+function scrollBySelection() {
   scrollHandler.scrollToChildren(function(desc) {
     return ("tpl_name" in desc) && desc.tpl_name==selectedItem.value
   }, 2, false, true)
 }
 
-let function doSelectTemplate(tpl_name) {
+function doSelectTemplate(tpl_name) {
   selectedItem(tpl_name)
   if (selectedItem.value) {
     let finalTemplateName = selectedItem.value + templatePostfixText.value
@@ -94,7 +94,7 @@ let templPostfix = nameFilter(templatePostfixText, {
 
 let templateTooltip = Watched(null)
 
-let function listRow(tpl_name, idx) {
+function listRow(tpl_name, idx) {
   let stateFlags = Watched(0)
 
   return function() {
@@ -148,7 +148,7 @@ local showWholeList = false
 local showWholeListGroup = ""
 filterText.subscribe(@(_) showWholeList = false)
 
-let function listMore() {
+function listMore() {
   return {
     rendObj = ROBJ_SOLID
     size = [flex(), SIZE_TO_CONTENT]
@@ -170,7 +170,7 @@ let function listMore() {
 
 
 local doRepeatValidateTemplates = @(_idx) null
-let function doValidateTemplates(idx) {
+function doValidateTemplates(idx) {
   const validateAfterName = ""
   local skipped = 0
   while (idx < selectedGroupTemplates.value.len()) {
@@ -199,11 +199,11 @@ let function doValidateTemplates(idx) {
 doRepeatValidateTemplates = doValidateTemplates
 
 
-let function dialogRoot() {
+function dialogRoot() {
   let templatesGroups = entity_editor.get_instance().getEcsTemplatesGroups()
   let maxTemplatesInList = 1000
 
-  let function listContent() {
+  function listContent() {
     if (selectedTemplatesGroup.value != showWholeListGroup) {
       showWholeList = false
       showWholeListGroup = selectedTemplatesGroup.value
@@ -230,7 +230,7 @@ let function dialogRoot() {
     }
   }
 
-  let scrollList = scrollbar.makeVertScroll(listContent, {
+  let scrollList = makeVertScroll(listContent, {
     scrollHandler
     rootBase = class {
       size = flex()
@@ -241,13 +241,13 @@ let function dialogRoot() {
   })
 
 
-  let function doClose() {
+  function doClose() {
     showTemplateSelect(false)
     filterText("")
-    daEditor4.setEditMode(DE4_MODE_SELECT)
+    daEditor.setEditMode(DE4_MODE_SELECT)
   }
 
-  let function doCancel() {
+  function doCancel() {
     if (selectedItem.value != null) {
       selectedItem(null)
       entity_editor.get_instance().selectEcsTemplate("")

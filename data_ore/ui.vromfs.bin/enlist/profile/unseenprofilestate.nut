@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { decorators, medals, wallposters } = require("%enlist/meta/profile.nut")
 let { settings, onlineSettingUpdated } = require("%enlist/options/onlineSettings.nut")
@@ -21,7 +21,7 @@ let compatibility = {
   ["seen/wallposters"] = WALLPOSTERS_SEEN_ID
 }
 
-let function applyCompatibility() {
+function applyCompatibility() {
   let settingsData = settings.value
   foreach (oldKey, newKey in compatibility) {
     if (oldKey not in settingsData)
@@ -38,7 +38,7 @@ let function applyCompatibility() {
     }
     settings.mutate(function(set) {
       set[newKey] <- res
-      delete set[oldKey]
+      set.$rawdelete(oldKey)
     })
   }
 }
@@ -162,7 +162,7 @@ let hasUnopenedWallposters = Computed(@()
   (seenWallposters.value?.unopened ?? {}).len() > 0)
 
 
-let function markSeenDecorator(guid) {
+function markSeenDecorator(guid) {
   if (guid not in (seenDecorators.value?.seen ?? {}))
     settings.mutate(function(set) {
       set[DECORATORS_SEEN_ID] <- (set?[DECORATORS_SEEN_ID] ?? {})
@@ -170,7 +170,7 @@ let function markSeenDecorator(guid) {
     })
 }
 
-let function markDecoratorsOpened(guids) {
+function markDecoratorsOpened(guids) {
   if (guids.len() > 0)
     settings.mutate(function(set) {
       let saved = clone (set?[DECORATORS_SEEN_ID] ?? {})
@@ -180,7 +180,7 @@ let function markDecoratorsOpened(guids) {
     })
 }
 
-let function markSeenMedal(id) {
+function markSeenMedal(id) {
   if (id not in (seenMedals.value?.seen ?? {}))
     settings.mutate(function(set) {
       set[MEDALS_SEEN_ID] <- (set?[MEDALS_SEEN_ID] ?? {})
@@ -188,7 +188,7 @@ let function markSeenMedal(id) {
     })
 }
 
-let function markMedalsOpened(ids) {
+function markMedalsOpened(ids) {
   if (ids.len() > 0)
     settings.mutate(function(set) {
       let saved = clone (set?[MEDALS_SEEN_ID] ?? {})
@@ -198,7 +198,7 @@ let function markMedalsOpened(ids) {
     })
 }
 
-let function markSeenWallposter(id) {
+function markSeenWallposter(id) {
   if (id not in (seenWallposters.value?.seen ?? {}))
     settings.mutate(function(set) {
       set[WALLPOSTERS_SEEN_ID] <- (set?[WALLPOSTERS_SEEN_ID] ?? {})
@@ -206,7 +206,7 @@ let function markSeenWallposter(id) {
     })
 }
 
-let function markWallpostersOpened(ids) {
+function markWallpostersOpened(ids) {
   if (ids.len() > 0)
     settings.mutate(function(set) {
       let saved = clone (set?[WALLPOSTERS_SEEN_ID] ?? {})
@@ -216,9 +216,9 @@ let function markWallpostersOpened(ids) {
     })
 }
 
-console_register_command(@() settings.mutate(@(v) delete v[DECORATORS_SEEN_ID]), "meta.resetSeenDecorators")
-console_register_command(@() settings.mutate(@(v) delete v[MEDALS_SEEN_ID]), "meta.resetSeenMedals")
-console_register_command(@() settings.mutate(@(v) delete v[WALLPOSTERS_SEEN_ID]), "meta.resetSeenWallposters")
+console_register_command(@() settings.mutate(@(v) v.$rawdelete(DECORATORS_SEEN_ID)), "meta.resetSeenDecorators")
+console_register_command(@() settings.mutate(@(v) v.$rawdelete(MEDALS_SEEN_ID)), "meta.resetSeenMedals")
+console_register_command(@() settings.mutate(@(v) v.$rawdelete(WALLPOSTERS_SEEN_ID)), "meta.resetSeenWallposters")
 
 return {
   seenDecorators

@@ -13,6 +13,9 @@
       "_use": "base_damage_model_fx"
     },
     {
+      "_use": "base_damage_model_ai_points"
+    },
+    {
       "_use": "vehicle_engine_external_fire"
     },
     {
@@ -225,6 +228,12 @@
     },
     {
       "collidableToPhysObj:tag": []
+    },
+    {
+      "ownedBySquad:eid": []
+    },
+    {
+      "ownedByPlayer:eid": []
     },
     {
       "vehicleDisplayMarkerOverHead:tag": {
@@ -785,34 +794,10 @@
       "_use": "four_seats_vehicle"
     },
     {
-      "_use": "car_vehicle_brakes_sound"
-    },
-    {
-      "_use": "car_vehicle_seat_sound"
-    },
-    {
-      "_use": "car_vehicle_suspension_sound"
-    },
-    {
-      "_use": "car_vehicle_tracks_sound"
-    },
-    {
-      "_use": "car_vehicle_engine_sound"
-    },
-    {
-      "_use": "car_vehicle_gear_sound"
-    },
-    {
-      "_use": "car_vehicle_horn_sound"
-    },
-    {
-      "_use": "vehicle_horn_note_D5"
-    },
-    {
-      "_use": "car_inside_sound"
-    },
-    {
       "_use": "simple_damage_model"
+    },
+    {
+      "_use": "opel_olympia_vehicle_sound"
     },
     {
       "vehicleType": "civil_car"
@@ -897,34 +882,13 @@
       "_use": "four_seats_vehicle"
     },
     {
-      "_use": "car_vehicle_brakes_sound"
-    },
-    {
-      "_use": "nodoor_vehicle_seat_sound"
-    },
-    {
-      "_use": "car_vehicle_suspension_sound"
-    },
-    {
-      "_use": "car_vehicle_tracks_sound"
-    },
-    {
-      "_use": "car_vehicle_engine_sound"
-    },
-    {
-      "_use": "jeep_vehicle_gear_sound"
-    },
-    {
-      "_use": "car_vehicle_horn_sound"
-    },
-    {
-      "_use": "vehicle_horn_note_A5"
-    },
-    {
       "_use": "simple_damage_model"
     },
     {
       "_use": "kick_passengers_on_flip"
+    },
+    {
+      "_use": "gaz_67_vehicle_sound"
     },
     {
       "vehicleType": "offroad_car"
@@ -949,30 +913,6 @@
     },
     {
       "car_painting__chance": 0.9
-    },
-    {
-      "_group": {
-        "_tags": "sound",
-        "vehicle_engine_sound__path:shared:object": {
-          "hero": "player/vehicle/car/gaz_67/engine",
-          "enemy": "enemy/vehicle/car/gaz_67/engine"
-        },
-        "vehicle_engine_sound__startPath:shared:object": {
-          "hero": "player/vehicle/car/gaz_67/engine_start",
-          "enemy": "enemy/vehicle/car/gaz_67/engine_start"
-        },
-        "vehicle_engine_sound__stopPath:shared:object": {
-          "hero": "player/vehicle/car/gaz_67/engine_stop",
-          "enemy": "enemy/vehicle/car/gaz_67/engine_stop"
-        }
-      }
-    },
-    {
-      "vehicle_tracks_sound__path:shared:object": {
-        "_tags": "sound",
-        "hero": "player/vehicle/car/gaz_67/tracks",
-        "enemy": "enemy/vehicle/car/gaz_67/tracks"
-      }
     },
     {
       "car_painting__possibleColors:array": [
@@ -1017,34 +957,13 @@
       "_use": "four_seats_vehicle"
     },
     {
-      "_use": "car_vehicle_brakes_sound"
-    },
-    {
-      "_use": "car_vehicle_seat_sound"
-    },
-    {
-      "_use": "car_vehicle_suspension_sound"
-    },
-    {
-      "_use": "car_vehicle_tracks_sound"
-    },
-    {
-      "_use": "car_vehicle_engine_sound"
-    },
-    {
-      "_use": "jeep_vehicle_gear_sound"
-    },
-    {
-      "_use": "car_vehicle_horn_sound"
-    },
-    {
-      "_use": "vehicle_horn_note_C5"
-    },
-    {
       "_use": "simple_damage_model"
     },
     {
       "_use": "kick_passengers_on_flip"
+    },
+    {
+      "_use": "vw_kubelwagen_vehicle_sound"
     },
     {
       "vehicleType": "offroad_car"
@@ -1069,30 +988,6 @@
     },
     {
       "car_painting__chance": 0.9
-    },
-    {
-      "_group": {
-        "_tags": "sound",
-        "vehicle_engine_sound__path:shared:object": {
-          "hero": "player/vehicle/car/vw_kubelwagen/engine",
-          "enemy": "enemy/vehicle/car/vw_kubelwagen/engine"
-        },
-        "vehicle_engine_sound__startPath:shared:object": {
-          "hero": "player/vehicle/car/vw_kubelwagen/engine_start",
-          "enemy": "enemy/vehicle/car/vw_kubelwagen/engine_start"
-        },
-        "vehicle_engine_sound__stopPath:shared:object": {
-          "hero": "player/vehicle/car/vw_kubelwagen/engine_stop",
-          "enemy": "enemy/vehicle/car/vw_kubelwagen/engine_stop"
-        }
-      }
-    },
-    {
-      "vehicle_tracks_sound__path:shared:object": {
-        "_tags": "sound",
-        "hero": "player/vehicle/car/vw_kubelwagen/tracks",
-        "enemy": "enemy/vehicle/car/vw_kubelwagen/tracks"
-      }
     },
     {
       "car_painting__possibleColors:array": [
@@ -1142,37 +1037,13 @@
       "_use": "truck_ten_seats_vehicle"
     },
     {
-      "_use": "truck_vehicle_brakes_sound"
-    },
-    {
-      "_use": "truck_vehicle_tracks_sound"
-    },
-    {
-      "_use": "car_vehicle_seat_sound"
-    },
-    {
-      "_use": "car_vehicle_suspension_sound"
-    },
-    {
-      "_use": "car_vehicle_engine_sound"
-    },
-    {
-      "_use": "truck_vehicle_gear_sound"
-    },
-    {
-      "_use": "car_vehicle_horn_sound"
-    },
-    {
-      "_use": "vehicle_horn_note_E4"
-    },
-    {
-      "_use": "car_inside_sound_for_driver_passenger1"
-    },
-    {
       "_use": "simple_damage_model"
     },
     {
       "_use": "kick_passengers_on_flip"
+    },
+    {
+      "_use": "opel_blitz_kfz_305_vehicle_sound"
     },
     {
       "vehicleType": "truck"
@@ -1206,30 +1077,6 @@
     },
     {
       "car_painting__chance": 0.9
-    },
-    {
-      "_group": {
-        "_tags": "sound",
-        "vehicle_engine_sound__path:shared:object": {
-          "hero": "player/vehicle/car/opel_blitz_kfz_305/engine",
-          "enemy": "enemy/vehicle/car/opel_blitz_kfz_305/engine"
-        },
-        "vehicle_engine_sound__startPath:shared:object": {
-          "hero": "player/vehicle/car/opel_blitz_kfz_305/engine_start",
-          "enemy": "enemy/vehicle/car/opel_blitz_kfz_305/engine_start"
-        },
-        "vehicle_engine_sound__stopPath:shared:object": {
-          "hero": "player/vehicle/car/opel_blitz_kfz_305/engine_stop",
-          "enemy": "enemy/vehicle/car/opel_blitz_kfz_305/engine_stop"
-        }
-      }
-    },
-    {
-      "vehicle_tracks_sound__path:shared:object": {
-        "_tags": "sound",
-        "hero": "player/vehicle/car/opel_blitz_kfz_305/tracks",
-        "enemy": "enemy/vehicle/car/opel_blitz_kfz_305/tracks"
-      }
     },
     {
       "car_painting__possibleColors:array": [
@@ -1295,34 +1142,10 @@
       "_use": "ten_seats_vehicle"
     },
     {
-      "_use": "truck_vehicle_brakes_sound"
-    },
-    {
-      "_use": "truck_vehicle_tracks_sound"
-    },
-    {
-      "_use": "car_vehicle_seat_sound"
-    },
-    {
-      "_use": "car_vehicle_suspension_sound"
-    },
-    {
-      "_use": "car_vehicle_engine_sound"
-    },
-    {
-      "_use": "truck_vehicle_gear_sound"
-    },
-    {
-      "_use": "car_vehicle_horn_sound"
-    },
-    {
-      "_use": "vehicle_horn_note_F4"
-    },
-    {
-      "_use": "car_inside_sound"
-    },
-    {
       "_use": "simple_damage_model"
+    },
+    {
+      "_use": "opel_blitz_omnibus_vehicle_sound"
     },
     {
       "vehicleType": "bus"
@@ -1356,30 +1179,6 @@
     },
     {
       "car_painting__chance": 0.9
-    },
-    {
-      "_group": {
-        "_tags": "sound",
-        "vehicle_engine_sound__path:shared:object": {
-          "hero": "player/vehicle/car/opel_blitz_omnibus/engine",
-          "enemy": "enemy/vehicle/car/opel_blitz_omnibus/engine"
-        },
-        "vehicle_engine_sound__startPath:shared:object": {
-          "hero": "player/vehicle/car/opel_blitz_omnibus/engine_start",
-          "enemy": "enemy/vehicle/car/opel_blitz_omnibus/engine_start"
-        },
-        "vehicle_engine_sound__stopPath:shared:object": {
-          "hero": "player/vehicle/car/opel_blitz_omnibus/engine_stop",
-          "enemy": "enemy/vehicle/car/opel_blitz_omnibus/engine_stop"
-        }
-      }
-    },
-    {
-      "vehicle_tracks_sound__path:shared:object": {
-        "_tags": "sound",
-        "hero": "player/vehicle/car/opel_blitz_omnibus/tracks",
-        "enemy": "enemy/vehicle/car/opel_blitz_omnibus/tracks"
-      }
     },
     {
       "car_painting__possibleColors:array": [
@@ -1430,34 +1229,13 @@
       "_use": "four_seats_vehicle"
     },
     {
-      "_use": "car_vehicle_brakes_sound"
-    },
-    {
-      "_use": "nodoor_vehicle_seat_sound"
-    },
-    {
-      "_use": "car_vehicle_suspension_sound"
-    },
-    {
-      "_use": "car_vehicle_tracks_sound"
-    },
-    {
-      "_use": "car_vehicle_engine_sound"
-    },
-    {
-      "_use": "jeep_vehicle_gear_sound"
-    },
-    {
-      "_use": "car_vehicle_horn_sound"
-    },
-    {
-      "_use": "vehicle_horn_note_B5"
-    },
-    {
       "_use": "simple_damage_model"
     },
     {
       "_use": "kick_passengers_on_flip"
+    },
+    {
+      "_use": "willys_mb_vehicle_sound"
     },
     {
       "vehicleType": "offroad_car"
@@ -1482,30 +1260,6 @@
     },
     {
       "car_painting__chance": 0.9
-    },
-    {
-      "_group": {
-        "_tags": "sound",
-        "vehicle_engine_sound__path:shared:object": {
-          "hero": "player/vehicle/car/vw_kubelwagen/engine",
-          "enemy": "enemy/vehicle/car/vw_kubelwagen/engine"
-        },
-        "vehicle_engine_sound__startPath:shared:object": {
-          "hero": "player/vehicle/car/vw_kubelwagen/engine_start",
-          "enemy": "enemy/vehicle/car/vw_kubelwagen/engine_start"
-        },
-        "vehicle_engine_sound__stopPath:shared:object": {
-          "hero": "player/vehicle/car/vw_kubelwagen/engine_stop",
-          "enemy": "enemy/vehicle/car/vw_kubelwagen/engine_stop"
-        }
-      }
-    },
-    {
-      "vehicle_tracks_sound__path:shared:object": {
-        "_tags": "sound",
-        "hero": "player/vehicle/car/vw_kubelwagen/tracks",
-        "enemy": "enemy/vehicle/car/vw_kubelwagen/tracks"
-      }
     },
     {
       "car_painting__possibleColors:array": [
@@ -1556,34 +1310,10 @@
       "_use": "four_seats_vehicle"
     },
     {
-      "_use": "car_vehicle_brakes_sound"
-    },
-    {
-      "_use": "nodoor_vehicle_seat_sound"
-    },
-    {
-      "_use": "car_vehicle_suspension_sound"
-    },
-    {
-      "_use": "car_vehicle_tracks_sound"
-    },
-    {
-      "_use": "car_vehicle_engine_sound"
-    },
-    {
-      "_use": "simple_damage_model"
-    },
-    {
-      "_use": "jeep_vehicle_gear_sound"
-    },
-    {
-      "_use": "car_vehicle_horn_sound"
-    },
-    {
-      "_use": "vehicle_horn_note_B5"
-    },
-    {
       "_use": "kick_passengers_on_flip"
+    },
+    {
+      "_use": "ford_gpa_vehicle_sound"
     },
     {
       "vehicleType": "offroad_car"
@@ -1611,30 +1341,6 @@
     },
     {
       "car_painting__chance": 0.9
-    },
-    {
-      "_group": {
-        "_tags": "sound",
-        "vehicle_engine_sound__path:shared:object": {
-          "hero": "player/vehicle/car/vw_kubelwagen/engine",
-          "enemy": "enemy/vehicle/car/vw_kubelwagen/engine"
-        },
-        "vehicle_engine_sound__startPath:shared:object": {
-          "hero": "player/vehicle/car/vw_kubelwagen/engine_start",
-          "enemy": "enemy/vehicle/car/vw_kubelwagen/engine_start"
-        },
-        "vehicle_engine_sound__stopPath:shared:object": {
-          "hero": "player/vehicle/car/vw_kubelwagen/engine_stop",
-          "enemy": "enemy/vehicle/car/vw_kubelwagen/engine_stop"
-        }
-      }
-    },
-    {
-      "vehicle_tracks_sound__path:shared:object": {
-        "_tags": "sound",
-        "hero": "player/vehicle/car/vw_kubelwagen/tracks",
-        "enemy": "enemy/vehicle/car/vw_kubelwagen/tracks"
-      }
     },
     {
       "car_painting__possibleColors:array": [
@@ -1679,34 +1385,10 @@
       "_use": "four_seats_vehicle"
     },
     {
-      "_use": "car_vehicle_brakes_sound"
-    },
-    {
-      "_use": "car_vehicle_seat_sound"
-    },
-    {
-      "_use": "car_vehicle_suspension_sound"
-    },
-    {
-      "_use": "car_vehicle_tracks_sound"
-    },
-    {
-      "_use": "car_vehicle_engine_sound"
-    },
-    {
-      "_use": "jeep_vehicle_gear_sound"
-    },
-    {
-      "_use": "car_vehicle_horn_sound"
-    },
-    {
-      "_use": "vehicle_horn_note_G4"
-    },
-    {
-      "_use": "car_inside_sound"
-    },
-    {
       "_use": "simple_damage_model"
+    },
+    {
+      "_use": "gaz_m1_vehicle_sound"
     },
     {
       "vehicleType": "civil_car"
@@ -1734,30 +1416,6 @@
     },
     {
       "car_painting__chance": 0.9
-    },
-    {
-      "_group": {
-        "_tags": "sound",
-        "vehicle_engine_sound__path:shared:object": {
-          "hero": "player/vehicle/car/gaz_67/engine",
-          "enemy": "enemy/vehicle/car/gaz_67/engine"
-        },
-        "vehicle_engine_sound__startPath:shared:object": {
-          "hero": "player/vehicle/car/gaz_67/engine_start",
-          "enemy": "enemy/vehicle/car/gaz_67/engine_start"
-        },
-        "vehicle_engine_sound__stopPath:shared:object": {
-          "hero": "player/vehicle/car/gaz_67/engine_stop",
-          "enemy": "enemy/vehicle/car/gaz_67/engine_stop"
-        }
-      }
-    },
-    {
-      "vehicle_tracks_sound__path:shared:object": {
-        "_tags": "sound",
-        "hero": "player/vehicle/car/gaz_67/tracks",
-        "enemy": "enemy/vehicle/car/gaz_67/tracks"
-      }
     },
     {
       "car_painting__possibleColors:array": [
@@ -1823,34 +1481,10 @@
       "_use": "four_seats_vehicle"
     },
     {
-      "_use": "car_vehicle_brakes_sound"
-    },
-    {
-      "_use": "car_vehicle_seat_sound"
-    },
-    {
-      "_use": "car_vehicle_suspension_sound"
-    },
-    {
-      "_use": "car_vehicle_tracks_sound"
-    },
-    {
-      "_use": "car_vehicle_engine_sound"
-    },
-    {
-      "_use": "car_vehicle_gear_sound"
-    },
-    {
-      "_use": "car_vehicle_horn_sound"
-    },
-    {
-      "_use": "vehicle_horn_note_E5"
-    },
-    {
-      "_use": "car_inside_sound"
-    },
-    {
       "_use": "simple_damage_model"
+    },
+    {
+      "_use": "vw_beetle_vehicle_sound"
     },
     {
       "vehicleType": "civil_car"
@@ -1945,37 +1579,13 @@
       "_use": "truck_ten_seats_vehicle"
     },
     {
-      "_use": "truck_vehicle_brakes_sound"
-    },
-    {
-      "_use": "truck_vehicle_tracks_sound"
-    },
-    {
-      "_use": "car_vehicle_seat_sound"
-    },
-    {
-      "_use": "car_vehicle_suspension_sound"
-    },
-    {
-      "_use": "car_vehicle_engine_sound"
-    },
-    {
-      "_use": "truck_vehicle_gear_sound"
-    },
-    {
-      "_use": "car_vehicle_horn_sound"
-    },
-    {
-      "_use": "vehicle_horn_note_E4"
-    },
-    {
-      "_use": "car_inside_sound_for_driver_passenger1"
-    },
-    {
       "_use": "simple_damage_model"
     },
     {
       "_use": "kick_passengers_on_flip"
+    },
+    {
+      "_use": "nissan_80_vehicle_sound"
     },
     {
       "vehicleType": "truck"
@@ -2009,30 +1619,6 @@
     },
     {
       "car_painting__chance": 0.9
-    },
-    {
-      "_group": {
-        "_tags": "sound",
-        "vehicle_engine_sound__path:shared:object": {
-          "hero": "player/vehicle/car/opel_blitz_kfz_305/engine",
-          "enemy": "enemy/vehicle/car/opel_blitz_kfz_305/engine"
-        },
-        "vehicle_engine_sound__startPath:shared:object": {
-          "hero": "player/vehicle/car/opel_blitz_kfz_305/engine_start",
-          "enemy": "enemy/vehicle/car/opel_blitz_kfz_305/engine_start"
-        },
-        "vehicle_engine_sound__stopPath:shared:object": {
-          "hero": "player/vehicle/car/opel_blitz_kfz_305/engine_stop",
-          "enemy": "enemy/vehicle/car/opel_blitz_kfz_305/engine_stop"
-        }
-      }
-    },
-    {
-      "vehicle_tracks_sound__path:shared:object": {
-        "_tags": "sound",
-        "hero": "player/vehicle/car/opel_blitz_kfz_305/tracks",
-        "enemy": "enemy/vehicle/car/opel_blitz_kfz_305/tracks"
-      }
     },
     {
       "disableDMParts:list<t>": [
@@ -2071,34 +1657,13 @@
       "_use": "base_civil_fire_ready_vehicle"
     },
     {
-      "_use": "truck_vehicle_brakes_sound"
-    },
-    {
-      "_use": "truck_vehicle_tracks_sound"
-    },
-    {
-      "_use": "car_vehicle_seat_sound"
-    },
-    {
-      "_use": "car_vehicle_suspension_sound"
-    },
-    {
-      "_use": "car_vehicle_engine_sound"
-    },
-    {
-      "_use": "truck_vehicle_gear_sound"
-    },
-    {
-      "_use": "car_vehicle_horn_sound"
-    },
-    {
-      "_use": "vehicle_horn_note_E4"
-    },
-    {
       "_use": "simple_damage_model"
     },
     {
       "_use": "kick_passengers_on_flip"
+    },
+    {
+      "_use": "gmc_353_a_vehicle_sound"
     },
     {
       "vehicleType": "truck"
@@ -2347,30 +1912,6 @@
       ]
     },
     {
-      "_group": {
-        "_tags": "sound",
-        "vehicle_engine_sound__path:shared:object": {
-          "hero": "player/vehicle/car/opel_blitz_kfz_305/engine",
-          "enemy": "enemy/vehicle/car/opel_blitz_kfz_305/engine"
-        },
-        "vehicle_engine_sound__startPath:shared:object": {
-          "hero": "player/vehicle/car/opel_blitz_kfz_305/engine_start",
-          "enemy": "enemy/vehicle/car/opel_blitz_kfz_305/engine_start"
-        },
-        "vehicle_engine_sound__stopPath:shared:object": {
-          "hero": "player/vehicle/car/opel_blitz_kfz_305/engine_stop",
-          "enemy": "enemy/vehicle/car/opel_blitz_kfz_305/engine_stop"
-        }
-      }
-    },
-    {
-      "vehicle_tracks_sound__path:shared:object": {
-        "_tags": "sound",
-        "hero": "player/vehicle/car/opel_blitz_kfz_305/tracks",
-        "enemy": "enemy/vehicle/car/opel_blitz_kfz_305/tracks"
-      }
-    },
-    {
       "disableDMParts:list<t>": [
         {
           "part": "commander"
@@ -2413,37 +1954,13 @@
       "_use": "base_civil_fire_ready_vehicle"
     },
     {
-      "_use": "truck_vehicle_brakes_sound"
-    },
-    {
-      "_use": "truck_vehicle_tracks_sound"
-    },
-    {
-      "_use": "car_vehicle_seat_sound"
-    },
-    {
-      "_use": "car_vehicle_suspension_sound"
-    },
-    {
-      "_use": "car_vehicle_engine_sound"
-    },
-    {
-      "_use": "truck_vehicle_gear_sound"
-    },
-    {
-      "_use": "car_vehicle_horn_sound"
-    },
-    {
-      "_use": "vehicle_horn_note_E4"
-    },
-    {
-      "_use": "car_inside_sound_for_driver_passenger1"
-    },
-    {
       "_use": "simple_damage_model"
     },
     {
       "_use": "kick_passengers_on_flip"
+    },
+    {
+      "_use": "gmc_353_b_vehicle_sound"
     },
     {
       "vehicleType": "truck"
@@ -2692,30 +2209,6 @@
       ]
     },
     {
-      "_group": {
-        "_tags": "sound",
-        "vehicle_engine_sound__path:shared:object": {
-          "hero": "player/vehicle/car/opel_blitz_kfz_305/engine",
-          "enemy": "enemy/vehicle/car/opel_blitz_kfz_305/engine"
-        },
-        "vehicle_engine_sound__startPath:shared:object": {
-          "hero": "player/vehicle/car/opel_blitz_kfz_305/engine_start",
-          "enemy": "enemy/vehicle/car/opel_blitz_kfz_305/engine_start"
-        },
-        "vehicle_engine_sound__stopPath:shared:object": {
-          "hero": "player/vehicle/car/opel_blitz_kfz_305/engine_stop",
-          "enemy": "enemy/vehicle/car/opel_blitz_kfz_305/engine_stop"
-        }
-      }
-    },
-    {
-      "vehicle_tracks_sound__path:shared:object": {
-        "_tags": "sound",
-        "hero": "player/vehicle/car/opel_blitz_kfz_305/tracks",
-        "enemy": "enemy/vehicle/car/opel_blitz_kfz_305/tracks"
-      }
-    },
-    {
       "disableDMParts:list<t>": [
         {
           "part": "commander"
@@ -2758,30 +2251,6 @@
       "_use": "base_civil_fire_ready_vehicle_tracked"
     },
     {
-      "_use": "tank_t34_engine_sound"
-    },
-    {
-      "_use": "tank_vehicle_gear_sound"
-    },
-    {
-      "_use": "tank_vehicle_collision_sound_setup"
-    },
-    {
-      "_use": "tank_vehicle_damage_sound_setup"
-    },
-    {
-      "_use": "tank_light_vehicle_tracks_sound"
-    },
-    {
-      "_use": "car_vehicle_horn_sound"
-    },
-    {
-      "_use": "vehicle_horn_note_E4"
-    },
-    {
-      "_use": "car_inside_sound"
-    },
-    {
       "_use": "simple_damage_model"
     },
     {
@@ -2789,6 +2258,9 @@
     },
     {
       "_use": "vehicle_maintenance"
+    },
+    {
+      "_use": "tractor_stz_5_common_vehicle_sound"
     },
     {
       "vehicleType": "truck"

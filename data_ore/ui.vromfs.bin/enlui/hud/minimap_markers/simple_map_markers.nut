@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { watchedHeroSquadEid } = require("%ui/hud/state/squad_members.nut")
 let { simple_map_markers_Set, simple_map_markers_GetWatched } = require("%ui/hud/state/simple_map_markers.nut")

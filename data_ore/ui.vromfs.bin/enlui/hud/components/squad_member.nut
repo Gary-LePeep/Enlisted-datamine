@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { HitResult } = require("%enlSqGlob/dasenums.nut")
 let { HEAL_RES_COMMON, HEAL_RES_REVIVE, ATTACK_RES } = require("%ui/hud/state/squad_members.nut")
@@ -53,7 +53,7 @@ let mkAiImage = memoize(function(image, size) {
   return Picture($"ui/skin#{image}:{size}:{size}:K")
 })
 
-let function mkAiActionIcon(member, size, color = defTxtColor) {
+function mkAiActionIcon(member, size, color = defTxtColor) {
   let image = aiActionIcons?[member.currentAiAction]
   if (member.eid == controlledHeroEid.value || !member.isAlive || !member.hasAI || !image)
     return null

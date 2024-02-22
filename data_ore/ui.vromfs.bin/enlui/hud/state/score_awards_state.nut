@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { EventOnSquadStats } = require("%enlSqGlob/sqevents.nut")
 let awardsLog = require("%ui/hud/state/eventlog.nut").awards

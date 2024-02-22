@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {
   smallPadding, bigPadding, vehicleListCardSize, listCtors
@@ -20,7 +20,7 @@ let bgColor = @(sf, isAvailable) sf & S_HOVER ? squadSlotBgHoverColor
   : isAvailable ? squadSlotBgIdleColor
   : disabledTxtColor
 
-let function mkVehicleImage(gametemplate, skinId) {
+function mkVehicleImage(gametemplate, skinId) {
   let override = {
     width = vehicleListCardSize[0] - smallPadding * 2
     height = vehicleListCardSize[1] - smallPadding * 2

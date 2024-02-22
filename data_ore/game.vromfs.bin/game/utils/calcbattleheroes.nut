@@ -4,7 +4,7 @@ let {
 
 let compareAwards = @(a, b) (awardPriority[a.award] <=> awardPriority[b.award]) || (a.score <=> b.score)
 
-let function getBattleHeroForPlayer(playerAwards, playerEid) {
+function getBattleHeroForPlayer(playerAwards, playerEid) {
   let soldier = playerAwards.reduce(@(a, b) compareAwards(a, b) > 0 ? a : b).soldier
   return {
     playerEid
@@ -13,7 +13,7 @@ let function getBattleHeroForPlayer(playerAwards, playerEid) {
   }
 }
 
-let function pickHeroes(heroByPlayer, scoreIndex, count) {
+function pickHeroes(heroByPlayer, scoreIndex, count) {
   return heroByPlayer.map(@(v, eid) {
     eid
     priority = v.awards.map(@(a) awardPriority[a]).reduce(@(a,b) a > b ? a : b)
@@ -26,7 +26,7 @@ let function pickHeroes(heroByPlayer, scoreIndex, count) {
   .totable()
 }
 
-let function calcBattleHeroes(playersAwards, playersScoreIndex, isWinningTeam) {
+function calcBattleHeroes(playersAwards, playersScoreIndex, isWinningTeam) {
   let playerHeroes = playersAwards.map(getBattleHeroForPlayer)
   let teamHeroCount = isWinningTeam ? WINNING_TEAM_BATTLE_HEROES_COUNT : LOSING_TEAM_BATTLE_HEROES_COUNT
   return pickHeroes(playerHeroes, playersScoreIndex, teamHeroCount)

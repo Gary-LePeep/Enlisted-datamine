@@ -10,7 +10,7 @@ let console = require("console")
 let unlocalizedStrings = persist("unlocalizedStrings", @() {})
 let defLocalizedStrings = persist("defLocalizedStrings", @() {})
 
-let function locWithCheck(locId, ...) {
+function locWithCheck(locId, ...) {
   if (locId==null)
     return null
 
@@ -30,7 +30,7 @@ let function locWithCheck(locId, ...) {
   return nativeLoc.acall([null, locId].extend(vargv))
 }
 
-let function hashLocFunc(locId, ...) {
+function hashLocFunc(locId, ...) {
   let keys = ["", ""]
 
   foreach (idx, v in vargv) {
@@ -48,7 +48,7 @@ let memoizedLoc = memoize(locWithCheck, hashLocFunc, persistLocCache)
 let checkedLoc = @(locId, defLoc=null, params=null) memoizedLoc(locId, defLoc, params)
 let debugLocalizations = DBGLEVEL > 0 && __name__ != "__main__" && "__argv" not in getroottable()
 
-let function dumpLocalizationErrors(){
+function dumpLocalizationErrors(){
   let unlocalizedStringsN = unlocalizedStrings.len() + defLocalizedStrings.len()
   if (unlocalizedStringsN > 0) {
     logerr($"[LANG] {unlocalizedStringsN} strings has no localizations")

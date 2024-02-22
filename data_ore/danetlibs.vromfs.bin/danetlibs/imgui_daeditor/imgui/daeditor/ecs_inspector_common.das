@@ -65,13 +65,13 @@ def default_menu(eid : array<EntityId> implicit;
   var res = true
   if imgui::BeginPopup("defaultSubMenuPopup_{name}")
 
-    if imgui::Button("Copy")
+    if imgui::Button("Copy##name")
       imgui::CloseCurrentPopup()
       imgui::SetClipboardText(name)
     imgui::SameLine()
     imgui::Text(name)
 
-    if imgui::Button("Copy")
+    if imgui::Button("Copy##value")
       imgui::CloseCurrentPopup()
       imgui::SetClipboardText(typeName)
     imgui::SameLine()
@@ -386,7 +386,7 @@ def draw_TMatrix(eid : array<EntityId> implicit; flags : uint; name : string; re
 
     if imgui::Button("Copy rotation")
       imgui::CloseCurrentPopup()
-      float4(quat(*val)) |> to_string |> imgui::SetClipboardText
+      float4(DagorMath::quat(*val)) |> to_string |> imgui::SetClipboardText
 
     imgui::Separator()
 

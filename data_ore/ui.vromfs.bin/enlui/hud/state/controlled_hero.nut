@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 let {EventHeroChanged} = require("gameevents")
 
 let {get_controlled_hero} = require("%dngscripts/common_queries.nut")

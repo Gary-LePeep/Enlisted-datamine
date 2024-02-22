@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {isAlive, isDowned} = require("%ui/hud/state/health_state.nut")
 let {inVehicle} = require("%ui/hud/state/vehicle_state.nut")
@@ -44,7 +44,7 @@ let selectedBuildingQuery = ecs.SqQuery("selectedBuildingQuery", {
   ]
 })
 
-let function updateBuildingsPriceRequirements(previewTemplates){
+function updateBuildingsPriceRequirements(previewTemplates){
   let previewCostRequirements = []
   let previewAllowRecreates = []
   foreach (templateName in previewTemplates) {

@@ -2,7 +2,7 @@ let {loc} = require("%dngscripts/localizations.nut")
 let { platformId } = require("%dngscripts/platform.nut")
 let { doesLocTextExist } = require("dagor.localize")
 
-let function locByPlatform(locId, ...) {
+function locByPlatform(locId, ...) {
   local params = null
   local defLocId = locId
   foreach (v in vargv)

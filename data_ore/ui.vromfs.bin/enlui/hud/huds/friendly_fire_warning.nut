@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {fontBody} = require("%enlSqGlob/ui/fontsStyle.nut")
 let {HUD_TIPS_FAIL_TEXT_COLOR} = require("%ui/hud/style.nut")

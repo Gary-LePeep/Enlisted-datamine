@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let colon = loc("ui/colon")
 let tabulation = "\u2007" // won't be trimmed
@@ -18,7 +18,7 @@ let commonMultipliersCfg = [
   { stat = "lastGameDeserterMult", locId = "debriefing/lastGameDeserterMult"},
 ]
 
-let function getPremMultiplier(stats) {
+function getPremMultiplier(stats) {
   let { isRented = false, premSquadExpBonus = 0, premAccountExpBonus = 0 } = stats
   let mult = 1 + premSquadExpBonus + premAccountExpBonus
   let stat = isRented ? "squadRentedMult"
@@ -29,7 +29,7 @@ let function getPremMultiplier(stats) {
   return stat == "" ? {} : { [stat] = mult }
 }
 
-let function getBattleResultMultiplier(stats, result) {
+function getBattleResultMultiplier(stats, result) {
   let mult = stats?.battleResultMult ?? 0
   return (result?.deserter ?? false) ? {deserterMult = mult} :
          (result?.success ?? false) ? {winMult = mult} :
@@ -47,7 +47,7 @@ let soldierMultipliersCfg = [].extend(commonMultipliersCfg, [
   { stat = "soldierExpBoost", locId = "debriefing/soldierExpBoost", convertVal = @(v) 1 + v },
 ]).map(@(s) { toString = @(v) v.tostring() }.__update(s))
 
-let function mkTooltipMultipliersText(stats, cfg) {
+function mkTooltipMultipliersText(stats, cfg) {
   let textList = cfg.map(@(s) s.__merge({value = stats?[s.stat]}))
     .filter(@(s) s.value != null)
     .map(@(s) s.__update({value = s?.convertVal(s.value) ?? s.value}))
@@ -58,7 +58,7 @@ let function mkTooltipMultipliersText(stats, cfg) {
 
 let tooltipField = @(locId, value) "".concat(loc(locId), colon, value)
 
-let function mkExperienceTooltipText(stats, cfg) {
+function mkExperienceTooltipText(stats, cfg) {
   local expText = stats?.toLevelExp == 0
     ? loc("squad/squadMaxLvl")
     : tooltipField("debriefing/expAdded", stats?.exp ?? 0)

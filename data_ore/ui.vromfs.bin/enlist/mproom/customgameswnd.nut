@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {addScene, removeScene} = require("%enlist/navState.nut")
 let roomState = require("%enlist/state/roomState.nut")

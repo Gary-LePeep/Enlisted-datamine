@@ -10,7 +10,7 @@ def artillery_siren_appear(evt : Event;
                            var artillery_siren__startAt : float&)
   artillery_siren__startAt = get_sync_time() + artillery_siren__startDelay
 
-[es(tag=sound, no_order)]
+[es(tag=sound, after=sound_begin_update_es, before=sound_end_update_es)]
 def artillery_siren_update(info : ParallelUpdateFrameDelayed;
                            var artillery_siren__active : bool&;
                            artillery_siren__startAt : float;

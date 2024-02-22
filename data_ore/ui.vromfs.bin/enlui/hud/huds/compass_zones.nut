@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { watchedTeam } = require("%ui/hud/state/watched_hero.nut")
 let { capzoneWidget } = require("%ui/hud/components/capzone.nut")

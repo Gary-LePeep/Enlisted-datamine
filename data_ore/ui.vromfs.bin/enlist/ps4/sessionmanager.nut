@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { send, sessionManager } = require("%sonyLib/webApi.nut")
 let { createPushContext } = require("%sonyLib/notifications.nut")
@@ -44,7 +44,7 @@ local currentContextId = null
 local currentSessionId = null
 
 
-let function createSession(squadId, on_success) {
+function createSession(squadId, on_success) {
   // TODO: fix session name
   currentContextId = createPushContext()
   logP($"create with {currentContextId}")
@@ -57,14 +57,14 @@ let function createSession(squadId, on_success) {
        })
 }
 
-let function changeLeader(leaderUid) {
+function changeLeader(leaderUid) {
   let accountId = uid2console.value?[leaderUid.tostring()]
   logP($"change leader of {currentSessionId} to {accountId}/{leaderUid}")
   if (currentSessionId && accountId)
     send(sessionManager.changeLeader(currentSessionId, accountId, "PS5"))
 }
 
-let function invite(uid, on_success) {
+function invite(uid, on_success) {
   let accountId = uid2console.value?[uid.tostring()]
   logP($"invite {accountId}/{uid} to {currentSessionId}")
   if (currentSessionId && accountId)
@@ -72,7 +72,7 @@ let function invite(uid, on_success) {
          function(_r, e) { if (e == null) on_success() })
 }
 
-let function join(session_id, _invitation_id, on_success) {
+function join(session_id, _invitation_id, on_success) {
   currentContextId = createPushContext()
   currentSessionId = session_id
   logP($"join {currentSessionId} with {currentContextId}")
@@ -87,7 +87,7 @@ let function join(session_id, _invitation_id, on_success) {
   send(sessionManager.joinAsPlayer(session_id, createPlayerData(currentContextId)), fetchSquadId)
 }
 
-let function leave() {
+function leave() {
   logP($"leave {currentSessionId}")
   if (currentSessionId != null)
     send(sessionManager.leave(currentSessionId))

@@ -20,7 +20,7 @@ let getExpMul = @(list, index) list?[min(index, list.len() - 1)] ?? 1.0
 let getArmyExpBattleHeroMult = @(awards, battleHero)
   (battleHero == null || awards.len() < 1) ? 1.0 : getExpMul(armyExpMultByAwardCount, awards.len() - 1)
 
-let function getSquadExpBattleHeroMult(squadId, awards, battleHero) {
+function getSquadExpBattleHeroMult(squadId, awards, battleHero) {
   if (squadId == null)
     return 1.0
   let squadAwards = awards.filter(@(a) a?.soldier.squadId == squadId).map(@(a) a.award)
@@ -34,7 +34,7 @@ let function getSquadExpBattleHeroMult(squadId, awards, battleHero) {
   return expMul
 }
 
-let function getSoldierExpBattleHeroMult(guid, squadId, isVehicleSquad, awards, battleHero) {
+function getSoldierExpBattleHeroMult(guid, squadId, isVehicleSquad, awards, battleHero) {
   if (guid == null)
     return 1.0
   let playerIsBattleHero = battleHero != null

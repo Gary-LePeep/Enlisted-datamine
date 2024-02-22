@@ -1,6 +1,7 @@
 require ecs
 require ecs.safe
 require ecs.extra_set
+require soundSystem
 require gameObject
 
 
@@ -37,3 +38,5 @@ def game_object_spline_sound_generator(evt : Event;
     points |> push(float4(0., 0., 0., -1.)) // should end with separator
     game_object_spline_sound_generator__entityEid = createEntity(game_object_spline_sound_generator__entityTemplate) <| $(var init)
       init |> set("spline_sound__points", points)
+
+    sound_debug("created {game_object_spline_sound_generator__entityTemplate}={game_object_spline_sound_generator__entityEid} with {length(points)} points")

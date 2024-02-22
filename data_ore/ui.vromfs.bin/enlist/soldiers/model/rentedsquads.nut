@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
 let { squadsByArmies } = require("%enlist/meta/profile.nut")
@@ -6,7 +6,7 @@ let { squadsByArmies } = require("%enlist/meta/profile.nut")
 
 let expiredRentedSquads = Watched({})
 
-let function updateExpiredRentedSquads(_ = null) {
+function updateExpiredRentedSquads(_ = null) {
   let res = {}
   let curTime = serverTime.value
   local nextExpireTime = 0

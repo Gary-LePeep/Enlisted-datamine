@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { RequestSquadBehaviour, sendNetEvent } = require("dasevents")
 let { controlledHeroEid } = require("%ui/hud/state/controlled_hero.nut")
@@ -12,12 +12,12 @@ let DEFAULT_BEHAVIOUR = SquadBehaviour.ESB_AGGRESSIVE
 let squadBehaviour = Watched(DEFAULT_BEHAVIOUR)
 
 
-let function applyNewBehaviour(squadEid, behaviour) {
+function applyNewBehaviour(squadEid, behaviour) {
   sendNetEvent(squadEid, RequestSquadBehaviour({behaviour}))
   squadBehaviour(behaviour)
 }
 
-let function saveSquadBehaviour(squadProfileId, behaviour) {
+function saveSquadBehaviour(squadProfileId, behaviour) {
   savedSquadBehaviours[squadProfileId] <- behaviour
   set_setting_by_blk_path("ai/squadBehaviour", savedSquadBehaviours)
   save_settings()
@@ -32,7 +32,7 @@ let squadProfileIdQuery = ecs.SqQuery("squadProfileIdQuery", {
   comps_ro=[["squad__squadProfileId", ecs.TYPE_STRING]]
 })
 
-let function setSquadBehaviour(behaviour) {
+function setSquadBehaviour(behaviour) {
   heroSquadEidQuery(controlledHeroEid.value, function(_, comp) {
     let squadEid = comp.squad_member__squad
     applyNewBehaviour(squadEid, behaviour)
@@ -42,7 +42,7 @@ let function setSquadBehaviour(behaviour) {
 }
 
 
-let function applyBehaviourOnSpawnSquad(eid, comp) {
+function applyBehaviourOnSpawnSquad(eid, comp) {
   if (comp.squad__ownerPlayer == ecs.INVALID_ENTITY_ID || comp.squad__ownerPlayer != find_local_player())
     return
   let squadProfileId = comp.squad__squadProfileId

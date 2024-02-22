@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let mkGenRank = @(rank, rankName, rankBack) {
   locId = $"rank/{rankName}"
@@ -37,7 +37,7 @@ let ranks = freeze([
 
 let getRankConfig = @(rank) ranks?[rank] ?? ranks[0]
 
-let function mkRankImage(rank, override = {}) {
+function mkRankImage(rank, override = {}) {
   let rankCfg = getRankConfig(rank)
   return {
     rendObj = ROBJ_IMAGE
@@ -53,7 +53,7 @@ let function mkRankImage(rank, override = {}) {
   }.__update(override)
 }
 
-let function mkRankIcon(rank, override = {}) {
+function mkRankIcon(rank, override = {}) {
   if (rank == null)
     return null
   let rankCfg = getRankConfig(rank)

@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let rand = require("%sqstd/rand.nut")
 let findNextSpectatorHumanTargetQuery = ecs.SqQuery("findNextSpectatorHumanTargetQuery", {
@@ -22,7 +22,7 @@ console_register_command(function(){
 },"spectate.randomEntity")
 
 local lastSpectated = 0
-let function switchSpectate(delta, query){
+function switchSpectate(delta, query){
   let ents = ecs.query_map(query, @(eid, _comp) eid).sort()
   if (ents.len()==0)
     return

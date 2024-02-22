@@ -2,173 +2,201 @@
   "us_m4a3_105_sherman_pacific": {
     "_use": "us_m4a3_105_sherman_common"
   },
-  "us_m4a3_105_sherman_common": {
-    "_use": "base_m4a3_105_sherman",
-    "commanderCockpitFpsCamMaxAngle": [40.0,5.0],
-    "gunner_cam_limit__useCockpitDir": true,
-    "item__iconOffset": [0.0,0.0],
-    "turrets__initAmmoDistribution:array": [
-      {
-        "ammo:object": {
-          "slot": 0,
-          "fill": true
+  "us_m4a3_105_sherman_common": [
+    {
+      "_use": "base_m4a3_105_sherman"
+    },
+    {
+      "_use": "us_m4a3_105_sherman_common_vehicle_sound"
+    },
+    {
+      "commanderCockpitFpsCamMaxAngle": [40.0,5.0]
+    },
+    {
+      "gunner_cam_limit__useCockpitDir": true
+    },
+    {
+      "item__iconOffset": [0.0,0.0]
+    },
+    {
+      "turrets__initAmmoDistribution:array": [
+        {
+          "ammo:object": {
+            "slot": 0,
+            "fill": true
+          }
+        },
+        {
+          "ammo:object": {
+            "slot": 2,
+            "count": 7
+          }
         }
-      },
-      {
-        "ammo:object": {
-          "slot": 2,
-          "count": 7
-        }
-      }
-    ],
-    "vehicle_seats__seats:shared:array": [
-      {
-        "seats:object": {
-          "name": "main_gunner",
-          "locName": "vehicle_seats/gunner",
-          "attachNode": "gunner",
-          "ignoreAttachNodeRotation": true,
-          "attachTm": [
-            [1.0,0.0,0.0],
-            [0.0,1.0,0.0],
-            [0.0,0.0,1.0],
-            [-0.25,-0.5,0.0]
-          ],
-          "seatComponent": "isGunner",
-          "nextSeat": "driver",
-          "shouldHideOwner": true,
-          "receiveDamageFromDMPart": "gunner",
-          "cameraNodeName": "bone_camera_gunner",
-          "cockpitTemplate": "us_m4a3_105_sherman_gunner_cockpit",
-          "turretNames:array": [
-            {
-              "turretNames": "turret_01"
-            },
-            {
-              "turretNames": "turret_02"
-            }
-          ]
-        }
-      },
-      {
-        "seats:object": {
-          "name": "driver",
-          "locName": "vehicle_seats/driver",
-          "seatOwnsEntityControl": true,
-          "attachNode": "driver",
-          "ignoreAttachNodeRotation": true,
-          "attachTm": [
-            [1.0,0.0,0.0],
-            [0.0,1.0,0.0],
-            [0.0,0.0,1.0],
-            [-0.25,-0.25,0.0]
-          ],
-          "seatComponent": "isDriver",
-          "nextSeat": "main_gunner",
-          "shouldHideOwner": true,
-          "receiveDamageFromDMPart": "driver",
-          "cameraNodeName": "bone_camera_driver",
-          "cockpitTemplate": "us_m4a3_105_sherman_driver_cockpit"
-        }
-      },
-      {
-        "seats:object": [
-          {
-            "name": "commander"
-          },
-          {
-            "locName": "vehicle_seats/commander"
-          },
-          {
-            "locName": "vehicle_seats/commander"
-          },
-          {
-            "attachNode": "commander"
-          },
-          {
-            "shouldHideOwner": true
-          },
-          {
-            "hatchRotationAxis": [1.8,0.0,0.0]
-          },
-          {
-            "ignoreAttachNodeRotation": true
-          },
-          {
+      ]
+    },
+    {
+      "vehicle_seats__seats:shared:array": [
+        {
+          "seats:object": {
+            "name": "main_gunner",
+            "locName": "vehicle_seats/gunner",
+            "attachNode": "gunner",
+            "ignoreAttachNodeRotation": true,
             "attachTm": [
               [1.0,0.0,0.0],
               [0.0,1.0,0.0],
               [0.0,0.0,1.0],
-              [-0.260119,-0.8322,0.250217]
+              [-0.25,-0.5,0.0]
+            ],
+            "seatComponent": "isGunner",
+            "nextSeat": "driver",
+            "shouldHideOwner": true,
+            "receiveDamageFromDMPart": "gunner",
+            "cameraNodeName": "bone_camera_gunner",
+            "cockpitTemplate": "us_m4a3_105_sherman_gunner_cockpit",
+            "turretNames:array": [
+              {
+                "turretNames": "turret_01"
+              },
+              {
+                "turretNames": "turret_02"
+              }
             ]
-          },
-          {
-            "seatComponent": "isDriver"
-          },
-          {
-            "receiveDamageFromDMPart": "commander"
-          },
-          {
-            "cameraNodeName": "bone_turret"
-          },
-          {
-            "cockpitTemplate": "us_m4a3_105_sherman_commander_cockpit"
-          },
-          {
-            "hatchNodes:array": {
-              "node": "hatch_01"
+          }
+        },
+        {
+          "seats:object": {
+            "name": "driver",
+            "locName": "vehicle_seats/driver",
+            "seatOwnsEntityControl": true,
+            "attachNode": "driver",
+            "ignoreAttachNodeRotation": true,
+            "attachTm": [
+              [1.0,0.0,0.0],
+              [0.0,1.0,0.0],
+              [0.0,0.0,1.0],
+              [-0.25,-0.25,0.0]
+            ],
+            "seatComponent": "isDriver",
+            "nextSeat": "main_gunner",
+            "shouldHideOwner": true,
+            "receiveDamageFromDMPart": "driver",
+            "cameraNodeName": "bone_camera_driver",
+            "cockpitTemplate": "us_m4a3_105_sherman_driver_cockpit"
+          }
+        },
+        {
+          "seats:object": [
+            {
+              "name": "commander"
+            },
+            {
+              "locName": "vehicle_seats/commander"
+            },
+            {
+              "locName": "vehicle_seats/commander"
+            },
+            {
+              "attachNode": "commander"
+            },
+            {
+              "shouldHideOwner": true
+            },
+            {
+              "hatchRotationAxis": [1.8,0.0,0.0]
+            },
+            {
+              "ignoreAttachNodeRotation": true
+            },
+            {
+              "attachTm": [
+                [1.0,0.0,0.0],
+                [0.0,1.0,0.0],
+                [0.0,0.0,1.0],
+                [-0.260119,-0.8322,0.250217]
+              ]
+            },
+            {
+              "seatComponent": "isDriver"
+            },
+            {
+              "receiveDamageFromDMPart": "commander"
+            },
+            {
+              "cameraNodeName": "bone_turret"
+            },
+            {
+              "cockpitTemplate": "us_m4a3_105_sherman_commander_cockpit"
+            },
+            {
+              "hatchNodes:array": {
+                "node": "hatch_01"
+              }
+            },
+            {
+              "hatchTurretNames:array": {
+                "turret": "turret_03"
+              }
             }
-          },
-          {
-            "hatchTurretNames:array": {
-              "turret": "turret_03"
+          ]
+        },
+        {
+          "seats:object": {
+            "attachNode": "loader",
+            "locName": "vehicle_seats/loader",
+            "ignoreAttachNodeRotation": true,
+            "attachTm": [
+              [1.0,0.0,0.0],
+              [0.0,1.0,0.0],
+              [0.0,0.0,1.0],
+              [-0.25,-0.5,0.0]
+            ],
+            "seatComponent": "isPassenger",
+            "shouldHideOwner": true,
+            "receiveDamageFromDMPart": "loader",
+            "cameraNodeName": "bone_camera_driver",
+            "loaderTurretNames:array": {
+              "turret": "turret_01"
             }
           }
-        ]
-      },
-      {
-        "seats:object": {
-          "attachNode": "loader",
-          "locName": "vehicle_seats/loader",
-          "ignoreAttachNodeRotation": true,
-          "attachTm": [
-            [1.0,0.0,0.0],
-            [0.0,1.0,0.0],
-            [0.0,0.0,1.0],
-            [-0.25,-0.5,0.0]
-          ],
-          "seatComponent": "isPassenger",
-          "shouldHideOwner": true,
-          "receiveDamageFromDMPart": "loader",
-          "cameraNodeName": "bone_camera_driver",
-          "loaderTurretNames:array": {
-            "turret": "turret_01"
+        },
+        {
+          "seats:object": {
+            "attachNode": "machine_gunner",
+            "locName": "vehicle_seats/radioman",
+            "ignoreAttachNodeRotation": true,
+            "attachTm": [
+              [1.0,0.0,0.0],
+              [0.0,1.0,0.0],
+              [0.0,0.0,1.0],
+              [-0.25,-0.5,0.0]
+            ],
+            "seatComponent": "isPassenger",
+            "shouldHideOwner": true,
+            "receiveDamageFromDMPart": "machine_gunner",
+            "cameraNodeName": "bone_camera_driver"
           }
         }
-      },
-      {
-        "seats:object": {
-          "attachNode": "machine_gunner",
-          "locName": "vehicle_seats/radioman",
-          "ignoreAttachNodeRotation": true,
-          "attachTm": [
-            [1.0,0.0,0.0],
-            [0.0,1.0,0.0],
-            [0.0,0.0,1.0],
-            [-0.25,-0.5,0.0]
-          ],
-          "seatComponent": "isPassenger",
-          "shouldHideOwner": true,
-          "receiveDamageFromDMPart": "machine_gunner",
-          "cameraNodeName": "bone_camera_driver"
+      ]
+    },
+    {
+      "dm_panel__redrawInterval:r": {
+        "_tags": "gameClient",
+        "value": 9000.0
+      }
+    },
+    {
+      "heat_source__turretInfo:shared:array": {
+        "_tags": "render",
+        "turretInfo:object": {
+          "turretName": "turret_03",
+          "offset": [-0.3,0.0,0.0],
+          "scale": [0.4,0.4,0.4],
+          "radMult": 0.15
         }
       }
-    ],
-    "dm_panel__redrawInterval:r": {
-      "_tags": "gameClient",
-      "value": 9000.0
     }
-  },
+  ],
   "us_m4a3_105_sherman_commander_cockpit": {
     "_use": "base_commander_cockpit_no_slits",
     "animchar__res": "t_26_1940_commander_char",

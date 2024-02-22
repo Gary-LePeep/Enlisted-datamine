@@ -1,29 +1,53 @@
 options always_export_initializer = true
 
-require ecs
 require app
-require enlisted.game.es.squad_behaviour_command_common
-require math.base
-require game.es.ai.walker_common
-require DagorDataBlock
-require math
-require math.random
-require DagorMathUtils
-require DagorMath
-require DagorRandom
+require ecs
 require BehNodes
+require DagorDataBlock
+require DagorSystem
+
+require math
+require math.ang
+require math.base
+require math.random
+require DagorMath
+require DagorMathUtils
+require DagorRandom
+
+require Grid
 require Dacoll
-require walkerai
-require DngWalkerai
+
 require HumanPhys
 require DngHuman
-require Grid
+require DngWalkerai
+require walkerai
+require game.es.ai.walker_common
+require game.utils.team
+
+require Gun
+require DngWeapon
+require DaWeapons
+require DaWeaponProps
+
+require dm
+require DngDm
+require BallisticsProps
+require BallisticsDm
+
+require AnimV20
+require CollRes
+
+require enlisted.game.es.squad_behaviour_command_common
 require common_shooter.es.ai.common_shooter_walker_nodes_common
-require common_shooter.events_common_shooter
-require common_shooter.es.interactable_common
+require common_shooter.es.ai.ai_weapons_common
 require common_shooter.es.human_attached_gun_common
+require common_shooter.es.interactable_common
+require game.es.ai.enlisted_combat_ai_common
+require game.es.vehicle.vehicle_seats_common
+require game.es.dm_ai_common
+
+require common_shooter.events_common_shooter
 require game.es.events
-require DagorSystem
 
 
 [beh_node(name="isAggressiveBehaviour")]
@@ -308,7 +332,7 @@ class FindStationaryGun : BehNodeAdapter
         var numPos = 0
         let gunDir = get_attached_gun_ai_aim_to_dir(gun_eid)
         query() <| $ [es(REQUIRE=respbase, REQUIRE_NOT=customRespawnBase)] (active : bool; team : int; transform aka spawn_transform : float3x4; respawnbaseType : string)
-          if !active || respawnbaseType != "human" || team == playerTeam
+          if !active || respawnbaseType != "human" || is_teams_friendly(team, playerTeam)
             return
           let respPos = spawn_transform[3]
           if dot(gunDir, normalize(respPos - agentPos)) > 0.5
@@ -520,7 +544,7 @@ class IsAllyPlayerNear : BehNodeAdapter
           query(that_eid) <| $ [es] (transform aka that_transform : float3x4; possessedByPlr : EntityId; beh_tree__enabled : bool)
             if !beh_tree__enabled && distance_sq(agent_transform[3], that_transform[3]) < radiusSq
               query(possessedByPlr) <| $ [es(REQUIRE_NOT=playerIsBot)] (team aka that_team : int)
-                if playerTeam == that_team
+                if is_teams_friendly(playerTeam, that_team)
                   isAllyNear = true
     return isAllyNear ? EBehResult ER_SUCCESS : EBehResult ER_FAILED
 
@@ -799,8 +823,6 @@ class DecideOnAttackTarget : BehNodeAdapter
       owner.blackBoard |> set(focusTimeOutParam, focusTime)
     return EBehResult ER_SUCCESS
 
-require DagorSystem
-
 [beh_node(name="fixLookDirPos")]
 class FixLookDirPos : BehNodeAdapter
   posParam = -1
@@ -817,8 +839,9 @@ class FixLookDirPos : BehNodeAdapter
     let agentEid = beh_tree_eid(owner)
     var hasFromPos = false
     var fromPos = float3()
-    query(agentEid) <| $ [es] (walker_agent : EntityAgent)
-      fromPos = walker_agent.shootFrom[STANCE_STAND]
+    query(agentEid) <| $ [es] (transform : float3x4; walker_agent : EntityAgent)
+      fromPos = transform[3]
+      fromPos.y = walker_agent.shootFrom[STANCE_STAND].y
       hasFromPos = true
     if !hasFromPos
       return EBehResult ER_SUCCESS
@@ -882,8 +905,395 @@ class IsCurrentWeaponRequiresLongAiming : BehNodeAdapter
     var result = false
     query(agentEid) <| $ [es] (human_weap__currentGunEid : EntityId)
       query(human_weap__currentGunEid) <| $ [es] (specialAIWeaponType : int)
-        if specialAIWeaponType == 1 // rocket launchers
+        if specialAIWeaponType == int(SpecialAIWeaponType ROCKET_LAUNCHERS)
           result = true
-        elif specialAIWeaponType == 3 // anti-tank rifles
+        elif specialAIWeaponType == int(SpecialAIWeaponType ANTI_TANK_RIFLES)
           result = true
     return result ? EBehResult ER_SUCCESS : EBehResult ER_FAILED
+
+
+[beh_node(name="findWeaponSlotWithSpecAIType")]
+class FindWeaponSlotWithSpecAIType : BehNodeAdapter
+  outParam = -1
+  specWeapAIType : int = 0
+  minAmmo : int = 0
+
+  def override loadFromBlk(var data : DataBlock) : void
+    outParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "toParam", ""), -1)
+    minAmmo = datablock_getInt(data, "minAmmo", minAmmo)
+
+    let weapTypeName = datablock_getStr(data, "specAIWeapTypeName", "")
+    for i in range(length(SPECIAL_AI_WEAPON_TYPE_NAMES))
+      if weapTypeName == SPECIAL_AI_WEAPON_TYPE_NAMES[i]
+        specWeapAIType = i
+
+  def override update(dt : float) : EBehResult
+    var found = false
+    query(beh_tree_eid(owner)) <| $ [es] (human_weap__gunEids : EidList)
+      for slot_index, gunEid in iter_range(human_weap__gunEids), human_weap__gunEids
+        if minAmmo > 0 && !check_ai_gun_has_min_ammo(gunEid, minAmmo)
+          continue
+        if !check_ai_gun_has_spec_ai_type(gunEid, specWeapAIType)
+          continue
+        owner.blackBoard |> set(outParam, slot_index)
+        found = true
+        break
+    return found ? EBehResult ER_SUCCESS : EBehResult ER_FAILED
+
+
+[beh_node(name="findWeaponSlotWithTag")]
+class FindWeaponSlotWithTag : BehNodeAdapter
+  outParam : int = -1
+  tag : string = ""
+  tagHash : uint
+  minAmmo : int = 0
+
+  def override loadFromBlk(var data : DataBlock) : void
+    outParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "toParam", "preferedWeapon"), -1)
+    tag = datablock_getStr(data, "tag", "")
+    tagHash = ecs_hash(tag)
+    minAmmo = datablock_getInt(data, "minAmmo", minAmmo)
+
+  def override update(dt : float) : EBehResult
+    if tag == ""
+      return EBehResult ER_FAILED
+    var found = false
+    query(beh_tree_eid(owner)) <| $ [es] (human_weap__gunEids : EidList)
+      for slot_index, gunEid in iter_range(human_weap__gunEids), human_weap__gunEids
+        if !has(gunEid, tag, tagHash)
+          continue
+        if minAmmo > 0 && !check_ai_gun_has_min_ammo(gunEid, minAmmo)
+          continue
+        owner.blackBoard |> set(outParam, slot_index)
+        found = true
+        break
+    return found ? EBehResult ER_SUCCESS : EBehResult ER_FAILED
+
+
+[beh_node(name="findPiercableEnemyVehicle")]
+class FindPiercableEnemyVehicle : BehNodeAdapter
+  outTargetEidParam = -1
+  outLocalPosParam = -1
+  outShootStanceParam = -1
+
+  weaponSlotParam = -1
+  shootStances : int3 = int3(2, 2, 2)
+  chanceTryNotPenetrate : float = 10.0
+  chanceToTargetHumanPlayer : float = 0.2
+
+  ignoreMoving : bool = true
+  ignoreMovingSpeed : float = 10.0
+  ignoreWithNoCrew : bool = false
+
+  distanceErrorCoef : float = 1.1
+  randOffset : float2 = float2(0.35, 0.15)
+  withSecondaryChance : float = 0.25
+
+  wideTraceRadius : float = 0.25
+  wideTraceOffsetUp : float = 0.0
+  wideTraceDistance : float = 5.0
+
+  maxTargetsProcessed : int = 5
+  maxPointsPerTarget : int = 5
+
+  runTeam : int = 0
+  runTeamEid : EntityId = INVALID_ENTITY_ID
+  runAgentTransform : float3x4 = float3x4()
+  runAgentShootUpPos : float3 = float3()
+  runAgentShootForwPos : float3 = float3()
+  runAgentShootDownPos : float3 = float3()
+  runShootVel : float = 0.0
+  runShellId : int = -1
+  runDamageId : int = -1
+  runBallisticsId : int = -1
+  runBallisticCoef : float = 1.0
+  runShootRange : float2 = float2()
+  runTicketIdx : int = -1
+
+  runStep : int = 0
+  runIndex1 : int = 0
+  runIndex2 : int = 0
+  runTargetNoPierceCheck : bool = false
+  runTargetScore : float = 0.0
+  runShootPos : float3 = float3()
+  runShootStance : int = -1
+  runBestEid : EntityId = INVALID_ENTITY_ID
+  runBestScore : float = 0.0
+  runBestLocalPos : float3 = float3()
+  runBestStance : int = -1
+
+  SCAN_TICKET_TIMEOUT = 1.0
+  BASE_SCORE_VALUE = 100000.0
+  TANK_SCORE_MULTIPLIER = 5.0
+
+  STEP_INIT_CHECK = 1
+  STEP_TRACE_TARGETS = 2
+  STEP_DONE = 3
+
+  def override loadFromBlk(var data : DataBlock) : void
+    outTargetEidParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "outTargetEidParam", ""), 0)
+    outLocalPosParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "outLocalPosParam", ""), float3())
+    if datablock_find_param(data, "outShootStanceParam") >= 0
+      outShootStanceParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "outShootStanceParam", ""), 1)
+
+    weaponSlotParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "weaponSlotParam", ""), -1)
+    shootStances = datablock_getIPoint3(data, "shootStances", shootStances)
+    if datablock_find_param(data, "shootStance") >= 0
+      let stance = datablock_getInt(data, "shootStance", 1)
+      shootStances = int3(stance, stance, stance)
+
+    chanceTryNotPenetrate = datablock_getReal(data, "chanceTryNotPenetrate", chanceTryNotPenetrate)
+
+    let KM_H_IN_M_S = 1000.0 / 3600.0
+    ignoreMoving = datablock_getBool(data, "ignoreMoving", ignoreMoving)
+    ignoreMovingSpeed = datablock_getReal(data, "ignoreMovingSpeed", ignoreMovingSpeed)
+    ignoreMovingSpeed *= KM_H_IN_M_S
+
+    ignoreWithNoCrew = datablock_getBool(data, "ignoreWithNoCrew", ignoreWithNoCrew)
+
+    distanceErrorCoef = datablock_getReal(data, "distanceErrorCoef", distanceErrorCoef)
+
+    wideTraceRadius = datablock_getReal(data, "wideTraceRadius", wideTraceRadius)
+    wideTraceOffsetUp = datablock_getReal(data, "wideTraceOffsetUp", wideTraceOffsetUp)
+    wideTraceDistance = datablock_getReal(data, "wideTraceDistance", wideTraceDistance)
+
+    maxTargetsProcessed = datablock_getInt(data, "maxTargetsProcessed", maxTargetsProcessed)
+    maxPointsPerTarget = datablock_getInt(data, "maxPointsPerTarget", maxPointsPerTarget)
+
+  def override init() : void
+    runStep = STEP_INIT_CHECK
+    clear_targets()
+
+  def override exit() : void
+    runStep = STEP_INIT_CHECK
+    clear_targets()
+
+  def clear_targets()
+    query(beh_tree_eid(owner)) <| $ [es] (var beh_tree__runEidList : EidList&; var beh_tree__runPosList : Point3List&)
+      beh_tree__runEidList |> clear()
+      beh_tree__runPosList |> clear()
+
+  def override update(dt : float) : EBehResult
+    let agentEid = beh_tree_eid(owner)
+    let curTime = get_sync_time()
+
+    if runStep == STEP_INIT_CHECK
+      var gunEid = INVALID_ENTITY_ID
+      let gunSlot = owner.blackBoard |> datablock_getInt(weaponSlotParam)
+      query(agentEid) <| $ [es] (transform : float3x4; human_weap__gunEids : EidList; team : int; walker_agent : EntityAgent)
+        if gunSlot >= 0 && gunSlot < length(human_weap__gunEids)
+          let checkGunEid = human_weap__gunEids[gunSlot]
+          query(checkGunEid) <| $ [es] (combatFiringRange : float2; gun__curShellId : ShellPropIds; combatBallisticCoef : float = 0.0)
+            gunEid = checkGunEid
+            runShootVel = 50.0
+            shell_start_get_props(int(gun__curShellId.shellId)) <| $(shellStartProps : ShellStartProps)
+              runShootVel = shellStartProps.speed
+            runShellId = int(gun__curShellId.shellId)
+            runDamageId = int(gun__curShellId.damageId)
+            runBallisticsId = int(gun__curShellId.ballisticsId)
+            runBallisticCoef = combatBallisticCoef
+            runShootRange = combatFiringRange
+            runAgentTransform = transform
+            let invTr = inverse(transform)
+            runAgentShootUpPos = invTr * walker_agent.shootFrom[shootStances.x]
+            runAgentShootForwPos = invTr * walker_agent.shootFrom[shootStances.y]
+            runAgentShootDownPos = invTr * walker_agent.shootFrom[shootStances.z]
+            runTeam = team
+      if gunEid == INVALID_ENTITY_ID
+        return EBehResult ER_FAILED
+
+      runTeamEid = INVALID_ENTITY_ID
+      find_query() <| $ [es] (eid : EntityId; team__id : int)
+        if team__id == runTeam
+          runTeamEid = eid
+          return true
+        return false
+      if runTeamEid == INVALID_ENTITY_ID
+        return EBehResult ER_FAILED
+
+      runTicketIdx = -1
+      query(runTeamEid) <| $ [es] (team_bots__maxFarTracesAtOnce : int;
+                                   var team_bots__farTracersEids : EidList&;
+                                   var team_bots__farTracersTimeouts : FloatList&)
+        for i in iter_range(team_bots__farTracersEids)
+          if team_bots__farTracersEids[i] == agentEid || team_bots__farTracersTimeouts[i] < curTime
+            team_bots__farTracersEids[i] = agentEid
+            team_bots__farTracersTimeouts[i] = curTime + SCAN_TICKET_TIMEOUT
+            runTicketIdx = i
+            break
+        let numAllocated = length(team_bots__farTracersEids)
+        if runTicketIdx < 0 && numAllocated < team_bots__maxFarTracesAtOnce
+          runTicketIdx = numAllocated
+          team_bots__farTracersEids |> push(agentEid)
+          team_bots__farTracersTimeouts |> push(curTime + SCAN_TICKET_TIMEOUT)
+      if runTicketIdx < 0
+        return EBehResult ER_FAILED
+
+      var numTargets = 0
+      query(agentEid) <| $ [es] (var beh_tree__runEidList : EidList&)
+        beh_tree__runEidList |> clear()
+
+        let findRadius = runShootRange.y * distanceErrorCoef
+        let minDistSq = square(safediv(runShootRange.x, distanceErrorCoef))
+        let maxDistSq = square(findRadius)
+        let maxVelSq = square(ignoreMovingSpeed)
+
+        for_each_entity_in_grid(ecs_hash("vehicles"), BSphere3(runAgentTransform[3], findRadius), GridEntCheck BOUNDING) <| $(that_eid : EntityId)
+          query(that_eid) <| $ [es(REQUIRE_NOT=airplane)] (transform : float3x4; team : int; ai_target : Target)
+            if that_eid == agentEid
+              return
+            if !ai_target.isAlive || team <= 0 || is_teams_friendly(team, runTeam)
+              return
+            if ignoreMoving && length_sq(ai_target.velocity) > maxVelSq
+              return
+            let distSq = distance_sq(transform[3], runAgentTransform[3])
+            if distSq < minDistSq || distSq > maxDistSq
+              return
+            if ignoreWithNoCrew && !is_vehicle_with_alive_crew(that_eid)
+              return
+            beh_tree__runEidList |> push(that_eid)
+            ++numTargets
+
+        if rnd_float(0.0, 1.0) < chanceToTargetHumanPlayer
+          query(agentEid) <| $ [es] (agent_dangers : AgentDangers)
+            for danger in agent_dangers.dangers
+              if !danger.traceable || danger.distance < runShootRange.x || danger.distance > runShootRange.y
+                continue
+              var dangerOK = false
+              query(danger.eid) <| $ [es] (transform : float3x4; isAlive : bool = true; isDowned : bool = false; isInVehicleHidden : bool = false; beh_tree__enabled : bool)
+                let LOOKING_TO_AGENT_COS = 0.8
+                if !beh_tree__enabled && isAlive && !isDowned && !isInVehicleHidden && dot(transform[0], normalize(runAgentTransform[3] - transform[3])) > LOOKING_TO_AGENT_COS
+                  dangerOK = true
+              if dangerOK
+                beh_tree__runEidList |> push(danger.eid)
+                ++numTargets
+
+        shuffle(beh_tree__runEidList)
+        if length(beh_tree__runEidList) > maxTargetsProcessed
+          beh_tree__runEidList |> resize(maxTargetsProcessed)
+
+      if numTargets <= 0
+        return EBehResult ER_FAILED
+      runStep = STEP_TRACE_TARGETS
+      runIndex1 = 0
+      runIndex2 = 0
+      runBestEid = INVALID_ENTITY_ID
+      runBestScore = 0.0
+      runBestLocalPos = float3()
+      runBestStance = shootStances.y
+      return EBehResult ER_RUNNING
+
+    if runStep == STEP_TRACE_TARGETS
+      query(runTeamEid) <| $ [es] (var team_bots__farTracersEids : EidList&;
+                                   var team_bots__farTracersTimeouts : FloatList&)
+        if runTicketIdx >= 0 && runTicketIdx < length(team_bots__farTracersEids)
+          team_bots__farTracersEids[runTicketIdx] = agentEid
+          team_bots__farTracersTimeouts |> push(curTime + SCAN_TICKET_TIMEOUT)
+
+      var done = false
+      query(agentEid) <| $ [es] (beh_tree__runEidList : EidList; var beh_tree__runPosList : Point3List&)
+        let numTargets = length(beh_tree__runEidList)
+        while runIndex1 < numTargets
+          let targetEid = beh_tree__runEidList[runIndex1]
+
+          if runIndex2 == 0
+            query(targetEid) <| $ [es] (transform : float3x4; isTank : Tag const?; dm_ai__pointsYRange : float2 = float2(0.0, 2.0))
+              beh_tree__runPosList |> clear()
+
+              let midPoint = transform * float3(0.0, (dm_ai__pointsYRange.x + dm_ai__pointsYRange.y) * 0.5, 0.0)
+
+              let agentDir = normalize(midPoint.xz - runAgentTransform[3].xz)
+              runAgentTransform[0] = float3(agentDir.x, 0.0, agentDir.y)
+              runAgentTransform[1] = float3(0.0, 1.0, 0.0)
+              runAgentTransform[2] = cross(runAgentTransform[0], runAgentTransform[1])
+
+              let midCheckAgentShootPos = runAgentTransform * runAgentShootDownPos
+              let midDelta = midPoint - midCheckAgentShootPos
+              let midDir = normalize(midDelta)
+
+              let SHOOT_CLING_SIN = 0.05
+              if midDir.y > SHOOT_CLING_SIN
+                runShootPos = runAgentTransform * runAgentShootUpPos
+                runShootStance = shootStances.x
+              elif midDir.y < -SHOOT_CLING_SIN
+                runShootPos = runAgentTransform * runAgentShootDownPos
+                runShootStance = shootStances.z
+              else
+                runShootPos = runAgentTransform * runAgentShootForwPos
+                runShootStance = shootStances.y
+
+              let targetPoint = transform * float3(0.0, dm_ai__pointsYRange.y, 0.0)
+              let targetDelta = targetPoint - runShootPos
+              let targetDir = normalize(targetDelta)
+              let targetDist = length(targetDelta)
+
+              runTargetScore = safediv(BASE_SCORE_VALUE, targetDist)
+              if isTank != null
+                runTargetScore *= TANK_SCORE_MULTIPLIER
+
+              if runBestEid != INVALID_ENTITY_ID && runBestScore >= runTargetScore
+                return
+
+              let noCrew = ignoreWithNoCrew || !is_vehicle_with_alive_crew(targetEid)
+              var targetDMAIPoints : array<TargetDMAIPoint>
+              pick_target_dm_ai_points(targetDMAIPoints, maxPointsPerTarget, runShootPos, targetEid, noCrew, randOffset, /*allow_from_front*/ false, withSecondaryChance)
+              for point in targetDMAIPoints
+                push(beh_tree__runPosList, point.worldPos)
+
+              runTargetNoPierceCheck = false
+              if empty(beh_tree__runPosList)
+                runTargetNoPierceCheck = has(targetEid, "human")
+                if !runTargetNoPierceCheck
+                  return
+                beh_tree__runPosList |> push(midPoint)
+
+              var dist = targetDist
+              var norm : float3
+              if traceray_normalized(runShootPos, targetDir, dist, norm, ETF_DEFAULT)
+                beh_tree__runPosList |> clear()
+                return
+
+              let pt1 = runShootPos + float3(0.0, wideTraceOffsetUp, 0.0) - targetDir * wideTraceRadius
+              let pt2 = pt1 + targetDir * (wideTraceDistance + wideTraceRadius)
+              var queryOut = ShapeQueryOutput()
+              if sphere_cast(pt1, pt2, wideTraceRadius, queryOut)
+                beh_tree__runPosList |> clear()
+                return
+
+          let numPoints = length(beh_tree__runPosList)
+          if runIndex2 >= numPoints
+            runIndex2 = 0
+            ++runIndex1
+            break
+
+          let targetHitPos = beh_tree__runPosList[runIndex2]
+          ++runIndex2
+
+          query(targetEid) <| $ [es] (transform : float3x4)
+            var aimShootHitPos = targetHitPos
+            if runTargetNoPierceCheck || trace_pierce_shot(aimShootHitPos, runShootPos, targetHitPos, runShootVel, runShellId, runDamageId, runBallisticsId, runBallisticCoef, targetEid, chanceTryNotPenetrate)
+              runIndex2 = numPoints
+              if runBestEid == INVALID_ENTITY_ID || runBestScore < runTargetScore
+                runBestEid = targetEid
+                runBestScore = runTargetScore
+                runBestLocalPos = inverse(transform) * aimShootHitPos
+                runBestStance = runShootStance
+
+          if runIndex2 >= numPoints
+            runIndex2 = 0
+            ++runIndex1
+        done = runIndex1 >= numTargets
+      if !done
+        return EBehResult ER_RUNNING
+      runStep = STEP_DONE
+
+    clear_targets()
+
+    if outTargetEidParam >= 0
+      owner.blackBoard |> set(outTargetEidParam, int(uint(runBestEid)))
+    if outLocalPosParam >= 0
+      owner.blackBoard |> set(outLocalPosParam, runBestLocalPos)
+    if outShootStanceParam >= 0
+      owner.blackBoard |> set(outShootStanceParam, runBestStance)
+
+    return runBestEid != INVALID_ENTITY_ID ? EBehResult ER_SUCCESS : EBehResult ER_FAILED

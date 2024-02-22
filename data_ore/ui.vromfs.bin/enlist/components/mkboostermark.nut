@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let fa = require("%ui/components/fontawesome.map.nut")
 let { fontSub, fontawesome } = require("%enlSqGlob/ui/fontsStyle.nut")
@@ -20,7 +20,7 @@ let downArrow = {
   text = fa["arrow-circle-down"]
 }.__update(fontawesome, {fontSize = hdpxi(15)})
 
-let function mkBoosterText(expMul, expPenalty) {
+function mkBoosterText(expMul, expPenalty) {
   let boosterVal = round(((expMul + 1.0) * (expPenalty + 1.0) - 1.0) * 100)
   let text = loc("expBooster", { booster = boosterVal >= 0 ? $"+{boosterVal}" : boosterVal })
   return {

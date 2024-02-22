@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
 let squadsParams = require("%enlist/soldiers/model/squadsParams.nut")
@@ -18,7 +18,7 @@ let {
 
 let curSwitchTime = Watched(0)
 
-let function updateSwitchTime(...) {
+function updateSwitchTime(...) {
   let currentTs = serverTime.value
   let nextTime = shopItems.value.reduce(function(firstTs, item) {
     let { showIntervalTs = null } = item
@@ -35,7 +35,7 @@ let function updateSwitchTime(...) {
   curSwitchTime(currentTs)
 }
 
-let function onServerTime(t) {
+function onServerTime(t) {
   if (t <= 0)
     return
   serverTime.unsubscribe(callee())
@@ -43,12 +43,12 @@ let function onServerTime(t) {
 }
 
 
-let function onShopAttach(){
+function onShopAttach(){
   serverTime.subscribe(onServerTime)
   shopItems.subscribe(updateSwitchTime)
 }
 
-let function onShopDetach(){
+function onShopDetach(){
   serverTime.unsubscribe(onServerTime)
   shopItems.unsubscribe(updateSwitchTime)
 }
@@ -59,7 +59,7 @@ let curFeaturedIdx = Watched(0)
 let chapterIdx = Watched(-1)
 let curSelectionShop = Watched(null)
 
-let function canBarterItem(item, armyItemCount) {
+function canBarterItem(item, armyItemCount) {
   foreach (payItemTpl, cost in item.curItemCost)
     if ((armyItemCount?[payItemTpl] ?? 0) < cost)
       return false
@@ -70,7 +70,7 @@ let isTemporaryVisible = @(itemId, shopItem, itemCount, itemsByTime)
   ((shopItem?.isVisibleIfCanBarter ?? false) && canBarterItem(shopItem, itemCount))
     || itemId in itemsByTime
 
-let function mkShopState() {
+function mkShopState() {
   let shownByTimestamp = Computed(function() {
     let res = {}
     let ts = curSwitchTime.value
@@ -97,30 +97,30 @@ let function mkShopState() {
     vehicle_with_skin_order_gold = true
   }
 
-  let function hasPriceContainsGold(shopItem) {
+  function hasPriceContainsGold(shopItem) {
     let { price = 0, currencyId = "" } = shopItem?.shopItemPrice
     return currencyId == "EnlistedGold" && price > 0
   }
 
-  let function hasPriceContainsOrders(shopItem) {
+  function hasPriceContainsOrders(shopItem) {
     let { itemCost = {} } = shopItem
     return itemCost.len() > 0
   }
 
-  let function hasPriceContainsSpecOrders(shopItem) {
+  function hasPriceContainsSpecOrders(shopItem) {
     foreach (orderId, price in shopItem?.itemCost ?? {})
       if (orderId not in mainOrders && price > 0)
         return true
     return false
   }
 
-  let function isExternalPurchase(shopItem) {
+  function isExternalPurchase(shopItem) {
     let { shop_price = 0, shop_price_curr = "", storeId = "", devStoreId = "" } = shopItem
     return (shop_price_curr != "" && shop_price > 0) //PC type
       || storeId != "" || devStoreId != ""//Consoles type
   }
 
-  let function premFilterFunc(shopItem) {
+  function premFilterFunc(shopItem) {
     if (hasPriceContainsSpecOrders(shopItem))
       return true
 
@@ -153,7 +153,7 @@ let function mkShopState() {
     (a?.featuredWeight ?? 0) <=> (b?.featuredWeight ?? 0)
       || (a?.requirements.armyLevel ?? 0) <=> (b?.requirements.armyLevel ?? 0)
 
-  let function getChapterItems(armyItems, chapterScheme) {
+  function getChapterItems(armyItems, chapterScheme) {
     let chapters = chapterScheme.map(@(weigth) { container = null, goods = [], weigth })
     foreach (sItem in armyItems) {
       let { offerContainer = "", offerGroup = "" } = sItem
@@ -270,13 +270,13 @@ let function mkShopState() {
     return res
   })
 
-  let function switchGroup() {
+  function switchGroup() {
     let grCount = curShopItemsByGroup.value.len()
     curGroupIdx((curGroupIdx.value + 1) % grCount)
     chapterIdx(-1)
   }
 
-  let function autoSwitchNavigation() {
+  function autoSwitchNavigation() {
     let groups = curShopItemsByGroup.value
     let { group = null, chapter = null } = curSelectionShop.value
     local groupIndex, chapterIndex
@@ -324,7 +324,7 @@ let getCantBuyDataOnClick = @(shopItem)
     allItemTemplates.value)
 
 
-let function getGoodManageObject(manageData) {
+function getGoodManageObject(manageData) {
   if (manageData == null)
     return null
   let { soldier = null, weapon = null } = manageData

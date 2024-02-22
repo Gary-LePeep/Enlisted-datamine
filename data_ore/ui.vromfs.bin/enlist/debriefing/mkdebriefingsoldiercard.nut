@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { sound_play } = require("%dngscripts/sound_system.nut")
@@ -70,7 +70,7 @@ let mkExpAnim = @(vv1, vv2, del, duration, cb = null) {
   onFinish = cb
 }
 
-let function getExpAnimations(w1, w2, lvlAdded, delay, delay1, delay2, cb) {
+function getExpAnimations(w1, w2, lvlAdded, delay, delay1, delay2, cb) {
   let res = [ mkExpAnim(w1, w1, 0, delay) ]
   let cbDelay = cb != null ? 0.2 : 0
 
@@ -126,7 +126,7 @@ let SOLDIER_CARD_PARAMS = {
   nextAnimCb = null
 }
 
-local function mkSoldierCard(params = SOLDIER_CARD_PARAMS) {
+function mkSoldierCard(params = SOLDIER_CARD_PARAMS) {
   params = SOLDIER_CARD_PARAMS.__merge(params)
 
   let cb = params.nextAnimCb

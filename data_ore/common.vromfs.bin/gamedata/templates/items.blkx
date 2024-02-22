@@ -113,6 +113,10 @@
       "_tags": "render"
     }
   },
+  "lower_stationary_gun_after_use": {
+    "lower_stationary_gun_after_use__loweringSpeed": 20.0,
+    "animchar__considerAsVisible:tag": []
+  },
   "nonreplicated_tm_item_in_world": [
     {
       "_use": "animchar"
@@ -554,32 +558,13 @@
     "item__canUseWhileSwimming:tag": [],
     "item__canUseWhileSwimmingStill:tag": []
   },
-  "vr_one_hand": {
-    "hand_num": 0,
-    "_use": "animchar",
-    "animchar__res": "vr_l_hand_char",
-    "animchar_render__enabled": true,
-    "transform": [
-      [1.0,0.0,0.0],
-      [0.0,1.0,0.0],
-      [0.0,0.0,1.0],
-      [0.0,0.0,0.0]
-    ],
-    "vrHand:tag": []
-  },
-  "vr_hands": {
-    "_tags": "render,input",
-    "_singleton": true,
-    "vr_hands__model_name_l": "vr_l_hand_char",
-    "vr_hands__model_name_r": "vr_r_hand_char",
-    "vr_hands:vr::VrHands": [],
-    "leftAnimchar:eid": [],
-    "rightAnimchar:eid": [],
-    "vr_hands_input": {
-      "_tags": "input"
-    },
-    "input": {
-      "_tags": "input"
+  "cloth_wind": {
+    "cloth_wind_velocity_current": [0.0,0.0,0.0],
+    "cloth_wind_noise_offset": [0.0,0.0],
+    "cloth_wind_velocity_exp_smooth": 0.5,
+    "cloth_wind_velocity_multiplier": 0.02,
+    "needModelVelocity:tag": {
+      "_tags": "render"
     }
   }
 }

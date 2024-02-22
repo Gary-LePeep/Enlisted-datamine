@@ -5,127 +5,146 @@
       "uk_camo_very_dark_drab*": "uk_camo_earth_yellow*"
     }
   },
-  "uk_crusader_mk_3_common": {
-    "_use": "base_crusader_mk_3",
-    "commanderCockpitFpsCamMaxAngle": [40.0,5.0],
-    "gunner_cam_limit__useCockpitDir": true,
-    "item__iconOffset": [0.0,-0.0],
-    "item__iconScale": 1.11,
-    "armorThicknessHull": [20.0,14.0,14.0],
-    "armorThicknessTurret": [30.0,28.0,28.0],
-    "vehicle_seats__seats:shared:array": [
-      {
-        "seats:object": {
-          "name": "driver",
-          "locName": "vehicle_seats/driver",
-          "seatOwnsEntityControl": true,
-          "attachNode": "driver",
-          "ignoreAttachNodeRotation": true,
-          "attachTm": [
-            [1.0,0.0,0.0],
-            [0.0,1.0,0.0],
-            [0.0,0.0,1.0],
-            [-0.25,-0.25,0.0]
-          ],
-          "seatComponent": "isDriver",
-          "nextSeat": "main_gunner",
-          "shouldHideOwner": true,
-          "receiveDamageFromDMPart": "driver",
-          "cameraNodeName": "bone_camera_driver",
-          "cockpitTemplate": "uk_crusader_mk_3_driver_cockpit"
-        }
-      },
-      {
-        "seats:object": {
-          "name": "main_gunner",
-          "locName": "vehicle_seats/gunner",
-          "attachNode": "gunner",
-          "ignoreAttachNodeRotation": true,
-          "attachTm": [
-            [1.0,0.0,0.0],
-            [0.0,1.0,0.0],
-            [0.0,0.0,1.0],
-            [-0.25,-0.5,0.0]
-          ],
-          "seatComponent": "isGunner",
-          "nextSeat": "driver",
-          "shouldHideOwner": true,
-          "receiveDamageFromDMPart": "gunner",
-          "cameraNodeName": "bone_camera_gunner",
-          "cockpitTemplate": "uk_crusader_mk_3_gunner_cockpit",
-          "turretNames:array": [
-            {
-              "turret": "turret_01"
-            },
-            {
-              "turret": "turret_02"
-            }
-          ]
-        }
-      },
-      {
-        "seats:object": [
-          {
-            "name": "commander"
-          },
-          {
-            "attachNode": "commander"
-          },
-          {
-            "shouldHideOwner": true
-          },
-          {
-            "hatchRotationAxis": [1.5,0.0,0.0]
-          },
-          {
-            "hatchRotationAxis": [1.8,0.0,0.0]
-          },
-          {
-            "locName": "vehicle_seats/commander"
-          },
-          {
-            "ignoreAttachNodeRotation": true
-          },
-          {
+  "uk_crusader_mk_3_common": [
+    {
+      "_use": "base_crusader_mk_3"
+    },
+    {
+      "_use": "uk_crusader_mk_3_common_vehicle_sound"
+    },
+    {
+      "commanderCockpitFpsCamMaxAngle": [40.0,5.0]
+    },
+    {
+      "gunner_cam_limit__useCockpitDir": true
+    },
+    {
+      "item__iconOffset": [0.0,-0.0]
+    },
+    {
+      "item__iconScale": 1.11
+    },
+    {
+      "armorThicknessHull": [20.0,14.0,14.0]
+    },
+    {
+      "armorThicknessTurret": [30.0,28.0,28.0]
+    },
+    {
+      "vehicle_seats__seats:shared:array": [
+        {
+          "seats:object": {
+            "name": "driver",
+            "locName": "vehicle_seats/driver",
+            "seatOwnsEntityControl": true,
+            "attachNode": "driver",
+            "ignoreAttachNodeRotation": true,
             "attachTm": [
               [1.0,0.0,0.0],
               [0.0,1.0,0.0],
               [0.0,0.0,1.0],
-              [-0.6,-0.7,0.04]
-            ]
-          },
-          {
-            "seatComponent": "isDriver"
-          },
-          {
-            "receiveDamageFromDMPart": "commander"
-          },
-          {
-            "cameraNodeName": "bone_turret"
-          },
-          {
-            "cockpitTemplate": "uk_crusader_mk_3_commander_cockpit"
-          },
-          {
-            "seatAnimUpper": "drive_passenger"
-          },
-          {
-            "seatAnimLower": "drive_passenger"
-          },
-          {
-            "hatchNodes:array": {
-              "node": "hatch_01"
-            }
-          },
-          {
-            "loaderTurretNames:array": {
-              "turret": "turret_01"
-            }
+              [-0.25,-0.25,0.0]
+            ],
+            "seatComponent": "isDriver",
+            "nextSeat": "main_gunner",
+            "shouldHideOwner": true,
+            "receiveDamageFromDMPart": "driver",
+            "cameraNodeName": "bone_camera_driver",
+            "cockpitTemplate": "uk_crusader_mk_3_driver_cockpit"
           }
-        ]
-      }
-    ]
-  },
+        },
+        {
+          "seats:object": {
+            "name": "main_gunner",
+            "locName": "vehicle_seats/gunner",
+            "attachNode": "gunner",
+            "ignoreAttachNodeRotation": true,
+            "attachTm": [
+              [1.0,0.0,0.0],
+              [0.0,1.0,0.0],
+              [0.0,0.0,1.0],
+              [-0.25,-0.5,0.0]
+            ],
+            "seatComponent": "isGunner",
+            "nextSeat": "driver",
+            "shouldHideOwner": true,
+            "receiveDamageFromDMPart": "gunner",
+            "cameraNodeName": "bone_camera_gunner",
+            "cockpitTemplate": "uk_crusader_mk_3_gunner_cockpit",
+            "turretNames:array": [
+              {
+                "turret": "turret_01"
+              },
+              {
+                "turret": "turret_02"
+              }
+            ]
+          }
+        },
+        {
+          "seats:object": [
+            {
+              "name": "commander"
+            },
+            {
+              "attachNode": "commander"
+            },
+            {
+              "shouldHideOwner": true
+            },
+            {
+              "hatchRotationAxis": [1.5,0.0,0.0]
+            },
+            {
+              "hatchRotationAxis": [1.8,0.0,0.0]
+            },
+            {
+              "locName": "vehicle_seats/commander"
+            },
+            {
+              "ignoreAttachNodeRotation": true
+            },
+            {
+              "attachTm": [
+                [1.0,0.0,0.0],
+                [0.0,1.0,0.0],
+                [0.0,0.0,1.0],
+                [-0.6,-0.7,0.04]
+              ]
+            },
+            {
+              "seatComponent": "isDriver"
+            },
+            {
+              "receiveDamageFromDMPart": "commander"
+            },
+            {
+              "cameraNodeName": "bone_turret"
+            },
+            {
+              "cockpitTemplate": "uk_crusader_mk_3_commander_cockpit"
+            },
+            {
+              "seatAnimUpper": "drive_passenger"
+            },
+            {
+              "seatAnimLower": "drive_passenger"
+            },
+            {
+              "hatchNodes:array": {
+                "node": "hatch_01"
+              }
+            },
+            {
+              "loaderTurretNames:array": {
+                "turret": "turret_01"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
   "uk_crusader_mk_3_driver_cockpit": {
     "_use": "base_driver_cockpit",
     "animchar__res": "ba_11_driver_char",

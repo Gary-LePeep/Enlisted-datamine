@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {inTank, isPassenger} = require("%ui/hud/state/vehicle_state.nut")
 let {isHoldingGunPassenger} = require("%ui/hud/state/hero_in_vehicle_state.nut")
@@ -15,7 +15,7 @@ let { mainTurretEid, mainTurretEidSetValue } = mkFrameIncrementObservable(ecs.IN
 let { currentMainTurretEid, currentMainTurretEidSetValue } = mkFrameIncrementObservable(ecs.INVALID_ENTITY_ID, "currentMainTurretEid")
 const MACHINE_GUN_TRIGGER = 2
 
-let function resetState() {
+function resetState() {
   vehicleTurretsSetValue([])
   turretsAmmoSetValue([])
 }
@@ -36,7 +36,7 @@ let turretQuery = ecs.SqQuery("turretQuery", {
   ]
 })
 
-let function get_trigger_mappings(hotkeys) {
+function get_trigger_mappings(hotkeys) {
   let mappings = {}
   foreach (mapping in hotkeys) {
     let name = mapping?.name
@@ -50,7 +50,7 @@ let getGunTmpl = memoize(@(propsId) ecs.g_entity_mgr.getTemplateDB().getTemplate
 let getAmmoSets = @(_, comp)
   (comp["gun__ammoSetsInfo"]?.getAll() ?? []).map(@(set, setInd) { name=set?[0]?.name ?? "", type=set?[0]?.type ?? "", maxAmmo = comp["gun__shellsAmmo"]?[setInd] ?? 0 })
 
-let function initTurretsState(comp, ignore_control_turret_eid = ecs.INVALID_ENTITY_ID) {
+function initTurretsState(comp, ignore_control_turret_eid = ecs.INVALID_ENTITY_ID) {
   let turretsByGroup = {}
 
   let triggerMappingComp = comp["turret_control__triggerMapping"]?.getAll() ?? []

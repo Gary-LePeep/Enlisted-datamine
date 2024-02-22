@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {heroCurrentGunSlot, heroModsByWeaponSlot, weaponSlotsStatic} = require("%ui/hud/state/hero_weapons.nut")
 let {fontSub} = require("%enlSqGlob/ui/fontsStyle.nut")
@@ -13,7 +13,7 @@ let curBorderColor = SELECTION_BORDER_COLOR
 //let nextBorderColor = Color(200, 200, 200, 100)
 
 
-let function itemAppearing(duration=0.2) {
+function itemAppearing(duration=0.2) {
   return {prop=AnimProp.opacity, from=0, to=1, duration=duration, play=true, easing=InOutCubic}
 }
 let wWidth = hdpx(280)
@@ -21,7 +21,7 @@ let aHgt = calc_str_box("A", fontSub)[1]*2 //we want to be sure that weapon name
 let wHeight = max(aHgt+hdpx(2), hdpx(40))
 
 let weapIdPadding = freeze([0,0,hdpx(2),hdpx(2)])
-let function weaponId(weaponName, isCurrent, params={width=flex() height=wHeight}) {
+function weaponId(weaponName, isCurrent, params={width=flex() height=wHeight}) {
   let size = [params?.width ?? flex(), params?.height ?? wHeight]
   let {padding = weapIdPadding, margin = null} = params
   return {
@@ -49,7 +49,7 @@ let function weaponId(weaponName, isCurrent, params={width=flex() height=wHeight
 let wAmmoDef = {width=SIZE_TO_CONTENT height=SIZE_TO_CONTENT}
 let weapAmmoAnimations = [ { prop=AnimProp.scale, from=[1.1,1.3], to=[1,1], duration=0.2, play=true, easing=OutCubic } ]
 
-let function weaponAmmo(watchedWeapon, isCurrent, params=wAmmoDef, idx = null) {
+function weaponAmmo(watchedWeapon, isCurrent, params=wAmmoDef, idx = null) {
   let size = [params?.width ?? SIZE_TO_CONTENT, params?.height ?? SIZE_TO_CONTENT]
   let totalAmmoW = Computed(@() watchedWeapon?.value.totalAmmo ?? 0)
   let curAmmoW = Computed(@() watchedWeapon?.value.curAmmo ?? 0)
@@ -96,7 +96,7 @@ let weaponWidgetAnims = freeze([
   itemAppearing()
 ])
 
-let function iconCtor(itemInfo, isLoadable, isAmmoLoaded, width, height, mods=null) {
+function iconCtor(itemInfo, isLoadable, isAmmoLoaded, width, height, mods=null) {
   return iconWidget(itemInfo, {
       width
       height
@@ -112,7 +112,7 @@ let iconCtorMemoized  = memoize(iconCtor)
 
 let currentBorder = freeze({ size = flex(), rendObj = ROBJ_FRAME, borderWidth = hdpx(1), color = curBorderColor })
 
-let function weaponWidget(weapon=null, idx=null, hint = null, width = wWidth, height = wHeight, weaponState = null, doMemoize=false) {
+function weaponWidget(weapon=null, idx=null, hint = null, width = wWidth, height = wHeight, weaponState = null, doMemoize=false) {
   let weaponWatched = Computed(@() (weapon ?? {}).__merge(weaponState?.value ?? {}))
   let name = Computed(@() weapon?.name ?? weaponSlotsStatic?[idx].name ?? weaponWatched?.value.name)
   let isCurrentW = Computed(@() heroCurrentGunSlot.value!=null && heroCurrentGunSlot.value == idx)

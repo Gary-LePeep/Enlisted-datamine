@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 let decoratorUi = require("decoratorUi.nut")
 let { unlockedCampaigns } = require("%enlist/meta/campaigns.nut")
 let { configs } = require("%enlist/meta/configs.nut")
@@ -23,7 +23,9 @@ let mkPlayerCardUi = @(campaigns) function() {
 
 return function() {
   let notEmptyStatisticCampaigns = Computed(function(prev) {
-    local { campaigns = {} } = configs.value?.gameProfile
+    if (prev == FRP_INITIAL)
+      prev = []
+    let { campaigns = {} } = configs.value?.gameProfile
     let res = []
     foreach (camp in unlockedCampaigns.value) {
       let armiesCamp = campaigns?[camp].armies ?? []
@@ -35,7 +37,7 @@ return function() {
         }
       }
     }
-    return isEqual(res, prev) ? prev : res
+    return isEqual(prev, res) ? prev : res
   })
 
   return {

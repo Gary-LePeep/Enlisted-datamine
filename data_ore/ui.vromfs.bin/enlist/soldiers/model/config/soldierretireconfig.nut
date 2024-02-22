@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let sClassesCfg = require("%enlist/soldiers/model/config/sClassesConfig.nut")
 

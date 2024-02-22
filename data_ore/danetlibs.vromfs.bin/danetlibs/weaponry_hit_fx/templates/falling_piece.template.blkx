@@ -1,0 +1,25 @@
+{
+  "falling_piece_debug": {
+    "_singleton": true,
+    "falling_piece_debug:tag": []
+  },
+  "falling_piece": {
+    "transform": [
+      [1.0,0.0,0.0],
+      [0.0,1.0,0.0],
+      [0.0,0.0,1.0],
+      [0.0,0.0,0.0]
+    ],
+    "falling_piece:tag": [],
+    "_group": {
+      "tags": "render",
+      "falling_piece__velocity": [0.0,0.0,0.0],
+      "falling_piece__max_velocity": 1.0,
+      "falling_piece__start_orient": [0.0,0.0,0.0,0.0],
+      "falling_piece__omega": [0.0,0.0,0.0],
+      "falling_piece__ttl": 4.5,
+      "falling_piece__elapsed_time": 0.0,
+      "falling_piece__debug_radius": 0.1
+    }
+  }
+}

@@ -27,12 +27,16 @@ def reset_attached_gun(gun_eid : EntityId)
                             var animchar__updatable : bool&;
                             var interactable : bool&;
                             var mounted_gun__active : bool&;
-                            var team : int?)
+                            var team : int?;
+                            lower_stationary_gun_after_use__loweringSide : int const?)
     gun.appliedControls.shoot = false
 
     gun__owner = INVALID_ENTITY_ID
 
-    animchar__updatable = false
+    if lower_stationary_gun_after_use__loweringSide != null && !is_true_net_server()
+      addSubTemplate(gun_eid, "lower_stationary_gun_after_use")
+    else
+      animchar__updatable = false
     interactable = true
 
     mounted_gun__active = false
@@ -162,7 +166,7 @@ def is_pos_in_attached_gun_ai_aim_range(pos : float3; gun_eid : EntityId)
     localPos.z = -localPos.z
     localPos -= mounted_gun__aiRotOffset
 
-    let yaw = safe_atan2(localPos.x, localPos.z)
+    let yaw = atan2(localPos.x, localPos.z)
     let yawMin = deg_to_rad(mounted_gun__horz_limits.x * mounted_gun__aiLimitsMod.x)
     let yawMax = deg_to_rad(mounted_gun__horz_limits.y * mounted_gun__aiLimitsMod.x)
     if yaw < yawMin || yaw > yawMax
@@ -172,7 +176,7 @@ def is_pos_in_attached_gun_ai_aim_range(pos : float3; gun_eid : EntityId)
     let pitchCoef = mounted_gun__aiLimitsMod.y * yawLimitsPitchCoef
 
     let xzLen = sqrt(square(localPos.x) + square(localPos.z))
-    let pitch = safe_atan2(localPos.y, xzLen)
+    let pitch = atan2(localPos.y, xzLen)
     let pitchMin = deg_to_rad(mounted_gun__vert_limits.x * pitchCoef)
     let pitchMax = deg_to_rad(mounted_gun__vert_limits.y * pitchCoef)
     if pitch < pitchMin || pitch > pitchMax

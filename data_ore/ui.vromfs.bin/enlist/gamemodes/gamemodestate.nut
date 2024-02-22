@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { logerr } = require("dagor.debug")
 let { doesLocTextExist } = require("dagor.localize")
@@ -25,7 +25,7 @@ const TANK_TUTORIAL_ID = "tutorial_tank"
 const ENGINEER_TUTORIAL_ID = "tutorial_engineer"
 const AIRCRAFT_TUTORIAL_ID = "tutorial_aircraft"
 
-let function updateGameMode(...) {
+function updateGameMode(...) {
   selGameModeIdByCampaign(clone savedGameModeIdByCampaign.value)
 }
 
@@ -302,7 +302,7 @@ let currentGameMode = Computed(function() {
 
 let currentGameModeId = Computed(@() currentGameMode.value?.id)
 
-let function setGameMode(id) {
+function setGameMode(id) {
   let gameMode = mainGameModes.value.findvalue(@(gm) gm.id == id)
   if (gameMode != null) {
     if (onlineGameModes.value.contains(gameMode))

@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { HUD_TIPS_FAIL_TEXT_COLOR } = require("%ui/hud/style.nut")
@@ -13,7 +13,7 @@ let {CmdShowArtilleryCooldownHint} = require("dasevents")
 
 let gap = hdpx(5)
 
-let function show_artillery_cooldown_hint(){
+function show_artillery_cooldown_hint(){
   let timeLeft = artilleryAvailableTimeLeft.value
   if (timeLeft <= 0)
     return
@@ -26,7 +26,7 @@ let function show_artillery_cooldown_hint(){
 
 let artilleryHotkey = "Human.ArtilleryStrike"
 let hasArtilleryBinding = mkHasBinding(artilleryHotkey)
-let function artilleryOrder() {
+function artilleryOrder() {
   let hint = tipCmp({
     text = Computed(@() !artilleryIsAvailableByLimit.value ? loc("artillery/already_active")
       : artilleryAvailableTimeLeft.value > 0

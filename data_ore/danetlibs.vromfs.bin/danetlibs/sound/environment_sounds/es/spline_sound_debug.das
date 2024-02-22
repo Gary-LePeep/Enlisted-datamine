@@ -2,19 +2,16 @@ options no_aot
 require ecs
 require DagorMath
 require DagorDebug3D
-require soundSystem
 require Dacoll
 
 
 let DEBUG_ADD_DRAW_HEIGHT = 0.5
 
 
-[es(no_order, tag=(render, sound, dev))]
-def spline_sound_debug_draw(info : UpdateStageInfoRenderDebug;
+[es(no_order, tag=sound, on_event=EventSoundDrawDebug)]
+def spline_sound_debug_draw(evt : Event;
                             spline_sound__points : Point4List;
                             spline_sound__floorOnWater : bool)
-  if !get_enable_debug_draw()
-    return
   var idx = 0
   for pt in spline_sound__points
     if pt.w > 0. // not a separator && nonzero radius

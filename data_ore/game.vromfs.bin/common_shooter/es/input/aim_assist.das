@@ -1,4 +1,5 @@
 require ecs
+require ecs.common
 require math
 require math.base
 require DagorMath
@@ -44,6 +45,18 @@ def aim_assist_node_load_es(evt : Event;
   aim_assist_target__nodeIdx = geomtree_findNodeIndex(*animchar.nodeTree, aim_assist_target__nodeName)
   if aim_assist_target__nodeIdx < 0
     logerr("aim_assist_target__nodeName '{aim_assist_target__nodeName}' not found in entity {eid}='{getEntityTemplateName(eid)}'")
+
+
+[es(tag=input, on_appear)]
+def aim_assist_target_nodes_on_appear(evt : Event;
+                                      collres : CollisionResource;
+                                      aim_assist_target__skipNodeNames : StringList;
+                                      var aim_assist_target__nodeIds : IntList)
+  for nodeId in range(0, collres_get_nodesCount(collres))
+    let node = collres_get_node(collres, nodeId)
+    let nodeName = collnode_get_name(node)
+    if find_index(aim_assist_target__skipNodeNames, nodeName) < 0
+      push(aim_assist_target__nodeIds, nodeId)
 
 
 [es(tag=input, after=after_animchar_update_sync)]
@@ -187,7 +200,8 @@ def aim_assist_rotating_aim_es(info : UpdateStageUpdateInput;
   if isManualAiming
     ecs::query(aim_assist__targetEid) <| $ [es] (collres : CollisionResource;
                                                  animchar : AnimcharBaseComponent;
-                                                 transform : float3x4)
+                                                 transform : float3x4;
+                                                 aim_assist_target__nodeIds : IntList)
       let shootDir = angles_to_dir(human_input__aimAngle)
       var shootPos : float3
       ecs::query(human_attached_gun__attachedGunEid != INVALID_ENTITY_ID ? human_attached_gun__attachedGunEid : human_weap__currentGunEid) <| $ [es] (gun : Gun)
@@ -195,7 +209,7 @@ def aim_assist_rotating_aim_es(info : UpdateStageUpdateInput;
 
       aim_assist__rotationTargetNodeId = -1
       var bestCos = cos(deg_to_rad(aim_assist__rotationTargetNodeMaxAngle))
-      for ni in range(0, collres_get_nodesCount(collres))
+      for ni in aim_assist_target__nodeIds
         var ntm : float3x4
         collres_get_collision_node_tm(collres, ni, transform, animchar.nodeTree, ntm)
         let nodeDir = normalize(ntm[3] - shootPos)
@@ -232,4 +246,3 @@ def aim_assist_rotating_aim_es(info : UpdateStageUpdateInput;
     human_input__aimAngleOffset = approach(human_input__aimAngleOffset, float2(0.f, 0.f), info.dt, aim_assist__rotationVisc)
     aim_assist__rotationTargetEid = INVALID_ENTITY_ID
     aim_assist__rotationTargetNodeId = -1
-  

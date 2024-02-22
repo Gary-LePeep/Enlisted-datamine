@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let JB = require("%ui/control/gui_buttons.nut")
 let faComp = require("%ui/components/faComp.nut")
@@ -64,8 +64,10 @@ let imageHeight = rewardWidth - hdpx(30)
 let imageSize = [(rewardWidthToHeight * imageHeight).tointeger(), imageHeight]
 let btnSize = [hdpx(280), commonBtnHeight]
 
-isOpened.subscribe(@(v) !v ? null
-  : dailyRewardsCrates.value.each(@(items, army) requestCratesContent(army, items)))
+isOpened.subscribe(function(v) {
+  if (v)
+    requestCratesContent(dailyRewardsCrates.value)
+})
 
 let dayProgressBar = progressContainerCtor(
   $"ui/uiskin/battlepass/progress_bar_mask.svg",
@@ -88,7 +90,7 @@ let mkProgressText = @(progressText, color = null) {
   color
 }.__update(fontBody)
 
-let function mkStageCardView(rewardItems, hasStageCompleted) {
+function mkStageCardView(rewardItems, hasStageCompleted) {
   if (rewardItems.len() == 0)
     return null
 
@@ -114,7 +116,7 @@ let function mkStageCardView(rewardItems, hasStageCompleted) {
   }
 }
 
-let function mkToolTip(rewardCrate, rewardsCfgs) {
+function mkToolTip(rewardCrate, rewardsCfgs) {
   let headerText = "\n".join(rewardsCfgs.map(@(cfg) loc(cfg.name)))
   return rewardCrate.value != null
     ? makeCrateToolTip(rewardCrate, headerText)
@@ -125,7 +127,7 @@ let function mkToolTip(rewardCrate, rewardsCfgs) {
       }).__update(fontSub))
 }
 
-let function mkBoosterToolTip(bName, rewardsBoosters, rewardsItems, curArmyId) {
+function mkBoosterToolTip(bName, rewardsBoosters, rewardsItems, curArmyId) {
   let boostersItems = {
     reinforcing = []
     instant = []
@@ -177,7 +179,7 @@ let mkBackgroundWithGlareAnimation = @(background) {
   ]
 }
 
-let function mkProgressBar(idx, todayStage, pastDays, hasStageReward, hasStageCompleted,
+function mkProgressBar(idx, todayStage, pastDays, hasStageReward, hasStageCompleted,
   rewardData = null
 ) {
   let { progressConfig = null } = rewardData
@@ -272,7 +274,7 @@ let mkDailyBigReward = @(progressBar, stageCard) {
   ]
 }
 
-let function mkDailyRewardsContent() {
+function mkDailyRewardsContent() {
   let res = { watch = [dailyRewardsUnlock, curArmy, requestedCratesContent, itemMapping] }
   if (dailyRewardsUnlock.value == null)
     return res
@@ -312,7 +314,7 @@ let function mkDailyRewardsContent() {
       local rewardData = null
       local stageCard = emptyStageCard
       if (stageData?.rewards) {
-        let rewardsCfg = calcRewardCfg(stageData, rewardsItems, cratesComp, curArmyId)
+        let rewardsCfg = calcRewardCfg(stageData, rewardsItems, cratesComp)
         let { rewardCrate, rewardsData } = rewardsCfg
         stageCard = withTooltip(mkStageCard(rewardsData, hasStageReward, hasStageCompleted),
           @() mkToolTip(rewardCrate, rewardsData))
@@ -368,14 +370,14 @@ let btnParams = {
   margin = 0
 }
 
-let function skipRewardAnimCb() {
+function skipRewardAnimCb() {
   anim_skip(animTrigger)
   anim_skip(HIDE_TASK_BOOST)
   anim_start(SHOW_TASK_BOOST)
   hasRewardsAnim(false)
 }
 
-let function nextOrCloseCb(receivedData) {
+function nextOrCloseCb(receivedData) {
   gotoNextStageOrClose(receivedData, @() isOpened(false))
 }
 
@@ -414,7 +416,7 @@ let mkRewardItemCard = kwarg(@(itemTemplate = null, count = 1, presentation = nu
     : mkRewardCardByTemplate(itemTemplate, allItemTemplates, commonArmy)
 )
 
-let function mkRollReward(cratesContent, rewardCard, animDelay, onEnter, onFinish) {
+function mkRollReward(cratesContent, rewardCard, animDelay, onEnter, onFinish) {
   let children = [rewardCard]
   let itemsTpls = cratesContent.keys()
   let total = itemsTpls.len()
@@ -441,7 +443,7 @@ let rewardBg = {
   })
 }
 
-let function mkCrateReward(itemTpl, count, animDelay, cratesContent, onEnter, onFinish) {
+function mkCrateReward(itemTpl, count, animDelay, cratesContent, onEnter, onFinish) {
   let itemData = cratesContent?[itemTpl]
   if (itemData == null)
     return null
@@ -493,7 +495,7 @@ let mkItemReward = @(itemData, idx, total) {
       "ui/debriefing/squad_star")
   })
 
-let function mkRewards(receivedRewards) {
+function mkRewards(receivedRewards) {
   let { itemsData, cratesContent, crateItemsData = {} } = receivedRewards
   let itemsList = itemsData.values()
   let itemsTotal = itemsList.len()
@@ -605,7 +607,7 @@ let mkDailyRewardsHeader = @(receivedData)
   }
 
 
-let function mkDailyRewards() {
+function mkDailyRewards() {
   let receivedData = Computed(function() {
     let unlock = dailyRewardsUnlock.value
     let mappedItems = itemMapping.value
@@ -689,7 +691,7 @@ let function mkDailyRewards() {
   }
 }
 
-let function open() {
+function open() {
   addModalWindow({
     key = WND_UID
     rendObj = ROBJ_WORLD_BLUR_PANEL
@@ -701,7 +703,7 @@ let function open() {
   })
 }
 
-let function close() {
+function close() {
   removeModalWindow(WND_UID)
 }
 

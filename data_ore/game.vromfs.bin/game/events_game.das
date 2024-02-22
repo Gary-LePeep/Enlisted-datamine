@@ -128,6 +128,11 @@ struct EventRendinstDestroyed // server
   riTm : float3x4
   riBBox : BBox3
 
+[cpp_event(broadcast)]
+struct EventRendinstDestroyedClient // gameClient
+  riTm : float3x4
+  riGlobBBox : BBox3
+
 [event(broadcast, routing=ROUTING_SERVER_TO_CLIENT)]
 struct EventTeamRoundResult
   team : int

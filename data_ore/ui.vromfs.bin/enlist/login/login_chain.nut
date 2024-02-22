@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {get_time_msec} = require("dagor.time")
 let {send_error_log} = require("clientlog")
@@ -27,7 +27,7 @@ local onInterrupt = null //@(processState)
 local startLoginTs = -1
 let loginTime = mkWatched(persist, "loginTime", 0)
 
-let function makeStage(stageCfg) {
+function makeStage(stageCfg) {
   let res = {
     id = ""
     action = @(_state, cb) cb()
@@ -39,7 +39,7 @@ let function makeStage(stageCfg) {
   return res
 }
 let persistActions = persist("persistActions", @() {})
-let function makeStageCb() {
+function makeStageCb() {
   let curStage = currentStage.value
   return @(result) persistActions[STEP_CB_ACTION_ID](curStage, result)
 }
@@ -47,16 +47,16 @@ let function makeStageCb() {
 let reportLoginEnd = @(reportKey)
   statsd.send_profile("login_time", get_time_msec() - startLoginTs, {status=reportKey})
 
-let function startStage(stageName) {
+function startStage(stageName) {
   currentStage(stageName)
   stages[stageName].action(processState, makeStageCb())
 }
 
-let function curStageActionOnReload() {
+function curStageActionOnReload() {
   stages[currentStage.value].actionOnReload(processState, makeStageCb())
 }
 
-let function startLogin(params) {
+function startLogin(params) {
   assert(currentStage.value == null)
   assert(stagesOrder.len() > 0)
 
@@ -71,14 +71,14 @@ let function startLogin(params) {
   startStage(stagesOrder[0])
 }
 
-let function fireAfterLoginOnceActions() {
+function fireAfterLoginOnceActions() {
   let actions = clone afterLoginOnceActions
   afterLoginOnceActions.clear()
   foreach (action in actions)
     action()
 }
 
-let function onStageResult(result) {
+function onStageResult(result) {
   let stageName = currentStage.value
   processState.stageResult[stageName] <- result
   if (result?.status != null)
@@ -143,7 +143,7 @@ persistActions[STEP_CB_ACTION_ID] <- function(curStage, result) {
     logLogin($"Receive cb from stage {curStage} but current is {currentStage.value}. Ignored.")
 }
 
-let function makeStages(config) {
+function makeStages(config) {
   assert(currentStage.value == null || stages.len() == 0)
 
   let prevStagesOrder = clone stagesOrder
@@ -177,7 +177,7 @@ let function makeStages(config) {
   }
 }
 
-let function setStagesConfig(config) {
+function setStagesConfig(config) {
   stagesConfig.__update(config)
   makeStages(config)
 }

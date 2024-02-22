@@ -5,7 +5,7 @@ require sound_utils_net.modules.sound_desc_common
 require common_shooter.es.sound.gun_sound_common
 
 
-[es(tag=sound, after=gun_overheat_es, on_event=ParallelUpdateFrameDelayed)]
+[es(tag=sound, after=(gun_overheat_es, sound_begin_update_es), before=sound_end_update_es, on_event=ParallelUpdateFrameDelayed)]
 def gun_overheat_sound(evt : Event;
                        gun__owner : EntityId;
                        gun__overheat : float;

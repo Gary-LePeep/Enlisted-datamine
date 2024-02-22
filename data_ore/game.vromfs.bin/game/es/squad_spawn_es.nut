@@ -63,7 +63,7 @@ let updateTeamScore = @(team, playerSpawnCount, squadCostMult, hasVehicle) teamS
     comp["team__score"] = max(0, comp["team__score"] - spawnCost)
 })
 
-let function initPlayerRespawner(comp) {
+function initPlayerRespawner(comp) {
   comp["respawner__enabled"] = true
   comp["respawner__respToBot"] = false
   comp["respawner__isFirstSpawn"] = true
@@ -72,7 +72,7 @@ let function initPlayerRespawner(comp) {
   comp["respawner__canRespawnWaitNumber"] = -1
 }
 
-let function rejectSpawn(reason, team, playerEid, comp, needCooldown = true) {
+function rejectSpawn(reason, team, playerEid, comp, needCooldown = true) {
   debug($"RejectSpawn: '{reason}' for team {team} and player {playerEid}")
   ecs.server_send_event(playerEid, mkEventOnSpawnError({reason=reason}), [ecs.obsolete_dbg_get_comp_val(playerEid, "connid", -1)])
 
@@ -84,7 +84,7 @@ let function rejectSpawn(reason, team, playerEid, comp, needCooldown = true) {
   comp["respawner__canRespawnWaitNumber"] = -1
 }
 
-let function onSuccessfulSpawn(comp, spawnCostTeamMult, spawnCostPersonal, hasVehicle) {
+function onSuccessfulSpawn(comp, spawnCostTeamMult, spawnCostPersonal, hasVehicle) {
   updateTeamScore(comp.team, comp.squads__spawnCount, spawnCostTeamMult, hasVehicle)
   comp.respawner__spawnScore = comp.respawner__spawnScore - spawnCostPersonal
   comp["squads__spawnCount"]++
@@ -96,13 +96,13 @@ let function onSuccessfulSpawn(comp, spawnCostTeamMult, spawnCostPersonal, hasVe
 let groupSpawnCb = @(team, canUseRespawnbaseType, canUseRespawnbaseSubtypes, respawnGroupId)
   find_respawn_base_for_team_with_type_of_group(team, canUseRespawnbaseType, canUseRespawnbaseSubtypes, respawnGroupId)
 
-let function spawnGroupError(template, team, eid, comp) {
+function spawnGroupError(template, team, eid, comp) {
   logerr($"'canUseRespawnbaseType' component is not set for {template}")
   rejectSpawn($"No respawn base for {template} by type", team, eid, comp)
   return false
 }
 
-let function avalibleBaseAndSpawnParamsCb(ctx, canUseRespawnbaseType, canUseRespawnbaseSubtypes = []) {
+function avalibleBaseAndSpawnParamsCb(ctx, canUseRespawnbaseType, canUseRespawnbaseSubtypes = []) {
   local getRespawnbaseForTeamCb = @(team)
     find_respawn_base_for_team_with_type(team, canUseRespawnbaseType, canUseRespawnbaseSubtypes)
   let respawnGroupId = ctx.respawnGroupId
@@ -129,7 +129,7 @@ let debugAllRespawnbasesQuery = ecs.SqQuery("debugAllRespawnbasesQuery", {
   comps_rq=["respbase"]
 })
 
-let function debugDumpRespawnbases(ctx, canUseRespawnbaseType, canUseRespawnbaseSubtypes = []) {
+function debugDumpRespawnbases(ctx, canUseRespawnbaseType, canUseRespawnbaseSubtypes = []) {
   debugTableData(ctx)
   let subtypes = ", ".join(canUseRespawnbaseSubtypes)
   debug($"canUseRespawnbaseType = {canUseRespawnbaseType}, canUseRespawnbaseSubtypes = [{subtypes}]")
@@ -140,7 +140,7 @@ let function debugDumpRespawnbases(ctx, canUseRespawnbaseType, canUseRespawnbase
   })
 }
 
-let function trySpawnSquad(ctx, comp) {
+function trySpawnSquad(ctx, comp) {
   let eid                      = ctx.eid;
   let team                     = ctx.team;
   let squadId                  = ctx.squadId;
@@ -187,7 +187,7 @@ let teamPendingQuery = ecs.SqQuery("teamPendingQuery", {
   comps_rw = [["team__spawnPending", ecs.TYPE_OBJECT]]
 })
 
-let function onPlayerAwaitingVehicleSpawn(team, playerEid, respawnbaseType) {
+function onPlayerAwaitingVehicleSpawn(team, playerEid, respawnbaseType) {
   if (playerEid == ecs.INVALID_ENTITY_ID)
     return
   let teamEid = get_team_eid(team) ?? ecs.INVALID_ENTITY_ID
@@ -197,7 +197,7 @@ let function onPlayerAwaitingVehicleSpawn(team, playerEid, respawnbaseType) {
   })
 }
 
-let function onPendingVehicleSpawned(squadEid, respawnbaseType) {
+function onPendingVehicleSpawned(squadEid, respawnbaseType) {
   let playerEid = ecs.obsolete_dbg_get_comp_val(squadEid, "squad__ownerPlayer") ?? ecs.INVALID_ENTITY_ID
   if (playerEid == ecs.INVALID_ENTITY_ID)
     return
@@ -215,7 +215,7 @@ let function onPendingVehicleSpawned(squadEid, respawnbaseType) {
   })
 }
 
-let function trySpawnVehicleSquad(ctx, comp) {
+function trySpawnVehicleSquad(ctx, comp) {
   let eid                      = ctx.eid;
   let team                     = ctx.team;
   let squadId                  = ctx.squadId;
@@ -270,7 +270,7 @@ let respawnPointsQuery = ecs.SqQuery("respawnPointsQuery", {
   comps_ro=[["squads__revivePointsList", ecs.TYPE_INT_LIST], ["soldier_revive_points__points", ecs.TYPE_ARRAY, []]]
 })
 
-let function validateRotationComps(squadRevivePoints, soldierRevivePoints, squadId, memberId) {
+function validateRotationComps(squadRevivePoints, soldierRevivePoints, squadId, memberId) {
   if (squadId < 0 || squadId >= squadRevivePoints.len()) {
     logerr($"Squad {squadId} not found in squads.revivePointsList")
     debugTableData(squadRevivePoints)
@@ -296,7 +296,7 @@ let noBotsModeQuery = ecs.SqQuery("noBotsModeQuery", {comps_rq=["noBotsMode"]})
 
 let isNoBotsMode = @() noBotsModeQuery.perform(@(...) true) ?? false
 
-local function spawnSquadImpl(eid, comp, team, squadId, memberId, respawnGroupId, existedVehicleEid) {
+function spawnSquadImpl(eid, comp, team, squadId, memberId, respawnGroupId, existedVehicleEid) {
   if (team == TEAM_UNASSIGNED) {
     debug($"Cannot create player possessed entity for team {team}")
     return

@@ -10,6 +10,9 @@
       "_use": "high_speed_warning"
     },
     {
+      "_use": "po_2_plane_sound"
+    },
+    {
       "vehicle__highSpeedWarningLimits": [50.0,53.0]
     },
     {
@@ -245,6 +248,22 @@
         },
         {
           "scale": 1.0
+        }
+      ]
+    },
+    {
+      "disableDMParts:list<t>": [
+        {
+          "part": "pylon_rocket1"
+        },
+        {
+          "part": "pylon_rocket2"
+        },
+        {
+          "part": "pylon_rocket3"
+        },
+        {
+          "part": "pylon_rocket4"
         }
       ]
     }

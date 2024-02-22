@@ -1,9 +1,9 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 let { splitThousands } = require("%sqstd/math.nut")
 
 let separator = loc("amount/separator")
 
-let function abbreviateAmount(amount) {
+function abbreviateAmount(amount) {
   if (type(amount) != "integer")
     return amount
 

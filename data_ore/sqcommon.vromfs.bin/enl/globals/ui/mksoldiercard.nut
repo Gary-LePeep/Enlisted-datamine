@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let {
@@ -47,7 +47,7 @@ let deadIcon = {
 
 let mkPhotoSize = @(h) [h * 2 / 3, h]
 
-let function mkClassBlock(soldier, isClassRestricted, isPremium, displayedKind) {
+function mkClassBlock(soldier, isClassRestricted, isPremium, displayedKind) {
   let { sKind = null, sClass = null, sClassRare = null, armyId = null } = soldier
   let color = isClassRestricted ? blockedTxtColor : defTxtColor
 
@@ -93,7 +93,7 @@ let mkDropSoldierInfoBlock = @(soldierInfo, squadInfo, nameColor, textColor, gro
   ]
 }
 
-let function mkWeaponRow(soldierInfo, weaponColor, group, override = {}) {
+function mkWeaponRow(soldierInfo, weaponColor, group, override = {}) {
   let { primaryWeapon = null, weapons = [] } = soldierInfo
   let template = primaryWeapon
     ?? weapons.findvalue(@(v, idx) idx < 3 && (v?.templateName ?? "") != "")?.templateName
@@ -118,7 +118,7 @@ let mkWeaponRowWithWarning = @(soldierInfo, weaponColor, group, override = {}) {
   ]
 }
 
-let function soldierName(soldierInfo, nameColor, group) {
+function soldierName(soldierInfo, nameColor, group) {
   let { guid = "", callname = "" } = soldierInfo
   return guid == "" ? null : {
     size = [flex(), SIZE_TO_CONTENT]
@@ -157,7 +157,7 @@ let mkSoldierInfoBlock = function(soldierInfo, nameColor, weaponRow, group,
   }
 }
 
-let function soldierCard(soldierInfo, group = null, sf = 0, isSelected = false,
+function soldierCard(soldierInfo, group = null, sf = 0, isSelected = false,
   isFaded = false, isDead = false, size = slotBaseSize, isClassRestricted = false,
   hasAlertStyle = false, hasWeaponWarning = false, addChild = null, squadInfo = null,
   isDisarmed = false, isFreemiumMode = false, thresholdColor = 0, expToLevel = [],

@@ -20,23 +20,23 @@ let capzoneQuery = ecs.SqQuery("capzoneQuery", {
 
 let teamWon = random.rnd_int(1, 2)
 
-let function exit_game_logger() {
+function exit_game_logger() {
   logerr("Forced exit. Run test local.")
   exit_game()
 }
 
-let function team_won() {
+function team_won() {
   ecs.g_entity_mgr.broadcastEvent(EventTeamWon({team=teamWon}))
 }
 
-let function force_capture(){
+function force_capture(){
   capzoneQuery.perform(function(eid, _comps) {
     ecs.g_entity_mgr.sendEvent(eid, EventForceCapture({team=teamWon}, eid))
   })
   setTimeout(30, exit_game_logger)
 }
 
-let function force_escort() {
+function force_escort() {
   let capzonesPos = []
   capzoneQuery.perform(function(_eid, comps) {
     if (comps.active){
@@ -47,7 +47,7 @@ let function force_escort() {
   setTimeout(5, force_escort)
 }
 
-let function onLevelLoaded(_eid, _comp) {
+function onLevelLoaded(_eid, _comp) {
   console.command("app.timeSpeed 20")
 
   local missionType = getMissionType()

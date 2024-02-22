@@ -1,9 +1,9 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { globalWatched } = require("%dngscripts/globalState.nut")
 let { get_setting_by_blk_path } = require("settings")
 
-const BARE_MINIMUM = "bare minimum"
+const BARE_MINIMUM = "bareMinimum"
 const MINIMUM = "minimum"
 const LOW = "low"
 const MEDIUM = "medium"

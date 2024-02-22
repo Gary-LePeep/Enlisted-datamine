@@ -1,7 +1,7 @@
 let { send_event_bq_with_header = null } = require_optional("bigquery")
 let { logerr } = require("dagor.debug")
 
-let function sendBqBattleResult(userId, soldiersStats, expReward, armyData, armyId) {
+function sendBqBattleResult(userId, soldiersStats, expReward, armyData, armyId) {
   if (send_event_bq_with_header == null) {
     logerr("Missing bigquery module. Allowed on dedicated only.")
     return

@@ -76,14 +76,29 @@
       }
     }
   ],
-  "attachable_wear_snif_pants_w_parachute_item": {
-    "_use": "attachable_pants",
-    "item__uniqueName": "attachable_wear_snif_pants_w_parachute_item",
-    "animchar__res": "snif_pants_w_parachute_char",
-    "collres__res": "snif_pants_w_parachute_collision",
-    "item__replaceOnParachuteOpen": "attachable_wear_snif_pants_item",
-    "item__replaceOnSpawnOnGround": "attachable_wear_snif_pants_item"
-  },
+  "attachable_wear_snif_pants_w_parachute_item": [
+    {
+      "_use": "attachable_pants"
+    },
+    {
+      "_use": "cloth_wind"
+    },
+    {
+      "item__uniqueName": "attachable_wear_snif_pants_w_parachute_item"
+    },
+    {
+      "animchar__res": "snif_pants_w_parachute_char"
+    },
+    {
+      "collres__res": "snif_pants_w_parachute_collision"
+    },
+    {
+      "item__replaceOnParachuteOpen": "attachable_wear_snif_pants_item"
+    },
+    {
+      "item__replaceOnSpawnOnGround": "attachable_wear_snif_pants_item"
+    }
+  ],
   "attachable_wear_snif_pants_dgreen_w_parachute_item": [
     {
       "_use": "attachable_pants"
@@ -609,14 +624,29 @@
       }
     }
   ],
-  "attachable_wear_snif_tunic_w_parachute_item": {
-    "_use": "attachable_tunic",
-    "item__uniqueName": "attachable_wear_snif_tunic_w_parachute_item",
-    "animchar__res": "snif_tunic_w_parachute_char",
-    "collres__res": "snif_tunic_w_parachute_collision",
-    "item__replaceOnParachuteOpen": "attachable_wear_snif_tunic_item",
-    "item__replaceOnSpawnOnGround": "attachable_wear_snif_tunic_item"
-  },
+  "attachable_wear_snif_tunic_w_parachute_item": [
+    {
+      "_use": "attachable_tunic"
+    },
+    {
+      "_use": "cloth_wind"
+    },
+    {
+      "item__uniqueName": "attachable_wear_snif_tunic_w_parachute_item"
+    },
+    {
+      "animchar__res": "snif_tunic_w_parachute_char"
+    },
+    {
+      "collres__res": "snif_tunic_w_parachute_collision"
+    },
+    {
+      "item__replaceOnParachuteOpen": "attachable_wear_snif_tunic_item"
+    },
+    {
+      "item__replaceOnSpawnOnGround": "attachable_wear_snif_tunic_item"
+    }
+  ],
   "attachable_wear_snif_tunic_dgreen_w_parachute_item": [
     {
       "_use": "attachable_tunic"

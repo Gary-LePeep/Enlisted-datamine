@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {get_sync_time} = require("net")
 
@@ -10,7 +10,7 @@ let defValue = freeze({
   isRepairing = false
   maintenanceTime = 0.0
   maintenanceTotalTime = 0.0
-  vehicleRepairTime = null
+  vehicleRepairTime = 0.0
   isRepairRequired = false
   isExtinguishRequired = false
   hasRepairKit = false
@@ -44,8 +44,13 @@ ecs.register_es("ui_maintenance_es",
         hasRepairKit = comp.repair__hasRepairKit
         hasExtinguisher = comp.extinguisher__hasExtinguisher
         canMaintainVehicle = comp.maintenance__canMaintainVehicle
+        isRepairRequired = false
+        isExtinguishRequired = false
+        vehicleRepairTime = 0.0
+        maintenanceTime = 0.0
+        maintenanceTotalTime = 0.0
       }
-      if (mntTgtEid != ecs.INVALID_ENTITY_ID){
+      if (mntTgtEid != ecs.INVALID_ENTITY_ID) {
         res.isRepairRequired <- comp.maintenance__targetNeedsRepair
         res.isExtinguishRequired <- comp.maintenance__targetNeedsExtinguishing
         maintenanceTargetQuery.perform(mntTgtEid, function(_eid, mntTgtComp){
@@ -63,13 +68,6 @@ ecs.register_es("ui_maintenance_es",
             res.maintenanceTotalTime <- 0.0
           }
         })
-      }
-      else {
-        res.isRepairRequired <- false
-        res.isExtinguishRequired <- false
-        res.vehicleRepairTime <- null
-        res.maintenanceTime <- 0.0
-        res.maintenanceTotalTime <- 0.0
       }
       stateSetValue(res)
     },

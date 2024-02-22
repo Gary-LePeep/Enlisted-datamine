@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let {ceil} = require("math")
@@ -121,7 +121,7 @@ let groupmate_number_ctor = function(eid) {
   }
 }
 
-let function groupmate_marker_ctor(eid) {
+function groupmate_marker_ctor(eid) {
   let markerState = groupmatesAvatarsGetWatched(eid)
   let watch = [markerState, hudMarkerEnable]
   let data = {eid, dirRotate = true}

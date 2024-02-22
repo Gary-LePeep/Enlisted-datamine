@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 from "roomMemberStatuses.nut" import *
 let { debounce } = require("%sqstd/timers.nut")
 let { deep_clone } = require("%sqstd/underscore.nut")
@@ -33,10 +33,10 @@ foreach (v in [canOperateRoom, isInDebriefing])
   v.subscribe(method)
 
 let myRoomPublic = Computed(@() !isEventRoom.value
-  ? { appId = appId.value
+  ? { appId = appId
       team = curTeam.value
     }
-  : { appId = appId.value
+  : { appId = appId
       team = curTeam.value
       army = myArmy.value
       isReady = isReady.value
@@ -48,7 +48,7 @@ let myRoomPublic = Computed(@() !isEventRoom.value
         : IN_LOBBY_NOT_READY.id
     })
 
-let function updateMyPublic() {
+function updateMyPublic() {
   if (roomIsLobby.value)
     setMemberAttributes({ public = myRoomPublic.value })
 
@@ -73,20 +73,20 @@ local lastRoomPublic = deep_clone(room.value?.public)
 let doesTeamContainArmy = @(team, armyId)
   roomTeamArmies.value?[team].contains(armyId) ?? false
 
-let function setMyArmy(armyId) {
+function setMyArmy(armyId) {
   if (armyId == myArmy.value || !doesTeamContainArmy(curTeam.value, armyId))
     return
   myArmy(armyId)
 }
 
-let function setReady(ready) {
+function setReady(ready) {
   if (canOperateRoom.value || ready == isReady.value) //always ready
     return
   isReady(ready)
   //todo: disbalance messages here
 }
 
-let function setMyTeam(team) {
+function setMyTeam(team) {
   if (team == curTeam.value)
     return
 
@@ -122,7 +122,7 @@ let canChangeTeam = Computed(function(){
     && !hasPlayedCurSession.value && !isRoomCreating
 })
 
-let function teamSelectAfterEntrance(){
+function teamSelectAfterEntrance(){
   let members = roomMembers.value ?? []
   let playersInTeamA = members.reduce(@(sum, player) sum + (player?.public.team == 0 ? 1 : 0), 0)
   let playersInTeamB = members.reduce(@(sum, player) sum + (player?.public.team == 1 ? 1 : 0), 0)
@@ -131,7 +131,7 @@ let function teamSelectAfterEntrance(){
   hasBalanceCheckedByEntrance(true)
 }
 
-let function onRoomChanged() {
+function onRoomChanged() {
   let isFirstConnectToRoom = lastRoomPublic == null
   let needDropReady = null != keysToDropReady.findindex(@(key)
     !isEqual(lastRoomPublic?[key], room.value?.public[key]))
@@ -160,7 +160,6 @@ let function onRoomChanged() {
   if (!hasBalanceCheckedByEntrance.value)
     teamSelectAfterEntrance()
 }
-
 
 let onRoomChangedDebounced = debounce(onRoomChanged, 0.01)
 foreach (w in [room, roomIsLobby, isEventRoom, roomTeamArmies])

@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {deathsLog} = require("%ui/hud/state/kill_log_es.nut")
 let {textarea} = require("%ui/components/textarea.nut")
@@ -15,7 +15,7 @@ let textStyle = freeze({
 
 let ffKillMsg = textarea(loc("friendly_fire_kill","You was killed by friendly fire"), textStyle)
 let enemyKillMsg = textarea(loc("enemy_fire_kill", "You was killed by enemy"), textStyle)
-let function deathMessage(item) {
+function deathMessage(item) {
   let {name=null, inMyTeam=false} = item
   local children
   if (name == null)
@@ -31,7 +31,7 @@ let function deathMessage(item) {
   }
 }
 
-let function playerDeaths(){
+function playerDeaths(){
   let children = deathsLog.events.value.map(deathMessage)
   return {
     flow = FLOW_VERTICAL

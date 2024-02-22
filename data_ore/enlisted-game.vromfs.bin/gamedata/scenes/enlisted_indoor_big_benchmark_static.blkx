@@ -1,0 +1,68 @@
+[
+  {
+    "import": {
+      "scene": "content/enlisted/gamedata/scenes/_stalingrad_tractor_plant_common.blk"
+    }
+  },
+  {
+    "entity": {
+      "_template": "session_finalizer",
+      "session_finalizer__timer": 10.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "level",
+      "level__blk": "content/enlisted/levels/tunisia_4x4.blk",
+      "level__timeRange": [5.0,19.2],
+      "level__day": 9,
+      "level__month": 6,
+      "level__weatherChoice:object": {
+        "weather_clear_a": 1.0
+      },
+      "level__timeVec:array": {
+        "level__timeVec": 16.5
+      }
+    }
+  },
+  {
+    "entity": {
+      "_template": "screen_fade_anim",
+      "screen_fade": 0.9,
+      "anim_track_on": true
+    }
+  },
+  {
+    "entity": {
+      "_template": "ui_disabled"
+    }
+  },
+  {
+    "entity": {
+      "_template": "benchmark",
+      "benchmark_name": "stalingrad",
+      "camera_tracks:array": {
+        "camera_tracks:object": {
+          "from_fov": 90.0,
+          "from_pos": [-131.605,19.9078,-41.0474],
+          "to_dir": [-0.961165,0.0,0.275973],
+          "duration": 1000000.0,
+          "to_pos": [-131.605,19.9078,-41.0474],
+          "to_fov": 90.0,
+          "from_dir": [-0.961165,0.0,0.275973]
+        }
+      }
+    }
+  },
+  {
+    "entity": {
+      "_template": "static_cam",
+      "transform": [
+        [0.275973,0.0,0.961165],
+        [0.0,1.0,-0.0],
+        [-0.961165,0.0,0.275973],
+        [-131.605,19.9078,-41.0474]
+      ]
+    }
+  }
+]

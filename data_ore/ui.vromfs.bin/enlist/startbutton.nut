@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontHeading2, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { titleTxtColor, accentColor, defTxtColor, startBtnWidth, leftAppearanceAnim, weakTxtColor,
@@ -100,7 +100,7 @@ let brValue = function() {
 }
 
 let btnHeight = hdpxi(94)
-let function btnCtor(text, action, params = {}) {
+function btnCtor(text, action, params = {}) {
   let { defTextColor, hoverTextColor, activeTextColor, txtParams = fontHeading2 } = params.txtStyle
   let { bgStyle, hotkeys = null } = params
   let txtCtor = @(_txt, txtCtorParams, _handler, _group, sf) {
@@ -157,7 +157,7 @@ let function btnCtor(text, action, params = {}) {
   })
 }
 
-let function quickMatchFn() {
+function quickMatchFn() {
   if (room.value)
     leaveRoom()
   showCreateRoom.update(false)
@@ -165,7 +165,7 @@ let function quickMatchFn() {
     joinQueue(currentGameMode.value)
 }
 
-let function onLeaveQueuePressed() {
+function onLeaveQueuePressed() {
   myExtSquadData.ready(false)
   leaveQueue()
 }
@@ -178,7 +178,7 @@ let leaveQuickMatchButton = btnCtor(loc("Leave queue"), onLeaveQueuePressed,
   })
 
 
-let function checkPlayAvailability() {
+function checkPlayAvailability() {
   if (isSquadLeader.value && unsuitableCrossplayConditionMembers.value.len() != 0) {
     showSquadMembersCrossPlayRestrictionMsgBox(unsuitableCrossplayConditionMembers.value)
     return
@@ -260,14 +260,14 @@ let function checkPlayAvailability() {
 }
 
 
-let function startQuickMatchFunc() {
+function startQuickMatchFunc() {
   updateBROnMatchStart()
   myExtSquadData.ready(true)
   checkPlayAvailability()
 }
 
 
-let function mkJoinQuickMatchButton() {
+function mkJoinQuickMatchButton() {
   return btnCtor(loc("START"), startQuickMatchFunc,
     {
       bgStyle = defStartBgStyle
@@ -320,7 +320,7 @@ isInBattleState.subscribe(function(inBattle) {
   }
 })
 
-let function squadMatchButton(){
+function squadMatchButton(){
   local btn = isInQueue.value ? leaveQuickMatchButton : quickMatchBtn
   if (!isSquadLeader.value && squadSelfMember.value != null)
     btn = myExtSquadData.ready.value ? setNotReadyBtn : pressWhenReadyBtn

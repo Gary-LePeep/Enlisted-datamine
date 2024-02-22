@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { sound_play } = require("%dngscripts/sound_system.nut")
 let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
@@ -10,7 +10,7 @@ const trigger = "content_anim"
 
 let taskColor = Color(220, 220, 220)
 
-let function debriefingTaskHeader(unlockDesc, progress){
+function debriefingTaskHeader(unlockDesc, progress){
   let { required = 0, current = 0 } = unlockDesc
   let unlockTxt = getDescription(unlockDesc, progress, unlockDesc?.locParams ?? {})
   return{
@@ -35,7 +35,7 @@ let function debriefingTaskHeader(unlockDesc, progress){
   }
 }
 
-let function mkDebriefingDailyTask(unlockDesc, appearAnimations, animDelay, onFinish) {
+function mkDebriefingDailyTask(unlockDesc, appearAnimations, animDelay, onFinish) {
   let progress = {
     current = unlockDesc.current
     required = unlockDesc.required
@@ -76,7 +76,7 @@ let function mkDebriefingDailyTask(unlockDesc, appearAnimations, animDelay, onFi
   }
 }
 
-let function mkTasksProgress(dailyTasksProgress, appearAnimations, onFinishCb) {
+function mkTasksProgress(dailyTasksProgress, appearAnimations, onFinishCb) {
   if (dailyTasksProgress.len() == 0)
     return null
 

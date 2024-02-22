@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {showBriefingOnSquadChange, briefingState, showBriefingForTime, showBriefingOnHeroChange} = require("briefingState.nut")
 let {squadEid} = require("%ui/hud/state/hero_squad.nut")
@@ -17,7 +17,7 @@ let firstSpawnBriefingShown = mkWatched(persist, "firstSpawnBriefingShown", fals
 controlledHeroEid.subscribe(function(value) {
   let curBriefing = localPlayerTeamInfo.value?["team__briefing"] ?? ""
   let curBriefingCommon = briefingState.value?["common"] ?? ""
-  let function showBrief(){
+  function showBrief(){
     showedBriefing[curBriefing] <- 1
     showedBriefing[curBriefingCommon] <- 1
     showBriefingForTime(briefingState.value?.showtime ?? 10.0)

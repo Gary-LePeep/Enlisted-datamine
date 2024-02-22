@@ -13,11 +13,6 @@ struct CmdVehicleHornRequest
   player : EntityId
 
 [event(unicast, routing=ROUTING_SERVER_TO_CLIENT)]
-struct CmdVehicleSoundHorn
-  enable : bool
-  end : float
-
-[event(unicast, routing=ROUTING_SERVER_TO_CLIENT)]
 struct CmdPlayProjectileHitSound
   localHitPos : float3
   localNormal : float3

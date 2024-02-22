@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let faComp = require("%ui/components/faComp.nut")
 let { smallPadding, titleTxtColor, defTxtColor, activeTxtColor, activeBgColor
@@ -27,7 +27,7 @@ let mkDotPaginator = kwarg(function(
 ) {
   local pages = 1
   let gotoNextPage = @() pageWatch((pageWatch.value + 1) % pages)
-  let function startSwitchTimer(_ = null) {
+  function startSwitchTimer(_ = null) {
     anim_skip(id)
     gui_scene.clearTimer(gotoNextPage)
     if (pages > 1 && switchTime.value > 0) {

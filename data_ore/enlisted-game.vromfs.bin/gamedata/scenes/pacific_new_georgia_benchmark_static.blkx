@@ -1,0 +1,476 @@
+[
+  {
+    "entity": {
+      "_template": "poly_battle_area",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [-307.067,2.51688,-1077.95]
+      ],
+      "battle_area__team": 1,
+      "battleAreaId": "area1",
+      "poly_area__points:list<p3>": [
+        {
+          "item": [-259.09,6.09569,-1003.48]
+        },
+        {
+          "item": [-281.698,6.09569,-991.822]
+        },
+        {
+          "item": [-304.626,6.09569,-980.046]
+        },
+        {
+          "item": [-325.471,6.09569,-988.599]
+        },
+        {
+          "item": [-347.339,6.09569,-982.422]
+        },
+        {
+          "item": [-368.382,6.09569,-997.465]
+        },
+        {
+          "item": [-390.962,6.09569,-1013.83]
+        },
+        {
+          "item": [-485.797,6.09569,-1055.88]
+        },
+        {
+          "item": [-511.543,6.09569,-1097.37]
+        },
+        {
+          "item": [-466.01,6.0957,-1184.78]
+        },
+        {
+          "item": [-439.475,-0.0205688,-1247.37]
+        },
+        {
+          "item": [-353.077,-0.0406647,-1299.27]
+        },
+        {
+          "item": [-224.463,-0.0355682,-1324.07]
+        },
+        {
+          "item": [-80.1476,6.0957,-1336.03]
+        },
+        {
+          "item": [-42.7476,6.09558,-1176.74]
+        },
+        {
+          "item": [-67.4319,6.09558,-1017.32]
+        },
+        {
+          "item": [-162.931,6.09558,-991.589]
+        },
+        {
+          "item": [-197.34,6.09558,-998.047]
+        },
+        {
+          "item": [-221.999,6.09558,-1011.72]
+        },
+        {
+          "item": [-244.988,6.09558,-1009.57]
+        }
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "poly_battle_area",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [-308.721,2.51687,-1077.19]
+      ],
+      "battle_area__team": 2,
+      "battleAreaId": "area2",
+      "poly_area__points:list<p3>": [
+        {
+          "item": [-311.003,7.54552,-814.048]
+        },
+        {
+          "item": [-384.914,7.54562,-796.787]
+        },
+        {
+          "item": [-531.844,7.54567,-825.331]
+        },
+        {
+          "item": [-600.006,7.54561,-879.17]
+        },
+        {
+          "item": [-615.575,7.54559,-1053.24]
+        },
+        {
+          "item": [-548.368,7.54559,-1152.15]
+        },
+        {
+          "item": [-491.61,7.54559,-1198.47]
+        },
+        {
+          "item": [-397.491,7.54559,-1199.08]
+        },
+        {
+          "item": [-349.541,7.54562,-1204.7]
+        },
+        {
+          "item": [-317.384,7.54562,-1164.79]
+        },
+        {
+          "item": [-303.521,7.54562,-1139.27]
+        },
+        {
+          "item": [-294.73,7.54562,-1115.89]
+        },
+        {
+          "item": [-267.176,7.54562,-1087.0]
+        },
+        {
+          "item": [-248.975,7.54562,-1071.54]
+        },
+        {
+          "item": [-246.246,7.54562,-1057.41]
+        },
+        {
+          "item": [-241.021,7.54562,-1038.51]
+        },
+        {
+          "item": [-231.178,7.54562,-1006.85]
+        },
+        {
+          "item": [-207.086,7.54562,-952.412]
+        },
+        {
+          "item": [-192.4,7.54562,-906.441]
+        },
+        {
+          "item": [-195.052,7.54562,-848.505]
+        },
+        {
+          "item": [-212.892,7.54562,-802.202]
+        }
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "briefing_domination",
+      "mission_name": "pacific_new_georgia_dom",
+      "mission_outfit": "pacific",
+      "loading_images:list<t>": [
+        {
+          "item": "ui/pacific_new_georgia_native_village_02.avif"
+        },
+        {
+          "item": "ui/pacific_new_georgia_ship_01.avif"
+        },
+        {
+          "item": "ui/pacific_new_georgia_colonial_village_a_01.avif"
+        }
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "enemy_attack_marker",
+      "enemy_attack_marker__offset": -30.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "team_pacific_allies+team_narrator_domination+respawn_creators_team",
+      "team__id": 1,
+      "team__scoreCap": 2800.0,
+      "team__score": 2800.0,
+      "score_bleed__domBleed": 0.0,
+      "score_bleed__domBleedOn": false,
+      "score_bleed__totalDomZoneCount": 5,
+      "score_bleed__totalDomBleedMul": 2.0,
+      "score_bleed__totalDomBleedOn": false,
+      "team__briefing": "domination/common_goals",
+      "team__numZonesCaptured": 0,
+      "team__deathPenalty": 0.0,
+      "team__spawnBotArmy": "pacific_allies"
+    }
+  },
+  {
+    "entity": {
+      "_template": "team_pacific_axis+team_narrator_domination+respawn_creators_team",
+      "team__id": 2,
+      "team__score": 2800.0,
+      "team__scoreCap": 2800.0,
+      "score_bleed__domBleed": 0.0,
+      "score_bleed__domBleedOn": false,
+      "score_bleed__totalDomZoneCount": 5,
+      "score_bleed__totalDomBleedMul": 2.0,
+      "score_bleed__totalDomBleedOn": false,
+      "team__briefing": "domination/common_goals",
+      "team__numZonesCaptured": 0,
+      "team__deathPenalty": 0.0,
+      "team__spawnBotArmy": "pacific_axis"
+    }
+  },
+  {
+    "entity": {
+      "_template": "spawn_switcher",
+      "swapProbability": 0.5,
+      "team1": 2,
+      "team2": 1
+    }
+  },
+  {
+    "entity": {
+      "_template": "resupply_for_ground_vehicle_zone",
+      "transform": [
+        [0.943273,0.0,-0.33202],
+        [0.0,1.0,0.0],
+        [0.33202,0.0,0.943273],
+        [-291.198,6.29851,-1083.61]
+      ],
+      "resupply_zone__team": 1,
+      "groupName": "",
+      "active": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "resupply_for_ground_vehicle_zone",
+      "transform": [
+        [0.943273,0.0,-0.33202],
+        [0.0,1.0,0.0],
+        [0.33202,0.0,0.943273],
+        [-487.137,14.326,-645.278]
+      ],
+      "resupply_zone__team": 2,
+      "groupName": "",
+      "active": false
+    }
+  },
+  {
+    "entity": {
+      "_template": "domination_sphere_capzone",
+      "transform": [
+        [1.33034,0.0,1.02098],
+        [0.0,1.03998,-0.0],
+        [-1.00132,0.0,1.30472],
+        [-445.802,5.12833,-898.987]
+      ],
+      "sphere_zone__radius": 15.0,
+      "capzone__caption": "capzone/chief_house",
+      "decal__thickness": 0.15,
+      "decal__height": 1.0,
+      "capzone__iconOffsetY": 4.0,
+      "capzone__title": "A"
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawnChooser+respTeam1",
+      "transform": [
+        [-0.681629,0.0,0.731698],
+        [0.0,1.0,0.0],
+        [-0.731698,0.0,-0.681629],
+        [-306.492,5.17531,-997.567]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawnChooser+respTeam1",
+      "transform": [
+        [-0.564717,0.0,0.825285],
+        [0.0,1.0,0.0],
+        [-0.825285,0.0,-0.564717],
+        [-300.529,5.1552,-994.48]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawnChooser+respTeam1",
+      "transform": [
+        [-0.880645,0.0,-0.473776],
+        [0.0,1.0,0.0],
+        [0.473776,0.0,-0.880645],
+        [-270.215,12.462,-868.688]
+      ],
+      "respawnBaseGroup": 2
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawnChooser+respTeam1",
+      "transform": [
+        [-0.793855,0.0,-0.608106],
+        [0.0,1.0,0.0],
+        [0.608106,0.0,-0.793855],
+        [-276.548,14.2837,-919.847]
+      ],
+      "respawnBaseGroup": 2
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawnChooser+respVehicle",
+      "transform": [
+        [-0.412591,0.0,0.910917],
+        [0.0,1.0,0.0],
+        [-0.910917,0.0,-0.412591],
+        [-292.445,4.50385,-1081.34]
+      ],
+      "team": 1,
+      "maxVehicleOnSpawn": 2,
+      "respTime": 120
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawnChooser+respTeam2",
+      "transform": [
+        [0.796672,0.0,-0.604412],
+        [0.0,1.0,0.0],
+        [0.604412,-0.0,0.796672],
+        [-403.848,11.7041,-693.309]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawnChooser+respTeam2",
+      "transform": [
+        [0.329702,0.0,-0.944085],
+        [0.0,1.0,0.0],
+        [0.944085,-0.0,0.329702],
+        [-398.737,11.6646,-690.162]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawnChooser+respTeam2",
+      "transform": [
+        [0.170666,0.0,-0.985329],
+        [0.0,1.0,0.0],
+        [0.985329,-0.0,0.170666],
+        [-519.189,1.83445,-729.034]
+      ],
+      "respawnBaseGroup": 2
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawnChooser+respTeam2",
+      "transform": [
+        [0.174762,0.0,-0.984611],
+        [0.0,1.0,0.0],
+        [0.984611,-0.0,0.174762],
+        [-528.473,1.72163,-733.799]
+      ],
+      "respawnBaseGroup": 2
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawnChooser+respVehicle",
+      "transform": [
+        [0.464859,0.0,-0.885384],
+        [0.0,1.0,0.0],
+        [0.885384,-0.0,0.464859],
+        [-485.83,14.6536,-646.929]
+      ],
+      "maxVehicleOnSpawn": 2,
+      "respTime": 120,
+      "team": 2
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawnChooser+respMotorcycle",
+      "transform": [
+        [-0.481286,0.0,0.876564],
+        [0.0,1.0,0.0],
+        [-0.876564,0.0,-0.481286],
+        [-292.257,4.4013,-1081.16]
+      ],
+      "team": 1
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawnChooser+respMotorcycle",
+      "transform": [
+        [0.512852,0.0,-0.858477],
+        [0.0,1.0,0.0],
+        [0.858477,-0.0,0.512852],
+        [-486.152,14.6929,-647.031]
+      ],
+      "team": 2
+    }
+  },
+  {
+    "entity": {
+      "_template": "level",
+      "level__blk": "content/enlisted/levels/pacific_guadalcanal.blk",
+      "level__timeRange": [5.0,19.2],
+      "level__weatherChoice:object": {
+        "weather_clear_a": 1.0
+      },
+      "level__timeVec:array": {
+        "level__timeVec": 16.5
+      }
+    }
+  },
+  {
+    "entity": {
+      "_template": "screen_fade_anim",
+      "screen_fade": 0.9,
+      "anim_track_on": true
+    }
+  },
+  {
+    "entity": {
+      "_template": "ui_disabled"
+    }
+  },
+  {
+    "entity": {
+      "_template": "benchmark",
+      "benchmark_name": "pacific_guadalcanal",
+      "camera_tracks:array": {
+        "camera_tracks:object": {
+          "from_fov": 90.0,
+          "from_pos": [-452.609,22.6913,-955.662],
+          "to_dir": [-0.167919,0.0,0.9858],
+          "duration": 10000.0,
+          "to_pos": [-452.609,22.6913,-955.662],
+          "to_fov": 90.0,
+          "from_dir": [-0.167919,0.0,0.9858]
+        }
+      }
+    }
+  },
+  {
+    "entity": {
+      "_template": "artillery_strike_requester",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [-427.994,7.24241,-877.3]
+      ],
+      "artillery__baseInterval": 30.0,
+      "artillery__baseSpawnDelay": 45.0,
+      "artillery__interval": 60.0,
+      "artillery__missionStartDelay": 15.0,
+      "artillery__spawnDelay": 15.0,
+      "artillery__lastShotInTime": 130.069,
+      "artilleryStrikeSpawnPeriod": 60.0,
+      "artilleryStrikeSpawnTime": 30.0
+    }
+  },
+  {
+    "import": {
+      "scene": "content/enlisted/gamedata/scenes/_pacific_new_georgia_common.blk"
+    }
+  }
+]

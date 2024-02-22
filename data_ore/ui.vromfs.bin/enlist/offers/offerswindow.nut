@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let JB = require("%ui/control/gui_buttons.nut")
 let viewShopItemsScene = require("%enlist/shop/viewShopItemsScene.nut")
@@ -34,7 +34,7 @@ let { shopItems } = require("%enlist/shop/shopItems.nut")
 let specOfferWidth = hdpx(700)
 let shopItemHeight = hdpx(400)
 
-let function btnBlockUi() {
+function btnBlockUi() {
   let pageIdx = curOfferIdx.value
   let totalPages = visibleOffersInWindow.value.len()
   let canPrev = pageIdx > 0
@@ -60,7 +60,7 @@ let function btnBlockUi() {
   }
 }
 
-let function mkShopItemSquads(squads, shopItem) {
+function mkShopItemSquads(squads, shopItem) {
   if (squads.len() == 0)
     return null
 
@@ -122,7 +122,7 @@ let mkOfferDesc = @(descLocId, params = {}) descLocId == "" ? null
       text = loc(descLocId, params)
     }.__update(fontSub)
 
-let function mkOfferShopItem(personalOffer, shopItem, ownSquads) {
+function mkOfferShopItem(personalOffer, shopItem, ownSquads) {
   let { descLocId = "" } = personalOffer
   if (shopItem == null)
     return null
@@ -201,7 +201,7 @@ let mkOfferLifetimeInfo = @(lifeTime) {
   color = defTxtColor
 }.__update(fontSub)
 
-let function curOfferUi() {
+function curOfferUi() {
   let offer = visibleOffersInWindow.value?[curOfferIdx.value]
   let allShopItems = shopItems.value
   let ownSquads = squadsByArmies.value
@@ -265,11 +265,11 @@ let offerWindow = @() {
   ]
 }
 
-let function open() {
+function open() {
   sceneWithCameraAdd(offerWindow, "researches")
 }
 
-let function close() {
+function close() {
   sceneWithCameraRemove(offerWindow)
 }
 

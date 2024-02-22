@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontHeading2 } = require("%enlSqGlob/ui/fontsStyle.nut")
 let {
@@ -13,14 +13,14 @@ let { soundDefault } = require("%ui/components/textButton.nut")
 
 
 
-let function mkUnseenSign(mark, isSelected) {
+function mkUnseenSign(mark, isSelected) {
   let sign = unseenByType?[mark]
   return sign == null ? null
     : isSelected ? smallUnseenNoBlink
     : sign
 }
 
-let function txtColor(sf, isSelected=true){
+function txtColor(sf, isSelected=true){
   return sf & S_ACTIVE
     ? activeTxtColor
     : sf & S_HOVER

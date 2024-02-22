@@ -1,10 +1,10 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 from "%darg/laconic.nut" import *
 from "modFiles.nut" import USER_MODS_FOLDER, MODS_EXT, statusText, isStrHash
 
 let { debounce } = require("%sqstd/timers.nut")
-let eventbus = require("eventbus")
+let { eventbus_subscribe } = require("eventbus")
 let { parse_json } = require("json")
 let { gameLanguage } = require("%enlSqGlob/clientState.nut")
 let {fontHeading2, fontBody, fontSub} = require("%enlSqGlob/ui/fontsStyle.nut")
@@ -44,7 +44,7 @@ let password = nestWatched("password", "")
 let focusedField = Watched(null)
 let waitingSpinner = spinner()
 
-let function createRoomCb(response) {
+function createRoomCb(response) {
   if (response.error != 0) {
     roomName.update("")
     password.update("")
@@ -55,7 +55,7 @@ let function createRoomCb(response) {
   }
 }
 
-let function availableFields() {
+function availableFields() {
   return [
     roomName,
     usePassword,
@@ -64,7 +64,7 @@ let function availableFields() {
   ].filter(@(val) val)
 }
 
-let function checkAvailableFields(){
+function checkAvailableFields(){
   local isValid = true
 
   foreach (f in availableFields()) {
@@ -82,7 +82,7 @@ let urlToManifest = mkWatched(persist, "urlToManifest", "")
 
 let manifest = Watched(null)
 let MANIFEST_EVENT = "MANIFEST_EVENT"
-let function requestManifest(url) {
+function requestManifest(url) {
   manifest(null)
   httpRequest({
     method = "GET"
@@ -91,7 +91,7 @@ let function requestManifest(url) {
     context = url
   })
 }
-eventbus.subscribe(MANIFEST_EVENT, tryCatch(function(response){
+eventbus_subscribe(MANIFEST_EVENT, tryCatch(function(response){
   let { status, http_code } = response
   if (status != HTTP_SUCCESS || http_code == null
       || http_code < 200 || 300 >= http_code) {
@@ -130,7 +130,7 @@ const FAILED = "FAILED"
 const WAITING = "WAITING"
 const SUCCESS = "SUCCESS"
 
-let function reqFileHeaders(hash){
+function reqFileHeaders(hash){
   let url = MOD_FILE_URL.subst(hash)
   httpRequest({
     method = "HEAD"
@@ -142,7 +142,7 @@ let function reqFileHeaders(hash){
 
 let hashesStatus = Watched({})
 
-let function setCurHashesStatus(...){
+function setCurHashesStatus(...){
   let hashes = modFilesHashes.value
   let res = clone hashesStatus.value
   foreach (hash in hashes){
@@ -163,13 +163,13 @@ let function setCurHashesStatus(...){
         toDelete.append(hash)
     }
   }
-  toDelete.each(@(v) delete res[v])
+  toDelete.each(@(v) res.$rawdelete(v))
   hashesStatus(res)
 }
 modFilesHashes.subscribe(setCurHashesStatus)
 setCurHashesStatus()
 
-eventbus.subscribe(FILE_EXISTS_ON_SERVER_EVENT, function(response){
+eventbus_subscribe(FILE_EXISTS_ON_SERVER_EVENT, function(response){
   let hash = response?.context
   if (hash==null || hash == "")
     return
@@ -182,7 +182,7 @@ eventbus.subscribe(FILE_EXISTS_ON_SERVER_EVENT, function(response){
       if (modFilesHashes.value.contains(hash))
         hashesStatus.mutate(@(v) v[hash]<-FAILED)
       else if (hash in hashesStatus.value)
-        hashesStatus.mutate(@(v) delete v[hash])
+        hashesStatus.mutate(@(v) v.$rawdelete(hash))
       return
     }
     hashesStatus.mutate(@(v) v[hash] <- SUCCESS)
@@ -206,7 +206,7 @@ let curModHashesWaiting = Computed(@() curModHashesStatus.value == WAITING)
 
 let receivedModInfos = Watched({})
 
-let function jsonSafeParse(v){
+function jsonSafeParse(v){
   if (v=="")
     return null
   try{
@@ -220,14 +220,14 @@ let function jsonSafeParse(v){
 }
 
 let noModeInfo = freeze({NoModeInfo=null})
-eventbus.subscribe(EVENT_MOD_VROM_INFO, function(info) {
+eventbus_subscribe(EVENT_MOD_VROM_INFO, function(info) {
   if (info?.result!=1)
     return
   let {manifestStr, contentId, modFiles, sceneBlkFound, vromfs} = info
   receivedModInfos(receivedModInfos.value.__merge({[vromfs] = {manifestFromFile = jsonSafeParse(manifestStr), contentId, modFiles, sceneBlkFound, vromfs}}))
 })
 
-let function getFname(mpath){
+function getFname(mpath){
   local filename = mpath
   let pathSplit = mpath.split("/")
   if (pathSplit.len()!=1) {
@@ -238,7 +238,7 @@ let function getFname(mpath){
 
 let NOUSE = @(...) null
 
-let function getModInfo(mpath) {
+function getModInfo(mpath) {
   if (mpath == "")
     return noModeInfo
   if (!file_exists(mpath))
@@ -274,7 +274,7 @@ let requestUgmForCurMod = debounce(function() {
 modPath.subscribe(@(_) requestUgmForCurMod())
 requestUgmForCurMod()
 
-let function modName(v) {
+function modName(v) {
   if ((v??"")=="")
     return loc("NO MODE")
   else{
@@ -292,7 +292,7 @@ let isSelectedModCorrect = Computed(function(){
   return (modInfo.value?.pathToStart!=null) || modInfo.value == noModeInfo
 })
 
-let function doCreateRoom() {
+function doCreateRoom() {
   if (!checkMultiplayerPermissions()) {
     log("no permissions to create lobby")
     return
@@ -377,7 +377,7 @@ let function doCreateRoom() {
   }
 }
 
-let function makeFormItemHandlers(field) {
+function makeFormItemHandlers(field) {
   return {
     onFocus = @() focusedField.update(field)
     onBlur = @() focusedField.update(null)
@@ -391,7 +391,7 @@ let function makeFormItemHandlers(field) {
   }
 }
 
-let function formText(params) {
+function formText(params) {
   let options = {
     placeholder = params?.placeholder ?? ""
   }.__update(params, makeFormItemHandlers(params.state))
@@ -399,7 +399,7 @@ let function formText(params) {
 }
 
 
-let function formCheckbox(params={}) {
+function formCheckbox(params={}) {
   return checkbox(params.state, params?.name, makeFormItemHandlers(params.state))
 }
 
@@ -492,7 +492,7 @@ let urlToManifestComp = textInput(urlToManifest, {placeholder = loc("URL of mani
 let closeRoomBtn = textButton(loc("Close"), function() {showCreateRoom.update(false)}, {hotkeys=[[$"^{JB.B} | Esc"]]})
 let createRoomBtn = textButton(loc("Create"), doCreateRoom, {hotkeys=[["^J:X"]]})
 
-let function createRoomWnd() {
+function createRoomWnd() {
   local selectScene = {size=[0, gameBtnHgt]}
   if (urlToManifest.value != "" && manifest.value != null)
     selectScene = titletxt(manifest.value?.title)

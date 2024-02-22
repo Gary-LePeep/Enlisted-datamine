@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {sound_play} = require("%dngscripts/sound_system.nut")
 let auth  = require("auth")
@@ -11,7 +11,7 @@ let {readPermissions, readPenalties} = require("%enlSqGlob/permission_utils.nut"
 let { remap_nick } = require("%enlSqGlob/remap_nick.nut")
 let { isKZVersion } = require("chineseKongZhongVersion.nut")
 
-let function onSuccess(state) {
+function onSuccess(state) {
   let authResult = state.stageResult.auth_result
   userInfoUpdate({
     userId = authResult.userId
@@ -30,7 +30,7 @@ let function onSuccess(state) {
   getLoginActions()?.onAuthComplete?.filter(@(v) type(v)=="function")?.map(@(action) action())
 }
 
-let function getErrorText(state) {
+function getErrorText(state) {
   if (!(state.params?.needShowError(state) ?? true))
     return null
   if (!state.stageResult?.needShowError)
@@ -48,7 +48,7 @@ let function getErrorText(state) {
   return null
 }
 
-let function showStageErrorMsgBox(errText, state, mkChildren = @(defChild) defChild) {
+function showStageErrorMsgBox(errText, state, mkChildren = @(defChild) defChild) {
   let afterErrorProcessed = state.params?.afterErrorProcessed
   if (errText == null) {
     afterErrorProcessed?(state)

@@ -1,9 +1,9 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { matchingCall } = require("matchingClient.nut")
 let {error_response_converter} = require("%enlSqGlob/netErrorConverter.nut")
 
-let function request_nick_by_uid_batch(user_ids, cb) {
+function request_nick_by_uid_batch(user_ids, cb) {
   matchingCall("mproxy.nick_server_request",
                         function(response) {
                           if (response.error != 0) {
@@ -24,7 +24,7 @@ let request_nick_by_uid = @(uid, cb) request_nick_by_uid_batch([uid],
                                                         @(result) result == null ? cb(result) : cb(result?[uid.tostring()]))
 
 
-let function request_full_userinfo(user_id, cb) {
+function request_full_userinfo(user_id, cb) {
   matchingCall("mproxy.get_user_info", cb, { userId = user_id})
 }
 

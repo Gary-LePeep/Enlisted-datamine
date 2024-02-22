@@ -1,7 +1,7 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 let { TextDefault } = require("%ui/style/colors.nut")
 
-let { safeAreaVerPadding } = require("%enlSqGlob/safeArea.nut")
+let { safeAreaVerPadding } = require("%enlSqGlob/ui/safeArea.nut")
 let { mkColoredGradientY, mkColoredGradientX } = require("%enlSqGlob/ui/gradients.nut")
 
 let panelBgColor  = 0xFF313C45
@@ -60,7 +60,7 @@ let defTxtColor = 0xFFB3BDC1
 let mkTimerIcon = @(size = hdpxi(22), override = {}) {
   rendObj = ROBJ_IMAGE
   size = [size, size]
-  image = Picture("ui/skin#/battlepass/boost_time.svg:{0}:{0}:K".subst(size))
+  image = Picture("ui/skin#battlepass/boost_time.svg:{0}:{0}:K".subst(size))
   color =  defTxtColor
 }.__update(override)
 

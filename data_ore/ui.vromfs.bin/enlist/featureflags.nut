@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { get_setting_by_blk_path } = require("settings")
 let { DBGLEVEL } = require("dagor.system")
@@ -24,6 +24,8 @@ let hasCampaignPromo = nestWatched("hasCampaignPromo", false)
 let hasAutoCluster = nestWatched("hasAutoCluster", false)
 let allowReconnect = nestWatched("allowReconnect", true)
 let hasHitCamera = nestWatched("hasHitCamera", DBGLEVEL > 0)
+let hasGpuBenchmark = nestWatched("hasGpuBenchmark", false)
+let hasMissionLikes = nestWatched("hasMissionLikes", DBGLEVEL > 0)
 
 
 let features = {
@@ -46,6 +48,8 @@ let features = {
   hasAutoCluster
   allowReconnect
   hasHitCamera
+  hasGpuBenchmark
+  hasMissionLikes
 }
 
 foreach (featureId, featureFlag in features)

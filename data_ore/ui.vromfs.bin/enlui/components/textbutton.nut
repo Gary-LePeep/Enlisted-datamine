@@ -1,12 +1,14 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
-let {fontBody, fontSub, fontawesome} = require("%enlSqGlob/ui/fontsStyle.nut")
+let { fontBody, fontSub, fontawesome } = require("%enlSqGlob/ui/fontsStyle.nut")
 let fa = require("%ui/components/fontawesome.map.nut")
 let colors = require("%ui/style/colors.nut")
 let textButtonTextCtor = require("textButtonTextCtor.nut")
 let defStyle = require("textButton.style.nut")
+let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
 
-let function textColor(sf, style=null, isEnabled = true) {
+
+function textColor(sf, style=null, isEnabled = true) {
   let styling = defStyle.__merge(style ?? {})
   if (!isEnabled) return styling.TextDisabled
   if (sf & S_ACTIVE)    return styling.TextActive
@@ -15,7 +17,7 @@ let function textColor(sf, style=null, isEnabled = true) {
   return styling.TextNormal
 }
 
-let function borderColor(sf, style=null, isEnabled = true) {
+function borderColor(sf, style=null, isEnabled = true) {
   let styling = defStyle.__merge(style ?? {})
   if (!isEnabled) return styling.BdDisabled
   if (sf & S_ACTIVE)    return styling.BdActive
@@ -24,7 +26,7 @@ let function borderColor(sf, style=null, isEnabled = true) {
   return styling.BdNormal
 }
 
-let function fillColor(sf, style=null, isEnabled = true) {
+function fillColor(sf, style=null, isEnabled = true) {
   let styling = defStyle.__merge(style ?? {})
   if (!isEnabled) return styling.BgDisabled
   if (sf & S_ACTIVE)    return styling.BgActive
@@ -33,7 +35,7 @@ let function fillColor(sf, style=null, isEnabled = true) {
   return styling.BgNormal
 }
 
-let function fillColorTransp(sf, style=null, _isEnabled = true) {
+function fillColorTransp(sf, style=null, _isEnabled = true) {
   let styling = defStyle.__merge(style ?? {})
   if (sf & S_ACTIVE)    return styling.BgActive
   if (sf & S_HOVER)     return styling.BgHover
@@ -42,10 +44,16 @@ let function fillColorTransp(sf, style=null, _isEnabled = true) {
 }
 
 let defTextCtor = @(text, _params, _handler, _group, _sf) text
-let textButton = @(fill_color, border_width) function(text, handler, params={}) {
+let textButton = @(fill_color, border_width) function(text, handler, params = {}) {
+  let { stateFlags = Watched(0), enabledDelay = 0, overrideBySf = null } = params
+
   let group = ElemGroup()
-  let { stateFlags = Watched(0), overrideBySf = null } = params
-  let function builder(sf) {
+  let enableTs = serverTime.value + enabledDelay
+  let enabByDelay = enabledDelay <= 0
+    ? Watched(0)
+    : Computed(@() max(0, enableTs - serverTime.value))
+
+  function builder(sf) {
     let paramsExt = overrideBySf == null
       ? params
       : params.__merge(overrideBySf(sf, params?.isEnabled ?? true) ?? {})
@@ -56,26 +64,33 @@ let textButton = @(fill_color, border_width) function(text, handler, params={}) 
       bgChild = null, fgChild = null
     } = paramsExt
     let sound = isEnabled ? paramsExt?.style.sound ?? paramsExt?.sound : null
+
+    let secToEnabled = enabByDelay.value
+    let isTimerEnabled = isEnabled && secToEnabled <= 0
+
+    local btnText = (type(text)=="function") ? text() : text
+    if (secToEnabled > 0)
+      btnText = $"{btnText} ({secToEnabled})"
+
     return {
-      watch = stateFlags
+      watch = [stateFlags, enabByDelay]
       onElemState = @(v) stateFlags(v)
       margin = defStyle.btnMargin
       key
       group
       rendObj = ROBJ_BOX
-      fillColor = fill_color(sf, style, isEnabled)
+      fillColor = fill_color(sf, style, isTimerEnabled)
       borderWidth = border_width
       borderRadius = hdpx(4)
       valign = ALIGN_CENTER
       clipChildren = true
-      borderColor = borderColor(sf, style, isEnabled)
+      borderColor = borderColor(sf, style, isTimerEnabled)
       onDetach = @() stateFlags(0)
-
       children = [
         bgChild
         textCtor({
           rendObj = ROBJ_TEXT
-          text = (type(text)=="function") ? text() : text
+          text = btnText
           scrollOnHover=true
           delay = 0.5
           speed = [hdpx(100),hdpx(700)]
@@ -86,13 +101,13 @@ let textButton = @(fill_color, border_width) function(text, handler, params={}) 
           fontSize
           group
           behavior = [Behaviors.Marquee]
-          color = textColor(sf, style, isEnabled)
+          color = textColor(sf, style, isTimerEnabled)
         }.__update(paramsExt?.textParams ?? {}), paramsExt, handler, group, sf)
         fgChild
       ]
 
       behavior = Behaviors.Button
-      onClick = isEnabled ? handler : null
+      onClick = isTimerEnabled ? handler : null
     }.__update(paramsExt, { sound })
   }
 

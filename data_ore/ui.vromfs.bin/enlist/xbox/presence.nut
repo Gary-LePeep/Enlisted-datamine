@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {subscribe_to_presence_update_events, set_presence, DeviceType} = require("%xboxLib/impl/presence.nut")
 let {get_title_id} = require("%xboxLib/impl/app.nut")
@@ -30,7 +30,7 @@ presenceStatus.subscribe(function(presence) {
 })
 
 
-let function on_presences_update(success, presences) {
+function on_presences_update(success, presences) {
   if (!success) {
     logX("Failed to update presences for users")
     return

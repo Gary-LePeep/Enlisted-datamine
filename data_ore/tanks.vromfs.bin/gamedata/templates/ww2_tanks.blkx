@@ -583,6 +583,9 @@
         "_use": "base_damage_model_fx"
       },
       {
+        "_use": "base_damage_model_ai_points"
+      },
+      {
         "_use": "attached_fire_engine_damage"
       },
       {
@@ -1276,46 +1279,6 @@
         ]
       }
     }
-  },
-  {
-    "base_tank_sound": [
-      {
-        "_use": "tank_vehicle_seat_sound"
-      },
-      {
-        "_use": "tank_vehicle_suspension_sound"
-      },
-      {
-        "_use": "tank_vehicle_tracks_sound"
-      },
-      {
-        "_use": "turret_sound_with_group"
-      },
-      {
-        "_use": "tank_inside_sound"
-      },
-      {
-        "_use": "tank_vehicle_speech"
-      },
-      {
-        "_use": "tank_vehicle_engine_sound"
-      },
-      {
-        "_use": "tank_vehicle_gear_sound"
-      },
-      {
-        "_use": "tank_vehicle_collision_sound_setup"
-      },
-      {
-        "_use": "tank_vehicle_damage_sound_setup"
-      },
-      {
-        "_group": {
-          "_tags": "sound",
-          "vehicle_sound_vars__noiseSpeedThreshold": 0.1
-        }
-      }
-    ]
   },
   {
     "base_vehicle_sight": {
@@ -2115,9 +2078,6 @@
         "_use": "base_phys_modifications"
       },
       {
-        "_use": "base_tank_sound"
-      },
-      {
         "_use": "base_vehicle_attach_rules"
       },
       {
@@ -2528,6 +2488,9 @@
         "_use": "camera_shake_on_shooting"
       },
       {
+        "_use": "tankgun_smoke_big"
+      },
+      {
         "gun__cameraShakeTrauma": 0.15
       },
       {
@@ -2559,6 +2522,9 @@
         "_use": "tankgun_machinegun_overheat_sound"
       },
       {
+        "_use": "tankgun_smoke_big"
+      },
+      {
         "gun__reloadTime": 8.0
       },
       {
@@ -2585,6 +2551,9 @@
       },
       {
         "gun__overheat": 0.0
+      },
+      {
+        "gun__overheatVisual": 0.0
       },
       {
         "_replicated": "gun__overheat"
@@ -3058,9 +3027,6 @@
         "_use": "base_phys_modifications"
       },
       {
-        "_use": "base_tank_sound"
-      },
-      {
         "_use": "base_vehicle_attach_rules"
       },
       {
@@ -3175,6 +3141,9 @@
       },
       {
         "_use": "base_damage_model_fx"
+      },
+      {
+        "_use": "base_damage_model_ai_points"
       },
       {
         "_use": "attached_fire_engine_damage"

@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { shopItems } = require("%enlist/shop/shopItems.nut")
 let { curCampaign, curCampaignConfig } = require("%enlist/meta/curCampaign.nut")

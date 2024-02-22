@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { pieMenuLayer, showPieMenu } = require("%ui/hud/state/pie_menu_state.nut")
 let { canUseWallposter } = require("%ui/hud/state/wallposters_use_state.nut")
@@ -16,7 +16,7 @@ let noWallposterAvailable = Computed(@() !canUseWallposter.value
   || wallPostersMaxCount.value == 0
   || wallPostersCurCount.value >= wallPostersMaxCount.value)
 
-let function wallposterNavClick() {
+function wallposterNavClick() {
   if (pieMenuLayer.value == 0) {
     pieMenuLayer(1)
     return

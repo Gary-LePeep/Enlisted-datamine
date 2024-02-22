@@ -13,12 +13,12 @@ let playerCurrentWeaponKillStreakQuery = ecs.SqQuery("playerCurrentWeaponKillStr
   comps_rw=[["userstats__currentWeaponKillStreak", ecs.TYPE_OBJECT]]
 })
 
-let function resetWeaponKillStreak(playerEid) {
+function resetWeaponKillStreak(playerEid) {
   playerCurrentWeaponKillStreakQuery(playerEid, @(_, comp)
     comp["userstats__currentWeaponKillStreak"] = {})
 }
 
-let function onWeaponKillStreak(weaponType, currentWeaponStreak, bestWeaponStreak) {
+function onWeaponKillStreak(weaponType, currentWeaponStreak, bestWeaponStreak) {
   let weaponTypeKey = $"best_killstreak_{weaponType}"
   let bestStreak = bestWeaponStreak?[weaponTypeKey] ?? 0
   let currentStreak = (currentWeaponStreak?[weaponTypeKey] ?? 0) + 1
@@ -27,7 +27,7 @@ let function onWeaponKillStreak(weaponType, currentWeaponStreak, bestWeaponStrea
     bestWeaponStreak[weaponTypeKey] <- currentStreak
 }
 
-let function checkKillWeapon(victimInfo, damageType, gunPropsId, currentWeaponStreak, bestWeaponStreak, userstats) {
+function checkKillWeapon(victimInfo, damageType, gunPropsId, currentWeaponStreak, bestWeaponStreak, userstats) {
   if ((victimInfo?.guid ?? "") != "") { // only human victims
     let weaponType = (damageType == DM_MELEE || damageType == DM_BACKSTAB)
       ? "melee" : get_gun_stat_type_by_props_id(gunPropsId) ?? ""
@@ -38,7 +38,7 @@ let function checkKillWeapon(victimInfo, damageType, gunPropsId, currentWeaponSt
   }
 }
 
-let function checkHeadshotKill(victimEid, victimInfo, damageType, collNodeId, userstats) {
+function checkHeadshotKill(victimEid, victimInfo, damageType, collNodeId, userstats) {
   if ((victimInfo?.guid ?? "") != "") { // only human victims
     let nodeType = ecs.obsolete_dbg_get_comp_val(victimEid, "dm_parts__type")?[collNodeId]
     if (damageType == DM_PROJECTILE && nodeType == "head")
@@ -49,7 +49,7 @@ let function checkHeadshotKill(victimEid, victimInfo, damageType, collNodeId, us
 let getVehicleQuery = ecs.SqQuery("getVehicleQuery", {comps_ro=[["human_anim__vehicleSelected", ecs.TYPE_EID]]})
 let getVehicleTypeQuery = ecs.SqQuery("getVehicleTypeQuery", {comps_ro=[["airplane", ecs.TYPE_TAG, null], ["isTank", ecs.TYPE_TAG, null], ["mobileRespawnTag", ecs.TYPE_TAG, null]]})
 
-let function checkKillsInVehicle(_victimEid, victimInfo, killerEid, userstats) {
+function checkKillsInVehicle(_victimEid, victimInfo, killerEid, userstats) {
   if ((victimInfo?.guid ?? "") != "") { // only human victims
     let vehicleEid = getVehicleQuery(killerEid, @(_, comp) comp["human_anim__vehicleSelected"]) ?? ecs.INVALID_ENTITY_ID
     getVehicleTypeQuery(vehicleEid, function(_, comp) {
@@ -65,7 +65,7 @@ let function checkKillsInVehicle(_victimEid, victimInfo, killerEid, userstats) {
 
 let getSoldierKindQuery = ecs.SqQuery("getSoldierKindQuery", {comps_ro = [["soldier__sKind", ecs.TYPE_STRING]]})
 
-let function onKillWithSoldierKind(victimEid, victimInfo, killerEid, userstats) {
+function onKillWithSoldierKind(victimEid, victimInfo, killerEid, userstats) {
   let solderKind = getSoldierKindQuery(killerEid, @(_, c) c.soldier__sKind) ?? ""
   if (solderKind == "")
     return
@@ -90,7 +90,7 @@ let getVictimBuiltGunOffenderQuery = ecs.SqQuery("getVictimBuiltGunOffenderQuery
     ["mobileRespawnTag", ecs.TYPE_TAG, null],
   ]
 })
-let function checkKillsWithBuiltGun(victimEid, _killerEid, userstats) {
+function checkKillsWithBuiltGun(victimEid, _killerEid, userstats) {
   getVictimBuiltGunOffenderQuery(victimEid, function(_, comp) {
     if (comp.death_desc__builtGunEid != ecs.INVALID_ENTITY_ID)
       userstatsAdd(userstats, null, "kills_by_engineer_buildings", null)
@@ -105,7 +105,7 @@ let function checkKillsWithBuiltGun(victimEid, _killerEid, userstats) {
   })
 }
 
-let function onPlayerSquadKill(victimEid, killerEid, damageType, gunPropsId, collNodeId, currentWeaponStreak, bestWeaponStreak, userstats) {
+function onPlayerSquadKill(victimEid, killerEid, damageType, gunPropsId, collNodeId, currentWeaponStreak, bestWeaponStreak, userstats) {
   let victimInfo = getSoldierInfoFromCache(victimEid)
   checkHeadshotKill(victimEid, victimInfo, damageType, collNodeId, userstats)
   checkKillWeapon(victimInfo, damageType, gunPropsId, currentWeaponStreak, bestWeaponStreak, userstats)

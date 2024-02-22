@@ -1,7 +1,7 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
-let { ACTION_REVIVE_TEAMMATE } =  require("hud_actions")
+let { ACTION_REVIVE_TEAMMATE } = require("%ui/hud/human_actions.nut")
 
 let canHealSelectedSoldier = Watched(false)
 let heroMedicMedpacks = Watched(0)

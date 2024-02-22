@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { settings, onlineSettingUpdated } = require("%enlist/options/onlineSettings.nut")
 let { itemUpgrades, getModifyConfig } = require("config/itemsModifyConfig.nut")
@@ -19,11 +19,11 @@ let isUpgradeUsed = Computed(@() settings.value?[USED_ID])
 
 let ignoreSlots = { secondary = true }
 
-let function markUpgradesUsed(isUsed = true) {
+function markUpgradesUsed(isUsed = true) {
   settings.mutate(@(set) set[USED_ID] <- isUsed)
 }
 
-let function markSeenUpgrades(armyId, iGuidsList) {
+function markSeenUpgrades(armyId, iGuidsList) {
   if (armyId == null)
     return
 
@@ -41,7 +41,7 @@ let function markSeenUpgrades(armyId, iGuidsList) {
   })
 }
 
-let function markUnseenUpgrades(armyId, iGuidsList) {
+function markUnseenUpgrades(armyId, iGuidsList) {
   let seenUpdates = seen.value?[armyId] ?? {}
   let filtered = iGuidsList.filter(@(name) name in seenUpdates)
   if (filtered.len() == 0)
@@ -56,7 +56,7 @@ let function markUnseenUpgrades(armyId, iGuidsList) {
   })
 }
 
-let function updateSeen(armyId, availableUpgrades) {
+function updateSeen(armyId, availableUpgrades) {
   let seenUpdates = seen.value?[armyId] ?? {}
   if (seenUpdates.len() == 0)
     return
@@ -74,7 +74,7 @@ let function updateSeen(armyId, availableUpgrades) {
   })
 }
 
-let function getEquipInfoByItem(item, curSoldiers) {
+function getEquipInfoByItem(item, curSoldiers) {
   let links = item?.links ?? {}
   if (links.len() <= 1)
     return null
@@ -212,10 +212,8 @@ availableUpgradesEquipsByArmy.subscribe(function(v) {
 
 console_register_command(function() {
   settings.mutate(function(s) {
-    if (SEEN_ID in s)
-      delete s[SEEN_ID]
-    if (USED_ID in s)
-      delete s[USED_ID]
+    s?.$rawdelete(SEEN_ID)
+    s?.$rawdelete(USED_ID)
   })
 }, "meta.resetSeenUpdates")
 

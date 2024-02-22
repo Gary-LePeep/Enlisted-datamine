@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { isSquadNotEmpty, isInSquad } = require("%enlist/squad/squadState.nut")
 let { unlockProgress } = require("%enlSqGlob/userstats/unlocksState.nut")
@@ -18,7 +18,7 @@ let isNewbieBase = Computed(function() {
   return !(settings.value?[SAVE_ID] ?? isNewbieUnlock.value ?? false)
 })
 
-let function saveNewbie(_ = null) {
+function saveNewbie(_ = null) {
   if (SAVE_ID not in settings.value && isNewbieUnlock.value)
     settings.mutate(@(set) set[SAVE_ID] <- true)
 }

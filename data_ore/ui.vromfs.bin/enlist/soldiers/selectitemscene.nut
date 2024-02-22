@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let {round_by_value} = require("%sqstd/math.nut")
@@ -33,7 +33,7 @@ let defcomps = require("%enlSqGlob/ui/defcomps.nut")
 let mkItemWithMods = require("mkItemWithMods.nut")
 let { mkSoldierInfo } = require("mkSoldierInfo.nut")
 let { soldierClasses } = require("%enlSqGlob/ui/soldierClasses.nut")
-let { getSoldierItemSlots, getEquippedItemGuid, curArmyData, armySquadsById
+let { getSoldierItemSlots, getEquippedItemGuid, armySquadsById
 } = require("%enlist/soldiers/model/state.nut")
 let { campItemsByLink } = require("%enlist/meta/profile.nut")
 let { isItemActionInProgress } = require("model/itemActions.nut")
@@ -47,13 +47,12 @@ let { unequipItem, unequipBySlot } = require("%enlist/soldiers/unequipItem.nut")
 let { slotItems, otherSlotItems, prevItems, selectParams, selectParamsArmyId, curEquippedItem,
   viewItem, paramsForPrevItems, openSelectItem, trySelectNext, curInventoryItem, checkSelectItem,
   selectItem, itemClear, selectNextSlot, selectPreviousSlot, unseenViewSlotTpls,
-  viewItemMoveVariants, ItemCheckResult
+  ItemCheckResult
 } = require("model/selectItemState.nut")
 let { curSoldierInfo } = require("%enlist/soldiers/model/curSoldiersState.nut")
 let { markWeaponrySeen, markWeaponryListSeen } = require("model/unseenWeaponry.nut")
 let hoverHoldAction = require("%darg/helpers/hoverHoldAction.nut")
 let { openUpgradeItemMsg, openDisposeItemMsg } = require("components/modifyItemComp.nut")
-let itemTransferMsg = require("%enlist/items/itemTransferMsg.nut")
 let { curArmySquadsUnlocks, scrollToCampaignLvl } = require("model/armyUnlocksState.nut")
 let { mkItemUpgradeData, mkItemDisposeData } = require("model/mkItemModifyData.nut")
 let gotoResearchUpgradeMsgBox = require("researchUpgradeMsgBox.nut")
@@ -62,13 +61,13 @@ let { getShopItemsCmp } = require("%enlist/shop/armyShopState.nut")
 let { mkOnlinePersistentFlag } = require("%enlist/options/mkOnlinePersistentFlag.nut")
 let openArmoryTutorial = require("%enlist/tutorial/armoryTutorial.nut")
 let isNewbie = require("%enlist/unlocks/isNewbie.nut")
-let itemsTransferConfig = require("model/config/itemsTransferConfig.nut")
 let { isDetailsFull, detailsModeCheckbox } = require("%enlist/items/detailsMode.nut")
 let { isObjGuidBelongToRentedSquad } = require("%enlist/soldiers/model/squadInfoState.nut")
 let { showRentedSquadLimitsBox } = require("%enlist/soldiers/components/squadsComps.nut")
 let clickShopItem = require("%enlist/shop/clickShopItem.nut")
 let { mkPresetEquipBlock } = require("%enlist/preset/presetEquipUi.nut")
 let { isChangesBlocked } = require("%enlist/quickMatchQueue.nut")
+let { sound_play } = require("%dngscripts/sound_system.nut")
 
 const ADD_CAMERA_FOV_MIN = -15
 const ADD_CAMERA_FOV_MAX = 15
@@ -90,7 +89,7 @@ viewItem.subscribe(function(item) {
 
 let unseenWeaponTpls = {}
 
-let function updateUnseenWeapon() {
+function updateUnseenWeapon() {
   let armyId = selectParamsArmyId.value
   if (armyId == null)
     return
@@ -126,7 +125,7 @@ let defStatusCtor = function(item, soldierWatch) {
   }
 }
 
-let function txt(text) {
+function txt(text) {
   let children = (type(text) == "string")
     ? defcomps.txt({text}.__update(fontSub))
     : defcomps.txt(text)
@@ -164,7 +163,7 @@ let prevItemParams = {
   onDoubleClickCb = unequipItem
 }
 
-let function processItemDrop(item, checkInfo) {
+function processItemDrop(item, checkInfo) {
   let { result, soldier = null, slotType = null, soldierClass = null, level = null } = checkInfo
   let buttons = [{ text = loc("Ok"), isCancel = true }]
   local text = ""
@@ -250,6 +249,7 @@ let mkStdCtorData = @(itemSize) {
       }
       selectItem(item)
       trySelectNext()
+      sound_play("ui/inventory_item_place")
     }
   }.__update(override))
 }
@@ -278,12 +278,12 @@ let sortDemandsOrder = @(d) d?.canObtainInShop == true ? 2000
   : "levelLimit" in d ? 1000 - d.levelLimit
   : 0
 
-let function sortByDemands(a, b) {
+function sortByDemands(a, b) {
   return (b == "") <=> (a == "")
     || sortDemandsOrder(b) <=> sortDemandsOrder(a)
 }
 
-let function mkDemandHeader(demand) {
+function mkDemandHeader(demand) {
   let key = demand.keys()?[0]
   let value = demand?[key]
   let suffix = value == true ? "_yes"
@@ -298,8 +298,9 @@ let function mkDemandHeader(demand) {
   }.__update(fontSub)
 }
 
-let mkItemsGroupedList = kwarg(@(listWatch, overrideParams, newWatch, onlyNew = false)
-  function() {
+let mkItemsGroupedList = kwarg(@(listWatch, overrideParams, newWatch, onlyNew = false,
+  noHeaders = false
+) function() {
     overrideParams.soldierGuid <- curSoldierInfo.value?.guid
 
     let newList = newWatch.value
@@ -312,6 +313,9 @@ let mkItemsGroupedList = kwarg(@(listWatch, overrideParams, newWatch, onlyNew = 
     let { size, itemsInRow } = ctorData
     let itemContainerWidth = itemsInRow * size[0] + (itemsInRow - 1) * bigPadding
 
+    let isShowClassesHint = selectParams.value?.slotType == "primary"
+      || selectParams.value?.slotType == "secondary"
+
     let groupedItems = {}
     foreach (data in itemsDemands) {
       let { item, demands = "" } = data
@@ -320,7 +324,7 @@ let mkItemsGroupedList = kwarg(@(listWatch, overrideParams, newWatch, onlyNew = 
     let children = []
     let demandsOrdered = groupedItems.keys().sort(sortByDemands)
     foreach (demand in demandsOrdered) {
-      if (demand != "")
+      if (demand != "" && !noHeaders)
         children.append(mkDemandHeader(demand))
 
       let itemsList = groupedItems[demand].map(function(item) {
@@ -339,6 +343,7 @@ let mkItemsGroupedList = kwarg(@(listWatch, overrideParams, newWatch, onlyNew = 
                     markWeaponrySeen(armyId, tpl)
                   }
                 })
+              isShowClassesHint
             }))
         })
 
@@ -347,7 +352,7 @@ let mkItemsGroupedList = kwarg(@(listWatch, overrideParams, newWatch, onlyNew = 
       }))
     }
     return {
-      watch = [listWatch, itemTypesInSlots, curSoldierInfo, itemsWithDemands]
+      watch = [listWatch, itemTypesInSlots, curSoldierInfo, itemsWithDemands, selectParams]
       size = [itemContainerWidth, SIZE_TO_CONTENT]
       flow = FLOW_VERTICAL
       gap = smallPadding
@@ -364,6 +369,7 @@ let otherList = mkItemsGroupedList({
   listWatch = otherSlotItems
   overrideParams = blockedItemParams
   newWatch = justPurchasedItems
+  noHeaders = true
 })
 let otherListNewOnly = mkItemsGroupedList({
   listWatch = otherSlotItems
@@ -374,7 +380,7 @@ let otherListNewOnly = mkItemsGroupedList({
 
 let prevArmory = mkItemsList(prevItems, prevItemParams)
 
-let function onBackAction() {
+function onBackAction() {
   updateUnseenWeapon()
   itemClear()
 }
@@ -382,7 +388,7 @@ let function onBackAction() {
 let backButton = Bordered(loc("mainmenu/btnBack"), onBackAction,
   { margin = [0, bigPadding, 0, 0] })
 
-let function mkChooseButtonUi(item) {
+function mkChooseButtonUi(item) {
   return function() {
     let res = { watch = [curEquippedItem, isItemActionInProgress, isChangesBlocked] }
     let equippedItem = curEquippedItem.value
@@ -406,7 +412,7 @@ let function mkChooseButtonUi(item) {
 }
 
 
-let function mkObtainButton(item) {
+function mkObtainButton(item) {
   if (item == null || item?.basetpl == null)
     return null
 
@@ -433,8 +439,8 @@ let function mkObtainButton(item) {
         )
       : shopItem != null ? Flat(loc("btn/buy"),
           function() {
-            let crates = (shopItem?.crates ?? []).map(@(c) c.id)
-            requestCratesContent(curArmyData.value.guid, crates)
+            let crates = shopItem?.crates ?? []
+            requestCratesContent(crates)
             clickShopItem(shopItem, isWrongClass)
           },
           {
@@ -450,7 +456,7 @@ let function mkObtainButton(item) {
 let mkListToggleHeader = @(sClass, flag) mkToggleHeader(flag
   loc("Not available for class", { soldierClass = loc(soldierClasses?[sClass].locId ?? "unknown") }))
 
-let function otherItemsBlock() {
+function otherItemsBlock() {
   let res = { watch = [curSoldierInfo, otherSlotItems] }
   if (otherSlotItems.value.len() == 0)
     return res
@@ -539,7 +545,7 @@ let openResearchUpgradeMsgbox = @(research) showMsgbox({
 })
 
 
-let function mkUpgradeBtn(item) {
+function mkUpgradeBtn(item) {
   let upgradeDataWatch = mkItemUpgradeData(item)
   return function() {
     let res = {
@@ -625,7 +631,7 @@ let function mkUpgradeBtn(item) {
   }
 }
 
-let function mkDisposeBtn(item) {
+function mkDisposeBtn(item) {
   let disposeDataWatch = mkItemDisposeData(item)
   return function() {
     let res = { watch = [disposeDataWatch, isItemActionInProgress] }
@@ -663,35 +669,6 @@ let function mkDisposeBtn(item) {
   }
 }
 
-let function mkMoveButtonUi(item) {
-  if (item == null)
-    return null
-  return function() {
-    let res = {
-      watch = [curEquippedItem, viewItemMoveVariants, itemsTransferConfig, isItemActionInProgress]
-    }
-    let { availableTypes = [], requiredOrders = [] } = itemsTransferConfig.value
-    let equipItem = curEquippedItem.value
-    let isMovable = availableTypes.contains(item.itemtype)
-    if (!isMovable
-        || item == equipItem
-        || viewItemMoveVariants.value.len() == 0)
-      return res
-
-    return res.__update({
-      margin = [0, 0, 0, bigPadding]
-      children = Flat(
-        loc("btn/moveItemToArmy"),
-        @() itemTransferMsg(item, viewItemMoveVariants, requiredOrders),
-        {
-          margin = 0
-          isEnabled = !isItemActionInProgress.value
-        }
-      )
-    })
-  }
-}
-
 let waitingSpinnerUi = @() {
   watch = isItemActionInProgress
   size = [SIZE_TO_CONTENT, flex()]
@@ -706,7 +683,6 @@ let buttonsUi = @() {
   valign = ALIGN_BOTTOM
   children = [
     waitingSpinnerUi
-    mkMoveButtonUi(viewItem.value)
     mkDisposeBtn(viewItem.value)
     mkUpgradeBtn(viewItem.value)
     mkObtainButton(viewItem.value)
@@ -714,7 +690,7 @@ let buttonsUi = @() {
   ]
 }
 
-let function mkDemandsInfo(item) {
+function mkDemandsInfo(item) {
   if (item == null)
     return null
 
@@ -751,7 +727,7 @@ let animations = [
   { prop = AnimProp.translate, from =[0, 0], playFadeOut = true, to = [-hdpx(150), 0], duration = 0.2, easing = OutQuad }
 ]
 
-let function getItemSlot(item, soldier) {
+function getItemSlot(item, soldier) {
   if (!item || !soldier)
     return null
   let ownerGuid = soldier.guid
@@ -893,7 +869,7 @@ let selectItemScene = @() {
   ]
 }
 
-let function open() {
+function open() {
   sceneWithCameraAdd(selectItemScene, "armory")
 }
 

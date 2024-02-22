@@ -13,13 +13,13 @@ let peersThatWantToReceiveQuery = ecs.SqQuery(
   "and(ne(connid, {0}), receive_logerr)".subst(INVALID_CONNECTION_ID)
 )
 
-let function getConnidForLogReceiver(_eid, comp){
+function getConnidForLogReceiver(_eid, comp){
   if (hasDedicatedPermission(comp["userid"], "receive_server_messages"))
     return comp.connid
   return INVALID_CONNECTION_ID
 }
 
-local function sendLogToClients(log, connids=null){
+function sendLogToClients(log, connids=null){
   let event = mkEventSqChatMessage(({team=-1, name="dedicated", text=log}))
   if (!has_network())
     ecs.server_msg_sink(event, null)

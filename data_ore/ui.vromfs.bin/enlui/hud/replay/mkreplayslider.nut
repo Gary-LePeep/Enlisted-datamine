@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { accentColor, titleTxtColor, defTxtColor, smallPadding, darkTxtColor, hoverPanelBgColor,
   darkPanelBgColor
@@ -28,7 +28,7 @@ let hoverLabelStyle = {
 }.__update(fontSub)
 
 
-let function mkSlider(var, label, options = {}) {
+function mkSlider(var, label, options = {}) {
   let minval = options?.min ?? 0
   let maxval = options?.max ?? 1
   let setValue = options?.setValue ?? @(v) var(v)
@@ -54,7 +54,7 @@ let function mkSlider(var, label, options = {}) {
   }.__update(isEnabled && (sf & S_HOVER) ? hoverLabelStyle : defLabelStyle)
 
 
-  let function onChange(factor){
+  function onChange(factor){
     let value = factor.tofloat() * (maxval - minval) + minval
     if (!isEnabled)
       return

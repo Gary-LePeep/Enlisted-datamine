@@ -721,16 +721,18 @@ def take_grenade_in_hand(eid : EntityId;
 
 def switch_to_first_weap_with_ammo(human_weap__gunEids : EidList;
                                    var phys : HumanPhys)
+  var slots : array<tuple<slot : int; priority : int>>
   var choosenSlot = -1
   for i in range(int(HUWeaponSlots EWS_NUM))
     query(human_weap__gunEids[i]) <| $ [es] (gun__totalAmmo : int;
-                                             gun__ammo : int)
+                                             gun__ammo : int;
+                                             gun__switchToPriority : int = 0)
       if i != int(HUWeaponSlots EWS_GRENADE) && (gun__totalAmmo > 0 || gun__ammo > 0)
-        choosenSlot = i
-
-    if choosenSlot > -1
-      phys.producedCT |> set_chosen_weapon(HUWeaponSlots(choosenSlot))
-      break
+        slots |> push([[auto i, gun__switchToPriority]])
+  if !empty(slots)
+    sort(slots) <| $(a, b) { return a.priority == b.priority ? a.slot < b.slot : a.priority > b.priority; }
+    choosenSlot = slots[0].slot
+    phys.producedCT |> set_chosen_weapon(HUWeaponSlots(choosenSlot))
 
   return choosenSlot > -1
 
@@ -742,7 +744,6 @@ def human_weap_can_reload(human_eid : EntityId; gun_eid : EntityId) : bool
                               boltActionProgress : float;
                               human_weap__isReloading : bool = false;
                               human_weap__canOperate : bool = true;
-                              human_weap__lockWeaponReload : bool = false;
                               burning__isBurning : bool = false;
                               human_attached_gun__attachedGunEid : EntityId = INVALID_ENTITY_ID;
                               human_inventory__entityToUse : EntityId = INVALID_ENTITY_ID)
@@ -760,7 +761,7 @@ def human_weap_can_reload(human_eid : EntityId; gun_eid : EntityId) : bool
                  !human_weap__isReloading &&
                  !burning__isBurning &&
                  (eqState == HUWeaponEquipState EES_EQUIPED || eqState == HUWeaponEquipState EES_DOWN || isAttachedToGun) &&
-                 !isBlockedByBoltAction && !human_weap__lockWeaponReload && (human_weap__weapModActivateStartTime < 0.) &&
+                 !isBlockedByBoltAction && (human_weap__weapModActivateStartTime < 0.) &&
                  !usingItem &&
                  human_weap__canOperate)
   return canReload

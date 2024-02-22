@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontawesome } = require("%enlSqGlob/ui/fontsStyle.nut")
 let colors = require("%ui/style/colors.nut")
@@ -90,7 +90,7 @@ let mkHeader = @(total) {
 
 let clearAllBtn = textButton.FAButton("trash-o", clearAll, {hplace=ALIGN_RIGHT}.__update(fontawesome))
 
-let function mailboxBlock() {
+function mailboxBlock() {
   let elems = inbox.value.map(item)
   if (elems.len() == 0)
     elems.append(mailsPlaceHolder)

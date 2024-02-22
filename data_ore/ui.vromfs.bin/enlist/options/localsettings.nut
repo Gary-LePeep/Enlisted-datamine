@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {get_setting_by_blk_path, set_setting_by_blk_path_and_save} = require("settings")
 return function(settingsPath, write = true) {

@@ -2,7 +2,7 @@
   {
     "import": [
       {
-        "scene": "content/enlisted/gamedata/scenes/_normandy_sounds.blk"
+        "scene": "content/enlisted/gamedata/scenes/_normandy_smn_sounds.blk"
       },
       {
         "scene": "content/enlisted/gamedata/scenes/_normandy_smn_gpu.blk"
@@ -73,87 +73,6 @@
     "entity": {
       "_template": "water",
       "water__strength": 0.27
-    }
-  },
-  {
-    "entity": {
-      "_template": "game_object_compound_sound_generator",
-      "game_object_compound_sound_generator__entityTypes:array": [
-        {
-          "entity:object": {
-            "soundName": "factory_small",
-            "objectTypes:object": {
-              "ambient_sound_factory_small": "box"
-            }
-          }
-        },
-        {
-          "entity:object": {
-            "soundName": "gradieren",
-            "objectTypes:object": {
-              "ambient_sound_gradieren": "capsule"
-            }
-          }
-        },
-        {
-          "entity:object": {
-            "soundName": "pump_station",
-            "objectTypes:object": {
-              "ambient_sound_pump_station": "box"
-            }
-          }
-        },
-        {
-          "entity:object": {
-            "soundName": "blast_furnace",
-            "objectTypes:object": {
-              "ambient_sound_blast_furnace": "box"
-            }
-          }
-        },
-        {
-          "entity:object": {
-            "soundName": "plant",
-            "objectTypes:object": {
-              "ambient_sound_plant_capsule": "capsule",
-              "ambient_sound_plant_box": "box"
-            }
-          }
-        }
-      ]
-    }
-  },
-  {
-    "entity": {
-      "_template": "game_object_spline_sound_generator",
-      "game_object_spline_sound_generator__entityTemplate": "pipes_sound",
-      "game_object_spline_sound_generator__pointRadiusMul": 0.0,
-      "game_object_spline_sound_generator__gameObjects:list<t>": [
-        {
-          "gameObject": "pipes_sound_spline_a"
-        },
-        {
-          "gameObject": "pipes_sound_spline_b"
-        },
-        {
-          "gameObject": "pipes_sound_spline_c"
-        },
-        {
-          "gameObject": "pipes_sound_spline_d"
-        },
-        {
-          "gameObject": "pipes_sound_spline_e"
-        },
-        {
-          "gameObject": "pipes_sound_spline_f"
-        },
-        {
-          "gameObject": "pipes_sound_spline_g"
-        },
-        {
-          "gameObject": "pipes_sound_spline_h"
-        }
-      ]
     }
   },
   {

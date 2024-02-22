@@ -37,6 +37,24 @@ class ContextEditorFn
         ctx |> invoke_in_context(fn, eid)
 
 
+class ContextEntityNameDescFn
+  ctx : Context?
+  fn : EntityNameDescFn
+
+  def ContextEntityNameDescFn(var f : EntityNameDescFn; var context : Context)
+    unsafe
+      ctx = addr(context)
+    fn <- f
+
+  def call(eid : EntityId) : string
+    var out = ""
+    unsafe
+      lock_debug_agent() <| $()
+        ctx |> invoke_in_context(fn, eid, addr(out))
+        out = clone_string(out)
+    return out
+
+
 struct InspectorDesc
   field_name : string
   tag : uint
@@ -51,12 +69,14 @@ struct EditorDesc
 typedef
   InspectorFn = function<(eid : array<EntityId> implicit; flags : uint; name : string; refs : array<EntityComponentRef#>#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void>
   EditorFn = function<(eid : array<EntityId>#) : void>
+  EntityNameDescFn = function<(eid : EntityId; var out_string : string?) : void>
 
 
 let AGENT_NAME = "ecs_inspectors"
 // TODO: rewrite using invoke_debug_agent_function
 var private [[ignore_heap_usage]] inspectors : table<string; array<InspectorDesc>>
 var private [[ignore_heap_usage]] editors : array<EditorDesc>
+var private [[ignore_heap_usage]] nameDescriptor : ContextEntityNameDescFn?
 
 
 def not_in_ecs_inspectors_context()
@@ -89,6 +109,13 @@ class EcsInspectorAgent : DapiDebugAgent
         let linkedCtx & = *(editors[idx].fn.ctx)
         if addr(linkedCtx) == addr(ctx)
           editors |> erase(idx)
+
+    unsafe
+      if nameDescriptor != null
+        let linkedCtx & = *(nameDescriptor.ctx)
+        if addr(linkedCtx) == addr(ctx)
+          delete nameDescriptor
+          nameDescriptor = null
 
 
 [export, unused_argument(ctx)]
@@ -187,3 +214,14 @@ def call_editor(prefix : bool; eid : array<EntityId>#) : bool
       res = true
 
   return res
+
+[apply_in_context(ecs_inspectors)]
+def set_entity_name_getter(var fn : EntityNameDescFn; var ctx : Context implicit) : void
+  nameDescriptor = new ContextEntityNameDescFn(fn, ctx)
+
+[apply_in_context(ecs_inspectors)]
+def call_entity_extra_name_getter(eid : EntityId) : string
+  var extra_name = ""
+  if nameDescriptor != null
+    extra_name := nameDescriptor->call(eid)
+  return extra_name

@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 /*
 
 This code looks like piece of spaghetti because it has
@@ -156,7 +156,7 @@ let canUseRespawnbaseByType = Computed(function() {
 let currentRespawnGroup = Computed(@()
   selectedRespawnGroupId.value?[canUseRespawnbaseByType.value] ?? -1)
 
-let function updateVehicleSpawnAvailableTimer(...) {
+function updateVehicleSpawnAvailableTimer(...) {
   let curTime = app.get_sync_time()
   isSquadAvailableByTime(nextSpawnOnVehicleInTimeBySquad.value.map(@(v) v <= curTime))
   let nextEndTime = nextSpawnOnVehicleInTimeBySquad.value
@@ -171,7 +171,7 @@ let function updateVehicleSpawnAvailableTimer(...) {
 nextSpawnOnVehicleInTimeBySquad.subscribe(updateVehicleSpawnAvailableTimer)
 updateVehicleSpawnAvailableTimer()
 
-let function requestRespawn() {
+function requestRespawn() {
   let squadId = squadIndexForSpawn.value
   let spawnGroup = currentRespawnGroup.value
   let memberId = squadMemberIdForSpawn.value
@@ -181,7 +181,7 @@ let function requestRespawn() {
   sendNetEvent(respawnerEid.value, CmdRequestRespawn({ squadId = squadId, memberId = memberId, spawnGroup = spawnGroup, isParatroopers = paratroopersOn.value }))
 }
 
-let function cancelRequestRespawn() {
+function cancelRequestRespawn() {
   let squadId = squadIndexForSpawn.value
   let memberId = squadMemberIdForSpawn.value
   let spawnGroup = queueRespawnGroupId.value
@@ -192,14 +192,14 @@ let function cancelRequestRespawn() {
 
 
 
-let function cancelRespawn() {
+function cancelRespawn() {
   if (respRequested.value)
     respRequested(false)
   else if (queueRespawnGroupId.value != queuedRespawnGroupId.value)
     respRequested.trigger()
 }
 
-let function onActive() {
+function onActive() {
   respawnLastActiveTime(app.get_sync_time())
   if (canRespawnWaitNumber.value > 0)
     requestRespawn()
@@ -207,7 +207,7 @@ let function onActive() {
 }
 
 
-let function updateSquadSpawnIndex(...) {
+function updateSquadSpawnIndex(...) {
   squadIndexForSpawn(squadsList.value.findindex(@(s) s.squadId == spawnSquadId.value) ?? 0)
 }
 
@@ -222,7 +222,7 @@ curSoldierIdx.subscribe(function(i){
   onActive()
 })
 
-let function getBestSquadId(squads, curSquadId, defSquadId = null) {
+function getBestSquadId(squads, curSquadId, defSquadId = null) {
   local bestSquadId = (squads.findindex(@(sq) sq.squadId == curSquadId) == null ? null : curSquadId)
     ?? defSquadId
 
@@ -236,7 +236,7 @@ let function getBestSquadId(squads, curSquadId, defSquadId = null) {
   return bestSquadId
 }
 
-let function updateSpawnSquadId() {
+function updateSpawnSquadId() {
   let squads = squadsList.value
   let spawnedSquads = curSpawnedSquads.value
   let preferSquads = squads.filter(@(s) s.squadId not in spawnedSquads)
@@ -354,7 +354,7 @@ respRequested.subscribe(function(v) {
 needSpawnMenu.subscribe(function(need) { if (need) respawnLastActiveTime(app.get_sync_time()) })
 local pendingResp = null
 
-let function setPendingResp(_) {
+function setPendingResp(_) {
   if (pendingResp)
     return
   //wait for all watches update their values before send respawn event
@@ -371,12 +371,12 @@ let function setPendingResp(_) {
 foreach (w in [needSpawnMenu, respEndTime, respEndTotalTime, timeToRespawn])
   w.subscribe(setPendingResp)
 
-let function equalUpdate(watch, newVal) {
+function equalUpdate(watch, newVal) {
   if (!isEqual(watch.value, newVal))
     watch(newVal)
 }
 
-let function trackComponents(_evt, eid, comp) {
+function trackComponents(_evt, eid, comp) {
   if (!comp.is_local)
     return
   respawnerEid(eid)
@@ -423,7 +423,7 @@ ecs.register_es("respawns_state_ui_es", {
   }
 )
 
-let function trackSquadComponents(_evt, _eid, comp) {
+function trackSquadComponents(_evt, _eid, comp) {
   if (!comp.is_local)
     return
   equalUpdate(squadsRevivePoints, comp["squads__revivePointsList"]?.getAll() ?? [])
@@ -527,7 +527,7 @@ let state = {
 let debugSpawn = mkWatched(persist,"debugSpawn")
 let beforeDebugSpawn = mkWatched(persist, "beforeDebugSpawn")
 
-let function setDebugMode(isRespawnInBot) {
+function setDebugMode(isRespawnInBot) {
   let isChanged = debugSpawn.value?.respawnsInBot != isRespawnInBot
   if (!isChanged) {
     foreach (key, value in beforeDebugSpawn.value)

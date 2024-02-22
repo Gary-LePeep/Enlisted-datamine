@@ -22,7 +22,7 @@ let find_local_player_id_compsQuery = ecs.SqQuery("find_local_player_uid_compsQu
     comps_rq = ["player"]
   }, "is_local")
 
-let function getPlayerId(){
+function getPlayerId(){
   let playerid = find_local_player_id_compsQuery.perform(@(_eid, comp) comp.playerIdInSession) ?? ""
   if (playerid != "")
     return playerid
@@ -45,7 +45,7 @@ let { psnSend,
 
 let accountIdString = platform.is_ps5 ? require("sony.user").accountIdString : "0123456789"
 
-let function makePlayerRec(comp) {
+function makePlayerRec(comp) {
   let player = {
     playerId = $"{comp.playerIdInSession}"
     accountId = accountIdString
@@ -58,19 +58,19 @@ let function makePlayerRec(comp) {
   return player
 }
 
-let function joinPsnMatch(matchId, comp){
+function joinPsnMatch(matchId, comp){
   if (matchId!="") {
     dbgLog("join", matchId)
     psnSend(psnMatchJoin(matchId, makePlayerRec(comp)))
   }
 }
 
-let function startPsnMatch(matchId, comp) {
+function startPsnMatch(matchId, comp) {
   if (matchId != "")
     psnSend(psnMatchUpdateStatus(matchId, PSN_MATCH_STATUS_PLAYING), @(_r, _e) joinPsnMatch(matchId, comp))
 }
 
-let function onEventTeamRoundResult(evt, _eid, comp) {
+function onEventTeamRoundResult(evt, _eid, comp) {
   if (comp.psn_local_user_leaved_match)
     return
   let matchId = comp.psn_external_match_id
@@ -84,7 +84,7 @@ let function onEventTeamRoundResult(evt, _eid, comp) {
   comp.psn_local_user_leaved_match = true
 }
 
-let function leavePsnMatch(comp, reason=null){
+function leavePsnMatch(comp, reason=null){
   let matchId = comp.psn_external_match_id
   if (comp.psn_local_user_leaved_match)
     return
@@ -135,7 +135,7 @@ let createPsnMatch = debug
       })
     }
 
-let function joinOrCreatePsnMatch(eid, comp) {
+function joinOrCreatePsnMatch(eid, comp) {
   let isMatchCreated = comp.psn_external_match_id != ""
   let playerId = getPlayerId()
   if (playerId)

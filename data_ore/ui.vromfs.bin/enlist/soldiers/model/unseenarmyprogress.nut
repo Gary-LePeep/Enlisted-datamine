@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { settings, onlineSettingUpdated } = require("%enlist/options/onlineSettings.nut")
 let { reachedArmyUnlocks } = require("armyUnlocksState.nut")
@@ -18,7 +18,7 @@ let seenArmyProgress = Computed(function() {
   return { opened, unseen, unopened }
 })
 
-let function markOpened(armyId, level) {
+function markOpened(armyId, level) {
   settings.mutate(function(set) {
     set[SEEN_ID] <- (set?[SEEN_ID] ?? {}).__merge({ [armyId] = level })
   })
@@ -27,7 +27,7 @@ let function markOpened(armyId, level) {
 console_register_command(function() {
   settings.mutate(function(s) {
     if (SEEN_ID in s)
-      delete s[SEEN_ID]
+      s.$rawdelete(SEEN_ID)
   })
 }, "meta.resetSeenArmyProgress")
 

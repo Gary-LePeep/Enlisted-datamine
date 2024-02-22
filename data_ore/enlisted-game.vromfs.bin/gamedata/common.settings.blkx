@@ -33,7 +33,7 @@
     "bgImage": "ui/game_def_login_screen.avif; ui/game_d_day_login_screen_2.avif; ui/game_tunisia_login_screen_2.avif; ui/armored_train_login_screen.avif; ui/stalingrad_login_screen.avif; ui/burning_sky_loading_screen.avif; ui/pacific_usa_login_screen.avif; ui/pacific_jap_login_screen.avif; ui/high_caliber_login_screen.avif; ui/ussr_moscow_prem_mgun_2.avif; ui/ger_normandy_prem_assault_2.avif; ui/ussr_berlin_prem_assault_1.avif; ui/ger_moscow_prem_mgun_2.avif; ui/airborn_forces_login_screen.avif; ui/jungle_fire_login_screen.avif; ui/new_era_login_screen.avif;"
   },
   {
-    "scene": "content/enlisted/gamedata/scenes/campaigns_menu_squad_diorama_scene_china_ny.blk"
+    "scene": "content/enlisted/gamedata/scenes/campaigns_menu_squad_diorama_scene.blk"
   },
   {
     "allowEmptyScenes": true
@@ -162,6 +162,9 @@
     "game_das_script_init": "%scripts/enlisted_init.das"
   },
   {
+    "game_das_script_thread_init": "%scripts/enlisted_thread_init.das"
+  },
+  {
     "game_das_sandbox_project": "%scripts/sandbox.das_project"
   },
   {
@@ -205,7 +208,10 @@
   {
     "directx": {
       "bonesCount": 256,
-      "debug": false
+      "debug": false,
+      "ignore": {
+        "default": 351
+      }
     }
   },
   {
@@ -276,7 +282,7 @@
     }
   },
   {
-    "daEditor4": {
+    "daEditor": {
       "disable": false,
       "input": {
         "maxCamera": {
@@ -317,9 +323,9 @@
     "graphicsAutodetect": {
       "gpuBenchmarkDuration": 10.0,
       "presetDefault": "medium",
-      "presetUltralow": "bare minimum",
+      "presetUltralow": "bareMinimum",
       "presets": {
-        "bare minimum": {
+        "bareMinimum": {
           "timeMs30": 10.0905,
           "timeMs60": 5.0452,
           "timeMs120": 2.5226,
@@ -445,7 +451,6 @@
       "graphics": {
         "__allow_all_params": true,
         "__exclude_allow": {
-          "shouldRenderHaze": true,
           "shouldRenderWaterRipples": true,
           "supportsIndoorProbes": true,
           "grassGridSizeMultiplier": 1.0,
@@ -506,7 +511,7 @@
       "tracers": {
         "tail_texture": ""
       },
-      "daEditor4": {
+      "daEditor": {
         "__allow_all_params": true
       },
       "texStreaming": {
@@ -841,17 +846,17 @@
       },
       {
         "addon": {
-          "vrom": "content/enlisted/uiskin.vromfs.bin",
-          "vromOptionalForServer": true,
-          "mountAsPack": true,
-          "src": "../develop/gui/enlisted"
+          "vrom": "content/enlisted/uiskin_update.vromfs.bin",
+          "vromed": false,
+          "src": "../develop/gui/enlisted/update"
         }
       },
       {
         "addon": {
-          "vrom": "content/enlisted/uiskin_update.vromfs.bin",
-          "vromed": false,
-          "src": "../develop/gui/enlisted/update"
+          "vrom": "content/enlisted/uiskin.vromfs.bin",
+          "vromOptionalForServer": true,
+          "mountAsPack": true,
+          "src": "../develop/gui/enlisted"
         }
       },
       {

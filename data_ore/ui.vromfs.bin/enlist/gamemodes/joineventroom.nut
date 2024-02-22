@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 let { OK, error_string } = require("matching.errors")
 let { removeMsgboxByUid, showWithCloseButton, showMsgbox
 } = require("%enlist/components/msgbox.nut")
@@ -13,7 +13,7 @@ let JB = require("%ui/control/gui_buttons.nut")
 local roomParams = Watched({})
 let passwordMsgBoxUid = "room-password"
 
-let function joinCb(response) {
+function joinCb(response) {
   let err = response.error
   if (err != OK) {
     let errStr = error_string(err)
@@ -38,9 +38,9 @@ let passwordHint = {
   halign = ALIGN_CENTER
 }
 
-let function showPasswordMsgbox(params){
+function showPasswordMsgbox(params){
   let roomPassword = Watched("")
-  let function tryToJoinRoom(){
+  function tryToJoinRoom(){
     params["password"] <- roomPassword.value
     joinRoom(params, true, joinCb)
   }
@@ -89,7 +89,7 @@ let function showPasswordMsgbox(params){
 
 roomParams.subscribe(@(v) v.len() > 0 ? showPasswordMsgbox(v): null)
 
-let function joinSelEventRoom() {
+function joinSelEventRoom() {
   let room = selRoom.value
   if (room == null)
     return

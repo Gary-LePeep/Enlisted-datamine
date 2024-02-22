@@ -1,0 +1,75 @@
+{
+  "bulletCount": 40,
+  "mass": 16.0,
+  "explosiveType": "tnt",
+  "explosiveMass": 0.2,
+  "caliber": 0.105,
+  "Cx": 0.54,
+  "speed": 1000.0,
+  "maxDistance": 10000.0,
+  "normalizationPreset": "ap",
+  "ricochetPreset": "ap",
+  "groundRicochetPreset": "ap",
+  "secondaryShattersPreset": "ap",
+  "stabilityThreshold": 0.05,
+  "stabilityCaliberToArmorThreshold": 5.0,
+  "stabilityReductionAfterRicochet": 0.3,
+  "stabilityReductionAfterPenetration": 0.0,
+  "stucking": 0.7,
+  "stuckingAngle": 45.0,
+  "bulletType": "aphe_tank",
+  "slopeEffectPreset": "ap",
+  "fresnel": [0.23,0.1,2.0],
+  "bulletName": "105mm_type2_aphe",
+  "relativeVelHitShift": [300.0,1000.0],
+  "fuseDelayDist": 1.2,
+  "explodeTreshold": 19.0,
+  "relativeVelArmorShift": [200.0,1000.0],
+  "waterRicochetEffect": "hit_106_132mm_water_ap",
+  "groundRicochetEffect": "hit_106_132mm_dirt_ap",
+  "modelName": "tank_bullet_aphe",
+  "stabilityRicochetModifier": [
+    {
+      "mod1": [0.0,0.2]
+    },
+    {
+      "mod2": [20.0,0.4]
+    },
+    {
+      "mod3": [30.0,0.6]
+    },
+    {
+      "mod3": [45.0,0.9]
+    }
+  ],
+  "hitpower": {
+    "HitPower0m": [1.0,0.0],
+    "HitPower1000m": [0.9,0.0],
+    "HitPower10000m": [0.8,10000.0]
+  },
+  "damage": {
+    "kinetic": {
+      "damageType": "generic",
+      "demarrePenetrationK": 0.9,
+      "demarreSpeedPow": 1.43,
+      "demarreMassPow": 0.71,
+      "demarreCaliberPow": 1.07
+    }
+  },
+  "pressureDamage": {
+    "damageType": "pressure"
+  },
+  "visual": {
+    "range_percent_of_ammo": [100.0,0.0],
+    "traceFreq": 1,
+    "tracer": "30mmWhite",
+    "trail": "black"
+  },
+  "kineticDamage": {
+    "damageType": "generic"
+  },
+  "tracer": {
+    "headColor": "#ffffff78",
+    "smokeColor": "#505050ba"
+  }
+}

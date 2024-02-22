@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 from "createEventRoomState.nut" import *
 
 let { fontSub, fontBody, fontHeading2 } = require("%enlSqGlob/ui/fontsStyle.nut")
@@ -94,11 +94,11 @@ let prevGenPlatform = isXboxOne ? "xbox"
 let curTabIdx = mkWatched(persist, "curTabIdx", 0)
 let selectedMissionType = Watched(MissionType.INVASION)
 
-let function selectAll() {
+function selectAll() {
   optArmiesA.setValue(optArmiesA.cfg.value.values)
   optArmiesB.setValue(optArmiesB.cfg.value.values)
 }
-let function unselectAll() {
+function unselectAll() {
   optArmiesA.setValue([])
   optArmiesB.setValue([])
 }
@@ -129,7 +129,7 @@ let baseOptions = [
   optPassword
 ]
 
-let function curTabById(id) {
+function curTabById(id) {
   let idx = activeTabIds.value.indexof(id)
   if (idx != null)
     curTabIdx(idx)
@@ -215,7 +215,7 @@ let mkOption = @(option) function () {
   }
 }
 
-let function mkMultiSelect(opt, cfg, ctor) {
+function mkMultiSelect(opt, cfg, ctor) {
   if (cfg == null)
     return []
 
@@ -341,7 +341,7 @@ optMissions.curValue.subscribe(function(v) {
   }
 })
 
-let function mkMissionCard(label, typeTxt, setValue, isSelected, value) {
+function mkMissionCard(label, typeTxt, setValue, isSelected, value) {
   let { image, prevGenAlert = [] } = getMissionInfo(value)
   let resampledImage = $"{image}:{missionImageSize[0]}:{missionImageSize[1]}:K"
   let hasPrevgen = prevGenAlert.contains(prevGenPlatform)
@@ -367,7 +367,7 @@ let function mkMissionCard(label, typeTxt, setValue, isSelected, value) {
   })
 }
 
-let function mkSelectArmyUi(items) {
+function mkSelectArmyUi(items) {
   function renderRow() {
     let res = []
     local idx = 0
@@ -618,7 +618,7 @@ let applyButton = @(locId) Flat(loc(locId), editEventRoom, {
   hotkeys = [["^J:X", { description = { skip = true }}]]
 })
 
-let function toggleMissionsFilter(missionType) {
+function toggleMissionsFilter(missionType) {
   selectedMissionType(missionType)
 }
 
@@ -635,7 +635,7 @@ let mkMissionsByType = @() Computed(function() {
   return missions
 })
 
-let function mkMissionTypeSelectRow(missionType, missionsByType) {
+function mkMissionTypeSelectRow(missionType, missionsByType) {
   let isSelected = Computed(@() selectedMissionType.value == missionType)
   let amountTotal = Computed(@() (missionsByType.value?[missionType] ?? []).len())
   let amountSelected = Computed(function() {
@@ -716,11 +716,11 @@ let mkAllCurrentValuesButton = @(option) function() {
   if (!hasSelected && !hasUnselected)
     return res
 
-  let function removeMissionValues() {
+  function removeMissionValues() {
     option.setValue((curList ?? []).filter(@(blk) !missionValues.contains(blk)))
   }
 
-  let function addMissionValues() {
+  function addMissionValues() {
     let toAdd = []
     missionValues.each(function(blk) {
       if (!(curList ?? []).contains(blk))
@@ -743,7 +743,7 @@ let mkAllCurrentValuesButton = @(option) function() {
   })
 }
 
-let function allArmyValuesButtons() {
+function allArmyValuesButtons() {
   let armiesToChoose = optArmiesA.cfg.value.values.len() + optArmiesB.cfg.value.values.len()
   let selectedArmiesCount = optArmiesA.curValue.value.len() + optArmiesB.curValue.value.len()
   let hasSelected = selectedArmiesCount > 0
@@ -785,7 +785,7 @@ let gameStartButtons = @() {
   ]
 }
 
-let function mkArmiesBlock(team, content) {
+function mkArmiesBlock(team, content) {
   let { index, teamLocId } = team
   return {
     size = flex()
@@ -869,7 +869,7 @@ let tabsData = {
   }
 }
 
-let function switchTab(delta) {
+function switchTab(delta) {
   local newIdx = curTabIdx.value + delta
   let len = activeTabIds.value.len()
   if (newIdx > len-1)
@@ -939,7 +939,7 @@ let createRoomWnd = @() {
   ]
 }
 
-let function open() {
+function open() {
   currentPassword("")
   return addModalWindow({
     key = WND_UID

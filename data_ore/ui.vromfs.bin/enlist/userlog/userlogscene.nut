@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let JB = require("%ui/control/gui_buttons.nut")
 let userLogPurchasesUi = require("userLogPurchasesUi.nut")
@@ -30,7 +30,7 @@ let tabsList = [
   }
 ]
 
-let function switchTab(newIdx){
+function switchTab(newIdx){
   if (newIdx > tabsList.len()-1)
     newIdx = 0
   else if (newIdx < 0)
@@ -98,12 +98,12 @@ let userLogWindow = @() {
   ]
 }
 
-let function open() {
+function open() {
   userLogsRequest()
   sceneWithCameraAdd(userLogWindow, "events")
 }
 
-let function close() {
+function close() {
   sceneWithCameraRemove(userLogWindow)
 }
 

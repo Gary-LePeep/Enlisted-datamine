@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let POPUP_PARAMS = {
   id = ""
@@ -13,7 +13,7 @@ let popups = []
 let popupsGen = Watched(0)
 local counter = 0 //for popups without id
 
-let function removePopup(id) {
+function removePopup(id) {
  //id (str) or uid (int)
   let idx = popups.findindex(@(p) p.id == id || p.uid == id)
   if (idx == null)
@@ -22,7 +22,7 @@ let function removePopup(id) {
   popupsGen(popupsGen.value+1)
 }
 
-let function addPopup(config) {
+function addPopup(config) {
   let uid = counter++
   if (config?.id != null)
     removePopup(config.id)

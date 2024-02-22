@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 /*
   TODO:
@@ -22,14 +22,14 @@ let waitingSpinner = spinner()
 
 let scrollHandler = ScrollHandler()
 
-let function onTabClicked(v) {
+function onTabClicked(v) {
   if (curPatchnote.value != v) {
     selectPatchnote(v)
     scrollHandler.scrollToY(0)
   }
 }
 
-let function mkVersionTab(v) {
+function mkVersionTab(v) {
   let isCurrent = Computed(@() curPatchnote.value == v)
   let group = ElemGroup()
   return watchElemState(@(sf) {
@@ -99,7 +99,7 @@ let patchnoteLoading = freeze({
   ]
 })
 
-let function currentPatchnote(){
+function currentPatchnote(){
   local text = (chosenPatchnoteContent.value ?? "")!="" ? chosenPatchnoteContent.value : missedPatchnoteText
   if (type(text)!="array")
     text = [text, seeMoreUrl]

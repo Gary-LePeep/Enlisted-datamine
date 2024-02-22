@@ -155,7 +155,7 @@ def building_fortification_building_object(info : UpdateStageInfoAct;
         set(init, "builder_info__guid", builder_info__guid)
         set(init, "builder_info__team", builder_info__team)
         set(init, "buildingRadius", buildingRadius)
-        set(init, "buildingSoundTag", buildingSoundTag)
+        set(init, "buildSoundTag", buildingSoundTag)
         set(init, "buildingCost", buildingCost)
         set(init, "build_attach__riexHandle", build_attach__riexHandle)
         if savePreviewTeam

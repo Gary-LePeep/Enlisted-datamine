@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {fontBody} = require("%enlSqGlob/ui/fontsStyle.nut")
 let {DEFAULT_TEXT_COLOR} = require("%ui/hud/style.nut")
@@ -24,7 +24,7 @@ let lookDirection = {
 }
 
 
-let function compassElem(text, angle, scale, lineHeight=hdpx(10)) {
+function compassElem(text, angle, scale, lineHeight=hdpx(10)) {
 
   let res = {
     data = {

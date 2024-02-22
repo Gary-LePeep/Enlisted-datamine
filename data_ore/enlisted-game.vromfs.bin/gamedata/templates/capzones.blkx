@@ -113,7 +113,34 @@
     "capzone__smokeTemplateEnemy": "capzone_signal_enemy_smoke_effect",
     "capzone__smokeEid:eid": []
   },
+  "objective_zone_navmesh_tanks": {
+    "_group": {
+      "_tags": "server",
+      "capzone_tanks__radiusRange": [30.0,60.0],
+      "capzone_tanks__initStep": 0,
+      "capzone_tanks__initStateUpdateInterval": 30.0,
+      "capzone_tanks__nextInitStepUpdateAt": 0.0,
+      "capzone_tanks__initTryCountPerFrame": 1,
+      "capzone_tanks__maxSlope": 0.05,
+      "capzone_tanks__heightAboveGround": 2.0,
+      "capzone_tanks__positions:list<p3>": [],
+      "capzone_tanks__aimAtPositions:list<p3>": [],
+      "capzone_tanks__maxPositionCountsPerType:list<i>": [
+        {
+          "value": 10
+        },
+        {
+          "value": 10
+        },
+        {
+          "value": 10
+        }
+      ],
+      "capzone_tanks__positionCountsPerType:list<i>": []
+    }
+  },
   "objective_zone_navmesh": {
+    "_use": "objective_zone_navmesh_tanks",
     "_group": {
       "_tags": "server",
       "capzone__hasNearestNavmeshPos": false,

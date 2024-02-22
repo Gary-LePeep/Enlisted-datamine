@@ -13,7 +13,7 @@ def fx_target_reset(evt : ResetLowResEffects)
 [es(on_appear)]
 def fx_target_init(evt : Event;
                    var global_fx__target : int&)
-  global_fx__target = int(getFxSettingsQualityMask())
+  global_fx__target = int(getFxQualityMask())
 
 def calc_fx_paint_color_from_level_ri_colors(rendinst_pool : int)
   var res = float4(1., 1., 1., 1.)

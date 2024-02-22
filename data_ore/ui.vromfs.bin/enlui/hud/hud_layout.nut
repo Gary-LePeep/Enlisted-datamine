@@ -1,8 +1,7 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
-let math = require("math")
-let cursors = require("%ui/style/cursors.nut")
-let {horPadding, verPadding} = require("%enlSqGlob/safeArea.nut")
+let {rand, RAND_MAX} = require("math")
+let {horPadding, verPadding} = require("%enlSqGlob/ui/safeArea.nut")
 let {debug_borders,
   hudLayoutStateGen,
   getLeftPanelTop, getLeftPanelMiddle, getLeftPanelBottom,
@@ -14,11 +13,11 @@ let {debug_borders,
 } = require("state/hud_layout_state.nut")
 let debug_borders_robj = @() (debug_borders.value ) ? ROBJ_FRAME: null
 
-let function debug_colors() {
-  return Color(math.rand()*155/math.RAND_MAX+100, math.rand()*155/math.RAND_MAX+100, math.rand()*155/math.RAND_MAX+100)
+function debug_colors() {
+  return Color(rand()*155/RAND_MAX+100, rand()*155/RAND_MAX+100, rand()*155/RAND_MAX+100)
 }
 
-let function mpanel(elems, params={}) {
+function mpanel(elems, params={}) {
   return @() {
     size = flex()
     flow = FLOW_VERTICAL
@@ -33,7 +32,7 @@ let function mpanel(elems, params={}) {
 }
 
 
-let function panel(params={}) {
+function panel(params={}) {
   let { size= flex(), children = null, watch = null } = params
   return @() {
     rendObj = debug_borders_robj()
@@ -46,7 +45,7 @@ let function panel(params={}) {
   }
 }
 
-let function leftPanel(params={}) {
+function leftPanel(params={}) {
   return panel(params.__merge({
     watch = [leftPanelTopStyle, leftPanelMiddleStyle, leftPanelBottomStyle]
     size = flex(1)
@@ -57,7 +56,7 @@ let function leftPanel(params={}) {
     ]
   }))
 }
-let function centerPanel(params={}) {
+function centerPanel(params={}) {
   return panel(params.__merge({
     watch = [centerPanelTopStyle, centerPanelMiddleStyle, centerPanelBottomStyle]
     size = flex(2)
@@ -69,7 +68,7 @@ let function centerPanel(params={}) {
   }))
 }
 
-let function rightPanel(params={}) {
+function rightPanel(params={}) {
   return panel(params.__merge({
     watch = [rightPanelTopStyle, rightPanelMiddleStyle, rightPanelBottomStyle]
     size = flex(1)
@@ -81,7 +80,7 @@ let function rightPanel(params={}) {
   }))
 }
 
-let function footer(size) {
+function footer(size) {
   return {
     size = [flex(), size]
     rendObj = debug_borders_robj()
@@ -89,7 +88,7 @@ let function footer(size) {
   }
 }
 
-let function header(size) {
+function header(size) {
   return {
     size = [flex(), size]
     rendObj = debug_borders_robj()
@@ -99,7 +98,7 @@ let function header(size) {
   }
 }
 
-let function HudLayout() {
+function HudLayout() {
   local children = []
   children = [
     header(max(verPadding.value, fsh(1)))
@@ -121,7 +120,6 @@ let function HudLayout() {
     flow = FLOW_VERTICAL
     watch = [debug_borders, horPadding, verPadding, hudLayoutStateGen]
     children
-    cursor = cursors.normalForInteractiveBlocks
   }
 
 

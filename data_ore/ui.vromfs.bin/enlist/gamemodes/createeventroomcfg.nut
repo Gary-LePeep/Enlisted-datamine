@@ -1,6 +1,6 @@
-from "%enlSqGlob/ui_library.nut" import *
-let eventbus = require("eventbus")
-let matching_api = require("matching.api")
+from "%enlSqGlob/ui/ui_library.nut" import *
+let { eventbus_subscribe } = require("eventbus")
+let { matching_listen_notify } = require("matching.api")
 let { matchingCall } = require("%enlist/matchingClient.nut")
 let { endswith } = require("string")
 let { getPlatformId } = require("%enlSqGlob/httpPkg.nut")
@@ -200,7 +200,7 @@ local createEventRoomCfg = Watched({
 })
 /* */
 
-let function getValuesFromRule(rule) {
+function getValuesFromRule(rule) {
   local values = []
   local isMultival = false
   if ("oneOf" in rule)
@@ -219,12 +219,12 @@ let function getValuesFromRule(rule) {
   return { values, isMultival }
 }
 
-let function mSubscribe(id, cb) {
-  matching_api.listen_notify(id)
-  eventbus.subscribe(id, cb)
+function mSubscribe(id, cb) {
+  matching_listen_notify(id)
+  eventbus_subscribe(id, cb)
 }
 
-let function onRoomCfgResult(resp) {
+function onRoomCfgResult(resp) {
   isRoomCfgLoading(false)
   if (resp.error != 0)
     return
@@ -232,7 +232,7 @@ let function onRoomCfgResult(resp) {
   isRoomCfgActual.update(true)
 }
 
-let function actualizeRoomCfg() {
+function actualizeRoomCfg() {
   if (isRoomCfgActual.value || isRoomCfgLoading.value)
     return
 

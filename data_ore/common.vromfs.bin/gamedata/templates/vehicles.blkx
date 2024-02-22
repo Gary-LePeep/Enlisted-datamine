@@ -9,23 +9,40 @@
     "grid_holder__cellSize": 32,
     "grid_holder": []
   },
-  "vehicle": {
-    "_use": "vehicle_no_ai",
-    "agent_dangers__tag": "vehicle",
-    "ai_target__invisibleTimeTo": 0.0,
-    "ai_target__noiseLevel": 0.0,
-    "hitpoints__invulnerableTimeTo:r": {
-      "value": 0.0,
-      "_hide": true
+  "vehicle": [
+    {
+      "_use": "turret_gun_heat_sources"
     },
-    "hitpoints__invulnerabiltyTime:r": {
-      "value": 6.0,
-      "_hide": true
+    {
+      "_use": "vehicle_no_ai"
     },
-    "ai_target": {
-      "_tags": "server"
+    {
+      "agent_dangers__tag": "vehicle"
+    },
+    {
+      "ai_target__invisibleTimeTo": 0.0
+    },
+    {
+      "ai_target__noiseLevel": 0.0
+    },
+    {
+      "hitpoints__invulnerableTimeTo:r": {
+        "value": 0.0,
+        "_hide": true
+      }
+    },
+    {
+      "hitpoints__invulnerabiltyTime:r": {
+        "value": 6.0,
+        "_hide": true
+      }
+    },
+    {
+      "ai_target": {
+        "_tags": "server"
+      }
     }
-  },
+  ],
   "vehicle_steering_assist": {
     "_group": {
       "_tags": "input",
@@ -172,6 +189,9 @@
   },
   "controlled_by_ai_gunner": {
     "controlledByAiGunner:tag": []
+  },
+  "controlled_by_tank_ai_gunner": {
+    "controlledByTankAiGunner:tag": []
   },
   "turret_ammo_sets": [
     {
@@ -329,6 +349,9 @@
       "_tracked": "turret__isControlledByAi"
     },
     {
+      "_tracked": "turret__isControlledByTankAi"
+    },
+    {
       "_tracked": "turret_ai__atackTarget"
     },
     {
@@ -426,6 +449,9 @@
     },
     {
       "turret_ai__sleepTimer": 2.0
+    },
+    {
+      "turret_ai__idleSwing": 5.0
     },
     {
       "turret_ai__pauseTimer": 0.25
@@ -558,6 +584,13 @@
     },
     {
       "_group": {
+        "_tags": "server",
+        "turret__isControlledByAi": false,
+        "turret__isControlledByTankAi": false
+      }
+    },
+    {
+      "_group": {
         "_tags": "gameClient",
         "turret_recoil__duration": 0.0,
         "turret_recoil__startTime": 0.0
@@ -634,12 +667,6 @@
       "turret__owner:eid": []
     },
     {
-      "turret__isControlledByAi:b": {
-        "_tags": "server",
-        "value": false
-      }
-    },
-    {
       "turret_controls_history:TurretControlsHistory": {
         "_tags": "server"
       }
@@ -708,11 +735,47 @@
       "gun__containerEntity:eid": []
     }
   ],
-  "tankgun": {
-    "_use": "turret_base",
-    "gun__projectileTemplate": "tankgun_projectile",
-    "gun__projectileDebugTemplate": "tankgun_projectile+bullet_projectile_debug"
+  "tankgun_ai": {
+    "_tags": "server",
+    "tank_turret_ai__targetState": 0,
+    "tank_turret_ai__shootState": 0,
+    "tank_turret_ai__shootStateTimeoutAt": 0.0,
+    "tank_turret_ai__dmTargetUpdateAt": 0.0,
+    "tank_turret_ai__dmTargetUpdateInterval": 3.0,
+    "tank_turret_ai__nextTargetCheckAtTime": -1.0,
+    "tank_turret_ai__targetCheckInterval": 1.0,
+    "tank_turret_ai__burstWaitTime": 1.0,
+    "tank_turret_ai__shortPauseWaitTime": 1.0,
+    "tank_turret_ai__longPauseWaitTime": 4.0,
+    "tank_turret_ai__attackDist": 100.0,
+    "tank_turret_ai__burstCount": 0,
+    "tank_turret_ai__maxBurstCount": 3,
+    "tank_turret_ai__idleSwing": 5.0,
+    "tank_turret_ai__nextCheckedTargetIdx": 0,
+    "tank_turret_ai__curTargetType": 0,
+    "tank_turret_ai__targetScore": 1000000.0,
+    "tank_turret_ai__maxTargetScore": 100.0,
+    "tank_turret_ai__prevTargetPos": [0.0,0.0,0.0],
+    "tank_turret_ai__prevTargetActive": false,
+    "tank_turret_ai__prevTargetPartType": -1,
+    "tank_turret_ai__targetList:list<eid>": [],
+    "tank_turret_ai__curTargetEid:eid": [],
+    "tank_turret_ai__prevTargetEid:eid": []
   },
+  "tankgun": [
+    {
+      "_use": "turret_base"
+    },
+    {
+      "_use": "tankgun_ai"
+    },
+    {
+      "gun__projectileTemplate": "tankgun_projectile"
+    },
+    {
+      "gun__projectileDebugTemplate": "tankgun_projectile+bullet_projectile_debug"
+    }
+  ],
   "plane_machinegun": [
     {
       "_use": "turret_base"

@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { popupsGen, getPopups } = require("%enlSqGlob/ui/popup/popupsState.nut")
@@ -33,7 +33,7 @@ let popupBlockStyle = Watched({
     pos = defPopupBlockPos
 })
 
-let function popupBlock() {
+function popupBlock() {
   let children = []
   let popups = getPopups()
   foreach (idx, p in popups) {

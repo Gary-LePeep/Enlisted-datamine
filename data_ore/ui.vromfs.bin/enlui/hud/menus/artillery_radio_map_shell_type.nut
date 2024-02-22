@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {artilleryAvailableShellTypes} = require("%ui/hud/state/artillery.nut")
 let {hintTextFunc} = require("mapComps.nut")
@@ -16,7 +16,7 @@ artilleryAvailableShellTypes.subscribe(function(shellTypes) {
 })
 
 let artilleryChangeShellInputId = "Artillery.ChangeShell"
-let function changeShell() {
+function changeShell() {
   let typesCount = artilleryAvailableShellTypes.value.len()
   if (typesCount > 1)
     currentShellTypeIndex((currentShellTypeIndex.value+1) % typesCount)

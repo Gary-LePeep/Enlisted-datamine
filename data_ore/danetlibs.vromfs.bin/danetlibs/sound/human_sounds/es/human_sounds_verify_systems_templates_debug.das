@@ -48,7 +48,7 @@ struct HumanDeathSound
 
 [req_template]
 struct HumanIdleSoundRequiredComponents
-  sound_control__shouldPlay : bool
+  sound_control__soundEnabled : bool
   sound_tags : Object
   is_watched_sound : bool
   transform : float3x4
@@ -104,5 +104,5 @@ struct HumanCollisionScrapeSound
 
 [es(on_event=VerifyEcsTemplates)]
 def human_sounds_verify_ecs_templates(evt : Event)
-  req_unique_event_handler("CmdSoundGenIrq")
+  req_unique_event_handler("CmdSoundIrq")
   req_unique_event_handler("CmdSoundVoicefxIrq")

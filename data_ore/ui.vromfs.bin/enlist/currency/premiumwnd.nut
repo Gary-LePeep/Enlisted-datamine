@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let spinner = require("%ui/components/spinner.nut")(hdpxi(90))
 let { abs, round } = require("math")
@@ -60,7 +60,7 @@ let mkImage = @(path, customStyle = {}) {
   image = Picture(path)
 }.__update(customStyle)
 
-let function close() {
+function close() {
   if (curAnimatedId.value != null)
     curAnimatedId(null)
   else
@@ -124,7 +124,7 @@ let premiumDesc = @(idx, unitVal, descText, unitDesc = null) {
   ]
 }.__update(mkPremiumDescAnim(ANIM_DELAY * idx))
 
-let function premiumDescBlock() {
+function premiumDescBlock() {
   let { premiumBonuses = null } = gameProfile.value
   let {
     premiumExpMul = 1, maxSquadsInBattle = 0, soldiersReserve = 0
@@ -153,7 +153,7 @@ let function premiumDescBlock() {
   }
 }
 
-let function onPurchase(shopItem, premItemView, offer = null) {
+function onPurchase(shopItem, premItemView, offer = null) {
   if (purchaseInProgress.value || curAnimatedId.value != null)
     return
 
@@ -362,7 +362,7 @@ let offersByPremItem = Computed(function() {
   return res
 })
 
-let function premiumBuyBlockUi() {
+function premiumBuyBlockUi() {
   let res = {
     watch = [curAnimatedId, premiumProducts, currenciesList, curSelectedId, offersByPremItem]
   }
@@ -464,7 +464,7 @@ let premiumInfoBlock = {
   ]
 }
 
-let function open() {
+function open() {
   curSelectedId(defaultSelectedItem.value)
   showAnimation(true)
   addModalWindow({

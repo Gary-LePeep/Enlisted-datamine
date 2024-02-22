@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 require("%xboxLib/startup.nut")
 require("%xboxLib/profileCard.nut")

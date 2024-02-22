@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontHeading2, fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let msgbox = require("%enlist/components/msgbox.nut")
@@ -88,7 +88,7 @@ let mkDescription = @(descLocId) descLocId == null ? null
       halign = ALIGN_CENTER
     })
 
-let function mkResourcesLackInfo(reqResources, viewCurrs, costLocId, counts) {
+function mkResourcesLackInfo(reqResources, viewCurrs, costLocId, counts) {
   let lackResources = []
   foreach (currencyTpl, required in reqResources) {
     let count = required * counts - (viewCurrs?[currencyTpl] ?? 0)
@@ -212,7 +212,7 @@ let notEnoughMoneyInfo = @(price, currencyId) {
   ]
 }
 
-let function buyCurrencyText(currency, sf) {
+function buyCurrencyText(currency, sf) {
   return {
     flow = FLOW_HORIZONTAL
     valign = ALIGN_CENTER
@@ -233,7 +233,7 @@ let mkDiscountInfo = @(state) !state ? null
   : txt(loc("shop/discount_ended")).__update(failureTxtStyle)
 
 
-let function recalcOfferPrice(offers, offerGuid, price, fullPrice, discountState, ts) {
+function recalcOfferPrice(offers, offerGuid, price, fullPrice, discountState, ts) {
   let offer = offers.findvalue(@(o) o.guid == offerGuid)
   if (offer == null)
     return discountState(DISCOUNT_STATE.ENDED)
@@ -281,7 +281,7 @@ let checkAndBuy = @(needShowConfirmation, handler, text = loc("shop/purchaseBase
       })
     : handler()
 
-let function notEnoughMsg(itemTpl, missingOrders) {
+function notEnoughMsg(itemTpl, missingOrders) {
   let descId = $"dontHaveEnoughOrders/{itemTpl}"
   msgbox.showMsgbox({
     children = doesLocTextExist(descId)
@@ -334,7 +334,7 @@ let mkAlertObject = @(alertText) {
 }
 
 
-let function limitTextBlock(limit, guid) {
+function limitTextBlock(limit, guid) {
   if (limit <= 0)
     return null
 
@@ -378,7 +378,7 @@ let replentishSilverBtn = {
   }
 }
 
-let function mkNoFreeSpace(requiredInfo, activatePremiumBttn){
+function mkNoFreeSpace(requiredInfo, activatePremiumBttn){
   let buttons = [{ text = loc("Ok"), isCancel = true }]
   if (requiredInfo.solvableByPremium && activatePremiumBttn!=null)
     buttons.append(activatePremiumBttn)
@@ -401,7 +401,7 @@ let canBuyWithGold = {
   ]
 }
 
-let function buyItem(shopItem, productView = null, viewBtnCb = null, activatePremiumBttn = null,
+function buyItem(shopItem, productView = null, viewBtnCb = null, activatePremiumBttn = null,
   description = null, pOfferGuid = null, countWatched = Watched(1), isNotSuitable = false,
   purchaseCb = null, needCheckAndBuy = false
 ) {
@@ -460,7 +460,7 @@ let function buyItem(shopItem, productView = null, viewBtnCb = null, activatePre
   local silverPrice = {}
   if (hasSilver){
     silverPrice = { [ENLISTED_SILVER] = curItemCost[ENLISTED_SILVER]}
-    delete barterPrice[ENLISTED_SILVER]
+    barterPrice.$rawdelete(ENLISTED_SILVER)
   }
   let silverInfo = Computed(@()
     getPayItemsData(silverPrice, curCampItems.value, countWatched.value))
@@ -500,7 +500,7 @@ let function buyItem(shopItem, productView = null, viewBtnCb = null, activatePre
 
   let srcComponent = hasSquads ? "buy_squad_window" : "buy_shop_item"
 
-  let function buyCb(isSuccess) {
+  function buyCb(isSuccess) {
     if (!isSuccess)
       return
     if (hasSquads || hasPremDays || hasSlotSquad)

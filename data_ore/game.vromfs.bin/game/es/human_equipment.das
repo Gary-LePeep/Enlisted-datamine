@@ -233,3 +233,13 @@ def equip_item(evt : CmdEquipItem;
                          human_equipment__itemRemap, isAlive, possessedByPlr, dm_parts__parts, entity_mods__bagsVolumeMult,
                          human_equipment__slots, human_inventory__capacity, human_inventory__currentVolume,
                          dm_parts__partsArmor, dm_parts__partsArmorMin, dm_parts__armorItemEids)
+
+[es(tag=gameClient, track=human_vehicle__occupiedSeatEid)]
+def equip_wind_affection_change_on_seat(evt : Event;
+                                        human_vehicle__occupiedSeatEid : EntityId;
+                                        human_equipment__slots : Object)
+  let currentMultiplier = get_float(human_vehicle__occupiedSeatEid, "wind_affect_multiplier") ?? 1.0
+  for it in human_equipment__slots
+    let item = (it.value as Object)?.item ?? INVALID_ENTITY_ID
+    query(item) <| $ [es] (cloth_wind_velocity_multiplier_base : float; var cloth_wind_velocity_multiplier : float&)
+      cloth_wind_velocity_multiplier = cloth_wind_velocity_multiplier_base * currentMultiplier

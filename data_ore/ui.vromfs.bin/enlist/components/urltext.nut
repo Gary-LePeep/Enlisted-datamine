@@ -1,10 +1,10 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { openUrl } = require("%ui/components/openUrl.nut")
 let {Active, Inactive, ButtonHover} = require("%ui/style/colors.nut")
 
-let function url(str, address, params = {}) {
+function url(str, address, params = {}) {
   let group = ElemGroup()
   let stateFlags = Watched(0)
 

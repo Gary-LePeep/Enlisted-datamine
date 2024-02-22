@@ -1,13 +1,12 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {isGamepad} = require("%ui/control/active_controls.nut")
-let {hudIsInteractive} = require("%ui/hud/state/interactive_state.nut")
-let {safeAreaVerPadding, safeAreaHorPadding} = require("%enlSqGlob/safeArea.nut")
+let {safeAreaVerPadding, safeAreaHorPadding} = require("%enlSqGlob/ui/safeArea.nut")
 let tooltipBox = require("tooltipBox.nut")
 let { is_sony, is_xbox } = require("%dngscripts/platform.nut")
 let tooltipGen = Watched(0)
 let tooltipComp = {value = null}
-let function setTooltip(val){
+function setTooltip(val){
   tooltipComp.value = val
   tooltipGen(tooltipGen.value+1)
 }
@@ -113,7 +112,7 @@ let cursorImageComp = {
   size = [cursorSzNormal, cursorSzNormal]
 }
 
-local function mkPcCursor(children){
+function mkPcCursor(children){
   children = children ?? []
   if (type(children) != "array")
     children = [children]
@@ -146,7 +145,7 @@ let gamepadComp = {
   commands = round_cursor
 }
 
-local function mkGamepadCursor(children){
+function mkGamepadCursor(children){
   children = clone children
   children.append(gamepadComp)
   if (cursorOverClickable.value)
@@ -163,7 +162,7 @@ local function mkGamepadCursor(children){
   }
 }
 
-local function mkCursorWithTooltip(children){
+function mkCursorWithTooltip(children){
   if (type(children) != "array")
     children = [children]
   if (cursorOverStickScroll.value && showGamepad.value)
@@ -173,17 +172,6 @@ local function mkCursorWithTooltip(children){
 }
 
 cursors.normal <- Cursor(@() mkCursorWithTooltip(cursors.tooltip.cmp))
-
-cursors.normalForInteractiveBlocks <- Cursor(function() {
-  let watch = [hudIsInteractive, showGamepad]
-  if (hudIsInteractive.value) {
-    let desc = mkCursorWithTooltip(cursors.tooltip.cmp)
-    desc.watch <- (desc?.watch ?? []).extend(watch)
-    return desc
-  } else {
-    return { watch }
-  }
-})
 
 cursors.normalTooltipTop <- Cursor(@() mkCursorWithTooltip(cursors.tooltip.cmpTop))
 
@@ -247,7 +235,7 @@ cursors.help <- Cursor(function(){
                            : mkPcCursor(children)
 })
 
-let function mkResizeC(commands, angle=0){
+function mkResizeC(commands, angle=0){
   return {
     rendObj = ROBJ_VECTOR_CANVAS
     size = [cursorSzResizeDiag, cursorSzResizeDiag]
@@ -280,7 +268,7 @@ cursors.moveResizeCursors <- {
 
 cursors.normalCursorPic <- normalCursorPic
 
-let function applyTooltip(comp, tooltipCtor) {
+function applyTooltip(comp, tooltipCtor) {
   // do not attract dirpad to tooltip components by default
   local { behavior = [], onHover = null, skipDirPadNav = true, eventPassThrough = true } = comp
   behavior = typeof behavior != "array" ? [behavior] : behavior

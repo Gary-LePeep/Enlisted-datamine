@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let colorize = require("%ui/components/colorize.nut")
 let faComp = require("%ui/components/faComp.nut")
@@ -103,7 +103,7 @@ let mkSkinImage = @(img, sf, isSelected) {
 
 let defDecorSize = hdpx(95)
 
-let function mkDecorImage(cfg, override = {}) {
+function mkDecorImage(cfg, override = {}) {
   let { guid = "" } = cfg
   if (guid == "")
     return null
@@ -190,7 +190,7 @@ let mkLockedSlotPrice = @(sf, hasPrice, currencies, currencyId, price) {
   ]
 }
 
-let function mkDecorSlot(decorator, isSelected, hasLocked, onClick,
+function mkDecorSlot(decorator, isSelected, hasLocked, onClick,
   onRemove = null, buyData = null, currencies = null
 ) {
   let { cType = "" } = decorator?.cfg
@@ -263,7 +263,7 @@ let mkDecorIcon = kwarg(function(cfg,
   }.__update(override))
 })
 
-let function mkSkinIcon(skinData, isSelected, hasOwned, currencies, onClick) {
+function mkSkinIcon(skinData, isSelected, hasOwned, currencies, onClick) {
   let { cfg = null, locId = null } = skinData
   let { price = 0, currencyId = "" } = cfg?.buyData
   let currencyObject = !hasOwned && price > 0 && currencyId != ""
@@ -305,7 +305,7 @@ let function mkSkinIcon(skinData, isSelected, hasOwned, currencies, onClick) {
   })
 }
 
-let function mkCustGroup(groupName, hasOpened, onClick, availCount, limit, count) {
+function mkCustGroup(groupName, hasOpened, onClick, availCount, limit, count) {
   local limitTxtObj = null
   if (limit > 0) {
     let limitColor = count < limit ? bonusColor : warningColor

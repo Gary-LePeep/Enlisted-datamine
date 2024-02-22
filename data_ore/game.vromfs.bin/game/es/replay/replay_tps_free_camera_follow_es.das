@@ -50,7 +50,7 @@ def free_tps_initial_rotation_es(evt : Event;
   if !camera__active
     return
   let dir = transform[2]
-  replay_camera__tpsInputAngle = float2(-safe_atan2(dir.x, dir.z), safe_asin(dir.y))
+  replay_camera__tpsInputAngle = float2(-atan2(dir.x, dir.z), safe_asin(dir.y))
   replay_camera__tpsCurAng = replay_camera__tpsInputAngle
 
 [es(tag=playingReplay, no_order)]

@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 /*
 todo:
@@ -26,7 +26,7 @@ let doFadeBlack = kwarg(function(fadein, fadeout=null, color = black, action = n
     { fadein, fadeout = fadeout ?? fadein, color, action, params, id = id ?? counter }))
 })
 
-let function registerFadeBlackActions(actions) {
+function registerFadeBlackActions(actions) {
   foreach (name, act in actions)
     if (name in allActions)
       logerr($"fadeToBlack: Try to register already exist action '{name}'")
@@ -34,13 +34,13 @@ let function registerFadeBlackActions(actions) {
       allActions[name] <- act
 }
 
-let function removeFade(id) {
+function removeFade(id) {
   let idx = fadeState.value.findindex(@(v) v.id==id)
   if (idx!=null)
     fadeState.mutate(@(fs) fs.remove(idx))
 }
 
-let function doAction(fs) {
+function doAction(fs) {
   let { action = null, params = null } = fs
   let handler = allActions?[action]
   if (handler == null) {
@@ -64,7 +64,7 @@ let function doAction(fs) {
   }
 }
 
-let function doActionAndRemove(fs) {
+function doActionAndRemove(fs) {
   doAction(fs)
   removeFade(fs.id)
 }

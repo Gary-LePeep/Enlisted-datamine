@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { bqSendEvent } = require("options/bigQuery.nut")
 
@@ -7,7 +7,7 @@ let debugBigQuery = mkWatched(persist, "debugBigQuery", false)
 let internalSend = @(event, params)
   debugBigQuery.value ? console_print($"bqSendEvent {event}", params) : bqSendEvent(event, params)
 
-let function sendBigQueryUIEvent(eventType, srcWindow = null, srcComponent = null) {
+function sendBigQueryUIEvent(eventType, srcWindow = null, srcComponent = null) {
   let params = { }
   if (srcWindow != null)
     params.source_window <- srcWindow

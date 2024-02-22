@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let userInfo = require("%enlSqGlob/userInfo.nut")
 let { setStatsModes, refreshUserstats, setUnlocksFilter } = require("%enlSqGlob/userstats/userstat.nut")
@@ -43,7 +43,7 @@ allStatsModes.subscribe(function(v) {
   refreshUserstats()
 })
 
-let function requestLbModes() {
+function requestLbModes() {
   if (userInfo.value != null)
     lbClient.request("cmn_get_global_leaderboard_modes")
 }

@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {enterVehicleState, exitVehicleState} = require("%ui/hud/state/enter_exit_vehicle.nut")
 let indicatorCtor = require("%ui/hud/huds/vehicle_change_indicator.nut")

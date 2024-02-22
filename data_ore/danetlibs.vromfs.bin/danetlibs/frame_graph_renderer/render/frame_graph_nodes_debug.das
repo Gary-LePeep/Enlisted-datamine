@@ -1,13 +1,12 @@
 options no_aot
 options persistent_heap
 
-require daBfg
-require DagorSystem
 require DagorShaders
 require DagorMath
 require WorldRenderer
 require ecs
 require DagorConsole
+require daBfg.bfg_ecs
 
 let debug_visualization_node_name = "debug_visualization_node"
 let debug_visualization_node_entity = "debug_visualization_node"
@@ -24,13 +23,13 @@ def is_forward_rendering()
 
 [bfg_ecs_node(name="debug_visualization_node", entity="debug_visualization_node", handle="node_handle")]
 def register_debug_visualization_node(var handle : NodeHandle& |#)
-  handle <- registerNode(debug_visualization_node_name) <| @(var registry : Registry)
+  handle <- root() |> registerNode(debug_visualization_node_name) <| @(var registry : Registry)
     if is_forward_rendering()
       registry |> requestRenderPass |> color([[auto[] "target_after_under_water_fog"]]) |> depthRo("depth_for_transparent_effects")
     else
-      registry |> orderMeAfter("transparent_effects_node")
+      registry |> orderMeAfter("tracers_node")
       registry |> orderMeBefore("transparent_scene_late_node")
-      registry |> requestRenderPass |> color([[auto[] "opaque_final_target"]]) |> depthRw("depth_for_transparency")
+      registry |> requestRenderPass |> color([[auto[] "target_for_transparency"]]) |> depthRw("depth_for_transparency")
 
     registry |> requestState() |> setFrameBlock("global_frame")
     return <- @ <|
@@ -38,7 +37,7 @@ def register_debug_visualization_node(var handle : NodeHandle& |#)
 
 
 def register_gbuffer_override_node(var handle : NodeHandle& |#; name : string; entity : string; target : string; colorMask : WriteMask)
-  handle <- registerNode(name) <| @(var registry : Registry)
+  handle <- root() |> registerNode(name) <| @(var registry : Registry)
     registry |> orderMeAfter("combine_shadows_node")
     registry |> orderMeBefore("resolve_gbuffer_node")
     registry |> requestState |> enableOverride([[OverrideRenderState colorWr = colorMask]])

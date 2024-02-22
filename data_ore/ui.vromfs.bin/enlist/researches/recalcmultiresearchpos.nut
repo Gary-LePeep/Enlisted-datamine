@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { Point2 } = require("dagor.math")
 
@@ -10,7 +10,7 @@ const OFFS_LINE = 0.4
 let midVal = @(tierVal, lineVal, tier, line)
   (tierVal * tier + lineVal * line) / (tier + line)
 
-let function getOffsets(total, tierDiff, lineDiff) {
+function getOffsets(total, tierDiff, lineDiff) {
   let center = Point2(tierDiff.tofloat(), lineDiff.tofloat())
   let dist = center.length()
   if (dist == 0)
@@ -27,7 +27,7 @@ let function getOffsets(total, tierDiff, lineDiff) {
   })
 }
 
-let function recalcMultiResearchPos(pageResearches) {
+function recalcMultiResearchPos(pageResearches) {
   let groups = {}
   foreach (res in pageResearches) {
     let { multiresearchGroup = 0 } = res

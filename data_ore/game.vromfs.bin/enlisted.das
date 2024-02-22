@@ -40,6 +40,8 @@ def private load_render() : bool
 def private load_editor() : bool
   var ok = true
   if typeinfo(builtin_module_exists DagorEditor) || app::get_game_name() == "aot"
+    if ecs_has_tag("dasDebug") || app::get_game_name() == "aot"
+      ok = load_folder("%scripts/game/es/daEditor/debug") && ok
     ok = load_folder("%scripts/game/es/daEditor") && ok
 
   if (typeinfo(builtin_module_exists DagorImgui) && typeinfo(builtin_module_exists DagorEditor)) || app::get_game_name() == "aot"
@@ -106,6 +108,13 @@ def private load_replay() : bool
   return ok
 
 
+def private load_debug() : bool
+  var ok = true
+  if ecs_has_tag("dev") || app::get_game_name() == "aot"
+    ok = load_optional_folder("%scripts/game/es/debug") && ok
+  return ok
+
+
 def private load_sandbox() : bool
   var ok = true
   if get_app_offline_mode() || app::get_game_name() == "aot"
@@ -167,6 +176,7 @@ def load
   ok = load_dedicated() && ok
   ok = load_replay() && ok
   ok = load_dev() && ok
+  ok = load_debug() && ok
   ok = load_imgui() && ok
   ok = load_sandbox() && ok
 

@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 const defTutorial = "content/enlisted/gamedata/scenes/tutorial/tutorial_training_ground_normandy_allies.blk" //used when profileServer unavaialble
 let tutorialSceneByArmy = {

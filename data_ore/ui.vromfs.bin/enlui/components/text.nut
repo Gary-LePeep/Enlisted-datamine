@@ -1,9 +1,9 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {fontBody, fontHeading2} = require("%enlSqGlob/ui/fontsStyle.nut")
 let {DEFAULT_TEXT_COLOR} = require("%ui/hud/style.nut")
 
-let function text(txt, params={}) {
+function text(txt, params={}) {
   return {
     rendObj = ROBJ_TEXT
     margin = hdpx(2)
@@ -12,7 +12,7 @@ let function text(txt, params={}) {
   }.__update(fontHeading2, params)
 }
 
-local function dtext(val, params={}, addchildren = null) {
+function dtext(val, params={}, addchildren = null) {
   if (val == null)
     return null
   if (type(val)=="table") {

@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { accentColor, commonBorderRadius, panelBgColor, disabledBdColor, disabledBgColor,
@@ -32,7 +32,7 @@ let checkBox = @(isChecked, isActive, isHovered) {
 }
 
 
-let function mkCheckbox(isChecked, label, params = {}) {
+function mkCheckbox(isChecked, label, params = {}) {
   let { canBeModified = true, isActive = true, size = [flex(), SIZE_TO_CONTENT],
     isLeftOrientation = true, onClick = null, textParams = fontSub, blockParams = {}
   } = params

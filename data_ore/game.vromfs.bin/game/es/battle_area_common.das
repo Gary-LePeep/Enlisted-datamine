@@ -124,6 +124,11 @@ def has_active_human_battle_area_at(pos : float3; team : int = int(TEAM_UNASSIGN
   let result = find_active_battle_areas(pos, team, "humanTriggerable") <| $ [unused_argument(area_eid)] (area_eid) => true
   return result != FindActiveBattleAreasRes not_found
 
+def has_active_enemy_human_battle_area_at(pos : float3; our_team : int)
+  let result = find_active_battle_areas(pos, int(TEAM_UNASSIGNED), "humanTriggerable") <| $ [unused_argument(area_eid)] (area_eid)
+    return (get_int(area_eid, "battle_area__team") ?? our_team) != our_team
+  return result != FindActiveBattleAreasRes not_found
+
 def has_active_human_battle_area_at(pos : float3; team : int; exlude_eid : ecs::EntityId)
   let result = find_active_battle_areas(pos, team, "humanTriggerable") <| $(area_eid)
     return area_eid != exlude_eid

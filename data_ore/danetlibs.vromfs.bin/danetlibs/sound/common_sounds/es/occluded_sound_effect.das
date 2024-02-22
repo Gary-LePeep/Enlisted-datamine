@@ -13,7 +13,7 @@ def occluded_sound_effect_init(evt : Event;
     occluded_sound__nearFarRange = occluded_sound__nearFarAttenuation * (sound_control__range * occluded_sound__rangeMul)
 
 
-[es(tag=sound, on_event=ParallelUpdateFrameDelayed, after=sound_occlusion_update)]
+[es(tag=sound, on_event=ParallelUpdateFrameDelayed, after=(sound_occlusion_update, sound_begin_update_es), before=sound_end_update_es)]
 def occluded_sound_effect_update(evt : Event;
                                  sound_effect__event : SoundEvent;
                                  occluded_sound__volume : float)

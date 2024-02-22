@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { CmdDeleteMapUserPoint, sendNetEvent } = require("dasevents")
 let { user_points_by_type } = require("%ui/hud/state/user_points.nut")

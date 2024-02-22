@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { json_to_string } = require("json")
 let { add_bigquery_record, send_to_server } = require("onlineStorage")
@@ -17,7 +17,7 @@ userInfo.subscribe(function(uInfo) {
 
 let wrapToString = @(val) typeof val == "string" ? val : json_to_string(val, false)
 
-local function sendOncePerSession(event, params = null, uid = null) {
+function sendOncePerSession(event, params = null, uid = null) {
   uid = uid ?? event
   if (uid in alreadySend.value)
     return
@@ -26,7 +26,7 @@ local function sendOncePerSession(event, params = null, uid = null) {
   sendRecordToServer()
 }
 
-let function sendEvent(event, params = null) {
+function sendEvent(event, params = null) {
   add_bigquery_record(event, wrapToString(params ?? ""))
   sendRecordToServer()
 }

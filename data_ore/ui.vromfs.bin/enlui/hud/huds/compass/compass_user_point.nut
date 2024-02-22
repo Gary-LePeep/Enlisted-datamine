@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {user_points} = require("%ui/hud/state/user_points.nut")
 
@@ -18,7 +18,7 @@ let pin = memoize(@(pic, color) {
 
 let size = [hdpx(12), hdpx(12)]
 
-let function makeUserPoint(eid, data) {
+function makeUserPoint(eid, data) {
   let dataType = data.type
   if (dataType != "main_user_point" && dataType != "enemy_user_point")
     return null

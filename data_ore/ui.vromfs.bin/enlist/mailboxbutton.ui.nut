@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { defTxtColor } = require("%enlSqGlob/ui/designConst.nut")
@@ -16,7 +16,7 @@ let animsCounter = [
 let soundNewMail = "ui/enlist/notification"
 let hintTxtStyle = { color = defTxtColor }.__update(fontSub)
 
-let function readNumCounter(){
+function readNumCounter(){
   let num = unreadNum.value
   return {
     watch = unreadNum

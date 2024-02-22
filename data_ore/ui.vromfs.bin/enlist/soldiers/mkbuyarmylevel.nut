@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { currencyBtn } = require("%enlist/currency/currenciesComp.nut")
 let { purchaseMsgBox } = require("%enlist/currency/purchaseMsgBox.nut")
@@ -6,9 +6,9 @@ let { buyArmyLevel } = require("%enlist/soldiers/model/armyUnlocksState.nut")
 let { sound_play } = require("%dngscripts/sound_system.nut")
 let { utf8ToUpper } = require("%sqstd/string.nut")
 
-let function mkBuyArmyLevel(lvlToBuy, price, priceFull = null) {
+function mkBuyArmyLevel(lvlToBuy, price, priceFull = null) {
 
-  let function buyArmyLevelMsg() {
+  function buyArmyLevelMsg() {
     purchaseMsgBox({
       price
       currencyId = "EnlistedGold"

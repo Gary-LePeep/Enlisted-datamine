@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {dtext} = require("%ui/components/text.nut")
 let {defHeight, sticksAliases,mkImageComp, keysImagesMap} = require("%ui/components/gamepadImgByKey.nut")
@@ -7,14 +7,14 @@ let {isGamepad} = require("%ui/control/active_controls.nut")
 let dainput = require("dainput2")
 let format_ctrl_name = dainput.format_ctrl_name
 
-let function mkText(text, _params={}){
+function mkText(text, _params={}){
   if (text==null || text=="")
     return null
   return dtext(loc(text))
 }
 
 let validDevices = [dainput.DEV_kbd, dainput.DEV_pointing, dainput.DEV_gamepad, dainput.DEV_joy]
-let function isValidDevice(dev) {
+function isValidDevice(dev) {
   return validDevices.indexof(dev) != null
 }
 
@@ -23,7 +23,7 @@ let ButtonAnd = class{
     return "+"
   }
 }
-let function buildModifiersList(binding) {
+function buildModifiersList(binding) {
   let res = []
   let mods = binding.mod
   for (local i=0, n=binding.modCnt; i<n; ++i) {
@@ -61,7 +61,7 @@ let notImportantEventsTexts = [dainput.BTN_released_short, dainput.BTN_released]
 const axesSeparatorTxt = "/"
 const axesGroupSeparatorTxt = ";"
 
-let function getSticksText(stickBinding) {
+function getSticksText(stickBinding) {
   let b = stickBinding
   let xaxis = format_ctrl_name(b.devId, b.axisXId, false)
   let yaxis = format_ctrl_name(b.devId, b.axisYId, false)
@@ -75,7 +75,7 @@ let function getSticksText(stickBinding) {
 }
 
 
-let function mkBuildDigitalBindingText(b, eventTypeToText=true) {
+function mkBuildDigitalBindingText(b, eventTypeToText=true) {
   let res = buildModifiersList(b).map(@(v) eventTypeToText? v.tostring() : v)
   res.append(format_ctrl_name(b.devId, b.ctrlId, b.btnCtrl))
   let etype = eventTypeToText ? eventTypeMap?[b.eventType] : b.eventType
@@ -85,7 +85,7 @@ let function mkBuildDigitalBindingText(b, eventTypeToText=true) {
 }
 let buildDigitalBindingText = @(b) mkBuildDigitalBindingText(b)
 
-let function textListFromAction(action_name, column, eventTypeToText=true) {
+function textListFromAction(action_name, column, eventTypeToText=true) {
   let ah = dainput.get_action_handle(action_name, 0xFFFF)
   let digitalBinding = dainput.get_digital_action_binding(ah, column)
   let axisBinding = dainput.get_analog_axis_action_binding(ah, column)
@@ -171,7 +171,7 @@ let function textListFromAction(action_name, column, eventTypeToText=true) {
 }
 let eventTypeValues = eventTypeMap.values()
 
-local function buildElems(textlist, params = {imgFunc=null, textFunc=mkText, eventTextFunc = null, eventTypesAsTxt=false, compact=false}){
+function buildElems(textlist, params = {imgFunc=null, textFunc=mkText, eventTextFunc = null, eventTypesAsTxt=false, compact=false}){
   let makeImg = params?.imgFunc ?? mkImageComp
   let textFunc = params?.textFunc ?? mkText
   let eventTextFunc = params?.eventTextFunc ?? textFunc
@@ -206,7 +206,7 @@ local function buildElems(textlist, params = {imgFunc=null, textFunc=mkText, eve
   return elems
 }
 
-let function mkHasBinding(actionName){
+function mkHasBinding(actionName){
   return Computed(function() {
     let _ = generation // warning disable: -declared-never-used
     return dainput.is_action_binding_set(dainput.get_action_handle(actionName, 0xFFFF), isGamepad.value ? 1 : 0)

@@ -50,7 +50,7 @@ def apply(biome_index : int; biome_weight : float;
       sound_landmesh_queries__biomeOverridesWater = btm.y != 0
 
 
-[es(tag=sound, no_order)]
+[es(tag=sound, after=sound_begin_update_es, before=sound_end_update_es)]
 def sound_landmesh_queries_update(info : ParallelUpdateFrameDelayed;
                                   is_watched_sound : bool;
                                   transform : float3x4;

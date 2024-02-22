@@ -10,7 +10,7 @@ let { isInBattleState } = require("%enlSqGlob/inBattleState.nut")
 let updatedGameVersion = Watched(0)
 let mainVromfsVersion = Watched(0)
 
-let function updateVromsVersion(inBattle){
+function updateVromsVersion(inBattle){
   if (inBattle)
     return
 

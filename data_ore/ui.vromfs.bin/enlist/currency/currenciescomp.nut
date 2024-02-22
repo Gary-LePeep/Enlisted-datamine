@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontSub, fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let textButtonTextCtor = require("%ui/components/textButtonTextCtor.nut")
@@ -88,7 +88,7 @@ let mkCurrency = kwarg(
 
   })
 
-let function currencyBtn(
+function currencyBtn(
   btnText, currencyId, price = null, priceFull = null, cb = @() null,
   style = {}, txtColor = TextNormal, txtHoverColor = TextHover,
   discountStyle = null
@@ -120,7 +120,7 @@ let function currencyBtn(
   }))
 }
 
-let function mkExpireRow(expData, currency) {
+function mkExpireRow(expData, currency) {
   let { expireAt, amount } = expData
   let timeText = Computed(function() {
     let timeLeft = expireAt - serverTime.value
@@ -148,7 +148,7 @@ let mkCurrencyTooltip = @(currency) function() {
     if (presentation)
       return mkCurrencyCardsTooltip(currency.id,
         [{
-          amount = currenciesBalance.value[currency.id]
+          amount = currenciesBalance.value?[currency.id]
           icon = presentation.icon
         }]
       )

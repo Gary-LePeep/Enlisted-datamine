@@ -1,0 +1,175 @@
+[
+  {
+    "import": {
+      "scene": "content/enlisted/gamedata/scenes/_normandy_sounds.blk"
+    }
+  },
+  {
+    "import": {
+      "scene": "content/enlisted/gamedata/scenes/_normandy_shore_sound.blk"
+    }
+  },
+  {
+    "import": {
+      "scene": "content/enlisted/gamedata/scenes/_normandy_coastal_area_fx.blk"
+    }
+  },
+  {
+    "entity": {
+      "_template": "session_finalizer",
+      "session_finalizer__timer": 10.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "door_mult_ent_generator",
+      "ri_extra_gen__blk": "content/enlisted/gamedata/normandy_doors.blk"
+    }
+  },
+  {
+    "entity": {
+      "_template": "shaderVars",
+      "shader_vars__vars:object": {
+        "hmap_displacement_up": 0.3,
+        "ocean1": "#8e894700",
+        "ocean0": "#4c3f0500",
+        "ocean_density": 0.1,
+        "land_selfillum_worldscale": 0.9,
+        "river1": "#8e894700",
+        "river0": "#4c3f0500",
+        "hmap_displacement_down": -0.15,
+        "autodetect_land_selfillum_color": [0.53,0.0,0.0,0.16],
+        "paint_details_tex": "normandy_wall_color_tex_palette*",
+        "puddle_increase": 0.01,
+        "land_selfillum_strength": 32.0,
+        "water_color_noise_size": 71.0,
+        "river_density": 0.3
+      }
+    }
+  },
+  {
+    "entity": {
+      "_template": "postfx_color_grading_tonemap_death_alive_enlisted"
+    }
+  },
+  {
+    "entity": {
+      "_template": "bloom"
+    }
+  },
+  {
+    "entity": {
+      "_template": "postfx_roundctrl"
+    }
+  },
+  {
+    "entity": {
+      "_template": "ri_gpu_object",
+      "ri_gpu_object__grid_size": 8,
+      "ri_gpu_object__grid_tiling": 16,
+      "ri_gpu_object__cell_size": 16.0,
+      "ri_gpu_object__incline_delta": 10.0,
+      "ri_gpu_object__scale_range": [0.85,1.0],
+      "ri_gpu_object__rotate_range": [0.0,360.0],
+      "ri_gpu_object__seed": 2,
+      "ri_gpu_object__is_using_normal": true,
+      "ri_gpu_object__up_vector": [0.1,1.0,0.1],
+      "ri_gpu_object__biome_params:array": [
+        {
+          "ri_gpu_object__biome_params": [55.0,2.0,0.0,0.0]
+        },
+        {
+          "ri_gpu_object__biome_params": [56.0,0.02,0.0,0.0]
+        }
+      ],
+      "ri_gpu_object__multiple_objects:array": [
+        {
+          "ri_gpu_object__multiple_objects:object": {
+            "name": "normandy_vernacular_brick_chunk_a",
+            "weight": 2.0
+          }
+        },
+        {
+          "ri_gpu_object__multiple_objects:object": {
+            "name": "normandy_vernacular_brick_chunk_b",
+            "weight": 1.0
+          }
+        },
+        {
+          "ri_gpu_object__multiple_objects:object": {
+            "name": "normandy_vernacular_brick_chunk_c",
+            "weight": 3.0
+          }
+        },
+        {
+          "ri_gpu_object__multiple_objects:object": {
+            "name": "normandy_vernacular_brick_chunk_d",
+            "weight": 1.0
+          }
+        },
+        {
+          "ri_gpu_object__multiple_objects:object": {
+            "name": "normandy_vernacular_brick_chunk_e",
+            "weight": 3.0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "level",
+      "level__blk": "content/enlisted/levels/normandy_coastal_area_1x1.blk",
+      "level__timeRange": [5.0,19.2],
+      "level__day": 9,
+      "level__month": 6,
+      "level__weatherChoice:object": {
+        "weather_clear_a": 1.0
+      },
+      "level__timeVec:array": {
+        "level__timeVec": 16.5
+      }
+    }
+  },
+  {
+    "entity": {
+      "_template": "water",
+      "water__strength": 0.27
+    }
+  },
+  {
+    "entity": {
+      "_template": "wind",
+      "wind__strength": 2.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "screen_fade_anim",
+      "screen_fade": 0.9,
+      "anim_track_on": true
+    }
+  },
+  {
+    "entity": {
+      "_template": "benchmark",
+      "benchmark_name": "normandy",
+      "camera_tracks:array": {
+        "camera_tracks:object": {
+          "from_fov": 90.0,
+          "from_pos": [239.379,7.54842,-41.2043],
+          "to_dir": [0.736488,0.0,-0.676451],
+          "duration": 10000.0,
+          "to_pos": [239.379,7.54842,-41.2043],
+          "to_fov": 90.0,
+          "from_dir": [0.736488,0.0,-0.676451]
+        }
+      }
+    }
+  },
+  {
+    "entity": {
+      "_template": "ui_disabled"
+    }
+  }
+]

@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { bigPadding, midPadding, titleTxtColor, defTxtColor, commonBorderRadius,
   hoverSlotBgColor, darkTxtColor
@@ -10,7 +10,7 @@ let { soundActive } = require("%ui/components/textButton.nut")
 
 let markerTarget = MoveToAreaTarget()
 
-let function requestMoveToElem(elem) {
+function requestMoveToElem(elem) {
   let x = elem.getScreenPosX()
   let y = elem.getScreenPosY()
   let w = elem.getWidth()
@@ -32,13 +32,13 @@ let tabTxtStyle = @(sf, isSelected) {
 let tabBottomPadding = midPadding * 2
 
 
-let function mkTab(section, action, curSection) {
+function mkTab(section, action, curSection) {
   let {
     id, locId, isUnseenWatch = Watched(false), addChild = null, mkChild = null
   } = section
   let isSelected = @(curSec) curSec == id
   let stateFlags = Watched(0)
-  let function textTabComp() {
+  function textTabComp() {
     let isSel = isSelected(curSection.value)
     return {
       watch = [curSection, stateFlags]

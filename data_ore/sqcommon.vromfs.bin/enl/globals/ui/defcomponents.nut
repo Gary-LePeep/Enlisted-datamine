@@ -1,10 +1,10 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { darkPanelBgColor, accentColor } = require("%enlSqGlob/ui/designConst.nut")
 let { mkTwoSidesGradientX } = require("%enlSqGlob/ui/gradients.nut")
 
 
-let function emptyProgress(val, color, anim = null) {
+function emptyProgress(val, color, anim = null) {
   return {
     key = val
     rendObj = ROBJ_SOLID
@@ -27,7 +27,7 @@ let receivedProgress = @(val, color){
 
 let animOverride = { prop = AnimProp.scale, play = true }
 
-let function makeProgressAnim(curProgress, wasProgress, hasNewLevel, onFinish) {
+function makeProgressAnim(curProgress, wasProgress, hasNewLevel, onFinish) {
   if (wasProgress == null || (!hasNewLevel && wasProgress >= curProgress))
     return null
 
@@ -51,7 +51,7 @@ let function makeProgressAnim(curProgress, wasProgress, hasNewLevel, onFinish) {
 }
 
 
-let function progressBar(value, override = {}, progressToAnim = {}) {
+function progressBar(value, override = {}, progressToAnim = {}) {
   let curProgress = clamp(100.0 * value, 0, 100)
   let { wasProgress = null, hasNewLevel = false } = progressToAnim
   let anim = makeProgressAnim(curProgress, wasProgress, hasNewLevel, @() progressToAnim.clear())
@@ -74,7 +74,7 @@ let receivedGradProgress = @(image) {
 }
 
 
-let function gradientProgressBar(value, override = {}, progressToAnim = {}) {
+function gradientProgressBar(value, override = {}, progressToAnim = {}) {
   let curProgress = clamp(100.0 * value, 0, 100)
   let { wasProgress = null, hasNewLevel = false } = progressToAnim
   let anim = makeProgressAnim(curProgress, wasProgress, hasNewLevel, @() progressToAnim.clear())

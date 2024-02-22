@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { defTxtColor, brightAccentColor } = require("%enlSqGlob/ui/designConst.nut")
 let { getRomanNumeral } = require("%sqstd/math.nut")

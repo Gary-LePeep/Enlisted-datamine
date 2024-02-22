@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontHeading2, fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let eulaLog = require("%enlSqGlob/library_logs.nut").with_prefix("[EULA]")
@@ -14,12 +14,14 @@ let JB = require("%ui/control/gui_buttons.nut")
 let {hotkeysBarHeight} = require("%ui/hotkeysPanel.nut")
 let {processHypenationsCN = @(v) v, processHypenationsJP = @(v) v} = require("dagor.localize")
 let { nestWatched } = require("%dngscripts/globalState.nut")
+let isChineseVersion = require("%enlSqGlob/isChineseVersion.nut")
+
 
 const NO_VERSION = -1
 
 let json_load = @(file) loadJson(file, { logger = eulaLog, load_text_file = read_text_from_file})
 
-let function loadConfig(fileName) {
+function loadConfig(fileName) {
   let config = file_exists(fileName) ? json_load(fileName) : null
   local curLang = gameLanguage.tolower()
   if (!(curLang in config))
@@ -69,9 +71,9 @@ const FORCE_EULA = "FORCE_EULA"
 let forcedMsgBoxStyle = (clone msgbox.msgboxDefStyle)
 forcedMsgBoxStyle.rawdelete("closeKeys")
 
-let function show(version, filePath, decisionCb=null, isUpdated=false) {
-  if (version == NO_VERSION || filePath == null) {
-    // accept if there is no EULA
+function show(version, filePath, decisionCb = null, isUpdated = false) {
+  if (isChineseVersion || version == NO_VERSION || filePath == null) {
+    // accept if there is no EULA or isChineseVersion
     if (decisionCb)
       decisionCb?(true)
     return

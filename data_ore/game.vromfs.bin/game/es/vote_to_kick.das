@@ -96,7 +96,7 @@ def vote_to_kick_timer_es(info : UpdateStageInfoAct;
     let totalPlayerCount = get_player_count_in_team(team)
     let votePercentageToKick = scoring_player__friendlyKills > 0 ? kick_voting__teammateKillerVoteThreshold : kick_voting__defaultVoteThreshold
     let fltYesVotesCount = float(length(kick_voting__voteYes))
-    print("[VOTE]: diff={voteDiff}; total player={totalPlayerCount}; teammates killed {scoring_player__friendlyKills}")
+    print("[VOTE]: diff={voteDiff}; total player={totalPlayerCount}; teammates killed {scoring_player__friendlyKills}; totals YES votes {fltYesVotesCount}")
     if voteDiff < 1 || fltYesVotesCount < float(totalPlayerCount) * votePercentageToKick
       destroyEntity(eid)
       return
@@ -112,7 +112,7 @@ def vote_to_kick_timer_es(info : UpdateStageInfoAct;
     kicked = true
     kill_disconnected_squad_member(possessed)
     possessed = INVALID_ENTITY_ID
-    print("[VOTE]: Kick player {eid} with userId {int(userid)} votes {voteDiff}")
+    print("[VOTE]: Kick player {eid} with userId {int(userid)} votes YES {fltYesVotesCount}, diff {voteDiff}")
 
   send_net_event(kick_voting__accused, [[VoteKickResult kicked=kicked]])
   destroyEntity(eid)

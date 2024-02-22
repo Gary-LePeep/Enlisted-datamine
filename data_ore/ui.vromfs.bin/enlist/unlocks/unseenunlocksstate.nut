@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { settings, onlineSettingUpdated } = require("%enlist/options/onlineSettings.nut")
 let { achievementsList } = require("taskListState.nut")
@@ -21,7 +21,7 @@ let sessionsCount = mkOnlineSaveData("sessionsCount", @() 0)
 let sessionsCountStored = sessionsCount.watch
 
 
-let function moveWeeklyUnlocks() {
+function moveWeeklyUnlocks() {
   if (WEEKLYTASKS_SEEN_ID not in settings.value)
     return
 
@@ -36,7 +36,7 @@ let function moveWeeklyUnlocks() {
   }
   settings.mutate(function(set) {
     set[SEEN_ID] <- res
-    delete set[WEEKLYTASKS_SEEN_ID]
+    set.$rawdelete(WEEKLYTASKS_SEEN_ID)
   })
 }
 
@@ -101,7 +101,7 @@ let hasUnseenWeeklyTasks = Computed(@()
   weeklyTasks.value.findindex(@(u) u?.hasReward ?? false) != null
     || (seenUnlocks.value?.unseenWeeklyTasks ?? {}).len() > 0)
 
-let function changeStatus(status, names) {
+function changeStatus(status, names) {
   let unlocksNames = type(names) == "array" ? names : [names]
   let update = {}
   foreach (name in unlocksNames)
@@ -143,7 +143,7 @@ hasNecessaryData.subscribe(function(hasData) {
 
 let hasNewbieUnlocksData = Computed(@() hasNecessaryData.value && isNewbie.value)
 
-console_register_command(@() settings.mutate(@(v) delete v[SEEN_ID]), "meta.resetSeenUnlocks")
+console_register_command(@() settings.mutate(@(v) v.$rawdelete(SEEN_ID)), "meta.resetSeenUnlocks")
 
 return {
   seenUnlocks

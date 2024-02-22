@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { tutorialZones } = require("%ui/hud/tutorial/state/tutorial_zones_state.nut")
 

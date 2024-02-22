@@ -547,7 +547,7 @@
         [-713.481,13.921,-1170.36]
       ],
       "sphere_zone__radius": 19.0,
-      "capzone__title": "B",
+      "capzone__title": "A",
       "decal__height": 4.0,
       "decal__thickness": 0.15,
       "active": true
@@ -562,8 +562,7 @@
         [0.997703,0.0,0.0677367],
         [-641.544,16.9056,-1025.89]
       ],
-      "respawnBaseGroup": 1,
-      "active": true
+      "respawnBaseGroup": 1
     }
   },
   {
@@ -575,8 +574,7 @@
         [0.996778,0.0,-0.0802051],
         [-662.499,17.1403,-1019.33]
       ],
-      "respawnBaseGroup": 1,
-      "active": true
+      "respawnBaseGroup": 1
     }
   },
   {
@@ -588,8 +586,7 @@
         [0.99997,0.0,0.00781426],
         [-687.177,18.931,-1014.3]
       ],
-      "respawnBaseGroup": 1,
-      "active": true
+      "respawnBaseGroup": 1
     }
   },
   {
@@ -601,8 +598,7 @@
         [-0.858956,0.0,0.512049],
         [-861.619,22.9612,-1165.77]
       ],
-      "respawnBaseGroup": 2,
-      "active": true
+      "respawnBaseGroup": 2
     }
   },
   {
@@ -614,8 +610,7 @@
         [0.999967,0.0,0.0081033],
         [-735.888,21.4063,-1022.75]
       ],
-      "respawnBaseGroup": 1,
-      "active": true
+      "respawnBaseGroup": 1
     }
   },
   {
@@ -630,8 +625,7 @@
       "maxVehicleOnSpawn": 2,
       "respTime": 150,
       "respawnBaseGroup": 1,
-      "team": 2,
-      "active": true
+      "team": 2
     }
   },
   {
@@ -643,8 +637,7 @@
         [-0.329959,0.0,0.943994],
         [-819.37,6.38817,-1252.66]
       ],
-      "respawnBaseGroup": 1,
-      "active": true
+      "respawnBaseGroup": 1
     }
   },
   {
@@ -656,8 +649,7 @@
         [-0.467589,0.0,0.883946],
         [-773.904,6.08876,-1266.05]
       ],
-      "respawnBaseGroup": 1,
-      "active": true
+      "respawnBaseGroup": 1
     }
   },
   {
@@ -672,34 +664,7 @@
       "maxVehicleOnSpawn": 2,
       "respTime": 150,
       "respawnBaseGroup": 1,
-      "team": 1,
-      "active": true
-    }
-  },
-  {
-    "entity": {
-      "_template": "respawnBaseWithGroupOnCapturePoint",
-      "transform": [
-        [-0.00972167,0.0,0.999953],
-        [0.0,1.0,0.0],
-        [-0.999953,0.0,-0.00972167],
-        [-710.879,12.6589,-1176.85]
-      ],
-      "respawnBaseGroup": 4,
-      "active": true
-    }
-  },
-  {
-    "entity": {
-      "_template": "respawnBaseWithGroupOnCapturePoint",
-      "transform": [
-        [-0.969962,0.0,-0.243256],
-        [0.0,1.0,0.0],
-        [0.243256,0.0,-0.969962],
-        [-727.499,19.1206,-1172.23]
-      ],
-      "respawnBaseGroup": 4,
-      "active": true
+      "team": 1
     }
   },
   {
@@ -711,14 +676,12 @@
         [0.747304,0.0,0.664482],
         [-856.062,22.8274,-1172.29]
       ],
-      "respawnBaseGroup": 2,
-      "active": true
+      "respawnBaseGroup": 2
     }
   },
   {
     "entity": {
       "_template": "respawnChooser+respMotorcycle",
-      "active": true,
       "transform": [
         [0.43129,0.0,-0.902214],
         [0.0,1.0,0.0],
@@ -731,7 +694,6 @@
   {
     "entity": {
       "_template": "respawnChooser+respMotorcycle",
-      "active": true,
       "transform": [
         [-0.972276,0.0,0.233835],
         [0.0,1.0,0.0],

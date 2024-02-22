@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontSub, fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { selEvent, selLbMode, selEventEndTime, inactiveEventsToShow } = require("eventModesState.nut")
@@ -58,7 +58,7 @@ let shadowParams = {
   fontFxOffsY = hdpx(0.9)
 }
 
-let function eventsTimer() {
+function eventsTimer() {
   let res = { watch = [selEventEndTime, serverTime, isEnded] }
   if (isEnded.value || selEventEndTime.value - serverTime.value <= 0)
     return res
@@ -125,7 +125,7 @@ let mkRewardsBlockTitle = @(text) {
   text
 }.__update(fontBody)
 
-let function temporarySign() {
+function temporarySign() {
   let size = hdpxi(24)
   return{
     rendObj = ROBJ_IMAGE
@@ -148,7 +148,7 @@ let extraRewardText = {
   color = defTxtColor
 }.__update(fontSub)
 
-let function mkReward(rewardData, hasReceived = false) {
+function mkReward(rewardData, hasReceived = false) {
   let {count, reward} = rewardData
   local rewardToShow = mkRewardImages(reward, imageSize)
     ?? mkRewardText(reward, hdpx(60), {size = sizeCard})
@@ -181,7 +181,7 @@ let rewardsWrapParams = {
   hGap = localGap
 }
 
-let function mkTasksBlock(
+function mkTasksBlock(
   unlocks, rewardType = null, mkChild = @(_) null, rewardExtraObj = null, isLastType = false
 ) {
   unlocks = unlocks ?? []
@@ -259,7 +259,7 @@ let eventsProgressChild = @(progress, rType) {
 }.__update(fontBody)
 
 
-let function rewardsBlock() {
+function rewardsBlock() {
   let lbTotal = lbRewardsTypes.len()
   return {
     watch = [participationRewards, eventRewardsUnlocks, lbRewards,
@@ -306,7 +306,7 @@ let eventDescription = makeVertScroll({
   ]
 })
 
-let function eventModeDescription() {
+function eventModeDescription() {
   let { locId = null, image = null } = selEvent.value
   return {
     watch = [descritionBlockWidth, selEvent]

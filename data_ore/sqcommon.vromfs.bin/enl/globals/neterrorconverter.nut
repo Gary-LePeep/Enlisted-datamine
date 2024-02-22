@@ -1,6 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
-
-let function error_response_converter(cb, result) {
+function error_response_converter(cb, result) {
   if ("error" in result) {
     cb(result)
     return

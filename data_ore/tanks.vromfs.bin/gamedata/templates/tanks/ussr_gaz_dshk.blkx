@@ -1,73 +1,84 @@
 {
-  "ussr_gaz_dshk": {
-    "_use": "base_gaz_dshk",
-    "_group": {
-      "_tags": "render",
-      "bullet_holes__ignoreCollisionNodes:array": [],
-      "bullet_holes__movingCollisionNodes:array": []
+  "ussr_gaz_dshk": [
+    {
+      "_use": "base_gaz_dshk"
     },
-    "vehicle_seats__seats:shared:array": [
-      {
-        "seats:object": {
-          "name": "driver",
-          "locName": "vehicle_seats/driver",
-          "seatOwnsEntityControl": true,
-          "attachNode": "driver",
-          "ignoreAttachNodeRotation": true,
-          "attachTm": [
-            [1.0,0.0,0.0],
-            [0.0,1.0,0.0],
-            [0.0,0.0,1.0],
-            [-0.25,-0.25,0.0]
-          ],
-          "seatComponent": "isDriver",
-          "nextSeat": "main_gunner",
-          "shouldHideOwner": false,
-          "receiveDamageFromDMPart": "driver",
-          "cameraNodeName": "bone_camera_driver"
-        }
-      },
-      {
-        "seats:object": {
-          "name": "main_gunner",
-          "locName": "vehicle_seats/gunner",
-          "attachNode": "gunner",
-          "ignoreAttachNodeRotation": true,
-          "attachTm": [
-            [1.0,0.0,0.0],
-            [0.0,1.0,0.0],
-            [0.0,0.0,1.0],
-            [-0.25,-0.5,0.0]
-          ],
-          "seatComponent": "isGunner",
-          "nextSeat": "driver",
-          "shouldHideOwner": false,
-          "receiveDamageFromDMPart": "gunner",
-          "cameraNodeName": "bone_camera_gunner",
-          "turretNames:array": {
-            "turret": "turret_01"
+    {
+      "_use": "ussr_gaz_dshk_vehicle_sound"
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "bullet_holes__ignoreCollisionNodes:array": [],
+        "bullet_holes__movingCollisionNodes:array": []
+      }
+    },
+    {
+      "vehicle_seats__seats:shared:array": [
+        {
+          "seats:object": {
+            "name": "driver",
+            "locName": "vehicle_seats/driver",
+            "seatOwnsEntityControl": true,
+            "attachNode": "driver",
+            "ignoreAttachNodeRotation": true,
+            "attachTm": [
+              [1.0,0.0,0.0],
+              [0.0,1.0,0.0],
+              [0.0,0.0,1.0],
+              [-0.25,-0.25,0.0]
+            ],
+            "seatComponent": "isDriver",
+            "nextSeat": "main_gunner",
+            "shouldHideOwner": false,
+            "receiveDamageFromDMPart": "driver",
+            "cameraNodeName": "bone_camera_driver"
+          }
+        },
+        {
+          "seats:object": {
+            "name": "main_gunner",
+            "locName": "vehicle_seats/gunner",
+            "attachNode": "gunner",
+            "ignoreAttachNodeRotation": true,
+            "attachTm": [
+              [1.0,0.0,0.0],
+              [0.0,1.0,0.0],
+              [0.0,0.0,1.0],
+              [-0.25,-0.5,0.0]
+            ],
+            "seatComponent": "isGunner",
+            "nextSeat": "driver",
+            "shouldHideOwner": false,
+            "receiveDamageFromDMPart": "gunner",
+            "cameraNodeName": "bone_camera_gunner",
+            "turretNames:array": {
+              "turret": "turret_01"
+            }
+          }
+        },
+        {
+          "seats:object": {
+            "locName": "vehicle_seats/commander",
+            "attachNode": "commander",
+            "ignoreAttachNodeRotation": true,
+            "attachTm": [
+              [1.0,0.0,0.0],
+              [0.0,1.0,0.0],
+              [0.0,0.0,1.0],
+              [-0.25,-0.5,0.0]
+            ],
+            "seatComponent": "isPassenger",
+            "shouldHideOwner": false,
+            "receiveDamageFromDMPart": "commander"
           }
         }
-      },
-      {
-        "seats:object": {
-          "locName": "vehicle_seats/commander",
-          "attachNode": "commander",
-          "ignoreAttachNodeRotation": true,
-          "attachTm": [
-            [1.0,0.0,0.0],
-            [0.0,1.0,0.0],
-            [0.0,0.0,1.0],
-            [-0.25,-0.5,0.0]
-          ],
-          "seatComponent": "isPassenger",
-          "shouldHideOwner": false,
-          "receiveDamageFromDMPart": "commander"
-        }
-      }
-    ],
-    "dm_phys_parts__wheelsPartIds:list<i>": []
-  },
+      ]
+    },
+    {
+      "dm_phys_parts__wheelsPartIds:list<i>": []
+    }
+  ],
   "gaz_dshk_skins": {
     "_override": true,
     "skin__objTexReplace:array": [

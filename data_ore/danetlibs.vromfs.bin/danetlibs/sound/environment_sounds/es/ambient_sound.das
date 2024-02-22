@@ -16,9 +16,7 @@ def ambient_sound_toggle(evt : Event;
     ambient_sound__event |> play(ambient_sound__path, listener)
 
 
-// NOT ParallelUpdateFrameDelayed because should accurate bring event to camera(important)
-// (AFTER camera tm update && fmod listener setup) and (BEFORE fmod::update)
-[es(tag=sound, after=sound_listener_update_es)]
-def ambient_sound_update(evt : UpdateStageInfoAct;
+[es(tag=sound, on_event=ParallelUpdateFrameDelayed, after=sound_begin_update_es, before=sound_end_update_es)]
+def ambient_sound_update(evt : Event;
                          ambient_sound__event : SoundEvent)
   set_pos(ambient_sound__event.handle, get_listener_pos())

@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { TEAM0_COLOR_FG, TEAM1_COLOR_FG} = require("%ui/hud/style.nut")
 let { WARNING_PRIORITIES, addWarnings, warningUpdate } = require("%ui/hud/state/warnings.nut")

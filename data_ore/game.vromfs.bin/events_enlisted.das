@@ -21,6 +21,11 @@ struct EventOnApplyTornWound
   animchar_eid : EntityId
   bone_break_params_id : uint
 
+[cpp_event(unicast)]
+struct QueryPhysActorsNotCollidable
+  shouldCollide : bool
+  otherEid : EntityId
+
 [event(broadcast)]
 struct EventRequestedAircraftShootAllBombs
   aircraftEid : EntityId
@@ -57,6 +62,12 @@ struct RequestSquadMateOrder
   orderType : SquadMateOrder
   orderPosition : float3
   orderUseEntity : ecs::EntityId
+
+[event(unicast)]
+struct CmdMortarAttackOrder
+  orderPosition : float3
+  orderTargetPos : float3
+  orderNumShots : int
 
 [event(unicast, routing=ROUTING_CLIENT_TO_SERVER)]
 struct RequestSquadFormation
@@ -1023,3 +1034,10 @@ struct CmdDebugRulerAddOrRemovePoint
 
 [event(broadcast)]
 struct CmdDebugRulerClearPoints {}
+
+[event(unicast)]
+struct OnCameraTrackFinishCycle {}
+
+[event(broadcast)]
+struct CmdResetDigitalActionStickyToggle
+  action : uint16

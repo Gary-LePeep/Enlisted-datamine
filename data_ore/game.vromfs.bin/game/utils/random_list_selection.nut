@@ -1,6 +1,6 @@
 let random = require("dagor.random")
 
-let function selectRandom(list) {
+function selectRandom(list) {
   local totalWeight = 0.0
   foreach (weight in list)
     totalWeight += weight

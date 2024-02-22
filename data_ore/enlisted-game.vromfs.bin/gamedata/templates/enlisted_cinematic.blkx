@@ -33,6 +33,19 @@
     "beh_tree__blackboard__step6_addTemplate": "",
     "beh_tree__blackboard__step6_delTemplate": "cinematic_ai_attack_target"
   },
+  "cinematic_ai_attack_target_with_mortar": {
+    "_use": "squad_member_ai",
+    "beh_tree__node": "cinematic_ai_attack_target_mortar_beh",
+    "beh_tree__enabled": true,
+    "beh_tree__blackboard__step1_waitTime": [0.0,0.0],
+    "beh_tree__blackboard__step2_moveToPointName": "",
+    "beh_tree__blackboard__step3_waitTime": [1.0,1.0],
+    "beh_tree__blackboard__step4_attackTargetName": "",
+    "beh_tree__blackboard__step4_attackNumShots": [1,1],
+    "beh_tree__blackboard__step5_waitTime": [2.0,2.0],
+    "beh_tree__blackboard__step6_addTemplate": "",
+    "beh_tree__blackboard__step6_delTemplate": "cinematic_ai_attack_target_with_mortar"
+  },
   "cinematic_soldier_01": [
     {
       "_use": "usa_base_soldier"
@@ -42,6 +55,7 @@
     },
     {
       "human_equipment__initialEquip:object": {
+        "helmet_03_us_summer_item": "skined_helmet",
         "attachable_wear_head_01_us_summer_item": "face",
         "attachable_wear_tunic_01_us_summer_item": "tunic",
         "attachable_wear_gloves_01_us_summer_item": "gloves",
@@ -51,5 +65,70 @@
         "attachable_wear_pot_with_nodes_item": "pot"
       }
     }
-  ]
+  ],
+  "cinematic_soldier_01_test_mortar": {
+    "_use": "cinematic_soldier_01",
+    "human_weap__weapTemplates:object": {
+      "secondary": "m1_garand_gun",
+      "tertiary": "m1911_colt_gun",
+      "melee": "knife_weapon",
+      "grenade": "grenade_thrower",
+      "primary": "granatwerfer_34_gun"
+    },
+    "human_weap__weapInfo:array": [
+      {
+        "human_weap__weapInfo:object": {
+          "reserveAmmoTemplate": "8cm_wgr_39_item",
+          "numReserveAmmo": 30
+        }
+      },
+      {
+        "human_weap__weapInfo:object": {
+          "reserveAmmoTemplate": "m1_garand_magazine",
+          "numReserveAmmo": 4
+        }
+      },
+      {
+        "human_weap__weapInfo:object": {
+          "reserveAmmoTemplate": "m1911_colt_magazine",
+          "numReserveAmmo": 3
+        }
+      },
+      {
+        "human_weap__weapInfo:object": {
+          "reserveAmmoTemplate": "",
+          "numReserveAmmo": 0
+        }
+      },
+      {
+        "human_weap__weapInfo:object": {
+          "reserveAmmoTemplate": "mk2_grenade_item",
+          "numReserveAmmo": 1
+        }
+      }
+    ],
+    "_group": {
+      "_tags": "server",
+      "human_weap__template_deps_list:list<t>": [
+        {
+          "item": "8cm_wgr_39_item"
+        },
+        {
+          "item": "m1_garand_magazine"
+        },
+        {
+          "item": "m1911_colt_magazine"
+        },
+        {
+          "item": "mk2_grenade_item"
+        },
+        {
+          "item": "grenade_thrower"
+        },
+        {
+          "item": "knife_weapon"
+        }
+      ]
+    }
+  }
 }

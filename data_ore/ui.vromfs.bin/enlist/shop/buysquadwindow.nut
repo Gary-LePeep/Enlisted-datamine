@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let faComp = require("%ui/components/faComp.nut")
 let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
@@ -83,7 +83,7 @@ let topRightBlock = {
   ]
 }
 
-let function purchaseSquadCb(shopItem, productView) {
+function purchaseSquadCb(shopItem, productView) {
   let offer = offersByShopItem.value?[shopItem.guid]
   buyShopItem({
     shopItem
@@ -94,7 +94,7 @@ let function purchaseSquadCb(shopItem, productView) {
   close()
 }
 
-let function rentSquadCb(productView, rentOptions, armyId, squadId) {
+function rentSquadCb(productView, rentOptions, armyId, squadId) {
   if (rentOptions.len() == 0)
     return
 
@@ -117,7 +117,7 @@ let function rentSquadCb(productView, rentOptions, armyId, squadId) {
   close()
 }
 
-let function mkButtonsBlock(viewOptions, rentOptions) {
+function mkButtonsBlock(viewOptions, rentOptions) {
   let {
     shopItem, productView, armyId, squadId, offer, isBuyDisabled = false
   } = viewOptions
@@ -208,7 +208,7 @@ let plusObj = faComp("plus", {
   color = activeTxtColor
 })
 
-let function mkAdditionalObject(viewOptions) {
+function mkAdditionalObject(viewOptions) {
   let { shopItem } = viewOptions
   let { wallposters = [] } = shopItem
   if (wallposters.len() == 0)
@@ -245,7 +245,7 @@ let function mkAdditionalObject(viewOptions) {
   }
 }
 
-let function buySquadWnd() {
+function buySquadWnd() {
   let res = { watch = [viewData, rentSquadsConfig] }
   let viewOptions = viewData.value
   if (viewOptions == null)

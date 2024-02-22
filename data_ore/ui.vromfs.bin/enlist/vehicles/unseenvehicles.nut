@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { settings, onlineSettingUpdated } = require("%enlist/options/onlineSettings.nut")
 let { curArmiesList } = require("%enlist/meta/profile.nut")
@@ -50,7 +50,7 @@ let chosenSquadsTiers = Computed(function() {
   return res
 })
 
-let function recalcUnseen() {
+function recalcUnseen() {
   let unseenArmies = {}
   let unseenSquads = {}
 
@@ -77,7 +77,7 @@ unseenTiers.subscribe(@(_) recalcUnseenDebounced())
 chosenSquadsTiers.subscribe(@(_) recalcUnseenDebounced())
 allowedVehicles.subscribe(@(_) recalcUnseenDebounced())
 
-let function markVehicleSeen(armyId, basetpl) {
+function markVehicleSeen(armyId, basetpl) {
   if (!onlineSettingUpdated.value || (seen.value?[armyId][basetpl] ?? false))
     return
 
@@ -90,7 +90,7 @@ let function markVehicleSeen(armyId, basetpl) {
   })
 }
 
-let function markNotFreeVehiclesUnseen() {
+function markNotFreeVehiclesUnseen() {
   let seenData = seen.value ?? {}
   if (seenData.len() == 0)
     return false

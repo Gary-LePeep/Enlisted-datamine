@@ -22,7 +22,7 @@ def biome_sound_query_appear(evt : Event;
   biome_sound_query__id = INVALID_QUERY_ID
 
 
-[es(tag=sound, no_order)]
+[es(tag=sound, after=sound_begin_update_es, before=sound_end_update_es)]
 def biome_sound_query_update(info : ParallelUpdateFrameDelayed;
                              biome_sound_query__range : float;
                              biome_sound_query__period : float;

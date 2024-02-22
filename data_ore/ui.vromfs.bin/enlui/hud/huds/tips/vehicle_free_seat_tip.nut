@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { isRadioMode } = require("%ui/hud/state/enlisted_hero_state.nut")
 let { isMortarMode } = require("%ui/hud/state/mortar.nut")
@@ -11,7 +11,7 @@ let { hasFreeSeat } = require("%ui/hud/state/vehicle_free_seat_state.nut")
 let canUseVehicle = Computed(@() isAlive.value && !isDowned.value && !isMortarMode.value &&
     !isRadioMode.value && !inVehicle.value)
 
-let function vehicleFreeSeatTip() {
+function vehicleFreeSeatTip() {
   let res = { watch = [canUseVehicle, hasFreeSeat] }
 
   if (!canUseVehicle.value)

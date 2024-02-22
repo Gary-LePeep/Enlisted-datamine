@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { shell_execute } = require("dagor.shell")
 let { startswith, strip } = require("string")
@@ -6,13 +6,13 @@ let { get_authenticated_url_sso = null, get_kongzhong_authenticated_url, YU2_OK 
 let steam = require("steam")
 let platform = require("%dngscripts/platform.nut")
 let regexp2 = require("regexp2")
-let eventbus = require("eventbus")
+let { eventbus_subscribe_onehit } = require("eventbus")
 let { get_setting_by_blk_path } = require("settings")
 let { showBrowser } = require("browserWidget.nut")
 let logOU = require("%enlSqGlob/library_logs.nut").with_prefix("[OPEN_URL] ")
 let wegame = require("wegame")
 let { getStoreUrl, getReplayPortalUrl, getEventUrl, getPremiumUrl, getBattlePassUrl,
-  getSquadCashUrl } = require("%ui/networkedUrls.nut")
+  getSquadCashUrl, getPromoUrl } = require("%ui/networkedUrls.nut")
 
 let openLinksInEmbeddedBrowser = get_setting_by_blk_path("openLinksInEmbeddedBrowser") ?? false
 let useKongZhongOpenUrl = get_setting_by_blk_path("useKongZhongOpenUrl") ?? false
@@ -25,7 +25,7 @@ enum AuthenticationMode {
   WEGAME_AUTH = 2
 }
 
-let function open_url(url) {
+function open_url(url) {
   if (type(url)!="string" || (!startswith(url, "http://") && !startswith(url, "https://")))
     return false
   if (platform.is_sony)
@@ -123,7 +123,7 @@ let urlTypes = [
   },
 ]
 
-let function getUrlTypeByUrl(url) {
+function getUrlTypeByUrl(url) {
   foreach (urlType in urlTypes) {
     if (!urlType.urlRegexpList)
       return urlType
@@ -137,16 +137,17 @@ let function getUrlTypeByUrl(url) {
 }
 
 
-let function isWegameLoginRequiredUrl(url) {
+function isWegameLoginRequiredUrl(url) {
   if (!wegame.is_running())
     return false
 
-  return url == getStoreUrl() || url == getEventUrl() || url == getPremiumUrl() ||
-    url == getBattlePassUrl() || url == getSquadCashUrl() || url == getReplayPortalUrl()
+  return url == getStoreUrl() || url == getEventUrl() || url == getPremiumUrl()
+    || url == getBattlePassUrl() || url == getSquadCashUrl() || url == getReplayPortalUrl()
+    || url == getPromoUrl()
 }
 
 
-let function processQueue() {
+function processQueue() {
   if (requestQueue.len() == 0) {
     logOU("Queue is empty")
     return
@@ -159,9 +160,9 @@ let function processQueue() {
   let self = callee()
   requestAuth = requestQueue.findindex(@(_) true)
   let { baseUrl, goToUrl, authenticationType, ssoService = null } = requestQueue[requestAuth] // -potentially-nulled-index
-  eventbus.subscribe_onehit(requestAuth,
+  eventbus_subscribe_onehit(requestAuth,
     function(result)  {
-      delete requestQueue[requestAuth]
+      requestQueue.$rawdelete(requestAuth)
       requestAuth = null
       if (result.status == YU2_OK) {
         // use result.url string
@@ -180,7 +181,7 @@ let function processQueue() {
     if (ssoService == null || get_authenticated_url_sso == null) {
       logOU($"Error: failed to get_authenticated_url_sso, service is undefined")
       goToUrl(baseUrl) // anyway open url without authentication
-      delete requestQueue[requestAuth]
+      requestQueue.$rawdelete(requestAuth)
       requestAuth = null
       self()
     }
@@ -195,7 +196,7 @@ let function processQueue() {
 }
 
 
-let function openUrl(baseUrl, authenticationType = AuthenticationMode.NOT_AUTHENTICATED,
+function openUrl(baseUrl, authenticationType = AuthenticationMode.NOT_AUTHENTICATED,
   shouldExternalBrowser = false, goToUrl = null
 ) {
   let url = baseUrl ? strip(baseUrl) : ""

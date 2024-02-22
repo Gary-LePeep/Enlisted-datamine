@@ -1,9 +1,9 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { landing_zones_GetWatched, landing_zones_Set } = require("%ui/hud/state/aircraft_respawn_landing_zones_state.nut")
 let { DEFAULT_TEXT_COLOR } = require("%ui/hud/style.nut")
-let { safeAreaVerPadding, safeAreaHorPadding } = require("%enlSqGlob/safeArea.nut")
+let { safeAreaVerPadding, safeAreaHorPadding } = require("%enlSqGlob/ui/safeArea.nut")
 let { logerr } = require("dagor.debug")
 
 let ZONE_ICON_COLOR = Color(0,0,0,255)
@@ -91,7 +91,7 @@ let zoneCtor = @(eid, icon) {
   }
 }
 
-let function distanceText(eid, radius) {
+function distanceText(eid, radius) {
   return {
     rendObj = ROBJ_TEXT
     color = DEFAULT_TEXT_COLOR
@@ -165,7 +165,7 @@ let mkZonePointer = memoize(function(eid) {
 
 let memoizedMap = mkMemoizedMapSet(mkZonePointer)
 
-let function pointers() {
+function pointers() {
   return {
     watch = [landing_zones_Set, safeAreaHorPadding, safeAreaVerPadding]
     size = [sw(100)-safeAreaHorPadding.value*2 - fsh(6), sh(100) - safeAreaVerPadding.value*2-fsh(8)]

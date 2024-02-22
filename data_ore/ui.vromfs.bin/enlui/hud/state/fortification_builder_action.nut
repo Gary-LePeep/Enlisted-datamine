@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { watchedHeroEid } = require("%ui/hud/state/watched_hero.nut")
 let weaponSlots = require("%enlSqGlob/weapon_slots.nut")
@@ -15,7 +15,7 @@ let TIMER_DEFAULTS = {
 
 let actionTimer = Watched(clone TIMER_DEFAULTS)
 
-let function resetState() {
+function resetState() {
   actionTimer(clone TIMER_DEFAULTS)
 }
 
@@ -45,7 +45,7 @@ let buildersQuery = ecs.SqQuery("buildingsQuery", {
   comps_no = ["deadEntity"]
 })
 
-let function trackComponents(_evt, _eid, _comp) {
+function trackComponents(_evt, _eid, _comp) {
   let hero = watchedHeroEid.value
   local herobuildingEid = ecs.INVALID_ENTITY_ID
   buildersQuery.perform(hero, function(_eid, buildersComps) {

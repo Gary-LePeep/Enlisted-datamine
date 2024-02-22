@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let hoverImage = require("%enlist/components/hoverImage.nut")
 let changeResearchMsgbox = require("changeResearchMsgbox.nut")

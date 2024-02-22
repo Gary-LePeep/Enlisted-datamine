@@ -241,18 +241,27 @@
       }
     ]
   },
-  "pzkpfw_vi_ausf_b_tiger_iip_turret_02_7_92mm_mg34": {
-    "_use": "tankgun_7_92mm_mg34",
-    "gun__shootNodeName": "bone_mg_gun_twin",
-    "gun__shellsAmmo:array": [
-      {
-        "ammo": 1500
-      },
-      {
-        "ammo": 1500
-      }
-    ]
-  },
+  "pzkpfw_vi_ausf_b_tiger_iip_turret_02_7_92mm_mg34": [
+    {
+      "_use": "tankgun_7_92mm_mg34"
+    },
+    {
+      "_use": "gun_smoke_none"
+    },
+    {
+      "gun__shootNodeName": "bone_mg_gun_twin"
+    },
+    {
+      "gun__shellsAmmo:array": [
+        {
+          "ammo": 1500
+        },
+        {
+          "ammo": 1500
+        }
+      ]
+    }
+  ],
   "pzkpfw_vi_ausf_b_tiger_iip_turret_03_7_92mm_mg34": {
     "_use": "tankgun_7_92mm_mg34",
     "gun__shootNodeName": "bone_mg_aa_barrel",

@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { allIdleAnims } = require("%enlSqGlob/menu_poses_for_weapons.nut")
 let { templatesCombined } = require("%enlist/soldiers/model/all_items_templates.nut")
@@ -34,13 +34,13 @@ let update = @(guid, data) guid == null ? null
   : soldierOverrides.mutate(@(tbl) tbl[guid] <- (tbl?[guid] ?? {}).__update(data))
 
 let remove = @(guid, key)
-  soldierOverrides.mutate(@(tbl) guid in tbl && key in tbl[guid] ? delete tbl[guid][key] : null)
+  soldierOverrides.mutate(@(tbl) guid in tbl && key in tbl[guid] ? tbl[guid].$rawdelete(key) : null)
 
 let soldierReset = @(guid) guid in soldierOverrides.value
-  ? soldierOverrides.mutate(@(v) delete v[guid])
+  ? soldierOverrides.mutate(@(v) v.$rawdelete(guid))
   : null
 
-let function soldierResetAll() {
+function soldierResetAll() {
   soldierOverrides({})
   faceGenOverrides({})
 }
@@ -66,7 +66,7 @@ let setSoldierIdle = @(guid, idleAnim)
     : allIdleAnims.contains(idleAnim) ? update(guid, { idleAnim })
     : remove(guid, "idleAnim")
 
-let function switchSoldierIdle(guid, dir) {
+function switchSoldierIdle(guid, dir) {
   let curAnim = getSoldierIdle(guid, soldierOverrides.value)
   let idx = allIdleAnims.indexof(curAnim)
   if (idx == null)
@@ -83,7 +83,7 @@ let setSoldierHead = @(guid, headId)
     : allSoldierHeads.value.contains(headId) ? update(guid, { headId })
     : remove(guid, "headId")
 
-let function switchSoldierHead(guid, dir) {
+function switchSoldierHead(guid, dir) {
   let headId = getSoldierHead(guid, soldierOverrides.value)
   let idx = allSoldierHeads.value.indexof(headId)
   if (idx == null)
@@ -95,7 +95,7 @@ let function switchSoldierHead(guid, dir) {
 
 let getSoldierFace = @(guid, data) data?[guid].faceId
 
-local function setSoldierFace(guid, faceId) {
+function setSoldierFace(guid, faceId) {
   faceId = faceId.tointeger()
   if (getSoldierFace(guid, soldierOverrides.value) == faceId)
     return
@@ -105,14 +105,14 @@ local function setSoldierFace(guid, faceId) {
     remove(guid, "faceId")
 }
 
-let function switchSoldierFace(guid, dir) {
+function switchSoldierFace(guid, dir) {
   let faceId = getSoldierFace(guid, soldierOverrides.value)
   setSoldierFace(guid, faceId == null ? 0 : (faceId + dir + FACE_ID_COUNT) % FACE_ID_COUNT)
 }
 
 let getSoldierFaceGen = @(animChar, faceId) faceGenOverrides.value?[animChar][faceId?.tostring()]
 
-local function faceGenRandomize(animChar, fromId, toId = -1) {
+function faceGenRandomize(animChar, fromId, toId = -1) {
   toId = max(toId, fromId)
   if (!animChar || fromId < 0 || toId >= FACE_ID_COUNT)
     return
@@ -126,7 +126,7 @@ local function faceGenRandomize(animChar, fromId, toId = -1) {
   })
 }
 
-let function faceGenSave() {
+function faceGenSave() {
   let facesNew = faceGenOverrides.value.keys()
   let facesSaved = faceGenBase.keys()
   let facesUsed = allSoldierHeads.value

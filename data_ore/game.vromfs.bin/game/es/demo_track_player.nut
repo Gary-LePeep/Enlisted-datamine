@@ -6,9 +6,9 @@ let { Point3, Point4, dir_to_quat } = require("dagor.math")
 let { get_cur_cam_entity, set_scene_camera_entity } = camera
 let { get_sync_time } = require("net")
 let {CmdResetAttrFloatAnim, CmdAddAttrFloatAnim, CmdResetPosAnim, CmdAddPosAnim, CmdAddRotAnim, CmdResetRotAnim} = require("animevents")
+let {OnCameraTrackFinishCycle} = require("dasevents")
 
-
-let function side_dir_to_quat_packed(dir) {
+function side_dir_to_quat_packed(dir) {
   let up = Point3(0, 1, 0)
   let side = up % dir
   let dir_quat = dir_to_quat(side)
@@ -24,13 +24,14 @@ local fadeOutTime = 2.0
 let initialPauseInBlackScreen = 0.01 // sec
 local curTrackIndex = 0
 local fade_eid = null
+local camera_tracks_eid = null
 local camera_eid = null
 local prev_camera_eid = null
 
 local cb_timer = null
 
 
-let function start_camera_tracks() {
+function start_camera_tracks() {
   if (tracks.len() == 0)
     return
 
@@ -54,8 +55,10 @@ let function start_camera_tracks() {
   curTrack.begin_time_sec <- get_sync_time()
   curTrack.end_time_sec <- get_sync_time() + curTrack.duration
   curTrackIndex++
-  if (curTrackIndex >= tracks.len())
+  if (curTrackIndex >= tracks.len()) {
+    ecs.g_entity_mgr.sendEvent(camera_tracks_eid, OnCameraTrackFinishCycle({}))
     curTrackIndex = 0
+  }
 
   if (fadeOutTime + fadeInTime > 0) {
     if (curTrack.duration < fadeOutTime + fadeInTime) {
@@ -88,7 +91,7 @@ let function start_camera_tracks() {
 }
 
 
-let function stop_camera_tracks() {
+function stop_camera_tracks() {
   ecs.clear_callback_timer(cb_timer)
 
   ecs.g_entity_mgr.sendEvent(fade_eid, CmdResetAttrFloatAnim(ecs.calc_hash("screen_fade"), get_sync_time(), ANIM_SINGLE))
@@ -105,7 +108,7 @@ let screenFadeQuery = ecs.SqQuery("screenFadeQuery", {comps_rw = [
 ] })
 let linearCamerasQuery = ecs.SqQuery("linearCamerasQuery", { comps_ro = [["linear_cam_anim", ecs.TYPE_BOOL]] })
 
-let function create_fade_entity(next_function) {
+function create_fade_entity(next_function) {
   screenFadeQuery.perform(function(eid, comp){
       comp.screen_fade = 1.0
       comp.anim_track_on = true
@@ -115,7 +118,7 @@ let function create_fade_entity(next_function) {
   )
 }
 
-let function create_camera_entity(next_function) {
+function create_camera_entity(next_function) {
   linearCamerasQuery.perform(function(eid, _comp) {
     ecs.g_entity_mgr.destroyEntity(eid)
   })
@@ -130,8 +133,9 @@ let function create_camera_entity(next_function) {
   )
 }
 
-let function trackPlayerStart(tracks_, fadeInTime_=0, fadeOutTime_=0) {
+function trackPlayerStart(camera_tracks_eid_, tracks_, fadeInTime_=0, fadeOutTime_=0) {
   curTrackIndex = 0
+  camera_tracks_eid = camera_tracks_eid_
   tracks = tracks_
   fadeInTime = fadeInTime_
   fadeOutTime = fadeOutTime_

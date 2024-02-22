@@ -1,5 +1,3 @@
-from "%enlSqGlob/ui_library.nut" import *
-
 from "%sqstd/json.nut" import loadJson
 from "dagor.debug" import logerr
 
@@ -8,7 +6,7 @@ let i = @(pos, sufx = "_weapon")
 
 const pathToCfg = "config/menu_poses_for_weapons.json"
 
-let function transformArrayOfPoses(arr, arrName){
+function transformArrayOfPoses(arr, arrName){
   foreach(idx, pose_name in arr) {
     let t = type(pose_name)
     if (t=="string")
@@ -16,7 +14,7 @@ let function transformArrayOfPoses(arr, arrName){
     if (t=="integer")
       arr[idx] = i(pose_name)
     else {
-      log($"in {arrName}, at position {idx} should be string (pose name) or integer (default pose name), but found {t}")
+      println($"in {arrName}, at position {idx} should be string (pose name) or integer (default pose name), but found {t}")
       logerr("incorrect pose in pose list")
     }
   }
@@ -32,7 +30,7 @@ let {weaponToSittingAnimState, weaponToAnimState} = function loadPosedFromJson()
       transformArrayOfPoses(v,k)
     }
 
-    let function cvtToPosesLists(keyName){
+    function cvtToPosesLists(keyName){
       let toDeletePosesKeys = []
       let posesList = fromJson[keyName]
       foreach(k, v in posesList){
@@ -46,12 +44,12 @@ let {weaponToSittingAnimState, weaponToAnimState} = function loadPosedFromJson()
           posesList[k] = namedPoses[v]
         }
         else {
-          log(k, v)
+          println($"{k} {v}")
           logerr($"incorrect pose list for {keyName}")
         }
       }
       foreach(k in toDeletePosesKeys)
-        delete posesList[k]
+        posesList.$rawdelete(k)
       return posesList
     }
     return {
@@ -60,7 +58,7 @@ let {weaponToSittingAnimState, weaponToAnimState} = function loadPosedFromJson()
     }
   }
   catch(e){
-    log(e)
+    println(e)
     if (!("__argv" in getroottable())) //silence validator
       logerr($"error loading animations {pathToCfg}, see log for details")
     return {

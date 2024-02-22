@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontBody, fontawesome } = require("%enlSqGlob/ui/fontsStyle.nut")
 let tooltipCtor = require("%ui/style/tooltipCtor.nut")
@@ -75,7 +75,7 @@ let mkAnimatedLevelIcon = function(guid, color, fontSize) {
     }
   }
 
-let function levelBlock(params) {
+function levelBlock(params) {
   let { level = 1, maxLevel = 1, fontSize = hdpx(12) } = params
   return {
     size = SIZE_TO_CONTENT
@@ -99,7 +99,7 @@ let mkUnknownClassIcon = @(iSize) {
 let getKindIcon = memoize(@(img, sz) Picture("ui/skin#{0}:{1}:{1}:K".subst(img, sz.tointeger())))
 let getClassIcon = memoize(@(img, sz) Picture("{0}:{1}:{1}:K".subst(img, sz.tointeger())))
 
-let function kindIcon(sKind, iSize, sClassRare = null, forceColor = null) {
+function kindIcon(sKind, iSize, sClassRare = null, forceColor = null) {
   if (sKind == null)
     return mkUnknownClassIcon(iSize)
 
@@ -116,7 +116,7 @@ let function kindIcon(sKind, iSize, sClassRare = null, forceColor = null) {
   }
 }
 
-let function classIcon(armyId, sClass, iSize, override = {}) {
+function classIcon(armyId, sClass, iSize, override = {}) {
   let { getIcon } = getClassCfg(sClass)
   let icon = getIcon(armyId) ?? ""
   if (icon == "")
@@ -149,7 +149,7 @@ let classNameColored = @(sClass, sKind, sClassRare) txt({
   color = getKindCfg(sKind)?.colorsByRare[sClassRare] ?? defTxtColor
 })
 
-let function calcExperienceData(soldier, expToLevel) {
+function calcExperienceData(soldier, expToLevel) {
   let { level = 1, maxLevel = 1, exp = 0 } = soldier
   let expToNextLevel = level < maxLevel ? (expToLevel?[level] ?? 0) : 0
   return { level, maxLevel, exp, expToNextLevel }
@@ -193,7 +193,7 @@ let experienceTooltip = kwarg(@(level, maxLevel, exp, expToNextLevel)
   })
 )
 
-let function mkSoldierMedalIcon(soldierInfo, size) {
+function mkSoldierMedalIcon(soldierInfo, size) {
   let { isHero = false, armyId = null, country = null } = soldierInfo
   let heroIcon = soldiersPresentation?[country] ?? soldiersPresentation?[armyId] // FIXME backward compatibility
   if (heroIcon == null || !isHero)

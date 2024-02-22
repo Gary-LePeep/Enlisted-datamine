@@ -114,13 +114,13 @@ def skeleton_attach_not_updatable(evt : Event;
   skeleton_attached_to(animchar, animchar__visible, attaches_list, 0.0, animchar_bbox, animchar_bsph_precalculated, animchar_attaches_bbox_precalculated);
 
 
-[es(tag=gameClient, on_appear, REQUIRE=attachedToParent)]
+[es(tag=gameClient, on_appear, after=(skeleton_attach_init_es, skeleton_attach_reinit_es), REQUIRE=attachedToParent)]
 def init_skeleton_attachment_wtm_ofs(evt : Event;
                                      skeleton_attach__skeletonRemap : UInt16List;
                                      skeleton_attach__skeletonRecalcBranch : UInt8List;
-                                     slot_attach__attachedTo : EntityId;
+                                     skeleton_attach__attachedTo : EntityId;
                                      var animchar aka attachment_animchar : AnimcharBaseComponent&)
-  query(slot_attach__attachedTo) <| $ [es] (animchar aka attached_to_animchar : AnimcharBaseComponent)
+  query(skeleton_attach__attachedTo) <| $ [es] (animchar aka attached_to_animchar : AnimcharBaseComponent)
     assume attNodeTree = *attached_to_animchar.nodeTree
     assume nodeTree = *attachment_animchar.nodeTree;
 

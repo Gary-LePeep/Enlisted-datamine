@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { soldiersStatuses, READY, OUT_OF_VEHICLE } = require("%enlist/soldiers/model/readySoldiers.nut")
 let {
@@ -13,7 +13,7 @@ let { curCampaign } = require("%enlist/meta/curCampaign.nut")
 let showNotReadySquads = Watched(null)
 let armiesForBattle = Computed(@() matchRandomTeam.value ? curArmiesList.value : [curArmy.value])
 
-let function calcSquadReady(squad, soldiers, statuses) {
+function calcSquadReady(squad, soldiers, statuses) {
   let unreadySoldiers = soldiers.filter(@(s) statuses?[s.guid] != null && statuses[s.guid] != READY
     && !(statuses[s.guid] & OUT_OF_VEHICLE))
   let notReadyCount = unreadySoldiers.len()
@@ -27,7 +27,7 @@ let function calcSquadReady(squad, soldiers, statuses) {
   return { isReady = unreadyMsgs.len() == 0, canBattle, unreadySoldiers, unreadyMsgs, squad }
 }
 
-let function getNotReadySquadsInfo(armiesList, chosenSquads, soldiers, statuses) {
+function getNotReadySquadsInfo(armiesList, chosenSquads, soldiers, statuses) {
   let res = []
   foreach (armyId in armiesList)
     foreach (squad in chosenSquads?[armyId] ?? []) {
@@ -38,13 +38,13 @@ let function getNotReadySquadsInfo(armiesList, chosenSquads, soldiers, statuses)
   return res
 }
 
-let function hasCurArmiesSquadsReady() {
+function hasCurArmiesSquadsReady() {
   let notReadyInfo = getNotReadySquadsInfo(armiesForBattle.value, chosenSquadsByArmy.value,
     soldiersBySquad.value, soldiersStatuses.value)
   return notReadyInfo.len() == 0
 }
 
-let function showCurNotReadySquadsMsg(onContinue) {
+function showCurNotReadySquadsMsg(onContinue) {
   let notReadyInfo = getNotReadySquadsInfo(armiesForBattle.value, chosenSquadsByArmy.value,
     soldiersBySquad.value, soldiersStatuses.value)
   if (notReadyInfo.len() == 0)
@@ -53,7 +53,7 @@ let function showCurNotReadySquadsMsg(onContinue) {
     showNotReadySquads({ notReady = notReadyInfo, onContinue = onContinue })
 }
 
-let function goToSquadAndClose(squad) {
+function goToSquadAndClose(squad) {
   showNotReadySquads(null)
   let armyId = getLinkedArmyName(squad)
   if (curArmiesList.value.indexof(armyId) == null)

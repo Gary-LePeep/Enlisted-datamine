@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let codes_by_countries = {
   RU = {
@@ -208,7 +208,7 @@ let codes_by_countries = {
 }
 let clusterByRegionMap = {EU="EU", NORTHAMERICA="US", SOUTHAMERICA="US", OCEANIA="US", ASIA="RU", EAST_ASIA="JP", RU="RU"}
 
-let function getClusterByCode(params = { code = null }){
+function getClusterByCode(params = { code = null }){
   let clusterByRegion = params?.clusterByRegionMap ?? clusterByRegionMap
   let codesByCountries = params?.codes_by_countries ?? codes_by_countries
   let curcode = params.code

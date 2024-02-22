@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let JB = require("%ui/control/gui_buttons.nut")
 let { Bordered } = require("%ui/components/textButton.nut")
@@ -81,7 +81,7 @@ let statNameStyle = {
   size = [pw(55), SIZE_TO_CONTENT]
 }
 
-let function mkCampaignInfoBtn(campaign) {
+function mkCampaignInfoBtn(campaign) {
   let isSelected = Computed(@() selectedCampaign.value == campaign?.id)
   return watchElemState(function(sf) {
     let isSelectedVal = isSelected.value
@@ -99,7 +99,7 @@ let function mkCampaignInfoBtn(campaign) {
   })
 }
 
-let function mkAllCampaignBtn() {
+function mkAllCampaignBtn() {
   let isSelected = Computed(@() selectedCampaign.value == null)
   return watchElemState(function(sf) {
     let isSelectedVal = isSelected.value
@@ -181,7 +181,7 @@ let mkStatsHeader = @(armiesList) @() {
       }))
 }
 
-let function mkPlayerStatistics(statsWatch) {
+function mkPlayerStatistics(statsWatch) {
   let playerCardStats = Computed(function() {
     let campaignsCfg = gameProfile.value?.campaigns
     let selCampaign = selectedCampaign.value

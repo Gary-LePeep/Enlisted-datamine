@@ -50,7 +50,7 @@ def mm_trajectory_init_orientation(evt : Event;
   var tm : float3x4
   animchar |> animchar_get_tm(tm);
   mm_trajectory__currPosition = tm[3];
-  mm_trajectory__currRotation = float4(quat(tm))
+  mm_trajectory__currRotation = float4(DagorMath::quat(tm))
 
 [es(before=mm_trajectory_track_history)]
 def mm_trajectory_update(info : ParallelUpdateFrameDelayed;
@@ -68,7 +68,7 @@ def mm_trajectory_update(info : ParallelUpdateFrameDelayed;
   var tm : float3x4
   animchar |> animchar_get_tm(tm);
   mm_trajectory__currPosition = tm[3];
-  mm_trajectory__currRotation = float4(quat(tm))
+  mm_trajectory__currRotation = float4(DagorMath::quat(tm))
   let currVelocity = (mm_trajectory__currPosition - mm_trajectory__prevPosition) / (info.dt + 0.00001f)
   mm_trajectory__linearVelocity = approach(mm_trajectory__linearVelocity, currVelocity, info.dt, mm_trajectory__linearVelocityViscosity)
   let q = quat(mm_trajectory__currRotation) * inverse(quat(mm_trajectory__prevRotation))

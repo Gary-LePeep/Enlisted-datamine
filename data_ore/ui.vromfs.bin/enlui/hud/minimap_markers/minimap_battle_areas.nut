@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { battleAreasPolygon, nextBattleAreasPolygon } = require("%ui/hud/state/battle_areas_state.nut")
 let {cos, PI} = require("math")
@@ -41,7 +41,7 @@ let animPause = 3.0
 let oldZoneAnim = mkZoneAnim(animDuration, animPause, 1, 0)
 let nextZoneAnim = mkZoneAnim(animDuration, animPause, 0, 1)
 
-let function makeZone(battleAreasPolygonVal, nextBattleAreasPolygonVal, minimap_state, map_size) {
+function makeZone(battleAreasPolygonVal, nextBattleAreasPolygonVal, minimap_state, map_size) {
   if ((nextBattleAreasPolygonVal?.len() ?? 0) == 0)
     return mkPolygon(battleAreasPolygonVal, minimap_state, map_size)
   return {children=[

@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { currenciesList } = require("%enlist/currency/currencies.nut")
 let { get_circuit_conf } = require("app")

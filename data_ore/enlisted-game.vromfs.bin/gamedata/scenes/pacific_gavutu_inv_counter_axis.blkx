@@ -4489,8 +4489,8 @@
     "entity": {
       "_template": "team_pacific_axis+team_narrator_invasion_attack+respawn_creators_team",
       "team__memberCount": 0.0,
-      "team__scoreCap": 1900.0,
-      "team__score": 1900.0,
+      "team__scoreCap": 2000.0,
+      "team__score": 2000.0,
       "team__squadSpawnCost": 250,
       "team__firstSpawnCostMul": 0.0,
       "team__zeroScoreFailTimer": 60.0,
@@ -4570,66 +4570,68 @@
   {
     "entity": {
       "_template": "defend_zone_chained_box+defend_zone_respawnbase",
-      "capzone__capRewardPartCap": 1.0,
+      "capzone__capRewardPartCap": 1.125,
       "capzone__onlyTeamCanCapture": 2,
       "capzone__curTeamCapturingZone": -1,
-      "groupName": "sector_5",
+      "groupName": "sector_1",
       "capzone__capTime": 50.0,
       "capzone__capTeam": -1,
       "transform": [
-        [33.1129,0.0,13.9553],
-        [0.0,14.3889,0.0],
-        [-23.8469,0.0,56.5838],
-        [392.691,8.19372,-356.335]
+        [-32.5501,0.0,32.9299],
+        [0.0,8.39327,0.0],
+        [-41.9408,0.0,-41.4572],
+        [-93.423,8.18472,49.2232]
       ],
       "active": false,
       "capzone__decapTime": 6000.0,
-      "ui_order": 4,
-      "capzone__capReward": 500.0,
+      "ui_order": 3,
+      "capzone__capReward": 250.0,
       "capzone__icon": "AAA",
-      "capzone__caption": "capzone/warehouse_at_the_pier",
+      "capzone__caption": "capzone/hangar",
       "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 1,
       "decal__thickness": 0.15,
-      "decal__height": 0.4,
+      "decal__height": 0.5,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
-      "capzone__createdRespawnBaseGroup": 3,
-      "capzone__iconOffsetY": 2.0
+      "capzone__createdRespawnBaseGroup": 11,
+      "capzone__activateChoice:object": {
+        "sector_2": 1.0,
+        "sector_2_b": 1.0
+      }
     }
   },
   {
     "entity": {
-      "_template": "defend_zone_chained_sphere+defend_zone_respawnbase",
-      "capzone__capRewardPartCap": 1.5,
+      "_template": "defend_zone_chained_box+defend_zone_respawnbase",
+      "capzone__capRewardPartCap": 1.25,
       "capzone__onlyTeamCanCapture": 2,
       "capzone__curTeamCapturingZone": -1,
-      "groupName": "sector_4",
+      "groupName": "sector_2",
       "capzone__capTime": 60.0,
       "capzone__capTeam": -1,
       "transform": [
-        [0.722563,0.0,-0.126323],
-        [0.0,0.690404,0.0],
-        [0.134235,-0.0,0.767816],
-        [196.21,2.02725,-381.487]
+        [-20.1348,0.0,31.1966],
+        [0.0,14.2917,0.0],
+        [-50.7388,0.0,-32.7477],
+        [-10.1575,11.4899,-112.263]
       ],
       "active": false,
       "capzone__decapTime": 6000.0,
-      "ui_order": 4,
-      "capzone__capReward": 500.0,
+      "ui_order": 3,
+      "capzone__capReward": 250.0,
       "capzone__icon": "AAA",
-      "capzone__caption": "capzone/communications_center",
+      "capzone__caption": "capzone/hangar",
       "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 1,
       "decal__thickness": 0.15,
-      "decal__height": 0.2,
+      "decal__height": 1.1,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
-      "capzone__createdRespawnBaseGroup": 5,
-      "sphere_zone__radius": 35.0,
-      "capzone__iconOffsetY": 2.0,
+      "capzone__createdRespawnBaseGroup": 9,
       "capzone__activateChoice:object": {
-        "sector_5": 1.0
+        "sector_3": 1.0,
+        "sector_3_b": 1.0
       }
     }
   },
@@ -4640,27 +4642,27 @@
         [1.0,0.0,0.0],
         [0.0,1.0,0.0],
         [0.0,0.0,1.0],
-        [241.403,1.32586,-276.239]
+        [74.1938,3.6147,-21.751]
       ],
-      "capzone__iconOffsetY": 4.0,
-      "groupName": "sector_4_b",
-      "capzone__areaId": "caparea_2_b",
-      "capzone__capRewardPartCap": 1.5,
+      "groupName": "sector_2_b",
+      "capzone__areaId": "caparea_4_b",
+      "capzone__capRewardPartCap": 1.25,
       "capzone__onlyTeamCanCapture": 2,
-      "capzone__capTime": 60.0,
+      "capzone__capTime": 30.0,
       "capzone__decapTime": 6000.0,
       "ui_order": 4,
-      "capzone__capReward": 500.0,
+      "capzone__capReward": 250.0,
       "capzone__icon": "AAA",
-      "capzone__caption": "capzone/fuel_storage",
+      "capzone__caption": "capzone/pier",
       "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
-      "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createRespawnBaseForTeam": 1,
-      "capzone__createdRespawnBaseGroup": 6,
+      "capzone__createRespawnBase": "respawnBaseGroupActivator",
+      "capzone__createdRespawnBaseGroup": 10,
+      "capzone__iconOffsetY": 4.0,
       "active": false,
       "capzone__activateChoice:object": {
-        "sector_5": 1.0
+        "sector_3": 1.0
       }
     }
   },
@@ -4736,35 +4738,36 @@
   },
   {
     "entity": {
-      "_template": "defend_zone_chained_box+defend_zone_respawnbase",
-      "capzone__capRewardPartCap": 1.25,
+      "_template": "defend_zone_chained_sphere+defend_zone_respawnbase",
+      "capzone__capRewardPartCap": 1.5,
       "capzone__onlyTeamCanCapture": 2,
       "capzone__curTeamCapturingZone": -1,
-      "groupName": "sector_2",
-      "capzone__capTime": 50.0,
+      "groupName": "sector_4",
+      "capzone__capTime": 60.0,
       "capzone__capTeam": -1,
       "transform": [
-        [-20.1348,0.0,31.1966],
-        [0.0,14.2917,0.0],
-        [-50.7388,0.0,-32.7477],
-        [-10.1575,11.4899,-112.263]
+        [0.722563,0.0,-0.126323],
+        [0.0,0.690404,0.0],
+        [0.134235,-0.0,0.767816],
+        [196.21,2.02725,-381.487]
       ],
       "active": false,
       "capzone__decapTime": 6000.0,
-      "ui_order": 3,
+      "ui_order": 4,
       "capzone__capReward": 250.0,
       "capzone__icon": "AAA",
-      "capzone__caption": "capzone/hangar",
+      "capzone__caption": "capzone/communications_center",
       "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 1,
       "decal__thickness": 0.15,
-      "decal__height": 1.1,
+      "decal__height": 0.2,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
-      "capzone__createdRespawnBaseGroup": 9,
+      "capzone__createdRespawnBaseGroup": 5,
+      "sphere_zone__radius": 35.0,
+      "capzone__iconOffsetY": 2.0,
       "capzone__activateChoice:object": {
-        "sector_3": 1.0,
-        "sector_3_b": 1.0
+        "sector_5": 1.0
       }
     }
   },
@@ -4775,62 +4778,59 @@
         [1.0,0.0,0.0],
         [0.0,1.0,0.0],
         [0.0,0.0,1.0],
-        [74.1938,3.6147,-21.751]
+        [241.403,1.32586,-276.239]
       ],
-      "groupName": "sector_2_b",
-      "capzone__areaId": "caparea_4_b",
-      "capzone__capRewardPartCap": 1.25,
+      "capzone__iconOffsetY": 4.0,
+      "groupName": "sector_4_b",
+      "capzone__areaId": "caparea_2_b",
+      "capzone__capRewardPartCap": 1.5,
       "capzone__onlyTeamCanCapture": 2,
-      "capzone__capTime": 50.0,
+      "capzone__capTime": 60.0,
       "capzone__decapTime": 6000.0,
       "ui_order": 4,
       "capzone__capReward": 250.0,
       "capzone__icon": "AAA",
-      "capzone__caption": "capzone/pier",
+      "capzone__caption": "capzone/fuel_storage",
       "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
-      "capzone__createRespawnBaseForTeam": 1,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
-      "capzone__createdRespawnBaseGroup": 10,
-      "capzone__iconOffsetY": 4.0,
+      "capzone__createRespawnBaseForTeam": 1,
+      "capzone__createdRespawnBaseGroup": 6,
       "active": false,
       "capzone__activateChoice:object": {
-        "sector_3": 1.0
+        "sector_5": 1.0
       }
     }
   },
   {
     "entity": {
       "_template": "defend_zone_chained_box+defend_zone_respawnbase",
-      "capzone__capRewardPartCap": 1.125,
+      "capzone__capRewardPartCap": 1.0,
       "capzone__onlyTeamCanCapture": 2,
       "capzone__curTeamCapturingZone": -1,
-      "groupName": "sector_1",
-      "capzone__capTime": 50.0,
+      "groupName": "sector_5",
+      "capzone__capTime": 60.0,
       "capzone__capTeam": -1,
       "transform": [
-        [-32.5501,0.0,32.9299],
-        [0.0,8.39327,0.0],
-        [-41.9408,0.0,-41.4572],
-        [-93.423,8.18472,49.2232]
+        [33.1129,0.0,13.9553],
+        [0.0,14.3889,0.0],
+        [-23.8469,0.0,56.5838],
+        [392.691,8.19372,-356.335]
       ],
       "active": false,
       "capzone__decapTime": 6000.0,
-      "ui_order": 3,
-      "capzone__capReward": 500.0,
+      "ui_order": 4,
+      "capzone__capReward": 250.0,
       "capzone__icon": "AAA",
-      "capzone__caption": "capzone/hangar",
+      "capzone__caption": "capzone/warehouse_at_the_pier",
       "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
       "capzone__createRespawnBaseForTeam": 1,
       "decal__thickness": 0.15,
-      "decal__height": 0.5,
+      "decal__height": 0.4,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
-      "capzone__createdRespawnBaseGroup": 11,
-      "capzone__activateChoice:object": {
-        "sector_2": 1.0,
-        "sector_2_b": 1.0
-      }
+      "capzone__createdRespawnBaseGroup": 3,
+      "capzone__iconOffsetY": 2.0
     }
   },
   {

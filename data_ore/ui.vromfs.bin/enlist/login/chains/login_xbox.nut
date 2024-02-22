@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let loginCb = require("%enlist/login/login_cb.nut")
 let auth = require("auth")
@@ -8,7 +8,7 @@ let { xbox_login } = require("%enlist/xbox/login.nut")
 
 
 // chain code
-let function init_user(state, cb) {
+function init_user(state, cb) {
   let login_function =
     (state.params?.xuid != null)
     ? user.init_default
@@ -25,7 +25,7 @@ let function init_user(state, cb) {
 let error_cb = @(cb, failure_loc_key, show_error, errorStr = null) @(success)
   success ? cb({}) : cb({error = failure_loc_key, needShowError = show_error, errorStr})
 
-let function login_live(state, cb) {
+function login_live(state, cb) {
   let failure_loc_key = "live_login_failed" // failed to login into live
   let xuid = state.stageResult.init_user.xuid
   log($"login live for user {xuid}")
@@ -37,7 +37,7 @@ let function login_live(state, cb) {
   })
 }
 
-let function check_priveleges(_state, cb) {
+function check_priveleges(_state, cb) {
   let failure_loc_key = "permission_check_failure_mp" // Multiplayer is not permited
   let error_callback = error_cb(cb, failure_loc_key, false)
   privileges.retrieve_current_state(privileges.Privilege.Multiplayer, function(success, state, reason) {
@@ -54,7 +54,7 @@ let function check_priveleges(_state, cb) {
   })
 }
 
-let function onInterrupt(state) {
+function onInterrupt(state) {
   user.shutdown()
   loginCb.onInterrupt(state)
 }

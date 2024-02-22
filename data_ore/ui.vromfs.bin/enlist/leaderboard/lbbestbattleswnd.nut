@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let modalPopupWnd = require("%ui/components/modalPopupWnd.nut")
 let fontIconButton = require("%ui/components/fontIconButton.nut")
@@ -108,7 +108,7 @@ let mkColumnsHeader = @(lbCols) {
 let findMinTime = @(list, prevVal = 0)
   list.reduce(@(res, b) res == 0 ? b.timestamp : max(res, b.timestamp), prevVal)
 
-let function mkLbTable(mode) {
+function mkLbTable(mode) {
   let lbCols = getCategoriesByGroup(mode).best
   let bestBattles = mkBattlesComputed(bestBattlesByMode, mode)
   let ratedCount = Computed(@() ratingBattlesCountByMode.value?[mode] ?? 0)

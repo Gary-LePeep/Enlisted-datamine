@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontHeading2, fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { ceil } = require("%sqstd/math.nut")
@@ -101,7 +101,7 @@ let retireReturnCost = function(reserveSoldiersVal, retireReturnVal, curArmyRese
   return retireCount
 }
 
-let function mkDismissBtn(soldier, override = {}, btnOverride = {}, cb = @() null) {
+function mkDismissBtn(soldier, override = {}, btnOverride = {}, cb = @() null) {
   if (soldier == null)
     return null
 

@@ -1,6 +1,7 @@
 require ecs
 require ecs.safe
 require ecs.extra_set
+require soundSystem
 require gameObject
 
 
@@ -33,3 +34,5 @@ def game_object_ocean_sound_generator(evt : Event;
   if !empty(points)
     game_object_ocean_sound_generator__entityEid = createEntity(game_object_ocean_sound_generator__entityTemplate) <| $(var init)
       init |> set("ocean_sound__points", points)
+
+    sound_debug("created {game_object_ocean_sound_generator__entityTemplate}={game_object_ocean_sound_generator__entityEid} with {length(points)} points")

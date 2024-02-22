@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {get_setting_by_blk_path} = require("settings")
 let {getOnlineSaveData, optionSlider, optionCtor} = require("%ui/hud/menus/options/options_lib.nut")
@@ -11,7 +11,7 @@ let setCameraShakeOptionsQuery = ecs.SqQuery("setCameraShakeOptionsQuery", {
 
 let mkWidgetCtor = @(compName) function(opt, group, xmbNode) {
   let optSetValue = opt.setValue
-  let function setValue(val) {
+  function setValue(val) {
     optSetValue(val)
     setCameraShakeOptionsQuery(function(_eid, comp) {
       comp[compName] = val

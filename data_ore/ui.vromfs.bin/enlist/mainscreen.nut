@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontHeading2 } = require("%enlSqGlob/ui/fontsStyle.nut")
 let userInfo = require("%enlSqGlob/userInfo.nut")
@@ -19,7 +19,7 @@ let mainMenu = @() {
   watch = mainMenuVersion
 }
 
-let function mainScreen() {
+function mainScreen() {
   let children = doesSceneExist()
     ? getTopScene()
     : userInfo.value==null

@@ -1,11 +1,11 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
-let eventbus = require("eventbus")
+let { eventbus_subscribe } = require("eventbus")
 let { httpRequest, HTTP_SUCCESS } = require("dagor.http")
 let { parse_json } = require("json")
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
 let { get_circuit } = require("app")
-let { isLoggedIn } = require("%enlSqGlob/login_state.nut")
+let { isLoggedIn } = require("%enlSqGlob/ui/login_state.nut")
 let { getPlatformId, getLanguageId } = require("%enlSqGlob/httpPkg.nut")
 let { settings } = require("%enlist/options/onlineSettings.nut")
 let { specialEvents } = require("%enlist/unlocks/eventsTaskState.nut")
@@ -38,7 +38,7 @@ let isUnseen = Computed(@() specialEvents.value
 let markSeen = @() settings.mutate(@(set)
   set[SEEN_ID] <- specialEvents.value.reduce(@(res, event) max(res, event?.start ?? 0), 0))
 
-let function updateOffers() {
+function updateOffers() {
   update_offers(function(res) {
     // temporary gebug info for QA
     let addedOffers = res?.offers ?? {}
@@ -88,7 +88,7 @@ let allOffers = Computed(function() {
   return offerslist
 })
 
-let function recalcActiveOffers(_ = null) {
+function recalcActiveOffers(_ = null) {
   let sItems = shopItems.value
   let time = serverTime.value
   let armyId = curArmyData.value?.guid
@@ -167,8 +167,8 @@ let offersByShopItem = Computed(function() {
 let eventsData = Computed(@() specialEvents.value.map(function(event, id) {
   let desc = eventDescs.value?[id]
   local {
-    title = loc("offers/commonTitle"),
-    titleshort = loc("offers/commonShortTitle"),
+    title = null,
+    titleshort = null,
     imagepromo = null,
     content = null,
     published = desc != null,
@@ -195,9 +195,9 @@ let eventsData = Computed(@() specialEvents.value.map(function(event, id) {
   let description = hasFirstImage ? content.slice(1) : content
   return event.__merge({
     id
-    titleshort
+    title = title ?? loc("offers/commonTitle")
+    titleshort = titleshort ?? loc("offers/commonShortTitle")
     imagepromo = imagepromo ?? heading // TODO add default widget image
-    title
     heading
     description
     published
@@ -207,7 +207,7 @@ let eventsData = Computed(@() specialEvents.value.map(function(event, id) {
 
 let availableEventTime = Watched({})
 
-let function recalcAvailableEvents(_ = null) {
+function recalcAvailableEvents(_ = null) {
   let curTime = serverTime.value
   let res = {}
   local closestTime = -1
@@ -232,7 +232,7 @@ let eventsKeysSorted = Computed(@() eventsData.value
   .sort(@(a, b) b.start <=> a.start || a.end <=> b.end || a.id <=> b.id)
   .map(@(evt) evt.id))
 
-let function processEventDesc(response) {
+function processEventDesc(response) {
   let id = descRequestedId.value
   if (id == null) {
     log("current offers request id is null")
@@ -266,7 +266,7 @@ let function processEventDesc(response) {
   eventDescs.mutate(@(data) data[id] <- result)
 }
 
-let function requestOffersData(eventId) {
+function requestOffersData(eventId) {
   if (eventId in eventDescs.value || descRequestedId.value != null)
     return
 
@@ -288,9 +288,9 @@ let function requestOffersData(eventId) {
 }
 
 if (UseEventBus)
-  eventbus.subscribe(EventDescRequest, processEventDesc)
+  eventbus_subscribe(EventDescRequest, processEventDesc)
 
-let function eventDescUpdate(_ = null) {
+function eventDescUpdate(_ = null) {
   if (specialEvents.value.len() == 0)
     return
 
@@ -311,7 +311,7 @@ console_register_command(updateOffers, "meta.updateOffers")
 console_register_command(@() reset_offers(console_print), "meta.resetOffers")
 
 console_register_command(@()
-  settings.mutate(@(set) SEEN_ID in set ? delete set[SEEN_ID] : null), "meta.resetSeenOffersPromo")
+  settings.mutate(@(set) SEEN_ID in set ? set.$rawdelete(SEEN_ID) : null), "meta.resetSeenOffersPromo")
 
 return {
   isSpecOffersOpened

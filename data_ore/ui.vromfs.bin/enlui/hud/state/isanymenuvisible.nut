@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {showGameMenu} = require("%ui/hud/menus/game_menu.nut")
 let {showSettingsMenu} = require("%ui/hud/menus/settings_menu.nut")

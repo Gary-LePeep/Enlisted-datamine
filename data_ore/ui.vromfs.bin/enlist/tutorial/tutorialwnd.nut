@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { logerr } = require("dagor.debug")
 let {addModalWindow, removeModalWindow} = require("%ui/components/modalWindows.nut")
@@ -18,7 +18,7 @@ let mkLightCtorExt = @(lightCtor, nextStepDelay) function(box) {
   if (ctor != null)
     return ctor(box)
 
-  let function onClickExt() {
+  function onClickExt() {
     let skipNext = onClick?() ?? false
     if (!skipNext && (onClick != null || nextStepDelay < getTimeAfterStepStart()))
       nextStep()
@@ -32,7 +32,7 @@ let mkLightCtorExt = @(lightCtor, nextStepDelay) function(box) {
     })
 }
 
-let function mkBg(boxes, style, nextStepDelay) {
+function mkBg(boxes, style, nextStepDelay) {
   let { lightCtor, darkCtor } = style
   let lightCtorExt = mkLightCtorExt(lightCtor, nextStepDelay)
   return {
@@ -41,7 +41,7 @@ let function mkBg(boxes, style, nextStepDelay) {
   }
 }
 
-let function mkArrowLinks(stepData, boxes, style) {
+function mkArrowLinks(stepData, boxes, style) {
   let { arrowLinks = null } = stepData
   if (type(arrowLinks) != "array")
     return null
@@ -73,7 +73,7 @@ let function mkArrowLinks(stepData, boxes, style) {
   }
 }
 
-let function mkMessage(text, customCtor, boxes, style) {
+function mkMessage(text, customCtor, boxes, style) {
   if (text == null && customCtor == null)
     return null
 
@@ -90,7 +90,7 @@ let function mkMessage(text, customCtor, boxes, style) {
   }
 }
 
-let function mkSkipButton(stepSkipDelay, boxes, style) {
+function mkSkipButton(stepSkipDelay, boxes, style) {
   let skipBtn = style.skipBtnCtor(stepSkipDelay, skipStep, $"skipBtn{stepIdx.value}")
   let size = calc_comp_size(skipBtn)
   local pos = null
@@ -115,7 +115,7 @@ let function mkSkipButton(stepSkipDelay, boxes, style) {
   }
 }
 
-local function mkArrows(boxes, obstaclesVar, style) {
+function mkArrows(boxes, obstaclesVar, style) {
   boxes = boxes.filter(@(b) (b?.needArrow ?? false) && b.r - b.l > 0 && b.b - b.t > 0)
   if (boxes.len() == 0)
     return null
@@ -137,7 +137,7 @@ let nextStepSubscription = @(v) v ? nextStep() : null
 
 let boxUpdateCount = Watched(0)
 let boxUpdateCountWithStep = Computed(@() boxUpdateCount.value + stepIdx.value)
-let function tutorialWnd() {
+function tutorialWnd() {
   let watch = [tutorialConfigVersion, stepIdx, boxUpdateCountWithStep]
   let config = getTutorialConfig()
   let style = tutorialWndDefStyle.__merge(config?.style ?? {})

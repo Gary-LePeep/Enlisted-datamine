@@ -7076,7 +7076,7 @@
   {
     "entity": {
       "_template": "defend_zone_chained_sphere+defend_zone_respawnbase",
-      "capzone__capRewardPartCap": 1.0,
+      "capzone__capRewardPartCap": 1.375,
       "capzone__onlyTeamCanCapture": 1,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_3_b",
@@ -7144,17 +7144,17 @@
   {
     "entity": {
       "_template": "defend_zone_chained_sphere+defend_zone_respawnbase",
-      "capzone__capRewardPartCap": 1.0,
+      "capzone__capRewardPartCap": 1.5,
       "capzone__onlyTeamCanCapture": 1,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_4_b",
       "capzone__capTime": 30.0,
       "capzone__capTeam": -1,
       "transform": [
-        [1.0,0.0,0.0],
+        [0.363528,0.0,-0.880232],
         [0.0,1.0,0.0],
-        [0.0,0.0,1.0],
-        [-579.686,49.5636,-301.812]
+        [1.16112,-0.0,0.479535],
+        [-582.45,49.5636,-299.589]
       ],
       "active": false,
       "capzone__decapTime": 6000.0,
@@ -7169,7 +7169,7 @@
       "decal__height": 2.0,
       "capzone__createRespawnBase": "respawnBaseGroupActivator",
       "capzone__createdRespawnBaseGroup": 12,
-      "sphere_zone__radius": 17.0,
+      "sphere_zone__radius": 20.0,
       "capzone__iconOffsetY": 3.0,
       "capzone__activateChoice:object": {
         "sector_5_b": 1.0
@@ -7268,10 +7268,10 @@
     "entity": {
       "_template": "respawnChooser+respVehicle+vehicle_resp_soft_ground_collision",
       "transform": [
-        [-0.999968,0.0,0.00787367],
+        [-0.930836,0.0,-0.365435],
         [0.0,1.0,0.0],
-        [-0.00787367,0.0,-0.999968],
-        [-371.518,1.84528,167.555]
+        [0.365435,0.0,-0.930836],
+        [-368.112,1.37206,174.412]
       ],
       "groupName": "sector_1_a",
       "maxVehicleOnSpawn": 2,
@@ -7302,10 +7302,10 @@
     "entity": {
       "_template": "respawnChooser+respMotorcycle",
       "transform": [
-        [-0.999968,0.0,0.00787367],
+        [-0.78829,0.0,0.615302],
         [0.0,1.0,0.0],
-        [-0.00787367,0.0,-0.999968],
-        [-371.497,1.84527,167.64]
+        [-0.615302,0.0,-0.78829],
+        [-375.963,2.14903,149.063]
       ],
       "groupName": "sector_1_a",
       "respawnBaseGroup": 1,
@@ -8274,10 +8274,10 @@
     "entity": {
       "_template": "respawnChooser+respTeam1",
       "transform": [
-        [-0.977653,0.0,0.210224],
+        [-0.951527,0.0,-0.307564],
         [0.0,1.0,0.0],
-        [-0.210224,0.0,-0.977653],
-        [-373.007,0.824532,195.469]
+        [0.307564,0.0,-0.951527],
+        [-369.145,0.824532,196.189]
       ],
       "groupName": "sector_1_b",
       "respawnBaseGroup": 1,
@@ -8738,10 +8738,10 @@
     "entity": {
       "_template": "respawnChooser+respVehicle+vehicle_resp_soft_ground_collision",
       "transform": [
-        [0.684686,0.0,-0.728837],
+        [0.142279,0.0,-0.989826],
         [0.0,1.0,0.0],
-        [0.728837,-0.0,0.684686],
-        [-528.999,4.81776,155.58]
+        [0.989826,-0.0,0.142279],
+        [-483.465,4.81773,175.974]
       ],
       "groupName": "sector_2_b",
       "maxVehicleOnSpawn": 2,
@@ -8755,10 +8755,10 @@
     "entity": {
       "_template": "respawnChooser+respMotorcycle",
       "transform": [
-        [0.72924,0.0,-0.684256],
+        [0.413858,0.0,-0.91034],
         [0.0,1.0,0.0],
-        [0.684256,-0.0,0.72924],
-        [-528.947,4.81776,155.455]
+        [0.91034,-0.0,0.413858],
+        [-522.798,4.53552,149.699]
       ],
       "groupName": "sector_2_b",
       "respawnBaseGroup": 1,
@@ -8914,10 +8914,10 @@
     "entity": {
       "_template": "respawnChooser+respVehicle+vehicle_resp_soft_ground_collision",
       "transform": [
-        [-0.572385,0.0,-0.819984],
+        [-0.401903,0.0,-0.915681],
         [0.0,1.0,0.0],
-        [0.819984,0.0,-0.572385],
-        [-503.004,11.203,65.3508]
+        [0.915681,0.0,-0.401903],
+        [-508.793,10.7057,62.4885]
       ],
       "groupName": "sector_3_b",
       "maxVehicleOnSpawn": 2,
@@ -8931,10 +8931,10 @@
     "entity": {
       "_template": "respawnChooser+respMotorcycle",
       "transform": [
-        [-0.572385,0.0,-0.819984],
+        [-0.193392,0.0,-0.981121],
         [0.0,1.0,0.0],
-        [0.819984,0.0,-0.572385],
-        [-502.871,11.203,65.7382]
+        [0.981121,0.0,-0.193392],
+        [-319.366,13.8369,8.4415]
       ],
       "groupName": "sector_3_b",
       "respawnBaseGroup": 1,

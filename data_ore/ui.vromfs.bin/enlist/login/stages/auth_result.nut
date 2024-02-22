@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {get_user_info} = require("auth")
 let {status_cb} = require("%enlist/login/stages/auth_helpers.nut")

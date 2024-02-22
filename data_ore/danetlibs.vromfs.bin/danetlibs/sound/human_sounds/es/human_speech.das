@@ -156,7 +156,7 @@ def human_speech_disappear(evt : Event;
   release(human_speech__event.handle)
 
 
-[es(tag=sound, no_order, on_event=ParallelUpdateFrameDelayed)]
+[es(tag=sound, on_event=ParallelUpdateFrameDelayed, after=sound_begin_update_es, before=sound_end_update_es)]
 def human_speech_update(evt : Event;
                         transform : float3x4;
                         var human_speech__event : SoundEvent&;

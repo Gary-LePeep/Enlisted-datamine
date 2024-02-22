@@ -50,12 +50,14 @@ def reload_squad_mate_beh_tree(squadMemberEid : EntityId)
   var was_maxStanceOrderForce = false
   var was_maxStanceOrderEndTime = 0.0
   var was_maxStanceAtLeast = STANCE_CRAWL
+  var was_regroupToPit = 0
   query(squadMemberEid) <| $ [es] (beh_tree : BehaviourTree)
     was_maxStance             = beh_tree.blackBoard |> datablock_getInt("maxStance", STANCE_STAND)
     was_maxStanceOrder        = beh_tree.blackBoard |> datablock_getInt("maxStanceOrder", STANCE_STAND)
     was_maxStanceOrderForce   = beh_tree.blackBoard |> datablock_getBool("maxStanceOrderForce", false)
     was_maxStanceOrderEndTime = beh_tree.blackBoard |> datablock_getReal("maxStanceOrderEndTime", 0.0)
     was_maxStanceAtLeast      = beh_tree.blackBoard |> datablock_getInt("maxStanceAtLeast", STANCE_CRAWL)
+    was_regroupToPit          = beh_tree.blackBoard |> datablock_getInt("regroupToPit", 0)
 
   DngBehTree::load_beh_tree_from_ecs(squadMemberEid)
 
@@ -67,11 +69,13 @@ def reload_squad_mate_beh_tree(squadMemberEid : EntityId)
       *beh_tree__latencyLoadBlackBoard |> set("maxStanceOrderForce", was_maxStanceOrderForce)
       *beh_tree__latencyLoadBlackBoard |> set("maxStanceOrderEndTime", was_maxStanceOrderEndTime)
       *beh_tree__latencyLoadBlackBoard |> set("maxStanceAtLeast", was_maxStanceAtLeast)
+      *beh_tree__latencyLoadBlackBoard |> set("regroupToPit", was_regroupToPit)
     beh_tree.blackBoard |> set("maxStance", was_maxStance)
     beh_tree.blackBoard |> set("maxStanceOrder", was_maxStanceOrder)
     beh_tree.blackBoard |> set("maxStanceOrderForce", was_maxStanceOrderForce)
     beh_tree.blackBoard |> set("maxStanceOrderEndTime", was_maxStanceOrderEndTime)
     beh_tree.blackBoard |> set("maxStanceAtLeast", was_maxStanceAtLeast)
+    beh_tree.blackBoard |> set("regroupToPit", was_regroupToPit)
 
 def reset_squad_mate_behaviour(squadMemberEid : EntityId;
                                newBehaviour : string;
@@ -208,6 +212,7 @@ def private reset_squadmate_orders_impl(var squad_member__orderType : int&;
   beh_tree.blackBoard |> set("buildTarget", 0)
   beh_tree.blackBoard |> set("bombSiteEid", 0)
   beh_tree.blackBoard |> set("artilleryShouldSend", false)
+  beh_tree.blackBoard |> set("mortarAttack", 0)
   reset_squad_mate_order(squad_member__orderType, squad_member__orderPosition, squad_member__orderUseEntity, squad_member__isPersonalOrder)
 
 def reset_squad_mate_orders(squad_eid, squad__leader : EntityId)

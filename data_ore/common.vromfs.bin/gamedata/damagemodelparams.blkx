@@ -146,6 +146,14 @@
       "stop": "kinetic_non_penetration",
       "ricochet": "kinetic_ricochet"
     },
+    "apdsfs": {
+      "bullets": "apds_fs_tank, apds_fs_long_tank, apds_fs_full_body_steel_tank, apds_fs_tungsten_small_core_tank, apds_fs_tungsten_l10_l15_tank",
+      "pierce": "kinetic_discard_sabot_penetration",
+      "stop": "kinetic_discard_sabot_penetration",
+      "ricochet": "kinetic_ricochet",
+      "pierceAngled": "kinetic_discard_sabot_penetration_angled",
+      "stopAngled": "kinetic_discard_sabot_penetration_angled"
+    },
     "apcr": {
       "bullets": "apcr_i_ball, apcr_t_ball, apcr_i_t_ball, apcr_tank, apcr, apcr_t",
       "pierce": "kinetic_sabot_penetration",
@@ -157,8 +165,8 @@
       "pierce": "explosive_penetration",
       "stop": "explosive_non_penetration",
       "ricochet": "kinetic_ricochet",
-      "pierceAngled": "kinetic_discard_sabot_penetration_angled",
-      "stopAngled": "kinetic_discard_sabot_non_penetration_angled"
+      "pierceAngled": "explosive_penetration_angled",
+      "stopAngled": "explosive_non_penetration_angled"
     },
     "hesh": {
       "bullets": "hesh_tank",
@@ -166,7 +174,7 @@
       "stop": "explosive_non_penetration",
       "ricochet": "kinetic_ricochet",
       "pierceAngled": "kinetic_discard_sabot_penetration_angled",
-      "stopAngled": "kinetic_discard_sabot_non_penetration_angled"
+      "stopAngled": "kinetic_discard_sabot_penetration_angled"
     },
     "smoke": {
       "bullets": "smoke_tank, smoke_grenade_tank",
@@ -174,7 +182,7 @@
       "stop": "explosive_non_penetration",
       "ricochet": "kinetic_ricochet",
       "pierceAngled": "kinetic_discard_sabot_penetration_angled",
-      "stopAngled": "kinetic_discard_sabot_non_penetration_angled"
+      "stopAngled": "kinetic_discard_sabot_penetration_angled"
     },
     "heat": {
       "bullets": "atgm_tank, atgm_tandem_tank, heat_fs_tank, heat_grenade_tank, heat_tank",
@@ -1739,7 +1747,6 @@
     "hesh_tank": {
       "normalizationPreset": "heat",
       "ricochetPreset": "hesh",
-      "slopeEffectPreset": "hesh",
       "stabilityThreshold": 0.1,
       "stabilityCaliberToArmorThreshold": 10.0,
       "stabilityReductionAfterRicochet": 0.3,
@@ -1768,7 +1775,6 @@
     "hesh_tank_rr": {
       "normalizationPreset": "heat",
       "ricochetPreset": "hesh",
-      "slopeEffectPreset": "hesh",
       "stabilityThreshold": 0.1,
       "stabilityCaliberToArmorThreshold": 10.0,
       "stabilityReductionAfterRicochet": 0.3,

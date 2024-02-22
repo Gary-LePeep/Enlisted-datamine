@@ -1,11 +1,10 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
 let shopItemClick = require("%enlist/shop/shopItemClick.nut")
 let isChineseVersion = require("%enlSqGlob/isChineseVersion.nut")
 let { fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { utf8ToUpper } = require("%sqstd/string.nut")
-let { doesLocTextExist } = require("dagor.localize")
 let { eventsData, eventsKeysSorted, allActiveOffers } = require("offersState.nut")
 let { taskSlotPadding } = require("%enlSqGlob/ui/tasksPkg.nut")
 let offersWindow = require("offersWindow.nut")
@@ -80,7 +79,7 @@ let goToNextOffer = function() {
 
 let isDebugShowPermission = hasClientPermission("debug_shop_show")
 
-let function startSwitchTimer(_ = null) {
+function startSwitchTimer(_ = null) {
   anim_skip(curLargeWidgetIdx.value)
   gui_scene.clearTimer(goToNextOffer)
   if (offers > 1 && switchTime.value > 0) {
@@ -182,7 +181,7 @@ let mkSmallInfo = @(nameTxt, override = {}) {
 }.__update(override)
 
 
-let function mkSmallOfferInfo(endTime, txt, discount, guid, anim) {
+function mkSmallOfferInfo(endTime, txt, discount, guid, anim) {
   if (guid not in displayedOffers) {
     displayedOffers[guid] <- true
     sendBigQueryUIEvent("display_offer", null, {
@@ -205,7 +204,7 @@ let function mkSmallOfferInfo(endTime, txt, discount, guid, anim) {
 }
 
 
-let function mkOfferInfo(endTime, txt, discount, guid, sf, anim) {
+function mkOfferInfo(endTime, txt, discount, guid, sf, anim) {
   let timerObject = endTime <= 0 ? null
     : {
       pos = [0, -widgetHeightDif]
@@ -356,7 +355,7 @@ let widgetData = freeze({
 
 let featuredSwitchTime = Watched(0)
 
-let function updateSwitchTime(...) {
+function updateSwitchTime(...) {
   let currentTs = serverTime.value
   let nextTime = shopItems.value.reduce(function(firstTs, item) {
     let { menuFeaturedIntervalTs = null } = item
@@ -373,26 +372,26 @@ let function updateSwitchTime(...) {
   featuredSwitchTime(currentTs)
 }
 
-let function onServerTime(t) {
+function onServerTime(t) {
   if (t <= 0)
     return
   serverTime.unsubscribe(callee())
   updateSwitchTime()
 }
 
-let function onOffersAttach() {
+function onOffersAttach() {
   serverTime.subscribe(onServerTime)
   shopItems.subscribe(updateSwitchTime)
 }
 
-let function onOffersDetach() {
+function onOffersDetach() {
   serverTime.unsubscribe(onServerTime)
   shopItems.unsubscribe(updateSwitchTime)
   foreach (v in [curLargeWidgetIdx, switchTime])
     v.unsubscribe(startSwitchTimer)
 }
 
-let function isFeaturedVisible(id, sItem, itemCount, itemsByTime, featuredByTime) {
+function isFeaturedVisible(id, sItem, itemCount, itemsByTime, featuredByTime) {
   let { isHidden = false, isHiddenOnChinese = false } = sItem
   if (isChineseVersion && isHiddenOnChinese)
     return false
@@ -402,7 +401,7 @@ let function isFeaturedVisible(id, sItem, itemCount, itemsByTime, featuredByTime
     || isTemporaryVisible(id, sItem, itemCount, featuredByTime)
 }
 
-let function mkWidgetList() {
+function mkWidgetList() {
   let { shownByTimestamp } = mkShopState()
 
   let shownFeaturedByTimestamp = Computed(function() {
@@ -437,12 +436,13 @@ let function mkWidgetList() {
         && isShopItemAvailable(sItem, squadsById, purchases, debugPermission, notFreemium)
     }).values()
     .reduce(function(res, val) {
+      let valIntervalLen = (val?.menuFeaturedIntervalTs ?? []).len()
+      let resIntervalLen = (res?.menuFeaturedIntervalTs ?? []).len()
+      let valIntervalWeight = valIntervalLen == 2 ? 20000 : valIntervalLen == 1 ? 10000 : 0
+      let resIntervalWeight = resIntervalLen == 2 ? 20000 : resIntervalLen == 1 ? 10000 : 0
       let valWeight = val?.menuFeaturedWeight ?? 0
       let resWeight = res?.menuFeaturedWeight ?? 0
-      let hasValTx = (val?.menuFeaturedIntervalTs ?? []).len() == 2
-      let hasResTs = (res?.menuFeaturedIntervalTs ?? []).len() == 2
-      return (hasValTx && (!hasResTs || valWeight > resWeight))
-        || (!hasResTs && valWeight > resWeight) ? val : res
+      return valIntervalWeight + valWeight > resIntervalWeight + resWeight ? val : res
     })
   })
 
@@ -464,13 +464,16 @@ let function mkWidgetList() {
       })
 
     if (hasBaseEvent.value && eventsKeysSorted.value.len() < MAX_WIDGETS - 1) {
-      let title = loc(doesLocTextExist(promotedEvent.value?.locId ?? "")
-        ? promotedEvent.value.locId
-        : "events_and_custom_matches")
+      local { locId = "events_and_custom_matches", title = "", queues = [] } = promotedEvent.value
+      let queue = queues?[0]
+      if (title == "")
+        title = loc(locId)
+      let { queueId = "" } = queue
+      let { image = defOfferImg } = queue?.extraParams
       list.append({
         widgetType = WidgetType.EVENT_BASE
-        data = { text = utf8ToUpper(title), queueId = promotedEvent.value?.queueId ?? "" }
-        backImage = promotedEvent.value?.extraParams.image ?? defOfferImg
+        data = { text = utf8ToUpper(title), queueId }
+        backImage = image
       })
     }
 
@@ -547,7 +550,7 @@ let contentImgAnim = {
 }
 
 
-let function mkSmallWidget(content, idx, oldIdx, curIdx) {
+function mkSmallWidget(content, idx, oldIdx, curIdx) {
   if (content == null)
     return null
 
@@ -611,7 +614,7 @@ let animations0 = freeze([
 ])
 
 
-let function mkLargeWidget(content, idx, oldIdx) {
+function mkLargeWidget(content, idx, oldIdx) {
   if (content == null)
     return null
 
@@ -665,7 +668,7 @@ let function mkLargeWidget(content, idx, oldIdx) {
 }
 
 
-let function mkOffersPromoWidget(isExpandLocked) {
+function mkOffersPromoWidget(isExpandLocked) {
   let widgetList = mkWidgetList()
   let watch = [widgetList, curLargeWidgetIdx, isExpandLocked]
   return function() {

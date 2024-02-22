@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { mkOnlineSaveData } = require("%enlSqGlob/mkOnlineSaveData.nut")
 let { levelTimeOfDay, changeDayTime, changeCameraFov, cameraFov, isRain, isSnow,
@@ -162,7 +162,7 @@ let replayPresets = Computed(function() {
 })
 
 
-let function savePreset() {
+function savePreset() {
   let saved = clone savedReplayPresetsStored.value
   let data = {}
   let presetNumber = savedReplaysCountStored.value + 1
@@ -181,7 +181,7 @@ let function savePreset() {
 }
 
 
-let function loadPreset(presetIdx) {
+function loadPreset(presetIdx) {
   cachedSettings = {}
   let presetValues = replayPresets.value?[presetIdx].val ?? {}
   presetValues.each(function(v, key){
@@ -191,7 +191,7 @@ let function loadPreset(presetIdx) {
 }
 
 
-let function saveToCurrentPreset(presetIdx) {
+function saveToCurrentPreset(presetIdx) {
   if (lastChoosenPreset.value == null)
     return
   let { pNumber = -1 } = replayPresets.value?[presetIdx].val
@@ -208,7 +208,7 @@ let function saveToCurrentPreset(presetIdx) {
   savedReplayPresets.setValue(saved)
 }
 
-let function deletePreset(presetIdx) {
+function deletePreset(presetIdx) {
   msgbox.show({
     uid = MSG_UID
     text = loc("replay/deletePresetConfirm", { preset = replayPresets.value[presetIdx].loc })
@@ -217,7 +217,7 @@ let function deletePreset(presetIdx) {
         action = function() {
           let saved = clone savedReplayPresetsStored.value
           let presetToDelete = $"preset{replayPresets.value[presetIdx].val.pNumber}"
-          delete saved[presetToDelete]
+          saved.$rawdelete(presetToDelete)
           savedReplayPresets.setValue(saved)
           lastChoosenPreset(null)
         }
@@ -232,7 +232,7 @@ let function deletePreset(presetIdx) {
 
 lastChoosenPreset.subscribe(@(v) loadPreset(v))
 
-let function resetHudSettings() {
+function resetHudSettings() {
   showSelfAwards(true)
   showTeammateName(true)
   showTeammateMarkers(true)
@@ -248,12 +248,12 @@ if (isReplay.value && !isHudSettingsEnable.value)
   resetHudSettings()
 
 local defaultSettings = {}
-let function saveDefaultSettings() {
+function saveDefaultSettings() {
   if (defaultSettings.len() <= 0)
     defaultSettings = replaySettings.map(@(v) v.watch.value)
 }
 
-let function restoreDefaultSettings() {
+function restoreDefaultSettings() {
   isCinematicModeActive(false)
   replaySettings.each(@(setup, key) key in defaultSettings
     ? setup.action(defaultSettings[key])

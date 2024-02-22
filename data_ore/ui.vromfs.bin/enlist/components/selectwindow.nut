@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 from "%sqstd/underscore.nut" import chunk
 
@@ -10,8 +10,8 @@ let {dtext} = require("%ui/components/text.nut")
 
 let hvrCl = Color(0,0,0)
 let nrmClr = Color(180,180,180)
-let function mkSelectBtn(name, opt, state, close=null) {
-  let function onClick() {
+function mkSelectBtn(name, opt, state, close=null) {
+  function onClick() {
     state(opt)
     close?()
   }
@@ -99,7 +99,7 @@ let mkSelectWindow = kwarg(function(
   )
 })
 
-let function mkOpenSelectWindowBtn(state, title, openMenu, mkTxt = @(v) v){
+function mkOpenSelectWindowBtn(state, title, openMenu, mkTxt = @(v) v){
   return @() {
     watch = state
     flow = FLOW_HORIZONTAL

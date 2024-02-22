@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { localPlayerEid, localPlayerTeam } = require("%ui/hud/state/local_player.nut")
 let is_teams_friendly = require("%enlSqGlob/is_teams_friendly.nut")

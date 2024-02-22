@@ -2,9 +2,10 @@ require ecs
 require game.es.events
 require game.es.vehicle.vehicle_seats_common
 require game.es.vehicle.vehicle_events
+require enlisted.events_enlisted
 
 [es(no_order)]
-def exit_vehicle_timer_es(info : UpdateStageInfoAct;
+def exit_vehicle_timer_es(info : ParallelUpdateFrameDelayed;
                           eid : EntityId;
                           possessedByPlr : EntityId;
                           human_anim__vehicleSelected : EntityId;

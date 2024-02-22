@@ -1310,8 +1310,8 @@
     "entity": {
       "_template": "team_pacific_axis+team_narrator_destruction_attack+respawn_creators_team",
       "team__memberCount": 0.0,
-      "team__scoreCap": 2100.0,
-      "team__score": 2100.0,
+      "team__scoreCap": 2000.0,
+      "team__score": 2000.0,
       "team__squadSpawnCost": 250,
       "team__firstSpawnCostMul": 0.0,
       "team__zeroScoreFailTimer": 60.0,
@@ -1400,13 +1400,12 @@
       "capzone__capRewardPartCap": 1.8,
       "capzone__mustBeCapturedByTeam": 2,
       "groupName": "sector_1",
-      "capzone__timeToPlant": 30.0,
-      "capzone__timeToResetPlant": 20.0,
-      "capzone__timeToDefuse": 20.0,
-      "capzone__timeToExplosion": 45.0,
+      "capzone__timeToPlant": 20.0,
+      "capzone__timeToDefuse": 30.0,
+      "capzone__timeToExplosion": 40.0,
       "active": false,
       "ui_order": 1,
-      "capzone__capReward": 750.0,
+      "capzone__capReward": 500.0,
       "capzone__caption": "capzone/warehouse",
       "capzone__checkAllZonesInGroup": true,
       "capzone__deactivateAfterTimeout": 25.0,
@@ -1441,13 +1440,12 @@
       "capzone__capRewardPartCap": 1.8,
       "capzone__mustBeCapturedByTeam": 2,
       "groupName": "sector_1",
-      "capzone__timeToPlant": 30.0,
-      "capzone__timeToResetPlant": 20.0,
-      "capzone__timeToDefuse": 20.0,
-      "capzone__timeToExplosion": 45.0,
+      "capzone__timeToPlant": 20.0,
+      "capzone__timeToDefuse": 30.0,
+      "capzone__timeToExplosion": 40.0,
       "active": false,
       "ui_order": 1,
-      "capzone__capReward": 750.0,
+      "capzone__capReward": 500.0,
       "capzone__caption": "capzone/warehouse",
       "capzone__checkAllZonesInGroup": true,
       "capzone__deactivateAfterTimeout": 25.0,
@@ -1480,17 +1478,16 @@
         [202.835,3.41452,-367.518]
       ],
       "groupName": "sector_2",
-      "capzone__timeToPlant": 30.0,
-      "capzone__timeToResetPlant": 20.0,
-      "capzone__timeToDefuse": 20.0,
-      "capzone__timeToExplosion": 45.0,
+      "capzone__timeToPlant": 20.0,
+      "capzone__timeToDefuse": 30.0,
+      "capzone__timeToExplosion": 40.0,
       "capzone__capRewardPartCap": 1.8,
       "capzone__mustBeCapturedByTeam": 2,
       "capzone__caption": "capzone/barracks",
       "active": false,
       "ui_order": 1,
       "capzone__owningTeam": 1,
-      "capzone__capReward": 750.0,
+      "capzone__capReward": 500.0,
       "capzone__checkAllZonesInGroup": true,
       "capzone__deactivateAfterTimeout": 25.0,
       "capzone__spawnAtZoneTimeout": 25.0,
@@ -1529,16 +1526,13 @@
         "groupName": "sector_2"
       },
       {
-        "capzone__timeToPlant": 30.0
+        "capzone__timeToPlant": 20.0
       },
       {
-        "capzone__timeToResetPlant": 20.0
+        "capzone__timeToDefuse": 30.0
       },
       {
-        "capzone__timeToDefuse": 20.0
-      },
-      {
-        "capzone__timeToExplosion": 45.0
+        "capzone__timeToExplosion": 40.0
       },
       {
         "capzone__capRewardPartCap": 1.8
@@ -1559,7 +1553,7 @@
         "capzone__owningTeam": 1
       },
       {
-        "capzone__capReward": 750.0
+        "capzone__capReward": 500.0
       },
       {
         "capzone__checkAllZonesInGroup": true
@@ -1626,16 +1620,13 @@
         "groupName": "sector_3"
       },
       {
-        "capzone__timeToPlant": 30.0
+        "capzone__timeToPlant": 20.0
       },
       {
-        "capzone__timeToResetPlant": 20.0
+        "capzone__timeToDefuse": 30.0
       },
       {
-        "capzone__timeToDefuse": 20.0
-      },
-      {
-        "capzone__timeToExplosion": 45.0
+        "capzone__timeToExplosion": 40.0
       },
       {
         "capzone__capRewardPartCap": 1.8
@@ -1656,7 +1647,7 @@
         "capzone__owningTeam": 1
       },
       {
-        "capzone__capReward": 750.0
+        "capzone__capReward": 500.0
       },
       {
         "capzone__checkAllZonesInGroup": true

@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let shopItemClick = require("shopItemClick.nut")
 let viewShopItemsScene = require("viewShopItemsScene.nut")
@@ -119,7 +119,7 @@ let unseenGuids = function(goods, unseenVal) {
   return res
 }
 
-let function buildShopUi() {
+function buildShopUi() {
   let {
     curShopItemsByGroup,
     curShopDataByGroup,
@@ -130,7 +130,7 @@ let function buildShopUi() {
 
   let switchGroupKey = mkHotkey("X | J:X", switchGroup)
 
-  let function shopNavigationUi() {
+  function shopNavigationUi() {
     let dataByGroup = curShopDataByGroup.value
     return {
       watch = [curShopItemsByGroup, curShopDataByGroup, curGroupIdx, isGamepad]
@@ -170,7 +170,7 @@ let function buildShopUi() {
     }
   }
 
-  let function shopItemAction(sItem, content, isLocked) {
+  function shopItemAction(sItem, content, isLocked) {
     let { items = {} } = content
     if (items.len() > 0 && !sItem?.isStarterPack && isLocked) {
       viewShopItemsScene(sItem)
@@ -180,7 +180,7 @@ let function buildShopUi() {
     shopItemClick(sItem)
   }
 
-  let function mkShopItemCard(
+  function mkShopItemCard(
     sItem, idx, offers, army, growths, grTiers, cb, isFeatured = false, isNarrow = false
   ) {
     if (sItem == null)
@@ -284,7 +284,7 @@ let function buildShopUi() {
     offersByShopItem, curArmyData, curGrowthState, curGrowthProgress
   ])
 
-  let function contentUi() {
+  function contentUi() {
     let res = {
       watch
       xmbNode = XmbContainer({

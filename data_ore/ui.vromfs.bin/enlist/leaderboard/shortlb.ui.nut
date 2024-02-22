@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { defTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
@@ -64,7 +64,7 @@ let dotsRow = {
   text = "..."
 }
 
-let function shortEventLb() {
+function shortEventLb() {
   let lbCategories = lbSelCategories.value.short
   local children = null
   local valign = ALIGN_CENTER

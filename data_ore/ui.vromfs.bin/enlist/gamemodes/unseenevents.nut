@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { settings, onlineSettingUpdated } = require("%enlist/options/onlineSettings.nut")
 let { eventGameModes } = require("eventModesState.nut")
@@ -21,7 +21,7 @@ let unseenEvents = Computed(function() {
   return curEventsQueueId.value.filter(@(id) id not in seen.value)
 })
 
-let function markSeenEvent(queueId) {
+function markSeenEvent(queueId) {
   if (!onlineSettingUpdated.value || queueId == null)
     return
 
@@ -33,7 +33,7 @@ let function markSeenEvent(queueId) {
   })
 }
 
-let function checkSavedEvents(events) {
+function checkSavedEvents(events) {
   if (!onlineSettingUpdated.value)
     return
 
@@ -50,7 +50,7 @@ let function checkSavedEvents(events) {
   })
 }
 
-let function markAllSeenEvents () {
+function markAllSeenEvents () {
   if (!onlineSettingUpdated.value)
     return
 
@@ -70,7 +70,7 @@ curEventsQueueId.subscribe(checkSavedEvents)
 console_register_command(function() {
   settings.mutate(function(s) {
     if (SEEN_ID in s)
-      delete s[SEEN_ID]
+      s.$rawdelete(SEEN_ID)
   })
 }, "events.resetSeenEvents")
 

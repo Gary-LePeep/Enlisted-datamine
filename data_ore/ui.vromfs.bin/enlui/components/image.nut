@@ -1,6 +1,6 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
-local function image(val, params={}, addchildren = null) {
+function image(val, params={}, addchildren = null) {
 
   local children = params?.children
   if (children && type(children) !="array")

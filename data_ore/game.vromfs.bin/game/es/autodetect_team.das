@@ -38,6 +38,7 @@ def vehicle_restrict_to_team_seat_owner_death(evt : Event; human_anim__vehicleSe
 def autodetect_team(evt : Event;
                     vehicle_seats__restrictToTeam : int;
                     vehicle_seats__autoDetectRestrictToTeam : bool;
+                    squad_vehicle__canChangeTeam : Tag const?;
                     var team : int&)
-  if vehicle_seats__autoDetectRestrictToTeam
+  if vehicle_seats__autoDetectRestrictToTeam && !(squad_vehicle__canChangeTeam != null && vehicle_seats__restrictToTeam == TEAM_UNASSIGNED)
     team = vehicle_seats__restrictToTeam

@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { curSectionDetails } = require("%enlist/mainMenu/sectionsState.nut")
 let { addScene, removeScene } = require("%enlist/navState.nut")
@@ -9,7 +9,7 @@ let curCamera = Computed(@() (cameras.value.len() ? cameras.value.top() : null)
   ?? curSectionDetails.value?.camera
   ?? "soldiers")
 
-let function sceneWithCameraAdd(content, camera) {
+function sceneWithCameraAdd(content, camera) {
   addScene(content)
   let idx = cameras.value.indexof(sceneToCamera?[content])
   sceneToCamera[content] <- camera
@@ -20,11 +20,11 @@ let function sceneWithCameraAdd(content, camera) {
   })
 }
 
-let function sceneWithCameraRemove(content) {
+function sceneWithCameraRemove(content) {
   removeScene(content)
   let idx = cameras.value.indexof(sceneToCamera?[content])
   if (idx != null) {
-    delete sceneToCamera[content]
+    sceneToCamera.$rawdelete(content)
     cameras.mutate(@(v) v.remove(idx))
   }
 }

@@ -1,0 +1,287 @@
+module human_steps_sound_common shared
+
+require ecs
+require ecs.safe
+
+require math
+require math.base
+require DagorMath
+
+require PhysMat
+require HumanPhys
+require DngHuman
+require Dacoll
+require GridCollision
+require CollisionTraces
+require DagorSystem
+
+require soundEvent
+require soundSystem
+require sound_utils.modules.sound_player_common
+require sound_utils.modules.sound_physmat_common
+
+
+let INVALID_IRQ_OBJ_IDX = -1
+
+
+def is_faraway_step(is_watched : bool; pos : float3; max_distance_sq : float; listener_pos : float3) : bool
+  return !is_watched && length_sq(listener_pos - pos) > max_distance_sq
+
+
+def read_state(state_flag : StateFlag; states : int) : bool
+  return (states & int(state_flag)) != 0
+
+
+def private is_on_lmesh(pos : float3; threshold = 0.05)
+  let posXZ = pos.xz
+  let ground = traceht_lmesh(posXZ)
+  return pos.y < ground + threshold
+
+
+
+def trace_footstep(human_eid : EntityId;
+                   pos : float3;
+                   is_odd_step : bool;
+                   is_watched_sound : bool;
+                   trace_offset_len : float2;
+                   biome_pmid : int;
+                   biome_overrides_water : bool;
+                   puddle_depth : float;
+                   var step_material_id : float&;
+                   var step_water_depth : float&;
+                   var human_net_phys : HumanActor)
+
+  var pmid = PHYSMAT_INVALID
+
+  if is_watched_sound || is_odd_step
+
+    let from = float3(pos.x, pos.y + trace_offset_len.x, pos.z)
+    var len = trace_offset_len.y
+    if !tracedown_normalized(from, len, pmid, ETF_DEFAULT, human_net_phys.phys |> human_phys_getTraceHandle())
+      len = trace_offset_len.y
+      pmid = PHYSMAT_INVALID
+
+    trace_entities_in_grid(ecs_hash("vehicles"), from, float3(0., -1., 0.), len, human_eid, SortIntersections NO) <| $(intersections : array<IntersectedEntity>#)
+      for it in intersections
+        if it.t < len + FLT_EPSILON
+          len = it.t
+          pmid = PHYSMAT_INVALID
+          query(it.eid) <| $ [es] (material : string)
+            pmid = get_material_id(material)
+
+    step_water_depth = 0.
+    var water = 0.
+    if traceht_water(from, water) && pos.y < water
+      let posXZ = pos.xz
+      let ground = traceht_lmesh(posXZ)
+      let floor = max(from.y - len, ground)
+      step_water_depth = max(0., water - floor)
+
+  let isOnLMesh = is_on_lmesh(pos)
+  let waterDepth = isOnLMesh ? max(step_water_depth, puddle_depth) : step_water_depth
+  let isInWater = waterDepth > 0.
+  if isOnLMesh && biome_pmid != PHYSMAT_INVALID && (!isInWater || biome_overrides_water)
+    pmid = biome_pmid
+  elif isInWater
+    pmid = get_material_id("water")
+
+  if pmid == PHYSMAT_INVALID
+    pmid = get_material_id("default")
+
+  if pmid != PHYSMAT_INVALID
+    step_material_id = get_sound_step_material_id(pmid)
+
+
+
+def play_footstep(desc : Object;
+                  path : Object;
+                  sound_tags : Object;
+                  volume : float;
+
+                  human_eid : EntityId;
+                  pos : float3;
+                  is_odd_step : bool;
+                  is_watched_sound : bool;
+                  trace_offset_len : float2;
+                  biome_pmid : int;
+                  biome_overrides_water : bool;
+                  puddle_depth : float;
+                  var step_material_id : float&;
+                  var step_water_depth : float&;
+                  var human_net_phys : HumanActor)
+
+  trace_footstep(human_eid,
+                 pos,
+                 is_odd_step,
+                 is_watched_sound,
+                 trace_offset_len,
+                 biome_pmid,
+                 biome_overrides_water,
+                 puddle_depth,
+                 step_material_id,
+                 step_water_depth,
+                 human_net_phys)
+
+  if step_material_id >= 0.
+    var pathStr : string
+    if sound_player_common::get_option_path(path, sound_tags, is_watched_sound, pathStr)
+      var handle = sound_player_common::play_desc_path(desc, apply_watched_prefix(pathStr, is_watched_sound), pos, false)
+      if step_water_depth > 0.
+        set_var(handle, "depth", step_water_depth)
+      if read_sound_tag("armored", sound_tags)
+        set_var(handle, "armored", 1.)
+      set_volume(handle, volume)
+      set_var(handle, "mat", step_material_id)
+      abandon(handle)
+
+
+
+
+def get_desc_id_from_human_state(move_state : HUMoveState; stand_state : HUStandState; irqs : Array) : int
+
+  let name = ((stand_state == HUStandState ESS_CROUCH) ? "step" :
+             (stand_state == HUStandState ESS_CRAWL) ? "crawl" :
+             (move_state == HUMoveState EMS_SPRINT) ? "sprint" :
+             (move_state == HUMoveState EMS_RUN) ? "run" :
+             "step")
+
+  for it, idx in irqs, range(length(irqs))
+    if ((it as Object)?.name ?? "") == name
+      return idx
+
+  sound_debug("desc with name {name} not in irqs")
+
+  return INVALID_IRQ_OBJ_IDX
+
+
+
+def use_generator(enable_for_visible, enable_for_invisible, updatable, visible : bool; move_state : HUMoveState; stand_state : HUStandState)
+
+  if move_state == HUMoveState EMS_ROTATE_LEFT || move_state == HUMoveState EMS_ROTATE_RIGHT || stand_state == HUStandState ESS_CRAWL
+    return false
+
+  if (!updatable || !visible) && enable_for_invisible
+    return true
+
+  return (move_state == HUMoveState EMS_SPRINT || move_state == HUMoveState EMS_RUN) && enable_for_visible
+
+
+
+def human_steps_sound_generator(irq_obj_idx : int;
+                                cur_time : float;
+                                dt : float;
+                                listener : float3;
+                                pos : float3;
+
+                                is_watched_sound : bool;
+                                faraway_threshold_sq : float;
+
+                                is_on_ground : bool;
+                                is_climbing : bool;
+                                human_net_phys : HumanActor;
+
+                                animchar__animSpeed : float;
+                                animchar__updatable : bool;
+                                animchar__visible : bool;
+
+                                var last_step_at : float&;
+                                var cooldown : float&;
+
+                                walkRunSprint_stand_intervals : float3;
+                                walkRunSprint_crouch_intervals : float3;
+
+                                enable_for_visible : bool;
+                                enable_for_invisible : bool;
+
+                                [[shared_comp]] irqs : Array) : int
+
+  let moveState = human_net_phys.phys.currentState.moveState
+  let standState = human_net_phys.phys.currentState.standState
+
+  let useGenerator = use_generator(enable_for_visible, enable_for_invisible, animchar__updatable, animchar__visible, moveState, standState) && animchar__animSpeed > VERY_SMALL_NUMBER
+
+  if moveState == HUMoveState EMS_STAND || standState == HUStandState ESS_DOWNED || !is_on_ground || is_climbing
+    cooldown = min(cooldown + dt, 1.)
+    return INVALID_IRQ_OBJ_IDX
+
+  cooldown = max(0., cooldown - dt)
+
+  if irq_obj_idx == INVALID_IRQ_OBJ_IDX && !useGenerator
+    return INVALID_IRQ_OBJ_IDX
+
+  if is_faraway_step(is_watched_sound, pos, faraway_threshold_sq, listener)
+    return INVALID_IRQ_OBJ_IDX
+
+  if useGenerator
+
+    let intervals = (standState == HUStandState ESS_CROUCH ? walkRunSprint_crouch_intervals : walkRunSprint_stand_intervals)
+    //var intervals = (standState == HUStandState ESS_CROUCH ? walkRunSprint_crouch_intervals : walkRunSprint_stand_intervals)
+    //intervals = float3(1.15, 1.1, 1.7)
+
+    let interval = safediv((moveState == HUMoveState EMS_SPRINT) ? intervals.z : (moveState == HUMoveState EMS_RUN) ? intervals.y : intervals.x, animchar__animSpeed)
+    cooldown = min(cooldown, interval * 0.5)
+
+    if cur_time >= last_step_at + interval
+      last_step_at = cur_time
+      if cooldown != 0.
+        return INVALID_IRQ_OBJ_IDX
+      //logerr("[GENERATOR] moveState={moveState}  standState={standState} interval={interval * animchar__animSpeed} animSpeed={animchar__animSpeed} curTime={cur_time}")
+      return get_desc_id_from_human_state(moveState, standState, irqs)
+
+  elif irq_obj_idx != INVALID_IRQ_OBJ_IDX
+
+    let irqCooldown = 0.2
+    if (cur_time - last_step_at) * animchar__animSpeed >= irqCooldown
+      last_step_at = cur_time
+      //logerr("[IRQ] stepDt={cur_time - last_step_at} animSpeed={animchar__animSpeed} moveState={moveState}  standState={standState}")
+      return irq_obj_idx
+
+  return INVALID_IRQ_OBJ_IDX
+
+
+def human_steps_sound_update_states(cur_time : float;
+                                    listener : float3;
+                                    pos : float3;
+                                    is_watched_sound : bool;
+                                    faraway_threshold_sq : float;
+                                    human_net_phys__states : int;
+                                    var human_steps_sound__physStates : int&;
+                                    var human_steps_sound__lastTimeOnGround : float&)
+
+  if human_steps_sound__physStates < 0
+    human_steps_sound__physStates = human_net_phys__states
+  let raisedStates = human_net_phys__states & ~human_steps_sound__physStates
+  let clearedStates = human_steps_sound__physStates & ~human_net_phys__states
+  human_steps_sound__physStates = human_net_phys__states
+
+  if read_state(StateFlag ST_ON_GROUND, clearedStates)
+    human_steps_sound__lastTimeOnGround = cur_time
+
+  if (raisedStates | clearedStates) == 0
+    return ""
+
+  if is_faraway_step(is_watched_sound, pos, faraway_threshold_sq, listener)
+    return ""
+
+  if read_state(StateFlag ST_JUMP, raisedStates)
+    return "jump"
+
+  elif read_state(StateFlag ST_ON_GROUND, raisedStates)
+    return "land"
+
+  elif read_state(StateFlag ST_SWIM, raisedStates)
+    if !read_state(StateFlag ST_ON_GROUND, human_net_phys__states)
+      return "land"
+  elif read_state(StateFlag ST_CROUCH, raisedStates)
+    return "downKnee"
+  elif read_state(StateFlag ST_CROUCH, clearedStates)
+    return "upKnee"
+  elif read_state(StateFlag ST_DOWNED, raisedStates)
+    return "downKnee"
+  elif read_state(StateFlag ST_DOWNED, clearedStates)
+    return "upKnee"
+  elif read_state(StateFlag ST_CRAWL, raisedStates)
+    return "downGround"
+  elif read_state(StateFlag ST_CRAWL, clearedStates)
+    return "upGround"
+  return ""

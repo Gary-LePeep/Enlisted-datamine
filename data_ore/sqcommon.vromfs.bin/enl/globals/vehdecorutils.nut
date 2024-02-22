@@ -11,7 +11,7 @@ const VERSION = 0
 //const ZERO_CHAR_CODE = 48
 //const POINT_CHAR_CODE = 46
 
-let function cutOffRightZeros(str) {
+function cutOffRightZeros(str) {
   let dotIdx = str.indexof(".")
   if (dotIdx == null)
     return str
@@ -46,14 +46,14 @@ let stringToBool = @(str) str == "1" ? true : false
 
 let stringToFloat = @(str) isStringFloat(str) ? str.tofloat() : 0.0
 
-let function stringToPoint3(str) {
+function stringToPoint3(str) {
   let strData = str.split(",")
   return Point3(stringToFloat(strData?[0] ?? "0"),
     stringToFloat(strData?[1] ?? "0"),
     stringToFloat(strData?[2] ?? "0"))
 }
 
-let function stringToPoint4(str) {
+function stringToPoint4(str) {
   let strData = str.split(",")
   return Point4(stringToFloat(strData?[0] ?? "0"),
     stringToFloat(strData?[1] ?? "0"),
@@ -64,7 +64,7 @@ let function stringToPoint4(str) {
 let matrixToString = @(v) !(v instanceof TMatrix) ? ""
   : "?".concat(point3ToString(v[0]), point3ToString(v[1]), point3ToString(v[2]), point3ToString(v[3]))
 
-let function stringToMatrix(str) {
+function stringToMatrix(str) {
   let strData = str.split("?")
   let tm = TMatrix()
   for(local i = 0; i < 4; ++i)
@@ -113,7 +113,7 @@ let decalToString = @(decal, cType) "{0}:{1}"
     .map(@(data) data.encode(decal?[data.key]) ?? "")
   ))
 
-let function stringToDecal(decalStr, cType, textureName = "", slot = -1) {
+function stringToDecal(decalStr, cType, textureName = "", slot = -1) {
   let baseList = decalStr.split(":")
   if (baseList.len() != 2)
     return logerr($"Wrong decor save format")
@@ -135,7 +135,7 @@ let function stringToDecal(decalStr, cType, textureName = "", slot = -1) {
   return decal.__update({ textureName, slot })
 }
 
-let function decalToCompObject(decal) {
+function decalToCompObject(decal) {
   let decalCompObject = ecs.CompObject()
   foreach (key, val in decal)
     decalCompObject[key] <- val
@@ -144,7 +144,7 @@ let function decalToCompObject(decal) {
 }
 
 
-let function getTemplateByName(templateName) {
+function getTemplateByName(templateName) {
   if (templateName == null)
     return null
 
@@ -152,7 +152,7 @@ let function getTemplateByName(templateName) {
   return DB.getTemplateByName(templateName)
 }
 
-let function getBaseVehicleSkin(templateName) {
+function getBaseVehicleSkin(templateName) {
   if (templateName == null)
     return null
 
@@ -161,7 +161,7 @@ let function getBaseVehicleSkin(templateName) {
     : vehTemplate.getCompValNullable("animchar__objTexReplace")?.getAll()
 }
 
-let function getVehSkins(templateName) {
+function getVehSkins(templateName) {
   if (templateName == null)
     return []
 

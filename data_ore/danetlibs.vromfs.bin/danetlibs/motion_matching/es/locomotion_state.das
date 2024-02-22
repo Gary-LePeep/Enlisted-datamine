@@ -11,8 +11,7 @@ def motion_matching_locomotion_state(act : ParallelUpdateFrameDelayed;
                                      human_net_phys : HumanActor;
                                      human_anim__isFpvVarId : int;
                                      phys_vars : PhysVars;
-                                     motion_matching__controller : MotionMatchingController;
-                                     var motion_matching__goalTags : StringList;
+                                     var motion_matching__controller : MotionMatchingController&;
                                      var motion_matching__afterSprintTime : float&;
                                      var motion_matching__enabled : bool&;
                                      motion_matching__enableInFpv : bool = false;
@@ -29,7 +28,10 @@ def motion_matching_locomotion_state(act : ParallelUpdateFrameDelayed;
   // we have special sprint animations for fpv mode, but they are not ready to be used in MM
   if phys_vars |> getVar(human_anim__isFpvVarId) > 0f
     motion_matching__enabled &&= motion_matching__enableInFpv
-  set_tag(motion_matching__goalTags, isSprinting, "sprint")
+  if isSprinting
+    set_tag(motion_matching__controller, "sprint", true)
+  else
+    remove_tag(motion_matching__controller, "sprint")
 
 [es(tag=gameClient)]
 def motion_matching_set_wish_speed(act : ParallelUpdateFrameDelayed;

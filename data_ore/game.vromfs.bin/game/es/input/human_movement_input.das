@@ -72,12 +72,17 @@ def update_walk_dir(var actor : HumanActor&;
                     strafe : double = 0.0lf)
   actor.phys.producedCT |> human_control_state_set_walk_dir(float2(move, -strafe))
 
+
+struct HumanInput
+  aim : int
+  aimDelta : int
+  look : int
+  move : int
+  sprint : int
+
+
 def update_movement(dt : float;
-                    human_input__aim : int;
-                    human_input__aimDelta : int;
-                    human_input__look : int;
-                    human_input__move : int;
-                    human_input__sprint : int;
+                    human_input : HumanInput;
                     human_input__perspWk : float;
                     human_input__forceLookMode : bool;
                     human_input__blockLookModeCounter : int;
@@ -101,10 +106,10 @@ def update_movement(dt : float;
                     var human_input__lookAngle : float2&)
 
   if need_update_look_dir
-    let inputDotAim = vehicle_input__aim != null ? *vehicle_input__aim : human_input__aim
+    let inputDotAim = vehicle_input__aim != null ? *vehicle_input__aim : human_input.aim
     let asAim = get_analog_stick_action_state(uint16(inputDotAim))
-    let asLook = get_analog_stick_action_state(uint16(human_input__look))
-    let touchAim = get_stick_value(uint16(human_input__aim))
+    let asLook = get_analog_stick_action_state(uint16(human_input.look))
+    let touchAim = get_stick_value(uint16(human_input.aim))
 
     var ax = asAim.bActive ? clamp(double(asAim.x + touchAim.x), -1.0lf, 1.0lf) : 0.0lf
     var ay = asAim.bActive ? clamp(double(asAim.y + touchAim.y), -1.0lf, 1.0lf) : 0.0lf
@@ -127,7 +132,7 @@ def update_movement(dt : float;
     ay *= sensMult
 
     // Aim delta
-    let asAimDelta = get_analog_stick_action_state(uint16(human_input__aimDelta))
+    let asAimDelta = get_analog_stick_action_state(uint16(human_input.aimDelta))
     if asAimDelta.bActive && human_input__isGyroAimEnabled
       ax += double(asAimDelta.x)
       ay += double(asAimDelta.y)
@@ -176,8 +181,8 @@ def update_movement(dt : float;
   var strafe = 0.0lf
   var move = 0.0lf
   if need_update_walk_dir
-    let asMove = get_analog_stick_action_state(uint16(human_input__move))
-    let touchMove = get_stick_value(uint16(human_input__move))
+    let asMove = get_analog_stick_action_state(uint16(human_input.move))
+    let touchMove = get_stick_value(uint16(human_input.move))
     move = clamp(double(asMove.y + touchMove.y), -1.0lf, 1.0lf)
     strafe = clamp(double(asMove.x + touchMove.x), -1.0lf, 1.0lf)
 
@@ -185,7 +190,7 @@ def update_movement(dt : float;
 
   if (abs(move) + abs(strafe) < double(human_input__resetSprintMovementThreshold) ||
       move < double(human_input__resetSprintMoveThreshold))
-    reset_digital_action_sticky_toggle(uint16(human_input__sprint))
+    reset_digital_action_sticky_toggle(uint16(human_input.sprint))
 
 
 def apply_human_input_tm(human_input__perspWk : float;
@@ -249,9 +254,16 @@ def fix_changed_hero_input(dt : float;
 
   human_input__standState = isCrawl ? int(HumanPhysControlType HCT_CRAWL) : isCrouch ? int(HumanPhysControlType HCT_CROUCH) : 0
 
-  update_movement(dt, human_input__aim, human_input__aimDelta,
-                  human_input__look, human_input__move,
-                  human_input__sprint, human_input__perspWk,
+  let humanInput = [[HumanInput
+    aim = human_input__aim,
+    aimDelta = human_input__aimDelta,
+    look = human_input__look,
+    move = human_input__move,
+    sprint = human_input__sprint]]
+
+  update_movement(dt,
+                  humanInput,
+                  human_input__perspWk,
                   human_input__forceLookMode,
                   human_input__blockLookModeCounter,
                   human_input__isGyroAimEnabled,
@@ -491,9 +503,17 @@ def human_input_es(info : UpdateStageUpdateInput;
                             is_action_active(uint16(human_input__look)) ||
                             human_input__currentVertLookAngleLimit != human_input__prevVertLookAngleLimit ||
                             human_input__currentLookDirClamp != human_input__prevLookDirClamp)
-  update_movement(info.dt, human_input__aim, human_input__aimDelta,
-                  human_input__look, human_input__move,
-                  human_input__sprint, human_input__perspWk,
+
+  let humanInput = [[HumanInput
+    aim = human_input__aim,
+    aimDelta = human_input__aimDelta,
+    look = human_input__look,
+    move = human_input__move,
+    sprint = human_input__sprint]]
+
+  update_movement(info.dt,
+                  humanInput,
+                  human_input__perspWk,
                   human_input__forceLookMode,
                   human_input__blockLookModeCounter,
                   human_input__isGyroAimEnabled,

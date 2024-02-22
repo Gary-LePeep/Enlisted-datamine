@@ -1,13 +1,13 @@
-from "%enlSqGlob/ui_library.nut" import *
-
-let eventbus = require("eventbus")
+let { Watched } = require("frp")
+let { defer } = require("dagor.workcycle")
+let { eventbus_subscribe, eventbus_send } = require("eventbus")
 let { ndbWrite, ndbRead, ndbExists } = require("nestdb")
 
 let mkSaveDataKey = @(saveId) ["onlineSaveData", saveId]
 
 let onlineSaveDataCache = persist("onlineSaveDataCache", @() {})
 
-let function getOrMkSaveData(saveId, defValueFunc = @() null, validate=@(v) v){
+function getOrMkSaveData(saveId, defValueFunc = @() null, validate=@(v) v){
   if (saveId in onlineSaveDataCache)
     return onlineSaveDataCache[saveId]
   let key = mkSaveDataKey(saveId)
@@ -28,7 +28,7 @@ let function getOrMkSaveData(saveId, defValueFunc = @() null, validate=@(v) v){
   return watch
 }
 
-let function mkOnlineSaveData(saveId, defValueFunc = @() null, validateFunc = @(v) v) {
+function mkOnlineSaveData(saveId, defValueFunc = @() null, validateFunc = @(v) v) {
   let watch = getOrMkSaveData(saveId, defValueFunc)
 //  log("mkOnlineSaveData: init", saveId, watch.value)
   let update = function(value) {
@@ -37,7 +37,7 @@ let function mkOnlineSaveData(saveId, defValueFunc = @() null, validateFunc = @(
     watch(v)
   }
   watch.whiteListMutatorClosure(update)
-  eventbus.subscribe($"onlineData.changed.{saveId}", function(msg) {
+  eventbus_subscribe($"onlineData.changed.{saveId}", function(msg) {
 //    dlog($"mkOnlineSaveData: onlineData.changed.{saveId}", msg.value)
     defer(@() update(msg.value))
   })
@@ -46,7 +46,7 @@ let function mkOnlineSaveData(saveId, defValueFunc = @() null, validateFunc = @(
     watch
     setValue = function(value) {
 //      log("mkOnlineSaveData: setValue", saveId, value)
-      eventbus.send("onlineData.setValue", {saveId, value})
+      eventbus_send("onlineData.setValue", {saveId, value})
     }
   }
 }

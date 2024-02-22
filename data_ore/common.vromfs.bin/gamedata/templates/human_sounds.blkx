@@ -21,28 +21,6 @@
       "human_hit_sound__paths:shared:object": []
     }
   },
-  "base_human_steps_sound": {
-    "_use": "sound_landmesh_queries",
-    "_group": {
-      "_tags": "sound",
-      "human_steps_sound__lastTimeOnGround": 0.0,
-      "human_steps_sound__smid": -1.0,
-      "human_steps_sound__waterDepth": 0.0,
-      "human_steps_sound__physStates": -1,
-      "human_steps_sound__irqObjIdx": -1,
-      "human_steps_sound__traceStepOffsetLen": [1.0,2.0],
-      "human_steps_sound__friendVolume": 0.2,
-      "human_steps_sound__farawayThresholdSq": 900.0,
-      "human_steps_sound__fallSpeedCollThreshold": 10.0,
-      "human_steps_sound__tag": "",
-      "human_steps_sound__path:shared:object": [],
-      "human_steps_sound__descs:shared:object": [],
-      "human_steps_sound__irqs:shared:array": [],
-      "human_steps_sound__jumpFx:shared:object": [],
-      "human_steps_sound__walkVoiceFx:shared:object": [],
-      "human_steps_sound__runVoiceFx:shared:object": []
-    }
-  },
   "base_human_voice_sound": {
     "_group": {
       "_tags": "sound",
@@ -199,6 +177,15 @@
       "_group": {
         "_tags": "sound",
         "human_sound__buildingTag": ""
+      }
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "human_steps_sound_generator__walkRunSprint_stand_intervals": [1.15,1.0,1.6],
+        "human_steps_sound_generator__walkRunSprint_crouch_intervals": [0.5,0.85,0.85],
+        "human_steps_sound_generator__enableForVisible": true,
+        "human_steps_sound_generator__enableForInvisible": true
       }
     },
     {
@@ -389,8 +376,7 @@
     },
     "human_steps_sound__path:shared:object": {
       "_tags": "sound",
-      "hero": "player/walker/ww2_soldier/foley_mov",
-      "enemy": "enemy/walker/ww2_soldier/foley_mov"
+      "path": "/walker/ww2_soldier/foley_mov"
     },
     "human_steps_sound__descs:shared:object": {
       "_tags": "sound",

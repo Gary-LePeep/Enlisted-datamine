@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let closeBtnBase = require("%ui/components/closeBtn.nut")
 let colorize = require("%ui/components/colorize.nut")
@@ -34,7 +34,7 @@ let mkImage = @(img, override = {}) {
   image = Picture(img)
 }.__update(override)
 
-let function mkSquad(squadCfg) {
+function mkSquad(squadCfg) {
   let { image, nameLocId, titleLocId } = squadCfg
   let title = "{0}\n{1}".subst(loc(nameLocId),
     colorize(accentTitleTxtColor, loc(titleLocId)))
@@ -66,7 +66,7 @@ let curSquadStyle = {
   color = Color(20,20,20,20)
 }
 
-let function receivedSquadsUi() {
+function receivedSquadsUi() {
   let res = { watch = [gameProfile, receivedData, curCampaign] }
   let squadsByArmy = receivedData.value
   if (squadsByArmy == null)

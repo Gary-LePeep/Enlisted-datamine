@@ -6,7 +6,7 @@ require enlisted.events_enlisted
 
 let SOUND_SPEED = 335.
 
-[es(tag=sound, no_order)]
+[es(tag=sound, after=sound_begin_update_es, before=sound_end_update_es)]
 def lightning_sound(info : ParallelUpdateFrameDelayed;
                     animchar_render__enabled : bool;
                     transform : float3x4;

@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {fontHeading1, fontawesome} = require("%enlSqGlob/ui/fontsStyle.nut")
 let { logerr } = require("dagor.debug")
@@ -22,12 +22,12 @@ let lettersCorrection = {
   [fa["close"]] = @(fontSize) [fontSize*0.12, -fontSize*0.04],
   [fa["check"]] = @(fontSize) [fontSize*0.1, -fontSize*0.04],
 }
-let function mkPosOffsetForLetterVisPos(letter, fontSize){
+function mkPosOffsetForLetterVisPos(letter, fontSize){
 // we need psychovisual correction for centered letters - B is not percepted as in the center when it is in the center
   return lettersCorrection?[letter](fontSize) ?? [0, fontSize*0.05]
 }
 
-let function zoneBase(text_params={}, params={}) {
+function zoneBase(text_params={}, params={}) {
   let {text} = text_params
   if (text == null)
     return null
@@ -50,7 +50,7 @@ let function zoneBase(text_params={}, params={}) {
   }
 }
 
-let function zoneFontAwesome(symbol, params) {
+function zoneFontAwesome(symbol, params) {
   return zoneBase({
     text = fa[symbol]
     padding = [0,0,hdpx(2)]
@@ -107,7 +107,7 @@ let mkZoneFailedIcon = memoize(@(_width, iconSz, animAppear) zoneFontAwesome("cl
 let mkZoneTitle = memoize(@(text, iconSz, titleSize, animAppear) zoneBase({ text }.__update(fontHeading1),
     { size = titleSize > 0 ? [fsh(titleSize), fsh(titleSize)] : iconSz, animAppear}))
 
-let function mkObjectiveIcon(zoneData, iconSz, heroTeam, params={}) {
+function mkObjectiveIcon(zoneData, iconSz, heroTeam, params={}) {
   let { animAppear = null, baseZoneAppearAnims = null } = params
   let { icon = null, bombPlantingTeam, attackTeam, trainTriggerable = null,
     active = null, capTeam = null, capzoneTwoChains = null, owningTeam = null, titleSize, title

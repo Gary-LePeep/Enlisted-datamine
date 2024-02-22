@@ -1,6 +1,6 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
-let {safeAreaAmount} = require("%enlSqGlob/safeArea.nut")
+let {safeAreaAmount} = require("%enlSqGlob/ui/safeArea.nut")
 
 let defBorders = [0, fsh(4), fsh(4), fsh(4)]
 let safeAreaBorders = Computed(

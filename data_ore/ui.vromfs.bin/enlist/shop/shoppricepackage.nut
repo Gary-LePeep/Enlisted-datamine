@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 
 let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
@@ -67,7 +67,7 @@ let shopPriceFrame = @(bgImg, priceContent) {
 let mkPriceText = @(price, currencyId) loc($"priceText/{currencyId}",
   { price }, $"{price}{currencyId}")
 
-let function mkItemPurchaseInfo(currencies, currencyPrice, shop_price_curr, shop_price, params = {}) {
+function mkItemPurchaseInfo(currencies, currencyPrice, shop_price_curr, shop_price, params = {}) {
   let { price, fullPrice, currencyId = null } = currencyPrice
   let currency = currencies.findvalue(@(c) c.id == currencyId)
   let { iconSize = hdpxi(24), txtStyle = null } = params
@@ -81,7 +81,7 @@ let function mkItemPurchaseInfo(currencies, currencyPrice, shop_price_curr, shop
   return null
 }
 
-let function mkItemBarterInfo(guid, curItemCost, campItems) {
+function mkItemBarterInfo(guid, curItemCost, campItems) {
   let children = []
   foreach (itemTpl, reqCount in curItemCost) {
     let inStock = campItems?[itemTpl] ?? 0
@@ -101,7 +101,7 @@ let function mkItemBarterInfo(guid, curItemCost, campItems) {
 }
 
 
-let function mkShopItemPrice(shopItem, lockObject = null) {
+function mkShopItemPrice(shopItem, lockObject = null) {
   let { guid, curItemCost, curShopItemPrice,
     shop_price_curr = "", shop_price = 0
   } = shopItem

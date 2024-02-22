@@ -154,7 +154,7 @@ def human_input_passenger_in_vehicle_es(info : ParallelUpdateFrameDelayed;
     vehicle_clamp_camera_angle(human_input__aimAngle, human_net_phys.phys.producedCT, passengerFpsCamMaxAngle, additionalRotation * vehicle__globalSeatTm[0])
 
 [es(tag=gameClient, after=after_net_phys_sync)]
-def vehicle_seats_taken_seat_set_camdir(evt : EventEnterVehicle; vehicle_seats__seatEids : EidList; transform : float3x4; isTpsView : bool = false)
+def vehicle_seats_taken_seat_set_camdir(evt : EventEnterVehicle; eid : EntityId; vehicle_seats__seatEids : EidList; transform : float3x4; isTpsView : bool = false)
   if isTpsView
     return
   if !evt.enter
@@ -167,7 +167,10 @@ def vehicle_seats_taken_seat_set_camdir(evt : EventEnterVehicle; vehicle_seats__
 
   let seatEid = vehicle_seats__seatEids[ evt.seat_no ]
   query(seatEid) <| $ [es] (seats_attach_nodes__initialTm : float3x4; seats_attach_nodes__initialLookAngles : float2 = float2())
-    query(hero) <| $ [es] (var human_net_phys : HumanActor&; var human_input__aimAngle : float2&)
+    query(hero) <| $ [es] (var human_net_phys : HumanActor&;
+                           var human_input__lastVehicleAngle : float&;
+                           var human_input__lastVehicleAngleDelta : float&;
+                           var human_input__aimAngle : float2&)
       let tm = transform * seats_attach_nodes__initialTm
       let lookDir = tm[0]
 
@@ -177,3 +180,8 @@ def vehicle_seats_taken_seat_set_camdir(evt : EventEnterVehicle; vehicle_seats__
       assume ct = human_net_phys.phys.producedCT
       ct |> human_control_state_set_wish_shoot_dir(wishDir)
       ct |> human_control_state_set_wish_look_dir(wishDir)
+
+      human_input__lastVehicleAngleDelta = 0.0
+      human_input__lastVehicleAngle = 0.0
+      query(eid) <| $ [es] (transform : float3x4)
+        human_input__lastVehicleAngle = dir_to_angles(transform[0]).x

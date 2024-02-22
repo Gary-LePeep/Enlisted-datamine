@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { gameProfile } = require("%enlist/soldiers/model/config/gameProfile.nut")
 let { settings, onlineSettingUpdated } = require("%enlist/options/onlineSettings.nut")
@@ -58,7 +58,7 @@ let curUnfinishedBattleTutorial = Computed(function() {
   return (settings.value?[SAVE_FOLDER][id] ?? 0) != version ? group.tutorialScene : null
 })
 
-let function markCompleted() {
+function markCompleted() {
   let group = curTutorialGroup.value
   if (group == null)
     return
@@ -70,9 +70,9 @@ let function markCompleted() {
   })
 }
 
-let function resetTutorialsSave() {
+function resetTutorialsSave() {
   if (SAVE_FOLDER in settings.value)
-    settings.mutate(function(saved) { delete saved[SAVE_FOLDER] })
+    settings.mutate(function(saved) { saved.$rawdelete(SAVE_FOLDER) })
 }
 
 let lastGameTutorialId = Computed(function() {

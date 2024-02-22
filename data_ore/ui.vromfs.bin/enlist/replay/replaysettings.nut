@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 let { scan_folder, file_exists } = require("dagor.fs")
 let { flatten } = require("%sqstd/underscore.nut")
 let { showReplayTabInProfile } = require("%enlist/featureFlags.nut")
@@ -44,7 +44,7 @@ let isReplayTabHidden = Computed(@() !showReplayTabInProfile.value)
 
 let isReplayProtocolValid = @(meta) meta?.replay_version == get_replay_proto_version(NET_PROTO_VERSION)
 
-let function getFiles() {
+function getFiles() {
   initReplayStorage()
   let recordFiles = datacache.get_all_entries("records").map(function(v) {
     let fname = v.path.split("/").top()
@@ -73,7 +73,7 @@ let function getFiles() {
 
 let updateReplays = @() records(getFiles())
 
-let function deleteReplay(replayPath){
+function deleteReplay(replayPath){
   initReplayStorage()
   let record = records.value.findvalue(@(v) v.id == replayPath)
   if (record == null)
@@ -86,26 +86,39 @@ let function deleteReplay(replayPath){
   updateReplays()
 }
 
-let function replayPlayWithMod(meta, path, start_time) {
+function replay_play_ex(meta, path, start_time, mod_info) {
+  // Synthesize scene path from mission_name for early unitedVdata limits preload
+  let mission_name = meta?["mission_name"]
+  let synthesizedScene = (mission_name != null) ? $"gamedata/scenes/{mission_name}.blk" : ""
+  try {
+    replay_play(path, start_time, mod_info, synthesizedScene)
+  } catch (e) { // Note: bw-compat
+    replay_play(path, start_time, mod_info)
+  }
+}
+
+function replayPlayWithMod(meta, path, start_time) {
   let modId = meta?.modId
   if (modId == null) {
     currentReplayInfoUpdate({
       path
       mod_info = null
+      mission_name = meta?["mission_name"]
     })
-    replay_play(path, start_time, null)
+    replay_play_ex(meta, path, start_time, null)
     return
   }
   requestModManifest(MOD_BY_VERSION_URL.subst(modId, meta?.modVersion ?? 1), function(manifest, contents) {
     currentReplayInfoUpdate({
       path
       mod_info = { modId }.__merge(getModStartInfo(manifest, contents))
+      mission_name = meta?["mission_name"]
     })
-    replay_play(path, start_time, currentReplayInfo.value["mod_info"])
+    replay_play_ex(meta, path, start_time, currentReplayInfo.value["mod_info"])
   })
 }
 
-let function replayPlay(path) {
+function replayPlay(path) {
   let buttons = [{
     text = loc("Ok")
     isCancel = true

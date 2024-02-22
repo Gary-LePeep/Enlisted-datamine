@@ -16,14 +16,16 @@
   },
   {
     "entity": {
-      "_template": "game_object_compound_sound_generator",
-      "game_object_compound_sound_generator__entityTypes:array": {
-        "entity:object": {
-          "soundName": "plant",
-          "objectTypes:object": {
-            "ambient_sound_plant_box": "box"
-          }
-        }
+      "_template": "compound_ambient_sound_type",
+      "compound_ambient_sound_type__soundType": "plant",
+      "compound_ambient_sound_type__path": "ambient/positioned/plant"
+    }
+  },
+  {
+    "entity": {
+      "_template": "compound_ambient_sound_controller",
+      "compound_ambient_sound_controller__soundTypes:list<t>": {
+        "name": "plant"
       }
     }
   }

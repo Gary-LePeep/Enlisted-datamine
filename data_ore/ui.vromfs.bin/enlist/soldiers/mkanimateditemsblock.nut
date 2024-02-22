@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontHeading2, fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { squadsCfgById } = require("%enlist/soldiers/model/config/squadsConfig.nut")
@@ -65,7 +65,7 @@ let dropTitle = @(titleText) {
   }.__update(fontHeading2))
 }
 
-let function blockTitle(blockId, params) {
+function blockTitle(blockId, params) {
   animDelay += TITLE_DELAY
 
   return {
@@ -178,7 +178,7 @@ let selectedLine = {
   color = hoverBgColor
 }
 
-let function mkItemExt(item, selectedTpl, params) {
+function mkItemExt(item, selectedTpl, params) {
   let { hasAnim, onVisibleCb, armyByGuid, isDisarmed, onItemClick, pauseTooltip } = params
 
   let extraHeight = getExtraHeight(item?.itemtype)
@@ -219,7 +219,7 @@ let function mkItemExt(item, selectedTpl, params) {
   }
 }
 
-let function blockContent(items, selectedTpl, columnsAmount, params) {
+function blockContent(items, selectedTpl, columnsAmount, params) {
   let itemSize = getItemSize(items?[0].itemtype)
   let containerWidth = columnsAmount * itemSize[0] + (columnsAmount - 1) * midPadding
   return {
@@ -234,7 +234,7 @@ let function blockContent(items, selectedTpl, columnsAmount, params) {
   }
 }
 
-let function itemsBlock(items, blockId, selectedTpl, params) {
+function itemsBlock(items, blockId, selectedTpl, params) {
   if (!items.len())
     return null
 
@@ -256,7 +256,7 @@ let function itemsBlock(items, blockId, selectedTpl, params) {
   }
 }
 
-let function appearAnim(comp, hasAnim) {
+function appearAnim(comp, hasAnim) {
   animDelay += ADD_OBJ_DELAY
   return {
     size = [flex(), SIZE_TO_CONTENT]
@@ -287,7 +287,7 @@ let ITEMS_REWARDS_PARAMS = {
   pauseTooltip = null
 }
 
-let function mkAnimatedItemsBlock(itemBlocks, selectedTpl, params = ITEMS_REWARDS_PARAMS) {
+function mkAnimatedItemsBlock(itemBlocks, selectedTpl, params = ITEMS_REWARDS_PARAMS) {
   params = ITEMS_REWARDS_PARAMS.__merge(params)
 
   let {

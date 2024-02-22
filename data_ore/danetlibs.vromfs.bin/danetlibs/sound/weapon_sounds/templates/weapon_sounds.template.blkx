@@ -156,5 +156,15 @@
       "_tags": "sound",
       "on_appear_sound__path": "impact/grenade_flash"
     }
+  },
+  "gun_guidance_state_sound": {
+    "_group": {
+      "_tags": "sound",
+      "gun_guidance_state_sound__guidanceState": -1,
+      "gun_guidance_state_sound__warmingUpPath": "/weapon/antivehicle/igla/pzrk_target_prepare",
+      "gun_guidance_state_sound__activePath": "/weapon/antivehicle/igla/pzrk_target_active",
+      "gun_guidance_state_sound__trackingPath": "/weapon/antivehicle/igla/pzrk_target_locked",
+      "gun_guidance_state_sound__event:SoundEvent": []
+    }
   }
 }

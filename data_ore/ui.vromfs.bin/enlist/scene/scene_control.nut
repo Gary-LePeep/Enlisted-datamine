@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { DBGLEVEL } = require("dagor.system")
 let { Point2, Point3, TMatrix } = require("dagor.math")
@@ -10,7 +10,7 @@ let {
   squadCampaignVehicleFilter, isVehicleSceneVisible
 } = require("%enlist/showState.nut")
 let { nestWatched } = require("%dngscripts/globalState.nut")
-let { curCampItems, objInfoByGuid } = require("%enlist/soldiers/model/state.nut")
+let { curCampItems, objInfoByGuid, curSquad } = require("%enlist/soldiers/model/state.nut")
 let { curSquadSoldiersReady } = require("%enlist/soldiers/model/readySoldiers.nut")
 let {
   selectedSquadSoldiers, selSquadVehicleGameTpl
@@ -31,6 +31,7 @@ let { selectedCampaign } = require("%enlist/meta/curCampaign.nut")
 let { enginObjectToPlace } = require("machinegun_tools.nut")
 let { setItemTransformFunc } = require("item_tools.nut")
 let { configs } = require("%enlist/meta/configs.nut")
+let { getItemIndex } = require("%enlSqGlob/ui/metalink.nut")
 
 
 /*
@@ -108,7 +109,7 @@ let findScenicDofDistQuery = ecs.SqQuery("findScenicDofDistQuery", {comps_ro = [
     ["dof__fStop", ecs.TYPE_FLOAT],
   ]})
 
-let function setDofDist(dof_comp){
+function setDofDist(dof_comp){
   setDofQuery.perform(function(_eid, post_fx_comp){
     post_fx_comp.dof__on = dof_comp["dof__on"]
     post_fx_comp.dof__nearDofStart = dof_comp["dof__nearDofStart"]
@@ -134,7 +135,7 @@ console_register_command(function(x, y, z) {
 }, "setCameraOffset")
 
 
-let function mkOffsetTMatrix(tm, offset) {
+function mkOffsetTMatrix(tm, offset) {
   local newTm = TMatrix(tm)
   newTm[3] = Point3(
     tm[3].x + offset[0],
@@ -152,7 +153,7 @@ let setMenuItemFovProportion = ecs.SqQuery("setMenuItemFovProportion", {
 
 local curCameraFov = 0
 
-let function setCamera(cameraComps) {
+function setCamera(cameraComps) {
   let camOffset = cameraOffset.value
   setCameraQuery.perform(function(_eid, comp){
     foreach (k, v in cameraComps)
@@ -172,7 +173,7 @@ let function setCamera(cameraComps) {
 
 //!----- quick and dirty create entities for preview ---
 
-local function createEntity(template, transform, callback = null, extraTemplates=[], attachTemplates=[]){
+function createEntity(template, transform, callback = null, extraTemplates=[], attachTemplates=[]){
   if (template) {
     template = "+".join([template].extend(extraTemplates))
     let eid = ecs.g_entity_mgr.createEntity(template, { transform = transform }, callback)
@@ -190,7 +191,7 @@ local function createEntity(template, transform, callback = null, extraTemplates
 }
 
 let logg = DBGLEVEL !=0 ? log_for_user : log
-let function makeWeaponTemplate(template){
+function makeWeaponTemplate(template){
   if (template == null || template == "")
     return null
 
@@ -210,19 +211,19 @@ let function makeWeaponTemplate(template){
   })
 }
 
-let function setCameraTargetInScene(targetEid){
+function setCameraTargetInScene(targetEid){
   setCamera({["menu_cam__target"] = targetEid})
 }
 
-let function setDmViewerInScene(targetEid){
+function setDmViewerInScene(targetEid){
   setDmViewerTarget(targetEid)
 }
 
-let function setDecalTargetInScene(targetEid){
+function setDecalTargetInScene(targetEid){
   setDecalTarget(targetEid)
 }
 
-let function resetCameraDirection(){
+function resetCameraDirection(){
   setCamera({["menu_cam__dirInited"] = false})
 }
 
@@ -233,11 +234,11 @@ let isFadeDone = mkWatched(persist, "isFadeDone", false)
 
 let visibleScene = Watched(scene.value)
 
-let function recreateStubFunc(...){
+function recreateStubFunc(...){
   logg("Incorrect recreate cb function")
 }
 
-let function makeShowScene(sceneDesc, name){
+function makeShowScene(sceneDesc, name){
   let {
     compName, watch, transformItemFunc = transformItem,
     createEntityFunc = createEntity, reInitEntityFunc = recreateStubFunc,
@@ -254,11 +255,11 @@ let function makeShowScene(sceneDesc, name){
   })
   let visibleWatch = Computed(@() visibleScene.value == name ? watch.value : null)
   let isSceneFading = Computed(@() visibleScene.value == name && !isFadeDone.value)
-  let function updateEntity(...) {
+  function updateEntity(...) {
     let data = visibleWatch.value
     if (isSceneFading.value)
       return
-    let function update(_baseEid, comp){
+    function update(_baseEid, comp){
       if (!recreateSoldier || comp[compName] == ecs.INVALID_ENTITY_ID) {
         let {eid, attachesEids = ecs.CompEidList()} = createEntityFunc(data, transformItemFunc(comp["transform"], data))
         ecs.g_entity_mgr.destroyEntity(comp[compName])
@@ -308,7 +309,7 @@ let objectsToObserve = {
         guid
         transform
         callback
-        soldiersLook = soldiersLook.value
+        soldiersLookVal = soldiersLook.value
         premiumItems = allOutfitByArmy.value.map(
           @(outfitsList) outfitsList.filter(
             @(outfit) isOutfitAllowedByCampaign(
@@ -326,7 +327,7 @@ let objectsToObserve = {
         guid
         transform
         callback
-        soldiersLook = soldiersLook.value
+        soldiersLookVal = soldiersLook.value
         premiumItems = allOutfitByArmy.value.map(
           @(outfitsList) outfitsList.filter(
             @(outfit) isOutfitAllowedByCampaign(
@@ -345,7 +346,7 @@ let objectsToObserve = {
         guid
         transform
         callback
-        soldiersLook = soldiersLook.value
+        soldiersLookVal = soldiersLook.value
         premiumItems = allOutfitByArmy.value.map(
           @(outfitsList) outfitsList.filter(
             @(outfit) isOutfitAllowedByCampaign(
@@ -358,7 +359,7 @@ let objectsToObserve = {
         guid
         transform
         callback
-        soldiersLook = soldiersLook.value
+        soldiersLookVal = soldiersLook.value
         premiumItems = allOutfitByArmy.value.map(
           @(outfitsList) outfitsList.filter(
             @(outfit) isOutfitAllowedByCampaign(
@@ -378,7 +379,7 @@ let objectsToObserve = {
         guid
         transform
         callback
-        soldiersLook = soldiersLook.value
+        soldiersLookVal = soldiersLook.value
         premiumItems = allOutfitByArmy.value.map(
           @(outfitsList) outfitsList.filter(
             @(outfit) isOutfitAllowedByCampaign(
@@ -468,7 +469,7 @@ let objectsToObserve = {
   }
 }.map(makeShowScene)
 
-let function updateSceneObjects(...) {
+function updateSceneObjects(...) {
   if (!isFadeDone.value)
     return
 
@@ -493,7 +494,7 @@ registerFadeBlackActions({
   })
 })
 
-let function processScene(...) {
+function processScene(...) {
   let curScene = scene.value
   if (!curScene)
     return
@@ -518,7 +519,7 @@ let function processScene(...) {
 foreach(v in [scene, cameraOffset])
   v.subscribe(processScene)
 
-let function posComparator(a, b) {
+function posComparator(a, b) {
   if (a.filter == b.filter)
     return a.order <=> b.order
   if (a.filter.len() < b.filter.len())
@@ -633,6 +634,22 @@ let mkReplaceObjectsFunc = @(name, placesQuery, objectsQuery, createFunc, create
       .map(@(obj, i) createFunc(obj, places[i])))
   }
 
+
+let poseUniqueFactors = [13, 17, 19, 23, 29, 31, 37]
+
+function getObjectPoseIndex(object) {
+  if ("links" not in object)
+    return null
+
+  let { squadId = null } = curSquad.value
+  if (squadId == null)
+    return null
+
+  let squadHash = squadId.hash()
+  let uniqueFactor = poseUniqueFactors[squadHash % poseUniqueFactors.len()]
+  return uniqueFactor * (getItemIndex(object) + 1)
+}
+
 let replaceSoldiers = mkReplaceObjectsFunc("soldiers",
   squadPlacesQuery,
   menuBackgroundSoldiersQuery,
@@ -640,13 +657,14 @@ let replaceSoldiers = mkReplaceObjectsFunc("soldiers",
     guid = object?.guid
     transform = mkOffsetTMatrix(place.transform, cameraOffset.value)
     isSiting = place.isSiting
-    soldiersLook = soldiersLook.value
+    soldiersLookVal = soldiersLook.value
     premiumItems = allOutfitByArmy.value.map(
       @(outfitsList) outfitsList.filter(
         @(outfit) isOutfitAllowedByCampaign(
           outfit, objInfoByGuid.value?[object?.guid], configs.value)
     ))
     extraTemplates = ["background_menu_soldier"]
+    poseIndex = getObjectPoseIndex(object)
   }),
   createdSoldiers,
   squadCampaignVehicleFilter
@@ -705,7 +723,7 @@ let enginObjectToPlaceReplace = @(...)
   doFadeBlack({ fadein = 0.2, fadeout = 0.3, action = "replace_engin_object" })
 
 
-foreach(v in [currentSquadToPlace, squadCampaignVehicleFilter, cameraOffset])
+foreach(v in [currentSquadToPlace, squadCampaignVehicleFilter, cameraOffset, soldiersLook])
   v.subscribe(currentSquadToPlaceReplace)
 
 foreach(v in [vehicleToPlace, squadCampaignVehicleFilter, cameraOffset, isVehicleSceneVisible])

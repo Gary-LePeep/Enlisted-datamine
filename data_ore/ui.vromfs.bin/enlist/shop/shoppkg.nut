@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let faComp = require("%ui/components/faComp.nut")
@@ -93,7 +93,7 @@ let mkLevelLockLine = @(level) shopBottomLine.__merge({
   ]
 })
 
-let function mkShopItemPriceLine(shopItem, personalOffer = null, isNarrow = false) {
+function mkShopItemPriceLine(shopItem, personalOffer = null, isNarrow = false) {
   let children = mkShopItemPrice(shopItem, personalOffer, isNarrow)
   return !children ? null : shopBottomLine.__merge({ children })
 }
@@ -139,7 +139,7 @@ let mkViewCrateBtn = @(crateContentWatch, onCrateViewCb)
           : mkInfoBtn(onCrateViewCb)
       }
 
-let function extractItems(crateContent) {
+function extractItems(crateContent) {
   let { items = {} } = crateContent?.value.content
   let res = {}
   foreach (tmpl, _ in items)
@@ -147,7 +147,7 @@ let function extractItems(crateContent) {
   return res.keys()
 }
 
-let function extractClasses(crateContent) {
+function extractClasses(crateContent) {
   let { soldierClasses = [] } = crateContent?.value.content
   let res = {}
   foreach (sClass in soldierClasses)
@@ -215,7 +215,7 @@ let mkSquadUsageKind = function(squadId, armyId) {
 }
 
 
-let function mkClassCanUse(itemtype, armyId, itemtmpl) {
+function mkClassCanUse(itemtype, armyId, itemtmpl) {
   if (itemtype == "vehicle"){
     let vehicleSquadIds = (allowedVehicles.value?[armyId] ?? {})
       .filter(@(squad) squad?[itemtmpl]).keys()
@@ -331,7 +331,7 @@ let mkSubtitle = @(text) text == "" ? null : {
   text
 }.__update(fontSub)
 
-let function getMaxCount(shopItem) {
+function getMaxCount(shopItem) {
   let { limit = 0, premiumDays = 0, squads = [] } = shopItem
   let isSoldier = (shopItemContentCtor(shopItem)?.value.content.soldierClasses.len() ?? 0) > 0
   return limit > 0 ||  premiumDays > 0 || squads.len() > 0 ? 1
@@ -340,13 +340,13 @@ let function getMaxCount(shopItem) {
 }
 
 // fast temporary solution
-let function mkSeasonBpIcon(shopItem){
+function mkSeasonBpIcon(shopItem){
   let { offerGroup = null } = shopItem
   return  offerGroup != "weapon_battlepass_group" ? null
     : mkBpIcon()
 }
 
-let function mkShopItemTitle(
+function mkShopItemTitle(
   shopItem, crateContent, itemTemplates, showDiscount, countWatched = null
 ) {
   let { armyId = null, content = {} } = crateContent?.value
@@ -404,7 +404,7 @@ let function mkShopItemTitle(
   }
 }
 
-let function mkTimeAvailable(shopItem) {
+function mkTimeAvailable(shopItem) {
   let { showIntervalTs = [] } = shopItem
   let toTs = showIntervalTs?[1] ?? 0
   if (toTs < serverTime.value)
@@ -545,7 +545,7 @@ let mkMsgBoxView = @(shopItem, crateContent, countWatched, showDiscount = false)
 
 let getGrStatus = @(growths, growthId) growths?[growthId].status ?? GrowthStatus.UNAVAILABLE
 
-let function getCantBuyData(army, req, growths, growthCfg, grTiers, grTierCfg, templates) {
+function getCantBuyData(army, req, growths, growthCfg, grTiers, grTierCfg, templates) {
   let { guid = "", level = 0 } = army
   let { armyLevel = 0, growthId = "", growthTierId = "" } = req
 
@@ -596,7 +596,7 @@ let function getCantBuyData(army, req, growths, growthCfg, grTiers, grTierCfg, t
 }
 
 
-let function shopItemLockedMsgBox(lockData, cb = @() null) {
+function shopItemLockedMsgBox(lockData, cb = @() null) {
   let { levelRequired = null, growthRequired = null, growthTierRequired = null } = lockData
 
   let buttons = [{ text = loc("Ok"), isCancel = true }]

@@ -1,8 +1,8 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
-let {safeAreaShow, safeAreaAmount} = require("%enlSqGlob/safeArea.nut")
+let {safeAreaShow, safeAreaAmount} = require("%enlSqGlob/ui/safeArea.nut")
 
-let function dbgSafeArea(){
+function dbgSafeArea(){
   return {
     size = [sw(100*safeAreaAmount.value), sh(100*safeAreaAmount.value)]
     hplace = ALIGN_CENTER

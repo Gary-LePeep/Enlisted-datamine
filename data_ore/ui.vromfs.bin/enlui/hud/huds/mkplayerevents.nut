@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontHeading2 } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { BRIGHT_TEXT_COLOR, TEAM0_TEXT_COLOR, TEAM1_TEXT_COLOR } = require("%ui/hud/style.nut")
@@ -29,7 +29,7 @@ let gkImg = function(h) {
   return controlHint(h, { imgFunc = mkBigControlIcon })
 }
 
-let function makeDefText(item) {
+function makeDefText(item) {
   let color = item?.color ?? (
     "myTeamScores" not in item ? BRIGHT_TEXT_COLOR
       : item.myTeamScores ? TEAM0_TEXT_COLOR
@@ -90,7 +90,7 @@ let function makeDefText(item) {
   }
 }
 
-let function makeItem(item){
+function makeItem(item){
   if ("ctor" in item)
     return item.ctor(item)
   return makeDefText(item)

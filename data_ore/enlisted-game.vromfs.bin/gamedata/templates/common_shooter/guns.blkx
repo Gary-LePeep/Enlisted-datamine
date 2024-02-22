@@ -92,6 +92,12 @@
       "gun__totalAmmo": 0
     },
     {
+      "gun__adsSpeedMult": 1.0
+    },
+    {
+      "_tracked": "gun__adsSpeedMult"
+    },
+    {
       "_tracked": "gun__firingModeName"
     },
     {
@@ -780,15 +786,6 @@
       "_replicated": "weap__current_sight_preset"
     },
     {
-      "weap__backoffDegreeMult": 40.0
-    },
-    {
-      "weap__backoffOffsMult": -0.2
-    },
-    {
-      "weap__backoffVertOffsMult": -0.6
-    },
-    {
       "weap__focusPlaneShift": 0.0
     },
     {
@@ -826,6 +823,9 @@
     },
     {
       "gun_attach__altSlotId": -1
+    },
+    {
+      "gun__canAim": true
     },
     {
       "_tracked": "gun_anim__weapModEid"
@@ -1287,6 +1287,9 @@
     },
     {
       "gun_anim__singleReloadState": 0
+    },
+    {
+      "gun__canAim": false
     },
     {
       "animchar__actOnDemand:tag": []

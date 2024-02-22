@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { mkFrameIncrementObservable } = require("%daeditor/ec_to_watched.nut")
 let { selectedPrefabs, selectedPrefabsSetKeyVal, selectedPrefabsDeleteKey } = mkFrameIncrementObservable({}, "selectedPrefabs")
@@ -13,7 +13,7 @@ const PREFAB_EXT =".blk"
 let isPrefabTool = Watched(false)
 let selectedPrefab = Watched(null)
 
-let function getPrefabsInLibrary() {
+function getPrefabsInLibrary() {
   let files = scan_folder({root = USER_PREFABS_FOLDER, vromfs = false, realfs = true, recursive = false, files_suffix = PREFAB_EXT})
   return files.map(@(v) v.slice(USER_PREFABS_FOLDER.len()+1, -PREFAB_EXT.len()))
 }

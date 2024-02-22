@@ -36,7 +36,7 @@ def bomb_phys_created_es(evt : Event;
     let t = 0.0
     traceht_water_at_time(launch_desc.tm[3], t, currTime, projectile__isUnderwater)
 
-    let orient = quat(launch_desc.tm)
+    let orient = DagorMath::quat(launch_desc.tm)
     let omega = float3()
     ballistics_setup(bomb_ballistics_curr,
                     launch_desc.tm[3], orient, launch_desc.vel, omega,

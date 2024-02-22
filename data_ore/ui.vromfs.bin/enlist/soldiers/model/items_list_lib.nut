@@ -1,11 +1,11 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { getSoldierItemSlots } = require("state.nut")
 let { allItemTemplates } = require("all_items_templates.nut")
 let { campItemsByLink } = require("%enlist/meta/profile.nut")
 
 let equalIgnore = { ctime = true, guid = true, guids = true, count = true, links = true, linkedItems = true }
-let function countParamsToCompare(item) {
+function countParamsToCompare(item) {
   local res = item.len()
   foreach (key, _ in equalIgnore)
     if (key in item)
@@ -13,7 +13,7 @@ let function countParamsToCompare(item) {
   return res
 }
 
-let function getLinkedItemsData(guid) {
+function getLinkedItemsData(guid) {
   let res = {}
   foreach (data in getSoldierItemSlots(guid, campItemsByLink.value)) {
     let tpl = data.item?.basetpl
@@ -24,7 +24,7 @@ let function getLinkedItemsData(guid) {
   return res
 }
 
-let function mergeItems(item1, item2) {
+function mergeItems(item1, item2) {
   if (countParamsToCompare(item1) != countParamsToCompare(item2))
     return null
   foreach (key, val in item1)
@@ -77,7 +77,7 @@ let itemWeights = {
   ticket = 2
 }
 
-local function prepareItems(items, objByGuid = {}, needMergeByTpl = true) {
+function prepareItems(items, objByGuid = {}, needMergeByTpl = true) {
   items = items
     .map(function(item) {
       if (typeof item == "string")
@@ -117,7 +117,7 @@ local function prepareItems(items, objByGuid = {}, needMergeByTpl = true) {
 let mkShopItem = @(templateId, template, armyId)
   template.__merge({ guid = "", basetpl = templateId, isShopItem = true, links = { [armyId] = "army"} })
 
-let function addShopItems(items, armyId, templateFilter = @(_templateId, _template) true) {
+function addShopItems(items, armyId, templateFilter = @(_templateId, _template) true) {
   let usedTemplates = {}
   foreach (item in items)
     if (item?.basetpl)
@@ -145,7 +145,7 @@ let preferenceSort = @(a, b) (b?.tier ?? 0) <=> (a?.tier ?? 0)
   || (itemWeights?[b?.itemtype] ?? 0) <=> (itemWeights?[a?.itemtype] ?? 0)
   || (a?.basetpl ?? "") <=> (b?.basetpl ?? "")
 
-let function findItemByGuid(items, guid) {
+function findItemByGuid(items, guid) {
   foreach (it in items)
     if ("guids" in it ? it.guids.indexof(guid) != null : it?.guid == guid)
       return it

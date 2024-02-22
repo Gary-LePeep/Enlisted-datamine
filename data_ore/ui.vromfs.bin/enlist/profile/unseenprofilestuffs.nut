@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { isMainMenuVisible } = require("%enlist/mainMenu/sectionsState.nut")
 let { isProfileOpened } = require("profileState.nut")
@@ -75,7 +75,7 @@ let unseenTitles = {
   wallposters = "unseenWallpostersTitle"
 }
 
-let function mkUnseenBlock(uType, children = null) {
+function mkUnseenBlock(uType, children = null) {
   let specialUnlockHeader =
     activeUnlocks.value?[specialUnlockToReceive.value].meta.congratulationLangId ?? ""
   return @(){
@@ -152,7 +152,7 @@ let mkWallposters = @(unseenWallposters, wpCfgs) {
   })
 }
 
-let function markSeen() {
+function markSeen() {
   let {
     portraits = [], nickFrames = [], vehDecors = [], unseenMedals = [],
     unseenWallposters = []
@@ -206,7 +206,7 @@ let canShowUnseenStuffs = keepref(Computed(@()
   isMainMenuVisible.value || isProfileOpened.value
 ))
 
-let function checkShowUnseenStuffs(_ = null) {
+function checkShowUnseenStuffs(_ = null) {
   let canShow = canShowUnseenStuffs.value
   let unseen = unseenProfileStuffs.value
   if (!canShow || unseen == null)

@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { logerr } = require("dagor.debug")
 let upgrades = require("%enlist/soldiers/model/config/upgradesConfig.nut")
@@ -9,7 +9,7 @@ let specsCache = Watched({}) // {}[gametemplate][upgradeIdx]
 let specsQueue = [] // [{ gametemplate, upgradesId, upgradeIdx }]
 local specsCur = null
 
-let function getVehicleSpecBlkPath(template, name) {
+function getVehicleSpecBlkPath(template, name) {
   let path = template.getCompValNullable(name)
   if (path == null)
     return null
@@ -23,7 +23,7 @@ let mkModificationsBlk = @(curUpgrades)
 let getItemUpgrade = @(upgradesValue, upgradesId, upgradeIdx)
   upgradesValue?[upgradesId][upgradeIdx] ?? {}
 
-let function setItemSpec(specs, data) {
+function setItemSpec(specs, data) {
   let { gametemplate, upgradeIdx } = specs
   specsCache.mutate(function(v) {
     local upgradesList = v?[gametemplate]
@@ -40,7 +40,7 @@ let function setItemSpec(specs, data) {
 
 local requireVehicleSpec
 
-let function processSpecs() {
+function processSpecs() {
   if (specsCur != null)
     return
 
@@ -58,7 +58,7 @@ let function processSpecs() {
   }
 }
 
-let function requireSpecsUpdate(gametemplate, upgradesId, upgradeIdx) {
+function requireSpecsUpdate(gametemplate, upgradesId, upgradeIdx) {
   specsQueue.append({ gametemplate, upgradesId, upgradeIdx })
   processSpecs()
 }
@@ -147,7 +147,7 @@ ecs.register_es("plane_phys_spec_calculated_es",
   }
 )
 
-let function getItemSpec(specsValue, item) {
+function getItemSpec(specsValue, item) {
   let { gametemplate = null, itemtype = null, upgradeIdx = 0 } = item
   if (itemtype != "vehicle")
     return {}
@@ -155,7 +155,7 @@ let function getItemSpec(specsValue, item) {
   return specsValue?[gametemplate][upgradeIdx] ?? {}
 }
 
-let function requireItemSpec(item) {
+function requireItemSpec(item) {
   let { gametemplate = null, itemtype = null, upgradesId = null, upgradeIdx = 0 } = item
   if (itemtype == "vehicle")
     requireSpecsUpdate(gametemplate, upgradesId ?? "", upgradeIdx)

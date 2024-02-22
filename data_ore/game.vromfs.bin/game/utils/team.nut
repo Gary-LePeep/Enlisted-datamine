@@ -16,7 +16,7 @@ let assignTeamQuery = ecs.SqQuery("assignTeamQuery", {comps_ro =
   ]
 })
 
-let function assign_team() { // returns [teamId, teamEid]
+function assign_team() { // returns [teamId, teamEid]
   let availableTeams = []
   local minTeamMembers = 1 << 30
   assignTeamQuery(

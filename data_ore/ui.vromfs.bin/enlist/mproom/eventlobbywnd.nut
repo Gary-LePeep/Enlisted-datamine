@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { addContextMenu } = require("%ui/components/contextMenu.nut")
 let { showMsgbox, showMessageWithContent } = require("%enlist/components/msgbox.nut")
@@ -163,7 +163,7 @@ let joinBtn = @(sf, team) {
   }
 }
 
-let function armyIconsBlock(shoudBeMirrowed, armies = []) {
+function armyIconsBlock(shoudBeMirrowed, armies = []) {
   let armyIcons = armies.map(@(armyId) mkArmyIcon(armyId, armyIconSize, { margin = 0 }))
   return {
     valign = ALIGN_CENTER
@@ -189,8 +189,8 @@ let teamBlockHeader = @(sf, team) function() {
   }
 }
 
-let function mkTeamBlockHeader(team) {
-  let function joinTeam() {
+function mkTeamBlockHeader(team) {
+  function joinTeam() {
     if (!canChangeTeam.value)
       return
 
@@ -210,7 +210,7 @@ let function mkTeamBlockHeader(team) {
 
 let speakIcon = faComp("microphone")
 
-let function mkMemberStatus(status, name) {
+function mkMemberStatus(status, name) {
   let { icon = null, iconColor = defTxtColor } = memberStatuses?[status]
   let isSpeaking = Computed(@() membersSpeaking.value?[name] ?? false)
   return @() {
@@ -221,7 +221,7 @@ let function mkMemberStatus(status, name) {
   }
 }
 
-let function mkCell(column, player) {
+function mkCell(column, player) {
   let { content, width = rowHeight, halign = ALIGN_CENTER } = column
   return {
     size = [width, rowHeight]
@@ -255,7 +255,7 @@ let columnsMirrored = columns
   .reverse()
 
 
-let function playersListRow(player, idx, team) {
+function playersListRow(player, idx, team) {
   let cols = isMirrored(team) ? columnsMirrored : columns
   return watchElemState(@(sf) {
     rendObj = ROBJ_SOLID
@@ -404,7 +404,7 @@ let mkButtonWithActiveBoostersMark = @(button) {
   ]
 }
 
-let function showPenaltyWarn(expTime) {
+function showPenaltyWarn(expTime) {
   let timeText = Computed(function() {
     let time = expTime - serverTime.value
     if (time <= 0)
@@ -463,7 +463,7 @@ let notReadyButton = @(isWaitLauch) mkInactiveBattleButton(loc("contact/notReady
   @() isWaitLauch ? waitingMsgbox() : setReady(false))
 let disbalanceButton = mkInactiveBattleButton(loc("lobby/disbalance"), null)
 
-let function leaveRoomConfirm() {
+function leaveRoomConfirm() {
   showMsgbox({
     text = loc("msg/leaveRoomConfirm")
     buttons = [
@@ -478,7 +478,7 @@ let function leaveRoomConfirm() {
   })
 }
 
-let function notEnoughPlayersMsg(public) {
+function notEnoughPlayersMsg(public) {
   showMsgbox({
     text = mkStatus(loc("multiplayer/playersTeamLessThanMin", {minSize = public?.minSize ?? 0}))
     buttons = [
@@ -496,7 +496,7 @@ let backButton = {
 }
 
 
-let function startSessionWithMsg() {
+function startSessionWithMsg() {
   let hasAllReady = roomMembers.value.findvalue(@(m) !(m?.public.isReady ?? false)) == null
   let penaltyExpTime = getPenaltyExpiredTime("USERSTATS", "USERSTATS", "LONE_FIGHTERS") ?? 0
   if (room.value?.public.mode == "LONE_FIGHTERS" && penaltyExpTime.value != 0) {
@@ -581,7 +581,7 @@ let cancelButton = {
 let membersCount = Computed(@()
   roomMembers.value.filter(@(player) player.public?.host == null).len())
 
-let function rightBlock() {
+function rightBlock() {
   let roomData = room.value
   let status = lobbyStatus.value
   let {
@@ -621,7 +621,7 @@ let function rightBlock() {
                 let { modId, modVersion } = room.value.public
                 let urlToDownload = MOD_BY_VERSION_URL.subst(modId, modVersion)
                 requestModManifest(urlToDownload)
-              }, { size = flex() })
+              }, { size = [flex(), SIZE_TO_CONTENT] })
             : null
           canChangeRoom ? changeAttributesRoomBtn : null
           hasCancelBtn ? cancelButton
@@ -652,7 +652,7 @@ let topBar = {
 
 let lobbyWindow = mkMenuScene(topBar, lobbyContent, footer)
 
-let function createdRoomWnd() {
+function createdRoomWnd() {
   return {
     size = [flex(), flex()]
     halign = ALIGN_CENTER

@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { defTxtColor, midPadding, smallPadding, panelBgColor, hoverPanelBgColor, darkTxtColor,
@@ -30,7 +30,7 @@ let squadClusters = Computed(@() squadClustersWatched.value ?? {})
 let squadAutoCluster = Computed(@() squadAutoClusterWatched.value ?? false)
 
 
-let function toggleServerSelection(server) {
+function toggleServerSelection(server) {
   if (server in clusters.value) {
     if (clusters.value.len() <= 1)
       addPopup({
@@ -39,14 +39,14 @@ let function toggleServerSelection(server) {
         styleName = "error"
       })
     else
-      clusters.mutate(@(v) delete v[server])
+      clusters.mutate(@(v) v.$rawdelete(server))
   }
   else
     clusters.mutate(@(v) v[server] <- true)
 }
 
 
-let function mkServerBtn(server, txt, isAutoSelected = false) {
+function mkServerBtn(server, txt, isAutoSelected = false) {
   let isSelected = Computed(@() server in clusters.value)
   return watchElemState(@(sf) {
     watch = isSelected
@@ -95,7 +95,7 @@ let showCantChangeInQueue = @() addPopup({
   styleName = "error"
 })
 
-let function showCantChangeMessage() {
+function showCantChangeMessage() {
   if (isInQueue.value) {
     showCantChangeInQueue()
     return
@@ -107,7 +107,7 @@ let function showCantChangeMessage() {
   })
 }
 
-let function openClustersMenu(event) {
+function openClustersMenu(event) {
   if (isInQueue.value) {
     showCantChangeInQueue()
     return
@@ -161,7 +161,7 @@ let txtColor = @(sf) sf & S_ACTIVE
   ? titleTxtColor
   : sf & S_HOVER ? darkTxtColor : defTxtColor
 
-let function serversToShow(group = null, onClick = null) {
+function serversToShow(group = null, onClick = null) {
   let serversRow = mkServersRow()
   return watchElemState(function(sf) {
     return {

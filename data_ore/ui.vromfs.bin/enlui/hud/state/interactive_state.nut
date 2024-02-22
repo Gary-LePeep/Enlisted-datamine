@@ -1,32 +1,34 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let interactiveElements = mkWatched(persist, "interactiveElements", {})
 
-let function addInteractiveElement(id) {
+function addInteractiveElement(id) {
   if (!(id in interactiveElements.value))
     interactiveElements.mutate(@(v) v[id] <- true)
 }
 
-let function removeInteractiveElement(id) {
+function removeInteractiveElement(id) {
   if (id in interactiveElements.value)
-    interactiveElements.mutate(@(v) delete v[id])
+    interactiveElements.mutate(@(v) v.$rawdelete(id))
 }
 
-let function setInteractiveElement(id, val){
+function setInteractiveElement(id, val){
   if (val)
     addInteractiveElement(id)
   else
     removeInteractiveElement(id)
 }
 
-let function switchInteractiveElement(id) {
+function switchInteractiveElement(id) {
   interactiveElements.mutate(function(v) {
     if (id in v)
-      delete v[id]
+      v.$rawdelete(id)
     else
       v[id] <- true
   })
 }
+
+let hudIsInteractive = Computed(@() interactiveElements.get().len() > 0)
 
 return {
   interactiveElements
@@ -34,6 +36,6 @@ return {
   addInteractiveElement
   switchInteractiveElement
   setInteractiveElement
-  hudIsInteractive = Computed(@() interactiveElements.value.len() > 0)
+  hudIsInteractive
 }
 

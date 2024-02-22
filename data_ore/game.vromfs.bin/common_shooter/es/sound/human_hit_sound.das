@@ -70,13 +70,18 @@ def human_hit_sound(evt : EventOnEntityHit; eid : EntityId;
       if get_option_path(pathObj, sound_tags, is_watched_sound, path)
         if empty(name)
           name = (*pathObj).name ?? ""
-        let handle = play_name_path_impl(name, path, evt.hitPos, false/*is_abandon*/)
+        var handle = play_name_path_impl(name, path, evt.hitPos, false/*is_abandon*/)
         if evt.damageType == int(DamageType DM_PROJECTILE) || evt.damageType == int(DamageType DM_MELEE) || evt.damageType == int(DamageType DM_BACKSTAB)
           let isArmored = isAlive && is_armored(dm_parts__partsArmor, collNodeId, sound_tags)
           set_var_optional(handle, "armored", isArmored ? 1. : 0.)
         let localPos = inverse(transform) * evt.hitPos
-        add_sound(sound_event_group, sound_hash("dmghit"), localPos, handle, 4/*max_instances*/)
-        keyoff(handle)
+        if keyoff(handle)
+          add_sound(sound_event_group, sound_hash("hit"), localPos, handle, 4/*max_instances*/)
+          // expecting only "tinnitus" currently(it is keyoffable, nononeshot). added to group with label="hit" to release it immediately on soldier switch and on death.
+          // also may add option to pathObj to specify if should add handle to group or not.
+          // but should not release fast oneshot sounds such as bullet hit to hear it after death.
+        else
+          abandon(handle)
 
     // shatters
     if evt.damageType == int(DamageType DM_EXPLOSION)
@@ -86,7 +91,7 @@ def human_hit_sound(evt : EventOnEntityHit; eid : EntityId;
         play_shatter_sounds(numShatters, human_hit_sound__shattersDelayFirstNextLast, transform[3], human_hit_sound__paths, sound_tags, is_watched_sound)
 
 
-[es(tag=sound, REQUIRE=(humanSound, is_watched_sound), track=is_watched_sound)]
-def human_hit_sound_toggle_watched(evt : Event;
-                                   var sound_event_group : SoundEventGroup&)
-  release_sound(sound_event_group, sound_hash("dmghit"))
+[es(tag=sound, REQUIRE=(humanSound, is_watched_sound, isAlive), track=(is_watched_sound, isAlive))]
+def human_hit_sound_release_immediately(evt : Event;
+                                        var sound_event_group : SoundEventGroup&)
+  release_sound(sound_event_group, sound_hash("hit"))

@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { round_by_value } = require("%sqstd/math.nut")
@@ -47,7 +47,7 @@ let { isChangesBlocked } = require("%enlist/quickMatchQueue.nut")
 let unseenIcon = blinkUnseenIcon(0.8).__update({ hplace = ALIGN_RIGHT })
 let waitingSpinner = spinner(hdpx(25))
 
-let function txt(text) {
+function txt(text) {
   return type(text) == "string"
     ? defcomps.txt({text}.__update(fontSub))
     : defcomps.txt(text)
@@ -90,7 +90,7 @@ let mkVehOwnersUi = @(owners) owners.len() == 0 ? null
       }
     }
 
-let function vehicleStatusRow(item) {
+function vehicleStatusRow(item) {
   let { flags, statusText = "", owners = [] } = item.status
   if (item == null || flags == CAN_USE)
     return null
@@ -130,7 +130,7 @@ let openResearchUpgradeMsgbox = @(research) showMsgbox({
   ]
 })
 
-let function mkUpgradeBtn(item) {
+function mkUpgradeBtn(item) {
   let upgradeDataWatch = mkItemUpgradeData(item)
   return function() {
     let res = {
@@ -209,7 +209,7 @@ let function mkUpgradeBtn(item) {
   }
 }
 
-let function mkDisposeBtn(item) {
+function mkDisposeBtn(item) {
   let disposeDataWatch = mkItemDisposeData(item)
   return function() {
     let res = { watch = [disposeDataWatch] }
@@ -253,7 +253,7 @@ let btnStyle = {
   hotkeys = [[ "^J:Y" ]]
 }
 
-let function mkChooseButton(curVehicle, selVehicle, isBlocked = false) {
+function mkChooseButton(curVehicle, selVehicle, isBlocked = false) {
   if (curVehicle.basetpl == (selVehicle?.basetpl ?? "") || curVehicle == null)
     return null
 

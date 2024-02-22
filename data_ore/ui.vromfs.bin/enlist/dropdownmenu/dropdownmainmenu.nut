@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let mkDropMenuBtn = require("%enlist/dropdownmenu/mkDropDownMenuBlock.nut")
 let {
@@ -29,9 +29,13 @@ let { file_exists } = require("dagor.fs")
 let { remove } = require("system")
 let { hasBattlePass } = require("%enlist/unlocks/taskRewardsState.nut")
 let { openBPwindow } = require("%enlist/battlepass/bpWindowState.nut")
+let { openBenchmarksList } = require("%enlist/benchmark/benchmarkState.nut")
+let { hasGpuBenchmark } = require("%enlist/featureFlags.nut")
+let { get_setting_by_blk_path } = require("settings")
+
 
 let noSandboxEditorInMenu = true
-let function startSandBoxEditor() {
+function startSandBoxEditor() {
   app_set_offline_mode(true)
   gameLauncher.startGame({
       game = "enlisted", scene = "gamedata/scenes/sandbox_editor_start.blk", modId = "sandboxEditor"
@@ -126,6 +130,20 @@ let btnResetHangar = {
   })
 }
 
+let btnBenchmark = {
+  id = "Benchmark"
+  name = loc("benchmark/menu_option")
+  cb = openBenchmarksList
+}
+
+let perksSimulationUrl = get_setting_by_blk_path("perksSimulationUrl") ?? ""
+let btnPerksSimulation = {
+  id = "PerksSimulation"
+  name = loc("btn/perksSimulation")
+  cb = @() openUrl(perksSimulationUrl)
+}
+
+
 let needCustomGames = (DBGLEVEL > 0
   || ["moon","sun","ganymede","yueliang"].indexof(get_circuit()) != null)
     ? Computed(@() !isInQueue.value)
@@ -134,7 +152,7 @@ let serverDataPermission = hasClientPermission("debug_server_data")
 let canDebugProfile = Computed(@() DBGLEVEL > 0
   || serverDataPermission.value)
 
-let function buttons(){
+function buttons(){
   let res = []
   if (needCustomGames.value) {
     res.append(btnCustomGames)
@@ -145,6 +163,8 @@ let function buttons(){
   res.append(btnChangelog)
   if (!isReplayTabHidden.value)
     res.append(btnReplays)
+  if (hasGpuBenchmark.value)
+    res.append(btnBenchmark)
   if (is_user_game_mod())
     res.append(btnResetHangar)
   if (res.len() > 0)
@@ -153,7 +173,10 @@ let function buttons(){
     res.append(btnChangeCampaign)
   if (hasBattlePass.value)
     res.append(btnBattlePass)
-  res.append(btnOptions, btnControls, btnSupport, btnForum, btnFeedback, btnGSS)
+  res.append( btnOptions, btnControls, btnSupport )
+  if (perksSimulationUrl != "")
+    res.append(btnPerksSimulation)
+  res.append( btnForum, btnFeedback, btnGSS )
   if (!isChineseVersion)
     res.append(btnCBR)
   res.append(btnLegals)
@@ -165,6 +188,7 @@ let function buttons(){
     res.append(btnExit)
   if (canDebugProfile.value)
     res.append(SEPARATOR, btnDebugProfile, btnDebugConfigs)
+
   return res.filter(@(v) v!=null)
 }
 let watch = [needCustomGames, hasCampaignSelection, canDebugProfile,

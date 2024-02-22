@@ -154,9 +154,12 @@ def repair_es(evt : CmdStartRepair;
   query(evt.target) <| $ [es] (damage_model : DamageModel;
                                dm_parts__repairPartGroupIds : UInt8List;
                                dm_parts__considerAsAliveThreshold : float = 0.9)
+    let partsCount = length(dm_parts__repairPartGroupIds)
+    if evt.partId >= partsCount
+      return //try to repair invalid part
     let partGroup = dm_parts__repairPartGroupIds[evt.partId]
     if int(partGroup) > 0
-      for i in range(length(dm_parts__repairPartGroupIds))
+      for i in range(partsCount)
         if dm_parts__repairPartGroupIds[i] == partGroup
           assume part = damage_model.dmData.parts[i]
           if uint(part.relHpFixed) < uint(dm_parts__considerAsAliveThreshold * float(MAX_REL_HP_FIXED))

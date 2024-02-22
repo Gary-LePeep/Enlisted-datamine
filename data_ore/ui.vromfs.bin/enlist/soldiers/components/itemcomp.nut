@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let faComp = require("%ui/components/faComp.nut")
@@ -12,7 +12,7 @@ let { defLockedSlotBgColor, hoverLockedSlotBgColor, darkTxtColor,
 let { mkLockedBlock, mkEmptyItemSlotImg } = require("%enlist/soldiers/components/itemSlotComp.nut")
 let { statusIconCtor, statusBadgeWarning } = require("%enlSqGlob/ui/itemPkg.nut")
 let { mkItemDemands } = require("%enlist/soldiers/model/mkItemDemands.nut")
-let { objInfoByGuid, getItemOwnerGuid, getSoldierItemSlots, getItemIndex,
+let { objInfoByGuid, getItemOwnerGuid, getSoldierItemSlots, getItemIndex, curArmy,
   getDemandingSlots, getDemandingSlotsInfo, getEquippedItemGuid
 } = require("%enlist/soldiers/model/state.nut")
 let { campItemsByLink } = require("%enlist/meta/profile.nut")
@@ -35,6 +35,8 @@ let { mkAlertIcon, ITEM_ALERT_SIGN } = require("%enlSqGlob/ui/soldiersUiComps.nu
 let { previewHighlightColor } = require("%enlist/preset/presetEquipUi.nut")
 let { itemTypesInSlots } = require("%enlist/soldiers/model/all_items_templates.nut")
 let { mkBattleRating, mkBattleRatingShort } = require("%enlSqGlob/ui/battleRatingPkg.nut")
+let getEquipClasses = require("%enlist/soldiers/model/equipClassSchemes.nut")
+let { getClassCfg, getKindCfg, soldierKindsList } = require("%enlSqGlob/ui/soldierClasses.nut")
 
 let DISABLED_ITEM = { tint = Color(40, 40, 40, 160), picSaturate = 0.0 }
 let baseItemSize = [7 * unitSize, 2 * unitSize] // 320px is max
@@ -270,7 +272,7 @@ let showSwapImpossible = @(text) popupsState.addPopup({
   styleName = "error"
 })
 
-let function checkFixedItem(item) {
+function checkFixedItem(item) {
   if (item?.isFixed ?? false) {
     showSwapImpossible(loc($"equipDemand/deniedUnequipPremium"))
     return true
@@ -280,7 +282,7 @@ let function checkFixedItem(item) {
 
 // targetDropData is the data of a slot, WHERE we drop an item
 // draggedDropData is the data of a slot, FROM where drag originated
-let function trySwapItems(toOwnerGuid, targetDropData, draggedDropData) {
+function trySwapItems(toOwnerGuid, targetDropData, draggedDropData) {
   if (draggedDropData == null)
     return false
 
@@ -389,7 +391,33 @@ let dragAndDropHint = hintWithIcon("hand-paper-o", "hint/equipDragAndDrop")
 let quickEquipHint = hintWithIcon("reply", "hint/equipDoubleClick")
 let quickUnequipHint = hintWithIcon("share", "hint/unequipDoubleClick")
 
-let function makeToolTip(item, canDrag, isEquipped, canChange) {
+let function mkAvailableClasses(item) {
+  let { basetpl, itemtype } = item
+  let kindsList = getEquipClasses(curArmy.value, basetpl, itemtype)
+    .reduce(function(tbl, sClass) {
+      let { kind, isPremium = false, isEvent = false } = getClassCfg(sClass)
+      if (!isPremium && !isEvent)
+        tbl[kind] <- true
+      return tbl
+    }, {}).keys()
+
+  let count = kindsList.len()
+  if (count == 0)
+    return null
+
+  return {
+    size = [flex(), SIZE_TO_CONTENT]
+    rendObj = ROBJ_TEXTAREA
+    behavior = Behaviors.TextArea
+    text = (count == soldierKindsList.len())
+      ? loc("shop/allCanUse")
+      : loc("shop/someCanUse", { classes = ", ".join((kindsList.map(@(sKind)
+          loc(getKindCfg(sKind).locId))).sort()) })
+    color = defTxtColor
+  }
+}
+
+function makeToolTip(item, canDrag, isEquipped, canChange, isShowClassesHint = false) {
   if (!item?.gametemplate)
     return null
 
@@ -397,7 +425,8 @@ let function makeToolTip(item, canDrag, isEquipped, canChange) {
   let hints = []
   if (growthTier > 0)
     hints.append(mkBattleRating(growthTier))
-
+  if (isShowClassesHint)
+    hints.append(mkAvailableClasses(item))
   if (!isGamepad.value && item?.guid && !(item?.isShopItem ?? false)) {
     if (canDrag)
       hints.append(dragAndDropHint)
@@ -451,7 +480,7 @@ let defBgStyle = @(sf, isSelected, bgColor) {
   color = isSelected ? hoverSlotBgColor : defItemBlur
 }
 
-let function defIconCtor(item, soldierWatch) {
+function defIconCtor(item, soldierWatch) {
   let demandsWatch = mkItemDemands(item)
   return @() {
     watch = [demandsWatch, soldierWatch]
@@ -498,7 +527,7 @@ let lockedSlotCtor = @(children, group, isLocked, hasWarningSign) watchElemState
   ]
 })
 
-local function mkItem(slotId = null, item = null, slotType = null, itemSize = baseItemSize,
+function mkItem(slotId = null, item = null, slotType = null, itemSize = baseItemSize,
   emptySlotName = defSlotnameCtor, scheme = null, itemCtor = defItemCtor,
   onDropExceptionCb = null, statusCtor = defIconCtor, soldierGuid = null, isInteractive = true,
   isDisabled = false, canDrag = true, bgStyle = defBgStyle, selectedKey = Watched(null),
@@ -506,7 +535,7 @@ local function mkItem(slotId = null, item = null, slotType = null, itemSize = ba
   onClickCb = null, onHoverCb = null, isLocked = false, onDoubleClickCb = null,
   onResearchClickCb = null, mods = null, hasUnseenSign = Watched(false), isAvailable = null,
   hideStatus = false, hasWarningSign = false, needItemName = true,
-  slotImg = null, previewState = null
+  slotImg = null, previewState = null, isShowClassesHint = false
 ) {
   if (isDisabled)
     isInteractive = false
@@ -614,7 +643,8 @@ local function mkItem(slotId = null, item = null, slotType = null, itemSize = ba
           curHoveredItem(on ? item : null)
           onHoverCb?(on)
           cursors.setTooltip(on && item && !pauseTooltip.value
-            ? makeToolTip(item, canDrag, slotType != null, canDrag && onDoubleClickCb != null)
+            ? makeToolTip(item, canDrag, slotType != null, canDrag && onDoubleClickCb != null,
+              isShowClassesHint)
             : null)
         }
         dropData = isDraggable ? dropData : null

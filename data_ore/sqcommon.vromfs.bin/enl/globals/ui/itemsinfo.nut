@@ -1,11 +1,10 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { doesLocTextExist } = require("dagor.localize")
 let utf8 = require("utf8")
 let { CASE_PAIR_LOWER, CASE_PAIR_UPPER } = require("%sqstd/string.nut")
 let iconByGameTemplate = require("%enlSqGlob/ui/icon3dByGameTemplate.nut")
-let itemsPresentation = require("%enlSqGlob/ui/itemsPresentation.nut")
 let { secondsToTime } = require("%sqstd/time.nut")
 let { abs } = require("math")
 let { SIGN_PREMIUM, SIGN_EVENT, SIGN_BP } = require("%enlSqGlob/ui/mkSpecialItemIcon.nut")
@@ -70,12 +69,12 @@ let SPEC_TANK_DETAILS = [
 
 let VEHICLE_DETAILS = [].extend(GENERAL_VEHICLE_DETAILS, SPEC_PLANE_DETAILS, SPEC_TANK_DETAILS)
 
-let function getCampaignTitle(campId) {
+function getCampaignTitle(campId) {
   let locId = $"{campId}/full"
   return doesLocTextExist(locId) ? loc(locId) : campId
 }
 
-let function getArmaments(guns) {
+function getArmaments(guns) {
   guns = (guns ?? []).filter(@(gun) (gun?["gun__maxAmmo"] ?? 0) > 0)
   if (guns.len() == 0)
     return null
@@ -98,7 +97,7 @@ let function getArmaments(guns) {
 
 let itemNameCache = {}
 
-let function getItemLocIdByTemplate(template) {
+function getItemLocIdByTemplate(template) {
   if (template == null || typeof template != "string")
     return null
 
@@ -112,7 +111,7 @@ let function getItemLocIdByTemplate(template) {
   return name
 }
 
-let function trimUpgradeSuffix(tmpl) {
+function trimUpgradeSuffix(tmpl) {
   if (typeof tmpl != "string")
     return tmpl
   let tmplEnd = tmpl.indexof(UPGRADE_TEMPLATE_SUFFIX)
@@ -153,7 +152,7 @@ let itemNameByType = {
 }
 
 // works both with item instance or basetpl string value
-let function getItemName(item) {
+function getItemName(item) {
   let { gametemplate = item, itemtype = "unknown", basetpl = null, name = null } = item
   let itemNameId = getItemLocIdByTemplate(gametemplate) ?? name
   if (itemNameId != null)
@@ -177,7 +176,7 @@ let getItemOrigin = @(item)
   signLocalization?[item?.sign] ?? loc("campaign/promoSquadWeapon")
 
 // works both with item instance or basetpl string value
-let function getItemDesc(item) {
+function getItemDesc(item) {
   let { gametemplate = item, itemtype = "unknown", basetpl = null, name = null } = item
   let itemNameId = getItemLocIdByTemplate(gametemplate) ?? name
   if (itemNameId != null)
@@ -195,44 +194,16 @@ let function getItemDesc(item) {
     : loc(locTypeId)
 }
 
-let function getItemTypeName(item) {
+function getItemTypeName(item) {
   let { itemtype = "" } = item
   let locId = $"itemtype/{itemtype}"
   return doesLocTextExist(locId) ? loc(locId) : ""
 }
 
-let defIconSize = hdpxi(64)
-let getPicture = memoize(function(icon, width, height){
-  if (icon.endswith(".svg")) {
-    log("getting svg for item")
-    return Picture($"{icon}:{width}:{height}:K")
-  }
-  else
-    return Picture($"{icon}?Ac")
-})
-
-let function mkIcon(presentation, params = {}) {
-  let { opacity = 1.0, hplace = null, vplace = null } = params
-  let width = (params?.width ?? defIconSize).tointeger()
-  let height = (params?.height ?? defIconSize).tointeger()
-  let { icon, color = 0xFFFFFFFF } = presentation
-  return {
-    rendObj = ROBJ_IMAGE
-    size = [width, height]
-    keepAspect = KEEP_ASPECT_FIT
-    image = getPicture(icon, width, height)
-    hplace
-    vplace
-    opacity
-    color
-  }
-}
-
 let iconByItem = @(item, params)
-  item?.basetpl in itemsPresentation ? mkIcon(itemsPresentation[item.basetpl], params)
-    : iconByGameTemplate(item?.gametemplate, params)
+  iconByGameTemplate(item?.gametemplate, params)
 
-let function localizeSoldierName(soldier) {
+function localizeSoldierName(soldier) {
   let { name = "", surname = "" } = soldier
   return {
     name = name == "" ? "" : loc(name)
@@ -240,12 +211,12 @@ let function localizeSoldierName(soldier) {
   }
 }
 
-let function getObjectName(obj) {
+function getObjectName(obj) {
   let { name, surname } = localizeSoldierName(obj)
   return surname == "" ? getItemName(obj) : $"{name} {surname}"
 }
 
-let function soldierNameSlicer(soldier = null, useCallname = true) {
+function soldierNameSlicer(soldier = null, useCallname = true) {
   let { name, surname } = localizeSoldierName(soldier)
   let { callname = "" } = soldier
   if (callname != "" && useCallname)
@@ -258,7 +229,7 @@ let function soldierNameSlicer(soldier = null, useCallname = true) {
     : $"{first}. {surname}"
 }
 
-let function getErrorSlots(slotsItems, equipScheme) {
+function getErrorSlots(slotsItems, equipScheme) {
   let errorSlots = {}
   let equipped = {}
   let slotTypeToGroup = {}

@@ -1,6 +1,6 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
-let eventbus = require("eventbus")
+let { eventbus_subscribe } = require("eventbus")
 let { isInBattleState } = require("%enlSqGlob/inBattleState.nut")
 let { dailyTasks } = require("%enlist/unlocks/taskListState.nut")
 let { nestWatched } = require("%dngscripts/globalState.nut")
@@ -11,8 +11,8 @@ let show = nestWatched("show", false)
 
 let statsBeforeBattle = nestWatched("statsBeforeBattle", {})
 
-eventbus.subscribe("debriefing.data", @(val) data(val))
-eventbus.subscribe("debriefing.show", @(val) show(val))
+eventbus_subscribe("debriefing.data", @(val) data(val))
+eventbus_subscribe("debriefing.show", @(val) show(val))
 
 
 isInBattleState.subscribe(function(isInBattle) {

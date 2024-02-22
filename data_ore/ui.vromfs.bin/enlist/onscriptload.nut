@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 let { is_sony } = require("%dngscripts/platform.nut")
 
 require("%enlSqGlob/sqevents.nut")
@@ -52,6 +52,7 @@ require("battlepass/debugBpRewardsView.nut")
 require("unlocks/dailyRewardsUi.nut")
 require("gameModes/eventModesWindow.nut")
 require("gameModes/createEventRoomWnd.nut")
+require("gameModes/missionsRatingWnd.nut")
 require("leaderboard/leaderboardWnd.nut")
 require("%enlist/profile/profileScene.nut")
 require("%enlist/profile/anoProfileScene.nut")
@@ -73,6 +74,7 @@ require("%enlist/tutorial/armyUnlocksVideoHint.nut")
 require("notifications/benchmarkNotification.nut")
 require("%enlist/preset/presetEquipUtils.nut")
 require("%enlist/shop/updateSeenBundles.nut")
+require("%enlist/benchmark/benchmarkUi.nut")
 require("%enlist/options/onlineSettingsOnShutdown.nut")
 
 
@@ -93,6 +95,7 @@ let { planeFlightSenseOption } = require("%ui/hud/menus/options/plane_camera_opt
 let { vehicleCameraFollowOption } = require("%ui/hud/menus/vehicle_camera_follow_option.nut")
 let { leaderboardOptions } = require("%ui/hud/menus/options/leaderboard_options.nut")
 let narratorOptions = require("%ui/hud/menus/options/narrator_options.nut")
+let autoleanOptions = require("%ui/hud/menus/options/autolean_options.nut")
 let vehicleGroupLimitOptions = require("%ui/hud/menus/options/vehicle_group_limit_options.nut")
 let qualityPresetOption = require("%ui/hud/menus/options/get_quality_preset_option.nut")
 
@@ -101,7 +104,7 @@ let options = [qualityPresetOption, cameraFovOption, vehicleCameraFovOption,
   planeFlightSenseOption, vehicleCameraFollowOption, harmonizationOption, harmonizationNickOption]
 options.extend(
   renderOptions, soundOptions, voiceChatOptions, cameraShakeOptions, violenceOptions, planeControlOptions,
-  crossnetworkOptions, leaderboardOptions, hudOptions, narratorOptions, vehicleGroupLimitOptions
+  crossnetworkOptions, leaderboardOptions, hudOptions, narratorOptions, autoleanOptions, vehicleGroupLimitOptions
 )
 
 setMenuOptions(options)

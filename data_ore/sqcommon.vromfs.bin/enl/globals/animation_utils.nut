@@ -1,11 +1,9 @@
-from "%enlSqGlob/ui_library.nut" import *
-
 let { weaponToAnimState, weaponToSittingAnimState } = require("menu_poses_for_weapons.nut")
 let { rnd } = require("dagor.random")
 let { split_by_chars } = require("string")
+let { kwarg } = require("%sqstd/functools.nut")
 
-
-let function getWeapTemplate(template){
+function getWeapTemplate(template){
   assert(type(template)=="string")
   return split_by_chars(template, "+")?[0] ?? template
 }
@@ -14,7 +12,7 @@ let SLOTS_ORDER = ["primary", "secondary", "tertiary"]
 let firstAvailableWeapon = @(tmpls, slot_order)
   tmpls?[slot_order.findvalue(@(key) (tmpls?[key] ?? "") != "")] ?? ""
 
-let function getAnimationBlacklist(itemTemplates) {
+function getAnimationBlacklist(itemTemplates) {
   let animationBlacklist = {}
   foreach (itemTemplate in itemTemplates) {
     let itemAnimationBlacklist = itemTemplate.getCompValNullable("animationBlacklistForMenu")
@@ -27,7 +25,7 @@ let function getAnimationBlacklist(itemTemplates) {
   return animationBlacklist
 }
 
-local function getIdleAnimState(weapTemplates, itemTemplates = null, overridedIdleAnims = null, overridedSlotsOrder = null, seed = null, isSiting = false) {
+function getIdleAnimState(weapTemplates, itemTemplates = null, overridedIdleAnims = null, overridedSlotsOrder = null, seed = null, isSiting = false) {
   seed = seed ?? rnd()
   if (seed < 0)
     seed = -seed

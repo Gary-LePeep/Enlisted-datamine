@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { logerr } = require("dagor.debug")
@@ -41,7 +41,7 @@ let spawnSquadLocId = Computed(function() {
   return squadId != null ? $"squad/{squadId}" : "unknown"
 })
 
-let function currentSquadButtons(membersList, activeTeammateEid, infoByGuid, expToLevel) {
+function currentSquadButtons(membersList, activeTeammateEid, infoByGuid, expToLevel) {
   let items = []
   foreach (memberIter in membersList) {
     let member = memberIter
@@ -53,7 +53,7 @@ let function currentSquadButtons(membersList, activeTeammateEid, infoByGuid, exp
     }
 
     let group = ElemGroup()
-    let function button(sf) {
+    function button(sf) {
       let color = sf & S_HOVER ? darkTxtColor : defTxtColor
       return {
         behavior = (member.isAlive && member.canBeLeader) ? Behaviors.Button : null
@@ -118,7 +118,7 @@ let memberSpawnList = @() {
     : null
 }
 
-let function selectAndForceRespawn(index) {
+function selectAndForceRespawn(index) {
   let entity = localPlayerSquadMembers.value?[index]
   if ((entity?.isAlive ?? false) && (entity?.canBeLeader ?? true)) {
     requestRespawnToEntity(entity.eid)
@@ -126,7 +126,7 @@ let function selectAndForceRespawn(index) {
   }
 }
 
-let function changeRespawn(delta) {
+function changeRespawn(delta) {
   let alive = []
   let curEid = respawnSelection.value
   local curIdx = 0

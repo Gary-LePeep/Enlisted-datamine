@@ -51,7 +51,7 @@ def gun_flash_fx_on_shot(evt : Event;
       tm[i] *= scale
     createEntity(string(fxTemplate)) <| $(var init : ComponentsInitializer)
       init |> set("transform", tm)
-      init |> set("gun_fx__gunEid", eid)
+      init |> set("gun_fx__ownerEid", eid)
       init |> set("gun_fx__nodeId", nodeId)
 
   if gun__owner == get_controlled_hero()

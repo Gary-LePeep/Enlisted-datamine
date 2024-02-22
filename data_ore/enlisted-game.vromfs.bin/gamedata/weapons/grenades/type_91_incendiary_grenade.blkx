@@ -10,14 +10,9 @@
   "logCCD": false,
   "frictionGround": 1.0,
   "noSleepAtTheSlopeCos": 0.766,
+  "ccdClipVelocityMult": 0.0,
   "entityTemplate": "type_91_incendiary_grenade",
   "entityPhysTemplate": "type_91_incendiary_grenade_phys",
-  "ccdClipVelocityMult": 0.0,
-  "collisionResource": {
-    "props": {
-      "volumeBox_1": true
-    }
-  },
   "splashDamage": {
     "radius": [1.0,4.0],
     "penetration": [2.0,2.0],
@@ -39,5 +34,10 @@
   },
   "shellSoundNet": {
     "throwPhrase": "phosphorusThrow"
+  },
+  "collisionResource": {
+    "props": {
+      "volumeBox_1": true
+    }
   }
 }

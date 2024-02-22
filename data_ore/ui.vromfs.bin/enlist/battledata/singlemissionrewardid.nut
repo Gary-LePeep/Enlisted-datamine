@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { rewardedSingleMissons } = require("%enlist/meta/profile.nut")
 let { lastGameTutorialId } = require("%enlist/tutorial/battleTutorial.nut")

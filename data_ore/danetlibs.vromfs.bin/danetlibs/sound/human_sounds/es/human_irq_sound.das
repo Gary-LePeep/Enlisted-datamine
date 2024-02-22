@@ -8,13 +8,14 @@ require sound_utils.modules.sound_player_common
 
 
 [es(tag=sound, REQUIRE=humanSound, REQUIRE_NOT=deadEntity)]
-def human_irq_sound(evt : CmdSoundGenIrq;
+def human_irq_sound(evt : CmdSoundIrq;
                     var sound_event_group : SoundEventGroup&;
                     [[shared_comp]] sound_irqs : Object;
                     is_watched_sound : bool;
                     sound_tags : Object;
                     transform : float3x4)
-  sound_player_common::play_path(evt.irq, sound_irqs, sound_tags, is_watched_sound, transform[3], sound_hash(""), sound_event_group)
+  if evt.irqType == sound_hash("")
+    sound_player_common::play_path(evt.irq, sound_irqs, sound_tags, is_watched_sound, transform[3], sound_hash(""), sound_event_group)
 
 
 [es(tag=sound, REQUIRE=humanSound, REQUIRE_NOT=deadEntity)]

@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {
   hasResearchesSection, allResearchStatus, armiesResearches, viewArmy,
@@ -54,7 +54,7 @@ let seenResearches = Computed(function() {
   return { seen, opened, unseen, unopened }
 })
 
-let function markSeen(armyId, researchesList, isOpened = false) {
+function markSeen(armyId, researchesList, isOpened = false) {
   let filtered = researchesList.filter(@(id) id in seenResearches.value?.unseen[armyId])
   if (filtered.len() == 0)
     return
@@ -74,10 +74,10 @@ let function markSeen(armyId, researchesList, isOpened = false) {
   })
 }
 
-let function resetSeen() {
+function resetSeen() {
   let reseted = seenSettings.value.len()
   if (reseted > 0)
-    settings.mutate(@(s) delete s[SEEN_ID])
+    settings.mutate(@(s) s.$rawdelete(SEEN_ID))
   return reseted
 }
 
@@ -102,15 +102,9 @@ let mkCurUnseenResearchesBySquads = @() Computed(function() {
   let res = {}
   foreach(r in armiesResearches.value?[viewArmy.value].researches ?? {})
     if (r.research_id in unseen) {
-      let { squad_id = "" } = r
-      if (squad_id != "") {
-        res[squad_id] <- true
-      } else {
-        foreach (squadId in r.squadIdList)
-          res[squadId] <- true
-      }
+      foreach (squadId in r.squadIdList)
+        res[squadId] <- true
     }
-
 
   return res
 })

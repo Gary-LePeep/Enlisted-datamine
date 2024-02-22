@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let JB = require("%ui/control/gui_buttons.nut")
 let { fontBody, fontHeading2, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
@@ -143,7 +143,7 @@ let modsContent = makeVertScroll(@(){
   modsWrapParams)
 }, { size = [SIZE_TO_CONTENT, flex()] })
 
-let function mkOptions(modInfo, option, needPrefix = false){
+function mkOptions(modInfo, option, needPrefix = false){
   local info = modInfo.room_params.rules[option].oneOf
   if (needPrefix)
     info = info.map(@(v) loc($"options/{v}"));
@@ -187,7 +187,7 @@ let modInfoRows = @(modInfo) [
   }
 ]
 
-let function currentModInfo(){
+function currentModInfo(){
   let res = { watch = [modPath, receivedModInfos] }
   let curModInfo = receivedModInfos.value?[modPath.value]
   if (!curModInfo)
@@ -235,7 +235,7 @@ let wndContent = {
   ]
 }
 
-let function openCustomMissionWnd() {
+function openCustomMissionWnd() {
   hasBeenUpdated(true)
   return addModalWindow({
     key = WND_UID

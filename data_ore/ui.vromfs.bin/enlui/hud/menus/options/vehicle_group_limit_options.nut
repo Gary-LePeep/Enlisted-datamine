@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {get_setting_by_blk_path} = require("settings")
 let {sendNetEvent, CmdLimitVehicleByGroup} = require("dasevents")
@@ -14,7 +14,7 @@ vehicleGroupLimit.subscribe(function(v) {
 
 let optionLimitVehicleByGroupCtor = @(actionCb) function (opt, group, xmbNode) {
   let optSetValue = opt.setValue
-  let function setValue(val) {
+  function setValue(val) {
     optSetValue(val)
     actionCb(val)
   }
@@ -22,7 +22,7 @@ let optionLimitVehicleByGroupCtor = @(actionCb) function (opt, group, xmbNode) {
   return optionCheckBox(opt, group, xmbNode)
 }
 
-let function mkOption(title, field, actionCb) {
+function mkOption(title, field, actionCb) {
   let blkPath = $"gameplay/{field}"
   let { watch, setValue } = getOnlineSaveData(blkPath,
     @() get_setting_by_blk_path(blkPath) ?? false)

@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {get_setting_by_blk_path} = require("settings")
 let contactsGameId = get_setting_by_blk_path("contactsGameId")
@@ -10,7 +10,7 @@ let {tostring_r} = require("%sqstd/string.nut")
 
 let {dgs_get_settings} = require("dagor.system")
 
-let function char_login(auth_token, user_cb) {
+function char_login(auth_token, user_cb) {
   let request = {
     game =  contactsGameId
   }

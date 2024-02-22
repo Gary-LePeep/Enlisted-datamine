@@ -1,8 +1,8 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {watchedHeroSquadMembers} = require("%ui/hud/state/squad_members.nut")
 
-let function getEngineersCount(list){
+function getEngineersCount(list){
   local enginersCount = 0
   foreach (soldier in list){
     if (soldier.isAlive && soldier.weapTemplates.secondary.contains("building_tool"))

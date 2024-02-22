@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {controlledVehicleEid} = require("%ui/hud/state/vehicle_state.nut")
 let {mainTurretEid} = require("%ui/hud/state/vehicle_turret_state.nut")
@@ -21,7 +21,7 @@ let forbid = {
 }
 
 
-let function hair(color, line, width=null) {
+function hair(color, line, width=null) {
   return {
     rendObj = ROBJ_VECTOR_CANVAS
     size = flex()
@@ -65,7 +65,7 @@ let forbidBlock = {
   ]
 }
 
-let function crosshair() {
+function crosshair() {
   return {
     size = crossHairSize
     hplace = ALIGN_CENTER
@@ -90,7 +90,7 @@ let function crosshair() {
 }
 
 
-let function root() {
+function root() {
   return {
     size = [sw(100), sh(100)]
     children = crosshair

@@ -1,4 +1,5 @@
-from "%enlSqGlob/ui_library.nut" import *
+import "%dngscripts/ecs.nut" as ecs
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 require("state/debriefing_es.nut")//fixme
 let { get_setting_by_blk_path } = require("settings")
@@ -6,6 +7,7 @@ let { showChatInput } =  require("%ui/hud/chat.ui.nut")
 let briefing = require("huds/overlays/enlisted_briefing.nut")
 let { showBriefing } = require("state/briefingState.nut")
 let { playersMenuUi, showPlayersMenu } = require("%ui/hud/menus/players.nut")
+let { isAlive } = require("%ui/hud/state/health_state.nut")
 
 let { hudMenus, openMenu } = require("%ui/hud/ct_hud_menus.nut")
 let { scoresMenuUi, showScores } = require("huds/scores.nut")
@@ -23,14 +25,20 @@ let { showBattleChat, forceDisableBattleChat } = require("%ui/hud/state/hudOptio
 let { isReplay } = require("%ui/hud/state/replay_state.nut")
 let { isGamepad } = require("%ui/control/active_controls.nut")
 let dainput = require("dainput2")
+let {CmdResetDigitalActionStickyToggle} = require("dasevents")
 //local { forcedMinimalHud } = require("state/hudGameModes.nut")
 
-let function openBuildingToolMenu() {
+function openBuildingToolMenu() {
   if (isBuildingToolMenuAvailable.value)
     showBuildingToolMenu(true)
 }
 
-let function openSquadSoldiersMenu() {
+function openCommandsMenu() {
+  if (!isReplay.value && isAlive.value)
+    showPieMenu(true)
+}
+
+function openSquadSoldiersMenu() {
   if (isSquadSoldiersMenuAvailable.value)
     showSquadSoldiersMenu(true)
 }
@@ -45,8 +53,6 @@ let { artilleryMap, showArtilleryMap } = require("%ui/hud/menus/artillery_radio_
 let { debriefingShow, debriefingDataExt } = require("%ui/hud/state/debriefingStateInBattle.nut")
 let debriefing = require("menus/mk_debriefing.nut")(debriefingDataExt)
 
-let openCommandsMenu = @() showPieMenu(true)
-
 let groups = {
   debriefing = 1
   gameHud   = 3
@@ -54,7 +60,7 @@ let groups = {
   pieMenu   = 5
 }
 let showChatInputAct = Computed(@() !forceDisableBattleChat.value && showChatInput.value)
-let showPieMenuAct = Computed(@() showPieMenu.value && !isReplay.value)
+let showPieMenuAct = Computed(@() showPieMenu.value && !isReplay.value && isAlive.value)
 
 let disableMenu = get_setting_by_blk_path("disableMenu") ?? false
 let huds = [
@@ -70,10 +76,7 @@ let huds = [
   },
   {
     show = showPieMenuAct,
-    open = function () {
-      if (!isReplay.value)
-        openCommandsMenu()
-    },
+    open = openCommandsMenu,
     close = @() showPieMenu(false)
     menu = pieMenu
     holdToToggleDurMsec = @() -1
@@ -149,18 +152,37 @@ let huds = [
   }
 ].filter(@(v) v!=null)
 
-let function unstickEventWhenHudClosed(menu) {
+function unstickEventWhenHudClosed(menu) {
   if (menu?.event == null || !(menu?.show instanceof Watched))
     return
   menu.show.subscribe(function(val) {
-    if (!val)
-      dainput.reset_digital_action_sticky_toggle(dainput.get_action_handle(menu.event, 0xFFFF))
+    if (!val) {
+      ecs.g_entity_mgr.broadcastEvent(CmdResetDigitalActionStickyToggle({
+        action = dainput.get_action_handle(menu.event, 0xFFFF)
+      }))
+    }
   })
+}
+
+function unstickEventWhenHudOpenCommandFailed(menu) {
+  if (menu?.event == null || !(menu?.show instanceof Watched) || type(menu?.open) != "function")
+    return
+
+  let originOpenFn = menu.open
+  menu.open = function() {
+    originOpenFn()
+    if (!menu.show.value) {
+      ecs.g_entity_mgr.broadcastEvent(CmdResetDigitalActionStickyToggle({
+        action = dainput.get_action_handle(menu.event, 0xFFFF)
+      }))
+    }
+  }
 }
 
 // if menu was opened with a sticky key and closed not by clicking that key, we want to unstick it
 // otherwise the next click of the key will do the unstick and no menu will open
 huds.each(unstickEventWhenHudClosed)
+huds.each(unstickEventWhenHudOpenCommandFailed)
 hudMenus(huds)
 
 debriefingDataExt.subscribe(function(val) {

@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let msgbox = require("%enlist/components/msgbox.nut")
 let colorize = require("%ui/components/colorize.nut")
@@ -30,7 +30,7 @@ let nextTutorialUnlock = Computed(function() {
     ?? rewardsUnlocks.findvalue(@(v) v?.level == lvl)
 })
 
-let function showGetUnlockTutorial(unlock) {
+function showGetUnlockTutorial(unlock) {
   let { armyId, level, unlockType, unlockId, rewardInfo = {} } = unlock
   local tutorialText = ""
   if (unlockType == "squad") {

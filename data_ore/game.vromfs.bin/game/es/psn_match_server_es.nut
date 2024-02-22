@@ -31,7 +31,7 @@ let connectedPsnPlayersQuery = ecs.SqQuery("connectedPsnPlayers",
 
 let filterPsnPlayers = @(comp) ["ps5", "ps4"].contains(comp.platform) || debug
 
-let function getPSNMatchLeader(){
+function getPSNMatchLeader(){
   let connectedPSNPayers = []
   connectedPsnPlayersQuery.perform(function(eid, comp) {
     if (filterPsnPlayers(comp))

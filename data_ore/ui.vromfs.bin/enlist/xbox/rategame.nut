@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let logRG = require("%enlSqGlob/library_logs.nut").with_prefix("[RateGame]")
 let platform = require("%dngscripts/platform.nut")
@@ -19,7 +19,7 @@ const POS_FACTOR_TO_RATE = 4
 let { request_review =  @(fn) fn(false) } = platform.is_xbox ? require("%xboxLib/impl/store.nut")
                                             : null
 
-let function checkRate(_) {
+function checkRate(_) {
   if (!onlineSettings.onlineSettingUpdated.value
       || onlineSettings.settings.value?[ASKED_ID]
       || isInBattleState.value

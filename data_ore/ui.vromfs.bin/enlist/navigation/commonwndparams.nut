@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { largePadding, navHeight, footerContentHeight, smallPadding, contentGap, maxContentWidth
 } = require("%enlSqGlob/ui/designConst.nut")

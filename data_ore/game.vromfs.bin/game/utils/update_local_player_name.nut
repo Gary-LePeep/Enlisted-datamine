@@ -7,7 +7,7 @@ if (isDedicated)
 let userInfo = require("%enlSqGlob/userInfo.nut")
 let { has_network } = require("net")
 
-let function updateName(_eid, comp) {
+function updateName(_eid, comp) {
   if (!comp.is_local || has_network())
     return null
 

@@ -1,10 +1,10 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let isNewbie = require("%enlist/unlocks/isNewbie.nut")
 let { hasCampaignPromo } = require("%enlist/featureFlags.nut")
 let { settings, onlineSettingUpdated } = require("%enlist/options/onlineSettings.nut")
 let { addModalWindow, removeModalWindow } = require("%ui/components/modalWindows.nut")
-let { isLoggedIn } = require("%enlSqGlob/login_state.nut")
+let { isLoggedIn } = require("%enlSqGlob/ui/login_state.nut")
 let { hasMsgBoxes } = require("%enlist/components/msgbox.nut")
 let { gameLanguage } = require("%enlSqGlob/clientState.nut")
 let { hasArmyProgressOpened } = require("%enlist/mainMenu/sectionsState.nut")
@@ -38,7 +38,7 @@ let reqPromoView = keepref(Computed(function() {
   return seen.value != PROMO_NAME
 }))
 
-let function markPromoSeen() {
+function markPromoSeen() {
   settings.mutate(function(set) {
     set[SEEN_ID] <- PROMO_NAME
   })
@@ -116,6 +116,6 @@ reqPromoView.subscribe(function(isVisible) {
 console_register_command(function() {
   settings.mutate(function(s) {
     if (SEEN_ID in s)
-      delete s[SEEN_ID]
+      s.$rawdelete(SEEN_ID)
   })
 }, "meta.resetSeenPromo")

@@ -238,5 +238,46 @@
         }
       }
     }
+  ],
+  "base_human_steps_sound_generator": {
+    "_group": {
+      "_tags": "sound",
+      "human_steps_sound_generator__lastStepAt": -1.0,
+      "human_steps_sound_generator__cooldown": 0.0,
+      "human_steps_sound_generator__walkRunSprint_stand_intervals": [10.0,10.0,10.0],
+      "human_steps_sound_generator__walkRunSprint_crouch_intervals": [10.0,10.0,10.0],
+      "human_steps_sound_generator__enableForVisible": false,
+      "human_steps_sound_generator__enableForInvisible": false
+    }
+  },
+  "base_human_steps_sound": [
+    {
+      "_use": "sound_landmesh_queries"
+    },
+    {
+      "_use": "base_human_steps_sound_generator"
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "human_steps_sound__lastTimeOnGround": 0.0,
+        "human_steps_sound__smid": -1.0,
+        "human_steps_sound__waterDepth": 0.0,
+        "human_steps_sound__physStates": -1,
+        "human_steps_sound__irqObjIdx": -1,
+        "human_steps_sound__isOddStep": false,
+        "human_steps_sound__traceStepOffsetLen": [1.0,2.0],
+        "human_steps_sound__friendVolume": 0.4,
+        "human_steps_sound__farawayThresholdSq": 900.0,
+        "human_steps_sound__fallSpeedCollThreshold": 10.0,
+        "human_steps_sound__tag": "",
+        "human_steps_sound__path:shared:object": [],
+        "human_steps_sound__descs:shared:object": [],
+        "human_steps_sound__irqs:shared:array": [],
+        "human_steps_sound__jumpFx:shared:object": [],
+        "human_steps_sound__walkVoiceFx:shared:object": [],
+        "human_steps_sound__runVoiceFx:shared:object": []
+      }
+    }
   ]
 }

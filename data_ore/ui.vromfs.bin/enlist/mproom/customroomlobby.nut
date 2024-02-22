@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { connectToHost, lobbyStatus, startSession, leaveRoom, destroyRoom, roomMembers, room,
@@ -17,8 +17,8 @@ let { remap_nick } = require("%enlSqGlob/remap_nick.nut")
 let JB = require("%ui/control/gui_buttons.nut")
 let { mkArmyIcon, mkArmyName } = require("%enlist/soldiers/components/armyPackage.nut")
 
-let function startSessionCb(response) {
-  let function reportError(text) {
+function startSessionCb(response) {
+  function reportError(text) {
     console_print(text)
     msgbox.show({text=text})
   }
@@ -30,7 +30,7 @@ let function startSessionCb(response) {
 
 }
 
-let function leaveRoomCb(response) {
+function leaveRoomCb(response) {
   if (response.error) {
     msgbox.show({
       text = "Failed to leave room: {0}".subst(matching_errors.error_string(response.error))
@@ -38,11 +38,11 @@ let function leaveRoomCb(response) {
   }
 }
 
-let function doLeaveRoom() {
+function doLeaveRoom() {
   leaveRoom(leaveRoomCb)
 }
 
-let function destroyRoomCb(response) {
+function destroyRoomCb(response) {
   if (response.error) {
     msgbox.show({
       text = "Failed to destroy room: {0}".subst(matching_errors.error_string(response.error))
@@ -50,11 +50,11 @@ let function destroyRoomCb(response) {
   }
 }
 
-let function doDestroyRoom() {
+function doDestroyRoom() {
   destroyRoom(destroyRoomCb)
 }
 
-let function memberName(member) {
+function memberName(member) {
   let colorSpeaking = Color(20, 220, 20, 255)
   let colorSilent = colors.TextHighlight
   return function() {
@@ -95,7 +95,7 @@ let memberInfo = @(member) {
 }
 
 
-let function listContent() {
+function listContent() {
   let players = roomMembers.value
     .filter(@(member) !member.public?.host)
   players.sort(@(a, b) (a.public?.squadId ?? 0) <=> (b.public?.squadId ?? 0))
@@ -166,7 +166,7 @@ let header = {
 }
 
 
-let function membersListRoot() {
+function membersListRoot() {
   return {
     size = [sw(20), sh(60)]
     hplace = ALIGN_LEFT
@@ -196,7 +196,7 @@ let function membersListRoot() {
 }
 
 
-let function statusText() {
+function statusText() {
   local text = ""
   let curLobbyStatus = lobbyStatus.value
   if (curLobbyStatus == LobbyStatus.ReadyToStart)
@@ -302,7 +302,7 @@ let allButtons = {
   ]
 }
 
-let function chatRoot() {
+function chatRoot() {
   return {
     size = [sw(55), sh(60)]
     pos = [sw(35), sh(10)]
@@ -313,7 +313,7 @@ let function chatRoot() {
 }
 
 
-let function roomScreen() {
+function roomScreen() {
   return {
     size = [flex(), flex()]
     halign = ALIGN_CENTER

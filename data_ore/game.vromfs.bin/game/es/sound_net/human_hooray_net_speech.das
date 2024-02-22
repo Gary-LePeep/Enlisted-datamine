@@ -61,7 +61,7 @@ def start_hooray(eid : ecs::EntityId; transform : float3x4; team : int; var huma
   human_hooray_speech__sensitivity = 0.
 
 
-[es(tag=server, no_order)]
+[es(tag=server, after=sound_begin_update_es, before=sound_end_update_es)]
 def human_hooray_net_speech_update(info : ParallelUpdateFrameDelayed;
                                    eid : EntityId;
                                    human_net_phys__curMoveState : int;

@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 let {
   PERK_ALERT_SIGN, REQ_MANAGE_SIGN, ITEM_ALERT_SIGN
 } = require("%enlSqGlob/ui/soldiersUiComps.nut")
@@ -14,18 +14,18 @@ let { blinkingIcon } = require("%enlSqGlob/ui/blinkingIcon.nut")
 const SEEN_ID = "seen/notifierTutorials"
 let seenData = Computed(@() settings.value?[SEEN_ID] ?? {})
 
-let function markNotifierSeen(notifierId) {
+function markNotifierSeen(notifierId) {
   settings.mutate(function(set) {
     let saved = (clone set?[SEEN_ID] ?? {}).rawset(notifierId, true) //warning disable: -unwanted-modification
     set[SEEN_ID] <- saved
   })
 }
 
-let function resetSeen() {
+function resetSeen() {
   if (SEEN_ID not in settings.value)
     return
 
-  settings.mutate(@(v) delete v[SEEN_ID])
+  settings.mutate(@(v) v.$rawdelete(SEEN_ID))
 }
 
 enum Notifiers {

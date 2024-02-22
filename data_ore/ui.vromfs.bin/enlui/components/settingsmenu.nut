@@ -1,8 +1,8 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {fontBody} = require("%enlSqGlob/ui/fontsStyle.nut")
 let {CONTROL_BG_COLOR} = require("%ui/hud/style.nut")
-let { normal, setTooltip } = require("%ui/style/cursors.nut")
+let { setTooltip } = require("%ui/style/cursors.nut")
 
 let JB = require("%ui/control/gui_buttons.nut")
 
@@ -36,7 +36,7 @@ let windowButtons = @(params) function() {
   }
 }
 
-let function optionRowContainer(children, opt) {
+function optionRowContainer(children, opt) {
   let stateFlags = Watched(0)
   let { hint = null } = opt
   return @() {
@@ -58,7 +58,7 @@ let function optionRowContainer(children, opt) {
   }
 }
 
-let function makeOptionRow(opt) {
+function makeOptionRow(opt) {
   let group = ElemGroup()
   let xmbNode = XmbNode()
 
@@ -88,7 +88,7 @@ let function makeOptionRow(opt) {
 let sepColor = Color(120,120,120)
 let sepLine = freeze({size = [flex(), hdpx(2)], rendObj = ROBJ_SOLID, color=sepColor})
 
-let function mkSeparator(opt){
+function mkSeparator(opt){
   let hasName = "name" in opt
   return freeze({
     size = [flex(), SIZE_TO_CONTENT]
@@ -111,7 +111,7 @@ let function mkSeparator(opt){
 }
 let isSeparator = @(v) v?.isSeparator
 
-let function optionsPage(params) {
+function optionsPage(params) {
   let xmbNode = XmbContainer({ wrap = false })
   let {options, currentTab} = params
 
@@ -151,11 +151,10 @@ let function optionsPage(params) {
 }
 
 
-let function settingsMenu(params) {
+function settingsMenu(params) {
 
   return @(){
     size = [sw(100), sh(100)]
-    cursor = normal
     watch = [active_controls.isGamepad]
     key = params?.key
     children = {

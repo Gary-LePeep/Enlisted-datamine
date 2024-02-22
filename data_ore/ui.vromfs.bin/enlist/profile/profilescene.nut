@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let medalsUi = require("medalsUi.nut")
 let boostersUi = require("boostersUi.nut")
@@ -52,7 +52,7 @@ let hasUnopenedCardElements = Computed(@()
 let waitingSpinner = spinner()
 
 let btnSize = [hdpx(230), commonBtnHeight]
-let function mkBtnGetAllRewards(data) {
+function mkBtnGetAllRewards(data) {
   let showBtnWatch = Computed(function() {
     local count = 0
     foreach (u in data.value) {
@@ -147,7 +147,7 @@ let tabsList = [
   }
 ]
 
-let function switchTab(newIdx){
+function switchTab(newIdx){
   if (newIdx > tabsList.len()-1)
     newIdx = 0
   else if (newIdx < 0)
@@ -244,11 +244,11 @@ let profileWindow = @() {
   }
 }
 
-let function open() {
+function open() {
   sceneWithCameraAdd(profileWindow, "events")
 }
 
-let function close() {
+function close() {
   sceneWithCameraRemove(profileWindow)
 }
 

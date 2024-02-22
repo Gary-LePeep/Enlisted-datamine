@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let {
@@ -119,7 +119,7 @@ local mkCustomizationSlot = @(itemToShow, itemsPrices) watchElemState(function(s
     ]}
 })
 
-let function mkPrice(currencyId, count, style){
+function mkPrice(currencyId, count, style){
   if (currencyId == "EnlistedGold")
     return mkCurrency({
       currency = enlistedGold
@@ -130,7 +130,7 @@ let function mkPrice(currencyId, count, style){
   return mkItemCurrency({
     currencyTpl = currencyId
     count
-    textStyle = style.__merge({ fontSize = fontBody.fontSize })
+    textStyle = style.__update({ fontSize = fontBody.fontSize })
   })
 }
 
@@ -172,7 +172,7 @@ let emptySlotTitle = @(sf, isSelected){
 }
 
 
-let function selectingItemBlock(item, itemTemplate, guid, isSelected,
+function selectingItemBlock(item, itemTemplate, guid, isSelected,
   iconAttachments, premiumItemsCount, itemPrice
 ){
   let group = ElemGroup()
@@ -213,7 +213,7 @@ let function selectingItemBlock(item, itemTemplate, guid, isSelected,
         if (currentSlot in res) {
           //No need to left item in slot, because we override with watch data
           //before render soldier. oldSoldiersLook includes premium items too.
-          delete res[currentSlot]
+          res.$rawdelete(currentSlot)
         }
       }
       else

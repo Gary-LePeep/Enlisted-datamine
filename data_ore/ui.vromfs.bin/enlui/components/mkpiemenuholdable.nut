@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let JB = require("%ui/control/gui_buttons.nut")
 let mkPieMenuDarg = require("%ui/components/mkPieMenuBase.nut")
@@ -8,7 +8,7 @@ let dainput = require("dainput2")
 let { mkHotkey } = require("%ui/components/uiHotkeysHint.nut")
 let { HUD_TIPS_HOTKEY_FG } = require("%ui/hud/style.nut")
 
-let function locAction(action) {
+function locAction(action) {
   return loc($"controls/{action}", action)
 }
 let closeHotkey = $"^{JB.B} | Esc"
@@ -63,7 +63,7 @@ let mkDefImageCtor = @(elemSize) function (curImage, fallbackImage=null, availab
 }
 
 
-let function mkBlurBack(radius) {
+function mkBlurBack(radius) {
   let size = array(2, 2 * radius * 1.02)
   return {
     size
@@ -101,7 +101,7 @@ let mkSelectedActionHint = @(curIdx, available, actions, radius) function() {
   })
 }
 
-local function mkPieMenuRoot(actions, curIdx, radius, showPieMenu, key = null, stickNo = 1) {
+function mkPieMenuRoot(actions, curIdx, radius, showPieMenu, key = null, stickNo = 1) {
   let closeWithoutClick = function() {
     curIdx(null)
     showPieMenu(false)
@@ -171,7 +171,7 @@ let mkOnHotkey = @(curIdx, idx, showPieMenu) function() {
   showPieMenu(false)
 }
 
-let function textFunc(text) {
+function textFunc(text) {
   return {
     fillColor = HUD_TIPS_HOTKEY_FG
     borderWidth = 0
@@ -185,7 +185,7 @@ let function textFunc(text) {
   }
 }
 
-local function mkCtor(ctor, mkDefCtor, image, fallbackImage, available, text, hotkey, hotkeyAction) {
+function mkCtor(ctor, mkDefCtor, image, fallbackImage, available, text, hotkey, hotkeyAction) {
   available = available ?? Watched(true)
   let main = ctor
     ?? mkDefCtor(image, fallbackImage, available)
@@ -215,7 +215,7 @@ let mkKbdHotkeyStub = @(actionsCount) "{0}".subst(" | ".join(
   [].resize(KEYBOARD_HOTKEY_MAX_NUM - min(actionsCount, KEYBOARD_HOTKEY_MAX_NUM))
     .map(@(_, idx) idx + actionsCount + 1)))
 
-local function filterAndUpdateActions(actions, showPieMenu, mkDefCtor, curIdx){
+function filterAndUpdateActions(actions, showPieMenu, mkDefCtor, curIdx){
   actions = actions.map(function(a, idx) {
     let available = a?.available instanceof Watched
       ? a.available
@@ -248,7 +248,7 @@ local function filterAndUpdateActions(actions, showPieMenu, mkDefCtor, curIdx){
   return actions
 }
 
-let function mkPieMenu(actions, curIdx = Watched(null), showPieMenu = Watched(false),
+function mkPieMenu(actions, curIdx = Watched(null), showPieMenu = Watched(false),
   radius = Watched(hdpx(350)), elemSize = null, key = null, stickNo = 1
 ){
   elemSize = elemSize ?? Computed(@() array(2, (0.4 * radius.value).tointeger()))

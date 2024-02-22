@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 let { mkTwoSidesGradientX } = require("%enlSqGlob/ui/gradients.nut")
 
 let FLAG_PARAMS = {
@@ -52,7 +52,7 @@ let mkFlagTail = @(p) p.offset <= 0 || p.tail <= 0 ? null
       color = p.tailColor
     }
 
-local function mkHeaderFlag(content, p = FLAG_PARAMS) {
+function mkHeaderFlag(content, p = FLAG_PARAMS) {
   p = FLAG_PARAMS.__merge(p)
   return {
     size = p.size
@@ -74,7 +74,7 @@ local function mkHeaderFlag(content, p = FLAG_PARAMS) {
 
 let mkRightHeaderFlag = @(content, params) mkHeaderFlag(content, params.__merge({ rotate = 180 }))
 
-let function mkCenterHeaderFlag(children, p = FLAG_PARAMS) {
+function mkCenterHeaderFlag(children, p = FLAG_PARAMS) {
   let { sideColor = 0x00000000, centerColor = 0x00FFFFFF, width = 12,
     middle = 0.5, isAlphaPremultiplied = true } = p
   return {

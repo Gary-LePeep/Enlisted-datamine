@@ -1,10 +1,10 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { wallPosterPreview } = require("%ui/hud/state/wallposter.nut")
 let { tipCmp } = require("%ui/hud/huds/tips/tipComponent.nut")
 let { DEFAULT_TEXT_COLOR } = require("%ui/hud/style.nut")
 
-let function wallposterTips() {
+function wallposterTips() {
   let res = { watch = wallPosterPreview }
   if (!wallPosterPreview.value)
     return res

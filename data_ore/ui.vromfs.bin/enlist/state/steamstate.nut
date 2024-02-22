@@ -1,10 +1,10 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let userInfo = require("%enlSqGlob/userInfo.nut")
 let steam = require("steam")
 let auth = require("auth")
 let { openUrl } = require("%ui/components/openUrl.nut")
-let eventbus = require("eventbus")
+let { eventbus_subscribe_onehit } = require("eventbus")
 let { get_circuit_conf } = require("app")
 
 let isLinked = keepref(Computed(@() !steam.is_running() || (userInfo.value?.tags ?? []).indexof("steamlogin") == null))
@@ -22,13 +22,13 @@ let goToSteamUrl = function(res) {
   isOpenLinkUrlInProgress(false)
 }
 
-let function openLinkUrl() {
+function openLinkUrl() {
   if (!steamBindUrl || steamBindUrl == "")
     return log("Steam Email Registration: empty steamBindUrl in network.blk")
 
   isOpenLinkUrlInProgress(true)
 
-  eventbus.subscribe_onehit("get_steam_link_token", goToSteamUrl)
+  eventbus_subscribe_onehit("get_steam_link_token", goToSteamUrl)
   auth.get_steam_link_token("get_steam_link_token")
 }
 

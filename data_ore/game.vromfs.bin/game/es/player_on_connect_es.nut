@@ -22,7 +22,7 @@ let availableTeamStartFromQuery = ecs.SqQuery("availableTeamStartFromQuery", {
   comps_ro = [["availableTeamStartFrom", ecs.TYPE_INT]]
 })
 
-let function onPlayerConnected(evt, eid, comp) {
+function onPlayerConnected(evt, eid, comp) {
   local wishTeam = evt.wishTeam
   let reconnected = evt.reconnected
   let canSpawnEntity = evt.canSpawnEntity

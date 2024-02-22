@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontBody, fontSub, fontawesome } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { bigPadding, startBtnWidth, contentOffset, commonBtnHeight,
@@ -13,7 +13,7 @@ let { mkDailyTasksUiReward, mkDailyTasksUi } = require("%enlist/unlocks/taskWidg
 let mkOffersPanel = require("%enlist/offers/offersPanel.nut")
 let { isMainMenuVisible } = require("%enlist/mainMenu/sectionsState.nut")
 let { serviceNotificationsList } = require("%enlSqGlob/serviceNotificationsList.nut")
-let mkServiceNotification = require("%enlSqGlob/notifications/mkServiceNotification.nut")
+let mkServiceNotification = require("%enlSqGlob/ui/notifications/mkServiceNotification.nut")
 let { mkSquadsList } = require("%enlist/soldiers/squads_list.ui.nut")
 let systemWarningsBlock = require("%enlist/mainScene/systemWarnings.nut")
 let { mkSquadInfo } = require("%enlist/soldiers/squad_info.ui.nut")
@@ -32,11 +32,15 @@ let { mkArmyIcon } = require("%enlist/soldiers/components/armyPackage.nut")
 let fa = require("%ui/components/fontawesome.map.nut")
 let { getArmyName } = require("%enlist/campaigns/armiesConfig.nut")
 let { getCampaignTitle } = require("%enlSqGlob/ui/itemsInfo.nut")
+let { FAButton } = require("%ui/components/txtButton.nut")
+let { isMissionsRatingOpened } = require("%enlist/gameModes/missionsRatingState.nut")
+let { hasMissionLikes } = require("%enlist/featureFlags.nut")
+
 
 let isOfferExpandLocked = Watched(false)
 
-let function mkMainSceneContent() {
-  let function mkSoldiersUi(){
+function mkMainSceneContent() {
+  function mkSoldiersUi(){
     let squad_info = mkSquadInfo()
     let squads_list = mkSquadsList()
 
@@ -98,7 +102,14 @@ let function mkMainSceneContent() {
     halign = ALIGN_RIGHT
     children = [
       selectedGameMode.value?.isLocal || !randTeamAvailable.value ? null : randTeamCheckbox
-      changeGameModeBtn
+      @() {
+        watch = hasMissionLikes
+        children = [
+          changeGameModeBtn
+          !hasMissionLikes.value ? null
+            : FAButton("cog", @() isMissionsRatingOpened(true), { pos = [-hdpx(55), 0] })
+        ]
+      }
     ]
   }
 
@@ -184,7 +195,7 @@ let function mkMainSceneContent() {
     }.__update(fontSub)
   }
 
-  let function possibleMapsTooltip() {
+  function possibleMapsTooltip() {
     let children = []
     queuesCampaignsData.value.mapsList.each(@(maps, army)
       children.append(mkMapsListItem(army, maps)))
@@ -262,8 +273,8 @@ let function mkMainSceneContent() {
         {
           size = flex()
           children = [
-            mkSoldiersUi
             rightContent
+            mkSoldiersUi
             systemWarningsBlock
           ]
         }

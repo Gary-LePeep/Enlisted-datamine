@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { launch_network_session } = require("app")
 let statsd = require("statsd")
@@ -13,13 +13,13 @@ let extraGameLaunchParams = nestWatched("extraGameLaunchParams", {})
 
 let isRealBattleStarted = Watched(false)
 
-let function setNotInBattle(){
+function setNotInBattle(){
   if (isRealBattleStarted.value)
     return
   isInBattleStateUpdate(false)
 }
 
-local function startGame(params) {
+function startGame(params) {
   console_print("Launching game client...")
   params = params.__merge(extraGameLaunchParams.value)
   if ((params?.modHash ?? "") != "" && params?.modId == null)

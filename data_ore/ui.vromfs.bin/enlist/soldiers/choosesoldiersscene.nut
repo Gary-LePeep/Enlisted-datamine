@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { ceil } = require("%sqstd/math.nut")
 let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
@@ -23,7 +23,7 @@ let msgbox = require("%enlist/components/msgbox.nut")
 let { squadSoldiers, reserveSoldiers, selectedSoldierGuid, selectedSoldier, soldiersStatuses,
   applySoldierManage, changeSoldierOrderByIdx, maxSoldiersInBattle, soldiersSquadParams,
   moveCurSoldier, soldierToReserveByIdx, curSoldierToReserve, curSoldierToSquad, getCanTakeSlots,
-  soldiersSquad, curSquadSoldierIdx, closeChooseSoldiersWnd,
+  soldiersSquad, curSquadSoldierIdx, closeChooseSoldiersWnd
   isPurchaseWndOpend, updateSoldiersListAndSort
 } = require("model/chooseSoldiersState.nut")
 let { sceneWithCameraAdd, sceneWithCameraRemove } = require("%enlist/sceneWithCamera.nut")
@@ -122,7 +122,7 @@ let buttonMassUnequip = Flat(loc("removeAllEquipment/reserve"),
     vplace = ALIGN_BOTTOM
   })
 
-let function chooseSoldiersScene() {
+function chooseSoldiersScene() {
   let reserveAvailableSize = Computed(@() reserveSoldiers.value.findindex(@(s)
       (soldiersStatuses.value?[s.guid] ?? NOT_FIT_CUR_SQUAD) & NOT_FIT_CUR_SQUAD)
     ?? reserveSoldiers.value.len())
@@ -176,7 +176,7 @@ let function chooseSoldiersScene() {
   let commonLimit = Computed(@() curArmyReserveCapacity.value
     - (hasPremium.value ? (gameProfile.value?.premiumBonuses.soldiersReserve ?? 0) : 0))
   let premiumLimit = Computed(@() hasPremium.value ? curArmyReserveCapacity.value : null)
-  let function reserveCountBlock() {
+  function reserveCountBlock() {
     let res = { watch = [reserveSoldiers] }
     let reserveCount = reserveSoldiers.value.len()
     if (reserveCount <= 0)
@@ -248,7 +248,7 @@ let function chooseSoldiersScene() {
     borderColor = 0xFFFFFFFF
   }
 
-  let function mkEmptySlot(idx, tgtHighlight, hasBlink) {
+  function mkEmptySlot(idx, tgtHighlight, hasBlink) {
     let group = ElemGroup()
     let onDrop = @(data) changeSoldierOrderByIdx(data?.soldierIdx, idx)
     let isDropTarget = Computed(@() curDropTgtIdx.value == idx
@@ -311,7 +311,7 @@ let function chooseSoldiersScene() {
   let selectedSoldiersNum = Watched(0)
   let hoveredSoldierGuid = Watched(null)
 
-  let function selectHoveredSoldierForSale() {
+  function selectHoveredSoldierForSale() {
     let guid = hoveredSoldierGuid.value
     if (guid == null)
       return
@@ -325,7 +325,7 @@ let function chooseSoldiersScene() {
       selectedSoldiersNum(selectedSoldiersNum.value + 1)
   }
 
-  let function mkSoldierSlot(soldier, idx, tgtHighlight, addObjects, hasGroupSelection = false) {
+  function mkSoldierSlot(soldier, idx, tgtHighlight, addObjects, hasGroupSelection = false) {
     let isSelectedWatch = Computed(@() selectedSoldierGuid.value == soldier.guid)
     let isDropTarget = Computed(@() idx < maxSoldiersInBattle.value && curDropTgtIdx.value == idx
       && (curDropData.value?.soldierIdx ?? -1) >= maxSoldiersInBattle.value)
@@ -488,7 +488,7 @@ let function chooseSoldiersScene() {
     }
   })
 
-  let function manageBlock() {
+  function manageBlock() {
     let { canUp, canDown, canTake, canRemove, takeAvailable } = moveParams.value
     let hasMoveButtons = !isPurchaseWndOpend.value && !isMarkingForSale.value
     let needShowUpButton = canUp && hasMoveButtons
@@ -601,7 +601,7 @@ let function chooseSoldiersScene() {
       if (soldier.isHero) {
         // we have to filter heroes out
         //because gamepad selection interface does not exclude them
-        guids.rawdelete(soldier.guid)
+        guids.$rawdelete(soldier.guid)
         continue
       }
 
@@ -626,7 +626,7 @@ let function chooseSoldiersScene() {
     mkDismissWarning(curArmy.value, guids.keys(), totalCost, function() {
       soldierCheckedState.each(function(state, guid) {
         if (state.value)
-          soldierCheckedState.rawdelete(guid)
+          soldierCheckedState.$rawdelete(guid)
       })
     })
   }
@@ -641,6 +641,7 @@ let function chooseSoldiersScene() {
     { isEnabled }.__update(SELL_BTN_STYLE))
 
   let mkSoldiersBlock = @(withText = true) @() {
+    size = [flex(), SIZE_TO_CONTENT]
     watch = unseenSoldierShopItems
     flow = FLOW_VERTICAL
     hplace = ALIGN_CENTER
@@ -651,13 +652,17 @@ let function chooseSoldiersScene() {
         text = loc("squad/getMoreSoldiers")
       }).__update(fontSub, {halign = ALIGN_CENTER}) : null
       Flat(loc("soldiers/purchaseSoldier"), @() isPurchaseWndOpend(true),
-        unseenSoldierShopItems.value.len() <= 0 ? {} : {
-          fgChild = smallUnseenNoBlink
-          halign = ALIGN_RIGHT
-          valign = ALIGN_TOP
+        {
+          size = [flex(), SIZE_TO_CONTENT]
           margin = 0
           hotkeys = [["^J:Start"]]
-        } )
+        }.__update(unseenSoldierShopItems.value.len() > 0 ? {
+          fgChild = smallUnseenNoBlink.__update({
+            hplace = ALIGN_RIGHT
+            vplace = ALIGN_TOP
+          })
+        } : {})
+      )
     ]
   }
   local wasPurchOpened = false
@@ -672,7 +677,7 @@ let function chooseSoldiersScene() {
 
   let availList = Computed(@() reserveSoldiers.value.slice(0, reserveAvailableSize.value))
   let blockedList = Computed(@() reserveSoldiers.value.slice(reserveAvailableSize.value))
-  let function reserveList() {
+  function reserveList() {
     if (reserveSoldiers.value.len() == 0)
       return bg.__merge({
         watch = reserveSoldiers

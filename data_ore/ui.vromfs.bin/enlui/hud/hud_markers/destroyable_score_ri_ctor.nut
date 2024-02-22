@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {Point2} = require("dagor.math")
 let { destroyable_ri_Set, destroyable_ri_GetWatched } = require("%ui/hud/state/destroyable_score_ri_markers.nut")
@@ -20,7 +20,7 @@ let defData = freeze({
   opacityRangeY = Point2(0.15, 0.15)
 })
 
-let function destroyable_ri_ctor(eid){
+function destroyable_ri_ctor(eid){
   let markerState = destroyable_ri_GetWatched(eid)
   let data = defData.__merge({eid})
   return function(){

@@ -307,6 +307,9 @@
       "shooter_cam__lastPos": [0.0,0.0,0.0]
     },
     {
+      "shooter_cam__lastVehicleOffset": [0.0,0.0,0.0]
+    },
+    {
       "shooter_cam__lastAnimTmOffset": [0.0,0.0,0.0]
     },
     {
@@ -714,6 +717,18 @@
     "shooter_cam__moveInSpd": 6.0,
     "shooter_cam__moveOutSpd": 0.3,
     "isTpsView": true
+  },
+  "camera_dof": {
+    "prevDof__on": false,
+    "prevDof__is_filmic": false,
+    "prevDof__nearDofStart": 0.01,
+    "prevDof__nearDofEnd": 0.35,
+    "prevDof__nearDofAmountPercent": 0.0,
+    "prevDof__farDofAmountPercent": 0.0,
+    "cockpitDof__nearDofStart": 0.01,
+    "cockpitDof__nearDofEnd": 1.0,
+    "cockpitDof__nearDofAmountPercent": 0.015,
+    "_tags": "render"
   },
   "tank_cam": {
     "_use": "shooter_cam",

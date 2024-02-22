@@ -362,6 +362,25 @@
     "aim_assist__targetEid:eid": [],
     "aim_assist__rotationTargetEid:eid": []
   },
+  "aim_assist_target": {
+    "aim_assist_target__nodeName": "Bip01 Spine1",
+    "aim_assist_target__nodeIdx": -1,
+    "aim_assist_target__nodeIds:list<i>": [],
+    "aim_assist_target__skipNodeNames:list<t>": [
+      {
+        "node": "Bip01 L Hand"
+      },
+      {
+        "node": "Bip01 R Hand"
+      },
+      {
+        "node": "Bip01 L Forearm"
+      },
+      {
+        "node": "Bip01 R Forearm"
+      }
+    ]
+  },
   "human_locomotion": {
     "locomotionParams": [0.2,0.2,0.12,20.0],
     "locomotionFactor": 0.015,
@@ -974,6 +993,9 @@
       "_use": "client_hits"
     },
     {
+      "_use": "aim_assist_target"
+    },
+    {
       "_use": "replicating"
     },
     {
@@ -1246,12 +1268,6 @@
       "phys__lowFreqTickrate": true
     },
     {
-      "aim_assist_target__nodeName": "Bip01 Spine1"
-    },
-    {
-      "aim_assist_target__nodeIdx": -1
-    },
-    {
       "isAlive": true
     },
     {
@@ -1333,6 +1349,12 @@
       "ragdoll__use_ccd": false
     },
     {
+      "ragdoll__wakeUpNodeId": 0
+    },
+    {
+      "ragdoll__wakeUpNode": "Bip01 Spine"
+    },
+    {
       "collres__res": "usaSoldier_collision"
     },
     {
@@ -1381,6 +1403,9 @@
         "value": 9.0,
         "_tags": "server"
       }
+    },
+    {
+      "targetForTankAiGunner:tag": []
     },
     {
       "grid_obj__updateAlways:tag": []
@@ -1526,7 +1551,7 @@
     "swimsplash__maxDistanceFromCameraToUpdateSq": 900.0,
     "swimsplash__offset": [0.0,0.15,0.0],
     "swimsplash__scaleMul": 0.165,
-    "swimsplash__minTimeBetweenSplashes": 0.033,
+    "swimsplash__minTimeBetweenSplashes": 0.066,
     "swimsplash__maxRenderingSpeed": 30.0,
     "swimsplash__fxTemplate": "hit_water_splash_swimming_effect",
     "swimsplash__nodeIds:list<i>": [],
@@ -1641,6 +1666,9 @@
       "_tracked": "human_net_phys__torsoContactMatId"
     },
     {
+      "_tracked": "human_net_phys__isCrawlingMove"
+    },
+    {
       "deform_bbox__bmin": [0.0,0.0,0.0]
     },
     {
@@ -1741,6 +1769,9 @@
     },
     {
       "human_net_phys__torsoContactMatId": -1
+    },
+    {
+      "human_net_phys__isCrawlingMove": false
     },
     {
       "human_phys__crawlTransitionFrictionMult": 0.0

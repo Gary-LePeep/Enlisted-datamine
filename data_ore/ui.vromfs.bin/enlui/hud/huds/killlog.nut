@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { DM_PROJECTILE, DM_MELEE, DM_EXPLOSION, DM_ZONE, DM_COLLISION, DM_HOLD_BREATH,
@@ -69,7 +69,7 @@ let mkIcon = memoize(function(image){
   } : null
 })
 
-let function mkKillEventIcon(data) {
+function mkKillEventIcon(data) {
   let { isHeadshot = false, damageType = 0 } = data
   let image = getPicture(isHeadshot ? killIconsHeadshot : damageTypeIcons?[damageType])
   return mkIcon(image)
@@ -87,7 +87,7 @@ let blurBack = {
   color = BLUR_COLOR
 }
 
-let function nameAndColor(entity) {//entity here is just table with description
+function nameAndColor(entity) {//entity here is just table with description
   local name = entity?.name
   local color = ENEMY_TEAM_COLOR
   if (entity?.isHero) {
@@ -123,7 +123,7 @@ let appendRank = @(textBlock, rank) (rank ?? 0) < MIN_RANK_TO_SHOW
       children = [textBlock, mkRankIcon(rank)]
     }
 
-let function message(data) {
+function message(data) {
   local children = null
   let gunInfo = {
     flow = FLOW_HORIZONTAL
@@ -188,7 +188,7 @@ let itemAnim = [
   { prop=AnimProp.scale, from=[1,1], to=[1,0], duration=0.2, playFadeOut=true}
 ]
 
-let function killLogRoot() {
+function killLogRoot() {
   let children = killLogState.events.value.map(
     @(item) {
       size = SIZE_TO_CONTENT
@@ -211,7 +211,7 @@ let function killLogRoot() {
   }
 }
 
-let function fakeLog() {
+function fakeLog() {
   let names = ["", "Bob", "Alice", "John", "Jane"]
   let killerEid = rnd_int(1, names.len())
   let victimEid = rnd_int(1, names.len())

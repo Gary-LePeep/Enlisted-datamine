@@ -1,0 +1,66 @@
+{
+  "bulletCount": 25,
+  "mass": 10.91,
+  "caliber": 0.09,
+  "speed": 853.0,
+  "maxDistance": 10000.0,
+  "normalizationPreset": "ap",
+  "ricochetPreset": "ap",
+  "groundRicochetPreset": "ap",
+  "secondaryShattersPreset": "ap_large_caliber",
+  "stabilityThreshold": 0.05,
+  "stabilityCaliberToArmorThreshold": 5.0,
+  "stabilityReductionAfterRicochet": 0.3,
+  "stabilityReductionAfterPenetration": 0.0,
+  "stucking": 0.7,
+  "stuckingAngle": 45.0,
+  "bulletType": "apbc_usa_tank",
+  "slopeEffectPreset": "ap",
+  "fresnel": [0.23,0.1,2.0],
+  "bulletName": "90mm_t33",
+  "relativeVelHitShift": [300.0,1000.0],
+  "relativeVelArmorShift": [200.0,1000.0],
+  "waterRicochetEffect": "hit_81_105mm_water_ap",
+  "groundRicochetEffect": "hit_81_105mm_dirt_ap",
+  "stabilityRicochetModifier": [
+    {
+      "mod1": [0.0,0.2]
+    },
+    {
+      "mod2": [20.0,0.4]
+    },
+    {
+      "mod3": [30.0,0.6]
+    },
+    {
+      "mod3": [45.0,0.9]
+    }
+  ],
+  "hitpower": {
+    "HitPower0m": [1.0,0.0],
+    "HitPower1000m": [0.9,0.0],
+    "HitPower10000m": [0.8,10000.0]
+  },
+  "damage": {
+    "kinetic": {
+      "damageType": "generic",
+      "demarrePenetrationK": 0.9,
+      "demarreSpeedPow": 1.43,
+      "demarreMassPow": 0.71,
+      "demarreCaliberPow": 1.07
+    }
+  },
+  "visual": {
+    "range_percent_of_ammo": [100.0,0.0],
+    "traceFreq": 1,
+    "tracer": "30mmWhite",
+    "trail": "black"
+  },
+  "kineticDamage": {
+    "damageType": "generic"
+  },
+  "tracer": {
+    "headColor": "#ffffff78",
+    "smokeColor": "#505050ba"
+  }
+}

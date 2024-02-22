@@ -1,7 +1,7 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontHeading1, fontHeading2, fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
-let { openUrl } = require("%ui/components/openUrl.nut")
+let { openUrl, AuthenticationMode } = require("%ui/components/openUrl.nut")
 let { toIntegerSafe } = require("%sqstd/string.nut")
 
 let defStyle = {
@@ -29,7 +29,7 @@ let noTextFormatFunc = @(object, _style=defStyle) object
 
 let isNumeric = @(val) typeof val == "int" || typeof val == "float"
 
-let function textArea(params, _fmtFunc=noTextFormatFunc, style=defStyle){
+function textArea(params, _fmtFunc=noTextFormatFunc, style=defStyle){
   return {
     rendObj = ROBJ_TEXTAREA
     text = params?.v
@@ -53,7 +53,7 @@ let transcode = freeze({
     : { size = SIZE_TO_CONTENT }
 })
 
-let function transcodeTable(data){
+function transcodeTable(data){
   let res = {}
   foreach (key, val in data){
     if (key not in transcode || val == null)
@@ -70,7 +70,7 @@ let function transcodeTable(data){
   return res
 }
 
-let function url(data, fmtFunc=noTextFormatFunc, style=defStyle){
+function url(data, fmtFunc=noTextFormatFunc, style=defStyle){
   let link = data?.url ?? data?.link
   let transcodedData = transcodeTable(data)
   if (link==null)
@@ -87,13 +87,13 @@ let function url(data, fmtFunc=noTextFormatFunc, style=defStyle){
       onElemState = @(sf) stateFlags(sf)
       children = {rendObj=ROBJ_FRAME borderWidth = [0,0,hdpx(1),0] color=color, size = flex()}
       function onClick() {
-        openUrl(link)
+        openUrl(link, AuthenticationMode.WEGAME_AUTH)
       }
     }.__update(transcodedData)
   }
 }
 
-let function mkUlElement(bullet){
+function mkUlElement(bullet){
   return function (elem, fmtFunc=noTextFormatFunc, _style=defStyle) {
     local res = fmtFunc(elem)
     if (res==null)
@@ -107,7 +107,7 @@ let function mkUlElement(bullet){
     }
   }
 }
-let function mkList(elemFunc){
+function mkList(elemFunc){
   return function(obj, fmtFunc=noTextFormatFunc, style=defStyle) {
     return obj.__merge({
       flow = FLOW_VERTICAL
@@ -116,7 +116,7 @@ let function mkList(elemFunc){
     })
   }
 }
-let function horizontal(obj, fmtFunc=noTextFormatFunc, _style=defStyle){
+function horizontal(obj, fmtFunc=noTextFormatFunc, _style=defStyle){
   return obj.__merge({
     flow = FLOW_HORIZONTAL
     size = [flex(), SIZE_TO_CONTENT]
@@ -124,7 +124,7 @@ let function horizontal(obj, fmtFunc=noTextFormatFunc, _style=defStyle){
   })
 }
 
-let function accent(obj, fmtFunc=noTextFormatFunc, _style=defStyle){
+function accent(obj, fmtFunc=noTextFormatFunc, _style=defStyle){
   return obj.__merge({
     flow = FLOW_HORIZONTAL
     size = [flex(), SIZE_TO_CONTENT]
@@ -134,7 +134,7 @@ let function accent(obj, fmtFunc=noTextFormatFunc, _style=defStyle){
   })
 }
 
-let function vertical(obj, fmtFunc=noTextFormatFunc, _style=defStyle){
+function vertical(obj, fmtFunc=noTextFormatFunc, _style=defStyle){
   return obj.__merge({
     flow = FLOW_VERTICAL
     size = [flex(), SIZE_TO_CONTENT]
@@ -148,13 +148,13 @@ let bullets = mkList(mkUlElement(defStyle.ulBullet))
 let indent = mkList(mkUlElement(defStyle.ulNoBullet))
 let separatorCmp = {rendObj = ROBJ_FRAME borderWidth = [0,0,hdpx(1), 0] size = [flex(),hdpx(5)], opacity=0.2, margin=[hdpx(5), hdpx(20), hdpx(20), hdpx(5)]}
 
-let function textParsed(params, fmtFunc=noTextFormatFunc, style=defStyle){
+function textParsed(params, fmtFunc=noTextFormatFunc, style=defStyle){
   if (params?.v == "----")
     return separatorCmp
   return textArea(params, fmtFunc, style)
 }
 
-let function column(obj, fmtFunc=noTextFormatFunc, _style=defStyle){
+function column(obj, fmtFunc=noTextFormatFunc, _style=defStyle){
   return {
     flow = FLOW_VERTICAL
     size = [flex(), SIZE_TO_CONTENT]
@@ -164,7 +164,7 @@ let function column(obj, fmtFunc=noTextFormatFunc, _style=defStyle){
 
 let getColWeightByPresetAndIdx = @(idx, preset) toIntegerSafe(preset?[idx+1], 100, false)
 
-let function columns(obj, fmtFunc=noTextFormatFunc, _style=defStyle){
+function columns(obj, fmtFunc=noTextFormatFunc, _style=defStyle){
   local preset = obj?.preset ?? "single"
   /*presets:
     single,
@@ -256,7 +256,7 @@ let formatters = {
       })
       onClick = function() {
         if (obj?.v)
-          openUrl(obj.v)
+          openUrl(obj.v, AuthenticationMode.WEGAME_AUTH)
       }
     }.__update(obj)
   }

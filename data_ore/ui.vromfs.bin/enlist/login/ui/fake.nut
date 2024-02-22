@@ -1,8 +1,8 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {startLogin} = require("%enlist/login/login_chain.nut")
 
-let function loginRoot() {
+function loginRoot() {
   startLogin({})
   return {}
 }

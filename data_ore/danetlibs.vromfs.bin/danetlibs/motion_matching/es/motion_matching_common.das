@@ -18,8 +18,6 @@ def write_weights_to_block(var blk : DataBlock; weights : FeatureWeights)
       node |> add("position_weight", p)
       node |> add("velocity_weight", v)
 
-  blk |> set("optionalTagWeight", weights.optionalTagWeight);
-
 
 def serialize_node_names(var blk : DataBlock; nodes_name : StringList)
   blk |> datablock_add_new_block("nodes_name") <| $(nodesNameBlk)
@@ -66,7 +64,6 @@ def read_weights_from_block(var weights : FeatureWeights; blk : DataBlock; node_
       p = datablock_getReal(point, "position_weight", 0.0)
       v = datablock_getReal(point, "velocity_weight", 0.0)
 
-  weights.optionalTagWeight = datablock_getReal(blk, "optionalTagWeight", 0.f)
   commit_feature_weights(weights)
 
 def deserialize_node_names(blk : DataBlock; var nodes_name : StringList)

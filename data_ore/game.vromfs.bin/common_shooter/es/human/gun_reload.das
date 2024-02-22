@@ -218,13 +218,22 @@ def on_human_requested_reload(evt : CmdRequestReload;
                            gun__wishAmmoItemType : int;
                            gun__ammoHolderIds : IntList;
                            var gun_reload__isReloading : bool&)
+
+    // find the smallest amount of bullets which we can reload at once
+    var minBulletsToInsert = 1
+    query(gunEid) <| $ [es] (gun_reload_state__bulletSingleTime : float = -1.0;
+                             gun_reload_state__bulletMultipleCount : int)
+      let singleReloadIsAvailable = gun_reload_state__bulletSingleTime >= 0.0
+      if !singleReloadIsAvailable
+        minBulletsToInsert = gun_reload_state__bulletMultipleCount
+
     // do not reload full ammo
-    if gun__ammo >= gun__maxAmmo && gun__ammo > 0
+    if (gun__ammo + minBulletsToInsert) > gun__maxAmmo && gun__ammo > 0
       return
 
     // do we have anything to reload with?
     // TODO: is this enough? might need some more checking to avoid reload animatinos without actual reload
-    if !has_holder_with_enough_bullets(eid, 1, gun__wishAmmoItemType, gun__ammoHolderIds, gun__maxAmmo)
+    if !has_holder_with_enough_bullets(eid, minBulletsToInsert, gun__wishAmmoItemType, gun__ammoHolderIds, gun__maxAmmo)
       return
 
     // start actual reload

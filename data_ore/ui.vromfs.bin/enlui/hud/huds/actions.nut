@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 /*
   attention - this is very poor code, as it coupling different games
 */
@@ -20,7 +20,7 @@ let {CmdSetMarkMain} = require("dasevents")
 let {
   ACTION_USE, ACTION_REQUEST_AMMO, ACTION_RECOVER, ACTION_PICK_UP, ACTION_SWITCH_WEAPONS,
   ACTION_OPEN_DOOR, ACTION_CLOSE_DOOR, ACTION_REMOVE_SPRAY, ACTION_DENIED_TOO_MUCH_WEIGHT,
-  ACTION_LOOT_BODY, ACTION_OPEN_WINDOW, ACTION_CLOSE_WINDOW, ACTION_REVIVE_TEAMMATE } =  require("hud_actions")
+  ACTION_LOOT_BODY, ACTION_OPEN_WINDOW, ACTION_CLOSE_WINDOW, ACTION_REVIVE_TEAMMATE } = require("%ui/hud/human_actions.nut")
 let {localTeamEnemyHint} = require("%ui/hud/huds/enemy_hint.nut")
 let { isInHatch } = require("%ui/hud/state/hero_in_vehicle_state.nut")
 
@@ -38,7 +38,7 @@ localPlayerEid.subscribe(function(v) {
   }
 })
 
-let function getItemPrice(entity_eid) {
+function getItemPrice(entity_eid) {
     let price = ecs.obsolete_dbg_get_comp_val(entity_eid, "coinPricePerGame")
     if (price) {
       let discount = ecs.obsolete_dbg_get_comp_val(localPlayerEid.value, "coinsGameMult") ?? 1.0;
@@ -112,7 +112,7 @@ let showExitAction = Computed(
   @()(!inPlane.value || isSafeToExit.value ) && isPlayerCanExit.value && isVehicleAlive.value && !isInHatch.value
 )
 
-let function mainAction() {
+function mainAction() {
   let res = {
     size = SIZE_TO_CONTENT
     watch = [isDowned, pickupItemEid, pickupItemName, useActionAvailable, inVehicle, showExitAction, useActionEid, customUsePrompt, isPlayerCanEnter, isPlayerCanExit]
@@ -167,7 +167,7 @@ let function mainAction() {
   return res.__update({ children  })
 }
 
-let function getUseActionEntityName(entity_eid) {
+function getUseActionEntityName(entity_eid) {
   let vehicleTag = ecs.obsolete_dbg_get_comp_val(entity_eid, "vehicle", null)
   if (vehicleTag != null)
     return !inVehicle.value ? "hud/teammates_vehicle_hint" : null
@@ -181,7 +181,7 @@ let function getUseActionEntityName(entity_eid) {
   return null
 }
 
-let function sendTeamHint(useHintEid, _event){
+function sendTeamHint(useHintEid, _event){
   if (pickupItemEid.value != ecs.INVALID_ENTITY_ID) {
     sendItemHint(pickupItemName.value, pickupItemEid.value,
       ecs.obsolete_dbg_get_comp_val(pickupItemEid.value, "item__count"), loc("teammate"))
@@ -197,7 +197,7 @@ let function sendTeamHint(useHintEid, _event){
   ecs.g_entity_mgr.sendEvent(localPlayerEid.value, CmdSetMarkMain())
 }
 
-let function localTeamHint(){
+function localTeamHint(){
   local children = {}
   local useHintEid = ecs.INVALID_ENTITY_ID;
   if ((pickupItemName.value ?? "") != "" && teammatesAliveNum.value > 0) {

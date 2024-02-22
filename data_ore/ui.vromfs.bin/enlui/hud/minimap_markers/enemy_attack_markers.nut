@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let markers = require("%ui/hud/state/enemy_attack_markers.nut")
 let iconSz = hdpxi(35)

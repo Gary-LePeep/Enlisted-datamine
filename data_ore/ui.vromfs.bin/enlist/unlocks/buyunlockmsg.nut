@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { defTxtColor, activeTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
@@ -33,7 +33,7 @@ let mkRewardName = function(reward, otherArmy) {
     : loc(reward.name)
 }
 
-let function mkRewardsView(task) {
+function mkRewardsView(task) {
   let { lastRewardedStage, stages } = task
   let { rewards = null } = stages?[lastRewardedStage]
 
@@ -110,7 +110,7 @@ let function mkRewardsView(task) {
   }
 }
 
-let function buyUnlockMsg(task) {
+function buyUnlockMsg(task) {
   let { currency = "", price = 0 } = unlockPrices.value?[task.name]
   if (price <= 0 || currency == "")
     return

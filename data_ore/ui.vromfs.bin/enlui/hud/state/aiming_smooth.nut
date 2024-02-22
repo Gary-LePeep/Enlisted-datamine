@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {get_action_handle, set_analog_stick_action_smooth_value} = require("dainput2")
 let {EventHeroChanged} = require("gameevents")

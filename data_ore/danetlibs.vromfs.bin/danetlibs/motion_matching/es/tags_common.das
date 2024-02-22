@@ -2,25 +2,23 @@ module tags_common shared
 
 require ecs
 require daslib/strings_boost
+require MotionMatching
+require DagorSystem
 
+def get_tag_index(controller : MotionMatchingController; tag_name : string) : uint
+  assert(controller.dataBase != null)
+  let tagIdx = *controller.dataBase |> getTagIdx(tag_name)
+  if tagIdx < 0
+    logerr("MM: unkown tag '{tag_name}'")
+  return uint(tagIdx)
 
-def private index(var tags : StringList; tag : string) : int
-  return find_index_if(each(tags)) <| $(s) { return eq(s, tag); }
-
-def private has(var tags : StringList; tag : string) : bool
-  return index(tags, tag) != -1
-
-def private add_tag(var tags : StringList; tag : string)
-  if !has(tags, tag)
-    tags |> push(tag)
-
-def private remove_tag(var tags : StringList; tag : string)
-  let idx = index(tags, tag)
-  if idx != -1
-    tags |> erase(idx)
-
-def set_tag(var tags : StringList; tag : bool; tag_name : string)
-  if tag
-    add_tag(tags, tag_name);
+def set_tag(var controller : MotionMatchingController; tag_name : string; value : bool)
+  let tagIdx = get_tag_index(controller, tag_name)
+  if value
+    controller.currentTags |> requireTag(tagIdx)
   else
-    remove_tag(tags, tag_name);
+    controller.currentTags |> excludeTag(tagIdx)
+
+def remove_tag(var controller : MotionMatchingController; tag_name : string)
+  let tagIdx = get_tag_index(controller, tag_name)
+  controller.currentTags |> removeTag(tagIdx)

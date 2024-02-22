@@ -1,5 +1,5 @@
 
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { configs } = require("%enlist/meta/configs.nut")
 let { getLinkedArmyName, getLinkedSquadGuid, isLinkedTo, isObjectHaveLinkTypeToAny

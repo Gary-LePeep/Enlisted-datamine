@@ -1,34 +1,24 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
-let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { fontSub, fontawesome } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { doesLocTextExist } = require("dagor.localize")
 let { setTooltip } = require("%ui/style/cursors.nut")
 let tooltipBox = require("%ui/style/tooltipBox.nut")
 let math = require("%sqstd/math.nut")
 let {
-  smallPadding, bigPadding, defTxtColor, perkIconSize, titleTxtColor,
-  activeBgColor, msgHighlightedTxtColor
+  smallPadding, bigPadding, defTxtColor, msgHighlightedTxtColor
 } = require("%enlSqGlob/ui/viewConst.nut")
 let colors = require("%ui/style/colors.nut")
 let {
   allItemTemplates, findItemTemplate
 } = require("%enlist/soldiers/model/all_items_templates.nut")
 let { getItemName } = require("%enlSqGlob/ui/itemsInfo.nut")
-let { perksStatsCfg, classesConfig, fallBackImage } = require("%enlist/meta/perks/perksStats.nut")
-let perksList = require("%enlist/meta/perks/perksList.nut")
 let colorize = require("%ui/components/colorize.nut")
-let { perksData } = require("%enlist/soldiers/model/soldierPerks.nut")
-let { getPerkPointsInfo } = require("%enlist/meta/perks/perkTreePkg.nut")
 let { pPointsBaseParams, pPointsList } = require("%enlist/meta/perks/perksPoints.nut")
-
-//const MIN_ROLL_PERKS = 10
-//const NEXT_ROLL_PERKS = 5
-
-let COST_ICON_PAIR_WIDTH = hdpx(50)
-let BG_DARKEN = Color(0, 0, 0, 255)
-let BG_LIGHTEN = Color(10, 10, 10, 255)
-let BG_HOVER = Color(35, 35, 35, 255)
-let PERK_UNAVAILABLE_COLOR = Color(120, 120, 120, 255)
+let fa = require("%ui/components/fontawesome.map.nut")
+let { soldierPerks } = require("%enlist/meta/servProfile.nut")
+let sClassesCfg = require("%enlist/soldiers/model/config/sClassesConfig.nut")
+let { MAX_LEVEL } = require("%enlist/meta/perks/perkTreePkg.nut")
 
 let mkText = @(txt) {
   rendObj = ROBJ_TEXT
@@ -52,143 +42,24 @@ let perkPointIcon = @(icon, color = defTxtColor, pPointSize = hdpxi(32)) {
   color
 }
 
-let perkPointCostText = @(pPointCfg, cost) {
-  rendObj = ROBJ_TEXT
-  text = cost
-  color = pPointCfg.color
+let maxedStatIcon = @(color, fontSize = hdpxi(8)) {
+  rendObj = ROBJ_INSCRIPTION
+  validateStaticText = false
+  text = fa["star"]
+  font = fontawesome.font
+  color
+  fontSize
 }
 
-let iconAnimations = [
-  { prop = AnimProp.scale, from = [1,1], to = [1.5,1.5],
-    play = true, easing = InOutQuad, duration = 0.4 }
-  { prop = AnimProp.scale, from = [1.5,1.5], to = [1,1],
-    play = true, easing = InOutQuad, delay = 0.4, duration = 0.5 }
-]
-
-let valAnimations = [
-  { prop = AnimProp.opacity, from = 0.2, to = 1, duration = 0.2
-    play = true, easing = InOutCubic }
-  { prop = AnimProp.scale, from = [3.5,3.5], to = [1,1],
-    play = true, easing = InOutCubic, duration = 1 }
-]
-
-let addAnimations = [
-  { prop = AnimProp.opacity, from = 0.2, to = 1, duration = 0.3,
-    play = true, easing = InOutCubic }
-  { prop = AnimProp.opacity, from = 1, to = 1, duration = 0.4,
-    play = true, easing = InOutCubic, delay = 0.3}
-  { prop = AnimProp.opacity, from = 1, to = 0, duration = 0.35,
-    play = true, easing = InOutCubic, delay = 0.7 }
-  { prop = AnimProp.translate, from = [0, hdpx(50)], to = [0, hdpx(20)],
-    play = true, easing = OutCubic, duration = 1 }
-]
-
-local function usedPerkPoints(pPointCfg, pPointId, usedValue, totalValue, changedValue) {
-  local leftValue = totalValue - usedValue
-  if (leftValue < 0) {
-    // show adequate stat values even for inconsistent data
-    totalValue = usedValue
-    leftValue = 0
+let maxStatAnimation = {
+  transform = { scale = [0.25, 0.25], pivot = [0.5, 0.5] }
+  animations = [{
+      prop = AnimProp.scale, from = [0.25, 0.25], to = [1.0, 1.0],
+      duration = 0.7, delay = 0.2, play = true, easing = CosineFull
+    }]
   }
 
-  let { icon, color } = pPointCfg
-  return {
-    halign = ALIGN_RIGHT
-    key = $"{pPointId}-{totalValue}-{changedValue}"
-    children = [
-      {
-        flow = FLOW_HORIZONTAL
-        valign = ALIGN_CENTER
-        children = [
-          perkPointIcon(icon, color).__update({
-            transform = {}
-            animations = changedValue > 0 ? iconAnimations : null
-          })
-          mkText($"{leftValue}/")
-          perkPointCostText(pPointCfg, $"{totalValue}").__update({
-            transform = {}
-            animations = changedValue > 0 ? valAnimations : null
-          })
-        ]
-      }
-      changedValue == 0 ? null : perkPointCostText(pPointCfg, $" +{changedValue}").__update({
-        opacity = 0
-        transform = {}
-        animations = addAnimations
-      })
-    ]
-  }
-}
-
-let perkIcon = @(perk, iconSize, iconColor = Color(220,220,220)) function() {
-  let size = iconSize.tointeger()
-  let statClassMask = (perk?.stats ?? {}).keys()
-    .reduce(@(res, statId) res | (perksStatsCfg.value?[statId]?.stat_class ?? 0), 0)
-  return {
-    watch = perksStatsCfg
-    size = [size, size]
-    rendObj = ROBJ_IMAGE
-    image = Picture("{0}:{1}:{1}:K"
-      .subst(classesConfig?[statClassMask].image ?? fallBackImage, size))
-    color = iconColor
-  }
-}
-
-let function mkPerkCostChildren(perk, isUnavailable = false, showFreePerks = false) {
-  let perkCost = perk?.cost
-  if ((perkCost?.len() ?? 0) == 0)
-    return null
-
-  let pPointType = perkCost.keys()[0]
-  let pPointsValue = (perkCost?[pPointType] ?? 0) * (perk?.available ?? 1)
-  if (pPointsValue == 0 || !showFreePerks)
-    return null
-
-  local pPointCfg = pPointsBaseParams[pPointType] ?? {}
-  if (isUnavailable)
-    pPointCfg = pPointCfg.__merge({color = PERK_UNAVAILABLE_COLOR})
-  let { icon, color } = pPointCfg
-  return {
-    flow = FLOW_HORIZONTAL
-    size = [flex(), SIZE_TO_CONTENT]
-    halign = ALIGN_LEFT
-    valign = ALIGN_CENTER
-    children = [
-      perkPointIcon(icon, color)
-      pPointsValue == 0 ? null : perkPointCostText(pPointCfg, pPointsValue)
-    ]
-  }
-}
-
-let function mkPerkCostShort(perk, isUnavailable, statType, style = {}) {
-  let pPointsChildren = mkPerkCostChildren(perk, isUnavailable, true)
-  if (pPointsChildren == null)
-    return null
-
-  local onhoverTooltip = null
-  if (isUnavailable){
-    let statName = loc($"stat/{statType}_genitive")
-    let tooltipText = loc("notEnoughPerkPointsHint", {statName})
-    onhoverTooltip = flexTextArea({text = tooltipText, size = SIZE_TO_CONTENT})
-  }
-  return {
-    flow = FLOW_VERTICAL
-    halign = ALIGN_RIGHT
-    vplace = ALIGN_CENTER
-    behavior = Behaviors.Button
-    size = [COST_ICON_PAIR_WIDTH, SIZE_TO_CONTENT]
-    onHover = !isUnavailable ? null
-      : @(on) setTooltip(!on ? null : tooltipBox({
-          flow = FLOW_HORIZONTAL
-          gap = bigPadding
-          valign = ALIGN_CENTER
-          children = onhoverTooltip
-        }))
-    children = pPointsChildren
-  }.__merge(style)
-}
-
-let function getStatDescList(perkStatsTable, perk, isUnavailable = false) {
+function getStatDescList(perkStatsTable, perk, isUnavailable = false) {
   let res = []
   let stats = perk?.stats ?? {}
   foreach (statId, statValue in stats) {
@@ -205,7 +76,7 @@ let function getStatDescList(perkStatsTable, perk, isUnavailable = false) {
   return res
 }
 
-let function getPerkItems(armyId, items) {
+function getPerkItems(armyId, items) {
   let res = []
   foreach (itemTpl in items) {
     let item = findItemTemplate(allItemTemplates, armyId, itemTpl)
@@ -225,120 +96,6 @@ let mkPerkDesc = @(perksStatsTable, armyId, perk, separator = ", ") "{0}{1}"
   .subst(separator.join(getStatDescList(perksStatsTable, perk)),
     getPerkItemsText(armyId, perk?.items ?? []))
 
-let defIconCtor = @(iconSettings) perkIcon(iconSettings.perk, iconSettings.iconSize,
-                                              iconSettings?.color)
-let priceIconCtor = @(iconSettings) mkPerkCostShort(iconSettings.perk,
-  iconSettings.isUnavailable, iconSettings.statType, iconSettings?.customStyle)
-
-let thumbIconSize = hdpxi(20)
-
-let recommendedPerkIcon = {
-  rendObj = ROBJ_IMAGE
-  size =  [thumbIconSize, thumbIconSize]
-  image = Picture($"!ui/uiskin/thumb.svg:{thumbIconSize}:{thumbIconSize}:K")
-}
-
-let perkUi = @(armyId, perkId, customStyle = {}, params = {}) function() {
-  let {
-    isRecommended, isUnavailable = false, iconSize = perkIconSize, iconCtor = defIconCtor
-  } = params
-
-  let perk = perksList.value?[perkId]
-  let textParams = {
-    text = perk != null
-      ? mkPerkDesc(perksStatsCfg.value, armyId, perk)
-      : loc("choose_new_perk")
-    color = !perk ? titleTxtColor : isUnavailable ? PERK_UNAVAILABLE_COLOR : defTxtColor
-    halign = customStyle?.halign ?? ALIGN_LEFT
-  }.__update(customStyle?.font!=null && customStyle?.fontSize!=null
-    ? {font=customStyle.font, fontSize=customStyle.fontSize}
-    : (customStyle?.fontStyle ?? fontSub))
-  let statType = isUnavailable ? perk?.cost.keys()[0] : ""
-  let iconSettings = {perk, iconSize, isUnavailable, statType, customStyle}
-  return {
-    watch = [perksStatsCfg, perksList]
-    key = perk
-    size = [flex(), iconSize]
-    flow = FLOW_HORIZONTAL
-    padding = [smallPadding, bigPadding]
-    gap = bigPadding
-    valign = ALIGN_CENTER
-    animations = perk ? null : [
-      { prop = AnimProp.opacity, from = 0.6, to = 1, duration = 1, play = true, loop = true, easing = Blink}
-    ]
-
-    children = [
-      iconCtor(iconSettings)
-      isRecommended ? recommendedPerkIcon : null
-      flexTextArea(textParams)
-    ]
-  }.__update(customStyle)
-}
-
-let perkCardBg = @(slotNumber, cb = null, params = {}, children = null) watchElemState(@(sf) {
-  rendObj = ROBJ_BOX
-  size = [flex(), SIZE_TO_CONTENT]
-  behavior = cb ? Behaviors.Button : null
-  onClick = cb
-  sound = {
-    hover = "ui/enlist/button_highlight"
-    click = "ui/enlist/button_click"
-  }
-  fillColor = sf & S_HOVER ? BG_HOVER
-    : (slotNumber % 2) ? BG_LIGHTEN
-    : BG_DARKEN
-  borderColor = activeBgColor
-  borderWidth = [0, 0, sf & S_HOVER ? 1 : 0, 0]
-  children = children
-}.__update(params))
-
-let perkCard = kwarg(@(armyId, perkData, slotNumber = 0, cb = null, customStyle = {}) function() {
-  if (perksList.value?[perkData.perkId] == null)
-    return { watch = perksList }
-
-  return {
-    watch = perksList
-    size = customStyle?.size ?? [flex(), SIZE_TO_CONTENT]
-    children = perkCardBg(slotNumber, cb, customStyle, perkUi(
-      armyId,
-      perkData.perkId,
-      customStyle,
-      {
-        isSelected = perkData?.isSelected ?? false
-        isUnavailable = !(perkData?.isAvailable ?? true)
-        iconCtor = priceIconCtor
-        isRecommended = perkData?.recommended ?? false
-      }
-    ))
-  }
-})
-
-let function uniteEqualPerks(perks) {
-  let perksCount = {}
-  foreach (perkId in perks)
-    perksCount[perkId] <- (perksCount?[perkId] ?? 0) + 1
-
-  let unitedPerks = []
-  foreach (perkId in perks) {
-    if (perkId not in perksCount)
-      continue
-    unitedPerks.append({ perkId, amount = perksCount[perkId] })
-    delete perksCount[perkId]
-  }
-  return unitedPerks
-}
-
-
-let tierTitle = @(tier) tier?.locId
-  ? {
-      rendObj = ROBJ_TEXTAREA
-      margin = smallPadding
-      behavior = Behaviors.TextArea
-      color = titleTxtColor
-      text = loc(tier.locId)
-    }.__update(fontSub)
-  : null
-
 let perkPointsInfoTooltip = {
   size = [hdpx(400), SIZE_TO_CONTENT]
   flow = FLOW_VERTICAL
@@ -350,51 +107,115 @@ let perkPointsInfoTooltip = {
 }
 
 
-let function mkPerksPointsBlock(soldierGuid) {
-  if (soldierGuid == null)
+function getPossibleStats(content, sClassesCfgVal) {
+  let {
+    soldierClasses, soldierTierMax, soldierTierMin, soldierRareMax,
+    soldierRareMin, soldierHasMaxStats
+  } = content
+  let {
+    pointsByTiers = [], perkPointsModifications = []
+  } = sClassesCfgVal?[soldierClasses[0]] ?? {}
+
+  let stats = {}
+  let statsMax = pointsByTiers[min(soldierTierMax, pointsByTiers.len() - 1)]
+  let maxRareModifications = min(soldierRareMax, perkPointsModifications.len() - 1)
+  foreach (statId in pPointsList) {
+    let maxVal = statsMax[statId].max
+      + (perkPointsModifications[maxRareModifications]?[statId] ?? 0)
+    stats[statId] <- {
+      maxVal
+      minVal = soldierHasMaxStats ? maxVal
+        : pointsByTiers[soldierTierMin][statId].min +
+          (perkPointsModifications[max(soldierRareMin, 0)]?[statId] ?? 0)
+    }
+  }
+  return stats
+}
+
+function possibleStatsForSoldier(sClass, sTier, hasMaxStats, sClassesCfgVal) {
+  let tier = min(sTier, MAX_LEVEL)
+  let soldierParams = {
+    soldierClasses = [sClass]
+    soldierTierMax = tier
+    soldierTierMin = tier
+    soldierRareMax = 0
+    soldierRareMin = 0
+    soldierHasMaxStats = hasMaxStats
+  }
+  return getPossibleStats(soldierParams, sClassesCfgVal)
+}
+
+function mkPerksPointsBlock(soldier) {
+  if (soldier?.guid == null)
     return null
 
-  let perkPointsInfoWatch = Computed(function() {
-    let perks = perksData.value?[soldierGuid]
-    return perks == null ? null : getPerkPointsInfo(perksList.value, perks)
-  })
-
-  local cachedPerks = clone perkPointsInfoWatch.value?.total ?? {}
   return function() {
-    let res = { watch = perkPointsInfoWatch }
-    let perkPointsInfo = perkPointsInfoWatch.value
-    if (perkPointsInfo == null)
+    let res = { watch = [soldierPerks, sClassesCfg] }
+
+    let { points = {}, sTier = 0 } = soldierPerks.value?[soldier.guid] ?? {}
+    if (points.len() == 0)
       return res
 
+    let { sClass, hasMaxStats } = soldier
+    let statsForSoldier = possibleStatsForSoldier(sClass, sTier, hasMaxStats, sClassesCfg.value)
+
     let children = []
-    foreach (pPointId in pPointsList) {
-      let pointsAmount = perkPointsInfo.total?[pPointId] ?? 0
-      if (pointsAmount <= 0)
-        continue
-      let pPointCfg = pPointsBaseParams?[pPointId]
-      if (pPointCfg == null)
+    foreach (pPointId, value in points) {
+      if (pPointId not in pPointsBaseParams)
         continue
 
-      let usedValue = perkPointsInfo.used?[pPointId] ?? 0
-      let changed = pointsAmount - (cachedPerks?[pPointId] ?? pointsAmount)
-      if (changed != 0)
-        cachedPerks[pPointId] <- perkPointsInfo.total[pPointId]
-      children.append(usedPerkPoints(pPointCfg, pPointId, usedValue, pointsAmount, changed))
+      let { icon, color } = pPointsBaseParams[pPointId]
+      let maxedIcon = (statsForSoldier?[pPointId].maxVal ?? 0) != value ? null
+        : {
+            vplace = ALIGN_TOP
+            valign = ALIGN_CENTER
+            halign = ALIGN_CENTER
+            pos = [smallPadding, bigPadding]
+            size = [hdpxi(8), hdpxi(8)]
+            children = maxedStatIcon(color, hdpx(32)).__update(maxStatAnimation)
+          } // the star needs a container otherwise it takes up as much space as its largest size
+
+      children.append(
+        {
+          rendObj = ROBJ_TEXT
+          text = value
+          color
+        },
+        maxedIcon,
+        perkPointIcon(icon, color)
+      )
     }
 
     return res.__update({
       behavior = Behaviors.Button
-      size = SIZE_TO_CONTENT
       flow = FLOW_HORIZONTAL
-      gap = bigPadding
+      valign = ALIGN_CENTER
       onHover = @(on) setTooltip(on ? tooltipBox(perkPointsInfoTooltip) : null)
       skipDirPadNav = true
-      children = children
+      children
     })
   }
 }
 
-let function statsRange(statsTable, stat, isLocked) {
+function hasStatsMaxed(soldier) {
+  if (soldier?.itemtype != "soldier" || soldier?.guid == null)
+    return false
+
+  let { points = {}, sTier = 0 } = soldierPerks.value?[soldier.guid] ?? {}
+  if (points.len() == 0)
+    return false
+
+  let { sClass, hasMaxStats } = soldier
+  let statsForSoldier = possibleStatsForSoldier(sClass, sTier, hasMaxStats, sClassesCfg.value)
+
+  foreach (pPointId, value in points) {
+    if (value != (statsForSoldier?[pPointId].maxVal ?? 0))
+      return false
+  }
+  return true
+}
+
+function statsRange(statsTable, stat, isLocked) {
   let { icon, color } = pPointsBaseParams[stat]
   let { minVal, maxVal } = statsTable[stat]
   return {
@@ -412,26 +233,8 @@ let function statsRange(statsTable, stat, isLocked) {
   }
 }
 
-
-let function mkStatList(content, sClassesCfg, isLocked = false) {
-  let { soldierClasses, soldierTierMax, soldierTierMin, soldierRareMax,
-    soldierRareMin, soldierHasMaxStats } = content
-  let { pointsByTiers = [], perkPointsModifications = []
-    } = sClassesCfg?[soldierClasses[0]] ?? {}
-
-  local stats = {}
-  let statsMax = pointsByTiers[min(soldierTierMax, pointsByTiers.len() - 1)]
-  let maxRareModifications = min(soldierRareMax, perkPointsModifications.len() - 1)
-  foreach (statId in pPointsList) {
-    let maxVal = statsMax[statId].max
-      + (perkPointsModifications[maxRareModifications]?[statId] ?? 0)
-    stats[statId] <- {
-      maxVal
-      minVal = soldierHasMaxStats ? maxVal
-        : pointsByTiers[soldierTierMin][statId].min +
-          (perkPointsModifications[max(soldierRareMin, 0)]?[statId] ?? 0)
-    }
-  }
+function mkStatList(content, sClassesCfgVal, isLocked = false) {
+  let stats = getPossibleStats(content, sClassesCfgVal)
   return {
     flow = FLOW_HORIZONTAL
     halign = ALIGN_LEFT
@@ -442,22 +245,13 @@ let function mkStatList(content, sClassesCfg, isLocked = false) {
 }
 
 return {
-  mkText
-  perkIcon
   flexTextArea
   getStatDescList
-  mkPerkCostChildren
-  perkCard
-  perkCardBg
-  tierTitle
-  uniteEqualPerks
   perkPointIcon
-  perkPointCostText
-  usedPerkPoints
   mkPerksPointsBlock
   mkPerkDesc
-  thumbIconSize
-  perkUi
-  priceIconCtor
   mkStatList
+  possibleStatsForSoldier
+  maxedStatIcon
+  hasStatsMaxed
 }

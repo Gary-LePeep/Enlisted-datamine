@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {getTexReplaceString, getTexSetString} = require("%ui/components/itemTexReplace.nut")
 let { Point2 } = require("dagor.math")
@@ -7,7 +7,7 @@ let { Point2 } = require("dagor.math")
 
 let smallIconsCache = {}
 let largeIconsCache = {}
-let function getSoldierParamsByTemplate(template, isLarge) {
+function getSoldierParamsByTemplate(template, isLarge) {
   let cache = isLarge ? largeIconsCache : smallIconsCache
   if (template in cache)
     return cache[template]
@@ -33,7 +33,7 @@ let function getSoldierParamsByTemplate(template, isLarge) {
 }
 
 let attachCache = {}
-let function getAttachmentParams(template) {
+function getAttachmentParams(template) {
   if (template in attachCache)
     return attachCache[template]
 
@@ -60,7 +60,7 @@ let function getAttachmentParams(template) {
   return res
 }
 
-local function mkSoldierPhotoName(soldierTemplate, equipment_, animation, isLarge = false) {
+function mkSoldierPhotoName(soldierTemplate, equipment_, animation, isLarge = false) {
   // Sort by slot so that similar soldiers would end up using the same picture.
   let equipment = [].extend(equipment_).sort(@(a, b) a.slot <=> b.slot)
   animation = "enlisted_idle_01" // Always force the same animation to make soldiers look straight ahead.
@@ -110,7 +110,7 @@ local function mkSoldierPhotoName(soldierTemplate, equipment_, animation, isLarg
     w:i={width};h:i={height};shading:t=full;}.render".subst(tbl)
 }
 
-let function mkSoldierPhoto(photoName, size, inner = null, style = {}) {
+function mkSoldierPhoto(photoName, size, inner = null, style = {}) {
   if (photoName == null)
     return {
       size

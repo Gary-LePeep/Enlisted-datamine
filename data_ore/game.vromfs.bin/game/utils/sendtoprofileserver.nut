@@ -12,7 +12,7 @@ let playerQuery = ecs.SqQuery("playerQuery", {
   ]
 })
 
-let function sendToProfileServer(playerEid, action, params) {
+function sendToProfileServer(playerEid, action, params) {
   if (!profile.isEnabled())
     return $"Skip profile action {action} because of profile not enabled"
 

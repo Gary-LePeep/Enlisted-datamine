@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {get_setting_by_blk_path} = require("settings")
 let {soundOutputDevice, soundOutputDeviceUpdate,
@@ -10,11 +10,11 @@ let {soundOutputDevice, soundOutputDeviceUpdate,
 let {startsWith} = require("%sqstd/string.nut")
 let {sound_set_callbacks, sound_get_output_devices, sound_get_record_devices, sound_set_output_device} = require("%dngscripts/sound_system.nut")
 
-let function findBestOutputDevice(devs_list) {
+function findBestOutputDevice(devs_list) {
   return devs_list?[0] // first device in list is a device choosen by system as default
 }
 
-let function findBestRecordDevice(devs_list) {
+function findBestRecordDevice(devs_list) {
   let filterfunc = function(d) {
     // add various rules here for inapropriate devices for sound recording
     // on different platforms
@@ -24,7 +24,7 @@ let function findBestRecordDevice(devs_list) {
   return suitable?[0] ?? devs_list?[0]
 }
 
-let function get_output_devices() {
+function get_output_devices() {
   let sysDevs = sound_get_output_devices()
   if (sysDevs.len() > 0)
     return sysDevs
@@ -34,7 +34,7 @@ let function get_output_devices() {
   }]
 }
 
-let function get_record_devices() {
+function get_record_devices() {
   let sysDevs = sound_get_record_devices()
   if (sysDevs.len() > 0)
     return sysDevs
@@ -52,7 +52,7 @@ if (soundRecordDevicesList.value.len() == 0)
   soundRecordDevicesListUpdate(get_record_devices())
 
 
-let function isDeviceInList(dev, devs_list) {
+function isDeviceInList(dev, devs_list) {
   if (dev == null)
     return false
   foreach (d in devs_list)

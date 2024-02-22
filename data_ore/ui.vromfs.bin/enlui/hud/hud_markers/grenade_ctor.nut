@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { makeArrow } = require("components/hud_markers_components.nut")
 let { active_grenades_Set, active_grenades_GetWatched} = require("%ui/hud/state/active_grenades.nut")
@@ -26,7 +26,7 @@ let mkGrenadeImage = memoize(@(willDamageHero) {
 })
 
 
-let function grenadeMarker(eid) {
+function grenadeMarker(eid) {
   let watch = active_grenades_GetWatched(eid)
 
   return @(){

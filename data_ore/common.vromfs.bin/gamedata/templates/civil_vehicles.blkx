@@ -180,6 +180,9 @@
       "_use": "base_nav_object"
     },
     {
+      "_use": "vehicle_tracks"
+    },
+    {
       "netLodZones": [2500.0,22500.0,62500.0,6250000.0]
     },
     {
@@ -246,16 +249,6 @@
     },
     {
       "hitmarks__groupsIds:list<i>": []
-    },
-    {
-      "_group": {
-        "_tags": "render",
-        "vehicle_tracks__surface_pressure_mult": 1.0,
-        "vehicle_tracks__lastUpdatePos": [0.0,-1000.0,0.0],
-        "vehicle_tracks__nodeIds:list<i>": [],
-        "vehicle_tracks__nodesFilter:list<u8>": [],
-        "vehicle_tracks__emitter_id:list<i>": []
-      }
     }
   ],
   "base_vehicle_seats": {
@@ -517,6 +510,9 @@
       "seats_order__canPlaceManually": false
     },
     {
+      "seat__windAffectMultiplier": 1.0
+    },
+    {
       "seat__isOwnerAlive": false
     },
     {
@@ -666,9 +662,6 @@
       "_use": "animchar"
     },
     {
-      "_use": "vehicle_sound"
-    },
-    {
       "_use": "capturer"
     },
     {
@@ -682,6 +675,9 @@
     },
     {
       "_use": "replicating"
+    },
+    {
+      "_use": "vehicle_damage_decals"
     },
     {
       "zones_visitor__triggerTag": "vehicleTriggerable"
@@ -993,11 +989,6 @@
     },
     {
       "vehicle_wheels": []
-    },
-    {
-      "bullet_decals": {
-        "_tags": "render"
-      }
     }
   ],
   "vehicle_effects_tracked": {

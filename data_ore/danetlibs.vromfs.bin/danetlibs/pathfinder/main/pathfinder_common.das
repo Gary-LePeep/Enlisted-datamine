@@ -63,8 +63,12 @@ def find_nav_point_around(start_pos, center : float3; radius : float; tries : in
   return res
 
 
-def get_triangle_by_pos(pos : float3; hor_dist : float; var result : NavMeshTriangle&) : bool
-  return get_triangle_by_pos(pos, result, hor_dist, int(PolyFlag POLYFLAG_GROUND) | int(PolyFlag POLYFLAG_OBSTACLE), 0, null)
+def get_triangle_by_pos(pos : float3; hor_dist : float; var result : NavMeshTriangle&; max_vert_dist : float = FLT_MAX) : bool
+  return get_triangle_by_pos(pos, result, hor_dist, int(PolyFlag POLYFLAG_GROUND) | int(PolyFlag POLYFLAG_OBSTACLE), 0, null, max_vert_dist)
+
+
+def get_triangle_by_pos_ex(nav_mesh_idx : int; pos : float3; hor_dist : float; var result : NavMeshTriangle&; max_vert_dist : float = FLT_MAX) : bool
+  return get_triangle_by_pos_ex(nav_mesh_idx, pos, result, hor_dist, int(PolyFlag POLYFLAG_GROUND) | int(PolyFlag POLYFLAG_OBSTACLE), 0, null, max_vert_dist)
 
 
 def get_surface_normal_by_pos(pos : float3; poly : dtPolyRef)
@@ -126,14 +130,13 @@ def trace_single_ri_against_path(ri_eid : EntityId;
   return result
 
 
-def iterate_over_polys_recursively(start : float3; depth : int; action : block<(poly : dtPolyRef) : bool>)
+def iterate_over_polys_recursively(start : float3; depth : int; initial_extents : float3; action : block<(poly : dtPolyRef) : bool>)
   var visited : array<dtPolyRef>
   var frontier : array<tuple<poly : dtPolyRef; depth : int>>
 
   var ref : dtPolyRef
-  let extents = float3(0.1, 2.0, 0.1)
   var p = start
-  if project_to_nearest_navmesh_point(p, extents, ref)
+  if project_to_nearest_navmesh_point(p, initial_extents, ref)
     frontier |> emplace([[auto ref, depth]])
     while (length(frontier) > 0)
       advance_poly_frontier(frontier, visited)

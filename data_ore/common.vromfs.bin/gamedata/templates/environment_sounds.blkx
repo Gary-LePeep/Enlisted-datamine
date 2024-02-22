@@ -113,22 +113,6 @@
       "spline_sound__path": "ambient/positioned/water_pipe"
     }
   },
-  "cave_volume_ambient_sound": {
-    "_use": "volume_ambient_sound",
-    "_group": {
-      "_tags": "sound",
-      "volume_ambient_sound__fadeInOutSpeed": [0.25,0.5],
-      "volume_ambient_sound__reverb_intensity_roomSize_absorption_weight": [100.0,20.0,0.0,1.0]
-    }
-  },
-  "cave_compound_ambient_sound": {
-    "_use": "compound_ambient_sound",
-    "_group": {
-      "_tags": "sound",
-      "compound_ambient_sound__fadeInOutSpeed": [0.25,0.5],
-      "compound_ambient_sound__reverb_intensity_roomSize_absorption_weight": [100.0,20.0,0.0,1.0]
-    }
-  },
   "ambient_sound_field": {
     "_use": "sound_field",
     "_group": {

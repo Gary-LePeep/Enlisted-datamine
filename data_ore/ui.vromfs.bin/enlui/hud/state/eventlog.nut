@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let EventLogState = require("%ui/hud/state/eventlog_state.nut")
 let AwardLogState = require("%ui/hud/state/awardlog_state.nut")

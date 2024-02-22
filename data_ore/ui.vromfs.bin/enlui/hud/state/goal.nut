@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { debounce } = require("%sqstd/timers.nut")
 let { briefingState } = require("briefingState.nut")
@@ -16,7 +16,7 @@ let goalText = Computed(function() {
 })
 
 let showGoal = @() hints.pushEvent({ uid = "goal", text = goalText.value })
-let function showGoalWhenReady() {
+function showGoalWhenReady() {
   if (needSpawnMenu.value)
     isWaitToShow(true)
   else

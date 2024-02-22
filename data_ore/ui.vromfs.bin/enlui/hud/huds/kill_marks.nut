@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let dagorMath = require("dagor.math")
 let {
@@ -26,7 +26,7 @@ let mkAnimations = @() [
 
 local killMarkImage
 local downedMarkImage
-let function updateCache(...){
+function updateCache(...){
   killMarkImage = {
     size = worldKillMarkSize.value
     rendObj = ROBJ_IMAGE
@@ -46,7 +46,7 @@ let function updateCache(...){
 }
 updateCache()
 
-let function mkKillMark(mark){
+function mkKillMark(mark){
   let pos = mark.killPos
   return pos ? {
     data = {
@@ -60,7 +60,7 @@ let function mkKillMark(mark){
   } : null
 }
 
-let function killMarksComp() {
+function killMarksComp() {
   return {
     watch = [killMarks]
     halign = ALIGN_CENTER

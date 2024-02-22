@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { armySquadsById } = require("state.nut")
 let { settings, onlineSettingUpdated } = require("%enlist/options/onlineSettings.nut")
@@ -19,11 +19,11 @@ let unseenSquads = Computed(@() onlineSettingUpdated.value
         .map(@(squad, squadId) squad != null && !(squadId in seen.value?[armyId])))
   : {})
 
-let function resetSeen() {
-  settings.mutate(@(v) delete v[SEEN_ID])
+function resetSeen() {
+  settings.mutate(@(v) v.$rawdelete(SEEN_ID))
 }
 
-let function markSeenSquads(armyId, squadIdsList) {
+function markSeenSquads(armyId, squadIdsList) {
   let filtered = squadIdsList.filter(@(squadId) unseenSquads.value?[armyId][squadId] ?? false)
   if (filtered.len() == 0)
     return

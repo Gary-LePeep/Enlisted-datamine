@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
 let { get_userlogs } = require("%enlist/meta/clientApi.nut")
@@ -51,7 +51,7 @@ let battlesUserLogs = Computed(function() {
   return res
 })
 
-let function updateUserLogs(newValue) {
+function updateUserLogs(newValue) {
   isUserLogsRequesting(false)
   let newUserLogRows = {}
   let userLogsVal = newValue?.userLogs
@@ -67,7 +67,7 @@ let function updateUserLogs(newValue) {
     userLogRowsRaw.mutate(@(params) params.__update(newUserLogRows))
 }
 
-let function userLogsRequest() {
+function userLogsRequest() {
   if (isUserLogsRequesting.value)
     return
 

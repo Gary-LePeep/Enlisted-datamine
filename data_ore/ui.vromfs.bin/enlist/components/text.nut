@@ -1,6 +1,6 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
-let function textarea(text) {
+function textarea(text) {
   return {
     rendObj = ROBJ_TEXTAREA
     size = [sw(35), SIZE_TO_CONTENT]

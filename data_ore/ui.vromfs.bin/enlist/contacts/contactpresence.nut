@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { ndbTryRead, ndbWrite, ndbDelete } = require("nestdb")
 
@@ -15,7 +15,7 @@ let onlineStatus = Computed(@() onlineStatusBase.value.__merge(squadStatus.value
 
 let mkUpdatePresences = @(watch, dbId) function(newPresences) {
   if (newPresences.len() > 10) { //faster way when many presences received
-    //merge and filter are much faster when receive a lot of friends then foreach with delete
+    //merge and filter are much faster when receive a lot of friends
     watch(watch.value.__merge(newPresences).filter(@(p) p != null))
     ndbWrite(dbId, watch.value)
     return
@@ -32,14 +32,14 @@ let mkUpdatePresences = @(watch, dbId) function(newPresences) {
     //it much faster than filter when update few presences of 2000 friends
     foreach (userId, presence in newPresences)
       if (presence == null)
-        delete v[userId]
+        v.$rawdelete(userId)
   })
 }
 
 let updatePresencesImpl = mkUpdatePresences(presences, PRESENCES_ID)
 let updateSquadPresences = mkUpdatePresences(squadStatus, SQUAD_STATUS_ID)
 
-let function updatePresences(newPresences) {
+function updatePresences(newPresences) {
   updatePresencesImpl(newPresences)
   onlineStatusBase.mutate(@(v) v.__update(newPresences.map(calcStatus)))
 }

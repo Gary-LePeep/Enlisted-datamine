@@ -1,7 +1,7 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
-let eventbus = require("eventbus")
+let { eventbus_send, eventbus_subscribe } = require("eventbus")
 let { CmdSetMySquadsData, mkCmdDevSquadsData, mkCmdGetMySquadsData, mkCmdTutorialSquadsData, mkCmdProfileJwtData } = require("%enlSqGlob/sqevents.nut")
 let { localPlayerTeamArmies } = require("%ui/hud/state/teams.nut")
 let { localPlayerEid } = require("%ui/hud/state/local_player.nut")
@@ -21,13 +21,13 @@ let devArmiesData = isSandbox ? require_optional("%enlSqGlob/data/sandbox_profil
 let armiesData = mkWatched(persist, "armiesData")
 let armyId = mkWatched(persist, "armyId", "")
 
-eventbus.subscribe("updateArmiesData", function(data) {
+eventbus_subscribe("updateArmiesData", function(data) {
   logAd("Received army data from profile server")
   armiesData(data)
 })
 
 let profilesMap = {
-  real      = @(armies, playerEid) eventbus.send("requestArmiesData", { armies, playerEid })
+  real      = @(armies, playerEid) eventbus_send("requestArmiesData", { armies, playerEid })
   dev       = @(_armies, playerEid) ecs.client_send_event(playerEid, mkCmdDevSquadsData({jwt=""})) // Non empty event payload table as otherwise 'fromconnid' won't be added
   tutorial  = @(_armies, playerEid) ecs.client_send_event(playerEid, mkCmdTutorialSquadsData({jwt=""}))
   custom    = @(_armies, playerEid) ecs.client_send_event(playerEid, mkCmdProfileJwtData({jwt=""}))
@@ -42,7 +42,7 @@ let playerArmiesReceivedQuery = ecs.SqQuery("playerArmiesReceivedQuery",
   { comps_ro = [["isArmiesReceived", ecs.TYPE_BOOL]] })
 let isArmiesReceived = @(playerEid) playerArmiesReceivedQuery(playerEid, @(_, comp) comp.isArmiesReceived) ?? false
 
-let function requestMySquadsDataFromDedicated() {
+function requestMySquadsDataFromDedicated() {
   logAd("Request army data from dedicated")
   let playerEid = localPlayerEid.value
   if (has_network())
@@ -51,7 +51,7 @@ let function requestMySquadsDataFromDedicated() {
     ecs.g_entity_mgr.sendEvent(playerEid, mkCmdGetMySquadsData({}))
 }
 
-let function calcArmies(...) {
+function calcArmies(...) {
   let teamArmies = localPlayerTeamArmies.value
   let playerEid = localPlayerEid.value
   let requestCb = requestArmiesData.value
@@ -70,7 +70,7 @@ let function calcArmies(...) {
 foreach (w in [localPlayerTeamArmies, localPlayerEid, requestArmiesData])
   w.subscribe(calcArmies)
 
-let function onSetMySquadsData(evt, _eid, comp) {
+function onSetMySquadsData(evt, _eid, comp) {
   if (!comp.is_local)
     return
   logAd("Received army data from dedicated")

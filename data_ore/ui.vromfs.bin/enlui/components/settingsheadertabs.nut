@@ -1,12 +1,12 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let tabs = require("%ui/components/tabs.nut")
 let { mkHotkey } = require("%ui/components/uiHotkeysHint.nut")
 
-let function settingsHeaderTabs(params) {
+function settingsHeaderTabs(params) {
   let cTab = params.currentTab
 
-  let function changeTab(delta, cycle=false){
+  function changeTab(delta, cycle=false){
     let tabsSrc = params.sourceTabs
     foreach (idx, tab in tabsSrc) {
       if (cTab.value == tab.id) {
@@ -26,7 +26,7 @@ let function settingsHeaderTabs(params) {
     {hotkeys = [["^Tab", @() changeTabWrap(1)], ["^L.Shift Tab | R.Shift Tab", @() changeTabWrap(-1)]]}
   ]
 
-  let function tabsHotkeys(){
+  function tabsHotkeys(){
     return {
       size = [0,0]
       valign = ALIGN_BOTTOM
@@ -39,7 +39,7 @@ let function settingsHeaderTabs(params) {
     }
   }
 
-  let function tabsContainer() {
+  function tabsContainer() {
     return {
       watch = cTab
       size = SIZE_TO_CONTENT

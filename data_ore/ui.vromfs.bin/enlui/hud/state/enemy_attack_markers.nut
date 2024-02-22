@@ -1,14 +1,14 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let enemy_attack_markers = Watched({})
 
-let function deleteMarker(eid, _){
+function deleteMarker(eid, _){
   if (eid in enemy_attack_markers.value)
-    enemy_attack_markers.mutate(@(v) delete v[eid])
+    enemy_attack_markers.mutate(@(v) v.$rawdelete(eid))
 }
 
-let function createMarker(eid, _comp) {
+function createMarker(eid, _comp) {
   enemy_attack_markers.mutate(@(v) v[eid] <- {})
 }
 

@@ -1,11 +1,11 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 //USED ONLY IN CUISINE ROYALE AND ENLISTED
 
 let artilleryStrikes = Watched({})
 
-let function onUpdatePos(eid, comp) {
+function onUpdatePos(eid, comp) {
   if (!comp.artillery_zone__showOnMinimap)
     return
   let res = {
@@ -15,8 +15,8 @@ let function onUpdatePos(eid, comp) {
   artilleryStrikes.mutate(@(value) value[eid] <- res)
 }
 
-let function onEventEntityDestroyed(eid, _comp) {
-  artilleryStrikes.mutate(@(v) eid in v ? delete v[eid] : null)
+function onEventEntityDestroyed(eid, _comp) {
+  artilleryStrikes.mutate(@(v) v?.$rawdelete(eid))
 }
 
 ecs.register_es("hud_artillery_zones_ui_es",

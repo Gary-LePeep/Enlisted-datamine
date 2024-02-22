@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {DEFAULT_TEXT_COLOR} = require("%ui/hud/style.nut")
 let {tipCmp} = require("%ui/hud/huds/tips/tipComponent.nut")
@@ -7,7 +7,7 @@ let {hasRepairKit, hasExtinguisher, canMaintainVehicle, isRepairRequired, isExti
 
 let keyId = "Human.VehicleMaintenance"
 
-let function action() {
+function action() {
   let res = {
     size = SIZE_TO_CONTENT
     watch = [hasRepairKit, hasExtinguisher, canMaintainVehicle, isRepairRequired, isExtinguishRequired]

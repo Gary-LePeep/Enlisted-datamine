@@ -195,10 +195,10 @@ def navmesh_draw_poly(sx, sy, sz : float; poly_id : uint64; dist_threshold = 0.5
 
 
 [console_cmd(name="path.find_poly")]
-def navmesh_find_poly(sx, sy, sz : float; horz_dist : float = 1f)
+def navmesh_find_poly(sx, sy, sz : float; nav_mesh_idx : int = 0; horz_dist : float = 1f)
   var res : NavMeshTriangle
   let start = float3(sx, sy, sz)
-  let success = get_triangle_by_pos(start, horz_dist, res)
+  let success = get_triangle_by_pos_ex(nav_mesh_idx, start, horz_dist, res)
   draw_debug_line_buffered(res.p0, res.p1, E3DCOLOR(0xFF0000FF), 30)
   draw_debug_line_buffered(res.p1, res.p2, E3DCOLOR(0xFF0000FF), 30)
   draw_debug_line_buffered(res.p2, res.p0, E3DCOLOR(0xFF0000FF), 30)
@@ -371,7 +371,8 @@ def console_debug_nmesh_connections(x, y, z : float; depth : int = 3)
   query() <| $ [es(REQUIRE=buffered_text_mark__pos)] (eid : EntityId)
     destroyEntity(eid)
 
-  iterate_over_polys_recursively(float3(x, y, z), depth) <| $(thisPoly : dtPolyRef)
+
+  iterate_over_polys_recursively(float3(x, y, z), depth, float3(0.4, 1.0, 0.4)) <| $(thisPoly : dtPolyRef)
     var res : NavMeshTriangle
     var polyFlags = uint16(0)
     let elevation = float3(.0, 3.0, .0)
@@ -381,7 +382,7 @@ def console_debug_nmesh_connections(x, y, z : float; depth : int = 3)
     get_poly_flags(thisPoly, polyFlags)
     let center = get_poly_center(polyFlags, res)
     let thisPolyIsJumplink = (int(polyFlags) & int(PolyFlag POLYFLAG_JUMP)) != 0
-    if !thisPolyIsJumplink
+    if !thisPolyIsJumplink && res.p0 != res.p1 && res.p1 != res.p2 && res.p2 != res.p0
       draw_diminished_triangle(res.p0 + elevation, res.p1 + elevation, res.p2 + elevation, duration)
       draw_debug_text_mark_buffered(center + elevation, "{thisPoly}", duration)
     else
@@ -428,7 +429,7 @@ def console_nmesh_info_around_camera()
       pos = transform[3]
     return camera__active
 
-  iterate_over_polys_recursively(pos, 4) <| $(thisPoly : dtPolyRef)
+  iterate_over_polys_recursively(pos, 4, float3(0.4, 1.0, 0.4)) <| $(thisPoly : dtPolyRef)
     var res : NavMeshTriangle
     var polyFlags = uint16(0)
     var area : uint8
@@ -440,7 +441,7 @@ def console_nmesh_info_around_camera()
     let center = get_poly_center(polyFlags, res)
     draw_debug_text_mark_buffered(center + elevation, "({thisPoly}) F:{polyFlags} A:{area}", duration)
     let thisPolyIsJumplink = (int(polyFlags) & int(PolyFlag POLYFLAG_JUMP)) != 0
-    if !thisPolyIsJumplink
+    if !thisPolyIsJumplink && res.p0 != res.p1 && res.p1 != res.p2 && res.p2 != res.p0
       draw_diminished_triangle(res.p0 + elevation, res.p1 + elevation, res.p2 + elevation, duration)
     else
       draw_debug_line_buffered(res.p0 + elevation, res.p1 + elevation, E3DCOLOR(0xff5555ff), duration * 3)

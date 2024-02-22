@@ -233,12 +233,12 @@ let requiredSoldierKindScoreTable = {
   no_mode       = { withBots = 450, noBots = 350 }
 }
 
-let function getAwardBySoldierKind(kind) {
+function getAwardBySoldierKind(kind) {
   let award = $"top_kind_{kind}"
   return (award in soldierKindAwards) ? award : null
 }
 
-let function combineMultispecialistAward(awards) {
+function combineMultispecialistAward(awards) {
   let [kindAwards, otherAwards] = partition(awards, isSoldierKindAward)
   return otherAwards.extend(kindAwards.len() > 1
     ? [{id=BattleHeroesAward.MULTISPECIALIST, value=kindAwards.len()}]

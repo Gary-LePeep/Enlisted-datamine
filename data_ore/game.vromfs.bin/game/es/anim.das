@@ -33,7 +33,7 @@ def set_rotation_es(evt : Event;
   euler_to_quat(end.x, end.y, end.z, endQuat)
 
   if local_space && transform != null
-    let initialRotationQuat = quat(*transform) |> normalize()
+    let initialRotationQuat = DagorMath::quat(*transform) |> normalize()
     startQuat = initialRotationQuat * startQuat
     endQuat = initialRotationQuat * endQuat
 

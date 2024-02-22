@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { premium } = require("%enlist/meta/servProfile.nut")
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")

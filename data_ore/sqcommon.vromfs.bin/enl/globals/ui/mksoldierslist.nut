@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let cursors = require("%ui/style/cursors.nut")
 let { makeVertScroll, thinStyle } = require("%ui/components/scrollbar.nut")
@@ -77,7 +77,7 @@ let mkSoldierSlot = kwarg(function(soldier, idx, curSoldierIdxWatch,
   })
 })
 
-let function mkSoldiersBlock(params) {
+function mkSoldiersBlock(params) {
   let {
     soldiersListWatch, curSoldierIdxWatch, vehicleInfo = Watched(null), addCardChild = null
   } = params
@@ -103,7 +103,7 @@ let function mkSoldiersBlock(params) {
       size = [slotBaseSize[0], SIZE_TO_CONTENT]
       flow = FLOW_VERTICAL
       behavior = Behaviors.Button
-      gap = bigPadding
+      gap = smallPadding
       onClick = function() {
         if (params?.canDeselect ?? false)
           curSoldierIdxWatch(null)
@@ -133,9 +133,10 @@ let mkVehicleBlock = @(hasVehicleWatch, curVehicleUi) function() {
 let mkMainSoldiersBlock = @(params) {
   size = [slotBaseSize[0], flex()]
   flow = FLOW_VERTICAL
-  gap = bigPadding
+  gap = smallPadding
   children = [
     params?.headerBlock
+    params?.outfitBlock
     {
       size = flex()
       flow = FLOW_VERTICAL

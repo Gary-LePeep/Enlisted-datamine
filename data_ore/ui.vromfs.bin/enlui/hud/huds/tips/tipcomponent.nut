@@ -1,11 +1,11 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {fontBody} = require("%enlSqGlob/ui/fontsStyle.nut")
 let {HUD_TIPS_FG} = require("%ui/hud/style.nut")
 let { controlHudHint, mkHasBinding } = require("%ui/components/controlHudHint.nut")
 
 
-let function text_hint(text, params={}) {
+function text_hint(text, params={}) {
   let res = {
     rendObj = ROBJ_TEXT
     margin = hdpx(2)
@@ -28,7 +28,7 @@ let defTipAnimations = [
   { prop=AnimProp.opacity, from=1, to=0, duration=0.25, playFadeOut=true, easing=OutCubic }
 ]
 
-let function mkInputHintBlock(inputId, addChild = null) {
+function mkInputHintBlock(inputId, addChild = null) {
   if (inputId == null)
     return null
   let hasBinding = mkHasBinding(inputId)
@@ -50,7 +50,7 @@ let tipBack = {
   transform = { pivot = [0.5, 0.5] }
 }
 
-let function tipCmp(params) {
+function tipCmp(params) {
   local {
     text = null, inputId = null, extraCmp = params?.text ? padding : null,
     size = SIZE_TO_CONTENT, animations = defTipAnimations
@@ -72,7 +72,7 @@ let function tipCmp(params) {
   }).__update(params?.style ?? {})
 }
 
-let function tipText(params) {
+function tipText(params) {
   let { text = null, size = SIZE_TO_CONTENT, animations = defTipAnimations } = params
   if (text == null)
     return null
@@ -84,7 +84,7 @@ let function tipText(params) {
   }).__update(params?.style ?? {})
 }
 
-let function tipAlternate(params) {
+function tipAlternate(params) {
   let { textsInputs = [], size = SIZE_TO_CONTENT, animations = defTipAnimations } = params
   let watch = textsInputs.map(@(data) mkHasBinding(data.inputId))
   return function() {

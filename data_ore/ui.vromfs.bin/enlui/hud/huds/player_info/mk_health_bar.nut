@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let progressBar = @(color, scale, halign, hitTrigger = null, additionalAnim = null) {
   rendObj = ROBJ_SOLID
@@ -38,7 +38,7 @@ let transitions = [
   { prop=AnimProp.opacity, duration=0.2, easing=InOutCubic }
 ]
 
-local function healthBar(hp, maxHp, scaleHp = 0, hitTrigger=null, maxHpTrigger=null, colorFg = null) {
+function healthBar(hp, maxHp, scaleHp = 0, hitTrigger=null, maxHpTrigger=null, colorFg = null) {
 
   if (hp == null || maxHp <= 0)
     return null

@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let random = require("dagor.random")
 
@@ -9,7 +9,7 @@ let {localPlayerEid} = require("%ui/hud/state/local_player.nut")
 let lastShownId = mkWatched(persist, "lastShownId", 0)
 
 
-let function trackComponents(_evt, eid, comp) {
+function trackComponents(_evt, eid, comp) {
   if (eid!=localPlayerEid.value)
     return
 
@@ -46,7 +46,7 @@ ecs.register_es("award_ui_es", {
   }, {comps_track = [["awards", ecs.TYPE_ARRAY]]})
 
 
-let function addTestPlayerAward(awardType) {
+function addTestPlayerAward(awardType) {
   awardsLog.pushEvent({
     ttl = 5.0
     awardData = { type=awardType, id=lastShownId.value+1 }

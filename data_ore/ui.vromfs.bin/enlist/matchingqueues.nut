@@ -1,12 +1,12 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { isInBattleState } = require("%enlSqGlob/inBattleState.nut")
 let { matchingCall } = require("matchingClient.nut")
-let matching_api = require("matching.api")
+let {matching_listen_notify} = require("matching.api")
 let connectHolder = require("%enlist/connectHolderR.nut")
 let { isPlatformRelevant } = require("%dngscripts/platform.nut")
 let { get_app_id } = require("app")
-let eventbus = require("eventbus")
+let { eventbus_subscribe } = require("eventbus")
 let {get_setting_by_blk_path} = require("settings")
 let {nestWatched} = require("%dngscripts/globalState.nut")
 
@@ -16,7 +16,7 @@ log($"matchingGameName in settings.blk {matchingGameName}")
 
 let matchingQueuesRaw = nestWatched("matchingQueuesRaw", [])
 
-let function processQueues(val) {
+function processQueues(val) {
   let curGame = matchingGameName
   local queues = val.filter(@(q) (q.game == curGame || curGame==null) && isPlatformRelevant(q?.allowedPlatforms ?? []))
   if (queues.len() == 0)
@@ -47,7 +47,7 @@ let matchingQueues = Computed(function(prev) {
   return processQueues(matchingQueuesRaw.value)
 })
 
-let function fetch_matching_queues() {
+function fetch_matching_queues() {
   let fetchMatchingQueues = fetch_matching_queues
   matchingCall("enlmm.get_queues_list",
     function(response) {
@@ -62,9 +62,9 @@ let function fetch_matching_queues() {
     }, {appId = get_app_id()})
 }
 
-eventbus.subscribe("matching.logged_in", @(...) fetch_matching_queues())
+eventbus_subscribe("matching.logged_in", @(...) fetch_matching_queues())
 
-let function checkEmptyQueues(){
+function checkEmptyQueues(){
   if (matchingQueues.value.len()!=0 || !connectHolder.is_logged_in())
     return
   fetch_matching_queues()
@@ -72,8 +72,8 @@ let function checkEmptyQueues(){
 
 gui_scene.setInterval(15, checkEmptyQueues) //? TODO: make exponential backoff here
 
-matching_api.listen_notify("enlmm.notify_games_list_changed")
-eventbus.subscribe("enlmm.notify_games_list_changed", @(_notify) fetch_matching_queues())
+matching_listen_notify("enlmm.notify_games_list_changed")
+eventbus_subscribe("enlmm.notify_games_list_changed", @(_notify) fetch_matching_queues())
 
 return {
   matchingQueues

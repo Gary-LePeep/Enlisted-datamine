@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { userstatUnlocks } = require("%enlSqGlob/userstats/userstat.nut")
 let { allUnlocks } = require("%enlSqGlob/userstats/unlocksState.nut")
@@ -59,13 +59,13 @@ let defaultSeenRank = {
 let seenRank = Computed(@() settings.value?[SEEN_ID] ?? defaultSeenRank)
 
 
-let function markSeenRank(rank) {
+function markSeenRank(rank) {
   settings.mutate(function(set) {
     set[SEEN_ID] <- (set?[SEEN_ID] ?? defaultSeenRank).__merge({ seen = rank })
   })
 }
 
-let function markOpenedRank(rank) {
+function markOpenedRank(rank) {
   settings.mutate(function(set) {
     set[SEEN_ID] <- (set?[SEEN_ID] ?? defaultSeenRank).__merge({ opened = rank })
   })
@@ -82,7 +82,7 @@ let hasUnopenedRank = Computed(@() onlineSettingUpdated.value
 console_register_command(function() {
   settings.mutate(function(s) {
     if (SEEN_ID in s)
-      delete s[SEEN_ID]
+      s.$rawdelete(SEEN_ID)
   })
 }, "meta.resetSeenRank")
 

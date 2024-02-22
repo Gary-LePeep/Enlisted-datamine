@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { addContextMenu } = require("%ui/components/contextMenu.nut")
 let locByPlatform = require("%enlSqGlob/locByPlatform.nut")
@@ -6,7 +6,7 @@ let { uid2console } = require("%enlist/contacts/consoleUidsRemap.nut")
 let { searchContactByInternalId } = require("%enlist/contacts/externalIdsManager.nut")
 let { consoleCompare } = require("%enlSqGlob/platformUtils.nut")
 
-let function openContextMenu(userId, event, actions) {
+function openContextMenu(userId, event, actions) {
   let actionsButtons = (actions ?? []).map(@(action) {
     isVisible = action.mkIsVisible(userId)
     text = locByPlatform(action.locId)
@@ -16,7 +16,7 @@ let function openContextMenu(userId, event, actions) {
     addContextMenu(event.screenX + 1, event.screenY + 1, fsh(30), actionsButtons)
 }
 
-let function open(contactValue, event, actions) {
+function open(contactValue, event, actions) {
   if (contactValue.userId in uid2console.value) {
     openContextMenu(contactValue.userId, event, actions)
     return

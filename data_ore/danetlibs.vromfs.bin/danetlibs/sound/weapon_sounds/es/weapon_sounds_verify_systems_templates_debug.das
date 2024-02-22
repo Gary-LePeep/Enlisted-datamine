@@ -6,7 +6,7 @@ require BallisticsProps
 require soundEvent
 
 
-[req_template] // projectile_impact_sounds
+[req_template]
 struct ProjectileImpactSounds
   scene_hit_place__matId : int
   scene_hit_place__pos : float3
@@ -15,3 +15,10 @@ struct ProjectileImpactSounds
   projectile_ballistics_props : ProjectileProps
   projectile_sound__paths : SharedObject
   projectile__exploded : bool
+
+
+[req_template]
+struct HumanMeleeActionSound
+  human_melee_action_sound__path : string
+  human_weap__gunEids : EidList
+  human_weap__currentGunSlot : int

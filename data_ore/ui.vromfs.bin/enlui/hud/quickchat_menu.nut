@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 let { zoneTitle, zoneCanBeAttacked, zoneCanBeDefended } = require("%ui/hud/state/look_at_zone.nut")
 
 let { sendQuickChatSoundMsg } = require("%ui/hud/huds/send_quick_chat_msg.nut")

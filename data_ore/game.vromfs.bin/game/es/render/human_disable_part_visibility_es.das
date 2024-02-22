@@ -2,7 +2,7 @@ require ecs
 require DngHuman
 require HumanPhys
 require game.es.events
-
+require enlisted.events_enlisted
 
 def human_change_slots_visibility(slots; hide_slots; show : bool)
   for slotName in hide_slots
@@ -25,7 +25,7 @@ def human_bot_unhide_slots_on_destroy_es(evt : Event; human_equipment__slots : O
   human_change_slots_visibility(human_equipment__slots, human__hideSlotsInScope, /*show*/true)
 
 [es(REQUIRE=hero, tag=render, after=human_input_es)]
-def human_hide_slots_in_scope_es(info : UpdateStageInfoAct;
+def human_hide_slots_in_scope_es(info : ParallelUpdateFrameDelayed;
                                  human_net_phys : HumanActor;
                                  human_weap__currentGunModEids : EidList;
                                  human_equipment__slots : Object;

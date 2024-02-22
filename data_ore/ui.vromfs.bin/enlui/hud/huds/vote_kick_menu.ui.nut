@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 let { fontHeading1, fontSub, fontHeading2 } = require("%enlSqGlob/ui/fontsStyle.nut")
 let textButton = require("%ui/components/textButton.nut")
 let JB = require("%ui/control/gui_buttons.nut")

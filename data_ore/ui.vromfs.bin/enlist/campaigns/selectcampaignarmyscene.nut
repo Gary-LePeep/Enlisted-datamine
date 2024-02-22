@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { modeCardSize, panelBgColor, modeNameBlockHeight, smallPadding, defTxtColor, accentColor,
@@ -104,7 +104,7 @@ let changeArmyWndBody = {
 
 let chooseArmyScene = defSceneWrap(changeArmyWndBody, { maxWidth = sw(100) })
 
-let function open() {
+function open() {
   sceneWithCameraAdd(chooseArmyScene, "armory")
 }
 

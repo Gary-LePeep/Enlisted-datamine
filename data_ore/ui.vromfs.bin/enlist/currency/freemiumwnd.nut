@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { addModalWindow, removeModalWindow } = require("%ui/components/modalWindows.nut")
 let closeBtnBase = require("%ui/components/closeBtn.nut")
@@ -87,7 +87,7 @@ let mkIconBar = @(count, color, fName) {
   color
 }
 
-let function freemiumBlockHeader() {
+function freemiumBlockHeader() {
   let { color = null, darkColor = null, locBase = "" } = campPresentation.value
   return {
     watch = campPresentation
@@ -192,7 +192,7 @@ let mkDesc = @(text) {
   color = activeColor
 }.__update(fontSub)
 
-let function mkInfoBlock(idx, titleBlock, descText, addObj = null) {
+function mkInfoBlock(idx, titleBlock, descText, addObj = null) {
   if (typeof descText != "array")
     descText = [descText]
   return {
@@ -204,7 +204,7 @@ let function mkInfoBlock(idx, titleBlock, descText, addObj = null) {
 }
 
 
-let function advantagesBlock() {
+function advantagesBlock() {
   local idx = 0
   let children = []
   let { locBase = "" } = campPresentation.value
@@ -276,7 +276,7 @@ let function advantagesBlock() {
   }
 }
 
-let function onPurchase(shopItem) {
+function onPurchase(shopItem) {
   buyShopItem({
     shopItem
     productView = {
@@ -289,7 +289,7 @@ let function onPurchase(shopItem) {
   sendBigQueryUIEvent("action_buy_freemium", "freemium_promo")
 }
 
-let function purchaseButton() {
+function purchaseButton() {
   let res = { watch = [curCampaignAccessItem, campPresentation] }
   if (curCampaignAccessItem.value == null)
     return res
@@ -310,7 +310,7 @@ let function purchaseButton() {
   })
 }
 
-let function mkDiscountInfo(discountInPercent, endTime) {
+function mkDiscountInfo(discountInPercent, endTime) {
   return {
     flow = FLOW_HORIZONTAL
     size = flex()
@@ -339,7 +339,7 @@ let function mkDiscountInfo(discountInPercent, endTime) {
   }
 }
 
-let function purchaseBlock() {
+function purchaseBlock() {
   let res = { watch = [curCampaignAccessItem] }
   if (curCampaignAccessItem.value == null)
     return res
@@ -361,7 +361,7 @@ let function purchaseBlock() {
   }
 }
 
-let function mkVehicleSquad(squadData) {
+function mkVehicleSquad(squadData) {
   let { startVehicle } = squadData
   return {
     flow = FLOW_VERTICAL
@@ -386,7 +386,7 @@ let function mkVehicleSquad(squadData) {
   }
 }
 
-let function vehiclesBlock(squads) {
+function vehiclesBlock(squads) {
   squads = squads
     .map(function(squad) {
       let squadCfg = squadsCfgById.value?[squad.armyId][squad.id] ?? {}
@@ -431,7 +431,7 @@ let function vehiclesBlock(squads) {
   }
 }
 
-let function mkArmSquad(squadData) {
+function mkArmSquad(squadData) {
   let { gametemplate } = squadData
   return {
     flow = FLOW_VERTICAL
@@ -456,7 +456,7 @@ let function mkArmSquad(squadData) {
   }
 }
 
-let function armsBlock(squads) {
+function armsBlock(squads) {
   squads = squads
     .map(function(squad) {
       let squadCfg = squadsCfgById.value?[squad.armyId][squad.id] ?? {}
@@ -506,7 +506,7 @@ let function armsBlock(squads) {
   }
 }
 
-let function squadsBlock() {
+function squadsBlock() {
   let res = { watch = curCampaignAccessItem }
   local { squads = null } = curCampaignAccessItem.value
   if (squads == null)
@@ -549,7 +549,7 @@ let freemiumBlockContent = {
   ]
 }
 
-let function freemiumInfoBlock(config) {
+function freemiumInfoBlock(config) {
   let { backImage = null } = config
   return {
     size = flex()
@@ -567,7 +567,7 @@ let function freemiumInfoBlock(config) {
   }
 }
 
-let function open(campGroupId = null) {
+function open(campGroupId = null) {
   showCampaignGroup(campGroupId)
   showAnimation(true)
   addModalWindow({

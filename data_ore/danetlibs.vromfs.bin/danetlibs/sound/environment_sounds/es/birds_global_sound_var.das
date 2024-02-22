@@ -30,7 +30,7 @@ def birds_sound_shut_up(evt : EventOnWeaponSound;
     birds_global_sound_var__noiseTime = get_sync_time()
 
 
-[es(tag=sound)]
+[es(tag=sound, after=sound_begin_update_es, before=sound_end_update_es)]
 def birds_sound_update(info : ParallelUpdateFrameDelayed;
                        birds_global_sound_var__noiseTime : float;
                        birds_global_sound_var__id : SoundVarId;

@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {ceil} = require("math")
 let {DM_EFFECT_FIRE, DM_EFFECT_EXPL} = require("dm")
@@ -67,7 +67,7 @@ ecs.register_es("ui_vehicle_hp_es", {
 },
 {comps_rq=["hero"]})
 
-let function trackHeroVehicle(eid, comp) {
+function trackHeroVehicle(eid, comp) {
   heroState.update({
     vehicle = eid
     hp = ceil(comp["vehicle__hp"]).tointeger()

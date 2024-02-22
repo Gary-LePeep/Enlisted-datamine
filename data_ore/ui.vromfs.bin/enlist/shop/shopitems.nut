@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
 let { configs } = require("%enlist/meta/configs.nut")
@@ -32,7 +32,7 @@ let shopItemsBase = Computed(function() {
 })
 let shopDiscountGen = Watched(0)
 
-let function calcPriceWithDiscount(priceData, priceIncrement, discountInPercent) {
+function calcPriceWithDiscount(priceData, priceIncrement, discountInPercent) {
   let price = (priceData?.price ?? 0) + priceIncrement
   let res = priceData.__merge({ price, fullPrice = price })
   if (discountInPercent <= 0)
@@ -58,7 +58,7 @@ let shopTreeRoute = Computed(function() {
   return res
 })
 
-let function isInInterval(ts, interval = []){
+function isInInterval(ts, interval = []){
   if (interval.len() == 0)
     return true
   let [from, to = 0] = interval
@@ -67,7 +67,7 @@ let function isInInterval(ts, interval = []){
 
 let priorityDiscounts = Watched({})
 
-let function updateItemCost(sItem, purchases) {
+function updateItemCost(sItem, purchases) {
   local { shopItemPrice, discountInPercent = 0, discountIntervalTs = [] } = sItem
   local curItem = sItem
   let allItems = shopItemsBase.value
@@ -93,7 +93,7 @@ let function updateItemCost(sItem, purchases) {
   return sItem
 }
 
-let function updateStoreItemCost(sItem, gItem) {
+function updateStoreItemCost(sItem, gItem) {
   let item = {}.__update(sItem, gItem)
   let discountInPercent = gItem?.discount_mul
     ? ((100 * (1.0 - gItem.discount_mul)) + 0.5).tointeger()
@@ -111,7 +111,7 @@ let function updateStoreItemCost(sItem, gItem) {
 
 let itemsOfferResultCache = {}
 
-let function isItemAllowed(item, items) {
+function isItemAllowed(item, items) {
   let { offerContainer = "" } = item
 
   if (offerContainer == "") {
@@ -143,7 +143,7 @@ let shopItems = Computed(function() {
   let discounts = priorityDiscounts.value
   let items = shopItemsBase.value
   let goods = goodsInfo.value
-  itemsOfferResultCache.clear()
+  itemsOfferResultCache.$clear()
   return items
     .filter(@(item) isItemAllowed(item, items))
     .map(function(item, guid) {

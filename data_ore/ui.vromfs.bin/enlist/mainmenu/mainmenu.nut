@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { sectionsSorted, sectionsGeneration, curSection } = require("sectionsState.nut")
 let bottomBar = require("%enlist/mainMenu/bottomRightButtons.nut")

@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { isAimAssistEnabled } = require("controls_online_storage.nut")
 
@@ -9,7 +9,7 @@ let comps = {
 }
 let findHumanToAimAssist = ecs.SqQuery("findHumanToAimAssist", comps)
 
-let function setAssistValToEntity(val, comp){
+function setAssistValToEntity(val, comp){
   comp["aim_assist__enabled"] = val
 }
 

@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontHeading2, fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { kindIcon } = require("%enlSqGlob/ui/soldiersUiComps.nut")
@@ -25,7 +25,7 @@ let mkText = @(txt, style = {}) {
   text = txt
 }.__update(fontBody, style)
 
-let function mkSquadName(params) {
+function mkSquadName(params) {
   let { nameLocId = "", titleLocId = "", sClass = null, itemType = null, itemSubType = null } = params
   return {
     flow = FLOW_HORIZONTAL
@@ -54,7 +54,7 @@ let headerBgImage = {
   image = Picture($"!ui/gameImage/base_header_bar.svg:{hdpxi(150)}:4:K?Ac")
 }
 
-let function campaignName(params) {
+function campaignName(params) {
   let { hasReceived, isPrimeSquad = false, campaignGroup = CAMPAIGN_NONE } = params
   let isFreemiumMode = campaignGroup != CAMPAIGN_NONE
   let { color = null, darkColor = null } = getConfig(campaignGroup)

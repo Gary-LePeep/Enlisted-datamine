@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { isSpectator } = require("%ui/hud/state/spectator_state.nut")
 let showPlayerHuds = require("%ui/hud/state/showPlayerHuds.nut")

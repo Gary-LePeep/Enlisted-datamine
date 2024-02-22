@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {setMenuItems} = require("%ui/hud/menus/game_menu.nut")
 let {showScores} = require("%ui/hud/huds/scores.nut")
@@ -59,7 +59,7 @@ let btnPlayersInSession = {
   isAvailable = has_network
 }
 
-let function msgExitReplay() {
+function msgExitReplay() {
   showExitGameMenu(true)
   return msgbox.show({
     text = loc("exit_replay_confirmation")
@@ -101,7 +101,7 @@ let btnStopRecord = {
 
 let needAddReplayHudBtn = Computed(@() isReplay.value && !canShowReplayHud.value)
 
-let function setEnlistedMenuItems() {
+function setEnlistedMenuItems() {
   setMenuItems([
     btnResume,
     isCinemaRecording.value ? btnStopRecord : btnOptions,

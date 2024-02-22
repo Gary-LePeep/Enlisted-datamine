@@ -1,7 +1,7 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
-let { isLoggedIn } = require("%enlSqGlob/login_state.nut")
+let { isLoggedIn } = require("%enlSqGlob/ui/login_state.nut")
 let { mkOnlinePersistentFlag, mkOnlinePersistentWatched
 } = require("%enlist/options/mkOnlinePersistentFlag.nut")
 let {
@@ -95,7 +95,7 @@ curSection.subscribe(function(s) {
 let purchaseIsPossible = Computed(@() purchaseInProgress.value == null
   && !needNewItemsWindow.value)
 
-let function setDiscountUpdateTimer(items){
+function setDiscountUpdateTimer(items){
   let curTime = serverTime.value
   let nextDiscountTimer = items.reduce(function(res, item){
     let curInterval = item?.discountIntervalTs ?? []
@@ -118,7 +118,7 @@ setDiscountUpdateTimer(shopItems.value)
 
 let curSwitchTime = Watched(0)
 
-let function updateSwitchTime(...) {
+function updateSwitchTime(...) {
   let currentTs = serverTime.value
   let nextTime = shopItems.value.reduce(function(firstTs, item) {
     let { showIntervalTs = null } = item
@@ -158,7 +158,7 @@ let shownByTimestamp = Computed(function() {
   return res
 })
 
-let function canBarterItem(item, armyItemCount) {
+function canBarterItem(item, armyItemCount) {
   foreach (payItemTpl, cost in item.curItemCost)
     if ((armyItemCount?[payItemTpl] ?? 0) < cost)
       return false
@@ -192,7 +192,7 @@ let getMinRequiredArmyLevel = @(goods) goods.reduce(function(res, sItem) {
     : min(level, res)
 }, 0)
 
-let function isShopItemAvailable(shopItem, squads, purchases, permissions, notFreemium) {
+function isShopItemAvailable(shopItem, squads, purchases, permissions, notFreemium) {
   let { isHiddenOnChinese = false, requirements = {} } = shopItem
   let { campaignGroup = CAMPAIGN_NONE } = requirements
   return !(isChineseVersion && isHiddenOnChinese)
@@ -248,7 +248,7 @@ let curArmyShowcase = Computed(function() {
 
 let curArmyShopItems = Computed(@() curArmyShopInfo.value.goods)
 
-let function trimTree(node, curFolder){
+function trimTree(node, curFolder){
   let res = []
   for (local i=0; i<node.childItems.len(); i++){
     local subNode = node.childItems[i]
@@ -270,13 +270,13 @@ let function trimTree(node, curFolder){
   return node
 }
 
-let function getGroup(groups, id) {
+function getGroup(groups, id) {
   if (id not in groups)
     groups[id] <- { childItems = [] }
   return groups[id]
 }
 
-let function getCurShopTree(allItems){
+function getCurShopTree(allItems){
   let groups = {}
   let rootItems = []
 
@@ -325,7 +325,7 @@ let curArmyShopFolder = Computed(function(){
 })
 
 
-let function getAllChildItems(folderItem, withFolders = false){
+function getAllChildItems(folderItem, withFolders = false){
   let res = []
   foreach (item in folderItem.childItems){
     let { offerContainer = "" } = item
@@ -338,7 +338,7 @@ let function getAllChildItems(folderItem, withFolders = false){
 }
 
 
-let function hasGoldValue(item){
+function hasGoldValue(item){
   if ((item?.offerContainer ?? "") == "")
     return item?.shopItemPrice.currencyId == "EnlistedGold"
   foreach (subItem in item.childItems)
@@ -358,7 +358,7 @@ let realCurrencies = Computed(function() {
   return res
 })
 
-let function fillViewCurrencies(_) {
+function fillViewCurrencies(_) {
   viewCurrencies(clone realCurrencies.value)
 }
 
@@ -379,7 +379,7 @@ let viewArmyCurrency = Computed(function() {
 })
 
 
-let function getBuyRequirementError(shopItem) {
+function getBuyRequirementError(shopItem) {
   let requirements = shopItem?.requirements
   if ((requirements?.hasArmyReserve ?? false) && !hasCurArmyReserve.value)
     return {
@@ -396,7 +396,7 @@ let curAvailableShopItems = Computed(function() {
   )
 })
 
-let function getUnseenGuids(tree, res, seen, avail) {
+function getUnseenGuids(tree, res, seen, avail) {
   foreach (branch in tree) {
     let { guid, childItems = [] } = branch
     if (childItems.len() == 0) {
@@ -418,7 +418,7 @@ let function getUnseenGuids(tree, res, seen, avail) {
 
 let getGrStatus = @(growths, growthId) growths?[growthId].status ?? GrowthStatus.UNAVAILABLE
 
-let function getCantBuyDataBool(req, growths, grTiers) {
+function getCantBuyDataBool(req, growths, grTiers) {
   let { growthId = "", growthTierId = "" } = req
   if (growthId != "" && getGrStatus(growths, growthId) != GrowthStatus.REWARDED)
     return true
@@ -467,7 +467,7 @@ let premiumProducts = Computed(@()
   .sort(@(a, b) (a?.premiumDays ?? 0) <=> (b?.premiumDays ?? 0))
 )
 
-let function barterShopItem(shopItem, payData, cb = null, count = 1) {
+function barterShopItem(shopItem, payData, cb = null, count = 1) {
   if (purchaseInProgress.value != null)
     return
 
@@ -481,7 +481,7 @@ let function barterShopItem(shopItem, payData, cb = null, count = 1) {
   })
 }
 
-let function barterShopItemList(shopItemsList, itemData, payData, cb) {
+function barterShopItemList(shopItemsList, itemData, payData, cb) {
   if (purchaseInProgress.value != null)
     return
 
@@ -494,7 +494,7 @@ let function barterShopItemList(shopItemsList, itemData, payData, cb) {
 
 }
 
-let function buyShopItem(shopItem, currencyId, price, cb = null, count = 1) {
+function buyShopItem(shopItem, currencyId, price, cb = null, count = 1) {
   if (purchaseInProgress.value != null)
     return
 
@@ -508,7 +508,7 @@ let function buyShopItem(shopItem, currencyId, price, cb = null, count = 1) {
   })
 }
 
-let function buyShopOffer(shopItem, currencyId, price, cb = null, pOfferGuid = null) {
+function buyShopOffer(shopItem, currencyId, price, cb = null, pOfferGuid = null) {
   if (purchaseInProgress.value != null)
     return
 
@@ -522,7 +522,7 @@ let function buyShopOffer(shopItem, currencyId, price, cb = null, pOfferGuid = n
   })
 }
 
-let function buyShopItemList(shopItemsList, itemData, payData, cb) {
+function buyShopItemList(shopItemsList, itemData, payData, cb) {
   if (purchaseInProgress.value != null)
     return
 
@@ -534,7 +534,7 @@ let function buyShopItemList(shopItemsList, itemData, payData, cb) {
   })
 }
 
-let function openPurchaseUrl(url) {
+function openPurchaseUrl(url) {
   openUrl(url)
   checkPurchases()
 }
@@ -553,12 +553,12 @@ let buyItemByGuid = !is_pc? function(_) {
       return true
     }
 
-let function buyItemByStoreId(storeId) {
+function buyItemByStoreId(storeId) {
   openBundle(storeId)
   checkPurchases()
 }
 
-let function buyCurrency(currency) {
+function buyCurrency(currency) {
   if (is_pc) {
     openPurchaseUrl(currency?.purchaseUrl ?? "")
     return
@@ -588,13 +588,13 @@ userInfo.subscribe(function(u) {
     check_purchases()
 })
 
-let function blinkCurrencies() {
+function blinkCurrencies() {
   foreach (currencyTpl, count in viewArmyCurrency.value)
     if (count > 0)
       anim_start($"blink_{currencyTpl}")
 }
 
-let function setupBlinkCurrencies(...) {
+function setupBlinkCurrencies(...) {
   if (curSection.value != SHOP_SECTION || hasShopOrdersUsed.value)
     gui_scene.clearTimer(blinkCurrencies)
   else
@@ -605,27 +605,27 @@ setupBlinkCurrencies()
 foreach (w in [curSection, hasShopOrdersUsed])
   w.subscribe(setupBlinkCurrencies)
 
-let function shopItemContentCtor(shopItem) {
+function shopItemContentCtor(shopItem) {
   if ((shopItem?.crates.len() ?? 0) == 0)
     return null
   return Computed(function() {
-    let crate = shopItem.crates.findvalue(@(c) c.armyId == curArmy.value) ?? shopItem.crates[0]
-    let { armyId, id } = crate
-    let content = requestedCratesContent.value?[armyId][id]
+    let armyId = curArmy.value
+    let crateId = shopItem.crates[0]
+    let content = requestedCratesContent.value?[crateId]
     if (content)
-      return { id, armyId, content }
+      return { id = crateId, armyId, content }
     return null
   })
 }
 
-let function shopItemContentArrayCtor(shopItemW) {
-  return Computed(function(){
+function shopItemContentArrayCtor(shopItemW) {
+  return Computed(function() {
+    let armyId = curArmy.value
     let res = []
-    foreach (crate in shopItemW.value?.crates ?? []) {
-      let { armyId, id } = crate
-      let content = requestedCratesContent.value?[armyId][id]
+    foreach (crateId in shopItemW.value?.crates ?? []) {
+      let content = requestedCratesContent.value?[crateId]
       if (content)
-        res.append({ id, armyId, content })
+        res.append({ id = crateId, armyId, content })
     }
     return res
   })
@@ -634,7 +634,7 @@ let function shopItemContentArrayCtor(shopItemW) {
 let isShopVisible = mkOnlinePersistentWatched("isShopVisible",
   Computed(@() (curArmyData.value?.level ?? 0) >= curArmyShopInfo.value.unlockLevel))
 
-local function getShopItemPath(shopItem, allShopItems){
+function getShopItemPath(shopItem, allShopItems){
   let path = []
   local curOfferGroup = shopItem?.offerGroup ?? ""
   while(curOfferGroup != ""){
@@ -655,7 +655,7 @@ let getShopItemsList = @(tpl) getShopItems(tpl, curArmy.value,
 let getShopItemsCmp = @(tpl) Computed(@() getShopItems(tpl, curArmy.value,
   itemToShopItem.value, allItemTemplates.value, curArmyItemsPrefiltered.value))
 
-local function openAndHighlightItems(targetShopItems, allShopItems){
+function openAndHighlightItems(targetShopItems, allShopItems){
   local longestPathIdx = -1
   local targetPath = []
   targetShopItems.each(function(v, i){
@@ -676,7 +676,7 @@ local function openAndHighlightItems(targetShopItems, allShopItems){
 
 let setCurArmyShopPath = @(path) shopGroupItemsChain(path)
 
-let function setCurArmyShopFolder(folderId){
+function setCurArmyShopFolder(folderId){
   if (folderId == null) {
     shopGroupItemsChain([])
     return
@@ -706,7 +706,7 @@ let notOpenedShopItems = Computed(function() {
 let isItemsShopOpened = mkWatched(persist, "isItemsShopOpened", false)
 let itemsToPresent = Watched({})
 
-let function addToPresentList(itemsList) {
+function addToPresentList(itemsList) {
   itemsToPresent.mutate(function(presentData) {
     foreach (item in itemsList) {
       let armyId = getLinkedArmyName(item)

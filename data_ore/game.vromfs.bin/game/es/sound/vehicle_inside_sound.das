@@ -8,14 +8,13 @@ require game.utils.hero
 require DagorSystem
 
 
-def enable_for_vehicle(is_watched_sound : bool;
-                       vehicle_inside_sound__enableForSeats : StringList;
+def enable_for_vehicle(vehicle_inside_sound__enableForSeats : StringList;
                        enable_if_commander_camera_type : bool;
                        vehicle_camera_type : int;
                        [[shared_comp]] vehicle_seats__seats : Array;
                        vehicle_seats__seatEids : EidList)
 
-  if is_watched_sound && (enable_if_commander_camera_type || vehicle_camera_type != int(VehicleCameraType VEHICLE_CAMERA_COMMANDER))
+  if enable_if_commander_camera_type || vehicle_camera_type != int(VehicleCameraType VEHICLE_CAMERA_COMMANDER)
     if empty(vehicle_inside_sound__enableForSeats)
       return true
 
@@ -32,9 +31,10 @@ def enable_for_vehicle(is_watched_sound : bool;
   return false
 
 
-[es(tag=sound, on_appear, track=(is_watched_sound, vehicleCameraType), on_event=EventOnSeatOwnersChanged)]
+[es(tag=sound, on_appear, track=(is_watched_sound, vehicleCameraType, sound_banks_state__isPresetLoaded), on_event=EventOnSeatOwnersChanged)]
 def vehicle_inside_sound_toggle(evt : Event;
                                 is_watched_sound : bool;
+                                sound_banks_state__isPresetLoaded : bool;
 
                                 [[shared_comp]] vehicle_inside_sound__enableForSeats : StringList;
                                 vehicle_inside_sound__enableIfCommanderCameraType : bool;
@@ -46,14 +46,13 @@ def vehicle_inside_sound_toggle(evt : Event;
                                 vehicle_inside_sound__path : string;
                                 var vehicle_inside_sound__event : SoundEvent&)
 
-  let enableForVehicle = enable_for_vehicle(is_watched_sound,
-                                            vehicle_inside_sound__enableForSeats,
-                                            vehicle_inside_sound__enableIfCommanderCameraType,
-                                            vehicleCameraType,
-                                            vehicle_seats__seats,
-                                            vehicle_seats__seatEids)
-
+  let enableForVehicle = sound_banks_state__isPresetLoaded && is_watched_sound && enable_for_vehicle(vehicle_inside_sound__enableForSeats,
+                                                                                                     vehicle_inside_sound__enableIfCommanderCameraType,
+                                                                                                     vehicleCameraType,
+                                                                                                     vehicle_seats__seats,
+                                                                                                     vehicle_seats__seatEids)
   let enable = enableForVehicle// && enable_for_camera()
+
 /*
   if is_watched_sound
     var curSeatName = ""
@@ -63,15 +62,19 @@ def vehicle_inside_sound_toggle(evt : Event;
           curSeatName = get_ecs_object(vehicle_seats__seats[i])?.name ?? ""
     logerr("__{enable}__ curSeatName={curSeatName} vehicleCameraType={vehicleCameraType} enableForSeats={vehicle_inside_sound__enableForSeats} enableIfCommanderCameraType={vehicle_inside_sound__enableIfCommanderCameraType}")
 */
+
   if vehicle_inside_sound__event.enabled != enable
     vehicle_inside_sound__event.enabled = enable
     if vehicle_inside_sound__event.enabled
       vehicle_inside_sound__event |> play(vehicle_inside_sound__path)
     else
-      abandon(vehicle_inside_sound__event.handle)
+      if sound_banks_state__isPresetLoaded
+        abandon(vehicle_inside_sound__event.handle)
+      else
+        release(vehicle_inside_sound__event.handle)
 
 
-[es(tag=sound, REQUIRE=(vehicleInsideSnapshot3d, vehicleWithWatched), on_event=ParallelUpdateFrameDelayed, after=(animchar_render_es, sound_begin_update_es), before=sound_end_update_es)]
+[es(tag=sound, REQUIRE=(vehicleInsideSnapshot3d, vehicleWithWatched), on_event=ParallelUpdateFrameDelayed, after=sound_begin_update_es, before=sound_end_update_es)]
 def vehicle_inside_sound_update(evt : Event;
                                 vehicle_inside_sound__event : SoundEvent;
                                 transform : float3x4)

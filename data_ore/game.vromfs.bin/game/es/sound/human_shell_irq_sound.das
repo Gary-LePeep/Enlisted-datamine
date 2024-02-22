@@ -10,11 +10,11 @@ require sound_utils.modules.sound_player_common
 
 
 [es(tag=sound)]
-def human_shell_irq_sound(evt : CmdSoundSpecificIrq;
+def human_shell_irq_sound(evt : CmdSoundIrq;
                           human_weap__gunEids : EidList;
                           is_watched_sound : bool;
                           transform : float3x4)
-  if evt.group == sound_hash("grenadeActivate")
+  if evt.irqType == sound_hash("grenadeActivate")
     query(human_weap__gunEids[int(HUWeaponSlots EWS_GRENADE)]) <| $ [es] (gun__curShellId : ShellPropIds)
       let shellSoundProps = shell_sound_try_get_props(int(gun__curShellId.shellId))
       if shellSoundProps != null

@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { isBooster } = require("%enlist/soldiers/model/boosters.nut")
@@ -74,7 +74,7 @@ let mkRewardCardByTemplate = @(itemTemplate, allItemTemplates, commonArmy)
     }
   : null
 
-let function mkRewardCardByPresentation(presentation, count, allItemTemplates, commonArmy) {
+function mkRewardCardByPresentation(presentation, count, allItemTemplates, commonArmy) {
   let itemTpl = presentation.itemTemplate
   let template = allItemTemplates.value?[commonArmy.value][itemTpl]
   if (isBooster(template))

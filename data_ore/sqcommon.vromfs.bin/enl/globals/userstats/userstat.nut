@@ -1,28 +1,42 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "math" import min
 
 let userstat = require_optional("userstats")
 if (userstat==null)
   return require("userstatSecondary.nut") //ui VM, receive all data by cross call instead of host
 
-let loginState = require("%enlSqGlob/login_state.nut")
+let { Watched, Computed } = require("frp")
+let console_register_command = require("console").register_command
+let { tostring_r } = require("%sqstd/string.nut")
+let { debug } = require("dagor.debug")
+let { console_print } = require("%enlSqGlob/library_logs.nut")
+let { resetTimeout } = require("dagor.workcycle")
+let { loc } = require("dagor.localize")
+let loginState = require("%enlSqGlob/ui/login_state.nut")
 let CharClientEvent = require("%enlSqGlob/charClient/charClientEvent.nut")
 
 let logUs = require("%enlSqGlob/library_logs.nut").with_prefix("[USERSTAT] ")
 let { split_by_chars } = require("string")
-let { debug } = require("dagor.debug")
 let { debounce } = require("%sqstd/timers.nut")
 let userInfo = require("%enlSqGlob/userInfo.nut")
 let { get_time_msec } = require("dagor.time")
 let {error_response_converter} = require("%enlSqGlob/netErrorConverter.nut")
 let { globalWatched, nestWatched } = require("%dngscripts/globalState.nut")
-let eventbus = require("eventbus")
-let matchingNotifications = require("%enlSqGlob/notifications/matchingNotifications.nut")
+let { eventbus_subscribe } = require("eventbus")
+let matchingNotifications = require("%enlSqGlob/ui/notifications/matchingNotifications.nut")
 let { get_app_id } = require("app")
 let { arrayByRows } = require("%sqstd/underscore.nut")
 
 let { appId, gameLanguage } = require("%enlSqGlob/clientState.nut")
 let time = require("serverTime.nut")
 let { serverTimeUpdate } = require("serverTimeUpdate.nut")
+
+function mkWatched(persistKey, defVal=null){
+  let container = persist(persistKey, @() {v=defVal})
+  let watch = Watched(container.v)
+  watch.subscribe(@(v) container.v=v)
+  return watch
+}
+
 
 let handlers  = {}
 let executors = {}
@@ -48,10 +62,10 @@ local needSyncSteamAchievements = false
 userId.subscribe(@(_v) needSyncSteamAchievements = loginState.isSteamRunning.value)
 
 let errorLogMaxLen = 10
-let errorLog = mkWatched(persist, "errorLog", [])
-let lastSuccessTime = mkWatched(persist, "lastSuccessTime", 0)
+let errorLog = mkWatched("errorLog", [])
+let lastSuccessTime = mkWatched("lastSuccessTime", 0)
 
-let function checkError(actionId, result) {
+function checkError(actionId, result) {
   if (result?.error == null)
     return
   errorLog.mutate(function(l) {
@@ -61,7 +75,7 @@ let function checkError(actionId, result) {
   })
 }
 
-let function doRequest(request, cb) {
+function doRequest(request, cb) {
   userstat.request(request, @(result) error_response_converter(cb, result))
 }
 
@@ -71,7 +85,7 @@ let syncSteamAchievements = @() clientUserStats.request("SyncUnlocksWithSteam")
 handlers["SyncUnlocksWithSteam"] <- @(_)null
 
 
-let function makeUpdatable(persistName, request, watches, defValue) {
+function makeUpdatable(persistName, request, watches, defValue) {
   let dataKey = $"userstat.{persistName}"
   let lastTimeKey = $"userstat.{persistName}.lastTime"
   let dataS = globalWatched(dataKey, @() defValue)
@@ -85,7 +99,7 @@ let function makeUpdatable(persistName, request, watches, defValue) {
   let canRefresh = @() !isRequestInProgress()
     && (!lastTime.value.update || (lastTime.value.update + STATS_UPDATE_INTERVAL < get_time_msec()))
 
-  let function processResult(result, cb) {
+  function processResult(result, cb) {
     checkError(persistName, result)
     if (cb)
       cb(result)
@@ -108,12 +122,12 @@ let function makeUpdatable(persistName, request, watches, defValue) {
     }
   }
 
-  let function prepareToRequest() {
+  function prepareToRequest() {
     lastTimeUpdate(lastTime.value.__merge({request = get_time_msec()}))
   }
 
-  let function refresh(cb = null) {
-    if (!chardToken.value || appId.value < 0) {
+  function refresh(cb = null) {
+    if (!chardToken.value || appId < 0) {
       dataUpdate(defValue)
       if (cb)
         cb({ error = "not logged in" })
@@ -129,7 +143,7 @@ let function makeUpdatable(persistName, request, watches, defValue) {
     })
   }
 
-  let function forceRefresh(cb = null) {
+  function forceRefresh(cb = null) {
     lastTimeUpdate(lastTime.value.__merge({ update = 0, request = 0}))
     refresh(cb)
   }
@@ -159,26 +173,26 @@ let function makeUpdatable(persistName, request, watches, defValue) {
 let descListUpdatable = makeUpdatable("GetUserStatDescList",
   @(cb) doRequest({
     headers = {
-      appid = appId.value,
+      appid = appId,
       token = chardToken.value,
       language = loc("steam/languageName", gameLanguage).tolower()
     },
     action = "GetUserStatDescList"
   }, cb),
-  [appId, chardToken],
+  [chardToken],
   {})
 
 let statsFilter = nestWatched("statsFilter", { modes = [] })
 
-let unlocksFilter = mkWatched(persist, "unlocksFilter", {})
+let unlocksFilter = mkWatched("unlocksFilter", {})
 
-let function setUnlocksFilter(uFilter) {
+function setUnlocksFilter(uFilter) {
   unlocksFilter(uFilter)
 }
 
 let toTable = @(arr) arr.reduce(@(res, v) res.rawset(v, true), {})
 
-let function isEqualUnordered(arr1, arr2) {
+function isEqualUnordered(arr1, arr2) {
   let tbl1 = toTable(arr1)
   let tbl2 = toTable(arr2)
   if (tbl1.len() != tbl2.len())
@@ -189,7 +203,7 @@ let function isEqualUnordered(arr1, arr2) {
   return true
 }
 
-let function setStatsModes(modes) {
+function setStatsModes(modes) {
   let curModes = statsFilter.value.modes
   if (!isEqualUnordered(curModes, modes))
     statsFilter.mutate(function(v) { v.modes = modes })
@@ -198,28 +212,28 @@ let function setStatsModes(modes) {
 let statsUpdatable = makeUpdatable("GetStats",
   @(cb) doRequest({
       headers = {
-        appid = appId.value,
+        appid = appId,
         token = chardToken.value
       },
       action = "GetStats"
       data = statsFilter.value,
     }, cb),
-  [appId, chardToken, statsFilter],
+  [chardToken, statsFilter],
   {})
 
 let unlocksUpdatable = makeUpdatable("GetUnlocks",
   @(cb) doRequest({
       headers = {
-        appid = appId.value,
+        appid = appId,
         token = chardToken.value
       },
       action = "GetUnlocks"
       data = unlocksFilter.value,
     }, cb),
-  [appId, chardToken, unlocksFilter],
+  [chardToken, unlocksFilter],
   {})
 
-let lastMassiveRequestTime = mkWatched(persist, "lastMassiveRequestTime", 0)
+let lastMassiveRequestTime = mkWatched("lastMassiveRequestTime", 0)
 let massiveRefresh = debounce(
   function(checkTime) {
     logUs("Massive update start")
@@ -231,7 +245,7 @@ let massiveRefresh = debounce(
     lastMassiveRequestTime(checkTime)
   }, 0, MAX_DELAY_FOR_MASSIVE_REQUEST_SEC)
 
-let nextMassiveUpdateTime = mkWatched(persist, "nextMassiveUpdateTime", 0)
+let nextMassiveUpdateTime = mkWatched("nextMassiveUpdateTime", 0)
 statsUpdatable.data.subscribe(function(stats) {
   local nextUpdate = 0
   let curTime = time.value
@@ -248,26 +262,26 @@ statsUpdatable.data.subscribe(function(stats) {
   nextMassiveUpdateTime(nextUpdate)
 })
 
-let lastMassiveRequestQueued = mkWatched(persist, "lastMassiveRequestQueued", 0)
+let lastMassiveRequestQueued = mkWatched("lastMassiveRequestQueued", 0)
 if (lastMassiveRequestQueued.value > lastMassiveRequestTime.value)
   massiveRefresh(lastMassiveRequestQueued.value) //if reload script while wait for the debounce
 
-let function queueMassiveUpdate() {
+function queueMassiveUpdate() {
   logUs("Queue massive update")
   lastMassiveRequestQueued(nextMassiveUpdateTime.value)
   massiveRefresh(nextMassiveUpdateTime.value)
 }
 
-let function startMassiveUpdateTimer() {
+function startMassiveUpdateTimer() {
   if (nextMassiveUpdateTime.value <= lastMassiveRequestTime.value)
     return
-  gui_scene.resetTimeout(nextMassiveUpdateTime.value - time.value, queueMassiveUpdate)
+  resetTimeout(nextMassiveUpdateTime.value - time.value, queueMassiveUpdate)
 }
 startMassiveUpdateTimer()
 nextMassiveUpdateTime.subscribe(@(_) startMassiveUpdateTimer())
 
 
-let function regeneratePersonalUnlocks(context = null) {
+function regeneratePersonalUnlocks(context = null) {
   clientUserStats.request("RegeneratePersonalUnlocks", {}, context)
 }
 
@@ -282,7 +296,7 @@ handlers["RegeneratePersonalUnlocks"] <- function(result, context) {
 }
 
 
-let function generatePersonalUnlocks(context = null) {
+function generatePersonalUnlocks(context = null) {
   clientUserStats.request("GeneratePersonalUnlocks", {data = {table = "daily"}}, context)
 }
 
@@ -295,7 +309,7 @@ handlers["GeneratePersonalUnlocks"] <- function(result, context) {
 
 
 //config = { <unlockId> = <stage> }
-let function setLastSeen(config) {
+function setLastSeen(config) {
   clientUserStats.request("SetLastSeenUnlocks", {data = config})
 }
 
@@ -305,7 +319,7 @@ handlers["SetLastSeenUnlocks"] <- function(result) {
 }
 
 let unlockRewardsInProgress = Watched({})
-let function receiveRewards(unlockName, stage, context = null) {
+function receiveRewards(unlockName, stage, context = null) {
   if (unlockName in unlockRewardsInProgress.value)
     return
   logUs($"receiveRewards {unlockName}={stage}", context)
@@ -318,7 +332,7 @@ let function receiveRewards(unlockName, stage, context = null) {
 handlers["GrantRewards"] <- function(result, context) {
   let { unlockName = null } = context
   if (unlockName in unlockRewardsInProgress.value)
-    unlockRewardsInProgress.mutate(@(v) delete v[unlockName])
+    unlockRewardsInProgress.mutate(@(v) v.$rawdelete(unlockName))
   logUs("GrantRewards result:", result)
   if ("error" in result)
     return
@@ -326,7 +340,7 @@ handlers["GrantRewards"] <- function(result, context) {
   statsUpdatable.forceRefresh()
 }
 
-let function receiveRewardsAllUp(unlocksToRewards, context = null) {
+function receiveRewardsAllUp(unlocksToRewards, context = null) {
   let idsTbl = {}
   let data = []
   foreach (task in unlocksToRewards) {
@@ -346,7 +360,7 @@ let function receiveRewardsAllUp(unlocksToRewards, context = null) {
     (context ?? {}).__merge({ unlocksKeys = idsTblKeys }))
 }
 
-let function receiveRewardsAll(unlocksToRewards, context = null) {
+function receiveRewardsAll(unlocksToRewards, context = null) {
   let idsTbl = {}
   let data = []
   foreach (task in unlocksToRewards) {
@@ -371,7 +385,7 @@ handlers["BatchGrantRewards"] <- function(result, context) {
   unlockRewardsInProgress.mutate(function(u) {
     foreach (key in unlocksKeys)
       if (key in u)
-        delete u[key]
+        u.$rawdelete(key)
   })
   logUs("BatchGrantRewards result:", result)
   if ("error" in result)
@@ -380,7 +394,7 @@ handlers["BatchGrantRewards"] <- function(result, context) {
   statsUpdatable.forceRefresh()
 }
 
-let function resetPersonalUnlockProgress(unlockName, context = null) {
+function resetPersonalUnlockProgress(unlockName, context = null) {
   adminUserStats.request("AdmResetPersonalUnlockProgress", {
     headers = { token = chardToken.value, userId = userId.value },
     data = { unlock = unlockName }
@@ -396,9 +410,9 @@ adminHandlers["AdmResetPersonalUnlockProgress"] <- function(result, context) {
 }
 
 
-let function rerollUnlock(unlockName, cb = null) {
+function rerollUnlock(unlockName, cb = null) {
   doRequest({
-    headers = { appid = appId.value, token = chardToken.value },
+    headers = { appid = appId, token = chardToken.value },
     data = { unlock = unlockName }
     action = "RerollPersonalUnlock"
   },
@@ -413,24 +427,8 @@ let function rerollUnlock(unlockName, cb = null) {
   })
 }
 
-let function selectUnlockRewards(unlockName, selectedArray, cb = null) {
-  doRequest({
-    headers = { appid = appId.value, token = chardToken.value },
-    data = { unlock = unlockName, selection = selectedArray }
-    action = "SelectRewards"
-  },
-  function(result) {
-    if (result?.error) {
-      if (cb)
-        cb(result)
-      return
-    }
-    unlocksUpdatable.forceRefresh(cb)
-  })
-}
 
-
-let function changeStat(stat, mode, amount, shouldSet, cb = null) {
+function changeStat(stat, mode, amount, shouldSet, cb = null) {
   local errorText = null
   if (typeof amount != "integer" && typeof amount != "float")
     errorText = $"Amount must be numeric (current = {amount})"
@@ -455,7 +453,7 @@ let function changeStat(stat, mode, amount, shouldSet, cb = null) {
 
   doRequest({
       headers = {
-        appid = appId.value,
+        appid = appId,
         token = chardToken.value
         userId = userId.value
       },
@@ -475,17 +473,17 @@ let function changeStat(stat, mode, amount, shouldSet, cb = null) {
 }
 
 
-let function addStat(stat, mode, amount, cb = null) {
+function addStat(stat, mode, amount, cb = null) {
   changeStat(stat, mode, amount, false, cb)
 }
 
 
-let function setStat(stat, mode, amount, cb = null) {
+function setStat(stat, mode, amount, cb = null) {
   changeStat(stat, mode, amount, true, cb)
 }
 
 
-let function sendPsPlus(havePsPlus, token, cb = null) {
+function sendPsPlus(havePsPlus, token, cb = null) {
   let haveTxt = havePsPlus ? "present" : "absent"
   debug($"Sending PS+: {haveTxt}")
   doRequest({
@@ -509,19 +507,9 @@ let function sendPsPlus(havePsPlus, token, cb = null) {
 }
 
 
-let function getStatsSum(tableName, statName) {
-  local res = 0
-  let tbl = statsUpdatable.data.value?.stats?[tableName]
-  if (tbl)
-    foreach (modeTbl in tbl)
-      res += modeTbl?[statName] ?? 0
-  return res
-}
-
-
-let function buyUnlock(unlockName, stage, currency, price, cb = null) {
+function buyUnlock(unlockName, stage, currency, price, cb = null) {
   doRequest({
-    headers = { appid = appId.value, token = chardToken.value}
+    headers = { appid = appId, token = chardToken.value}
     data = { name = unlockName, stage = stage, price = price, currency = currency },
     action = "BuyUnlock"
   },
@@ -537,10 +525,10 @@ let function buyUnlock(unlockName, stage, currency, price, cb = null) {
   })
 }
 
-let seasonRewards = mkWatched(persist, "seasonRewards", null)
-let function updateSeasonRewards(cb = null) {
+let seasonRewards = mkWatched("seasonRewards", null)
+function updateSeasonRewards(cb = null) {
   doRequest({
-    headers = { appid = appId.value, token = chardToken.value}
+    headers = { appid = appId, token = chardToken.value}
     action = "GetSeasonRewards"
   },
   function(result) {
@@ -550,12 +538,12 @@ let function updateSeasonRewards(cb = null) {
   })
 }
 
-let function clnChangeStats(data, cb = null) {
+function clnChangeStats(data, cb = null) {
   statsUpdatable.prepareToRequest()
   unlocksUpdatable.prepareToRequest()
   data["$filter"] <- statsFilter.value
   doRequest({
-    headers = { appid = appId.value, token = chardToken.value}
+    headers = { appid = appId, token = chardToken.value}
     data = data
     action = "ClnChangeStats"
   },
@@ -565,7 +553,7 @@ let function clnChangeStats(data, cb = null) {
   })
 }
 
-let function clnAddStat(mode, stat, amount, cb = null) {
+function clnAddStat(mode, stat, amount, cb = null) {
   let data = {
       [stat] = amount,
       ["$mode"] = mode
@@ -574,7 +562,7 @@ let function clnAddStat(mode, stat, amount, cb = null) {
   clnChangeStats(data, cb)
 }
 
-let function clnSetStat(mode, stat, amount, cb = null) {
+function clnSetStat(mode, stat, amount, cb = null) {
   let statData = {
     ["$set"] = amount
   }
@@ -587,10 +575,10 @@ let function clnSetStat(mode, stat, amount, cb = null) {
   clnChangeStats(data, cb)
 }
 
-let function markUserLogsAsSeen(userlogs) {
+function markUserLogsAsSeen(userlogs) {
   doRequest({
     headers = {
-      appid = appId.value,
+      appid = appId,
       token = chardToken.value
     },
     action = "SetLastSeenUserLogs"
@@ -607,10 +595,10 @@ matchingNotifications.subscribe("userStat",
   @(ev) ev?.func == "updateConfig" ? queueMassiveUpdate() : unlocksUpdatable.forceRefresh())
 
 
-let function requestAnoPlayerStats(uid, cb){
+function requestAnoPlayerStats(uid, cb){
   doRequest({
     headers = {
-      appid = appId.value,
+      appid = appId,
       token = chardToken.value
       userId = uid
     },
@@ -620,7 +608,7 @@ let function requestAnoPlayerStats(uid, cb){
   }, cb)
 }
 
-let debugRecursive = @(v) log.debugTableData(v, { recursionLevel = 7, printFn = debug })
+let debugRecursive = @(v) println(tostring_r(v, { recursionLevel = 7 }))
 console_register_command(@() descListUpdatable.forceRefresh(console_print), "userstat.get_desc_list")
 console_register_command(@() debugRecursive(descListUpdatable.data.value) ?? console_print("Done"),
   "userstat.debug_desc_list")
@@ -654,41 +642,27 @@ let cmdList = {
   forceRefreshUnlocks = @(_d = null) unlocksUpdatable.forceRefresh()
 }
 
-eventbus.subscribe("userstat.cmd", @(d) cmdList?[d.cmd]?(d))
-let isUserstatFailedGetData = Computed(
-    @() dbgUserstatFailed.value || (errorLog.value.len() > 0
-      && (lastSuccessTime.value <= 0 || errorLog.value.top().time > lastSuccessTime.value)))
+eventbus_subscribe("userstat.cmd", @(d) cmdList?[d.cmd]?(d))
 
 return {
-  buyUnlock,
+  buyUnlock
   userstatStats = statsUpdatable.data
   userstatUnlocks = unlocksUpdatable.data
-  userstatTime = time
   userstatDescList = descListUpdatable.data
-  userstatErrorLog = errorLog
   userstatExecutors = executors
-  isUserstatFailedGetData
-  setLastSeenUnlocks = setLastSeen
-  getUserstatsSum = getStatsSum
   receiveUnlockRewards = receiveRewards
   receiveUnlockRewardsAll = receiveRewardsAll
   receiveUnlockRewardsAllUp = receiveRewardsAllUp
-  setUserstat = clnSetStat
   sendPsPlusStatusToUserstatServer = sendPsPlus
-  selectUnlockRewards = selectUnlockRewards
-  rerollUnlock = rerollUnlock
+  rerollUnlock
   updateSeasonRewards
   seasonRewards
   forceRefreshUnlocks = cmdList.forceRefreshUnlocks
-  setLastSeenUnlocksCmd = cmdList.setLastSeenCmd
   refreshUserstats = cmdList.refreshStats
-  forceRefreshUserstats = @() statsUpdatable.forceRefresh()
   setStatsModes
   setUnlocksFilter
   markUserLogsAsSeen
-
   requestAnoPlayerStats
-
   unlockRewardsInProgress
   MAX_DELAY_FOR_MASSIVE_REQUEST_SEC
 }

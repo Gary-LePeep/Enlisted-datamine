@@ -1,10 +1,10 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { soldierClasses, getClassCfg, getKindCfg, getClassNameWithGlyph
 } = require("%enlSqGlob/ui/soldierClasses.nut")
 let { getItemName, trimUpgradeSuffix } = require("%enlSqGlob/ui/itemsInfo.nut")
 
-let function getClassByContext(effect, context) {
+function getClassByContext(effect, context) {
   let { armyId, squadId, squadsCfg } = context
   let { newClass = "" } = squadsCfg?[armyId][squadId]
   return newClass in soldierClasses ? newClass : effect.findindex(@(_) true)
@@ -12,7 +12,7 @@ let function getClassByContext(effect, context) {
 
 let firstValue = @(tbl, def = null) (tbl ?? {}).findvalue(@(_) true) ?? def
 
-let function appendSquadSize(effect, _context) {
+function appendSquadSize(effect, _context) {
   let size = firstValue(effect, 0)
   return {
     name = "research/squad_size"
@@ -22,7 +22,7 @@ let function appendSquadSize(effect, _context) {
   }
 }
 
-let function appendSoldiersReserve(effect, _context) {
+function appendSoldiersReserve(effect, _context) {
   let size = effect ?? 0
   return {
     name = "research/plus_reserve"
@@ -32,7 +32,7 @@ let function appendSoldiersReserve(effect, _context) {
   }
 }
 
-let function appendSquadXpBoost(effect, _context) {
+function appendSquadXpBoost(effect, _context) {
   let value = (firstValue(effect, 0) * 100).tointeger()
   return {
     name = "research/squad_xp_boost"
@@ -42,7 +42,7 @@ let function appendSquadXpBoost(effect, _context) {
   }
 }
 
-let function appendBuildingUnlocks(effect, _context) {
+function appendBuildingUnlocks(effect, _context) {
   let id = firstValue(effect, {}).findindex(@(_) true) ?? "0"
   return {
     name = $"research/buildings_unlock_{id}"
@@ -51,7 +51,7 @@ let function appendBuildingUnlocks(effect, _context) {
   }
 }
 
-let function appendArtilleryTypeUnlocks(effect, _context) {
+function appendArtilleryTypeUnlocks(effect, _context) {
   let id = firstValue(effect, {}).findindex(@(_) true) ?? "0"
   return {
     name = $"research/artillery_type_unlock_{id}"
@@ -61,7 +61,7 @@ let function appendArtilleryTypeUnlocks(effect, _context) {
   }
 }
 
-let function appendParatrooperBox(effect, _context) {
+function appendParatrooperBox(effect, _context) {
   let id = firstValue(effect, {}).findindex(@(_) true) ?? "0"
   return {
     name = $"research/paratrooper_box{id}"
@@ -71,7 +71,7 @@ let function appendParatrooperBox(effect, _context) {
   }
 }
 
-let function appendArtilleryCooldownMul(effect, _context) {
+function appendArtilleryCooldownMul(effect, _context) {
   let value = (1.0 / firstValue(effect, 1.0)).tointeger()
   return {
     name = "research/artillery_cooldown_mul"
@@ -81,7 +81,7 @@ let function appendArtilleryCooldownMul(effect, _context) {
   }
 }
 
-let function appendSquadClassLimit(effect, _context) {
+function appendSquadClassLimit(effect, _context) {
   let [ kind = "", count = 0 ] = firstValue(effect, {}).topairs()?[0]
   return {
     name = "research/plus_class"
@@ -94,7 +94,7 @@ let function appendSquadClassLimit(effect, _context) {
   }
 }
 
-let function appendMaxTrainingLevel(effect, context) {
+function appendMaxTrainingLevel(effect, context) {
   let sClass = getClassByContext(effect, context)
   local level = firstValue(effect, 0)
   let { class_training = {} } = context
@@ -113,7 +113,7 @@ let function appendMaxTrainingLevel(effect, context) {
   }
 }
 
-let function appendWeaponUpgrades(effect, context) {
+function appendWeaponUpgrades(effect, context) {
   let itemtpl = effect?[0]
   let basetpl = trimUpgradeSuffix(itemtpl)
   let { armyId, alltemplates } = context
@@ -158,7 +158,7 @@ let function appendWeaponUpgrades(effect, context) {
   }
 }
 
-let function appendWeaponUpgradeDiscount(effect, context) {
+function appendWeaponUpgradeDiscount(effect, context) {
   local [ itemtpl = "", value = 0 ] = effect?.topairs()[0]
   value = (value * 100).tointeger()
   let basetpl = trimUpgradeSuffix(itemtpl)
@@ -204,7 +204,7 @@ let function appendWeaponUpgradeDiscount(effect, context) {
   }
 }
 
-let function appendWeaponTuning(effect, context) {
+function appendWeaponTuning(effect, context) {
   let itemtpl = effect?.keys()[0]
   let basetpl = trimUpgradeSuffix(itemtpl)
   let { armyId, alltemplates } = context
@@ -248,7 +248,7 @@ let function appendWeaponTuning(effect, context) {
   }
 }
 
-let function appendClassXpBoost(effect, context) {
+function appendClassXpBoost(effect, context) {
   let sClass = getClassByContext(effect, context)
   local value = firstValue(effect, 0)
   value = (value * 100).tointeger()
@@ -263,7 +263,7 @@ let function appendClassXpBoost(effect, context) {
   }
 }
 
-let function appendSlotUnlock(effect, context) {
+function appendSlotUnlock(effect, context) {
   let sClass = getClassByContext(effect, context)
   let [ slot = "" ] = firstValue(effect, [])
   return {
@@ -277,7 +277,7 @@ let function appendSlotUnlock(effect, context) {
   }
 }
 
-let function appendVeteranClass(effect, context) {
+function appendVeteranClass(effect, context) {
   let sClass = getClassByContext(effect, context)
   let { kind } = getClassCfg(sClass)
   return {
@@ -290,7 +290,7 @@ let function appendVeteranClass(effect, context) {
   }
 }
 
-let function appendDisassembleBonus(effect, context) {
+function appendDisassembleBonus(effect, context) {
   local [ itemtpl = "", value = 0 ] = effect?.topairs()[0]
   value = (value * 100).tointeger()
   let basetpl = trimUpgradeSuffix(itemtpl)
@@ -331,7 +331,7 @@ let RESEARCH_DATA_APPENDERS = {
   disassemble_bonus = appendDisassembleBonus
 }
 
-local function prepareResearch(research, context) {
+function prepareResearch(research, context) {
   // cleanup effects table
   let effect = (research?.effect ?? {})
     .filter(@(val) (val?.len() ?? val ?? 0) != 0)

@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {fontBody, fontawesome} = require("%enlSqGlob/ui/fontsStyle.nut")
 let {BtnBgHover, BtnBgActive, ControlBgOpaque, TextHighlight, TextDefault, Active} = require("%ui/style/colors.nut")
@@ -73,8 +73,8 @@ local spinner = kwarg(function(curValue, allValues, setValue = null,
 
   let isLeftBtnEnabled = Computed(@() curIdx.value != null && curIdx.value > 0)
   let isRightBtnEnabled = Computed(@() curIdx.value != null && curIdx.value < maxIdx)
-  let function leftBtnAction() { if (isLeftBtnEnabled.value) setValue(allValues[curIdx.value - 1]) }
-  let function rightBtnAction() { if (isRightBtnEnabled.value) setValue(allValues[curIdx.value + 1]) }
+  function leftBtnAction() { if (isLeftBtnEnabled.value) setValue(allValues[curIdx.value - 1]) }
+  function rightBtnAction() { if (isRightBtnEnabled.value) setValue(allValues[curIdx.value + 1]) }
 
   let hotkeysElem = @(){
     watch = [isLeftBtnEnabled, isRightBtnEnabled]

@@ -4,7 +4,7 @@ require DagorMath
 require math.base
 
 def make_ladder_tm(height : float; width : float; thickness : float; tm : float3x4)
-  let orient = quat(tm)
+  let orient = DagorMath::quat(tm)
   var bboxTm = IDENT_TM
   make_tm(orient, bboxTm)
   bboxTm[2] *= width

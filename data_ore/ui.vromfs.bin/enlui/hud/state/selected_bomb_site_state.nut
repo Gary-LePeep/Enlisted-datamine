@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {controlledHeroEid} = require("%ui/hud/state/controlled_hero.nut")
 let {EventHeroChanged} = require("gameevents")
@@ -20,7 +20,7 @@ selectedBombSite.subscribe(function(eid) {
   }
 })
 
-let function trackBombState(eid, comp) {
+function trackBombState(eid, comp) {
   if (eid == selectedBombSite.value) {
     isBombPlanted(comp["bomb_site__isBombPlanted"])
     bombPlantedTimeEnd(comp["bomb_site__plantedTimeEnd"])
@@ -32,7 +32,7 @@ let function trackBombState(eid, comp) {
   }
 }
 
-let function trackOperator(eid, comp) {
+function trackOperator(eid, comp) {
   if (eid == selectedBombSite.value && comp["bomb_site__operator"] != controlledHeroEid.value)
     selectedBombSite(ecs.INVALID_ENTITY_ID)
   else if (comp["bomb_site__operator"] == controlledHeroEid.value && controlledHeroEid.value != ecs.INVALID_ENTITY_ID) {

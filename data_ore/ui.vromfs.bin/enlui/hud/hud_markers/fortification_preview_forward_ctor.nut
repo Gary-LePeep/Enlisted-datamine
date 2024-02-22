@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {fortificationPreviewForwardArrowsGetWatched, fortificationPreviewForwardArrowsSet} = require("%ui/hud/state/fortification_preview_forward_marker.nut")
 
@@ -16,7 +16,7 @@ let defScale = freeze({
 })
 let deftransform = {}
 
-let function ctor(eid) {
+function ctor(eid) {
   let yawRotation = fortificationPreviewForwardArrowsGetWatched(eid)
   return @(){
     data = { eid }

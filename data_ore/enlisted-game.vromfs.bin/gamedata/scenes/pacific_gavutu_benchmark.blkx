@@ -1,26 +1,7 @@
 [
   {
     "import": {
-      "scene": "content/enlisted/gamedata/scenes/_pacific_gavutu_common.blk"
-    }
-  },
-  {
-    "entity": {
-      "_template": "session_finalizer",
-      "session_finalizer__timer": 10.0
-    }
-  },
-  {
-    "entity": {
-      "_template": "level",
-      "level__blk": "content/enlisted/levels/pacific_gavutu.blk",
-      "level__timeRange": [5.0,19.2],
-      "level__weatherChoice:object": {
-        "weather_clear_a": 1.0
-      },
-      "level__timeVec:array": {
-        "level__timeVec": 16.5
-      }
+      "scene": "content/dev/gamedata/scenes/_pacific_gavutu_benchmark_common.blk"
     }
   },
   {
@@ -667,7 +648,7 @@
   },
   {
     "entity": {
-      "_template": "bonfire_effect",
+      "_template": "fire_bonfire_medium_effect",
       "transform": [
         [1.0,0.0,0.0],
         [0.0,1.0,0.0],
@@ -689,7 +670,7 @@
   },
   {
     "entity": {
-      "_template": "bonfire_effect",
+      "_template": "fire_bonfire_medium_effect",
       "transform": [
         [1.0,0.0,0.0],
         [0.0,1.0,0.0],
@@ -700,7 +681,7 @@
   },
   {
     "entity": {
-      "_template": "bonfire_effect",
+      "_template": "fire_bonfire_medium_effect",
       "transform": [
         [1.0,0.0,0.0],
         [0.0,1.0,0.0],
@@ -711,7 +692,7 @@
   },
   {
     "entity": {
-      "_template": "bonfire_effect",
+      "_template": "fire_bonfire_medium_effect",
       "transform": [
         [1.0,0.0,0.0],
         [0.0,1.0,0.0],
@@ -722,7 +703,7 @@
   },
   {
     "entity": {
-      "_template": "bonfire_effect",
+      "_template": "fire_bonfire_medium_effect",
       "transform": [
         [1.0,0.0,0.0],
         [0.0,1.0,0.0],

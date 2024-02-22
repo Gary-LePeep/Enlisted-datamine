@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let JB = require("%ui/control/gui_buttons.nut")
 let { addModalWindow, removeModalWindow } = require("%ui/components/modalWindows.nut")
@@ -29,7 +29,7 @@ let wrapParams = {
   vGap = smallPadding
 }
 
-let function ranksRow(stage) {
+function ranksRow(stage) {
   let { progress, ratingOnNextSeason, index, rewardLocId = null } = stage
   return {
     flow = FLOW_HORIZONTAL
@@ -76,7 +76,7 @@ let function ranksRow(stage) {
   }
 }
 
-let function ranksTable() {
+function ranksTable() {
   if (rankUnlock.value == null)
     return null
 

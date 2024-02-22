@@ -1,8 +1,8 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { frnd } = require("dagor.random")
 let { isInBattleState } = require("%enlSqGlob/inBattleState.nut")
-let matchingNotifications = require("%enlSqGlob/notifications/matchingNotifications.nut")
+let matchingNotifications = require("%enlSqGlob/ui/notifications/matchingNotifications.nut")
 let { update_profile, get_all_configs } = require("clientApi.nut")
 let userInfo = require("%enlSqGlob/userInfo.nut")
 let { nestWatched } = require("%dngscripts/globalState.nut")
@@ -14,7 +14,7 @@ const MAX_CONFIGS_UPDATE_DELAY = 120 //to prevent all users update configs at on
 let isProfileChanged = nestWatched("isProfileChanged", false)
 let isConfigsChanged = nestWatched("isConfigsChanged", false)
 
-let function checkUpdateProfile() {
+function checkUpdateProfile() {
   if (isInBattleState.value) {
     logPR("Delay update profile because in the battle")
     return
@@ -36,7 +36,7 @@ isInBattleState.subscribe(function(v) {
     isProfileChanged(true)
 })
 
-let function updateConfigsTimer() {
+function updateConfigsTimer() {
   if (isConfigsChanged.value)
     gui_scene.setTimeout(frnd() * MAX_CONFIGS_UPDATE_DELAY, checkUpdateProfile)
   else

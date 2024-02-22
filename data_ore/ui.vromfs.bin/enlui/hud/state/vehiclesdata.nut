@@ -1,9 +1,9 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let armyData = require("%ui/hud/state/armyData.nut")
 
-let function getCrewCount(template) {
+function getCrewCount(template) {
   let gametemplate = template == null ? null
     : ecs.g_entity_mgr.getTemplateDB().getTemplateByName(template)
   if (gametemplate == null)
@@ -11,7 +11,7 @@ let function getCrewCount(template) {
   return gametemplate.getCompValNullable("vehicle_seats__seats")?.len() ?? 0
 }
 
-let function collectVehicleData(vehicle, armyId, squadId, country) {
+function collectVehicleData(vehicle, armyId, squadId, country) {
   let res = {}
   foreach (key in ["guid", "gametemplate"])
     res[key] <- vehicle[key]

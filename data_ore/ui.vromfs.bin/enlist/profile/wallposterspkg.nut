@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let exclamation = require("%enlist/components/exclamation.nut")
 let { doesLocTextExist } = require("dagor.localize")
@@ -51,7 +51,7 @@ let mkWpRow = @(locId, rowTitleText, txtStyle, isEmptyHidden = false, sf = 0)
       }
     : null
 
-let function mkWpBottomRow(wallposter, sf) {
+function mkWpBottomRow(wallposter, sf) {
   let { armyLocId, bpSeason = null, icon = null } = wallposter
   return {
     size = [flex(), SIZE_TO_CONTENT]
@@ -91,7 +91,7 @@ let mkWallposterImg = @(img, hasReceived, isHovered, wpImgSize) {
   image = Picture(img)
 }
 
-let function mkWallposter(wallposter, sf = 0, isUnseen = false) {
+function mkWallposter(wallposter, sf = 0, isUnseen = false) {
   let { hasReceived, isHidden, img, nameLocId, descLocId, hintLocId } = wallposter
   let isHovered = sf & S_HOVER
   return {
@@ -128,7 +128,7 @@ let function mkWallposter(wallposter, sf = 0, isUnseen = false) {
   }
 }
 
-let function makeBigWpImage(wallposter, onClick) {
+function makeBigWpImage(wallposter, onClick) {
   let { img, nameLocId } = wallposter
   return {
     size = flex()

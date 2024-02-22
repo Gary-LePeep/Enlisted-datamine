@@ -511,8 +511,8 @@
     "entity": {
       "_template": "team_ussr_berlin+team_narrator_assault_attack+respawn_creators_team",
       "team__memberCount": 0.0,
-      "team__scoreCap": 2000.0,
-      "team__score": 2000.0,
+      "team__scoreCap": 2500.0,
+      "team__score": 2500.0,
       "team__squadSpawnCost": 250,
       "team__firstSpawnCostMul": 0.0,
       "team__zeroScoreFailTimer": 60.0,
@@ -547,7 +547,7 @@
       "capzone__mustBeCapturedByTeam": 1,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_1",
-      "capzone__capTime": 20.0,
+      "capzone__capTime": 25.0,
       "capzone__capTeam": 2,
       "capzone__progress": 1.0,
       "transform": [
@@ -557,7 +557,7 @@
         [-311.066,8.55304,398.957]
       ],
       "active": false,
-      "capzone__decapTime": 20.0,
+      "capzone__decapTime": 25.0,
       "capzone__autoDecap": false,
       "capzone__autoCap": false,
       "capzone__owningTeam": 2,
@@ -1034,10 +1034,10 @@
     "entity": {
       "_template": "respawnChooser+respVehicle",
       "transform": [
-        [0.0948294,0.0,0.995493],
-        [0.0,1.0,0.0],
-        [-0.995493,0.0,0.0948294],
-        [-462.612,3.59543,212.975]
+        [0.198811,0.0,0.980038],
+        [0.0,1.0,-0.0],
+        [-0.980037,0.0,0.198811],
+        [-463.844,3.59544,220.916]
       ],
       "groupName": "sector_1",
       "team": 2,
@@ -1069,10 +1069,10 @@
       "_template": "respawnChooser+respMotorcycle",
       "active": false,
       "transform": [
-        [-0.548984,0.0,0.835833],
-        [0.0,1.0,0.0],
-        [-0.835833,0.0,-0.548984],
-        [-344.566,3.53115,160.609]
+        [0.0361868,0.0,0.999345],
+        [0.0,1.0,-0.0],
+        [-0.999345,0.0,0.0361868],
+        [-331.409,3.53115,159.375]
       ],
       "team": 2,
       "groupName": "sector_1",
@@ -1651,20 +1651,6 @@
       "_template": "respawnChooser+respMotorcycle",
       "active": false,
       "transform": [
-        [0.0948294,0.0,0.995493],
-        [0.0,1.0,0.0],
-        [-0.995493,0.0,0.0948294],
-        [-462.612,3.59543,212.975]
-      ],
-      "team": 2,
-      "groupName": "sector_1"
-    }
-  },
-  {
-    "entity": {
-      "_template": "respawnChooser+respMotorcycle",
-      "active": false,
-      "transform": [
         [-0.487928,0.0,-0.872884],
         [0.0,1.0,0.0],
         [0.872884,0.0,-0.487928],
@@ -1737,7 +1723,7 @@
         [0.0948294,0.0,0.995493],
         [0.0,1.0,0.0],
         [-0.995493,0.0,0.0948294],
-        [-467.264,4.37579,206.661]
+        [-470.971,4.37579,201.551]
       ],
       "resupply_zone__team": 2,
       "groupName": "sector_1",

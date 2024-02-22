@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { showMsgbox } = require("%enlist/components/msgbox.nut")
 let { fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
@@ -25,6 +25,7 @@ let { getArmyBR, maxMatesArmiesTiers, BRByArmies, getLiveArmyBR
 } = require("%enlist/soldiers/armySquadTier.nut")
 let { selectedGameMode } = require("%enlist/mainScene/changeGameModeButton.nut")
 let { missionsByQueue, campaignsByMissions } = require("%enlist/gameModes/missionsQueues.nut")
+let logQM = require("%enlSqGlob/library_logs.nut").with_prefix("[QuickMatch] ")
 
 let lastGameMode = nestWatched("lastGameMode", null)
 
@@ -76,36 +77,40 @@ let queuesCampaignsData = Computed(function() {
     if (!isRandom && queueTeam == null)
       continue
 
-    local queueSuffixes = [
-      curArmiesList.value.findvalue(@(army) teamAllies.contains(army)) ?? curArmiesList.value[0]
-      curArmiesList.value.findvalue(@(army) teamAxis.contains(army)) ?? curArmiesList.value[1]
+    let availArmies = [
+      curArmiesList.value.findvalue(@(army) teamAllies.contains(army))
+      curArmiesList.value.findvalue(@(army) teamAxis.contains(army))
     ]
 
     let queueBRs = queue.queueSuffixes.map(@(v) v.tointeger())
     if (queueBRs.len() == 0)
-      queueBRs.append(1,2,3,4,5)
-    local hasTeam = false
-    queueSuffixes.each(function(army) {
+      queueBRs.append(1, 2, 3, 4, 5)
+    local isContains = false
+    foreach (army in availArmies) {
       let br = maxMatesArmiesTiers.value?[army].tier ?? getLiveArmyBR(BRByArmies.value, army)
-      if (!queueBRs.contains(br) || (!isRandom && army != armyId))
-        return
+      if (queueBRs.contains(br) && (isRandom || army == armyId)) {
+        isContains = true
+        break
+      }
+    }
 
-      hasTeam = true
+    if (!isContains)
+      continue
 
-      if (army not in mapsList)
-        mapsList[army] <- {}
+    foreach (army in availArmies) {
+      local campaigns = mapsList?[army]
+      if (campaigns == null) {
+        campaigns = {}
+        mapsList[army] <- campaigns
+      }
 
-      let campaigns = mapsList?[army] ?? {}
       let missions = missionsByQueue?[queue.id] ?? []
       foreach (mission in missions) {
         let campaign = campaignsByMissions?[mission]
         if (campaign)
           campaigns[campaign] <- true
       }
-    })
-
-    if (!hasTeam)
-      continue
+    }
 
     foreach (br in queueBRs) {
       if (brMin == null || br < brMin)
@@ -126,7 +131,8 @@ let queuesCampaignsData = Computed(function() {
   }
 })
 
-let function joinImpl(gameMode) {
+function joinImpl(gameMode) {
+  logQM($"joinImpl queues:{", ".join((gameMode?.queues ?? []).map(@(q) q.id))}")
   lastGameMode(gameMode)
 
   let gameParams = {}
@@ -136,42 +142,43 @@ let function joinImpl(gameMode) {
     : null
   let isRandom = matchRandomTeam.value
 
+  logQM($"  armies:{", ".join(curArmiesList.value)} curArmy:{armyId} teamLegacy:{teamLegacy}")
   foreach (queue in gameMode?.queues ?? []) {
     let { teamAllies = [], teamAxis = [] } = queue?.extraParams
     let team = teamAllies.contains(armyId) ? 0
       : teamAxis.contains(armyId) ? 1
       : null
     let queueTeam = gameMode?.eventCurArmy ?? team ?? teamLegacy
-    if (!isRandom && queueTeam == null)
+    if (!isRandom && queueTeam == null) {
+      logQM($"  queue:{queue.id} not fit")
       continue
+    }
 
-    local queueSuffixes = [
-      curArmiesList.value.findvalue(@(army) teamAllies.contains(army)) ?? curArmiesList.value[0]
-      curArmiesList.value.findvalue(@(army) teamAxis.contains(army)) ?? curArmiesList.value[1]
+    let queueSuffixes = [
+      curArmiesList.value.findvalue(@(army) teamAllies.contains(army))
+      curArmiesList.value.findvalue(@(army) teamAxis.contains(army))
     ]
     if (isInSquad.value && isSquadLeader.value && maxMatesArmiesTiers.value != null)
-      queueSuffixes = queueSuffixes.map(function(army) {
+      queueSuffixes.apply(function(army) {
         let { tier = 1 } = maxMatesArmiesTiers.value?[army]
         return max(tier, getArmyBR(army)).tostring()
       })
-    else {
-      local skipCount = 0
-      let queueBRs = queue.queueSuffixes
-      queueSuffixes = queueSuffixes.map(function(army) {
-        let br = getArmyBR(army).tostring()
-        if (!queueBRs.contains(br))
-          skipCount++
-        return br
-      })
+    else
+      queueSuffixes.apply(@(army) getArmyBR(army).tostring())
 
-      if (skipCount > 1)
-        continue
+    let queueBRs = queue.queueSuffixes
+    let mteams = []
+    foreach (teamIdx in (isRandom ? [0, 1] : [queueTeam]))
+      if (queueBRs.contains(queueSuffixes[teamIdx]))
+        mteams.append(teamIdx)
+    if (mteams.len() == 0) {
+      logQM($"  queue:{queue.id} no teams")
+      continue
     }
 
+    logQM($"  queue:{queue.id} is ok mteams:", mteams, "queueSuffixes:", queueSuffixes)
     gameParams[queue.queueId] <- {
-      mteams = isRandom
-        ? [0, 1]
-        : [queueTeam]
+      mteams
       queueSuffixes
     }
   }
@@ -179,14 +186,14 @@ let function joinImpl(gameMode) {
   joinQueue(gameMode, gameParams)
 }
 
-let function join(gameMode) {
+function join(gameMode) {
   if (isInQueue.value)
     leaveQueue(@() joinImpl(gameMode))
   else
     joinImpl(gameMode)
 }
 
-let function setRandTeamValue(val) {
+function setRandTeamValue(val) {
   let watch = isInEventGM.value ? matchRandomTeamEvent : matchRandomTeamCommon
   if (val == watch.value)
     return
@@ -212,7 +219,7 @@ let alwaysRandTeamSign = checkbox(Watched(true), randTeamBoxStyle, {
   textOnTheLeft = true
 })
 
-let function activateCrossplay(_val) {
+function activateCrossplay(_val) {
   saveCrossnetworkPlayValue(CrossplayState.ALL)
 }
 

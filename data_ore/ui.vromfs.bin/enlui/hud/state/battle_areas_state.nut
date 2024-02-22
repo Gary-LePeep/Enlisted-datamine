@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { watchedTable2TableOfWatched } = require("%sqstd/frp.nut")
 let defValue = {
@@ -9,7 +9,7 @@ let defValue = {
 let state = Watched(defValue)
 let { battleAreasPolygon, nextBattleAreasPolygon } = watchedTable2TableOfWatched(state)
 
-let function battleAreaHud(_eid, comps) {
+function battleAreaHud(_eid, comps) {
   let bap = comps.battle_area__activeBattleAreasPolygon.getAll()
   let nbap = comps.battle_area__nextBattleAreasPolygon.getAll()
   state({

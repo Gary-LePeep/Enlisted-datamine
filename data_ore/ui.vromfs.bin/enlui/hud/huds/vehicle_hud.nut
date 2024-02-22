@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { enabled, gear, neutralGear, rpm, cruiseControl, speed, isAutomaticTransmission
@@ -17,7 +17,7 @@ let mkLabel = @(txt) mkText(txt).__update({ minWidth = fsh(4) })
 
 const CRUISE_CONTROL_MAX = 3
 
-let function mkGear(g, neutral) {
+function mkGear(g, neutral) {
   return g < neutral ? $"{loc("vehicle_hud/GearR")}{neutral-g}"
     : g == neutral ? loc("vehicle_hud/GearN")
     : $"{g-neutral}"

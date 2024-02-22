@@ -42,7 +42,7 @@ def blood_puddles_update_es(info : UpdateStageInfoAct)
     *bloodPuddlesMgr |> update()
 
 
-[es(tag=render, no_order)]
+[es(tag=render, after=animchar_before_render_es)] //require for execute animchar_before_render_es as early as possible
 def blood_puddles_before_render_es(info : UpdateStageInfoBeforeRender)
   var bloodPuddlesMgr = get_blood_puddles_mgr()
   if bloodPuddlesMgr != null

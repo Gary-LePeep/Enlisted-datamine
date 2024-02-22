@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { isRunningOnPS5 = @() false } = require_optional("sony")
 let { is_ps4 } = require("%dngscripts/platform.nut")

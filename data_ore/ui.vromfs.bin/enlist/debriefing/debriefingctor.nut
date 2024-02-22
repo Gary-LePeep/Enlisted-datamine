@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let JB = require("%ui/control/gui_buttons.nut")
 let { fontHeading2, fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
@@ -199,7 +199,7 @@ let grayText = @(override) {
 
 let headerMarginTop = hdpx(30)
 
-let function overGainRewardBlock() {
+function overGainRewardBlock() {
   let res = { watch = gainRewardContent }
   let content = gainRewardContent.value
   if (content == null)
@@ -252,12 +252,12 @@ let sessionTimeCounter = @(debriefing) {
 let bonusText = @(val) "+{0}%".subst((100 * val).tointeger())
 let colon = loc("ui/colon")
 
-let function mkSquadsBonusTooltipText(premiumExpMul) {
+function mkSquadsBonusTooltipText(premiumExpMul) {
   let premiumText = "".concat(loc("premium/title"), colon, "+", premiumExpMul*100, "%")
   return "\n\n".join([premiumText], true)
 }
 
-let function battleExpBonus(debriefing) {
+function battleExpBonus(debriefing) {
   let totalBonus = debriefing?.premiumExpMul
   if (totalBonus == null)
     return null
@@ -295,7 +295,7 @@ let blockHeader = @(locId) {
   children = grayText({ text = utf8ToUpper(loc(locId)) }.__update(fontSub))
 }
 
-let function continueAnimImpl(debriefing) {
+function continueAnimImpl(debriefing) {
   local blockIdx = -1
   local block = null
   foreach (idx, ctor in windowContentQueue) {
@@ -321,7 +321,7 @@ let function continueAnimImpl(debriefing) {
 
 let continueAnim = debounce(continueAnimImpl, 0.01)
 
-let function skipAnim(debriefing) {
+function skipAnim(debriefing) {
   anim_skip(NEW_BLOCK_TRIGGER)
   anim_skip($"{ANIM_TRIGGER}{SKIP_ANIM_POSTFIX}")
   anim_skip(ANIM_TRIGGER)
@@ -349,7 +349,7 @@ let blockStyle = {
 }
 
 local blockIdx = 0
-let function blockCtr(locId, blockContent, _debriefing, override = blockStyle) {
+function blockCtr(locId, blockContent, _debriefing, override = blockStyle) {
   if (!blockContent)
     return null
 
@@ -378,14 +378,14 @@ let function blockCtr(locId, blockContent, _debriefing, override = blockStyle) {
   }.__update(override ?? {})
 }
 
-let function isFinishGrowth(debriefing) {
+function isFinishGrowth(debriefing) {
   let { exp = 0, growthCfg = null } = debriefing.growthProgress
   let { expRequired = 0 } = growthCfg
   return exp + debriefing.armyExp >= expRequired
 }
 
 
-let function armyProgressBlock(debriefing) {
+function armyProgressBlock(debriefing) {
   let {
     armyId, armyExp = 0, growthProgress = null, globalData = null, expMode = "",
     result = null, squads = {}, campaignId = "", armyExpDetailed = null, boosts = null
@@ -419,7 +419,7 @@ let function armyProgressBlock(debriefing) {
   }
 }
 
-let function rankBlock(debriefing) {
+function rankBlock(debriefing) {
   let { wasPlayerRank = 0, playerRank = 0 } = debriefing
   if (playerRank == 0 || wasPlayerRank >= playerRank)
     return null
@@ -441,7 +441,7 @@ let function rankBlock(debriefing) {
   }
 }
 
-let function debriefingHeader(debriefing) {
+function debriefingHeader(debriefing) {
   let { result = null, armyId = null, expMode = "" } = debriefing
   let armyIcon = mkArmyIcon(armyId, hdpx(44))
   let armyProgress = armyProgressBlock(debriefing)
@@ -503,7 +503,7 @@ let function debriefingHeader(debriefing) {
   }
 }
 
-let function switchContext(debriefing) {
+function switchContext(debriefing) {
   let campaign = gameProfile.value?.campaignByArmyId[debriefing.armyId]
   if (campaign == null) /* FIX ME: tutorial does not need debriefing at the end */
     return
@@ -515,7 +515,7 @@ let function switchContext(debriefing) {
 }
 
 
-let function openNewLevelSoldier() {
+function openNewLevelSoldier() {
   if (newLevelSoldier == null)
     return
   setCurSection(mainSectionId)
@@ -523,7 +523,7 @@ let function openNewLevelSoldier() {
   curSoldierIdx(newLevelSoldier.soldierIdx)
 }
 
-let function skipAnimOrClose(doClose, debriefing) {
+function skipAnimOrClose(doClose, debriefing) {
   if (isWaitAnim.value) {
     usedSkipAnim(true)
     skipAnim(debriefing)
@@ -613,7 +613,7 @@ let awardsWrapParams = {
   halign = ALIGN_CENTER
 }
 
-let function mkAwardsContent(topAwards, awards, nextAnimCb, delay = 0) {
+function mkAwardsContent(topAwards, awards, nextAnimCb, delay = 0) {
   let nextDelay = delay + topAwards.len() * AWARD_DELAY
   return {
     flow = FLOW_VERTICAL
@@ -628,7 +628,7 @@ let function mkAwardsContent(topAwards, awards, nextAnimCb, delay = 0) {
   }
 }
 
-let function tasksBlock(debriefing) {
+function tasksBlock(debriefing) {
   let { dailyTasksProgress = [] } = debriefing
   if (dailyTasksProgress.len() == 0)
     return null
@@ -644,7 +644,7 @@ let function tasksBlock(debriefing) {
     debriefing)
 }
 
-let function heroesBlock(debriefing) {
+function heroesBlock(debriefing) {
   let { heroes = [], armyExp = 0, localPlayerGroupMembers = {} } = debriefing
   if (heroes.len() == 0)
     return null
@@ -659,7 +659,7 @@ let function heroesBlock(debriefing) {
   return blockCtr("debriefing/heroes", content, debriefing)
 }
 
-let function awardsBlock(debriefing) {
+function awardsBlock(debriefing) {
   local { awards = [], battleHeroAwards = [] } = debriefing
   awards = awards.filter(@(w) w.value > 0 && mkAward.awardsCfg?[w.id])
 
@@ -693,7 +693,7 @@ let function awardsBlock(debriefing) {
   return blockCtr("debriefing/personal_results", content, debriefing)
 }
 
-let function mkSoldierTooltipText(stats, result) {
+function mkSoldierTooltipText(stats, result) {
   let textList = soldierStatsCfg.map(function(s) {
     local value = s?.defaultValue ?? 0
     foreach (stat in s?.stats ?? [s.stat])
@@ -715,7 +715,7 @@ let collectSoldierAwards = @(guid, awards)
 let collectSquadAwards = @(squadId, awards)
   awards.filter(@(award) (isSoldierAward(award.award) || isTopSquadAward(award.award)) && award.soldier.squadId == squadId)
 
-let function checkNewLevelSoldier(soldierStat, soldierData, soldierIdx) {
+function checkNewLevelSoldier(soldierStat, soldierData, soldierIdx) {
   if (soldierStat == null || soldierData == null)
     return
 
@@ -729,7 +729,7 @@ let function checkNewLevelSoldier(soldierStat, soldierData, soldierIdx) {
     }
 }
 
-let function squadsAndSoldiersExpBlock(debriefing) {
+function squadsAndSoldiersExpBlock(debriefing) {
   let {
     squads = {}, isBattleHero = false, battleHeroSoldier = null,
     armyId = null, result = null
@@ -831,7 +831,7 @@ let function squadsAndSoldiersExpBlock(debriefing) {
   return blockCtr("debriefing/squads_soldiers_progression", content, debriefing)
 }
 
-let function statisticBlock(debriefing) {
+function statisticBlock(debriefing) {
   if ((debriefing?.players ?? {}).len() == 0)
     return null
 
@@ -901,7 +901,7 @@ let mkSessionIdText = @(debriefing) (debriefing?.sessionId ?? INVALID_SESSION_ID
 let debriefingAutosavePath = "".concat(get_log_directory() ?? "", "debriefing_enlisted.json")
 let canDebugDebriefing = hasClientPermission("debug_debriefing")
 
-let function autosaveDebriefing(debriefing){
+function autosaveDebriefing(debriefing){
   if (!(get_setting_by_blk_path("debug/enableDebriefingDump") ?? true))
     return
 
@@ -913,7 +913,7 @@ let function autosaveDebriefing(debriefing){
 }
 
 local curDebriefingSessionId = null
-let function initDebriefingAnim(debriefing) {
+function initDebriefingAnim(debriefing) {
   let { sessionId = -1 } = debriefing
   if (sessionId == curDebriefingSessionId)
     return
@@ -932,8 +932,8 @@ let function initDebriefingAnim(debriefing) {
   ]
 }
 
-let function debriefingRoot(debriefing, doClose) {
-  let function autosaveAndClose() {
+function debriefingRoot(debriefing, doClose) {
+  function autosaveAndClose() {
     autosaveDebriefing(debriefing)
     doClose()
   }

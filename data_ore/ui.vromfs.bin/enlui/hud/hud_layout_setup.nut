@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { forcedMinimalHud } = require("state/hudGameModes.nut")
 let hudLayoutState = require("%ui/hud/state/hud_layout_state.nut")
@@ -154,7 +154,7 @@ let compassOnly = @() {
   halign = ALIGN_CENTER
 }
 
-let function minimap_mod() {
+function minimap_mod() {
   local mc
   if (inPlane.value)
     mc = [compassOnly, voteKickUi, vehicleSteerTip, planeSteerTip]
@@ -288,7 +288,7 @@ let RIGHT_PANEL_BOTTOM = [
   { flags = HUD_FLAGS.NO_MINIMALIST | HUD_FLAGS.PLAYER_UI, comp = playerDynamic }
 ]
 
-let function setHudLayout(...) {
+function setHudLayout(...) {
   logHUD($"hudFlags = {hudFlags.value}")
 
   /// Left Panel

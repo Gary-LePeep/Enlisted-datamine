@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontHeading2, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let {defTxtColor, noteTxtColor, bigPadding, textBgBlurColor, smallPadding,
@@ -7,7 +7,7 @@ let {defTxtColor, noteTxtColor, bigPadding, textBgBlurColor, smallPadding,
 let txt = @(text) {
   rendObj = ROBJ_TEXT
   color = defTxtColor
-}.__update(typeof text != "table" ? { text = text } : text)
+}.__update(typeof text != "table" ? { text = text } : text, fontSub)
 
 let note = @(text) {
   rendObj = ROBJ_TEXT
@@ -21,7 +21,7 @@ let noteTextArea = @(text) {
   color = noteTxtColor
 }.__update(typeof text != "table" ? { text } : text, fontSub)
 
-let function bigTextWithNote(noteText, mainText) {
+function bigTextWithNote(noteText, mainText) {
   let mainTextParams = (typeof mainText == "table") ? mainText : { text = mainText }
   return {
     flow = FLOW_HORIZONTAL
@@ -49,7 +49,7 @@ let sceneHeader = @(text) {
   children = sceneHeaderText(text)
 }
 
-let function btn(params){
+function btn(params){
   let sFlags = params?.stateFlags ?? Watched(0)
   let group = params?.group ?? ElemGroup()
   let text = params?.text
@@ -74,7 +74,7 @@ let function btn(params){
 }
 
 
-local function mCtor(ctor, selCtor, watch, checkSelected=@(_opt, idx, watched) watched.value==idx, onSelect=null, clickHandler = null, dblClickHandler = null){
+function mCtor(ctor, selCtor, watch, checkSelected=@(_opt, idx, watched) watched.value==idx, onSelect=null, clickHandler = null, dblClickHandler = null){
   return function (opt, idx) {
     let group = ElemGroup()
     let stateFlags = Watched(0)
@@ -93,7 +93,7 @@ local function mCtor(ctor, selCtor, watch, checkSelected=@(_opt, idx, watched) w
   }
 }
 
-let function genericSelList(params = {}){
+function genericSelList(params = {}){
   //ctors for selected and regular elems
   //watch is int (index in options), list is list of anything
   let watch = params.watch
@@ -114,7 +114,7 @@ let function genericSelList(params = {}){
   }
 }
 
-let function select(watch, options, objStyle = {flow=FLOW_HORIZONTAL, gap=hdpx(5) rendObj=ROBJ_SOLID color=Color(0,0,0,50)}){
+function select(watch, options, objStyle = {flow=FLOW_HORIZONTAL, gap=hdpx(5) rendObj=ROBJ_SOLID color=Color(0,0,0,50)}){
   return genericSelList({
     watch=watch, options=options, style = objStyle
     checkSelected = @(opt, _idx, watched) watched.value==opt
@@ -124,7 +124,7 @@ let function select(watch, options, objStyle = {flow=FLOW_HORIZONTAL, gap=hdpx(5
   })
 }
 
-let function autoscrollText(allParams) {
+function autoscrollText(allParams) {
   let { text, size = [flex(), SIZE_TO_CONTENT], group = null, color = null, vplace = null, textParams = {}, params = {} } = allParams
   return {
     size

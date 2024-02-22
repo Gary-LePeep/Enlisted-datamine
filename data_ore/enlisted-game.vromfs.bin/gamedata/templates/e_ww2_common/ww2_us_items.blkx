@@ -332,6 +332,21 @@
         "slot": "front_belt_r"
       },
       {
+        "slot": "front_belt_l"
+      },
+      {
+        "slot": "side_belt_r"
+      },
+      {
+        "slot": "side_belt_l"
+      },
+      {
+        "slot": "rear_belt_r"
+      },
+      {
+        "slot": "rear_belt_l"
+      },
+      {
         "slot": "belt1"
       },
       {
@@ -381,18 +396,37 @@
       }
     }
   ],
-  "attachable_wear_usmc_m43_hbt_jump_smock_t5_parachute_item": {
-    "_use": "attachable_tunic",
-    "item__uniqueName": "attachable_wear_usmc_m43_hbt_jump_smock_t5_parachute_item",
-    "animchar__res": "usmc_m43_hbt_jump_smock_t5_parachute_char",
-    "collres__res": "usmc_m43_hbt_jump_smock_t5_parachute_collision",
-    "item__replaceOnParachuteOpen": "attachable_wear_usmc_m43_hbt_jump_smock_item",
-    "_tracked": "attaches_list",
-    "attaches_list:list<eid>": [],
-    "skeleton_attach__remapAffectSlots:list<t>": {
-      "slot": "belt1"
+  "attachable_wear_usmc_m43_hbt_jump_smock_t5_parachute_item": [
+    {
+      "_use": "attachable_tunic"
+    },
+    {
+      "_use": "cloth_wind"
+    },
+    {
+      "item__uniqueName": "attachable_wear_usmc_m43_hbt_jump_smock_t5_parachute_item"
+    },
+    {
+      "animchar__res": "usmc_m43_hbt_jump_smock_t5_parachute_char"
+    },
+    {
+      "collres__res": "usmc_m43_hbt_jump_smock_t5_parachute_collision"
+    },
+    {
+      "item__replaceOnParachuteOpen": "attachable_wear_usmc_m43_hbt_jump_smock_item"
+    },
+    {
+      "_tracked": "attaches_list"
+    },
+    {
+      "attaches_list:list<eid>": []
+    },
+    {
+      "skeleton_attach__remapAffectSlots:list<t>": {
+        "slot": "belt1"
+      }
     }
-  },
+  ],
   "attachable_wear_usmc_m43_hbt_jump_smock_green_t5_parachute_item": [
     {
       "_use": "attachable_tunic"
@@ -868,24 +902,45 @@
       }
     }
   ],
-  "attachable_wear_airborne_jacket_w_parachute_item": {
-    "_use": "attachable_tunic",
-    "item__uniqueName": "attachable_wear_airborne_jacket_w_parachute_item",
-    "animchar__res": "airborne_jacket_w_parachute_char",
-    "collres__res": "airborne_jacket_w_parachute_collision",
-    "_tracked": "attaches_list",
-    "item__replaceOnParachuteOpen": "attachable_wear_airborne_jacket_item",
-    "item__replaceOnSpawnOnGround": "attachable_wear_airborne_jacket_item",
-    "attaches_list:list<eid>": [],
-    "skeleton_attach__remapAffectSlots:list<t>": [
-      {
-        "slot": "front_belt_r"
-      },
-      {
-        "slot": "backpack"
-      }
-    ]
-  },
+  "attachable_wear_airborne_jacket_w_parachute_item": [
+    {
+      "_use": "attachable_tunic"
+    },
+    {
+      "_use": "cloth_wind"
+    },
+    {
+      "item__uniqueName": "attachable_wear_airborne_jacket_w_parachute_item"
+    },
+    {
+      "animchar__res": "airborne_jacket_w_parachute_char"
+    },
+    {
+      "collres__res": "airborne_jacket_w_parachute_collision"
+    },
+    {
+      "_tracked": "attaches_list"
+    },
+    {
+      "item__replaceOnParachuteOpen": "attachable_wear_airborne_jacket_item"
+    },
+    {
+      "item__replaceOnSpawnOnGround": "attachable_wear_airborne_jacket_item"
+    },
+    {
+      "attaches_list:list<eid>": []
+    },
+    {
+      "skeleton_attach__remapAffectSlots:list<t>": [
+        {
+          "slot": "front_belt_r"
+        },
+        {
+          "slot": "backpack"
+        }
+      ]
+    }
+  ],
   "attachable_wear_airborne_jacket_light_w_parachute_item": [
     {
       "_use": "attachable_tunic"
@@ -1033,6 +1088,9 @@
         "slot": "front_belt_l"
       },
       {
+        "slot": "side_belt_r"
+      },
+      {
         "slot": "backpack"
       }
     ]
@@ -1061,6 +1119,9 @@
     "skeleton_attach__remapAffectSlots:list<t>": [
       {
         "slot": "front_belt_r"
+      },
+      {
+        "slot": "side_belt_r"
       },
       {
         "slot": "backpack"
@@ -1126,6 +1187,9 @@
         "slot": "front_belt_l"
       },
       {
+        "slot": "side_belt_r"
+      },
+      {
         "slot": "backpack"
       }
     ]
@@ -1170,6 +1234,9 @@
     "skeleton_attach__remapAffectSlots:list<t>": [
       {
         "slot": "front_belt_r"
+      },
+      {
+        "slot": "side_belt_r"
       },
       {
         "slot": "belt1"
@@ -1227,29 +1294,20 @@
       }
     }
   ],
-  "attachable_wear_jacket_m43_no_insig_item": {
-    "_use": "attachable_tunic",
-    "item__uniqueName": "attachable_wear_jacket_m43_no_insig_item",
-    "animchar__res": "jacket_m43_no_insig_char",
-    "collres__res": "jacket_m43_no_insig_collision",
-    "_tracked": "attaches_list",
-    "attaches_list:list<eid>": [],
-    "skeleton_attach__remapAffectSlots:list<t>": [
-      {
-        "slot": "front_belt_r"
-      },
-      {
-        "slot": "belt1"
-      },
-      {
-        "slot": "backpack"
+  "attachable_wear_jacket_m43_no_insig_item": [
+    {
+      "_use": "attachable_tunic"
+    },
+    {
+      "_use": "attachable_wear_jacket_m43_item"
+    },
+    {
+      "animchar__objTexReplace:object": {
+        "us_jacket_m43_tex_d*": "us_jacket_m43_beige_tex_d*",
+        "us_jacket_m43_tex_n*": "us_jacket_m43_beige_tex_n*"
       }
-    ],
-    "animchar__objTexReplace:object": {
-      "us_jacket_m43_tex_d*": "us_jacket_m43_beige_tex_d*",
-      "us_jacket_m43_tex_n*": "us_jacket_m43_beige_tex_n*"
     }
-  },
+  ],
   "attachable_wear_jacket_m43_79div_item": [
     {
       "_use": "attachable_tunic"
@@ -1320,6 +1378,9 @@
         "slot": "front_belt_r"
       },
       {
+        "slot": "side_belt_r"
+      },
+      {
         "slot": "belt1"
       },
       {
@@ -1364,6 +1425,15 @@
     "skeleton_attach__remapAffectSlots:list<t>": [
       {
         "slot": "front_belt_r"
+      },
+      {
+        "slot": "front_belt_l"
+      },
+      {
+        "slot": "rear_belt_r"
+      },
+      {
+        "slot": "rear_belt_l"
       },
       {
         "slot": "belt1"
@@ -2508,6 +2578,16 @@
       "_tags": "gameClient"
     }
   },
+  "attachable_wear_ammo_bag_wool_greatcoat_item": {
+    "_use": "attachable_bag_l",
+    "item__uniqueName": "attachable_wear_ammo_bag_wool_greatcoat_item",
+    "animchar__res": "ammo_bag_wool_greatcoat_char",
+    "collres__res": "ammo_bag_wool_greatcoat_collision",
+    "animchar_fast_phys__res": "ammo_bag_wool_greatcoat_fastphys",
+    "animchar_fast_phys": {
+      "_tags": "gameClient"
+    }
+  },
   "attachable_wear_ammo_bag_03_us_summer_item": {
     "_use": "attachable_bag_l",
     "item__uniqueName": "attachable_wear_ammo_bag_03_us_summer_item",
@@ -2771,6 +2851,35 @@
       "_tags": "gameClient"
     }
   },
+  "attachable_wear_m43_entrenching_tool_bl_item": {
+    "_use": "attachable_front_rear_belt_l",
+    "item__uniqueName": "attachable_wear_m43_entrenching_tool_bl_item",
+    "animchar__res": "m43_entrenching_tool_bl_char",
+    "collres__res": "m43_entrenching_tool_bl_collision",
+    "animchar_fast_phys__res": "m43_entrenching_tool_bl_fastphys",
+    "animchar_fast_phys": {
+      "_tags": "gameClient"
+    },
+    "skeleton_attach__remapParentSlots:list<t>": [
+      {
+        "slot": "belt_1"
+      },
+      {
+        "slot": "belt_2"
+      },
+      {
+        "slot": "tunic"
+      }
+    ],
+    "skeleton_attach__skipParentsRemapNodes:list<t>": [
+      {
+        "node": "d_belt_back_left_a"
+      },
+      {
+        "node": "d_belt_back_left_b"
+      }
+    ]
+  },
   "attachable_wear_m1910_axe_pouch_01_summer_item": {
     "_use": "attachable_side_belt_l",
     "item__uniqueName": "attachable_wear_m1910_axe_pouch_01_summer_item",
@@ -2780,6 +2889,35 @@
     "animchar_fast_phys": {
       "_tags": "gameClient"
     }
+  },
+  "attachable_wear_m1910_axe_pouch_bl_item": {
+    "_use": "attachable_front_rear_belt_l",
+    "item__uniqueName": "attachable_wear_m1910_axe_pouch_bl_item",
+    "animchar__res": "m1910_axe_pouch_bl_char",
+    "collres__res": "m1910_axe_pouch_bl_collision",
+    "animchar_fast_phys__res": "m1910_axe_pouch_bl_fastphys",
+    "animchar_fast_phys": {
+      "_tags": "gameClient"
+    },
+    "skeleton_attach__remapParentSlots:list<t>": [
+      {
+        "slot": "belt_1"
+      },
+      {
+        "slot": "belt_2"
+      },
+      {
+        "slot": "tunic"
+      }
+    ],
+    "skeleton_attach__skipParentsRemapNodes:list<t>": [
+      {
+        "node": "d_belt_back_left_a"
+      },
+      {
+        "node": "d_belt_back_left_b"
+      }
+    ]
   },
   "attachable_wear_us_cutter_in_pouch_jacket_m41_item": {
     "_use": "attachable_rear_belt_r",
@@ -2850,6 +2988,35 @@
     "animchar_fast_phys": {
       "_tags": "gameClient"
     }
+  },
+  "attachable_wear_m1924_first_aid_kit_fl_item": {
+    "_use": "attachable_front_belt_l",
+    "item__uniqueName": "attachable_wear_m1924_first_aid_kit_fl_item",
+    "animchar__res": "m1924_first_aid_kit_fl_char",
+    "collres__res": "m1924_first_aid_kit_fl_collision",
+    "animchar_fast_phys__res": "m1924_first_aid_kit_fl_fastphys",
+    "animchar_fast_phys": {
+      "_tags": "gameClient"
+    },
+    "skeleton_attach__remapParentSlots:list<t>": [
+      {
+        "slot": "belt_1"
+      },
+      {
+        "slot": "belt_2"
+      },
+      {
+        "slot": "tunic"
+      }
+    ],
+    "skeleton_attach__skipParentsRemapNodes:list<t>": [
+      {
+        "node": "d_belt_front_left_a"
+      },
+      {
+        "node": "d_belt_front_left_b"
+      }
+    ]
   },
   "attachable_wear_pouch_m1924_jacket_m43_item": {
     "_use": "attachable_front_rear_belt_l",
@@ -3095,12 +3262,14 @@
     "animchar__res": "pouch_rigger_tanker_jacket_char",
     "collres__res": "pouch_rigger_tanker_jacket_collision"
   },
-  "attachable_wear_us_m1916_holster_tanker_coverall_item": {
-    "_use": "attachable_side_belt_r",
-    "item__uniqueName": "attachable_wear_us_m1916_holster_tanker_coverall_item",
-    "animchar__res": "us_m1916_holster_tanker_coverall_char",
-    "collres__res": "us_m1916_holster_tanker_coverall_collision"
-  },
+  "attachable_wear_us_m1916_holster_tanker_coverall_item": [
+    {
+      "_use": "attachable_side_belt_r"
+    },
+    {
+      "_use": "attachable_wear_us_m1916_holster_belt_rs_item"
+    }
+  ],
   "attachable_wear_us_m1_thompson_pouch_01_summer_item": {
     "_use": "attachable_side_belt_r",
     "item__uniqueName": "attachable_wear_us_m1_thompson_pouch_01_summer_item",
@@ -3125,6 +3294,51 @@
     "animchar_fast_phys__res": "us_m1_thompson_pouch_l_m41_jacket_fastphys",
     "animchar_fast_phys": {
       "_tags": "gameClient"
+    }
+  },
+  "attachable_wear_usa_winter_coat_pouch_x2_fl_item": {
+    "_use": "attachable_front_belt_l",
+    "item__uniqueName": "attachable_wear_usa_winter_coat_pouch_x2_fl_item",
+    "animchar__res": "usa_winter_coat_pouch_x2_fl_char",
+    "collres__res": "usa_winter_coat_pouch_x2_fl_collision",
+    "skeleton_attach__remapParentSlots:list<t>": {
+      "slot": "tunic"
+    }
+  },
+  "attachable_wear_usa_winter_coat_pouch_x3_fr_item": {
+    "_use": "attachable_front_belt_r",
+    "item__uniqueName": "attachable_wear_usa_winter_coat_pouch_x3_fr_item",
+    "animchar__res": "usa_winter_coat_pouch_x3_fr_char",
+    "collres__res": "usa_winter_coat_pouch_x3_fr_collision",
+    "skeleton_attach__remapParentSlots:list<t>": {
+      "slot": "tunic"
+    }
+  },
+  "attachable_wear_usa_winter_coat_pouch_x3_fl_item": {
+    "_use": "attachable_front_belt_l",
+    "item__uniqueName": "attachable_wear_usa_winter_coat_pouch_x3_fl_item",
+    "animchar__res": "usa_winter_coat_pouch_x3_fl_char",
+    "collres__res": "usa_winter_coat_pouch_x3_fl_collision",
+    "skeleton_attach__remapParentSlots:list<t>": {
+      "slot": "tunic"
+    }
+  },
+  "attachable_wear_usa_wool_greatcoat_pouch_x3_fl_item": {
+    "_use": "attachable_front_belt_l",
+    "item__uniqueName": "attachable_wear_usa_wool_greatcoat_pouch_x3_fl_item",
+    "animchar__res": "usa_wool_greatcoat_pouch_x3_fl_char",
+    "collres__res": "usa_wool_greatcoat_pouch_x3_fl_collision",
+    "skeleton_attach__remapParentSlots:list<t>": {
+      "slot": "tunic"
+    }
+  },
+  "attachable_wear_usa_wool_greatcoat_pouch_x3_fr_item": {
+    "_use": "attachable_front_belt_r",
+    "item__uniqueName": "attachable_wear_usa_wool_greatcoat_pouch_x3_fr_item",
+    "animchar__res": "usa_wool_greatcoat_pouch_x3_fr_char",
+    "collres__res": "usa_wool_greatcoat_pouch_x3_fr_collision",
+    "skeleton_attach__remapParentSlots:list<t>": {
+      "slot": "tunic"
     }
   },
   "us_gasbag_on_side_blacklist": {
@@ -3165,45 +3379,87 @@
       }
     }
   ],
-  "attachable_wear_us_m1916_holster_m44_shirt_item": {
-    "_use": "attachable_side_belt_r",
-    "item__uniqueName": "attachable_wear_us_m1916_holster_m44_shirt_item",
-    "animchar__res": "us_m1916_holster_m44_shirt_char",
-    "collres__res": "us_m1916_holster_m44_shirt_collision",
-    "animchar_fast_phys__res": "us_m1916_holster_m44_shirt_fastphys",
-    "animchar_fast_phys": {
-      "_tags": "gameClient"
+  "attachable_wear_us_m1916_holster_m44_shirt_item": [
+    {
+      "_use": "attachable_side_belt_r"
+    },
+    {
+      "_use": "attachable_wear_us_m1916_holster_belt_rs_item"
     }
+  ],
+  "attachable_wear_us_m1916_holster_m43_jacket_item": [
+    {
+      "_use": "attachable_side_belt_r"
+    },
+    {
+      "_use": "attachable_wear_us_m1916_holster_belt_rs_item"
+    }
+  ],
+  "attachable_wear_us_m1916_holster_tanker_coverall_jacket_item": [
+    {
+      "_use": "attachable_side_belt_r"
+    },
+    {
+      "_use": "attachable_wear_us_m1916_holster_belt_rs_item"
+    }
+  ],
+  "attachable_wear_us_m1916_holster_combat_shirt_item": [
+    {
+      "_use": "attachable_side_belt_r"
+    },
+    {
+      "_use": "attachable_wear_us_m1916_holster_belt_rs_item"
+    }
+  ],
+  "attachable_wear_us_m1916_holster_belt_rs_item": {
+    "_use": "attachable_side_belt_r",
+    "item__uniqueName": "attachable_wear_us_m1916_holster_belt_rs_item",
+    "animchar__res": "us_m1916_holster_belt_rs_char",
+    "collres__res": "us_m1916_holster_belt_rs_collision",
+    "skeleton_attach__remapParentSlots:list<t>": [
+      {
+        "slot": "belt_1"
+      },
+      {
+        "slot": "belt_2"
+      },
+      {
+        "slot": "tunic"
+      }
+    ],
+    "skeleton_attach__skipParentsRemapNodes:list<t>": [
+      {
+        "node": "d_belt_side_right_a"
+      },
+      {
+        "node": "d_belt_side_right_b"
+      }
+    ]
   },
-  "attachable_wear_us_m1916_holster_m43_jacket_item": {
-    "_use": "attachable_side_belt_r",
-    "item__uniqueName": "attachable_wear_us_m1916_holster_m43_jacket_item",
-    "animchar__res": "us_m1916_holster_m43_jacket_char",
-    "collres__res": "us_m1916_holster_m43_jacket_collision",
-    "animchar_fast_phys__res": "us_m1916_holster_m43_jacket_fastphys",
-    "animchar_fast_phys": {
-      "_tags": "gameClient"
-    }
-  },
-  "attachable_wear_us_m1916_holster_tanker_coverall_jacket_item": {
-    "_use": "attachable_side_belt_r",
-    "item__uniqueName": "attachable_wear_us_m1916_holster_tanker_coverall_jacket_item",
-    "animchar__res": "us_m1916_holster_tanker_coverall_jacket_char",
-    "collres__res": "us_m1916_holster_tanker_coverall_jacket_collision",
-    "animchar_fast_phys__res": "us_m1916_holster_tanker_coverall_jacket_fastphys",
-    "animchar_fast_phys": {
-      "_tags": "gameClient"
-    }
-  },
-  "attachable_wear_us_m1916_holster_combat_shirt_item": {
-    "_use": "attachable_side_belt_r",
-    "item__uniqueName": "attachable_wear_us_m1916_holster_combat_shirt_item",
-    "animchar__res": "us_m1916_holster_combat_shirt_char",
-    "collres__res": "us_m1916_holster_combat_shirt_collision",
-    "animchar_fast_phys__res": "us_m1916_holster_m44_shirt_fastphys",
-    "animchar_fast_phys": {
-      "_tags": "gameClient"
-    }
+  "attachable_wear_us_m1916_holster_belt_fr_item": {
+    "_use": "attachable_front_belt_r",
+    "item__uniqueName": "attachable_wear_us_m1916_holster_belt_fr_item",
+    "animchar__res": "us_m1916_holster_belt_fr_char",
+    "collres__res": "us_m1916_holster_belt_fr_collision",
+    "skeleton_attach__remapParentSlots:list<t>": [
+      {
+        "slot": "belt_1"
+      },
+      {
+        "slot": "belt_2"
+      },
+      {
+        "slot": "tunic"
+      }
+    ],
+    "skeleton_attach__skipParentsRemapNodes:list<t>": [
+      {
+        "node": "d_belt_front_right_a"
+      },
+      {
+        "node": "d_belt_front_right_b"
+      }
+    ]
   },
   "attachable_wear_belt_m36_01_us_summer_item": {
     "_use": "attachable_belt1",
@@ -3293,6 +3549,30 @@
     "animchar__res": "us_six_pocket_bandoleer_01_summer_char",
     "collres__res": "us_six_pocket_bandoleer_01_summer_collision"
   },
+  "attachable_wear_six_pocket_bandoleer_winter_coat_item": {
+    "_use": "attachable_chest",
+    "item__uniqueName": "attachable_wear_six_pocket_bandoleer_winter_coat_item",
+    "animchar__res": "six_pocket_bandoleer_winter_coat_char",
+    "collres__res": "six_pocket_bandoleer_winter_coat_collision"
+  },
+  "attachable_wear_six_pocket_bandoleer_l_winter_coat_item": {
+    "_use": "attachable_chest",
+    "item__uniqueName": "attachable_wear_six_pocket_bandoleer_l_winter_coat_item",
+    "animchar__res": "six_pocket_bandoleer_l_winter_coat_char",
+    "collres__res": "six_pocket_bandoleer_l_winter_coat_collision"
+  },
+  "attachable_wear_six_pocket_bandoleer_wool_greatcoat_item": {
+    "_use": "attachable_chest",
+    "item__uniqueName": "attachable_wear_six_pocket_bandoleer_wool_greatcoat_item",
+    "animchar__res": "six_pocket_bandoleer_wool_greatcoat_char",
+    "collres__res": "six_pocket_bandoleer_wool_greatcoat_collision"
+  },
+  "attachable_wear_six_pocket_bandoleer_x_wool_greatcoat_item": {
+    "_use": "attachable_chest",
+    "item__uniqueName": "attachable_wear_six_pocket_bandoleer_x_wool_greatcoat_item",
+    "animchar__res": "six_pocket_bandoleer_x_wool_greatcoat_char",
+    "collres__res": "six_pocket_bandoleer_x_wool_greatcoat_collision"
+  },
   "attachable_wear_m6_gasbag_m43_jacket_item": {
     "_use": "attachable_chest",
     "item__uniqueName": "attachable_wear_m6_gasbag_m43_jacket_item",
@@ -3303,17 +3583,20 @@
       "_tags": "gameClient"
     }
   },
-  "attachable_wear_backpack_m_36_02_us_summer_item": {
-    "_use": "attachable_backpack",
-    "animchar__res": "backpack_m_36_02_us_summer_char",
-    "collres__res": "backpack_m_36_02_us_summer_collision",
-    "item__uniqueName": "attachable_wear_backpack_m_36_02_us_summer_item",
-    "animchar_fast_phys__res": "backpack_m_36_02_us_summer_fastphys",
-    "attachable_backpack__capacity": 1,
-    "animchar_fast_phys": {
-      "_tags": "gameClient"
-    }
+  "attachable_wear_m6_gasbag_winter_coat_item": {
+    "_use": "attachable_bag_l",
+    "item__uniqueName": "attachable_wear_m6_gasbag_winter_coat_item",
+    "animchar__res": "m6_gasbag_winter_coat_char",
+    "collres__res": "m6_gasbag_winter_coat_collision"
   },
+  "attachable_wear_backpack_m_36_02_us_summer_item": [
+    {
+      "_use": "attachable_backpack"
+    },
+    {
+      "_use": "attachable_wear_backpack_m_36_item"
+    }
+  ],
   "attachable_wear_backpack_m_36_item": {
     "_use": "attachable_backpack",
     "animchar__res": "backpack_m_36_char",
@@ -3394,6 +3677,16 @@
     "animchar__res": "m1924_first_aid_kit_tanker_coverall_jacket_char",
     "collres__res": "m1924_first_aid_kit_tanker_coverall_jacket_collision",
     "animchar_fast_phys__res": "m1924_first_aid_kit_tanker_coverall_jacket_fastphys",
+    "animchar_fast_phys": {
+      "_tags": "gameClient"
+    }
+  },
+  "attachable_wear_m1924_first_aid_kit_winter_coat_item": {
+    "_use": "attachable_side_belt_l",
+    "item__uniqueName": "attachable_wear_m1924_first_aid_kit_winter_coat_item",
+    "animchar__res": "m1924_first_aid_kit_winter_coat_char",
+    "collres__res": "m1924_first_aid_kit_winter_coat_collision",
+    "animchar_fast_phys__res": "m1924_first_aid_kit_winter_coat_fastphys",
     "animchar_fast_phys": {
       "_tags": "gameClient"
     }
@@ -3501,11 +3794,36 @@
       },
       {
         "slot": "front_belt_l"
+      },
+      {
+        "slot": "side_belt_r"
       }
     ],
     "skeleton_attach__remapParentSlots:list<t>": {
       "slot": "tunic"
     }
+  },
+  "attachable_wear_us_m23_cartridge_belt_winter_coat_item": {
+    "_use": "attachable_belt1",
+    "item__uniqueName": "attachable_wear_us_m23_cartridge_belt_winter_coat_item",
+    "animchar__res": "us_m23_cartridge_belt_winter_coat_char",
+    "collres__res": "us_m23_cartridge_belt_winter_coat_collision",
+    "_tracked": "attaches_list",
+    "attaches_list:list<eid>": [],
+    "skeleton_attach__remapAffectSlots:list<t>": [
+      {
+        "slot": "front_belt_r"
+      },
+      {
+        "slot": "front_belt_l"
+      },
+      {
+        "slot": "rear_belt_r"
+      },
+      {
+        "slot": "rear_belt_l"
+      }
+    ]
   },
   "attachable_wear_ammo_belt_m43_jacket_m43_item": [
     {
@@ -3603,6 +3921,19 @@
       }
     }
   ],
+  "attachable_wear_belt_tanker_overall_cloth_brown_item": [
+    {
+      "_use": "attachable_belt1"
+    },
+    {
+      "_use": "attachable_wear_belt_tanker_overall_cloth_item"
+    },
+    {
+      "animchar__objTexReplace:object": {
+        "us_tankers_belt_gray_tex_d*": "us_tankers_belt_brown_tex_d*"
+      }
+    }
+  ],
   "attachable_wear_coatbelt_1939_03_us_winter_item": {
     "_use": "attachable_belt1",
     "item__uniqueName": "attachable_wear_coatbelt_1939_03_us_winter_item",
@@ -3649,6 +3980,65 @@
       "_tags": "gameClient"
     }
   },
+  "attachable_wear_us_flask_br_item": {
+    "_use": "attachable_rear_belt_r",
+    "item__uniqueName": "attachable_wear_us_flask_br_item",
+    "animchar__res": "us_flask_br_char",
+    "collres__res": "us_flask_br_collision",
+    "animchar_fast_phys__res": "us_flask_br_fastphys",
+    "animchar_fast_phys": {
+      "_tags": "gameClient"
+    },
+    "skeleton_attach__remapParentSlots:list<t>": [
+      {
+        "slot": "belt_1"
+      },
+      {
+        "slot": "belt_2"
+      },
+      {
+        "slot": "tunic"
+      }
+    ],
+    "skeleton_attach__skipParentsRemapNodes:list<t>": [
+      {
+        "node": "d_belt_back_right_a"
+      },
+      {
+        "node": "d_belt_back_right_b"
+      }
+    ]
+  },
+  "attachable_wear_us_tl122d_flashlight_wool_geatcoat_item": {
+    "_use": "attachable_belt2",
+    "item__uniqueName": "attachable_wear_us_tl122d_flashlight_wool_geatcoat_item",
+    "animchar__res": "us_tl122d_flashlight_wool_geatcoat_char",
+    "collres__res": "us_tl122d_flashlight_wool_geatcoat_collision",
+    "animchar_fast_phys__res": "us_tl122d_flashlight_wool_geatcoat_fastphys",
+    "animchar_fast_phys": {
+      "_tags": "gameClient"
+    }
+  },
+  "attachable_wear_us_tl122d_flashlight_w_grenade_winter_coat_item": {
+    "_use": "attachable_belt2",
+    "item__uniqueName": "attachable_wear_us_tl122d_flashlight_w_grenade_winter_coat_item",
+    "animchar__res": "us_tl122d_flashlight_w_grenade_winter_coat_char",
+    "collres__res": "us_tl122d_flashlight_w_grenade_winter_coat_collision",
+    "animchar_fast_phys__res": "us_tl122d_flashlight_w_grenade_winter_coat_fastphys",
+    "animchar_fast_phys": {
+      "_tags": "gameClient"
+    }
+  },
+  "attachable_wear_us_grenade_mk2_lr_winter_coat_item": {
+    "_use": "attachable_belt2",
+    "item__uniqueName": "attachable_wear_us_grenade_mk2_lr_winter_coat_item",
+    "animchar__res": "us_grenade_mk2_lr_winter_coat_char",
+    "collres__res": "us_grenade_mk2_lr_winter_coat_collision",
+    "animchar_fast_phys__res": "us_grenade_mk2_lr_winter_coat_fastphys",
+    "animchar_fast_phys": {
+      "_tags": "gameClient"
+    }
+  },
   "attachable_wear_pouch_m1924_01_us_winter_item": {
     "_use": "attachable_pot",
     "item__uniqueName": "attachable_wear_pouch_m1924_01_us_winter_item",
@@ -3674,6 +4064,12 @@
     "animchar_fast_phys": {
       "_tags": "gameClient"
     }
+  },
+  "attachable_wear_us_m1_rigger_pouch_winter_coat_item": {
+    "_use": "attachable_side_belt_l",
+    "item__uniqueName": "attachable_wear_us_m1_rigger_pouch_winter_coat_item",
+    "animchar__res": "us_m1_rigger_pouch_winter_coat_char",
+    "collres__res": "us_m1_rigger_pouch_winter_coat_collision"
   },
   "attachable_wear_pouch_m1_thompson_01_us_winter_item": {
     "_use": "attachable_front_belt_r",

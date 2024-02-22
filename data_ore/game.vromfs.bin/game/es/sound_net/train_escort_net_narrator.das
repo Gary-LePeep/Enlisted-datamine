@@ -3,7 +3,7 @@ require game.utils.team
 require team_narrator_net.modules.team_narrator_net_events
 require DngNet
 
-[es(tag=server, on_event=ParallelUpdateFrameDelayed, no_order)]
+[es(tag=server, on_event=ParallelUpdateFrameDelayed, after=sound_begin_update_es, before=sound_end_update_es)]
 def train_escort_net_narrator(evt : Event;
                               train__teamOffense : int;
                               train__teamDefense : int;

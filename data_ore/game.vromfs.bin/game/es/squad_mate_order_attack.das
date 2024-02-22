@@ -110,3 +110,53 @@ def on_personal_squadmate_attack_order(evt : RequestPersonalSquadMateOrder;
   if evt.orderType == int(SquadMateOrder ESMO_ATTACK_TARGET)
     squad_member__isPersonalOrder = true
     personal_order_attack(eid, squad_member__squad, evt.orderUseEntity)
+
+
+[es(tag=server, no_order)]
+def squadmate_reset_mortar_attack_order_es(act : UpdateStageInfoAct;
+                                           eid : EntityId;
+                                           var beh_tree : BehaviourTree&;
+                                           var squad_member__orderType : int&;
+                                           var squad_member__orderPosition : float3&;
+                                           var squad_member__orderUseEntity : EntityId&;
+                                           var squad_member__isPersonalOrder : bool&)
+  if squad_member__orderType != int(SquadMateOrder ESMO_MORTAR_ATTACK)
+    return
+  let orderRequestResult = beh_tree.blackBoard |> datablock_getInt("mortarAttack", 0)
+  if orderRequestResult < 0 || orderRequestResult > 1
+    beh_tree.blackBoard |> set("mortarAttack", 0)
+    reset_squad_mate_order(squad_member__orderType, squad_member__orderPosition, squad_member__orderUseEntity, squad_member__isPersonalOrder)
+    reset_squad_mate_behaviour(eid)
+
+[es(tag=server)]
+def on_personal_squadmate_mortar_attack_order(evt : CmdMortarAttackOrder;
+                                              eid : EntityId;
+                                              beh_tree__data__orderReq : string;
+                                              beh_tree__data__mortarAttackReq : string;
+                                              var squad_member__orderType : int&;
+                                              var squad_member__orderPosition : float3&;
+                                              var squad_member__orderUseEntity : EntityId&;
+                                              var squad_member__isPersonalOrder : bool&;
+                                              var beh_tree : BehaviourTree&;
+                                              var beh_tree__refs__behaviour : das_string&;
+                                              var beh_tree__refs__orderType : das_string&;
+                                              var beh_tree__latencyLoadBlackBoard : Object?)
+  beh_tree__refs__behaviour := beh_tree__data__orderReq
+  beh_tree__refs__orderType := beh_tree__data__mortarAttackReq
+
+  reload_squad_mate_beh_tree(eid)
+
+  if beh_tree__latencyLoadBlackBoard != null
+    *beh_tree__latencyLoadBlackBoard |> set("mortarAttack", 1)
+    *beh_tree__latencyLoadBlackBoard |> set("mortarAttackFromPos", evt.orderPosition)
+    *beh_tree__latencyLoadBlackBoard |> set("mortarAttackToPos", evt.orderTargetPos)
+    *beh_tree__latencyLoadBlackBoard |> set("mortarAttackShots", evt.orderNumShots)
+  beh_tree.blackBoard |> set("mortarAttack", 1)
+  beh_tree.blackBoard |> set("mortarAttackFromPos", evt.orderPosition)
+  beh_tree.blackBoard |> set("mortarAttackToPos", evt.orderTargetPos)
+  beh_tree.blackBoard |> set("mortarAttackShots", evt.orderNumShots)
+
+  squad_member__orderType = int(SquadMateOrder ESMO_MORTAR_ATTACK)
+  squad_member__orderPosition = float3()
+  squad_member__orderUseEntity = INVALID_ENTITY_ID
+  squad_member__isPersonalOrder = true

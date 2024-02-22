@@ -1032,8 +1032,8 @@
     "entity": {
       "_template": "team_stalingrad_allies+team_narrator_domination+respawn_creators_team",
       "team__id": 1,
-      "team__score": 3000.0,
-      "team__scoreCap": 3000.0,
+      "team__score": 2800.0,
+      "team__scoreCap": 2800.0,
       "score_bleed__domBleed": 0.0,
       "score_bleed__domBleedOn": false,
       "score_bleed__totalDomZoneCount": 5,
@@ -1049,8 +1049,8 @@
     "entity": {
       "_template": "team_stalingrad_axis+team_narrator_domination+respawn_creators_team",
       "team__id": 2,
-      "team__score": 3000.0,
-      "team__scoreCap": 3000.0,
+      "team__score": 2800.0,
+      "team__scoreCap": 2800.0,
       "score_bleed__domBleed": 0.0,
       "score_bleed__domBleedOn": false,
       "score_bleed__totalDomZoneCount": 5,
@@ -1079,9 +1079,9 @@
         [3.43999,0.0,27.0586],
         [40.306,11.9558,290.122]
       ],
-      "capzone__title": "B",
-      "capzone__caption": "capzone/railway_station_central",
-      "decal__height": 0.4
+      "capzone__title": "A",
+      "decal__height": 0.4,
+      "active": true
     }
   },
   {
@@ -1898,39 +1898,6 @@
   },
   {
     "entity": {
-      "_template": "stationary_maxim",
-      "transform": [
-        [0.157387,0.0,0.987536],
-        [0.0,1.0,0.0],
-        [-0.987536,0.0,0.157387],
-        [116.074,7.49413,273.809]
-      ]
-    }
-  },
-  {
-    "entity": {
-      "_template": "stationary_maxim",
-      "transform": [
-        [-0.150901,0.0,-0.988548],
-        [0.0,1.0,0.0],
-        [0.988548,0.0,-0.150901],
-        [84.7053,7.49413,244.971]
-      ]
-    }
-  },
-  {
-    "entity": {
-      "_template": "stationary_maxim",
-      "transform": [
-        [-0.609791,0.0,0.792561],
-        [0.0,1.0,0.0],
-        [-0.792561,0.0,-0.609791],
-        [-16.2984,10.8437,171.328]
-      ]
-    }
-  },
-  {
-    "entity": {
       "_template": "respawnChooser+respTeam2",
       "transform": [
         [0.994049,0.0,-0.108941],
@@ -1963,39 +1930,6 @@
         [211.329,6.54524,176.554]
       ],
       "respawnBaseGroup": 1
-    }
-  },
-  {
-    "entity": {
-      "_template": "gaz_m1+requires_trans_render+still_obstacle",
-      "transform": [
-        [-0.948395,0.0017321,0.317088],
-        [0.00149407,0.999998,-0.00099382],
-        [-0.317089,-0.000468781,-0.948396],
-        [40.7495,5.04191,174.372]
-      ]
-    }
-  },
-  {
-    "entity": {
-      "_template": "opel_blitz_kfz_305+still_obstacle",
-      "transform": [
-        [-0.970711,-0.0309829,0.238245],
-        [-0.0516532,0.995374,-0.0810122],
-        [-0.234633,-0.0909455,-0.96782],
-        [209.409,6.5958,255.36]
-      ]
-    }
-  },
-  {
-    "entity": {
-      "_template": "gaz_m1+requires_trans_render+still_obstacle",
-      "transform": [
-        [0.80031,0.00247934,-0.599581],
-        [-0.00128422,0.999996,0.00242095],
-        [0.599585,-0.00116752,0.80031],
-        [-148.35,5.51719,205.136]
-      ]
     }
   },
   {

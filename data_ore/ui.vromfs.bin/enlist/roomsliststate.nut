@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { matchingCall } = require("matchingClient.nut")
 let math = require("math")
@@ -15,7 +15,7 @@ let showForeignGames = localSettings(false, "showForeignGames")
 let matchingGameName = get_setting_by_blk_path("matchingGameName")
 log($"matchingGameName in settings.blk {matchingGameName}")
 
-let function listRoomsCb(response) {
+function listRoomsCb(response) {
   isRequestInProgress.update(false)
   if (debugMode.value)
     return
@@ -28,7 +28,7 @@ let function listRoomsCb(response) {
   }
 }
 
-let function updateListRooms(){
+function updateListRooms(){
   if (isRequestInProgress.value)
     return
 
@@ -54,7 +54,7 @@ let refreshPeriod = mkWatched(persist, "refreshPeriod", 5.0)
 let refreshEnabled = mkWatched(persist, "refreshEnabled", false)
 
 local wasRefreshEnabled = false
-let function toggleRefresh(val){
+function toggleRefresh(val){
   if (!wasRefreshEnabled && val)
     updateListRooms()
   if (val)
@@ -67,8 +67,8 @@ refreshEnabled.subscribe(toggleRefresh)
 toggleRefresh(refreshEnabled.value)
 refreshPeriod.subscribe(@(_) toggleRefresh(refreshEnabled.value))
 
-let function switchDebugMode() {
-  let function debugRooms() {
+function switchDebugMode() {
+  function debugRooms() {
     let list = array(100).map(function(_) {
       let rnd = math.rand()
       let creator = $"%Username%{rnd%11}"

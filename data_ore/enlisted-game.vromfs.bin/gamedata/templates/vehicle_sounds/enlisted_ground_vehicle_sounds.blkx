@@ -1,0 +1,2119 @@
+{
+  "opel_olympia_vehicle_sound": [
+    {
+      "_use": "car_vehicle_sound"
+    },
+    {
+      "_use": "car_vehicle_inside_sound"
+    },
+    {
+      "_use": "vehicle_horn_note_D5"
+    }
+  ],
+  "gaz_67_vehicle_sound": [
+    {
+      "_use": "jeep_vehicle_sound"
+    },
+    {
+      "_use": "nodoor_vehicle_seat_sound_setup"
+    },
+    {
+      "_use": "vehicle_horn_note_A5"
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "vehicle_engine_sound__path:shared:object": {
+          "hero": "player/vehicle/car/gaz_67/engine",
+          "enemy": "enemy/vehicle/car/gaz_67/engine"
+        },
+        "vehicle_engine_sound__startPath:shared:object": {
+          "hero": "player/vehicle/car/gaz_67/engine_start",
+          "enemy": "enemy/vehicle/car/gaz_67/engine_start"
+        },
+        "vehicle_engine_sound__stopPath:shared:object": {
+          "hero": "player/vehicle/car/gaz_67/engine_stop",
+          "enemy": "enemy/vehicle/car/gaz_67/engine_stop"
+        }
+      }
+    },
+    {
+      "vehicle_tracks_sound__path:shared:object": {
+        "_tags": "sound",
+        "hero": "player/vehicle/car/gaz_67/tracks",
+        "enemy": "enemy/vehicle/car/gaz_67/tracks"
+      }
+    }
+  ],
+  "vw_kubelwagen_vehicle_sound": [
+    {
+      "_use": "car_vehicle_sound"
+    },
+    {
+      "_use": "vehicle_horn_note_C5"
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "vehicle_engine_sound__path:shared:object": {
+          "hero": "player/vehicle/car/vw_kubelwagen/engine",
+          "enemy": "enemy/vehicle/car/vw_kubelwagen/engine"
+        },
+        "vehicle_engine_sound__startPath:shared:object": {
+          "hero": "player/vehicle/car/vw_kubelwagen/engine_start",
+          "enemy": "enemy/vehicle/car/vw_kubelwagen/engine_start"
+        },
+        "vehicle_engine_sound__stopPath:shared:object": {
+          "hero": "player/vehicle/car/vw_kubelwagen/engine_stop",
+          "enemy": "enemy/vehicle/car/vw_kubelwagen/engine_stop"
+        }
+      }
+    },
+    {
+      "vehicle_tracks_sound__path:shared:object": {
+        "_tags": "sound",
+        "hero": "player/vehicle/car/vw_kubelwagen/tracks",
+        "enemy": "enemy/vehicle/car/vw_kubelwagen/tracks"
+      }
+    }
+  ],
+  "opel_blitz_kfz_305_vehicle_sound": [
+    {
+      "_use": "truck_vehicle_sound"
+    },
+    {
+      "_use": "truck_vehicle_inside_sound_for_driver_passenger1"
+    },
+    {
+      "_use": "vehicle_horn_note_E4"
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "vehicle_engine_sound__path:shared:object": {
+          "hero": "player/vehicle/car/opel_blitz_kfz_305/engine",
+          "enemy": "enemy/vehicle/car/opel_blitz_kfz_305/engine"
+        },
+        "vehicle_engine_sound__startPath:shared:object": {
+          "hero": "player/vehicle/car/opel_blitz_kfz_305/engine_start",
+          "enemy": "enemy/vehicle/car/opel_blitz_kfz_305/engine_start"
+        },
+        "vehicle_engine_sound__stopPath:shared:object": {
+          "hero": "player/vehicle/car/opel_blitz_kfz_305/engine_stop",
+          "enemy": "enemy/vehicle/car/opel_blitz_kfz_305/engine_stop"
+        }
+      }
+    },
+    {
+      "vehicle_tracks_sound__path:shared:object": {
+        "_tags": "sound",
+        "hero": "player/vehicle/car/opel_blitz_kfz_305/tracks",
+        "enemy": "enemy/vehicle/car/opel_blitz_kfz_305/tracks"
+      }
+    }
+  ],
+  "opel_blitz_omnibus_vehicle_sound": [
+    {
+      "_use": "truck_vehicle_sound"
+    },
+    {
+      "_use": "truck_vehicle_inside_sound"
+    },
+    {
+      "_use": "vehicle_horn_note_F4"
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "vehicle_engine_sound__path:shared:object": {
+          "hero": "player/vehicle/car/opel_blitz_omnibus/engine",
+          "enemy": "enemy/vehicle/car/opel_blitz_omnibus/engine"
+        },
+        "vehicle_engine_sound__startPath:shared:object": {
+          "hero": "player/vehicle/car/opel_blitz_omnibus/engine_start",
+          "enemy": "enemy/vehicle/car/opel_blitz_omnibus/engine_start"
+        },
+        "vehicle_engine_sound__stopPath:shared:object": {
+          "hero": "player/vehicle/car/opel_blitz_omnibus/engine_stop",
+          "enemy": "enemy/vehicle/car/opel_blitz_omnibus/engine_stop"
+        }
+      }
+    },
+    {
+      "vehicle_tracks_sound__path:shared:object": {
+        "_tags": "sound",
+        "hero": "player/vehicle/car/opel_blitz_omnibus/tracks",
+        "enemy": "enemy/vehicle/car/opel_blitz_omnibus/tracks"
+      }
+    }
+  ],
+  "willys_mb_vehicle_sound": [
+    {
+      "_use": "jeep_vehicle_sound"
+    },
+    {
+      "_use": "nodoor_vehicle_seat_sound_setup"
+    },
+    {
+      "_use": "vehicle_horn_note_B5"
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "vehicle_engine_sound__path:shared:object": {
+          "hero": "player/vehicle/car/vw_kubelwagen/engine",
+          "enemy": "enemy/vehicle/car/vw_kubelwagen/engine"
+        },
+        "vehicle_engine_sound__startPath:shared:object": {
+          "hero": "player/vehicle/car/vw_kubelwagen/engine_start",
+          "enemy": "enemy/vehicle/car/vw_kubelwagen/engine_start"
+        },
+        "vehicle_engine_sound__stopPath:shared:object": {
+          "hero": "player/vehicle/car/vw_kubelwagen/engine_stop",
+          "enemy": "enemy/vehicle/car/vw_kubelwagen/engine_stop"
+        }
+      }
+    },
+    {
+      "vehicle_tracks_sound__path:shared:object": {
+        "_tags": "sound",
+        "hero": "player/vehicle/car/vw_kubelwagen/tracks",
+        "enemy": "enemy/vehicle/car/vw_kubelwagen/tracks"
+      }
+    }
+  ],
+  "ford_gpa_vehicle_sound": [
+    {
+      "_use": "jeep_vehicle_sound"
+    },
+    {
+      "_use": "nodoor_vehicle_seat_sound_setup"
+    },
+    {
+      "_use": "vehicle_horn_note_B5"
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "vehicle_engine_sound__path:shared:object": {
+          "hero": "player/vehicle/car/vw_kubelwagen/engine",
+          "enemy": "enemy/vehicle/car/vw_kubelwagen/engine"
+        },
+        "vehicle_engine_sound__startPath:shared:object": {
+          "hero": "player/vehicle/car/vw_kubelwagen/engine_start",
+          "enemy": "enemy/vehicle/car/vw_kubelwagen/engine_start"
+        },
+        "vehicle_engine_sound__stopPath:shared:object": {
+          "hero": "player/vehicle/car/vw_kubelwagen/engine_stop",
+          "enemy": "enemy/vehicle/car/vw_kubelwagen/engine_stop"
+        }
+      }
+    },
+    {
+      "vehicle_tracks_sound__path:shared:object": {
+        "_tags": "sound",
+        "hero": "player/vehicle/car/vw_kubelwagen/tracks",
+        "enemy": "enemy/vehicle/car/vw_kubelwagen/tracks"
+      }
+    }
+  ],
+  "gaz_m1_vehicle_sound": [
+    {
+      "_use": "jeep_vehicle_sound"
+    },
+    {
+      "_use": "jeep_vehicle_inside_sound"
+    },
+    {
+      "_use": "vehicle_horn_note_G4"
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "vehicle_engine_sound__path:shared:object": {
+          "hero": "player/vehicle/car/gaz_67/engine",
+          "enemy": "enemy/vehicle/car/gaz_67/engine"
+        },
+        "vehicle_engine_sound__startPath:shared:object": {
+          "hero": "player/vehicle/car/gaz_67/engine_start",
+          "enemy": "enemy/vehicle/car/gaz_67/engine_start"
+        },
+        "vehicle_engine_sound__stopPath:shared:object": {
+          "hero": "player/vehicle/car/gaz_67/engine_stop",
+          "enemy": "enemy/vehicle/car/gaz_67/engine_stop"
+        }
+      }
+    },
+    {
+      "vehicle_tracks_sound__path:shared:object": {
+        "_tags": "sound",
+        "hero": "player/vehicle/car/gaz_67/tracks",
+        "enemy": "enemy/vehicle/car/gaz_67/tracks"
+      }
+    }
+  ],
+  "vw_beetle_vehicle_sound": [
+    {
+      "_use": "car_vehicle_sound"
+    },
+    {
+      "_use": "car_vehicle_inside_sound"
+    },
+    {
+      "_use": "vehicle_horn_note_E5"
+    }
+  ],
+  "nissan_80_vehicle_sound": [
+    {
+      "_use": "truck_vehicle_sound"
+    },
+    {
+      "_use": "truck_vehicle_inside_sound_for_driver_passenger1"
+    },
+    {
+      "_use": "vehicle_horn_note_E4"
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "vehicle_engine_sound__path:shared:object": {
+          "hero": "player/vehicle/car/opel_blitz_kfz_305/engine",
+          "enemy": "enemy/vehicle/car/opel_blitz_kfz_305/engine"
+        },
+        "vehicle_engine_sound__startPath:shared:object": {
+          "hero": "player/vehicle/car/opel_blitz_kfz_305/engine_start",
+          "enemy": "enemy/vehicle/car/opel_blitz_kfz_305/engine_start"
+        },
+        "vehicle_engine_sound__stopPath:shared:object": {
+          "hero": "player/vehicle/car/opel_blitz_kfz_305/engine_stop",
+          "enemy": "enemy/vehicle/car/opel_blitz_kfz_305/engine_stop"
+        }
+      }
+    },
+    {
+      "vehicle_tracks_sound__path:shared:object": {
+        "_tags": "sound",
+        "hero": "player/vehicle/car/opel_blitz_kfz_305/tracks",
+        "enemy": "enemy/vehicle/car/opel_blitz_kfz_305/tracks"
+      }
+    }
+  ],
+  "gmc_353_a_vehicle_sound": {
+    "_use": "truck_vehicle_sound",
+    "_group": {
+      "_tags": "sound",
+      "vehicle_engine_sound__path:shared:object": {
+        "hero": "player/vehicle/car/opel_blitz_kfz_305/engine",
+        "enemy": "enemy/vehicle/car/opel_blitz_kfz_305/engine"
+      },
+      "vehicle_engine_sound__startPath:shared:object": {
+        "hero": "player/vehicle/car/opel_blitz_kfz_305/engine_start",
+        "enemy": "enemy/vehicle/car/opel_blitz_kfz_305/engine_start"
+      },
+      "vehicle_engine_sound__stopPath:shared:object": {
+        "hero": "player/vehicle/car/opel_blitz_kfz_305/engine_stop",
+        "enemy": "enemy/vehicle/car/opel_blitz_kfz_305/engine_stop"
+      }
+    },
+    "vehicle_tracks_sound__path:shared:object": {
+      "_tags": "sound",
+      "hero": "player/vehicle/car/opel_blitz_kfz_305/tracks",
+      "enemy": "enemy/vehicle/car/opel_blitz_kfz_305/tracks"
+    }
+  },
+  "gmc_353_b_vehicle_sound": [
+    {
+      "_use": "truck_vehicle_sound"
+    },
+    {
+      "_use": "truck_vehicle_inside_sound_for_driver_passenger1"
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "vehicle_engine_sound__path:shared:object": {
+          "hero": "player/vehicle/car/opel_blitz_kfz_305/engine",
+          "enemy": "enemy/vehicle/car/opel_blitz_kfz_305/engine"
+        },
+        "vehicle_engine_sound__startPath:shared:object": {
+          "hero": "player/vehicle/car/opel_blitz_kfz_305/engine_start",
+          "enemy": "enemy/vehicle/car/opel_blitz_kfz_305/engine_start"
+        },
+        "vehicle_engine_sound__stopPath:shared:object": {
+          "hero": "player/vehicle/car/opel_blitz_kfz_305/engine_stop",
+          "enemy": "enemy/vehicle/car/opel_blitz_kfz_305/engine_stop"
+        }
+      }
+    },
+    {
+      "vehicle_tracks_sound__path:shared:object": {
+        "_tags": "sound",
+        "hero": "player/vehicle/car/opel_blitz_kfz_305/tracks",
+        "enemy": "enemy/vehicle/car/opel_blitz_kfz_305/tracks"
+      }
+    }
+  ],
+  "tractor_stz_5_common_vehicle_sound": {
+    "_use": "tractor_vehicle_sound"
+  },
+  "sw_tgdgb_m40_lv_vehicle_sound": [
+    {
+      "_use": "truck_vehicle_sound"
+    },
+    {
+      "_use": "truck_vehicle_inside_sound_for_driver"
+    }
+  ],
+  "ussr_gaz_4m_vehicle_sound": [
+    {
+      "_use": "truck_vehicle_sound"
+    },
+    {
+      "_use": "truck_vehicle_inside_sound"
+    }
+  ],
+  "ussr_gaz_dshk_vehicle_sound": [
+    {
+      "_use": "truck_vehicle_sound"
+    },
+    {
+      "_use": "truck_vehicle_inside_sound"
+    }
+  ],
+  "germ_e100_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_panzer3_engine_sound_setup"
+    },
+    {
+      "_use": "tank_maus_vehicle_tracks_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "ussr_object_279_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_t34_engine_sound_setup"
+    },
+    {
+      "_use": "tank_heavy_vehicle_tracks_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "us_m1a1_hc_abrams_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_abrams_vehicle_tracks_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "us_t54e1_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "us_t95_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_heavy_vehicle_tracks_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "ussr_t_80u_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_t34_engine_sound_setup"
+    },
+    {
+      "_use": "tank_mbt_vehicle_tracks_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "germ_pzkpfw_v_ersatz_m10_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_panzer3_engine_sound_setup"
+    },
+    {
+      "_use": "tank_heavy_vehicle_tracks_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "germ_pzkpfw_vi_ausf_h1_tiger_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_panzer3_engine_sound_setup"
+    },
+    {
+      "_use": "tank_tiger_vehicle_tracks_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "jp_type_4_chi_to_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_m10_engine_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "uk_m10_achilles_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_m10_engine_sound_setup"
+    },
+    {
+      "_use": "tank_heavy_vehicle_tracks_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "us_m26_pershing_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_heavy_vehicle_tracks_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "us_m4a3e2_76w_sherman_jumbo_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_heavy_vehicle_tracks_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "ussr_kv_1_zis_5_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_t34_engine_sound_setup"
+    },
+    {
+      "_use": "tank_heavy_vehicle_tracks_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "ussr_kv_2_1939_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_t34_engine_sound_setup"
+    },
+    {
+      "_use": "tank_heavy_vehicle_tracks_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "it_as_42_metropolitana_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_with_wheels_vehicle_tracks_sound_setup"
+    }
+  ],
+  "germ_dickermax_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_panzer3_engine_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "germ_flak_36_sdkfz_6_2_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_panzer3_engine_sound_setup"
+    },
+    {
+      "_use": "tank_light_vehicle_tracks_sound_setup"
+    },
+    {
+      "_use": "turret_manual_sound_with_group"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "germ_flakpanzer_i_ausf_a_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_panzer3_engine_sound_setup"
+    },
+    {
+      "_use": "tank_light_vehicle_tracks_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound_for_driver"
+    },
+    {
+      "_use": "turret_manual_sound_with_group"
+    }
+  ],
+  "germ_flakpanzer_IV_Wirbelwind_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_panzer3_engine_sound_setup"
+    },
+    {
+      "_use": "turret_manual_sound_with_group"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "germ_jagdpanther_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_panzer3_engine_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "germ_jgdpz_38t_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_panzer3_engine_sound_setup"
+    },
+    {
+      "_use": "tank_light_vehicle_tracks_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "germ_panzerbefelhswagen_IV_ausf_J_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_panzer3_engine_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "germ_panzerjager_IV_L_48_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_panzer3_engine_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "germ_panzerjager_IV_L_70_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_panzer3_engine_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "germ_panzerjager_IV_L_70_A_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_panzer3_engine_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "germ_panzerjager_tiger_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_panzer3_engine_sound_setup"
+    },
+    {
+      "_use": "tank_tiger_vehicle_tracks_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "germ_panzerwerfer_42_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_panzer3_engine_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "germ_pzkpfw_38t_ausf_F_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_panzer3_engine_sound_setup"
+    },
+    {
+      "_use": "tank_light_vehicle_tracks_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "germ_pzkpfw_38t_Marder_III_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_panzer3_engine_sound_setup"
+    },
+    {
+      "_use": "tank_light_vehicle_tracks_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "germ_pzkpfw_II_ausf_C_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_panzer3_engine_sound_setup"
+    },
+    {
+      "_use": "tank_light_vehicle_tracks_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "germ_pzkpfw_ii_ausf_h_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_panzer3_engine_sound_setup"
+    },
+    {
+      "_use": "tank_light_vehicle_tracks_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "germ_pzkpfw_ii_flamm_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_panzer3_engine_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "vehicle_engine_sound__path:shared:object": {
+          "hero": "player/vehicle/tank/panzer3/engine",
+          "enemy": "enemy/vehicle/tank/panzer3/engine"
+        },
+        "vehicle_engine_sound__startPath:shared:object": {
+          "hero": "player/vehicle/tank/panzer3/engine_start",
+          "enemy": "enemy/vehicle/tank/panzer3/engine_start"
+        },
+        "vehicle_engine_sound__stopPath:shared:object": {
+          "hero": "player/vehicle/tank/panzer3/engine_stop",
+          "enemy": "enemy/vehicle/tank/panzer3/engine_stop"
+        }
+      }
+    }
+  ],
+  "germ_pzkpfw_III_ausf_B_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_panzer3_engine_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "germ_pzkpfw_III_ausf_E_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_panzer3_engine_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "germ_pzkpfw_III_ausf_F_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_panzer3_engine_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "germ_pzkpfw_III_ausf_J_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_panzer3_engine_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "germ_pzkpfw_iii_ausf_j1_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_panzer3_engine_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "germ_pzkpfw_III_ausf_L_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_panzer3_engine_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "germ_pzkpfw_III_ausf_M_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_panzer3_engine_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "germ_pzkpfw_III_ausf_N_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_panzer3_engine_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "germ_pzkpfw_IV_ausf_C_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_panzer3_engine_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "germ_pzkpfw_IV_ausf_E_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_panzer3_engine_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "germ_pzkpfw_IV_ausf_F_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_panzer3_engine_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "germ_pzkpfw_iv_ausf_f2_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_panzer3_engine_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "germ_pzkpfw_iv_ausf_g_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_panzer3_engine_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "germ_pzkpfw_IV_ausf_H_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_panzer3_engine_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "germ_pzkpfw_IV_ausf_J_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_panzer3_engine_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "germ_pzkpfw_V_ausf_a_panther_no_camo_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_panzer3_engine_sound_setup"
+    },
+    {
+      "_use": "tank_heavy_vehicle_tracks_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "germ_pzkpfw_V_ausf_f_panther_premium_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "germ_pzkpfw_V_ausf_g_panther_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_panzer3_engine_sound_setup"
+    },
+    {
+      "_use": "tank_heavy_vehicle_tracks_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "germ_pzkpfw_vi_ausf_b_tiger_iih_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_panzer3_engine_sound_setup"
+    },
+    {
+      "_use": "tank_tiger_vehicle_tracks_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "germ_pzkpfw_VI_ausf_B_tiger_IIP_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_panzer3_engine_sound_setup"
+    },
+    {
+      "_use": "tank_tiger_vehicle_tracks_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "germ_pzkpfw_VI_ausf_E_tiger_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_panzer3_engine_sound_setup"
+    },
+    {
+      "_use": "tank_tiger_vehicle_tracks_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "germ_sdkfz_234_2_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_panzer3_engine_sound_setup"
+    },
+    {
+      "_use": "tank_with_wheels_vehicle_tracks_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "germ_stug_III_ausf_A_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_panzer3_engine_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "germ_stug_iii_ausf_f_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_panzer3_engine_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "germ_stug_III_ausf_G_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_panzer3_engine_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "germ_stuh_iii_ausf_g_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_panzer3_engine_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "germ_sturmpanzer_II_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_panzer3_engine_sound_setup"
+    },
+    {
+      "_use": "tank_light_vehicle_tracks_sound_setup"
+    }
+  ],
+  "it_ab_41_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_panzer3_engine_sound_setup"
+    },
+    {
+      "_use": "tank_with_wheels_vehicle_tracks_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "it_m13_40_serie_3_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "it_m14_41_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "it_m41_75_18_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "it_m41_75_32_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "jp_type_1_chi_he_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_m10_engine_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "jp_type_2_ho_i_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_m10_engine_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "jp_type_2_ka_mi_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_m10_engine_sound_setup"
+    },
+    {
+      "_use": "tank_light_vehicle_tracks_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "jp_type_3_chi_nu_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_m10_engine_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "jp_type_3_ho_ni_3_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_m10_engine_sound_setup"
+    },
+    {
+      "_use": "tank_light_vehicle_tracks_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "jp_type_3_ho_ni_i_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_m10_engine_sound_setup"
+    },
+    {
+      "_use": "tank_light_vehicle_tracks_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "jp_type_3_ka_chi_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_m10_engine_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "jp_type_5_na_to_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_m10_engine_sound_setup"
+    },
+    {
+      "_use": "tank_light_vehicle_tracks_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "jp_type_95_ha_go_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_m10_engine_sound_setup"
+    },
+    {
+      "_use": "tank_light_vehicle_tracks_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "jp_type_97_chi_ha_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_m10_engine_sound_setup"
+    },
+    {
+      "_use": "tank_light_vehicle_tracks_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "jp_type_97_chi_ha_12cm_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_m10_engine_sound_setup"
+    },
+    {
+      "_use": "tank_light_vehicle_tracks_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "jp_type_97_kai_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_m10_engine_sound_setup"
+    },
+    {
+      "_use": "tank_light_vehicle_tracks_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "jp_type_98_ke_ni_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_m10_engine_sound_setup"
+    },
+    {
+      "_use": "tank_light_vehicle_tracks_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "jp_type_98_ta_se_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_m10_engine_sound_setup"
+    },
+    {
+      "_use": "tank_light_vehicle_tracks_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "uk_a13_mk_2_1938_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "uk_a13_mk_2_1939_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "uk_ac1_sentinel_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "uk_aec_mk_2_57mm_6pdr_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_with_wheels_vehicle_tracks_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "uk_churchill_3_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "uk_cromwell_5_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "uk_crusader_mk_3_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "uk_daimler_mk_2_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_with_wheels_vehicle_tracks_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "uk_mk_1_grant_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "uk_sherman_ic_firefly_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "uk_sherman_ii_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "us_halftrack_m13_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_light_vehicle_tracks_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound_for_driver"
+    },
+    {
+      "_use": "turret_manual_sound_with_group"
+    }
+  ],
+  "us_halftrack_m3_75mm_gmc_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_light_vehicle_tracks_sound_setup"
+    }
+  ],
+  "us_lvt_a_1_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_light_vehicle_tracks_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "us_lvt_a_4_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_light_vehicle_tracks_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "us_m10_wolverine_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_m10_engine_sound_setup"
+    },
+    {
+      "_use": "tank_heavy_vehicle_tracks_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "us_m18_hellcat_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_m10_engine_sound_setup"
+    },
+    {
+      "_use": "tank_heavy_vehicle_tracks_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "us_m24_chaffee_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_light_vehicle_tracks_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "us_m2a4_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_light_vehicle_tracks_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "us_m3_lee_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "us_m3a1_stuart_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_light_vehicle_tracks_sound_setup"
+    }
+  ],
+  "us_m3a1_stuart_flame_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "us_m4_sherman_calliope_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "us_m4a1_76w_sherman_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "us_m4a1_sherman_1942_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "us_m4a2_76w_sherman_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "us_m4a2_sherman_1944_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "us_m4a3_105_sherman_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "us_m4a3e2_sherman_jumbo_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_heavy_vehicle_tracks_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "us_m5a1_stuart_late_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_light_vehicle_tracks_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "us_m8_greyhound_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_with_wheels_vehicle_tracks_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "us_m8_scott_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_light_vehicle_tracks_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "ussr_ba_11_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_with_wheels_vehicle_tracks_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "ussr_bm_8_24_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "ussr_bt_7_1937_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_t34_engine_sound_setup"
+    },
+    {
+      "_use": "tank_light_vehicle_tracks_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "ussr_bt_7a_f32_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_t34_engine_sound_setup"
+    },
+    {
+      "_use": "tank_light_vehicle_tracks_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "ussr_ht_130_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "ussr_is_1_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_t34_engine_sound_setup"
+    },
+    {
+      "_use": "tank_heavy_vehicle_tracks_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "ussr_is_2_1943_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_t34_engine_sound_setup"
+    },
+    {
+      "_use": "tank_heavy_vehicle_tracks_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "ussr_is_2_1944_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_t34_engine_sound_setup"
+    },
+    {
+      "_use": "tank_heavy_vehicle_tracks_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "ussr_isu_152_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_t34_engine_sound_setup"
+    },
+    {
+      "_use": "tank_heavy_vehicle_tracks_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "ussr_kv_1_L_11_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_t34_engine_sound_setup"
+    },
+    {
+      "_use": "tank_heavy_vehicle_tracks_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "ussr_matilda_III_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "ussr_su_100_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_t34_engine_sound_setup"
+    },
+    {
+      "_use": "tank_su100_vehicle_tracks_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "ussr_su_76m_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_t34_engine_sound_setup"
+    },
+    {
+      "_use": "tank_su76_vehicle_tracks_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "ussr_su_85m_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_t34_engine_sound_setup"
+    },
+    {
+      "_use": "tank_su100_vehicle_tracks_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "ussr_t_26_1940_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_t34_engine_sound_setup"
+    },
+    {
+      "_use": "tank_light_vehicle_tracks_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "ussr_t_28_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_t34_engine_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "ussr_t_28e_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_t34_engine_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "ussr_t_34_1940_L_11_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_t34_engine_sound_setup"
+    },
+    {
+      "_use": "tank_t34_vehicle_tracks_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "ussr_t_34_1941_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_t34_engine_sound_setup"
+    },
+    {
+      "_use": "tank_t34_vehicle_tracks_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "ussr_t_34_57_1943_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_t34_engine_sound_setup"
+    },
+    {
+      "_use": "tank_t34_vehicle_tracks_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "ussr_t_34_85_d_5t_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_t34_engine_sound_setup"
+    },
+    {
+      "_use": "tank_t34_vehicle_tracks_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "ussr_t_34_85_e_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_t34_engine_sound_setup"
+    },
+    {
+      "_use": "tank_t34_vehicle_tracks_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "ussr_t_34_85_zis_53_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_t34_engine_sound_setup"
+    },
+    {
+      "_use": "tank_t34_vehicle_tracks_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "ussr_t_34e_stz_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_t34_engine_sound_setup"
+    },
+    {
+      "_use": "tank_t34_vehicle_tracks_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "ussr_t_50_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_t34_engine_sound_setup"
+    },
+    {
+      "_use": "tank_light_vehicle_tracks_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "ussr_t_60_1941_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_t34_engine_sound_setup"
+    },
+    {
+      "_use": "tank_su76_vehicle_tracks_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "ussr_t_70_common_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_t34_engine_sound_setup"
+    },
+    {
+      "_use": "tank_su76_vehicle_tracks_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "ussr_valentine_I_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "ussr_zis_30_vehicle_sound": [
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_t34_engine_sound_setup"
+    },
+    {
+      "_use": "tank_light_vehicle_tracks_sound_setup"
+    },
+    {
+      "_use": "turret_manual_sound_with_group"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    }
+  ],
+  "jp_type_94_isuzu_apc_common_vehicle_sound": [
+    {
+      "_use": "apc_with_wheels_vehicle_sound"
+    },
+    {
+      "_use": "truck_vehicle_inside_sound_for_driver_passenger1"
+    }
+  ],
+  "us_studebaker_us6_u1_board_apc_common_vehicle_sound": [
+    {
+      "_use": "apc_with_wheels_vehicle_sound"
+    },
+    {
+      "_use": "truck_vehicle_inside_sound_for_driver_passenger1"
+    }
+  ],
+  "ussr_gaz_aaa_apc_common_vehicle_sound": [
+    {
+      "_use": "apc_with_wheels_vehicle_sound"
+    },
+    {
+      "_use": "truck_vehicle_inside_sound_for_driver_passenger1"
+    }
+  ],
+  "germ_sdkfz_251_10_vehicle_sound": [
+    {
+      "_use": "apc_with_wheels_vehicle_sound"
+    },
+    {
+      "_use": "tank_light_vehicle_tracks_sound_setup"
+    }
+  ],
+  "base_gaz_mm_72k_common_vehicle_sound": [
+    {
+      "_use": "apc_with_wheels_vehicle_sound"
+    },
+    {
+      "_use": "truck_vehicle_inside_sound_for_driver_passenger1"
+    },
+    {
+      "_use": "turret_manual_sound_with_group"
+    }
+  ],
+  "us_lvt_4_common_vehicle_sound": {
+    "_use": "apc_vehicle_sound"
+  },
+  "germ_sdkfz_251_1_common_vehicle_sound": {
+    "_use": "apc_vehicle_sound"
+  },
+  "germ_sdkfz_251_9_common_vehicle_sound": {
+    "_use": "apc_vehicle_sound"
+  },
+  "germ_sdkfz_7_2_apc_vehicle_sound": {
+    "_use": "apc_vehicle_sound"
+  },
+  "jp_halftrack_type_1_ho_ha_common_vehicle_sound": {
+    "_use": "apc_vehicle_sound"
+  },
+  "uk_universal_carrier_apc_common_vehicle_sound": {
+    "_use": "apc_vehicle_sound"
+  },
+  "us_halftrack_m3_a1_common_vehicle_sound": {
+    "_use": "apc_vehicle_sound"
+  },
+  "appzund_ks750_common_vehicle_sound": {
+    "_use": "motorcycle_vehicle_sound"
+  },
+  "david_harleyson_wla_vehicle_sound": {
+    "_use": "motorcycle_vehicle_sound"
+  },
+  "edward_big4_vehicle_sound": {
+    "_use": "motorcycle_vehicle_sound"
+  },
+  "wbm_r75_vehicle_sound": {
+    "_use": "motorcycle_vehicle_sound"
+  },
+  "germ_towed_at_pak36_movable_common_vehicle_sound": {
+    "_use": "mobile_cannon_vehicle_sound"
+  },
+  "germ_towed_at_pak38_movable_common_vehicle_sound": {
+    "_use": "mobile_cannon_vehicle_sound"
+  },
+  "germ_towed_at_pak40_movable_common_vehicle_sound": {
+    "_use": "mobile_cannon_vehicle_sound"
+  },
+  "jp_towed_at_type_1_movable_common_vehicle_sound": {
+    "_use": "mobile_cannon_vehicle_sound"
+  },
+  "us_towed_at_m1_movable_common_vehicle_sound": {
+    "_use": "mobile_cannon_vehicle_sound"
+  },
+  "ussr_towed_at_53k_movable_common_vehicle_sound": {
+    "_use": "mobile_cannon_vehicle_sound"
+  }
+}

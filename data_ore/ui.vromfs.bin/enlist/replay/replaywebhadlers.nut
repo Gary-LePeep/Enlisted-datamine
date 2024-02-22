@@ -1,4 +1,4 @@
-let eventbus = require("eventbus")
+let { eventbus_subscribe, eventbus_subscribe_onehit } = require("eventbus")
 let { load_replay_meta_info } = require("app")
 let logRP = require("%enlSqGlob/library_logs.nut").with_prefix("[Replay] ")
 let {
@@ -13,7 +13,7 @@ let DATACACHE_ERROR_TO_TEXT = {
   [datacache.ERR_ABORTED] = "replay/userAborted",
 }
 
-eventbus.subscribe("replay.download", function(params) {
+eventbus_subscribe("replay.download", function(params) {
   if (replayDownload.value.downloadRequestId != "") // do not download second file
     return
 
@@ -27,13 +27,13 @@ eventbus.subscribe("replay.download", function(params) {
     return
   }
 
-  eventbus.subscribe_onehit($"datacache.headers.{url}", function(result) {
+  eventbus_subscribe_onehit($"datacache.headers.{url}", function(result) {
     replayDownload.mutate(function (v) {
       v.contentLen = (result?["Content-Length"] ?? -1).tointeger()
     })
   })
 
-  eventbus.subscribe_onehit($"datacache.{url}", function(result) {
+  eventbus_subscribe_onehit($"datacache.{url}", function(result) {
     logRP($"Replay '{url}' download result: ", result)
     if (result?.error) {
       replayDownload.mutate(function (v) {

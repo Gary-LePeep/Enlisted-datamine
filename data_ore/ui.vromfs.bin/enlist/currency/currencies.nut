@@ -1,7 +1,7 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let userInfo = require("%enlSqGlob/userInfo.nut")
-let matchingNotifications = require("%enlSqGlob/notifications/matchingNotifications.nut")
+let matchingNotifications = require("%enlSqGlob/ui/notifications/matchingNotifications.nut")
 let { nestWatched } = require("%dngscripts/globalState.nut")
 
 let currenciesList = mkWatched(persist, "currenciesList", [])
@@ -17,7 +17,7 @@ userInfo.subscribe(function(v) {
   currenciesPurchases({})
 })
 
-let function mkCurrency(config){
+function mkCurrency(config){
   let id = config.id
   return {
     id = id
@@ -64,7 +64,7 @@ let notifications = {
   }
 }
 
-let function processNotification(ev) {
+function processNotification(ev) {
   let handler = notifications?[ev?.func]
   if (handler)
     handler(ev)

@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { rand } = require("math")
 let { chooseRandom } = require("%sqstd/rand.nut")
@@ -35,7 +35,7 @@ let roomTeamArmies = Computed(function() {
   return [armiesTeamA, armiesTeamB]
 })
 
-let function onStartSessionResult(res) {
+function onStartSessionResult(res) {
   if (res.error == 0)
     return
 
@@ -48,7 +48,7 @@ let function onStartSessionResult(res) {
   })
 }
 
-let function startSession() {
+function startSession() {
   isHostInGame(true)
   if (isLocalDedicated.value && canStartWithLocalDedicated.value)
     startSessionWithLocalDedicated(onStartSessionResult)
@@ -58,7 +58,7 @@ let function startSession() {
       { cluster = room.value?.public.cluster })
 }
 
-let function cancelSessionStart() {
+function cancelSessionStart() {
   matchingCall("mrooms.cancel_session_start")
 }
 

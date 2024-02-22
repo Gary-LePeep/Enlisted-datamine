@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { round_by_value } = require("%sqstd/math.nut")
 let { secondsToHoursLoc } = require("%ui/helpers/time.nut")

@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {
   settings, onlineSettingUpdated
@@ -24,7 +24,7 @@ let unseen = Computed(@() onlineSettingUpdated.value
 
 let unseenCurrent = Computed(@() unseen.value?[curArmy.value] ?? {})
 
-let function changeStatus(armyId, soldierGuids, needDelete = false) {
+function changeStatus(armyId, soldierGuids, needDelete = false) {
   let update = {}
   let data = seenData.value?[armyId]
   foreach (guid in typeof soldierGuids == "array" ? soldierGuids : [soldierGuids]) {
@@ -38,7 +38,7 @@ let function changeStatus(armyId, soldierGuids, needDelete = false) {
     let saved = clone set?[SEEN_ID] ?? {}
     let armySaved = clone saved?[armyId] ?? {}
     if (needDelete)
-      update.each(@(_, key) delete armySaved[key])
+      update.each(@(_, key) armySaved.$rawdelete(key))
     else
       armySaved.__update(update)
     saved[armyId] <- armySaved
@@ -52,7 +52,7 @@ let markSoldiersUnseen = @(armyId, soldierGuids) changeStatus(armyId, soldierGui
 console_register_command(function() {
   settings.mutate(function(s) {
     if (SEEN_ID in s)
-      delete s[SEEN_ID]
+      s.$rawdelete(SEEN_ID)
   })
 }, "meta.resetSeenSoldiers")
 

@@ -1,10 +1,10 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { get_time_msec } = require("dagor.time")
 let { low_level_client} = require("%enlSqGlob/charClient.nut")
 let CharClientEvent = require("%enlSqGlob/charClient/charClientEvent.nut")
 let userInfo = require("%enlSqGlob/userInfo.nut")
-let { isLoggedIn } = require("%enlSqGlob/login_state.nut")
+let { isLoggedIn } = require("%enlSqGlob/ui/login_state.nut")
 
 const LEADERBOARD_NO_START_LIST_INDEX = 0x7FFFFFFF
 const LB_REQUEST_TIMEOUT = 45000
@@ -21,7 +21,7 @@ local lastUpdateTime = 0
 let lbHandlers = {}
 let lbClient = CharClientEvent({ name = "leaderboard", client = low_level_client, handlers = lbHandlers })
 
-let function mkSelfRequest(requestData) {
+function mkSelfRequest(requestData) {
   if (requestData == null)
     return null
   let res = clone requestData
@@ -30,7 +30,7 @@ let function mkSelfRequest(requestData) {
   return res
 }
 
-let function setLbRequestData(requestData) {
+function setLbRequestData(requestData) {
   if (isEqual(requestData, curLbRequestData.value))
     return
 
@@ -41,7 +41,7 @@ let function setLbRequestData(requestData) {
   curLbRequestData(requestData)
 }
 
-let function requestSelfRow() {
+function requestSelfRow() {
   let requestData = curLbRequestData.value
   if (requestData == null)
     return
@@ -74,7 +74,7 @@ let canRefresh = @() !isRequestInProgress()
   && isLoggedIn.value
   && (!curLbData.value || (lastUpdateTime + LB_UPDATE_INTERVAL < get_time_msec()))
 
-let function refreshLbData() {
+function refreshLbData() {
   if (!canRefresh())
     return
   let requestData = curLbRequestData.value

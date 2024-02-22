@@ -63,13 +63,7 @@
       "_use": "halftrack_seats"
     },
     {
-      "_use": "tank_light_vehicle_tracks_sound"
-    },
-    {
-      "_use": "car_vehicle_horn_sound"
-    },
-    {
-      "_use": "vehicle_horn_note_D5"
+      "_use": "uk_universal_carrier_apc_common_vehicle_sound"
     },
     {
       "mobile_respawn__seatOffset": 4
@@ -119,7 +113,7 @@
       "vehicle_seats__seats:shared:array": [
         {
           "seats:object": {
-            "name": "commander",
+            "name": "main_gunner",
             "locName": "vehicle_seats/gunner",
             "attachNode": "commander",
             "ignoreAttachNodeRotation": true,

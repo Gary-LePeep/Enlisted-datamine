@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { register_command } = require("console")
 let { setSquadsPreset, squadsPresetWatch, MAX_PRESETS_COUNT
@@ -17,7 +17,7 @@ let logP = require("%enlSqGlob/library_logs.nut").with_prefix("[Soldiers Presets
 let oldUnlockedSquads = require("%enlist/meta/servProfile.nut").unlockedSquads
 let { isChangesBlocked, showBlockedChangesMessage } = require("%enlist/quickMatchQueue.nut")
 
-let function savePresets(armyId, idx, preset) {
+function savePresets(armyId, idx, preset) {
   let squadsPreset = clone squadsPresetWatch.value
   local newPresetsList = clone squadsPreset?[armyId] ?? []
   if (newPresetsList.len() <= idx)
@@ -46,7 +46,7 @@ let function savePresets(armyId, idx, preset) {
     squadsPreset[armyId] <- newPresetsList
   }
   else if (armyId in squadsPreset) //Try to save empty data. Remove whole block
-    delete squadsPreset[armyId]
+    squadsPreset.$rawdelete(armyId)
 
   setSquadsPreset(squadsPreset)
 }
@@ -61,7 +61,7 @@ let getPreset = function(armyId, idx) {
   return armyPresets[idx]
 }
 
-let function createSquadsPreset(armyId, idx, squadIds) {
+function createSquadsPreset(armyId, idx, squadIds) {
   if (squadIds.len() == 0) {
     logP("Create: empty squad data.")
     return
@@ -73,13 +73,13 @@ let function createSquadsPreset(armyId, idx, squadIds) {
   })
 }
 
-let function changePresetInfo(armyId, idx, updateInfo) {
+function changePresetInfo(armyId, idx, updateInfo) {
   let preset = getPreset(armyId, idx)
   if (!preset)
     return
 
   if (("name" in updateInfo) && ("campaign" in preset))
-    delete preset.campaign
+    preset.$rawdelete("campaign")
 
   savePresets(armyId, idx, preset.__merge(updateInfo))
 }
@@ -88,7 +88,7 @@ let updateSquadsPreset = @(armyId, idx, preset) changePresetInfo(armyId, idx, { 
 let renameSquadsPreset = @(armyId, idx, name) changePresetInfo(armyId, idx, { name })
 let deleteSquadsPreset = @(armyId, idx) savePresets(armyId, idx, null)
 
-let function applySquadsPreset(armyId, idx) {
+function applySquadsPreset(armyId, idx) {
   if (isChangesBlocked.value) {
     showBlockedChangesMessage()
     return
@@ -144,7 +144,7 @@ let function applySquadsPreset(armyId, idx) {
   reserveSquads(newReserveSquads)
 }
 
-let function moveSquadPresetsToUnited() {
+function moveSquadPresetsToUnited() {
   if (settings.value?.wereSquadPresetsGenerated)
     return
 

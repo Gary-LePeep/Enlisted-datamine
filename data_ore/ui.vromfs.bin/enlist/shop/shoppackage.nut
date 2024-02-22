@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
 let faComp = require("%ui/components/faComp.nut")
@@ -126,7 +126,7 @@ let mkDiscountBar = @(children, isTailOnLeft = true, color = brightAccentColor, 
 }
 
 
-let function mkDiscount(sItem) {
+function mkDiscount(sItem) {
   let { discountInPercent = 0, curShopItemPrice = {}, curItemCost = {} } = sItem
   if (discountInPercent <= 0)
     return null
@@ -160,7 +160,7 @@ let mkSpecOfferInfo = @(discount, endTime) mkDiscountBar([
   mkCountdownTimer({ timestamp = endTime, color = darkTxtColor })
 ])
 
-let function mkTimeAvailable(showIntervalTs) {
+function mkTimeAvailable(showIntervalTs) {
   let endTime = showIntervalTs?[1] ?? 0
   return endTime < serverTime.value ? null
     : mkCountdownTimer({ timestamp = endTime, color = attentionTxtColor })
@@ -194,7 +194,7 @@ let mkShopItemName = @(nameLocId, sf, icon, showIntervalTs) {
 }
 
 
-let function mkShopPremIcon(sItem) {
+function mkShopPremIcon(sItem) {
   let { squads = [] } = sItem
   let squad = squads?[0]
   if (squad == null)
@@ -204,7 +204,7 @@ let function mkShopPremIcon(sItem) {
   return mkPremiumSquadXpImage(hdpxi(32), armyId)
 }
 
-let function mkShopItemInfo(sItem, offer, sf, icon, lockObject, unseenIcon = null) {
+function mkShopItemInfo(sItem, offer, sf, icon, lockObject, unseenIcon = null) {
   let { nameLocId = "", showIntervalTs = [], isPriceHidden = false, offerContainer = "" } = sItem
   let isContainer = offerContainer != ""
   return {
@@ -260,7 +260,7 @@ let mkFeaturedName = @(nameLocId, sf, icon) {
 }
 
 
-let function mkShopFeaturedInfo(sItem, offer, sf, icon, lockObject) {
+function mkShopFeaturedInfo(sItem, offer, sf, icon, lockObject) {
   let { nameLocId = "", showIntervalTs = [] } = sItem
   return {
     size = [flex(), SIZE_TO_CONTENT]
@@ -315,21 +315,21 @@ let mkLockInfo = @(lockTxt) lockTxt == "" ? null
     }.__update(titleTxtStyle)
 
 
-let function extractItems(content) {
+function extractItems(content) {
   let res = {}
   foreach (tmpl, _ in content?.items ?? {})
     res[trimUpgradeSuffix(tmpl)] <- true
   return res.keys()
 }
 
-let function extractClasses(content) {
+function extractClasses(content) {
   let res = {}
   foreach (sClass in content?.soldierClasses ?? {})
     res[getClassCfg(sClass).kind] <- true
   return res.keys()
 }
 
-let function mkShopIcon(armyId, content, templates) {
+function mkShopIcon(armyId, content, templates) {
   let itemsList = extractItems(content) ?? []
   if (itemsList.len() == 1) {
     let { itemtype = null, itemsubtype = null } = templates?[armyId][itemsList[0]]
@@ -433,7 +433,7 @@ let mkBaseShopItem = mkShopItem(baseSlotSize)
 let mkLowerShopItem = mkShopItem(lowerSlotSize)
 let mkSoldierShopItem = mkShopItem(soldierSlotSize)
 
-let function mkShopFeatured(armyId, sItem, offer, content, templates,
+function mkShopFeatured(armyId, sItem, offer, content, templates,
     lockTxt, onClick, onHover, infoCb) {
   let picSaturate = lockTxt == "" ? 1 : 0.1
   let icon = mkShopIcon(armyId, content, templates)
@@ -467,7 +467,7 @@ let function mkShopFeatured(armyId, sItem, offer, content, templates,
 }
 
 
-let function getMaxCount(shopItem) {
+function getMaxCount(shopItem) {
   let { limit = 0, premiumDays = 0, squads = [] } = shopItem
   let isSoldier = (shopItemContentCtor(shopItem)?.value.content.soldierClasses.len() ?? 0) > 0
   return limit > 0 ||  premiumDays > 0 || squads.len() > 0 ? 1
@@ -475,7 +475,7 @@ let function getMaxCount(shopItem) {
     : 99
 }
 
-let function mkShopCounter(shopItem, countWatched) {
+function mkShopCounter(shopItem, countWatched) {
   let maxCount = getMaxCount(shopItem)
   return maxCount <= 1 || countWatched == null ? null
     : {
@@ -491,7 +491,7 @@ let function mkShopCounter(shopItem, countWatched) {
 }
 
 
-let function getTierInterval(items, templates) {
+function getTierInterval(items, templates) {
   local minTier = -1
   local maxTier = -1
   foreach (tpl, _ in items ?? {}) {
@@ -504,7 +504,7 @@ let function getTierInterval(items, templates) {
   return { minTier, maxTier }
 }
 
-let function mkShopItemInfoTier(minTier, maxTier, override = {}) {
+function mkShopItemInfoTier(minTier, maxTier, override = {}) {
   if (maxTier <= 0)
     return null
 
@@ -544,7 +544,7 @@ let iconSize = hdpxi(36)
 let iconGap = hdpxi(18)
 let getKindIcon = memoize(@(img, sz) Picture("ui/skin#{0}:{1}:{1}:K".subst(img, sz.tointeger())))
 
-let function mkCanUseInfo(itemtype, armyId, itemtmpl) {
+function mkCanUseInfo(itemtype, armyId, itemtmpl) {
   if (itemtype == "vehicle") {
     let vehicleSquadIds = (allowedVehicles.value?[armyId] ?? {})
       .filter(@(squad) squad?[itemtmpl]).keys()
@@ -641,7 +641,7 @@ let mkCanUseShopItemInfo = @(crateContent) function() {
 
 
 let msgBoxViewSize = [hdpxi(500), hdpxi(340)]
-let function mkShopMsgBoxView(shopItem, crateContent, countWatched, showDiscount = false) {
+function mkShopMsgBoxView(shopItem, crateContent, countWatched, showDiscount = false) {
   if (crateContent == null)
     return null
 

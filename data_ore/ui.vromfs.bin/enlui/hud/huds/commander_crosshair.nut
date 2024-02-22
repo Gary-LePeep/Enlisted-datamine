@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {controlledVehicleEid} = require("%ui/hud/state/vehicle_state.nut")
 let {vehicleTurrets} = require("%ui/hud/state/vehicle_turret_state.nut")
@@ -20,7 +20,7 @@ let forbid = {
   ]
 }
 
-let function circle(color, width=null){
+function circle(color, width=null){
   return {
     color
     fillColor = Color(0, 0, 0, 0)
@@ -80,7 +80,7 @@ let mkCrosshair = @(turretEid, vehicleEid) {
     ]
 }
 
-let function calculate_crosshairs(turrets, vehicleEid) {
+function calculate_crosshairs(turrets, vehicleEid) {
   let children = []
   foreach (turret in turrets) {
     if (turret.isControlled && !turret.isLocalControlLocked && turret.showCrosshair)

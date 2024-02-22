@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontHeading1, fontHeading2, fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { bigPadding, titleTxtColor, defTxtColor, maxContentWidth, accentTitleTxtColor, commonBtnHeight
@@ -17,7 +17,7 @@ let { enlistedGold } = require("%enlist/currency/currenciesList.nut")
 let { itemTypeIcon } = require("%enlist/soldiers/components/itemTypesData.nut")
 let { getItemName, iconByGameTemplate} = require("%enlSqGlob/ui/itemsInfo.nut")
 let { mkColoredGradientY } = require("%enlSqGlob/ui/gradients.nut")
-let { safeAreaVerPadding, safeAreaHorPadding } = require("%enlSqGlob/safeArea.nut")
+let { safeAreaVerPadding, safeAreaHorPadding } = require("%enlSqGlob/ui/safeArea.nut")
 let colorize = require("%ui/components/colorize.nut")
 let { allItemTemplates, findItemTemplate
 } = require("%enlist/soldiers/model/all_items_templates.nut")
@@ -97,7 +97,7 @@ let premiumText = @(days) days <= 0 ? null
   : mkTextArea(loc("premium/days", { days = colorize(accentTitleTxtColor, days)}), defTxtStyle)
 
 
-let function accountFeatures() {
+function accountFeatures() {
   return {
     size = flex()
     flow = FLOW_VERTICAL
@@ -147,7 +147,7 @@ let mkSClassRow = @(sClass, soldierRareMin, tier) @() {
 }
 
 
-let function mkSoldierInfo(crate) {
+function mkSoldierInfo(crate) {
   if (crate == null)
     return null
   let { armyId = null, content = null } = crate
@@ -316,7 +316,7 @@ let weaponsPlusSign = faComp("plus", {
   padding = [0, smallBlockPadding]
 })
 
-let function weaponsBlock() {
+function weaponsBlock() {
   let hasNoItem = crateContent.value.findvalue(@(v) (v?.content.items.len() ?? 0) > 0) == null
   return {
     watch = crateContent

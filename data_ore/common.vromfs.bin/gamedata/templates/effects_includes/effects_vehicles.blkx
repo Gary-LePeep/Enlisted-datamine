@@ -331,6 +331,7 @@
       [0.0,0.0,1.0],
       [0.0,0.0,0.0]
     ],
+    "_use": "hit_env_affect_fx",
     "wind_emitter__radius": 5.0,
     "wind_emitter__duration": 4.0,
     "wind_emitter__strength": 7.0,
@@ -340,6 +341,7 @@
     "wind_emitter__omni:tag": [],
     "_group": {
       "_tags": "render",
+      "effect__environmentDestructionRadius": 10.0,
       "effect__name": "explosion_tank_base_cmps_fx",
       "effect": [],
       "vehicle_effect__vehicleEid:eid": []

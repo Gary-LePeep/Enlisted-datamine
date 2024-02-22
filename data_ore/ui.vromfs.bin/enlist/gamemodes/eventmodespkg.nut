@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontTitle, fontHeading1 } = require("%enlSqGlob/ui/fontsStyle.nut")
 let {
@@ -23,7 +23,7 @@ let teamsColors = [
   }
 ]
 
-let function txtColor (sf){
+function txtColor (sf){
   return sf & S_ACTIVE ? activeTxtColor
     : sf & S_HOVER ? titleTxtColor
     : defTxtColor
@@ -60,7 +60,7 @@ let mkWindowHeader = @(title, image, addChild = null){
   ]
 }
 
-let function sequentialArmySelect(armies, armyId, deltaIdx, onArmySelect) {
+function sequentialArmySelect(armies, armyId, deltaIdx, onArmySelect) {
   let currentArmieIdx = armies.findindex(@(val) val == armyId)
   if (currentArmieIdx != null){
     let newIdx = currentArmieIdx + deltaIdx
@@ -69,7 +69,7 @@ let function sequentialArmySelect(armies, armyId, deltaIdx, onArmySelect) {
   }
 }
 
-let function armyButton(armyId, onArmySelect, isSelected) {
+function armyButton(armyId, onArmySelect, isSelected) {
   let stateFlag = Watched(0)
   return @(){
     rendObj = ROBJ_BOX

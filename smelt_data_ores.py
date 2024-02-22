@@ -6,7 +6,8 @@ def delistify(old_json):
     if isinstance(old_json, list):
         new_json = {}
         for item in old_json:
-            new_json[list(item.keys())[0]] = list(item.values())[0]
+            if list(item.keys())[0] not in new_json:
+                new_json[list(item.keys())[0]] = list(item.values())[0]
         old_json = new_json
     return old_json
 
@@ -16,23 +17,35 @@ def translation_items():
     russian_json = json.load(open("../Enlisted-remastered/static/translations/Russian.json", encoding='utf-8'))
 
     translations1_csv = open("./data_ore/enlisted-lang.vromfs.bin/lang/common/common.csv", encoding='utf-8').read()
-    translations2_csv = open("./data_ore/enlisted-lang.vromfs.bin/lang/enlisted/enlisted.csv", encoding='utf-8').read()
-    translations_list = translations1_csv.split('\n') + translations2_csv.split('\n')
+    #translations2_csv = open("./data_ore/enlisted-lang.vromfs.bin/lang/enlisted/enlisted.csv", encoding='utf-8').read()
+    translations_list = translations1_csv.split('\n')# + translations2_csv.split('\n')
+
+    english_offset = -1
+    russian_offset = -1
+
+    languages = translations_list[0].split(';')
+    i = 0
+    for language in languages:
+        if language == "\"<English>\"":
+            english_offset = i
+        if language == "\"<Russian>\"":
+            russian_offset = i
+        i += 1
 
     # Soldier classes
     for translation in translations_list:
         if translation.startswith('"soldierClass/'):
             class_name = translation.split('"soldierClass/')[1].split('";"')[0]
             if '/desc' not in class_name and ('_' not in class_name or class_name == 'anti_tank' or class_name == 'pilot_fighter' or class_name == 'pilot_assaulter'):
-                english_json['class.' + class_name] = translation.split(';')[1].replace('"', '')
-                russian_json['class.' + class_name] = translation.split(';')[2].replace('"', '')
+                english_json['class.' + class_name] = translation.split(';')[english_offset].replace('"', '')
+                russian_json['class.' + class_name] = translation.split(';')[russian_offset].replace('"', '')
 
     # Perk names
     for translation in translations_list:
         if translation.split('";"')[0].count('/') == 2 and translation.startswith('"stat/') and '/desc' in translation.split('";"')[0]:
             perk_name = translation.split('/')[1].split('/')[0]
-            english_json['perk.' + perk_name] = translation.split(';')[1].replace('"', '')
-            russian_json['perk.' + perk_name] = translation.split(';')[2].replace('"', '')
+            english_json['perk.' + perk_name] = translation.split(';')[english_offset].replace('"', '')
+            russian_json['perk.' + perk_name] = translation.split(';')[russian_offset].replace('"', '')
 
     # Item names
     for translation in translations_list:
@@ -65,15 +78,18 @@ def translation_items():
                 item_name = 'ussr_t_70'
             if 'us_m3_stuart' == item_name:
                 item_name = 'us_m3a1_stuart'
-            english_json['item.' + item_name] = translation.split(';')[1].replace('"', '')
-            russian_json['item.' + item_name] = translation.split(';')[2].replace('"', '')
+            english_json['item.' + item_name] = translation.split(';')[english_offset].replace('"', '')
+            if russian_offset >= len(translation.split(';')):
+                russian_json['item.' + item_name] = translation.split(';')[english_offset].replace('"', '')
+            else:
+                russian_json['item.' + item_name] = translation.split(';')[russian_offset].replace('"', '')
 
     # Firing modes
     for translation in translations1_csv.split('\n'):
         if translation.split('";"')[0].count('/') == 1 and translation.startswith('"firing_mode/'):
             firing_mode = translation.split('/')[1].split('";"')[0]
-            english_json['firingMode.' + firing_mode] = translation.split(';')[1].replace('"', '')
-            russian_json['firingMode.' + firing_mode] = translation.split(';')[2].replace('"', '')
+            english_json['firingMode.' + firing_mode] = translation.split(';')[english_offset].replace('"', '')
+            russian_json['firingMode.' + firing_mode] = translation.split(';')[russian_offset].replace('"', '')
 
     # Remove apostrophes
     for (k, v) in english_json.items():
@@ -240,6 +256,8 @@ def find_property(json_data, property_name, extensions):
         for param in v:
             if '_extends' == list(param.keys())[0]:
                 extensions.append(param['_extends'])
+            if '_use' == list(param.keys())[0]:
+                extensions.append(param['_use'])
         # Search for property
         for param in v:
             if property_name == list(param.keys())[0]:
@@ -344,8 +362,12 @@ def get_tanks():
         ammo_distrib_json = find_property(distrib_json, 'turrets__initAmmoDistribution:array', [list(distrib_json)[0]])
         ammo_distrib = []
         if ammo_distrib_json != None:
+            ammo_distrib_json = ammo_distrib_json if isinstance(ammo_distrib_json, list) else [ammo_distrib_json]
             for ammo_slot in ammo_distrib_json:
-                ammo_distrib.append(ammo_slot['ammo:object']['slot'])
+                if 'slot' in ammo_slot['ammo:object']:
+                    ammo_distrib.append(ammo_slot['ammo:object']['slot'])
+                else:
+                    ammo_distrib = [0, 1]
         else:
             ammo_distrib = [0, 1]
 
@@ -357,15 +379,20 @@ def get_tanks():
                     for ammo in v['gun__shellsAmmo:array']:
                         ammo_count += ammo['ammo']
                 else:
-                    ammo_count += find_property(turret_json, 'gun__shellsAmmo:array', [k])['ammo']
+                    ammos = find_property(turret_json, 'gun__shellsAmmo:array', [k])
+                    ammos = ammos if isinstance(ammos, list) else [ammos]
+                    for ammo in ammos:
+                        ammo_count += ammo['ammo']
 
                 gun = {}
+                if isinstance(v, list):
+                    v = delistify(v)
                 if k == 'ht_130_turret_01_ato_41' or 'flammenwerfer_anlagen' in k:
                     # Flamethrower tanks are stupid. Just hardcode it.
                     gun['name'] = 'ht_130_turret_01_ato_41'
                     gun_json = delistify(json.load(open(Path('./data_ore/tanks.vromfs.bin/gamedata/gen/templates/tanks/ht_130.blkx'), encoding='utf-8'))[gun['name']])
-                elif 'tankgun_' in v['_extends']:
-                    gun['name'] = v['_extends'].replace('tankgun_', '')
+                elif 'tankgun_' in v['_use']:
+                    gun['name'] = v['_use'].replace('tankgun_', '')
                     gun_json = delistify(json.load(open(Path('./data_ore/tanks.vromfs.bin/gamedata/gen/templates/weapons/' + gun['name'] + '.blkx'), encoding='utf-8')))
                     gun_json = gun_json[list(gun_json)[0]]
                 else:
@@ -387,7 +414,7 @@ def get_tanks():
                         if 'flamethrower_dummy.blk' in shell_object_blk:
                             break
                         shell_object_json = delistify(json.load(open(Path('./data_ore/tanks.vromfs.bin/' + shell_object_blk.replace('content/tanks/', '') + 'x'), encoding='utf-8')))
-                        shell_object['name'] = shell_object_json['bulletName'] if 'bulletName' in shell_object_json else None
+                        shell_object['name'] = shell_object_json['bulletName'] if 'bulletName' in shell_object_json else shell_object_blk.split('/')[-1].split('.blk')[0]
                         shell_object['type'] = shell_object_json['bulletType']
                         shell_object['mass'] = shell_object_json['mass']
                         shell_object['caliber'] = shell_object_json['caliber']
@@ -399,12 +426,13 @@ def get_tanks():
                         shell_object['stucking'] = shell_object_json['stucking'] if 'stucking' in shell_object_json else None
                         shell_object['stuckingAngle'] = shell_object_json['stuckingAngle'] if 'stuckingAngle' in shell_object_json else None
                         shell_object['fresnel'] = shell_object_json['fresnel'] if 'fresnel' in shell_object_json else None
-                        shell_object['demarrePenetrationK'] = shell_object_json['damage']['kinetic']['demarrePenetrationK'] if 'demarrePenetrationK' in shell_object_json['damage']['kinetic'] else None
-                        shell_object['demarreSpeedPow'] = shell_object_json['damage']['kinetic']['demarreSpeedPow'] if 'demarreSpeedPow' in shell_object_json['damage']['kinetic'] else None
-                        shell_object['demarreMassPow'] = shell_object_json['damage']['kinetic']['demarreMassPow'] if 'demarreMassPow' in shell_object_json['damage']['kinetic'] else None
-                        shell_object['demarreCaliberPow'] = shell_object_json['damage']['kinetic']['demarreCaliberPow'] if 'demarreCaliberPow' in shell_object_json['damage']['kinetic'] else None
-                        shell_object['damageType'] = shell_object_json['damage']['kinetic']['damageType'] if 'damageType' in shell_object_json['damage']['kinetic'] else None
-                        shell_object['damage'] = shell_object_json['damage']['kinetic']['damage'] if 'damage' in shell_object_json['damage']['kinetic'] else None
+                        if 'damage' in shell_object_json and 'kinetic' in shell_object_json['damage']:
+                            shell_object['demarrePenetrationK'] = shell_object_json['damage']['kinetic']['demarrePenetrationK'] if 'demarrePenetrationK' in shell_object_json['damage']['kinetic'] else None
+                            shell_object['demarreSpeedPow'] = shell_object_json['damage']['kinetic']['demarreSpeedPow'] if 'demarreSpeedPow' in shell_object_json['damage']['kinetic'] else None
+                            shell_object['demarreMassPow'] = shell_object_json['damage']['kinetic']['demarreMassPow'] if 'demarreMassPow' in shell_object_json['damage']['kinetic'] else None
+                            shell_object['demarreCaliberPow'] = shell_object_json['damage']['kinetic']['demarreCaliberPow'] if 'demarreCaliberPow' in shell_object_json['damage']['kinetic'] else None
+                            shell_object['damageType'] = shell_object_json['damage']['kinetic']['damageType'] if 'damageType' in shell_object_json['damage']['kinetic'] else None
+                            shell_object['damage'] = shell_object_json['damage']['kinetic']['damage'] if 'damage' in shell_object_json['damage']['kinetic'] else None
                         shell_object['cumulativeArmorPower'] = shell_object_json['cumulativeDamage']['armorPower'] if 'cumulativeDamage' in shell_object_json else None
                         # Remove duplicates
                         existing = False

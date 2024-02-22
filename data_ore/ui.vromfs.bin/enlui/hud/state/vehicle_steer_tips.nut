@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 local lastInitedStateEid = ecs.INVALID_ENTITY_ID
 let vehicleSteerTips = Watched([])

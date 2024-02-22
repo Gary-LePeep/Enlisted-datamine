@@ -1,8 +1,8 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let msgbox = require("%enlist/components/msgbox.nut")
 let { get_setting_by_blk_path } = require("settings")
-let { isLoggedIn } = require("%enlSqGlob/login_state.nut")
+let { isLoggedIn } = require("%enlSqGlob/ui/login_state.nut")
 let { get_kongzhong_fcm } = require("auth")
 
 let showGuidelinesWindow = get_setting_by_blk_path("enableCommunityGuidelinesWindow") ?? false
@@ -15,7 +15,7 @@ const WND_UID = "GUIDELINES_WND"
 let guidelinesShown = mkWatched(persist, "guidelinesShown", false)
 let minWindowShowTime = 3.0
 
-let function showGuidelines() {
+function showGuidelines() {
   if (guidelinesShown.value)
     return
 

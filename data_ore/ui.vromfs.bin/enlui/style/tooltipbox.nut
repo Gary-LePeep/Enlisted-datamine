@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 return @(content, size = SIZE_TO_CONTENT) {
   rendObj = ROBJ_WORLD_BLUR_PANEL

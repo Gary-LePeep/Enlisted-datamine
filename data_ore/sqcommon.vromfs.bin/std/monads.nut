@@ -13,7 +13,7 @@ local Foo = class {get = @(_) null}
 checkInterface(Foo, [{name = "get", params = ["v"]}])
 
 */
-let function checkInterface(klass, methods){
+function checkInterface(klass, methods){
   let failedMethods = []
   foreach (method in methods){
     if (type(method) == "string") {
@@ -95,7 +95,7 @@ local none
 local _Maybe
 local _None
 
-_Maybe = class extends Monad {
+_Maybe = class (Monad) {
   constructor(_) {
     throw("do not call directly")
   }
@@ -139,7 +139,7 @@ _Maybe = class extends Monad {
  * values
  * except constructor, _tostirng and isNone - everything else are optimizations
  */
-_None = class extends _Maybe {
+_None = class (_Maybe) {
   constructor(){}
   static get = @() null
   static map = @(_fn) none
@@ -154,7 +154,7 @@ _None = class extends _Maybe {
 /**
  * Monad Some used for valid values
  */
-Some = class extends _Maybe {
+Some = class (_Maybe) {
   _value = null
   constructor (value) {
     this._value = value
@@ -171,7 +171,7 @@ Some = class extends _Maybe {
 
 none = _None()
 let None = @() none
-let function Maybe(a){
+function Maybe(a){
   if (a==null)
     return none
   else
@@ -183,7 +183,7 @@ local Either
 local Right
 local Left
 
-Either = class extends Monad{
+Either = class (Monad) {
   //pure :: a -> Either a
   static function of(value){
     return Right(value)
@@ -309,7 +309,7 @@ Either = class extends Monad{
   }
 }
 
-Left = class extends Either{
+Left = class (Either) {
   _value = null
   isLeft = @() true
   constructor(v){
@@ -318,7 +318,7 @@ Left = class extends Either{
   flatMap = @(_) this
 }
 
-Right = class extends Either{
+Right = class (Either) {
   _value = null
   isRight = @() true
   constructor(v){
@@ -333,7 +333,7 @@ Right = class extends Either{
 
 local Identity
 
-Identity = class extends Monad {
+Identity = class (Monad) {
   _value = null
   constructor(v){
     this._value = v
@@ -379,7 +379,7 @@ more to read:
 
 */
 local Task
-Task = class extends Monad {
+Task = class (Monad) {
   exec = null
   constructor(fn){
     this.exec = fn

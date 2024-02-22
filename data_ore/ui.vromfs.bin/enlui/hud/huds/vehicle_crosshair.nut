@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {controlledVehicleEid} = require("%ui/hud/state/vehicle_state.nut")
 let {
@@ -25,7 +25,7 @@ let vehicleReloadProgress = Computed(@()
     : 1.0
 )
 
-let function bgAim(){
+function bgAim(){
   return {
     color = aim_bgcolor
     fillColor = Color(0, 0, 0, 0)
@@ -38,7 +38,7 @@ let function bgAim(){
   }
 }
 
-let function aim(){
+function aim(){
   return {
     color = aim_color
     fillColor = Color(0, 0, 0, 0)
@@ -52,7 +52,7 @@ let function aim(){
   }
 }
 
-let function overheatBlock() {
+function overheatBlock() {
   return {
     watch = overheat
     opacity = min(1.0, overheat.value*2.0)
@@ -79,7 +79,7 @@ let crosshair = @() {
 
 let isCrosshairEnabled = Computed(@() vehicleTurrets.value.findvalue(@(turret) turret.showCrosshair && !turret.isLocalControlLocked) != null)
 
-let function root() {
+function root() {
   return {
     watch = isCrosshairEnabled
     size = flex()

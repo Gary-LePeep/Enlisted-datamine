@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { isTutorial } = require("%ui/hud/tutorial/state/tutorial_state.nut")
 let { minimalistHud } = require("%ui/hud/state/hudOptionsState.nut")
@@ -97,7 +97,7 @@ let tutorialTips = [
   }
 ]
 
-let function getTips(){
+function getTips(){
   if (!isAlive.value || !canShowGameHudInReplay.value)
     return []
   else if (isTutorial.value)

@@ -1,8 +1,10 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {inspectorRoot} = require("%darg/helpers/inspector.nut")
 let {lastActiveControlsType} = require("%ui/control/active_controls.nut")
 let {showSettingsMenu, mkSettingsMenuUi} = require("%ui/hud/menus/settings_menu.nut")
+let {controlsMenuUi, showControlsMenu} = require("%ui/hud/menus/controls_setup.nut")
+let voteToKickMenu = require("%ui/hud/huds/vote_kick_menu.ui.nut")
 let {gameMenu, showGameMenu} = require("%ui/hud/menus/game_menu.nut")
 let {menusUi} = require("%ui/hud/ct_hud_menus.nut")
 let { mkHudElement, HUD_FLAGS, hudFlags } = require("%ui/hud/state/hudFlagsState.nut")
@@ -85,11 +87,7 @@ let settingsMenuUi = mkSettingsMenuUi({
   onClose = @() showSettingsMenu(false)
 })
 
-let {controlsMenuUi, showControlsMenu} = require("%ui/hud/menus/controls_setup.nut")
-
-let voteToKickMenu = require("%ui/hud/huds/vote_kick_menu.ui.nut")
-
-let function gameMenus(){
+function gameMenus(){
   local children
   if (showGameMenu.value)
     children = [gameMenu, voteToKickMenu]
@@ -100,14 +98,14 @@ let function gameMenus(){
 
   return {
     size = flex()
-    children = children
+    children
     eventHandlers = {["HUD.GameMenu"] = @(_event) showGameMenu(!showGameMenu.value)}
     watch = [showSettingsMenu, showControlsMenu,
       showGameMenu]
   }
 }
 
-let function HudRoot() {
+function HudRoot() {
   return {
     size = flex()
     children = [hud, menusUi, gameMenus, inspectorRoot]

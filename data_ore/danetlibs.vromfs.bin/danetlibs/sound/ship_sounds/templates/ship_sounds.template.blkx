@@ -6,14 +6,14 @@
       "path": "enemy/vehicle/boat/horns/default/horn"
     }
   },
-  "ship_sound_vars": {
-    "_use": "vehicle_sound_vars",
+  "ship_sound_phys_vars": {
     "_group": {
       "_tags": "sound",
-      "ship_sound_vars__waterTimer": 0.0
+      "ship_sound_phys_vars__waterTimer": 0.0
     }
   },
-  "ship_vehicle_collision_sound_setup": {
+  "ship_vehicle_collision_sound": {
+    "_use": "vehicle_collision_sound",
     "vehicle_collision_sound__paths:shared:object": {
       "_tags": "sound",
       "collScrape:object": {
@@ -37,6 +37,10 @@
       "collBush:object": {
         "path": "enemy/vehicle/boat/collision/generic"
       }
+    },
+    "_group": {
+      "_tags": "sound",
+      "vehicle_collision_sound__scrapeMinMax": [0.0,1.0]
     }
   },
   "ship_tracks_sound": {
@@ -77,9 +81,23 @@
       "shipEngineSoundSeatStartStop:tag": []
     }
   },
+  "ship_sound_subtemplate": [
+    {
+      "_use": "base_vehicle_sound_subtemplate"
+    },
+    {
+      "_use": "vehicle_engine_sound_subtemplate"
+    },
+    {
+      "_use": "vehicle_tracks_sound_subtemplate"
+    },
+    {
+      "_use": "vehicle_horn_sound_subtemplate"
+    }
+  ],
   "ship_sound": [
     {
-      "_use": "watched_vehicle_sound"
+      "_use": "watchable_vehicle_sound"
     },
     {
       "_use": "sound_control"
@@ -97,22 +115,19 @@
       "_use": "ship_engine_sound"
     },
     {
-      "_use": "vehicle_engine_sound_vars"
+      "_use": "vehicle_sound_phys"
     },
     {
-      "_use": "ship_sound_vars"
+      "_use": "ship_sound_phys_vars"
     },
     {
-      "_use": "vehicle_sound_update_speed"
-    },
-    {
-      "_use": "vehicle_collision_sound"
-    },
-    {
-      "_use": "ship_vehicle_collision_sound_setup"
+      "_use": "ship_vehicle_collision_sound"
     },
     {
       "_use": "ship_vehicle_horn_sound"
+    },
+    {
+      "_use": "vehicle_horn_note_E5"
     },
     {
       "shipSound:tag": []
@@ -120,13 +135,8 @@
     {
       "_group": {
         "_tags": "sound",
-        "sound_control__range": 160.0
-      }
-    },
-    {
-      "_group": {
-        "_tags": "sound",
-        "vehicle_collision_sound__scrapeMinMax": [0.0,1.0]
+        "sound_control__range": 160.0,
+        "sound_control__subtemplate": "ship_sound_subtemplate"
       }
     }
   ]

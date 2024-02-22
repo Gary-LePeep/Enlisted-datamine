@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let queueState = require("%enlist/state/queueState.nut")
 let { STATUS, curGameMode, queueStatus, isInQueue,
@@ -11,7 +11,7 @@ let { revokeAllSquadInvites, dismissAllOfflineSquadmates, squadOnlineMembers,
 let { remap_nick } = require("%enlSqGlob/remap_nick.nut")
 let msgbox = require("components/msgbox.nut")
 let { matchingCall, netStateCall } = require("matchingClient.nut")
-let matching_api = require("matching.api")
+let { matching_listen_notify } = require("matching.api")
 let matching_errors = require("matching.errors")
 let { get_time_msec } = require("dagor.time")
 let { get_app_id } = require("app")
@@ -19,9 +19,10 @@ let { checkMultiplayerPermissions } = require("permissions/permissions.nut")
 let { EventUserMMQueueJoined } = require("gameevents")
 let JB = require("%ui/control/gui_buttons.nut")
 let userInfo = require("%enlSqGlob/userInfo.nut")
+let logQM = require("%enlSqGlob/library_logs.nut").with_prefix("[QuickMatchQueue] ")
 
 let { crossnetworkPlay } = require("%enlSqGlob/crossnetwork_state.nut")
-let eventbus = require("eventbus")
+let { eventbus_subscribe } = require("eventbus")
 let isChangesBlocked = Computed(@() isInQueue.value
   || squadMembers.value?[userInfo.value?.userId].state.ready)
 let showBlockedChangesMessage = @() msgbox.show({ text = loc("queue/changesBlocked") })
@@ -30,7 +31,7 @@ let private = {
   nextQPosUpdateTime  = 0
 }
 
-let function onTimer(){
+function onTimer(){
   if (queueStatus.value == STATUS.NOT_IN_QUEUE)
     return
 
@@ -70,23 +71,23 @@ queueStatus.subscribe(function(s) {
   wasStatus = s
 })
 
-let function errorText(response) {
+function errorText(response) {
   if (response.error == 0)
     return ""
   let errKey = response?.error_id ?? matching_errors.error_string(response.error)
   return loc($"error/{errKey}")
 }
 
-let function joinQueueCallback(response) {
+function joinQueueCallback(response) {
   if (response.error == 0)
     return
 
-  log(response)
+  logQM("joinQueueCallback", response)
   queueStatus(STATUS.NOT_IN_QUEUE)
   msgbox.show({ text = errorText(response) })
 }
 
-let function joinImpl(gameMode, gameParams) {
+function joinImpl(gameMode, gameParams) {
   netStateCall(function() {
     curGameMode(gameMode)
     queueStatus(STATUS.JOINING)
@@ -121,18 +122,19 @@ let function joinImpl(gameMode, gameParams) {
         appId = get_app_id()
         crossplayType = crossnetworkPlay.value
       }.__update(squadParams, queueParams)
-      log("enlmm.join_quick_match_queue", params)
+      logQM("enlmm.join_quick_match_queue", params)
       matchingCall("enlmm.join_quick_match_queue", joinQueueCallback, params)
     }
   })
 }
 
-let function joinQueue(gameMode, gameParams = {}) {
+function joinQueue(gameMode, gameParams = {}) {
   if (!checkMultiplayerPermissions()) {
-    log("no permissions to run multiplayer")
+    logQM("no permissions to run multiplayer")
     return
   }
 
+  logQM("joinQueue", gameParams, gameMode)
   if (!isInSquad.value) {
     joinImpl(gameMode, gameParams)
     return
@@ -178,7 +180,7 @@ let function joinQueue(gameMode, gameParams = {}) {
     joinImpl(gameMode, gameParams)
 }
 
-let function leaveQueue(cb = null) {
+function leaveQueue(cb = null) {
   queueStatus(STATUS.NOT_IN_QUEUE)
   netStateCall(function() {
     matchingCall("enlmm.leave_quick_match_queue", function(_) { cb?() })
@@ -191,21 +193,21 @@ let function leaveQueue(cb = null) {
 foreach (name, cb in {
   ["enlmm.on_quick_match_queue_leaved"] = function(request) {
     print("onQuickMatchQueueLeaved")
-    log(request)
+    logQM("enlmm.on_quick_match_queue_leaved", request)
     queueStatus(STATUS.NOT_IN_QUEUE)
   },
 
   ["enlmm.on_quick_match_queue_joined"] = function(request) {
     print("onQuickMatchQueueJoined")
-    log(request)
+    logQM("enlmm.on_quick_match_queue_joined", request)
     queueStatus(STATUS.IN_QUEUE)
   },
 }){
-  matching_api.listen_notify(name)
-  eventbus.subscribe(name,cb)
+  matching_listen_notify(name)
+  eventbus_subscribe(name,cb)
 }
 
-eventbus.subscribe("matching.logged_out", @(...) queueStatus(STATUS.NOT_IN_QUEUE))
+eventbus_subscribe("matching.logged_out", @(...) queueStatus(STATUS.NOT_IN_QUEUE))
 
 // leave queue if player leaves or enters squad
 isInSquad.subscribe(function(_) {
@@ -217,7 +219,7 @@ let squadMembersGeneration = Watched(0)
 local prevSquadMembers = {}
 let changeGen = @() squadMembersGeneration(squadMembersGeneration.value+1)
 
-let function onSquadMembersChange(v) {
+function onSquadMembersChange(v) {
   local changedGen = false
   foreach (uid, member in v) {
     if (uid in prevSquadMembers)

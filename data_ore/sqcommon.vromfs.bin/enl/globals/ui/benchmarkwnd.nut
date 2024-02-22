@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { globalWatched } = require("%dngscripts/globalState.nut")
 let { set_setting_by_blk_path, save_settings, get_setting_by_blk_path } = require("settings")
@@ -48,7 +48,7 @@ let gpuBenchmarkPresets = [
   }
 ]
 
-let function onTimer(){
+function onTimer(){
   timeRem((timeEnd - get_time_msec()) / 1000)
   if (timeRem.value <= 0){
     gui_scene.clearTimer(onTimer)
@@ -57,7 +57,7 @@ let function onTimer(){
   }
 }
 
-let function closeWindow(){
+function closeWindow(){
   if (timeRem.value > 0){
     gui_scene.clearTimer(onTimer)
     closeGraphicsAutodetect()
@@ -65,12 +65,12 @@ let function closeWindow(){
   removeModalWindow(WND_UID)
 }
 
-let function applyQuality(quality){
+function applyQuality(quality){
   graphicsPresetUpdate(quality)
   closeWindow()
 }
 
-let function mkBMResult(){
+function mkBMResult(){
   let res = gpuBenchmarkPresets.map(function(pres) {
     let quality = pres.getPresetFunc()
     let description = $"benchmark/{pres.presetId}/desc"
@@ -123,7 +123,7 @@ let function mkBMResult(){
   }
 }
 
-let function runBenchmark(){
+function runBenchmark(){
   initGraphicsAutodetect()
   // duration + 1 second, otherwise results are not ready by the timer end:
   timeEnd = get_time_msec() + (getGpuBenchmarkDuration().tointeger() + 1)*1000
@@ -177,7 +177,7 @@ let benchmarkWnd = {
   ]
 }
 
-let function gpuBenchmarkWnd(){
+function gpuBenchmarkWnd(){
   set_setting_by_blk_path(BENCHMARK_FLAG_BLK, true)
   save_settings()
   runState(BMState.WAIT)
@@ -195,7 +195,7 @@ let function gpuBenchmarkWnd(){
 let runBenchmarkBtn = textButton(loc("benchmark/runBenchmark"), gpuBenchmarkWnd,
   { skipDirPadNav = true })
 
-let function resetBenchmark(){
+function resetBenchmark(){
   set_setting_by_blk_path(BENCHMARK_FLAG_BLK, false)
   save_settings()
 }

@@ -1,10 +1,10 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { tablesCombine } = require("%sqstd/underscore.nut")
 let { squadsCfgById } = require("config/squadsConfig.nut")
 let armyEffects = require("armyEffects.nut")
 
-let function calcSquadParams(effects, squadId, squad) {
+function calcSquadParams(effects, squadId, squad) {
   let size = squad.size + (effects?.squad_size[squadId] ?? 0)
   return {
     size = size

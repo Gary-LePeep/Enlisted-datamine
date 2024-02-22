@@ -1,9 +1,9 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let {isProductionCircuit, circuit, version, build_number} = require("%dngscripts/appInfo.nut")
 
-let function version_info(){
+function version_info(){
   let buildNum = build_number.value ?? ""
   let versionNum = version.value ?? ""
   local versionInfo = $"version: {versionNum}"

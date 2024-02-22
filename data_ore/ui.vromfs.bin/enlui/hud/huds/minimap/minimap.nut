@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 import "%dngscripts/ecs.nut" as ecs
 from "minimap" import MinimapState
 
@@ -94,7 +94,7 @@ let commonLayerParams = {
   showHero = false
 }
 
-let function mkMinimapLayer(ctorWatch, params) {
+function mkMinimapLayer(ctorWatch, params) {
   return @() {
     watch = ctorWatch.watch
     size = flex()
@@ -108,7 +108,7 @@ let function mkMinimapLayer(ctorWatch, params) {
   }
 }
 
-let function makeMinimap() {
+function makeMinimap() {
   return {
     size = mapSize
     halign = ALIGN_CENTER

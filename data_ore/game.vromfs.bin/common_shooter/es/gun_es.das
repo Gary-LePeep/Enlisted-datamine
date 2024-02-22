@@ -67,8 +67,8 @@ def private gun_launch(var gun : Gun&;
 
   var launchTm = state.shootTm
   if correction_time > 1e-6f // handle case of shooting between phys frames
-    let prevQuat = quat(prevState.shootTm)
-    let curQuat = quat(state.shootTm)
+    let prevQuat = DagorMath::quat(prevState.shootTm)
+    let curQuat = DagorMath::quat(state.shootTm)
     assert(input.atTime > state.atTime);
     let alpha = correction_time / (input.atTime - state.atTime)
     make_tm(normalize(slerp(prevQuat, curQuat, alpha)), launchTm)

@@ -9,7 +9,7 @@ let {fill_walkable_positions_around} = require("navmesh")
 
 let botWaveTimerId = "botWaveTimerId"
 
-let function onWaveTimer(_evt, eid, comp) {
+function onWaveTimer(_evt, eid, comp) {
   let teamToSpawnFor = comp["team"]
   let respBaseTeam = ecs.obsolete_dbg_get_comp_val(eid, "bot_spawner__respTeam", teamToSpawnFor)
 
@@ -54,7 +54,7 @@ let function onWaveTimer(_evt, eid, comp) {
     })
 }
 
-let function onInit(eid, _comp){
+function onInit(eid, _comp){
   ecs.clear_timer({eid=eid, id=botWaveTimerId})
   ecs.set_timer({eid=eid, id=botWaveTimerId, interval=0.5, repeat=false})
 }

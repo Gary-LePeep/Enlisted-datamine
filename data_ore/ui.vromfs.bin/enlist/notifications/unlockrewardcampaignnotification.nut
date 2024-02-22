@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { MsgMarkedText }  = require("%ui/style/colors.nut")
 let itemMapping = require("%enlist/items/itemsMapping.nut")
@@ -22,7 +22,7 @@ unlockRewardsInProgress.subscribe(function(v) {
   }
 })
 
-let function getRewardCampaigns(id, lastRewardedStage) {
+function getRewardCampaigns(id, lastRewardedStage) {
   let { rewards = {} } = activeUnlocks.value?[id].stages[lastRewardedStage - 1]
   let res = {}
   foreach (key, _ in rewards) {
@@ -34,7 +34,7 @@ let function getRewardCampaigns(id, lastRewardedStage) {
   return res
 }
 
-let function showUnlockRewardMsgBox(id, lastRewardedStage) {
+function showUnlockRewardMsgBox(id, lastRewardedStage) {
   let campaigns = getRewardCampaigns(id, lastRewardedStage)
   if (campaigns.len() == 0 || curCampaign.value in campaigns)
     return
@@ -68,5 +68,5 @@ unlockProgress.subscribe(function(v) {
   }
 
   if (idsToRemove.len() > 0)
-    waitForUnlockReward.mutate(@(wr) idsToRemove.each(@(id) delete wr[id]))
+    waitForUnlockReward.mutate(@(wr) idsToRemove.each(@(id) wr.$rawdelete(id)))
 })

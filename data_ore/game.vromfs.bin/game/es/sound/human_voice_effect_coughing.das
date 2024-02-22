@@ -16,7 +16,7 @@ def human_voice_effect_coughing_on_hit(evt : EventOnEntityHit; eid : EntityId;
     set_human_voice_effect("cough", true, human_voice_effect__activeEffects)
 
 
-[es(tag=sound, before=human_breath_sound_update)]
+[es(tag=sound, after=sound_begin_update_es, before=(human_breath_sound_update, sound_end_update_es))]
 def human_voice_effect_coughing_update(info : ParallelUpdateFrameDelayed;
                                        var human_voice_effect__endCoughingAt : float&;
                                        var human_voice_effect__activeEffects : Object&)

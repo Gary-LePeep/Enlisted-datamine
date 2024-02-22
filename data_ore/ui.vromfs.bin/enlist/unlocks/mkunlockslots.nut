@@ -1,10 +1,10 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { smallPadding, titleTxtColor, defTxtColor, defItemBlur, transpPanelBgColor, darkTxtColor,
-  hoverSlotBgColor, midPadding
+  hoverSlotBgColor, midPadding, bigPadding, panelBgColor
 } = require("%enlSqGlob/ui/designConst.nut")
-let { taskDescription, taskHeader, taskDescPadding, taskMinHeight,
+let { taskDescription, taskHeader, taskMinHeight,
   taskSlotPadding, mkTaskEmblem, completedUnlockIcon,
   getTaskEmblemImg, mkEmblemImgReward, mkTaskTextArea
 } = require("%enlSqGlob/ui/tasksPkg.nut")
@@ -19,7 +19,6 @@ let { sound_play } = require("%dngscripts/sound_system.nut")
 let { receiveTaskRewards } = require("taskListState.nut")
 let { getDescription } = require("%enlSqGlob/ui/unlocksText.nut")
 
-let btnOffset = hdpx(22)
 let starSizeReward = hdpxi(17)
 let minHeight = hdpx(65)
 let mkHideTrigger = @(task) $"hide_task_{task.name}"
@@ -46,10 +45,27 @@ let mkTaskContent = @(unlockDesc, canTakeReward, hasWaitIcon, canReroll, sf = 0)
     }
   }
 
-let function mkRewardBlock(rewardData, isFinished = false) {
+
+let rewardBlinkStar = {
+  size = [rewardIconWidth, rewardIconWidth]
+  halign = ALIGN_CENTER
+  valign = ALIGN_CENTER
+  children = {
+    rendObj = ROBJ_IMAGE
+    size = [4 * rewardIconWidth, 2 * rewardIconWidth]
+    image = Picture("ui/gameImage/searchlight_earth_flare.avif")
+  }
+  animations = [
+    { prop = AnimProp.opacity, from = 0.1, to = 1, duration = 1.5, play = true, loop = true, easing = Blink }
+  ]
+}
+
+function mkRewardBlock(rewardData, isFinished = false, hasReward = false) {
   let { reward = null, count = 1 } = rewardData
   return {
+    halign = ALIGN_RIGHT
     children = [
+      hasReward ? rewardBlinkStar : null
       mkRewardIcon(reward, rewardIconWidth, isFinished ? { opacity = 0.5 } : {})
       count == 1 ? null
         : {
@@ -59,7 +75,7 @@ let function mkRewardBlock(rewardData, isFinished = false) {
             hplace = ALIGN_RIGHT
             vplace = ALIGN_BOTTOM
             fontFx = FFT_GLOW
-            fontFxColor = 0xCC000000
+            fontFxColor = 0xFF000000
             fontFxFactor = hdpx(32)
             color = titleTxtColor
           }.__update(fontSub)
@@ -68,7 +84,7 @@ let function mkRewardBlock(rewardData, isFinished = false) {
 }
 
 
-let function mkAllRewardsIcons(stageData, itemsMappingVal, isFinished) {
+function mkAllRewardsIcons(stageData, itemsMappingVal, isFinished) {
   let rewardsByIcon = {}
   foreach (rewardData in prepareRewards(stageData, itemsMappingVal)) {
     let key = rewardData.reward?.icon ?? "noIcon"
@@ -83,15 +99,18 @@ let function mkAllRewardsIcons(stageData, itemsMappingVal, isFinished) {
 }
 
 
-let function mkTaskRewards(unlockDesc, itemsMappingVal, isAllRewardsVisible = false, rewardsAnim = null) {
+function mkTaskRewards(
+  unlockDesc, itemsMappingVal, isAllRewardsVisible = false, rewardsAnim = null, hasBlink = false
+) {
   local children
   let { personalData = {} } = unlockDesc
   let { rewards = null, boosterRewards = null } = personalData
   let { items = {} } = boosterRewards
   if (rewards != null)
-    children = rewards.map(@(reward) mkRewardBlock(getOneReward(reward?.items ?? {}, itemsMappingVal)))
+    children = rewards.map(@(reward)
+      mkRewardBlock(getOneReward(reward?.items ?? {}, itemsMappingVal), false, hasBlink))
   else if (items.len() > 0)
-    children = mkRewardBlock(getOneReward(items, itemsMappingVal))
+    children = mkRewardBlock(getOneReward(items, itemsMappingVal), false, hasBlink)
   else {
     let {
       stage, lastRewardedStage, isFinished, hasReward, stages = []
@@ -103,7 +122,7 @@ let function mkTaskRewards(unlockDesc, itemsMappingVal, isAllRewardsVisible = fa
     if (stageData != null)
       children = isAllRewardsVisible
         ? mkAllRewardsIcons(stageData, itemsMappingVal, isFinished)
-        : mkRewardBlock(getOneReward(stageData, itemsMappingVal), isFinished)
+        : mkRewardBlock(getOneReward(stageData, itemsMappingVal), isFinished, hasBlink)
   }
   return children == null ? null : {
     size = SIZE_TO_CONTENT
@@ -118,7 +137,7 @@ let function mkTaskRewards(unlockDesc, itemsMappingVal, isAllRewardsVisible = fa
 
 
 let animatedTasks = {}
-let function needShowAnim(task) {
+function needShowAnim(task) {
   if (task.name in animatedTasks)
     return false
 
@@ -138,14 +157,13 @@ let mkUnlockSlot = kwarg(@(
     rendObj = ROBJ_WORLD_BLUR
     watch = itemsMapping
     size = [flex(), SIZE_TO_CONTENT]
-    fillColor = sf & S_HOVER ? hoverSlotBgColor : transpPanelBgColor
+    fillColor = sf & S_HOVER ? hoverSlotBgColor : panelBgColor
     color = defItemBlur
     minHeight = taskMinHeight
     behavior = onClick == null ? null : Behaviors.Button
     sound = soundDefault
     onClick
     onHover
-    margin = bottomBtn != null ? [0,0, btnOffset,0] : 0
     transform = {}
     animations = (hasShowAnim && needShowAnim(task) // -unwanted-modification
       ? [{ prop = AnimProp.translate, from = [hdpx(248), 0], to = [0,0],
@@ -174,13 +192,14 @@ let mkUnlockSlot = kwarg(@(
           }
           hasDescription
             ? taskDescription(task.localization.description, sf, {
-                margin = taskDescPadding
+                margin = bigPadding
+                size = [pw(95), SIZE_TO_CONTENT]
               })
             : null
           customDescription
           bottomBtn != null
             ? {
-                margin = [0, btnOffset]
+                margin = bigPadding
                 hplace = ALIGN_RIGHT
                 children = bottomBtn
               }
@@ -204,7 +223,6 @@ let mkTaskContentReward = @(unlockDesc, sf = 0)
     return {
       watch = [unlockProgress, seasonIndex, itemsMapping]
       size = [flex(), SIZE_TO_CONTENT]
-      clipChildren = true
       minHeight
       flow = FLOW_VERTICAL
       gap = smallPadding
@@ -236,7 +254,7 @@ let mkTaskContentReward = @(unlockDesc, sf = 0)
                 mkTaskTextArea(getDescription(unlockDesc, progress, unlockDesc?.locParams ?? {}), sf, {size = [pw(100), SIZE_TO_CONTENT]})
               ]
             }
-            mkTaskRewards(unlockDesc, itemsMapping.value)
+            mkTaskRewards(unlockDesc, itemsMapping.value, false, null, true)
           ]
         }
         {
@@ -251,7 +269,7 @@ let mkTaskContentReward = @(unlockDesc, sf = 0)
   }
 
 
-let mkUnlockSlotReward = @(task)
+let mkUnlockSlotReward = @(task, onClick = null)
   watchElemState(@(sf) {
     key = task.name
     rendObj = ROBJ_SOLID
@@ -261,7 +279,7 @@ let mkUnlockSlotReward = @(task)
     flow = FLOW_HORIZONTAL
     behavior = Behaviors.Button
     sound = soundDefault
-    onClick = function() {
+    onClick = onClick ?? function() {
       sound_play("ui/reward_receive")
       receiveTaskRewards(task)
     }

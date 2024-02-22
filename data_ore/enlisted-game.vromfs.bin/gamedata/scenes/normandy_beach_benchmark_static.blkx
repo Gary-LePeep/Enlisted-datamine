@@ -400,16 +400,16 @@
     "entity": {
       "_template": "team_usa+team_narrator_domination+respawn_creators_team",
       "team__id": 1,
-      "team__score": 2500.0,
-      "team__scoreCap": 2500.0,
-      "score_bleed__domBleed": 4.0,
+      "team__score": 2800.0,
+      "team__scoreCap": 2800.0,
+      "score_bleed__domBleed": 0.0,
       "score_bleed__domBleedOn": false,
-      "score_bleed__totalDomZoneCount": 3,
+      "score_bleed__totalDomZoneCount": 5,
       "score_bleed__totalDomBleedMul": 2.0,
       "score_bleed__totalDomBleedOn": false,
       "team__briefing": "domination/common_goals",
       "team__numZonesCaptured": 0,
-      "team__deathPenalty": 2.0,
+      "team__deathPenalty": 0.0,
       "team__spawnBotArmy": "normandy_allies"
     }
   },
@@ -417,16 +417,16 @@
     "entity": {
       "_template": "team_germany+team_narrator_domination+respawn_creators_team",
       "team__id": 2,
-      "team__score": 2500.0,
-      "team__scoreCap": 2500.0,
-      "score_bleed__domBleed": 4.0,
+      "team__score": 2800.0,
+      "team__scoreCap": 2800.0,
+      "score_bleed__domBleed": 0.0,
       "score_bleed__domBleedOn": false,
-      "score_bleed__totalDomZoneCount": 3,
+      "score_bleed__totalDomZoneCount": 5,
       "score_bleed__totalDomBleedMul": 2.0,
       "score_bleed__totalDomBleedOn": false,
       "team__briefing": "domination/common_goals",
       "team__numZonesCaptured": 0,
-      "team__deathPenalty": 2.0,
+      "team__deathPenalty": 0.0,
       "team__spawnBotArmy": "normandy_axis"
     }
   },
@@ -437,13 +437,12 @@
         [2.39954,0.0,0.995925],
         [0.0,1.0,0.0],
         [-0.534627,0.0,1.28811],
-        [-30.6206,69.2551,-301.696]
+        [-30.6206,68.7,-301.696]
       ],
-      "capzone__title": "B",
-      "capzone__caption": "capzone/normandy_cathedral",
+      "capzone__title": "A",
       "decal__thickness": 0.15,
       "decal__height": 0.4,
-      "ui_order": 2
+      "active": true
     }
   },
   {
@@ -594,39 +593,6 @@
       "maxVehicleOnSpawn": 2,
       "respTime": 120,
       "respawnBaseGroup": 1
-    }
-  },
-  {
-    "entity": {
-      "_template": "pzkpfw_v_ausf_g_panther_a_destroyed+still_obstacle",
-      "transform": [
-        [-0.901004,0.0593352,0.429733],
-        [0.0797182,0.996379,0.0295674],
-        [-0.426422,0.0608979,-0.902472],
-        [-94.5022,68.1805,-375.921]
-      ]
-    }
-  },
-  {
-    "entity": {
-      "_template": "m4a2_sherman_1944_destroyed+still_obstacle",
-      "transform": [
-        [0.699825,-0.0971499,0.707677],
-        [0.115854,0.993028,0.0217543],
-        [-0.704857,0.0667631,0.706201],
-        [-115.576,69.7759,-367.001]
-      ]
-    }
-  },
-  {
-    "entity": {
-      "_template": "m4a2_sherman_1944_destroyed+still_obstacle",
-      "transform": [
-        [0.874055,0.0610543,-0.481975],
-        [-0.0272926,0.996676,0.0767594],
-        [0.48506,-0.0539376,0.872816],
-        [-136.963,67.4934,-265.563]
-      ]
     }
   },
   {

@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { remap_others } = require("%enlSqGlob/remap_nick.nut")
 let invalidNickName = "????????"
@@ -8,7 +8,7 @@ let contacts = nestWatched("contacts", {})
 
 //better to replace lots of observables with one observable - contactData + function to getOnline
 
-let function updateContact(userIdStr, name=invalidNickName) {
+function updateContact(userIdStr, name=invalidNickName) {
   let uidStr = userIdStr.tostring()
   if (uidStr not in contacts.value) {
     let contact = { userId = uidStr, uid = userIdStr.tointeger(), realnick = name }
@@ -27,7 +27,7 @@ let isValidContactNick = @(c) c.realnick != invalidNickName
 let requestedUids = {}
 
 //contacts - array or table of contacts
-let function validateNickNames(contactsContainer, finish_cb = null) {
+function validateNickNames(contactsContainer, finish_cb = null) {
   let requestContacts = []
   foreach (c in contactsContainer) {
     if (!isValidContactNick(c) && !(c.uid in requestedUids)) {
@@ -49,7 +49,7 @@ let function validateNickNames(contactsContainer, finish_cb = null) {
         if (name)
           updateContact(userId, name)
         if (uid in requestedUids)
-          delete requestedUids[uid]
+          requestedUids.$rawdelete(uid)
       }
       if (finish_cb)
         finish_cb()
@@ -57,7 +57,7 @@ let function validateNickNames(contactsContainer, finish_cb = null) {
 }
 
 let nickContactsCache = persist("nickContactsCache", @() {})
-let function getContactNick(contact) {
+function getContactNick(contact) {
   let uid = contact.uid ?? contact?.uid
   let nick = contact.realnick ?? contact?.realnick ?? invalidNickName
 

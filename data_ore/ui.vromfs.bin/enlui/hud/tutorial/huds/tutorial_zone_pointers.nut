@@ -1,6 +1,6 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
-let { safeAreaHorPadding, safeAreaVerPadding } = require("%enlSqGlob/safeArea.nut")
+let { safeAreaHorPadding, safeAreaVerPadding } = require("%enlSqGlob/ui/safeArea.nut")
 let { tutorialZones } = require("%ui/hud/tutorial/state/tutorial_zones_state.nut")
 
 let icons = {
@@ -47,7 +47,7 @@ let mkArrow = @(eid, comp) {
   ]
 }
 
-let function tutorialZonePointers() {
+function tutorialZonePointers() {
   let children = tutorialZones.value.reduce(@(res, comp, eid) res.append(mkArrow(eid, comp)), [])
   return {
     watch = [tutorialZones, safeAreaHorPadding, safeAreaVerPadding]

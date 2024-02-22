@@ -1,15 +1,16 @@
-require daBfg
+options persistent_heap
+
 require DagorShaders
-require DagorSystem
 require danetlibs/renderer/includes/upscale_sampling
 require ecs
+require daBfg.bfg_ecs
 
 let upscale_tex_gen_node_name = "upscale_tex_gen_node"
 let upscale_tex_gen_node_entity = "upscale_node"
 
 [bfg_ecs_node(name="upscale_tex_gen_node", entity="upscale_node", handle="node_handle")]
 def register_upscale_tex_gen_node(var handle : NodeHandle& |#)
-  handle <- registerNode(upscale_tex_gen_node_name) <| @(var registry : Registry)
+  handle <- root() |> registerNode(upscale_tex_gen_node_name) <| @(var registry : Registry)
     registry |> orderMeAfter("prepare_lights_node")
     registry |> orderMeBefore("combine_shadows_node")
     registry |> read("gbuf_depth") |> texture |> atStage(Stage POST_RASTER) |> bindToShaderVar("depth_gbuf")
@@ -17,7 +18,7 @@ def register_upscale_tex_gen_node(var handle : NodeHandle& |#)
 
     let upscaleInfo = [[Texture2dCreateInfo
       creationFlags = TEXCF_RTARGET | TEXFMT_R8,
-      resolution = [[TextureResolution autoRes=[[AutoResolution name="main_view", multiplier=1.0]]]],
+      resolution = [[TextureResolution autoRes=registry |> getResolution("main_view")]],
       mipLevels = 1u
     ]]
     let upscaleTexReq = registry |> create("upscale_sampling_tex", History No) |> texture(upscaleInfo) |> bindToShaderVar
@@ -57,4 +58,4 @@ def init_upscale_node(evt : Event; render_settings__upscaleSamplingTex : bool; r
   else
     destroyEntity(getSingletonEntity(upscale_tex_gen_node_entity))
     if render_settings__fullDeferred && !render_settings__bare_minimum
-      logerr("upscale_node is mandatory for all presets except bare minimum, nswitch, mobile")
+      logerr("upscale_node is mandatory for all presets except bareMinimum, nswitch, mobile")

@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { Point3 } = require("dagor.math")
 let {
@@ -90,7 +90,7 @@ let cmdBringAmmo = addTextCtor({
 })
 
 
-let function artillery_action() {
+function artillery_action() {
   ecs.g_entity_mgr.sendEvent(get_controlled_hero(), RequestOpenArtilleryMap())
 }
 
@@ -107,7 +107,7 @@ let cantRequestArtilleryText = Computed(function(){
     : null)
  })
 
-let function showDisabledArtilleryHint() {
+function showDisabledArtilleryHint() {
   if (!artilleryIsAvailable.value || isDowned.value)
     showMsg(loc("msg/artilleryUnavailable"))
   else if (artilleryAvailableTimeLeft.value > 0)

@@ -1,10 +1,10 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let spinnerList = require("spinnerList.nut")
 
 let locOn = loc($"option/on")
 let locOff = loc($"option/off")
-let function optionCheckbox(opt, group, xmbNode) {
+function optionCheckbox(opt, group, xmbNode) {
   let available = Watched([false, true])
   let stateFlags = Watched(0)
   return @(){

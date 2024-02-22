@@ -1,7 +1,6 @@
-from "%enlSqGlob/ui_library.nut" import *
-
 let userInfo = require("%enlSqGlob/userInfo.nut")
 let lowLevelClient = require("char")
+let console_register_command = require("console").register_command
 let { INVALID_USER_ID } = require("matching.errors")
 //if (lowLevelClient == null)
 //  return null
@@ -9,7 +8,7 @@ let { INVALID_USER_ID } = require("matching.errors")
 let {get_app_id} = require("app")
 let logC = require("%enlSqGlob/library_logs.nut").with_prefix("[CHAR CLIENT] ")
 
-local function char_request(action, data, callback, auth_token = null) {
+function char_request(action, data, callback, auth_token = null) {
   if (userInfo.value == null && auth_token == null) {
     logC("User is logout skip char_request")
     return
@@ -44,7 +43,7 @@ local function char_request(action, data, callback, auth_token = null) {
   })
 }
 
-let function char_host_request(action, userid, data, callback) {
+function char_host_request(action, userid, data, callback) {
   let request = {
     headers = {userid },
     action = action
@@ -57,7 +56,7 @@ let function char_host_request(action, userid, data, callback) {
   lowLevelClient.request(request, callback)
 }
 
-let function perform_contact_action(action, request, params) {
+function perform_contact_action(action, request, params) {
   let onSuccessCb = params?.success
   local onFailureCb = params?.failure
 
@@ -84,11 +83,11 @@ let function perform_contact_action(action, request, params) {
   })
 }
 
-let function perform_single_contact_action(request, params) {
+function perform_single_contact_action(request, params) {
   perform_contact_action("cln_change_single_contact_json", request, params)
 }
 
-let function contacts_add(id, params = {}) {
+function contacts_add(id, params = {}) {
   let request = {
     friend = {
       add = [id]
@@ -99,7 +98,7 @@ let function contacts_add(id, params = {}) {
 }
 
 
-let function contacts_remove(id, params = {}) {
+function contacts_remove(id, params = {}) {
   let request = {
     friend = {
       remove = [id]
@@ -108,7 +107,7 @@ let function contacts_remove(id, params = {}) {
   perform_single_contact_action(request, params)
 }
 
-let function perform_contacts_for_requestor(action, apprUid, group, params = {}, requestAddon = {}) {
+function perform_contacts_for_requestor(action, apprUid, group, params = {}, requestAddon = {}) {
   if (apprUid == INVALID_USER_ID) {
     logC($"try perform action {action} for invalid contact, group {group}")
     return
@@ -121,7 +120,7 @@ let function perform_contacts_for_requestor(action, apprUid, group, params = {},
   perform_contact_action(action, request.__merge(requestAddon), params)
 }
 
-let function perform_contacts_for_approver(action, requestorUid, group, params = {}, requestAddon = {}) {
+function perform_contacts_for_approver(action, requestorUid, group, params = {}, requestAddon = {}) {
   if (requestorUid == INVALID_USER_ID) {
     logC($"try perform action {action} for invalid contact, group {group}")
     return
@@ -176,13 +175,13 @@ let charClient = {
 }
 
 // console commands
-let function contacts_get() {
+function contacts_get() {
   char_request("cln_get_contact_lists_ext", null, function(result) {
     logC("cln_get_contact_lists_ext", result)
   })
 }
 
-let function leaderboard_get() {
+function leaderboard_get() {
   let request = {
     category = "relativePlayerPlace",
     valueType = "value_total",
@@ -196,7 +195,7 @@ let function leaderboard_get() {
   })
 }
 
-let function leaderboard_host_push() {
+function leaderboard_host_push() {
   let request = {
     nick = "__",
     data = {
@@ -224,7 +223,7 @@ let function leaderboard_host_push() {
 }
 
 
-let function contacts_search(nick) {
+function contacts_search(nick) {
   let request = {
     nick = nick
     max_count = 10

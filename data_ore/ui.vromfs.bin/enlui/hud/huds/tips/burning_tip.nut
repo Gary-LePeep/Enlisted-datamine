@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {isBurning} = require("%ui/hud/state/burning_state_es.nut")
 let {tipCmp} = require("tipComponent.nut")

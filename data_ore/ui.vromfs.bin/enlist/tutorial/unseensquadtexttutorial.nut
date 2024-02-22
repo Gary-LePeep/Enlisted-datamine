@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { settings, onlineSettingUpdated } = require("%enlist/options/onlineSettings.nut")
 let { tutorials } = require("%enlist/tutorial/squadTextTutorialPresentation.nut")
@@ -21,7 +21,7 @@ let unseenSquadTutorials = Computed(function() {
 })
 
 
-let function markSeenSquadTutorial(guid) {
+function markSeenSquadTutorial(guid) {
   if (!(squadTutorialSeen.value?[guid] ?? false))
     settings.mutate(function(set) {
       set[TUTORIALS_SQUAD_SEEN] <- (set?[TUTORIALS_SQUAD_SEEN] ?? {}).__merge({ [guid] = true })
@@ -31,7 +31,7 @@ let function markSeenSquadTutorial(guid) {
 console_register_command(function() {
   settings.mutate(function(s) {
     if (TUTORIALS_SQUAD_SEEN in s)
-      delete s[TUTORIALS_SQUAD_SEEN]
+      s.$rawdelete(TUTORIALS_SQUAD_SEEN)
   })
 }, "meta.resetSeenSquadTutorials")
 

@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {isExtinguishing, isRepairing, maintenanceTime, maintenanceTotalTime} = require("%ui/hud/state/vehicle_maintenance_state.nut")
 let {mkCountdownTimer} = require("%ui/helpers/timers.nut")

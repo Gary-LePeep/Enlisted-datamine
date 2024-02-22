@@ -1,11 +1,10 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontSub, fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let textButton = require("%ui/components/textButton.nut")
 let { soundActive } = textButton
-let { blurBgColor, blurBgFillColor, selectedTxtColor,
-    squadSlotHorSize, airSelectedBgColor, fadedTxtColor, opaqueBgColor,
-  hoverBgColor, smallOffset, defBgColor
+let { blurBgColor, blurBgFillColor, selectedTxtColor, squadSlotHorSize, airSelectedBgColor,
+  fadedTxtColor, opaqueBgColor, hoverBgColor, smallOffset, defBgColor
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { bigPadding, smallPadding, defTxtColor, titleTxtColor, commonBtnHeight,
   attentionTxtColor, negativeTxtColor
@@ -63,6 +62,8 @@ let JB = require("%ui/control/gui_buttons.nut")
 let { squadsFilterUi, getFilterSquads,
   getCountSquadTypes, updateSquadTypes } = require("%enlist/soldiers/components/squadsFilter.nut")
 let { jumpToArmyGrowth } = require("%enlist/mainMenu/sectionsState.nut")
+let { squadTypeIcon } = require("%enlSqGlob/ui/squadsUiComps.nut")
+let { allSquadTypes } = require("%enlist/soldiers/model/config/squadsConfig.nut")
 let { isChangesBlocked, showBlockedChangesMessage } = require("%enlist/quickMatchQueue.nut")
 let { getCurrencyPresentation } = require("%enlist/shop/currencyPresentation.nut")
 let { massUnequipArmyReserve }= require("model/selectItemState.nut")
@@ -72,7 +73,8 @@ let { loadBRForAllSquads } = require("%enlist/soldiers/armySquadTier.nut")
 let SILVER_ID = "enlisted_silver"
 
 let filter = Watched({})
-let commonBtnWidth = hdpx(250)
+let commonBtnWidth = hdpxi(250)
+let squadTypeIconSize = hdpxi(24)
 
 let playSoundItemPlace = @() sound_play("ui/inventory_item_place")
 let unseenIcon = blinkUnseenIcon()
@@ -83,7 +85,7 @@ let priceIconSilver = mkCurrencyImage(getCurrencyPresentation(SILVER_ID)?.icon, 
 
 let sentStatsdData = persist("sentStatsdData", @() {})
 
-let function sendData(key) {
+function sendData(key) {
   let keyToCheck = isGamepad.value
     ? $"squad_management_gamepad_{key}"
     : $"squad_management_{key}"
@@ -102,7 +104,7 @@ let secondSlotToAnim = Watched(null)
 let needMoveCursor = Watched(false)
 let hoveredSquad = Watched(null)
 
-let function moveSquad(direction) {
+function moveSquad(direction) {
   let squadId = selectedSquadId.value
   if (squadId == null)
     return
@@ -184,7 +186,8 @@ let buttonMassUnequip = textButton.Flat(loc("removeAllEquipment/reserve"),
   }),
   {
     margin = 0
-    size = [commonBtnWidth, commonBtnHeight]
+    minWidth = commonBtnWidth
+    size = [SIZE_TO_CONTENT, commonBtnHeight]
     hplace = ALIGN_RIGHT
   })
 
@@ -250,7 +253,7 @@ let faBtnParams = {
   borderRadius = 0
 }
 
-let function manageBlock() {
+function manageBlock() {
   let { canUp, canDown, canTake, canRemove } = moveParams.value
   return {
     watch = [moveParams, isChangesBlocked]
@@ -402,7 +405,7 @@ let mkBuySquadSlot = @(num) function() {
   })
 }
 
-let function onDropCbForHorSlot(idxFrom, idxTo) {
+function onDropCbForHorSlot(idxFrom, idxTo) {
   if (isChangesBlocked.value) {
     showBlockedChangesMessage()
     return
@@ -420,12 +423,12 @@ let function onDropCbForHorSlot(idxFrom, idxTo) {
   playSoundItemPlace()
 }
 
-let function squadHorSlot(squad, idx, fixedSlotsCount, maxSquadsLen = 0) {
+function squadHorSlot(squad, idx, fixedSlotsCount, maxSquadsLen = 0) {
   let group = ElemGroup()
   let stateFlags = Watched(0)
   let sellCost = Computed(@() sellableSquads.value?[squad?.squadId] ?? 0)
 
-  let function onInfoCb(squadId) {
+  function onInfoCb(squadId) {
     let armyId = squadsArmy.value
     if (isSquadRented(squad))
       buyRentedSquad({ armyId, squadId })
@@ -442,7 +445,7 @@ let function squadHorSlot(squad, idx, fixedSlotsCount, maxSquadsLen = 0) {
   let onClick = @() selectedSquadId(squad.squadId)
   let isSelected = Computed(@() selectedSquadId.value == squad.squadId)
 
-  let function onHover(on, squadId) {
+  function onHover(on, squadId) {
     hoveredSquad(on ? squad.squadId : null)
 
     hoverHoldAction("unseenSquad", squad.squadId,
@@ -509,6 +512,7 @@ let function squadHorSlot(squad, idx, fixedSlotsCount, maxSquadsLen = 0) {
                 text = loc("squad/sellBtn")
                 action = @() sellSquad(squadsArmy.value, squad.guid, sellCostVal)
                 isCurrent = true
+                customStyle = { enabledDelay = 5 }
               }
             ]
           })
@@ -546,7 +550,7 @@ let function squadHorSlot(squad, idx, fixedSlotsCount, maxSquadsLen = 0) {
   }
 }
 
-let function onDropCbForEmptySlot(idxFrom, idxTo) {
+function onDropCbForEmptySlot(idxFrom, idxTo) {
   if (isChangesBlocked.value) {
     showBlockedChangesMessage()
     return
@@ -686,49 +690,91 @@ let panelBg = {
   fillColor = blurBgFillColor
 }
 
-let function leftHeader() {
-  local infantryCur = 0
-  local bikeCur = 0
-  local vehicleCur = 0
-  local transportCur = 0
-  displaySquads.value.each(function(squad) {
-    if (squad == null)
-      return
-
-    let { vehicleType = "" } = squad
-    if (vehicleType == "bike")
-      ++bikeCur
-    else if (vehicleType == "truck")
-      ++transportCur
-    else if (vehicleType != "")
-      ++vehicleCur
-    else
-      ++infantryCur
-  })
-  let curSquads = infantryCur + bikeCur + vehicleCur
-  let infantryStr = loc("squads/maxInfantry",
-    { infantryCur, infantryMax =  squadsArmyLimits.value.maxInfantrySquads })
-  let bikeStr = loc("squads/maxBike",
-    { bikeCur, bikeMax =  squadsArmyLimits.value.maxBikeSquads })
-  let transportStr = loc("squads/maxTransport",
-    { transportCur, transportMax = squadsArmyLimits.value.maxTransportSquads })
-  let vehicleStr = loc("squads/maxVehicle",
-    { vehicleCur, vehicleMax = squadsArmyLimits.value.maxVehicleSquads })
-  return {
-    watch = [squadsArmyLimits, displaySquads]
-    size = [flex(), SIZE_TO_CONTENT]
-    children = [
-    txt(loc("squads/maxSquads", { curSquads, maxSquads = maxSquadsInBattle.value }))
-    {
-      rendObj = ROBJ_TEXT
-      color = defTxtColor
-      hplace = ALIGN_RIGHT
-      text = " | ".join([infantryStr, bikeStr, transportStr, vehicleStr])
-    }
+let mkSquadTypeInfo = @(squadType, current, total) {
+  valign = ALIGN_CENTER
+  flow = FLOW_HORIZONTAL
+  gap = smallPadding
+  children = [
+    squadTypeIcon(squadType, squadTypeIconSize, { color = defTxtColor })
+    txt($"{current}/{total}")
   ]
-}}
+}
 
-let function leftPanel() {
+function mkLeftHeader() {
+  let squadGroups = Computed(function() {
+    let squadTypesCur = {}
+    local infantryCur = 0
+    local bikeCur = 0
+    local vehicleCur = 0
+    local transportCur = 0
+    foreach (squad in displaySquads.value) {
+      if (squad == null)
+        continue
+      let { vehicleType = "", squadType } = squad
+      if (squad.battleExpBonus <= 0)
+        squadTypesCur[squadType] <- (squadTypesCur?[squadType] ?? 0) + 1
+      if (vehicleType == "bike")
+        ++bikeCur
+      else if (vehicleType == "truck")
+        ++transportCur
+      else if (vehicleType != "")
+        ++vehicleCur
+      else
+        ++infantryCur
+    }
+    return { infantryCur, bikeCur, transportCur, vehicleCur, squadTypesCur }
+  })
+
+  let squadTypeList = Computed(function() {
+    let res = []
+    let { squadTypeLimits = {} } = squadsArmyLimits.value
+    foreach (squad in allSquadTypes.value) {
+      let { squadType } = squad
+      if (squadType in squadTypeLimits)
+        res.append(squadType)
+    }
+    return res
+  })
+
+  return function() {
+    let { infantryCur, bikeCur, vehicleCur, transportCur, squadTypesCur } = squadGroups.value
+    let { maxInfantrySquads, maxBikeSquads, maxVehicleSquads, maxTransportSquads,
+      squadTypeLimits = {} } = squadsArmyLimits.value
+    let infantryInfo = mkSquadTypeInfo("rifle", infantryCur, maxInfantrySquads)
+    let bikeInfo = mkSquadTypeInfo("bike", bikeCur, maxBikeSquads)
+    let transportInfo = mkSquadTypeInfo("truck", transportCur, maxTransportSquads)
+    let vehicleInfo = mkSquadTypeInfo("tank", vehicleCur, maxVehicleSquads)
+    let curSquads = infantryCur + bikeCur + transportCur + vehicleCur
+    return {
+      watch = [squadsArmyLimits, squadGroups, squadTypeList]
+      size = [flex(), SIZE_TO_CONTENT]
+      valign = ALIGN_CENTER
+      flow = FLOW_HORIZONTAL
+      gap = { size = flex() }
+      children = [
+        txt(loc("squads/maxSquads", { curSquads, maxSquads = maxSquadsInBattle.value }))
+        {
+          flow = FLOW_HORIZONTAL
+          gap = bigPadding
+          children = squadTypeList.value.map(@(squadType)
+            mkSquadTypeInfo(squadType, squadTypesCur?[squadType] ?? 0, squadTypeLimits[squadType]))
+        }
+        {
+          flow = FLOW_HORIZONTAL
+          gap = bigPadding
+          children = [
+            infantryInfo
+            bikeInfo
+            vehicleInfo
+            transportInfo
+          ]
+        }
+      ]
+    }
+  }
+}
+
+function leftPanel() {
   let noReserve = reserveSquads.value.len() == 0
   return panelBg.__merge({
     watch = [displaySquads, reserveSquads, maxSquadsInBattle]
@@ -737,7 +783,7 @@ let function leftPanel() {
       flow = FLOW_VERTICAL
       gap = bigPadding
       children = [
-        leftHeader
+        mkLeftHeader()
         mkChosenSquads(displaySquads.value,
           @(squad, idx) mkSquadSlot(
             squad, idx, displaySquads.value.len(), false, noReserve, maxSquadsInBattle.value
@@ -783,8 +829,8 @@ let onDropCbForReserveContainer = function(data) {
   playSoundItemPlace()
 }
 
-let function dropToReserveContainer() {
-  let function dropContainer(sf) {
+function dropToReserveContainer() {
+  function dropContainer(sf) {
     let highligtToDrop = curDropData.value?.squadIdx != null
       && curDropData.value.squadIdx <= chosenSquads.value.len() - 1
     return {
@@ -826,7 +872,7 @@ let growthSquadMsgbox = function(growthData) {
 
 let getIdxSlot = @(guid) reserveSquads.value.findindex(@(v) v.guid == guid) ?? 0
 
-let function mkHeadRightPanel() {
+function mkHeadRightPanel() {
   let squadTypesCount = Computed(@()
     updateSquadTypes(getCountSquadTypes(reserveSquads.value), curArmyLockedSquadsData.value, 0))
   return {
@@ -848,7 +894,7 @@ let function mkHeadRightPanel() {
   }
 }
 
-let function rightPanel() {
+function rightPanel() {
   let sCount = slotsCount.value
   let children = []
   let reserveChildren = getFilterSquads(reserveSquads.value, filter.value)
@@ -933,7 +979,7 @@ let neededSquad = Computed(@() hoveredSquad.value ?? selectedSquadId.value)
 
 let needSquadInfoHotkeys = Computed(@() neededSquad.value != null)
 
-let function squadInfoHotkeyHelper() {
+function squadInfoHotkeyHelper() {
   return {
     watch = needSquadInfoHotkeys
     hotkeys = needSquadInfoHotkeys.value
@@ -951,7 +997,7 @@ let function squadInfoHotkeyHelper() {
   }
 }
 
-let function chooseSquadsScene() {
+function chooseSquadsScene() {
   return  {
     watch = [squadsArmy, safeAreaBorders]
     size = [sw(100), sh(100)]

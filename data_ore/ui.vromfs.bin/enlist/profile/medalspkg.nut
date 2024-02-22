@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let tooltipBox = require("%ui/style/tooltipBox.nut")
 let { MEDAL_SIZE } = require("medalsPresentation.nut")
@@ -10,7 +10,7 @@ let mkImage = @(path, override = {}) {
   image = Picture(path)
 }.__update(override)
 
-let function mkStackImage(imgData, override = {}) {
+function mkStackImage(imgData, override = {}) {
   let { img, params = {} } = imgData
   return mkImage(img, params.__update(override))
 }
@@ -21,7 +21,7 @@ let mkMedalCard = @(bgImage, stackImages, mSize = hdpx(MEDAL_SIZE)) {
     .extend(stackImages.map(@(imgData) mkStackImage(imgData)))
 }
 
-let function mkDisabledMedalCard(bgImage, stackImages, mSize = hdpx(MEDAL_SIZE)) {
+function mkDisabledMedalCard(bgImage, stackImages, mSize = hdpx(MEDAL_SIZE)) {
   let imgStyle = {
     picSaturate = 0
     tint = Color(40, 40, 40, 120)
@@ -33,7 +33,7 @@ let function mkDisabledMedalCard(bgImage, stackImages, mSize = hdpx(MEDAL_SIZE))
   }
 }
 
-let function mkMedalTooltip(medal) {
+function mkMedalTooltip(medal) {
   let { name = null } = medal
   let tooltipText = name == null ? "" : loc(name)
   return tooltipText == "" ? null

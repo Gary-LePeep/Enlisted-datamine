@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { loadJson, saveJson, json_to_string } = require("%sqstd/json.nut")
 let debriefingState = require("debriefingStateInMenu.nut") //can be overrided by game
@@ -14,7 +14,7 @@ local cfg = {
 let saveDebriefing = @(path = null)
   saveJson(path ?? cfg.savePath, cfg.state.data.value, {logger = log_for_user})
 
-local function loadDebriefing(path = null) {
+function loadDebriefing(path = null) {
   path = path ?? cfg.savePath
   let data = loadJson(path, { logger = log_for_user })
   if (data == null)
@@ -27,7 +27,7 @@ local function loadDebriefing(path = null) {
   return true
 }
 
-local function mkSessionPath(sessionId, path = null) {
+function mkSessionPath(sessionId, path = null) {
   path = path ?? cfg.savePath
   let parts = path.split("/")
   local filename = parts.pop()
@@ -49,7 +49,7 @@ console_register_command(@() saveDebriefingBySession(), "ui.debriefing_save_by_s
 console_register_command(@(sessionId) loadDebriefing(mkSessionPath(sessionId)), "ui.debriefing_load_by_session")
 console_register_command(@() dbgData(clone dbgData.value), "ui.debriefing_dbg_trigger")
 
-let function saveToLog(dData) {
+function saveToLog(dData) {
   if (dData?.isDebug)
     return
   let { sessionId = "0" } = dData
@@ -57,7 +57,7 @@ let function saveToLog(dData) {
   log($"Debriefing for session {sessionId } json:\n======\n{jsonstr}======")
 }
 
-let function saveToFile(dData, path) {
+function saveToFile(dData, path) {
   if (dData?.isDebug)
     return
   let { sessionId = "0" } = dData

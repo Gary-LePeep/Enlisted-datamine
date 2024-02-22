@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let iconSize = hdpxi(22)
 
@@ -120,7 +120,7 @@ let itemTypesData = {
   truck = { svg = "truck_icon.svg" }
 }
 
-let function itemTypeIcon(iType, iSubType = null, override = {}) {
+function itemTypeIcon(iType, iSubType = null, override = {}) {
   let img = itemTypesData?[iSubType].svg ?? itemTypesData?[iType].svg
   if (img == null)
     return null

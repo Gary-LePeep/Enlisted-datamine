@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let sClassesCfg = require("%enlist/soldiers/model/config/sClassesConfig.nut")
 let armyEffects = require("%enlist/soldiers/model/armyEffects.nut")
@@ -12,7 +12,7 @@ let trainingPrices = Computed(@() sClassesCfg.value.reduce(function(res, cfgClas
   return res
 }, {}))
 
-let function getTrainingPrice(sClass, sTier, pricesTable, steps = 1) {
+function getTrainingPrice(sClass, sTier, pricesTable, steps = 1) {
   let prices = pricesTable?[sClass] ?? []
   return (prices?[min(sTier, prices.len() - 1)] ?? 1) * steps
 }

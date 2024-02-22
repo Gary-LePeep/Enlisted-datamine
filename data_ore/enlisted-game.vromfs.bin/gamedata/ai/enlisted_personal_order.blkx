@@ -28,6 +28,7 @@
             },
             "findDanger": {
               "paramName": "shootEnemy",
+              "outSeeTimeParam": "shootEnemyTime",
               "radiusParamName": "enemyDefendRadius",
               "minDanger": 0.1,
               "tag": "human"
@@ -130,6 +131,7 @@
           "sequencer": {
             "findDanger": {
               "paramName": "shootEnemy",
+              "outSeeTimeParam": "shootEnemyTime",
               "radiusParamName": "enemyDefendRadius",
               "minDanger": 0.1,
               "tag": "human"

@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let logXbox = require("%enlSqGlob/library_logs.nut").with_prefix("[XBOX STORE]")
 let app = require("%xboxLib/impl/app.nut")
@@ -30,21 +30,21 @@ app.register_constrain_callback(function(active) {
 })
 
 
-let function show_marketplace(productKind) {
+function show_marketplace(productKind) {
   logXbox($"show_marketplace({productKind})")
   store.show_marketplace(productKind, function(success) {
     logXbox($"show_marketplace succeeded: {success}")
   })
 }
 
-let function show_details(productId) {
+function show_details(productId) {
   logXbox($"show_details({productId})")
   store.show_details(productId, function(success) {
     logXbox($"show_details succeeded: {success}")
   })
 }
 
-let function show_purchase(productId) {
+function show_purchase(productId) {
   logXbox($"show_purchase({productId})")
   store.show_purchase(productId, function(success) {
     logXbox($"show_purchase succeeded: {success}")

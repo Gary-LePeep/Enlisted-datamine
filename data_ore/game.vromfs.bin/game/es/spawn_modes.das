@@ -57,17 +57,18 @@ def apply_spawn_mode_to_player_and_team(player_eid : EntityId)
         if team__id == team
           team__eachSquadMaxSpawns = -1
 
-[es(tag=server, REQUIRE=spawnMode, on_appear)]
+[es(tag=server, REQUIRE=spawnMode, on_appear, after=(soldier_revive_points_init_es, init_squad_revive_points))]
 def apply_spawn_mode_init_es(evt : Event)
   query() <| $ [es(REQUIRE=player)] (eid : EntityId)
     apply_spawn_mode_to_player_and_team(eid)
 
-[es(tag=server, REQUIRE=(player, squads__revivePointsPerSquad, squads__revivePointsAfterDeath), on_appear, track=isArmiesReceived)]
+[es(tag=server, REQUIRE=(player, squads__revivePointsPerSquad, squads__revivePointsAfterDeath), on_appear, track=isArmiesReceived,
+    after=(soldier_revive_points_init_es, init_squad_revive_points))]
 def apply_spawn_mode_on_player_profile_changed_es(evt : Event; eid : EntityId; isArmiesReceived : bool)
   if isArmiesReceived
     apply_spawn_mode_to_player_and_team(eid)
 
 [es(tag=server, REQUIRE=(player, soldier_revive_points__healPerSquadmate, soldier_revive_points__afterDeath),
-                on_appear, after=soldier_revive_points_init_es)]
+                on_appear, after=(soldier_revive_points_init_es, init_squad_revive_points))]
 def apply_spawn_mode_after_init_soldier_revive_es(evt : Event; eid : EntityId)
   apply_spawn_mode_to_player_and_team(eid)

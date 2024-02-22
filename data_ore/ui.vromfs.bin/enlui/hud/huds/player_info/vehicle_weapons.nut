@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let faComp = require("%ui/components/faComp.nut")
 let {fontBody, fontawesome} = require("%enlSqGlob/ui/fontsStyle.nut")
@@ -90,7 +90,7 @@ let mkReloadProgress = @(from, to, duration, key, perksMult, stowageMult) {
 let triggerGroupTurretControlTips = ["Vehicle.Shoot", "Vehicle.ShootSecondary", "Vehicle.ShootMachinegun", "Vehicle.ShootGrenadeLauncher"]
 let defaultTurretControlTips = ["Vehicle.Shoot", "Vehicle.ShootSecondary", "Vehicle.ShootMachinegun", "Vehicle.ShootTurret03"]
 
-let function turretControlTip(turret, index) {
+function turretControlTip(turret, index) {
   let hotkey = turret?.hotkey
   let triggerGroup = turret?.triggerGroup ?? -1
   let gunEid = turret?.gunEid ?? ecs.INVALID_ENTITY_ID
@@ -122,11 +122,11 @@ let function turretControlTip(turret, index) {
 }
 
 let triggerGroupNextBulletTips = ["Vehicle.NextBulletType", "Vehicle.SecondaryNextBulletType"]
-let function turretNextBulletTip(triggerGroup) {
+function turretNextBulletTip(triggerGroup) {
   return makeTurretControlTip(triggerGroupNextBulletTips?[triggerGroup] ?? triggerGroupNextBulletTips[0])
 }
 
-let function turretIconCtor(weapon, width, baseHeight) {
+function turretIconCtor(weapon, width, baseHeight) {
   let height = (0.8 * baseHeight).tointeger()
   let size = [width, height]
   let bulletIcon = mkBulletTypeIcon(weapon, size)
@@ -144,7 +144,7 @@ let function turretIconCtor(weapon, width, baseHeight) {
   }
 }
 
-let function vehicleTurretBlock(turret, idx) {
+function vehicleTurretBlock(turret, idx) {
   if (!turret.isControlled && !isReplay.value)
     return null
 
@@ -202,7 +202,7 @@ let function vehicleTurretBlock(turret, idx) {
 let mkFaIcon = @(faId, color) faComp(faId, {color, minHeight = fontH(100)})
 
 let isBurn = Computed(@() heroVehicleState.value.isBurn)
-let function vehicleHpEffects() {
+function vehicleHpEffects() {
   let res = { watch = isBurn }
   if (!isBurn.value)
     return res
@@ -211,7 +211,7 @@ let function vehicleHpEffects() {
 
 let hitAnimTrigger = "vehicle_hit"
 local lastVehicleData = null
-let function saveLastVehicleData() {
+function saveLastVehicleData() {
   lastVehicleData = {
     vehicle = heroVehicleState.value.vehicle
     hp = heroVehicleState.value.hp
@@ -226,7 +226,7 @@ heroVehicleState.subscribe(function(v) {
   saveLastVehicleData()
 })
 
-let function vehicleHp() {
+function vehicleHp() {
   let res = { watch = heroVehicleState }
   let { vehicle, hp, maxHp } = heroVehicleState.value
   if (vehicle == ecs.INVALID_ENTITY_ID)

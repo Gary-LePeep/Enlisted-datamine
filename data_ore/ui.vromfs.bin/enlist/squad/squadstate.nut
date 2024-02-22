@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let userInfo = require("%enlSqGlob/userInfo.nut")
 let {nestWatched} = require("%dngscripts/globalState.nut")
@@ -28,7 +28,7 @@ let autoSquad = nestWatched("autoSquad", true)
 
 let myExtSquadData = {}
 
-let function makeSharedData(persistId) {
+function makeSharedData(persistId) {
   let res = {}
   foreach (key in ["clusters", "isAutoCluster", "squadChat"])
     res[key] <- nestWatched($"{persistId}{key}", null)

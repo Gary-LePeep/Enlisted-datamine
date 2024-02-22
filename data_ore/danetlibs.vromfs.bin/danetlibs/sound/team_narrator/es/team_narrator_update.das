@@ -4,7 +4,7 @@ require soundEvent
 require team_narrator.modules.team_narrator_common
 
 
-[es(tag=sound, on_event=ParallelUpdateFrameDelayed, no_order)]
+[es(tag=sound, on_event=ParallelUpdateFrameDelayed, after=sound_begin_update_es, before=sound_end_update_es)]
 def team_narrator_update(evt : Event;
                          var team_narrator__event : SoundEvent&;
                          var team_narrator__queue : Array&;

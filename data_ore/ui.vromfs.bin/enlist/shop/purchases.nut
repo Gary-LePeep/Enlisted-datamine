@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let httpRequest = require("httpRequest.nut")
 let userInfo = require("%enlSqGlob/userInfo.nut")
@@ -8,7 +8,7 @@ let purchased = Watched({})
 
 let { checkPurchasesUrl = "https://purch.gaijinent.com/check_purchase.php" } = get_circuit_conf()
 
-let function refreshPurchased() {
+function refreshPurchased() {
   if (purchased.value.len() == 0 || !userInfo.value)
     return
 
@@ -23,7 +23,7 @@ let function refreshPurchased() {
     })
 }
 
-let function addGuids(guids) {
+function addGuids(guids) {
   let update = {}
   foreach (guid in guids)
     if (guid not in purchased.value)

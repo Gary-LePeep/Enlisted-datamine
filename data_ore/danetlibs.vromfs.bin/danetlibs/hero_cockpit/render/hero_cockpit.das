@@ -17,20 +17,32 @@ struct ParallelUpdateFrameDelayed
   curTime : float
   dt : float
 
+[cpp_event(unicast)]
+struct QueryHeroWtmAndBoxForRender
+  _paddingPre : uint8[8] // sizeof(ecs::Event)==8 and alignof(resWtm)==16, so we add 8 bytes padding here
+  resWtmC0, resWtmC1, resWtmC2, resWtmC3 : float4 // mat44f resWtm
+  resWofs : float4                                // vec3f  resWofs
+  resLboxMin, resLboxMax : float4                 // bbox3f resLbox
+  resReady : bool
+  onlyWeapons : bool
+  _paddingPost : uint8[12] // alignof(QueryHeroWtmAndBoxForRender)==16, so we add 12 bytes padding here
+
 def get_hero_cockpit_vec_impl(hero_cockpit__gunMaxLength, hero_cockpit__traceMaxBias,
                               hero_cockpit__startFadeBeforeIntersection, hero_cockpit__fadeInterval,
                               hero_cockpit__sampleOffsetAboveCamera, hero_cockpit__sampleBias : float;
                               var hero_cockpit_vec_value : float4&;
                               var hero_cockpit_camera_to_point_value : float4&)
   let heroEid = get_Eid(get_local_player_eid(), "possessed") ?? INVALID_ENTITY_ID
-  if !heroEid
+  if !heroEid || getEntityTemplateId(heroEid) == INVALID_TEMPLATE_INDEX
     return false
 
   var shootTm : float3x4
-  var shootTm1 : mat44f
-  var wofs : vec4f
-  var bbox : bbox3f
-  if !get_current_human_gun_bbox(heroEid, shootTm1, wofs, bbox)
+
+  var gun_data : QueryHeroWtmAndBoxForRender
+  gun_data.resReady = false
+  gun_data.onlyWeapons = true
+  sendEventImmediate(heroEid, gun_data)
+  if !gun_data.resReady
     return false
 
   var humanTraceHandle : TraceMeshFaces?
@@ -45,10 +57,10 @@ def get_hero_cockpit_vec_impl(hero_cockpit__gunMaxLength, hero_cockpit__traceMax
   if inVehicle
     return false
 
-  shootTm[0] = -shootTm1.col2.xyz
-  shootTm[1] = shootTm1.col1.xyz
-  shootTm[2] = shootTm1.col0.xyz
-  shootTm[3] = shootTm1.col3.xyz + wofs.xyz
+  shootTm[0] = -gun_data.resWtmC2.xyz
+  shootTm[1] = gun_data.resWtmC1.xyz
+  shootTm[2] = gun_data.resWtmC0.xyz
+  shootTm[3] = gun_data.resWtmC3.xyz + gun_data.resWofs.xyz
 
   let back = shootTm * float3(0, 0, -1)
   let front = shootTm * float3(0, 0, 1)
@@ -100,7 +112,7 @@ def get_hero_cockpit_params(event : ParallelUpdateFrameDelayed;
                                 hero_cockpit_vec_value, hero_cockpit_camera_to_point_value)
     hero_cockpit_vec_value = float4(0.0, 0.0, 0.0, 0.0)
 
-[es(tag=render, no_order)]
+[es(tag=render,  after=animchar_before_render_es)] //require for execute animchar_before_render_es as early as possible
 def set_hero_cockpit_params(info : UpdateStageInfoBeforeRender;
                             hero_cockpit_vec : ShaderVar;
                             hero_cockpit_vec_value : float4;

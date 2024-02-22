@@ -1,7 +1,7 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
-let { transpPanelBgColor, panelBgColor, defItemBlur, bigPadding, largePadding, startBtnWidth,
+let { transpPanelBgColor, defItemBlur, bigPadding, startBtnWidth,
   defTxtColor, titleTxtColor, smallPadding, miniPadding
 } = require("%enlSqGlob/ui/designConst.nut")
 let { secondsToStringLoc } = require("%ui/helpers/time.nut")
@@ -19,7 +19,7 @@ let { curArmiesList, curArmy } = require("%enlist/soldiers/model/state.nut")
 let { eventsArmiesList, eventCurArmyIdx } = require("%enlist/gameModes/eventModesState.nut")
 let { doubleSideHighlightLine, doubleSideHighlightLineBottom, doubleSideBg
 } = require("%enlSqGlob/ui/defComponents.nut")
-let { mkDailyTasksUi, eventTasksUi } = require("%enlist/unlocks/taskWidgetUi.nut")
+let { mkDailyTasksUi, eventTasksUi, hasDailyTasks } = require("%enlist/unlocks/taskWidgetUi.nut")
 let { eventsKeysSorted } = require("%enlist/offers/offersState.nut")
 let { mkBattleRating } = require("%enlSqGlob/ui/battleRatingPkg.nut")
 let { squadLeaderState } = require("%enlist/squad/squadState.nut")
@@ -33,6 +33,7 @@ let spinnerHeight = fsh(6)
 let waitingSpinner = spinner(spinnerHeight)
 let armyIconWidth = hdpx(120)
 let armiesGap = hdpx(20)
+let minWidthQueueContent = fsh(55)
 
 let infoContainer = {
   transform = {}
@@ -44,7 +45,7 @@ let infoContainer = {
   ]
 }
 
-let function queueTitle() {
+function queueTitle() {
   return {
     size = [flex(), titleHeight]
     flow = FLOW_VERTICAL
@@ -75,7 +76,7 @@ let mkPlayers = @(players) {
   children = players.map(@(name) txt(remap_others(name)))
 }
 
-let function queueArmiesBlock() {
+function queueArmiesBlock() {
   let squadLeaderInfo = squadLeaderState.value
   local armyList = curArmiesList.value
   local armyId = curArmy.value
@@ -93,12 +94,10 @@ let function queueArmiesBlock() {
   return {
     watch = [curArmiesList, curArmy, eventsArmiesList, eventCurArmyIdx, allArmiesInfo,
       matchRandomTeam, squadLeaderState, isInSquad]
-    size = [flex(), SIZE_TO_CONTENT]
     flow = FLOW_VERTICAL
     gap = bigPadding
     children = [
       {
-        size = [flex(), SIZE_TO_CONTENT]
         flow = FLOW_HORIZONTAL
         gap =  armiesGap
         halign = ALIGN_CENTER
@@ -127,29 +126,36 @@ let function queueArmiesBlock() {
           }
         })
       }
-      {
-        rendObj = ROBJ_TEXTAREA
-        size = [flex(), SIZE_TO_CONTENT]
-        behavior = Behaviors.TextArea
-        maxWidth = hdpx(650)
-        color = defTxtColor
-        hplace = ALIGN_CENTER
-        halign = ALIGN_CENTER
-        text = loc("battleRating/desc")
-      }.__update(fontSub)
-      waitingSpinner
     ]
   }
 }
 
-let function mkQueueContent() {
+let queueText = {
+  rendObj = ROBJ_TEXTAREA
+  size = [flex(), SIZE_TO_CONTENT]
+  behavior = Behaviors.TextArea
+  maxWidth = hdpx(650)
+  color = defTxtColor
+  hplace = ALIGN_CENTER
+  halign = ALIGN_CENTER
+  text = loc("battleRating/desc")
+}.__update(fontSub)
+
+function mkQueueContent() {
   let needQueueInfo = Computed(@() timeInQueue.value / 1000 > TIME_BEFORE_SHOW_QUEUE)
   return @() {
     watch = needQueueInfo
-    size = [flex(), SIZE_TO_CONTENT]
-    minHeight = hdpx(260)
+    minWidth = minWidthQueueContent
+    minHeight = hdpx(220)
+    // with rendObj, size и children omitted, size equals 0. So we put the default value here
+    size = SIZE_TO_CONTENT
     padding = [0, bigPadding]
-    children = needQueueInfo.value ? queueArmiesBlock : null
+    flow = FLOW_VERTICAL
+    gap = smallPadding
+    halign = ALIGN_CENTER
+    children = needQueueInfo.value
+      ? [queueArmiesBlock, queueText, waitingSpinner]
+      : null
   }
 }
 
@@ -159,7 +165,7 @@ let randomTeamHint = noteTextArea({
   color = titleTxtColor
 }).__update(fontSub)
 
-let function mkRandomTeamContent() {
+function mkRandomTeamContent() {
   let res = { watch = [randTeamAvailable, isCurQueueReqRandomSide, matchRandomTeam] }
   if (!randTeamAvailable.value)
     return res
@@ -195,27 +201,29 @@ let eventTasksBlock = @(event) {
 
 let dailyTasksBlock = {
   flow = FLOW_VERTICAL
-  gap = largePadding
+  gap = bigPadding
   children = [
     {
       rendObj = ROBJ_TEXT
       text = loc("dailyTasks")
       color = defTxtColor
     }.__update(fontBody)
-    mkDailyTasksUi(true)
+    mkDailyTasksUi()
   ]
 }
 
-let tasksBlock = @(events) {
+let tasksBlock = @(events) @() {
   rendObj = ROBJ_WORLD_BLUR
-  fillColor = panelBgColor
+  watch = hasDailyTasks
+  minWidth = minWidthQueueContent
+  fillColor = transpPanelBgColor
   color = defItemBlur
   padding = bigPadding
   halign = ALIGN_CENTER
   flow = FLOW_HORIZONTAL
-  gap = hdpx(30)
+  gap = bigPadding
   children = [
-    dailyTasksBlock
+    hasDailyTasks.value ? dailyTasksBlock : null
     events.len() > 0 ? eventTasksBlock(events[0]) : null
   ]
 }
@@ -226,11 +234,10 @@ local canBeUpdated = false
 
 let wndContent = @(events) {
   flow = FLOW_VERTICAL
-  gap = largePadding
+  gap = bigPadding
   valign = ALIGN_TOP
   halign = ALIGN_CENTER
-  minWidth = fsh(55)
-  padding = [0,0, largePadding, 0]
+  padding = [0,0, bigPadding, 0]
   children = [
     queueTitle
     crossplayHint
@@ -241,7 +248,7 @@ let wndContent = @(events) {
 }.__merge(infoContainer)
 
 let wndPosition = { pos = [0, 0] }
-let function updatePosition(size) {
+function updatePosition(size) {
   wndPosition.pos <- [sw(50) - size[0] / 2, sh(80) - size[1]]
 }
 let position = Watched(wndPosition)
@@ -251,7 +258,8 @@ return function queueWaitingInfo() {
     return { watch = isInQueue }
 
   let events = eventsKeysSorted.value
-  let wndSize = calc_comp_size(wndContent(events))
+  let wndContentUi = wndContent(events)
+  let wndSize = calc_comp_size(wndContentUi)
   updatePosition(wndSize)
   return {
     watch = [isInQueue, eventsKeysSorted]
@@ -287,7 +295,7 @@ return function queueWaitingInfo() {
           dySum = 0
           return newPos
         }
-        children = wndContent(events)
+        children = wndContentUi
       }
     }
   }

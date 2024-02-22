@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let msgbox = require("%enlist/components/msgbox.nut")
 let userInfo = require("%enlSqGlob/userInfo.nut")
@@ -60,7 +60,7 @@ let needSquadByType = keepref(Computed(function() {
 
 let storeShown = @(tutorial) settings.mutate(@(v) v[tutorial.saveId] <- true)
 
-let function launchTutorial(tutorial) {
+function launchTutorial(tutorial) {
   let gameMode = allGameModesById.value?[tutorial.gameMode]
   if (!gameMode)
     return
@@ -72,7 +72,7 @@ let function launchTutorial(tutorial) {
   })
 }
 
-let function show(tutorial) {
+function show(tutorial) {
   sendBigQueryUIEvent(tutorial.bigQueryId)
   msgbox.show({
     uid = WND_UID

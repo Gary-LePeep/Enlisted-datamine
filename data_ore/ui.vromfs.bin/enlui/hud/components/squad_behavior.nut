@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {
   SquadBehaviour, SquadFormationSpread, SquadBehaviour_COUNT, SquadFormationSpread_COUNT
@@ -12,7 +12,7 @@ let { setSquadFormation, squadFormation } = require("%ui/hud/state/squad_formati
 let { setSquadBehaviour, squadBehaviour } = require("%ui/hud/state/squad_behaviour.nut")
 
 
-let function textFunc(text) {
+function textFunc(text) {
   return {
     fillColor = HUD_TIPS_HOTKEY_FG
     borderWidth = 0

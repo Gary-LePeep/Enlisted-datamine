@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { utf8ToUpper } = require("%sqstd/string.nut")
 let { makeVertScroll } = require("%ui/components/scrollbar.nut")
@@ -7,14 +7,15 @@ let {addModalWindow, removeModalWindow} = require("%ui/components/modalWindows.n
 let wndWidth = sw(80)
 
 const WND_UID = "fontsDebugWnd"
-let isOpened = mkWatched(persist, "isOpened", false)
-let textInputWatch = mkWatched(persist, "textInputWatch", "")
-let isUpperCaseModeOne = mkWatched(persist, "isUpperCaseModeOne", false)
-let textBlockWidth = hdpx(400)
+const DEF_TXT = "The quick brown fox jumps over the lazy dog"
+let isOpened = Watched(false)
+let textInputWatch = Watched(DEF_TXT)
+let isUpperCaseModeOne = Watched(false)
+let textBlockWidth = hdpx(500)
 
-let textValue = Computed(@() "Font example 123:\n{0}".subst(isUpperCaseModeOne.value
+let textValue = Computed(@() isUpperCaseModeOne.value
   ? utf8ToUpper(textInputWatch.value)
-  : textInputWatch.value) )
+  : textInputWatch.value)
 
 let inputBlock = textInput.NoFrame(textInputWatch, {
   placeholder = "Введи текст..."
@@ -50,7 +51,7 @@ let topBlock = {
   ]
 }
 
-let textResultBlock = @(fontStyle) @(){
+let textResultBlock = @(fontStyle) {
   rendObj = ROBJ_BOX
   borderWidth = hdpx(1)
   fillColor = Color(15,15,15)
@@ -62,9 +63,9 @@ let textResultBlock = @(fontStyle) @(){
   children = [
     {
       rendObj = ROBJ_TEXT
-      text = $"{fontStyle[0]} {typeof fontStyle[1] != "table" ? fontStyle[1] : ""}"
+      text = $"{fontStyle[0]} size: {fontStyle[1].fontSize}px"
     }
-     @(){
+    @() {
       watch = textValue
       rendObj = ROBJ_TEXTAREA
       size = [textBlockWidth, SIZE_TO_CONTENT]
@@ -74,6 +75,7 @@ let textResultBlock = @(fontStyle) @(){
   ]
 }
 
+
 let wrapParams = {
   width = wndWidth
   hGap = hdpx(50)
@@ -81,7 +83,7 @@ let wrapParams = {
   halign = ALIGN_CENTER
 }
 
-let textsBlocks = @(fontStyles){
+let textsBlocks = @(fontStyles) {
   size = [flex(), SIZE_TO_CONTENT]
   halign = ALIGN_CENTER
   flow = FLOW_HORIZONTAL
@@ -91,7 +93,7 @@ let textsBlocks = @(fontStyles){
     ), wrapParams)
 }
 
-let function contentBlock(fonts) {
+function contentBlock(fonts) {
   let fontStylesTable = fonts.topairs().sort(@(a,b)  (a[1]?.fontSize ?? 0) <=> (b[1]?.fontSize ?? -1))
   return {
     size = [wndWidth, flex()]
@@ -117,7 +119,7 @@ let open = @(fonts) addModalWindow({
   onClick = @() isOpened(false)
 })
 
-let function initFontsDebugWnd(fonts){
+function initFontsDebugWnd(fonts) {
   if (isOpened.value)
     open(fonts)
 

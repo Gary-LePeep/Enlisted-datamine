@@ -19,88 +19,109 @@
       }
     ]
   },
-  "it_m41_75_32_common": {
-    "_use": "base_m41_75_32",
-    "commanderCockpitFpsCamMaxAngle": [40.0,5.0],
-    "gunner_cam_limit__useCockpitDir": true,
-    "item__iconOffset": [0.05,0.27],
-    "item__iconScale": 1.55,
-    "armorThicknessHull": [30.0,25.0,27.0],
-    "armorThicknessTurret": [50.0,25.0,25.0],
-    "vehicle_seats__seatsProvideOrder:tag": [],
-    "vehicle_seats__seats:shared:array": [
-      {
-        "seats:object": {
-          "name": "main_gunner",
-          "locName": "vehicle_seats/commander",
-          "attachNode": "commander",
-          "ignoreAttachNodeRotation": true,
-          "attachTm": [
-            [1.0,0.0,0.0],
-            [0.0,1.0,0.0],
-            [0.0,0.0,1.0],
-            [-0.75,-0.04,0.0]
-          ],
-          "seatComponent": "isGunner",
-          "nextSeat": "driver",
-          "shouldHideOwner": true,
-          "receiveDamageFromDMPart": "commander",
-          "cameraNodeName": "bone_camera_gunner",
-          "cockpitTemplate": "it_m41_75_32_gunner_cockpit",
-          "hatchRotationAxis": [1.5,0.0,0.0],
-          "maxPosWithOpenHatch": 0.3,
-          "turretNames:array": {
-            "turret": "turret_01"
-          },
-          "hatchNodes:array": {
-            "node": "hatch_05"
+  "it_m41_75_32_common": [
+    {
+      "_use": "base_m41_75_32"
+    },
+    {
+      "_use": "it_m41_75_32_common_vehicle_sound"
+    },
+    {
+      "commanderCockpitFpsCamMaxAngle": [40.0,5.0]
+    },
+    {
+      "gunner_cam_limit__useCockpitDir": true
+    },
+    {
+      "item__iconOffset": [0.05,0.27]
+    },
+    {
+      "item__iconScale": 1.55
+    },
+    {
+      "armorThicknessHull": [30.0,25.0,27.0]
+    },
+    {
+      "armorThicknessTurret": [50.0,25.0,25.0]
+    },
+    {
+      "vehicle_seats__seatsProvideOrder:tag": []
+    },
+    {
+      "vehicle_seats__seats:shared:array": [
+        {
+          "seats:object": {
+            "name": "main_gunner",
+            "locName": "vehicle_seats/commander",
+            "attachNode": "commander",
+            "ignoreAttachNodeRotation": true,
+            "attachTm": [
+              [1.0,0.0,0.0],
+              [0.0,1.0,0.0],
+              [0.0,0.0,1.0],
+              [-0.75,-0.04,0.0]
+            ],
+            "seatComponent": "isGunner",
+            "nextSeat": "driver",
+            "shouldHideOwner": true,
+            "receiveDamageFromDMPart": "commander",
+            "cameraNodeName": "bone_camera_gunner",
+            "cockpitTemplate": "it_m41_75_32_gunner_cockpit",
+            "hatchRotationAxis": [1.5,0.0,0.0],
+            "maxPosWithOpenHatch": 0.3,
+            "turretNames:array": {
+              "turret": "turret_01"
+            },
+            "hatchNodes:array": {
+              "node": "hatch_05"
+            }
+          }
+        },
+        {
+          "seats:object": {
+            "name": "driver",
+            "locName": "vehicle_seats/driver",
+            "seatOwnsEntityControl": true,
+            "attachNode": "driver",
+            "ignoreAttachNodeRotation": true,
+            "attachTm": [
+              [1.0,0.0,0.0],
+              [0.0,1.0,0.0],
+              [0.0,0.0,1.0],
+              [-0.25,-0.25,0.0]
+            ],
+            "seatComponent": "isDriver",
+            "nextSeat": "main_gunner",
+            "shouldHideOwner": true,
+            "receiveDamageFromDMPart": "driver",
+            "cameraNodeName": "bone_camera_driver",
+            "cockpitTemplate": "it_m41_75_32_driver_cockpit"
+          }
+        },
+        {
+          "seats:object": {
+            "name": "loader",
+            "attachNode": "loader",
+            "shouldHideOwner": true,
+            "locName": "vehicle_seats/loader",
+            "ignoreAttachNodeRotation": true,
+            "attachTm": [
+              [1.0,0.0,0.0],
+              [0.0,1.0,0.0],
+              [0.0,0.0,1.0],
+              [-0.1,-0.0,0.8]
+            ],
+            "seatComponent": "isPassenger",
+            "receiveDamageFromDMPart": "loader",
+            "cameraNodeName": "bone_turret",
+            "loaderTurretNames:array": {
+              "turret": "turret_01"
+            }
           }
         }
-      },
-      {
-        "seats:object": {
-          "name": "driver",
-          "locName": "vehicle_seats/driver",
-          "seatOwnsEntityControl": true,
-          "attachNode": "driver",
-          "ignoreAttachNodeRotation": true,
-          "attachTm": [
-            [1.0,0.0,0.0],
-            [0.0,1.0,0.0],
-            [0.0,0.0,1.0],
-            [-0.25,-0.25,0.0]
-          ],
-          "seatComponent": "isDriver",
-          "nextSeat": "main_gunner",
-          "shouldHideOwner": true,
-          "receiveDamageFromDMPart": "driver",
-          "cameraNodeName": "bone_camera_driver",
-          "cockpitTemplate": "it_m41_75_32_driver_cockpit"
-        }
-      },
-      {
-        "seats:object": {
-          "name": "loader",
-          "attachNode": "loader",
-          "shouldHideOwner": true,
-          "locName": "vehicle_seats/loader",
-          "ignoreAttachNodeRotation": true,
-          "attachTm": [
-            [1.0,0.0,0.0],
-            [0.0,1.0,0.0],
-            [0.0,0.0,1.0],
-            [-0.1,-0.0,0.8]
-          ],
-          "seatComponent": "isPassenger",
-          "receiveDamageFromDMPart": "loader",
-          "cameraNodeName": "bone_turret",
-          "loaderTurretNames:array": {
-            "turret": "turret_01"
-          }
-        }
-      }
-    ]
-  },
+      ]
+    }
+  ],
   "it_m41_75_32_driver_cockpit": {
     "_use": "base_driver_cockpit",
     "animchar__res": "pzkpfw_iii_e_driver_char",

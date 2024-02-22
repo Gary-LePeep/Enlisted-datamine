@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let faComp = require("%ui/components/faComp.nut")
@@ -16,7 +16,7 @@ let mkTextCtor = @(text) @(sf) {
   color = textColor(sf)
 }.__update(fontSub)
 
-let function mkToggleHeader(isShow, textOrCtor) {
+function mkToggleHeader(isShow, textOrCtor) {
   let textCtor = type(textOrCtor) == "string" ? mkTextCtor(textOrCtor) : textOrCtor
   return watchElemState(@(sf) {
     size = [flex(), SIZE_TO_CONTENT]

@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {playerEvents} = require("%ui/hud/state/eventlog.nut")
 let {makeItem} = require("mkPlayerEvents.nut")
@@ -17,7 +17,7 @@ let showMinHudEvents = {
   building_blocked_restricted_zone = true
 }
 
-let function playerEventsRoot() {
+function playerEventsRoot() {
   let events = isMinimalHud.value
     ? playerEvents.events.value.filter(@(event) event?.event in showMinHudEvents)
     : playerEvents.events.value

@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontawesome } = require("%enlSqGlob/ui/fontsStyle.nut")
 let fa = require("%ui/components/fontawesome.map.nut")
@@ -15,7 +15,7 @@ let haveUnseenErrors = mkWatched(persist, "haveUnseenErrors", false)
 
 let maxErrorsToShow = 8
 
-let function addError(tag, logstring, timestamp, text){
+function addError(tag, logstring, timestamp, text){
   local curErrors = clone errors.value
 
   if (curErrors.len() >= maxErrorsToShow)
@@ -25,7 +25,7 @@ let function addError(tag, logstring, timestamp, text){
   haveUnseenErrors(true)
 }
 
-let function mkSimpleCb(locid) {
+function mkSimpleCb(locid) {
   return function(tag, logstring, timestamp){
     addError(tag, logstring, timestamp, "logerr/{0}{1}".subst(is_pc ? "" : $"{platformId}/", locid))
   }
@@ -36,7 +36,7 @@ tagsForPopup.map(@(tag) dagorDebug.register_logerr_interceptor([tag], mkSimpleCb
 
 if (dagorSys.DBGLEVEL <= 0) {
   let clientlog = require("clientlog")
-  let function sendErrorInRelease(_tag, logstring, _timestamp) {
+  function sendErrorInRelease(_tag, logstring, _timestamp) {
     clientlog.send_error_log(logstring, {
       attach_game_log = false,
       meta = {}
@@ -46,14 +46,14 @@ if (dagorSys.DBGLEVEL <= 0) {
 }
 
 local counter = 0
-let function test_log_errors(){
+function test_log_errors(){
   counter++
   errors(clone errors.value)
   dagorDebug.logerr($"web-vromfs: [network] {counter}")
 }
 console_register_command(@()gui_scene.setInterval(2.0, test_log_errors), "ui.test_logerrs")
 
-let function textarea(text, logstring) {
+function textarea(text, logstring) {
   local onClick
 
   if (dagorSys.DBGLEVEL > 0) {
@@ -102,7 +102,7 @@ todo:
  - show in UI_VM (like alerts)
 */
 
-let function errors_list(){
+function errors_list(){
   return {
     watch = errors
     flow = FLOW_VERTICAL
@@ -112,7 +112,7 @@ let function errors_list(){
     gap = hdpx(20)
   }
 }
-let function onClick(event){
+function onClick(event){
   modalPopupWnd.add(event.targetRect,
   {
     size = [sw(45), sh(40)]
@@ -137,7 +137,7 @@ let function onClick(event){
     popupBg = { rendObj = ROBJ_WORLD_BLUR_PANEL, color = Color(220,220,220,220) fillColor = Color(0,0,0,180)}
   })
 }
-let function mkBtn(){
+function mkBtn(){
   let stateFlags = Watched(0)
   let onElemState = @(sf) stateFlags.update(sf)
   return function(){
@@ -158,7 +158,7 @@ let function mkBtn(){
 }
 
 let errBtn = mkBtn()
-let function errorBtn(){
+function errorBtn(){
   return {
     watch = [haveUnseenErrors,errors]
     size = SIZE_TO_CONTENT

@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {EventHeroChanged} = require("gameevents")
 let {get_sync_time} = require("net")
@@ -14,7 +14,7 @@ let enterVehicleState = mkWatched(persist, "enterVehicleState", {
   enterTotalTime = 0.0
 })
 
-let function onExitTimerChanged(_eid, comp) {
+function onExitTimerChanged(_eid, comp) {
   let timer = comp["exit_vehicle__atTime"]
   exitVehicleState.mutate(function (v) {
     v.exitStartTime = get_sync_time()
@@ -22,7 +22,7 @@ let function onExitTimerChanged(_eid, comp) {
   })
 }
 
-let function onEnterTimerChanged(_eid, comp) {
+function onEnterTimerChanged(_eid, comp) {
   let timer = comp["enter_vehicle__atTime"]
   enterVehicleState.mutate(function (v) {
     v.enterStartTime = get_sync_time()
@@ -30,7 +30,7 @@ let function onEnterTimerChanged(_eid, comp) {
   })
 }
 
-let function onEndTimers(_eid, _comp) {
+function onEndTimers(_eid, _comp) {
   enterVehicleState.mutate(@(v) v.enterTotalTime = -1.0)
   exitVehicleState.mutate(@(v) v.exitTotalTime = -1.0)
 }

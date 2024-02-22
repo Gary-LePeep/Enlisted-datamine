@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 let getMissionInfo = require("%enlist/gameModes/getMissionInfo.nut")
 
 let missionsByQueue = {
@@ -32,7 +32,7 @@ let missionsByQueue = {
   ]
 }
 
-let function mkCampaignsByMissions() {
+function mkCampaignsByMissions() {
   let missions = {}
   foreach (queueMissions in missionsByQueue) {
     queueMissions.each(function(blk) {

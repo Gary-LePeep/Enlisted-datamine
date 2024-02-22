@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { debounce } = require("%sqstd/timers.nut")
 let { settings, onlineSettingUpdated } = require("%enlist/options/onlineSettings.nut")
@@ -22,7 +22,7 @@ let promoSquadsData = keepref(Computed(function() {
     .filter(@(squads) squads.len() > 0)
 }))
 
-let function updatePromoSquads(_) {
+function updatePromoSquads(_) {
   if (!onlineSettingUpdated.value || !squadsCfgById.value.len())
     return
 
@@ -67,7 +67,7 @@ let squadViewStyle = {
   isNewSquad = true
 }
 
-let function openPromoSquad(_) {
+function openPromoSquad(_) {
   let squadsByArmy = promoSquadsData.value
   if (squadsByArmy.len() == 0)
     return
@@ -85,7 +85,7 @@ let function openPromoSquad(_) {
 
 promoSquadsData.subscribe(debounce(openPromoSquad, 0.1))
 
-let function markVisibleSquadPromoViewed(_) {
+function markVisibleSquadPromoViewed(_) {
   if (!isUnlockSquadSceneVisible.value && !hasSquadsPromoOpened.value)
     return
 

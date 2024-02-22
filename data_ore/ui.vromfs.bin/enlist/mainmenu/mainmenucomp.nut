@@ -1,10 +1,10 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let mainMenuComp = {value = null}
 let getMainMenuComp = @() mainMenuComp.value
 let mainMenuVersion = Watched(0)
 
-let function setMainMenuComp(comp) {
+function setMainMenuComp(comp) {
   mainMenuComp.value <- comp
   mainMenuVersion(mainMenuVersion.value+1)
 }

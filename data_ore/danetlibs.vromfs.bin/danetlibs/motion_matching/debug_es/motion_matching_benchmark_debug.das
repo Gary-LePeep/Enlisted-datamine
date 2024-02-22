@@ -31,7 +31,7 @@ def spawn_dev_soldier(pos : float3; templateName : string)
 def set_weapon(var init : ComponentsInitializer; primary_weapon : string)
   using() <| $(var obj : Object)
     set(obj, "primary", primary_weapon)
-    set(init, "human_weap__weapTemplates", obj)
+    set(init, "human_weap__initialWeaponTemplates", obj)
 
 [es(on_appear)]
 def test_target_appear(event : Event; var test_target, test_target_origin : float3&; transform : float3x4)

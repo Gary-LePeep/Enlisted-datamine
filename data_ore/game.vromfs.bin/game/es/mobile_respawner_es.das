@@ -12,7 +12,6 @@ require game.es.battle_area_common
 require game.es.awards_common
 require app
 
-
 [es(tag=server, REQUIRE_NOT=deadEntity)]
 def mobile_respawn_update_active_state(info : ParallelUpdateFrameDelayed;
                                        transform aka mob_spawn_transform : float3x4;
@@ -198,7 +197,6 @@ def create_apc_respawn_on_motorcycle_respawn(evt : Event;
       set(init, "active", active)
       set(init, "groupName", groupName)
       set(init, "respawnBaseGroup", respawnBaseGroup)
-
 
 [es(tag=server, on_appear)]
 def mobile_spawn_uses_award(evt : Event;

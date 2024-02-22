@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { HitResult } = require("%enlSqGlob/dasenums.nut")
 let { localizeSoldierName } = require("%enlSqGlob/ui/itemsInfo.nut")
@@ -14,7 +14,7 @@ const ATTACK_RES = "actAttack"
 
 let hitTriggers = {}
 
-let function getHitTrigger(id) {
+function getHitTrigger(id) {
   local trigger = hitTriggers?[id]
   if (trigger)
     return trigger
@@ -57,7 +57,7 @@ let controlledSquadEid = Computed(@() watchedHeroSquadMembersRaw.value.controlle
 
 let localPlayerSquadMembers = Computed(@() controlledSquadEid.value == watchedHeroSquadEid.value ? watchedHeroSquadMembers.value : {})
 
-let function startMemberAnimations(curState, oldState) {
+function startMemberAnimations(curState, oldState) {
   let {isAlive, isDowned, hp, currentAiAction} = curState
   if (oldState==null)
     return
@@ -77,7 +77,7 @@ let function startMemberAnimations(curState, oldState) {
     anim_start(curState.hitTriggers[ATTACK_RES])
 }
 
-let function getState(data) {
+function getState(data) {
   let { name, surname } = localizeSoldierName({name = data.name, surname = data.surname})
   return {
     isDowned = data.isDowned
@@ -143,7 +143,7 @@ ecs.register_es("track_squad_members_state_ui",
 let isPersonalContextCommandMode = Watched(false)
 let selectedBotForOrderEid = Watched(ecs.INVALID_ENTITY_ID)
 
-let function trackComponentsPersonalBotOrder(_evt, _eid, comp) {
+function trackComponentsPersonalBotOrder(_evt, _eid, comp) {
   if (comp["input__enabled"]) {
     isPersonalContextCommandMode(comp["squad_member__isPersonalContextCommandMode"])
     selectedBotForOrderEid(comp["personal_bot_order__currentBotEid"])

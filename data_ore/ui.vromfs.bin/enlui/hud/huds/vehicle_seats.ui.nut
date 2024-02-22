@@ -1,5 +1,6 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
+from "math" import min
 
 let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { isGamepad } = require("%ui/control/active_controls.nut")
@@ -20,7 +21,7 @@ let memberTextColor = @(member) (member.eid == watchedHeroEid.value) ? style.SUC
   : member.isAlive ? style.DEFAULT_TEXT_COLOR
   : style.DEAD_TEXT_COLOR
 
-let function seatMember(seatDesc) {
+function seatMember(seatDesc) {
   let { owner, seat, order } = seatDesc
   let locName = seat?.locName ?? (seat?.name ? $"vehicle_seats/{seat.name}" : null)
   let member = watchedHeroSquadMembers.value.findvalue(@(v) v.eid == owner.eid)
@@ -56,7 +57,7 @@ let seatHint = @(seat, hintWidth) seat.order.canPlaceManually
     })
   : mkEmptyHint(hintWidth)
 
-let function mkSeat(seat, isGpad) {
+function mkSeat(seat, isGpad) {
   let hintWidth = isGpad ? GAMEPAD_HINT_SIZE : NORMAL_HINT_SIZE
   return {
     rendObj = ROBJ_WORLD_BLUR
@@ -72,7 +73,7 @@ let function mkSeat(seat, isGpad) {
 }
 let hasVehicleSeats = Computed(@() vehicleSeatsState.value.data.len() > 0)
 
-let function vehicleSeats() {
+function vehicleSeats() {
   let res = {
     watch = [hasVehicleSeats, watchedHeroSquadMembers, vehicleSeatsState, watchedHeroEid, isGamepad]
   }

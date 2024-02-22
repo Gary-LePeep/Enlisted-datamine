@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontTitle, fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { activeTxtColor, lockedSquadBgColor, smallPadding, bigPadding,
@@ -100,7 +100,7 @@ let primePerkBlock = @(primeDesc){
   ]
 }
 
-let function mkClassDescBlock(params = {}){
+function mkClassDescBlock(params = {}){
   let {
     armyId, newClass, newPerk = null, isPrimeSquad = false, isSmall = false, override = {}
   } = params
@@ -125,7 +125,7 @@ let function mkClassDescBlock(params = {}){
   }.__update(override)
 }
 
-let function mNewItemBlock(armyId, itemId, size, isSmall = false, idx = 0, scrollPosition = null) {
+function mNewItemBlock(armyId, itemId, size, isSmall = false, idx = 0, scrollPosition = null) {
   let item = findItemTemplate(allItemTemplates, armyId, itemId)
   if (item == null)
     return null
@@ -228,7 +228,7 @@ let primeDescGap = {
   color = defTxtColor
 }
 
-let function mkSquadBodyBig(squadData, descBlock, buttons) {
+function mkSquadBodyBig(squadData, descBlock, buttons) {
   let { armyId, newClass, newPerk, newWeapon, isPrimeSquad = false } = squadData
   return {
     size = flex()
@@ -401,7 +401,7 @@ let primeDesc = @(text, soldierClass = null) {
   ]
 }
 
-let function primeDescription(texts, desc = ""){
+function primeDescription(texts, desc = ""){
   let {titleText  = null, rank  = null, perksCount  = null,
     soliderClass = null, soldierCount = null, addChild = null } = texts
   return {
@@ -418,7 +418,7 @@ let function primeDescription(texts, desc = ""){
   }
 }
 
-let function soldiersCountDesc(classes){
+function soldiersCountDesc(classes){
   let countOverall = classes.values().reduce(@(res, count) res + count, 0)
   let children = classes.map(@(count, sClass) {
     size = [flex(), SIZE_TO_CONTENT]
@@ -450,7 +450,7 @@ let function soldiersCountDesc(classes){
   }
 }
 
-let function primeDescBlock(squadCfg, addObject = null) {
+function primeDescBlock(squadCfg, addObject = null) {
   let rank = squadCfg.startSoldiers[0].level
   let perksCount = squadCfg.startSoldiers[0].level - 1
   let { announceLocId, vehicleType = "", battleExpBonus = 0.0 } = squadCfg

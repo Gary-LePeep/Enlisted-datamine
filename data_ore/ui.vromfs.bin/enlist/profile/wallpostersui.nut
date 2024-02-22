@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let hoverHoldAction = require("%darg/helpers/hoverHoldAction.nut")
 let { makeVertScroll, thinStyle } = require("%ui/components/scrollbar.nut")
@@ -10,7 +10,7 @@ let {
 let { bigPadding, smallPadding, panelBgColor } = require("%enlSqGlob/ui/designConst.nut")
 
 
-let function mkWallposterBlock(wallposter, unseenList) {
+function mkWallposterBlock(wallposter, unseenList) {
   let { id } = wallposter
   let isUnseen = id in unseenList
   return watchElemState(@(sf) {

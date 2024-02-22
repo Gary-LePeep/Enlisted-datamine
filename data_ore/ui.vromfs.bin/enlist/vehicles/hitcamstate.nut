@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let mkBulletTypeIcon = require("%enlSqGlob/ui/mkBulletTypeIcon.nut")
 
@@ -13,7 +13,7 @@ let { get_weapons_for_hangar_hitcam } = require("das.hitcam")
 let weaponsTable = {}
 let selWeaponEid = Watched(ecs.INVALID_ENTITY_ID)
 
-let function initWeaponList() {
+function initWeaponList() {
   if (weaponsTable.len() == 0)
     foreach (weapon in get_weapons_for_hangar_hitcam())
       weaponsTable[weapon] <- true
@@ -21,7 +21,7 @@ let function initWeaponList() {
 
 let db = ecs.g_entity_mgr.getTemplateDB()
 
-let function mkHitcamData() {
+function mkHitcamData() {
   let hitcamArmyId = Watched(curArmy.value)
   let hitcamVehicleId = Watched(null)
   let weaponId = Watched(null)
@@ -88,7 +88,7 @@ let function mkHitcamData() {
     return turretsListRes
   })
 
-  let function setAmmoData(_v = null) {
+  function setAmmoData(_v = null) {
     let ammoListByTurret = []
     foreach (turret in turretsList.value) {
       let { gunTemplateId, isTurret, slots } = turret
@@ -117,12 +117,12 @@ let function mkHitcamData() {
     hitcamAmmoList(ammoListByTurret)
   }
 
-  let function setWeaponId(_v = null) {
+  function setWeaponId(_v = null) {
     weaponId(hitcamAmmoList.value?[0].gunTemplateId)
     ammoIndex(hitcamAmmoList.value?[0].ammoData[0].slot)
   }
 
-  let function createWeaponEntity(_v = null) {
+  function createWeaponEntity(_v = null) {
     ecs.g_entity_mgr.destroyEntity(selWeaponEid.value)
     selWeaponEid(ecs.g_entity_mgr.createEntity(weaponId.value, {}))
   }

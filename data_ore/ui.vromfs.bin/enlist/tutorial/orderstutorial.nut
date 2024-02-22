@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { viewArmyCurrency } = require("%enlist/shop/armyShopState.nut")
 let { setAutoGroup } = require("%enlist/shop/shopState.nut")
@@ -40,7 +40,7 @@ let visibleTutorialId = keepref(Computed(function() {
   return null
 }))
 
-let function markSeen(tutorialId) {
+function markSeen(tutorialId) {
   settings.mutate(function(set) {
     let saved = (clone (set?[SEEN_ID] ?? {})).__update({
       [tutorialId] = true
@@ -49,11 +49,11 @@ let function markSeen(tutorialId) {
   })
 }
 
-let function resetSeen() {
-  settings.mutate(@(v) delete v[SEEN_ID])
+function resetSeen() {
+  settings.mutate(@(v) v.$rawdelete(SEEN_ID))
 }
 
-let function startTutorialDelayed() {
+function startTutorialDelayed() {
   gui_scene.resetTimeout(0.3, function() {
     let tutorialId = visibleTutorialId.value
     if (tutorialId == null)

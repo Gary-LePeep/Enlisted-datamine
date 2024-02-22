@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { activeUnlocks, unlockProgress, emptyProgress
 } = require("%enlSqGlob/userstats/unlocksState.nut")
@@ -16,7 +16,7 @@ userstatDescList.subscribe(function(v) {
     updateSeasonRewards()
 })
 
-let function getSubArray(tbl, id) {
+function getSubArray(tbl, id) {
   if (id not in tbl)
     tbl[id] <- []
   return tbl[id]
@@ -75,7 +75,7 @@ let lbRewards = Computed(function() {
   return res
 })
 
-let function mergeTblArrays(t1, t2) {
+function mergeTblArrays(t1, t2) {
   let res = {}
   foreach (key, list in t1)
     res[key] <- clone list

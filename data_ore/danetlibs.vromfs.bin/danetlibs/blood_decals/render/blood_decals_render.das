@@ -49,7 +49,7 @@ def blood_decals_init(evt : Event;
 
 
 
-[es(tag=gameClient)]
+[es(tag=gameClient, after=animchar_before_render_es)] //require for execute animchar_before_render_es as early as possible
 def blood_decals_prepare_render(stg : UpdateStageInfoBeforeRender;
                                 var blood_decals_manager : RingBufferDecals;
                                 blood_decals_traces_result : ecs::FloatList;

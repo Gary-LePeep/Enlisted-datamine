@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {inVehicle} = require("%ui/hud/state/vehicle_state.nut")
 let {curWeaponWeapType} = require("%ui/hud/state/hero_weapons.nut")
@@ -12,7 +12,7 @@ let tip = tipCmp({
 
 let showTip = Computed(@() !inVehicle.value && !isRadioMode.value && curWeaponWeapType.value == "radio")
 
-let function use_radio() {
+function use_radio() {
   let children = showTip.value ? tip : null
   return {
     watch = [showTip]

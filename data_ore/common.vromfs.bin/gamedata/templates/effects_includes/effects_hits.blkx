@@ -349,566 +349,1446 @@
       "effect__name": "hit_20_60mm_rapid_stone_cmps_fx"
     }
   },
-  "hit_20mm_ap_metal_effect": {
-    "_use": "hit_effect_base",
-    "wind_emitter__radius": 1.0,
-    "wind_emitter__duration": 2.0,
-    "wind_emitter__strength": 1.0,
-    "wind_emitter__phaseSin": true,
-    "wind_emitter__numWaves": 3,
-    "wind_emitter__phaseAttack": true,
-    "wind_emitter__omni:tag": [],
-    "_group": {
-      "_tags": "render",
-      "effect__name": "hit_20_60mm_ap_metal_cmps_fx"
+  "hit_20mm_ap_metal_effect": [
+    {
+      "_use": "hit_effect_base"
+    },
+    {
+      "_use": "hit_env_affect_fx"
+    },
+    {
+      "wind_emitter__radius": 1.0
+    },
+    {
+      "wind_emitter__duration": 2.0
+    },
+    {
+      "wind_emitter__strength": 1.0
+    },
+    {
+      "wind_emitter__phaseSin": true
+    },
+    {
+      "wind_emitter__numWaves": 3
+    },
+    {
+      "wind_emitter__phaseAttack": true
+    },
+    {
+      "wind_emitter__omni:tag": []
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "hit_20_60mm_ap_metal_cmps_fx",
+        "effect__environmentDestructionRadius": 2.0
+      }
     }
-  },
-  "hit_20mm_ap_sand_effect": {
-    "_use": "hit_effect_base",
-    "wind_emitter__radius": 1.0,
-    "wind_emitter__duration": 2.0,
-    "wind_emitter__strength": 1.0,
-    "wind_emitter__phaseSin": true,
-    "wind_emitter__numWaves": 3,
-    "wind_emitter__phaseAttack": true,
-    "wind_emitter__omni:tag": [],
-    "_group": {
-      "_tags": "render",
-      "effect__name": "hit_20_60mm_ap_sand_cmps_fx"
+  ],
+  "hit_20mm_ap_sand_effect": [
+    {
+      "_use": "hit_effect_base"
+    },
+    {
+      "_use": "hit_env_affect_fx"
+    },
+    {
+      "wind_emitter__radius": 1.0
+    },
+    {
+      "wind_emitter__duration": 2.0
+    },
+    {
+      "wind_emitter__strength": 1.0
+    },
+    {
+      "wind_emitter__phaseSin": true
+    },
+    {
+      "wind_emitter__numWaves": 3
+    },
+    {
+      "wind_emitter__phaseAttack": true
+    },
+    {
+      "wind_emitter__omni:tag": []
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "hit_20_60mm_ap_sand_cmps_fx",
+        "effect__environmentDestructionRadius": 2.0
+      }
     }
-  },
-  "hit_20mm_ap_snow_effect": {
-    "_use": "hit_effect_base",
-    "wind_emitter__radius": 1.0,
-    "wind_emitter__duration": 2.0,
-    "wind_emitter__strength": 1.0,
-    "wind_emitter__phaseSin": true,
-    "wind_emitter__numWaves": 3,
-    "wind_emitter__phaseAttack": true,
-    "wind_emitter__omni:tag": [],
-    "_group": {
-      "_tags": "render",
-      "effect__name": "hit_20_60mm_ap_snow_cmps_fx"
+  ],
+  "hit_20mm_ap_snow_effect": [
+    {
+      "_use": "hit_effect_base"
+    },
+    {
+      "_use": "hit_env_affect_fx"
+    },
+    {
+      "wind_emitter__radius": 1.0
+    },
+    {
+      "wind_emitter__duration": 2.0
+    },
+    {
+      "wind_emitter__strength": 1.0
+    },
+    {
+      "wind_emitter__phaseSin": true
+    },
+    {
+      "wind_emitter__numWaves": 3
+    },
+    {
+      "wind_emitter__phaseAttack": true
+    },
+    {
+      "wind_emitter__omni:tag": []
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "hit_20_60mm_ap_snow_cmps_fx",
+        "effect__environmentDestructionRadius": 2.0
+      }
     }
-  },
-  "hit_20mm_ap_stone_effect": {
-    "_use": "hit_effect_base",
-    "wind_emitter__radius": 1.0,
-    "wind_emitter__duration": 2.0,
-    "wind_emitter__strength": 1.0,
-    "wind_emitter__phaseSin": true,
-    "wind_emitter__numWaves": 3,
-    "wind_emitter__phaseAttack": true,
-    "wind_emitter__omni:tag": [],
-    "_group": {
-      "_tags": "render",
-      "effect__name": "hit_20_60mm_ap_stone_cmps_fx"
+  ],
+  "hit_20mm_ap_stone_effect": [
+    {
+      "_use": "hit_effect_base"
+    },
+    {
+      "_use": "hit_env_affect_fx"
+    },
+    {
+      "wind_emitter__radius": 1.0
+    },
+    {
+      "wind_emitter__duration": 2.0
+    },
+    {
+      "wind_emitter__strength": 1.0
+    },
+    {
+      "wind_emitter__phaseSin": true
+    },
+    {
+      "wind_emitter__numWaves": 3
+    },
+    {
+      "wind_emitter__phaseAttack": true
+    },
+    {
+      "wind_emitter__omni:tag": []
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "hit_20_60mm_ap_stone_cmps_fx",
+        "effect__environmentDestructionRadius": 2.0
+      }
     }
-  },
-  "hit_20mm_ap_wood_effect": {
-    "_use": "hit_effect_base",
-    "wind_emitter__radius": 1.0,
-    "wind_emitter__duration": 2.0,
-    "wind_emitter__strength": 1.0,
-    "wind_emitter__phaseSin": true,
-    "wind_emitter__numWaves": 3,
-    "wind_emitter__phaseAttack": true,
-    "wind_emitter__omni:tag": [],
-    "_group": {
-      "_tags": "render",
-      "effect__name": "hit_20_60mm_ap_wood_cmps_fx"
+  ],
+  "hit_20mm_ap_wood_effect": [
+    {
+      "_use": "hit_effect_base"
+    },
+    {
+      "_use": "hit_env_affect_fx"
+    },
+    {
+      "wind_emitter__radius": 1.0
+    },
+    {
+      "wind_emitter__duration": 2.0
+    },
+    {
+      "wind_emitter__strength": 1.0
+    },
+    {
+      "wind_emitter__phaseSin": true
+    },
+    {
+      "wind_emitter__numWaves": 3
+    },
+    {
+      "wind_emitter__phaseAttack": true
+    },
+    {
+      "wind_emitter__omni:tag": []
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "hit_20_60mm_ap_wood_cmps_fx",
+        "effect__environmentDestructionRadius": 2.0
+      }
     }
-  },
-  "hit_20mm_he_metal_effect": {
-    "_use": "hit_effect_base",
-    "wind_emitter__radius": 1.0,
-    "wind_emitter__duration": 2.0,
-    "wind_emitter__strength": 1.0,
-    "wind_emitter__phaseSin": true,
-    "wind_emitter__numWaves": 3,
-    "wind_emitter__phaseAttack": true,
-    "wind_emitter__omni:tag": [],
-    "_group": {
-      "_tags": "render",
-      "effect__name": "hit_20_60mm_he_metal_cmps_fx"
+  ],
+  "hit_20mm_he_metal_effect": [
+    {
+      "_use": "hit_effect_base"
+    },
+    {
+      "_use": "hit_env_affect_fx"
+    },
+    {
+      "wind_emitter__radius": 1.0
+    },
+    {
+      "wind_emitter__duration": 2.0
+    },
+    {
+      "wind_emitter__strength": 1.0
+    },
+    {
+      "wind_emitter__phaseSin": true
+    },
+    {
+      "wind_emitter__numWaves": 3
+    },
+    {
+      "wind_emitter__phaseAttack": true
+    },
+    {
+      "wind_emitter__omni:tag": []
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "hit_20_60mm_he_metal_cmps_fx",
+        "effect__environmentDestructionRadius": 3.0
+      }
     }
-  },
-  "hit_20mm_he_sand_effect": {
-    "_use": "hit_effect_base",
-    "wind_emitter__radius": 1.0,
-    "wind_emitter__duration": 2.0,
-    "wind_emitter__strength": 1.0,
-    "wind_emitter__phaseSin": true,
-    "wind_emitter__numWaves": 3,
-    "wind_emitter__phaseAttack": true,
-    "wind_emitter__omni:tag": [],
-    "_group": {
-      "_tags": "render",
-      "effect__name": "hit_20_60mm_he_sand_cmps_fx"
+  ],
+  "hit_20mm_he_sand_effect": [
+    {
+      "_use": "hit_effect_base"
+    },
+    {
+      "_use": "hit_env_affect_fx"
+    },
+    {
+      "wind_emitter__radius": 1.0
+    },
+    {
+      "wind_emitter__duration": 2.0
+    },
+    {
+      "wind_emitter__strength": 1.0
+    },
+    {
+      "wind_emitter__phaseSin": true
+    },
+    {
+      "wind_emitter__numWaves": 3
+    },
+    {
+      "wind_emitter__phaseAttack": true
+    },
+    {
+      "wind_emitter__omni:tag": []
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "hit_20_60mm_he_sand_cmps_fx",
+        "effect__environmentDestructionRadius": 3.0
+      }
     }
-  },
-  "hit_20mm_he_snow_effect": {
-    "_use": "hit_effect_base",
-    "wind_emitter__radius": 1.0,
-    "wind_emitter__duration": 2.0,
-    "wind_emitter__strength": 1.0,
-    "wind_emitter__phaseSin": true,
-    "wind_emitter__numWaves": 3,
-    "wind_emitter__phaseAttack": true,
-    "wind_emitter__omni:tag": [],
-    "_group": {
-      "_tags": "render",
-      "effect__name": "hit_20_60mm_he_snow_cmps_fx"
+  ],
+  "hit_20mm_he_snow_effect": [
+    {
+      "_use": "hit_effect_base"
+    },
+    {
+      "_use": "hit_env_affect_fx"
+    },
+    {
+      "wind_emitter__radius": 1.0
+    },
+    {
+      "wind_emitter__duration": 2.0
+    },
+    {
+      "wind_emitter__strength": 1.0
+    },
+    {
+      "wind_emitter__phaseSin": true
+    },
+    {
+      "wind_emitter__numWaves": 3
+    },
+    {
+      "wind_emitter__phaseAttack": true
+    },
+    {
+      "wind_emitter__omni:tag": []
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "hit_20_60mm_he_snow_cmps_fx",
+        "effect__environmentDestructionRadius": 3.0
+      }
     }
-  },
-  "hit_20mm_he_stone_effect": {
-    "_use": "hit_effect_base",
-    "wind_emitter__radius": 1.0,
-    "wind_emitter__duration": 2.0,
-    "wind_emitter__strength": 1.0,
-    "wind_emitter__phaseSin": true,
-    "wind_emitter__numWaves": 3,
-    "wind_emitter__phaseAttack": true,
-    "wind_emitter__omni:tag": [],
-    "_group": {
-      "_tags": "render",
-      "effect__name": "hit_20_60mm_he_stone_cmps_fx"
+  ],
+  "hit_20mm_he_stone_effect": [
+    {
+      "_use": "hit_effect_base"
+    },
+    {
+      "_use": "hit_env_affect_fx"
+    },
+    {
+      "wind_emitter__radius": 1.0
+    },
+    {
+      "wind_emitter__duration": 2.0
+    },
+    {
+      "wind_emitter__strength": 1.0
+    },
+    {
+      "wind_emitter__phaseSin": true
+    },
+    {
+      "wind_emitter__numWaves": 3
+    },
+    {
+      "wind_emitter__phaseAttack": true
+    },
+    {
+      "wind_emitter__omni:tag": []
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "hit_20_60mm_he_stone_cmps_fx",
+        "effect__environmentDestructionRadius": 3.0
+      }
     }
-  },
-  "hit_20mm_he_wood_effect": {
-    "_use": "hit_effect_base",
-    "wind_emitter__radius": 1.0,
-    "wind_emitter__duration": 2.0,
-    "wind_emitter__strength": 1.0,
-    "wind_emitter__phaseSin": true,
-    "wind_emitter__numWaves": 3,
-    "wind_emitter__phaseAttack": true,
-    "wind_emitter__omni:tag": [],
-    "_group": {
-      "_tags": "render",
-      "effect__name": "hit_20_60mm_he_wood_cmps_fx"
+  ],
+  "hit_20mm_he_wood_effect": [
+    {
+      "_use": "hit_effect_base"
+    },
+    {
+      "_use": "hit_env_affect_fx"
+    },
+    {
+      "wind_emitter__radius": 1.0
+    },
+    {
+      "wind_emitter__duration": 2.0
+    },
+    {
+      "wind_emitter__strength": 1.0
+    },
+    {
+      "wind_emitter__phaseSin": true
+    },
+    {
+      "wind_emitter__numWaves": 3
+    },
+    {
+      "wind_emitter__phaseAttack": true
+    },
+    {
+      "wind_emitter__omni:tag": []
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "hit_20_60mm_he_wood_cmps_fx",
+        "effect__environmentDestructionRadius": 3.0
+      }
     }
-  },
-  "hit_20_60mm_ap_metal_effect": {
-    "_use": "hit_effect_base",
-    "wind_emitter__radius": 1.0,
-    "wind_emitter__duration": 2.0,
-    "wind_emitter__strength": 1.0,
-    "wind_emitter__phaseSin": true,
-    "wind_emitter__numWaves": 3,
-    "wind_emitter__phaseAttack": true,
-    "wind_emitter__omni:tag": [],
-    "_group": {
-      "_tags": "render",
-      "effect__name": "hit_20_60mm_ap_metal_cmps_fx"
+  ],
+  "hit_20_60mm_ap_metal_effect": [
+    {
+      "_use": "hit_effect_base"
+    },
+    {
+      "_use": "hit_env_affect_fx"
+    },
+    {
+      "wind_emitter__radius": 1.0
+    },
+    {
+      "wind_emitter__duration": 2.0
+    },
+    {
+      "wind_emitter__strength": 1.0
+    },
+    {
+      "wind_emitter__phaseSin": true
+    },
+    {
+      "wind_emitter__numWaves": 3
+    },
+    {
+      "wind_emitter__phaseAttack": true
+    },
+    {
+      "wind_emitter__omni:tag": []
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "hit_20_60mm_ap_metal_cmps_fx",
+        "effect__environmentDestructionRadius": 3.0
+      }
     }
-  },
-  "hit_20_60mm_ap_sand_effect": {
-    "_use": "hit_effect_base",
-    "wind_emitter__radius": 1.0,
-    "wind_emitter__duration": 2.0,
-    "wind_emitter__strength": 1.0,
-    "wind_emitter__phaseSin": true,
-    "wind_emitter__numWaves": 3,
-    "wind_emitter__phaseAttack": true,
-    "wind_emitter__omni:tag": [],
-    "_group": {
-      "_tags": "render",
-      "effect__name": "hit_20_60mm_ap_sand_cmps_fx"
+  ],
+  "hit_20_60mm_ap_sand_effect": [
+    {
+      "_use": "hit_effect_base"
+    },
+    {
+      "_use": "hit_env_affect_fx"
+    },
+    {
+      "wind_emitter__radius": 1.0
+    },
+    {
+      "wind_emitter__duration": 2.0
+    },
+    {
+      "wind_emitter__strength": 1.0
+    },
+    {
+      "wind_emitter__phaseSin": true
+    },
+    {
+      "wind_emitter__numWaves": 3
+    },
+    {
+      "wind_emitter__phaseAttack": true
+    },
+    {
+      "wind_emitter__omni:tag": []
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "hit_20_60mm_ap_sand_cmps_fx",
+        "effect__environmentDestructionRadius": 3.0
+      }
     }
-  },
-  "hit_20_60mm_ap_snow_effect": {
-    "_use": "hit_effect_base",
-    "wind_emitter__radius": 1.0,
-    "wind_emitter__duration": 2.0,
-    "wind_emitter__strength": 1.0,
-    "wind_emitter__phaseSin": true,
-    "wind_emitter__numWaves": 3,
-    "wind_emitter__phaseAttack": true,
-    "wind_emitter__omni:tag": [],
-    "_group": {
-      "_tags": "render",
-      "effect__name": "hit_20_60mm_ap_snow_cmps_fx"
+  ],
+  "hit_20_60mm_ap_snow_effect": [
+    {
+      "_use": "hit_effect_base"
+    },
+    {
+      "_use": "hit_env_affect_fx"
+    },
+    {
+      "wind_emitter__radius": 1.0
+    },
+    {
+      "wind_emitter__duration": 2.0
+    },
+    {
+      "wind_emitter__strength": 1.0
+    },
+    {
+      "wind_emitter__phaseSin": true
+    },
+    {
+      "wind_emitter__numWaves": 3
+    },
+    {
+      "wind_emitter__phaseAttack": true
+    },
+    {
+      "wind_emitter__omni:tag": []
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "hit_20_60mm_ap_snow_cmps_fx",
+        "effect__environmentDestructionRadius": 3.0
+      }
     }
-  },
-  "hit_20_60mm_ap_stone_effect": {
-    "_use": "hit_effect_base",
-    "wind_emitter__radius": 1.0,
-    "wind_emitter__duration": 2.0,
-    "wind_emitter__strength": 1.0,
-    "wind_emitter__phaseSin": true,
-    "wind_emitter__numWaves": 3,
-    "wind_emitter__phaseAttack": true,
-    "wind_emitter__omni:tag": [],
-    "_group": {
-      "_tags": "render",
-      "effect__name": "hit_20_60mm_ap_stone_cmps_fx"
+  ],
+  "hit_20_60mm_ap_stone_effect": [
+    {
+      "_use": "hit_effect_base"
+    },
+    {
+      "_use": "hit_env_affect_fx"
+    },
+    {
+      "wind_emitter__radius": 1.0
+    },
+    {
+      "wind_emitter__duration": 2.0
+    },
+    {
+      "wind_emitter__strength": 1.0
+    },
+    {
+      "wind_emitter__phaseSin": true
+    },
+    {
+      "wind_emitter__numWaves": 3
+    },
+    {
+      "wind_emitter__phaseAttack": true
+    },
+    {
+      "wind_emitter__omni:tag": []
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "hit_20_60mm_ap_stone_cmps_fx",
+        "effect__environmentDestructionRadius": 3.0
+      }
     }
-  },
-  "hit_20_60mm_ap_wood_effect": {
-    "_use": "hit_effect_base",
-    "wind_emitter__radius": 1.0,
-    "wind_emitter__duration": 2.0,
-    "wind_emitter__strength": 1.0,
-    "wind_emitter__phaseSin": true,
-    "wind_emitter__numWaves": 3,
-    "wind_emitter__phaseAttack": true,
-    "wind_emitter__omni:tag": [],
-    "_group": {
-      "_tags": "render",
-      "effect__name": "hit_20_60mm_ap_wood_cmps_fx"
+  ],
+  "hit_20_60mm_ap_wood_effect": [
+    {
+      "_use": "hit_effect_base"
+    },
+    {
+      "_use": "hit_env_affect_fx"
+    },
+    {
+      "wind_emitter__radius": 1.0
+    },
+    {
+      "wind_emitter__duration": 2.0
+    },
+    {
+      "wind_emitter__strength": 1.0
+    },
+    {
+      "wind_emitter__phaseSin": true
+    },
+    {
+      "wind_emitter__numWaves": 3
+    },
+    {
+      "wind_emitter__phaseAttack": true
+    },
+    {
+      "wind_emitter__omni:tag": []
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "hit_20_60mm_ap_wood_cmps_fx",
+        "effect__environmentDestructionRadius": 3.0
+      }
     }
-  },
-  "hit_20_60mm_he_metal_effect": {
-    "_use": "hit_effect_base",
-    "wind_emitter__radius": 1.0,
-    "wind_emitter__duration": 2.0,
-    "wind_emitter__strength": 1.0,
-    "wind_emitter__phaseSin": true,
-    "wind_emitter__numWaves": 3,
-    "wind_emitter__phaseAttack": true,
-    "wind_emitter__omni:tag": [],
-    "_group": {
-      "_tags": "render",
-      "effect__name": "hit_20_60mm_he_metal_cmps_fx"
+  ],
+  "hit_20_60mm_he_metal_effect": [
+    {
+      "_use": "hit_effect_base"
+    },
+    {
+      "_use": "hit_env_affect_fx"
+    },
+    {
+      "wind_emitter__radius": 1.0
+    },
+    {
+      "wind_emitter__duration": 2.0
+    },
+    {
+      "wind_emitter__strength": 1.0
+    },
+    {
+      "wind_emitter__phaseSin": true
+    },
+    {
+      "wind_emitter__numWaves": 3
+    },
+    {
+      "wind_emitter__phaseAttack": true
+    },
+    {
+      "wind_emitter__omni:tag": []
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "hit_20_60mm_he_metal_cmps_fx",
+        "effect__environmentDestructionRadius": 4.0
+      }
     }
-  },
-  "hit_20_60mm_he_sand_effect": {
-    "_use": "hit_effect_base",
-    "wind_emitter__radius": 1.0,
-    "wind_emitter__duration": 2.0,
-    "wind_emitter__strength": 1.0,
-    "wind_emitter__phaseSin": true,
-    "wind_emitter__numWaves": 3,
-    "wind_emitter__phaseAttack": true,
-    "wind_emitter__omni:tag": [],
-    "_group": {
-      "_tags": "render",
-      "effect__name": "hit_20_60mm_he_sand_cmps_fx"
+  ],
+  "hit_20_60mm_he_sand_effect": [
+    {
+      "_use": "hit_effect_base"
+    },
+    {
+      "_use": "hit_env_affect_fx"
+    },
+    {
+      "wind_emitter__radius": 1.0
+    },
+    {
+      "wind_emitter__duration": 2.0
+    },
+    {
+      "wind_emitter__strength": 1.0
+    },
+    {
+      "wind_emitter__phaseSin": true
+    },
+    {
+      "wind_emitter__numWaves": 3
+    },
+    {
+      "wind_emitter__phaseAttack": true
+    },
+    {
+      "wind_emitter__omni:tag": []
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "hit_20_60mm_he_sand_cmps_fx",
+        "effect__environmentDestructionRadius": 4.0
+      }
     }
-  },
-  "hit_20_60mm_he_snow_effect": {
-    "_use": "hit_effect_base",
-    "wind_emitter__radius": 1.0,
-    "wind_emitter__duration": 2.0,
-    "wind_emitter__strength": 1.0,
-    "wind_emitter__phaseSin": true,
-    "wind_emitter__numWaves": 3,
-    "wind_emitter__phaseAttack": true,
-    "wind_emitter__omni:tag": [],
-    "_group": {
-      "_tags": "render",
-      "effect__name": "hit_20_60mm_he_snow_cmps_fx"
+  ],
+  "hit_20_60mm_he_snow_effect": [
+    {
+      "_use": "hit_effect_base"
+    },
+    {
+      "_use": "hit_env_affect_fx"
+    },
+    {
+      "wind_emitter__radius": 1.0
+    },
+    {
+      "wind_emitter__duration": 2.0
+    },
+    {
+      "wind_emitter__strength": 1.0
+    },
+    {
+      "wind_emitter__phaseSin": true
+    },
+    {
+      "wind_emitter__numWaves": 3
+    },
+    {
+      "wind_emitter__phaseAttack": true
+    },
+    {
+      "wind_emitter__omni:tag": []
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "hit_20_60mm_he_snow_cmps_fx",
+        "effect__environmentDestructionRadius": 4.0
+      }
     }
-  },
-  "hit_20_60mm_he_stone_effect": {
-    "_use": "hit_effect_base",
-    "wind_emitter__radius": 1.0,
-    "wind_emitter__duration": 2.0,
-    "wind_emitter__strength": 1.0,
-    "wind_emitter__phaseSin": true,
-    "wind_emitter__numWaves": 3,
-    "wind_emitter__phaseAttack": true,
-    "wind_emitter__omni:tag": [],
-    "_group": {
-      "_tags": "render",
-      "effect__name": "hit_20_60mm_he_stone_cmps_fx"
+  ],
+  "hit_20_60mm_he_stone_effect": [
+    {
+      "_use": "hit_effect_base"
+    },
+    {
+      "_use": "hit_env_affect_fx"
+    },
+    {
+      "wind_emitter__radius": 1.0
+    },
+    {
+      "wind_emitter__duration": 2.0
+    },
+    {
+      "wind_emitter__strength": 1.0
+    },
+    {
+      "wind_emitter__phaseSin": true
+    },
+    {
+      "wind_emitter__numWaves": 3
+    },
+    {
+      "wind_emitter__phaseAttack": true
+    },
+    {
+      "wind_emitter__omni:tag": []
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "hit_20_60mm_he_stone_cmps_fx",
+        "effect__environmentDestructionRadius": 4.0
+      }
     }
-  },
-  "hit_20_60mm_he_wood_effect": {
-    "_use": "hit_effect_base",
-    "wind_emitter__radius": 1.0,
-    "wind_emitter__duration": 2.0,
-    "wind_emitter__strength": 1.0,
-    "wind_emitter__phaseSin": true,
-    "wind_emitter__numWaves": 3,
-    "wind_emitter__phaseAttack": true,
-    "wind_emitter__omni:tag": [],
-    "_group": {
-      "_tags": "render",
-      "effect__name": "hit_20_60mm_he_wood_cmps_fx"
+  ],
+  "hit_20_60mm_he_wood_effect": [
+    {
+      "_use": "hit_effect_base"
+    },
+    {
+      "_use": "hit_env_affect_fx"
+    },
+    {
+      "wind_emitter__radius": 1.0
+    },
+    {
+      "wind_emitter__duration": 2.0
+    },
+    {
+      "wind_emitter__strength": 1.0
+    },
+    {
+      "wind_emitter__phaseSin": true
+    },
+    {
+      "wind_emitter__numWaves": 3
+    },
+    {
+      "wind_emitter__phaseAttack": true
+    },
+    {
+      "wind_emitter__omni:tag": []
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "hit_20_60mm_he_wood_cmps_fx",
+        "effect__environmentDestructionRadius": 4.0
+      }
     }
-  },
-  "hit_60_100mm_ap_metal_effect": {
-    "_use": "hit_effect_base",
-    "wind_emitter__radius": 2.0,
-    "wind_emitter__duration": 3.0,
-    "wind_emitter__strength": 2.0,
-    "wind_emitter__phaseSin": true,
-    "wind_emitter__numWaves": 5,
-    "wind_emitter__phaseAttack": true,
-    "wind_emitter__omni:tag": [],
-    "_group": {
-      "_tags": "render",
-      "effect__name": "hit_60_100mm_ap_metal_cmps_fx"
+  ],
+  "hit_60_100mm_ap_metal_effect": [
+    {
+      "_use": "hit_effect_base"
+    },
+    {
+      "_use": "hit_env_affect_fx"
+    },
+    {
+      "wind_emitter__radius": 2.0
+    },
+    {
+      "wind_emitter__duration": 3.0
+    },
+    {
+      "wind_emitter__strength": 2.0
+    },
+    {
+      "wind_emitter__phaseSin": true
+    },
+    {
+      "wind_emitter__numWaves": 5
+    },
+    {
+      "wind_emitter__phaseAttack": true
+    },
+    {
+      "wind_emitter__omni:tag": []
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "hit_60_100mm_ap_metal_cmps_fx",
+        "effect__environmentDestructionRadius": 4.0
+      }
     }
-  },
-  "hit_60_100mm_ap_sand_effect": {
-    "_use": "hit_effect_base",
-    "wind_emitter__radius": 2.0,
-    "wind_emitter__duration": 3.0,
-    "wind_emitter__strength": 2.0,
-    "wind_emitter__phaseSin": true,
-    "wind_emitter__numWaves": 5,
-    "wind_emitter__phaseAttack": true,
-    "wind_emitter__omni:tag": [],
-    "_group": {
-      "_tags": "render",
-      "effect__name": "hit_60_100mm_ap_sand_cmps_fx"
+  ],
+  "hit_60_100mm_ap_sand_effect": [
+    {
+      "_use": "hit_effect_base"
+    },
+    {
+      "_use": "hit_env_affect_fx"
+    },
+    {
+      "wind_emitter__radius": 2.0
+    },
+    {
+      "wind_emitter__duration": 3.0
+    },
+    {
+      "wind_emitter__strength": 2.0
+    },
+    {
+      "wind_emitter__phaseSin": true
+    },
+    {
+      "wind_emitter__numWaves": 5
+    },
+    {
+      "wind_emitter__phaseAttack": true
+    },
+    {
+      "wind_emitter__omni:tag": []
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "hit_60_100mm_ap_sand_cmps_fx",
+        "effect__environmentDestructionRadius": 4.0
+      }
     }
-  },
-  "hit_60_100mm_ap_snow_effect": {
-    "_use": "hit_effect_base",
-    "wind_emitter__radius": 2.0,
-    "wind_emitter__duration": 3.0,
-    "wind_emitter__strength": 2.0,
-    "wind_emitter__phaseSin": true,
-    "wind_emitter__numWaves": 5,
-    "wind_emitter__phaseAttack": true,
-    "wind_emitter__omni:tag": [],
-    "_group": {
-      "_tags": "render",
-      "effect__name": "hit_60_100mm_ap_snow_cmps_fx"
+  ],
+  "hit_60_100mm_ap_snow_effect": [
+    {
+      "_use": "hit_effect_base"
+    },
+    {
+      "_use": "hit_env_affect_fx"
+    },
+    {
+      "wind_emitter__radius": 2.0
+    },
+    {
+      "wind_emitter__duration": 3.0
+    },
+    {
+      "wind_emitter__strength": 2.0
+    },
+    {
+      "wind_emitter__phaseSin": true
+    },
+    {
+      "wind_emitter__numWaves": 5
+    },
+    {
+      "wind_emitter__phaseAttack": true
+    },
+    {
+      "wind_emitter__omni:tag": []
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "hit_60_100mm_ap_snow_cmps_fx",
+        "effect__environmentDestructionRadius": 4.0
+      }
     }
-  },
-  "hit_60_100mm_ap_stone_effect": {
-    "_use": "hit_effect_base",
-    "wind_emitter__radius": 2.0,
-    "wind_emitter__duration": 3.0,
-    "wind_emitter__strength": 2.0,
-    "wind_emitter__phaseSin": true,
-    "wind_emitter__numWaves": 5,
-    "wind_emitter__phaseAttack": true,
-    "wind_emitter__omni:tag": [],
-    "_group": {
-      "_tags": "render",
-      "effect__name": "hit_60_100mm_ap_stone_cmps_fx"
+  ],
+  "hit_60_100mm_ap_stone_effect": [
+    {
+      "_use": "hit_effect_base"
+    },
+    {
+      "_use": "hit_env_affect_fx"
+    },
+    {
+      "wind_emitter__radius": 2.0
+    },
+    {
+      "wind_emitter__duration": 3.0
+    },
+    {
+      "wind_emitter__strength": 2.0
+    },
+    {
+      "wind_emitter__phaseSin": true
+    },
+    {
+      "wind_emitter__numWaves": 5
+    },
+    {
+      "wind_emitter__phaseAttack": true
+    },
+    {
+      "wind_emitter__omni:tag": []
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "hit_60_100mm_ap_stone_cmps_fx",
+        "effect__environmentDestructionRadius": 4.0
+      }
     }
-  },
-  "hit_60_100mm_ap_wood_effect": {
-    "_use": "hit_effect_base",
-    "wind_emitter__radius": 2.0,
-    "wind_emitter__duration": 3.0,
-    "wind_emitter__strength": 2.0,
-    "wind_emitter__phaseSin": true,
-    "wind_emitter__numWaves": 5,
-    "wind_emitter__phaseAttack": true,
-    "wind_emitter__omni:tag": [],
-    "_group": {
-      "_tags": "render",
-      "effect__name": "hit_60_100mm_ap_wood_cmps_fx"
+  ],
+  "hit_60_100mm_ap_wood_effect": [
+    {
+      "_use": "hit_effect_base"
+    },
+    {
+      "_use": "hit_env_affect_fx"
+    },
+    {
+      "wind_emitter__radius": 2.0
+    },
+    {
+      "wind_emitter__duration": 3.0
+    },
+    {
+      "wind_emitter__strength": 2.0
+    },
+    {
+      "wind_emitter__phaseSin": true
+    },
+    {
+      "wind_emitter__numWaves": 5
+    },
+    {
+      "wind_emitter__phaseAttack": true
+    },
+    {
+      "wind_emitter__omni:tag": []
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "hit_60_100mm_ap_wood_cmps_fx",
+        "effect__environmentDestructionRadius": 4.0
+      }
     }
-  },
-  "hit_60_100mm_he_metal_effect": {
-    "_use": "hit_effect_base",
-    "wind_emitter__radius": 2.0,
-    "wind_emitter__duration": 3.0,
-    "wind_emitter__strength": 2.0,
-    "wind_emitter__phaseSin": true,
-    "wind_emitter__numWaves": 5,
-    "wind_emitter__phaseAttack": true,
-    "wind_emitter__omni:tag": [],
-    "_group": {
-      "_tags": "render",
-      "effect__name": "hit_60_100mm_he_metal_cmps_fx"
+  ],
+  "hit_60_100mm_he_metal_effect": [
+    {
+      "_use": "hit_effect_base"
+    },
+    {
+      "_use": "hit_env_affect_fx"
+    },
+    {
+      "wind_emitter__radius": 2.0
+    },
+    {
+      "wind_emitter__duration": 3.0
+    },
+    {
+      "wind_emitter__strength": 2.0
+    },
+    {
+      "wind_emitter__phaseSin": true
+    },
+    {
+      "wind_emitter__numWaves": 5
+    },
+    {
+      "wind_emitter__phaseAttack": true
+    },
+    {
+      "wind_emitter__omni:tag": []
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "hit_60_100mm_he_metal_cmps_fx",
+        "effect__environmentDestructionRadius": 5.0
+      }
     }
-  },
-  "hit_60_100mm_he_sand_effect": {
-    "_use": "hit_effect_base",
-    "wind_emitter__radius": 2.0,
-    "wind_emitter__duration": 3.0,
-    "wind_emitter__strength": 2.0,
-    "wind_emitter__phaseSin": true,
-    "wind_emitter__numWaves": 5,
-    "wind_emitter__phaseAttack": true,
-    "wind_emitter__omni:tag": [],
-    "_group": {
-      "_tags": "render",
-      "effect__name": "hit_60_100mm_he_sand_cmps_fx"
+  ],
+  "hit_60_100mm_he_sand_effect": [
+    {
+      "_use": "hit_effect_base"
+    },
+    {
+      "_use": "hit_env_affect_fx"
+    },
+    {
+      "wind_emitter__radius": 2.0
+    },
+    {
+      "wind_emitter__duration": 3.0
+    },
+    {
+      "wind_emitter__strength": 2.0
+    },
+    {
+      "wind_emitter__phaseSin": true
+    },
+    {
+      "wind_emitter__numWaves": 5
+    },
+    {
+      "wind_emitter__phaseAttack": true
+    },
+    {
+      "wind_emitter__omni:tag": []
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "hit_60_100mm_he_sand_cmps_fx",
+        "effect__environmentDestructionRadius": 5.0
+      }
     }
-  },
-  "hit_60_100mm_he_snow_effect": {
-    "_use": "hit_effect_base",
-    "wind_emitter__radius": 2.0,
-    "wind_emitter__duration": 3.0,
-    "wind_emitter__strength": 2.0,
-    "wind_emitter__phaseSin": true,
-    "wind_emitter__numWaves": 5,
-    "wind_emitter__phaseAttack": true,
-    "wind_emitter__omni:tag": [],
-    "_group": {
-      "_tags": "render",
-      "effect__name": "hit_60_100mm_he_snow_cmps_fx"
+  ],
+  "hit_60_100mm_he_snow_effect": [
+    {
+      "_use": "hit_effect_base"
+    },
+    {
+      "_use": "hit_env_affect_fx"
+    },
+    {
+      "wind_emitter__radius": 2.0
+    },
+    {
+      "wind_emitter__duration": 3.0
+    },
+    {
+      "wind_emitter__strength": 2.0
+    },
+    {
+      "wind_emitter__phaseSin": true
+    },
+    {
+      "wind_emitter__numWaves": 5
+    },
+    {
+      "wind_emitter__phaseAttack": true
+    },
+    {
+      "wind_emitter__omni:tag": []
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "hit_60_100mm_he_snow_cmps_fx",
+        "effect__environmentDestructionRadius": 5.0
+      }
     }
-  },
-  "hit_60_100mm_he_stone_effect": {
-    "_use": "hit_effect_base",
-    "wind_emitter__radius": 2.0,
-    "wind_emitter__duration": 3.0,
-    "wind_emitter__strength": 2.0,
-    "wind_emitter__phaseSin": true,
-    "wind_emitter__numWaves": 5,
-    "wind_emitter__phaseAttack": true,
-    "wind_emitter__omni:tag": [],
-    "_group": {
-      "_tags": "render",
-      "effect__name": "hit_60_100mm_he_stone_cmps_fx"
+  ],
+  "hit_60_100mm_he_stone_effect": [
+    {
+      "_use": "hit_effect_base"
+    },
+    {
+      "_use": "hit_env_affect_fx"
+    },
+    {
+      "wind_emitter__radius": 2.0
+    },
+    {
+      "wind_emitter__duration": 3.0
+    },
+    {
+      "wind_emitter__strength": 2.0
+    },
+    {
+      "wind_emitter__phaseSin": true
+    },
+    {
+      "wind_emitter__numWaves": 5
+    },
+    {
+      "wind_emitter__phaseAttack": true
+    },
+    {
+      "wind_emitter__omni:tag": []
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "hit_60_100mm_he_stone_cmps_fx",
+        "effect__environmentDestructionRadius": 5.0
+      }
     }
-  },
-  "hit_60_100mm_he_wood_effect": {
-    "_use": "hit_effect_base",
-    "wind_emitter__radius": 2.0,
-    "wind_emitter__duration": 3.0,
-    "wind_emitter__strength": 2.0,
-    "wind_emitter__phaseSin": true,
-    "wind_emitter__numWaves": 5,
-    "wind_emitter__phaseAttack": true,
-    "wind_emitter__omni:tag": [],
-    "_group": {
-      "_tags": "render",
-      "effect__name": "hit_60_100mm_he_wood_cmps_fx"
+  ],
+  "hit_60_100mm_he_wood_effect": [
+    {
+      "_use": "hit_effect_base"
+    },
+    {
+      "_use": "hit_env_affect_fx"
+    },
+    {
+      "wind_emitter__radius": 2.0
+    },
+    {
+      "wind_emitter__duration": 3.0
+    },
+    {
+      "wind_emitter__strength": 2.0
+    },
+    {
+      "wind_emitter__phaseSin": true
+    },
+    {
+      "wind_emitter__numWaves": 5
+    },
+    {
+      "wind_emitter__phaseAttack": true
+    },
+    {
+      "wind_emitter__omni:tag": []
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "hit_60_100mm_he_wood_cmps_fx",
+        "effect__environmentDestructionRadius": 5.0
+      }
     }
-  },
-  "hit_100_150mm_ap_metal_effect": {
-    "_use": "hit_effect_base",
-    "wind_emitter__radius": 2.0,
-    "wind_emitter__duration": 3.0,
-    "wind_emitter__strength": 3.0,
-    "wind_emitter__phaseSin": true,
-    "wind_emitter__numWaves": 5,
-    "wind_emitter__phaseAttack": true,
-    "wind_emitter__omni:tag": [],
-    "_group": {
-      "_tags": "render",
-      "effect__name": "hit_100_150mm_ap_metal_cmps_fx"
+  ],
+  "hit_100_150mm_ap_metal_effect": [
+    {
+      "_use": "hit_effect_base"
+    },
+    {
+      "_use": "hit_env_affect_fx"
+    },
+    {
+      "wind_emitter__radius": 2.0
+    },
+    {
+      "wind_emitter__duration": 3.0
+    },
+    {
+      "wind_emitter__strength": 3.0
+    },
+    {
+      "wind_emitter__phaseSin": true
+    },
+    {
+      "wind_emitter__numWaves": 5
+    },
+    {
+      "wind_emitter__phaseAttack": true
+    },
+    {
+      "wind_emitter__omni:tag": []
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "hit_100_150mm_ap_metal_cmps_fx",
+        "effect__environmentDestructionRadius": 5.0
+      }
     }
-  },
-  "hit_100_150mm_ap_sand_effect": {
-    "_use": "hit_effect_base",
-    "wind_emitter__radius": 2.0,
-    "wind_emitter__duration": 3.0,
-    "wind_emitter__strength": 3.0,
-    "wind_emitter__phaseSin": true,
-    "wind_emitter__numWaves": 5,
-    "wind_emitter__phaseAttack": true,
-    "wind_emitter__omni:tag": [],
-    "_group": {
-      "_tags": "render",
-      "effect__name": "hit_100_150mm_ap_sand_cmps_fx"
+  ],
+  "hit_100_150mm_ap_sand_effect": [
+    {
+      "_use": "hit_effect_base"
+    },
+    {
+      "_use": "hit_env_affect_fx"
+    },
+    {
+      "wind_emitter__radius": 2.0
+    },
+    {
+      "wind_emitter__duration": 3.0
+    },
+    {
+      "wind_emitter__strength": 3.0
+    },
+    {
+      "wind_emitter__phaseSin": true
+    },
+    {
+      "wind_emitter__numWaves": 5
+    },
+    {
+      "wind_emitter__phaseAttack": true
+    },
+    {
+      "wind_emitter__omni:tag": []
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "hit_100_150mm_ap_sand_cmps_fx",
+        "effect__environmentDestructionRadius": 5.0
+      }
     }
-  },
-  "hit_100_150mm_ap_snow_effect": {
-    "_use": "hit_effect_base",
-    "wind_emitter__radius": 2.0,
-    "wind_emitter__duration": 3.0,
-    "wind_emitter__strength": 3.0,
-    "wind_emitter__phaseSin": true,
-    "wind_emitter__numWaves": 5,
-    "wind_emitter__phaseAttack": true,
-    "wind_emitter__omni:tag": [],
-    "_group": {
-      "_tags": "render",
-      "effect__name": "hit_100_150mm_ap_snow_cmps_fx"
+  ],
+  "hit_100_150mm_ap_snow_effect": [
+    {
+      "_use": "hit_effect_base"
+    },
+    {
+      "_use": "hit_env_affect_fx"
+    },
+    {
+      "wind_emitter__radius": 2.0
+    },
+    {
+      "wind_emitter__duration": 3.0
+    },
+    {
+      "wind_emitter__strength": 3.0
+    },
+    {
+      "wind_emitter__phaseSin": true
+    },
+    {
+      "wind_emitter__numWaves": 5
+    },
+    {
+      "wind_emitter__phaseAttack": true
+    },
+    {
+      "wind_emitter__omni:tag": []
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "hit_100_150mm_ap_snow_cmps_fx",
+        "effect__environmentDestructionRadius": 5.0
+      }
     }
-  },
-  "hit_100_150mm_ap_stone_effect": {
-    "_use": "hit_effect_base",
-    "wind_emitter__radius": 2.0,
-    "wind_emitter__duration": 3.0,
-    "wind_emitter__strength": 3.0,
-    "wind_emitter__phaseSin": true,
-    "wind_emitter__numWaves": 5,
-    "wind_emitter__phaseAttack": true,
-    "wind_emitter__omni:tag": [],
-    "_group": {
-      "_tags": "render",
-      "effect__name": "hit_100_150mm_ap_stone_cmps_fx"
+  ],
+  "hit_100_150mm_ap_stone_effect": [
+    {
+      "_use": "hit_effect_base"
+    },
+    {
+      "_use": "hit_env_affect_fx"
+    },
+    {
+      "wind_emitter__radius": 2.0
+    },
+    {
+      "wind_emitter__duration": 3.0
+    },
+    {
+      "wind_emitter__strength": 3.0
+    },
+    {
+      "wind_emitter__phaseSin": true
+    },
+    {
+      "wind_emitter__numWaves": 5
+    },
+    {
+      "wind_emitter__phaseAttack": true
+    },
+    {
+      "wind_emitter__omni:tag": []
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "hit_100_150mm_ap_stone_cmps_fx",
+        "effect__environmentDestructionRadius": 5.0
+      }
     }
-  },
-  "hit_100_150mm_ap_wood_effect": {
-    "_use": "hit_effect_base",
-    "wind_emitter__radius": 2.0,
-    "wind_emitter__duration": 3.0,
-    "wind_emitter__strength": 3.0,
-    "wind_emitter__phaseSin": true,
-    "wind_emitter__numWaves": 5,
-    "wind_emitter__phaseAttack": true,
-    "wind_emitter__omni:tag": [],
-    "_group": {
-      "_tags": "render",
-      "effect__name": "hit_100_150mm_ap_wood_cmps_fx"
+  ],
+  "hit_100_150mm_ap_wood_effect": [
+    {
+      "_use": "hit_effect_base"
+    },
+    {
+      "_use": "hit_env_affect_fx"
+    },
+    {
+      "wind_emitter__radius": 2.0
+    },
+    {
+      "wind_emitter__duration": 3.0
+    },
+    {
+      "wind_emitter__strength": 3.0
+    },
+    {
+      "wind_emitter__phaseSin": true
+    },
+    {
+      "wind_emitter__numWaves": 5
+    },
+    {
+      "wind_emitter__phaseAttack": true
+    },
+    {
+      "wind_emitter__omni:tag": []
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "hit_100_150mm_ap_wood_cmps_fx",
+        "effect__environmentDestructionRadius": 5.0
+      }
     }
-  },
-  "hit_100_150mm_he_metal_effect": {
-    "_use": "hit_effect_base",
-    "wind_emitter__radius": 2.0,
-    "wind_emitter__duration": 3.0,
-    "wind_emitter__strength": 3.0,
-    "wind_emitter__phaseSin": true,
-    "wind_emitter__numWaves": 5,
-    "wind_emitter__phaseAttack": true,
-    "wind_emitter__omni:tag": [],
-    "_group": {
-      "_tags": "render",
-      "effect__name": "hit_100_150mm_he_metal_cmps_fx"
+  ],
+  "hit_100_150mm_he_metal_effect": [
+    {
+      "_use": "hit_effect_base"
+    },
+    {
+      "_use": "hit_env_affect_fx"
+    },
+    {
+      "wind_emitter__radius": 2.0
+    },
+    {
+      "wind_emitter__duration": 3.0
+    },
+    {
+      "wind_emitter__strength": 3.0
+    },
+    {
+      "wind_emitter__phaseSin": true
+    },
+    {
+      "wind_emitter__numWaves": 5
+    },
+    {
+      "wind_emitter__phaseAttack": true
+    },
+    {
+      "wind_emitter__omni:tag": []
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "hit_100_150mm_he_metal_cmps_fx",
+        "effect__environmentDestructionRadius": 6.0
+      }
     }
-  },
-  "hit_100_150mm_he_sand_effect": {
-    "_use": "hit_effect_base",
-    "wind_emitter__radius": 2.0,
-    "wind_emitter__duration": 3.0,
-    "wind_emitter__strength": 3.0,
-    "wind_emitter__phaseSin": true,
-    "wind_emitter__numWaves": 5,
-    "wind_emitter__phaseAttack": true,
-    "wind_emitter__omni:tag": [],
-    "_group": {
-      "_tags": "render",
-      "effect__name": "hit_100_150mm_he_sand_cmps_fx"
+  ],
+  "hit_100_150mm_he_sand_effect": [
+    {
+      "_use": "hit_effect_base"
+    },
+    {
+      "_use": "hit_env_affect_fx"
+    },
+    {
+      "wind_emitter__radius": 2.0
+    },
+    {
+      "wind_emitter__duration": 3.0
+    },
+    {
+      "wind_emitter__strength": 3.0
+    },
+    {
+      "wind_emitter__phaseSin": true
+    },
+    {
+      "wind_emitter__numWaves": 5
+    },
+    {
+      "wind_emitter__phaseAttack": true
+    },
+    {
+      "wind_emitter__omni:tag": []
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "hit_100_150mm_he_sand_cmps_fx",
+        "effect__environmentDestructionRadius": 6.0
+      }
     }
-  },
-  "hit_100_150mm_he_snow_effect": {
-    "_use": "hit_effect_base",
-    "wind_emitter__radius": 2.0,
-    "wind_emitter__duration": 3.0,
-    "wind_emitter__strength": 3.0,
-    "wind_emitter__phaseSin": true,
-    "wind_emitter__numWaves": 5,
-    "wind_emitter__phaseAttack": true,
-    "wind_emitter__omni:tag": [],
-    "_group": {
-      "_tags": "render",
-      "effect__name": "hit_100_150mm_he_snow_cmps_fx"
+  ],
+  "hit_100_150mm_he_snow_effect": [
+    {
+      "_use": "hit_effect_base"
+    },
+    {
+      "_use": "hit_env_affect_fx"
+    },
+    {
+      "wind_emitter__radius": 2.0
+    },
+    {
+      "wind_emitter__duration": 3.0
+    },
+    {
+      "wind_emitter__strength": 3.0
+    },
+    {
+      "wind_emitter__phaseSin": true
+    },
+    {
+      "wind_emitter__numWaves": 5
+    },
+    {
+      "wind_emitter__phaseAttack": true
+    },
+    {
+      "wind_emitter__omni:tag": []
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "hit_100_150mm_he_snow_cmps_fx",
+        "effect__environmentDestructionRadius": 6.0
+      }
     }
-  },
-  "hit_100_150mm_he_stone_effect": {
-    "_use": "hit_effect_base",
-    "wind_emitter__radius": 2.0,
-    "wind_emitter__duration": 3.0,
-    "wind_emitter__strength": 3.0,
-    "wind_emitter__phaseSin": true,
-    "wind_emitter__numWaves": 5,
-    "wind_emitter__phaseAttack": true,
-    "wind_emitter__omni:tag": [],
-    "_group": {
-      "_tags": "render",
-      "effect__name": "hit_100_150mm_he_stone_cmps_fx"
+  ],
+  "hit_100_150mm_he_stone_effect": [
+    {
+      "_use": "hit_effect_base"
+    },
+    {
+      "_use": "hit_env_affect_fx"
+    },
+    {
+      "wind_emitter__radius": 2.0
+    },
+    {
+      "wind_emitter__duration": 3.0
+    },
+    {
+      "wind_emitter__strength": 3.0
+    },
+    {
+      "wind_emitter__phaseSin": true
+    },
+    {
+      "wind_emitter__numWaves": 5
+    },
+    {
+      "wind_emitter__phaseAttack": true
+    },
+    {
+      "wind_emitter__omni:tag": []
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "hit_100_150mm_he_stone_cmps_fx",
+        "effect__environmentDestructionRadius": 6.0
+      }
     }
-  },
-  "hit_100_150mm_he_wood_effect": {
-    "_use": "hit_effect_base",
-    "wind_emitter__radius": 2.0,
-    "wind_emitter__duration": 3.0,
-    "wind_emitter__strength": 3.0,
-    "wind_emitter__phaseSin": true,
-    "wind_emitter__numWaves": 5,
-    "wind_emitter__phaseAttack": true,
-    "wind_emitter__omni:tag": [],
-    "_group": {
-      "_tags": "render",
-      "effect__name": "hit_100_150mm_he_wood_cmps_fx"
+  ],
+  "hit_100_150mm_he_wood_effect": [
+    {
+      "_use": "hit_effect_base"
+    },
+    {
+      "_use": "hit_env_affect_fx"
+    },
+    {
+      "wind_emitter__radius": 2.0
+    },
+    {
+      "wind_emitter__duration": 3.0
+    },
+    {
+      "wind_emitter__strength": 3.0
+    },
+    {
+      "wind_emitter__phaseSin": true
+    },
+    {
+      "wind_emitter__numWaves": 5
+    },
+    {
+      "wind_emitter__phaseAttack": true
+    },
+    {
+      "wind_emitter__omni:tag": []
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "hit_100_150mm_he_wood_cmps_fx",
+        "effect__environmentDestructionRadius": 6.0
+      }
     }
-  },
+  ],
   "hit_footstep_dirt_effect": {
     "_use": "hit_effect_base",
     "paint_from_biome": true,
@@ -1359,62 +2239,150 @@
       }
     }
   ],
-  "hit_artillery_dirt_effect": {
-    "_use": "hit_effect_base",
-    "wind_emitter__radius": 2.0,
-    "wind_emitter__duration": 3.0,
-    "wind_emitter__strength": 3.0,
-    "wind_emitter__phaseSin": true,
-    "wind_emitter__numWaves": 5,
-    "wind_emitter__phaseAttack": true,
-    "wind_emitter__omni:tag": [],
-    "_group": {
-      "_tags": "render",
-      "effect__name": "hit_artillery_dirt_cmps_fx"
+  "hit_artillery_dirt_effect": [
+    {
+      "_use": "hit_effect_base"
+    },
+    {
+      "_use": "hit_env_affect_fx"
+    },
+    {
+      "wind_emitter__radius": 2.0
+    },
+    {
+      "wind_emitter__duration": 3.0
+    },
+    {
+      "wind_emitter__strength": 3.0
+    },
+    {
+      "wind_emitter__phaseSin": true
+    },
+    {
+      "wind_emitter__numWaves": 5
+    },
+    {
+      "wind_emitter__phaseAttack": true
+    },
+    {
+      "wind_emitter__omni:tag": []
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "hit_artillery_dirt_cmps_fx",
+        "effect__environmentDestructionRadius": 7.0
+      }
     }
-  },
-  "hit_artillery_snow_effect": {
-    "_use": "hit_effect_base",
-    "wind_emitter__radius": 2.0,
-    "wind_emitter__duration": 3.0,
-    "wind_emitter__strength": 3.0,
-    "wind_emitter__phaseSin": true,
-    "wind_emitter__numWaves": 5,
-    "wind_emitter__phaseAttack": true,
-    "wind_emitter__omni:tag": [],
-    "_group": {
-      "_tags": "render",
-      "effect__name": "hit_artillery_snow_cmps_fx"
+  ],
+  "hit_artillery_snow_effect": [
+    {
+      "_use": "hit_effect_base"
+    },
+    {
+      "_use": "hit_env_affect_fx"
+    },
+    {
+      "wind_emitter__radius": 2.0
+    },
+    {
+      "wind_emitter__duration": 3.0
+    },
+    {
+      "wind_emitter__strength": 3.0
+    },
+    {
+      "wind_emitter__phaseSin": true
+    },
+    {
+      "wind_emitter__numWaves": 5
+    },
+    {
+      "wind_emitter__phaseAttack": true
+    },
+    {
+      "wind_emitter__omni:tag": []
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "hit_artillery_snow_cmps_fx",
+        "effect__environmentDestructionRadius": 7.0
+      }
     }
-  },
-  "hit_artillery_sand_effect": {
-    "_use": "hit_effect_base",
-    "wind_emitter__radius": 2.0,
-    "wind_emitter__duration": 3.0,
-    "wind_emitter__strength": 3.0,
-    "wind_emitter__phaseSin": true,
-    "wind_emitter__numWaves": 5,
-    "wind_emitter__phaseAttack": true,
-    "wind_emitter__omni:tag": [],
-    "_group": {
-      "_tags": "render",
-      "effect__name": "hit_artillery_sand_cmps_fx"
+  ],
+  "hit_artillery_sand_effect": [
+    {
+      "_use": "hit_effect_base"
+    },
+    {
+      "_use": "hit_env_affect_fx"
+    },
+    {
+      "wind_emitter__radius": 2.0
+    },
+    {
+      "wind_emitter__duration": 3.0
+    },
+    {
+      "wind_emitter__strength": 3.0
+    },
+    {
+      "wind_emitter__phaseSin": true
+    },
+    {
+      "wind_emitter__numWaves": 5
+    },
+    {
+      "wind_emitter__phaseAttack": true
+    },
+    {
+      "wind_emitter__omni:tag": []
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "hit_artillery_sand_cmps_fx",
+        "effect__environmentDestructionRadius": 7.0
+      }
     }
-  },
-  "hit_artillery_stone_effect": {
-    "_use": "hit_effect_base",
-    "wind_emitter__radius": 2.0,
-    "wind_emitter__duration": 3.0,
-    "wind_emitter__strength": 3.0,
-    "wind_emitter__phaseSin": true,
-    "wind_emitter__numWaves": 5,
-    "wind_emitter__phaseAttack": true,
-    "wind_emitter__omni:tag": [],
-    "_group": {
-      "_tags": "render",
-      "effect__name": "hit_artillery_stone_cmps_fx"
+  ],
+  "hit_artillery_stone_effect": [
+    {
+      "_use": "hit_effect_base"
+    },
+    {
+      "_use": "hit_env_affect_fx"
+    },
+    {
+      "wind_emitter__radius": 2.0
+    },
+    {
+      "wind_emitter__duration": 3.0
+    },
+    {
+      "wind_emitter__strength": 3.0
+    },
+    {
+      "wind_emitter__phaseSin": true
+    },
+    {
+      "wind_emitter__numWaves": 5
+    },
+    {
+      "wind_emitter__phaseAttack": true
+    },
+    {
+      "wind_emitter__omni:tag": []
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "hit_artillery_stone_cmps_fx",
+        "effect__environmentDestructionRadius": 7.0
+      }
     }
-  },
+  ],
   "hit_ground_wave_big_dirt_effect": {
     "_use": "hit_effect_base",
     "_group": {

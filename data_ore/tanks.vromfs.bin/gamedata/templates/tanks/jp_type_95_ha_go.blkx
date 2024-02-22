@@ -26,132 +26,111 @@
       "_use": "jp_type_95_ha_go_common"
     }
   ],
-  "jp_type_95_ha_go_common": [
-    {
-      "_use": "tank_m10_engine_sound"
-    },
-    {
-      "_use": "tank_light_vehicle_tracks_sound"
-    },
-    {
-      "item__iconOffset": [-0.05,0.05]
-    },
-    {
-      "item__iconScale": 1.2
-    },
-    {
-      "commanderCockpitFpsCamMaxAngle": [40.0,5.0]
-    },
-    {
-      "gunner_cam_limit__useCockpitDir": true
-    },
-    {
-      "armorThicknessHull": [12.0,12.0,10.0]
-    },
-    {
-      "armorThicknessTurret": [30.0,12.0,12.0]
-    },
-    {
-      "vehicle_seats__seats:shared:array": [
-        {
-          "seats:object": {
-            "name": "main_gunner",
-            "locName": "vehicle_seats/gunner",
-            "attachNode": "commander",
-            "ignoreAttachNodeRotation": true,
-            "attachTm": [
-              [1.0,0.0,0.0],
-              [0.0,1.0,0.0],
-              [0.0,0.0,1.0],
-              [-0.02,-0.72,-0.07]
-            ],
-            "seatComponent": "isGunner",
-            "nextSeat": "driver",
-            "shouldHideOwner": true,
-            "receiveDamageFromDMPart": "commander",
-            "cameraNodeName": "bone_camera_gunner",
-            "cockpitTemplate": "jp_type_95_ha_go_gunner_cockpit",
-            "hatchRotationAxis": [1.7,0.0,0.0],
-            "turretNames:array": {
-              "turretNames": "turret_01"
+  "jp_type_95_ha_go_common": {
+    "_use": "jp_type_95_ha_go_common_vehicle_sound",
+    "item__iconOffset": [-0.05,0.05],
+    "item__iconScale": 1.2,
+    "commanderCockpitFpsCamMaxAngle": [40.0,5.0],
+    "gunner_cam_limit__useCockpitDir": true,
+    "armorThicknessHull": [12.0,12.0,10.0],
+    "armorThicknessTurret": [30.0,12.0,12.0],
+    "vehicle_seats__seats:shared:array": [
+      {
+        "seats:object": {
+          "name": "main_gunner",
+          "locName": "vehicle_seats/gunner",
+          "attachNode": "commander",
+          "ignoreAttachNodeRotation": true,
+          "attachTm": [
+            [1.0,0.0,0.0],
+            [0.0,1.0,0.0],
+            [0.0,0.0,1.0],
+            [-0.02,-0.72,-0.07]
+          ],
+          "seatComponent": "isGunner",
+          "nextSeat": "driver",
+          "shouldHideOwner": true,
+          "receiveDamageFromDMPart": "commander",
+          "cameraNodeName": "bone_camera_gunner",
+          "cockpitTemplate": "jp_type_95_ha_go_gunner_cockpit",
+          "hatchRotationAxis": [1.7,0.0,0.0],
+          "turretNames:array": {
+            "turretNames": "turret_01"
+          },
+          "hatchNodes:array": [
+            {
+              "node": "hatch_01"
             },
-            "hatchNodes:array": [
-              {
-                "node": "hatch_01"
-              },
-              {
-                "node": "hatch_02"
-              }
-            ],
-            "loaderTurretNames:array": {
-              "turret": "turret_01"
+            {
+              "node": "hatch_02"
             }
-          }
-        },
-        {
-          "seats:object": {
-            "name": "driver",
-            "locName": "vehicle_seats/driver",
-            "seatOwnsEntityControl": true,
-            "attachNode": "driver",
-            "ignoreAttachNodeRotation": true,
-            "attachTm": [
-              [1.0,0.0,0.0],
-              [0.0,1.0,0.0],
-              [0.0,0.0,1.0],
-              [-0.25,-0.25,0.0]
-            ],
-            "seatComponent": "isDriver",
-            "nextSeat": "main_gunner",
-            "shouldHideOwner": true,
-            "receiveDamageFromDMPart": "driver",
-            "cameraNodeName": "bone_camera_driver",
-            "cameraOffset": [0.15,-0.0,-0.0],
-            "cockpitTemplate": "jp_type_95_ha_go_driver_cockpit"
-          }
-        },
-        {
-          "seats:object": {
-            "name": "main_gunner",
-            "locName": "vehicle_seats/additional_gunner",
-            "attachNode": "machine_gunner",
-            "ignoreAttachNodeRotation": true,
-            "attachTm": [
-              [1.0,0.0,0.0],
-              [0.0,1.0,0.0],
-              [0.0,0.0,1.0],
-              [-0.25,-0.5,0.0]
-            ],
-            "seatComponent": "isGunner",
-            "nextSeat": "driver",
-            "shouldHideOwner": true,
-            "receiveDamageFromDMPart": "machine_gunner",
-            "cameraNodeName": "root",
-            "cockpitTemplate": "jp_type_95_ha_go_machinegunner_cockpit",
-            "turretNames:array": {
-              "turret": "turret_02"
-            }
+          ],
+          "loaderTurretNames:array": {
+            "turret": "turret_01"
           }
         }
-      ]
-    },
-    {
-      "turrets__initAmmoDistribution:array": [
-        {
-          "ammo:object": {
-            "slot": 0,
-            "fill": true
-          }
-        },
-        {
-          "ammo:object": {
-            "slot": 1,
-            "fill": false
+      },
+      {
+        "seats:object": {
+          "name": "driver",
+          "locName": "vehicle_seats/driver",
+          "seatOwnsEntityControl": true,
+          "attachNode": "driver",
+          "ignoreAttachNodeRotation": true,
+          "attachTm": [
+            [1.0,0.0,0.0],
+            [0.0,1.0,0.0],
+            [0.0,0.0,1.0],
+            [-0.25,-0.25,0.0]
+          ],
+          "seatComponent": "isDriver",
+          "nextSeat": "main_gunner",
+          "shouldHideOwner": true,
+          "receiveDamageFromDMPart": "driver",
+          "cameraNodeName": "bone_camera_driver",
+          "cameraOffset": [0.15,-0.0,-0.0],
+          "cockpitTemplate": "jp_type_95_ha_go_driver_cockpit"
+        }
+      },
+      {
+        "seats:object": {
+          "name": "main_gunner",
+          "locName": "vehicle_seats/additional_gunner",
+          "attachNode": "machine_gunner",
+          "ignoreAttachNodeRotation": true,
+          "attachTm": [
+            [1.0,0.0,0.0],
+            [0.0,1.0,0.0],
+            [0.0,0.0,1.0],
+            [-0.25,-0.5,0.0]
+          ],
+          "seatComponent": "isGunner",
+          "nextSeat": "driver",
+          "shouldHideOwner": true,
+          "receiveDamageFromDMPart": "machine_gunner",
+          "cameraNodeName": "root",
+          "cockpitTemplate": "jp_type_95_ha_go_machinegunner_cockpit",
+          "turretNames:array": {
+            "turret": "turret_02"
           }
         }
-      ]
-    }
-  ],
+      }
+    ],
+    "turrets__initAmmoDistribution:array": [
+      {
+        "ammo:object": {
+          "slot": 0,
+          "fill": true
+        }
+      },
+      {
+        "ammo:object": {
+          "slot": 1,
+          "fill": false
+        }
+      }
+    ]
+  },
   "jp_type_95_ha_go_driver_cockpit": {
     "_use": "base_driver_cockpit_no_slits",
     "animchar__res": "bt_7_driver_char",

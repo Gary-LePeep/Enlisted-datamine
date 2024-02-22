@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {get_setting_by_blk_path} = require("settings")
 let {planeControlModeStateUpdate} = require("%enlSqGlob/planeControlModeState.nut")
@@ -32,7 +32,7 @@ let planeControlMode = optionCtor({
   blkPath
 })
 
-let function setPlaneControlMode(mode) {
+function setPlaneControlMode(mode) {
   if (mode not in modSettings)
     return
   let {isMouseAimEnabled, isSimpleJoyEnabled} = modSettings[mode]

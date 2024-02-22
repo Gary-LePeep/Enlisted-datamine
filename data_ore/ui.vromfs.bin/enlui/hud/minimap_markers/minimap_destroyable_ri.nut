@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { destroyable_ri_Set, destroyable_ri_GetWatched } = require("%ui/hud/state/destroyable_score_ri_markers.nut")
 let { localPlayerTeam } = require("%ui/hud/state/local_player.nut")
@@ -18,7 +18,7 @@ let mkMarker = memoize(@(transform) freeze({
   transform
 }))
 
-let function mkDestoyableRiMarker(eid, transform = null) {
+function mkDestoyableRiMarker(eid, transform = null) {
   let markerState = destroyable_ri_GetWatched(eid)
   let data = freeze({
     eid

@@ -1,0 +1,52 @@
+{
+  "base_75mm_type_ii_model_ii": {
+    "item__name": "guns/75mm_type_ii_model_ii",
+    "gun__blk": "gamedata/gen/weapons/75mm_type_ii_model_ii.blk",
+    "gun__shotFreq": 0.155,
+    "gun__locName": "75mm_type_ii_model_ii",
+    "gun__ammoSetsInfo:shared:array": {
+      "defaultSet:array": {
+        "shell:object": {
+          "blk": "gamedata/gen/weapons/shells/75mm_type_ii_model_ii_defaultset.blk",
+          "name": "75mm_type1_ap",
+          "type": "aphe_tank"
+        }
+      },
+      "75mm_jp_type1_AP:array": {
+        "shell:object": {
+          "blk": "gamedata/gen/weapons/shells/75mm_type_ii_model_ii_75mm_jp_type1_ap.blk",
+          "name": "75mm_type1_ap",
+          "type": "aphe_tank"
+        }
+      },
+      "75mm_type4_APHE:array": {
+        "shell:object": {
+          "blk": "gamedata/gen/weapons/shells/75mm_type_ii_model_ii_75mm_type4_aphe.blk",
+          "name": "75mm_type4_ap_kou",
+          "type": "aphe_tank"
+        }
+      },
+      "75mm_type90_HE:array": {
+        "shell:object": {
+          "blk": "gamedata/gen/weapons/shells/75mm_type_ii_model_ii_75mm_type90_he.blk",
+          "name": "75mm_type90",
+          "type": "he_frag_tank"
+        }
+      }
+    }
+  },
+  "tankgun_75mm_type_ii_model_ii": [
+    {
+      "_use": "tankgun"
+    },
+    {
+      "_use": "base_tankgun_cannon"
+    },
+    {
+      "_use": "base_75mm_type_ii_model_ii"
+    },
+    {
+      "turret__triggerGroup": 0
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { parse_json } = require("json")
 let {httpRequest, HTTP_SUCCESS } = require("dagor.http")
@@ -6,7 +6,7 @@ let ps4 = require("ps4")
 let {logerr} = require("dagor.debug")
 let {get_circuit_conf} = require("app")
 let statsd = require("statsd")
-let eventbus = require("eventbus")
+let { eventbus_subscribe_onehit } = require("eventbus")
 
 let AUTH_FRIENDS_URL = get_circuit_conf()?.psnFriendsUrl
 let AUTH_DATA_SUB_ID = "ps4.auth_data_friends"
@@ -15,7 +15,7 @@ let AUTH_DATA_SUB_ID = "ps4.auth_data_friends"
 // no problem because all request will be aborted on script reload
 local requestNum = 0
 
-let function request_auth_contacts(game, include_unknown, callback) {
+function request_auth_contacts(game, include_unknown, callback) {
   if (!AUTH_FRIENDS_URL) {
     logerr("Invalid AUTH_FRIENDS_URL. To work with PS4 circuit needs to have psnFriendsUrl configured in network.blk")
     callback([])
@@ -26,7 +26,7 @@ let function request_auth_contacts(game, include_unknown, callback) {
   let eventId = $"{AUTH_DATA_SUB_ID}.{requestNum}"
   log($"[AuthFriends]: Send request with id: {eventId}")
   requestNum++
-  let function on_auth_data(auth_data) {
+  function on_auth_data(auth_data) {
     if (!auth_data?.error) {
       let fmt_args = {
         code = auth_data.auth_code
@@ -64,7 +64,7 @@ let function request_auth_contacts(game, include_unknown, callback) {
       httpRequest(req_params)
     }
   }
-  eventbus.subscribe_onehit(eventId, on_auth_data)
+  eventbus_subscribe_onehit(eventId, on_auth_data)
   ps4.get_auth_data_async(eventId)
 }
 

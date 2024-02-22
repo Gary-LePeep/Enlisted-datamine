@@ -1,11 +1,11 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { eulaVersion, showEula, acceptedEulaVersionBeforeLogin } = require("%enlist/eula/eula.nut")
 //let platform = require("%dngscripts/platform.nut")
 
 let onlineSettings = require("%enlist/options/onlineSettings.nut")
 let eulaEnabled = true//(platform.is_pc || platform.is_xbox || platform.is_sony || platform.is_nswitch || platform.is_mobile)
-let function action(_login_status, cb) {
+function action(_login_status, cb) {
   if (!eulaEnabled) {
     log("eula check disabled")
     cb({})

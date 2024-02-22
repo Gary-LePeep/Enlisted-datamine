@@ -1,10 +1,10 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { roomIsLobby, setMemberAttributes} = require("%enlist/state/roomState.nut")
 
 let attribs = {}
 
-let function addAttrib(name, watched) {
+function addAttrib(name, watched) {
   attribs[name] <- watched
   watched.subscribe(@(val) setMemberAttributes({ public = { [name] = val } }))
 }

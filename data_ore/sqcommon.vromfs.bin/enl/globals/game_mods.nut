@@ -16,12 +16,12 @@ let {startswith} = require("string")
 //  [HTTP_ABORTED] = "ABORTED",
 //}
 
-//local function httpGet(url, callback){
+//function httpGet(url, callback){
 //  httpRequest({ url, method = "GET", callback})
 //}
 
 
-local function getBaseFromManifestUrl(url){
+function getBaseFromManifestUrl(url){
   const https = "https://"
   if (!startswith(url,https))
     return null
@@ -29,11 +29,11 @@ local function getBaseFromManifestUrl(url){
   return $"{https}{url}"
 }
 
-let function getHashesFromManifest(manifest){
+function getHashesFromManifest(manifest){
   return manifest.content.map(@(v) v.hash).slice(0,1) //currently we support only one file in mod
 }
 
-let function getNotReadyHashes(hashes){
+function getNotReadyHashes(hashes){
   let notReady = []
   let failed = []
   let curStatus = downloadStatus.value
@@ -48,7 +48,7 @@ let function getNotReadyHashes(hashes){
 
 let getAllFiles = @(hashes) hashes.map(@(v) getDownloadedFile(v))
 
-local function requestModFiles(hashes, baseUrl, callbackOnSuccess, callbackOnFailure=null){
+function requestModFiles(hashes, baseUrl, callbackOnSuccess, callbackOnFailure=null){
   log($"request for modfiles for {hashes}, {baseUrl}")
   if (typeof hashes == "string")
     hashes = hashes.split(";")

@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {inGroundVehicle} = require("%ui/hud/state/vehicle_state.nut")
 let {mainTurretAmmo} = require("%ui/hud/state/vehicle_turret_state.nut")
@@ -42,7 +42,7 @@ let canBeResuppliedByEngineer = Computed(@() mainTurretAmmo.value?.canBeResuppli
 
 isAmmoCurrentTurretDepleted.subscribe( @(tip) tip ? showTip(true) : null)
 
-let function ammo_depleted(){
+function ammo_depleted(){
   let res = {
     watch = [isAmmoCurrentTurretDepleted,
              isAmmoTotalDepleted,

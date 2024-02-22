@@ -42,7 +42,7 @@ def update_effect(plane_eid : EntityId;
 
 
 [es(tag=render, no_order)]
-def plane_wheel_fx_on_update(info : UpdateStageInfoAct;
+def plane_wheel_fx_on_update(info : ParallelUpdateFrameDelayed;
                              eid : EntityId;
                              plane_net_phys : PlaneActor;
                              animchar : AnimcharBaseComponent;

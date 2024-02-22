@@ -1,11 +1,11 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 
 let {showParatroopersSupplyBoxTip} = require("%ui/hud/state/paratroopers_supply_box_state.nut")
 let {tipCmp} = require("%ui/hud/huds/tips/tipComponent.nut")
 
 
-let function paratroopers_supply_box_tip() {
+function paratroopers_supply_box_tip() {
   let res = { watch = showParatroopersSupplyBoxTip }
   if (!showParatroopersSupplyBoxTip.value)
     return res

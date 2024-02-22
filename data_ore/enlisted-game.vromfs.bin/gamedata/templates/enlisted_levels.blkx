@@ -769,6 +769,84 @@
       }
     ]
   },
+  "normandy_level_night": {
+    "_use": "level",
+    "level__weatherChoice:object": {
+      "weather_clear_night_a": 1.0,
+      "weather_clear_night_b": 1.0,
+      "weather_clear_night_c": 1.0,
+      "weather_cloudy_c:object": {
+        "weight": 0.5,
+        "level__timeVec:array": [
+          {
+            "level__timeVec": 22.0
+          },
+          {
+            "level__timeVec": 23.0
+          },
+          {
+            "level__timeVec": 24.0
+          }
+        ]
+      },
+      "weather_clear_night_a:object": {
+        "weight": 1.0,
+        "cloudsHoleEnabled": false,
+        "level__timeVec:array": [
+          {
+            "level__timeVec": 22.0
+          },
+          {
+            "level__timeVec": 23.0
+          },
+          {
+            "level__timeVec": 24.0
+          }
+        ]
+      },
+      "weather_clear_night_b:object": {
+        "weight": 1.0,
+        "cloudsHoleEnabled": false,
+        "level__timeVec:array": [
+          {
+            "level__timeVec": 23.5
+          },
+          {
+            "level__timeVec": 24.0
+          },
+          {
+            "level__timeVec": 1.0
+          }
+        ]
+      },
+      "weather_clear_night_c:object": {
+        "weight": 1.0,
+        "cloudsHoleEnabled": false,
+        "level__timeVec:array": [
+          {
+            "level__timeVec": 23.5
+          },
+          {
+            "level__timeVec": 24.0
+          },
+          {
+            "level__timeVec": 1.0
+          }
+        ]
+      }
+    },
+    "level__timeVec:array": [
+      {
+        "level__timeVec": 22.0
+      },
+      {
+        "level__timeVec": 23.0
+      },
+      {
+        "level__timeVec": 24.0
+      }
+    ]
+  },
   "normandy_level_tutorial": {
     "_use": "level",
     "level__weatherChoice:object": {
@@ -987,8 +1065,8 @@
                 "wind__noiseStrength": 6.0,
                 "wind__noiseSpeed": 1.3,
                 "wind__noiseScale": 16.0,
-                "dyn_wind__cumulus_alt_multiplier": 3.0,
-                "dyn_wind__strata_alt_multiplier": 3.0
+                "dyn_wind__cumulus_alt_multiplier": 6.0,
+                "dyn_wind__strata_alt_multiplier": 6.0
               }
             }
           },

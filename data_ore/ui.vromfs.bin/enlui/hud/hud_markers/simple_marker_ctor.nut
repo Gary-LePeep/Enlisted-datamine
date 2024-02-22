@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {simple_hud_markers_GetWatched, simple_hud_markers_Set} = require("%ui/hud/state/simple_markers.nut")
 let {Point2} = require("dagor.math")

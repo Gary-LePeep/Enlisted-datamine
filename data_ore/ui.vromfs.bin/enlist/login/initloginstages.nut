@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let platform = require("%dngscripts/platform.nut")
@@ -9,12 +9,10 @@ let pServerStage = require("pServerLoginStage.nut")
 let { showStageErrorMsgBox } = require("%enlist/login/login_cb.nut")
 let { infoBlock } = require("%enlist/login/ui/loginUiParams.nut")
 let { activeTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
-let { disableNetwork } = require("%enlSqGlob/login_state.nut")
+let { disableNetwork } = require("%enlSqGlob/ui/login_state.nut")
 let textButton = require("%ui/components/textButton.nut")
 let buyGameAccess = require("%enlist/login/buyGameAccess.nut")
-let {
-  isKZVersion, KZLoginStages
-} = require("%enlist/login/chineseKongZhongVersion.nut")
+let { isKZVersion, KZLoginStages } = require("%enlist/login/chineseKongZhongVersion.nut")
 
 if (isKZVersion)
   require("initKongZhongLogin.nut")

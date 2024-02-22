@@ -1,7 +1,7 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { startLogin } = require("%enlist/matchingClient.nut")
-let eventbus = require("eventbus")
+let { eventbus_subscribe_onehit } = require("eventbus")
 
 return {
   id = "matching"
@@ -11,13 +11,14 @@ return {
       userId = stageResult.auth_result.userId
       name = stageResult.auth_result.name
       chardToken = stageResult.char.chard_token
+      authJwt = stageResult.auth_result.token
     }
-    eventbus.subscribe_onehit("matching.logged_in", @(...) cb({}))
-    eventbus.subscribe_onehit("matching.login_failed", cb)
+    eventbus_subscribe_onehit("matching.logged_in", @(...) cb({}))
+    eventbus_subscribe_onehit("matching.login_failed", cb)
     startLogin(uinfo)
   }
   function actionOnReload(_state, cb) {
-    eventbus.subscribe_onehit("matching.logged_in", @(...) cb({}))
-    eventbus.subscribe_onehit("matching.login_failed", cb)
+    eventbus_subscribe_onehit("matching.logged_in", @(...) cb({}))
+    eventbus_subscribe_onehit("matching.login_failed", cb)
   }
 }

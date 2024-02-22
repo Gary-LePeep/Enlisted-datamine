@@ -209,3 +209,36 @@ def shooter_cam_update_tm_es(info : UpdateStageInfoAct;
         camera__accuratePos.y = double(minHeight)
 
     camera_transform[3] = float3(camera__accuratePos)
+
+[es(tag=render, after=shooter_cam_update_tm_es, before=shooter_cam_tau_move_scalar_es)]
+def shooter_cam_vehicle_update_tm_es(info : UpdateStageInfoAct;
+                                     camera__target : EntityId;
+                                     camera__active : bool;
+                                     camera__tau : float;
+                                     shooter_cam__tauInc : float;
+                                     shooter_cam__tauMult = 1.f;
+                                     replayCamera : Tag const?;
+                                     var transform aka camera_transform : float3x4;
+                                     var camera__accuratePos : DPoint3&;
+                                     var shooter_cam__lastVehicleOffset : float3&)
+  if !camera__active || is_level_loading()
+    return
+  query(camera__target) <| $ [es] (camera__look_at : DPoint3;
+                                   human_anim__vehicleSelected : EntityId;
+                                   camera__tauMult : float = 1.f;
+                                   isInVehicle : bool;
+                                   isTpsView : bool)
+    if !isInVehicle || isTpsView
+      return
+    let dt = replayCamera == null ? info.dt : REPLAY_CAMERA_MOVE_DT
+    query(human_anim__vehicleSelected) <| $ [es] (transform aka vehicle_transform : float3x4)
+      let vehiclePos = DPoint3(vehicle_transform[3])
+      let wishVehicleOffset = camera__look_at - vehiclePos
+
+      let tau = (camera__tau * shooter_cam__tauMult + shooter_cam__tauInc) * camera__tauMult
+      let lastVehicleOffset = approach(DPoint3(shooter_cam__lastVehicleOffset), wishVehicleOffset, dt, tau)
+
+      shooter_cam__lastVehicleOffset = float3(lastVehicleOffset)
+
+      camera__accuratePos = vehiclePos + DPoint3(shooter_cam__lastVehicleOffset)
+      camera_transform[3] = float3(camera__accuratePos)

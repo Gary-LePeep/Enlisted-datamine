@@ -153,6 +153,10 @@ let renderSettingsTbl = freeze({
     defVal = "low"
     blkPath = "graphics/ssssQuality"
   }
+  rendinstTesselation = {
+    defVal = false
+    blkPath = "graphics/rendinstTesselation"
+  }
   sharpening = {
     defVal = 0.0
     blkPath = "graphics/sharpening"

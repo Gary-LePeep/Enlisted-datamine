@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let faComp = require("%ui/components/faComp.nut")
 let { TextActive, TextHighlight, TextDefault } = require("%ui/style/colors.nut")
@@ -11,7 +11,7 @@ let defIconColor = @(sf) sf & S_ACTIVE ? TextActive
   : sf & S_HOVER ? TextHighlight
   : TextDefault
 
-let function fontIconButton(icon, params = null) {
+function fontIconButton(icon, params = null) {
   let stateFlags = params?.stateFlags ?? Watched(0)
   let gamepadHotkey = getGamepadHotkeys(params?.hotkeys, true)
   let { skipDirPadNav = gamepadHotkey != "" } = params

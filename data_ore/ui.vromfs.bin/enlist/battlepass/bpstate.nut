@@ -1,13 +1,13 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { debounce } = require("%sqstd/timers.nut")
 let {
   timeLeft, basicUnlockId, basicUnlock, basicProgress, premiumUnlockId, premiumUnlock,
   premiumProgress, hasBattlePass, unlockPrices, purchaseInProgress, doReceiveRewards, doBuyUnlock,
-  rewardsInProgress, nextBasicStage, nextPremiumStage, seasonIndex
+  nextBasicStage, nextPremiumStage, seasonIndex
 } = require("%enlist/unlocks/taskRewardsState.nut")
 let { hasEliteBattlePass, premRewardsAllowed } = require("eliteBattlePass.nut")
-let { showMsgbox } = require("%enlist/components/msgbox.nut")
+let { receiveUnlockRewardsAllUp, unlockRewardsInProgress } = require("%enlSqGlob/userstats/userstat.nut")
 
 const BP_PREMIUM_STAT = "battle_pass_stage"
 
@@ -40,7 +40,7 @@ let combinedUnlocks = Computed(function() {
       let rewards = r?.rewards ?? {}
       if ("currencyRewards" in r) {
         rewards.__update(r.currencyRewards)
-        delete r.currencyRewards
+        r.$rawdelete("currencyRewards")
       }
       if (rewards.len() > 0)
         r.rewards <- rewards.map(@(val) val.tointeger())
@@ -74,7 +74,7 @@ let combinedUnlocksGrid = Computed(function() {
   return res
 })
 
-let function calcUnlockRatio(unlocksGrid, progress, minProgress = 0.0) {
+function calcUnlockRatio(unlocksGrid, progress, minProgress = 0.0) {
   let length = unlocksGrid.len()
   if (length < 1)
     return 0.0
@@ -92,7 +92,7 @@ let clampStage = @(stage, total, full) stage < full ? stage
   : full > total ? total + (stage - total) % (full - total)
   : full - 1
 
-let function clampProgress(grid, total, progress) {
+function clampProgress(grid, total, progress) {
   if (grid.len() == 0 || total == 0)
     return progress
 
@@ -106,20 +106,58 @@ let function clampProgress(grid, total, progress) {
     : lastProgress
 }
 
+function getCountAllowedAllUnlocks(fullUnlocks, hasEliteBP, startIdx, endIdx) {
+  let unlocks = fullUnlocks.slice(startIdx, endIdx)
+  return hasEliteBP
+    ? unlocks.len()
+    : unlocks.reduce(@(s, item) s + (item?.isPremium ? 0 : 1), 0)
+}
+
+function getCountAllowedUnlocks(fullUnlocks, startIdx, endIdx, isPremRewarded = false) {
+  local count = 0
+  for(local i = startIdx; i < endIdx; i++)
+    if (isPremRewarded == !!fullUnlocks[i]?.isPremium)
+      count++
+  return count
+}
+
 let progressCounters = Computed(function() {
-  let full = combinedUnlocks.value.len()
+  let fullUnlocks = combinedUnlocks.value
+  let full = fullUnlocks.len()
   let { startStageLoop = 0, periodic = false } = basicUnlock.value
   let loopIndex = startStageLoop - 1
-  let loop = loopIndex >= 0 ? full - loopIndex : 0
+  let loop = max(1, full - loopIndex)
   let total = periodic ? loopIndex : full
   let { current, lastRewardedStage } = basicProgress.value
-  let stageCurrent = combinedUnlocksGrid.value.findindex(@(p) p > current) ?? full
+  let rewarded = max(lastRewardedStage, premiumProgress.value.lastRewardedStage)
+  let stageCurrentInLoop = (rewarded - total) % loop + total
+  let interval = (combinedUnlocksGrid.value?[1] ?? 1) - (combinedUnlocksGrid.value?[0] ?? 1)
+  let stageCurrent = combinedUnlocksGrid.value.findindex(@(p) p > current) ?? stageCurrentInLoop
+  let stageRewardedInLoop = stageCurrent + (current / (interval ? interval : 3) - rewarded)
+  let isLoop = rewarded > full
+  let countLoop = (rewarded - total) / loop
+  let allowedReward = getCountAllowedAllUnlocks(
+    fullUnlocks,
+    hasEliteBattlePass.value,
+    isLoop ? stageCurrent : rewarded,
+    stageRewardedInLoop)
+  let allowedRewarded = getCountAllowedAllUnlocks(fullUnlocks, hasEliteBattlePass.value, 0, rewarded)
+  local allowedFreeRewarded = getCountAllowedUnlocks(fullUnlocks, 0, isLoop ? stageCurrent : rewarded)
+  local allowedPremRewarded = getCountAllowedUnlocks(fullUnlocks, 0, stageCurrent, true)
+  if (isLoop) {
+    allowedFreeRewarded += loop / 2 * countLoop
+    allowedPremRewarded += loop / 2 * countLoop
+  }
   return {
-    rewarded = max(lastRewardedStage, premiumProgress.value.lastRewardedStage)
-    current = min(total, stageCurrent)
+    rewarded = isLoop ? stageRewardedInLoop : rewarded
+    current = stageCurrent
     total
     full
     loop
+    reward = allowedReward
+    allowedRewarded
+    allowedFreeRewarded
+    allowedPremRewarded
     isCompleted = stageCurrent >= total
   }
 })
@@ -173,7 +211,7 @@ let currentUnlockRatio = Computed(function() {
   }
 })
 
-let function isWorthlessReward(stage) {
+function isWorthlessReward(stage) {
   let { rewards = {}, currencyRewards = {} } = stage
   return rewards.len() == 0 && currencyRewards.len() == 0
 }
@@ -216,22 +254,23 @@ let nextUnlockPrice = Computed(@() (basicProgress.value.hasReward
     ? null
     : unlockPrices.value?[basicUnlockId.value])
 
-let receiveRewardInProgress = Computed(@() basicUnlockId.value in rewardsInProgress.value
-  || premiumUnlockId.value in rewardsInProgress.value)
+let receiveRewardInProgress = Computed(@() basicUnlockId.value in unlockRewardsInProgress.value
+  || premiumUnlockId.value in unlockRewardsInProgress.value)
 
 let buyUnlockInProgress = Computed(@() basicUnlockId.value in purchaseInProgress.value)
 
-let function receiveNextReward() {
-  let { unlockId, isReadyToReceive } = nextRewardInfo.value
-  if (unlockId == null)
-    return
-  if (!isReadyToReceive)
-    showMsgbox({ text = loc("msg/cantReceiveRewardsTryLater") })
-  else
-    doReceiveRewards(unlockId)
+function receiveAllRewards() {
+  let unlocksToRewards = []
+  if (basicProgress.value.hasReward)
+    unlocksToRewards.append({ name = basicUnlockId.value })
+  if (hasEliteBattlePass.value)
+    unlocksToRewards.append({ name = premiumUnlockId.value })
+
+  if (unlocksToRewards.len() > 0)
+    receiveUnlockRewardsAllUp(unlocksToRewards)
 }
 
-let function buyNextStage() {
+function buyNextStage() {
   if (nextUnlockPrice.value)
     doBuyUnlock(basicUnlockId.value)
 }
@@ -260,7 +299,7 @@ return {
   nextUnlockPrice
   receiveRewardInProgress
   buyUnlockInProgress
-  receiveNextReward
+  receiveAllRewards
   buyNextStage
   seasonIndex
 }

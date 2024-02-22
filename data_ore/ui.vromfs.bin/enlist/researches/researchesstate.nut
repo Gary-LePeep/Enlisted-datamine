@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { logerr } = require("dagor.debug")
 let { round_by_value } = require("%sqstd/math.nut")
@@ -158,17 +158,14 @@ let isOpenResearch = @(research, researched)
 
 let isResearched = @(research, researched) research.research_id in researched
 
-let function calcResearchedGroups(researches, researched) {
+function calcResearchedGroups(researches, researched) {
   let res = {}
   foreach (rId, val in researched) {
     if (!val)
       continue
-    let { squadIdList = {}, squad_id = "", page_id = 0, multiresearchGroup = 0 } = researches?[rId]
+    let { squadIdList = {}, page_id = 0, multiresearchGroup = 0 } = researches?[rId]
     if (multiresearchGroup <= 0)
       continue
-
-    if (squadIdList.len() == 0 && squad_id != "")
-      squadIdList[squad_id] <- true
 
     foreach (squadId, _ in squadIdList) {
       if (squadId not in res)
@@ -186,19 +183,16 @@ let isSquadLocked = function(squads, research) {
     if (squadId in squads)
       return false
   }
-  if ((research?.squad_id ?? "") in squads)
-    return false
   return true
 }
 
-let function researchStatusArmy
+function researchStatusArmy
     (armyResearches, researched, progress, squads, selectedSquadId = null) {
   let groups = calcResearchedGroups(armyResearches, researched)
   return armyResearches.map(function(research) {
-    let squad_id = research?.squad_id ??
-      (selectedSquadId in research.squadIdList
-        ? selectedSquadId
-        : research.squadIdList.keys().top())
+    let squad_id = selectedSquadId in research.squadIdList
+      ? selectedSquadId
+      : research.squadIdList.keys().top()
     return isResearched(research, researched) ? RESEARCHED
       : (research?.isLocked ?? false) ? LOCKED
       : (research?.multiresearchGroup ?? 0) > 0
@@ -259,7 +253,7 @@ let curSquadProgress = Computed(function() {
   return res
 })
 
-let function addArmySquadExp(armyId, exp, squadId) {
+function addArmySquadExp(armyId, exp, squadId) {
   if (armyId not in armySquadsById.value) {
     logerr($"Unable to charge exp for army {armyId}")
     return
@@ -268,14 +262,14 @@ let function addArmySquadExp(armyId, exp, squadId) {
   add_army_squad_exp_by_id(armyId, exp, squadId)
 }
 
-let function researchAction(researchId) {
+function researchAction(researchId) {
   if (isResearchInProgress.value || researchStatuses.value?[researchId] != CAN_RESEARCH)
     return
   isResearchInProgress(true)
   do_research(tableStructure.value.armyId, researchId, @(_) isResearchInProgress(false))
 }
 
-let function changeResearch(researchFrom, researchTo) {
+function changeResearch(researchFrom, researchTo) {
   if (isResearchInProgress.value
       || researchStatuses.value?[researchTo] != GROUP_RESEARCHED
       || researchStatuses.value?[researchFrom] != RESEARCHED)
@@ -288,7 +282,7 @@ let function changeResearch(researchFrom, researchTo) {
     @(_) isResearchInProgress(false))
 }
 
-let function buyChangeResearch(researchFrom, researchTo) {
+function buyChangeResearch(researchFrom, researchTo) {
   if (isResearchInProgress.value
       || researchStatuses.value?[researchTo] != GROUP_RESEARCHED
       || researchStatuses.value?[researchFrom] != RESEARCHED)
@@ -317,7 +311,7 @@ let closestTargets = Computed(function() {
   })
 })
 
-let function buySquadLevel(cb = null) {
+function buySquadLevel(cb = null) {
   if (isBuyLevelInProgress.value)
     return
 
@@ -334,7 +328,7 @@ let function buySquadLevel(cb = null) {
     })
 }
 
-let function findAndSelectClosestTarget(...) {
+function findAndSelectClosestTarget(...) {
   let tableResearches = tableStructure.value.researches
     .values()
     .sort(@(a, b) a.line <=> b.line || a.tier <=> b.tier)
@@ -381,7 +375,7 @@ let mkCurResearchChains = @(curRequirements) Computed(function() {
   return res
 })
 
-let function isNamesSimilar(nameA, nameB) {
+function isNamesSimilar(nameA, nameB) {
   let nameArrA = nameA.split("_")
   let nameArrB = nameB.split("_")
   if (nameArrA.len() != nameArrB.len() || nameArrA.len() < 2)
@@ -398,7 +392,7 @@ let validateMainResearch = @(curRes, mainRes, chainLen)
     : chainLen > 1 || (chainLen == 1 && isNamesSimilar(curRes, mainRes)) ? curRes
     : null
 
-let function mkViewStructure() {
+function mkViewStructure() {
   let curRequirements = mkCurRequirements()
   let curResearchChaines = mkCurResearchChains(curRequirements)
   return Computed(function() {
@@ -482,7 +476,7 @@ let function mkViewStructure() {
       let { template } = column
       if (template != "" && template in templateCount) {
         column.tplCount = templateCount[template]
-        delete templateCount[template]
+        templateCount.$rawdelete(template)
       }
       if ("children" not in column) {
         childCount.append(0, 0)

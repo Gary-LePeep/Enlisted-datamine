@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {get_controlled_hero} = require("%dngscripts/common_queries.nut")
 let { remove_item_from_weap_to_inventory } = require("das.human_weap")

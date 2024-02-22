@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let mkMainSoldiersBlock = require("%enlSqGlob/ui/mkSoldiersList.nut")
 let mkCurVehicle = require("%enlSqGlob/ui/mkCurVehicle.nut")
@@ -17,7 +17,7 @@ let sIconSize = hdpxi(15)
 let canSpawnOnVehicle = Computed(@()
   canSpawnOnVehicleBySquad.value?[squadIndexForSpawn.value] ?? false)
 
-let function addCardChild(soldier, sf, _isSelected) {
+function addCardChild(soldier, sf, _isSelected) {
   let { grenadeType = null, mineType = null, targetHealCount = 0, hasFlask = false } = soldier
   let color = sf & S_HOVER ? darkTxtColor : defTxtColor
   return {

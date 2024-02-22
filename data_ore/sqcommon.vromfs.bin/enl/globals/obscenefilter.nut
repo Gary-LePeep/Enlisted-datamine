@@ -1,5 +1,3 @@
-from "%enlSqGlob/ui_library.nut" import *
-
 let { httpRequest, HTTP_SUCCESS} = require("dagor.http")
 let { parse_json } = require("json")
 let { get_setting_by_blk_path } = require("settings")
@@ -17,7 +15,7 @@ let signKey = get_setting_by_blk_path("signKey") ?? ""
 
 let hasObsceneFilter = OBSCENE_FILTER_URL != ""
 
-let function processObsceneFilter(response, filterCb) {
+function processObsceneFilter(response, filterCb) {
   let { status = -1, http_code = 0, body = null } = response
   if (status != HTTP_SUCCESS || http_code < 200 || 300 <= http_code) {
     send_counter?("obscene_filter_receive_errors", 1, { http_code })
@@ -38,7 +36,7 @@ let function processObsceneFilter(response, filterCb) {
   filterCb(result)
 }
 
-let function requestObsceneFilter(phraseToFilter, filterCb){
+function requestObsceneFilter(phraseToFilter, filterCb){
   if (!hasObsceneFilter){
     filterCb(phraseToFilter)
     return

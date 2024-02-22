@@ -313,7 +313,7 @@
     "entity": {
       "_template": "briefing_domination",
       "mission_name": "normandy_forest_dom",
-      "mission_outfit": "normandy",
+      "mission_outfit": "ardennes",
       "loading_images:list<t>": [
         {
           "item": "ui/normandy_hills_inv_04.avif"
@@ -349,7 +349,7 @@
       "team__briefing": "domination/common_goals",
       "team__numZonesCaptured": 0,
       "team__deathPenalty": 2.0,
-      "team__spawnBotArmy": "normandy_allies"
+      "team__spawnBotArmy": "ardennes_allies"
     }
   },
   {
@@ -366,7 +366,7 @@
       "team__briefing": "domination/common_goals",
       "team__numZonesCaptured": 0,
       "team__deathPenalty": 2.0,
-      "team__spawnBotArmy": "normandy_axis"
+      "team__spawnBotArmy": "ardennes_axis"
     }
   },
   {
@@ -798,10 +798,10 @@
     "entity": {
       "_template": "respawnChooser+respTeam2",
       "transform": [
-        [0.581374,0.001435,-0.813634],
-        [-0.00257849,0.999997,-7.87501e-05],
-        [0.813633,0.00214374,0.581377],
-        [209.206,19.0796,212.765]
+        [0.592083,0.001435,-0.805875],
+        [-0.00257722,0.999997,-0.000112839],
+        [0.805874,0.00214373,0.592086],
+        [204.574,22.7406,218.575]
       ],
       "respawnBaseGroup": 2
     }
@@ -810,10 +810,10 @@
     "entity": {
       "_template": "respawnChooser+respTeam2",
       "transform": [
-        [0.595034,0.00204601,-0.803699],
-        [-0.00248021,0.999997,0.000709462],
-        [0.803697,0.00157119,0.595036],
-        [211.477,18.5998,214.732]
+        [0.836951,0.00204601,-0.547276],
+        [-0.00257228,0.999997,-0.000195279],
+        [0.547273,0.00157119,0.836952],
+        [207.138,22.1453,220.057]
       ],
       "respawnBaseGroup": 2
     }

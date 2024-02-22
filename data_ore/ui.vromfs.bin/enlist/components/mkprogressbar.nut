@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { animChildren } = require("%enlSqGlob/ui/glareAnimation.nut")
 let { accentColor } = require("%enlSqGlob/ui/viewConst.nut")
@@ -9,7 +9,7 @@ let progressBarHeight = hdpxi(40)
 let gradientWidth = hdpxi(18)
 let offs = [0, (0.8 * gradientWidth).tointeger(), 0, 0]
 
-let function progressContainerCtor(mask, borderImg, size) {
+function progressContainerCtor(mask, borderImg, size) {
   let maskImage = $"{mask}:{size[0]}:{size[1]}:P"
   let borderImage = $"{borderImg}:{size[0]}:{size[1]}:P"
   return @(progressComp, addChild = null) {

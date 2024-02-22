@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontHeading1, fontHeading2, fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { missionName, missionType } = require("%enlSqGlob/missionParams.nut")
@@ -20,7 +20,7 @@ let teamIcon = mkTeamIcon(localPlayerTeamIcon)
 let showGoalAuto = nestWatched("showGoalAuto", false)
 let showGoal = showBriefing
 
-let function hideGoalAfterTime() {
+function hideGoalAfterTime() {
   if ((showBriefingForTime.value ?? 0) > 0){
     showBriefingForTime(null)
     showGoalAuto(false)
@@ -35,19 +35,19 @@ showGoal.subscribe(function(v){
   showBriefingForTime(null)
 })
 
-let function briefingText(briefing, teamInfo) {
+function briefingText(briefing, teamInfo) {
   local team_briefing = teamInfo?["team__briefing"]
   if (team_briefing==null || team_briefing == "")
     team_briefing = briefing?["briefing_common"]
   return team_briefing
 }
 
-let function isBriefingEmpty(briefing, teamInfo){
+function isBriefingEmpty(briefing, teamInfo){
   let team_briefing = briefingText(briefing, teamInfo)
   return ((team_briefing==null || team_briefing=="") && (briefing?.common == null || briefing?.common == ""))
 }
 
-let function setShow() {
+function setShow() {
   showGoalAuto(true)
   showGoal(true)
 }
@@ -81,7 +81,7 @@ let kbCloseKey = "Esc"
 let gpCloseKey = JB.B
 let closeMenuKey ="^{0} | {1}".subst(gpCloseKey, kbCloseKey)
 
-let function closeHint() {
+function closeHint() {
   let closeKey = controlView([isGamepad.value ? gpCloseKey : kbCloseKey])
   return closeKey!=null ? {
     size = [flex(), SIZE_TO_CONTENT]
@@ -121,7 +121,7 @@ let emptyBriefing = {
   children = { size=flex() halign=ALIGN_CENTER valign=ALIGN_CENTER children=dtext(loc("No briefing available")) }
 }
 
-let function goalsBriefing(){
+function goalsBriefing(){
   let briefing = briefingState.value
   return {
     size = flex()
@@ -153,7 +153,7 @@ let mainBlock = @() {
       : null
 }
 
-let function briefingComp() {
+function briefingComp() {
   let briefing = briefingState.value
   let hints = hintsTokensState.value.len() ? hintsBlock(briefing?.hints_header, hintsTokensState.value) : null
 
@@ -204,7 +204,7 @@ let animations = [
   { prop = AnimProp.scale, from =[1, 1], playFadeOut = true, to = [1.2, 1.2], duration = 0.15, easing = InQuad }
 ]
 
-let function briefingUi() {
+function briefingUi() {
   return {
     key = "briefing"
     size = flex()

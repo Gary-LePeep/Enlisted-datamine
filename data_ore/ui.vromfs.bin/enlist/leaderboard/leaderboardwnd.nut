@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { doesLocTextExist } = require("dagor.localize")
 let { fontTitle, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
@@ -57,7 +57,7 @@ let mkLbCell = @(category, rowData, override) {
   styleByCategory?[category] ?? {},
   override)
 
-let function mkLbRankCell(category, rowData, override) {
+function mkLbRankCell(category, rowData, override) {
   let { idx = -1 } = rowData
 
   return {
@@ -88,7 +88,7 @@ let renderByCategory = {
   [RANK] = mkLbRankCell
 }
 
-let function mkLbRow(rowData, categories) {
+function mkLbRow(rowData, categories) {
   let { self = false, idx = -1 } = rowData
   let color = self ? UserNameColor
     : idx == 0 ? firstPlaceColor
@@ -220,7 +220,7 @@ let lbHeaderRow = @(categories) {
   children = categories.map(mkHeaderName)
 }
 
-let function lbContent() {
+function lbContent() {
   let lbCategories = lbSelCategories.value.full
   local children = null
   local valign = ALIGN_CENTER

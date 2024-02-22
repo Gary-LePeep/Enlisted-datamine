@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {curTime} = require("%ui/hud/state/time_state.nut")
 let {frameUpdateCounter} = require("%ui/scene_update.nut")
@@ -24,7 +24,7 @@ ecs.register_es("medkitUsage",{
 let itemUseProgress = Watched(0)
 
 let doCalcTime = Watched(false)
-let function calcitemUseProgress(...){
+function calcitemUseProgress(...){
   local res = 0
   if (curTime.value <= entityUseEnd.value) {
     res = lerp(entityUseStart.value, entityUseEnd.value, 0.0, 100.0, curTime.value)

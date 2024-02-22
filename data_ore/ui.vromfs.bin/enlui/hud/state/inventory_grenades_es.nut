@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let grenadesEids = Watched({})
 
@@ -24,7 +24,7 @@ ecs.register_es("inventory_grenades_ui_es",
     },
     onDestroy = function(_, eid, __) {
       if (eid in grenadesEids.value)
-        grenadesEids.mutate(@(v) delete v[eid])
+        grenadesEids.mutate(@(v) v.$rawdelete(eid))
     }
   },
   {

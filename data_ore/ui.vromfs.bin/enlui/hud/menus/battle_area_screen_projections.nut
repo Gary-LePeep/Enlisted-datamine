@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { watchedTable2TableOfWatched } = require("%sqstd/frp.nut")
 let defValue = {
@@ -9,7 +9,7 @@ let state = Watched(defValue)
 let { battleAreasProjections } = watchedTable2TableOfWatched(state)
 let projectionOn = Watched(false)
 
-let function battleAreaProj(_eid, comps) {
+function battleAreaProj(_eid, comps) {
   let bap = comps.battle_area__activeBattleAreasScreenProjections.getAll()
   state({
     battleAreasProjections = bap.len() > 0 ? bap : null

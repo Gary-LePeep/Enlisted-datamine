@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontHeading2 } = require("%enlSqGlob/ui/fontsStyle.nut")
 let navState = require("navState.nut")
@@ -34,7 +34,7 @@ let cancelGameLaunchBtn = textButton(loc("mainmenu/btnCancel"),
   }
 )
 
-let function gameLaunchingMsg() {
+function gameLaunchingMsg() {
   let cancelGameLaunch = canCancelMsg.value ? cancelGameLaunchBtn : null
   return {
     watch = canCancelMsg
@@ -53,7 +53,7 @@ let function gameLaunchingMsg() {
   }
 }
 
-let function open() {
+function open() {
   navState.addScene(gameLaunchingMsg)
   sound_play("ui/match_found")
 }

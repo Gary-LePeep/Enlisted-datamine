@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontHeading2, fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { curSectionDetails } = require("%enlist/mainMenu/sectionsState.nut")
@@ -8,7 +8,7 @@ let {mkOnlineSaveData} = require("%enlSqGlob/mkOnlineSaveData.nut")
 let menuDescShown = mkOnlineSaveData("menuDescShown", @() {})
 let TaskTextDesc = Color(150, 150, 160, 220)
 
-let function showDescription(section) {
+function showDescription(section) {
   let descId = section?.descId
   if ((descId ?? "") == "")
     return

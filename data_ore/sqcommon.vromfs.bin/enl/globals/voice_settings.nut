@@ -28,7 +28,7 @@ let {voiceActivationMode, voiceActivationModeUpdate} = globalWatched("voiceActiv
     platform.is_pc ? voice_activation_modes.toggle : voice_activation_modes.always)
 )
 
-let function setRecordingEnabled(val) {
+function setRecordingEnabled(val) {
   voiceRecordingEnableUpdate(val)
   voiceRecordingEnabledGenerationUpdate(voiceRecordingEnabledGeneration.value+1)
 }

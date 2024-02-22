@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let fontIconButton = require("%ui/components/fontIconButton.nut")
@@ -285,7 +285,7 @@ let mkLevelRewardCard = @(unlock, armyData) function() {
   }
 }
 
-let function mkShowcaseItem(shopItemGuid, uid) {
+function mkShowcaseItem(shopItemGuid, uid) {
   let shopItem = shopItems.value?[shopItemGuid]
   if (shopItem == null)
     return null
@@ -374,7 +374,7 @@ let progressTxt = @(leftTxt = "", rightTxt = ""){
   ]
 }
 
-let function freemiumProgressBar(
+function freemiumProgressBar(
   nextUnlockLvl, level, expCur, expToReceive, progress, hasNotReceivedReward, hasFreemium,
   color, darkColor
 ) {
@@ -391,7 +391,7 @@ let function freemiumProgressBar(
   return gradientProgressLine(progress, "!ui/uiskin/progress_bar_freemium_gradient.svg")
 }
 
-let function progressBarVariation(nextUnlockLvl, level, expCur, expToReceive,
+function progressBarVariation(nextUnlockLvl, level, expCur, expToReceive,
   progress, hasNotReceivedReward
 ) {
   if (nextUnlockLvl == level && expCur == expToReceive && hasNotReceivedReward)
@@ -501,7 +501,7 @@ let noArmyUnlocks = freeze({
 let isBtnArrowLeftVisible = Watched(false)
 let isBtnArrowRightVisible = Watched(true)
 
-let function updateArrowButtons(elem) {
+function updateArrowButtons(elem) {
   isBtnArrowLeftVisible(elem.getScrollOffsX() > 0)
   isBtnArrowRightVisible(elem.getContentWidth() - elem.getScrollOffsX() > safeAreaSize.value[0])
 }
@@ -515,7 +515,7 @@ tblScrollHandler.subscribe(function(_) {
 })
 
 
-let function getPositionByLvl() {
+function getPositionByLvl() {
   let curLvl = max(2, curArmyNextUnlockLevel.value)
 
   local neededIdx = curLvl - 1
@@ -534,7 +534,7 @@ let function getPositionByLvl() {
   return ((neededIdx + 0.5) * lvlWidth).tointeger()
 }
 
-let function updateProgressScrollPos() {
+function updateProgressScrollPos() {
   let xPos = getPositionByLvl()
   tblScrollHandler.scrollToX((xPos - safeAreaSize.value[0] / 2).tointeger())
 }
@@ -559,7 +559,7 @@ let scrollArrowBtnStyle = {
   }
 }
 
-let function scrollByArrow(dir) {
+function scrollByArrow(dir) {
   let elem = tblScrollHandler?.elem
   if (elem == null)
     return
@@ -570,7 +570,7 @@ let function scrollByArrow(dir) {
 }
 
 
-let function topBlock() {
+function topBlock() {
   let unlockList = lockedProgressCampaigns.value?[curCampaign.value]
   return {
     watch = [curCampaign, lockedProgressCampaigns]

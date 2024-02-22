@@ -1,4 +1,4 @@
-local function clampStage(unlockDesc, stage) {
+function clampStage(unlockDesc, stage) {
   let lastStage = unlockDesc?.stages.len() ?? 0
   if (lastStage > 0 && (unlockDesc?.periodic ?? false)) {
     if (stage >= lastStage) {

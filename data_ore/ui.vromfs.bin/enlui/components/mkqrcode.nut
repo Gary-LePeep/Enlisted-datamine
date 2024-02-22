@@ -3,7 +3,7 @@ let { generateQrBlocks } = require("%sqstd/qrCode.nut")
 
 let mulArr = @(arr, mul) arr.map(@(v) v * mul)
 
-let function mkQrCode(data, size = hdpx(400), darkColor = 0xFF000000, lightColor = 0xFFFFFFFF) {
+function mkQrCode(data, size = hdpx(400), darkColor = 0xFF000000, lightColor = 0xFFFFFFFF) {
   let list = generateQrBlocks(data)
   let cellSize = (size.tofloat() / (list.size + 2)).tointeger()
   return {

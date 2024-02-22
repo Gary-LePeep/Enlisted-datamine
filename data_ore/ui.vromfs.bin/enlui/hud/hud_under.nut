@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 
 let {main_user_point_ctor, enemy_user_point_ctor, enemy_vehicle_user_point_ctor, enemy_building_user_point_ctor} = require("hud_markers/user_points_ctor.nut")
@@ -23,9 +23,9 @@ let { paratroopers_point_ctor} = require("%ui/hud/menus/troopers_point_chooser.n
 
 let { hudMarkerEnable } = require("%ui/hud/state/hudOptionsState.nut")
 let { forcedMinimalHud } = require("state/hudGameModes.nut")
-let {horPadding, verPadding} = require("%enlSqGlob/safeArea.nut")
+let {horPadding, verPadding} = require("%enlSqGlob/ui/safeArea.nut")
 
-let function mkViewport(padding){
+function mkViewport(padding){
   return {
     sortOrder = -999
     size = [sw(100) - horPadding.value*2 - padding, sh(100) - verPadding.value*2 - padding]
@@ -35,7 +35,7 @@ let function mkViewport(padding){
   }
 }
 
-local function layout(state, ctor, padding){
+function layout(state, ctor, padding){
   let child = mkViewport(padding)
 
   return function() {
@@ -54,7 +54,7 @@ local function layout(state, ctor, padding){
   }
 }
 
-let function makeMarkersLayout(stateAndCtors, padding){
+function makeMarkersLayout(stateAndCtors, padding){
   let layers = []
   foreach (sc in stateAndCtors) {
     let {watch, ctor} = sc
@@ -70,7 +70,7 @@ let function makeMarkersLayout(stateAndCtors, padding){
 
 let arrowsPadding = fsh(3)
 
-let function hudUnder() {
+function hudUnder() {
   let markersCtorsAndState = [
     destroyable_ri_ctor,
     squad_order_ctor,

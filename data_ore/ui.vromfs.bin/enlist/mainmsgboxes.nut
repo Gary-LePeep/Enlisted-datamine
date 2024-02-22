@@ -1,11 +1,11 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {exit_game} = require("app")
 let msgbox = require("%enlist/components/msgbox.nut")
-let login = require("%enlSqGlob/login_state.nut")
+let login = require("%enlSqGlob/ui/login_state.nut")
 let JB = require("%ui/control/gui_buttons.nut")
 
-let function exitGameMsgBox () {
+function exitGameMsgBox () {
   msgbox.show({
     text = loc("msgboxtext/exitGame")
     buttons = [
@@ -14,7 +14,7 @@ let function exitGameMsgBox () {
     ]
   })
 }
-let function logoutMsgBox(){
+function logoutMsgBox(){
   msgbox.show({
     text = loc("msgboxtext/logout")
     buttons = [

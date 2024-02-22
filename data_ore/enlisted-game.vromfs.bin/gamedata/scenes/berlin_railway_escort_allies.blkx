@@ -385,8 +385,8 @@
     "entity": {
       "_template": "team_ussr_berlin+team_narrator_escort_attack+respawn_creators_team",
       "team__memberCount": 0.0,
-      "team__scoreCap": 2000.0,
-      "team__score": 2000.0,
+      "team__scoreCap": 1500.0,
+      "team__score": 1500.0,
       "team__squadSpawnCost": 250,
       "team__firstSpawnCostMul": 0.0,
       "team__zeroScoreFailTimer": 60.0,
@@ -540,6 +540,7 @@
       "_template": "objective_train_zone",
       "capzone__onlyTeamCanCapture": 1,
       "groupName": "sector_5",
+      "capzone__capRewardPartCap": 1.375,
       "active": false,
       "transform": [
         [1.0,0.0,0.0],
@@ -575,7 +576,7 @@
       "capzone__onlyTeamCanCapture": 1,
       "groupName": "sector_7",
       "capzone__capReward": 250.0,
-      "capzone__capRewardPartCap": 1.125,
+      "capzone__capRewardPartCap": 1.375,
       "capzone__alwaysHide": false,
       "capzone_timer__timeLeft": 2700.0,
       "capzone__icon": "train_cross",
@@ -648,6 +649,7 @@
       "_template": "objective_train_zone",
       "capzone__onlyTeamCanCapture": 1,
       "groupName": "sector_11",
+      "capzone__capRewardPartCap": 1.375,
       "active": false,
       "transform": [
         [1.0,0.0,0.0],

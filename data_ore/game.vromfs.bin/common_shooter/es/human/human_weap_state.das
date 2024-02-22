@@ -156,7 +156,8 @@ def human_weap_wish_ammo_es(evt : CmdSetWishAmmoItemType;
 def human_weap_toggle_wish_ammo_es(evt : CmdToggleWishAmmoItemType;
                                    eid : ecs::EntityId;
                                    itemContainer : ecs::EidList;
-                                   human_weap__gunEids : ecs::EidList)
+                                   human_weap__gunEids : ecs::EidList;
+                                   human_net_phys : HumanActor)
   let slotId = evt.slot_id
   if slotId < 0 || (slotId >= length(human_weap__gunEids)) || (human_weap__gunEids[slotId] == INVALID_ENTITY_ID)
     return
@@ -167,9 +168,13 @@ def human_weap_toggle_wish_ammo_es(evt : CmdToggleWishAmmoItemType;
                                         gun__wishAmmoItemType : int = INVALID_ITEM_ID)
     gather_ammo_for_gun(gun__ammoHolderIds, gun__shell_prop_ids, itemContainer) <| $(ammoItems)
       let ammoItemsCount = length(ammoItems)
-      let curSlot = ammoItems |> find_index(gun__wishAmmoItemType)
-      let nextItemId = (ammoItemsCount == 0) ? INVALID_ITEM_ID : ammoItems[(curSlot + 1) % ammoItemsCount]
-      sendEvent(eid, [[CmdSetWishAmmoItemType slot_id=slotId, item_id=nextItemId]])
+      let isGrenadeSlotCurrent = human_net_phys.phys.currentState.weapEquipState.effectiveCurSlot == HUWeaponSlots EWS_GRENADE
+      var curSlot = ammoItems |> find_index(gun__wishAmmoItemType)
+      if curSlot < 0
+        curSlot = 0 // for case when we don't found wish ammo item in ammoItems
+      let wishSlot = isGrenadeSlotCurrent ? curSlot + 1 : curSlot
+      let wishItemId = (ammoItemsCount == 0) ? INVALID_ITEM_ID : ammoItems[(wishSlot) % ammoItemsCount]
+      sendEvent(eid, [[CmdSetWishAmmoItemType slot_id=slotId, item_id=wishItemId]])
 
 
 [es]

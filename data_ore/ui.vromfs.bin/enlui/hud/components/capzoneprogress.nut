@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontawesome } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { fabs } = require("math")
@@ -28,7 +28,7 @@ local prev = null
 local char = null
 local charCnt = 0
 
-let function getPresence(teamPresence, playerTeam){
+function getPresence(teamPresence, playerTeam){
   local alliesCount = 0
   local enemiesCount = 0
   foreach (teamId, soldierCount in (teamPresence ?? {})) {
@@ -41,7 +41,7 @@ let function getPresence(teamPresence, playerTeam){
   return { alliesCount, enemiesCount }
 }
 
-let function getAdvantageMiddle(weights, playerTeam) {
+function getAdvantageMiddle(weights, playerTeam) {
   local weightFriendly = 0
   local weightSum = 0
   foreach (teamId, weight in weights) {
@@ -52,7 +52,7 @@ let function getAdvantageMiddle(weights, playerTeam) {
   return weightSum > 0 ? (weightFriendly / weightSum) : 0.5
 }
 
-let function onZonePresenceChange(){
+function onZonePresenceChange(){
 
   if (curPlayerTeam != localPlayerTeam.value)
     curPlayerTeam = localPlayerTeam.value
@@ -100,7 +100,7 @@ let minusAnim = [
   { prop=AnimProp.opacity, from=1, to=0, duration=1, delay=1, play=true, easing=OutCubic, onFinish = @() char=null}
 ]
 
-let function mkChar(charProps){
+function mkChar(charProps){
   let { side, sign } = charProps
   let offset = curContSize[0] + CHAR_OFFSET
   let pos = [side == "allies" ? -offset : offset, curContSize[1]/2*1.3]

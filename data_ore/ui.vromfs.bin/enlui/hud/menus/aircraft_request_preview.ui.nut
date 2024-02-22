@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {TEAM_UNASSIGNED}  = require("team")
 let {localPlayerTeam}  = require("%ui/hud/state/local_player.nut")
@@ -17,7 +17,7 @@ let aircraftRespbasesQuery = ecs.SqQuery("aircraftRespbasesQuery", {
   comps_rq = ["aircraftRespbase"]
 })
 
-let function calcAircraftRequestTargetBiases(aircraftRequestSpawnBiases) {
+function calcAircraftRequestTargetBiases(aircraftRequestSpawnBiases) {
   local countFriendlyTeam = 0
   local spawnFriendlyTeam = Point2()
 
@@ -78,13 +78,13 @@ let aircraftRequestTargetBiases = Computed(function() {
   return calcAircraftRequestTargetBiases(aircraftRequestBiases)
 })
 
-let function mkAircraftRequestPreviewEllipse(minimapVisibleRadius, radius) {
+function mkAircraftRequestPreviewEllipse(minimapVisibleRadius, radius) {
   let canvasRadius  = radius / minimapVisibleRadius * 50.0
 
   return [VECTOR_ELLIPSE, 50, 50, canvasRadius, canvasRadius]
 }
 
-let function mkAircraftRequestPreview(worldPos, radius, minimapVisibleRadius, fillColor = Color(84, 24, 24, 5)) {
+function mkAircraftRequestPreview(worldPos, radius, minimapVisibleRadius, fillColor = Color(84, 24, 24, 5)) {
   return {
     transform = {
       pivot = [0.5, 0.5]

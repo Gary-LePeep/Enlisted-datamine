@@ -150,12 +150,23 @@
       }
     }
   ],
-  "attachable_wear_ameba_pants_pd41_parachute_item": {
-    "_use": "attachable_pants",
-    "item__uniqueName": "attachable_wear_ameba_pants_pd41_parachute_item",
-    "animchar__res": "ameba_pants_pd41_parachute_char",
-    "collres__res": "ameba_pants_pd41_parachute_collision"
-  },
+  "attachable_wear_ameba_pants_pd41_parachute_item": [
+    {
+      "_use": "attachable_pants"
+    },
+    {
+      "_use": "cloth_wind"
+    },
+    {
+      "item__uniqueName": "attachable_wear_ameba_pants_pd41_parachute_item"
+    },
+    {
+      "animchar__res": "ameba_pants_pd41_parachute_char"
+    },
+    {
+      "collres__res": "ameba_pants_pd41_parachute_collision"
+    }
+  ],
   "attachable_wear_pants_ameba_1_pd41_parachute_ussr_summer_item": [
     {
       "_use": "attachable_pants"
@@ -1122,27 +1133,48 @@
       }
     }
   ],
-  "attachable_wear_vdv_m41_jacket_parachute_pd41_item": {
-    "_use": "attachable_tunic",
-    "item__uniqueName": "attachable_wear_vdv_m41_jacket_parachute_pd41_item",
-    "animchar__res": "vdv_m41_jacket_parachute_pd41_char",
-    "collres__res": "vdv_m41_jacket_parachute_pd41_collision",
-    "_tracked": "attaches_list",
-    "item__replaceOnParachuteOpen": "attachable_wear_vdv_m41_jacket_item",
-    "item__replaceOnSpawnOnGround": "attachable_wear_vdv_m41_jacket_item",
-    "attaches_list:list<eid>": [],
-    "skeleton_attach__remapAffectSlots:list<t>": [
-      {
-        "slot": "front_belt_r"
-      },
-      {
-        "slot": "front_belt_l"
-      },
-      {
-        "slot": "backpack"
-      }
-    ]
-  },
+  "attachable_wear_vdv_m41_jacket_parachute_pd41_item": [
+    {
+      "_use": "attachable_tunic"
+    },
+    {
+      "_use": "cloth_wind"
+    },
+    {
+      "item__uniqueName": "attachable_wear_vdv_m41_jacket_parachute_pd41_item"
+    },
+    {
+      "animchar__res": "vdv_m41_jacket_parachute_pd41_char"
+    },
+    {
+      "collres__res": "vdv_m41_jacket_parachute_pd41_collision"
+    },
+    {
+      "_tracked": "attaches_list"
+    },
+    {
+      "item__replaceOnParachuteOpen": "attachable_wear_vdv_m41_jacket_item"
+    },
+    {
+      "item__replaceOnSpawnOnGround": "attachable_wear_vdv_m41_jacket_item"
+    },
+    {
+      "attaches_list:list<eid>": []
+    },
+    {
+      "skeleton_attach__remapAffectSlots:list<t>": [
+        {
+          "slot": "front_belt_r"
+        },
+        {
+          "slot": "front_belt_l"
+        },
+        {
+          "slot": "backpack"
+        }
+      ]
+    }
+  ],
   "attachable_wear_vdv_m41_jacket_bezh_parachute_pd41_item": [
     {
       "_use": "attachable_tunic"
@@ -1412,31 +1444,56 @@
       }
     }
   ],
-  "attachable_wear_ameba_jacket_open_parachute_item": {
-    "_use": "attachable_tunic",
-    "item__uniqueName": "attachable_wear_ameba_jacket_open_parachute_item",
-    "animchar__res": "ameba_jacket_open_parachute_char",
-    "collres__res": "ameba_jacket_open_parachute_collision",
-    "animchar_fast_phys__res": "ameba_jacket_open_parachute_fastphys",
-    "_tracked": "attaches_list",
-    "item__replaceOnParachuteOpen": "attachable_wear_ameba_jacket_open_item",
-    "item__replaceOnSpawnOnGround": "attachable_wear_ameba_jacket_open_item",
-    "animchar_fast_phys": {
-      "_tags": "gameClient"
+  "attachable_wear_ameba_jacket_open_parachute_item": [
+    {
+      "_use": "attachable_tunic"
     },
-    "attaches_list:list<eid>": [],
-    "skeleton_attach__remapAffectSlots:list<t>": [
-      {
-        "slot": "front_belt_r"
-      },
-      {
-        "slot": "front_belt_l"
-      },
-      {
-        "slot": "backpack"
+    {
+      "_use": "cloth_wind"
+    },
+    {
+      "item__uniqueName": "attachable_wear_ameba_jacket_open_parachute_item"
+    },
+    {
+      "animchar__res": "ameba_jacket_open_parachute_char"
+    },
+    {
+      "collres__res": "ameba_jacket_open_parachute_collision"
+    },
+    {
+      "animchar_fast_phys__res": "ameba_jacket_open_parachute_fastphys"
+    },
+    {
+      "_tracked": "attaches_list"
+    },
+    {
+      "item__replaceOnParachuteOpen": "attachable_wear_ameba_jacket_open_item"
+    },
+    {
+      "item__replaceOnSpawnOnGround": "attachable_wear_ameba_jacket_open_item"
+    },
+    {
+      "animchar_fast_phys": {
+        "_tags": "gameClient"
       }
-    ]
-  },
+    },
+    {
+      "attaches_list:list<eid>": []
+    },
+    {
+      "skeleton_attach__remapAffectSlots:list<t>": [
+        {
+          "slot": "front_belt_r"
+        },
+        {
+          "slot": "front_belt_l"
+        },
+        {
+          "slot": "backpack"
+        }
+      ]
+    }
+  ],
   "attachable_wear_ameba_jacket_brown_open_parachute_item": [
     {
       "_use": "attachable_tunic"
@@ -2499,6 +2556,29 @@
     "animchar__res": "nkvd_overcoat_m35_ussr_winter_char",
     "collres__res": "nkvd_overcoat_m35_ussr_winter_collision",
     "animchar_fast_phys__res": "nkvd_overcoat_m35_ussr_winter_fastphys",
+    "_tracked": "attaches_list",
+    "animchar_fast_phys": {
+      "_tags": "gameClient"
+    },
+    "attaches_list:list<eid>": [],
+    "skeleton_attach__remapAffectSlots:list<t>": [
+      {
+        "slot": "front_belt_r"
+      },
+      {
+        "slot": "front_belt_l"
+      },
+      {
+        "slot": "backpack"
+      }
+    ]
+  },
+  "attachable_wear_ussr_coat_nkvd_winter_item": {
+    "_use": "attachable_tunic",
+    "item__uniqueName": "attachable_wear_ussr_coat_nkvd_winter_item",
+    "animchar__res": "ussr_coat_nkvd_winter_char",
+    "collres__res": "ussr_coat_nkvd_winter_collision",
+    "animchar_fast_phys__res": "ussr_coat_nkvd_winter_fastphys",
     "_tracked": "attaches_list",
     "animchar_fast_phys": {
       "_tags": "gameClient"
@@ -5117,6 +5197,12 @@
     "item__uniqueName": "attachable_wear_nagant_holster_l_tanker_jacket_ussr_item",
     "animchar__res": "nagant_holster_l_tanker_jacket_ussr_char",
     "collres__res": "nagant_holster_l_tanker_jacket_ussr_collision"
+  },
+  "attachable_wear_ussr_holster_t26_r_nkvd_winter_item": {
+    "_use": "attachable_front_belt_l",
+    "item__uniqueName": "attachable_wear_ussr_holster_t26_r_nkvd_winter_item",
+    "animchar__res": "ussr_holster_t26_r_nkvd_winter_char",
+    "collres__res": "ussr_holster_t26_r_nkvd_winter_collision"
   },
   "attachable_wear_belt_1_03_ussr_summer_item": {
     "_use": "attachable_belt1",

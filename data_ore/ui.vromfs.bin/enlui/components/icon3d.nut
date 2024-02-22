@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 let {getTexReplaceString, getTexSetString} = require("%ui/components/itemTexReplace.nut")
 
 let RENDER_PARAMS = @"ui/skin#render{
@@ -29,7 +29,7 @@ let iconWidgetDef = {
 
 let cachedPictures = {}
 
-let function getPicture(source) {
+function getPicture(source) {
   local pic = cachedPictures?[source]
   if (pic)
     return pic
@@ -41,7 +41,7 @@ let function getPicture(source) {
 let getTMatrixString = @(m)
   "[{0}]".subst(" ".join(array(4).map(@(_, i) $"[{m[i].x}, {m[i].y}, {m[i].z}]")))
 
-let function getShaderColorsString(item) {
+function getShaderColorsString(item) {
   let { shaderColors = null } = item
   if (shaderColors == null || type(shaderColors) != "table")
     return ""
@@ -55,7 +55,7 @@ let function getShaderColorsString(item) {
   return "".join(list)
 }
 
-let function iconWidget(item, params = iconWidgetDef, iconAttachments = null) {
+function iconWidget(item, params = iconWidgetDef, iconAttachments = null) {
   let { children = null } = params
   let { iconName = "", itemName = "" } = item
   if (iconName == "") {

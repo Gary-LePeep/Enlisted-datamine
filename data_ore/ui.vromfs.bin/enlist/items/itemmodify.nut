@@ -2,7 +2,7 @@ from "math" import min
 
 let { curCampItems } = require("%enlist/soldiers/model/state.nut")
 
-let function mkGuidsCountTbl(guids, total) {
+function mkGuidsCountTbl(guids, total) {
   local toProcess = total
   let res = {}
   foreach (guid in guids) {

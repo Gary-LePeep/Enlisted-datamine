@@ -1,8 +1,8 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 import "%dngscripts/ecs.nut" as ecs
 
 
-let function createVehicle(
+function createVehicle(
   template, transform, callback = null, customazation = null, extraTemplates = []
 ) {
   if (template == null)

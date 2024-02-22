@@ -12,6 +12,8 @@ require DagorRandom
 require DagorSystem
 require ClipmapDecals
 require PhysMat
+require danetlibs.puddles_manager.render.puddles_manager_events
+
 
 def is_crater_part_valid_pos(part_pos : int2; part_grid_width : int)
   return part_pos.x >= 0 && part_pos.x < part_grid_width && part_pos.y >= 0 && part_pos.y < part_grid_width
@@ -111,7 +113,7 @@ def create_smoke_emitter_on_terraform_bomb_crater(evt : EventBombCraterTerraform
 
 [es(tag=render)]
 def remove_puddles_on_terraform_bomb_crater(evt : EventBombCraterTerraformed)
-  remove_puddles_in_crater(evt.pos, evt.outerRadius)
+  broadcastEventImmediate([[RemovePuddlesInRadius position=evt.pos, radius=evt.outerRadius]])
 
 [es(tag=render)]
 def remove_visual_ri_on_terraform_bomb_crater_part(evt : EventBombCraterPartTerraformed)

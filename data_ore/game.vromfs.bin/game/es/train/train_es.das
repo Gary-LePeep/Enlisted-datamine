@@ -15,6 +15,9 @@ require enlisted.events_enlisted
 require enlisted.game.es.train.train_common
 require danetlibs.native_dasevents.main.native_events
 
+[es(REQUIRE=train, after=(deny_collision_by_ignore_list_es, deny_collision_for_disabled_paircoll_es))]
+def train_query_collision_es(var evt : QueryPhysActorsNotCollidable)
+  evt.shouldCollide = true
 
 def project_train_on_railroad(train_box : BBox3; train_orient : quat; train_pos, train_vel : float3) : tuple<orient : quat; pos : float3>
   let trainForward = quat_get_forward(train_orient)

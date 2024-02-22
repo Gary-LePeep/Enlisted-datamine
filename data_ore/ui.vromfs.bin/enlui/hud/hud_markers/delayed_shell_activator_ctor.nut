@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {shell_activators_Set, shell_activators_GetWatched} = require("%ui/hud/state/shell_activators.nut")
 let {makeArrow} = require("%ui/hud/hud_markers/components/hud_markers_components.nut")
@@ -26,7 +26,7 @@ let getIcon = memoize(function(ico) {
   })
 })
 
-let function activatorMarker(eid) {
+function activatorMarker(eid) {
   let state = shell_activators_GetWatched(eid)
   return @() {
     watch = state

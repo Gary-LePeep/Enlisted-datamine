@@ -1,8 +1,8 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let slider = require("slider.nut")
 
-let function optionSlider(opt, group, xmbNode) {
+function optionSlider(opt, group, xmbNode) {
   let sliderElem = {
     size = flex()
 

@@ -1,0 +1,56 @@
+{
+  "force_dome_resources": [
+    {
+      "_use": "replicating"
+    },
+    {
+      "_singleton": true
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "force_dome__texture_res": "force_field_hexagon_tex_n",
+        "force_dome__texture_var": "forcedome_diffuse_texture",
+        "force_dome_resources:ForceDomeResources": [],
+        "force_dome__texture:SharedTexHolder": []
+      }
+    },
+    {
+      "_group": {
+        "_track": true,
+        "force_dome__texture_scale": 0.1,
+        "force_dome__color": [0.0,0.5,1.0,0.2],
+        "force_dome__brightness": 1.0,
+        "force_dome__edge_thinness": 30.0,
+        "force_dome__edge_intensity": 200.0,
+        "force_dome__hit_effect_name": "",
+        "force_dome__hit_effect_scale": 1.0
+      }
+    }
+  ],
+  "force_dome": {
+    "_use": "replicating",
+    "force_dome__position": [0.0,0.0,0.0],
+    "force_dome__radius": 1.0,
+    "transform": [
+      [1.0,0.0,0.0],
+      [0.0,1.0,0.0],
+      [0.0,0.0,1.0],
+      [0.0,0.0,0.0]
+    ],
+    "collres__res": "hemisphere_dome_collision",
+    "collres": []
+  },
+  "force_dome_sound": {
+    "_use": "replicating",
+    "_singleton": true,
+    "_group": {
+      "_tags": "sound",
+      "force_dome_sound__path": "events/moonbase/player/effects/energy_field",
+      "force_dome_sound__enterPath": "events/moonbase/player/effects/energy_filed_enter",
+      "force_dome_sound__hearingRange": 45.0,
+      "force_dome_sound__isInside": false,
+      "force_dome_sound__event:SoundEvent": []
+    }
+  }
+}

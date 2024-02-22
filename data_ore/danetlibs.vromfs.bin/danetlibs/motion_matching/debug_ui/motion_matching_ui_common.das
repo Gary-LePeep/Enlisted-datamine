@@ -14,6 +14,7 @@ require danetlibs/motion_matching/es/motion_matching_common
 require danetlibs/motion_matching/es/mm_events
 require danetlibs/motion_matching/debug_ui_includes/mm_ui_imgui_helpers
 require danetlibs/motion_matching/debug_ui_includes/mm_ui_play_clips
+require danetlibs/motion_matching/debug_ui_includes/mm_ui_edit_tags
 
 
 def index(tags : StringList; tag : string) : int
@@ -31,8 +32,6 @@ def edit_weights(var weights : FeatureWeights; nodes_name : StringList; predicti
 
     safe_slider("position##{t}{hash}", p, 0f, 10f)
     safe_slider("velocity##{t}{hash}", v, 0f, 10f)
-  imgui::Text("optional tag")
-  safe_slider("##optional tag{hash}", weights.optionalTagWeight, 0f, 100f)
   commit_feature_weights(weights)
 
 def edit_preset(var preset : TagPreset)
@@ -146,35 +145,6 @@ def debug_visualization_tab(imgui_state_eid : EntityId)
       safe_checkbox("Show IK target position", mm_visualization_show_foot_ik_target_positions)
     imgui::EndTabItem()
 
-def edit_tags(eid : EntityId; dataBase : AnimationDataBase)
-
-  query(eid) <| $ [es] (var motion_matching__goalTags : StringList;
-                        var motion_matching__optionalTags : StringList)
-    if imgui::BeginTabItem("tags")
-      imgui::Text("required tags")
-      let tagsCount = dataBase |> tags_count()
-      for i in range(tagsCount)
-        let tag = dataBase |> get_tag(i)
-        let idx = motion_matching__goalTags |> index(tag)
-        var exists = idx != -1
-        if imgui::Checkbox(tag, safe_addr(exists))
-          if exists
-            motion_matching__goalTags |> push(tag)
-          else
-            motion_matching__goalTags |> erase(idx)
-
-      imgui::Text("optional tags")
-      for i in range(dataBase |> optional_tags_count())
-        let tag = dataBase |> get_optional_tag(i)
-        let idx = motion_matching__optionalTags |> index(tag)
-        var exists = idx != -1
-        if imgui::Checkbox(tag, safe_addr(exists))
-          if exists
-            motion_matching__optionalTags |> push(tag)
-          else
-            motion_matching__optionalTags |> erase(idx)
-      imgui::EndTabItem()
-
 def edit_presets_weights(dataBaseEid : EntityId)
   var invalidateDatabase = false
   if imgui::BeginTabItem("weights")
@@ -211,11 +181,11 @@ def edit_presets_weights(dataBaseEid : EntityId)
       imgui::Separator()
 
       var first = true
-      for preset, presetTagIdx, tagName in dataBase.tagsPresets, dataBase.presetsTagIdx, main_database__presetsTagsName
+      for preset, tagName in dataBase.tagsPresets, main_database__presetsTagsName
         if first
           edit_weights(preset.weights, dataBase.nodesName, dataBase.predictionTimes)
           edit_preset(preset)
-        elif imgui::TreeNode("{tagName}, tag index = {presetTagIdx}")
+        elif imgui::TreeNode("{tagName}, tag index = {preset.requiredTagIdx}")
           edit_weights(preset.weights, dataBase.nodesName, dataBase.predictionTimes)
           edit_preset(preset)
           imgui::TreePop()
@@ -309,7 +279,7 @@ def motion_matching_imgui(eid : EntityId)
   imgui::PushItemWidth(150f);
   imgui::BeginTabBar("Tabs")
 
-  query(eid) <| $ [es] (motion_matching__controller : MotionMatchingController;
+  query(eid) <| $ [es] (var motion_matching__controller : MotionMatchingController&;
                         motion_matching__dataBaseEid : EntityId)
     edit_params(eid, motion_matching__dataBaseEid)
 
@@ -324,7 +294,7 @@ def motion_matching_imgui(eid : EntityId)
       mm_imguiAnimcharEid = eid
 
     debug_visualization_tab(imguiStateEid)
-    edit_tags(eid, *dataBase)
+    edit_tags(eid, *dataBase, motion_matching__controller)
     edit_presets(motion_matching__dataBaseEid)
     play_clips(eid, motion_matching__dataBaseEid, imguiStateEid)
 

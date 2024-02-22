@@ -5,5 +5,14 @@
     "tire_tracks__clipmapInvalidateTimer": 0.0,
     "tire_tracks__clipmapInvalidatePeriod": 0.1,
     "tracksColorMultBuffer:UniqueBufHolder": []
+  },
+  "vehicle_tracks": {
+    "_tags": "render",
+    "vehicle_tracks__surface_pressure_mult": 1.0,
+    "vehicle_tracks__lastUpdatePos": [0.0,-1000.0,0.0],
+    "vehicle_tracks__nodeIds:list<i>": [],
+    "vehicle_tracks__nodesFilter:list<u8>": [],
+    "vehicle_tracks__emitter_id:list<i>": [],
+    "vehicle_tracks__emitter_to_wheel_map:list<i>": []
   }
 }

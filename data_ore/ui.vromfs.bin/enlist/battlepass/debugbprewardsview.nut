@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {addModalWindow, removeModalWindow} = require("%ui/components/modalWindows.nut")
 let { mkRewardImages, mkRewardTooltip } = require("rewardsPkg.nut")
@@ -12,7 +12,7 @@ const WND_UID = "debugRewardsView"
 let isOpened = mkWatched(persist, "isOpened", false)
 let gap = 20
 
-let function rewardsContent() {
+function rewardsContent() {
   let all = itemsMapping.value.reduce(@(res, reward, id) res.append({ id, reward }), [])
   all.sort(@(a, b) a.id <=> b.id)
   let columns = (sw(95) / (rewardBgSizePx[0] + gap)).tointeger()

@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {currentShellType} = require("artillery_radio_map_shell_type.nut")
 let {DEFAULT_TEXT_COLOR, HUD_TIPS_FAIL_TEXT_COLOR} = require("%ui/hud/style.nut")

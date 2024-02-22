@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let textInput = require("%ui/components/textInput.nut")
@@ -10,7 +10,7 @@ let {format_unixtime} = require("dagor.time")
 let { remap_nick } = require("%enlSqGlob/remap_nick.nut")
 
 let ColorInactive = Color(120,120,120)
-let function messageInLog(entry) {
+function messageInLog(entry) {
   let fmtString = "%H:%M:%S"
   return {
     rendObj = ROBJ_TEXTAREA
@@ -23,7 +23,7 @@ let function messageInLog(entry) {
 }
 
 
-let function chatRoom(chatId) {
+function chatRoom(chatId) {
   if (chatId == null)
     return null
 
@@ -33,7 +33,7 @@ let function chatRoom(chatId) {
   let scrollHandler = ScrollHandler()
 
 
-  let function doSendMessage() {
+  function doSendMessage() {
     if (chatMessage.value=="")
       return
     sendMessage(chatId, chatMessage.value)
@@ -41,7 +41,7 @@ let function chatRoom(chatId) {
   }
 
 
-  let function chatInputField() {
+  function chatInputField() {
     let options = {
       placeholder = loc("chat/inputPlaceholder")
       margin = 0
@@ -54,7 +54,7 @@ let function chatRoom(chatId) {
   }
 
 
-  let function chatInput() {
+  function chatInput() {
     return {
       flow = FLOW_HORIZONTAL
       size = [flex(), SIZE_TO_CONTENT]
@@ -76,7 +76,7 @@ let function chatRoom(chatId) {
 
   local lastScrolledTo = null
 
-  let function logContent() {
+  function logContent() {
     let chatLog = getChatLog(chatId)?.data
     if (chatLog == null)
       return {}
@@ -102,7 +102,7 @@ let function chatRoom(chatId) {
   }
 
 
-  let function chatLog() {
+  function chatLog() {
     return {
       size = flex()
 

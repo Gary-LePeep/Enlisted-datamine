@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let buySquadWindow = require("buySquadWindow.nut")
 let buyShopItem = require("buyShopItem.nut")
@@ -14,7 +14,7 @@ let { getCantBuyDataOnClick } = require("shopState.nut")
 let { curArmyData } = require("%enlist/soldiers/model/state.nut")
 
 
-let function shopItemAction(shopItem, isNotSuitable = false) {
+function shopItemAction(shopItem, isNotSuitable = false) {
   let { guid = "" } = curArmyData.value
   let { squads = [] } = shopItem
   let squad = squads.findvalue(@(s) s.armyId == guid) ?? squads?[0]

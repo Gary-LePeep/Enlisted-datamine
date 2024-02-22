@@ -1,14 +1,14 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { get_setting_by_blk_path } = require("settings")
 let auth_friends = require("%enlist/ps4/auth_friends.nut")
 let pswa = require("ps4.webapi")
 let { psn_friendsUpdate, psn_blocked_users, psn_blocked_usersUpdate
 } = require("%enlist/ps4/psn_state.nut")
-let { isLoggedIn } = require("%enlSqGlob/login_state.nut")
+let { isLoggedIn } = require("%enlSqGlob/ui/login_state.nut")
 let { updatePresences, presences } = require("%enlist/contacts/contactPresence.nut")
 let { updateContact, isValidContactNick } = require("%enlist/contacts/contact.nut")
-let eventbus = require("eventbus")
+let { eventbus_subscribe, eventbus_unsubscribe, eventbus_send } = require("eventbus")
 let voiceApi = require("voiceApi")
 let profile = require("%enlist/ps4/profile.nut")
 let { searchContactByExternalId } = require("%enlist/contacts/externalIdsManager.nut")
@@ -21,7 +21,7 @@ let logpsn = require("%enlSqGlob/library_logs.nut").with_prefix("[PSN CONTACTS] 
 
 let gameAppId = get_setting_by_blk_path("authGameId") ?? "cr"
 
-let function psnConstructFriendsList(psn_friends, contacts) {
+function psnConstructFriendsList(psn_friends, contacts) {
   let result = []
   let updPresences = {}
   let afriends = contacts?.friends ?? {}
@@ -50,10 +50,10 @@ let function psnConstructFriendsList(psn_friends, contacts) {
   psn_friendsUpdate(result)
   psnApprovedUids(uidsList)
 
-  eventbus.send("PSNAuthContactsReceived", null)
+  eventbus_send("PSNAuthContactsReceived", null)
 }
 
-let function psnConstructBlocksList(profile_blocked, psn_contacts, callback) {
+function psnConstructBlocksList(profile_blocked, psn_contacts, callback) {
   logpsn("psnConstructBlocksList: ", psn_contacts)
   let authBlocked = psn_contacts?.blocklist ?? {}
   let authFriends = psn_contacts?.friends ?? {}
@@ -69,12 +69,12 @@ let function psnConstructBlocksList(profile_blocked, psn_contacts, callback) {
   callback(users2)
 }
 
-let function onGetPsnFriends(pfriends) {
-  logpsn("onGetPsnFriends: AUTH_GAME_ID:", gameAppId)
+function onGetPsnFriends(pfriends) {
+  logpsn($"onGetPsnFriends: AUTH_GAME_ID: {gameAppId}")
   auth_friends.request_auth_contacts(gameAppId, false, @(contacts) psnConstructFriendsList(pfriends, contacts))
 }
 
-let function onGetBlockedUsers(users) {
+function onGetBlockedUsers(users) {
   let unblockedList = psn_blocked_users.value.filter(@(u) users.findvalue(@(u2) u.userId == u2.userId) == null)
   let blockedList = users.filter(@(u) psn_blocked_users.value.findvalue(@(u2) u.userId == u2.userId) == null)
 
@@ -125,28 +125,29 @@ let function onGetBlockedUsers(users) {
   })
 }
 
-let function onPresenceUpdate(accountId) {
+function onPresenceUpdate(accountId) {
   let userId = console2uid.value?[accountId.tostring()]
   if (userId != null && userId in presences.value)
     updatePresences({ [userId] = { online = !(presences.value[userId]?.online ?? false) }})
 }
 
-let function onFriendsUpdate(_) {
+function onFriendsUpdate(_) {
   profile.request_psn_friends(onGetPsnFriends)
 }
 
-let function request_blocked_users(callback) {
+function request_blocked_users(callback) {
+  logpsn($"request_blocked_users: AUTH_GAME_ID: {gameAppId}")
   profile.request_blocked_users(function(users) {
     auth_friends.request_auth_contacts(gameAppId, false, @(contacts) psnConstructBlocksList(users, contacts, callback))
   })
 }
 
-let function onBlocklistUpdate(_) {
+function onBlocklistUpdate(_) {
   request_blocked_users(onGetBlockedUsers)
 }
 
-let function request_psn_contacts() {
-  logpsn("request_psn_contacts: AUTH_GAME_ID: ", gameAppId)
+function request_psn_contacts() {
+  logpsn($"request_psn_contacts: AUTH_GAME_ID: {gameAppId}")
   pswa.subscribe_to_push_events()
   auth_friends.request_auth_contacts(gameAppId, false, function(contacts) {
     profile.request_blocked_users(@(profile_blocked) psnConstructBlocksList(profile_blocked, contacts, onGetBlockedUsers))
@@ -154,13 +155,13 @@ let function request_psn_contacts() {
   })
 }
 
-let function eventSubscribeOutOfBattle(v) {
+function eventSubscribeOutOfBattle(v) {
   if (v) {
-    eventbus.subscribe("ps4.presence_update", onPresenceUpdate)
+    eventbus_subscribe("ps4.presence_update", onPresenceUpdate)
     request_psn_contacts()
   }
   else {
-    eventbus.unsubscribe("ps4.presence_update", onPresenceUpdate)
+    eventbus_unsubscribe("ps4.presence_update", onPresenceUpdate)
     pswa.unsubscribe_from_push_events()
   }
 }
@@ -168,17 +169,17 @@ let needRequestContacts = keepref(Computed(@() !isInBattleState.value && isLogge
 eventSubscribeOutOfBattle(needRequestContacts.value)
 needRequestContacts.subscribe(eventSubscribeOutOfBattle)
 
-let function initHandlers() {
-  eventbus.subscribe("ps4.presence_update", onPresenceUpdate)
-  eventbus.subscribe("ps4.friends_list_update", onFriendsUpdate)
-  eventbus.subscribe("ps4.blocklist_update", onBlocklistUpdate)
+function initHandlers() {
+  eventbus_subscribe("ps4.presence_update", onPresenceUpdate)
+  eventbus_subscribe("ps4.friends_list_update", onFriendsUpdate)
+  eventbus_subscribe("ps4.blocklist_update", onBlocklistUpdate)
   request_psn_contacts()
 }
 
-let function disposeHandlers() {
-  eventbus.unsubscribe("ps4.presence_update", onPresenceUpdate)
-  eventbus.unsubscribe("ps4.friends_list_update", onFriendsUpdate)
-  eventbus.unsubscribe("ps4.blocklist_update", onBlocklistUpdate)
+function disposeHandlers() {
+  eventbus_unsubscribe("ps4.presence_update", onPresenceUpdate)
+  eventbus_unsubscribe("ps4.friends_list_update", onFriendsUpdate)
+  eventbus_unsubscribe("ps4.blocklist_update", onBlocklistUpdate)
   pswa.unsubscribe_from_push_events()
 }
 

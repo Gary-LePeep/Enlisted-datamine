@@ -11,35 +11,35 @@ let {
 } = require("ecs.netevent")
 
 
-local function update_component(eid, component_name) {
+function update_component(eid, component_name) {
   console.command($"ecs.update_component {eid} {component_name}")
 }
 
 let _get_msgSink = ecs.SqQuery("_get_msgSink", {comps_rq = ["msg_sink"]})
-local function _get_msg_sink_eid(){
+function _get_msg_sink_eid(){
   return _get_msgSink.perform(@(eid, _comp) eid) ?? ecs.INVALID_ENTITY_ID
 }
 
-local function client_send_event(eid, evt){
+function client_send_event(eid, evt){
   if (!is_server())
     return client_request_unicast_net_sqevent(eid, evt)
   else
     return ecs.g_entity_mgr.sendEvent(eid, evt)
 }
 
-local function client_broadcast_event(evt){
+function client_broadcast_event(evt){
   if (!is_server())
     return client_request_broadcast_net_sqevent(evt)
   else
     return ecs.g_entity_mgr.broadcastEvent(evt)
 }
 
-local function client_msg_sink(evt) {
+function client_msg_sink(evt) {
   return client_send_event(_get_msg_sink_eid(), evt)
 }
 
 // Note: empty (zero len) connids would send to no-one, null connids would send to everyone (broadcast)
-local function server_broadcast_event(evt, connids=null){
+function server_broadcast_event(evt, connids=null){
   if (has_network())
     server_broadcast_net_sqevent(evt, connids)
   else
@@ -47,14 +47,14 @@ local function server_broadcast_event(evt, connids=null){
 }
 
 // Note: empty (zero len) connids would send to no-one, null connids would send to everyone (broadcast)
-local function server_send_event(eid, evt, connids=null){
+function server_send_event(eid, evt, connids=null){
   if (has_network())
     server_send_net_sqevent(eid, evt, connids)
   else
     ecs.g_entity_mgr.sendEvent(eid, evt)
 }
 
-local function server_msg_sink(evt, connids=null) {
+function server_msg_sink(evt, connids=null) {
   server_send_event(_get_msg_sink_eid(), evt, connids)
 }
 

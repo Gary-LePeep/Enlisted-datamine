@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { iconByGameTemplate } = require("%enlSqGlob/ui/itemsInfo.nut")
 let {
@@ -8,7 +8,7 @@ let { configs } = require("%enlist/meta/configs.nut")
 let { campItemsByLink } = require("%enlist/meta/profile.nut")
 
 
-let function calcAmmo(item, soldierGuid, weapData, slotType, configsVal, itemsByLink) {
+function calcAmmo(item, soldierGuid, weapData, slotType, configsVal, itemsByLink) {
   local increase = 0
   if (slotType == "primary") { // if is weapon to increase ammo
     let slotsItems = itemsByLink?[soldierGuid] ?? []

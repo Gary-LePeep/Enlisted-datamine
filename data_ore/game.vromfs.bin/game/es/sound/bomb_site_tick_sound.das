@@ -3,7 +3,7 @@ require DagorMath
 require soundEvent
 require enlisted.events_enlisted
 
-[es(tag=sound, no_order)]
+[es(tag=sound, after=sound_begin_update_es, before=sound_end_update_es)]
 def bomb_site_tick_sound(info : ParallelUpdateFrameDelayed;
                          bomb_site__explosionTimeEnd : float;
                          bomb_site__timeToExplosion : float;

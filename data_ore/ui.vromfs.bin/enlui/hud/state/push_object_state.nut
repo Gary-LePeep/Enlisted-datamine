@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {lookAtVehicle, lookAtShip, lookAtPushableObject} = require("%ui/hud/state/actions_state.nut")
 let {isDowned} = require("%ui/hud/state/health_state.nut")

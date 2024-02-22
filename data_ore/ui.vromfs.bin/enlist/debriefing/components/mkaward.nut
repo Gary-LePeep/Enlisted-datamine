@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { setTooltip } = require("%ui/style/cursors.nut")
@@ -7,7 +7,7 @@ let { BattleHeroesAward } = require("%enlSqGlob/ui/battleHeroesAwards.nut")
 
 let COUNT_VALUE_DELAY = 0.05
 
-let function awardText(award) {
+function awardText(award) {
   let text = award?.id
     ? loc($"debriefing/awards/{award.id}/short", "")
     : ""
@@ -52,7 +52,7 @@ let awardValue = @(awardWatch) @(){
     : null
 }
 
-let function mkCountTimersData(award, hasAnim) {
+function mkCountTimersData(award, hasAnim) {
   let value = award?.value
   let canCount = hasAnim && (typeof value == "integer" || typeof value == "float")
   if (!canCount)
@@ -63,7 +63,7 @@ let function mkCountTimersData(award, hasAnim) {
   let curVal = Watched("")
   local current = 0.0
   let target = value.tointeger()
-  let function countTimer() {
+  function countTimer() {
     let step = max((2 * target - current) / 30.0, target / 50.0)
     current = min(current + step, target)
     curVal(current.tointeger().tostring())
@@ -159,7 +159,7 @@ let awardsCfg = {
 foreach (name in BattleHeroesAward)
   awardsCfg[name] <- mkBattleHeroAward
 
-let function mkAward(options) {
+function mkAward(options) {
   let ctor = awardsCfg?[options?.award.id] ?? mkDefaultAward
   return ctor(options, KWARG_NON_STRICT)
 }

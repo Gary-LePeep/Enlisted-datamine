@@ -131,5 +131,35 @@
       "timings": [0.0,0.5,2.0],
       "_tags": "render"
     }
+  },
+  "postfx_color_grading_tonemap_night_enlisted": {
+    "_use": "postfx_color_grading_tonemap_enlisted",
+    "_singleton": true,
+    "color_grading:object": {
+      "colorContrast": [1.0,1.0,1.0,0.95],
+      "_tags": "render"
+    },
+    "tonemap:object": {
+      "tonemapMidOut": 0.155,
+      "tonemapMidIn": 0.05,
+      "tonemapShoulder": 0.95,
+      "tonemapContrast": 0.95,
+      "tonemapHdrMax": 4.0,
+      "colorContrast": [1.0,1.0,1.0,0.95],
+      "shadows_colorContrast": [1.0,1.0,1.0,0.85],
+      "_tags": "render"
+    },
+    "tonemap_save:object": {
+      "colorContrast": [1.0,1.0,1.0,0.95],
+      "tonemapMidOut": 0.155,
+      "tonemapMidIn": 0.05,
+      "tonemapShoulder": 0.95,
+      "whiteTint": 0.0,
+      "whiteTemp": 7000.0,
+      "tonemapContrast": 0.95,
+      "tonemapHdrMax": 4.0,
+      "shadows_colorContrast": [1.0,1.0,1.0,0.85],
+      "_tags": "render"
+    }
   }
 }

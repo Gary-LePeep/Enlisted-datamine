@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let colorize = require("%ui/components/colorize.nut")
 let { utf8ToUpper } = require("%sqstd/string.nut")
@@ -31,7 +31,7 @@ const playerCountMultTooltipText = "debriefing/playerCountMultArmyExpTooltip"
 const notEnoughPlayersShortText = "debriefing/playerCountMultArmyExpTooltipShort"
 
 let REWARD_ICON_SIZE = hdpxi(30)
-let xpIconSize = hdpxi(36)
+let xpIconSize = hdpxi(34)
 
 
 let awardPositiveColor = Color(252, 186, 3, 255)
@@ -95,13 +95,13 @@ let getNextGlobalGiftCount = @(gift, cycle)
   cycle > 0 ? gift.loopCount : gift.startCount
 
 
-let function mkGiftView(giftCfg) {
+function mkGiftView(giftCfg) {
   let itemCurrency = getCurrencyPresentation(giftCfg.basetpl)
   return itemCurrency == null ? null
     : mkCurrencyImage(itemCurrency.icon, [REWARD_ICON_SIZE, REWARD_ICON_SIZE])
 }
 
-let function mkSilverReward(giftsConfig, curGifts, campaignId, armyAddExp) {
+function mkSilverReward(giftsConfig, curGifts, campaignId, armyAddExp) {
   let giftCfg = giftsConfig?[0]
   let giftObj = curGifts?[[getGlobalGiftGuid(giftCfg, campaignId)]]
   let wasExp = giftObj?.exp ?? 0
@@ -169,11 +169,17 @@ let mkValueWithIconArmyExp = @(value, icon, textLocId = null)
 
 let horFlow = @(children) {
   flow = FLOW_HORIZONTAL
+  size = [SIZE_TO_CONTENT, xpIconSize]
   valign = ALIGN_CENTER
   children
 }
 
-let function mkPointsReward(result, details, armyAddExp, squads, armyId) {
+let wrapParams = {
+  width = fsh(50)
+  valign = ALIGN_CENTER
+}
+
+function mkPointsReward(result, details, armyAddExp, squads, armyId) {
   if (armyAddExp <= 0)
     return null
 
@@ -287,47 +293,46 @@ let function mkPointsReward(result, details, armyAddExp, squads, armyId) {
   )
 
   return {
-    size = [flex(), hdpxi(50)]
+    size = [flex(), SIZE_TO_CONTENT]
     children = [
       doubleSideHighlightLine
       doubleSideBg({
-        size = flex()
+        size = [flex(), SIZE_TO_CONTENT]
         flow = FLOW_HORIZONTAL
         gap = smallPadding
         valign = ALIGN_CENTER
-        padding = [0, bigPadding]
+        padding = [midPadding, bigPadding]
         children = [
           {
-            size = flex()
-            flow = FLOW_HORIZONTAL
+            size = [flex(), SIZE_TO_CONTENT]
+            flow = FLOW_VERTICAL
             valign = ALIGN_CENTER
-            children = [
-              expHeader
-              !showDetailed ? null
-                : {
-                    flow = FLOW_HORIZONTAL
-                    valign = ALIGN_CENTER
-                    children = [
+            children = !showDetailed
+              ? expHeader
+              : [
+                  wrap([
+                    horFlow([
+                      expHeader
                       needsParentheses ? mkText("(") : null
                       baseExp
                       boostExp
                       premExp
                       needsParentheses ? mkText(")") : null
-                      battleResultMultIcon
-                      lastGameDeserterMultIcon
-                      anyTeamMultIcon
-                      freemiumResultMultIcon
-                      battleHeroMultIcon
-                      playerCountMultIcon
-                      noviceBonusExp
-                    ]
-                  }
-            ]
+                    ])
+                    battleResultMultIcon
+                    lastGameDeserterMultIcon
+                    anyTeamMultIcon
+                    freemiumResultMultIcon
+                    battleHeroMultIcon
+                    playerCountMultIcon
+                    noviceBonusExp
+                  ], wrapParams)
+              ]
           }
           mkExpIcon([REWARD_ICON_SIZE, REWARD_ICON_SIZE])
           resultExp
         ]
-      })
+      }).__update({ size = [flex(), SIZE_TO_CONTENT] })
       doubleSideHighlightLineBottom
     ]
   }
@@ -349,7 +354,7 @@ let mkExpBoosterWithTooltip = @(value) withTooltip({
 }, @() loc("boostTotal/global", { percent = colorize(awardPositiveColor, 100 * value) }))
 
 
-let function mkArmyProgress(
+function mkArmyProgress(
   armyId, armyAddExp, growthProgress, result, onFinish,
   giftsConfig = null, curGifts = null, campaignId = "",
   armyExpDetailed = {}, boosts = null, squads = {}

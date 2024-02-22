@@ -1,9 +1,9 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let platform = require("%dngscripts/platform.nut")
 let {isProductionCircuit} = require("%dngscripts/appInfo.nut")
 let msgbox = require("%enlist/components/msgbox.nut")
-let { subscribe } = require("eventbus")
+let { eventbus_subscribe } = require("eventbus")
 
 let dbgMultiplayerPermissions = Watched(true)
 local checkMultiplayerPermissions = function checkMultiplayerPermissionsImpl() { //<--- overriden in ps5 version
@@ -19,10 +19,10 @@ console_register_command(function() {
 
 if (platform.is_ps5) {
   let { hasPremium, requestPremiumStatusUpdate } = require("sony.user")
-  subscribe("psPlusSuggested", @(_) requestPremiumStatusUpdate(@(_) null))
+  eventbus_subscribe("psPlusSuggested", @(_) requestPremiumStatusUpdate(@(_) null))
   let { suggest_psplus } = require("sony.store")
 
-  let function suggestAndAllowPsnPremiumFeatures() {
+  function suggestAndAllowPsnPremiumFeatures() {
     if (hasPremium() || isProductionCircuit.value) //do not check multiplayer permission in production
       return true
 

@@ -1,7 +1,7 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 from "modules" import on_module_unload
 
-let eventbus = require("eventbus")
+let { eventbus_subscribe } = require("eventbus")
 let userInfo = require("%enlSqGlob/userInfo.nut")
 let { save_table_to_online_storage, get_table_from_online_storage, send_to_server, load_from_cloud } = require("onlineStorage")
 let { debounce } = require("%sqstd/timers.nut")
@@ -15,7 +15,7 @@ let settings = Watched(getOnlineTbl())
 
 const SEND_PENDING_TIMEOUT_SEC = 600 //10 minutes should be ok
 
-let function onUpdateSettings(_userId) {
+function onUpdateSettings(_userId) {
   settings.update(getOnlineTbl())
   onlineSettingUpdated(true)
   onlineSettingsInited(true)
@@ -27,18 +27,17 @@ if (userInfo.value?.chardToken!=null && userInfo.value?.userId!=null && !onlineS
 
 local isSendToSrvTimerStarted = false
 
-let function sendToServer(forced = false) {
+function sendToServer(forced = false) {
   if (!isSendToSrvTimerStarted && !forced)
     return //when timer not started, than settings already sent
 
   logOS("Send to server")
-  if (!forced)
-    gui_scene.clearTimer(callee())
+  gui_scene.clearTimer(callee())
   isSendToSrvTimerStarted = false
   send_to_server()
 }
 
-let function startSendToSrvTimer() {
+function startSendToSrvTimer() {
   if (isSendToSrvTimerStarted) {
     logOS("Timer to send is already on")
     return
@@ -46,7 +45,7 @@ let function startSendToSrvTimer() {
 
   isSendToSrvTimerStarted = true
   logOS("Start timer to send")
-  gui_scene.setTimeout(SEND_PENDING_TIMEOUT_SEC, sendToServer)
+  gui_scene.resetTimeout(SEND_PENDING_TIMEOUT_SEC, sendToServer)
 }
 
 userInfo.subscribe(function (new_val) {
@@ -56,7 +55,7 @@ userInfo.subscribe(function (new_val) {
   onlineSettingUpdated(false)
 })
 
-let function save() {
+function save() {
   logOS("Save settings")
   let v = settings.value ?? cacheForModuleUnload.value
   if ( v != null)
@@ -74,16 +73,16 @@ settings.subscribe(function(new_val) {
   startSendToSrvTimer()
 })
 
-let function loadFromCloud(userId, cb) {
+function loadFromCloud(userId, cb) {
   load_from_cloud(userId, cb)
 }
 
 local isExiting = false
-eventbus.subscribe("app.shutdown", function(_) {
+eventbus_subscribe("app.shutdown", function(_) {
   isExiting = true
 })
 
-eventbus.subscribe("onlineSettings.sendToServer", @(_) sendToServer())
+eventbus_subscribe("onlineSettings.sendToServer", @(_) sendToServer())
 
 on_module_unload(function(...){
   if (!isExiting && cacheForModuleUnload.value != null){

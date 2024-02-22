@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontHeading2, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let background = require("background.nut")
@@ -14,7 +14,7 @@ let loginBtn = textButton(loc("Login"),
                             @() startLogin({}),
                             fontSub)
 
-let function loginRoot() {
+function loginRoot() {
   let size = [fsh(40), fsh(40)]
   let watch = [currentStage]
 

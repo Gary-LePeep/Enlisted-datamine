@@ -1,41 +1,62 @@
 {
   "repeat": {
     "name": "squad_member",
-    "sequencer": [
-      {
-        "onceUntilReset": []
-      },
-      {
-        "stopAim": []
-      },
-      {
-        "success": {
+    "sequencer": {
+      "onceUntilReset": [],
+      "repeat": [
+        {
+          "count": 1
+        },
+        {
+          "stopAim": []
+        },
+        {
+          "detachFromStationaryGun": []
+        },
+        {
           "sequencer": {
             "findWeaponSlotWithTag": {
               "tag": "buildingTool",
-              "toParam": "buildToolSlot"
+              "toParam": "weaponSlot"
             },
             "isWeaponSlotSelected": {
-              "slotParam": "buildToolSlot"
+              "slotParam": "weaponSlot"
             },
-            "chooseBestWeapon": []
+            "chooseBestWeapon": [],
+            "wait": {
+              "range": [1.0,1.0],
+              "resetable": true
+            }
           }
-        }
-      },
-      {
-        "success": {
+        },
+        {
+          "sequencer": {
+            "findWeaponSlotWithTag": {
+              "tag": "mortar",
+              "toParam": "weaponSlot"
+            },
+            "isWeaponSlotSelected": {
+              "slotParam": "weaponSlot"
+            },
+            "chooseBestWeapon": [],
+            "wait": {
+              "range": [0.6,1.2],
+              "resetable": true
+            }
+          }
+        },
+        {
           "sequencer": {
             "isGrenadeSelected": [],
-            "chooseBestWeapon": []
+            "chooseBestWeapon": [],
+            "wait": {
+              "range": [1.0,1.0],
+              "resetable": true
+            }
           }
         }
-      },
-      {
-        "success": {
-          "detachFromStationaryGun": []
-        }
-      }
-    ],
+      ]
+    },
     "orderedSelector": {
       "isVarsIntEqual": {
         "lhs": "forceMove",

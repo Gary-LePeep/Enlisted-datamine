@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { configs } = require("%enlist/meta/configs.nut")
 let { perksData, getTotalPerkValue } = require("soldierPerks.nut")
@@ -8,7 +8,7 @@ let { perksStatsCfg } = require("%enlist/meta/perks/perksStats.nut")
 
 let slotTypeToPerk = Computed(@() configs.value?.perks.slotCountPerks ?? {})
 
-let function soldierSlotsCount(soldierGuid, equipScheme, slotsIncreaseTbl = null) {
+function soldierSlotsCount(soldierGuid, equipScheme, slotsIncreaseTbl = null) {
   let baseSlots = equipScheme.map(@(s) s?.listSize ?? 0)
     .filter(@(s) s > 0)
   if (baseSlots.len() == 0)

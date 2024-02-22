@@ -1,6 +1,5 @@
 options no_aot
 options persistent_heap
-options gc
 
 require ecs
 require strings
@@ -126,12 +125,6 @@ def dynamic_query_daeditor()
     var selectedItem = INVALID_ENTITY_ID
     var editedItem = INVALID_ENTITY_ID
     var lastUpdateDate = DagorTime::ref_time_ticks()
-    var gcSteps = 0
-
-  gcSteps += 1
-  if gcSteps > 1000
-    unsafe(heap_collect())
-    gcSteps = 0
 
   let dt = DagorTime::get_time_usec(int64(lastUpdateDate))
   let sec = double(dt) / double(1000_000)

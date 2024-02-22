@@ -1,7 +1,7 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 
-let lbDataType = require("%enlSqGlob/leaderboard/lbDataType.nut")
+let lbDataType = require("%enlSqGlob/ui/leaderboard/lbDataType.nut")
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
 
 let makeType = @(id, params) {

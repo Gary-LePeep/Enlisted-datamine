@@ -56,9 +56,38 @@
       "plane_hit_sound__canopyNodeIds:list<i>": []
     }
   },
+  "plane_collision_sound": [
+    {
+      "_use": "vehicle_collision_sound"
+    },
+    {
+      "_use": "tank_vehicle_collision_sound_setup"
+    }
+  ],
+  "plane_inside_sound": {
+    "_use": "vehicle_inside_sound",
+    "_group": {
+      "_tags": "sound",
+      "vehicle_inside_sound__path": "snapshots/filter_aircraft_int",
+      "vehicle_inside_sound__enableIfCommanderCameraType": true
+    }
+  },
+  "plane_engine_sound": {
+    "_group": {
+      "_tags": "sound",
+      "plane_engine_sound__propsId": -1,
+      "plane_engine_sound__lastUpdateTime": 0.0,
+      "plane_engine_sound__props": "content/enlisted/gamedata/units/sound/engine_props.blk",
+      "plane_engine_sound__engine": "engine04",
+      "plane_engine_sound": []
+    }
+  },
+  "plane_sound_subtemplate": {
+    "_use": "base_vehicle_sound_subtemplate"
+  },
   "plane_sound": [
     {
-      "_use": "watched_vehicle_sound"
+      "_use": "watchable_vehicle_sound"
     },
     {
       "_use": "sound_control"
@@ -73,16 +102,10 @@
       "_use": "plane_inside_sound"
     },
     {
-      "_use": "vehicle_sound_vars"
+      "_use": "vehicle_sound_phys"
     },
     {
-      "_use": "vehicle_sound_update_speed"
-    },
-    {
-      "_use": "vehicle_collision_sound"
-    },
-    {
-      "_use": "tank_vehicle_collision_sound_setup"
+      "_use": "plane_collision_sound"
     },
     {
       "_use": "plane_hit_sound"
@@ -94,25 +117,13 @@
       "_use": "plane_watertracks_sound"
     },
     {
-      "_group": {
-        "_tags": "sound",
-        "vehicle_engine_sound__speedToVar": [0.0,100.0]
-      }
+      "_use": "plane_engine_sound"
     },
     {
       "_group": {
         "_tags": "sound",
-        "sound_control__range": 450.0
-      }
-    },
-    {
-      "_group": {
-        "_tags": "sound",
-        "plane_engine_sound__propsId": -1,
-        "plane_engine_sound__lastUpdateTime": 0.0,
-        "plane_engine_sound__props": "content/enlisted/gamedata/units/sound/engine_props.blk",
-        "plane_engine_sound__engine": "engine04",
-        "plane_engine_sound": []
+        "sound_control__range": 450.0,
+        "sound_control__subtemplate": "plane_sound_subtemplate"
       }
     }
   ]

@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {
   sceneWithCameraAdd, sceneWithCameraRemove
@@ -12,11 +12,11 @@ let itemCollage = {
   size = flex()
 }
 
-let function open() {
+function open() {
   sceneWithCameraAdd(itemCollage, "inv_items")
 }
 
-let function close() {
+function close() {
   sceneWithCameraRemove(itemCollage)
 }
 

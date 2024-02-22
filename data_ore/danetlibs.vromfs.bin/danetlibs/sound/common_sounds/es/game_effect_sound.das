@@ -20,7 +20,7 @@ def game_effect_sound_appear(evt : Event;
         abandon(game_effect_sound__event.handle)
 
 
-[es(tag=sound, on_event=ParallelUpdateFrameDelayed, no_order)]
+[es(tag=sound, on_event=ParallelUpdateFrameDelayed, after=sound_begin_update_es, before=sound_end_update_es)]
 def game_effect_sound_update(evt : Event;
                              game_effect_sound__event : SoundEvent&;
                              game_effect__attachedTo : EntityId)

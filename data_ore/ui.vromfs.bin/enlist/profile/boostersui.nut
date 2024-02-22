@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontHeading2, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
@@ -15,7 +15,7 @@ let emptyBoostersText = txt({
   color = disabledTxtColor
 }).__update(fontHeading2)
 
-let function mkBooster(boosterBase) {
+function mkBooster(boosterBase) {
   let { campaignLimit, expMul = 0 } = boosterBase
   let limitText = campaignLimit.len() == 0 ? loc("allCampaigns")
     : ", ".join(campaignLimit.map(@(c) loc(c.title)))

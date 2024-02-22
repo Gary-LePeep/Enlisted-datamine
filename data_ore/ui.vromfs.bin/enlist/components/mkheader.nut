@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { navHeight } = require("%enlist/mainMenu/mainmenu.style.nut")
 let { windowsInterval } = require("%enlSqGlob/ui/viewConst.nut")

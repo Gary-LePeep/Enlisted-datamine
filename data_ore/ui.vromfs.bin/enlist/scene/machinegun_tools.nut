@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { getClassCfg } = require("%enlSqGlob/ui/soldierClasses.nut")
 let { curArmy,
@@ -23,7 +23,7 @@ let machineGunByArmy = {
 
 const HEAVY_MGUN_RESEARCH_KEY = "5"
 
-let function searchInResearchesForSquad(research, squadId){
+function searchInResearchesForSquad(research, squadId){
   foreach(r in research)
     foreach(researchEffect in r.tables)
       if (researchEffect.effect?.building_unlock[squadId][HEAVY_MGUN_RESEARCH_KEY] == true)

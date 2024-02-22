@@ -4,7 +4,7 @@ require DagorMath
 require sound_utils_net.modules.sound_utils_net_events
 
 
-[es(tag=sound)]
+[es(tag=sound, after=sound_begin_update_es, before=sound_end_update_es)]
 def sound_effect_speed_var(info : ParallelUpdateFrameDelayed;
                            var sound_effect_speed_var__pos : float3&;
                            sound_effect_speed_var__speedToVar : float4;

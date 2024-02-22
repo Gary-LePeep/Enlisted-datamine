@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { configs } = require("%enlist/meta/configs.nut")
 let {hasClientPermission} = require("%enlSqGlob/client_user_rights.nut")
@@ -45,18 +45,18 @@ let allItemTemplates = Computed(@() templatesCombined.value.map(function(armyTem
     .map(function(tpl) {
       let { slot = "", equipSchemeId = null } = tpl
       if (slot == "" && "slot" in tpl)
-        delete tpl["slot"]
+        tpl.$rawdelete("slot")
       if (equipSchemeId in equipSchemes)
         tpl.equipScheme <- equipSchemes[equipSchemeId]
       return tpl
     })
   }))
 
-let function findItemTemplate(templates, army, tpl) {
+function findItemTemplate(templates, army, tpl) {
   return templates.value?[army][tpl]
 }
 
-let function findItemTemplateByItemInfo(templates, itemInfo) {
+function findItemTemplateByItemInfo(templates, itemInfo) {
   return findItemTemplate(templates, getLinkedArmyName(itemInfo), itemInfo?.basetpl)
 }
 

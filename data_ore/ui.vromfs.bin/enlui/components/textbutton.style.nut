@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 return {
   BgNormal   = Color(0,0,0,200)
@@ -13,7 +13,7 @@ return {
   BdFocused = Color(160, 160, 160, 120)
   BdDisabled  = Color(20, 20, 20, 20)
 
-  TextDisabled  = Color(0,0,0,100)
+  TextDisabled  = Color(50,50,50,100)
   TextNormal  = Color(160, 160, 160, 120)
   TextHover   = Color(0,0,0)
   TextActive  = Color(0,0,0)

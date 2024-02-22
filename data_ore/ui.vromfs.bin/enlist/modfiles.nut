@@ -1,6 +1,6 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 let { HTTP_SUCCESS, HTTP_ABORTED, HTTP_FAILED, httpRequest } = require("dagor.http")
-let eventbus = require("eventbus")
+let { eventbus_subscribe } = require("eventbus")
 let {scan_folder, file_exists} = require("dagor.fs")
 let {file} = require("io")
 let { send_counter } = require("statsd")
@@ -18,7 +18,7 @@ let statusText = {
   [HTTP_ABORTED] = "ABORTED",
 }
 
-let function checkModFileByHash(hash){
+function checkModFileByHash(hash){
   if (!file_exists($"{USER_MODS_FOLDER}/{hash}{MODS_EXT}"))
     return false
   return true
@@ -26,7 +26,7 @@ let function checkModFileByHash(hash){
 
 let isStrHash = @(hash) hash.len()==64
 
-let function getFiles(){
+function getFiles(){
   let res = {}
   let files = scan_folder({root=USER_MODS_FOLDER, vromfs = false, realfs = true, recursive = false, files_suffix=MODS_EXT})
   foreach (f in files){
@@ -40,12 +40,12 @@ let function getFiles(){
 let receivedFiles = Watched(getFiles())
 
 let requestedFiles = Watched({})
-let function setHashError(hash){
+function setHashError(hash){
   requestedFiles.mutate(function(v) {
       v[hash] <- FILE_ERROR //exponential feedback for timeout
    })
 }
-eventbus.subscribe(RECEIVE_FILE_MOD, function(response){
+eventbus_subscribe(RECEIVE_FILE_MOD, function(response){
   const ERROR_MSG  = "ERROR in file request"
   log("received headers:", response?.headers)
   let hash = response?.context
@@ -76,7 +76,7 @@ eventbus.subscribe(RECEIVE_FILE_MOD, function(response){
     receivedFiles(receivedFiles.value.__merge({ [hash] = true }))
     requestedFiles.mutate(function(v) {
       if (hash in v)
-        delete v[hash]
+        v.$rawdelete(hash)
      })
   }
   catch(e){
@@ -85,7 +85,7 @@ eventbus.subscribe(RECEIVE_FILE_MOD, function(response){
   }
 })
 
-let function requestFilesByHashes(hashes){
+function requestFilesByHashes(hashes){
   foreach (hash_ in hashes){
     let hash = hash_
     if (hash in receivedFiles.value)
@@ -93,7 +93,7 @@ let function requestFilesByHashes(hashes){
     else {
       let v = clone receivedFiles.value
       if (hash in v)
-        delete v[hash]
+        v.$rawdelete(hash)
       receivedFiles(v)
     }
     if (checkModFileByHash(hash))

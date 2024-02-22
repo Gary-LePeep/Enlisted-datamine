@@ -12,10 +12,14 @@ let
   commonMountPointPrefixes <- {{
     "ecs" => "%dasGameLibs/ecs";
     "math" => "%dasGameLibs/math";
+    "daBfg" => "%dasGameLibs/daBfg";
     "daslib" => "%dngdas/das/daslib";
     "imgui" => "%dngdas/das/imgui";
     "debug" => "%dngdas/das/debug";
     "remote" => "%dngdas/das/remote"
+  }}
+  commonAliasPath <- {{
+    "daBfg" => "%dasGameLibs/daBfg/daBfg.das"
   }}
 
 
@@ -26,6 +30,11 @@ def module_get(req, from:string) : tuple<string;string;string> const
     unsafe
       heap_collect(true, false)
     reqCount = 0
+
+  let aliasPath = commonAliasPath?[req] ?? ""
+  if aliasPath != ""
+    return [[auto req, aliasPath, ""]]
+
   var rs <- split_by_chars(req,"./")
   let path_name = join(rs,"/") + ".das"
   if length(rs) <= 1

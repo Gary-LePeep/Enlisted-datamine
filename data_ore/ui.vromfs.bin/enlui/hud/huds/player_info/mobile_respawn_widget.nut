@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { blurBack } = require("style.nut")
 let { localPlayerEid } = require("%ui/hud/state/local_player.nut")
@@ -14,7 +14,7 @@ let passengersText = {
   vplace = ALIGN_CENTER
 }
 
-let function mobileRespawnWidget(occupiedSeats) {
+function mobileRespawnWidget(occupiedSeats) {
   let icon = {
     hplace = ALIGN_CENTER
     vplace = ALIGN_CENTER

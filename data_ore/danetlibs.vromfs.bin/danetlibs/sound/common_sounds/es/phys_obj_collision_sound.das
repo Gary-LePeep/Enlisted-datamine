@@ -6,7 +6,7 @@ require DagorMath
 require DngPhysObj
 require sound_utils_net.modules.sound_utils_net_events
 
-[es(tag=sound)]
+[es(tag=sound, after=sound_begin_update_es, before=sound_end_update_es)]
 def phys_obj_collision_sound(info : ParallelUpdateFrameDelayed;
                              phys_obj_net_phys : PhysObjActor;
                              phys_obj_collision_sound__threshold : float2 const&;

@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { TEAM_UNASSIGNED, FIRST_GAME_TEAM } = require("team")
@@ -18,7 +18,7 @@ let { missionType } = require("%enlSqGlob/missionParams.nut")
 let JB = require("%ui/control/gui_buttons.nut")
 let { removeInteractiveElement, hudIsInteractive, switchInteractiveElement
 } = require("%ui/hud/state/interactive_state.nut")
-let {verPadding} = require("%enlSqGlob/safeArea.nut")
+let {verPadding} = require("%enlSqGlob/ui/safeArea.nut")
 let { capzoneWidget } = require("%ui/hud/components/capzone.nut")
 
 let { DEFAULT_TEXT_COLOR } = require("%ui/hud/style.nut")
@@ -35,7 +35,7 @@ let showScores = mkWatched(persist, "showScores", false)
 let teamsSlotsQuery = ecs.SqQuery("teamsSlotsQuery", {comps_ro = [["teamsSlots", ecs.TYPE_INT_LIST]]})
 let getTeamsSlots = @() teamsSlotsQuery.perform(@(_eid, comp) comp.teamsSlots.getAll().map(@(v) v+FIRST_GAME_TEAM))
 
-let function getScoresTeams() {
+function getScoresTeams() {
   let teamsV = {}
   foreach (team in teams.value)
     if ((team?["team__id"] ?? TEAM_UNASSIGNED) != TEAM_UNASSIGNED)
@@ -57,7 +57,7 @@ let zoneParams = {
   margin = 0
 }
 
-let function mkTeamScore(isMyTeam) {
+function mkTeamScore(isMyTeam) {
   let scoreWatch = isMyTeam ? myScore : enemyScore
   let isDefend = Computed(@() whichTeamAttack.value != -1
     && (whichTeamAttack.value == localPlayerTeam.value) != isMyTeam)
@@ -122,7 +122,7 @@ let hintTextFunc = @(text) {
   color = DEFAULT_TEXT_COLOR
 }.__update(fontBody)
 
-let function makeHintRow(hotkeys, text) {
+function makeHintRow(hotkeys, text) {
   return {
     flow = FLOW_HORIZONTAL
     valign = ALIGN_CENTER
@@ -132,7 +132,7 @@ let function makeHintRow(hotkeys, text) {
 
 let HUD_INTERACTIVE_HOTKEY = "HUD.Interactive"
 
-let function mkHudHint() {
+function mkHudHint() {
   return @() {
     watch = hudIsInteractive
     valign = ALIGN_CENTER
@@ -166,7 +166,7 @@ let interactiveTip = @() {
       : null
   ]
 }
-let function mkContextMenuButton(playerData) {
+function mkContextMenuButton(playerData) {
   let buttons = []
   let userid = playerData.player?.userid ?? INVALID_USER_ID
   let canKick = (voteToKickEnabled.value

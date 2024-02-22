@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { battlesUserLogs, UserLogType } = require("userLogState.nut")
 let { defTxtColor, smallPadding, hoverSlotBgColor, panelBgColor, selectedPanelBgColor, miniPadding
@@ -53,7 +53,7 @@ let mkBattleLog = @(uLog, isSelected, sf) {
   ]
 }.__update(userLogStyle)
 
-let function mkLog(uLog, idx) {
+function mkLog(uLog, idx) {
   let isSelected = Computed(@() idx == selectedIdx.value)
   return watchElemState(@(sf) {
     rendObj = ROBJ_BOX

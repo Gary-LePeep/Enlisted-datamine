@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { accentColor, titleTxtColor, smallPadding, panelBgColor, defBdColor, hoverTxtColor,
   hoverBdColor, disabledTxtColor, disabledBgColor, hoverPanelBgColor,
@@ -15,7 +15,7 @@ let disabledPos = { translate = [knobSize[0] / 2 + blockPadding, 0] }
 let activePos = { translate = [blockSize[0] - knobSize[0] / 2 - blockPadding, 0] }
 
 
-let function mkToggleSwitch(curValue, isEnabled = true){
+function mkToggleSwitch(curValue, isEnabled = true){
   let group = ElemGroup()
   let knob = watchElemState(@(sf) {
     watch = curValue

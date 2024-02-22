@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { myScore, myScoreBleed, myScoreBleedFast } = require("%ui/hud/state/team_scores.nut")
 let {playerEvents} = require("%ui/hud/state/eventlog.nut")

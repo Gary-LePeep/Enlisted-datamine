@@ -68,7 +68,7 @@ def piston_engine_exhaust_fx_on_update(info : ParallelUpdateFrameDelayed;
                                        var planePistonEngineEffects : PlanePistonEngineEffects_SOA;
                                        var plane_net_phys : PlaneActor)
   for effect in planePistonEngineEffects
-    propulsion_get_engine(*plane_net_phys.phys.EI, effect.plane_piston_engine_effects__engineIndex) <| $(engine)
+    propulsion_getEngine(*plane_net_phys.phys.EI, effect.plane_piston_engine_effects__engineIndex) <| $(engine)
       let engineMode = calc_engine_mode(piston_engine_exhaust_fx__transitionThrottle, plane_net_phys, engine)
 
       if effect.plane_piston_engine_effects__engineMode != int(engineMode)
@@ -102,7 +102,7 @@ def piston_engine_exhaust_fx_update_effects(info : ParallelUpdateFrameDelayed;
                                                    animchar : AnimcharBaseComponent;
                                                    piston_engine_exhaust_fx__rpmToFxSpeed : float;
                                                    var plane_net_phys : PlaneActor)
-    propulsion_get_engine(*plane_net_phys.phys.EI, plane_exhaust_effect__engineIndex) <| $(engine)
+    propulsion_getEngine(*plane_net_phys.phys.EI, plane_exhaust_effect__engineIndex) <| $(engine)
       effect_transform = get_emitter_tm(*animchar.nodeTree, plane_exhaust_effect__nodeId)
 
       let fxDir = -transform[0]
@@ -127,7 +127,7 @@ def piston_engine_exhaust_fx_on_appear(evt : Event;
     if nodeId < 0
       continue
 
-    propulsion_get_engine(*plane_net_phys.phys.EI, engineIndex) <| $(engine)
+    propulsion_getEngine(*plane_net_phys.phys.EI, engineIndex) <| $(engine)
       if engine.typ != EType E_TYPE_INLINE && engine.typ != EType E_TYPE_RADIAL && engine.typ != EType E_TYPE_TURBOPROP
         return
 

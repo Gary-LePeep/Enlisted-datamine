@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { configs } = require("%enlist/meta/configs.nut")
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
@@ -35,7 +35,7 @@ let armyLevelDiscount = Computed(@() configs.value?.army_levels_discount ?? [])
 let curLevelDiscount = Watched(0)
 let hasLevelDiscount = Computed(@() curLevelDiscount.value > 0)
 
-let function prepareDiscount() {
+function prepareDiscount() {
   let ts = serverTime.value
   local maxDiscount = 0
   local tsClosest = 0

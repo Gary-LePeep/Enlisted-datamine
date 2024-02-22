@@ -1,8 +1,10 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 let {logerr} = require("dagor.debug")
 
 require("%ui/ui_config.nut")
 require("%ui/sound_handlers.nut")
+let {isCursorNeeded} = require("showCursor.nut")
+let cursors = require("%ui/style/cursors.nut")
 let {msgboxes} = require("%ui/msgboxes.nut")
 let {uiDisabled, levelLoaded} = require("%ui/hud/state/appState.nut")
 let {loadingUI, showLoading} = require("%ui/loading/loading.nut")
@@ -29,7 +31,7 @@ require("dainput2").set_double_click_time(220)
 if (platform.is_xbox || platform.is_sony)
   require("%ui/invitation/onInviteAccept.nut")
 
-let function root() {
+function root() {
 
   local content
   if (uiDisabled.value) {
@@ -71,10 +73,11 @@ let function root() {
   }
 
   return {
-    watch = [showLoading, uiDisabled, editorActivness, uiInEditor, levelLoaded, isReplay]
+    watch = [showLoading, uiDisabled, editorActivness, uiInEditor, levelLoaded, isReplay, isCursorNeeded]
     size = flex()
     children
-  }
+    key = isCursorNeeded.get()
+  }.__update(isCursorNeeded.get() ? {cursor = cursors.normal} : {})
 }
 
 return root

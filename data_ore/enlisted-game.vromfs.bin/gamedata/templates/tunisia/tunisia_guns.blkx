@@ -689,6 +689,7 @@
     "item__volume": 0.5,
     "item__name": "items/scope_carcano_m38",
     "item__iconYaw": 80.0,
+    "gunmod__scopeRadLen": [0.0079,0.2],
     "gunAttachable:tag": []
   },
   "scope_carcano_m91": {
@@ -702,12 +703,13 @@
     "gunAttachable__slotTag": "scope_carcano_m91",
     "gunmod__deviationMult": 0.3,
     "gunmod__zoomFactor": 7.0,
-    "gunmod__camShiftMin": 0.18,
-    "gunmod__camShiftMax": 0.18,
+    "gunmod__camShiftMin": 0.3,
+    "gunmod__camShiftMax": 0.3,
     "item__weight": 0.3,
     "item__volume": 0.5,
     "item__name": "items/scope_carcano_m91",
     "item__iconYaw": 80.0,
+    "gunmod__scopeRadLen": [0.017,0.4],
     "gunAttachable:tag": []
   },
   "carcano_m41": [
@@ -1670,7 +1672,7 @@
       "gun__statName": "rifle"
     },
     {
-      "gun__shotFreq": 0.75
+      "gun__shotFreq": 0.92
     },
     {
       "gun__automaticReload": false
@@ -2291,6 +2293,10 @@
         },
         "boltAction:object": {
           "path": "/weapon/rifle/m1/bolt_action"
+        },
+        "ammo_drop:object": {
+          "hero": "player/weapon/_common/clip_drop",
+          "type": "matUnderFeet"
         }
       }
     },
@@ -2506,6 +2512,10 @@
         },
         "boltAction:object": {
           "path": "/weapon/rifle/armaguerra_mod_39/bolt_action"
+        },
+        "ammo_drop:object": {
+          "hero": "player/weapon/_common/clip_drop",
+          "type": "matUnderFeet"
         }
       }
     },
@@ -2960,6 +2970,10 @@
         },
         "boltAction:object": {
           "path": "/weapon/rifle/mosin/bolt_action"
+        },
+        "ammo_drop:object": {
+          "hero": "player/weapon/_common/clip_drop",
+          "type": "matUnderFeet"
         }
       }
     },
@@ -4891,10 +4905,10 @@
       "gun_deviation__maxDeviation": 20.0
     },
     {
-      "gun__reloadTime": 3.8
+      "gun__reloadTime": 3.0
     },
     {
-      "gun__altReloadTime": 3.3
+      "gun__altReloadTime": 2.5
     },
     {
       "item__id:i": {
@@ -8461,7 +8475,7 @@
       "gun__statName": "rifle"
     },
     {
-      "gun__shotFreq": 0.75
+      "gun__shotFreq": 0.92
     },
     {
       "gun__automaticReload": false

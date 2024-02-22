@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let msgbox = require("%enlist/components/msgbox.nut")
 let {leaveQueue, isInQueue} = require("%enlist/quickMatchQueue.nut")
@@ -6,11 +6,11 @@ let JB = require("%ui/control/gui_buttons.nut")
 
 const MSG_UID = "leave_queue_msgbox"
 
-local function leaveQueueNotification(watch, setValue = null, askLeave = @() true) {
+function leaveQueueNotification(watch, setValue = null, askLeave = @() true) {
   setValue = setValue ?? @(v) watch(v)
   local last = watch.value
 
-  let function showLeaveMsgBox() {
+  function showLeaveMsgBox() {
     if (msgbox.isMsgboxInList(MSG_UID))
       return
     msgbox.show({

@@ -6,7 +6,7 @@ require AnimV20
 require DagorMaterials
 require math.base
 require app
-require common_shooter.es.weapon.weaponry_fx_common
+require danetlibs.weaponry_hit_fx.main.weaponry_fx_common
 require danetlibs.light_flicker.render.light_flicker_common
 require daSkies
 
@@ -162,8 +162,9 @@ def light_flicker_updater_max_emission(evt : Event;
 def light_flicker_updater__light_update_es(info : UpdateStageInfoAct;
                                            light_flicker_updater__parentEid : EntityId;
                                            light_flicker_updater__color_full_brightness : float4;
-                                           var light__brightness : float&)
-  if (light_flicker_updater__parentEid == INVALID_ENTITY_ID)
+                                           var light__brightness : float&;
+                                           light__visible = true)
+  if (!light__visible || light_flicker_updater__parentEid == INVALID_ENTITY_ID)
     return
 
   light__brightness = get_float(light_flicker_updater__parentEid, "light_flicker__brightness") ?? 0.0

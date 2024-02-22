@@ -11,9 +11,6 @@ require DagorMath
 require enlisted.events_enlisted
 
 
-let ZERO_KELVIN_IN_CELSIUM = -273.15
-
-
 def get_emitter_tm(collres : CollisionResource; node_id : int; plane_tm : float3x4)
   let collNode = collres_get_node(collres, node_id)
   let emitterPos = plane_tm * collNode.tm[3]
@@ -70,7 +67,7 @@ def contrail_fx_on_update(evt : ParallelUpdateFrameDelayed;
     if engineIndex < 0 || engineIndex > plane_net_phys.phys.EI.numEngines || nodeId < 0
       continue
 
-    propulsion_get_engine(*plane_net_phys.phys.EI, engineIndex) <| $(engine)
+    propulsion_getEngine(*plane_net_phys.phys.EI, engineIndex) <| $(engine)
       if !isTempSuitable || engine.stage != EStage E_STAGE_NOMINAL || engine.controlThrottle <= contrail_fx__minThrottle
         destroyEntity(fxEid)
         fxEid = INVALID_ENTITY_ID

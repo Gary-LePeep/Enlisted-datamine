@@ -2629,8 +2629,8 @@
     "entity": {
       "_template": "team_germany+team_narrator_invasion_attack+respawn_creators_team",
       "team__memberCount": 0.0,
-      "team__scoreCap": 1800.0,
-      "team__score": 1800.0,
+      "team__scoreCap": 2000.0,
+      "team__score": 2000.0,
       "team__squadSpawnCost": 250,
       "team__firstSpawnCostMul": 0.0,
       "team__zeroScoreFailTimer": 60.0,
@@ -2665,7 +2665,7 @@
       "capzone__onlyTeamCanCapture": 2,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_1",
-      "capzone__capTime": 80.0,
+      "capzone__capTime": 50.0,
       "capzone__capTeam": -1,
       "transform": [
         [16.9049,0.0,0.0],
@@ -2700,7 +2700,7 @@
       "capzone__onlyTeamCanCapture": 2,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_1_b",
-      "capzone__capTime": 80.0,
+      "capzone__capTime": 50.0,
       "capzone__capTeam": -1,
       "transform": [
         [1.0,0.0,0.0],
@@ -2737,7 +2737,7 @@
       "capzone__onlyTeamCanCapture": 2,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_1_c",
-      "capzone__capTime": 80.0,
+      "capzone__capTime": 50.0,
       "capzone__capTeam": -1,
       "transform": [
         [0.108447,0.0,-12.2381],
@@ -2771,7 +2771,7 @@
       "capzone__onlyTeamCanCapture": 2,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_2",
-      "capzone__capTime": 90.0,
+      "capzone__capTime": 60.0,
       "capzone__capTeam": -1,
       "transform": [
         [1.0,0.0,0.0],
@@ -2782,7 +2782,7 @@
       "active": false,
       "capzone__decapTime": 6000.0,
       "ui_order": 1,
-      "capzone__capReward": 150.0,
+      "capzone__capReward": 250.0,
       "capzone__icon": "AAA",
       "capzone__progress": 0.0,
       "capzone__caption": "capzone/artillery_emplacement",
@@ -2807,7 +2807,7 @@
       "capzone__onlyTeamCanCapture": 2,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_2_b",
-      "capzone__capTime": 90.0,
+      "capzone__capTime": 60.0,
       "capzone__capTeam": -1,
       "transform": [
         [0.9997,0.0244747,0.0],
@@ -2818,7 +2818,7 @@
       "active": false,
       "capzone__decapTime": 6000.0,
       "ui_order": 2,
-      "capzone__capReward": 150.0,
+      "capzone__capReward": 250.0,
       "capzone__icon": "AAA",
       "capzone__progress": 0.0,
       "capzone__caption": "capzone/bunker",
@@ -2843,7 +2843,7 @@
       "capzone__onlyTeamCanCapture": 2,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_3",
-      "capzone__capTime": 100.0,
+      "capzone__capTime": 60.0,
       "capzone__capTeam": -1,
       "transform": [
         [1.0,0.0,0.0],
@@ -2880,7 +2880,7 @@
       "capzone__onlyTeamCanCapture": 2,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_4",
-      "capzone__capTime": 100.0,
+      "capzone__capTime": 60.0,
       "capzone__capTeam": -1,
       "transform": [
         [18.0037,0.0,0.376661],
@@ -2891,7 +2891,7 @@
       "active": false,
       "capzone__decapTime": 6000.0,
       "ui_order": 1,
-      "capzone__capReward": 150.0,
+      "capzone__capReward": 250.0,
       "capzone__icon": "AAA",
       "capzone__progress": 0.0,
       "capzone__caption": "capzone/field_headquarters",
@@ -2916,7 +2916,7 @@
       "capzone__onlyTeamCanCapture": 2,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_4_b",
-      "capzone__capTime": 100.0,
+      "capzone__capTime": 60.0,
       "capzone__capTeam": -1,
       "transform": [
         [14.7957,0.0,0.561039],
@@ -2927,7 +2927,7 @@
       "active": false,
       "capzone__decapTime": 6000.0,
       "ui_order": 4,
-      "capzone__capReward": 150.0,
+      "capzone__capReward": 250.0,
       "capzone__icon": "AAA",
       "capzone__progress": 0.0,
       "capzone__caption": "capzone/farm_house",
@@ -2950,7 +2950,7 @@
       "capzone__onlyTeamCanCapture": 2,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_5",
-      "capzone__capTime": 90.0,
+      "capzone__capTime": 60.0,
       "capzone__capTeam": -1,
       "transform": [
         [2.39954,0.0,0.995925],
@@ -2978,11 +2978,11 @@
   {
     "entity": {
       "_template": "defend_zone_chained_box+defend_zone_respawnbase",
-      "capzone__capRewardPartCap": 1.2,
+      "capzone__capRewardPartCap": 1.0,
       "capzone__onlyTeamCanCapture": 2,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_5_b",
-      "capzone__capTime": 90.0,
+      "capzone__capTime": 60.0,
       "capzone__capTeam": -1,
       "transform": [
         [2.38698,0.0,-17.5624],
@@ -3009,11 +3009,11 @@
   {
     "entity": {
       "_template": "defend_zone_chained_box+defend_zone_respawnbase",
-      "capzone__capRewardPartCap": 1.2,
+      "capzone__capRewardPartCap": 1.0,
       "capzone__onlyTeamCanCapture": 2,
       "capzone__curTeamCapturingZone": -1,
       "groupName": "sector_5_c",
-      "capzone__capTime": 90.0,
+      "capzone__capTime": 60.0,
       "capzone__capTeam": -1,
       "transform": [
         [14.3942,0.0,-9.97579],

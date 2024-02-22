@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { DC_CONNECTION_CLOSED, EventOnNetworkDestroyed, EventOnConnectedToServer, EventOnDisconnectedFromServer} = require("net")
 let { DBGLEVEL } = require("dagor.system")
@@ -15,7 +15,7 @@ let { matchingCall, netStateCall } = require("%enlist/matchingClient.nut")
 let { oneOfSelectedClusters } = require("%enlist/clusterState.nut")
 let { isInBattleState } = require("%enlSqGlob/inBattleState.nut")
 let { startGame } = require("%enlist/gameLauncher.nut")
-let matching_api = require("matching.api")
+let { matching_send_response, matching_listen_notify, matching_listen_rpc }= require("matching.api")
 let msgbox = require("%ui/components/msgbox.nut")
 let { isInQueue } = require("%enlist/state/queueState.nut")
 let loginChain = require("%enlist/login/login_chain.nut")
@@ -24,7 +24,7 @@ let {clearChatState} = require("%enlist/chat/chatState.nut")
 let voiceState = require("%enlist/voiceChat/voiceState.nut")
 let {checkMultiplayerPermissions} = require("%enlist/permissions/permissions.nut")
 let {squadId} = require("%enlist/squad/squadState.nut")
-let eventbus = require("eventbus")
+let { eventbus_subscribe } = require("eventbus")
 let {MatchingRoomExtraParams} = require("dasevents")
 let { OK, error_string } = require("matching.errors")
 let { pushNotification, removeNotify, subscribeGroup, InvitationsStyle, InvitationsTypes
@@ -113,7 +113,7 @@ let canOperateRoom = Computed(@() myMemberInfo.value?.public.operator ?? false)
 let getRoomMember =  @(user_id) roomMembers.value.findvalue(@(member) member.userId == user_id)
 let hasSquadMates =  @(squad_id) roomMembers.value.findvalue(@(member) member.public?.squadId == squad_id) != null
 
-let function cleanupRoomState() {
+function cleanupRoomState() {
   log("cleanupRoomState")
   room(null)
   playersWaitingResponseFor({})
@@ -135,7 +135,7 @@ let function cleanupRoomState() {
   }
 }
 
-let function addRoomMember(m) {
+function addRoomMember(m) {
   let member = deep_clone(m)
   if (member.public?.host) {
     log("found host ", member.name,"(", member.userId,")")
@@ -147,7 +147,7 @@ let function addRoomMember(m) {
   return member
 }
 
-let function removeRoomMember(user_id) {
+function removeRoomMember(user_id) {
   roomMembers(roomMembers.value.filter(@(member) member.userId != user_id))
 
   if (user_id == hostId.value) {
@@ -160,7 +160,7 @@ let function removeRoomMember(user_id) {
     cleanupRoomState()
 }
 
-let function makeCreateRoomCb(user_cb) {
+function makeCreateRoomCb(user_cb) {
   return function(response) {
     if (response.error != 0) {
       log("failed to create room:", error_string(response.error))
@@ -185,7 +185,7 @@ let function makeCreateRoomCb(user_cb) {
   }
 }
 
-let function createRoom(params, user_cb) {
+function createRoom(params, user_cb) {
   createChat(function(chat_resp) {
     if (chat_resp.error == 0) {
       params.public.chatId <- chat_resp.chatId
@@ -195,12 +195,12 @@ let function createRoom(params, user_cb) {
     matchingCall("mrooms.create_room", makeCreateRoomCb(user_cb), params)
   })
 }
-let function changeAttributesRoom(params, user_cb) {
+function changeAttributesRoom(params, user_cb) {
   matchingCall("mrooms.set_attributes", user_cb, params)
 }
 
 let delayedMyAttribs = nestWatched("delayedMyAttribs", null)
-let function setMemberAttributes(params) {
+function setMemberAttributes(params) {
   if (myInfoUpdateInProgress.value) {
     delayedMyAttribs(params)
     return
@@ -217,7 +217,7 @@ let function setMemberAttributes(params) {
     params)
 }
 
-let function makeLeaveRoomCb(user_cb) {
+function makeLeaveRoomCb(user_cb) {
   return function(r) {
     let response = deep_clone(r)
     if (response.error != 0) {
@@ -235,7 +235,7 @@ let function makeLeaveRoomCb(user_cb) {
   }
 }
 
-let function leaveRoom(user_cb = null) {
+function leaveRoom(user_cb = null) {
   if (isInBattleState.value) {
     if (user_cb != null)
       user_cb({error = "Can't do that while game is running"})
@@ -245,11 +245,11 @@ let function leaveRoom(user_cb = null) {
   matchingCall("mrooms.leave_room", makeLeaveRoomCb(user_cb))
 }
 
-let function forceLeaveRoom() {
+function forceLeaveRoom() {
   matchingCall("mrooms.leave_room", makeLeaveRoomCb(null))
 }
 
-let function destroyRoom(user_cb) {
+function destroyRoom(user_cb) {
   if (isInBattleState.value) {
     if (user_cb != null)
       user_cb({error = "Can't do that while game is running"})
@@ -259,7 +259,7 @@ let function destroyRoom(user_cb) {
   matchingCall("mrooms.destroy_room", makeLeaveRoomCb(user_cb))
 }
 
-let function makeJoinRoomCb(lobby, user_cb) {
+function makeJoinRoomCb(lobby, user_cb) {
   return function(response) {
     if (response.error != 0) {
       log("failed to join room:", error_string(response.error))
@@ -295,7 +295,7 @@ let function makeJoinRoomCb(lobby, user_cb) {
   }
 }
 
-let function joinRoom(params, lobby, user_cb) {
+function joinRoom(params, lobby, user_cb) {
   if (!checkMultiplayerPermissions()) {
     log("no permissions to join lobby")
     return
@@ -306,21 +306,21 @@ let function joinRoom(params, lobby, user_cb) {
 
 }
 
-let function makeStartSessionCb(user_cb) {
+function makeStartSessionCb(user_cb) {
   return function(response) {
     if (user_cb)
       user_cb(response)
   }
 }
 
-let function startSession(user_cb) {
+function startSession(user_cb) {
   let params = {
     cluster = oneOfSelectedClusters.value
   }
   matchingCall("mrooms.start_session", makeStartSessionCb(user_cb), params)
 }
 
-let function startSessionWithLocalDedicated(user_cb, loadTimeout = 30.0) {
+function startSessionWithLocalDedicated(user_cb, loadTimeout = 30.0) {
   if (!canStartWithLocalDedicated.value) {
     logerr("Try to start local dedicated when it not allowed")
     return
@@ -349,11 +349,11 @@ let function startSessionWithLocalDedicated(user_cb, loadTimeout = 30.0) {
   })
 }
 
-let function onRoomDestroyed(_notify) {
+function onRoomDestroyed(_notify) {
   cleanupRoomState()
 }
 
-let function connectToHost() {
+function connectToHost() {
   if (hostId.value == null)
     return
 
@@ -404,16 +404,15 @@ let function connectToHost() {
     startGame(launchParams)
 }
 
-let function onDisconnectedFromServer(evt, _eid, _comp) {
+function onDisconnectedFromServer(evt, _eid, _comp) {
   if (!roomIsLobby.value)
     forceLeaveRoom()
   if (lastSessionStartData.value == null)
     return
 
   local connLost = true
-  switch (evt[0]) {
-    case DC_CONNECTION_CLOSED:
-      connLost = false
+  if (evt[0] == DC_CONNECTION_CLOSED) {
+    connLost = false
   }
 
   let { sessionId, loginTime } = lastSessionStartData.value
@@ -425,7 +424,7 @@ let function onDisconnectedFromServer(evt, _eid, _comp) {
   }
 }
 
-let function onConnectedToServer() {
+function onConnectedToServer() {
   if (room.value?.public?.extraParams == null) {
     return
   }
@@ -445,7 +444,7 @@ ecs.register_es("enlist_connected_to_server_es", {
   [EventOnConnectedToServer] = onConnectedToServer,
 })
 
-let function onHostNotify(notify) {
+function onHostNotify(notify) {
   log("onHostNotify", notify)
   if (notify.hostId != hostId.value) {
     log($"warning: got host notify from host that is not in current room {notify.hostId} != {hostId.value}")
@@ -466,7 +465,7 @@ let function onHostNotify(notify) {
   }
 }
 
-let function onRoomMemberJoined(notify) {
+function onRoomMemberJoined(notify) {
   if (notify.roomId != room.value?.roomId)
     return
   log("{0} ({1}) joined room".subst(notify.name, notify.userId))
@@ -484,22 +483,22 @@ let function onRoomMemberJoined(notify) {
   }
 }
 
-let function onRoomMemberLeft(notify) {
+function onRoomMemberLeft(notify) {
   if (notify.roomId != room.value?.roomId)
     return
   log("{0} ({1}) left from room".subst(notify.name, notify.userId))
   removeRoomMember(notify.userId)
 }
 
-let function onRoomMemberKicked(notify) {
+function onRoomMemberKicked(notify) {
   removeRoomMember(notify.userId)
 }
 
-let function merge_attribs(upd_data, attribs) {
+function merge_attribs(upd_data, attribs) {
   foreach (key, value in upd_data) {
     if (value == null) {
       if (key in attribs)
-        delete attribs[key]
+        attribs.$rawdelete(key)
     }
     else
       attribs[key] <- value
@@ -507,7 +506,7 @@ let function merge_attribs(upd_data, attribs) {
   return attribs
 }
 
-let function onRoomAttrChanged(notify) {
+function onRoomAttrChanged(notify) {
   if (!room.value)
     return
 
@@ -522,7 +521,7 @@ let function onRoomAttrChanged(notify) {
   })
 }
 
-let function onRoomMemberAttrChanged(notify) {
+function onRoomMemberAttrChanged(notify) {
   if (!roomMembers.value)
     return
 
@@ -545,11 +544,11 @@ let function onRoomMemberAttrChanged(notify) {
 let canInviteToRoom = Computed(@() room.value != null
   && (room.value?.public.slotsCnt ?? 0) < (room.value?.public.maxPlayers ?? 0))
 
-let function isInMyRoom(newMemberId){
+function isInMyRoom(newMemberId){
   return roomMembers.value.findvalue(@(member) member.userId == newMemberId) != null
 }
 
-let function joinCb(response) {
+function joinCb(response) {
   let err = response.error
   if (err != OK) {
     let errStr = error_string(err)
@@ -575,7 +574,7 @@ subscribeGroup(INVITE_ACTION_ID, {
             if (roomId in roomPasswordToJoin.value)
               params.password <- roomPasswordToJoin.value[roomId]
             joinRoom(params, true, joinCb)
-            matching_api.send_response(reqctx, { accept = true, user_id = userId })
+            matching_send_response(reqctx, { accept = true, user_id = userId })
             joinedRoomWithInvite(true)
             removeNotify(notify)
           }
@@ -584,13 +583,13 @@ subscribeGroup(INVITE_ACTION_ID, {
           function action() {
             let { userId = null } = userInfo.value
             removeNotify(notify)
-            matching_api.send_response(reqctx, { accept = false, user_id = userId })
+            matching_send_response(reqctx, { accept = false, user_id = userId })
           }
         }
       ]
     })
   }
-  onRemove = @(notify) matching_api.send_response(notify.reqctx, { accept = false})
+  onRemove = @(notify) matching_send_response(notify.reqctx, { accept = false})
 })
 
 room.subscribe(function(v){
@@ -598,7 +597,7 @@ room.subscribe(function(v){
     joinedRoomWithInvite(false)
 })
 
-let function onRoomInvite(reqctx) {
+function onRoomInvite(reqctx) {
   let request = reqctx.request
   let roomId = request.roomId
   roomInvites.mutate(@(i) i.append({
@@ -625,7 +624,7 @@ let function onRoomInvite(reqctx) {
 }
 
 
-let function inviteToRoom(user_id){
+function inviteToRoom(user_id){
   if (isInMyRoom(user_id) || !canInviteToRoom.value){
     log("Player can not be invited to lobby")
     return
@@ -639,19 +638,19 @@ let function inviteToRoom(user_id){
   matchingCall("mrooms.invite_player",
     function(player){
       playersWaitingResponseFor.mutate(@(v) player?.user_id in v
-        ? delete v[player.user_id]
+        ? v.$rawdelete(player.user_id)
         : null)
     },
     sendingData)
 }
 
-let function onMatchInvite(reqctx) {
+function onMatchInvite(reqctx) {
   log("got match invite from server")
-  matching_api.send_response(reqctx, {})
+  matching_send_response(reqctx, {})
   joinRoom(reqctx.request, false, function(_cb) {})
 }
 
-let function list_invites(){
+function list_invites(){
   foreach (i, invite in roomInvites.value){
     log(
       "{0} from {1} ({2}), roomId {3}".subst(
@@ -672,19 +671,19 @@ foreach (name, cb in {
   ["mrooms.on_room_member_kicked"] = onRoomMemberKicked,
   ["mrooms.on_host_notify"] = onHostNotify
 }){
-  matching_api.listen_notify(name)
-  eventbus.subscribe(name, cb)
+  matching_listen_notify(name)
+  eventbus_subscribe(name, cb)
 }
 
 foreach (name, cb in {
   ["mrooms.on_room_invite"] = onRoomInvite,
   ["enlmm.on_room_invite"] = onMatchInvite,
 }){
-  matching_api.listen_rpc(name)
-  eventbus.subscribe(name, cb)
+  matching_listen_rpc(name)
+  eventbus_subscribe(name, cb)
 }
 
-eventbus.subscribe("matching.on_disconnect", @(...) cleanupRoomState())
+eventbus_subscribe("matching.on_disconnect", @(...) cleanupRoomState())
 
 
 return {

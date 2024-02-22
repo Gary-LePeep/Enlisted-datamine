@@ -1,6 +1,6 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
-let loginState     = require("%enlSqGlob/login_state.nut")
+let loginState     = require("%enlSqGlob/ui/login_state.nut")
 let char           = require("%enlSqGlob/charClient.nut")?.low_level_client
 let userstat       = require_optional("userstats")
 let inventory      = require_optional("inventory")

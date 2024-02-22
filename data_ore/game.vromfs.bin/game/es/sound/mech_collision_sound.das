@@ -6,7 +6,14 @@ require DagorMath
 require mech
 
 
-[es(tag=sound)]
+[es(tag=sound, on_appear)]
+def mech_collision_sound_appear(evt : Event;
+                                var mech_collision_sound__isFallen : bool&;
+                                walker_net_phys : WalkerPhysActor)
+  mech_collision_sound__isFallen = walker_net_phys.phys.currentState.isFallenDown
+
+
+[es(tag=sound, after=sound_begin_update_es, before=sound_end_update_es)]
 def mech_collision_sound_update(evt : ParallelUpdateFrameDelayed;
                                 var mech_collision_sound__isFallen : bool&;
                                 var mech_collision_sound__prevSoundShockSummary : float&;

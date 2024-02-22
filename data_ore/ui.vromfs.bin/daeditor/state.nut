@@ -5,15 +5,15 @@ let console = require("console")
 let { mkFrameIncrementObservable } = require("%daeditor/ec_to_watched.nut")
 
 let {getEditMode=@() null, isFreeCamMode=@() false, setWorkMode=@(_) null,
-     setEditMode=@(_) null, setPointActionPreview=@(_, __) null, DE4_MODE_POINT_ACTION=null, DE4_MODE_SELECT=null} = require_optional("daEditor4")
+     setEditMode=@(_) null, setPointActionPreview=@(_, __) null, DE4_MODE_POINT_ACTION=null, DE4_MODE_SELECT=null} = require_optional("daEditorEmbedded")
 let {is_editor_activated=@() false, get_scene_filepath=@() null, set_start_work_mode=@(_) null, get_instance=@() null} = require_optional("entity_editor")
 let selectedEntity = Watched(ecs.INVALID_ENTITY_ID)
 let { selectedEntities, selectedEntitiesSetKeyVal, selectedEntitiesDeleteKey } = mkFrameIncrementObservable({}, "selectedEntities")
 let showEntitySelect = mkWatched(persist, "showEntitySelect", false)
 
-const SETTING_EDITOR_WORKMODE = "daEditor4/workMode"
-const SETTING_EDITOR_TPLGROUP = "daEditor4/templatesGroup"
-const SETTING_EDITOR_PROPS_ON_SELECT = "daEditor4/showPropsOnSelect"
+const SETTING_EDITOR_WORKMODE = "daEditor/workMode"
+const SETTING_EDITOR_TPLGROUP = "daEditor/templatesGroup"
+const SETTING_EDITOR_PROPS_ON_SELECT = "daEditor/showPropsOnSelect"
 let { save_settings=null, get_setting_by_blk_path=null, set_setting_by_blk_path=null } = require_optional("settings")
 
 let selectedTemplatesGroup = mkWatched(persist, "selectedTemplatesGroup", (get_setting_by_blk_path?(SETTING_EDITOR_TPLGROUP) ?? ""))
@@ -68,11 +68,11 @@ editorTimeStop.subscribe(function(v) {
 })
 
 let editorUnpauseData = {timerRunning = false}
-let function editorUnpauseEnd() {
+function editorUnpauseEnd() {
   editorUnpauseData.timerRunning = false
   editorTimeStop(true)
 }
-let function editorUnpause(time) {
+function editorUnpause(time) {
   if (time <= 0) {
     editorTimeStop(false)
     gui_scene.clearTimer(editorUnpauseEnd)
@@ -90,7 +90,7 @@ let showPointAction = mkWatched(persist, "showPointAction", false)
 let typePointAction = mkWatched(persist, "typePointAction", "")
 let namePointAction = mkWatched(persist, "namePointAction", "")
 local funcPointAction = null
-let function setPointActionMode(actionType, actionName, cb) {
+function setPointActionMode(actionType, actionName, cb) {
   showEntitySelect(false)
   setEditMode(DE4_MODE_POINT_ACTION)
   setPointActionPreview("", 0.0) // default
@@ -98,13 +98,13 @@ let function setPointActionMode(actionType, actionName, cb) {
   namePointAction(actionName)
   funcPointAction = cb
 }
-let function updatePointActionPreview(shape, param) {
+function updatePointActionPreview(shape, param) {
   setPointActionPreview(shape, param)
 }
-let function callPointActionCallback(action) {
+function callPointActionCallback(action) {
   funcPointAction?(action)
 }
-let function resetPointActionMode() {
+function resetPointActionMode() {
   local funcFinish = funcPointAction
   if (getEditMode() == DE4_MODE_POINT_ACTION)
     setEditMode(DE4_MODE_SELECT)
@@ -117,30 +117,30 @@ let function resetPointActionMode() {
 }
 
 let funcsEntityCreated = []
-let function addEntityCreatedCallback(cb) {
+function addEntityCreatedCallback(cb) {
   funcsEntityCreated.append(cb)
 }
-let function handleEntityCreated(eid) {
+function handleEntityCreated(eid) {
   foreach (func in funcsEntityCreated) {
     func?(eid)
   }
 }
 
 let funcsEntityRemoved = []
-let function addEntityRemovedCallback(cb) {
+function addEntityRemovedCallback(cb) {
   funcsEntityRemoved.append(cb)
 }
-let function handleEntityRemoved(eid) {
+function handleEntityRemoved(eid) {
   foreach (func in funcsEntityRemoved) {
     func?(eid)
   }
 }
 
 let funcsEntityMoved = []
-let function addEntityMovedCallback(cb) {
+function addEntityMovedCallback(cb) {
   funcsEntityMoved.append(cb)
 }
-let function handleEntityMoved(eid) {
+function handleEntityMoved(eid) {
   foreach (func in funcsEntityMoved) {
     func?(eid)
   }

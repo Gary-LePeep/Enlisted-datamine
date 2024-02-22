@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {fontSub} = require("%enlSqGlob/ui/fontsStyle.nut")
 let { generation } = require("%ui/hud/menus/controls_state.nut")
@@ -8,7 +8,7 @@ let {
 } = require("%ui/control/formatInputBinding.nut")
 let { isGamepad, isTouch } = require("%ui/control/active_controls.nut")
 
-let function container(children, params={}){
+function container(children, params={}){
   return {
     children = {
       speed = [60,800]
@@ -27,7 +27,7 @@ let function container(children, params={}){
   }.__update(params)
 }
 
-local function controlHudHint(params, _group = null) {
+function controlHudHint(params, _group = null) {
   if (typeof params == "string")
     params = {id = params}
   let frame = params?.frame ?? true
@@ -44,7 +44,7 @@ local function controlHudHint(params, _group = null) {
     borderWidth = hdpx(1)
   })
 
-  let function makeControlText(text) {
+  function makeControlText(text) {
     return {
       text, fontSize, font, color, rendObj = ROBJ_TEXT padding = hdpx(4)
     }
@@ -102,7 +102,7 @@ let defTextFunc = @(text){
   ]
 }
 
-local function mkShortHudHintFromList(controlElems, watch = null){
+function mkShortHudHintFromList(controlElems, watch = null){
   local modifier = null
   let hasModifier = controlElems.len()==2
   if (hasModifier) {
@@ -121,7 +121,7 @@ local function mkShortHudHintFromList(controlElems, watch = null){
   }
 }
 
-local function shortHudHint(params = {textFunc=defTextFunc, alternateId=null}){
+function shortHudHint(params = {textFunc=defTextFunc, alternateId=null}){
   const eventTypeToText = false
   if (type(params)=="string")
     params = { id = params}

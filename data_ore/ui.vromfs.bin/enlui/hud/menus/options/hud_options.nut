@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let platform = require("%dngscripts/platform.nut")
 let {get_setting_by_blk_path} = require("settings")
@@ -11,7 +11,7 @@ let {
 
 let mkWidgetCtor = @(actionCb) function (opt, group, xmbNode) {
   let optSetValue = opt.setValue
-  let function setValue(val) {
+  function setValue(val) {
     optSetValue(val)
     actionCb(val)
   }
@@ -19,7 +19,7 @@ let mkWidgetCtor = @(actionCb) function (opt, group, xmbNode) {
   return optionCheckBox(opt, group, xmbNode)
 }
 
-let function mkOption(title, field, defVal, actionCb, isAvailable = @() true) {
+function mkOption(title, field, defVal, actionCb, isAvailable = @() true) {
   let blkPath = $"gameplay/{field}"
   let { watch, setValue } = getOnlineSaveData(blkPath,
     @() get_setting_by_blk_path(blkPath) ?? defVal)

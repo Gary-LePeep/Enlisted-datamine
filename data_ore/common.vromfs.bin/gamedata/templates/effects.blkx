@@ -841,12 +841,12 @@
       },
       "_group": {
         "_track": true,
-        "lightning__base_strike_time_interval": [0.8,1.0],
-        "lightning__base_sleep_time_interval": [5.0,12.0],
+        "lightning__base_strike_time_interval": [0.3,1.0],
+        "lightning__base_sleep_time_interval": [0.8,1.0],
         "lightning__base_distance_interval": [5000.0,10000.0],
         "lightning__base_azimuth_interval": [0.0,1.0],
         "lightning__base_offset": 400.0,
-        "lightning__series_strike_time_interval": [0.8,1.0],
+        "lightning__series_strike_time_interval": [0.2,0.3],
         "lightning__series_sleep_time_interval": [0.12,0.2],
         "lightning__series_distance_deviation": 1000.0,
         "lightning__series_azimuth_deviation": 0.1,
@@ -856,22 +856,22 @@
         "lightning__series_fadeout_time": 0.08,
         "lightning__series_probability": 0.5,
         "lightning__series_create_bolt": true,
-        "lightning__bolt_probability": 0.7,
-        "lightning__bolt_step_size": 1300,
-        "lightning__bolt_strike_time": 0.2,
-        "lightning__emissive_multiplier": 50.0,
-        "lightning__emissive_fadein_time": 0.5,
-        "lightning__emissive_fadeout_time": 0.2,
-        "lightning__vert_noise_scale": 1000.0,
-        "lightning__vert_noise_strength": 0.005,
-        "lightning__vert_noise_time": 10.0,
-        "lightning__vert_noise_speed": 0.2,
+        "lightning__bolt_probability": 0.4,
+        "lightning__bolt_step_size": 5,
+        "lightning__bolt_strike_time": 0.3,
+        "lightning__emissive_multiplier": 20.0,
+        "lightning__emissive_fadein_time": 0.1,
+        "lightning__emissive_fadeout_time": 0.3,
+        "lightning__vert_noise_scale": 900.0,
+        "lightning__vert_noise_strength": 0.003,
+        "lightning__vert_noise_time": 15.0,
+        "lightning__vert_noise_speed": 0.3,
         "lightning__point_light_fadeout_time": 0.3,
-        "lightning__point_light_offset": 0.0,
-        "lightning__point_light_color": [0.5,0.5,0.8],
+        "lightning__point_light_offset": 5000.0,
+        "lightning__point_light_color": [0.5,0.6,0.9],
         "lightning__point_light_radius": 9000.0,
         "lightning__point_light_extinction_threshold": 0.1,
-        "lightning__point_light_strength_interval": [10.0,200.0],
+        "lightning__point_light_strength_interval": [12.0,16.0],
         "lightning__point_light_flickering_probability": 0.8,
         "lightning__point_light_flickering_speed": 10.0,
         "lightning__point_light_natural_fade": false,
@@ -1059,43 +1059,6 @@
       "negative_metaball__ball": [0.0,0.0,0.0,0.0],
       "negative_metaball__endPos": [0.0,0.0,0.0],
       "negative_metaball__direction": [0.0,0.0,0.0]
-    }
-  },
-  {
-    "projectors_manager": {
-      "_singleton": true,
-      "_use": "replicating",
-      "projectors_manager__atmosphereDensity": 1.0,
-      "projectors_manager__atmosphereMoveDir": [1.0,0.0,0.0],
-      "projectors_manager__atmosphereMoveSpeed": 0.0,
-      "projectors_manager__noiseScale": 1.0,
-      "projectors_manager__noiseStrength": 0.0,
-      "projectors_manager": {
-        "_tags": "render"
-      },
-      "projectors_node:dabfg::NodeHandle": {
-        "_tags": "render"
-      }
-    }
-  },
-  {
-    "projector": {
-      "transform": [
-        [1.0,0.0,0.0],
-        [0.0,1.0,0.0],
-        [0.0,0.0,1.0],
-        [0.0,0.0,0.0]
-      ],
-      "_use": "replicating",
-      "projector__id": -1,
-      "projector__color": [1.0,1.0,1.0],
-      "projector__angle": 3.0,
-      "projector__length": 1000.0,
-      "projector__sourceWidth": 1.0,
-      "projector__phase": 0.0,
-      "projector__period": 1.0,
-      "projector__xAngleAmplitude": 0.0,
-      "projector__zAngleAmplitude": 0.0
     }
   },
   {
@@ -1799,7 +1762,7 @@
           [0.0,0.0,0.0]
         ],
         "effect": [],
-        "gun_fx__gunEid:eid": []
+        "gun_fx__ownerEid:eid": []
       },
       "autodeleteEffectEntity:tag": []
     }
@@ -2285,7 +2248,7 @@
         "effect__name": "muzzle_flash",
         "gun_fx__nodeId": -1,
         "effect": [],
-        "gun_fx__gunEid:eid": []
+        "gun_fx__ownerEid:eid": []
       }
     }
   },
@@ -2303,6 +2266,25 @@
       "effect__colorMult": "#ffffffff",
       "gun_fx__destroyIfGunDoesNotExist:tag": [],
       "attachedEffect:tag": []
+    }
+  },
+  {
+    "base_tankgun_smoke_fx": {
+      "_use": "base_gun_unattached_fx",
+      "_tracked": "effect__colorMult",
+      "effect__colorMult": "#ffffffff",
+      "gun_fx__destroyIfGunDoesNotExist:tag": [],
+      "attachedEffect:tag": [],
+      "_group": {
+        "_tags": "render",
+        "gun_fx__nodeMultTm": [
+          [0.0,1.0,0.0],
+          [1.0,0.0,0.0],
+          [0.0,0.0,-1.0],
+          [0.0,0.0,0.0]
+        ],
+        "gun_fx__offset": [0.0,0.0,0.0]
+      }
     }
   },
   {

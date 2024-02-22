@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {logerr} = require("dagor.debug")
 let {getstackinfos} = require("debug")
@@ -9,7 +9,7 @@ let defParams = {
   validateStaticText = false
 }.__update(fontawesome)
 
-let function faComp(symbol, params = null) {
+function faComp(symbol, params = null) {
   let symType = type(symbol)
   if (symType == "string" && symbol in fa && params == null)
     return {

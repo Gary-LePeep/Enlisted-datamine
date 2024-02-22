@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { panelBgColor, commonBtnHeight, defTxtColor, midPadding, darkTxtColor, accentColor,
@@ -70,12 +70,12 @@ let mkOptionItem = @(option, idx) watchElemState(@(sf){
 
 isExpanded.subscribe(@(v) v ? null : modalPopupWnd.remove(WND_UID))
 
-let function mkSelection(options, curValue, params = {}){
+function mkSelection(options, curValue, params = {}){
   let group = ElemGroup()
   let canBeExpanded = options.len() > 0
   let { header = "", isEnabled = true } = params
 
-  let function expandWnd(event) {
+  function expandWnd(event) {
     if (!isEnabled)
       return
     isExpanded(true)

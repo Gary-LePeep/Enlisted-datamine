@@ -12,5 +12,19 @@
     "showGbufferNode:dabfg::NodeHandle": {
       "_tags": "render"
     }
+  },
+  "debug_indoor_probes_on_screen": {
+    "_singleton": true,
+    "_tags": "render,dev",
+    "debugIndoorProbesOnScreenNode:dabfg::NodeHandle": {
+      "_tags": "render"
+    }
+  },
+  "debug_indoor_probe_boxes": {
+    "_singleton": true,
+    "_tags": "render,dev",
+    "debugIndoorProbeBoxesNode:dabfg::NodeHandle": {
+      "_tags": "render"
+    }
   }
 }

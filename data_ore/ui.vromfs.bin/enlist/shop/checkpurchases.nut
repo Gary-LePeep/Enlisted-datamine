@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let extAutoRefreshTimer = require("%enlist/state/extAutoRefreshTimer.nut")
 let { check_purchases } = require("%enlist/meta/clientApi.nut")

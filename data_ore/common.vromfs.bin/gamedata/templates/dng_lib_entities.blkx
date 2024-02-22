@@ -66,9 +66,6 @@
     "import": "%danetlibs/motion_matching/templates/motion_matching.template.blk"
   },
   {
-    "import": "%danetlibs/spline_geometry/templates/spline_gen_geometry.blk"
-  },
-  {
     "import": "%danetlibs/renderer/templates/blood.template.blk"
   },
   {
@@ -123,6 +120,54 @@
     "import": "%danetlibs/swarm/templates/swarm.template.blk"
   },
   {
+    "import": "%danetlibs/package_vehicle/templates/esm_ao_manager.template.blk"
+  },
+  {
     "import": "%danetlibs/package_vehicle/templates/vehicle_tracks.blk"
+  },
+  {
+    "import": "%danetlibs/package_vehicle/templates/water_cut_mask.template.blk"
+  },
+  {
+    "import": "%danetlibs/explosion_patches/templates/damage_decals.template.blk"
+  },
+  {
+    "import": "%danetlibs/tank_cockpit/templates/tank_cockpit_lens.template.blk"
+  },
+  {
+    "import": "%danetlibs/tank_cockpit/templates/tank_cockpit_lighting.template.blk"
+  },
+  {
+    "import": "%danetlibs/heat_sources/templates/heat_sources.template.blk"
+  },
+  {
+    "import": "%danetlibs/force_dome/templates/force_dome.template.blk"
+  },
+  {
+    "import": "%danetlibs/projectors/templates/projectors.template.blk"
+  },
+  {
+    "import": "%danetlibs/weaponry_hit_fx/templates/falling_piece.template.blk"
+  },
+  {
+    "import": "%danetlibs/weaponry_hit_fx/templates/global_hit_fx_info_base.template.blk"
+  },
+  {
+    "import": "%danetlibs/weaponry_hit_fx/templates/hit_env_affect_fx.template.blk"
+  },
+  {
+    "import": "%danetlibs/semi_trans_render/templates/semi_trans_render.template.blk"
+  },
+  {
+    "import": "%danetlibs/distant_haze/templates/distant_haze.template.blk"
+  },
+  {
+    "import": "%danetlibs/bloom/templates/bloom.template.blk"
+  },
+  {
+    "import": "%danetlibs/latency_input_event_listener/templates/latency_input_event_listener.template.blk"
+  },
+  {
+    "import": "%danetlibs/puddles_manager/templates/puddles_manager.template.blk"
   }
 ]

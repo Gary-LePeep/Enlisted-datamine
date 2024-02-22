@@ -1,11 +1,11 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 // R is for reactive
 
-let matching_api = require("matching.api")
+let {matching_logout, matching_login} = require("matching.api")
 let matching_errors = require("matching.errors")
 let logM = require("%enlSqGlob/library_logs.nut").with_prefix("[MATCHING] ")
-let eventbus = require("eventbus")
+let { eventbus_subscribe, eventbus_send } = require("eventbus")
 let {nestWatched} = require("%dngscripts/globalState.nut")
 
 let matchingConnectState = nestWatched("matchingConnectState", {
@@ -29,22 +29,22 @@ let serverResponseError = mkWatched(persist, "serverResponseError", false)
 
 const max_relogin_retry_count = 3
 
-eventbus.subscribe("matching.logged_in",
+eventbus_subscribe("matching.logged_in",
   function(...) {
     setState("isLoggedIn", true)
-    eventbus.send("matching.connectHolder.ready", null)
+    eventbus_send("matching.connectHolder.ready", null)
     if (getState().stopped == true) {
       logM("matching connection was stopped during connect process")
-      matching_api.logout()
+      matching_logout()
     }
   })
 
-eventbus.subscribe("matching.logged_out",
+eventbus_subscribe("matching.logged_out",
   function(...) {
     setState("isLoggedIn", false)
   })
 
-let function is_retriable_login_error(loginerror) {
+function is_retriable_login_error(loginerror) {
   if (loginerror == matching_errors.LoginResult.NameResolveFailed ||
       loginerror == matching_errors.LoginResult.FailedToConnect ||
       loginerror == matching_errors.LoginResult.ServerBusy ||
@@ -53,7 +53,7 @@ let function is_retriable_login_error(loginerror) {
   return false
 }
 
-let function performConnect(login_info) {
+function performConnect(login_info) {
   logM($"matching.performConnect", login_info != null, getState().loginFailCount)
   serverResponseError(false)
   if (getState().connecting || login_info == null) {
@@ -61,15 +61,16 @@ let function performConnect(login_info) {
   }
   setState("stopped", false)
   setState("connecting", true)
-  matching_api.dial(login_info)
+  matching_login(login_info)
 }
 
-eventbus.subscribe("matching.dial_finished", function(result) {
+
+function onLoginFinished(result) {
   setState("connecting", false)
   serverResponseError(result.status != 0)
   if (result.status == 0) {
     logM("matching login successfull")
-    eventbus.send("matching.logged_in", null)
+    eventbus_send("matching.logged_in", null)
   }
   else {
     logM($"matching login failed: \"{result.status_str}\"")
@@ -80,23 +81,25 @@ eventbus.subscribe("matching.dial_finished", function(result) {
     else {
       if (getState().reconnectAfterDisconnect) {
         serverResponseError(false)
-        eventbus.send("matching.logged_out", getState().disconnectReason)
+        eventbus_send("matching.logged_out", getState().disconnectReason)
       }
       else
-        eventbus.send("matching.login_failed", {error = result.status_str})
+        eventbus_send("matching.login_failed", {error = result.status_str})
     }
   }
-})
+}
+
+eventbus_subscribe("matching.login_finished", onLoginFinished)
 
 
-let function deactivate_matching_login() {
+function deactivate_matching_login() {
   setState("stopped", true)
   if (!getState().connecting)
-    matching_api.logout()
+    matching_logout()
   setState("lastLoginInfo", null)
 }
 
-let function activate_matching_login(loginInfo) {
+function activate_matching_login(loginInfo) {
   logM($"matching login using name {loginInfo.userName} and user_id {loginInfo.userId}")
   setState("lastLoginInfo", loginInfo)
   setState("loginFailCount", 0)
@@ -105,21 +108,21 @@ let function activate_matching_login(loginInfo) {
   performConnect(loginInfo)
 }
 
-let function restore_connection(_login_info, disconnect_reason) {
+function restore_connection(_login_info, disconnect_reason) {
   setState("loginFailCount", 0)
   setState("reconnectAfterDisconnect", true)
   setState("disconnectReason", disconnect_reason)
   performConnect(getState().lastLoginInfo)
 }
 
-eventbus.subscribe("matching.on_disconnect",
+eventbus_subscribe("matching.on_disconnect",
   function(disconnect_info) {
     logM("client had been disconnected from matching")
     logM(disconnect_info)
 
     if (getState().stopped) {
       logM("do logout")
-      eventbus.send("matching.logged_out", null)
+      eventbus_send("matching.logged_out", null)
       return
     }
 
@@ -127,19 +130,20 @@ eventbus.subscribe("matching.on_disconnect",
     if (disconnect_info.message.len() > 0)
       doLogout = true
     else {
-      switch (disconnect_info.reason) {
-        case matching_errors.DisconnectReason.CalledByUser:
-        case matching_errors.DisconnectReason.ForcedLogout:
-        case matching_errors.DisconnectReason.SecondLogin:
+      if ([
+          matching_errors.DisconnectReason.CalledByUser,
+          matching_errors.DisconnectReason.ForcedLogout,
+          matching_errors.DisconnectReason.SecondLogin
+        ].contains(disconnect_info.reason)
+      ){
           doLogout = true
-          break
         //case matching_errors.DisconnectReason.ConnectionClosed:
         //case matching_errors.DisconnectReason.ForcedReconnect:
       }
     }
 
     if (doLogout) {
-      eventbus.send("matching.logged_out", disconnect_info)
+      eventbus_send("matching.logged_out", disconnect_info)
     }
     else {
       //try to reconnect only if already logged in

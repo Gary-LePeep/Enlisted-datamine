@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let urlText = require("%enlist/components/urlText.nut")
 let { gaijinSupportUrl, legalsUrl } = require("%enlSqGlob/supportUrls.nut")

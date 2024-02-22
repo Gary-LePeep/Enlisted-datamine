@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { settings, onlineSettingUpdated } = require("%enlist/options/onlineSettings.nut")
 let { curArmiesList, itemsByArmies, campItemsByLink } = require("%enlist/meta/profile.nut")
@@ -122,7 +122,7 @@ function getSoldierFixedWeapon(soldierGuid) {
   return weapon
 }
 
-let function recalcUnseen() {
+function recalcUnseen() {
   let unseenArmies = {}
   let unseenSquads = {}
   let unseenSoldiers = {}
@@ -173,7 +173,7 @@ soldiersBySquad.subscribe(@(_) recalcUnseenDebounced())
 slotsLinkTiers.subscribe(@(_) recalcUnseenDebounced())
 classSlotLocksByArmy.subscribe(@(_) recalcUnseenDebounced())
 
-let function markWeaponrySeen(armyId, basetpl) {
+function markWeaponrySeen(armyId, basetpl) {
   if (!onlineSettingUpdated.value || (seen.value?[armyId][basetpl] ?? false))
     return
 
@@ -186,7 +186,7 @@ let function markWeaponrySeen(armyId, basetpl) {
   })
 }
 
-let function markWeaponryListSeen(armyId, basetpls) {
+function markWeaponryListSeen(armyId, basetpls) {
   if (!onlineSettingUpdated.value)
     return
 
@@ -203,7 +203,7 @@ let function markWeaponryListSeen(armyId, basetpls) {
   })
 }
 
-let function markNotFreeWeaponryUnseen() {
+function markNotFreeWeaponryUnseen() {
   let seenData = seen.value ?? {}
   if (seenData.len() == 0)
     return false

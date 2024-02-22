@@ -60,6 +60,7 @@ def skeleton_attach_destroy_attach_es(evt : Event;
 
 def skeleton_attach_remap_impl(attach_animchar : AnimcharBaseComponent;
                                skeleton_attach__attachedTo : EntityId;
+                               skeleton_attach__postfixIdx : int;
                                var out_skeleton_remap : UInt16List | UInt16List#;
                                var out_skeleton_recalc_branch : UInt8List | UInt8List#)
   var result = false
@@ -74,7 +75,11 @@ def skeleton_attach_remap_impl(attach_animchar : AnimcharBaseComponent;
     using() <| $(var nodesWithoutRemap : UInt16List)
       let attachNodesCount = int(attach_animchar.nodeTree.nodeCount)
       for i in range(0, attachNodesCount)
-        let nodeName = *attach_animchar.nodeTree |> geomtree_getNodeName(i)
+        let origNodeName = *attach_animchar.nodeTree |> geomtree_getNodeName(i)
+        var nodeName = origNodeName
+        if skeleton_attach__postfixIdx >= 0
+          nodeName = "{origNodeName}_{skeleton_attach__postfixIdx}"
+
         let nodeIdx = *attachedTo_animchar.nodeTree |> geomtree_findNodeIndex(nodeName)
         if nodeIdx >= 0
           assert(nodeIdx <= 255)
@@ -94,34 +99,45 @@ def skeleton_attach_remap_impl(attach_animchar : AnimcharBaseComponent;
   return result
 
 [es(tag=gameClient, on_event=CmdInitSkeletonAttach)]
-def skeleton_attach_init_es(evt : Event;
-                            eid : EntityId;
-                            animchar : AnimcharBaseComponent&;
-                            skeleton_attach__attachedTo : EntityId;
-                            var skeleton_attach__skeletonRemap : UInt16List;
-                            var skeleton_attach__skeletonRecalcBranch : UInt8List)
+def skeleton_attach_reinit_es(evt : Event;
+                              eid : EntityId;
+                              animchar : AnimcharBaseComponent&;
+                              skeleton_attach__attachedTo : EntityId;
+                              skeleton_attach__postfixIdx : int = -1;
+                              var skeleton_attach__skeletonRemap : UInt16List;
+                              var skeleton_attach__skeletonRecalcBranch : UInt8List)
   let isSuccess = skeleton_attach_remap_impl(animchar,
                                              skeleton_attach__attachedTo,
+                                             skeleton_attach__postfixIdx,
                                              skeleton_attach__skeletonRemap,
                                              skeleton_attach__skeletonRecalcBranch);
   if !isSuccess
     logerr("Could not sekeleton attach {getEntityTemplateName(eid)} to {getEntityTemplateName(skeleton_attach__attachedTo)}")
 
+[es(tag=gameClient, on_appear, REQUIRE=skeleton_attach__skeletonRemap)]
+def skeleton_attach_init_es(evt : Event;
+                            eid : EntityId;
+                            skeleton_attach__attachedTo : EntityId)
+  var parentFound = false
+  query(skeleton_attach__attachedTo) <| $ [es(REQUIRE=animchar)] ()
+    sendEventImmediate(eid, [[CmdInitSkeletonAttach]])
+    parentFound = true
+  if !parentFound // for case we change/destoy parent when async added sub template
+    removeSubTemplate(eid, "base_skeleton_attach")
 
-[es(tag=gameClient, after=animchar__updater_es, before=after_animchar_update_sync, on_event=UpdateAnimcharEvent, REQUIRE_NOT=skeleton_attach__skeletonRemap)]
+[es(tag=gameClient, after=animchar__updater_es, REQUIRE=attachedToParent, before=after_animchar_update_sync, on_event=UpdateAnimcharEvent, REQUIRE_NOT=skeleton_attach__skeletonRemap)]
 def skeleton_attach_remap_es(evt : Event;
                              eid : EntityId;
                              skeleton_attach__attached : bool;
-                             animchar : AnimcharBaseComponent&;
                              skeleton_attach__attachedTo : EntityId)
   if !skeleton_attach__attached
     return
-  using() <| $(var outSkeletonRemap : UInt16List)
-    using() <| $(var outSkeletonRecalcBranch : UInt8List)
-      if skeleton_attach_remap_impl(animchar, skeleton_attach__attachedTo, outSkeletonRemap, outSkeletonRecalcBranch)
-        addSubTemplate(eid, "base_skeleton_attach") <| $(var init)
-          set(init, "skeleton_attach__skeletonRemap", outSkeletonRemap)
-          set(init, "skeleton_attach__skeletonRecalcBranch", outSkeletonRecalcBranch)
+  query(skeleton_attach__attachedTo) <| $ [es] (animchar : AnimcharBaseComponent)
+    let attachedTonodesCount = int(animchar.nodeTree.nodeCount)
+
+    if attachedTonodesCount == 0
+      return
+    addSubTemplate(eid, "base_skeleton_attach")
 
 [es(tag=server, after=animchar__updater_es, before=after_animchar_update_sync, on_event=UpdateAnimcharEvent, REQUIRE=animchar, REQUIRE_NOT=skeletonAttachInited)]
 def skeleton_attach_server_init_es(evt : Event;

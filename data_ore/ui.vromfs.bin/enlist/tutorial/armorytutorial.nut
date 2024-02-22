@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { bigPadding, activeTxtColor, smallPadding, accentTitleTxtColor} = require("%enlSqGlob/ui/viewConst.nut")
@@ -13,7 +13,7 @@ let iconParams = @(itemType){
   size = hdpx(27)
 }
 
-let function soldierIconWithType(soldierIcon, soldierName) {
+function soldierIconWithType(soldierIcon, soldierName) {
   let { itemType, itemSubType = null } = iconParams(soldierIcon)
   return {
     flow = FLOW_HORIZONTAL
@@ -27,7 +27,7 @@ let function soldierIconWithType(soldierIcon, soldierName) {
   }
 }
 
-let function weaponIconWithType(weapons){
+function weaponIconWithType(weapons){
   if (weapons.len() == 0)
     return null
 
@@ -52,7 +52,7 @@ let function weaponIconWithType(weapons){
   }
 }
 
-let function mkSoldierInfoRow(soldierIcon, soldierName, soldiersWeapons){
+function mkSoldierInfoRow(soldierIcon, soldierName, soldiersWeapons){
   return {
     flow = FLOW_HORIZONTAL
     valign = ALIGN_CENTER
@@ -101,7 +101,7 @@ let armoryTutorial = {
     }
 }
 
-let function openArmoryTutorial() {
+function openArmoryTutorial() {
   msgbox.showWithCloseButton(armoryTutorial)
 }
 

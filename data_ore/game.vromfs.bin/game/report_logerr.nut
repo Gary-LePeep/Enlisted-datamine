@@ -31,7 +31,7 @@ if (!isDedicated){
 }
 clear_logerr_interceptors()
 
-let function sendErrorToClient(_tag, logstring, _timestamp) {
+function sendErrorToClient(_tag, logstring, _timestamp) {
   debug($"sending {logstring} to")
   sendLogToClients(logstring)
 }

@@ -1,9 +1,9 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {floor} = require("math")
 let {get_setting_by_blk_path} = require("settings")
 let {safeAreaAmount, safeAreaBlkPath, safeAreaList, safeAreaSetAmount,
-  safeAreaCanChangeInOptions} = require("%enlSqGlob/safeArea.nut")
+  safeAreaCanChangeInOptions} = require("%enlSqGlob/ui/safeArea.nut")
 let platform = require("%dngscripts/platform.nut")
 let {DBGLEVEL} = require("dagor.system")
 
@@ -32,7 +32,7 @@ let { PERF_METRICS_BLK_PATH, PERF_METRICS_FPS,
   perfMetricsAvailable, perfMetricsValue, perfMetricsSetValue, perfMetricsToString
 } = require("performance_metrics_options.nut")
 let { is_inline_rt_supported, is_dx12, is_hdr_available, is_hdr_enabled, change_paper_white_nits,
-  change_gamma, is_gui_driver_select_enabled
+  change_gamma, is_gui_driver_select_enabled, is_rendinst_tessellation_supported
 } = require("videomode")
 let { availableMonitors, monitorValue, get_friendly_monitor_name } = require("monitor_state.nut")
 let { fpsList, UNLIMITED_FPS_LIMIT } = require("fps_list.nut")
@@ -705,6 +705,14 @@ let optSSSS = optionCtor({
   valToString = loc_opt
 }.__update(renderSettingsTbl.ssss))
 
+let optRendinstTesselation = optionCtor({
+  name = loc("options/rendinstTesselation", "Tree tesselation")
+  tab = "Graphics"
+  isAvailable = @() (isOptAvailable() && is_rendinst_tessellation_supported() && isDevBuild()) // TODO move it to advanced options when assets are set up
+  widgetCtor = mkDisableableCtor(bareOffText, optionCheckBox)
+  restart = false
+}.__update(renderSettingsTbl.rendinstTesselation))
+
 let { wasSSAAWarningShown, wasSSAAWarningShownUpdate
 } = globalWatched("wasSSAAWarningShown", @() false)
 
@@ -762,6 +770,7 @@ return {
   optHQProbeReflections
   optHQVolumetricClouds
   optHQVolfog
+  optRendinstTesselation
   optSSSS
   optAntiAliasingMode
 
@@ -836,6 +845,7 @@ return {
     {name = "Dev options" isSeparator=true tab="Graphics" isAvailable = isDevBuild },
     optImpostor,
     optObjectsDistanceMul,
+    optRendinstTesselation,
 
     // Advanced
     { name = loc("group/advanced", "Advanced options"), isSeparator = true, tab = "Graphics" },

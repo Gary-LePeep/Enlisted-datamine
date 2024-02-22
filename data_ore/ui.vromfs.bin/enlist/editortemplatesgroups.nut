@@ -1,6 +1,6 @@
 let entity_editor = require_optional("entity_editor")
 
-let function initTemplatesGroups(for_debug) {
+function initTemplatesGroups(for_debug) {
   if (entity_editor == null)
     return
 

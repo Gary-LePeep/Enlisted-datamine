@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { vehicle_markers_Set, vehicle_markers_GetWatched } = require("%ui/hud/state/vehicle_markers.nut")
 let { controlledVehicleEid } = require("%ui/hud/state/vehicle_state.nut")
@@ -19,7 +19,7 @@ let mkData = @(eid) freeze({
 
 let transform = freeze({ rotate = -90 })
 
-let function mkMarker(eid) {
+function mkMarker(eid) {
   let data = mkData(eid)
   let markerState = vehicle_markers_GetWatched(eid)
   let watch = [markerState, controlledVehicleEid]

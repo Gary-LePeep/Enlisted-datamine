@@ -6,22 +6,22 @@ let {mkPanelElemsButton} = require("panelElem.nut")
 let makeToolBox = require("%daeditor/components/toolBox.nut")
 
 let {showPointAction, namePointAction, propPanelVisible} = require("%daeditor/state.nut")
-let {getEditMode=@() null, DE4_MODE_POINT_ACTION=null} = require_optional("daEditor4")
+let {getEditMode=@() null, DE4_MODE_POINT_ACTION=null} = require_optional("daEditorEmbedded")
 
 let toolboxShown = Watched(false)
 let toolboxStates = Watched({})
 let toolBoxComponent = makeToolBox(toolboxShown)
 
-let function getToolboxState(key){
+function getToolboxState(key){
   return toolboxStates.value?[key]
 }
 
-let function setToolboxState(key, val) {
+function setToolboxState(key, val) {
   toolboxStates.value[key] = val
   toolboxStates.trigger()
 }
 
-let function runToolboxCmd(cmd, cmd2 = null, key = null, val = null) {
+function runToolboxCmd(cmd, cmd2 = null, key = null, val = null) {
   if (cmd2 == "close")
     toolboxShown(false)
   console_command(cmd)
@@ -31,36 +31,36 @@ let function runToolboxCmd(cmd, cmd2 = null, key = null, val = null) {
     setToolboxState(key, val)
 }
 
-let function runToolboxCmd_toggleCollGeom() {
+function runToolboxCmd_toggleCollGeom() {
   if (!getToolboxState("coll"))
     runToolboxCmd("app.debug_collision", null, "coll", true)
   else
     runToolboxCmd("app.debug_collision", null, "coll", false)
 }
 
-let function runToolboxCmd_toggleNavMesh() {
+function runToolboxCmd_toggleNavMesh() {
   if (!getToolboxState("nav"))
     runToolboxCmd("app.debug_navmesh 1", null, "nav", true)
   else
     runToolboxCmd("app.debug_navmesh 0", null, "nav", false)
 }
 
-let function setToolboxPopupPos(x, y) {
+function setToolboxPopupPos(x, y) {
   toolBoxComponent.setPos(x, y)
 }
 
-let function clearToolboxOptions() {
+function clearToolboxOptions() {
   toolBoxComponent.clearOptions()
   toolboxStates.value = []
 }
 
-let function addToolboxOption(on, key, val, name, cb, content, tooltip) {
+function addToolboxOption(on, key, val, name, cb, content, tooltip) {
   if (key != null)
     toolboxStates.value[key] <- val
   toolBoxComponent.addOption(on, name, cb, content, tooltip)
 }
 
-let function addToolboxOptions_CollGeomAndNavMesh() {
+function addToolboxOptions_CollGeomAndNavMesh() {
   addToolboxOption(@() getToolboxState("coll"), "coll", false, "CollGeom", @(_) runToolboxCmd_toggleCollGeom(), null, "Toggle collision geometry")
   addToolboxOption(@() getToolboxState("nav"),  "nav",  false, "NavMesh",  @(_) runToolboxCmd_toggleNavMesh(),  null, "Toggle navigation mesh")
 }

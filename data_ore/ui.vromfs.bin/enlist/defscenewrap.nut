@@ -1,9 +1,9 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 let { sidePadding, maxContentWidth, hotkeysBarHeight } = require("%enlSqGlob/ui/designConst.nut")
-let { safeAreaVerPadding, safeAreaHorPadding } = require("%enlSqGlob/safeArea.nut")
+let { safeAreaVerPadding, safeAreaHorPadding } = require("%enlSqGlob/ui/safeArea.nut")
 
 
-let function defSceneWrap (content, params = {}) {
+function defSceneWrap (content, params = {}) {
   let bottomPadding = safeAreaVerPadding.value + hotkeysBarHeight
   let safeSidePadding = max(sidePadding, safeAreaHorPadding.value)
   // We dont need to subscribe on safeAreaVerPadding. In new design safearea reloads ui

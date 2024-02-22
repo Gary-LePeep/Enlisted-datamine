@@ -1,9 +1,9 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { equipSlotTbl } = require("config/equipGroups.nut")
 let { getEquippedItemGuid, objInfoByGuid, armoryByArmy,
   getScheme, getItemOwnerSoldier, curCampItems, getSoldierItemSlots, getDemandingSlots,
-  armies, curArmy, allAvailableArmies
+  armies, curArmy
 } = require("%enlist/soldiers/model/state.nut")
 let { campItemsByLink, soldiersByArmies, curCampSoldiers } = require("%enlist/meta/profile.nut")
 let { equipItem, massEquipItems } = require("%enlist/soldiers/model/itemActions.nut")
@@ -15,11 +15,9 @@ let { soldierClasses } = require("%enlSqGlob/ui/soldierClasses.nut")
 let soldierSlotsCount = require("soldierSlotsCount.nut")
 let { logerr } = require("dagor.debug")
 let { getLinkedArmyName } = require("%enlSqGlob/ui/metalink.nut")
-let { getObjectName, trimUpgradeSuffix, getCampaignTitle } = require("%enlSqGlob/ui/itemsInfo.nut")
+let { getObjectName, trimUpgradeSuffix } = require("%enlSqGlob/ui/itemsInfo.nut")
 let { curSection } = require("%enlist/mainMenu/sectionsState.nut")
 let { unseenTiers, unseenSoldiersWeaponry } = require("unseenWeaponry.nut")
-let { transfer_item } = require("%enlist/meta/clientApi.nut")
-let { lockedProgressCampaigns } = require("%enlist/meta/campaigns.nut")
 let { room, roomIsLobby } = require("%enlist/state/roomState.nut")
 let { isObjGuidBelongToRentedSquad } = require("squadInfoState.nut")
 let { showRentedSquadLimitsBox } = require("%enlist/soldiers/components/squadsComps.nut")
@@ -49,7 +47,7 @@ curCampItems.subscribe(@(_) curInventoryItem(null))
 let viewItem = Computed(@() curInventoryItem.value ?? curEquippedItem.value) // last selected or current item
 let isWeaponFixed = Computed(@() curEquippedItem.value?.isFixed ?? false)
 
-let function excludeItems(item, curArmyShopItemsPrefV, curArmyV, allItemTemplatesV, itemToShopItemV){
+function excludeItems(item, curArmyShopItemsPrefV, curArmyV, allItemTemplatesV, itemToShopItemV){
   if (item.guid != "" || item?.isShowDebugOnly)
     return true
   let tpl = item.basetpl
@@ -57,7 +55,7 @@ let function excludeItems(item, curArmyShopItemsPrefV, curArmyV, allItemTemplate
   return (shopItemIds.len() >= 1 && shopItemIds[0] in curArmyShopItemsPrefV)
 }
 
-let function calcItems(params, objInfoByGuidV, armoryByArmyV, curArmyShopItemsPrefV,
+function calcItems(params, objInfoByGuidV, armoryByArmyV, curArmyShopItemsPrefV,
   itemToShopItemV, allItemTemplatesV) {
   let { armyId = null, filterFunc = @(_tplId, _tpl) true } = params
   if (!armyId)
@@ -74,7 +72,7 @@ let function calcItems(params, objInfoByGuidV, armoryByArmyV, curArmyShopItemsPr
   return itemsList.sort(itemsSort)
 }
 
-let function calcOther(params, armoryByArmyV, itemTypesInSlotsV) {
+function calcOther(params, armoryByArmyV, itemTypesInSlotsV) {
   let { slotType = null, armyId = null, filterFunc = @(_tplId, _tpl) true } = params
   if (!armyId)
     return []
@@ -143,7 +141,7 @@ let prevItems = Computed(@()
     .filter(@(item) "guid" in item))
 
 
-let function openSelectItem(armyId, ownerGuid, slotType, slotId) {
+function openSelectItem(armyId, ownerGuid, slotType, slotId) {
   if (ownerGuid == null)
     return
   let ownerItem = objInfoByGuid.value?[ownerGuid]
@@ -182,7 +180,7 @@ let function openSelectItem(armyId, ownerGuid, slotType, slotId) {
   curInventoryItem(null) // clear current selected inventory item on slot item selection
 }
 
-let function selectInsideListSlot(dir, doWrap) {
+function selectInsideListSlot(dir, doWrap) {
   local { armyId, ownerGuid, slotType, slotId } = selectParams.value
   let curScheme = curSoldierInfo.value?.equipScheme ?? {}
   let size = soldierSlotsCount(ownerGuid, curScheme).value?[slotType] ?? 0
@@ -199,7 +197,7 @@ let function selectInsideListSlot(dir, doWrap) {
   return true
 }
 
-let function selectSlot(dir) {
+function selectSlot(dir) {
   let params = selectParams.value
   if (params == null || selectInsideListSlot(dir, false))
     return
@@ -235,7 +233,7 @@ let function selectSlot(dir) {
   openSelectItem(armyId, ownerGuid, slotType, slotId)
 }
 
-let function itemClear() {
+function itemClear() {
   if (selectParamsList.value.len() > 0)
     selectParamsList.mutate(@(l) l.remove(l.len() - 1))
   if (selectParams.value == null)
@@ -251,7 +249,7 @@ enum ItemCheckResult {
   IN_SHOP = 3
 }
 
-let function checkSelectItem(item) {
+function checkSelectItem(item) {
   let { basetpl = null, itemtype = null, isShopItem = false, unlocklevel = 0 } = item
   let soldier = curSoldierInfo.value
   if (basetpl == null || soldier == null)
@@ -300,7 +298,7 @@ let function checkSelectItem(item) {
   return null
 }
 
-let function selectItem(item, cb = null) {
+function selectItem(item, cb = null) {
   // do not equip same item
   if (item?.basetpl == curEquippedItem.value?.basetpl)
     return
@@ -342,7 +340,7 @@ let classSortOrder = {
 
 let unwantedTypes = { boltaction_noscope = true }
 
-let function getBetterItem(items, count, sortFunc) {
+function getBetterItem(items, count, sortFunc) {
 
   let betterTypeAndTier = @(a, b) ((b?.itemtype ?? "") not in unwantedTypes)
       <=> ((a?.itemtype ?? "") not in unwantedTypes)
@@ -360,7 +358,7 @@ let getWorseItem = @(items, count, _sortFunc = null) items
 
 let getBR = @(item) item?.growthTier ?? 1
 
-let function getItemForSlot(soldier, inventory, slotType, count, chooseFunc, armyId, maxBR) {
+function getItemForSlot(soldier, inventory, slotType, count, chooseFunc, armyId, maxBR) {
   let sortOrder = defaultSortOrder.__merge(classSortOrder?[soldier.sClass] ?? {})
   let sortFunc = @(a, b) (sortOrder?[b?.itemtype] ?? 0) <=> (sortOrder?[a?.itemtype] ?? 0)
 
@@ -381,7 +379,7 @@ let sameTypeTier = @(item1, item2) item1 != null && item2 != null
   && (item1?.growthTier ?? 0) == (item2?.growthTier ?? 0)
   && (item1?.tier ?? 0) == (item2?.tier ?? 0)
 
-let function getAlternativeEquipList(soldier, chooseFunc, excludeSlots, maxBR) {
+function getAlternativeEquipList(soldier, chooseFunc, excludeSlots, maxBR) {
   let armyId = getLinkedArmyName(soldier)
   let slotsItems = getSoldierItemSlots(soldier.guid, campItemsByLink.value)
     .filter(@(i) !(excludeSlots.findindex(@(v) v.slotType == i.slotType) != null
@@ -447,13 +445,13 @@ let AUTO_SLOTS = [
   "grenade", "inventory", "mine", "binoculars_usable", "flask_usable"
 ]
 
-let function cleanByValues(src, val) {
+function cleanByValues(src, val) {
   foreach (key in src.keys())
     if (src[key] == val)
-      delete src[key]
+      src.$rawdelete(key)
 }
 
-let function getEmptyNeededSlots(slotsItems, equipScheme) {
+function getEmptyNeededSlots(slotsItems, equipScheme) {
   let slotToGroup = {}
   foreach (slotType, slot in equipScheme) {
     let { atLeastOne = "" } = slot
@@ -466,7 +464,7 @@ let function getEmptyNeededSlots(slotsItems, equipScheme) {
   return slotToGroup
 }
 
-let function getPossibleEquipList(soldier, maxBR) {
+function getPossibleEquipList(soldier, maxBR) {
   let { guid = null, equipScheme = {} } = soldier
   let slotsItems = getSoldierItemSlots(guid, campItemsByLink.value)
   let soldierSlotsCountTbl = soldierSlotsCount(guid, equipScheme).value
@@ -486,7 +484,7 @@ let function getPossibleEquipList(soldier, maxBR) {
       if (slotId == -1)
         freeSlots[slotType].clear()
       else if (slotId in freeSlots[slotType])
-        delete freeSlots[slotType][slotId]
+        freeSlots[slotType].$rawdelete(slotId)
   }
 
   let reqSlotsList = AUTO_SLOTS.filter(@(slotType)
@@ -532,7 +530,7 @@ let function getPossibleEquipList(soldier, maxBR) {
 let calcRatingByTypeTier = @(sortOrder, item)
   (sortOrder?[item?.itemtype] ?? 0) * 16 + (item?.tier ?? 0)
 
-let function addReplacementItem(toReplace, sortOrder, ownerGuid, slotType, slotsItem) {
+function addReplacementItem(toReplace, sortOrder, ownerGuid, slotType, slotsItem) {
   if (toReplace == null || (slotsItem?.item.isFixed ?? false))
     return
   // {
@@ -557,7 +555,7 @@ let function addReplacementItem(toReplace, sortOrder, ownerGuid, slotType, slots
   itemRatingData[ownerGuid] <- slotsItem.item.guid
 }
 
-let function getPossibleUnequipList(ownerGuid, toReplace = null, sortOrder = null) {
+function getPossibleUnequipList(ownerGuid, toReplace = null, sortOrder = null) {
   let itemsByLink = campItemsByLink.value
   let infoByGuid = objInfoByGuid.value
   let equipList = []
@@ -583,55 +581,13 @@ let function getPossibleUnequipList(ownerGuid, toReplace = null, sortOrder = nul
   return equipList
 }
 
-let trimArmyHead = @(armyId) armyId.split("_").top()
-
-let viewItemMoveVariants = Computed(function() {
-  let item = viewItem.value
-  if (item == null || (item?.guid ?? "") == "" || isWeaponFixed.value)
-    return []
-
-  let curArmyId = getLinkedArmyName(item)
-  let curSuffix = trimArmyHead(curArmyId)
-  let templates = allItemTemplates.value
-  let res = []
-  foreach (campaign, campaignArmies in allAvailableArmies.value)
-    foreach (armyId in campaignArmies) {
-      let template = templates?[armyId][item.basetpl]
-      if (template == null
-          || armyId == curArmyId
-          || trimArmyHead(armyId) != curSuffix
-          || template?.isFixed)
-        continue
-
-      if (item?.equipSchemeId != template?.equipSchemeId)
-        continue
-
-      let { unlocklevel = 0 } = templates?[armyId][trimUpgradeSuffix(item.basetpl)]
-      let { tier = 0 } = template
-      local transferError = null
-      let armyName = loc(armyId)
-      let campaignName = getCampaignTitle(campaign)
-      let fullArmyName = $"{armyName} ({campaignName})"
-      let armyLevel = armies.value?[armyId].level ?? 0
-      if (campaign in lockedProgressCampaigns.value)
-        transferError = loc("msg/transferReqUnlockProgress", { fullArmyName, campaignName })
-      else if (unlocklevel > 0 && unlocklevel > armyLevel)
-        transferError = loc("msg/transferReqArmyLevel", { armyInfo = fullArmyName, level = unlocklevel })
-
-      res.append({ armyId, armyName, campaignName, fullArmyName, transferError, tier,
-        isTransferAllowed = transferError == null
-      })
-    }
-  return res
-})
-
-let function getWorst(itemList, keysSorted, scheme, objInfoByGuidVal) {
+function getWorst(itemList, keysSorted, scheme, objInfoByGuidVal) {
   foreach(key in keysSorted) {
     if (key not in itemList)
       continue
     let itemListByKey = itemList[key]
     if (itemListByKey.len() == 0) {
-      itemList.rawdelete(key)
+      itemList.$rawdelete(key)
       continue
     }
     foreach (guid, _ in itemListByKey) {
@@ -657,7 +613,7 @@ let excludeTypes = {
   infantry_launcher = true
 }
 
-let function calcExchange(equipLists, toReplace, armoryItems) {
+function calcExchange(equipLists, toReplace, armoryItems) {
   // make table { assault => primary, sword => melee } etc
   let itemTypesToSlotType = {}
   let slots = { primary = "mainWeapon", melee = "melee" }
@@ -710,7 +666,7 @@ let function calcExchange(equipLists, toReplace, armoryItems) {
         equipLists[soldierGuid].append({
           slotType, slotId = -1, guid = replacementGuid
         })
-        armoryList[slotType][newitemRating].rawdelete(replacementGuid)
+        armoryList[slotType][newitemRating].$rawdelete(replacementGuid)
         if (itemRating not in armoryList[slotType])
           armoryList[slotType][itemRating] <- {}
         armoryList[slotType][itemRating][itemGuid] <- true
@@ -720,7 +676,7 @@ let function calcExchange(equipLists, toReplace, armoryItems) {
   return equipLists
 }
 
-let function massUnequipSoldierList(soldierList, equipLists, toReplace) {
+function massUnequipSoldierList(soldierList, equipLists, toReplace) {
   foreach (soldier in soldierList) {
     let soldierGuid = soldier.guid
     let sortOrder = defaultSortOrder.__merge(classSortOrder?[soldier.sClass] ?? {})
@@ -728,7 +684,7 @@ let function massUnequipSoldierList(soldierList, equipLists, toReplace) {
   }
 }
 
-let function massUnequipArmyReserve(reserveSquadsVal, soldiersBySquadVal, armoryByArmyVal, cb) {
+function massUnequipArmyReserve(reserveSquadsVal, soldiersBySquadVal, armoryByArmyVal, cb) {
   let equipLists = {}
   let toReplace = {}
   foreach(squad in reserveSquadsVal) {
@@ -742,7 +698,7 @@ let function massUnequipArmyReserve(reserveSquadsVal, soldiersBySquadVal, armory
 }
 
 
-let function massUnequipReserve(soldierList, armoryByArmyVal) {
+function massUnequipReserve(soldierList, armoryByArmyVal) {
   let equipLists = {}
   let toReplace = {}
   massUnequipSoldierList(soldierList, equipLists, toReplace)
@@ -762,18 +718,8 @@ closeNeeded.subscribe(@(v) v ? itemClear() : null)
 let mkNewItemAlerts = @(soldierGuid)
   Computed(@() unseenSoldiersWeaponry.value?[soldierGuid] ?? {})
 
-
-console_register_command(function(armyId) {
-  let { guid = "" } = viewItem.value
-  if (guid == "")
-    return log("Item is not selected")
-  transfer_item(guid, armyId)
-  log("Move item request sent")
-}, "meta.moveItem")
-
 return {
   viewItem
-  viewItemMoveVariants
   curInventoryItem
   curEquippedItem
   selectParams

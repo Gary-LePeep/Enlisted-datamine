@@ -19,6 +19,7 @@ enum SquadMateOrder
   ESMO_USE_VEHICLE
   ESMO_DEFUSE_BOMB
   ESMO_PLANT_BOMB
+  ESMO_MORTAR_ATTACK
 
 [export_enum]
 enum SquadFormationSpread

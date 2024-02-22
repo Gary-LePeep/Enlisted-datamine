@@ -8,7 +8,7 @@ require math.base
 require PhysMat
 
 
-[es(tag=sound, on_event=ParallelUpdateFrameDelayed)]
+[es(tag=sound, on_event=ParallelUpdateFrameDelayed, after=sound_begin_update_es, before=sound_end_update_es)]
 def human_collision_scrape_sound_update(evt : Event;
                                         human_net_phys__velocity : float3;
                                         human_collision_scrape_sound__descIdx : int;

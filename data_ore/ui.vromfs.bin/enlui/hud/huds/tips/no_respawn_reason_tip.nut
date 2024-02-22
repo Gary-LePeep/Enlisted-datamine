@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { tipCmp } = require("%ui/hud/huds/tips/tipComponent.nut")
@@ -14,7 +14,7 @@ let tip = tipCmp({
   text = loc("respawn/no_spawn_squads")
 }.__update(fontSub))
 
-let function showNoRespawnReason(state) {
+function showNoRespawnReason(state) {
   if (!state)
     return
 

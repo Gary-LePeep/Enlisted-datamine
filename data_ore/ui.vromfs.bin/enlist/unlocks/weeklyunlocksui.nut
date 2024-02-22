@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let hoverHoldAction = require("%darg/helpers/hoverHoldAction.nut")
 let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
@@ -56,11 +56,11 @@ let timerSize = hdpxi(18)
 let timerIcon = {
   rendObj = ROBJ_IMAGE
   size = [timerSize, timerSize]
-  image = Picture($"ui/skin#/battlepass/boost_time.svg:{timerSize}:{timerSize}:K")
+  image = Picture($"ui/skin#battlepass/boost_time.svg:{timerSize}:{timerSize}:K")
   color = taskProgressColor
 }
 
-let function mkTaskExpireTimer(expireTime) {
+function mkTaskExpireTimer(expireTime) {
   let expireText = Computed(function() {
     let expireSec = expireTime - serverTime.value
     return expireSec <= 0 ? "" : secondsToStringLoc(expireSec)
@@ -94,7 +94,7 @@ let function mkTaskExpireTimer(expireTime) {
   }
 }
 
-let function mkWeeklyTaskSlot(task, isUnseen) {
+function mkWeeklyTaskSlot(task, isUnseen) {
   let { name, isFinished = false, hasReward = false, activity = null } = task
   let { end_timestamp = 0, active = false } = activity
   let hasExpireTimer = active && !isFinished

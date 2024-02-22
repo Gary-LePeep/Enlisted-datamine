@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let {isAiming} = require("%ui/hud/huds/crosshair_state_es.nut")
@@ -52,7 +52,7 @@ let canShowTip = Computed(@() showPlayerHuds.value && isAiming.value && !inPlane
 
 let needTip = Computed(@() canShowTip.value && aimRangeValues.value != null)
 
-let function swithAimBtnTip (){
+function swithAimBtnTip (){
   return {
     watch = needTip
     size = SIZE_TO_CONTENT
@@ -61,7 +61,7 @@ let function swithAimBtnTip (){
   }
 }
 
-let function aimRangeValuesTip(){
+function aimRangeValuesTip(){
   let res = {
     watch = [needTip, entityAimRangePreset, currentGunEid]
     size = SIZE_TO_CONTENT

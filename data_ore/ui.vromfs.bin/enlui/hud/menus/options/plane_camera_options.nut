@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {get_setting_by_blk_path} = require("settings")
 let {getOnlineSaveData, mkSliderWithText, optionCtor} = require("options_lib.nut")
@@ -8,9 +8,9 @@ let setPlaneCameraPhysQuery = ecs.SqQuery("setPlaneCameraPhysQuery", {
   comps_rw = [ ["plane_inertial_cam__flightSense", ecs.TYPE_FLOAT] ]
 })
 
-local function optionCameraPhysTextSliderCtor(opt, group, xmbNode, field) {
+function optionCameraPhysTextSliderCtor(opt, group, xmbNode, field) {
   let optSetValue = opt.setValue
-  let function setValue(val) {
+  function setValue(val) {
     optSetValue(val)
     setPlaneCameraPhysQuery(function(_eid, comp) {
       comp[field] = val / 100
@@ -20,7 +20,7 @@ local function optionCameraPhysTextSliderCtor(opt, group, xmbNode, field) {
   return mkSliderWithText(opt, group, xmbNode)
 }
 
-let function mkPlaneCameraPhysOption(option, field, settings={}) {
+function mkPlaneCameraPhysOption(option, field, settings={}) {
   let blkPath = $"gameplay/{option}"
   let title = loc(blkPath)
   let { watch, setValue } = getOnlineSaveData(blkPath,

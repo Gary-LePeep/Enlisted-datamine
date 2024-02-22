@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { allItemTemplates } = require("%enlist/soldiers/model/all_items_templates.nut")
@@ -78,7 +78,7 @@ let headerTxtStyle = { color = defTxtColor }.__update(fontBody)
 let isOpened = Watched(false)
 
 
-let function switchKind(kindsToShow, delta){
+function switchKind(kindsToShow, delta){
   let amountKinds = kindsToShow.len()
   local idx = kindsToShow.findindex(@(val)
     val?.soldierKind == curShopSoldierKind.value)
@@ -91,21 +91,21 @@ let function switchKind(kindsToShow, delta){
 
 isOpened.subscribe(function(v) {
   if (v) {
-    let soldiers = getShopItemsIds(soldierShopItems.value)
-    soldiers.each(@(item, army) requestCratesContent(army, item))
+    let crates = getShopItemsIds(soldierShopItems.value)
+    requestCratesContent(crates)
   }
 })
 
 let getCrateContent = @(shopItems) Computed(function() {
   let res = []
-  shopItems.value.each(function(shopItem) {
-    let { armyId, id } = shopItem.crates[0]
+  foreach (shopItem in shopItems.value) {
+    let crateId = shopItem?.crates[0]
     res.append({
       shopItemId = shopItem.id
-      reqLevel = shopItem?.requirements.armyLevel ?? 0
-      content = requestedCratesContent.value?[armyId][id]
+      reqLevel = shopItem?.requirements.armyLevel ?? 0 // DEPRECATED
+      content = requestedCratesContent.value?[crateId]
     })
-  })
+  }
   return res
 })
 
@@ -121,7 +121,7 @@ let currentLimits = mkSClassLimitsComp(soldiersSquad, soldiersSquadParams,
   soldiersList, soldiersStatuses)
 
 let btnWidth = hdpxi(48)
-let function mkSpecializationBtn(soldier, isSelected, armyData, unseenKinds) {
+function mkSpecializationBtn(soldier, isSelected, armyData, unseenKinds) {
   let { soldierKind, reqLvl } = soldier
   let curArmyLvl = armyData?.level ?? 0
   return watchElemState(function(sf) {
@@ -203,7 +203,7 @@ let specializationsBlock = @(kindsToShow, unseenKinds) @() {
 }
 
 
-let function mkStartPerk(perksListVal, perksStatsCfgVal, perkScheme, isLocked) {
+function mkStartPerk(perksListVal, perksStatsCfgVal, perkScheme, isLocked) {
   if (perkScheme == null)
     return null
 
@@ -236,7 +236,7 @@ let function mkStartPerk(perksListVal, perksStatsCfgVal, perkScheme, isLocked) {
   }
 }
 
-let function mkShopItemCard(idx, shopItem, armyData, offers) {
+function mkShopItemCard(idx, shopItem, armyData, offers) {
   let { guid = null, requirements = null } = shopItem
   let { armyLevel = 0, isFreemium = false, campaignGroup = CAMPAIGN_NONE } = requirements
   let squad = shopItem?.squads[0]
@@ -318,7 +318,7 @@ let mkSoldiersList = @(soldiersToShow) function() {
 }
 
 
-let function wndContent(onCloseCb) {
+function wndContent(onCloseCb) {
   let crateContent = getCrateContent(soldierShopItems)
   return function() {
     let contentToShow = getSoldiersList(crateContent.value, soldierShopItems.value)
@@ -364,7 +364,7 @@ let function wndContent(onCloseCb) {
 }
 
 
-let function updateSoldierKind(_) {
+function updateSoldierKind(_) {
   let sKind = curSoldierKind.value
   let crateContent = getCrateContent(soldierShopItems)
   let contentToShow = getSoldiersList(crateContent.value, soldierShopItems.value)

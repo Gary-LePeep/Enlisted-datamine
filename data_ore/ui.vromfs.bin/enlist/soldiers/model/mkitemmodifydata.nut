@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { itemUpgrades, itemDisposes, getModifyConfig } = require("config/itemsModifyConfig.nut")
 let { ceil } = require("%sqstd/math.nut")
@@ -10,7 +10,7 @@ let { allItemTemplates, findItemTemplate } = require("all_items_templates.nut")
 let { hasShopSection } = require("%enlist/mainMenu/disabledSections.nut")
 let { trimUpgradeSuffix } = require("%enlSqGlob/ui/itemsInfo.nut")
 let { curUpgradeDiscount } = require("%enlist/campaigns/campaignConfig.nut")
-let { curCampSoldiers } = require("%enlist/meta/profile.nut")
+let { curCampSoldiers, curCampItems } = require("%enlist/meta/profile.nut")
 
 let disposableTypes = {
   sideweapon = true
@@ -156,7 +156,8 @@ let mkItemDisposeData = function(item) {
     }
     let orderCount = count * disposeMult
     let orderTpl = disposes.itemTpl
-    let guids = isObjLinkedToAnyOfObjects(item, curCampSoldiers.value ?? {}) ? null
+    let guids = isObjLinkedToAnyOfObjects(item, curCampItems.value ?? {}) ? null
+      : isObjLinkedToAnyOfObjects(item, curCampSoldiers.value ?? {}) ? null
       : item?.guids ?? [item?.guid]
     return res.__update({
       isDisposable = true

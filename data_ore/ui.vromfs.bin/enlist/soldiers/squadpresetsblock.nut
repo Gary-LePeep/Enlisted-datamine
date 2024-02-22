@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { defTxtColor, selectedTxtColor, disabledTxtColor, squadElemsBgColor,
   squadElemsBgHoverColor, commonBtnHeight, bigPadding, titleTxtColor
@@ -125,7 +125,7 @@ let resetRenameState = function() {
   selectedRenameSlot(-1)
 }
 
-let function filterAndSetPreset(presetToSet, idx) {
+function filterAndSetPreset(presetToSet, idx) {
   if (isWaitingObsceneFilterForIdx.value >= 0)
     return
   isWaitingObsceneFilterForIdx(idx)
@@ -226,7 +226,7 @@ let mkInputBlock = @(idx, presetInfo) watchElemState(@(sf) {
   ].extend(renameButtonsList.map(@(action) actionButton(action, idx, presetInfo)))
 })
 
-let function mkPresetSlot(idx, presetInfo = null) {
+function mkPresetSlot(idx, presetInfo = null) {
   let isRenaming = Computed(@() selectedRenameSlot.value == idx)
   let isWaiting = Computed(@() isWaitingObsceneFilterForIdx.value == idx)
   return @() {

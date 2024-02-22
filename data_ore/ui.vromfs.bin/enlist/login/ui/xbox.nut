@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontHeading2, fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let background = require("background.nut")
@@ -13,14 +13,14 @@ let { loginBlockOverride, infoBlock } = require("loginUiParams.nut")
 
 let loginButtonRedrawCounter = Watched(0)
 
-let function loginBtnAction() {
+function loginBtnAction() {
   loginButtonRedrawCounter(loginButtonRedrawCounter.value + 1)
   if (currentStage.value == null)
     startLogin({})
 }
 
 //The login button is covered with crutches as it hangs when the account selection menu is displayed
-let function loginBtn() {
+function loginBtn() {
   return {
     size = [flex(), hdpx(70)]
     watch = loginButtonRedrawCounter
@@ -53,7 +53,7 @@ let loginFormChildren = [
   }
 ]
 
-let function loginRoot() {
+function loginRoot() {
   let children = currentStage.value
     ? progressText(loc("loggingInProcess"))
     : loginFormChildren

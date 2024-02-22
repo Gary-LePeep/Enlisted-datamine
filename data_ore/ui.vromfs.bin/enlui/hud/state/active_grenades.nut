@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { watchedHeroEid, watchedTeam } = require("%ui/hud/state/watched_hero.nut")
 let is_teams_friendly = require("%enlSqGlob/is_teams_friendly.nut")
@@ -15,7 +15,7 @@ let {
 } = mkWatchedSetAndStorage("active_grenades_")
 
 
-let function getWillDamageHero(heroEid, grenadeOwner, grenadeRethrower) {
+function getWillDamageHero(heroEid, grenadeOwner, grenadeRethrower) {
   if (grenadeOwner == heroEid && heroEid != ecs.INVALID_ENTITY_ID && grenadeOwner != ecs.INVALID_ENTITY_ID)
     return true
   let heroTeam = watchedTeam.value

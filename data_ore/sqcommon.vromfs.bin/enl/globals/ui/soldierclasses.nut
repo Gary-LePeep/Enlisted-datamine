@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontTactical } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { rankIcons, rankGlyphs } = require("%enlSqGlob/ui/rankIcons.nut")
@@ -111,19 +111,16 @@ let soldierKinds = freeze({
   }
 }.map(mkKind))
 
-let function mkClass(data, key) {
+function mkClass(data, key) {
   local { sClass = key } = data
   local shortLocId = $"squadPromo/{key}/shortDesc"
   if (!doesLocTextExist(shortLocId))
     shortLocId = $"squadPromo/{sClass}/shortDesc"
-  local longLocId = $"squadPromo/{key}/longDesc"
-  if (!doesLocTextExist(longLocId))
-    longLocId = $"squadPromo/{sClass}/longDesc"
   return freeze({
     locId = $"soldierClass/{sClass}"
     descLocId = $"soldierClass/{key}/desc"
+    longLocId = $"squadPromo/{key}/longDesc"
     shortLocId
-    longLocId
     sClass
   }.__update(data))
 }
@@ -797,6 +794,10 @@ let soldierClasses = freeze({
     sClass = "tanker"
     kind = "tanker"
   }.__update(premiumCfg)
+  tanker_3_premium_6 = {
+    sClass = "tanker"
+    kind = "tanker"
+  }.__update(premiumCfg)
   pilot_fighter_premium_1 = {
     sClass = "pilot_fighter"
     kind = "pilot_fighter"
@@ -1028,7 +1029,7 @@ let getKindCfg = @(sKind) soldierKinds?[sKind] ?? soldierKinds.unknown
 
 let formatGlyph = @(glyph) glyph == null ? null : $"<{GLYPHS_TAG}>{glyph}</{GLYPHS_TAG}>"
 
-let function getClassNameWithGlyph(sClass, armyId){
+function getClassNameWithGlyph(sClass, armyId){
   let { getGlyph, locId } = getClassCfg(sClass)
   let glyph = formatGlyph(getGlyph(armyId))
   let className = loc(locId)

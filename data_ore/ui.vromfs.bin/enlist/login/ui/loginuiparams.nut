@@ -1,11 +1,11 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { get_setting_by_blk_path } = require("settings")
 let auth  = require("auth")
 
 local registerUrl = get_setting_by_blk_path("registerUrl") ?? "https://login.gaijin.net/profile/register"
 
-let function addQueryParam(url, name, value) {
+function addQueryParam(url, name, value) {
   let delimiter = url.contains("?") ? "&" : "?"
   return "".concat(url,delimiter, name, "=", value)
 }

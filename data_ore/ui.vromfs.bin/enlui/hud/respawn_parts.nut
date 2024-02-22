@@ -1,9 +1,8 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let colorize = require("%ui/components/colorize.nut")
 let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let JB = require("%ui/control/gui_buttons.nut")
-let cursors = require("%ui/style/cursors.nut")
 let { textarea } = require("%ui/components/textarea.nut")
 let mkTeamIcon = require("%ui/hud/components/teamIcon.nut")
 let { Accented } = require("%ui/components/txtButton.nut")
@@ -42,7 +41,6 @@ let panel = @(content, menuOverride = {}) {
   halign = ALIGN_LEFT
   valign = ALIGN_CENTER
   size = flex()
-  cursor = cursors.normal
   children = {
     key = "RespawnBlock"
     size = [fsh(30), SIZE_TO_CONTENT]

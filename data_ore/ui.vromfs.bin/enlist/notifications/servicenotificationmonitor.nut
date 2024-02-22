@@ -1,14 +1,14 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { hexStringToInt } = require("%sqstd/string.nut")
 let { warningColor } = require("%enlSqGlob/ui/viewConst.nut")
-let { subscribe } = require("%enlSqGlob/notifications/matchingNotifications.nut")
+let { subscribe } = require("%enlSqGlob/ui/notifications/matchingNotifications.nut")
 let { serviceNotificationsList, serviceNotificationsListUpdate } = require("%enlSqGlob/serviceNotificationsList.nut")
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
 let colorize = require("%ui/components/colorize.nut")
 const DEF_LIFE_TIME = 300
 
-let function filterOldAndStartTimer() {
+function filterOldAndStartTimer() {
   let curTime = serverTime.value
   let newList = serviceNotificationsList.value.filter(@(n) n.till_timestamp > curTime)
   if (newList.len() != serviceNotificationsList.value.len())

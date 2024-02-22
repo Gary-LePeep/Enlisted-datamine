@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 import "%dngscripts/ecs.nut" as ecs
 
 let { localPlayerEid } = require("%ui/hud/state/local_player.nut")
@@ -13,14 +13,14 @@ let paratroopersPointExisted = Watched(false)
 
 let showParatroopersPointProjection = Computed(@() !isReplay.value && showSquadSpawn.value && projectionOn.value)
 
-let function paratroopers_turn(on){
+function paratroopers_turn(on){
   paratroopersOn(on)
   selectedRespawnGroupId.mutate(@(v) v["paratroopers"] <- on ? 0 : -1)
   newPointSelectTimer(on ? get_sync_time() + 0.3 : -1.)
   paratroopersPointExisted(on)
 }
 
-let function delete_paratroopers_icon() {
+function delete_paratroopers_icon() {
   ecs.g_entity_mgr.sendEvent(localPlayerEid.value, CmdParatroopersPointDeleted())
   paratroopers_turn(false)
 }
@@ -52,11 +52,11 @@ ecs.register_es("paratroopers_icon_created", {
   { comps_rq = ["respawner"] }
 )
 
-let function pick_paratroopers_point(event){
+function pick_paratroopers_point(event){
   ecs.g_entity_mgr.sendEvent(localPlayerEid.value, CmdPickParatroopersPoint({coordX = event.screenX, coordY = event.screenY}))
 }
 
-let function paratroopersPointSelectorPanel(){
+function paratroopersPointSelectorPanel(){
   if (!showParatroopersPointProjection.value)
     return @(){ watch = showParatroopersPointProjection}
   return  @(){

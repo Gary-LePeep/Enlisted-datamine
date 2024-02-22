@@ -1,9 +1,9 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { getZoneWatch, visibleCurrentCapZonesEids, capZones } = require("%ui/hud/state/capZones.nut")
 let { TEAM1_COLOR_FG, DEFAULT_TEXT_COLOR } = require("%ui/hud/style.nut")
-let {safeAreaHorPadding, safeAreaVerPadding} = require("%enlSqGlob/safeArea.nut")
+let {safeAreaHorPadding, safeAreaVerPadding} = require("%enlSqGlob/ui/safeArea.nut")
 let { isReplay } = require("%ui/hud/state/replay_state.nut")
 let { showSquadSpawn, respawnSelectedEid } = require("%ui/hud/state/respawnState.nut")
 
@@ -168,7 +168,7 @@ let zonePointersWatch = [visibleZoneEids, safeAreaHorPadding, isZonesInReplayHid
   isZonesInReplayHidden]
 let memoizedMap = mkMemoizedMapSet(mkZonePointer)
 
-let function zonePointers() {
+function zonePointers() {
 
   let children = isZonesInReplayHidden.value ? null : memoizedMap(visibleZoneEids.value).values()
 

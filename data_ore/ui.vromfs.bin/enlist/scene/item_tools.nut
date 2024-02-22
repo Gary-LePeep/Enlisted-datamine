@@ -1,11 +1,11 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { transformItem } = require("transformItem.nut")
 let { Point3, TMatrix } = require("dagor.math")
 
 
-let function setItemTransformFunc(transform, data) {
+function setItemTransformFunc(transform, data) {
   if (data == null)
     return transform
 

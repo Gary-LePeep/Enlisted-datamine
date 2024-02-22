@@ -1,9 +1,9 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {Active, TextActive, TextHighlight, TextDefault} = require("%ui/style/colors.nut")
 let fontIconButton = require("%ui/components/fontIconButton.nut")
 
-let function buildContactsButton(selected = Watched(false), onClick = @() null,
+function buildContactsButton(selected = Watched(false), onClick = @() null,
     children = null, symbol = "users", enabled = Watched(true)
 ) {
   if (onClick == null)

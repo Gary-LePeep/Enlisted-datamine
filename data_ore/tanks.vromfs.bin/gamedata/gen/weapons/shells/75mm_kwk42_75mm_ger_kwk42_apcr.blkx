@@ -21,6 +21,9 @@
   "bulletType": "apcr_tank",
   "slopeEffectPreset": "apcr",
   "fresnel": [0.23,0.1,2.0],
+  "modelName": "tank_shell_apbc",
+  "gbufferModelName": "tank_shell_apbc",
+  "penetratorModelName": "tank_shell_apds_su",
   "bulletName": "75mm_pzrg_40_42",
   "breakingArmorThicknessEffective": true,
   "breakingArmorThickness": [10.0,300.0],
@@ -30,7 +33,6 @@
   "relativeVelArmorShift": [200.0,1000.0],
   "waterRicochetEffect": "hit_59_80mm_water",
   "groundRicochetEffect": "hit_59_80mm_dirt_ap",
-  "modelName": "tank_bullet_apcr",
   "stabilityRicochetModifier": {
     "mod1": [0.0,0.2],
     "mod2": [20.0,0.45],

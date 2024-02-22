@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { midPadding, defItemBlur } = require("%enlSqGlob/ui/designConst.nut")
 let canDisplayOffers = require("%enlist/canDisplayOffers.nut")
@@ -6,19 +6,19 @@ let { nestWatched } = require("%dngscripts/globalState.nut")
 let { get_setting_by_blk_path } = require("settings")
 let { getPromoUrl } = require("%ui/networkedUrls.nut")
 let { openUrl, AuthenticationMode } = require("%ui/components/openUrl.nut")
-let eventbus = require("eventbus")
+let { eventbus_subscribe } = require("eventbus")
 let { httpRequest, HTTP_SUCCESS } = require("dagor.http")
 let { parse_json } = require("json")
 let { send_counter } = require("statsd")
 let { isBrowserClosed } = require("%ui/components/browserWidget.nut")
 let { addModalWindow, removeModalWindow } = require("%ui/components/modalWindows.nut")
 let closeBtnBase = require("%ui/components/closeBtn.nut")
-let { isLoggedIn } = require("%enlSqGlob/login_state.nut")
+let { isLoggedIn } = require("%enlSqGlob/ui/login_state.nut")
 
 const WEB_PROMO_RECEIVED = "WEB_PROMO_RECEIVED"
 const WND_UID = "WEB_PROMO_WND"
 
-let promoUrl = get_setting_by_blk_path("promoUrl") ?? getPromoUrl()
+let promoUrl = getPromoUrl() ?? get_setting_by_blk_path("promoUrl")
 let hasSeen = nestWatched("hasSeenWebPromo", false)
 let webPromoBody = Watched(null)
 
@@ -30,7 +30,7 @@ let canShowWebPromo = keepref(Computed(@() needRequestWebPromo.value
   && canDisplayOffers.value
   && webPromoBody.value != null))
 
-let function closeWnd() {
+function closeWnd() {
   hasSeen(true)
   removeModalWindow(WND_UID)
 }
@@ -41,7 +41,7 @@ let closeButton = closeBtnBase({
   onClick = closeWnd
 })
 
-let function requestWebPromo() {
+function requestWebPromo() {
   let request = {
     method = "GET"
     url = promoUrl
@@ -50,7 +50,7 @@ let function requestWebPromo() {
   httpRequest(request)
 }
 
-eventbus.subscribe(WEB_PROMO_RECEIVED, tryCatch(
+eventbus_subscribe(WEB_PROMO_RECEIVED, tryCatch(
   function(response) {
     let { status, http_code } = response
     if (status != HTTP_SUCCESS || http_code == null
@@ -66,7 +66,7 @@ eventbus.subscribe(WEB_PROMO_RECEIVED, tryCatch(
   }
 ))
 
-let function showWebPromo() {
+function showWebPromo() {
   let { picUrl = null, jumpUrl = null } = webPromoBody.value
   if (picUrl == null)
     return

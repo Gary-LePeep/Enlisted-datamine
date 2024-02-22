@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 from "%darg/laconic.nut" import *
 
 let { uiInEditorUpdate, editorActivnessUpdate } = require("%enlSqGlob/editorState.nut")
@@ -13,8 +13,7 @@ local editorIsActive = Watched(false)
 local editorFreeCam  = Watched(false)
 local initRISelect   = @(_a,_b) null
 local proceedWithSavingUnsavedChanges = @(...) false
-let daEditor4 = require_optional("daEditor4")
-if (daEditor4 != null) {
+if (require_optional("daEditorEmbedded") != null) {
   editor = require_optional("%daeditor/editor.nut")
   editorState = require_optional("%daeditor/state.nut")
   showUIinEditor = editorState?.showUIinEditor ?? showUIinEditor
@@ -66,7 +65,7 @@ if (entity_editor != null) {
   add_entity_save_order_comp("battle_area__")
 }
 
-let function hideDebugButtons() {
+function hideDebugButtons() {
   let {showDebugButtons=null} = require_optional("%daeditor/state.nut")
   if (showDebugButtons!=null)
     showDebugButtons(false)

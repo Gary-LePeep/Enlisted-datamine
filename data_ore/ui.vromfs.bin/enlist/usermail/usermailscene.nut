@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { sceneWithCameraAdd, sceneWithCameraRemove
@@ -38,7 +38,7 @@ let noMessagesTitle = {
   text = loc("mail/no_messages")
 }.__update(fontBody)
 
-let function mkRewards(rewards, hasReceived = true) {
+function mkRewards(rewards, hasReceived = true) {
   if (rewards.len() == 0)
     return null
 
@@ -53,7 +53,7 @@ let function mkRewards(rewards, hasReceived = true) {
   }
 }
 
-let function messageRow(message, idx) {
+function messageRow(message, idx) {
   let { text, guid, cTime, isReceived = false, endTime = 0, rewards = [] } = message
   return watchElemState(function(sf){
     if (cTime > serverTime.value)
@@ -131,7 +131,7 @@ let lettersBlock = @(lettrs) lettrs.len() <= 0 ? noMessagesTitle
     }
 )
 
-let function centralBlock(){
+function centralBlock(){
   let children = []
   if (letters.value.len() > 0)
     children.append(lettersBlock(letters.value))
@@ -170,7 +170,7 @@ let mailWindow = {
   ]
 }
 
-let function openMailWindow(){
+function openMailWindow(){
   requestLetters()
   hasUnseenLetters(false)
   sceneWithCameraAdd(mailWindow, "events")

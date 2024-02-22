@@ -1,4 +1,3 @@
-from "%enlSqGlob/ui_library.nut" import *
 from "iostream" import blob
 
 /*
@@ -22,18 +21,18 @@ shortKeyValue(t, 32) == "{success- data{count:1 flags[+,+*"
 //#strict
 
 
-let function Comma(char = ',') {
+function Comma(char = ',') {
   let ch = char
   local i  = 0
   return function(stream) { if (i++ > 0) stream.writen(ch, 'c') }
 }
 
 
-let function dumpValue(value) {
+function dumpValue(value) {
   local lookup
   let stream = blob()
 
-  let function _foreach (val, decor) {
+  function _foreach (val, decor) {
     stream.writen(decor[0], 'c')
     let comma = Comma(decor[1])
     foreach (v in val) {
@@ -60,11 +59,11 @@ let function dumpValue(value) {
 
 
 
-let function dumpKeyValue(value) {
+function dumpKeyValue(value) {
   local lookup
   let stream = blob()
 
-  let function _elem(key, separator, str) {
+  function _elem(key, separator, str) {
     if (key != "") {
       stream.writestring(key)
       stream.writestring(separator)
@@ -72,7 +71,7 @@ let function dumpKeyValue(value) {
     stream.writestring(str)
   }
 
-  let function _foreach (key, val, decor, short=false) {
+  function _foreach (key, val, decor, short=false) {
     stream.writestring(key)
     stream.writen(decor[0], 'c')
     let comma = Comma(decor[1])
@@ -105,7 +104,7 @@ let function dumpKeyValue(value) {
 }
 
 
-let function cut(stream, maxLen) {
+function cut(stream, maxLen) {
   if (stream.len() > maxLen) {
     stream.resize(maxLen)
     stream.writestring("*")

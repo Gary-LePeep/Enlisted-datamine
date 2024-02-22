@@ -1,0 +1,81 @@
+{
+  "bulletCount": 25,
+  "mass": 7.62,
+  "caliber": 0.09,
+  "damageMass": 3.6,
+  "ballisticCaliber": 0.09,
+  "damageCaliber": 0.0381,
+  "speed": 1021.0,
+  "Cx": 0.28,
+  "maxDistance": 10000.0,
+  "normalizationPreset": "apcr",
+  "ricochetPreset": "apcr",
+  "groundRicochetPreset": "apcr",
+  "secondaryShattersPreset": "apcr",
+  "stabilityThreshold": 0.05,
+  "stabilityCaliberToArmorThreshold": 5.0,
+  "stabilityReductionAfterRicochet": 0.5,
+  "stabilityReductionAfterPenetration": 0.0,
+  "stucking": 0.7,
+  "stuckingAngle": 45.0,
+  "bulletType": "apcr_tank",
+  "slopeEffectPreset": "apcr",
+  "fresnel": [0.23,0.1,2.0],
+  "modelName": "tank_shell_apbc",
+  "gbufferModelName": "tank_shell_apbc",
+  "penetratorModelName": "tank_shell_apds_su",
+  "bulletName": "90mm_m304",
+  "breakingArmorThicknessEffective": true,
+  "breakingArmorThickness": [10.0,300.0],
+  "breakingCriticalSpeed": 1000.0,
+  "breakingDistance": 0.05,
+  "relativeVelHitShift": [300.0,1000.0],
+  "relativeVelArmorShift": [200.0,1000.0],
+  "waterRicochetEffect": "hit_81_105mm_water_ap",
+  "groundRicochetEffect": "hit_81_105mm_dirt_ap",
+  "stabilityRicochetModifier": {
+    "mod1": [0.0,0.2],
+    "mod2": [20.0,0.45],
+    "mod3": [30.0,0.6],
+    "mod4": [50.0,1.0]
+  },
+  "hitpower": {
+    "HitPower0m": [1.0,300.0],
+    "HitPower1000m": [0.7,1000.0],
+    "HitPower1500m": [0.6,1500.0],
+    "HitPower2500m": [0.6,2500.0],
+    "HitPower10000m": [0.5,10000.0]
+  },
+  "damage": {
+    "kinetic": {
+      "damageType": "generic",
+      "demarrePenetrationK": 0.65,
+      "demarreSpeedPow": 1.43,
+      "demarreMassPow": 0.71,
+      "demarreCaliberPow": 1.07
+    },
+    "breakingScaleByArmor": {
+      "mod0": [5.0,1.0],
+      "mod1": [10.0,0.8],
+      "mod2": [40.0,0.5]
+    },
+    "breakingScaleByAir": {
+      "mod0": [0.05,1.0],
+      "mod1": [0.2,0.7],
+      "mod2": [0.5,0.5]
+    }
+  },
+  "visual": {
+    "range_percent_of_ammo": [100.0,0.0],
+    "traceFreq": 1,
+    "tracer": "30mmRed",
+    "trail": "black"
+  },
+  "kineticDamage": {
+    "damageType": "generic"
+  },
+  "tracer": {
+    "headColor": "#ff0f0fff",
+    "smokeColor": "#505050ba"
+  }
+}

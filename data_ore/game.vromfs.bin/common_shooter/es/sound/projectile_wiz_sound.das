@@ -11,7 +11,7 @@ require strings
 require game.es.camera_common
 
 
-[es(tag=sound, on_event=ParallelUpdateFrameDelayed, after=trace_scene_after_update_projectile_es)]
+[es(tag=sound, on_event=ParallelUpdateFrameDelayed, after=(trace_scene_after_update_projectile_es, sound_begin_update_es), before=sound_end_update_es)]
 def projectile_wiz_sound(evt : Event)
 
   query() <| $ [es] (wiz_sound_settings__caliberToDist : float4;

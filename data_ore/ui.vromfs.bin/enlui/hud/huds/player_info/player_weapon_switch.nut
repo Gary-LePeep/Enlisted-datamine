@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {selfHealMedkits} = require("%ui/hud/state/total_medkits.nut")
 let {fastThrowExclusive, weaponSlots, EWS_NUM } = require("%ui/hud/state/hero_weapons.nut")
@@ -27,7 +27,7 @@ let binocularWidget = weaponWidget({ weaponState = binocularInfo, hint = getWeap
 
 let flaskHint = getWeaponHotkeyWidget("Inventory.UseFlask", true)
 
-let function weaponItems() {
+function weaponItems() {
   let children = clone mainWeapons
 
   if (hasHeroBinocular.value) {

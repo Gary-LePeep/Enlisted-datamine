@@ -14,7 +14,7 @@ let getMemberData = @(playerEid, guid) soldierStatsQuery(playerEid, @(_, comp) c
 
 let getSoldierInfoQuery = ecs.SqQuery("getSoldierInfoQuery", { comps_ro = [["guid", ecs.TYPE_STRING], ["squad_member__playerEid", ecs.TYPE_EID]] })
 
-let function onEntityDied(evt, _eid, _comp) {
+function onEntityDied(evt, _eid, _comp) {
   let victimEid = evt.victim
 
   let victim = getSoldierInfoQuery(victimEid, @(_, comp) comp) ?? {}
@@ -32,7 +32,7 @@ let function onEntityDied(evt, _eid, _comp) {
   victimData.previousLifeScore = calcSoldierScore(victimData, isNoBotsMode())
 }
 
-let function sendSquadStatsToPlayer(stats, playerEid, connid) {
+function sendSquadStatsToPlayer(stats, playerEid, connid) {
   if (stats.len() == 0)
     return
   let connectionsToSend = has_network() ? connid
@@ -139,7 +139,7 @@ let squadStatsFilter = {
   ownedMobileSpawnUses = true
 }
 
-let function onSquadMembersStats(evt, _, __) {
+function onSquadMembersStats(evt, _, __) {
   let awardsByPlayer = {}
   let awardsByGuid = {}
   let awardsByPlayerSquad = {}

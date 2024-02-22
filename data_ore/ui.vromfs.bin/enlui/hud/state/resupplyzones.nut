@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { TEAM_UNASSIGNED } = require("team")
 let { watchedTeam } = require("%ui/hud/state/watched_hero.nut")

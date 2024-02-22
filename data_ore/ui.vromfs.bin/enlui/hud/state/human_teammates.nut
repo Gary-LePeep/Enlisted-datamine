@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { localPlayerTeam, localPlayerEid, localPlayerGroupId } = require("%ui/hud/state/local_player.nut")
 let { INVALID_GROUP_ID } = require("matching.errors")
@@ -43,7 +43,7 @@ let {
   teammatesAvatarsDestroyEid
 } = mkWatchedSetAndStorage("teammatesAvatars")
 
-let function set_human_teammates_stats(player_team, eid, comp) {
+function set_human_teammates_stats(player_team, eid, comp) {
   if (player_team != comp.team) {
     teammatesAvatarsDestroyEid(eid)
     alivePossessedTeammatesDeleteKey(eid)
@@ -121,7 +121,7 @@ let groupmatesAvatarsStorage = {}
 let groupmatesAvatarsGetWatched = @(eid) groupmatesAvatarsStorage?[eid]
 
 let groupmatesAvatarsSet = Watched({})
-let function updateGroupmatesAvatarsSetAndStorage(v){
+function updateGroupmatesAvatarsSetAndStorage(v){
   let s = v.map(function(_, eid) {
     if (eid not in groupmatesAvatarsStorage)
       groupmatesAvatarsStorage[eid] <- Computed(@() groupmatesAvatars.value?[eid]) //this looks awful but we need it
@@ -133,7 +133,7 @@ let function updateGroupmatesAvatarsSetAndStorage(v){
       toDelete.append(eid)
   }
   foreach (eid in toDelete){
-    delete groupmatesAvatarsStorage[eid]
+    groupmatesAvatarsStorage.$rawdelete(eid)
   }
   groupmatesAvatarsSet(s)
 }

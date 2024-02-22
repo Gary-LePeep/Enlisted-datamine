@@ -1,4 +1,20 @@
 {
+  "gun_smoke_none": {
+    "_group": {
+      "_tags": "render",
+      "gun_smoke_fx__amount": 0.0,
+      "gun_smoke_fx__incAmountPerShot": 0.2,
+      "gun_smoke_fx__halfLife": 4.0,
+      "gun_smoke_fx__thresholdDistSq": 30.0,
+      "gun_smoke_fx__fxEids:list<eid>": [],
+      "gun_smoke_fx__nodeIds:list<i>": [],
+      "gun_smoke_fx__nodes:shared:list<t>": [],
+      "gun_smoke_fx__template:shared:list<t>": [],
+      "gun_smoke_fx__scale:shared:list<r>": [],
+      "gun_smoke_fx__opacityMult:shared:list<r>": [],
+      "gun_smoke_fx__visibleAmountThreshold:shared:list<r>": []
+    }
+  },
   "gun_smoke_small": {
     "_group": {
       "_tags": "render",
@@ -91,6 +107,87 @@
       },
       "gun_smoke_fx__template:shared:list<t>": {
         "fx": "smoke_gun_big_effect"
+      },
+      "gun_smoke_fx__scale:shared:list<r>": {
+        "scale": 1.0
+      },
+      "gun_smoke_fx__opacityMult:shared:list<r>": {
+        "opacityMult": 1.0
+      },
+      "gun_smoke_fx__visibleAmountThreshold:shared:list<r>": {
+        "threshold": 0.1
+      }
+    }
+  },
+  "tankgun_smoke_small": {
+    "_group": {
+      "_tags": "render",
+      "gun_smoke_fx__amount": 0.0,
+      "gun_smoke_fx__incAmountPerShot": 0.5,
+      "gun_smoke_fx__halfLife": 2.0,
+      "gun_smoke_fx__thresholdDistSq": 50.0,
+      "gun_smoke_fx__offsetMultRadius": 1.0,
+      "gun_smoke_fx__fxEids:list<eid>": [],
+      "gun_smoke_fx__nodeIds:list<i>": [],
+      "gun_smoke_fx__fxOffsets:list<p3>": [],
+      "gun_smoke_fx__nodes:shared:list<t>": {
+        "node": "emtr_gun_flame"
+      },
+      "gun_smoke_fx__template:shared:list<t>": {
+        "fx": "smoke_tankgun_small_effect"
+      },
+      "gun_smoke_fx__scale:shared:list<r>": {
+        "scale": 1.0
+      },
+      "gun_smoke_fx__opacityMult:shared:list<r>": {
+        "opacityMult": 1.0
+      },
+      "gun_smoke_fx__visibleAmountThreshold:shared:list<r>": {
+        "threshold": 0.1
+      }
+    }
+  },
+  "tankgun_smoke_medium": {
+    "_group": {
+      "_tags": "render",
+      "gun_smoke_fx__amount": 0.0,
+      "gun_smoke_fx__incAmountPerShot": 0.5,
+      "gun_smoke_fx__halfLife": 2.0,
+      "gun_smoke_fx__thresholdDistSq": 50.0,
+      "gun_smoke_fx__offsetMultRadius": 1.0,
+      "gun_smoke_fx__fxEids:list<eid>": [],
+      "gun_smoke_fx__nodeIds:list<i>": [],
+      "gun_smoke_fx__fxOffsets:list<p3>": [],
+      "gun_smoke_fx__nodes:shared:list<t>": {
+        "node": "emtr_gun_flame"
+      },
+      "gun_smoke_fx__template:shared:list<t>": {
+        "fx": "smoke_tankgun_medium_effect"
+      },
+      "gun_smoke_fx__scale:shared:list<r>": {
+        "scale": 1.0
+      },
+      "gun_smoke_fx__opacityMult:shared:list<r>": {
+        "opacityMult": 1.0
+      },
+      "gun_smoke_fx__visibleAmountThreshold:shared:list<r>": {
+        "threshold": 0.1
+      }
+    }
+  },
+  "tankgun_smoke_big": {
+    "_group": {
+      "_tags": "render",
+      "gun_smoke_fx__amount": 0.0,
+      "gun_smoke_fx__incAmountPerShot": 0.5,
+      "gun_smoke_fx__halfLife": 2.0,
+      "gun_smoke_fx__thresholdDistSq": 50.0,
+      "gun_smoke_fx__offsetMultRadius": 1.0,
+      "gun_smoke_fx__fxEids:list<eid>": [],
+      "gun_smoke_fx__nodeIds:list<i>": [],
+      "gun_smoke_fx__fxOffsets:list<p3>": [],
+      "gun_smoke_fx__template:shared:list<t>": {
+        "fx": "smoke_tankgun_big_effect"
       },
       "gun_smoke_fx__scale:shared:list<r>": {
         "scale": 1.0

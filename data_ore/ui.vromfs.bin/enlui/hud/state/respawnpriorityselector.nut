@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {needSpawnMenu, selectedRespawnGroupId, canUseRespawnbaseByType} = require("%ui/hud/state/respawnState.nut")
 let {localPlayerTeam} = require("%ui/hud/state/local_player.nut")
@@ -11,7 +11,7 @@ let groupRespawnsGroupsQuery = ecs.SqQuery("groupRespawnGroupsQuery", {
   ]
 })
 
-let function getRespawnGroups(forTeam, exludeEid = ecs.INVALID_ENTITY_ID) {
+function getRespawnGroups(forTeam, exludeEid = ecs.INVALID_ENTITY_ID) {
   let respawnGroups = {}
   groupRespawnsGroupsQuery(function(eid, comps) {
     if (comps.team == forTeam && comps.respawnIconType == canUseRespawnbaseByType.value && exludeEid != eid)
@@ -20,7 +20,7 @@ let function getRespawnGroups(forTeam, exludeEid = ecs.INVALID_ENTITY_ID) {
   return respawnGroups
 }
 
-let function updateSelectedRespawnGroup(exludeEid = ecs.INVALID_ENTITY_ID) {
+function updateSelectedRespawnGroup(exludeEid = ecs.INVALID_ENTITY_ID) {
   if (!needSpawnMenu.value)
     return
   let respawnGroups = getRespawnGroups(localPlayerTeam.value, exludeEid)

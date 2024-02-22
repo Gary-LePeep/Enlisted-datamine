@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { get_country_code } = require("auth")
@@ -21,7 +21,7 @@ let isCountryProhibited = Computed(function() {
   return prohibitionCountriesList?[get_country_code()] ?? false
 })
 
-let function checkLootRestriction(cb, content, crateContent) {
+function checkLootRestriction(cb, content, crateContent) {
   if (!isCountryProhibited.value || skipCountryCheck.value || !isLootBoxProhibited.value) {
     cb?()
     return
@@ -35,14 +35,14 @@ let function checkLootRestriction(cb, content, crateContent) {
     return
   }
 
-  let function onDecline() {
+  function onDecline() {
     // user abandons country
     skipCountryCheck(true)
     setProhibitingLootbox(ProhibitionStatus.Allowed)
     cb?()
   }
 
-  let function onAccept() {
+  function onAccept() {
     // user accepts country
     showMessageWithContent({
       content = {

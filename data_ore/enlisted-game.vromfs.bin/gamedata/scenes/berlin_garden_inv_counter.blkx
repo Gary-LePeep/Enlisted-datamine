@@ -1288,13 +1288,14 @@
         [0.308762,0.0,-0.951132],
         [458.397,3.22786,-514.966]
       ],
+      "capzone__capRewardPartCap": 1.125,
       "sphere_zone__radius": 13.5,
       "groupName": "sector_1_a",
       "capzone__onlyTeamCanCapture": 2,
       "capzone__capReward": 250.0,
       "capzone__icon": "AAA",
       "capzone__caption": "capzone/hitlers_bunker",
-      "capzone__capTime": 60.0,
+      "capzone__capTime": 30.0,
       "capzone__decapTime": 6000.0,
       "capzone__capTeam": -1,
       "active": false,
@@ -1319,13 +1320,14 @@
         [0.813271,0.0,0.581873],
         [467.816,3.22786,-467.551]
       ],
+      "capzone__capRewardPartCap": 1.125,
       "sphere_zone__radius": 13.5,
       "groupName": "sector_1_b",
       "capzone__onlyTeamCanCapture": 2,
       "capzone__capReward": 250.0,
       "capzone__icon": "AAA",
       "capzone__caption": "capzone/garage",
-      "capzone__capTime": 60.0,
+      "capzone__capTime": 50.0,
       "capzone__decapTime": 6000.0,
       "capzone__capTeam": -1,
       "active": false,
@@ -1351,12 +1353,12 @@
         [348.41,4.86659,-474.081]
       ],
       "groupName": "sector_2",
-      "capzone__capRewardPartCap": 1.5,
+      "capzone__capRewardPartCap": 1.25,
       "capzone__onlyTeamCanCapture": 2,
       "capzone__capReward": 250.0,
       "capzone__icon": "AAA",
       "capzone__caption": "capzone/greenhouse",
-      "capzone__capTime": 60.0,
+      "capzone__capTime": 40.0,
       "capzone__decapTime": 6000.0,
       "capzone__capTeam": -1,
       "active": false,
@@ -1387,7 +1389,7 @@
       "capzone__capReward": 250.0,
       "capzone__icon": "AAA",
       "capzone__caption": "capzone/ministry_gardens",
-      "capzone__capTime": 60.0,
+      "capzone__capTime": 30.0,
       "capzone__decapTime": 6000.0,
       "capzone__capTeam": -1,
       "active": false,
@@ -1407,6 +1409,9 @@
         },
         {
           "item": [313.29,3.70422,-338.648]
+        },
+        {
+          "item": [313.371,1.47988,-338.335]
         },
         {
           "item": [312.022,3.68319,-335.423]
@@ -1439,19 +1444,13 @@
           "item": [342.203,3.29905,-318.873]
         },
         {
-          "item": [343.928,10.108,-318.537]
-        },
-        {
-          "item": [343.399,4.60455,-319.897]
+          "item": [344.345,9.15754,-318.717]
         },
         {
           "item": [347.136,3.29909,-323.122]
         },
         {
           "item": [349.142,3.26265,-325.349]
-        },
-        {
-          "item": [350.393,1.48834,-325.881]
         },
         {
           "item": [350.275,3.16104,-327.729]
@@ -1502,7 +1501,7 @@
       "capzone__capReward": 250.0,
       "capzone__icon": "AAA",
       "capzone__caption": "capzone/warehouse",
-      "capzone__capTime": 60.0,
+      "capzone__capTime": 30.0,
       "capzone__decapTime": 6000.0,
       "capzone__capTeam": -1,
       "active": false,
@@ -1517,9 +1516,6 @@
         "sector_4_a": 1.0
       },
       "poly_area__points:list<p3>": [
-        {
-          "item": [216.636,6.23657,-388.139]
-        },
         {
           "item": [217.908,4.55684,-378.027]
         },
@@ -1563,7 +1559,7 @@
           "item": [240.671,3.29417,-384.005]
         },
         {
-          "item": [239.954,1.96496,-383.811]
+          "item": [240.088,0.78652,-383.787]
         },
         {
           "item": [223.924,3.2986,-388.993]
@@ -1584,12 +1580,12 @@
         [281.203,5.93737,-266.986]
       ],
       "groupName": "sector_4_a",
-      "capzone__capRewardPartCap": 1.25,
+      "capzone__capRewardPartCap": 1.5,
       "capzone__onlyTeamCanCapture": 2,
       "capzone__capReward": 250.0,
       "capzone__icon": "AAA",
       "capzone__caption": "capzone/goebbels_villa",
-      "capzone__capTime": 50.0,
+      "capzone__capTime": 60.0,
       "capzone__decapTime": 6000.0,
       "capzone__capTeam": -1,
       "active": false,
@@ -1614,12 +1610,12 @@
         [285.616,12.2479,-266.71]
       ],
       "groupName": "sector_4_b",
-      "capzone__capRewardPartCap": 1.25,
+      "capzone__capRewardPartCap": 1.5,
       "capzone__onlyTeamCanCapture": 2,
       "capzone__capReward": 250.0,
       "capzone__icon": "AAA",
       "capzone__caption": "capzone/goebbels_villa",
-      "capzone__capTime": 50.0,
+      "capzone__capTime": 60.0,
       "capzone__decapTime": 6000.0,
       "capzone__capTeam": -1,
       "active": false,
@@ -1644,12 +1640,12 @@
         [249.232,5.28247,-197.692]
       ],
       "groupName": "sector_5",
-      "capzone__capRewardPartCap": 1.125,
+      "capzone__capRewardPartCap": 1.0,
       "capzone__onlyTeamCanCapture": 2,
       "capzone__capReward": 250.0,
       "capzone__icon": "AAA",
       "capzone__caption": "capzone/american_embassy",
-      "capzone__capTime": 70.0,
+      "capzone__capTime": 60.0,
       "capzone__decapTime": 6000.0,
       "capzone__capTeam": -1,
       "active": false,
@@ -1743,7 +1739,7 @@
         [-0.0131558,0.0,-0.999915],
         [0.0,1.0,0.0],
         [0.999915,0.0,-0.0131558],
-        [346.585,4.08246,-475.741]
+        [348.262,4.08246,-474.178]
       ],
       "active": false,
       "groupName": "sector_2",
@@ -1758,7 +1754,7 @@
         [-0.121533,0.0,-0.992587],
         [0.0,1.0,0.0],
         [0.992587,0.0,-0.121533],
-        [338.093,3.78873,-333.067]
+        [340.639,3.78872,-327.562]
       ],
       "team": 1,
       "groupName": "sector_3_a",

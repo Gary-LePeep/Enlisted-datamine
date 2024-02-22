@@ -1,8 +1,8 @@
-from "%enlSqGlob/ui_library.nut" import gui_scene, mkWatched, Computed, Watched, log
+from "%enlSqGlob/ui/ui_library.nut" import gui_scene, mkWatched, Computed, Watched, log
 
 let console_register_command = require("console").register_command
 let {set_actions_binding_column_active} = require("dainput2")
-let eventbus = require("eventbus")
+let { eventbus_send, eventbus_subscribe } = require("eventbus")
 let platform = require("%dngscripts/platform.nut")
 let controlsTypes = require("controls_types.nut")
 let forcedControlsType = mkWatched(persist, "forcedControlsType")
@@ -19,7 +19,7 @@ let def = platform.isTouchPrimary
 let lastActiveControlsType = mkWatched(persist, "lastActiveControlType", def)
 
 const EV_FORCE_CONTROLS_TYPE = "forced_controls_type"
-let function setForcedControlsType(v){
+function setForcedControlsType(v){
   forcedControlsType(v)
 }
 
@@ -29,12 +29,12 @@ enum ControlsTypes {
   GAMEPAD = 2
 }
 
-console_register_command(@(value) eventbus.send(EV_FORCE_CONTROLS_TYPE, {val=value}), "ui.debugControlsType")
-eventbus.subscribe(EV_FORCE_CONTROLS_TYPE, @(msg) setForcedControlsType(msg.val))
+console_register_command(@(value) eventbus_send(EV_FORCE_CONTROLS_TYPE, {val=value}), "ui.debugControlsType")
+eventbus_subscribe(EV_FORCE_CONTROLS_TYPE, @(msg) setForcedControlsType(msg.val))
 
 const EV_INPUT_USED = "input_dev_used"
 
-let function update_input_types(new_val){
+function update_input_types(new_val){
   let map = {
     [1] = platform.isTouchPrimary ? controlsTypes.touch : controlsTypes.keyboardAndMouse,
     [2] = controlsTypes.x1gamepad,
@@ -51,7 +51,7 @@ forcedControlsType.subscribe(function(val) {
   update_input_types(val)
 })
 
-eventbus.subscribe(EV_INPUT_USED, function(msg) {
+eventbus_subscribe(EV_INPUT_USED, function(msg) {
   if ([null, 0].contains(forcedControlsType.value))
     update_input_types(msg.val)
 })

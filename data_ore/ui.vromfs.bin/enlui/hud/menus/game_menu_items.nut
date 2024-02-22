@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { has_network } = require("net")
 let { showSettingsMenu } = require("settings_menu.nut")
@@ -13,7 +13,7 @@ let {sendNetEvent, CmdGetDebriefingResult, CmdGetBattleResult} = require("daseve
 let msgbox = require("%ui/components/msgbox.nut")
 let { isTutorial } = require("%ui/hud/tutorial/state/tutorial_state.nut")
 let { isPractice } = require("%ui/hud/state/practice_state.nut")
-let eventbus = require("eventbus")
+let { eventbus_send } = require("eventbus")
 let entity_editor = require_optional("entity_editor")
 let isSandboxEditor = @() entity_editor != null && app_is_offline_mode()
 
@@ -33,7 +33,7 @@ let exitAction = function() {
     switch_to_menu_scene()
 }
 
-let function msgExitBattle() {
+function msgExitBattle() {
   showExitGameMenu(true)
   return msgbox.show({
     text = loc("exit_game_confirmation")
@@ -45,7 +45,7 @@ let function msgExitBattle() {
   })
 }
 
-let function msgDesertBattle() {
+function msgDesertBattle() {
   showExitGameMenu(true)
   return msgbox.showMessageWithContent({
     content = {
@@ -85,7 +85,7 @@ let btnExitGame = {
     : loc("sandboxeditor/exitSandbox", "Exit Sandbox")
   action = function() {
     if (isSandboxEditor()) {
-      eventbus.send("sandbox_editor.quit", null)
+      eventbus_send("sandbox_editor.quit", null)
       return
     }
     if (isTutorial.value || isPractice.value) {

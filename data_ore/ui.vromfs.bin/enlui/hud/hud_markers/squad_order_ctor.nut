@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { MY_SQUAD_TEXT_COLOR } = require("%ui/hud/style.nut")
 let { makeArrow } = require("%ui/hud/hud_markers/components/hud_markers_components.nut")

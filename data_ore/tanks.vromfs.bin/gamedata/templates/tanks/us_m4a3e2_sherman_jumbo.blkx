@@ -61,7 +61,7 @@
       "_use": "base_m4a3e2_sherman_jumbo"
     },
     {
-      "_use": "tank_heavy_vehicle_tracks_sound"
+      "_use": "us_m4a3e2_sherman_jumbo_common_vehicle_sound"
     },
     {
       "commanderCockpitFpsCamMaxAngle": [40.0,5.0]
@@ -247,6 +247,17 @@
           }
         }
       ]
+    },
+    {
+      "heat_source__turretInfo:shared:array": {
+        "_tags": "render",
+        "turretInfo:object": {
+          "turretName": "turret_03",
+          "offset": [-0.1,0.04,0.19],
+          "scale": [0.4,0.2,0.1],
+          "radMult": 0.3
+        }
+      }
     }
   ],
   "us_m4a3e2_sherman_jumbo_commander_cockpit": {

@@ -65,7 +65,7 @@ def get_reverb_3d_pos()
   return pos
 
 
-[es(tag=sound, on_event=ParallelUpdateFrameDelayed, after=(animchar_render_es, start_async_phys_sim_es))] // after start_async_phys_sim_es to start phys sim job earlier
+[es(tag=sound, on_event=ParallelUpdateFrameDelayed, after=(animchar_before_render_es, start_async_phys_sim_es, sound_begin_update_es), before=sound_end_update_es)] // after start_async_phys_sim_es to start phys sim job earlier
 def reverb_sound_update(evt : Event;
                         var reverb_sound__rayId : int&;
                         var reverb_sound__intensityValue : float&;

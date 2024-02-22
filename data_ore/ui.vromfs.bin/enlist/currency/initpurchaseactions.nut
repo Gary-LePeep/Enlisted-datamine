@@ -1,10 +1,10 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { setOpenShopFunctions } = require("%enlist/currency/purchaseMsgBox.nut")
 let { buyCurrency } = require("%enlist/shop/armyShopState.nut")
 let { currenciesList } = require("%enlist/currency/currencies.nut")
 
-let function initActions() {
+function initActions() {
   let actions = {}
   foreach (currency in currenciesList.value) {
     let c = currency

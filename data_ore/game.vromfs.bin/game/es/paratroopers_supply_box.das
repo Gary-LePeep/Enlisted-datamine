@@ -247,10 +247,18 @@ def paratroopers_supply_box_landing(upd : CmdPostPhysUpdate;
 [es(tag=server, track=supply_box__hasLanded)]
 def paratroopers_supply_box_recreate_after_landing(evt : Event;
                                                    eid : EntityId;
+                                                   transform : float3x4;
                                                    supply_box__hasLanded : bool;
                                                    supply_box__deployedTemplate : string)
   if supply_box__hasLanded
-    remote_recreate_entity_from(eid, supply_box__deployedTemplate)
+    remote_recreate_entity_from(eid, supply_box__deployedTemplate) <| $(init)
+      init |> set("supply_box__tm", transform)
+
+[es(tag=gameClient, on_appear)]
+def paratroopers_supply_box_init_after_recreate(evt : Event;
+                                                supply_box__tm : float3x4;
+                                                var transform : float3x4&)
+  transform = supply_box__tm
 
 [es(tag=server)]
 def supply_box_human_collision_damage(evt : EventOnCollision;

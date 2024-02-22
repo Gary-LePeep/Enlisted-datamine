@@ -35,7 +35,7 @@ def aircraft_state_update(info : UpdateStageInfoAct;
                           var plane_net_phys : PlaneActor&)
   aircraft__isCapableOfTakeOffAndFly = plane_net_phys.phys.isCapableOfTaxi && !plane_net_phys.phys.isAnyInoperable
   for i, engineState in range(plane_net_phys.phys.EI.numEngines), aircraftStateEngine
-    propulsion_get_engine(*plane_net_phys.phys.EI, i) <| $(engine)
+    propulsion_getEngine(*plane_net_phys.phys.EI, i) <| $(engine)
       if engine.readyness < aircraft_state_engine__destroyedTreshold
         engineState.aircraft_state_engine__damageStage = uint8(2)
       elif engine.readyness < aircraft_state_engine__damagedTreshold

@@ -1,6 +1,5 @@
 "@override:__allowedConfigOverrides"{
   "@override:video"{
-    "@delete:resolution":t=""
   }
   "@override:graphics"{
     "@override:__exclude_allow"{
@@ -39,6 +38,7 @@
 }
 
 "@override:dx12"{
+  processUserBarriers:b=no
   onlyPreallocatedHeaps:b=yes
   preallocHeap { sizeMB:i=2084; }
   preallocHeap { sizeMB:i=96;   cpuCached:b=yes; }

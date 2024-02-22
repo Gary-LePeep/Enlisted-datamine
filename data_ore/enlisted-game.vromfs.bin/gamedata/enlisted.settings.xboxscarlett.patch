@@ -13,6 +13,7 @@
 }
 
 "@override:dx12"{
+  processUserBarriers:b=no
   onlyPreallocatedHeaps:b=no
   preallocHeap { sizeMB:i=1024; }
   preallocHeap { sizeMB:i=32;   cpuCached:b=yes; }

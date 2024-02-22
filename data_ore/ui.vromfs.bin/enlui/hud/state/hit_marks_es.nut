@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { TEAM_UNASSIGNED } = require("team")
 let {DmProjectileHitNotification, DM_PROJECTILE, DM_MELEE, DM_BACKSTAB } = require("dm")
@@ -23,17 +23,17 @@ let showWorldKillMark = Watched(true)
 let hitMarks = mkWatched(persist, "hits", [])
 let killMarks = mkWatched(persist, "killMarks", [])
 
-let function mkRemoveHitMarkById(state, id){
+function mkRemoveHitMarkById(state, id){
   return function(){
     state.update(state.value.filter((@(mark) mark.id!=id)))
   }
 }
 
-let function removePreviousHitmarksByVictimEid(state, eid) {
+function removePreviousHitmarksByVictimEid(state, eid) {
   state(state.value.filter((@(mark) mark.victimEid != eid)))
 }
 
-let function addMark(hitMark, state, ttl){
+function addMark(hitMark, state, ttl){
   state.mutate(function(v){
     return v.append(hitMark.__merge({ttl=ttl})) // warning disable: -unwanted-modification
   })
@@ -51,11 +51,11 @@ worldKillTtl.subscribe(@(v) cachedWorldKillTtl = v)
 local cachedShowWorldKillMark = showWorldKillMark.value
 showWorldKillMark.subscribe(@(v) cachedShowWorldKillMark = v)
 
-let function addHitMark(hitMark){
+function addHitMark(hitMark){
   addMark(hitMark, hitMarks, cachedHitTtl)
 }
 
-let function addKillMark(hitMark){
+function addKillMark(hitMark){
   let victim = hitMark?.victimEid
   if (hitMark?.killPos == null || victim == null)
     return
@@ -77,7 +77,7 @@ let getVictimImmunityTimerQuery = ecs.SqQuery("getVictimImmunityTimerQuery", {
 })
 
 const DM_DIED = "DM_DIED"
-let function onHit(victimEid, _offender, extHitPos, damageType, hitRes) {
+function onHit(victimEid, _offender, extHitPos, damageType, hitRes) {
   counter++
   let time = get_time_msec()
 
@@ -119,7 +119,7 @@ let getHitmarksGroupsId = ecs.SqQuery("getHitmarksGroupsId", {comps_ro=[
   ["hitmarks__groupsIds", ecs.TYPE_INT_LIST]
 ]})
 
-let function onProjectileHit(evt, eid, comp) {
+function onProjectileHit(evt, eid, comp) {
   let victimEid = evt[0]
   let hitPos = evt[1]
   let hitmarksGroupsId = getHitmarksGroupsId(comp.human_anim__vehicleSelected, @(_, vehComp) vehComp.hitmarks__groupsIds.getAll()) ?? []
@@ -129,7 +129,7 @@ let function onProjectileHit(evt, eid, comp) {
   onHit(victimEid, eid, hitPos, DM_PROJECTILE, HitResult.HIT_RES_NORMAL)
 }
 
-let function onEntityHit(evt, _eid, _comp) {
+function onEntityHit(evt, _eid, _comp) {
   let victimEid = evt.victim
   let offender = evt.offender
   local victimTeam = TEAM_UNASSIGNED
@@ -144,7 +144,7 @@ let function onEntityHit(evt, _eid, _comp) {
     onHit(victimEid, offender, evt.hitPos, evt.damageType, hitRes)
 }
 
-let function onEntityDied(evt, _eid, _comp) {
+function onEntityDied(evt, _eid, _comp) {
   let { victim, offender } = evt
   local victimTeam = TEAM_UNASSIGNED
   getVictimTeamQuery.perform(victim, @(_eid, comp) victimTeam = comp["team"])

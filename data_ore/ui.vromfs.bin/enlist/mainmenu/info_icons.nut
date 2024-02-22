@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let cursors = require("%ui/style/cursors.nut")
 let picSz = hdpxi(54)
@@ -7,7 +7,7 @@ let { serverResponseError } = require("%enlist/matchingClient.nut")
 
 let isSavingData = Watched(false)
 
-let function pic(name) {
+function pic(name) {
   return Picture("ui/skin#info/{0}.svg:{1}:{1}:K".subst(name, picSz))
 }
 

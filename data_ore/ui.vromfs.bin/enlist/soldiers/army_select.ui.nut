@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { isGamepad } = require("%ui/control/active_controls.nut")
 let { mkHotkey } = require("%ui/components/uiHotkeysHint.nut")
@@ -24,10 +24,10 @@ let sound = freeze({
   click = "ui/enlist/button_click"
 })
 
-let function mkArmyBtn(armyId, action = @(a) selectArmy(a)) {
+function mkArmyBtn(armyId, action = @(a) selectArmy(a)) {
   let isSelected = Computed(@() armyId == curArmy.value)
   let icon = mkArmyIcon(armyId, sizeIcon, {margin = 0})
-  let function builder(sf) {
+  function builder(sf) {
     let colorIcon = (sf & S_HOVER) && !isSelected.value
       ? colorGray
       : hoverSlotBgColor
@@ -79,7 +79,7 @@ let function mkArmyBtn(armyId, action = @(a) selectArmy(a)) {
   return watchElemState(builder)
 }
 
-let function switchArmy(delta) {
+function switchArmy(delta) {
   let armies = curArmiesList.value ?? []
   let curArmyIdx = armies.indexof(curArmy.value) ?? 0
   let newArmyId = armies?[curArmyIdx + delta]

@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let scrollbar = require("%ui/components/scrollbar.nut")
@@ -34,7 +34,7 @@ let crossPlayInfo = @(){
     : null
 }.__update(fontSub)
 
-local function playerElem(columns, params, idx, playerData = null, borderColor = 0x00000000, slots=null, isMyTeam = false) {
+function playerElem(columns, params, idx, playerData = null, borderColor = 0x00000000, slots=null, isMyTeam = false) {
   playerData = clone(playerData ?? {})
   let isInMatchingSlots = slots==null ? true : idx<slots
   playerData.isInMatchingSlots <- isInMatchingSlots
@@ -95,7 +95,7 @@ let paneHeader = @(columns, params) {
 
 let getEnemyTeam = @(teams, playerTeam) teams?.findvalue(@(_, teamId) teamId != playerTeam)
 
-local function mkTeamPanel(columns, players, params, minRows, bordersColor, slots, isMyTeam) {
+function mkTeamPanel(columns, players, params, minRows, bordersColor, slots, isMyTeam) {
   slots = slots ?? players.len()
   let ret = {
     size = [flex(), SIZE_TO_CONTENT]
@@ -114,7 +114,7 @@ local function mkTeamPanel(columns, players, params, minRows, bordersColor, slot
   return ret
 }
 
-let function mkTwoColumnsTable(columns, allies, enemies, params, minRows) {
+function mkTwoColumnsTable(columns, allies, enemies, params, minRows) {
   let myTeamStr = params.myTeam.tostring()
   let enemyTeamData = getEnemyTeam(params?.teams, myTeamStr)
   let enemySlots = params?.teamsSlots[enemyTeamData?.teamId]
@@ -209,7 +209,7 @@ let STATISTICS_VIEW_PARAMS = {
   scorePrices = {}
 }
 
-local function mkTable(players, params = STATISTICS_VIEW_PARAMS) {
+function mkTable(players, params = STATISTICS_VIEW_PARAMS) {
   params = STATISTICS_VIEW_PARAMS.__merge(params)
 
   let { myTeam, localPlayerEid, localPlayerGroupId, localPlayerGroupMembers } = params

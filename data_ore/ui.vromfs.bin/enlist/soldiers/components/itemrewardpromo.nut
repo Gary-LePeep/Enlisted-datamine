@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { PrimaryFlat } = require("%ui/components/textButton.nut")
@@ -22,7 +22,7 @@ let { CAMPAIGN_NONE, isPurchaseableCampaign, isCampaignBought, campaignConfigGro
 let freemiumWnd = require("%enlist/currency/freemiumWnd.nut")
 
 
-let function freemiumPromoLink() {
+function freemiumPromoLink() {
   let { color = null } = campPresentation.value
   return {
     rendObj = ROBJ_FRAME
@@ -63,7 +63,7 @@ let mkUnlockInfo = @(t) t == null ? null : {
   }.__update(fontBody))
 }
 
-let function mkUnlockDescription(itemTpl) {
+function mkUnlockDescription(itemTpl) {
   let desc = getItemDesc(itemTpl)
   if (desc == "")
     return { size = flex() }
@@ -81,7 +81,7 @@ let function mkUnlockDescription(itemTpl) {
 
 let unlockLocTxt = loc("squads/receive")
 
-let function mkUnlockBlock(unlockInfo) {
+function mkUnlockBlock(unlockInfo) {
   if (unlockInfo == null)
     return null
 

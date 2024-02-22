@@ -11,5 +11,4 @@ struct PlaneSoundsRequiredComponents
   plane_net_phys : PlaneActor
   transform : float3x4
   isAlive : bool
-  sound_event_group : SoundEventGroup
-  sound_control__shouldPlay : bool
+  sound_control__soundEnabled : bool

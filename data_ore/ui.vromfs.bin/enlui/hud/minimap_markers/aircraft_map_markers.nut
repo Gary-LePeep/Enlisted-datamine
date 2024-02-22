@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { aircraft_markers_Set, aircraft_markers_GetWatched} = require("%ui/hud/state/aircraft_markers.nut")
 let {controlledVehicleEid} = require("%ui/hud/state/vehicle_state.nut")
@@ -10,7 +10,7 @@ let iconImg = Picture("!ui/skin#aircraft_icon.svg:{0}:{1}:K".subst(iconSz[0], ic
 
 let heroColor = Color(200,200,0,250)
 
-let function mkAircraftMapMarker(eid) {
+function mkAircraftMapMarker(eid) {
   let isHeroPlane = Computed(@() controlledVehicleEid.value == eid)
   let state = aircraft_markers_GetWatched(eid)
   let data = freeze({

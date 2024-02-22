@@ -1,23 +1,26 @@
-from "%enlSqGlob/ui_library.nut" import *
+let {Watched, Computed} = require("frp")
+let {setInterval, clearTimer, resetTimeout} = require("dagor.workcycle")
 let {readPermissions, readPenalties} = require("%enlSqGlob/permission_utils.nut")
 let {userInfo, userInfoUpdate} = require("%enlSqGlob/userInfoState.nut")
 let {appId} = require("%enlSqGlob/clientState.nut")
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
 let {char_request} = require("%enlSqGlob/charClient.nut")
+let console_register_command = require("console").register_command
+let { console_print } = require("%enlSqGlob/library_logs.nut")
 
 
-let function updateUserRightsInternal(cb = null) {
+function updateUserRightsInternal(cb = null) {
   if (userInfo.value == null)
     return
 
   let request = {
-    appid =  appId.value
+    appid =  appId
   }
 
   char_request("cln_get_user_rights", request,
     function(result) {
       if ( typeof result != "table" ) {
-        log("ERROR: invalid cln_get_user_rights result\n")
+        println("ERROR: invalid cln_get_user_rights result")
         cb?("INTERNAL_SERVER_ERROR")
         return
       }
@@ -46,12 +49,12 @@ let function updateUserRightsInternal(cb = null) {
 }
 
 let rightsUpdateTimeout = 300 //5 min
-gui_scene.setInterval(rightsUpdateTimeout, updateUserRightsInternal)
+setInterval(rightsUpdateTimeout, updateUserRightsInternal)
 
-let function updateUserRights(cb = null) {
-  gui_scene.clearTimer(updateUserRightsInternal)
+function updateUserRights(cb = null) {
+  clearTimer(updateUserRightsInternal)
   updateUserRightsInternal(cb)
-  gui_scene.setInterval(rightsUpdateTimeout, updateUserRightsInternal)
+  setInterval(rightsUpdateTimeout, updateUserRightsInternal)
 }
 
 
@@ -59,7 +62,7 @@ let activePenalties = Watched([])
 
 let penaltyExpiredTimeSec = @(p) ((p?.start.tointeger() ?? 0) + (p?.duration.tointeger() ?? 0))/1000
 
-let function recalcActivePenalties() {
+function recalcActivePenalties() {
   let time = serverTime.value
   let userPenalties = userInfo.value?.penalties.value ?? []
   let penalties = userPenalties.filter(@(p) penaltyExpiredTimeSec(p) - time > 0)
@@ -74,7 +77,7 @@ let nextPenaltyExpireTime = keepref(Computed(@() activePenalties.value.reduce(fu
 nextPenaltyExpireTime.subscribe(function(t){
   let timeleft = t - serverTime.value
   if (timeleft > 0)
-    gui_scene.resetTimeout(timeleft, recalcActivePenalties)
+    resetTimeout(timeleft, recalcActivePenalties)
 })
 userInfo.subscribe(@(_) recalcActivePenalties())
 recalcActivePenalties()

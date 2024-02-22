@@ -123,7 +123,7 @@ def human_voice_effect_on_net_cmd(evt : CmdNetHumanVoiceEffect;
     human_voice_effect__event.handle = play(evt.phrase, human_voice_sound__path, human_voice_sound__descs, sound_tags, is_watched_sound, transform[3], false)
 
 
-[es(tag=sound, no_order, on_event=ParallelUpdateFrameDelayed)]
+[es(tag=sound, on_event=ParallelUpdateFrameDelayed, after=sound_begin_update_es, before=sound_end_update_es)]
 def human_voice_effect_update(evt : Event;
                               transform : float3x4;
                               var human_voice_effect__event : SoundEvent&;

@@ -1,6 +1,6 @@
 require ecs
 require DagorInput
-require game.es.input.input_events
+require enlisted.events_enlisted
 
 
 [es(tag=input)]

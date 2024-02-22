@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {curWeaponAmmo} = require("%ui/hud/state/hero_weapons.nut")
 let {isHoldBreath, isHoldBreathAvailable} = require("%ui/hud/state/breath_state.nut")

@@ -49,6 +49,7 @@ def vehicle_spawn_validate_directed(evt : Event;
                                     eid : EntityId;
                                     transform : float3x4;
                                     spawn_validation__spreadDistance : float;
+                                    spawn_validation__additionalHeight : float;
                                     var spawn_validation__isValidated : bool&;
                                     spawn_validation__spreadDir : float3)
   if spawn_validation__isValidated
@@ -79,5 +80,6 @@ def vehicle_spawn_validate_directed(evt : Event;
   if findNewPos
     var wishTm = transform
     wishTm[3] = wishPos
+    wishTm[3][1] += spawn_validation__additionalHeight
     spawn_validation__isValidated = true
     sendEventImmediate(createdVehicleEid, [[CmdTeleportEntity newTm=wishTm, hard=false]])

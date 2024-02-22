@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let JB = require("%ui/control/gui_buttons.nut")
 let { set_clipboard_text } = require("dagor.clipboard")
@@ -15,7 +15,7 @@ let gap = hdpx(5)
 let defaultColor = 0xFFA0A0A0
 let defFilterText = mkWatched(persist, "filterText", "")
 
-let function tabButton(text, idx, curTab){
+function tabButton(text, idx, curTab){
   let stateFlags = Watched(0)
   return function(){
     let isSelected = curTab.value == idx
@@ -61,7 +61,7 @@ let textArea = @(text) {
 
 let dataToText = @(data) tostring_r(data, { maxdeeplevel = 10, compact = false })
 
-let function defaultRowFilter(rowData, rowKey, txt) {
+function defaultRowFilter(rowData, rowKey, txt) {
   if (txt == "")
     return true
   if (startswith(txt, "\"") && endswith(txt, "\""))
@@ -85,7 +85,7 @@ let function defaultRowFilter(rowData, rowKey, txt) {
   return utf8ToLower(rowData.tostring()).indexof(txt) != null
 }
 
-let function filterData(data, curLevel, filterLevel, rowFilter, countLeft) {
+function filterData(data, curLevel, filterLevel, rowFilter, countLeft) {
   let isArray = type(data) == "array"
   if (!isArray && type(data) != "table")
     return rowFilter(data, "") ? data : null
@@ -133,7 +133,7 @@ let mkFilter = @(rowFilterBase, filterArr) filterArr.len() == 0 ? @(_rowData, _k
     }
 
 local mkInfoBlockKey = 0
-let function mkInfoBlock(curTabIdx, tabs, filterText) {
+function mkInfoBlock(curTabIdx, tabs, filterText) {
   let curTabV = tabs?[curTabIdx]
   let dataWatch = curTabV?.data
   let textWatch = Watched("")
@@ -149,14 +149,14 @@ let function mkInfoBlock(curTabIdx, tabs, filterText) {
     textWatch(resText)
   }
 
-  let function timerRestart(_) {
+  function timerRestart(_) {
     gui_scene.clearTimer(recalcText)
     gui_scene.setTimeout(0.8, recalcText)
   }
   filterText.subscribe(timerRestart)
 
   mkInfoBlockKey++
-  let function copytoCb() {
+  function copytoCb() {
     log_for_user("copied to clipboard")
     set_clipboard_text(textWatch.value)
   }
@@ -211,7 +211,7 @@ let debugShopWnd = @(tabs, curTab, filterText) {
   ]
 }
 
-let function openDebugWnd(tabs, wndUid = "debugWnd", filterText = defFilterText) {
+function openDebugWnd(tabs, wndUid = "debugWnd", filterText = defFilterText) {
   let curTab = Watched(0)
   let close = @() removeModalWindow(wndUid)
 

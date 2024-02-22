@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { BtnBdNormal, borderColor } = require("%ui/style/colors.nut")
 let { unitSize } = require("%enlSqGlob/ui/viewConst.nut")
@@ -33,7 +33,7 @@ let mkProductView = @(shopItem, crateContent = null) {
   })
 }
 
-let function onSquadBuy(shopItem) {
+function onSquadBuy(shopItem) {
   let crateContent = shopItemContentCtor(shopItem)
   let productView = mkProductView(shopItem, crateContent)
 

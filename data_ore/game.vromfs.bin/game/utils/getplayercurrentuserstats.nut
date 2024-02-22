@@ -4,7 +4,7 @@ from "math" import max, abs
 let {TEAM_UNASSIGNED} = require("team")
 let {INVALID_GROUP_ID} = require("matching.errors")
 
-let function getScorePlaceStats(roundResult, team, score) {
+function getScorePlaceStats(roundResult, team, score) {
   let stats = {}
   roundResult.scoreStats?[team]?.each(function(requiredScore, stat) {
     if (score >= requiredScore)
@@ -17,7 +17,7 @@ let groupScoreQuery = ecs.SqQuery("groupScoreQuery", {
   comps_rq = ["player"]
   comps_ro = [["groupId", ecs.TYPE_INT64], ["scoring_player__score", ecs.TYPE_INT], ["scoring_player__battleTime", ecs.TYPE_FLOAT]]
 })
-let function getGroupStats(groupId) {
+function getGroupStats(groupId) {
   if (groupId == null || groupId == INVALID_GROUP_ID)
     return {}
   local score = 0
@@ -37,18 +37,18 @@ let function getGroupStats(groupId) {
   }
 }
 
-let function isTeamWon(roundResult, team) {
+function isTeamWon(roundResult, team) {
   return team != TEAM_UNASSIGNED && (roundResult.team == team) == roundResult.isWon
 }
 let isGameWithDeveloperQuery = ecs.SqQuery("isGameWithDeveloperQuery", { comps_rq = ["gameWithDeveloper"] })
 let isGameWithDeveloper = @() isGameWithDeveloperQuery(@(...) true) ?? false
 
-let function addStatValue(stats, value, addName) {
+function addStatValue(stats, value, addName) {
   if (value > 0)
     stats[addName] <- value
 }
 
-let function addStat(stats, comp, name, addName) {
+function addStat(stats, comp, name, addName) {
   addStatValue(stats, comp[name], addName)
 }
 
@@ -118,7 +118,7 @@ let getBuildingDestroyed = @(comp)
   + comp["scoring_player__enemyBuiltGunDestructions"]
   + comp["scoring_player__enemyBuiltUtilityDestructions"]
 
-let function getPlayerCurrentUserstats(comp, roundResult = null) {
+function getPlayerCurrentUserstats(comp, roundResult = null) {
   local stats = {}
 
   stats.__update(comp?.userstats?.getAll() ?? {})

@@ -1,9 +1,9 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let colorize = require("%ui/components/colorize.nut")
 let { fontHeading1, fontHeading2, fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let {spawnZonesState} = require("%ui/hud/state/spawn_zones_markers.nut")
-let {verPadding, horPadding} = require("%enlSqGlob/safeArea.nut")
+let {verPadding, horPadding} = require("%enlSqGlob/ui/safeArea.nut")
 let {secondsToTimeSimpleString} = require("%ui/helpers/time.nut")
 let { strokeStyle, bigPadding, smallPadding } = require("%enlSqGlob/ui/viewConst.nut")
 let txt = require("%ui/components/text.nut").text
@@ -35,7 +35,7 @@ let bgConfig = {
   color = defItemBlur
 }
 
-let function spawnsLeftText() {
+function spawnsLeftText() {
   let maxSpawn = localPlayerTeamInfo.value?["team__eachSquadMaxSpawns"] ?? 0
   return {
     size = [flex(), SIZE_TO_CONTENT]
@@ -102,7 +102,7 @@ let mkReasonWithTime = @(reasonTxt, timerLocId, timeVal) "{0}\n{1}{2}"
   .subst(reasonTxt, loc(timerLocId),
     colorize(attentionTxtColor, secondsToTimeSimpleString(timeVal)))
 
-let function spawnInfoBlock() {
+function spawnInfoBlock() {
   let { canSpawn = false, readinessPercent = 0, scorePrice = 0,
     isAffordable = true, squadType = null} = curSquadData.value
   let spawnInfo = [
@@ -187,7 +187,7 @@ let changeSquadParams = Computed(function() {
   }
 })
 
-let function changeSquad(dir) {
+function changeSquad(dir) {
   let idx = changeSquadParams.value.idx + dir
   if (idx in squadsList.value)
     spawnSquadId(squadsList.value[idx].squadId)

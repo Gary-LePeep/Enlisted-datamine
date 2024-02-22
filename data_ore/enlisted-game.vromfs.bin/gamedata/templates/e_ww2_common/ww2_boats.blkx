@@ -1,26 +1,39 @@
 {
-  "elco77_pt20": {
-    "_use": "base_ship",
-    "animchar__res": "elco77_pt20_char",
-    "collres__res": "elco77_pt20_collision",
-    "ship_net_phys__blk": "content/enlisted/gamedata/units/ships/elco77_pt20.blk:ShipPhys",
-    "vehicle_seats__seats:shared:array": {
-      "seats:object": {
-        "name": "driver",
-        "seatOwnsEntityControl": true,
-        "attachNode": "bone_camera_driver",
-        "attachTm": [
-          [1.0,0.0,0.0],
-          [0.0,1.0,0.0],
-          [0.0,0.0,1.0],
-          [0.0,0.0,0.0]
-        ],
-        "seatComponent": "isDriver",
-        "shouldHideOwner": true,
-        "cameraNodeName": "bone_camera_driver"
+  "elco77_pt20": [
+    {
+      "_use": "base_ship"
+    },
+    {
+      "_use": "elco77_pt20_ship_sound"
+    },
+    {
+      "animchar__res": "elco77_pt20_char"
+    },
+    {
+      "collres__res": "elco77_pt20_collision"
+    },
+    {
+      "ship_net_phys__blk": "content/enlisted/gamedata/units/ships/elco77_pt20.blk:ShipPhys"
+    },
+    {
+      "vehicle_seats__seats:shared:array": {
+        "seats:object": {
+          "name": "driver",
+          "seatOwnsEntityControl": true,
+          "attachNode": "bone_camera_driver",
+          "attachTm": [
+            [1.0,0.0,0.0],
+            [0.0,1.0,0.0],
+            [0.0,0.0,1.0],
+            [0.0,0.0,0.0]
+          ],
+          "seatComponent": "isDriver",
+          "shouldHideOwner": true,
+          "cameraNodeName": "bone_camera_driver"
+        }
       }
     }
-  },
+  ],
   "pv_sturmbot39": [
     {
       "_use": "civil_boat"
@@ -310,6 +323,9 @@
       "_use": "pushable_object"
     },
     {
+      "_use": "american_assault_boat_m1_ship_sound"
+    },
+    {
       "vehicle_seats__exitTime": 0.25
     },
     {
@@ -405,6 +421,9 @@
     },
     {
       "_use": "pushable_object"
+    },
+    {
+      "_use": "german_assault_boat_39_ship_sound"
     },
     {
       "vehicle_seats__exitTime": 0.25
@@ -505,6 +524,9 @@
     },
     {
       "_use": "pushable_object"
+    },
+    {
+      "_use": "poluglisser_pg_117_ship_sound"
     },
     {
       "vehicle_seats__exitTime": 0.25

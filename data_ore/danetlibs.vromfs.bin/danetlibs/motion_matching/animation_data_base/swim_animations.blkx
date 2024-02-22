@@ -1,6 +1,4 @@
 {
-  "tags": "idle,swim",
-  "optional_tags": "swim_underwater",
   "clips": {
     "default_animation_mask": "full_body",
     "default_tags": "swim",
@@ -172,49 +170,57 @@
       "velocity_magnitude_delta": 0.7,
       "nextClip": "swim_315"
     },
-    "swim_underwater": {
-      "tags": "swim,idle",
-      "optional_tags": "swim_underwater",
-      "velocity_direction": 0.0,
-      "velocity_magnitude": 0.0
-    },
+    "swim_underwater": [
+      {
+        "tags": "swim,idle"
+      },
+      {
+        "tags": "swim_underwater"
+      },
+      {
+        "velocity_direction": 0.0
+      },
+      {
+        "velocity_magnitude": 0.0
+      }
+    ],
     "swim_underwater_0": {
-      "optional_tags": "swim_underwater",
+      "tags": "swim_underwater",
       "velocity_direction": 0.0,
       "velocity_magnitude": 0.7
     },
     "swim_underwater_45": {
-      "optional_tags": "swim_underwater",
+      "tags": "swim_underwater",
       "velocity_direction": 45.0,
       "velocity_magnitude": 0.7
     },
     "swim_underwater_90": {
-      "optional_tags": "swim_underwater",
+      "tags": "swim_underwater",
       "velocity_direction": 90.0,
       "velocity_magnitude": 0.7
     },
     "swim_underwater_135": {
-      "optional_tags": "swim_underwater",
+      "tags": "swim_underwater",
       "velocity_direction": 135.0,
       "velocity_magnitude": 0.7
     },
     "swim_underwater_180": {
-      "optional_tags": "swim_underwater",
+      "tags": "swim_underwater",
       "velocity_direction": 180.0,
       "velocity_magnitude": 0.7
     },
     "swim_underwater_225": {
-      "optional_tags": "swim_underwater",
+      "tags": "swim_underwater",
       "velocity_direction": 225.0,
       "velocity_magnitude": 0.7
     },
     "swim_underwater_270": {
-      "optional_tags": "swim_underwater",
+      "tags": "swim_underwater",
       "velocity_direction": 270.0,
       "velocity_magnitude": 0.7
     },
     "swim_underwater_315": {
-      "optional_tags": "swim_underwater",
+      "tags": "swim_underwater",
       "velocity_direction": 315.0,
       "velocity_magnitude": 0.7
     }

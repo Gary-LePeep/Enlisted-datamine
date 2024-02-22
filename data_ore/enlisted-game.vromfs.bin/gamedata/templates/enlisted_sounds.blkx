@@ -1,371 +1,401 @@
-{
-  "base_loudspeaker_sound": [
-    {
-      "_use": "sound_control"
-    },
-    {
-      "_use": "sound_with_destroyable_ri_extra"
-    },
-    {
-      "_use": "replicating"
-    },
-    {
-      "transform": [
-        [1.0,0.0,0.0],
-        [0.0,1.0,0.0],
-        [0.0,0.0,1.0],
-        [0.0,0.0,0.0]
-      ]
-    },
-    {
+[
+  {
+    "import": "vehicle_sounds/enlisted_ground_vehicle_sounds.blk"
+  },
+  {
+    "import": "vehicle_sounds/enlisted_ship_vehicle_sounds.blk"
+  },
+  {
+    "import": "vehicle_sounds/enlisted_plane_vehicle_sounds.blk"
+  },
+  {
+    "import": "vehicle_sounds/enlisted_vehicle_speech.blk"
+  },
+  {
+    "base_loudspeaker_sound": [
+      {
+        "_use": "sound_control"
+      },
+      {
+        "_use": "sound_with_destroyable_ri_extra"
+      },
+      {
+        "_use": "replicating"
+      },
+      {
+        "transform": [
+          [1.0,0.0,0.0],
+          [0.0,1.0,0.0],
+          [0.0,0.0,1.0],
+          [0.0,0.0,0.0]
+        ]
+      },
+      {
+        "_group": {
+          "_tags": "sound",
+          "sound_control__range": 500.0
+        }
+      },
+      {
+        "_group": {
+          "_tags": "sound",
+          "loudspeaker_sound__path": "",
+          "loudspeaker_sound__event:SoundEvent": [],
+          "loudspeakerSound:tag": []
+        }
+      }
+    ]
+  },
+  {
+    "sound_effect_soviet_loudspeaker_a": {
+      "_use": "base_loudspeaker_sound",
       "_group": {
         "_tags": "sound",
-        "sound_control__range": 500.0
+        "loudspeaker_sound__path": "env_effects/propaganda_de"
       }
-    },
-    {
+    }
+  },
+  {
+    "sound_effect_soviet_loudspeaker_b": {
+      "_use": "base_loudspeaker_sound",
       "_group": {
         "_tags": "sound",
-        "loudspeaker_sound__path": "",
-        "loudspeaker_sound__event:SoundEvent": [],
-        "loudspeakerSound:tag": []
-      }
-    }
-  ],
-  "sound_effect_soviet_loudspeaker_a": {
-    "_use": "base_loudspeaker_sound",
-    "_group": {
-      "_tags": "sound",
-      "loudspeaker_sound__path": "env_effects/propaganda_de"
-    }
-  },
-  "sound_effect_soviet_loudspeaker_b": {
-    "_use": "base_loudspeaker_sound",
-    "_group": {
-      "_tags": "sound",
-      "loudspeaker_sound__path": "env_effects/propaganda_ru"
-    }
-  },
-  "blizzard_sound": {
-    "_use": "sound_effect_2d",
-    "_group": {
-      "_tags": "sound",
-      "sound_effect_2d__path": "ambient/blizzard_enl"
-    }
-  },
-  "enlisted_net_sounds": {
-    "_use": "scene_net_sounds",
-    "net_sound__descs:shared:object": {
-      "mineActivate:object": {
-        "path": "impact/mine_activate",
-        "range": 50.0
-      },
-      "aircraftArtillerySiren:object": {
-        "path": "env_effects/air_siren",
-        "range": 1000.0
-      },
-      "fortificationBuildingDestroy:object": {
-        "path": "env_effects/building/destroy",
-        "range": 100.0
+        "loudspeaker_sound__path": "env_effects/propaganda_ru"
       }
     }
   },
-  "base_rendinst_damage_sound": {
-    "_use": "replicating",
-    "rendinst_damage_sound__projectile": "",
-    "ri_extra__destroyed": false,
-    "ri_extra": [],
-    "ri_extra__handle:u64": {
-      "value": -1
+  {
+    "blizzard_sound": {
+      "_use": "sound_effect_2d",
+      "_group": {
+        "_tags": "sound",
+        "sound_effect_2d__path": "ambient/blizzard_enl"
+      }
     }
   },
-  "rendinst_damage_sound_decor_bell": {
-    "_use": "base_rendinst_damage_sound",
-    "rendinst_damage_sound__projectile": "impact/church_bell"
+  {
+    "enlisted_net_sounds": {
+      "_use": "scene_net_sounds",
+      "net_sound__descs:shared:object": {
+        "mineActivate:object": {
+          "path": "impact/mine_activate",
+          "range": 50.0
+        },
+        "aircraftArtillerySiren:object": {
+          "path": "env_effects/air_siren",
+          "range": 1000.0
+        },
+        "fortificationBuildingDestroy:object": {
+          "path": "env_effects/building/destroy",
+          "range": 100.0
+        }
+      }
+    }
   },
-  "rendinst_damage_sound_decor_bell_fallen": {
-    "_use": "base_rendinst_damage_sound",
-    "rendinst_damage_sound__projectile": "impact/church_bell_fallen"
+  {
+    "base_rendinst_damage_sound": {
+      "_use": "replicating",
+      "rendinst_damage_sound__projectile": "",
+      "ri_extra__destroyed": false,
+      "ri_extra": [],
+      "ri_extra__handle:u64": {
+        "value": -1
+      }
+    }
   },
-  "reverb_sound": {
-    "_use": "base_reverb_sound",
-    "_group": {
-      "_tags": "sound",
-      "reverb_sound__physmatAbsorption:array": {
-        "metal:object": {
-          "valueMinMax": [0.0,0.0],
-          "physmats:list<t>": [
-            {
-              "item": "steel"
-            },
-            {
-              "item": "metal"
-            },
-            {
-              "item": "train"
-            },
-            {
-              "item": "softSteelDoor"
-            },
-            {
-              "item": "glass"
-            }
-          ]
-        },
-        "stone:object": {
-          "valueMinMax": [0.2,0.2],
-          "physmats:list<t>": [
-            {
-              "item": "concrete"
-            },
-            {
-              "item": "stone"
-            },
-            {
-              "item": "buildings"
-            },
-            {
-              "item": "ceramic"
-            },
-            {
-              "item": "rocks"
-            },
-            {
-              "item": "rocksSlippery"
-            },
-            {
-              "item": "ice"
-            },
-            {
-              "item": "brick_red"
-            }
-          ]
-        },
-        "default:object": {
-          "valueMinMax": [0.2,0.2],
-          "physmats:list<t>": [
-            {
-              "item": "default"
-            },
-            {
-              "item": "horLandMesh"
-            },
-            {
-              "item": "verLandMesh"
-            },
-            {
-              "item": "small_debris"
-            },
-            {
-              "item": "small_decor"
-            },
-            {
-              "item": "bullet_transparent"
-            }
-          ]
-        },
-        "soil:object": {
-          "valueMinMax": [0.5,0.5],
-          "physmats:list<t>": [
-            {
-              "item": "soil"
-            },
-            {
-              "item": "roadSoil"
-            },
-            {
-              "item": "hard_soil"
-            }
-          ]
-        },
-        "wood:object": {
-          "valueMinMax": [0.8,0.8],
-          "physmats:list<t>": [
-            {
-              "item": "wood"
-            },
-            {
-              "item": "wood_railway"
-            },
-            {
-              "item": "window_wood"
-            },
-            {
-              "item": "softWoodDoor"
-            },
-            {
-              "item": "paper"
-            },
-            {
-              "item": "wood_snow"
-            },
-            {
-              "item": "wood_fall"
-            },
-            {
-              "item": "wood_dead"
-            },
-            {
-              "item": "wood_palm"
-            },
-            {
-              "item": "wood_solid"
-            },
-            {
-              "item": "wood_snow_solid"
-            },
-            {
-              "item": "wood_fall_solid"
-            },
-            {
-              "item": "wood_dead_solid"
-            },
-            {
-              "item": "wood_palm_solid"
-            }
-          ]
-        },
-        "max_absorption:object": {
-          "valueMinMax": [1.0,1.0],
-          "physmats:list<t>": [
-            {
-              "item": "waterPuddle"
-            },
-            {
-              "item": "water3d"
-            },
-            {
-              "item": "water"
-            },
-            {
-              "item": "bushes"
-            },
-            {
-              "item": "barbwire"
-            },
-            {
-              "item": "cactus"
-            },
-            {
-              "item": "flesh"
-            },
-            {
-              "item": "quickSand"
-            },
-            {
-              "item": "hay"
-            },
-            {
-              "item": "sand"
-            },
-            {
-              "item": "roadSand"
-            },
-            {
-              "item": "quarrySand"
-            },
-            {
-              "item": "sand_slope"
-            },
-            {
-              "item": "fabric"
-            },
-            {
-              "item": "rubber"
-            },
-            {
-              "item": "plastic"
-            },
-            {
-              "item": "snow"
-            },
-            {
-              "item": "snowLower"
-            },
-            {
-              "item": "roadSnow"
-            },
-            {
-              "item": "roadmud"
-            },
-            {
-              "item": "mud"
-            },
-            {
-              "item": "dirt"
-            },
-            {
-              "item": "lava"
-            },
-            {
-              "item": "walker"
-            },
-            {
-              "item": "walkRay"
-            },
-            {
-              "item": "climbAiRay"
-            },
-            {
-              "item": "gravel"
-            },
-            {
-              "item": "leaves"
-            },
-            {
-              "item": "moon_sand"
-            },
-            {
-              "item": "hardSnow"
-            },
-            {
-              "item": "bushes_fall"
-            },
-            {
-              "item": "bushes_snow"
-            },
-            {
-              "item": "bushes_dead"
-            },
-            {
-              "item": "bushes_palm"
-            },
-            {
-              "item": "walkerBot"
-            },
-            {
-              "item": "bulletRay"
-            },
-            {
-              "item": "aimRay"
-            },
-            {
-              "item": "cameraRay"
-            },
-            {
-              "item": "tankTrack"
-            },
-            {
-              "item": "wheel"
-            },
-            {
-              "item": "spraySpawnerRay"
-            },
-            {
-              "item": "bombCraterCast"
-            },
-            {
-              "item": "grenadeRay"
-            },
-            {
-              "item": "gunRay"
-            },
-            {
-              "item": "build_ray"
-            }
-          ]
+  {
+    "rendinst_damage_sound_decor_bell": {
+      "_use": "base_rendinst_damage_sound",
+      "rendinst_damage_sound__projectile": "impact/church_bell"
+    }
+  },
+  {
+    "rendinst_damage_sound_decor_bell_fallen": {
+      "_use": "base_rendinst_damage_sound",
+      "rendinst_damage_sound__projectile": "impact/church_bell_fallen"
+    }
+  },
+  {
+    "reverb_sound": {
+      "_use": "base_reverb_sound",
+      "_group": {
+        "_tags": "sound",
+        "reverb_sound__physmatAbsorption:array": {
+          "metal:object": {
+            "valueMinMax": [0.0,0.0],
+            "physmats:list<t>": [
+              {
+                "item": "steel"
+              },
+              {
+                "item": "metal"
+              },
+              {
+                "item": "train"
+              },
+              {
+                "item": "softSteelDoor"
+              },
+              {
+                "item": "glass"
+              }
+            ]
+          },
+          "stone:object": {
+            "valueMinMax": [0.2,0.2],
+            "physmats:list<t>": [
+              {
+                "item": "concrete"
+              },
+              {
+                "item": "stone"
+              },
+              {
+                "item": "buildings"
+              },
+              {
+                "item": "ceramic"
+              },
+              {
+                "item": "rocks"
+              },
+              {
+                "item": "rocksSlippery"
+              },
+              {
+                "item": "ice"
+              },
+              {
+                "item": "brick_red"
+              }
+            ]
+          },
+          "default:object": {
+            "valueMinMax": [0.2,0.2],
+            "physmats:list<t>": [
+              {
+                "item": "default"
+              },
+              {
+                "item": "horLandMesh"
+              },
+              {
+                "item": "verLandMesh"
+              },
+              {
+                "item": "small_debris"
+              },
+              {
+                "item": "small_decor"
+              },
+              {
+                "item": "bullet_transparent"
+              }
+            ]
+          },
+          "soil:object": {
+            "valueMinMax": [0.5,0.5],
+            "physmats:list<t>": [
+              {
+                "item": "soil"
+              },
+              {
+                "item": "roadSoil"
+              },
+              {
+                "item": "hard_soil"
+              }
+            ]
+          },
+          "wood:object": {
+            "valueMinMax": [0.8,0.8],
+            "physmats:list<t>": [
+              {
+                "item": "wood"
+              },
+              {
+                "item": "wood_railway"
+              },
+              {
+                "item": "window_wood"
+              },
+              {
+                "item": "softWoodDoor"
+              },
+              {
+                "item": "paper"
+              },
+              {
+                "item": "wood_snow"
+              },
+              {
+                "item": "wood_fall"
+              },
+              {
+                "item": "wood_dead"
+              },
+              {
+                "item": "wood_palm"
+              },
+              {
+                "item": "wood_solid"
+              },
+              {
+                "item": "wood_snow_solid"
+              },
+              {
+                "item": "wood_fall_solid"
+              },
+              {
+                "item": "wood_dead_solid"
+              },
+              {
+                "item": "wood_palm_solid"
+              }
+            ]
+          },
+          "max_absorption:object": {
+            "valueMinMax": [1.0,1.0],
+            "physmats:list<t>": [
+              {
+                "item": "waterPuddle"
+              },
+              {
+                "item": "water3d"
+              },
+              {
+                "item": "water"
+              },
+              {
+                "item": "bushes"
+              },
+              {
+                "item": "barbwire"
+              },
+              {
+                "item": "cactus"
+              },
+              {
+                "item": "flesh"
+              },
+              {
+                "item": "quickSand"
+              },
+              {
+                "item": "hay"
+              },
+              {
+                "item": "sand"
+              },
+              {
+                "item": "roadSand"
+              },
+              {
+                "item": "quarrySand"
+              },
+              {
+                "item": "sand_slope"
+              },
+              {
+                "item": "fabric"
+              },
+              {
+                "item": "rubber"
+              },
+              {
+                "item": "plastic"
+              },
+              {
+                "item": "snow"
+              },
+              {
+                "item": "snowLower"
+              },
+              {
+                "item": "roadSnow"
+              },
+              {
+                "item": "roadmud"
+              },
+              {
+                "item": "mud"
+              },
+              {
+                "item": "dirt"
+              },
+              {
+                "item": "lava"
+              },
+              {
+                "item": "walker"
+              },
+              {
+                "item": "walkRay"
+              },
+              {
+                "item": "climbAiRay"
+              },
+              {
+                "item": "gravel"
+              },
+              {
+                "item": "leaves"
+              },
+              {
+                "item": "moon_sand"
+              },
+              {
+                "item": "hardSnow"
+              },
+              {
+                "item": "bushes_fall"
+              },
+              {
+                "item": "bushes_snow"
+              },
+              {
+                "item": "bushes_dead"
+              },
+              {
+                "item": "bushes_palm"
+              },
+              {
+                "item": "walkerBot"
+              },
+              {
+                "item": "bulletRay"
+              },
+              {
+                "item": "aimRay"
+              },
+              {
+                "item": "cameraRay"
+              },
+              {
+                "item": "tankTrack"
+              },
+              {
+                "item": "wheel"
+              },
+              {
+                "item": "spraySpawnerRay"
+              },
+              {
+                "item": "bombCraterCast"
+              },
+              {
+                "item": "grenadeRay"
+              },
+              {
+                "item": "gunRay"
+              },
+              {
+                "item": "build_ray"
+              }
+            ]
+          }
         }
       }
     }
   }
-}
+]

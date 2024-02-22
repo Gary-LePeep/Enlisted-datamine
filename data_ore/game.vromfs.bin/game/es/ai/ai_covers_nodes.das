@@ -210,6 +210,7 @@ class DecreaseDangerLevel : BehNodeAdapter
 
   def override loadFromBlk(data : DataBlock) : void
     dangerLevelParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "paramName", "dangerLevel"), 0.0)
+    decreaseCoef = datablock_getReal(data, "decreaseCoef", decreaseCoef)
 
   def override update(dt : float) : EBehResult
     let wasDangerLevel = owner.blackBoard |> datablock_getReal(dangerLevelParam)

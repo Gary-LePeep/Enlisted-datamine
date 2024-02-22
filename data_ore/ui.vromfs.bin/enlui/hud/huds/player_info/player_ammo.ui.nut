@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {fontBody, fontSub} = require("%enlSqGlob/ui/fontsStyle.nut")
 let {mkInputHintBlock} = require("%ui/hud/huds/tips/tipComponent.nut")
@@ -18,7 +18,7 @@ let ALT_ICON_SIZE = hdpx(22)
 let ALT_SECONDARY_ICON_SIZE = hdpx(19)
 
 let weapModToggleHint = mkInputHintBlock("Human.WeapModToggle")
-let function weapModToggleTip() {
+function weapModToggleTip() {
   return {
     watch = [curWeaponHasAltShot]
     vplace = ALIGN_CENTER

@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { mkBitmapPicture } = require("%darg/helpers/bitmap.nut")
 let { lerpClamped } = require("%sqstd/math.nut")
@@ -18,7 +18,7 @@ let colorParts = @(color) {
 
 let partsToColor = @(c) Color(c.r+0.5, c.g+0.5, c.b+0.5, c.a+0.5) // will internally round down and cast to integer
 
-let function lerpColorParts(c1, c2, tmp, k) {
+function lerpColorParts(c1, c2, tmp, k) {
   if (k <= 0)
     return c1
   if (k >= 1)

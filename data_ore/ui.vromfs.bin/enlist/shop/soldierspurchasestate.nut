@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { curArmyShopItems, curUnseenAvailShopGuids } = require("%enlist/shop/armyShopState.nut")
 let { getClassCfg, soldierClasses } = require("%enlSqGlob/ui/soldierClasses.nut")
@@ -20,7 +20,7 @@ let unseenSoldierShopItems = Computed(function() {
   return guids
 })
 
-let function extractKinds(crateContent) {
+function extractKinds(crateContent) {
   let classesList = crateContent?.content.soldierClasses ?? {}
   return classesList.len() == 0 ? null : classesList
     .map(@(sClass) getClassCfg(sClass).kind)
@@ -28,7 +28,7 @@ let function extractKinds(crateContent) {
     .keys()
 }
 
-let function getKindsList(itemsContent) {
+function getKindsList(itemsContent) {
   let res = []
   let kinds = {}
   foreach (content in itemsContent) {
@@ -49,7 +49,7 @@ let function getKindsList(itemsContent) {
   return res
 }
 
-let function getSoldiersList(cratesContent, sShopItems) {
+function getSoldiersList(cratesContent, sShopItems) {
   let classesArr = clone cratesContent
   let classes = classesArr
   let kindsToShow = getKindsList(classes)

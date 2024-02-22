@@ -14,7 +14,7 @@ let getFinalizedSingleSpawnStats = @(dataList, time) dataList.map(@(data)
 
 let getSoldierStatsQuery = ecs.SqQuery("getSoldierStatsQuery", { comps_ro = [["soldierStats", ecs.TYPE_OBJECT]] })
 
-let function getSoldierStats(isNoBots) {
+function getSoldierStats(isNoBots) {
   let time = get_sync_time()
   let data = {}
   getSoldierStatsQuery(function(playerEid, comp) {

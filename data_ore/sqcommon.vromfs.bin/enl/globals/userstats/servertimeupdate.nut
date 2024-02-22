@@ -1,13 +1,12 @@
-from "%enlSqGlob/ui_library.nut" import *
 from "dagor.workcycle" import setInterval
-
+let { Watched } = require("frp")
 let { get_time_msec } = require("dagor.time")
 let time = require("serverTime.nut")
 
-let gameStartServerTimeMsec = mkWatched(persist, "gameStartServerTimeMsec", 0)
-let lastReceivedServerTime = mkWatched(persist, "lastReceivedServerTime", 0)
+let gameStartServerTimeMsec = Watched(0)
+let lastReceivedServerTime = Watched(0)
 
-let function updateTime() {
+function updateTime() {
   if (gameStartServerTimeMsec.value <= 0)
     return
   let newTime = (gameStartServerTimeMsec.value + get_time_msec()) / 1000
@@ -20,7 +19,7 @@ updateTime()
 gameStartServerTimeMsec.subscribe(@(_t) updateTime())
 setInterval(1.0, updateTime)
 
-let function serverTimeUpdate(timestampMsec, requestTimeMsec) {
+function serverTimeUpdate(timestampMsec, requestTimeMsec) {
   if (timestampMsec <= 0)
     return
   gameStartServerTimeMsec(timestampMsec - (3 * get_time_msec() - requestTimeMsec) / 2)

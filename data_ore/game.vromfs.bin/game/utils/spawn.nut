@@ -6,7 +6,7 @@ let {traceray_normalized, rayhit_normalized} = require("dacoll.trace")
 let {traceray_navmesh, project_to_nearest_navmesh_point_no_obstacles, check_path, POLYFLAG_GROUND, POLYFLAG_JUMP} = require("pathfinder")
 let {find_human_respawn_base} = require("das.respawn")
 
-let function traceBinarySearch(pos, max_ht, err_term) {
+function traceBinarySearch(pos, max_ht, err_term) {
   let hitT = traceray_normalized(Point3(pos.x, (max_ht + pos.y) * 0.5, pos.z), Point3(0.0, -1.0, 0.0), max_ht - pos.y)
   if (hitT != null) {
     let resHt = (max_ht + pos.y) * 0.5 - hitT
@@ -17,7 +17,7 @@ let function traceBinarySearch(pos, max_ht, err_term) {
   return Point3(pos.x, max_ht, pos.z)
 }
 
-let function traceSearch(pos, top_offs) {
+function traceSearch(pos, top_offs) {
   let t = top_offs
   if (!rayhit_normalized(pos, Point3(0.0, -1.0, 0.0), t)) {
     let hitT = traceray_normalized(pos + Point3(0.0, top_offs, 0.0), Point3(0.0, -1.0, 0.0), top_offs)
@@ -30,7 +30,7 @@ let function traceSearch(pos, top_offs) {
   return pos
 }
 
-let function validatePosition(tm, orig_pos, horz_extents = 0.75) {
+function validatePosition(tm, orig_pos, horz_extents = 0.75) {
   local wishPos = tm.getcol(3)
   let rayPos = traceray_navmesh(orig_pos, wishPos, 0.25)
   wishPos = traceSearch(rayPos, 1000.0)
@@ -45,7 +45,7 @@ let function validatePosition(tm, orig_pos, horz_extents = 0.75) {
 
 let validateTm = @(tm, horz_extents = 0.75) validatePosition(tm, tm.getcol(3), horz_extents)
 
-let function createInventory(inventory) {
+function createInventory(inventory) {
   let itemContainer = ecs.CompEidList()
   foreach (item in inventory) {
     let count = item?.count ?? 1
@@ -70,7 +70,7 @@ let gatherSpawnParamsMap = {
 
 let gatherSpawnParamsQuery = ecs.SqQuery("gatherSpawnParamsQuery", {comps_ro = gatherSpawnParamsMap.values()})
 
-let function gatherParamsFromEntity(eid, query, map) {
+function gatherParamsFromEntity(eid, query, map) {
   let params = {}
   query.perform(eid, function(_eid, comp) {
     foreach (paramName, compName in map) {
@@ -84,7 +84,7 @@ let function gatherParamsFromEntity(eid, query, map) {
 
 let gatherSpawnParams = @(eid) gatherParamsFromEntity(eid, gatherSpawnParamsQuery, gatherSpawnParamsMap)
 
-let function mkSpawnParamsByTeamImpl(team, findBaseCb) {
+function mkSpawnParamsByTeamImpl(team, findBaseCb) {
   let baseEid = findBaseCb(team)
   if (baseEid == ecs.INVALID_ENTITY_ID)
     return null

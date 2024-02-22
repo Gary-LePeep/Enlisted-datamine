@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
 let { secondsToHoursLoc } = require("%ui/helpers/time.nut")
@@ -15,7 +15,7 @@ let typeImgOffsetPH = 100.0 * 14 / 210
 
 let defOverride = { color = defTxtColor }.__update(fontSub)
 
-let imgBooster = "ui/skin#/battlepass/boost_global.avif"
+let imgBooster = "ui/skin#battlepass/boost_global.avif"
 let durationIconSize = hdpxi(20)
 
 let durationBoosterBlock = txt({
@@ -23,7 +23,7 @@ let durationBoosterBlock = txt({
   margin = [0, hdpx(35), 0, 0]
 }).__update(fontSub)
 
-let function mkDurationInfo(icon, text, override = {}) {
+function mkDurationInfo(icon, text, override = {}) {
   let color  = override?.color ?? defTxtColor
   return {
     flow = FLOW_HORIZONTAL
@@ -49,7 +49,7 @@ let mkXpBooster = @(override = {}, isPenalty = false) {
   rendObj = ROBJ_IMAGE
   size = flex()
   margin = bigPadding
-  image = Picture($"ui/skin#/battlepass/{isPenalty ? "bg_penalty" : "bg_boost"}.avif")
+  image = Picture($"ui/skin#battlepass/{isPenalty ? "bg_penalty" : "bg_boost"}.avif")
   children = {
     size = [pw(typeImgPW), ph(typeImgPH)]
     pos = [0, ph(typeImgOffsetPH)]
@@ -60,7 +60,7 @@ let mkXpBooster = @(override = {}, isPenalty = false) {
   }
 }.__update(override)
 
-let function mkBoosterInfo(booster, override = fontSub) {
+function mkBoosterInfo(booster, override = fontSub) {
   let { expMul = 0 } = booster
   return expMul <= 0 ? null
     : {
@@ -71,8 +71,8 @@ let function mkBoosterInfo(booster, override = fontSub) {
       }.__update(override)
 }
 
-let boostTimeIcon = "ui/skin#/battlepass/boost_time.svg"
-let boostBattlesIcon = "ui/skin#/battlepass/boost_battles.svg"
+let boostTimeIcon = "ui/skin#battlepass/boost_time.svg"
+let boostBattlesIcon = "ui/skin#battlepass/boost_battles.svg"
 
 let mkBoosterLeftBattles = @(battles, override)
   mkDurationInfo(boostBattlesIcon, battles, override)
@@ -87,7 +87,7 @@ let mkLimitsChildren = @(battles, lifeTime, hasDurationLabel, override) [
     : mkDurationInfo(boostTimeIcon, secondsToHoursLoc(lifeTime), override)
 ]
 
-let function mkBoosterExpireInfo(booster, hasDurationLabel = false, cStyle = {}, override = defOverride) {
+function mkBoosterExpireInfo(booster, hasDurationLabel = false, cStyle = {}, override = defOverride) {
   let { leftBattles = 0, lifeTime = 0, expireTime = 0 } = booster
   let res = {
     flow = FLOW_VERTICAL
@@ -106,7 +106,7 @@ let function mkBoosterExpireInfo(booster, hasDurationLabel = false, cStyle = {},
   })
 }
 
-let function mkBoosterLimits(booster, override = defOverride) {
+function mkBoosterLimits(booster, override = defOverride) {
   let { battles = 0, lifeTime = 0 } = booster
   return {
     flow = FLOW_VERTICAL

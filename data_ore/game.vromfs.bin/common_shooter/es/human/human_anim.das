@@ -57,7 +57,7 @@ def calc_shoot_pitch(actor : HumanActor;
   let requiredNetRole = uint(RoleFlags URF_LOCAL_CONTROL)
   if gun != null && (uint(actor.role) & requiredNetRole) != 0u
     human_gun_get_shoot_tm(*gun, phys, at_time, shootTm)
-    interpGun = quat(shootTm)
+    interpGun = DagorMath::quat(shootTm)
 
   let y = dot(tm[1], shootTm[0])
   let x = dot(tm[0], shootTm[0])

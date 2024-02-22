@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {fontBody, fontawesome} = require("%enlSqGlob/ui/fontsStyle.nut")
 let baseCombo = require("%ui/components/base_combobox.nut")
@@ -37,7 +37,7 @@ let defaultStyle = freeze({
   gapSize         = hdpx(1)
 })
 
-let function fillColor(sf, style) {
+function fillColor(sf, style) {
   if (sf & S_ACTIVE)
     return style.fillColorActive
   if (sf & S_HOVER)
@@ -47,10 +47,10 @@ let function fillColor(sf, style) {
 
 let hotkeyLoc = loc("controls/check/toggleOrEnable/prefix", "Toggle")
 
-let function comboStyle(style_params) {
+function comboStyle(style_params) {
   let style = defaultStyle.__merge(style_params?.style ?? {})
 
-  let function label(params) {
+  function label(params) {
     let sf = params?.sf ?? 0
     local color = style.color
     let disabled = params?.disabled ?? false
@@ -69,7 +69,7 @@ let function comboStyle(style_params) {
       size = [flex(), SIZE_TO_CONTENT]
     }.__update(fontBody)
 
-    let function popupArrow() {
+    function popupArrow() {
       return !disabled ? {
         size = [ph(100), ph(100)]
         margin = style.arrowMargin
@@ -96,7 +96,7 @@ let function comboStyle(style_params) {
   }
 
 
-  let function boxCtor(params) {
+  function boxCtor(params) {
     let {comboOpen, disabled, text, stateFlags, group} = params
     let toggle = @() comboOpen(!comboOpen.value)
     let hotkeysElem = style_params?.useHotkeys ? {
@@ -126,7 +126,7 @@ let function comboStyle(style_params) {
     }
   }
 
-  let function listItem(text, action, is_current, params = null) {
+  function listItem(text, action, is_current, params = null) {
     let group = ElemGroup()
     let stateFlags = Watched(0)
 
@@ -175,7 +175,7 @@ let function comboStyle(style_params) {
   }
 
 
-  let function closeButton(onClick) {
+  function closeButton(onClick) {
     return {
       size = flex()
       behavior = Behaviors.Button
@@ -184,11 +184,11 @@ let function comboStyle(style_params) {
     }
   }
 
-  let function onOpenDropDown(itemXmbNode) {
+  function onOpenDropDown(itemXmbNode) {
     gui_scene.setXmbFocus(isGamepad.value ? itemXmbNode : null)
   }
 
-  let function onCloseDropDown(boxXmbNode) {
+  function onCloseDropDown(boxXmbNode) {
     if (isGamepad.value)
       gui_scene.setXmbFocus(boxXmbNode)
   }
@@ -217,7 +217,7 @@ let function comboStyle(style_params) {
 }
 
 
-let function combo(wdata, options, style_params) {
+function combo(wdata, options, style_params) {
   return baseCombo(wdata, options, comboStyle(style_params))
 }
 

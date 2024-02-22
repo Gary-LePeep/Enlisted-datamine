@@ -3,6 +3,7 @@ require strings
 require game.es.events
 require game.es.binocular_common
 require game.es.input.input_events
+require game.es.input.input_common
 require game.es.vehicle.vehicle_events
 require DagorInput
 require HumanPhys
@@ -91,7 +92,7 @@ def human_change_seat_input_es(evt : EventDaInputActionTriggered;
                                human_input__driverSeat : int;
                                isInVehicle : bool;
                                input__enabled : bool)
-  if !input__enabled || !isInVehicle || human_vehicle__isHoldingGunPassenger
+  if !input__enabled || !isInVehicle || human_vehicle__isHoldingGunPassenger && !is_gamepad_input()
     return
   let action = int(evt.action)
   for i in range(0, length(human_input__seats))

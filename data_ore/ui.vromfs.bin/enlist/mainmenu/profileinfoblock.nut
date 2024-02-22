@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { currencyUi, freeExpUi, currencySilverUi } = require("%enlist/shop/armyCurrencyUi.nut")
 let currenciesWidgetUi = require("%enlist/currency/currenciesWidgetUi.nut")

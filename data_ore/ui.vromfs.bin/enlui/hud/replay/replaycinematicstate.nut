@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { CmdChangeTimeOfDay, CmdSetCameraFov, CmdSetBloomThreshold, CmdSetChromaticAberrationOffset,
   CmdSetCinematicModeEnabled, CmdSetFilmGrain, CmdSetMotionBlurScale, CmdSetVignetteStrength,
@@ -184,7 +184,7 @@ ecs.register_es("ui_cinematic_mode_es",
   }
 )
 
-let function changeWeatherPreset(preset) {
+function changeWeatherPreset(preset) {
   if (preset != null)
     ecs.g_entity_mgr.broadcastEvent( CmdWeather({ preset }))
 }
@@ -212,7 +212,7 @@ ecs.register_es("ui_cinematic_weather_presets_es",
   }
 )
 
-let function setRandomWeather() {
+function setRandomWeather() {
   let presets = weatherPresetList.value
   if (presets.len() <= 1)
     return
@@ -227,7 +227,7 @@ let function setRandomWeather() {
 let weatherChoiceQuery = ecs.SqQuery("weatherChoiceQuery",
   { comps_rq = ["weather_choice_tag"] })
 
-let function changeWeather(weatherTemplates) {
+function changeWeather(weatherTemplates) {
   weatherChoiceQuery.perform(@(eid, _comp) ecs.g_entity_mgr.destroyEntity(eid))
   foreach (tmpl in weatherTemplates)
     ecs.g_entity_mgr.createEntity($"{tmpl}+weather_choice_created", {})
@@ -269,7 +269,7 @@ let setCinemaRecording = @(newVal)
   ecs.g_entity_mgr.broadcastEvent(CmdSetCinemaRecording({ enabled = newVal }))
 let changePostBloom = @(newVal)
   ecs.g_entity_mgr.broadcastEvent(CmdSetCinematicPostFxBloom({ enabled = newVal }))
-let function changeSuperPixel(newVal) {
+function changeSuperPixel(newVal) {
   superPixel(newVal.tointeger())
   ecs.g_entity_mgr.broadcastEvent(
     CmdSetCinematicSetSuperPixels({ super_pixels = newVal.tointeger() }))
@@ -277,7 +277,7 @@ let function changeSuperPixel(newVal) {
 let toggleCustomSettings = @() ecs.g_entity_mgr.broadcastEvent(
   CmdSetCinematicCustomSettings({ enabled = !isCustomSettings.value }))
 
-let function takeScreenshot() {
+function takeScreenshot() {
   take_screenshot_nogui()
   addPopup({
     id = "cinema_screenshot_done_alert"
@@ -287,7 +287,7 @@ let function takeScreenshot() {
   })
 }
 
-let function makeScreenShot(){
+function makeScreenShot(){
   if (is_upsampling() && !isCustomSettings.value && !isSettingsChecked.value)
     msgbox.show({
       text = loc("replay/screenshotWithDLSS"),

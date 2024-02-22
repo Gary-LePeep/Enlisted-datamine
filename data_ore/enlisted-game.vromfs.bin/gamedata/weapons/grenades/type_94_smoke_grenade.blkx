@@ -12,19 +12,19 @@
   "ccdClipVelocityMult": 0.0,
   "entityTemplate": "type_94_smoke_grenade",
   "entityPhysTemplate": "type_94_smoke_grenade_phys",
+  "ccdSpheres": {
+    "ccd": [0.0,0.02,0.0,0.03]
+  },
+  "detonation": {
+    "onHit": false,
+    "timer": 32.0
+  },
   "collisionResource": {
     "props": {
       "volumeBox": "box"
     }
   },
-  "ccdSpheres": {
-    "ccd": [0.0,0.02,0.0,0.03]
-  },
   "visual": {
     "template": "type_94_smoke_grenade_item+item_in_world"
-  },
-  "detonation": {
-    "onHit": false,
-    "timer": 32.0
   }
 }

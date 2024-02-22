@@ -366,12 +366,6 @@ struct CmdPickupSpecialItem
   pickuperEid : EntityId
   usefulOnly : bool
 
-[cpp_event(unicast)]
-struct EventOnServerActionDisabled
-  reason : int
-  coinsNeed : int
-  coinsHave : int
-
 [event(unicast, routing=ROUTING_CLIENT_CONTROLLED_ENTITY_TO_SERVER)]
 struct HumanPickupItemRequest
   itemEid : EntityId
@@ -393,6 +387,6 @@ struct HumanPickupGearRequest
   itemEid : EntityId
   slotName : string
 
-[cpp_event(unicast)]
+[event(unicast)]
 struct EventOnActionDisabled
   action : string

@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {fontSub} = require("%enlSqGlob/ui/fontsStyle.nut")
 let formatInputBinding = require("%ui/control/formatInputBinding.nut")
@@ -7,7 +7,7 @@ let {isGamepad} = require("%ui/control/active_controls.nut")
 let {HUD_TIPS_HOTKEY_FG} = require("%ui/hud/style.nut")
 let { sound_play } = require("%dngscripts/sound_system.nut")
 
-let function mkHintRow(hotkeys, params={}) {
+function mkHintRow(hotkeys, params={}) {
   let textFunc = params?.textFunc ??@(text) {
     rendObj = ROBJ_TEXT
     text
@@ -33,8 +33,8 @@ let function mkHintRow(hotkeys, params={}) {
     }, params)
   }
 }
-let function mkHotkey(hotkey, action, params={}){
-  let function hotkeyAction() {
+function mkHotkey(hotkey, action, params={}){
+  function hotkeyAction() {
     action?()
     if (!params?.silenced)
       sound_play("ui/enlist/button_click")

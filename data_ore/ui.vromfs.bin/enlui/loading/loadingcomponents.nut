@@ -1,8 +1,8 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
-let function mkAnimatedEllipsis(fontSize, color, totalnum=3, duration=3.0)  {
+function mkAnimatedEllipsis(fontSize, color, totalnum=3, duration=3.0)  {
   let appearTime = min(duration/(totalnum+1)/5,0.3)
-  let function dot(num){
+  function dot(num){
     let hiddenTime = duration/(totalnum+1)*(num+1)
     let showTime = duration-hiddenTime-appearTime
     return {
@@ -32,7 +32,7 @@ let function mkAnimatedEllipsis(fontSize, color, totalnum=3, duration=3.0)  {
   }
 }
 
-local function background_size(parallax = 0, h=sh(100), w=sw(100)){
+function background_size(parallax = 0, h=sh(100), w=sw(100)){
   if (parallax < 0)
     parallax = -parallax
   h = min(h,w*9.0/16)
@@ -40,7 +40,7 @@ local function background_size(parallax = 0, h=sh(100), w=sw(100)){
   return [w*(1+parallax*2),h*(1+parallax*2)]
 }
 
-let function mkParallaxBkg(imageToShow, parallaxK, height, width){
+function mkParallaxBkg(imageToShow, parallaxK, height, width){
   let size = background_size(parallaxK, height, width)
   return @(){
     rendObj = ROBJ_IMAGE

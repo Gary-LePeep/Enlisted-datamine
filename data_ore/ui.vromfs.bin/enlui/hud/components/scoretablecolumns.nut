@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 import "%dngscripts/ecs.nut" as ecs
 
 let { fontBody, fontSub, fontawesome } = require("%enlSqGlob/ui/fontsStyle.nut")
@@ -47,7 +47,7 @@ let INVALID_COLOR_HOVER = Color(160,160,160,100)
 
 const disconnectedMultiplier = 0.5
 const deserterMultiplier = 0.3
-let function playerColor(playerData, sf = 0) {
+function playerColor(playerData, sf = 0) {
   let isHover = sf & S_HOVER
 
   if (playerData.isLocal)
@@ -143,7 +143,7 @@ let friendlyFireIcon = {
   ]
 }
 
-let function mkArmiesIcons(armies) {
+function mkArmiesIcons(armies) {
   let icons = {}
   foreach (armyId in armies) {
     let { icon = null } = armiesPresentation?[armyId]
@@ -163,7 +163,7 @@ let function mkArmiesIcons(armies) {
   }
 }
 
-let function mkPlayerRank(playerData, isInteractive) {
+function mkPlayerRank(playerData, isInteractive) {
   let { player_info__military_rank = 0 } = playerData?.player
   return player_info__military_rank <= 0 ? null
     : mkRankIcon(player_info__military_rank, {
@@ -175,7 +175,7 @@ let function mkPlayerRank(playerData, isInteractive) {
       })
 }
 
-let function mkPlayerClass(playerData, isInteractive, sf) {
+function mkPlayerClass(playerData, isInteractive, sf) {
   let sKind = playerData.player?.controlled_soldier__sKind ?? ""
   let sClassRare = playerData.player?.controlled_soldier__sClassRare ?? 0
   let sClass = playerData.player?.controlled_soldier__sClass ?? ""
@@ -194,7 +194,7 @@ let function mkPlayerClass(playerData, isInteractive, sf) {
   )
 }
 
-let function mkPlayerBattleIcon(playerData, isInteractive, sf, params) {
+function mkPlayerBattleIcon(playerData, isInteractive, sf, params) {
   if (playerData?.haveSessionResult)
     return mkPlayerRank(playerData, isInteractive)
 
@@ -220,7 +220,7 @@ let queryAliveSoldierName = ecs.SqQuery("query_alive_soldier_name", {
 })
 
 
-let function openReplayContextMenu(event, playerData) {
+function openReplayContextMenu(event, playerData) {
   let buttons = [{
     locId = "btn/replay/spectate"
     action = @() ecs.g_entity_mgr.sendEvent(playerData.eid, SetReplayTarget({}))
@@ -241,7 +241,7 @@ let function openReplayContextMenu(event, playerData) {
   addContextMenu(event.screenX + 1, event.screenY + 1, fsh(30), buttons)
 }
 
-let function openContextMenu(event, playerData, localPlayerEid, params) {
+function openContextMenu(event, playerData, localPlayerEid, params) {
   if (playerData?.player == null)
     return
 
@@ -357,7 +357,7 @@ let mkPlayerName = @(playerData, sf) rowText(
     behavior = sf & S_HOVER ? Behaviors.Marquee : null
   })
 
-let function selectDisplayedAward(isBattleHero, awards) {
+function selectDisplayedAward(isBattleHero, awards) {
   if (isBattleHero)
     return BattleHeroesAward.PLAYER_BATTLE_HERO
   let priorityAward = awards.reduce(@(a,b) awardPriority[a] > awardPriority[b] ? a : b)
@@ -366,7 +366,7 @@ let function selectDisplayedAward(isBattleHero, awards) {
     : priorityAward
 }
 
-let function mkBattleHeroAwardWidget(player, isAlly) {
+function mkBattleHeroAwardWidget(player, isAlly) {
   local awards = player?.awards ?? []
   if (awards.len() == 0)
     return null
@@ -380,7 +380,7 @@ let function mkBattleHeroAwardWidget(player, isAlly) {
     @() mkAwardsTooltip(awards, tooltipBattleHeroAwardIconSize))
 }
 
-let function mkTotalScoreTooltip(title, stats, data, prices) {
+function mkTotalScoreTooltip(title, stats, data, prices) {
   if (prices.len() == 0)
     return null
   let score = stats.reduce(@(sum, stat) sum + (data?[stat.scoringPlayerId] ?? 0) * (prices?[stat.id] ?? 0), 0)
@@ -555,7 +555,7 @@ let columnsByGameMode = {
   gun_game = columnsGunGame
 }
 
-let function getScoreTableColumns(key) {
+function getScoreTableColumns(key) {
   return columnsByGameMode?[key] ?? columnsDefault
 }
 

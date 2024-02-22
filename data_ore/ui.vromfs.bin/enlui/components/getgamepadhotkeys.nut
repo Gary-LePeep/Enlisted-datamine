@@ -1,8 +1,8 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let parseDargHotkeys = require("parseDargHotkeys.nut")
 
-local function gamepadHotkeys(hotkeys, skipDescription = null){
+function gamepadHotkeys(hotkeys, skipDescription = null){
   if (hotkeys == null || typeof(hotkeys) != "array" || hotkeys.len()==0)
     return ""
 

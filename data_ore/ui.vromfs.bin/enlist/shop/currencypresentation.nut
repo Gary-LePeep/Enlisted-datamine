@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let ticketGroups = {}
 
@@ -368,7 +368,7 @@ let currencyPresentation = freeze({
 
 })
 
-let function getCurrencyPresentation(key) {
+function getCurrencyPresentation(key) {
   if (key in currencyPresentation)
     return currencyPresentation[key]
 

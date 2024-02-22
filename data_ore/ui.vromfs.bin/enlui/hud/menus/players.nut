@@ -1,15 +1,14 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {fontBody} = require("%enlSqGlob/ui/fontsStyle.nut")
 let sessions_players = require("%ui/hud/state/sessions_players.nut")
 let fontIconButton = require("%ui/components/fontIconButton.nut")
 let JB = require("%ui/control/gui_buttons.nut")
 let scrollbar = require("%ui/components/scrollbar.nut")
-let cursors = require("%ui/style/cursors.nut")
 
 let showPlayersMenu = mkWatched(persist, "showPlayersMenu", false)
 
-let function close(){
+function close(){
   showPlayersMenu(false)
 }
 
@@ -30,7 +29,7 @@ let header = {
   color = Color(120,120,120,120)
 }.__update(fontBody)
 
-let function menu(){
+function menu(){
   return {
     watch = [sessions_players]
     size = [sw(20), sh(60)]
@@ -62,7 +61,6 @@ return {
   playersMenuUi = @(){
     size = flex()
     watch = [showPlayersMenu]
-    cursor = showPlayersMenu.value ? cursors.normal : null
     children = showPlayersMenu.value ? menu : null
     behavior = Behaviors.ActivateActionSet
     actionSet = "StopInput"

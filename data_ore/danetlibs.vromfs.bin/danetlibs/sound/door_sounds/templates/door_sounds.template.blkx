@@ -17,6 +17,22 @@
       "door_sound__closePath": "env_effects/doors/metal_gate_01/close"
     }
   },
+  "modern_metal_gate_door_sounds": {
+    "_use": "base_door_sound",
+    "_group": {
+      "_tags": "sound",
+      "door_sound__openPath": "env_effects/doors/modern_metal_gate/open",
+      "door_sound__closePath": "env_effects/doors/modern_metal_gate/close"
+    }
+  },
+  "modern_wooden_gate_sounds": {
+    "_use": "base_door_sound",
+    "_group": {
+      "_tags": "sound",
+      "door_sound__openPath": "env_effects/doors/modern_wooden_gate/open",
+      "door_sound__closePath": "env_effects/doors/modern_wooden_gate/close"
+    }
+  },
   "metal_door_sounds": {
     "_use": "metal_gate_door_sounds"
   },
@@ -58,6 +74,22 @@
       "_tags": "sound",
       "door_sound__openPath": "env_effects/doors/window/open",
       "door_sound__closePath": "env_effects/doors/window/close"
+    }
+  },
+  "plastic_door_sounds": {
+    "_use": "base_door_sound",
+    "_group": {
+      "_tags": "sound",
+      "door_sound__openPath": "env_effects/doors/plastic/open",
+      "door_sound__closePath": "env_effects/doors/plastic/close"
+    }
+  },
+  "plastic_window_sounds": {
+    "_use": "base_door_sound",
+    "_group": {
+      "_tags": "sound",
+      "door_sound__openPath": "env_effects/doors/window_plastic/open",
+      "door_sound__closePath": "env_effects/doors/window_plastic/close"
     }
   }
 }

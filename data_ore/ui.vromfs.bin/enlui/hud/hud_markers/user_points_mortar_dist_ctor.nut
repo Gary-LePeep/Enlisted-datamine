@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {isMortarMode} = require("%ui/hud/state/mortar.nut")
 let { user_points } = require("%ui/hud/state/user_points.nut")

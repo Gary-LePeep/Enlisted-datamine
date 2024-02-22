@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let colors = require("%ui/style/colors.nut")
 let {buttonSound} = require("%ui/style/sounds.nut")
@@ -34,7 +34,7 @@ scales.logarithmicWithZero <- {
 let sliderLeftLoc = loc("slider/reduce", "Reduce value")
 let sliderRightLoc = loc("slider/increase", "Increase value")
 
-let function slider(orient, var, options = {}) {
+function slider(orient, var, options = {}) {
   let {
     gainObject = null, group = ElemGroup(), scaling = scales.linear,
     step = null, ignoreWheel = true, xmbNode = null, setValue = @(v) var(v)
@@ -59,7 +59,7 @@ let function slider(orient, var, options = {}) {
     onElemState = @(sf) knobStateFlags.update(sf)
   }
 
-  let function onChange(factor){
+  function onChange(factor){
     let value = scaling.from(factor, minval, maxval)
     let oldValue = var.value
     setValue(value)

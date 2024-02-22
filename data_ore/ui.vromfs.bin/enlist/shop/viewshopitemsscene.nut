@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { startsWith } = require("%sqstd/string.nut")
 let mkHeader = require("%enlist/components/mkHeader.nut")
@@ -43,7 +43,7 @@ let selectedKey = Computed(@() curSelectedItem.value?.basetpl)
 let shopItemWidth = 9.0 * unitSize
 let shopItemHeight = 6.0 * unitSize
 
-let function mkShopItemContent(sItem) {
+function mkShopItemContent(sItem) {
   let crateContentWatch = shopItemContentCtor(sItem)
   return crateContentWatch.value == null ? null
     : function() {
@@ -103,7 +103,7 @@ let function mkShopItemContent(sItem) {
       }
 }
 
-let function purchaseBtnUi() {
+function purchaseBtnUi() {
   let shopItemData = shopItem.value
   let { offerContainer = "", requirements = {} } = shopItemData
   if (offerContainer.len() > 0)
@@ -168,7 +168,7 @@ let function purchaseBtnUi() {
   }
 }
 
-let function mkShopItemInfo(item) {
+function mkShopItemInfo(item) {
   let crateContent = shopItemContentCtor(item)
   return makeCrateToolTip(crateContent, "", [flex(), SIZE_TO_CONTENT])
 }

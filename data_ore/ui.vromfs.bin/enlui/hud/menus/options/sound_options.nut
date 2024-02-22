@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {get_setting_by_blk_path} = require("settings")
 let { sound_set_volume } = require("%dngscripts/sound_system.nut")
@@ -9,9 +9,9 @@ let {
 } = require("options_lib.nut")
 let { headshotSoundOption, battleMusicOption, humanCapzoneCapturingSoundOption } = require("%ui/hud/menus/options/sound_gameplay_options.nut")
 
-local function optionVolSliderCtor(opt, group, xmbNode) {
+function optionVolSliderCtor(opt, group, xmbNode) {
   let optSetValue = opt.setValue // saved original reference to avoid recursive call of opt.setValue
-  let function setValue(val) {
+  function setValue(val) {
     optSetValue(val)
     sound_set_volume(opt.busName, val)
   }
@@ -21,7 +21,7 @@ local function optionVolSliderCtor(opt, group, xmbNode) {
   return optionPercentTextSliderCtor(opt, group, xmbNode)
 }
 
-let function soundOption(title, field) {
+function soundOption(title, field) {
   let blkPath = $"sound/volume/{field}"
   let { watch, setValue } = getOnlineSaveData(blkPath,
     @() get_setting_by_blk_path(blkPath) ?? 1.0)

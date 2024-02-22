@@ -2,38 +2,41 @@
   "explMats": {
     "shader": "explosion_patch_3tex",
     "needMaterialTex": true,
-    "bricks_red": {
+    "diffuseTextureSuffix": "_tex_d",
+    "normalTextureSuffix": "_tex_n",
+    "materialTextureSuffix": "_tex_m",
+    "brick_red": {
       "default": {
         "blackMaterialTex": true,
-        "sizeScale": 10.0,
+        "sizeScale": 12.0,
         "textures": {
           "tex": "ddi_building_red_brick_a"
         }
       },
       "explosive_penetration": {
         "blackMaterialTex": true,
-        "sizeScale": 13.0,
+        "sizeScale": 15.0,
         "textures": {
           "tex": "ddi_building_red_brick_b"
         }
       },
       "explosive_non_penetration": {
         "blackMaterialTex": true,
-        "sizeScale": 13.0,
+        "sizeScale": 15.0,
         "textures": {
           "tex": "ddi_building_red_brick_b"
         }
       },
       "heat_penetration": {
         "blackMaterialTex": true,
-        "sizeScale": 13.0,
+        "sizeScale": 15.0,
         "textures": {
           "tex": "ddi_building_red_brick_b"
         }
       },
       "heat_non_penetration": {
         "blackMaterialTex": true,
-        "sizeScale": 13.0,
+        "sizeScale": 15.0,
         "textures": {
           "tex": "ddi_building_red_brick_b"
         }
@@ -42,7 +45,49 @@
     "stone": {
       "default": {
         "blackMaterialTex": true,
-        "sizeScale": 10.0,
+        "sizeScale": 12.0,
+        "textures": [
+          {
+            "tex": "ddi_building_conrete_a"
+          },
+          {
+            "tex": "ddi_building_conrete_b"
+          }
+        ]
+      },
+      "explosive_penetration": {
+        "blackMaterialTex": true,
+        "sizeScale": 13.0,
+        "textures": {
+          "tex": "ddi_building_conrete_c"
+        }
+      },
+      "explosive_non_penetration": {
+        "blackMaterialTex": true,
+        "sizeScale": 13.0,
+        "textures": {
+          "tex": "ddi_building_conrete_c"
+        }
+      },
+      "heat_penetration": {
+        "blackMaterialTex": true,
+        "sizeScale": 13.0,
+        "textures": {
+          "tex": "ddi_building_conrete_c"
+        }
+      },
+      "heat_non_penetration": {
+        "blackMaterialTex": true,
+        "sizeScale": 13.0,
+        "textures": {
+          "tex": "ddi_building_conrete_c"
+        }
+      }
+    },
+    "concrete": {
+      "default": {
+        "blackMaterialTex": true,
+        "sizeScale": 12.0,
         "textures": [
           {
             "tex": "ddi_building_conrete_a"
@@ -127,26 +172,26 @@
     },
     "steel": {
       "default": {
-        "sizeScale": 10.0,
+        "sizeScale": 12.0,
         "textures": {
           "tex": "ddi_vehicle_penetration_ap_steel_a"
         }
       },
       "kinetic_penetration": {
-        "sizeScale": 5.0,
+        "sizeScale": 7.0,
         "textures": {
           "tex": "ddi_vehicle_penetration_ap_steel_a"
         }
       },
       "kinetic_non_penetration": {
-        "sizeScale": 5.0,
+        "sizeScale": 7.0,
         "stretchMax": 1.5,
         "textures": {
           "tex": "ddi_vehicle_nonpenetration_ap_steel_a"
         }
       },
       "kinetic_ricochet": {
-        "sizeScale": 7.0,
+        "sizeScale": 8.0,
         "useHitDirectionForParallax": false,
         "angleLimit": 10.0,
         "textures": {
@@ -154,39 +199,368 @@
         }
       },
       "explosive_penetration": {
-        "sizeScale": 12.5,
+        "sizeScale": 14.5,
         "textures": {
           "tex": "ddi_vehicle_penetration_he_steel_a"
         }
       },
       "explosive_non_penetration": {
-        "sizeScale": 12.5,
+        "sizeScale": 14.5,
+        "textures": {
+          "tex": "ddi_vehicle_nonpenetration_he_steel_a"
+        }
+      },
+      "explosive_penetration_angled": {
+        "useHitDirectionForParallax": false,
+        "sizeScale": 14.5,
+        "angleLimit": 5.0,
+        "textures": {
+          "tex": "ddi_vehicle_penetration_he_steel_a"
+        }
+      },
+      "explosive_non_penetration_angled": {
+        "sizeScale": 14.5,
+        "angleLimit": 5.0,
         "textures": {
           "tex": "ddi_vehicle_nonpenetration_he_steel_a"
         }
       },
       "kinetic_sabot_penetration": {
-        "sizeScale": 5.0,
+        "sizeScale": 7.0,
         "textures": {
           "tex": "ddi_vehicle_penetration_apcr_steel_a"
         }
       },
       "kinetic_sabot_non_penetration": {
-        "sizeScale": 5.0,
+        "sizeScale": 7.0,
         "textures": {
           "tex": "ddi_vehicle_penetration_apcr_steel_a"
         }
       },
+      "kinetic_discard_sabot_penetration": {
+        "sizeScale": 12.0,
+        "textures": {
+          "tex": "ddi_vehicle_noangle_penetration_apfsds_steel_a"
+        }
+      },
+      "kinetic_discard_sabot_penetration_angled": {
+        "sizeScale": 12.0,
+        "angleLimit": 0.0,
+        "textures": {
+          "tex": "ddi_vehicle_angle_penetration_apfsds_steel_a"
+        }
+      },
       "heat_penetration": {
-        "sizeScale": 7.5,
+        "sizeScale": 8.5,
         "textures": {
           "tex": "ddi_vehicle_penetration_heat_steel_a"
         }
       },
       "heat_non_penetration": {
-        "sizeScale": 7.5,
+        "sizeScale": 8.5,
         "textures": {
           "tex": "ddi_vehicle_penetration_heat_steel_a"
+        }
+      },
+      "heat_penetration_angled": {
+        "sizeScale": 8.5,
+        "angleLimit": 5.0,
+        "textures": {
+          "tex": "ddi_vehicle_penetration_heat_steel_a"
+        }
+      },
+      "shrapnel_damage": {
+        "useHitDirectionForParallax": false,
+        "sizeScale": 1.2,
+        "textures": {
+          "tex": "dds_steel_a"
+        }
+      }
+    },
+    "metal": {
+      "default": {
+        "sizeScale": 12.0,
+        "textures": {
+          "tex": "ddi_vehicle_penetration_ap_steel_a"
+        }
+      },
+      "kinetic_penetration": {
+        "sizeScale": 7.0,
+        "textures": {
+          "tex": "ddi_vehicle_penetration_ap_steel_a"
+        }
+      },
+      "kinetic_non_penetration": {
+        "sizeScale": 7.0,
+        "stretchMax": 1.5,
+        "textures": {
+          "tex": "ddi_vehicle_nonpenetration_ap_steel_a"
+        }
+      },
+      "kinetic_ricochet": {
+        "sizeScale": 8.0,
+        "useHitDirectionForParallax": false,
+        "angleLimit": 10.0,
+        "textures": {
+          "tex": "ddi_vehicle_ricochet_steel_a"
+        }
+      },
+      "explosive_penetration": {
+        "sizeScale": 14.5,
+        "textures": {
+          "tex": "ddi_vehicle_penetration_he_steel_a"
+        }
+      },
+      "explosive_non_penetration": {
+        "sizeScale": 14.5,
+        "textures": {
+          "tex": "ddi_vehicle_nonpenetration_he_steel_a"
+        }
+      },
+      "explosive_penetration_angled": {
+        "useHitDirectionForParallax": false,
+        "sizeScale": 14.5,
+        "angleLimit": 5.0,
+        "textures": {
+          "tex": "ddi_vehicle_penetration_he_steel_a"
+        }
+      },
+      "explosive_non_penetration_angled": {
+        "sizeScale": 14.5,
+        "angleLimit": 5.0,
+        "textures": {
+          "tex": "ddi_vehicle_nonpenetration_he_steel_a"
+        }
+      },
+      "kinetic_sabot_penetration": {
+        "sizeScale": 7.0,
+        "textures": {
+          "tex": "ddi_vehicle_penetration_apcr_steel_a"
+        }
+      },
+      "kinetic_sabot_non_penetration": {
+        "sizeScale": 7.0,
+        "textures": {
+          "tex": "ddi_vehicle_penetration_apcr_steel_a"
+        }
+      },
+      "kinetic_discard_sabot_penetration": {
+        "sizeScale": 12.0,
+        "textures": {
+          "tex": "ddi_vehicle_noangle_penetration_apfsds_steel_a"
+        }
+      },
+      "kinetic_discard_sabot_penetration_angled": {
+        "sizeScale": 12.0,
+        "angleLimit": 0.0,
+        "textures": {
+          "tex": "ddi_vehicle_angle_penetration_apfsds_steel_a"
+        }
+      },
+      "heat_penetration": {
+        "sizeScale": 8.5,
+        "textures": {
+          "tex": "ddi_vehicle_penetration_heat_steel_a"
+        }
+      },
+      "heat_non_penetration": {
+        "sizeScale": 8.5,
+        "textures": {
+          "tex": "ddi_vehicle_penetration_heat_steel_a"
+        }
+      },
+      "heat_penetration_angled": {
+        "sizeScale": 8.5,
+        "angleLimit": 5.0,
+        "textures": {
+          "tex": "ddi_vehicle_penetration_heat_steel_a"
+        }
+      },
+      "shrapnel_damage": {
+        "useHitDirectionForParallax": false,
+        "sizeScale": 1.2,
+        "textures": {
+          "tex": "dds_steel_a"
+        }
+      }
+    },
+    "aluminum_armor": {
+      "default": {
+        "sizeScale": 12.0,
+        "textures": {
+          "tex": "ddi_vehicle_penetration_ap_steel_a"
+        }
+      },
+      "kinetic_penetration": {
+        "sizeScale": 7.0,
+        "textures": {
+          "tex": "ddi_vehicle_penetration_ap_steel_a"
+        }
+      },
+      "kinetic_non_penetration": {
+        "sizeScale": 7.0,
+        "stretchMax": 1.5,
+        "textures": {
+          "tex": "ddi_vehicle_nonpenetration_ap_steel_a"
+        }
+      },
+      "kinetic_ricochet": {
+        "sizeScale": 8.0,
+        "useHitDirectionForParallax": false,
+        "angleLimit": 10.0,
+        "textures": {
+          "tex": "ddi_vehicle_ricochet_steel_a"
+        }
+      },
+      "explosive_penetration": {
+        "sizeScale": 14.5,
+        "textures": {
+          "tex": "ddi_vehicle_penetration_he_steel_a"
+        }
+      },
+      "explosive_non_penetration": {
+        "sizeScale": 14.5,
+        "textures": {
+          "tex": "ddi_vehicle_nonpenetration_he_steel_a"
+        }
+      },
+      "explosive_penetration_angled": {
+        "useHitDirectionForParallax": false,
+        "sizeScale": 14.5,
+        "angleLimit": 5.0,
+        "textures": {
+          "tex": "ddi_vehicle_penetration_he_steel_a"
+        }
+      },
+      "explosive_non_penetration_angled": {
+        "sizeScale": 14.5,
+        "angleLimit": 5.0,
+        "textures": {
+          "tex": "ddi_vehicle_nonpenetration_he_steel_a"
+        }
+      },
+      "kinetic_sabot_penetration": {
+        "sizeScale": 7.0,
+        "textures": {
+          "tex": "ddi_vehicle_penetration_apcr_steel_a"
+        }
+      },
+      "kinetic_sabot_non_penetration": {
+        "sizeScale": 7.0,
+        "textures": {
+          "tex": "ddi_vehicle_penetration_apcr_steel_a"
+        }
+      },
+      "kinetic_discard_sabot_penetration": {
+        "sizeScale": 12.0,
+        "textures": {
+          "tex": "ddi_vehicle_noangle_penetration_apfsds_steel_a"
+        }
+      },
+      "kinetic_discard_sabot_penetration_angled": {
+        "sizeScale": 12.0,
+        "angleLimit": 0.0,
+        "textures": {
+          "tex": "ddi_vehicle_angle_penetration_apfsds_steel_a"
+        }
+      },
+      "heat_penetration": {
+        "sizeScale": 8.5,
+        "textures": {
+          "tex": "ddi_vehicle_penetration_heat_steel_a"
+        }
+      },
+      "heat_non_penetration": {
+        "sizeScale": 8.5,
+        "textures": {
+          "tex": "ddi_vehicle_penetration_heat_steel_a"
+        }
+      },
+      "heat_penetration_angled": {
+        "sizeScale": 8.5,
+        "angleLimit": 5.0,
+        "textures": {
+          "tex": "ddi_vehicle_penetration_heat_steel_a"
+        }
+      },
+      "shrapnel_damage": {
+        "useHitDirectionForParallax": false,
+        "sizeScale": 0.8,
+        "textures": {
+          "tex": "dds_aluminium_a"
+        }
+      }
+    },
+    "tank_structural_steel": {
+      "kinetic_penetration": {
+        "sizeScale": 4.0,
+        "textures": {
+          "tex": "ddi_vehicle_penetration_ap_aluminium_a"
+        }
+      },
+      "kinetic_non_penetration": {
+        "sizeScale": 4.0,
+        "textures": {
+          "tex": "ddi_vehicle_penetration_ap_aluminium_a"
+        }
+      },
+      "kinetic_sabot_penetration": {
+        "sizeScale": 5.0,
+        "textures": {
+          "tex": "ddi_vehicle_penetration_ap_aluminium_a"
+        }
+      },
+      "kinetic_sabot_non_penetration": {
+        "sizeScale": 5.0,
+        "textures": {
+          "tex": "ddi_vehicle_penetration_ap_aluminium_a"
+        }
+      },
+      "kinetic_discard_sabot_penetration": {
+        "sizeScale": 5.0,
+        "textures": {
+          "tex": "ddi_vehicle_penetration_ap_aluminium_a"
+        }
+      },
+      "kinetic_discard_sabot_non_penetration": {
+        "sizeScale": 5.0,
+        "textures": {
+          "tex": "ddi_vehicle_penetration_ap_aluminium_a"
+        }
+      },
+      "explosive_penetration": {
+        "sizeScale": 7.5,
+        "useHitDirectionForParallax": false,
+        "textures": {
+          "tex": "ddi_vehicle_penetration_he_aluminium_a"
+        }
+      },
+      "explosive_non_penetration": {
+        "sizeScale": 7.5,
+        "useHitDirectionForParallax": false,
+        "textures": {
+          "tex": "ddi_vehicle_penetration_he_aluminium_a"
+        }
+      },
+      "heat_penetration": {
+        "sizeScale": 7.5,
+        "useHitDirectionForParallax": false,
+        "textures": {
+          "tex": "ddi_vehicle_penetration_he_aluminium_a"
+        }
+      },
+      "heat_non_penetration": {
+        "sizeScale": 7.5,
+        "useHitDirectionForParallax": false,
+        "textures": {
+          "tex": "ddi_vehicle_penetration_he_aluminium_a"
+        }
+      },
+      "shrapnel_damage": {
+        "useHitDirectionForParallax": false,
+        "sizeScale": 0.8,
+        "textures": {
+          "tex": "dds_aluminium_a"
         }
       }
     }

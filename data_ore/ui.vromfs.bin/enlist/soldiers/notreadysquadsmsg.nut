@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontHeading2 } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { defTxtColor, hoverTxtColor, blurBgColor, bigPadding, defBgColor, activeBgColor, warningColor
@@ -36,7 +36,7 @@ let mkHint = @(canBattle) {
 
 let mkText = @(text, color) { rendObj = ROBJ_TEXT, color = color, text = text }
 
-let function mkSquadRow(readyData) {
+function mkSquadRow(readyData) {
   let { squad, unreadyMsgs, canBattle } = readyData
   let stateFlags = Watched(0)
 
@@ -93,7 +93,7 @@ let mkButtons = @(onContinue) {
       ]
 }
 
-let function notReadySquadMsg() {
+function notReadySquadMsg() {
   let { notReady = [], onContinue = null } = showNotReadySquads.value
   let canBattle = notReady.findvalue(@(s) !s.canBattle) == null
   return {

@@ -18,7 +18,7 @@ def update_turret_sound(vel_h, vel_v : float; var event : SoundEvent&; path : st
     set_var(event.handle, "velV", vel_v * RAD_TO_DEG)
 
 
-[es(tag=sound, on_event=ParallelUpdateFrameDelayed, REQUIRE=turret_sound_group)]
+[es(tag=sound, on_event=ParallelUpdateFrameDelayed, after=sound_begin_update_es, before=sound_end_update_es, REQUIRE=turret_sound_group)]
 def turret_sound_group_update(evt : Event;
                               is_watched_sound : bool;
                               var turret_sound__event : SoundEvent&;
@@ -38,7 +38,7 @@ def turret_sound_group_update(evt : Event;
     abandon(turret_sound__event.handle)
 
 
-[es(tag=sound, on_event=ParallelUpdateFrameDelayed, REQUIRE_NOT=turret_sound_group)]
+[es(tag=sound, on_event=ParallelUpdateFrameDelayed, after=sound_begin_update_es, before=sound_end_update_es, REQUIRE_NOT=turret_sound_group)]
 def turret_sound_update(evt : Event;
                         is_watched_sound : bool;
                         turret_control__gunEids : EidList)

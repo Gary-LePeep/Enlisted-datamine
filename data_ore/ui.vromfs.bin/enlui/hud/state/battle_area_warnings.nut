@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {warningUpdate, WARNING_PRIORITIES, addWarnings} = require("%ui/hud/state/warnings.nut")
 const leftBattleArea = "leftBattleArea"
@@ -15,7 +15,7 @@ addWarnings({
   [taskPoint]              = { priority = WARNING_PRIORITIES.HIGH, getSound = @() "taskPoint" }
 })
 
-let function trackComponents(_eid, comp) {
+function trackComponents(_eid, comp) {
   let outside = comp.isOutsideBattleArea
   let showOutsideWarning = comp.isAlive && outside && !comp.redeploy__hideBattleAreaWarning
   let isInOldArea = !outside && comp.isInDeactivatingBattleArea && !comp.redeploy__hideBattleAreaWarning

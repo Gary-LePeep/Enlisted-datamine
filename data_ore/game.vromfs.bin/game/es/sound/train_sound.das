@@ -28,7 +28,7 @@ def get_train_pos(train__cartEids : EidList)
     prevPos = curPos
   return pos
 
-[es(tag=sound, after=animchar_render_es)]
+[es(tag=sound, after=sound_begin_update_es, before=sound_end_update_es)]
 def train_sound_speed(info : ParallelUpdateFrameDelayed;
                       var train_sound_speed__inited : bool&;
                       var train_sound_speed__pos : float2&;
@@ -72,7 +72,7 @@ def train_sound_speed(info : ParallelUpdateFrameDelayed;
     train_sound_speed__accel = 0.
 
 
-[es(tag=sound, after=train_sound_speed)]
+[es(tag=sound, after=(train_sound_speed, sound_begin_update_es), before=sound_end_update_es)]
 def train_sound(info : ParallelUpdateFrameDelayed;
                 train_sound_speed__speed : float;
                 train_sound_speed__accel : float;

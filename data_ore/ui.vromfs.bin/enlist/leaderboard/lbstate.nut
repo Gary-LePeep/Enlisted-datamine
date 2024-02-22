@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let userInfo = require("%enlSqGlob/userInfo.nut")
 let { appId } = require("%enlSqGlob/clientState.nut")
@@ -55,12 +55,12 @@ let requestDataInternal = keepref(Computed(function() {
   let reqSort = reqData?.sortCategory.field
   if (reqMode == null || reqSort == null
       || userInfo.value?.token == null
-      || appId.value < 0
+      || appId < 0
       || !lbStatsModes.value.contains(reqMode))
     return null
 
   let newData =  {
-    appid = appId.value
+    appid = appId
     category = reqSort
     gameMode = reqMode
     count = LB_PAGE_ROWS
@@ -145,7 +145,7 @@ let bestBattlesByMode = Computed(function() {
   return res
 })
 
-let function updateRefreshTimer() {
+function updateRefreshTimer() {
   if (isRefreshLbEnabled.value) {
     refreshLbData()
     gui_scene.setInterval(REFRESH_PERIOD, refreshLbData)

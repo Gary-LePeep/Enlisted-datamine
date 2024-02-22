@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {actionTimer} = require("%ui/hud/state/fortification_builder_action.nut")
 let {mkCountdownTimer} = require("%ui/helpers/timers.nut")

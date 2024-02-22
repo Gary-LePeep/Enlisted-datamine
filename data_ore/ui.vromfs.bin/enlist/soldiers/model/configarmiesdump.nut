@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { configs } = require("%enlist/meta/configs.nut")
 let { trimUpgradeSuffix } = require("%enlSqGlob/ui/itemsInfo.nut")
@@ -97,7 +97,7 @@ let getArmyCampaign = @(armyId) armyId.split("_")[0]
 let capFirst = @(str) $"{str.slice(0, 1).toupper()}{str.slice(1)}"
 
 // keep only tracked fields
-let function posterize(data) {
+function posterize(data) {
   let res = {}
   foreach (key in keysOrder)
     if (key in data)
@@ -105,7 +105,7 @@ let function posterize(data) {
   return res
 }
 
-let function sortEquipment(tbl, aidx, bidx) {
+function sortEquipment(tbl, aidx, bidx) {
   let a = tbl[aidx]
   let b = tbl[bidx]
   return (a?.slot ?? "") <=> (b?.slot ?? "")
@@ -113,7 +113,7 @@ let function sortEquipment(tbl, aidx, bidx) {
     || aidx <=> bidx
 }
 
-let function sortItems(tbl, aidx, bidx) {
+function sortItems(tbl, aidx, bidx) {
   let a = tbl[aidx]
   let b = tbl[bidx]
   return (a?.isShowDebugOnly ?? false) <=> (b?.isShowDebugOnly ?? false)
@@ -124,7 +124,7 @@ let function sortItems(tbl, aidx, bidx) {
     || aidx <=> bidx
 }
 
-let function sortVehicles(tbl, aidx, bidx) {
+function sortVehicles(tbl, aidx, bidx) {
   let a = tbl[aidx]
   let b = tbl[bidx]
   return (a?.isShowDebugOnly ?? false) <=> (b?.isShowDebugOnly ?? false)
@@ -151,7 +151,7 @@ let typesDesc = {
 
 let mkBaseTable = @() typesDesc.map(@(_) {})
 
-let function collectItemTemplates(all, renames) {
+function collectItemTemplates(all, renames) {
   let templates = configs.value?.items_templates ?? {}
   foreach (armyId, armyTemplates in templates) {
     if (armyId not in sidesArmies)
@@ -191,7 +191,7 @@ let function collectItemTemplates(all, renames) {
         tmplTarget[foundTpl] <- template
         // check if renaming field differs
         if (foundField != field) {
-          delete renamesArmy[foundField][basetpl]
+          renamesArmy[foundField].$rawdelete(basetpl)
           renamesArmy[field][basetpl] <- foundTpl
           console_print($"{basetpl} renamed to {foundTpl} and type changed from {foundField} to {field}")
         }
@@ -236,14 +236,14 @@ let function collectItemTemplates(all, renames) {
   }
 }
 
-let function sortTemplateKeys(tbl, sortFn) {
+function sortTemplateKeys(tbl, sortFn) {
   let keys = tbl.keys()
   keys.sort(@(a, b) sortFn(tbl, a, b))
   return keys
 }
 
 // non recursive function, used only for known ItemTemplate structure!
-let function dumpValue(key, value) {
+function dumpValue(key, value) {
   if (key in keysValues) {
     let lookup = keysValues[key]
     if (value in lookup)
@@ -273,7 +273,7 @@ let function dumpValue(key, value) {
   return $"      {key} = {value}"
 }
 
-let function mkTemplate(basetpl, template) {
+function mkTemplate(basetpl, template) {
   let rows = []
   foreach (key in keysOrder)
     if (key in template)
@@ -282,7 +282,7 @@ let function mkTemplate(basetpl, template) {
   return $"    \"{basetpl}\" => [[ ItemTemplate\n{res}\n    ]]"
 }
 
-let function saveTemplates(keys, values, variable, hasUpgrades = false) {
+function saveTemplates(keys, values, variable, hasUpgrades = false) {
   local filePath = "../profileServer/item_templates"
   let fileName = $"{variable}.das"
   filePath = dir_exists(filePath) ? $"{filePath}/{fileName}" : fileName
@@ -298,12 +298,12 @@ let function saveTemplates(keys, values, variable, hasUpgrades = false) {
   console_print($"Saved to {filePath}")
 }
 
-let function renameFilePath(name) {
+function renameFilePath(name) {
   let fileName = $"{name}.das"
   return dir_exists(RENAME_FILE_PATH) ? $"{RENAME_FILE_PATH}/{fileName}" : fileName
 }
 
-let function loadRenames(renames, field, variable) {
+function loadRenames(renames, field, variable) {
   let filePath = renameFilePath(variable)
   if (!file_exists(filePath)) {
     console_print($"Not found renaming file {filePath}")
@@ -318,28 +318,25 @@ let function loadRenames(renames, field, variable) {
   local armyId = null
   foreach (line in text.split("\n")) {
     let split = line.split("\"")
-    switch (split.len()) {
-      case 3:
-        armyId = split[1]
-        break
-
-      case 5:
-        if (armyId != null) {
-          local renamesArmy = renames?[armyId]
-          if (renamesArmy == null) {
-            renamesArmy = mkBaseTable()
-            renames[armyId] <- renamesArmy
-          }
-          let basetpl = split[1]
-          let newtpl = split[3]
-          renamesArmy[field][basetpl] <- newtpl
+    let l = split.len()
+    if (l == 3)
+      armyId = split[1]
+    else if ( l == 5) {
+      if (armyId != null) {
+        local renamesArmy = renames?[armyId]
+        if (renamesArmy == null) {
+          renamesArmy = mkBaseTable()
+          renames[armyId] <- renamesArmy
         }
-        break
+        let basetpl = split[1]
+        let newtpl = split[3]
+        renamesArmy[field][basetpl] <- newtpl
+      }
     }
   }
 }
 
-let function mkRenameArmies(armyId, templates) {
+function mkRenameArmies(armyId, templates) {
   let rows = []
   foreach (from in templates.keys().sort()) {
     let to = templates[from]
@@ -349,7 +346,7 @@ let function mkRenameArmies(armyId, templates) {
   return $"    \"{armyId}\" => \{\{\n{res}\n    \}\}"
 }
 
-let function saveRenames(renames, field, variable, hasUpgrades = false) {
+function saveRenames(renames, field, variable, hasUpgrades = false) {
   let filePath = renameFilePath(variable)
   let output = file(filePath, "wt+")
   if (hasUpgrades)
@@ -367,7 +364,7 @@ let function saveRenames(renames, field, variable, hasUpgrades = false) {
   console_print($"Renaming table is saved to {filePath}")
 }
 
-let function dumpItemTemplates() {
+function dumpItemTemplates() {
   let all = {}
   let renames = {}
   foreach (field, _ in typesDesc)

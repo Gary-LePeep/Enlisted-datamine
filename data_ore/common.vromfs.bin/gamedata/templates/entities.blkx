@@ -33,9 +33,6 @@
     "import": "projectile_sounds.blk"
   },
   {
-    "import": "vehicle_sounds.blk"
-  },
-  {
     "import": "human_sounds.blk"
   },
   {
@@ -147,6 +144,12 @@
   {
     "daeditor_selected": {
       "daeditor__selected:tag": []
+    }
+  },
+  {
+    "ies_editor_editing": {
+      "ies_editor_editing__original_ies_tex_name": "",
+      "ies__editor__editing:tag": []
     }
   },
   {
@@ -537,6 +540,9 @@
         "respawnCameraStaticSideLook": false
       },
       {
+        "respawn_camera__reserveAngleForSoldierMenu": 0.0
+      },
+      {
         "_replicated": "respawnCameraLookFromSide"
       },
       {
@@ -574,6 +580,14 @@
         "net__inInitialScope:tag": []
       }
     ]
+  },
+  {
+    "human_gun_offset_global_vars": {
+      "gun_offset_global__awayId": -1,
+      "gun_offset_global__upId": -1,
+      "gun_offset_global__acrossId": -1,
+      "gun_offset__fromSoldier": [0.0,0.0,0.0]
+    }
   },
   {
     "respawn_camera_target": {
@@ -689,6 +703,11 @@
   },
   {
     "menu_gun": {
+      "menu_gun:tag": []
+    }
+  },
+  {
+    "primary_menu_gun": {
       "menuPoseNodeName": "menu_pose",
       "animchar__turnDir": true,
       "menuPoseTm:m": {
@@ -849,6 +868,7 @@
         "sky_atmosphere__sun_brightness": 1.0,
         "sky_atmosphere__moon_brightness": 1.0,
         "sky_atmosphere__moon_color": [1.0,1.0,1.0],
+        "use_clouds_hole": true,
         "clouds_form__layers:array": [
           {
             "layer:object": {
@@ -1123,22 +1143,6 @@
     }
   },
   {
-    "esm_ambient_occlusion": {
-      "_singleton": true,
-      "_tags": "render",
-      "esm_ao__resolution": 32,
-      "esm_ao__maxDecalsDistance": 100.0,
-      "_group": {
-        "_track": true,
-        "esm_ao__frustumSize": [8.0,8.0,2.0],
-        "esm_ao__esmExp": 8.0
-      },
-      "esm_ao__manager:EsmAoManager": [],
-      "esm_ao__targetTex:UniqueTexHolder": [],
-      "esm_ao__curRenderedLods:list<i>": []
-    }
-  },
-  {
     "charred_area_decals_manager": {
       "_singleton": true,
       "_tags": "render",
@@ -1216,6 +1220,23 @@
     "asset_manager": {
       "_tags": "render",
       "_use": "base_asset_manager"
+    }
+  },
+  {
+    "adaptation_manager": {
+      "_singleton": true,
+      "_tags": "render",
+      "adaptation__exposure": 1.0,
+      "adaptation__fixed_exposure": -1.0,
+      "adaptation__manager:AdaptationManager": [],
+      "adaptation__update_readback_exposure_node:dabfg::NodeHandle": []
+    }
+  },
+  {
+    "adaptation__debugger": {
+      "_singleton": true,
+      "_tags": "render",
+      "adaptation__debug:tag": []
     }
   }
 ]

@@ -1,5 +1,3 @@
-from "%enlSqGlob/ui_library.nut" import *
-
 let {globalWatched} = require("%dngscripts/globalState.nut")
 const US_DL = "userstat.GetUserStatDescList"
 let userstatDescList = globalWatched(US_DL,@() {})[US_DL]

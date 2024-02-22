@@ -12,7 +12,7 @@ require soundSystem
 require sound_utils_net.modules.sound_utils_net_events
 
 
-[es(tag=sound, no_order)]
+[es(tag=sound, after=sound_begin_update_es, before=sound_end_update_es)]
 def sound_occlusion_update(info : ParallelUpdateFrameDelayed;
                            var sound_occlusion__targetId : int&)
   var targetId = -1

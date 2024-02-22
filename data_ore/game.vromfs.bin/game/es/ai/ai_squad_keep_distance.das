@@ -19,6 +19,10 @@ def is_human_should_wait_human(agent_transform : float3x4; other_transform : flo
   if dist < distance_range.x || dist > distance_range.y
     return false
 
+  let MID_HEIGHT = 0.5
+  if agent_transform[3].y + MID_HEIGHT < other_transform[3].y
+    return false
+
   return true
 
 [es(tag=server, REQUIRE=human, after=human_phys_es)]

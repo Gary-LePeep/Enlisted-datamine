@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
 let { fontTitle, fontHeading2 } = require("%enlSqGlob/ui/fontsStyle.nut")
@@ -21,7 +21,7 @@ let NICKFRAME_SIZE = hdpx(140)
 
 let infoiconSize = hdpxi(20)
 
-let timerIcon = "ui/skin#/battlepass/boost_time.svg"
+let timerIcon = "ui/skin#battlepass/boost_time.svg"
 let timerSize = hdpxi(20)
 
 let mkImage = @(path, size, override = {}) {
@@ -31,7 +31,7 @@ let mkImage = @(path, size, override = {}) {
   image = Picture(endswith(path, ".svg") ? $"!{path}:{size}:{size}:K" : $"{path}?Ac")
 }.__update(override)
 
-let function mkExpireTime(expireTime, override = {}) {
+function mkExpireTime(expireTime, override = {}) {
   let expireText = Computed(function() {
     let expireSec = expireTime - serverTime.value
     return expireSec <= 0 ? loc("timeExpired") : secondsToHoursLoc(expireSec)
@@ -59,7 +59,7 @@ let function mkExpireTime(expireTime, override = {}) {
   }.__update(override)
 }
 
-let function mkPortraitIcon(portraitCfg, pSize = PORTRAIT_SIZE) {
+function mkPortraitIcon(portraitCfg, pSize = PORTRAIT_SIZE) {
   let { bgimg = "", icon = "", color = Color(255,255,255) } = portraitCfg
   let size = (pSize - smallPadding * 2).tointeger()
   return {
@@ -76,7 +76,7 @@ let disabledParams = {
   picSaturate = 0.0
 }
 
-let function mkDisabledPortraitIcon(portraitCfg) {
+function mkDisabledPortraitIcon(portraitCfg) {
   let { bgimg = "", icon = "" } = portraitCfg
   let size = (PORTRAIT_SIZE - smallPadding * 2).tointeger()
   return {

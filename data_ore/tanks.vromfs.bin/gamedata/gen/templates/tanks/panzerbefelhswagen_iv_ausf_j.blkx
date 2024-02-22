@@ -19,7 +19,7 @@
       "vehicle_net_phys__blk": "gamedata/gen/units/tanks/panzerbefelhswagen_iv_ausf_j.blk:VehiclePhys"
     },
     {
-      "particle_phys__blk": "gamedata/suspension/empty.blk"
+      "particle_phys__blk": "gamedata/gen/units/tanks/panzerbefelhswagen_iv_ausf_j.blk:PhysSys"
     },
     {
       "dmg_animchar__res": "pzBefWg_IV_Ausf_J_dmg_char"
@@ -67,7 +67,7 @@
     {
       "turret_gun_flash_fx__flashFx:shared:array": [
         {
-          "fx": "muzzle_ground_60mm"
+          "fx": "muzzle_ground_60mm_brake"
         },
         {
           "fx": "muzzle_ground_8mm"

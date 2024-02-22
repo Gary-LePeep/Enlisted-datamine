@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { curArmy, getSoldierItemSlots, objInfoByGuid } = require("%enlist/soldiers/model/state.nut")
 let { curSoldierInfo } = require("%enlist/soldiers/model/curSoldiersState.nut")
@@ -180,7 +180,7 @@ let saveEquipmentPreset = function(presetCfg) {
 }
 
 
-let function filterAndRenamePreset(presetCfg, newName, idx) {
+function filterAndRenamePreset(presetCfg, newName, idx) {
   if (isWaitingObsceneFilterForIdx.value >= 0)
     return
   isWaitingObsceneFilterForIdx(idx)

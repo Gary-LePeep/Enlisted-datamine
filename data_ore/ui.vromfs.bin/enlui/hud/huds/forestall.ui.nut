@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {forestallMarkActive, forestallMarkPos, forestallMarkOpacity} = require("%ui/hud/state/forestall_state.nut")
 
@@ -16,7 +16,7 @@ let animations = [
   { prop = AnimProp.scale, from =[0.25, 0.25], to = [1, 1], duration = 0.3, easing = InCubic, play = true}
 ]
 
-let function mkForestallMark(){
+function mkForestallMark(){
   return {
     data = {
       minDistance = 0.1
@@ -31,7 +31,7 @@ let function mkForestallMark(){
   }
 }
 
-let function forestallMarkComp() {
+function forestallMarkComp() {
   return {
     halign = ALIGN_CENTER
     valign = ALIGN_CENTER

@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { respawn_markers_Set, respawn_markers_GetWatched, is_engineer} = require("%ui/hud/state/engineer_map_markers.nut")
 let iconSz = hdpxi(18)

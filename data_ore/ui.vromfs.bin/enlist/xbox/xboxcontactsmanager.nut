@@ -4,7 +4,7 @@ let {console2uid} = require("%enlist/contacts/consoleUidsRemap.nut")
 let userIds = require("%xboxLib/userIds.nut")
 
 
-let function get_uids(xuids) {
+function get_uids(xuids) {
   local result = {}
   foreach (xuid in xuids) {
     let strxuid = xuid.tostring()

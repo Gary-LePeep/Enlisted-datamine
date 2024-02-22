@@ -68,9 +68,8 @@ def vehicle_collision_sound_on_collision(evt : EventOnCollision;
       vehicle_collision_sound__entityCollMatId = get_material_id(material)
 
 
-[es(tag=sound)]
+[es(tag=sound, after=sound_begin_update_es, before=sound_end_update_es)]
 def vehicle_collision_sound(info : ParallelUpdateFrameDelayed;
-                            sound_control__shouldPlay : bool;
                             vehicle_collision_sound__collRange : float2;
 
                             var vehicle_collision_sound__enabled : bool&;
@@ -85,8 +84,8 @@ def vehicle_collision_sound(info : ParallelUpdateFrameDelayed;
                             var vehicle_collision_sound__scrapeTimer : float&;
                             vehicle_collision_sound__scrapeMinMax : float2;
 
-                            vehicle_sound_vars__deltaShock : float;
-                            vehicle_sound_vars__noiseReduction : float;
+                            vehicle_sound_phys_state__deltaShock : float;
+                            vehicle_sound_phys_state__noiseReduction : float;
 
                             is_watched_sound : bool;
 
@@ -96,7 +95,7 @@ def vehicle_collision_sound(info : ParallelUpdateFrameDelayed;
 
                             transform : float3x4)
 
-  let enable = sound_control__shouldPlay && (vehicle_collision_sound__enabled ?
+  let enable = (vehicle_collision_sound__enabled ?
     is_watched_sound || length_sq(transform[3] - get_listener_pos()) < square(vehicle_collision_sound__collRange.y) :
     is_watched_sound || length_sq(transform[3] - get_listener_pos()) < square(vehicle_collision_sound__collRange.x))
   assert(vehicle_collision_sound__collRange.y > vehicle_collision_sound__collRange.x)
@@ -116,8 +115,8 @@ def vehicle_collision_sound(info : ParallelUpdateFrameDelayed;
   var matProps : SoundVehiclePhysMatProps const? = null
   let treeCollision = false
 
-  if vehicle_sound_vars__deltaShock > vehicle_collision_sound__entityCollSummary
-    coll = vehicle_sound_vars__deltaShock
+  if vehicle_sound_phys_state__deltaShock > vehicle_collision_sound__entityCollSummary
+    coll = vehicle_sound_phys_state__deltaShock
     descName = treeCollision ? "collTree" : "collGeneric"
   else
     coll = vehicle_collision_sound__entityCollSummary
@@ -131,5 +130,5 @@ def vehicle_collision_sound(info : ParallelUpdateFrameDelayed;
   update_hit(info, vehicle_hit_sound_event, vehicle_collision_sound__hitTime, vehicle_collision_sound__hitForce, matProps, coll, descName, transform[3], vehicle_collision_sound__paths, sound_tags)
 
   let decayScrapeReduction = 10.
-  let scrape = cvt(coll, vehicle_collision_sound__scrapeMinMax.x, vehicle_collision_sound__scrapeMinMax.y, 0., 1.) * min(vehicle_sound_vars__noiseReduction * decayScrapeReduction, 1.)
+  let scrape = cvt(coll, vehicle_collision_sound__scrapeMinMax.x, vehicle_collision_sound__scrapeMinMax.y, 0., 1.) * min(vehicle_sound_phys_state__noiseReduction * decayScrapeReduction, 1.)
   update_scrape(info, vehicle_scrape_sound_event, vehicle_collision_sound__scrapeTimer, matProps, scrape, transform[3], is_watched_sound, vehicle_collision_sound__paths, sound_tags)

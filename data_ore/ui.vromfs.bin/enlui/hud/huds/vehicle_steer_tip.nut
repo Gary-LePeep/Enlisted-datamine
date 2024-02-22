@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let dainput = require("dainput2")
 let {fontSub} = require("%enlSqGlob/ui/fontsStyle.nut")
@@ -30,7 +30,7 @@ showTip.subscribe(function(v) {if (v) hideTip()})
 hideTip()
 controlledVehicleEid.subscribe(@(_) showTip(true))
 
-let function prepareTipCmp(key,imageMap) {
+function prepareTipCmp(key,imageMap) {
   if (isGamepad.value) {
     let hasImage = textListFromAction(key, 1).findvalue(@(e) e in imageMap) != null
     if (!hasImage)

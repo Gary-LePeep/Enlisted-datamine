@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let localPlayerEid = Watched(ecs.INVALID_ENTITY_ID)
 let wallPostersMaxCount = Watched(0)
@@ -7,7 +7,7 @@ let wallPostersCurCount = Watched(0)
 let wallPosterPreview = Watched(false)
 let wallPosters = Watched([])
 
-let function resetData() {
+function resetData() {
   localPlayerEid(ecs.INVALID_ENTITY_ID)
   wallPostersMaxCount(0)
   wallPostersCurCount(0)
@@ -15,7 +15,7 @@ let function resetData() {
   wallPosters([])
 }
 
-let function trackComponents(eid, comp) {
+function trackComponents(eid, comp) {
   if (comp.is_local) {
     localPlayerEid(eid)
     wallPostersMaxCount(comp["wallPosters__maxCount"])
@@ -28,7 +28,7 @@ let function trackComponents(eid, comp) {
   }
 }
 
-let function onDestroy(eid, _comp) {
+function onDestroy(eid, _comp) {
   if (localPlayerEid.value == eid)
     resetData()
 }

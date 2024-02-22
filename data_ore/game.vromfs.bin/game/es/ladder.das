@@ -8,6 +8,8 @@ require math.base
 require enlisted.events_enlisted
 
 
+let SIN_COS_45 = 0.70710678118
+
 def set_ladder_for_attach(eid : EntityId)
   var res = false
   query(eid) <| $ [es] (var human_ladder__ladderTm : float3x4&;
@@ -22,10 +24,18 @@ def set_ladder_for_attach(eid : EntityId)
       return
     var humanTransform : float3x4
     location_toTM(state.location, humanTransform)
+
     var dir = human_net_phys.phys.appliedCT.wishLookDir
-    dir.y = max(dir.y, 0.0)
+    if dir.y < 0.0
+      assume orientDir = human_net_phys.phys.currentState.bodyOrientDir
+      dir = float3(orientDir.x, 0.0, orientDir.y)
+    elif dir.y > SIN_COS_45
+      assume orientDir = human_net_phys.phys.currentState.bodyOrientDir
+      dir = float3(orientDir.x * SIN_COS_45, SIN_COS_45, orientDir.y * SIN_COS_45)
+
+    let traceDist = sqrt(square(dir.y) + square(human_net_phys__ladderTraceDist))
     let fromPos = humanTransform * human_net_phys__ladderTracePos
-    let toPos = fromPos + dir * human_net_phys__ladderTraceDist
+    let toPos = fromPos + dir * traceDist
 
     res = find_ladder(fromPos, toPos, human_ladder__ladderTm, human_ladder__numSteps)
   return res

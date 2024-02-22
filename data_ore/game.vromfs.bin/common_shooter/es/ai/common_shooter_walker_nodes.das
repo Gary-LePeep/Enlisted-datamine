@@ -16,6 +16,7 @@ require DagorRandom
 require DngHuman
 require common_shooter.es.squad_common
 require common_shooter.es.ai.common_shooter_walker_nodes_common
+require common_shooter.es.ai.ai_weapons_common
 require common_shooter.events_common_shooter
 require game.es.enlisted_squad_common
 
@@ -332,24 +333,22 @@ class ChooseBestWeapon : BehNodeAdapter
           allowedGun = (gun__totalAmmo + gun__ammo) > 0 && !gun__isOverheat
           if allowedGun && specialAIWeaponType != null
             specialAIWeapType = *specialAIWeaponType
-            if specialAIWeapType == 1 // rocket launchers
+            if specialAIWeapType == int(SpecialAIWeaponType ROCKET_LAUNCHERS)
               allowedGun = false
-              if otherWeaponPriority == 0 && targetInFarRange
-                otherWeapon = i
-            elif specialAIWeapType == 2 // pistols
+            elif specialAIWeapType == int(SpecialAIWeaponType PISTOLS)
               allowedGun = false
               if otherWeaponPriority < 10
                 otherWeapon = i
                 otherWeaponPriority = 10
-            elif specialAIWeapType == 3 // anti-tank rifles
+            elif specialAIWeapType == int(SpecialAIWeaponType ANTI_TANK_RIFLES)
               allowedGun = false
               if otherWeaponPriority < 5
                 otherWeapon = i
                 otherWeaponPriority = 5
-            elif specialAIWeapType == 4 // flamethrowers
+            elif specialAIWeapType == int(SpecialAIWeaponType FLAME_THROWERS)
               if !targetInFarRange
                 allowedGun = false
-            elif specialAIWeapType != 0 // other special
+            elif specialAIWeapType != 0
               allowedGun = false
         if !allowedGun
           continue

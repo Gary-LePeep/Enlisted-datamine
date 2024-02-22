@@ -330,6 +330,21 @@
     }
   },
   {
+    "us_m82": {
+      "_use": "base_vehicle_sight",
+      "vehicle_sight__blk": "content/tanks/gamedata/sight/us_m82.blk",
+      "vehicle_sight__useGunDir": true,
+      "vehicle_sight__slitZoom:list<r>": [
+        {
+          "zoom": 2.5
+        },
+        {
+          "zoom": 5.0
+        }
+      ]
+    }
+  },
+  {
     "us_m83f": {
       "_use": "base_vehicle_sight",
       "vehicle_sight__blk": "content/tanks/gamedata/sight/us_m83f.blk",
@@ -618,6 +633,21 @@
     "jp_75mm": {
       "_use": "base_vehicle_sight",
       "vehicle_sight__blk": "gamedata/sight/jp_75mm.blk",
+      "vehicle_sight__useGunDir": true,
+      "vehicle_sight__slitZoom:list<r>": [
+        {
+          "zoom": 1.9
+        },
+        {
+          "zoom": 3.5
+        }
+      ]
+    }
+  },
+  {
+    "jp_105mm": {
+      "_use": "base_vehicle_sight",
+      "vehicle_sight__blk": "gamedata/sight/jp_105mm.blk",
       "vehicle_sight__useGunDir": true,
       "vehicle_sight__slitZoom:list<r>": [
         {

@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {Point2} = require("dagor.math")
 let {mkCountdownTimer} = require("%ui/helpers/timers.nut")
@@ -10,7 +10,7 @@ let mineIconSize = [hdpxi(27), hdpxi(27)]
 let mineTimerSize = [hdpxi(27), hdpxi(27)]
 let mineIconMemo = memoize(@(typ, size) mineIcon(typ, size), 1)
 
-let function mkTimerIcon(state) {
+function mkTimerIcon(state) {
   let timerEndtime = Computed(@() state.value.blockedToTime)
   let countDownTimer = mkCountdownTimer(timerEndtime)
   let curProgressW = Computed(@() state.value.installBlockTime > 0 ? countDownTimer.value / state.value.installBlockTime : 0)
@@ -31,7 +31,7 @@ let function mkTimerIcon(state) {
   }
 }
 
-let function mine(eid){
+function mine(eid){
   let watch = mine_markers_GetWatched(eid)
   let timerIcon = mkTimerIcon(watch)
   return function(){

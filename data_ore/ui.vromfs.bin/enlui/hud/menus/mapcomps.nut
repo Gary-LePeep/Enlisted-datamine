@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let uiHotkeysHint = require("%ui/components/uiHotkeysHint.nut").mkHintRow
@@ -13,7 +13,7 @@ let hintTextFunc = @(text, color = DEFAULT_TEXT_COLOR) {
   color
 }.__update(fontBody, shadowStyle)
 
-let function mkTips(keys, locId){
+function mkTips(keys, locId){
   return {
     flow = FLOW_HORIZONTAL
     gap = hdpx(10)
@@ -22,7 +22,7 @@ let function mkTips(keys, locId){
   }
 }
 
-let function makeHintRow(hotkeys, text) {
+function makeHintRow(hotkeys, text) {
   return {
     size = [flex(), SIZE_TO_CONTENT]
     flow = FLOW_HORIZONTAL

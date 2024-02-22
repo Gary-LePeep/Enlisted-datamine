@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {
   Point3, TMatrix, quat_to_matrix, euler_to_quat, degToRad
@@ -11,7 +11,7 @@ let yprKeys = [
   ["item__viewRoll",  "item__iconRoll" ]
 ]
 
-local function transformItemImpl(transform, templateName, placeRelative){
+function transformItemImpl(transform, templateName, placeRelative){
   if (templateName == null)
     return transform
   let template = ecs.g_entity_mgr.getTemplateDB().getTemplateByName(templateName)

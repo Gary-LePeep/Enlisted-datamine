@@ -141,6 +141,10 @@ def human_weap_auto_height_lean(evt : CmdPostPhysUpdate;
   assume currentState = phys.currentState
   assume appliedCT = phys.appliedCT
 
+  let autoleanSettingOn = find_query() <| $ [es] (autolean_settings__autolean : bool) => autolean_settings__autolean
+  if !autoleanSettingOn
+    return
+
   human_phys_state_set_forceWeaponUp(currentState, false)
 
   let isCrawling = (int(currentState.states) & int(StateFlag ST_CRAWL)) != 0

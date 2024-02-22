@@ -37,8 +37,8 @@ def find_interactable(grid_name_hash : uint; tm : float3x4; player_tm : float3x4
       let localPos = itm * tm[3]
       let localPosToPlayer = itm * player_tm[3]
       let angleLimits = DEG_TO_RAD * interactAngleLimits
-      let horzAngle = safe_atan2(localPos.x, localPos.z)
-      let horzAngleToPlayer = safe_atan2(localPosToPlayer.x, localPosToPlayer.z)
+      let horzAngle = atan2(localPos.x, localPos.z)
+      let horzAngleToPlayer = atan2(localPosToPlayer.x, localPosToPlayer.z)
       if !ignore_checks && (max(horzAngle, horzAngleToPlayer) > angleLimits.y || min(horzAngle, horzAngleToPlayer) < angleLimits.x)
         return
       minDist = dirDot

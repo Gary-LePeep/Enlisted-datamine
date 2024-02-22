@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { mkFrameIncrementObservable } = require("%ui/ec_to_watched.nut")
 let { TEAM_UNASSIGNED, FIRST_GAME_TEAM } = require("team")
@@ -87,7 +87,7 @@ let visibleZoneGroups = Computed(function(prev){
 })
 
 
-let function playEvent(e, major=false){
+function playEvent(e, major=false){
   if (e==null)
     return
   if ((major && showMajorCaptureZoneEventsInHud) || showMinorCaptureZoneEventsInHud)
@@ -122,11 +122,11 @@ let attr2gui = {
   "capzone__endLockTime" : "endLockTime"
 }
 
-let function isFriendlyTeam(other_team, hero_team) {
+function isFriendlyTeam(other_team, hero_team) {
   return other_team == hero_team || is_teams_friendly(other_team, hero_team)
 }
 
-let function playNarrator(phrase) {
+function playNarrator(phrase) {
   if (phrase in (localPlayerTeamInfo.value?["team__narrator"] ?? {})) {
     ecs.g_entity_mgr.broadcastEvent(CmdTeamNarrator({phrase, replace=false}))
     return true
@@ -134,12 +134,12 @@ let function playNarrator(phrase) {
   return false
 }
 
-let function playMinorEvent(e, narrator="") {
+function playMinorEvent(e, narrator="") {
   playEvent(e, false)
   playNarrator(narrator)
 }
 
-let function notifyOnZoneVisitor(cur_team_capturing_zone, prev_team_capturing_zone, hero_team, attack_team) {
+function notifyOnZoneVisitor(cur_team_capturing_zone, prev_team_capturing_zone, hero_team, attack_team) {
   //cur_team_capturing_zone: -1 - empty | -2 - more than one team | team_id
   if (prev_team_capturing_zone == cur_team_capturing_zone)
     return //no changes
@@ -164,7 +164,7 @@ let function notifyOnZoneVisitor(cur_team_capturing_zone, prev_team_capturing_zo
 let mkOwnTeamId = memoize(@(owningTeam) $"team{owningTeam}")
 let mkOwnTeamIco = @(ownTeamIconObj, owningTeam) ownTeamIconObj.getAll()?[mkOwnTeamId(owningTeam)]
 
-let function onCapzonesInitialized(_evt, eid, comp) {
+function onCapzonesInitialized(_evt, eid, comp) {
   let owningTeam = comp["capzone__owningTeam"]
   let zone = {
     eid
@@ -224,7 +224,7 @@ let function onCapzonesInitialized(_evt, eid, comp) {
 let queryCapturerZones = ecs.SqQuery("queryCapturerZones",
   {comps_ro = [["isDowned", ecs.TYPE_BOOL, false], ["isInVehicle", ecs.TYPE_BOOL, false], ["capturer__capZonesIn", ecs.TYPE_EID_LIST]]})
 
-let function onHeroChanged(evt, _eid, _comp){
+function onHeroChanged(evt, _eid, _comp){
   let newHeroEid = evt[0]
   queryCapturerZones.perform(newHeroEid, function(_, visitorComp) {
     let zonesUpdate = {}
@@ -243,7 +243,7 @@ let function onHeroChanged(evt, _eid, _comp){
   })
 }
 
-let function onCapZoneChanged(_evt, eid, comp) {
+function onCapZoneChanged(_evt, eid, comp) {
   let changedZoneVals = {}
   foreach (attrName, v in comp){
     let zonePropName = attr2gui?[attrName]
@@ -288,7 +288,7 @@ let function onCapZoneChanged(_evt, eid, comp) {
 
 
 
-let function onZonePresenseChange(eid, visitor_eid, leave) {
+function onZonePresenseChange(eid, visitor_eid, leave) {
   let hero_eid = controlledHeroEid.value
   capZonesModify(function(v) {
     let zone = v?[eid]

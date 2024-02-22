@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontHeading2 } = require("%enlSqGlob/ui/fontsStyle.nut")
 let {registerUrl} = require("%enlist/login/ui/loginUiParams.nut")
@@ -10,7 +10,7 @@ let { openUrl } = require("%ui/components/openUrl.nut")
 if (!(get_setting_by_blk_path("gaijin_net_login") ?? true))
   return null
 
-let function text(str) {
+function text(str) {
   return {
     rendObj = ROBJ_TEXT
     text = str

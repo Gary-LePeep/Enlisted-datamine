@@ -18,11 +18,13 @@
     "render_settings__forwardRendering": true,
     "render_settings__upscaleSamplingTex": true,
     "render_settings__combinedShadows": true,
+    "render_settings__haze": true,
+    "render_settings__adaptation": true,
+    "render_settings__gpuResidentAdaptation": true,
     "render_settings__anisotropy": -1,
     "render_settings__effectsShadows": false,
     "render_settings__effects__max_active_shadows": 4,
     "render_settings__HQVolfog": false,
-    "render_settings__volumeFogQuality": "close",
-    "render_settings__should_create_and_delete_entities_before_render": false
+    "render_settings__volumeFogQuality": "close"
   }
 }

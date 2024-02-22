@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 let { hasEliteBattlePass } = require("%enlist/battlepass/eliteBattlePass.nut")
 let {
   unlocksSorted, unlockProgress, emptyProgress, activeUnlocks
@@ -52,7 +52,7 @@ let bpDailyTaskPremProgress = Computed(@()
 let canTakeDailyTaskReward = Computed(@()
   hasEliteBattlePass.value || bpDailyTaskProgress.value?.stage in bpDailyTask.value?.stages)
 
-let function receiveTaskRewards(task) {
+function receiveTaskRewards(task) {
   let uName = task.name
   let stage = userstatUnlocks.value?.unlocks[uName].stage ?? 0
   receiveUnlockRewards(uName, stage)
@@ -97,7 +97,7 @@ let getLeftRerolls = @(unlockDesc, stats)
 let getTotalRerolls = @(unlockDesc, stats)
   stats?[unlockDesc?.table].freeRerollLimit
 
-let function doRerollUnlock(unlockDesc) {
+function doRerollUnlock(unlockDesc) {
   if (getLeftRerolls(unlockDesc, userstatStats.value?.stats) <= 0 || isRerollInProgress.value)
     return
 

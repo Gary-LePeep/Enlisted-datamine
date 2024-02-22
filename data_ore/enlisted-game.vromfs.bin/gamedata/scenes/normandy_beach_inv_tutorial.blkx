@@ -34,16 +34,31 @@
       "active": false,
       "poly_area__points:list<p3>": [
         {
-          "item": [60.2849,15.0835,150.251]
+          "item": [47.6595,15.388,169.08]
         },
         {
-          "item": [69.8183,17.9589,149.431]
+          "item": [47.4739,15.388,173.496]
         },
         {
-          "item": [93.069,19.5285,149.268]
+          "item": [50.7888,15.4163,177.031]
         },
         {
-          "item": [158.623,14.7667,162.708]
+          "item": [55.6557,15.4058,177.171]
+        },
+        {
+          "item": [59.1596,15.4193,173.603]
+        },
+        {
+          "item": [63.5253,16.6489,173.68]
+        },
+        {
+          "item": [64.1691,10.6655,190.187]
+        },
+        {
+          "item": [76.4671,10.6818,190.203]
+        },
+        {
+          "item": [158.619,8.42808,217.55]
         },
         {
           "item": [158.745,-0.289307,415.535]
@@ -61,7 +76,7 @@
           "item": [-45.0305,16.4123,165.161]
         },
         {
-          "item": [-40.4614,17.8811,157.326]
+          "item": [-43.4157,16.6979,162.344]
         },
         {
           "item": [-2.78583,11.6827,161.904]
@@ -70,10 +85,7 @@
           "item": [16.8194,13.3268,162.87]
         },
         {
-          "item": [25.6745,9.74506,160.526]
-        },
-        {
-          "item": [33.9598,10.6818,157.515]
+          "item": [34.0509,10.8594,164.533]
         }
       ]
     }
@@ -144,225 +156,6 @@
           "item": [-127.363,9.02266,246.545]
         }
       ]
-    }
-  },
-  {
-    "entity": {
-      "_template": "aircraft_box_battle_area",
-      "transform": [
-        [11269.8,0.0,-1003.34],
-        [0.0,8000.03,0.0],
-        [1002.81,0.0,11269.8],
-        [-6.3324,240.916,-60.7029]
-      ],
-      "battle_area__team": -1
-    }
-  },
-  {
-    "entity": {
-      "_template": "dev_soldier+human_weap",
-      "transform": [
-        [0.999984,0.0,-0.00565224],
-        [0.0,1.0,0.0],
-        [0.00565224,0.0,0.999984],
-        [2.31689,19.0132,152.195]
-      ],
-      "team": 2,
-      "human_weap__weapTemplates:object": {
-        "primary": "mg_42_handheld_gun"
-      },
-      "human_equipment__initialEquip:object": {
-        "attachable_wear_pot_with_nodes_item": "pot",
-        "attachable_wear_head_01_us_summer_item": "face",
-        "attachable_wear_tunic_dev_with_nodes_item": "tunic",
-        "attachable_wear_gloves_01_us_summer_item": "gloves",
-        "attachable_wear_tornister_backpack_m39_nodes_item": "backpack",
-        "attachable_wear_pants_01_ger_summer_item": "pants",
-        "attachable_wear_belt_dev_with_nodes_item": "belt_1"
-      }
-    }
-  },
-  {
-    "entity": {
-      "_template": "dev_soldier+human_weap",
-      "transform": [
-        [0.999984,0.0,-0.00565224],
-        [0.0,1.0,0.0],
-        [0.00565224,0.0,0.999984],
-        [-33.1029,16.169,138.492]
-      ],
-      "team": 2,
-      "human_weap__weapTemplates:object": {
-        "primary": "mg_42_handheld_gun"
-      }
-    }
-  },
-  {
-    "entity": {
-      "_template": "dev_soldier+human_weap",
-      "transform": [
-        [1.0,0.0,-0.00114051],
-        [0.0,1.0,0.0],
-        [0.00114051,0.0,1.0],
-        [66.9468,15.8162,188.791]
-      ],
-      "team": 2,
-      "human_weap__weapTemplates:object": {
-        "primary": "mg_42_handheld_gun"
-      }
-    }
-  },
-  {
-    "entity": {
-      "_template": "dev_soldier+human_weap",
-      "transform": [
-        [-0.817443,0.0,0.57601],
-        [0.0,1.0,0.0],
-        [-0.57601,0.0,-0.817443],
-        [53.2982,15.5629,175.649]
-      ],
-      "team": 2,
-      "human_weap__weapTemplates:object": {
-        "primary": "mg_42_handheld_gun"
-      }
-    }
-  },
-  {
-    "entity": {
-      "_template": "dev_soldier+human_weap",
-      "transform": [
-        [0.999984,0.0,-0.00565224],
-        [0.0,1.0,0.0],
-        [0.00565224,0.0,0.999984],
-        [5.75936,15.9897,160.242]
-      ],
-      "team": 2,
-      "human_weap__weapTemplates:object": {
-        "primary": "mg_42_handheld_gun"
-      }
-    }
-  },
-  {
-    "entity": {
-      "_template": "dev_soldier+human_weap",
-      "transform": [
-        [0.999981,0.0,0.00611812],
-        [0.0,1.0,0.0],
-        [-0.00611812,0.0,0.999981],
-        [5.09575,7.99838,215.061]
-      ],
-      "team": 1,
-      "human_weap__weapTemplates:object": {
-        "secondary": "m1_garand_gun",
-        "primary": "m1_flamethrower_gun"
-      }
-    }
-  },
-  {
-    "entity": {
-      "_template": "dev_soldier+human_weap",
-      "transform": [
-        [1.0,0.0,-0.000976562],
-        [0.0,1.0,0.0],
-        [0.000976562,0.0,1.0],
-        [28.6767,7.07253,262.651]
-      ],
-      "team": 1,
-      "human_weap__weapTemplates:object": {
-        "secondary": "m1_garand_gun",
-        "primary": "m1_bazooka_gun"
-      }
-    }
-  },
-  {
-    "entity": {
-      "_template": "dev_soldier+human_weap",
-      "transform": [
-        [1.0,0.0,-0.000976562],
-        [0.0,1.0,0.0],
-        [0.000976562,0.0,1.0],
-        [-35.0989,0.829401,319.822]
-      ],
-      "team": 1,
-      "human_weap__weapTemplates:object": {
-        "secondary": "m1_garand_gun",
-        "primary": "two_inch_mortar_gun"
-      }
-    }
-  },
-  {
-    "entity": {
-      "_template": "dev_soldier+human_weap",
-      "transform": [
-        [0.999984,0.0,-0.00565224],
-        [0.0,1.0,0.0],
-        [0.00565224,0.0,0.999984],
-        [13.575,10.4811,209.757]
-      ],
-      "team": 2,
-      "human_weap__weapTemplates:object": {
-        "primary": "gewehr_43_gun"
-      }
-    }
-  },
-  {
-    "entity": {
-      "_template": "dev_soldier+human_weap",
-      "transform": [
-        [0.999984,0.0,-0.00565224],
-        [0.0,1.0,0.0],
-        [0.00565224,0.0,0.999984],
-        [11.8268,10.4811,208.174]
-      ],
-      "team": 2,
-      "human_weap__weapTemplates:object": {
-        "primary": "gewehr_43_gun"
-      }
-    }
-  },
-  {
-    "entity": {
-      "_template": "dev_soldier+human_weap",
-      "transform": [
-        [0.999984,0.0,-0.00565224],
-        [0.0,1.0,0.0],
-        [0.00565224,0.0,0.999984],
-        [16.7396,10.4811,208.902]
-      ],
-      "team": 2,
-      "human_weap__weapTemplates:object": {
-        "primary": "gewehr_43_gun"
-      }
-    }
-  },
-  {
-    "entity": {
-      "_template": "dev_soldier+human_weap",
-      "transform": [
-        [0.999984,0.0,-0.00565224],
-        [0.0,1.0,0.0],
-        [0.00565224,0.0,0.999984],
-        [14.4143,10.4811,208.029]
-      ],
-      "team": 2,
-      "human_weap__weapTemplates:object": {
-        "primary": "gewehr_43_gun"
-      }
-    }
-  },
-  {
-    "entity": {
-      "_template": "m1_garand_gun_item+item_in_world+ui_visible+disable_update+gun_with_initial_ammo",
-      "transform": [
-        [1.0,0.0,-0.000976562],
-        [0.0,1.0,0.0],
-        [0.000976562,0.0,1.0],
-        [-35.0989,0.829401,319.822]
-      ],
-      "animchar__updatable": false,
-      "gun__initialAmmoHoldersCount:list<i>": {
-        "item": 5
-      }
     }
   },
   {
@@ -572,7 +365,7 @@
         [0.0239474,0.0,-0.999713],
         [0.0,1.0,0.0],
         [0.999714,0.0,0.0239467],
-        [3.07121,0.575405,354.909]
+        [3.5627,1.44872,355.803]
       ],
       "groupName": "sector_1",
       "respawnBaseGroup": 1,
@@ -583,27 +376,13 @@
     "entity": {
       "_template": "respawnChooser+respTeam1",
       "transform": [
-        [-0.0727514,0.0,-0.997349],
+        [0.338906,0.0,-0.940819],
         [0.0,1.0,0.0],
-        [0.99735,0.0,-0.0727528],
-        [54.2312,0.954018,377.909]
+        [0.94082,-0.0,0.338906],
+        [54.6715,1.28079,377.444]
       ],
       "groupName": "sector_1",
       "respawnBaseGroup": 1,
-      "active": false
-    }
-  },
-  {
-    "entity": {
-      "_template": "respawnChooser+respTeam1",
-      "transform": [
-        [0.00755534,0.0,-0.99997],
-        [0.0,1.0,0.0],
-        [0.999971,0.0,0.00755405],
-        [-75.6164,0.911283,356.301]
-      ],
-      "groupName": "sector_1",
-      "respawnBaseGroup": 2,
       "active": false
     }
   },
@@ -625,27 +404,13 @@
     "entity": {
       "_template": "respawnChooser+respTeam1",
       "transform": [
-        [0.134777,0.0,-0.990875],
+        [-0.420586,0.0,-0.907251],
         [0.0,1.0,0.0],
-        [0.990876,0.0,0.134776],
-        [-38.6891,0.575405,359.346]
+        [0.907252,0.0,-0.420587],
+        [-37.2112,1.24671,358.125]
       ],
       "groupName": "sector_1",
       "respawnBaseGroup": 2,
-      "active": false
-    }
-  },
-  {
-    "entity": {
-      "_template": "respawnChooser+respTeam1",
-      "transform": [
-        [0.52297,0.0,-0.85235],
-        [0.0,1.0,0.0],
-        [0.852351,0.0,0.522969],
-        [24.1008,1.30132,372.231]
-      ],
-      "groupName": "sector_1",
-      "respawnBaseGroup": 1,
       "active": false
     }
   },
@@ -785,10 +550,10 @@
     "entity": {
       "_template": "respawnChooser+respVehicle+vehicle_resp_soft_ground_collision",
       "transform": [
-        [0.852554,0.0,-0.52264],
+        [0.769534,0.0,-0.638607],
         [0.0,1.0,0.0],
-        [0.52264,0.0,0.852554],
-        [-104.716,1.25912,328.628]
+        [0.638607,-0.0,0.769534],
+        [-101.484,2.26704,322.613]
       ],
       "groupName": "sector_1",
       "active": false,
@@ -803,10 +568,10 @@
       "_template": "respawnChooser+respMotorcycle",
       "active": false,
       "transform": [
-        [0.852554,0.0,-0.52264],
+        [0.769534,0.0,-0.638607],
         [0.0,1.0,0.0],
-        [0.52264,0.0,0.852554],
-        [-102.008,1.25912,327.706]
+        [0.638607,-0.0,0.769534],
+        [-101.184,2.26704,322.653]
       ],
       "team": 1,
       "groupName": "sector_1",
@@ -1082,7 +847,7 @@
         [-0.995194,0.0,-0.0979228],
         [0.0,1.0,0.0],
         [0.0979228,0.0,-0.995194],
-        [211.467,55.7869,33.1447]
+        [211.467,54.3102,33.1447]
       ],
       "interactable": false,
       "animchar_render__enabled": false,
@@ -1096,7 +861,7 @@
         [-0.995194,0.0,-0.0979228],
         [0.0,1.0,0.0],
         [0.0979228,0.0,-0.995194],
-        [113.11,55.221,66.0643]
+        [113.11,54.6412,66.0643]
       ],
       "animchar_render__enabled": false,
       "interactable": false,
@@ -1506,7 +1271,7 @@
         [-0.995194,0.0,-0.0979228],
         [0.0,1.0,0.0],
         [0.0979228,0.0,-0.995194],
-        [-86.7128,34.3919,108.545]
+        [-86.7607,28.881,108.545]
       ],
       "interactable": false,
       "animchar_render__enabled": false,
@@ -1515,7 +1280,13 @@
   },
   {
     "entity": {
-      "_template": "normandy_level",
+      "_template": "custom_profile",
+      "customProfile": "%enlSqGlob/data/bots_profile_low.json"
+    }
+  },
+  {
+    "entity": {
+      "_template": "normandy_level_tutorial",
       "level__blk": "content/enlisted/levels/normandy_beach_fortified_1x1.blk"
     }
   },
@@ -1555,17 +1326,60 @@
         [2.6415,0.0,0.0],
         [0.0,2.6415,0.0],
         [0.0,0.0,2.6415],
-        [-3.36263,6.64081,247.783]
+        [13.1074,6.6408,172.169]
       ],
-      "artillery__baseInterval": 3000.0,
-      "artillery__baseSpawnDelay": 4500.0,
-      "artillery__interval": 30000.0,
-      "artillery__missionStartDelay": 5.0,
-      "artillery__spawnDelay": 5.0,
+      "artillery__baseInterval": 30.0,
+      "artillery__baseSpawnDelay": 45.0,
+      "artillery__interval": 60.0,
+      "artillery__missionStartDelay": 15.0,
+      "artillery__spawnDelay": 15.0,
       "artillery__lastShotInTime": 130.069,
-      "artilleryStrikeSpawnPeriod": 45000.0,
-      "artilleryStrikeSpawnTime": 20.3379,
-      "artillery__nextTimeAICallArtillery": 10000000.0
+      "artilleryStrikeSpawnPeriod": 60.0,
+      "artilleryStrikeSpawnTime": 30.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "aircraft_bombers_requester",
+      "transform": [
+        [2.6415,0.0,0.0],
+        [0.0,2.6415,0.0],
+        [0.0,0.0,2.6415],
+        [-43.3617,6.64082,117.549]
+      ],
+      "team": 1,
+      "aircraft_bombers_requester__firstRequestDelay": 10.0,
+      "aircraft_bombers_requester__requestPeriod": 210.0,
+      "aircraft_bombers_requester__timeToRequest": 0.0,
+      "artillery__templates:list<t>": {
+        "item": "normandy_usa_team_aircraft_request"
+      }
+    }
+  },
+  {
+    "entity": {
+      "_template": "scripted_plane_spawner",
+      "team": 2,
+      "scripted_plane_spawner__flyFrom": [-529.358,125.335,-906.237],
+      "scripted_plane_spawner__flyTo": [1418.04,125.335,2403.12],
+      "scripted_plane_spawner__firstSpawnDelay": 10.0,
+      "scripted_plane_spawner__spawnPeriod": 130.0,
+      "scripted_plane_spawner__timeToSpawn": 10.0,
+      "scripted_plane_spawner__planeSpeed": 260.0,
+      "scripted_plane_spawner__planeTemplate": "bf_109e_7+scripted_plane"
+    }
+  },
+  {
+    "entity": {
+      "_template": "scripted_plane_spawner",
+      "team": 2,
+      "scripted_plane_spawner__flyFrom": [-570.807,125.335,-877.387],
+      "scripted_plane_spawner__flyTo": [1380.59,125.335,2431.97],
+      "scripted_plane_spawner__firstSpawnDelay": 10.0,
+      "scripted_plane_spawner__spawnPeriod": 130.0,
+      "scripted_plane_spawner__timeToSpawn": 10.0,
+      "scripted_plane_spawner__planeSpeed": 260.0,
+      "scripted_plane_spawner__planeTemplate": "bf_109e_7+scripted_plane"
     }
   }
 ]

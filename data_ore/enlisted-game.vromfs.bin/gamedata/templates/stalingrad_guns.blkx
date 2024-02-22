@@ -733,6 +733,10 @@
         },
         "boltAction:object": {
           "path": "/weapon/rifle/mosin/bolt_action"
+        },
+        "ammo_drop:object": {
+          "hero": "player/weapon/_common/clip_drop",
+          "type": "matUnderFeet"
         }
       }
     }
@@ -2943,6 +2947,12 @@
       "_use": "stationary_mg42_building_attachable"
     },
     {
+      "_use": "semi_transparent_field_of_view"
+    },
+    {
+      "_use": "cannon_building_sound"
+    },
+    {
       "additiveUp": [0.0,1.0,0.0]
     },
     {
@@ -2980,32 +2990,63 @@
       "previewAnimVarParamsValue:list<r>": {
         "value": 1.0
       }
-    }
-  ],
-  "sandbags_wall_ampulomet_preview": {
-    "_use": "base_rendinst_builder_preview",
-    "instantiateTemplate": "sandbags_wall_ampulomet",
-    "ri_preview__name": "sandbags_wall_medium_rounded_a_mission_object",
-    "avaliableAngles": [-15.0,15.0],
-    "buildingSoundTag": "fortification",
-    "building_builder__maxTimeToBuild": 24.0,
-    "buildingCost": 10.0,
-    "building__requireUnlockId": 4,
-    "building_menu__text": "building_tool/sandbags_wall_ampulomet",
-    "building_menu__image": "building_ampulomet",
-    "additiveBuildings:array": {
-      "item:object": {
-        "template": "stationary_ampulomet_building_additive_preview",
-        "tm": [
-          [0.0,0.0,1.0],
-          [0.0,1.0,0.0],
-          [-1.0,0.0,0.0],
-          [0.15,1.07,-0.2]
-        ],
-        "additiveUp": [0.0,1.0,0.0]
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "semi_transparent_field_of_view__radius": 7.5,
+        "semi_transparent_field_of_view__verticalAngle": 3.0,
+        "semi_transparent_field_of_view__heightOfFOV": -0.8,
+        "builded_stationary_entity_name": "stationary_ampulomet_without_shell_ejection"
       }
     }
-  },
+  ],
+  "sandbags_wall_ampulomet_preview": [
+    {
+      "_use": "base_rendinst_builder_preview"
+    },
+    {
+      "_use": "fortification_building_sound"
+    },
+    {
+      "instantiateTemplate": "sandbags_wall_ampulomet"
+    },
+    {
+      "ri_preview__name": "sandbags_wall_medium_rounded_a_mission_object"
+    },
+    {
+      "avaliableAngles": [-15.0,15.0]
+    },
+    {
+      "building_builder__maxTimeToBuild": 24.0
+    },
+    {
+      "buildingCost": 10.0
+    },
+    {
+      "building__requireUnlockId": 4
+    },
+    {
+      "building_menu__text": "building_tool/sandbags_wall_ampulomet"
+    },
+    {
+      "building_menu__image": "building_ampulomet"
+    },
+    {
+      "additiveBuildings:array": {
+        "item:object": {
+          "template": "stationary_ampulomet_building_additive_preview",
+          "tm": [
+            [0.0,0.0,1.0],
+            [0.0,1.0,0.0],
+            [-1.0,0.0,0.0],
+            [0.15,1.07,-0.2]
+          ],
+          "additiveUp": [0.0,1.0,0.0]
+        }
+      }
+    }
+  ],
   "sandbags_wall_ampulomet": [
     {
       "_use": "base_ri_building"
@@ -3094,6 +3135,12 @@
       "_use": "stationary_mg42_building_attachable"
     },
     {
+      "_use": "semi_transparent_field_of_view"
+    },
+    {
+      "_use": "cannon_building_sound"
+    },
+    {
       "additiveUp": [0.0,1.0,0.0]
     },
     {
@@ -3131,32 +3178,63 @@
       "previewAnimVarParamsValue:list<r>": {
         "value": 1.0
       }
-    }
-  ],
-  "sandbags_wall_maxim_preview": {
-    "_use": "base_rendinst_builder_preview",
-    "instantiateTemplate": "sandbags_wall_maxim",
-    "ri_preview__name": "sandbags_wall_medium_rounded_a_mission_object",
-    "avaliableAngles": [-15.0,15.0],
-    "buildingSoundTag": "fortification",
-    "building_builder__maxTimeToBuild": 24.0,
-    "buildingCost": 10.0,
-    "building__requireUnlockId": 3,
-    "building_menu__text": "building_tool/sandbags_with_mg42",
-    "building_menu__image": "building_mg_nest",
-    "additiveBuildings:array": {
-      "item:object": {
-        "template": "stationary_maxim_building_additive_preview",
-        "tm": [
-          [0.0,0.0,1.0],
-          [0.0,1.0,0.0],
-          [-1.0,0.0,0.0],
-          [0.25,1.07,-0.24]
-        ],
-        "additiveUp": [0.0,1.0,0.0]
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "semi_transparent_field_of_view__radius": 7.5,
+        "semi_transparent_field_of_view__verticalAngle": 3.0,
+        "semi_transparent_field_of_view__heightOfFOV": -0.8,
+        "builded_stationary_entity_name": "builded_stationary_maxim_with_autodetach"
       }
     }
-  },
+  ],
+  "sandbags_wall_maxim_preview": [
+    {
+      "_use": "base_rendinst_builder_preview"
+    },
+    {
+      "_use": "fortification_building_sound"
+    },
+    {
+      "instantiateTemplate": "sandbags_wall_maxim"
+    },
+    {
+      "ri_preview__name": "sandbags_wall_medium_rounded_a_mission_object"
+    },
+    {
+      "avaliableAngles": [-15.0,15.0]
+    },
+    {
+      "building_builder__maxTimeToBuild": 24.0
+    },
+    {
+      "buildingCost": 10.0
+    },
+    {
+      "building__requireUnlockId": 3
+    },
+    {
+      "building_menu__text": "building_tool/sandbags_with_mg42"
+    },
+    {
+      "building_menu__image": "building_mg_nest"
+    },
+    {
+      "additiveBuildings:array": {
+        "item:object": {
+          "template": "stationary_maxim_building_additive_preview",
+          "tm": [
+            [0.0,0.0,1.0],
+            [0.0,1.0,0.0],
+            [-1.0,0.0,0.0],
+            [0.25,1.07,-0.24]
+          ],
+          "additiveUp": [0.0,1.0,0.0]
+        }
+      }
+    }
+  ],
   "sandbags_wall_maxim": [
     {
       "_use": "base_ri_building"

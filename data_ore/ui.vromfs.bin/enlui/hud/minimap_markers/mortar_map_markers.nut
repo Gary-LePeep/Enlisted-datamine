@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { mortarMarkersSet, mortarMarkersGetWatched } = require("%ui/hud/state/mortar_markers.nut")
 
@@ -13,7 +13,7 @@ let transform = {
   rotate = -90
 }
 
-let function mkMortarMarker(eid){
+function mkMortarMarker(eid){
   let marker = mortarMarkersGetWatched(eid).value
   return {
     image = mortarImages?[marker.type]

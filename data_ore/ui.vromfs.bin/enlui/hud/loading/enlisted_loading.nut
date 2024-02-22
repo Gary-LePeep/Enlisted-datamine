@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontHeading1, fontHeading2, fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { missionName, missionType } = require("%enlSqGlob/missionParams.nut")
@@ -6,7 +6,7 @@ let {set_fully_covering} = require("loading")
 let {levelIsLoading} = require("%ui/hud/state/appState.nut")
 let {mkParallaxBkg, mkAnimatedEllipsis} = require("%ui/loading/loadingComponents.nut")
 let {shuffle} = require("%sqstd/rand.nut")
-let {verPadding, horPadding} = require("%enlSqGlob/safeArea.nut")
+let {verPadding, horPadding} = require("%enlSqGlob/ui/safeArea.nut")
 let { darkBgColor } = require("%enlSqGlob/ui/viewConst.nut")
 let { doesLocTextExist } = require("dagor.localize")
 let {loadingImages} = require("%ui/hud/state/loading.nut")
@@ -39,16 +39,16 @@ let tipHeaderColor = Color(230,200,30,255)
 
 const defaultTimeToSwitch = 20
 const defaultAutoTimeToSwitch = 15
-let function nextTipAuto(){
+function nextTipAuto(){
   curIdx(curIdx.value + 1)
 }
-let function nextTip() {
+function nextTip() {
   gui_scene.clearTimer(nextTipAuto)
   gui_scene.clearTimer(callee())
   gui_scene.setTimeout(defaultTimeToSwitch, callee())
   curIdx(curIdx.value + 1)
 }
-let function prevTip(){
+function prevTip(){
   gui_scene.clearTimer(nextTipAuto)
   gui_scene.clearTimer(nextTip)
   gui_scene.setTimeout(defaultTimeToSwitch, nextTip)

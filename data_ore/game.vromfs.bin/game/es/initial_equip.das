@@ -24,6 +24,13 @@ def skeleton_attach_with_remap_parent_impl(eid : EntityId;
         possibleParentEid != invalid_parent_eid &&
         has(possibleParentEid, "skeleton_attach__remapAffectSlots"))
       if slot_attach__attachedTo != possibleParentEid
+
+        var list = getRW_ecs_EidList(slot_attach__attachedTo, "attaches_list")
+        if list != null // remove eid from list for fix twitching attaches on change
+          let idx = find_index(*list, eid)
+          if idx > 0
+            erase(*list, idx)
+
         slot_attach__attachedTo = possibleParentEid
         skeleton_attach__attachedTo = possibleParentEid
         sendEventImmediate(eid, [[CmdInitSkeletonAttach]])
@@ -98,7 +105,7 @@ def skeleton_attach_with_remap_parent_reinit_attach_track(evt : Event;
   query(skeleton_attach__attachedTo) <| $ [es(REQUIRE=animchar)] ()
     sendEventImmediate(eid, [[CmdInitSkeletonAttach]])
 
-[es(tag=gameClient, on_appear, REQUIRE=skeleton_attach__skeletonRemap)]
+[es(tag=gameClient, on_appear, after=(skeleton_attach_init_es, skeleton_attach_reinit_es), REQUIRE=skeleton_attach__skeletonRemap)]
 def skeleton_attach_with_remap_parent_reinit_remap_init(evt : Event;
                                                         attaches_list : EidList;
                                                         var animchar : AnimcharBaseComponent&;

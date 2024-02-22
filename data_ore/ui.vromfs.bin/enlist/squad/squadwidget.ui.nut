@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { gap } = require("%enlSqGlob/ui/viewConst.nut")
@@ -77,7 +77,7 @@ let squadReadyButton = @(ready) textButton(
       : { TextNormal = Color(100, 100, 100, 120) }
   })
 
-let function squadReadyButtonPlace() {
+function squadReadyButtonPlace() {
   let res = { watch = [squadSelfMember, isSquadLeader, roomIsLobby, myExtSquadData.ready] }
   if (squadSelfMember.value && !isSquadLeader.value) {
     res.__update({
@@ -90,7 +90,7 @@ let function squadReadyButtonPlace() {
   return res
 }
 
-let function squadMembersUi() {
+function squadMembersUi() {
   let squadList = []
   foreach (member in squadMembers.value)
     if (member.isLeader)

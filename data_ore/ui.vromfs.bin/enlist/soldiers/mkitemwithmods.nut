@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { smallPadding, unitSize, bigPadding, soldierWndWidth, hoverBgColor
 } = require("%enlSqGlob/ui/viewConst.nut")
@@ -41,7 +41,7 @@ let modBgStyle = @(sf, _isSelected, _bgColor) {
     : modsColor
 }
 
-let function getModData(mainItem, slot) {
+function getModData(mainItem, slot) {
   if ((mainItem?.guid ?? "") != "")
     return objInfoByGuid.value?[slot.equipped]
 
@@ -49,7 +49,7 @@ let function getModData(mainItem, slot) {
   return allItemTemplates.value?[curArmy.value][basetpl]
 }
 
-let function mkItemMods(p) {
+function mkItemMods(p) {
   let slots = getModSlots(p.item)
   if (slots.len() == 0)
     return null
@@ -85,7 +85,7 @@ let function mkItemMods(p) {
   }
 }
 
-local function mkItemWithMods(p = MAKE_PARAMS) {
+function mkItemWithMods(p = MAKE_PARAMS) {
   p = MAKE_PARAMS.__merge(p)
   let mods = mkItemMods(p)
   if (mods)

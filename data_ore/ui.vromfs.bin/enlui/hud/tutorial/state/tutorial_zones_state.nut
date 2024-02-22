@@ -1,10 +1,10 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let tutorialZones = mkWatched(persist, "tutorialZones", {})
-let function deleteEid(eid, state){
+function deleteEid(eid, state){
   if (eid in state.value)
-    state.mutate(@(v) delete v[eid])
+    state.mutate(@(v) v.$rawdelete(eid))
 }
 
 ecs.register_es("tutorial_zone_stats_ui_es",

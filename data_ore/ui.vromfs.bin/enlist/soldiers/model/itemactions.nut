@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {
   upgrade_items_count, equip_item, swap_items, equip_by_list, dispose_items_count, mass_equip
@@ -15,14 +15,14 @@ let mkActionCb = @(cb, soldierGuid = null) function(res) {
   cb?(res)
 }
 
-let function upgradeItem(guidsTbl, spendItemGuids, cb = null) {
+function upgradeItem(guidsTbl, spendItemGuids, cb = null) {
   if (isItemActionInProgress.value)
     return
   isItemActionInProgress(true)
   upgrade_items_count(guidsTbl, spendItemGuids, mkActionCb(cb))
 }
 
-let function equipItem(itemGuid, slotType, slotId, targetGuid, cb = null) {
+function equipItem(itemGuid, slotType, slotId, targetGuid, cb = null) {
   if (isChangesBlocked.value) {
     showBlockedChangesMessage()
     return
@@ -33,7 +33,7 @@ let function equipItem(itemGuid, slotType, slotId, targetGuid, cb = null) {
   equip_item(targetGuid, itemGuid, slotType, slotId, mkActionCb(cb, targetGuid))
 }
 
-let function swapItems(soldierGuid1, slotType1, slotId1, soldierGuid2, slotType2, slotId2){
+function swapItems(soldierGuid1, slotType1, slotId1, soldierGuid2, slotType2, slotId2){
   if (isItemActionInProgress.value)
     return
   isItemActionInProgress(true)
@@ -41,21 +41,21 @@ let function swapItems(soldierGuid1, slotType1, slotId1, soldierGuid2, slotType2
     mkActionCb(null, soldierGuid1))
 }
 
-let function equipByList(sGuid, equipList, cb = null) {
+function equipByList(sGuid, equipList, cb = null) {
   if (isItemActionInProgress.value)
     return
   isItemActionInProgress(true)
   equip_by_list(sGuid, equipList, mkActionCb(cb, sGuid))
 }
 
-let function massEquipItems(equipListBySoldier, cb = null) {
+function massEquipItems(equipListBySoldier, cb = null) {
   if (isItemActionInProgress.value)
     return
   isItemActionInProgress(true)
   mass_equip(equipListBySoldier, mkActionCb(cb))
 }
 
-let function disposeItem(guidsTbl, cb = null) {
+function disposeItem(guidsTbl, cb = null) {
   if (isItemActionInProgress.value)
     return
 

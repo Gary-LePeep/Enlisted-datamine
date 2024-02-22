@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 import "%dngscripts/ecs.nut" as ecs
 let { Point2 } = require("dagor.math")
 let { viewVehicle, selectVehParams, CAN_USE } = require("%enlist/vehicles/vehiclesListState.nut")
@@ -52,7 +52,7 @@ let hitcamButtonUi = @() {
       )
 }
 
-let function mkCustomizeButton(curVehicle) {
+function mkCustomizeButton(curVehicle) {
   let { guid = "" } = curVehicle
   let { flags = 0 } = curVehicle?.status
   return flags != CAN_USE && guid == "" ? null
@@ -110,7 +110,7 @@ viewVehicle.subscribe(requireItemSpec)
 let cacheArmorClass = {}
 let cacheXrayDesc = {}
 
-let function resetCache(...) {
+function resetCache(...) {
   cacheArmorClass.clear()
   cacheXrayDesc.clear()
 }
@@ -147,7 +147,7 @@ let mkTooltipComp = @(text) tooltipBox({
 
 let updateTooltip = @(text) cursors.setTooltip(text != null ? mkTooltipComp(text) : null)
 
-let function updateTooltipSubscriptions(...) {
+function updateTooltipSubscriptions(...) {
   tooltipTextArmor.unsubscribe(updateTooltip)
   tooltipTextXray.unsubscribe(updateTooltip)
   updateTooltip(null)
@@ -189,7 +189,7 @@ ecs.register_es("armor_analyzer", {
 let setDmViewerTargetQuery = ecs.SqQuery("setDmViewerTargetQuery",
   { comps_rw = [ ["armor_analyzer__target", ecs.TYPE_EID] ]})
 
-let function setDmViewerTarget(targetEid) {
+function setDmViewerTarget(targetEid) {
   setDmViewerTargetQuery.perform(function(_eid, comp) {
     comp["armor_analyzer__target"] = targetEid
   })
@@ -198,7 +198,7 @@ let function setDmViewerTarget(targetEid) {
 let setDmViewerModeQuery = ecs.SqQuery("setDmViewerModeQuery",
   { comps_rw = [ ["armor_analyzer__mode", ecs.TYPE_INT] ] })
 
-let function setDmViewerMode(mode) {
+function setDmViewerMode(mode) {
   setDmViewerModeQuery.perform(function(_eid, comp) {
     comp["armor_analyzer__mode"] = mode
   })
@@ -207,7 +207,7 @@ let function setDmViewerMode(mode) {
 let setDmViewerScreenPosQuery = ecs.SqQuery("setDmViewerScreenPosQuery",
   { comps_rw = [ ["armor_analyzer__screenPos", ecs.TYPE_POINT2] ] })
 
-let function onDmViewerMouseMove(mouseEvent) {
+function onDmViewerMouseMove(mouseEvent) {
   setDmViewerScreenPosQuery.perform(function(_eid, comp) {
     comp["armor_analyzer__screenPos"] = Point2(mouseEvent.screenX, mouseEvent.screenY)
   })
@@ -242,7 +242,7 @@ let eyeButtonBlock = watchElemState(@(sf) {
   })
 })
 
-let function changeViewMods(idx) {
+function changeViewMods(idx) {
   let newIdx = curViewModeIdx.value + idx
   if (newIdx >= 0 && newIdx < mods.len())
     curViewModeIdx(newIdx)

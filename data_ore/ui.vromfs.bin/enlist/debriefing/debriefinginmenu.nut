@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let ctor = require("%enlist/debriefing/debriefingCtor.nut")
 let { dbgShow, dbgData } = require("debriefingDbgState.nut")
@@ -22,7 +22,7 @@ isInBattleState.subscribe(function(active) {
 })
 
 let closeAction = @() dbgShow.value ? dbgShow(false) : show(false)
-let function debriefingWnd() {
+function debriefingWnd() {
   let children = (!(dataToShow.value?.isFinal ?? true))
       ? null
       : ctor(dataToShow.value, closeAction)
@@ -34,7 +34,7 @@ let function debriefingWnd() {
     children
   }
 }
-let function checkAndCloseDebr(){
+function checkAndCloseDebr(){
   if (needShow.value && !dataToShow.value?.isFinal)
     closeAction()
 }

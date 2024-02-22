@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let mkHeader = require("%enlist/components/mkHeader.nut")
 let closeBtnBase = require("%ui/components/closeBtn.nut")
@@ -66,7 +66,7 @@ let backBtn = @() {
         { margin = hdpx(1), size = [flex(), hdpx(50)] })
 }
 
-let function viewItemScene() {
+function viewItemScene() {
   let { itemtype, basetpl, sign = 0 } = itemToShow.value
   return {
     watch = [safeAreaBorders, itemToShow, curArmy]

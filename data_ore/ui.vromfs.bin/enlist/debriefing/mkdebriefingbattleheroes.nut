@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontHeading2, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { smallPadding, activeBgColor } = require("%enlSqGlob/ui/viewConst.nut")
@@ -43,7 +43,7 @@ let mkBattleHeroPlayerNameText = @(playerName, isLocalPlayer) {
   text = playerName
 }.__update(fontHeading2)
 
-let function mkBattleHeroAwards(awards, isActive) {
+function mkBattleHeroAwards(awards, isActive) {
   local sortedAwards = [].extend(awards).sort(@(a,b) awardPriority[b] <=> awardPriority[a])
   let combinedAwards = combineMultispecialistAward(sortedAwards).reverse()
 
@@ -62,7 +62,7 @@ let function mkBattleHeroAwards(awards, isActive) {
   }
 }
 
-let function rankBlock(playerRank) {
+function rankBlock(playerRank) {
   if (playerRank == 0)
     return null
 
@@ -91,7 +91,7 @@ let mkBattleHeroPortrait = @(portrait, playerRank) {
   ]
 }
 
-let function mkBattleHeroPhoto(soldier, isActive, playerRank) {
+function mkBattleHeroPhoto(soldier, isActive, playerRank) {
   let db = ecs.g_entity_mgr.getTemplateDB()
   let { guid, equipment = null, weapTemplates = null, gametemplate = null } = soldier
   let equipmentInfo = []

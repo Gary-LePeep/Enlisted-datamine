@@ -150,7 +150,19 @@
     "wooden_fence_gate_d_l": "closed_l_door_90"
   },
   {
-    "windtower_a_wheel": "animated_scene_rendinst"
+    "windtower_vane_a": "animated_scene_rendinst_with_wind"
+  },
+  {
+    "windtower_vane_a": {
+      "ang_speed_yaw": 0.0,
+      "ang_speed_pitch": 0.0,
+      "ang_speed_roll": 0.0,
+      "local_space": true,
+      "wind_rotated_ri__rotationSpeed": 0.0
+    }
+  },
+  {
+    "windtower_a_wheel": "animated_scene_rendinst_with_wind"
   },
   {
     "windtower_a_wheel": {

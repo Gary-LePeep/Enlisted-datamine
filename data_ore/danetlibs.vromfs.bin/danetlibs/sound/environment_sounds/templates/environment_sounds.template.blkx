@@ -120,14 +120,22 @@
     {
       "_group": {
         "_tags": "sound",
-        "spline_sound__pos": [0.0,0.0,0.0],
+        "spline_sound_update__idx": 0,
+        "spline_sound_update__listener": [0.0,0.0,0.0],
+        "spline_sound_update__closestPt": [0.0,0.0,0.0],
+        "spline_sound_update__closestPtValid": false,
+        "spline_sound_update__splineClosestPt": [0.0,0.0,0.0],
+        "spline_sound_update__splineClosestPtValid": false,
+        "spline_sound_update__isInside": false,
+        "spline_sound_update__midPt": [0.0,0.0,0.0],
+        "spline_sound_update__weight": 0.0,
         "spline_sound__eventPos": [0.0,0.0,0.0],
-        "spline_sound__radius": 0.0,
-        "spline_sound__pointId": 0,
-        "spline_sound__range": 0.0,
         "spline_sound__isInside": false,
+        "spline_sound__range": 0.0,
         "spline_sound__path": "",
         "spline_sound__floorOnWater": false,
+        "spline_sound__distToSoundSize": [0.0,0.0,0.0,0.0],
+        "spline_sound__soundSizeVar": "",
         "spline_sound__event:SoundEvent": []
       }
     },
@@ -140,7 +148,9 @@
     "_group": {
       "_tags": "sound",
       "spline_sound__floorOnWater": true,
-      "spline_sound__path": "ambient/positioned/river_mid"
+      "spline_sound__path": "ambient/positioned/river_mid",
+      "spline_sound__distToSoundSize": [0.0,10.0,5.0,50.0],
+      "spline_sound__soundSizeVar": "soundSize"
     }
   },
   "lake_mid_river_sound": {
@@ -240,49 +250,49 @@
       }
     }
   ],
-  "compound_ambient_sound": [
+  "compound_ambient_sound_controller": {
+    "_use": "replicating",
+    "_singleton": true,
+    "_group": {
+      "_tags": "sound",
+      "compound_ambient_sound_controller__curTypeId": -1
+    },
+    "compound_ambient_sound_controller__soundTypes:list<t>": []
+  },
+  "compound_ambient_sound_type": [
     {
-      "_use": "game_object_compound_sound"
+      "_use": "replicating"
     },
     {
       "_use": "sound_banks_state"
     },
     {
-      "_group": {
-        "_tags": "sound",
-        "compound_ambient_sound__curVolIdx": 0,
-        "compound_ambient_sound__curDistSq": 0.0,
-        "compound_ambient_sound__curPt": [0.0,0.0,0.0],
-        "compound_ambient_sound__closestDistSq": 0.0,
-        "compound_ambient_sound__closestPt": [0.0,0.0,0.0],
-        "compound_ambient_sound__dist": [0.0,0.0],
-        "compound_ambient_sound__volume": 0.0,
-        "compound_ambient_sound__range": 0.0,
-        "compound_ambient_sound__autoRange": true,
-        "compound_ambient_sound__fadeInOutSpeed": [1.0,1.0],
-        "compound_ambient_sound__reverb_intensity_roomSize_absorption_weight": [0.0,0.0,0.0,0.0],
-        "compound_ambient_sound__event:SoundEvent": [],
-        "compound_ambient_sound__extents_maxRadiusSq:list<p4>": []
-      }
+      "compound_ambient_sound_type__soundType": "undefined"
+    },
+    {
+      "compound_ambient_sound_type__path": "positioned/ambient/undefined"
+    },
+    {
+      "compound_ambient_sound_type__fadeInOutSpeed": [1.0,1.0]
+    },
+    {
+      "compound_ambient_sound_type__reverb_intensity_roomSize_absorption_weight": [0.0,0.0,0.0,0.0]
     },
     {
       "_group": {
         "_tags": "sound",
-        "game_object_sound__path": "ambient/positioned"
+        "compound_ambient_sound_type__volume": 0.0,
+        "compound_ambient_sound_type__closestPt": [0.0,0.0,0.0],
+        "compound_ambient_sound_type__closestDistSq": 0.0,
+        "compound_ambient_sound_type__range": 0.0,
+        "compound_ambient_sound_type__autoRange": true,
+        "compound_ambient_sound_type__event:SoundEvent": []
       }
     }
   ],
   "replicated_volume_ambient_sound": [
     {
       "_use": "volume_ambient_sound"
-    },
-    {
-      "_use": "replicating"
-    }
-  ],
-  "replicated_compound_ambient_sound": [
-    {
-      "_use": "compound_ambient_sound"
     },
     {
       "_use": "replicating"

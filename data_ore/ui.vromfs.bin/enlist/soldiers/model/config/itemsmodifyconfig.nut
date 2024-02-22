@@ -1,11 +1,11 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { configs } = require("%enlist/meta/configs.nut")
 
 let itemsUpgradeConfig = Computed(@() configs.value?.items_upgrade_config ?? [])
 let itemsDisposeConfig = Computed(@() configs.value?.items_dispose_config ?? [])
 
-let function rebuildConfig(modifyConfigList) {
+function rebuildConfig(modifyConfigList) {
     let res = {}
     foreach (modifyConfig in modifyConfigList) {
       // configs[itemtype][tier][pricetmpl] -> pricecfg

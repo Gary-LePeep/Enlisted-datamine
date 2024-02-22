@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {receivedFiles, requestedFiles, requestFilesByHashes} = require("modFiles.nut")
 let {fontSub} = require("%enlSqGlob/ui/fontsStyle.nut")
@@ -27,7 +27,7 @@ let { strip } = require("string")
 
 let scrollHandler = ScrollHandler()
 
-let function tryToJoin(roomInfo, cb, password="" ){
+function tryToJoin(roomInfo, cb, password="" ){
   let params = { roomId = roomInfo.roomId.tointeger() }
   if (squadId.value != null)
     params.member <- { public = {squadId = squadId.value} }
@@ -36,7 +36,7 @@ let function tryToJoin(roomInfo, cb, password="" ){
   roomState.joinRoom(params, true, cb)
 }
 
-let function mkFindSomeMatch(cb) {
+function mkFindSomeMatch(cb) {
   return function(){
     let candidates = []
     foreach (room in roomsListState.list.value) {
@@ -63,7 +63,7 @@ let function mkFindSomeMatch(cb) {
   }
 }
 
-let function fullRoomMsgBox(action) {
+function fullRoomMsgBox(action) {
   msgbox.show({
     text = loc("msgboxtext/roomIsFull")
     buttons = [
@@ -73,7 +73,7 @@ let function fullRoomMsgBox(action) {
   })
 }
 
-let function joinCb(response) {
+function joinCb(response) {
   if (response.error != matching_errors.OK){
     if (response.error == matching_errors.SERVER_ERROR_ROOM_FULL) {
       fullRoomMsgBox(mkFindSomeMatch(joinCb))
@@ -114,7 +114,7 @@ let areCurrentRoomFilesAreDownloading = Computed(function(){
   return false
 })
 
-let function doJoin() {
+function doJoin() {
   let roomPassword = Watched("")
   let roomInfo = selectedRoom.value
   if (roomInfo==null) {
@@ -128,7 +128,7 @@ let function doJoin() {
     return
   }
   if (roomInfo && roomInfo?.hasPassword){
-    let function passwordInput() {
+    function passwordInput() {
       local input = null
 
       if (roomInfo && roomInfo?.hasPassword) {
@@ -158,7 +158,7 @@ let function doJoin() {
 }
 
 
-let function itemText(text, options={}) {
+function itemText(text, options={}) {
   return {
     rendObj = ROBJ_TEXT
     text
@@ -170,7 +170,7 @@ let function itemText(text, options={}) {
 
 let colWidths = [25, 35, 12, 8, 25]
 
-let function listItem(roomInfo) {
+function listItem(roomInfo) {
   let stateFlags = Watched(0)
 
   local roomName = roomInfo?.roomName ?? tostring_any(roomInfo.roomId)
@@ -216,7 +216,7 @@ let function listItem(roomInfo) {
 }
 
 
-let function listHeader() {
+function listHeader() {
   return {
     hplace = ALIGN_CENTER
     size = [flex(), SIZE_TO_CONTENT]
@@ -250,7 +250,7 @@ let filteredList = Computed(function() {
   })
 })
 
-let function listContent() {
+function listContent() {
   return {
     size = [flex(), SIZE_TO_CONTENT]
     watch = filteredList
@@ -260,7 +260,7 @@ let function listContent() {
 }
 
 
-let function roomsListComp() {
+function roomsListComp() {
   return {
     size = [flex(), sh(60)]
     hplace = ALIGN_CENTER
@@ -285,7 +285,7 @@ let function roomsListComp() {
 }
 
 
-let function roomFilter() {
+function roomFilter() {
   return {
     size = [flex(), fsh(6)]
 
@@ -309,7 +309,7 @@ let function roomFilter() {
   }
 }
 
-let function actionButtons() {
+function actionButtons() {
   local joinBtn
   if (selectedRoom.value) {
     joinBtn = function(){
@@ -342,7 +342,7 @@ let function actionButtons() {
 }
 let areThereRooms = Computed(@() roomsListW.value.len()>0)
 
-let function roomsListScreen() {
+function roomsListScreen() {
   local children = null
 
   if (roomsListState.error.value) {
@@ -381,7 +381,7 @@ let function roomsListScreen() {
   }
 }
 
-let function root() {
+function root() {
   let children = showCreateRoom.value ?  createRoom : roomsListScreen
   return {
     size = [sw(80), flex()]

@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let gunnerCrosshair = require("%ui/hud/huds/turret_crosshair.nut")
 let commanderCrosshair = require("%ui/hud/huds/commander_crosshair.nut")

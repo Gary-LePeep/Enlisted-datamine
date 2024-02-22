@@ -5,7 +5,7 @@ require math
 require DngPlane
 require DagorMath
 
-[es(tag=sound, on_event=ParallelUpdateFrameDelayed, after=plane_engine_sound_es)]
+[es(tag=sound, on_event=ParallelUpdateFrameDelayed, after=(plane_engine_sound_es, sound_begin_update_es), before=sound_end_update_es)]
 def plane_dive_siren(evt : Event;
                      plane_net_phys : PlaneActor;
                      transform : float3x4;

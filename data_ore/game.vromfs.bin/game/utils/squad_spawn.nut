@@ -12,7 +12,7 @@ let {createInventory, validatePosition, validateTm} = require("%scripts/game/uti
 
 const spawnZoneExtents = 3.0
 
-let function calcBotCountInVehicleSquad(vehicle, squadLen) {
+function calcBotCountInVehicleSquad(vehicle, squadLen) {
   let db = ecs.g_entity_mgr.getTemplateDB()
   let vehicleTempl = db.getTemplateByName(vehicle)
   if (vehicleTempl == null) {
@@ -29,7 +29,7 @@ let function calcBotCountInVehicleSquad(vehicle, squadLen) {
 
 let vehicleTransformQuery = ecs.SqQuery("vehicleTransformQuery", { comps_ro = [["transform", ecs.TYPE_MATRIX]] comps_rq = ["vehicle"] })
 
-let function validateVehiclePosition(tm) {
+function validateVehiclePosition(tm) {
   local wishPos = tm.getcol(3)
 
   let vehiclesPos = []
@@ -61,7 +61,7 @@ let function validateVehiclePosition(tm) {
 let excludeCompsFilter = {inventory=1, equipment=1, bodyScale=1}
 let excludeVehicleCompsFilter = {disableDMParts=1}
 
-let function wrapComps(inComps, exclude=null) {
+function wrapComps(inComps, exclude=null) {
   let comps = {}
   foreach (key, value in inComps) {
     if (exclude?[key] != null)
@@ -76,7 +76,7 @@ let function wrapComps(inComps, exclude=null) {
   return comps
 }
 
-let function mkBaseComps(soldier) {
+function mkBaseComps(soldier) {
   let comps = {}
 
   foreach (key, value in soldier)
@@ -112,7 +112,7 @@ let function mkBaseComps(soldier) {
   return comps
 }
 
-let function mkHPComps(soldier) {
+function mkHPComps(soldier) {
   let comps = {}
 
   let db = ecs.g_entity_mgr.getTemplateDB()
@@ -141,7 +141,7 @@ let function mkHPComps(soldier) {
   return comps
 }
 
-let function mkAmmoMapComps(soldier) {
+function mkAmmoMapComps(soldier) {
   let weapInfo = soldier?["human_weap__weapInfo"]
   if (weapInfo == null)
     return {}
@@ -195,7 +195,7 @@ let spawnSoldier = kwarg(function(soldier, comps, squadParams, shouldBePossessed
   })
 })
 
-let function spawnSolidersInSquad(squad, spawnParams, squadParams, vehicleEid = ecs.INVALID_ENTITY_ID) {
+function spawnSolidersInSquad(squad, spawnParams, squadParams, vehicleEid = ecs.INVALID_ENTITY_ID) {
   let leaderId             = squadParams.leaderId
   let squadEid             = squadParams.squadEid
   let playerEid            = squadParams.playerEid
@@ -273,7 +273,7 @@ let function spawnSolidersInSquad(squad, spawnParams, squadParams, vehicleEid = 
   }
 }
 
-local function spawnSquadEntity(squad, squadParams, mkSpawnParamsCb, cb) {
+function spawnSquadEntity(squad, squadParams, mkSpawnParamsCb, cb) {
   let squadId   = squadParams.squadId
   let memberId  = squadParams.memberId
   let team      = squadParams.team
@@ -306,12 +306,12 @@ local function spawnSquadEntity(squad, squadParams, mkSpawnParamsCb, cb) {
   return true
 }
 
-let function spawnSquad(squad, existedVehicleEid, team, playerEid, mkSpawnParamsCb, squadId = 0, memberId = 0, squadProfileId = "", addTemplatesOnSpawn = null) {
+function spawnSquad(squad, existedVehicleEid, team, playerEid, mkSpawnParamsCb, squadId = 0, memberId = 0, squadProfileId = "", addTemplatesOnSpawn = null) {
   let squadParams = {existedVehicleEid, team, playerEid, squadId, memberId, squadProfileId, addTemplatesOnSpawn}
   return spawnSquadEntity(squad, squadParams, mkSpawnParamsCb, spawnSolidersInSquad)
 }
 
-let function mkVehicleComps(vehicle) {
+function mkVehicleComps(vehicle) {
   let comps = {}
   if (vehicle?.disableDMParts != null) {
     let disabledParts = ecs.CompStringList()
@@ -321,7 +321,7 @@ let function mkVehicleComps(vehicle) {
   return comps
 }
 
-let function spawnVehicle(squad, spawnParams, squadParams) {
+function spawnVehicle(squad, spawnParams, squadParams) {
   let team      = squadParams.team
   let vehicle   = squadParams.vehicle
   let vehicleCompsRaw = squadParams.vehicleComps
@@ -369,13 +369,13 @@ let function spawnVehicle(squad, spawnParams, squadParams) {
 
   local vehicleTemplate = vehicle
   if (addTemplatesOnSpawn != null) {
-    delete spawnParams.addTemplatesOnSpawn
+    spawnParams.$rawdelete("addTemplatesOnSpawn")
     vehicleTemplate = "{0}+{1}".subst(vehicle, "+".join(addTemplatesOnSpawn))
   }
   ecs.g_entity_mgr.createEntity(vehicleTemplate, vehicleComps, @(vehicleEid) spawnSolidersInSquad(squad, spawnParams, squadParams, vehicleEid))
 }
 
-let function spawnVehicleSquad(squad, team, playerEid, isBot, vehicle, mkSpawnParamsCb, vehicleComps = {}, squadId = 0, memberId = 0,
+function spawnVehicleSquad(squad, team, playerEid, isBot, vehicle, mkSpawnParamsCb, vehicleComps = {}, squadId = 0, memberId = 0,
                                squadProfileId = "", disableSquadRotation = false, possessed = ecs.INVALID_ENTITY_ID, existedVehicleEid=ecs.INVALID_ENTITY_ID) {
   let squadParams = {team, existedVehicleEid, playerEid, isBot, vehicle, vehicleComps, squadId, memberId, possessed, squadProfileId, disableSquadRotation}
   return spawnSquadEntity(squad, squadParams, mkSpawnParamsCb, spawnVehicle)

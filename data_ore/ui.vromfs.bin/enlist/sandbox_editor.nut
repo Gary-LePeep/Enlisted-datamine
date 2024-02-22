@@ -1,14 +1,15 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 from "%darg/laconic.nut" import *
 from "string" import regexp, startswith, endswith
 import "%dngscripts/ecs.nut" as ecs
-let eventbus = require("eventbus")
+let { eventbus_subscribe } = require("eventbus")
 
 let {app_is_offline_mode, app_set_offline_mode, exit_game, switch_to_menu_scene, switch_scene} = require("app")
 
 let isSandboxContext = @() app_is_offline_mode()
 let sandboxEditorEnabled = Watched(isSandboxContext())
 let entity_editor = require_optional("entity_editor")
+
 if (!sandboxEditorEnabled.value || entity_editor==null)
   return {sandboxEditorEnabled, sandboxEditor=null}
 
@@ -53,7 +54,6 @@ let {setToolboxShowMsgbox, resetToolbox, toolboxShown, toolboxPopup} = require("
 let prefabEditor = require("prefabEditor.nut")
 setToolboxShowMsgbox(showMsgbox)
 
-
 let useSources = dgs_get_settings()?.debug.useAddonVromSrc ?? false
 let getLevelsList = @() scan_folder({root="levels", vromfs = !useSources, realfs = useSources, recursive = true, files_suffix=".blk"}).sort()
 
@@ -91,7 +91,7 @@ let mkSelectLine = kwarg(function(selected, textCtor = null, onSelect=null, onDC
 
 let transformLevelName = @(name) name?.replace("levels/", "").replace(".blk", "") ?? "Select level (dev only)..."
 
-let function openSelectLevel(selectedLevel, onSelect=null) {
+function openSelectLevel(selectedLevel, onSelect=null) {
   let key = {}
   let close = @() removeModalWindow(key)
   let mkSelectedLevel = mkSelectLine({
@@ -120,7 +120,7 @@ let function openSelectLevel(selectedLevel, onSelect=null) {
 
 let transformPrefabName = @(name) name?.replace($"{MODS_PREFABS_PATH}/", "").replace(".blk", "") ?? "Select location..."
 
-let function openSelectPrefab(selectedPrefab, onSelect=null) {
+function openSelectPrefab(selectedPrefab, onSelect=null) {
   let key = {}
   let close = @() removeModalWindow(key)
   let mkSelectedPrefab = mkSelectLine({
@@ -152,8 +152,7 @@ const MODS_TO_EDIT_FOLDER = "userGameMods"
 const DEF_SCENE_FILENAME = "scene.blk"
 
 const BACKUPSAVE_TIME = 300.0 // 5min
-let function sandboxBackupSave() {
-  gui_scene.resetTimeout(BACKUPSAVE_TIME, sandboxBackupSave)
+function sandboxBackupSave() {
   if (backupSaveEnabled.value && levelLoaded.value && !levelIsLoading.value && editorIsActive.value) {
     let path = get_scene_filepath()
     if (startswith(path, $"{MODS_TO_EDIT_FOLDER}/") && endswith(path, $"/{DEF_SCENE_FILENAME}")) {
@@ -167,20 +166,22 @@ let function sandboxBackupSave() {
 editorIsActive.subscribe(function(v) {
   if (v) {
     // NOTE: Delay backup to give user time to reload unmodified scene after playtesting
-    gui_scene.resetTimeout(BACKUPSAVE_TIME, sandboxBackupSave)
+    gui_scene.clearTimer(sandboxBackupSave)
+    gui_scene.setInterval(BACKUPSAVE_TIME, sandboxBackupSave)
   }
 })
-gui_scene.resetTimeout(BACKUPSAVE_TIME, sandboxBackupSave)
+
+gui_scene.setInterval(BACKUPSAVE_TIME, sandboxBackupSave)
 
 let convertToPath = @(v) v.split("/").slice(1)
-let function convertToModAndScene(v) {
+function convertToModAndScene(v) {
   if (type(v)!="string")
     return v
   let path = convertToPath(v)
   return {mod = path[0], scene="/".join(path.slice(1))}
 }
 
-let function loadScene(modAndScene) {
+function loadScene(modAndScene) {
   if (modAndScene==null)
     return
   let {mod, scene} = convertToModAndScene(modAndScene)
@@ -189,7 +190,7 @@ let function loadScene(modAndScene) {
     modId = mod
   })
 }
-let function loadSceneWithSavingUnsavedChanges(modAndScene) {
+function loadSceneWithSavingUnsavedChanges(modAndScene) {
   if (modAndScene==null)
     return
   proceedWithSavingUnsavedChanges(showMsgbox, @() loadScene(modAndScene))
@@ -206,7 +207,7 @@ if (devMode) {
   registerPerCompPropEdit("level__blk", function(params){
     let selectedLevel = Watched(params?.obj)
     let eid = params.eid
-    let function onSelect(v){
+    function onSelect(v){
       if ((eid ?? ecs.INVALID_ENTITY_ID) != ecs.INVALID_ENTITY_ID)
         ecs.obsolete_dbg_set_comp_val(eid, "level__blk", v)
       infoBox("Save and than load scene to make changes visible and reload location")
@@ -220,7 +221,7 @@ if (devMode) {
 
 let availableModsAndScenes = mkWatched(persist, "availableModsAndScenes", [])
 
-let function scanForModsAndScene(){
+function scanForModsAndScene(){
   let files = scan_folder({root=MODS_TO_EDIT_FOLDER, vromfs = false, realfs = true, recursive = true, files_suffix=DEF_SCENE_FILENAME})
     .map(convertToPath)
     .filter(@(v) v.len()==2 && v[1] == DEF_SCENE_FILENAME)
@@ -233,7 +234,7 @@ let function scanForModsAndScene(){
 let updateScenes = @() availableModsAndScenes(scanForModsAndScene())
 const newSceneUID = "new_scene"
 
-let function mkSimpleBlk(data){
+function mkSimpleBlk(data){
   let blk = DataBlock()
   assert (typeof data != "array", "currently not supported arrays, add if needed")
   foreach (k, v in data){
@@ -248,11 +249,11 @@ let function mkSimpleBlk(data){
 }
 
 let validNewSceneNameRegExp = regexp(@"[a-z,A-Z,0-9,_]*")
-let function isNewSceneNameValid(name) {
+function isNewSceneNameValid(name) {
   return validNewSceneNameRegExp.match(name)
 }
 
-let function openNewSceneWnd(){
+function openNewSceneWnd(){
   let sceneName = Watched("")
   let sceneNameComp = textInput(sceneName, {onAttach = @(elem) set_kb_focus(elem)})
   let close = @() removeModalWindow(newSceneUID)
@@ -263,7 +264,7 @@ let function openNewSceneWnd(){
 
   let isSceneCreateAllowed = Computed(@() sceneName.value!=null && isNewSceneNameValid(sceneName.value)
                                           && (selectedLevel.value!=null || selectedPrefab.value!=null))
-  let function createScene(name){
+  function createScene(name){
     if (name==null || name.len()<=0) {
       infoBox($"No mod name entered")
       return
@@ -413,7 +414,7 @@ let configBtn = textButton(
     {hotkeys = [["L.Ctrl G | R.Ctrl G"]], textStyle = {normal = fontawesome}, boxStyle = {normal = {fillColor = Color(0,0,0,80)}},
      onHover = @(on) cursors.setTooltip(on ? "Sandbox Config (Ctrl+G)" : null)})
 
-let function quitSandboxEditor() {
+function quitSandboxEditor() {
   proceedWithSavingUnsavedChanges(showMsgbox,
     function() {
       console_command("daEd4.open 0")
@@ -426,7 +427,7 @@ let function quitSandboxEditor() {
     "Do you want to exit Sandbox?")
 }
 
-eventbus.subscribe("sandbox_editor.quit", @(...) quitSandboxEditor())
+eventbus_subscribe("sandbox_editor.quit", @(...) quitSandboxEditor())
 
 let quitBtn = textButton(
     fa["close"],
@@ -441,7 +442,7 @@ let worldRenderInited = Computed(@() worldRender.value || (currentLevelBlk.value
 ecs.register_es("worldRendererInited", {onInit = @(...) worldRender(true), onDestroy = @(...) worldRender(false)},
   {comps_rq=["world_renderer_tag"]}
 )
-let function openScenesIfNeeded(...){
+function openScenesIfNeeded(...){
   if (worldRenderInited.value && !levelIsLoading.value) {
     if (currentLevelBlk.value == null)
       scenesOpened(true)
@@ -462,7 +463,7 @@ editorIsActive.subscribe(@(_) ecs.g_entity_mgr.broadcastEvent(CmdEditorInvalidat
 
 let transformCurSceneName = @(name) name?.replace($"{MODS_TO_EDIT_FOLDER}/", "").replace($"/{DEF_SCENE_FILENAME}", "") ?? "Untitled"
 let levelIsLoadedAndEditorIsActive = Computed(@() levelLoaded.value && editorIsActive.value)
-let function sandboxEditor(){
+function sandboxEditor(){
   let sceneName = transformCurSceneName(get_scene_filepath())
   let sceneNameBtn = {
     pos = [0, hdpx(7)]

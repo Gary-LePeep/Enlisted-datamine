@@ -1,7 +1,7 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { is_sony, is_xbox } = require("%dngscripts/platform.nut")
-let { isSteamRunning } = require("%enlSqGlob/login_state.nut")
+let { isSteamRunning } = require("%enlSqGlob/ui/login_state.nut")
 let { char_request = null } = require("%enlSqGlob/charClient.nut")
 let userInfo = require("%enlSqGlob/userInfo.nut")
 let { updateContact } = require("%enlist/contacts/contact.nut")
@@ -24,7 +24,7 @@ let getMyExtId = @() is_sony ? require("sony.user").accountIdString
   : isSteamRunning.value ? require("steam").get_my_id()
   : "-1"
 
-let function setExternalId() {
+function setExternalId() {
   let id = getMyExtId()
   let extType = getExtType()
   if (id == "-1" || extType == "") //Valid situation for platforms, not listed in functions
@@ -39,7 +39,7 @@ userInfo.subscribe(function(uInfo) {
 })
 
 //TODO: const int maxExternalIdCount = 1000
-let function searchContactByExternalId(extIdsArray, callback = null) {
+function searchContactByExternalId(extIdsArray, callback = null) {
   if (!extIdsArray.len()) {
     callback?([])
     return

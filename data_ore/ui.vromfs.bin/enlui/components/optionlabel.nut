@@ -1,10 +1,10 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {fontBody} = require("%enlSqGlob/ui/fontsStyle.nut")
 let {HIGHLIGHT_COLOR} = require("%ui/hud/style.nut")
 
 
-let function optionLabel(opt, _group) {
+function optionLabel(opt, _group) {
   let stateFlags = Watched(0)
 
   return function() {

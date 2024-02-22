@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {get_sync_time} = require("net")
 let {CmdTeamNarrator} = require("dasevents")
@@ -17,12 +17,12 @@ let possibleWarningsList = {}
 
 assert(possibleWarningsList.len()==0, "should be added only where it used")
 
-let function addWarnings(wList) {
+function addWarnings(wList) {
   possibleWarningsList.__update(wList)
 }
 
 local updateWarinigsTime = @() null //fwd declaration
-local function setWarningsList(list) {
+function setWarningsList(list) {
   let curTime = get_sync_time()
   list = list.filter(@(v) v.showEndTime <= 0 || v.showEndTime > curTime)
     .sort(@(a, b) a.priority <=> b.priority || a.showEndTime <=> b.showEndTime || a.id <=> b.id)
@@ -38,7 +38,7 @@ warningsList.whiteListMutatorClosure(setWarningsList)
 updateWarinigsTime = @() setWarningsList(warningsList.value)
 
 
-let function warningShow(warningId) {
+function warningShow(warningId) {
   let wparams = possibleWarningsList?[warningId]
   if (wparams == null) {
     log($"Failed to add warning {warningId} it does not exist in possibleWarningsList")
@@ -65,7 +65,7 @@ let function warningShow(warningId) {
     ecs.g_entity_mgr.broadcastEvent(CmdTeamNarrator({phrase=snd, replace=false}))
 }
 
-let function warningHide(warningId) {
+function warningHide(warningId) {
   let idx = warningsList.value.findindex( @(v) v.id == warningId )
   if (idx == null)
     return

@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let {
@@ -11,7 +11,7 @@ let { SUCCESS_TEXT_COLOR, DEFAULT_TEXT_COLOR, DEAD_TEXT_COLOR } = require("%ui/h
 let iconSize = hdpxi(40)
 let sIconSize = hdpxi(15)
 
-let function splitOnce(name) {
+function splitOnce(name) {
   local idx = name.indexof(" ")
   local found = null
   local minDist = name.len()

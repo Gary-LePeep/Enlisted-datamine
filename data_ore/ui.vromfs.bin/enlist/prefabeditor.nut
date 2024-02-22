@@ -17,19 +17,19 @@ let textButton = require("%daeditor/components/textButton.nut")
 let closeButton = require("%daeditor/components/closeButton.nut")
 let nameFilter = require("%daeditor/components/nameFilter.nut")
 let scrollbar = require("%daeditor/components/scrollbar.nut")
-let daEditor4 = require("daEditor4")
+let daEditor = require("daEditorEmbedded")
 let fa = require("%ui/components/fontawesome.map.nut")
 let {fontawesome} = require("%enlSqGlob/ui/fontsStyle.nut")
 let cursors = require("%daeditor/components/cursors.nut")
 let { remove } = require("system")
 let { file_exists, mkdir } = require("dagor.fs")
-let {DE4_MODE_SELECT} = daEditor4
+let {DE4_MODE_SELECT} = daEditor
 let entity_editor = require_optional("entity_editor")
 
 showTemplateSelect.subscribe(@(v) isPrefabTool(isPrefabTool.value && !v))
 isPrefabTool.subscribe(function(v) {
   if (showTemplateSelect.value && v)
-    daEditor4.setEditMode(DE4_MODE_SELECT)
+    daEditor.setEditMode(DE4_MODE_SELECT)
   showTemplateSelect(showTemplateSelect.value && !v)
 })
 
@@ -41,13 +41,13 @@ let isNewPrefabNameValid = Computed(@() is_prefab_name_valid(newPrefabName.value
 
 let scrollHandler = ScrollHandler()
 
-let function scrollByName(text) {
+function scrollByName(text) {
   scrollHandler.scrollToChildren(function(desc) {
     return ("prefab_name" in desc) && desc.prefab_name.indexof(text)!=null
   }, 2, false, true)
 }
 
-let function scrollBySelection() {
+function scrollBySelection() {
   scrollHandler.scrollToChildren(function(desc) {
     return ("prefab_name" in desc) && desc.prefab_name==selectedItem.value
   }, 2, false, true)
@@ -81,12 +81,12 @@ let filter = nameFilter(filterText, {
   }
 })
 
-let function doSelectPrefab(prefab_name) {
+function doSelectPrefab(prefab_name) {
   selectedItem(prefab_name)
   ecs.g_entity_mgr.broadcastEvent(PrefabSpawnEvent({name=prefab_name}))
 }
 
-let function listRow(prefab_name, idx) {
+function listRow(prefab_name, idx) {
   let stateFlags = Watched(0)
 
   return function() {
@@ -121,7 +121,7 @@ let function listRow(prefab_name, idx) {
 }
 
 
-let function prefabInfoBlock() {
+function prefabInfoBlock() {
   let prefab = selectedPrefab.value
   let prefabText = selectedPrefabs.value.len() == 0 ? "Prefab not selected"
                                                     : prefab
@@ -155,7 +155,7 @@ let function prefabInfoBlock() {
   }
 }
 
-let function mkPrefabFolder() {
+function mkPrefabFolder() {
   if (!mkdir("userPrefabs")) {
     logerr("Failed to create userPrefabs folder. Prefabs can't be saved")
     return false
@@ -163,7 +163,7 @@ let function mkPrefabFolder() {
   return true
 }
 
-let function prefabSaveAndShatterBlock() {
+function prefabSaveAndShatterBlock() {
   let res = { watch = [selectedPrefabObjects, selectedPrefabs] }
   if (selectedPrefabObjects.value.len() == 0 && selectedPrefabs.value.len() == 0)
     return res
@@ -200,7 +200,7 @@ let function prefabSaveAndShatterBlock() {
 }
 
 const PREFAB_CREATE_MODAL_ID = "PREFAB_CREATE_MODAL_ID"
-let function prefabCreateFromSelectedBlock() {
+function prefabCreateFromSelectedBlock() {
   let res = { watch = selectedNoPrefabs }
   if (selectedNoPrefabs.value.len() == 0)
     return res
@@ -260,7 +260,7 @@ let function prefabCreateFromSelectedBlock() {
   })
 }
 
-let function addSelectedObjectsToPrefab() {
+function addSelectedObjectsToPrefab() {
   let res = { watch = [selectedNoPrefabs, selectedPrefab] }
   if (selectedNoPrefabs.value.len() == 0 || selectedPrefab.value == null)
     return res
@@ -274,8 +274,8 @@ let function addSelectedObjectsToPrefab() {
   })
 }
 
-let function dialogRoot() {
-  let function listContent() {
+function dialogRoot() {
+  function listContent() {
     let rows = []
     local idx = 0
     foreach (prefab in prefabsLibrary.value)
@@ -303,12 +303,12 @@ let function dialogRoot() {
   })
 
 
-  let function doClose() {
+  function doClose() {
     isPrefabTool(false)
     filterText("")
   }
 
-  let function doDeleteSelected() {
+  function doDeleteSelected() {
     let filename = make_prefab_path(selectedItem.value)
     if (file_exists(filename))
       remove(filename)

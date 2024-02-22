@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 let { logerr } = require("dagor.debug")
 let { unique } = require("%sqstd/underscore.nut")
 let { settings } = require("%enlist/options/onlineSettings.nut")
@@ -18,20 +18,20 @@ const OPT_RADIO = "radioselect"
 const SAVE_ID = "eventRoomFilter"
 const MODE_ID = "public/mode"
 let saved = Computed(@() settings.value?[SAVE_ID])
-let function save(key, value) {
+function save(key, value) {
   if (saved.value?[key] != value)
     settings.mutate(@(s) s[SAVE_ID] <- (s?[SAVE_ID] ?? {}).__merge({ [key] = value }))
 }
-let function clearFilters() {
+function clearFilters() {
   if (saved.value != null)
-    settings.mutate(@(s) delete s[SAVE_ID])
+    settings.mutate(@(s) s.$rawdelete(SAVE_ID))
 }
 let isFiltersChanged = Computed(@() (saved.value?.len() ?? 0) != 0)
 let curModes = Computed(@() (saved.value?[MODE_ID] ?? []).filter(@(m) allModes.value.contains(m)))
 
 let mkSave = @(key) @(value) save(key, value)
 
-let function getValuesByRule(rule, curValues) {
+function getValuesByRule(rule, curValues) {
   let { values } = getValuesFromRule(rule)
   let { override = [] } = rule
 
@@ -73,7 +73,7 @@ let function getValuesByRule(rule, curValues) {
   return unique(res)
 }
 
-let function updateValues(toTbl, fromTbl) {
+function updateValues(toTbl, fromTbl) {
   foreach (key, list in fromTbl)
     if (key in toTbl)
       toTbl[key].extend(list)
@@ -140,7 +140,7 @@ let mkToggleValue = @(id, curValues) function toggleValue(value, isChecked) {
   save(id, res)
 }
 
-let function mkOption(id, locId, valToString = @(v) v) {
+function mkOption(id, locId, valToString = @(v) v) {
   let allValues = Computed(@() optionsConfig.value.availValues?[id])
   let curValues = Computed(@() optionsConfig.value.curValues?[id] ?? [])
   return {
@@ -166,7 +166,7 @@ let filterByList = @(res, filterList)
 let optDifficulty = mkOption("public/difficulty", "options/difficulty", optionLoc)
 
 let optCrossplay = mkOption("public/crossplay", "options/crossplay", @(v) loc($"option/crossplay/{v}"))
-let function updateOptCrossplay(val) {
+function updateOptCrossplay(val) {
   if (!val)
     optCrossplay.__update({ allValues = Watched(null) })
   else {

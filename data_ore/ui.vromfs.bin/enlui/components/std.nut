@@ -1,8 +1,8 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let image = require("image.nut")
 
-let function panel(elem_, ...) {
+function panel(elem_, ...) {
   local children = elem_?.children ?? []
   let add_children = []
   foreach (v in vargv) {

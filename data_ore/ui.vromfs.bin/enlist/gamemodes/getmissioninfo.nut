@@ -11,13 +11,13 @@ let misPrefixToCampaign = {
   pacific = "pacific"
 }
 
-let function mkMissionInfo(scene) {
+function mkMissionInfo(scene) {
   let id = scene == "" ? "" : scene.split("/").top().split(".")[0]
   let campaign = misPrefixToCampaign.findvalue(@(_, prefix) id.indexof(prefix) == 0)
   return getMissionPresentation(id).__merge({ id, campaign })
 }
 
-let function getMissionInfo(scene) {
+function getMissionInfo(scene) {
   if (scene not in allInfo)
     allInfo[scene] <- mkMissionInfo(scene)
   return allInfo[scene]

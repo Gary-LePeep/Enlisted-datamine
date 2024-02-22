@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let colorize = require("%ui/components/colorize.nut")
 let { utf8ToUpper } = require("%sqstd/string.nut")
@@ -21,7 +21,7 @@ let premiumImage = @(size, override = {}) @() {
 }.__update(override)
 
 
-let function premiumActiveInfo(customStyle = {}, premColor = hasPremiumColor) {
+function premiumActiveInfo(customStyle = {}, premColor = hasPremiumColor) {
   let timeLeft = Computed(@()
     premiumActiveTime.value > 0 ? secondsToHoursLoc(premiumActiveTime.value) : null)
   return @() timeLeft.value

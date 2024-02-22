@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {localPlayerTeam} = require("%ui/hud/state/local_player.nut")
 let {heroSquadNumAliveMembers} = require("%ui/hud/state/hero_squad.nut")
@@ -55,7 +55,7 @@ let paramsBySideMap = {
 }
 
 local isShownZeroScoreWarn = false
-let function updateScoreWarning() {
+function updateScoreWarning() {
   let isMySquadDead = heroSquadNumAliveMembers.value == 0
   let needZeroScoreWarn = !isMySquadDead && failEndTime.value > 0 && myTeamCanFailByTime.value
   if (needZeroScoreWarn != isShownZeroScoreWarn) {
@@ -72,7 +72,7 @@ foreach (w in [failEndTime, heroSquadNumAliveMembers, myTeamCanFailByTime, canIn
 
 local scoreIsLowTriggered = false
 local scoreIsHalfTriggered = false
-let function setScoreParams(teamScores, side) {
+function setScoreParams(teamScores, side) {
   local normScore
   normScore = teamScores["team__scoreCap"] > 0 ? teamScores["team__score"] / teamScores["team__scoreCap"].tofloat() : null
   paramsBySideMap[side].score(normScore)
@@ -92,12 +92,12 @@ let function setScoreParams(teamScores, side) {
   }
 }
 
-let function setBleedParams(teamScores, side) {
+function setBleedParams(teamScores, side) {
   paramsBySideMap[side].bleed(teamScores["score_bleed__domBleedOn"])
   paramsBySideMap[side].bleedFast(teamScores["score_bleed__domBleedOn"] && teamScores["score_bleed__totalDomBleedOn"])
 }
 
-let function setFailTime(_){
+function setFailTime(_){
   foreach (teamId, teamScores in scoresByTeams.value) {
     if (!teamScores["team__haveScores"])
       continue
@@ -143,7 +143,7 @@ let teamComps = {
   ]
 }
 
-let function trackComponents(_evt, _eid, comp) {
+function trackComponents(_evt, _eid, comp) {
   let val = {}
   foreach (compslist in teamComps) {
     foreach (compdesc in compslist)
@@ -156,10 +156,10 @@ let function trackComponents(_evt, _eid, comp) {
 }
 
 
-let function onDestroy(_evt, _eid, comp) {
+function onDestroy(_evt, _eid, comp) {
   let teamId = comp["team__id"]
   scoresByTeams.mutate(function(scores) {
-    delete scores[teamId]
+    scores.$rawdelete(teamId)
   })
 
 }

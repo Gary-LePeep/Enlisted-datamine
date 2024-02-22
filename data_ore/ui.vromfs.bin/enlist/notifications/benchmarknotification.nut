@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { debounce } = require("%sqstd/timers.nut")
 let { gpuBenchmarkWnd, benchmarkWindowSeen } = require("%enlSqGlob/ui/benchmarkWnd.nut")

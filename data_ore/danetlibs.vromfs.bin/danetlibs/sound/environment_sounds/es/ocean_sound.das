@@ -98,7 +98,7 @@ def update(pt : float2;
 
 
 
-[es(tag=sound, on_event=ParallelUpdateFrameDelayed)]
+[es(tag=sound, on_event=ParallelUpdateFrameDelayed, after=sound_begin_update_es, before=sound_end_update_es)]
 def ocean_sound_update(evt : Event;
                        sound_banks_state__isPresetLoaded : bool;
                        var ocean_sound__event : SoundEvent&;

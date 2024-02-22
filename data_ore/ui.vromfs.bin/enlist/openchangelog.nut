@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let navState = require("%enlist/navState.nut")
 let JB = require("%ui/control/gui_buttons.nut")

@@ -863,14 +863,29 @@
       }
     }
   ],
-  "attachable_wear_uk_denison_smock_2nd_pattern_w_parachute_item": {
-    "_use": "attachable_tunic",
-    "item__uniqueName": "attachable_wear_uk_denison_smock_2nd_pattern_w_parachute_item",
-    "animchar__res": "uk_denison_smock_2nd_pattern_w_parachute_char",
-    "collres__res": "uk_denison_smock_2nd_pattern_w_parachute_collision",
-    "item__replaceOnParachuteOpen": "attachable_wear_uk_denison_smock_2nd_pattern_item",
-    "item__replaceOnSpawnOnGround": "attachable_wear_uk_denison_smock_2nd_pattern_item"
-  },
+  "attachable_wear_uk_denison_smock_2nd_pattern_w_parachute_item": [
+    {
+      "_use": "attachable_tunic"
+    },
+    {
+      "_use": "cloth_wind"
+    },
+    {
+      "item__uniqueName": "attachable_wear_uk_denison_smock_2nd_pattern_w_parachute_item"
+    },
+    {
+      "animchar__res": "uk_denison_smock_2nd_pattern_w_parachute_char"
+    },
+    {
+      "collres__res": "uk_denison_smock_2nd_pattern_w_parachute_collision"
+    },
+    {
+      "item__replaceOnParachuteOpen": "attachable_wear_uk_denison_smock_2nd_pattern_item"
+    },
+    {
+      "item__replaceOnSpawnOnGround": "attachable_wear_uk_denison_smock_2nd_pattern_item"
+    }
+  ],
   "attachable_wear_uk_denison_smock_2nd_pattern_stroke_w_parachute_item": [
     {
       "_use": "attachable_tunic"
@@ -985,6 +1000,19 @@
       }
     ]
   },
+  "attachable_wear_uk_wool_jumper_brown_item": [
+    {
+      "_use": "attachable_tunic"
+    },
+    {
+      "_use": "attachable_wear_uk_wool_jumper_item"
+    },
+    {
+      "animchar__objTexReplace:object": {
+        "uk_wool_jumper_tex_d*": "uk_wool_jumper_brown_tex_d*"
+      }
+    }
+  ],
   "attachable_wear_serge_battle_dress_tunic_uk_item": {
     "_use": "attachable_tunic",
     "item__uniqueName": "attachable_wear_serge_battle_dress_tunic_uk_item",
@@ -2594,14 +2622,25 @@
     },
     "item__unequipAfterParachuteLanding:tag": []
   },
-  "attachable_wear_uk_lifebuoy_rack_flammiere_item": {
+  "attachable_wear_uk_lifebuoy_rack_flammiere_item": [
+    {
+      "_use": "attachable_backpack"
+    },
+    {
+      "_use": "attachable_wear_uk_lifebuoy_rack_flammiere_nodes_item"
+    }
+  ],
+  "attachable_wear_uk_lifebuoy_rack_flammiere_nodes_item": {
     "_use": "attachable_backpack",
-    "item__uniqueName": "attachable_wear_uk_lifebuoy_rack_flammiere_item",
-    "animchar__res": "uk_lifebuoy_rack_flammiere_char",
-    "collres__res": "uk_lifebuoy_rack_flammiere_collision",
-    "animchar_fast_phys__res": "uk_lifebuoy_rack_flammiere_fastphys",
+    "item__uniqueName": "attachable_wear_uk_lifebuoy_rack_flammiere_nodes_item",
+    "animchar__res": "uk_lifebuoy_rack_flammiere_nodes_char",
+    "collres__res": "uk_lifebuoy_rack_flammiere_nodes_collision",
+    "animchar_fast_phys__res": "uk_lifebuoy_rack_flammiere_nodes_fastphys",
     "animchar_fast_phys": {
       "_tags": "gameClient"
+    },
+    "skeleton_attach__remapParentSlots:list<t>": {
+      "slot": "tunic"
     }
   },
   "attachable_wear_uk_lifebuoy_mk1_rack_flammiere_item": {

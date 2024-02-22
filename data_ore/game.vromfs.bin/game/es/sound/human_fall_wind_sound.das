@@ -3,7 +3,7 @@ require soundEvent
 require soundSystem
 
 
-[es(tag=sound, on_event=ParallelUpdateFrameDelayed, REQUIRE=watchedByPlr)]
+[es(tag=sound, on_event=ParallelUpdateFrameDelayed, after=sound_begin_update_es, before=sound_end_update_es, REQUIRE=watchedByPlr)]
 def human_fall_wind_sound_update(evt : Event;
                                  human_fall_wind_sound__startSpeed : float;
                                  human_fall_wind_sound__path : string;

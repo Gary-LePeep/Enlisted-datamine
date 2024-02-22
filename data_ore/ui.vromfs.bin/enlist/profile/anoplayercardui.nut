@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 let anoDecoratorUi = require("anoDecoratorUi.nut")
 let { visibleCampaigns } = require("%enlist/meta/campaigns.nut")
 let { smallOffset } = require("%enlSqGlob/ui/viewConst.nut")

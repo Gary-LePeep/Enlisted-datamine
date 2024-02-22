@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { DBGLEVEL } = require("dagor.system")
 if (DBGLEVEL <= 0)
@@ -37,7 +37,7 @@ let armorCtor = @(data, detail) "; ".join(ARMOR_ORDER
   .filter(@(key) key in data)
   .map(@(armorType) $"{armorType}: {data[armorType]} {detail?.measure}"))
 
-local function defaultCtor(data, detail) {
+function defaultCtor(data, detail) {
   local { key, mult = 1, measure = "", altLimit = 0.0,
     altMeasure = "", precision = 1 } = detail
   let dataType = typeof data
@@ -77,7 +77,7 @@ let VEHICLE_TEXT_CONSTRUCTORS = {
   }
 }
 
-let function getVehicleStats(db, vehicle_template_name, header) {
+function getVehicleStats(db, vehicle_template_name, header) {
   let template = db.getTemplateByName(vehicle_template_name)
   let localizationKey = template?.getCompValNullable("item__name")
 
@@ -100,7 +100,7 @@ let arrayCtor = @(data, detail) " - ".join(typeof data == "array"
   ? data.map(@(d) defaultCtor(d, detail))
   : [defaultCtor(data, detail)])
 
-let function tableCtor(data, detail) {
+function tableCtor(data, detail) {
   let { mult = 1, measure = "", altMeasure = "", precision = 1 } = detail
   if (mult == 0)
     return null
@@ -138,7 +138,7 @@ let ITEMS_TEXT_CONSTRUCTORS = {
   "hitpower" : tableCtor
 }
 
-let function getItemStats(db, item_template_name, header) {
+function getItemStats(db, item_template_name, header) {
   let template = db.getTemplateByName(item_template_name)
   let localizationKey = template?.getCompValNullable("item__name")
 
@@ -157,7 +157,7 @@ let function getItemStats(db, item_template_name, header) {
 
 let getSaveFolderPath = @(army) $".meta_stats/{army}"
 
-let function saveTemplateStatsToFile(army, file_name, header, items, text_generator) {
+function saveTemplateStatsToFile(army, file_name, header, items, text_generator) {
   let path = $"{getSaveFolderPath(army)}/{file_name}"
   let file = io.file(path, "wt")
 
@@ -203,7 +203,7 @@ let squadInfoHeader = [
 ]
 
 
-let function saveSquadStatsToFile(folder, file_name) {
+function saveSquadStatsToFile(folder, file_name) {
   let path = $"{getSaveFolderPath(folder)}/{file_name}"
   mkdir(getSaveFolderPath(folder))
 
@@ -252,7 +252,7 @@ let itemTypeWhitelist = {
   binoculars_usable = true
 }
 
-let function gatherUsedTemplates(armyItems) {
+function gatherUsedTemplates(armyItems) {
   let tanks = {}
   let planes = {}
   let items = {}
@@ -281,7 +281,7 @@ let languagesToDump = [
   "HChinese"
 ]
 
-let function dumpStats(file_name_prefix = "") {
+function dumpStats(file_name_prefix = "") {
   foreach (armyId, armyItems in allItemTemplates.value) {
     let { tanks, planes, items } = gatherUsedTemplates(armyItems)
 
@@ -304,7 +304,7 @@ let function dumpStats(file_name_prefix = "") {
   console_print($"Stats Dump Finished!")
 }
 
-let function getLocLoadSettingsBlk() {
+function getLocLoadSettingsBlk() {
   let locBlk = DataBlock()
   // copy of blk init from dng_load_localization()
   locBlk.addStr("english_us", "English")
@@ -318,7 +318,7 @@ let function getLocLoadSettingsBlk() {
   return locBlk
 }
 
-let function dumpMultipleLanguagesStats() {
+function dumpMultipleLanguagesStats() {
   let currentLang = getCurrentLanguage()
   let locBlk = getLocLoadSettingsBlk()
   foreach (lang in languagesToDump) {

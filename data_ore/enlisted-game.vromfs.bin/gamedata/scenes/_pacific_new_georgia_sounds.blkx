@@ -18,7 +18,6 @@
     "entity": {
       "_template": "game_object_spline_sound_generator",
       "game_object_spline_sound_generator__entityTemplate": "river_sound",
-      "game_object_spline_sound_generator__pointRadiusMul": 1.0,
       "game_object_spline_sound_generator__gameObjects:list<t>": {
         "gameObject": "river_sound_spline_a"
       }
@@ -49,17 +48,31 @@
   },
   {
     "entity": {
-      "_template": "game_object_compound_sound_generator",
-      "game_object_compound_sound_generator__entityTypes:array": {
-        "entity:object": {
-          "singleEntityTemplate": "cave_volume_ambient_sound",
-          "compoundEntityTemplate": "cave_compound_ambient_sound",
-          "soundName": "cave",
-          "objectTypes:object": {
-            "cave_sound": "box"
-          }
+      "_template": "compound_ambient_sound_type",
+      "compound_ambient_sound_type__soundType": "cave",
+      "compound_ambient_sound_type__path": "ambient/positioned/cave",
+      "compound_ambient_sound_type__fadeInOutSpeed": [0.25,0.5],
+      "compound_ambient_sound_type__reverb_intensity_roomSize_absorption_weight": [100.0,20.0,0.0,1.0]
+    }
+  },
+  {
+    "entity": {
+      "_template": "compound_ambient_sound_type",
+      "compound_ambient_sound_type__soundType": "shipwreck_siren",
+      "compound_ambient_sound_type__path": "ambient/positioned/shipwreck_siren"
+    }
+  },
+  {
+    "entity": {
+      "_template": "compound_ambient_sound_controller",
+      "compound_ambient_sound_controller__soundTypes:list<t>": [
+        {
+          "name": "cave"
+        },
+        {
+          "name": "shipwreck_siren"
         }
-      }
+      ]
     }
   },
   {
@@ -120,30 +133,6 @@
         [-348.465,4.0,-817.317]
       ],
       "game_object_sound__name": "battle"
-    }
-  },
-  {
-    "entity": {
-      "_template": "replicated_compound_ambient_sound",
-      "game_object_sound__name": "shipwreck_siren",
-      "game_object_compound_sound__transforms:list<m>": [
-        {
-          "tm": [
-            [99.1511,0.0,50.1465],
-            [0.0,8.0,0.0],
-            [-5.49825,0.0,10.8713],
-            [-433.0,4.0,-1068.88]
-          ]
-        },
-        {
-          "tm": [
-            [16.9584,0.0,8.83893],
-            [0.0,5.84313,0.0],
-            [-7.14543,0.0,13.7093],
-            [-432.854,10.3362,-1068.61]
-          ]
-        }
-      ]
     }
   }
 ]

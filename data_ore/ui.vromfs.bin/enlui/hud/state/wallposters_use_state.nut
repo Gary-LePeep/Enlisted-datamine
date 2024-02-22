@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { isDowned, isAlive } = require("%ui/hud/state/health_state.nut")
 let { inVehicle } = require("%ui/hud/state/vehicle_state.nut")

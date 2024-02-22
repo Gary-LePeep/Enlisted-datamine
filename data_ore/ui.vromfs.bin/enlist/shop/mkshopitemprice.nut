@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { utf8ToUpper } = require("%sqstd/string.nut")
 let { fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
@@ -21,7 +21,7 @@ let sidePadding = fsh(2)
 let discountBannerHeight = hdpx(48) // equal to PRICE_HEIGHT!
 
 
-let function hasItemsToBarter(curItemCost, campItems) {
+function hasItemsToBarter(curItemCost, campItems) {
   if (curItemCost.len() == 0)
     return false
 
@@ -36,7 +36,7 @@ let mkPriceText = @(price, currencyId) loc($"priceText/{currencyId}", { price })
 
 let mkPurchaseText = @(isSoldier) isSoldier ? loc("mainmenu/enlistFor") : loc("mainmenu/buyFor")
 
-let function mkItemPurchaseInfo(shopItem, campItems, currencies, isNarrow) {
+function mkItemPurchaseInfo(shopItem, campItems, currencies, isNarrow) {
   let { curItemCost, curShopItemPrice, shop_price_curr = "",
     shop_price = 0, shop_price_full = 0, discountInPercent = 0,
     isPriceHidden = false, hideDiscount = false
@@ -113,7 +113,7 @@ let function mkItemPurchaseInfo(shopItem, campItems, currencies, isNarrow) {
   return null
 }
 
-let function mkItemBarterInfo(shopItem, campItems) {
+function mkItemBarterInfo(shopItem, campItems) {
   let { guid, curItemCost } = shopItem
   if (curItemCost.len() == 0)
     return null
@@ -193,7 +193,7 @@ let mkPrice = @(shopItem, bgParams = {}, needPriceText = true,
     }.__update(bgParams)
   }
 
-let function mkSinglePrice(priceData, count, guid) {
+function mkSinglePrice(priceData, count, guid) {
   let { currTpl = "", value = 0, price = 0, fullPrice = 0} = priceData
   if (currTpl == "EnlistedGold"){
     let currency = currenciesById.value?[currTpl]
@@ -207,7 +207,7 @@ let function mkSinglePrice(priceData, count, guid) {
   })
 }
 
-let function mkDiscountInfo(discountData) {
+function mkDiscountInfo(discountData) {
   if (discountData == null)
     return null
 
@@ -235,7 +235,7 @@ let function mkDiscountInfo(discountData) {
   }
 }
 
-local function mkShopItemPrice(shopItem, personalOffer = null, isNarrow = false) {
+function mkShopItemPrice(shopItem, personalOffer = null, isNarrow = false) {
   local {
     curItemCost, curShopItemPrice, shop_price_curr = "",
     shop_price = 0, discountInPercent = 0,

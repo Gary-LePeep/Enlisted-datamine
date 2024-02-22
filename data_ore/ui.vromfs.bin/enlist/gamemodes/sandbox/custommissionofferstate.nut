@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontBody, fontHeading2 } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { httpRequest } = require("dagor.http")
@@ -35,7 +35,7 @@ let isFeaturedRequestNeeded = keepref(Computed(@() isFeaturedAvailable && isEven
 const FEATURED_MODS_TAB_ID = "featured_mod"
 const URL = "https://sandbox.enlisted.net/api/feed/get_featured/"
 
-let function getfeaturedModInfo(mod) {
+function getfeaturedModInfo(mod) {
   try{
     let isInvalidData = mod.findvalue(@(v) v == null)
     if (isInvalidData)
@@ -62,7 +62,7 @@ let function getfeaturedModInfo(mod) {
 }
 
 
-let function requestCb(response) {
+function requestCb(response) {
   try {
     let mods = (parse_json(response.body?.as_string())?.data.list ?? [])
       .map(@(v) getfeaturedModInfo(v))
@@ -73,7 +73,7 @@ let function requestCb(response) {
   }
 }
 
-let function requestMods(data = urlData) {
+function requestMods(data = urlData) {
   httpRequest({
     method = "POST"
     url = URL
@@ -88,7 +88,7 @@ if (isFeaturedRequestNeeded.value)
 isFeaturedRequestNeeded.subscribe(@(v) v ? requestMods() : null)
 
 
-let function offersModMsgbox(mod) {
+function offersModMsgbox(mod) {
   let { description, title, authorsNick, id, version, modUrl } = mod
   let  buttons = Computed(function(){
     let res = [
@@ -136,7 +136,7 @@ let function offersModMsgbox(mod) {
   })
 }
 
-let function updateUrlData(params = null) {
+function updateUrlData(params = null) {
   if (params == null)
     requestMods(urlData)
   let updatedUrlData = $"{urlData}&{params}"

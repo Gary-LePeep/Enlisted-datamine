@@ -1,11 +1,11 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let faComp = require("%ui/components/faComp.nut")
 let {mkCountdownTimer} = require("%ui/helpers/timers.nut")
 let { DEFAULT_TEXT_COLOR } = require("%ui/hud/style.nut")
 
-let function indicatorCtor(endTime, totalTime, text=null){
+function indicatorCtor(endTime, totalTime, text=null){
   let countDownTimer = mkCountdownTimer(endTime)
   let curProgressW = Computed(@() totalTime.value > 0 ? countDownTimer.value / totalTime.value : 0)
   let showProgress = Computed(@() curProgressW.value > 0.0 && curProgressW.value < 0.99)

@@ -191,7 +191,7 @@ def gun_sound_on_net_shot(evt : CmdNetShot;
 def is_shooting(gun_sound__shotLoopTimeout : float)
   return gun_sound__shotLoopTimeout > 0.
 
-[es(tag=sound, REQUIRE=gunSound, no_order)]
+[es(tag=sound, REQUIRE=gunSound, after=sound_begin_update_es, before=sound_end_update_es)]
 def gun_sound_update(info : ParallelUpdateFrameDelayed;
                      var gun_sound__shotLoopTimeout : float&;
                      var gun_sound__deltaTime : float4&;
@@ -219,7 +219,7 @@ def gun_sound_update(info : ParallelUpdateFrameDelayed;
 
 
 [es(tag=sound, REQUIRE=gunSound)]
-def gun_sound_on_irq(evt : CmdSoundGenIrq;
+def gun_sound_on_irq(evt : CmdSoundIrq;
                      animchar_bbox : bbox3f;
                      gun_sound__isEnabled : bool;
                      sound_banks_state__isPresetLoaded : bool;
@@ -231,8 +231,11 @@ def gun_sound_on_irq(evt : CmdSoundGenIrq;
     let isWatched = is_watched_gun_sound(gun__owner)
     if isWatched || should_play(get_gun_sound_pos(animchar_bbox), sound_max_irq_dist)
       query(gun__owner) <| $ [es] (var sound_event_group : SoundEventGroup&)
-        reject_sound(sound_event_group, sound_hash("gunIrq"), true)
-        sound_player_common::play_path(evt.irq, sound_irqs, sound_tags, isWatched, get_gun_sound_pos(animchar_bbox), sound_hash("gunIrq"), sound_event_group)
+        let handle = sound_player_common::play_path(evt.irq, sound_irqs, sound_tags, isWatched, get_gun_sound_pos(animchar_bbox), false)
+        if handle != invalid_sound_event_handle()
+          add_sound(sound_event_group, sound_hash(""), handle)
+          if evt.irqType == sound_hash("matUnderFeet")
+            set_var(handle, "mat", get_smid_from_gun_owner(gun__owner))
 
 
 [es(tag=sound, track=sound_banks_state__isPresetLoaded, REQUIRE=gunSound)]
@@ -243,7 +246,7 @@ def gun_sound_toggle(evt : Event;
     release_immediate(gun_sound__event.handle)
 
 
-[es(tag=sound, after=animchar_render_es)]
+[es(tag=sound, after=sound_begin_update_es, before=sound_end_update_es)]
 def gun_owner_sound_event_group_update(info : ParallelUpdateFrameDelayed;
                                        var gun_owner_sound_event_group : SoundEventGroup&)
   update_sounds(gun_owner_sound_event_group)

@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontHeading2, fontSub, fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let console = require("console")
@@ -64,7 +64,7 @@ let {
   showSelfAwards, showTeammateName, showTeammateMarkers, showCrosshairHints,
   showTips, showGameModeHints, showPlayerUI
 } = require("%ui/hud/state/hudOptionsState.nut")
-let { safeAreaVerPadding, safeAreaHorPadding } = require("%enlSqGlob/safeArea.nut")
+let { safeAreaVerPadding, safeAreaHorPadding } = require("%enlSqGlob/ui/safeArea.nut")
 
 let timeSpeedVariants = [0, 0.1, 0.25, 0.5, 1, 1.5, 2, 3, 4]
 let isAdvancedSettingsActive = Watched(false)
@@ -131,7 +131,7 @@ ecs.register_es("replay_rewind_load_hud_state_es", {
   }
 }, {}, {tags="playingReplay"})
 
-let function timeSpeedIncrease(curTimeSpeed) {
+function timeSpeedIncrease(curTimeSpeed) {
   foreach (timeSpeed in timeSpeedVariants)
     if (curTimeSpeed < timeSpeed) {
       console.command($"app.timeSpeed {timeSpeed}")
@@ -140,7 +140,7 @@ let function timeSpeedIncrease(curTimeSpeed) {
 }
 
 
-let function timeSpeedDecrese(curTimeSpeed) {
+function timeSpeedDecrese(curTimeSpeed) {
   for (local i = timeSpeedVariants.len() - 1; i >= 0; --i)
     if (curTimeSpeed > timeSpeedVariants[i]) {
       console.command($"app.timeSpeed {timeSpeedVariants[i]}")
@@ -284,7 +284,7 @@ let canUseFPSCam = Computed(function(){
   return seat?.order?.canPlaceManually ?? true
 })
 
-let function setFirstCameraActive() {
+function setFirstCameraActive() {
   if (canUseFPSCam.value)
     ecs.g_entity_mgr.broadcastEvent(ReplaySetFpsCamera())
 }
@@ -325,7 +325,7 @@ let camerasList = [
 ]
 
 
-let function changeCamera(delta) {
+function changeCamera(delta) {
   let curCameraIdx = camerasList.findindex(@(v) v.id == activeCameraId.value)
   if (curCameraIdx == null)
     return
@@ -347,7 +347,7 @@ let wndEventHandlers = {
 }
 
 
-let function replayCameraControl() {
+function replayCameraControl() {
   let cameraHint = activeCameraId.value == null ? loc("replay/selectCamera")
     : loc("replay/camera", { camera = loc($"replay/cameraType/{activeCameraId.value}") })
   return {
@@ -389,7 +389,7 @@ let function replayCameraControl() {
 }
 
 
-let function mkBtnWithHint(btnParams) {
+function mkBtnWithHint(btnParams) {
   let { text, action, btnHint, actionDesc, isBtnSelected = Watched(false),
     isBtnEnabled = Watched(true), eventHandlers = null } = btnParams
   return @() {
@@ -722,7 +722,7 @@ let mkSettingsBlock = @(watchedFlag, content) @(){
 }
 
 
-let function presetBlock() {
+function presetBlock() {
   let header = replayPresets.value.len() <= 0
     ? loc("replay/createPreset")
     : loc("replay/choosePreset")

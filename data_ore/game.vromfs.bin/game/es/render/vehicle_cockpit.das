@@ -701,3 +701,61 @@ def cockpit_init_slits(evt : Event; cockpit__slitTemplates : StringList; var coc
 def cockpit_destroy_slits(evt : Event; cockpit__slitEids : EidList)
   for eid in cockpit__slitEids
     destroyEntity(eid)
+
+[es(tag=render, on_appear, track=camera__active)]
+def activate_vehicle_camera_dof(evt : Event;
+                                camera__active : bool;
+                                var prevDof__on : bool&;
+                                var prevDof__farDofAmountPercent : float&;
+                                var prevDof__nearDofAmountPercent : float&;
+                                var prevDof__nearDofStart : float&;
+                                var prevDof__nearDofEnd : float&;
+                                var prevDof__is_filmic : bool&;
+                                cockpitDof__nearDofStart : float;
+                                cockpitDof__nearDofEnd : float;
+                                cockpitDof__nearDofAmountPercent : float)
+  if !camera__active
+    return
+  query() <| $ [es] (var dof__on : bool&;
+                     var dof__farDofAmountPercent : float&;
+                     var dof__nearDofAmountPercent : float&;
+                     var dof__nearDofStart : float&;
+                     var dof__nearDofEnd : float&;
+                     var dof__is_filmic : bool&)
+    prevDof__on = dof__on
+    prevDof__farDofAmountPercent = dof__farDofAmountPercent
+    prevDof__nearDofAmountPercent = dof__nearDofAmountPercent
+    prevDof__nearDofStart = dof__nearDofStart
+    prevDof__nearDofEnd = dof__nearDofEnd
+    prevDof__is_filmic = dof__is_filmic
+
+    dof__on = true
+    dof__farDofAmountPercent = 0.0
+    dof__nearDofAmountPercent = cockpitDof__nearDofAmountPercent
+    dof__nearDofStart = cockpitDof__nearDofStart
+    dof__nearDofEnd = cockpitDof__nearDofEnd
+    dof__is_filmic = false
+
+[es(tag=render, on_disappear, track=camera__active)]
+def deactivate_vehicle_camera_dof(evt : Event;
+                                  camera__active : bool;
+                                  prevDof__on : bool;
+                                  prevDof__farDofAmountPercent : float;
+                                  prevDof__nearDofAmountPercent : float;
+                                  prevDof__nearDofStart : float;
+                                  prevDof__nearDofEnd : float;
+                                  prevDof__is_filmic : bool)
+  if camera__active
+    return
+  query() <| $ [es] (var dof__on : bool&;
+                     var dof__farDofAmountPercent : float&;
+                     var dof__nearDofAmountPercent : float&;
+                     var dof__nearDofStart : float&;
+                     var dof__nearDofEnd : float&;
+                     var dof__is_filmic : bool&)
+    dof__on = prevDof__on
+    dof__farDofAmountPercent = prevDof__farDofAmountPercent
+    dof__nearDofAmountPercent = prevDof__nearDofAmountPercent
+    dof__nearDofStart = prevDof__nearDofStart
+    dof__nearDofEnd = prevDof__nearDofEnd
+    dof__is_filmic = prevDof__is_filmic

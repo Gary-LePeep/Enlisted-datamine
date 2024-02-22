@@ -2,7 +2,6 @@ options no_aot
 require ecs
 require DagorMath
 require DagorDebug3D
-require soundSystem
 require math.color
 
 
@@ -11,13 +10,11 @@ def get_color(spline_idx : int)
   return colors[spline_idx % 6]
 
 
-[es(no_order, tag=(render, sound, dev))]
-def ocean_sound_debug_draw(info : UpdateStageInfoRenderDebug;
+[es(no_order, tag=sound, on_event=EventSoundDrawDebug)]
+def ocean_sound_debug_draw(evt : Event;
                            ocean_sound__points : Point3List;
                            ocean_sound__waterLevel : float)
 
-  if !get_enable_debug_draw()
-    return
   let numPoints = length(ocean_sound__points)
   if numPoints == 0
     return

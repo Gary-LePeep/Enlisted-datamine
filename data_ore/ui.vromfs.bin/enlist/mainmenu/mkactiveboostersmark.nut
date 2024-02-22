@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { defTxtColor, activeTxtColor, msgHighlightedTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
 let colorize = require("%ui/components/colorize.nut")
@@ -25,7 +25,7 @@ let percentSign = @(num) num > 0 ? $"+{round(num * 100.0)}" : round(num * 100.0)
 
 let toPercentColored = @(v) colorize(msgHighlightedTxtColor, percentSign(v))
 
-let function mkBoosterInfoText(booster, curTime) {
+function mkBoosterInfoText(booster, curTime) {
   let { leftBattles, expireTime } = booster
   let percent = toPercentColored(booster.expMul)
   let limitsList = []

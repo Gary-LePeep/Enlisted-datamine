@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { itemsByArmies, commonArmy, activeBoosters, campaignsByArmy
 } = require("%enlist/meta/profile.nut")
@@ -41,7 +41,7 @@ let nextExpireTime = Watched(0)
 let countNextExpire = @(boosters) boosters
   .reduce(@(res, b) b.expireTime <= 0 || (res > 0 && b.expireTime > res) ? res : b.expireTime, 0)
 
-let function recalcActiveBosters(_ = null) {
+function recalcActiveBosters(_ = null) {
   let time = serverTime.value
   let boosters = allBoostersBase.value.filter(@(b) b.expireTime <= 0 || b.expireTime > time)
   let nextExpire = countNextExpire(boosters)

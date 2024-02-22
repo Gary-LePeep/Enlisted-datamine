@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {
   unlockProgress, emptyProgress, allUnlocks
@@ -25,20 +25,33 @@ let weeklyTasks = Computed(function() {
   return unlocks
 })
 
+let eventTasks = Computed(function() {
+  let progress = unlockProgress.value
+  let unlocks = allUnlocks.value
+    .filter(@(u) u?.meta.event_unlock ?? false)
+    .map(@(u, key) u.__merge(progress?[key] ?? emptyProgress))
+    .values()
+
+  return unlocks
+})
+
 let rewardWeeklyTask = Computed(@() weeklyTasks.value
+  .findvalue(@(task) task.hasReward))
+
+let rewardEventTask = Computed(@() eventTasks.value
   .findvalue(@(task) task.hasReward))
 
 let getFinishedWeeklyTasksCount = @()
   weeklyTasks.value.filter(@(u) u?.isFinished ?? false).len()
 
-let function saveFinishedWeeklyTasks() {
+function saveFinishedWeeklyTasks() {
   curFinishedWeeklyTasksCount(getFinishedWeeklyTasksCount())
 }
 
 let needWeeklyTasksAnim = @()
   getFinishedWeeklyTasksCount() > curFinishedWeeklyTasksCount.value
 
-let function triggerBPStarsAnim() {
+function triggerBPStarsAnim() {
   if (needWeeklyTasksAnim())
     bpStarsAnimGen(bpStarsAnimGen.value + 1)
 }
@@ -46,6 +59,7 @@ let function triggerBPStarsAnim() {
 return {
   weeklyTasks
   rewardWeeklyTask
+  rewardEventTask
   saveFinishedWeeklyTasks
   triggerBPStarsAnim
   needWeeklyTasksAnim

@@ -19,7 +19,7 @@ let isResultSend = persist("isResultSend", @() { value = false })
 let resultSendToProfile = persist("resultSendToProfile", @() {})
 
 
-let function sendToUserStats(userid, appId, armyId, stats) {
+function sendToUserStats(userid, appId, armyId, stats) {
   if (stats.len() == 0)
     return
   let {extraParams=null, sessionId=null} = get_matching_mode_info()
@@ -30,7 +30,7 @@ let function sendToUserStats(userid, appId, armyId, stats) {
     userstatsSend(userid, appId, stats, armyId, sessionId)
 }
 
-let function sendPlayerUserstats(comp, roundResult) {
+function sendPlayerUserstats(comp, roundResult) {
   let userid = comp.userid
   let appId = comp.appId
   if (userid == INVALID_USER_ID)
@@ -109,7 +109,7 @@ let playerScoreQuery = ecs.SqQuery("playerScoreQuery", {comps_ro=[["team", ecs.T
 
 let indexByPercent = @(totalPlaces, percent) max(0, floor(totalPlaces * percent).tointeger() - 1)
 
-let function collectScoreStats() {
+function collectScoreStats() {
   let scores = {}
   playerScoreQuery.perform(function(_eid, comp) {
     if (comp.team not in scores)
@@ -128,7 +128,7 @@ let function collectScoreStats() {
   })
 }
 
-let function onRoundResult(evt, _, __) {
+function onRoundResult(evt, _, __) {
   if (isResultSend.value)
     return
   isResultSend.value = true

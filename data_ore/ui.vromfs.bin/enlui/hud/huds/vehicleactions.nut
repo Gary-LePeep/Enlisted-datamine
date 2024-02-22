@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { canChangeCockpitView } = require("%ui/hud/state/cockpit.nut")
 let vehicleSeats = require("%ui/hud/state/vehicle_seats.nut")
@@ -15,7 +15,8 @@ let allowHints = Computed(@() controlledHeroEid.value == watchedHeroEid.value
   && controlledHeroEid.value != ecs.INVALID_ENTITY_ID)
 
 let showExitAloneAction = Computed(@()
-  inVehicle.value
+  allowHints.value
+  && inVehicle.value
   && isPlayerCanExit.value
   && isVehicleAlive.value
   && !inPlane.value
@@ -34,7 +35,7 @@ let canHatch = Computed(function() {
   return (seat?.seat.hatchNodes.len() ?? 0) > 0
 })
 
-let function exitVehicleAlone() {
+function exitVehicleAlone() {
   let res = { watch = showExitAloneAction }
   if (!showExitAloneAction.value)
     return res
@@ -47,7 +48,7 @@ let function exitVehicleAlone() {
   })
 }
 
-let function getOutOfTheTankHatch() {
+function getOutOfTheTankHatch() {
   let res = { watch = canHatch }
   if (!canHatch.value)
     return res
@@ -77,14 +78,14 @@ let nextViewTip = {
   ]
 }
 
-let function nextView() {
+function nextView() {
   let res = { watch = [canChangeCockpitView, allowHints] }
   if (!canChangeCockpitView.value || !allowHints.value)
     return res
   return res.__update({ children = nextViewTip })
 }
 
-let function toggleHoldGunMode() {
+function toggleHoldGunMode() {
   let res = { watch = showToggleHoldGunMode }
   if (!showToggleHoldGunMode.value)
     return res
@@ -97,7 +98,7 @@ let function toggleHoldGunMode() {
   })
 }
 
-let function toggleHoldGunModeCancel() {
+function toggleHoldGunModeCancel() {
   let res = { watch = showToggleHoldGunModeCancel }
   if (!showToggleHoldGunModeCancel.value)
     return res
@@ -110,7 +111,7 @@ let function toggleHoldGunModeCancel() {
   })
 }
 
-let function useBinocular() {
+function useBinocular() {
   let res = { watch = showUseBinocular }
   if (!showUseBinocular.value)
     return res

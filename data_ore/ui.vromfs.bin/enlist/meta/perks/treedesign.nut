@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 let { squadSlotBgIdleColor }  = require("%enlSqGlob/ui/designConst.nut")
 
 let darkColor = Color(49, 56, 65)

@@ -1,9 +1,10 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
+let { logerr } = require("dagor.debug")
 let { Point3 } = require("dagor.math")
 let { objInfoByGuid, getSoldierItem, getSoldierItemSlots,
-  getModSlots, curSquadSoldiersInfo, armySquadsById
+  getModSlots, curSquadSoldiersInfo, armySquadsById, getSoldierByGuid
 } = require("%enlist/soldiers/model/state.nut")
 let { getIdleAnimState } = require("%enlSqGlob/animation_utils.nut")
 let weaponSlots = require("%enlSqGlob/weapon_slots.nut")
@@ -12,7 +13,8 @@ let curGenFaces = require("%enlist/faceGen/gen_faces.nut")
 let { getLinkedArmyName, isLinkedTo, getLinkedSquadGuid } = require("%enlSqGlob/ui/metalink.nut")
 let { allItemTemplates, findItemTemplate
 } = require("%enlist/soldiers/model/all_items_templates.nut")
-let { campItemsByLink, squads } = require("%enlist/meta/profile.nut")
+let { campItemsByLink } = require("%enlist/meta/profile.nut")
+let { squads, soldiersLook, soldiersOutfit } = require("%enlist/meta/servProfile.nut")
 let { soldierOverrides, isSoldierDisarmed, isSoldierSlotsSwap, getSoldierIdle,
   getSoldierHeadTemplate, getSoldierFace, faceGenOverrides, getSoldierFaceGen
 } = require("soldier_overrides.nut")
@@ -47,7 +49,7 @@ let initSoldierQuery = ecs.SqQuery("initSoldierQuery", {
   ]
 })
 
-let function initFacegenParams(face_equip, animchar_disabled_params, init_comps) {
+function initFacegenParams(face_equip, animchar_disabled_params, init_comps) {
   let template = DB.getTemplateByName(face_equip.template)
   let animchar = template?.getCompValNullable("animchar__res")
   let { faceId = null } = face_equip
@@ -57,13 +59,13 @@ let function initFacegenParams(face_equip, animchar_disabled_params, init_comps)
       init_comps["animcharParams"] <- params
       foreach (param in animchar_disabled_params)
         if (init_comps?["animcharParams"][param] != null)
-          delete init_comps["animcharParams"][param]
+          init_comps["animcharParams"].$rawdelete(param)
     } else
       log($"Soldier {animchar} have no {faceId} face gen params")
   }
 }
 
-let function calcFaceGenDisableParams(equipment) {
+function calcFaceGenDisableParams(equipment) {
   let animcharDisabledParams = []
   foreach (eq in equipment){
     if (!eq || !eq.template)
@@ -74,7 +76,7 @@ let function calcFaceGenDisableParams(equipment) {
   return animcharDisabledParams
 }
 
-let function reinitEquipment(eid, equipment) {
+function reinitEquipment(eid, equipment) {
   let animcharDisabledParams = calcFaceGenDisableParams(equipment)
   let cur_human_equipment = ecs.obsolete_dbg_get_comp_val(eid, "human_equipment__slots")
 
@@ -109,7 +111,7 @@ let function reinitEquipment(eid, equipment) {
   ecs.obsolete_dbg_set_comp_val(eid, "human_equipment__slots", cur_human_equipment)
 }
 
-let function setEquipment(eid, equipment) {
+function setEquipment(eid, equipment) {
   let sl = ecs.obsolete_dbg_get_comp_val(eid, "human_equipment__slots")
   let equipSlots = sl.getAll()
   let animcharDisabledParams = calcFaceGenDisableParams(equipment)
@@ -141,7 +143,7 @@ let function setEquipment(eid, equipment) {
 let isWeaponSlot = @(slotType, scheme) slotType in INVENTORY_SLOT_TYPES
   || (scheme?[slotType].ingameWeaponSlot ?? "") in WEAP_SLOT_TYPES
 
-let function getWearInfos(soldierGuid, scheme) {
+function getWearInfos(soldierGuid, scheme) {
   let eInfos = []
   let itemSlots = getSoldierItemSlots(soldierGuid, campItemsByLink.value)
   foreach (itemInfo in itemSlots) {
@@ -158,7 +160,7 @@ let function getWearInfos(soldierGuid, scheme) {
   return eInfos
 }
 
-let function getItemAnimationBlacklist(soldier, soldierGuid, scheme, soldiersLook) {
+function getItemAnimationBlacklist(soldier, soldierGuid, scheme, soldiersLookVal) {
   let itemTemplates = []
   let armyId = getLinkedArmyName(soldier ?? {})
   foreach (slotType, _ in scheme) {
@@ -176,7 +178,7 @@ let function getItemAnimationBlacklist(soldier, soldierGuid, scheme, soldiersLoo
     if (itemTemplate != null)
       itemTemplates.append(itemTemplate)
   }
-  let soldierLook = soldiersLook?[soldierGuid]
+  let soldierLook = soldiersLookVal?[soldierGuid]
   if (soldierLook != null) {
     foreach (tmpl in soldierLook?.items ?? {}) {
       let eInfo = findItemTemplate(allItemTemplates, armyId, tmpl)
@@ -190,7 +192,7 @@ let function getItemAnimationBlacklist(soldier, soldierGuid, scheme, soldiersLoo
   return itemTemplates
 }
 
-let function getWeapTemplates(soldierGuid, scheme) {
+function getWeapTemplates(soldierGuid, scheme) {
   let weapTemplates = {primary="", secondary="", tertiary="", special=""}
   let slotOrder = ["primary", "secondary", "tertiary", "special"]
   foreach (slotType, slot in scheme) {
@@ -200,7 +202,7 @@ let function getWeapTemplates(soldierGuid, scheme) {
     if ("gametemplate" not in weapon)
       continue
 
-    weapTemplates[slot.ingameWeaponSlot] = weapon.gametemplate
+    weapTemplates[slot.ingameWeaponSlot] = $"{weapon.gametemplate}+menu_gun"
   }
 
   foreach(slot in slotOrder) {
@@ -208,7 +210,7 @@ let function getWeapTemplates(soldierGuid, scheme) {
     if (template == "")
       continue
 
-    let newTemplate = "+".concat(template, "menu_gun")
+    let newTemplate = "+".concat(template, "primary_menu_gun")
     weapTemplates[slot] = newTemplate
     break
   }
@@ -216,7 +218,7 @@ let function getWeapTemplates(soldierGuid, scheme) {
   return weapTemplates
 }
 
-let function getTemplate(gametemplate) {
+function getTemplate(gametemplate) {
   let itemTemplate = DB.getTemplateByName(gametemplate)
   if (!itemTemplate)
     return null
@@ -224,12 +226,12 @@ let function getTemplate(gametemplate) {
   return recreateName == "" ? gametemplate : $"{gametemplate}+{recreateName}"
 }
 
-let function mkEquipment(soldier, scheme, soldiersLook, premiumItems, customizationOvr = null) {
+function mkEquipment(soldier, scheme, soldiersLookVal, premiumItems, customizationOvr = null) {
   if (DB.size() == 0)
     return {}
 
   let { guid } = soldier
-  let soldiersDefaultLook = soldiersLook?[guid]
+  let soldiersDefaultLook = soldiersLookVal?[guid]
   if (soldiersDefaultLook == null)
     return {}
 
@@ -289,7 +291,7 @@ let function mkEquipment(soldier, scheme, soldiersLook, premiumItems, customizat
 
   // apply templates to soldier outfit
   foreach (removeSlot in overrideSlotsList)
-    delete slotTmpls[removeSlot]
+    slotTmpls.$rawdelete(removeSlot)
 
   local equipment = {}
   foreach (slotType, itemTemplate in slotTmpls) {
@@ -332,9 +334,33 @@ let function mkEquipment(soldier, scheme, soldiersLook, premiumItems, customizat
   return equipment
 }
 
-let function createSoldier(
-  guid, transform, soldiersLook, premiumItems = {}, callback = null, extraTemplates = [],
-  isDisarmed = false, isSiting = false, customizationOvr = null, reInitEid = ecs.INVALID_ENTITY_ID
+function getSoldierWeaponOffsetByAnimation(selectedPose, itemTemplates) {
+  local animationWeaponOffset = Point3(0.0, 0.0, 0.0)
+  foreach (itemTemplate in itemTemplates) {
+    let itemAnimationWeaponOffset = itemTemplate.getCompValNullable("animationWeaponOffset")
+    if (itemAnimationWeaponOffset == null)
+      continue
+
+    local foundPose = false
+    local defaultOffset = Point3(0.0, 0.0, 0.0)
+    foreach (anim, offset in itemAnimationWeaponOffset) {
+      if (anim == selectedPose || anim == "all_states") {
+        foundPose = true
+        animationWeaponOffset += offset
+      }
+      if (anim == "no_state_found")
+        defaultOffset = offset
+    }
+    if (!foundPose)
+      animationWeaponOffset += defaultOffset
+  }
+  return animationWeaponOffset
+}
+
+function createSoldier(
+  guid, transform, soldiersLookVal, premiumItems = {}, callback = null, extraTemplates = [],
+  isDisarmed = false, isSiting = false, customizationOvr = null, poseIndex = null,
+  reInitEid = ecs.INVALID_ENTITY_ID
 ) {
   let soldier = objInfoByGuid.value?[guid]
   if (soldier == null)
@@ -360,7 +386,7 @@ let function createSoldier(
 
   let soldierItems = getSoldierItemSlots(guid, campItemsByLink.value)
   let weapTemplates = getWeapTemplates(guid, scheme)
-  let equipment = mkEquipment(soldier, scheme, soldiersLook,
+  let equipment = mkEquipment(soldier, scheme, soldiersLookVal,
     premiumItems, customizationOvr)
 
   let weapInfo = []
@@ -399,19 +425,20 @@ let function createSoldier(
   let soldierTemplate = DB.getTemplateByName(gametemplate)
   let overridedIdleAnims = soldierTemplate?.getCompValNullable("animation__overridedIdleAnims")
   let overridedSlotsOrder = soldierTemplate?.getCompValNullable("animation__overridedSlotsOrder").getAll()
-  let itemTemplates = getItemAnimationBlacklist(soldier, guid, scheme, soldiersLook)
+  let itemTemplates = getItemAnimationBlacklist(soldier, guid, scheme, soldiersLookVal)
   let guid_hash = guid.hash()
   let animation = getSoldierIdle(guid) ?? getIdleAnimState({
     weapTemplates
     itemTemplates
     overridedIdleAnims
     overridedSlotsOrder
-    seed = guid_hash
+    seed = poseIndex ?? guid_hash
     isSiting
   })
+  let weaponOffset = getSoldierWeaponOffsetByAnimation(animation, itemTemplates)
   let bodyHeight = soldier?.bodyScale.height ?? 1.0
   let bodyWidth = soldier?.bodyScale.width ?? 1.0
-  let result_template = "+".join(["customizable_menu_animchar","human_weap"].extend(extraTemplates))
+  let result_template = "+".join(["customizable_menu_animchar","human_weap", "human_gun_offset_global_vars"].extend(extraTemplates))
 
   let animcharRes = soldierTemplate?.getCompValNullable("animchar__res")
   let collRes = soldierTemplate?.getCompValNullable("collres__res")
@@ -429,7 +456,6 @@ let function createSoldier(
       comp.animchar__scale = bodyHeight
       comp.animchar__depScale = Point3(bodyWidth, bodyHeight, bodyWidth)
       comp.animchar__transformScale = Point3(bodyWidth, 1.0, bodyWidth)
-      comp.appearance__rndSeed = soldier?.appearanceSeed ?? 0
     })
     if (canBeRecreated){
       callback?(reInitEid)
@@ -452,7 +478,7 @@ let function createSoldier(
       ["animchar__scale"] = bodyHeight,
       ["animchar__depScale"] = Point3(bodyWidth, bodyHeight, bodyWidth),
       ["animchar__transformScale"] = Point3(bodyWidth, 1.0, bodyWidth),
-      ["appearance__rndSeed"] = soldier?.appearanceSeed ?? 0
+      ["gun_offset__fromSoldier"] = [weaponOffset, ecs.TYPE_POINT3]
     },
     function(newEid) {
       callback?(newEid)
@@ -460,6 +486,57 @@ let function createSoldier(
     }
   )
 }
+
+function validateSoldierOutfit() {
+  let errors = []
+  foreach (look in soldiersLook.value) {
+    let guid = look.guid
+    let soldier = getSoldierByGuid(guid)
+    if (soldier == null) {
+      errors.append("Empty soldier info. Skip.")
+      continue
+    }
+
+    let armyId = getLinkedArmyName(soldier)
+    if (armyId == null) {
+      error.append($"Guid {guid}, armyId {armyId} passed. Skip.")
+      continue
+    }
+
+    foreach (tmpl in look.items) {
+      let eInfo = findItemTemplate(allItemTemplates, armyId, tmpl)
+      if (eInfo != null && eInfo?.slot != null) {
+        let itemTemplate = DB.getTemplateByName(eInfo.gametemplate)
+        if (itemTemplate == null)
+          errors.append($"Cannot load template {tmpl} for {guid} / {armyId}")
+      }
+      else
+        errors.append($"Not found template {tmpl} for {guid} / {armyId}")
+    }
+  }
+
+  foreach (item in soldiersOutfit.value) {
+    let armyId = getLinkedArmyName(item)
+    let eInfo = findItemTemplate(allItemTemplates, armyId, item.basetpl)
+    if (eInfo != null && eInfo?.slot != null) {
+      let itemTemplate = DB.getTemplateByName(eInfo.gametemplate)
+      if (itemTemplate == null)
+        errors.append($"Cannot load template {item.basetpl} for {armyId}")
+    }
+    else
+      errors.append($"Not found template {item.basetpl} for {armyId}")
+  }
+
+  foreach(err in errors)
+    logerr(err)
+
+  if (errors.len() > 0)
+    logerr($"Got {errors.len()} errors. List is above.")
+  else
+    console_print($"Outfits info from {soldiersLook.value.len() + soldiersOutfit.value.len()} blocks are fine")
+}
+
+console_register_command(@() validateSoldierOutfit(), "meta.validateAllSoldierOutfit")
 
 return {
   soldierViewGen
@@ -469,4 +546,5 @@ return {
   setEquipment
   createSoldier = kwarg(createSoldier)
   appearanceToRender
+  validateSoldierOutfit
 }

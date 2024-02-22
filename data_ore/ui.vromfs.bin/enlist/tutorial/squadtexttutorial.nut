@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 let { fontBody, fontHeading2 } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { controlHudHint, mkHasBinding } = require("%ui/components/controlHudHint.nut")
 let { addModalWindow, removeModalWindow } = require("%ui/components/modalWindows.nut")
@@ -31,7 +31,7 @@ let tutorialImage = @(image) image == null ? null :{
   keepAspect = KEEP_ASPECT_FIT
 }
 
-let function close(){
+function close(){
   removeModalWindow(WND_UID)
   curPage(0)
 }
@@ -114,7 +114,7 @@ let okBtn = Flat(loc("Close"), close, {
     hotkeys = [[$"^{JB.B}"]]
 })
 
-let function prevPageArrow() {
+function prevPageArrow() {
   let onClick = @() curPage.value > 0
     ? curPage(curPage.value - 1)
     : null
@@ -135,7 +135,7 @@ let function prevPageArrow() {
   })
 }
 
-let function nextPageArrow(totalPagesCount) {
+function nextPageArrow(totalPagesCount) {
   let onClick = @() curPage.value < totalPagesCount - 1
     ? curPage(curPage.value + 1)
     : null
@@ -156,7 +156,7 @@ let function nextPageArrow(totalPagesCount) {
   })
 }
 
-let function squadTextTutorial(squadType){
+function squadTextTutorial(squadType){
   let neededTutorial = getTutorial(squadType)
   let totalPagesCount = neededTutorial.len()
   return {

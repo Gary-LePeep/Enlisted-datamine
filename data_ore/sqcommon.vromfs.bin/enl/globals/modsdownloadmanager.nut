@@ -2,7 +2,7 @@ from "frp" import *
 
 let { httpRequest, HTTP_SUCCESS, HTTP_FAILED, HTTP_ABORTED } = require("dagor.http")
 let datacache = require("datacache")
-let eventbus = require("eventbus")
+let { eventbus_subscribe_onehit } = require("eventbus")
 let { file } = require("io")
 let { logerr } = require("dagor.debug")
 let { mkdir, file_exists, scan_folder } = require("dagor.fs")
@@ -48,7 +48,7 @@ let modsCache = Watched({})
 let modsContents = Watched({})
 
 
-let function jsonSafeParse(v) {
+function jsonSafeParse(v) {
   try
     return parse_json(v ?? "")
   catch(e)
@@ -56,7 +56,7 @@ let function jsonSafeParse(v) {
 }
 
 
-let function readFile(filename) {
+function readFile(filename) {
   let input = file(filename, "rt")
   let text = input.readblob(input.len()).as_string()
   input.close()
@@ -64,17 +64,19 @@ let function readFile(filename) {
 }
 
 
-let function loadManifest(filename) {
+function loadManifest(filename) {
   if (filename in modsCache.value)
     return modsCache.value[filename]
 
   let manifest = loadJson(filename, {load_text_file=readFile})
+  if (typeof manifest.title != "string")
+    manifest.title = $"{manifest?.title}" // due web set title as digits sometimes we have problem with compare int and string
   modsCache.mutate(@(v) v[filename] <- manifest)
   return manifest
 }
 
 
-let function onReceiveFile(response) {
+function onReceiveFile(response) {
   logGM("onReceiveFile headers:", response?.headers)
   let { status, http_code, context = {} } = response
   let { cbOnSuccess, cbOnFailed } = context
@@ -89,7 +91,7 @@ let function onReceiveFile(response) {
 }
 
 
-let function downloadFile(url, cbOnSuccess, cbOnFailed, context = {}) {
+function downloadFile(url, cbOnSuccess, cbOnFailed, context = {}) {
   httpRequest({
     method = "GET"
     callback = onReceiveFile
@@ -104,14 +106,14 @@ let function downloadFile(url, cbOnSuccess, cbOnFailed, context = {}) {
 }
 
 
-let function abortDownload() {
+function abortDownload() {
   initModsDatacache()
   datacache.abort_requests("mods")
   pendingFilesCount = 0
 }
 
 
-let function removeMod(mode_id) {
+function removeMod(mode_id) {
   initModsDatacache()
   if (remove == null) {
     logerr("Can't remove mod function remove doesn't exist for this VM!")
@@ -123,7 +125,7 @@ let function removeMod(mode_id) {
   if (file_exists(manifest_file_path))
     remove(manifest_file_path)
   if (manifest_file_path in modsCache)
-    modsCache.mutate(@(v) delete v[manifest_file_path])
+    modsCache.mutate(@(v) v.$rawdelete(manifest_file_path))
   if (manifest == null)
     return
   foreach(content in manifest?.content ?? {}) {
@@ -132,7 +134,7 @@ let function removeMod(mode_id) {
   }
 }
 
-let function parseVromName(filename) {
+function parseVromName(filename) {
   //name format: main/grp/dxp/...[-client/shared/server[-pack/addon]].vromfs.bin
   let filenameSplited = filename.replace(".vromfs.bin", "").split("-")
   return {
@@ -142,7 +144,7 @@ let function parseVromName(filename) {
   }
 }
 
-let function downloadMod(url, cbOnSuccess=null, cbOnFailed=null, tags = ["shared", "client", "server"]) {
+function downloadMod(url, cbOnSuccess=null, cbOnFailed=null, tags = ["shared", "client", "server"]) {
   logGM($"Request download mod '{url}'")
   mkdir(USER_MODS_FOLDER)
   initModsDatacache()
@@ -153,14 +155,13 @@ let function downloadMod(url, cbOnSuccess=null, cbOnFailed=null, tags = ["shared
       return
     }
     let manifest_file_path = USER_MOD_MANIFEST.subst(manifest.id)
-    if (is_pc) {
+    if (is_pc)
       if (!saveJson(manifest_file_path, manifest)) {
         cbOnFailed?("mods/FailedSaveManifest", 200)
         return
       }
-    } else {
+    else
       logGM("Skip save manifest for not PC platform")
-    }
     modsContents.mutate(@(v) v[manifest_file_path] <- {})
     let contentToDownload = {}
     foreach(content in manifest?.content ?? {}) {
@@ -184,13 +185,13 @@ let function downloadMod(url, cbOnSuccess=null, cbOnFailed=null, tags = ["shared
     foreach(hash in contentToDownload.keys()) {
       let contentHash = hash
       let contentUrl = contentToDownload[contentHash]
-      eventbus.subscribe_onehit($"datacache.{contentUrl}", function(result) {
+      eventbus_subscribe_onehit($"datacache.{contentUrl}", function(result) {
         logGM("Finish download mod file: ", result, contentHash)
         if (result?.error) {
           if (pendingFilesCount > 0) {
             abortDownload()
             removeMod(manifest.id)
-            modsContents.mutate(@(v) delete v[manifest_file_path])
+            modsContents.mutate(@(v) v.$rawdelete(manifest_file_path))
             cbOnFailed?(DATACACHE_ERROR_TO_TEXT?[result?.error_code] ?? "mods/HttpError", 0)
           }
           return
@@ -214,7 +215,7 @@ let function downloadMod(url, cbOnSuccess=null, cbOnFailed=null, tags = ["shared
 }
 
 
-let function loadModList() {
+function loadModList() {
   let mod_files = scan_folder({root = USER_MODS_FOLDER,
                                vromfs = false,
                                realfs = true,
@@ -231,12 +232,12 @@ let function loadModList() {
   return mods
 }
 
-let function getModManifest(mod_id) {
+function getModManifest(mod_id) {
   let manifest_file_path = USER_MOD_MANIFEST.subst(mod_id)
   return loadManifest(manifest_file_path)
 }
 
-let function getModStartInfo(manifest, contents) {
+function getModStartInfo(manifest, contents) {
   let mainVrom = manifest?.mainVrom ?? "";
   let modsVroms = []
   let modsPackVroms = []

@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {DBGLEVEL} = require("dagor.system")
 let { platformId, is_sony, is_ps5, is_xbox, is_xbox_scarlett, is_pc } = require("%dngscripts/platform.nut")
@@ -61,7 +61,7 @@ let defaultDz = is_ps5 || is_xbox_scarlett
 let validateDz = @(v) clamp(v, 0.0, 0.4)
 const gamepadCursorDeadZoneMin = 0.15
 
-let function setGamepadCursorDz(stick_dz){
+function setGamepadCursorDz(stick_dz){
   local target_dz = gamepadCursorDeadZoneMin
   if (stick_dz > 0)
     target_dz =  stick_dz<1 ? clamp((gamepadCursorDeadZoneMin - stick_dz) / (1 - stick_dz), 0.01, 0.3) : 0.3
@@ -72,7 +72,7 @@ let function setGamepadCursorDz(stick_dz){
 let stick0Save = mkOnlineSaveData($"controls/{platformId}/stick0_dz_ver2", @() defaultDz, validateDz)
 let stick0_dz = stick0Save.watch
 
-let function stick0_dz_apply(...) {
+function stick0_dz_apply(...) {
   let stick_dz = stick0_dz.value
   dainput.set_main_gamepad_stick_dead_zone(0, stick_dz)
   if (gui_scene.config.gamepadCursorAxisH == 0 || gui_scene.config.gamepadCursorAxisV == 1)
@@ -85,7 +85,7 @@ stick0_dz_apply()
 let stick1Save = mkOnlineSaveData($"controls/{platformId}/stick1_dz_ver2", @() defaultDz, validateDz)
 let stick1_dz = stick1Save.watch
 
-let function stick1_dz_apply(...) {
+function stick1_dz_apply(...) {
   let stick_dz = stick1_dz.value
   dainput.set_main_gamepad_stick_dead_zone(1, stick_dz)
   if (gui_scene.config.gamepadCursorAxisH == 2 || gui_scene.config.gamepadCursorAxisV == 3)
@@ -114,7 +114,7 @@ let useGamepad = mkOnlineSaveData("game/useGamepad",
       : ControlsTypes.GAMEPAD
 )
 let use_gamepad_state = useGamepad.watch
-let function set_use_gamepad(v) {
+function set_use_gamepad(v) {
   setForcedControlsType(v)
   useGamepad.setValue(v)
 }

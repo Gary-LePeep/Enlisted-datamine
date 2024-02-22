@@ -27,7 +27,7 @@ def rain_global_sound_var_toggle(evt : Event;
     rain_global_sound_var__id = invalid_sound_var_id()
 
 
-[es(tag=sound, after=start_async_phys_sim_es)] // after start_async_phys_sim_es to start phys sim job earlier
+[es(tag=sound, after=(start_async_phys_sim_es, sound_begin_update_es), before=sound_end_update_es)] // after start_async_phys_sim_es to start phys sim job earlier
 def rain_global_sound_var_update(info : ParallelUpdateFrameDelayed;
                                  rain_global_sound_var__mult : float;
                                  rain_global_sound_var__interval : float;
@@ -60,7 +60,7 @@ def daytime_global_sound_var_toggle(evt : Event;
     daytime_global_sound_var__id = invalid_sound_var_id()
 
 
-[es(tag=sound, after=start_async_phys_sim_es)] // after start_async_phys_sim_es to start phys sim job earlier
+[es(tag=sound, after=(start_async_phys_sim_es, sound_begin_update_es), before=sound_end_update_es)] // after start_async_phys_sim_es to start phys sim job earlier
 def daytime_global_sound_var_update(info : ParallelUpdateFrameDelayed;
                                     daytime_global_sound_var__interval : float;
                                     daytime_global_sound_var__id : SoundVarId;
@@ -92,7 +92,7 @@ def altitude_global_sound_var_toggle(evt : Event;
     altitude_global_sound_var__id = invalid_sound_var_id()
 
 
-[es(tag=sound, after=start_async_phys_sim_es)] // after start_async_phys_sim_es to start phys sim job earlier
+[es(tag=sound, after=(start_async_phys_sim_es, sound_begin_update_es), before=sound_end_update_es)] // after start_async_phys_sim_es to start phys sim job earlier
 def altitude_global_sound_var_update(info : ParallelUpdateFrameDelayed;
                                      altitude_global_sound_var__interval : float;
                                      altitude_global_sound_var__altitudeToVar : float2;
@@ -131,7 +131,7 @@ def region_global_sound_var_toggle(evt : Event;
     region_global_sound_var__id = invalid_sound_var_id()
 
 
-[es(tag=sound, after=start_async_phys_sim_es)] // after start_async_phys_sim_es to start phys sim job earlier
+[es(tag=sound, after=(start_async_phys_sim_es, sound_begin_update_es), before=sound_end_update_es)] // after start_async_phys_sim_es to start phys sim job earlier
 def region_global_sound_var_update(info : ParallelUpdateFrameDelayed;
                                    region_global_sound_var__updateInterval : float;
                                    var region_global_sound_var__nextTime : float&;

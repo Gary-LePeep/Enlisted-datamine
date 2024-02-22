@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontHeading2, fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { blurBgFillColor, disabledTxtColor, lockedSquadBgColor, accentTitleTxtColor
@@ -109,7 +109,7 @@ windowTabs.subscribe(function(v) {
 curTab.subscribe(@(v) customRoomsModeSaved(v == CUSTOM_MATCHES_TAB_ID))
 
 
-let function txtColor(sf, isInactive = false) {
+function txtColor(sf, isInactive = false) {
   return sf & S_ACTIVE ? titleTxtColor
     : sf & S_HOVER ? titleTxtColor
     : isInactive ? disabledTxtColor : defTxtColor
@@ -132,7 +132,7 @@ let defQuickMatchBtnParams = {
   textParams = { rendObj=ROBJ_TEXT }.__update(fontHeading2)
 }
 
-let function changeWindowTab(delta) {
+function changeWindowTab(delta) {
   let wndTabs = windowTabs.value
   let curTabIdx = wndTabs?.indexof(curTab.value) ?? 0
   if ((curTabIdx + delta) < wndTabs.len() && (curTabIdx + delta) >= 0)
@@ -140,7 +140,7 @@ let function changeWindowTab(delta) {
 }
 
 
-let function wndTabsBlock() {
+function wndTabsBlock() {
   let children = windowTabs.value.map(@(val)
     mkWindowTab(loc(val), @() curTab(val), curTab.value == val))
 
@@ -159,7 +159,7 @@ let function wndTabsBlock() {
   }
 }
 
-let function mkEventBtn(eventGm) {
+function mkEventBtn(eventGm) {
   let isSelected = Computed(@() selEvent.value == eventGm)
   let isUnseen = Computed(@() unseenEvents.value.contains(eventGm.id))
   let isInactive = !eventGm.isEnabled && eventGm.showWhenInactive
@@ -193,7 +193,7 @@ let function mkEventBtn(eventGm) {
   })
 }
 
-let function eventsList() {
+function eventsList() {
   return {
     watch = allEventsToShow
     size = [eventBlockWidth, SIZE_TO_CONTENT]
@@ -263,7 +263,7 @@ let mkRightBlockHeader = @(sf, label) {
   ]
 }
 
-let function curLbPlacementBlock() {
+function curLbPlacementBlock() {
   let res = { watch = [lbPlayersCount, curLbSelfRow] }
   let { idx = -1 } = curLbSelfRow.value
   if (idx < 0)
@@ -334,7 +334,7 @@ let mkDisabledBattleButton = @(text, onClick) textButton(text, onClick,
 let upcomingEventBtn = mkDisabledBattleButton(loc("inactiveEvent"), upcomingEventMsgbox)
 let endedEventBtn = mkDisabledBattleButton(loc("endedEvent"), endedEventMsgbox)
 
-let function joinEventQueue() {
+function joinEventQueue() {
   if (isSquadLeader.value && unsuitableCrossplayConditionMembers.value.len() > 0) {
     showSquadMembersCrossPlayRestrictionMsgBox(unsuitableCrossplayConditionMembers.value)
     return
@@ -432,7 +432,7 @@ let joinCustomRoomButton = @() {
   ]
 }
 
-let function clusterAndRandTeamButtons() {
+function clusterAndRandTeamButtons() {
   let { alwaysRandomSide = false } = selEvent.value
   return {
     watch = [selEvent, randTeamAvailable]
@@ -480,7 +480,7 @@ let topBar = {
 }
 
 
-let function leftBlock() {
+function leftBlock() {
   let squads_list = mkSquadsList()
   return {
     watch = [eventsArmiesList, eventCustomSquads, eventCurArmyIdx]
@@ -591,7 +591,7 @@ let rightBlock = @() {
   ]
 }
 
-let function eventsContent() {
+function eventsContent() {
   return {
     watch = isCustomRoomsUi
     size = flex()

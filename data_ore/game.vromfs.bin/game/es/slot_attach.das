@@ -68,7 +68,7 @@ def slot_attach_init_tms_es(info : ParallelUpdateFrameDelayed)
         transform[3] += wtmOfs
   broadcastEventImmediate([[SlotAttachUpdateEvent dt=info.dt]]); //require for use different priority on update, with parallel for on first
 
-[es(REQUIRE_NOT=(menuPoseTm, slot_attach__secondaryUpdate), REQUIRE=slot_attach, parallel_for=4)]
+[es(REQUIRE_NOT=(menuPoseTm, slot_attach__secondaryUpdate), REQUIRE=(slot_attach, slot_attach__slotName), parallel_for=4)]
 def slot_attach_first_priority_update_es(info : SlotAttachUpdateEvent;
                                          slot_attach__slotId : int;
                                          slot_attach__attachedTo : EntityId;
@@ -84,7 +84,7 @@ def slot_attach_first_priority_update_es(info : SlotAttachUpdateEvent;
                             slot_attach__rotTm);
 
 
-[es(after=slot_attach_first_priority_update_es, REQUIRE_NOT=menuPoseTm, REQUIRE=(slot_attach, slot_attach__secondaryUpdate))]
+[es(after=slot_attach_first_priority_update_es, REQUIRE_NOT=menuPoseTm, REQUIRE=(slot_attach, slot_attach__secondaryUpdate, slot_attach__slotName))]
 def slot_attach_secondary_priority_update_es(info : SlotAttachUpdateEvent;
                                              slot_attach__slotId : int;
                                              slot_attach__attachedTo : EntityId;

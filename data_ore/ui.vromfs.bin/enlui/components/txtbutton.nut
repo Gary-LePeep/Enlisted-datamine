@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontawesome, fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { disabledTxtColor, defTxtColor, titleTxtColor, commonBtnHeight, smallBtnHeight, defBdColor,
@@ -21,7 +21,7 @@ let defTxtStyle = {
   disabledTxtColor
 }
 
-let function textColor(sf, style = {}, isEnabled = true) {
+function textColor(sf, style = {}, isEnabled = true) {
   let txtColor = defTxtStyle.__merge(style)
   if (!isEnabled) return txtColor.disabledTxtColor
   if (sf & S_ACTIVE) return txtColor.activeTxtColor
@@ -58,7 +58,7 @@ let defBorderStyle = {
   borderRadius = commonBorderRadius
 }
 
-let function borderColor(sf, style = {}, isEnabled = true) {
+function borderColor(sf, style = {}, isEnabled = true) {
   let bdColor = defBorderStyle.__merge(style)
   if (!isEnabled)       return bdColor.disabledBdColor
   if (sf & S_ACTIVE)    return bdColor.activeBdColor
@@ -76,7 +76,7 @@ let defBgStyle = {
 }
 
 
-let function fillColor(sf, style = {}, isEnabled = true) {
+function fillColor(sf, style = {}, isEnabled = true) {
   let bgColor = defBgStyle.__merge(style)
   if (!isEnabled)       return bgColor.disabledBgColor
   if (sf & S_ACTIVE)    return bgColor.activeBgColor
@@ -112,7 +112,7 @@ let defTextCtor = function(text, params, _handler, group, sf) {
   }.__update(txtParams)
 }
 
-let function textButton(text, handler, params={}) {
+function textButton(text, handler, params={}) {
   let group = ElemGroup()
   let { stateFlags = Watched(0) } = params
   let {
@@ -122,7 +122,7 @@ let function textButton(text, handler, params={}) {
   let minWidth = btnWidth ?? SIZE_TO_CONTENT
   let usingCustomCtor = type(text) == "function"
 
-  let function builder(sf) {
+  function builder(sf) {
     local gamepadHotkey = usingCustomCtor ? "" : getGamepadHotkeys(params?.hotkeys)
     local gamepadBtn = null
     if (gamepadHotkey != "") {

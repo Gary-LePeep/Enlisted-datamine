@@ -228,18 +228,6 @@ struct EventShellExplodedServer
   pos : float3
 
 [cpp_event(unicast)]
-struct CmdShellExplodeClient
-  pos : float3
-  offsetedPos : float3
-  shellId : ShellPropIds
-  gunPropsId : int
-  offender : EntityId
-  explVictim : EidList
-  explDamageAndFatal : UInt8List
-  shellEid : EntityId
-  fxInfoEid : EntityId
-
-[cpp_event(unicast)]
 struct CmdShellExplode
   position : float3
   prevPos : float3

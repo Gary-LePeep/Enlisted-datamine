@@ -215,7 +215,7 @@ def human_weapon_switch_input_es(evt : EventDaInputActionTriggered;
         set_weapon_slot(time, weapon, slot, ct, last_change_time)
         return
 
-  elif action == human_input__grenadeNext
+  elif action == human_input__grenadeNext && !isInVehicle
     sendEvent(eid, [[CmdToggleWishAmmoItemType slot_id=int(HUWeaponSlots EWS_GRENADE)]])
 
   elif action == human_input__specialItemSlot

@@ -11,7 +11,7 @@ local ratingGrid = []
 local ratingAnyBattle = 0
 local ratingNoPenalty = 0
 
-let function addRank(userId, rank, rating) {
+function addRank(userId, rank, rating) {
   if (userId == INVALID_USER_ID) {
     logerr("Attempt to set rank for invalid player")
     return
@@ -22,14 +22,14 @@ let function addRank(userId, rank, rating) {
 
 let getRank = @(userId) playerRanks?[userId].rank ?? 0
 
-let function genBotRank() {
+function genBotRank() {
   let ranks = playerRanks.values()
   let ranksSize = ranks.len()
   let maxRank = ranksSize > 0 ? ranks[rnd_int(0, ranksSize - 1)].rank : minRank
   return rnd_int(minRank, maxRank)
 }
 
-let function advanceRank(userId, isFinished, isVictory, isBattleHero) {
+function advanceRank(userId, isFinished, isVictory, isBattleHero) {
   if (userId == INVALID_USER_ID || userId not in playerRanks)
     return 0
 
@@ -50,7 +50,7 @@ let function advanceRank(userId, isFinished, isVictory, isBattleHero) {
   return newRank
 }
 
-let function onConfigUpdate(_evt, comp) {
+function onConfigUpdate(_evt, comp) {
   ratingGrid = comp.ratingGrid.getAll()
   ratingAnyBattle = comp.ratingAnyBattle
   ratingNoPenalty = comp.ratingNoPenalty

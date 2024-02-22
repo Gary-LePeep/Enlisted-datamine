@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let DataBlock = require("DataBlock")
 let { Point2, Point3 } = require("dagor.math")
@@ -124,82 +124,77 @@ let GUN_DATA_FIELDS = {
   ["turret__pitchSpeed"] = TYPE_FLOAT,
 }
 
-let function readTemplate(template, scheme) {
+function readTemplate(template, scheme) {
   if (template == null || typeof scheme != "table")
     return null
 
   let res = {}
   foreach (key, val in scheme) {
     local value
-    switch (val) {
-      case TYPE_INT:
-        value = template.getCompValNullable(key)
-        if (value != null)
-          value = value.tointeger()
-        break
-      case TYPE_FLOAT:
-        value = template.getCompValNullable(key)
-        if (value != null)
-          value = value.tofloat()
-        break
-      case TYPE_POINT2:
-        let point = template.getCompValNullable(key)
-        if (point != null)
-          value = Point2(point?.x ?? 0.0, point?.y ?? 0.0)
-        break
-      case TYPE_POINT3:
-        let point = template.getCompValNullable(key)
-        if (point != null)
-          value = Point3(point?.x ?? 0.0, point?.y ?? 0.0, point?.z ?? 0.0)
-        break
-      case TYPE_ARRAY:
-        value = template.getCompValNullable(key)?.getAll()
-        break
-      case TYPE_STRING:
-        value = template.getCompValNullable(key)
-        if (type(value) != "string")
-          value = null
-        break
+    if (val == TYPE_INT) {
+      value = template.getCompValNullable(key)
+      if (value != null)
+        value = value.tointeger()
     }
+    else if (val == TYPE_FLOAT) {
+      value = template.getCompValNullable(key)
+      if (value != null)
+        value = value.tofloat()
+    }
+    else if (val == TYPE_POINT2) {
+      let point = template.getCompValNullable(key)
+      if (point != null)
+        value = Point2(point?.x ?? 0.0, point?.y ?? 0.0)
+    }
+    else if (val == TYPE_POINT3) {
+      let point = template.getCompValNullable(key)
+      if (point != null)
+        value = Point3(point?.x ?? 0.0, point?.y ?? 0.0, point?.z ?? 0.0)
+    }
+    else if (val == TYPE_ARRAY) {
+      value = template.getCompValNullable(key)?.getAll()
+    }
+    else if (val == TYPE_STRING) {
+      value = template.getCompValNullable(key)
+      if (type(value) != "string")
+        value = null
+    }
+
     if (value != null)
       res[key] <- value
   }
   return res
 }
 
-let function readBlock(blockData, scheme) {
+function readBlock(blockData, scheme) {
   if (blockData == null || typeof scheme != "table")
     return null
 
   let res = {}
   foreach (key, val in scheme) {
     local value
-    switch (val) {
-      case TYPE_INT:
-        value = blockData.getInt(key, 0) || null
-        break
-      case TYPE_FLOAT:
-        value = blockData.getReal(key, 0.0) || null
-        break
-      case TYPE_POINT2:
-        value = blockData.getPoint2(key, zeroPoint2)
-        if (value.x == 0.0 && value.y == 0.0)
-          value = null
-        break
-      case TYPE_POINT3:
-        value = blockData.getPoint3(key, zeroPoint3)
-        if (value.x == 0.0 && value.y == 0.0 && value.z == 0.0)
-          value = null
-        break
-      case TYPE_STRING:
-        value = blockData.getStr(key, "") || null
-        break
-      default:
-        foreach (blk in (blockData % key) ?? []) {
-          let data = readBlock(blk, val)
-          if (data != null)
-            value = (value ?? {}).__merge(data)
-        }
+    if (val == TYPE_INT)
+      value = blockData.getInt(key, 0) || null
+    else if (val == TYPE_FLOAT)
+      value = blockData.getReal(key, 0.0) || null
+    else if (val == TYPE_POINT2) {
+      value = blockData.getPoint2(key, zeroPoint2)
+      if (value.x == 0.0 && value.y == 0.0)
+        value = null
+    }
+    else if (val == TYPE_POINT3) {
+    value = blockData.getPoint3(key, zeroPoint3)
+    if (value.x == 0.0 && value.y == 0.0 && value.z == 0.0)
+      value = null
+    }
+    else if (val == TYPE_STRING)
+      value = blockData.getStr(key, "") || null
+    else {
+      foreach (blk in (blockData % key) ?? []) {
+        let data = readBlock(blk, val)
+        if (data != null)
+          value = (value ?? {}).__merge(data)
+      }
     }
     if (value != null)
       res[key] <- value
@@ -207,7 +202,7 @@ let function readBlock(blockData, scheme) {
   return res
 }
 
-let function extractBlockData(blockPath, scheme) {
+function extractBlockData(blockPath, scheme) {
   if (blockPath == null)
     return null
 
@@ -222,7 +217,7 @@ let function extractBlockData(blockPath, scheme) {
   return value
 }
 
-let function flattenTable(source, prefix = null) {
+function flattenTable(source, prefix = null) {
   let flatten = {}
   foreach (key, val in source) {
     let id = prefix != null ? $"{prefix}__{key}" : key
@@ -234,7 +229,7 @@ let function flattenTable(source, prefix = null) {
   return flatten
 }
 
-let function processShotFreq(itemData) {
+function processShotFreq(itemData) {
   local rateOfFire = itemData?["gun__shotFreq"]
   if (rateOfFire == null)
     return
@@ -251,7 +246,7 @@ let function processShotFreq(itemData) {
     itemData.rateOfFire <- rateOfFire
 }
 
-let function processHitPower(itemData) {
+function processHitPower(itemData) {
   if (itemData == null)
     return
   let hitPowerMult = itemData?.hitPowerMult ?? 0.0
@@ -263,7 +258,7 @@ let function processHitPower(itemData) {
   }
 }
 
-let function processArmorPower(itemData) {
+function processArmorPower(itemData) {
   let cumulativeArmorPower = itemData?.cumulativeDamage.armorPower ?? 0
   if (cumulativeArmorPower > 0)
     itemData.cumulativeArmorPower <- cumulativeArmorPower
@@ -274,7 +269,7 @@ let function processArmorPower(itemData) {
   }
 }
 
-let function processRecoil(itemData) {
+function processRecoil(itemData) {
   if (itemData == null)
     return
   let recoilAmount = itemData?["gun__recoilAmount"] ?? 0.0
@@ -283,14 +278,14 @@ let function processRecoil(itemData) {
   itemData.recoilAmountHor <- 1000 * recoilAmount * (1.0 - recoilDirAmount)
 }
 
-let function processWeaponData(weaponData) {
+function processWeaponData(weaponData) {
   processShotFreq(weaponData)
   processHitPower(weaponData)
   processArmorPower(weaponData)
   processRecoil(weaponData)
 }
 
-let function getWeaponData(templateId) {
+function getWeaponData(templateId) {
   let tmplDB = ecs.g_entity_mgr.getTemplateDB()
   local template = tmplDB.getTemplateByName(templateId)
   let weaponId = template?.getCompValNullable("item__weapTemplate")
@@ -326,10 +321,10 @@ let function getWeaponData(templateId) {
   return itemData
 }
 
-let function processArmorOverride(data, sourceKey, targetKey, addParam = {}) {
+function processArmorOverride(data, sourceKey, targetKey, addParam = {}) {
   if (sourceKey not in data)
     return
-  let points = delete data[sourceKey]
+  let points = data.$rawdelete(sourceKey)
   let armor = {}
   foreach (key, target in armorPointKeys)
     if (key in points)
@@ -340,7 +335,7 @@ let function processArmorOverride(data, sourceKey, targetKey, addParam = {}) {
     data[targetKey] <- armor
 }
 
-let function getVehicleData(templateId) {
+function getVehicleData(templateId) {
   let tmplDB = ecs.g_entity_mgr.getTemplateDB()
   let template = tmplDB.getTemplateByName(templateId)
   let vehicleData = readTemplate(template, VEHICLE_DATA_FIELDS)
@@ -352,7 +347,7 @@ let function getVehicleData(templateId) {
     vehicleData.__update(modelData)
 
   if ("turret_control__turretInfo" in vehicleData) {
-    let turretInfo = delete vehicleData["turret_control__turretInfo"]
+    let turretInfo = vehicleData.$rawdelete("turret_control__turretInfo")
     local mainCaliber = null
     foreach (turretData in turretInfo) {
       let { gun = null } = turretData
@@ -381,13 +376,13 @@ let function getVehicleData(templateId) {
   }
 
   if ("vehicle_seats__seats" in vehicleData)
-    vehicleData.crew <- (delete vehicleData["vehicle_seats__seats"]).len()
+    vehicleData.crew <- vehicleData.$rawdelete("vehicle_seats__seats").len()
 
   if ("VehiclePhys" in vehicleData)
-    vehicleData.__update(flattenTable(delete vehicleData.VehiclePhys))
+    vehicleData.__update(flattenTable(vehicleData.$rawdelete("VehiclePhys")))
 
   if ("DamageParts" in vehicleData) {
-    let armorParts = delete vehicleData.DamageParts
+    let armorParts = vehicleData.$rawdelete("DamageParts")
     let armorOrders = {} // to get damage parts of minimal order
     foreach (armorKey, armorData in armorParts) {
       let val = armorData?.armorThickness ?? 0.0
@@ -458,7 +453,7 @@ let upgradesUpdate = {
   ["turret_ver_speed"] = "turret__pitchSpeed",
 }.map(@(val, key) mkMulByPercent(val ?? key))
 
-let function applyUpgrades(weaponData, upgrades) {
+function applyUpgrades(weaponData, upgrades) {
   let res = clone weaponData
   foreach (key, value in upgrades ?? {})
     upgradesUpdate?[key](res, value)

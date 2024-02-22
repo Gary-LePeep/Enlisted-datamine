@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontSub, fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let msgbox = require("%enlist/components/msgbox.nut")
@@ -24,7 +24,8 @@ let spinner = require("%ui/components/spinner.nut")
 let { sound_play } = require("%dngscripts/sound_system.nut")
 let JB = require("%ui/control/gui_buttons.nut")
 let mkBpWidgetOpen = require("%enlist/battlepass/battlePassButton.nut")
-let { rewardWeeklyTask } = require("%enlist/unlocks/weeklyUnlocksState.nut")
+let { rewardWeeklyTask, rewardEventTask } = require("%enlist/unlocks/weeklyUnlocksState.nut")
+let offersPromoWndOpen = require("%enlist/offers/offersPromoWindow.nut")
 
 let defTxtStyle = { color = defTxtColor }.__update(fontSub)
 let disabledTxtStyle = { color = disabledTxtColor }.__update(fontSub)
@@ -50,7 +51,7 @@ let mkRerollText = @(leftRerolls, totalRerolls) {
 }.__update(defTxtStyle)
 
 
-let function askForRerollConfirm(unlockDesc) {
+function askForRerollConfirm(unlockDesc) {
   msgbox.show({
     text = loc("unlocks/reroll/askForConfirm")
     buttons = [
@@ -63,7 +64,7 @@ let function askForRerollConfirm(unlockDesc) {
 }
 
 
-let function openTaskMsgbox(unlockDesc, leftRerolls = 0, totalRerolls = 0) {
+function openTaskMsgbox(unlockDesc, leftRerolls = 0, totalRerolls = 0) {
   let progress = getUnlockProgress(unlockDesc, unlockProgress.value)
   let buttons = []
   if (leftRerolls > 0)
@@ -96,7 +97,7 @@ let function openTaskMsgbox(unlockDesc, leftRerolls = 0, totalRerolls = 0) {
 
 
 local curTimeout = null
-let function mkDailyTasksBlock(tasksList, stats, canTakeReward, isCompletedHidden, onHover) {
+function mkDailyTasksBlock(tasksList, stats, canTakeReward, isCompletedHidden, onHover) {
   return {
       size = [flex(), SIZE_TO_CONTENT]
       flow = FLOW_VERTICAL
@@ -154,12 +155,17 @@ let function mkDailyTasksBlock(tasksList, stats, canTakeReward, isCompletedHidde
     }
   }
 
+let hasDailyTasks = Computed(function() {
+  let { easyTasks = [], hardTasks = [] } = dailyTasksByDifficulty.value
+  return easyTasks.len() > 0 || hardTasks.len() > 0
+})
+
 let mkDailyTasksUi = @(isCompletedHidden = false, onHover = null) function() {
   let res = {
-    watch = [dailyTasksByDifficulty, canTakeDailyTaskReward, userstatStats]
+    watch = [hasDailyTasks, canTakeDailyTaskReward, userstatStats]
   }
-  let { easyTasks = [], hardTasks = [] } = dailyTasksByDifficulty.value
-  if (easyTasks.len() <= 0 && hardTasks.len() <= 0)
+
+  if (!hasDailyTasks.value)
     return res
 
   let canTakeReward = canTakeDailyTaskReward.value
@@ -179,20 +185,24 @@ let mkDailyTasksUi = @(isCompletedHidden = false, onHover = null) function() {
   })
 }
 
+let rewardTask = Computed(@() rewardDailyTask.value ?? rewardWeeklyTask.value ?? rewardEventTask.value)
+
 let mkDailyTasksUiReward = @(onHover = null) function() {
   let res = {
-    watch = [rewardDailyTask, rewardWeeklyTask, hasBattlePass]
+    watch = [rewardTask, hasBattlePass]
   }
 
-  let task = rewardDailyTask.value ?? rewardWeeklyTask.value
-
-  if (!hasBattlePass.value && !task)
+  if (!hasBattlePass.value && !rewardTask.value)
     return res
+
+  let { event_unlock = false, event_group = "" } = rewardTask.value?.meta
+  let forcedCb = !event_unlock ? null : @() offersPromoWndOpen(event_group)
 
   return res.__update({
     size = [startBtnWidth, SIZE_TO_CONTENT]
-    children = task
-      ? mkUnlockSlotReward(task) : mkBpWidgetOpen(onHover)
+    children = rewardTask.value
+      ? mkUnlockSlotReward(rewardTask.value, forcedCb)
+      : mkBpWidgetOpen(onHover)
   })
 }
 
@@ -200,7 +210,7 @@ let mkDailyTasksUiReward = @(onHover = null) function() {
 let btnHeight = hdpxi(46)
 let btnMinWidth = hdpxi(200)
 
-let function mkBtnBuyTask(task) {
+function mkBtnBuyTask(task) {
   let hasBlockedByRequirement = Computed(function() {
     let pRequirement = task?.purchaseRequirement ?? ""
     return pRequirement == "" ? false
@@ -247,14 +257,13 @@ let mkBtnReceiveReward = @(task) @() {
 local lastActiveIdx = 0
 
 const MAIN_EVENT_TASK_PLACE = 1
-let function mkEventTask(task, taskPrice, idx, isActive, isMainActive) {
+function mkEventTask(task, taskPrice, idx, isActive, isMainActive) {
   let { isCompleted, hasReward, isFinished, step, totalSteps, meta = null } = task
   let { currency = "", price = 0 } = taskPrice
   let isMain = meta?.taskListPlace == MAIN_EVENT_TASK_PLACE
   let onClick = isActive ? null : showNotActiveTaskMsgbox
   let isPurchasable = isMainActive && !isCompleted && price > 0 && currency != ""
   lastActiveIdx = isActive ? idx + 1 : lastActiveIdx
-
   return {
     size = [flex(), SIZE_TO_CONTENT]
     flow = FLOW_HORIZONTAL
@@ -323,7 +332,7 @@ let eventTasksUi = @(eventId, tasksCount = -1) function() {
     size = [flex(), SIZE_TO_CONTENT]
     minHeight = ph(100)
     flow = FLOW_VERTICAL
-    gap = fsh(2)
+    gap = bigPadding
     valign = ALIGN_CENTER
     children
   })
@@ -331,6 +340,7 @@ let eventTasksUi = @(eventId, tasksCount = -1) function() {
 
 
 return {
+  hasDailyTasks
   mkDailyTasksUiReward
   mkDailyTasksUi
   eventTasksUi

@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
 let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
@@ -8,7 +8,7 @@ let {
 } = require("%enlSqGlob/ui/viewConst.nut")
 
 
-let timerIcon = "ui/skin#/battlepass/boost_time.svg"
+let timerIcon = "ui/skin#battlepass/boost_time.svg"
 let defTimerSize = hdpxi(13)
 let mkClockIcon = @(color) {
   rendObj = ROBJ_IMAGE
@@ -17,7 +17,7 @@ let mkClockIcon = @(color) {
   color
 }
 
-let function mkTimer(timestamp, prefixLocId = "", expiredLocId = "timeExpired",
+function mkTimer(timestamp, prefixLocId = "", expiredLocId = "timeExpired",
   color = accentTitleTxtColor, prefixColor = defTxtColor, override = {}
 ) {
   let prefixTxt = loc(prefixLocId)

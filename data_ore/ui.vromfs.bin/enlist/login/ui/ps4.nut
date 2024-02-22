@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontHeading2 } = require("%enlSqGlob/ui/fontsStyle.nut")
 let background = require("background.nut")
@@ -13,7 +13,7 @@ let loginDarkStripe = require("loginDarkStripe.nut")
 let { loginBlockOverride, infoBlock } = require("loginUiParams.nut")
 
 
-let function loginBtnAction() {
+function loginBtnAction() {
   startLogin({})
 }
 
@@ -25,7 +25,7 @@ let loginBtn = textButton(loc("Login"), loginBtnAction,
 
 let isFirstOpen = mkWatched(persist, "isFirstOpen", true)
 
-let function loginRoot() {
+function loginRoot() {
   let children = isFirstOpen.value
     ? [progressText(loc("loggingInProcess"))]
     : currentStage.value ? [progressText(loc("loggingInProcess"))] : [ loginBtn ]

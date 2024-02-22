@@ -204,21 +204,18 @@ def binocular_update_cockpit(info : ParallelUpdateFrameDelayed;
       transform[3] = transform * cockpit__offset
 
 
-[es(tag=gameClient, track=(human_binocular__mode, human_binocular__cockpitEid, human_net_phys__curMoveState, human_net_phys__standState, possessedByPlr), REQUIRE=possessedByPlr)]
+[es(tag=gameClient, track=(human_binocular__mode, human_binocular__cockpitEid, human_net_phys__isCrawlingMove, possessedByPlr), REQUIRE=possessedByPlr)]
 def binocular_update_visibility(evt : Event;
                                 hero : Tag const?;
                                 attaches_list : EidList;
-                                human_net_phys__curMoveState : int;
-                                human_net_phys__standState : int;
+                                human_net_phys__isCrawlingMove : bool;
                                 human_binocular__mode : bool;
                                 human_binocular__eid : EntityId;
                                 human_binocular__cockpitEid : EntityId;
                                 var human__isHidingSlotsInScopeEnabled : bool&;
                                 var human_binocular__isHideHuman : bool&)
   query(human_binocular__eid) <| $ [es] (var gun__visible : bool&)
-    let isCrawlingMove = human_net_phys__standState == int(HUStandState ESS_CRAWL) && human_net_phys__curMoveState != int(HUMoveState EMS_STAND)
-
-    gun__visible = human_binocular__mode && (!human_binocular__cockpitEid && !isCrawlingMove || hero == null && !isCrawlingMove)
+    gun__visible = human_binocular__mode && !human_net_phys__isCrawlingMove && (!human_binocular__cockpitEid || hero == null)
 
   human_binocular__isHideHuman = human_binocular__mode && !!human_binocular__cockpitEid
   human__isHidingSlotsInScopeEnabled = !human_binocular__mode

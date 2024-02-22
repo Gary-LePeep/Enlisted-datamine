@@ -6,6 +6,7 @@ require game.es.stat_bq_common
 require DngDm
 require enlisted.game.es.offender_cache_common
 require strings
+require game.es.battle_area_common
 
 def get_vehicle_type(eid : EntityId; is_empty : bool)
   if has(eid, "isTank")
@@ -17,7 +18,7 @@ def get_vehicle_type(eid : EntityId; is_empty : bool)
 [es(tag=server, REQUIRE=vehicle)]
 def send_to_bq_vehicle_destroyed(evt : EventEntityDied;
                                  eid : EntityId;
-                                 transform : float3x4;
+                                 transform aka victim_transform : float3x4;
                                  ownedBySquad : EntityId;
                                  killLogName : string = "";
                                  vehicle__isDestroyedWithoutCrew : bool = false)
@@ -44,13 +45,13 @@ def send_to_bq_vehicle_destroyed(evt : EventEntityDied;
 
     add_entity_type(jw, evt.offender, "offender")
     query(evt.offender) <| $ [es] (soldier__sClass : string;
-                                   transform : float3x4;
+                                   transform aka offender_transform : float3x4;
                                    possessedByPlr : EntityId;
                                    vehicle__lastEid : EntityId)
       jw_key_value(jw, "offender_is_player", possessedByPlr != INVALID_ENTITY_ID)
-      jw_key_value(jw, "soldier_class", soldier__sClass)
+      let offenderGreyzone = is_tm_outside_battle_area(offender_transform, evt.victimTeam) ? "_greyzone" : ""
+      jw_key_value(jw, "soldier_class", "{soldier__sClass}{offenderGreyzone}")
       jw_key_value(jw, "offender_pos", "{transform[3]}")
-
       var weapTempl = gunPropsId >= 0 ? get_gun_component_by_props_id(gunPropsId, "item__weapTemplate") : ""
       if weapTempl != ""
         jw_key_value(jw, "weapon_template", weapTempl)
@@ -67,10 +68,17 @@ def send_to_bq_vehicle_destroyed(evt : EventEntityDied;
     jw_key_value(jw, "weapon_type", gunPropsId >= 0 ? get_gun_component_by_props_id(gunPropsId, "item__weapType") : "")
     jw_key_value(jw, "damage_type", "{damageTypeEnum}")
 
+    let victimOutOfZone = is_tm_outside_battle_area(victim_transform, evt.victimTeam) ? "_victimoutofzone" : ""
     jw_key_value(jw, "victim_type", victimType)
-    jw_key_value(jw, "victim_class", killLogName)
+    jw_key_value(jw, "victim_class", "{killLogName}{victimOutOfZone}")
 
     query(victimOwnerPlayer) <| $ [es] (userid : uint64)
       add_user_id(jw, userid, "victim_user_id")
     query(offenderOwnerPlayer) <| $ [es] (userid : uint64)
       add_user_id(jw, userid)
+
+    find_query() <| $ [es] (battle_area__team : int; battle_area__deactivatedAtTime : float; battleAreaId : string; active : bool)
+      if active && battle_area__team == evt.victimTeam && battle_area__deactivatedAtTime < 0.
+        jw_key_value(jw, "capzone_id", "{battleAreaId}")
+        return true
+      return false

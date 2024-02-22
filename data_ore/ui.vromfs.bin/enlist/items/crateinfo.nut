@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { itemTypeIcon } = require("%enlist/soldiers/components/itemTypesData.nut")
 let tooltipBox = require("%ui/style/tooltipBox.nut")
@@ -93,7 +93,7 @@ let mkItemsListWithHeader = @(itemTpls, armyId, header = null) function() {
   }
 }
 
-local function mkCrateItemsInfo(armyId, content, header = null, addChild = null, isRestrictedItem = false) {
+function mkCrateItemsInfo(armyId, content, header = null, addChild = null, isRestrictedItem = false) {
   let { items = null, groupLocId = "" } = content
   if ((items?.len() ?? 0) == 0)
     return null
@@ -154,7 +154,7 @@ local function mkCrateItemsInfo(armyId, content, header = null, addChild = null,
   }
 }
 
-let function mkCrateShuffleInfo(armyId, content) {
+function mkCrateShuffleInfo(armyId, content) {
   let mainItemsData = (content?.mainItemsData ?? {}).filter(@(d) (d?.shuffleMax ?? 0) > 0)
   if (mainItemsData.len() == 0)
     return null
@@ -190,7 +190,7 @@ let mkSClassRow = @(sClass, armyId) @() {
   ]
 }
 
-let function mkCrateSoldiersInfo(armyId, content) {
+function mkCrateSoldiersInfo(armyId, content) {
   let { soldierClasses = [] } = content
   if (soldierClasses.len() == 0)
     return null
@@ -228,7 +228,7 @@ let function mkCrateSoldiersInfo(armyId, content) {
   }
 }
 
-let function makeCrateToolTip(crateContent, headerTxt = "", size = SIZE_TO_CONTENT) {
+function makeCrateToolTip(crateContent, headerTxt = "", size = SIZE_TO_CONTENT) {
   if (crateContent == null)
     return null
 

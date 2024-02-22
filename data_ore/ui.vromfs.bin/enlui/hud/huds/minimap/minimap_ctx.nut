@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 from "minimap" import MinimapContext
 
 let {Point2} = require("dagor.math")
@@ -33,7 +33,7 @@ let mmContext = persist("ctx", function() {
   return ctx
 })
 
-let function onMinimap(_eid, comp){
+function onMinimap(_eid, comp){
   let hasBackMap = (inPlane.value && (comp.farMapTex != null))
   mmContext.setup(config.__merge({
     mapTex = comp.mapTex

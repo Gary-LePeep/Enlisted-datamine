@@ -26,7 +26,7 @@ def building_respawn_create_es(evt : Event;
     find_query() <| $ [es(REQUIRE=(autoSetRespawnGroup, respawnGrouppingRadius), REQUIRE_NOT=playerRespawnBase)] (transform : float3x4;
                                                                                                                   team : int;
                                                                                                                   respawnBaseGroup : int)
-      if createdRespawnTeam == team && length_sq(transform[3] - createdRespawnPos) < findRespawnInRadiusSq
+      if createdRespawnTeam == team && length_sq(transform[3].xz - createdRespawnPos.xz) < findRespawnInRadiusSq
         created_respawnBaseGroup = respawnBaseGroup
         return true
       return false

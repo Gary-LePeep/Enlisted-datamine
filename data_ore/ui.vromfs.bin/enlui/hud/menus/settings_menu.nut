@@ -1,8 +1,8 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
-let eventbus = require("eventbus")
+let { eventbus_send } = require("eventbus")
 let {apply_video_settings} = require("videomode")
-let {apply_audio_settings=@(_fields) null} = require_optional("sndcontrol")
+let {apply_audio_settings=@(_fields) null} = require_optional("dngsound")
 let {isOption} = require("options/options_lib.nut")
 let logMenu = require("%enlSqGlob/library_logs.nut").with_prefix("[SettingsMenu] ")
 let textButton = require("%ui/components/textButton.nut")
@@ -16,7 +16,7 @@ let onlineSettingUpdated = require_optional("onlineStorage")
 let { runBenchmarkBtn } = require("%enlSqGlob/ui/benchmarkWnd.nut")
 let { is_pc } = require("%dngscripts/platform.nut")
 let { reload_ui_scripts, reload_overlay_ui_scripts } = require("app")
-let { isLoggedIn } = require("%enlSqGlob/login_state.nut")
+let { isLoggedIn } = require("%enlSqGlob/ui/login_state.nut")
 
 let showSettingsMenu = mkWatched(persist, "showSettingsMenu", false)
 
@@ -30,7 +30,7 @@ let menuTabsOrder = Watched([])
 let foundTabsByOptionsGen = Watched(0)
 let foundTabsByOptionsContainer = {value = []}
 let getFoundTabsByOptions = @(...) foundTabsByOptionsContainer.value
-let function setFoundTabsByOptions(v){
+function setFoundTabsByOptions(v){
   foundTabsByOptionsContainer.value = v
   foundTabsByOptionsGen(foundTabsByOptionsGen.value+1)
 }
@@ -39,12 +39,12 @@ let resultOptionsGen = Watched(0)
 let resultOptionsContainer = {value = []}
 let getResultOptions = @(...) resultOptionsContainer.value
 
-let function resultOptions(v){
+function resultOptions(v){
   resultOptionsContainer.value = v
   resultOptionsGen(resultOptionsGen.value+1)
 }
 
-let function setResultOptions(...){
+function setResultOptions(...){
   local optionsValue = getMenuOptions()
   let tabsInOptions = {}
   let isAvailableTriggers = optionsValue.filter(@(opt) opt?.isAvailableWatched!=null).map(@(opt) opt.isAvailableWatched)
@@ -90,7 +90,7 @@ let function setResultOptions(...){
 menuOptionsGen.subscribe(setResultOptions)
 setResultOptions()
 
-let function getResultTabs(foundTabsByOptionsValue, tabsOrder){
+function getResultTabs(foundTabsByOptionsValue, tabsOrder){
   let selectedTabs = []
   let ret = []
   foreach (tab in tabsOrder) {
@@ -112,7 +112,7 @@ menuTabsOrder.subscribe(function(v) {
     currentTab(menuTabsOrder.value?[0].id)
 })
 
-local function checkAndApply(available, val, defVal, blkPath) {
+function checkAndApply(available, val, defVal, blkPath) {
   if (available == null)
     return val
 
@@ -139,7 +139,7 @@ let convertForBlkByType = {
   string = @(v) v.tostring()
   bool = @(v) !!v
 }
-let function applyGameSettingsChanges(optionsValue) { //FIX ME: should to divide ui and state logic in this file
+function applyGameSettingsChanges(optionsValue) { //FIX ME: should to divide ui and state logic in this file
   local onCloseActions = {
     needRestart = false
     needReload = false
@@ -203,7 +203,7 @@ let function applyGameSettingsChanges(optionsValue) { //FIX ME: should to divide
 let saveAndApply = @(onMenuClose, options) function() {
   let onCloseActions = applyGameSettingsChanges(options)
   onMenuClose()
-  eventbus.send("onlineSettings.sendToServer", null)
+  eventbus_send("onlineSettings.sendToServer", null)
 
   if (onCloseActions.needRestart) {
     msgbox.show({text=loc("settings/restart_needed")})
@@ -221,14 +221,14 @@ if (onlineSettingUpdated)
     @(val) val ? defer(@() applyGameSettingsChanges(getResultOptions())) : null
   )
 
-let function setMenuOptions(options){
+function setMenuOptions(options){
   menuOptionsContainer.value = options
   menuOptionsGen(menuOptionsGen.value+1)
   applyGameSettingsChanges(getResultOptions())
 }
 
-let function mkSettingsMenuUi(menu_params) {
-  let function close(){
+function mkSettingsMenuUi(menu_params) {
+  function close(){
     menu_params?.onClose()
     closeMenu()
   }

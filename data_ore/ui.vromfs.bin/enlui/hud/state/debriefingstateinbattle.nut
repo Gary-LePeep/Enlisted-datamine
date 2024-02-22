@@ -1,8 +1,8 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 let { EventOnBattleResult } = require("%enlSqGlob/sqevents.nut")
 let logD = require("%enlSqGlob/library_logs.nut").with_prefix("[DEBRIEFING] ")
-let eventbus = require("eventbus")
+let { eventbus_send } = require("eventbus")
 let watchdog = require("watchdog")
 let armyData = require("armyData.nut")
 let soldiersData = require("soldiersData.nut")
@@ -33,8 +33,10 @@ let mkGetExpToNextLevel = @(expToLevel)
     ? (expToLevel?[level] ?? 0)
     : 0
 
-let function extrapolateStatsExp(soldier, expData, getExpToNextLevel) {
-  local { maxLevel, level, exp } = soldier
+function extrapolateStatsExp(soldier, expData, getExpToNextLevel) {
+  // Specify the default value for maxLevel
+  // as this code runs with pre-generated data where maxLevel is undefined.
+  local { maxLevel = 1, level, exp } = soldier
   let addExp = expData.exp
   local nextExp = getExpToNextLevel(level, maxLevel)
   let wasExp = {
@@ -61,9 +63,9 @@ let function extrapolateStatsExp(soldier, expData, getExpToNextLevel) {
   })
 }
 
-let chargeExp = @(expData) eventbus.send("charge_battle_exp_rewards", expData)
+let chargeExp = @(expData) eventbus_send("charge_battle_exp_rewards", expData)
 
-let function getSquadData(squadId, stats) {
+function getSquadData(squadId, stats) {
   let squad = (armyData.value?.squads ?? []).findvalue(@(s) s.squadId == squadId)
   let awardScore = (squad?.squad ?? []).reduce(
     @(res, soldier) res + (stats?[soldier?.guid ?? ""].awardScore ?? 0),
@@ -81,12 +83,12 @@ let function getSquadData(squadId, stats) {
   }
 }
 
-let function shareExp(list, expSum) {
+function shareExp(list, expSum) {
   let oneExp = (expSum / (list.len() || 1)).tointeger()
   return list.map(@(_) { exp = oneExp })
 }
 
-let function calcSingleMissionExpReward(expReward) {
+function calcSingleMissionExpReward(expReward) {
   let expSum = (armyData.value?.premiumExpMul ?? 1.0) * singleMissionRewardSum.value
   let tutorial = isTutorial.value
   return {
@@ -96,7 +98,7 @@ let function calcSingleMissionExpReward(expReward) {
   }
 }
 
-let function applyRewardOnce() {
+function applyRewardOnce() {
   if (debriefingUpdateData.value.len())
     return //already applied
 
@@ -187,14 +189,14 @@ ecs.register_es("soldiers_stats_listener_es",
   {})
 
 //we send only base data, because userstats update will be the same in enlist vm
-let function subscribeDebriefingWatches(data = debriefingData, show = debriefingShow) {
-  data.subscribe(@(val) eventbus.send("debriefing.data", val))
+function subscribeDebriefingWatches(data = debriefingData, show = debriefingShow) {
+  data.subscribe(@(val) eventbus_send("debriefing.data", val))
   show.subscribe(function(val) {
     if (val)
       watchdogData.mode = watchdog.change_mode(watchdog.LOBBY)
     else
       watchdog.change_mode(watchdogData.mode)
-    eventbus.send("debriefing.show", val)
+    eventbus_send("debriefing.show", val)
   })
 }
 

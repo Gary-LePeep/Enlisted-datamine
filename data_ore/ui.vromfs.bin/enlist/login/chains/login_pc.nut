@@ -1,12 +1,10 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let steam = require("steam")
-let epic = require("epic")
 let wegame  = require("wegame")
-let { disableNetwork } = require("%enlSqGlob/login_state.nut")
+let { disableNetwork } = require("%enlSqGlob/ui/login_state.nut")
 let { get_arg_value_by_name } = require("dagor.system")
 let login_cb = require("%enlist/login/login_cb.nut")
-let login_epic_cb = require("%enlist/login/login_cb_epic.nut")
 let login_steam_cb = require("%enlist/login/login_cb_steam.nut")
 let login_wegame_cb = require("%enlist/login/login_cb_wegame.nut")
 
@@ -20,7 +18,6 @@ let dmm_login = require("%enlist/login/stages/dmm.nut")
 let go_login = require("%enlist/login/stages/go.nut")
 let save_login = require("%enlist/login/stages/save_login_data.nut")
 let steam_stages = require("%enlist/login/stages/steam_stages.nut")
-let epic_login = require("%enlist/login/stages/epic.nut")
 let wegame_login = require("%enlist/login/stages/wegame.nut")
 
 if (disableNetwork) {
@@ -45,21 +42,6 @@ if (isDMMLogin){
     ]
     onSuccess = login_cb.onSuccess
     onInterrupt = login_cb.onInterrupt
-  }
-}
-
-if (epic.is_running()) {
-  return {
-    stages = [
-      epic_login
-      auth_result
-      char_stage
-      online_settings
-      eula
-      matching
-    ]
-    onSuccess = login_epic_cb.onSuccess
-    onInterrupt = login_epic_cb.onInterrupt
   }
 }
 

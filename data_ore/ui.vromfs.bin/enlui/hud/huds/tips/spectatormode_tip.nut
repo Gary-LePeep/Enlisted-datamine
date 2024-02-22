@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { isSpectator, spectatingPlayerName } = require("%ui/hud/state/spectator_state.nut")
@@ -8,7 +8,7 @@ let spectatingName = Computed(@() isSpectator.value && spectatingPlayerName.valu
   ? spectatingPlayerName.value
   : null)
 
-let function spectatorMode_tip() {
+function spectatorMode_tip() {
   let res = { watch = [spectatingName, isReplay] }
   if (isReplay.value || spectatingName.value == null)
     return res

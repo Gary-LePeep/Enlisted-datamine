@@ -21,7 +21,7 @@ let profiles = require("%enlSqGlob/data/all_tutorial_profiles.nut")
 let { applyModsToArmies, applyPerks } = require("%scripts/game/utils/profile_init.nut")
 
 
-let function validateArmies(armies, playerArmy) {
+function validateArmies(armies, playerArmy) {
   if (!armies)
     return "validateArmies: armies is absent"
 
@@ -49,7 +49,7 @@ let function validateArmies(armies, playerArmy) {
   return ""
 }
 
-let function unpackArmiesFromJwt(_userid, jwt) {
+function unpackArmiesFromJwt(_userid, jwt) {
   if (typeof jwt != "array")
     return null
   let token = "".join(jwt)
@@ -64,7 +64,7 @@ let function unpackArmiesFromJwt(_userid, jwt) {
   return null
 }
 
-let function updateProfileImpl(evt, eid, comp, getArmiesCb) {
+function updateProfileImpl(evt, eid, comp, getArmiesCb) {
   let net = has_network()
   let senderEid = net ? find_human_player_by_connid(evt.data?.fromconnid ?? INVALID_CONNECTION_ID) : find_local_player()
   if (senderEid != eid)
@@ -210,7 +210,7 @@ ecs.register_es("client_profile_jwt_es", {
   },
 }, playerComps, {tags = "server"})
 
-let function stopTimerInt(eid, reason, do_logerr=false) {
+function stopTimerInt(eid, reason, do_logerr=false) {
   debug($"Stop wait profile timer: {reason}")
   ecs.recreateEntityWithTemplates({eid, removeTemplates=["wait_profile_timer"]})
   if (do_logerr)
@@ -220,7 +220,7 @@ let function stopTimerInt(eid, reason, do_logerr=false) {
 let stopTimer = @(eid, reason) stopTimerInt(eid, reason)
 let stopTimerLogerr = @(eid, reason) stopTimerInt(eid, reason, true)
 
-let function checkProfile(_dt, eid, comp) {
+function checkProfile(_dt, eid, comp) {
   let connectedAtTime = comp.connectedAtTime
   if (connectedAtTime < 0.0) {
     debug($"Player {eid} ({comp.userid}) created but not connected yet. Wait for connection")
@@ -243,7 +243,7 @@ let function checkProfile(_dt, eid, comp) {
   }
 }
 
-let function attachCheckProfile(eid, comp) {
+function attachCheckProfile(eid, comp) {
   if (comp.userid != INVALID_USER_ID && has_network())
     ecs.recreateEntityWithTemplates({eid, addTemplates=["wait_profile_timer"]})
 }
@@ -260,7 +260,7 @@ ecs.register_es("client_profile_timeout_es", {
 },
 { tags="server", updateInterval=2.0, after="*" })
 
-let function onGetMySquadsData(evt, eid, comp) {
+function onGetMySquadsData(evt, eid, comp) {
   let net = has_network()
   let senderEid = net ? find_human_player_by_connid(evt.data?.fromconnid ?? INVALID_CONNECTION_ID) : find_local_player()
   if (senderEid != eid)

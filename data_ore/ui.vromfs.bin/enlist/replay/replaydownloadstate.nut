@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let REPLAY_DOWNLOAD_NONE = 0
 let REPLAY_DOWNLOAD_PROGRESS = 1

@@ -1,10 +1,10 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let state = Watched({eids=[] byType={}})
 let trackRespawnBases = Watched([])
 
-let function doTrack() {
+function doTrack() {
   state.mutate(function (st) {
     foreach (respawnbase in trackRespawnBases.value) {
       let {eid, active, respawnbaseType, respawnbaseSubtype} = respawnbase
@@ -26,7 +26,7 @@ let function doTrack() {
   })
 }
 
-let function track(eid, comp) {
+function track(eid, comp) {
   let active          = comp.active
   let respawnbaseType = comp.respawnbaseType
   let respawnbaseSubtype = comp.respawnbaseSubtype

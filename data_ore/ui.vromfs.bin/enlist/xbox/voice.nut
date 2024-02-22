@@ -1,32 +1,32 @@
 let voiceApi = require_optional("voiceApi")
-let {subscribe} = require("eventbus")
+let {eventbus_subscribe} = require("eventbus")
 let {subscribe_to_state_update, add_voice_chat_member, remove_voice_chat_member,
   update_voice_chat_member_friendship, voiceChatMembers} = require("%xboxLib/voice.nut")
 let {request_xuid_for_user} = require("%enlist/xbox/userIds.nut")
 let {friendsUids} = require("%enlist/contacts/contactsWatchLists.nut")
 let {hexStringToInt} =  require("%sqstd/string.nut")
 let userInfo = require("%enlSqGlob/userInfo.nut")
-let {isLoggedIn} = require("%enlSqGlob/login_state.nut")
+let {isLoggedIn} = require("%enlSqGlob/ui/login_state.nut")
 let {debugTableData, with_prefix} = require("%enlSqGlob/library_logs.nut")
 let logX = with_prefix("[XBOX_VOICE] ")
 
 let delayedChatMembers = persist("delayedChatMembers", @() {})
 
 
-let function set_mute_status(uid, is_muted) {
+function set_mute_status(uid, is_muted) {
   let func = is_muted ? voiceApi.mute_player_by_uid : voiceApi.unmute_player_by_uid
   func(uid.tointeger())
 }
 
 
-let function on_state_update(results) {
+function on_state_update(results) {
   foreach (state in results) {
     set_mute_status(state?.uid, state?.is_muted)
   }
 }
 
 
-let function add_user_to_chat(uid) {
+function add_user_to_chat(uid) {
   logX($"Adding user to voice chat: {uid}")
   if (userInfo.value.userId == uid) {
     logX("Skip tracking self")
@@ -41,7 +41,7 @@ let function add_user_to_chat(uid) {
 }
 
 
-subscribe("voice.on_peer_joined", function(data) {
+eventbus_subscribe("voice.on_peer_joined", function(data) {
   if (!data?.uid)
     return
 
@@ -58,7 +58,7 @@ subscribe("voice.on_peer_joined", function(data) {
 })
 
 
-subscribe("voice.on_peer_left", function(data) {
+eventbus_subscribe("voice.on_peer_left", function(data) {
   if (!data?.uid)
     return
 

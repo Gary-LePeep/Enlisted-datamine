@@ -1,8 +1,8 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let JB = require("%ui/control/gui_buttons.nut")
 let {addModalWindow, removeModalWindow} = require("%ui/components/modalWindows.nut")
-let {safeAreaVerPadding, safeAreaHorPadding} = require("%enlSqGlob/safeArea.nut")
+let {safeAreaVerPadding, safeAreaHorPadding} = require("%enlSqGlob/ui/safeArea.nut")
 let {BtnBgNormal} = require("%ui/style/colors.nut")
 
 let safeAreaBorders = Computed(@() [safeAreaVerPadding.value+fsh(1), safeAreaHorPadding.value+fsh(1)])
@@ -30,7 +30,7 @@ let POPUP_PARAMS = {
 
 let remove = @(uid) removeModalWindow(uid)
 
-let function calcOffsets(rectOrPos, popupFlow, popupOffset, popupHalign, popupValign) {
+function calcOffsets(rectOrPos, popupFlow, popupOffset, popupHalign, popupValign) {
   let isArray = typeof rectOrPos == "array"
   assert(isArray || (("l" in rectOrPos) && ("b" in rectOrPos)))
   let res = {
@@ -75,7 +75,7 @@ let translateAnimation = @(flow, halign, valign, duration)
 
 
 local lastPopupIdx = 0
-local function add(rectOrPos, popup) {
+function add(rectOrPos, popup) {
   popup = POPUP_PARAMS.__merge(popup)
   popup.uid = popup?.uid ?? $"modal_popup_{lastPopupIdx++}"
   popup.hotkeys = popup.hotkeys ?? [[$"^{JB.B} | Esc", { action = @() remove(popup.uid), description = loc("Cancel") }]]

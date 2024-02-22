@@ -1,12 +1,12 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { warnings } = require("%ui/hud/state/perf_stats_es.nut")
-let {horPadding, verPadding} = require("%enlSqGlob/safeArea.nut")
-let cursors = require("%ui/style/cursors.nut")
+let {horPadding, verPadding} = require("%enlSqGlob/ui/safeArea.nut")
+let { setTooltip } = require("%ui/style/cursors.nut")
 let picSz = fsh(3.3)
 let {hudIsInteractive} = require("%ui/hud/state/interactive_state.nut")
 
-let function pic(name) {
+function pic(name) {
   return Picture("ui/skin#qos/{0}.svg:{1}:{1}:K".subst(name, picSz.tointeger()))
 }
 
@@ -22,7 +22,7 @@ let icons = {
 let colorMedium = Color(160, 120, 0, 160)
 let colorHigh = Color(200, 50, 0, 160)
 let debugWarnings = Watched(false)
-let function mkidx() {
+function mkidx() {
   local i = 0
   return @() i++
 }
@@ -32,13 +32,13 @@ let cWarnings = Computed(function() {
 })
 console_register_command(@() debugWarnings(!debugWarnings.value),"ui.debug_perf_stats")
 
-let function root() {
+function root() {
   let children = []
 
   foreach (key, val in cWarnings.value) {
     if (val > 0) {
       let hint = loc(icons[key]["loc"], "")
-      let onHover = @(on) cursors.setTooltip(on ? hint : null)
+      let onHover = @(on) setTooltip(on ? hint : null)
       children.append({
         key = key
         size = [picSz, picSz]

@@ -22,7 +22,7 @@ def private init_ladder(transform : float3x4;
     logerr("Failed to create ladders scene. Out of memory")
     return
 
-  let orient = quat(transform)
+  let orient = DagorMath::quat(transform)
   var bboxTm = make_ladder_tm(ladder__height, ladder__width, ladder__thickness, transform)
   bboxTm[3] += (quat_get_left(orient) * ladder__width + quat_get_up(orient) * ladder__height + quat_get_forward(orient) * ladder__thickness) * 0.5f
   ladder__sceneIndex = allocate(*game_objects.ladders, mat44f(bboxTm), /*pool*/uint16(0), /*flags*/ladder__numSteps)

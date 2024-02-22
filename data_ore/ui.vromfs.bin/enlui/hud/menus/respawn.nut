@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 let { isGamepad } = require("%ui/control/active_controls.nut")
 
 let {

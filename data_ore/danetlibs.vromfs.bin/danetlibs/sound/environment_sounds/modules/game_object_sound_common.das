@@ -14,43 +14,57 @@ def private is_listener_faraway(listener : float3; tm : float3x4; max_radius_sq 
   return distance_sq(listener, tm[3]) >= max_radius_sq
 
 
-def private place_sphere_game_object_sound_impl(listener : float3; extent_maxRadiusSq : float4; tm : float3x4) : float3
+def private place_sphere_game_object_sound_impl(listener : float3; extents : float3; tm : float3x4) : float3
   let local = make_listener_in_shape_space(listener, tm)
-  return length_sq(local) < square(extent_maxRadiusSq.x) ? listener : tm * (normalize(local) * extent_maxRadiusSq.x)
+  return length_sq(local) < square(extents.x) ? listener : tm * (normalize(local) * extents.x)
 
 def place_sphere_game_object_sound(listener : float3; extent_maxRadiusSq : float4; tm : float3x4) : float3
-  return is_listener_faraway(listener, tm, extent_maxRadiusSq.w) ? tm[3] : place_sphere_game_object_sound_impl(listener, extent_maxRadiusSq, tm)
+  return is_listener_faraway(listener, tm, extent_maxRadiusSq.w) ? tm[3] : place_sphere_game_object_sound_impl(listener, extent_maxRadiusSq.xyz, tm)
 
 
-def private place_capsule_game_object_sound_impl(listener : float3; extent_maxRadiusSq : float4; tm : float3x4) : float3
+def private place_capsule_game_object_sound_impl(listener : float3; extents : float3; tm : float3x4) : float3
   let local = make_listener_in_shape_space(listener, tm)
-  let pos = float3(0., clamp(local.y, -extent_maxRadiusSq.y, extent_maxRadiusSq.y), 0.)
-  return distance_sq(pos, local) < square(extent_maxRadiusSq.x) ? listener : tm * (pos + normalize(local - pos) * extent_maxRadiusSq.x)
+
+  assume radius = extents.x
+  let halfHeight = max(extents.y - radius, 0.)
+
+  let pos = float3(0., clamp(local.y, -halfHeight, halfHeight), 0.)
+  return distance_sq(pos, local) < square(radius) ? listener : tm * (pos + normalize(local - pos) * radius)
 
 def place_capsule_game_object_sound(listener : float3; extent_maxRadiusSq : float4; tm : float3x4) : float3
-  return is_listener_faraway(listener, tm, extent_maxRadiusSq.w) ? tm[3] : place_capsule_game_object_sound_impl(listener, extent_maxRadiusSq, tm)
+  return is_listener_faraway(listener, tm, extent_maxRadiusSq.w) ? tm[3] : place_capsule_game_object_sound_impl(listener, extent_maxRadiusSq.xyz, tm)
 
 
-def private place_box_game_object_sound_impl(listener : float3; extent_maxRadiusSq : float4; tm : float3x4) : float3
+def private place_box_game_object_sound_impl(listener : float3; extents : float3; tm : float3x4) : float3
   let local = make_listener_in_shape_space(listener, tm)
-  let pos = clamp(local, -extent_maxRadiusSq.xyz, extent_maxRadiusSq.xyz)
+  let pos = clamp(local, -extents, extents)
   if pos == local
     return listener // dist_sq(listener, pos) should be zero if pos is inside volume
   return tm * pos
 
 def place_box_game_object_sound(listener : float3; extent_maxRadiusSq : float4; tm : float3x4) : float3
-  return is_listener_faraway(listener, tm, extent_maxRadiusSq.w) ? tm[3] : place_box_game_object_sound_impl(listener, extent_maxRadiusSq, tm)
+  return is_listener_faraway(listener, tm, extent_maxRadiusSq.w) ? tm[3] : place_box_game_object_sound_impl(listener, extent_maxRadiusSq.xyz, tm)
 
 
 def place_game_object_sound(listener : float3; extent_maxRadiusSq : float4; shape : uint; tm : float3x4) : float3
   if is_listener_faraway(listener, tm, extent_maxRadiusSq.w)
     return tm[3] // expecting that sound event will be released
-  if shape == sound_hash("sphere")
+  if shape == sound_hash("box")
+    return place_box_game_object_sound(listener, extent_maxRadiusSq, tm)
+  elif shape == sound_hash("sphere")
     return place_sphere_game_object_sound(listener, extent_maxRadiusSq, tm)
   elif shape == sound_hash("capsule")
     return place_capsule_game_object_sound(listener, extent_maxRadiusSq, tm)
-  elif shape == sound_hash("box")
-    return place_box_game_object_sound(listener, extent_maxRadiusSq, tm)
+  return tm[3]
+
+
+def place_game_object_sound(listener : float3; extents : float3; shape : uint; tm : float3x4) : float3
+  if shape == sound_hash("box")
+    return place_box_game_object_sound_impl(listener, extents, tm)
+  elif shape == sound_hash("sphere")
+    return place_sphere_game_object_sound_impl(listener, extents, tm)
+  elif shape == sound_hash("capsule")
+    return place_capsule_game_object_sound_impl(listener, extents, tm)
   return tm[3]
 
 
@@ -108,3 +122,11 @@ def find_sound_shape_radius(extents : float3; shape : uint) : float
   elif shape == sound_hash("box")
     return make_box_sound_shape_radius(extents)
   return 0.
+
+
+def get_norm_tm(tm : float3x4#; extents : float3)
+  var normTm : float3x4 = tm
+  normTm[0] = tm[0] * safeinv(extents.x * 2.)
+  normTm[1] = tm[1] * safeinv(extents.y * 2.)
+  normTm[2] = tm[2] * safeinv(extents.z * 2.)
+  return normTm

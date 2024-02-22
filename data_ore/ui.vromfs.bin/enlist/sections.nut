@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { buildShopUi } = require("shop/mkShopUi.nut")
@@ -42,7 +42,7 @@ let alertSign = {
 }
 
 
-let function researchesAlertUi() {
+function researchesAlertUi() {
   let { hasUnseen = false } = curUnseenResearches.value
   return {
     watch = curUnseenResearches
@@ -137,9 +137,6 @@ let mkShopAlertUi = @(sf) function() {
   let percents = maxCurArmyDiscount.value
   return {
     watch = watchShopAlert
-    size = [flex(), SIZE_TO_CONTENT]
-    margin = hdpx(11)
-    halign = ALIGN_RIGHT
     children = percents > 0
         ? mkDiscountBar({
             rendObj = ROBJ_TEXT
@@ -147,9 +144,17 @@ let mkShopAlertUi = @(sf) function() {
             color = sf & S_HOVER ? titleTxtColor : darkTxtColor
           }.__update(fontSub), true, sf & S_HOVER ? darkTxtColor : brightAccentColor)
       : alertSign
-  }
+  }.__merge(styleAlertUi)
 }
 
+let mkEventAlertUi = @(_sf) function() {
+  if (!isEventUnseen.value)
+    return { watch = isEventUnseen }
+  return {
+    watch = isEventUnseen
+    children = isEventUnseen.value ? alertSign : null
+  }.__merge(styleAlertUi)
+}
 
 let mkManageAlert = mkAlertIcon(REQ_MANAGE_SIGN, Computed(@()
   needSoldiersManageBySquad.value.len() > 0))
@@ -297,12 +302,12 @@ let sections = [
     locId = "menu/growth"
     getContent = growthUi
     id = "GROWTH"
-    camera = "researches"
+    camera = "battle_pass"
     mkChild = mkGrowthAlertUi
   }
 ]
 
-if (getStoreUrl() != null )
+if (getStoreUrl() != null)
   sections.append({
     locId = "menu/store"
     id = "STORE"
@@ -319,10 +324,10 @@ if (getEventUrl() != null)
       openUrl(getEventUrl())
       markEventSeen()
     }
-    unseenWatch = isEventUnseen
+    mkChild = mkEventAlertUi
   })
 
-let function updateSections(disabled) {
+function updateSections(disabled) {
   let sectionsToShow = sections.filter(@(section) section.id not in disabled)
   setSectionsSorted(sectionsToShow)
 }

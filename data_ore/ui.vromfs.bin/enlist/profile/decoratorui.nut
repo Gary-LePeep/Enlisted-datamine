@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { doesLocTextExist } = require("dagor.localize")
 let hoverHoldAction = require("%darg/helpers/hoverHoldAction.nut")
@@ -68,7 +68,7 @@ let iconParam = {
   fontFx = FFT_GLOW
 }
 
-let function mkPortraitCost(portraitCfg, override = {}) {
+function mkPortraitCost(portraitCfg, override = {}) {
   let { buyData = null } = portraitCfg
   let { currencyId = "", price = 0 } = buyData
   return currencyId == "" && price <= 0 ? null
@@ -89,7 +89,7 @@ let function mkPortraitCost(portraitCfg, override = {}) {
       }
 }
 
-let function onNickFrameClick(nickFrameCfg, isEnabled) {
+function onNickFrameClick(nickFrameCfg, isEnabled) {
   let { guid = "", buyData = null } = nickFrameCfg
 
   if (isEnabled) {
@@ -117,7 +117,7 @@ let function onNickFrameClick(nickFrameCfg, isEnabled) {
   showMsgbox({ text = doesLocTextExist(locId) ? loc(locId) : loc("decorator/eventRewardTip") })
 }
 
-let function mkTooltip(decorator) {
+function mkTooltip(decorator) {
   let locId = $"decorator/{decorator.guid}/tip"
   let { currencyId = "", price = 0 } = decorator?.buyData
   return doesLocTextExist(locId) ? loc(locId)
@@ -125,7 +125,7 @@ let function mkTooltip(decorator) {
     : loc("decorator/eventRewardTip")
 }
 
-let function nickFrameListUi() {
+function nickFrameListUi() {
   let userName = userInfo.value?.nameorig ?? ""
   let availList = availNickFrames.value
   let nickFrameList = [null].extend(nickFramesCfgAvailable.value)
@@ -229,7 +229,7 @@ let modalWndStyle = {
   color = blurBgColor
 }
 
-let function openFrameWnd(key, content) {
+function openFrameWnd(key, content) {
   addModalWindow({
     key
     size = flex()
@@ -249,7 +249,7 @@ let function openFrameWnd(key, content) {
 }
 
 
-let function onPortraitClick(portraitCfg, isEnabled) {
+function onPortraitClick(portraitCfg, isEnabled) {
   let { guid = "", buyData = null } = portraitCfg
 
   if (isEnabled) {
@@ -282,7 +282,7 @@ let timerStyle = {
   color = defBgColor
 }
 
-let function portraitListUi() {
+function portraitListUi() {
   let availList = availPortraits.value
   let portraitList = [basePortrait].extend(portraitCfgAvailable.value)
   let curPurchase = decoratorInPurchase.value
@@ -399,7 +399,7 @@ let decoratorBlock = {
       let portraitCfg = (portraitsConfig.value ?? [])
         .findvalue(@(p) p.guid == chosenPortrait.value?.guid) ?? basePortrait
       let children = [ mkPortraitIcon(portraitCfg) ]
-      let function onClick() {
+      function onClick() {
         markDecoratorsOpened(unopenedPortraits.value)
         openFrameWnd(PORTRAIT_WND_UID, portraitListUi)
       }

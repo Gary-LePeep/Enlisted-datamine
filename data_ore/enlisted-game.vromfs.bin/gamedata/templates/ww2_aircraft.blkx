@@ -5334,6 +5334,12 @@
             },
             {
               "turret": "turret_12"
+            },
+            {
+              "turret": "turret_13"
+            },
+            {
+              "turret": "turret_14"
             }
           ],
           "cockpitEffectors:object": {
@@ -5414,6 +5420,12 @@
             },
             {
               "turret": "turret_12"
+            },
+            {
+              "turret": "turret_13"
+            },
+            {
+              "turret": "turret_14"
             }
           ],
           "cockpitEffectors:object": {
@@ -5937,9 +5949,6 @@
     "plane": [
       {
         "_use": "plane_base"
-      },
-      {
-        "_use": "plane_sound"
       },
       {
         "_use": "plane_turret_controls"
@@ -6687,5 +6696,13 @@
         "animchar__res": "us_150gal_drop_tank_char"
       }
     ]
+  },
+  {
+    "type_92mod_25_launcher": {
+      "_use": "base_bomb_launcher",
+      "gun__projectileTemplate": "type_92mod_25_bomb_projectile",
+      "gun__projectileDebugTemplate": "type_92mod_25_bomb_projectile+bomb_projectile_debug",
+      "animchar__res": "jp_navy_mod25mark2_250kg_char"
+    }
   }
 ]

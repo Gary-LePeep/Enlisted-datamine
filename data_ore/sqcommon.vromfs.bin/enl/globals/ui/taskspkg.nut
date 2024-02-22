@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { PrimaryFlat } = require("%ui/components/textButton.nut")
@@ -105,7 +105,7 @@ let statusIcon = @(unlockDesc, hasWaitIcon = Watched(false), canReroll = false)
   }
 
 
-let function statusBlock(unlockDesc) {
+function statusBlock(unlockDesc) {
   let { isCompleted = false, isFinished = false, isCanceled = false } = unlockDesc
   let statusObj = isCanceled ? canceledUnlockIcon
     : isFinished || isCompleted ? completedUnlockIcon
@@ -239,7 +239,7 @@ let mkEmblemImgReward = @(img, iSize, color) {
 }
 
 
-let function mkEmblemQty(unlockDesc) {
+function mkEmblemQty(unlockDesc) {
   let { lastRewardedStage = 0, isFinished = false } = unlockDesc
   let stage = isFinished
     ? getStageByIndex(unlockDesc, lastRewardedStage - 1)
@@ -255,7 +255,7 @@ let function mkEmblemQty(unlockDesc) {
 }
 
 
-let function getTaskEmblemImg(unlockDesc, isCompleted) {
+function getTaskEmblemImg(unlockDesc, isCompleted) {
   if (isRankUnlock(unlockDesc))
     return isCompleted
       ?  "ui/skin#tasks/goblet_filled"
@@ -271,7 +271,7 @@ let function getTaskEmblemImg(unlockDesc, isCompleted) {
   return ""
 }
 
-let function mkTaskEmblem(unlockDesc, progress, canTakeReward = true, hasWaitIcon = Watched(false),
+function mkTaskEmblem(unlockDesc, progress, canTakeReward = true, hasWaitIcon = Watched(false),
   canReroll = false, sf = 0, seasonIndex=null, bpColors=null) {
 
   let { lastRewardedStage = 0, stages = [], periodic = false } = unlockDesc
@@ -318,7 +318,7 @@ let function mkTaskEmblem(unlockDesc, progress, canTakeReward = true, hasWaitIco
       }
 }
 
-let function mkAchievementTitle(tasksList, locId) {
+function mkAchievementTitle(tasksList, locId) {
   let finished = tasksList.reduce(@(s, u) u.isCompleted ? s + 1 : s, 0)
   return {
     rendObj = ROBJ_TEXT

@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let localSettings = require("%enlist/options/localSettings.nut")("voice/", false)
 let {nestWatched} = require("%dngscripts/globalState.nut")
@@ -21,7 +21,7 @@ let validation_tbl = {
 
 let validate_setting = @(key, val) validation_tbl?[key](val) ?? val
 
-let function loadVoiceSettings() {
+function loadVoiceSettings() {
   log("loadVoiceSettings")
   let noop = { // warning disable: -declared-never-used
     voiceRecordVolume = [localSettings(voiceRecordVolume.value, "record_volume"), voiceRecordVolumeUpdate]
@@ -40,7 +40,7 @@ if (!initialized.value && voiceApi != null) {
   initialized(true)
 }
 
-let function leave_voice_chat(voice_chat_id, cb = null) {
+function leave_voice_chat(voice_chat_id, cb = null) {
   if (voiceApi && voiceChatEnabled.value && voice_chat_id in joinedVoiceRooms.value) {
     matchingCall("mproxy.voice_leave_channel", function(_) { cb?() }, { channel = voice_chat_id })
     voiceApi.leave_room(joinedVoiceRooms.value?[voice_chat_id] ?? "")
@@ -48,7 +48,7 @@ let function leave_voice_chat(voice_chat_id, cb = null) {
   }
 }
 
-let function join_voice_chat(voice_chat_id) {
+function join_voice_chat(voice_chat_id) {
   log($"joining voice {voice_chat_id}")
   if (voiceApi && voiceChatEnabled.value && !(voice_chat_id in joinedVoiceRooms.value)) {
     matchingCall("mproxy.voice_join_channel",
@@ -75,7 +75,7 @@ let function join_voice_chat(voice_chat_id) {
 }
 
 // Reconnect on connection lost
-let function on_room_disconnect(voice_chat_id) {
+function on_room_disconnect(voice_chat_id) {
   if (voice_chat_id in joinedVoiceRooms.value) {
     log($"reconnect to voice room {voice_chat_id}")
     joinedVoiceRooms.mutate(@(v) v.rawdelete(voice_chat_id))

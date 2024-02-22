@@ -44,7 +44,8 @@ def create_respawn_cam(fromEid, toEid : EntityId; transform : float3x4)
       set(init, "team", respawnCameraForTeam)
       set(init, "shooter_cam__lastPos", transform[3])
       set(init, "respawnCameraTargerPoint", toEid)
-    setup_camera_as_active(respawnCam, respawnCameraTemplate)
+    if get_bool(get_local_player_eid(), "respawner__enabled") ?? true
+      setup_camera_as_active(respawnCam, respawnCameraTemplate)
   update_respawn_cameras()
 
 [es(tag=gameClient, on_appear)]

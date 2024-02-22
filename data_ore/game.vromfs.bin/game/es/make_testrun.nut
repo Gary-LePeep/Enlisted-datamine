@@ -39,7 +39,7 @@ let benchStatsComps = [
 
 let benchStatsQuery = ecs.SqQuery("benchStatsQuery", {comps_rw=benchStatsComps})
 
-let function resetPerf() {
+function resetPerf() {
   benchStatsQuery.perform(function(_eid, comps){
     foreach (compName, _ in comps){
       if (compName == "averageDt")
@@ -54,7 +54,7 @@ let function resetPerf() {
 
 let screens = []
 local globalAvgFps = 0
-let function savePerf(fileName) {
+function savePerf(fileName) {
   let reportName = $"{fileName}.json"
   let f = io.file($"{reportFolder}{reportName}", "wt")
   let stats = benchStatsQuery.perform(@(_eid, comp) clone comp)
@@ -100,7 +100,7 @@ let function savePerf(fileName) {
   screens.append($"\"{reportName}\"")
 }
 
-let function saveReportInfo() {
+function saveReportInfo() {
   let f = io.file($"{reportFolder}info.json", "wt")
   let screensArr = ",".join(screens)
   let res = "\n".concat(
@@ -122,7 +122,7 @@ local count = 1
 // random screen to generate folder structure
 batch.append( function() { take_screenshot_name($"../{reportFolder}{THUMBNAIL}"); } )
 
-let function appendScreen(pos, dir, name = null) {
+function appendScreen(pos, dir, name = null) {
   local fileName = $"screen_{count++}";
   if (name != null)
     fileName = name
@@ -137,7 +137,7 @@ let function appendScreen(pos, dir, name = null) {
 
 local hasStarted = false
 ecs.register_es("regression_tests", {
-  [EventLevelLoaded] = function(_eid, comp) {
+  [EventLevelLoaded] = function(eid, comp) {
     foreach ( screen in comp.camera_locations?.getAll() ?? [] ) {
       appendScreen(screen.pos, screen.dir, screen?.name)
     }
@@ -147,7 +147,7 @@ ecs.register_es("regression_tests", {
       ecs.set_callback_timer(function() {
         batch.append(saveReportInfo)
         batch.append(exit_game)
-        trackPlayerStart( batch )
+        trackPlayerStart(eid, batch)
       }, 1.0, false)
     }
   }

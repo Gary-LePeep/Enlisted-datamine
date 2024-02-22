@@ -1,9 +1,12 @@
 {
   "global_hit_fx_info": {
-    "_singleton": true,
-    "_use": "replicating",
+    "_use": "global_hit_fx_info_base",
     "_group": {
       "_hide": true,
+      "global_shatter_fx__countToTraceCount": [10.0,1000.0,0.0,100.0],
+      "global_shatter_fx__radiusToTraceRadius": [2.0,100.0,3.7,15.0],
+      "global_shatter_fx__minRadiusRatio": 0.5,
+      "global_shatter_fx__maxDistance": 30.0,
       "global_hit_fx__bulletTypeGroups:object": {
         "smoke:list<t>": [
           {
@@ -1699,6 +1702,29 @@
           }
         }
       ],
+      "global_shatter_fx__maxShellMasses:list<r>": [
+        {
+          "mass": 3.0
+        },
+        {
+          "mass": 30.0
+        },
+        {
+          "mass": 1000000.0
+        }
+      ],
+      "global_shatter_fx__effectGroups:list<t>": [
+        {
+          "group": "6_8mm"
+        },
+        {
+          "group": "8_12mm"
+        },
+        {
+          "group": "12_14mm"
+        }
+      ],
+      "global_shatter_fx__effectDescriptors:list<i>": [],
       "global_hit_fx__fleshEffects:object": {
         "woundFx": "hit_blood_entry_effect",
         "woundSideFx": "hit_blood_flow_light_effect",
@@ -1754,8 +1780,10 @@
         {
           "group:object": {
             "maxDistanceFromGun": 4.0,
+            "leavesCheckRadius": 15.0,
             "defaultFx": "hit_ground_wave_big_dirt_effect",
             "grassFx": "hit_ground_wave_big_grass_effect",
+            "leavesFx": "hit_ground_wave_big_leaves_effect",
             "info:object": {
               "group__dirt_and_mud": "hit_ground_wave_big_dirt_effect",
               "group__sand": "hit_ground_wave_big_sand_effect",
@@ -1766,6 +1794,19 @@
         }
       ]
     }
+  },
+  "shatter_fx": {
+    "_tags": "render",
+    "shatter_fx__traceCount": 0,
+    "shatter_fx__traceCountPerFrame": 3,
+    "shatter_fx__explosionOffsettedPos": [0.0,0.0,0.0],
+    "shatter_fx__effectDescriptor": 0,
+    "shatter_fx__explosionNorm": [0.0,0.0,0.0],
+    "shatter_fx__belowExplosionProbability": 0.5,
+    "shatter_fx__belowExplosionMinTheta": 0.0,
+    "shatter_fx__belowExplosionMaxTheta": 0.0,
+    "shatter_fx__minRadius": 0.0,
+    "shatter_fx__radius": 0.0
   },
   "hit_effect_group_6_8mm": {
     "gun_hit_fx__hitEffectGroupName": "6_8mm",

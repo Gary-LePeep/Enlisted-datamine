@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { curHeroGrenadeEid } = require("%ui/hud/state/hero_weapons.nut")
@@ -30,7 +30,7 @@ let playerGrenadesBelt = Computed(function(){
   let grenadesCopy = clone allGrenades
   local curGrenade = []
   if (curGrenadeType in grenadesCopy) {
-    curGrenade = [[curGrenadeType, delete grenadesCopy[curGrenadeType]]]
+    curGrenade = [[curGrenadeType, grenadesCopy.$rawdelete(curGrenadeType)]]
   }
   foreach (grenadeType, grenadeCount in grenadesCopy){
     res.append([grenadeType, grenadeCount])
@@ -39,7 +39,7 @@ let playerGrenadesBelt = Computed(function(){
   return res
 })
 
-let function mkGrenadeImage(grenadeType, color, isCurrent=false, pos=null){
+function mkGrenadeImage(grenadeType, color, isCurrent=false, pos=null){
   return {
     rendObj = ROBJ_IMAGE
     image = isCurrent ? getCurGrenadeIcon(grenadeType) : getGrenadeIcon(grenadeType)
@@ -51,7 +51,7 @@ let function mkGrenadeImage(grenadeType, color, isCurrent=false, pos=null){
 }
 let shadowColor = Color(0,0,0,90)
 let selectedShadowColor = Color(0,0,0,120)
-let function mkGrenadeWidget(grenadeType, count, key, isCurrent=false){
+function mkGrenadeWidget(grenadeType, count, key, isCurrent=false){
   let color = isCurrent ? HUD_ITEMS_COLOR : notSelectedItemColor
   return {
     flow = FLOW_HORIZONTAL
@@ -70,7 +70,7 @@ let function mkGrenadeWidget(grenadeType, count, key, isCurrent=false){
     ]
   }
 }
-let function grenadesBlock() {
+function grenadesBlock() {
   let children = playerGrenadesBelt.value.map(@(g,i,list) mkGrenadeWidget(g[0],g[1], "_".concat(g[0],g[1],i), i==list.len()-1))
 
   return {

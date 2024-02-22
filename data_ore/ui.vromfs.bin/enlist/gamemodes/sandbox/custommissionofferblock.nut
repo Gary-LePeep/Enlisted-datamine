@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let mkDotPaginator = require("%enlist/components/mkDotPaginator.nut")
@@ -94,7 +94,7 @@ let offersPaginator = mkDotPaginator({
   switchTime = paginatorTimer
 })
 
-let function customMissionOfferBlock() {
+function customMissionOfferBlock() {
   let res = { watch = [curWidgetIdx, isEventModesOpened, featuredModsList] }
   let widgets = featuredModsList.value
   if (widgets.len() == 0)

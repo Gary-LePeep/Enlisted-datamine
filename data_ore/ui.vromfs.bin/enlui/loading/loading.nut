@@ -1,6 +1,6 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
-let {verPadding} = require("%enlSqGlob/safeArea.nut")
+let {verPadding} = require("%enlSqGlob/ui/safeArea.nut")
 let {levelIsLoading, dbgLoading} = require("%ui/hud/state/appState.nut")
 let {mkAnimatedEllipsis} = require("loadingComponents.nut")
 
@@ -37,7 +37,7 @@ let simpleLoading = {
 let loadingComp = {value = simpleLoading}
 let loadingUiGeneration = Watched(0)
 
-let function setLoadingComp(v){
+function setLoadingComp(v){
   loadingComp.value = v
   loadingUiGeneration(loadingUiGeneration.value+1)
 }

@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let textButton = require("%ui/components/textButton.nut")
 let centeredText = require("%enlist/components/centeredText.nut")

@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { pieMenuItems } = require("%ui/hud/state/pie_menu_state.nut")
 let { wallPosters } = require("%ui/hud/state/wallposter.nut")

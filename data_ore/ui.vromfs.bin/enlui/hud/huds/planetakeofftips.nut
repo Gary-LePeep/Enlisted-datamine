@@ -1,11 +1,11 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { DEFAULT_TEXT_COLOR } = require("%ui/hud/style.nut")
 let { tipCmp } = require("%ui/hud/huds/tips/tipComponent.nut")
 
 let { isVehicleAlive, isPlaneOnCarrier } = require("%ui/hud/state/vehicle_state.nut")
 
-let function throttle() {
+function throttle() {
   let res = { watch = [isPlaneOnCarrier, isVehicleAlive] }
   if (!isPlaneOnCarrier.value || !isVehicleAlive.value)
     return res
@@ -18,7 +18,7 @@ let function throttle() {
   })
 }
 
-let function rudder() {
+function rudder() {
   let res = { watch = [isPlaneOnCarrier, isVehicleAlive] }
   if (!isPlaneOnCarrier.value || !isVehicleAlive.value)
     return res

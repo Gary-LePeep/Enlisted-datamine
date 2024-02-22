@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { smallPadding, bigPadding, activeBgColor, defTxtColor
 } = require("%enlSqGlob/ui/viewConst.nut")
@@ -27,7 +27,7 @@ let mkTextWithIcon = @(icon, text) {
   ]
 }
 
-let function mkPortrait(portrait) {
+function mkPortrait(portrait) {
   let { icon } = getPortrait(portrait)
   return {
     padding = smallPadding
@@ -46,7 +46,7 @@ let mkStatusRow = @(statusCfg) mkTextWithIcon(
   mkStatusImg(statusCfg.icon, statusCfg?.iconColor)
   loc(statusCfg.locId))
 
-let function mkPlayerTooltip(player) {
+function mkPlayerTooltip(player) {
   let { public, nameText } = player
   let { army = null, status = null, portrait = "", nickFrame = "" } = public
   let statusCfg = roomMemberStatuses?[status]

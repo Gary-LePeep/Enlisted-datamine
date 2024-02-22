@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {get_sync_time} = require("net")
 let {fontSub} = require("%enlSqGlob/ui/fontsStyle.nut")
@@ -14,7 +14,7 @@ let curBorderColor = SELECTION_BORDER_COLOR
 let nextBorderColor = Color(200, 200, 200, 100)
 
 
-let function itemAppearing(duration=0.2) {
+function itemAppearing(duration=0.2) {
   return {prop=AnimProp.opacity, from=0, to=1, duration=duration, play=true, easing=InOutCubic}
 }
 let wWidth = hdpx(280)
@@ -22,7 +22,7 @@ let aHgt = calc_str_box("A", fontSub)[1]*2 //we want to be sure that weapon name
 let wHeight = max(aHgt+hdpxi(2), hdpxi(40))
 
 
-let function weaponId(weapon, turretsAmmo, params={width=flex() height=wHeight}) {
+function weaponId(weapon, turretsAmmo, params={width=flex() height=wHeight}) {
   let size = [params?.width ?? flex(), params?.height ?? wHeight]
   let loadedGunInGroupEid = Computed(@() turretsAmmo.value?[weapon.groupName].firstLoadedGunInGroup)
 
@@ -53,7 +53,7 @@ let function weaponId(weapon, turretsAmmo, params={width=flex() height=wHeight})
   }
 }
 let wAmmoDef = {width=SIZE_TO_CONTENT height=SIZE_TO_CONTENT}
-let function weaponAmmo(weapon, turretsAmmo, params=wAmmoDef) {
+function weaponAmmo(weapon, turretsAmmo, params=wAmmoDef) {
   let combinedAmmo = Computed(function() {
     let data = turretsAmmo.value
     return (data?[weapon.gunEid] ?? {}).__merge({
@@ -121,7 +121,7 @@ let weaponWidgetAnims = [
   itemAppearing()
 ]
 
-let function iconCtorDefault(weapon, width, height) {
+function iconCtorDefault(weapon, width, height) {
   return iconWidget(weapon, {
     width = width
     height = height
@@ -155,7 +155,7 @@ let mkReplenishmentProgress = @(from, to, duration, key) {
   ]
 }
 
-let function turretStowageReplenishmentTip(weapon, turretsReplenishment, width) {
+function turretStowageReplenishmentTip(weapon, turretsReplenishment, width) {
   if (!weapon?.isControlled || !weapon?.isCurrent)
     return null
   let gunEid = weapon?.gunEid ?? ecs.INVALID_ENTITY_ID
@@ -181,7 +181,7 @@ let function turretStowageReplenishmentTip(weapon, turretsReplenishment, width) 
 
 let iconBlockWidth = hdpxi(230)
 
-let function weaponWidget(weapon, turretsAmmo, turretsReplenishment, hint = null, width = wWidth, height = wHeight, showHint = true, iconCtor = iconCtorDefault) {
+function weaponWidget(weapon, turretsAmmo, turretsReplenishment, hint = null, width = wWidth, height = wHeight, showHint = true, iconCtor = iconCtorDefault) {
   let markAsSelected = weapon?.isEquiping || (weapon?.isCurrent && !weapon?.isHolstering)
   let borderComp = markAsSelected ? currentBorder
     : weapon?.isNext ? nextBorder

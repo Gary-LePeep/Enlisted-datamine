@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let textInput = require("%ui/components/textInput.nut")
@@ -35,7 +35,7 @@ let tiOptions = {
   placeholder = loc("customize/writeCallsign")
 }.__update(fontBody)
 
-let function callnameChangeAction(soldier, prevCallname, callname) {
+function callnameChangeAction(soldier, prevCallname, callname) {
   if (prevCallname == callname)
     return
 
@@ -76,7 +76,7 @@ let stdText = @(text) {
   text
 }.__update(fontSub)
 
-let function mkSoldierNameColorized(soldier, callname) {
+function mkSoldierNameColorized(soldier, callname) {
   let { name, surname } = localizeSoldierName(soldier)
   return function() {
     let callnameText = (callname.value ?? "") == "" ? null : {
@@ -97,7 +97,7 @@ let function mkSoldierNameColorized(soldier, callname) {
   }
 }
 
-let function filterAndSetCallname(callNameToSet, soldier, prevCallname){
+function filterAndSetCallname(callNameToSet, soldier, prevCallname){
   if (isWaitingObsceneFilter.value)
     return
   isWaitingObsceneFilter(true)
@@ -114,7 +114,7 @@ let function filterAndSetCallname(callNameToSet, soldier, prevCallname){
   })
 }
 
-let function mkCallnameBlock(soldier){
+function mkCallnameBlock(soldier){
   let ordersAvailable = curCampItemsCount.value?[CALLNAME_ORDER_TPL] ?? 0
   let callnameEditWatch = Watched(soldier?.callname)
   let callnameCleaned = Computed(@() clearBorderSymbols(callnameEditWatch.value))

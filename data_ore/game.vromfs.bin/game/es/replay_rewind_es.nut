@@ -12,8 +12,15 @@ ecs.register_es("replay_on_rewind_es",
       comp.replay__isRewinding = true
       comp.replay__isKeyFrameRewind = true
       let rewindToTime = evt.time / 1000.0
+      // Synthesize scene path from mission_name for early unitedVdata limits preload
+      let mission_name = currentReplayInfo.value?["mission_name"]
+      let synthesizedScene = (mission_name != null) ? $"gamedata/scenes/{mission_name}.blk" : ""
       logRPL($"Rewinding replay to {rewindToTime}")
-      replay_play(currentReplayInfo.value?["path"] ?? replay_get_play_file(), rewindToTime, currentReplayInfo.value?["mod_info"])
+      try {
+        replay_play(currentReplayInfo.value?["path"] ?? replay_get_play_file(), rewindToTime, currentReplayInfo.value?["mod_info"], synthesizedScene)
+      } catch (e) { // Note: bw-compat
+        replay_play(currentReplayInfo.value?["path"] ?? replay_get_play_file(), rewindToTime, currentReplayInfo.value?["mod_info"])
+      }
     },
   },
   {

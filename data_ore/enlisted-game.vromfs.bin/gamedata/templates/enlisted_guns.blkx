@@ -16,6 +16,9 @@
       "_tags": "server"
     }
   },
+  "fortification_build_sound": {
+    "buildSoundTag": ""
+  },
   "base_fortification_build": [
     {
       "_use": "shred_outside_battle_area"
@@ -25,6 +28,9 @@
     },
     {
       "_use": "fortification_ai_target"
+    },
+    {
+      "_use": "fortification_build_sound"
     },
     {
       "buildingCost": 0.0
@@ -46,9 +52,6 @@
     },
     {
       "buildingCostructedAtTime": 0.0
-    },
-    {
-      "buildingSoundTag": "fortification"
     },
     {
       "actionTimerColor": [255.0,0.0,0.0]
@@ -329,6 +332,9 @@
     },
     {
       "item__weapType": "building_tool"
+    },
+    {
+      "gun__switchToPriority": -3
     },
     {
       "item__weight": 0.5

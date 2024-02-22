@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 /*
 todo:
@@ -20,7 +20,7 @@ let defCaption = @(obj) loc(obj.locId)
 let defTransform = @(_obj, val) round_by_value(val, 1)
 
 /*
-local function rocTransform(val) {
+function rocTransform(val) {
   local ret = round_by_value(val, 0.1).tostring()
   if (ret.indexof(".")==null)
     return $"{ret}.0"
@@ -41,7 +41,7 @@ let transformEnumFunc = @(obj, val) loc(obj.enumValues[val])
 let defStyle = {fontFx = FFT_GLOW, fontFxColor = Color(0,0,0,50), fontFxFactor = 64, fontFxOffsY=hdpx(0.9)}
 let hText = calc_str_box(dtext("THROTTLE:   100%"))
 
-let function mkCaption(obj) {
+function mkCaption(obj) {
   let captionFunc = obj?.captionFunc ?? defCaption
   return @() {
     children = [dtext(captionFunc(obj), defStyle), dtext(":",defStyle)]
@@ -49,7 +49,7 @@ let function mkCaption(obj) {
   }
 }
 
-let function mkValue(obj){
+function mkValue(obj){
   let transformFunc = obj?.transformFunc ?? defTransform
   let watch = obj.watch
   let watches = obj.values().filter(@(v) v instanceof Watched)
@@ -59,7 +59,7 @@ let function mkValue(obj){
   }
 }
 
-let function mkExistIndicator(obj){
+function mkExistIndicator(obj){
   let watch = obj.watch
   let locId = obj.locId
   let watches = obj.values().filter(@(v) v instanceof Watched)
@@ -258,7 +258,7 @@ let warnStyle = defStyle.__merge({color = Color(255, 90, 0)})
 let warnColor = @(level)
   warnColors[clamp(level, 0, warnColors.len() - 1)]
 
-let function mkEngineValue(temperature, engineState) {
+function mkEngineValue(temperature, engineState) {
   return function() {
     let temperatureVal = round_by_value(temperature.value, 1)
     let warn = engineState.value?.dead ? loc("plane_hud/EngineDead")
@@ -277,7 +277,7 @@ let function mkEngineValue(temperature, engineState) {
   }
 }
 
-let function mkEngineCaption(text, engineState) {
+function mkEngineCaption(text, engineState) {
   return @() {
     watch = [engineState]
   }.__update(
@@ -290,7 +290,7 @@ let function mkEngineCaption(text, engineState) {
   )
 }
 
-let function addEngineCaptionValues(captions, values, engines, locId, stateTemp, stateWarn) {
+function addEngineCaptionValues(captions, values, engines, locId, stateTemp, stateWarn) {
   let hasManyEngines = engines.len() > 1
   engines.each(function(engine, i) {
     captions.append(mkEngineCaption(loc(locId, {i = hasManyEngines ? i + 1 : ""}), engine[stateWarn]))

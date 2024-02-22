@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { smallPadding, bigPadding, soldierWndWidth } = require("%enlSqGlob/ui/designConst.nut")
 let soldierEquipUi = require("soldierEquip.ui.nut")
@@ -8,7 +8,7 @@ let { closeEquipPresets } = require("%enlist/preset/presetEquipUi.nut")
 let { hasClientPermission } = require("%enlSqGlob/client_user_rights.nut")
 let { Bordered, FAButton } = require("%ui/components/txtButton.nut")
 let { isCustomizationWndOpened } = require("%enlist/soldiers/soldierCustomizationState.nut")
-let { openPerkTree } = require("%enlist/meta/perks/perkTree.nut")
+let { openPerkTree, openPerkList } = require("%enlist/meta/perks/perkTree.nut")
 let { getLinkedSquadGuid } = require("%enlSqGlob/ui/metalink.nut")
 let { notChoosenPerkSoldiers } = require("model/soldierPerks.nut")
 let { mkAlertIcon, PERK_ALERT_SIGN } = require("%enlSqGlob/ui/soldiersUiComps.nut")
@@ -51,6 +51,7 @@ let mkCustomButtons = function(curSoldierInfo) {
           padding = smallPadding
         }
       }))
+      FAButton("angle-right", @(event) openPerkList(event, curSoldierInfo))
       canSwitchSoldierLook.value
         ? FAButton("address-card", @() soldierLookOpened(!soldierLookOpened.value))
         : null

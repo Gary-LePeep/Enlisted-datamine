@@ -1,10 +1,10 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { json_to_string } = require("json")
 let io = require("io")
 let { decode } = require("jwt")
-let eventbus = require("eventbus")
+let { eventbus_subscribe, eventbus_send } = require("eventbus")
 let { mkCmdProfileJwtData } = require("%enlSqGlob/sqevents.nut")
 let { playerSelectedSquads, allAvailableArmies, curArmy } = require("%enlist/soldiers/model/state.nut")
 let { curCampaign } = require("%enlist/meta/curCampaign.nut")
@@ -18,7 +18,7 @@ let { getMissionOutfit } = require("%enlSqGlob/missionOutfit.nut")
 
 let nextBattleData = Watched(null)
 
-let function decodeJwtAndHandleErrors(data) {
+function decodeJwtAndHandleErrors(data) {
   let jwt        = data?.jwt ?? ""
   let jwtDecoded = decode(jwt, profilePublicKey)
 
@@ -34,7 +34,7 @@ let function decodeJwtAndHandleErrors(data) {
   return null
 }
 
-let function requestProfileDataJwt(armies, cb, triesCount = 0) {
+function requestProfileDataJwt(armies, outfitId, cb, triesCount = 0) {
   if (armies.len() <= 0)
     return
 
@@ -53,16 +53,21 @@ let function requestProfileDataJwt(armies, cb, triesCount = 0) {
 
     if (--triesLeft >= 0) {
       debug($"Try again to get profile jwt. Tries left: {triesLeft}.")
-      get_profile_data_jwt(armiesToCurSquad, getMissionOutfit(), callee())
+      get_profile_data_jwt(armiesToCurSquad, outfitId, callee())
     }
     else // Fail
       cb("", {})
   }
 
-  get_profile_data_jwt(armiesToCurSquad, getMissionOutfit(), cbWrapper)
+  get_profile_data_jwt(armiesToCurSquad, outfitId, cbWrapper)
 }
 
-let function splitStringBySize(str, maxSize) {
+function requestProfileDataMission(armies, cb, triesCount = 0) {
+  let outfitId = getMissionOutfit()
+  requestProfileDataJwt(armies, outfitId, cb, triesCount)
+}
+
+function splitStringBySize(str, maxSize) {
   assert(maxSize > 0)
   let result = []
   local start = 0
@@ -77,17 +82,17 @@ let function splitStringBySize(str, maxSize) {
 
 const TRIES_TO_REQUEST_PROFILE = 1
 
-let function send(playerEid, jwt, data) {
+function send(playerEid, jwt, data) {
   ecs.client_send_event(playerEid, mkCmdProfileJwtData({ jwt = splitStringBySize(jwt, 4096) }))
-  eventbus.send("updateArmiesData", data)
+  eventbus_send("updateArmiesData", data)
 }
 
-let function requestAndSend(playerEid, teamArmy) {
-  requestProfileDataJwt([teamArmy], @(jwt, data) send(playerEid, jwt, data),
+function requestAndSend(playerEid, teamArmy) {
+  requestProfileDataMission([teamArmy], @(jwt, data) send(playerEid, jwt, data),
     TRIES_TO_REQUEST_PROFILE)
 }
 
-local function saveJwtResultToJson(jwt, data, fileName, pretty = true) {
+function saveJwtResultToJson(jwt, data, fileName, pretty = true) {
   fileName = $"{fileName}.json"
   local file = io.file(fileName, "wt+")
   file.writestring(json_to_string(data, pretty))
@@ -100,16 +105,16 @@ local function saveJwtResultToJson(jwt, data, fileName, pretty = true) {
   console_print($"Saved jwt to {fileName}")
 }
 
-let function saveToFile(teamArmy = null, pretty = true) {
+function saveToFile(teamArmy = null, pretty = true) {
   let cb = @(jwt, data) saveJwtResultToJson(jwt, data, "sendArmiesData", pretty)
   if (teamArmy == null) {
     let requestArmies = []
     foreach (armies in allAvailableArmies.value)
       requestArmies.extend(armies)
-    requestProfileDataJwt(requestArmies, cb)
+    requestProfileDataMission(requestArmies, cb)
   }
   else
-    requestProfileDataJwt([teamArmy], cb)
+    requestProfileDataMission([teamArmy], cb)
 }
 
 let mkJwtArmiesCbNoRetries = @(cb) function(data) {
@@ -124,7 +129,7 @@ let mkJwtArmiesCbNoRetries = @(cb) function(data) {
 
 let findArmy = @(armies, allArmies) armies.findvalue(@(a) allArmies.contains(a))
 
-eventbus.subscribe("requestArmiesData", function(msg) {
+eventbus_subscribe("requestArmiesData", function(msg) {
   let { armies, playerEid } = msg
   if (armies.contains(nextBattleData.value?.armyId))
     send(playerEid, nextBattleData.value.jwt, nextBattleData.value.data)
@@ -147,16 +152,16 @@ eventbus.subscribe("requestArmiesData", function(msg) {
   nextBattleData(null)
 })
 
-let function debugApplyBoosterInBattle() {
+function debugApplyBoosterInBattle() {
   let armyId = curArmy.value
-  requestProfileDataJwt([armyId], function(_jwt, data) {
+  requestProfileDataMission([armyId], function(_jwt, data) {
     let boosters = (data?[armyId].boosters ?? []).map(@(b) b.guid)
     console_print($"Boosters applied in army {armyId}: ", ", ".join(boosters))
     debug_apply_booster_in_battle(boosters)
   })
 }
 
-console_register_command(@(armyId) requestProfileDataJwt([armyId], @(_jwt, data)
+console_register_command(@(armyId) requestProfileDataMission([armyId], @(_jwt, data)
   log.debugTableData(data, { recursionLevel = 7, printFn = debug }) ?? log("Done")),
   "profileData.debugArmyData")
 
@@ -166,8 +171,13 @@ console_register_command(@(pretty) saveToFile(null/*teamArmy*/, !!pretty),
 
 console_register_command(debugApplyBoosterInBattle, "profileData.debugApplyBoosterInBattle")
 
+console_register_command(function(outfitId) {
+  let armyId = curArmy.value
+  let cb = @(jwt, data) saveJwtResultToJson(jwt, data, $"army_{armyId}_{outfitId}")
+  requestProfileDataJwt([armyId], outfitId, cb)
+}, "meta.dumpGameProfile")
+
 return {
-  saveToFile
   saveJwtResultToJson
   mkJwtArmiesCbNoRetries
   setNextBattleData = @(armyId, jwt, data) nextBattleData({ armyId, jwt, data })

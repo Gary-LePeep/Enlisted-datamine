@@ -12,7 +12,7 @@ require sound_utils_net.modules.sound_utils_net_events
 require strings
 
 
-[es(tag=sound, after=(update_sound_group_using_animchar_es, animchar_render_es))]
+[es(tag=sound, after=(update_sound_group_using_animchar_es, sound_begin_update_es), before=sound_end_update_es)]
 def human_breath_sound_update(info : ParallelUpdateFrameDelayed;
                               human_net_phys : HumanActor;
                               human_net_phys__states : int;

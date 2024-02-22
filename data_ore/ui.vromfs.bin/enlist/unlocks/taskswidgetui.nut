@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { utf8ToUpper } = require("%sqstd/string.nut")
@@ -22,7 +22,7 @@ let btnHeight = hdpxi(46)
 let btnMinWidth = hdpxi(200)
 let waitingSpinner = spinner()
 
-let function mkBtnBuyTask(task) {
+function mkBtnBuyTask(task) {
   let hasBlockedByRequirement = Computed(function() {
     let pRequirement = task?.purchaseRequirement ?? ""
     return pRequirement == "" ? false
@@ -67,7 +67,7 @@ let mkBtnReceiveReward = @(task) @() {
 local lastActiveIdx = 0
 
 const MAIN_EVENT_TASK_PLACE = 1
-let function mkEventTask(task, taskPrice, idx, uProgress, isMainActive) {
+function mkEventTask(task, taskPrice, idx, uProgress, isMainActive) {
   let { isCompleted, hasReward, isFinished, step, totalSteps, meta = null } = task
   let isActive = isUnlockAvailable(uProgress, task)
   let { currency = "", price = 0 } = taskPrice

@@ -1,6 +1,5 @@
 options no_aot
 options persistent_heap
-options gc
 
 require DagorTime
 require ecs
@@ -16,12 +15,14 @@ require daslib/safe_addr
 require daslib/algorithm
 require %danetlibs.imgui_daeditor.daEditor.daEditor_common
 require %danetlibs.imgui_daeditor.imgui.imgui_common
+require %danetlibs.imgui_daeditor.imgui.daEditor.ecs_inspectors_common
 
 
 struct EntityData
   eid : EntityId
   eidStr : string
   templateStr : string
+  extraStr : string
   distance : float
 
 def DasHelpMarker(desc : string)
@@ -42,6 +43,9 @@ def get_max_mismatches_by_filter_length(filter_length : int)
     else
       break
   return maxMismatches
+
+def get_entity_displayed_name(template_str : string; extra_str : string)
+  return strip(extra_str) == "" ? template_str : "{template_str} / {extra_str}"
 
 [imgui_window(name="Scene", group="Editor", hotkey="Ctrl+Shift+/")]
 def ecs_scene_window()
@@ -68,14 +72,8 @@ def ecs_scene_window()
     var selectedItem = INVALID_ENTITY_ID
     var editedItem = INVALID_ENTITY_ID
     var lastUpdateDate = DagorTime::ref_time_ticks()
-    var gcSteps = 0
     var fuzzySearch = true
     var updateEntityList = true
-
-  gcSteps += 1
-  if gcSteps > 1000
-    unsafe(heap_collect())
-    gcSteps = 0
 
   init_entity_object_editor()
 
@@ -173,6 +171,7 @@ def ecs_scene_window()
         allEntities |> resize(allEntitiesNum)
         let eidStr = string(int(uint(eid)))
         let templateStr = getEntityTemplateName(eid)
+        let extraStr = call_entity_extra_name_getter(eid)
         if searchComponents
           if length(excludeComponent) > 0
             let excluded = find_component(eid) <| $ [unused_argument(_)] (comp_name; _)
@@ -186,7 +185,7 @@ def ecs_scene_window()
             let match = find_component(eid) <| $ [unused_argument(_)] (comp_name; _)
               for inc in includeComponent
                 if find(comp_name, inc) >= 0
-                  data |> emplace <| [[EntityData eid=eid, eidStr=eidStr, templateStr=templateStr]]
+                  data |> emplace <| [[EntityData eid=eid, eidStr=eidStr, templateStr=templateStr, extraStr=extraStr]]
                   return true
               return false
             if match || !(hasFilters || searchTypes)
@@ -206,7 +205,7 @@ def ecs_scene_window()
               let typeName = getComponentTypes() |> component_types_findTypeName(comp.userType)
               for inc in includeTypes
                 if find(typeName, inc) >= 0
-                  data |> emplace <| [[EntityData eid=eid, eidStr=eidStr, templateStr=templateStr]]
+                  data |> emplace <| [[EntityData eid=eid, eidStr=eidStr, templateStr=templateStr, extraStr=extraStr]]
                   return true
               return false
             if match || !hasFilters
@@ -215,9 +214,10 @@ def ecs_scene_window()
           var misNeighbourCount = 0
           var mismatchCount = 0
           var prevIdx = -1
+          let searchedStr = get_entity_displayed_name(templateStr, extraStr)
           if !(*filter |> PassFilter(eidStr))
             for shingle in shingles
-              let idx = find(templateStr, shingle)
+              let idx = find(searchedStr, shingle)
               if idx == -1
                 mismatchCount++
                 if mismatchCount > maxMismatches
@@ -229,13 +229,13 @@ def ecs_scene_window()
               prevIdx = idx
             if mismatchCount > maxMismatches || misNeighbourCount > maxMisNeighbourCount
               continue
-          let templStrLength = length(templateStr) - (eid == selectedEid ? selectedTemplateLength : 0)
+          let templStrLength = length(searchedStr) - (eid == selectedEid ? selectedTemplateLength : 0)
           let itemDistance = float(mismatchCount) + abs(float(templStrLength) - float(length(shingles) + 1)) * 0.015 + float(misNeighbourCount) * 0.5
-          var value = [[EntityData eid=eid, eidStr=eidStr, templateStr=templateStr, distance=itemDistance]]
+          var value = [[EntityData eid=eid, eidStr=eidStr, templateStr=templateStr, extraStr=extraStr, distance=itemDistance]]
           let insertIdx = lower_bound(data, value) <| $(x, y) => x.distance < y.distance
           data |> emplace(value, insertIdx)
         else
-          data |> emplace <| [[EntityData eid=eid, eidStr=eidStr, templateStr=templateStr]]
+          data |> emplace <| [[EntityData eid=eid, eidStr=eidStr, templateStr=templateStr, extraStr=extraStr]]
 
     var selected : bool
     var selectedAddr = safe_addr(selected)
@@ -247,13 +247,15 @@ def ecs_scene_window()
           let eid = prevData[idx].eid
           let eidStr = prevData[idx].eidStr
           let templateStr = prevData[idx].templateStr
+          let extraStr = prevData[idx].extraStr
+          let displayStr = get_entity_displayed_name(templateStr, extraStr)
           imgui::TableNextRow()
           imgui::TableNextColumn()
           imgui::Text(eidStr)
           imgui::TableNextColumn()
           selected = selectedItem == eid || eid |> has("daeditor__selected")
           imgui::PushID(eidStr)
-          if imgui::Selectable(templateStr, selectedAddr, ImGuiSelectableFlags AllowDoubleClick)
+          if imgui::Selectable(displayStr, selectedAddr, ImGuiSelectableFlags AllowDoubleClick)
             selectedItem = eid
             if imgui::IsMouseDoubleClicked(ImGuiMouseButton Left)
               if GetIO().KeyCtrl

@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { sendNetEvent, RequestSquadFormation } = require("dasevents")
 let { controlledHeroEid } = require("%ui/hud/state/controlled_hero.nut")
@@ -12,12 +12,12 @@ let DEFAULT_FORMATION = SquadFormationSpread.ESFN_STANDARD
 let squadFormation = Watched(DEFAULT_FORMATION)
 
 
-let function applyNewFormation(squadEid, formation) {
+function applyNewFormation(squadEid, formation) {
   sendNetEvent(squadEid, RequestSquadFormation({spread=formation}))
   squadFormation(formation)
 }
 
-let function saveSquadFormation(squadProfileId, formation) {
+function saveSquadFormation(squadProfileId, formation) {
   savedSquadFormationOrders[squadProfileId] <- formation
   set_setting_by_blk_path("ai/squadFormationOrder", savedSquadFormationOrders)
   save_settings()
@@ -32,7 +32,7 @@ let squadProfileIdQuery = ecs.SqQuery("squadProfileIdQuery", {
   comps_ro=[["squad__squadProfileId", ecs.TYPE_STRING]]
 })
 
-let function setSquadFormation(formation) {
+function setSquadFormation(formation) {
   heroSquadEidQuery(controlledHeroEid.value, function(_, comp) {
     let squadEid = comp.squad_member__squad
     applyNewFormation(squadEid, formation)
@@ -41,7 +41,7 @@ let function setSquadFormation(formation) {
 }
 
 
-let function applyFormationOrderOnSpawnSquad(_evt, eid, comp) {
+function applyFormationOrderOnSpawnSquad(_evt, eid, comp) {
   if (comp.squad__ownerPlayer == ecs.INVALID_ENTITY_ID || comp.squad__ownerPlayer != find_local_player())
     return
   let squadProfileId = comp.squad__squadProfileId

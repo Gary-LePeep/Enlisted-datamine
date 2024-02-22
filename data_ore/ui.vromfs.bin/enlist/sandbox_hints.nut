@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 from "%darg/laconic.nut" import *
 
 let mkWindow = require("%daeditor/components/window.nut")
@@ -16,7 +16,7 @@ local hintCb = @() null
 let hintStep = mkWatched(persist, "hintStep", 0)
 
 let hintWelcomeKeepShowing = Watched(true)
-const SETTING_EDITOR_WELCOME_HINT = "daEditor4/sandboxWelcomeHint"
+const SETTING_EDITOR_WELCOME_HINT = "daEditor/sandboxWelcomeHint"
 let { save_settings=null, get_setting_by_blk_path=null, set_setting_by_blk_path=null } = require_optional("settings")
 hintWelcomeKeepShowing(get_setting_by_blk_path?(SETTING_EDITOR_WELCOME_HINT) ?? true)
 hintWelcomeKeepShowing.subscribe(function(v) {
@@ -64,14 +64,14 @@ let hintWindow = mkWindow({
   }
 })
 
-let function showHintMessage(text, callback=@() null) {
+function showHintMessage(text, callback=@() null) {
   hintMessage(text)
   hintWarning(false)
   hintShown(true)
   hintCb = callback
 }
 
-let function showHintWarning(text, callback=@() null) {
+function showHintWarning(text, callback=@() null) {
   hintMessage(text)
   hintWarning(true)
   hintShown(true)
@@ -79,7 +79,7 @@ let function showHintWarning(text, callback=@() null) {
 }
 
 
-let function showHintCheckRespawns() {
+function showHintCheckRespawns() {
   if (!editorIsActive.value || hintStep.value != 2)
     return
   local has_respawns = entity_editor?.get_instance()?.checkSceneEntities("respbase") ?? false
@@ -88,7 +88,7 @@ let function showHintCheckRespawns() {
     showHintWarning("Mission is missing respawn points.\n\nPlease, add at least one Mission respawn point.")
 }
 
-let function showHintCheckTeams() {
+function showHintCheckTeams() {
   if (!editorIsActive.value || hintStep.value != 1)
     return
   local has_teams  = entity_editor?.get_instance()?.checkSceneEntities("teamTag") ?? false
@@ -110,7 +110,7 @@ editorIsActive.subscribe(function(_v) {
 })
 
 
-let function showHints() {
+function showHints() {
   if (hintStep.value > 0)
     return
 

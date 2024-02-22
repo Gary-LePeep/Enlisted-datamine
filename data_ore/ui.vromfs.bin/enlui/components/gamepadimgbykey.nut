@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let controlsTypes = require("%ui/control/controls_types.nut")
@@ -101,7 +101,7 @@ local kbdImagesMap = function(){
 let btnsNum = [ "D.Up", "D.Down", "D.Left", "D.Right", "Start", "Select", "L3", "R3", "L1", "R1", "0x0400", "0x0800", "CROSS", "CIRCLE", "SQUARE", "TRIANGLE", "L2", "R2", "LS.Right", "LS.Left", "LS.Up", "LS.Down", "RS.Right", "RS.Left", "RS.Up", "RS.Down", "L3.Centered", "R3.Centered"]
 let axisNum = ["L.Thumb.h", "L.Thumb.v", "R.Thumb.h", "R.Thumb.v", "L.Trigger", "R.Trigger", "R+L.Trigger", "J:SensorX", "J:SensorZ", "J:SensorY"]
 
-let function keyAndImg(table, list, prefix, offs){
+function keyAndImg(table, list, prefix, offs){
   foreach (i, k in list) {
     let key = prefix+(i+offs) //for unknow reasons all indexes are incremented
     let img = dargJKeys2X1Image?[$"J:{k}"]
@@ -217,14 +217,14 @@ let heightMuls = {
   ["nswitch/rstick_pressed"] = 1,
 }
 
-let function getBtnImageHeight(imageName, aHeight) {
+function getBtnImageHeight(imageName, aHeight) {
   return ((heightMuls?[imageName] ?? defHeightMul) * aHeight).tointeger()
 }
 
 let defHeight = calc_str_box("A", fontBody)[1].tointeger()
 let pic = memoize( @(text, hgt) Picture("ui/input#{0}.svg:{1}:{1}:K".subst(text, hgt)))
 
-local function mkImageComp(text, params = defHeight){
+function mkImageComp(text, params = defHeight){
   if (text==null || text=="")
     return null
   if (type(params) != "table")
@@ -248,7 +248,7 @@ let controlsTypeMap = {
   [controlsTypes.keyboardAndMouse] = mouseKeyboardImg,
 }
 
-let function mkImageCompByDargKey(key, params={}) {
+function mkImageCompByDargKey(key, params={}) {
   let cType = params?.controlsType ?? controllerType
   return function(){
     let gamepadMap = controlsTypeMap?[cType.value] ?? (dargJKeysToImage(cType.value))

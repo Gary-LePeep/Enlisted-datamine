@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let mkHeader = require("%enlist/components/mkHeader.nut")
 let closeBtnBase = require("%ui/components/closeBtn.nut")

@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontHeading2 } = require("%enlSqGlob/ui/fontsStyle.nut")
 let background = require("background.nut")
@@ -14,14 +14,14 @@ let fontIconButton = require("%ui/components/fontIconButton.nut")
 let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
 let {exitGameMsgBox} = require("%enlist/mainMsgBoxes.nut")
 
-let function onOpen() {
+function onOpen() {
   if (!isFirstOpen.value)
     return
   isFirstOpen(false)
   startLogin({})
 }
 
-let function createLoginForm() {
+function createLoginForm() {
   return [ regInfo ]
 }
 
@@ -35,7 +35,7 @@ let centralContainer = @(children = null, watch = null, size = null) {
   children = children
 }
 
-let function loginRoot() {
+function loginRoot() {
   onOpen()
   let size = [fsh(40), fsh(40)]
   let watch = [currentStage]

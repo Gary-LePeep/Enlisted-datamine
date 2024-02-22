@@ -35,9 +35,8 @@ let {xboxCrossChatWithAllAllowed, xboxCrossChatWithAllAllowedUpdate} = globalWat
 let {xboxCrossVoiceWithFriendsAllowed, xboxCrossVoiceWithFriendsAllowedUpdate} = globalWatched("xboxCrossVoiceWithFriendsAllowed", @() true)
 let {xboxCrossVoiceWithAllAllowed, xboxCrossVoiceWithAllAllowedUpdate} = globalWatched("xboxCrossVoiceWithAllAllowed", @() true)
 
-let crossplayOptionNeededByProject = is_xbox || is_sony
 let isCrossplayOptConsolesOnlyRequired = Watched(true)
-let isCrossplayOptionNeeded = Watched(crossplayOptionNeededByProject || isDebugCrossplay)
+let isCrossplayOptionNeeded = Watched(is_xbox || is_sony || isDebugCrossplay)
 
 let availableCrossplayOptions = Computed(function() {
   if (is_xbox) //We are displaying limited options list on xbox
@@ -102,7 +101,7 @@ return {
   savedCrossnetworkState, savedCrossnetworkStateUpdate
   xboxCrossplayAvailable, xboxCrossplayAvailableUpdate
   crossnetworkPlay
-  needShowCrossnetworkPlayIcon = is_xbox
+  needShowCrossnetworkPlayIcon = isDebugCrossplay || is_xbox
   CrossplayState
   xboxCrosschatAvailable, xboxCrosschatAvailableUpdate
   crossnetworkChat

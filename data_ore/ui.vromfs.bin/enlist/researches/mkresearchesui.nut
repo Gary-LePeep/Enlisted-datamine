@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let cursors = require("%ui/style/cursors.nut")
 let colorize = require("%ui/components/colorize.nut")
@@ -148,7 +148,7 @@ let mkResearchFrame = @(bgName, key, color, animations) {
   animations
 }
 
-let function mkSquadExp(squadId) {
+function mkSquadExp(squadId) {
   let exp = Computed(@() allSquadsPoints.value?[squadId] ?? 0)
   return @(sf) @() {
     watch = exp
@@ -163,7 +163,7 @@ let function mkSquadExp(squadId) {
   }
 }
 
-let function mkSquadMkChild(squadId, curUnseen) {
+function mkSquadMkChild(squadId, curUnseen) {
   return @(sf) {
     hplace = ALIGN_RIGHT
     margin = smallPadding
@@ -208,7 +208,7 @@ let mkResearchPageSlot = @(pageIdx, isSelected, isHover) {
   }
 }
 
-let function gotoNextPage() {
+function gotoNextPage() {
   let total = tableStructure.value?.pages.len() ?? 0
   if (total > 0)
     selectedTable((selectedTable.value + 1) % total)
@@ -222,7 +222,7 @@ let switchPageKey = @() {
   children = isGamepad.value ? mkHotkey("J:X", gotoNextPage) : null
 }
 
-let function calculateCount(researches) {
+function calculateCount(researches) {
   let existingResearches = {}
   return researches.reduce(function(count, research) {
     if (research?.isLocked ?? false)
@@ -269,7 +269,7 @@ let mkPagesListUi = @(pagesInfo) function() {
   }
 }
 
-let function mkPagesInfoUi(pagesInfo) {
+function mkPagesInfoUi(pagesInfo) {
   let mkResearchPageInfo = @(pageName, pageDesc, statusTxt) {
     size = [flex(), SIZE_TO_CONTENT]
     flow = FLOW_VERTICAL
@@ -330,7 +330,7 @@ let classHeader = function() {
   })
 }
 
-let function mkHeaderUi() {
+function mkHeaderUi() {
   let pagesInfo = Computed(function() {
     let statuses = researchStatuses.value
     let { pages = [] } = tableStructure.value
@@ -389,7 +389,7 @@ let blinkAnim = {
   duration = 2, play = true, loop = true
 }
 
-let function mkResearchIcon(
+function mkResearchIcon(
   pageIdx, iconId, hasResearched, canResearch, isSelected, researchId
 ) {
   let isActive = hasResearched || canResearch
@@ -441,7 +441,7 @@ let lockSign = faComp("ban", {
   color = negativeTxtColor
 })
 
-let function mkResearchSlot(pageIdx, research, selectedId, statuses, onClick, onDoubleClick, multViewData = null) {
+function mkResearchSlot(pageIdx, research, selectedId, statuses, onClick, onDoubleClick, multViewData = null) {
   let { hasMultUsed = false, hasSelectedInGroup = false, hasResearchedInGroup = false } = multViewData
   let { research_id = null, icon_id = null } = research
   let isSelected = research_id == selectedId
@@ -640,7 +640,7 @@ let mkVertBtmGapWithoutOffset = @(override = {}) {
   }
 }
 
-let function mkResearchMult(pageIdx, researches, selectedId, statuses, cbCtor, doubleCbCtor, orientation) {
+function mkResearchMult(pageIdx, researches, selectedId, statuses, cbCtor, doubleCbCtor, orientation) {
   let multViewData = {
     hasMultUsed = true
     hasResearchedInGroup = researches.findvalue(@(r) statuses?[r.research_id] == RESEARCHED ) != null
@@ -674,7 +674,7 @@ let function mkResearchMult(pageIdx, researches, selectedId, statuses, cbCtor, d
   }
 }
 
-let function mkResearchChain(pageIdx, researches, selectedId, statuses, cbCtor, doubleCbCtor, orientation) {
+function mkResearchChain(pageIdx, researches, selectedId, statuses, cbCtor, doubleCbCtor, orientation) {
   let xPos = orientation == ORIENTATIONS.BOTTOM_LEFT ? (-0.6 * slotSize[0]).tointeger()
     : orientation == ORIENTATIONS.BOTTOM_RIGHT ? (0.6 * slotSize[0]).tointeger()
     : 0
@@ -704,7 +704,7 @@ let function mkResearchChain(pageIdx, researches, selectedId, statuses, cbCtor, 
   }
 }
 
-let function mkResearchChildren(
+function mkResearchChildren(
   pageIdx, children, selectedId, statuses, cbCtor, orientation, doubleCbCtor
 ) {
   let { researches = null, multiresearchGroup = 0 } = children
@@ -715,7 +715,7 @@ let function mkResearchChildren(
   return ctor(pageIdx, researches, selectedId, statuses, cbCtor, doubleCbCtor, orientation)
 }
 
-let function mkResearchColumn(pageIdx, idx, main, children, selectedId, statuses,
+function mkResearchColumn(pageIdx, idx, main, children, selectedId, statuses,
   hasLongBranches, cbCtor, doubleCbCtor, rGap
 ) {
   let [ btmChildren = null, topChildren = null, addBtmChildren = null ] = children
@@ -770,7 +770,7 @@ let twoStepLength = {
 }
 
 
-let function mkResearchesTreeUi() {
+function mkResearchesTreeUi() {
   let researchCbCtor = @(research) @() selectedResearch(research)
   let researchDoubleCbCtor = @(research) function() {
     let statuses = researchStatuses.value
@@ -912,7 +912,7 @@ let function mkResearchesTreeUi() {
   let closestResearch = Computed(@() closestTargets.value?[selectedTable.value])
   closestResearch.subscribe(@(_) needScrollClosest(true))
 
-  let function scrollToResearch(columns, curResearch) {
+  function scrollToResearch(columns, curResearch) {
     if (columns == null)
       return
 
@@ -955,7 +955,7 @@ let function mkResearchesTreeUi() {
       w.unsubscribe(attractorFunc)
   }
 
-  let function mkResearchItem(column, isLast) {
+  function mkResearchItem(column, isLast) {
     let { template = null, tplCount = 0 } = column
     if (template == null || tplCount == 0)
       return isLast ? null : { size = [itemSlotArea[0], 0] }
@@ -1070,7 +1070,7 @@ let mkPointsInfo = @(level, points) {
   ]
 }
 
-let function getProgressTooltip(curLvl, maxLvl, curExp, expToNextLvl, accColor){
+function getProgressTooltip(curLvl, maxLvl, curExp, expToNextLvl, accColor){
   let lvlBlock = colorize(accColor, $"{curLvl + 1}/{maxLvl + 1}")
   let expBlock = colorize(accColor, $"{curExp}/{expToNextLvl}")
   return $"{lvlBlock} {loc("research/squad_level")}\n{loc("research/squad_next_level")} {expBlock}"
@@ -1107,7 +1107,7 @@ let mkProgressUi = @(curSquadData) function() {
   })
 }
 
-let function mkResearchInfo(research) {
+function mkResearchInfo(research) {
   if (research == null)
     return null
 
@@ -1142,7 +1142,7 @@ let mkResearchUnlockedView = @(research_id) {
   }.__update(leftAppearanceAnim(0.1))
 }
 
-let function mkResearchPrice(researchDef) {
+function mkResearchPrice(researchDef) {
   let { price = 0 } = researchDef
   return price == 0 ? null : {
     valign = ALIGN_CENTER
@@ -1175,7 +1175,7 @@ let mkUnlockButton = @(researchText, onResearch, canResearch)
   onResearch == null ? null
     : mkResearchBtn(onResearch, researchText ?? loc("research/researchBtnText"), canResearch)
 
-let function buySquadLevelMsg() {
+function buySquadLevelMsg() {
   let { levelCost = 0, level = 0 } = curSquadProgress.value
   purchaseMsgBox({
     price = levelCost
@@ -1270,7 +1270,7 @@ let mkResearchPanel = @() function() {
   }.__update(leftAppearanceAnim(0.1)))
 }
 
-let function mkResearchInfoUi() {
+function mkResearchInfoUi() {
   let curSquadData = Computed(@() armySquadsById.value?[viewArmy.value][viewSquadId.value])
   let nameLocId = Computed(function() {
     let res = armiesResearches.value?[curArmy.value].squads[viewSquadId.value].name ?? ""
@@ -1355,7 +1355,7 @@ let mkOpenFilterButton = @(watchFilter, squadTypesCount) {
   })
 }
 
-let function mkResearchesUi() {
+function mkResearchesUi() {
   let curUnseenState = mkCurUnseenResearchesBySquads()
   let researchesSquads = mkResearchesSquads(curUnseenState)
   let isBranchEmpty = Computed(@() (tableStructure.value?.researches ?? {}).len() == 0)
@@ -1391,7 +1391,7 @@ let function mkResearchesUi() {
   }
 }
 
-let function buildResearchesUi() {
+function buildResearchesUi() {
   let disabledSection = mkDisabledSectionBlock({ descLocId = "menu/lockedByCampaignDesc" })
   return mkLockByCampaignProgress(@() {
     watch = hasResearchesSection

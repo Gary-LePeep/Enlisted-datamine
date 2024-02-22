@@ -312,6 +312,30 @@ def human_gun_offset_var_init(evt : Event;
   gun_offset__upId      = phys_vars |> registerVar("gun_offset_up", 0.)
   gun_offset__alongId   = phys_vars |> registerVar("gun_offset_along", 0.)
 
+
+[es(tag=gameClient, on_appear)]
+def human_gun_offset_global_var_init(evt : Event;
+                                     var phys_vars : PhysVars&;
+                                     var gun_offset_global__awayId : int&;
+                                     var gun_offset_global__upId : int&;
+                                     var gun_offset_global__acrossId : int&)
+  gun_offset_global__awayId = phys_vars |> registerVar("gun_offset_global_along", 0.)
+  gun_offset_global__upId = phys_vars |> registerVar("gun_offset_global_up", 0.)
+  gun_offset_global__acrossId = phys_vars |> registerVar("gun_offset_global_across", 0.)
+
+
+[es(tag=gameClient, before=before_animchar_update_sync)]
+def human_gun_offset_global_set_es(info : ParallelUpdateFrameDelayed;
+                                   gun_offset_global__awayId : int;
+                                   gun_offset_global__upId : int;
+                                   gun_offset_global__acrossId : int;
+                                   gun_offset__fromSoldier : float3;
+                                   var phys_vars : PhysVars&)
+  phys_vars |> setVar(gun_offset_global__awayId, gun_offset__fromSoldier.x)
+  phys_vars |> setVar(gun_offset_global__upId, gun_offset__fromSoldier.y)
+  phys_vars |> setVar(gun_offset_global__acrossId, gun_offset__fromSoldier.z)
+
+
 [es(tag=gameClient, track=slot_attach__rotOffset, on_appear)]
 def set_slot_attach__rotation_tm(evt : Event; slot_attach__rotOffset : float3; var slot_attach__rotTm : float3x4&)
   var q : quat
@@ -361,6 +385,29 @@ def gun_anim_holster_menu_pos_offset_es(info : ParallelUpdateFrameDelayed;
         slot_attach__rotTm[3] = lerp(slot_attach__rotTm[3], gun_attach__holsterPosOffset, float3(info.dt * gun_attach__holsterAnimLerpFactor))
       else
         slot_attach__rotTm[3] = lerp(slot_attach__rotTm[3], slot_attach__posOffset, float3(info.dt * gun_attach__holsterAnimLerpFactor))
+
+[es(tag=gameClient, on_appear, REQUIRE=menuChar)]
+def gun_anim_holster_menu_pos_offset_init_on_soldier_creation_es(evt : Event; human_weap__gunEids : EidList)
+  for gunEid in human_weap__gunEids
+    query(gunEid) <| $ [es] (human_gun_attached : bool;
+                             gun_attach__holsterPosOffset : float3;
+                             slot_attach__posOffset : float3;
+                             var slot_attach__rotTm : float3x4&)
+      if !human_gun_attached
+        slot_attach__rotTm[3] = gun_attach__holsterPosOffset
+      else
+        slot_attach__rotTm[3] = slot_attach__posOffset
+
+[es(tag=gameClient, REQUIRE=menu_gun, after=human_gun_attach_es)]
+def gun_anim_holster_menu_pos_offset_init_on_gun_attach_es(evt : CmdWeapAttach;
+                                                           human_gun_attached : bool;
+                                                           gun_attach__holsterPosOffset : float3;
+                                                           slot_attach__posOffset : float3;
+                                                           var slot_attach__rotTm : float3x4&)
+  if !human_gun_attached
+    slot_attach__rotTm[3] = gun_attach__holsterPosOffset
+  else
+    slot_attach__rotTm[3] = slot_attach__posOffset
 
 [es(tag=gameClient)]
 def radio_anim_holster_menu_pos_offset_es(info : ParallelUpdateFrameDelayed;

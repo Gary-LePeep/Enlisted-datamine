@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {hudIsInteractive} = require("state/interactive_state.nut")
 
@@ -6,7 +6,7 @@ let hudMenusContainer = {value = null}
 
 let hudMenusGen = Watched(0)
 
-let function hudMenus(menus){
+function hudMenus(menus){
   hudMenusGen(hudMenusGen.value+1)
   hudMenusContainer.value = menus
 }
@@ -23,7 +23,7 @@ case 2
   result = piemenu closed, inventory opened
 */
 
-let function closeMenu_int(menu){
+function closeMenu_int(menu){
   if (menu?.show.value == true)
     log($"HudMenus: Close {menu.id}")
   if ("close" in menu)
@@ -32,7 +32,7 @@ let function closeMenu_int(menu){
     menu.show(false)
 }
 
-let function openMenu_int(menu, menusDescr){
+function openMenu_int(menu, menusDescr){
   log($"HudMenus: Open {menu.id}")
   let requestedMenuGroup = menu?.group ?? 100
   let curOpenMenus = []
@@ -50,19 +50,19 @@ let function openMenu_int(menu, menusDescr){
     menu.show(true)
   curOpenMenus.each(@(v) closeMenu_int(v))
 }
-let function closeMenu(id){
+function closeMenu(id){
   let menusDescr = getHudMenus()
   let menu = menusDescr.findvalue(@(v) v.id == id)
   closeMenu_int(menu)
 }
 
-let function openMenu(id){
+function openMenu(id){
   let menusDescr = getHudMenus()
   let menu = menusDescr.findvalue(@(v) v.id == id)
   openMenu_int(menu, menusDescr)
 }
 
-let function setMenuVisibility(id, isVisible){
+function setMenuVisibility(id, isVisible){
   let menusDescr = getHudMenus()
   let menu = menusDescr.findvalue(@(v) v.id == id)
   if (isVisible)
@@ -71,7 +71,7 @@ let function setMenuVisibility(id, isVisible){
     closeMenu_int(menu)
 }
 
-let function switchMenu(id){
+function switchMenu(id){
   let menusDescr = getHudMenus()
   let menu = menusDescr.findvalue(@(v) v.id == id)
   if (!menu?.show.value){
@@ -81,13 +81,13 @@ let function switchMenu(id){
     closeMenu_int(menu)
 }
 
-let function mkMenuEventHandlers(menu) {
+function mkMenuEventHandlers(menu) {
   let eventName = menu?.event
   let holdToToggleDurMsec = menu?.holdToToggleDurMsec() ?? 500
   if (!( menu?.show instanceof Watched) && !("close" in menu && "open" in menu))
     return {}
 
-  let function endEvent(event){
+  function endEvent(event){
     if ((event?.dur ?? 0) > holdToToggleDurMsec || event?.appActive==false)
       closeMenu_int(menu)
   }
@@ -97,7 +97,7 @@ let function mkMenuEventHandlers(menu) {
   }
 }
 
-let function menusUi() {
+function menusUi() {
   let watch = [hudMenusGen, hudIsInteractive]
   let children = []
   let eventHandlers = {}

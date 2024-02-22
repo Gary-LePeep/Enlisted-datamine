@@ -8,7 +8,7 @@ let locIds = {
   hintLocId = @(id) $"wp/{id}/hint"
 }
 
-let function mkPresentation(cfg, id) {
+function mkPresentation(cfg, id) {
   let res = { id }.__update(cfg)
   res.img <- texNameConvertor(res?.img ?? defImg)
   foreach (key, ctor in locIds)

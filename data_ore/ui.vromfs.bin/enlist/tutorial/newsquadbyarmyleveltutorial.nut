@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let JB = require("%ui/control/gui_buttons.nut")
 let canDisplayOffers = require("%enlist/canDisplayOffers.nut")
@@ -95,7 +95,7 @@ let showTutorial = keepref(Computed(@()
 
 let newReceivedSquadId = Watched(null)
 
-let function openSquadManage() {
+function openSquadManage() {
   if (unlockSquadViewData.value == null)
     return
 
@@ -108,7 +108,7 @@ let function openSquadManage() {
 
 let getSquadKey = @(squad, idx) squad == null ? $"empty_slot{idx}" : $"slot{squad.guid}{idx}"
 
-let function moveReserveSquadToActive(idx) {
+function moveReserveSquadToActive(idx) {
   let squadId = newReceivedSquadId.value ?? reserveSquads.value?[0].squadId
   if (chosenSquads.value?[idx] != null) {
     selectedSquadId(chosenSquads.value?[idx].squadId)
@@ -147,7 +147,7 @@ let mkDropTarget = @(box, onDrop) watchElemState(@(sf) mkSizeTable(box, {
 }))
 
 
-let function tryGetReward() {
+function tryGetReward() {
   let growthGuid = curGrowthGuidToPurchase.value
   if (growthGuid == null)
     return false
@@ -169,7 +169,7 @@ let function tryGetReward() {
 }
 
 
-let function startTutorial() {
+function startTutorial() {
   let chosenSquadsKeys = Computed(@() chosenSquads.value.map(getSquadKey))
   let reserveSquadsKeys = Computed(@() reserveSquads.value.map(
     @(s, idx) "guid" in s ? getSquadKey(s, idx + chosenSquads.value.len()) : null ))

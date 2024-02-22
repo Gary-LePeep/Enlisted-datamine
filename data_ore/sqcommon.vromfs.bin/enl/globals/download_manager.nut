@@ -1,6 +1,6 @@
 from "%sqstd/functools.nut" import *
 from "frp" import *
-let eventbus = require("eventbus")
+let { eventbus_subscribe } = require("eventbus")
 let Log = require("%sqstd/log.nut")
 let { httpRequest, HTTP_ABORTED, HTTP_FAILED, HTTP_SUCCESS} = require("dagor.http")
 let { logerr } = require("dagor.debug")
@@ -22,12 +22,12 @@ let HTTP_READY = persist("HTTP_READY", @() freeze({}))
 let downloadCache = persist("downloadCache", @() {})
 let downloadStatus = Watched(downloadCache.map(@(_) HTTP_READY))
 
-let function setDownloadStatusMul(statuses){
+function setDownloadStatusMul(statuses){
   downloadStatus(downloadStatus.value.__merge(statuses))
 }
 downloadStatus.whiteListMutatorClosure(setDownloadStatusMul)
 
-let function setDownloadStatus(key, status){
+function setDownloadStatus(key, status){
   log("set status for", key)
   setDownloadStatusMul({[key] = status})
 }
@@ -35,20 +35,20 @@ let function setDownloadStatus(key, status){
 let downloadCacheGen = Watched(0)
 
 
-let function setDownloadedFile(key, file){
+function setDownloadedFile(key, file){
   log("populate cache for", key)
   downloadCacheGen(downloadCacheGen.value+1)
   downloadCache.__update({[key] = file})
 }
 
 
-local function httpGetRequest(url, cache_key=null, callback=null){
+function httpGetRequest(url, cache_key=null, callback=null){
   cache_key = cache_key ?? url
   log($"HTTP requested for' {cache_key}', url = {url}")
   httpRequest({ url, method = "GET", respEventId = EVENT_HTTP_DOWNLOAD, context=cache_key, callback})
 }
 
-eventbus.subscribe(EVENT_HTTP_DOWNLOAD, tryCatch(function(response){
+eventbus_subscribe(EVENT_HTTP_DOWNLOAD, tryCatch(function(response){
   let { status = -1, http_code=-1} = response
   let cache_key = response.context
   log($"HTTP response for {cache_key}")
@@ -78,7 +78,7 @@ eventbus.subscribe(EVENT_HTTP_DOWNLOAD, tryCatch(function(response){
   }
 ))
 
-local function requestCachedFile(url, cache_key=null){
+function requestCachedFile(url, cache_key=null){
   cache_key = cache_key ?? url
   if (cache_key in downloadCache){
     return HTTP_READY
@@ -90,7 +90,7 @@ local function requestCachedFile(url, cache_key=null){
   return HTTP_REQUESTED
 }
 
-let function requestCachedFiles(urlAndCacheKeys, useCache = true){
+function requestCachedFiles(urlAndCacheKeys, useCache = true){
   let toRequest = []
   let statuses = {}
   foreach (urlAndKey in urlAndCacheKeys) {
@@ -115,7 +115,7 @@ let function requestCachedFiles(urlAndCacheKeys, useCache = true){
   return HTTP_REQUESTED
 }
 
-let function getDownloadedFile(cache_key){
+function getDownloadedFile(cache_key){
   log("get downloaded file by cache key", cache_key)
   let res = downloadCache?[cache_key]
   if (res==null){

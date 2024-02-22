@@ -1,6 +1,7 @@
 require ecs
 require ecs.extra_set
-require common_shooter.events_common_shooter
+// require common_shooter.events_common_shooter
+require danetlibs.weapons.shell_events
 require common_shooter.es.render.blood_common
 require danetlibs.blood_decals.render.blood_decals_common
 

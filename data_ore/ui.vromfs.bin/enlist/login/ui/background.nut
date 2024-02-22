@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {chooseRandom} = require("%sqstd/rand.nut")
 let {appBgImages} = require("%ui/appBgImages.nut")
@@ -6,7 +6,7 @@ let {appBgImages} = require("%ui/appBgImages.nut")
 const default_bg = "ui/uiskin/grad_vert.avif"
 
 
-local function background_size(parallaxK = 0){
+function background_size(parallaxK = 0){
   if (parallaxK < 0)
     parallaxK = -parallaxK
   local h = sh(100)
@@ -16,7 +16,7 @@ local function background_size(parallaxK = 0){
   return [w*(1+parallaxK),h*(1+parallaxK)]
 }
 
-let function background() {
+function background() {
   let parallaxK = -0.02
   let bgImage = (appBgImages.len() == 0) ? default_bg : chooseRandom(appBgImages)
   return{

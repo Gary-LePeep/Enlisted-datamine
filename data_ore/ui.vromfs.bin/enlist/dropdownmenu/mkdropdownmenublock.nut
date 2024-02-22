@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontawesome, fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let modalPopupWnd = require("%ui/components/modalPopupWnd.nut")
@@ -18,7 +18,7 @@ let fillBgColor = @(sf) sf & S_ACTIVE ? 0xFF3B516A
   : sf & S_HOVER ? hoverSlotBgColor
   : panelBgColor
 
-let function close(cb = null) {
+function close(cb = null) {
   cb?()
   modalPopupWnd.remove(WND_UID)
 }
@@ -108,7 +108,7 @@ let mkbars = @(sf) {
   color = sf & S_HOVER ? darkTxtColor : defTxtColor
 }.__update(fontawesome)
 
-local function mkDropMenuBtn(buttons, watch) {
+function mkDropMenuBtn(buttons, watch) {
   let watchTo = type(watch) != "array" ? [watch] : watch
   let menuButtonsUi = mkMenuButtons(buttons, watchTo)
   let onClick = @(event) openMenu(event, menuButtonsUi)

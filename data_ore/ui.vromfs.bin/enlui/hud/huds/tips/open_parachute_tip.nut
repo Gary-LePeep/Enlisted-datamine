@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { isAlive } = require("%ui/hud/state/health_state.nut")
 let showPlayerHuds = require("%ui/hud/state/showPlayerHuds.nut")

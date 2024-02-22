@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { localSquadOrder } = require("%ui/hud/state/squad_orders.nut")
 let {MY_SQUAD_TEXT_COLOR} = require("%ui/hud/style.nut")

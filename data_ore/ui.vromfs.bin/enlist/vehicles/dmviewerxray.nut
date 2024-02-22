@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 import "%dngscripts/ecs.nut" as ecs
 let { round, abs, sin, atan, PI } = require("math")
 let regexp2 = require("regexp2")
@@ -19,7 +19,7 @@ let xrayPartsLocNameRemap = {
 
 let getSignStr = @(num) num == 0 ? "" : num >= 0 ? "+" : "\u2212"
 
-let function getBlk(path) {
+function getBlk(path) {
   let blk = DataBlock()
   if (path != "")
     blk.load(path)
@@ -29,21 +29,21 @@ let function getBlk(path) {
 let getWeaponByPartName = @(vehicleArmament, partName) vehicleArmament.findvalue(
   @(gun) (gun?.name ?? "") == partName)
 
-let function getCrewMemberLocName(vehicle, partName) {
+function getCrewMemberLocName(vehicle, partName) {
   let template = ecs.g_entity_mgr.getTemplateDB().getTemplateByName(vehicle.gametemplate)
   let seats = template?.getCompValNullable("vehicle_seats__seats").getAll()
   let seat = seats?.findvalue(@(s) s?.attachNode == partName)
   return loc(seat?.locName ?? "armor_class/steel_tankman")
 }
 
-let function getEngineModelName(engineBlk) {
+function getEngineModelName(engineBlk) {
   return " ".join([
     engineBlk?.manufacturer ? loc($"engine_manufacturer/{engineBlk.manufacturer}") : ""
     engineBlk?.model ? loc($"engine_model/{engineBlk.model}") : ""
   ], true)
 }
 
-let function getTankEngineDesc(vehicleUpgradedData, dmBlkPath) {
+function getTankEngineDesc(vehicleUpgradedData, dmBlkPath) {
   let desc = []
   let unitBlk = getBlk(dmBlkPath)
   let engineBlk = unitBlk?.VehiclePhys.engine
@@ -59,7 +59,7 @@ let function getTankEngineDesc(vehicleUpgradedData, dmBlkPath) {
   return desc
 }
 
-let function getTransmissionParams(maxSpeed, gearRatiosBlk) {
+function getTransmissionParams(maxSpeed, gearRatiosBlk) {
   if (maxSpeed == 0 || gearRatiosBlk == null)
     return null
   local gearsF = 0
@@ -84,7 +84,7 @@ let function getTransmissionParams(maxSpeed, gearRatiosBlk) {
   }
 }
 
-let function getTransmissionDesc(vehicleUpgradedData, dmBlkPath) {
+function getTransmissionDesc(vehicleUpgradedData, dmBlkPath) {
   let desc = []
   let unitBlk = getBlk(dmBlkPath)
   let info = unitBlk?.VehiclePhys.mechanics
@@ -114,7 +114,7 @@ let function getTransmissionDesc(vehicleUpgradedData, dmBlkPath) {
   return desc
 }
 
-let function getOpticsParams(zoomOutFov, zoomInFov) {
+function getOpticsParams(zoomOutFov, zoomInFov) {
   let fovToDeg = @(f) atan(1.0 / f) / (PI / 180.0 * 0.5)
   let fovDeg = [ zoomOutFov, zoomInFov ].map(@(f) fovToDeg(f))
   let fovToZoom = @(fov) sin(80/2*PI/180) / sin(fov/2*PI/180)
@@ -133,7 +133,7 @@ let function getOpticsParams(zoomOutFov, zoomInFov) {
   }
 }
 
-let function getOpticsDesc(vehicle) {
+function getOpticsDesc(vehicle) {
   let desc = []
   let template = ecs.g_entity_mgr.getTemplateDB().getTemplateByName(vehicle.gametemplate)
   let sightName = template?.getCompValNullable("cockpit__sightName")
@@ -153,7 +153,7 @@ let function getOpticsDesc(vehicle) {
   return desc
 }
 
-let function getWeaponStatus(weapon) {
+function getWeaponStatus(weapon) {
   let gunTemplateName = weapon?.gun__template ?? ""
   let nameParts = gunTemplateName.split("+")
   let templateId = nameParts[0]
@@ -174,7 +174,7 @@ let getGunBarrelLocName = @(status) loc(
   : status.isMachinegun ? "xray/part/mg"
   : "xray/part/gun_barrel")
 
-let function getWeaponDriveTurretDesc(weapon, needAxisX, needAxisY) {
+function getWeaponDriveTurretDesc(weapon, needAxisX, needAxisY) {
   let desc = []
   let status = getWeaponStatus(weapon)
   let weaponTpl = ecs.g_entity_mgr.getTemplateDB().getTemplateByName(status.templateId)
@@ -209,7 +209,7 @@ let function getWeaponDriveTurretDesc(weapon, needAxisX, needAxisY) {
   return desc
 }
 
-let function getWeaponDesc(weapon, status) {
+function getWeaponDesc(weapon, status) {
   let desc = []
   if ((weapon?.gun__locName ?? "") != "")
     desc.append(loc($"guns/{weapon.gun__locName}"))
@@ -236,43 +236,31 @@ let function getWeaponDesc(weapon, status) {
   return desc
 }
 
-let function getXrayPartDesc(vehicle, vehicleUpgradedData, dmBlkPath, partName, partDebug) {
+function getXrayPartDesc(vehicle, vehicleUpgradedData, dmBlkPath, partName, partDebug) {
   let partType = rePartNameEnding.replace("", partName)
   local title = null
   local desc = []
 
-  switch (partType) {
-    case "driver":
-    case "machine_gunner":
-    case "loader":
-    case "commander":
-    case "gunner":
-      title = getCrewMemberLocName(vehicle, partName)
-      break
-    case "engine":
-      desc = getTankEngineDesc(vehicleUpgradedData, dmBlkPath)
-      break
-    case "transmission":
-      desc = getTransmissionDesc(vehicleUpgradedData, dmBlkPath)
-      break
-    case "drive_turret_h":
-    case "drive_turret_v":
-      let isHorizontal = partType == "drive_turret_h"
-      let weapon = getWeaponByPartName(vehicleUpgradedData.armament, partName)
-      desc = getWeaponDriveTurretDesc(weapon, isHorizontal, !isHorizontal)
-      break
-    case "gun_barrel":
-    case "cannon_breech":
-      let weapon = getWeaponByPartName(vehicleUpgradedData.armament, partName)
-      let status = getWeaponStatus(weapon)
-      if (partType == "gun_barrel")
-        title = getGunBarrelLocName(status)
-      desc = getWeaponDesc(weapon, status)
-      break
-    case "optic_gun":
-      desc = getOpticsDesc(vehicle)
-      break
+  if (["driver", "machine_gunner", "loader","commander", "gunner"].contains(partType))
+    title = getCrewMemberLocName(vehicle, partName)
+  else if ( partType ==  "engine")
+    desc = getTankEngineDesc(vehicleUpgradedData, dmBlkPath)
+  else if ( partType ==  "transmission")
+    desc = getTransmissionDesc(vehicleUpgradedData, dmBlkPath)
+  else if ( partType ==  "drive_turret_h" || partType ==  "drive_turret_v") {
+    let isHorizontal = partType == "drive_turret_h"
+    let weapon = getWeaponByPartName(vehicleUpgradedData.armament, partName)
+    desc = getWeaponDriveTurretDesc(weapon, isHorizontal, !isHorizontal)
   }
+  else if ( partType ==  "gun_barrel" || partType ==  "cannon_breech") {
+    let weapon = getWeaponByPartName(vehicleUpgradedData.armament, partName)
+    let status = getWeaponStatus(weapon)
+    if (partType == "gun_barrel")
+      title = getGunBarrelLocName(status)
+    desc = getWeaponDesc(weapon, status)
+   }
+  else if ( partType ==  "optic_gun")
+    desc = getOpticsDesc(vehicle)
 
   if (title == null) {
     let nameLocId = xrayPartsLocNameRemap.findindex(@(v) v.contains(partType)) ?? partType

@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let platform = require("%dngscripts/platform.nut")
 let { showControlsMenu } = require("%ui/hud/menus/controls_setup.nut")
@@ -33,7 +33,7 @@ let btnLogout = {
   name = loc("Exit Game")
   cb = logoutMsgBox
 }
-let allowUrl = platform.is_pc || platform.is_android
+let allowUrl = platform.is_pc
 let btnGSS = GSS_URL == "" ? null : {
   id = "Gss"
   name = loc("gss")

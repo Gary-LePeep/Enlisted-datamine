@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { defTxtColor, titleTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
@@ -23,7 +23,7 @@ let textarea = @(text, color) {
   text
 }.__update(fontBody)
 
-let function multiresearchWarningMsgbox(research, pageResearches, unlockAction) {
+function multiresearchWarningMsgbox(research, pageResearches, unlockAction) {
   let { multiresearchGroup = 0, research_id, name = "", params = {} } = research
   if (dontShowAgain.value || multiresearchGroup <= 0) {
     unlockAction()
@@ -78,7 +78,7 @@ let function multiresearchWarningMsgbox(research, pageResearches, unlockAction) 
 
 console_register_command(function() {
   if (SAVE_ID in settings.value)
-    settings.mutate(@(v) delete v[SAVE_ID])
+    settings.mutate(@(v) v.$rawdelete(SAVE_ID))
 }, "dontShowAgain.multiresearch.reset")
 
 return multiresearchWarningMsgbox

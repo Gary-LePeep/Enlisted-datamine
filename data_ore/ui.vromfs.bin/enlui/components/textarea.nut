@@ -1,9 +1,9 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {fontHeading2, fontSub} = require("%enlSqGlob/ui/fontsStyle.nut")
 let {DEFAULT_TEXT_COLOR} = require("%ui/hud/style.nut")
 
-local function textarea(txt, params={}) {
+function textarea(txt, params={}) {
   if (type(txt)=="table") {
     params = txt
     txt = params?.text
@@ -17,7 +17,7 @@ local function textarea(txt, params={}) {
     behavior = Behaviors.TextArea
   })
 }
-local function smallTextarea(txt, params={}) {
+function smallTextarea(txt, params={}) {
   if (type(txt)=="table")
     txt = params?.text ?? ""
   return {

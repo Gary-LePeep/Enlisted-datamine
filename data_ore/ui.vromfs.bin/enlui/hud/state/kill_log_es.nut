@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {localPlayerEid, localPlayerTeam, localPlayerGroupMembers} = require("%ui/hud/state/local_player.nut")
 let { controlledHeroEid } = require("%ui/hud/state/controlled_hero.nut")
@@ -15,7 +15,7 @@ let {EventKillReport} = require("dasevents")
 
 let showKillLog = Computed (@() !minimalistHud.value && !forcedMinimalHud.value)
 
-let function collapseByFunc(lastev, event){
+function collapseByFunc(lastev, event){
   if (lastev?.killer.player_eid != event?.killer.player_eid
       || event?.damageType != lastev?.damageType
       || event?.victim.player_eid != lastev?.victim.player_eid)
@@ -31,7 +31,7 @@ let deathsLog = EventLogState({id = "deathsLogState", maxActiveEvents=3, ttl=10}
 setIntervalForUpdateFunc(0.45, @(dt) deathsLog.update(dt))
 
 
-let function killEventText(victim, killer) {
+function killEventText(victim, killer) {
   if (victim.isHero) {
     if (killer.vehicle) {
       let killerName = ecs.obsolete_dbg_get_comp_val(killer.eid, "item__name", "")
@@ -60,7 +60,7 @@ let getAwardForKill = @(victim, killer, scoreId) {
   scoreId
 }
 
-let function onReportKill(evt, _eid, _comp) {
+function onReportKill(evt, _eid, _comp) {
   let heroEid     = controlledHeroEid.value
   let myTeam      = localPlayerTeam.value
   let locPlayer   = localPlayerEid.value
@@ -124,7 +124,7 @@ let function onReportKill(evt, _eid, _comp) {
     })
 }
 
-let function clearDeathLog(){
+function clearDeathLog(){
   deathsLog.events.mutate(@(v) v.clear())
 }
 

@@ -1,8 +1,8 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let logo_size=fsh(6)
 
-let function image_from_attr(image_name, size) {
+function image_from_attr(image_name, size) {
   assert(type(image_name)=="string" || image_name==null, "image_name should be string")
   if (image_name==null)
     return null

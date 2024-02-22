@@ -113,8 +113,8 @@
     {
       "_group": {
         "_tags": "render",
-        "dof__depth_for_transparency_node_handle:dabfg::NodeHandle": [],
-        "dof__downsample_depth_for_transparency_node_handle:dabfg::NodeHandle": []
+        "dof__depth_for_transparency_node_handle:resource_slot::NodeHandleWithSlotsAccess": [],
+        "dof__downsample_depth_for_transparency_node_handle:resource_slot::NodeHandleWithSlotsAccess": []
       }
     }
   ],
@@ -128,56 +128,12 @@
     "_tracked": "smoke_blackout_effect__enabled",
     "_tags": "render"
   },
-  "bloom": [
-    {
-      "_use": "replicating"
-    },
-    {
-      "_singleton": true
-    },
-    {
-      "bloom__threshold": 5.8
-    },
-    {
-      "bloom__highQuality": true
-    },
-    {
-      "bloom__radius": 1.0
-    },
-    {
-      "bloom__upSample": 0.2
-    },
-    {
-      "bloom__enabled": true
-    },
-    {
-      "_tracked": "bloom__threshold"
-    },
-    {
-      "_tracked": "bloom__highQuality"
-    },
-    {
-      "_tracked": "bloom__radius"
-    },
-    {
-      "_tracked": "bloom__upSample"
-    },
-    {
-      "_tags": "render"
-    },
-    {
-      "bloom__downsample_node:resource_slot::NodeHandleWithSlotsAccess": []
-    },
-    {
-      "bloom__downsample_chain:dag::Vector<dabfg::NodeHandle>": []
-    },
-    {
-      "bloom__upsample_chain:dag::Vector<dabfg::NodeHandle>": []
-    }
-  ],
-  "force_bloom_hq": {
-    "_singleton": true,
-    "force_bloom_hq__previous_value": true,
+  "bloom": {
+    "_use": "bloom_base",
+    "bloom__threshold": 5.8,
+    "bloom__highQuality": true,
+    "bloom__radius": 1.0,
+    "bloom__upSample": 0.2,
     "_tags": "render"
   }
 }

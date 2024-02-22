@@ -4,39 +4,27 @@
   "caliber": 0.04,
   "speed": 18.5,
   "speedPitch": 5.0,
-  "maxDistance": 5.0,
+  "maxDistance": 6.0,
   "physMat": "grenadeRay",
   "useFutureContacts": true,
   "logCCD": false,
-  "frictionGround": 2.0,
   "noSleepAtTheSlopeCos": 0.766,
   "ccdClipVelocityMult": 0.0,
   "entityTemplate": "rdg1_smoke_grenade",
   "entityPhysTemplate": "rdg1_smoke_grenade_phys",
+  "ccdSpheres": {
+    "ccd": [0.0,0.02,0.0,0.03]
+  },
+  "detonation": {
+    "onHit": false,
+    "timer": 32.0
+  },
   "collisionResource": {
     "props": {
       "volumeBox": "box"
     }
   },
-  "ccdSpheres": [
-    {
-      "ccd": [0.0,0.05,0.0,0.015]
-    },
-    {
-      "ccd": [0.0,0.2,0.0,0.015]
-    },
-    {
-      "ccd": [0.0,-0.05,0.0,0.015]
-    }
-  ],
-  "solver": {
-    "energyConservation": 0.85
-  },
   "visual": {
     "template": "rdg1_smoke_grenade_item+item_in_world"
-  },
-  "detonation": {
-    "onHit": false,
-    "timer": 32.0
   }
 }

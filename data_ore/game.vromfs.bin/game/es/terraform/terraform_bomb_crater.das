@@ -312,27 +312,25 @@ def terraform_crater_on_bomb_explosion(evt : EventShellExplodedServer;
                      bomb_crater_config__splashToCraterRadius : Point2List;
                      crater_config__uncollideOffset : float;
                      crater_config__scaleByPhysmats : Object)
-    using() <| $(var splashParams : SplashParams#)
-      splashParams = calc_splash_params(int(launch_desc.shellId.shellId), false)
+    let splashRadius = calc_splash_radius(int(launch_desc.shellId.shellId))
+    let position = evt.pos
+    let outerRadius = interpolate_by_point_list(bomb_crater_config__splashToCraterRadius, splashRadius.y) * bomb_crater_config__outerRadiusScale
 
-      let position = evt.pos
-      let outerRadius = interpolate_by_point_list(bomb_crater_config__splashToCraterRadius, splashParams.outerRadius) * bomb_crater_config__outerRadiusScale
+    if is_valid_place_for_crater(position, outerRadius, bomb_crater_config__maxHeightAtLand, crater_config__uncollideOffset)
+      let innerRadius = outerRadius * bomb_crater_config__innerRadiusScale
+      let innerDepth = -outerRadius * bomb_crater_config__innerDepthScale
+      let outerAlt = outerRadius * bomb_crater_config__outerAltScale
 
-      if is_valid_place_for_crater(position, outerRadius, bomb_crater_config__maxHeightAtLand, crater_config__uncollideOffset)
-        let innerRadius = outerRadius * bomb_crater_config__innerRadiusScale
-        let innerDepth = -outerRadius * bomb_crater_config__innerDepthScale
-        let outerAlt = outerRadius * bomb_crater_config__outerAltScale
+      let mainMatId = calc_main_physmat_in_crater(position, outerRadius)
+      let craterScaleForMat = get_crater_scale_by_main_physmat_in_crater(mainMatId, crater_config__scaleByPhysmats)
 
-        let mainMatId = calc_main_physmat_in_crater(position, outerRadius)
-        let craterScaleForMat = get_crater_scale_by_main_physmat_in_crater(mainMatId, crater_config__scaleByPhysmats)
-
-        createEntity("bomb_crater_terraformer") <| $(var init : ComponentsInitializer)
-          set(init, "bomb_crater_terraformer__position", position)
-          set(init, "bomb_crater_terraformer__innerRadius", innerRadius * craterScaleForMat.x)
-          set(init, "bomb_crater_terraformer__innerDepth",  innerDepth  * craterScaleForMat.y)
-          set(init, "bomb_crater_terraformer__outerRadius", outerRadius * craterScaleForMat.z)
-          set(init, "bomb_crater_terraformer__outerAlt",    outerAlt    * craterScaleForMat.w)
-          set(init, "bomb_crater_terraformer__mainPhysmatId", mainMatId)
+      createEntity("bomb_crater_terraformer") <| $(var init : ComponentsInitializer)
+        set(init, "bomb_crater_terraformer__position", position)
+        set(init, "bomb_crater_terraformer__innerRadius", innerRadius * craterScaleForMat.x)
+        set(init, "bomb_crater_terraformer__innerDepth",  innerDepth  * craterScaleForMat.y)
+        set(init, "bomb_crater_terraformer__outerRadius", outerRadius * craterScaleForMat.z)
+        set(init, "bomb_crater_terraformer__outerAlt",    outerAlt    * craterScaleForMat.w)
+        set(init, "bomb_crater_terraformer__mainPhysmatId", mainMatId)
 
 [es(tag=server, on_appear)]
 def bomb_crater_terraformer_on_init(evt : Event;

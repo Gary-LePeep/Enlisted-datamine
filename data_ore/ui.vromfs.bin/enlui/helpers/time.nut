@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {format} = require("string")
 let timeBase = require("%sqstd/time.nut")
@@ -22,7 +22,7 @@ let secondsToStringLoc = @(time) secondsToTimeFormatString(time).subst(locTable)
 
 let secondsToHoursLoc = @(time) secondsToTimeFormatString(roundTime(time)).subst(locTable)
 
-let function secondsToTimeFormatStringWithSec(time) {
+function secondsToTimeFormatStringWithSec(time) {
   let {days=0, hours=0, minutes=0, seconds=0} = secondsToTime(time)
   let res = []
   if (days>0)

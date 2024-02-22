@@ -4,7 +4,7 @@ require AnimV20
 require GeomNodeTree
 require enlisted.events_enlisted
 
-[es(after=after_animchar_update_sync, before=animchar_render_es)]
+[es(after=after_animchar_update_sync)]
 def node_attached_itm(info : ParallelUpdateFrameDelayed;
                       node_attached__entity : EntityId;
                       node_attached__nodeId : int;
@@ -18,7 +18,7 @@ def node_attached_itm(info : ParallelUpdateFrameDelayed;
     geomtree_getNodeWtmScalar(*animchar.nodeTree, node_attached__nodeId, tm)
     transform = tm * node_attached__localTm
 
-[es(after=after_animchar_update_sync, before=animchar_render_es)]
+[es(after=after_animchar_update_sync)]
 def node_attached_pos(info : ParallelUpdateFrameDelayed;
                       node_attached__entity : EntityId;
                       node_attached__nodeId : int;
@@ -42,7 +42,7 @@ def node_attached_destroy_with_parent_local(info : ParallelUpdateFrameDelayed; e
   if !doesEntityExist(node_attached__entity)
     destroyEntity(eid)
 
-[es(tag=gameClient, after=node_attached_itm, before=animchar_render_es, REQUIRE=node_attached__updateWtm)]
+[es(tag=gameClient, after=node_attached_itm, REQUIRE=node_attached__updateWtm)]
 def node_attached_update_animchar_es(info : ParallelUpdateFrameDelayed;
                                      transform : float3x4;
                                      node_attached__nodeId : int;

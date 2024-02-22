@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontHeading2, fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let checkbox = require("%ui/components/checkbox.nut")
@@ -42,7 +42,7 @@ let currencyImage = @(currency) currency
     }
   : null
 
-let function mkItemCostInfo(price, fullPrice, currencyId) {
+function mkItemCostInfo(price, fullPrice, currencyId) {
   let currency = currenciesById.value?[currencyId]
   return {
     flow = FLOW_HORIZONTAL
@@ -63,7 +63,7 @@ let function mkItemCostInfo(price, fullPrice, currencyId) {
   }
 }
 
-let function buyCurrencyText(currency, sf) {
+function buyCurrencyText(currency, sf) {
   return {
     flow = FLOW_HORIZONTAL
     valign = ALIGN_CENTER
@@ -92,7 +92,7 @@ let notEnoughMoneyInfo = @(price, currencyId) {
   ]
 }
 
-local function show(price, currencyId, purchase, fullPrice = null, title = "", productView = null,
+function show(price, currencyId, purchase, fullPrice = null, title = "", productView = null,
   description = null, purchaseCurrency = null, dontShowMeTodayId = null, srcWindow = null,
   srcComponent = null, alwaysShowCancel = false, showOnlyWhenNotEnoughMoney = false,
   gap = defGap, additionalButtons = [], purchaseText = null

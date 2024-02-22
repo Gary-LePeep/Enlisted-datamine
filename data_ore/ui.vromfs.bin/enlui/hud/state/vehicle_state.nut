@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 let { watchedTable2TableOfWatched } = require("%sqstd/frp.nut")
 let { mkFrameIncrementObservable } = require("%ui/ec_to_watched.nut")
 let { localPlayerEid } = require("%ui/hud/state/local_player.nut")

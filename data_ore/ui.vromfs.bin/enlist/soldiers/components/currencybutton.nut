@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { Flat } = require("%ui/components/textButton.nut")
@@ -17,7 +17,7 @@ let txtColor = @(sf, isEnabled) !isEnabled ? TextDisabled
   : sf & S_HOVER ? TextHover
   : TextNormal
 
-let function mkCurrencyButton(
+function mkCurrencyButton(
   text, cb, campItems, cost = null, orderTpl = null, orderCount = null,
   isEnabled = true, override = {}
 ) {

@@ -1,5 +1,4 @@
 require ecs
-require enlisted.events_enlisted
 require DaWeapons
 require sound_utils.modules.sound_player_common
 require soundEvent
@@ -15,7 +14,7 @@ def rotating_turrets_sound_toggle(evt : Event;
     rotating_turrets_sound__event.enabled = false
 
 
-[es(tag=sound, on_event=ParallelUpdateFrameDelayed)]
+[es(tag=sound, on_event=ParallelUpdateFrameDelayed, after=sound_begin_update_es, before=sound_end_update_es)]
 def rotating_turrets_sound_update(evt : Event;
                                   [[shared_comp]] rotating_turrets_sound__path : Object;
                                   var rotating_turrets_sound__event : SoundEvent&;

@@ -38,7 +38,10 @@
   },
   "directx": {
     "bonesCount": 256,
-    "debug": false
+    "debug": false,
+    "ignore": {
+      "default": 351
+    }
   },
   "ps4": {
     "garlic_size_mb": 3172,
@@ -93,7 +96,7 @@
   "tracers": {
     "tail_texture": "tracer_tail_density"
   },
-  "daEditor4": {
+  "daEditor": {
     "disable": false,
     "input": {
       "maxCamera": {
@@ -126,9 +129,9 @@
   "graphicsAutodetect": {
     "gpuBenchmarkDuration": 10.0,
     "presetDefault": "medium",
-    "presetUltralow": "bare minimum",
+    "presetUltralow": "bareMinimum",
     "presets": {
-      "bare minimum": {
+      "bareMinimum": {
         "timeMs30": 10.0905,
         "timeMs60": 5.0452,
         "timeMs120": 2.5226,
@@ -252,7 +255,6 @@
     "graphics": {
       "__allow_all_params": true,
       "__exclude_allow": {
-        "shouldRenderHaze": true,
         "shouldRenderWaterRipples": true,
         "supportsIndoorProbes": true,
         "grassGridSizeMultiplier": 1.0,
@@ -313,7 +315,7 @@
     "tracers": {
       "tail_texture": ""
     },
-    "daEditor4": {
+    "daEditor": {
       "__allow_all_params": true
     },
     "texStreaming": {

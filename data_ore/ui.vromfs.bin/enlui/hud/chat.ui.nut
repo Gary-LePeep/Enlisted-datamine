@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {fontBody, fontSub} = require("%enlSqGlob/ui/fontsStyle.nut")
 let { TEAM_UNASSIGNED } = require("team")
@@ -32,7 +32,7 @@ let itemAnim = [
   { prop=AnimProp.scale, from=[1,1], to=[1,0.01], delay=0.4, duration=0.6, playFadeOut=true}
 ]
 
-let function chatItem(item, params = {}) {
+function chatItem(item, params = {}) {
   let color = item?.send_mode == "system" ? systemMessageColor
     : item.team == TEAM_UNASSIGNED ? 0xFFFFFFFF
     : item.team == localPlayerTeam.value ? TEAM0_TEXT_COLOR
@@ -78,7 +78,7 @@ let function chatItem(item, params = {}) {
 local lastScrolledTo = null
 let scrollHandler = ScrollHandler()
 
-let function chatLogContent() {
+function chatLogContent() {
   let logLines = chatState.logState.value.map(@(line) chatItem(line, { noanim = true }))
   let scrollTo = chatState.logState.value.len() ? chatState.logState.value.top() : null
   return {
@@ -107,7 +107,7 @@ let chatLog = {
   vplace = ALIGN_BOTTOM
 }
 
-let function chatContent() {
+function chatContent() {
   let children = chatState.lines.value.map(chatItem)
 
   return {
@@ -123,7 +123,7 @@ let function chatContent() {
 }
 
 
-let function inputBox() {
+function inputBox() {
   let textInput = {
     rendObj = ROBJ_SOLID
     color = CONTROL_BG_COLOR
@@ -166,7 +166,7 @@ let function inputBox() {
     ]
   }
 
-  let function sendModeText() {
+  function sendModeText() {
     let mode = chatState.sendMode.value
     if (mode == "all")
       return loc("chat/all")
@@ -195,7 +195,7 @@ let function inputBox() {
     ]
   }
 
-  let function switchSendModes() {
+  function switchSendModes() {
     let newMode = chatState.sendMode.value == "all" ? "team" : "all"
     if (switchSendModesAllowed.value)
       chatState.sendMode(newMode)
@@ -232,7 +232,7 @@ msgbox.hasMsgBoxes.subscribe(function(shown_any) {
 
 let inputBoxDummy = {size=[flex(), inputBoxHeight]}
 
-let function chatRoot() {
+function chatRoot() {
   local children = null
   if (showChatInput.value) {
     children = [chatLog,inputBox]

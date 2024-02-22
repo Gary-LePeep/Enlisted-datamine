@@ -1,7 +1,7 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontSub, fontBody, fontHeading2 } = require("%enlSqGlob/ui/fontsStyle.nut")
-let { bigPadding, brightAccentColor, defTxtColor, smallPadding
+let { bigPadding, brightAccentColor, defTxtColor, negativeTxtColor, smallPadding
 } = require("%enlSqGlob/ui/designConst.nut")
 let { ceil, getRomanNumeral } = require("%sqstd/math.nut")
 let faComp = require("%ui/components/faComp.nut")
@@ -10,7 +10,6 @@ let mkTextRow = require("%darg/helpers/mkTextRow.nut")
 let mkItemWithMods = require("%enlist/soldiers/mkItemWithMods.nut")
 let { TextNormal, TextHover, textMargin
 } = require("%ui/components/textButton.style.nut")
-let { Bordered } = require("%ui/components/txtButton.nut")
 let getPayItemsData = require("%enlist/soldiers/model/getPayItemsData.nut")
 let textButtonTextCtor = require("%ui/components/textButtonTextCtor.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
@@ -30,6 +29,7 @@ let JB = require("%ui/control/gui_buttons.nut")
 let colorize = require("%ui/components/colorize.nut")
 
 let itemSize = [hdpx(315), hdpx(90)]
+let largeNegativeTxtStyle = { color = negativeTxtColor }.__update(fontBody)
 
 let mkFaComp = @(text) faComp(text, {
   size = [SIZE_TO_CONTENT, itemSize[1]]
@@ -40,24 +40,44 @@ let mkFaComp = @(text) faComp(text, {
 
 let arrowComp = mkFaComp("arrow-circle-right")
 
-let orderViews = @(priceOptions, countWatchedVal) priceOptions
-  .filter(@(option) option.canBuyCount >= countWatchedVal)
+let orderViews = @(priceOptions) priceOptions
   .map(@(option) mkItemCurrency({
     currencyTpl = option.orderTpl,
     count = option.ordersInStock,
     textStyle = { color = TextNormal }.__update(fontBody)
   }))
 
-let function mkUpgradeItemInfo(currentItem, upgradedItem, upgradesList,
-  priceOptions, countWatched) {
+function moreOrdersUi(option, count) {
+  let { ordersInStock, orderReq, canBuyCount, orderTpl } = option
+  let deltaOrders = count * orderReq - ordersInStock
+  return canBuyCount >= count ? null : {
+    flow = FLOW_HORIZONTAL
+    gap = bigPadding
+    children = [
+      txt(loc("needMoreOrders")).__update(largeNegativeTxtStyle)
+      {
+        flow = FLOW_HORIZONTAL
+        children = [
+          mkCurrencyImage(getCurrencyPresentation(orderTpl)?.icon)
+          {
+            rendObj = ROBJ_TEXT
+            text = deltaOrders
+          }.__update(largeNegativeTxtStyle)
+        ]
+      }
+    ]
+  }
+}
 
+function mkUpgradeItemInfo(currentItem, upgradedItem, upgradesList,
+  priceOptions, countWatched) {
   let itemMaxCount = max(currentItem.count, currentItem?.guids.len() ?? 0)
   let { tier } = upgradedItem
   return @() {
     watch = countWatched
     size = [sw(90), SIZE_TO_CONTENT]
     flow = FLOW_VERTICAL
-    gap = fsh(5)
+    gap = bigPadding
     halign = ALIGN_CENTER
     children = [
       {
@@ -72,7 +92,7 @@ let function mkUpgradeItemInfo(currentItem, upgradedItem, upgradesList,
             hplace = ALIGN_RIGHT
             valign = ALIGN_CENTER
             gap = fsh(2)
-            children = orderViews(priceOptions, countWatched.value)
+            children = orderViews(priceOptions)
           }
         ]
       }
@@ -121,18 +141,10 @@ let function mkUpgradeItemInfo(currentItem, upgradedItem, upgradesList,
             })
             color = defTxtColor
           }.__update(fontBody)
-          {
-            flow = FLOW_HORIZONTAL
-            gap = bigPadding * 2
-            valign = ALIGN_CENTER
-            children = [
-              mkCounter(itemMaxCount, countWatched),
-              Bordered(loc("btn/upgrade/allItems"), @() countWatched(itemMaxCount))
-            ]
-          }
+          mkCounter(itemMaxCount, countWatched, 1, true)
         ]
       }
-    ]
+    ].extend(priceOptions.map(@(option) moreOrdersUi(option, countWatched.value)))
   }
 }
 
@@ -229,7 +241,7 @@ let notEnoughMsg = @(currencyData) msgbox.showMsgbox({
   }
 })
 
-let function openUpgradeItemMsg(currentItem, upgradeData) {
+function openUpgradeItemMsg(currentItem, upgradeData) {
   let {
     guids, armyId, upgradeitem, priceOptions, hasEnoughOrders
   } = upgradeData
@@ -263,7 +275,7 @@ let function openUpgradeItemMsg(currentItem, upgradeData) {
   })
 }
 
-let function openDisposeItemMsg(currentItem, disposeData) {
+function openDisposeItemMsg(currentItem, disposeData) {
   let {
     armyId, itemBaseTpl, orderTpl, orderCount, isDestructible, isRecyclable, isDisposable,
     guids, batchSize = 1
@@ -377,7 +389,7 @@ let function openDisposeItemMsg(currentItem, disposeData) {
         padding = 5 * bigPadding
         children
       }
-      !isDestructible || guidsCount <= 1 ? null : mkCounter(guidsCount, countWatched, batchSize)
+      !isDestructible || guidsCount <= 1 ? null : mkCounter(guidsCount, countWatched, batchSize, true)
     ]
   }
 

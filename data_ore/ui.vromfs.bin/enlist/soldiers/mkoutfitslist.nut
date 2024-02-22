@@ -1,9 +1,10 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
-let logO = require("%sqstd/log.nut")().with_prefix("[OUTFITS] ")
 let { squadsCfgById } = require("%enlist/soldiers/model/config/squadsConfig.nut")
-let { defBgColor, commonBtnHeight, soldierWndWidth, bigPadding, smallPadding } = require("%enlSqGlob/ui/viewConst.nut")
-let { panelBgColor, hoverPanelBgColor, selectedPanelBgColor, defTxtColor, titleTxtColor
+let { defBgColor, commonBtnHeight, soldierWndWidth, bigPadding, smallPadding, listCtors
+} = require("%enlSqGlob/ui/viewConst.nut")
+let { panelBgColor, hoverPanelBgColor, selectedPanelBgColor, defTxtColor, titleTxtColor,
+  squadSlotBgHoverColor, squadSlotBgIdleColor
 } = require("%enlSqGlob/ui/designConst.nut")
 let { Bordered } = require("%ui/components/txtButton.nut")
 let modalPopupWnd = require("%ui/components/modalPopupWnd.nut")
@@ -11,38 +12,42 @@ let { fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { stateChangeSounds } = require("%ui/style/sounds.nut")
 let JB = require("%ui/control/gui_buttons.nut")
 let { set_squad_outfit_preset } = require("%enlist/meta/clientApi.nut")
-let { getLinkedSquadGuid } = require("%enlSqGlob/ui/metalink.nut")
+let { getLinkedArmyName } = require("%enlSqGlob/ui/metalink.nut")
 let { armySquadsById } = require("%enlist/soldiers/model/state.nut")
 let { getCampaignTitle } = require("%enlSqGlob/ui/itemsInfo.nut")
+let { getSquadCampainOutfit } = require("%enlist/soldiers/model/config/outfitConfig.nut")
+let { utf8ToUpper } = require("%sqstd/string.nut")
+let faComp = require("%ui/components/faComp.nut")
 
 
 let WND_UID = "outfits_list"
 let CAMPAIGNS_ORDER = [ "moscow", "berlin", "stalingrad", "pacific", "normandy", "tunisia", "ardennes" ]
 
-let selectedOutfitCampaign = Watched("")
-
 let defTxtStyle = { color = defTxtColor }.__update(fontBody)
 let selectedTxtStyle = { color = titleTxtColor }.__update(fontBody)
-let hintTxtStyle = { color = defTxtColor }.__update(fontSub)
 
 let slotBGColor = @(sf, isSelected = false) sf & S_HOVER ? hoverPanelBgColor
   : isSelected ? selectedPanelBgColor
   : panelBgColor
 
-let textStyle = @(sf, isSelected = false) sf & S_HOVER ? selectedTxtStyle
+let outfitTextStyle = @(sf, isSelected = false) sf & S_HOVER ? selectedTxtStyle
   : isSelected ? selectedTxtStyle
   : defTxtStyle
 
+let squadButtonBGColor = @(sf) sf & S_HOVER ? squadSlotBgHoverColor
+  : squadSlotBgIdleColor
+
+let squadButtonTitleTextColor = listCtors.nameColor
+let squadButtonOutfitNameColor = listCtors.weaponColor
+
 let close = @() modalPopupWnd.remove(WND_UID)
 
-let function open(event, squadGuid, soldierTemplatePreset) {
-  let { l, b } = event.targetRect
-
-  return modalPopupWnd.add([l, b], {
+let open = @(popupParams, squadGuid, soldierTemplatePreset, selectedOutfitCampaign)
+  modalPopupWnd.add(popupParams.startPoint, {
     uid = WND_UID
     popupHalign = ALIGN_LEFT
     popupValign = ALIGN_TOP
-    popupFlow = FLOW_VERTICAL
+    popupFlow = popupParams.popupFlow
     moveDuration = min(0.12 + 0.03 * soldierTemplatePreset.len(), 0.3)
     padding = 0
     fillColor = defBgColor
@@ -51,10 +56,10 @@ let function open(event, squadGuid, soldierTemplatePreset) {
       rendObj = ROBJ_BOX
       fillColor = defBgColor
       flow = FLOW_VERTICAL
-      children =  CAMPAIGNS_ORDER
+      children = CAMPAIGNS_ORDER
         .filter(@(val) val in soldierTemplatePreset)
         .map(function(campaignId) {
-          let isSelected = Computed(@() campaignId == selectedOutfitCampaign.value)
+          let isSelected = Computed(@() campaignId == selectedOutfitCampaign)
 
           return watchElemState(@(sf) {
             watch = isSelected
@@ -72,37 +77,30 @@ let function open(event, squadGuid, soldierTemplatePreset) {
                 return
               }
 
-              selectedOutfitCampaign(campaignId)
               set_squad_outfit_preset(squadGuid, campaignId)
               close()
             }
             children = {
               rendObj = ROBJ_TEXT
               text = getCampaignTitle(campaignId)
-            }.__update(textStyle(sf, isSelected.value))
+            }.__update(outfitTextStyle(sf, isSelected.value))
           })
         })
     }
     hotkeys = [[$"^{JB.B} | Esc", { action = close }]]
   })
-}
 
-let mkOutfitsListButton = @(soldier, canOpenCb = null) function() {
-  let squadGuid = getLinkedSquadGuid(soldier)
-  if (squadGuid == null) {
-    logO("not found squad guid for soldier", soldier)
-    return null
-  }
 
-  let { armyId, squadId } = soldier
-  let { campaignOutfit = "" } = armySquadsById.value[armyId][squadId]
-
-  selectedOutfitCampaign(campaignOutfit)
+let mkOutfitsListButton = @(squadInfo, canOpenCb = null) function() {
+  let armyId = getLinkedArmyName(squadInfo)
+  let { guid, squadId } = squadInfo
 
   let { soldierTemplatePreset = {} } = squadsCfgById.value?[armyId][squadId]
   if (soldierTemplatePreset.len() <= 1)
     return { watch = [squadsCfgById] }
 
+  let campaignOutfit = getSquadCampainOutfit(armyId, squadId, armySquadsById.value)
+  let text = loc("appearance/mode")
   return {
     watch = [ squadsCfgById, armySquadsById ]
     size = [flex(), SIZE_TO_CONTENT]
@@ -112,7 +110,7 @@ let mkOutfitsListButton = @(soldier, canOpenCb = null) function() {
     children = [
       {
         rendObj = ROBJ_TEXT
-        text = loc("appearance/mode")
+        text
         color = titleTxtColor
         hplace = ALIGN_CENTER
       }.__update(fontSub)
@@ -126,21 +124,76 @@ let mkOutfitsListButton = @(soldier, canOpenCb = null) function() {
               return
           }
 
-          open(event, squadGuid, soldierTemplatePreset)
+          open({
+            startPoint = [event.targetRect.l, event.targetRect.b]
+            popupFlow = FLOW_VERTICAL
+          }, guid, soldierTemplatePreset, campaignOutfit)
         },
-        {
-          btnWidth = flex()
-          hint = {
-            rendObj = ROBJ_TEXT
-            text = loc("outfits/hint")
-          }.__update(hintTxtStyle)
-        }
+        { btnWidth = flex() }
       )
     ]
   }
 }
 
+let mkSquadListOufitButton = function(squadInfo) {
+  let armyId = getLinkedArmyName(squadInfo)
+  let { guid, squadId } = squadInfo
+  let text = "".concat(utf8ToUpper(loc("outfits/label")), loc("ui/colon"))
+
+  return watchElemState(function(sf) {
+    let { soldierTemplatePreset = {} } = squadsCfgById.value?[armyId][squadId]
+    if (soldierTemplatePreset.len() <= 1)
+      return { watch = [squadsCfgById] }
+
+    let campaignOutfit = getSquadCampainOutfit(armyId, squadId, armySquadsById.value)
+    let campaignText = getCampaignTitle(campaignOutfit)
+    return {
+      watch = [ squadsCfgById, armySquadsById ]
+      size = [flex(), SIZE_TO_CONTENT]
+      rendObj = ROBJ_BOX
+      behavior = Behaviors.Button
+      flow = FLOW_HORIZONTAL
+      fillColor = squadButtonBGColor(sf)
+      onClick = @(event) open({
+        startPoint = [event.targetRect.r + smallPadding, event.targetRect.t]
+        popupFlow = FLOW_HORIZONTAL
+      }, guid, soldierTemplatePreset, campaignOutfit)
+      children = [
+        {
+          flow = FLOW_VERTICAL
+          size = [flex(), SIZE_TO_CONTENT]
+          valign = ALIGN_CENTER
+          margin = smallPadding
+          children = [
+            {
+              rendObj = ROBJ_TEXT
+              text
+              color = squadButtonTitleTextColor(sf, false)
+              hplace = ALIGN_LEFT
+            }.__update(fontSub)
+            {
+              rendObj = ROBJ_TEXT
+              text = campaignText
+              color = squadButtonOutfitNameColor(sf, false)
+              hplace = ALIGN_LEFT
+            }.__update(fontSub)
+          ]
+        }
+        {
+          size = [hdpxi(36), flex()]
+          halign = ALIGN_CENTER
+          valign = ALIGN_CENTER
+          children = faComp("angle-right", {
+            fontSize = hdpxi(36)
+            color = squadButtonTitleTextColor(sf, false)
+          })
+        }
+      ]
+    }
+  })
+}
+
 return {
   mkOutfitsListButton
-  selectedOutfitCampaign
+  mkSquadListOufitButton
 }

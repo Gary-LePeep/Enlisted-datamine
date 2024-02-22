@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {canStartMeleeCharge} = require("%ui/hud/state/hero_weapons.nut")
 let {tipCmp} = require("%ui/hud/huds/tips/tipComponent.nut")

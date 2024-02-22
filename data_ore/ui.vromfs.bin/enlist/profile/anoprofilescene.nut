@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let anoPlayerCardUi = require("anoPlayerCardUi.nut")
 let { isAnoProfileOpened } = require("anoProfileState.nut")
@@ -30,11 +30,11 @@ let anoProfileWindow = @() {
   }
 }
 
-let function open() {
+function open() {
   sceneWithCameraAdd(anoProfileWindow, "events")
 }
 
-let function close() {
+function close() {
   sceneWithCameraRemove(anoProfileWindow)
 }
 

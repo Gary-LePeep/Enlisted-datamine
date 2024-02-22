@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { findSlotUnlockRequirement, focusResearch } = require("%enlist/researches/researchesFocus.nut")
 let msgbox = require("%ui/components/msgbox.nut")
@@ -13,7 +13,7 @@ let {
 } = require("%enlist/soldiers/model/armyUnlocksState.nut")
 
 
-let function gotoResearchUpgradeMsgBox(soldier, slotType, _slotId) {
+function gotoResearchUpgradeMsgBox(soldier, slotType, _slotId) {
   let { sClass = "unknown", equipScheme = {} } = soldier
   let soldierClass = loc(soldierClasses?[sClass].locId ?? "unknown")
   let buttons = [{ text = loc("Ok"), isCancel = true }]

@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { settings } = require("%enlist/options/onlineSettings.nut")
 
@@ -13,7 +13,7 @@ enum SeenMarks {
 
 let seenData = Computed(@() settings.value?[SEEN_ID] ?? {})
 
-let function applyCompatibility() {
+function applyCompatibility() {
   if (OLD_SEEN_ID not in settings.value)
     return
 
@@ -34,7 +34,7 @@ let function applyCompatibility() {
   }
   settings.mutate(function(set) {
     set[SEEN_ID] <- res
-    delete set[OLD_SEEN_ID]
+    set.$rawdelete(OLD_SEEN_ID)
   })
 }
 
@@ -65,7 +65,7 @@ let seenShopItems = Computed(function() {
   return { opened, seen }
 })
 
-let function changeStatus(status, armyId, itemGuids) {
+function changeStatus(status, armyId, itemGuids) {
   let update = {}
   foreach (guid in typeof itemGuids == "array" ? itemGuids : [itemGuids])
     if (getSeenStatus(seenData.value?[armyId][guid]) != status)
@@ -86,7 +86,7 @@ let markShopItemSeen = @(armyId, itemGuids) changeStatus(SeenMarks.SEEN, armyId,
 
 let markShopItemOpened = @(armyId, itemGuids) changeStatus(SeenMarks.OPENED, armyId, itemGuids)
 
-let function excludeShopItemSeen(armyId, excludeList) {
+function excludeShopItemSeen(armyId, excludeList) {
   settings.mutate(function(set) {
     let saved = clone (set?[SEEN_ID] ?? {})
     let armySaved = clone (saved?[armyId] ?? {})
@@ -95,7 +95,7 @@ let function excludeShopItemSeen(armyId, excludeList) {
   })
 }
 
-console_register_command(@() settings.mutate(@(s) SEEN_ID in s ? delete s[SEEN_ID] : null), "meta.resetSeenShopItems")
+console_register_command(@() settings.mutate(@(s) s?.$rawdelete(SEEN_ID)), "meta.resetSeenShopItems")
 
 return {
   seenShopItems

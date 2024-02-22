@@ -12,17 +12,13 @@ let IN_AIR = 1
 let UNINITED = 0
 
 
-[es(tag=sound)]
+[es(tag=sound, REQUIRE=vehicleSoundControlEnabled)]
 def mech_steps_sound_fx(evt : EventMechStepSound;
-                        sound_control__shouldPlay : bool;
                         is_watched_sound : bool;
                         mech_steps_sound__minMaxSpeed : float2;
                         [[shared_comp]] mech_steps_sound__stepPath : Object;
                         sound_tags : Object;
                         walker_net_phys : WalkerPhysActor)
-
-  if !sound_control__shouldPlay
-    return
 
   let pos = evt.pos
   var handle = sound_player_common::play_path(mech_steps_sound__stepPath, sound_tags, is_watched_sound, pos, false)
@@ -35,9 +31,8 @@ def mech_steps_sound_fx(evt : EventMechStepSound;
   abandon(handle)
 
 
-[es(tag=sound, on_event=ParallelUpdateFrameDelayed)]
+[es(tag=sound, on_event=ParallelUpdateFrameDelayed, after=sound_begin_update_es, before=sound_end_update_es, REQUIRE=vehicleSoundControlEnabled)]
 def mech_steps_sound_update(evt : Event;
-                            sound_control__shouldPlay : bool;
                             is_watched_sound : bool;
                             mech_steps_sound__minMaxSpeed : float2;
                             var mech_steps_sound__feetIdx : int&;
@@ -50,7 +45,7 @@ def mech_steps_sound_update(evt : Event;
                             walker_net_phys : WalkerPhysActor)
 
   let numLimbs = length(walker_net_phys.phys.currentState.limbs)
-  if !sound_control__shouldPlay || numLimbs == 0 || length(mech_steps_sound__onGroundState) != numLimbs
+  if numLimbs == 0 || length(mech_steps_sound__onGroundState) != numLimbs
     return
 
   let idx = mech_steps_sound__feetIdx
@@ -88,7 +83,7 @@ def mech_steps_sound_update(evt : Event;
       mech_steps_sound__servoEvent.enabled = false
 
 
-[es(tag=sound, on_appear, track=sound_control__shouldPlay, REQUIRE=sound_control__shouldPlay)]
+[es(tag=sound, on_appear, REQUIRE=vehicleSoundControlEnabled)]
 def mech_steps_sound_toggle(evt : Event;
                             var mech_steps_sound__feetIdx : int&;
                             var mech_steps_sound__onGroundState : IntList&;

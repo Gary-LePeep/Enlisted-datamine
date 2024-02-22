@@ -41,7 +41,7 @@ def stop_vehicle_control(var phys_actor : BasePhysActor&)
 
 def stop_vehicle_control_server(var phys_actor : BasePhysActor&)
   stop_vehicle_control(phys_actor)
-  base_phys_actor_setTickRateType(phys_actor, phys_actor.role, PhysTickRateType LowFreq)
+  base_phys_actor_setRoleAndTickrateType(phys_actor, phys_actor.role, PhysTickRateType LowFreq)
 
 def determine_controls_for_bot(var mode : VehicleControlsState#; current_owner_eid, can_acquire_controls, seat__availableControls, seat__directTurretControl) : void
   if !(get_bool(current_owner_eid, "isAlive") ?? false)

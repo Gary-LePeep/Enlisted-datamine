@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 let { anyItemComps, mkItemDescFromComp } = require("items.nut")
 let {EWS_PRIMARY, EWS_GRENADE, EWS_NUM } = require("%enlSqGlob/weapon_slots.nut")
 let { INVALID_ITEM_ID } = require("humaninv")
@@ -175,7 +175,7 @@ ecs.register_es("hero_ui_weapons_es",
         heroModsByWeaponSlotRawModify(function(v) {
             if (eid not in v?[idx])
               return v
-            delete v[idx][eid]
+            v[idx].$rawdelete(eid)
             return v
           })
         return

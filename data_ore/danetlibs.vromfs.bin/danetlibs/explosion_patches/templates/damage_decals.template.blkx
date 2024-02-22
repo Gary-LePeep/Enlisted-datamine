@@ -1,0 +1,29 @@
+{
+  "vehicle_damage_decals": {
+    "_tags": "render",
+    "damage_decals__minCaliberForShrapnelDecals": 0.035,
+    "damage_decals__maxShrapnelDecalsPerPart": 4,
+    "damage_decals__collNodeId:list<i>": [],
+    "damage_decals__nodeMatrixId:list<u32>": [],
+    "damage_decals__projectileHitDecalId:list<i>": [],
+    "damage_decals__projectileHitCollNodeId:list<i>": [],
+    "damage_decals__projectileHitLocalPos:list<p3>": [],
+    "damage_decals__projectileHitCaliber:list<r>": [],
+    "damage_decals__collNodesWithBurning:list<i>": [],
+    "damage_decals__shrapnelDecalId:list<i>": [],
+    "damage_decals__shrapnelDecalPartId:list<i>": [],
+    "damage_decals__shrapnelDecalLocalPos:list<p3>": [],
+    "damage_decals__shrapnelDecalLocalHitDirTemp:list<p3>": [],
+    "damage_decals__shrapnelDecalLocalNormalTemp:list<p3>": [],
+    "damage_decals__explosionPos:list<p3>": [],
+    "damage_decals__explosionNumTraces:list<i>": [],
+    "damage_decals__explosionMaxTraceLen:list<r>": []
+  },
+  "shrapnel_decals_debug": {
+    "_tags": "dev",
+    "damage_decals__prevExplosionPos": [0.0,0.0,0.0],
+    "damage_decals__prevExplosionRadius": 0.0,
+    "damage_decals__prevExplosionTraceLen": 0.0,
+    "damage_decals__prevExplosionTraces:list<p3>": []
+  }
+}

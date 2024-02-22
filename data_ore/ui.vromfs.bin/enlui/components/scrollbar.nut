@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let baseScrollbar = require("%ui/components/base_scrollbar.nut")
 let { Interactive, Active, HoverItemBg, FullTransparent, ScrollBgColor
@@ -76,18 +76,18 @@ let thinStyle = freeze({
 })
 
 
-let function scrollbar(scroll_handler) {
+function scrollbar(scroll_handler) {
   return baseScrollbar.scroll(scroll_handler, {styling=styling})
 }
 
 
-let function makeHorizScroll(content, options={}) {
+function makeHorizScroll(content, options={}) {
   if (!("styling" in options))
     options.styling <- styling
   return baseScrollbar.makeHorizScroll(content, options)
 }
 
-let function makeVertScroll(content, options={}) {
+function makeVertScroll(content, options={}) {
   if (!("styling" in options))
     options.styling <- styling
   return baseScrollbar.makeVertScroll(content, options)
@@ -96,12 +96,12 @@ let function makeVertScroll(content, options={}) {
 let topGradient = mkColoredGradientY({ colorTop = ScrollBgColor, colorBottom = FullTransparent})
 let bottomGradient = mkColoredGradientY({ colorTop = FullTransparent, colorBottom = ScrollBgColor })
 
-let function makeGradientVertScroll(content, options = {}) {
+function makeGradientVertScroll(content, options = {}) {
   let hasBottomScroll = Watched(false)
   let hasTopScroll = Watched(true)
   let scrollHandler = ScrollHandler()
 
-  let function updateScroll(elem) {
+  function updateScroll(elem) {
     hasTopScroll(elem.getScrollOffsY() > 0)
     let overflow = elem.getContentHeight() - elem.getHeight()
     hasBottomScroll(overflow > elem.getScrollOffsY())

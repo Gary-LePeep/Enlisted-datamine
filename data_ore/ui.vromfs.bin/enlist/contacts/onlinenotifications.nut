@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { friendsOnlineUids, myRequestsUids, requestsToMeUids
 } = require("%enlist/contacts/contactsWatchLists.nut")
@@ -6,7 +6,7 @@ let { updateContact, getContactNick } = require("%enlist/contacts/contact.nut")
 let { isInBattleState } = require("%enlSqGlob/inBattleState.nut")
 let { save_settings, get_setting_by_blk_path, set_setting_by_blk_path } = require("settings")
 let userInfo = require("%enlSqGlob/userInfo.nut")
-let { isLoggedIn } = require("%enlSqGlob/login_state.nut")
+let { isLoggedIn } = require("%enlSqGlob/ui/login_state.nut")
 let { addPopup } = require("%enlSqGlob/ui/popup/popupsState.nut")
 
 const FRIEND_NOTIFICATION = "hasFriendOnlineNotification"
@@ -22,7 +22,7 @@ let isNotificationDisabled = @() !isLoggedIn.value
   || isInBattleState.value
 
 
-let function fillFriendsCache(friends) {
+function fillFriendsCache(friends) {
   if (friendsOnlineCache.value == null) {
     let cache = friends.reduce(@(res, f) res.__update({ [f] = true }), {})
     friendsOnlineCache(cache)
@@ -45,7 +45,7 @@ let function fillFriendsCache(friends) {
 
   if (toAdd.len() > 0 || toDelete.len() > 0)
     friendsOnlineCache.mutate(function(cache) {
-      toDelete.each(@(v) delete cache[v])
+      toDelete.each(@(v) cache.$rawdelete(v))
       toAdd.each(@(v) cache[v] <- true)
     })
   if (isNotificationDisabled())

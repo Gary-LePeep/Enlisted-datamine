@@ -2,7 +2,7 @@
 let EventLogState = require("%ui/hud/state/eventlog_state.nut")
 let {get_sync_time} = require("net")
 
-let AwardLogState = class extends EventLogState {
+let AwardLogState = class (EventLogState) {
   unAwardedScore = {}
   unAwardedScoreLastInsertTime = 0
   unAwardedScoreKeepTime = 5
@@ -12,7 +12,7 @@ let AwardLogState = class extends EventLogState {
     if (scoreId) {
       let score = this.unAwardedScore?[scoreId]
       if (score) {
-        delete this.unAwardedScore[scoreId]
+        this.unAwardedScore.$rawdelete(scoreId)
         awardData.score <- (awardData?.score ?? 0) + score
       }
     }

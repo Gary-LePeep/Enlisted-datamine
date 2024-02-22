@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { bindSquadROVar } = require("%enlist/squad/squadManager.nut")
 let { curArmy, curCampaign } = require("%enlist/soldiers/model/state.nut")

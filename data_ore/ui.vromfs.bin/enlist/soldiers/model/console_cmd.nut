@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { curSoldierGuid } = require("%enlist/soldiers/model/curSoldiersState.nut")
 let { genPerksPointsStatistics } = require("playerStatistics.nut")
@@ -88,6 +88,7 @@ console_register_command(@() switchSoldierFace(curSoldier.value, 1), "soldier.fa
 console_register_command(@() switchSoldierFace(curSoldier.value, -1), "soldier.facePrev")
 
 console_register_command(@(itemdef) inventory_add_item(itemdef), "meta.cheatInvAddItem")
+console_register_command(@(itemdef, count) inventory_add_item(itemdef, count), "meta.cheatInvAddItems")
 
 
 console_register_command(@(itemGuid) remove_item(itemGuid), "meta.removeItem")

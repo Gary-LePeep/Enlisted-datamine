@@ -1,8 +1,8 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { isInBattleState } = require("%enlSqGlob/inBattleState.nut")
-let loginState = require("%enlSqGlob/login_state.nut")
+let loginState = require("%enlSqGlob/ui/login_state.nut")
 let userInfo = require("%enlSqGlob/userInfo.nut")
 let {removeAllMsgboxes} = require("components/msgbox.nut")
 let app = require("app")
@@ -19,12 +19,12 @@ gui_scene.setShutdownHandler(function() {
 
 let delayedLogout = persist("delayedLogout", @() { need = false })
 
-let function on_login() {
+function on_login() {
   app.switch_scene("") // "" is default scene which is used for menu
   ecs.g_entity_mgr.broadcastEvent(EventUserLoggedIn(userInfo.value.userId))
 }
 
-let function on_logout() {
+function on_logout() {
   app.switch_scene("content/common/gamedata/scenes/empty.blk")
   ecs.g_entity_mgr.broadcastEvent(EventUserLoggedOut())
 }

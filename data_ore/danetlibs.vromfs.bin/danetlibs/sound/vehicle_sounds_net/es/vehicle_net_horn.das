@@ -20,17 +20,11 @@ def get_player_seat(player : EntityId; seat_eids : EidList&)
 
 
 [es(tag=server)]
-def vehicle_horn_sound__end_time(evt : CmdVehicleSoundHorn;
-                                 var vehicle_horn_sound__endTime : float&)
-  vehicle_horn_sound__endTime = evt.end
-
-
-[es(tag=server)]
 def vehicle_net_horn_request(evt : CmdVehicleHornRequest;
-                             eid : EntityId;
                              vehicle_seats__seatEids : EidList&;
                              var vehicle_horn__player : EntityId&;
                              var vehicle_horn__seat : EntityId&;
+                             var vehicle_horn__endTime : float&;
                              isAlive : bool)
   if !!evt.player
     if evt.enable
@@ -38,16 +32,16 @@ def vehicle_net_horn_request(evt : CmdVehicleHornRequest;
         vehicle_horn__seat = get_player_seat(evt.player, vehicle_seats__seatEids)
         if !!vehicle_horn__seat
           vehicle_horn__player = evt.player
-          send_net_event(eid, [[CmdVehicleSoundHorn enable=true, end=(get_sync_time() + MAX_HORN_TIME)]])
+          vehicle_horn__endTime = get_sync_time() + MAX_HORN_TIME
     elif vehicle_horn__player == evt.player
       vehicle_horn__player = INVALID_ENTITY_ID
       vehicle_horn__seat = INVALID_ENTITY_ID
-      send_net_event(eid, [[CmdVehicleSoundHorn enable=false, end=0.]])
+      vehicle_horn__endTime = 0.
 
 
-[es(tag=server, no_order)]
+[es(tag=server, after=sound_begin_update_es, before=sound_end_update_es)]
 def vehicle_net_horn(info : ParallelUpdateFrameDelayed;
-                     eid : EntityId;
+                     var vehicle_horn__endTime : float&;
                      vehicle_seats__seatEids : EidList&;
                      var vehicle_horn__player : EntityId&;
                      var vehicle_horn__seat : EntityId&;
@@ -55,4 +49,4 @@ def vehicle_net_horn(info : ParallelUpdateFrameDelayed;
   if !!vehicle_horn__player && (!isAlive || vehicle_horn__seat != get_player_seat(vehicle_horn__player, vehicle_seats__seatEids))
     vehicle_horn__player = INVALID_ENTITY_ID
     vehicle_horn__seat = INVALID_ENTITY_ID
-    send_net_event(eid, [[CmdVehicleSoundHorn enable=false, end=0.]])
+    vehicle_horn__endTime = 0.

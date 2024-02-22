@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { json_to_string } = require("json")
 let { file } = require("io")
@@ -6,7 +6,7 @@ let { dir_exists } = require("dagor.fs")
 let { gen_default_profile, gen_tutorial_profiles } = require("%enlist/meta/clientApi.nut")
 let { logerr } = require("dagor.debug")
 
-let function prepareProfileData(profile) {
+function prepareProfileData(profile) {
   let deleteSoldierKeys = [
     "bodyScale", // used in menu only
     "perkPoints", // used in menu only
@@ -15,12 +15,12 @@ let function prepareProfileData(profile) {
   ]
   foreach (armyData in profile) {
     if (armyData?["armyProgress"] != null)
-      delete armyData?["armyProgress"]
+      armyData?.$rawdelete("armyProgress")
     foreach (squad in armyData?.squads ?? [])
       foreach (soldier in squad?.squad ?? [])
         foreach (key in deleteSoldierKeys)
           if (soldier?[key] != null)
-            delete soldier[key]
+            soldier.$rawdelete(key)
   }
 
   local isSuccess = true
@@ -35,7 +35,7 @@ let function prepareProfileData(profile) {
   return isSuccess
 }
 
-let function saveProfileImpl(profile, fileName, folderName = "sq_globals", pretty = true) {
+function saveProfileImpl(profile, fileName, folderName = "sq_globals", pretty = true) {
   local filePath = $"../prog/{folderName}/data"
   filePath = dir_exists(filePath) ? $"{filePath}/{fileName}" : fileName
   let output = file(filePath, "wt+")
@@ -46,14 +46,14 @@ let function saveProfileImpl(profile, fileName, folderName = "sq_globals", prett
   console_print($"Saved to {filePath}")
 }
 
-let function saveOneProfile(profile, fileName, pretty = true, folderName = "sq_globals") {
+function saveOneProfile(profile, fileName, pretty = true, folderName = "sq_globals") {
   if (profile == null)
     return
   if (prepareProfileData(profile))
     saveProfileImpl(profile, fileName, folderName, pretty)
 }
 
-let function saveProfilePack(profiles, to_file) {
+function saveProfilePack(profiles, to_file) {
   if (profiles == null)
     return
   let isSuccess = profiles.findvalue(@(p) !prepareProfileData(p)) == null
@@ -69,7 +69,7 @@ let defLegacyArmies = ["moscow", "berlin", "normandy", "tunisia", "stalingrad", 
 let getArmyList = @(isUnitedCampaign) isUnitedCampaign ? defUnitedArmies : defLegacyArmies
 
 local consoleProgressId = 0
-let function startProgress(title) {
+function startProgress(title) {
   console_command("console.progress_indicator {0} \"{1}\"".subst(++consoleProgressId, title))
   return consoleProgressId
 }

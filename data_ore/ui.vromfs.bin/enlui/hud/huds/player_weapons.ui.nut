@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { forcedMinimalHud } = require("%ui/hud/state/hudGameModes.nut")
 let { fontHeading2, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
@@ -14,6 +14,7 @@ let showPlayerHuds = require("%ui/hud/state/showPlayerHuds.nut")
 let {weaponItems} = require("player_info/player_weapon_switch.nut")
 let mkAmmoInfo = require("player_info/player_ammo.ui.nut")
 let { controlledHeroEid } = require("%ui/hud/state/controlled_hero.nut")
+let { watchedHeroEid } = require("%ui/hud/state/watched_hero.nut")
 let {minimalistHud} = require("%ui/hud/state/hudOptionsState.nut")
 let { currentGunEid, showAllWeaponsTrigger } = require("%ui/hud/state/hero_weapons.nut")
 let mkMedkitIcon = require("player_info/medkitIcon.nut")
@@ -53,7 +54,7 @@ let grenadesAndMedkits = freeze({
 
 let showShortBlock = Watched(true)
 let hideShortBlock = @() showShortBlock(false)
-let function activateShowShortBlock(...){
+function activateShowShortBlock(...){
   showShortBlock(true)
   if (!forcedMinimalHud.value)
     return
@@ -91,7 +92,9 @@ let shortPlayerBlock = @() {
 
 let showAllWeapons = Watched(false)
 let hideAllWeapons = @(...) showAllWeapons(false)
-let function activateShowAllWeapons(...){
+function activateShowAllWeapons(...){
+  if (controlledHeroEid.value != watchedHeroEid.value || controlledHeroEid.value == ecs.INVALID_ENTITY_ID)
+    return
   showAllWeapons(true)
   activateShowShortBlock()
   gui_scene.resetTimeout(4, hideAllWeapons)
@@ -115,7 +118,7 @@ let playerDynamic = @(){
   ]
 }
 
-let function playerBlock() {
+function playerBlock() {
   return {
     flow = FLOW_VERTICAL
     halign = ALIGN_RIGHT

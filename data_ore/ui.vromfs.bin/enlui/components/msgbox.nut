@@ -1,8 +1,7 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let msgbox = require("%ui/components/sys_msgbox.nut")
 let JB = require("%ui/control/gui_buttons.nut")
-let cursors = require("%ui/style/cursors.nut")
 let textButton = require("%ui/components/textButton.nut")
 let fontIconButton = require("%ui/components/fontIconButton.nut")
 
@@ -33,7 +32,6 @@ let eventHandlersStopper = {
 }
 
 let styling = {
-  cursor = cursors.normal
   rootUpperDecor = decorObj
   rootLowerDecor = decorObj
 
@@ -118,19 +116,19 @@ let addDefOkButton = @(p) ("buttons" in p) ? p : p.__merge({
     customStyle = { hotkeys = [[$"^{JB.B} | Esc"]] } }]
 })
 
-let function msgText(p) {
+function msgText(p) {
   return {
     halign = ALIGN_CENTER
     padding = [fsh(2), 0]
     children = p.content
   }
 }
-let function showMessageWithStyle(p, msgStyle) {
+function showMessageWithStyle(p, msgStyle) {
   msgStyle = msgStyle.__merge({messageText = msgText})
   msgbox.show(addDefOkButton(p), msgStyle)
 }
 
-let function showContentOnPictureBg(p) {
+function showContentOnPictureBg(p) {
   let msgStyle = clone styling
   msgStyle.Root = styling.Root.__merge({ rendObj = null })
   msgStyle.BgOverlay = styling.BgOverlay.__merge({
@@ -150,12 +148,12 @@ let function showContentOnPictureBg(p) {
   showMessageWithStyle(p, msgStyle)
 }
 
-let function showMessageWithContent(p, customStyle = null) {
+function showMessageWithContent(p, customStyle = null) {
   showMessageWithStyle(p, customStyle ?? styling)
 }
 
 
-let function showWithCloseButton(params) {
+function showWithCloseButton(params) {
   let originalMessageText = styling.messageText
   let style = styling.__merge({
     messageText = @(textParams) {

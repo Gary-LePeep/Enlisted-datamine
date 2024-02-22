@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let JB = require("%ui/control/gui_buttons.nut")
 let { showMsgbox } = require("%enlist/components/msgbox.nut")
@@ -12,7 +12,7 @@ let allowedVehicles = require("allowedVehicles.nut")
 let { squadsCfgById } = require("%enlist/soldiers/model/config/squadsConfig.nut")
 let { trimUpgradeSuffix } = require("%enlSqGlob/ui/itemsInfo.nut")
 let { curSection, jumpToArmyGrowth } = require("%enlist/mainMenu/sectionsState.nut")
-let { transfer_item, set_vehicle_to_squad } = require("%enlist/meta/clientApi.nut")
+let { set_vehicle_to_squad } = require("%enlist/meta/clientApi.nut")
 let { curGrowthByItem} = require("%enlist/growth/growthState.nut")
 let { itemToShopItem } = require("%enlist/soldiers/model/cratesContent.nut")
 let { curArmyItemsPrefiltered } = require("%enlist/shop/armyShopState.nut")
@@ -54,7 +54,7 @@ let curVehicleType = Computed(function() {
 let getVehicleSquad = @(vehicle) getFirstLinkByType(vehicle, "curVehicle")
 let findSelVehicle = @(vehicleList, squadGuid) getObjectsByLink(vehicleList, squadGuid, "curVehicle")?[0].guid
 
-let function calcVehicleStatus(vehicle, vehicles, growthByItem, itemLinks, shopItems, vehByOwner) {
+function calcVehicleStatus(vehicle, vehicles, growthByItem, itemLinks, shopItems, vehByOwner) {
   let { basetpl } = vehicle
   let trimmed = trimUpgradeSuffix(basetpl)
   let isAllowed = trimmed in vehicles
@@ -184,14 +184,14 @@ if (viewVehicle.value != null) {
 
 selectedVehicle.subscribe(@(v) viewVehicle(v))
 
-let function setVehicleToSquad(squadGuid, vehicleGuid) {
+function setVehicleToSquad(squadGuid, vehicleGuid) {
   if (vehicleBySquad.value?[squadGuid] == vehicleGuid)
     return
 
   set_vehicle_to_squad(vehicleGuid, squadGuid, @(_) updateBROnVehicleChange(squadGuid))
 }
 
-let function selectVehicle(vehicle) {
+function selectVehicle(vehicle) {
   if (isChangesBlocked.value) {
     showBlockedChangesMessage()
     return
@@ -235,19 +235,11 @@ let squadsWithVehicles = Computed(function() {
 let curSquadId = Computed(@()
   selectVehParams.value?.squadId ?? squadsWithVehicles.value?[0].squadId)
 
-let function setCurSquadId(id) {
+function setCurSquadId(id) {
   let { squadId = null } = selectVehParams.value
   if (squadId != null && squadId != id)
     selectVehParams.mutate(@(params) params.__update({ squadId = id }))
 }
-
-console_register_command(function(armyId) {
-  let { guid = "" } = viewVehicle.value
-  if (guid == "")
-    return log("Vehicle is not selected")
-  transfer_item(guid, armyId)
-  log("Move vehicle request sent")
-}, "meta.moveVehicle")
 
 return {
   viewVehicle

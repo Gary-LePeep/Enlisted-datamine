@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 from "eventRoomsListFilter.nut" import *
 let { platformAlias } = require("%dngscripts/platform.nut")
 let { logerr } = require("dagor.debug")
@@ -96,7 +96,7 @@ let fixedFilters = {
   ["gameName"]    = { test = "eq", value = matchingGameName },
 }
 
-let function getFiltersByOptions() {
+function getFiltersByOptions() {
   let res = {}
   let { defaults = {} } = createEventRoomCfg.value?[allModes.value?[0]]
   foreach (opt in [optMode, optDifficulty, optArmiesA, optArmiesB, optCluster]) {
@@ -140,7 +140,7 @@ let function getFiltersByOptions() {
   return res
 }
 
-let function updateListRooms() {
+function updateListRooms() {
   if (isRequestInProgress.value)
     return
 
@@ -161,7 +161,7 @@ let function updateListRooms() {
     params)
 }
 
-let function updateRefreshTimer() {
+function updateRefreshTimer() {
   if (isRefreshEnabled.value) {
     updateListRooms()
     gui_scene.setInterval(REFRESH_PERIOD, updateListRooms)
@@ -177,7 +177,7 @@ foreach (opt in [optMode, optDifficulty, optCrossplay, optArmiesA,
 )
   (opt?.curValue ?? opt.curValues).subscribe(debounce(@(_) updateListRooms(), 0.2))
 
-let function toggleDebugMode() {
+function toggleDebugMode() {
   isDebugMode(!isDebugMode.value)
   if (isDebugMode.value)
     updateListRooms()

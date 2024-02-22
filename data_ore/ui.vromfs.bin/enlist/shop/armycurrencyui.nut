@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { abbreviateAmount } = require("%enlist/shop/numberUtils.nut")
@@ -30,16 +30,16 @@ let mkExpIcon = @(size) {
 }
 
 
-let function filterCurrencies(tbl) {
+function filterCurrencies(tbl) {
   let res = clone tbl
-  delete res[SILVER_KEY]
+  res.$rawdelete(SILVER_KEY)
   return res
 }
 
 let filterCurrenciesSilver = @(tbl) { [SILVER_KEY] = tbl[SILVER_KEY] }
 
 local diffAnimCounter = 0
-let function mkDiffCurrency(curr, idx, onFinish) {
+function mkDiffCurrency(curr, idx, onFinish) {
   let delay = idx * 0.6
   let duration = 1
   let isPositive = curr.count > 0
@@ -70,7 +70,7 @@ let function mkDiffCurrency(curr, idx, onFinish) {
   }
 }
 
-let function getSortedCards(armyCurrency, currencyPresentationList) {
+function getSortedCards(armyCurrency, currencyPresentationList) {
   let sortedCards = []
   ticketGroups.map(function(groupContent, groupName) {
     let showInCurrentSection = groupContent?.showInSection.contains(curSection.value) ?? true
@@ -101,7 +101,7 @@ let function getSortedCards(armyCurrency, currencyPresentationList) {
   return sortedCards.sort(@(a,b) a.groupOrder <=> b.groupOrder)
 }
 
-let function mkCurrenciesDiffAnim(realCurr, sectionCurr, viewCurrWatch, currencyPresentationList) {
+function mkCurrenciesDiffAnim(realCurr, sectionCurr, viewCurrWatch, currencyPresentationList) {
   let viewCurr = viewCurrWatch.value ?? {}
   if (isEqual(realCurr, viewCurr))
     return null
@@ -135,8 +135,8 @@ let function mkCurrenciesDiffAnim(realCurr, sectionCurr, viewCurrWatch, currency
   ))
 }
 
-let function addClickAutoShop(value, isShop) {
-  let function openShop() {
+function addClickAutoShop(value, isShop) {
+  function openShop() {
     setAutoGroup(value.type)
     setCurSection("SHOP")
   }

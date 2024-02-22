@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {breath_shortness, breath_low_anim_trigger, breath_low_threshold} = require("%ui/hud/state/breath_state.nut")
 let {barHeight, barWidth} = require("style.nut")
@@ -14,7 +14,7 @@ let breathBgColor = Color(30, 30, 50, 40)
 let breathFgColor = Color(80, 180, 250, 205)
 let breathWarnColor = Color(255, 30, 300, 255)
 
-let function breath() {
+function breath() {
   local ratio = 0
   local children = null
   if (breath_shortness.value != null && breath_shortness.value < 1.0) {

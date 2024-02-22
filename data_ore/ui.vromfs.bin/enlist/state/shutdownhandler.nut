@@ -1,10 +1,10 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
-let eventbus = require("eventbus")
+let { eventbus_subscribe } = require("eventbus")
 
 let list = []
 
-eventbus.subscribe("app.shutdown", function(...) {
+eventbus_subscribe("app.shutdown", function(...) {
   foreach (func in list)
     func()
 })

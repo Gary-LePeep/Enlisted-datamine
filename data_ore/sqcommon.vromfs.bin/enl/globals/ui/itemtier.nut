@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontawesome } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { soldierLvlColor, soldierLockedLvlColor } = require("%enlSqGlob/ui/viewConst.nut")

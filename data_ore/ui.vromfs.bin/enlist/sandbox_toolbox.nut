@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 from "%darg/laconic.nut" import *
 import "%dngscripts/ecs.nut" as ecs
 
@@ -24,7 +24,7 @@ let {isRIToolMode, beginRIToolMode, clearRIToolSelected, riToolSelected, getRITo
 let {groupsList, updateGroupsList, mkGroupListItemName, mkGroupListItemTooltip,
      toggleGroupListItem} = require("%daeditor/extensions/toolboxShooterGroups.nut")
 
-let {getEditMode=null, DE4_MODE_POINT_ACTION=null} = require_optional("daEditor4")
+let {getEditMode=null, DE4_MODE_POINT_ACTION=null} = require_optional("daEditorEmbedded")
 
 let {EventNavMeshRebuildStarted, EventNavMeshRebuildProgress,
      EventNavMeshRebuildComplete, EventNavMeshRebuildCancelled} = require("dasevents")
@@ -34,7 +34,7 @@ let {system = null} = require_optional("system")
 
 
 local toolboxShowMsgbox = @(_) null
-let function setToolboxShowMsgbox(fn) {
+function setToolboxShowMsgbox(fn) {
   toolboxShowMsgbox = fn
 }
 
@@ -53,7 +53,7 @@ let toolboxModes = Watched({
   rebuildingNavMesh = false
 })
 
-let function resetToolbox() {
+function resetToolbox() {
   // keep toolboxShown
   toolboxModes.value.dev = false
   toolboxModes.value.coll = false
@@ -69,12 +69,12 @@ let function resetToolbox() {
   toolboxModes.trigger()
 }
 
-let function setToolboxMode(mode, val) {
+function setToolboxMode(mode, val) {
   toolboxModes.value[mode] = val
   toolboxModes.trigger()
 }
 
-let function toolboxRunCmd(cmd, cmd2 = null, mode = null, val = null) {
+function toolboxRunCmd(cmd, cmd2 = null, mode = null, val = null) {
   if (cmd == "dev_mode_restart") {
     toolboxShowMsgbox({text="Restart required to disable DevMode"})
     return
@@ -88,53 +88,53 @@ let function toolboxRunCmd(cmd, cmd2 = null, mode = null, val = null) {
     setToolboxMode(mode, val)
 }
 
-let function toolboxCmd_playTest() {
+function toolboxCmd_playTest() {
   toolboxRunCmd("editor.test_mode", "close")
 }
 
-let function toolboxCmd_toggleDevMode() {
+function toolboxCmd_toggleDevMode() {
   if (!toolboxModes.value.dev)
     toolboxRunCmd("sandbox.enable_devmode", null, "dev", true)
   else
     toolboxRunCmd("dev_mode_restart", null)
 }
 
-let function toolboxCmd_toggleCollGeom() {
+function toolboxCmd_toggleCollGeom() {
   if (!toolboxModes.value.coll)
     toolboxRunCmd("app.debug_collision", null, "coll", true)
   else
     toolboxRunCmd("app.debug_collision", null, "coll", false)
 }
 
-let function toolboxCmd_toggleNavMesh() {
+function toolboxCmd_toggleNavMesh() {
   if (!toolboxModes.value.nav)
     toolboxRunCmd("app.debug_navmesh 1", null, "nav", true)
   else
     toolboxRunCmd("app.debug_navmesh 0", null, "nav", false)
 }
 
-let function toolboxCmd_togglePolyBattleAreas() {
+function toolboxCmd_togglePolyBattleAreas() {
   if (!toolboxModes.value.polyAreas)
     toolboxRunCmd("battleAreas.draw_active_poly_areas 1", null, "polyAreas", true)
   else
     toolboxRunCmd("battleAreas.draw_active_poly_areas 0", null, "polyAreas", false)
 }
 
-let function toolboxCmd_toggleCapZonesPoly() {
+function toolboxCmd_toggleCapZonesPoly() {
   if (!toolboxModes.value.capZonesPoly)
     toolboxRunCmd("capzone.draw_active_poly_areas 1", null, "capZonesPoly", true)
   else
     toolboxRunCmd("capzone.draw_active_poly_areas 0", null, "capZonesPoly", false)
 }
 
-let function toolboxCmd_toggleCapZones() {
+function toolboxCmd_toggleCapZones() {
   if (!toolboxModes.value.capZones)
     toolboxRunCmd("capzone.debug", null, "capZones", true)
   else
     toolboxRunCmd("capzone.debug", null, "capZones", false)
 }
 
-let function toolboxCmd_toggleRespawns() {
+function toolboxCmd_toggleRespawns() {
   let mode = toolboxModes.value.respawns
   if (mode == 1)
     toolboxRunCmd("respbase.respbase_debug 1", "respbase.respbase_only_active_debug 0", "respawns", 2)
@@ -144,17 +144,17 @@ let function toolboxCmd_toggleRespawns() {
     toolboxRunCmd("respbase.respbase_debug 0", "respbase.respbase_only_active_debug 1", "respawns", 1)
 }
 
-let function toolboxCmd_toggleGroups() {
+function toolboxCmd_toggleGroups() {
   if (!toolboxModes.value.showGroups)
     updateGroupsList()
   setToolboxMode("showGroups", !toolboxModes.value.showGroups)
 }
 
-let function toolboxCmd_toggleBuildCommands() {
+function toolboxCmd_toggleBuildCommands() {
   setToolboxMode("showCommands", !toolboxModes.value.showCommands)
 }
 
-let function toolboxCmd_rebuildNavMesh() {
+function toolboxCmd_rebuildNavMesh() {
   if (toolboxModes.value.rebuildingNavMesh)
     console_command("navmesh.rebuild_cancel")
   else if (toolboxModes.value.rebuildNavMeshState != "") {
@@ -200,7 +200,7 @@ ecs.register_es("sandbox_navmesh_rebuild_es",
 const MODS_TO_EDIT_FOLDER = "userGameMods"
 const DEF_SCENE_FILENAME = "scene.blk"
 
-let function toolboxCmd_buildModVROM() {
+function toolboxCmd_buildModVROM() {
   let scenePath = get_scene_filepath?()
   let modName = scenePath?.replace($"{MODS_TO_EDIT_FOLDER}/", "").replace($"/{DEF_SCENE_FILENAME}", "")
   if (!modName) {
@@ -225,10 +225,10 @@ const TOOLTIP_CAPZONES  = "Toggles visibility of all active Capture Zones"
 const TOOLTIP_RESPAWNS  = "Toggles visibility of active / all Respawns"
 const TOOLTIP_GROUPS    = "Toggles list to activate and deactivate Groups for testing purposes"
 const TOOLTIP_REFRESHGR = "Updates list of displayed Groups"
-const TOOLTIP_COMMANDS  = "Toggles list of build commands"
+//const TOOLTIP_COMMANDS  = "Toggles list of build commands"
 
 const TOOLTIP_REBUILD_NAVMESH = "Generates NavMesh for modified terrain and placed RI, which then saved to patch_nav_mesh.bin file in mod directory"
-const TOOLTIP_BUILD_MOD_VROM  = "Packages contents of mod directory to <mod_name>.vromfs.bin file placed to userGameMods/ folder, which then could be uploaded to mods portal"
+const TOOLTIP_BUILD_MOD_ZIP   = "Packages contents of mod directory to <mod_name>.zip file placed to userGameMods/ folder, which then could be uploaded to mods portal"
 
 const TOOLTIP_CREATE_RI_ENTITY    = "Creates new 'game_rendinst' entity"
 const TOOLTIP_CREATE_RI_DECOR     = "Creates new 'game_rendinst_decor' entity"
@@ -290,7 +290,7 @@ let terraformingContent = @() {
   ]
 }
 
-let function rendInstsContent() {
+function rendInstsContent() {
   let riLen = riToolSelected.value.len()
   let riHas = riLen > 0
   let ttDX = -hdpx(45)
@@ -374,7 +374,7 @@ let respawnsBtnText = function() {
   return mode == 1 ? "Respawns +" : mode == 2 ? "Respawns..." : "Respawns"
 }
 
-let function groupsContent() {
+function groupsContent() {
   local childs = []
   childs.append(toolBoxComponent.rowDiv)
   foreach (item in groupsList.value) {
@@ -417,8 +417,8 @@ let commandsContent = @() {
     ]}
     { size = [0, hdpx(5)] }
     { pos = [hdpx(27), 0], flow = FLOW_HORIZONTAL, children = [
-      textButton("Build Mod VROM", @() toolboxCmd_buildModVROM(), toolboxButtonStyle.__merge({
-        onHover = @(on) cursors.setTooltip(on ? TOOLTIP_BUILD_MOD_VROM : null)
+      textButton("Build Mod ZIP", @() toolboxCmd_buildModVROM(), toolboxButtonStyle.__merge({
+        onHover = @(on) cursors.setTooltip(on ? TOOLTIP_BUILD_MOD_ZIP : null)
       }))
     ]}
   ]
@@ -446,7 +446,7 @@ showPointAction.subscribe(@(_) toolBoxComponent.redraw())
 namePointAction.subscribe(@(_) toolBoxComponent.redraw())
 
 propPanelVisible.subscribe(function(v) {
-  if (v && getEditMode() != DE4_MODE_POINT_ACTION)
+  if (v && getEditMode?() != DE4_MODE_POINT_ACTION)
     toolboxShown(false)
 })
 

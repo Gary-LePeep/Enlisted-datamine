@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { midPadding, commonBtnHeight, defTxtColor, startBtnWidth, bigPadding, defItemBlur,
@@ -64,7 +64,7 @@ let buttonContent = watchElemState(@(sf) {
 })
 
 
-let function weeklyTasksUi() {
+function weeklyTasksUi() {
   let res = { watch = hasWeeklyTasks }
   if (!hasWeeklyTasks.value)
     return res

@@ -19,149 +19,166 @@
   "it_m13_40_serie_3": {
     "_use": "it_m13_40_serie_3_common"
   },
-  "it_m13_40_serie_3_common": {
-    "_use": "base_m13_40_serie_3",
-    "commanderCockpitFpsCamMaxAngle": [40.0,5.0],
-    "gunner_cam_limit__useCockpitDir": true,
-    "item__iconOffset": [0.0,0.0],
-    "armorThicknessHull": [30.0,25.0,25.0],
-    "armorThicknessTurret": [45.0,25.0,25.0],
-    "vehicle_seats__seats:shared:array": [
-      {
-        "seats:object": {
-          "name": "driver",
-          "locName": "vehicle_seats/driver",
-          "seatOwnsEntityControl": true,
-          "attachNode": "driver",
-          "ignoreAttachNodeRotation": true,
-          "attachTm": [
-            [1.0,0.0,0.0],
-            [0.0,1.0,0.0],
-            [0.0,0.0,1.0],
-            [-0.25,-0.25,0.0]
-          ],
-          "seatComponent": "isDriver",
-          "nextSeat": "main_gunner",
-          "shouldHideOwner": true,
-          "receiveDamageFromDMPart": "driver",
-          "cameraNodeName": "bone_camera_driver",
-          "cockpitTemplate": "it_m13_40_serie_3_driver_cockpit"
-        }
-      },
-      {
-        "seats:object": {
-          "name": "main_gunner",
-          "locName": "vehicle_seats/gunner",
-          "attachNode": "commander",
-          "ignoreAttachNodeRotation": true,
-          "attachTm": [
-            [1.0,0.0,0.0],
-            [0.0,1.0,0.0],
-            [0.0,0.0,1.0],
-            [-0.25,-0.5,0.0]
-          ],
-          "seatComponent": "isGunner",
-          "nextSeat": "driver",
-          "shouldHideOwner": true,
-          "receiveDamageFromDMPart": "commander",
-          "cameraNodeName": "bone_camera_gunner",
-          "cockpitTemplate": "it_m13_40_serie_3_gunner_cockpit",
-          "turretNames:array": [
-            {
-              "turret": "turret_01"
-            },
-            {
-              "turret": "turret_02"
-            }
-          ]
-        }
-      },
-      {
-        "seats:object": [
-          {
-            "name": "commander"
-          },
-          {
-            "locName": "vehicle_seats/commander"
-          },
-          {
-            "locName": "vehicle_seats/commander"
-          },
-          {
-            "attachNode": "commander"
-          },
-          {
-            "shouldHideOwner": true
-          },
-          {
-            "hatchRotationAxis": [1.3,0.0,0.0]
-          },
-          {
-            "ignoreAttachNodeRotation": true
-          },
-          {
+  "it_m13_40_serie_3_common": [
+    {
+      "_use": "base_m13_40_serie_3"
+    },
+    {
+      "_use": "it_m13_40_serie_3_common_vehicle_sound"
+    },
+    {
+      "commanderCockpitFpsCamMaxAngle": [40.0,5.0]
+    },
+    {
+      "gunner_cam_limit__useCockpitDir": true
+    },
+    {
+      "item__iconOffset": [0.0,0.0]
+    },
+    {
+      "armorThicknessHull": [30.0,25.0,25.0]
+    },
+    {
+      "armorThicknessTurret": [45.0,25.0,25.0]
+    },
+    {
+      "vehicle_seats__seats:shared:array": [
+        {
+          "seats:object": {
+            "name": "driver",
+            "locName": "vehicle_seats/driver",
+            "seatOwnsEntityControl": true,
+            "attachNode": "driver",
+            "ignoreAttachNodeRotation": true,
             "attachTm": [
               [1.0,0.0,0.0],
               [0.0,1.0,0.0],
               [0.0,0.0,1.0],
-              [-0.342041,-0.970816,0.43912]
-            ]
-          },
-          {
-            "seatComponent": "isDriver"
-          },
-          {
-            "receiveDamageFromDMPart": "loader"
-          },
-          {
-            "cameraNodeName": "bone_turret_01"
-          },
-          {
-            "cockpitTemplate": "it_m13_40_serie_3_commander_cockpit"
-          },
-          {
-            "isHoldGunModeAllowed": false
-          },
-          {
-            "hatchNodes:array": [
+              [-0.25,-0.25,0.0]
+            ],
+            "seatComponent": "isDriver",
+            "nextSeat": "main_gunner",
+            "shouldHideOwner": true,
+            "receiveDamageFromDMPart": "driver",
+            "cameraNodeName": "bone_camera_driver",
+            "cockpitTemplate": "it_m13_40_serie_3_driver_cockpit"
+          }
+        },
+        {
+          "seats:object": {
+            "name": "main_gunner",
+            "locName": "vehicle_seats/gunner",
+            "attachNode": "commander",
+            "ignoreAttachNodeRotation": true,
+            "attachTm": [
+              [1.0,0.0,0.0],
+              [0.0,1.0,0.0],
+              [0.0,0.0,1.0],
+              [-0.25,-0.5,0.0]
+            ],
+            "seatComponent": "isGunner",
+            "nextSeat": "driver",
+            "shouldHideOwner": true,
+            "receiveDamageFromDMPart": "commander",
+            "cameraNodeName": "bone_camera_gunner",
+            "cockpitTemplate": "it_m13_40_serie_3_gunner_cockpit",
+            "turretNames:array": [
               {
-                "node": "hatch_01"
+                "turret": "turret_01"
               },
               {
-                "node": "hatch_02"
+                "turret": "turret_02"
               }
             ]
-          },
-          {
-            "hatchTurretNames:array": {
-              "turret": "turret_03"
-            }
-          },
-          {
-            "loaderTurretNames:array": {
-              "turret": "turret_01"
-            }
           }
-        ]
-      },
-      {
-        "seats:object": {
-          "locName": "vehicle_seats/radioman",
-          "attachNode": "machine_gunner",
-          "ignoreAttachNodeRotation": true,
-          "attachTm": [
-            [1.0,0.0,0.0],
-            [0.0,1.0,0.0],
-            [0.0,0.0,1.0],
-            [-0.25,-0.5,0.0]
-          ],
-          "seatComponent": "isPassenger",
-          "shouldHideOwner": true,
-          "receiveDamageFromDMPart": "machine_gunner"
+        },
+        {
+          "seats:object": [
+            {
+              "name": "commander"
+            },
+            {
+              "locName": "vehicle_seats/commander"
+            },
+            {
+              "locName": "vehicle_seats/commander"
+            },
+            {
+              "attachNode": "commander"
+            },
+            {
+              "shouldHideOwner": true
+            },
+            {
+              "hatchRotationAxis": [1.3,0.0,0.0]
+            },
+            {
+              "ignoreAttachNodeRotation": true
+            },
+            {
+              "attachTm": [
+                [1.0,0.0,0.0],
+                [0.0,1.0,0.0],
+                [0.0,0.0,1.0],
+                [-0.342041,-0.970816,0.43912]
+              ]
+            },
+            {
+              "seatComponent": "isDriver"
+            },
+            {
+              "receiveDamageFromDMPart": "loader"
+            },
+            {
+              "cameraNodeName": "bone_turret_01"
+            },
+            {
+              "cockpitTemplate": "it_m13_40_serie_3_commander_cockpit"
+            },
+            {
+              "isHoldGunModeAllowed": false
+            },
+            {
+              "hatchNodes:array": [
+                {
+                  "node": "hatch_01"
+                },
+                {
+                  "node": "hatch_02"
+                }
+              ]
+            },
+            {
+              "hatchTurretNames:array": {
+                "turret": "turret_03"
+              }
+            },
+            {
+              "loaderTurretNames:array": {
+                "turret": "turret_01"
+              }
+            }
+          ]
+        },
+        {
+          "seats:object": {
+            "locName": "vehicle_seats/radioman",
+            "attachNode": "machine_gunner",
+            "ignoreAttachNodeRotation": true,
+            "attachTm": [
+              [1.0,0.0,0.0],
+              [0.0,1.0,0.0],
+              [0.0,0.0,1.0],
+              [-0.25,-0.5,0.0]
+            ],
+            "seatComponent": "isPassenger",
+            "shouldHideOwner": true,
+            "receiveDamageFromDMPart": "machine_gunner"
+          }
         }
-      }
-    ]
-  },
+      ]
+    }
+  ],
   "it_m13_40_serie_3_driver_cockpit": {
     "_use": "base_driver_cockpit",
     "animchar__res": "kv_1_driver_char",

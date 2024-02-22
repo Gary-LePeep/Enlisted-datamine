@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let def = {
   isPuttingOut = false
@@ -8,7 +8,7 @@ let def = {
 }
 let burningState = Watched(def)
 
-let function trackComponents(_eid, comp) {
+function trackComponents(_eid, comp) {
   burningState({
     force = comp["burning__force"]
     isPuttingOut = comp["burning__isPuttingOut"]

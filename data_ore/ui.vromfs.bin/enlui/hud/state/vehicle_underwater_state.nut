@@ -1,10 +1,10 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let vehicleUnderWaterEndTime = Watched(-1.0)
 let vehicleUnderWaterMaxTime = Watched(-1.0)
 
-let function trackVehicleUnderWater(_eid, comp){
+function trackVehicleUnderWater(_eid, comp){
   if (comp["underWaterStartTime"] > 0) {
     vehicleUnderWaterEndTime(comp["underWaterStartTime"] + comp["underWaterMaxTime"])
     vehicleUnderWaterMaxTime(comp["underWaterMaxTime"])

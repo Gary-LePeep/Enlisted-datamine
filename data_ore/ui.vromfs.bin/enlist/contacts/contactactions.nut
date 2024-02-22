@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { inviteToSquad, dismissSquadMember, transferSquad, revokeSquadInvite,
   leaveSquad, isInSquad, isSquadLeader, squadMembers, isInvitedToSquad, enabledSquad, canInviteToSquad
@@ -256,8 +256,8 @@ let actions = {
     action      = @(userId)
       openUrl(
         ["moon"].contains(get_circuit())
-          ? achievementTestUrl.subst(appId.value, getContactRealnick(userId))
-          : achievementUrl.subst(appId.value, getContactRealnick(userId))
+          ? achievementTestUrl.subst(appId, getContactRealnick(userId))
+          : achievementUrl.subst(appId, getContactRealnick(userId))
       )
   }
 

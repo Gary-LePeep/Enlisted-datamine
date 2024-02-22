@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {Point3} = require("dagor.math")
 let {cos, sin, PI} = require("math")
@@ -13,7 +13,7 @@ let animations = [
   { prop = AnimProp.scale, from =[0.25, 0.25], to = [1, 1], duration = 0.1, easing = InCubic, play = true}
 ]
 
-local function mkAnimations(duration=0.4, appearPart = 0.15, stayPart = 0.25, fadePart = 0.65){
+function mkAnimations(duration=0.4, appearPart = 0.15, stayPart = 0.25, fadePart = 0.65){
   duration = min(duration, 100)
   let appearDur = appearPart*duration
   let stayDur = stayPart*duration
@@ -29,7 +29,7 @@ local function mkAnimations(duration=0.4, appearPart = 0.15, stayPart = 0.25, fa
   ]
 }
 
-let function build_hitmarks_commands(marksCount) {
+function build_hitmarks_commands(marksCount) {
   let commands = [[VECTOR_WIDTH, hdpx(1.8)]]
   let markSize = 100
   let percentile = 0.5
@@ -69,7 +69,7 @@ let simpleHitMark = hitHairMap[1]
 local hitMarkParams
 local posHitMarksParams
 local showWorldKillMarkCached
-let function updateLocalCache(...){
+function updateLocalCache(...){
   let commonHitMarkAnims = mkAnimations(hitTtl.value/3.0) //this is needed because of different time scale. Hitmarks can disappear with not smooth animation
   let commonKillMarkAnims = mkAnimations(killTtl.value/3.0)
   hitMarkParams = {
@@ -100,7 +100,7 @@ updateLocalCache()
 let currentHitMark = Watched(null)
 let posHitMarks = Watched([])
 
-let function isPositionalHitMark(v){
+function isPositionalHitMark(v){
   if (v?.hitPos==null)
     return false
   if (showWorldKillMarkCached){
@@ -108,7 +108,7 @@ let function isPositionalHitMark(v){
   }
   return v?.isMelee
 }
-let function updateHitMarks(hitMarksRes){
+function updateHitMarks(hitMarksRes){
   let res = u.partition(hitMarksRes, isPositionalHitMark)
   posHitMarks(res[0])
   let hitms = res[1]
@@ -117,7 +117,7 @@ let function updateHitMarks(hitMarksRes){
 hitMarks.subscribe(updateHitMarks)
 updateHitMarks(hitMarks.value)
 
-let function hitHair() {
+function hitHair() {
   if (!showCrosshairHints.value)
     return { watch = showCrosshairHints }
 
@@ -135,7 +135,7 @@ let function hitHair() {
   }
 }
 
-let function mkPosHitMark(mark){
+function mkPosHitMark(mark){
   let pos = mark.hitPos
   return {
     data = {
@@ -150,7 +150,7 @@ let function mkPosHitMark(mark){
   }
 }
 
-let function posHitMarksComp() {
+function posHitMarksComp() {
   return {
     watch = [posHitMarks]
     halign = ALIGN_CENTER

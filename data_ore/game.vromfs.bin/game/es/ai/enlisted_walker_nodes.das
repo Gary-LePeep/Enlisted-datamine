@@ -39,6 +39,7 @@ require enlisted.game.es.bomb_site_common
 require enlisted.game.es.enlisted_squad_common
 require enlisted.game.es.ai.ai_covers_common
 require enlisted.game.es.fortifications_build_common
+require terraform
 require walkerai
 require game.es.squad_order_common
 
@@ -294,6 +295,36 @@ class GetRegroupPos : BehNodeAdapter
 
     return EBehResult ER_SUCCESS
 
+
+[beh_node(name="isPosInPit")]
+class IsPosInPit : BehNodeAdapter
+  posParam : int = -1
+  minDepth : float = 0.5
+
+  OVERGROUND_EPSILON : float = 1.0 // because regroup position always at navmesh i.e. over ground
+  UNDERGROUND_EPSILON : float = 0.1 // because of ground holes and underground locations
+
+  def override loadFromBlk(var data : DataBlock) : void
+    posParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "posParam", "wishPosition"), float3())
+    minDepth = datablock_getReal(data, "minDepth", minDepth)
+
+  def override update(dt : float) : EBehResult
+    let pos = owner.blackBoard |> datablock_getPoint3(posParam)
+    let pos2D = float2(pos.x, pos.z)
+    if !is_valid_heightmap_pos(pos2D)
+      return EBehResult ER_FAILED
+    var inPit = false
+    let hasResult = find_query() <| $ [es] (terraform : TerraformComponent)
+      let origHeight = terraform_getHmapHeightOrigValAtPos(terraform, pos2D)
+      if pos.y < origHeight + OVERGROUND_EPSILON
+        let nowHeight = traceht_hmap(pos2D)
+        inPit = origHeight - nowHeight >= minDepth && pos.y >= nowHeight - UNDERGROUND_EPSILON
+      return true
+    if !hasResult || !inPit
+      return EBehResult ER_FAILED
+    return EBehResult ER_SUCCESS
+
+
 [beh_node(name="setSquadFormation")]
 class SetSquadFormation : BehNodeAdapter
   spread : SquadFormationSpread = SquadFormationSpread ESFN_STANDARD
@@ -413,10 +444,41 @@ def try_find_points_near_cap_zone(agent; var pos : float3&)
     pos = capzone__nearestNavmeshPos
     return true
 
+def pick_random_or_closest_position(positions : Point3List; from_pos : float3; closest : bool; round_len : float; def_position : float3)
+  if empty(positions)
+    return def_position
+  var points : array<float3>
+  for pos in positions
+    var waterLevel = 0.0
+    let MAX_HEIGHT_UNDERWATER = -0.1
+    if traceht_water(pos, waterLevel)
+      if waterLevel - pos.y < MAX_HEIGHT_UNDERWATER
+        points |> push(pos)
+  if empty(points)
+    return def_position
+  if !closest
+    return points[rnd_int(0, length(points) - 1)]
+  var posDist = -1.0
+  for pt in points
+    let dist = float(int(distance(from_pos, pt) / round_len)) * round_len
+    if posDist < 0.0 || dist < posDist
+      posDist = dist
+  var points2 : array<float3>
+  for pt in points
+    let dist = float(int(distance(from_pos, pt) / round_len)) * round_len
+    if dist == posDist
+      points2 |> push(pt)
+  if empty(points2)
+    return def_position
+  return points[rnd_int(0, length(points) - 1)]
+
 [beh_node(name="findPointInCapzone")]
 class FindPointInCapzone : BehNodeAdapter
   posParam : int = -1
   targetEidParam : int = -1
+
+  closestPoint : bool = false
+  closestRoundLen : float = 5.0
 
   maxDistSq : float = 1000000.
 
@@ -430,8 +492,10 @@ class FindPointInCapzone : BehNodeAdapter
 
     targetEidParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "targetEidParam", "leaderTargetEid"), 0)
 
-    let maxDist = datablock_getReal(data, "maxDist", 1000.)
+    closestPoint = datablock_getBool(data, "closestPoint", closestPoint)
+    closestRoundLen = datablock_getReal(data, "closestRoundLen", closestRoundLen)
 
+    let maxDist = datablock_getReal(data, "maxDist", 1000.)
     maxDistSq = maxDist * maxDist
 
   def override update(dt : float) : EBehResult
@@ -474,8 +538,8 @@ class FindPointInCapzone : BehNodeAdapter
 
             if myTeamInZone == null
               owner.blackBoard |> set(targetEidParam, int(uint(elem.eid)))
-              owner.blackBoard |> set(posParam,
-                capzone__insideNavmeshPositions[rnd_int(0, length(capzone__insideNavmeshPositions) - 1)])
+              let pos = pick_random_or_closest_position(capzone__insideNavmeshPositions, agent_transform[3], closestPoint, closestRoundLen, capzone_transform[3])
+              owner.blackBoard |> set(posParam, pos)
 
               res = EBehResult ER_SUCCESS
               return
@@ -489,8 +553,8 @@ class FindPointInCapzone : BehNodeAdapter
 
             if alreadyOnRoute
               owner.blackBoard |> set(targetEidParam, int(uint(elem.eid)))
-              owner.blackBoard |> set(posParam,
-                capzone__insideNavmeshPositions[rnd_int(0, length(capzone__insideNavmeshPositions) - 1)])
+              let pos = pick_random_or_closest_position(capzone__insideNavmeshPositions, agent_transform[3], closestPoint, closestRoundLen, capzone_transform[3])
+              owner.blackBoard |> set(posParam, pos)
 
               res = EBehResult ER_SUCCESS
               return
@@ -503,8 +567,8 @@ class FindPointInCapzone : BehNodeAdapter
               return
 
             owner.blackBoard |> set(targetEidParam, int(uint(elem.eid)))
-            owner.blackBoard |> set(posParam,
-              capzone__insideNavmeshPositions[rnd_int(0, length(capzone__insideNavmeshPositions) - 1)])
+            let pos = pick_random_or_closest_position(capzone__insideNavmeshPositions, agent_transform[3], closestPoint, closestRoundLen, capzone_transform[3])
+            owner.blackBoard |> set(posParam, pos)
 
             res = EBehResult ER_SUCCESS
 
@@ -523,6 +587,9 @@ class FindPointNearCapzone : BehNodeAdapter
   posParam : int = -1
   targetEidParam : int = -1
 
+  closestPoint : bool = false
+  closestRoundLen : float = 5.0
+
   maxDistSq : float = 1000000.
 
   squadEid : EntityId = INVALID_ENTITY_ID
@@ -535,8 +602,10 @@ class FindPointNearCapzone : BehNodeAdapter
 
     targetEidParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "targetEidParam", "leaderTargetEid"), 0)
 
-    let maxDist = datablock_getReal(data, "maxDist", 1000.)
+    closestPoint = datablock_getBool(data, "closestPoint", closestPoint)
+    closestRoundLen = datablock_getReal(data, "closestRoundLen", closestRoundLen)
 
+    let maxDist = datablock_getReal(data, "maxDist", 1000.)
     maxDistSq = maxDist * maxDist
 
   def override update(dt : float) : EBehResult
@@ -588,8 +657,9 @@ class FindPointNearCapzone : BehNodeAdapter
           if capturedZonesMap[uint(eid)] <= maxTeamInZone
             beh_tree__capzoneOfInterest = eid
             owner.blackBoard |> set(targetEidParam, int(uint(eid)))
-            owner.blackBoard |> set(posParam,
-              capzone__outsideNavmeshPositions[rnd_int(0, length(capzone__outsideNavmeshPositions) - 1)])
+
+            let pos = pick_random_or_closest_position(capzone__outsideNavmeshPositions, agent_transform[3], closestPoint, closestRoundLen, capzone_transform[3])
+            owner.blackBoard |> set(posParam, pos)
 
             maxTeamInZone = capturedZonesMap[uint(eid)]
 
@@ -1101,29 +1171,6 @@ class CheckVehicleSeats : BehNodeAdapter
     return res
 
 
-[beh_node(name="findWeaponSlotWithTag")]
-class FindWeaponSlotWithTag : BehNodeAdapter
-  outParam : int = -1
-  tag : string = ""
-  tagHash : uint
-
-  def override loadFromBlk(var data : DataBlock) : void
-    outParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "toParam", "preferedWeapon"), -1)
-    tag = datablock_getStr(data, "tag", "")
-    tagHash = ecs_hash(tag)
-
-  def override update(dt : float) : EBehResult
-    if tag == ""
-      return EBehResult ER_FAILED
-    var found = false
-    query(beh_tree_eid(owner)) <| $ [es] (human_weap__gunEids : EidList)
-      for slot_index, gunEid in iter_range(human_weap__gunEids), human_weap__gunEids
-        if has(gunEid, tag, tagHash)
-          owner.blackBoard |> set(outParam, slot_index)
-          found = true
-          return
-    return found ? EBehResult ER_SUCCESS : EBehResult ER_FAILED
-
 [beh_node(name="getOrderPosition")]
 class GetOrderPosition : BehNodeAdapter
   posParam : int = -1
@@ -1588,6 +1635,7 @@ class RotateToPoint : BehNodeAdapter
   angleParam : int = -1
   aimSpeedCoef : float = 1.0
   aimViscosityCoef : float = 1.0
+  pitchRange : float2 = float2(-90.0, 90.0)
 
   walker_agent__aimVelocity = float2()
   wishAimingSpeed : float = 16.
@@ -1601,6 +1649,7 @@ class RotateToPoint : BehNodeAdapter
       angleParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "angleParam", ""), 0.)
     aimSpeedCoef = data |> datablock_getReal("aimSpeedCoef", aimSpeedCoef)
     aimViscosityCoef = data |> datablock_getReal("aimViscosityCoef", aimViscosityCoef)
+    pitchRange = data |> datablock_getPoint2("pitchRange", pitchRange)
 
   def override init()
     let agentEid = beh_tree_eid(owner)
@@ -1619,7 +1668,11 @@ class RotateToPoint : BehNodeAdapter
         wishAimingSpeed = deg_to_rad(wishAimingSpeed)
         wishDir = normalize(delta)
         let anglesAt = dir_to_angles(walker_agent.shootDir)
-        let anglesTo = dir_to_angles(wishDir)
+        var anglesTo = dir_to_angles(wishDir)
+        let clampedPitch = clamp(anglesTo.y, deg_to_rad(pitchRange.x), deg_to_rad(pitchRange.y))
+        if anglesTo.y != clampedPitch
+          anglesTo.y = clampedPitch
+          wishDir = angles_to_dir(anglesTo)
         vertAimingCoef = safediv(abs(anglesTo.y - anglesAt.y), abs(norm_s_ang(anglesTo.x - anglesAt.x)))
         vertAimingCoef = min(vertAimingCoef * 2.0, 1.0)
       else

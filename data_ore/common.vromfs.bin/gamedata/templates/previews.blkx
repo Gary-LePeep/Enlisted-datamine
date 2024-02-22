@@ -37,7 +37,6 @@
     "buildingBoxMax": [0.0,0.0,0.0],
     "buildingNorm": [0.0,0.0,0.0],
     "additionalBuildingTemplate": "base_fortification_build",
-    "buildingSoundTag": "fortification",
     "previewCollobjOffset": 0.5,
     "yawRotationSpeed": 90.0,
     "additionalYawRotation": 0.0,
@@ -79,7 +78,7 @@
     "riPreviewResPreload": []
   },
   "semi_transparent_field_of_view": {
-    "_use": "base_animchar_builder_preview",
+    "_use": "base_builder_preview",
     "_tags": "render",
     "semi_transparent_field_of_view__radius": 0.0,
     "semi_transparent_field_of_view__verticalAngle": 0.0,

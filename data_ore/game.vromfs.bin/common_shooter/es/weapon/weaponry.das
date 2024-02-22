@@ -6,13 +6,11 @@ require player
 require math
 require math.base
 require game.es.events
-require game.es.smoke_occluders_common
 require game.es.riextra_damage_common
 require game.events_game
 require ecs.soa_template
 require common_shooter.events_common_shooter
 require common_shooter.es.human_weap_common
-require common_shooter.es.weapon.weaponry_fx_common
 require enlisted.events_enlisted
 require dm
 require DaWeapons
@@ -554,11 +552,11 @@ def projectile_on_hit_scene(pos : float3;
 
     var penetrationSuccess = false
     if dmPhysProps.armorThickness != 0.0 && !destroy_on_hit
-      penetration_table_get_props(int(ldesc.shellId.shellId)) <| $(penetrationProps : PenetrationTableProps)
-        let armorPower = penetrationProps.tbl |> interpolate_tab_float_interpolate(proj_state.penetrationDistance)
+      kinetic_get_props(int(ldesc.shellId.shellId)) <| $(kineticProps : KineticProps)
+        let armorPower = kineticProps.tbl |> interpolate_tab_float_interpolate(proj_state.penetrationDistance)
         if armorPower >= dmPhysProps.armorThickness
           penetrationSuccess = true
-          proj_state.piercingShift = calc_penetration_shift(penetrationProps.tbl,
+          proj_state.piercingShift = calc_penetration_shift(kineticProps.tbl,
                                                             armorPower - dmPhysProps.armorThickness,
                                                             proj_state.distance,
                                                             /*scale*/ 1.0, proj_state.piercingShift)
@@ -654,11 +652,8 @@ def on_projectile_hit_scene(projectile_eid : EntityId;
                                    projectile__sceneHitRicochetStability : float = 0.0;
                                    disableRicochetForGreatAngles : Tag const?;
                                    projectile__destroyOnHit : Tag const?)
-    var damage = calc_kinetic_damage(int(launch_desc.shellId.shellId), projectile_dist)
-    if damage < 1e-6
-      let mass = projectile_ballistics_props.mass
-      let speed = length(projectile_ballistics.state.vel)
-      damage = calc_damage(int(launch_desc.shellId.damageId), mass, speed)
+    let speed = length(projectile_ballistics.state.vel)
+    var damage = calc_kinetic_damage(int(launch_desc.shellId.shellId), projectile_dist, speed)
     damage *= get_float(gunEid, "gun__kineticDamageMult") ?? 1.0
 
     let pos = prev_pos + dir * water_len
@@ -868,12 +863,12 @@ def after_update_projectile_es(info : ParallelUpdateFrameDelayed;
                             material_with_thickness__density : FloatList)
       let armorThickness = material_with_thickness__thickness[projectile_trace_info__thicknessId]
       let density = material_with_thickness__density[projectile_trace_info__thicknessId]
-      penetration_table_get_props(int(launch_desc.shellId.shellId)) <| $(penetrationProps : PenetrationTableProps)
-        let armorPower = penetrationProps.tbl |> interpolate_tab_float_interpolate(dm_projectile_state.penetrationDistance)
+      kinetic_get_props(int(launch_desc.shellId.shellId)) <| $(kineticProps : KineticProps)
+        let armorPower = kineticProps.tbl |> interpolate_tab_float_interpolate(dm_projectile_state.penetrationDistance)
         let newPos = prevPos + dir * len
         let penetrationDist = length(projectile_trace_info__lastIntersectedPos - newPos)
         if penetrationDist > 0.f
-          dm_projectile_state.piercingShift = calc_penetration_shift(penetrationProps.tbl,
+          dm_projectile_state.piercingShift = calc_penetration_shift(kineticProps.tbl,
                                                                      armorPower - armorThickness * penetrationDist,
                                                                      dm_projectile_state.distance,
                                                                      /*scale*/ 1.0, dm_projectile_state.piercingShift)
@@ -1017,60 +1012,6 @@ def init_max_exploding_projectiles(evt : Event;
     server_explosions__maxDelayedFramesCounter = dedBlock |> datablock_getInt("maxExplosionDelay", server_explosions__maxDelayedFramesCounter)
 
 
-def create_smoke_occluders_impl(hit_effect_descriptor : int;
-                                expl_effect_descriptor : int;
-                                launch_desc : LaunchDesc;
-                                dm_projectile_state : ProjectileState;
-                                projectile_ballistics : ProjectileBallistics;
-                                mat_id : int;
-                                is_under_water : bool;
-                                pos : float3;
-                                norm : float3;
-                                exploded : bool = true;
-                                should_stop : bool = true;
-                                ricochet : bool = false)
-  if int(launch_desc.shellId.shellId) < 0
-    return
-  let fxName = get_projectile_fx_name(hit_effect_descriptor, expl_effect_descriptor,
-                                      launch_desc, dm_projectile_state, projectile_ballistics, mat_id, is_under_water,
-                                      exploded, should_stop, ricochet)
-  if fxName == "" || fxName == "-"
-    return
-
-  let tm = calc_effect_tm(pos, norm)
-  create_smoke_occluders_for_effect(tm, fxName)
-
-
-[es]
-def projectile_create_smoke_occluders_on_hit_scene(evt : EventProjectileHitScene;
-                                                   launch_desc : LaunchDesc;
-                                                   dm_projectile_state : ProjectileState;
-                                                   projectile_ballistics : ProjectileBallistics;
-                                                   projectile__hitEffectDescriptor : int;
-                                                   projectile__explEffectDescriptor : int;
-                                                   projectile__isUnderwater : bool)
-  if !evt.sceneIntersectionsExceeded || (evt.shouldStop && evt.allowDetonation)
-    create_smoke_occluders_impl(projectile__hitEffectDescriptor, projectile__explEffectDescriptor,
-                                launch_desc, dm_projectile_state, projectile_ballistics, evt.matId, projectile__isUnderwater,
-                                evt.pos, evt.norm, evt.allowDetonation, evt.shouldStop, evt.ricochetAngle != 0.0)
-
-
-[es]
-def projectile_create_smoke_occluders_on_explode(evt : CmdShellExplosionFx;
-                                                 scene_hit_place__matId : int;
-                                                 scene_hit_place__pos : float3;
-                                                 scene_hit_place__norm : float3;
-                                                 launch_desc : LaunchDesc;
-                                                 dm_projectile_state : ProjectileState;
-                                                 projectile_ballistics : ProjectileBallistics;
-                                                 projectile__hitEffectDescriptor : int;
-                                                 projectile__explEffectDescriptor : int;
-                                                 projectile__isUnderwater : bool)
-  create_smoke_occluders_impl(projectile__hitEffectDescriptor, projectile__explEffectDescriptor,
-                              launch_desc, dm_projectile_state, projectile_ballistics, scene_hit_place__matId, projectile__isUnderwater,
-                              scene_hit_place__pos, scene_hit_place__norm)
-
-
 [es]
 def process_projectile_on_hit_entity_with_hp(var evt : ProjectileOnHitEntityWithHp&)
   let projectile_eid = evt.projectile_eid
@@ -1157,12 +1098,7 @@ def process_projectile_on_hit_entity_with_hp(var evt : ProjectileOnHitEntityWith
 
     let totalProjectileDist = projectileDist + piercing_shift
     let projectileSpeed = length(vel)
-    var kineticDamage = calc_kinetic_damage(int(shellId.shellId), totalProjectileDist)
-    // In case of zero damage (projectile doens't have 'hitPowerMult' value in its BLK)
-    // try to recalc it with kinetic energy to damage transformation
-    // This projectile might be launched by a vehile, turret, etc.
-    if kineticDamage < 1.e-6f
-      kineticDamage = calc_damage(int(shellId.damageId), (*ballProjProps).mass, projectileSpeed)
+    let kineticDamage = calc_kinetic_damage(int(shellId.shellId), totalProjectileDist, projectileSpeed)
 
     let totalPartArmor = entity_mods__defArmor + waterArmor + partArmor
 

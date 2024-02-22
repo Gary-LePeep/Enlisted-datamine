@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 let { round, cos, PI } = require("math")
 let DataBlock = require("DataBlock")
 let colorize = require("%ui/components/colorize.nut")
@@ -14,7 +14,7 @@ let armorClassRemap = {
   ship_wood = "wood"
 }
 
-let function getArmorClassLocName(dmBlkPath, partName) {
+function getArmorClassLocName(dmBlkPath, partName) {
   if (dmBlkPath == "")
     return ""
   let blk = DataBlock()
@@ -24,14 +24,14 @@ let function getArmorClassLocName(dmBlkPath, partName) {
   return armorClass ? loc($"armor_class/{armorClass}") : ""
 }
 
-let function getEffectiveThicknessStr(thickness, viewingAngle) {
+function getEffectiveThicknessStr(thickness, viewingAngle) {
   let divider = cos(viewingAngle * PI / 180.0)
   let effThickness = round(divider != 0 ? (thickness / divider) : (ABSOLUTE_ARMOR_THRESHOLD + 1))
   let effThicknessMax = round(min(ABSOLUTE_ARMOR_THRESHOLD, RELATIVE_ARMOR_THRESHOLD * thickness))
   return "".concat(effThickness <= effThicknessMax ? "" : ">", min(effThickness, effThicknessMax))
 }
 
-let function getArmorPartDesc(armorClassLoc, armorParams, partDebug) {
+function getArmorPartDesc(armorClassLoc, armorParams, partDebug) {
   let { thickness, normalAngle, viewingAngle } = armorParams
   let effectiveThickness = getEffectiveThicknessStr(thickness, viewingAngle)
   return "\n".join([

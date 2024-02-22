@@ -32,7 +32,6 @@ commonScenes{
   scene:t="content/enlisted/gamedata/scenes/army_language.blk"
   scene:t="content/enlisted/gamedata/scenes/mission_time.blk"
   scene:t="content/common/gamedata/scenes/debug_scene.blk"
-  scene:t="content/enlisted/gamedata/scenes/spline_gen_scene.blk"
   scene:t="content/enlisted/gamedata/scenes/global_fx.blk"
   scene:t="content/enlisted/gamedata/scenes/bullet_types_water.blk"
   scene:t="content/enlisted/gamedata/scenes/shell_explosions.blk"
@@ -62,6 +61,11 @@ bulletHoles
   norm2:t= decal_bullethole_stone_a_tex_n*
   diff3:t= decal_bullethole_wood_a_tex_d*
   norm3:t= decal_bullethole_wood_a_tex_n*
+}
+
+explosionPatch
+{
+  expl_mat_path:t="content/common/gamedata/explMat.blk"
 }
 
 landClasses

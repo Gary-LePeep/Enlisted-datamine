@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { voteToKickAccusedName, voteToKickAccused, voteToKickYes, voteToKickNo, lastKickedPlayerInfo } = require("%ui/hud/state/vote_kick_state.nut")

@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {fontSub} = require("%enlSqGlob/ui/fontsStyle.nut")
 let {isGamepad} = require("%ui/control/active_controls.nut")
@@ -16,7 +16,7 @@ let closeTag = @"}}"
 
 let token = @(tokenType, value) { type = tokenType, value }
 
-let function tokenizeRow(text) {
+function tokenizeRow(text) {
   let res = []
   local start = 0
   local end = 0
@@ -39,13 +39,13 @@ let function tokenizeRow(text) {
   return res
 }
 
-let function tokenizeTextWithShortcuts(text){
+function tokenizeTextWithShortcuts(text){
   let rows = text.split("\r\n")
   return rows.map(tokenizeRow)
 }
 
 
-let function textFunc(text){
+function textFunc(text){
   return {
     text
     color = hotkeyColor, rendObj = ROBJ_TEXT
@@ -53,7 +53,7 @@ let function textFunc(text){
     vplace = ALIGN_CENTER
   }.__update(fontSub)
 }
-let function makeControlText(text){
+function makeControlText(text){
   return (text==null || text=="") ? null
   : {
     rendObj = isGamepad.value ? null : ROBJ_FRAME
@@ -66,7 +66,7 @@ let function makeControlText(text){
 
 let imgHeight = calc_str_box("A", fontSub)[1]
 
-let function mkControlImg(text, params = {}){
+function mkControlImg(text, params = {}){
   return (text!=null && text!="")
     ? {size= [ SIZE_TO_CONTENT, imgHeight*1.15] valign = ALIGN_CENTER children = @() makeSvgImgFromText(text, {height=imgHeight}.__update(params))}
     : null
@@ -78,7 +78,7 @@ let defP = {
   compact = false
   eventTypesAsTxt = true
 }
-local function controlView(textList, params = null) {
+function controlView(textList, params = null) {
   params = defP.__merge(params ?? {})
   return {
     flow = FLOW_HORIZONTAL
@@ -87,7 +87,7 @@ local function controlView(textList, params = null) {
   }
 }
 
-let function controlHint(control, params = null) {
+function controlHint(control, params = null) {
   let column = isGamepad.value ? 1 : 0
   let textList = textListFromAction(control, column)
   if (textList.filter(@(v) v!="").len() == 0)
@@ -134,12 +134,12 @@ let tokensView = {
   text = @(v) dtext(loc(v.value))
 }
 
-let function viewControlToken(token_to_process) {
+function viewControlToken(token_to_process) {
   let ctor = tokensView[token_to_process.type]
   return ctor ? ctor(token_to_process) : null
 }
 
-let function glueTokens(hintsTokens){
+function glueTokens(hintsTokens){
   //better not to glue, but split differently instead
   let res = []
   foreach (h in hintsTokens){
@@ -156,7 +156,7 @@ let function glueTokens(hintsTokens){
   return res
 }
 
-let function makeHintsRows(hintsTokens) {
+function makeHintsRows(hintsTokens) {
   return glueTokens(hintsTokens).map(function(textRow) {
     let children = textRow.map(viewControlToken)
     if (children.contains(EmptyControl) || children==null || children.len()==0) {

@@ -1,10 +1,10 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let spinnerList = require("spinnerList.nut")
 
 let locOn = loc($"option/on")
 let locOff = loc($"option/off")
-let function optionSpinner(opt, group, xmbNode) {
+function optionSpinner(opt, group, xmbNode) {
   let stateFlags = Watched(0)
   let available = opt?.available instanceof Watched
     ? opt.available

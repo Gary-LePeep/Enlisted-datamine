@@ -8,7 +8,7 @@ let { currentGameMode } = require("%enlist/gameModes/gameModeState.nut")
 let userInfo = require("%enlSqGlob/userInfo.nut")
 
 
-let function update_current_activity(callback = null) {
+function update_current_activity(callback = null) {
   let maxMembers = availableSquadMaxMembers.value
   let currentMembers = isInSquad.value ? squadLen.value : 1
   let sessionId = isInSquad.value ? squadId.value.tostring() : (userInfo.value?.userIdStr ?? "")
@@ -27,7 +27,7 @@ let function update_current_activity(callback = null) {
 }
 
 
-let function invite(uid, callback) {
+function invite(uid, callback) {
   let xboxUid = uid2console.value?[uid.tostring()]
   if (xboxUid == null) {
     logX($"Try invite user {uid} with unknown xbox uid")
@@ -40,7 +40,7 @@ let function invite(uid, callback) {
 }
 
 
-let function join(session_id, invitation_id, on_success) {
+function join(session_id, invitation_id, on_success) {
   logX($"join to session {session_id} received from {invitation_id}")
   update_current_activity(function(success) {
     if (success)
@@ -49,21 +49,22 @@ let function join(session_id, invitation_id, on_success) {
 }
 
 
-let function update_data(leaderUid) {
+function update_data(leaderUid) {
   logX($"change leader on xbox system, notify about new leader id {leaderUid}")
-  mpa.clear_activity(null) // if user was a leader, we need to clear his activity
-  update_current_activity()
+  mpa.clear_activity(function(_) {
+    update_current_activity()
+  }) // if user was a leader, we need to clear his activity
 }
 
 
-let function create(_, callback) {
+function create(_, callback) {
   update_current_activity(function(_) {
     callback?()
   })
 }
 
 
-let function leave() {
+function leave() {
   mpa.clear_activity(null)
 }
 
@@ -94,8 +95,9 @@ userInfo.subscribe(function(v) {
 
 
 currentGameMode.subscribe(function(_) {
-  mpa.clear_activity(null)
-  update_current_activity()
+  mpa.clear_activity(function(_) {
+    update_current_activity()
+  })
 })
 
 

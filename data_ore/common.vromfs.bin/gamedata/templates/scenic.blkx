@@ -227,6 +227,7 @@
         "water__flowmap": true,
         "water__flowmap_tex": "",
         "water__flowmap_area": [-512.0,512.0,512.0,-512.0],
+        "water__flowmap_range": 100.0,
         "water__flowmap_fading": 4.0,
         "water__flowmap_foam_depth_max": 3.0,
         "water__flowmap_foam_power": 0.5,
@@ -234,6 +235,7 @@
         "water__flowmap_foam_scale": 0.4,
         "water__flowmap_foam_speed_scale": 8.0,
         "water__flowmap_foam_threshold": 1.2,
+        "water__flowmap_foam_color": [1.0,1.0,1.0],
         "water__flowmap_foam_tiling": 0.75,
         "water__flowmap_max_distance": 0.9,
         "water__flowmap_min_distance": 0.4,
@@ -285,8 +287,8 @@
     }
   ],
   "wind": {
-    "dyn_wind__cumulus_alt_multiplier": 12.0,
-    "dyn_wind__strata_alt_multiplier": 4.0,
+    "dyn_wind__cumulus_alt_multiplier": 24.0,
+    "dyn_wind__strata_alt_multiplier": 8.0,
     "_use": "replicating",
     "_singleton": true,
     "ambient_wind:AmbientWind": {
@@ -300,9 +302,8 @@
       "wind__strength": 2.0,
       "wind__noiseStrength": 2.0,
       "wind__noiseSpeed": 1.0,
-      "wind__noiseScale": 70.0,
-      "wind__noisePerpendicular": 0.5,
-      "wind__clouds_scale": 2.0
+      "wind__noiseScale": 28.0,
+      "wind__noisePerpendicular": 0.5
     }
   },
   "distant_haze": {

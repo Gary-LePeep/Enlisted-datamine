@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let healthBar = require("mk_health_bar.nut")
 let {hp, maxHp, scaleHp} = require("%ui/hud/state/health_state.nut")

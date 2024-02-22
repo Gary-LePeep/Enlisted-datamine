@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {makeArrow} = require("%ui/hud/hud_markers/components/hud_markers_components.nut")
 let {active_bombs_Set, active_bombs_GetWatched} = require("%ui/hud/state/active_bombs.nut")
@@ -32,7 +32,7 @@ let children = [
   makeArrow({color = colorRed, anim = bombAnim, yOffs = 0, pos = [0, -fsh(1.8)]})
 ]
 
-let function bombMarker(eid) {
+function bombMarker(eid) {
   let state = active_bombs_GetWatched(eid)
   let watch = [watchedHeroEid, state]
   return function() {

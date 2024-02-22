@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 require("%ui/_packages/common_shooter/game_console.nut")
 require("%ui/hud/state/on_disconnect_server_es.nut")
@@ -9,7 +9,7 @@ require("%ui/hud/state/preferred_plane_control_mode.nut")
 require("%ui/hud/spectator_console.nut")
 require("%ui/hud/state/aiming_smooth.nut")
 require("%ui/hud/state/cmd_hero_log_event.nut")
-require("%enlSqGlob/notifications/disconnectedControllerMsg.nut")
+require("%enlSqGlob/ui/notifications/disconnectedControllerMsg.nut")
 require("state/battle_area_warnings.nut")
 require("state/team_score_warnings.nut")
 
@@ -57,6 +57,7 @@ let { planeFlightSenseOption } = require("%ui/hud/menus/options/plane_camera_opt
 let { vehicleCameraFollowOption } = require("%ui/hud/menus/vehicle_camera_follow_option.nut")
 let { voiceChatOptions } = require("%ui/hud/menus/options/voicechat_options.nut")
 let narratorOptions = require("%ui/hud/menus/options/narrator_options.nut")
+let autoleanOptions = require("%ui/hud/menus/options/autolean_options.nut")
 let vehicleGroupLimitOptions = require("%ui/hud/menus/options/vehicle_group_limit_options.nut")
 let qualityPresetOption = require("%ui/hud/menus/options/get_quality_preset_option.nut")
 
@@ -64,7 +65,7 @@ let options = [qualityPresetOption, cameraFovOption, vehicleCameraFovOption,
   planeFlightSenseOption, vehicleCameraFollowOption, harmonizationOption, harmonizationNickOption]
 options.extend(
   renderOptions, soundOptions, voiceChatOptions, cameraShakeOptions, violenceOptions,
-  planeControlOptions, hudOptions, narratorOptions, vehicleGroupLimitOptions
+  planeControlOptions, hudOptions, narratorOptions, autoleanOptions, vehicleGroupLimitOptions
 )
 
 setMenuOptions(options)

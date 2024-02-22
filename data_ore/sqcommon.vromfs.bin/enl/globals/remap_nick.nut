@@ -42,7 +42,7 @@ let addIcon = needPlatformMorphemesReplacement
   ? (@(name, icon) icon == "" ? name : $"{icon}{NBSP}{name}")
   : @(name, _icon) name
 
-let function remap_nick(name, withHarmonize = false) {
+function remap_nick(name, withHarmonize = false) {
   if (typeof name != "string" || name == "")
     return ""
 

@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {fontHeading2} = require("%enlSqGlob/ui/fontsStyle.nut")
 let { watchedHeroEid, watchedTeam } = require("%ui/hud/state/watched_hero.nut")
@@ -73,7 +73,7 @@ let mkZoneText = memoize(@(caption, animations){
 )
 
 
-let function capzoneCtor(zoneWatch, params={}) {
+function capzoneCtor(zoneWatch, params={}) {
   let { animAppear = null, canHighlight=true} = params
   let {eid} = zoneWatch.value
   let watch = [zoneWatch, watchedTeam, watchedHeroEid, isReplay, isReplayStopped]

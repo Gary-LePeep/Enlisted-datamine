@@ -1,9 +1,9 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {showPushObjectTip} = require("%ui/hud/state/push_object_state.nut")
 let {tipCmp} = require("%ui/hud/huds/tips/tipComponent.nut")
 
-let function push_object_tip() {
+function push_object_tip() {
   let res = { watch = showPushObjectTip }
   if (!showPushObjectTip.value)
     return res

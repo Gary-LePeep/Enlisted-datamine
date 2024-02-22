@@ -263,10 +263,18 @@
   },
   {
     "entity": {
+      "_template": "spawn_switcher",
+      "swapProbability": 0.5,
+      "team1": 2,
+      "team2": 1
+    }
+  },
+  {
+    "entity": {
       "_template": "team_ussr+team_narrator_domination+respawn_creators_team",
       "team__id": 1,
-      "team__score": 2400.0,
-      "team__scoreCap": 2400.0,
+      "team__score": 2500.0,
+      "team__scoreCap": 2500.0,
       "score_bleed__domBleed": 4.0,
       "score_bleed__domBleedOn": false,
       "score_bleed__totalDomZoneCount": 3,
@@ -282,8 +290,8 @@
     "entity": {
       "_template": "team_germany_winter+team_narrator_domination+respawn_creators_team",
       "team__id": 2,
-      "team__score": 2600.0,
-      "team__scoreCap": 2600.0,
+      "team__score": 2500.0,
+      "team__scoreCap": 2500.0,
       "score_bleed__domBleed": 4.0,
       "score_bleed__domBleedOn": false,
       "score_bleed__totalDomZoneCount": 3,
@@ -333,14 +341,6 @@
         [-0.0442045,-0.294987,0.954478],
         [-1355.8,15.3045,587.925]
       ]
-    }
-  },
-  {
-    "entity": {
-      "_template": "spawn_switcher",
-      "swapProbability": 0.5,
-      "team1": 2,
-      "team2": 1
     }
   },
   {

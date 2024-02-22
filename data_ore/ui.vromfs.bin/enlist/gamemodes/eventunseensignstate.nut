@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {mkOnlineSaveData} = require("%enlSqGlob/mkOnlineSaveData.nut")
 let { get_setting_by_blk_path } = require("settings")
@@ -12,7 +12,7 @@ let nextTimeToShow = mkOnlineSaveData("nextTimeToShow", @() 0)
 let nextTimeToShowStored = nextTimeToShow.watch
 
 
-let function markEventSeen() {
+function markEventSeen() {
   if (!isNotifierAvailable || serverTime.value < nextTimeToShowStored.value)
     return
   let curTime = serverTime.value

@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { heroActiveResupplyZonesEids } = require("%ui/hud/state/resupplyZones.nut")
@@ -10,13 +10,13 @@ let tip = tipCmp({text = loc("resupply/tip"), textColor = HUD_TIPS_FAIL_TEXT_COL
 
 let isResupplyTipShown = Watched(false)
 
-let function resupplyTipTimer(){
+function resupplyTipTimer(){
   isResupplyTipShown(false)
 }
 
 const RESUPPLY_TIP_SHOW_TIME = 5
 
-let function showResupplyTip() {
+function showResupplyTip() {
   if (isResupplyTipShown.value)
     gui_scene.clearTimer(resupplyTipTimer)
   isResupplyTipShown(true)
@@ -25,7 +25,7 @@ let function showResupplyTip() {
 
 let resupplyVehicleQuery = ecs.SqQuery("resupplyVehicleQuery", {comps_ro = [["turret_control__gunEids", ecs.TYPE_EID_LIST]] comps_rq = ["heroVehicle"]})
 
-let function isShootingDry() {
+function isShootingDry() {
   local isAnyTurretShooting = false
 
   resupplyVehicleQuery(function(_eid, comp) {
@@ -48,7 +48,7 @@ let function isShootingDry() {
   return isAnyTurretShooting
 }
 
-let function trackComps() {
+function trackComps() {
   if (heroActiveResupplyZonesEids.value.len() == 0)
     return
   if (isShootingDry())

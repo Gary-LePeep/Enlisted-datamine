@@ -1,7 +1,7 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontHeading2 } = require("%enlSqGlob/ui/fontsStyle.nut")
-let function progressText(text) {
+function progressText(text) {
   return {
     rendObj = ROBJ_TEXT
     text

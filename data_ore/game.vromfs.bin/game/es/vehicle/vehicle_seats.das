@@ -40,6 +40,7 @@ def create_vehicle_seats(evt : Event;
       set(init, "seat__vehicleEid", eid)
 
       set(init, "seats_order__canPlaceOnlyOwner", seat?.canPlaceOnlyOwner ?? false)
+      set(init, "seat__windAffectMultiplier", seat?.windAffectMultiplier ?? 1.)
 
       if has(*seat, "canPlaceManually")
         set(init, "seats_order__canPlaceManually", get_bool(seat, "canPlaceManually") ?? false)

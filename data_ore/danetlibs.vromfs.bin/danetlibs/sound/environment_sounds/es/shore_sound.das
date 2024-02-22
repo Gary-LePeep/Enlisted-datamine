@@ -6,7 +6,7 @@ require soundEvent
 require soundSystem
 
 
-[es(tag=sound, on_event=ParallelUpdateFrameDelayed, after=birds_sound_update)]
+[es(tag=sound, on_event=ParallelUpdateFrameDelayed, after=(birds_sound_update, sound_begin_update_es), before=sound_end_update_es)]
 def shore_sound_update(evt : Event;
                        sound_banks_state__isPresetLoaded : bool;
                        shore_sound__event : SoundEvent&;

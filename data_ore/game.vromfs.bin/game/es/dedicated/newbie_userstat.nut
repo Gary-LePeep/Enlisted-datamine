@@ -20,7 +20,7 @@ let newbiePlayerQuery = ecs.SqQuery("newbiePlayerQuery", {
   ]
 })
 
-let function applyNewbieDamageBoost(eid, progress, nextStage, battle, totalBattles) {
+function applyNewbieDamageBoost(eid, progress, nextStage, battle, totalBattles) {
   newbiePlayerQuery(eid, function (_eid, comp) {
     comp.newbie__baseKillCount = progress
     comp.newbie__killCountMax = nextStage
@@ -28,12 +28,12 @@ let function applyNewbieDamageBoost(eid, progress, nextStage, battle, totalBattl
   })
 }
 
-let function isFinished(unlock) {
+function isFinished(unlock) {
   let { stage = 0, nextStage = 0, progress = 0 } = unlock
   return stage > 0 || progress >= nextStage
 }
 
-let function onPlayerConnected(eid, comp) {
+function onPlayerConnected(eid, comp) {
   let { appId = 0, userid = INVALID_USER_ID } = comp
   if (appId == 0 || userid == INVALID_USER_ID)
     return

@@ -1,10 +1,10 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {fontSub} = require("%enlSqGlob/ui/fontsStyle.nut")
 let faComp = require("%ui/components/faComp.nut")
 let speakingPlayers = require("%ui/hud/state/voice_chat.nut")
 let { remap_others } = require("%enlSqGlob/remap_nick.nut")
-let {horPadding, verPadding} = require("%enlSqGlob/safeArea.nut")
+let {horPadding, verPadding} = require("%enlSqGlob/ui/safeArea.nut")
 
 let speakingColor = Color(0, 255, 0)
 let speakingIcon = faComp("volume-up", {
@@ -20,7 +20,7 @@ let speakingIcon = faComp("volume-up", {
   fontSize = hdpx(12)
 })
 
-let function mkSpeaker(name) {
+function mkSpeaker(name) {
   return {
     flow = FLOW_HORIZONTAL
     valing = ALIGN_BOTTOM
@@ -36,7 +36,7 @@ let function mkSpeaker(name) {
   }
 }
 
-let function mapTable(table, func= @(v) v){
+function mapTable(table, func= @(v) v){
   let ret = []
   foreach (k, _ in table)
     ret.append(func(k))

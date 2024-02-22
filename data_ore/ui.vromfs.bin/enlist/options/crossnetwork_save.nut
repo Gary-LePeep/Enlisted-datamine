@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { savedCrossnetworkPlayId, savedCrossnetworkStateUpdate } = require("%enlSqGlob/crossnetwork_state.nut")
 let { settings } = require("%enlist/options/onlineSettings.nut")

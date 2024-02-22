@@ -180,7 +180,7 @@ def plane_damage_cutting(evt : EventCutPart;
     for w, plane in plane_cutting__cuttingPlanesW, plane_cutting__cuttingPlanes
       w = plane.w
 
-[es(tag=gameClient, before=additional_data_for_plane_cutting_es)]
+[es(tag=gameClient, before=additional_data_for_plane_cutting_es, after=animchar_before_render_es)]
 def plane_damage_update_cutting_plane_offset(info : UpdateStageInfoAct;
                                              plane_cutting__cuttingPlanesW : FloatList;
                                              var plane_cutting__cuttingPlanes : Point4List&)
@@ -194,7 +194,7 @@ def create_wreckage_entity(template_name : string;
                            plane_net_phys : PlaneActor;
                            offset : float3;
                            transform : float3x4)
-  let orient = quat(transform)
+  let orient = DagorMath::quat(transform)
 
   let arm = offset
   let vel = float3(plane_net_phys.phys.currentState.velocity)

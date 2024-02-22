@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {
   TextDefault, BtnBdDisabled, ModalBgTint
@@ -6,7 +6,7 @@ let {
 let { show } = require("%ui/components/msgbox.nut")
 let {addModalWindow, removeModalWindow} = require("%ui/components/modalWindows.nut")
 let fontIconButton = require("%ui/components/fontIconButton.nut")
-let eventbus = require("eventbus")
+let { eventbus_subscribe } = require("eventbus")
 let { browser_go_back = @() null,
         browser_reload_page = @() null,
         can_use_embeded_browser = @() false } = require_optional("browser")
@@ -18,14 +18,14 @@ let isBrowserClosed = Watched(true)
 const WND_UID = "webbrowser_window"
 
 
-let function handleBrowserEvent(val) {
+function handleBrowserEvent(val) {
   if ("canGoBack" in val)
     canGoBack(!!val.canGoBack)
   if ("title" in val)
     windowTitle(val.title ?? "")
 }
 
-eventbus.subscribe("browser_event", handleBrowserEvent)
+eventbus_subscribe("browser_event", handleBrowserEvent)
 
 let windowTitleHeader = @() {
   rendObj = ROBJ_TEXT
@@ -64,7 +64,7 @@ let controlPanel = {
   ]
 }
 
-let function showBrowser(url = "") {
+function showBrowser(url = "") {
   if (can_use_embeded_browser()) {
     isBrowserClosed(false)
     addModalWindow({

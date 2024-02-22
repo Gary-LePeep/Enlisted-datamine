@@ -24,6 +24,7 @@ require DagorSystem
 require PhysVars
 require EffectorData
 require PhysDecl
+require DagorMathUtils
 
 
 [es(on_disappear)]
@@ -159,7 +160,7 @@ def human_attached_gun_update_phys(update : CmdPostPhysUpdate;
     tm[1] = currentState.vertDirection
     tm[2] = normalize(cross(tm[0], tm[1]))
     tm[0] = normalize(cross(tm[1], tm[2]))
-    let orient = quat(tm)
+    let orient = DagorMath::quat(tm)
     currentState.location.O |> orient_setQuat(orient)
     currentState.moveState = HUMoveState EMS_STAND
     let posAfter = float3(currentState.location.P)
@@ -227,6 +228,24 @@ def human_attached_gun_controls_update_es(info : ParallelUpdateFrameDelayed;
     if (!isHeroAlive || !isAlive || isDowned)
       detach_from_gun(eid, human_attached_gun__attachedGunEid)
 
+[es(tag=gameClient)]
+def lower_stationary_gun_after_use_es(info : ParallelUpdateFrameDelayed;
+                                      eid : EntityId;
+                                      lower_stationary_gun_after_use__loweringSpeed : float;
+                                      lower_stationary_gun_after_use__loweringSide : int;
+                                      mounted_gun__vert_limits : float2;
+                                      gun__owner : EntityId;
+                                      var animchar__updatable : bool&;
+                                      var phys_vars : PhysVars;
+                                      mounted_gun : MountedGun)
+  var curPitch = phys_vars |> getVar(mounted_gun.pitchVarId)
+  if !!gun__owner || abs(curPitch - mounted_gun__vert_limits[lower_stationary_gun_after_use__loweringSide]) < lower_stationary_gun_after_use__loweringSpeed * info.dt
+    removeSubTemplate(eid, "lower_stationary_gun_after_use")
+    if !gun__owner
+      animchar__updatable = false
+  let angSpeed = lower_stationary_gun_after_use__loweringSide == 0 ? -1. : 1.
+  curPitch += lower_stationary_gun_after_use__loweringSpeed * angSpeed * info.dt
+  phys_vars |> setVar(mounted_gun.pitchVarId, curPitch)
 
 [es(before=before_animchar_update_sync, after=(after_net_phys_sync, human_anim_es))]
 def human_attached_gun_effectors_update_es(info : ParallelUpdateFrameDelayed;
@@ -244,28 +263,34 @@ def human_attached_gun_effectors_update_es(info : ParallelUpdateFrameDelayed;
     var leftHandEffector = animchar_effectors__effectorsState |> getNullableRW_EffectorData("l.hand")
 
     if rightHandEffector != null && leftHandEffector != null
+      // FIXME: no reason for this to be in a system which can be clientsided and relates to hand animation logic
+      // and it seems that breathAmplitudeMult is never actually reset
       human_net_phys.phys.currentState.breathAmplitudeMult = human_attached_gun__breathAmplitude
       if humanAnimChar != null && !human_attached_gun__disableIK
         let d_wofs = *animchar.nodeTree |> geomtree_getWtmOfs() - *humanAnimChar.nodeTree |> geomtree_getWtmOfs()
 
-        let arms = *animchar.nodeTree |> geomtree_getNodeWposRel(human_attached_gun__rhandNodeIdx) + d_wofs
+        if human_attached_gun__rhandNodeIdx >= 0
+          let armPosition = *animchar.nodeTree |> geomtree_getNodeWposRel(human_attached_gun__rhandNodeIdx) + d_wofs
 
-        (*rightHandEffector).position = arms
-        *animchar.nodeTree |> geomtree_getNodeWtmRelScalar(human_attached_gun__rhandNodeIdx, (*rightHandEffector).wtm)
-        (*rightHandEffector).wtm[3] = (*rightHandEffector).wtm[3] + d_wofs
-        (*rightHandEffector).weight = 1.0
+          rightHandEffector.position = armPosition
+          *animchar.nodeTree |> geomtree_getNodeWtmRelScalar(human_attached_gun__rhandNodeIdx, rightHandEffector.wtm)
+          rightHandEffector.wtm[3] = rightHandEffector.wtm[3] + d_wofs
+          rightHandEffector.weight = 1.0
+        else
+          rightHandEffector.weight = 0.0
 
-        var armLh = arms
         if human_attached_gun__lhandNodeIdx >= 0
-          armLh = *animchar.nodeTree |> geomtree_getNodeWposRel(human_attached_gun__lhandNodeIdx) + d_wofs
+          let armPosition = *animchar.nodeTree |> geomtree_getNodeWposRel(human_attached_gun__lhandNodeIdx) + d_wofs
 
-        (*leftHandEffector).position = armLh
-        *animchar.nodeTree |> geomtree_getNodeWtmRelScalar(human_attached_gun__lhandNodeIdx, (*leftHandEffector).wtm)
-        (*leftHandEffector).wtm[3] = (*leftHandEffector).wtm[3] + d_wofs
-        (*leftHandEffector).weight = 1.0
+          leftHandEffector.position = armPosition
+          *animchar.nodeTree |> geomtree_getNodeWtmRelScalar(human_attached_gun__lhandNodeIdx, leftHandEffector.wtm)
+          leftHandEffector.wtm[3] = leftHandEffector.wtm[3] + d_wofs
+          leftHandEffector.weight = 1.0
+        else
+          leftHandEffector.weight = 0.0
       else
-        (*rightHandEffector).weight = 0.0
-        (*leftHandEffector).weight = 0.0
+        rightHandEffector.weight = 0.0
+        leftHandEffector.weight = 0.0
 
 
 [es(tag=(gameClient, net))]

@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let flaskIcon = memoize(@(size)
   Picture("ui/skin#flask_icon.svg:{0}:{0}:K".subst(size)))

@@ -6,7 +6,7 @@ require common_shooter.es.sound.gun_sound_common
 require sound_utils_net.modules.sound_utils_net_events
 
 
-[es(tag=sound)]
+[es(tag=sound, after=sound_begin_update_es, before=sound_end_update_es)]
 def turret_reload_sound_progress(info : ParallelUpdateFrameDelayed;
                                  turret__isBroken : bool;
                                  ui_turret_reload_progress__finishTime : float;
@@ -30,7 +30,7 @@ def turret_reload_sound_progress(info : ParallelUpdateFrameDelayed;
       oneshot(gun_reload_sound__readyPath)
 
 
-[es(tag=sound)]
+[es(tag=sound, after=sound_begin_update_es, before=sound_end_update_es)]
 def gun_ready_to_shoot_sound(info : ParallelUpdateFrameDelayed;
                              gun : Gun;
                              gun__owner : EntityId;

@@ -1,10 +1,10 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let mkIcon3d = require("%ui/components/icon3d.nut")
 let { isHarmonizationEnabled } = require("%enlSqGlob/harmonizationState.nut")
 
-let function applyHarmonizationImpl(template, objTexReplace, objTexSet) {
+function applyHarmonizationImpl(template, objTexReplace, objTexSet) {
   let objTexHarmonize = template.getCompValNullable("animchar__objTexHarmonize")
   if (objTexHarmonize == null)
     return
@@ -17,12 +17,12 @@ let applyHarmonization = isHarmonizationEnabled.value ? applyHarmonizationImpl :
 
 let DB = ecs.g_entity_mgr.getTemplateDB()
 
-let function mkDecorAnimchar(decor) {
+function mkDecorAnimchar(decor) {
   let animchar = DB.getTemplateByName(decor?.template)?.getCompValNullable("animchar__res")
   return decor.__merge(animchar ? { animchar } : {})
 }
 
-let function getIconInfoByGameTemplate(template, params = {}) {
+function getIconInfoByGameTemplate(template, params = {}) {
   let reassign = @(value, key) key in params ? params[key] : value
   let decorators = template.getCompValNullable("attach_decorators__templates")?.getAll().map(mkDecorAnimchar)
 
@@ -53,7 +53,7 @@ let function getIconInfoByGameTemplate(template, params = {}) {
   }
 }
 
-let function icon3dByGameTemplate(gametemplate, params = {}) {
+function icon3dByGameTemplate(gametemplate, params = {}) {
   if (gametemplate == null)
     return null
   let template = DB.getTemplateByName(gametemplate)

@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let faComp = require("%ui/components/faComp.nut")
 let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
@@ -55,7 +55,7 @@ let mkTextArea = @(text) mkText(text).__update({
 })
 
 
-let function mkSquadSpawnDesc(canSpawnSquad, readiness, canSpawnSoldier, isAffordable, price, score) {
+function mkSquadSpawnDesc(canSpawnSquad, readiness, canSpawnSoldier, isAffordable, price, score) {
   if (canSpawnSquad == null || readiness == null)
     return mkTextArea(loc("respawn/squadNotChoosen"))
 
@@ -80,7 +80,7 @@ let mkSquadSpawnIcon = @(size = hdpxi(20))
     color = spawnNotReadyColor
   }
 
-local function mkSquadIcon(img, override = {}) {
+function mkSquadIcon(img, override = {}) {
   if ((img ?? "") == "")
     return {
       rendObj = ROBJ_BOX
@@ -164,7 +164,7 @@ let mkUnlockLevel = @(unlockLevel, sf) (unlockLevel ?? 0) == 0 ? null
     }
 
 
-let timerIcon = "ui/skin#/battlepass/boost_time.svg"
+let timerIcon = "ui/skin#battlepass/boost_time.svg"
 let timerSize = hdpxi(18)
 
 let mkSquadTimer = @(sf) {
@@ -209,7 +209,7 @@ let mkSquadLevel = @(battleRating, level, expireTime, sf, addChild) {
 }
 
 
-let function mkSquadPremIcon(premIcon, override = null) {
+function mkSquadPremIcon(premIcon, override = null) {
   if (premIcon == null)
     return null
 
@@ -222,7 +222,7 @@ let function mkSquadPremIcon(premIcon, override = null) {
   })
 }
 
-let function mkSquadSpecIconFields(armyId, squad, isPremium = false, override = null) {
+function mkSquadSpecIconFields(armyId, squad, isPremium = false, override = null) {
   local { squadId = null, premIcon = null } = squad
   if (isPremium && premIcon == null)
     premIcon = squadsPresentation?[armyId][squadId] ?? armiesPresentation?[armyId].premIcon
@@ -232,7 +232,7 @@ let function mkSquadSpecIconFields(armyId, squad, isPremium = false, override = 
   return mkSquadPremIcon(premIcon, override)
 }
 
-let function mkSquadSpecIcon(squad, override = null) {
+function mkSquadSpecIcon(squad, override = null) {
   let armyId = getLinkedArmyName(squad)
   let isPremium = isSquadPremium(squad)
   return mkSquadSpecIconFields(armyId, squad, isPremium, override)

@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { watchedTable2TableOfWatched } = require("%sqstd/frp.nut")
 let { mkFrameIncrementObservable } = require("%ui/ec_to_watched.nut")
@@ -18,7 +18,7 @@ let { state, stateSetValue } = mkFrameIncrementObservable(defValue, "state")
 
 let exportState = watchedTable2TableOfWatched(state)
 
-local function partDamagedIndicate(parts, dmState, partDestroyedCount = 0) {
+function partDamagedIndicate(parts, dmState, partDestroyedCount = 0) {
   local isDamaged = false
   foreach (idx in (parts ?? [])) {
     if (dmState?[idx] == 0) {

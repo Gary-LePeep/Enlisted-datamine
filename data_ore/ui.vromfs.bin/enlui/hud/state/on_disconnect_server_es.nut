@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {switch_to_menu_scene} = require("app")
 let {EventOnDisconnectedFromServer} = require("gameevents")
@@ -20,7 +20,7 @@ let connErrMessages = {
   [net.DC_KICK_VOTE] = loc("ConnErr/DC_KICK_VOTE"),
 }
 
-let function onDisconnectedFromServer(evt, _eid, _comp) {
+function onDisconnectedFromServer(evt, _eid, _comp) {
   let err_code = evt[0]
   let msgText = loc("network/disconnect_message").subst({
     err = connErrMessages?[err_code] ?? loc("ConnErr/UNKNOWN")

@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let Rand = require("%sqstd/rand.nut")
 let { round_by_value } = require("%sqstd/math.nut")
@@ -36,7 +36,7 @@ let killWeights = {
   aircraft_kills = 0.01
 }
 
-let function makeBotData(botData){
+function makeBotData(botData){
   let { name, rank } = botData.player
   let seed = "".concat(name, rank).hash()
   let rand = Rand(seed)

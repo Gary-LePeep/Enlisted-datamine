@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {
   fontTitle, fontHeading2, fontSub, fontBody, fontHeading1
@@ -38,7 +38,7 @@ let sizeIcon          = hdpx(35)
 let sizeCard          = [hdpx(180), hdpx(230)]
 let imageHeight       = hdpx(210)
 let imageSize         = [rewardWidthToHeight * imageHeight, imageHeight]
-let btnSize           = [hdpx(270), hdpx(55)]
+let btnSize           = [hdpx(330), hdpx(55)]
 let cardSelectAnim    = [ { prop = AnimProp.translate, duration = 0.15, easing = InOutCubic } ]
 let cardStateCommon   = { translate = [0, 0] }
 let cardStateSelected = { translate = [0, -hugePadding] }
@@ -85,7 +85,7 @@ let curItemDescription = @(locId) locId == null ? null : {
   text = loc(locId)
 }.__update(textAreaStyle)
 
-let function lockScreenBlock() {
+function lockScreenBlock() {
   let res = { watch = hasEliteBattlePass }
   if (hasEliteBattlePass.value)
     return res
@@ -115,7 +115,7 @@ let function lockScreenBlock() {
   })
 }
 
-let function bpItemInfo(showingItem) {
+function bpItemInfo(showingItem) {
   if (showingItem == null)
     return null
 
@@ -238,7 +238,7 @@ let bpAlertBlock = watchElemState(@(sf) {
   ]
 })
 
-let function mkTimerBlock() {
+function mkTimerBlock() {
   let hasAlert = Computed(@() timeLeft.value <= BP_LEFT_DAYS_ALERT * DAY_SEC)
   return @() {
     watch = hasAlert
@@ -284,7 +284,7 @@ let mkCardTopText = @(text) {
 let cardFreeHeader = mkCardTopText(loc("bp/freeReward"))
 
 
-let function cardPremiumHeader() {
+function cardPremiumHeader() {
   local iconData = hasEliteBattlePass.value
     ? {
       size = logoBP
@@ -358,7 +358,7 @@ let cardBottom = @(count, cardIcon){
   ]
 }
 
-let function mkCard(reward, count, templates, onClick, isSelected, isReceived, isPremium, addToContainer) {
+function mkCard(reward, count, templates, onClick, isSelected, isReceived, isPremium, addToContainer) {
   let template = templates?[reward?.itemTemplate]
   local cardChildren = []
 

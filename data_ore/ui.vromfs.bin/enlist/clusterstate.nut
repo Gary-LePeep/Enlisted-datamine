@@ -1,9 +1,9 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { getClusterByCode } = require("geo.nut")
 let { get_country_code } = require("auth")
 let dagor_sys = require("dagor.system")
-let matching_api = require("matching.api")
+let {matching_listen_notify} = require("matching.api")
 let { matchingCall } = require("%enlist/matchingClient.nut")
 let connectHolder = require("%enlist/connectHolderR.nut")
 let { onlineSettingUpdated, settings } = require("%enlist/options/onlineSettings.nut")
@@ -16,7 +16,7 @@ const AUTO_CLUSTER_KEY = "autoCluster"
 let availableClustersDef = ["EU", "RU", "US", "JP"]
 let debugClusters = dagor_sys.DBGLEVEL != 0 ? ["debug"] : []
 
-let eventbus = require("eventbus")
+let { eventbus_subscribe } = require("eventbus")
 
 let clustersViewMap = { RU = "EEU" }
 let clusterLoc = @(cluster) loc(clustersViewMap?[cluster] ?? cluster)
@@ -27,7 +27,7 @@ let ownCountry = nestWatched("ownCountry", null)
 
 //set clusters from Matching
 let matchingClusters = nestWatched("matchingClusters", [])
-let function fetchClustersFromMatching() {
+function fetchClustersFromMatching() {
   let self = callee()
   if (!connectHolder.is_logged_in()) {
     return
@@ -52,11 +52,11 @@ matchingClusters.subscribe(function(v) {
   logC("matchingClusters:", v)
 })
 
-eventbus.subscribe("matching.connectHolder.ready", @(...) fetchClustersFromMatching())
+eventbus_subscribe("matching.connectHolder.ready", @(...) fetchClustersFromMatching())
 fetchClustersFromMatching()
 
-matching_api.listen_notify("hmanager.notify_clusters_changed")
-eventbus.subscribe("hmanager.notify_clusters_changed", function(...) { fetchClustersFromMatching() })
+matching_listen_notify("hmanager.notify_clusters_changed")
+eventbus_subscribe("hmanager.notify_clusters_changed", function(...) { fetchClustersFromMatching() })
 
 let availableClusters = Computed(function() {
   local available = matchingClusters.value.filter(@(v) v!="debug")
@@ -65,7 +65,7 @@ let availableClusters = Computed(function() {
   return available.extend(debugClusters)
 })
 
-let function setOwnCluster() {
+function setOwnCluster() {
   local country_code = get_country_code()
   ownCountry(country_code.tolower())
   country_code = country_code.toupper()
@@ -75,7 +75,7 @@ let function setOwnCluster() {
   ownCluster(cluster)
 }
 
-let function validateClusters(clusters, available) {
+function validateClusters(clusters, available) {
   logC("validate clusters:", clusters, "available:", available)
   clusters = clusters.filter(@(has, cluster) has && available.contains(cluster))
   if (clusters.len() == 0 && available.contains(ownCluster.value))

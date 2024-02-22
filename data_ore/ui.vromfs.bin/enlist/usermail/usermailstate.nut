@@ -1,12 +1,12 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { usermail_list, usermail_take_reward, usermail_reset_reward
 } = require("%enlist/meta/clientApi.nut")
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
 let { isInBattleState } = require("%enlSqGlob/inBattleState.nut")
-let eventbus = require("eventbus")
+let { eventbus_subscribe, eventbus_send } = require("eventbus")
 let { sound_play } = require("%dngscripts/sound_system.nut")
-let { subscribe } = require("%enlSqGlob/notifications/matchingNotifications.nut")
+let { subscribe } = require("%enlSqGlob/ui/notifications/matchingNotifications.nut")
 
 const MAX_AMOUNT = 20
 let MAX_LIFETIME = 30 * 24 * 60 * 60
@@ -27,7 +27,7 @@ serverTime.subscribe(function(ts) {
   lastTime(ts - MAX_LIFETIME)
 })
 
-let function markUnseenLetters(){
+function markUnseenLetters(){
   if (isRequest.value)
     return
   hasUnseenLetters(true)
@@ -35,16 +35,16 @@ let function markUnseenLetters(){
     sound_play(soundNewMail)
 }
 
-eventbus.subscribe("matching.notify_new_mail", @(...) markUnseenLetters())
+eventbus_subscribe("matching.notify_new_mail", @(...) markUnseenLetters())
 subscribe("profile", @(ev) ev?.func == "newmail" ? markUnseenLetters() : null)
 
-let function closeUsermailWindow(){
+function closeUsermailWindow(){
   isUsermailWndOpend(false)
   hasUnseenLetters(false)
   selectedLetterIdx(-1)
 }
 
-let function onLettersUpdate(result) {
+function onLettersUpdate(result) {
   isRequest(false)
   let { usermail = [] } = result
   if (usermail.len() == 0)
@@ -62,7 +62,7 @@ let function onLettersUpdate(result) {
   })
 }
 
-let function requestLetters(forceUpdate = false) {
+function requestLetters(forceUpdate = false) {
   if (isRequest.value)
     return
 
@@ -72,7 +72,7 @@ let function requestLetters(forceUpdate = false) {
   usermail_list(forceUpdate ? 0 : ts, MAX_AMOUNT, onLettersUpdate)
 }
 
-let function takeLetterReward(guid) {
+function takeLetterReward(guid) {
   if (isRequest.value)
     return
 
@@ -97,7 +97,7 @@ console_register_command(
         endTime = serverTime.value + 1000
       })
     letters.mutate(@(v) v.insert(0, letter))
-    eventbus.send("matching.notify_new_mail", null)
+    eventbus_send("matching.notify_new_mail", null)
   },
   "usermail.newMail"
 )

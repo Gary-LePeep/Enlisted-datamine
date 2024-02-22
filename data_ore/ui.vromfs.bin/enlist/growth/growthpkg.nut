@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let {
@@ -43,7 +43,7 @@ let mkText = @(text, style = {}) {
 }.__update(fontSub, style)
 
 
-let function mkSquadDescBlock(squad, armyId) {
+function mkSquadDescBlock(squad, armyId) {
   let { newClass, newPerk = null, isPrimeSquad = false } = squad
   let { descLocId, shortLocId } = getClassCfg(newClass)
   return {
@@ -62,7 +62,7 @@ let function mkSquadDescBlock(squad, armyId) {
 }
 
 
-let function mkSquadDetails(data, classesCfg, squadsById, cb = @() null) {
+function mkSquadDetails(data, classesCfg, squadsById, cb = @() null) {
   let { squad, armyId } = data
   let {
     nameLocId, titleLocId, image, id, newClass = null,
@@ -121,7 +121,7 @@ let function mkSquadDetails(data, classesCfg, squadsById, cb = @() null) {
   }
 }
 
-let function mkItemDetails(data, cb = @() null) {
+function mkItemDetails(data, cb = @() null) {
   let { item, itemTemplate, armyId } = data
   let itemDetails = mkShopItem(itemTemplate, item, armyId)
   return {
@@ -145,7 +145,7 @@ let function mkItemDetails(data, cb = @() null) {
 }
 
 
-let function mkGrowthRewardsText(reward, templates, squads) {
+function mkGrowthRewardsText(reward, templates, squads) {
   let { itemTemplate = null, squadId = null } = reward
   if (itemTemplate == null && squadId == null)
     return []
@@ -188,7 +188,7 @@ let squadIcon = @(color) {
 }
 
 
-let function mkGrowthInfo(item, squad, status, elemsColor, curRelations) {
+function mkGrowthInfo(item, squad, status, elemsColor, curRelations) {
   let { tier = 0, gametemplate = "" } = item
   let imgStyle = status != GrowthStatus.UNAVAILABLE ? {} : { picSaturate = 0, opacity = 0.7 }
   let itemIcon = iconByGameTemplate(gametemplate, imgStyle.__update(templateSize))
@@ -218,10 +218,49 @@ let mkGrowthSlotElems = @(elemsColor, status, item, squad, curRelations = null) 
 }
 
 
+let tierColor = 0xFF292F38
+let tierProgressColor = 0xFFFBB01C
+
+let mkTierObject = @(progress, leftObj = null, rightObj = null) {
+  size = flex()
+  flow = FLOW_HORIZONTAL
+  children = [
+    {
+      size = flex()
+      rendObj = ROBJ_SOLID
+      color = tierColor
+      children = [
+        {
+          size = [pw(min(progress * 100, 100)), flex()]
+          rendObj = ROBJ_SOLID
+          color = tierProgressColor
+        }
+        {
+          size = flex()
+          padding = [0, midPadding]
+          valign = ALIGN_CENTER
+          children = [
+            leftObj
+            rightObj
+          ]
+        }
+      ]
+    }
+    {
+      size = [ph(50), flex()]
+      rendObj = ROBJ_IMAGE
+      image = Picture($"!ui/uiskin/progress_bar_tail.svg:{30}:{60}:K")
+      color = progress < 1 ? tierColor : tierProgressColor
+    }
+  ]
+}
+
+
 return {
   mkSquadDetails
   mkItemDetails
   mkGrowthRewardsText
   mkGrowthSlotElems
+  mkTierObject
   elemBarSize
 }

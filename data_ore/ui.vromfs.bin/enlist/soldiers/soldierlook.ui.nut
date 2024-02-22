@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let faComp = require("%ui/components/faComp.nut")
 let { smallPadding, bigPadding } = require("%enlSqGlob/ui/viewConst.nut")
@@ -67,7 +67,7 @@ let optCombobox = @(label, value, update, list) {
   ]
 }
 
-let function optSlider(label, value, minVal, maxVal, setValue) {
+function optSlider(label, value, minVal, maxVal, setValue) {
   let safeValue = Computed(@() value.value ?? minVal)
   return {
     size = [flex(), fsh(4)]
@@ -96,7 +96,7 @@ let warnResetAll = @() show({
   ]
 })
 
-let function saveFaceGenAndWarn() {
+function saveFaceGenAndWarn() {
   let fileName = faceGenSave()
   show({
     text = $"All soldiers' face generation properties were saved to file {fileName}.\nYou should manually move it to the proper location."

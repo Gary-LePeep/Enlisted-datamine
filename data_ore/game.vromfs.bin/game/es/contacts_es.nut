@@ -14,7 +14,7 @@ let {CmdGetUserstats} = require("dasevents")
 let {INVALID_USER_ID} = require("matching.errors")
 
 
-let function onCmdGetUserStats(eid, comp) {
+function onCmdGetUserStats(eid, comp) {
   if (comp.userid == INVALID_USER_ID)
     return
 
@@ -67,7 +67,7 @@ ecs.register_es("contacts_es", {
 )
 
 
-let function CmdSendComplaint(evt, _eid, comp) {
+function CmdSendComplaint(evt, _eid, comp) {
 
   if (comp.userid == INVALID_USER_ID)
     return

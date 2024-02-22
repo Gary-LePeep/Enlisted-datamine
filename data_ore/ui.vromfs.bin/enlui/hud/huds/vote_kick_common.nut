@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 let { sendNetEvent, CmdVoteToKick } = require("dasevents")
 let { localPlayerEid } = require("%ui/hud/state/local_player.nut")
 let { voteToKickYes, voteToKickNo } = require("%ui/hud/state/vote_kick_state.nut")

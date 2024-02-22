@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let auth = require("auth")
 let JB = require("%ui/control/gui_buttons.nut")
@@ -23,7 +23,7 @@ let additionalTxt = Watched("")
 let wndHeaderTxt = Watched("")
 let waitingSpinner = spinner()
 
-let function loginWithNick(){
+function loginWithNick(){
   isLoginInProgress(true)
   nickToShowIfInvalid = newNick.value
   startLogin({ nick = newNick.value })
@@ -109,7 +109,7 @@ let mkNickInputWnd = {
   children = wndContent
 }
 
-let function onInterrupt(state) {
+function onInterrupt(state) {
   isLoginInProgress(false)
   additionalTxt(state?.stageResult?[WE_GAME_ID]?.message ?? "")
   if (state?.status == auth.YU2_NOT_FOUND){

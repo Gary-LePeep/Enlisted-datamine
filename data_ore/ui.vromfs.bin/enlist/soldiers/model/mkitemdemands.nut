@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { curArmyData, curArmy } = require("state.nut")
 let { getCantBuyData } = require("%enlist/shop/shopPkg.nut")
@@ -19,7 +19,7 @@ let shopDemand = {
 }
 
 // Caveat: This method will only work correctly for items demands check of the currently selected army
-local function mkItemListDemands(items) {
+function mkItemListDemands(items) {
   if (typeof items != "array")
     items = [items]
   return Computed(function() {
@@ -48,7 +48,7 @@ local function mkItemListDemands(items) {
   })
 }
 
-let function mkItemDemands(item) {
+function mkItemDemands(item) {
   let demands = mkItemListDemands(item)
   return Computed(@() demands.value?[0].demands)
 }

@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 let { gameLanguage } = require("%enlSqGlob/clientState.nut")
 let regexp2 = require("regexp2")
 let { send_counter } = require("statsd")
@@ -36,7 +36,7 @@ fileDownloadQueue.subscribe(function(v) {
   }
 })
 
-let function updateModList() {
+function updateModList() {
   receivedModInfos(loadModList())
   let keys = receivedModInfos.value.keys()
   if (keys.len() != 0) {
@@ -46,7 +46,7 @@ let function updateModList() {
 
 hasBeenUpdated.subscribe(@(v) v ? updateModList() : null)
 
-let function requestModManifest(modId, cbOnSuccess = null, cbOnFailed = null, tags = ["client", "shared"]) {
+function requestModManifest(modId, cbOnSuccess = null, cbOnFailed = null, tags = ["client", "shared"]) {
   if (modId == "" || modId == null)
     return
 
@@ -72,7 +72,7 @@ let function requestModManifest(modId, cbOnSuccess = null, cbOnFailed = null, ta
   }, tags)
 }
 
-let function fetchLocalModById(mod_id, cbOnSuccess = null, cbOnFailed = null) {
+function fetchLocalModById(mod_id, cbOnSuccess = null, cbOnFailed = null) {
   let manifest = getModManifest(mod_id)
   if (manifest == null) {
     modDownloadMessage("mods/FailedLoadManifest")
@@ -82,7 +82,7 @@ let function fetchLocalModById(mod_id, cbOnSuccess = null, cbOnFailed = null) {
   requestModManifest(url, cbOnSuccess, cbOnFailed, ["client", "shared", "server"])
 }
 
-let function getModInfo(mpath) {
+function getModInfo(mpath) {
   let mod = receivedModInfos.value?[mpath]
   let {contentId = null, manifest = null, modHash = null} = mod
   let titles = manifest?.title_localizations ?? {}
@@ -93,7 +93,7 @@ let function getModInfo(mpath) {
   return {contentId, title, titles, fname, modHash}
 }
 
-let function modName(v) {
+function modName(v) {
   if ((v??"")=="")
     return loc("NO MOD")
   else{
@@ -101,14 +101,14 @@ let function modName(v) {
   }
 }
 
-let function isSelectedModCorrect(){
+function isSelectedModCorrect(){
   let mod = getModInfo(modPath.value)
   return (mod?.pathToStart != null) || mod == noModInfo
 }
 
-let function deleteMod(mod_id){
+function deleteMod(mod_id){
   removeMod(mod_id)
-  receivedModInfos.mutate(@(receivedMods) delete receivedMods[mod_id])
+  receivedModInfos.mutate(@(receivedMods) receivedMods.$rawdelete(mod_id))
 }
 
 

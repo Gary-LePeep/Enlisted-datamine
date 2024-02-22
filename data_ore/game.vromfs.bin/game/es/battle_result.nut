@@ -76,7 +76,7 @@ let missionParamsQuery = ecs.SqQuery("missionParamsQuery", {
 
 let playerArmyQuery = ecs.SqQuery("playerArmyQuery",
   { comps_ro = [["army", ecs.TYPE_STRING], ["armies", ecs.TYPE_OBJECT]] })
-let function getPlayerArmyInfo(playerEid) {
+function getPlayerArmyInfo(playerEid) {
   local armyId = ""
   local armyData = {}
   playerArmyQuery(playerEid, function(_, comp) {
@@ -93,7 +93,7 @@ let averageTime = @(data) data.len() > 0
   ? data.reduce(@(res, v) res + (v?.time ?? 0.0), 0.0) / data.len()
   : 0.0
 
-let function getScoreForBattleHeroAwards(playerEid, team, playerSoldiers, armyData, isWinnerTeam) {
+function getScoreForBattleHeroAwards(playerEid, team, playerSoldiers, armyData, isWinnerTeam) {
   let squads = (armyData?.squads ?? []).map(@(squad) {
     squadId = squad.squadId
     hasVehicle = squad?.curVehicle != null
@@ -125,7 +125,7 @@ let function getScoreForBattleHeroAwards(playerEid, team, playerSoldiers, armyDa
   }
 }
 
-let function getBattleHeroSoldierInfo(soldier, armyData) {
+function getBattleHeroSoldierInfo(soldier, armyData) {
   let soldierData = armyData
     ?.squads.findvalue(@(s) s.squadId == soldier.squadId)
     ?.squad.findvalue(@(s) s.guid == soldier.guid)
@@ -136,7 +136,7 @@ let function getBattleHeroSoldierInfo(soldier, armyData) {
   }
 }
 
-let function sendExpToProfileServer(playerEid, expReward) {
+function sendExpToProfileServer(playerEid, expReward) {
   if (playerEid in resultSendToProfile)
     return "Result already send"
 
@@ -159,7 +159,7 @@ let function sendExpToProfileServer(playerEid, expReward) {
   return errorStr
 }
 
-let function sendBoostersApplied(playerEid, battleBoosters) {
+function sendBoostersApplied(playerEid, battleBoosters) {
   if (playerEid in boosterSentToProfile)
     return
   if (battleBoosters.len() == 0)
@@ -173,7 +173,7 @@ let function sendBoostersApplied(playerEid, battleBoosters) {
     logBR($"Failed to apply boosters for player {playerEid}, reason: {err}")
 }
 
-let function getPlayerDebriefingAwards(playerEid, kills) {
+function getPlayerDebriefingAwards(playerEid, kills) {
   let playerAwards = playerAwardsQuery(playerEid, @(_, comp) comp.awards.getAll()) ?? []
   let awards = [{id="kill", value=kills}]
 
@@ -190,14 +190,14 @@ let function getPlayerDebriefingAwards(playerEid, kills) {
   return awards
 }
 
-let function markLocalHero(heroes, eid) {
+function markLocalHero(heroes, eid) {
   let res = clone heroes
   if (eid in res)
     res[eid] <- res?[eid].__merge({isLocalPlayer=true})
   return res
 }
 
-let function sendPlayerBattleResult(playerEid, squadStats, playerData, playerBattleResult, scoringPlayers, scorePrices, teamHeroes = {}, playerAwards = [], needSendToBq = false) {
+function sendPlayerBattleResult(playerEid, squadStats, playerData, playerBattleResult, scoringPlayers, scorePrices, teamHeroes = {}, playerAwards = [], needSendToBq = false) {
   let { armyId, armyData } = getPlayerArmyInfo(playerEid)
   if (armyId == "" || armyData.len() == 0)
     // ignore bots and other data that cannot be applied to statistics
@@ -293,7 +293,7 @@ let DEFEAT_STATE = {
 let getPlayerBattleState = @(state, time, realEnemyPlayerCount, realPlayerCount, realPlayerWithEnoughScoreCount, anyTeam)
   state.__merge({time, realEnemyPlayerCount, realPlayerCount, realPlayerWithEnoughScoreCount, anyTeam})
 
-let function getPlayerScoreFromSquadStats(stats, isNoBots) {
+function getPlayerScoreFromSquadStats(stats, isNoBots) {
   let playerScore = scoringPlayerSoldiersStatsComps.map(@(compInfo) [compInfo[0], 0]).totable()
   stats.each(function(soldier) {
     soldier.each(function(val, stat) {
@@ -321,7 +321,7 @@ let getScoringPlayers = @(playersStats, isNoBots, time)
       getPlayerScoreFromSquadStats(stats, isNoBots)
         .__merge(finalizeBattleTime(time, scorePlayerInfoQuery(eid, @(_, comp) comp) ?? {})) ))
 
-let function getRealPlayerCountInfo() {
+function getRealPlayerCountInfo() {
   local realPlayerCount = 0
   let realPlayerCountByTeam = {}
   local realPlayerWithEnoughScoreCount = 0
@@ -339,7 +339,7 @@ let function getRealPlayerCountInfo() {
 let isWinningTeam = @(team, evt)
   evt.isWon == (evt.team == team)
 
-let function onRoundResult(evt, _eid, _comp) {
+function onRoundResult(evt, _eid, _comp) {
   if (isResultSend.value)
     return
   isResultSend.value = true
@@ -411,7 +411,7 @@ let function onRoundResult(evt, _eid, _comp) {
   }
 }
 
-let function onGetBattleResult(_evt, eid, comp) {
+function onGetBattleResult(_evt, eid, comp) {
   let isNoBots = isNoBotsMode()
   let scorePrices = isNoBots ? scoreAlone : scoreSquads
   let playersStats = getSoldierStats(isNoBots)
@@ -434,10 +434,9 @@ let function onGetBattleResult(_evt, eid, comp) {
   sendPlayerBattleResult(eid, comp.squadStats, playerData, playerBattleState, scoringPlayers, scorePrices)
 }
 
-let function onDisconnectChange(_evt, eid, comp) {
+function onDisconnectChange(_evt, eid, comp) {
   if (!comp.disconnected) {
-    if (eid in disconnectInfo)
-      delete disconnectInfo[eid]
+    disconnectInfo?.$rawdelete(eid)
     return
   }
   let result = !comp["scoring_player__isGameFinished"] ? DESERTER_STATE : UNFINISHED_STATE
@@ -447,7 +446,7 @@ let function onDisconnectChange(_evt, eid, comp) {
   disconnectInfo[eid] <- getPlayerBattleState(result, get_sync_time(), realEnemyPlayersCount, realPlayerCount, realPlayerWithEnoughScoreCount, wishAnyTeam)
 }
 
-let function onLevelLoaded(_evt, _eid, _comp) {
+function onLevelLoaded(_evt, _eid, _comp) {
   isResultSend.value = false
   resultSendToProfile.clear()
   resultSendToBq.clear()

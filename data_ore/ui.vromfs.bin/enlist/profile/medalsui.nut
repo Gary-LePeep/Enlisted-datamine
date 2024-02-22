@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let hoverHoldAction = require("%darg/helpers/hoverHoldAction.nut")
 let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
@@ -21,7 +21,7 @@ const MAX_COLUMNS = 6
 let mCardWidth = ((PROFILE_WIDTH - (MAX_COLUMNS - 1) * bigPadding) / MAX_COLUMNS).tointeger()
 let mIconSize = hdpx(160)
 
-let function mkMedalBlock(medal, isUnseen) {
+function mkMedalBlock(medal, isUnseen) {
   let { id, received = [], bgImage = null, stackImages = [] } = medal
   return {
     size = [mCardWidth, mCardWidth]
@@ -45,7 +45,7 @@ let function mkMedalBlock(medal, isUnseen) {
   }
 }
 
-let function mkCampaignMedals(campaignId, medalsByCamp, unseen) {
+function mkCampaignMedals(campaignId, medalsByCamp, unseen) {
   let campaignMedals = medalsByCamp?[campaignId] ?? []
   if (campaignMedals.len() == 0)
     return null
@@ -75,7 +75,7 @@ let function mkCampaignMedals(campaignId, medalsByCamp, unseen) {
   }
 }
 
-let function medalsListUi() {
+function medalsListUi() {
   let medalsByCamp = medalsByCampaign.value
   let { unseen = {}, unopened = {} } = seenMedals.value
   return {

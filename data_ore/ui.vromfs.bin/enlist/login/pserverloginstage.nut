@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { update_profile, get_all_configs } = require("%enlist/meta/clientApi.nut")
 let { updateAllConfigs } = require("%enlist/meta/configs.nut")
@@ -9,7 +9,7 @@ let updateList = [
 ]
 let ALL = (1 << updateList.len()) - 1
 
-let function startRequest(data, idx, shared) {
+function startRequest(data, idx, shared) {
   let { id, request, onSuccess = @(_) null } = data
   request(function cb(res) {
     if (shared.isFailed)

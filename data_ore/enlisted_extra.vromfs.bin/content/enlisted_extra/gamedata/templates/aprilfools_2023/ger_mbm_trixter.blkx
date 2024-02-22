@@ -50,25 +50,35 @@
     "commanderCockpitFpsCamMaxAngle": [20.0,0.0],
     "setCameraDirByHero:tag": []
   },
-  "rotating_turrets_sound": {
+  "rotating_turrets_sound_subtemplate": {
     "_group": {
       "_tags": "sound",
       "rotating_turrets_sound__omega": 0.0,
+      "rotating_turrets_sound__event:SoundEvent": []
+    }
+  },
+  "rotating_turrets_sound": {
+    "_group": {
+      "_tags": "sound",
       "rotating_turrets_sound__omegaLoThreshold": 0.5,
-      "rotating_turrets_sound__event:SoundEvent": [],
       "rotating_turrets_sound__path:shared:object": {
         "hero": "events/mh/player/weapon/lbm_rotor",
         "enemy": "events/mh/enemy/weapon/lbm_rotor"
       }
     }
   },
-  "mech_collision_sound": {
+  "mech_collision_sound_subtemplate": {
     "_group": {
       "_tags": "sound",
       "mech_collision_sound__isFallen": false,
       "mech_collision_sound__mayPlayFallAt": 0.0,
       "mech_collision_sound__mayPlayCollAt": 0.0,
-      "mech_collision_sound__prevSoundShockSummary": 0.0,
+      "mech_collision_sound__prevSoundShockSummary": 0.0
+    }
+  },
+  "mech_collision_sound": {
+    "_group": {
+      "_tags": "sound",
       "mech_collision_sound__fallCooldown": 1.0,
       "mech_collision_sound__collCooldown": 1.0,
       "mech_collision_sound__collMinMax": [0.5,4.0],
@@ -85,13 +95,18 @@
       }
     }
   },
-  "mech_steps_sound": {
+  "mech_steps_sound_subtemplate": {
     "_group": {
       "_tags": "sound",
       "mech_steps_sound__feetIdx": 0,
-      "mech_steps_sound__minMaxSpeed": [0.7,2.0],
       "mech_steps_sound__onGroundState:list<i>": [],
-      "mech_steps_sound__servoEvent:SoundEvent": [],
+      "mech_steps_sound__servoEvent:SoundEvent": []
+    }
+  },
+  "mech_steps_sound": {
+    "_group": {
+      "_tags": "sound",
+      "mech_steps_sound__minMaxSpeed": [0.7,2.0],
       "mech_steps_sound__stepPath:shared:object": {
         "hero": "events/mh/player/vehicle/01/st",
         "enemy": "events/mh/enemy/vehicle/01/st"
@@ -102,12 +117,16 @@
       }
     }
   },
-  "mech_engine_sound": {
-    "_use": "car_inside_sound",
+  "mech_engine_sound_subtemplate": {
     "_group": {
       "_tags": "sound",
       "mech_engine_sound__throttle": 0.0,
-      "mech_engine_sound__event:SoundEvent": [],
+      "mech_engine_sound__event:SoundEvent": []
+    }
+  },
+  "mech_engine_sound": {
+    "_group": {
+      "_tags": "sound",
       "mech_engine_sound__path:shared:object": {
         "hero": "events/mh/player/vehicle/01/engine",
         "enemy": "events/mh/enemy/vehicle/01/engine"
@@ -129,15 +148,44 @@
       }
     }
   },
+  "mech_sound_subtemplate": [
+    {
+      "_use": "sound_event_group"
+    },
+    {
+      "_use": "vehicle_horn_sound_subtemplate"
+    },
+    {
+      "_use": "rotating_turrets_sound_subtemplate"
+    },
+    {
+      "_use": "mech_collision_sound_subtemplate"
+    },
+    {
+      "_use": "mech_steps_sound_subtemplate"
+    },
+    {
+      "_use": "mech_engine_sound_subtemplate"
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "vehicleSoundControlEnabled:tag": []
+      }
+    }
+  ],
   "mech_sound": [
     {
       "_use": "sound_control"
     },
     {
-      "_use": "sound_event_group"
+      "_use": "watched_by_player_sound"
     },
     {
-      "_use": "watched_by_player_sound"
+      "_use": "vehicle_inside_sound"
+    },
+    {
+      "_use": "vehicle_projectile_hit_sound"
     },
     {
       "_use": "sound_tags"
@@ -160,7 +208,8 @@
     {
       "_group": {
         "_tags": "sound",
-        "sound_control__range": 300.0
+        "sound_control__range": 300.0,
+        "sound_control__subtemplate": "mech_sound_subtemplate"
       }
     }
   ],

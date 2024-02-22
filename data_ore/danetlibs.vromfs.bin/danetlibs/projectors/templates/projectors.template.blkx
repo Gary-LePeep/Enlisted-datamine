@@ -1,0 +1,35 @@
+{
+  "projectors_manager": {
+    "_singleton": true,
+    "_use": "replicating",
+    "projectors_manager__atmosphereDensity": 1.0,
+    "projectors_manager__atmosphereMoveDir": [1.0,0.0,0.0],
+    "projectors_manager__atmosphereMoveSpeed": 0.0,
+    "projectors_manager__noiseScale": 1.0,
+    "projectors_manager__noiseStrength": 0.0,
+    "projectors_manager": {
+      "_tags": "render"
+    },
+    "projectors_node:dabfg::NodeHandle": {
+      "_tags": "render"
+    }
+  },
+  "projector": {
+    "transform": [
+      [1.0,0.0,0.0],
+      [0.0,1.0,0.0],
+      [0.0,0.0,1.0],
+      [0.0,0.0,0.0]
+    ],
+    "_use": "replicating",
+    "projector__id": -1,
+    "projector__color": [1.0,1.0,1.0],
+    "projector__angle": 3.0,
+    "projector__length": 1000.0,
+    "projector__sourceWidth": 1.0,
+    "projector__phase": 0.0,
+    "projector__period": 1.0,
+    "projector__xAngleAmplitude": 0.0,
+    "projector__zAngleAmplitude": 0.0
+  }
+}

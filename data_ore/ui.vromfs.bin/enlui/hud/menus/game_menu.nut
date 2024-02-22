@@ -1,8 +1,7 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontHeading1, fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { TextDefault, TextHighlight, TextHover } = require("%ui/style/colors.nut")
-let cursors = require("%ui/style/cursors.nut")
 let gamepadImgByKey = require("%ui/components/gamepadImgByKey.nut")
 let { isGamepad } = require("%ui/control/active_controls.nut")
 let JB = require("%ui/control/gui_buttons.nut")
@@ -11,7 +10,7 @@ let menuCurrentIndex = Watched(-1)
 let menuItems = {value = [btnResume, btnOptions, btnBindKeys, btnExitGame]}
 let menuItemsGen = Watched(0)
 
-let function setMenuItems(items) {
+function setMenuItems(items) {
   menuItems.value = items
   menuItemsGen(menuItemsGen.value+1)
 }
@@ -20,19 +19,19 @@ let getMenuItems = @() menuItems.value
 
 let showGameMenu = mkWatched(persist, "showGameMenu", false)
 
-let function closeMenu() {
+function closeMenu() {
   menuCurrentIndex(-1)
   showGameMenu(false)
 }
 
-let function callHandler(item) {
+function callHandler(item) {
   closeMenu()
   item?.action()
 }
 
 let height = calc_str_box("A", fontBody)[1]
 
-let function makeMenuItem(data, idx) {
+function makeMenuItem(data, idx) {
   let stateFlags = Watched(0)
   let isCur = (idx==menuCurrentIndex.value)
   let imgA = gamepadImgByKey.mkImageCompByDargKey(JB.A, {
@@ -90,7 +89,7 @@ let function makeMenuItem(data, idx) {
   }.__update(fontHeading1)
 }
 
-let function goToNext(d) {
+function goToNext(d) {
   let menuItemsVal = getMenuItems()
   let nextIdx = ((menuCurrentIndex.value ?? 0) + d + menuItemsVal.len()) % menuItemsVal.len()
   menuCurrentIndex(nextIdx)
@@ -100,7 +99,7 @@ let function goToNext(d) {
 }
 
 let skip ={skip=true}
-let function gameMenu() {
+function gameMenu() {
   let menuItemsVal = getMenuItems()
   let activateCurrent = @() callHandler(menuItemsVal?[menuCurrentIndex.value])
 
@@ -131,7 +130,6 @@ let function gameMenu() {
     watch = [menuCurrentIndex, menuItemsGen]
     key = "gameMenu"
     size = [sw(100), sh(100)]
-    cursor = cursors.normal
 
     children = [
       {
@@ -158,8 +156,9 @@ let function gameMenu() {
       detach="ui/menu_exit"
     }
 
-    behavior = Behaviors.ActivateActionSet
+    behavior = [Behaviors.ActivateActionSet, Behaviors.UiStateControl]
     actionSet = "StopInput"
+    overrideFreeCam = true
   }
 }
 

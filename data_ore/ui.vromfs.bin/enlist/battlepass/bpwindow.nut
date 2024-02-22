@@ -1,9 +1,9 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {fontBody, fontSub, fontawesome} = require("%enlSqGlob/ui/fontsStyle.nut")
 let fa = require("%ui/components/fontawesome.map.nut")
 let faComp = require("%ui/components/faComp.nut")
-let { activeTxtColor, soldierLvlColor, accentColor
+let { activeTxtColor, soldierLvlColor
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { smallPadding, midPadding, startBtnWidth, attentionTxtColor, titleTxtColor
 } = require("%enlSqGlob/ui/designConst.nut")
@@ -14,7 +14,7 @@ let { sceneWithCameraAdd, sceneWithCameraRemove } = require("%enlist/sceneWithCa
 let { curSelectedItem } = require("%enlist/showState.nut")
 let {
   basicProgress, combinedUnlocks, nextUnlock,
-  progressCounters, currentProgress, hasReward, receiveNextReward, buyNextStage,
+  progressCounters, currentProgress, hasReward, receiveAllRewards, buyNextStage,
   nextUnlockPrice, buyUnlockInProgress, receiveRewardInProgress, seasonIndex
 } = require("bpState.nut")
 let { BP_INTERVAL_STARS } = require("%enlSqGlob/bpConst.nut")
@@ -44,7 +44,7 @@ let { scenesListGeneration, getTopScene } = require("%enlist/navState.nut")
 let { serviceNotificationsList } = require("%enlSqGlob/serviceNotificationsList.nut")
 let { mkDailyTasksUi } = require("%enlist/unlocks/taskWidgetUi.nut")
 let weeklyTasksUi = require("%enlist/unlocks/weeklyTasksBtn.nut")
-let mkServiceNotification = require("%enlSqGlob/notifications/mkServiceNotification.nut")
+let mkServiceNotification = require("%enlSqGlob/ui/notifications/mkServiceNotification.nut")
 let { canTakeDailyTaskReward } = require("%enlist/unlocks/taskListState.nut")
 
 let waitingSpinner = spinner(hdpx(35))
@@ -110,7 +110,7 @@ let progressTxt = @(text = "") {
   text
 }.__update(fontBody)
 
-let function scrollToCurrent() {
+function scrollToCurrent() {
   let cardIdx = (curItem.value?.stageIdx ?? "0").tointeger()
     + (premiumStage0Unlock.value?.stages[0].rewards.len() ?? 0)
   tblScrollHandler.scrollToX((sizeCard[0] + gapCards) * (cardIdx + 0.5) - gapCards
@@ -157,21 +157,20 @@ let cardsList = function() {
         }
       ]
     }
-  ].extend(combinedRewards.value.map(@(r)
-    mkCard(r.reward, r.count, templates,
-      @() curItem({ reward = r.reward, stageIdx = r.stageIdx }),
-      Computed(@() curItem.value?.stageIdx == r.stageIdx),
-      r.isReceived,
-      r.isPremium,
+  ].extend(combinedRewards.value.map(function(r) {
+    let { reward, count, stageIdx, isReceived, isPremium, progressState, progressVal } = r
+    return mkCard(reward, count, templates, @() curItem({ reward, stageIdx }),
+      Computed(@() curItem.value?.stageIdx == stageIdx), isReceived, isPremium,
       cardProgressBar(
-        r.progressState == RewardState.COMPLETED ? completedProgressLine(1, glareAnimation(0.5))
-          : r.progressState == RewardState.ACQUIRED ? acquiredProgressLine(1, [], accentColor)
-          : r.progressState == RewardState.IN_PROGRESS ?
-            gradientProgressLine(r.progressVal, progressBarImage(r.isReceived, r.isPremium))
-            : inactiveProgressCtor(),
+        progressState == RewardState.COMPLETED ? completedProgressLine(1, glareAnimation(0.5))
+          : progressState == RewardState.ACQUIRED ? acquiredProgressLine(1, glareAnimation(0.5))
+          : progressState == RewardState.IN_PROGRESS ? gradientProgressLine(
+              progressVal, progressBarImage(isReceived, isPremium)
+            )
+          : inactiveProgressCtor(),
         progressTxt(r.stageIdx + 1))
     )
-  ))
+  }))
 
   return {
     watch = [
@@ -216,24 +215,32 @@ let progressStyles = {
   fa = { color = attentionTxtColor, font = fontawesome.font, fontSize = sizeStar }
 }
 
-let bpInfoStage = {
-  flow = FLOW_HORIZONTAL
+let mkTextProgress = @(locName) @() {
+  watch = progressCounters
+  rendObj = ROBJ_TEXTAREA
+  size = [flex(), SIZE_TO_CONTENT]
+  halign = ALIGN_CENTER
+  behavior = Behaviors.TextArea
+  text = loc(locName, progressCounters.value)
+  color = activeTxtColor
+}.__update(fontBody)
+
+let bpInfoStage = @() {
+  watch = [hasEliteBattlePass, progressCounters]
+  flow = FLOW_VERTICAL
   valign = ALIGN_CENTER
-  children = [
-    @() {
-      rendObj = ROBJ_TEXT
-      watch = progressCounters
-      halign = ALIGN_CENTER
-      text = loc("bp/currentStage", progressCounters.value)
-      color = activeTxtColor
-    }.__update(fontBody)
-  ]
+  size = [flex(), SIZE_TO_CONTENT]
+  children = hasEliteBattlePass.value ? null
+    : [
+        progressCounters.value.allowedFreeRewarded > 0 ? mkTextProgress("bp/freeRewards") : null
+        progressCounters.value.allowedPremRewarded > 0 ? mkTextProgress("bp/premiumRewards") : null
+      ]
 }
 
 let starFilled = faComp("star", { fontSize = sizeStar, color = attentionTxtColor })
 let starEmpty = faComp("star-o", { fontSize = sizeStar, color = attentionTxtColor })
 
-let function bpInfoProgress () {
+function bpInfoProgress () {
   let { current, required, interval } = currentProgress.value
   let starFactor = (interval / BP_INTERVAL_STARS).tointeger()
   let filledStars = current >= required || hasReward.value || starFactor == 0
@@ -294,16 +301,21 @@ let bpInfoPremPass = function() {
   }, fontBody)
 }
 
-let btnReceiveReward = @() {
-  watch = [hasReward, receiveRewardInProgress]
-  halign = ALIGN_CENTER
-  children = receiveRewardInProgress.value ? waitingSpinner
-    : hasReward.value ? PrimaryFlat(loc("bp/getNextReward"), receiveNextReward, {
-      hotkeys = [["^J:X | Enter | Space", { skip = true }]]
-      size = btnSize
-      margin = 0
-    })
-    : null
+function btnReceiveAllRewards() {
+  let res = {watch = hasReward}
+  if (!hasReward.value)
+    return res
+  return res.__update({
+    watch = [hasReward, receiveRewardInProgress, progressCounters]
+    halign = ALIGN_CENTER
+    size = btnSize
+    children = receiveRewardInProgress.value ? waitingSpinner
+      : PrimaryFlat(loc("bp/getAllReward"), receiveAllRewards, {
+          hotkeys = [["^J:X | Enter | Space", { skip = true }]]
+          size = btnSize
+          margin = 0
+        })
+  })
 }
 
 let mkBtnBuySkipStage = @(price) currencyBtn({
@@ -342,7 +354,7 @@ let mkBuySkipStageBlock = @(price) {
   ]
 }
 
-let function buttonsBlock() {
+function buttonsBlock() {
   let res = { watch = [ hasEliteBattlePass, canBuyBattlePass, nextUnlockPrice,
     buyUnlockInProgress, hasReward] }
 
@@ -365,7 +377,7 @@ let function buttonsBlock() {
       buyUnlockInProgress.value ? waitingSpinner
         : price && !hasReward.value ? mkBuySkipStageBlock(price)
         : null
-      btnReceiveReward
+      btnReceiveAllRewards
     ]
   })
 }
@@ -457,12 +469,12 @@ scenesListGeneration.subscribe(function(_v){
     curItemUpdate()
 })
 
-let function open() {
+function open() {
   sceneWithCameraAdd(bpWindow, "battle_pass")
   curItemUpdate()
 }
 
-let function close() {
+function close() {
   sceneWithCameraRemove(bpWindow)
   curSelectedItem(null)
   curItem(null)

@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 require("%ui/hud/state/awards.nut")
 require("%ui/hud/state/score_awards_state.nut")
@@ -30,7 +30,7 @@ let xtext = freeze({
   pos = [0, -fontBody.fontSize * 0.05]
 }.__merge(fontBody, strokeStyle))
 
-let function mkAwardText(text, params = {}){
+function mkAwardText(text, params = {}){
   if (text == null)
     return null
   return {
@@ -79,7 +79,7 @@ let awardTextByType = {
   multi_kill = @(item) mkAwardText(loc($"hud/awards/multi_kill/counter", item.awardData))
 }
 
-let function defAwardText(item) {
+function defAwardText(item) {
   let { awardData, num = null } = item
   let awardType = awardData.type
 
@@ -110,7 +110,7 @@ let function defAwardText(item) {
 let getAwardText = @(item) (awardTextByType?[item.awardData.type] ?? defAwardText)(item)
 let hasAwardText = @(item) getAwardText(item) != null
 
-let function makeAward(item, idx, col) {
+function makeAward(item, idx, col) {
   let len = col.len()
   let normidx = len - 1 - idx
   let { awardData, key = null, num = null } = item

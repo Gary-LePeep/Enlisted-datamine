@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { format, hexStringToInt } =  require("string").__merge(require("%sqstd/string.nut"))
 

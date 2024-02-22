@@ -3,6 +3,7 @@ require DagorInput
 require game.es.events
 require game.es.input.input_events
 require common_shooter.events_common_shooter
+require enlisted.events_enlisted
 
 def init(var human_inventory_input__useMedkit : int&)
   human_inventory_input__useMedkit = int(get_action_handle("Inventory.UseMedkit", TYPEGRP_DIGITAL))

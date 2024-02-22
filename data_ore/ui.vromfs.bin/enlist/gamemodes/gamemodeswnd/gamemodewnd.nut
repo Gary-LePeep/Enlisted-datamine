@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontHeading2, fontSub, fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { bigPadding, defTxtColor, titleTxtColor, midPadding, commonBorderRadius, accentColor,
@@ -32,7 +32,7 @@ let { hasCustomRooms, openCustomGameMode, openEventsGameMode, activeEvents
 } = require("%enlist/gameModes/eventModesState.nut")
 let { actualizeRoomCfg } = require("%enlist/gameModes/createEventRoomCfg.nut")
 let { makeHorizScroll, styling } = require("%ui/components/scrollbar.nut")
-let { isLoggedIn } = require("%enlSqGlob/login_state.nut")
+let { isLoggedIn } = require("%enlSqGlob/ui/login_state.nut")
 let { isInSquad, isLeavingWillDisbandSquad, leaveSquad, leaveSquadSilent
 } = require("%enlist/squad/squadManager.nut")
 let { serverClusterBtn } = require("%enlist/gameModes/gameModesWnd/serverClusterUi.nut")
@@ -75,7 +75,7 @@ let cardDescriptionHeight = modeCardSize[1] - nameBlockSize[1]
 
 let cardHotkey = mkImageCompByDargKey(JB.A, { hplace = ALIGN_LEFT })
 
-let function close(needToClose = true) {
+function close(needToClose = true) {
   if (needToClose)
     isOpened(false)
   else
@@ -195,7 +195,7 @@ let nameBlock = @(name, sf, needShowCrossplayIcon = false, isSelected = false) @
 }
 
 
-let function mkCustomGameButton(modeCfg, hasSeen, animations) {
+function mkCustomGameButton(modeCfg, hasSeen, animations) {
   let { image, title, id, onClick, description, needShowCrossplayIcon = false } = modeCfg
   return watchElemState(@(sf) {
     size = modeCardSize
@@ -227,7 +227,7 @@ let function mkCustomGameButton(modeCfg, hasSeen, animations) {
   })
 }
 
-let function mkAnimations(idx, len) {
+function mkAnimations(idx, len) {
   let delay = idx * min(0.15, 0.9 / len)
   return [
     { prop = AnimProp.opacity, from = 0, to = 0, duration = delay, play = true }
@@ -349,7 +349,7 @@ let selectedLine = {
 }
 
 
-let function mkGameModeButton(gameMode, idx, hasSeen, defaultFbImage) {
+function mkGameModeButton(gameMode, idx, hasSeen, defaultFbImage) {
   let isSelectedW = Computed(@() gameMode == currentGameMode.value)
   let xmbNode = XmbNode()
 
@@ -412,7 +412,7 @@ let function mkGameModeButton(gameMode, idx, hasSeen, defaultFbImage) {
 let tblScrollHandler = ScrollHandler()
 
 
-let function mkGameModesList(defaultFbImage, defTutorialParams, customGameMode) {
+function mkGameModesList(defaultFbImage, defTutorialParams, customGameMode) {
   let onDetach = @() isTutorialsWndOpened(false)
 
   return function() {
@@ -501,7 +501,7 @@ let function mkGameModesList(defaultFbImage, defTutorialParams, customGameMode) 
 }
 
 
-let function crossplayDescBlock() {
+function crossplayDescBlock() {
   let res = { watch = hasCrossplayDesc }
   if (!hasCrossplayDesc.value)
     return res

@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {
   unlockRewardsInProgress, markUserLogsAsSeen
@@ -35,22 +35,21 @@ let dailyRewardsUnlock = Computed(@() activeUnlocks.value?[LOGIN_UNLOCK_ID]
 
 let dailyRewardsCrates = Computed(function() {
   let curArmyId = curArmy.value
-  let res = {}
   if (curArmyId == null)
-    return res
+    return []
 
+  let res = {}
   let rewardsItems = itemMapping.value
   foreach (stage in dailyRewardsUnlock.value?.stages ?? [])
     foreach (rewardId, _ in stage?.rewards ?? {}) {
-      let { crateId = "", armyId = curArmyId } = rewardsItems?[rewardId.tostring()]
-      if (armyId not in res)
-        res[armyId] <- []
-      res[armyId].append(crateId)
+      let { crateId = "" } = rewardsItems?[rewardId.tostring()]
+      if (crateId != "")
+        res[crateId] <- true
     }
-  return res
+  return res.keys()
 })
 
-let function getCurLoginUnlockStage(unlock) {
+function getCurLoginUnlockStage(unlock) {
   let { lastRewardedStage = 0, stages = [] } = unlock
   return stages.len() == 0 ? null
     : getStageByIndex(unlock, lastRewardedStage - 1)
@@ -72,7 +71,7 @@ let receivedDailyReward = Computed(function() {
   }
 })
 
-let function calcRewardCfg(stageData, rewardsItems, cratesComp, curArmyId) {
+function calcRewardCfg(stageData, rewardsItems, cratesComp) {
   let rewardsData = []
   let rewardCrate = Watched(null)
   foreach (rewardId, _ in stageData?.rewards ?? {}) {
@@ -81,13 +80,12 @@ let function calcRewardCfg(stageData, rewardsItems, cratesComp, curArmyId) {
       continue
 
     rewardsData.append(rewardCfg)
-    local { armyId = "", crateId = "" } = rewardCfg
+    local { armyId = "common_army", crateId = "" } = rewardCfg
     if (crateId != "") {
-      armyId = armyId != "" ? armyId : curArmyId
       rewardCrate({
         armyId
         id = crateId
-        content = cratesComp?[armyId][crateId]
+        content = cratesComp?[crateId]
       })
     }
   }
@@ -97,7 +95,7 @@ let function calcRewardCfg(stageData, rewardsItems, cratesComp, curArmyId) {
   }
 }
 
-let function getStageRewardsData(rewards, mappedItems, cratesComp, armyId) {
+function getStageRewardsData(rewards, mappedItems, cratesComp, armyId) {
   let itemsData = {}
   let crates = []
   foreach (rewardId, count in rewards) {
@@ -149,19 +147,19 @@ let curBoosteredDailyTask = Computed(function() {
     .__merge({ boosterLog })
 })
 
-let function markBoosterLogsSeen() {
+function markBoosterLogsSeen() {
   let userlogs = boosterLogs.value.map(@(b) b.id)
   if (userlogs.len() > 0)
     markUserLogsAsSeen(userlogs)
 }
 
-let function receiveDayReward() {
+function receiveDayReward() {
   if (isReceiveDayRewardInProgress.value)
     return
   doReceiveRewards(LOGIN_UNLOCK_ID)
 }
 
-let function gotoNextStageOrClose(receivedData, closeCb) {
+function gotoNextStageOrClose(receivedData, closeCb) {
   let { hasRewards = false, hasBoosters = false } = receivedData
   if (hasRewards)
     markNewItemsSeen()
@@ -177,7 +175,7 @@ let function gotoNextStageOrClose(receivedData, closeCb) {
   }
 }
 
-let function imitateCrateReward(boostersData, receivedItems, mappedItems, rType = "hasBoosters") {
+function imitateCrateReward(boostersData, receivedItems, mappedItems, rType = "hasBoosters") {
   let res = {
     itemsData = {}
     cratesContent = {}

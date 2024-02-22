@@ -1,11 +1,11 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {watchedHeroEid} = require("%ui/hud/state/watched_hero.nut")
 
 let overheat = Watched(0)
 
-let function trackComponents(_eid, comp) {
+function trackComponents(_eid, comp) {
   let hero = watchedHeroEid.value
   if (ecs.obsolete_dbg_get_comp_val(hero, "human_anim__vehicleSelected") == ecs.INVALID_ENTITY_ID) {
     overheat.update(0)
@@ -37,7 +37,7 @@ let turretQuery = ecs.SqQuery("turretQuery", {
   comps_rq = ["isTurret"]
 })
 
-let function trackSelectedVehicleComponents(_eid, comp) {
+function trackSelectedVehicleComponents(_eid, comp) {
   overheat.update(0)
   let vehicleEid = comp["human_anim__vehicleSelected"]
   let turretEids = ecs.obsolete_dbg_get_comp_val(vehicleEid, "turret_control__gunEids")?.getAll() ?? []

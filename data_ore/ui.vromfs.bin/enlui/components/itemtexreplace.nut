@@ -1,6 +1,6 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
-let function getTexReplaceString(item) {
+function getTexReplaceString(item) {
   let { objTexReplace = null } = item
   if (objTexReplace == null)
     return ""
@@ -20,7 +20,7 @@ let function getTexReplaceString(item) {
   return "".join(list)
 }
 
-let function getTexSetString(item) {
+function getTexSetString(item) {
   let { objTexSet = null } = item
   if (objTexSet == null)
     return ""

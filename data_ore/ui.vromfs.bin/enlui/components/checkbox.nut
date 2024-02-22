@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontawesome } = require("%enlSqGlob/ui/fontsStyle.nut")
 let faComp = require("%ui/components/faComp.nut")
@@ -17,7 +17,7 @@ let calcColor = @(sf) sf & S_ACTIVE ? CheckBoxContentActive
   : sf & S_HOVER ? CheckBoxContentHover
   : CheckBoxContentDefault
 
-let function box(stateFlags, state) {
+function box(stateFlags, state) {
   let size = [boxSize, boxSize]
   let watch = [stateFlags, state]
   return function() {
@@ -64,7 +64,7 @@ let mkSwitchKnob = @(stateFlags, state, group) @(){
   group
 }
 
-let function switchbox(stateFlags, state, group) {
+function switchbox(stateFlags, state, group) {
   let checkMark = mkCheckMark(stateFlags, state, group)
   let switchKnob = mkSwitchKnob(stateFlags, state, group)
   return function(){
@@ -81,7 +81,7 @@ let function switchbox(stateFlags, state, group) {
   }
 }
 
-local function label(stateFlags, params, group, onClick) {
+function label(stateFlags, params, group, onClick) {
   if (type(params) != type({})){
     params = { text = params }
   }
@@ -105,7 +105,7 @@ return function (state, label_text_params=null, params = {}) {
   let group = params?.group ?? ElemGroup()
   let stateFlags = Watched(0)
   let setValue = params?.setValue ?? @(v) state(v)
-  let function onClick(){
+  function onClick(){
     setValue(!state.value)
     sound_play(state.value ? "ui/enlist/flag_set" : "ui/enlist/flag_unset")
   }

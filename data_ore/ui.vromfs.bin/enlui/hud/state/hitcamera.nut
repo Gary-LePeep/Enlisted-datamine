@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {showGameMenu} = require("%ui/hud/menus/game_menu.nut")
 let {CmdShowHitcamera, EventOnHitCameraControlEvent,
@@ -10,13 +10,13 @@ let hitcameraTargetEid = mkWatched(persist, "hitcameraTargetEid")
 let totalMembersBeforeShot = mkWatched(persist, "totalMembersBeforeShot", 0)
 let deadMembers = mkWatched(persist, "deadMembers", 0)
 
-let function showHitcamera(eid, target) {
+function showHitcamera(eid, target) {
   hitcameraEid(eid)
   hitcameraTargetEid(target)
   ecs.g_entity_mgr.sendEvent(eid, CmdShowHitcamera())
 }
 
-let function onInit(_evt, eid, comp) {
+function onInit(_evt, eid, comp) {
   comp["hitcamera__locked"] = true
   totalMembersBeforeShot(comp["hitcamera__totalMembersBeforeShot"])
   deadMembers(comp["hitcamera__deadMembers"])
@@ -34,7 +34,7 @@ let nextHitcameraQuery = ecs.SqQuery("nextHitcameraQuery", {
   comps_ro=[["hitcamera__target", ecs.TYPE_EID], ["hitcamera__renderState", ecs.TYPE_INT]]
   comps_rq=["hitcamera"]
 })
-let function onDestroy(_evt, eid, _comp) {
+function onDestroy(_evt, eid, _comp) {
   if (eid != hitcameraEid.value)
     return
 
@@ -52,13 +52,13 @@ let function onDestroy(_evt, eid, _comp) {
   }
 }
 
-let function onChange(_evt, _eid, comp) {
+function onChange(_evt, _eid, comp) {
   let renderState = comp["hitcamera__renderState"]
   if (renderState == HITCAMERA_RENDER_DONE)
     comp["hitcamera__locked"] = false
 }
 
-let function onControlEvent(_evt, _eid, _comp) {
+function onControlEvent(_evt, _eid, _comp) {
   // local target = evt[0]
   // local hitResult = evt[2]
 }

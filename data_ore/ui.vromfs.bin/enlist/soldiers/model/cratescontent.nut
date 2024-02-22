@@ -1,8 +1,7 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let armyEffects = require("armyEffects.nut")
-let { curArmy } = require("%enlist/soldiers/model/state.nut")
-let { get_crates_content } = require("%enlist/meta/clientApi.nut")
+let { get_current_crates } = require("%enlist/meta/clientApi.nut")
 let { configs } = require("%enlist/meta/configs.nut")
 let { templateLevel } = require("%enlSqGlob/ui/itemsInfo.nut")
 
@@ -10,71 +9,57 @@ let { templateLevel } = require("%enlSqGlob/ui/itemsInfo.nut")
 let requestedCratesContent = Watched({})
 let requested = {}
 
-let getArmiesLevels = @(effects) effects.map(@(a) a.army_level)
-local requestedArmyLevels = getArmiesLevels(armyEffects.value)
-
-let function requestCratesContent(armyId, crates) {
-  if ((armyId ?? "") == "")
-    return
-  let armyCrates = requestedCratesContent.value?[armyId]
-  if (armyId not in requested)
-    requested[armyId] <- {}
-  let armyRequested = requested[armyId]
-  let toRequest = crates.filter(@(c) c not in armyCrates && c not in armyRequested)
+function requestCratesContent(crates) {
+  let curCrates = requestedCratesContent.value
+  let toRequest = crates.filter(@(c) c not in curCrates && c not in requested)
   if (toRequest.len() == 0)
     return
-  toRequest.each(@(c) armyRequested[c] <- true)
-  get_crates_content(armyId, toRequest, function(res) {
-    toRequest.each(function(c) { if (c in armyRequested) delete armyRequested[c] })
+  toRequest.each(@(c) requested[c] <- true)
+  get_current_crates(toRequest, function(res) {
+    toRequest.each(function(c) {
+      if (c in requested)
+        requested.$rawdelete(c)
+    })
     if ("content" in res)
-      requestedCratesContent.mutate(@(cc) cc[armyId] <- (cc?[armyId] ?? {}).__merge(res.content))
+      requestedCratesContent.mutate(function(cc) {
+        cc.__update(res.content)
+      })
   })
 }
 
-armyEffects.subscribe(function(effects) {
-  let levels = getArmiesLevels(effects)
-  if (isEqual(levels, requestedArmyLevels))
-    return
-
-  let armyId = curArmy.value
-  let curCrates = requestedCratesContent.value?[armyId] ?? {}
-  requestedArmyLevels = levels
-  requestedCratesContent({})
-
-  if (armyId != null && curCrates.len() > 0)
-    requestCratesContent(armyId, curCrates.keys())
+armyEffects.subscribe(function(_effects) {
+  let curCrates = requestedCratesContent.value
+  if (curCrates.len() > 0) {
+    requestedCratesContent({})
+    // automatic request of all cached crates is not needed after every effects update
+    //requestCratesContent(curCrates.keys())
+  }
 })
 
 
-let function removeCrateContent(cratesData) {
+function removeCrateContent(crates) {
   requestedCratesContent.mutate(function(cc) {
-    foreach (crateData in cratesData) {
-      let { armyId, id } = crateData
-      if (id in cc?[armyId])
-        delete cc[armyId][id]
+    foreach (crateId in crates) {
+      if (crateId in cc)
+        cc.$rawdelete(crateId)
     }
   })
 }
 
 
-let function getShopItemsIds(items) {
-  let itemsInfo = items.reduce(function(res, s) {
-    if (s?.crates != null)
-      s.crates.each(function(v) {
-        let { armyId, id } = v
-        if (armyId not in res)
-          res[armyId] <- []
-        res[armyId].append(id)
-      })
-    return res
-  }, {})
-  return itemsInfo
+function getShopItemsIds(items) {
+  let res = {}
+  foreach (item in items) {
+    if (item?.crates != null)
+      item.crates.each(@(crateId) res[crateId] <- true)
+  }
+  return res.keys()
 }
 
 let itemToShopItem = Computed(@() configs.value?.item_to_shop_item ?? {})
 
 
-let function getShopListForItem(tpl, armyId, itemsToShopItems, allItemTemplates){
+function getShopListForItem(tpl, armyId, itemsToShopItems, allItemTemplates){
   let res = itemsToShopItems?[armyId][tpl] ?? []
   if (res.len() > 0)
     return res

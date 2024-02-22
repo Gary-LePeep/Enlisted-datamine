@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {get_time_msec} = require("dagor.time")
 let { windowActive, steamOverlayActive } = require("%enlist/state/windowState.nut")
@@ -11,7 +11,7 @@ let needOnBrowserCloseCb = get_setting_by_blk_path("updatePurchasesOnBrowserClos
 
 //call refresh function after alt+tab or steam overlay open
 //function will be called only when logged in
-let function mkExtAutoRefreshTimer(
+function mkExtAutoRefreshTimer(
   refresh, //function to call
   refreshDelaySec = 30 //minimum timeout after refresh to ignore window activate
 ) {
@@ -21,8 +21,8 @@ let function mkExtAutoRefreshTimer(
 
   local startAutoRefreshTimer = null
 
-  let function autoRefreshImpl() {
-    if (userInfo.value?.userId == null || appId.value < 0)
+  function autoRefreshImpl() {
+    if (userInfo.value?.userId == null || appId < 0)
       return
 
     readyRefreshTime = get_time_msec() + (1000 * refreshDelaySec).tointeger()
@@ -47,7 +47,7 @@ let function mkExtAutoRefreshTimer(
   }
 
 
-  let function windowStateHandler(isActive) {
+  function windowStateHandler(isActive) {
     if (isActive && (readyRefreshTime <= get_time_msec()))
       autoRefreshImpl()
   }

@@ -12,7 +12,7 @@ def draw_debug_ladder_es(info : UpdateStageInfoRenderDebug;
                          ladder__height : float;
                          ladder__width : float;
                          ladder__thickness : float)
-  let orient = quat(transform)
+  let orient = DagorMath::quat(transform)
   let upDir = quat_get_up(orient)
   let leftDir = quat_get_left(orient)
   for i in range(int(ladder__numSteps))
@@ -34,7 +34,7 @@ def private update_ladder_game_object(transform : float3x4;
   query() <| $ [es] (var game_objects : GameObjects&)
     if game_objects.ladders == null || ladder__sceneIndex == uint(-1)
       return
-    let orient = quat(transform)
+    let orient = DagorMath::quat(transform)
     var bboxTm = make_ladder_tm(ladder__height, ladder__width, ladder__thickness, transform)
     bboxTm[3] += (quat_get_left(orient) * ladder__width + quat_get_up(orient) * ladder__height + quat_get_forward(orient) * ladder__thickness) * 0.5f
     reallocate(*game_objects.ladders, ladder__sceneIndex,  mat44f(bboxTm), uint16(0) /*pool*/, ladder__numSteps)

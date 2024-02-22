@@ -1,8 +1,8 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let {strip, startswith} = require("string")
 
-let function parse(hotkey){
+function parse(hotkey){
   local hotkeys_list = hotkey.replace("^", "").split("|")
   hotkeys_list = hotkeys_list.map(@(v) strip(v))
   let gamepadUiBtns = hotkeys_list.filter(@(v) startswith(v,"J:"))

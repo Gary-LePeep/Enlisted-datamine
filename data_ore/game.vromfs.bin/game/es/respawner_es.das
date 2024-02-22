@@ -23,6 +23,7 @@ require game.es.respawn_base_common
 require game.es.artillery_aircraft_common
 require game.es.paratroopers_common
 require game.es.respawn_base_common
+require pathfinder
 
 def calc_enemy_score(leaderTeam; walker_agent)
   var enemyScore = 0.f
@@ -484,15 +485,87 @@ def respawn_cancel_req_es(evt : CmdCancelRequestRespawn;
   respawner__respawnGroupId = respawnGroupId
   respawner__paratroopersSquad = evt.isParatroopers
 
+def get_squad_vehicle_type(player_eid : EntityId; squad_id : int)
+  var res = ""
+  query(player_eid) <| $ [es] (armies : Object; army : string)
+    let squads = (armies[army] ?as Object)?.squads ?as Array
+    let squad = squads?[squad_id] ?as Object
+    res = squad?.vehicleType ?? ""
+  return res
+
+def is_vehicle_squad_awaiting_respawn(squad_team : int)
+  return find_query() <| $ [es] (eid : EntityId; team : int; respawner__enabled : bool; respawner__respRequestedSquadId : int)
+    if squad_team != team || !respawner__enabled
+      return false
+    return !empty(get_squad_vehicle_type(eid, respawner__respRequestedSquadId))
+
+[es(tag=server, on_event=EventFirstPlayerSpawned)]
+def bot_tank_squad_init_es(evt : Event; team_bots__startForcingTankRespawnDelay : float; var team_bots__startForcingTankRespawnAt : float&)
+  team_bots__startForcingTankRespawnAt = get_sync_time() + team_bots__startForcingTankRespawnDelay
+
+def update_bot_vehicle_squad_respawn_forcing(team : int)
+  find_query() <| $ [es] (team__id : int; team_bots__startForcingTankRespawnDelay : float; var team_bots__startForcingTankRespawnAt : float&)
+    if team != team__id
+      return false
+    if count_vehicles_of_type(team, "vehicle") == 0
+      team_bots__startForcingTankRespawnAt = get_sync_time() + team_bots__startForcingTankRespawnDelay
+    return true
+
+[es(tag=server, on_disappear, REQUIRE=vehicle)]
+def update_bot_vehicle_squad_respawn_forcing_on_disappear(evt : Event; team : int; isAlive : bool; canUseRespawnbaseType : string)
+  if isAlive && canUseRespawnbaseType == "vehicle"
+    update_bot_vehicle_squad_respawn_forcing(team)
+
+[es(tag=server, track=isAlive, REQUIRE=vehicle)]
+def update_bot_vehicle_squad_respawn_forcing_on_death(evt : Event; team : int; isAlive : bool; canUseRespawnbaseType : string)
+  if !isAlive && canUseRespawnbaseType == "vehicle"
+    update_bot_vehicle_squad_respawn_forcing(team)
+
+def is_squad_allowed_for_random_respawn(team : int; squad : Object)
+  let squadType = squad.squadType ?? ""
+
+  if squadType != "tank"
+    return true
+
+  if !pathfinder_is_loaded_ex(NM_EXT_1)
+    return false
+
+  var res = true
+  find_query() <| $ [es] (team__id : int; team_bots__startForcingTankRespawnAt : float)
+    if team != team__id
+      return false
+    res = team_bots__startForcingTankRespawnAt < get_sync_time() && is_bot_vehicle_spawn_allowed_by_limit(team, "vehicle") && !is_vehicle_squad_awaiting_respawn(team)
+    return true
+  return res
+
+def should_squad_be_forced_for_random_respawn(squad : Object)
+  let squadType = squad.squadType ?? ""
+  return squadType == "tank"
+
 [es(tag=server, track=squad__isAlive, REQUIRE=squad__isAlive)]
 def respawner_select_random_squad(evt : Event; squad__ownerPlayer : EntityId)
-  query(squad__ownerPlayer) <| $ [es(REQUIRE=respawner__randomNextSquad)] (squads__revivePointsList : IntList; var respawner__respRequestedSquadId : int&)
-    var readySquads : array<int>
-    for squad, points in iter_range(squads__revivePointsList), squads__revivePointsList
-      if points >= 100
-        readySquads |> push(squad)
+  query(squad__ownerPlayer) <| $ [es(REQUIRE=respawner__randomNextSquad)] (team : int; squads__revivePointsList : IntList; armies : Object; army : string; var respawner__respRequestedSquadId : int&)
+    let squads = (armies[army] ?as Object)?.squads ?as Array
+    if squads == null
+      return
 
-    respawner__respRequestedSquadId = readySquads?[rnd_int(0, length(readySquads) - 1)] ?? 0
+    var readySquads : array<int>
+    var readyForcedSquads : array<int>
+    for squadIdx, points in iter_range(squads__revivePointsList), squads__revivePointsList
+      if points >= 100
+        let squad = squads?[squadIdx] ?as Object
+        if squad == null
+          continue
+        if is_squad_allowed_for_random_respawn(team, *squad)
+          if should_squad_be_forced_for_random_respawn(*squad)
+            readyForcedSquads |> push(squadIdx)
+          else
+            readySquads |> push(squadIdx)
+
+    if empty(readyForcedSquads)
+      respawner__respRequestedSquadId = readySquads?[rnd_int(0, length(readySquads))] ?? 0
+    else
+      respawner__respRequestedSquadId = readyForcedSquads?[rnd_int(0, length(readyForcedSquads))] ?? 0
 
 [es(tag=server, after=spawn_squad_es)]
 def turn_off_first_spawn_on_late_connected_players(evt : CmdSpawnEntityForPlayer;

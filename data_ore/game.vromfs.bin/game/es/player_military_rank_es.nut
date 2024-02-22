@@ -31,7 +31,7 @@ let rankConfigQuery = ecs.SqQuery("rankConfigQuery", {
   ]
 })
 
-let function setRankConfig(ratingGrid, ratingAnyBattle, ratingNoPenalty) {
+function setRankConfig(ratingGrid, ratingAnyBattle, ratingNoPenalty) {
   local found = false
   rankConfigQuery(function (_eid, comp) {
     found = true
@@ -48,7 +48,7 @@ let function setRankConfig(ratingGrid, ratingAnyBattle, ratingNoPenalty) {
     })
 }
 
-let function onPlayerConnected(eid, comp) {
+function onPlayerConnected(eid, comp) {
   let { appId = 0, userid = INVALID_USER_ID, playerIsBot = null } = comp
   if (playerIsBot != null) {
     setPlayerRank(eid, genBotRank(), 0)

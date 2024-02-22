@@ -1,11 +1,11 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 let { unlocksSorted, emptyProgress, DAILY_TASK_KEY
 } = require("%enlSqGlob/userstats/unlocksState.nut")
 let statsInGame = require("%ui/hud/state/userstatStateInBattle.nut")
 
 let isEvent = Computed(@() statsInGame.value?.modes.contains("endgame_events") ?? false)
 
-let function appendAllSteps(res, unlockName, step, byRequirement) {
+function appendAllSteps(res, unlockName, step, byRequirement) {
   if (unlockName not in byRequirement)
     return step - 1
   local totalSteps = step
@@ -18,8 +18,10 @@ let function appendAllSteps(res, unlockName, step, byRequirement) {
 }
 
 let battleUnlocks = Computed(function() {
-  let filterFunc = isEvent.value ? @(u) u?.meta.event_unlock ?? (u?.meta.event_group != null) // backward compatibility
-    : @(u) (u?.meta.isVisibleInBattle ?? true) && (u.table == DAILY_TASK_KEY || (u?.meta.weekly_unlock ?? false))
+  let filterFunc = isEvent.value
+    ? @(u) (u?.meta.weekly_unlock ?? false) || (u?.meta.event_group != null) // backward compatibility
+    : @(u) (u?.meta.isVisibleInBattle ?? true)
+        && (u.table == DAILY_TASK_KEY || (u?.meta.weekly_unlock ?? false) || (u?.meta.event_unlock ?? false))
   let unlocks = unlocksSorted.value.filter(filterFunc)
   if (!isEvent.value)
     return unlocks
@@ -37,7 +39,7 @@ let battleUnlocks = Computed(function() {
   return res
 })
 
-let function getTasksWithProgress(unlocks, unlocksProgress, stats) {
+function getTasksWithProgress(unlocks, unlocksProgress, stats) {
   let modes = {}
   foreach(mode in stats?.modes ?? [])
     modes[mode] <- true

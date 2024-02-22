@@ -1,18 +1,18 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { parse_json } = require("json")
 let { HTTP_SUCCESS, httpRequest } = require("dagor.http")
 let userInfo = require("%enlSqGlob/userInfo.nut")
 
 let hasLog = {}
-let function logByUrlOnce(url, text) {
+function logByUrlOnce(url, text) {
   if (url in hasLog)
     return
   hasLog[url] <- true
   log(text)
 }
 
-let function requestData(url, params, onSuccess, onFailure=null) {
+function requestData(url, params, onSuccess, onFailure=null) {
   httpRequest({
     method = "POST"
     url
@@ -44,9 +44,9 @@ let function requestData(url, params, onSuccess, onFailure=null) {
   })
 }
 
-let function createGuidsRequestParams(guids) {
+function createGuidsRequestParams(guids) {
   local res = guids.reduce(@(acc, guid) $"{acc}guids[]={guid}&", "")
-  res = $"{res}token={userInfo.value?.token ?? ""}&special=1"
+  res = $"{res}jwt={userInfo.value?.token ?? ""}&special=1"
   return res
 }
 

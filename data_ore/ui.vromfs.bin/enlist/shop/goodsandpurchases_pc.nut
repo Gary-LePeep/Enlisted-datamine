@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { requestData, createGuidsRequestParams } = require("httpRequest.nut")
 let userInfo = require("%enlSqGlob/userInfo.nut")
@@ -9,7 +9,7 @@ let goodsInfo = mkWatched(persist, "goodsInfo", {}) //purchases info from online
 let isGoodsRequested = Watched(false)
 let marketIds = Watched([])
 
-let function requestGoodsInfo() {
+function requestGoodsInfo() {
   if (!userInfo.value)
     return
 

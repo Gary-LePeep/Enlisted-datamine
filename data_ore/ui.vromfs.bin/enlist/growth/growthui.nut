@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontHeading2, fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let JB = require("%ui/control/gui_buttons.nut")
@@ -25,7 +25,7 @@ let { GrowthStatus, curGrowthId, curGrowthConfig, curGrowthState, curGrowthSelec
   reqGrowthId, growthTierToScroll, isGrowthVisible
 } = require("growthState.nut")
 let shopItemClick = require("%enlist/shop/shopItemClick.nut")
-let { mkColoredGradientX } = require("%enlSqGlob/ui/gradients.nut")
+let { mkColoredGradientX, mkColoredGradientY } = require("%enlSqGlob/ui/gradients.nut")
 let { makeHorizScroll } = require("%ui/components/scrollbar.nut")
 let { gradientProgressBar } = require("%enlSqGlob/ui/defComponents.nut")
 let { splitThousands, round_by_value, floor } = require("%sqstd/math.nut")
@@ -34,16 +34,14 @@ let { itemTypeIcon } = require("%enlist/soldiers/components/itemTypesData.nut")
 let { PrimaryFlat, Flat, smallStyle } = require("%ui/components/textButton.nut")
 let { Bordered } = require("%ui/components/txtButton.nut")
 let { currencyBtn, mkCurrencyImg } = require("%enlist/currency/currenciesComp.nut")
-let { mkSquadDetails, mkItemDetails, mkGrowthRewardsText, mkGrowthSlotElems
+let {
+  mkSquadDetails, mkItemDetails, mkGrowthRewardsText, mkGrowthSlotElems, mkTierObject
 } = require("%enlist/growth/growthPkg.nut")
 let { utf8ToUpper } = require("%sqstd/string.nut")
 let { addModalWindow, removeModalWindow } = require("%ui/components/modalWindows.nut")
 let { mkCurrencyImage } = require("%enlist/shop/currencyComp.nut")
 let { getCurrencyPresentation } = require("%enlist/shop/currencyPresentation.nut")
-let { progressContainerCtor, gradientProgressLine, completedProgressLine
-} = require("%enlist/components/mkProgressBar.nut")
 let { TextActive, textColor } = require("%ui/style/colors.nut")
-let { mkFireParticles, mkAshes, mkSparks } = require("%enlist/components/mkFireParticles.nut")
 let { enlistedGold } = require("%enlist/currency/currenciesList.nut")
 let { mkPremiumSquadXpImage } = require("%enlist/debriefing/components/mkXpImage.nut")
 let { showMsgbox, styling } = require("%enlist/components/msgbox.nut")
@@ -73,7 +71,8 @@ let tierHeight = hdpxi(26)
 let blocksGap = hdpxi(40)
 let scrollAreaWidth = safeAreaSize.value[0] - (inventoryItemDetailsWidth + blocksGap)
 
-let progressTitleStyle = freeze({ color = titleTxtColor }.__update(fontSub))
+let progLeftStyle = freeze({ color = 0xFF0b0801 }.__update(fontSub))
+let progRightStyle = freeze({ color = titleTxtColor }.__update(fontSub))
 let progressValueStyle = freeze({ color = titleTxtColor }.__update(fontSub))
 let alertStyle = freeze({ color = brightAccentColor }.__update(fontSub))
 
@@ -90,14 +89,30 @@ let activeHoverProgColor = 0xFF58603A
 let progressColor = 0xFF667079
 let unavailableIdleBgColor = 0xFF621D1D
 let unavailableSelectedBgColor = 0xFF905D5D
+
+let unavailableElemsColor = 0xFF764549
 let activeElemsColor = 0xFF313841
 let defElemsColor = 0xFFB3BDC1
+
 let activeIdleBgColor = 0XFF414D5B
 let premBgSelectedColor = 0xFF3C4050
 let premBgIdleColor = 0xFF3C4050
 let currentIdleBgColor = 0XFF1E272E
 let currentHoverBgColor = 0xFFA0A2A3
 let currentSelectedBgColor = 0XFF1E272E
+
+let selectedGradient = mkColoredGradientY({
+  colorTop = 0x5AFFFFFF, colorBottom = 0x00FFFFFF, height = 12, isAlphaPremultiplied = false
+})
+
+let selectedImg = freeze({
+  rendObj = ROBJ_IMAGE
+  size = flex()
+  image = selectedGradient
+  animations = [{ prop = AnimProp.opacity, from = 0.1, to = 1.0,
+    duration = 2, play = true, loop = true, easing = Blink }]
+})
+
 
 let isBoostWndOpen = Watched(false)
 let curGrowthRelations = Watched(null)
@@ -106,26 +121,13 @@ local scrollXPos = null
 
 
 let sliderWidth = hdpxi(540)
-let progBarHeight = hdpxi(28)
-let mkTierCtor = @(w) progressContainerCtor(
-  $"ui/uiskin/campaign/Campaign_progress_bar_mask.svg",
-  $"ui/uiskin/campaign/Campaign_progress_bar_border.svg",
-  [w, progBarHeight]
-)
 
 let btnHotkey = {
   hotkeys = [[$"^J:Y | Space"]]
 }
 
-let mkBgParticles = @(effectSize) {
-  children = [
-    mkFireParticles(24, effectSize, mkAshes)
-    mkFireParticles(8, effectSize, mkSparks)
-  ]
-}
 
-
-let function tabInteriorCb() {
+function tabInteriorCb() {
   scrollXPos = tblScrollHandler.elem.getScrollOffsX()
   curGrowthRelations(null)
 }
@@ -228,15 +230,14 @@ let elemActive = @(_isPrem, isSelected, progress, isCurrent, sf) {
   ]
 }
 
-let lineDashSize = hdpx(5)
 let lineStyle = freeze({
   [GrowthStatus.UNAVAILABLE] = @(pos, size, data) {
     rendObj = ROBJ_VECTOR_CANVAS
     pos
     size
-    color = 0x66666666
+    color = unavailableElemsColor
     lineWidth = hdpx(2)
-    commands = [[VECTOR_LINE_DASHED].extend(data, [lineDashSize, lineDashSize])]
+    commands = [[VECTOR_LINE].extend(data)]
   },
   [GrowthStatus.ACTIVE] = @(pos, size, data) {
     rendObj = ROBJ_VECTOR_CANVAS
@@ -288,7 +289,7 @@ let coordHor = @(index, dir = LineDir.NONE) (elemSize[0] + gapSize[0]) * index
 let coordVer = @(index, dir = LineDir.NONE) (elemSize[1] + gapSize[1]) * index
   + (dir == LineDir.LESS ? 0 : dir == LineDir.MORE ? elemSize[1] : elemSize[1] * 0.5)
 
-let function mkGrowthLines(colFrom, lineFrom, colTo, lineTo) {
+function mkGrowthLines(colFrom, lineFrom, colTo, lineTo) {
   let res = []
   local horPos, verPos
 
@@ -433,7 +434,7 @@ let slotBgColorMap = freeze({
 let defChColor = @(sf = 0) sf & S_HOVER ? activeElemsColor : defElemsColor
 
 let elemColorMap = freeze({
-  [GrowthStatus.UNAVAILABLE] = @(_sf = 0) defBdColor,
+  [GrowthStatus.UNAVAILABLE] = @(sf = 0) sf & S_HOVER ? defBdColor : unavailableElemsColor,
   [GrowthStatus.COMPLETED] = @(sf = 0) sf & S_HOVER ? activeElemsColor : brightAccentColor
 })
 
@@ -446,7 +447,7 @@ let elemBgMap = freeze({
   [GrowthStatus.REWARDED] = elemRewarded,
 })
 
-let mkGrowthName = @(txt, group, status, isCurrent, isSelected, sf) {
+let mkGrowthName = @(txt, group, color) {
   rendObj = ROBJ_TEXT
   size = [flex(), headerSize]
   text = txt
@@ -454,9 +455,7 @@ let mkGrowthName = @(txt, group, status, isCurrent, isSelected, sf) {
   behavior = Behaviors.Marquee
   clipChildren = true
   scrollOnHover = true
-  color = isCurrent || status == GrowthStatus.COMPLETED ? brightAccentColor
-    : isSelected || (sf & S_ACTIVE) ? titleTxtColor
-    : defTxtColor
+  color
 }.__update(fontSub)
 
 let mkGrowthSlotBar = @(isPrem, status, isCurrent, isSelected, sf) {
@@ -500,7 +499,7 @@ let mkEffects = @(stats, isCur) {
           glareOpacity = 0.7
           hasMask = true
         })
-    isCur ? mkBgParticles([elemSize[0], elemSize[1] - hdpxi(20)]) : null
+    isCur ? selectedImg : null
   ]
 }
 
@@ -513,7 +512,7 @@ let curGrowthTitleText = Computed(function() {
 })
 
 
-let function getGrowthSelectError(growthCfg, grState, grProgres, growthData) {
+function getGrowthSelectError(growthCfg, grState, grProgres, growthData) {
   if ((grState?[growthCfg.id].status ?? GrowthStatus.UNAVAILABLE) == GrowthStatus.ACTIVE)
     return null
 
@@ -538,7 +537,7 @@ let function getGrowthSelectError(growthCfg, grState, grProgres, growthData) {
 }
 
 
-let function selectAction(growthCfg, growthData) {
+function selectAction(growthCfg, growthData) {
   let grState = curGrowthState.value
   let grProgres = curGrowthProgress.value
   let err = getGrowthSelectError(growthCfg, grState, grProgres, growthData)
@@ -563,7 +562,7 @@ let isShopItemSuitable = @(item) (item?.can_be_bought ?? true)
   || (item?.itemCost.len() ?? 0) > 0
 
 
-let function findGrowthShopItem(shopItemsGuids, availShopItems) {
+function findGrowthShopItem(shopItemsGuids, availShopItems) {
   if (shopItemsGuids.len() == 0)
     return null
 
@@ -573,7 +572,7 @@ let function findGrowthShopItem(shopItemsGuids, availShopItems) {
 }
 
 
-let function growthAction(growthItem, growthData) {
+function growthAction(growthItem, growthData) {
   let { id, expRequired = 0, shopItemsGuids = [], rewardCost = 0 } = growthItem
   let { status = GrowthStatus.UNAVAILABLE } = curGrowthState.value?[id]
   let isPrem = expRequired == 0
@@ -626,7 +625,7 @@ let reqGrowthObject = {
 }
 
 
-let function mkDiscountPercBar(shopItem) {
+function mkDiscountPercBar(shopItem) {
   let { isPriceHidden = false, discountInPercent = 0 } = shopItem
   return isPriceHidden || discountInPercent <= 0 ? null
     : {
@@ -687,7 +686,7 @@ let mkGrowthSlotBack = @(isPrem, status, progress, isCurrent, isSelected = true,
 let calcProgress = @(exp, expRequired)
   expRequired == 0 ? 0 : ((exp).tofloat() / expRequired.tofloat()) * 100.0
 
-let function mkGrowthSlot(growthItem, tmplsCfg, squadsCfg) {
+function mkGrowthSlot(growthItem, tmplsCfg, squadsCfg) {
   let { id = null, expRequired = 0, reward = null } = growthItem
   let { itemTemplate = null, squadId = null } = reward
   let item = tmplsCfg?[itemTemplate]
@@ -726,7 +725,7 @@ let mkShopSign = @(color) faComp("shopping-basket", {
   color
 })
 
-let function mkGrowthElement(growthItem, tmplsCfg, squadsCfg, growthData = null) {
+function mkGrowthElement(growthItem, tmplsCfg, squadsCfg, growthData = null) {
   let {
     id = null, expRequired = 0, reward = null, rewardCost = 0, shopItemsGuids = []
   } = growthItem
@@ -774,6 +773,11 @@ let function mkGrowthElement(growthItem, tmplsCfg, squadsCfg, growthData = null)
       : expRequired - ownedExp
 
     let elemsColor = elemColorMap?[status](sf) ?? defChColor(sf)
+    let headerColor = status == GrowthStatus.UNAVAILABLE ? elemColorMap?[status](sf)
+      : isCurrent || status == GrowthStatus.COMPLETED ? brightAccentColor
+      : isSelected || (sf & S_ACTIVE) ? titleTxtColor
+      : defTxtColor
+
     let hasShopSign = !isPrem && status == GrowthStatus.REWARDED && shItem.value != null
     let hasPrice = !isPrem || status == GrowthStatus.ACTIVE
 
@@ -806,8 +810,11 @@ let function mkGrowthElement(growthItem, tmplsCfg, squadsCfg, growthData = null)
           gap = smallPadding
           valign = ALIGN_CENTER
           children = [
-            itemTypeIcon(item?.itemtype, item?.itemsubtype, { size = [hdpxi(18), hdpxi(18)] })
-            mkGrowthName(itemName, group, status, isCurrent, isSelected, sf)
+            itemTypeIcon(item?.itemtype, item?.itemsubtype, {
+              size = [hdpxi(17), hdpxi(17)]
+              color = headerColor
+            })
+            mkGrowthName(itemName, group, headerColor)
           ]
         }
         {
@@ -829,7 +836,7 @@ let treeScrollHandler = ScrollHandler()
 let hasLeftScroll = Watched(false)
 let hasRightScroll = Watched(true)
 
-let function updateArrowButtons(elem) {
+function updateArrowButtons(elem) {
   hasLeftScroll(elem.getScrollOffsX() > 0)
   hasRightScroll(elem.getContentWidth() - elem.getScrollOffsX() > safeAreaSize.value[0])
 }
@@ -945,7 +952,7 @@ let mkContentHeaderUi = @(style) @() {
   text = curGrowthTitleText.value
 }.__update(style)
 
-let function gotoNextPage(delta) {
+function gotoNextPage(delta) {
   let total = tabsToShow.value.len()
   if (total > 1) {
     let curIndex = tabsToShow.value
@@ -961,7 +968,7 @@ let switchPageKey = @() {
   children = mkHotkey("J:X", @() gotoNextPage(1))
 }
 
-let function mkInfoTab(tab) {
+function mkInfoTab(tab) {
   let { tabId } = tab
   let isSelected = Computed(@() tabId == curInfoTabId.value)
   return watchElemState(@(sf) {
@@ -987,7 +994,7 @@ let function mkInfoTab(tab) {
   })
 }
 
-let function infoTabsBlock() {
+function infoTabsBlock() {
   let res = { watch = tabsToShow }
   if (tabsToShow.value.len() <= 0)
     return res
@@ -1092,7 +1099,7 @@ let mkBtnReward = @(price, action, btnCtor) price == 0 ? null
       }, params, handler, group, sf)
     }.__update(btnHotkey))
 
-let function mkBtnPurchase(shopItemsGuids, action) {
+function mkBtnPurchase(shopItemsGuids, action) {
   let shItem = Computed(@() findGrowthShopItem(shopItemsGuids, shopItems.value))
   return @() {
     watch = shItem
@@ -1130,7 +1137,7 @@ let mkBtnBoostExp = @(action) PrimaryFlat(loc("growth/аccelerated"), action,
   }.__update(btnHotkey))
 
 
-let function updateSliders(sliderGold, sliderExp) {
+function updateSliders(sliderGold, sliderExp) {
   let growthId = curGrowthId.value
   let growthItem = curGrowthConfig.value?[growthId]
   let freeExp = curGrowthFreeExp.value
@@ -1224,32 +1231,22 @@ let mkInfoBlock = @(growthData) @() {
 }
 
 
-let function mkTier(tierData) {
+function mkTier(tierData) {
   let { id, from, to, required, index } = tierData
   let tierLength = to - from + 1
   let tierWidth = elemSize[0] * tierLength + gapSize[0] * (tierLength - 1)
   let tierState = Computed(@() curGrowthProgress.value?[id] ?? {})
-  let tierCtor = mkTierCtor(tierWidth)
 
   return function() {
     let { current = 0 } = tierState.value
     let progress = required == 0 ? 1 : current.tofloat() / required
-    let progressObj = progress < 1
-      ? gradientProgressLine(progress)
-      : completedProgressLine(1, [], brightAccentColor)
-
     return {
       watch = tierState
       size = [tierWidth, flex()]
-      children = tierCtor(progressObj, {
-        size = flex()
-        padding = [0, tierHeight]
-        valign = ALIGN_CENTER
-        children = [
-          mkLabel(loc("growth/tier", { tier = index + 1 }), progressTitleStyle)
-          mkLabel($"{current}/{required}", { hplace = ALIGN_RIGHT }.__update(progressTitleStyle))
-        ]
-      })
+      children = mkTierObject(progress,
+        mkLabel(loc("growth/tier", { tier = index + 1 }), progLeftStyle),
+        mkLabel($"{current}/{required}", { hplace = ALIGN_RIGHT }.__update(progRightStyle))
+      )
     }
   }
 }
@@ -1263,8 +1260,8 @@ let mkTiersHeader = @(tiersData) {
 
 let relationsLineSize = [gapSize[0], elemNoNameSize[1]]
 
-let function mkGrowthChain(growthElements, growthData) {
-  let function mkGrowths() {
+function mkGrowthChain(growthElements, growthData) {
+  function mkGrowths() {
     let growths = []
     growthElements.value.each(function(growthItem) {
       if (growths.len() > 0) {
@@ -1315,7 +1312,7 @@ let mkCurRelationsUi = @(growthElements, growthData) @() {
   ]
 }
 
-let function curGrowthViewUi() {
+function curGrowthViewUi() {
   let growthItem = curGrowthConfig.value?[curGrowthId.value]
   return {
     watch = [curGrowthId, curGrowthConfig, curTemplates, curSquads]
@@ -1325,7 +1322,7 @@ let function curGrowthViewUi() {
   }
 }
 
-let function changeSliderExp(delta, curExp, curPos, canBuy) {
+function changeSliderExp(delta, curExp, curPos, canBuy) {
   let maxExp = curExp + canBuy
   let step = (delta * canBuy * 0.1).tointeger()
   let nexExpValue = max(curExp, curPos) + step
@@ -1412,7 +1409,7 @@ let mkSliderUi = kwarg(function(sliderWatch, exp, expRequired, canBuyCount, unit
 })
 
 
-let function scrollToSelected(growthId) {
+function scrollToSelected(growthId) {
   if (growthId != null) {
     let { col = 0 } = curGrowthConfig.value?[growthId]
     let xPos = elemSize[0] * col + gapSize[0] * col + elemSize[0] / 2 - scrollAreaWidth / 2
@@ -1420,7 +1417,7 @@ let function scrollToSelected(growthId) {
   }
 }
 
-let function scrollToTier(tier) {
+function scrollToTier(tier) {
   if (tier != null) {
     let tierToScroll = curGrowthTiers.value[tier]
     let {from, to} = tierToScroll
@@ -1463,7 +1460,7 @@ let mkBuyForGoldBthUi = @(growthId, boostSlider, exp, rate)
   }
 
 
-let function mkCurBoostUi() {
+function mkCurBoostUi() {
   let boostSliderGold = Watched(0)
   let boostSliderExp = Watched(0)
   return function() {
@@ -1558,10 +1555,10 @@ let boostWndStyle = {
 curGrowthSelected.subscribe(@(v) scrollToSelected(v))
 
 
-let function mkGrowthUi() {
+function mkGrowthUi() {
   let growthData = mkGrowthData()
 
-  let function checkAdditionalWnd(_v) {
+  function checkAdditionalWnd(_v) {
     let isBoostOpen = isBoostWndOpen.value
     let relations = curGrowthRelations.value
 
@@ -1595,7 +1592,7 @@ let function mkGrowthUi() {
     v.subscribe(checkAdditionalWnd)
 
 
-  let function checkBoostStatus(_v) {
+  function checkBoostStatus(_v) {
     let status = curGrowthState.value?[curGrowthId.value].status ?? GrowthStatus.UNAVAILABLE
     if (status != GrowthStatus.ACTIVE)
       isBoostWndOpen(false)
@@ -1658,7 +1655,7 @@ let function mkGrowthUi() {
   }
 }
 
-let function resetCurrent(_ = null) {
+function resetCurrent(_ = null) {
   if (curGrowthId.value in curGrowthConfig.value)
     return
   local growthId = curGrowthSelected.value

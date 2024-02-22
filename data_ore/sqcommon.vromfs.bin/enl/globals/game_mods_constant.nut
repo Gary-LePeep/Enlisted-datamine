@@ -1,6 +1,6 @@
 let {dgs_get_settings} = require("dagor.system")
 
-let function extractDomainName(url) {
+function extractDomainName(url) {
   let protocolIndex = url.indexof("://")
   if (protocolIndex != null)
     url = url.slice(protocolIndex + 3/*://*/)

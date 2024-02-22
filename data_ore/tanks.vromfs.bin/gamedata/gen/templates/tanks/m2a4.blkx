@@ -324,27 +324,54 @@
       "ammo": 3000
     }
   },
-  "m2a4_turret_04_7_62mm_m1919a4": {
-    "_use": "tankgun_7_62mm_m1919a4",
-    "gun__shootNodeName": "bone_mg_body_01",
-    "gun__shellsAmmo:array": {
-      "ammo": 5250
+  "m2a4_turret_04_7_62mm_m1919a4": [
+    {
+      "_use": "tankgun_7_62mm_m1919a4"
+    },
+    {
+      "_use": "gun_smoke_none"
+    },
+    {
+      "gun__shootNodeName": "bone_mg_body_01"
+    },
+    {
+      "gun__shellsAmmo:array": {
+        "ammo": 5250
+      }
     }
-  },
-  "m2a4_turret_05_7_62mm_m1919a4": {
-    "_use": "tankgun_7_62mm_m1919a4",
-    "gun__shootNodeName": "bone_mg_body_02",
-    "gun__shellsAmmo:array": {
-      "ammo": 5250
+  ],
+  "m2a4_turret_05_7_62mm_m1919a4": [
+    {
+      "_use": "tankgun_7_62mm_m1919a4"
+    },
+    {
+      "_use": "gun_smoke_none"
+    },
+    {
+      "gun__shootNodeName": "bone_mg_body_02"
+    },
+    {
+      "gun__shellsAmmo:array": {
+        "ammo": 5250
+      }
     }
-  },
-  "m2a4_turret_06_7_62mm_m1919a4": {
-    "_use": "tankgun_7_62mm_m1919a4",
-    "gun__shootNodeName": "bone_mg_body_03",
-    "gun__shellsAmmo:array": {
-      "ammo": 5250
+  ],
+  "m2a4_turret_06_7_62mm_m1919a4": [
+    {
+      "_use": "tankgun_7_62mm_m1919a4"
+    },
+    {
+      "_use": "gun_smoke_none"
+    },
+    {
+      "gun__shootNodeName": "bone_mg_body_03"
+    },
+    {
+      "gun__shellsAmmo:array": {
+        "ammo": 5250
+      }
     }
-  },
+  ],
   "m2a4_ammo_stowages": {
     "_tags": "server",
     "_use": "vehicle_ammo_stowages",

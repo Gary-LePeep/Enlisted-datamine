@@ -1,4 +1,4 @@
-from "%enlSqGlob/ui_library.nut" import *
+from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontawesome } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { rowHeight, defInputStyle, hoverInputStyle, textState, bgState, innerBtnStyle, closeBtnStyle
@@ -54,7 +54,7 @@ let processResult = @(text) addPopup({
   text
 })
 
-let function presetAction(presetCfg, presetTarget) {
+function presetAction(presetCfg, presetTarget) {
   if (presetCfg?.isLockedPrem) {
     premiumWnd()
     return
@@ -106,7 +106,7 @@ let btnApplyPreset = @(presetCfg, presetTarget)
         @(on) previewPreset(on ? presetCfg : null))
 
 
-let function mkPresetButtons(presetCfg, presetTarget) {
+function mkPresetButtons(presetCfg, presetTarget) {
   let buttons = []
   for (local i=1; i<=5; i++) {
     let name = getRomanNumeral(i)
@@ -182,7 +182,7 @@ let mkRenameSlot = function(presetCfg, textWatch, idx) {
   }.__update(bgState(sf, false)))
 }
 
-let function mkPresetSlot(presetCfg, presetTarget, idx) {
+function mkPresetSlot(presetCfg, presetTarget, idx) {
   let { hasBRButtons = false } = presetCfg
   let buttons = {
     flow = FLOW_HORIZONTAL
@@ -226,7 +226,7 @@ let function mkPresetSlot(presetCfg, presetTarget, idx) {
   }.__update(bgState(sf, presetCfg?.isLockedPrem ?? false)))
 }
 
-let function makePresetList(presetCfgList, presetTarget) {
+function makePresetList(presetCfgList, presetTarget) {
   let presetList = presetCfgList.map(function(presetCfg, idx) {
     let isRenaming = Computed(@() selectedRenameSlot.value == idx)
     let isWaiting = Computed(@() isWaitingObsceneFilterForIdx.value == idx)

@@ -1,7 +1,7 @@
 from "daRg" import *
 from "frp" import Watched
 
-let eventbus = require("eventbus")
+let { eventbus_subscribe } = require("eventbus")
 
 let { start_updater, UPDATER_EVENT_STAGE, UPDATER_EVENT_PROGRESS, UPDATER_EVENT_ERROR, UPDATER_EVENT_FINISH } = require("contentUpdater")
 
@@ -13,7 +13,7 @@ let updaterStage = Watched(null)
 let updaterProgress = Watched(null)
 let updaterError = Watched(null)
 
-let function progress() {
+function progress() {
   let size = [sw(100)-sh(50)-sh(20), sh(2)]
 
   if (updaterProgress.value == null) {
@@ -54,7 +54,7 @@ let spinner = {
 }
 
 
-let function Root() {
+function Root() {
   return {
     size = flex()
     rendObj = ROBJ_SOLID
@@ -86,7 +86,7 @@ let updaterEvents = {
 const ContentUpdaterEventId = "daNetGameUpdater.event"
 
 
-eventbus.subscribe(ContentUpdaterEventId, function (evt) {
+eventbus_subscribe(ContentUpdaterEventId, function (evt) {
   let {eventType} = evt
   updaterEvents?[eventType](evt)
 })
