@@ -336,7 +336,7 @@ def get_bullets():
 def get_tanks():
     # Get all tanks
     tanks = []
-    json_paths = list(Path('./data_ore/tanks.vromfs.bin/gamedata/templates/tanks').rglob('*.blkx'))
+    json_paths = list(Path('./data_ore/tanks.vromfs.bin/gamedata/templates/tanks').rglob('*.blkx')) + list(Path('./data_ore/tanks.vromfs.bin/gamedata/templates/apc').rglob('*.blkx'))
 
     combined_tanks_json = {}
     for path in json_paths:
@@ -352,12 +352,18 @@ def get_tanks():
         file_json_name = name_game.replace('germ_', '').replace('it_', '').replace('jp_', '').replace('uk_', '').replace('us_', '').replace('ussr_', '')
         # Fix some tank names
         file_json_name = file_json_name.replace('flakpanzer', 'flpz').replace('jagdpanther', 'panzerjager_panther').replace('pzkpfw_iii_ausf_j', 'pzkpfw_iii_ausf_j_l42').replace('pzkpfw_iii_ausf_j_l421', 'pzkpfw_iii_ausf_j_l42').replace('_movable', '').replace('cromwel_5', 'cromwell_5').replace('is_2_1943', 'is_2').replace('su_100_1945', 'su_100').replace('m4_calliope', 'm4_sherman_calliope')
-        if 'jgdpz_38t' in file_json_name:
-            continue
+        #if 'jgdpz_38t' in file_json_name:
+        #    continue
 
-        turret_json = delistify(json.load(open(Path('./data_ore/tanks.vromfs.bin/gamedata/gen/templates/tanks/' + file_json_name + '.blkx'), encoding='utf-8')))
-        armor_json = delistify(json.load(open(Path('./data_ore/tanks.vromfs.bin/gamedata/gen/units/tanks/' + file_json_name + '.blkx'), encoding='utf-8')))
-        distrib_json = delistify(json.load(open(Path('./data_ore/tanks.vromfs.bin/gamedata/templates/tanks/' + name_game + '.blkx'), encoding='utf-8')))
+        try:
+            turret_json = delistify(json.load(open(Path(f'./data_ore/tanks.vromfs.bin/gamedata/gen/templates/tanks/{file_json_name}.blkx'), encoding='utf-8')))
+        except Exception as e:
+            print(e)
+        try:
+            armor_json = delistify(json.load(open(Path(f'./data_ore/tanks.vromfs.bin/gamedata/gen/units/tanks/{file_json_name}.blkx'), encoding='utf-8')))
+        except Exception as e:
+            print(e)
+        distrib_json = delistify(json.load(open(Path(f'{path.parent}/{name_game}.blkx'), encoding='utf-8')))
 
         ammo_distrib_json = find_property(distrib_json, 'turrets__initAmmoDistribution:array', [list(distrib_json)[0]])
         ammo_distrib = []

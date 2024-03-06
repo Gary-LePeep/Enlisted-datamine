@@ -92,6 +92,9 @@ def calc_poster_transform(aim_tm : float3x4;
     return status
   let traceDir = aim_tm[0]
   let tracePos = aim_tm[3]
+  if is_nan(tracePos)
+    logerr("calc_poster_transform called with NaN position")
+    return status
   var len = dist
   var norm : float3
   let res = traceray_poster(tracePos, traceDir, len, norm)
