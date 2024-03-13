@@ -12,8 +12,8 @@ let { createRoom, changeAttributesRoom, room, isInRoom, roomPasswordToJoin
 } = require("%enlist/state/roomState.nut")
 let { getValInTblPath, setValInTblPath } = require("%sqstd/table.nut")
 let msgbox = require("%enlist/components/msgbox.nut")
-let { isCrossplayOptionNeeded, crossnetworkPlay, availableCrossplayOptions, CrossplayState
-} = require("%enlSqGlob/crossnetwork_state.nut")
+let { isCrossplayOptionNeeded, crossnetworkPlay, availableCrossplayOptions, CrossplayState,
+  CrossPlayStateWeight } = require("%enlSqGlob/crossnetwork_state.nut")
 let saveCrossnetworkPlayValue = require("%enlist/options/crossnetwork_save.nut")
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
 let { receivedModInfos, modPath, fetchLocalModById } = require("sandbox/customMissionState.nut")
@@ -405,9 +405,14 @@ function getCrossPlatformsList() {
   let curCP = crossnetworkPlay.value
   let aliasesList = curCP == CrossplayState.ALL ? allAliases
     : curCP == CrossplayState.CONSOLES ? consoleAliases
-    : platformAlias
-  foreach (alias in aliasesList)
-    allowTbl[$"{alias}_{curCP}"] <- true
+    : [platformAlias]
+
+  let curCPWeight = CrossPlayStateWeight?[curCP] ?? 100
+  foreach (cpVal, cpWeight in CrossPlayStateWeight)
+    if (curCPWeight <= cpWeight)
+      foreach (alias in aliasesList)
+        allowTbl[$"{alias}_{cpVal}"] <- true
+
   return all.filter(@(p) p in allowTbl)
 }
 

@@ -3,7 +3,7 @@ from "%enlSqGlob/ui/ui_library.nut" import *
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
 let { secondsToHoursLoc } = require("%ui/helpers/time.nut")
 let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
-let { smallPadding, bigPadding, defTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
+let { smallPadding, defTxtColor, midPadding } = require("%enlSqGlob/ui/designConst.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
 
 
@@ -48,7 +48,7 @@ function mkDurationInfo(icon, text, override = {}) {
 let mkXpBooster = @(override = {}, isPenalty = false) {
   rendObj = ROBJ_IMAGE
   size = flex()
-  margin = bigPadding
+  margin = midPadding
   image = Picture($"ui/skin#battlepass/{isPenalty ? "bg_penalty" : "bg_boost"}.avif")
   children = {
     size = [pw(typeImgPW), ph(typeImgPH)]

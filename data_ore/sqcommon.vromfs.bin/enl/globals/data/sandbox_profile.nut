@@ -22153,7 +22153,7 @@ return {
                   "human_weap__weapTemplates" : {
                      "grenade" : "grenade_thrower",
                      "melee" : "knife_weapon",
-                     "primary" : "mp_40_gun",
+                     "primary" : "mp40_gun",
                      "secondary" : "",
                      "tertiary" : ""
                   },

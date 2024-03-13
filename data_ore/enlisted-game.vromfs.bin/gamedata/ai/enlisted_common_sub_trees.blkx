@@ -2589,6 +2589,15 @@
         "name": "sub.stayInCover"
       },
       {
+        "reaction": {
+          "event": "userPointAdded",
+          "initPeriodicTimer": {
+            "timeParam": "findDangerAttrationPosTimer",
+            "timePeriod": [0.4,0.9]
+          }
+        }
+      },
+      {
         "isInCover": []
       },
       {
@@ -2658,7 +2667,7 @@
           {
             "sequencer": {
               "periodicTimer": {
-                "timeParam": "standInCoverFindDangerAttrationPosTimer",
+                "timeParam": "findDangerAttrationPosTimer",
                 "timePeriod": [4.0,6.0]
               },
               "findDangerAttractionPos": {
@@ -2775,6 +2784,15 @@
         "name": "sub.stayAtPos"
       },
       {
+        "reaction": {
+          "event": "userPointAdded",
+          "initPeriodicTimer": {
+            "timeParam": "findDangerAttrationPosTimer",
+            "timePeriod": [0.2,0.7]
+          }
+        }
+      },
+      {
         "setCurrentAiAction": {
           "state": "stand"
         }
@@ -2854,7 +2872,7 @@
           {
             "sequencer": {
               "periodicTimer": {
-                "timeParam": "standFindDangerAttrationPosTimer",
+                "timeParam": "findDangerAttrationPosTimer",
                 "timePeriod": [4.0,6.0]
               },
               "findDangerAttractionPos": {
@@ -4891,30 +4909,71 @@
         "name": "sub.tryAntiTankWeaponAttack"
       },
       {
-        "orderedSelector": {
-          "sequencer": {
-            "isVarsIntEqual": {
-              "lhs": "tryAntiTankWeaponAttack",
-              "rhs_value": 1
-            },
-            "wait": {
-              "range": [1.0,1.0],
-              "resetable": true
-            }
-          },
-          "subTree": {
-            "name": "",
-            "treeName": "sub.checkAntiTankWeaponAttack"
-          }
+        "setIntVar": {
+          "to": "attackTarget",
+          "value": 0
+        }
+      },
+      {
+        "setIntVar": {
+          "to": "tryAntiTankWeaponAttack",
+          "value": 0
+        }
+      },
+      {
+        "setIntVar": {
+          "to": "antiTankAttackTarget",
+          "value": 0
         }
       },
       {
         "orderedSelector": [
           {
-            "sequencer": [
-              {
-                "isAgentPlayerBot": []
+            "sequencer": {
+              "isVarsIntEqual": {
+                "lhs": "tryAntiTankWeaponAttack",
+                "rhs_value": 1
               },
+              "wait": {
+                "range": [1.0,1.0],
+                "resetable": true
+              }
+            }
+          },
+          {
+            "sequencer": {
+              "not": {
+                "isVarsIntEqual": {
+                  "lhs": "antiTankAttackTarget",
+                  "rhs_value": 0
+                }
+              },
+              "copyIntVar": {
+                "to": "attackTarget",
+                "from": "antiTankAttackTarget"
+              },
+              "setIntVar": {
+                "to": "antiTankAttackTarget",
+                "value": 0
+              },
+              "wait": {
+                "range": [1.0,1.0],
+                "resetable": true
+              }
+            }
+          },
+          {
+            "subTree": {
+              "name": "",
+              "treeName": "sub.checkAntiTankWeaponAttack"
+            }
+          }
+        ]
+      },
+      {
+        "orderedSelector": [
+          {
+            "sequencer": [
               {
                 "findWeaponSlotWithSpecAIType": {
                   "specAIWeapTypeName": "ROCKET_LAUNCHERS",
@@ -4945,7 +5004,9 @@
                   "shootStance": 2,
                   "wideTraceRadius": 0.5,
                   "wideTraceOffsetUp": 0.2,
-                  "wideTraceDistance": 10.0
+                  "wideTraceDistance": 10.0,
+                  "inTargerEidParam": "attackTarget",
+                  "outShootLocalPosParam": "shootFromLocalPos"
                 }
               },
               {
@@ -4984,6 +5045,18 @@
                 }
               },
               {
+                "traceLineOfSight": {
+                  "fromLocalPosParam": "shootFromLocalPos",
+                  "toEidParam": "shootVehicle",
+                  "toLocalPosParam": "shootAtLocalPos",
+                  "traceDistance": 10.0,
+                  "traceRadius": 0.5,
+                  "traceWorld": false,
+                  "traceHumans": true,
+                  "traceVehicles": true
+                }
+              },
+              {
                 "setIntVar": {
                   "to": "maxStance",
                   "value": 2
@@ -5003,9 +5076,6 @@
           {
             "sequencer": [
               {
-                "isAgentPlayerBot": []
-              },
-              {
                 "findWeaponSlotWithSpecAIType": {
                   "specAIWeapTypeName": "ANTI_TANK_RIFLES",
                   "toParam": "weaponSlot",
@@ -5021,7 +5091,9 @@
                   "shootStances": [1,0,1],
                   "wideTraceRadius": 0.1,
                   "wideTraceOffsetUp": 0.1,
-                  "wideTraceDistance": 10.0
+                  "wideTraceDistance": 10.0,
+                  "inTargerEidParam": "attackTarget",
+                  "outShootLocalPosParam": "shootFromLocalPos"
                 }
               },
               {
@@ -5090,6 +5162,18 @@
                 }
               },
               {
+                "traceLineOfSight": {
+                  "fromLocalPosParam": "shootFromLocalPos",
+                  "toEidParam": "shootVehicle",
+                  "toLocalPosParam": "shootAtLocalPos",
+                  "traceDistance": 10.0,
+                  "traceRadius": 0.1,
+                  "traceWorld": false,
+                  "traceHumans": true,
+                  "traceVehicles": true
+                }
+              },
+              {
                 "subTree": {
                   "name": "",
                   "treeName": "sub.antiTankAttackShoot"
@@ -5101,12 +5185,6 @@
             ]
           }
         ]
-      },
-      {
-        "setIntVar": {
-          "to": "tryAntiTankWeaponAttack",
-          "value": 0
-        }
       }
     ]
   },
@@ -5942,7 +6020,7 @@
         },
         "sequencer": {
           "periodicTimer": {
-            "timeParam": "standFindDangerAttrationPosTimer",
+            "timeParam": "findDangerAttrationPosTimer",
             "timePeriod": [4.0,6.0]
           },
           "findDangerAttractionPos": {

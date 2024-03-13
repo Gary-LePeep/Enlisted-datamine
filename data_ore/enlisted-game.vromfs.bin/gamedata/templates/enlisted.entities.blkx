@@ -177,6 +177,9 @@
     "import": "tutorial.blk"
   },
   {
+    "import": "tutorial_new.blk"
+  },
+  {
     "import": "componentFilters.blk"
   },
   {
@@ -1999,10 +2002,10 @@
     ]
   },
   {
-    "marked_vehicle": {
+    "marked_target": {
       "_group": {
         "_tags": "server",
-        "markedVehicle:tag": []
+        "physAlwaysSendSnapshot:tag": []
       }
     }
   },
@@ -2991,6 +2994,9 @@
       },
       {
         "respawner__respawnGroupId": -1
+      },
+      {
+        "respawner__withoutVehicle": false
       },
       {
         "respawner__respStartTime": -1.0

@@ -686,6 +686,20 @@ let missions = {
     army = MissionArmy.AXIS
   }
 
+  normandy_village_conf = {
+    image = "ui/normandy_village_05.avif"
+    locId = "lobbies/normandy_village_conf"
+    type = MissionType.CONFRONTATION
+    army = MissionArmy.ALLIES
+  }
+
+  normandy_village_conf_axis = {
+    image = "ui/normandy_village_05.avif"
+    locId = "lobbies/normandy_village_conf_axis"
+    type = MissionType.CONFRONTATION
+    army = MissionArmy.AXIS
+  }
+
   normandy_factory_inv = {
     image = "ui/normandy_smn_10_result.avif"
     locId = "lobbies/normandy_factory_inv"

@@ -3,11 +3,10 @@ from "%enlSqGlob/ui/ui_library.nut" import *
 let { fontSub, fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let textButton = require("%ui/components/textButton.nut")
 let { soundActive } = textButton
-let { blurBgColor, blurBgFillColor, selectedTxtColor, squadSlotHorSize, airSelectedBgColor,
-  fadedTxtColor, opaqueBgColor, hoverBgColor, smallOffset, defBgColor
-} = require("%enlSqGlob/ui/viewConst.nut")
 let { bigPadding, smallPadding, defTxtColor, titleTxtColor, commonBtnHeight,
-  attentionTxtColor, negativeTxtColor
+  attentionTxtColor, negativeTxtColor, blurBgColor, blurBgFillColor,
+  selectedTxtColor, squadSlotHorSize, airSelectedBgColor, defBgColor
+  fadedTxtColor, opaqueBgColor, hoverBgColor, smallOffset
 } = require("%enlSqGlob/ui/designConst.nut")
 let mkHeader = require("%enlist/components/mkHeader.nut")
 let { showMsgbox, showMessageWithContent } = require("%enlist/components/msgbox.nut")

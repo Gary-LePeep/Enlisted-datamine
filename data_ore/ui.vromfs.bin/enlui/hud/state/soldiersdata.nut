@@ -65,6 +65,7 @@ function collectSoldierData(soldier, armyId, squadId, country) {
   let grenades = []
   let mines = []
   local targetHealCount = 0
+  local targetRepairCount = 0
   local hasFlask = false
   foreach (item in inventory) {
     let itemTemplate = db.getTemplateByName(item.gametemplate)
@@ -83,6 +84,9 @@ function collectSoldierData(soldier, armyId, squadId, country) {
     let heal = itemTemplate.getCompValNullable("item__healAmount") ?? 0
     if (heal > 0)
       ++targetHealCount
+    let repair = itemTemplate.getCompValNullable("item__repairAmount") ?? 0
+    if (repair > 0)
+      ++targetRepairCount
     let isFlask = itemTemplate.getCompValNullable("flask")
     if (isFlask != null)
       hasFlask = true
@@ -114,6 +118,7 @@ function collectSoldierData(soldier, armyId, squadId, country) {
     grenadeType
     mineType
     targetHealCount
+    targetRepairCount
     hasFlask
   })
 }

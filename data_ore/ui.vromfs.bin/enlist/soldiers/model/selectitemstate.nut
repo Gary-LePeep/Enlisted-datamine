@@ -17,13 +17,13 @@ let { logerr } = require("dagor.debug")
 let { getLinkedArmyName } = require("%enlSqGlob/ui/metalink.nut")
 let { getObjectName, trimUpgradeSuffix } = require("%enlSqGlob/ui/itemsInfo.nut")
 let { curSection } = require("%enlist/mainMenu/sectionsState.nut")
-let { unseenTiers, unseenSoldiersWeaponry } = require("unseenWeaponry.nut")
 let { room, roomIsLobby } = require("%enlist/state/roomState.nut")
 let { isObjGuidBelongToRentedSquad } = require("squadInfoState.nut")
 let { showRentedSquadLimitsBox } = require("%enlist/soldiers/components/squadsComps.nut")
 let { itemToShopItem, getShopListForItem } = require("%enlist/soldiers/model/cratesContent.nut")
 let { curArmyItemsPrefiltered } = require("%enlist/shop/armyShopState.nut")
 let { curSoldierInfo } = require("%enlist/soldiers/model/curSoldiersState.nut")
+let { markSeenSlot } = require("unseenWeaponry.nut")
 
 const MAX_ITEM_BR = 5
 
@@ -141,6 +141,13 @@ let prevItems = Computed(@()
     .filter(@(item) "guid" in item))
 
 
+function markLastViewedSlot() {
+  if (selectParamsList.value.len() > 0) {
+    let { armyId, soldierGuid, slotType } = selectParamsList.value.top()
+    markSeenSlot(armyId, soldierGuid, slotType)
+  }
+}
+
 function openSelectItem(armyId, ownerGuid, slotType, slotId) {
   if (ownerGuid == null)
     return
@@ -160,6 +167,8 @@ function openSelectItem(armyId, ownerGuid, slotType, slotId) {
   let soldierGuid = ownerGuid in curCampSoldiers.value
     ? ownerGuid
     : getItemOwnerSoldier(ownerGuid)?.guid
+
+  markLastViewedSlot()
 
   let params = {
     armyId
@@ -312,12 +321,6 @@ function selectItem(item, cb = null) {
 
   equipItem(item?.guid, slotType, slotId, ownerGuid, cb)
 }
-
-let unseenViewSlotTpls = Computed(function() {
-  let armyId = selectParamsArmyId.value
-  return unseenTiers.value?[armyId].byTpl ?? {}
-})
-
 
 let defaultSortOrder = {
   explosion_pack = 6
@@ -714,10 +717,6 @@ let closeNeeded = keepref(Computed(@() room.value != null && !roomIsLobby.value
 
 closeNeeded.subscribe(@(v) v ? itemClear() : null)
 
-
-let mkNewItemAlerts = @(soldierGuid)
-  Computed(@() unseenSoldiersWeaponry.value?[soldierGuid] ?? {})
-
 return {
   viewItem
   curInventoryItem
@@ -729,13 +728,13 @@ return {
   otherSlotItems //items fit to current slot, but not fit to current soldier class
   paramsForPrevItems
   prevItems //when choose mod of not equipped item from items list
-  unseenViewSlotTpls
 
   openSelectItem = kwarg(openSelectItem)
   trySelectNext = @() selectInsideListSlot(1, true)
   selectNextSlot = @() selectSlot(1)
   selectPreviousSlot = @() selectSlot(-1)
   itemClear
+  markLastViewedSlot
   checkSelectItem
   selectItem
   ItemCheckResult
@@ -746,7 +745,6 @@ return {
   getAlternativeEquipList
   getBetterItem
   getWorseItem
-  mkNewItemAlerts
   autoSelectTemplate
   massUnequipArmyReserve
   massUnequipReserve

@@ -1,9 +1,9 @@
 from "%enlSqGlob/ui/ui_library.nut" import *
 
-let { unseenSoldiersWeaponry } = require("unseenWeaponry.nut")
+let { soldiersUpgradeAlerts } = require("unseenWeaponry.nut")
 let { notChoosenPerkSoldiers } = require("soldierPerks.nut")
 let {
-  mkAlertIcon, PERK_ALERT_SIGN, ITEM_ALERT_SIGN
+  mkAlertIcon, PERK_ALERT_SIGN, UPGRADE_ALERT_SIGN
 } = require("%enlSqGlob/ui/soldiersUiComps.nut")
 
 
@@ -15,8 +15,8 @@ let mkAlertInfo = @(soldierInfo, _sf, _isSelected) {
   hplace = ALIGN_RIGHT
   vplace = ALIGN_TOP
   children = [
-    mkAlertIcon(ITEM_ALERT_SIGN, Computed(@()
-      (unseenSoldiersWeaponry.value?[soldierInfo?.guid].len() ?? 0) > 0
+    mkAlertIcon(UPGRADE_ALERT_SIGN, Computed(@()
+      soldiersUpgradeAlerts.value?[soldierInfo?.guid] ?? false
     ))
     mkAlertIcon(PERK_ALERT_SIGN, Computed(@()
       (notChoosenPerkSoldiers.value?[soldierInfo?.guid] ?? 0) > 0

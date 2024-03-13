@@ -7,29 +7,33 @@ let progressText = require("%enlist/components/progressText.nut")
 let regInfo = require("reginfo.nut")
 let supportLink = require("supportLink.nut")
 
-let {startLogin, currentStage} = require("%enlist/login/login_chain.nut")
-let { linkSteamAccount } = require("%enlSqGlob/ui/login_state.nut")
-
-let isFirstOpen = mkWatched(persist, "isFirstOpen", true)
+let { startLogin, currentStage, resetCurrentStage } = require("%enlist/login/login_chain.nut")
+let { linkSteamAccount, isSteamFirstOpen, isSteamConnectionLost
+} = require("%enlSqGlob/ui/login_state.nut")
 
 let fontIconButton = require("%ui/components/fontIconButton.nut")
 let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
 let {exitGameMsgBox} = require("%enlist/mainMsgBoxes.nut")
 
 function createSteamAccount() {
-  if (!linkSteamAccount.value) //when linkSteamAccount, opens other ui, but we can still receive button onClick from the previous
-    startLogin({onlyKnown = false})
+  let onlyKnown = isSteamConnectionLost.value
+  isSteamConnectionLost(false)
+  if (!linkSteamAccount.value) { //when linkSteamAccount, opens other ui, but we can still receive button onClick from the previous
+    if (currentStage.value != null)
+      resetCurrentStage()
+
+    startLogin({onlyKnown})
+  }
 }
 
 function onOpen() {
-  if (!isFirstOpen.value)
+  if (!isSteamFirstOpen.value)
     return
-  isFirstOpen(false)
+  isSteamFirstOpen(false)
   startLogin({onlyKnown = true})
 }
 
-let steamLoginBtn = textButton(loc("steam/loginWithoutGaijinNet"), createSteamAccount,
-  fontSub)
+let steamLoginBtn = textButton(loc("steam/loginWithoutGaijinNet"), createSteamAccount, fontSub)
 
 function createLoginForm() {
   return [

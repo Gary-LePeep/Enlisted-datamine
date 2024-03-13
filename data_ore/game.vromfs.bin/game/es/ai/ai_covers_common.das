@@ -129,14 +129,24 @@ def check_covers_nearby_occupied(pos, cover_id, slot_idx, covers_list, covers_de
 def get_danger_points(var points : array<float3>&; agent_eid, agent_pos, agent_team)
   clear(points)
 
+  var ownerEid = INVALID_ENTITY_ID
+  query(agent_eid) <| $ [es] (squad_member__playerEid : EntityId)
+    ownerEid = squad_member__playerEid
+  let noOwner = ownerEid == INVALID_ENTITY_ID
+
   var userPoint = float3()
   var userPointTime = -1.0
+  var userPointBy = INVALID_ENTITY_ID
   query() <| $ [es] (transform : float3x4; userPointOwner : EntityId; timer__start : float)
-    if timer__start > userPointTime
-      query(userPointOwner) <| $ [es] (team : int)
-        if is_teams_friendly(agent_team, team)
-          userPointTime = timer__start
-          userPoint = transform[3]
+    if !noOwner && userPointOwner == ownerEid && userPointBy != ownerEid
+      userPointTime = -1.0
+    if noOwner || userPointOwner == ownerEid || userPointBy != ownerEid
+      if timer__start > userPointTime
+        query(userPointOwner) <| $ [es] (team : int)
+          if is_teams_friendly(agent_team, team)
+            userPointTime = timer__start
+            userPoint = transform[3]
+            userPointBy = userPointOwner
   if userPointTime > -1.0
     push(points, userPoint)
     return

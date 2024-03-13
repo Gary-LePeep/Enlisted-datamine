@@ -1188,7 +1188,8 @@
       ],
       "groupName": "sector_2",
       "battle_area__team": 1,
-      "battleAreaId": "2_area1"
+      "battleAreaId": "2_area1",
+      "active": false
     }
   },
   {
@@ -1202,7 +1203,8 @@
       ],
       "groupName": "sector_2",
       "battle_area__team": 2,
-      "battleAreaId": "2_area2"
+      "battleAreaId": "2_area2",
+      "active": false
     }
   },
   {
@@ -1217,7 +1219,7 @@
       "groupName": "sector_3",
       "battle_area__team": 2,
       "battleAreaId": "3_area2",
-      "active": true
+      "active": false
     }
   },
   {
@@ -1232,7 +1234,7 @@
       "groupName": "sector_3",
       "battle_area__team": 1,
       "battleAreaId": "3_area1",
-      "active": true
+      "active": false
     }
   },
   {
@@ -1310,7 +1312,7 @@
       "team__winSubtitle": "debriefing/won_invasion_destruction",
       "team__loseSubtitle": "debriefing/lost_invasion_destruction",
       "team__winTitle": "debriefing/ussr_won_destruction_attack_title",
-      "team__spawnBotArmy": "moscow_allies"
+      "team__spawnBotArmy": "berlin_allies"
     }
   },
   {
@@ -1326,7 +1328,7 @@
       "team__winSubtitle": "debriefing/won_defence_destruction",
       "team__loseSubtitle": "debriefing/lost_defence_destruction",
       "team__winTitle": "debriefing/axis_won_destruction_defence_title",
-      "team__spawnBotArmy": "moscow_axis"
+      "team__spawnBotArmy": "berlin_axis"
     }
   },
   {
@@ -1856,7 +1858,7 @@
       ],
       "respawnBaseGroup": 1,
       "groupName": "sector_3",
-      "active": true
+      "active": false
     }
   },
   {
@@ -2066,7 +2068,7 @@
         [503.909,3.91757,-509.178]
       ],
       "groupName": "sector_2",
-      "active": true,
+      "active": false,
       "respawnBaseGroup": 1
     }
   },
@@ -2080,7 +2082,7 @@
         [502.596,3.91757,-496.82]
       ],
       "groupName": "sector_2",
-      "active": true,
+      "active": false,
       "respawnBaseGroup": 1
     }
   },
@@ -2128,7 +2130,7 @@
   {
     "entity": {
       "_template": "respawnChooser+respMotorcycle",
-      "active": true,
+      "active": false,
       "transform": [
         [-0.581978,0.0,-0.813201],
         [0.0,1.0,0.0],
@@ -2163,7 +2165,7 @@
         [497.934,3.91757,-486.007]
       ],
       "groupName": "sector_2",
-      "active": true,
+      "active": false,
       "respawnBaseGroup": 1
     }
   },

@@ -5,6 +5,7 @@ require DagorInput
 require DngInputControls
 require enlisted.events_enlisted
 require common_shooter.es.input.turret_input_common
+require PhysVars
 
 enum PlaneTrigger : int
   MACHINE_GUNS
@@ -107,6 +108,7 @@ def plane_turret_init_triggers(evt : Event;
 [es(tag=input)]
 def plane_input_gunner_es(info : ParallelUpdateFrameDelayed;
                           input__enabled : bool;
+                          phys_vars : PhysVars;
                           plane_input__shoot : int;
                           plane_input__shootCannons : int;
                           plane_input__shootAdditionalGuns : int;
@@ -125,6 +127,15 @@ def plane_input_gunner_es(info : ParallelUpdateFrameDelayed;
 
       if shootAction != int(BAD_ACTION_HANDLE) && get_digital_action_state(uint16(shootAction)).bActive
         turret_input__shootFlag = get_digital_action_state(uint16(shootAction)).bState
+
+      query(gunEid) <| $ [es] (turret__curYawVarId : int; turret__curPitchVarId : int; turret__limitsDeadzone : Point4List)
+        for deadZone in turret__limitsDeadzone
+          let curPitch = getVar(phys_vars, turret__curPitchVarId)
+          let curYaw = getVar(phys_vars, turret__curYawVarId)
+          if ((curYaw > deadZone.x && curYaw < deadZone.y) &&
+            (curPitch > deadZone.z && curPitch < deadZone.w))
+            turret_input__shootFlag = false
+            break
 
 [es(tag=input)]
 def plane_input_zoom_triggered(evt : EventDaInputActionTriggered;

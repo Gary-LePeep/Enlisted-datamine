@@ -5,7 +5,7 @@ let spinner = require("%ui/components/spinner.nut")
 let { WindowTransparent } = require("%ui/style/colors.nut")
 let { noteTextArea } = require("%enlSqGlob/ui/defcomps.nut")
 let { Bordered } = require("%ui/components/textButton.nut")
-let { defInsideBgColor, commonBtnHeight, titleTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
+let { defInsideBgColor, commonBtnHeight, titleTxtColor } = require("%enlSqGlob/ui/designConst.nut")
 let {
   replayDownload, REPLAY_DOWNLOAD_NONE,
   REPLAY_DOWNLOAD_PROGRESS, REPLAY_DOWNLOAD_FAILED

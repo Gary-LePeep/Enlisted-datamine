@@ -15,7 +15,7 @@ let showGameModeHints = mkWatched(persist, "showGameModeHints", get_setting_by_b
 let showPlayerUI = mkWatched(persist, "showPlayerUI", get_setting_by_blk_path("gameplay/show_player_ui") ?? true)
 
 
-let forceDisableBattleChat = Computed(@() isDmm
+let forceDisableBattleChat = WatchedRo(isDmm
   || (get_setting_by_blk_path("gameplay/force_disable_battle_chat") ?? false))
 
 let setShowBattleChat = @(val) showBattleChat(val)

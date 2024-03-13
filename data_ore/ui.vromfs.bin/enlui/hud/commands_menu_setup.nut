@@ -44,13 +44,13 @@ let showMsg = @(text) playerEvents.pushEvent({ text = text, ttl = 5 })
 
 let addTextCtor = @(cmd) cmd.__merge({
   ctor = pieMenuTextItemCtor({
-    text = cmd.text, available = cmd?.available ?? Watched(true), isBlocked = cmd?.isBlocked ?? Watched(false)
+    text = cmd.text, available = cmd?.available ?? WatchedRo(true), isBlocked = cmd?.isBlocked ?? WatchedRo(false)
   })
 })
 
 let cmdFollowMe = addTextCtor({
   action = @() ecs.g_entity_mgr.sendEvent(controlledHeroEid.value, RqCancelContextCommand({include_personal_orders=true}))
-  text = Computed(@() loc("squad_orders/follow"))
+  text = WatchedRo(loc("squad_orders/follow"))
   disabledtext = noMembersText
   available = available
   isBlocked = notAvailable
@@ -69,6 +69,8 @@ let requestAmmoReason = Computed(function() {
     return loc("msg/cannotRequestAmmoWhenMounted")
   if (inVehicle.value)
     return loc("msg/cannotRequestAmmoFromVehicle")
+  if (!hasActive.value)
+    return loc("msg/cantRequestAmmoNotLivingSoldier")
   if (!hasPrimaryWeapon.value)
     return loc("msg/hasNoWeaponForAmmoRequest")
   if (!isCompatibleWeapon.value)

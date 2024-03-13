@@ -73,7 +73,11 @@
               [-3.6637e-06,0.0,-1.0],
               [0.0,0.0,0.0]
             ],
+            "cameraNodeName": "gun1",
+            "cameraOffset": [0.09,0.186,0.0],
+            "cameraType": "gunner",
             "seatComponent": "isGunner",
+            "canPlaceManually": true,
             "receiveDamageFromDMPart": "gunner2_dm",
             "directTurretControl": true,
             "roomSpace": 1,
@@ -502,13 +506,23 @@
       "turret__aimNodeName": "turret1"
     },
     {
-      "turret__limit": [-25.0,25.0,-5.0,50.0]
+      "turret__limit": [-100.0,100.0,-5.0,50.0]
     },
     {
-      "turret__yawSpeed": 100.0
+      "turret__yawSpeed": 500.0
     },
     {
-      "turret__pitchSpeed": 100.0
+      "turret__pitchSpeed": 500.0
+    },
+    {
+      "turret__lastRelativeDir": [-1.0,0.0,0.0]
+    },
+    {
+      "turret__limitsDeadzone:list<p4>": {
+        "lim0": [-3.0,3.0,-5.0,25.0],
+        "lim1": [-40.0,-3.0,-7.0,6.0],
+        "lim2": [3.0,40.0,-7.0,6.0]
+      }
     }
   ],
   "planegun_boston_mk3_utk1_12_7mm_ubk_04": [

@@ -650,6 +650,7 @@ def on_projectile_hit_scene(projectile_eid : EntityId;
                                    var projectile__exploded : bool&;
                                    projectile__ricochetAngleThreshold : float = 0.0872; //~5 degrees
                                    projectile__sceneHitRicochetStability : float = 0.0;
+                                   projectile__riMinImpulse : float = 15.0;
                                    disableRicochetForGreatAngles : Tag const?;
                                    projectile__destroyOnHit : Tag const?)
     let speed = length(projectile_ballistics.state.vel)
@@ -662,7 +663,10 @@ def on_projectile_hit_scene(projectile_eid : EntityId;
       let ownerTeam = get_int(ownerEid, "team") ?? TEAM_UNASSIGNED
       if riHandle != last_damaged_riex_handle && is_ri_extra_can_be_damaged_by_team(riHandle, ownerTeam)
         last_damaged_riex_handle = riHandle
-        let impulse = dir * 50.0
+        var impulse = projectile_ballistics_props.mass * projectile_ballistics.state.vel
+        let impulseMagnitude = length(impulse)
+        if impulseMagnitude < projectile__riMinImpulse
+          impulse *= safediv(projectile__riMinImpulse, impulseMagnitude)
         sendEvent(ownerEid, [[CmdRendinstDamage handle=riHandle, damage=damage, pos=pos, impulse=impulse, time=get_sync_time()]])
 
     if add_bullet_hole && !result.shouldStop

@@ -9,7 +9,7 @@ require DngNet
 require DngCamera
 require DagorMath
 require DagorSystem
-require common_shooter.events_common_shooter
+require danetlibs.weaponry_hit_fx.main.weaponry_hit_fx_forward_events
 require danetlibs.weapons.shell_events
 require danetlibs.weaponry_hit_fx.main.shell_fx_common
 require danetlibs.weaponry_hit_fx.main.weaponry_fx_common
@@ -19,7 +19,6 @@ require DngWeaponRender
 require DngDm
 require DaWeaponProps
 require Dacoll
-require enlisted.events_enlisted
 require DngPhysObj
 require strings
 require PhysMat
@@ -73,8 +72,8 @@ def shatter_fx_init_es(evt : Event;
       logerr("shatter_fx_init_es: effect group name {effectGroup} in global_shatter_fx__effectGroups does not exist in global_hit_fx__effectGroups")
     global_shatter_fx__effectDescriptors |> push(effectDescriptor)
 
-[es(tag=render)]
-def shatter_fx_es(evt : ParallelUpdateFrameDelayed;
+[es(tag=render, on_event=ParallelUpdateFrameDelayed)]
+def shatter_fx_es(evt : Event;
                   eid : EntityId;
                   shatter_fx__traceCountPerFrame : int;
                   shatter_fx__explosionOffsettedPos : float3;

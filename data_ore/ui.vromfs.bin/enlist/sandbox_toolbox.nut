@@ -326,7 +326,7 @@ function rendInstsContent() {
           childs.append({ vplace = ALIGN_CENTER, children = txt($"{item.name}", item.kind == 1 ? {color=Color(255,64,255)} :
                                                                                 item.kind == 2 ? {color=Color(230,230,64)} :
                                                                                 item.kind == 3 ? {color=Color(64,230,230)} :
-                                                                                {}) })
+                                                                                {color=Color(255,255,255)}) })
         }
         return { flow = FLOW_VERTICAL, children = childs }
       } : null

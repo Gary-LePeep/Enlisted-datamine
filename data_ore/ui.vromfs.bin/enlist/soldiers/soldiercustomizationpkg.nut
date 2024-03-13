@@ -2,8 +2,8 @@ from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let {
-  soldierWndWidth, bigPadding, smallPadding, listCtors, slotBaseSize
-} = require("%enlSqGlob/ui/viewConst.nut")
+  soldierWndWidth, midPadding, smallPadding, listCtors, slotBaseSize
+} = require("%enlSqGlob/ui/designConst.nut")
 let { soldiersLook } = require("%enlist/meta/servProfile.nut")
 let icon3dByGameTemplate = require("%enlSqGlob/ui/icon3dByGameTemplate.nut")
 let {
@@ -22,7 +22,7 @@ let listBgColor = listCtors.bgColor
 let listTxtColor = listCtors.txtColor
 
 let blockHeight = hdpx(124)
-let blockWidth = (soldierWndWidth - bigPadding * 3) / 2
+let blockWidth = (soldierWndWidth - midPadding * 3) / 2
 let currencyIconSize = hdpxi(30)
 
 
@@ -32,7 +32,7 @@ let itemParams = {
   height = blockHeight - hdpx(10)
 }
 
-let selectItemBlockWidth = slotBaseSize[0] - bigPadding * 2
+let selectItemBlockWidth = slotBaseSize[0] - midPadding * 2
 let purchaseItemBlockWidth = blockHeight
 
 let selectingItemParams = {
@@ -91,7 +91,7 @@ local mkCustomizationSlot = @(itemToShow, itemsPrices) watchElemState(function(s
     watch = [soldiersLook, currentItemPart, curSoldierInfo]
     rendObj = ROBJ_SOLID
     size = [blockWidth, blockHeight]
-    margin = [0, bigPadding]
+    margin = [0, midPadding]
     onClick = @() blockOnClick(slotName)
     halign = ALIGN_RIGHT
     behavior = Behaviors.Button
@@ -190,7 +190,7 @@ function selectingItemBlock(item, itemTemplate, guid, isSelected,
     watch = soldiersLook
     size = [selectItemBlockWidth, blockHeight]
     rendObj = ROBJ_SOLID
-    padding = bigPadding
+    padding = midPadding
     xmbNode = XmbNode()
     behavior = Behaviors.Button
     sound = {

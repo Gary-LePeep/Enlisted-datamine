@@ -1,0 +1,1757 @@
+{
+  "normandy_allies": {
+    "armyId": "normandy_allies",
+    "armyProgress": {
+      "expToArmyLevel": [
+        0,
+        500,
+        12000,
+        24000,
+        26400,
+        36000,
+        38400,
+        48000,
+        50400,
+        72000,
+        74400,
+        96000,
+        98400,
+        120000,
+        120000,
+        132000,
+        132000,
+        144000,
+        144000,
+        144000,
+        144000,
+        144000,
+        144000,
+        180000,
+        180000,
+        180000,
+        180000,
+        180000,
+        180000,
+        180000,
+        180000,
+        180000,
+        180000,
+        180000,
+        180000,
+        180000,
+        180000,
+        180000,
+        180000,
+        180000
+      ],
+      "lockedSquads": {
+        "allies_pacific_medic_1": {
+          "exp": 0,
+          "level": 2
+        }
+      }
+    },
+    "boosters": [],
+    "campaignGroup": "7",
+    "campaignId": "common",
+    "classBonus": {},
+    "country": "usa",
+    "curSquadId": "allies_pacific_assault_2",
+    "exp": 0,
+    "expToLevel": [
+      0,
+      800,
+      1600,
+      3200,
+      6400,
+      12800
+    ],
+    "freemiumExpMult": 1.0,
+    "globalData": {
+      "globalGifts": {},
+      "globalGiftsCfg": [
+        {
+          "army": "common_army",
+          "basetpl": "enlisted_silver",
+          "loopCount": 5,
+          "loopExp": 47,
+          "startCount": 5,
+          "startExp": 47
+        }
+      ]
+    },
+    "growthExp": 0,
+    "growthProgress": {
+      "exp": 0,
+      "growthCfg": {
+        "expRequired": 5000,
+        "id": "m50_reising",
+        "reward": {
+          "armyId": "usa",
+          "itemTemplate": "m50_reising",
+          "squadId": "allies_pacific_medic_1"
+        }
+      },
+      "item": {
+        "gametemplate": "m50_reising_gun",
+        "itemsubtype": "m50_reising",
+        "itemtype": "submgun",
+        "tier": 1
+      },
+      "status": 1
+    },
+    "isArmyProgressLocked": false,
+    "isFakeSquads": false,
+    "level": 0,
+    "squads": [
+      {
+        "artilleryCooldownMul": 1.0,
+        "artilleryTypeUnlocks": [],
+        "curVehicle": null,
+        "engineerUnlocks": [],
+        "exp": 0,
+        "expBonus": 0.25,
+        "isParatroopers": false,
+        "isRented": false,
+        "level": 0,
+        "paratrooperBoxUnlocks": [],
+        "squad": [
+          {
+            "bodyScale": {
+              "height": 0.99337077140808105,
+              "width": 1.0531095266342163
+            },
+            "callname": "",
+            "country": "usa",
+            "equipment": {
+              "face": {
+                "gametemplate": "attachable_wear_head_01_us_summer_item",
+                "slot": "face"
+              },
+              "flask_r": {
+                "gametemplate": "attachable_wear_flask_m41_jacket_item",
+                "slot": "flask_r"
+              },
+              "gloves": {
+                "gametemplate": "attachable_wear_hands_01_ussr_summer_item",
+                "slot": "gloves"
+              },
+              "hair": {
+                "gametemplate": "hair_01_us_summer_item",
+                "slot": "hair"
+              },
+              "pants": {
+                "gametemplate": "attachable_wear_pants_01_us_summer_item",
+                "slot": "pants"
+              },
+              "rear_belt_l": {
+                "gametemplate": "attachable_wear_m43_entrenching_tool_m41_jacket_item",
+                "slot": "rear_belt_l"
+              },
+              "skined_helmet": {
+                "gametemplate": "helmet_02_us_summer_item",
+                "slot": "skined_helmet"
+              },
+              "tunic": {
+                "gametemplate": "attachable_wear_vest_01_us_summer_1inf_item",
+                "slot": "tunic"
+              }
+            },
+            "exp": 0,
+            "gametemplate": "usa_base_soldier",
+            "guid": "usa_rifle_13351702761427967",
+            "human_weap__weapInfo": [
+              {
+                "gunSlots": {
+                  "bayonet": "m1905_bayonet_item"
+                },
+                "numReserveAmmo": 5,
+                "reserveAmmoTemplate": "m1903_springfield_magazine"
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              }
+            ],
+            "human_weap__weapInitialComponents": [{}, {}, {}, {}, {}],
+            "human_weap__weapTemplates": {
+              "grenade": "grenade_thrower",
+              "melee": "usa_knife_weapon",
+              "primary": "m1903_springfield_gun",
+              "secondary": "",
+              "tertiary": ""
+            },
+            "id": 0,
+            "inventory": [
+              {
+                "gametemplate": "uk_medkit_item"
+              },
+              {
+                "gametemplate": "explosion_pack_item"
+              }
+            ],
+            "isHero": false,
+            "isPremium": false,
+            "level": 3,
+            "maxLevel": 3,
+            "name": "Steven",
+            "perkPoints": {
+              "speed": 9,
+              "vitality": 7,
+              "weapon": 8
+            },
+            "perks": [
+              {
+                "name": "starter_rifle",
+                "stats": [
+                  {
+                    "statKey": "faster_decreasing_of_maximum_shot_spread",
+                    "statValue": 0.10499999672174454
+                  }
+                ]
+              }
+            ],
+            "sClass": "rifle",
+            "sKind": "rifle",
+            "surname": "Morgan",
+            "tier": 3,
+            "weaponPreset": ""
+          },
+          {
+            "bodyScale": {
+              "height": 1.0161900520324707,
+              "width": 1.0727170705795288
+            },
+            "callname": "",
+            "country": "usa",
+            "equipment": {
+              "face": {
+                "gametemplate": "attachable_wear_head_male_35_ussr_item",
+                "slot": "face"
+              },
+              "gloves": {
+                "gametemplate": "attachable_wear_hands_01_ussr_summer_item",
+                "slot": "gloves"
+              },
+              "hair": {
+                "gametemplate": "hair_01_us_summer_item",
+                "slot": "hair"
+              },
+              "pants": {
+                "gametemplate": "attachable_wear_pants_02_us_summer_item",
+                "slot": "pants"
+              },
+              "rear_belt_l": {
+                "gametemplate": "attachable_wear_m43_entrenching_tool_m41_jacket_item",
+                "slot": "rear_belt_l"
+              },
+              "skined_helmet": {
+                "gametemplate": "helmet_03_us_summer_item",
+                "slot": "skined_helmet"
+              },
+              "tunic": {
+                "gametemplate": "attachable_wear_vest_01_us_summer_1inf_item",
+                "slot": "tunic"
+              }
+            },
+            "exp": 0,
+            "gametemplate": "usa_base_soldier",
+            "guid": "usa_rifle_13351702761427990",
+            "human_weap__weapInfo": [
+              {
+                "gunSlots": {
+                  "bayonet": "m1905_bayonet_item"
+                },
+                "numReserveAmmo": 5,
+                "reserveAmmoTemplate": "m1903_springfield_magazine"
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              }
+            ],
+            "human_weap__weapInitialComponents": [{}, {}, {}, {}, {}],
+            "human_weap__weapTemplates": {
+              "grenade": "grenade_thrower",
+              "melee": "usa_knife_weapon",
+              "primary": "m1903_springfield_gun",
+              "secondary": "",
+              "tertiary": ""
+            },
+            "id": 1,
+            "inventory": [
+              {
+                "gametemplate": "uk_medkit_item"
+              },
+              {
+                "gametemplate": "explosion_pack_item"
+              }
+            ],
+            "isHero": false,
+            "isPremium": false,
+            "level": 3,
+            "maxLevel": 3,
+            "name": "Michael",
+            "perkPoints": {
+              "speed": 9,
+              "vitality": 9,
+              "weapon": 9
+            },
+            "perks": [
+              {
+                "name": "starter_rifle",
+                "stats": [
+                  {
+                    "statKey": "faster_decreasing_of_maximum_shot_spread",
+                    "statValue": 0.10499999672174454
+                  }
+                ]
+              }
+            ],
+            "sClass": "rifle",
+            "sKind": "rifle",
+            "surname": "Waters",
+            "tier": 3,
+            "weaponPreset": ""
+          },
+          {
+            "bodyScale": {
+              "height": 1.0076558589935303,
+              "width": 1.0007861852645874
+            },
+            "callname": "",
+            "country": "usa",
+            "equipment": {
+              "belt_1": {
+                "gametemplate": "attachable_wear_us_belt_m36_jacket_m41_item",
+                "slot": "belt_1"
+              },
+              "face": {
+                "gametemplate": "attachable_wear_head_male_42_ussr_item",
+                "slot": "face"
+              },
+              "flask_r": {
+                "gametemplate": "attachable_wear_flask_m41_jacket_item",
+                "slot": "flask_r"
+              },
+              "gasmask": {
+                "gametemplate": "attachable_wear_us_gasbag_m7_jacket_m41_item",
+                "slot": "gasmask"
+              },
+              "gloves": {
+                "gametemplate": "attachable_wear_hands_01_ussr_summer_item",
+                "slot": "gloves"
+              },
+              "hair": {
+                "gametemplate": "hair_02_us_summer_item",
+                "slot": "hair"
+              },
+              "pants": {
+                "gametemplate": "attachable_wear_pants_01_us_summer_item",
+                "slot": "pants"
+              },
+              "rear_belt_l": {
+                "gametemplate": "attachable_wear_m43_entrenching_tool_m41_jacket_item",
+                "slot": "rear_belt_l"
+              },
+              "skined_helmet": {
+                "gametemplate": "helmet_04_us_summer_item",
+                "slot": "skined_helmet"
+              },
+              "tunic": {
+                "gametemplate": "attachable_wear_jacket_m41_item",
+                "slot": "tunic"
+              }
+            },
+            "exp": 0,
+            "gametemplate": "usa_base_soldier",
+            "guid": "usa_rifle_13351702761428013",
+            "human_weap__weapInfo": [
+              {
+                "gunSlots": {
+                  "bayonet": "m1905_bayonet_item"
+                },
+                "numReserveAmmo": 5,
+                "reserveAmmoTemplate": "m1903_springfield_magazine"
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              }
+            ],
+            "human_weap__weapInitialComponents": [{}, {}, {}, {}, {}],
+            "human_weap__weapTemplates": {
+              "grenade": "grenade_thrower",
+              "melee": "usa_knife_weapon",
+              "primary": "m1903_springfield_gun",
+              "secondary": "",
+              "tertiary": ""
+            },
+            "id": 2,
+            "inventory": [
+              {
+                "gametemplate": "uk_medkit_item"
+              },
+              {
+                "gametemplate": "explosion_pack_item"
+              }
+            ],
+            "isHero": false,
+            "isPremium": false,
+            "level": 3,
+            "maxLevel": 3,
+            "name": "Lawrence",
+            "perkPoints": {
+              "speed": 9,
+              "vitality": 9,
+              "weapon": 9
+            },
+            "perks": [
+              {
+                "name": "starter_rifle",
+                "stats": [
+                  {
+                    "statKey": "faster_decreasing_of_maximum_shot_spread",
+                    "statValue": 0.10499999672174454
+                  }
+                ]
+              }
+            ],
+            "sClass": "rifle",
+            "sKind": "rifle",
+            "surname": "Mccarthy",
+            "tier": 3,
+            "weaponPreset": ""
+          },
+          {
+            "bodyScale": {
+              "height": 1.0116318464279175,
+              "width": 1.0341514348983765
+            },
+            "callname": "",
+            "country": "usa",
+            "equipment": {
+              "belt_1": {
+                "gametemplate": "attachable_wear_us_belt_m36_jacket_m41_item",
+                "slot": "belt_1"
+              },
+              "face": {
+                "gametemplate": "attachable_wear_head_male_36_ussr_item",
+                "slot": "face"
+              },
+              "flask_r": {
+                "gametemplate": "attachable_wear_flask_m41_jacket_item",
+                "slot": "flask_r"
+              },
+              "gasmask": {
+                "gametemplate": "attachable_wear_us_gasbag_m7_jacket_m41_item",
+                "slot": "gasmask"
+              },
+              "gloves": {
+                "gametemplate": "attachable_wear_hands_01_ussr_summer_item",
+                "slot": "gloves"
+              },
+              "pants": {
+                "gametemplate": "attachable_wear_pants_01_us_summer_item",
+                "slot": "pants"
+              },
+              "skined_helmet": {
+                "gametemplate": "helmet_01_us_summer_item",
+                "slot": "skined_helmet"
+              },
+              "tunic": {
+                "gametemplate": "attachable_wear_jacket_m41_item",
+                "slot": "tunic"
+              }
+            },
+            "exp": 0,
+            "gametemplate": "usa_base_soldier",
+            "guid": "usa_rifle_13351702761428036",
+            "human_weap__weapInfo": [
+              {
+                "gunSlots": {
+                  "bayonet": "m1905_bayonet_item"
+                },
+                "numReserveAmmo": 5,
+                "reserveAmmoTemplate": "m1903_springfield_magazine"
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              }
+            ],
+            "human_weap__weapInitialComponents": [{}, {}, {}, {}, {}],
+            "human_weap__weapTemplates": {
+              "grenade": "grenade_thrower",
+              "melee": "usa_knife_weapon",
+              "primary": "m1903_springfield_gun",
+              "secondary": "",
+              "tertiary": ""
+            },
+            "id": 3,
+            "inventory": [
+              {
+                "gametemplate": "uk_medkit_item"
+              },
+              {
+                "gametemplate": "explosion_pack_item"
+              }
+            ],
+            "isHero": false,
+            "isPremium": false,
+            "level": 3,
+            "maxLevel": 3,
+            "name": "Lonnie",
+            "perkPoints": {
+              "speed": 7,
+              "vitality": 9,
+              "weapon": 7
+            },
+            "perks": [
+              {
+                "name": "starter_rifle",
+                "stats": [
+                  {
+                    "statKey": "faster_decreasing_of_maximum_shot_spread",
+                    "statValue": 0.10499999672174454
+                  }
+                ]
+              }
+            ],
+            "sClass": "rifle",
+            "sKind": "rifle",
+            "surname": "Benson",
+            "tier": 3,
+            "weaponPreset": ""
+          },
+          {
+            "bodyScale": {
+              "height": 1.0188866853713989,
+              "width": 1.0374767780303955
+            },
+            "callname": "",
+            "country": "usa",
+            "equipment": {
+              "face": {
+                "gametemplate": "attachable_wear_head_male_10_us_item",
+                "slot": "face"
+              },
+              "gloves": {
+                "gametemplate": "attachable_wear_hands_01_ussr_summer_item",
+                "slot": "gloves"
+              },
+              "pants": {
+                "gametemplate": "attachable_wear_pants_04_us_summer_item",
+                "slot": "pants"
+              },
+              "rear_belt_l": {
+                "gametemplate": "attachable_wear_m43_entrenching_tool_m41_jacket_item",
+                "slot": "rear_belt_l"
+              },
+              "skined_helmet": {
+                "gametemplate": "helmet_03_us_summer_item",
+                "slot": "skined_helmet"
+              },
+              "tunic": {
+                "gametemplate": "attachable_wear_vest_01_us_summer_1inf_item",
+                "slot": "tunic"
+              }
+            },
+            "exp": 0,
+            "gametemplate": "usa_base_soldier",
+            "guid": "usa_rifle_13351702761428058",
+            "human_weap__weapInfo": [
+              {
+                "gunSlots": {
+                  "bayonet": "m1905_bayonet_item"
+                },
+                "numReserveAmmo": 5,
+                "reserveAmmoTemplate": "m1903_springfield_magazine"
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              }
+            ],
+            "human_weap__weapInitialComponents": [{}, {}, {}, {}, {}],
+            "human_weap__weapTemplates": {
+              "grenade": "grenade_thrower",
+              "melee": "usa_knife_weapon",
+              "primary": "m1903_springfield_gun",
+              "secondary": "",
+              "tertiary": ""
+            },
+            "id": 4,
+            "inventory": [
+              {
+                "gametemplate": "uk_medkit_item"
+              },
+              {
+                "gametemplate": "explosion_pack_item"
+              }
+            ],
+            "isHero": false,
+            "isPremium": false,
+            "level": 3,
+            "maxLevel": 3,
+            "name": "Daniel",
+            "perkPoints": {
+              "speed": 7,
+              "vitality": 7,
+              "weapon": 7
+            },
+            "perks": [
+              {
+                "name": "starter_rifle",
+                "stats": [
+                  {
+                    "statKey": "faster_decreasing_of_maximum_shot_spread",
+                    "statValue": 0.10499999672174454
+                  }
+                ]
+              }
+            ],
+            "sClass": "rifle",
+            "sKind": "rifle",
+            "surname": "Pope",
+            "tier": 3,
+            "weaponPreset": ""
+          }
+        ],
+        "squadId": "allies_pacific_rifle_1",
+        "squadType": "rifle",
+        "toLevelExp": 1140,
+        "vehicleType": ""
+      },
+      {
+        "artilleryCooldownMul": 1.0,
+        "artilleryTypeUnlocks": [],
+        "curVehicle": null,
+        "engineerUnlocks": [],
+        "exp": 0,
+        "expBonus": 0.0,
+        "isParatroopers": false,
+        "isRented": false,
+        "level": 0,
+        "paratrooperBoxUnlocks": [],
+        "squad": [
+          {
+            "bodyScale": {
+              "height": 0.99823540449142456,
+              "width": 1.0640937089920044
+            },
+            "callname": "",
+            "country": "usa",
+            "equipment": {
+              "belt_1": {
+                "gametemplate": "attachable_wear_us_belt_m36_jacket_m41_item",
+                "slot": "belt_1"
+              },
+              "face": {
+                "gametemplate": "attachable_wear_head_male_36_ussr_item",
+                "slot": "face"
+              },
+              "gasmask": {
+                "gametemplate": "attachable_wear_us_gasbag_m7_jacket_m41_item",
+                "slot": "gasmask"
+              },
+              "gloves": {
+                "gametemplate": "attachable_wear_hands_01_ussr_summer_item",
+                "slot": "gloves"
+              },
+              "hair": {
+                "gametemplate": "hair_02_us_summer_item",
+                "slot": "hair"
+              },
+              "pants": {
+                "gametemplate": "attachable_wear_pants_02_us_summer_item",
+                "slot": "pants"
+              },
+              "rear_belt_l": {
+                "gametemplate": "attachable_wear_m43_entrenching_tool_m41_jacket_item",
+                "slot": "rear_belt_l"
+              },
+              "skined_helmet": {
+                "gametemplate": "helmet_03_us_summer_item",
+                "slot": "skined_helmet"
+              },
+              "tunic": {
+                "gametemplate": "attachable_wear_jacket_m41_item",
+                "slot": "tunic"
+              }
+            },
+            "exp": 0,
+            "gametemplate": "usa_base_soldier",
+            "guid": "usa_rifle_13351702761428081",
+            "human_weap__weapInfo": [
+              {
+                "gunSlots": {
+                  "bayonet": "m1_bayonet_item"
+                },
+                "numReserveAmmo": 6,
+                "reserveAmmoTemplate": "m1_garand_magazine"
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              }
+            ],
+            "human_weap__weapInitialComponents": [{}, {}, {}, {}, {}],
+            "human_weap__weapTemplates": {
+              "grenade": "grenade_thrower",
+              "melee": "usa_knife_weapon",
+              "primary": "m1_garand_gun",
+              "secondary": "",
+              "tertiary": ""
+            },
+            "id": 0,
+            "inventory": [
+              {
+                "gametemplate": "uk_medkit_item"
+              },
+              {
+                "gametemplate": "explosion_pack_item"
+              }
+            ],
+            "isHero": false,
+            "isPremium": false,
+            "level": 3,
+            "maxLevel": 3,
+            "name": "Charles",
+            "perkPoints": {
+              "speed": 9,
+              "vitality": 9,
+              "weapon": 10
+            },
+            "perks": [
+              {
+                "name": "starter_rifle_2",
+                "stats": [
+                  {
+                    "statKey": "sprint_speed",
+                    "statValue": 0.052499998360872269
+                  }
+                ]
+              }
+            ],
+            "sClass": "rifle_2",
+            "sKind": "rifle",
+            "surname": "Mathis",
+            "tier": 3,
+            "weaponPreset": ""
+          },
+          {
+            "bodyScale": {
+              "height": 1.0169261693954468,
+              "width": 1.0593817234039307
+            },
+            "callname": "",
+            "country": "usa",
+            "equipment": {
+              "belt_1": {
+                "gametemplate": "attachable_wear_us_belt_m36_jacket_m41_item",
+                "slot": "belt_1"
+              },
+              "face": {
+                "gametemplate": "attachable_wear_head_male_07_ussr_item",
+                "slot": "face"
+              },
+              "flask_r": {
+                "gametemplate": "attachable_wear_flask_m41_jacket_item",
+                "slot": "flask_r"
+              },
+              "gasmask": {
+                "gametemplate": "attachable_wear_us_gasbag_m7_jacket_m41_item",
+                "slot": "gasmask"
+              },
+              "gloves": {
+                "gametemplate": "attachable_wear_hands_01_ussr_summer_item",
+                "slot": "gloves"
+              },
+              "hair": {
+                "gametemplate": "hair_02_us_summer_item",
+                "slot": "hair"
+              },
+              "pants": {
+                "gametemplate": "attachable_wear_pants_02_us_summer_item",
+                "slot": "pants"
+              },
+              "rear_belt_l": {
+                "gametemplate": "attachable_wear_m43_entrenching_tool_m41_jacket_item",
+                "slot": "rear_belt_l"
+              },
+              "skined_helmet": {
+                "gametemplate": "helmet_02_us_summer_item",
+                "slot": "skined_helmet"
+              },
+              "tunic": {
+                "gametemplate": "attachable_wear_jacket_m41_item",
+                "slot": "tunic"
+              }
+            },
+            "exp": 0,
+            "gametemplate": "usa_base_soldier",
+            "guid": "usa_rifle_13351702761428104",
+            "human_weap__weapInfo": [
+              {
+                "gunSlots": {
+                  "bayonet": "m1_bayonet_item"
+                },
+                "numReserveAmmo": 6,
+                "reserveAmmoTemplate": "m1_garand_magazine"
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              }
+            ],
+            "human_weap__weapInitialComponents": [{}, {}, {}, {}, {}],
+            "human_weap__weapTemplates": {
+              "grenade": "grenade_thrower",
+              "melee": "usa_knife_weapon",
+              "primary": "m1_garand_gun",
+              "secondary": "",
+              "tertiary": ""
+            },
+            "id": 1,
+            "inventory": [
+              {
+                "gametemplate": "uk_medkit_item"
+              },
+              {
+                "gametemplate": "explosion_pack_item"
+              }
+            ],
+            "isHero": false,
+            "isPremium": false,
+            "level": 3,
+            "maxLevel": 3,
+            "name": "Larry",
+            "perkPoints": {
+              "speed": 10,
+              "vitality": 9,
+              "weapon": 10
+            },
+            "perks": [
+              {
+                "name": "starter_rifle_2",
+                "stats": [
+                  {
+                    "statKey": "sprint_speed",
+                    "statValue": 0.052499998360872269
+                  }
+                ]
+              }
+            ],
+            "sClass": "rifle_2",
+            "sKind": "rifle",
+            "surname": "Williams",
+            "tier": 3,
+            "weaponPreset": ""
+          },
+          {
+            "bodyScale": {
+              "height": 1.0059138536453247,
+              "width": 1.0257942676544189
+            },
+            "callname": "",
+            "country": "usa",
+            "equipment": {
+              "face": {
+                "gametemplate": "attachable_wear_head_male_05_us_item",
+                "slot": "face"
+              },
+              "gloves": {
+                "gametemplate": "attachable_wear_hands_01_ussr_summer_item",
+                "slot": "gloves"
+              },
+              "hair": {
+                "gametemplate": "hair_01_us_summer_item",
+                "slot": "hair"
+              },
+              "pants": {
+                "gametemplate": "attachable_wear_pants_01_us_summer_item",
+                "slot": "pants"
+              },
+              "rear_belt_l": {
+                "gametemplate": "attachable_wear_m43_entrenching_tool_m41_jacket_item",
+                "slot": "rear_belt_l"
+              },
+              "skined_helmet": {
+                "gametemplate": "helmet_04_us_summer_item",
+                "slot": "skined_helmet"
+              },
+              "tunic": {
+                "gametemplate": "attachable_wear_vest_01_us_summer_1inf_item",
+                "slot": "tunic"
+              }
+            },
+            "exp": 0,
+            "gametemplate": "usa_base_soldier",
+            "guid": "usa_assault_13351702761428128",
+            "human_weap__weapInfo": [
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 4,
+                "reserveAmmoTemplate": "m1928a_thompson_magazine"
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              }
+            ],
+            "human_weap__weapInitialComponents": [{}, {}, {}, {}, {}],
+            "human_weap__weapTemplates": {
+              "grenade": "grenade_thrower",
+              "melee": "usa_knife_weapon",
+              "primary": "m1a1_thompson_gun",
+              "secondary": "",
+              "tertiary": ""
+            },
+            "id": 2,
+            "inventory": [
+              {
+                "gametemplate": "uk_medkit_item"
+              },
+              {
+                "gametemplate": "explosion_pack_item"
+              }
+            ],
+            "isHero": false,
+            "isPremium": false,
+            "level": 3,
+            "maxLevel": 3,
+            "name": "Robert",
+            "perkPoints": {
+              "speed": 9,
+              "vitality": 8,
+              "weapon": 8
+            },
+            "perks": [
+              {
+                "name": "starter_assault_2",
+                "stats": [
+                  {
+                    "statKey": "stamina_boost",
+                    "statValue": 0.34999999403953552
+                  }
+                ]
+              }
+            ],
+            "sClass": "assault_2",
+            "sKind": "assault",
+            "surname": "Barber",
+            "tier": 3,
+            "weaponPreset": ""
+          },
+          {
+            "bodyScale": {
+              "height": 1.0093502998352051,
+              "width": 1.0253645181655884
+            },
+            "callname": "",
+            "country": "usa",
+            "equipment": {
+              "face": {
+                "gametemplate": "attachable_wear_head_male_21_us_item",
+                "slot": "face"
+              },
+              "gloves": {
+                "gametemplate": "attachable_wear_hands_01_ussr_summer_item",
+                "slot": "gloves"
+              },
+              "hair": {
+                "gametemplate": "hair_01_us_summer_item",
+                "slot": "hair"
+              },
+              "pants": {
+                "gametemplate": "attachable_wear_pants_01_us_summer_item",
+                "slot": "pants"
+              },
+              "rear_belt_l": {
+                "gametemplate": "attachable_wear_m43_entrenching_tool_m41_jacket_item",
+                "slot": "rear_belt_l"
+              },
+              "skined_helmet": {
+                "gametemplate": "helmet_03_us_summer_item",
+                "slot": "skined_helmet"
+              },
+              "tunic": {
+                "gametemplate": "attachable_wear_vest_01_us_summer_1inf_item",
+                "slot": "tunic"
+              }
+            },
+            "exp": 0,
+            "gametemplate": "usa_base_soldier",
+            "guid": "usa_mgun_13351702761428150",
+            "human_weap__weapInfo": [
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 2,
+                "reserveAmmoTemplate": "browning_m1919a6_magazine"
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              }
+            ],
+            "human_weap__weapInitialComponents": [{}, {}, {}, {}, {}],
+            "human_weap__weapTemplates": {
+              "grenade": "grenade_thrower",
+              "melee": "usa_knife_weapon",
+              "primary": "browning_m1919a6_gun",
+              "secondary": "",
+              "tertiary": ""
+            },
+            "id": 3,
+            "inventory": [
+              {
+                "gametemplate": "uk_medkit_item"
+              },
+              {
+                "gametemplate": "explosion_pack_item"
+              }
+            ],
+            "isHero": false,
+            "isPremium": false,
+            "level": 3,
+            "maxLevel": 3,
+            "name": "Erich",
+            "perkPoints": {
+              "speed": 6,
+              "vitality": 7,
+              "weapon": 11
+            },
+            "perks": [
+              {
+                "name": "starter_mgun",
+                "stats": [
+                  {
+                    "statKey": "run_speed",
+                    "statValue": 0.035000000149011612
+                  }
+                ]
+              }
+            ],
+            "sClass": "mgun",
+            "sKind": "mgun",
+            "surname": "Johnson",
+            "tier": 3,
+            "weaponPreset": ""
+          },
+          {
+            "bodyScale": {
+              "height": 0.99830013513565063,
+              "width": 1.0089504718780518
+            },
+            "callname": "",
+            "country": "usa",
+            "equipment": {
+              "belt_1": {
+                "gametemplate": "attachable_wear_us_belt_m36_jacket_m41_item",
+                "slot": "belt_1"
+              },
+              "face": {
+                "gametemplate": "attachable_wear_head_male_26_us_item",
+                "slot": "face"
+              },
+              "gasmask": {
+                "gametemplate": "attachable_wear_us_gasbag_m7_jacket_m41_item",
+                "slot": "gasmask"
+              },
+              "gloves": {
+                "gametemplate": "attachable_wear_hands_01_ussr_summer_item",
+                "slot": "gloves"
+              },
+              "pants": {
+                "gametemplate": "attachable_wear_pants_04_us_summer_item",
+                "slot": "pants"
+              },
+              "skined_helmet": {
+                "gametemplate": "helmet_02_us_summer_item",
+                "slot": "skined_helmet"
+              },
+              "tunic": {
+                "gametemplate": "attachable_wear_jacket_m41_item",
+                "slot": "tunic"
+              }
+            },
+            "exp": 0,
+            "gametemplate": "usa_base_soldier",
+            "guid": "usa_rifle_13351702761428173",
+            "human_weap__weapInfo": [
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 5,
+                "reserveAmmoTemplate": "m1_carbine_magazine"
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              }
+            ],
+            "human_weap__weapInitialComponents": [{}, {}, {}, {}, {}],
+            "human_weap__weapTemplates": {
+              "grenade": "grenade_thrower",
+              "melee": "usa_knife_weapon",
+              "primary": "m1_carbine_gun",
+              "secondary": "",
+              "tertiary": ""
+            },
+            "id": 4,
+            "inventory": [
+              {
+                "gametemplate": "uk_medkit_item"
+              },
+              {
+                "gametemplate": "explosion_pack_item"
+              }
+            ],
+            "isHero": false,
+            "isPremium": false,
+            "level": 1,
+            "maxLevel": 1,
+            "name": "Garry",
+            "perkPoints": {
+              "speed": 4,
+              "vitality": 4,
+              "weapon": 4
+            },
+            "perks": [
+              {
+                "name": "starter_rifle_2",
+                "stats": [
+                  {
+                    "statKey": "sprint_speed",
+                    "statValue": 0.052499998360872269
+                  }
+                ]
+              }
+            ],
+            "sClass": "rifle_2",
+            "sKind": "rifle",
+            "surname": "Snyder",
+            "tier": 1,
+            "weaponPreset": ""
+          }
+        ],
+        "squadId": "usa_normandy_rifle_2",
+        "squadType": "rifle",
+        "toLevelExp": 6370,
+        "vehicleType": ""
+      },
+      {
+        "artilleryCooldownMul": 1.0,
+        "artilleryTypeUnlocks": [],
+        "curVehicle": null,
+        "engineerUnlocks": [],
+        "exp": 0,
+        "expBonus": 0.0,
+        "isParatroopers": false,
+        "isRented": false,
+        "level": 0,
+        "paratrooperBoxUnlocks": [],
+        "squad": [
+          {
+            "bodyScale": {
+              "height": 0.99113190174102783,
+              "width": 1.0288583040237427
+            },
+            "callname": "",
+            "country": "usa",
+            "equipment": {
+              "face": {
+                "gametemplate": "attachable_wear_head_01_us_summer_item",
+                "slot": "face"
+              },
+              "flask_r": {
+                "gametemplate": "attachable_wear_flask_airborn_us_item",
+                "slot": "flask_r"
+              },
+              "gloves": {
+                "gametemplate": "attachable_wear_hands_01_ussr_summer_item",
+                "slot": "gloves"
+              },
+              "pants": {
+                "gametemplate": "attachable_wear_airborne_pants_item",
+                "slot": "pants"
+              },
+              "skined_helmet": {
+                "gametemplate": "helmet_01_us_summer_item",
+                "slot": "skined_helmet"
+              },
+              "tunic": {
+                "gametemplate": "attachable_wear_airborne_jacket_item",
+                "slot": "tunic"
+              }
+            },
+            "exp": 0,
+            "gametemplate": "usa_base_soldier",
+            "guid": "usa_assault_13351702761428194",
+            "human_weap__weapInfo": [
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 4,
+                "reserveAmmoTemplate": "m1928a_thompson_magazine"
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              }
+            ],
+            "human_weap__weapInitialComponents": [{}, {}, {}, {}, {}],
+            "human_weap__weapTemplates": {
+              "grenade": "grenade_thrower",
+              "melee": "usa_knife_weapon",
+              "primary": "m1a1_thompson_gun",
+              "secondary": "",
+              "tertiary": ""
+            },
+            "id": 0,
+            "inventory": [
+              {
+                "gametemplate": "uk_medkit_item"
+              },
+              {
+                "gametemplate": "explosion_pack_item"
+              }
+            ],
+            "isHero": false,
+            "isPremium": false,
+            "level": 3,
+            "maxLevel": 3,
+            "name": "Calvin",
+            "perkPoints": {
+              "speed": 10,
+              "vitality": 7,
+              "weapon": 10
+            },
+            "perks": [
+              {
+                "name": "starter_assault_2",
+                "stats": [
+                  {
+                    "statKey": "stamina_boost",
+                    "statValue": 0.34999999403953552
+                  }
+                ]
+              }
+            ],
+            "sClass": "assault_2",
+            "sKind": "assault",
+            "surname": "Thompson",
+            "tier": 3,
+            "weaponPreset": ""
+          },
+          {
+            "bodyScale": {
+              "height": 1.0069807767868042,
+              "width": 1.0500967502593994
+            },
+            "callname": "",
+            "country": "usa",
+            "equipment": {
+              "face": {
+                "gametemplate": "attachable_wear_head_male_31_us_item",
+                "slot": "face"
+              },
+              "flask_r": {
+                "gametemplate": "attachable_wear_flask_airborn_us_item",
+                "slot": "flask_r"
+              },
+              "gloves": {
+                "gametemplate": "attachable_wear_hands_01_ussr_summer_item",
+                "slot": "gloves"
+              },
+              "hair": {
+                "gametemplate": "hair_02_us_summer_item",
+                "slot": "hair"
+              },
+              "pants": {
+                "gametemplate": "attachable_wear_airborne_pants_item",
+                "slot": "pants"
+              },
+              "skined_helmet": {
+                "gametemplate": "helmet_02_us_summer_item",
+                "slot": "skined_helmet"
+              },
+              "tunic": {
+                "gametemplate": "attachable_wear_airborne_jacket_item",
+                "slot": "tunic"
+              }
+            },
+            "exp": 0,
+            "gametemplate": "usa_base_soldier",
+            "guid": "usa_assault_13351702761428211",
+            "human_weap__weapInfo": [
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 4,
+                "reserveAmmoTemplate": "m1928a_thompson_magazine"
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              }
+            ],
+            "human_weap__weapInitialComponents": [{}, {}, {}, {}, {}],
+            "human_weap__weapTemplates": {
+              "grenade": "grenade_thrower",
+              "melee": "usa_knife_weapon",
+              "primary": "m1a1_thompson_gun",
+              "secondary": "",
+              "tertiary": ""
+            },
+            "id": 1,
+            "inventory": [
+              {
+                "gametemplate": "uk_medkit_item"
+              },
+              {
+                "gametemplate": "explosion_pack_item"
+              }
+            ],
+            "isHero": false,
+            "isPremium": false,
+            "level": 3,
+            "maxLevel": 3,
+            "name": "David",
+            "perkPoints": {
+              "speed": 9,
+              "vitality": 7,
+              "weapon": 8
+            },
+            "perks": [
+              {
+                "name": "starter_assault_2",
+                "stats": [
+                  {
+                    "statKey": "stamina_boost",
+                    "statValue": 0.34999999403953552
+                  }
+                ]
+              }
+            ],
+            "sClass": "assault_2",
+            "sKind": "assault",
+            "surname": "Bryant",
+            "tier": 3,
+            "weaponPreset": ""
+          },
+          {
+            "bodyScale": {
+              "height": 1.0175621509552002,
+              "width": 1.005122184753418
+            },
+            "callname": "",
+            "country": "usa",
+            "equipment": {
+              "face": {
+                "gametemplate": "attachable_wear_head_01_ussr_summer_item",
+                "slot": "face"
+              },
+              "gloves": {
+                "gametemplate": "attachable_wear_hands_01_ussr_summer_item",
+                "slot": "gloves"
+              },
+              "hair": {
+                "gametemplate": "hair_01_us_summer_item",
+                "slot": "hair"
+              },
+              "pants": {
+                "gametemplate": "attachable_wear_airborne_pants_item",
+                "slot": "pants"
+              },
+              "skined_helmet": {
+                "gametemplate": "helmet_03_us_summer_item",
+                "slot": "skined_helmet"
+              },
+              "tunic": {
+                "gametemplate": "attachable_wear_airborne_jacket_item",
+                "slot": "tunic"
+              }
+            },
+            "exp": 0,
+            "gametemplate": "usa_base_soldier",
+            "guid": "usa_assault_13351702761428230",
+            "human_weap__weapInfo": [
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 4,
+                "reserveAmmoTemplate": "m1928a_thompson_magazine"
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              }
+            ],
+            "human_weap__weapInitialComponents": [{}, {}, {}, {}, {}],
+            "human_weap__weapTemplates": {
+              "grenade": "grenade_thrower",
+              "melee": "usa_knife_weapon",
+              "primary": "m1a1_thompson_gun",
+              "secondary": "",
+              "tertiary": ""
+            },
+            "id": 2,
+            "inventory": [
+              {
+                "gametemplate": "uk_medkit_item"
+              },
+              {
+                "gametemplate": "explosion_pack_item"
+              }
+            ],
+            "isHero": false,
+            "isPremium": false,
+            "level": 3,
+            "maxLevel": 3,
+            "name": "Michael",
+            "perkPoints": {
+              "speed": 11,
+              "vitality": 9,
+              "weapon": 10
+            },
+            "perks": [
+              {
+                "name": "starter_assault_2",
+                "stats": [
+                  {
+                    "statKey": "stamina_boost",
+                    "statValue": 0.34999999403953552
+                  }
+                ]
+              }
+            ],
+            "sClass": "assault_2",
+            "sKind": "assault",
+            "surname": "Pacheco",
+            "tier": 3,
+            "weaponPreset": ""
+          },
+          {
+            "bodyScale": {
+              "height": 1.0027643442153931,
+              "width": 1.0649946928024292
+            },
+            "callname": "",
+            "country": "usa",
+            "equipment": {
+              "face": {
+                "gametemplate": "attachable_wear_head_male_18b_us_item",
+                "slot": "face"
+              },
+              "gloves": {
+                "gametemplate": "attachable_wear_hands_01_ussr_summer_item",
+                "slot": "gloves"
+              },
+              "hair": {
+                "gametemplate": "hair_01_us_summer_item",
+                "slot": "hair"
+              },
+              "pants": {
+                "gametemplate": "attachable_wear_airborne_pants_item",
+                "slot": "pants"
+              },
+              "skined_helmet": {
+                "gametemplate": "helmet_03_us_summer_item",
+                "slot": "skined_helmet"
+              },
+              "tunic": {
+                "gametemplate": "attachable_wear_airborne_jacket_item",
+                "slot": "tunic"
+              }
+            },
+            "exp": 0,
+            "gametemplate": "usa_base_soldier",
+            "guid": "usa_mgun_13351702761428247",
+            "human_weap__weapInfo": [
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 5,
+                "reserveAmmoTemplate": "browning_m1918_magazine"
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              }
+            ],
+            "human_weap__weapInitialComponents": [{}, {}, {}, {}, {}],
+            "human_weap__weapTemplates": {
+              "grenade": "grenade_thrower",
+              "melee": "usa_knife_weapon",
+              "primary": "browning_m1918a1_gun",
+              "secondary": "",
+              "tertiary": ""
+            },
+            "id": 3,
+            "inventory": [
+              {
+                "gametemplate": "uk_medkit_item"
+              },
+              {
+                "gametemplate": "explosion_pack_item"
+              }
+            ],
+            "isHero": false,
+            "isPremium": false,
+            "level": 1,
+            "maxLevel": 1,
+            "name": "Willie",
+            "perkPoints": {
+              "speed": 2,
+              "vitality": 4,
+              "weapon": 6
+            },
+            "perks": [
+              {
+                "name": "starter_mgun",
+                "stats": [
+                  {
+                    "statKey": "run_speed",
+                    "statValue": 0.035000000149011612
+                  }
+                ]
+              }
+            ],
+            "sClass": "mgun",
+            "sKind": "mgun",
+            "surname": "Smith",
+            "tier": 1,
+            "weaponPreset": ""
+          }
+        ],
+        "squadId": "allies_pacific_assault_2",
+        "squadType": "assault",
+        "toLevelExp": 3670,
+        "vehicleType": ""
+      }
+    ],
+    "wallPosters": [],
+    "wallPostersCount": 3
+  }
+}

@@ -5,12 +5,12 @@ let { mkUserLogHeader, mkRowText, rowStyle, userLogStyle, userLogRowStyle
 } = require("userLogPkg.nut")
 let { shopItems } = require("%enlist/shop/shopItems.nut")
 let { allItemTemplates } = require("%enlist/soldiers/model/all_items_templates.nut")
-let { accentTitleTxtColor} = require("%enlSqGlob/ui/viewConst.nut")
 let { utf8ToUpper } = require("%sqstd/string.nut")
 let { detailsStatusTier } = require("%enlist/soldiers/components/itemDetailsComp.nut")
 let { getItemName } = require("%enlSqGlob/ui/itemsInfo.nut")
 let { getClassCfg } = require("%enlSqGlob/ui/soldierClasses.nut")
-let { accentColor, smallPadding, defTxtColor, hoverSlotBgColor, panelBgColor, selectedPanelBgColor
+let { accentColor, smallPadding, defTxtColor, hoverSlotBgColor, panelBgColor, selectedPanelBgColor,
+  accentTitleTxtColor
 } = require("%enlSqGlob/ui/designConst.nut")
 
 let selectedIdx = Watched(0)

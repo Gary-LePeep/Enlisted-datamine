@@ -16,7 +16,4 @@ def load_weaponry_hit_fx(base_path : string) : bool
 
   return ok
 
-[export]
-def test()
-  let ok = load_weaponry_hit_fx("%danetlibs/weaponry_hit_fx")
-  assert(ok)
+

@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { BtnBdNormal, borderColor } = require("%ui/style/colors.nut")
-let { unitSize } = require("%enlSqGlob/ui/viewConst.nut")
+let { unitSize } = require("%enlSqGlob/ui/designConst.nut")
 let { allItemTemplates } = require("%enlist/soldiers/model/all_items_templates.nut")
 let { curArmyShopItems, shopItemContentCtor } = require("%enlist/shop/armyShopState.nut")
 let { mkShopItemView, mkShopItemPriceLine, mkClassCanUseCenter, cardSquadPreviewSize

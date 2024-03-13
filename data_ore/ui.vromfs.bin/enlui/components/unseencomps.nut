@@ -3,7 +3,7 @@ from "%enlSqGlob/ui/ui_library.nut" import *
 let { blinkUnseenIcon } = require("%ui/components/unseenSignal.nut")
 
 let smallUnseen = blinkUnseenIcon(0.8)
-let smallUnseenNoBlink = smallUnseen.__merge({ key = "blink_off", animations = null })
+let smallUnseenNoBlink = freeze(smallUnseen.__merge({ key = "blink_off", animations = null }))
 let smallUnseenBlink = smallUnseen.__merge({ key = "blink_on" })
 
 let normUnseen = blinkUnseenIcon(1.4)

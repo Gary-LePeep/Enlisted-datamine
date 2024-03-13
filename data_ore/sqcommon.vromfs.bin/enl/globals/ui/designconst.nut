@@ -1,10 +1,22 @@
 from "%enlSqGlob/ui/ui_library.nut" import *
 let { TextDefault } = require("%ui/style/colors.nut")
-
 let { safeAreaVerPadding } = require("%enlSqGlob/ui/safeArea.nut")
 let { mkColoredGradientY, mkColoredGradientX } = require("%enlSqGlob/ui/gradients.nut")
 
+let isWide = sw(100).tofloat() / sh(100) > 1.7
+let unitSize = hdpxi(45)
+let midPadding = hdpxi(8)
+
+let selectedTxtColor = 0xFF000000
+let weaponTxtColor = 0xFFAAAAAA
+let titleTxtColor = 0xFFFAFAFA
+let disabledTxtColor = 0xFF646464
+let activeBgColor = 0xFFB4B4B4
+let defBgColor = 0x78000000
+let hoverBgColor = 0xFFCDCDDC
 let panelBgColor  = 0xFF313C45
+let fadedTxtColor = 0x96828282
+
 let footerContentHeight = hdpx(36) + safeAreaVerPadding.value
 
 
@@ -73,7 +85,33 @@ let horGap = freeze({
   children = { rendObj = ROBJ_SOLID, size = [hdpx(1),flex()], color = TextDefault, margin = [hdpx(4),0], opacity = 0.5 }
 })
 
+let listCtors = {
+  nameColor = @(flags, _selected = false)
+    flags & S_HOVER ? selectedTxtColor : titleTxtColor
+
+  weaponColor = @(flags, _selected = false)
+    flags & S_HOVER ? selectedTxtColor : weaponTxtColor
+
+  txtColor = @(flags, selected = false)
+    (flags & S_HOVER) || (flags & S_ACTIVE) || selected ? selectedTxtColor : defTxtColor
+
+  txtDisabledColor = @(flags, _selected = false)
+    flags & S_HOVER ? selectedTxtColor : disabledTxtColor
+
+  bgColor = @(flags, selected = false, idx = 0) selected ? activeBgColor
+    : flags & S_HOVER ? hoverBgColor
+    : (idx%2==0) ? defBgColor
+    : mul_color(defBgColor, 0.65)
+}
+
+let rowBg = @(sf, idx, isSelected = false) isSelected ? 0x19464646
+  : sf & S_HOVER ? 0x190A0A0A
+  : (idx % 2) ? 0x19353535
+  : 0x19191919
+
 return {
+  isWide
+
   //Gradients
   highlightLineTop
   highlightLineBottom
@@ -81,32 +119,36 @@ return {
   highlightVertLineLeft
   highlightVertLineRight
 
-
   // Gaps
+  horGap
+  emptyGap
+  midPadding
   largePadding = hdpxi(16)
   sidePadding = hdpxi(32)
   bigPadding = hdpxi(12)
-  midPadding = hdpxi(8)
   smallPadding = hdpxi(4)
   miniPadding = hdpxi(2)
   contentGap = hdpxi(68)
-  horGap
-  emptyGap
-
+  bigGap = hdpx(10)
+  gap = hdpx(5)
 
   //Size
+  unitSize
+  footerContentHeight
+  maxContentWidth = min(hdpx(1920), sw(100))
   commonBtnHeight = hdpx(48)
   smallBtnHeight = hdpx(30)
-  maxContentWidth = hdpx(1920)
   commonBorderRadius = hdpx(2)
   startBtnWidth = fsh(34.6)
   navHeight = hdpx(74)
+  bigOffset = hdpx(48)
+  smallOffset = hdpx(24)
   contentOffset = hdpx(20)
+  tinyOffset = hdpx(12)
   mainContentOffset = hdpx(96)
   selectionLineHeight = hdpx(4)
   selectionLineOffset = hdpx(6)
   fastAccessIconHeight = hdpx(32)
-  footerContentHeight
   hotkeysBarHeight = hdpx(22)
   navigationBtnHeight = hdpx(62)
   inventoryItemDetailsWidth = hdpx(378)
@@ -114,8 +156,19 @@ return {
   modeCardSize = [fsh(27.5), fsh(43)]
   modeNameBlockHeight = hdpx(82)
   mainContentHeaderHeight = hdpx(55)
+  awardIconSize = (unitSize * 2).tointeger()
+  awardIconSpacing = 2 * midPadding
+  armyIconSize = hdpx(50)
+  vehicleListCardSize = [unitSize * 5, unitSize * 3]
+  slotBaseSize = [(7 * unitSize).tointeger(), (1.5 * unitSize).tointeger()]
+  multySquadPanelSize = [(unitSize * 3.2).tointeger(), (unitSize * 2.2).tointeger()]
+  squadSlotHorSize = [hdpxi(660), hdpxi(72)]
 
   //BgColor
+  defBgColor
+  panelBgColor
+  hoverBgColor
+  activeBgColor
   defItemBlur = 0xFFA0A2A3
   defSlotBgColor = 0x99303841
   hoverSlotBgColor = 0xFFA0A2A3
@@ -123,8 +176,7 @@ return {
   defLockedSlotBgColor = 0xFF402729
   hoverLockedSlotBgColor = 0xFF624A4D
   enableItemIdleBgColor  = 0x99596756
-  panelBgColor
-  selectedPanelBgColor = mul_color(panelBgColor, 1.5)
+  idleBgColor = 0xFF464646
   transpPanelBgColor = 0xAA313C45
   hoverPanelBgColor = 0xFF59676E
   darkPanelBgColor = 0xFF13181F
@@ -137,25 +189,36 @@ return {
   discountBgColor = 0xFFF8BD41
   modsBgColor = 0xFF13181F
   totalBlack = 0xFF000000
-
-  squadSlotBgIdleColor = 0x99303841
-  squadSlotBgHoverColor = 0xFFA0A2A3
-  squadSlotBgActiveColor = 0xFF4A5A68
-  squadSlotBgAlertColor = 0x77330000
-  squadSlotBgMultiSelColor = 0x99606060
+  accentColorOld = 0xFFE68200
+  blurBgFillColor = 0x19191919
+  darkBgColor = 0xB4000000
+  selectedPanelBgColor = mul_color(panelBgColor, 1.5)
 
   //BdColor
-  defBdColor    = 0xFFB3BDC1
+  defInsideBgColor = panelBgColor
+  defBdColor = 0xFFB3BDC1
   disabledBdColor = 0xFF4B575D
   hoverBdColor  = 0xFF132438
+  blurBgColor = 0xFF969696
+  airSelectedBgColor = 0x96969696
+  airHoverBgColor = 0xC8CDDCDD
+  airBgColor = 0x78000000
+  defPanelBgColorVer_1 = 0xC8323232
+  opaqueBgColor = 0xFF141414
+  blockedBgColor = 0xFF640A0A
+  insideBorderColor = 0x05F03232
+  bgPremiumColor = 0xFF0B0B13
 
   // TxtColor
-  disabledTxtColor = 0xFF4B575D
+  disabledTxtColor
+  selectedTxtColor
+  defTxtColor
+  titleTxtColor
+  fadedTxtColor
+  noteTxtColor = fadedTxtColor
   activeTxtColor = 0xFFDCDCDC
   weakTxtColor  = 0xFFA4A4A4
-  defTxtColor
   hoverTxtColor = 0xFFD4D4D4
-  titleTxtColor = 0xFFFAFAFA
   hoverSlotTxtColor = 0xFF404040
   darkTxtColor = 0xFF313841
   attentionTxtColor = 0xFFFFBE30
@@ -163,6 +226,12 @@ return {
   positiveTxtColor = 0xFF8FEE56
   completedTxtColor = 0xFF2968E9
   deadTxtColor = 0xAA101010
+  msgHighlightedTxtColor = 0xFFD2AA14
+  blockedTxtColor = 0xFFC80F0A
+  hoverTitleTxtColor = 0xFFDCDCE6
+  activeTitleTxtColor = 0xFFB4B4C8
+  textBgBlurColor = 0xFFFFFFFF
+  accentTitleTxtColor = 0xFFFBBD40
 
   // soldier and squad slot color
   levelNestGradient
@@ -170,8 +239,42 @@ return {
   haveLevelColor = 0xFFF8BD41
   gainLevelColor = 0xFFFFCE68
   lockLevelColor = 0xFFAAAAAA
+  soldierLvlColor = 0x96B4B400
+  soldierLockedLvlColor = 0xFFB3BDC1
+  lockedSquadBgColor = 0xFF636162
+  squadElemsBgColor = 0x963C3C3C
+  squadElemsBgHoverColor = 0x96AFAFAF
+  squadSlotBgIdleColor = 0x99303841
+  squadSlotBgHoverColor = 0xFFA0A2A3
+  squadSlotBgActiveColor = 0xFF4A5A68
+  squadSlotBgAlertColor = 0x77330000
+  squadSlotBgMultiSelColor = 0x99606060
 
   unseenColor = 0xFF00FF6C
+  bonusColor = 0xFF78FA78
+  warningColor = 0xFFE66464
+  hasPremiumColor = 0xFFD2D264
+  basePremiumColor = 0xFF707070
+  taskProgressColor = 0xFFFBBD40
+  taskDefColor = 0xFF7D7D7D
+  debriefingDarkColor = 0xB4000000
+  spawnNotReadyColor = 0xFFB44646
+
+  listCtors
+  rowBg
+
+  strokeStyle = {
+    fontFx = FFT_GLOW
+    fontFxColor = 0xCC000000
+    fontFxFactor = min(16, hdpx(16))
+  }
+  shadowStyle = {
+    fontFx = FFT_GLOW
+    fontFxColor = 0xFF000000
+    fontFxFactor = min(hdpx(16), 16)
+    fontFxOffsX = hdpx(1)
+    fontFxOffsY = hdpx(1)
+  }
 
   //Animations
   rightAppearanceAnim = @(delay = DEF_APPEARANCE_TIME, trigger = null)

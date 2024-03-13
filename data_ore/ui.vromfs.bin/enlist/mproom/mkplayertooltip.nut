@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui/ui_library.nut" import *
 let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
-let { smallPadding, bigPadding, activeBgColor, defTxtColor
-} = require("%enlSqGlob/ui/viewConst.nut")
+let { smallPadding, midPadding, activeBgColor, defTxtColor
+} = require("%enlSqGlob/ui/designConst.nut")
 let tooltipBox = require("%ui/style/tooltipBox.nut")
 let { getPortrait } = require("%enlSqGlob/ui/decoratorsPresentation.nut")
 let roomMemberStatuses = require("roomMemberStatuses.nut")
@@ -54,13 +54,13 @@ function mkPlayerTooltip(player) {
     log($"army is an empty string in mkPlayerTooltip in {player}")
   return tooltipBox({
     flow = FLOW_HORIZONTAL
-    gap = bigPadding
+    gap = midPadding
     children = [
       mkPortrait(portrait)
       @() {
         watch = allArmiesInfo
         flow = FLOW_VERTICAL
-        gap = bigPadding
+        gap = midPadding
         children = [
           memberName(nameText, nickFrame)
           statusCfg == null ? null : mkStatusRow(statusCfg)

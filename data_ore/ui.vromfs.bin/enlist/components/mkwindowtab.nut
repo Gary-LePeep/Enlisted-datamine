@@ -1,11 +1,8 @@
 from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontHeading2 } = require("%enlSqGlob/ui/fontsStyle.nut")
-let {
-  activeTxtColor, tinyOffset
-} = require("%enlSqGlob/ui/viewConst.nut")
-let { smallPadding, bigPadding, defTxtColor,
-  hoverSlotBgColor, darkTxtColor
+let { smallPadding, bigPadding, defTxtColor, tinyOffset,
+  hoverSlotBgColor, darkTxtColor, activeTxtColor
 } = require("%enlSqGlob/ui/designConst.nut")
 
 let { smallUnseenNoBlink, unseenByType } = require("%ui/components/unseenComps.nut")

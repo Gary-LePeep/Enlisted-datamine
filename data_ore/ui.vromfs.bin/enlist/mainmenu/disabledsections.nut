@@ -4,7 +4,7 @@ let { fontHeading1, fontHeading2 } = require("%enlSqGlob/ui/fontsStyle.nut")
 let msgbox = require("%enlist/components/msgbox.nut")
 let { curCampaign } = require("%enlist/meta/curCampaign.nut")
 let { gameProfile } = require("%enlist/soldiers/model/config/gameProfile.nut")
-let { defBgColor, hoverBgColor } = require("%enlSqGlob/ui/viewConst.nut")
+let { defBgColor, hoverBgColor } = require("%enlSqGlob/ui/designConst.nut")
 
 let disabledSectionsData = Computed(function() {
   let campaign = curCampaign.value

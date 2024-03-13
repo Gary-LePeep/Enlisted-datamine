@@ -1,10 +1,6 @@
 from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
-let {
-  gap, bigPadding, slotBaseSize, disabledTxtColor, blockedTxtColor,
-  deadTxtColor, defTxtColor, listCtors, selectedTxtColor
-} = require("%enlSqGlob/ui/viewConst.nut")
 let { statusIconWarning } = require("%enlSqGlob/ui/itemPkg.nut")
 let { autoscrollText } = require("%enlSqGlob/ui/defcomps.nut")
 let { withTooltip } = require("%ui/style/cursors.nut")
@@ -16,8 +12,10 @@ let { mkSoldierPhoto } = require("%enlSqGlob/ui/soldierPhoto.nut")
 let { getClassCfg } = require("%enlSqGlob/ui/soldierClasses.nut")
 let {
   panelBgColor, squadSlotBgIdleColor, squadSlotBgHoverColor,
-  squadSlotBgActiveColor, squadSlotBgAlertColor, squadSlotBgMultiSelColor
-}  = require("%enlSqGlob/ui/designConst.nut")
+  squadSlotBgActiveColor, squadSlotBgAlertColor, squadSlotBgMultiSelColor,
+  gap, midPadding, slotBaseSize, disabledTxtColor, blockedTxtColor,
+  deadTxtColor, defTxtColor, listCtors, selectedTxtColor
+} = require("%enlSqGlob/ui/designConst.nut")
 
 
 let DISABLED_ITEM = { tint = Color(40, 40, 40, 120), picSaturate = 0.0 }
@@ -200,7 +198,7 @@ function soldierCard(soldierInfo, group = null, sf = 0, isSelected = false,
           {
             size = flex()
             flow = FLOW_HORIZONTAL
-            gap = bigPadding
+            gap = midPadding
             rendObj = ROBJ_SOLID
             color = listSquadColor(sf, isSelected, isGroupSelected, hasAlertStyle, isBlocked)
             children = [

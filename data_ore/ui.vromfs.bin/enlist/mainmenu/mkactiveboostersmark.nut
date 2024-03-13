@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui/ui_library.nut" import *
 
-let { defTxtColor, activeTxtColor, msgHighlightedTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
+let { defTxtColor, activeTxtColor, msgHighlightedTxtColor } = require("%enlSqGlob/ui/designConst.nut")
 let colorize = require("%ui/components/colorize.nut")
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
 let { curArmyBoosters, nextExpireTime } = require("%enlist/soldiers/model/boosters.nut")

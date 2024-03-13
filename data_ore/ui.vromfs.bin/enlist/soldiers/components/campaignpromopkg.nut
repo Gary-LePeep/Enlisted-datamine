@@ -3,8 +3,8 @@ from "%enlSqGlob/ui/ui_library.nut" import *
 let { fontHeading2, fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { kindIcon } = require("%enlSqGlob/ui/soldiersUiComps.nut")
 let sClassesCfg = require("%enlist/soldiers/model/config/sClassesConfig.nut")
-let { titleTxtColor, activeTxtColor, bigPadding, defTxtColor, commonBtnHeight, accentTitleTxtColor,
-} = require("%enlSqGlob/ui/viewConst.nut")
+let { titleTxtColor, activeTxtColor, midPadding, defTxtColor, commonBtnHeight, accentTitleTxtColor,
+} = require("%enlSqGlob/ui/designConst.nut")
 let { itemTypeIcon } = require("itemTypesData.nut")
 let { CAMPAIGN_NONE } = require("%enlist/campaigns/campaignConfig.nut")
 let { getConfig } = require("%enlSqGlob/ui/campaignPromoPresentation.nut")
@@ -29,8 +29,8 @@ function mkSquadName(params) {
   let { nameLocId = "", titleLocId = "", sClass = null, itemType = null, itemSubType = null } = params
   return {
     flow = FLOW_HORIZONTAL
-    gap = bigPadding
-    padding = [bigPadding * 2, bigPadding * 4]
+    gap = midPadding
+    padding = [midPadding * 2, midPadding * 4]
     minWidth = hdpx(300)
     valign = ALIGN_CENTER
     children = [
@@ -117,7 +117,7 @@ let weapInfoBtn =  @(sf) {
   size = [infoBtnSize, infoBtnSize]
   hplace = ALIGN_RIGHT
   vplace = ALIGN_TOP
-  margin = bigPadding
+  margin = midPadding
   image =  Picture("{0}:{1}:{1}:K".subst("ui/skin#info/info_icon.svg", infoBtnSize))
   color = sf & S_ACTIVE ? activeTxtColor
     : sf & S_HOVER ? titleTxtColor

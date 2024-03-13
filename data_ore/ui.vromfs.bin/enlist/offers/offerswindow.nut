@@ -18,9 +18,9 @@ let {
   sceneWithCameraAdd, sceneWithCameraRemove
 } = require("%enlist/sceneWithCamera.nut")
 let {
-  smallPadding, bigPadding, hoverBgColor, defBgColor, activeTxtColor,
+  smallPadding, midPadding, hoverBgColor, defBgColor, activeTxtColor,
   defTxtColor, fadedTxtColor
-} = require("%enlSqGlob/ui/viewConst.nut")
+} = require("%enlSqGlob/ui/designConst.nut")
 let {
   mkShopItemView, mkShopItemPriceLine, mkProductView
 } = require("%enlist/shop/shopPkg.nut")
@@ -79,8 +79,8 @@ function mkShopItemSquads(squads, shopItem) {
         rendObj = sf & S_HOVER ? ROBJ_SOLID : null
         size = [flex(), SIZE_TO_CONTENT]
         flow = FLOW_HORIZONTAL
-        gap = bigPadding
-        padding = [smallPadding, bigPadding]
+        gap = midPadding
+        padding = [smallPadding, midPadding]
         color = defBgColor
         behavior = Behaviors.Button
         onClick = @() buySquadWindow({
@@ -135,8 +135,8 @@ function mkOfferShopItem(personalOffer, shopItem, ownSquads) {
   let descBlock = {
     size = [flex(), SIZE_TO_CONTENT]
     flow = FLOW_VERTICAL
-    padding = bigPadding
-    gap = bigPadding
+    padding = midPadding
+    gap = midPadding
     children = [
       mkOfferDesc(descLocId)
       squads.len() == 0 ? null
@@ -190,7 +190,7 @@ function mkOfferShopItem(personalOffer, shopItem, ownSquads) {
 }
 
 let timerStyle = {
-  padding = [0, bigPadding]
+  padding = [0, midPadding]
   hplace = ALIGN_RIGHT
 }
 
@@ -217,7 +217,7 @@ function curOfferUi() {
           flow = FLOW_VERTICAL
           color = defBgColor
           children = [
-            { size = [flex(), bigPadding] }
+            { size = [flex(), midPadding] }
             {
               size = [flex(), SIZE_TO_CONTENT]
               valign = ALIGN_CENTER
@@ -243,7 +243,7 @@ function curOfferUi() {
             }
             {
               size = [flex(), SIZE_TO_CONTENT]
-              padding = bigPadding
+              padding = midPadding
               children = mkOfferShopItem(offer, allShopItems[offer.shopItemGuid], ownSquads)
             }
           ]

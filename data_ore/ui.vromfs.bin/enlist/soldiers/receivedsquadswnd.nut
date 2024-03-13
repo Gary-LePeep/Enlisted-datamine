@@ -9,9 +9,9 @@ let { gameProfile } = require("%enlist/soldiers/model/config/gameProfile.nut")
 let { txt, noteTextArea } = require("%enlSqGlob/ui/defcomps.nut")
 let { openUnlockSquadScene } = require("%enlist/soldiers/unlockSquadScene.nut")
 let { curCampaign } = require("%enlist/meta/curCampaign.nut")
-let { bigPadding, smallPadding, tinyOffset, smallOffset, blurBgColor,
+let { midPadding, smallPadding, tinyOffset, smallOffset, blurBgColor,
   defBgColor, activeTxtColor, accentTitleTxtColor, disabledTxtColor
-} = require("%enlSqGlob/ui/viewConst.nut")
+} = require("%enlSqGlob/ui/designConst.nut")
 let { arrayByRows } = require("%sqstd/underscore.nut")
 let { getCampaignTitle } = require("%enlSqGlob/ui/itemsInfo.nut")
 
@@ -112,7 +112,7 @@ function receivedSquadsUi() {
               }
               sf & S_HOVER ? txt({
                 text = utf8ToUpper(loc("btn/view"))
-                padding = bigPadding
+                padding = midPadding
                 hplace = ALIGN_RIGHT
                 vplace = ALIGN_BOTTOM
                 color = activeTxtColor
@@ -129,20 +129,20 @@ function receivedSquadsUi() {
       campaignSquads = arrayByRows(campaignSquads, SQUADS_PER_LINE)
         .map(@(list) {
           flow = FLOW_HORIZONTAL
-          gap = bigPadding
+          gap = midPadding
           children = list
         })
       squadsBlock.append({
         flow = FLOW_VERTICAL
         gap = smallPadding
-        padding = bigPadding
+        padding = midPadding
         children = [
           noteTextArea(headerTxt).__update({ color = activeTxtColor }, fontBody)
           campaignSquads.len() == 1
             ? campaignSquads[0]
             : {
                 flow = FLOW_VERTICAL
-                gap = bigPadding
+                gap = midPadding
                 children = campaignSquads
               }
         ]

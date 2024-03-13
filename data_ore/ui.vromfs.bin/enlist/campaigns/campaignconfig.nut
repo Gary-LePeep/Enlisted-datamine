@@ -33,12 +33,12 @@ let curShopCampaignItems = Computed(function() {
 })
 
 // TODO should be cleaned up after meta 2.0 will be applied
-let isPurchaseableCampaign = Computed(@() false)
+let isPurchaseableCampaign = WatchedRo(false)
 
 let isCampaignBought = Computed(@() curShopCampaignItems.value
   .findindex(@(item) (purchasesCount.value?[item.guid].amount ?? 0) > 0) != null)
 
-let needFreemiumStatus = Computed(@() false)
+let needFreemiumStatus = WatchedRo(false)
 
 let curCampaignAccessItem = Computed(@() curShopCampaignItems.value.reduce(@(res, item)
   (item?.isPrimaryBuy ?? false) > (res?.isPrimaryBuy ?? false) ? item : res))

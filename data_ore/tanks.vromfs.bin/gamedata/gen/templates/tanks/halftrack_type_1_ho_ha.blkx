@@ -16,50 +16,139 @@
     "damage_model__blk": "gamedata/gen/units/tanks/halftrack_type_1_ho_ha.blk",
     "item__name": "items/halftrack_type_1_ho_ha",
     "skin__template": "halftrack_type_1_ho_ha_skins",
-    "turret_gun_flash_fx__flashNodes:shared:array": {
-      "node": "emtr_mg_flame_01"
-    },
-    "turret_gun_flash_fx__flashFx:shared:array": {
-      "fx": "muzzle_ground_8mm"
-    },
-    "turret_gun_flash_fx__flashFxScale:shared:array": {
-      "scale": 1.0
-    },
-    "turret_control__emitterNodes:shared:array": {
-      "node": "bone_mg_v"
-    },
-    "turret_control__animVars:shared:array": {
-      "vars:object": {
-        "curYawParamName": "turret_01_yaw",
-        "curPitchParamName": "gun_01_pitch",
-        "aimActiveParamName": "aim_01_active",
-        "paramYawSpeed": "turret_01_yaw_speed",
-        "paramYawSpeedMul": "turret_01_yaw_mul",
-        "paramYawAccel": "turret_01_yaw_accel",
-        "paramMinYawAngle": "turret_01_min_yaw_angle",
-        "paramMaxYawAngle": "turret_01_max_yaw_angle",
-        "paramMinPitchAngle": "turret_01_min_pitch_angle",
-        "paramMaxPitchAngle": "turret_01_max_pitch_angle",
-        "paramPitchSpeed": "gun_01_pitch_speed",
-        "paramPitchSpeedMul": "gun_01_pitch_mul",
-        "paramPitchAccel": "gun_01_pitch_accel",
-        "wishYawParamName": "gun_01_aim:targetYaw",
-        "wishPitchParamName": "gun_01_aim:targetPitch",
-        "gunRecoilParamName": "gun_01_recoil"
+    "turret_gun_flash_fx__flashNodes:shared:array": [
+      {
+        "node": "emtr_mg_flame_01"
+      },
+      {
+        "node": "emtr_mg_flame_02"
+      },
+      {
+        "node": "emtr_mg_flame_03"
       }
-    },
-    "turret_control__turretInfo:shared:array": {
-      "turretInfo:object": {
-        "turretName": "turret_01",
-        "turretGroup": "main_turrets",
-        "gun": "halftrack_type_1_ho_ha_turret_01_7_7mm_type_97",
-        "barrelDm": "gun_barrel_01",
-        "breechDm": "gun_barrel_01",
-        "verDriveDm": "gun_barrel_01",
-        "horDriveDm": "gun_barrel_01",
-        "salt": 1
+    ],
+    "turret_gun_flash_fx__flashFx:shared:array": [
+      {
+        "fx": "muzzle_ground_8mm"
+      },
+      {
+        "fx": "muzzle_ground_8mm"
+      },
+      {
+        "fx": "muzzle_ground_8mm"
       }
-    }
+    ],
+    "turret_gun_flash_fx__flashFxScale:shared:array": [
+      {
+        "scale": 1.0
+      },
+      {
+        "scale": 1.0
+      },
+      {
+        "scale": 1.0
+      }
+    ],
+    "turret_control__emitterNodes:shared:array": [
+      {
+        "node": "bone_mg_v"
+      },
+      {
+        "node": "bone_mg_aa_v"
+      },
+      {
+        "node": "bone_mg_aa_v_01"
+      }
+    ],
+    "turret_control__animVars:shared:array": [
+      {
+        "vars:object": {
+          "curYawParamName": "turret_01_yaw",
+          "curPitchParamName": "gun_01_pitch",
+          "aimActiveParamName": "aim_01_active",
+          "paramYawSpeed": "turret_01_yaw_speed",
+          "paramYawSpeedMul": "turret_01_yaw_mul",
+          "paramYawAccel": "turret_01_yaw_accel",
+          "paramMinYawAngle": "turret_01_min_yaw_angle",
+          "paramMaxYawAngle": "turret_01_max_yaw_angle",
+          "paramMinPitchAngle": "turret_01_min_pitch_angle",
+          "paramMaxPitchAngle": "turret_01_max_pitch_angle",
+          "paramPitchSpeed": "gun_01_pitch_speed",
+          "paramPitchSpeedMul": "gun_01_pitch_mul",
+          "paramPitchAccel": "gun_01_pitch_accel",
+          "wishYawParamName": "gun_01_aim:targetYaw",
+          "wishPitchParamName": "gun_01_aim:targetPitch",
+          "gunRecoilParamName": "gun_01_recoil"
+        }
+      },
+      {
+        "vars:object": {
+          "curYawParamName": "turret_02_yaw",
+          "curPitchParamName": "gun_02_pitch",
+          "aimActiveParamName": "aim_02_active",
+          "paramYawSpeed": "turret_02_yaw_speed",
+          "paramYawSpeedMul": "turret_02_yaw_mul",
+          "paramYawAccel": "turret_02_yaw_accel",
+          "paramMinYawAngle": "turret_02_min_yaw_angle",
+          "paramMaxYawAngle": "turret_02_max_yaw_angle",
+          "paramMinPitchAngle": "turret_02_min_pitch_angle",
+          "paramMaxPitchAngle": "turret_02_max_pitch_angle",
+          "paramPitchSpeed": "gun_02_pitch_speed",
+          "paramPitchSpeedMul": "gun_02_pitch_mul",
+          "paramPitchAccel": "gun_02_pitch_accel",
+          "wishYawParamName": "gun_02_aim:targetYaw",
+          "wishPitchParamName": "gun_02_aim:targetPitch"
+        }
+      },
+      {
+        "vars:object": {
+          "curYawParamName": "turret_03_yaw",
+          "curPitchParamName": "gun_03_pitch",
+          "aimActiveParamName": "aim_03_active",
+          "paramYawSpeed": "turret_03_yaw_speed",
+          "paramYawSpeedMul": "turret_03_yaw_mul",
+          "paramYawAccel": "turret_03_yaw_accel",
+          "paramMinYawAngle": "turret_03_min_yaw_angle",
+          "paramMaxYawAngle": "turret_03_max_yaw_angle",
+          "paramMinPitchAngle": "turret_03_min_pitch_angle",
+          "paramMaxPitchAngle": "turret_03_max_pitch_angle",
+          "paramPitchSpeed": "gun_03_pitch_speed",
+          "paramPitchSpeedMul": "gun_03_pitch_mul",
+          "paramPitchAccel": "gun_03_pitch_accel",
+          "wishYawParamName": "gun_03_aim:targetYaw",
+          "wishPitchParamName": "gun_03_aim:targetPitch"
+        }
+      }
+    ],
+    "turret_control__turretInfo:shared:array": [
+      {
+        "turretInfo:object": {
+          "turretName": "turret_01",
+          "gun": "halftrack_type_1_ho_ha_turret_01_7_7mm_type_97+main_turret",
+          "barrelDm": "gun_barrel_01",
+          "breechDm": "gun_barrel_01",
+          "verDriveDm": "gun_barrel_01",
+          "horDriveDm": "gun_barrel_01",
+          "salt": 1
+        }
+      },
+      {
+        "turretInfo:object": {
+          "turretName": "turret_02",
+          "gun": "halftrack_type_1_ho_ha_turret_02_7_7mm_type_97",
+          "barrelDm": "gun_barrel_02",
+          "salt": 1
+        }
+      },
+      {
+        "turretInfo:object": {
+          "turretName": "turret_03",
+          "gun": "halftrack_type_1_ho_ha_turret_03_7_7mm_type_97",
+          "barrelDm": "gun_barrel_03",
+          "salt": 1
+        }
+      }
+    ]
   },
   "halftrack_type_1_ho_ha_turret_01_7_7mm_type_97": {
     "_use": "tankgun_7_7mm_type_97",
@@ -71,7 +160,34 @@
     "turret__triggerGroup": 0,
     "gun__shellsAmmo:array": {
       "ammo": 2000
-    }
+    },
+    "controlledByTankAiGunnerWithBot:tag": []
+  },
+  "halftrack_type_1_ho_ha_turret_02_7_7mm_type_97": {
+    "_use": "tankgun_7_7mm_type_97",
+    "gun__shootNodeName": "bone_mg_aa_v",
+    "turret__yawSpeed": 60.0,
+    "turret__pitchSpeed": 60.0,
+    "turret__aimNodeName": "bone_mg_aa_h",
+    "turret__limit": [-115.0,-65.0,-10.0,20.0],
+    "turret__triggerGroup": 0,
+    "gun__shellsAmmo:array": {
+      "ammo": 2000
+    },
+    "controlledByTankAiGunnerWithBot:tag": []
+  },
+  "halftrack_type_1_ho_ha_turret_03_7_7mm_type_97": {
+    "_use": "tankgun_7_7mm_type_97",
+    "gun__shootNodeName": "bone_mg_aa_v_01",
+    "turret__yawSpeed": 60.0,
+    "turret__pitchSpeed": 60.0,
+    "turret__aimNodeName": "bone_mg_aa_h_01",
+    "turret__limit": [65.0,115.0,-10.0,20.0],
+    "turret__triggerGroup": 0,
+    "gun__shellsAmmo:array": {
+      "ammo": 2000
+    },
+    "controlledByTankAiGunnerWithBot:tag": []
   },
   "halftrack_type_1_ho_ha_skins": {
     "skin__objTexReplace:array": [

@@ -33,7 +33,8 @@ let profilesMap = {
   custom    = @(_armies, playerEid) ecs.client_send_event(playerEid, mkCmdProfileJwtData({jwt=""}))
 }
 
-let disableMenu = Computed(@() get_setting_by_blk_path("disableMenu") ?? false)
+let disableMenu = WatchedRo(get_setting_by_blk_path("disableMenu") ?? false)
+
 let profileType = Computed(@() customProfilePath.value ? "custom"
   : isTutorial.value ? "tutorial" : disableMenu.value ? "dev" : "real")
 let requestArmiesData = Computed(@() profilesMap?[profileType.value])

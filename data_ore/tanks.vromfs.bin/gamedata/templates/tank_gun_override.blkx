@@ -378,6 +378,46 @@
       }
     }
   },
+  "tankgun_90mm_m3": {
+    "_override": true,
+    "gun__ammoSetsInfo:shared:array": {
+      "90mm_us_M82_APCBC:array": {
+        "shell:object": {
+          "blk": "gamedata/gen/weapons/shells/90mm_m3_90mm_us_m82_apcbc.blk",
+          "name": "90mm_m82",
+          "type": "apcbc_tank"
+        }
+      },
+      "90mm_us_M71_HE:array": {
+        "shell:object": {
+          "blk": "gamedata/gen/weapons/shells/90mm_m3_90mm_us_m71_he.blk",
+          "name": "90mm_m71",
+          "type": "he_frag_tank"
+        }
+      },
+      "defaultSet:array": {
+        "shell:object": {
+          "blk": "gamedata/gen/weapons/shells/90mm_m3_defaultset.blk",
+          "name": "90mm_t33",
+          "type": "apbc_usa_tank"
+        }
+      },
+      "90mm_us_M304_APCR:array": {
+        "shell:object": {
+          "blk": "gamedata/gen/weapons/shells/90mm_m3_90mm_us_m304_apcr.blk",
+          "name": "90mm_m304",
+          "type": "apcr_tank"
+        }
+      },
+      "90mm_us_M313_Smoke:array": {
+        "shell:object": {
+          "blk": "gamedata/gen/weapons/shells/90mm_m3_90mm_us_m313_smoke.blk",
+          "name": "90mm_m313",
+          "type": "smoke_tank"
+        }
+      }
+    }
+  },
   "tankgun_100mm_d10s": {
     "_override": true,
     "gun__ammoSetsInfo:shared:array": {

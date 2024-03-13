@@ -3,8 +3,8 @@ from "%enlSqGlob/ui/ui_library.nut" import *
 let JB = require("%ui/control/gui_buttons.nut")
 let { fontBody, fontGiant } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { sound_play } = require("%dngscripts/sound_system.nut")
-let { bigPadding, titleTxtColor, strokeStyle, accentTitleTxtColor
-} = require("%enlSqGlob/ui/viewConst.nut")
+let { midPadding, titleTxtColor, strokeStyle, accentTitleTxtColor
+} = require("%enlSqGlob/ui/designConst.nut")
 let navState = require("%enlist/navState.nut")
 let closeBtnBase = require("%ui/components/closeBtn.nut")
 let { Bordered, PrimaryFlat } = require("%ui/components/textButton.nut")
@@ -50,7 +50,7 @@ function closeAndKeepLevel() {
 }
 
 let closeBtn = {
-  padding = bigPadding
+  padding = midPadding
   hplace = ALIGN_RIGHT
   children = closeBtnBase({ onClick = closeAndKeepLevel })
 }
@@ -109,7 +109,7 @@ function mkNewSquadButtons(squadId) {
     minHeight = btnBlockHeight
     valign = ALIGN_BOTTOM
     halign = ALIGN_CENTER
-    gap = bigPadding
+    gap = midPadding
     children = [
       {
         rendObj = ROBJ_TEXT
@@ -182,7 +182,7 @@ function unlockSquadWnd() {
   let buttons = children.len() <= 1 ? children?[0] : {
     flow = FLOW_VERTICAL
     minHeight = btnBlockHeight
-    gap = bigPadding
+    gap = midPadding
     vplace = ALIGN_BOTTOM
     valign = ALIGN_BOTTOM
     children

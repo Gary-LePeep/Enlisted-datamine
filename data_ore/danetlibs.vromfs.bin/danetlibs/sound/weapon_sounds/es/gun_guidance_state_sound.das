@@ -1,6 +1,5 @@
 require ecs
 require app
-require common_shooter.es.sound.gun_sound_common
 require sound_utils.modules.sound_player_common
 require soundEvent
 require soundSystem

@@ -3,7 +3,7 @@ from "%enlSqGlob/ui/ui_library.nut" import *
 let {btnTranspTextColor, TextActive} = require("%ui/style/colors.nut")
 let { currenciesBalance, currenciesSorted } = require("%enlist/currency/currencies.nut")
 let { buyCurrency } = require("%enlist/shop/armyShopState.nut")
-let { gap } = require("%enlSqGlob/ui/viewConst.nut")
+let { gap } = require("%enlSqGlob/ui/designConst.nut")
 let { mkCurrency, mkCurrencyTooltip } = require("currenciesComp.nut")
 let { setTooltip } = require("%ui/style/cursors.nut")
 let { is_pc } = require("%dngscripts/platform.nut")

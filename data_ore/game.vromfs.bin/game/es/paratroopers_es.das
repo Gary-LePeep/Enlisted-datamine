@@ -163,7 +163,9 @@ def spawn_paratroopers_squad(evt : Event;
       possessed=INVALID_ENTITY_ID,
       squadId=paratroopers_aircraft__squadId,
       memberId=paratroopers_aircraft__memberId,
-      respawnGroupId=respawnGroupId, existedVehicleEid=eid
+      respawnGroupId=respawnGroupId,
+      existedVehicleEid=eid,
+      withoutVehicle=false
     ]])
 
 [es(tag=server, on_appear)]

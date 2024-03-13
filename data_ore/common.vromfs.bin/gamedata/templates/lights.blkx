@@ -567,6 +567,17 @@
     }
   },
   {
+    "sign_green_light": {
+      "_use": "omni_light",
+      "light__max_radius": 3.1,
+      "light__offset": [0.0,0.0,0.0],
+      "light__color": "#00d323ff",
+      "light__brightness": 0.75,
+      "light__contact_shadows": false,
+      "light__texture_name": "ies_hand_lantern_a"
+    }
+  },
+  {
     "spot_light_work_a": {
       "_use": "spot_light",
       "light__max_radius": 7.0,

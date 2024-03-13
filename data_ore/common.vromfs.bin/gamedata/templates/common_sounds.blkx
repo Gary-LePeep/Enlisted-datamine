@@ -5,17 +5,6 @@
     "shell_shatters_sounds__cooldown": 4.0,
     "_singleton": true
   },
-  "plane_engine_sound_instance_stealing": {
-    "_use": "replicating",
-    "_singleton": true,
-    "_group": {
-      "_tags": "sound",
-      "plane_engine_sound_instance_stealing__updateInterval": 1.0,
-      "plane_engine_sound_instance_stealing__fadeInOutSpeed": 0.5,
-      "plane_engine_sound_instance_stealing__targetInstances": 8,
-      "plane_engine_sound_instance_stealing__group:SoundInstanceStealingGroup": []
-    }
-  },
   "battle_music": {
     "_use": "replicating",
     "_singleton": true,

@@ -3,7 +3,7 @@ from "%enlSqGlob/ui/ui_library.nut" import *
 let JB = require("%ui/control/gui_buttons.nut")
 let { fontHeading2, fontSub, fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let {ModalBgTint, TextDefault, WindowBlur} = require("%ui/style/colors.nut")
-let { bigGap } = require("%enlSqGlob/ui/viewConst.nut")
+let { bigGap } = require("%enlSqGlob/ui/designConst.nut")
 let mkQrCode = require("%ui/components/mkQrCode.nut")
 let { openUrl, AuthenticationMode } = require("%ui/components/openUrl.nut")
 let {addModalWindow, removeModalWindow} = require("%ui/components/modalWindows.nut")

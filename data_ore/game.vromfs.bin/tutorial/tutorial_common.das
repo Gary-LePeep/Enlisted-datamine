@@ -191,4 +191,10 @@ def spawn_squad_immediate()
     respawner__respEndTime = -1.f
     respawner__canRespawnTime = -1.f
     respawner__canRespawnWaitNumber = -1
-    sendEvent(eid, [[CmdSpawnSquad team=team, possessed=INVALID_ENTITY_ID, squadId=squadId, memberId=memberId, respawnGroupId=respawnGroupId, existedVehicleEid=INVALID_ENTITY_ID]])
+    sendEvent(eid, [[CmdSpawnSquad team=team,
+                                   possessed=INVALID_ENTITY_ID,
+                                   squadId=squadId,
+                                   memberId=memberId,
+                                   respawnGroupId=respawnGroupId,
+                                   existedVehicleEid=INVALID_ENTITY_ID,
+                                   withoutVehicle=false]])

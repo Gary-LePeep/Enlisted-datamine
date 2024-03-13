@@ -4,9 +4,9 @@ from "eventRoomsListState.nut" import *
 let { format } = require("string")
 let { unixtime_to_local_timetbl } = require("dagor.time")
 let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
-let { defTxtColor, rowBg, bigPadding, commonBtnHeight, titleTxtColor, activeTxtColor, isWide,
+let { defTxtColor, rowBg, midPadding, commonBtnHeight, titleTxtColor, activeTxtColor, isWide,
   accentTitleTxtColor
-} = require("%enlSqGlob/ui/viewConst.nut")
+} = require("%enlSqGlob/ui/designConst.nut")
 let spinner = require("%ui/components/spinner.nut")
 let exclamation = require("%enlist/components/exclamation.nut")
 let { makeVertScroll } = require("%ui/components/scrollbar.nut")
@@ -101,7 +101,7 @@ let columnsTable = {
         size = [statusColumnWidth, SIZE_TO_CONTENT]
         valign = ALIGN_BOTTOM
         flow = FLOW_HORIZONTAL
-        gap = bigPadding
+        gap = midPadding
         children = [
           isLobbyLaunched || isLobbyLaunching ? battleIcon : preparationIcon
           timeInBattle > 0 && isLobbyLaunched
@@ -131,14 +131,14 @@ let columnsTable = {
   }
   isMod = {
     cell = @(r) {
-      size = [lockIconSize + bigPadding, SIZE_TO_CONTENT]
-      padding = [0, bigPadding, 0, 0]
+      size = [lockIconSize + midPadding, SIZE_TO_CONTENT]
+      padding = [0, midPadding, 0, 0]
       halign = ALIGN_LEFT
       hplace = ALIGN_LEFT
       children = r?.scene == null ? modIcon : null
     }
     label = ""
-    width = lockIconSize + bigPadding
+    width = lockIconSize + midPadding
     sortFunc = @(a, b) (a?.scene == null) <=> (b?.scene == null)
   }
 }
@@ -155,10 +155,10 @@ let mkRoomRow = @(room, idx, isSelected) watchElemState(@(sf) {
   size = [flex(), rowHeight]
   valign = ALIGN_CENTER
   flow = FLOW_HORIZONTAL
-  padding = [0, bigPadding]
+  padding = [0, midPadding]
   rendObj = ROBJ_SOLID
   color = rowBg(sf, idx, isSelected)
-  gap = isWide ? 0 : bigPadding
+  gap = isWide ? 0 : midPadding
   children = columns.map(@(ctor) columnsTable[ctor].cell(room))
 
   behavior = Behaviors.Button
@@ -201,9 +201,9 @@ let eventRoomsListHeaderRow = @(cols){
   size = [flex(), commonBtnHeight]
   flow = FLOW_HORIZONTAL
   valign = ALIGN_CENTER
-  padding = bigPadding
+  padding = midPadding
   color = Color(0,0,0)
-  gap = isWide ? 0 : bigPadding
+  gap = isWide ? 0 : midPadding
   children = cols.map(@(column) headerTxt(columnsTable[column]))
 }
 

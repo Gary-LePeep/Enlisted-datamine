@@ -5,7 +5,7 @@ require("%ui/hud/state/score_awards_state.nut")
 let awardsLog = require("%ui/hud/state/eventlog.nut").awards
 let { lerp } = require("%sqstd/math.nut")
 let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
-let { strokeStyle } = require("%enlSqGlob/ui/viewConst.nut")
+let { strokeStyle } = require("%enlSqGlob/ui/designConst.nut")
 let { round } = require("math")
 
 const ANIM_TRIGGER = "animScoreAward"

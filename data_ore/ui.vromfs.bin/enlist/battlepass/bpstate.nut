@@ -169,7 +169,7 @@ let currentProgress = Computed(function() {
   let interval = (combinedUnlocksGrid.value?[stage] ?? 0)
     - (combinedUnlocksGrid.value?[stage - 1] ?? 0)
   return {
-    current = clamp(current, required - interval, required)
+    current = clampStage(current, required - interval, required)
     required
     interval
   }

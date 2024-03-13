@@ -3,7 +3,7 @@ from "%enlSqGlob/ui/ui_library.nut" import *
 let { fontHeading2 } = require("%enlSqGlob/ui/fontsStyle.nut")
 let {
   strokeStyle, bigGap, armyIconSize, hoverTitleTxtColor, activeTitleTxtColor
-} = require("%enlSqGlob/ui/viewConst.nut")
+} = require("%enlSqGlob/ui/designConst.nut")
 let armiesPresentation = require("%enlSqGlob/ui/armiesPresentation.nut")
 
 let mkIcon = @(sIcon, size, override) sIcon == null ? null : {

@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui/ui_library.nut" import *
 
-let { opaqueBgColor } = require("%enlSqGlob/ui/viewConst.nut")
+let { opaqueBgColor } = require("%enlSqGlob/ui/designConst.nut")
 let { fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 
 

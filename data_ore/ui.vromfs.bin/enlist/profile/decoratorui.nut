@@ -22,9 +22,9 @@ let {
   decoratorInPurchase
 } = require("decoratorState.nut")
 let {
-  bigPadding, titleTxtColor, blurBgColor, bigOffset, tinyOffset, smallPadding,
+  midPadding, titleTxtColor, blurBgColor, bigOffset, tinyOffset, smallPadding,
   defTxtColor, defBgColor, bonusColor, smallOffset
-} = require("%enlSqGlob/ui/viewConst.nut")
+} = require("%enlSqGlob/ui/designConst.nut")
 let { basePortrait } = require("%enlSqGlob/ui/decoratorsPresentation.nut")
 let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
 let {
@@ -53,8 +53,8 @@ const NICKFRAME_COLUMNS = 7
 const PORTRAIT_COLUMNS = 6
 
 let CHANGE_NICK_URL = "https://store.gaijin.net/profile.php?view=change_nick"
-let portraitListWidth = (PORTRAIT_SIZE + bigPadding) * PORTRAIT_COLUMNS
-let nickFrameListWidth = (NICKFRAME_SIZE + bigPadding) * NICKFRAME_COLUMNS
+let portraitListWidth = (PORTRAIT_SIZE + midPadding) * PORTRAIT_COLUMNS
+let nickFrameListWidth = (NICKFRAME_SIZE + midPadding) * NICKFRAME_COLUMNS
 let hoverNickFrame = Watched("")
 let waitingSpinner = spinner().__update({ hplace = ALIGN_CENTER, vplace = ALIGN_CENTER })
 
@@ -62,7 +62,7 @@ let mkCloseButtonCb = @(wndUid) @() removeModalWindow(wndUid)
 let mkIcon = @(text, color) txt({ text, color }).__merge(fontawesome)
 let iconParam = {
   hplace = ALIGN_RIGHT
-  margin = bigPadding
+  margin = midPadding
   fontFxColor = Color(0,0,0)
   fontFxFactor = min(64,hdpx(64))
   fontFx = FFT_GLOW
@@ -81,7 +81,7 @@ function mkPortraitCost(portraitCfg, override = {}) {
                 currency
                 price
               }).__update({
-                margin = bigPadding
+                margin = midPadding
                 hplace = ALIGN_CENTER
                 vplace = ALIGN_BOTTOM
               })
@@ -210,8 +210,8 @@ function nickFrameListUi() {
           }
         }), {
           width = nickFrameListWidth
-          hGap = bigPadding
-          vGap = bigPadding
+          hGap = midPadding
+          vGap = midPadding
         })}, {
           styling = thinStyle
         }
@@ -352,8 +352,8 @@ function portraitListUi() {
           }
         }), {
           width = portraitListWidth
-          hGap = bigPadding
-          vGap = bigPadding
+          hGap = midPadding
+          vGap = midPadding
         })}, {
           styling = thinStyle
         }
@@ -365,8 +365,8 @@ function portraitListUi() {
 let mkChangeNickFrameBtn = @(hasUnseen, hasUnopened) watchElemState(@(sf) {
   rendObj = ROBJ_BOX
   flow = FLOW_HORIZONTAL
-  gap = bigPadding
-  padding = [bigPadding, 0]
+  gap = midPadding
+  padding = [midPadding, 0]
   valign = ALIGN_CENTER
   borderWidth = [0,0,hdpx(1),0]
   borderColor = borderColor(sf)

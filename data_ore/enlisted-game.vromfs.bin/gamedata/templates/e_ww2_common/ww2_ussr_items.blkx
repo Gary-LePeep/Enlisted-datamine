@@ -660,6 +660,20 @@
     "animchar__res": "early_rkka_camo_pants_char",
     "collres__res": "early_rkka_camo_pants_collision"
   },
+  "attachable_wear_early_rkka_camo_pants_winter_item": [
+    {
+      "_use": "attachable_pants"
+    },
+    {
+      "_use": "attachable_wear_early_rkka_camo_pants_item"
+    },
+    {
+      "animchar__objTexReplace:object": {
+        "ussr_early_camo_hairs_tex_d*": "ussr_early_camo_no_hairs_tex_d*",
+        "ussr_early_camo_pants_tex_d*": "ussr_early_camo_pants_winter_tex_d*"
+      }
+    }
+  ],
   "attachable_wear_pants_10_ussr_winter_item": {
     "_use": "attachable_pants",
     "item__uniqueName": "attachable_wear_pants_10_ussr_winter_item",
@@ -2706,6 +2720,20 @@
       }
     ]
   },
+  "attachable_wear_early_rkka_camo_jacket_winter_item": [
+    {
+      "_use": "attachable_tunic"
+    },
+    {
+      "_use": "attachable_wear_early_rkka_camo_jacket_item"
+    },
+    {
+      "animchar__objTexReplace:object": {
+        "ussr_early_camo_hairs_tex_d*": "ussr_early_camo_no_hairs_tex_d*",
+        "ussr_early_camo_jacket_tex_d*": "ussr_early_camo_jacket_winter_tex_d*"
+      }
+    }
+  ],
   "attachable_wear_pilot_winter_gloves_ussr_item": {
     "_use": "attachable_gloves",
     "item__uniqueName": "attachable_wear_pilot_winter_gloves_ussr_item",
@@ -6159,6 +6187,20 @@
           "hides": "front_belt_r"
         }
       ]
+    }
+  ],
+  "attachable_wear_armor_sp42_05_w_cloth_ussr_winter_item": [
+    {
+      "_use": "attachable_backpack"
+    },
+    {
+      "_use": "attachable_wear_armor_sp42_05_ussr_winter_item"
+    },
+    {
+      "animchar__objTexReplace:object": {
+        "ussr_armor_sp42_tex_d*": "ussr_armor_sp42_cloth_tex_d*",
+        "ussr_armor_sp42_tex_n*": "ussr_armor_sp42_cloth_tex_n*"
+      }
     }
   ],
   "attachable_wear_armor_sp38_05_ussr_winter_item": [

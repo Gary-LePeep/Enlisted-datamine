@@ -3,23 +3,23 @@ from "%enlSqGlob/ui/ui_library.nut" import *
 let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let mkCurSquadsList = require("%enlSqGlob/ui/mkSquadsList.nut")
 let { multySquadPanelSize, listCtors, smallPadding
-} = require("%enlSqGlob/ui/viewConst.nut")
+} = require("%enlSqGlob/ui/designConst.nut")
 let { txtColor } = listCtors
-let { curArmy, curSquadId, setCurSquadId, curChoosenSquads, curUnlockedSquads
+let { curArmy, curSquadId, setCurSquadId, curChoosenSquads, curUnlockedSquads,
+  soldiersBySquad
 } = require("model/state.nut")
+let squadsParams = require("%enlist/soldiers/model/squadsParams.nut")
 let { allSquadsLevels } = require("%enlist/researches/researchesState.nut")
 let { notChoosenPerkSquads } = require("model/soldierPerks.nut")
-let { unseenSquadsWeaponry } = require("model/unseenWeaponry.nut")
 let { unseenSquadsVehicle } = require("%enlist/vehicles/unseenVehicles.nut")
 let { unseenSquads } = require("model/unseenSquads.nut")
 let { openChooseSquadsWnd } = require("model/chooseSquadsState.nut")
 let { squadBgColor } = require("%enlSqGlob/ui/squadsUiComps.nut")
-let { needSoldiersManageBySquad } = require("model/reserve.nut")
 let { blinkUnseenIcon } = require("%ui/components/unseenSignal.nut")
 let { armySlotDiscount } = require("%enlist/shop/armySlotDiscount.nut")
 let { mkNotifierBlink } = require("%enlist/components/mkNotifier.nut")
 let {
-  mkAlertIcon, PERK_ALERT_SIGN, ITEM_ALERT_SIGN, REQ_MANAGE_SIGN
+  mkAlertIcon, PERK_ALERT_SIGN, ITEM_ALERT_SIGN
 } = require("%enlSqGlob/ui/soldiersUiComps.nut")
 let { soundDefault } = require("%ui/components/textButton.nut")
 let { getLiveSquadBR, BRInfoBySquads } = require("%enlist/soldiers/armySquadTier.nut")
@@ -27,12 +27,8 @@ let { getLiveSquadBR, BRInfoBySquads } = require("%enlist/soldiers/armySquadTier
 
 let unseenIcon = blinkUnseenIcon(0.7)
 
-let mkManageAlert = @(guid) mkAlertIcon(REQ_MANAGE_SIGN, Computed(@()
-  needSoldiersManageBySquad.value?[guid] ?? false))
-
 let mkUnseenAlert = @(guid) mkAlertIcon(ITEM_ALERT_SIGN, Computed(@()
-  (unseenSquadsWeaponry.value?[guid] ?? 0) > 0
-    || (unseenSquadsVehicle.value?[guid].len() ?? 0) > 0
+  (unseenSquadsVehicle.value?[guid].len() ?? 0) > 0
 ))
 
 let mkPerksAlert = @(squadId) mkAlertIcon(PERK_ALERT_SIGN, Computed(@()
@@ -52,7 +48,6 @@ function mkSlotAlertsComponent(squad){
     hplace = ALIGN_RIGHT
     valign = ALIGN_CENTER
     children = [
-      mkManageAlert(squad.guid)
       mkUnseenAlert(squad.guid)
       mkPerksAlert(squad.squadId)
     ]
@@ -126,13 +121,17 @@ function mkSquadsList() {
 
   let squadManageButton = mkSquadManagementBtn(restSquadsCount)
   let curSquadsList = Computed(@() (curChoosenSquads.value ?? [])
-    .map(@(squad) squad.__merge({
-      addChild = mkSlotAlertsComponent(squad)
-      level = allSquadsLevels.value?[squad.squadId] ?? 0
-      battleRating = getLiveSquadBR(BRInfoBySquads.value, squad.squadId)
-    })))
-
-
+    .map(function(squad) {
+      let squadId = squad.squadId
+      let { size = 0 } = squadsParams.value?[curArmy.value][squadId]
+      let currentSize = soldiersBySquad.value?[squad.guid].len() ?? 0
+      return squad.__merge({
+        addChild = mkSlotAlertsComponent(squad)
+        level = allSquadsLevels.value?[squadId] ?? 0
+        battleRating = getLiveSquadBR(BRInfoBySquads.value, squadId)
+        squadSize = currentSize < size ? $"{currentSize}/{size}" : currentSize
+      })
+    }))
 
   return mkCurSquadsList({
     curSquadsList
@@ -141,6 +140,7 @@ function mkSquadsList() {
     addedObj = squadManageButton
   })
 }
+
 return {
   mkSquadsList
   mkSlotAlertsComponent

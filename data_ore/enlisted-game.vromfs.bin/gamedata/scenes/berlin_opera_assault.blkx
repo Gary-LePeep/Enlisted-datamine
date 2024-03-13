@@ -521,7 +521,7 @@
       "team__winSubtitle": "debriefing/won_invasion_subtitle",
       "team__loseSubtitle": "debriefing/lost_invasion_subtitle",
       "team__winTitle": "debriefing/ussr_won_invasion",
-      "team__spawnBotArmy": "moscow_allies"
+      "team__spawnBotArmy": "berlin_allies"
     }
   },
   {
@@ -537,7 +537,7 @@
       "team__winSubtitle": "debriefing/won_defence_subtitle",
       "team__loseSubtitle": "debriefing/lost_defence_subtitle",
       "team__winTitle": "debriefing/axis_won_defence",
-      "team__spawnBotArmy": "moscow_axis"
+      "team__spawnBotArmy": "berlin_axis"
     }
   },
   {
@@ -1034,23 +1034,6 @@
     "entity": {
       "_template": "respawnChooser+respVehicle",
       "transform": [
-        [0.198811,0.0,0.980038],
-        [0.0,1.0,-0.0],
-        [-0.980037,0.0,0.198811],
-        [-463.844,3.59544,220.916]
-      ],
-      "groupName": "sector_1",
-      "team": 2,
-      "respTime": 150,
-      "maxVehicleOnSpawn": 2,
-      "active": false,
-      "respawnBaseGroup": 1
-    }
-  },
-  {
-    "entity": {
-      "_template": "respawnChooser+respVehicle",
-      "transform": [
         [-0.548984,0.0,0.835833],
         [0.0,1.0,0.0],
         [-0.835833,0.0,-0.548984],
@@ -1059,7 +1042,7 @@
       "groupName": "sector_1",
       "maxVehicleOnSpawn": 2,
       "respTime": 150,
-      "respawnBaseGroup": 2,
+      "respawnBaseGroup": 1,
       "team": 2,
       "active": false
     }
@@ -1076,7 +1059,7 @@
       ],
       "team": 2,
       "groupName": "sector_1",
-      "respawnBaseGroup": 2
+      "respawnBaseGroup": 1
     }
   },
   {

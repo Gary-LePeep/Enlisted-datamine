@@ -1,12 +1,32 @@
 from "%enlSqGlob/ui/ui_library.nut" import *
 
 let cursors = require("%ui/style/cursors.nut")
+let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { makeVertScroll, thinStyle } = require("%ui/components/scrollbar.nut")
 let STATUS = require("%enlSqGlob/readyStatus.nut")
-let { slotBaseSize, smallPadding, bigPadding } = require("%enlSqGlob/ui/viewConst.nut")
+let { slotBaseSize, smallPadding, midPadding, defTxtColor, panelBgColor
+} = require("%enlSqGlob/ui/designConst.nut")
 let { note } = require("%enlSqGlob/ui/defcomps.nut")
 let mkSoldierCard = require("%enlSqGlob/ui/mkSoldierCard.nut")
 let mkVehicleSeats = require("%enlSqGlob/squad_vehicle_seats.nut")
+
+
+let emptySlot = @(cb) {
+  behavior = Behaviors.Button
+  onClick = cb
+  size = slotBaseSize
+  rendObj = ROBJ_SOLID
+  color = panelBgColor
+  halign = ALIGN_CENTER
+  valign = ALIGN_CENTER
+  children = [
+    {
+      rendObj = ROBJ_TEXT
+      text = loc("squad/soldierFreeSlot")
+      color = defTxtColor
+    }.__update(fontSub)
+  ]
+}
 
 let mkSoldierSlot = kwarg(function(soldier, idx, curSoldierIdxWatch,
   canDeselect = true, addCardChild = null, isFreemiumMode = false, thresholdColor = 0,
@@ -79,7 +99,8 @@ let mkSoldierSlot = kwarg(function(soldier, idx, curSoldierIdxWatch,
 
 function mkSoldiersBlock(params) {
   let {
-    soldiersListWatch, curSoldierIdxWatch, vehicleInfo = Watched(null), addCardChild = null
+    soldiersListWatch, curSoldierIdxWatch, vehicleInfo = Watched(null), addCardChild = null,
+    emptySlotsNum = 0, emptySlotHandler = null
   } = params
   return function() {
     let seatsOrder = mkVehicleSeats(vehicleInfo.value)
@@ -96,6 +117,10 @@ function mkSoldiersBlock(params) {
           addCardChild
           seatsOrder }),
         KWARG_NON_STRICT)))
+    }
+
+    for (local i = 0; i < emptySlotsNum; i++) {
+      children.append(emptySlot(emptySlotHandler))
     }
 
     return {
@@ -120,7 +145,7 @@ let mkVehicleBlock = @(hasVehicleWatch, curVehicleUi) function() {
 
   return res.__update({
     size = [flex(), SIZE_TO_CONTENT]
-    margin = [0, 0, bigPadding, 0]
+    margin = [0, 0, midPadding, 0]
     children = {
       flow = FLOW_VERTICAL
       gap = smallPadding

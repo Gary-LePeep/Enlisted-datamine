@@ -2,7 +2,7 @@ from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { lerp } = require("%sqstd/math.nut")
 let { navHeight } = require("mainmenu.style.nut")
-let { gap } = require("%enlSqGlob/ui/viewConst.nut")
+let { gap } = require("%enlSqGlob/ui/designConst.nut")
 let { safeAreaAmount, safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
 
 

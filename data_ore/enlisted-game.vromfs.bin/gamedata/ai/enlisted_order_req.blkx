@@ -916,132 +916,153 @@
     }
   },
   {
-    "orderedSelector": {
-      "name": "sub.attackReq",
-      "sequencer": [
-        {
-          "reaction": {
-            "event": "onEnemyPlayerNear",
-            "sequencer": {
-              "findDanger": {
-                "paramName": "shootEnemy",
-                "outSeeTimeParam": "shootEnemyTime",
-                "radiusParamName": "enemyNearRadius",
-                "minDanger": 0.1,
-                "tag": "human"
-              },
-              "recalculateTree": []
-            }
-          }
-        },
-        {
-          "reaction": {
-            "event": "regularCheck",
-            "repeat": [
-              {
-                "count": 1
-              },
-              {
-                "subTree": {
-                  "name": "",
-                  "treeName": "sub.chooseMaxStance"
-                }
-              },
-              {
-                "subTree": {
-                  "name": "",
-                  "treeName": "sub.deactivateWeapMod"
-                }
-              },
-              {
-                "subTree": {
-                  "name": "",
-                  "treeName": "sub.checkDowned"
-                }
-              },
-              {
-                "subTree": {
-                  "name": "",
-                  "treeName": "sub.checkBurning"
-                }
-              },
-              {
-                "subTree": {
-                  "name": "",
-                  "treeName": "sub.swimUpCheck"
-                }
-              },
-              {
-                "subTree": {
-                  "name": "",
-                  "treeName": "sub.findDangerZone"
-                }
-              },
-              {
-                "subTree": {
-                  "name": "",
-                  "treeName": "sub.tryToOpenDoors"
-                }
-              },
-              {
-                "subTree": {
-                  "name": "",
-                  "treeName": "sub.findDangerGrenade"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "chooseBestWeapon": {
-            "targetParam": "attackTarget"
-          }
-        },
-        {
-          "setCurrentAiAction": {
-            "state": "attack"
-          }
-        },
-        {
-          "findPointNearTarget": {
-            "posParam": "attackPosition",
-            "dist": [15.0,18.0],
-            "targetParam": "attackTarget",
-            "traceTarget": true,
-            "reusePrevPos": false
-          }
-        },
-        {
-          "moveToPos": {
-            "posParam": "attackPosition",
-            "sprintTimerRange": [10.0,20.0],
-            "minDistToSprint": 1.5,
-            "targetParam": "attackTarget",
-            "timeToLookAtTarget": 4.0,
-            "lookVisc": 0.1,
-            "tryClimbing": true,
-            "maxStanceParam": "maxStance",
-            "avoidAiObstacles": false
-          }
-        },
-        {
-          "throwGrenade": {
-            "targetUnitParam": "attackTarget",
-            "minThrowDistance": 3.0
-          }
-        },
-        {
-          "setIntVar": {
-            "to": "attackTarget",
-            "value": 0
+    "orderedSelector": [
+      {
+        "name": "sub.attackReq"
+      },
+      {
+        "sequencer": {
+          "isTargetVehicle": {
+            "targetEidParam": "attackTarget"
+          },
+          "copyIntVar": {
+            "to": "antiTankAttackTarget",
+            "from": "attackTarget"
+          },
+          "subTree": {
+            "name": "",
+            "treeName": "sub.tryAntiTankWeaponAttack"
           }
         }
-      ],
-      "setIntVar": {
-        "to": "attackTarget",
-        "value": 0
+      },
+      {
+        "sequencer": [
+          {
+            "reaction": {
+              "event": "onEnemyPlayerNear",
+              "sequencer": {
+                "findDanger": {
+                  "paramName": "shootEnemy",
+                  "outSeeTimeParam": "shootEnemyTime",
+                  "radiusParamName": "enemyNearRadius",
+                  "minDanger": 0.1,
+                  "tag": "human"
+                },
+                "recalculateTree": []
+              }
+            }
+          },
+          {
+            "reaction": {
+              "event": "regularCheck",
+              "repeat": [
+                {
+                  "count": 1
+                },
+                {
+                  "subTree": {
+                    "name": "",
+                    "treeName": "sub.chooseMaxStance"
+                  }
+                },
+                {
+                  "subTree": {
+                    "name": "",
+                    "treeName": "sub.deactivateWeapMod"
+                  }
+                },
+                {
+                  "subTree": {
+                    "name": "",
+                    "treeName": "sub.checkDowned"
+                  }
+                },
+                {
+                  "subTree": {
+                    "name": "",
+                    "treeName": "sub.checkBurning"
+                  }
+                },
+                {
+                  "subTree": {
+                    "name": "",
+                    "treeName": "sub.swimUpCheck"
+                  }
+                },
+                {
+                  "subTree": {
+                    "name": "",
+                    "treeName": "sub.findDangerZone"
+                  }
+                },
+                {
+                  "subTree": {
+                    "name": "",
+                    "treeName": "sub.tryToOpenDoors"
+                  }
+                },
+                {
+                  "subTree": {
+                    "name": "",
+                    "treeName": "sub.findDangerGrenade"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "chooseBestWeapon": {
+              "targetParam": "attackTarget"
+            }
+          },
+          {
+            "setCurrentAiAction": {
+              "state": "attack"
+            }
+          },
+          {
+            "findPointNearTarget": {
+              "posParam": "attackPosition",
+              "dist": [15.0,18.0],
+              "targetParam": "attackTarget",
+              "traceTarget": true,
+              "reusePrevPos": false
+            }
+          },
+          {
+            "moveToPos": {
+              "posParam": "attackPosition",
+              "sprintTimerRange": [10.0,20.0],
+              "minDistToSprint": 1.5,
+              "targetParam": "attackTarget",
+              "timeToLookAtTarget": 4.0,
+              "lookVisc": 0.1,
+              "tryClimbing": true,
+              "maxStanceParam": "maxStance",
+              "avoidAiObstacles": false
+            }
+          },
+          {
+            "throwGrenade": {
+              "targetUnitParam": "attackTarget",
+              "minThrowDistance": 3.0
+            }
+          },
+          {
+            "setIntVar": {
+              "to": "attackTarget",
+              "value": 0
+            }
+          }
+        ]
+      },
+      {
+        "setIntVar": {
+          "to": "attackTarget",
+          "value": 0
+        }
       }
-    }
+    ]
   },
   {
     "orderedSelector": [

@@ -137,6 +137,10 @@
       "value": 0,
       "_hide": true
     },
+    "human_input__planeSeatNext:i": {
+      "value": 0,
+      "_hide": true
+    },
     "human_input__driverSeat:i": {
       "value": 0,
       "_hide": true
@@ -2345,6 +2349,9 @@
       "_replicated": "total_kits__targetHeal"
     },
     {
+      "_replicated": "total_kits__targetRepair"
+    },
+    {
       "_replicated": "total_kits__targetOnlyHeal"
     },
     {
@@ -2385,6 +2392,9 @@
     },
     {
       "_tracked": "total_kits__targetHeal"
+    },
+    {
+      "_tracked": "total_kits__targetRepair"
     },
     {
       "_tracked": "total_kits__targetOnlyHeal"
@@ -2442,6 +2452,9 @@
     },
     {
       "total_kits__targetHeal": 0
+    },
+    {
+      "total_kits__targetRepair": 0
     },
     {
       "total_kits__targetOnlyHeal": 0
@@ -2520,6 +2533,12 @@
     },
     {
       "human_cam_walk_bhv__spreadMult": 0.2
+    },
+    {
+      "human_cam_walk_bhv__leanSpreadMult": 0.3
+    },
+    {
+      "human_cam_walk_bhv__curSpreadMult": 0.2
     },
     {
       "human_cam_walk_bhv__attachedGunSpreadMult": 0.14
@@ -3108,6 +3127,7 @@
     "total_kits__selfHeal": "filter_friendly_team",
     "total_kits__selfRevive": "filter_friendly_team",
     "total_kits__targetHeal": "filter_friendly_team",
+    "total_kits__targetRepair": "filter_friendly_team",
     "total_kits__targetRevive": "filter_friendly_team",
     "enter_vehicle__timerEnabled": "filter_possessed",
     "burning__force": "filter_possessed",
@@ -3635,11 +3655,17 @@
         },
         {
           "gun:eid": []
+        },
+        {
+          "gun:eid": []
         }
       ]
     },
     {
       "human_weap__gunMods:array": [
+        {
+          "mods:list<eid>": []
+        },
         {
           "mods:list<eid>": []
         },
@@ -3682,6 +3708,9 @@
         },
         {
           "salt": -1
+        },
+        {
+          "salt": -1
         }
       ]
     },
@@ -3693,6 +3722,12 @@
     },
     {
       "human_weap__weapInfo:array": [
+        {
+          "weapInfo:object": {
+            "reserveAmmoTemplate": "",
+            "numReserveAmmo": 0
+          }
+        },
         {
           "weapInfo:object": {
             "reserveAmmoTemplate": "",
@@ -3775,6 +3810,9 @@
     },
     {
       "human_weap__gunModsBySlot:array": [
+        {
+          "gunModsBySlot:object": []
+        },
         {
           "gunModsBySlot:object": []
         },

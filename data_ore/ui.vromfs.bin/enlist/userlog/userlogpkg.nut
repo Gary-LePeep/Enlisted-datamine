@@ -3,9 +3,9 @@ from "%enlSqGlob/ui/ui_library.nut" import *
 //let faComp = require("%ui/components/faComp.nut")
 let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
-let { smallOffset,
-  tinyOffset, accentTitleTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
-let { defTxtColor, darkTxtColor, smallPadding, bigPadding } = require("%enlSqGlob/ui/designConst.nut")
+let { defTxtColor, darkTxtColor, smallPadding, bigPadding,
+  smallOffset, tinyOffset, accentTitleTxtColor
+} = require("%enlSqGlob/ui/designConst.nut")
 let { format_unix_time } = require("dagor.iso8601")
 
 

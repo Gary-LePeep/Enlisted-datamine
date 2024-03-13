@@ -9,9 +9,9 @@ let {
   txtColor
 } = require("%enlSqGlob/ui/squadsUiComps.nut")
 let {
-  bigPadding, smallPadding, squadSlotHorSize,
+  midPadding, smallPadding, squadSlotHorSize,
   listCtors, defTxtColor, selectedTxtColor, activeBgColor
-} = require("%enlSqGlob/ui/viewConst.nut")
+} = require("%enlSqGlob/ui/designConst.nut")
 let { nameColor, txtDisabledColor } = listCtors
 let { getItemName } = require("%enlSqGlob/ui/itemsInfo.nut")
 let {
@@ -22,6 +22,7 @@ let openSquadTextTutorial = require("%enlist/tutorial/squadTextTutorial.nut")
 let { sound_play } = require("%dngscripts/sound_system.nut")
 let { mkBattleRating } = require("%enlSqGlob/ui/battleRatingPkg.nut")
 let { getSquadBR } = require("%enlist/soldiers/armySquadTier.nut")
+
 
 let squadIconSize = [hdpxi(60), hdpxi(60)]
 let squadTypeIconSize = hdpxi(20)
@@ -103,7 +104,7 @@ function squadDragAnim(moveDir, idx, stateFlags, content, chContent, needMoveCur
       behavior = Behaviors.RtPropUpdate
       rtAlwaysUpdate = true
       update = @() {
-        transform = { translate = [0, moveDir.value * (squadSlotHorSize[1] + bigPadding)] }
+        transform = { translate = [0, moveDir.value * (squadSlotHorSize[1] + midPadding)] }
       }
     }) : chContent
   })
@@ -145,7 +146,7 @@ let mkSellBtn = @(onSellCb, override, stateFlags, isHovered, isSelected)
 let dragIcon = @(sf) {
   rendObj = ROBJ_IMAGE
   size = [dragIconWidth, dragIconWidth]
-  margin = [0, bigPadding, 0, 0]
+  margin = [0, midPadding, 0, 0]
   keepAspect = KEEP_ASPECT_FIT
   image = Picture("!ui/squads/drag_squads.svg:{0}:{0}:K".subst(dragIconWidth))
   color = txtColor(sf)
@@ -196,7 +197,7 @@ let mkHorizontalSlot = kwarg(function (guid, squadId, idx, onClick, manageLocId,
     }
   }
 
-  let squadIcon = mkSquadIcon(icon, { size = squadIconSize, margin = bigPadding })
+  let squadIcon = mkSquadIcon(icon, { size = squadIconSize, margin = midPadding })
   let squadPremIcon = mkSquadPremIcon(premIcon, { margin = [hdpx(2), 0] })
   let watch = [isSelected, stateFlags, isDropTarget, needHighlight, isGamepad]
   let infoBtnStateFlags = Watched(0)
@@ -243,7 +244,7 @@ let mkHorizontalSlot = kwarg(function (guid, squadId, idx, onClick, manageLocId,
           flow = FLOW_HORIZONTAL
           size = flex()
           valign = ALIGN_CENTER
-          gap = bigPadding
+          gap = midPadding
           color = bgColor
           children = [
             {
@@ -273,7 +274,7 @@ let mkHorizontalSlot = kwarg(function (guid, squadId, idx, onClick, manageLocId,
                     {
                       flow = FLOW_HORIZONTAL
                       valign = ALIGN_CENTER
-                      gap = bigPadding
+                      gap = midPadding
                       children = [
                         {
                           flow = FLOW_HORIZONTAL

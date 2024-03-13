@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui/ui_library.nut" import *
 let { FAButton, Bordered } = require("%ui/components/txtButton.nut")
 let { fontHeading2 } = require("%enlSqGlob/ui/fontsStyle.nut")
-let { smallPadding } = require("%enlSqGlob/ui/viewConst.nut")
+let { smallPadding } = require("%enlSqGlob/ui/designConst.nut")
 let { isGamepad } = require("%ui/control/active_controls.nut")
 let { mkHotkey } = require("%ui/components/uiHotkeysHint.nut")
 

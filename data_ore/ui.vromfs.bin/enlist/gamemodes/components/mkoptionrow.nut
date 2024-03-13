@@ -3,7 +3,7 @@ from "%enlSqGlob/ui/ui_library.nut" import *
 let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let {
   bigPadding, defInsideBgColor, defTxtColor, blurBgFillColor, smallPadding
-} = require("%enlSqGlob/ui/viewConst.nut")
+} = require("%enlSqGlob/ui/designConst.nut")
 let {
   rowHeight
 } = require("%enlist/gameModes/eventModeStyle.nut")

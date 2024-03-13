@@ -6,9 +6,9 @@ let {
   mkRewardIcon, mkRewardImages, rewardWidthToHeight
 } = require("%enlist/battlepass/rewardsPkg.nut")
 let {
-  defBgColor, bigPadding, smallPadding, activeTxtColor, titleTxtColor,
+  defBgColor, midPadding, smallPadding, activeTxtColor, titleTxtColor,
   accentTitleTxtColor
-} = require("%enlSqGlob/ui/viewConst.nut")
+} = require("%enlSqGlob/ui/designConst.nut")
 let {
   mkXpBooster, mkBoosterInfo, mkBoosterLimits
 } = require("%enlist/components/mkXpBooster.nut")
@@ -35,7 +35,7 @@ let wndParams = {
 let cardBottom = @(count, cardIcon){
   size = [flex(), SIZE_TO_CONTENT]
   flow = FLOW_HORIZONTAL
-  margin = bigPadding
+  margin = midPadding
   vplace = ALIGN_BOTTOM
   valign = ALIGN_BOTTOM
   halign = ALIGN_RIGHT

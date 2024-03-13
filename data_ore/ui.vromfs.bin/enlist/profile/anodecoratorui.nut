@@ -4,7 +4,7 @@ let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
 let { PORTRAIT_SIZE, mkRatingBlock, mkPortraitIcon } = require("decoratorPkg.nut")
 let { getPortrait, frameNick } = require("%enlSqGlob/ui/decoratorsPresentation.nut")
-let { titleTxtColor, defBgColor } = require("%enlSqGlob/ui/viewConst.nut")
+let { titleTxtColor, defBgColor } = require("%enlSqGlob/ui/designConst.nut")
 let { borderColor } = require("profilePkg.nut")
 let { anoProfileData } = require("anoProfileState.nut")
 

@@ -2,8 +2,6 @@ from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { round_by_value } = require("%sqstd/math.nut")
-let { bigPadding, smallPadding, textBgBlurColor, activeTxtColor
-} = require("%enlSqGlob/ui/viewConst.nut")
 let defcomps = require("%enlSqGlob/ui/defcomps.nut")
 let { Flat, PrimaryFlat } = require("%ui/components/textButton.nut")
 let { statusIconLocked, statusIconBlocked, hintText
@@ -36,7 +34,8 @@ let { openUpgradeItemMsg, openDisposeItemMsg
 let { getShopItemsCmp, curArmyShopItems, openAndHighlightItems
 } = require("%enlist/shop/armyShopState.nut")
 let { isDmViewerEnabled } = require("%enlist/vehicles/dmViewer.nut")
-let { inventoryItemDetailsWidth, disabledBdColor, defBdColor, commonBorderRadius
+let { inventoryItemDetailsWidth, disabledBdColor, defBdColor, commonBorderRadius,
+  midPadding, smallPadding, textBgBlurColor, activeTxtColor
 } = require("%enlSqGlob/ui/designConst.nut")
 let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
 let { mkSquadIcon } = require("%enlSqGlob/ui/squadsUiComps.nut")
@@ -103,7 +102,7 @@ function vehicleStatusRow(item) {
 }
 
 let backButton = Flat(loc("mainmenu/btnBack"), vehicleClear,
-  { margin = [0, bigPadding, 0, 0] })
+  { margin = [0, midPadding, 0, 0] })
 
 // TODO same as selectItemScene.nut, should be joined in one module
 let openResearchGrowthMsgbox = @(growth) showMsgbox({
@@ -141,7 +140,7 @@ function mkUpgradeBtn(item) {
     if (!upgradeData.isUpgradable)
       return res
 
-    res.margin <- [0, bigPadding, 0, 0]
+    res.margin <- [0, midPadding, 0, 0]
     let { isResearchRequired, armyId, hasEnoughOrders, upgradeMult, itemBaseTpl } = upgradeData
 
     if (isResearchRequired) {
@@ -181,7 +180,7 @@ function mkUpgradeBtn(item) {
         } : {})
     return res.__update({
       flow = FLOW_VERTICAL
-      gap = bigPadding
+      gap = midPadding
       halign = ALIGN_CENTER
       children = [
         upgradeMultInfo
@@ -217,7 +216,7 @@ function mkDisposeBtn(item) {
     if (!disposeData.isDisposable)
       return res
 
-    res.margin <- [0, bigPadding, 0, 0]
+    res.margin <- [0, midPadding, 0, 0]
     let { disposeMult, isDestructible = false, isRecyclable = false } = disposeData
 
     let bCtor = Flat
@@ -228,7 +227,7 @@ function mkDisposeBtn(item) {
     })
     return res.__update({
       flow = FLOW_VERTICAL
-      gap = bigPadding
+      gap = midPadding
       halign = ALIGN_CENTER
       children = [
         disposeMultInfo
@@ -249,7 +248,7 @@ function mkDisposeBtn(item) {
 
 
 let btnStyle = {
-  margin = [0, bigPadding, 0, 0]
+  margin = [0, midPadding, 0, 0]
   hotkeys = [[ "^J:Y" ]]
 }
 
@@ -287,12 +286,12 @@ let manageButtons = @() {
   watch = [viewVehicle, selectedVehicle, isGamepad, isChangesBlocked]
   flow = FLOW_VERTICAL
   halign = ALIGN_RIGHT
-  gap = bigPadding
+  gap = midPadding
   children = {
     rendObj = ROBJ_WORLD_BLUR_PANEL
     color = textBgBlurColor
     flow = FLOW_HORIZONTAL
-    padding = [bigPadding, 0, bigPadding, bigPadding]
+    padding = [midPadding, 0, midPadding, midPadding]
     valign = ALIGN_BOTTOM
     children = isItemActionInProgress.value
       ? [waitingSpinner]
@@ -333,7 +332,7 @@ return function() {
           size = flex()
           flow = FLOW_VERTICAL
           valign = ALIGN_BOTTOM
-          gap = bigPadding
+          gap = midPadding
           children = [
             mkViewItemDetails(viewVehicle.value, Watched(true),
               fsh(75) - safeAreaBorders.value[0] - safeAreaBorders.value[2])

@@ -1,8 +1,7 @@
 from "%enlSqGlob/ui/ui_library.nut" import *
 
-let { unitSize, blockedTxtColor, isWide } = require("%enlSqGlob/ui/viewConst.nut")
 let { defTxtColor, attentionTxtColor, titleTxtColor, panelBgColor, darkPanelBgColor, darkTxtColor,
-  smallPadding, midPadding, largePadding, bigPadding, sidePadding
+  smallPadding, midPadding, largePadding, bigPadding, sidePadding, unitSize, blockedTxtColor, isWide
 } = require("%enlSqGlob/ui/designConst.nut")
 let { getColorTbl, NodeElements, darkColor, lightColor, treeBgColor } = require("treeDesign.nut")
 let { fontSub, fontBody, fontHeading2, fontawesome } = require("%enlSqGlob/ui/fontsStyle.nut")

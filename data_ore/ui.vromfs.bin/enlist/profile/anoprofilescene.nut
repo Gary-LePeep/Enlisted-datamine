@@ -6,7 +6,7 @@ let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
 let { sceneWithCameraAdd, sceneWithCameraRemove } = require("%enlist/sceneWithCamera.nut")
 let { mkFooterWithButtons, PROFILE_WIDTH } = require("profilePkg.nut")
 let { Bordered } = require("%ui/components/textButton.nut")
-let { blurBgColor, bigOffset } = require("%enlSqGlob/ui/viewConst.nut")
+let { blurBgColor, bigOffset } = require("%enlSqGlob/ui/designConst.nut")
 let JB = require("%ui/control/gui_buttons.nut")
 
 let anoProfileWindow = @() {

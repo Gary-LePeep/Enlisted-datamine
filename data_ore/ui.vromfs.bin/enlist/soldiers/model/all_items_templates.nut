@@ -68,8 +68,8 @@ let singleSlotItemTypes = @(subSchemeGetter) function(scheme, resTypes) {
 
 let slotTypesConfig = {
   function mainWeapon(scheme, resTypes) {
-    foreach (slotData in scheme)
-      if (["primary", "secondary"].contains(slotData?.ingameWeaponSlot)) {
+    foreach (key, slotData in scheme)
+      if (["primary", "secondary"].contains(slotData?.ingameWeaponSlot) && key != "medbox") {
         let { itemTypes = [] } = slotData
         foreach (iType in itemTypes)
           resTypes[iType] <- true

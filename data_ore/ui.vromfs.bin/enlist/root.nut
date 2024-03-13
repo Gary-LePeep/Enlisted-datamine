@@ -55,10 +55,8 @@ let speakingList = require("%ui/speaking_list.nut")
 let modsDownloadInfo = require("%enlist/gameModes/sandbox/modsDownloadInfo.ui.nut")
 
 let {mkSettingsMenuUi, showSettingsMenu} = require("%ui/hud/menus/settings_menu.nut")
-let emailLinkButton = require("mkLinkButton.nut")
 let settingsMenuUi = mkSettingsMenuUi({
   onClose = @() showSettingsMenu(false)
-  leftButtons = [ emailLinkButton ]
 })
 let {controlsMenuUi, showControlsMenu} = require("%ui/hud/menus/controls_setup.nut")
 require("%enlist/options/onlineSaveDataHub.nut")
@@ -152,7 +150,7 @@ let inBattleUiChildren = freeze([
 let outOfBattleChildren = freeze([
   globInput, fadeBlackUi, underUi, curScreen, version_info, aboveUi, modalWindowsComponent,
   msgboxesUI, popupBlock, speakingList, logerrsUi, infoIcons, inspectorRoot, serviceInfo,
-  hotkeysButtonsBar, modsDownloadInfo
+  hotkeysButtonsBar, modsDownloadInfo, dbgSafeArea
 ])
 
 let showCursor = Computed(@() !isInBattleState.value)

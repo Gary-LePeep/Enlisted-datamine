@@ -3,7 +3,7 @@ from "%enlSqGlob/ui/ui_library.nut" import *
 let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let mkDotPaginator = require("%enlist/components/mkDotPaginator.nut")
 let { accentTitleTxtColor, activeTxtColor, defBgColor, smallPadding
-} = require("%enlSqGlob/ui/viewConst.nut")
+} = require("%enlSqGlob/ui/designConst.nut")
 let { isEventModesOpened } = require("%enlist/gameModes/eventModesState.nut")
 let { featuredMods, offersModMsgbox } = require("customMissionOfferState.nut")
 

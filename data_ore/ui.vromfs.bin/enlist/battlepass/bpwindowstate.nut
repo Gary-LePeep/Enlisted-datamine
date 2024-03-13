@@ -39,7 +39,9 @@ let combinedRewards = Computed(function(){
     local progressVal = null
     local progressState = null
     if (stageIdx < (nextRewardStage.value ?? currentStage))
-      progressState = RewardState.COMPLETED
+      progressState = isPremium && !hasEliteBattlePass.value
+        ? RewardState.INACTIVE
+        : RewardState.COMPLETED
     else if (stageIdx < currentStage)
       progressState = isPremium && !hasEliteBattlePass.value
         ? RewardState.INACTIVE

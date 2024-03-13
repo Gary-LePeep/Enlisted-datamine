@@ -3,7 +3,7 @@ import "%dngscripts/ecs.nut" as ecs
 
 let {
   PrefabSaveEvent, PrefabCreateFromSelectedEvent, AddSelectedToPrefabEvent,
-  PrefabSpawnEvent, PrefabSelectParentEvent, PrefabShatterSelectedEvent
+  PrefabSpawnEvent, PrefabSelectParentEvent, PrefabSelectObjectsEvent, PrefabShatterSelectedEvent
 } = require("dasevents")
 let {isPrefabTool, selectedPrefabs, selectedPrefab, selectedPrefabObjects, selectedNoPrefabs, prefabsLibrary, getPrefabsInLibrary} = require("prefabEditorState.nut")
 let modalWindows = require("%daeditor/components/modalWindowsMngr.nut")({halign = ALIGN_CENTER valign = ALIGN_CENTER rendObj=ROBJ_WORLD_BLUR})
@@ -107,13 +107,14 @@ function listRow(prefab_name, idx) {
       prefab_name
 
       watch = stateFlags
-      onClick = @() selectedItem(prefab_name)
+      onClick = @() selectedItem(selectedItem.value != prefab_name ? prefab_name : null)
       onDoubleClick = @() doSelectPrefab(prefab_name)
       onElemState = @(sf) stateFlags.update(sf & S_TOP_HOVER)
 
       children = {
         rendObj = ROBJ_TEXT
         text = prefab_name
+        color = Color(235, 235, 235)
         margin = fsh(0.5)
       }
     }
@@ -123,7 +124,7 @@ function listRow(prefab_name, idx) {
 
 function prefabInfoBlock() {
   let prefab = selectedPrefab.value
-  let prefabText = selectedPrefabs.value.len() == 0 ? "Prefab not selected"
+  let prefabText = selectedPrefabs.value.len() == 0 ? "Prefab not selected in scene"
                                                     : prefab
                                                       ? $"Prefab: {prefab.name} (#{prefab.eid})"
                                                       : $"Prefabs: {selectedPrefabs.value.len()} selected"
@@ -145,7 +146,7 @@ function prefabInfoBlock() {
         vplace = ALIGN_CENTER
         size = [flex(), SIZE_TO_CONTENT]
       })
-      txt($"Other entities: {selectedNoPrefabs.value.len()}", {
+      txt($"Selected entities (not prefabs): {selectedNoPrefabs.value.len()}", {
         fontSize = hdpx(16)
         hplace = ALIGN_CENTER
         vplace = ALIGN_CENTER
@@ -181,20 +182,25 @@ function prefabSaveAndShatterBlock() {
         foreach (eid in selectedPrefabs.value.keys())
           ecs.g_entity_mgr.sendEvent(eid, PrefabSaveEvent({}))
         gui_scene.resetTimeout(0.2, @() prefabsLibrary(getPrefabsInLibrary()))
-      }, {onHover = @(on) cursors.setTooltip(on ? "Save selected prefab to file, replacing its previous content" : null)})
-      textButton("Shatter", @() ecs.g_entity_mgr.broadcastEvent(PrefabShatterSelectedEvent({})), {onHover = @(on) cursors.setTooltip(on ? "Decompose prefab to separate entities" : null)})
+      }, {onHover = @(on) cursors.setTooltip(on ? "Save selected in scene prefabs to files, replacing previous content" : null)})
+      textButton("Shatter", @() ecs.g_entity_mgr.broadcastEvent(PrefabShatterSelectedEvent({})), {onHover = @(on) cursors.setTooltip(on ? "Detach prefab objects from prefabs in scene / decompose prefabs" : null)})
       textButton("Delete", function() {
         foreach (eid in selectedPrefabObjects.value.keys())
           ecs.g_entity_mgr.destroyEntity(eid)
         foreach (eid in selectedPrefabs.value.keys())
           ecs.g_entity_mgr.destroyEntity(eid)
         gui_scene.resetTimeout(0.2, @() prefabsLibrary(getPrefabsInLibrary()))
-      }, {onHover = @(on) cursors.setTooltip(on ? "Delete whole prefab or prefab entities from scene" : null)})
+      }, {onHover = @(on) cursors.setTooltip(on ? "Delete prefabs or prefab objects from scene" : null)})
+      selectedPrefabObjects.value.len() == 0 && selectedPrefabs.value.len() != 0 ? textButton("Select", function() {
+        entity_editor?.get_instance()?.selectEntities([])
+        foreach (eid in selectedPrefabs.value.keys())
+          ecs.g_entity_mgr.sendEvent(eid, PrefabSelectObjectsEvent({}))
+      }, {onHover = @(on) cursors.setTooltip(on ? "Select all prefab objects entities of selected prefab(s) in scene" : null)}) : null
       selectedPrefabObjects.value.len() != 0 ? textButton("Parent", function() {
         entity_editor?.get_instance()?.selectEntities([])
         foreach (eid in selectedPrefabObjects.value.keys())
           ecs.g_entity_mgr.sendEvent(eid, PrefabSelectParentEvent({}))
-      }, {onHover = @(on) cursors.setTooltip(on ? "Select parent prefab entities of prefab objects" : null)}) : null
+      }, {onHover = @(on) cursors.setTooltip(on ? "Select parent prefab(s) in scene and deselect other entities" : null)}) : null
     ]
   })
 }
@@ -209,7 +215,7 @@ function prefabCreateFromSelectedBlock() {
     flow = FLOW_HORIZONTAL
     size = [flex(), SIZE_TO_CONTENT]
     children = [
-      textButton("Create prefab from selected", @() addModalWindow({
+      textButton("Create prefab from selected entities", @() addModalWindow({
         key = PREFAB_CREATE_MODAL_ID
         children = [
           {
@@ -269,7 +275,7 @@ function addSelectedObjectsToPrefab() {
     flow = FLOW_HORIZONTAL
     size = [flex(), SIZE_TO_CONTENT]
     children = [
-      textButton("Add selected objects to selected prefab", @() ecs.g_entity_mgr.sendEvent(selectedPrefab.value.eid, AddSelectedToPrefabEvent({})))
+      textButton("Add selected entities to prefab entity", @() ecs.g_entity_mgr.sendEvent(selectedPrefab.value.eid, AddSelectedToPrefabEvent({})))
     ]
   })
 }
@@ -281,7 +287,6 @@ function dialogRoot() {
     foreach (prefab in prefabsLibrary.value)
       if (filterText.value.len() == 0 || prefab.tolower().contains(filterText.value.tolower()))
         rows.append(listRow(prefab, idx++))
-
 
     return {
       watch = [prefabsLibrary, selectedItem, filterText]
@@ -371,7 +376,7 @@ function dialogRoot() {
             size = flex()
             children = scrollList
           }
-          txt("Click to select prefab, double click to spawn")
+          txt("Click to select, double click to spawn")
           @() {
             flow = FLOW_HORIZONTAL
             watch = selectedItem
@@ -380,7 +385,7 @@ function dialogRoot() {
             valign = ALIGN_CENTER
             children = [
               textButton("Close", doClose)
-              selectedItem.value != null ? textButton("Remove from list", doDeleteSelected, {onHover = @(on) cursors.setTooltip(on ? "Delete prefab from userPrefabs folder" : null)}) : null
+              selectedItem.value != null ? textButton("Delete prefab", doDeleteSelected, {onHover = @(on) cursors.setTooltip(on ? "Delete file of selected prefab in list from 'userPrefabs' folder" : null)}) : null
             ]
           }
         ] : modalWindowsComponent

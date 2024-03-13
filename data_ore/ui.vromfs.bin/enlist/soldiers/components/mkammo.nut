@@ -3,7 +3,7 @@ from "%enlSqGlob/ui/ui_library.nut" import *
 let { iconByGameTemplate } = require("%enlSqGlob/ui/itemsInfo.nut")
 let {
   defInsideBgColor, insideBorderColor, smallPadding
-} = require("%enlSqGlob/ui/viewConst.nut")
+} = require("%enlSqGlob/ui/designConst.nut")
 let { configs } = require("%enlist/meta/configs.nut")
 let { campItemsByLink } = require("%enlist/meta/profile.nut")
 

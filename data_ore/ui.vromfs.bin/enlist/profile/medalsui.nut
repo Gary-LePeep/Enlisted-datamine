@@ -9,7 +9,7 @@ let { medalsByCampaign } = require("medalsState.nut")
 let { setTooltip } = require("%ui/style/cursors.nut")
 let { mkMedalCard, mkDisabledMedalCard, mkMedalTooltip } = require("medalsPkg.nut")
 let { PROFILE_WIDTH } = require("profilePkg.nut")
-let { smallPadding, bigPadding } = require("%enlSqGlob/ui/viewConst.nut")
+let { smallPadding, midPadding } = require("%enlSqGlob/ui/designConst.nut")
 let { makeVertScroll, thinStyle } = require("%ui/components/scrollbar.nut")
 let { seenMedals, markSeenMedal, markMedalsOpened } = require("unseenProfileState.nut")
 let { smallUnseenNoBlink } = require("%ui/components/unseenComps.nut")
@@ -18,7 +18,7 @@ let { getCampaignTitle } = require("%enlSqGlob/ui/itemsInfo.nut")
 
 const MAX_COLUMNS = 6
 
-let mCardWidth = ((PROFILE_WIDTH - (MAX_COLUMNS - 1) * bigPadding) / MAX_COLUMNS).tointeger()
+let mCardWidth = ((PROFILE_WIDTH - (MAX_COLUMNS - 1) * midPadding) / MAX_COLUMNS).tointeger()
 let mIconSize = hdpx(160)
 
 function mkMedalBlock(medal, isUnseen) {
@@ -56,7 +56,7 @@ function mkCampaignMedals(campaignId, medalsByCamp, unseen) {
     children = [
       txt({
         text = getCampaignTitle(campaignId)
-        margin = bigPadding
+        margin = midPadding
       }).__update(fontBody)
       wrap(campaignMedals.map(function(medal) {
         let isUnseen = medal.id in unseen
@@ -68,8 +68,8 @@ function mkCampaignMedals(campaignId, medalsByCamp, unseen) {
         }
       }), {
         width = PROFILE_WIDTH
-        hGap = bigPadding
-        vGap = bigPadding
+        hGap = midPadding
+        vGap = midPadding
       })
     ]
   }
@@ -92,7 +92,7 @@ function medalsListUi() {
     children = makeVertScroll({
       size = [PROFILE_WIDTH, SIZE_TO_CONTENT]
       flow = FLOW_VERTICAL
-      gap = bigPadding
+      gap = midPadding
       children = unlockedCampaigns.value.map(@(c) mkCampaignMedals(c, medalsByCamp, unseen))
     }, {
       styling = thinStyle

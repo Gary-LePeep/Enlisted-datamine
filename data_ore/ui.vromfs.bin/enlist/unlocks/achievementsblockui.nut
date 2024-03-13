@@ -3,8 +3,8 @@ from "%enlSqGlob/ui/ui_library.nut" import *
 let { achievementsByTypes, receiveTaskRewards } = require("taskListState.nut")
 let { getUnlockProgress, unlockProgress } = require("%enlSqGlob/userstats/unlocksState.nut")
 let { unlockRewardsInProgress } = require("%enlSqGlob/userstats/userstat.nut")
-let { smallPadding, bigPadding, defBgColor, smallOffset
-} = require("%enlSqGlob/ui/viewConst.nut")
+let { smallPadding, midPadding, defBgColor, smallOffset, hoverSlotBgColor
+} = require("%enlSqGlob/ui/designConst.nut")
 let { mkAchievementTitle, mkTaskEmblem, taskHeader, taskDescription, taskDescPadding,
   statusBlock, taskMinHeight, taskSlotPadding, mkGetTaskRewardBtn
 } = require("%enlSqGlob/ui/tasksPkg.nut")
@@ -12,8 +12,6 @@ let itemsMapping = require("%enlist/items/itemsMapping.nut")
 let { mkTaskRewards } = require("mkUnlockSlots.nut")
 let scrollbar = require("%ui/components/scrollbar.nut")
 let { seenUnlocks, markUnlocksOpened } = require("%enlist/unlocks/unseenUnlocksState.nut")
-let { hoverSlotBgColor } = require("%enlSqGlob/ui/designConst.nut")
-
 
 let mkTaskContent = @(task, sf)
   function() {
@@ -106,7 +104,7 @@ let achievementsBlockUI = {
       halign = ALIGN_CENTER
       children = [mkAchievementTitle(achievements, "achievementsTitle")]
         .extend(achievements.map(@(achievement) mkAchievementSlot(achievement)))
-        .append({ size = [0, bigPadding] })
+        .append({ size = [0, midPadding] })
         .append(mkAchievementTitle(challenges, "challengesTitle"))
         .extend(challenges.map(@(challenge) mkAchievementSlot(challenge)))
     }

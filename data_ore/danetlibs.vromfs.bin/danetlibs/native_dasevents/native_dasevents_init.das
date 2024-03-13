@@ -18,7 +18,4 @@ def load_native_dasevents(base_path : string) : bool
   return ok
 
 
-[export]
-def test()
-  let ok = load_native_dasevents("%danetlibs/native_dasevents")
-  assert(ok)
+

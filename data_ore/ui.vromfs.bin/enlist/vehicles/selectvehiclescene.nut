@@ -9,8 +9,8 @@ let {
 } = require("vehiclesListState.nut")
 let { getSquadConfig } = require("%enlist/soldiers/model/state.nut")
 let {
-  smallPadding, bigPadding, blurBgColor, blurBgFillColor, vehicleListCardSize, defTxtColor
-} = require("%enlSqGlob/ui/viewConst.nut")
+  smallPadding, midPadding, blurBgColor, blurBgFillColor, vehicleListCardSize, defTxtColor
+} = require("%enlSqGlob/ui/designConst.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
 let scrollbar = require("%ui/components/scrollbar.nut")
 let vehiclesListCard = require("vehiclesListCard.ui.nut")
@@ -105,7 +105,7 @@ function vehiclesList() {
     watch = [vehicles, showNotAvailable]
     size = [vehicleListCardSize[0], SIZE_TO_CONTENT]
     flow = FLOW_VERTICAL
-    gap = bigPadding
+    gap = midPadding
     children
   }
 }
@@ -123,7 +123,7 @@ let vehiclesBlock = {
   rendObj = ROBJ_WORLD_BLUR_PANEL
   color = blurBgColor
   fillColor = blurBgFillColor
-  padding = bigPadding
+  padding = midPadding
   flow = FLOW_VERTICAL
   stopMouse = true
   gap = smallPadding
@@ -157,7 +157,7 @@ let vehicleListWithBR = Computed(@()
 let selectVehicleContent = {
   size = flex()
   flow = FLOW_VERTICAL
-  gap = bigPadding
+  gap = midPadding
   children = [
     @() {
       watch = selectVehParams
@@ -166,7 +166,7 @@ let selectVehicleContent = {
     @() {
       size = flex()
       flow = FLOW_HORIZONTAL
-      gap = bigPadding
+      gap = midPadding
       watch = vehicleListWithBR
 
       behavior = Behaviors.MenuCameraControl

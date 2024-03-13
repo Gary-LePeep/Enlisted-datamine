@@ -751,6 +751,7 @@
     "shooter_camera__forceStabilized": true
   },
   "base_tank_fps_cam": {
+    "_use": "camera_dof",
     "shooter_cam__blk": "content/common/gamedata/cameras/tankfpscam.blk",
     "shooter_cam__alt_blk": "content/common/gamedata/cameras/tankfpscam_commander.blk",
     "shooter_cam__punch_x_range": [-0.0625,0.0625],

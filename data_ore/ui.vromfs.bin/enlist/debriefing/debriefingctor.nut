@@ -5,8 +5,10 @@ let { fontHeading2, fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut"
 let { get_log_directory, DBGLEVEL } = require("dagor.system")
 let { is_pc } = require("%dngscripts/platform.nut")
 let { normal, setTooltip } = require("%ui/style/cursors.nut")
-let { strokeStyle, bigPadding, awardIconSize, awardIconSpacing, debriefingDarkColor, commonBtnHeight
-} = require("%enlSqGlob/ui/viewConst.nut")
+let { midPadding, commonBtnHeight, strokeStyle,
+  awardIconSpacing, awardIconSize, debriefingDarkColor,
+  panelBgColor
+} = require("%enlSqGlob/ui/designConst.nut")
 let { Bordered, PrimaryFlat } = require("%ui/components/textButton.nut")
 let closeBtnBase = require("%ui/components/closeBtn.nut")
 let { secondsToTimeSimpleString } = require("%ui/helpers/time.nut")
@@ -56,7 +58,6 @@ let userActions = [
 let { showUserProfile } = require("%enlist/featureFlags.nut")
 let { curSoldierIdx } = require("%enlist/soldiers/model/curSoldiersState.nut")
 let { isUnited } = require("%enlist/meta/campaigns.nut")
-let { panelBgColor } = require("%enlSqGlob/ui/designConst.nut")
 
 const ANIM_TRIGGER = "new_items_wnd_anim"
 const NEW_BLOCK_TRIGGER = "new_debr_block_appear"
@@ -397,7 +398,7 @@ function armyProgressBlock(debriefing) {
   skippedAnims.army <- false
   return {
     size = [BODY_W, SIZE_TO_CONTENT]
-    padding = bigPadding
+    padding = midPadding
     children = mkArmyProgress({
       armyId
       armyAddExp = armyExp
@@ -544,7 +545,7 @@ function skipAnimOrClose(doClose, debriefing) {
 let mkCloseBtn = @(doClose, debriefing) closeBtnBase({
   onClick = @() skipAnimOrClose(doClose, debriefing)
   hotkeys = null
-}).__update({ margin = [bigPadding, 0] })
+}).__update({ margin = [midPadding, 0] })
 
 let btnCloseStyle = { margin = 0, size = [hdpx(450), hdpx(60)] }
 let mkSkipOrCloseBtn = @(doClose, debriefing) function() {
@@ -608,8 +609,8 @@ let mkAnimatedAward = @(award, idx, delay, nextAnimCb = null) {
 
 let awardsWrapParams = {
   width = BODY_W * 0.75
-  hGap = bigPadding * 4
-  vGap = bigPadding * 2
+  hGap = midPadding * 4
+  vGap = midPadding * 2
   halign = ALIGN_CENTER
 }
 
@@ -617,7 +618,7 @@ function mkAwardsContent(topAwards, awards, nextAnimCb, delay = 0) {
   let nextDelay = delay + topAwards.len() * AWARD_DELAY
   return {
     flow = FLOW_VERTICAL
-    gap = bigPadding
+    gap = midPadding
     children = [
       wrap(topAwards.map(@(award, idx)
         mkAnimatedAward(award, idx, delay)), awardsWrapParams)

@@ -18,15 +18,23 @@ let { watchedHeroEid } = require("%ui/hud/state/watched_hero.nut")
 let {minimalistHud} = require("%ui/hud/state/hudOptionsState.nut")
 let { currentGunEid, showAllWeaponsTrigger } = require("%ui/hud/state/hero_weapons.nut")
 let mkMedkitIcon = require("player_info/medkitIcon.nut")
+let mkRepairIcon = require("player_info/repairIcon.nut")
 let {selfHealMedkits} = require("%ui/hud/state/total_medkits.nut")
-let { defTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
+let {repairKits} = require("%ui/hud/state/total_repairkits.nut")
+let { defTxtColor } = require("%enlSqGlob/ui/designConst.nut")
 let { mobileRespawnOccupiedSeats } = require("%ui/hud/huds/player_info/mobile_respawn_widget.nut")
 
 let hasMedkit = Computed(@() selfHealMedkits.value > 0)
+let hasRepair = Computed(@() repairKits.value > 0)
 let medkitIco = mkMedkitIcon(hdpxi(25), defTxtColor)
+let repairIco = mkRepairIcon(hdpxi(25), defTxtColor)
 let playerMedkits = @() {
   watch = hasMedkit
   children = hasMedkit.value ? medkitIco : null
+}
+let playerRepairkit = @() {
+  watch = hasRepair
+  children = hasRepair.value ? repairIco : null
 }
 
 let mainStyles = {
@@ -45,11 +53,11 @@ let secondaryStyles = {
 
 let gap = freeze({size = [0, hdpx(5)]})
 
-let grenadesAndMedkits = freeze({
+let equipmentIcons = freeze({
   flow = FLOW_HORIZONTAL
   gap = hdpx(8)
   valign = ALIGN_CENTER
-  children = [playerMedkits, playerGrenades]
+  children = [playerRepairkit, playerMedkits, playerGrenades]
 })
 
 let showShortBlock = Watched(true)
@@ -85,7 +93,7 @@ let shortPlayerBlock = @() {
     firingModeCmp
     gap
     gap
-    grenadesAndMedkits
+    equipmentIcons
     handlersCm
   ] : handlersCm
 }

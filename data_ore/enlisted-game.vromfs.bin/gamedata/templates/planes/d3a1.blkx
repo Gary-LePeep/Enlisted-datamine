@@ -4,10 +4,10 @@
       "_use": "d3a1_base"
     },
     {
-      "_use": "squad_controlled_plane"
+      "_use": "d3a1_plane_sound"
     },
     {
-      "_use": "d3a1_plane_sound"
+      "_use": "plane_with_gunners"
     },
     {
       "item__name": "items/d3a1"
@@ -70,7 +70,11 @@
               [-0.0,0.0,-1.0],
               [0.2,0.1,0.0]
             ],
+            "cameraNodeName": "gun1",
+            "cameraOffset": [-0.4,0.32,0.0],
+            "cameraType": "gunner",
             "seatComponent": "isGunner",
+            "canPlaceManually": true,
             "receiveDamageFromDMPart": "gunner1_dm",
             "directTurretControl": true,
             "roomSpace": 1,
@@ -586,13 +590,30 @@
       "turret__aimNodeName": "turret1"
     },
     {
-      "turret__limit": [-90.0,90.0,-15.0,80.0]
+      "turret__limit": [-70.0,70.0,-15.0,40.0]
     },
     {
-      "turret__yawSpeed": 100.0
+      "turret__yawSpeed": 500.0
     },
     {
-      "turret__pitchSpeed": 100.0
+      "turret__pitchSpeed": 500.0
+    },
+    {
+      "turret__lastRelativeDir": [-1.0,0.0,0.0]
+    },
+    {
+      "turret__limitsTable:list<p4>": {
+        "lim1": [-70.0,-40.0,-10.0,40.0],
+        "lim2": [-40.0,-5.0,-5.0,40.0],
+        "lim3": [-5.0,5.0,3.0,40.0],
+        "lim4": [5.0,40.0,-5.0,40.0],
+        "lim5": [40.0,70.0,-100.0,40.0]
+      }
+    },
+    {
+      "turret__limitsDeadzone:list<p4>": {
+        "lim0": [-2.0,2.0,-15.0,7.0]
+      }
     }
   ],
   "d3a1_driver_cockpit": [

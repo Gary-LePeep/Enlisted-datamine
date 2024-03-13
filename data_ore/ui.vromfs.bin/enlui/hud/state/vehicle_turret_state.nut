@@ -13,6 +13,8 @@ let { turretsReplenishment, turretsReplenishmentSetKeyVal, turretsReplenishmentD
 let { turretsAmmo, turretsAmmoSetValue, turretsAmmoModify } = mkFrameIncrementObservable({}, "turretsAmmo")
 let { mainTurretEid, mainTurretEidSetValue } = mkFrameIncrementObservable(ecs.INVALID_ENTITY_ID, "mainTurretEid")
 let { currentMainTurretEid, currentMainTurretEidSetValue } = mkFrameIncrementObservable(ecs.INVALID_ENTITY_ID, "currentMainTurretEid")
+let { firstInputTurretEid, firstInputTurretEidSetValue } = mkFrameIncrementObservable(ecs.INVALID_ENTITY_ID, "firstInputTurretEid")
+
 const MACHINE_GUN_TRIGGER = 2
 
 function resetState() {
@@ -32,7 +34,8 @@ let turretQuery = ecs.SqQuery("turretQuery", {
     ["turret__triggerGroup", ecs.TYPE_INT, -1],
     ["gun__ammoSetsInfo", ecs.TYPE_SHARED_ARRAY, null],
     ["gun__shellsAmmo", ecs.TYPE_ARRAY, []],
-    ["turret__disableAim", ecs.TYPE_TAG, null]
+    ["turret__disableAim", ecs.TYPE_TAG, null],
+    ["firstTurretInput", ecs.TYPE_TAG, null],
   ]
 })
 
@@ -56,7 +59,7 @@ function initTurretsState(comp, ignore_control_turret_eid = ecs.INVALID_ENTITY_I
   let triggerMappingComp = comp["turret_control__triggerMapping"]?.getAll() ?? []
   let triggerMappings = get_trigger_mappings(triggerMappingComp)
   let turretInfo = comp["turret_control__turretInfo"]
-
+  local firstTurretInputEid = ecs.INVALID_ENTITY_ID
   foreach (gunIndex, gunEid in comp["turret_control__gunEids"]) {
     let trigger = turretInfo?[gunIndex]?.trigger
     let gEid = gunEid
@@ -83,12 +86,15 @@ function initTurretsState(comp, ignore_control_turret_eid = ecs.INVALID_ENTITY_I
         ammoSet = getAmmoSets(v, gunComp)
         showCrosshair = gunComp.turret__disableAim == null
       }
+      if (gunComp["firstTurretInput"] != null)
+        firstTurretInputEid = gEid
       let groupName = turret.groupName
       if (turretsByGroup?[groupName] == null)
         turretsByGroup[groupName] <- []
       turretsByGroup[groupName].append(turret)
     })
   }
+  firstInputTurretEidSetValue(firstTurretInputEid)
 
   let turrets = []
   foreach (group, turretsInGroup in turretsByGroup)
@@ -229,6 +235,7 @@ return {
   showVehicleWeapons
   mainTurretEid
   currentMainTurretEid
+  firstInputTurretEid
   currentMainTurretAmmo
   turretsReload
   turretsReplenishment

@@ -4,7 +4,7 @@
       "_use": "sb2c_1c_base"
     },
     {
-      "_use": "squad_controlled_plane"
+      "_use": "plane_with_gunners"
     },
     {
       "_use": "sb2c_1c_plane_sound"
@@ -67,7 +67,11 @@
               [8.74228e-08,0.0,-1.0],
               [0.0,0.0,0.0]
             ],
+            "cameraNodeName": "gun1",
+            "cameraOffset": [-0.25,0.12,0.0],
+            "cameraType": "gunner",
             "seatComponent": "isGunner",
+            "canPlaceManually": true,
             "receiveDamageFromDMPart": "gunner1_dm",
             "directTurretControl": true,
             "roomSpace": 1,
@@ -147,7 +151,9 @@
             "paramMaxPitchAngle": "turret1_max_pitch_angle",
             "curPitchParamName": "gun1_pitch",
             "curYawParamName": "turret1_yaw",
-            "paramMinYawAngle": "turret1_min_yaw_angle"
+            "paramMinYawAngle": "turret1_min_yaw_angle",
+            "curWorldPitchParamName": "gun1_world_pitch",
+            "curWorldYawParamName": "turret1_world_yaw"
           }
         },
         {

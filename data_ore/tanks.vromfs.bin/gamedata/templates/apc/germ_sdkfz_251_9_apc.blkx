@@ -60,6 +60,9 @@
       "_use": "germ_sdkfz_251_9_common_vehicle_sound"
     },
     {
+      "_use": "vehicle_anim_steering_deflection"
+    },
+    {
       "mobile_respawn__seatOffset": 4
     },
     {
@@ -191,10 +194,10 @@
             "attachNode": "gunner",
             "ignoreAttachNodeRotation": true,
             "attachTm": [
-              [0.685706,-0.345704,-0.36454],
-              [0.305252,0.77659,-0.16228],
-              [0.399032,0.0,0.750584],
-              [-0.21,-0.09,0.17]
+              [0.743303,-0.118253,-0.395144],
+              [0.104416,0.84181,-0.0555075],
+              [0.399027,-6.48148e-07,0.750607],
+              [-0.2,-0.3,0.17]
             ],
             "seatComponent": "isGunner",
             "nextSeat": "driver",
@@ -220,10 +223,42 @@
               "turret": "turret_01"
             },
             "effectors:object": {
-              "r.hand": "righthand_2",
-              "l.hand": "lefthand_2",
-              "r.foot": "pedal_rfoot_2",
-              "l.foot": "pedal_lfoot_2"
+              "l.hand:object": {
+                "rel_tm": [
+                  [0.902814,-0.391559,-0.177785],
+                  [0.309253,0.303897,0.901115],
+                  [-0.298812,-0.868521,0.395454],
+                  [-0.0107117,0.0191498,-0.00909019]
+                ],
+                "node": "lefthand_2"
+              },
+              "r.hand:object": {
+                "rel_tm": [
+                  [0.994453,-0.000875846,0.105178],
+                  [-0.000595137,0.999902,0.0139545],
+                  [-0.105182,-0.0139393,0.994355],
+                  [-0.0627441,0.0629101,-0.106174]
+                ],
+                "node": "righthand_2"
+              },
+              "l.foot:object": {
+                "rel_tm": [
+                  [1.0,0.0,0.0],
+                  [0.0,1.0,0.0],
+                  [0.0,0.0,1.0],
+                  [-0.0,-0.0,0.0]
+                ],
+                "node": "pedal_lfoot_2"
+              },
+              "r.foot:object": {
+                "rel_tm": [
+                  [1.0,0.0,0.0],
+                  [0.0,1.0,0.0],
+                  [0.0,0.0,1.0],
+                  [-0.0,-0.0,0.0]
+                ],
+                "node": "pedal_rfoot_2"
+              }
             },
             "hatchNodes:array": {
               "node": "emtr_lantern_l_01"
@@ -265,10 +300,42 @@
             "canPlaceManually": true,
             "cockpitTemplate": "germ_sdkfz_251_9_driver_cockpit",
             "effectors:object": {
-              "r.hand": "righthand_4",
-              "l.hand": "lefthand_4",
-              "r.foot": "pedal_rfoot_4",
-              "l.foot": "pedal_lfoot_4"
+              "l.hand:object": {
+                "rel_tm": [
+                  [0.726509,-0.151504,-0.670248],
+                  [0.664807,0.401715,0.629808],
+                  [0.17383,-0.903144,0.39257],
+                  [-0.0327454,0.102314,-0.112333]
+                ],
+                "node": "lefthand_4"
+              },
+              "r.hand:object": {
+                "rel_tm": [
+                  [0.698547,-0.0628459,0.712799],
+                  [0.691961,-0.194409,-0.695268],
+                  [0.182269,0.978904,-0.0923174],
+                  [-0.120178,0.2062,0.137352]
+                ],
+                "node": "righthand_4"
+              },
+              "l.foot:object": {
+                "rel_tm": [
+                  [0.99188,0.124298,-0.0269005],
+                  [-0.122695,0.990934,0.0547306],
+                  [0.03346,-0.0509855,0.998139],
+                  [-0.00239563,-0.0140915,-0.00177765]
+                ],
+                "node": "pedal_lfoot_4"
+              },
+              "r.foot:object": {
+                "rel_tm": [
+                  [1.0,2.04891e-08,-3.72529e-08],
+                  [-3.44589e-08,1.0,9.68575e-08],
+                  [4.84288e-08,-8.9407e-08,1.0],
+                  [-0.0371399,-0.0171051,-0.000218749]
+                ],
+                "node": "pedal_rfoot_4"
+              }
             }
           }
         },
@@ -292,8 +359,42 @@
             "seatAnimLower": "drive_passenger",
             "isHoldGunModeAllowed": false,
             "effectors:object": {
-              "r.foot": "pedal_rfoot_1",
-              "l.foot": "pedal_lfoot_1"
+              "l.hand:object": {
+                "rel_tm": [
+                  [1.0,0.0,0.0],
+                  [0.0,1.0,0.0],
+                  [0.0,0.0,1.0],
+                  [-0.0,-0.0,0.0]
+                ],
+                "node": "lefthand_1"
+              },
+              "r.hand:object": {
+                "rel_tm": [
+                  [1.0,0.0,0.0],
+                  [0.0,1.0,0.0],
+                  [0.0,0.0,1.0],
+                  [-0.0,-0.0,0.0]
+                ],
+                "node": "righthand_1"
+              },
+              "l.foot:object": {
+                "rel_tm": [
+                  [1.0,0.0,0.0],
+                  [0.0,1.0,0.0],
+                  [0.0,0.0,1.0],
+                  [-0.0,-0.0,0.0]
+                ],
+                "node": "pedal_lfoot_1"
+              },
+              "r.foot:object": {
+                "rel_tm": [
+                  [1.0,0.0,0.0],
+                  [0.0,1.0,0.0],
+                  [0.0,0.0,1.0],
+                  [-0.0,-0.0,0.0]
+                ],
+                "node": "pedal_rfoot_1"
+              }
             }
           }
         },
@@ -339,10 +440,42 @@
             "canPlaceManually": false,
             "cockpitTemplate": "germ_sdkfz_251_9_passenger_cockpit",
             "effectors:object": {
-              "r.hand": "righthand_5",
-              "l.hand": "lefthand_5",
-              "r.foot": "pedal_rfoot_5",
-              "l.foot": "pedal_lfoot_5"
+              "l.hand:object": {
+                "rel_tm": [
+                  [1.0,0.0,0.0],
+                  [0.0,1.0,0.0],
+                  [0.0,0.0,1.0],
+                  [-0.0,-0.0,0.0]
+                ],
+                "node": "lefthand_5"
+              },
+              "r.hand:object": {
+                "rel_tm": [
+                  [1.0,0.0,0.0],
+                  [0.0,1.0,0.0],
+                  [0.0,0.0,1.0],
+                  [-0.0,-0.0,0.0]
+                ],
+                "node": "righthand_5"
+              },
+              "l.foot:object": {
+                "rel_tm": [
+                  [1.0,0.0,0.0],
+                  [0.0,1.0,0.0],
+                  [0.0,0.0,1.0],
+                  [-0.0,-0.0,0.0]
+                ],
+                "node": "pedal_lfoot_5"
+              },
+              "r.foot:object": {
+                "rel_tm": [
+                  [1.0,0.0,0.0],
+                  [0.0,1.0,0.0],
+                  [0.0,0.0,1.0],
+                  [-0.0,-0.0,0.0]
+                ],
+                "node": "pedal_rfoot_5"
+              }
             }
           }
         },

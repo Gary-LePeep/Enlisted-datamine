@@ -24,8 +24,8 @@ def pick_target_dm_ai_points(var out_points : array<TargetDMAIPoint>&; max_point
                                damage_part_alive : BoolList;
                                collres : CollisionResource;
                                animchar : AnimcharBaseComponent;
-                               var dm_ai__points : Point3List&;
-                               var dm_ai__pointsInfo : IPoint2List&)
+                               dm_ai__points : Point3List;
+                               dm_ai__pointsInfo : IPoint2List)
     var morePoints : array<TargetDMAIPoint>
     for pt, ptInfo in dm_ai__points, dm_ai__pointsInfo
       let partId = ptInfo.x

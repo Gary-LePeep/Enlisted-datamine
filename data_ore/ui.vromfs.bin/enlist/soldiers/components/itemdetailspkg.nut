@@ -3,9 +3,8 @@ from "%enlSqGlob/ui/ui_library.nut" import *
 let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { doesLocTextExist } = require("dagor.localize")
 let { fabs } = require("math")
-let { msgHighlightedTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
 let { smallPadding, bigPadding, inventoryItemDetailsWidth, brightAccentColor, defTxtColor,
-  titleTxtColor, defItemBlur, defBdColor, midPadding
+  titleTxtColor, defItemBlur, defBdColor, midPadding, msgHighlightedTxtColor
 } = require("%enlSqGlob/ui/designConst.nut")
 let { floatToStringRounded } = require("%sqstd/string.nut")
 let { round_by_value } = require("%sqstd/math.nut")

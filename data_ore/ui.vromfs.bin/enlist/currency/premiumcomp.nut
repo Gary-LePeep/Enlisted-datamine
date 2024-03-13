@@ -5,7 +5,7 @@ let { utf8ToUpper } = require("%sqstd/string.nut")
 let { secondsToHoursLoc } = require("%ui/helpers/time.nut")
 let { premiumActiveTime, hasPremium } = require("premium.nut")
 let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
-let { hasPremiumColor, defTxtColor, activeTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
+let { defTxtColor, activeTxtColor, hasPremiumColor } = require("%enlSqGlob/ui/designConst.nut")
 
 let premiumBtnSize = hdpxi(62)
 

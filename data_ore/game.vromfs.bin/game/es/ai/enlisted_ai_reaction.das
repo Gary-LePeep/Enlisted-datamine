@@ -19,6 +19,7 @@ require CollRes
 
 var // these variables keep constant values that don't change at runtime (after set), variables for non constant values are prohibited
   ENEMY_PLAYER_NEAR_REACTION_ID : int
+  USER_POINT_ADDED_REACTION_ID : int
   BOMB_CAN_BE_PLANTED_REACTION_ID : int
   BOMB_CAN_BE_DEFUSED_REACTION_ID : int
   AGENT_TRAIN_ZONE_ENTER_REACTION_ID : int
@@ -33,6 +34,7 @@ var // these variables keep constant values that don't change at runtime (after 
 [register_beh_nodes]
 def register_nodes()
   ENEMY_PLAYER_NEAR_REACTION_ID = walkerai::register_reaction("onEnemyPlayerNear")
+  USER_POINT_ADDED_REACTION_ID = walkerai::register_reaction("userPointAdded")
   BOMB_CAN_BE_PLANTED_REACTION_ID = walkerai::register_reaction("onBombCanBePlanted")
   BOMB_CAN_BE_DEFUSED_REACTION_ID = walkerai::register_reaction("onBombCanBeDefused")
   AGENT_TRAIN_ZONE_ENTER_REACTION_ID = walkerai::register_reaction("onAgentTrainZoneEnter")
@@ -66,6 +68,17 @@ def update_enemy_player_in_radius_reaction(act : UpdateStageInfoAct; agent_dange
     if danger.traceable && danger.distance < beh_tree__enemyPlayerInRadiusDist
       beh_tree |> beh_tree_react(ENEMY_PLAYER_NEAR_REACTION_ID, 0f)
       return
+
+
+[es(tag=server, on_appear)]
+def on_squad_member_user_point_added_reaction(evt : Event; userPointOwner : EntityId)
+  query() <| $ [es] (eid : EntityId;
+                     beh_tree__enabled : bool;
+                     squad_member__playerEid : EntityId)
+    if !beh_tree__enabled || squad_member__playerEid != userPointOwner
+      return
+    query(eid) <| $ [es] (var beh_tree : BehaviourTree)
+      beh_tree |> beh_tree_react(USER_POINT_ADDED_REACTION_ID, 0f)
 
 
 [es(tag=server, REQUIRE=human, track=(isAlive, isDowned))]

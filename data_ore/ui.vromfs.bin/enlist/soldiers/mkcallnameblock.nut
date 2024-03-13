@@ -3,7 +3,7 @@ from "%enlSqGlob/ui/ui_library.nut" import *
 let { fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let textInput = require("%ui/components/textInput.nut")
 let { defTxtColor, activeTxtColor, smallPadding, commonBtnHeight
-} = require("%enlSqGlob/ui/viewConst.nut")
+} = require("%enlSqGlob/ui/designConst.nut")
 let { curCampItems, curCampItemsCount } = require("model/state.nut")
 let { configs } = require("%enlist/meta/configs.nut")
 let { mkItemCurrency } = require("%enlist/shop/currencyComp.nut")

@@ -15,7 +15,4 @@ def load_plane_sounds(base_path : string) : bool
   return ok
 
 
-[export]
-def test()
-  let ok = load_plane_sounds("%danetlibs/sound/plane_sounds")
-  assert(ok)
+

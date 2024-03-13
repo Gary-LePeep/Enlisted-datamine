@@ -6,7 +6,7 @@ let { fontBody, fontHeading2} = require("%enlSqGlob/ui/fontsStyle.nut")
 let defLoginCb = require("%enlist/login/login_cb.nut")
 let { startLogin } = require("%enlist/login/login_chain.nut")
 let { addModalWindow, removeModalWindow } = require("%ui/components/modalWindows.nut")
-let { commonBtnHeight, bigPadding, maxContentWidth } = require("%enlSqGlob/ui/viewConst.nut")
+let { commonBtnHeight, midPadding, maxContentWidth } = require("%enlSqGlob/ui/designConst.nut")
 let { Bordered } = require("%ui/components/textButton.nut")
 let textInput = require("%ui/components/textInput.nut")
 let spinner = require("%ui/components/spinner.nut")
@@ -41,7 +41,7 @@ let inputOptions = {
 
 let wndHeader = {
   flow = FLOW_VERTICAL
-  gap = bigPadding
+  gap = midPadding
   halign = ALIGN_CENTER
   vplace = ALIGN_TOP
   children = [

@@ -4,14 +4,15 @@ let msgbox = require("%enlist/components/msgbox.nut")
 let {matching_call, matching_notify} = require("matching.api")
 let matching_errors = require("matching.errors")
 let connectHolder = require("%enlist/connectHolderR.nut")
-let loginState = require("%enlSqGlob/ui/login_state.nut")
+let { isSteamRunning, isLoggedIn, logOut, isSteamConnectionLost
+} = require("%enlSqGlob/ui/login_state.nut")
 let appInfo =  require("%dngscripts/appInfo.nut")
 let { eventbus_subscribe, eventbus_subscribe_onehit } = require("eventbus")
 
 local matchingLoginActions = []
 let debugDelay = mkWatched(persist, "debugDelay", 0)
 
-loginState.isLoggedIn.subscribe(function(val) {
+isLoggedIn.subscribe(function(val) {
   if (!val)
     connectHolder.deactivate_matching_login()
 })
@@ -44,15 +45,17 @@ function matchingNotify(cmd, params=null) {
 
 eventbus_subscribe("matching.login_failed", function(_result) {
   matchingLoginActions = []
-  loginState.logOut()
+  logOut()
 })
 
 eventbus_subscribe("matching.logged_out", function(notify) {
   matchingLoginActions = []
-  loginState.logOut()
+  logOut()
 
   if (notify != null) {
     if (notify.reason == matching_errors.DisconnectReason.ConnectionClosed && notify.message.len() == 0) {
+      if (isSteamRunning.value)
+        isSteamConnectionLost(true)
       msgbox.show({
         text = loc("error/CLIENT_ERROR_CONNECTION_CLOSED")
         buttons = [{ text = loc("Ok"), isCurrent = true, action = @() null }]

@@ -12,7 +12,7 @@ let { isAlive } = require("%ui/hud/state/health_state.nut")
 let { hudMenus, openMenu } = require("%ui/hud/ct_hud_menus.nut")
 let { scoresMenuUi, showScores } = require("huds/scores.nut")
 let { showBigMap, bigMap } = require("%ui/hud/menus/big_map.nut")
-let { showPieMenu } = require("%ui/hud/state/pie_menu_state.nut")
+let { showPieMenu, pieMenuLayer } = require("%ui/hud/state/pie_menu_state.nut")
 let pieMenu = require("%ui/hud/pieMenu.ui.nut")
 let { showBuildingToolMenu } = require("%ui/hud/state/building_tool_menu_state.nut")
 let buildingToolMenu = require("%ui/hud/huds/building_tool_menu.ui.nut")
@@ -33,9 +33,11 @@ function openBuildingToolMenu() {
     showBuildingToolMenu(true)
 }
 
-function openCommandsMenu() {
-  if (!isReplay.value && isAlive.value)
+function openCommandsMenu(layer) {
+  if (!isReplay.value && isAlive.value){
     showPieMenu(true)
+    pieMenuLayer(layer)
+  }
 }
 
 function openSquadSoldiersMenu() {
@@ -76,13 +78,22 @@ let huds = [
   },
   {
     show = showPieMenuAct,
-    open = openCommandsMenu,
+    open = @() openCommandsMenu(1),
     close = @() showPieMenu(false)
     menu = pieMenu
     holdToToggleDurMsec = @() -1
     event = "HUD.CommandsMenu"
     group = groups.pieMenu
     id = "PieMenu"
+  },
+  {
+    show = showPieMenuAct,
+    open = @() openCommandsMenu(2),
+    close = @() showPieMenu(false)
+    holdToToggleDurMsec = @() -1
+    event = "HUD.QuickChat"
+    group = groups.pieMenu
+    id = "QuickChat"
   },
   {
     show = showSquadSoldiersMenu

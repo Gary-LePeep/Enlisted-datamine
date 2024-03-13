@@ -2,10 +2,9 @@ from "%enlSqGlob/ui/ui_library.nut" import *
 
 let faComp = require("%ui/components/faComp.nut")
 let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
-let {
-  smallOffset, bigPadding, smallPadding, activeTxtColor
-} = require("%enlSqGlob/ui/viewConst.nut")
-let { brightAccentColor } = require("%enlSqGlob/ui/designConst.nut")
+let { brightAccentColor, smallOffset, midPadding,
+  smallPadding, activeTxtColor
+} = require("%enlSqGlob/ui/designConst.nut")
 let { addScene, removeScene } = require("%enlist/navState.nut")
 let { navHeight } = require("%enlist/mainMenu/mainmenu.style.nut")
 let { squadsCfgById } = require("%enlist/soldiers/model/config/squadsConfig.nut")
@@ -136,7 +135,7 @@ function mkButtonsBlock(viewOptions, rentOptions) {
   let offerInfo = offer == null ? null
     : mkHeaderFlag({
         flow = FLOW_VERTICAL
-        padding = [smallPadding, smallOffset, bigPadding, bigPadding]
+        padding = [smallPadding, smallOffset, midPadding, midPadding]
         children = [
           txt({ text = loc("specialOfferShort") }.__update(defTxtStyle))
           mkCountdownTimer({ timestamp = offer.endTime })
@@ -180,7 +179,7 @@ function mkButtonsBlock(viewOptions, rentOptions) {
       )
   return @() {
     watch = [isTestDriveProfileInProgress, canRentSquad]
-    gap = bigPadding
+    gap = midPadding
     flow = FLOW_VERTICAL
     halign = ALIGN_CENTER
     children = [
@@ -203,7 +202,7 @@ function mkButtonsBlock(viewOptions, rentOptions) {
 
 let wpSize = hdpxi(100)
 let plusObj = faComp("plus", {
-  padding = bigPadding
+  padding = midPadding
   fontSize = hdpx(36)
   color = activeTxtColor
 })

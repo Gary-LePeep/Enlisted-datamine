@@ -3,7 +3,7 @@ from "%enlSqGlob/ui/ui_library.nut" import *
 let { fontHeading2 } = require("%enlSqGlob/ui/fontsStyle.nut")
 let {registerUrl} = require("%enlist/login/ui/loginUiParams.nut")
 let { get_setting_by_blk_path } = require("settings")
-let { smallPadding, titleTxtColor, accentColor } = require("%enlSqGlob/ui/viewConst.nut")
+let { smallPadding, titleTxtColor, accentColor } = require("%enlSqGlob/ui/designConst.nut")
 let faComp = require("%ui/components/faComp.nut")
 let { openUrl } = require("%ui/components/openUrl.nut")
 

@@ -6,7 +6,7 @@ let { isStringInteger, isStringFloat, isStringLatin } = require("%sqstd/string.n
 let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { setTooltip } = require("%ui/style/cursors.nut")
 let tooltipBox = require("%ui/style/tooltipBox.nut")
-let { defTxtColor, activeTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
+let { defTxtColor, activeTxtColor } = require("%enlSqGlob/ui/designConst.nut")
 let colorize = require("%ui/components/colorize.nut")
 
 let logPrefix = "[TextInput] "

@@ -24,7 +24,7 @@ let { Bordered, PrimaryFlat } = require("%ui/components/textButton.nut")
 let { isWpHidden, wpIdSelected } = require("wallpostersState.nut")
 let {
   defBgColor, blurBgColor, bigOffset, commonBtnHeight
-} = require("%enlSqGlob/ui/viewConst.nut")
+} = require("%enlSqGlob/ui/designConst.nut")
 let {
   hasUnseenMedals, hasUnopenedMedals, hasUnseenDecorators, hasUnopenedDecorators,
   hasUnseenWallposters, hasUnopenedWallposters

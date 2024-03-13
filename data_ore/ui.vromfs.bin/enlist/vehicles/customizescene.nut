@@ -41,9 +41,9 @@ let {
   getBaseVehicleSkin, getVehSkins, decalToString
 } = require("%enlSqGlob/vehDecorUtils.nut")
 let {
-  bigPadding, tinyOffset, smallOffset, smallPadding, accentTitleTxtColor,
+  midPadding, tinyOffset, smallOffset, smallPadding, accentTitleTxtColor,
   defBgColor
-} = require("%enlSqGlob/ui/viewConst.nut")
+} = require("%enlSqGlob/ui/designConst.nut")
 let {
   onDecalMouseMove, onDecalMouseWheel, applyUsingDecal, applyUsingDecor
 } = require("decorViewer.nut")
@@ -74,7 +74,7 @@ let twoSideIdx = mkWatched(persist, "twoSideIdx", 0)
 
 const SLOTS_IN_ROW = 4
 
-let iconSpaceWidth = SLOTS_IN_ROW * slotSize[0] + (SLOTS_IN_ROW - 1) * bigPadding
+let iconSpaceWidth = SLOTS_IN_ROW * slotSize[0] + (SLOTS_IN_ROW - 1) * midPadding
 let waitingSpinner = spinner()
 
 function mkCamouflage(cParams, gametemplate, camouflage, skinToBuy, currencies) {
@@ -92,8 +92,8 @@ function mkCamouflage(cParams, gametemplate, camouflage, skinToBuy, currencies) 
   return {
     size = [flex(), SIZE_TO_CONTENT]
     flow = FLOW_VERTICAL
-    gap = bigPadding
-    padding = bigPadding
+    gap = midPadding
+    padding = midPadding
     children = [
       {
         size = [flex(), SIZE_TO_CONTENT]
@@ -138,12 +138,12 @@ let mkCustomize = kwarg(
     return total == 0 ? null
       : {
           flow = FLOW_VERTICAL
-          gap = bigPadding
-          padding = bigPadding
+          gap = midPadding
+          padding = midPadding
           children = [mkBlockHeader(loc($"{custType}Header"))]
             .extend(array(rows).map(@(_row, rowIdx) {
               flow = FLOW_HORIZONTAL
-              gap = bigPadding
+              gap = midPadding
               children = array(SLOTS_IN_ROW).map(function(_column, columnIdx) {
                 let sIdx = rowIdx * SLOTS_IN_ROW + columnIdx
                 let isSelected = curCustType == custType && curSlotIdx == sIdx
@@ -246,7 +246,7 @@ function close() {
 
 let backBtn = Bordered(loc("BackBtn"), close,
   {
-    margin = bigPadding
+    margin = midPadding
     hotkeys = [[ $"^{JB.B} | Esc", { description = loc("BackBtn") }]]
   })
 
@@ -265,16 +265,16 @@ function addNotPurchasedCamouflage(id, buyData) {
 let buyProductBorderColor = Color(80,80,80,200)
 let buyProductColor = Color(20,20,20,200)
 let buyProductSlotWidth = hdpx(300)
-let buyProductWndWidth = 3 * buyProductSlotWidth + 2 * bigPadding
+let buyProductWndWidth = 3 * buyProductSlotWidth + 2 * midPadding
 let buyProductParams = {
   flow = FLOW_HORIZONTAL
-  gap = bigPadding
+  gap = midPadding
 }
 
 let mkBuyProduct = @(icon, header, name) {
   size = [buyProductSlotWidth, SIZE_TO_CONTENT]
   flow = FLOW_HORIZONTAL
-  gap = bigPadding
+  gap = midPadding
   rendObj = ROBJ_SOLID
   color = buyProductColor
   children = [
@@ -289,7 +289,7 @@ let mkBuyProduct = @(icon, header, name) {
     {
       size = flex()
       flow = FLOW_VERTICAL
-      margin = [bigPadding, 0]
+      margin = [midPadding, 0]
       gap = smallPadding
       children = [
         mkBlockHeader(header)
@@ -344,8 +344,8 @@ let massBuyProductViewUi = function() {
     children = hasWrap
       ? wrap(children, {
           width = buyProductWndWidth
-          hGap = bigPadding
-          vGap = bigPadding
+          hGap = midPadding
+          vGap = midPadding
         })
       : children
   }, hasWrap ? {} : buyProductParams)
@@ -384,7 +384,7 @@ function mkPurchaceBtn(notPurchasedVal) {
           })
         }
         style = ({
-          margin = bigPadding
+          margin = midPadding
           hotkeys = [["^J:Y", { description = { skip = true }}]]
         })
       })
@@ -451,14 +451,14 @@ function customizeSlotsUi() {
 
 let wrapParams = {
   width = iconSpaceWidth
-  hGap = bigPadding
-  vGap = bigPadding
+  hGap = midPadding
+  vGap = midPadding
 }
 
 let emptyList = {
   rendObj = ROBJ_WORLD_BLUR_PANEL
   size = [flex(), SIZE_TO_CONTENT]
-  padding = bigPadding
+  padding = midPadding
   halign = ALIGN_CENTER
   color = defBgColor
   children = txt(loc("msg/listIsEmpty")).__update(fontSub)
@@ -516,7 +516,7 @@ function mkGroupIcons(groupIconsList, vehGuid, curCustType,
 let mkCustomizeList = @(groupName, hasOpened, onClick, availCount, limit, count, groupIcons = null) {
   size = [flex(), SIZE_TO_CONTENT]
   flow = FLOW_VERTICAL
-  gap = bigPadding
+  gap = midPadding
   children = [
     mkCustGroup(groupName, hasOpened, onClick, availCount, limit, count)
     groupIcons
@@ -525,12 +525,12 @@ let mkCustomizeList = @(groupName, hasOpened, onClick, availCount, limit, count,
 
 let mkCustomizationList = @(curCustType, content, onlyOwned = null) {
   size = [SIZE_TO_CONTENT, flex()]
-  padding = [smallOffset,bigPadding,0,bigPadding]
+  padding = [smallOffset,midPadding,0,midPadding]
   children = {
     key = $"{curCustType}_customization"
     size = [SIZE_TO_CONTENT, flex()]
     flow = FLOW_VERTICAL
-    gap = bigPadding
+    gap = midPadding
     children = [
       {
         rendObj = ROBJ_SOLID
@@ -605,7 +605,7 @@ let mkDecoratorsList = @(curCustType, curSlotIdx, onlyOwned) function() {
     : {
         size = [flex(), SIZE_TO_CONTENT]
         flow = FLOW_VERTICAL
-        gap = bigPadding
+        gap = midPadding
         children = groupsList.map(function(groupName) {
           let hasOpened = openedGroup == groupName
           let groupIcons = hasOpened
@@ -704,7 +704,7 @@ let camouflageListUi = function() {
   let skinsBlock = {
     size = [flex(), SIZE_TO_CONTENT]
     flow = FLOW_VERTICAL
-    gap = bigPadding
+    gap = midPadding
     children = skinsObjects.len() == 0 ? null
       : [
           mkSkinIcon(baseSkinData, camouflageId == null, true, currencies,
@@ -737,7 +737,7 @@ function purchaseBtnUi() {
     children = hasAlternativeTxt
       ? {
           rendObj = ROBJ_SOLID
-          padding = bigPadding
+          padding = midPadding
           color = defBgColor
           children = noteTextArea(loc("alternativeCamouflageReceivingWay"))
             .__update({
@@ -769,7 +769,7 @@ function purchaseBtnUi() {
             srcComponent = "buy_camouflage"
           })
           style = ({
-            margin = bigPadding
+            margin = midPadding
             hotkeys = [["^J:Y", { description = { skip = true }}]]
           })
         })
@@ -804,7 +804,7 @@ let mkUseDecalBlock = @(applyCb, cancelModeCb, padding) {
   flow = FLOW_HORIZONTAL
   gap = smallOffset
   padding
-  margin = bigPadding
+  margin = midPadding
   behavior = [Behaviors.MenuCameraControl, Behaviors.Button]
   onClick = function() {
     if (isVehicleOwnedByRentedSquad(viewVehicle.value)) {
@@ -857,7 +857,7 @@ let mkUseDecorBlock = @(applyCb, cancelModeCb, padding) {
   flow = FLOW_HORIZONTAL
   gap = smallOffset
   padding
-  margin = bigPadding
+  margin = midPadding
   behavior = [Behaviors.MenuCameraControl, Behaviors.Button]
   onClick = function() {
     if (isVehicleOwnedByRentedSquad(viewVehicle.value)) {

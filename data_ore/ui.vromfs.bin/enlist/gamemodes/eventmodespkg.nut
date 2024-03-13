@@ -2,9 +2,9 @@ from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontTitle, fontHeading1 } = require("%enlSqGlob/ui/fontsStyle.nut")
 let {
-  bigPadding, titleTxtColor, defTxtColor, activeTxtColor, smallPadding, maxContentWidth,
+  midPadding, titleTxtColor, defTxtColor, activeTxtColor, smallPadding, maxContentWidth,
   blurBgFillColor, isWide
-} = require("%enlSqGlob/ui/viewConst.nut")
+} = require("%enlSqGlob/ui/designConst.nut")
 let { localGap } = require("eventModeStyle.nut")
 let { mkArmyIcon } = require("%enlist/soldiers/components/armyPackage.nut")
 let { mkHeaderFlag, casualFlagStyle } = require("%enlSqGlob/ui/mkHeaderFlag.nut")
@@ -33,7 +33,7 @@ let windowTitle = @(title){
   vplace = ALIGN_CENTER
   children = mkHeaderFlag(
     {
-      padding = [localGap, bigPadding * 3]
+      padding = [localGap, midPadding * 3]
       rendObj = ROBJ_TEXT
       text = title
     }.__update(isWide ? fontTitle : fontHeading1),
@@ -81,7 +81,7 @@ function armyButton(armyId, onArmySelect, isSelected) {
     children = [
       {
         flow = FLOW_HORIZONTAL
-        gap = bigPadding
+        gap = midPadding
         size = SIZE_TO_CONTENT
         vplace = ALIGN_BOTTOM
         children = [

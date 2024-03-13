@@ -1,0 +1,15 @@
+{
+  "caustics": {
+    "_singleton": true,
+    "_tags": "render",
+    "caustics__indoor_probe_shader_name": "indoor_probe_to_depth",
+    "needs_water_heightmap": false,
+    "combined_shadows__use_additional_textures": false,
+    "caustics__node:dabfg::NodeHandle": [],
+    "caustics__indoor_probe_mask:UniqueTexHolder": [],
+    "caustics__indoor_probe_shader:ShadersECS": [],
+    "combined_shadows__additional_textures:list<t>": {
+      "item": "caustics_tex"
+    }
+  }
+}

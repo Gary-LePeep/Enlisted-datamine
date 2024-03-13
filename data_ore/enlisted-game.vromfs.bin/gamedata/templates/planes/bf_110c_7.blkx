@@ -4,7 +4,7 @@
       "_use": "bf_110c_7_base"
     },
     {
-      "_use": "squad_controlled_plane"
+      "_use": "plane_with_gunners"
     },
     {
       "_use": "bf_110c_7_plane_sound"
@@ -79,7 +79,11 @@
               [-1.50996e-07,0.0,-1.0],
               [0.0,0.0,0.0]
             ],
+            "cameraNodeName": "gun1",
+            "cameraOffset": [-0.459,0.1,0.0],
+            "cameraType": "gunner",
             "seatComponent": "isGunner",
+            "canPlaceManually": true,
             "receiveDamageFromDMPart": "gunner2_dm",
             "directTurretControl": true,
             "roomSpace": 1,
@@ -717,13 +721,22 @@
       "turret__aimNodeName": "turret1"
     },
     {
-      "turret__limit": [-60.0,60.0,-4.0,60.0]
+      "turret__limit": [-50.0,50.0,-2.0,40.0]
     },
     {
-      "turret__yawSpeed": 100.0
+      "turret__yawSpeed": 500.0
     },
     {
-      "turret__pitchSpeed": 100.0
+      "turret__pitchSpeed": 500.0
+    },
+    {
+      "turret__lastRelativeDir": [-1.0,0.0,0.0]
+    },
+    {
+      "turret__limitsDeadzone:list<p4>": {
+        "lim0": [-22.0,-18.0,-4.0,4.0],
+        "lim1": [18.0,22.0,-4.0,4.0]
+      }
     }
   ],
   "planegun_bf_110c_7_20mm_mgffm_01": [

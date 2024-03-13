@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui/ui_library.nut" import *
 
-let ps4 = require("ps4")
+let {unlockPsnTrophy, isPsnTrophyUnlocked} = require("sony.trophies")
 let {unlockProgress, unlocksSorted, getUnlockProgress} = require("%enlSqGlob/userstats/unlocksState.nut")
 
 function updatePS4Achievements(_) {
@@ -14,9 +14,9 @@ function updatePS4Achievements(_) {
       trophy_id -= 1 // psn trophies ids begin from 0, adjust
       let progress = getUnlockProgress(unlockDesc, unlockProgress.value)
       let completed = progress.current >= progress.required
-      let unlocked = ps4.is_trophy_unlocked(trophy_id)
+      let unlocked = isPsnTrophyUnlocked(trophy_id)
       if (completed && !unlocked)
-        ps4.unlock_trophy(trophy_id)
+        unlockPsnTrophy(trophy_id)
     }
   }
 }

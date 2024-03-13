@@ -64,7 +64,11 @@
               [3.25841e-07,0.0,-1.0],
               [0.0,0.0,0.0]
             ],
+            "cameraNodeName": "gun1",
+            "cameraOffset": [-0.3,0.15,0.0],
+            "cameraType": "gunner",
             "seatComponent": "isGunner",
+            "canPlaceManually": true,
             "receiveDamageFromDMPart": "gunner1_dm",
             "directTurretControl": true,
             "roomSpace": 1,

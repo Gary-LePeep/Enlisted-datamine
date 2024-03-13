@@ -2,10 +2,9 @@ from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontBody, fontHeading2 } = require("%enlSqGlob/ui/fontsStyle.nut")
 let {
-  bigPadding, maxContentWidth, commonBtnHeight, defTxtColor, titleTxtColor,
-  blurBgColor, blurBgFillColor
-} = require("%enlSqGlob/ui/viewConst.nut")
-let { horGap, emptyGap } = require("%enlSqGlob/ui/designConst.nut")
+  midPadding, maxContentWidth, commonBtnHeight, defTxtColor, titleTxtColor,
+  blurBgColor, blurBgFillColor, horGap, emptyGap
+} = require("%enlSqGlob/ui/designConst.nut")
 let { TextHover, TextNormal, textMargin } = require("%ui/components/textButton.style.nut")
 let spinner = require("%ui/components/spinner.nut")
 let closeBtnBase = require("%ui/components/closeBtn.nut")
@@ -42,7 +41,7 @@ let { buy_outfit, use_outfit_orders, change_outfit_squad
 const PURCHASE_WND_UID = "PURCHASE_WND"
 const APPEARANCE_ORDER_TPL = "appearance_change_order"
 
-let verticalGap = bigPadding * 2
+let verticalGap = midPadding * 2
 let purchaseWndWidth = min(sw(40), maxContentWidth) - hdpx(75) * 2
 let waitingSpinner = spinner(hdpx(35))
 

@@ -1,8 +1,8 @@
 from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontHeading2, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
-let {defTxtColor, noteTxtColor, bigPadding, textBgBlurColor, smallPadding,
-  hoverBgColor, defBgColor, hoverTxtColor, activeTxtColor} = require("%enlSqGlob/ui/viewConst.nut")
+let {defTxtColor, noteTxtColor, midPadding, textBgBlurColor, smallPadding,
+  hoverBgColor, defBgColor, hoverTxtColor, activeTxtColor} = require("%enlSqGlob/ui/designConst.nut")
 
 let txt = @(text) {
   rendObj = ROBJ_TEXT
@@ -30,7 +30,7 @@ function bigTextWithNote(noteText, mainText) {
       {
         rendObj = ROBJ_TEXT
         color = defTxtColor
-        margin = [0, bigPadding]
+        margin = [0, midPadding]
       }.__update(fontHeading2, mainTextParams)
     ]
   }

@@ -1,9 +1,9 @@
 from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontTitle, fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
-let { activeTxtColor, lockedSquadBgColor, smallPadding, bigPadding,
+let { activeTxtColor, lockedSquadBgColor, smallPadding, midPadding,
   defTxtColor, darkBgColor, accentTitleTxtColor
-} = require("%enlSqGlob/ui/viewConst.nut")
+} = require("%enlSqGlob/ui/designConst.nut")
 let { isGamepad } = require("%ui/control/active_controls.nut")
 let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
 let { mkPerkDesc } = require("components/perksPackage.nut")
@@ -24,7 +24,7 @@ let { campaignName, btnSizeSmall, btnSizeBig, weapInfoBtn, rewardToScroll
 let { CAMPAIGN_NONE } = require("%enlist/campaigns/campaignConfig.nut")
 
 let mainBgColor = Color(98, 98, 80)
-let localGap = bigPadding * 2
+let localGap = midPadding * 2
 let descBlockMargin = hdpx(100)
 let sizeNewWeaponSmall = [btnSizeSmall[0], hdpx(100)]
 let sizeNewWeaponBig = [btnSizeBig[0], hdpx(120)]
@@ -43,7 +43,7 @@ let newSquadBlock = @(armyId, sClassId){
   flow = FLOW_VERTICAL
   size = [flex(), SIZE_TO_CONTENT]
   valign = ALIGN_CENTER
-  gap = bigPadding
+  gap = midPadding
   children = [
     mkText(loc("mainmenu/newInfantryClass"),
             { color = accentTitleTxtColor }.__update(fontSub))
@@ -64,7 +64,7 @@ let starterPerkBlock = @(armyId, perk) perk == null ? null : {
   flow = FLOW_VERTICAL
   size = [flex(), SIZE_TO_CONTENT]
   valign = ALIGN_CENTER
-  gap = bigPadding
+  gap = midPadding
   children = [
     {
       rendObj = ROBJ_TEXT
@@ -93,7 +93,7 @@ let mkSquadDescBlock = @(text, style = {}){
 let primePerkBlock = @(primeDesc){
   flow = FLOW_VERTICAL
   size = [flex(), SIZE_TO_CONTENT]
-  gap = bigPadding
+  gap = midPadding
   children = [
     mkSquadDescBlock(loc("squads/primeStarterPerks"), {color = accentTitleTxtColor})
     mkSquadDescBlock(loc(primeDesc))
@@ -137,12 +137,12 @@ function mNewItemBlock(armyId, itemId, size, isSmall = false, idx = 0, scrollPos
         margin = [0, localGap,0,0]
         vplace = ALIGN_BOTTOM
         flow = FLOW_VERTICAL
-        gap = bigPadding
+        gap = midPadding
         children = [
           {
             size = [flex(), SIZE_TO_CONTENT]
             flow = FLOW_VERTICAL
-            gap = bigPadding
+            gap = midPadding
             children = [
               idx > 0 ? null : {
                 rendObj = ROBJ_TEXT
@@ -175,6 +175,7 @@ function mNewItemBlock(armyId, itemId, size, isSmall = false, idx = 0, scrollPos
             valign = ALIGN_CENTER
             fillColor = sf & S_HOVER ? mainBgColor : darkBgColor
             borderColor = sf & S_HOVER ? activeTxtColor : defTxtColor
+            clipChildren = true
             children = [
               iconByGameTemplate(gametemplate, {
                 width = size[0]/1.5
@@ -193,7 +194,7 @@ let mkSquadBodyBottomSmall = kwarg(function(armyId, newClass, newPerk, newWeapon
 ) {
     return {
       size = [flex(), ph(60)]
-      gap = bigPadding
+      gap = midPadding
       flow = FLOW_VERTICAL
       vplace = ALIGN_BOTTOM
       valign = ALIGN_TOP
@@ -210,7 +211,7 @@ let mkSquadBodyBottomSmall = kwarg(function(armyId, newClass, newPerk, newWeapon
             {
               size = [btnSizeSmall[0], SIZE_TO_CONTENT]
               halign = ALIGN_RIGHT
-              margin = [0,bigPadding,0,0]
+              margin = [0,midPadding,0,0]
               maxWidth = hdpx(600)
               children = mNewItemBlock(armyId, newWeapon[0], sizeNewWeaponSmall, true, 0,
                 unlockInfo.unlockUid)
@@ -366,7 +367,7 @@ let primeDescTitle = @(titleText, soldierCount, rank,  perksCount, addChild){
   size = [SIZE_TO_CONTENT, hdpx(50)]
   hplace = ALIGN_LEFT
   valign = ALIGN_BOTTOM
-  gap = bigPadding
+  gap = midPadding
   children = [
     rank != null
       ? faComp("star",{
@@ -410,7 +411,7 @@ function primeDescription(texts, desc = ""){
     flow = FLOW_VERTICAL
     vplace = ALIGN_CENTER
     halign = ALIGN_CENTER
-    gap = bigPadding
+    gap = midPadding
     children = [
       primeDescTitle(titleText, soldierCount, rank, perksCount, addChild)
       primeDesc(loc(desc), soliderClass)
@@ -433,7 +434,7 @@ function soldiersCountDesc(classes){
     flow = FLOW_VERTICAL
     halign = ALIGN_CENTER
     vplace = ALIGN_CENTER
-    gap = bigPadding
+    gap = midPadding
     children = [
       primeDescTitle(null, countOverall, null, null, {
         rendObj = ROBJ_TEXT

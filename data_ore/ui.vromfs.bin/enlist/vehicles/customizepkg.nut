@@ -13,9 +13,9 @@ let { mkCurrency } = require("%enlist/currency/currenciesComp.nut")
 let { FAButton } = require("%ui/components/textButton.nut")
 let {
   defBgColor, activeBgColor, defTxtColor, accentTitleTxtColor,
-  activeTxtColor, smallPadding, bigPadding, titleTxtColor, tinyOffset,
+  activeTxtColor, smallPadding, midPadding, titleTxtColor, tinyOffset,
   bonusColor, warningColor
-} = require("%enlSqGlob/ui/viewConst.nut")
+} = require("%enlSqGlob/ui/designConst.nut")
 let {
   BdActive, BdHover, BdNormal, BgHover, BgNormal, TextHover, TextNormal
 } = require("%ui/components/textButton.style.nut")
@@ -120,7 +120,7 @@ function mkDecorImage(cfg, override = {}) {
 let mkDecalImage = @(cfg, override = {}) {
   rendObj = ROBJ_IMAGE
   size = flex()
-  margin = bigPadding
+  margin = midPadding
   keepAspect = KEEP_ASPECT_FIT
   image = Picture($"!{decal_preprocess_tex_name(cfg.guid)}*")
 }.__update(override)
@@ -283,8 +283,8 @@ function mkSkinIcon(skinData, isSelected, hasOwned, currencies, onClick) {
       {
         size = flex()
         flow = FLOW_HORIZONTAL
-        gap = bigPadding
-        padding = [0, bigPadding]
+        gap = midPadding
+        padding = [0, midPadding]
         valign = ALIGN_CENTER
         children = [
           skinImg != null ? mkSkinImage(skinImg, sf, isSelected) : null
@@ -474,7 +474,7 @@ let mkSelectBox = @(sideParams, twoSideIdx, hotkeys, gpadHotkey)
 let mkDecorHints = @(children) {
   size = [hdpx(400), btnSize[1]]
   flow = FLOW_VERTICAL
-  padding = [smallPadding, bigPadding]
+  padding = [smallPadding, midPadding]
   valign = ALIGN_CENTER
   rendObj = ROBJ_SOLID
   color = defBgColor

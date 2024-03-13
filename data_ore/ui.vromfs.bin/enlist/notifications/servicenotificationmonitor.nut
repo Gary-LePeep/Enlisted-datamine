@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { hexStringToInt } = require("%sqstd/string.nut")
-let { warningColor } = require("%enlSqGlob/ui/viewConst.nut")
+let { warningColor } = require("%enlSqGlob/ui/designConst.nut")
 let { subscribe } = require("%enlSqGlob/ui/notifications/matchingNotifications.nut")
 let { serviceNotificationsList, serviceNotificationsListUpdate } = require("%enlSqGlob/serviceNotificationsList.nut")
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")

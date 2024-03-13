@@ -19,7 +19,4 @@ def load_motion_matching(base_path : string) : bool
   return ok
 
 
-[export]
-def test()
-  let ok = load_motion_matching("%danetlibs/motion_matching")
-  assert(ok)
+

@@ -7,7 +7,7 @@ let { squadId } = require("%enlist/squad/squadState.nut")
 let { selRoom } = require("eventRoomsListState.nut")
 let textInput = require("%ui/components/textInput.nut")
 let userInfo = require("%enlSqGlob/userInfo.nut")
-let { bigPadding } = require("%enlSqGlob/ui/viewConst.nut")
+let { midPadding } = require("%enlSqGlob/ui/designConst.nut")
 let JB = require("%ui/control/gui_buttons.nut")
 
 local roomParams = Watched({})
@@ -65,7 +65,7 @@ function showPasswordMsgbox(params){
     text = (params?.isRetry ?? false) ? loc("lobby/invalidPass") : loc("lobby/enterPass")
     children = {
       flow = FLOW_VERTICAL
-      gap = bigPadding
+      gap = midPadding
       children = [
         passwordInput
         passwordHint

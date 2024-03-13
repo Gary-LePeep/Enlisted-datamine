@@ -133,7 +133,7 @@
     }
   },
   "postfx_color_grading_tonemap_night_enlisted": {
-    "_use": "postfx_color_grading_tonemap_enlisted",
+    "_use": "postfx_color_grading_tonemap_death_alive_enlisted",
     "_singleton": true,
     "color_grading:object": {
       "colorContrast": [1.0,1.0,1.0,0.95],
@@ -143,22 +143,14 @@
       "tonemapMidOut": 0.155,
       "tonemapMidIn": 0.05,
       "tonemapShoulder": 0.95,
-      "tonemapContrast": 0.95,
+      "tonemapContrast": 1.0,
       "tonemapHdrMax": 4.0,
       "colorContrast": [1.0,1.0,1.0,0.95],
       "shadows_colorContrast": [1.0,1.0,1.0,0.85],
       "_tags": "render"
     },
-    "tonemap_save:object": {
-      "colorContrast": [1.0,1.0,1.0,0.95],
-      "tonemapMidOut": 0.155,
-      "tonemapMidIn": 0.05,
-      "tonemapShoulder": 0.95,
-      "whiteTint": 0.0,
-      "whiteTemp": 7000.0,
-      "tonemapContrast": 0.95,
-      "tonemapHdrMax": 4.0,
-      "shadows_colorContrast": [1.0,1.0,1.0,0.85],
+    "white_balance:object": {
+      "whiteTemp": 15000.0,
       "_tags": "render"
     }
   }

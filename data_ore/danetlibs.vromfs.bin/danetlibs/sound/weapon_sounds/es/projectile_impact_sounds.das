@@ -1,11 +1,33 @@
 require ecs
 require ecs.safe
 require BallisticsProps
-require common_shooter.events_common_shooter
 require sound_utils.modules.sound_physmat_common
 require soundEvent
 require strings
+require RendInst
+require DngDm
 
+[cpp_event(unicast)]
+struct EventProjectileHitScene
+  pos : float3
+  shouldStop : bool
+  ricochetAngle : float
+  smokeTracerStop : bool
+  rendinstCellIdx : int
+  rendinstIdx : int
+  rendinstPool : int
+  rendinstOffs : uint
+  rendinstLayer : int
+  matId : int
+  norm : float3
+  allowDetonation : bool
+  sceneIntersectionsExceeded : bool
+  collType : int
+  vel : float3
+  riexHandle : riex_handle_t
+
+[cpp_event(unicast)]
+struct CmdShellExplosionFx {}
 
 [es(tag=sound)]
 def projectile_impact_sounds_on_hit_scene(evt : EventProjectileHitScene;

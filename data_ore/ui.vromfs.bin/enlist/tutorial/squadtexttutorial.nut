@@ -5,9 +5,9 @@ let { addModalWindow, removeModalWindow } = require("%ui/components/modalWindows
 let { Flat } = require("%ui/components/textButton.nut")
 let closeBtnBase = require("%ui/components/closeBtn.nut")
 let {
-  defTxtColor, maxContentWidth, bigPadding, defInsideBgColor, titleTxtColor, disabledTxtColor,
+  defTxtColor, maxContentWidth, midPadding, defInsideBgColor, titleTxtColor, disabledTxtColor,
   isWide
-} = require("%enlSqGlob/ui/viewConst.nut")
+} = require("%enlSqGlob/ui/designConst.nut")
 let { getTutorial } = require("squadTextTutorialPresentation.nut")
 let faComp = require("%ui/components/faComp.nut")
 let mkDotPaginator = require("%enlist/components/mkDotPaginator.nut")
@@ -46,7 +46,7 @@ let topBlock = @(squadType){
   color = defInsideBgColor
   size = [internalContentWidth, SIZE_TO_CONTENT]
   valign = ALIGN_CENTER
-  padding = bigPadding * 2
+  padding = midPadding * 2
   children = {
     rendObj = ROBJ_TEXT
     text = loc($"{squadType}_available_header")

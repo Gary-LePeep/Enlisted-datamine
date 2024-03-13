@@ -70,7 +70,13 @@ def squad_change_team([[net_player]] playerEid : EntityId)
   broadcastEvent([[EventTeamMemberJoined eid=playerEid, team = newTeam]])
   set(playerEid, "team", newTeam)
   set(playerEid, "armiesReceivedTeam", newTeam)
-  sendEvent(playerEid, [[CmdSpawnSquad team=newTeam, possessed=possessed, squadId=0, memberId=0, respawnGroupId=-1, existedVehicleEid=INVALID_ENTITY_ID]])
+  sendEvent(playerEid, [[CmdSpawnSquad team=newTeam,
+                                       possessed=possessed,
+                                       squadId=0,
+                                       memberId=0,
+                                       respawnGroupId=-1,
+                                       existedVehicleEid=INVALID_ENTITY_ID,
+                                       withoutVehicle=false]])
 
 def spawn_soldiers_at_pos(pos : float3; count, team : int; spawn_template : string; cell_size : float)
   query() <| $ [es(REQUIRE=devSoldier)] (eid : EntityId) { destroyEntity(eid); }
@@ -137,7 +143,13 @@ def spawnSquadById(squadId : string; squadForUserid : uint64; memberId : int)
 
           kill_squad(get_squad_eid(0u, 0u))
 
-          sendEvent(eid, [[CmdSpawnSquad team=team, possessed=INVALID_ENTITY_ID, squadId=squadNo, memberId=memberId, respawnGroupId=-1, existedVehicleEid=INVALID_ENTITY_ID]])
+          sendEvent(eid, [[CmdSpawnSquad team=team,
+                                         possessed=INVALID_ENTITY_ID,
+                                         squadId=squadNo,
+                                         memberId=memberId,
+                                         respawnGroupId=-1,
+                                         existedVehicleEid=INVALID_ENTITY_ID,
+                                         withoutVehicle=false]])
 
           return true
 

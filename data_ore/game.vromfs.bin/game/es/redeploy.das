@@ -28,7 +28,7 @@ def try_redeploy_soldier(info : UpdateStageInfoAct;
 
     var respbaseFound = false
     var closestRespbasePos = float3(0.0)
-    query() <| $ [es(REQUIRE=respbase, REQUIRE_NOT=(aircraftRespbase, vehicleRespbase, playerRespawnBase, customRespawnBase))] (active : bool; transform : float3x4; team : int)
+    query() <| $ [es(REQUIRE=respbase, REQUIRE_NOT=(aircraftRespbase, vehicleRespbase, playerRespawnBase, customRespawnBase, mobileRespawnTag))] (active : bool; transform : float3x4; team : int)
       if !active || playerTeam != team
         return
       if !respbaseFound || length_sq(playerPos - transform[3]) < length_sq(playerPos - closestRespbasePos)

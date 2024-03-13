@@ -3,11 +3,8 @@ require ecs.safe
 require DngPlane
 require Plane
 require DagorInput
-require game.es.input.input_common
 require GamePhys
 require DagorMath
-require game.es.events
-require game.es.input.input_events
 require DagorConsole
 require DagorSystem
 require quirrel
@@ -37,8 +34,8 @@ def track_simple_joy_enabled_es_event_handler(evt : Event;
     plane_input__mouseAimEnabled = false
 
 
-[es(tag=input)]
-def plane_input_auto_disable_mouseaim_es_event_handler(evt : EventDaInputActionTriggered;
+[es(tag=input, on_event=EventDaInputActionTriggered)]
+def plane_input_auto_disable_mouseaim_es_event_handler(evt : Event;
                                                        plane_input__autoDisableMouseAim : bool;
                                                        var plane_input : PlaneInput&;
                                                        var plane_input__mouseAimEnabled : bool&)

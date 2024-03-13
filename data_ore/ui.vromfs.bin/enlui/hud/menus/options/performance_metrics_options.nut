@@ -17,7 +17,7 @@ let perfMetricsToString = {
   [PERF_METRICS_FULL] = "options/perf_full"
 }
 
-let perfMetricsAvailable = Computed(function() {
+let perfMetricsAvailable = WatchedRo(function() {
   let ret = [
     PERF_METRICS_OFF
   ]
@@ -31,7 +31,7 @@ let perfMetricsAvailable = Computed(function() {
       ret.append(mode)
   }
   return ret
-})
+}())
 
 let perfMetricsValueChosen = Watched(get_setting_by_blk_path(PERF_METRICS_BLK_PATH))
 

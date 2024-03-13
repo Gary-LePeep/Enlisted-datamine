@@ -3,9 +3,9 @@ from "%enlSqGlob/ui/ui_library.nut" import *
 let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { PrimaryFlat } = require("%ui/components/textButton.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
-let { bigPadding, lockedSquadBgColor, activeTxtColor, defTxtColor, titleTxtColor,
+let { midPadding, lockedSquadBgColor, activeTxtColor, defTxtColor, titleTxtColor,
   smallPadding
-} = require("%enlSqGlob/ui/viewConst.nut")
+} = require("%enlSqGlob/ui/designConst.nut")
 let viewItemScene = require("viewItemScene.nut")
 let { mkShopItem } = require("%enlist/soldiers/model/items_list_lib.nut")
 let { allItemTemplates, findItemTemplate
@@ -30,7 +30,7 @@ function freemiumPromoLink() {
     hplace = ALIGN_CENTER
     color
     borderWidth = [0, 0, smallPadding, 0]
-    padding = [bigPadding, 0]
+    padding = [midPadding, 0]
     behavior = Behaviors.Button
     onClick = @() freemiumWnd()
     pos = [0, -hdpx(50)]
@@ -74,7 +74,7 @@ function mkUnlockDescription(itemTpl) {
     vplace = ALIGN_TOP
     color = defTxtColor
     valign = ALIGN_CENTER
-    padding = [0, bigPadding * 2]
+    padding = [0, midPadding * 2]
     text = desc
   }
 }
@@ -109,7 +109,7 @@ function mkUnlockBlock(unlockInfo) {
       watch = [isPurchaseableCampaign, isCampaignBought]
       size = [SIZE_TO_CONTENT, btnSizeSmall[1]]
       minWidth = btnSizeSmall[0]
-      padding = bigPadding
+      padding = midPadding
       vplace = ALIGN_BOTTOM
       hplace = ALIGN_RIGHT
       pos = [0, btnSizeSmall[1] / 2]
@@ -144,8 +144,8 @@ let itemCardBottom = @(item, unlockInfo){
   maxHeight = hdpx(400)
   valign = ALIGN_TOP
   vplace = ALIGN_BOTTOM
-  padding = bigPadding
-  gap = bigPadding
+  padding = midPadding
+  gap = midPadding
   children = [
     campaignName({
       nameLocId = getItemTypeName(item)
@@ -181,7 +181,7 @@ let mkItemPromo = kwarg(function(armyId, itemTpl, presentation, unlockInfo) {
       viewItemScene(itemToView)
     }
     xmbNode = XmbNode()
-    gap = bigPadding
+    gap = midPadding
     children = [
       mkBackWithImage(presentation?.image, unlockInfo != null)
       {

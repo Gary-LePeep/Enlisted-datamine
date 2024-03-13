@@ -1,11 +1,9 @@
 from "%enlSqGlob/ui/ui_library.nut" import *
 let {
-  PERK_ALERT_SIGN, REQ_MANAGE_SIGN, ITEM_ALERT_SIGN
+  PERK_ALERT_SIGN, ITEM_ALERT_SIGN
 } = require("%enlSqGlob/ui/soldiersUiComps.nut")
 let { curArmy } = require("%enlist/soldiers/model/state.nut")
-let { needSoldiersManageBySquad } = require("%enlist/soldiers/model/reserve.nut")
 let { notChoosenPerkArmies } = require("%enlist/soldiers/model/soldierPerks.nut")
-let { unseenArmiesWeaponry } = require("%enlist/soldiers/model/unseenWeaponry.nut")
 let { unseenArmiesVehicle } = require("%enlist/vehicles/unseenVehicles.nut")
 let { settings } = require("%enlist/options/onlineSettings.nut")
 let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
@@ -40,11 +38,6 @@ let notifierConfig = {
     order = 1
     locId = "hint/perkNotifier"
   },
-  [Notifiers.SOLDIER] = {
-    icon = REQ_MANAGE_SIGN
-    order = 2
-    locId = "hint/manageSoldiersNotifier"
-  },
   [Notifiers.ITEM] = {
     icon = ITEM_ALERT_SIGN
     order = 3
@@ -58,10 +51,7 @@ let needShowAlert = Computed(function() {
   let activeNotifiers = []
   if ((notChoosenPerkArmies.value?[curArmy.value] ?? 0) > 0)
     activeNotifiers.append(Notifiers.PERK)
-  if (needSoldiersManageBySquad.value.len() > 0)
-    activeNotifiers.append(Notifiers.SOLDIER)
-  if ((unseenArmiesWeaponry.value?[curArmy.value] ?? 0) > 0
-    || (unseenArmiesVehicle.value?[curArmy.value].len() ?? 0) > 0)
+  if ((unseenArmiesVehicle.value?[curArmy.value].len() ?? 0) > 0)
     activeNotifiers.append(Notifiers.ITEM)
 
   let seen = seenData.value

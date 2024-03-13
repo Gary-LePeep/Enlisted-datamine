@@ -5,6 +5,7 @@
 options no_aot = true
 require danetlibs.pathfinder.pathfinder_init
 require danetlibs.verify_ecs.verify_ecs_init
+require danetlibs.navmesh_phys.navmesh_phys_init
 require danetlibs.sound.sound_utils.sound_utils_init
 require danetlibs.sound.sound_utils_net.sound_utils_net_init
 require danetlibs.sound.common_sounds.common_sounds_init
@@ -46,6 +47,7 @@ def load_dng_libs() : bool
   var ok = true
   ok = load_pathfinder("%danetlibs/pathfinder") && ok
   ok = load_verify_ecs("%danetlibs/verify_ecs") && ok
+  ok = load_navmesh_phys("%danetlibs/navmesh_phys") && ok
   ok = load_sound_utils("%danetlibs/sound/sound_utils") && ok
   ok = load_sound_utils_net("%danetlibs/sound/sound_utils_net") && ok
   ok = load_common_sounds("%danetlibs/sound/common_sounds") && ok
@@ -84,4 +86,9 @@ def load_dng_libs() : bool
   ok = load_puddles_manager("%danetlibs/puddles_manager") && ok
 
   return ok
+
+[export]
+def test_all
+  let ok = load_dng_libs()
+  assert(ok)
 

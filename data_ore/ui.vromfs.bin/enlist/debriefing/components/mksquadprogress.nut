@@ -7,7 +7,7 @@ let { progressBar, txt } = require("%enlSqGlob/ui/defcomps.nut")
 let { mkSquadIcon, mkSquadSpecIconFields, isSquadPremium
 } = require("%enlSqGlob/ui/squadsUiComps.nut")
 let { gap, slotBaseSize, soldierLvlColor, smallPadding, activeTxtColor
-} = require("%enlSqGlob/ui/viewConst.nut")
+} = require("%enlSqGlob/ui/designConst.nut")
 let { combineMultispecialistAward } = require("%enlSqGlob/ui/battleHeroesAwards.nut")
 let mkBattleHeroAwardIcon = require("%enlSqGlob/ui/battleHeroAwardIcon.nut")
 let { mkSquadExpTooltipText } = require("%enlist/debriefing/components/mkExpTooltipText.nut")

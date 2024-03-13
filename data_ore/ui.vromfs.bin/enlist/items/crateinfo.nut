@@ -12,7 +12,7 @@ let { allItemTemplates } = require("%enlist/soldiers/model/all_items_templates.n
 let { commonArmy } = require("%enlist/meta/profile.nut")
 let { getClassCfg } = require("%enlSqGlob/ui/soldierClasses.nut")
 let { doesLocTextExist } = require("dagor.localize")
-let { bigPadding, activeTxtColor, soldierLvlColor } = require("%enlSqGlob/ui/viewConst.nut")
+let { midPadding, activeTxtColor, soldierLvlColor } = require("%enlSqGlob/ui/designConst.nut")
 let { itemWeights, mkShopItem } = require("%enlist/soldiers/model/items_list_lib.nut")
 let { getItemName, trimUpgradeSuffix } = require("%enlSqGlob/ui/itemsInfo.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
@@ -67,7 +67,7 @@ let mkItemsListWithHeader = @(itemTpls, armyId, header = null) function() {
     watch = [commonArmy, allItemTemplates]
     minWidth = fsh(30)
     flow = FLOW_VERTICAL
-    gap = bigPadding
+    gap = midPadding
     children = (header == null ? [] : [mkTextArea(header)]) // -unwanted-modification
       .append({
         flow = FLOW_VERTICAL
@@ -149,7 +149,7 @@ function mkCrateItemsInfo(armyId, content, header = null, addChild = null, isRes
   return {
     minWidth = fsh(30)
     flow = FLOW_VERTICAL
-    gap = bigPadding
+    gap = midPadding
     children
   }
 }
@@ -172,7 +172,7 @@ function mkCrateShuffleInfo(armyId, content) {
     children.append(txt({ text = loc("shop/totalOpened", content), color = activeTxtColor }))
 
   return children.len() == 0 ? null : {
-    gap = bigPadding
+    gap = midPadding
     flow = FLOW_VERTICAL
     children
   }
@@ -217,7 +217,7 @@ function mkCrateSoldiersInfo(armyId, content) {
   return {
     minWidth = fsh(30)
     flow = FLOW_VERTICAL
-    gap = bigPadding
+    gap = midPadding
     children = [
       mkTextArea(loc(locId, { tiers = colorize(soldierLvlColor, tiersText) }))
       {
@@ -237,7 +237,7 @@ function makeCrateToolTip(crateContent, headerTxt = "", size = SIZE_TO_CONTENT) 
     let { armyId = "", content = null } = crateContent.value
     return {
       watch = [crateContent, isLootBoxProhibited]
-      gap = bigPadding
+      gap = midPadding
       flow = FLOW_VERTICAL
       children = content == null ? waitingSpinner
         : [

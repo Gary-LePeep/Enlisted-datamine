@@ -3097,7 +3097,6 @@
     "collres__res": "medkit_collision",
     "item__uniqueName": "attachable_wear_m35_helmet_w_face_cover_01_ger_summer_item",
     "animchar_fast_phys__res": "m35_helmet_w_face_cover_01_ger_summer_fastphys",
-    "animchar_hider__camThreshold": 1.7,
     "animchar_fast_phys": {
       "_tags": "gameClient"
     },
@@ -3452,6 +3451,19 @@
       }
     }
   ],
+  "m35_helmet_w_armor_plate_item": {
+    "_use": "attachable_skined_helmet",
+    "animchar__res": "m35_helmet_w_armor_plate_char",
+    "collres__res": "medkit_collision",
+    "item__uniqueName": "m35_helmet_w_armor_plate_item",
+    "item__armorAmount": 0.83,
+    "item__armoredParts:array": {
+      "part": "Bip01 Head"
+    },
+    "skeleton_attach__remapParentSlots:list<t>": {
+      "slot": "face"
+    }
+  },
   "helmet_m35_medic_white_01_ger_summer_item": [
     {
       "_use": "attachable_skined_helmet"

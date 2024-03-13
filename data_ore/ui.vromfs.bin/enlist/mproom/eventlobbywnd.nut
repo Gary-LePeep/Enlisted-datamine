@@ -10,9 +10,8 @@ let {
 } = require("enlRoomState.nut")
 let JB = require("%ui/control/gui_buttons.nut")
 let mkActiveBoostersMark = require("%enlist/mainMenu/mkActiveBoostersMark.nut")
-let { accentColor, rowBg, isWide } = require("%enlSqGlob/ui/viewConst.nut")
 let { bigPadding, maxContentWidth, defTxtColor, commonBtnHeight, smallPadding, brightAccentColor,
-  darkTxtColor, midPadding, startBtnWidth
+  darkTxtColor, midPadding, startBtnWidth, accentColor, rowBg, isWide
 } = require("%enlSqGlob/ui/designConst.nut")
 let { BtnActionBgDisabled, BtnActionTextNormal }  = require("%ui/style/colors.nut")
 let { isEditEventRoomOpened } = require("%enlist/gameModes/createEventRoomState.nut")

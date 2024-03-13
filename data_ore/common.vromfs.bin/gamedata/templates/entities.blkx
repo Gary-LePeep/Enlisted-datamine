@@ -610,6 +610,28 @@
     }
   },
   {
+    "effectors_initializer": {
+      "animchar__considerAsVisible:tag": []
+    }
+  },
+  {
+    "debug_effector_set": {
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [0.0,0.0,0.0]
+      ],
+      "ik_ffector__relativeTm": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [0.0,0.0,0.0]
+      ],
+      "ik_effector_name": ""
+    }
+  },
+  {
     "base_menu_animchar": {
       "_use": "animchar_turn_dir",
       "animchar_render__enabled": true,
@@ -1010,6 +1032,11 @@
     }
   },
   {
+    "navmesh_phys_jumplinks_disabler": {
+      "navPhysJumpLinksDisabler:tag": []
+    }
+  },
+  {
     "animchar_shadow_occlusion_manager": {
       "soldier_bbox_expand_size": [0.2,0.2,0.2],
       "soldier_bbox_max_half_size": [3.0,3.0,3.0],
@@ -1220,23 +1247,6 @@
     "asset_manager": {
       "_tags": "render",
       "_use": "base_asset_manager"
-    }
-  },
-  {
-    "adaptation_manager": {
-      "_singleton": true,
-      "_tags": "render",
-      "adaptation__exposure": 1.0,
-      "adaptation__fixed_exposure": -1.0,
-      "adaptation__manager:AdaptationManager": [],
-      "adaptation__update_readback_exposure_node:dabfg::NodeHandle": []
-    }
-  },
-  {
-    "adaptation__debugger": {
-      "_singleton": true,
-      "_tags": "render",
-      "adaptation__debug:tag": []
     }
   }
 ]

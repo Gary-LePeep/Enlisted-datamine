@@ -1,208 +1,12 @@
 [
   {
-    "import": [
-      {
-        "scene": "content/enlisted/gamedata/scenes/_volokolamsk_sounds.blk"
-      },
-      {
-        "scene": "content/enlisted/gamedata/scenes/_volokolamsk_winter_biome_fx.blk"
-      }
-    ]
-  },
-  {
-    "entity": {
-      "_template": "battle_area_polygon_point",
-      "transform": [
-        [1.0,0.0,0.0],
-        [0.0,1.0,0.0],
-        [0.0,0.0,1.0],
-        [-830.82,2.35868,484.228]
-      ],
-      "battle_area_polygon_point__forBattleAreaId": "area1",
-      "battle_area_polygon_point__id": "point1",
-      "battle_area_polygon_point__nextId": "point2"
+    "import": {
+      "scene": "content/enlisted/gamedata/scenes/_volokolamsk_sounds.blk"
     }
   },
   {
-    "entity": {
-      "_template": "battle_area_polygon_point",
-      "transform": [
-        [1.0,0.0,0.0],
-        [0.0,1.0,0.0],
-        [0.0,0.0,1.0],
-        [-443.492,2.35868,484.228]
-      ],
-      "battle_area_polygon_point__forBattleAreaId": "area1",
-      "battle_area_polygon_point__id": "point2",
-      "battle_area_polygon_point__nextId": "point3"
-    }
-  },
-  {
-    "entity": {
-      "_template": "battle_area_polygon_point",
-      "transform": [
-        [1.0,0.0,0.0],
-        [0.0,1.0,0.0],
-        [0.0,0.0,1.0],
-        [-381.463,2.35868,539.494]
-      ],
-      "battle_area_polygon_point__forBattleAreaId": "area1",
-      "battle_area_polygon_point__id": "point3",
-      "battle_area_polygon_point__nextId": "point4"
-    }
-  },
-  {
-    "entity": {
-      "_template": "battle_area_polygon_point",
-      "transform": [
-        [1.0,0.0,0.0],
-        [0.0,1.0,0.0],
-        [0.0,0.0,1.0],
-        [-365.311,2.35868,619.338]
-      ],
-      "battle_area_polygon_point__forBattleAreaId": "area1",
-      "battle_area_polygon_point__id": "point4",
-      "battle_area_polygon_point__nextId": "point5"
-    }
-  },
-  {
-    "entity": {
-      "_template": "battle_area_polygon_point",
-      "transform": [
-        [1.0,0.0,0.0],
-        [0.0,1.0,0.0],
-        [0.0,0.0,1.0],
-        [-440.379,2.35868,895.638]
-      ],
-      "battle_area_polygon_point__forBattleAreaId": "area1",
-      "battle_area_polygon_point__id": "point5",
-      "battle_area_polygon_point__nextId": "point6"
-    }
-  },
-  {
-    "entity": {
-      "_template": "battle_area_polygon_point",
-      "transform": [
-        [1.0,0.0,0.0],
-        [0.0,1.0,0.0],
-        [0.0,0.0,1.0],
-        [-837.992,2.35868,895.638]
-      ],
-      "battle_area_polygon_point__forBattleAreaId": "area1",
-      "battle_area_polygon_point__id": "point6",
-      "battle_area_polygon_point__nextId": "point1"
-    }
-  },
-  {
-    "entity": {
-      "_template": "battle_area_polygon_point",
-      "transform": [
-        [1.0,0.0,0.0],
-        [0.0,1.0,0.0],
-        [0.0,0.0,1.0],
-        [-828.853,9.55259,299.811]
-      ],
-      "battle_area_polygon_point__forBattleAreaId": "area2",
-      "battle_area_polygon_point__id": "point1",
-      "battle_area_polygon_point__nextId": "point2"
-    }
-  },
-  {
-    "entity": {
-      "_template": "battle_area_polygon_point",
-      "transform": [
-        [1.0,0.0,0.0],
-        [0.0,1.0,0.0],
-        [0.0,0.0,1.0],
-        [-720.637,9.55259,282.956]
-      ],
-      "battle_area_polygon_point__forBattleAreaId": "area2",
-      "battle_area_polygon_point__id": "point2",
-      "battle_area_polygon_point__nextId": "point3"
-    }
-  },
-  {
-    "entity": {
-      "_template": "battle_area_polygon_point",
-      "transform": [
-        [1.0,0.0,0.0],
-        [0.0,1.0,0.0],
-        [0.0,0.0,1.0],
-        [-649.455,9.55259,260.57]
-      ],
-      "battle_area_polygon_point__forBattleAreaId": "area2",
-      "battle_area_polygon_point__id": "point3",
-      "battle_area_polygon_point__nextId": "point4"
-    }
-  },
-  {
-    "entity": {
-      "_template": "battle_area_polygon_point",
-      "transform": [
-        [1.0,0.0,0.0],
-        [0.0,1.0,0.0],
-        [0.0,0.0,1.0],
-        [-399.976,9.55259,260.57]
-      ],
-      "battle_area_polygon_point__forBattleAreaId": "area2",
-      "battle_area_polygon_point__id": "point4",
-      "battle_area_polygon_point__nextId": "point5"
-    }
-  },
-  {
-    "entity": {
-      "_template": "battle_area_polygon_point",
-      "transform": [
-        [1.0,0.0,0.0],
-        [0.0,1.0,0.0],
-        [0.0,0.0,1.0],
-        [-399.976,9.55259,559.99]
-      ],
-      "battle_area_polygon_point__forBattleAreaId": "area2",
-      "battle_area_polygon_point__id": "point5",
-      "battle_area_polygon_point__nextId": "point6"
-    }
-  },
-  {
-    "entity": {
-      "_template": "battle_area_polygon_point",
-      "transform": [
-        [1.0,0.0,0.0],
-        [0.0,1.0,0.0],
-        [0.0,0.0,1.0],
-        [-420.989,9.55259,620.638]
-      ],
-      "battle_area_polygon_point__forBattleAreaId": "area2",
-      "battle_area_polygon_point__id": "point6",
-      "battle_area_polygon_point__nextId": "point7"
-    }
-  },
-  {
-    "entity": {
-      "_template": "battle_area_polygon_point",
-      "transform": [
-        [1.0,0.0,0.0],
-        [0.0,1.0,0.0],
-        [0.0,0.0,1.0],
-        [-439.531,9.55259,690.395]
-      ],
-      "battle_area_polygon_point__forBattleAreaId": "area2",
-      "battle_area_polygon_point__id": "point7",
-      "battle_area_polygon_point__nextId": "point8"
-    }
-  },
-  {
-    "entity": {
-      "_template": "battle_area_polygon_point",
-      "transform": [
-        [1.0,0.0,0.0],
-        [0.0,1.0,0.0],
-        [0.0,0.0,1.0],
-        [-847.823,9.55259,690.395]
-      ],
-      "battle_area_polygon_point__forBattleAreaId": "area2",
-      "battle_area_polygon_point__id": "point8",
-      "battle_area_polygon_point__nextId": "point1"
+    "import": {
+      "scene": "content/enlisted/gamedata/scenes/_volokolamsk_winter_biome_fx.blk"
     }
   },
   {
@@ -215,7 +19,39 @@
         [-673.835,6.14716,598.495]
       ],
       "battleAreaId": "area2",
-      "battle_area__team": 1
+      "battle_area__team": 1,
+      "poly_area__points:list<p3>": [
+        {
+          "item": [-846.419,6.70709,347.722]
+        },
+        {
+          "item": [-682.115,4.71613,328.205]
+        },
+        {
+          "item": [-471.301,0.811127,342.373]
+        },
+        {
+          "item": [-463.389,4.7253,682.282]
+        },
+        {
+          "item": [-520.421,3.57829,703.432]
+        },
+        {
+          "item": [-533.03,3.98303,704.344]
+        },
+        {
+          "item": [-552.561,4.53622,716.584]
+        },
+        {
+          "item": [-629.81,6.50351,720.369]
+        },
+        {
+          "item": [-690.471,8.41582,714.413]
+        },
+        {
+          "item": [-835.901,3.33398,689.702]
+        }
+      ]
     }
   },
   {
@@ -228,7 +64,30 @@
         [-673.71,6.14716,597.491]
       ],
       "battleAreaId": "area1",
-      "battle_area__team": 2
+      "battle_area__team": 2,
+      "poly_area__points:list<p3>": [
+        {
+          "item": [-839.408,2.77789,488.604]
+        },
+        {
+          "item": [-634.047,5.9981,458.77]
+        },
+        {
+          "item": [-559.106,3.78407,460.789]
+        },
+        {
+          "item": [-514.946,5.18745,467.415]
+        },
+        {
+          "item": [-466.139,9.70227,480.328]
+        },
+        {
+          "item": [-460.902,13.8426,843.743]
+        },
+        {
+          "item": [-826.594,13.632,851.702]
+        }
+      ]
     }
   },
   {
@@ -241,6 +100,94 @@
         [-610.334,240.916,582.135]
       ],
       "battle_area__team": -1
+    }
+  },
+  {
+    "entity": {
+      "_template": "vw_kubelwagen",
+      "transform": [
+        [-0.14937,0.0597966,-0.986972],
+        [0.023517,0.998102,0.0569118],
+        [0.988502,-0.0147097,-0.150493],
+        [-582.622,4.03686,741.391]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "vw_kubelwagen",
+      "transform": [
+        [0.205891,0.0752977,0.975674],
+        [0.119667,0.987615,-0.101472],
+        [-0.971231,0.137648,0.19433],
+        [-607.902,2.75143,414.471]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "vw_kubelwagen",
+      "transform": [
+        [0.591245,-0.0865485,0.801835],
+        [0.0482377,0.99624,0.0719635],
+        [-0.805048,-0.00386935,0.593196],
+        [-638.407,3.42152,425.751]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "vw_kubelwagen",
+      "transform": [
+        [0.571723,0.00811558,0.820406],
+        [0.000817221,0.999945,-0.0104611],
+        [-0.820446,0.00665131,0.571685],
+        [-641.623,3.4008,427.326]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "vw_kubelwagen",
+      "transform": [
+        [0.376739,-0.0153894,-0.926192],
+        [-0.045575,0.998343,-0.0351264],
+        [0.925198,0.0554447,0.375413],
+        [-619.268,3.09424,762.004]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "vw_kubelwagen",
+      "transform": [
+        [-0.573312,-0.0863205,-0.814777],
+        [-0.0355813,0.99612,-0.080496],
+        [0.818564,-0.0171585,-0.574159],
+        [-634.361,2.85455,765.344]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "vw_kubelwagen",
+      "transform": [
+        [-0.411213,-0.074094,-0.908523],
+        [-0.0322827,0.997249,-0.0667183],
+        [0.910967,0.00189406,-0.412474],
+        [-629.65,2.98091,764.367]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "vw_kubelwagen",
+      "transform": [
+        [0.545726,0.0184943,0.83776],
+        [0.00442298,0.999679,-0.02495],
+        [-0.837952,0.0173213,0.545469],
+        [-579.722,1.74766,423.526]
+      ]
     }
   },
   {
@@ -350,6 +297,7 @@
       "score_bleed__totalDomBleedMul": 2.0,
       "score_bleed__totalDomBleedOn": false,
       "team__briefing": "domination/common_goals",
+      "team__winTitle": "debriefing/won_invasion_subtitle",
       "team__numZonesCaptured": 0,
       "team__deathPenalty": 2.0,
       "team__spawnBotArmy": "moscow_allies"
@@ -367,6 +315,7 @@
       "score_bleed__totalDomBleedMul": 2.0,
       "score_bleed__totalDomBleedOn": false,
       "team__briefing": "domination/common_goals",
+      "team__winTitle": "debriefing/won_invasion_subtitle",
       "team__numZonesCaptured": 0,
       "team__deathPenalty": 2.0,
       "team__spawnBotArmy": "moscow_axis"
@@ -475,10 +424,10 @@
     "entity": {
       "_template": "respawnChooser+respTeam1",
       "transform": [
-        [0.397029,0.0,0.917806],
+        [-0.0515569,0.0,0.99867],
         [0.0,1.0,0.0],
-        [-0.917806,0.0,0.397029],
-        [-616.014,1.67138,385.923]
+        [-0.99867,0.0,-0.0515569],
+        [-630.853,1.16384,380.071]
       ],
       "respawnBaseGroup": 1
     }
@@ -487,10 +436,10 @@
     "entity": {
       "_template": "respawnChooser+respTeam1",
       "transform": [
-        [0.220744,0.0,0.975331],
+        [-0.202283,0.0,0.979326],
         [0.0,1.0,0.0],
-        [-0.975331,0.0,0.220744],
-        [-610.685,1.67138,385.999]
+        [-0.979326,0.0,-0.202283],
+        [-607.142,2.09857,380.654]
       ],
       "respawnBaseGroup": 1
     }
@@ -499,10 +448,10 @@
     "entity": {
       "_template": "respawnChooser+respTeam1",
       "transform": [
-        [-0.370493,0.0,0.928834],
-        [0.0,1.0,0.0],
-        [-0.928834,0.0,-0.370493],
-        [-563.612,1.67138,396.1]
+        [0.666637,0.0,0.745381],
+        [0.0,1.0,-0.0],
+        [-0.745381,0.0,0.666637],
+        [-569.334,1.67138,377.971]
       ],
       "respawnBaseGroup": 2
     }
@@ -511,10 +460,10 @@
     "entity": {
       "_template": "respawnChooser+respTeam1",
       "transform": [
-        [-0.346745,0.0,0.937959],
+        [-0.42451,0.0,0.905423],
         [0.0,1.0,0.0],
-        [-0.937959,0.0,-0.346745],
-        [-566.623,1.67138,394.025]
+        [-0.905423,0.0,-0.42451],
+        [-572.38,1.67138,378.513]
       ],
       "respawnBaseGroup": 2
     }
@@ -526,7 +475,7 @@
         [-0.141251,0.0,-0.989973],
         [0.0,1.0,0.0],
         [0.989973,0.0,-0.141251],
-        [-624.79,2.1576,781.53]
+        [-621.367,1.2261,791.846]
       ],
       "respawnBaseGroup": 1
     }
@@ -538,7 +487,7 @@
         [-0.0549534,0.0,-0.998488],
         [0.0,1.0,0.0],
         [0.998488,0.0,-0.0549534],
-        [-601.542,2.65543,782.413]
+        [-608.021,1.80463,791.131]
       ],
       "respawnBaseGroup": 1
     }
@@ -547,10 +496,10 @@
     "entity": {
       "_template": "respawnChooser+respTeam2",
       "transform": [
-        [-0.0680342,0.0,-0.997682],
+        [0.334606,0.0,-0.942357],
         [0.0,1.0,0.0],
-        [0.997682,0.0,-0.0680342],
-        [-620.647,2.1576,781.484]
+        [0.942357,-0.0,0.334606],
+        [-618.252,1.2261,792.37]
       ],
       "respawnBaseGroup": 1
     }
@@ -559,10 +508,10 @@
     "entity": {
       "_template": "respawnChooser+respTeam2",
       "transform": [
-        [-0.259241,0.0,-0.965813],
+        [-0.0415233,0.0,-0.999138],
         [0.0,1.0,0.0],
-        [0.965813,0.0,-0.259241],
-        [-554.88,1.8274,780.962]
+        [0.999138,0.0,-0.0415233],
+        [-557.465,0.96581,792.604]
       ],
       "respawnBaseGroup": 2
     }
@@ -571,10 +520,10 @@
     "entity": {
       "_template": "respawnChooser+respTeam2",
       "transform": [
-        [-0.170465,0.0,-0.985363],
+        [0.039621,0.0,-0.999214],
         [0.0,1.0,0.0],
-        [0.985363,0.0,-0.170465],
-        [-563.691,2.30299,780.002]
+        [0.999214,-0.0,0.039621],
+        [-563.575,1.15533,793.172]
       ],
       "respawnBaseGroup": 2
     }
@@ -586,7 +535,7 @@
         [0.413998,0.0,-0.910277],
         [0.0,1.0,0.0],
         [0.910277,0.0,0.413998],
-        [-585.048,2.85068,783.706]
+        [-588.475,1.45407,795.766]
       ],
       "respawnBaseGroup": 2
     }
@@ -641,94 +590,6 @@
         [-490.51,7.69257,585.418]
       ],
       "resupply_zone__team": 2
-    }
-  },
-  {
-    "entity": {
-      "_template": "vw_kubelwagen",
-      "transform": [
-        [-0.14937,0.0597966,-0.986972],
-        [0.023517,0.998102,0.0569118],
-        [0.988502,-0.0147097,-0.150493],
-        [-582.622,4.03686,741.391]
-      ]
-    }
-  },
-  {
-    "entity": {
-      "_template": "vw_kubelwagen",
-      "transform": [
-        [0.205891,0.0752977,0.975674],
-        [0.119667,0.987615,-0.101472],
-        [-0.971231,0.137648,0.19433],
-        [-607.902,2.75143,414.471]
-      ]
-    }
-  },
-  {
-    "entity": {
-      "_template": "vw_kubelwagen",
-      "transform": [
-        [0.591245,-0.0865485,0.801835],
-        [0.0482377,0.99624,0.0719635],
-        [-0.805048,-0.00386935,0.593196],
-        [-638.407,3.42152,425.751]
-      ]
-    }
-  },
-  {
-    "entity": {
-      "_template": "vw_kubelwagen",
-      "transform": [
-        [0.571723,0.00811558,0.820406],
-        [0.000817221,0.999945,-0.0104611],
-        [-0.820446,0.00665131,0.571685],
-        [-641.623,3.4008,427.326]
-      ]
-    }
-  },
-  {
-    "entity": {
-      "_template": "vw_kubelwagen",
-      "transform": [
-        [0.376739,-0.0153894,-0.926192],
-        [-0.045575,0.998343,-0.0351264],
-        [0.925198,0.0554447,0.375413],
-        [-619.268,3.09424,762.004]
-      ]
-    }
-  },
-  {
-    "entity": {
-      "_template": "vw_kubelwagen",
-      "transform": [
-        [-0.573312,-0.0863205,-0.814777],
-        [-0.0355813,0.99612,-0.080496],
-        [0.818564,-0.0171585,-0.574159],
-        [-634.361,2.85455,765.344]
-      ]
-    }
-  },
-  {
-    "entity": {
-      "_template": "vw_kubelwagen",
-      "transform": [
-        [-0.411213,-0.074094,-0.908523],
-        [-0.0322827,0.997249,-0.0667183],
-        [0.910967,0.00189406,-0.412474],
-        [-629.65,2.98091,764.367]
-      ]
-    }
-  },
-  {
-    "entity": {
-      "_template": "vw_kubelwagen",
-      "transform": [
-        [0.545726,0.0184943,0.83776],
-        [0.00442298,0.999679,-0.02495],
-        [-0.837952,0.0173213,0.545469],
-        [-579.722,1.74766,423.526]
-      ]
     }
   },
   {

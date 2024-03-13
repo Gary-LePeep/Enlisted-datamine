@@ -469,6 +469,12 @@ return {
     params = { tier, count, genId }
   }, cb)
 
+  get_bots_data = @(armyId, campaignId, cb) request({
+    method = "get_bots_data"
+    params = { armyId, campaignId }
+    timeout_factor = 4.0
+  }, cb)
+
   get_profile_data_jwt = @(armies, campaignId, cb) request({
     method = "get_profile_data_jwt_v2"
     params = { armies, campaignId }
@@ -667,6 +673,11 @@ return {
   use_outfit_orders = @(armyId, items, orders, cb = null) request({
     method = "use_outfit_orders"
     params = { armyId, items, orders }
+  }, cb)
+
+  usermail_check = @(ts, cb) request({
+    method = "usermail_check"
+    params = { ts }
   }, cb)
 
   usermail_list = @(ts, limit, cb) request({

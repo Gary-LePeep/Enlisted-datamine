@@ -40,6 +40,11 @@
   },
   "riDestr": {
     "hitPointsToDestrImpulseMult": 100.0,
-    "destrImpulseHitPointsMult": 0.01
+    "destrImpulseHitPointsMult": 0.01,
+    "destrImpulseSendDist": 128.0,
+    "destrImpulseSendByDefault": true,
+    "destrMaxUpdateSize": 120,
+    "riMaxSimultaneousDestrs": 64,
+    "destrNewUpdateMessage": false
   }
 }

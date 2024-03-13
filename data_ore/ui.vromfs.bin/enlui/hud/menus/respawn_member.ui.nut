@@ -11,11 +11,10 @@ let { squadBlock, headerBlock, panel, respawnTimer, forceSpawnButton
 } = require("%ui/hud/respawn_parts.nut")
 let { localPlayerEid } = require("%ui/hud/state/local_player.nut")
 let mkSoldierCard = require("%enlSqGlob/ui/mkSoldierCard.nut")
-let { mkAiActionIcon, mkGrenadeIcon, mkMineIcon, mkMemberHealsBlock,
+let { mkAiActionIcon, mkGrenadeIcon, mkMineIcon, mkMemberHealsBlock, mkMemberRepairBlock,
   mkMemberFlaskBlock } = require("%ui/hud/components/squad_member.nut")
 let { sendNetEvent, RequestNextRespawnEntity } = require("dasevents")
-let { smallPadding, bigPadding } = require("%enlSqGlob/ui/viewConst.nut")
-let { transpBgColor, defItemBlur, defTxtColor, darkTxtColor
+let { transpBgColor, defItemBlur, defTxtColor, darkTxtColor, smallPadding, midPadding
 } = require("%enlSqGlob/ui/designConst.nut")
 
 
@@ -74,6 +73,7 @@ function currentSquadButtons(membersList, activeTeammateEid, infoByGuid, expToLe
             gap = hdpx(2)
             padding = smallPadding
             children = [
+              mkMemberRepairBlock(member, sIconSize, color)
               mkMemberHealsBlock(member, sIconSize, color)
               mkMemberFlaskBlock(member, sIconSize, color)
               mkGrenadeIcon(member, sIconSize, color) ?? mkMineIcon(member, sIconSize, color)
@@ -164,7 +164,7 @@ let memberRespawn = @() panel({
     {
       flow = FLOW_VERTICAL
       gap = smallPadding
-      padding = bigPadding
+      padding = midPadding
       rendObj = ROBJ_WORLD_BLUR
       fillColor = transpBgColor
       color = defItemBlur

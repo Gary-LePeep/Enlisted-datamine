@@ -2842,7 +2842,7 @@
   {
     "dmg": {
       "name": "tree_pine_small_b",
-      "destructionImpulse": 5050.0,
+      "destructionImpulse": 4000.0,
       "material": "wood_dead_solid",
       "canopyTriangle": true,
       "canopyTopPart": 0.5,
@@ -2868,7 +2868,7 @@
   {
     "dmg": {
       "name": "tree_pine_small_d",
-      "destructionImpulse": 5050.0,
+      "destructionImpulse": 4000.0,
       "material": "wood_dead_solid",
       "canopyTriangle": true,
       "canopyTopPart": 0.5,
@@ -15129,6 +15129,143 @@
           "fxTemplate": "envir_destr_concrete_med_effect",
           "fxScale": 1.0,
           "physRes": "fence_red_bricks_section_750_a_destr_phobj"
+        }
+      },
+      {
+        "russia_hydropowerplant_decor_door_ext_3000_a_l": {
+          "hp": 60.0,
+          "material": "softWoodDoor",
+          "fxTemplate": "envir_destr_wood_door_med_effect",
+          "fxScale": 1.0,
+          "physRes": "russia_hydropowerplant_decor_door_ext_3000_a_l_destr_phobj"
+        }
+      },
+      {
+        "russia_hydropowerplant_decor_door_ext_3000_a_r": {
+          "hp": 60.0,
+          "material": "softWoodDoor",
+          "fxTemplate": "envir_destr_wood_door_med_effect",
+          "fxScale": 1.0,
+          "physRes": "russia_hydropowerplant_decor_door_ext_3000_a_r_destr_phobj"
+        }
+      },
+      {
+        "russia_hydropowerplant_awning_a": {
+          "hp": 200.0,
+          "material": "wood",
+          "fxTemplate": "envir_destr_wood_med_effect",
+          "fxScale": 1.0,
+          "physRes": "russia_hydropowerplant_awning_a_destr_phobj"
+        }
+      },
+      {
+        "russia_hydropowerplant_decor_window_2000_a": {
+          "hp": 12.0,
+          "destructionImpulse": 8.0,
+          "material": "window_wood",
+          "fxTemplate": "envir_destr_wood_window_small_effect",
+          "fxScale": 1.0,
+          "physRes": "russia_hydropowerplant_decor_window_2000_a_destr_phobj"
+        }
+      },
+      {
+        "russia_hydropowerplant_decor_window_2100_a_c": {
+          "hp": 12.0,
+          "destructionImpulse": 8.0,
+          "material": "window_wood",
+          "fxTemplate": "envir_destr_wood_window_small_effect",
+          "fxScale": 1.0,
+          "physRes": "russia_hydropowerplant_decor_window_2100_a_c_destr_phobj"
+        }
+      },
+      {
+        "russia_hydropowerplant_decor_window_2100_a_l": {
+          "hp": 12.0,
+          "destructionImpulse": 8.0,
+          "material": "window_wood",
+          "fxTemplate": "envir_destr_wood_window_small_effect",
+          "fxScale": 1.0,
+          "physRes": "russia_hydropowerplant_decor_window_2100_a_l_destr_phobj"
+        }
+      },
+      {
+        "russia_hydropowerplant_decor_window_2100_a_r": {
+          "hp": 12.0,
+          "destructionImpulse": 8.0,
+          "material": "window_wood",
+          "fxTemplate": "envir_destr_wood_window_small_effect",
+          "fxScale": 1.0,
+          "physRes": "russia_hydropowerplant_decor_window_2100_a_r_destr_phobj"
+        }
+      },
+      {
+        "russia_hydropowerplant_decor_window_3000_a_l": {
+          "hp": 12.0,
+          "destructionImpulse": 8.0,
+          "material": "window_wood",
+          "fxTemplate": "envir_destr_wood_window_small_effect",
+          "fxScale": 1.0,
+          "physRes": "russia_hydropowerplant_decor_window_3000_a_l_destr_phobj"
+        }
+      },
+      {
+        "russia_hydropowerplant_decor_window_3000_a_r": {
+          "hp": 12.0,
+          "destructionImpulse": 8.0,
+          "material": "window_wood",
+          "fxTemplate": "envir_destr_wood_window_small_effect",
+          "fxScale": 1.0,
+          "physRes": "russia_hydropowerplant_decor_window_3000_a_r_destr_phobj"
+        }
+      },
+      {
+        "russia_hydropowerplant_decor_window_3000_a_up": {
+          "hp": 12.0,
+          "destructionImpulse": 8.0,
+          "material": "window_wood",
+          "fxTemplate": "envir_destr_wood_window_small_effect",
+          "fxScale": 1.0,
+          "physRes": "russia_hydropowerplant_decor_window_3000_a_up_destr_phobj"
+        }
+      },
+      {
+        "russia_hydropowerplant_decor_window_3000_b_l": {
+          "hp": 12.0,
+          "destructionImpulse": 8.0,
+          "material": "window_wood",
+          "fxTemplate": "envir_destr_wood_window_small_effect",
+          "fxScale": 1.0,
+          "physRes": "russia_hydropowerplant_decor_window_2100_a_l_destr_phobj"
+        }
+      },
+      {
+        "russia_hydropowerplant_decor_window_3000_b_r": {
+          "hp": 12.0,
+          "destructionImpulse": 8.0,
+          "material": "window_wood",
+          "fxTemplate": "envir_destr_wood_window_small_effect",
+          "fxScale": 1.0,
+          "physRes": "russia_hydropowerplant_decor_window_2100_a_l_destr_phobj"
+        }
+      },
+      {
+        "russia_hydropowerplant_decor_window_3000_b_middle": {
+          "hp": 12.0,
+          "destructionImpulse": 8.0,
+          "material": "window_wood",
+          "fxTemplate": "envir_destr_wood_window_small_effect",
+          "fxScale": 1.0,
+          "physRes": "russia_hydropowerplant_decor_window_3000_b_middle_destr_phobj"
+        }
+      },
+      {
+        "russia_hydropowerplant_decor_window_3000_b_up": {
+          "hp": 12.0,
+          "destructionImpulse": 8.0,
+          "material": "window_wood",
+          "fxTemplate": "envir_destr_wood_window_small_effect",
+          "fxScale": 1.0,
+          "physRes": "russia_hydropowerplant_decor_window_3000_b_up_destr_phobj"
         }
       },
       {
@@ -59888,6 +60025,16 @@
           "physRes": "tree_burnt_tall_a_destr_phobj",
           "material": "wood",
           "nextRes": "tree_burnt_tall_a_dmg"
+        }
+      },
+      {
+        "tree_burnt_tall_a_dmg": {
+          "destructionImpulse": 5500.0,
+          "impulseThreshold": 256.0,
+          "fxTemplate": "envir_destr_wood_big_effect",
+          "fxScale": 1.0,
+          "physRes": "tree_burnt_tall_a_b_destr_phobj",
+          "material": "wood"
         }
       },
       {

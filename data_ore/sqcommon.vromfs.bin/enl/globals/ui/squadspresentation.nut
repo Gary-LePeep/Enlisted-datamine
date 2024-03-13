@@ -111,6 +111,7 @@ return freeze({
 
 
 //prems
+    squad_ussr_engineer_2_event_1 = genSquadUssr("squad_ussr_engineer_2_event_1", {premIcon = ICON_EVENT})
     squad_ussr_apc_driver_2_premium_1 = genSquadUssr("squad_ussr_apc_driver_2_premium_1")
     squad_ussr_paratrooper_2_event_1 = genSquadUssr("squad_ussr_paratrooper_2_event_1", {premIcon = ICON_EVENT})
     squad_ussr_paratrooper_2_premium_1 = genSquadUssr("squad_ussr_paratrooper_2_premium_1")
@@ -315,6 +316,8 @@ return freeze({
     axis_stalingrad_pilot_fighter_3 = genSquadGer("axis_stalingrad_pilot_fighter_3")
 
 //prems
+
+    squad_ger_engineer_2_event_1 = genSquadGer("squad_ger_engineer_2_event_1", {premIcon = ICON_EVENT})
     squad_ger_tanker_3_premium_6 = genSquadGer("squad_ger_tanker_3_premium_6")
     squad_ger_apc_driver_2_premium_1 = genSquadGer("squad_ger_apc_driver_2_premium_1")
     squad_ger_apc_driver_2_event_1 = genSquadGer("squad_ger_apc_driver_2_event_1", {premIcon = ICON_EVENT})

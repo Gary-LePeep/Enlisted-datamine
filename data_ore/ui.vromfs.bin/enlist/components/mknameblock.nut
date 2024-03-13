@@ -10,9 +10,9 @@ let {
   kindIcon, classIcon, levelBlock, experienceTooltip,
   classTooltip, mkSoldierMedalIcon, calcExperienceData
 } = require("%enlSqGlob/ui/soldiersUiComps.nut")
-let { gap, bigPadding, smallPadding, noteTxtColor, defTxtColor, msgHighlightedTxtColor
-} = require("%enlSqGlob/ui/viewConst.nut")
-let { panelBgColor } = require("%enlSqGlob/ui/designConst.nut")
+let { panelBgColor, gap, midPadding, msgHighlightedTxtColor,
+  smallPadding, noteTxtColor, defTxtColor
+} = require("%enlSqGlob/ui/designConst.nut")
 let { getObjectName } = require("%enlSqGlob/ui/itemsInfo.nut")
 let { mkSoldiersData } = require("%enlist/soldiers/model/curSoldiersState.nut")
 let { campPresentation, needFreemiumStatus } = require("%enlist/campaigns/campaignConfig.nut")
@@ -160,7 +160,7 @@ function mkNameBlock(soldier) {
         watch = [perksList, perksWatch, sClassesCfg]
         flow = FLOW_HORIZONTAL
         gap = smallPadding
-        margin = [0,0,0,bigPadding]
+        margin = [0,0,0,midPadding]
         children = pPointsList.map(function(statId) {
           let { icon } = pPointsBaseParams[statId]
           let totalPoints = points?[statId] ?? 0
@@ -199,7 +199,7 @@ function mkNameBlock(soldier) {
         {
           size = flex()
           flow = FLOW_HORIZONTAL
-          padding = [0, bigPadding]
+          padding = [0, midPadding]
           children = [
             {
               size = flex()

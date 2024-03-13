@@ -4,40 +4,75 @@ let {isGamepad} = require("%ui/control/active_controls.nut")
 let {safeAreaVerPadding, safeAreaHorPadding} = require("%enlSqGlob/ui/safeArea.nut")
 let tooltipBox = require("tooltipBox.nut")
 let { is_sony, is_xbox } = require("%dngscripts/platform.nut")
+
+let tooltipComp = {value = null, elemPos = null}
 let tooltipGen = Watched(0)
-let tooltipComp = {value = null}
-function setTooltip(val){
+
+const MAX_GEN_INT = 1000
+function setTooltip(val, elemPos = null){
   tooltipComp.value = val
-  tooltipGen(tooltipGen.value+1)
+  tooltipComp.elemPos = elemPos
+  tooltipGen(tooltipGen.value > MAX_GEN_INT ? 0 : tooltipGen.value + 1)
 }
+
 let getTooltip = @() tooltipComp.value
 let cursors = {getTooltip, setTooltip, tooltip = {}}
-let {cursorOverStickScroll, cursorOverClickable} = gui_scene
+let { cursorOverStickScroll, cursorOverClickable } = gui_scene
 let showGamepad = Computed(@() isGamepad.value || is_xbox || is_sony)
 
 let colorBack = Color(0,0,0,120)
 
 let safeAreaBorders = Computed(@() [safeAreaVerPadding.value+fsh(1), safeAreaHorPadding.value+fsh(1)])
 
-let mkTooltipCmp = @(align) @(){
-  key = "tooltip"
-  pos = align == ALIGN_BOTTOM ? [0, 0]
-    : showGamepad.value ? [hdpx(28), hdpx(40)]
-    : [hdpx(12), hdpx(28)]
-  watch = [tooltipGen, showGamepad, safeAreaBorders]
-  behavior = Behaviors.BoundToArea
-  transform = {}
-  safeAreaMargin = safeAreaBorders.value
-  vplace = align
-  children = type(getTooltip()) == "string"
-  ? tooltipBox({
-      rendObj = ROBJ_TEXTAREA
-      behavior = Behaviors.TextArea
-      maxWidth = hdpx(500)
-      text = getTooltip()
-      color = Color(180, 180, 180, 120)
-    })
-  : getTooltip()
+function getTooltipPositioning(vplace, tooltipChildren) {
+  if (vplace == ALIGN_BOTTOM)
+    return [0, 0]
+
+  if (!showGamepad.value)
+    return [hdpxi(12), hdpxi(28)]
+
+  let elemPos = tooltipComp.elemPos?.targetRect
+  if (!elemPos)
+    return [hdpxi(28), hdpxi(40)]
+
+  let rootSizeHeight = elemPos.b - elemPos.t
+  local posY = (((rootSizeHeight * 0.5) + hdpx(20)) + 0.5).tointeger()
+
+  let tooltipPrecalcRect = calc_comp_size(tooltipChildren)
+  let critPosY = elemPos.b + tooltipPrecalcRect[1]
+  if (critPosY >= (sh(100) - safeAreaBorders.value[0])) {
+    let curPos = get_mouse_cursor_pos()
+    posY = elemPos.t - curPos.y - tooltipPrecalcRect[1] + hdpxi(20)
+  }
+
+  return [hdpxi(28), posY]
+}
+
+let mkTooltipCmp = @(align) function() {
+  let children = type(getTooltip()) == "string"
+    ? tooltipBox({
+        rendObj = ROBJ_TEXTAREA
+        behavior = Behaviors.TextArea
+        maxWidth = hdpxi(500)
+        text = getTooltip()
+        color = Color(180, 180, 180, 120)
+      })
+    : getTooltip()
+
+  if (children == null)
+    return { watch = [tooltipGen] }
+
+  let pos = getTooltipPositioning(align, children)
+  return {
+    key = "tooltip"
+    pos
+    watch = [tooltipGen, showGamepad, safeAreaBorders]
+    behavior = Behaviors.BoundToArea
+    transform = {}
+    safeAreaMargin = safeAreaBorders.value
+    vplace = align
+    children
+  }
 }
 
 cursors.tooltip.cmp <- mkTooltipCmp(ALIGN_TOP)
@@ -61,7 +96,7 @@ cursors.tooltip.cmpTop <- mkTooltipCmp(ALIGN_BOTTOM)
       }
  */
 
-let getEvenIntegerHdpx = @(px) hdpx(0.5 * px).tointeger() * 2
+let getEvenIntegerHdpx = @(px) hdpxi(0.5 * px) * 2
 
 let scroll_size = getEvenIntegerHdpx(20)
 
@@ -85,7 +120,7 @@ let joyScrollCursorImage = {
   size = [scroll_size, scroll_size]
   image = Picture($"!ui/uiskin/cursor_scroll.svg:{scroll_size}:{scroll_size}:K")
   keepAspect = KEEP_ASPECT_FIT
-  pos = [hdpx(20), hdpx(30)]
+  pos = [hdpxi(20), hdpxi(30)]
   opacity = 1
 
   transform = {}
@@ -125,7 +160,7 @@ function mkPcCursor(children){
   }
 }
 
-let gamepadCursorSize = [hdpx(40), hdpx(40)]
+let gamepadCursorSize = [hdpxi(40), hdpxi(40)]
 
 let gamepadOnClickAnimationComp = {
   animations = [
@@ -151,7 +186,7 @@ function mkGamepadCursor(children){
   if (cursorOverClickable.value)
     children.append(gamepadOnClickAnimationComp)
   return {
-    hotspot = [hdpx(20), hdpx(20)]
+    hotspot = [hdpxi(20), hdpxi(20)]
     watch = [showGamepad, cursorOverStickScroll, cursorOverClickable]
     size = gamepadCursorSize
     children = children
@@ -221,7 +256,7 @@ let helpSign = {
   color = Color(150,150,150,100)
 }
 
-let helpSignPc = helpSign.__merge({pos = [hdpx(25), hdpx(10)]})
+let helpSignPc = helpSign.__merge({pos = [hdpxi(25), hdpxi(10)]})
 
 cursors.help <- Cursor(function(){
   let children = [

@@ -704,9 +704,10 @@
       "vehicle_anim__steeringDeflectionId": 0,
       "vehicle_anim__steeringDeflectionValue": 0.0,
       "vehicle_anim__steeringDeflectionViscosity": 0.1,
-      "vehicle_anim__steeringDeflectionLimit": [-10.0,10.0],
+      "vehicle_anim__steeringDeflectionLimit": [-30.0,30.0],
       "_tags": "render"
-    }
+    },
+    "anim_phys": []
   },
   "vehicle_anim_speedometer_kmh": {
     "_group": {
@@ -763,6 +764,9 @@
     }
   },
   "base_civil_fire_ready_vehicle": [
+    {
+      "_use": "vehicle_anim_steering_deflection"
+    },
     {
       "_use": "base_civil_fire_ready_vehicle_no_wheel"
     },
@@ -879,9 +883,6 @@
       "_use": "base_civil_fire_ready_vehicle"
     },
     {
-      "_use": "four_seats_vehicle"
-    },
-    {
       "_use": "simple_damage_model"
     },
     {
@@ -913,6 +914,106 @@
     },
     {
       "car_painting__chance": 0.9
+    },
+    {
+      "vehicle_seats__seats:shared:array": [
+        {
+          "seats:object": {
+            "name": "driver",
+            "locName": "vehicle_seats/car_driver",
+            "seatOwnsEntityControl": true,
+            "attachNode": "char_driver_pivot",
+            "entranceNode": "char_driver_landing",
+            "attachTm": [
+              [1.0,0.0,0.0],
+              [0.0,1.0,0.0],
+              [0.0,0.0,1.0],
+              [0.0,0.0,0.0]
+            ],
+            "seatComponent": "isDriver",
+            "nextSeat": "passenger1",
+            "canPlaceManually": true,
+            "seatEnum": "left_seat"
+          }
+        },
+        {
+          "seats:object": {
+            "name": "passenger1",
+            "locName": "vehicle_seats/shooter",
+            "seatOwnsEntityControl": false,
+            "attachNode": "char_passenger_01_pivot",
+            "entranceNode": "char_passenger_01_landing",
+            "attachTm": [
+              [1.0,0.0,0.0],
+              [0.0,1.0,0.0],
+              [0.0,0.0,1.0],
+              [0.0,0.0,0.0]
+            ],
+            "seatComponent": "isPassenger",
+            "nextSeat": "passenger2",
+            "canPlaceManually": true,
+            "seatEnum": "right_seat",
+            "effectors:object": {
+              "l.hand:object": {
+                "rel_tm": [
+                  [0.788196,0.566935,0.23944],
+                  [0.612626,-0.759856,-0.217507],
+                  [0.0586273,0.318126,-0.946234],
+                  [0.442886,0.419131,-0.108654]
+                ],
+                "node": "char_passenger_01_pivot"
+              },
+              "r.hand:object": {
+                "rel_tm": [
+                  [0.86435,0.490858,-0.109344],
+                  [0.495734,-0.795115,0.349343],
+                  [0.0845368,-0.356161,-0.930593],
+                  [0.436775,0.430933,0.144154]
+                ],
+                "node": "char_passenger_01_pivot"
+              }
+            }
+          }
+        },
+        {
+          "seats:object": {
+            "name": "passenger2",
+            "locName": "vehicle_seats/shooter",
+            "seatOwnsEntityControl": false,
+            "attachNode": "char_passenger_02_pivot",
+            "entranceNode": "char_passenger_02_landing",
+            "attachTm": [
+              [1.0,0.0,0.0],
+              [0.0,1.0,0.0],
+              [0.0,0.0,1.0],
+              [0.0,0.0,0.0]
+            ],
+            "seatComponent": "isPassenger",
+            "nextSeat": "passenger3",
+            "canPlaceManually": true,
+            "seatEnum": "left_seat"
+          }
+        },
+        {
+          "seats:object": {
+            "name": "passenger3",
+            "locName": "vehicle_seats/shooter",
+            "seatOwnsEntityControl": false,
+            "attachNode": "char_passenger_03_pivot",
+            "entranceNode": "char_passenger_03_landing",
+            "attachTm": [
+              [1.0,0.0,0.0],
+              [0.0,1.0,0.0],
+              [0.0,0.0,1.0],
+              [0.0,0.0,0.0]
+            ],
+            "seatComponent": "isPassenger",
+            "nextSeat": "driver",
+            "canPlaceManually": true,
+            "seatEnum": "right_seat"
+          }
+        }
+      ]
     },
     {
       "car_painting__possibleColors:array": [
@@ -1034,9 +1135,6 @@
       "_use": "base_civil_fire_ready_vehicle"
     },
     {
-      "_use": "truck_ten_seats_vehicle"
-    },
-    {
       "_use": "simple_damage_model"
     },
     {
@@ -1077,6 +1175,239 @@
     },
     {
       "car_painting__chance": 0.9
+    },
+    {
+      "vehicle_seats__seats:shared:array": [
+        {
+          "seats:object": {
+            "name": "driver",
+            "locName": "vehicle_seats/car_driver",
+            "seatOwnsEntityControl": true,
+            "attachNode": "char_driver_pivot",
+            "entranceNode": "char_driver_landing",
+            "attachTm": [
+              [1.0,0.0,0.0],
+              [0.0,1.0,0.0],
+              [0.0,0.0,1.0],
+              [0.0,0.0,0.0]
+            ],
+            "seatComponent": "isDriver",
+            "nextSeat": "passenger1",
+            "canPlaceManually": true,
+            "seatEnum": "left_seat",
+            "effectors:object": {
+              "l.hand:object": {
+                "rel_tm": [
+                  [-0.938239,-0.11052,0.327861],
+                  [-0.31443,0.667764,-0.674704],
+                  [-0.144365,-0.736122,-0.661273],
+                  [1.17173,-0.173988,0.0630951]
+                ],
+                "node": "bone_roll_driver"
+              },
+              "r.hand:object": {
+                "rel_tm": [
+                  [-0.921703,0.00175548,0.387894],
+                  [-0.207464,-0.847174,-0.489137],
+                  [0.327755,-0.531312,0.781207],
+                  [1.15418,0.180593,0.0388603]
+                ],
+                "node": "bone_roll_driver"
+              }
+            }
+          }
+        },
+        {
+          "seats:object": {
+            "name": "passenger1",
+            "locName": "vehicle_seats/shooter",
+            "seatOwnsEntityControl": false,
+            "attachNode": "char_passenger_01_pivot",
+            "entranceNode": "char_passenger_01_landing",
+            "attachTm": [
+              [1.0,0.0,0.0],
+              [0.0,1.0,0.0],
+              [0.0,0.0,1.0],
+              [0.0,0.0,0.0]
+            ],
+            "seatComponent": "isPassenger",
+            "nextSeat": "passenger2",
+            "canPlaceManually": true,
+            "seatEnum": "right_seat"
+          }
+        },
+        {
+          "seats:object": {
+            "name": "passenger2",
+            "locName": "vehicle_seats/shooter",
+            "seatOwnsEntityControl": false,
+            "attachNode": "char_passenger_02_pivot",
+            "entranceNode": "char_passenger_02_landing",
+            "attachTm": [
+              [1.0,0.0,0.0],
+              [0.0,1.0,0.0],
+              [0.0,0.0,1.0],
+              [0.0,0.0,0.0]
+            ],
+            "seatComponent": "isPassenger",
+            "nextSeat": "passenger3",
+            "canPlaceManually": true,
+            "seatEnum": "left_track_seat"
+          }
+        },
+        {
+          "seats:object": {
+            "name": "passenger3",
+            "locName": "vehicle_seats/shooter",
+            "seatOwnsEntityControl": false,
+            "attachNode": "char_passenger_03_pivot",
+            "entranceNode": "char_passenger_03_landing",
+            "attachTm": [
+              [1.0,0.0,0.0],
+              [0.0,1.0,0.0],
+              [0.0,0.0,1.0],
+              [0.0,0.0,0.0]
+            ],
+            "seatComponent": "isPassenger",
+            "nextSeat": "passenger4",
+            "canPlaceManually": true,
+            "seatEnum": "left_track_seat"
+          }
+        },
+        {
+          "seats:object": {
+            "name": "passenger4",
+            "locName": "vehicle_seats/shooter",
+            "seatOwnsEntityControl": false,
+            "attachNode": "char_passenger_04_pivot",
+            "entranceNode": "char_passenger_04_landing",
+            "attachTm": [
+              [1.0,0.0,0.0],
+              [0.0,1.0,0.0],
+              [0.0,0.0,1.0],
+              [0.0,0.0,0.0]
+            ],
+            "seatComponent": "isPassenger",
+            "nextSeat": "passenger5",
+            "canPlaceManually": true,
+            "seatEnum": "left_track_seat"
+          }
+        },
+        {
+          "seats:object": {
+            "name": "passenger5",
+            "locName": "vehicle_seats/shooter",
+            "seatOwnsEntityControl": false,
+            "attachNode": "char_passenger_05_pivot",
+            "entranceNode": "char_passenger_05_landing",
+            "attachTm": [
+              [1.0,0.0,0.0],
+              [0.0,1.0,0.0],
+              [0.0,0.0,1.0],
+              [0.0,0.0,0.0]
+            ],
+            "seatComponent": "isPassenger",
+            "nextSeat": "passenger6",
+            "canPlaceManually": true,
+            "seatEnum": "left_track_seat"
+          }
+        },
+        {
+          "seats:object": {
+            "name": "passenger6",
+            "locName": "vehicle_seats/shooter",
+            "seatOwnsEntityControl": false,
+            "attachNode": "char_passenger_06_pivot",
+            "entranceNode": "char_passenger_06_landing",
+            "attachTm": [
+              [1.0,0.0,0.0],
+              [0.0,1.0,0.0],
+              [0.0,0.0,1.0],
+              [0.0,0.0,0.0]
+            ],
+            "seatComponent": "isPassenger",
+            "nextSeat": "passenger7",
+            "canPlaceManually": true,
+            "seatEnum": "left_track_seat"
+          }
+        },
+        {
+          "seats:object": {
+            "name": "passenger7",
+            "locName": "vehicle_seats/shooter",
+            "seatOwnsEntityControl": false,
+            "attachNode": "char_passenger_07_pivot",
+            "entranceNode": "char_passenger_07_landing",
+            "attachTm": [
+              [1.0,0.0,0.0],
+              [0.0,1.0,0.0],
+              [0.0,0.0,1.0],
+              [0.0,0.0,0.0]
+            ],
+            "seatComponent": "isPassenger",
+            "nextSeat": "passenger8",
+            "canPlaceManually": true,
+            "seatEnum": "left_track_seat"
+          }
+        },
+        {
+          "seats:object": {
+            "name": "passenger8",
+            "locName": "vehicle_seats/shooter",
+            "seatOwnsEntityControl": false,
+            "attachNode": "char_passenger_08_pivot",
+            "entranceNode": "char_passenger_08_landing",
+            "attachTm": [
+              [1.0,0.0,0.0],
+              [0.0,1.0,0.0],
+              [0.0,0.0,1.0],
+              [0.0,0.0,0.0]
+            ],
+            "seatComponent": "isPassenger",
+            "nextSeat": "passenger9",
+            "canPlaceManually": true,
+            "seatEnum": "left_track_seat"
+          }
+        },
+        {
+          "seats:object": {
+            "name": "passenger9",
+            "locName": "vehicle_seats/shooter",
+            "seatOwnsEntityControl": false,
+            "attachNode": "char_passenger_09_pivot",
+            "entranceNode": "char_passenger_09_landing",
+            "attachTm": [
+              [1.0,0.0,0.0],
+              [0.0,1.0,0.0],
+              [0.0,0.0,1.0],
+              [0.0,0.0,0.0]
+            ],
+            "seatComponent": "isPassenger",
+            "nextSeat": "passenger10",
+            "canPlaceManually": true,
+            "seatEnum": "left_track_seat"
+          }
+        },
+        {
+          "seats:object": {
+            "name": "passenger10",
+            "locName": "vehicle_seats/shooter",
+            "seatOwnsEntityControl": false,
+            "attachNode": "char_passenger_10_pivot",
+            "entranceNode": "char_passenger_10_landing",
+            "attachTm": [
+              [1.0,0.0,0.0],
+              [0.0,1.0,0.0],
+              [0.0,0.0,1.0],
+              [0.0,0.0,0.0]
+            ],
+            "seatComponent": "isPassenger",
+            "nextSeat": "driver",
+            "canPlaceManually": true,
+            "seatEnum": "left_track_seat"
+          }
+        }
+      ]
     },
     {
       "car_painting__possibleColors:array": [
@@ -1382,9 +1713,6 @@
       "_use": "base_civil_fire_ready_vehicle"
     },
     {
-      "_use": "four_seats_vehicle"
-    },
-    {
       "_use": "simple_damage_model"
     },
     {
@@ -1416,6 +1744,106 @@
     },
     {
       "car_painting__chance": 0.9
+    },
+    {
+      "vehicle_seats__seats:shared:array": [
+        {
+          "seats:object": {
+            "name": "driver",
+            "locName": "vehicle_seats/car_driver",
+            "seatOwnsEntityControl": true,
+            "attachNode": "char_driver_pivot",
+            "entranceNode": "char_driver_landing",
+            "attachTm": [
+              [1.0,0.0,0.0],
+              [0.0,1.0,0.0],
+              [0.0,0.0,1.0],
+              [0.0,0.0,0.0]
+            ],
+            "seatComponent": "isDriver",
+            "nextSeat": "passenger1",
+            "canPlaceManually": true,
+            "seatEnum": "left_seat",
+            "effectors:object": {
+              "l.hand:object": {
+                "rel_tm": [
+                  [-0.691168,0.200924,0.653685],
+                  [-0.592745,0.189586,-0.756663],
+                  [-0.261421,-0.961086,-0.0126018],
+                  [1.09528,-0.134612,0.182243]
+                ],
+                "node": "bone_roll_driver"
+              },
+              "r.hand:object": {
+                "rel_tm": [
+                  [0.997956,-0.00428599,-0.0637629],
+                  [-0.000392344,-0.99814,0.0609521],
+                  [-0.0639056,-0.0608024,-0.996102],
+                  [0.362976,0.297852,0.396918]
+                ],
+                "node": "char_driver_pivot"
+              }
+            }
+          }
+        },
+        {
+          "seats:object": {
+            "name": "passenger1",
+            "locName": "vehicle_seats/shooter",
+            "seatOwnsEntityControl": false,
+            "attachNode": "char_passenger_01_pivot",
+            "entranceNode": "char_passenger_01_landing",
+            "attachTm": [
+              [1.0,0.0,0.0],
+              [0.0,1.0,0.0],
+              [0.0,0.0,1.0],
+              [0.0,0.0,0.0]
+            ],
+            "seatComponent": "isPassenger",
+            "nextSeat": "passenger2",
+            "canPlaceManually": true,
+            "seatEnum": "right_seat"
+          }
+        },
+        {
+          "seats:object": {
+            "name": "passenger2",
+            "locName": "vehicle_seats/shooter",
+            "seatOwnsEntityControl": false,
+            "attachNode": "char_passenger_02_pivot",
+            "entranceNode": "char_passenger_02_landing",
+            "attachTm": [
+              [1.0,0.0,0.0],
+              [0.0,1.0,0.0],
+              [0.0,0.0,1.0],
+              [0.0,0.0,0.0]
+            ],
+            "seatComponent": "isPassenger",
+            "nextSeat": "passenger3",
+            "canPlaceManually": true,
+            "seatEnum": "left_seat"
+          }
+        },
+        {
+          "seats:object": {
+            "name": "passenger3",
+            "locName": "vehicle_seats/shooter",
+            "seatOwnsEntityControl": false,
+            "attachNode": "char_passenger_03_pivot",
+            "entranceNode": "char_passenger_03_landing",
+            "attachTm": [
+              [1.0,0.0,0.0],
+              [0.0,1.0,0.0],
+              [0.0,0.0,1.0],
+              [0.0,0.0,0.0]
+            ],
+            "seatComponent": "isPassenger",
+            "nextSeat": "driver",
+            "canPlaceManually": true,
+            "seatEnum": "right_seat"
+          }
+        }
+      ]
     },
     {
       "car_painting__possibleColors:array": [
@@ -1576,9 +2004,6 @@
       "_use": "base_civil_fire_ready_vehicle"
     },
     {
-      "_use": "truck_ten_seats_vehicle"
-    },
-    {
       "_use": "simple_damage_model"
     },
     {
@@ -1619,6 +2044,239 @@
     },
     {
       "car_painting__chance": 0.9
+    },
+    {
+      "vehicle_seats__seats:shared:array": [
+        {
+          "seats:object": {
+            "name": "driver",
+            "locName": "vehicle_seats/car_driver",
+            "seatOwnsEntityControl": true,
+            "attachNode": "char_driver_pivot",
+            "entranceNode": "char_driver_landing",
+            "attachTm": [
+              [1.0,0.0,0.0],
+              [0.0,1.0,0.0],
+              [0.0,0.0,1.0],
+              [0.0,0.0,0.0]
+            ],
+            "seatComponent": "isDriver",
+            "nextSeat": "passenger1",
+            "canPlaceManually": true,
+            "seatEnum": "left_seat",
+            "effectors:object": {
+              "l.hand:object": {
+                "rel_tm": [
+                  [-0.63468,0.0115196,0.772689],
+                  [-0.505048,0.750614,-0.426033],
+                  [-0.584899,-0.66064,-0.470582],
+                  [0.581192,-0.193366,0.000118256]
+                ],
+                "node": "bone_roll_driver"
+              },
+              "r.hand:object": {
+                "rel_tm": [
+                  [-0.618442,0.126292,0.775615],
+                  [-0.643699,-0.647563,-0.407816],
+                  [0.450756,-0.751473,0.481774],
+                  [0.568195,0.20238,-0.00453186]
+                ],
+                "node": "bone_roll_driver"
+              }
+            }
+          }
+        },
+        {
+          "seats:object": {
+            "name": "passenger1",
+            "locName": "vehicle_seats/shooter",
+            "seatOwnsEntityControl": false,
+            "attachNode": "char_passenger_01_pivot",
+            "entranceNode": "char_passenger_01_landing",
+            "attachTm": [
+              [1.0,0.0,0.0],
+              [0.0,1.0,0.0],
+              [0.0,0.0,1.0],
+              [0.0,0.0,0.0]
+            ],
+            "seatComponent": "isPassenger",
+            "nextSeat": "passenger2",
+            "canPlaceManually": true,
+            "seatEnum": "right_seat"
+          }
+        },
+        {
+          "seats:object": {
+            "name": "passenger2",
+            "locName": "vehicle_seats/shooter",
+            "seatOwnsEntityControl": false,
+            "attachNode": "char_passenger_02_pivot",
+            "entranceNode": "char_passenger_02_landing",
+            "attachTm": [
+              [1.0,0.0,0.0],
+              [0.0,1.0,0.0],
+              [0.0,0.0,1.0],
+              [0.0,0.0,0.0]
+            ],
+            "seatComponent": "isPassenger",
+            "nextSeat": "passenger3",
+            "canPlaceManually": true,
+            "seatEnum": "left_track_seat"
+          }
+        },
+        {
+          "seats:object": {
+            "name": "passenger3",
+            "locName": "vehicle_seats/shooter",
+            "seatOwnsEntityControl": false,
+            "attachNode": "char_passenger_03_pivot",
+            "entranceNode": "char_passenger_03_landing",
+            "attachTm": [
+              [1.0,0.0,0.0],
+              [0.0,1.0,0.0],
+              [0.0,0.0,1.0],
+              [0.0,0.0,0.0]
+            ],
+            "seatComponent": "isPassenger",
+            "nextSeat": "passenger4",
+            "canPlaceManually": true,
+            "seatEnum": "left_track_seat"
+          }
+        },
+        {
+          "seats:object": {
+            "name": "passenger4",
+            "locName": "vehicle_seats/shooter",
+            "seatOwnsEntityControl": false,
+            "attachNode": "char_passenger_04_pivot",
+            "entranceNode": "char_passenger_04_landing",
+            "attachTm": [
+              [1.0,0.0,0.0],
+              [0.0,1.0,0.0],
+              [0.0,0.0,1.0],
+              [0.0,0.0,0.0]
+            ],
+            "seatComponent": "isPassenger",
+            "nextSeat": "passenger5",
+            "canPlaceManually": true,
+            "seatEnum": "left_track_seat"
+          }
+        },
+        {
+          "seats:object": {
+            "name": "passenger5",
+            "locName": "vehicle_seats/shooter",
+            "seatOwnsEntityControl": false,
+            "attachNode": "char_passenger_05_pivot",
+            "entranceNode": "char_passenger_05_landing",
+            "attachTm": [
+              [1.0,0.0,0.0],
+              [0.0,1.0,0.0],
+              [0.0,0.0,1.0],
+              [0.0,0.0,0.0]
+            ],
+            "seatComponent": "isPassenger",
+            "nextSeat": "passenger6",
+            "canPlaceManually": true,
+            "seatEnum": "left_track_seat"
+          }
+        },
+        {
+          "seats:object": {
+            "name": "passenger6",
+            "locName": "vehicle_seats/shooter",
+            "seatOwnsEntityControl": false,
+            "attachNode": "char_passenger_06_pivot",
+            "entranceNode": "char_passenger_06_landing",
+            "attachTm": [
+              [1.0,0.0,0.0],
+              [0.0,1.0,0.0],
+              [0.0,0.0,1.0],
+              [0.0,0.0,0.0]
+            ],
+            "seatComponent": "isPassenger",
+            "nextSeat": "passenger7",
+            "canPlaceManually": true,
+            "seatEnum": "left_track_seat"
+          }
+        },
+        {
+          "seats:object": {
+            "name": "passenger7",
+            "locName": "vehicle_seats/shooter",
+            "seatOwnsEntityControl": false,
+            "attachNode": "char_passenger_07_pivot",
+            "entranceNode": "char_passenger_07_landing",
+            "attachTm": [
+              [1.0,0.0,0.0],
+              [0.0,1.0,0.0],
+              [0.0,0.0,1.0],
+              [0.0,0.0,0.0]
+            ],
+            "seatComponent": "isPassenger",
+            "nextSeat": "passenger8",
+            "canPlaceManually": true,
+            "seatEnum": "left_track_seat"
+          }
+        },
+        {
+          "seats:object": {
+            "name": "passenger8",
+            "locName": "vehicle_seats/shooter",
+            "seatOwnsEntityControl": false,
+            "attachNode": "char_passenger_08_pivot",
+            "entranceNode": "char_passenger_08_landing",
+            "attachTm": [
+              [1.0,0.0,0.0],
+              [0.0,1.0,0.0],
+              [0.0,0.0,1.0],
+              [0.0,0.0,0.0]
+            ],
+            "seatComponent": "isPassenger",
+            "nextSeat": "passenger9",
+            "canPlaceManually": true,
+            "seatEnum": "left_track_seat"
+          }
+        },
+        {
+          "seats:object": {
+            "name": "passenger9",
+            "locName": "vehicle_seats/shooter",
+            "seatOwnsEntityControl": false,
+            "attachNode": "char_passenger_09_pivot",
+            "entranceNode": "char_passenger_09_landing",
+            "attachTm": [
+              [1.0,0.0,0.0],
+              [0.0,1.0,0.0],
+              [0.0,0.0,1.0],
+              [0.0,0.0,0.0]
+            ],
+            "seatComponent": "isPassenger",
+            "nextSeat": "passenger10",
+            "canPlaceManually": true,
+            "seatEnum": "left_track_seat"
+          }
+        },
+        {
+          "seats:object": {
+            "name": "passenger10",
+            "locName": "vehicle_seats/shooter",
+            "seatOwnsEntityControl": false,
+            "attachNode": "char_passenger_10_pivot",
+            "entranceNode": "char_passenger_10_landing",
+            "attachTm": [
+              [1.0,0.0,0.0],
+              [0.0,1.0,0.0],
+              [0.0,0.0,1.0],
+              [0.0,0.0,0.0]
+            ],
+            "seatComponent": "isPassenger",
+            "nextSeat": "driver",
+            "canPlaceManually": true,
+            "seatEnum": "left_track_seat"
+          }
+        }
+      ]
     },
     {
       "disableDMParts:list<t>": [
@@ -1699,6 +2357,12 @@
       "car_painting__chance": 0.9
     },
     {
+      "_group": {
+        "vehicle_anim__steeringDeflectionLimit": [-20.0,20.0],
+        "_tags": "render"
+      }
+    },
+    {
       "vehicle_seats__seats:shared:array": [
         {
           "seats:object": {
@@ -1711,12 +2375,50 @@
               [1.0,0.0,0.0],
               [0.0,1.0,0.0],
               [0.0,0.0,1.0],
-              [-0.1,0.0,-0.05]
+              [-0.0607,-0.0713,-0.0502689]
             ],
             "seatComponent": "isDriver",
             "nextSeat": "passenger1",
             "canPlaceManually": true,
-            "seatEnum": "left_seat"
+            "seatEnum": "left_seat",
+            "effectors:object": {
+              "l.hand:object": {
+                "rel_tm": [
+                  [-0.398987,0.558276,0.727418],
+                  [-0.904502,-0.369922,-0.21221],
+                  [0.150616,-0.74262,0.652556],
+                  [0.65509,-0.128757,-0.212646]
+                ],
+                "node": "bone_roll_driver"
+              },
+              "r.hand:object": {
+                "rel_tm": [
+                  [-0.331081,-0.187701,0.924746],
+                  [-0.942402,0.115202,-0.314019],
+                  [-0.0475909,-0.975446,-0.21503],
+                  [0.655823,0.0863838,0.127563]
+                ],
+                "node": "bone_roll_driver"
+              },
+              "l.foot:object": {
+                "rel_tm": [
+                  [0.730463,-0.679059,0.0728322],
+                  [0.675968,0.703653,-0.218956],
+                  [0.097435,0.209171,0.973012],
+                  [0.366821,-0.14043,-0.11219]
+                ],
+                "node": "char_driver_pivot"
+              },
+              "r.foot:object": {
+                "rel_tm": [
+                  [0.674295,-0.738435,0.00651584],
+                  [0.738227,0.67383,-0.0312254],
+                  [0.0186673,0.0258652,0.99949],
+                  [0.389282,-0.172913,0.208721]
+                ],
+                "node": "char_driver_pivot"
+              }
+            }
           }
         },
         {
@@ -1996,6 +2698,12 @@
       "car_painting__chance": 0.9
     },
     {
+      "_group": {
+        "vehicle_anim__steeringDeflectionLimit": [-20.0,20.0],
+        "_tags": "render"
+      }
+    },
+    {
       "vehicle_seats__seats:shared:array": [
         {
           "seats:object": {
@@ -2008,12 +2716,50 @@
               [1.0,0.0,0.0],
               [0.0,1.0,0.0],
               [0.0,0.0,1.0],
-              [-0.1,0.0,-0.05]
+              [-0.0607,-0.0713,-0.0502689]
             ],
             "seatComponent": "isDriver",
             "nextSeat": "passenger1",
             "canPlaceManually": true,
-            "seatEnum": "left_seat"
+            "seatEnum": "left_seat",
+            "effectors:object": {
+              "l.hand:object": {
+                "rel_tm": [
+                  [-0.398987,0.558276,0.727418],
+                  [-0.904502,-0.369922,-0.21221],
+                  [0.150616,-0.74262,0.652556],
+                  [0.65509,-0.128757,-0.212646]
+                ],
+                "node": "bone_roll_driver"
+              },
+              "r.hand:object": {
+                "rel_tm": [
+                  [-0.331081,-0.187701,0.924746],
+                  [-0.942402,0.115202,-0.314019],
+                  [-0.0475909,-0.975446,-0.21503],
+                  [0.655823,0.0863838,0.127563]
+                ],
+                "node": "bone_roll_driver"
+              },
+              "l.foot:object": {
+                "rel_tm": [
+                  [0.730463,-0.679059,0.0728322],
+                  [0.675968,0.703653,-0.218956],
+                  [0.097435,0.209171,0.973012],
+                  [0.366821,-0.14043,-0.11219]
+                ],
+                "node": "char_driver_pivot"
+              },
+              "r.foot:object": {
+                "rel_tm": [
+                  [0.674295,-0.738435,0.00651584],
+                  [0.738227,0.67383,-0.0312254],
+                  [0.0186673,0.0258652,0.99949],
+                  [0.389282,-0.172913,0.208721]
+                ],
+                "node": "char_driver_pivot"
+              }
+            }
           }
         },
         {

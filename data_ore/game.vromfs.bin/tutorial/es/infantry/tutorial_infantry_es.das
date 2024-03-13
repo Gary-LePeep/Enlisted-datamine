@@ -250,7 +250,11 @@ def tutorial_destroy_squad_es(evt : Event; eid : EntityId; respawner__enabled : 
       destroyEntity(member)
     destroyEntity(eid)
 
-[es(on_event=(EventEntityDestroyed), REQUIRE=squad__ownerPlayer)]
+[es(on_appear, REQUIRE=tutor_action__spawnPlayerImmediate)]
+def spawn_player_immediate_on_appear_es(evt : Event)
+  spawn_squad_immediate()
+
+[es(on_event=(EventEntityDestroyed), REQUIRE=squad__ownerPlayer, REQUIRE_NOT=noImmediateSpawnAfterDeathInTutor)]
 def tutorial_respawn_squad_es(evt : Event)
   spawn_squad_immediate()
 

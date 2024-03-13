@@ -2,7 +2,7 @@ from "%enlSqGlob/ui/ui_library.nut" import *
 
 let faComp = require("%ui/components/faComp.nut")
 let { smallPadding, titleTxtColor, defTxtColor, activeTxtColor, activeBgColor
-} = require("%enlSqGlob/ui/viewConst.nut")
+} = require("%enlSqGlob/ui/designConst.nut")
 
 
 let defDotSize = hdpx(12)

@@ -311,8 +311,6 @@ class IsPosInPit : BehNodeAdapter
   def override update(dt : float) : EBehResult
     let pos = owner.blackBoard |> datablock_getPoint3(posParam)
     let pos2D = float2(pos.x, pos.z)
-    if !is_valid_heightmap_pos(pos2D)
-      return EBehResult ER_FAILED
     var inPit = false
     let hasResult = find_query() <| $ [es] (terraform : TerraformComponent)
       let origHeight = terraform_getHmapHeightOrigValAtPos(terraform, pos2D)
@@ -969,7 +967,7 @@ def get_agent_seat_skills(agent_eid : EntityId) : AgentSeatSkills
     skills.loaderScore = cvt(entity_mods__vehicleReloadMult * (entity_mods__canChangeShellDuringVehicleGunReload ? 0.5 : 1.0), 1.0, 0.0, 0.0, 0.9)
   return skills
 
-def get_seat_affinity(seat_eid : EntityId; soldier_squad : EntityId; allow_non_controllable_gunner_seat : bool)
+def get_seat_affinity(seat_eid : EntityId; soldier_squad : EntityId; allow_non_controllable_gunner_seat : bool; allow_commander : bool)
   var mask = 0
   query(seat_eid) <| $ [es] (seat__availableControls : VehicleControlsState;
                              seat__commonTurretControlMask : uint;
@@ -980,14 +978,14 @@ def get_seat_affinity(seat_eid : EntityId; soldier_squad : EntityId; allow_non_c
                              seat__ownerEid : EntityId;
                              seats_order__isExtraPlace : bool = false;
                              seat__loaderTurretIds : IntList const?;
-                             seatsCommander : Tag const?)
+                             commanderSeat : Tag const?)
     let seatHasGuns = (seat__availableControls.turretsMask & ~seat__commonTurretControlMask) != 0u
     let vehicleOwnerSquad = get_Eid(seat__vehicleEid, "ownedBySquad") ?? INVALID_ENTITY_ID
     if seats_order__canPlaceOnlyOwner && !!vehicleOwnerSquad && vehicleOwnerSquad != soldier_squad
       return
     if !!seat__ownerEid && seat__squadEid == vehicleOwnerSquad && soldier_squad != vehicleOwnerSquad
       return
-    let isCommanderSeat = seatsCommander != null
+    let isCommanderSeat = commanderSeat != null && allow_commander
     let isDriverSeat = seat__availableControls.canControlVehicle
     let isMainGunnerSeat = seatHasGuns && (seats_order__canPlaceManually || allow_non_controllable_gunner_seat) && !seats_order__isExtraPlace
     let isLoaderSeat = seat__loaderTurretIds != null && length(*seat__loaderTurretIds) > 0
@@ -1008,17 +1006,24 @@ def get_seat_affinity(seat_eid : EntityId; soldier_squad : EntityId; allow_non_c
       add_to_set(mask, SEAT_PLAYER_SWAP)
   return mask
 
+def calc_ordered_score(score1 : float; score2 : float)
+  if score2 > 0.0
+    return 0.5 + score2 * 0.5
+  elif score1 > 0.0
+    return score1 * 0.5
+  return 0.0
+
 def get_seat_priority(seat_mask : int; agent_skills : AgentSeatSkills)
   if is_in_set(seat_mask, SEAT_DRIVER)
-    return 6.0 + agent_skills.driverScore - (agent_skills.gunnerScore + agent_skills.loaderScore) * 0.05
+    return 6.0 + agent_skills.driverScore - calc_ordered_score(agent_skills.gunnerScore, agent_skills.loaderScore) * 0.05
   if is_in_set(seat_mask, SEAT_MAIN_GUNNER)
-    return 5.0 + agent_skills.gunnerScore - (agent_skills.driverScore + agent_skills.loaderScore) * 0.05
+    return 5.0 + agent_skills.gunnerScore - calc_ordered_score(agent_skills.loaderScore, agent_skills.driverScore) * 0.05
   if is_in_set(seat_mask, SEAT_LOADER)
-    return 4.0 + agent_skills.loaderScore - (agent_skills.driverScore * agent_skills.gunnerScore) * 0.05
+    return 4.0 + agent_skills.loaderScore - calc_ordered_score(agent_skills.gunnerScore, agent_skills.driverScore) * 0.05
   if is_in_set(seat_mask, SEAT_COMMANDER)
     return 3.0
   if is_in_set(seat_mask, SEAT_EXTRA_GUNNER)
-    return 2.0 + agent_skills.gunnerScore - (agent_skills.driverScore + agent_skills.loaderScore) * 0.05
+    return 2.0 + agent_skills.gunnerScore - calc_ordered_score(agent_skills.loaderScore, agent_skills.driverScore) * 0.05
   if is_in_set(seat_mask, SEAT_PLAYER_SWAP)
     return 1.0
   return 0.0
@@ -1074,15 +1079,21 @@ class CheckVehicleSeats : BehNodeAdapter
         resize(crewSkills, length(vehicle_seats__seatEids))
 
         var hasMainGunner = false
-        for seatNo, seatEid in iter_range(vehicle_seats__seatEids), vehicle_seats__seatEids
-          let seatMask = get_seat_affinity(seatEid, squad_member__squad, false)
-          seatMasks[seatNo] = seatMask
+        var hasPureLoader = false
+        for _seatNo, seatEid in iter_range(vehicle_seats__seatEids), vehicle_seats__seatEids
+          let seatMask = get_seat_affinity(seatEid, squad_member__squad, false, true)
           if is_in_set(seatMask, SEAT_MAIN_GUNNER)
             hasMainGunner = true
-        if !hasMainGunner
-          for seatNo, seatEid in iter_range(vehicle_seats__seatEids), vehicle_seats__seatEids
-            let seatMask = get_seat_affinity(seatEid, squad_member__squad, true)
-            seatMasks[seatNo] = seatMask
+          if is_in_set(seatMask, SEAT_LOADER)
+            hasPureLoader = true
+        for seatNo, seatEid in iter_range(vehicle_seats__seatEids), vehicle_seats__seatEids
+          var allowCommander = hasPureLoader
+          if allowCommander
+            let seatMask1 = get_seat_affinity(seatEid, squad_member__squad, false, true)
+            let seatMask2 = get_seat_affinity(seatEid, squad_member__squad, false, false)
+            if is_in_set(seatMask1, SEAT_COMMANDER) && is_in_set(seatMask2, SEAT_LOADER)
+              allowCommander = false
+          seatMasks[seatNo] = get_seat_affinity(seatEid, squad_member__squad, !hasMainGunner, allowCommander)
 
         for seatNo, seatEid in iter_range(vehicle_seats__seatEids), vehicle_seats__seatEids
           query(seatEid) <| $ [es] (seat__ownerEid : EntityId;

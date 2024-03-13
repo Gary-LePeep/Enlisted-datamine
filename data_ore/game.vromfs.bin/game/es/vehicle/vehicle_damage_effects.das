@@ -28,8 +28,10 @@ def damage_ammo_impl(eid : EntityId;
 [es(tag=server)]
 def ammo_part_damaged_damage_effects(evt : EventOnPartDamageEffects;
                                      eid : EntityId;
-                                     dm_phys_parts__ammoPartIds : IntList)
-  damage_ammo_impl(eid, evt.offender, evt.gunPropsId, evt.shellId, evt.partId, evt.effects, dm_phys_parts__ammoPartIds)
+                                     dm_phys_parts__ammoPartIds : IntList;
+                                     dm__ignoreDamage : bool = false)
+  if !dm__ignoreDamage
+    damage_ammo_impl(eid, evt.offender, evt.gunPropsId, evt.shellId, evt.partId, evt.effects, dm_phys_parts__ammoPartIds)
 
 [es(tag=server)]
 def ammo_part_kill_damage_effects(evt : EventOnPartKillEffects;

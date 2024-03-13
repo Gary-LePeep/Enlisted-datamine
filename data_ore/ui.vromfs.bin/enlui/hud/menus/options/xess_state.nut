@@ -35,7 +35,8 @@ let xessSupportLocId = {
   [DISABLED] = "xess/disabled"
 }
 let curXessSupportStateLocId = xessSupportLocId?[get_xess_state()]
-let xessNotAllowLocId = Computed(@() curXessSupportStateLocId)
+
+let xessNotAllowLocId = WatchedRo(curXessSupportStateLocId)
 
 let xessAllQualityModes = [XESS_PERFORMANCE, XESS_BALANCED, XESS_QUALITY, XESS_ULTRA_QUALITY]
 

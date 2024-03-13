@@ -16,7 +16,7 @@ let lowLatencyToString = {
   [LOW_LATENCY_NV_BOOST] = "option/nv_boost",
 }
 
-let lowLatencyAvailable = Computed(function() {
+let lowLatencyAvailable = WatchedRo(function() {
   let supportedModes = get_low_latency_modes()
   let ret = [LOW_LATENCY_OFF]
   if (supportedModes & LOW_LATENCY_NV_ON)
@@ -24,11 +24,9 @@ let lowLatencyAvailable = Computed(function() {
   if (supportedModes & LOW_LATENCY_NV_BOOST)
     ret.append(LOW_LATENCY_NV_BOOST)
   return ret
-})
+}())
 
-let lowLatencySupported = Computed(function() {
-  return get_low_latency_modes() > 0
-})
+let lowLatencySupported = WatchedRo(get_low_latency_modes() > 0)
 
 let lowLatencyValueChosen = Watched(get_setting_by_blk_path(LOW_LATENCY_BLK_PATH))
 

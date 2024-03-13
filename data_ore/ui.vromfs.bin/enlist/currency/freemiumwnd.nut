@@ -8,9 +8,9 @@ let { fontHeading1, fontHeading2, fontBody, fontawesome, fontSub } = require("%e
 let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
 let { sendBigQueryUIEvent } = require("%enlist/bigQueryEvents.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
-let { bigPadding, commonBtnHeight, soldierLockedLvlColor, activeTxtColor,
-  blurBgFillColor, titleTxtColor
-} = require("%enlSqGlob/ui/viewConst.nut")
+let { midPadding, titleTxtColor, activeTxtColor,
+  commonBtnHeight, soldierLockedLvlColor, blurBgFillColor
+} = require("%enlSqGlob/ui/designConst.nut")
 let { Flat } = require("%ui/components/textButton.nut")
 let { CAMPAIGN_NONE, curCampaignAccessItem,
   freemiumExpBoost, upgradeSoldiers, campPresentation, showCampaignGroup
@@ -162,7 +162,7 @@ let mkInfoTitle = @(idx, unitVal, unitDesc = null) function() {
             text = unitDesc
             maxWidth = hdpx(100)
             color = activeTxtColor
-            margin = [0, bigPadding]
+            margin = [0, midPadding]
           }.__update(fontSub)
     ]
   }
@@ -254,8 +254,8 @@ function advantagesBlock() {
         mkInfoTitle(idx, utf8ToUpper(loc("vehDecoratorHeader"))), [], {
           size = [flex(), SIZE_TO_CONTENT]
           flow = FLOW_HORIZONTAL
-          margin = [bigPadding,0,0,0]
-          gap = bigPadding
+          margin = [midPadding,0,0,0]
+          gap = midPadding
           children = decoratorsChildren
         }
       ))
@@ -270,7 +270,7 @@ function advantagesBlock() {
       rendObj = ROBJ_SOLID
       size = [hdpx(1), flex()]
       color = baseColor
-      margin = bigPadding
+      margin = midPadding
     }
     children
   }

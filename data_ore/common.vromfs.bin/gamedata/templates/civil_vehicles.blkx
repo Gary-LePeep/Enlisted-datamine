@@ -522,6 +522,72 @@
       "seat__isHoldGunModeAllowed": true
     },
     {
+      "vehicle_seats_auto_effectors__initAtTime": -1.0
+    },
+    {
+      "vehicle_seats_auto_effectors__inited": false
+    },
+    {
+      "vehicle_seat__springPos": [0.0,0.0,0.0]
+    },
+    {
+      "vehicle_seat__springVelocity": [0.0,0.0,0.0]
+    },
+    {
+      "vehicle_seat__springConst": [50.0,100.0,40.0]
+    },
+    {
+      "vehicle_seat__springDump": [5.0,3.0,3.5]
+    },
+    {
+      "vehicle_seats_auto_effectors__effectorNames:list<t>": [
+        {
+          "node": "r.hand"
+        },
+        {
+          "node": "l.hand"
+        },
+        {
+          "node": "r.foot"
+        },
+        {
+          "node": "l.foot"
+        }
+      ]
+    },
+    {
+      "vehicle_seats_auto_effectors__vehicleAttachNodes:list<t>": [
+        {
+          "node": ""
+        },
+        {
+          "node": ""
+        },
+        {
+          "node": ""
+        },
+        {
+          "node": ""
+        }
+      ]
+    },
+    {
+      "vehicle_seats_auto_effectors__humanNodes:list<t>": [
+        {
+          "node": "Bip01 R Hand"
+        },
+        {
+          "node": "Bip01 L Hand"
+        },
+        {
+          "node": "Bip01 R Foot"
+        },
+        {
+          "node": "Bip01 L Foot"
+        }
+      ]
+    },
+    {
       "seat__lockSeats:list<i>": {
         "_tags": "server"
       }
@@ -585,13 +651,57 @@
     "_use": "base_vehicle_seat",
     "seats_order__canPlaceManually": true,
     "seat_anim__upper": "drive_driver",
-    "seat_anim__lower": "drive_driver"
+    "seat_anim__lower": "drive_driver",
+    "vehicle_seats_auto_effectors__effectorNames:list<t>": [
+      {
+        "node": "r.hand"
+      },
+      {
+        "node": "l.hand"
+      },
+      {
+        "node": "r.foot"
+      },
+      {
+        "node": "l.foot"
+      }
+    ],
+    "vehicle_seats_auto_effectors__vehicleAttachNodes:list<t>": [
+      {
+        "node": "bone_roll_driver"
+      },
+      {
+        "node": "bone_roll_driver"
+      },
+      {
+        "node": ""
+      },
+      {
+        "node": ""
+      }
+    ],
+    "vehicle_seats_auto_effectors__humanNodes:list<t>": [
+      {
+        "node": "Bip01 R Hand"
+      },
+      {
+        "node": "Bip01 L Hand"
+      },
+      {
+        "node": "Bip01 R Foot"
+      },
+      {
+        "node": "Bip01 L Foot"
+      }
+    ]
   },
   "vehicle_seat_pilot_driver": {
     "_use": "base_vehicle_seat",
     "seats_order__canPlaceManually": true,
     "seat_anim__upper": "drive_pilot_driver",
-    "seat_anim__lower": "drive_pilot_driver"
+    "seat_anim__lower": "drive_pilot_driver",
+    "seat__hideCrosshair:tag": [],
+    "seat__kickCrewOnPlayerDeath:tag": []
   },
   "vehicle_seat_paratrooper": {
     "_use": "base_vehicle_seat",
@@ -1384,6 +1494,7 @@
     }
   },
   "vehicle_effects_common": {
+    "_use": "vehicle_seats_effectors",
     "track_dirt_fx": {
       "_tags": "render"
     },

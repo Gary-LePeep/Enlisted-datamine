@@ -1,7 +1,8 @@
 from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
-let { bigPadding, activeTxtColor, smallPadding, accentTitleTxtColor} = require("%enlSqGlob/ui/viewConst.nut")
+let { midPadding, activeTxtColor, smallPadding, accentTitleTxtColor
+} = require("%enlSqGlob/ui/designConst.nut")
 let { noteTextArea, txt } = require("%enlSqGlob/ui/defcomps.nut")
 let { itemTypeIcon } = require("%enlist/soldiers/components/itemTypesData.nut")
 let faComp = require("%ui/components/faComp.nut")
@@ -46,7 +47,7 @@ function weaponIconWithType(weapons){
   return {
     flow = FLOW_VERTICAL
     valign = ALIGN_CENTER
-    gap = bigPadding
+    gap = midPadding
     minWidth = hdpx(200)
     children
   }

@@ -2,13 +2,13 @@ from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { Bordered } = require("%ui/components/txtButton.nut")
 let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
-let { slotBaseSize } = require("%enlSqGlob/ui/viewConst.nut")
-let { bigPadding, smallPadding, defTxtColor } = require("%enlSqGlob/ui/designConst.nut")
+let { bigPadding, smallPadding, defTxtColor, slotBaseSize
+} = require("%enlSqGlob/ui/designConst.nut")
 let { blinkingIcon, manageBlinkingObject } = require("%enlSqGlob/ui/blinkingIcon.nut")
 let { curArmy, curSquadId, curSquad, curSquadParams, curVehicle, objInfoByGuid
 } = require("model/state.nut")
 let { perkLevelsGrid } = require("%enlist/meta/perks/perksExp.nut")
-let { curArmyReserve, needSoldiersManageBySquad } = require("model/reserve.nut")
+let { curArmyReserve } = require("model/reserve.nut")
 let { perksData } = require("model/soldierPerks.nut")
 let { unseenSquadsVehicle } = require("%enlist/vehicles/unseenVehicles.nut")
 let { vehicleCapacity, isSquadRented, buyRentedSquad } = require("model/squadInfoState.nut")
@@ -16,9 +16,6 @@ let { curSoldierInfo, curSoldiersDataList, curSoldierIdx } = require("%enlist/so
 let { curSquadSoldiersStatus } = require("model/readySoldiers.nut")
 let mkMainSoldiersBlock = require("%enlSqGlob/ui/mkSoldiersList.nut")
 let mkCurVehicle = require("%enlSqGlob/ui/mkCurVehicle.nut")
-let {
-  mkAlertIcon, REQ_MANAGE_SIGN
-} = require("%enlSqGlob/ui/soldiersUiComps.nut")
 let { Notifiers, markNotifierSeen } = require("%enlist/tutorial/notifierTutorial.nut")
 let squadHeader = require("components/squadHeader.nut")
 let {
@@ -79,16 +76,23 @@ function mkSquadInfo() {
   })
 
 
-  function manageSoldiersBtn() {
+  function openManageSoldiers() {
     let squad = curSquad.value
     let { guid = null, squadId = null } = squad
     let armyId = getLinkedArmyName(squad)
-    let needSoldiersManage = needSoldiersManageBySquad.value?[guid] ?? false
+    if (isSquadRented(squad)) {
+      buyRentedSquad({ armyId, squadId, hasMsgBox = true })
+      return
+    }
+    markNotifierSeen(Notifiers.SOLDIER)
+    openChooseSoldiersWnd(guid, curSoldierInfo.value?.guid)
+  }
+
+  function manageSoldiersBtn() {
     let hasUnseesSoldiers = unseenSoldierShopItems.value.len() > 0
     let res = {
       watch = [
-        needSoldiersManageBySquad, curSquad, disabledSectionsData,
-        unseenSoldierShopItems, allowedReserve, goodManageData
+        disabledSectionsData, unseenSoldierShopItems, allowedReserve, goodManageData
       ]
     }
     let hasManageBlink = "squadId" in goodManageData.value
@@ -101,14 +105,7 @@ function mkSquadInfo() {
         size = [flex(), SIZE_TO_CONTENT]
         children = [
           Bordered(countText,
-            function() {
-              if (isSquadRented(squad)) {
-                buyRentedSquad({ armyId, squadId, hasMsgBox = true })
-                return
-              }
-              markNotifierSeen(Notifiers.SOLDIER)
-              openChooseSoldiersWnd(curSquad.value?.guid, curSoldierInfo.value?.guid)
-            }, {
+            openManageSoldiers, {
               fgChild = {
                 flow = FLOW_HORIZONTAL
                 hplace = ALIGN_RIGHT
@@ -116,14 +113,13 @@ function mkSquadInfo() {
                 gap = smallPadding
                 padding = smallPadding
                 children = [
-                  needSoldiersManage ? mkAlertIcon(REQ_MANAGE_SIGN, Computed(@() true)) : null
                   hasUnseesSoldiers
                     ? smallUnseenNoBlink.__merge({ size = [hdpxi(15), hdpxi(15)], fontSize = hdpxi(14) })
                     : null
                 ]
               }
               hotkeys = [["^J:LS.Tilted"]]
-              onHover = @(on) setTooltip(on && needSoldiersManage ? loc("msg/canAddSoldierToSquad") : null)
+              onHover = @(on) setTooltip(on ? loc("msg/canAddSoldierToSquad") : null)
               btnWidth = flex()
             }
           )
@@ -216,6 +212,8 @@ function mkSquadInfo() {
         vehicleInfo
         curSoldierIdxWatch = curSoldierIdx
         soldiersReadyWatch = curSquadSoldiersStatus
+        emptySlotsNum = max(0, (curSquadParams.value?.size ?? 0) - curSoldiersDataList.value.len())
+        emptySlotHandler = openManageSoldiers
         isFreemiumMode = needFreemiumStatus.value
         thresholdColor = campPresentation.value?.color
         curVehicleUi = mkCurVehicle({

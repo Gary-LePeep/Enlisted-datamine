@@ -23,8 +23,8 @@ let { mkShopItem } = require("%enlist/soldiers/model/items_list_lib.nut")
 let { mkViewItemWatchDetails } = require("%enlist/soldiers/components/itemDetailsComp.nut")
 let { sceneWithCameraAdd, sceneWithCameraRemove } = require("%enlist/sceneWithCamera.nut")
 let {
-  bigPadding, smallPadding, blurBgColor, blurBgFillColor, unitSize
-} = require("%enlSqGlob/ui/viewConst.nut")
+  midPadding, smallPadding, blurBgColor, blurBgFillColor, unitSize
+} = require("%enlSqGlob/ui/designConst.nut")
 let { curSelectedItem, changeCameraFov } = require("%enlist/showState.nut")
 let { makeCrateToolTip } = require("%enlist/items/crateInfo.nut")
 let checkLootRestriction = require("hasLootRestriction.nut")
@@ -64,7 +64,7 @@ function mkShopItemContent(sItem) {
 
         return res.__update({
           size = [SIZE_TO_CONTENT, flex()]
-          padding = [bigPadding, bigPadding]
+          padding = [midPadding, midPadding]
           rendObj = ROBJ_WORLD_BLUR_PANEL
           color = blurBgColor
           fillColor = blurBgFillColor
@@ -181,7 +181,7 @@ let mkCrateContent = @(sItem) function() {
     rendObj = ROBJ_WORLD_BLUR_PANEL
     color = blurBgColor
     fillColor = blurBgFillColor
-    padding = bigPadding
+    padding = midPadding
     children = mkShopItemInfoBlock(crateContentWatch)
   }
 }

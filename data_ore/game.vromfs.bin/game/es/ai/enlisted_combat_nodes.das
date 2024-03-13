@@ -972,9 +972,12 @@ class FindWeaponSlotWithTag : BehNodeAdapter
 
 [beh_node(name="findPiercableEnemyVehicle")]
 class FindPiercableEnemyVehicle : BehNodeAdapter
+  inTargerEidParam  = -1
+
   outTargetEidParam = -1
   outLocalPosParam = -1
   outShootStanceParam = -1
+  outShootLocalPosParam = -1
 
   weaponSlotParam = -1
   shootStances : int3 = int3(2, 2, 2)
@@ -1020,6 +1023,7 @@ class FindPiercableEnemyVehicle : BehNodeAdapter
   runBestEid : EntityId = INVALID_ENTITY_ID
   runBestScore : float = 0.0
   runBestLocalPos : float3 = float3()
+  runBestShootPos : float3 = float3()
   runBestStance : int = -1
 
   SCAN_TICKET_TIMEOUT = 1.0
@@ -1031,10 +1035,15 @@ class FindPiercableEnemyVehicle : BehNodeAdapter
   STEP_DONE = 3
 
   def override loadFromBlk(var data : DataBlock) : void
+    if datablock_find_param(data, "inTargerEidParam") >= 0
+      inTargerEidParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "inTargerEidParam", ""), 0)
+
     outTargetEidParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "outTargetEidParam", ""), 0)
     outLocalPosParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "outLocalPosParam", ""), float3())
     if datablock_find_param(data, "outShootStanceParam") >= 0
       outShootStanceParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "outShootStanceParam", ""), 1)
+    if datablock_find_param(data, "outShootLocalPosParam") >= 0
+      outShootLocalPosParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "outShootLocalPosParam", ""), float3())
 
     weaponSlotParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "weaponSlotParam", ""), -1)
     shootStances = datablock_getIPoint3(data, "shootStances", shootStances)
@@ -1138,37 +1147,45 @@ class FindPiercableEnemyVehicle : BehNodeAdapter
         let maxDistSq = square(findRadius)
         let maxVelSq = square(ignoreMovingSpeed)
 
-        for_each_entity_in_grid(ecs_hash("vehicles"), BSphere3(runAgentTransform[3], findRadius), GridEntCheck BOUNDING) <| $(that_eid : EntityId)
-          query(that_eid) <| $ [es(REQUIRE_NOT=airplane)] (transform : float3x4; team : int; ai_target : Target)
-            if that_eid == agentEid
-              return
-            if !ai_target.isAlive || team <= 0 || is_teams_friendly(team, runTeam)
-              return
-            if ignoreMoving && length_sq(ai_target.velocity) > maxVelSq
-              return
-            let distSq = distance_sq(transform[3], runAgentTransform[3])
-            if distSq < minDistSq || distSq > maxDistSq
-              return
-            if ignoreWithNoCrew && !is_vehicle_with_alive_crew(that_eid)
-              return
-            beh_tree__runEidList |> push(that_eid)
+        if inTargerEidParam >= 0
+          let targetEid = EntityId(uint(owner.blackBoard |> datablock_getInt(inTargerEidParam)))
+          if targetEid != INVALID_ENTITY_ID
+            beh_tree__runEidList |> push(targetEid)
             ++numTargets
 
-        if rnd_float(0.0, 1.0) < chanceToTargetHumanPlayer
-          query(agentEid) <| $ [es] (agent_dangers : AgentDangers)
-            for danger in agent_dangers.dangers
-              if !danger.traceable || danger.distance < runShootRange.x || danger.distance > runShootRange.y
-                continue
-              var dangerOK = false
-              query(danger.eid) <| $ [es] (transform : float3x4; isAlive : bool = true; isDowned : bool = false; isInVehicleHidden : bool = false; beh_tree__enabled : bool)
-                let LOOKING_TO_AGENT_COS = 0.8
-                if !beh_tree__enabled && isAlive && !isDowned && !isInVehicleHidden && dot(transform[0], normalize(runAgentTransform[3] - transform[3])) > LOOKING_TO_AGENT_COS
-                  dangerOK = true
-              if dangerOK
-                beh_tree__runEidList |> push(danger.eid)
-                ++numTargets
+        if numTargets == 0
+          for_each_entity_in_grid(ecs_hash("vehicles"), BSphere3(runAgentTransform[3], findRadius), GridEntCheck BOUNDING) <| $(that_eid : EntityId)
+            query(that_eid) <| $ [es(REQUIRE_NOT=airplane)] (transform : float3x4; team : int; ai_target : Target)
+              if that_eid == agentEid
+                return
+              if !ai_target.isAlive || team <= 0 || is_teams_friendly(team, runTeam)
+                return
+              if ignoreMoving && length_sq(ai_target.velocity) > maxVelSq
+                return
+              let distSq = distance_sq(transform[3], runAgentTransform[3])
+              if distSq < minDistSq || distSq > maxDistSq
+                return
+              if ignoreWithNoCrew && !is_vehicle_with_alive_crew(that_eid)
+                return
+              beh_tree__runEidList |> push(that_eid)
+              ++numTargets
 
-        shuffle(beh_tree__runEidList)
+          if rnd_float(0.0, 1.0) < chanceToTargetHumanPlayer
+            query(agentEid) <| $ [es] (agent_dangers : AgentDangers)
+              for danger in agent_dangers.dangers
+                if !danger.traceable || danger.distance < runShootRange.x || danger.distance > runShootRange.y
+                  continue
+                var dangerOK = false
+                query(danger.eid) <| $ [es] (transform : float3x4; isAlive : bool = true; isDowned : bool = false; isInVehicleHidden : bool = false; beh_tree__enabled : bool)
+                  let LOOKING_TO_AGENT_COS = 0.8
+                  if !beh_tree__enabled && isAlive && !isDowned && !isInVehicleHidden && dot(transform[0], normalize(runAgentTransform[3] - transform[3])) > LOOKING_TO_AGENT_COS
+                    dangerOK = true
+                if dangerOK
+                  beh_tree__runEidList |> push(danger.eid)
+                  ++numTargets
+
+        if length(beh_tree__runEidList) > 1
+          shuffle(beh_tree__runEidList)
         if length(beh_tree__runEidList) > maxTargetsProcessed
           beh_tree__runEidList |> resize(maxTargetsProcessed)
 
@@ -1180,6 +1197,7 @@ class FindPiercableEnemyVehicle : BehNodeAdapter
       runBestEid = INVALID_ENTITY_ID
       runBestScore = 0.0
       runBestLocalPos = float3()
+      runBestShootPos = float3()
       runBestStance = shootStances.y
       return EBehResult ER_RUNNING
 
@@ -1277,6 +1295,7 @@ class FindPiercableEnemyVehicle : BehNodeAdapter
                 runBestEid = targetEid
                 runBestScore = runTargetScore
                 runBestLocalPos = inverse(transform) * aimShootHitPos
+                runBestShootPos = inverse(runAgentTransform) * runShootPos
                 runBestStance = runShootStance
 
           if runIndex2 >= numPoints
@@ -1294,6 +1313,8 @@ class FindPiercableEnemyVehicle : BehNodeAdapter
     if outLocalPosParam >= 0
       owner.blackBoard |> set(outLocalPosParam, runBestLocalPos)
     if outShootStanceParam >= 0
+      owner.blackBoard |> set(outShootStanceParam, runBestStance)
+    if outShootLocalPosParam >= 0
       owner.blackBoard |> set(outShootStanceParam, runBestStance)
 
     return runBestEid != INVALID_ENTITY_ID ? EBehResult ER_SUCCESS : EBehResult ER_FAILED

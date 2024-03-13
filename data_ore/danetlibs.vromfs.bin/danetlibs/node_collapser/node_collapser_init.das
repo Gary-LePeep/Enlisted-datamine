@@ -13,7 +13,4 @@ def load_node_collapser(base_path : string) : bool
   return ok
 
 
-[export]
-def test()
-  let ok = load_node_collapser("%danetlibs/node_collapser")
-  assert(ok)
+

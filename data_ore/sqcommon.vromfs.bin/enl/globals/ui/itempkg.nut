@@ -3,10 +3,10 @@ from "%enlSqGlob/ui/ui_library.nut" import *
 let { fontSub, fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let faComp = require("%ui/components/faComp.nut")
 let {
-  msgHighlightedTxtColor, smallPadding, hoverTxtColor, vehicleListCardSize, listCtors
-} = require("%enlSqGlob/ui/viewConst.nut")
+  msgHighlightedTxtColor, smallPadding, hoverTxtColor, vehicleListCardSize, listCtors,
+  defTxtColor
+} = require("%enlSqGlob/ui/designConst.nut")
 let { txtColor } = listCtors
-let { defTxtColor } = require("%enlSqGlob/ui/designConst.nut")
 let {
   statusIconChosen, statusIconDisabled, statusIconLocked
 } =  require("%enlSqGlob/ui/style/statusIcon.nut")

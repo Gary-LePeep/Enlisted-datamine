@@ -4,7 +4,7 @@ let { fontHeading2, fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { ceil } = require("%sqstd/math.nut")
 let spinner = require("%ui/components/spinner.nut")
 let { showMessageWithContent, showMsgbox } = require("%enlist/components/msgbox.nut")
-let { bigPadding, msgHighlightedTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
+let { midPadding, msgHighlightedTxtColor } = require("%enlSqGlob/ui/designConst.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
 let { mkItemCurrency } = require("%enlist/shop/currencyComp.nut")
 let { Bordered } = require("%ui/components/txtButton.nut")
@@ -45,7 +45,7 @@ let mkDismissWarning = @(armyId, guids, count, cb) showMessageWithContent({
       }.__update(fontBody)
       {
         flow = FLOW_HORIZONTAL
-        gap = bigPadding
+        gap = midPadding
         children = [
           txt(loc("retireSoldier/currencyWillReturn", { count = guids.len() })).__update(fontBody)
           mkItemCurrency({ currencyTpl = RETIRE_ORDER, count })

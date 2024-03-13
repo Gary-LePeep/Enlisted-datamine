@@ -10,9 +10,6 @@
       "bloom__threshold": 5.8
     },
     {
-      "bloom__highQuality": true
-    },
-    {
       "bloom__radius": 1.0
     },
     {
@@ -23,9 +20,6 @@
     },
     {
       "_tracked": "bloom__threshold"
-    },
-    {
-      "_tracked": "bloom__highQuality"
     },
     {
       "_tracked": "bloom__radius"
@@ -45,10 +39,5 @@
     {
       "bloom__upsample_chain:dag::Vector<dabfg::NodeHandle>": []
     }
-  ],
-  "force_bloom_hq": {
-    "_singleton": true,
-    "force_bloom_hq__previous_value": true,
-    "_tags": "render"
-  }
+  ]
 }

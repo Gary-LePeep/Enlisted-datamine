@@ -20,6 +20,7 @@ require danetlibs.native_dasevents.main.native_events
 def init(human_input__seatCount : int;
          var human_input__seats : IntList&;
          var human_input__seatNext : int&;
+         var human_input__planeSeatNext : int&;
          var human_input__driverSeat : int&;
          var human_input__vehicleMaintenance : int&;
          var human_input__toggleHatch : int&;
@@ -27,6 +28,7 @@ def init(human_input__seatCount : int;
   if length(human_input__seats) != human_input__seatCount
     human_input__seats |> resize(human_input__seatCount)
   human_input__seatNext            = int(get_action_handle("Human.SeatNext", TYPEGRP_DIGITAL))
+  human_input__planeSeatNext       = int(get_action_handle("Plane.SeatNext", TYPEGRP_DIGITAL))
   human_input__driverSeat          = int(get_action_handle("Human.DriverSeat", TYPEGRP_DIGITAL))
   human_input__vehicleMaintenance  = int(get_action_handle("Human.VehicleMaintenance", TYPEGRP_DIGITAL))
   human_input__toggleHatch         = int(get_action_handle("Human.ToggleHatch", TYPEGRP_DIGITAL))
@@ -39,6 +41,7 @@ def init(human_input__seatCount : int;
 def reset(human_input__seatCount : int;
           var human_input__seats : IntList&;
           var human_input__seatNext : int&;
+          var human_input__planeSeatNext : int&;
           var human_input__driverSeat : int&;
           var human_input__vehicleMaintenance : int&;
           var human_input__toggleHatch : int&;
@@ -46,6 +49,7 @@ def reset(human_input__seatCount : int;
   if length(human_input__seats) != human_input__seatCount
     human_input__seats |> resize(human_input__seatCount)
   human_input__seatNext            = int(BAD_ACTION_HANDLE)
+  human_input__planeSeatNext       = int(BAD_ACTION_HANDLE)
   human_input__driverSeat          = int(BAD_ACTION_HANDLE)
   human_input__vehicleMaintenance  = int(BAD_ACTION_HANDLE)
   human_input__toggleHatch         = int(BAD_ACTION_HANDLE)
@@ -58,11 +62,12 @@ def vehicle_input_appear_es(evt : Event;
                             human_input__seatCount : int;
                             var human_input__seats : IntList&;
                             var human_input__seatNext : int&;
+                            var human_input__planeSeatNext : int&;
                             var human_input__driverSeat : int&;
                             var human_input__vehicleMaintenance : int&;
                             var human_input__toggleHatch : int&;
                             var human_input__toggleHoldGunMode : int&)
-  init(human_input__seatCount, human_input__seats, human_input__seatNext,
+  init(human_input__seatCount, human_input__seats, human_input__seatNext, human_input__planeSeatNext,
        human_input__driverSeat, human_input__vehicleMaintenance, human_input__toggleHatch, human_input__toggleHoldGunMode)
 
 [es(tag=input)]
@@ -70,15 +75,16 @@ def human_vehicle_input_es(evt : EventDaInputInit;
                            human_input__seatCount : int;
                            var human_input__seats : IntList&;
                            var human_input__seatNext : int&;
+                           var human_input__planeSeatNext : int&;
                            var human_input__driverSeat : int&;
                            var human_input__vehicleMaintenance : int&;
                            var human_input__toggleHatch : int&;
                            var human_input__toggleHoldGunMode : int&)
   if evt.init
-    init(human_input__seatCount, human_input__seats, human_input__seatNext,
+    init(human_input__seatCount, human_input__seats, human_input__seatNext, human_input__planeSeatNext,
          human_input__driverSeat, human_input__vehicleMaintenance, human_input__toggleHatch, human_input__toggleHoldGunMode)
   else
-    reset(human_input__seatCount, human_input__seats, human_input__seatNext,
+    reset(human_input__seatCount, human_input__seats, human_input__seatNext, human_input__planeSeatNext,
          human_input__driverSeat, human_input__vehicleMaintenance, human_input__toggleHatch, human_input__toggleHoldGunMode)
 
 
@@ -89,6 +95,7 @@ def human_change_seat_input_es(evt : EventDaInputActionTriggered;
                                human_anim__vehicleSelected : EntityId;
                                human_input__seats : IntList;
                                human_input__seatNext : int;
+                               human_input__planeSeatNext : int;
                                human_input__driverSeat : int;
                                isInVehicle : bool;
                                input__enabled : bool)
@@ -103,6 +110,8 @@ def human_change_seat_input_es(evt : EventDaInputActionTriggered;
     sendEvent(human_anim__vehicleSelected, [[CmdVehiclePlaceNextSeat eid=eid]])
   elif action == human_input__driverSeat
     sendEvent(human_anim__vehicleSelected, [[CmdVehiclePlaceDriverSeat eid=eid]])
+  elif (action == human_input__planeSeatNext && has(human_anim__vehicleSelected, "airplane"))
+    sendEvent(human_anim__vehicleSelected, [[CmdPlanePlaceNextSeat eid=eid]])
 
 [es(tag=input)]
 def human_vehicle_maintenance_start_input_es(evt : EventDaInputActionTriggered;

@@ -1,5 +1,14 @@
 [
   {
+    "import": "%danetlibs/navmesh_phys/templates/navmesh_phys.blk"
+  },
+  {
+    "import": "%danetlibs/navmesh_phys/templates/navmesh_phys_ai.blk"
+  },
+  {
+    "import": "%danetlibs/navmesh_phys/templates/navmesh_phys_anim.blk"
+  },
+  {
     "import": "%danetlibs/sound/sound_utils/templates/sound_utils.template.blk"
   },
   {
@@ -69,7 +78,7 @@
     "import": "%danetlibs/renderer/templates/blood.template.blk"
   },
   {
-    "import": "%danetlibs/renderer/templates/caustics.template.blk"
+    "import": "%danetlibs/renderer/templates/close_geometry_occlusion.template.blk"
   },
   {
     "import": "%danetlibs/renderer/templates/effects.template.blk"
@@ -156,6 +165,9 @@
     "import": "%danetlibs/weaponry_hit_fx/templates/hit_env_affect_fx.template.blk"
   },
   {
+    "import": "%danetlibs/weaponry_hit_fx/templates/ricocheted_effect_base.template.blk"
+  },
+  {
     "import": "%danetlibs/semi_trans_render/templates/semi_trans_render.template.blk"
   },
   {
@@ -169,5 +181,23 @@
   },
   {
     "import": "%danetlibs/puddles_manager/templates/puddles_manager.template.blk"
+  },
+  {
+    "import": "%danetlibs/blurred_ui/templates/blurred_ui.template.blk"
+  },
+  {
+    "import": "%danetlibs/emission_color_maps/templates/emission_color_maps.template.blk"
+  },
+  {
+    "import": "%danetlibs/caustics/templates/caustics.template.blk"
+  },
+  {
+    "import": "%danetlibs/water_ripples/templates/water_ripples.template.blk"
+  },
+  {
+    "import": "%danetlibs/adaptation/templates/adaptation.template.blk"
+  },
+  {
+    "import": "%danetlibs/water_effects/templates/water_effects.template.blk"
   }
 ]

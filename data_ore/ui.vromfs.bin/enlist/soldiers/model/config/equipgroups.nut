@@ -1,5 +1,5 @@
 from "%enlSqGlob/ui/ui_library.nut" import *
-let { unitSize, bigPadding } = require("%enlSqGlob/ui/viewConst.nut")
+let { unitSize, midPadding } = require("%enlSqGlob/ui/designConst.nut")
 
 // inventory slots
 let fullWidth = unitSize * 10
@@ -34,7 +34,7 @@ let equipSlotRows = [
       }
       {
         slotType = "melee"
-        slotSize = [fullWidth * 0.5 - bigPadding, baseSlotHeight]
+        slotSize = [fullWidth * 0.5 - midPadding, baseSlotHeight]
         slotImg = "melee.svg"
         headerLocId = $"slot/empty_melee"
       }

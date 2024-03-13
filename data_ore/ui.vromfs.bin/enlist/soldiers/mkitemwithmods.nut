@@ -1,15 +1,15 @@
 from "%enlSqGlob/ui/ui_library.nut" import *
 
-let { smallPadding, unitSize, bigPadding, soldierWndWidth, hoverBgColor
-} = require("%enlSqGlob/ui/viewConst.nut")
-let { fullTransparentBgColor, modsBgColor } = require("%enlSqGlob/ui/designConst.nut")
+let { fullTransparentBgColor, modsBgColor, smallPadding,
+  unitSize, midPadding, soldierWndWidth, hoverBgColor
+} = require("%enlSqGlob/ui/designConst.nut")
 
 let { getModSlots, objInfoByGuid, curArmy } = require("model/state.nut")
-let { mkItem } = require("components/itemComp.nut")
+let { mkItem, ItemNotifiers } = require("components/itemComp.nut")
 let { iconByItem } = require("%enlSqGlob/ui/itemsInfo.nut")
 let { allItemTemplates } = require("%enlist/soldiers/model/all_items_templates.nut")
 
-let defItemSize = [soldierWndWidth - 2 * bigPadding, 2 * unitSize] //!!TODO: move it to style
+let defItemSize = [soldierWndWidth - 2 * midPadding, 2 * unitSize] //!!TODO: move it to style
 let MAKE_PARAMS = { //+all params of itemComp
   item = null
   itemSize = defItemSize
@@ -24,7 +24,7 @@ let MAKE_PARAMS = { //+all params of itemComp
   onHoverCb = null
   selectedKey = Watched(null)
   isXmb = false
-  hasUnseenSign = Watched(false)
+  notifierState = Watched(ItemNotifiers.EMPTY)
 }
 
 let modItemCtor = @(item, itemSize) iconByItem(item, {

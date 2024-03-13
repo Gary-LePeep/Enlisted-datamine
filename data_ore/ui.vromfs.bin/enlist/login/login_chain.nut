@@ -182,6 +182,11 @@ function setStagesConfig(config) {
   makeStages(config)
 }
 
+function resetCurrentStage() {
+  logLogin("Reset current stage")
+  currentStage(null)
+}
+
 return {
   loginTime = loginTime
   currentStage = currentStage
@@ -190,4 +195,5 @@ return {
   setStagesConfig = setStagesConfig //should be called on scripts load to correct continue login after reload scripts.
   isStagesInited = isStagesInited
   doAfterLoginOnce = @(action) afterLoginOnceActions.append(action) //only persist or native actions will work correct in all cases
+  resetCurrentStage
 }

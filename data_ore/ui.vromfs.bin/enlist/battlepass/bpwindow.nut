@@ -3,9 +3,8 @@ from "%enlSqGlob/ui/ui_library.nut" import *
 let {fontBody, fontSub, fontawesome} = require("%enlSqGlob/ui/fontsStyle.nut")
 let fa = require("%ui/components/fontawesome.map.nut")
 let faComp = require("%ui/components/faComp.nut")
-let { activeTxtColor, soldierLvlColor
-} = require("%enlSqGlob/ui/viewConst.nut")
-let { smallPadding, midPadding, startBtnWidth, attentionTxtColor, titleTxtColor
+let { smallPadding, midPadding, startBtnWidth, attentionTxtColor, titleTxtColor,
+  activeTxtColor, soldierLvlColor
 } = require("%enlSqGlob/ui/designConst.nut")
 let { safeAreaSize, safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
 let { PrimaryFlat } = require("%ui/components/textButton.nut")
@@ -57,8 +56,9 @@ let cardProgressBar = progressContainerCtor(
   $"ui/uiskin/battlepass/progress_bar_border.svg",
   [progressWidth, progressBarHeight]
 )
-let progressBarImage = @(isReceived, isPremium) !isReceived && isPremium ?
-  "!ui/uiskin/progress_bar_gray.svg" : "!ui/uiskin/progress_bar_gradient.svg"
+let progressBarImage = @(isReceived, isPremium) !isReceived && isPremium
+  ? "!ui/uiskin/progress_bar_gray.svg"
+  : "!ui/uiskin/progress_bar_gradient.svg"
 
 let tblScrollHandler = ScrollHandler()
 
@@ -162,7 +162,7 @@ let cardsList = function() {
     return mkCard(reward, count, templates, @() curItem({ reward, stageIdx }),
       Computed(@() curItem.value?.stageIdx == stageIdx), isReceived, isPremium,
       cardProgressBar(
-        progressState == RewardState.COMPLETED ? completedProgressLine(1, glareAnimation(0.5))
+        progressState == RewardState.COMPLETED ? completedProgressLine(1)
           : progressState == RewardState.ACQUIRED ? acquiredProgressLine(1, glareAnimation(0.5))
           : progressState == RewardState.IN_PROGRESS ? gradientProgressLine(
               progressVal, progressBarImage(isReceived, isPremium)

@@ -1,0 +1,12 @@
+{
+  "nphys_bullet_hit_tagging": {
+    "navmesh_phys__walkSpeedMult": 1.0,
+    "navmesh_phys__hitTagEnd": 0.0,
+    "navmesh_phys__walkSpeedModHitTagMultName": "hit_tag_mult"
+  },
+  "nphys_hit_tagging": {
+    "_use": "nphys_bullet_hit_tagging",
+    "navmesh_phys__hitTagPower": 0.8,
+    "navmesh_phys__hitTagDuration": 1.0
+  }
+}

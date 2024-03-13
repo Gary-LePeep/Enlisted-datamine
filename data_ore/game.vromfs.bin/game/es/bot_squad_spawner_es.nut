@@ -127,6 +127,10 @@ function onTimer(_evt, _eid, comp) {
     if (isSquadAllowedForBotSpawn(army.squads[squadId]))
       allowedSquadIds.append(squadId)
   }
+  if (allowedSquadIds.len() == 0) {
+    for (local squadId = 0; squadId < squadsCount; ++squadId)
+      allowedSquadIds.append(squadId)
+  }
   logBS($"Spawn bot for team {team} army {armyId}. (team armies = [{", ".join(teamArmies)}], squadsCount = {squadsCount})")
 
   // create player

@@ -16,6 +16,7 @@ def turret_hit_analyzer_es(info : ParallelUpdateFrameDelayed;
                            var turretCheckHitAtTime : float&;
                            var turretHitPosThreadCalc : float3&;
                            var turretCheckHitResultThreadCalc : int&;
+                           var turretCheckHitTeamThreadCalc : int&;
                            turret_hit_analyzer__maxDistance = 1000.f)
   if isAlive && !isExploded && !isSimpleTurretCrosshair
     for gunEid in turret_control__gunEids
@@ -33,16 +34,19 @@ def turret_hit_analyzer_es(info : ParallelUpdateFrameDelayed;
         shootTm[0] = turret_aim__shootDirWithCorrection
 
         simulate_shot(get_controlled_hero(), gun__curShellId,
-                      shootTm, mode, turretHitPosThreadCalc, turretCheckHitResultThreadCalc, turret_hit_analyzer__maxDistance)
+                      shootTm, mode, turretCheckHitTeamThreadCalc, turretHitPosThreadCalc, turretCheckHitResultThreadCalc, turret_hit_analyzer__maxDistance)
 
 [es(tag=gameClient, no_order, REQUIRE=vehicleWithWatched)]
 def turret_hit_analyzer_applyer_es(info : UpdateStageInfoAct;
                                    turretCheckHitResultThreadCalc : int;
                                    turretHitPosThreadCalc : float3;
+                                   turretCheckHitTeamThreadCalc : int;
+                                   var turretCheckHitTeam : int&;
                                    var turretHitPos : float3&;
                                    var turretCheckHitResult : int&)
   turretCheckHitResult = turretCheckHitResultThreadCalc
   turretHitPos = turretHitPosThreadCalc
+  turretCheckHitTeam = turretCheckHitTeamThreadCalc
 
 [es(tag=gameClient, no_order, REQUIRE=hero)]
 def gun_hit_analyzer_applyer_es(info : UpdateStageInfoAct;
@@ -70,4 +74,5 @@ def gun_hit_analyzer_es(info : ParallelUpdateFrameDelayed;
         gunCheckHitAtTime = curTime + gunCheckHitInterval
 
       var gunHitPos = float3()
-      simulate_shot(hero, gun__curShellId, human__aimTm, mode, gunHitPos, gunCheckHitResultThreadCalc, turret_hit_analyzer__maxDistance)
+      var gunCheckHitTeam = -1
+      simulate_shot(hero, gun__curShellId, human__aimTm, mode, gunCheckHitTeam, gunHitPos, gunCheckHitResultThreadCalc, turret_hit_analyzer__maxDistance)

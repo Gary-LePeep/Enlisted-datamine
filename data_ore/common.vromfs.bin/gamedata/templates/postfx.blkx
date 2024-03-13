@@ -21,17 +21,6 @@
     "_use": "replicating",
     "post_fx:object": [],
     "generic_post_fx:object": {
-      "adaptation__on": true,
-      "adaptation__autoExposureScale": 1.5,
-      "adaptation__highPart": 0.0,
-      "adaptation__maxExposure": 16.0,
-      "adaptation__minExposure": 0.25,
-      "adaptation__lowPart": 0.0,
-      "adaptation__adaptDownSpeed": 4.0,
-      "adaptation__adaptUpSpeed": 3.0,
-      "adaptation__brightnessPerceptionLinear": 0.9,
-      "adaptation__brightnessPerceptionPower": 0.9,
-      "adaptation__fixedExposure": -1.0,
       "damage_indicator__color": [1.0,0.3,0.3,0.0],
       "damage_indicator__size": 0.5,
       "smoke_blackout_effect__increaseDuration": 3.0,
@@ -131,9 +120,33 @@
   "bloom": {
     "_use": "bloom_base",
     "bloom__threshold": 5.8,
-    "bloom__highQuality": true,
     "bloom__radius": 1.0,
     "bloom__upSample": 0.2,
     "_tags": "render"
+  },
+  "adaptation": {
+    "_singleton": true,
+    "_tags": "render",
+    "_tracked": "adaptation_override_settings",
+    "adaptation_default_settings:object": {
+      "adaptation__on": true,
+      "adaptation__autoExposureScale": 1.5,
+      "adaptation__highPart": 0.0,
+      "adaptation__maxExposure": 16.0,
+      "adaptation__minExposure": 0.25,
+      "adaptation__lowPart": 0.0,
+      "adaptation__adaptDownSpeed": 4.0,
+      "adaptation__adaptUpSpeed": 3.0,
+      "adaptation__brightnessPerceptionLinear": 0.9,
+      "adaptation__brightnessPerceptionPower": 0.9,
+      "adaptation__fixedExposure": -1.0
+    },
+    "adaptation_override_settings:object": []
+  },
+  "adaptation_level_settings": {
+    "_singleton": true,
+    "_tags": "render",
+    "_tracked": "adaptation_level_settings",
+    "adaptation_level_settings:object": []
   }
 }

@@ -575,6 +575,46 @@
       ]
     }
   },
+  "mg_rapid_double_muzzle_preset": {
+    "_use": "gun_smoke_medium_rapid",
+    "_group": {
+      "_tags": "render",
+      "gun_flash_fx__nodeIds:list<i>": [],
+      "gun_flash_fx__nodes:shared:list<t>": [
+        {
+          "node": "gunFx_main"
+        },
+        {
+          "node": "gunFx_main_1"
+        },
+        {
+          "node": "gunFx_add_bolt"
+        }
+      ],
+      "gun_flash_fx__template:shared:list<t>": [
+        {
+          "fx": "muzzle_rapid_flash_effect"
+        },
+        {
+          "fx": "muzzle_rapid_flash_effect"
+        },
+        {
+          "fx": "smoke_extractor_effect"
+        }
+      ],
+      "gun_flash_fx__scale:shared:list<r>": [
+        {
+          "scale": 1.0
+        },
+        {
+          "scale": 1.0
+        },
+        {
+          "scale": 1.0
+        }
+      ]
+    }
+  },
   "mg_rapid_muzzle_brake_2_preset": {
     "_use": "gun_smoke_medium_rapid",
     "_group": {

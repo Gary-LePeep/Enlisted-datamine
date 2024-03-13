@@ -2,8 +2,6 @@ from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { utf8ToUpper } = require("%sqstd/string.nut")
 let { fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
-let { bigPadding, bonusColor, defTxtColor, activeTxtColor, titleTxtColor
-} = require("%enlSqGlob/ui/viewConst.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
 let { currenciesList, currenciesById } = require("%enlist/currency/currencies.nut")
 let { curCampItemsCount } = require("%enlist/soldiers/model/state.nut")
@@ -14,7 +12,9 @@ let mkCountdownTimer = require("%enlSqGlob/ui/mkCountdownTimer.nut")
 let { mkHeaderFlag, primeFlagStyle } = require("%enlSqGlob/ui/mkHeaderFlag.nut")
 let { shopItemContentCtor } = require("%enlist/shop/armyShopState.nut")
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
-let { brightAccentColor } = require("%enlSqGlob/ui/designConst.nut")
+let { brightAccentColor, midPadding, bonusColor,
+  defTxtColor, activeTxtColor, titleTxtColor
+} = require("%enlSqGlob/ui/designConst.nut")
 
 
 let sidePadding = fsh(2)
@@ -60,7 +60,7 @@ function mkItemPurchaseInfo(shopItem, campItems, currencies, isNarrow) {
       flow = FLOW_HORIZONTAL
       padding = [0, sidePadding, 0, 0]
       valign = ALIGN_CENTER
-      gap = bigPadding
+      gap = midPadding
       children = [
         isNarrow || isPriceHidden ? null
           : txt({
@@ -104,7 +104,7 @@ function mkItemPurchaseInfo(shopItem, campItems, currencies, isNarrow) {
     return {
       flow = FLOW_HORIZONTAL
       valign = ALIGN_CENTER
-      gap = bigPadding
+      gap = midPadding
       padding = [0, sidePadding, 0, 0]
       children
     }
@@ -132,7 +132,7 @@ function mkItemBarterInfo(shopItem, campItems) {
   }
   return {
     flow = FLOW_HORIZONTAL
-    gap = bigPadding
+    gap = midPadding
     padding = [0,0,0,sidePadding]
     children
   }
@@ -186,7 +186,7 @@ let mkPrice = @(shopItem, bgParams = {}, needPriceText = true,
     return {
       watch = currenciesById
       flow = FLOW_HORIZONTAL
-      gap = bigPadding
+      gap = midPadding
       halign = ALIGN_CENTER
       valign = ALIGN_CENTER
       children

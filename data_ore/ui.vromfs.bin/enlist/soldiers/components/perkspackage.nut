@@ -6,8 +6,8 @@ let { setTooltip } = require("%ui/style/cursors.nut")
 let tooltipBox = require("%ui/style/tooltipBox.nut")
 let math = require("%sqstd/math.nut")
 let {
-  smallPadding, bigPadding, defTxtColor, msgHighlightedTxtColor
-} = require("%enlSqGlob/ui/viewConst.nut")
+  smallPadding, midPadding, defTxtColor, msgHighlightedTxtColor
+} = require("%enlSqGlob/ui/designConst.nut")
 let colors = require("%ui/style/colors.nut")
 let {
   allItemTemplates, findItemTemplate
@@ -170,7 +170,7 @@ function mkPerksPointsBlock(soldier) {
             vplace = ALIGN_TOP
             valign = ALIGN_CENTER
             halign = ALIGN_CENTER
-            pos = [smallPadding, bigPadding]
+            pos = [smallPadding, midPadding]
             size = [hdpxi(8), hdpxi(8)]
             children = maxedStatIcon(color, hdpx(32)).__update(maxStatAnimation)
           } // the star needs a container otherwise it takes up as much space as its largest size
@@ -239,7 +239,7 @@ function mkStatList(content, sClassesCfgVal, isLocked = false) {
     flow = FLOW_HORIZONTAL
     halign = ALIGN_LEFT
     size = [SIZE_TO_CONTENT, hdpx(32)]
-    gap = bigPadding
+    gap = midPadding
     children = pPointsList.map(@(x) statsRange(stats, x, isLocked))
   }
 }

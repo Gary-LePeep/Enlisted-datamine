@@ -5,8 +5,9 @@ let { txt } = require("%enlSqGlob/ui/defcomps.nut")
 let { makeVertScroll, thinStyle } = require("%ui/components/scrollbar.nut")
 let { boosterItems, allBoosters } = require("%enlist/soldiers/model/boosters.nut")
 let { disabledTxtColor, smallPadding, smallOffset, blurBgFillColor,
-  accentColor, blockedTxtColor, darkBgColor } = require("%enlSqGlob/ui/viewConst.nut")
+  accentColor, blockedTxtColor, darkBgColor } = require("%enlSqGlob/ui/designConst.nut")
 let { mkXpBooster, mkBoosterExpireInfo } = require("%enlist/components/mkXpBooster.nut")
+let { getCampaignTitle } = require("%enlSqGlob/ui/itemsInfo.nut")
 let { abs } = require("math")
 
 let emptyBoostersText = txt({
@@ -18,7 +19,7 @@ let emptyBoostersText = txt({
 function mkBooster(boosterBase) {
   let { campaignLimit, expMul = 0 } = boosterBase
   let limitText = campaignLimit.len() == 0 ? loc("allCampaigns")
-    : ", ".join(campaignLimit.map(@(c) loc(c.title)))
+    : ", ".join(campaignLimit.map(@(c) getCampaignTitle(c.id)))
   let typeText = expMul > 0 ? $"booster/expBonusTitle"
     : "booster/expPenaltyTitle"
   let isPenalty = expMul < 0

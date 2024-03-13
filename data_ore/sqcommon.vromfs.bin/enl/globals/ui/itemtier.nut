@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontawesome } = require("%enlSqGlob/ui/fontsStyle.nut")
-let { soldierLvlColor, soldierLockedLvlColor } = require("%enlSqGlob/ui/viewConst.nut")
+let { soldierLvlColor, soldierLockedLvlColor } = require("%enlSqGlob/ui/designConst.nut")
 let fa = require("%ui/components/fontawesome.map.nut")
 
 let mkIconBar = @(count, color, fName, params = {}) count < 1 ? null : {

@@ -1,0 +1,446 @@
+{
+  "jp_type_5_ho_ri_production": {
+    "_use": "jp_type_5_ho_ri_production_common"
+  },
+  "jp_type_5_ho_ri_production_common": [
+    {
+      "_use": "base_type_5_ho_ri_production"
+    },
+    {
+      "_use": "tank_vehicle_sound"
+    },
+    {
+      "_use": "tank_m10_engine_sound_setup"
+    },
+    {
+      "_use": "tank_vehicle_inside_sound"
+    },
+    {
+      "item__iconOffset": [0.05,0.15]
+    },
+    {
+      "item__iconScale": 1.2
+    },
+    {
+      "commanderCockpitFpsCamMaxAngle": [40.0,5.0]
+    },
+    {
+      "gunner_cam_limit__useCockpitDir": true
+    },
+    {
+      "vehicle_seats__effectors:array": []
+    },
+    {
+      "vehicle_seats__seats:shared:array": [
+        {
+          "seats:object": {
+            "name": "main_gunner",
+            "locName": "vehicle_seats/gunner",
+            "attachNode": "gunner",
+            "ignoreAttachNodeRotation": true,
+            "attachTm": [
+              [0.789047,-0.337131,-0.271647],
+              [0.31877,0.834498,-0.109743],
+              [0.292972,-8.91184e-07,0.850992],
+              [-0.5,0.03,0.08]
+            ],
+            "seatComponent": "isGunner",
+            "nextSeat": "driver",
+            "shouldHideOwner": false,
+            "receiveDamageFromDMPart": "gunner",
+            "cameraNodeName": "bone_camera_gunner",
+            "cockpitTemplate": "jp_type_5_ho_ri_production_gunner_cockpit",
+            "isHoldGunModeAllowed": false,
+            "turretNames:array": {
+              "turret": "turret_01"
+            },
+            "effectors:object": {
+              "r.hand": "righthand_4",
+              "l.hand": "lefthand_4",
+              "r.foot": "pedal_rfoot_4",
+              "l.foot": "pedal_lfoot_4"
+            }
+          }
+        },
+        {
+          "seats:object": {
+            "name": "driver",
+            "locName": "vehicle_seats/driver",
+            "seatOwnsEntityControl": true,
+            "attachNode": "driver",
+            "ignoreAttachNodeRotation": true,
+            "attachTm": [
+              [0.876937,0.20244,-1.32295e-09],
+              [-0.20244,0.876937,3.05403e-10],
+              [1.35775e-09,-8.1322e-19,0.9],
+              [-0.3,-0.15,0.0]
+            ],
+            "seatComponent": "isDriver",
+            "nextSeat": "main_gunner",
+            "shouldHideOwner": false,
+            "receiveDamageFromDMPart": "driver",
+            "cameraNodeName": "bone_camera_driver",
+            "cameraOffset": [0.15,-0.0,-0.0],
+            "cockpitTemplate": "jp_type_5_ho_ri_production_driver_cockpit",
+            "isHoldGunModeAllowed": false,
+            "effectors:object": {
+              "r.hand": "righthand_1",
+              "l.hand": "lefthand_1",
+              "r.foot": "pedal_rfoot_1",
+              "l.foot": "pedal_lfoot_1"
+            }
+          }
+        },
+        {
+          "seats:object": {
+            "name": "commander",
+            "locName": "vehicle_seats/commander",
+            "attachNode": "commander",
+            "shouldHideOwner": false,
+            "maxPosWithOpenHatch": 1.2,
+            "hatchRotationAxis": [1.7,0.0,0.0],
+            "ignoreAttachNodeRotation": true,
+            "attachTm": [
+              [0.705575,-0.541623,0.137145],
+              [0.531672,0.71878,0.103343],
+              [-0.171722,5.50837e-08,0.883466],
+              [-0.3,0.14,0.07]
+            ],
+            "seatComponent": "isDriver",
+            "receiveDamageFromDMPart": "commander",
+            "cameraNodeName": "bone_turret",
+            "cockpitTemplate": "jp_type_5_ho_ri_production_commander_cockpit",
+            "isHoldGunModeAllowed": false,
+            "effectors:object": {
+              "r.hand": "righthand_3",
+              "l.hand": "lefthand_3",
+              "r.foot": "pedal_rfoot_3",
+              "l.foot": "pedal_lfoot_3"
+            }
+          }
+        },
+        {
+          "seats:object": {
+            "attachNode": "machine_gunner",
+            "locName": "vehicle_seats/radioman",
+            "ignoreAttachNodeRotation": true,
+            "attachTm": [
+              [0.855979,0.278124,0.0],
+              [-0.278124,0.855979,0.0],
+              [0.0,0.0,0.900017],
+              [-0.25,-0.32,0.0]
+            ],
+            "seatComponent": "isPassenger",
+            "shouldHideOwner": false,
+            "receiveDamageFromDMPart": "machine_gunner",
+            "cameraNodeName": "bone_camera_driver",
+            "isHoldGunModeAllowed": false,
+            "effectors:object": {
+              "r.hand": "righthand_2",
+              "l.hand": "lefthand_2",
+              "r.foot": "pedal_rfoot_2",
+              "l.foot": "pedal_lfoot_2"
+            }
+          }
+        },
+        {
+          "seats:object": {
+            "attachNode": "loader_01",
+            "locName": "vehicle_seats/loader",
+            "ignoreAttachNodeRotation": true,
+            "attachTm": [
+              [0.372962,-0.292947,0.764681],
+              [0.128431,0.850852,0.263319],
+              [-0.808404,4.66935e-07,0.394287],
+              [-0.1,-0.29,-0.43]
+            ],
+            "seatComponent": "isPassenger",
+            "shouldHideOwner": false,
+            "receiveDamageFromDMPart": "loader_01",
+            "cameraNodeName": "bone_camera_driver",
+            "isHoldGunModeAllowed": false,
+            "loaderTurretNames:array": {
+              "turret": "turret_01"
+            },
+            "effectors:object": {
+              "r.hand": "righthand_5",
+              "l.hand": "lefthand_5",
+              "r.foot": "pedal_rfoot_5",
+              "l.foot": "pedal_lfoot_5"
+            }
+          }
+        },
+        {
+          "seats:object": {
+            "attachNode": "loader_02",
+            "locName": "vehicle_seats/loader",
+            "ignoreAttachNodeRotation": true,
+            "attachTm": [
+              [-0.0301678,-0.248071,-0.86461],
+              [-0.00864995,0.86515,-0.247924],
+              [0.899459,-5.22286e-07,-0.0313836],
+              [-0.04,-0.32,0.47]
+            ],
+            "seatComponent": "isPassenger",
+            "shouldHideOwner": false,
+            "receiveDamageFromDMPart": "loader_02",
+            "cameraNodeName": "bone_camera_driver",
+            "isHoldGunModeAllowed": false,
+            "loaderTurretNames:array": {
+              "turret": "turret_01"
+            },
+            "effectors:object": {
+              "r.hand": "righthand_6",
+              "l.hand": "lefthand_6",
+              "r.foot": "pedal_rfoot_6",
+              "l.foot": "pedal_lfoot_6"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "jp_type_5_ho_ri_production_driver_cockpit": {
+    "_use": "base_driver_cockpit_no_slits",
+    "animchar__res": "bt_7_driver_char",
+    "cockpit__offset": [0.0646394,-0.374342,0.00730274],
+    "cockpit__visibleVehicleNodeNames:list<t>": {
+      "node": "gun_barrel"
+    },
+    "cockpit__slitForwardOffset:list<r>": {
+      "slit": 0.1
+    },
+    "cockpit__slitIsGun:list<b>": {
+      "slit": false
+    },
+    "cockpit__slitNodeNames:list<t>": {
+      "slit": "cam_front"
+    }
+  },
+  "jp_type_5_ho_ri_production_gunner_cockpit": {
+    "_use": "base_gunner_cockpit",
+    "animchar__res": "ba_11_gunner_char",
+    "cockpit__offset": [-0.6,0.55,0.92],
+    "cockpit__visibleVehicleNodeNames:list<t>": [
+      {
+        "node": "gun_barrel"
+      },
+      {
+        "node": "@root"
+      },
+      {
+        "node": "bone_gun_01"
+      },
+      {
+        "node": "bone_cap_roller_01"
+      },
+      {
+        "node": "ex_armor_01"
+      },
+      {
+        "node": "ex_armor_02"
+      },
+      {
+        "node": "ex_armor_03"
+      },
+      {
+        "node": "ex_armor_04"
+      },
+      {
+        "node": "ex_decor_l_02"
+      },
+      {
+        "node": "ex_decor_l_03"
+      },
+      {
+        "node": "ex_decor_l_04"
+      },
+      {
+        "node": "ex_decor_l_05"
+      },
+      {
+        "node": "ex_decor_r_02"
+      },
+      {
+        "node": "ex_decor_r_04"
+      },
+      {
+        "node": "ex_decor_r_05"
+      }
+    ],
+    "cockpit__slitNodeNames:list<t>": {
+      "slit": "cam_front_right"
+    },
+    "cockpit__slitForwardOffset:list<r>": {
+      "slit": 0.18
+    },
+    "cockpit__slitIsGun:list<b>": {
+      "slit": true
+    },
+    "cockpit__attachNodeNames:list<t>": {
+      "node": "bone_gun_01"
+    },
+    "cockpit__attachNodeIndices:list<i>": [],
+    "cockpit__slitZoom:array": {
+      "slit:list<r>": [
+        {
+          "zoom": 3.5
+        },
+        {
+          "zoom": 5.0
+        }
+      ]
+    },
+    "cockpit__slitZoomTime:list<r>": {
+      "slit": 0.05
+    },
+    "cockpit__slitTemplates:list<t>": {
+      "slit": "jp_105mm"
+    },
+    "cockpit__slitEids:list<eid>": []
+  },
+  "jp_type_5_ho_ri_production_commander_cockpit": {
+    "_use": "base_commander_cockpit_no_slits",
+    "animchar__res": "t_26_1940_commander_char",
+    "cockpit__minForwardOffset": -0.05,
+    "cockpit__offset": [-0.0,0.0,-0.0],
+    "cockpit__cockpitOffsetBySlit:list<p3>": {
+      "slit": [-0.6,0.6,-0.7]
+    },
+    "cockpit__slitForwardOffset:list<r>": {
+      "slit": 0.16
+    },
+    "cockpit__slitIsGun:list<b>": {
+      "slit": true
+    },
+    "cockpit__slitNodeNames:list<t>": {
+      "slit": "cam_front"
+    },
+    "cockpit__visibleVehicleNodeNames:list<t>": [
+      {
+        "node": "gun_barrel"
+      },
+      {
+        "node": "@root"
+      },
+      {
+        "node": "bone_gun_01"
+      },
+      {
+        "node": "bone_cap_roller_01"
+      },
+      {
+        "node": "ex_armor_01"
+      },
+      {
+        "node": "ex_armor_02"
+      },
+      {
+        "node": "ex_armor_03"
+      },
+      {
+        "node": "ex_armor_04"
+      },
+      {
+        "node": "ex_decor_l_02"
+      },
+      {
+        "node": "ex_decor_l_03"
+      },
+      {
+        "node": "ex_decor_l_04"
+      },
+      {
+        "node": "ex_decor_l_05"
+      },
+      {
+        "node": "ex_decor_r_02"
+      },
+      {
+        "node": "ex_decor_r_04"
+      },
+      {
+        "node": "ex_decor_r_05"
+      }
+    ],
+    "cockpit__periscopeLimits:list<p4>": {
+      "slit": [-180.0,180.0,-10.0,25.0]
+    },
+    "cockpit__periscopeSpeed:list<p2>": {
+      "slit": [50.0,50.0]
+    },
+    "cockpit__slitZoom:array": {
+      "slit:list<r>": {
+        "zoom": 1.44
+      }
+    },
+    "cockpit__slitZoomTime:list<r>": {
+      "slit": 0.0
+    },
+    "cockpit__slitTemplates:list<t>": {
+      "slit": "default_periscope"
+    },
+    "cockpit__slitEids:list<eid>": []
+  },
+  "type_5_ho_ri_production_skins": {
+    "_override": true,
+    "skin__objTexReplace:array": [
+      {
+        "skin:object": {
+          "id": "type_5_ho_ri_production_brown",
+          "objTexReplace:object": {
+            "jp_camo_sdf_green*": "jp_camo_brown*"
+          }
+        }
+      },
+      {
+        "skin:object": {
+          "id": "type_5_ho_ri_production_grey",
+          "objTexReplace:object": {
+            "jp_camo_sdf_green*": "jp_camo_warship_grey*"
+          }
+        }
+      },
+      {
+        "skin:object": {
+          "id": "type_5_ho_ri_production_green",
+          "objTexReplace:object": {
+            "jp_camo_sdf_green*": "jp_camo_willow_green*"
+          }
+        }
+      },
+      {
+        "skin:object": {
+          "id": "type_5_ho_ri_production_late_era_brown_olive_yellow_lines",
+          "objTexReplace:object": {
+            "jp_camo_sdf_green*": "jp_camo_late_brown_olive_yellow_lines*"
+          }
+        }
+      },
+      {
+        "skin:object": {
+          "id": "type_5_ho_ri_production_late_era_green_brown_yellow_blots",
+          "objTexReplace:object": {
+            "jp_camo_sdf_green*": "jp_camo_late_green_brown_yellow_blots*"
+          }
+        }
+      },
+      {
+        "skin:object": {
+          "id": "type_5_ho_ri_production_post_era_winter",
+          "objTexReplace:object": {
+            "jp_camo_sdf_green*": "jp_camo_post_winter*"
+          }
+        }
+      },
+      {
+        "skin:object": {
+          "id": "type_5_ho_ri_production_jp_camo_winter_early",
+          "objTexReplace:object": {
+            "jp_camo_sdf_green*": "jp_camo_winter_early*"
+          }
+        }
+      }
+    ]
+  }
+}

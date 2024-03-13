@@ -25,7 +25,4 @@ def load_imgui_daeditor(base_path : string) : bool
   return ok
 
 
-[export]
-def test()
-  let ok = load_imgui_daeditor("%danetlibs/imgui_daeditor")
-  assert(ok)
+

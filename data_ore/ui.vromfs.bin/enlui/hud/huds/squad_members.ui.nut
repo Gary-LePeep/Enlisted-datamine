@@ -14,7 +14,7 @@ let {
   canChangeRespawnParams, isSpectatorEnabled
 } = require("%ui/hud/state/respawnState.nut")
 let {
-  mkGrenadeIcon, mkMineIcon, mkMemberHealsBlock, mkStatusIcon, mkAiActionIcon
+  mkGrenadeIcon, mkMineIcon, mkMemberHealsBlock, mkMemberRepairBlock, mkStatusIcon, mkAiActionIcon
 } = require("%ui/hud/components/squad_member.nut")
 let {tipCmp} = require("%ui/hud/huds/tips/tipComponent.nut")
 let contextCommandHint = require("%ui/hud/huds/context_command_hint.ui.nut")
@@ -114,6 +114,7 @@ let equipmentStatusRow = @(member) {
   size = [SIZE_TO_CONTENT, sIconSize]
   gap = smallGap
   children = [
+    mkMemberRepairBlock(member, sIconSize)
     mkMemberHealsBlock(member, sIconSize)
     mkGrenadeIcon(member, sIconSize) ?? mkMineIcon(member, sIconSize)
   ]

@@ -84,6 +84,8 @@ def human_head_anim_es(info : ParallelUpdateFrameDelayed;
                        prevLocoQuat : float4 = float4(0.0, 0.0, 0.0, 1.0);
                        human_anim__headYawRotVisc : float = 0.2;
                        human_anim : HumanAnimCtx;
+                       isInVehicle : bool = false;
+                       human_vehicle__isShootingPassenger : bool = false;
                        var phys_vars : PhysVars;
                        var human_head_dir__addHeadRotation : float3&)
   if !animchar__updatable || !animchar__visible
@@ -91,9 +93,11 @@ def human_head_anim_es(info : ParallelUpdateFrameDelayed;
 
   assume phys = human_net_phys.phys
 
-  let targetAddHeadRotation = get_gun_head_rotation(phys.currentState.isCrawl,
-                                                    human_weap__currentGunEid,
-                                                    human_attached_gun__attachedGunEid)
+  var targetAddHeadRotation = float3(0.0)
+  if !isInVehicle || human_vehicle__isShootingPassenger
+    targetAddHeadRotation = get_gun_head_rotation(phys.currentState.isCrawl,
+                                                  human_weap__currentGunEid,
+                                                  human_attached_gun__attachedGunEid)
   human_head_dir__addHeadRotation = lerp(human_head_dir__addHeadRotation,
                                          targetAddHeadRotation,
                                          float3(human_head_dir__interpolationSpeed))

@@ -2,7 +2,7 @@ from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { sound_play } = require("%dngscripts/sound_system.nut")
 let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
-let { bigPadding, smallPadding } = require("%enlSqGlob/ui/viewConst.nut")
+let { midPadding, smallPadding } = require("%enlSqGlob/ui/designConst.nut")
 let { getDescription } = require("%enlSqGlob/ui/unlocksText.nut")
 let { progressBar } = require("%enlSqGlob/ui/defcomps.nut")
 
@@ -48,7 +48,7 @@ function mkDebriefingDailyTask(unlockDesc, appearAnimations, animDelay, onFinish
   let children = [
     {
       size = [flex(), SIZE_TO_CONTENT]
-      margin = [smallPadding, bigPadding]
+      margin = [smallPadding, midPadding]
       valign = ALIGN_CENTER
       children = debriefingTaskHeader(unlockDesc, progress)
     }

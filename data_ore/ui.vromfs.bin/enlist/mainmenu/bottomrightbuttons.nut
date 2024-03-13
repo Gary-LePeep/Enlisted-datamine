@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { Inactive } = require("%ui/style/colors.nut")
-let { bigGap, gap } = require("%enlSqGlob/ui/viewConst.nut")
+let { bigGap, gap } = require("%enlSqGlob/ui/designConst.nut")
 let { navBottomBarHeight } = require("%enlist/mainMenu/mainmenu.style.nut")
 let mailboxButton = require("%enlist/mailboxButton.ui.nut")
 let { isContactsEnabled } = require("%enlist/contacts/contactsState.nut")

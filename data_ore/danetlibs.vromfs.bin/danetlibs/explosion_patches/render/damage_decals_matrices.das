@@ -3,6 +3,22 @@ require dm
 require AnimV20
 require CollRes
 require DamageDecals
+require DagorSystem
+
+[es(tag=render, before=vehicle_damage_decals_update_es)]
+def vehicle_damage_decals_clear_unused_matrices_es(info : UpdateStageInfoAct;
+                                                   var damage_decals__collNodeId : IntList&;
+                                                   var damage_decals__nodeMatrixId : UInt32List&)
+  if get_dagor_frame_no() % 60u != 0u // no need to run this system every frame
+    return
+  let numMatrices = length(damage_decals__nodeMatrixId)
+  for i in range(numMatrices)
+    let reverseIdx = numMatrices - 1 - i
+    if !damage_decals_is_matrix_id_used(damage_decals__nodeMatrixId[reverseIdx])
+      damage_decals_delete_matrix_id(damage_decals__nodeMatrixId[reverseIdx])
+      erase(damage_decals__nodeMatrixId, reverseIdx)
+      if (length(damage_decals__collNodeId) > 0)
+        erase(damage_decals__collNodeId, reverseIdx)
 
 [es(tag=render, REQUIRE_NOT=disableUpdate, after=animchar_fast_phys_es)]
 def vehicle_damage_decals_update_es(info : UpdateStageInfoAct;

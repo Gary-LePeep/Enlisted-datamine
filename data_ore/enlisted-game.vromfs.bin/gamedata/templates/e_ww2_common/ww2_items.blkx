@@ -9457,6 +9457,7 @@
       [0.0,0.0,1.0],
       [0.0,0.03,0.0]
     ],
+    "item__repairAmount": 8,
     "_group": {
       "_track": true,
       "extinguisher__usesLeft": 20,
@@ -11927,6 +11928,30 @@
       "collres__res": "type_hei_rifle_late_collision"
     }
   ],
+  "type_hei_automatic_rifle_gun_item": [
+    {
+      "_use": "item_gun"
+    },
+    {
+      "_use": "type_hei_automatic_rifle"
+    },
+    {
+      "collres__res": "type_hei_automatic_rifle_collision"
+    }
+  ],
+  "type_hei_automatic_rifle_magazine": {
+    "_use": "item_magazine",
+    "animchar__res": "stg_44_ammo_char",
+    "item__template": "type_hei_automatic_rifle_magazine",
+    "item__proto": "type_hei_automatic_rifle_magazine",
+    "item__locDetails": "",
+    "ammo_holder__templateName": "type_hei_automatic_rifle_magazine",
+    "ammo_holder__ammoCount": 30,
+    "item__weight": 1.0,
+    "item__volume": 0.3,
+    "item__name": "items/type_hei_automatic_rifle_magazine",
+    "collres__res": "stg_44_ammo_collision"
+  },
   "type_ko_rifle_gun_item": [
     {
       "_use": "item_gun"
@@ -12229,6 +12254,30 @@
     "ammo_holder__ammoCount": 30,
     "animchar__res": "bren_lmg_mk_2_ammo_char",
     "collres__res": "bren_lmg_mk_2_ammo_collision"
+  },
+  "type_100_mg_gun_item": [
+    {
+      "_use": "item_gun"
+    },
+    {
+      "_use": "type_100_mg"
+    },
+    {
+      "collres__res": "type_100_infantry_collision"
+    }
+  ],
+  "type_100_mg_magazine": {
+    "_use": "item_magazine",
+    "animchar__res": "mg_34_patronentrommel_ammo_char",
+    "item__template": "type_100_mg_magazine",
+    "item__proto": "type_100_mg_magazine",
+    "item__locDetails": "",
+    "ammo_holder__templateName": "type_100_mg_magazine",
+    "ammo_holder__ammoCount": 50,
+    "item__weight": 3.5,
+    "item__volume": 2.0,
+    "item__name": "items/type_100_mg_magazine",
+    "collres__res": "mg_34_patronentrommel_ammo_collision"
   },
   "type_97_antitank_canon_gun_item": [
     {

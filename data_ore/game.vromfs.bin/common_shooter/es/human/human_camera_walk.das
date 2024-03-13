@@ -19,7 +19,7 @@ def camera_walk_bhv(info : UpdateStageInfoAct&;
                     human_cam_walk_bhv__sprintPeriod : float;
                     human_cam_walk_bhv__offsetXMult : float;
                     human_cam_walk_bhv__offsetYPeriodMult : float;
-                    human_cam_walk_bhv__spreadMult : float;
+                    human_cam_walk_bhv__curSpreadMult : float;
                     human_cam_walk_bhv__spreadTimePeriod : float;
                     human_cam_walk_bhv__spreadHorzMult : float;
                     human_cam_walk_bhv__aimMagnitudeMult : float;
@@ -74,7 +74,7 @@ def camera_walk_bhv(info : UpdateStageInfoAct&;
 
     additionalOffset += float3(0.f,
                                perlin_noise1(human_cam_walk_bhv__spreadTimePeriod * info.curTime + 17.21f) * projectileSpread.x * human_cam_walk_bhv__spreadHorzMult,
-                              (perlin_noise1(human_cam_walk_bhv__spreadTimePeriod * info.curTime + 13.19f) + 1.f) * projectileSpread.y) * human_cam_walk_bhv__spreadMult * sightsMult;
+                              (perlin_noise1(human_cam_walk_bhv__spreadTimePeriod * info.curTime + 13.19f) + 1.f) * projectileSpread.y) * human_cam_walk_bhv__curSpreadMult * sightsMult;
 
 
   var isIntegratedScope = false
@@ -131,7 +131,7 @@ def human_camera_walk_bhv_es(info : UpdateStageInfoAct&;
                              human_cam_walk_bhv__sprintPeriod : float = 0.f;
                              human_cam_walk_bhv__offsetXMult : float = 1.f;
                              human_cam_walk_bhv__offsetYPeriodMult : float = 2.f;
-                             human_cam_walk_bhv__spreadMult : float = 0.5f;
+                             human_cam_walk_bhv__curSpreadMult : float = 0.5f;
                              human_cam_walk_bhv__spreadTimePeriod : float = 0.5f;
                              human_cam_walk_bhv__spreadHorzMult : float = 2.f;
                              human_cam_walk_bhv__aimMagnitudeMult : float = 0.5f;
@@ -144,7 +144,7 @@ def human_camera_walk_bhv_es(info : UpdateStageInfoAct&;
                   human_cam_walk_bhv__moveMagnitude,
                   human_cam_walk_bhv__runMagnitude, human_cam_walk_bhv__sprintMagnitude, human_cam_walk_bhv__movePeriod,
                   human_cam_walk_bhv__runPeriod, human_cam_walk_bhv__sprintPeriod, human_cam_walk_bhv__offsetXMult,
-                  human_cam_walk_bhv__offsetYPeriodMult, human_cam_walk_bhv__spreadMult, human_cam_walk_bhv__spreadTimePeriod,
+                  human_cam_walk_bhv__offsetYPeriodMult, human_cam_walk_bhv__curSpreadMult, human_cam_walk_bhv__spreadTimePeriod,
                   human_cam_walk_bhv__spreadHorzMult, human_cam_walk_bhv__aimMagnitudeMult, human_cam_walk_bhv__maxOpticsMult,
                   human_weap__gunOffsAngles)
 
@@ -167,3 +167,11 @@ def human_camera_walk_bhv_attached_gun_es(info : UpdateStageInfoAct&;
                   0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f,
                   human_cam_walk_bhv__attachedGunSpreadMult, human_cam_walk_bhv__spreadTimePeriod,
                   human_cam_walk_bhv__spreadHorzMult, 0.f, 1.f, gunOffsAngles)
+
+[es(tag=gameClient, REQUIRE=watchedByPlr, before=human_camera_walk_bhv_es)]
+def human_camera_current_spread_control(info : UpdateStageInfoAct;
+                                        human_cam_walk_bhv__leanSpreadMult : float;
+                                        human_cam_walk_bhv__spreadMult : float;
+                                        human_net_phys : HumanActor&;
+                                        var human_cam_walk_bhv__curSpreadMult : float&)
+  human_cam_walk_bhv__curSpreadMult = is_equal_float(human_net_phys.phys.currentState.leanPosition, 0.) ? human_cam_walk_bhv__spreadMult : human_cam_walk_bhv__leanSpreadMult

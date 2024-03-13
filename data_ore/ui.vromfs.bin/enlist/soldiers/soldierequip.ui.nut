@@ -3,9 +3,9 @@ from "%enlSqGlob/ui/ui_library.nut" import *
 let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let spinner = require("%ui/components/spinner.nut")
 let { Bordered } = require("%ui/components/txtButton.nut")
-let { smallPadding, bigPadding, defTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
 let {
-  commonBorderRadius, disabledBgColor, leftAppearanceAnim, defItemBlur, fullTransparentBgColor
+  commonBorderRadius, disabledBgColor, leftAppearanceAnim, defItemBlur, fullTransparentBgColor,
+  smallPadding, midPadding, defTxtColor
 } = require("%enlSqGlob/ui/designConst.nut")
 let { curArmy, objInfoByGuid, squadsByArmy, canChangeEquipmentInSlot
 } = require("model/state.nut")
@@ -13,9 +13,10 @@ let { classSlotLocksByArmy } = require("%enlist/researches/researchesSummary.nut
 let { equipSlotRows } = require("model/config/equipGroups.nut")
 let { openSelectItem } = require("model/selectItemState.nut")
 let mkItemWithMods = require("mkItemWithMods.nut")
+let { ItemNotifiers } = require("components/itemComp.nut")
 let soldierSlotsCount = require("model/soldierSlotsCount.nut")
 let { getLinkedArmyName, getLinkedSquadGuid } = require("%enlSqGlob/ui/metalink.nut")
-let { unseenSoldiersWeaponry } = require("model/unseenWeaponry.nut")
+let { betterWeaponrySoldier, soldierSeenSlots } = require("model/unseenWeaponry.nut")
 let { campItemsByLink } = require("%enlist/meta/profile.nut")
 let { getErrorSlots } = require("%enlSqGlob/ui/itemsInfo.nut")
 let { isItemActionInProgress } = require("model/itemActions.nut")
@@ -196,7 +197,12 @@ function mkSlotsList(slotData, soldier, canManage, slotsCount, slotsItems,
       isLocked = s.isLocked || s.slotId >= curSlotsCount
     })
     if (needShowUnseenIcon) {
-      s.hasUnseenSign <- Computed(@() unseenSoldiersWeaponry.value?[guid][availableType] ?? false)
+      s.notifierState <- Computed(@() availableType not in (betterWeaponrySoldier.value?[guid] ?? {})
+        ? ItemNotifiers.EMPTY
+        : availableType in soldierSeenSlots.value?[guid]
+          ? ItemNotifiers.BETTER_ITEM
+          : ItemNotifiers.UNSEEN_BETTER_ITEM
+        )
     }
   })
   return slotsList
@@ -229,7 +235,7 @@ let mkEquipRow = @(equipRow, rowIdx, soldier, canManage, slotsCount, slotsItems,
     return {
       size = [flex(), SIZE_TO_CONTENT]
       flow = FLOW_HORIZONTAL
-      gap = bigPadding
+      gap = midPadding
       valign = ALIGN_BOTTOM
       watch = [objInfoByGuid, campItemsByLink, previewPreset]
       children = slotsList.map(function(slot) {
@@ -277,7 +283,7 @@ let soldierEquip = @(soldier, canManage = true, selectedKeyWatch = Watched(null)
     local rowIdx = 0
     let children = equipSlotRows.map(@(slotGroup) {
       flow = FLOW_VERTICAL
-      gap = bigPadding
+      gap = midPadding
       size = [flex(), SIZE_TO_CONTENT]
       children = slotGroup.map(@(equipRow)
         mkEquipRow(equipRow, rowIdx++, soldier.value, canManage,
@@ -290,11 +296,11 @@ let soldierEquip = @(soldier, canManage = true, selectedKeyWatch = Watched(null)
       watch = [soldier, previewPreset, goodManageData]
       flow = FLOW_VERTICAL
       size = flex()
-      gap = bigPadding
+      gap = midPadding
       children = [
         {
           size = flex()
-          gap = bigPadding * 2
+          gap = midPadding * 2
           flow = FLOW_VERTICAL
           children
         }

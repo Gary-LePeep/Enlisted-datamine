@@ -1,0 +1,546 @@
+{
+  "j2m3": [
+    {
+      "_use": "j2m3_base"
+    },
+    {
+      "_use": "squad_controlled_plane"
+    },
+    {
+      "_use": "j2m3_plane_sound"
+    },
+    {
+      "item__name": "items/j2m3"
+    },
+    {
+      "vehicle_seats__seats:shared:array": {
+        "seats:object": {
+          "name": "driver",
+          "locName": "vehicle_seats/pilot",
+          "seatOwnsEntityControl": true,
+          "attachNode": "pilot1",
+          "ignoreAttachNodeRotation": true,
+          "attachTm": [
+            [0.996008,-0.0871394,-1.00566e-21],
+            [0.0871428,0.996046,-1.59847e-14],
+            [1.39281e-15,1.59199e-14,0.999601],
+            [-0.05,0.07,-0.16]
+          ],
+          "seatComponent": "isDriver",
+          "receiveDamageFromDMPart": "pilot_dm",
+          "cameraNodeName": "",
+          "cameraOffset": [-1.5,0.977,0.0],
+          "cockpitTemplate": "j2m3_driver_cockpit",
+          "roomSpace": 0,
+          "turretNames:array": [
+            {
+              "turret": "turret_01"
+            },
+            {
+              "turret": "turret_02"
+            },
+            {
+              "turret": "turret_03"
+            },
+            {
+              "turret": "turret_04"
+            },
+            {
+              "turret": "turret_05"
+            },
+            {
+              "turret": "turret_06"
+            }
+          ],
+          "cockpitEffectors:object": {
+            "r.hand": "stick_rhand_1",
+            "l.hand": "throttle_lhand_1",
+            "r.foot": "pedal_rfoot_1",
+            "l.foot": "pedal_lfoot_1"
+          }
+        }
+      }
+    },
+    {
+      "turret_control__emitterNodes:shared:array": [
+        {
+          "node": "bomb1"
+        },
+        {
+          "node": "bomb2"
+        },
+        {
+          "node": "flare1"
+        },
+        {
+          "node": "flare2"
+        },
+        {
+          "node": "flare3"
+        },
+        {
+          "node": "flare4"
+        }
+      ]
+    },
+    {
+      "turret_control__animVars:shared:array": [
+        {
+          "vars:object": {
+            "curYawParamName": "weapon_01_yaw",
+            "curPitchParamName": "weapon_01_pitch"
+          }
+        },
+        {
+          "vars:object": {
+            "curYawParamName": "weapon_02_yaw",
+            "curPitchParamName": "weapon_02_pitch"
+          }
+        },
+        {
+          "vars:object": {
+            "curYawParamName": "weapon_03_yaw",
+            "curPitchParamName": "weapon_03_pitch"
+          }
+        },
+        {
+          "vars:object": {
+            "curYawParamName": "weapon_04_yaw",
+            "curPitchParamName": "weapon_04_pitch"
+          }
+        },
+        {
+          "vars:object": {
+            "curYawParamName": "weapon_05_yaw",
+            "curPitchParamName": "weapon_05_pitch"
+          }
+        },
+        {
+          "vars:object": {
+            "curYawParamName": "weapon_06_yaw",
+            "curPitchParamName": "weapon_06_pitch"
+          }
+        }
+      ]
+    },
+    {
+      "turret_control__turretInfo:shared:array": [
+        {
+          "turretInfo:object": {
+            "turretName": "turret_01",
+            "turretGroup": "bomb_turrets",
+            "trigger": "bombs",
+            "gun": "planegun_j2m3_navy_type_97mod_6_60kg_launcher_01"
+          }
+        },
+        {
+          "turretInfo:object": {
+            "turretName": "turret_02",
+            "turretGroup": "bomb_turrets",
+            "trigger": "bombs",
+            "gun": "planegun_j2m3_navy_type_97mod_6_60kg_launcher_02"
+          }
+        },
+        {
+          "turretInfo:object": {
+            "turretName": "turret_03",
+            "turretGroup": "cannon_turrets",
+            "trigger": "cannons",
+            "gun": "planegun_j2m3_20mm_type99_01"
+          }
+        },
+        {
+          "turretInfo:object": {
+            "turretName": "turret_04",
+            "turretGroup": "cannon_turrets",
+            "trigger": "cannons",
+            "gun": "planegun_j2m3_20mm_type99mk2_01"
+          }
+        },
+        {
+          "turretInfo:object": {
+            "turretName": "turret_05",
+            "turretGroup": "cannon_turrets",
+            "trigger": "cannons",
+            "gun": "planegun_j2m3_20mm_type99mk2_02"
+          }
+        },
+        {
+          "turretInfo:object": {
+            "turretName": "turret_06",
+            "turretGroup": "cannon_turrets",
+            "trigger": "cannons",
+            "gun": "planegun_j2m3_20mm_type99_02"
+          }
+        }
+      ]
+    },
+    {
+      "turret_gun_flash_fx__flashNodes:shared:array": [
+        {
+          "node": "bomb1"
+        },
+        {
+          "node": "bomb2"
+        },
+        {
+          "node": "flare1"
+        },
+        {
+          "node": "flare2"
+        },
+        {
+          "node": "flare3"
+        },
+        {
+          "node": "flare4"
+        }
+      ]
+    },
+    {
+      "turret_gun_flash_fx__flashFx:shared:array": [
+        {
+          "fx": ""
+        },
+        {
+          "fx": ""
+        },
+        {
+          "fx": "muzzle_air_20mm"
+        },
+        {
+          "fx": "muzzle_air_20mm"
+        },
+        {
+          "fx": "muzzle_air_20mm"
+        },
+        {
+          "fx": "muzzle_air_20mm"
+        }
+      ]
+    },
+    {
+      "turret_gun_flash_fx__flashFxScale:shared:array": [
+        {
+          "scale": 1.0
+        },
+        {
+          "scale": 1.0
+        },
+        {
+          "scale": 1.0
+        },
+        {
+          "scale": 1.0
+        },
+        {
+          "scale": 1.0
+        },
+        {
+          "scale": 1.0
+        }
+      ]
+    },
+    {
+      "disableDMParts:list<t>": [
+        {
+          "part": "pylon_rocket1"
+        },
+        {
+          "part": "tank4_dm"
+        }
+      ]
+    }
+  ],
+  "base_j2m3_navy_type_97mod_6_60kg_launcher": {
+    "item__name": "guns/jp_navy_type97mod6_60kg",
+    "gun__blk": "gamedata/weapons/j2m3/navy_type_97mod_6_60kg_launcher.blk",
+    "gun__shotFreq": 10.0,
+    "gun__locName": "jp_navy_type97mod6_60kg",
+    "gun__shootNodeName": "bone_mg_gun_twin",
+    "gun__maxAmmo": 1,
+    "gun__firingModes:array": {
+      "mode:object": {
+        "modeType": "manual"
+      }
+    },
+    "gun__firingModeNames:array": {
+      "mode": "bolt_action"
+    },
+    "gun__shellsAmmo:array": {
+      "ammo": 1
+    },
+    "gun__ammoSetsInfo:shared:array": {
+      "default:array": {
+        "shell:object": {
+          "blk": "gamedata/weapons/shells/navy_type_97mod_6_60kg.blk",
+          "name": "navy_type_97mod_6_60kg",
+          "type": "he_frag_tank"
+        }
+      }
+    }
+  },
+  "base_j2m3_20mm_type99": {
+    "item__name": "guns/cannontype99",
+    "gun__blk": "gamedata/weapons/j2m3/20mm_type99.blk",
+    "gun__shotFreq": 8.6,
+    "gun__locName": "cannontype99",
+    "gun__shootNodeName": "bone_mg_gun_twin",
+    "gun__maxAmmo": 190,
+    "gun__firingModes:array": {
+      "mode:object": {
+        "modeType": "automatic"
+      }
+    },
+    "gun__firingModeNames:array": {
+      "mode": "automatic"
+    },
+    "gun__shellsAmmo:array": {
+      "ammo": 190
+    },
+    "gun__ammoSetsInfo:shared:array": {
+      "default:array": [
+        {
+          "shell:object": {
+            "blk": "gamedata/weapons/shells/20x72rbmm_tracer_bullet.blk",
+            "name": "tracer",
+            "type": "t_shell"
+          }
+        },
+        {
+          "shell:object": {
+            "blk": "gamedata/weapons/shells/20x72rbmm_he_i_bullet.blk",
+            "name": "i",
+            "type": "he_frag_i"
+          }
+        },
+        {
+          "shell:object": {
+            "blk": "gamedata/weapons/shells/20x72rbmm_he_i_bullet.blk",
+            "name": "i",
+            "type": "he_frag_i"
+          }
+        },
+        {
+          "shell:object": {
+            "blk": "gamedata/weapons/shells/20x72rbmm_api_bullet.blk",
+            "name": "api",
+            "type": "aphe"
+          }
+        }
+      ]
+    }
+  },
+  "base_j2m3_20mm_type99mk2": {
+    "item__name": "guns/cannontype99mk2",
+    "gun__blk": "gamedata/weapons/j2m3/20mm_type99mk2.blk",
+    "gun__shotFreq": 8.16,
+    "gun__locName": "cannontype99mk2",
+    "gun__shootNodeName": "bone_mg_gun_twin",
+    "gun__maxAmmo": 210,
+    "gun__firingModes:array": {
+      "mode:object": {
+        "modeType": "automatic"
+      }
+    },
+    "gun__firingModeNames:array": {
+      "mode": "automatic"
+    },
+    "gun__shellsAmmo:array": {
+      "ammo": 210
+    },
+    "gun__ammoSetsInfo:shared:array": {
+      "default:array": [
+        {
+          "shell:object": {
+            "blk": "gamedata/weapons/shells/20x101rbmm_tracer_bullet.blk",
+            "name": "tracer",
+            "type": "t_shell"
+          }
+        },
+        {
+          "shell:object": {
+            "blk": "gamedata/weapons/shells/20x101rbmm_he_i_bullet.blk",
+            "name": "i",
+            "type": "frag_i"
+          }
+        },
+        {
+          "shell:object": {
+            "blk": "gamedata/weapons/shells/20x101rbmm_he_i_bullet.blk",
+            "name": "i",
+            "type": "frag_i"
+          }
+        },
+        {
+          "shell:object": {
+            "blk": "gamedata/weapons/shells/20x101rbmm_api_bullet.blk",
+            "name": "api",
+            "type": "ap_i"
+          }
+        }
+      ]
+    }
+  },
+  "planegun_j2m3_navy_type_97mod_6_60kg_launcher_01": [
+    {
+      "_use": "navy_type_97mod_6_60kg_launcher"
+    },
+    {
+      "_use": "base_j2m3_navy_type_97mod_6_60kg_launcher"
+    },
+    {
+      "_use": "gunsound_navy_type_97mod_6_60kg_launcher_aircraft"
+    },
+    {
+      "gun__shootNodeName": "bomb1"
+    },
+    {
+      "slot_attach__slotName": "bomb1"
+    },
+    {
+      "gun__maxAmmo": 1
+    }
+  ],
+  "planegun_j2m3_navy_type_97mod_6_60kg_launcher_02": [
+    {
+      "_use": "navy_type_97mod_6_60kg_launcher"
+    },
+    {
+      "_use": "base_j2m3_navy_type_97mod_6_60kg_launcher"
+    },
+    {
+      "_use": "gunsound_navy_type_97mod_6_60kg_launcher_aircraft"
+    },
+    {
+      "gun__shootNodeName": "bomb2"
+    },
+    {
+      "slot_attach__slotName": "bomb2"
+    },
+    {
+      "gun__maxAmmo": 1
+    }
+  ],
+  "planegun_j2m3_20mm_type99_01": [
+    {
+      "_use": "tankgun"
+    },
+    {
+      "_use": "base_plane_machinegun"
+    },
+    {
+      "_use": "base_j2m3_20mm_type99"
+    },
+    {
+      "_use": "gunsound_20mm_type99_aircraft"
+    },
+    {
+      "gun__shootNodeName": "flare1"
+    },
+    {
+      "gun__maxAmmo": 190
+    }
+  ],
+  "planegun_j2m3_20mm_type99mk2_01": [
+    {
+      "_use": "tankgun"
+    },
+    {
+      "_use": "base_plane_machinegun"
+    },
+    {
+      "_use": "base_j2m3_20mm_type99mk2"
+    },
+    {
+      "_use": "gunsound_20mm_type99mk2_aircraft"
+    },
+    {
+      "gun__shootNodeName": "flare2"
+    },
+    {
+      "gun__maxAmmo": 210
+    }
+  ],
+  "planegun_j2m3_20mm_type99mk2_02": [
+    {
+      "_use": "tankgun"
+    },
+    {
+      "_use": "base_plane_machinegun"
+    },
+    {
+      "_use": "base_j2m3_20mm_type99mk2"
+    },
+    {
+      "_use": "gunsound_20mm_type99mk2_aircraft"
+    },
+    {
+      "gun__shootNodeName": "flare3"
+    },
+    {
+      "gun__maxAmmo": 210
+    }
+  ],
+  "planegun_j2m3_20mm_type99_02": [
+    {
+      "_use": "tankgun"
+    },
+    {
+      "_use": "base_plane_machinegun"
+    },
+    {
+      "_use": "base_j2m3_20mm_type99"
+    },
+    {
+      "_use": "gunsound_20mm_type99_aircraft"
+    },
+    {
+      "gun__shootNodeName": "flare4"
+    },
+    {
+      "gun__maxAmmo": 190
+    }
+  ],
+  "j2m3_driver_cockpit": {
+    "_use": "base_plane_cockpit",
+    "cockpit__offset": [0.0,0.0,0.0],
+    "cockpit__angles": [0.0,0.0,0.0],
+    "cockpit__scale": [1.0,1.0,1.0],
+    "animchar__res": "j2m3_cockpit_char",
+    "plane_anim__blk": "gamedata/units/j2m3.blk",
+    "plane_sight__blk": "gamedata/units/j2m3.blk",
+    "move_cockpit_node__nodeName:list<t>": [
+      {
+        "node": "stick_rhand_1"
+      },
+      {
+        "node": "throttle_lhand_1"
+      }
+    ],
+    "move_cockpit_node__nodeId:list<i>": [
+      {
+        "nodeId": -1
+      },
+      {
+        "nodeId": -1
+      }
+    ],
+    "move_cockpit_node__offset:list<p3>": [
+      {
+        "item": [0.0025,0.033,-0.0075]
+      },
+      {
+        "item": [0.012,-0.032,-0.039]
+      }
+    ],
+    "move_cockpit_node__rotation:list<p2>": [
+      {
+        "item": [19.5,27.8]
+      },
+      {
+        "item": [-50.2,2.1]
+      }
+    ]
+  }
+}

@@ -6,7 +6,7 @@ let {
 } = require("%enlSqGlob/ui/tasksPkg.nut")
 let {
   darkBgColor, smallPadding
-} = require("%enlSqGlob/ui/viewConst.nut")
+} = require("%enlSqGlob/ui/designConst.nut")
 let { DAILY_TASK_KEY } = require("%enlSqGlob/userstats/unlocksState.nut")
 
 let mkTaskContent = function(unlockDesc) {

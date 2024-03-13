@@ -5,7 +5,7 @@ let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { secondsToHoursLoc } = require("%ui/helpers/time.nut")
 let {
   smallPadding, accentTitleTxtColor, defTxtColor
-} = require("%enlSqGlob/ui/viewConst.nut")
+} = require("%enlSqGlob/ui/designConst.nut")
 
 
 let timerIcon = "ui/skin#battlepass/boost_time.svg"

@@ -26,7 +26,7 @@ let fsr2ToString = {
 
 let fsr2AllQualityModes = [FSR2_QUALITY, FSR2_BALANCED, FSR2_PERFORMANCE, FSR2_ULTRA_PERFORMANCE]
 
-let fsr2Supported = Computed(@() get_fsr2_state() >= SUPPORTED )
+let fsr2Supported = WatchedRo(get_fsr2_state() >= SUPPORTED )
 
 let fsr2Available = Computed(function() {
   if (!fsr2Supported.value)

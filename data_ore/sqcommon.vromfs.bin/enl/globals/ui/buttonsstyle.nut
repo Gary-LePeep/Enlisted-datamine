@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui/ui_library.nut" import *
 
-let { commonBtnHeight, disabledTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
+let { commonBtnHeight, disabledTxtColor } = require("%enlSqGlob/ui/designConst.nut")
 let {
   glareAnimation, animChildren
 } = require("%enlSqGlob/ui/glareAnimation.nut")

@@ -3,9 +3,14 @@ require Plane
 require DngPlane
 require DagorMath
 require math.base
-require game.es.events
 require TargetDesignation
 require TargetSignature
+
+
+[cpp_event(broadcast)]
+struct UpdateStageUpdateInput
+  curTime : float
+  dt : float
 
 
 def push_target(var plane_net_phys : PlaneActor&;

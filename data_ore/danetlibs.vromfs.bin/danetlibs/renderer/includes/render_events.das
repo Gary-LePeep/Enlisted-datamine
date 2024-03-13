@@ -36,6 +36,7 @@ struct RenderEventAfterUI
 [cpp_event(broadcast)]
 struct UpdateStageInfoBeforeRender
   viewTm : TMatrix
+  viewItm : TMatrix
   projTm : mat44f
   globTm : mat44f
   dt : float

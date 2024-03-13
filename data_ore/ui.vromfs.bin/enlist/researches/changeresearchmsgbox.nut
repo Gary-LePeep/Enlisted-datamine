@@ -2,7 +2,7 @@ from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { logerr } = require("dagor.debug")
-let { defTxtColor, titleTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
+let { defTxtColor, titleTxtColor } = require("%enlSqGlob/ui/designConst.nut")
 let { MsgMarkedText } = require("%ui/style/colors.nut")
 let { showMessageWithContent } = require("%enlist/components/msgbox.nut")
 let { RESEARCHED, researchStatuses, tableStructure, CHANGE_RESEARCH_TPL, changeResearchBalance,

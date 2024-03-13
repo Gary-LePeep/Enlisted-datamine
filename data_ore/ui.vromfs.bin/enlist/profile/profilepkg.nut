@@ -2,15 +2,14 @@ from "%enlSqGlob/ui/ui_library.nut" import *
 
 let JB = require("%ui/control/gui_buttons.nut")
 let { Bordered } = require("%ui/components/textButton.nut")
-let { activeBgColor, blurBgFillColor, disabledTxtColor, bigPadding, smallPadding,
-  smallOffset, activeTxtColor, rowBg
-} = require("%enlSqGlob/ui/viewConst.nut")
+let { activeBgColor, blurBgFillColor, disabledTxtColor, midPadding, smallPadding,
+  smallOffset, activeTxtColor, rowBg, darkTxtColor, defTxtColor, hoverSlotBgColor
+} = require("%enlSqGlob/ui/designConst.nut")
 let { fontSub, fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { armies } = require("%enlist/soldiers/model/state.nut")
 let { gameProfile } = require("%enlist/soldiers/model/config/gameProfile.nut")
 let { playerStatsList, killsList } = require("profileState.nut")
 let { mkArmyIcon } = require("%enlist/soldiers/components/armyPackage.nut")
-let { darkTxtColor, defTxtColor, hoverSlotBgColor } = require("%enlSqGlob/ui/designConst.nut")
 let { getCampaignTitle } = require("%enlSqGlob/ui/itemsInfo.nut")
 
 
@@ -78,7 +77,7 @@ let statValueStyle = {
 }
 
 let statNameStyle = {
-  size = [pw(55), SIZE_TO_CONTENT]
+  size = [pw(50), SIZE_TO_CONTENT]
 }
 
 function mkCampaignInfoBtn(campaign) {
@@ -131,13 +130,13 @@ let mkMapsListUi = @(campListWatch) function() {
     watch = [campListWatch, gameProfile]
     size = [pw(28), flex()]
     flow = FLOW_VERTICAL
-    gap = bigPadding
+    gap = midPadding
     padding = [headerHeight,0,0,0]
     children = [
       mkAllCampaignBtn()
       campaignCfgCommon ? mkCampaignInfoBtn(campaignCfgCommon) : null
       campList.len() == 0 ? null
-        : mkText(loc("oldCampaigns"), {margin = [bigPadding, 0, 0, 0]})
+        : mkText(loc("oldCampaigns"), {margin = [midPadding, 0, 0, 0]})
     ]
       .extend(campList.map(function(campaignId) {
         let campaignCfg = campCfg?[campaignId]

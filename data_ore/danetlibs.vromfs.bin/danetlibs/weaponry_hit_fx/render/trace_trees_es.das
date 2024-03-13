@@ -3,13 +3,12 @@ require ecs.safe
 require PhysMat
 require DngCamera
 require RendInst
-require enlisted.events_enlisted
-require common_shooter.events_common_shooter
 require danetlibs.weaponry_hit_fx.render.weaponry_fx_render_common
 require fx
 
-[es(tag=render, after=(trace_scene_after_update_projectile_es), REQUIRE_NOT=projectile__inactive, parallel_for=2)]
-def trace_scene_after_update_projectile_canopy_es(info : ParallelUpdateFrameDelayed;
+
+[es(tag=render, on_event=ParallelUpdateFrameDelayed, after=(trace_scene_after_update_projectile_es), REQUIRE_NOT=projectile__inactive, parallel_for=2)]
+def trace_scene_after_update_projectile_canopy_es(info : Event;
                                                   projectile__prevPos : float3;
                                                   projectile_trace_info__dir : float3;
                                                   projectile_trace_info__len : float;

@@ -249,5 +249,12 @@
     "_info": {
       "desc": "A zone that limits the area of battles. Can be used to secure spawn points, concentrate fights around one strategic point(s), etc. Battle areas in the form of a box (for aviation)"
     }
+  },
+  "battle_area_navmesh_manager": {
+    "_tags": "server",
+    "_singleton": true,
+    "battle_area_navmesh_manager__delay": 1.0,
+    "battle_area_navmesh_manager__nextUpdate": 0.0,
+    "battle_area_navmesh_manager__areaEids:list<eid>": []
   }
 }

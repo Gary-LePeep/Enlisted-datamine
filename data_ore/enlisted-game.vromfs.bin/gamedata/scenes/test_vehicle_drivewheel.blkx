@@ -1,0 +1,375 @@
+[
+  {
+    "import": {
+      "scene": "content/enlisted/gamedata/scenes/_volokolamsk_sounds.blk"
+    }
+  },
+  {
+    "entity": {
+      "_template": "box_battle_area",
+      "transform": [
+        [315.485,0.0,22.2383],
+        [0.0,33.2728,0.0],
+        [-22.2383,0.0,315.485],
+        [-1716.03,4.91729,-1269.24]
+      ],
+      "battle_area__team": -1
+    }
+  },
+  {
+    "entity": {
+      "_template": "static_cam",
+      "camera__active": true,
+      "transform": [
+        [-0.998474,0.000790529,0.0552184],
+        [-0.00414915,0.995997,-0.089285],
+        [-0.0550687,-0.0893779,-0.994475],
+        [-1719.98,14.5583,-1246.39]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "level",
+      "level__blk": "content/enlisted/levels/battle_of_moscow_volokolamsk_countryside_winter.blk",
+      "level__timeRange": [5.0,19.2],
+      "level__weatherChoice:object": {
+        "weather_clear_b": 0.5
+      },
+      "level__timeVec:array": {
+        "level__timeVec": 12.0
+      }
+    }
+  },
+  {
+    "entity": {
+      "_template": "minimap_battle_of_moscow_volokolamsk_countryside_winter"
+    }
+  },
+  {
+    "entity": {
+      "_template": "water",
+      "water__strength": 1.3
+    }
+  },
+  {
+    "entity": {
+      "_template": "wind"
+    }
+  },
+  {
+    "entity": {
+      "_template": "postfx_color_grading_tonemap_death_alive_enlisted"
+    }
+  },
+  {
+    "entity": {
+      "_template": "shaderVars",
+      "shader_vars__vars:object": {
+        "hmap_displacement_up": 0.3,
+        "ocean1": "#8e894700",
+        "ocean0": "#4c3f0500",
+        "ocean_density": 0.1,
+        "river1": "#8e894700",
+        "river0": "#4c3f0500",
+        "hmap_displacement_down": -0.15,
+        "puddle_flat_hmap_reduce": 0.03,
+        "paint_details_tex": "volokolamsk_building_colors_tex_palette*",
+        "water_color_noise_size": 71.0,
+        "river_density": 0.3
+      }
+    }
+  },
+  {
+    "entity": {
+      "_template": "bloom"
+    }
+  },
+  {
+    "entity": {
+      "_template": "postfx_roundctrl"
+    }
+  },
+  {
+    "entity": {
+      "_template": "door_mult_ent_generator",
+      "ri_extra_gen__blk": "content/enlisted/gamedata/volokolamsk_doors.blk"
+    }
+  },
+  {
+    "entity": {
+      "_template": "session_timer",
+      "session_timer__time_left": 1800.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "session_finalizer",
+      "session_finalizer__timer": 10.0
+    }
+  },
+  {
+    "entity": {
+      "_template": "team_ussr+team_narrator_domination",
+      "team__id": 1,
+      "team__score": 2250.0,
+      "team__scoreCap": 2250.0,
+      "score_bleed__domBleed": 5.0,
+      "score_bleed__domBleedOn": false,
+      "score_bleed__totalDomZoneCount": 3,
+      "score_bleed__totalDomBleedMul": 2.0,
+      "score_bleed__totalDomBleedOn": false,
+      "team__briefing": "domination/common_goals",
+      "team__numZonesCaptured": 0,
+      "team__deathPenalty": 0.0,
+      "team__spawnBotArmy": "moscow_allies"
+    }
+  },
+  {
+    "entity": {
+      "_template": "team_germany_winter+team_narrator_domination",
+      "team__id": 2,
+      "team__score": 2250.0,
+      "team__scoreCap": 2250.0,
+      "score_bleed__domBleed": 5.0,
+      "score_bleed__domBleedOn": false,
+      "score_bleed__totalDomZoneCount": 3,
+      "score_bleed__totalDomBleedMul": 2.0,
+      "score_bleed__totalDomBleedOn": false,
+      "team__briefing": "domination/common_goals",
+      "team__numZonesCaptured": 0,
+      "team__deathPenalty": 0.0,
+      "team__spawnBotArmy": "moscow_axis"
+    }
+  },
+  {
+    "entity": {
+      "_template": "respTeam1",
+      "active": true,
+      "transform": [
+        [-0.943364,0.0,-0.331759],
+        [0.0,1.0,0.0],
+        [0.331759,0.0,-0.943364],
+        [-1702.35,0.819818,-1277.36]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "respVehicle",
+      "transform": [
+        [-0.999889,0.0,-0.0149345],
+        [0.0,1.0,0.0],
+        [0.0149345,0.0,-0.999889],
+        [-1704.26,2.77354,-1266.03]
+      ],
+      "team": 1,
+      "maxVehicleOnSpawn": -1,
+      "respTime": 0
+    }
+  },
+  {
+    "entity": {
+      "_template": "respVehicle",
+      "transform": [
+        [-0.999889,0.0,-0.0149345],
+        [0.0,1.0,0.0],
+        [0.0149345,0.0,-0.999889],
+        [-1704.67,2.77354,-1253.46]
+      ],
+      "team": 1,
+      "maxVehicleOnSpawn": -1,
+      "respTime": 0
+    }
+  },
+  {
+    "entity": {
+      "_template": "respTeam2",
+      "active": true,
+      "transform": [
+        [0.974246,0.0,0.225485],
+        [0.0,1.0,0.0],
+        [-0.225485,0.0,0.974246],
+        [-1735.25,3.0756,-1280.09]
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "respVehicle",
+      "transform": [
+        [0.999327,0.0,-0.0366869],
+        [0.0,1.0,0.0],
+        [0.0366869,0.0,0.999327],
+        [-1734.65,1.78282,-1266.05]
+      ],
+      "team": 2,
+      "maxVehicleOnSpawn": -1,
+      "respTime": 0
+    }
+  },
+  {
+    "entity": {
+      "_template": "respVehicle",
+      "transform": [
+        [0.999327,0.0,-0.0366869],
+        [0.0,1.0,0.0],
+        [0.0366869,0.0,0.999327],
+        [-1734.65,0.373859,-1253.88]
+      ],
+      "team": 2,
+      "maxVehicleOnSpawn": -1,
+      "respTime": 0
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawnChooser+respMotorcycle",
+      "active": false,
+      "transform": [
+        [-0.999889,0.0,-0.0149345],
+        [0.0,1.0,0.0],
+        [0.0149345,0.0,-0.999889],
+        [-1704.26,2.77354,-1266.03]
+      ],
+      "team": 1
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawnChooser+respMotorcycle",
+      "active": false,
+      "transform": [
+        [-0.999889,0.0,-0.0149345],
+        [0.0,1.0,0.0],
+        [0.0149345,0.0,-0.999889],
+        [-1704.67,2.77354,-1253.46]
+      ],
+      "team": 1
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawnChooser+respMotorcycle",
+      "active": false,
+      "transform": [
+        [0.999327,0.0,-0.0366869],
+        [0.0,1.0,0.0],
+        [0.0366869,0.0,0.999327],
+        [-1734.65,1.78282,-1266.05]
+      ],
+      "team": 2
+    }
+  },
+  {
+    "entity": {
+      "_template": "respawnChooser+respMotorcycle",
+      "active": false,
+      "transform": [
+        [0.999327,0.0,-0.0366869],
+        [0.0,1.0,0.0],
+        [0.0366869,0.0,0.999327],
+        [-1734.65,0.373859,-1253.88]
+      ],
+      "team": 2
+    }
+  },
+  {
+    "entity": {
+      "_template": "item_spawner",
+      "transform": [
+        [0.999327,0.0,-0.0366869],
+        [0.0,1.0,0.0],
+        [0.0366869,0.0,0.999327],
+        [-1692.55,6.19875,-1305.99]
+      ],
+      "spawnItemStep": [0.0,0.0,4.0],
+      "spawnItemList:array": [
+        {
+          "spawnItemList:object": {
+            "templ": "opel_blitz_kfz_305+dm_debug",
+            "count": 1
+          }
+        },
+        {
+          "spawnItemList:object": {
+            "templ": "opel_blitz_omnibus+dm_debug",
+            "count": 1
+          }
+        },
+        {
+          "spawnItemList:object": {
+            "templ": "opel_olympia+dm_debug",
+            "count": 1
+          }
+        },
+        {
+          "spawnItemList:object": {
+            "templ": "gaz_67+dm_debug",
+            "count": 1
+          }
+        },
+        {
+          "spawnItemList:object": {
+            "templ": "vw_kubelwagen+dm_debug",
+            "count": 1
+          }
+        },
+        {
+          "spawnItemList:object": {
+            "templ": "willys_mb+dm_debug",
+            "count": 1
+          }
+        },
+        {
+          "spawnItemList:object": {
+            "templ": "ford_gpa+dm_debug",
+            "count": 1
+          }
+        },
+        {
+          "spawnItemList:object": {
+            "templ": "gaz_m1+dm_debug",
+            "count": 1
+          }
+        },
+        {
+          "spawnItemList:object": {
+            "templ": "vw_beetle+dm_debug",
+            "count": 1
+          }
+        },
+        {
+          "spawnItemList:object": {
+            "templ": "nissan_80+dm_debug",
+            "count": 1
+          }
+        },
+        {
+          "spawnItemList:object": {
+            "templ": "gmc_353_a+dm_debug",
+            "count": 1
+          }
+        },
+        {
+          "spawnItemList:object": {
+            "templ": "gmc_353_b+dm_debug",
+            "count": 1
+          }
+        },
+        {
+          "spawnItemList:object": {
+            "templ": "us_halftrack_m13_pacific+dm_debug",
+            "count": 1
+          }
+        },
+        {
+          "spawnItemList:object": {
+            "templ": "ussr_gaz_mm_72k_moscow_premium+dm_debug",
+            "count": 1
+          }
+        }
+      ]
+    }
+  }
+]

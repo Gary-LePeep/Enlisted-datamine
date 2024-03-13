@@ -1,9 +1,9 @@
 from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { animChildren } = require("%enlSqGlob/ui/glareAnimation.nut")
-let { accentColor } = require("%enlSqGlob/ui/viewConst.nut")
+let { accentColorOld } = require("%enlSqGlob/ui/designConst.nut")
 
-let pbColorAcquired = accentColor
+let pbColorAcquired = accentColorOld
 let pbColorCompleted = Color(255, 168, 0, 225)
 let progressBarHeight = hdpxi(40)
 let gradientWidth = hdpxi(18)

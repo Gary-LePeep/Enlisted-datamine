@@ -129,4 +129,5 @@ return {
   squadBlock
   respawnTimer
   forceSpawnButton
+  requestRespawn
 }

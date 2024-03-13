@@ -6,12 +6,11 @@ let hoverHoldAction = require("%darg/helpers/hoverHoldAction.nut")
 let { blinkUnseenIcon } = require("%ui/components/unseenSignal.nut")
 let { curArmy, armoryByArmy } = require("%enlist/soldiers/model/state.nut")
 let { curSoldierIdx } = require("%enlist/soldiers/model/curSoldiersState.nut")
-let { bigPadding, blurBgColor, blurBgFillColor, smallPadding,
-  activeBgColor, defBgColor, slotBaseSize, scrollbarParams, listCtors,
-  msgHighlightedTxtColor, fadedTxtColor
-} = require("%enlSqGlob/ui/viewConst.nut")
+let { midPadding, blurBgColor, blurBgFillColor, smallPadding,
+  activeBgColor, defBgColor, slotBaseSize, listCtors,
+  msgHighlightedTxtColor, fadedTxtColor, hoverTxtColor
+} = require("%enlSqGlob/ui/designConst.nut")
 let { nameColor, txtDisabledColor } = listCtors
-let { hoverTxtColor } = require("%enlSqGlob/ui/designConst.nut")
 let { READY, TOO_MUCH_CLASS, NOT_FIT_CUR_SQUAD, NOT_READY_BY_EQUIP
 } = require("%enlSqGlob/readyStatus.nut")
 let { note, noteTextArea } = require("%enlSqGlob/ui/defcomps.nut")
@@ -94,11 +93,34 @@ let massSelectReadyStyle = {
 
 let unseenIcon = blinkUnseenIcon(0.7, msgHighlightedTxtColor, "th-large")
 let smallUnseenIcon = blinkUnseenIcon(0.7)
+let smallUnseenNoBlinkCmp = smallUnseenNoBlink.__merge({ hplace = ALIGN_RIGHT, vplace = ALIGN_TOP })
 
-let slotWithPadding = [slotBaseSize[0], slotBaseSize[1] + bigPadding]
-let boxSize = 2 * bigPadding + hdpxi(20)
+let slotWithPadding = [slotBaseSize[0], slotBaseSize[1] + midPadding]
+let boxSize = 2 * midPadding + hdpxi(20)
 let slotWithCheckbox = [slotWithPadding[0] + boxSize, slotWithPadding[1]]
 let selectionSlotGamepad = [slotWithPadding[0] + smallPadding, slotWithPadding[1] + smallPadding]
+
+let scrollbarParams = {
+  size = [SIZE_TO_CONTENT, flex()]
+  skipDirPadNav = true
+  barStyle = @(_has_scroll) {
+    _width = fsh(1)
+    _height = fsh(1)
+    skipDirPadNav = true
+  }
+  knobStyle = {
+    skipDirPadNav = true
+    hoverChild = @(sf) {
+      rendObj = ROBJ_BOX
+      size = [hdpx(8), flex()]
+      borderWidth = [0, hdpx(1), 0, hdpx(1)]
+      borderColor = Color(0, 0, 0, 0)
+      fillColor = sf & S_ACTIVE ? Color(255,255,255)
+        : sf & S_HOVER ? Color(110, 120, 140, 80)
+        : Color(110, 120, 140, 160)
+    }
+  }
+}
 
 let buttonMassUnequip = Flat(loc("removeAllEquipment/reserve"),
   @() msgbox.show({
@@ -270,7 +292,7 @@ function chooseSoldiersScene() {
 
       let chContent = {
         size = flex()
-        padding = [0, 0, bigPadding, 0]
+        padding = [0, 0, midPadding, 0]
         children = {
           key = $"empty_slot_{idx}{hasBlink}"
           size = flex()
@@ -382,7 +404,7 @@ function chooseSoldiersScene() {
       }
 
       let chContent = {
-        padding = [0, bigPadding, 0, 0]
+        padding = [0, midPadding, 0, 0]
         flow = FLOW_HORIZONTAL
         valign = ALIGN_TOP
         children = [
@@ -410,7 +432,7 @@ function chooseSoldiersScene() {
           hasCheckbox.value && !soldier.isHero
             ? checkbox(soldierCheckedState[soldier.guid], { text = null, margin = null },
                 {
-                  override = { gap = null, margin = bigPadding }
+                  override = { gap = null, margin = midPadding }
                   setValue = function(val) {
                     soldierCheckedState[soldier.guid](val)
                     if (!val)
@@ -472,7 +494,7 @@ function chooseSoldiersScene() {
     rendObj = ROBJ_WORLD_BLUR_PANEL
     color = blurBgColor
     fillColor = blurBgFillColor
-    padding = bigPadding
+    padding = midPadding
     flow = FLOW_VERTICAL
   }
 
@@ -534,7 +556,7 @@ function chooseSoldiersScene() {
       valign = ALIGN_CENTER
       halign = ALIGN_RIGHT
       flow = FLOW_HORIZONTAL
-      gap = bigPadding
+      gap = midPadding
       children = buttons.append({ size = flex() }, buttonOk)
     }
   }
@@ -543,7 +565,7 @@ function chooseSoldiersScene() {
     watch = isGamepad
     size = [flex(), SIZE_TO_CONTENT]
     flow = FLOW_VERTICAL
-    gap = bigPadding
+    gap = midPadding
     children = isGamepad.value ? null : [
       noteTextArea(loc("soldier/manageHeader"))
       noteTextArea(loc("soldier/maxSoldiers"))
@@ -557,8 +579,8 @@ function chooseSoldiersScene() {
   })
 
   let squadList = bg.__merge({
-    size = [slotWithPadding[0] + 2 * bigPadding, flex()]
-    gap = bigPadding
+    size = [slotWithPadding[0] + 2 * midPadding, flex()]
+    gap = midPadding
     children = [
       squadHeader({
         curSquad = soldiersSquad
@@ -640,31 +662,32 @@ function chooseSoldiersScene() {
     sellSelected,
     { isEnabled }.__update(SELL_BTN_STYLE))
 
-  let mkSoldiersBlock = @(withText = true) @() {
-    size = [flex(), SIZE_TO_CONTENT]
-    watch = unseenSoldierShopItems
-    flow = FLOW_VERTICAL
-    hplace = ALIGN_CENTER
-    halign = ALIGN_CENTER
-    gap = bigPadding
-    children = [
-      withText ? noteTextArea({
-        text = loc("squad/getMoreSoldiers")
-      }).__update(fontSub, {halign = ALIGN_CENTER}) : null
-      Flat(loc("soldiers/purchaseSoldier"), @() isPurchaseWndOpend(true),
-        {
-          size = [flex(), SIZE_TO_CONTENT]
-          margin = 0
-          hotkeys = [["^J:Start"]]
-        }.__update(unseenSoldierShopItems.value.len() > 0 ? {
-          fgChild = smallUnseenNoBlink.__update({
-            hplace = ALIGN_RIGHT
-            vplace = ALIGN_TOP
-          })
-        } : {})
-      )
-    ]
+  let mkSoldiersBlock = @(withText = true) function() {
+    let fgChild = unseenSoldierShopItems.value.len() == 0 ? null
+      : smallUnseenNoBlinkCmp
+
+    return {
+      size = [flex(), SIZE_TO_CONTENT]
+      watch = unseenSoldierShopItems
+      flow = FLOW_VERTICAL
+      hplace = ALIGN_CENTER
+      halign = ALIGN_CENTER
+      gap = midPadding
+      children = [
+        withText ? noteTextArea({
+          text = loc("squad/getMoreSoldiers")
+        }).__update(fontSub, {halign = ALIGN_CENTER}) : null
+        Flat(loc("soldiers/purchaseSoldier"), @() isPurchaseWndOpend(true),
+          {
+            size = [flex(), SIZE_TO_CONTENT]
+            margin = 0
+            hotkeys = [["^J:Start"]]
+          }.__update({ fgChild })
+        )
+      ]
+    }
   }
+
   local wasPurchOpened = false
   isPurchaseWndOpend.subscribe(function(v){
     if (!v && wasPurchOpened) {
@@ -681,7 +704,7 @@ function chooseSoldiersScene() {
     if (reserveSoldiers.value.len() == 0)
       return bg.__merge({
         watch = reserveSoldiers
-        size = [slotWithPadding[0] + 2 * bigPadding, flex()]
+        size = [slotWithPadding[0] + 2 * midPadding, flex()]
         valign = ALIGN_CENTER
         halign = ALIGN_CENTER
         behavior = Behaviors.Button // only to attract cursor on dirpad navigation
@@ -698,7 +721,7 @@ function chooseSoldiersScene() {
     return bg.__merge({
       watch = [ reserveSoldiers, curArmyReserveCapacity, isMarkingForSale ]
       size = [SIZE_TO_CONTENT, flex()]
-      gap = bigPadding
+      gap = midPadding
       children = [
         reserveCountBlock
         makeVertScroll({
@@ -726,11 +749,11 @@ function chooseSoldiersScene() {
           ]
         }, scrollbarParams)
         reserveSoldiers.value.len() >= curArmyReserveCapacity.value
-        ? null : mkSoldiersBlock(!bigList)
+          ? null : mkSoldiersBlock(!bigList)
         @() {
           watch = [isMarkingForSale, selectedSoldiersNum]
           flow = FLOW_HORIZONTAL
-          gap = bigPadding
+          gap = midPadding
           size = [flex(), SIZE_TO_CONTENT]
           children = [
             mkMarkBtn(isMarkingForSale.value)
@@ -745,13 +768,13 @@ function chooseSoldiersScene() {
   let soldiersContent = {
     size = flex()
     flow = FLOW_HORIZONTAL
-    gap = bigPadding
+    gap = midPadding
     children = [
       squadList
       {
         size = flex()
         flow = FLOW_HORIZONTAL
-        gap = bigPadding
+        gap = midPadding
         behavior = Behaviors.DragAndDrop
         onDrop = @(data) soldierToReserveByIdx(data?.soldierIdx)
         canDrop = @(data) data?.soldierIdx != null && data.soldierIdx < maxSoldiersInBattle.value

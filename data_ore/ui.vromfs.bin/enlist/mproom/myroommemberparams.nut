@@ -149,7 +149,7 @@ function onRoomChanged() {
   let armyId = myArmy.value
 
   if(!doesTeamContainArmy(curTeam.value, armyId)) {
-    setRoomArmy(roomTeamArmies.value[curTeam.value][0])
+    setRoomArmy(roomTeamArmies.value?[curTeam.value][0])
     if (!isFirstConnectToRoom && !canOperateRoom.value && !isInDebriefing.value)
       showMsgbox({
         text = loc("lobbyMsg/playerArmyHasChanged")

@@ -2,7 +2,7 @@ from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontHeading2 } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { warningsList } = require("%ui/hud/state/warnings.nut")
-let { strokeStyle } = require("%enlSqGlob/ui/viewConst.nut")
+let { strokeStyle } = require("%enlSqGlob/ui/designConst.nut")
 
 let warnText = kwarg(@(locId, color = Color(255,120,120,255)) {
   size = [flex(), SIZE_TO_CONTENT]

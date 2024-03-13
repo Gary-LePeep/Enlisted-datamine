@@ -1,8 +1,7 @@
 from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
-let { gap } = require("%enlSqGlob/ui/viewConst.nut")
-let { defTxtColor } = require("%enlSqGlob/ui/designConst.nut")
+let { defTxtColor, gap } = require("%enlSqGlob/ui/designConst.nut")
 let { navBottomBarHeight } = require("%enlist/mainMenu/mainmenu.style.nut")
 let { squadLen, squadMembers, isInvitedToSquad, enabledSquad, canInviteToSquad,
   leaveSquad, squadSelfMember, myExtSquadData, isSquadLeader

@@ -157,6 +157,7 @@ let mkCompNameText = function(comp_name, comp_name_text, metaInfo, modified, gro
   return {
     rendObj = ROBJ_TEXT
     text = $"{prefix}{comp_name_text}{suffix}"
+    color = colors.TextDefault
     size = [flex(), fontH(100)]
     margin = fsh(0.5)
     group = group

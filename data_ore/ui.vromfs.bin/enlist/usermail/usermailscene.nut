@@ -3,12 +3,12 @@ from "%enlSqGlob/ui/ui_library.nut" import *
 let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { sceneWithCameraAdd, sceneWithCameraRemove
 } = require("%enlist/sceneWithCamera.nut")
-let { bigPadding, smallPadding, defInsideBgColor, defTxtColor, blurBgFillColor, activeTxtColor,
+let { midPadding, smallPadding, defInsideBgColor, defTxtColor, blurBgFillColor, activeTxtColor,
   maxContentWidth, airBgColor, opaqueBgColor
-} = require("%enlSqGlob/ui/viewConst.nut")
+} = require("%enlSqGlob/ui/designConst.nut")
 let { Bordered } = require("%ui/components/textButton.nut")
-let { letters, requestLetters, takeLetterReward, isRequest, closeUsermailWindow, isUsermailWndOpend,
-  selectedLetterIdx, hasUnseenLetters
+let { letters, requestLetters, takeLetterReward, isRequest, closeUsermailWindow, isUsermailWndOpened,
+  selectedLetterIdx
 } = require("%enlist/usermail/usermailState.nut")
 let spinner = require("%ui/components/spinner.nut")
 let { makeVertScroll, thinStyle } = require("%ui/components/scrollbar.nut")
@@ -17,9 +17,10 @@ let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
 let rewardsItemMapping = require("%enlist/items/itemsMapping.nut")
 let { mkSeasonTime, prepareRewards, mkRewardBlock } = require("%enlist/battlepass/rewardsPkg.nut")
 let mkWindowTab = require("%enlist/components/mkWindowTab.nut")
+let msgbox = require("%enlist/components/msgbox.nut")
 
 let mailPadding = hdpx(15)
-let mailBigPadding = hdpx(40)
+let mailmidPadding = hdpx(40)
 let MAIL_WND_WIDTH = fsh(100)
 let waitingSpinner = spinner()
 
@@ -38,6 +39,11 @@ let noMessagesTitle = {
   text = loc("mail/no_messages")
 }.__update(fontBody)
 
+let expiredReward = @() msgbox.show({
+  text = loc("mail/rewardExpired"),
+  buttons = [{ text = loc("Ok"), isCurrent = true }]
+})
+
 function mkRewards(rewards, hasReceived = true) {
   if (rewards.len() == 0)
     return null
@@ -55,24 +61,24 @@ function mkRewards(rewards, hasReceived = true) {
 
 function messageRow(message, idx) {
   let { text, guid, cTime, isReceived = false, endTime = 0, rewards = [] } = message
-  return watchElemState(function(sf){
+  let hasTimeout = endTime != 0
+  let timeToEnd = Computed(@() isReceived ? 0 : max(0, endTime - serverTime.value))
+  let isSelected = Computed(@() selectedLetterIdx.value == idx)
+  return watchElemState(function(sf) {
     if (cTime > serverTime.value)
       return null
-
-    let hasTimeout = endTime != 0
-    let timeToEnd = endTime - serverTime.value
-    let isSelected = selectedLetterIdx.value == idx
-    return{
+    let cb = hasTimeout && timeToEnd.value == 0 ? expiredReward : @() takeLetterReward(guid)
+    return {
       rendObj = ROBJ_SOLID
-      watch = [selectedLetterIdx, serverTime]
+      watch = [selectedLetterIdx, timeToEnd, isSelected]
       size = [flex(), SIZE_TO_CONTENT]
       behavior = Behaviors.Button
       flow = FLOW_VERTICAL
       padding = mailPadding
       onClick = @() selectedLetterIdx(idx)
-      gap = mailBigPadding
+      gap = mailmidPadding
       clipChildren = true
-      color = listBgColor(sf, isSelected)
+      color = listBgColor(sf, isSelected.value)
       children = [
         {
           size = [flex(), SIZE_TO_CONTENT]
@@ -85,21 +91,19 @@ function messageRow(message, idx) {
               ellipsis = true
               textOverflowY = TOVERFLOW_LINE
               text = loc(text)
-              color = listTxtColor(sf, isSelected)
+              color = listTxtColor(sf, isSelected.value)
             }.__update(fontBody)
-            hasTimeout ? mkSeasonTime(timeToEnd) : null
+            isReceived || timeToEnd.value == 0 ? null : mkSeasonTime(timeToEnd.value)
           ]
         }
         rewards.len() == 0 ? null : {
           size = [flex(), SIZE_TO_CONTENT]
           flow = FLOW_HORIZONTAL
           valign = ALIGN_BOTTOM
-          gap = bigPadding
+          gap = midPadding
           children = [
             mkRewards(rewards, isReceived)
-            isReceived || (hasTimeout && timeToEnd <= 0) ? null
-              : Bordered(loc("mainmenu/receive"), @() takeLetterReward(guid),
-                  { margin = 0 })
+            isReceived ? null : Bordered(loc("mainmenu/receive"), cb, { margin = 0 })
           ]
         }
       ]
@@ -172,11 +176,10 @@ let mailWindow = {
 
 function openMailWindow(){
   requestLetters()
-  hasUnseenLetters(false)
   sceneWithCameraAdd(mailWindow, "events")
 }
 
-if (isUsermailWndOpend.value)
+if (isUsermailWndOpened.value)
   openMailWindow()
 
-isUsermailWndOpend.subscribe(@(v) v ? openMailWindow() : sceneWithCameraRemove(mailWindow))
+isUsermailWndOpened.subscribe(@(v) v ? openMailWindow() : sceneWithCameraRemove(mailWindow))

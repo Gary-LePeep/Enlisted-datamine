@@ -702,9 +702,27 @@ def cockpit_destroy_slits(evt : Event; cockpit__slitEids : EidList)
   for eid in cockpit__slitEids
     destroyEntity(eid)
 
+[es(tag=gameClient, on_appear, after=vehicle_cockpit_slits_init)]
+def cockpit_init_dof_for_slits(evt : Event;
+                               cockpit__slitNodes : IntList;
+                               var cockpit__slitEnableDof : BoolList;
+                               cockpit__slitTemplates : StringList const?)
+  if length(cockpit__slitEnableDof) == length(cockpit__slitNodes)
+    return
+  resize(cockpit__slitEnableDof, length(cockpit__slitNodes))
+  for enableDof in cockpit__slitEnableDof
+    enableDof = true
+  // disable dof for slits with vehicle sights
+  if cockpit__slitTemplates != null
+    for i, slitTemplate in iter_range(*cockpit__slitTemplates), *cockpit__slitTemplates
+      let templ = getTemplateByName(string(slitTemplate))
+      if templ != null && templateHasComponent(*templ, "vehicle_sight__slitZoom")
+        cockpit__slitEnableDof[i] = false
+
 [es(tag=render, on_appear, track=camera__active)]
 def activate_vehicle_camera_dof(evt : Event;
                                 camera__active : bool;
+                                camera__target : EntityId;
                                 var prevDof__on : bool&;
                                 var prevDof__farDofAmountPercent : float&;
                                 var prevDof__nearDofAmountPercent : float&;
@@ -729,7 +747,12 @@ def activate_vehicle_camera_dof(evt : Event;
     prevDof__nearDofEnd = dof__nearDofEnd
     prevDof__is_filmic = dof__is_filmic
 
-    dof__on = true
+    var enableDof = true
+    query(camera__target) <| $ [es] (cockpit__eid : EntityId)
+      query(cockpit__eid) <| $ [es] (cockpit__currentSlit : int;
+                                     cockpit__slitEnableDof : BoolList)
+        enableDof = cockpit__slitEnableDof[cockpit__currentSlit]
+    dof__on = enableDof
     dof__farDofAmountPercent = 0.0
     dof__nearDofAmountPercent = cockpitDof__nearDofAmountPercent
     dof__nearDofStart = cockpitDof__nearDofStart
@@ -759,3 +782,12 @@ def deactivate_vehicle_camera_dof(evt : Event;
     dof__nearDofStart = prevDof__nearDofStart
     dof__nearDofEnd = prevDof__nearDofEnd
     dof__is_filmic = prevDof__is_filmic
+
+[es(tag=render, on_appear, track=cockpit__currentSlit)]
+def disable_vehicle_camera_dof_for_gunner(evt : Event;
+                                          cockpit__currentSlit : int;
+                                          cockpit__slitEnableDof : BoolList)
+  query() <| $ [es(REQUIRE=cockpitDof__nearDofAmountPercent)] (camera__active : bool)
+    if camera__active
+      query() <| $ [es] (var dof__on : bool&)
+        dof__on = cockpit__slitEnableDof[cockpit__currentSlit]

@@ -10,13 +10,15 @@ require enlisted.game.es.enlisted_squad_common
 require enlisted.game.es.stat_bq.send_squad_cmd_stat_bq_common
 require DngBehTree
 require game.es.squad_order_common
+require common_shooter.es.ai.ai_weapons_common
+require HumanPhys
 
 def squadmate_attack_order_speech(squadmate_eid : EntityId; leader_eid : EntityId; squad_member_response = "confirm")
   sendEvent(leader_eid, [[CmdRequestHumanSpeech phrase="squadAttackOrder"]])
   if squad_member_response != ""
     request_squad_member_response(squadmate_eid, squad_member_response)
 
-def has_antitank_grenade(eid : EntityId) : bool
+def has_antitank_weapons(eid : EntityId) : bool
   var res = false
   query(eid) <| $ [es] (itemContainer : EidList; [[shared_comp]] beh_tree__antitankGrenades : StringList)
     for itemEid in itemContainer
@@ -25,10 +27,21 @@ def has_antitank_grenade(eid : EntityId) : bool
       if typeIdx != -1
         res = true
         return
+  if res
+    return true
+  query(eid) <| $ [es] (human_weap__gunEids : EidList)
+    for i, gunEid in range(int(HUWeaponSlots EWS_NUM)), human_weap__gunEids
+      if gunEid == INVALID_ENTITY_ID || i == int(HUWeaponSlots EWS_GRENADE) || i == int(HUWeaponSlots EWS_MELEE)
+        continue
+      query(gunEid) <| $ [es] (specialAIWeaponType : int)
+        if specialAIWeaponType == int(SpecialAIWeaponType ROCKET_LAUNCHERS)
+          res = true
+        elif specialAIWeaponType == int(SpecialAIWeaponType ANTI_TANK_RIFLES)
+          res = true
   return res
 
 def is_squadmate_suitable_for_attack(eid : EntityId; is_target_vehicle : bool) : bool
-  return !is_target_vehicle || has_antitank_grenade(eid)
+  return !is_target_vehicle || has_antitank_weapons(eid)
 
 def order_attack(squadmate_eid, squad__leader, attack_target : EntityId)
   var isOrdered = false

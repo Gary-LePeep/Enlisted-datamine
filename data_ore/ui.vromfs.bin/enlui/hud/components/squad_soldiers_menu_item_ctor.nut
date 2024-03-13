@@ -2,7 +2,7 @@ from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let {
-  mkGrenadeIcon, mkMineIcon, mkMemberHealsBlock, mkStatusIcon, mkAiActionIcon,
+  mkGrenadeIcon, mkMineIcon, mkMemberHealsBlock, mkMemberRepairBlock, mkStatusIcon, mkAiActionIcon,
   mkMemberFlaskBlock
 } = require("%ui/hud/components/squad_member.nut")
 let { fabs } = require("math")
@@ -45,6 +45,7 @@ let equipmentStatusRow = @(member) {
   flow = FLOW_HORIZONTAL
   gap = hdpx(2)
   children = [
+    mkMemberRepairBlock(member, sIconSize)
     mkMemberHealsBlock(member, sIconSize)
     mkMemberFlaskBlock(member, sIconSize)
     mkGrenadeIcon(member, sIconSize) ?? mkMineIcon(member, sIconSize)

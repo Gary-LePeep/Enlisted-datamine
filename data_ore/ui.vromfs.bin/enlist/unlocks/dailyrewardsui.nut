@@ -15,9 +15,9 @@ let { requestCratesContent, requestedCratesContent
 } = require("%enlist/soldiers/model/cratesContent.nut")
 let { curArmy } = require("%enlist/soldiers/model/state.nut")
 let { Bordered, PrimaryFlat } = require("%ui/components/textButton.nut")
-let { titleTxtColor, smallPadding, commonBtnHeight, bigPadding, smallOffset,
+let { titleTxtColor, smallPadding, commonBtnHeight, midPadding, smallOffset,
   defBgColor, defTxtColor, activeTxtColor
-} = require("%enlSqGlob/ui/viewConst.nut")
+} = require("%enlSqGlob/ui/designConst.nut")
 let { fontTitle, fontHeading1, fontHeading2, fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { noteTextArea, txt } = require("%enlSqGlob/ui/defcomps.nut")
 let { dailyRewardsUnlock, receiveDayReward, dailyRewardsCrates, calcRewardCfg,
@@ -148,7 +148,7 @@ function mkBoosterToolTip(bName, rewardsBoosters, rewardsItems, curArmyId) {
   return tooltipBox({
     size = [hdpx(400), SIZE_TO_CONTENT]
     flow = FLOW_VERTICAL
-    gap = bigPadding
+    gap = midPadding
     children = [
       noteTextArea({
         size = [flex(), SIZE_TO_CONTENT]
@@ -548,19 +548,19 @@ let mkBoosterRewards = @(receivedRewards) {
   children = [
     {
       flow = FLOW_HORIZONTAL
-      gap = bigPadding
+      gap = midPadding
       children = mkRewards(receivedRewards)
     }
     mkFaComp("arrow-circle-right")
     {
       rendObj = ROBJ_SOLID
       flow = FLOW_VERTICAL
-      padding = bigPadding
+      padding = midPadding
       color = defBgColor
       children = [
         txt({
           text = loc("unlockBoosterTitle")
-          padding = bigPadding
+          padding = midPadding
           hplace = ALIGN_CENTER
           color = titleTxtColor
         }).__update(fontSub)

@@ -10,7 +10,8 @@ def bind_camera_to_vehicle(vehicle : EntityId;
                            var camera__target : EntityId&)
   ecs::query(vehicle) <| $ [es] (vehicleCameraType : int; vehicle_commander_cam__attachToVehicle : bool = false)
     let isCommanderCam = vehicleCameraType == int(VehicleCameraType VEHICLE_CAMERA_COMMANDER)
-    if (!isCommanderCam || vehicle_commander_cam__attachToVehicle) && !human_vehicle__canHoldWeapon
+    let isPassengerCam = vehicleCameraType == int(VehicleCameraType VEHICLE_CAMERA_PASSENGER)
+    if (!isCommanderCam || vehicle_commander_cam__attachToVehicle) && !human_vehicle__canHoldWeapon && !isPassengerCam
       camera__target = vehicle
 
 def set_camera_target(target : ecs::EntityId;

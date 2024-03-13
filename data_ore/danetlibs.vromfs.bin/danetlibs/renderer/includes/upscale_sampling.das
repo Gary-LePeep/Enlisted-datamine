@@ -84,9 +84,3 @@ def upload_weights(upscale_weights_buffer : UniqueBufHolder)
 [generic]
 def init_upscale(var upscale_weights_buffer : UniqueBufHolder)
   create_sbuffer(upscale_weights_buffer, UPSCALE_DATA_SIZE, UPSCALE_WEIGHTS_COUNT, SBCF_CB_PERSISTENT, uint(0), "upscale_sampling_weights")
-
-[generic]
-def upscale_render(target : BaseTexture?; shader : PostFxRenderer)
-  d3d_set_render_target(target, 0)
-  shader |> render()
-  d3d_resource_barrier(target, RB_RO_SRV | RB_STAGE_PIXEL | RB_STAGE_COMPUTE, uint(0), uint(0))

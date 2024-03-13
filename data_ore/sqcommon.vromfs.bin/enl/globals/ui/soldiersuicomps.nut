@@ -5,7 +5,7 @@ let tooltipCtor = require("%ui/style/tooltipCtor.nut")
 let fa = require("%ui/components/fontawesome.map.nut")
 let {
   gap, bigGap, defTxtColor, soldierLockedLvlColor, msgHighlightedTxtColor
-} = require("%enlSqGlob/ui/viewConst.nut")
+} = require("%enlSqGlob/ui/designConst.nut")
 let colorize = require("%ui/components/colorize.nut")
 let soldiersPresentation = require("%enlSqGlob/ui/soldiersPresentation.nut")
 let { getClassCfg, getKindCfg } = require("%enlSqGlob/ui/soldierClasses.nut")
@@ -14,7 +14,7 @@ let { txt, note } = require("%enlSqGlob/ui/defcomps.nut")
 
 const PERK_ALERT_SIGN = "caret-square-o-up"
 const ITEM_ALERT_SIGN = "dropbox"
-const REQ_MANAGE_SIGN = "plus-square"
+const UPGRADE_ALERT_SIGN = "angle-double-up"
 
 let iconSize = hdpxi(26)
 
@@ -226,5 +226,5 @@ return {
 
   PERK_ALERT_SIGN
   ITEM_ALERT_SIGN
-  REQ_MANAGE_SIGN
+  UPGRADE_ALERT_SIGN
 }

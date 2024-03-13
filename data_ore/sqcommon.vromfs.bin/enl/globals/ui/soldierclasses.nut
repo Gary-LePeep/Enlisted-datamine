@@ -718,10 +718,10 @@ let soldierClasses = freeze({
     sClass = "engineer"
     kind = "engineer"
   }.__update(premiumCfg)
-  engineer_2_premium_1 = {
+  engineer_2_event_1 = {
     sClass = "engineer"
     kind = "engineer"
-  }.__update(premiumCfg)
+  }.__update(eventCfg)
   medic_1_premium_1 = {
     sClass = "medic"
     kind = "medic"

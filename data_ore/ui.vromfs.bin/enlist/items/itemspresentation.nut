@@ -5,9 +5,8 @@ let colorize = require("%ui/components/colorize.nut")
 let icon3dByGameTemplate = require("%enlSqGlob/ui/icon3dByGameTemplate.nut")
 let { portraits, nickFrames } = require("%enlSqGlob/ui/decoratorsPresentation.nut")
 let { medalsPresentation } = require("%enlist/profile/medalsPresentation.nut")
-let { accentTitleTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
+let { accentTitleTxtColor, darkTxtColor } = require("%enlSqGlob/ui/designConst.nut")
 let { secondsToHoursLoc } = require("%ui/helpers/time.nut")
-let { darkTxtColor } = require("%enlSqGlob/ui/designConst.nut")
 let { mkRadialGradientImg } = require("%darg/helpers/mkGradientImg.nut")
 let { mkColoredGradientY } = require("%enlSqGlob/ui/gradients.nut")
 
@@ -1426,6 +1425,26 @@ let rewardsPresentation = {
     bgImage = "ui/skin#battlepass/bg_gold.avif"
     cardImage = "!ui/skin#currency/decal_order_event.svg"
     mkImage = mkImageCtor([72, 100])
+  },
+  ["507"] = {
+    name = loc("items/engineerDay24_bonus_portrait")
+    icon = "!ui/portraits/default_portrait.svg"
+    cardImage = "!ui/portraits/event/engineerDay24_bonus_portrait.avif"
+    mkImage = mkImageCtor([150, 150])
+  },
+  ["508"] = {
+    name = loc("squad/squad_ger_engineer_2_event_1")
+    description = loc("squadannounce/squad_ger_engineer_2_event_1")
+    icon = "ui/skin#research/squad_points_icon.svg"
+    cardImage = "!ui/soldiers/germany/squad_ger_engineer_2_event_1_image.avif"
+    mkImage = mkImageCtor([300, 225], [0, 0])
+  },
+  ["509"] = {
+    name = loc("squad/squad_ussr_engineer_2_event_1")
+    description = loc("squadannounce/squad_ussr_engineer_2_event_1")
+    icon = "ui/skin#research/squad_points_icon.svg"
+    cardImage = "!ui/soldiers/ussr/squad_ussr_engineer_2_event_1_image.avif"
+    mkImage = mkImageCtor([300, 225], [0, 0])
   },
 
 

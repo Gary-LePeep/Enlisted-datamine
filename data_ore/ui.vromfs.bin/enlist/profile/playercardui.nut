@@ -3,7 +3,7 @@ let decoratorUi = require("decoratorUi.nut")
 let { unlockedCampaigns } = require("%enlist/meta/campaigns.nut")
 let { configs } = require("%enlist/meta/configs.nut")
 let { userstatStats } = require("%enlSqGlob/userstats/userstat.nut")
-let { smallOffset } = require("%enlSqGlob/ui/viewConst.nut")
+let { smallOffset } = require("%enlSqGlob/ui/designConst.nut")
 let { mkMapsListUi, mkPlayerStatistics } = require("profilePkg.nut")
 let { playerRank, markOpenedRank } = require("%enlist/profile/rankState.nut")
 

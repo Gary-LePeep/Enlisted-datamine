@@ -1,10 +1,9 @@
 from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { squadsCfgById } = require("%enlist/soldiers/model/config/squadsConfig.nut")
-let { defBgColor, commonBtnHeight, soldierWndWidth, bigPadding, smallPadding, listCtors
-} = require("%enlSqGlob/ui/viewConst.nut")
 let { panelBgColor, hoverPanelBgColor, selectedPanelBgColor, defTxtColor, titleTxtColor,
-  squadSlotBgHoverColor, squadSlotBgIdleColor
+  squadSlotBgHoverColor, squadSlotBgIdleColor, defBgColor, commonBtnHeight,
+  soldierWndWidth, midPadding, smallPadding, listCtors
 } = require("%enlSqGlob/ui/designConst.nut")
 let { Bordered } = require("%ui/components/txtButton.nut")
 let modalPopupWnd = require("%ui/components/modalPopupWnd.nut")
@@ -52,7 +51,7 @@ let open = @(popupParams, squadGuid, soldierTemplatePreset, selectedOutfitCampai
     padding = 0
     fillColor = defBgColor
     children = @() {
-      size = [soldierWndWidth - 2*bigPadding, SIZE_TO_CONTENT]
+      size = [soldierWndWidth - 2*midPadding, SIZE_TO_CONTENT]
       rendObj = ROBJ_BOX
       fillColor = defBgColor
       flow = FLOW_VERTICAL

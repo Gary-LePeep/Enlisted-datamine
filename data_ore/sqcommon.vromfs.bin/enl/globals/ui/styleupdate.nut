@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui/ui_library.nut" import *
 
-let { blurBgColor, blurBgFillColor, accentColor } = require("%enlSqGlob/ui/viewConst.nut")
+let { blurBgColor, blurBgFillColor, accentColor } = require("%enlSqGlob/ui/designConst.nut")
 let textButton = require("%ui/components/textButton.nut")
 let {
   primaryFlatButtonStyle, purchaseButtonStyle

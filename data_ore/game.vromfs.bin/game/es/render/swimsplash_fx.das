@@ -70,10 +70,11 @@ def swimsplash_on_update(evt : ParallelUpdateFrameDelayed;
                          swimsplash__minTimeBetweenSplashes : float;
                          swimsplash__maxDistanceFromCameraToUpdateSq : float;
                          animchar__visible : bool = true;
+                         isInVehicle : bool = false;
                          var swimsplash__nodeIds : IntList;
                          var swimsplash__prevPositions : Point3List;
                          var swimsplash__timeSinceLastSplashes : FloatList)
-  if !animchar__visible
+  if !animchar__visible || isInVehicle
     return
 
   if swimsplash__maxDistanceFromCameraToUpdateSq > 0.0

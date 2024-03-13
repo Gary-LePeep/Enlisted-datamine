@@ -83,7 +83,8 @@ let freeItemsForSoldier = Computed(function() {
 })
 
 let itemsToBuy = Computed(@()
-  customizationToApply.value.filter(@(item) item not in (freeItemsForSoldier.value ?? {})))
+  customizationToApply.value
+    .filter(@(item) item != "" && item not in (freeItemsForSoldier.value ?? {})))
 
 let selectedItemsPrice = Computed(function() {
   let { armyId = null, squadId = null, guid = null } = customizedSoldierInfo.value
@@ -389,9 +390,13 @@ function saveOutfit(needCloseWnd = true, calleeCb = null) {
   let prem = {}
   let premList = curArmyOutfit.value ?? []
   foreach (slot, outfitTmpl in customizationToApply.value) {
-    let { itemGuid, alreadyEquipped } = getAvailableItem(premList, guid, slot, outfitTmpl)
-    if (!alreadyEquipped)
-      prem[slot] <- itemGuid
+    if (outfitTmpl == "")
+      prem[slot] <- ""
+    else {
+      let { itemGuid, alreadyEquipped } = getAvailableItem(premList, guid, slot, outfitTmpl)
+      if (!alreadyEquipped)
+        prem[slot] <- itemGuid
+    }
   }
 
   let campaignOutfit = getSquadCampainOutfit(armyId, squadId, armySquadsById.value)

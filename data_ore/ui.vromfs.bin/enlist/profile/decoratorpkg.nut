@@ -6,8 +6,8 @@ let { txt } = require("%enlSqGlob/ui/defcomps.nut")
 let { borderColor } = require("profilePkg.nut")
 let { secondsToHoursLoc } = require("%ui/helpers/time.nut")
 let {
-  bigPadding, smallPadding, defBgColor, idleBgColor, defTxtColor, titleTxtColor, activeBgColor
-} = require("%enlSqGlob/ui/viewConst.nut")
+  midPadding, smallPadding, defBgColor, idleBgColor, defTxtColor, titleTxtColor, activeBgColor
+} = require("%enlSqGlob/ui/designConst.nut")
 let { endswith } = require("string")
 let { mkRankImage, getRankConfig } = require("%enlSqGlob/ui/rankPresentation.nut")
 let openRanksInfoWnd = require("%enlist/profile/ranksInfoWnd.nut")
@@ -41,7 +41,7 @@ function mkExpireTime(expireTime, override = {}) {
     size = [flex(), SIZE_TO_CONTENT]
     flow = FLOW_HORIZONTAL
     gap = smallPadding
-    padding = bigPadding
+    padding = midPadding
     margin = hdpx(2)
     halign = ALIGN_CENTER
     vplace = ALIGN_BOTTOM

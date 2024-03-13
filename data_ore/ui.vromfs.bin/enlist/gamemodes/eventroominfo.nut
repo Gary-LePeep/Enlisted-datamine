@@ -6,8 +6,8 @@ let { txt, textArea, lockIcon, iconInBattle, iconPreparingBattle } = require("ro
 let getPlayersCountInRoomText = require("getPlayersCountInRoomText.nut")
 let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let {
-  defTxtColor, titleTxtColor, smallPadding, bigPadding, accentTitleTxtColor
-} = require("%enlSqGlob/ui/viewConst.nut")
+  defTxtColor, titleTxtColor, smallPadding, midPadding, accentTitleTxtColor
+} = require("%enlSqGlob/ui/designConst.nut")
 let { makeVertScroll, thinStyle } = require("%ui/components/scrollbar.nut")
 let { clusterLoc } = require("%enlist/clusterState.nut")
 let { selRoom } = require("eventRoomsListState.nut")
@@ -132,7 +132,7 @@ function mkExpandedMissions(missions){
       watch = isMissionsExpanded
       size = [flex(), SIZE_TO_CONTENT]
       flow = FLOW_VERTICAL
-      padding = [bigPadding , 0]
+      padding = [midPadding , 0]
       minHeight = infoRowHeight
       children = [hTxt($"{loc("options/missions")}")]
         .extend(missions.slice(0, sliceNumber).map(mkMissionText)
@@ -195,7 +195,7 @@ let modDescription = @(description) {
 let mkModHeader = @(name, mode) {
   flow = FLOW_VERTICAL
   size = [flex(), SIZE_TO_CONTENT]
-  gap = bigPadding
+  gap = midPadding
   children = [
     {
       rendObj = ROBJ_TEXTAREA

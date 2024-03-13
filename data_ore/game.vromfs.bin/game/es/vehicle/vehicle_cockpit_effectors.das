@@ -28,7 +28,7 @@ def cockpit_effectors_init_es(evt : Event;
 [es(tag=render, on_disappear)]
 def human_vehicle_cockpit_effectors_reset(evt : Event;
                                           cockpit__effectors : Object)
-  query() <| $ [es(REQUIRE=hero)] (var animchar_effectors__effectorsState : Object)
+  query() <| $ [es(REQUIRE=heroSquad)] (var animchar_effectors__effectorsState : Object)
     for field in cockpit__effectors
       let effectorName = field.key
       let effectorIndex = cockpit__effectors[effectorName] ?? -1

@@ -11,7 +11,7 @@ let { curCampaign } = require("%enlist/meta/curCampaign.nut")
 let { isEventRoom } = require("%enlist/mpRoom/enlRoomState.nut")
 let { myArmy } = require("%enlist/mpRoom/myRoomMemberParams.nut")
 let {debug, logerr} = require("dagor.debug")
-let { get_profile_data_jwt, debug_apply_booster_in_battle
+let { get_bots_data, get_profile_data_jwt, debug_apply_booster_in_battle
 } = require("%enlist/meta/clientApi.nut")
 let {profilePublicKey} = require("%enlSqGlob/data/profile_pubkey.nut")
 let { getMissionOutfit } = require("%enlSqGlob/missionOutfit.nut")
@@ -92,14 +92,19 @@ function requestAndSend(playerEid, teamArmy) {
     TRIES_TO_REQUEST_PROFILE)
 }
 
-function saveJwtResultToJson(jwt, data, fileName, pretty = true) {
+function saveResultToJson(data, fileName, pretty = true) {
   fileName = $"{fileName}.json"
-  local file = io.file(fileName, "wt+")
+  let file = io.file(fileName, "wt+")
   file.writestring(json_to_string(data, pretty))
   file.close()
   console_print($"Saved json payload to {fileName}")
+}
+
+function saveJwtResultToJson(jwt, data, fileName, pretty = true) {
+  saveResultToJson(data, fileName, pretty)
+
   fileName = $"{fileName}.jwt"
-  file = io.file(fileName, "wt+")
+  let file = io.file(fileName, "wt+")
   file.writestring(jwt)
   file.close()
   console_print($"Saved jwt to {fileName}")
@@ -176,6 +181,11 @@ console_register_command(function(outfitId) {
   let cb = @(jwt, data) saveJwtResultToJson(jwt, data, $"army_{armyId}_{outfitId}")
   requestProfileDataJwt([armyId], outfitId, cb)
 }, "meta.dumpGameProfile")
+
+console_register_command(function(armyId, outfitId) {
+  let cb = @(data) saveResultToJson(data, $"bots_{armyId}_{outfitId}")
+  get_bots_data(armyId, outfitId, cb)
+}, "meta.dumpBotsProfile")
 
 return {
   saveJwtResultToJson

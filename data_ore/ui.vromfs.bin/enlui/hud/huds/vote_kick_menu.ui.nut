@@ -4,7 +4,7 @@ let textButton = require("%ui/components/textButton.nut")
 let JB = require("%ui/control/gui_buttons.nut")
 let { mkHeaderFlag, casualFlagStyle }= require("%enlSqGlob/ui/mkHeaderFlag.nut")
 let { voteToKickAccusedName, voteToKickYes, voteToKickNo, voteToKickAccused } = require("%ui/hud/state/vote_kick_state.nut")
-let { blurBgFillColor, commonBtnHeight, titleTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
+let { blurBgFillColor, commonBtnHeight, titleTxtColor } = require("%enlSqGlob/ui/designConst.nut")
 let { voteToKick, canVoteToKick } = require("vote_kick_common.nut")
 
 let voteToKickPadding = hdpx(8)

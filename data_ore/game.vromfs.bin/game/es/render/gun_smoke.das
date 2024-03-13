@@ -97,7 +97,7 @@ def gun_smoke_fx_init(evt : Event;
 
 [es(tag=render, on_appear, REQUIRE=resolvedTurret, REQUIRE_NOT=gun__isLauncher, after=technic_heat_source_init_es)]
 def tankgun_smoke_fx_init(evt : Event;
-                          eid : EntityId;
+                          eid aka turret_eid : EntityId;
                           turret__owner : EntityId;
                           turret_dm_part__barrelDm : int;
                           gun_smoke_fx__offsetMultRadius : float;
@@ -112,7 +112,8 @@ def tankgun_smoke_fx_init(evt : Event;
     logwarn("[{eid}] {getEntityTemplateName(eid)}: barrelDmId is -1, tankgun_smoke_fx_init could not determine the node to put tankgun_smoke effect in..")
     logwarn("please check that a proper barrelDm name is set for this turret template")
     return
-  query(turret__owner) <| $ [es] (animchar : AnimcharBaseComponent;
+  query(turret__owner) <| $ [es] (eid aka owner_eid : EntityId;
+                                  animchar : AnimcharBaseComponent;
                                   collres : CollisionResource;
                                   damage_model : DamageModel)
     let numFx = length(gun_smoke_fx__template)
@@ -121,18 +122,22 @@ def tankgun_smoke_fx_init(evt : Event;
     gun_smoke_fx__fxOffsets |> resize(numFx)
 
     if length(gun_smoke_fx__scale) != numFx || length(gun_smoke_fx__opacityMult) != numFx || length(gun_smoke_fx__visibleAmountThreshold) != numFx
-      logerr("[{eid}] {getEntityTemplateName(eid)}: gun_smoke_fx has wrong number of elements in lists")
+      logerr("[{turret_eid}] {getEntityTemplateName(turret_eid)}: gun_smoke_fx has wrong number of elements in lists")
 
     for id, offset in gun_smoke_fx__nodeIds, gun_smoke_fx__fxOffsets
       let collisionNodeId = damage_model.dmData.parts[turret_dm_part__barrelDm].collisionNodeId
       let node = collres_get_node(collres, collisionNodeId)
       id = -1
-      if node != null
-        id = uint((*node).geomNodeId) < uint(animchar.nodeTree.nodeCount) ? int((*node).geomNodeId) : -1
-        let center = (*node).modelBBox.center
-        offset = (float3(center.x, center.z, 0.0f) + float3(gun_smoke_fx__offsetMultRadius * node.boundingSphere.r, 0.0, 0.0))
+      if node == null
+        logerr("gun {turret_eid} of owner {owner_eid}<{getEntityTemplateName(owner_eid)}>: missing collres node {collisionNodeId} of part id {turret_dm_part__barrelDm}")
+        continue
+
+      id = uint((*node).geomNodeId) < uint(animchar.nodeTree.nodeCount) ? int((*node).geomNodeId) : -1
+      let center = (*node).modelBBox.center
+      offset = (float3(center.x, center.z, 0.0f) + float3(gun_smoke_fx__offsetMultRadius * node.boundingSphere.r, 0.0, 0.0))
+
       if id < 0
-        logerr("[{eid}] {getEntityTemplateName(eid)}: gun_smoke_fx not found node related to {turret_dm_part__barrelDm} dmId part")
+        logerr("gun {turret_eid} of owner {owner_eid}<{getEntityTemplateName(owner_eid)}>: node id not found. node '{node.name}' has geomNodeId '{node.geomNodeId}'")
 
 [es(tag=render, on_event=(CmdNetShot, EventShot))]
 def gun_smoke_fx_on_shot(evt : Event;

@@ -278,13 +278,13 @@
           "dependent_templates:ecs::TemplatesListToInstantiate": [],
           "dependent_templates_list_shared:shared:list<t>": [
             {
-              "template_name": "vehicle_seat_fire_ready"
+              "template_name": "bike_seat_fire_ready"
             },
             {
               "template_name": "bike_seat_driver"
             },
             {
-              "template_name": "vehicle_seat_commander"
+              "template_name": "bike_seat_commander"
             }
           ]
         }
@@ -314,9 +314,9 @@
       },
       {
         "vehicle_seats__seatTemplates:shared:object": {
-          "default": "vehicle_seat_fire_ready",
+          "default": "bike_seat_fire_ready",
           "driver": "bike_seat_driver",
-          "commander": "vehicle_seat_commander"
+          "commander": "bike_seat_commander"
         }
       },
       {
@@ -463,11 +463,28 @@
     }
   },
   {
+    "bike_seat_fire_ready": {
+      "_use": "vehicle_seat_fire_ready",
+      "vehicle_seat__springConst": [20.0,100.0,15.0],
+      "vehicle_seat__springDump": [5.0,3.0,2.0]
+    }
+  },
+  {
+    "bike_seat_commander": {
+      "_use": "vehicle_seat_commander",
+      "vehicle_seat__springConst": [30.0,100.0,25.0],
+      "vehicle_seat__springDump": [5.0,3.0,2.0]
+    }
+  },
+  {
     "bike_seat_driver": {
       "_use": "base_vehicle_seat",
       "seats_order__canPlaceManually": true,
       "seat_anim__upper": "drive_driver",
       "seat_anim__lower": "drive_driver",
+      "vehicle_seat__springInverseRoll": true,
+      "vehicle_seat__springConst": [30.0,100.0,25.0],
+      "vehicle_seat__springDump": [5.0,3.0,2.0],
       "commanderSeat:tag": []
     }
   },

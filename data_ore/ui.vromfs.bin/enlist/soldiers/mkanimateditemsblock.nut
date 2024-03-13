@@ -2,10 +2,8 @@ from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontHeading2, fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { squadsCfgById } = require("%enlist/soldiers/model/config/squadsConfig.nut")
-let {
+let { smallPadding, midPadding, largePadding, bigPadding, defSlotBgColor, hoverSlotBgColor,
   unitSize, slotBaseSize, listCtors, warningColor, hoverBgColor
-} = require("%enlSqGlob/ui/viewConst.nut")
-let { smallPadding, midPadding, largePadding, bigPadding, defSlotBgColor, hoverSlotBgColor
 } = require("%enlSqGlob/ui/designConst.nut")
 let { txtColor } = listCtors
 let {gray} = require("%ui/components/std.nut")

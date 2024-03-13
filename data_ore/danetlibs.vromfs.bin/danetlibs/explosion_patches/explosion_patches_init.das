@@ -12,7 +12,4 @@ def load_explosion_patches(base_path : string) : bool
 
   return ok
 
-[export]
-def test()
-  let ok = load_explosion_patches("%danetlibs/explosion_patches")
-  assert(ok)
+

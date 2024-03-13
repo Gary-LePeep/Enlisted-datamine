@@ -1,17 +1,15 @@
 from "%enlSqGlob/ui/ui_library.nut" import *
 
-let {
-  smallPadding, bigPadding, vehicleListCardSize, listCtors
-} = require("%enlSqGlob/ui/viewConst.nut")
-let { txtColor } = listCtors
 let { iconByGameTemplate, getItemName } = require("%enlSqGlob/ui/itemsInfo.nut")
 let { statusTier, mkNoVehicle, mkVehicleHint } = require("%enlSqGlob/ui/itemPkg.nut")
 let { txt, autoscrollText } = require("%enlSqGlob/ui/defcomps.nut")
 let { mkSpecialItemIcon } = require("%enlSqGlob/ui/mkSpecialItemIcon.nut")
 let { getVehSkins } = require("%enlSqGlob/vehDecorUtils.nut")
 let {
-  squadSlotBgIdleColor, squadSlotBgHoverColor, disabledTxtColor
+  squadSlotBgIdleColor, squadSlotBgHoverColor, disabledTxtColor,
+  smallPadding, midPadding, vehicleListCardSize, listCtors
 } = require("%enlSqGlob/ui/designConst.nut")
+let { txtColor } = listCtors
 let { setTooltip } = require("%ui/style/cursors.nut")
 let { isInBattleState } = require("%enlSqGlob/inBattleState.nut")
 let { mkBattleRatingShort } = require("%enlSqGlob/ui/battleRatingPkg.nut")
@@ -86,7 +84,7 @@ let mkCurVehicle = @(
           {
             size = flex()
             flow = FLOW_HORIZONTAL
-            padding = bigPadding
+            padding = midPadding
             halign = ALIGN_RIGHT
             children = [
               mkVehicleInfo(vehicleInfo.value, soldiersList.value.len(), sf)
@@ -96,7 +94,7 @@ let mkCurVehicle = @(
           {
             vplace = ALIGN_BOTTOM
             hplace = ALIGN_RIGHT
-            padding = bigPadding
+            padding = midPadding
             children = mkBattleRatingShort(vehicleInfo.value?.growthTier ?? 1)
           }
         ]

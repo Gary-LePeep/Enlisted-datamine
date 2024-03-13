@@ -13,7 +13,7 @@ let textarea = require("%ui/components/textarea.nut").smallTextarea
 let {dtext} = require("%ui/components/text.nut")
 let {isAlive} = require("%ui/hud/state/health_state.nut")
 let { isTutorial } = require("%ui/hud/tutorial/state/tutorial_state.nut")
-let { strokeStyle } = require("%enlSqGlob/ui/viewConst.nut")
+let { strokeStyle } = require("%enlSqGlob/ui/designConst.nut")
 let { nestWatched } = require("%dngscripts/globalState.nut")
 
 let teamIcon = mkTeamIcon(localPlayerTeamIcon)

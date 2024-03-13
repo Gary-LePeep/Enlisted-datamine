@@ -2,8 +2,8 @@ from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontBody, fontawesome } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
-let { rowBg, bigPadding, blockedTxtColor, defTxtColor, commonBtnHeight
-} = require("%enlSqGlob/ui/viewConst.nut")
+let { rowBg, midPadding, blockedTxtColor, defTxtColor, commonBtnHeight
+} = require("%enlSqGlob/ui/designConst.nut")
 let { currentRecord, replayPlay, deleteReplay, records, updateReplays,
  defaultRecordFolder
 } = require("%enlist/replay/replaySettings.nut")
@@ -172,7 +172,7 @@ let curPageInfo = @() {
 
 let iconParam = {
   hplace = ALIGN_CENTER
-  margin = bigPadding
+  margin = midPadding
   size = [hdpx(35),hdpx(35)]
   fontSize = hdpx(35)
   font = fontawesome.font
@@ -256,7 +256,7 @@ return {
     {
       size = flex()
       flow = FLOW_VERTICAL
-      gap = bigPadding
+      gap = midPadding
       children = [
         mkReplayList
         curPageInfo

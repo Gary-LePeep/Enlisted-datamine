@@ -5,8 +5,8 @@ let { fontBody, fontHeading2, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut"
 let { modPath, receivedModInfos, requestModManifest, deleteMod, hasBeenUpdated
 } = require("customMissionState.nut")
 let {
-  bigPadding, maxContentWidth, isWide, commonBtnHeight, titleTxtColor, defTxtColor
-} = require("%enlSqGlob/ui/viewConst.nut")
+  midPadding, maxContentWidth, isWide, commonBtnHeight, titleTxtColor, defTxtColor
+} = require("%enlSqGlob/ui/designConst.nut")
 let { localPadding, localGap, rowHeight } = require("%enlist/gameModes/eventModeStyle.nut")
 let mkOptionRow = require("%enlist/gameModes/components/mkOptionRow.nut")
 let { addModalWindow, removeModalWindow } = require("%ui/components/modalWindows.nut")
@@ -56,7 +56,7 @@ let applyBtn = Bordered(loc("Apply"), @() removeModalWindow(WND_UID), btnStyle._
 let modsWrapParams = {
   width = modListWidth
   hGap = localGap
-  vGap = bigPadding
+  vGap = midPadding
 }
 
 let inputOptions = {

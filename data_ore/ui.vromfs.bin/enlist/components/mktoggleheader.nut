@@ -2,7 +2,7 @@ from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let faComp = require("%ui/components/faComp.nut")
-let { defTxtColor, activeTxtColor, bigPadding } = require("%enlSqGlob/ui/viewConst.nut")
+let { defTxtColor, activeTxtColor, midPadding } = require("%enlSqGlob/ui/designConst.nut")
 
 
 let textColor = @(sf) sf & S_ACTIVE ? 0xFFFFFFFF
@@ -22,7 +22,7 @@ function mkToggleHeader(isShow, textOrCtor) {
     size = [flex(), SIZE_TO_CONTENT]
     valign = ALIGN_CENTER
     flow = FLOW_HORIZONTAL
-    margin = [bigPadding, 0, 0, 0]
+    margin = [midPadding, 0, 0, 0]
     behavior = Behaviors.Button
     xmbNode = XmbNode()
     onClick = @() isShow(!isShow.value)

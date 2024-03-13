@@ -1,10 +1,9 @@
 from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontHeading2, fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
-let { blurBgFillColor, disabledTxtColor, lockedSquadBgColor, accentTitleTxtColor
-} = require("%enlSqGlob/ui/viewConst.nut")
 let { brightAccentColor, bigPadding, titleTxtColor, maxContentWidth, defTxtColor, commonBtnHeight,
-  navHeight, startBtnWidth, midPadding
+  navHeight, startBtnWidth, midPadding, blurBgFillColor, disabledTxtColor, lockedSquadBgColor,
+  accentTitleTxtColor
 } = require("%enlSqGlob/ui/designConst.nut")
 let hoverHoldAction = require("%darg/helpers/hoverHoldAction.nut")
 let { blinkUnseenIcon } = require("%ui/components/unseenSignal.nut")

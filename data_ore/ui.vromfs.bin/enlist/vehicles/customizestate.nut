@@ -17,7 +17,7 @@ let { curArmyData } = require("%enlist/soldiers/model/state.nut")
 let {
   getBaseVehicleSkin, getVehSkins, stringToDecal, decalToCompObject
 } = require("%enlSqGlob/vehDecorUtils.nut")
-let { accentTitleTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
+let { accentTitleTxtColor } = require("%enlSqGlob/ui/designConst.nut")
 let {
   allItemTemplates, findItemTemplate
 } = require("%enlist/soldiers/model/all_items_templates.nut")

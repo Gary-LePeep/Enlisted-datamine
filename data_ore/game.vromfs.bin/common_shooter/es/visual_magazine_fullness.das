@@ -18,12 +18,12 @@ def visual_magazine_fullness_on_init(evt : Event;
         break
 
 
-[es(tag=gameClient, track=gun__ammo)]
+[es(tag=gameClient, track=gun__ammo, on_appear)]
 def visual_magazine_fullness_track_ammo(evt : Event;
                                         gun__ammo : int;
                                         gun_anim__reloadProgress : float;
                                         var visual_magazine_fullness__ammoCount : int&)
-  if gun_anim__reloadProgress == 0.0
+  if gun_anim__reloadProgress <= 0.0
     visual_magazine_fullness__ammoCount = gun__ammo
 
 

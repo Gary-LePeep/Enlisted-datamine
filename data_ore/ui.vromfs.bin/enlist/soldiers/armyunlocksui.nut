@@ -22,8 +22,8 @@ let { ModalBgTint, borderColor } = require("%ui/style/colors.nut")
 let { promoWidget } = require("%enlist/components/mkPromoWidget.nut")
 let { squadsCfgById } = require("%enlist/soldiers/model/config/squadsConfig.nut")
 let { shadowStyle, bigGap, defBgColor, darkBgColor, accentColor,
-  commonBtnHeight, smallPadding
-} = require("%enlSqGlob/ui/viewConst.nut")
+  commonBtnHeight, smallPadding, bigPadding, contentOffset
+} = require("%enlSqGlob/ui/designConst.nut")
 let { curArmyData, armySquadsById, curUnlockedSquads } = require("model/state.nut")
 let { curArmyLevels, curArmyExp, hasArmyUnlocks, allArmyUnlocks, uType,
   unlockSquad, curArmyLevel, curBuyLevelData,receivedUnlocks, curArmyNextUnlockLevel,
@@ -50,7 +50,6 @@ let { CAMPAIGN_NONE, needFreemiumStatus, isCampaignBought,
   disableArmyExp, campPresentation } = require("%enlist/campaigns/campaignConfig.nut")
 let { mkDiscountWidget } = require("%enlist/shop/currencyComp.nut")
 let { isSquadRented } = require("%enlist/soldiers/model/squadInfoState.nut")
-let { bigPadding, contentOffset } = require("%enlSqGlob/ui/designConst.nut")
 
 
 let tblScrollHandler = ScrollHandler()

@@ -294,6 +294,9 @@ local portraits = {
   portrait_preorder_iron_fury = {
     icon = "ui/portraits/event/portrait_preorder_iron_fury.avif"
   }
+  engineerDay24_bonus_portrait = {
+    icon = "ui/portraits/event/engineerDay24_bonus_portrait.avif"
+  }
 
 
   common_china_portrait_1 = {
@@ -492,6 +495,7 @@ local nickFrames = {
   kongzhong_nickFrame_16 = @(n) $"├{n}┝"
   nickFrame_lunarNewyear24_event = @(n) $"┦{n}┧"
   nickFrame_preorder_iron_fury = @(n) $"┤{n}┥"
+  nickFrame_steam_pack = @(n) $"┠{n}┡"
 }
 
 local decoratorsPresentation = {

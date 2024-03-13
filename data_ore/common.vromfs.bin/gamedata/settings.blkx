@@ -10,6 +10,7 @@
     "dafx": "cpu",
     "useFoamFx": true,
     "decompressed_shaders_cache_size_in_mb": 20,
+    "useTreeLod0Offset": false,
     "foamFxTexDividers": [
       {
         "divider": 4
@@ -34,7 +35,8 @@
     "instancing": "geom",
     "vsync": false,
     "max_genmip_tex_sz": 0,
-    "maxTexCount": 32767
+    "maxTexCount": 32767,
+    "guiDriverSelectEnabled": true
   },
   "directx": {
     "bonesCount": 256,
@@ -79,7 +81,7 @@
     "max_res_4k": "3200x1800"
   },
   "phys": {
-    "fixedTimeStepHz": 60,
+    "fixedTimeStepHz": -60,
     "maxSubSteps": 3
   },
   "physJolt": {
@@ -241,6 +243,7 @@
       "ssaa": false,
       "fsr": "off",
       "dlssQuality": 0,
+      "dlssFrameGeneration": 0,
       "xessQuality": 0,
       "fsr2Quality": 0,
       "forbidTrueFullscreen": false,

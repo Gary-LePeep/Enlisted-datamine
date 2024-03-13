@@ -1,12 +1,13 @@
 from "%enlSqGlob/ui/ui_library.nut" import *
 
-let { usermail_list, usermail_take_reward, usermail_reset_reward
+let { usermail_check, usermail_list, usermail_take_reward, usermail_reset_reward
 } = require("%enlist/meta/clientApi.nut")
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
 let { isInBattleState } = require("%enlSqGlob/inBattleState.nut")
 let { eventbus_subscribe, eventbus_send } = require("eventbus")
 let { sound_play } = require("%dngscripts/sound_system.nut")
 let { subscribe } = require("%enlSqGlob/ui/notifications/matchingNotifications.nut")
+let userInfo = require("%enlSqGlob/userInfo.nut")
 
 const MAX_AMOUNT = 20
 let MAX_LIFETIME = 30 * 24 * 60 * 60
@@ -16,9 +17,9 @@ let letters = mkWatched(persist, "letters", [])
 let lastTime = mkWatched(persist, "lastTime", 0)
 
 let isRequest = Watched(false)
-let isUsermailWndOpend = mkWatched(persist, "isUsermailWndOpend", false)
+let isUsermailWndOpened = mkWatched(persist, "isUsermailWndOpened", false)
 let selectedLetterIdx = mkWatched(persist, "selectedLetterIdx", -1)
-let hasUnseenLetters = mkWatched(persist, "hasUnseenLetters", false)
+let unseenLettersCount = mkWatched(persist, "unseenLettersCount", 0)
 
 serverTime.subscribe(function(ts) {
   if (ts <= 0)
@@ -27,20 +28,40 @@ serverTime.subscribe(function(ts) {
   lastTime(ts - MAX_LIFETIME)
 })
 
-function markUnseenLetters(){
+function markUnseenLetters(count) {
   if (isRequest.value)
     return
-  hasUnseenLetters(true)
+  unseenLettersCount(count)
   if (!isInBattleState.value)
     sound_play(soundNewMail)
 }
 
-eventbus_subscribe("matching.notify_new_mail", @(...) markUnseenLetters())
-subscribe("profile", @(ev) ev?.func == "newmail" ? markUnseenLetters() : null)
+let function onCheckMail(result) {
+  isRequest(false)
+  let { newMailCount = 0 } = result
+  if (newMailCount > 0)
+    markUnseenLetters(newMailCount)
+}
 
-function closeUsermailWindow(){
-  isUsermailWndOpend(false)
-  hasUnseenLetters(false)
+let function checkNewMail() {
+  if (isRequest.value)
+    return
+  isRequest(true)
+  usermail_check(lastTime.value, onCheckMail)
+}
+
+let isDataReady = keepref(Computed(@() userInfo.value != null && lastTime.value > 0))
+isDataReady.subscribe(function(value) {
+  if (value)
+    checkNewMail()
+})
+
+eventbus_subscribe("matching.notify_new_mail", @(...) checkNewMail())
+subscribe("profile", @(event) event?.func == "newmail" ? checkNewMail() : null)
+
+function closeUsermailWindow() {
+  isUsermailWndOpened(false)
+  unseenLettersCount(0)
   selectedLetterIdx(-1)
 }
 
@@ -58,7 +79,7 @@ function onLettersUpdate(result) {
       else
         list[idx] = letter
     }
-    list.sort(@(a,b) b.cTime <=> a.cTime)
+    list.sort(@(a, b) b.cTime <=> a.cTime)
   })
 }
 
@@ -85,7 +106,7 @@ console_register_command(@() requestLetters(true), "usermail.request")
 console_register_command(takeLetterReward, "usermail.getReward")
 console_register_command(@() usermail_reset_reward(onLettersUpdate), "usermail.resetReward")
 console_register_command(
-  function(reward){
+  function(reward) {
     let letter = {
       guid = serverTime.value
       text = $"New mail received, mail in mailbox № {letters.value.len() + 1}"
@@ -107,8 +128,8 @@ return {
   requestLetters
   takeLetterReward
   isRequest
-  isUsermailWndOpend
+  isUsermailWndOpened
   selectedLetterIdx
   closeUsermailWindow
-  hasUnseenLetters
+  unseenLettersCount
 }

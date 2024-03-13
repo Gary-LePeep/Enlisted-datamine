@@ -13,11 +13,8 @@ require AnimV20
 require DagorMath
 require CollRes
 require math.base
-require common_shooter.es.render.blood_common
 require danetlibs.weaponry_hit_fx.main.weaponry_fx_common
 require danetlibs.weaponry_hit_fx.render.ricocheted_fx_common
-require common_shooter.events_common_shooter
-require enlisted.events_enlisted
 require Dacoll
 require Ballistics
 require strings
@@ -26,6 +23,7 @@ require DngDm
 require danetlibs.dm.dm_events
 require RendInst
 require danetlibs.weaponry_hit_fx.render.weaponry_fx_render_common
+require danetlibs.weaponry_hit_fx.main.weaponry_hit_fx_forward_events
 
 
 def spawn_effect(hit_effect_descriptor : int;
@@ -125,6 +123,20 @@ def gen_fx_tm(pos : float3; dir : float3; scale : float)
 
   tm[3] = pos
   return tm
+
+def is_blood_enabled()
+  var isEnabled = true
+  find_query <| $ [es] (isBloodEnabled : bool)
+    isEnabled = isBloodEnabled
+    return true
+  return isEnabled
+
+def get_blood_color()
+  var bloodColor = E3DCOLOR(0xFFFFFFFF)
+  query() <| $ [es] (isBloodEnabled : bool; disabledBloodColor : E3DCOLOR)
+    if !isBloodEnabled
+      bloodColor = disabledBloodColor
+  return bloodColor
 
 def human_spawn_blood_fx(victim_eid : EntityId; coll_node_id : int; blood_splash : HitBloodType;
                          pos : float3; dir : float3; scale : float; norm : float3)

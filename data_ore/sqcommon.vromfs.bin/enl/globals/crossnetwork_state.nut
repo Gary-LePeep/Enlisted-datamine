@@ -1,4 +1,4 @@
-from "frp" import Computed, Watched
+from "%sqstd/frp.nut" import Computed, Watched, WatchedRo
 
 let { is_xbox, is_sony } = require("%dngscripts/platform.nut")
 let { globalWatched } = require("%dngscripts/globalState.nut")
@@ -71,29 +71,29 @@ else if (is_sony || isDebugCrossplay) {
   crossnetworkChat = Computed(@() savedCrossnetworkChatState.value ?? false)
 }
 else {
-  crossnetworkPlay = Computed(@() CrossplayState.ALL)
-  crossnetworkChat = Computed(@() isCrossnetworkChatAvailable)
+  crossnetworkPlay = WatchedRo(CrossplayState.ALL)
+  crossnetworkChat = WatchedRo(isCrossnetworkChatAvailable)
 }
 
-let isCrossnetworkIntercationAvailable = Computed(@()
+let isCrossnetworkInteractionAvailable = Computed(@()
   isCrossnetworkChatAvailable
   && multiplayerAvailable.value
   && crossnetworkChat.value)
 
 let canCrossnetworkChatWithAll = Computed(@()
-  isCrossnetworkIntercationAvailable.value
+  isCrossnetworkInteractionAvailable.value
   && xboxCrossChatWithAllAllowed.value)
 
 let canCrossnetworkChatWithFriends = Computed(@()
-  isCrossnetworkIntercationAvailable.value
+  isCrossnetworkInteractionAvailable.value
   && xboxCrossChatWithFriendsAllowed.value)
 
 let canCrossnetworkVoiceWithAll = Computed(@()
-  isCrossnetworkIntercationAvailable.value
+  isCrossnetworkInteractionAvailable.value
   && xboxCrossVoiceWithAllAllowed.value)
 
 let canCrossnetworkVoiceWithFriends = Computed(@()
-  isCrossnetworkIntercationAvailable.value
+  isCrossnetworkInteractionAvailable.value
   && xboxCrossVoiceWithFriendsAllowed.value)
 
 return {

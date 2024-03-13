@@ -12,7 +12,7 @@ let { fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let textButton = require("%ui/components/textButton.nut")
 let { graphicsPresetUpdate } = require("%ui/hud/menus/options/quality_preset_common.nut")
 let { get_time_msec } = require("dagor.time")
-let { bigPadding, defTxtColor, titleTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
+let { midPadding, defTxtColor, titleTxtColor } = require("%enlSqGlob/ui/designConst.nut")
 
 const WND_UID = "benchmark"
 const BENCHMARK_FLAG_BLK = "graphics/benchmark"
@@ -152,7 +152,7 @@ let textBlock = @() {
 let buttonsBlock = @() {
   flow = FLOW_HORIZONTAL
   vplace = ALIGN_BOTTOM
-  gap = bigPadding
+  gap = midPadding
   watch = [runState]
   children = runState.value == BMState.WAIT ? [
       textButton(loc("Cancel"), @() closeWindow(), { hotkeys = [[$"^{JB.B} | Esc"]] })

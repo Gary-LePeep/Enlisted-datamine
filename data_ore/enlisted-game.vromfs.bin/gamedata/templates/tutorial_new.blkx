@@ -1,0 +1,115 @@
+{
+  "new_tutorial_mission": {
+    "_singleton": false,
+    "player_template__override": "new_tutorial_player",
+    "disableVehicleSpawnDelay:tag": []
+  },
+  "new_tutorial_player": {
+    "_use": "enlisted_player",
+    "respawner__missionStartDelay": 30000.0,
+    "noImmediateSpawnAfterDeathInTutor:tag": []
+  },
+  "new_tutorial_stage_begin": {
+    "tutor_stage__next": "new_tutorial_stage_init",
+    "tutor_stage__timer": 0.0
+  },
+  "new_tutorial_stage_init": {
+    "tutor_stage__next": "new_tutorial_stage_cutscene_01",
+    "tutor_action__createEntity:list<t>": {
+      "key": "ui_disabled"
+    },
+    "tutor_stage__skip:tag": []
+  },
+  "new_tutorial_stage_cutscene_01": {
+    "tutor_stage__next": "new_tutorial_stage_create_respawn_cameras",
+    "camera_tracks__cycles": 1,
+    "camera_tracks:array": [
+      {
+        "track:object": {
+          "duration": 4.0,
+          "from_pos": [141.436,22.1585,434.174],
+          "from_dir": [-0.747439,0.0,0.664331],
+          "from_fov": 90.0,
+          "to_pos": [141.436,22.1585,434.174],
+          "to_dir": [-0.635873,0.0,-0.771794],
+          "to_fov": 90.0
+        }
+      },
+      {
+        "track:object": {
+          "duration": 3.0,
+          "from_pos": [12.4975,10.4549,224.198],
+          "from_dir": [-0.609118,-0.0458898,-0.791751],
+          "from_fov": 90.0,
+          "to_pos": [12.4975,10.4549,224.198],
+          "to_dir": [-0.2135,0.0853926,-0.973204],
+          "to_fov": 90.0
+        }
+      },
+      {
+        "track:object": {
+          "duration": 3.0,
+          "from_pos": [-99.5292,161.859,-338.932],
+          "from_dir": [-0.342841,0.0,0.939394],
+          "from_fov": 90.0,
+          "to_pos": [-99.5292,161.859,-338.932],
+          "to_dir": [0.272435,0.0,0.962174],
+          "to_fov": 90.0
+        }
+      },
+      {
+        "track:object": {
+          "duration": 4.0,
+          "from_pos": [-19.3035,12.2345,375.074],
+          "from_dir": [0.177193,-0.0458897,-0.983106],
+          "from_fov": 90.0,
+          "to_pos": [-19.3035,8.98718,375.074],
+          "to_dir": [0.177193,-0.0458897,-0.983106],
+          "to_fov": 90.0
+        }
+      }
+    ]
+  },
+  "respawn_camera_team1": {
+    "_use": "respawn_camera",
+    "respawnCameraForTeam": 1,
+    "moveCameraToHeight": 150.0,
+    "respawnSelectorDistanceMult": 1.5,
+    "transform": [
+      [1.0,0.0,0.0],
+      [0.0,1.0,0.0],
+      [0.0,0.0,1.0],
+      [-31.6157,90.4736,546.785]
+    ]
+  },
+  "respawn_camera_team2": {
+    "_use": "respawn_camera",
+    "respawnCameraForTeam": 2,
+    "moveCameraToHeight": 150.0,
+    "respawnSelectorDistanceMult": 1.5,
+    "transform": [
+      [1.0,0.0,0.0],
+      [0.0,1.0,0.0],
+      [0.0,0.0,1.0],
+      [-2.72687,125.654,37.2185]
+    ]
+  },
+  "new_tutorial_stage_create_respawn_cameras": {
+    "tutor_stage__next": "new_tutorial_stage_end_cutscene",
+    "tutor_stage__skip:tag": [],
+    "tutor_action__createEntity:list<t>": [
+      {
+        "key": "respawn_camera_team1"
+      },
+      {
+        "key": "respawn_camera_team2"
+      }
+    ]
+  },
+  "new_tutorial_stage_end_cutscene": {
+    "tutor_action__spawnPlayerImmediate:tag": [],
+    "tutor_action__destroySingletons:list<t>": {
+      "key": "ui_disabled"
+    }
+  }
+}

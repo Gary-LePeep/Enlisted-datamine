@@ -1,8 +1,8 @@
 from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontHeading2 } = require("%enlSqGlob/ui/fontsStyle.nut")
-let { defTxtColor, hoverTxtColor, blurBgColor, bigPadding, defBgColor, activeBgColor, warningColor
-} = require("%enlSqGlob/ui/viewConst.nut")
+let { defTxtColor, hoverTxtColor, blurBgColor, midPadding, defBgColor, activeBgColor, warningColor
+} = require("%enlSqGlob/ui/designConst.nut")
 let {addModalWindow, removeModalWindow} = require("%ui/components/modalWindows.nut")
 let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
 let { showNotReadySquads, goToSquadAndClose } = require("model/notReadySquadsState.nut")
@@ -59,8 +59,8 @@ function mkSquadRow(readyData) {
 
       flow = FLOW_HORIZONTAL
       valign = ALIGN_CENTER
-      padding = bigPadding
-      gap = bigPadding
+      padding = midPadding
+      gap = midPadding
       children = [
         mkSquadIcon(squad.icon, { size = squadIconSize })
         {
@@ -74,7 +74,7 @@ function mkSquadRow(readyData) {
 
 let mkSquadsList = @(notReadyList) {
   flow = FLOW_VERTICAL
-  gap = bigPadding
+  gap = midPadding
   children = notReadyList.map(mkSquadRow)
 }
 

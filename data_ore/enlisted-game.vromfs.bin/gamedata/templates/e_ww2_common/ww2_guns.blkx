@@ -1056,6 +1056,7 @@
     "gun_attach__altSlotId": -1,
     "grenade__throwProgressVarId": -1,
     "grenade__selectedWeaponVar": "grenade_m24",
+    "shell__enableSquadFriendlyFire": true,
     "anim_phys": [],
     "phys_vars": [],
     "attachmentUpdate:tag": [],
@@ -5359,7 +5360,7 @@
     {
       "gun_sound__shotPath:shared:object": {
         "_tags": "sound",
-        "path": "/weapon/mgun/m3_supressed"
+        "path": "/weapon/pistol/nagant_m1895_bramit"
       }
     },
     {
@@ -6018,11 +6019,14 @@
     {
       "sound_irqs:shared:object": {
         "_tags": "sound",
-        "reload:object": {
-          "path": "/weapon/rifle/mosin_m38/reload"
-        },
         "reload_prepare:object": {
           "path": "/weapon/rifle/mosin/reload_prepare"
+        },
+        "reload_mag_in:object": {
+          "path": "/weapon/rifle/mosin/reload_mag_in"
+        },
+        "reload_clip_out:object": {
+          "path": "/weapon/rifle/mosin/reload_clip_out"
         },
         "reload_loop:object": {
           "path": "/weapon/rifle/mosin/reload_loop"
@@ -6032,6 +6036,10 @@
         },
         "boltAction:object": {
           "path": "/weapon/rifle/mosin/bolt_action"
+        },
+        "ammo_drop:object": {
+          "hero": "player/weapon/_common/clip_drop",
+          "type": "matUnderFeet"
         }
       }
     },
@@ -6283,11 +6291,14 @@
     {
       "sound_irqs:shared:object": {
         "_tags": "sound",
-        "reload:object": {
-          "path": "/weapon/rifle/mosin_m1907/reload"
-        },
         "reload_prepare:object": {
           "path": "/weapon/rifle/mosin/reload_prepare"
+        },
+        "reload_mag_in:object": {
+          "path": "/weapon/rifle/mosin/reload_mag_in"
+        },
+        "reload_clip_out:object": {
+          "path": "/weapon/rifle/mosin/reload_clip_out"
         },
         "reload_loop:object": {
           "path": "/weapon/rifle/mosin/reload_loop"
@@ -6297,6 +6308,10 @@
         },
         "boltAction:object": {
           "path": "/weapon/rifle/mosin/bolt_action"
+        },
+        "ammo_drop:object": {
+          "hero": "player/weapon/_common/clip_drop",
+          "type": "matUnderFeet"
         }
       }
     },
@@ -6534,11 +6549,14 @@
     {
       "sound_irqs:shared:object": {
         "_tags": "sound",
-        "reload:object": {
-          "path": "/weapon/rifle/mosin_m1907/reload"
-        },
         "reload_prepare:object": {
           "path": "/weapon/rifle/mosin/reload_prepare"
+        },
+        "reload_mag_in:object": {
+          "path": "/weapon/rifle/mosin/reload_mag_in"
+        },
+        "reload_clip_out:object": {
+          "path": "/weapon/rifle/mosin/reload_clip_out"
         },
         "reload_loop:object": {
           "path": "/weapon/rifle/mosin/reload_loop"
@@ -6548,6 +6566,10 @@
         },
         "boltAction:object": {
           "path": "/weapon/rifle/mosin/bolt_action"
+        },
+        "ammo_drop:object": {
+          "hero": "player/weapon/_common/clip_drop",
+          "type": "matUnderFeet"
         }
       }
     },
@@ -7108,7 +7130,7 @@
     {
       "gun_sound__shotPath:shared:object": {
         "_tags": "sound",
-        "path": "/weapon/mgun/m3_supressed"
+        "path": "/weapon/rifle/mosin_m91_bramit"
       }
     },
     {
@@ -7822,6 +7844,10 @@
         },
         "boltAction:object": {
           "path": "/weapon/rifle/mosin/bolt_action"
+        },
+        "ammo_drop:object": {
+          "hero": "player/weapon/_common/clip_drop",
+          "type": "matUnderFeet"
         }
       }
     },
@@ -8059,11 +8085,14 @@
     {
       "sound_irqs:shared:object": {
         "_tags": "sound",
-        "reload:object": {
-          "path": "/weapon/rifle/mosin/reload"
-        },
         "reload_prepare:object": {
           "path": "/weapon/rifle/mosin/reload_prepare"
+        },
+        "reload_mag_in:object": {
+          "path": "/weapon/rifle/mosin/reload_mag_in"
+        },
+        "reload_clip_out:object": {
+          "path": "/weapon/rifle/mosin/reload_clip_out"
         },
         "reload_loop:object": {
           "path": "/weapon/rifle/mosin/reload_loop"
@@ -8073,6 +8102,10 @@
         },
         "boltAction:object": {
           "path": "/weapon/rifle/mosin/bolt_action"
+        },
+        "ammo_drop:object": {
+          "hero": "player/weapon/_common/clip_drop",
+          "type": "matUnderFeet"
         }
       }
     },
@@ -8543,6 +8576,10 @@
         },
         "boltAction:object": {
           "path": "/weapon/rifle/mosin/bolt_action"
+        },
+        "ammo_drop:object": {
+          "hero": "player/weapon/_common/clip_drop",
+          "type": "matUnderFeet"
         },
         "modActivate:object": {
           "path": "/weapon/antivehicle/mortyr_grenade_launcher/mod_activate"
@@ -20409,7 +20446,7 @@
     {
       "gun_sound__shotPath:shared:object": {
         "_tags": "sound",
-        "path": "/weapon/mgun/m3_supressed"
+        "path": "/weapon/pistol/welrod_mk2"
       }
     },
     {
@@ -29347,7 +29384,7 @@
     {
       "gun_sound__shotPath:shared:object": {
         "_tags": "sound",
-        "path": "/weapon/mgun/m3_supressed"
+        "path": "/weapon/pistol/welrod_mk2"
       }
     },
     {
@@ -31998,6 +32035,9 @@
       "gun__crawlRecoilMult": 0.8
     },
     {
+      "weapon__aimNodeOffset": 0.3
+    },
+    {
       "gun_anim_var__fpsGunOffsetAlong": 0.21
     },
     {
@@ -33364,6 +33404,9 @@
     },
     {
       "gun__crawlRecoilMult": 0.8
+    },
+    {
+      "weapon__aimNodeOffset": 0.3
     },
     {
       "gun_anim_var__fpsGunOffsetAlong": 0.22
@@ -40718,7 +40761,7 @@
     {
       "gun_sound__shotPath:shared:object": {
         "_tags": "sound",
-        "path": "/weapon/mgun/m3_supressed"
+        "path": "/weapon/pistol/cz_vz_27"
       }
     },
     {
@@ -51880,7 +51923,7 @@
     {
       "gun_sound__shotPath:shared:object": {
         "_tags": "sound",
-        "path": "/weapon/mgun/m3_supressed"
+        "path": "/weapon/mgun/silenced_erma_emp"
       }
     },
     {
@@ -54624,7 +54667,7 @@
     {
       "gun_sound__shotPath:shared:object": {
         "_tags": "sound",
-        "path": "/weapon/mgun/m3_supressed"
+        "path": "/weapon/mgun/silenced_erma_emp"
       }
     },
     {
@@ -71959,6 +72002,282 @@
       }
     }
   ],
+  "type_hei_automatic_rifle": [
+    {
+      "_use": "main_weap_slots"
+    },
+    {
+      "_use": "ironsights_open_semiauto"
+    },
+    {
+      "animchar__res": "type_hei_automatic_rifle_char"
+    },
+    {
+      "gun__blk": "content/enlisted/gamedata/weapons/type_hei_automatic_rifle.blk"
+    },
+    {
+      "item__template": "type_hei_automatic_rifle_gun_item"
+    },
+    {
+      "item__proto": "content/enlisted/gamedata/weapons/type_hei_automatic_rifle.blk"
+    },
+    {
+      "item__locDetails": "6.5 Arisaka"
+    },
+    {
+      "item__weapTemplate": "type_hei_automatic_rifle_gun"
+    },
+    {
+      "item__name": "items/type_hei_automatic_rifle"
+    },
+    {
+      "item__weapType": "semiauto"
+    },
+    {
+      "item__weight": 4.9
+    },
+    {
+      "gun__locName": "Type Hei Rifle"
+    },
+    {
+      "gun__statName": "semiauto"
+    },
+    {
+      "gun__sightsDistance": 0.05
+    },
+    {
+      "gun__shotFreq": 12.0
+    },
+    {
+      "gun__boltFreq": 16.0
+    },
+    {
+      "gun__automaticReload": false
+    },
+    {
+      "gun_spread__maxDeltaAngle": 0.22
+    },
+    {
+      "gun_deviation__omegaRange": [30.0,90.0]
+    },
+    {
+      "gun_deviation__omegaDevInc": [0.1,0.6]
+    },
+    {
+      "gun_deviation__movementRange": [2.1,4.0]
+    },
+    {
+      "gun_deviation__movementDevInc": [0.0,15.0]
+    },
+    {
+      "gun_deviation__onShotDeviationChange": 0.0
+    },
+    {
+      "gun_deviation__shotTau": 0.1
+    },
+    {
+      "gun_deviation__extraDeviationTau": 0.3
+    },
+    {
+      "gun_deviation__maxDeviation": 30.0
+    },
+    {
+      "gun__reloadTime": 3.1
+    },
+    {
+      "gun__altReloadTime": 2.7
+    },
+    {
+      "gun__kineticDamageMult": 1.1
+    },
+    {
+      "item__id:i": {
+        "value": 0,
+        "_hide": true
+      }
+    },
+    {
+      "gun__ammoHolders:array": {
+        "ammoHolders": "type_hei_automatic_rifle_magazine"
+      }
+    },
+    {
+      "gun__shells:array": {
+        "shells": "content/enlisted/gamedata/weapons/bullets/6.5x50_arisaka_semiauto.blk"
+      }
+    },
+    {
+      "gun__firingModes:array": [
+        {
+          "mode:object": {
+            "modeType": "automatic"
+          }
+        },
+        {
+          "mode:object": {
+            "modeType": "burst",
+            "burstSize": 1,
+            "shotFreqMult": 1.5
+          }
+        }
+      ]
+    },
+    {
+      "gun__firingModeNames:array": [
+        {
+          "mode": "full_auto"
+        },
+        {
+          "mode": "semi_auto"
+        }
+      ]
+    }
+  ],
+  "type_hei_automatic_rifle_gun": [
+    {
+      "_use": "equipable_gun"
+    },
+    {
+      "_use": "semiauto_ww2_preset"
+    },
+    {
+      "_use": "type_hei_automatic_rifle"
+    },
+    {
+      "_use": "mg_rapid_muzzle_preset"
+    },
+    {
+      "_use": "hit_effect_group_12_14mm"
+    },
+    {
+      "_use": "rifle_gun_aim_sound"
+    },
+    {
+      "gun_shell_ejection__timeMult": 0.35
+    },
+    {
+      "gun__standOffset": [0.2,0.05,0.15]
+    },
+    {
+      "gun__crouchOffset": [0.2,-0.07,0.25]
+    },
+    {
+      "gun__length": 0.4
+    },
+    {
+      "gun__recoilAmount": 0.082
+    },
+    {
+      "gun__recoilDirAmount": 0.73
+    },
+    {
+      "gun__recoilControlMult": 0.25
+    },
+    {
+      "gun__recoilDir": 0.24
+    },
+    {
+      "gun__visualRecoilMult": 0.3
+    },
+    {
+      "gun__recoilOffsMult": 0.3
+    },
+    {
+      "gun__adsSpeedMult": 0.72
+    },
+    {
+      "gun_attach__slot": "weapon"
+    },
+    {
+      "meleeSoundType": "rifle"
+    },
+    {
+      "gun_anim_var__fpsGunOffsetAlong": 0.08
+    },
+    {
+      "gun_anim_var__fpsGunOffsetAcross": 0.0
+    },
+    {
+      "gun_anim_var__fpsGunOffsetUp": 0.025
+    },
+    {
+      "gun__saveAmmoInChamberOnReload": true
+    },
+    {
+      "gun__rotationSpringMult": [1.0,3.7,3.7]
+    },
+    {
+      "gun__rotInertia": [0.1,2.0,2.0]
+    },
+    {
+      "weapon__aimNodeOffset": 0.42
+    },
+    {
+      "gun_mods__slots:object": {
+        "bayonet:object": {
+          "type_30_bayonet": "type_30_bayonet",
+          "type_2_bayonet": "type_2_bayonet"
+        }
+      }
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "gun_sound__forceOneshot": true,
+        "gun_sound__forceOneshotEnemy": true
+      }
+    },
+    {
+      "gun_sound__shotPath:shared:object": {
+        "_tags": "sound",
+        "path": "/weapon/rifle/type_hei"
+      }
+    },
+    {
+      "sound_irqs:shared:object": {
+        "_tags": "sound",
+        "mag_shutter_out:object": {
+          "path": "/weapon/rifle/type_hei_automatic_rifle/reload_mag_shutter_out"
+        },
+        "mag_in:object": {
+          "path": "/weapon/rifle/type_hei_automatic_rifle/reload_mag_in"
+        },
+        "mag_punch:object": {
+          "path": "/weapon/rifle/type_hei_automatic_rifle/reload_mag_punch"
+        },
+        "shutter_out:object": {
+          "path": "/weapon/rifle/type_hei_automatic_rifle/reload_shutter_out"
+        },
+        "foley_start:object": {
+          "path": "/weapon/rifle/type_hei_automatic_rifle/reload_foley_start"
+        },
+        "foley_end:object": {
+          "path": "/weapon/rifle/type_hei_automatic_rifle/reload_foley_end"
+        }
+      }
+    },
+    {
+      "gun__mountPoints:shared:array": [
+        {
+          "point:object": {
+            "type": "bipod",
+            "recoil": 0.45,
+            "offset": [0.43,0.02,0.0],
+            "forceOffset": true,
+            "angle": 20.0,
+            "length": 0.26
+          }
+        },
+        {
+          "point:object": {
+            "type": "rest",
+            "recoil": 0.65,
+            "offset": [0.7,0.02,0.0]
+          }
+        }
+      ]
+    }
+  ],
   "type_ko_rifle": [
     {
       "_use": "main_weap_slots"
@@ -74924,6 +75243,9 @@
       "gun__rotInertia": [0.1,2.05,2.05]
     },
     {
+      "weapon__aimNodeOffset": 0.36
+    },
+    {
       "gun_anim_var__fpsGunOffsetAlong": 0.15
     },
     {
@@ -75227,6 +75549,15 @@
       "gun__recoilOffsMult": 0.1
     },
     {
+      "gun__rotationSpringMult": [1.0,4.1,4.1]
+    },
+    {
+      "gun__rotInertia": [0.1,2.05,2.05]
+    },
+    {
+      "weapon__aimNodeOffset": 0.3
+    },
+    {
       "gun_attach__slot": "weapon"
     },
     {
@@ -75236,7 +75567,7 @@
       "meleeSoundType": "rifle"
     },
     {
-      "gun_anim_var__fpsGunOffsetAlong": 0.15
+      "gun_anim_var__fpsGunOffsetAlong": 0.17
     },
     {
       "gun_anim_var__fpsGunOffsetAcross": 0.035
@@ -75492,6 +75823,15 @@
       "meleeSoundType": "rifle"
     },
     {
+      "gun__rotationSpringMult": [1.0,4.1,4.1]
+    },
+    {
+      "gun__rotInertia": [0.1,2.05,2.05]
+    },
+    {
+      "weapon__aimNodeOffset": 0.36
+    },
+    {
       "gun_mods__slots:object": {
         "bayonet:object": {
           "type_30_bayonet": "type_30_bayonet",
@@ -75548,6 +75888,257 @@
             "type": "rest",
             "recoil": 0.65,
             "offset": [0.47,-0.01,0.0]
+          }
+        }
+      ]
+    }
+  ],
+  "type_100_mg": [
+    {
+      "_use": "main_weap_slots"
+    },
+    {
+      "_use": "ironsights_open_machinegun"
+    },
+    {
+      "animchar__res": "type_100_infantry_char"
+    },
+    {
+      "gun__blk": "content/enlisted/gamedata/weapons/type_100_mg.blk"
+    },
+    {
+      "item__template": "type_100_mg_gun_item"
+    },
+    {
+      "item__proto": "content/enlisted/gamedata/weapons/type_100_mg.blk"
+    },
+    {
+      "item__locDetails": "RoF: 900; 7.92x57mm;"
+    },
+    {
+      "item__weapTemplate": "type_100_mg_gun"
+    },
+    {
+      "item__name": "items/type_100_mg"
+    },
+    {
+      "item__weapType": "machine_gun"
+    },
+    {
+      "item__weight": 16.0
+    },
+    {
+      "gun__locName": "MG 34 with Patronentrommel 34 magazine"
+    },
+    {
+      "gun__statName": "machine_gun"
+    },
+    {
+      "gun__sightsDistance": 0.3
+    },
+    {
+      "gun__shotFreq": 10.0
+    },
+    {
+      "gun_spread__maxDeltaAngle": 0.0005
+    },
+    {
+      "gun_deviation__omegaRange": [30.0,90.0]
+    },
+    {
+      "gun_deviation__omegaDevInc": [0.07,0.5]
+    },
+    {
+      "gun_deviation__movementRange": [0.1,4.0]
+    },
+    {
+      "gun_deviation__movementDevInc": [15.0,45.0]
+    },
+    {
+      "gun_deviation__onShotDeviationChange": 0.0
+    },
+    {
+      "gun_deviation__shotTau": 0.1
+    },
+    {
+      "gun_deviation__extraDeviationTau": 0.2
+    },
+    {
+      "gun_deviation__maxDeviation": 20.0
+    },
+    {
+      "gun__reloadTime": 5.7
+    },
+    {
+      "gun__altReloadTime": 4.0
+    },
+    {
+      "item__id:i": {
+        "value": 0,
+        "_hide": true
+      }
+    },
+    {
+      "gun__ammoHolders:array": {
+        "ammoHolders": "type_100_mg_magazine"
+      }
+    },
+    {
+      "gun__shells:array": {
+        "shells": "content/enlisted/gamedata/weapons/bullets/7.92x57_mauser_tracer_d.blk"
+      }
+    },
+    {
+      "gun__firingModes:array": [
+        {
+          "mode:object": {
+            "modeType": "automatic"
+          }
+        },
+        {
+          "mode:object": {
+            "modeType": "burst",
+            "burstSize": 1
+          }
+        }
+      ]
+    },
+    {
+      "gun__firingModeNames:array": [
+        {
+          "mode": "full_auto"
+        },
+        {
+          "mode": "semi_auto"
+        }
+      ]
+    }
+  ],
+  "type_100_mg_gun": [
+    {
+      "_use": "equipable_gun"
+    },
+    {
+      "_use": "mg_ww2_preset"
+    },
+    {
+      "_use": "type_100_mg"
+    },
+    {
+      "_use": "mg_rapid_double_muzzle_preset"
+    },
+    {
+      "_use": "hit_effect_group_12_14mm"
+    },
+    {
+      "_use": "gun_switch_firing_mode_sound"
+    },
+    {
+      "_use": "mgun_gun_aim_sound"
+    },
+    {
+      "gun_shell_ejection__timeMult": 0.35
+    },
+    {
+      "gun__standOffset": [0.2,0.05,0.15]
+    },
+    {
+      "gun__crouchOffset": [0.2,-0.07,0.25]
+    },
+    {
+      "gun__length": 0.4
+    },
+    {
+      "gun__recoilAmount": 0.051
+    },
+    {
+      "gun__recoilDirAmount": 0.63
+    },
+    {
+      "gun__recoilDir": 0.0
+    },
+    {
+      "gun__visualRecoilMult": 0.6
+    },
+    {
+      "gun__recoilControlMult": 0.9
+    },
+    {
+      "gun__recoilOffsMult": 0.1
+    },
+    {
+      "gun_attach__slot": "weapon"
+    },
+    {
+      "weap__sprintLerpFactor": 0.5
+    },
+    {
+      "gun__adsSpeedMult": 0.3
+    },
+    {
+      "meleeSoundType": "mgun"
+    },
+    {
+      "gun_anim_var__fpsGunOffsetAlong": 0.08
+    },
+    {
+      "gun_anim_var__fpsGunOffsetAcross": 0.065
+    },
+    {
+      "gun_anim_var__fpsGunOffsetUp": 0.03
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "gun_sound__forceOneshot": true
+      }
+    },
+    {
+      "gun_sound__shotPath:shared:object": {
+        "_tags": "sound",
+        "path": "/weapon/mgun/type_100_mg"
+      }
+    },
+    {
+      "sound_irqs:shared:object": {
+        "_tags": "sound",
+        "mag_in:object": {
+          "path": "/weapon/mgun/type_100_mg/reload_mag_in"
+        },
+        "mag_out:object": {
+          "path": "/weapon/mgun/type_100_mg/reload_mag_out"
+        },
+        "mag_punch:object": {
+          "path": "/weapon/mgun/type_100_mg/reload_mag_punch"
+        },
+        "mag_shutter_out:object": {
+          "path": "/weapon/mgun/type_100_mg/reload_mag_shutter_out"
+        },
+        "shutter_in:object": {
+          "path": "/weapon/mgun/type_100_mg/reload_shutter_in"
+        },
+        "shutter_out:object": {
+          "path": "/weapon/mgun/type_100_mg/reload_shutter_out"
+        }
+      }
+    },
+    {
+      "gun__mountPoints:shared:array": [
+        {
+          "point:object": {
+            "type": "bipod",
+            "recoil": 0.25,
+            "offset": [0.82,0.0,0.0],
+            "forceOffset": true,
+            "angle": 30.0,
+            "length": 0.44
+          }
+        },
+        {
+          "point:object": {
+            "type": "rest",
+            "recoil": 0.65,
+            "offset": [0.74,-0.03,0.0]
           }
         }
       ]

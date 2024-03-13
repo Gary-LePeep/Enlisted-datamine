@@ -4,7 +4,7 @@
       "_use": "potez_633_base"
     },
     {
-      "_use": "squad_controlled_plane"
+      "_use": "plane_with_gunners"
     },
     {
       "_use": "potez_633_plane_sound"
@@ -59,12 +59,16 @@
             "attachNode": "gunner1",
             "ignoreAttachNodeRotation": true,
             "attachTm": [
-              [-1.0,0.0,5.6426e-07],
-              [0.0,1.0,0.0],
-              [-5.6426e-07,0.0,-1.0],
-              [0.0,0.0,0.0]
+              [-0.994499,0.104526,1.89686e-06],
+              [0.104529,0.994525,-1.99373e-07],
+              [-1.90734e-06,0.0,-0.999995],
+              [-0.0,0.07,0.02]
             ],
+            "cameraNodeName": "gun1",
+            "cameraOffset": [-0.49,0.096,-0.011],
+            "cameraType": "gunner",
             "seatComponent": "isGunner",
+            "canPlaceManually": true,
             "receiveDamageFromDMPart": "gunner1_dm",
             "directTurretControl": true,
             "roomSpace": 1,
@@ -127,7 +131,9 @@
             "paramMaxPitchAngle": "turret1_max_pitch_angle",
             "curPitchParamName": "gun1_pitch",
             "curYawParamName": "turret1_yaw",
-            "paramMinYawAngle": "turret1_min_yaw_angle"
+            "paramMinYawAngle": "turret1_min_yaw_angle",
+            "curWorldPitchParamName": "gun1_world_pitch",
+            "curWorldYawParamName": "turret1_world_yaw"
           }
         }
       ]
@@ -467,10 +473,20 @@
       "turret__limit": [-35.0,35.0,0.0,40.0]
     },
     {
-      "turret__yawSpeed": 100.0
+      "turret__yawSpeed": 500.0
     },
     {
-      "turret__pitchSpeed": 100.0
+      "turret__pitchSpeed": 500.0
+    },
+    {
+      "turret__lastRelativeDir": [-1.0,0.0,0.0]
+    },
+    {
+      "turret__limitsDeadzone:list<p4>": {
+        "lim0": [-25.0,-21.0,-5.0,10.0],
+        "lim1": [21.0,25.0,-5.0,10.0],
+        "lim2": [-35.0,35.0,-5.0,5.0]
+      }
     }
   ],
   "potez_633_driver_cockpit": {

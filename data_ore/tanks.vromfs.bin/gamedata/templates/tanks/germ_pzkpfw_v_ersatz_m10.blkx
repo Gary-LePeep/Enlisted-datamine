@@ -1,0 +1,748 @@
+{
+  "germ_pzkpfw_v_ersatz_m10_premium": {
+    "_use": "germ_pzkpfw_v_ersatz_m10_common",
+    "animchar__objTexSet:object": {
+      "pzkpfw_v_ersatz_m10_body_c*:object": {
+        "pzkpfw_v_ersatz_m10_skin_body_c*": "camo_skin_tex"
+      },
+      "pzkpfw_v_ersatz_m10_turret_c*:object": {
+        "pzkpfw_v_ersatz_m10_skin_turret_c*": "camo_skin_tex"
+      }
+    }
+  },
+  "germ_pzkpfw_v_ersatz_m10_common": [
+    {
+      "_use": "base_pzkpfw_v_ersatz_m10"
+    },
+    {
+      "_use": "germ_pzkpfw_v_ersatz_m10_common_vehicle_sound"
+    },
+    {
+      "item__iconOffset": [0.04,0.0]
+    },
+    {
+      "item__iconScale": 1.19
+    },
+    {
+      "commanderCockpitFpsCamMaxAngle": [40.0,5.0]
+    },
+    {
+      "gunner_cam_limit__useCockpitDir": true
+    },
+    {
+      "armorThicknessHull": [80.0,50.0,40.0]
+    },
+    {
+      "armorThicknessTurret": [110.0,45.0,45.0]
+    },
+    {
+      "_group": {
+        "_tags": "gameClient",
+        "vehicle_attach__allowParts:shared:list<t>": [
+          {
+            "allowNode": "superstructure_front"
+          },
+          {
+            "allowNode": "superstructure_bottom"
+          },
+          {
+            "allowNode": "superstructure_back"
+          },
+          {
+            "allowNode": "superstructure_side"
+          },
+          {
+            "allowNode": "superstructure_top"
+          },
+          {
+            "allowNode": "body_front"
+          },
+          {
+            "allowNode": "body_back"
+          },
+          {
+            "allowNode": "body_side"
+          },
+          {
+            "allowNode": "body_top"
+          },
+          {
+            "allowNode": "body_shield"
+          },
+          {
+            "allowNode": "body"
+          },
+          {
+            "allowNode": "body_bottom"
+          },
+          {
+            "allowNode": "turret_bottom"
+          },
+          {
+            "allowNode": "turret_front"
+          },
+          {
+            "allowNode": "turret_back"
+          },
+          {
+            "allowNode": "turret_side"
+          },
+          {
+            "allowNode": "turret_top"
+          },
+          {
+            "allowNode": "body_front_hatch"
+          },
+          {
+            "allowNode": "turret_commander"
+          },
+          {
+            "allowNode": "turret_05_front"
+          },
+          {
+            "allowNode": "turret_05_back"
+          },
+          {
+            "allowNode": "turret_05_side"
+          },
+          {
+            "allowNode": "turret_05_top"
+          },
+          {
+            "allowNode": "turret_05_bottom"
+          },
+          {
+            "allowNode": "turret_04_front"
+          },
+          {
+            "allowNode": "turret_07_front"
+          },
+          {
+            "allowNode": "turret_04_back"
+          },
+          {
+            "allowNode": "turret_04_side"
+          },
+          {
+            "allowNode": "turret_04_top"
+          },
+          {
+            "allowNode": "turret_03_front"
+          },
+          {
+            "allowNode": "turret_03_back"
+          },
+          {
+            "allowNode": "turret_03_side"
+          },
+          {
+            "allowNode": "turret_03_top"
+          },
+          {
+            "allowNode": "turret_02_front"
+          },
+          {
+            "allowNode": "turret_02_back"
+          },
+          {
+            "allowNode": "turret_02_side"
+          },
+          {
+            "allowNode": "turret_02_top"
+          },
+          {
+            "allowNode": "turret_01_front"
+          },
+          {
+            "allowNode": "turret_01_back"
+          },
+          {
+            "allowNode": "turret_01_side"
+          },
+          {
+            "allowNode": "turret_01_top"
+          },
+          {
+            "allowNode": "turret_01_bottom"
+          },
+          {
+            "allowNode": "turret_02_bottom"
+          },
+          {
+            "allowNode": "turret_03_bottom"
+          },
+          {
+            "allowNode": "turret_04_bottom"
+          },
+          {
+            "allowNode": "turret_06_front"
+          },
+          {
+            "allowNode": "turret_06_bottom"
+          },
+          {
+            "allowNode": "turret_06_back"
+          },
+          {
+            "allowNode": "turret_06_side"
+          },
+          {
+            "allowNode": "turret_06_top"
+          },
+          {
+            "allowNode": "turret_09_top"
+          },
+          {
+            "allowNode": "ex_decor_l_01"
+          },
+          {
+            "allowNode": "ex_decor_l_02"
+          },
+          {
+            "allowNode": "ex_decor_l_03"
+          },
+          {
+            "allowNode": "ex_decor_l_04"
+          },
+          {
+            "allowNode": "ex_decor_l_05"
+          },
+          {
+            "allowNode": "ex_decor_r_01"
+          },
+          {
+            "allowNode": "ex_decor_r_02"
+          },
+          {
+            "allowNode": "ex_decor_r_03"
+          },
+          {
+            "allowNode": "ex_decor_r_04"
+          },
+          {
+            "allowNode": "ex_decor_r_05"
+          },
+          {
+            "allowNode": "ex_decor_01"
+          },
+          {
+            "allowNode": "ex_decor_02"
+          },
+          {
+            "allowNode": "ex_decor_03"
+          },
+          {
+            "allowNode": "ex_decor_04"
+          },
+          {
+            "allowNode": "ex_decor_05"
+          },
+          {
+            "allowNode": "ex_armor_body_l_01"
+          },
+          {
+            "allowNode": "ex_armor_body_l_02"
+          },
+          {
+            "allowNode": "ex_armor_body_l_03"
+          },
+          {
+            "allowNode": "ex_armor_body_l_04"
+          },
+          {
+            "allowNode": "ex_armor_body_l_05"
+          },
+          {
+            "allowNode": "ex_armor_body_l_06"
+          },
+          {
+            "allowNode": "ex_armor_body_r_01"
+          },
+          {
+            "allowNode": "ex_armor_body_r_02"
+          },
+          {
+            "allowNode": "ex_armor_body_r_03"
+          },
+          {
+            "allowNode": "ex_armor_body_r_04"
+          },
+          {
+            "allowNode": "ex_armor_body_r_05"
+          },
+          {
+            "allowNode": "ex_armor_body_r_06"
+          },
+          {
+            "allowNode": "ex_armor_body_01"
+          },
+          {
+            "allowNode": "ex_armor_body_02"
+          },
+          {
+            "allowNode": "ex_armor_body_03"
+          },
+          {
+            "allowNode": "ex_armor_body_04"
+          },
+          {
+            "allowNode": "ex_armor_body_05"
+          },
+          {
+            "allowNode": "ex_armor_03"
+          },
+          {
+            "allowNode": "ex_armor_04"
+          },
+          {
+            "allowNode": "ex_armor_05"
+          },
+          {
+            "allowNode": "ex_armor_06"
+          },
+          {
+            "allowNode": "ex_armor_07"
+          },
+          {
+            "allowNode": "ex_armor_08"
+          },
+          {
+            "allowNode": "ex_armor_r_01"
+          },
+          {
+            "allowNode": "ex_armor_r_02"
+          },
+          {
+            "allowNode": "ex_armor_r_03"
+          },
+          {
+            "allowNode": "ex_armor_r_04"
+          },
+          {
+            "allowNode": "ex_armor_r_05"
+          },
+          {
+            "allowNode": "ex_armor_r_06"
+          },
+          {
+            "allowNode": "ex_armor_r_07"
+          },
+          {
+            "allowNode": "ex_armor_r_08"
+          },
+          {
+            "allowNode": "ex_armor_r_09"
+          },
+          {
+            "allowNode": "ex_armor_r_10"
+          },
+          {
+            "allowNode": "ex_armor_l_01"
+          },
+          {
+            "allowNode": "ex_armor_l_02"
+          },
+          {
+            "allowNode": "ex_armor_l_03"
+          },
+          {
+            "allowNode": "ex_armor_l_04"
+          },
+          {
+            "allowNode": "ex_armor_l_05"
+          },
+          {
+            "allowNode": "ex_armor_l_06"
+          },
+          {
+            "allowNode": "ex_armor_l_07"
+          },
+          {
+            "allowNode": "ex_armor_l_08"
+          },
+          {
+            "allowNode": "ex_armor_l_09"
+          },
+          {
+            "allowNode": "ex_armor_l_10"
+          },
+          {
+            "allowNode": "ex_armor_01"
+          },
+          {
+            "allowNode": "ex_armor_02"
+          },
+          {
+            "allowNode": "ex_armor_03"
+          },
+          {
+            "allowNode": "turret"
+          },
+          {
+            "allowNode": "turret_07_bottom"
+          },
+          {
+            "allowNode": "turret_07_back"
+          },
+          {
+            "allowNode": "turret_07_side"
+          },
+          {
+            "allowNode": "turret_07_top"
+          },
+          {
+            "allowNode": "turret_08_bottom"
+          },
+          {
+            "allowNode": "turret_08_back"
+          },
+          {
+            "allowNode": "turret_08_side"
+          },
+          {
+            "allowNode": "turret_08_top"
+          },
+          {
+            "allowNode": "turret_08_front"
+          },
+          {
+            "allowNode": "turret_09_bottom"
+          },
+          {
+            "allowNode": "turret_09_back"
+          },
+          {
+            "allowNode": "turret_09_side"
+          },
+          {
+            "allowNode": "turret_09_front"
+          },
+          {
+            "allowNode": "turret_10_bottom"
+          },
+          {
+            "allowNode": "turret_10_back"
+          },
+          {
+            "allowNode": "turret_10_side"
+          },
+          {
+            "allowNode": "turret_10_top"
+          },
+          {
+            "allowNode": "turret_10_front"
+          },
+          {
+            "allowNode": "ex_armor_body_06"
+          },
+          {
+            "allowNode": "ex_armor_body_07"
+          },
+          {
+            "allowNode": "ex_armor_body_08"
+          },
+          {
+            "allowNode": "ex_armor_body_09"
+          },
+          {
+            "allowNode": "ex_armor_body_10"
+          },
+          {
+            "allowNode": "ex_armor_body_l_07"
+          },
+          {
+            "allowNode": "ex_armor_body_l_08"
+          },
+          {
+            "allowNode": "ex_armor_body_l_09"
+          },
+          {
+            "allowNode": "ex_armor_body_l_10"
+          },
+          {
+            "allowNode": "ex_armor_body_l_11"
+          },
+          {
+            "allowNode": "ex_armor_body_r_07"
+          },
+          {
+            "allowNode": "ex_armor_body_r_08"
+          },
+          {
+            "allowNode": "ex_armor_body_r_09"
+          },
+          {
+            "allowNode": "ex_armor_body_r_10"
+          },
+          {
+            "allowNode": "ex_armor_body_r_11"
+          }
+        ]
+      }
+    },
+    {
+      "vehicle_seats__effectors:array": []
+    },
+    {
+      "vehicle_seats__seats:shared:array": [
+        {
+          "seats:object": {
+            "name": "driver",
+            "locName": "vehicle_seats/driver",
+            "seatOwnsEntityControl": true,
+            "attachNode": "driver",
+            "ignoreAttachNodeRotation": true,
+            "attachTm": [
+              [1.0,0.0,0.0],
+              [0.0,1.0,0.0],
+              [0.0,0.0,1.0],
+              [-0.25,-0.25,0.0]
+            ],
+            "seatComponent": "isDriver",
+            "nextSeat": "main_gunner",
+            "shouldHideOwner": true,
+            "receiveDamageFromDMPart": "driver",
+            "cameraNodeName": "bone_camera_driver",
+            "cameraOffset": [0.15,-0.0,-0.0],
+            "cockpitTemplate": "germ_pzkpfw_v_ersatz_m10_driver_cockpit"
+          }
+        },
+        {
+          "seats:object": {
+            "name": "main_gunner",
+            "locName": "vehicle_seats/gunner",
+            "attachNode": "gunner",
+            "ignoreAttachNodeRotation": true,
+            "attachTm": [
+              [1.0,0.0,0.0],
+              [0.0,1.0,0.0],
+              [0.0,0.0,1.0],
+              [-0.25,-0.5,0.0]
+            ],
+            "seatComponent": "isGunner",
+            "nextSeat": "driver",
+            "shouldHideOwner": true,
+            "receiveDamageFromDMPart": "gunner",
+            "cameraNodeName": "bone_camera_gunner",
+            "cockpitTemplate": "germ_pzkpfw_v_ersatz_m10_gunner_cockpit",
+            "turretNames:array": [
+              {
+                "turret": "turret_01"
+              },
+              {
+                "turret": "turret_02"
+              }
+            ]
+          }
+        },
+        {
+          "seats:object": {
+            "name": "commander",
+            "locName": "vehicle_seats/commander",
+            "attachNode": "commander",
+            "shouldHideOwner": true,
+            "maxPosWithOpenHatch": 0.7,
+            "hatchRotationAxis": [1.85,0.0,0.0],
+            "ignoreAttachNodeRotation": true,
+            "attachTm": [
+              [0.939699,-0.342022,-0.0],
+              [0.342022,0.939699,0.0],
+              [0.0,-0.0,1.00036],
+              [-0.1,1.0,0.38]
+            ],
+            "seatComponent": "isDriver",
+            "receiveDamageFromDMPart": "commander",
+            "cameraNodeName": "bone_turret",
+            "cockpitTemplate": "germ_pzkpfw_v_ersatz_m10_commander_cockpit",
+            "holdingGunPassengerVertLookLimit": [-20.0,85.0],
+            "hatchNodes:array": [
+              {
+                "node": "hatch_03"
+              },
+              {
+                "node": "hatch_04"
+              }
+            ],
+            "effectors:object": {
+              "l.hand:object": {
+                "rel_tm": [
+                  [0.985847,0.133131,0.101893],
+                  [0.157553,-0.943447,-0.291691],
+                  [0.0572972,0.303617,-0.95107],
+                  [0.0338287,0.92684,-0.525613]
+                ],
+                "node": "bone_turret"
+              },
+              "r.hand:object": {
+                "rel_tm": [
+                  [0.999141,-0.0399598,0.0109042],
+                  [-0.0412234,-0.984981,0.167674],
+                  [0.00404019,-0.16798,-0.985782],
+                  [0.036087,0.925655,-0.126665]
+                ],
+                "node": "bone_turret"
+              }
+            }
+          }
+        },
+        {
+          "seats:object": {
+            "locName": "vehicle_seats/loader",
+            "attachNode": "loader",
+            "ignoreAttachNodeRotation": true,
+            "attachTm": [
+              [1.0,0.0,0.0],
+              [0.0,1.0,0.0],
+              [0.0,0.0,1.0],
+              [-0.25,-0.5,0.0]
+            ],
+            "seatComponent": "isPassenger",
+            "shouldHideOwner": true,
+            "receiveDamageFromDMPart": "loader",
+            "cameraNodeName": "bone_camera_driver",
+            "loaderTurretNames:array": {
+              "turret": "turret_01"
+            }
+          }
+        },
+        {
+          "seats:object": {
+            "locName": "vehicle_seats/radioman",
+            "attachNode": "machine_gunner",
+            "ignoreAttachNodeRotation": true,
+            "attachTm": [
+              [1.0,0.0,0.0],
+              [0.0,1.0,0.0],
+              [0.0,0.0,1.0],
+              [-0.25,-0.5,0.0]
+            ],
+            "seatComponent": "isPassenger",
+            "shouldHideOwner": true,
+            "receiveDamageFromDMPart": "machine_gunner"
+          }
+        }
+      ]
+    }
+  ],
+  "germ_pzkpfw_v_ersatz_m10_driver_cockpit": {
+    "_use": "base_driver_cockpit",
+    "animchar__res": "kv_1_driver_char",
+    "cockpit__offset": [0.1,-0.0,-0.0],
+    "cockpit__visibleVehicleNodeNames:list<t>": [
+      {
+        "node": "track_l"
+      },
+      {
+        "node": "track_r"
+      }
+    ],
+    "cockpit__slitForwardOffset:list<r>": {
+      "slit": 0.1
+    }
+  },
+  "germ_pzkpfw_v_ersatz_m10_gunner_cockpit": {
+    "_use": "base_gunner_cockpit",
+    "animchar__res": "t_26_1940_gunner_char",
+    "cockpit__offset": [-0.0,-0.0,-0.0],
+    "cockpit__cockpitOffsetBySlit:list<p3>": {
+      "slit": [-0.45,-0.03,0.2]
+    },
+    "cockpit__attachNodeNames:list<t>": {
+      "node": "bone_camera_gunner"
+    },
+    "cockpit__attachNodeIndices:list<i>": [],
+    "cockpit__visibleVehicleNodeNames:list<t>": {
+      "node": "gun_barrel"
+    },
+    "cockpit__slitNodeNames:list<t>": {
+      "slit": "cam_front_right"
+    },
+    "cockpit__slitForwardOffset:list<r>": {
+      "slit": 0.205
+    },
+    "cockpit__slitIsGun:list<b>": {
+      "slit": true
+    },
+    "cockpit__slitZoom:array": {
+      "slit:list<r>": [
+        {
+          "zoom": 2.5
+        },
+        {
+          "zoom": 5.0
+        }
+      ]
+    },
+    "cockpit__slitZoomTime:list<r>": {
+      "slit": 0.05
+    },
+    "cockpit__slitTemplates:list<t>": {
+      "slit": "germ_tzf12a"
+    },
+    "cockpit__slitEids:list<eid>": []
+  },
+  "germ_pzkpfw_v_ersatz_m10_commander_cockpit": {
+    "_use": "base_commander_tower_cockpit",
+    "animchar__res": "t_26_1940_gunner_char",
+    "cockpit__offset": [-0.29,1.1,0.45],
+    "cockpit__forwardOffsetDuration": 0.33,
+    "cockpit__minForwardOffset": 0.0,
+    "cockpit__cockpitOffsetBySlit:list<p3>": {
+      "slit": [0.0,0.0,0.0]
+    },
+    "cockpit__attachNodeNames:list<t>": {
+      "node": "bone_turret"
+    },
+    "cockpit__attachNodeIndices:list<i>": [],
+    "cockpit__visibleVehicleNodeNames:list<t>": [
+      {
+        "node": "gun_barrel"
+      },
+      {
+        "node": "bone_turret"
+      },
+      {
+        "node": "bone_gun"
+      },
+      {
+        "node": "ex_armor_01"
+      },
+      {
+        "node": "ex_armor_02"
+      },
+      {
+        "node": "ex_armor_03"
+      },
+      {
+        "node": "gun_mask_top_anim"
+      }
+    ],
+    "cockpit__slitNodeNames:list<t>": {
+      "slit": "cam_front_right"
+    },
+    "cockpit__slitForwardOffset:list<r>": {
+      "slit": 0.23
+    },
+    "cockpit__slitIsGun:list<b>": {
+      "slit": true
+    },
+    "cockpit__periscopeLimits:list<p4>": {
+      "slit": [-90.0,90.0,-5.0,25.0]
+    },
+    "cockpit__periscopeSpeed:list<p2>": {
+      "slit": [35.0,35.0]
+    },
+    "cockpit__slitZoom:array": {
+      "slit:list<r>": {
+        "zoom": 1.44
+      }
+    },
+    "cockpit__slitZoomTime:list<r>": {
+      "slit": 0.0
+    },
+    "cockpit__slitTemplates:list<t>": {
+      "slit": "default_periscope"
+    },
+    "cockpit__slitEids:list<eid>": []
+  }
+}

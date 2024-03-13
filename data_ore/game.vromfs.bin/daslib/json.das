@@ -167,7 +167,7 @@ def private _lexer ( var stext : string implicit )
                     delete_string(name)
                 clear(str)
             else
-                yield [[TokenAt value=[[Token _error = "invalid character `{to_char(ahead)}` aka ASCII {ahead} at {line}:{row}"]],line=line,row=row]]
+                yield [[TokenAt value=[[Token _error = "invalid character `{to_char(ahead)}` aka ASCII {ahead}"]],line=line,row=row]]
                 return false
         return false
     finally
@@ -189,10 +189,10 @@ def private expect_symbol ( var itv : iterator<TokenAt>; var ahead : TokenAt; sy
         error = "unexected eos"
         return false
     elif ! ahead.value is _symbol
-        error = "unexpected {ahead.value}, expecting symbol"
+        error = "unexpected {ahead.value}, expecting symbol at {ahead.line}:{ahead.row}"
         return false
     elif !(ahead.value as _symbol == sym)
-        error = "unexpected {ahead.value}, expecting symbol `{to_char(sym)}` aka ASCII {sym}"
+        error = "unexpected {ahead.value}, expecting symbol `{to_char(sym)}` aka ASCII {sym} at {ahead.line}:{ahead.row}"
         return true
     else
         return true

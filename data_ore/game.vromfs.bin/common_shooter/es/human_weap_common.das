@@ -447,7 +447,7 @@ def human_weap_gun_update(var human_net_phys : HumanActor;
     hasGrenade = gun__totalAmmo > 0 || gun__ammo > 0
 
   if (ct |> is_control_bit_set(HumanPhysControlType HCT_THROW_BACK) && ctx.isForReal &&
-     !human_weap__throwMode && allowShootingNoAttach && curGun != HUWeaponSlots EWS_GRENADE)
+     !human_weap__throwMode && allowShootingNoAttach)
     var grenadeEid = INVALID_ENTITY_ID
     if is_server()
       grenadeEid = find_rethrowable_grenade(ctx.eid)

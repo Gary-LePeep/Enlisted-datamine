@@ -40,6 +40,7 @@ def gun_human_recoil_es(info : ParallelUpdateFrameDelayed;
                         entity_mods__recoilMult = 1.f;
                         human_net_phys__crawlRecoilMult = 0.3f;
                         human_net_phys__crouchRecoilMult = 0.7f;
+                        human_net_phys__leanRecoilMult = 1.3f;
                         human_net_phys__aimRecoilMult = 0.7f;
                         human_net_phys__recoilOffsMult = 1.f;
                         human_net_phys__recoilControlMult = 0.f;
@@ -66,6 +67,7 @@ def gun_human_recoil_es(info : ParallelUpdateFrameDelayed;
                            gun__recoilAmount : float;
                            gun__crawlRecoilMult : float const?;
                            gun__crouchRecoilMult : float const?;
+                           gun__leanRecoilMult : float const?;
                            gun__aimRecoilMult : float const?;
                            gun__recoilOffsMult : float const?;
                            gun__recoilControlMult : float const?;
@@ -80,6 +82,8 @@ def gun_human_recoil_es(info : ParallelUpdateFrameDelayed;
       human_weap__curRecoilMult = gun__crawlRecoilMult ?? human_net_phys__crawlRecoilMult
     elif human_net_phys.phys.currentState.isCrouch
       human_weap__curRecoilMult = gun__crouchRecoilMult ?? human_net_phys__crouchRecoilMult
+    if !is_equal_float(human_net_phys.phys.currentState.leanPosition, 0.)
+      human_weap__curRecoilMult *= gun__leanRecoilMult ?? human_net_phys__leanRecoilMult
 
     if human_net_phys.phys.currentState.isAiming
       human_weap__curRecoilMult *= gun__aimRecoilMult ?? human_net_phys__aimRecoilMult

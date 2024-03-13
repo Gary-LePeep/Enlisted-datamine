@@ -1,10 +1,14 @@
 require ecs
 require ecs.extra_set
-// require common_shooter.events_common_shooter
 require danetlibs.weapons.shell_events
-require common_shooter.es.render.blood_common
 require danetlibs.blood_decals.render.blood_decals_common
 
+def is_blood_enabled()
+  var isEnabled = true
+  find_query <| $ [es] (isBloodEnabled : bool)
+    isEnabled = isBloodEnabled
+    return true
+  return isEnabled
 
 [es(tag=gameClient, REQUIRE=msg_sink)]
 def shell_explode_create_blood_decals(shellExpl : CmdShellExplodeClient)

@@ -300,6 +300,7 @@ struct CmdRequestRespawn
   memberId : int
   spawnGroup : int
   isParatroopers : bool
+  withoutVehicle : bool
 
 [event(unicast, routing=ROUTING_CLIENT_CONTROLLED_ENTITY_TO_SERVER)]
 struct CmdCancelRequestRespawn
@@ -307,6 +308,7 @@ struct CmdCancelRequestRespawn
   memberId : int
   spawnGroup : int
   isParatroopers : bool
+  withoutVehicle : bool
 
 [event(unicast)]
 struct RqPersonalContextCommand{}
@@ -435,6 +437,7 @@ struct CmdSpawnSquad
   memberId : int
   respawnGroupId : int
   existedVehicleEid : EntityId
+  withoutVehicle : bool
 
 [event(unicast, routing=ROUTING_CLIENT_CONTROLLED_ENTITY_TO_SERVER)]
 struct CmdCreateParatroopersSpawn
@@ -1016,6 +1019,9 @@ struct EventOnWeapSlotItemPickup
 
 [event(unicast)]
 struct PrefabSelectParentEvent {}
+
+[event(unicast)]
+struct PrefabSelectObjectsEvent {}
 
 [cpp_event(unicast)]
 struct EditorToDeleteEntitiesEvent

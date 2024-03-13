@@ -3,10 +3,9 @@ from "%enlSqGlob/ui/ui_library.nut" import *
 let { fontHeading2, fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let msgbox = require("%enlist/components/msgbox.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
-let {
-  bigGap, smallPadding, defTxtColor, activeTxtColor, isWide, accentTitleTxtColor
-} = require("%enlSqGlob/ui/viewConst.nut")
-let { midPadding } = require("%enlSqGlob/ui/designConst.nut")
+let { midPadding, bigGap, smallPadding, defTxtColor,
+  activeTxtColor, isWide, accentTitleTxtColor
+} = require("%enlSqGlob/ui/designConst.nut")
 let { getCurrencyPresentation, ticketGroups } = require("currencyPresentation.nut")
 let { Purchase } = require("%ui/components/textButton.nut")
 let textButtonTextCtor = require("%ui/components/textButtonTextCtor.nut")

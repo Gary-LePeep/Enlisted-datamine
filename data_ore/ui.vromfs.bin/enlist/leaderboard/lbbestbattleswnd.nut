@@ -5,7 +5,7 @@ let fontIconButton = require("%ui/components/fontIconButton.nut")
 let JB = require("%ui/control/gui_buttons.nut")
 let lbCategory = require("lbCategory.nut")
 let { fontHeading2, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
-let { bigGap } = require("%enlSqGlob/ui/viewConst.nut")
+let { bigGap } = require("%enlSqGlob/ui/designConst.nut")
 let { bestBattlesByMode, ratingBattlesCountByMode, getCategoriesByGroup } = require("lbState.nut")
 let { TextActive, WindowHeader, TextDefault, UserNameColor
 } = require("%ui/style/colors.nut")

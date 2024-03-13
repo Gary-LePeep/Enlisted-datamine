@@ -5,7 +5,7 @@ let uiHotkeysHint = require("%ui/components/uiHotkeysHint.nut").mkHintRow
 let formatInputBinding = require("%ui/control/formatInputBinding.nut")
 let { DEFAULT_TEXT_COLOR } = require("%ui/hud/style.nut")
 let JB = require("%ui/control/gui_buttons.nut")
-let { shadowStyle } = require("%enlSqGlob/ui/viewConst.nut")
+let { shadowStyle } = require("%enlSqGlob/ui/designConst.nut")
 
 let hintTextFunc = @(text, color = DEFAULT_TEXT_COLOR) {
   rendObj = ROBJ_TEXT

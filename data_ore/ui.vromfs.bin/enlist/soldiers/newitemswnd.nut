@@ -1,10 +1,8 @@
 from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontHeading2, fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
-let {
-  soldierLvlColor, activeTxtColor, defBgColor, warningColor
-} = require("%enlSqGlob/ui/viewConst.nut")
-let { smallPadding, midPadding, bigPadding
+let { smallPadding, midPadding, bigPadding, warningColor
+  soldierLvlColor, activeTxtColor, defBgColor
 } = require("%enlSqGlob/ui/designConst.nut")
 let JB = require("%ui/control/gui_buttons.nut")
 let textButton = require("%ui/components/textButton.nut")

@@ -16,7 +16,3 @@ def load_weapons(base_path : string) : bool
   return ok
 
 
-[export]
-def test()
-  let ok = load_weapons("%danetlibs/weapons")
-  assert(ok)

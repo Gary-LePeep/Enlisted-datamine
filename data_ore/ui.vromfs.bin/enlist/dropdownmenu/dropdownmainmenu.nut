@@ -2,7 +2,8 @@ from "%enlSqGlob/ui/ui_library.nut" import *
 
 let mkDropMenuBtn = require("%enlist/dropdownmenu/mkDropDownMenuBlock.nut")
 let {
-  btnOptions, btnControls, btnExit, btnLogout, SEPARATOR, btnGSS, btnSupport, btnCBR, btnLegals
+  btnOptions, btnControls, btnExit, btnLogout, SEPARATOR, btnGSS, btnSupport, btnCBR, btnLegals,
+  btnLinkEmail
 } = require("%enlist/mainMenu/defMainMenuItems.nut")
 let { openChangelog } = require("%enlist/openChangelog.nut")
 let { isInQueue } = require("%enlist/state/queueState.nut")
@@ -32,6 +33,7 @@ let { openBPwindow } = require("%enlist/battlepass/bpWindowState.nut")
 let { openBenchmarksList } = require("%enlist/benchmark/benchmarkState.nut")
 let { hasGpuBenchmark } = require("%enlist/featureFlags.nut")
 let { get_setting_by_blk_path } = require("settings")
+let { isLinkEmailAvailable } = require("%enlist/state/steamState.nut")
 
 
 let noSandboxEditorInMenu = true
@@ -144,6 +146,14 @@ let btnPerksSimulation = {
 }
 
 
+let videoTipsUrl = get_setting_by_blk_path("videoTipsUrl") ?? ""
+let btnVideoTips = {
+  id = "VideoTips"
+  name = loc("btn/VideoTips")
+  cb = @() openUrl(videoTipsUrl)
+}
+
+
 let needCustomGames = (DBGLEVEL > 0
   || ["moon","sun","ganymede","yueliang"].indexof(get_circuit()) != null)
     ? Computed(@() !isInQueue.value)
@@ -176,7 +186,11 @@ function buttons(){
   res.append( btnOptions, btnControls, btnSupport )
   if (perksSimulationUrl != "")
     res.append(btnPerksSimulation)
+  if (videoTipsUrl != "")
+    res.append(btnVideoTips)
   res.append( btnForum, btnFeedback, btnGSS )
+  if (isLinkEmailAvailable.value)
+    res.append(btnLinkEmail)
   if (!isChineseVersion)
     res.append(btnCBR)
   res.append(btnLegals)
@@ -192,6 +206,6 @@ function buttons(){
   return res.filter(@(v) v!=null)
 }
 let watch = [needCustomGames, hasCampaignSelection, canDebugProfile,
-  isReplayTabHidden, hasBattlePass]
+  isReplayTabHidden, hasBattlePass, isLinkEmailAvailable]
 
 return mkDropMenuBtn(buttons, watch)

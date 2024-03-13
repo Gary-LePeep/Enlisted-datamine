@@ -452,9 +452,16 @@
               {
                 "orderedSelector": [
                   {
-                    "subTree": {
-                      "name": "",
-                      "treeName": "sub.tryAntiTankWeaponAttack"
+                    "sequencer": {
+                      "isAgentPlayerBot": [],
+                      "setIntVar": {
+                        "to": "antiTankAttackTarget",
+                        "value": 0
+                      },
+                      "subTree": {
+                        "name": "",
+                        "treeName": "sub.tryAntiTankWeaponAttack"
+                      }
                     }
                   },
                   {

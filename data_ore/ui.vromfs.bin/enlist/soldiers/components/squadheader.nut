@@ -2,8 +2,8 @@ from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let faComp = require("%ui/components/faComp.nut")
-let { gap, noteTxtColor, disabledTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
-let { defTxtColor, smallPadding, bigPadding, panelBgColor
+let { defTxtColor, smallPadding, bigPadding, panelBgColor,
+  gap, noteTxtColor, disabledTxtColor
 } = require("%enlSqGlob/ui/designConst.nut")
 let { autoscrollText, txt, note } = require("%enlSqGlob/ui/defcomps.nut")
 let tooltipBox = require("%ui/style/tooltipBox.nut")

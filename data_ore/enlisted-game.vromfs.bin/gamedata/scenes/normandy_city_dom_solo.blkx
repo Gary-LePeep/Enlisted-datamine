@@ -21,6 +21,147 @@
   },
   {
     "entity": {
+      "_template": "poly_battle_area",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [0.0,0.0,0.0]
+      ],
+      "battle_area__team": 1,
+      "battleAreaId": "area1",
+      "poly_area__points:list<p3>": [
+        {
+          "item": [-69.5005,68.5118,-340.18]
+        },
+        {
+          "item": [-47.874,69.158,-356.95]
+        },
+        {
+          "item": [-31.1922,70.3399,-373.169]
+        },
+        {
+          "item": [-15.3739,70.7911,-373.612]
+        },
+        {
+          "item": [0.796943,70.8415,-373.78]
+        },
+        {
+          "item": [29.3271,71.1763,-370.561]
+        },
+        {
+          "item": [38.8862,68.2705,-369.309]
+        },
+        {
+          "item": [55.0837,68.2199,-368.787]
+        },
+        {
+          "item": [63.6002,68.0875,-365.307]
+        },
+        {
+          "item": [73.2047,66.9412,-365.785]
+        },
+        {
+          "item": [92.5289,66.95,-364.85]
+        },
+        {
+          "item": [160.054,66.9369,-359.25]
+        },
+        {
+          "item": [157.273,68.1291,-187.88]
+        },
+        {
+          "item": [85.9506,66.846,-159.391]
+        },
+        {
+          "item": [-167.8,69.9612,-155.376]
+        },
+        {
+          "item": [-258.942,69.2302,-196.714]
+        },
+        {
+          "item": [-224.293,70.4224,-391.328]
+        },
+        {
+          "item": [-135.761,71.2115,-364.804]
+        },
+        {
+          "item": [-82.9578,65.5425,-345.975]
+        }
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "poly_battle_area",
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [0.0,0.0,0.0]
+      ],
+      "battle_area__team": 2,
+      "battleAreaId": "area2",
+      "poly_area__points:list<p3>": [
+        {
+          "item": [-95.088,67.5347,-464.354]
+        },
+        {
+          "item": [114.303,67.8537,-466.693]
+        },
+        {
+          "item": [162.672,63.5428,-409.75]
+        },
+        {
+          "item": [159.979,65.9079,-270.819]
+        },
+        {
+          "item": [60.8624,66.5154,-269.885]
+        },
+        {
+          "item": [29.6561,66.504,-258.252]
+        },
+        {
+          "item": [6.01246,65.8352,-249.209]
+        },
+        {
+          "item": [-19.4109,66.0761,-245.227]
+        },
+        {
+          "item": [-64.9455,64.8379,-242.561]
+        },
+        {
+          "item": [-97.9225,65.6531,-232.845]
+        },
+        {
+          "item": [-117.538,66.45,-235.44]
+        },
+        {
+          "item": [-144.58,65.8819,-252.394]
+        },
+        {
+          "item": [-244.132,67.1952,-290.347]
+        },
+        {
+          "item": [-218.306,71.7278,-418.826]
+        }
+      ]
+    }
+  },
+  {
+    "entity": {
+      "_template": "aircraft_box_battle_area",
+      "transform": [
+        [11269.8,0.0,-1003.34],
+        [0.0,8000.03,0.0],
+        [1002.81,0.0,11269.8],
+        [-6.61504,240.916,-61.402]
+      ],
+      "battle_area__team": -1
+    }
+  },
+  {
+    "entity": {
       "_template": "minimap_normandy_beach_fortified"
     }
   },
@@ -132,6 +273,7 @@
       "score_bleed__totalDomBleedMul": 2.0,
       "score_bleed__totalDomBleedOn": false,
       "team__briefing": "domination/common_goals",
+      "team__winTitle": "debriefing/won_invasion_subtitle",
       "team__numZonesCaptured": 0,
       "team__deathPenalty": 2.0,
       "team__spawnBotArmy": "normandy_allies"
@@ -149,6 +291,7 @@
       "score_bleed__totalDomBleedMul": 2.0,
       "score_bleed__totalDomBleedOn": false,
       "team__briefing": "domination/common_goals",
+      "team__winTitle": "debriefing/won_invasion_subtitle",
       "team__numZonesCaptured": 0,
       "team__deathPenalty": 2.0,
       "team__spawnBotArmy": "normandy_axis"
@@ -383,284 +526,6 @@
   },
   {
     "entity": {
-      "_template": "poly_battle_area",
-      "transform": [
-        [1.0,0.0,0.0],
-        [0.0,1.0,0.0],
-        [0.0,0.0,1.0],
-        [0.0,0.0,0.0]
-      ],
-      "battle_area__team": 1,
-      "battleAreaId": "area1"
-    }
-  },
-  {
-    "entity": {
-      "_template": "battle_area_polygon_point",
-      "transform": [
-        [1.0,0.0,0.0],
-        [0.0,1.0,0.0],
-        [0.0,0.0,1.0],
-        [-69.5005,68.5118,-340.18]
-      ],
-      "battle_area_polygon_point__id": "A",
-      "battle_area_polygon_point__nextId": "B",
-      "battle_area_polygon_point__forBattleAreaId": "area1"
-    }
-  },
-  {
-    "entity": {
-      "_template": "battle_area_polygon_point",
-      "transform": [
-        [1.0,0.0,0.0],
-        [0.0,1.0,0.0],
-        [0.0,0.0,1.0],
-        [-47.874,69.158,-356.95]
-      ],
-      "battle_area_polygon_point__id": "B",
-      "battle_area_polygon_point__nextId": "C",
-      "battle_area_polygon_point__forBattleAreaId": "area1"
-    }
-  },
-  {
-    "entity": {
-      "_template": "battle_area_polygon_point",
-      "transform": [
-        [1.0,0.0,0.0],
-        [0.0,1.0,0.0],
-        [0.0,0.0,1.0],
-        [160.054,66.9369,-359.25]
-      ],
-      "battle_area_polygon_point__id": "C",
-      "battle_area_polygon_point__nextId": "D",
-      "battle_area_polygon_point__forBattleAreaId": "area1"
-    }
-  },
-  {
-    "entity": {
-      "_template": "battle_area_polygon_point",
-      "transform": [
-        [1.0,0.0,0.0],
-        [0.0,1.0,0.0],
-        [0.0,0.0,1.0],
-        [157.808,68.8868,-188.216]
-      ],
-      "battle_area_polygon_point__id": "D",
-      "battle_area_polygon_point__nextId": "E",
-      "battle_area_polygon_point__forBattleAreaId": "area1"
-    }
-  },
-  {
-    "entity": {
-      "_template": "battle_area_polygon_point",
-      "transform": [
-        [1.0,0.0,0.0],
-        [0.0,1.0,0.0],
-        [0.0,0.0,1.0],
-        [87.0134,71.0725,-158.909]
-      ],
-      "battle_area_polygon_point__id": "E",
-      "battle_area_polygon_point__nextId": "F",
-      "battle_area_polygon_point__forBattleAreaId": "area1"
-    }
-  },
-  {
-    "entity": {
-      "_template": "battle_area_polygon_point",
-      "transform": [
-        [1.0,0.0,0.0],
-        [0.0,1.0,0.0],
-        [0.0,0.0,1.0],
-        [-168.091,68.7871,-154.312]
-      ],
-      "battle_area_polygon_point__id": "F",
-      "battle_area_polygon_point__nextId": "G",
-      "battle_area_polygon_point__forBattleAreaId": "area1"
-    }
-  },
-  {
-    "entity": {
-      "_template": "battle_area_polygon_point",
-      "transform": [
-        [1.0,0.0,0.0],
-        [0.0,1.0,0.0],
-        [0.0,0.0,1.0],
-        [-258.924,65.8819,-196.094]
-      ],
-      "battle_area_polygon_point__id": "G",
-      "battle_area_polygon_point__nextId": "H",
-      "battle_area_polygon_point__forBattleAreaId": "area1"
-    }
-  },
-  {
-    "entity": {
-      "_template": "battle_area_polygon_point",
-      "transform": [
-        [1.0,0.0,0.0],
-        [0.0,1.0,0.0],
-        [0.0,0.0,1.0],
-        [-223.518,69.7049,-394.398]
-      ],
-      "battle_area_polygon_point__id": "H",
-      "battle_area_polygon_point__nextId": "I",
-      "battle_area_polygon_point__forBattleAreaId": "area1"
-    }
-  },
-  {
-    "entity": {
-      "_template": "battle_area_polygon_point",
-      "transform": [
-        [1.0,0.0,0.0],
-        [0.0,1.0,0.0],
-        [0.0,0.0,1.0],
-        [-89.2955,70.3408,-339.356]
-      ],
-      "battle_area_polygon_point__id": "I",
-      "battle_area_polygon_point__nextId": "A",
-      "battle_area_polygon_point__forBattleAreaId": "area1"
-    }
-  },
-  {
-    "entity": {
-      "_template": "poly_battle_area",
-      "transform": [
-        [1.0,0.0,0.0],
-        [0.0,1.0,0.0],
-        [0.0,0.0,1.0],
-        [0.0,0.0,0.0]
-      ],
-      "battle_area__team": 2,
-      "battleAreaId": "area2"
-    }
-  },
-  {
-    "entity": {
-      "_template": "battle_area_polygon_point",
-      "transform": [
-        [1.0,0.0,0.0],
-        [0.0,1.0,0.0],
-        [0.0,0.0,1.0],
-        [-98.1181,71.604,-463.608]
-      ],
-      "battle_area_polygon_point__id": "A",
-      "battle_area_polygon_point__nextId": "B",
-      "battle_area_polygon_point__forBattleAreaId": "area2"
-    }
-  },
-  {
-    "entity": {
-      "_template": "battle_area_polygon_point",
-      "transform": [
-        [1.0,0.0,0.0],
-        [0.0,1.0,0.0],
-        [0.0,0.0,1.0],
-        [115.792,69.158,-467.895]
-      ],
-      "battle_area_polygon_point__id": "B",
-      "battle_area_polygon_point__nextId": "C",
-      "battle_area_polygon_point__forBattleAreaId": "area2"
-    }
-  },
-  {
-    "entity": {
-      "_template": "battle_area_polygon_point",
-      "transform": [
-        [1.0,0.0,0.0],
-        [0.0,1.0,0.0],
-        [0.0,0.0,1.0],
-        [160.832,66.9369,-410.186]
-      ],
-      "battle_area_polygon_point__id": "C",
-      "battle_area_polygon_point__nextId": "D",
-      "battle_area_polygon_point__forBattleAreaId": "area2"
-    }
-  },
-  {
-    "entity": {
-      "_template": "battle_area_polygon_point",
-      "transform": [
-        [1.0,0.0,0.0],
-        [0.0,1.0,0.0],
-        [0.0,0.0,1.0],
-        [159.601,68.8868,-270.715]
-      ],
-      "battle_area_polygon_point__id": "D",
-      "battle_area_polygon_point__nextId": "E",
-      "battle_area_polygon_point__forBattleAreaId": "area2"
-    }
-  },
-  {
-    "entity": {
-      "_template": "battle_area_polygon_point",
-      "transform": [
-        [1.0,0.0,0.0],
-        [0.0,1.0,0.0],
-        [0.0,0.0,1.0],
-        [19.94,71.0725,-267.973]
-      ],
-      "battle_area_polygon_point__id": "E",
-      "battle_area_polygon_point__nextId": "F",
-      "battle_area_polygon_point__forBattleAreaId": "area2"
-    }
-  },
-  {
-    "entity": {
-      "_template": "battle_area_polygon_point",
-      "transform": [
-        [1.0,0.0,0.0],
-        [0.0,1.0,0.0],
-        [0.0,0.0,1.0],
-        [-11.6618,68.7871,-251.999]
-      ],
-      "battle_area_polygon_point__id": "F",
-      "battle_area_polygon_point__nextId": "G",
-      "battle_area_polygon_point__forBattleAreaId": "area2"
-    }
-  },
-  {
-    "entity": {
-      "_template": "battle_area_polygon_point",
-      "transform": [
-        [1.0,0.0,0.0],
-        [0.0,1.0,0.0],
-        [0.0,0.0,1.0],
-        [-144.58,65.8819,-252.394]
-      ],
-      "battle_area_polygon_point__id": "G",
-      "battle_area_polygon_point__nextId": "H",
-      "battle_area_polygon_point__forBattleAreaId": "area2"
-    }
-  },
-  {
-    "entity": {
-      "_template": "battle_area_polygon_point",
-      "transform": [
-        [1.0,0.0,0.0],
-        [0.0,1.0,0.0],
-        [0.0,0.0,1.0],
-        [-242.155,69.7049,-289.798]
-      ],
-      "battle_area_polygon_point__id": "H",
-      "battle_area_polygon_point__nextId": "I",
-      "battle_area_polygon_point__forBattleAreaId": "area2"
-    }
-  },
-  {
-    "entity": {
-      "_template": "battle_area_polygon_point",
-      "transform": [
-        [1.0,0.0,0.0],
-        [0.0,1.0,0.0],
-        [0.0,0.0,1.0],
-        [-217.526,69.7049,-423.004]
-      ],
-      "battle_area_polygon_point__id": "I",
-      "battle_area_polygon_point__nextId": "A",
-      "battle_area_polygon_point__forBattleAreaId": "area2"
-    }
-  },
-  {
-    "entity": {
       "_template": "normandy_level",
       "level__blk": "content/enlisted/levels/normandy_beach_fortified_1x1.blk"
     }
@@ -861,24 +726,12 @@
   },
   {
     "entity": {
-      "_template": "aircraft_box_battle_area",
-      "transform": [
-        [11269.8,0.0,-1003.34],
-        [0.0,8000.03,0.0],
-        [1002.81,0.0,11269.8],
-        [-6.61504,240.916,-61.402]
-      ],
-      "battle_area__team": -1
-    }
-  },
-  {
-    "entity": {
       "_template": "resupply_for_ground_vehicle_zone",
       "transform": [
         [0.885256,0.0854253,0.457192],
         [-0.0759006,0.996345,-0.0391991],
         [0.45887,0.0,-0.888504],
-        [118.078,70.0507,-320.243]
+        [-168.411,71.2779,-339.128]
       ],
       "resupply_zone__team": 1
     }
@@ -914,7 +767,7 @@
         [0.206215,0.0854253,0.974771],
         [-0.0176807,0.996345,-0.0835757],
         [0.978348,0.0,-0.20697],
-        [-20.2651,66.9026,-431.997]
+        [-24.3492,66.9026,-431.38]
       ],
       "team": 2
     }

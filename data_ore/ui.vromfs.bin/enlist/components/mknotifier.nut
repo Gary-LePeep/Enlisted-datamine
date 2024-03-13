@@ -1,8 +1,6 @@
 from "%enlSqGlob/ui/ui_library.nut" import *
 
-let {
-  bigPadding, smallPadding, titleTxtColor
-} = require("%enlSqGlob/ui/viewConst.nut")
+let { smallPadding, titleTxtColor, midPadding } = require("%enlSqGlob/ui/designConst.nut")
 
 
 let mkNotifier = @(txt, customStyle = {}, bgStyle = {}, txtStyle = {}) {
@@ -18,7 +16,7 @@ let mkNotifier = @(txt, customStyle = {}, bgStyle = {}, txtStyle = {}) {
     }.__update(bgStyle)
     {
         rendObj = ROBJ_TEXTAREA
-        margin = [smallPadding, bigPadding]
+        margin = [smallPadding, midPadding]
         behavior = Behaviors.TextArea
         halign = ALIGN_CENTER
         color = titleTxtColor

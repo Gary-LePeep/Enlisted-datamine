@@ -2,7 +2,7 @@ from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontawesome } = require("%enlSqGlob/ui/fontsStyle.nut")
 let colors = require("%ui/style/colors.nut")
-let { bigGap, gap } = require("%enlSqGlob/ui/viewConst.nut")
+let { bigGap, gap } = require("%enlSqGlob/ui/designConst.nut")
 let scrollbar = require("%ui/components/scrollbar.nut")
 let fontIconButton = require("%ui/components/fontIconButton.nut")
 let textButton = require("%ui/components/textButton.nut")

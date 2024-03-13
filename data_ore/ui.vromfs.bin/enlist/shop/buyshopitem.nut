@@ -11,9 +11,6 @@ let { mkItemCurrency, mkCurrencyImage } = require("%enlist/shop/currencyComp.nut
 let { sound_play } = require("%dngscripts/sound_system.nut")
 let { HighlightFailure, MsgMarkedText, TextActive, textColor, TextHighlight
 } = require("%ui/style/colors.nut")
-let {
-  bigPadding, smallPadding, defTxtColor, commonBtnHeight
-} = require("%enlSqGlob/ui/viewConst.nut")
 let { viewShopInfoBtnStyle, DISCOUNT_WARN_TIME } = require("shopPkg.nut")
 let {
   barterShopItem, getBuyRequirementError, buyShopItem,
@@ -36,7 +33,9 @@ let { allActiveOffers } = require("%enlist/offers/offersState.nut")
 let squadsPresentation = require("%enlSqGlob/ui/squadsPresentation.nut")
 let { openBPwindow, getRewardIdx } = require("%enlist/battlepass/bpWindowState.nut")
 let { purchasesCount } = require("%enlist/meta/profile.nut")
-let { titleTxtColor, attentionTxtColor } = require("%enlSqGlob/ui/designConst.nut")
+let { titleTxtColor, attentionTxtColor, midPadding,
+  smallPadding, defTxtColor, commonBtnHeight
+} = require("%enlSqGlob/ui/designConst.nut")
 let { setAutoGroup } = require("%enlist/shop/shopState.nut")
 let { setCurSection } = require("%enlist/mainMenu/sectionsState.nut")
 let faComp = require("%ui/components/faComp.nut")
@@ -102,7 +101,7 @@ function mkResourcesLackInfo(reqResources, viewCurrs, costLocId, counts) {
   return {
     size = [fsh(50), SIZE_TO_CONTENT]
     flow = FLOW_VERTICAL
-    margin = bigPadding
+    margin = midPadding
     children = [
       {
         size = [flex(), SIZE_TO_CONTENT]
@@ -112,7 +111,7 @@ function mkResourcesLackInfo(reqResources, viewCurrs, costLocId, counts) {
           txt(loc("shop/notEnoughCurrency", { priceDiff = "" })).__update(failureTxtStyle)
           {
             flow = FLOW_HORIZONTAL
-            gap = bigPadding
+            gap = midPadding
             children = lackResources
           }
         ]
@@ -147,14 +146,14 @@ let currencyImage = @(currency) currency
 
 let mkAllPricesView = @(priceViews) {
   flow = FLOW_HORIZONTAL
-  gap = bigPadding
+  gap = midPadding
   valign = ALIGN_CENTER
   children = [
     txt(loc("shop/willCostYou")).__update(defTxtStyle)
     {
       flow = FLOW_HORIZONTAL
       gap = {
-        padding = bigPadding
+        padding = midPadding
         children = txt(loc("mainmenu/or")).__update(defTxtStyle)
       }
       valign = ALIGN_CENTER
@@ -393,7 +392,7 @@ function mkNoFreeSpace(requiredInfo, activatePremiumBttn){
 let canBuyWithGold = {
   size = [fsh(50), SIZE_TO_CONTENT]
   flow = FLOW_VERTICAL
-  margin = bigPadding
+  margin = midPadding
   children = [
     noteTextArea(loc("buy/forEnlistedGold")).__update({
       halign = ALIGN_CENTER
@@ -590,7 +589,7 @@ function buyItem(shopItem, productView = null, viewBtnCb = null, activatePremium
       margin = [defGap, 0, 0, 0]
       flow = FLOW_VERTICAL
       halign = ALIGN_CENTER
-      gap = bigPadding
+      gap = midPadding
       children = msgBody
     }
   }

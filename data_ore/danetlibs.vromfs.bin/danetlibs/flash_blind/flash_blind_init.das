@@ -14,7 +14,4 @@ def load_flash_blind(base_path : string) : bool
   return ok
 
 
-[export]
-def test()
-  let ok = load_flash_blind("%danetlibs/flash_blind")
-  assert(ok)
+

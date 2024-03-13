@@ -1,6 +1,8 @@
 require ecs
 require soundEvent
 require soundSystem
+require sound_utils_net.modules.sound_utils_net_events
+require DagorSystem
 
 
 [es(tag=sound, track=sound_control__soundEnabled, REQUIRE_NOT=watchableSoundEffect)]
@@ -75,3 +77,22 @@ def sound_effect_init(evt : Event;
     release_immediate(sound_effect__event.handle)
     if sound_effect__autoRange
       sound_control__range = 0.
+
+
+[es(tag=sound, on_appear)]
+def stealable_sound_effect_appear(evt : Event;
+                                  var stealable_sound_effect__groupIdx : int&;
+                                  stealable_sound_effect__groupName : string;
+                                  stealable_sound_effect__targetInstances : int;
+                                  stealable_sound_effect__fadeInOutSpeed : float)
+  stealable_sound_effect__groupIdx = create_event_instance_stealing_group(stealable_sound_effect__groupName, stealable_sound_effect__targetInstances, stealable_sound_effect__fadeInOutSpeed)
+  if stealable_sound_effect__groupIdx == -1
+    logerr("stealable_sound_effect__groupIdx for group '{stealable_sound_effect__groupName}' is not valid")
+
+
+[es(tag=sound, after=sound_begin_update_es, before=sound_end_update_es)]
+def stealable_sound_effect_update(evt : ParallelUpdateFrameDelayed;
+                                  stealable_sound_effect__groupIdx : int;
+                                  sound_effect__event : SoundEvent)
+  if is_valid(sound_effect__event.handle) && stealable_sound_effect__groupIdx >= 0
+    update_event_instance_stealing(sound_effect__event.handle, stealable_sound_effect__groupIdx, evt.dt)

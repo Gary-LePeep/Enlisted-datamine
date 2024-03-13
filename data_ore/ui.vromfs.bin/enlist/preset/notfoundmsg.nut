@@ -3,7 +3,7 @@ from "%enlSqGlob/ui/ui_library.nut" import *
 let { TextNormal, TextHover, textMargin
 } = require("%ui/components/textButton.style.nut")
 let { fontHeading2, fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
-let { bigPadding } = require("%enlSqGlob/ui/viewConst.nut")
+let { midPadding } = require("%enlSqGlob/ui/designConst.nut")
 let { HighlightFailure } = require("%ui/style/colors.nut")
 let { primaryFlatButtonStyle } = require("%enlSqGlob/ui/buttonsStyle.nut")
 let mkTextRow = require("%darg/helpers/mkTextRow.nut")
@@ -28,7 +28,7 @@ let JB = require("%ui/control/gui_buttons.nut")
 let mkCostInfo = @(price, fullPrice, currencyId) currencyId == null ? null
   : {
       flow = FLOW_VERTICAL
-      margin = [bigPadding, 0]
+      margin = [midPadding, 0]
       children = [
         {
           rendObj = ROBJ_TEXT
@@ -61,7 +61,7 @@ let mkNotFound = @(notFoundItems, unavailableItems, priceView, hasDiscountExpire
   children = [
     notFoundItems.len() == 0 ? null : {
       flow = FLOW_VERTICAL
-      gap = bigPadding
+      gap = midPadding
       children = [
         {
           rendObj = ROBJ_TEXT
@@ -87,7 +87,7 @@ let mkNotFound = @(notFoundItems, unavailableItems, priceView, hasDiscountExpire
 
     unavailableItems.len() == 0 ? null : {
       flow = FLOW_VERTICAL
-      margin = [bigPadding * 4, 0, 0, 0]
+      margin = [midPadding * 4, 0, 0, 0]
       children = [
         {
           rendObj = ROBJ_TEXT

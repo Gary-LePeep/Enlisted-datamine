@@ -44,6 +44,7 @@ let { getLinkedArmyName } = require("%enlSqGlob/ui/metalink.nut")
 let { curSoldierInfo } = require("%enlist/soldiers/model/curSoldiersState.nut")
 let { classSlotLocksByArmy } = require("%enlist/researches/researchesSummary.nut")
 let { curGrowthState, curGrowthProgress, GrowthStatus } = require("%enlist/growth/growthState.nut")
+let { updateArmoryIndex } = require("%enlist/soldiers/model/unseenWeaponry.nut")
 
 const SHOP_SECTION = "SHOP"
 
@@ -477,6 +478,7 @@ function barterShopItem(shopItem, payData, cb = null, count = 1) {
     purchaseInProgress(null)
     removeCrateContent(shopItem?.crates ?? [])
     shopOrdersUsedActivate()
+    updateArmoryIndex(res)
     cb?(res?.error == null)
   })
 }
@@ -504,6 +506,7 @@ function buyShopItem(shopItem, currencyId, price, cb = null, count = 1) {
   buy_shop_items(curArmy.value, shopItem.guid, currencyId, price, count, function(res) {
     purchaseInProgress(null)
     removeCrateContent(shopItem?.crates ?? [])
+    updateArmoryIndex(res)
     cb?(res?.error == null)
   })
 }

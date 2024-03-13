@@ -14,8 +14,8 @@ let cursors = require("%ui/style/cursors.nut")
 let tooltipBox = require("%ui/style/tooltipBox.nut")
 let colorize = require("%ui/components/colorize.nut")
 let {
-  bigPadding, defPanelBgColorVer_1, listCtors, defBgColor, hoverBgColor
-} = require("%enlSqGlob/ui/viewConst.nut")
+  midPadding, defPanelBgColorVer_1, listCtors, defBgColor, hoverBgColor
+} = require("%enlSqGlob/ui/designConst.nut")
 let { Flat } = require("%ui/components/textButton.nut")
 let { blur } = require("%enlist/soldiers/components/itemDetailsPkg.nut")
 let { viewVehCustSchemes } = require("%enlist/vehicles/customizeState.nut")
@@ -47,7 +47,7 @@ let hitcamButtonUi = @() {
         @() selectVehParams.mutate(@(v) v.isHitcamMode = true),
         {
           size = [flex(), SIZE_TO_CONTENT]
-          margin = [0,0,bigPadding,0]
+          margin = [0,0,midPadding,0]
         }
       )
 }
@@ -61,7 +61,7 @@ function mkCustomizeButton(curVehicle) {
         {
           hotkeys = [[ "^J:Start" ]]
           padding = [0, sh(9)]
-          margin = [0,0,bigPadding,0]
+          margin = [0,0,midPadding,0]
         })
 }
 
@@ -253,7 +253,7 @@ let dmViewerPanelUi = @() canUseDmViewer(viewVehicle.value) ? {
     size = SIZE_TO_CONTENT
     vplace = ALIGN_BOTTOM
     flow = FLOW_VERTICAL
-    gap = bigPadding
+    gap = midPadding
     children = [
       !isDebugMode.value || dmBlkPath.value == ""
         ? null
@@ -268,7 +268,7 @@ let dmViewerPanelUi = @() canUseDmViewer(viewVehicle.value) ? {
       @() blur({
         watch = [viewVehCustSchemes, dmViewerMode]
         hplace = ALIGN_CENTER
-        padding = bigPadding
+        padding = midPadding
         flow = FLOW_VERTICAL
         halign = ALIGN_CENTER
         children = [
@@ -278,7 +278,7 @@ let dmViewerPanelUi = @() canUseDmViewer(viewVehicle.value) ? {
           hitcamButtonUi
           {
             flow = FLOW_HORIZONTAL
-            margin = [0,0,bigPadding,0]
+            margin = [0,0,midPadding,0]
             valign = ALIGN_CENTER
             children = [
               mkHotkey("^J:LB", @() changeViewMods(-1))

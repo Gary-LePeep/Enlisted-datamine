@@ -1,7 +1,8 @@
 from "%enlSqGlob/ui/ui_library.nut" import *
+let ecs = require("%sqstd/ecs.nut")
 
-let {controlledVehicleEid} = require("%ui/hud/state/vehicle_state.nut")
-let {mainTurretEid} = require("%ui/hud/state/vehicle_turret_state.nut")
+let {controlledVehicleEid, inPlane} = require("%ui/hud/state/vehicle_state.nut")
+let {mainTurretEid, firstInputTurretEid} = require("%ui/hud/state/vehicle_turret_state.nut")
 
 let lineWidth = max(1.1, hdpx(1.2))
 let forbid = {
@@ -53,7 +54,17 @@ let aimNotPenetratedBlock = mkBlock("aimNotPenetrated", colorNotPenetrated)
 let aimIneffectiveBlock = mkBlock("aimIneffective", colorInEffective)
 let aimEffectiveBlock = mkBlock("aimEffective", colorEffective)
 let aimPossibleEffectiveBlock = mkBlock("aimPossibleEffective", colorPossibleEffective)
+let seatHideCrosshair = Watched(false)
 
+ecs.register_es("seat_crosshair_enbled_es",
+  {
+    [["onInit", "onChange"]] = @(_, comp) seatHideCrosshair(ecs.obsolete_dbg_get_comp_val(comp.human_vehicle__occupiedSeatEid, "seat__hideCrosshair") == null ? false : true)
+  },
+  {
+    comps_track = [["human_vehicle__occupiedSeatEid", ecs.TYPE_EID]]
+    comps_rq = ["hero"]
+  }
+)
 
 let forbidBlock = {
   size = flex()
@@ -75,9 +86,9 @@ function crosshair() {
     behavior = Behaviors.TurretCrosshair
     transform = {}
 
-    watch = [controlledVehicleEid, mainTurretEid]
+    watch = [controlledVehicleEid, inPlane, mainTurretEid, firstInputTurretEid]
     eid = controlledVehicleEid.value
-    turretEid = mainTurretEid.value
+    turretEid = inPlane.value ? firstInputTurretEid.value : mainTurretEid.value
 
     children = [
       forbidBlock
@@ -92,8 +103,9 @@ function crosshair() {
 
 function root() {
   return {
+    watch = seatHideCrosshair
     size = [sw(100), sh(100)]
-    children = crosshair
+    children = seatHideCrosshair.value ? null : crosshair
   }
 }
 

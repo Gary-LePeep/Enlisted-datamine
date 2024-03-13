@@ -16,7 +16,4 @@ def load_common_sounds(base_path : string) : bool
   return ok
 
 
-[export]
-def test()
-  let ok = load_common_sounds("%danetlibs/sound/common_sounds")
-  assert(ok)
+

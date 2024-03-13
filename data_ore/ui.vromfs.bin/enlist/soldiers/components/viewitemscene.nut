@@ -13,8 +13,8 @@ let {
   sceneWithCameraAdd, sceneWithCameraRemove
 } = require("%enlist/sceneWithCamera.nut")
 let {
-  bigPadding, smallPadding, blurBgColor, blurBgFillColor, unitSize
-} = require("%enlSqGlob/ui/viewConst.nut")
+  midPadding, smallPadding, blurBgColor, blurBgFillColor, unitSize
+} = require("%enlSqGlob/ui/designConst.nut")
 let { isGamepad } = require("%ui/control/active_controls.nut")
 let { curSelectedItem, changeCameraFov } = require("%enlist/showState.nut")
 let { mkClassCanUse } = require("%enlist/shop/shopPkg.nut")
@@ -32,7 +32,7 @@ let shopItemWidth = 9.0 * unitSize
 let mkItemContent = @(item) item == null ? null : @(){
   watch = [allItemTemplates, curArmy, selectedKey]
   size = [SIZE_TO_CONTENT, flex()]
-  padding = bigPadding
+  padding = midPadding
   rendObj = ROBJ_WORLD_BLUR_PANEL
   color = blurBgColor
   fillColor = blurBgFillColor

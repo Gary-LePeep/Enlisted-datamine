@@ -100,13 +100,22 @@
             "smokeScreen": false,
             "cameraNodeName": "bone_mg_aa_v",
             "cameraOffset": [-0.48,0.2,-0.07],
+            "copySkeletonNodesPostfix": "_gunner",
             "turretNames:array": {
               "turretNames": "turret_01"
             },
             "effectors:object": {
               "l.hand": "ik_hand_left_gunner",
               "r.hand": "ik_hand_right_gunner"
-            }
+            },
+            "copySkeletonNodesRecursive:array": [
+              {
+                "node": "Bip01 L Hand"
+              },
+              {
+                "node": "Bip01 R Hand"
+              }
+            ]
           }
         },
         {

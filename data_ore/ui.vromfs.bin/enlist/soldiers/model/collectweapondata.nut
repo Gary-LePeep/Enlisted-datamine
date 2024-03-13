@@ -20,6 +20,7 @@ let ITEM_DATA_FIELDS = {
   ["item__weight"] = TYPE_FLOAT,
   ["item__healAmount"] = TYPE_FLOAT,
   ["item__reviveAmount"] = TYPE_FLOAT,
+  ["item__repairAmount"] = TYPE_INT,
 }
 
 let ITEM_GUN_DATA_FIELDS = {

@@ -4,7 +4,7 @@
       "_use": "su_2_m82_base"
     },
     {
-      "_use": "squad_controlled_plane"
+      "_use": "plane_with_gunners"
     },
     {
       "_use": "su_2_m82_plane_sound"
@@ -85,10 +85,15 @@
               [8.74228e-08,0.0,-1.0],
               [0.0,0.0,0.0]
             ],
+            "cameraNodeName": "gun1",
+            "cameraOffset": [-0.2,0.15,0.0],
+            "cameraType": "gunner",
             "seatComponent": "isGunner",
+            "canPlaceManually": true,
             "receiveDamageFromDMPart": "gunner1_dm",
             "directTurretControl": true,
             "roomSpace": 1,
+            "shouldHideOwner": true,
             "turretNames:array": {
               "turret": "turret_11"
             }
@@ -879,16 +884,26 @@
       "turret__limit": [-105.0,105.0,-45.0,85.0]
     },
     {
-      "turret__yawSpeed": 100.0
+      "turret__yawSpeed": 500.0
     },
     {
-      "turret__pitchSpeed": 100.0
+      "turret__pitchSpeed": 500.0
+    },
+    {
+      "turret__lastRelativeDir": [-1.0,0.0,0.0]
     },
     {
       "turret__limitsTable:list<p4>": {
         "lim1": [-105.0,-50.0,-45.0,85.0],
         "lim2": [-50.0,50.0,0.0,85.0],
         "lim3": [50.0,105.0,-45.0,85.0]
+      }
+    },
+    {
+      "turret__limitsDeadzone:list<p4>": {
+        "lim0": [-3.0,3.0,-45.0,23.0],
+        "lim1": [-105.0,-98.0,-45.0,-6.0],
+        "lim2": [98.0,105.0,-45.0,-6.0]
       }
     }
   ],
@@ -918,10 +933,13 @@
       "turret__limit": [-5.0,45.0,-25.0,25.0]
     },
     {
-      "turret__yawSpeed": 100.0
+      "turret__yawSpeed": 500.0
     },
     {
-      "turret__pitchSpeed": 100.0
+      "turret__pitchSpeed": 500.0
+    },
+    {
+      "turret__lastRelativeDir": [-1.0,0.0,0.0]
     }
   ],
   "su_2_m82_driver_cockpit": {

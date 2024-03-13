@@ -3,20 +3,19 @@ from "%enlSqGlob/ui/ui_library.nut" import *
 let { fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let {round_by_value} = require("%sqstd/math.nut")
 let { blinkUnseenIcon } = require("%ui/components/unseenSignal.nut")
-let { Notifiers, markNotifierSeen } = require("%enlist/tutorial/notifierTutorial.nut")
 let { showMsgbox } = require("%enlist/components/msgbox.nut")
 let { markSeenUpgrades, curUnseenAvailableUpgrades, isUpgradeUsed
 } = require("model/unseenUpgrades.nut")
-let { defTxtColor, activeTxtColor, blurBgColor,
-  blurBgFillColor, unitSize, bigPadding, smallPadding, tinyOffset
-} = require("%enlSqGlob/ui/viewConst.nut")
-let { defLockedSlotBgColor } = require("%enlSqGlob/ui/designConst.nut")
+let { defLockedSlotBgColor, defTxtColor, activeTxtColor, blurBgColor,
+  blurBgFillColor, unitSize, midPadding, smallPadding, tinyOffset
+} = require("%enlSqGlob/ui/designConst.nut")
 let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
 let { isGamepad } = require("%ui/control/active_controls.nut")
 let { Flat, PrimaryFlat } = require("%ui/components/textButton.nut")
 let { Bordered } = require("%ui/components/txtButton.nut")
 let { makeVertScroll } = require("%ui/components/scrollbar.nut")
 let { statusIconCtor } = require("%enlSqGlob/ui/itemPkg.nut")
+let { ItemNotifiers } = require("components/itemComp.nut")
 let { mkItemDemands, mkItemListDemands } = require("model/mkItemDemands.nut")
 let { sceneWithCameraAdd, sceneWithCameraRemove } = require("%enlist/sceneWithCamera.nut")
 let { itemTypesInSlots } = require("model/all_items_templates.nut")
@@ -46,11 +45,10 @@ let { getSortedGrowthsByResearch } = require("%enlist/growth/growthState.nut")
 let { unequipItem, unequipBySlot } = require("%enlist/soldiers/unequipItem.nut")
 let { slotItems, otherSlotItems, prevItems, selectParams, selectParamsArmyId, curEquippedItem,
   viewItem, paramsForPrevItems, openSelectItem, trySelectNext, curInventoryItem, checkSelectItem,
-  selectItem, itemClear, selectNextSlot, selectPreviousSlot, unseenViewSlotTpls,
-  ItemCheckResult
+  selectItem, itemClear, markLastViewedSlot, selectNextSlot, selectPreviousSlot, ItemCheckResult
 } = require("model/selectItemState.nut")
+let { soldierSlotsTiersEquipped } = require("model/unseenWeaponry.nut")
 let { curSoldierInfo } = require("%enlist/soldiers/model/curSoldiersState.nut")
-let { markWeaponrySeen, markWeaponryListSeen } = require("model/unseenWeaponry.nut")
 let hoverHoldAction = require("%darg/helpers/hoverHoldAction.nut")
 let { openUpgradeItemMsg, openDisposeItemMsg } = require("components/modifyItemComp.nut")
 let { curArmySquadsUnlocks, scrollToCampaignLvl } = require("model/armyUnlocksState.nut")
@@ -85,28 +83,6 @@ let selectedKey = Watched(null)
 viewItem.subscribe(function(item) {
   selectedKey(getItemSelectKey(item))
   changeCameraFov(0)
-})
-
-let unseenWeaponTpls = {}
-
-function updateUnseenWeapon() {
-  let armyId = selectParamsArmyId.value
-  if (armyId == null)
-    return
-
-  markWeaponryListSeen(armyId, unseenWeaponTpls.keys())
-  unseenWeaponTpls.clear()
-
-  foreach (item in slotItems.value) {
-    let { basetpl = null } = item
-    if (basetpl in unseenViewSlotTpls.value) {
-      unseenWeaponTpls[basetpl] <- true
-    }
-  }
-}
-
-slotItems.subscribe(function(_) {
-  updateUnseenWeapon()
 })
 
 let selectedSlot = Computed(function() {
@@ -266,7 +242,7 @@ let mkItemsList = @(listWatch, itemParamsOverride) function() {
   let items = listWatch.value
   let ctorData = getCtorData(itemTypesInSlots.value, items?[0].itemtype)
   let { size, itemsInRow } = ctorData
-  let itemContainerWidth = itemsInRow * size[0] + (itemsInRow - 1) * bigPadding
+  let itemContainerWidth = itemsInRow * size[0] + (itemsInRow - 1) * midPadding
   return wrap(
     items.map(@(item) (getCtorData(itemTypesInSlots.value, item?.itemtype) ?? ctorData).ctor(item, itemParamsOverride)),
     { width = itemContainerWidth, hGap = smallPadding, vGap = smallPadding, hplace = ALIGN_CENTER }
@@ -311,11 +287,10 @@ let mkItemsGroupedList = kwarg(@(listWatch, overrideParams, newWatch, onlyNew = 
     let itemsDemands = itemsWithDemands.value
     let ctorData = getCtorData(itemTypesInSlots.value, itemsDemands?[0].item.itemtype)
     let { size, itemsInRow } = ctorData
-    let itemContainerWidth = itemsInRow * size[0] + (itemsInRow - 1) * bigPadding
+    let itemContainerWidth = itemsInRow * size[0] + (itemsInRow - 1) * midPadding
 
-    let isShowClassesHint = selectParams.value?.slotType == "primary"
-      || selectParams.value?.slotType == "secondary"
-
+    let { ownerGuid = null, slotType = null } = selectParams.value
+    let isShowClassesHint = slotType == "primary" || slotType == "secondary"
     let groupedItems = {}
     foreach (data in itemsDemands) {
       let { item, demands = "" } = data
@@ -329,21 +304,15 @@ let mkItemsGroupedList = kwarg(@(listWatch, overrideParams, newWatch, onlyNew = 
 
       let itemsList = groupedItems[demand].map(function(item) {
           let ctor = (getCtorData(itemTypesInSlots.value, item?.itemtype) ?? ctorData).ctor
-          let { basetpl = "" } = item
-          let isUnseen = Computed(@() basetpl in unseenViewSlotTpls.value)
+          let { tier = 0, isShopItem = false } = item
+          let notifierState = Computed(@() !isShopItem
+            && tier > (soldierSlotsTiersEquipped.value?[ownerGuid][slotType] ?? -1)
+              ? ItemNotifiers.BETTER_ITEM : ItemNotifiers.EMPTY)
           return ctor(item,
             overrideParams.__merge({
               isNew = onlyNew
-              hasUnseenSign = isUnseen
-              onHoverCb = hoverHoldAction("unseenSoldierItem", basetpl,
-                function(tpl) {
-                  let armyId = selectParamsArmyId.value
-                  if (isUnseen.value && armyId != null) {
-                    markNotifierSeen(Notifiers.ITEM)
-                    markWeaponrySeen(armyId, tpl)
-                  }
-                })
               isShowClassesHint
+              notifierState
             }))
         })
 
@@ -381,12 +350,12 @@ let otherListNewOnly = mkItemsGroupedList({
 let prevArmory = mkItemsList(prevItems, prevItemParams)
 
 function onBackAction() {
-  updateUnseenWeapon()
+  markLastViewedSlot()
   itemClear()
 }
 
 let backButton = Bordered(loc("mainmenu/btnBack"), onBackAction,
-  { margin = [0, bigPadding, 0, 0] })
+  { margin = [0, midPadding, 0, 0] })
 
 function mkChooseButtonUi(item) {
   return function() {
@@ -397,7 +366,7 @@ function mkChooseButtonUi(item) {
         || checkSelectItem(item) != null)
       return res
     return res.__update({
-      margin = [0, 0, 0, bigPadding]
+      margin = [0, 0, 0, midPadding]
       children = PrimaryFlat(
         loc("mainmenu/btnSelect"),
         @() selectItem(item),
@@ -425,7 +394,7 @@ function mkObtainButton(item) {
     let shopItem = shopItemsCmp.value?[0]
     return {
       watch = [demands, shopItemsCmp, isItemActionInProgress]
-      margin = [0, 0, 0, bigPadding]
+      margin = [0, 0, 0, midPadding]
       children = levelLimit != null ? Flat(loc("GoToArmyLeveling"),
           function() {
             scrollToCampaignLvl(item.unlocklevel)
@@ -479,7 +448,7 @@ function otherItemsBlock() {
 
 let mkItemsListBlock = @(children) {
   size = [SIZE_TO_CONTENT, flex()]
-  padding = [bigPadding, smallPadding]
+  padding = [midPadding, smallPadding]
   rendObj = ROBJ_WORLD_BLUR_PANEL
   color = blurBgColor
   fillColor = blurBgFillColor
@@ -575,7 +544,7 @@ function mkUpgradeBtn(item) {
       }
 
       return researchCb == null ? res : res.__update({
-        margin = [0, 0, 0, bigPadding]
+        margin = [0, 0, 0, midPadding]
         children = Flat(loc("btn/upgrade"), researchCb, {
           margin = 0
           cursor = normalTooltipTop
@@ -596,9 +565,9 @@ function mkUpgradeBtn(item) {
     } : {})
     return res.__update({
       flow = FLOW_VERTICAL
-      gap = bigPadding
+      gap = midPadding
       halign = ALIGN_CENTER
-      margin = [0, 0, 0, bigPadding]
+      margin = [0, 0, 0, midPadding]
       children = [
         upgradeMultInfo
         {
@@ -648,9 +617,9 @@ function mkDisposeBtn(item) {
     })
     return res.__update({
       flow = FLOW_VERTICAL
-      gap = bigPadding
+      gap = midPadding
       halign = ALIGN_CENTER
-      margin = [0, 0, 0, bigPadding]
+      margin = [0, 0, 0, midPadding]
       children = [
         disposeMultInfo
         Flat(loc(isRecyclable ? "btn/recycle" : isDestructible ? "btn/dispose" : "btn/downgrade"),
@@ -672,7 +641,7 @@ function mkDisposeBtn(item) {
 let waitingSpinnerUi = @() {
   watch = isItemActionInProgress
   size = [SIZE_TO_CONTENT, flex()]
-  margin = bigPadding
+  margin = midPadding
   children = isItemActionInProgress.value ? waitingSpinner : null
 }
 
@@ -710,7 +679,7 @@ let infoBlock = @() {
   flow = FLOW_VERTICAL
   valign = ALIGN_BOTTOM
   halign = ALIGN_RIGHT
-  gap = bigPadding
+  gap = midPadding
   children = [
     mkViewItemDetails(viewItem.value, isDetailsFull, fsh(80))
     mkDemandsInfo(viewItem.value)
@@ -850,7 +819,7 @@ let selectItemScene = @() {
       size = [flex(), SIZE_TO_CONTENT]
       flow = FLOW_HORIZONTAL
       valign = ALIGN_CENTER
-      margin = [bigPadding, 0]
+      margin = [midPadding, 0]
       watch = selectParamsArmyId
       children = [
         backButton

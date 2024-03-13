@@ -14,20 +14,19 @@ def register_upscale_tex_gen_node(var handle : NodeHandle& |#)
     registry |> orderMeAfter("prepare_lights_node")
     registry |> orderMeBefore("combine_shadows_node")
     registry |> read("gbuf_depth") |> texture |> atStage(Stage POST_RASTER) |> bindToShaderVar("depth_gbuf")
-    registry |> read("checkerboard_depth") |> texture |> atStage(Stage POST_RASTER) |> bindToShaderVar("downsampled_checkerboard_depth_tex")
+    registry |> read("checkerboard_depth") |> texture |> optional |> atStage(Stage POST_RASTER) |> bindToShaderVar("downsampled_checkerboard_depth_tex")
 
     let upscaleInfo = [[Texture2dCreateInfo
       creationFlags = TEXCF_RTARGET | TEXFMT_R8,
       resolution = [[TextureResolution autoRes=registry |> getResolution("main_view")]],
       mipLevels = 1u
     ]]
-    let upscaleTexReq = registry |> create("upscale_sampling_tex", History No) |> texture(upscaleInfo) |> bindToShaderVar
+    let upscaleTexReq = registry |> create("upscale_sampling_tex", History No) |> texture(upscaleInfo)
     registry |> requestRenderPass |> color([[auto[] upscaleTexReq]])
 
-    var upscaleTexHandle = upscaleTexReq |> handle
-    return <- @ <| [[ <- upscaleTexHandle]]
+    return <- @ <|
       query() <| $ [es] (upscale_shader : PostFxRenderer)
-        upscale_render(upscaleTexHandle |> view |> get_tex2d, upscale_shader)
+        upscale_shader |> render()
 
 [cpp_event(broadcast)]
 struct OnRenderSettingsReady {}

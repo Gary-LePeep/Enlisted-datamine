@@ -239,6 +239,7 @@ def respawner_es(info : UpdateStageInfoAct;
                  respawner__squad : EntityId = INVALID_ENTITY_ID;
                  respawner__paratroopersSquad : bool;
                  respawner__paratroopersChooserOn : bool;
+                 respawner__withoutVehicle : bool;
                  respawner__isFirstSpawn : bool)
   if !respawner__enabled
     return
@@ -394,7 +395,8 @@ def respawner_es(info : UpdateStageInfoAct;
             squadId=squadId,
             memberId=memberId,
             respawnGroupId=respawnGroupId,
-            existedVehicleEid=respawner__mobileRespawnEid
+            existedVehicleEid=respawner__mobileRespawnEid,
+            withoutVehicle=respawner__withoutVehicle
           ]])
 
     else
@@ -455,7 +457,8 @@ def respawn_req_es(evt : CmdRequestRespawn;
                    var respawner__respRequested : bool&;
                    var respawner__respRequestedSquadId : int&;
                    var respawner__respRequestedMemberId : int&;
-                   var respawner__paratroopersSquad : bool&)
+                   var respawner__paratroopersSquad : bool&;
+                   var respawner__withoutVehicle : bool&)
   let respRequestedSquadId = evt.squadId
   let respRequestedMemberId = evt.memberId
   let respawnGroupId = evt.spawnGroup
@@ -466,6 +469,7 @@ def respawn_req_es(evt : CmdRequestRespawn;
   respawner__respRequestedMemberId = respRequestedMemberId
   respawner__respawnGroupId = respawnGroupId
   respawner__paratroopersSquad = evt.isParatroopers
+  respawner__withoutVehicle = evt.withoutVehicle
 
 [es(tag=server)]
 def respawn_cancel_req_es(evt : CmdCancelRequestRespawn;
@@ -474,7 +478,8 @@ def respawn_cancel_req_es(evt : CmdCancelRequestRespawn;
                           var respawner__respRequested : bool&;
                           var respawner__respRequestedSquadId : int&;
                           var respawner__respRequestedMemberId : int&;
-                          var respawner__paratroopersSquad : bool&)
+                          var respawner__paratroopersSquad : bool&;
+                          var respawner__withoutVehicle : bool&)
   let respRequestedSquadId = evt.squadId
   let respRequestedMemberId = evt.memberId
   let respawnGroupId = evt.spawnGroup
@@ -484,6 +489,7 @@ def respawn_cancel_req_es(evt : CmdCancelRequestRespawn;
   respawner__respRequestedMemberId = respRequestedMemberId
   respawner__respawnGroupId = respawnGroupId
   respawner__paratroopersSquad = evt.isParatroopers
+  respawner__withoutVehicle = evt.withoutVehicle
 
 def get_squad_vehicle_type(player_eid : EntityId; squad_id : int)
   var res = ""
@@ -563,9 +569,9 @@ def respawner_select_random_squad(evt : Event; squad__ownerPlayer : EntityId)
             readySquads |> push(squadIdx)
 
     if empty(readyForcedSquads)
-      respawner__respRequestedSquadId = readySquads?[rnd_int(0, length(readySquads))] ?? 0
+      respawner__respRequestedSquadId = readySquads?[rnd_int(0, length(readySquads) - 1)] ?? 0
     else
-      respawner__respRequestedSquadId = readyForcedSquads?[rnd_int(0, length(readyForcedSquads))] ?? 0
+      respawner__respRequestedSquadId = readyForcedSquads?[rnd_int(0, length(readyForcedSquads) - 1)] ?? 0
 
 [es(tag=server, after=spawn_squad_es)]
 def turn_off_first_spawn_on_late_connected_players(evt : CmdSpawnEntityForPlayer;

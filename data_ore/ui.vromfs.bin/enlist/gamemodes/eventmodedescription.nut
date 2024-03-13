@@ -2,11 +2,11 @@ from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontSub, fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { selEvent, selLbMode, selEventEndTime, inactiveEventsToShow } = require("eventModesState.nut")
-let { isWide, bigPadding, accentTitleTxtColor, maxContentWidth, defTxtColor, smallPadding
-} = require("%enlSqGlob/ui/viewConst.nut")
 let { verticalGap, localPadding, localGap, armieChooseBlockWidth, eventBlockWidth
 } = require("eventModeStyle.nut")
-let { startBtnWidth, mkTimerIcon } = require("%enlSqGlob/ui/designConst.nut")
+let { startBtnWidth, mkTimerIcon, midPadding, isWide,
+  defTxtColor, smallPadding, maxContentWidth, accentTitleTxtColor
+} = require("%enlSqGlob/ui/designConst.nut")
 let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
 let { mkRewardImages, prepareRewards, mkRewardTooltip, rewardWidthToHeight, mkSeasonTime,
   mkRewardText
@@ -29,7 +29,7 @@ let imageHeight = hdpx(138)
 let imageSize   = [rewardWidthToHeight * imageHeight, imageHeight]
 let descritionBlockWidth = Computed(@()
   min(sw(100) - safeAreaBorders.value[1] - safeAreaBorders.value[3], maxContentWidth)
-  - armieChooseBlockWidth - startBtnWidth - eventBlockWidth - bigPadding * 3 - localPadding * 2)
+  - armieChooseBlockWidth - startBtnWidth - eventBlockWidth - midPadding * 3 - localPadding * 2)
 let isEnded = Computed(@() inactiveEventsToShow.value.contains(selEvent.value) &&
   (selEvent.value?.leaderboardTableIdx ?? curLbIdx.value) < curLbIdx.value )
 
@@ -65,9 +65,9 @@ function eventsTimer() {
 
   return res.__update({
     flow = FLOW_HORIZONTAL
-    padding = bigPadding
+    padding = midPadding
     vplace = ALIGN_BOTTOM
-    gap = bigPadding
+    gap = midPadding
     children = [
       {
         rendObj = ROBJ_TEXT
@@ -219,7 +219,7 @@ function mkTasksBlock(
         let rchildren = {
           flow = FLOW_VERTICAL
           halign = ALIGN_CENTER
-          gap = bigPadding
+          gap = midPadding
           children = [
             mkChild?(stage?.progress)
             {
@@ -311,7 +311,7 @@ function eventModeDescription() {
   return {
     watch = [descritionBlockWidth, selEvent]
     flow = FLOW_VERTICAL
-    gap = bigPadding
+    gap = midPadding
     size = [descritionBlockWidth.value, flex()]
     children = [
       {

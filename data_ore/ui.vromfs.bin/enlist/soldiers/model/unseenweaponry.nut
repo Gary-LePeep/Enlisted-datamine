@@ -1,113 +1,170 @@
 from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { settings, onlineSettingUpdated } = require("%enlist/options/onlineSettings.nut")
-let { curArmiesList, itemsByArmies, campItemsByLink } = require("%enlist/meta/profile.nut")
-let { chosenSquadsByArmy, armoryByArmy, soldiersBySquad, canChangeEquipmentInSlot } = require("state.nut")
+let { curArmiesList, itemsByArmies, campItemsByLink, curCampSoldiers
+} = require("%enlist/meta/profile.nut")
+let { chosenSquadsByArmy, armoryByArmy, soldiersBySquad, canChangeEquipmentInSlot
+} = require("state.nut")
 let { equipSchemesByArmy } = require("all_items_templates.nut")
 let { classSlotLocksByArmy } = require("%enlist/researches/researchesSummary.nut")
 let { debounce } = require("%sqstd/timers.nut")
+let { getLinkedArmyName } = require("%enlSqGlob/ui/metalink.nut")
+let { allItemTemplates, findItemTemplate } = require("%enlist/soldiers/model/all_items_templates.nut")
 let { trimUpgradeSuffix } = require("%enlSqGlob/ui/itemsInfo.nut")
 
-const SEEN_ID = "seen/weaponry"
+const WEAPONRY_SEEN_ID = "seen/weaponry" // DEPRECATED
+onlineSettingUpdated.subscribe(function(value) {
+  if (value && WEAPONRY_SEEN_ID in settings.value)
+    settings.mutate(@(v) v.$rawdelete(WEAPONRY_SEEN_ID))
+})
+
+const SEEN_ID = "seen/soldierSlots"
 let SLOTS = ["primary", "side", "secondary", "melee",
   "backpack", "grenade", "mine", "flask_usable", "binoculars_usable",
   "antitank", "flamethrower", "mortar"]
 let SLOTS_MAP = SLOTS.reduce(@(res, slotName) res.rawset(slotName, true), {})
 
-let seen = Computed(@() settings.value?[SEEN_ID]) //<armyId> = { <basetpl> = true }
+let seen = Computed(@() settings.value?[SEEN_ID]) //<soldierGuid> = { <slot> = tier }
+let betterWeaponrySoldier = Watched({})
 
-let unseenArmiesWeaponry = Watched({})
-let unseenSquadsWeaponry = Watched({})
-let unseenSoldiersWeaponry = Watched({})
+let reduceFn = function(result, value) {
+  result[value] <- true
+  return result
+}
 
-let notEquippedTiers = Computed(function() {
+// index for the itemtypes that need to be in the index
+let itemTypesForSlots = Computed(function() {
   let res = {}
   foreach (armyId in curArmiesList.value) {
-    let itemsList = armoryByArmy.value?[armyId] ?? []
-    let byTpl = {} //<basetpl> = <tier>
-    let byItemType = {} //<itemtype> = { <basetpl> = <tier> }
-    foreach (item in itemsList) {
-      if (item.basetpl in byTpl)
-        continue
-      let { basetpl, itemtype = "", tier = 0 } = item
-      byTpl[basetpl] <- tier
-      if (itemtype not in byItemType)
-        byItemType[itemtype] <- {}
-      byItemType[itemtype][basetpl] <- tier
-    }
-    res[armyId] <- { byTpl, byItemType }
-  }
-  return res
-})
-
-let unseenTiers = Computed(@() !onlineSettingUpdated.value ? {}
-  : notEquippedTiers.value.map(function(tiers, armyId) {
-    local { byTpl, byItemType } = tiers
-    let armySeen = seen.value?[armyId]
-    byTpl = byTpl.filter(@(_, basetpl) basetpl not in armySeen)
-    byItemType = byItemType
-      .map(@(tplList)
-        tplList.filter(@(_, basetpl) basetpl not in armySeen)
-          .reduce(@(res, tier) max(res, tier), -1))
-    return { byTpl, byItemType }
-  }))
-
-let unseenEquipSlotsTiers = Computed(@()
-  unseenTiers.value.map(function(tiers, armyId) {
-    let res = {} //<schemeId> = { <slotId> = <maxUnseenTier> }
-    let { byTpl, byItemType } = tiers
-    if (byTpl.len() == 0)
-      return res
-
-    foreach (schemeId, scheme in equipSchemesByArmy.value?[armyId] ?? {}) {
-      let unseenSlots = {}
+    let allItemtypes = {}
+    let allItems = {}
+    foreach (_, scheme in equipSchemesByArmy.value?[armyId] ?? {}) {
       foreach (slotId in SLOTS) {
         if (slotId not in scheme)
           continue
         let { itemTypes = [], items = [] } = scheme[slotId]
-        local maxTier = -1
-        foreach (iType in itemTypes)
-          maxTier = max(maxTier, byItemType?[iType] ?? -1)
-        foreach (tpl in items)
-          maxTier = max(maxTier, byTpl?[tpl] ?? -1)
-        if (maxTier >= 0)
-          unseenSlots[slotId] <- maxTier
+        allItemtypes.__update(itemTypes.reduce(reduceFn, {}))
+        allItems.__update(items.reduce(reduceFn, {}))
       }
-      if (unseenSlots.len() > 0)
-        res[schemeId] <- unseenSlots
     }
-    return res
-  }))
+    res[armyId] <- {
+      itemTypes = allItemtypes
+      items = allItems
+    }
+  }
+  return res
+})
+
+function bestTier(currentTier, slotConfig, byTpl, byItemType) {
+  let { itemTypes = [], items = [] } = slotConfig
+
+  foreach (itemType in itemTypes) {
+    let tiers = byItemType?[itemType].len() ?? -1
+    local maxTier = -1
+    for (local i = tiers - 1; i >= 0; i--)
+      if ((byItemType?[itemType][i].len() ?? 0) > 0) {
+        maxTier = i
+        break
+      }
+    if (maxTier > currentTier)
+      return maxTier
+  }
+
+  foreach (basetpl in items) {
+    if (basetpl not in byTpl)
+      continue
+    let maxTier = byTpl[basetpl].reduce(@(res, value) res = max(res, value), -1)
+    if (maxTier > currentTier)
+      return maxTier
+  }
+
+  return currentTier
+}
+
+function addArmoryItemToIndex(item, armyId, byTpl, byItemType) {
+  let { guid, basetpl } = item
+  let { itemtype = "", tier = 0 } = findItemTemplate(allItemTemplates, armyId, basetpl)
+  // do not add irrelevant items
+  let itemsToIndex = itemTypesForSlots.value?[armyId]
+  let tpl = trimUpgradeSuffix(basetpl)
+  if (itemtype not in itemsToIndex?.itemTypes && tpl not in itemsToIndex?.items)
+    return
+
+  if (tpl not in byTpl)
+    byTpl[tpl] <- {}
+  byTpl[tpl][guid] <- tier
+
+  let length = tier + 1
+  let itemTypeList = byItemType?[itemtype] ?? array(length) // array of item count indexed by tier
+  if (itemTypeList.len() < length)
+    itemTypeList.resize(length)
+
+  if (itemTypeList[tier] == null)
+    itemTypeList[tier] = {}
+  itemTypeList[tier][guid] <- true
+  byItemType[itemtype] <- itemTypeList
+}
+
+function removeArmoryItemFromIndex(item, armyId, byTpl, byItemType) {
+  let { guid, basetpl } = item
+  let { itemtype, tier = 0 } = findItemTemplate(allItemTemplates, armyId, basetpl)
+
+  let tpl = trimUpgradeSuffix(basetpl)
+  byTpl?[tpl].$rawdelete(guid)
+  byItemType?[itemtype][tier].$rawdelete(guid)
+}
+
+function removeGuids(guidsToRemove, armyCache) {
+  let { byTpl = {}, byItemType = {} } = armyCache
+  local removedSuccess = false
+
+  foreach (baseTpl, guidsTbl in byTpl) {
+    let newTbl = guidsTbl.filter(@(_, guid) guid not in guidsToRemove)
+    if (newTbl.len() != guidsTbl.len()) {
+      byTpl[baseTpl] = newTbl
+      removedSuccess = true
+    }
+  }
+
+  foreach (tiers in byItemType)
+    foreach (idx, guidsTbl in tiers) {
+      if (guidsTbl == null)
+        continue
+      let newTbl = guidsTbl.filter(@(_, guid) guid not in guidsToRemove)
+      if (newTbl.len() != guidsTbl.len()) {
+        tiers[idx] = newTbl
+        removedSuccess = true
+      }
+    }
+  return removedSuccess
+}
+
+let inventoryTiersCache = Watched({})
+function createIndex() {
+  foreach (armyId in curArmiesList.value) {
+    let byItemType = {} // { itemtype = [ null null { guid = true } ] }. index in the array = item tier
+    let byTpl = {} // { basetpl = { guid = tier } }
+
+    foreach (item in (armoryByArmy.value?[armyId] ?? []))
+      addArmoryItemToIndex(item, armyId, byTpl, byItemType)
+
+    inventoryTiersCache.mutate(@(value) value[armyId] <- { byTpl, byItemType })
+  }
+}
 
 let slotsLinkTiers = Computed(function() {
   let res = {}
   let itemsList = itemsByArmies.value
   foreach (armyId in curArmiesList.value) {
-    res[armyId] <- {}
     foreach (item in itemsList?[armyId] ?? {}) {
-      if ("tier" not in item)
-        continue
+      let tier = item?.tier ?? 0
       foreach (linkTo, linkSlot in item.links)
         if (linkSlot in SLOTS_MAP) {
-          if (linkTo not in res[armyId])
-            res[armyId][linkTo] <- {}
-          let slotsTiers = res[armyId][linkTo]
-          slotsTiers[linkSlot] <- linkSlot in slotsTiers ? min(slotsTiers[linkSlot], item.tier) : item.tier
+          if (linkTo not in res)
+            res[linkTo] <- {}
+          let slotsTiers = res[linkTo]
+          slotsTiers[linkSlot] <- linkSlot in slotsTiers ? min(slotsTiers[linkSlot], tier) : tier
         }
-    }
-  }
-  return res
-})
-
-let unseenUpgradesByWeapon = Computed(function() {
-  let res = {}
-  foreach (armyId, data in unseenTiers.value) {
-    res[armyId] <- {}
-    foreach (weaponTpl, _unseenTier in data.byTpl) {
-      let basicTpl = trimUpgradeSuffix(weaponTpl)
-      if (basicTpl not in res[armyId])
-        res[armyId][basicTpl] <- {}
-      res[armyId][basicTpl][weaponTpl] <- true
     }
   }
   return res
@@ -123,128 +180,202 @@ function getSoldierFixedWeapon(soldierGuid) {
 }
 
 function recalcUnseen() {
-  let unseenArmies = {}
-  let unseenSquads = {}
-  let unseenSoldiers = {}
+  let markedSoldiers = {}
 
-  foreach (armyId, schemes in unseenEquipSlotsTiers.value) {
-    unseenArmies[armyId] <- 0
-    let armyLinkTiers = slotsLinkTiers.value?[armyId]
+  foreach (armyId in curArmiesList.value) {
     let classLocks = classSlotLocksByArmy.value?[armyId]
+    let equipSchemes = equipSchemesByArmy.value?[armyId]
+    let { byTpl = {}, byItemType = {} } = inventoryTiersCache.value?[armyId]
+
     foreach (squad in chosenSquadsByArmy.value?[armyId] ?? []) {
-      local unseenSoldiersCount = 0
       foreach (soldier in soldiersBySquad.value?[squad.guid] ?? []) {
-        let unseenSlots = schemes?[soldier?.equipSchemeId]
-        if (unseenSlots == null)
+        let scheme = equipSchemes?[soldier?.equipSchemeId]
+        let fixedWeapon = getSoldierFixedWeapon(soldier.guid)
+
+        let betterSlots = {}
+        foreach (slotId in SLOTS) {
+          if (slotId not in scheme)
+            continue
+
+          if ((fixedWeapon.len() > 0 && (slotId in fixedWeapon))
+              || (classLocks?[soldier?.sClass] ?? []).contains(slotId)
+              || !canChangeEquipmentInSlot(soldier?.sClass, slotId))
+            continue
+
+          let equippedTier = slotsLinkTiers.value?[soldier.guid][slotId] ?? -1 // -1 for empty
+          let tier = bestTier(equippedTier, scheme?[slotId], byTpl, byItemType)
+
+          if (tier > equippedTier)
+            betterSlots[slotId] <- equippedTier
+        }
+        if (betterSlots.len() > 0)
+          markedSoldiers[soldier.guid] <- betterSlots
+      }
+    }
+  }
+  betterWeaponrySoldier(markedSoldiers)
+}
+
+let recalcUnseenDebounced = debounce(recalcUnseen, 0.01)
+foreach (v in [seen, chosenSquadsByArmy,
+    soldiersBySquad, classSlotLocksByArmy, inventoryTiersCache])
+  v.subscribe(@(_) recalcUnseenDebounced())
+// no subscription to slotsLinkTiers because it changes together with inventoryTiersCache
+
+itemTypesForSlots.subscribe(function(value) {
+  if (value.len() > 0)
+    createIndex() // when data is ready
+})
+
+// create index and recalc unseen after script reload
+createIndex()
+recalcUnseen()
+
+function clearSeenSlot(item) {
+  let armyId = getLinkedArmyName(item)
+  let { basetpl } = item
+  let { itemtype, tier = 0 } = findItemTemplate(allItemTemplates, armyId, basetpl)
+  let tpl = trimUpgradeSuffix(basetpl)
+
+  settings.mutate(function(value) {
+    if (SEEN_ID not in value)
+      value[SEEN_ID] <- {}
+
+    let equipSchemes = equipSchemesByArmy.value?[armyId]
+    foreach (squad in chosenSquadsByArmy.value?[armyId] ?? [])
+      foreach (soldier in soldiersBySquad.value?[squad.guid] ?? []) {
+
+        let scheme = equipSchemes?[soldier?.equipSchemeId]
+        if (scheme == null || soldier.guid not in value[SEEN_ID])
           continue
 
         let fixedWeapon = getSoldierFixedWeapon(soldier.guid)
         let hasFixedWeapon = fixedWeapon.len() > 0
-        let unseenSoldier = {}
-        foreach (slotId, tier in unseenSlots) {
-          if (hasFixedWeapon && (slotId in fixedWeapon))
+        let soldierData = value[SEEN_ID]?[soldier.guid] ?? {}
+
+        foreach (slotType, slotData in scheme) {
+          if (slotType not in soldierData || (hasFixedWeapon && (slotType in fixedWeapon)))
             continue
 
-          if (tier > (armyLinkTiers?[soldier.guid][slotId] ?? -1)
-              && !(classLocks?[soldier?.sClass] ?? []).contains(slotId)
-              && canChangeEquipmentInSlot(soldier?.sClass, slotId))
-            unseenSoldier[slotId] <- true
+          let { itemTypes = [], items = [] } = slotData
+          if (itemTypes.contains(itemtype) || items.contains(tpl)) {
+            if (soldierData[slotType] <= tier)
+              soldierData.$rawdelete(slotType)
+            break
+          }
         }
-        if (unseenSoldier.len() == 0)
-          continue
-
-        unseenSoldiersCount++
-        unseenArmies[armyId]++
-        unseenSoldiers[soldier.guid] <- unseenSoldier
+        value[SEEN_ID][soldier.guid] <- soldierData
       }
-      unseenSquads[squad.guid] <- unseenSoldiersCount
-    }
-  }
-
-  unseenArmiesWeaponry(unseenArmies)
-  unseenSquadsWeaponry(unseenSquads)
-  unseenSoldiersWeaponry(unseenSoldiers)
-}
-recalcUnseen()
-let recalcUnseenDebounced = debounce(recalcUnseen, 0.01)
-unseenEquipSlotsTiers.subscribe(@(_) recalcUnseenDebounced())
-chosenSquadsByArmy.subscribe(@(_) recalcUnseenDebounced())
-soldiersBySquad.subscribe(@(_) recalcUnseenDebounced())
-slotsLinkTiers.subscribe(@(_) recalcUnseenDebounced())
-classSlotLocksByArmy.subscribe(@(_) recalcUnseenDebounced())
-
-function markWeaponrySeen(armyId, basetpl) {
-  if (!onlineSettingUpdated.value || (seen.value?[armyId][basetpl] ?? false))
-    return
-
-  settings.mutate(function(set) {
-    let saved = clone (set?[SEEN_ID] ?? {})
-    let armySaved = clone (saved?[armyId] ?? {})
-    armySaved[basetpl] <- true
-    saved[armyId] <- armySaved
-    set[SEEN_ID] <- saved
   })
 }
 
-function markWeaponryListSeen(armyId, basetpls) {
-  if (!onlineSettingUpdated.value)
+function markSeenSlot(armyId, ownerGuid, slotType) {
+  let soldier = curCampSoldiers.value?[ownerGuid]
+  if (soldier == null)
     return
 
-  let armySaved = clone settings.value?[SEEN_ID][armyId] ?? {}
-  let lastCount = armySaved.len()
-  basetpls.each(@(tpl) armySaved[tpl] <- true)
-  if (lastCount == armySaved.len())
+  let scheme = equipSchemesByArmy.value?[armyId][soldier?.equipSchemeId]
+
+  let { byTpl = {}, byItemType = {} } = inventoryTiersCache.value?[armyId]
+  let tierFromInventory = bestTier(-1, scheme?[slotType], byTpl, byItemType)
+  if (tierFromInventory == (settings.value?[SEEN_ID][ownerGuid][slotType] ?? -1))
     return
 
-  settings.mutate(function(set) {
-    let saved = clone (set?[SEEN_ID] ?? {})
-    saved[armyId] <- armySaved
-    set[SEEN_ID] <- saved
+  settings.mutate(function(value) {
+    let seenTbl = clone value?[SEEN_ID] ?? {}
+    let soldierData = clone seenTbl?[ownerGuid] ?? {}
+    seenTbl[ownerGuid] <- soldierData
+    soldierData[slotType] <- tierFromInventory
+    value[SEEN_ID] <- seenTbl
   })
 }
 
-function markNotFreeWeaponryUnseen() {
-  let seenData = seen.value ?? {}
-  if (seenData.len() == 0)
-    return false
+function markInventorySlotsSeen() {
+  settings.mutate(function(value) {
+    if (SEEN_ID not in value)
+      value[SEEN_ID] <- {}
 
-  local hasChanges = false
-  let newSeen = clone seenData
-  foreach (armyId, tiers in notEquippedTiers.value) {
-    if (armyId not in newSeen)
-      continue
+    foreach (armyId in curArmiesList.value) {
+      let equipSchemes = equipSchemesByArmy.value?[armyId]
 
-    let { byTpl } = tiers
-    let armySeen = newSeen[armyId].filter(@(_, tpl) tpl in byTpl)
-    if (armySeen.len() < newSeen[armyId].len()) {
-      newSeen[armyId] = armySeen
-      hasChanges = true
+      foreach (squad in chosenSquadsByArmy.value?[armyId] ?? [])
+        foreach (soldier in soldiersBySquad.value?[squad.guid] ?? []) {
+
+          let scheme = equipSchemes?[soldier?.equipSchemeId]
+          if (scheme == null)
+            continue
+
+          let fixedWeapon = getSoldierFixedWeapon(soldier.guid)
+          let hasFixedWeapon = fixedWeapon.len() > 0
+          let soldierData = value[SEEN_ID]?[soldier.guid] ?? {}
+
+          foreach (slotType, _ in scheme) {
+            if (hasFixedWeapon && (slotType in fixedWeapon))
+              continue
+
+            let equippedTier = slotsLinkTiers.value?[soldier.guid][slotType] ?? -1
+            soldierData[slotType] <- equippedTier
+          }
+          value[SEEN_ID][soldier.guid] <- soldierData
+        }
     }
-  }
-
-  if (hasChanges)
-    settings.mutate(@(set) set[SEEN_ID] <- newSeen)
-  return hasChanges
+  })
 }
 
-local needIgnoreSelfUpdateUnseen = false
-unseenSoldiersWeaponry.subscribe(function(_) {
-  if (!onlineSettingUpdated.value || itemsByArmies.value.len() == 0)
+function resetSeen() {
+  settings.mutate(function(value) {
+    value.$rawdelete(SEEN_ID)
+  })
+}
+
+console_register_command(markInventorySlotsSeen, "meta.markSeenSlots")
+console_register_command(resetSeen, "meta.resetSeenSlots")
+console_register_command(createIndex, "meta.indexInventory")
+console_register_command(recalcUnseen, "meta.recalcUnseen")
+console_register_command(@() debugTableData(seen.value), "meta.printSavedSeenSlots")
+
+function itemOperation(item, fn) {
+  let armyId = getLinkedArmyName(item)
+  let { byTpl = {}, byItemType = {} } = inventoryTiersCache.value?[armyId]
+  fn(item, armyId, byTpl, byItemType)
+}
+
+function updateArmoryIndex(result) {
+  foreach (_, item in result?.items ?? {}) {
+    if (item.links.len() == 1) { // not equipped
+      itemOperation(item, addArmoryItemToIndex)
+      clearSeenSlot(item)
+    } else
+      itemOperation(item, removeArmoryItemFromIndex)
+  }
+
+  let guidsToRemove = (result?.removed.items ?? []).reduce(reduceFn, {})
+  if (guidsToRemove.len() == 0)
     return
-  if (needIgnoreSelfUpdateUnseen)
-    needIgnoreSelfUpdateUnseen = false
-  else
-    needIgnoreSelfUpdateUnseen = markNotFreeWeaponryUnseen()
+
+  foreach (tiersCache in inventoryTiersCache.value)
+    if (removeGuids(guidsToRemove, tiersCache))
+      break
+}
+
+let soldiersUpgradeAlerts = Computed(function() {
+  let res = {}
+  foreach (soldierGuid, slotData in betterWeaponrySoldier.value) {
+    foreach (slotType, _ in slotData) {
+      if (slotType not in seen.value?[soldierGuid]) {
+        res[soldierGuid] <- true
+        break
+      }
+    }
+  }
+  return res
 })
 
 return {
-  unseenTiers
-  unseenArmiesWeaponry
-  unseenSquadsWeaponry
-  unseenSoldiersWeaponry
-  unseenUpgradesByWeapon
-
-  markWeaponrySeen
-  markWeaponryListSeen
-  markNotFreeWeaponryUnseen
+  betterWeaponrySoldier
+  markSeenSlot
+  soldierSlotsTiersEquipped = slotsLinkTiers
+  soldierSeenSlots = seen
+  soldiersUpgradeAlerts
+  updateArmoryIndex
 }

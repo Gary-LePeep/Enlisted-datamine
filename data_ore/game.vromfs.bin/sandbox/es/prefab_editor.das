@@ -246,6 +246,13 @@ def prefab_select_parent_es(evt : Event; prefab__parentId : int)
     entity_object_editor_selectEntity(eid, true/*selected*/)
     return true
 
+[es(on_event=PrefabSelectObjectsEvent)]
+def prefab_select_objects_es(evt : Event; eid : EntityId; prefab__id : int)
+  query() <| $ [es] (eid : EntityId; prefab__parentId : int)
+    if prefab__id == prefab__parentId
+      entity_object_editor_selectEntity(eid, true/*selected*/)
+  entity_object_editor_selectEntity(eid, false/*selected*/)
+
 [es(on_event=EditorOnInitClonedEntity)]
 def on_prefab_clone_es(evt : Event; eid : EntityId; var prefab__id : int&)
   let oldPrefabId = prefab__id

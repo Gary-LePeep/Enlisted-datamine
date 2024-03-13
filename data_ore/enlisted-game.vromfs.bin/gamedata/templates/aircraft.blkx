@@ -1010,6 +1010,9 @@
         "_tracked": "fuelTanksFire"
       },
       {
+        "_tracked": "plane__seatNext"
+      },
+      {
         "stick_pusher_enabled": false
       },
       {
@@ -1265,6 +1268,9 @@
         "plane_cutting__finsFrontCuttingPlane": [0.0,0.0,0.0,-1.0]
       },
       {
+        "plane__seatNext": -1
+      },
+      {
         "setup_on_ground__setupMaxHeight": 2000.0
       },
       {
@@ -1292,12 +1298,6 @@
       },
       {
         "phys__inverseOmega:tag": []
-      },
-      {
-        "hasTurretCrosshair:b": {
-          "_tags": "gameClient",
-          "value": false
-        }
       },
       {
         "_group": {

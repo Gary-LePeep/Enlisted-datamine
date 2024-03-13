@@ -145,12 +145,18 @@ let paratroopersPointSelectorOn = Computed(@()
 
 isParatroopersSquad.subscribe(@(v) paratroopersPointSelectorRequested(v))
 
+let spawnWithoutVehicleAvailable = Computed(@() armyData.value?.squads[squadIndexForSpawn.value]?.spawnWithoutVehicleAvailable ?? false)
+let spawnWithoutVehicleRequested = Watched(false)
+
 let canUseRespawnbaseByType = Computed(function() {
+  if (spawnWithoutVehicleAvailable.value && spawnWithoutVehicleRequested.value)
+    return "human"
   let templ = vehicleInfo.value?.gametemplate
   let HUMAN = paratroopersPointSelectorOn.value ? "paratroopers" : "human"
   if (templ==null)
     return HUMAN
-  return get_can_use_respawnbase_type(vehicleInfo.value.gametemplate)?.canUseRespawnbaseType ?? HUMAN
+  let baseType = get_can_use_respawnbase_type(vehicleInfo.value.gametemplate)?.canUseRespawnbaseType ?? HUMAN
+  return baseType
 })
 
 let currentRespawnGroup = Computed(@()
@@ -176,17 +182,23 @@ function requestRespawn() {
   let spawnGroup = currentRespawnGroup.value
   let memberId = squadMemberIdForSpawn.value
   let curSpawnSquadId = spawnSquadId.value
+  let isParatroopers = paratroopersOn.value
+  let withoutVehicle = spawnWithoutVehicleRequested.value
   setSpawnedSquads((curSpawnedSquads.value ?? {}).__merge({ [curSpawnSquadId] = true }))
   logHR($"Request respawn, respawnerEid {respawnerEid.value}, squadId {squadId}, memberId {memberId}")
-  sendNetEvent(respawnerEid.value, CmdRequestRespawn({ squadId = squadId, memberId = memberId, spawnGroup = spawnGroup, isParatroopers = paratroopersOn.value }))
+  sendNetEvent(respawnerEid.value, CmdRequestRespawn({ squadId = squadId, memberId = memberId,
+    spawnGroup = spawnGroup, isParatroopers = isParatroopers, withoutVehicle = withoutVehicle }))
 }
 
 function cancelRequestRespawn() {
   let squadId = squadIndexForSpawn.value
   let memberId = squadMemberIdForSpawn.value
   let spawnGroup = queueRespawnGroupId.value
-  logHR($"Request cancel respawn, respawnerEid {respawnerEid.value}, squadId {squadId}, memberId {memberId}")
-  sendNetEvent(respawnerEid.value, CmdCancelRequestRespawn({ squadId = squadId, memberId = memberId, spawnGroup = spawnGroup, isParatroopers = paratroopersOn.value }))
+  let isParatroopers = paratroopersOn.value
+  let withoutVehicle = spawnWithoutVehicleRequested.value
+  logHR($"Request cancel respawn, respawnerEid {respawnerEid.value}, squadId {squadId}, memberId {memberId}, paratroopers {isParatroopers}, without vehicle {withoutVehicle}")
+  sendNetEvent(respawnerEid.value, CmdCancelRequestRespawn({ squadId = squadId, memberId = memberId,
+    spawnGroup = spawnGroup, isParatroopers = isParatroopers, withoutVehicle = withoutVehicle }))
   queuedRespawnGroupId(queueRespawnGroupId.value)
 }
 
@@ -522,6 +534,8 @@ let state = {
   paratroopersOn
   isParatroopersSquad
   paratroopersPointSelectorRequested
+  spawnWithoutVehicleAvailable
+  spawnWithoutVehicleRequested
 }
 
 let debugSpawn = mkWatched(persist,"debugSpawn")

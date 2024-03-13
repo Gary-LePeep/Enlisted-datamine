@@ -4,12 +4,10 @@ let exclamation = require("%enlist/components/exclamation.nut")
 let { doesLocTextExist } = require("dagor.localize")
 let { fontSub, fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { bgColor, txtColor } = require("profilePkg.nut")
-let { bigPadding, smallPadding, smallOffset, defTxtColor
-} = require("%enlSqGlob/ui/viewConst.nut")
+let { midPadding, smallPadding, smallOffset, defTxtColor, darkTxtColor, disabledTxtColor
+} = require("%enlSqGlob/ui/designConst.nut")
 let { smallUnseenNoBlink } = require("%ui/components/unseenComps.nut")
 let { staticSeasonBPIcon } = require("%enlist/battlepass/battlePassPkg.nut")
-let { darkTxtColor, disabledTxtColor } = require("%enlSqGlob/ui/designConst.nut")
-
 
 let wpSize = hdpxi(190)
 let wpHeaderWidth = hdpxi(150)
@@ -42,7 +40,7 @@ let mkWpRow = @(locId, rowTitleText, txtStyle, isEmptyHidden = false, sf = 0)
     ? {
         size = [flex(), SIZE_TO_CONTENT]
         flow = FLOW_HORIZONTAL
-        gap = bigPadding
+        gap = midPadding
         valign = ALIGN_CENTER
         children = [
           mkTitleColumn(rowTitleText, sf)
@@ -56,7 +54,7 @@ function mkWpBottomRow(wallposter, sf) {
   return {
     size = [flex(), SIZE_TO_CONTENT]
     flow = FLOW_HORIZONTAL
-    gap = bigPadding
+    gap = midPadding
     children = [
       {
         size = [wpHeaderWidth, SIZE_TO_CONTENT]
@@ -105,13 +103,13 @@ function mkWallposter(wallposter, sf = 0, isUnseen = false) {
       {
         rendObj = ROBJ_SOLID
         size = flex()
-        padding = bigPadding
+        padding = midPadding
         color = bgColor(sf)
         children = [
           {
             size = [flex(), SIZE_TO_CONTENT]
             flow = FLOW_VERTICAL
-            gap = bigPadding
+            gap = midPadding
             children = [
               mkWpRow(nameLocId, loc("wp/name"), fontBody, false, sf)
               { size = [flex(), smallOffset] }
@@ -133,8 +131,8 @@ function makeBigWpImage(wallposter, onClick) {
   return {
     size = flex()
     flow = FLOW_VERTICAL
-    gap = bigPadding
-    padding = bigPadding
+    gap = midPadding
+    padding = midPadding
     halign = ALIGN_CENTER
     behavior = Behaviors.Button
     onClick

@@ -185,6 +185,9 @@
               "isHoldGunModeAllowed": false
             },
             {
+              "useHatchEffectors": true
+            },
+            {
               "hatchNodes:array": {
                 "node": "bone_camera_gunner"
               }
@@ -196,8 +199,24 @@
             },
             {
               "effectors:object": {
-                "r.hand": "righthand_1",
-                "l.hand": "lefthand_1"
+                "l.hand:object": {
+                  "rel_tm": [
+                    [0.26408,-0.646078,0.716132],
+                    [0.727063,0.621221,0.292341],
+                    [-0.633751,0.443471,0.633793],
+                    [0.0228424,0.0833435,-0.0886765]
+                  ],
+                  "node": "lefthand_1"
+                },
+                "r.hand:object": {
+                  "rel_tm": [
+                    [0.457711,-0.881906,0.112879],
+                    [-0.574756,-0.196626,0.794352],
+                    [-0.678348,-0.428461,-0.596878],
+                    [-0.159882,-0.51265,-0.175163]
+                  ],
+                  "node": "righthand_1"
+                }
               }
             }
           ]

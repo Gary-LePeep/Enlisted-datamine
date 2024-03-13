@@ -6,7 +6,7 @@ let getPayItemsData = require("%enlist/soldiers/model/getPayItemsData.nut")
 
 let { curArmy, curCampItems } = require("%enlist/soldiers/model/state.nut")
 let { isGamepad } = require("%ui/control/active_controls.nut")
-let { airSelectedBgColor } = require("%enlSqGlob/ui/viewConst.nut")
+let { airSelectedBgColor } = require("%enlSqGlob/ui/designConst.nut")
 let { mkHorizontalSlot } = require("%enlist/soldiers/chooseSquadsSlots.nut")
 let { jumpToArmyGrowth } = require("%enlist/mainMenu/sectionsState.nut")
 let { isInSquad } = require("%enlist/squad/squadManager.nut")

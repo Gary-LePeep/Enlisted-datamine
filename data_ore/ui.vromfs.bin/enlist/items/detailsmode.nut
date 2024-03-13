@@ -3,7 +3,7 @@ from "%enlSqGlob/ui/ui_library.nut" import *
 let checkbox = require("%ui/components/checkbox.nut")
 let localSettings = require("%enlist/options/localSettings.nut")("quickMatch/")
 let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
-let { titleTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
+let { titleTxtColor } = require("%enlSqGlob/ui/designConst.nut")
 
 
 let isDetailsFull = localSettings(false, "isDetailsFull")

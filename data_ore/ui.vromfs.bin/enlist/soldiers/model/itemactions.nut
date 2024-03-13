@@ -5,6 +5,7 @@ let {
 } = require("%enlist/meta/clientApi.nut")
 let { isChangesBlocked, showBlockedChangesMessage } = require("%enlist/quickMatchQueue.nut")
 let { updateBROnItemChange } = require("%enlist/soldiers/armySquadTier.nut")
+let { updateArmoryIndex } = require("%enlist/soldiers/model/unseenWeaponry.nut")
 
 let isItemActionInProgress = Watched(false)
 
@@ -12,6 +13,7 @@ let mkActionCb = @(cb, soldierGuid = null) function(res) {
   isItemActionInProgress(false)
   if (soldierGuid != null)
     updateBROnItemChange(soldierGuid)
+  updateArmoryIndex(res)
   cb?(res)
 }
 

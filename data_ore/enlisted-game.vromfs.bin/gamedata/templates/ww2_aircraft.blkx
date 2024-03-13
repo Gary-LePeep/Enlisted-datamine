@@ -1289,7 +1289,11 @@
               [-1.50996e-07,0.0,-1.0],
               [0.0,0.0,0.0]
             ],
+            "cameraNodeName": "gun1",
+            "cameraOffset": [-0.459,0.1,0.0],
+            "cameraType": "gunner",
             "seatComponent": "isGunner",
+            "canPlaceManually": true,
             "receiveDamageFromDMPart": "gunner2_dm",
             "directTurretControl": true,
             "roomSpace": 1,
@@ -1383,7 +1387,11 @@
               [-1.50996e-07,0.0,-1.0],
               [0.0,0.0,0.0]
             ],
+            "cameraNodeName": "gun1",
+            "cameraOffset": [-0.459,0.1,0.0],
+            "cameraType": "gunner",
             "seatComponent": "isGunner",
+            "canPlaceManually": true,
             "receiveDamageFromDMPart": "gunner2_dm",
             "directTurretControl": true,
             "roomSpace": 1,
@@ -1476,7 +1484,11 @@
               [-1.50996e-07,0.0,-1.0],
               [0.0,0.0,0.0]
             ],
+            "cameraNodeName": "gun1",
+            "cameraOffset": [-0.459,0.1,0.0],
+            "cameraType": "gunner",
             "seatComponent": "isGunner",
+            "canPlaceManually": true,
             "receiveDamageFromDMPart": "gunner2_dm",
             "directTurretControl": true,
             "roomSpace": 1,
@@ -1568,7 +1580,9 @@
             "paramMaxPitchAngle": "turret1_max_pitch_angle",
             "curPitchParamName": "gun1_pitch",
             "curYawParamName": "turret1_yaw",
-            "paramMinYawAngle": "turret1_min_yaw_angle"
+            "paramMinYawAngle": "turret1_min_yaw_angle",
+            "curWorldPitchParamName": "gun1_world_pitch",
+            "curWorldYawParamName": "turret1_world_yaw"
           }
         },
         {
@@ -1857,7 +1871,11 @@
               [8.74228e-08,0.0,-1.0],
               [0.0,0.0,0.0]
             ],
+            "cameraNodeName": "gun1",
+            "cameraOffset": [-0.4,0.1,0.0],
+            "cameraType": "gunner",
             "seatComponent": "isGunner",
+            "canPlaceManually": true,
             "receiveDamageFromDMPart": "gunner1_dm",
             "directTurretControl": true,
             "roomSpace": 1,
@@ -2687,7 +2705,11 @@
               [1.50996e-07,0.0,-1.0],
               [0.0,0.0,0.0]
             ],
+            "cameraNodeName": "gun1",
+            "cameraOffset": [-0.12,0.11,0.0],
+            "cameraType": "gunner",
             "seatComponent": "isGunner",
+            "canPlaceManually": true,
             "receiveDamageFromDMPart": "gunner2_dm",
             "directTurretControl": true,
             "roomSpace": 1,
@@ -2983,7 +3005,11 @@
               [2.10479e-07,0.0,-1.0],
               [0.0,0.0,0.0]
             ],
+            "cameraNodeName": "gun3",
+            "cameraOffset": [0.12,0.0,0.1],
+            "cameraType": "gunner",
             "seatComponent": "isGunner",
+            "canPlaceManually": true,
             "receiveDamageFromDMPart": "gunner3_dm",
             "directTurretControl": true,
             "roomSpace": 3,
@@ -3107,10 +3133,15 @@
               [1.58151e-06,0.0,-1.0],
               [0.0,0.0,0.0]
             ],
+            "cameraNodeName": "gun1",
+            "cameraOffset": [0.19,0.08,0.0],
+            "cameraType": "gunner",
             "seatComponent": "isGunner",
+            "canPlaceManually": true,
             "receiveDamageFromDMPart": "gunner1_dm",
             "directTurretControl": true,
             "roomSpace": 1,
+            "shouldHideOwner": true,
             "turretNames:array": [
               {
                 "turret": "turret_05"
@@ -3796,7 +3827,11 @@
               [1.50996e-07,0.0,-1.0],
               [0.15,0.0,0.0]
             ],
+            "cameraNodeName": "gun1",
+            "cameraOffset": [-0.2,0.141,-0.001],
+            "cameraType": "gunner",
             "seatComponent": "isGunner",
+            "canPlaceManually": true,
             "receiveDamageFromDMPart": "gunner1_dm",
             "directTurretControl": true,
             "roomSpace": 1,
@@ -3881,7 +3916,9 @@
             "paramMaxPitchAngle": "turret1_max_pitch_angle",
             "curPitchParamName": "gun1_pitch",
             "curYawParamName": "turret1_yaw",
-            "paramMinYawAngle": "turret1_min_yaw_angle"
+            "paramMinYawAngle": "turret1_min_yaw_angle",
+            "curWorldPitchParamName": "gun1_world_pitch",
+            "curWorldYawParamName": "turret1_world_yaw"
           }
         },
         {
@@ -4331,10 +4368,15 @@
               [-1.50996e-07,0.0,-1.0],
               [0.0,0.0,0.0]
             ],
+            "cameraNodeName": "gun1",
+            "cameraOffset": [-0.18,0.38,-0.2],
+            "cameraType": "gunner",
             "seatComponent": "isGunner",
+            "canPlaceManually": true,
             "receiveDamageFromDMPart": "gunner1_dm",
             "directTurretControl": true,
             "roomSpace": 1,
+            "shouldHideOwner": true,
             "turretNames:array": {
               "turret": "turret_05"
             }
@@ -6054,6 +6096,12 @@
         "plane_sight": {
           "_tags": "render"
         }
+      },
+      {
+        "plane__savedThrottleValue:r": {
+          "_tags": "gameClient",
+          "value": -1.0
+        }
       }
     ]
   },
@@ -6078,6 +6126,22 @@
       "cockpit__isHeroInCockpit:b": {
         "_tags": "gameClient",
         "value": false
+      }
+    }
+  },
+  {
+    "plane_with_gunners": {
+      "_use": "squad_controlled_plane",
+      "commanderFpsCamMaxAngle": [15.0,15.0],
+      "vehicle_seats__canAcquireControls:shared:object": {
+        "driver:object": {
+          "movement": true,
+          "turrets": true
+        },
+        "main_gunner:object": {
+          "turrets": true,
+          "movement": true
+        }
       }
     }
   },

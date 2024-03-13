@@ -3,10 +3,9 @@ from "createEventRoomState.nut" import *
 
 let { fontSub, fontBody, fontHeading2 } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { logerr } = require("dagor.debug")
-let { blurBgColor, defInsideBgColor, blurBgFillColor, smallOffset, isWide
-} = require("%enlSqGlob/ui/viewConst.nut")
 let { bigPadding, defTxtColor, smallPadding, titleTxtColor, brightAccentColor, darkTxtColor,
-  midPadding, maxContentWidth, selectedPanelBgColor
+  midPadding, maxContentWidth, selectedPanelBgColor, blurBgFillColor, smallOffset,
+  isWide, defInsideBgColor, blurBgColor
   } = require("%enlSqGlob/ui/designConst.nut")
 let { chooseRandom } = require("%sqstd/rand.nut")
 let {addModalWindow, removeModalWindow} = require("%ui/components/modalWindows.nut")

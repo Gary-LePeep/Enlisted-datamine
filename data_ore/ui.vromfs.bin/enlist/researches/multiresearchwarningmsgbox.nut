@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
-let { defTxtColor, titleTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
+let { defTxtColor, titleTxtColor } = require("%enlSqGlob/ui/designConst.nut")
 let { MsgMarkedText } = require("%ui/style/colors.nut")
 let { showMessageWithContent } = require("%enlist/components/msgbox.nut")
 let colorize = require("%ui/components/colorize.nut")

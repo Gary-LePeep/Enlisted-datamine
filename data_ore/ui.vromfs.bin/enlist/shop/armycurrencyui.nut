@@ -11,7 +11,7 @@ let { currencyPresentation, ticketGroups, getCurrencyPresentation
 } = require("currencyPresentation.nut")
 let { setAutoGroup } = require("%enlist/shop/shopState.nut")
 let { curGrowthFreeExp } = require("%enlist/growth/growthState.nut")
-let { bigPadding, warningColor, bonusColor, defTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
+let { midPadding, warningColor, bonusColor, defTxtColor } = require("%enlSqGlob/ui/designConst.nut")
 
 
 let isInShop = Computed(@() curSection.value == "SHOP" || isItemsShopOpened.value)
@@ -171,7 +171,7 @@ let mkCurrencyUi = @(currencyWatch, filter = @(v) v) {
       minHeight = SIZE_TO_CONTENT
       flow = FLOW_HORIZONTAL
       halign = ALIGN_RIGHT
-      gap = bigPadding
+      gap = midPadding
       children = mkArmyCurrency(
         currencyWatch.value,
         filter(currencyPresentation),
@@ -200,7 +200,7 @@ let freeExpUi = @() {
     : {
         flow = FLOW_HORIZONTAL
         valign = ALIGN_CENTER
-        gap = bigPadding
+        gap = midPadding
         children = [
           mkExpIcon(freeExpIconSize)
           {

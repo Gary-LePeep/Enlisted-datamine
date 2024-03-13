@@ -43,7 +43,7 @@ let lscenes = flatten(scenesFolders.map(@(root) scan_folder({root, vromfs = !use
 
 settings.savedSceneId <- localSettings("", "scene")
 let game = Watched(matchingGameName)
-let scenes = Computed(@() lscenes)
+let scenes = WatchedRo(lscenes)
 let scene = Watched(scenes.value
   .findvalue(@(s) s.id == settings.savedSceneId.value) ?? scenes.value?[0])
 

@@ -15,7 +15,4 @@ def load_hero_cockpit(base_path : string) : bool
   return ok
 
 
-[export]
-def test()
-  let ok = load_hero_cockpit("%danetlibs/hero_cockpit")
-  assert(ok)
+

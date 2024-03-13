@@ -1,8 +1,8 @@
 from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontHeading1, fontHeading2, fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
-let { bigPadding, titleTxtColor, defTxtColor, maxContentWidth, accentTitleTxtColor, commonBtnHeight
-} = require("%enlSqGlob/ui/viewConst.nut")
+let { midPadding, titleTxtColor, defTxtColor, maxContentWidth, accentTitleTxtColor, commonBtnHeight
+} = require("%enlSqGlob/ui/designConst.nut")
 let { shopItemContentArrayCtor } = require("%enlist/shop/armyShopState.nut")
 let closeBtnBase = require("%ui/components/closeBtn.nut")
 let { mkHeaderFlag, primeFlagStyle } = require("%enlSqGlob/ui/mkHeaderFlag.nut")
@@ -75,13 +75,13 @@ let wndHeader = mkHeaderFlag(
 let headerWndBlock = {
   size = [flex(), SIZE_TO_CONTENT]
   flow = FLOW_VERTICAL
-  gap = bigPadding
+  gap = midPadding
   children = [
     wndHeader
     @() {
       watch = starterPack
       rendObj = ROBJ_TEXT
-      padding = bigPadding
+      padding = midPadding
       text = loc(starterPack.value?.nameLocId)
     }.__update(defTxtStyle)
   ]
@@ -108,7 +108,7 @@ function accountFeatures() {
       {
         size = [flex(), SIZE_TO_CONTENT]
         flow = FLOW_HORIZONTAL
-        gap = bigPadding
+        gap = midPadding
         children = [
           mkCurrencyImg(enlistedGold, iconSize)
           premiumImage(iconSize)
@@ -118,7 +118,7 @@ function accountFeatures() {
         watch = starterPack
         size = [flex(), SIZE_TO_CONTENT]
         flow = FLOW_VERTICAL
-        gap = bigPadding
+        gap = midPadding
         children = [
           currencyText
           premiumText(starterPack.value?.premiumDays ?? 0)
@@ -133,7 +133,7 @@ function accountFeatures() {
 let mkSClassRow = @(sClass, soldierRareMin, tier) @() {
   watch = sClassesCfg
   flow = FLOW_HORIZONTAL
-  gap = bigPadding
+  gap = midPadding
   valign = ALIGN_CENTER
   children = [
     kindIcon(sClassesCfg.value?[sClass].kind ?? sClass, defTxtStyle.fontSize,
@@ -188,7 +188,7 @@ function mkSoldierInfo(crate) {
 let mkItemRow = @(item) {
   size = [flex(), SIZE_TO_CONTENT]
   flow = FLOW_HORIZONTAL
-  gap = bigPadding
+  gap = midPadding
   valign = ALIGN_CENTER
   children = [
     itemTypeIcon(item?.itemtype, item?.itemsubtype)
@@ -221,7 +221,7 @@ let itemsInfo = @(crate) (crate == null || (crate?.content.items ?? {}).len() ==
       {
         size = [flex(), SIZE_TO_CONTENT]
         flow = FLOW_VERTICAL
-        gap = bigPadding
+        gap = midPadding
         children
       }
     ]
@@ -263,7 +263,7 @@ let mkCrateWeapon = @(crate) function() {
     size = [weaponBlockSize[0], SIZE_TO_CONTENT]
     flow = FLOW_HORIZONTAL
     gap = {
-      padding = bigPadding
+      padding = midPadding
       vplace = ALIGN_CENTER
       children = cratePlusSign
     }
@@ -276,7 +276,7 @@ let mkCrateWeapon = @(crate) function() {
       return {
         size = [flex(), SIZE_TO_CONTENT]
         flow = FLOW_VERTICAL
-        gap = bigPadding
+        gap = midPadding
         halign = ALIGN_CENTER
         children = [
           watchElemState(@(sf){

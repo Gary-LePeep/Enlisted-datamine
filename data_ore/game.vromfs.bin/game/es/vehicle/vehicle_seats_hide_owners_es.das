@@ -4,6 +4,7 @@ require vehicle
 require PhysVars
 require game.utils.hero
 require game.es.vehicle.vehicle_seats_common
+require enlisted.events_enlisted
 require ecs.safe
 
 [es(on_appear)]
@@ -17,12 +18,14 @@ def vehicle_seats_hide_owner_init_es(evt : Event;
     vehicle_seats_hide_owner[seatNo] = get_bool(seat, "shouldHideOwner") ?? false
 
 
-[es(no_order, tag=server, REQUIRE=isInVehicle)]
-def vehicle_seats_hide_owners_es(info : UpdateStageInfoAct;
+[es(tag=server, REQUIRE=isInVehicle, after=vehicle_seats_hatch_es)]
+def vehicle_seats_hide_owners_es(info : ParallelUpdateFrameDelayed;
                                  eid : EntityId;
                                  human_anim__vehicleSelected : EntityId;
                                  var isInVehicleHidden : bool&)
-  ecs::query(human_anim__vehicleSelected) <| $ [es] (vehicle_seats__seatEids : EidList; vehicle_seats_hide_owner : BoolList)
+  ecs::query(human_anim__vehicleSelected) <| $ [es] (vehicle_seats__seatEids : EidList;
+                                                     vehicle_seats_hide_owner : BoolList;
+                                                     isCrewHiddenByTurret : bool = false)
     let seatNo = find_seat_with_owner(eid, vehicle_seats__seatEids)
     if seatNo < 0
       return
@@ -32,7 +35,7 @@ def vehicle_seats_hide_owners_es(info : UpdateStageInfoAct;
       let isHatchClosed = hasHatch && seats_hatch_nodes__openPos <= 0.f
       let isPlayer = seat__isPlayer
       let canHide = !isPlayer || !hasHatch || isHatchClosed
-      isInVehicleHidden = canHide && vehicle_seats_hide_owner[seatNo]
+      isInVehicleHidden = canHide && (vehicle_seats_hide_owner[seatNo] || isCrewHiddenByTurret)
 
 [es(tag=render, REQUIRE=hero, on_appear, track=vehicleCameraType)]
 def vehicle_seats_hide_owners_local(evt : Event;
@@ -54,3 +57,12 @@ def vehicle_seats_hide_owners_local(evt : Event;
 [es(tag=render, REQUIRE=hero, on_disappear)]
 def vehicle_seats_show_owners_local_on_disapper(evt : Event; var isInVehicleHiddenLocal : bool&)
   isInVehicleHiddenLocal = false
+
+[es(tag=server)]
+def hide_soldiers_in_tank_with_rotated_hatch(info : ParallelUpdateFrameDelayed;
+                                             turret__curPitchVarId : int;
+                                             turret__owner : EntityId;
+                                             turret__minPitchForHideCrew : float)
+  query(turret__owner) <| $ [es] (phys_vars : PhysVars; var isCrewHiddenByTurret : bool&)
+    if turret__curPitchVarId >= 0
+      isCrewHiddenByTurret = getVar(phys_vars, turret__curPitchVarId) > turret__minPitchForHideCrew

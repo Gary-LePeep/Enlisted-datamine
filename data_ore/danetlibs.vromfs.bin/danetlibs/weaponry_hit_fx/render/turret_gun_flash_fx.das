@@ -10,7 +10,6 @@ require AnimV20
 require GeomNodeTree
 require DaWeapons
 require DagorSystem
-require enlisted.events_enlisted
 require danetlibs.weaponry_hit_fx.main.physmat_fx_common
 require PhysMat
 require Dacoll
@@ -199,8 +198,8 @@ def spawn_dust_fx(fx_name : string; animchar : AnimcharBaseComponent; node_ids :
       set(init, "transform", dustTm)
 
 
-[soa_es, es(tag=render, before=clear_gun_launch_events_es, after=after_guns_update_sync)]
-def turret_gun_fx_inserter_es(info : ParallelUpdateFrameDelayed;
+[soa_es, es(tag=render, on_event=ParallelUpdateFrameDelayed, before=clear_gun_launch_events_es, after=after_guns_update_sync)]
+def turret_gun_fx_inserter_es(info : Event;
                               eid : EntityId;
                               animchar : AnimcharBaseComponent;
                               turretGunFx : TurretGunFx_SOA;
@@ -227,7 +226,7 @@ def turret_gun_fx_inserter_es(info : ParallelUpdateFrameDelayed;
         tm = tm * get_mult_tm(fxScale ?? 1.0)
 
         createEntity(add_sub_template_name(string(gunFx.turret_gun_fx__fxTemplate),
-            "turret_gun_flash_fx")) <| $(var init : ComponentsInitializer)
+            "autodelete_effect_entity")) <| $(var init : ComponentsInitializer)
           set(init, "transform", tm)
           set(init, "gun_fx__ownerEid", eid)
           set(init, "gun_fx__nodeId", gunFx.turret_gun_fx__nodeId)

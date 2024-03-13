@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui/ui_library.nut" import *
 
-let { airHoverBgColor } = require("%enlSqGlob/ui/viewConst.nut")
+let { airHoverBgColor } = require("%enlSqGlob/ui/designConst.nut")
 
 let animChild = @(size, color, animations = []){
   rendObj = ROBJ_SOLID

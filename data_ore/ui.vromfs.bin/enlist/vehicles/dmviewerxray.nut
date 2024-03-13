@@ -5,7 +5,7 @@ let regexp2 = require("regexp2")
 let DataBlock = require("DataBlock")
 let colorize = require("%ui/components/colorize.nut")
 let { doesLocTextExist } = require("dagor.localize")
-let { activeTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
+let { activeTxtColor } = require("%enlSqGlob/ui/designConst.nut")
 let { floatToStringRounded, utf8ToLower } = require("%sqstd/string.nut")
 
 let rePartNameEnding = regexp2(@"(_l|_r)?(_\d+)?$")

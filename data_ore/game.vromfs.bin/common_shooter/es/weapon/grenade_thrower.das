@@ -89,6 +89,11 @@ def grenade_thrower_phys_es(evt : CmdWeapPhysUpdate;
         // grenade_thrower.throwProgress isn't guaranteed to reach exactly 1.0 because of floating point errors
         verify(grenade_thrower.throwProgress <= 1.0)
         grenade_thrower.state = GrenadeThrowState GTS_READY
+        if human_weap__quickThrowLastWeaponSlot >= 0
+          human_net_phys.phys.producedCT |> set_chosen_weapon(HUWeaponSlots(human_weap__quickThrowLastWeaponSlot))
+          if human_net_phys.phys.producedCT.chosenWeapon != HUWeaponSlots EWS_GRENADE //if fast throwing and grenade is not a selected weapon
+            human_weap__throwMode = false
+          human_weap__quickThrowLastWeaponSlot = -1
       else
         // Throw in progress
         // grenade_thrower.progress goes from 0.5 to 1.0
@@ -124,12 +129,6 @@ def grenade_thrower_phys_es(evt : CmdWeapPhysUpdate;
 
     let rndSeed = phys_time_to_seed(atTime)
     sendEventImmediate(eid, [[CmdGunUpdate atTime=atTime, isForReal=isForReal, seed=rndSeed, gctrl=gctrl, gloc=gloc]])
-
-    if isThrow && human_weap__quickThrowLastWeaponSlot >= 0
-      human_net_phys.phys.producedCT |> set_chosen_weapon(HUWeaponSlots(human_weap__quickThrowLastWeaponSlot))
-      if human_net_phys.phys.producedCT.chosenWeapon != HUWeaponSlots EWS_GRENADE //if fast throwing and grenade is not a selected weapon
-        human_weap__throwMode = false
-      human_weap__quickThrowLastWeaponSlot = -1
 
 [es(on_appear)]
 def grenade_thrower_shoot_node_init(evt : Event;

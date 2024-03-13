@@ -380,6 +380,9 @@
               "seatAnimLower": "drive_passenger"
             },
             {
+              "useHatchEffectors": true
+            },
+            {
               "loaderTurretNames:array": {
                 "turret": "turret_01"
               }
@@ -396,10 +399,24 @@
             },
             {
               "effectors:object": {
-                "r.hand": "righthand_3",
-                "l.hand": "lefthand_3",
-                "r.foot": "pedal_rfoot_3",
-                "l.foot": "pedal_lfoot_3"
+                "l.hand:object": {
+                  "rel_tm": [
+                    [-0.306155,-0.536364,0.786501],
+                    [0.736305,0.390267,0.552763],
+                    [-0.603427,0.748335,0.275445],
+                    [-0.173843,-0.147774,0.00358009]
+                  ],
+                  "node": "lefthand_3"
+                },
+                "r.hand:object": {
+                  "rel_tm": [
+                    [0.815284,-0.551699,0.175898],
+                    [0.431819,0.37686,-0.819456],
+                    [0.385804,0.744046,0.545482],
+                    [0.321884,-0.229332,0.314795]
+                  ],
+                  "node": "righthand_3"
+                }
               }
             }
           ]
@@ -532,6 +549,8 @@
     "_use": "base_commander_cockpit_no_slits",
     "animchar__res": "t_26_1940_commander_char",
     "cockpit__offset": [-0.0,0.0,0.0],
+    "cockpit__minForwardOffset": -0.05,
+    "cockpit__slitTransitionDuration": 0.0,
     "cockpit__cockpitOffsetBySlit:list<p3>": {
       "item": [-0.211148,0.338931,-0.273436]
     },

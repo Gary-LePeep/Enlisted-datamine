@@ -4,7 +4,7 @@
       "_use": "breda_88_base"
     },
     {
-      "_use": "squad_controlled_plane"
+      "_use": "plane_with_gunners"
     },
     {
       "_use": "breda_88_plane_sound"
@@ -73,7 +73,11 @@
               [-1.50996e-07,0.0,-1.0],
               [0.0,0.0,0.0]
             ],
+            "cameraNodeName": "gun1",
+            "cameraOffset": [-0.38,0.085,0.001],
+            "cameraType": "gunner",
             "seatComponent": "isGunner",
+            "canPlaceManually": true,
             "receiveDamageFromDMPart": "gunner1_dm",
             "directTurretControl": true,
             "roomSpace": 1,
@@ -162,6 +166,8 @@
             "wishYawParamName": "gun1_aim:targetYaw",
             "paramMaxPitchAngle": "turret1_max_pitch_angle",
             "curPitchParamName": "gun1_pitch",
+            "curWorldPitchParamName": "gun1_world_pitch",
+            "curWorldYawParamName": "turret1_world_yaw",
             "curYawParamName": "turret1_yaw",
             "paramMinYawAngle": "turret1_min_yaw_angle"
           }
@@ -601,13 +607,26 @@
       "turret__aimNodeName": "turret1"
     },
     {
-      "turret__limit": [-90.0,90.0,0.0,65.0]
+      "turret__limit": [-90.0,90.0,0.0,45.0]
     },
     {
-      "turret__yawSpeed": 100.0
+      "turret__yawSpeed": 500.0
     },
     {
-      "turret__pitchSpeed": 100.0
+      "turret__pitchSpeed": 500.0
+    },
+    {
+      "turret__lastRelativeDir": [-1.0,0.0,0.0]
+    },
+    {
+      "turret__limitsDeadzone:list<p4>": [
+        {
+          "lim0": [-19.0,-12.0,-15.0,7.0]
+        },
+        {
+          "lim0": [12.0,19.0,-15.0,7.0]
+        }
+      ]
     }
   ],
   "breda_88_driver_cockpit": {

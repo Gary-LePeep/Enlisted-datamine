@@ -2,10 +2,10 @@ from "%enlSqGlob/ui/ui_library.nut" import *
 
 let JB = require("%ui/control/gui_buttons.nut")
 let { fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
-let { defTxtColor, soldierWndWidth, bigPadding, maxContentWidth, slotBaseSize,
+let { panelBgColor, horGap, emptyGap, largePadding, slotBaseSize,
+  defTxtColor, soldierWndWidth, midPadding, maxContentWidth,
   blurBgColor, blurBgFillColor
-} = require("%enlSqGlob/ui/viewConst.nut")
-let { panelBgColor, horGap, emptyGap, largePadding } = require("%enlSqGlob/ui/designConst.nut")
+} = require("%enlSqGlob/ui/designConst.nut")
 let { curArmyData, curCampItemsCount, curSquad } = require("model/state.nut")
 let { sceneWithCameraAdd, sceneWithCameraRemove } = require("%enlist/sceneWithCamera.nut")
 let {
@@ -45,8 +45,8 @@ let mkBlockHeader = @(text) {
 
 let chooseItemWrapParams = {
   width = slotBaseSize[0]
-  vGap = bigPadding
-  hGap = bigPadding
+  vGap = midPadding
+  hGap = midPadding
   halign = ALIGN_CENTER
 }
 
@@ -57,7 +57,7 @@ let chooseItemBlock = function() {
     size = [slotBaseSize[0], flex()]
     rendObj = ROBJ_WORLD_BLUR_PANEL
     flow = FLOW_VERTICAL
-    padding = [bigPadding, 0]
+    padding = [midPadding, 0]
     color = blurBgColor
     fillColor = blurBgFillColor
     stopMouse = true
@@ -80,7 +80,7 @@ let chooseItemBlock = function() {
 
 let lookWrapParams = {
   width = soldierWndWidth
-  vGap = bigPadding
+  vGap = midPadding
 }
 
 let lookCustomizationBlock = @() {
@@ -88,7 +88,7 @@ let lookCustomizationBlock = @() {
   size = flex()
   halign = ALIGN_CENTER
   flow = FLOW_VERTICAL
-  gap = bigPadding
+  gap = midPadding
   children = [wrap(availableCItem.value.map(@(item)
     mkCustomizationSlot(item, curSoldierItemsPrice.value)), lookWrapParams)
     {
@@ -110,8 +110,8 @@ let leftCustomizationBlock = @() {
   color = blurBgColor
   fillColor = blurBgFillColor
   flow = FLOW_VERTICAL
-  gap = bigPadding
-  padding = bigPadding
+  gap = midPadding
+  padding = midPadding
   children = [
     mkNameBlock(curSoldierInfo)
     mkOutfitsListButton(curSquad.value, @(calleeCb) saveOutfit(false, calleeCb))
@@ -128,7 +128,7 @@ let rightBtnBlock = {
   children = {
     flow = FLOW_HORIZONTAL
     valign = ALIGN_BOTTOM
-    gap = bigPadding
+    gap = midPadding
     children = purchaseBtn
   }
 }
@@ -136,7 +136,7 @@ let rightBtnBlock = {
 let centralBlock = {
   size = flex()
   flow = FLOW_HORIZONTAL
-  gap = bigPadding
+  gap = midPadding
   children = [
     leftCustomizationBlock
     chooseItemBlock
@@ -149,7 +149,7 @@ let topBar = @() {
   flow = FLOW_HORIZONTAL
   valign = ALIGN_CENTER
   margin = [largePadding, 0, 0, 0]
-  gap = bigPadding
+  gap = midPadding
   size = flex()
   maxWidth = maxContentWidth
   children = [

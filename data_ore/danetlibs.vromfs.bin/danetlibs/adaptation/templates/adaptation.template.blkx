@@ -1,0 +1,21 @@
+{
+  "adaptation_manager": {
+    "_singleton": true,
+    "_tags": "render",
+    "adaptation__fade_mul": 1.0,
+    "adaptation__exposure": 1.0,
+    "adaptation__manager:AdaptationManager": [],
+    "adaptation__update_readback_exposure_node:dabfg::NodeHandle": [],
+    "adaptation__create_histogram_node:dabfg::NodeHandle": [],
+    "adaptation__gen_histogram_node:resource_slot::NodeHandleWithSlotsAccess": [],
+    "adaptation__accumulate_histogram:dabfg::NodeHandle": [],
+    "adaptation__adapt_exposure_node:dabfg::NodeHandle": [],
+    "adaptation__set_exposure_node:dabfg::NodeHandle": [],
+    "adaptation__set_no_exposure_node:dabfg::NodeHandle": []
+  },
+  "adaptation__debugger": {
+    "_singleton": true,
+    "_tags": "render",
+    "adaptation__debug:tag": []
+  }
+}

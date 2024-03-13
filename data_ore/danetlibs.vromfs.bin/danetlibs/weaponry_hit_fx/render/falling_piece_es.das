@@ -4,7 +4,6 @@ require GamePhys
 require DagorMath
 require DagorRandom
 require danetlibs.weaponry_hit_fx.render.falling_piece_common
-require common_shooter.events_common_shooter
 require DaWeapons
 require DaWeaponProps
 require DagorSystem

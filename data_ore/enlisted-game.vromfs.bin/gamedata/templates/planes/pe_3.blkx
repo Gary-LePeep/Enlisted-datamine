@@ -4,7 +4,7 @@
       "_use": "pe_3_base"
     },
     {
-      "_use": "squad_controlled_plane"
+      "_use": "plane_with_gunners"
     },
     {
       "_use": "pe_3_plane_sound"
@@ -68,12 +68,16 @@
             "attachNode": "gunner1",
             "ignoreAttachNodeRotation": true,
             "attachTm": [
-              [-1.0,0.0,-1.90735e-06],
-              [0.0,1.0,0.0],
+              [-0.996195,-0.0871557,-1.90009e-06],
+              [-0.0871581,0.996221,-1.66241e-07],
               [1.90735e-06,0.0,-1.0],
-              [0.21,0.0,0.0]
+              [0.12,0.03,0.0]
             ],
+            "cameraNodeName": "gun1",
+            "cameraOffset": [-0.11,0.2089,0.0004],
+            "cameraType": "gunner",
             "seatComponent": "isGunner",
+            "canPlaceManually": true,
             "receiveDamageFromDMPart": "gunner1_dm",
             "directTurretControl": true,
             "roomSpace": 1,
@@ -171,7 +175,9 @@
             "paramMaxPitchAngle": "turret1_max_pitch_angle",
             "curPitchParamName": "gun1_pitch",
             "curYawParamName": "turret1_yaw",
-            "paramMinYawAngle": "turret1_min_yaw_angle"
+            "paramMinYawAngle": "turret1_min_yaw_angle",
+            "curWorldPitchParamName": "gun1_world_pitch",
+            "curWorldYawParamName": "turret1_world_yaw"
           }
         },
         {
@@ -665,10 +671,13 @@
       "turret__limit": [-35.0,35.0,0.0,40.0]
     },
     {
-      "turret__yawSpeed": 100.0
+      "turret__yawSpeed": 500.0
     },
     {
-      "turret__pitchSpeed": 100.0
+      "turret__pitchSpeed": 500.0
+    },
+    {
+      "turret__lastRelativeDir": [-1.0,0.0,0.0]
     }
   ],
   "planegun_pe_3_7_62mm_shkas_turret_02": [
@@ -697,10 +706,13 @@
       "turret__limit": [-2.0,2.0,-2.0,2.0]
     },
     {
-      "turret__yawSpeed": 100.0
+      "turret__yawSpeed": 500.0
     },
     {
-      "turret__pitchSpeed": 100.0
+      "turret__pitchSpeed": 500.0
+    },
+    {
+      "turret__lastRelativeDir": [-1.0,0.0,0.0]
     }
   ],
   "pe_3_driver_cockpit": {

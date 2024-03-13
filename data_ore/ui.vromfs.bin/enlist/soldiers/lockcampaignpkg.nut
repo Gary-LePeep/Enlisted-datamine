@@ -1,8 +1,8 @@
 from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
-let { defTxtColor, bigPadding, blurBgColor, blurBgFillColor, bigGap
-} = require("%enlSqGlob/ui/viewConst.nut")
+let { defTxtColor, midPadding, blurBgColor, blurBgFillColor, bigGap
+} = require("%enlSqGlob/ui/designConst.nut")
 let { textarea } = require("%enlist/components/text.nut")
 let { PrimaryFlat, FAButton } = require("%ui/components/textButton.nut")
 let { premiumImage } = require("%enlist/currency/premiumComp.nut")
@@ -29,7 +29,7 @@ let mkCampaignLockInfo = @(unlockList) {
   rendObj = ROBJ_WORLD_BLUR_PANEL
   color = blurBgColor
   fillColor = blurBgFillColor
-  padding = bigPadding
+  padding = midPadding
 
   vplace = ALIGN_CENTER
   hplace = ALIGN_CENTER
@@ -90,7 +90,7 @@ let mkUnlockCampaignBlock = @(unlockList) {
     {
       halign = ALIGN_CENTER
       flow = FLOW_VERTICAL
-      padding = bigPadding
+      padding = midPadding
       size = [flex(), SIZE_TO_CONTENT]
       gap = hdpx(10)
       children = [

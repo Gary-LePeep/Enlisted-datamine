@@ -5,6 +5,8 @@ let { dbgShow, dbgData } = require("debriefingDbgState.nut")
 let { isInBattleState } = require("%enlSqGlob/inBattleState.nut")
 let navState = require("%enlist/navState.nut")
 let { show, data, clearData } = require("%enlist/debriefing/debriefingStateInMenu.nut")
+let { openSteamReviewWnd } = require("%enlist/steam/steamRateWnd.nut")
+let { isSteamRateWindowAvailable } = require("%enlist/steam/steamRateState.nut")
 let { update_profile } = require("%enlist/meta/clientApi.nut")
 
 
@@ -21,11 +23,20 @@ isInBattleState.subscribe(function(active) {
   dbgShow(false)
 })
 
-let closeAction = @() dbgShow.value ? dbgShow(false) : show(false)
+let closeAction = function() {
+  if (dbgShow.value)
+    dbgShow(false)
+  else
+    show(false)
+
+  let battleResult = dataToShow.value?.result
+  if (battleResult?.success && !battleResult.deserter && isSteamRateWindowAvailable.value)
+    openSteamReviewWnd()
+}
 function debriefingWnd() {
   let children = (!(dataToShow.value?.isFinal ?? true))
-      ? null
-      : ctor(dataToShow.value, closeAction)
+    ? null
+    : ctor(dataToShow.value, closeAction)
   return {
     key = "enlist_debriefing_root"
     watch = dataToShow

@@ -4,7 +4,7 @@
       "_use": "tbf_1c_base"
     },
     {
-      "_use": "squad_controlled_plane"
+      "_use": "plane_with_gunners"
     },
     {
       "_use": "tbf_1c_plane_sound"
@@ -67,10 +67,15 @@
               [-1.50996e-07,0.0,-1.0],
               [0.0,0.0,0.0]
             ],
+            "cameraNodeName": "gun1",
+            "cameraOffset": [-0.18,0.38,-0.2],
+            "cameraType": "gunner",
             "seatComponent": "isGunner",
+            "canPlaceManually": true,
             "receiveDamageFromDMPart": "gunner1_dm",
             "directTurretControl": true,
             "roomSpace": 1,
+            "shouldHideOwner": true,
             "turretNames:array": {
               "turret": "turret_05"
             }
@@ -617,18 +622,29 @@
       "turret__limit": [-180.0,180.0,-30.0,85.0]
     },
     {
-      "turret__yawSpeed": 100.0
+      "turret__yawSpeed": 500.0
     },
     {
-      "turret__pitchSpeed": 100.0
+      "turret__pitchSpeed": 500.0
+    },
+    {
+      "turret__lastRelativeDir": [-1.0,0.0,0.0]
     },
     {
       "turret__limitsTable:list<p4>": {
         "lim1": [-180.0,-120.0,40.0,85.0],
-        "lim2": [-120.0,-35.0,-30.0,85.0],
-        "lim3": [-35.0,50.0,-2.0,85.0],
-        "lim4": [50.0,155.0,-30.0,85.0],
-        "lim5": [155.0,180.0,40.0,85.0]
+        "lim2": [-120.0,-65.0,-30.0,85.0],
+        "lim3": [-65.0,35.0,-2.0,85.0],
+        "lim4": [35.0,170.0,-30.0,85.0],
+        "lim5": [170.0,180.0,40.0,85.0]
+      }
+    },
+    {
+      "turret__limitsDeadzone:list<p4>": {
+        "lim0": [-5.0,5.0,-30.0,25.0],
+        "lim1": [-180.0,-120.0,-30.0,40.0],
+        "lim2": [155.0,180.0,-30.0,40.0],
+        "lim3": [100.0,155.0,-30.0,-3.0]
       }
     }
   ],
@@ -658,10 +674,13 @@
       "turret__limit": [-23.0,39.0,-60.0,7.0]
     },
     {
-      "turret__yawSpeed": 100.0
+      "turret__yawSpeed": 500.0
     },
     {
-      "turret__pitchSpeed": 100.0
+      "turret__pitchSpeed": 500.0
+    },
+    {
+      "turret__lastRelativeDir": [-1.0,0.0,0.0]
     }
   ],
   "tbf_1c_driver_cockpit": {

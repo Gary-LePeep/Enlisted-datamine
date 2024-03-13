@@ -19,6 +19,8 @@ require common_shooter.es.ai.common_shooter_walker_nodes_common
 require common_shooter.es.ai.ai_weapons_common
 require common_shooter.events_common_shooter
 require game.es.enlisted_squad_common
+require GridCollision
+require Dacoll
 
 [beh_node(name="useMedkit")]
 class UseMedkit : BehNodeAdapter
@@ -144,6 +146,135 @@ class IsAgentPlayerBot : BehNodeAdapter
       query(squad_member__playerEid) <| $ [es(REQUIRE=playerIsBot)] ()
         isBot = true
     return isBot ? EBehResult ER_SUCCESS : EBehResult ER_FAILED
+
+
+[beh_node(name="isTargetVehicle")]
+class IsTargetVehicle : BehNodeAdapter
+  targetEidParam : int = -1
+  allowAll : bool = true
+  allowTanks : bool = false
+  allowPlanes : bool = false
+  allowShips : bool = false
+
+  def override loadFromBlk(var data : DataBlock) : void
+    targetEidParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "targetEidParam", ""), 0)
+    allowAll = datablock_getBool(data, "allowAll", allowAll)
+    allowTanks = datablock_getBool(data, "allowTanks", allowTanks)
+    allowPlanes = datablock_getBool(data, "allowPlanes", allowPlanes)
+    allowShips = datablock_getBool(data, "allowShips", allowShips)
+
+  def override update(dt : float) : EBehResult
+    var isTargetTypeVehicle = false
+    var isVehicleTank = false
+    var isVehiclePlane = false
+    var isVehicleShip = false
+
+    let targetEid = EntityId(uint(owner.blackBoard |> datablock_getInt(targetEidParam)))
+    query(targetEid) <| $ [es(REQUIRE=ai_target)] (agent_dangers__tag : string = "";
+                                                   isTank : Tag const?;
+                                                   plane : Tag const?;
+                                                   ship : Tag const?)
+      isTargetTypeVehicle = agent_dangers__tag == "vehicle"
+      isVehicleTank = isTank != null
+      isVehiclePlane = plane != null
+      isVehicleShip = ship != null
+
+    if !isTargetTypeVehicle
+      return EBehResult ER_FAILED
+    if allowAll
+      return EBehResult ER_SUCCESS
+    if allowTanks && isVehicleTank
+      return EBehResult ER_SUCCESS
+    if allowPlanes && isVehiclePlane
+      return EBehResult ER_SUCCESS
+    if allowShips && isVehicleShip
+      return EBehResult ER_SUCCESS
+    return EBehResult ER_FAILED
+
+
+[beh_node(name="traceLineOfSight")]
+class TraceLineOfSight : BehNodeAdapter
+  fromLocalPosParam = -1
+
+  toEidParam = -1
+  toLocalPosParam = -1
+  toPosParam = -1
+
+  traceDistance : float = 5.0
+  traceRadius : float = 1.0
+  traceWorld : bool = false
+  traceHumans : bool = false
+  traceVehicles : bool = false
+
+  def override loadFromBlk(var data : DataBlock) : void
+    if datablock_find_param(data, "fromLocalPosParam") >= 0
+      fromLocalPosParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "fromLocalPosParam", ""), float3())
+
+    if datablock_find_param(data, "toEidParam") >= 0
+      toEidParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "toEidParam", ""), 0)
+    if datablock_find_param(data, "toLocalPosParam") >= 0
+      toLocalPosParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "toLocalPosParam", ""), float3())
+
+    if datablock_find_param(data, "toPosParam") >= 0
+      toPosParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "toPosParam", ""), float3())
+
+    traceDistance = datablock_getReal(data, "traceDistance", traceDistance)
+    traceRadius = datablock_getReal(data, "traceRadius", traceRadius)
+    traceWorld = datablock_getBool(data, "traceWorld", traceWorld)
+    traceHumans = datablock_getBool(data, "traceHumans", traceHumans)
+    traceVehicles = datablock_getBool(data, "traceVehicles", traceVehicles)
+
+  def override update(dt : float) : EBehResult
+    let agentEid = beh_tree_eid(owner)
+    var fromPos = float3()
+    var hasPos = false
+    query(agentEid) <| $ [es] (transform : float3x4)
+      hasPos = true
+      var fromLocalPos = float3()
+      if fromLocalPosParam >= 0
+        fromLocalPos = owner.blackBoard |> datablock_getPoint3(fromLocalPosParam)
+      fromPos = transform * fromLocalPos
+    if !hasPos
+      return EBehResult ER_FAILED
+
+    var toPos = float3()
+    var excludeEid = INVALID_ENTITY_ID
+    if toEidParam >= 0
+      hasPos = false
+      let toEid = EntityId(uint(owner.blackBoard |> datablock_getInt(toEidParam)))
+      query(toEid) <| $ [es] (transform : float3x4)
+        hasPos = true
+        excludeEid = toEid
+        var toLocalPos = float3()
+        if toLocalPosParam >= 0
+          toLocalPos = owner.blackBoard |> datablock_getPoint3(toLocalPosParam)
+        toPos = transform * toLocalPos
+      if !hasPos
+        return EBehResult ER_FAILED
+    elif toPosParam >= 0
+      toPos = owner.blackBoard |> datablock_getPoint3(toPosParam)
+    else
+      return EBehResult ER_FAILED
+
+    let toDir = normalize(toPos - fromPos)
+
+    if traceWorld
+      var queryOut = ShapeQueryOutput()
+      if sphere_cast(fromPos, toPos, traceRadius, queryOut)
+        return EBehResult ER_FAILED
+
+    if traceHumans
+      var dist = traceDistance
+      if trace_entities_in_grid_by_capsule(ecs_hash("humans"), fromPos, toDir, dist, traceRadius, agentEid)
+        return EBehResult ER_FAILED
+
+    if traceVehicles
+      var dist = traceDistance
+      if trace_entities_in_grid_by_capsule(ecs_hash("vehicles"), fromPos, toDir, dist, traceRadius, excludeEid)
+        return EBehResult ER_FAILED
+
+    return EBehResult ER_SUCCESS
+
 
 [beh_node(name="freefallOrParachuteBeh")]
 class FreefallOrParachuteBeh : BehNodeAdapter

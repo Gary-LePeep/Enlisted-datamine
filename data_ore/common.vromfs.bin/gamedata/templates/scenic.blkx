@@ -4,7 +4,31 @@
       "_tags": "render"
     }
   },
+  "nav_rebuilding_jlk_params": {
+    "nav_rebuild__jlkEnabled": true,
+    "nav_rebuild__jlkCovExtraCells": 32,
+    "nav_rebuild__jlkJumpHeight": 1.75,
+    "nav_rebuild__jlkJumpLength": 1.5,
+    "nav_rebuild__jlkWidth": 0.75,
+    "nav_rebuild__jlkAgentHeight": 1.5,
+    "nav_rebuild__jlkAgentMinSpace": 1.0,
+    "nav_rebuild__jlkDeltaHeightThreshold": 0.5,
+    "nav_rebuild__jlkComplexJumpTheshold": 0.0,
+    "nav_rebuild__jlkLinkDegAngle": 15.0,
+    "nav_rebuild__jlkLinkDegDist": 5.0,
+    "nav_rebuild__jlkAgentRadius": 0.2,
+    "nav_rebuild__jlkCrossObstaclesWithJumplinks": false,
+    "nav_rebuild__jlkEnableCustomJumplinks": false,
+    "nav_rebuild__edgMergeEdgesEnabled": true,
+    "nav_rebuild__edgMaxExtrudeErrorSq": 0.4,
+    "nav_rebuild__edgExtrudeLimitSq": 0.3,
+    "nav_rebuild__edgWalkPrecision": [0.25,0.6],
+    "nav_rebuild__edgSafeCutLimitSq": 0.5,
+    "nav_rebuild__edgUnsafeCutLimitSq": 0.3,
+    "nav_rebuild__edgUnsafeMaxCutSpace": 4.0
+  },
   "nav_rebuilding": {
+    "_use": "nav_rebuilding_jlk_params",
     "nav_rebuild__agentMaxSlope": 60.0,
     "nav_rebuild__vertsPerPoly": 3,
     "nav_rebuild__regionMinSize": 9.0,
@@ -229,6 +253,7 @@
         "water__flowmap_area": [-512.0,512.0,512.0,-512.0],
         "water__flowmap_range": 100.0,
         "water__flowmap_fading": 4.0,
+        "water__flowmap_damping": 0.5,
         "water__flowmap_foam_depth_max": 3.0,
         "water__flowmap_foam_power": 0.5,
         "water__flowmap_foam_reflectivity": 0.2,
@@ -273,17 +298,18 @@
         "shore__parallelism_to_wind": 0.1,
         "shore__width_k": 3.0,
         "shore__waves_dist": [600.0,1000.0,0.0,50.0],
-        "shore__wave_gspeed": 1.0,
-        "water__flowmap_wind:array": []
+        "shore__wave_gspeed": 1.0
+      }
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "water_hidden": false,
+        "needsWaterDroplets:tag": []
       }
     },
     {
       "water": []
-    },
-    {
-      "needsWaterDroplets:tag": {
-        "_tags": "render"
-      }
     }
   ],
   "wind": {

@@ -160,7 +160,7 @@
   },
   {
     "entity": {
-      "_template": "tutorial_mission"
+      "_template": "new_tutorial_mission"
     }
   },
   {
@@ -224,46 +224,6 @@
   {
     "entity": {
       "_template": "enemy_attack_marker"
-    }
-  },
-  {
-    "entity": {
-      "_template": "static_cam",
-      "camera__active": true,
-      "transform": [
-        [0.0492757,0.0,-0.998787],
-        [0.0,1.0,0.0],
-        [0.998787,0.0,0.0492757],
-        [-53.9659,12.7881,351.013]
-      ]
-    }
-  },
-  {
-    "entity": {
-      "_template": "respawn_camera",
-      "respawnCameraForTeam": 1,
-      "moveCameraToHeight": 150.0,
-      "respawnSelectorDistanceMult": 1.5,
-      "transform": [
-        [1.0,0.0,0.0],
-        [0.0,1.0,0.0],
-        [0.0,0.0,1.0],
-        [-31.6157,90.4736,546.785]
-      ]
-    }
-  },
-  {
-    "entity": {
-      "_template": "respawn_camera",
-      "respawnCameraForTeam": 2,
-      "moveCameraToHeight": 150.0,
-      "respawnSelectorDistanceMult": 1.5,
-      "transform": [
-        [1.0,0.0,0.0],
-        [0.0,1.0,0.0],
-        [0.0,0.0,1.0],
-        [-2.72687,125.654,37.2185]
-      ]
     }
   },
   {
@@ -1380,6 +1340,24 @@
       "scripted_plane_spawner__timeToSpawn": 10.0,
       "scripted_plane_spawner__planeSpeed": 260.0,
       "scripted_plane_spawner__planeTemplate": "bf_109e_7+scripted_plane"
+    }
+  },
+  {
+    "entity": {
+      "_template": "screen_fade_anim",
+      "screen_fade": 0.9,
+      "anim_track_on": true
+    }
+  },
+  {
+    "entity": {
+      "_template": "new_tutorial_stage_begin"
+    }
+  },
+  {
+    "entity": {
+      "_template": "game_mode_loaded",
+      "game_mode_loader__dasScript": "%scripts/tutorial/infantry_init.das"
     }
   }
 ]

@@ -5,6 +5,7 @@ require pathfinder
 require danetlibs.pathfinder.main.pathfinder_common
 require game.es.events
 require enlisted.events_enlisted
+require enlisted.game.es.ai_poly_areas_common
 require DagorConsole
 require DagorRandom
 require DagorMath
@@ -22,6 +23,7 @@ require DaWeaponProps
 require turrets
 require common_shooter.es.forestall_common
 require common_shooter.events_common_shooter
+require common_shooter.es.weapon.turret_common
 require game.utils.team
 require walkerai
 require DngNet
@@ -65,20 +67,20 @@ enum AiTankTargetState
   TARGET_FAILURE
 
 
-def update_tank_destination(planned_path : Point3List; wait_time : float; max_step_size : float; var destination : float3&; var state : int&; var timeout_at : float&; var recorded_min_distance : float&)
+def update_tank_next_position(planned_path : Point3List; wait_time : float; max_step_size : float; var next_position : float3&; var state : int&; var timeout_at : float&; var recorded_min_distance : float&)
   state = int(AiTankMotionState MOVE)
   recorded_min_distance = FLT_MAX
   timeout_at = get_sync_time() + wait_time
   if length(planned_path) == 1
-    destination = planned_path[0]
+    next_position = planned_path[0]
   elif !empty(planned_path)
     let diff = planned_path[1] - planned_path[0]
     let lenSq = length_sq(diff)
     if lenSq <= square(max_step_size)
-      destination = 0.5 * (planned_path[0] + planned_path[1]) // this averaging helps the tank take smoother turns
+      next_position = 0.5 * (planned_path[0] + planned_path[1]) // this averaging helps the tank take smoother turns
     else
       let dir = diff / sqrt(lenSq)
-      destination = planned_path[0] + 0.5 * max_step_size * dir
+      next_position = planned_path[0] + 0.5 * max_step_size * dir
 
 
 [es(tag=server, before=vehicle_input_driver_es, REQUIRE_NOT=deadEntity)]
@@ -107,13 +109,13 @@ def ai_vehicle_tank_driver_es(info : ParallelUpdateFrameDelayed;
   if length_sq(diff) <= square(ai_vehicle_tank__nextPositionReachedThreshold)
     if !empty(ai_vehicle_tank__plannedPath)
       ai_vehicle_tank__plannedPath |> erase(0)
-      update_tank_destination(ai_vehicle_tank__plannedPath,
-                              ai_vehicle_tank__nextPositionReachedWaitTime,
-                              ai_vehicle_tank__maxStepSize,
-                              ai_vehicle_tank__nextPosition,
-                              ai_vehicle_tank__motionState,
-                              ai_vehicle_tank__motionStateTimeoutAt,
-                              ai_vehicle_tank__nextPositionRecordedMinDistance)
+      update_tank_next_position(ai_vehicle_tank__plannedPath,
+                                ai_vehicle_tank__nextPositionReachedWaitTime,
+                                ai_vehicle_tank__maxStepSize,
+                                ai_vehicle_tank__nextPosition,
+                                ai_vehicle_tank__motionState,
+                                ai_vehicle_tank__motionStateTimeoutAt,
+                                ai_vehicle_tank__nextPositionRecordedMinDistance)
 
   if ai_vehicle_tank__motionState == int(AiTankMotionState HELP_TARGETTING)
     for gunEid in turret_control__gunEids
@@ -176,7 +178,8 @@ def ai_vehicle_tank_driver_es(info : ParallelUpdateFrameDelayed;
   producedCT |> ground_control_state_setAxisValue(EGroundControlAxis GCA_BRAKE_RIGHT, brake)
 
 
-def try_find_tank_path(tans_pos : float3;
+def try_find_tank_path(team : int;
+                       tank_pos : float3;
                        dest : float3;
                        cur_time : float;
                        delay : float;
@@ -188,15 +191,28 @@ def try_find_tank_path(tans_pos : float3;
   out_path |> clear()
   if cur_time < allow_at_time
     return false
-  allow_at_time = cur_time + delay
-  let distToPath = float3(horz_dist, FLT_MAX, horz_dist)
-  let findPathResult = find_path_ex(NM_EXT_1, tans_pos, dest, distToPath, step_size, path_slop, null) <| $ [unused_argument(data)] (data)
-    for point in data
-      out_path |> push(point)
-  if findPathResult != FindPathResult FPR_FULL
-    out_path |> clear()
+
+  var isNavmeshUpdatePending = false
+  find_query() <| $ [es] (battle_area_navmesh_manager__areaEids : EidList)
+    if !empty(battle_area_navmesh_manager__areaEids)
+      isNavmeshUpdatePending = true
+    return true
+  if isNavmeshUpdatePending
     return false
-  return true
+
+  allow_at_time = cur_time + delay
+
+  var res = true
+
+  using(tank_pos, dest, float3(horz_dist, FLT_MAX, horz_dist)) <| $(var req : FindRequest#)
+    req.includeFlags = int(team_to_tank_navmesh_poly_flags(team))
+    let findPathResult = find_path_ex(NM_EXT_1, req, step_size, path_slop) <| $(data)
+      for point in data
+        out_path |> push(point)
+    if findPathResult != FindPathResult FPR_FULL
+      out_path |> clear()
+      res = false
+  return res
 
 
 def can_capzone_be_attacked(team : int; capzone__owningTeam : int; capzone__mustBeCapturedByTeam : int; capzone__onlyTeamCanCapture : int)
@@ -312,32 +328,32 @@ def ai_vehicle_tank_update_es(info : ParallelUpdateFrameDelayed;
       for _i in range(ai_vehicle_tank__pathFindingTryCountPerFrame)
         let posIdx = rnd_int(0, length(capzone_tanks__positions) - 1)
         let pos = capzone_tanks__positions[posIdx]
-        if try_find_tank_path(transform[3], pos, info.curTime, ai_vehicle_tank__pathFindingDelay, ai_vehicle_tank__stepSize, ai_vehicle_tank__plannedPath,
+        if try_find_tank_path(team, transform[3], pos, info.curTime, ai_vehicle_tank__pathFindingDelay, ai_vehicle_tank__stepSize, ai_vehicle_tank__plannedPath,
             ai_vehicle_tank__allowPathFindingAtTime)
           ai_vehicle_tank__curCapzone = checkedCapzoneEid
           ai_vehicle_tank__curCapzonePosIdx = posIdx
           ai_vehicle_tank__destination = pos
-          update_tank_destination(ai_vehicle_tank__plannedPath,
+          update_tank_next_position(ai_vehicle_tank__plannedPath,
+                                    ai_vehicle_tank__nextPositionReachedWaitTime,
+                                    ai_vehicle_tank__maxStepSize,
+                                    ai_vehicle_tank__nextPosition,
+                                    ai_vehicle_tank__motionState,
+                                    ai_vehicle_tank__motionStateTimeoutAt,
+                                    ai_vehicle_tank__nextPositionRecordedMinDistance)
+          break
+
+  if length_sq(ai_vehicle_tank__nextPosition - transform[3]) > square(ai_vehicle_tank__nextPositionTooFarThreshold)
+    using() <| $(var new_path : Point3List)
+      if try_find_tank_path(team, transform[3], ai_vehicle_tank__destination, info.curTime, ai_vehicle_tank__pathFindingDelay, ai_vehicle_tank__stepSize,
+          new_path, ai_vehicle_tank__allowPathFindingAtTime)
+        ai_vehicle_tank__plannedPath := new_path
+        update_tank_next_position(ai_vehicle_tank__plannedPath,
                                   ai_vehicle_tank__nextPositionReachedWaitTime,
                                   ai_vehicle_tank__maxStepSize,
                                   ai_vehicle_tank__nextPosition,
                                   ai_vehicle_tank__motionState,
                                   ai_vehicle_tank__motionStateTimeoutAt,
                                   ai_vehicle_tank__nextPositionRecordedMinDistance)
-          break
-
-  if length_sq(ai_vehicle_tank__nextPosition - transform[3]) > square(ai_vehicle_tank__nextPositionTooFarThreshold)
-    using() <| $(var new_path : Point3List)
-      if try_find_tank_path(transform[3], ai_vehicle_tank__destination, info.curTime, ai_vehicle_tank__pathFindingDelay, ai_vehicle_tank__stepSize,
-          new_path, ai_vehicle_tank__allowPathFindingAtTime)
-        ai_vehicle_tank__plannedPath := new_path
-        update_tank_destination(ai_vehicle_tank__plannedPath,
-                                ai_vehicle_tank__nextPositionReachedWaitTime,
-                                ai_vehicle_tank__maxStepSize,
-                                ai_vehicle_tank__nextPosition,
-                                ai_vehicle_tank__motionState,
-                                ai_vehicle_tank__motionStateTimeoutAt,
-                                ai_vehicle_tank__nextPositionRecordedMinDistance)
 
 
 def get_forestall_or(owner_pos, owner_vel, target_pos, target_vel : float3; gun_eid : EntityId; default_val : float3)
@@ -526,7 +542,7 @@ def find_next_target(owner_eid : EntityId;
     next_target_idx = untilIdx
 
 
-[es(tag=server, before=before_net_phys_sync, REQUIRE=controlledByTankAiGunner)]
+[es(tag=server, before=before_net_phys_sync)]
 def tank_ai_gunner_find_target(info : ParallelUpdateFrameDelayed;
                                gun__owner : EntityId;
                                turret__owner : EntityId;
@@ -543,11 +559,15 @@ def tank_ai_gunner_find_target(info : ParallelUpdateFrameDelayed;
                                var tank_turret_ai__prevTargetEid : EntityId&;
                                var tank_turret_ai__targetScore : float&;
                                var tank_turret_ai__curTargetType : int&;
+                               controlledByTankAiGunner : Tag const?;
+                               controlledByTankAiGunnerWithBot : Tag const?;
                                turret__limit : float4 = float4(-180, 180, -180, 180);
                                tank_turret_ai__atackMinDist : float = 0.f;
                                tank_turret_ai__limitVisionAngles : float4 = float4(-90, 90, -30, 50);
                                tank_turret_ai__checkedTargetsPerFrame : int = 2)
   if turret__aimNodeId < 0
+    return
+  if controlledByTankAiGunner == null && (controlledByTankAiGunnerWithBot == null || !can_soldier_control_turret(gun__owner))
     return
 
   query(gun__owner) <| $ [es(REQUIRE_NOT=deadEntity)] (team : int)
@@ -598,38 +618,54 @@ def calc_aiming_error(time : float; freq : float; time_offset : float; dist : fl
   return (errorDueToSpeed + errorDueToAngle + settings.constantError) * perlin_noise1(freq * time + time_offset)
 
 
+def can_soldier_control_turret(eid : EntityId)
+  var res = false
+  query(eid) <| $ [es] (beh_tree__enabled : bool = false;
+                        human_vehicle__canHoldWeapon : bool = false)
+    res = beh_tree__enabled && !human_vehicle__canHoldWeapon
+  return res
+
+
 [es(tag=server, REQUIRE=turret_control__hasTankAiGunners, REQUIRE_NOT=deadEntity, after=vehicle_input_turret_es, before=apply_turret_aim_pos_to_remote_wish_dir_es)]
 def turret_tank_ai_gunner_aim(evt : CmdTurretsUpdate;
                               transform : float3x4;
                               turret_control__gunEids : EidList;
-                              ai_vehicle_tank__curCapzone : EntityId;
-                              ai_vehicle_tank__curCapzonePosIdx : int;
-                              net_phys__currentStateVelocity : float3)
+                              net_phys__currentStateVelocity : float3;
+                              ai_vehicle_tank__curCapzone : EntityId = INVALID_ENTITY_ID;
+                              ai_vehicle_tank__curCapzonePosIdx : int = -1)
   let shooterVel = net_phys__currentStateVelocity
   let shooterPos = transform[3]
   let curTime = get_sync_time()
 
   for gunEid in turret_control__gunEids
-    query(gunEid) <| $ [es(REQUIRE=controlledByTankAiGunner)] (turret_state : TurretState;
-                                                               tank_turret_ai__curTargetEid : EntityId;
-                                                               tank_turret_ai__prevTargetEid : EntityId;
-                                                               tank_turret_ai__burstWaitTime : float;
-                                                               tank_turret_ai__shortPauseWaitTime : float;
-                                                               tank_turret_ai__longPauseWaitTime : float;
-                                                               tank_turret_ai__idleSwing : float;
-                                                               tank_turret_ai__maxBurstCount : int;
-                                                               tank_turret_ai__dmTargetUpdateInterval : float;
-                                                               var tank_turret_ai__targetState : int&;
-                                                               var tank_turret_ai__shootState : int&;
-                                                               var tank_turret_ai__prevTargetPos : float3&;
-                                                               var tank_turret_ai__prevTargetActive : bool&;
-                                                               var tank_turret_ai__prevTargetPartType : int&;
-                                                               var tank_turret_ai__burstCount : int&;
-                                                               var turret_aim__shootToPos : float3&;
-                                                               var turret_aim__shootFlag : bool&;
-                                                               var tank_turret_ai__shootStateTimeoutAt : float&;
-                                                               var tank_turret_ai__dmTargetUpdateAt : float&;
-                                                               tank_turret_ai__shootAngleCos : float = 0.999)
+    query(gunEid) <| $ [es] (turret_state : TurretState;
+                             gun__owner : EntityId;
+                             tank_turret_ai__curTargetEid : EntityId;
+                             tank_turret_ai__prevTargetEid : EntityId;
+                             tank_turret_ai__burstWaitTime : float;
+                             tank_turret_ai__shortPauseWaitTime : float;
+                             tank_turret_ai__longPauseWaitTime : float;
+                             tank_turret_ai__aimingGamma : float;
+                             tank_turret_ai__idleSwing : float;
+                             tank_turret_ai__maxBurstCount : int;
+                             tank_turret_ai__dmTargetUpdateInterval : float;
+                             var tank_turret_ai__targetState : int&;
+                             var tank_turret_ai__shootState : int&;
+                             var tank_turret_ai__prevTargetPos : float3&;
+                             var tank_turret_ai__prevTargetActive : bool&;
+                             var tank_turret_ai__prevTargetPartType : int&;
+                             var tank_turret_ai__burstCount : int&;
+                             var turret_aim__shootToPos : float3&;
+                             var turret_aim__shootAngles : float2&;
+                             var turret_aim__shootFlag : bool&;
+                             var tank_turret_ai__shootStateTimeoutAt : float&;
+                             var tank_turret_ai__dmTargetUpdateAt : float&;
+                             controlledByTankAiGunner : Tag const?;
+                             controlledByTankAiGunnerWithBot : Tag const?;
+                             tank_turret_ai__shootAngleCos : float = 0.999)
+      if controlledByTankAiGunner == null && (controlledByTankAiGunnerWithBot == null || !can_soldier_control_turret(gun__owner))
+        return
+
       turret_aim__shootFlag = false
 
       var target : AiGunnerTarget
@@ -642,13 +678,16 @@ def turret_tank_ai_gunner_aim(evt : CmdTurretsUpdate;
 
       //state machine output
       if tank_turret_ai__targetState == int(AiTankTargetState IDLE)
-        query(ai_vehicle_tank__curCapzone) <| $ [es] (capzone_tanks__aimAtPositions : Point3List)
+        let success = query(ai_vehicle_tank__curCapzone) <| $ [es] (capzone_tanks__aimAtPositions : Point3List)
           if uint(ai_vehicle_tank__curCapzonePosIdx) < uint(length(capzone_tanks__aimAtPositions))
             turret_aim__shootToPos = capzone_tanks__aimAtPositions[ai_vehicle_tank__curCapzonePosIdx]
             let diff = turret_aim__shootToPos - turret_state.shoot.pos
             let wishDir = normalize(diff)
             let lateralDir = normalize_default(cross(wishDir, float3(0, 1, 0)), float3(1, 0, 0))
             turret_aim__shootToPos += tank_turret_ai__idleSwing * lateralDir * sin(get_sync_time())
+        if !success
+          query(gun__owner) <| $ [es] (transform : float3x4)
+            turret_aim__shootToPos = turret_state.shoot.pos + transform[0] * 100.0
       else // AiTankTargetState TARGET || AiTankTargetState TARGET_FAILURE
         let ignoreWithNoCrew = false
         let noCrew = ignoreWithNoCrew || !is_vehicle_with_alive_crew(tank_turret_ai__curTargetEid)
@@ -679,11 +718,15 @@ def turret_tank_ai_gunner_aim(evt : CmdTurretsUpdate;
           turret_aim__shootToPos += calc_aiming_error(get_sync_time(), 1.0, 17.21, dist, wishDir, shootDir, shooterVel, target.vel, AimingErrorSettings()) * dir1
           turret_aim__shootToPos += calc_aiming_error(get_sync_time(), 1.0, 13.19, dist, wishDir, shootDir, shooterVel, target.vel, AimingErrorSettings()) * dir2
 
+          let dirDot = dot(wishDir, shootDir)
+          let prob = pow((dirDot - tank_turret_ai__shootAngleCos) / (1.0 - tank_turret_ai__shootAngleCos), tank_turret_ai__aimingGamma)
+
           if ((tank_turret_ai__shootState == int(AiTankShootState READY) || tank_turret_ai__shootState == int(AiTankShootState BURST)) &&
-              (tank_turret_ai__shootAngleCos <= dot(wishDir, shootDir) &&
-              rnd_float(0.0, 1.0) < (dot(wishDir, shootDir) - tank_turret_ai__shootAngleCos) / (1.0 - tank_turret_ai__shootAngleCos)))
+              (tank_turret_ai__shootAngleCos <= dirDot &&
+              rnd_float(0.0, 1.0) < prob))
             turret_aim__shootFlag = true
 
+      turret_aim__shootAngles = turret_calc_shoot_angles(turret_state.shoot.pos, turret_aim__shootToPos)
       tank_turret_ai__prevTargetPos = target.pos
       tank_turret_ai__prevTargetActive = target.active
       tank_turret_ai__prevTargetPartType = target.partType

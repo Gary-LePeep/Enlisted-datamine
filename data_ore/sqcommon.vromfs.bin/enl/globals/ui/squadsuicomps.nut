@@ -2,11 +2,10 @@ from "%enlSqGlob/ui/ui_library.nut" import *
 
 let faComp = require("%ui/components/faComp.nut")
 let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
-let { spawnNotReadyColor, multySquadPanelSize } = require("%enlSqGlob/ui/viewConst.nut")
 let {
   miniPadding, smallPadding, midPadding, darkTxtColor, defTxtColor,
   squadSlotBgIdleColor, squadSlotBgHoverColor, squadSlotBgActiveColor,
-  squadSlotBgAlertColor, levelNestGradient
+  squadSlotBgAlertColor, levelNestGradient, spawnNotReadyColor, multySquadPanelSize
 } = require("%enlSqGlob/ui/designConst.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
 let { soldierKinds } = require("%enlSqGlob/ui/soldierClasses.nut")

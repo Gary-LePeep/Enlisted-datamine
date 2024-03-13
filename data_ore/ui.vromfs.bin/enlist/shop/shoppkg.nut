@@ -15,9 +15,9 @@ let { scrollToCampaignLvl, curArmySquadsUnlocks
 let { jumpToArmyProgress, jumpToArmyGrowth, jumpToArmyGrowthTier
 } = require("%enlist/mainMenu/sectionsState.nut")
 let getEquipClasses = require("%enlist/soldiers/model/equipClassSchemes.nut")
-let { defBgColor, bigPadding, smallPadding, defTxtColor, warningColor, idleBgColor,
-  soldierLvlColor, disabledTxtColor
-} = require("%enlSqGlob/ui/viewConst.nut")
+let { defBgColor, midPadding, smallPadding, defTxtColor, warningColor, idleBgColor,
+  soldierLvlColor, disabledTxtColor, mkTimerIcon
+} = require("%enlSqGlob/ui/designConst.nut")
 let { kindIcon } = require("%enlSqGlob/ui/soldiersUiComps.nut")
 let { TextHover, TextNormal, textMargin
 } = require("%ui/components/textButton.style.nut")
@@ -34,7 +34,6 @@ let { mkIconBar } = require("%enlSqGlob/ui/itemTier.nut")
 let { allItemTemplates } = require("%enlist/soldiers/model/all_items_templates.nut")
 let { mkRightHeaderFlag, primeFlagStyle } = require("%enlSqGlob/ui/mkHeaderFlag.nut")
 let { mkBpIcon } = require("%enlSqGlob/ui/mkSpecialItemIcon.nut")
-let { mkTimerIcon } = require("%enlSqGlob/ui/designConst.nut")
 let { getTierInterval } = require("shopPackage.nut")
 let { getRomanNumeral } = require("%sqstd/math.nut")
 let { GrowthStatus } = require("%enlist/growth/growthState.nut")
@@ -159,7 +158,7 @@ let mkForVehicleSquad = @(squad, unlockLevel) {
   size = [hdpx(300), SIZE_TO_CONTENT]
   flow = FLOW_HORIZONTAL
   hplace = ALIGN_CENTER
-  gap = bigPadding
+  gap = midPadding
   valign = ALIGN_CENTER
   children = [
     mkSquadIcon(squad?.icon, { size = [hdpx(80), hdpx(80)], margin = smallPadding })
@@ -168,7 +167,7 @@ let mkForVehicleSquad = @(squad, unlockLevel) {
       valign = ALIGN_CENTER
       halign = ALIGN_LEFT
       flow = FLOW_VERTICAL
-      gap = bigPadding
+      gap = midPadding
       children = [
         {
           rendObj = ROBJ_TEXTAREA
@@ -179,7 +178,7 @@ let mkForVehicleSquad = @(squad, unlockLevel) {
         }.__update(fontBody)
         unlockLevel == 0 ? null : {
           flow = FLOW_HORIZONTAL
-          gap = bigPadding
+          gap = midPadding
           valign = ALIGN_BOTTOM
           children = [
             faComp("lock", { fontSize = fontSub.fontSize, color = warningColor })
@@ -206,7 +205,7 @@ let mkSquadUsageKind = function(squadId, armyId) {
   return !squad ? null : {
     rendObj = ROBJ_SOLID
     size = [flex(), SIZE_TO_CONTENT]
-    padding = bigPadding
+    padding = midPadding
     color = defBgColor
     valign = ALIGN_CENTER
     halign = ALIGN_CENTER
@@ -372,7 +371,7 @@ function mkShopItemTitle(
   return {
     rendObj = ROBJ_SOLID
     size = [flex(), SIZE_TO_CONTENT]
-    gap = bigPadding
+    gap = midPadding
     padding = [0, fsh(2)]
     vplace = ALIGN_BOTTOM
     color = defBgColor
@@ -383,7 +382,7 @@ function mkShopItemTitle(
         size = [flex(), SIZE_TO_CONTENT]
         minHeight = fsh(6)
         flow = FLOW_HORIZONTAL
-        gap = bigPadding
+        gap = midPadding
         valign = ALIGN_CENTER
         vplace = ALIGN_BOTTOM
         children = [
@@ -422,7 +421,7 @@ function mkTimeAvailable(shopItem) {
           flow = FLOW_HORIZONTAL
           valign = ALIGN_BOTTOM
           gap = hdpx(2)
-          padding = bigPadding
+          padding = midPadding
           children = [
             mkTimerIcon(timerSize, { color = TextNormal })
             {
@@ -441,7 +440,7 @@ function mkTimeAvailable(shopItem) {
 let debugTag = {
   rendObj = ROBJ_SOLID
   color = 0xFFCC0000
-  padding = bigPadding
+  padding = midPadding
   children = {
     rendObj = ROBJ_TEXT
     text = "DEBUG ONLY"
@@ -629,7 +628,7 @@ let viewShopInfoBtnStyle = {
     margin = textMargin
     children = [
       faComp("question-circle", {color = sf & S_HOVER ? TextHover : TextNormal})
-      textField.__merge({ margin = [0,0,0,bigPadding] })
+      textField.__merge({ margin = [0,0,0,midPadding] })
     ]
   }, params, handler, group, sf)
 }

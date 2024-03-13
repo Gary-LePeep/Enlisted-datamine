@@ -11,8 +11,8 @@ let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
 let closeBtnBase = require("%ui/components/closeBtn.nut")
 let textButton = require("%ui/components/textButton.nut")
 let JB = require("%ui/control/gui_buttons.nut")
-let { strokeStyle, bigPadding, hoverBgColor, accentTitleTxtColor, titleTxtColor
-} = require("%enlSqGlob/ui/viewConst.nut")
+let { strokeStyle, midPadding, hoverBgColor, accentTitleTxtColor, titleTxtColor
+} = require("%enlSqGlob/ui/designConst.nut")
 let { mkFormatText } = require("%enlist/components/formatText.nut")
 let { utf8ToUpper } = require("%sqstd/string.nut")
 let { isRequestInProgress, eventsData, eventsKeysSorted, isUnseen, markSeen
@@ -110,7 +110,7 @@ function mkHeaderTimeLeft(time) {
       time = colorize(accentTitleTxtColor, timeLeft.value)
     })
     vplace = ALIGN_BOTTOM
-    margin = bigPadding
+    margin = midPadding
     fontFx = FFT_BLUR
     fontFxColor = 0x7F000000
   }.__update(fontBody)
@@ -149,7 +149,7 @@ let descriptionLoading = freeze({
   flow  = FLOW_VERTICAL
   halign = ALIGN_CENTER
   valign = ALIGN_CENTER
-  gap = bigPadding
+  gap = midPadding
   children = [
     {
       rendObj = ROBJ_TEXT

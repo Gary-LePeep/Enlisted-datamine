@@ -47,8 +47,14 @@ function resultOptions(v){
 function setResultOptions(...){
   local optionsValue = getMenuOptions()
   let tabsInOptions = {}
-  let isAvailableTriggers = optionsValue.filter(@(opt) opt?.isAvailableWatched!=null).map(@(opt) opt.isAvailableWatched)
-  optionsValue = optionsValue.filter(@(opt) isOption(opt) && ((opt?.isAvailable==null && opt?.isAvailableWatched==null) || opt?.isAvailable() || opt?.isAvailableWatched.value))
+  let isAvailableTriggers = optionsValue
+    .filter(@(opt) opt?.isAvailableWatched!=null)
+    .map(@(opt) opt.isAvailableWatched)
+
+  optionsValue = optionsValue.filter(@(opt) isOption(opt) && (
+    (opt?.isAvailable == null && opt?.isAvailableWatched == null)
+    || (opt?.isAvailableWatched.value ?? opt?.isAvailable() ?? false)
+  ))
   let res = []
   local lastSeparator = null
   let optionsStack = []

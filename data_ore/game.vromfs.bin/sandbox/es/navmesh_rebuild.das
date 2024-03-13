@@ -42,6 +42,83 @@ def navmesh_rebuild_add_riextra(ri_extra : RiExtraComponent)
   let bbox = BBox3(pt1, pt2)
   rebuildNavMesh_addBBox(bbox)
 
+def navmesh_rebuild_add_ladder(transform : float3x4; ladder__thickness : float; ladder__width : float; ladder__height : float)
+  let pt1 = transform[3]
+  let pt2 = pt1 + (transform[0] * ladder__thickness + transform[1] * ladder__height + transform[2] * ladder__width)
+  var bbox = BBox3(pt1, pt2)
+  let extendDist = 1.2f
+  bbox |> bbox3_inflateXZ(extendDist)
+  rebuildNavMesh_addBBox(bbox)
+
+def navmesh_rebuild_setup_Point2(eid : EntityId; name : string)
+  let paramName = "nav_rebuild__{name}"
+  let value = get_Point2(eid, paramName, ecs_hash(paramName))
+  if value != null
+    rebuildNavMesh_setup(name, *value)
+
+def navmesh_rebuild_setup_float(eid : EntityId; name : string; compName = "")
+  let paramName = length(compName) == 0 ? "nav_rebuild__{name}" : compName;
+  let value = get_float(eid, paramName, ecs_hash(paramName))
+  if value != null
+    rebuildNavMesh_setup(name, *value)
+
+def navmesh_rebuild_setup_int_to_float(eid : EntityId; name : string)
+  let paramName = "nav_rebuild__{name}"
+  let value = get_int(eid, paramName, ecs_hash(paramName))
+  if value != null
+    rebuildNavMesh_setup(name, float(*value))
+
+def navmesh_rebuild_setup_bool_to_float(eid : EntityId; name : string)
+  let paramName = "nav_rebuild__{name}"
+  let value = get_bool(eid, paramName, ecs_hash(paramName))
+  if value != null
+    rebuildNavMesh_setup(name, *value ? 1.0f : 0.0f)
+
+def navmesh_rebuild_setup_params()
+  var levelEid = INVALID_ENTITY_ID
+  find_query() <| $ [es(REQUIRE=level__loadNavMesh)] (eid : EntityId)
+    levelEid = eid
+    return true
+  var waterEid = INVALID_ENTITY_ID
+  find_query() <| $ [es(REQUIRE=water__level)] (eid : EntityId)
+    waterEid = eid
+    return true
+
+  // navmesh setup
+  navmesh_rebuild_setup_float(levelEid, "agentMaxSlope")
+  navmesh_rebuild_setup_int_to_float(levelEid, "vertsPerPoly")
+  navmesh_rebuild_setup_float(levelEid, "regionMinSize")
+  navmesh_rebuild_setup_float(levelEid, "regionMergeSize")
+  navmesh_rebuild_setup_int_to_float(levelEid, "minBorderSize")
+  navmesh_rebuild_setup_float(levelEid, "detailSampleDist")
+  navmesh_rebuild_setup_float(levelEid, "detailSampleMaxError")
+  navmesh_rebuild_setup_float(levelEid, "edgeMaxLen")
+  navmesh_rebuild_setup_float(waterEid, "waterLevel", "water__level")
+
+  // jumplinks setup
+  navmesh_rebuild_setup_bool_to_float(levelEid, "jlkEnabled")
+  navmesh_rebuild_setup_int_to_float(levelEid, "jlkCovExtraCells")
+  navmesh_rebuild_setup_float(levelEid, "jlkJumpHeight")
+  navmesh_rebuild_setup_float(levelEid, "jlkJumpLength")
+  navmesh_rebuild_setup_float(levelEid, "jlkWidth")
+  navmesh_rebuild_setup_float(levelEid, "jlkAgentHeight")
+  navmesh_rebuild_setup_float(levelEid, "jlkAgentMinSpace")
+  navmesh_rebuild_setup_float(levelEid, "jlkDeltaHeightThreshold")
+  navmesh_rebuild_setup_float(levelEid, "jlkComplexJumpTheshold")
+  navmesh_rebuild_setup_float(levelEid, "jlkLinkDegAngle")
+  navmesh_rebuild_setup_float(levelEid, "jlkLinkDegDist")
+  navmesh_rebuild_setup_float(levelEid, "jlkAgentRadius")
+  navmesh_rebuild_setup_bool_to_float(levelEid, "jlkCrossObstaclesWithJumplinks")
+  navmesh_rebuild_setup_bool_to_float(levelEid, "jlkEnableCustomJumplinks")
+
+  // merge contour edges setup
+  navmesh_rebuild_setup_bool_to_float(levelEid, "edgMergeEdgesEnabled")
+  navmesh_rebuild_setup_float(levelEid, "edgMaxExtrudeErrorSq")
+  navmesh_rebuild_setup_float(levelEid, "edgExtrudeLimitSq")
+  navmesh_rebuild_setup_Point2(levelEid, "edgWalkPrecision")
+  navmesh_rebuild_setup_float(levelEid, "edgSafeCutLimitSq")
+  navmesh_rebuild_setup_float(levelEid, "edgUnsafeCutLimitSq")
+  navmesh_rebuild_setup_float(levelEid, "edgUnsafeMaxCutSpace")
 
 [es(tag=server)]
 def navmesh_rebuild_cancel_es(evt : CmdNavMeshRebuildCancel)
@@ -70,34 +147,7 @@ def navmesh_rebuild_start_es(evt : CmdNavMeshRebuildStart)
     console_print("navmesh_rebuild: was running, cancelled")
 
   rebuildNavMesh_init()
-
-  find_query() <| $ [es] (nav_rebuild__agentMaxSlope : float)
-    rebuildNavMesh_setup("agentMaxSlope", nav_rebuild__agentMaxSlope)
-    return true
-  find_query() <| $ [es] (nav_rebuild__vertsPerPoly : int)
-    rebuildNavMesh_setup("vertsPerPoly", float(nav_rebuild__vertsPerPoly))
-    return true
-  find_query() <| $ [es] (nav_rebuild__regionMinSize : float)
-    rebuildNavMesh_setup("regionMinSize", nav_rebuild__regionMinSize)
-    return true
-  find_query() <| $ [es] (nav_rebuild__regionMergeSize : float)
-    rebuildNavMesh_setup("regionMergeSize", nav_rebuild__regionMergeSize)
-    return true
-  find_query() <| $ [es] (nav_rebuild__minBorderSize : int)
-    rebuildNavMesh_setup("minBorderSize", float(nav_rebuild__minBorderSize))
-    return true
-  find_query() <| $ [es] (nav_rebuild__detailSampleDist : float)
-    rebuildNavMesh_setup("detailSampleDist", nav_rebuild__detailSampleDist)
-    return true
-  find_query() <| $ [es] (nav_rebuild__detailSampleMaxError : float)
-    rebuildNavMesh_setup("detailSampleMaxError", nav_rebuild__detailSampleMaxError)
-    return true
-  find_query() <| $ [es] (nav_rebuild__edgeMaxLen : float)
-    rebuildNavMesh_setup("edgeMaxLen", nav_rebuild__edgeMaxLen)
-    return true
-  find_query() <| $ [es] (water__level : float)
-    rebuildNavMesh_setup("waterLevel", water__level)
-    return true
+  navmesh_rebuild_setup_params()
 
   query() <| $ [es] (elevs : Array)
     for elev in elevs
@@ -118,6 +168,9 @@ def navmesh_rebuild_start_es(evt : CmdNavMeshRebuildStart)
 
   query() <| $ [es(REQUIRE=gameRendInstTag)] (ri_extra : RiExtraComponent)
     navmesh_rebuild_add_riextra(ri_extra)
+
+  query() <| $ [es] (transform : float3x4; ladder__thickness : float; ladder__width : float; ladder__height : float)
+    navmesh_rebuild_add_ladder(transform, ladder__thickness, ladder__width, ladder__height)
 
   createEntitySync("navmesh_rebuilding")
   console_print("navmesh_rebuild: started")

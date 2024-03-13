@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
-let { defTxtColor, activeTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
+let { defTxtColor, activeTxtColor } = require("%enlSqGlob/ui/designConst.nut")
 let { purchaseMsgBox } = require("%enlist/currency/purchaseMsgBox.nut")
 let { doBuyUnlock, unlockPrices } = require("taskRewardsState.nut")
 let { mkRewardImages, prepareRewards, mkRewardTooltip } = require("%enlist/battlepass/rewardsPkg.nut")

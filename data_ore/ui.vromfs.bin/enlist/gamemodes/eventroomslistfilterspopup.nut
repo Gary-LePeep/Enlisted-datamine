@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui/ui_library.nut" import *
 from "eventRoomsListFilter.nut" import *
 let { fontSub, fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
-let { bigPadding, smallPadding, defTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
+let { midPadding, smallPadding, defTxtColor } = require("%enlSqGlob/ui/designConst.nut")
 let { localGap } = require("eventModeStyle.nut")
 let modalPopupWnd = require("%ui/components/modalPopupWnd.nut")
 let mkOptionRow = require("components/mkOptionRow.nut")
@@ -56,7 +56,7 @@ let mkBlock = @(headerText, children) {
     headerText == null ? null :{
       size = [flex(), rowHeight]
       valign = ALIGN_BOTTOM
-      padding = [0, bigPadding, smallPadding, bigPadding]
+      padding = [0, midPadding, smallPadding, midPadding]
       rendObj = ROBJ_TEXT
       color = 0xFF808080
       text = headerText
@@ -90,12 +90,12 @@ let mkCircleCheck = @(watched) @() {
   flow = FLOW_HORIZONTAL
   valign = ALIGN_CENTER
   halign = ALIGN_RIGHT
-  padding = [bigPadding, 0]
+  padding = [midPadding, 0]
   gap = hdpx(5)
   children = [
     bTxt(locOn)
     mkCheckCircleIcon(watched.value)
-    { size = [bigPadding, flex()]}
+    { size = [midPadding, flex()]}
     bTxt(locOff)
     mkCheckCircleIcon(!watched.value)
   ]
@@ -188,10 +188,10 @@ let mkColumn = @(rows) {
 
 let content = {
     size = [widthPopup, SIZE_TO_CONTENT]
-    padding = [0, bigPadding, bigPadding, bigPadding]
+    padding = [0, midPadding, midPadding, midPadding]
     stopMouse = true
     flow = FLOW_HORIZONTAL
-    gap = bigPadding
+    gap = midPadding
     children = columns.map(mkColumn)
   }
 

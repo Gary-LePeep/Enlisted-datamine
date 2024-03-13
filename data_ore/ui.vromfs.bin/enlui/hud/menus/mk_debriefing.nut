@@ -4,7 +4,7 @@ let { fontHeading1 } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { switch_to_menu_scene } = require("app")
 let textarea = require("%ui/components/textarea.nut").smallTextarea
 let JB = require("%ui/control/gui_buttons.nut")
-let { strokeStyle } = require("%enlSqGlob/ui/viewConst.nut")
+let { strokeStyle } = require("%enlSqGlob/ui/designConst.nut")
 
 let winColor = Color(255,200,50,200)
 let loseColor = Color(200,40,20,200)

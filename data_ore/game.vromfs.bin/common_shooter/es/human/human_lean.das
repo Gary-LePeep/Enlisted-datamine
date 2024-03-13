@@ -18,7 +18,7 @@ def human_lean_controls(evt : CmdPostPhysUpdate;
 
 [es(REQUIRE_NOT=deadEntity, after=human_lean_controls)]
 def human_lean_apply(evt : CmdPostPhysUpdate;
-                     human_net_phys__leanSpeed : float = 180.0;
+                     human_net_phys__leanSpeed : float = 130.0;
                      human_net_phys__wishLean : float;
                      var human_net_phys : HumanActor&)
   assume currentState = human_net_phys.phys.currentState

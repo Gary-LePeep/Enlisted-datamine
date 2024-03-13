@@ -21,10 +21,13 @@ let { requestsToMeUids } = require("%enlist/contacts/contactsWatchLists.nut")
 
 let {nestWatched} = require("%dngscripts/globalState.nut")
 let needLogin = nestWatched("needLogin", false)
+let needCheckInvite = nestWatched("needCheckInvite", false)
+
 
 isLoggedIn.subscribe(function(v) {
   isDimAllowed.update(!v)
   if (!v) {
+    needCheckInvite(false)
     if (isInBattleState.value)
       switch_to_menu_scene()
     logout()
@@ -96,8 +99,14 @@ register_activation_callback(activation_handler)
 
 eventbus_subscribe("ipc.onBattleExitAccept",  function(_) {
   defer(switch_to_menu_scene)
-  complete_activation()
+  needCheckInvite(true)
 })
+
+if (needCheckInvite.value) {
+  logX("Check squad invite, on loading vrom")
+  complete_activation()
+  needCheckInvite(false)
+}
 
 
 subscribe_to_logout(function(_updated) {

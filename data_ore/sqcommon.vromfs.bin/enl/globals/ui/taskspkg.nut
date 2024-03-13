@@ -2,9 +2,9 @@ from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { PrimaryFlat } = require("%ui/components/textButton.nut")
-let { commonBtnHeight, taskProgressColor, activeTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
 let { defTxtColor, titleTxtColor, smallPadding, midPadding, bigPadding, accentColor,
-  darkTxtColor, miniPadding } = require("%enlSqGlob/ui/designConst.nut")
+  darkTxtColor, miniPadding, commonBtnHeight, taskProgressColor, activeTxtColor
+} = require("%enlSqGlob/ui/designConst.nut")
 let { getDescription } = require("unlocksText.nut")
 let { utf8ToUpper } = require("%sqstd/string.nut")
 let { mkCountdownTimerPerSec } = require("%ui/helpers/timers.nut")

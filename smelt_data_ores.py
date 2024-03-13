@@ -61,7 +61,7 @@ def translation_items():
             if 'us_m4_sherman_calliope' == item_name:
                 item_name = 'us_m4_calliope'
             if 'uk_a_22b_mk_3_churchill_1942' == item_name:
-                item_name = 'churchill_3'
+                item_name = 'uk_churchill_3'
             if 'germ_pz_iv_l70' == item_name:
                 item_name = 'germ_panzerjager_iv_l_70'
             if 'ussr_t_34_85e' == item_name:
@@ -78,6 +78,34 @@ def translation_items():
                 item_name = 'ussr_t_70'
             if 'us_m3_stuart' == item_name:
                 item_name = 'us_m3a1_stuart'
+            if 'gaz_aaa' == item_name:
+                item_name = 'ussr_gaz_aaa_apc'
+            if 'us_halftrack_m3_a1' == item_name:
+                item_name = 'us_halftrack_m3_a1_apc'
+            if 'germ_pzkpfw_III_ausf_J' == item_name:
+                item_name = 'germ_pzkpfw_iii_ausf_j1'
+            if 'germ_sdkfz_251_1' == item_name:
+                item_name = 'germ_sdkfz_251_1_apc'
+            if 'sdkfz_7_2' == item_name:
+                item_name = 'germ_sdkfz_7_2_apc'
+            if 'us_universal_carrier' == item_name:
+                item_name = 'uk_universal_carrier_apc'
+            if 'studebaker_us6_u1' == item_name:
+                item_name = 'us_studebaker_us6_u1_apc'
+            if 'halftrack_type_1_ho_ha' == item_name:
+                item_name = 'jp_halftrack_type_1_ho_ha_apc'
+            if 'type_94_isuzu' == item_name:
+                item_name = 'jp_type_94_isuzu_apc'
+            if 'ussr_su_76m_1943' == item_name:
+                item_name = 'ussr_su_76m'
+            if 'it_semovente_m41_75_18' == item_name:
+                item_name = 'it_m41_75_18'
+            if 'germ_jgdpz_iv_l48' == item_name:
+                item_name = 'germ_panzerjager_iv_l_48'
+            if 'germ_pzsfl_iva_dickermax' == item_name:
+                item_name = 'germ_dickermax'
+            if 'jp_type_3_ho_ni_iii' == item_name:
+                item_name = 'jp_type_3_ho_ni_3'
             english_json['item.' + item_name] = translation.split(';')[english_offset].replace('"', '')
             if russian_offset >= len(translation.split(';')):
                 russian_json['item.' + item_name] = translation.split(';')[english_offset].replace('"', '')
@@ -95,6 +123,9 @@ def translation_items():
     for (k, v) in english_json.items():
         if "'" in v:
             english_json[k] = v.replace("'", '~')
+    for (k, v) in russian_json.items():
+        if "'" in v:
+            russian_json[k] = v.replace("'", '~')
 
     # Sort and save
     english_json = dict(sorted(english_json.items()))

@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
-let { defTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
+let { defTxtColor } = require("%enlSqGlob/ui/designConst.nut")
 let { UserNameColor } = require("%ui/style/colors.nut")
 let {
   refreshLbData, curLbRequestData, curLbData, curLbErrName, curLbSelfRow,

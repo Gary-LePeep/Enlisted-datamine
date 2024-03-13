@@ -6,8 +6,8 @@ let { fontBody, fontHeading2, fontHeading1 } = require("%enlSqGlob/ui/fontsStyle
 let { settings, onlineSettingUpdated } = require("%enlist/options/onlineSettings.nut")
 let { purchasesExt } = require("%enlist/meta/profile.nut")
 let { txt, noteTextArea } = require("%enlSqGlob/ui/defcomps.nut")
-let { activeTxtColor, gap, bigPadding, accentTitleTxtColor
-} = require("%enlSqGlob/ui/viewConst.nut")
+let { activeTxtColor, gap, midPadding, accentTitleTxtColor
+} = require("%enlSqGlob/ui/designConst.nut")
 let { shopItems } = require("%enlist/shop/shopItems.nut")
 let { mkShopItemView } = require("shopPkg.nut")
 let { borderColor } = require("%ui/style/colors.nut")
@@ -65,7 +65,7 @@ function mkShopItemSingleResult(purchase) {
   return {
     flow = FLOW_HORIZONTAL
     valign = ALIGN_BOTTOM
-    bigPadding
+    midPadding
     children = [
       {
         rendObj = ROBJ_SOLID
@@ -78,7 +78,7 @@ function mkShopItemSingleResult(purchase) {
       amount <= 1 ? null
         : txt({
             text = $"x{amount}"
-            padding = bigPadding
+            padding = midPadding
           }.__update(fontHeading1))
     ]
   }

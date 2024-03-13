@@ -40,18 +40,22 @@ def use_repair_kit(maintainable__operator)
   query(maintainable__operator) <| $ [es] (var repair__active : bool&;
                                            repair__repairKit : EntityId)
     repair__active = false
-    query(repair__repairKit) <| $ [es] (var repair_kit__useCounter : int&)
+    query(repair__repairKit) <| $ [es] (var repair_kit__useCounter : int&; var item__repairAmount : int&)
       repair_kit__useCounter += 1
+      item__repairAmount -= 1
     sendEvent(maintainable__operator, [[EventOnLootUse itemEid=repair__repairKit]])
+
+[es(on_appear)]
+def item_repair_amount_init(evt : Event; item__ownerEid : EntityId; var item__repairAmount : int&)
+  item__repairAmount = get_int(item__ownerEid, "entity_mods__vehicleRepairUsagesPerKit") ?? item__repairAmount
 
 [es(tag=server, track=(extinguisher__usesLeft, repair_kit__useCounter))]
 def remove_used_repair_kit(evt : Event;
                            eid : EntityId;
                            item__ownerEid : EntityId;
                            extinguisher__usesLeft : int;
-                           repair_kit__useCounter : int;
-                           entity_mods__vehicleRepairUsagesPerKit : int = -1)
-  query(item__ownerEid) <| $ [es] (var itemContainer : EidList&)
+                           repair_kit__useCounter : int)
+  query(item__ownerEid) <| $ [es] (var itemContainer : EidList&; entity_mods__vehicleRepairUsagesPerKit : int = -1)
     if extinguisher__usesLeft <= 0 && repair_kit__useCounter > 0 && repair_kit__useCounter >= entity_mods__vehicleRepairUsagesPerKit
       let idx = itemContainer |> find_index(eid)
       if idx >= 0

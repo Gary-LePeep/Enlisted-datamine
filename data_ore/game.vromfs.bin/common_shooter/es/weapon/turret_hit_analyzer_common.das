@@ -61,11 +61,12 @@ def simulate_shot(owner_eid : EntityId;
                   shell_prop_ids : ShellPropIds;
                   shoot_tm : float3x4;
                   mode : SimulateMode;
+                  var out_hit_team : int&;
                   var out_hit_pos : float3&;
                   var out_hit_result : int&;
                   turret_hit_analyzer__maxDistance : float)
   out_hit_pos = float3()
-
+  out_hit_team = TEAM_UNASSIGNED
   var hitResult = -1
   var quit = false
 
@@ -128,7 +129,7 @@ def simulate_shot(owner_eid : EntityId;
                   let eid = isect.eid
                   let newHitPos = prevPos + dir * isect.t
                   out_hit_pos = newHitPos
-
+                  out_hit_team = get_int(eid, "team") ?? TEAM_UNASSIGNED
                   let invul = check_shell_invulnerability(eid, distance, dir, newHitPos, curTime)
                   if invul.isInvulnerable
                     sendEvent(isect.eid, [[ProjectileHitInvulnerableNotification hitPos=isect.pos, hitDir=dir]])
@@ -142,17 +143,14 @@ def simulate_shot(owner_eid : EntityId;
 
                   var damageModel : DamageModel const?
                   var restrictToTeam = TEAM_UNASSIGNED
-                  var team = TEAM_UNASSIGNED
                   var isExploded = false
                   query(eid) <| $ [es] (damage_model : DamageModel const?;
                                         vehicle_seats__restrictToTeam : int = TEAM_UNASSIGNED;
-                                        team aka entity_team : int = TEAM_UNASSIGNED;
                                         isExploded aka entity_isExploded : bool = false)
                     damageModel = damage_model
                     restrictToTeam = vehicle_seats__restrictToTeam
-                    team = entity_team
                     isExploded = entity_isExploded
-                  let isTeamsFriendly = is_teams_friendly(projectileOwnerTeam, team)
+                  let isTeamsFriendly = is_teams_friendly(projectileOwnerTeam, out_hit_team)
                   let isTeamFireAllowed = (!isTeamsFriendly || is_friendly_fire_allowed())
                   let isCorrectRestrictToTeam = (restrictToTeam == TEAM_UNASSIGNED || restrictToTeam != projectileOwnerTeam)
                   if (damageModel != null && !isExploded && isTeamFireAllowed &&

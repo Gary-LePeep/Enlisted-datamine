@@ -30,7 +30,7 @@
     "windowTitle": "Enlisted"
   },
   {
-    "bgImage": "ui/game_def_login_screen.avif; ui/game_d_day_login_screen_2.avif; ui/game_tunisia_login_screen_2.avif; ui/armored_train_login_screen.avif; ui/stalingrad_login_screen.avif; ui/burning_sky_loading_screen.avif; ui/pacific_usa_login_screen.avif; ui/pacific_jap_login_screen.avif; ui/high_caliber_login_screen.avif; ui/ussr_moscow_prem_mgun_2.avif; ui/ger_normandy_prem_assault_2.avif; ui/ussr_berlin_prem_assault_1.avif; ui/ger_moscow_prem_mgun_2.avif; ui/airborn_forces_login_screen.avif; ui/jungle_fire_login_screen.avif; ui/new_era_login_screen.avif;"
+    "bgImage": "ui/game_def_login_screen.avif; ui/game_d_day_login_screen_2.avif; ui/game_tunisia_login_screen_2.avif; ui/armored_train_login_screen.avif; ui/stalingrad_login_screen.avif; ui/burning_sky_loading_screen.avif; ui/pacific_usa_login_screen.avif; ui/pacific_jap_login_screen.avif; ui/high_caliber_login_screen.avif; ui/ussr_moscow_prem_mgun_2.avif; ui/ger_normandy_prem_assault_2.avif; ui/ussr_berlin_prem_assault_1.avif; ui/ger_moscow_prem_mgun_2.avif; ui/airborn_forces_login_screen.avif; ui/jungle_fire_login_screen.avif; ui/new_era_login_screen.avif; ui/stronger_than_steel_login_screen.avif;"
   },
   {
     "scene": "content/enlisted/gamedata/scenes/campaigns_menu_squad_diorama_scene.blk"
@@ -102,6 +102,9 @@
     "nvidia_app_id": 100200011
   },
   {
+    "nvidia_project_id": "775a49f2-68f5-4740-8ec4-70b206322def"
+  },
+  {
     "registerUrl": "https://login.gaijin.net/fromgame?project=enlisted"
   },
   {
@@ -168,12 +171,19 @@
     "game_das_sandbox_project": "%scripts/sandbox.das_project"
   },
   {
+    "linkToSteamEnabled": true
+  },
+  {
+    "linkToEmailEnabled": false
+  },
+  {
     "graphics": {
       "anisotropy": 4,
       "spotShadowBias": [-6e-05,-0.1,0.001,0.005],
       "dafx": "cpu",
       "useFoamFx": true,
       "decompressed_shaders_cache_size_in_mb": 20,
+      "useTreeLod0Offset": false,
       "shader_reload_allowed": true,
       "staticShadowMaxUpdateAmount": 0.025,
       "staticShadowUniformUpdate": true,
@@ -205,7 +215,8 @@
       "instancing": "geom",
       "vsync": false,
       "max_genmip_tex_sz": 0,
-      "maxTexCount": 32767
+      "maxTexCount": 32767,
+      "guiDriverSelectEnabled": true
     }
   },
   {
@@ -258,7 +269,7 @@
   },
   {
     "phys": {
-      "fixedTimeStepHz": 60,
+      "fixedTimeStepHz": -60,
       "maxSubSteps": 3
     }
   },
@@ -440,6 +451,7 @@
         "ssaa": false,
         "fsr": "off",
         "dlssQuality": 0,
+        "dlssFrameGeneration": 0,
         "xessQuality": 0,
         "fsr2Quality": 0,
         "forbidTrueFullscreen": false,
@@ -1045,15 +1057,6 @@
       "script": "%ui/ui.nut",
       "overlay_ui_script": "%enlist/root.nut",
       "beforeRenderMultithreaded": true
-    }
-  },
-  {
-    "net": {
-      "bwlimit": {
-        "ridestr": {
-          "maxSimultaneousDestrs": 64
-        }
-      }
     }
   },
   {

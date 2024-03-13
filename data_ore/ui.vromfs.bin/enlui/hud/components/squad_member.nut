@@ -6,6 +6,7 @@ let { DEFAULT_TEXT_COLOR, DEAD_TEXT_COLOR } = require("%ui/hud/style.nut")
 let { mkGrenadeIcon } = require("%ui/hud/huds/player_info/grenadeIcon.nut")
 let { mkMineIcon } = require("%ui/hud/huds/player_info/mineIcon.nut")
 let mkMedkitIcon = require("%ui/hud/huds/player_info/medkitIcon.nut")
+let mkRepairIcon = require("%ui/hud/huds/player_info/repairIcon.nut")
 let mkFlaskIcon = require("%ui/hud/huds/player_info/flaskIcon.nut")
 let { kindIcon } = require("%enlSqGlob/ui/soldiersUiComps.nut")
 let { controlledHeroEid } = require("%ui/hud/state/controlled_hero.nut")
@@ -29,6 +30,9 @@ let mkMineIconByMember = @(member, size, color = defTxtColor)
 
 let mkMemberHealsBlock = @(member, size, color = defTxtColor)
   member.isAlive && member.targetHealCount > 0 ? mkMedkitIcon(size, color) : null
+
+let mkMemberRepairBlock = @(member, size, color = defTxtColor)
+  member.isAlive && member.targetRepairCount > 0 ? mkRepairIcon(size, color) : null
 
 let mkMemberFlaskBlock = @(member, size, color = defTxtColor)
   member.isAlive && member.hasFlask ? mkFlaskIcon(size, color) : null
@@ -97,6 +101,7 @@ return {
   mkGrenadeIcon = mkGrenadeIconByMember
   mkMineIcon = mkMineIconByMember
   mkMemberHealsBlock
+  mkMemberRepairBlock
   mkStatusIcon
   mkAiActionIcon
   mkMemberFlaskBlock

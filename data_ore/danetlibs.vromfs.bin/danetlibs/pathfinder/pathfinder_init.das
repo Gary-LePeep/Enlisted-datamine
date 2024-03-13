@@ -14,7 +14,4 @@ def load_pathfinder(base_path : string) : bool
   return ok
 
 
-[export]
-def test()
-  let ok = load_pathfinder("%danetlibs/pathfinder")
-  assert(ok)
+

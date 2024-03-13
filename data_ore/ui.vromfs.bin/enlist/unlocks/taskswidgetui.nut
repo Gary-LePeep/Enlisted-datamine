@@ -2,8 +2,8 @@ from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { utf8ToUpper } = require("%sqstd/string.nut")
-let { smallPadding, bigPadding, hoverBgColor, disabledTxtColor
-} = require("%enlSqGlob/ui/viewConst.nut")
+let { smallPadding, midPadding, hoverBgColor, disabledTxtColor
+} = require("%enlSqGlob/ui/designConst.nut")
 let { receiveTaskRewards } = require("taskListState.nut")
 let { taskDescription, taskDescPadding, mkTaskLabel
 } = require("%enlSqGlob/ui/tasksPkg.nut")
@@ -80,7 +80,7 @@ function mkEventTask(task, taskPrice, idx, uProgress, isMainActive) {
   return {
     size = [flex(), SIZE_TO_CONTENT]
     flow = FLOW_HORIZONTAL
-    gap = bigPadding
+    gap = midPadding
     children = [
       mkUnlockSlot({
         task
@@ -106,7 +106,7 @@ function mkEventTask(task, taskPrice, idx, uProgress, isMainActive) {
         flow = FLOW_VERTICAL
         size = [hdpx(12), flex()]
         halign = ALIGN_CENTER
-        gap = bigPadding
+        gap = midPadding
         children = totalSteps <= 1 ? null
           : [
               {

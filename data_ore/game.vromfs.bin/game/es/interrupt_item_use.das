@@ -236,11 +236,12 @@ def temporary_interrupt_self_reviving_es(info : ParallelUpdateFrameDelayed;
     return
 
   let pauseHealing = human_net_phys.phys.appliedCT.isMoving
-  if pauseHealing && human_inventory__entityUseEnd > info.curTime
-    human_inventory__entityUseEnd = -1.0
-    human_inventory__savedUseProgress = info.curTime - human_inventory__entityUseStart
-    human_inventory__usePausedUntilTime = info.curTime + human_medkit__healingResumeDelay
-    hitpoints__revivingCount--
+  if pauseHealing
+    if human_inventory__entityUseEnd > info.curTime
+      human_inventory__entityUseEnd = -1.0
+      human_inventory__savedUseProgress = info.curTime - human_inventory__entityUseStart
+      human_inventory__usePausedUntilTime = info.curTime + human_medkit__healingResumeDelay
+      hitpoints__revivingCount--
   elif human_inventory__savedUseProgress >= 0.0 && info.curTime > human_inventory__usePausedUntilTime
     let useTime = get_item_use_time(human_inventory__entityToUse, isDowned, /*is_self_targeting*/ true)
     human_inventory__entityUseStart = info.curTime - human_inventory__savedUseProgress

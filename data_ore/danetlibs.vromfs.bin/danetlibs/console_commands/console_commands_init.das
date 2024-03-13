@@ -16,7 +16,4 @@ def load_console_commands(base_path : string) : bool
   return ok
 
 
-[export]
-def test()
-  let ok = load_console_commands("%danetlibs/console_commands")
-  assert(ok)
+

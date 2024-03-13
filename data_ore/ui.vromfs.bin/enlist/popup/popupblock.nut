@@ -6,7 +6,7 @@ let textButton = require("%ui/components/textButton.nut")
 let { BtnBgNormal } = require("%ui/style/colors.nut")
 let { sound_play } = require("%dngscripts/sound_system.nut")
 let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
-let { bigGap } = require("%enlSqGlob/ui/viewConst.nut")
+let { bigGap } = require("%enlSqGlob/ui/designConst.nut")
 
 let HighlightNeutral = Color(230, 230, 100)
 let HighlightFailure = Color(255,60,70)

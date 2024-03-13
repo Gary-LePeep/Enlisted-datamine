@@ -138,7 +138,7 @@ def lunge_mine_remove_on_active_es(info : UpdateStageInfoAct;
     if slotId >= 0 && !is_anim_progress_valid_to_change_weapon(human_net_phys.phys, slotId)
       switch_from_lunge_mine(human_weap__gunEids, human_net_phys.phys)
 
-[es(tag=server, REQUIRE=lungeMine, before=explode_on_contact_shell_contact)]
+[es(tag=server, REQUIRE=lungeMine, after=explode_on_contact_shell_contact)]
 def lunge_mine_destroy_by_distance(evt : CmdPostPhysUpdate;
                                    eid : EntityId;
                                    shell__maxDistanceSq : float;

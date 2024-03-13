@@ -11,7 +11,7 @@ let { setTooltip } = require("%ui/style/cursors.nut")
 let { addModalWindow, removeModalWindow } = require("%ui/components/modalWindows.nut")
 let { tinyOffset, smallOffset, smallPadding, defInsideBgColor,
   activeBgColor, idleBgColor, defBgColor, defTxtColor, titleTxtColor
-} = require("%enlSqGlob/ui/viewConst.nut")
+} = require("%enlSqGlob/ui/designConst.nut")
 let { mkArmySimpleIcon } = require("%enlist/soldiers/components/armyPackage.nut")
 let { show } = require("%ui/components/msgbox.nut")
 let { isEventModesOpened } = require("%enlist/gameModes/eventModesState.nut")

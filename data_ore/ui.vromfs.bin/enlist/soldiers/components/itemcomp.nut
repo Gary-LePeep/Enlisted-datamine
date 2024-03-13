@@ -1,13 +1,12 @@
 from "%enlSqGlob/ui/ui_library.nut" import *
 
-let { fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { fontBody, fontSub, fontawesome } = require("%enlSqGlob/ui/fontsStyle.nut")
 let faComp = require("%ui/components/faComp.nut")
 let { isGamepad } = require("%ui/control/active_controls.nut")
-let { unitSize, gap, bigGap, bigPadding, smallPadding, fadedTxtColor,
-  selectedTxtColor, defTxtColor
-} = require("%enlSqGlob/ui/viewConst.nut")
 let { defLockedSlotBgColor, hoverLockedSlotBgColor, darkTxtColor,
-  defSlotBgColor, hoverSlotBgColor, defItemBlur, modsBgColor
+  defSlotBgColor, hoverSlotBgColor, defItemBlur, modsBgColor, unseenColor,
+  unitSize, gap, bigGap, midPadding, smallPadding, fadedTxtColor,
+  selectedTxtColor, defTxtColor, attentionTxtColor
 } = require("%enlSqGlob/ui/designConst.nut")
 let { mkLockedBlock, mkEmptyItemSlotImg } = require("%enlist/soldiers/components/itemSlotComp.nut")
 let { statusIconCtor, statusBadgeWarning } = require("%enlSqGlob/ui/itemPkg.nut")
@@ -23,6 +22,7 @@ let { curHoveredItem } = require("%enlist/showState.nut")
 let popupsState = require("%enlSqGlob/ui/popup/popupsState.nut")
 let tooltipCtor = require("%ui/style/tooltipCtor.nut")
 let cursors = require("%ui/style/cursors.nut")
+let fa = require("%ui/components/fontawesome.map.nut")
 let { unequipItem } = require("%enlist/soldiers/unequipItem.nut")
 let { sound_play } = require("%dngscripts/sound_system.nut")
 let { mkAmmoInfo } = require("mkAmmo.nut")
@@ -31,12 +31,42 @@ let { mkSpecialItemIcon } = require("%enlSqGlob/ui/mkSpecialItemIcon.nut")
 let { detailsStatusTier, mkTypeIcon } = require("%enlist/soldiers/components/itemDetailsComp.nut")
 let { isObjGuidBelongToRentedSquad } = require("%enlist/soldiers/model/squadInfoState.nut")
 let { showRentedSquadLimitsBox } = require("%enlist/soldiers/components/squadsComps.nut")
-let { mkAlertIcon, ITEM_ALERT_SIGN } = require("%enlSqGlob/ui/soldiersUiComps.nut")
+let { mkAlertIcon, ITEM_ALERT_SIGN, UPGRADE_ALERT_SIGN
+} = require("%enlSqGlob/ui/soldiersUiComps.nut")
 let { previewHighlightColor } = require("%enlist/preset/presetEquipUi.nut")
 let { itemTypesInSlots } = require("%enlist/soldiers/model/all_items_templates.nut")
 let { mkBattleRating, mkBattleRatingShort } = require("%enlSqGlob/ui/battleRatingPkg.nut")
 let getEquipClasses = require("%enlist/soldiers/model/equipClassSchemes.nut")
 let { getClassCfg, getKindCfg, soldierKindsList } = require("%enlSqGlob/ui/soldierClasses.nut")
+
+enum ItemNotifiers {
+  EMPTY              // no icon
+  UNSEEN_ITEM        // box icon for new vehicles
+  UNSEEN_BETTER_ITEM // green icon on inventory slots
+  BETTER_ITEM        // yellow icon on items and viewed inventory slots
+}
+
+let UPGRADE_COLOR = mul_color(attentionTxtColor, 0.5)
+
+let upgradeIcon = @(icon, color) {
+  rendObj = ROBJ_INSCRIPTION
+  validateStaticText = false
+  text = fa[icon]
+  font = fontawesome.font
+  fontSize = hdpx(16)
+  color
+  margin = [hdpx(3), hdpx(3), 0, 0]
+  hplace = ALIGN_RIGHT
+}
+
+let mkUpgradeSign = @(upgradeStateWatch) function() {
+  let res = { watch = upgradeStateWatch }
+  let state = upgradeStateWatch.value
+  if (state == ItemNotifiers.EMPTY)
+    return res
+  let color = state == ItemNotifiers.UNSEEN_BETTER_ITEM ? unseenColor : UPGRADE_COLOR
+  return res.__update(upgradeIcon(UPGRADE_ALERT_SIGN, color))
+}
 
 let DISABLED_ITEM = { tint = Color(40, 40, 40, 160), picSaturate = 0.0 }
 let baseItemSize = [7 * unitSize, 2 * unitSize] // 320px is max
@@ -85,7 +115,7 @@ let mkSlotName = @(text, isSelected, group, battleRating) watchElemState(@(sf) {
     scrollOnHover = true
     size = [flex(), SIZE_TO_CONTENT]
     flow = FLOW_HORIZONTAL
-    gap = bigPadding
+    gap = midPadding
     children = [
       {
         rendObj = ROBJ_TEXT
@@ -138,12 +168,12 @@ let defIcon = @(item, size, override = {}) iconByItem(item, {
 let smgIcon = @(item, size) defIcon(item, size, {
   hplace = ALIGN_LEFT
   vplace = ALIGN_CENTER
-  pos    = [bigPadding * 3, 0]
+  pos    = [midPadding * 3, 0]
 })
 
 let gunIcon = @(item, size) defIcon(item, size, {
   hplace = ALIGN_LEFT
-  pos    = [bigPadding * 3, 0]
+  pos    = [midPadding * 3, 0]
 })
 
 let pistolIcon = @(item, size) defIcon(item, size, {
@@ -185,7 +215,7 @@ let defItemCtor = function(item, size) {
 let mkItemCount = @(count) count > 1 ? {
   rendObj = ROBJ_BOX
   fillColor = modsBgColor
-  padding = [0, bigPadding]
+  padding = [0, midPadding]
   children = {
     rendObj = ROBJ_TEXT
     defTxtColor
@@ -210,7 +240,7 @@ let itemSlotCtor = function(item, itemSize, itemCtor, group, isSelected, isAvail
           color
           hplace = ALIGN_RIGHT
           vplace = ALIGN_CENTER
-          padding = [smallPadding, bigPadding]
+          padding = [smallPadding, midPadding, smallPadding, smallPadding]
         })
       : null
 
@@ -236,7 +266,7 @@ let itemSlotCtor = function(item, itemSize, itemCtor, group, isSelected, isAvail
             }
             {
               vplace = ALIGN_RIGHT
-              padding = [0, bigPadding]
+              padding = [0, midPadding]
               children = mods
             }
           ]
@@ -246,7 +276,7 @@ let itemSlotCtor = function(item, itemSize, itemCtor, group, isSelected, isAvail
           vplace = ALIGN_BOTTOM
           valign = ALIGN_BOTTOM
           flow = FLOW_HORIZONTAL
-          padding = [smallPadding, bigPadding]
+          padding = [smallPadding, midPadding]
           gap = smallPadding
           children = [
             isMainWeapon(item) ? mkTypeIcon(item?.itemtype, item?.itemsubtype) : null
@@ -488,7 +518,7 @@ function defIconCtor(item, soldierWatch) {
   }
 }
 
-let mkUnseenSign = @(hasUnseenSign) mkAlertIcon(ITEM_ALERT_SIGN, hasUnseenSign)
+let mkUnseenSign = @(hasUnseen) mkAlertIcon(ITEM_ALERT_SIGN, hasUnseen)
 
 let defEmptyItemCtor = @(slotName, emptyItemImg, unseenSign) {
   size = flex()
@@ -533,7 +563,7 @@ function mkItem(slotId = null, item = null, slotType = null, itemSize = baseItem
   isDisabled = false, canDrag = true, bgStyle = defBgStyle, selectedKey = Watched(null),
   selectKey = null, isXmb = false, bgColor = defSlotBgColor, pauseTooltip = Watched(false),
   onClickCb = null, onHoverCb = null, isLocked = false, onDoubleClickCb = null,
-  onResearchClickCb = null, mods = null, hasUnseenSign = Watched(false), isAvailable = null,
+  onResearchClickCb = null, mods = null, notifierState = Watched(ItemNotifiers.EMPTY), isAvailable = null,
   hideStatus = false, hasWarningSign = false, needItemName = true,
   slotImg = null, previewState = null, isShowClassesHint = false
 ) {
@@ -576,9 +606,11 @@ function mkItem(slotId = null, item = null, slotType = null, itemSize = baseItem
     : emptySlotName(slotType, group, isSelected)
 
   let status = (hideStatus || !item) ? null : statusCtor(item, soldier)
-  let unseenSign = item?.isFixed ? null : mkUnseenSign(hasUnseenSign)
+  let unseenSign = item?.isFixed ? null
+    : item?.itemtype == "vehicle" ? mkUnseenSign(notifierState) // true or false
+    : mkUpgradeSign(notifierState) // enum ItemNotifiers
 
-  let itemObj = (isAvailable || item != null)
+  let itemObj = isAvailable || item != null
   ? itemSlotCtor(item, itemSize, itemCtor, group, isSelected, isAvailable, slotName, slotType,
       soldierGuid, mods, status, unseenSign)
   : isDisabled || isLocked
@@ -639,13 +671,14 @@ function mkItem(slotId = null, item = null, slotType = null, itemSize = baseItem
           if (isItemEquipping)
             sound_play("ui/inventory_item_place")
         }
-        function onHover(on) {
+        function onHover(on, elemPos) {
           curHoveredItem(on ? item : null)
           onHoverCb?(on)
           cursors.setTooltip(on && item && !pauseTooltip.value
             ? makeToolTip(item, canDrag, slotType != null, canDrag && onDoubleClickCb != null,
               isShowClassesHint)
-            : null)
+            : null,
+            elemPos)
         }
         dropData = isDraggable ? dropData : null
         canDrop = canDropWithExceptionCB
@@ -657,4 +690,5 @@ function mkItem(slotId = null, item = null, slotType = null, itemSize = baseItem
 return {
   mkItem = kwarg(mkItem)
   amountText
+  ItemNotifiers
 }

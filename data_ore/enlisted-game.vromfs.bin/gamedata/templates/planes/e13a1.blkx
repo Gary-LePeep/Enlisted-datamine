@@ -67,7 +67,11 @@
               [-1.19209e-07,0.0,-1.0],
               [0.15,0.0,-0.08]
             ],
+            "cameraNodeName": "gun1",
+            "cameraOffset": [-0.4,0.238,0.0],
+            "cameraType": "gunner",
             "seatComponent": "isGunner",
+            "canPlaceManually": true,
             "receiveDamageFromDMPart": "gunner2_dm",
             "directTurretControl": true,
             "roomSpace": 1,
@@ -139,7 +143,9 @@
             "paramMaxPitchAngle": "turret1_max_pitch_angle",
             "curPitchParamName": "gun1_pitch",
             "curYawParamName": "turret1_yaw",
-            "paramMinYawAngle": "turret1_min_yaw_angle"
+            "paramMinYawAngle": "turret1_min_yaw_angle",
+            "curWorldPitchParamName": "gun1_world_pitch",
+            "curWorldYawParamName": "turret1_world_yaw"
           }
         }
       ]
@@ -458,10 +464,13 @@
       "turret__limit": [-55.0,55.0,-8.0,55.0]
     },
     {
-      "turret__yawSpeed": 100.0
+      "turret__yawSpeed": 500.0
     },
     {
-      "turret__pitchSpeed": 100.0
+      "turret__pitchSpeed": 500.0
+    },
+    {
+      "turret__lastRelativeDir": [-1.0,0.0,0.0]
     },
     {
       "turret__limitsTable:list<p4>": {
@@ -470,6 +479,11 @@
         "lim3": [-5.0,5.0,0.0,55.0],
         "lim4": [5.0,30.0,0.0,55.0],
         "lim5": [30.0,50.0,-40.0,55.0]
+      }
+    },
+    {
+      "turret__limitsDeadzone:list<p4>": {
+        "lim0": [-5.0,5.0,-10.0,15.0]
       }
     }
   ],

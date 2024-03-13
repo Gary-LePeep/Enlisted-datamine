@@ -151,6 +151,14 @@ def respawn_camera_set_look_from_side_es(evt : Event; team : int)
 
     respawnCameraLookFromSide = get_camera_look_from(team, moveCameraToHeight, float3(respawnSelectorDistanceMult))
 
+[es(tag=server, on_appear)]
+def respawn_camera_set_look_from_side_on_camera_appear_es(evt : Event;
+                                                          moveCameraToHeight : float;
+                                                          respawnCameraForTeam : int;
+                                                          respawnSelectorDistanceMult : float;
+                                                          var respawnCameraLookFromSide : float3&)
+  respawnCameraLookFromSide = get_camera_look_from(respawnCameraForTeam, moveCameraToHeight, float3(respawnSelectorDistanceMult))
+
 def update_respawn_cameras()
   query() <| $ [es] (eid : EntityId;
                      respawn_camera__minSpeed : float;
@@ -282,8 +290,9 @@ def apply_camera_on_camera_target_appear_on_first_spawn(evt : Event;
   query(get_local_player_eid()) <| $ [es] (team : int;
                                            respawner__isFirstSpawn : bool;
                                            respawner__paratroopersChooserOn : bool;
+                                           respawner__enabled : bool;
                                            var respawner__isRespawnCameraCreated : bool&)
-    if team != respawnCameraForTeam || respawner__isRespawnCameraCreated || (!respawner__paratroopersChooserOn && respawner__isFirstSpawn)
+    if team != respawnCameraForTeam || respawner__isRespawnCameraCreated || (!respawner__paratroopersChooserOn && respawner__isFirstSpawn) || !respawner__enabled
       return
     query() <| $ [es] (var camera__active : bool&)
       camera__active = false

@@ -15,7 +15,4 @@ def load_wounds(base_path : string) : bool
   return ok
 
 
-[export]
-def test()
-  let ok = load_wounds("%danetlibs/wounds")
-  assert(ok)
+

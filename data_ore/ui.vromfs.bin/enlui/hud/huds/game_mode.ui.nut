@@ -5,6 +5,7 @@ let { fontHeading2, fontBody, fontawesome } = require("%enlSqGlob/ui/fontsStyle.
 let fa = require("%ui/components/fontawesome.map.nut")
 let style = require("%ui/hud/style.nut")
 let { TEAM_UNASSIGNED } = require("team")
+let { abs } = require("%sqstd/math.nut")
 let {
   capZones, curCapZone, trainZoneEid, nextTrainCapzoneEid, trainCapzoneProgress, visibleZoneGroups, whichTeamAttack, isTwoChainsCapzones
 } = require("%ui/hud/state/capZones.nut")
@@ -16,15 +17,24 @@ let {
 let {localPlayerTeam} = require("%ui/hud/state/local_player.nut")
 let {secondsToStringLoc} = require("%ui/helpers/time.nut")
 let { isGunGameMode, GunGameModeUI } = require("gun_game.game_mode.ui.nut")
+let random = require("dagor.random")
+
 
 const GAP_RATIO = 0.4 // magic number calculated as gap/icon = (1 / 1.5) / (1 + 1 / 1.5)
 
+let SCORE_ANIM_TRIGGER = "SCORE_ANIM_TRIGGER"
 let teamScoreBlink = @(trigger) [{ prop = AnimProp.opacity, from = 0.8, to = 1.0, trigger = trigger, easing = InCubic, duration = 0.5}]
 let myTeamScoreBlinkAnim = teamScoreBlink("myTeamScoreChanged")
 let enemyTeamScoreBlinkAnim = teamScoreBlink("enemyTeamScoreChanged")
 
 myScore.subscribe(@(_v) anim_start("myTeamScoreChanged"))
 enemyScore.subscribe(@(_v) anim_start("enemyTeamScoreChanged"))
+
+
+let mkText = @(txt, override = {}) {
+  rendObj = ROBJ_TEXT
+  text = txt
+}.__update(override)
 
 let hasScoreBar = Computed(@() isTwoChainsCapzones.value || whichTeamAttack.value != -1
   || ((myScore.value ?? 0) != 0 && (enemyScore.value ?? 0) != 0))
@@ -343,25 +353,101 @@ let attackerScoreWatch = Computed(function() {
   return score == null ? null : (1000.0 * score + 0.5).tointeger()
 })
 
+
+local scoreAnimLastValue = null
+local scoreAnimIdx = 0
+let scoreAnimStack = Watched([])
+
+function onFinishScoreAnim() {
+  if (scoreAnimStack.value.len() == 0)
+    return
+
+  scoreAnimLastValue = scoreAnimStack.value[0]
+  scoreAnimStack.mutate(@(v) v.remove(0))
+}
+
+attackerScoreWatch.subscribe(function(val) {
+  scoreAnimStack.mutate(@(v) v.append(val))
+})
+
+let mkSquadSizeIcon = @(color, iconSize) {
+  rendObj = ROBJ_IMAGE
+  image = Picture("ui/skin#initial_squad_size.svg:{0}:{0}:K".subst(iconSize))
+  color
+  size = [iconSize, iconSize]
+}
+
+let scoreDeltaAnim = [
+  { prop = AnimProp.translate, from = [-90, 0], to = [-90, 0],
+    duration = 0.7, play = true }
+  { prop = AnimProp.scale, from = [1, 1], to = [1.8, 1.8],
+    duration = 0.5, play = true, easing = Blink }
+  { prop = AnimProp.opacity, from = 0.3, to = 1,
+    duration = 0.2, play = true }
+  { prop = AnimProp.translate, from = [-90, 0], to = [-30, 0], delay = 0.7,
+    duration = 0.2, play = true, onFinish = onFinishScoreAnim }
+]
+
+function scoreDeltaAnimUi() {
+  scoreAnimIdx++
+  let addColor = isMyTeamAttacking.value ? style.TEAM0_COLOR_FG : style.TEAM1_COLOR_FG
+  let removeColor = isMyTeamAttacking.value ? style.TEAM1_COLOR_FG : style.TEAM0_COLOR_FG
+  let nextScoreValue = scoreAnimStack.value?[0] ?? attackerScoreWatch.value
+  let scoreDelta = scoreAnimLastValue == null ? 0 : nextScoreValue - scoreAnimLastValue
+  let color = scoreDelta < 0 ? removeColor : addColor
+  let signObj = scoreDelta > 0 ? mkText("+", { color }.__update(fontBody))
+    : scoreDelta < 0 ? mkText("-", { color }.__update(fontBody))
+    : null
+
+  return {
+    watch = [scoreAnimStack, attackerScoreWatch, isMyTeamAttacking]
+    size = [SIZE_TO_CONTENT, flex()]
+    valign = ALIGN_CENTER
+    children = {
+      key = $"play_score_anim_{scoreAnimIdx}"
+      flow = FLOW_HORIZONTAL
+      valign = ALIGN_CENTER
+      children = scoreDelta == 0 ? null : [
+        signObj
+        mkSquadSizeIcon(color, hdpxi(18))
+        mkText($"{abs(scoreDelta)}", { color })
+      ]
+      transform = { pivot = [0.5, 0.5] }
+      animations = scoreDeltaAnim
+    }
+  }
+}
+
+
 function attackingTeamPoints() {
   let color = isMyTeamAttacking.value ? style.TEAM0_COLOR_FG : style.TEAM1_COLOR_FG
+  let scoreVal = scoreAnimStack.value.len() == 0
+    ? attackerScoreWatch.value
+    : scoreAnimLastValue ?? attackerScoreWatch.value
+
   return {
-    watch = [isMyTeamAttacking, attackerScoreWatch]
-    flow = FLOW_HORIZONTAL
-    valign = ALIGN_CENTER
+    watch = [isMyTeamAttacking, attackerScoreWatch, scoreAnimStack]
     children = [
+      scoreDeltaAnimUi
       {
-        rendObj = ROBJ_IMAGE
-        image = Picture("ui/skin#initial_squad_size.svg:{0}:{0}:K".subst(hdpxi(32)))
-        color
-        size = [hdpx(32), hdpx(32)]
+        flow = FLOW_HORIZONTAL
+        valign = ALIGN_CENTER
+        children = [
+          mkSquadSizeIcon(color, hdpxi(32))
+          mkText(scoreVal, { color }.__update(fontBody))
+        ]
+        transform = { pivot = [0.2, 0.5] }
+        animations = [
+          {
+            prop = AnimProp.scale, from = [1, 1], to = [1.3, 1.3],
+            duration = 0.5, easing = Blink, trigger = SCORE_ANIM_TRIGGER
+          }
+          {
+            prop = AnimProp.opacity, from = 1, to = 0.7,
+            duration = 0.5, easing = Blink, trigger = SCORE_ANIM_TRIGGER
+          }
+        ]
       }
-      {
-        rendObj = ROBJ_TEXT
-        size = [hdpx(55), SIZE_TO_CONTENT]
-        text = attackerScoreWatch.value
-        color
-      }.__update(fontBody)
     ]
   }
 }
@@ -426,6 +512,12 @@ let modeEscort = {
 
 let isDominationMode = Computed(@() whichTeamAttack.value < 0)
 let isEscortMode = Computed(@() capZones.value.findindex(@(zone) zone?.trainZone) != null)
+
+console_register_command(function(steps) {
+  let curVal = attackerScoreWatch.value
+  for (local i = 0; i < steps; i++)
+    scoreAnimStack.mutate(@(v) v.append(curVal - random.rnd_int(10, 50)))
+}, "meta.addScoresAnim")
 
 let gameModeBlock = @() {
   watch = [isDominationMode, isGunGameMode]

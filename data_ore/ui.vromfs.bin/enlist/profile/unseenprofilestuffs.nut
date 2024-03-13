@@ -11,8 +11,8 @@ let { medalsCfg } = require("medalsState.nut")
 let { mkPortraitIcon, mkNickFrame, PORTRAIT_SIZE
 } = require("decoratorPkg.nut")
 let { decoratorsCfgByType } = require("decoratorState.nut")
-let { bigPadding, titleTxtColor, tinyOffset, idleBgColor
-} = require("%enlSqGlob/ui/viewConst.nut")
+let { midPadding, titleTxtColor, tinyOffset, idleBgColor
+} = require("%enlSqGlob/ui/designConst.nut")
 let {
   mark_decorators_as_seen, mark_medals_as_seen, mark_wallposters_as_seen,
   mark_veh_decorators_as_seen
@@ -104,13 +104,13 @@ function mkUnseenBlock(uType, children = null) {
 let wrapParams = {
   width = unseenSize[0]
   halign = ALIGN_CENTER
-  hGap = bigPadding
-  vGap = bigPadding
+  hGap = midPadding
+  vGap = midPadding
 }
 
 let withWrap = @(children) wrap(children, wrapParams)
 
-let vehDecorOverride = { iconSize = PORTRAIT_SIZE - 2 * bigPadding }
+let vehDecorOverride = { iconSize = PORTRAIT_SIZE - 2 * midPadding }
 
 let mkVehDecors = @(vehDecors)
   vehDecors.map(function(vehDecor) {
@@ -120,7 +120,7 @@ let mkVehDecors = @(vehDecors)
       rendObj = ROBJ_BOX
       borderWidth = hdpx(1)
       size = [PORTRAIT_SIZE, PORTRAIT_SIZE]
-      padding = bigPadding
+      padding = midPadding
       borderColor = idleBgColor
       children = iconCtor({ guid = id }, vehDecorOverride)
     }
@@ -145,7 +145,7 @@ let mkMedals = @(unseenMedals) unseenMedals.map(function(medal) {
 let mkWallposters = @(unseenWallposters, wpCfgs) {
   size = [flex(), SIZE_TO_CONTENT]
   flow = FLOW_VERTICAL
-  gap = bigPadding
+  gap = midPadding
   children = unseenWallposters.map(function(wallposter) {
     let wpCfg = wpCfgs.findvalue(@(wp) wp.id == wallposter.tpl)
     return wpCfg == null ? null : mkWallposter(wpCfg)

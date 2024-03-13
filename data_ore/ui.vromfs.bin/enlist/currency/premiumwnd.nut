@@ -17,10 +17,6 @@ let { mkCurrency } = require("%enlist/currency/currenciesComp.nut")
 let { mkDiscountWidget } = require("%enlist/shop/currencyComp.nut")
 let { txt, noteTextArea } = require("%enlSqGlob/ui/defcomps.nut")
 let { premiumActiveInfo, premiumImage } = require("premiumComp.nut")
-let { bigPadding, accentTitleTxtColor, commonBtnHeight, titleTxtColor,
-  selectedTxtColor, activeTxtColor, smallPadding, bgPremiumColor,
-  basePremiumColor
-} = require("%enlSqGlob/ui/viewConst.nut")
 let { Purchase } = require("%ui/components/textButton.nut")
 let { openUrl } = require("%ui/components/openUrl.nut")
 let { mkHeaderFlag, primeFlagStyle, mkCenterHeaderFlag } = require("%enlSqGlob/ui/mkHeaderFlag.nut")
@@ -30,7 +26,10 @@ let { premiumUrl = null } = require("app").get_circuit_conf()
 let { allActiveOffers } = require("%enlist/offers/offersState.nut")
 let { isGamepad } = require("%ui/control/active_controls.nut")
 let { wndHeader } = require("%enlist/navigation/commonWndParams.nut")
-let { transpBgColor, defItemBlur } = require("%enlSqGlob/ui/designConst.nut")
+let { transpBgColor, defItemBlur, midPadding, accentTitleTxtColor
+  commonBtnHeight, titleTxtColor, selectedTxtColor, activeTxtColor,
+  smallPadding, bgPremiumColor, basePremiumColor
+} = require("%enlSqGlob/ui/designConst.nut")
 let { SLOT_COUNT, SLOT_COUNT_MAX } = require("%enlist/preset/presetEquipCfg.nut")
 let { PREMIUM_SLOTS_COUNT } = require("%enlist/squadPresets/squadPresetsState.nut")
 
@@ -113,7 +112,7 @@ let premiumDesc = @(idx, unitVal, descText, unitDesc = null) {
           : txt({
               text = unitDesc
               color = activeTxtColor
-              padding = [0, bigPadding]
+              padding = [0, midPadding]
             }).__update(fontHeading2)
       ]
     }
@@ -140,7 +139,7 @@ function premiumDescBlock() {
       rendObj = ROBJ_SOLID
       size = [hdpx(1), flex()]
       color = basePremiumColor
-      margin = bigPadding
+      margin = midPadding
     }
     children = [
       premiumDesc(0, $"+{expBonus}%", loc("premiumDescExp"), loc("exp"))
@@ -428,7 +427,7 @@ let premiumInfo = {
 let premiumBlockContent = @() {
   size = flex()
   flow = FLOW_VERTICAL
-  gap = bigPadding
+  gap = midPadding
   children = [
     premiumInfo
     mkHeaderFlag({
@@ -440,7 +439,7 @@ let premiumBlockContent = @() {
       size = [flex(), SIZE_TO_CONTENT]
       flow = FLOW_VERTICAL
       vplace = ALIGN_BOTTOM
-      gap = bigPadding
+      gap = midPadding
       children = [
         premiumDescBlock
         premiumUrl != null ? premiumBuyBlockBtn : premiumBuyBlockUi
@@ -546,7 +545,7 @@ function open() {
                 }).__update(fontHeading2)
               {
                 size = [hdpxi(140), hdpxi(140)]
-                margin = bigPadding
+                margin = midPadding
                 halign = ALIGN_CENTER
                 valign = ALIGN_CENTER
                 children = [

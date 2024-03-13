@@ -102,13 +102,19 @@
       "battleAreaId": "area2",
       "poly_area__points:list<p3>": [
         {
-          "item": [-425.469,7.75231,-165.68]
+          "item": [-412.518,29.0716,-218.923]
         },
         {
-          "item": [-240.819,7.75231,-167.055]
+          "item": [-271.781,21.7465,-216.871]
         },
         {
-          "item": [-132.514,7.75231,-167.505]
+          "item": [-177.136,20.6009,-219.703]
+        },
+        {
+          "item": [-141.283,20.6011,-225.31]
+        },
+        {
+          "item": [-127.485,20.1632,-158.527]
         },
         {
           "item": [-107.797,21.8488,-11.2459]
@@ -141,7 +147,7 @@
           "item": [-385.65,47.1145,124.371]
         },
         {
-          "item": [-429.09,7.75231,22.7302]
+          "item": [-430.407,41.299,-12.8187]
         }
       ]
     }
@@ -378,6 +384,7 @@
       "score_bleed__totalDomBleedMul": 2.0,
       "score_bleed__totalDomBleedOn": false,
       "team__briefing": "domination/common_goals",
+      "team__winTitle": "debriefing/won_invasion_subtitle",
       "team__numZonesCaptured": 0,
       "team__deathPenalty": 2.0,
       "team__spawnBotArmy": "normandy_allies"
@@ -395,6 +402,7 @@
       "score_bleed__totalDomBleedMul": 2.0,
       "score_bleed__totalDomBleedOn": false,
       "team__briefing": "domination/common_goals",
+      "team__winTitle": "debriefing/won_invasion_subtitle",
       "team__numZonesCaptured": 0,
       "team__deathPenalty": 2.0,
       "team__spawnBotArmy": "normandy_axis"
@@ -535,10 +543,10 @@
     "entity": {
       "_template": "respawnChooser+respVehicle+vehicle_resp_soft_ground_collision",
       "transform": [
-        [0.382823,0.0854253,0.919864],
-        [-0.0328226,0.996345,-0.078868],
-        [-0.923238,1.49011e-07,0.384228],
-        [-335.968,23.8531,-110.407]
+        [0.590836,0.0854253,0.802257],
+        [-0.0506574,0.996345,-0.0687845],
+        [-0.8052,1.56462e-07,0.593004],
+        [-231.582,20.3187,-137.351]
       ],
       "team": 2,
       "maxVehicleOnSpawn": 2,
@@ -729,10 +737,10 @@
     "entity": {
       "_template": "respawnChooser+respMotorcycle",
       "transform": [
-        [0.107442,0.0854253,0.990535],
-        [-0.00921178,0.996345,-0.0849271],
-        [0.994169,0.0,-0.107835],
-        [-329.574,23.8531,-111.911]
+        [0.370086,0.0854253,0.925062],
+        [-0.0317305,0.996345,-0.0793137],
+        [-0.928456,1.49011e-07,0.371443],
+        [-333.384,22.534,-127.742]
       ],
       "team": 2
     }

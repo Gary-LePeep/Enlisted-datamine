@@ -5,7 +5,6 @@ let { fontHeading1, fontHeading2, fontBody, fontSub } = require("%enlSqGlob/ui/f
 let {spawnZonesState} = require("%ui/hud/state/spawn_zones_markers.nut")
 let {verPadding, horPadding} = require("%enlSqGlob/ui/safeArea.nut")
 let {secondsToTimeSimpleString} = require("%ui/helpers/time.nut")
-let { strokeStyle, bigPadding, smallPadding } = require("%enlSqGlob/ui/viewConst.nut")
 let txt = require("%ui/components/text.nut").text
 let {textarea} = require("%ui/components/textarea.nut")
 let {mkCountdownTimerPerSec} = require("%ui/helpers/timers.nut")
@@ -18,14 +17,15 @@ let { isFirstSpawn, spawnCount, spawnSquadId, squadIndexForSpawn,
 let { localPlayerTeamSquadsCanSpawn, localPlayerTeamInfo } = require("%ui/hud/state/teams.nut")
 let {localPlayerTeam} = require("%ui/hud/state/local_player.nut")
 
-let {respawnTimer, forceSpawnButton, panel, headerBlock} = require("%ui/hud/respawn_parts.nut")
+let {respawnTimer, forceSpawnButton, panel, headerBlock, requestRespawn
+} = require("%ui/hud/respawn_parts.nut")
 let respawnSquadInfoUi = require("respawn_squad_info.ui.nut")
 let mkCurSquadsList = require("%enlSqGlob/ui/mkSquadsList.nut")
 let { mkSquadSpawnIcon, mkSquadSpawnDesc } = require("%enlSqGlob/ui/squadsUiComps.nut")
 let { mkHotkey } = require("%ui/components/uiHotkeysHint.nut")
 let paratroopersButtonBlock = require("%ui/hud/huds/troopers_button.nut")
-let { attentionTxtColor, transpBgColor, defItemBlur
-} = require("%enlSqGlob/ui/designConst.nut")
+let { attentionTxtColor, transpBgColor, defItemBlur, strokeStyle, midPadding, smallPadding } = require("%enlSqGlob/ui/designConst.nut")
+let withoutVehicleSpawnButtonBlock = require("%ui/hud/huds/without_vehicle_spawn_button.nut")
 
 let vehicleIconSize = hdpxi(28)
 
@@ -80,7 +80,7 @@ let vehicleSpawnInfoBlock = @(squadType) @(){
   watch = vehicleSpawnText
   size = [flex(), SIZE_TO_CONTENT]
   flow = FLOW_HORIZONTAL
-  gap = bigPadding
+  gap = midPadding
   valign = ALIGN_CENTER
   halign = ALIGN_CENTER
   children = vehicleSpawnText.value.len() > 0
@@ -110,7 +110,7 @@ function spawnInfoBlock() {
       size = [flex(), SIZE_TO_CONTENT]
       watch = [isGamepad, canSpawnCurrentSoldier, spawnScore]
       flow = FLOW_VERTICAL
-      gap = bigPadding
+      gap = midPadding
       halign = ALIGN_CENTER
       children = [
         vehicleSpawnInfoBlock(squadType)
@@ -153,6 +153,7 @@ function spawnInfoBlock() {
                 halign = ALIGN_CENTER
               }.__update(fontBody))
           paratroopersButtonBlock
+          withoutVehicleSpawnButtonBlock
           spawnsLeftText
         ]
       : [
@@ -172,7 +173,7 @@ function spawnInfoBlock() {
     size = [flex(), SIZE_TO_CONTENT]
     flow = FLOW_VERTICAL
     valign = ALIGN_BOTTOM
-    gap = bigPadding
+    gap = midPadding
     children
   }
 }
@@ -215,20 +216,21 @@ let squadsListUI = mkCurSquadsList({
   setCurSquadId = @(squadId) spawnSquadId(squadId)
   addedObj = squadShortcuts
   hasOffset = false
+  onDoubleClick = requestRespawn
 })
 
 let squadSpawnList = {
   size = [SIZE_TO_CONTENT, flex()]
   flow = FLOW_HORIZONTAL
-  gap = bigPadding
-  padding = bigPadding
+  gap = midPadding
+  padding = midPadding
   rendObj = ROBJ_SOLID
   children = [
     squadsListUI
     {
       size = [SIZE_TO_CONTENT, flex()]
       flow = FLOW_VERTICAL
-      gap = bigPadding
+      gap = midPadding
       children = [
         @() respawnSquadInfoUi.__update({ padding = 0, rendObj = null })
         spawnInfoBlock

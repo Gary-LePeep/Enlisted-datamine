@@ -15,7 +15,4 @@ def load_team_narrator_net(base_path : string) : bool
   return ok
 
 
-[export]
-def test()
-  let ok = load_team_narrator_net("%danetlibs/sound/team_narrator_net")
-  assert(ok)
+

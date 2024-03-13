@@ -18,7 +18,4 @@ def load_light_flicker(base_path : string) : bool
   return ok
 
 
-[export]
-def test()
-  let ok = load_light_flicker("%danetlibs/light_flicker")
-  assert(ok)
+

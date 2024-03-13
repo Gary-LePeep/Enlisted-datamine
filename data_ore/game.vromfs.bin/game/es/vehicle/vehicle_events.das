@@ -193,6 +193,10 @@ struct CmdVehiclePlaceNextSeat
   eid : EntityId
 
 [event(unicast)]
+struct CmdPlanePlaceNextSeat
+  eid : EntityId
+
+[event(unicast)]
 struct CmdSetVehicleShootDir
   dir : float3
 

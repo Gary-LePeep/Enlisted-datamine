@@ -9,8 +9,8 @@ let { timeLeft } = require("%enlist/battlepass/bpState.nut")
 let { Bordered } = require("%ui/components/textButton.nut")
 let { setTooltip } = require("%ui/style/cursors.nut")
 let { fontHeading2, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
-let { bigPadding, smallPadding, idleBgColor, accentTitleTxtColor, defTxtColor
-} = require("%enlSqGlob/ui/viewConst.nut")
+let { midPadding, smallPadding, idleBgColor, accentTitleTxtColor, defTxtColor
+} = require("%enlSqGlob/ui/designConst.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
 let tooltipBox = require("%ui/style/tooltipBox.nut")
 
@@ -97,7 +97,7 @@ let headerBlock = {
   children = [
     @() {
       watch = timeLeft
-      gap = bigPadding
+      gap = midPadding
       flow = FLOW_HORIZONTAL
       valign = ALIGN_CENTER
       children = [

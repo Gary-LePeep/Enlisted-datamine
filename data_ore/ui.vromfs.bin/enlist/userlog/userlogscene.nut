@@ -11,7 +11,7 @@ let { makeVertScroll, thinStyle } = require("%ui/components/scrollbar.nut")
 let { sceneWithCameraAdd, sceneWithCameraRemove } = require("%enlist/sceneWithCamera.nut")
 let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
 let { defBgColor, blurBgColor, tinyOffset, smallOffset, smallPadding
-} = require("%enlSqGlob/ui/viewConst.nut")
+} = require("%enlSqGlob/ui/designConst.nut")
 let { userLogsRequest, isUserLogsRequesting } = require("userLogState.nut")
 
 

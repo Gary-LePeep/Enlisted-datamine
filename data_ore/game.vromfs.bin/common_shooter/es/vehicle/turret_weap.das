@@ -74,16 +74,20 @@ def turret_set_angles_es(evt : Event;
                          turret_control__gunEids : EidList;
                          turret_control__isStabilizerEnabled : bool = true;
                          net_phys__currentStateVelocity : float3;
+                         transform : float3x4;
                          var phys_vars : PhysVars)
   let speedKph = length(net_phys__currentStateVelocity) * MPS_TO_KPH
   for turretEid in turret_control__gunEids
     query(turretEid) <| $ [es(REQUIRE=resolvedTurret)] (turret__owner : EntityId;
                                                         turret__wishYawVarId : int;
+                                                        gun__owner : EntityId const?;
                                                         turret__wishPitchVarId : int;
                                                         turret__stabilizerYawActiveVarId : int;
                                                         turret__stabilizerPitchActiveVarId : int;
                                                         turret__stabilizerErrorVarId : int;
                                                         turret__aimNodeId : int;
+                                                        var turret__lastRelativeDir : float3?;
+                                                        turret_ai__atackTarget : EntityId;
                                                         turret__stabilizerError : float = 0.0;
                                                         turret__limitsTable : Point4List const? = null;
                                                         turret__stabilizerYawSpeedLimitKph : float = -1.;
@@ -91,41 +95,48 @@ def turret_set_angles_es(evt : Event;
                                                         turret_state : TurretState)
       if turret__wishYawVarId >= 0 && turret__wishPitchVarId >= 0
         var wishAngles = turret_state.wishAngles
-        if turret__limitsTable != null && turret__aimNodeId >= 0
-          query(turret__owner) <| $ [es] (animchar : AnimcharBaseComponent)
-            let ang = float2(-wishAngles.x, wishAngles.y)
-            var dir = angles_to_dir(ang)
-            let parNodeId = geomtree_getParentNodeIdx(*animchar.nodeTree, turret__aimNodeId)
+        if turret__lastRelativeDir != null && gun__owner != null && !has(*gun__owner, "hero") && turret_ai__atackTarget == INVALID_ENTITY_ID
+          let dir2 = rotate(transform, (*turret__lastRelativeDir))
+          wishAngles = dir_to_angles(dir2)
+          wishAngles.x *= -1f
+        else
+          if turret__limitsTable != null && turret__aimNodeId >= 0
+            query(turret__owner) <| $ [es] (animchar : AnimcharBaseComponent)
+              let ang = float2(-wishAngles.x, wishAngles.y)
+              var dir = angles_to_dir(ang)
+              let parNodeId = geomtree_getParentNodeIdx(*animchar.nodeTree, turret__aimNodeId)
 
-            var mx : float3x4
+              var mx : float3x4
 
-            if parNodeId >= 0
-              var tm : float3x4
-              var wt : float3x4
+              if parNodeId >= 0
+                var tm : float3x4
+                var wt : float3x4
 
-              *animchar.originalNodeTree |> geomtree_getNodeTmScalar(turret__aimNodeId, tm)
-              *animchar.nodeTree |> geomtree_getNodeWtmRelScalar(parNodeId, wt)
+                *animchar.originalNodeTree |> geomtree_getNodeTmScalar(turret__aimNodeId, tm)
+                *animchar.nodeTree |> geomtree_getNodeWtmRelScalar(parNodeId, wt)
 
-              mx  = wt * tm
-              dir = rotate(inverse(mx), dir)
-            else
-              identity(mx)
+                mx  = wt * tm
+                dir = rotate(inverse(mx), dir)
+              else
+                identity(mx)
 
-            wishAngles.x = -rad_to_deg(atan2(dir.z, dir.x))
-            wishAngles.y = +rad_to_deg(atan2(dir.y, length(float2(dir.x, dir.z))))
+              wishAngles.x = -rad_to_deg(atan2(dir.z, dir.x))
+              wishAngles.y = +rad_to_deg(atan2(dir.y, length(float2(dir.x, dir.z))))
 
-            for lim in *turret__limitsTable
-              if (wishAngles.x > lim.x && wishAngles.x < lim.y)
-                wishAngles.x = clamp(wishAngles.x, lim.x, lim.y)
-                wishAngles.y = clamp(wishAngles.y, lim.z, lim.w)
+              for lim in *turret__limitsTable
+                if (wishAngles.x > lim.x && wishAngles.x < lim.y)
+                  wishAngles.x = clamp(wishAngles.x, lim.x, lim.y)
+                  wishAngles.y = clamp(wishAngles.y, lim.z, lim.w)
 
-            wishAngles.x = deg_to_rad(wishAngles.x)
-            wishAngles.y = deg_to_rad(wishAngles.y)
+              wishAngles.x = deg_to_rad(wishAngles.x)
+              wishAngles.y = deg_to_rad(wishAngles.y)
 
-            dir = rotate(mx, angles_to_dir(wishAngles))
+              dir = rotate(mx, angles_to_dir(wishAngles))
 
-            wishAngles   = dir_to_angles(dir)
-            wishAngles.x = -wishAngles.x
+              wishAngles   = dir_to_angles(dir)
+              if turret__lastRelativeDir != null
+                *turret__lastRelativeDir = rotate(inverse(transform), angles_to_dir(wishAngles))
+              wishAngles.x = -wishAngles.x
 
         setVar(phys_vars, turret__wishYawVarId, rad_to_deg(wishAngles.x))
         setVar(phys_vars, turret__wishPitchVarId, rad_to_deg(wishAngles.y))

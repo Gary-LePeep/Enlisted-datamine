@@ -7,7 +7,7 @@ let tooltipBox = require("%ui/style/tooltipBox.nut")
 let {
   defTxtColor, blurBgColor, bigPadding, defInsideBgColor,
   rowBg
-} = require("%enlSqGlob/ui/viewConst.nut")
+} = require("%enlSqGlob/ui/designConst.nut")
 let { UserNameColor } = require("%ui/style/colors.nut")
 let {addModalWindow, removeModalWindow} = require("%ui/components/modalWindows.nut")
 let {

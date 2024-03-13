@@ -649,11 +649,14 @@
     {
       "sound_irqs:shared:object": {
         "_tags": "sound",
-        "reload:object": {
-          "path": "/weapon/rifle/stl_mosin_m38/reload"
-        },
         "reload_prepare:object": {
           "path": "/weapon/rifle/mosin/reload_prepare"
+        },
+        "reload_mag_in:object": {
+          "path": "/weapon/rifle/mosin/reload_mag_in"
+        },
+        "reload_clip_out:object": {
+          "path": "/weapon/rifle/mosin/reload_clip_out"
         },
         "reload_loop:object": {
           "path": "/weapon/rifle/mosin/reload_loop"
@@ -663,6 +666,10 @@
         },
         "boltAction:object": {
           "path": "/weapon/rifle/mosin/bolt_action"
+        },
+        "ammo_drop:object": {
+          "hero": "player/weapon/_common/clip_drop",
+          "type": "matUnderFeet"
         }
       }
     }

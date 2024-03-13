@@ -8,7 +8,7 @@ let fontIconButton = require("%ui/components/fontIconButton.nut")
 let { fontHeading2 } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { isGamepad } = require("%ui/control/active_controls.nut")
 let { mkTwoSidesGradientX } = require("%enlSqGlob/ui/gradients.nut")
-let { smallPadding } = require("%enlSqGlob/ui/viewConst.nut")
+let { smallPadding } = require("%enlSqGlob/ui/designConst.nut")
 
 
 let bgColor = 0XEE1F242A

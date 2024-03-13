@@ -4,7 +4,7 @@
       "_use": "ju_87b_2_base"
     },
     {
-      "_use": "squad_controlled_plane"
+      "_use": "plane_with_gunners"
     },
     {
       "_use": "ju_87b_2_plane_sound"
@@ -76,7 +76,11 @@
               [8.74228e-08,0.0,-1.0],
               [0.0,0.0,0.0]
             ],
+            "cameraNodeName": "gun1",
+            "cameraOffset": [-0.4,0.1,0.0],
+            "cameraType": "gunner",
             "seatComponent": "isGunner",
+            "canPlaceManually": true,
             "receiveDamageFromDMPart": "gunner1_dm",
             "directTurretControl": true,
             "roomSpace": 1,
@@ -175,7 +179,9 @@
             "paramMaxPitchAngle": "turret1_max_pitch_angle",
             "curPitchParamName": "gun1_pitch",
             "curYawParamName": "turret1_yaw",
-            "paramMinYawAngle": "turret1_min_yaw_angle"
+            "paramMinYawAngle": "turret1_min_yaw_angle",
+            "curWorldPitchParamName": "gun1_world_pitch",
+            "curWorldYawParamName": "turret1_world_yaw"
           }
         }
       ]
@@ -678,13 +684,25 @@
       "turret__aimNodeName": "turret1"
     },
     {
-      "turret__limit": [-27.0,27.0,-15.0,30.0]
+      "turret__limit": [-22.0,22.0,-15.0,30.0]
     },
     {
-      "turret__yawSpeed": 100.0
+      "turret__yawSpeed": 500.0
     },
     {
-      "turret__pitchSpeed": 100.0
+      "turret__pitchSpeed": 500.0
+    },
+    {
+      "turret__lastRelativeDir": [-1.0,0.0,0.0]
+    },
+    {
+      "turret__limitsDeadzone:list<p4>": {
+        "lim0": [-2.0,2.0,-15.0,25.0],
+        "lim1": [-27.0,27.0,-4.0,-2.0],
+        "lim2": [-4.0,4.0,-4.0,4.0],
+        "lim3": [-6.0,6.0,-15.0,0.0],
+        "lim4": [-10.0,10.0,-15.0,-5.0]
+      }
     }
   ],
   "ju_87b_2_driver_cockpit": {

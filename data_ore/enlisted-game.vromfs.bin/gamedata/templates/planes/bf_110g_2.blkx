@@ -4,7 +4,7 @@
       "_use": "bf_110g_2_base"
     },
     {
-      "_use": "squad_controlled_plane"
+      "_use": "plane_with_gunners"
     },
     {
       "_use": "bf_110g_2_plane_sound"
@@ -76,7 +76,11 @@
               [1.50996e-07,0.0,-1.0],
               [0.0,0.0,0.0]
             ],
+            "cameraNodeName": "gun1",
+            "cameraOffset": [-0.12,0.11,0.0],
+            "cameraType": "gunner",
             "seatComponent": "isGunner",
+            "canPlaceManually": true,
             "receiveDamageFromDMPart": "gunner2_dm",
             "directTurretControl": true,
             "roomSpace": 1,
@@ -835,10 +839,19 @@
       "turret__limit": [-36.0,36.0,-3.0,67.0]
     },
     {
-      "turret__yawSpeed": 100.0
+      "turret__yawSpeed": 500.0
     },
     {
-      "turret__pitchSpeed": 100.0
+      "turret__pitchSpeed": 500.0
+    },
+    {
+      "turret__lastRelativeDir": [-1.0,0.0,0.0]
+    },
+    {
+      "turret__limitsDeadzone:list<p4>": {
+        "lim0": [-22.0,-18.0,-4.0,4.0],
+        "lim1": [18.0,22.0,-4.0,4.0]
+      }
     }
   ],
   "planegun_bf_110g_2_7_92mm_mg81_turret_02": [
@@ -867,10 +880,19 @@
       "turret__limit": [-36.0,36.0,-3.0,67.0]
     },
     {
-      "turret__yawSpeed": 100.0
+      "turret__yawSpeed": 500.0
     },
     {
-      "turret__pitchSpeed": 100.0
+      "turret__pitchSpeed": 500.0
+    },
+    {
+      "turret__lastRelativeDir": [-1.0,0.0,0.0]
+    },
+    {
+      "turret__limitsDeadzone:list<p4>": {
+        "lim0": [-22.0,-18.0,-4.0,4.0],
+        "lim1": [18.0,22.0,-4.0,4.0]
+      }
     }
   ],
   "bf_110g_2_driver_cockpit": {

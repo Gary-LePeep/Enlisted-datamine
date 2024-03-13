@@ -11,8 +11,8 @@ let { seenUnlocks, markUnlockSeen, markUnlocksOpened
 let { getUnlockProgress, unlockProgress } = require("%enlSqGlob/userstats/unlocksState.nut")
 let { unlockRewardsInProgress } = require("%enlSqGlob/userstats/userstat.nut")
 let { smallPadding, smallOffset, tinyOffset, defBgColor, defTxtColor,
-  activeTxtColor, taskProgressColor, bigPadding
-} = require("%enlSqGlob/ui/viewConst.nut")
+  activeTxtColor, taskProgressColor, midPadding, hoverSlotBgColor
+} = require("%enlSqGlob/ui/designConst.nut")
 let { taskMinHeight, taskSlotPadding, mkTaskEmblem, taskHeader, taskDescription,
   taskDescPadding, mkGetTaskRewardBtn, statusBlock
 } = require("%enlSqGlob/ui/tasksPkg.nut")
@@ -21,7 +21,6 @@ let { secondsToStringLoc } = require("%ui/helpers/time.nut")
 let { smallUnseenNoBlink } = require("%ui/components/unseenComps.nut")
 let { bpColors } = require("%enlist/battlepass/battlePassPkg.nut")
 let { seasonIndex } = require("%enlist/battlepass/bpState.nut")
-let { hoverSlotBgColor } = require("%enlSqGlob/ui/designConst.nut")
 
 let finishedOpacity = 0.5
 let finishedBgColor = mul_color(defBgColor, 1.0 / finishedOpacity)
@@ -79,7 +78,7 @@ function mkTaskExpireTimer(expireTime) {
           }.__update(fontSub)
           {
             flow = FLOW_HORIZONTAL
-            gap = bigPadding
+            gap = midPadding
             valign = ALIGN_CENTER
             children = [
               timerIcon

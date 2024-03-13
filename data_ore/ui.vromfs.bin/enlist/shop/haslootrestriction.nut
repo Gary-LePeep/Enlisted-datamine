@@ -8,7 +8,7 @@ let {
 let { get_setting_by_blk_path } = require("settings")
 let { showMessageWithContent } = require("%enlist/components/msgbox.nut")
 let userInfo = require("%enlSqGlob/userInfo.nut")
-let { bigPadding } = require("%enlSqGlob/ui/viewConst.nut")
+let { midPadding } = require("%enlSqGlob/ui/designConst.nut")
 let JB = require("%ui/control/gui_buttons.nut")
 
 let skipCountryCheck = mkWatched(persist, "skipCountryCheck", false)
@@ -78,7 +78,7 @@ function checkLootRestriction(cb, content, crateContent) {
     content = {
       flow = FLOW_VERTICAL
       halign = ALIGN_CENTER
-      gap = bigPadding
+      gap = midPadding
       children = [
         itemView
         description

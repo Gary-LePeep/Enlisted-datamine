@@ -25,6 +25,7 @@
           "seatAnimUpper": "zundapp_ks750_gunner",
           "seatAnimLower": "zundapp_ks750_gunner",
           "smokeScreen": false,
+          "copySkeletonNodesPostfix": "_gunner",
           "turretNames:array": {
             "turretNames": "turret_01"
           },
@@ -33,7 +34,15 @@
             "r.hand": "ik_hand_right_gunner",
             "l.forearm": "ik_forearm_left_gunner",
             "r.forearm": "ik_forearm_right_gunner"
-          }
+          },
+          "copySkeletonNodesRecursive:array": [
+            {
+              "node": "Bip01 L Hand"
+            },
+            {
+              "node": "Bip01 R Hand"
+            }
+          ]
         }
       },
       {

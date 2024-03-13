@@ -9,6 +9,7 @@ let armyData = require("%ui/hud/state/armyData.nut")
 let { mkGrenadeIcon } = require("%ui/hud/huds/player_info/grenadeIcon.nut")
 let { mkMineIcon } = require("%ui/hud/huds/player_info/mineIcon.nut")
 let mkMedkitIcon = require("%ui/hud/huds/player_info/medkitIcon.nut")
+let mkRepairIcon = require("%ui/hud/huds/player_info/repairIcon.nut")
 let { defTxtColor, darkTxtColor, smallPadding } = require("%enlSqGlob/ui/designConst.nut")
 let mkFlaskIcon = require("%ui/hud/huds/player_info/flaskIcon.nut")
 
@@ -17,8 +18,8 @@ let sIconSize = hdpxi(15)
 let canSpawnOnVehicle = Computed(@()
   canSpawnOnVehicleBySquad.value?[squadIndexForSpawn.value] ?? false)
 
-function addCardChild(soldier, sf, _isSelected) {
-  let { grenadeType = null, mineType = null, targetHealCount = 0, hasFlask = false } = soldier
+let function addCardChild(soldier, sf, _isSelected) {
+  let { grenadeType = null, mineType = null, targetHealCount = 0, targetRepairCount = 0, hasFlask = false } = soldier
   let color = sf & S_HOVER ? darkTxtColor : defTxtColor
   return {
     hplace = ALIGN_RIGHT
@@ -28,6 +29,7 @@ function addCardChild(soldier, sf, _isSelected) {
     padding = smallPadding
     children = [
       targetHealCount > 0 ? mkMedkitIcon(sIconSize, color) : null
+      targetRepairCount > 0 ? mkRepairIcon(sIconSize, color) : null
       hasFlask ? mkFlaskIcon(sIconSize, color) : null
       mkGrenadeIcon(grenadeType, sIconSize, color) ?? mkMineIcon(mineType, sIconSize, color)
     ]

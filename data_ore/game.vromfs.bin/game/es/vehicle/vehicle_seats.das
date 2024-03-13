@@ -38,6 +38,7 @@ def create_vehicle_seats(evt : Event;
     using() <| $(var init : ComponentsInitializer)
       set(init, "seat__id", seatNo)
       set(init, "seat__vehicleEid", eid)
+      set(init, "seats_hatch_effectors__useInSeat", seat.useHatchEffectors ?? false)
 
       set(init, "seats_order__canPlaceOnlyOwner", seat?.canPlaceOnlyOwner ?? false)
       set(init, "seat__windAffectMultiplier", seat?.windAffectMultiplier ?? 1.)

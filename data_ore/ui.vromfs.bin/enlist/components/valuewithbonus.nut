@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui/ui_library.nut" import *
 
-let { defTxtColor, titleTxtColor, bonusColor } = require("%enlSqGlob/ui/viewConst.nut")
+let { titleTxtColor, defTxtColor, bonusColor } = require("%enlSqGlob/ui/designConst.nut")
 let { note } = require("%enlSqGlob/ui/defcomps.nut")
 let { premiumImage } = require("%enlist/currency/premiumComp.nut")
 

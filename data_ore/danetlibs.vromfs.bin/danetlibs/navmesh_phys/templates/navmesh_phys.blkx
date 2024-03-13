@@ -1,0 +1,407 @@
+{
+  "navmesh_phys_state_base": {
+    "navmesh_phys__maxWalkSpeed": 5.0,
+    "navmesh_phys__acceleration": 5.0,
+    "navmesh_phys__friction": 4.0,
+    "navmesh_phys__frictionThresSpdMult": 0.35
+  },
+  "navmesh_phys_locomotion": {
+    "navmesh_phys__prevLocoAcceleration": [0.0,0.0,0.0],
+    "navmesh_phys__prevLocoVelocity": [0.0,0.0,0.0],
+    "navmesh_phys__accVisc": 0.4,
+    "navmesh_phys__quatVisc": 0.35,
+    "navmesh_phys__locomotionFactor": 0.05,
+    "navmesh_phys__prevLocoQuat": [0.0,0.0,0.0,1.0]
+  },
+  "navmesh_phys_base": {
+    "_use": "navmesh_phys_state_base",
+    "navmesh_phys__atTime": 0.0,
+    "_tracked": "navmesh_phys__atTime",
+    "navmesh_phys__prevTime": 0.0,
+    "navmesh_phys__timeStep": 0.0666,
+    "navmesh_phys__wishWalkDir": [0.0,0.0,0.0],
+    "navmesh_phys__wishWalkSpeed": 0.0,
+    "navmesh_phys__walkSpeedMult": 1.0,
+    "navmesh_phys__wishLookDir": [0.0,0.0,0.0],
+    "navmesh_phys__currentPoly": 0,
+    "navmesh_phys__prevPos": [0.0,0.0,0.0],
+    "navmesh_phys__currentPos": [0.0,0.0,0.0],
+    "navmesh_phys__prevLookDir": [0.0,0.0,0.0],
+    "navmesh_phys__currentLookDir": [0.0,0.0,0.0],
+    "navmesh_phys__currentWalkVelocity": [0.0,0.0,0.0],
+    "navmesh_phys__navLookAhead": 0.75,
+    "transform": [
+      [1.0,0.0,0.0],
+      [0.0,1.0,0.0],
+      [0.0,0.0,1.0],
+      [0.0,0.0,0.0]
+    ],
+    "navmesh_phys__walkSpeedMods:object": [],
+    "navmeshPhys:tag": []
+  },
+  "navmesh_phys_jumplinks": {
+    "path_corridor__overJumpLink": false,
+    "path_corridor__jumpLinkStart": [0.0,0.0,0.0],
+    "path_corridor__jumpLinkEnd": [0.0,0.0,0.0]
+  },
+  "navmesh_phys_jumplinks_climb": {
+    "navmesh_phys__climbMinHeight": 0.5,
+    "navmesh_phys__climbSpeed": 0.9,
+    "navmesh_phys__defaultClimbHeight": 2.0,
+    "navmesh_phys__climbJumpMaxDistSq": 0.0,
+    "navmesh_phys__climbJumpMaxUpHeight": 2.5,
+    "navmesh_phys__shouldClimbUp": false,
+    "path_corridor__isClimbing": false,
+    "path_corridor__overJumpLinkStart": false
+  },
+  "navmesh_phys_jumplinks_climb_anim": {
+    "_use": "navmesh_phys_forced_anim_state",
+    "anim_state__climbStateName": "climb_01",
+    "anim_state__climbState": -1,
+    "anim_state__climbProgressVarName": "climb_progress",
+    "anim_state__climbProgressVarId": -1
+  },
+  "navmesh_phys_jumplinks_jump": {
+    "_use": "navmesh_phys_jumplinks_climb",
+    "navmesh_phys__climbJumpMaxDistSq": 4.0,
+    "navmesh_phys__climbJumpStartVelocity": [0.0,0.0,0.0],
+    "navmesh_phys__climbJumpStartSpeed": 6.0,
+    "path_corridor__overJumpLinkStart": false
+  },
+  "navmesh_phys_jumplinks_jump_anim": {
+    "_use": "navmesh_phys_jumplinks_climb_anim",
+    "anim_state__climbStateName": "jump_01",
+    "anim_state__climbProgressVarName": "jump_progress",
+    "anim_state__climbJumpSpeedMult": 3.0,
+    "anim_state__climbJumpProgressVarOffset": -0.24
+  },
+  "navmesh_aligned_phys_base": {
+    "navmesh_aligned_phys__prevPolyNormQuat": [0.0,0.0,0.707107,0.707107],
+    "navmesh_aligned_phys__currentPolyNormQuat": [0.0,0.0,0.707107,0.707107],
+    "navmesh_aligned_phys__prevPos": [0.0,0.0,0.0],
+    "navmeshAlignedPhys:tag": []
+  },
+  "corridor_walker": {
+    "path_corridor__failsCount": 0,
+    "path_corridor__failsMax": 20,
+    "corridorWalker:tag": [],
+    "path_corridor:dtPathCorridor": {
+      "_tags": "server"
+    },
+    "path_corridor__corners:list<p3>": []
+  },
+  "corridor_walker_debug": [
+    {
+      "_use": "replicating"
+    },
+    {
+      "_use": "loc_snapshots"
+    },
+    {
+      "_use": "navmesh_phys_base"
+    },
+    {
+      "_use": "navmesh_aligned_phys_base"
+    },
+    {
+      "_use": "corridor_walker"
+    },
+    {
+      "corridorWalkerDebug:tag": []
+    }
+  ],
+  "obstacle_avoider": {
+    "obstacle_avoider__updateAt": 0.0,
+    "obstacle_avoider__updateInterval": 0.5,
+    "obstacle_avoider__penetration": 0.0,
+    "obstacle_avoider__avoidsDamageZones": true,
+    "agent_obstacles": []
+  },
+  "door_obstacle_handler": {
+    "navmesh_phys__doorOpenerDist": 0.75,
+    "door_obstacle_handler__immediateDoor:eid": [],
+    "navmesh_phys__doorObstacleEid:eid": []
+  },
+  "destructable_obstacle_handler": {
+    "destructable_obstacle_handler__isRi": false,
+    "destructable_obstacle_handler__targetEid:eid": []
+  },
+  "stuck_detector": {
+    "stuck_detector__avgPos": [0.0,0.0,0.0],
+    "stuck_detector__value": 0.0
+  },
+  "stuck_detector_debug": {
+    "stuck_detector_debug:tag": []
+  },
+  "navmesh_phys_ai": {
+    "_use": "navmesh_phys_base",
+    "agent_dangers__standShootPos": [0.0,0.0,0.0],
+    "agent_dangers__standShootDir": [0.0,0.0,0.0],
+    "path_corridor_ai__corridorResult": 0,
+    "path_corridor_ai__nextCorridorUpdate": 0.0,
+    "path_corridor_ai__corridorUpdateStep": 3.0,
+    "path_corridor_ai__validCorridorTargetPos": [-100000.0,-100000.0,-100000.0]
+  },
+  "agent_dangers_hit_reaction": {
+    "agent_dangers__lastHitReactionTime": 0.0,
+    "agent_dangers__lastHitReactionDir": [0.0,0.0,0.0],
+    "agent_dangers__lastHitReactionOffenderEid:eid": []
+  },
+  "agent_dangers_bullet_reaction": {
+    "agent_dangers__lastBulletReactionTime": 0.0,
+    "agent_dangers__lastBulletReactionDir": [0.0,0.0,0.0],
+    "agent_dangers__lastBulletReactionOffenderEid:eid": []
+  },
+  "get_reaction_offender_ai": {
+    "agent_dangers__lastReactionOffender:eid": []
+  },
+  "ai_target": {
+    "_replicated": "ai_target__invisibleTimeTo",
+    "ai_target__invisibleTimeTo": 0.0,
+    "ai_target__bulletInvisibleDist": 40.0,
+    "ai_target_node__node": "Bip01 Spine1",
+    "ai_target__noiseLevel": 0.0,
+    "ai_target": {
+      "_tags": "server"
+    },
+    "ai_target_node__nodeId:i": {
+      "value": -1,
+      "_tags": "server"
+    }
+  },
+  "navmesh_creature_base": [
+    {
+      "_use": "replicating"
+    },
+    {
+      "_use": "base_hitpoints"
+    },
+    {
+      "_use": "base_burning"
+    },
+    {
+      "_use": "animchar_turn_dir"
+    },
+    {
+      "_use": "navmesh_phys_base"
+    },
+    {
+      "_use": "navmesh_phys_ai"
+    },
+    {
+      "_use": "loc_snapshots"
+    },
+    {
+      "_use": "human_grid_obj"
+    },
+    {
+      "_replicated": "killer"
+    },
+    {
+      "_replicated": "lastDamageType"
+    },
+    {
+      "_replicated": "lastDamagedNode"
+    },
+    {
+      "_replicated": "lastGunPropsIdDamagedWith"
+    },
+    {
+      "_tracked": "killer"
+    },
+    {
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [0.0,0.0,0.0]
+      ]
+    },
+    {
+      "pairCollisionTag": "collidableToHuman"
+    },
+    {
+      "slot_attach__calcAnim": true
+    },
+    {
+      "animchar_render__enabled": true
+    },
+    {
+      "animchar__res": ""
+    },
+    {
+      "hitpoints__maxHp": 10.0
+    },
+    {
+      "hitpoints__scaleHp": 10.0
+    },
+    {
+      "hitpoints__hp": 10.0
+    },
+    {
+      "hitpoints__dmgMult": 1.0
+    },
+    {
+      "hitpoints__shellSplashDmgMult": 1.0
+    },
+    {
+      "hitpoints__hpThreshold": 4.5
+    },
+    {
+      "hitpoints__stoppingPowerThreshold": 6.0
+    },
+    {
+      "collision_damage__threshold": 5.0
+    },
+    {
+      "collision_damage__velDeltaMult": 2.0
+    },
+    {
+      "collision_damage__velDeltaPower": 2.0
+    },
+    {
+      "collision_damage__pushThreshold": 5.0
+    },
+    {
+      "collision_damage__pushVelDeltaMult": 1.0
+    },
+    {
+      "collision_damage__pushVelDeltaPower": 2.0
+    },
+    {
+      "collision_damage__friendDamageMult": 0.1
+    },
+    {
+      "collision_damage__lastVehicleImmunity": 1.0
+    },
+    {
+      "collision_damage__inVehicleDamageMult": 0.3
+    },
+    {
+      "collision_damage__crawlMult": 3.0
+    },
+    {
+      "collision_damage__downedMult": 3.0
+    },
+    {
+      "lastDamageType": 0
+    },
+    {
+      "lastDamagedNode": -1
+    },
+    {
+      "lastGunPropsIdDamagedWith": -1
+    },
+    {
+      "downedMaxAngles": [20.0,20.0]
+    },
+    {
+      "isAlive": true
+    },
+    {
+      "underground_teleporter__timeToCheck": 0.5
+    },
+    {
+      "underground_teleporter__timeBetweenChecks": 0.5
+    },
+    {
+      "bodyCleanupTime": 60.0
+    },
+    {
+      "ragdoll__use_ccd": false
+    },
+    {
+      "collres__res": ""
+    },
+    {
+      "ragdoll__applyParams": false
+    },
+    {
+      "phys_vars": []
+    },
+    {
+      "collidableToVehicle:tag": []
+    },
+    {
+      "collidableToPhysObj:tag": []
+    },
+    {
+      "attaches_list:list<eid>": []
+    },
+    {
+      "animchar_attaches_bbox": {
+        "_tags": "render"
+      }
+    },
+    {
+      "ragdoll": {
+        "_tags": "render"
+      }
+    },
+    {
+      "ragdoll__isAllowed:b": {
+        "_tags": "render",
+        "value": true
+      }
+    },
+    {
+      "projectile_impulse": {
+        "_tags": "gameClient"
+      }
+    },
+    {
+      "collres": []
+    },
+    {
+      "capsule_approximation": []
+    },
+    {
+      "killer:eid": []
+    },
+    {
+      "lastRespawnBaseEid:eid": []
+    },
+    {
+      "aliveCreature:tag": []
+    }
+  ],
+  "base_navmesh_agent_comp": {
+    "walker_agent__standShootLocalPos": [0.0,1.2,0.0],
+    "walker_agent__targetPos": [0.0,0.0,0.0],
+    "walker_agent__potentialTargetEid:eid": [],
+    "walker_agent__targetEid:eid": []
+  },
+  "nphys_pair_collision": {
+    "nphys_coll__capsuleRadius": 0.65,
+    "nphys_coll__capsuleHeight": 1.0,
+    "nphys__mass": 1.0,
+    "nphysPairCollision:tag": []
+  },
+  "nphys_homo_erectus": {
+    "npys_homoErectus:tag": []
+  },
+  "nphys_pushable": {
+    "nphys_pushable__prevElevation": 0.0,
+    "nphys_pushable__elevation": 0.0,
+    "nphys_pushable__unlockMovementAt": 0.0,
+    "nphys_pushable__lockDuration": 0.5,
+    "nphys__ccdOffset": [0.0,1.0,0.0],
+    "npysPushable:tag": []
+  },
+  "nphys_pushable_by_bullet": [
+    {
+      "_use": "nphys_pushable"
+    },
+    {
+      "_use": "obstacle_avoider"
+    },
+    {
+      "npysPushableByBullet:tag": []
+    }
+  ],
+  "nphys_levitating": {
+    "nphys_levitating__elevation": 0.0,
+    "nphys_levitating__prefferedElevation": 1.0,
+    "nphys_levitating__elevationChangeSpeed": 0.1
+  }
+}

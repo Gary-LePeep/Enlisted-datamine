@@ -129,9 +129,9 @@ function getFiltersByOptions() {
     : optCrossplay.allValues.value
 
   if (crossplayValues.len() == 1 && crossplayValues[0] == CrossplayState.OFF) {
-    res["crossplay"] <- { test = "eq", value = "off" }
+    res.crossplay <- { test = "eq", value = "off" }
   } else {
-    res["crossPlatform"] <- {
+    res.crossPlatform <- {
       test = "intersect",
       value = crossplayValues.map(@(v) $"{platformAlias}_{v}")
     }

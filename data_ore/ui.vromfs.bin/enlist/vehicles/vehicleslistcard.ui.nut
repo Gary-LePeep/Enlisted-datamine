@@ -4,7 +4,7 @@ let { fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let {
   defBgColor, hoverTxtColor, defTxtColor, activeBgColor, hoverBgColor, blockedBgColor,
   vehicleListCardSize, smallPadding, listCtors
-} = require("%enlSqGlob/ui/viewConst.nut")
+} = require("%enlSqGlob/ui/designConst.nut")
 let { txtColor } = listCtors
 let { iconByGameTemplate, getItemName } = require("%enlSqGlob/ui/itemsInfo.nut")
 let { autoscrollText } = require("%enlSqGlob/ui/defcomps.nut")
@@ -36,16 +36,16 @@ let noBlinkIconUnseen = noBlinkUnseenIcon()
 
 function mkUnseenSign(vehicle) {
   let vehicleTpl = vehicle?.basetpl
-  let hasUnseenSign = Computed(@()
-    unseenSquadsVehicle.value?[curSquad.value?.guid][vehicleTpl] ?? false)
+  let notifierState = Computed(@() unseenSquadsVehicle.value?[curSquad.value?.guid][vehicleTpl] ?? false)
   return function () {
-  let res = { watch = hasUnseenSign }
-  if (!hasUnseenSign.value)
-    return res
+    let res = { watch = [notifierState, seenTanksList] }
+    if (!notifierState.value)
+      return res
 
-  let unseenIcon = vehicleTpl not in seenTanksList.value ? blinkIconUnseen : noBlinkIconUnseen
-  return res.__update({ children = unseenIcon })
-}}
+    let unseenIcon = vehicleTpl not in seenTanksList.value ? blinkIconUnseen : noBlinkIconUnseen
+    return res.__update({ children = unseenIcon })
+  }
+}
 
 let setVehiclesSeen = @(vehicle) vehicle?.basetpl == null ? null
   : seenTanksList.mutate(@(v) v[vehicle.basetpl] <- true)

@@ -4,7 +4,7 @@
       "_use": "pe_2_31_base"
     },
     {
-      "_use": "squad_controlled_plane"
+      "_use": "plane_with_gunners"
     },
     {
       "_use": "pe_2_31_plane_sound"
@@ -79,7 +79,11 @@
               [1.90735e-06,0.0,-1.0],
               [0.21,0.0,0.0]
             ],
+            "cameraNodeName": "gun1",
+            "cameraOffset": [-0.12,0.24,0.0004],
+            "cameraType": "gunner",
             "seatComponent": "isGunner",
+            "canPlaceManually": true,
             "receiveDamageFromDMPart": "gunner1_dm",
             "directTurretControl": true,
             "roomSpace": 1,
@@ -1022,13 +1026,16 @@
       "turret__aimNodeName": "turret1"
     },
     {
-      "turret__limit": [-30.0,30.0,-5.0,40.0]
+      "turret__limit": [-30.0,30.0,-10.0,40.0]
     },
     {
-      "turret__yawSpeed": 100.0
+      "turret__yawSpeed": 500.0
     },
     {
-      "turret__pitchSpeed": 100.0
+      "turret__pitchSpeed": 500.0
+    },
+    {
+      "turret__lastRelativeDir": [-1.0,0.0,0.0]
     }
   ],
   "planegun_pe_2_31_12_7mm_ub_turret_01": [
@@ -1057,10 +1064,13 @@
       "turret__limit": [-25.0,25.0,-60.0,2.0]
     },
     {
-      "turret__yawSpeed": 100.0
+      "turret__yawSpeed": 500.0
     },
     {
-      "turret__pitchSpeed": 100.0
+      "turret__pitchSpeed": 500.0
+    },
+    {
+      "turret__lastRelativeDir": [-1.0,0.0,0.0]
     }
   ],
   "planegun_pe_2_31_7_62mm_shkas_turret_02": [
@@ -1089,10 +1099,13 @@
       "turret__limit": [-45.0,45.0,-30.0,30.0]
     },
     {
-      "turret__yawSpeed": 100.0
+      "turret__yawSpeed": 500.0
     },
     {
-      "turret__pitchSpeed": 100.0
+      "turret__pitchSpeed": 500.0
+    },
+    {
+      "turret__lastRelativeDir": [-1.0,0.0,0.0]
     }
   ],
   "planegun_pe_2_31_7_62mm_shkas_turret_03": [
@@ -1121,10 +1134,13 @@
       "turret__limit": [-45.0,45.0,-30.0,30.0]
     },
     {
-      "turret__yawSpeed": 100.0
+      "turret__yawSpeed": 500.0
     },
     {
-      "turret__pitchSpeed": 100.0
+      "turret__pitchSpeed": 500.0
+    },
+    {
+      "turret__lastRelativeDir": [-1.0,0.0,0.0]
     }
   ],
   "pe_2_31_driver_cockpit": {

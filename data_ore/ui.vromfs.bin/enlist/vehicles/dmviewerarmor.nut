@@ -2,7 +2,7 @@ from "%enlSqGlob/ui/ui_library.nut" import *
 let { round, cos, PI } = require("math")
 let DataBlock = require("DataBlock")
 let colorize = require("%ui/components/colorize.nut")
-let { activeTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
+let { activeTxtColor } = require("%enlSqGlob/ui/designConst.nut")
 
 const ABSOLUTE_ARMOR_THRESHOLD = 500.0
 const RELATIVE_ARMOR_THRESHOLD = 5.0

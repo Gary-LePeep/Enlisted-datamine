@@ -1,8 +1,8 @@
 from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { defTxtColor, selectedTxtColor, disabledTxtColor, squadElemsBgColor,
-  squadElemsBgHoverColor, commonBtnHeight, bigPadding, titleTxtColor
-} = require("%enlSqGlob/ui/viewConst.nut")
+  squadElemsBgHoverColor, commonBtnHeight, midPadding, titleTxtColor, darkPanelBgColor
+} = require("%enlSqGlob/ui/designConst.nut")
 let { fontBody } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { availablePresetsCount, MAX_PRESETS_COUNT, squadsPresetWatch
 } = require("%enlist/squadPresets/squadPresetsState.nut")
@@ -22,8 +22,6 @@ let obsceneFilter = require("%enlSqGlob/obsceneFilter.nut")
 let popupsState = require("%enlSqGlob/ui/popup/popupsState.nut")
 let spinner = require("%ui/components/spinner.nut")
 let { makeVertScroll } = require("%ui/components/scrollbar.nut")
-let { darkPanelBgColor } = require("%enlSqGlob/ui/designConst.nut")
-
 
 let ROW_HEIGHT = commonBtnHeight
 let ADDITIONAL_ICON_SIZE = ROW_HEIGHT * 0.6
@@ -198,7 +196,7 @@ let mkInputBlock = @(idx, presetInfo) watchElemState(@(sf) {
   onHover = @(on) switchPresetOnHover(on, presetInfo)
   children = [textInput.Underlined(renameTextWatch, {
       size = [flex(), ROW_HEIGHT]
-      padding = [0, 0, 0, bigPadding]
+      padding = [0, 0, 0, midPadding]
       margin = 0
       textmargin = 0
       placeholderTextMargin = 0
@@ -246,7 +244,7 @@ function mkPresetSlot(idx, presetInfo = null) {
           children = [
             {
               size = flex()
-              padding = [0, 0, 0, bigPadding]
+              padding = [0, 0, 0, midPadding]
               behavior = [Behaviors.Button, Behaviors.Marquee]
               onHover = @(on) switchPresetOnHover(on, presetInfo)
               onDoubleClick = @() applySquadsPreset(squadsArmy.value, idx)
@@ -279,7 +277,7 @@ let mkPremiumPresetSlot = @(presetInfo) watchElemState(@(sf) {
   children = [
     {
       size = [SIZE_TO_CONTENT, flex()]
-      padding = [0, bigPadding, 0, bigPadding]
+      padding = [0, midPadding, 0, midPadding]
       valign = ALIGN_CENTER
       rendObj = ROBJ_TEXT
       text = getDefaultPresetSlotName(presetInfo)
@@ -314,7 +312,7 @@ let presetsListContent = @() {
 return {
   open = function(event) {
     let presetsAmount = Computed(@() presetsListWatch.value?.len())
-    return modalPopupWnd.add([event.targetRect.r + bigPadding, 0], {
+    return modalPopupWnd.add([event.targetRect.r + midPadding, 0], {
       uid = WND_UID
       popupHalign = ALIGN_LEFT
       popupValign = ALIGN_TOP

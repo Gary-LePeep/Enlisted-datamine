@@ -136,7 +136,6 @@
   {
     "entity": {
       "_template": "bloom",
-      "bloom__highQuality": true,
       "bloom__radius": 1.0,
       "bloom__threshold": 5.8,
       "bloom__upSample": 0.2
@@ -144,27 +143,34 @@
   },
   {
     "entity": {
+      "_template": "adaptation_level_settings",
+      "adaptation_level_settings:object": {
+        "adaptation__on": true,
+        "adaptation__minExposure": 0.85,
+        "adaptation__maxExposure": 0.85,
+        "adaptation__lowPart": 0.0,
+        "adaptation__highPart": 0.0,
+        "adaptation__adaptUpSpeed": 3.0,
+        "adaptation__adaptDownSpeed": 4.0,
+        "adaptation__brightnessPerceptionLinear": 0.9,
+        "adaptation__brightnessPerceptionPower": 0.9,
+        "adaptation__autoExposureScale": 1.0,
+        "adaptation__fixedExposure": -1.0
+      }
+    }
+  },
+  {
+    "entity": {
       "_template": "postfx_roundctrl",
       "post_fx:object": {
         "smoke_blackout_effect__minIntensity": 0.9,
-        "adaptation__highPart": 0.0,
         "damage_indicator__color": [1.0,0.3,0.3,0.0],
         "smoke_blackout_effect__increaseDuration": 3.0,
         "damage_indicator__size": 0.5,
-        "adaptation__adaptUpSpeed": 3.0,
         "smoke_blackout_effect__decreaseDuration": 2.0,
-        "adaptation__brightnessPerceptionLinear": 0.9,
-        "adaptation__autoExposureScale": 1.0,
-        "adaptation__fixedExposure": -1.0,
         "smoke_blackout_effect__maxIntensity": 1.3,
         "flash_blind__decay_color": [0.9,0.95,1.0,1.0],
-        "adaptation__on": true,
-        "adaptation__minExposure": 0.85,
-        "adaptation__lowPart": 0.0,
-        "adaptation__maxExposure": 0.85,
-        "adaptation__brightnessPerceptionPower": 0.9,
-        "flash_blind__desaturation_scale": 0.5,
-        "adaptation__adaptDownSpeed": 4.0
+        "flash_blind__desaturation_scale": 0.5
       }
     }
   },

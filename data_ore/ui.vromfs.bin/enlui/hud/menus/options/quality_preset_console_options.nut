@@ -2,11 +2,12 @@ from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { is_xbox, is_xboxone, is_xboxone_X, is_xbox_scarlett, isXboxScarlett, is_xbox_anaconda,
   is_ps4_simple, is_ps4_pro, is_ps5, is_ps4 } = require("%dngscripts/platform.nut")
-let { loc_opt, optionSpinner, optionCtor } = require("%ui/hud/menus/options/options_lib.nut")
+let { loc_opt, optionSpinner, optionCtor, mkDisableableCtor } = require("%ui/hud/menus/options/options_lib.nut")
 
 let { resolutionToString } = require("%ui/hud/menus/options/render_options.nut")
 let { resolutionList } = require("%ui/hud/menus/options/resolution_state.nut")
 let { get_setting_by_blk_path } = require("settings")
+let { isInBattleState } = require("%enlSqGlob/inBattleState.nut")
 
 let { globalWatched } = require("%dngscripts/globalState.nut")
 
@@ -15,15 +16,16 @@ const ConsolePresetBlkPath = "graphics/consolePreset"
 local availableGraphicPresets = ["HighFPS"]
 if (is_xbox) {
   if (is_xboxone && !is_xboxone_X)
-    availableGraphicPresets = ["HighFPS"]
+    availableGraphicPresets = ["HighFPS", "bareMinimum"]
   else
     availableGraphicPresets = [ "HighFPS", "HighQuality" ]
 }
 else if (is_ps4)
-  availableGraphicPresets = ["HighFPS"]
+  availableGraphicPresets = ["HighFPS", "bareMinimum"]
 else if (is_ps5)
   availableGraphicPresets = [ "HighFPS", "HighQuality" ]
 
+let isPresetsContainsBareMinimum = availableGraphicPresets.contains("bareMinimum")
 
 let { consoleGraphicsPreset, consoleGraphicsPresetUpdate } = globalWatched("consoleGraphicsPreset",
   @() get_setting_by_blk_path(ConsolePresetBlkPath) ?? availableGraphicPresets[0])
@@ -39,7 +41,7 @@ let presetAvailable = ((consoleGfxSettingsBlk == null) || (consoleGfxSettingsBlk
 function preset_val_loc(v) {
   if (isXboxScarlett && v == "HighFPS")
     return loc("option/HighFPSwithHint")
-  else if (availableGraphicPresets.contains("bareMinimum"))
+  else if (isPresetsContainsBareMinimum)
     return v == "bareMinimum" ? loc_opt("HighFPS") : loc_opt("HighQuality")
   else
     return loc_opt(v)
@@ -47,7 +49,9 @@ function preset_val_loc(v) {
 
 let optXboxGraphicsPreset = optionCtor({
   name = loc("options/graphicsPreset")
-  widgetCtor = optionSpinner
+  widgetCtor = mkDisableableCtor(
+    Computed(@() isPresetsContainsBareMinimum && isInBattleState.value ? preset_val_loc(consoleGraphicsPreset.value) : null),
+    optionSpinner)
   tab = "Graphics"
   var = consoleGraphicsPreset
   setValue = consoleGraphicsPresetUpdate
@@ -85,7 +89,9 @@ let optXboxGraphicsPreset = optionCtor({
 
 let optPSGraphicsPreset = optionCtor({
   name = loc("options/graphicsPreset")
-  widgetCtor = optionSpinner
+  widgetCtor = mkDisableableCtor(
+    Computed(@() isPresetsContainsBareMinimum && isInBattleState.value ? preset_val_loc(consoleGraphicsPreset.value) : null),
+    optionSpinner)
   tab = "Graphics"
   var = consoleGraphicsPreset
   setValue = consoleGraphicsPresetUpdate
@@ -107,6 +113,7 @@ let optPSGraphicsPreset = optionCtor({
       {blkPath = "graphics/dropletsOnScreen", val = (v == "HighQuality")},
       {blkPath = "graphics/scopeImageQuality", val = (v == "HighQuality" ? 1 : 0)},
       {blkPath = "video/vsync_tearing_tolerance_percents", val = 10},
+      {blkPath = "video/frameSkip", val = (v == "bareMinimum" ? 0 : 1)},
       {blkPath = "video/freqLevel", val = (is_ps5 && v == "HighFPS" ? 3 : 1)},
       {blkPath = "graphics/shouldRenderHeroCockpit", val = true},
       {blkPath = "graphics/skiesQuality", val = (is_ps4_simple || v == "bareMinimum" ? "low" : (v == "HighFPS" ? "medium" : "high"))},

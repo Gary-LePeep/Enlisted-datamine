@@ -7,9 +7,9 @@ let { shopItemContentCtor, curUnseenAvailShopGuids
 } = require("%enlist/shop/armyShopState.nut")
 let { soldierShopItems, unseenSoldierShopItems, getSoldiersList, isSoldiersPurchasing
 } = require("%enlist/shop/soldiersPurchaseState.nut")
-let { bigPadding, smallPadding, titleTxtColor, defTxtColor,
-  selectedTxtColor, smallOffset, tinyOffset
-} = require("%enlSqGlob/ui/viewConst.nut")
+let { midPadding, smallPadding, titleTxtColor, defTxtColor,
+  selectedTxtColor, smallOffset, tinyOffset, panelBgColor, hoverSlotBgColor
+} = require("%enlSqGlob/ui/designConst.nut")
 let { makeCrateToolTip } = require("%enlist/items/crateInfo.nut")
 let { needFreemiumStatus, CAMPAIGN_NONE } = require("%enlist/campaigns/campaignConfig.nut")
 let buySquadWindow = require("buySquadWindow.nut")
@@ -43,7 +43,6 @@ let {
 } = require("%enlist/soldiers/model/soldiersState.nut")
 let { mkAlertObject, mkSoldierShopItem } = require("%enlist/shop/shopPackage.nut")
 let { mkTwoSidesGradientX } = require("%enlSqGlob/ui/gradients.nut")
-let { panelBgColor, hoverSlotBgColor } = require("%enlSqGlob/ui/designConst.nut")
 let { curGrowthState, curGrowthProgress, curGrowthConfig, curGrowthTiers
 } = require("%enlist/growth/growthState.nut")
 
@@ -120,6 +119,8 @@ let soldiersList = Computed(@() squadSoldiers.value.filter(@(s) s != null))
 let currentLimits = mkSClassLimitsComp(soldiersSquad, soldiersSquadParams,
   soldiersList, soldiersStatuses)
 
+let unseenSignCmp = smallUnseenNoBlink.__merge({ hplace = ALIGN_RIGHT, vplace = ALIGN_TOP })
+
 let btnWidth = hdpxi(48)
 function mkSpecializationBtn(soldier, isSelected, armyData, unseenKinds) {
   let { soldierKind, reqLvl } = soldier
@@ -149,9 +150,7 @@ function mkSpecializationBtn(soldier, isSelected, armyData, unseenKinds) {
             : panelBgColor
           children = [
             kindIcon(soldierKind, hdpxi(30), null, specializationIconColor(sf, isSelectedVal, isAvailable))
-            soldierKind in unseenKinds
-              ? smallUnseenNoBlink.__update({ hplace = ALIGN_RIGHT, vplace = ALIGN_TOP })
-              : null
+            soldierKind in unseenKinds ? unseenSignCmp : null
           ]
         }
         classInfo == null ? null : {
@@ -295,8 +294,8 @@ function mkShopItemCard(idx, shopItem, armyData, offers) {
           flow = FLOW_VERTICAL
           valign = ALIGN_TOP
           halign = ALIGN_LEFT
-          gap = bigPadding
-          padding = bigPadding
+          gap = midPadding
+          padding = midPadding
           children = [ statsList, perkElement ]
         }
       ]
@@ -311,7 +310,7 @@ let mkSoldiersList = @(soldiersToShow) function() {
     watch = [curArmyData, curShopSoldierKind, offersByShopItem]
     size = [flex(), SIZE_TO_CONTENT]
     flow = FLOW_HORIZONTAL
-    gap = bigPadding
+    gap = midPadding
     halign = ALIGN_CENTER
     children = soldiers.map(@(shopItem, idx) mkShopItemCard(idx, shopItem, curArmyData.value, offers))
   }

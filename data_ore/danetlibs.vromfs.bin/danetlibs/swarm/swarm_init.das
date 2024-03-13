@@ -17,7 +17,4 @@ def load_swarm(base_path : string) : bool
   return ok
 
 
-[export]
-def test()
-  let ok = load_swarm("%danetlibs/swarm")
-  assert(ok)
+

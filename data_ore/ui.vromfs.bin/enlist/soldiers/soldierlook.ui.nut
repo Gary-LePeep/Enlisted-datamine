@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui/ui_library.nut" import *
 
 let faComp = require("%ui/components/faComp.nut")
-let { smallPadding, bigPadding } = require("%enlSqGlob/ui/viewConst.nut")
+let { smallPadding, midPadding } = require("%enlSqGlob/ui/designConst.nut")
 let { comboboxBorderColor } = require("%ui/style/colors.nut")
 let { txt, noteTextArea } = require("%enlSqGlob/ui/defcomps.nut")
 let {
@@ -19,7 +19,7 @@ let { show } = require("%enlist/components/msgbox.nut")
 
 const debugUiColor = 0xFFAA0000
 
-let idleAnims = Computed(@() [null].extend(allIdleAnims))
+let idleAnims = Watched([null].extend(allIdleAnims))
 let soldierHeads = Computed(@() [null].extend(allSoldierHeads.value))
 let hasFaceGenOverrides = Computed(@() faceGenOverrides.value.len() > 0)
 
@@ -44,8 +44,8 @@ let debugFeatureWarning = {
   valign = ALIGN_CENTER
   color = debugUiColor
   borderWidth = hdpx(4)
-  padding = bigPadding * 2
-  gap = bigPadding
+  padding = midPadding * 2
+  gap = midPadding
   flow = FLOW_HORIZONTAL
   children = [
     faComp("exclamation-triangle", { color = debugUiColor, fontSize = hdpx(24) })
@@ -59,7 +59,7 @@ let optCheckbox = @(label, value, setValue)
 let optCombobox = @(label, value, update, list) {
   size = [flex(), fsh(4)]
   flow = FLOW_HORIZONTAL
-  gap = bigPadding
+  gap = midPadding
   valign = ALIGN_CENTER
   children = [
     txt(label)
@@ -72,7 +72,7 @@ function optSlider(label, value, minVal, maxVal, setValue) {
   return {
     size = [flex(), fsh(4)]
     flow = FLOW_HORIZONTAL
-    gap = bigPadding
+    gap = midPadding
     valign = ALIGN_CENTER
     children = [
       txt(label)

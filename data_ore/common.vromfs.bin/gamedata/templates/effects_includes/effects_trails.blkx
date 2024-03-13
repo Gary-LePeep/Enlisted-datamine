@@ -47,5 +47,56 @@
       "effect__name": "trail_rocket_launch_smoke_cmps_fx",
       "gun_flash_fx__timeToDestroy": 0.5
     }
-  }
+  },
+  "tracer_ricocheted_small_effect": [
+    {
+      "_use": "ricocheted_effect_base"
+    },
+    {
+      "_use": "range_pauseable_effect"
+    },
+    {
+      "effect__emit_range_limit": 80.0
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "tracer_ricocheted_small_cmps_fx"
+      }
+    }
+  ],
+  "tracer_ricocheted_medium_effect": [
+    {
+      "_use": "ricocheted_effect_base"
+    },
+    {
+      "_use": "range_pauseable_effect"
+    },
+    {
+      "effect__emit_range_limit": 120.0
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "tracer_ricocheted_med_cmps_fx"
+      }
+    }
+  ],
+  "tracer_ricocheted_big_effect": [
+    {
+      "_use": "ricocheted_effect_base"
+    },
+    {
+      "_use": "range_pauseable_effect"
+    },
+    {
+      "effect__emit_range_limit": 120.0
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "tracer_ricocheted_big_cmps_fx"
+      }
+    }
+  ]
 }

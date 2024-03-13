@@ -16,7 +16,4 @@ def load_human_sounds_net(base_path : string) : bool
   return ok
 
 
-[export]
-def test()
-  let ok = load_human_sounds_net("%danetlibs/sound/human_sounds_net")
-  assert(ok)
+

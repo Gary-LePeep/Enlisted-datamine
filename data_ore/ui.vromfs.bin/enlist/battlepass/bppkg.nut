@@ -3,11 +3,8 @@ from "%enlSqGlob/ui/ui_library.nut" import *
 let {
   fontTitle, fontHeading2, fontSub, fontBody, fontHeading1
 } = require("%enlSqGlob/ui/fontsStyle.nut")
-let {
-  activeTxtColor, defBgColor
-} = require("%enlSqGlob/ui/viewConst.nut")
 let { smallPadding, midPadding, bigPadding, titleTxtColor, attentionTxtColor,
-  startBtnWidth, defSlotBgColor, defTxtColor
+  startBtnWidth, defSlotBgColor, defTxtColor, activeTxtColor, defBgColor
 } = require("%enlSqGlob/ui/designConst.nut")
 let { blinkUnseenIcon } = require("%ui/components/unseenSignal.nut")
 let { timeLeft } = require("bpState.nut")

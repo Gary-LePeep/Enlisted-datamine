@@ -1,6 +1,5 @@
-let {globalWatched} = require("%dngscripts/globalState.nut")
-let {get_setting_by_blk_path} = require("settings")
-let {get_default_static_resolution_scale} = require("videomode")
+let { globalWatched } = require("%dngscripts/globalState.nut")
+let { get_setting_by_blk_path } = require("settings")
 
 enum antiAliasingMode {
   OFF = 0
@@ -24,153 +23,23 @@ let antiAliasingModeToString = {
   [antiAliasingMode.SSAA] = { optName = "options/optSSAA", defLocString = "SSAA" },
 }
 
-let renderSettingsTbl = freeze({
-  shadowsQuality = {
-    defVal = "low"
-    blkPath = "graphics/shadowsQuality"
-  }
-  effectsShadows = {
-    defVal = true
-    blkPath = "graphics/effectsShadows"
-  }
-  giQuality = {
-    defVal = "low"
-    blkPath = "graphics/giQuality"
-  }
-  rtgiEnabled = {
-    defVal = false
-    blkPath = "graphics/gi/inlineRaytracing"
-  }
-  skiesQuality = {
-    defVal = "low"
-    blkPath = "graphics/skiesQuality"
-  }
-  aoQuality = {
-    defVal = "medium"
-    blkPath = "graphics/aoQuality"
-  }
-  objectsDistanceMul = {
-    defVal = 1.0
-    blkPath = "graphics/objectsDistanceMul"
-  }
-  cloudsQuality = {
-    defVal = "default"
-    blkPath = "graphics/cloudsQuality"
-  }
-  volumeFogQuality = {
-    defVal = "close"
-    blkPath = "graphics/volumeFogQuality"
-  }
-  waterQuality = {
-    defVal = "low"
-    blkPath = "graphics/waterQuality"
-  }
-  groundDisplacementQuality = {
-    defVal = 1
-    blkPath = "graphics/groundDisplacementQuality"
-  }
-  groundDeformations = {
-    defVal = "medium"
-    blkPath = "graphics/groundDeformations"
-  }
-  impostor = {
-    defVal = 0
-    blkPath = "graphics/impostor"
-  }
-  antiAliasingModeChosen = {
-    defVal = antiAliasingMode.TAA
-    blkPath = "video/antiAliasingMode"
-  }
-  taaQuality = {
-    defVal = 1
-    blkPath = "graphics/taaQuality"
-  }
-  temporalUpsamplingRatio = {
-    defVal = 100.0
-    blkPath = "video/temporalUpsamplingRatio"
-  }
-  staticResolutionScale = {
-    defVal = get_default_static_resolution_scale()
-    blkPath = "video/staticResolutionScale"
-  }
-  staticUpsampleQuality = {
-    defVal = "catmullrom"
-    blkPath = "graphics/staticUpsampleQuality"
-  }
-  texQuality = {
-    defVal = "high"
-    blkPath = "graphics/texquality"
-  }
-  anisotropy = {
-    defVal = 4
-    blkPath = "graphics/anisotropy"
-  }
-  onlyHighResFx = {
-    defVal = "lowres"
-    blkPath = "graphics/fxTarget"
-  }
-  dropletsOnScreen = {
-    defVal = true
-    blkPath = "graphics/dropletsOnScreen"
-  }
-  fxaaQuality = {
-    defVal = "medium"
-    blkPath = "graphics/fxaaQuality"
-  }
-  ssrQuality = {
-    defVal = "low"
-    blkPath = "graphics/ssrQuality"
-  }
-  scopeImageQuality = {
-    defVal = 0
-    blkPath = "graphics/scopeImageQuality"
-  }
-  uncompressedScreenshots = {
-    defVal = false
-    blkPath = "screenshots/uncompressedScreenshots"
-  }
-  fsr = {
-    defVal = "off"
-    blkPath = "video/fsr"
-  }
-  fftWaterQuality = {
-    defVal = "high"
-    blkPath = "graphics/fftWaterQuality"
-  }
-  hqProbeReflections = {
-    defVal = true
-    blkPath = "graphics/HQProbeReflections"
-  }
-  hqVolumetricClouds = {
-    defVal = false
-    blkPath = "graphics/HQVolumetricClouds"
-  }
-  hqVolfog= {
-    defVal = false
-    blkPath = "graphics/HQVolfog"
-  }
-  ssss = {
-    defVal = "low"
-    blkPath = "graphics/ssssQuality"
-  }
-  rendinstTesselation = {
-    defVal = false
-    blkPath = "graphics/rendinstTesselation"
-  }
-  sharpening = {
-    defVal = 0.0
-    blkPath = "graphics/sharpening"
-  }
-}.map(function(options, name) {
-  let gw = globalWatched(name,
-      @() get_setting_by_blk_path(options.blkPath) ?? options.defVal)
-  options.var <- gw[name]
-  options.setValue <- gw[$"{name}Update"]
-  return options
-}))
+let isOptionAvailable = @(option) option?.isAvailable() ?? true
+
+function addOptionVarInfo(option) {
+  if (option?.optId == null || !isOptionAvailable(option))
+    return option
+
+  let gw = globalWatched(option.optId,
+    @() get_setting_by_blk_path(option.blkPath) ?? option.defVal)
+
+  option.var <- gw[option.optId]
+  option.setValue <- gw[$"{option.optId}Update"]
+  return option
+}
 
 return {
-  renderSettingsTbl
   antiAliasingMode
   antiAliasingModeToString
+  addOptionVarInfo
+  isOptionAvailable
 }

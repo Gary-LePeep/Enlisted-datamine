@@ -62,13 +62,13 @@ def clear_attached_points_es(evt : EventOnLootPickup; team : int)
 
 [es(tag=(server, net), no_order, on_appear)]
 def tell_vehicle_its_marked(evt : Event; userPointVehicleTargetEid : EntityId)
-  let newVehicleTemplate : string = add_sub_template_name(userPointVehicleTargetEid, "marked_vehicle")
+  let newVehicleTemplate : string = add_sub_template_name(userPointVehicleTargetEid, "marked_target")
   if !empty(newVehicleTemplate)
     reCreateEntityFrom(userPointVehicleTargetEid, newVehicleTemplate)
 
 [es(tag=(server, net), no_order, on_disappear)]
 def tell_vehicle_its_not_marked(evt : Event; userPointVehicleTargetEid : EntityId)
-  let newVehicleTemplate : string = remove_sub_template_name(userPointVehicleTargetEid, "marked_vehicle")
+  let newVehicleTemplate : string = remove_sub_template_name(userPointVehicleTargetEid, "marked_target")
   if !empty(newVehicleTemplate)
     reCreateEntityFrom(userPointVehicleTargetEid, newVehicleTemplate)
 

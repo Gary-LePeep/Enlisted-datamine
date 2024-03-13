@@ -2,7 +2,7 @@ from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { get_setting_by_blk_path } = require("settings")
 let { resolutionValue } = require("resolution_state.nut")
-let { get_dlss_state, is_dlss_quality_available_at_resolution } = require("videomode")
+let { get_dlss_state, is_dlss_quality_available_at_resolution, get_current_window_resolution, get_dlssg_support_state } = require("videomode")
 
 const DLSS_BLK_PATH = "video/dlssQuality"
 const DLSS_OFF = -1
@@ -11,6 +11,7 @@ const DLSS_BALANCED = 1
 const DLSS_QUALITY = 2
 const DLSS_ULTRA_PERFORMANCE = 3
 const DLSS_DLAA = 5
+const DLSSG_BLK_PATH = "video/dlssFrameGeneration"
 
 // Values match with enum class DlssState in dag_drv3dConsts.h
 const NOT_IMPLEMENTED = 0
@@ -45,8 +46,33 @@ let dlssSupportLocId = {
   [NOT_SUPPORTED_INCOMPATIBLE_HARDWARE] = "dlss/incompatibleHardware",
   [NOT_SUPPORTED_32BIT] = "dlss/notSupported32bit"
 }
+
 let curDlssSupportStateLocId = dlssSupportLocId?[get_dlss_state()]
-let dlssNotAllowLocId = Computed(@() curDlssSupportStateLocId)
+
+let dlssNotAllowLocId = WatchedRo(curDlssSupportStateLocId)
+
+const DLSSG_SUPPORTED = 0
+const DLSSG_OS_OUF_OF_DATE = 1
+const DLSSG_DRIVER_OUT_OF_DATE = 2
+const DLSSG_HW_NOT_SUPPORTED = 3
+const DLSSG_DISABLED_HWS = 4
+const DLSSG_NOT_SUPPORTED = 5
+
+let dlssGSupportLocId = {
+  // Not presented to user
+  [DLSSG_NOT_SUPPORTED] = "NOT_SUPPORTED",
+
+  // Presented to user
+  [DLSSG_OS_OUF_OF_DATE] = "dlss/updateDrivers",
+  [DLSSG_DRIVER_OUT_OF_DATE] = "dlss/updateOS",
+  [DLSSG_HW_NOT_SUPPORTED] = "dlss/incompatibleHardware",
+  [DLSSG_DISABLED_HWS] = "dlss/enableHWS",
+}
+
+let curDlssGSupportStateLocId = dlssGSupportLocId?[get_dlssg_support_state()]
+
+// Never changes Watched
+let dlssgNotAllowLocId = Watched(curDlssGSupportStateLocId)
 
 let dlssAllQualityModes = [DLSS_ULTRA_PERFORMANCE, DLSS_PERFORMANCE, DLSS_BALANCED, DLSS_QUALITY, DLSS_DLAA]
 
@@ -56,9 +82,11 @@ let dlssAvailable = Computed(function() {
     return [DLSS_OFF] // it's not allowed to call is_dlss_quality_available_at_resolution  when DLSS is not supported
   local res = resolutionValue.value
   if (type(res) != "array")
-    res = [0, 0]
+    res = get_current_window_resolution()
   return dlssAllQualityModes.filter(@(q) is_dlss_quality_available_at_resolution(res[0], res[1], q))
 })
+
+let dlssgAvailable = WatchedRo(get_dlssg_support_state() == DLSSG_SUPPORTED)
 
 let dlssValueChosen = Watched(get_setting_by_blk_path(DLSS_BLK_PATH) ?? DLSS_QUALITY)
 
@@ -68,6 +96,12 @@ let dlssValue = Computed(@() dlssNotAllowLocId.value != null ? DLSS_OFF
   : dlssAvailable.value.indexof(dlssValueChosen.value) != null ? dlssValueChosen.value
   : DLSS_OFF)
 
+let dlssgValueChosen = Watched(get_setting_by_blk_path(DLSSG_BLK_PATH) ?? false)
+
+let dlssgSetValue = @(v) dlssgValueChosen(v)
+
+let dlssgValue = Computed(@() dlssgAvailable ? dlssgValueChosen.value : false)
+
 return {
   DLSS_BLK_PATH
   DLSS_OFF
@@ -76,4 +110,9 @@ return {
   dlssSetValue
   dlssToString
   dlssNotAllowLocId
+  DLSSG_BLK_PATH
+  dlssgAvailable
+  dlssgValue
+  dlssgSetValue
+  dlssgNotAllowLocId
 }
