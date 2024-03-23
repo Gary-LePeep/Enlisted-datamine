@@ -1437,14 +1437,14 @@ let rewardsPresentation = {
     description = loc("squadannounce/squad_ger_engineer_2_event_1")
     icon = "ui/skin#research/squad_points_icon.svg"
     cardImage = "!ui/soldiers/germany/squad_ger_engineer_2_event_1_image.avif"
-    mkImage = mkImageCtor([300, 225], [0, 0])
+    mkImage = mkImageCtor([210, 157], [0, 0])
   },
   ["509"] = {
     name = loc("squad/squad_ussr_engineer_2_event_1")
     description = loc("squadannounce/squad_ussr_engineer_2_event_1")
     icon = "ui/skin#research/squad_points_icon.svg"
     cardImage = "!ui/soldiers/ussr/squad_ussr_engineer_2_event_1_image.avif"
-    mkImage = mkImageCtor([300, 225], [0, 0])
+    mkImage = mkImageCtor([210, 157], [0, 0])
   },
 
 

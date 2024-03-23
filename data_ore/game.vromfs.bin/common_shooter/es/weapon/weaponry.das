@@ -779,6 +779,7 @@ def after_update_projectile_es(info : ParallelUpdateFrameDelayed;
                                projectile__addBulletHole : bool = true;
                                projectile__ballisticsUpdated : bool = true;
                                projectile__destroyVel : float = 6.f;
+                               projectile__isBomb : bool = false;
                                var projectile_ballistics : ProjectileBallistics;
                                var dm_projectile_state : ProjectileState&;
                                var projectile__exploded : bool&;
@@ -813,7 +814,8 @@ def after_update_projectile_es(info : ParallelUpdateFrameDelayed;
   let turretOwnerEid = get_Eid(gunEid, "turret__owner") ?? INVALID_ENTITY_ID
   let destrVelSq = square(projectile__destroyVel)
   let projectileDestroyByVel = length_sq(projectile_ballistics.state.vel) < destrVelSq
-  if !projectileDestroyByVel
+  projectile__stopped = projectileDestroyByVel
+  if !projectileDestroyByVel && !projectile__isBomb
     trace_shootable_objects(prevPos, dir, len, ownerEid, vehicleEid) <| $(sortedIntersectedList : IntersectedEntities)
       if length(sortedIntersectedList) > 0
         for isect in sortedIntersectedList
@@ -849,8 +851,6 @@ def after_update_projectile_es(info : ParallelUpdateFrameDelayed;
             if allowDetonation
               projectile__exploded = true
             break
-  else
-    projectile__stopped = true
 
   // Actually correct would be iterate over until we got closest hit. However, we will be using simplified version.
   let maxLen = min(projectile_trace_info__waterLen, len)

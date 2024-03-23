@@ -3,7 +3,7 @@ from "%enlSqGlob/ui/ui_library.nut" import *
 let { settings, onlineSettingUpdated } = require("%enlist/options/onlineSettings.nut")
 let { curArmiesList, itemsByArmies, campItemsByLink, curCampSoldiers
 } = require("%enlist/meta/profile.nut")
-let { chosenSquadsByArmy, armoryByArmy, soldiersBySquad, canChangeEquipmentInSlot
+let { chosenSquadsByArmy, armoryByArmy, soldiersBySquad, canChangeEquipmentInSlot, curArmy
 } = require("state.nut")
 let { equipSchemesByArmy } = require("all_items_templates.nut")
 let { classSlotLocksByArmy } = require("%enlist/researches/researchesSummary.nut")
@@ -24,7 +24,7 @@ let SLOTS = ["primary", "side", "secondary", "melee",
   "antitank", "flamethrower", "mortar"]
 let SLOTS_MAP = SLOTS.reduce(@(res, slotName) res.rawset(slotName, true), {})
 
-let seen = Computed(@() settings.value?[SEEN_ID]) //<soldierGuid> = { <slot> = tier }
+let soldierSeenSlots = Computed(@() settings.value?[SEEN_ID]) //<soldierGuid> = { <slot> = tier }
 let betterWeaponrySoldier = Watched({})
 
 let reduceFn = function(result, value) {
@@ -217,7 +217,7 @@ function recalcUnseen() {
 }
 
 let recalcUnseenDebounced = debounce(recalcUnseen, 0.01)
-foreach (v in [seen, chosenSquadsByArmy,
+foreach (v in [soldierSeenSlots, chosenSquadsByArmy,
     soldiersBySquad, classSlotLocksByArmy, inventoryTiersCache])
   v.subscribe(@(_) recalcUnseenDebounced())
 // no subscription to slotsLinkTiers because it changes together with inventoryTiersCache
@@ -290,49 +290,46 @@ function markSeenSlot(armyId, ownerGuid, slotType) {
   })
 }
 
-function markInventorySlotsSeen() {
+function markInventorySlotsSeen(armyId) {
   settings.mutate(function(value) {
-    if (SEEN_ID not in value)
-      value[SEEN_ID] <- {}
+    let newSeenTbl = clone value?[SEEN_ID] ?? {}
+    let equipSchemes = equipSchemesByArmy.value?[armyId]
 
-    foreach (armyId in curArmiesList.value) {
-      let equipSchemes = equipSchemesByArmy.value?[armyId]
+    foreach (squad in chosenSquadsByArmy.value?[armyId] ?? [])
+      foreach (soldier in soldiersBySquad.value?[squad.guid] ?? []) {
 
-      foreach (squad in chosenSquadsByArmy.value?[armyId] ?? [])
-        foreach (soldier in soldiersBySquad.value?[squad.guid] ?? []) {
+        let scheme = equipSchemes?[soldier?.equipSchemeId]
+        if (scheme == null)
+          continue
 
-          let scheme = equipSchemes?[soldier?.equipSchemeId]
-          if (scheme == null)
+        let fixedWeapon = getSoldierFixedWeapon(soldier.guid)
+        let hasFixedWeapon = fixedWeapon.len() > 0
+        let soldierData = clone newSeenTbl?[soldier.guid] ?? {}
+
+        foreach (slotType, _ in scheme) {
+          if (hasFixedWeapon && (slotType in fixedWeapon))
             continue
 
-          let fixedWeapon = getSoldierFixedWeapon(soldier.guid)
-          let hasFixedWeapon = fixedWeapon.len() > 0
-          let soldierData = value[SEEN_ID]?[soldier.guid] ?? {}
-
-          foreach (slotType, _ in scheme) {
-            if (hasFixedWeapon && (slotType in fixedWeapon))
-              continue
-
-            let equippedTier = slotsLinkTiers.value?[soldier.guid][slotType] ?? -1
-            soldierData[slotType] <- equippedTier
-          }
-          value[SEEN_ID][soldier.guid] <- soldierData
+          let equippedTier = slotsLinkTiers.value?[soldier.guid][slotType] ?? -1
+          soldierData[slotType] <- equippedTier
         }
-    }
+        newSeenTbl[soldier.guid] <- soldierData
+      }
+    value[SEEN_ID] <- newSeenTbl
   })
 }
 
-function resetSeen() {
+function resetInventorySlotsSeen() {
   settings.mutate(function(value) {
     value.$rawdelete(SEEN_ID)
   })
 }
 
-console_register_command(markInventorySlotsSeen, "meta.markSeenSlots")
-console_register_command(resetSeen, "meta.resetSeenSlots")
+console_register_command(@() markInventorySlotsSeen(curArmy.value), "meta.markSeenSlots")
+console_register_command(resetInventorySlotsSeen, "meta.resetSeenSlots")
 console_register_command(createIndex, "meta.indexInventory")
 console_register_command(recalcUnseen, "meta.recalcUnseen")
-console_register_command(@() debugTableData(seen.value), "meta.printSavedSeenSlots")
+console_register_command(@() debugTableData(soldierSeenSlots.value), "meta.printSavedSeenSlots")
 
 function itemOperation(item, fn) {
   let armyId = getLinkedArmyName(item)
@@ -362,7 +359,7 @@ let soldiersUpgradeAlerts = Computed(function() {
   let res = {}
   foreach (soldierGuid, slotData in betterWeaponrySoldier.value) {
     foreach (slotType, _ in slotData) {
-      if (slotType not in seen.value?[soldierGuid]) {
+      if (slotType not in soldierSeenSlots.value?[soldierGuid]) {
         res[soldierGuid] <- true
         break
       }
@@ -371,11 +368,33 @@ let soldiersUpgradeAlerts = Computed(function() {
   return res
 })
 
+let armyUpgradeAlerts = Computed(function() {
+  let res = {}
+  foreach (armyId in curArmiesList.value) {
+    local hasNotifier = false
+    foreach (squad in chosenSquadsByArmy.value?[armyId] ?? []) {
+      let soldiers = (soldiersBySquad.value?[squad.guid] ?? [])
+      if (soldiers.findvalue(@(soldier) soldier.guid in soldiersUpgradeAlerts.value) != null) {
+        hasNotifier = true
+        break
+      }
+      if (hasNotifier)
+        break
+    }
+    res[armyId] <- hasNotifier
+  }
+  return res
+})
+
 return {
   betterWeaponrySoldier
-  markSeenSlot
   soldierSlotsTiersEquipped = slotsLinkTiers
-  soldierSeenSlots = seen
+  soldierSeenSlots
   soldiersUpgradeAlerts
+  armyUpgradeAlerts
+
+  markSeenSlot
   updateArmoryIndex
+  markInventorySlotsSeen
+  resetInventorySlotsSeen
 }

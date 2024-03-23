@@ -49,12 +49,19 @@ let mkNotEnoughMoney = @(needMoreCurrency, currency) needMoreCurrency > 0 ? {
     ]
   } : null
 
-let mkItemNameList = @(items, showCount) ",\n".join(items.keys().map(function(tpl) {
-  let strings = [getItemName(shopItemByTemplateData(tpl))]
-  if (showCount && items[tpl] > 1)
-    strings.append(loc("common/amountShort", { count = items[tpl] }))
-  return " ".join(strings)
-}))
+let function mkItemNameList(items, showCount) {
+  let names = []
+  foreach (tpl in items.keys()) {
+    let shopItem = shopItemByTemplateData(tpl)
+    let itemname = getItemName(shopItem == null ? tpl : shopItem)
+
+    let strings = [itemname]
+    if (showCount && items[tpl] > 1)
+      strings.append(loc("common/amountShort", { count = items[tpl] }))
+    names.append(" ".join(strings))
+  }
+  return ",\n".join(names)
+}
 
 let mkNotFound = @(notFoundItems, unavailableItems, priceView, hasDiscountExpired) {
   flow = FLOW_VERTICAL

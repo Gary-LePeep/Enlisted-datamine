@@ -2,8 +2,9 @@ from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { curCampSquads, soldiersBySquad, squadsByArmy, objInfoByGuid, curArmy } = require("state.nut")
 let { defSoldierGuid, collectSoldierData } = require("%enlist/soldiers/model/curSoldiersState.nut")
-let { manage_squad_soldiers, dismiss_reserve_soldiers, update_profile,
-  lastRequests, swap_soldiers_equipment } = require("%enlist/meta/clientApi.nut")
+let { manage_squad_soldiers, update_profile, lastRequests, swap_soldiers_equipment
+} = require("%enlist/meta/clientApi.nut")
+let { dismissReserveSoldiers } = require("soldierActions.nut")
 let { allReserveSoldiers } = require("reserve.nut")
 let { READY, TOO_MUCH_CLASS, NOT_FIT_CUR_SQUAD, NOT_READY_BY_EQUIP, invalidEquipSoldiers
 } = require("readySoldiers.nut")
@@ -523,9 +524,7 @@ function dismissSoldiers(armyId, guidsList) {
     return
 
   isDismissInProgress(true)
-  dismiss_reserve_soldiers(armyId, guidsList, function(_) {
-    isDismissInProgress(false)
-  })
+  dismissReserveSoldiers(armyId, guidsList, @(_) isDismissInProgress(false))
 }
 
 curSection.subscribe(@(_) soldiersSquad.value == null ? null

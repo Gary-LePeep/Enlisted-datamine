@@ -16,7 +16,6 @@ let { curSoldierInfo, curSoldiersDataList, curSoldierIdx } = require("%enlist/so
 let { curSquadSoldiersStatus } = require("model/readySoldiers.nut")
 let mkMainSoldiersBlock = require("%enlSqGlob/ui/mkSoldiersList.nut")
 let mkCurVehicle = require("%enlSqGlob/ui/mkCurVehicle.nut")
-let { Notifiers, markNotifierSeen } = require("%enlist/tutorial/notifierTutorial.nut")
 let squadHeader = require("components/squadHeader.nut")
 let {
   hasSquadVehicle, selectVehParams
@@ -84,7 +83,6 @@ function mkSquadInfo() {
       buyRentedSquad({ armyId, squadId, hasMsgBox = true })
       return
     }
-    markNotifierSeen(Notifiers.SOLDIER)
     openChooseSoldiersWnd(guid, curSoldierInfo.value?.guid)
   }
 

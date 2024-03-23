@@ -138,12 +138,12 @@ function card(item, onClick = @(_item) null, onDoubleClick = @(_item) null) {
       onDoubleClick = @() onDoubleClick(item)
       function onHover(on) {
         setTooltip(on && item != null ? mkVehicleHint(item) : null)
-        hoverHoldAction("unseenSoldierItem", item.basetpl,
+        hoverHoldAction("unseenVehicle", item.basetpl,
           function(tpl) {
             if (unseenSquadsVehicle.value?[curSquad.value?.guid][tpl] && curSquadArmy.value)
               markVehicleSeen(curSquadArmy.value, tpl)
           }
-        )
+        )(on)
       }
       onAttach = @() setVehiclesSeen(item)
       children = [

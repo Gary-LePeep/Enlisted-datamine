@@ -3,11 +3,11 @@ from "%enlSqGlob/ui/ui_library.nut" import *
 let { curSoldierGuid } = require("%enlist/soldiers/model/curSoldiersState.nut")
 let { genPerksPointsStatistics } = require("playerStatistics.nut")
 let { resetProfile, dumpProfile } = require("state.nut")
-let { get_all_configs, premium_add, premium_remove, add_exp_to_soldiers, add_perk_points,
+let { get_all_configs, premium_add, premium_remove,
   reset_mutations_timestamp, check_purchases, inventory_add_item, appearance_change,
-  soldier_train, remove_item, decrease_purchases_count, apply_profile_mutation,
-  apply_freemium_soldier
+  remove_item, decrease_purchases_count, apply_profile_mutation, apply_freemium_soldier
 } = require("%enlist/meta/clientApi.nut")
+let { soldierTrain, addExpToSoldiers, addPerkPoints } = require("soldierActions.nut")
 let { selectedSoldierGuid } = require("chooseSoldiersState.nut")
 let { soldierReset, soldierResetAll, isSoldierDisarmed, setSoldierDisarmed, setSoldierIdle,
   switchSoldierIdle, setSoldierHead, switchSoldierHead, setSoldierFace, switchSoldierFace,
@@ -25,7 +25,7 @@ console_register_command(
     else if (!guid)
       log_for_user("Select soldier in squad list")
     else
-      add_exp_to_soldiers({ [guid] = exp }, log_for_user)
+      addExpToSoldiers({ [guid] = exp }, log_for_user)
   },
   "meta.addCurSoldierExp")
 
@@ -34,13 +34,13 @@ console_register_command(function(count) {
   if (!guid)
     log_for_user("Select soldier in squad list")
   else
-    add_perk_points(guid, count, log_for_user)
+    addPerkPoints(guid, count, log_for_user)
 }, "meta.addCurSoldierPerkPoints")
 
 console_register_command(function(steps) {
   let guid = curSoldier.value
   if (guid)
-    soldier_train(guid, steps, log_for_user)
+    soldierTrain(guid, steps, log_for_user)
   else
     log_for_user("Select soldier in squad list")
 }, "meta.trainCurSoldier")

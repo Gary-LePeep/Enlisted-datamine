@@ -45,3 +45,9 @@ def plane_input_auto_disable_mouseaim_es_event_handler(evt : Event;
     plane_input.instructorAutoTrimEnabled = false;
     plane_input.instructorStickPusherEnabled = false;
     plane_input__mouseAimEnabled = false
+
+[es(tag=input, on_disappear)]
+def plane_input_save_throttle_es(evt : Event;
+                                 plane_input : PlaneInput;
+                                 var plane__savedThrottleValue : float&)
+  plane__savedThrottleValue = clamp(safediv(plane_input.throttle, plane_input.throttleLimit), 0., 1.)

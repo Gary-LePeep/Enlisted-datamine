@@ -16,7 +16,13 @@
       },
       {
         "ammo:object": {
-          "slot": 2,
+          "slot": 4,
+          "count": 20
+        }
+      },
+      {
+        "ammo:object": {
+          "slot": 7,
           "count": 7
         }
       }
@@ -458,31 +464,5 @@
         }
       }
     ]
-  },
-  "kv_1_zis_5_turret_01_76mm_zis5": {
-    "_override": true,
-    "gun__ammoSetsInfo:shared:array": {
-      "defaultSet:array": {
-        "shell:object": {
-          "blk": "gamedata/gen/weapons/shells/76mm_zis5_76mm_ussr_ap_1941.blk",
-          "name": "76mm_br_350b",
-          "type": "aphebc_tank"
-        }
-      },
-      "76mm_ussr_HEAT_1944:array": {
-        "shell:object": {
-          "blk": "gamedata/gen/weapons/shells/76mm_zis5_76mm_ussr_heat_1944.blk",
-          "name": "76mm_bp_350a",
-          "type": "heat_tank"
-        }
-      },
-      "76mm_ussr_Smoke:array": {
-        "shell:object": {
-          "blk": "gamedata/gen/weapons/shells/76mm_zis5_76mm_ussr_smoke.blk",
-          "name": "76mm_d350a",
-          "type": "smoke_tank"
-        }
-      }
-    }
   }
 }

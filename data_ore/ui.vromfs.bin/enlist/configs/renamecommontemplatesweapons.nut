@@ -7,6 +7,8 @@ let renameCommonTemplatesWeapons = {
     mosin_m38 = "mosin_m38_default"
     r_13_radio_communication_station = "ussr_radio_device"
     rdg1_smoke_grenade = "ussr_smoke_grenade"
+    panzerfaust_60 = "panzerfaust_60_trophy"
+    panzerfaust_100 = "panzerfaust_100_trophy"
   }
   berlin_axis = {
     antipersonnel_mine = "ger_antipersonnel_mine"
@@ -81,6 +83,8 @@ let renameCommonTemplatesWeapons = {
     tnt_block_exploder = "ussr_tnt_block_exploder"
     ussr_first_aid_backpack = "ussr_medpack"
     ussr_first_aid_backpack_fem_medic = "ussr_medpack_premium"
+    breda_mod_30 = "breda_mod_30_trophy"
+    thompson_m1921_28_box = "thompson_m1921_28_box_trophy"
   }
   stalingrad_axis = {
     antipersonnel_mine = "ger_antipersonnel_mine"

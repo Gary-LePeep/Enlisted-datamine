@@ -119,9 +119,16 @@ itemCountByArmy.subscribe(function(_) {
     markNotFreeVehiclesUnseen()
 })
 
+function markArmyVehiclesSeen(armyId) {
+  foreach (vehicles in unseenSquadsVehicle.value)
+    foreach (vehicleTpl, _ in vehicles)
+      markVehicleSeen(armyId, vehicleTpl)
+}
+
 return {
   unseenArmiesVehicle
   unseenSquadsVehicle
 
   markVehicleSeen
+  markArmyVehiclesSeen
 }

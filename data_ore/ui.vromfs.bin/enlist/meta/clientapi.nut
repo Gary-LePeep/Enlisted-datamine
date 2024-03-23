@@ -318,7 +318,7 @@ return {
     params = { guid, barterData }
   }, cb)
 
-  buy_soldier_exp = @(guid, exp, cost, cb = null) request({
+  buy_soldier_exp = @(guid, exp, cost, cb) request({
     method = "buy_soldier_exp"
     params = { guid, exp, cost }
   }, cb)
@@ -424,15 +424,15 @@ return {
     params = { soldierGuid, perkId, sacrificeItems }
   }, cb)
 
-  reset_perks = @(soldierGuid, needTotalReset, sacrificeItems) request({
+  reset_perks = @(soldierGuid, needTotalReset, sacrificeItems, cb) request({
     method = "reset_perks"
     params = { soldierGuid, needTotalReset, sacrificeItems }
-  })
+  }, cb)
 
-  free_reroll_perks = @(soldierGuid, needTotalReset) request({
+  free_reroll_perks = @(soldierGuid, needTotalReset, cb) request({
     method = "free_reroll_perks"
     params = { soldierGuid, needTotalReset }
-  })
+  }, cb)
 
   add_army_squad_exp_by_id = @(armyId, exp, squadId) request({
     method = "add_army_squad_exp_by_id"

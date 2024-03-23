@@ -79,6 +79,8 @@ let isWaitingObsceneFilterForIdx = Watched(-1)
 let shopItemByTemplateData = function(itemTpl) {
   let templateId = trimUpgradeSuffix(itemTpl)
   let template = findItemTemplate(allItemTemplates, curArmy.value, templateId)
+  if (template == null)
+    return null
   return mkShopItem(templateId, template, curArmy.value)
 }
 

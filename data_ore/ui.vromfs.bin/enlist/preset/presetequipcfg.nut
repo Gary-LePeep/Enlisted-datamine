@@ -217,11 +217,45 @@ let deletePreset = function(presetTbl, presetList, slot) {
 function movePresetsToUnited() {
   let campaigns = campaignsByArmy.value
 
+  let renamedTemplates = {}
+  foreach (armyId, renameList in renameCommonTemplatesWeapons) {
+    let newArmyId = renameCommonArmies[armyId]
+    renamedTemplates[newArmyId] <- (renamedTemplates?[newArmyId] ?? {}).__update(renameList)
+  }
+
   let presets = {}
   foreach (armyId, oldClasses in equipmentPresetWatch.value) {
     let unitedArmy = renameCommonArmies?[armyId]
-    if (!unitedArmy)
+    let campaignId = campaigns?[armyId].id ?? armyId
+
+    if (!unitedArmy) {
+      let renames = renamedTemplates?[armyId]
+      presets[armyId] <- oldClasses
+      foreach (sKind, presetList in oldClasses)
+        foreach (slot, preset in presetList) {
+          if (preset == null)
+            continue
+
+          local needUpdate = false
+          let newItems = []
+          foreach (item in preset.items) {
+            if (item.itemTpl in renames)
+              needUpdate = true
+            newItems.append({
+              slotType = item.slotType
+              slotId = item.slotId
+              itemTpl = renames?[item.itemTpl] ?? item.itemTpl
+            })
+          }
+          if (needUpdate)
+            presets[armyId][sKind][slot] = {
+              name = preset.name
+              campaign = preset?.campaign ?? campaignId
+              items = newItems
+            }
+        }
       continue
+    }
 
     local newClasses = presets?[unitedArmy]
     if (newClasses == null) {
@@ -229,7 +263,6 @@ function movePresetsToUnited() {
       presets[unitedArmy] <- newClasses
     }
 
-    let campaignId = campaigns?[armyId].id ?? armyId
     let armyPresets = renameCommonTemplatesWeapons?[armyId]
 
     foreach (classId, oldPresets in oldClasses) {

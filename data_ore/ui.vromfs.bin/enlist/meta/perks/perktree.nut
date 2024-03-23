@@ -26,8 +26,8 @@ let { curSoldierInfo } = require("%enlist/soldiers/model/curSoldiersState.nut")
 let { PerkState, priceForPerk, statForPerk, hasEnoughPoints, iconForPerk, statIconForPerk,
   stateForPerk, tiersAvailable, treeForSoldier, getPerkPointsInfo, canDiscardPerk, MAX_LEVEL
 } = require("perkTreePkg.nut")
-let { add_perk, remove_perk, buy_soldier_exp, reset_perks, free_reroll_perks
-} = require("%enlist/meta/clientApi.nut")
+let { addPerk, removePerk, resetPerks, freeRerollPerks, buySoldierExp, useSoldierLevelupOrders
+} = require("%enlist/soldiers/model/soldierActions.nut")
 let { getNextLevelData, perkLevelsGrid } = require("%enlist/meta/perks/perksExp.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
 let mkSoldierCard = require("%enlSqGlob/ui/mkSoldierCard.nut")
@@ -43,7 +43,6 @@ let { enlistedGold } = require("%enlist/currency/currenciesList.nut")
 let { mkCurrency } = require("%enlist/currency/currenciesComp.nut")
 let { maxTrainByClass } = require("%enlist/soldiers/model/config/soldierTrainingConfig.nut")
 let { showTrainResearchMsg } = require("%enlist/soldiers/soldierPerksPkg.nut")
-let { useSoldierLevelupOrders } = require("%enlist/soldiers/model/soldierPerks.nut")
 let { getClassCfg } = require("%enlSqGlob/ui/soldierClasses.nut")
 let { sound_play } = require("%dngscripts/sound_system.nut")
 let { isGamepad } = require("%ui/control/active_controls.nut")
@@ -274,7 +273,7 @@ let buyLevelBtnParams = function(soldier, perksCfgVal, perkLevelsGridVal, curren
       buttons.append(mkUseLevelUpOrderBtn(orderPayData))
     buttons.append(
       mkBuyLevelGoldBtn({
-        action = @() buy_soldier_exp(perksCfgVal.guid,
+        action = @() buySoldierExp(perksCfgVal.guid,
           nextLevelData?.exp ?? 0, nextLevelData?.cost ?? 0, soundBuyLevel)
         cost = nextLevelData?.cost ?? 0
         hotkeys = [["^J:Y | Enter"]]
@@ -394,7 +393,7 @@ let unlockPerkCb = function(perkData) {
   let hasPoints = hasEnoughPoints(pointInfo, perkData)
   let sound = soundAddPerk(isUnlockMaximum(perkData, perksCfg.perks))
   clickBuy(curSoldierInfo.value, perksCfg,
-    hasPoints, @() add_perk(guid, perkData.perkId, sound))
+    hasPoints, @() addPerk(guid, perkData.perkId, sound))
 }
 
 let mkTrainBtn = @(soldier) Bordered(loc("perks/buyLevel", { price = "" }),
@@ -454,7 +453,7 @@ let removePerkOrProcessError = function(guid, selectedPerkVal, armyItemCountByTp
     notEnoughCurrencyMsg(total - ordersInStock)
     return
   }
-  remove_perk(guid, selectedPerkVal.perkId, payItems, @(_) sound_play("ui/perk_remove"))
+  removePerk(guid, selectedPerkVal.perkId, payItems, @(_) sound_play("ui/perk_remove"))
 }
 
 let perkIconBtn = function(perkData, takenPoints, isTierAvailable, canUnlock, tooltip) {
@@ -1161,7 +1160,7 @@ let mkSelectedPerk = @(soldierWatch) function() {
           priceCmp(selectedPerk.value, hasPoints, canBuy)
           isLocked ? lockedPerkCmp(tierInfo[tier]?.hint ?? "") : null
           canBuy ? availablePerk(soldierWatch.value, perksCfg,
-            hasPoints, @() add_perk(guid, perkId, sound)) : null
+            hasPoints, @() addPerk(guid, perkId, sound)) : null
         ]
       }
     ]
@@ -1195,7 +1194,7 @@ let resetPerksBtn = function(soldier, soldierPerksCfg, perksListVal,
   let buttons = [
     {
       text = ""
-      action = @() reset_perks(soldier.guid, true, payItems)
+      action = @() resetPerks(soldier.guid, true, payItems)
       customStyle = {
         // message box uses old textButton so the custom constructor defined in customStyle
         textCtor = priceText("perks/resetBtn", { count = totalCost, currencyTpl = PERK_CHANGE_CURRENCY})
@@ -1209,7 +1208,7 @@ let resetPerksBtn = function(soldier, soldierPerksCfg, perksListVal,
   if (isPremium)
     buttons.append({
       text = ""
-      action = @() reset_perks(soldier.guid, false, payItems)
+      action = @() resetPerks(soldier.guid, false, payItems)
       customStyle = {
         textCtor = priceText("perks/restorePremBtn", { count = totalCost, currencyTpl = PERK_CHANGE_CURRENCY})
         hotkeys = [["^J:X"]]
@@ -1256,12 +1255,12 @@ let mkFreeRerollBtn = function(guid) {
   let buttons = [
     {
       text = loc("perks/resetBtn", { price = "" })
-      action = @() free_reroll_perks(guid, true)
+      action = @() freeRerollPerks(guid, true)
       customStyle = { hotkeys = [["^J:Y | Enter"]] }
     }
     {
       text = loc("perks/restorePremBtn", { price = "" })
-      action = @() free_reroll_perks(guid, false)
+      action = @() freeRerollPerks(guid, false)
       customStyle = { hotkeys = [["^J:X"]] }
     }
     {
@@ -1581,7 +1580,7 @@ console_register_command(function(perkId) {
     log("Select a soldier")
     return
   }
-  add_perk(curSoldierInfo.value.guid, perkId, soundAddPerk(true))
+  addPerk(curSoldierInfo.value.guid, perkId, soundAddPerk(true))
 }, "meta.addCurSoldierPerk")
 
 console_register_command(function() {

@@ -1,16 +1,54 @@
 from "%enlSqGlob/ui/ui_library.nut" import *
 
 let u = require("%sqstd/underscore.nut")
-let { curArmiesList, getSoldiersByArmy, curCampSquads, chosenSquadsByArmy, curCampaign
+let { curArmiesList, curCampSquads, chosenSquadsByArmy, soldiersBySquad, curCampaign
 } = require("state.nut")
 let { getLinkedSquadGuid } = require("%enlSqGlob/ui/metalink.nut")
-let { use_soldier_levelup_orders } = require("%enlist/meta/clientApi.nut")
 let serverPerks = require("%enlist/meta/servProfile.nut").soldierPerks
 let { configs } = require("%enlist/meta/configs.nut")
 let { getPerkPointsInfo } = require("%enlist/meta/perks/perkTreePkg.nut")
 let perksList = require("%enlist/meta/perks/perksList.nut")
 let sClassesCfg = require("%enlist/soldiers/model/config/sClassesConfig.nut")
+let { settings } = require("%enlist/options/onlineSettings.nut")
 
+const SEEN_ID = "seen/soldierPerks"
+let seenData = Computed(@() settings.value?[SEEN_ID])
+
+function clearPerkNotifiersArmy(armyId) {
+  settings.mutate(function(value) {
+    let seen = clone value?[SEEN_ID] ?? {}
+    foreach (squad in chosenSquadsByArmy.value?[armyId] ?? [])
+      foreach (soldier in soldiersBySquad.value?[squad.guid] ?? []) {
+        seen[soldier.guid] <- true
+      }
+    value[SEEN_ID] <- seen
+  })
+}
+
+function markPerksUnseen(guidsList) {
+  if (SEEN_ID not in settings.value)
+    return
+
+  settings.mutate(function(value) {
+    let seen = clone value[SEEN_ID] ?? {}
+    foreach (soldierGuid in guidsList)
+      seen.$rawdelete(soldierGuid)
+    value[SEEN_ID] <- seen
+  })
+}
+
+function markPerksSeen(guidsList) {
+  settings.mutate(function(value) {
+    let seen = clone value?[SEEN_ID] ?? {}
+    foreach (soldierGuid in guidsList)
+      seen[soldierGuid] <- true
+    value[SEEN_ID] <- seen
+  })
+}
+
+console_register_command(function() {
+    settings.mutate(@(v) v.$rawdelete(SEEN_ID))
+  }, "meta.resetSeenPerks")
 
 let perksData = Computed(function() {
   let { perkSlotsByTiers = [], perkSchemes = {} } = configs.value
@@ -62,35 +100,42 @@ function updateNotChosenPerks(...) {
     if (chosenSquads == null)
       continue
 
-    foreach (soldier in getSoldiersByArmy(armyId)) {
-      let { guid, sClass } = soldier
-      let perks = pData?[guid]
-      let tree = perkTrees?[perkTreesSpecial?[sClass] ?? classesCfg?[sClass].kind] ?? []
+    foreach (squad in chosenSquadsByArmy.value?[armyId] ?? [])
+      foreach (soldier in soldiersBySquad.value?[squad.guid] ?? []) {
+        let { guid, sClass } = soldier
+        if (guid in seenData.value)
+          continue
 
-      let ppInfo = getPerkPointsInfo(pList, perks)
-      let availPoints = {}
-      foreach(pointId, count in ppInfo.total)
-        availPoints[pointId] <- count - (ppInfo.used?[pointId] ?? 0)
+        let perks = pData?[guid]
+        let tree = perkTrees?[perkTreesSpecial?[sClass] ?? classesCfg?[sClass].kind] ?? []
 
-      foreach (perkId in tree) {
-        let perk = pList[perkId]
-        if ((perk.available ?? 1) > (perks?.perks[perkId] ?? 0))
-          foreach (pointId, pointReq in perk.cost) {
-            let pointHave = availPoints?[pointId] ?? 0
-            if (pointReq > 0 && pointHave >= pointReq)
-              soldiersList[guid] <- (soldiersList?[guid] ?? 0) + pointHave
-          }
+        let ppInfo = getPerkPointsInfo(pList, perks)
+        let availPoints = {}
+        foreach(pointId, count in ppInfo.total)
+          availPoints[pointId] <- count - (ppInfo.used?[pointId] ?? 0)
+
+        if (availPoints.reduce(@(res, val) res + val, 0) <= 0)
+          continue
+
+        foreach (perkId in tree) {
+          let perk = pList[perkId]
+          if ((perk.available ?? 1) > (perks?.perks[perkId] ?? 0))
+            foreach (pointId, pointReq in perk.cost) {
+              let pointHave = availPoints?[pointId] ?? 0
+              if (pointReq > 0 && pointHave >= pointReq)
+                soldiersList[guid] <- (soldiersList?[guid] ?? 0) + pointHave
+            }
+        }
+
+        let squadId = curCampSquads.value?[getLinkedSquadGuid(soldier)].squadId
+        if (squadId == null)
+          continue
+
+        squadsList[armyId][squadId] <- (squadsList[armyId]?[squadId] ?? 0) + 1
+
+        if (chosenSquads.findindex(@(s) s?.squadId == squadId) != null)
+          armiesList[armyId]++
       }
-
-      let squadId = curCampSquads.value?[getLinkedSquadGuid(soldier)].squadId
-      if (squadId == null)
-        continue
-
-      squadsList[armyId][squadId] <- (squadsList[armyId]?[squadId] ?? 0) + 1
-
-      if (chosenSquads.findindex(@(s) s?.squadId == squadId) != null)
-        armiesList[armyId]++
-    }
   }
 
   if (!u.isEqual(armiesList, notChoosenPerkArmies.value))
@@ -106,17 +151,18 @@ updateNotChosenPerks()
 foreach (w in [perksData, curCampaign, chosenSquadsByArmy])
   w.subscribe(updateNotChosenPerks)
 
-
-function useSoldierLevelupOrders(guid, barterData) {
-  use_soldier_levelup_orders(guid, barterData)
-}
+seenData.subscribe(function(_) {
+  updateNotChosenPerks()
+})
 
 return {
   notChoosenPerkArmies
   notChoosenPerkSquads
   notChoosenPerkSoldiers
+  clearPerkNotifiersArmy
+  markPerksUnseen
+  markPerksSeen
 
   perksData
   getTotalPerkValue
-  useSoldierLevelupOrders
 }

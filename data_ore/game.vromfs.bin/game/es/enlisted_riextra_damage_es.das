@@ -31,6 +31,12 @@ def enlisted_riextra_damage_client_es(evt : CmdRendinstDamage;
   query(possessedByPlr) <| $ [es] (is_local : bool)
     if !is_local
       return
+
+    let poolId = handle_to_ri_type(evt.handle)
+    if poolId < rendinst_getRiGenExtraResCount()
+      if riex_isImmortal(poolId) || riex_isWalls(poolId)
+        return
+
     let riExtraEid = find_ri_extra_eid(evt.handle)
     if riExtraEid != INVALID_ENTITY_ID
       send_net_event(eid, [[RequestRendinstEntityDamage eid=riExtraEid, damage=evt.damage, pos=evt.pos, impulse=evt.impulse, time=evt.time]])
